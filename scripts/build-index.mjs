@@ -284,7 +284,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
   }
   const mp = {
     name: 'everything-skills',
-    owner: { name: 'Everything Skills' },
+    owner: { name: 'findscripter' },
     metadata: { description: '技能大典 · Everything Skills — 类书式 AI Agent 技能库', version: '1.0.0' },
     plugins,
   };
