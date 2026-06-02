@@ -344,6 +344,37 @@
     "path": "00-meta/interview-job-coach/SKILL.md"
   },
   {
+    "name": "multi-source-knowledge-synthesis",
+    "title": "多源知识综合",
+    "vol": "00-meta",
+    "domain": "通用/communication",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "知识综合",
+      "信息整合",
+      "去重",
+      "来源署名",
+      "置信度评估",
+      "企业检索",
+      "多源",
+      "结论先行",
+      "RAG 后处理"
+    ],
+    "triggers": [
+      "综合",
+      "汇总",
+      "去重",
+      "多源",
+      "跨来源",
+      "可溯源",
+      "谁说了算",
+      "最终结论"
+    ],
+    "description": "当手头有来自多个渠道（聊天/邮件/云文档/任务系统/Wiki 等）的检索结果、需要去重合并成一个连贯且可溯源的答案时使用；做的是跨源去重、按主题聚类、按时效×权威性×一致性评估置信度、产出「先结论后细节+逐条署名」的综合回答；不适用于单一来源直接可答、原始资料尚未检索到、或用户只要罗列原文不要综合的场景。触发词：综合、汇总、去重、多源、跨来源、可溯源、谁说了算、最终结论",
+    "path": "00-meta/multi-source-knowledge-synthesis/SKILL.md"
+  },
+  {
     "name": "news-sentiment-briefing",
     "title": "多源新闻情感简报引擎",
     "vol": "00-meta",
@@ -417,6 +448,32 @@
     ],
     "description": "当投入重大资源、向董事会/投资人汇报、或反馈一边倒乐观而想快速上马前，需要系统性挑战一份计划时使用；做法是假设计划在12个月后惨败、反向倒推暴露假设/依赖/执行风险，产出含假设评级、脆弱点地图、依赖链、止损阀与加固动作的挑战报告；不适用于无明确计划文本、纯执行落地或追求情绪鼓舞的场景。触发词：事前验尸、计划复盘挑战、风险倒推",
     "path": "00-meta/premortem-plan-challenger/SKILL.md"
+  },
+  {
+    "name": "query-decomposition-search",
+    "title": "查询分解多源检索",
+    "vol": "00-meta",
+    "domain": "通用/communication",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "检索",
+      "查询分解",
+      "多源编排",
+      "企业搜索",
+      "排序",
+      "去重",
+      "research"
+    ],
+    "triggers": [
+      "多源检索",
+      "查询分解",
+      "企业搜索",
+      "跨源搜索",
+      "search orchestration"
+    ],
+    "description": "当一句自然语言问题要并行查多个数据源（聊天/知识库/任务/邮件/云盘）并合成一个连贯答案时使用；做的是按查询类型分解出每源子查询、翻译成各源专用语法、并行执行后去重排序，产出排好序的合并结果；不适用于单一已知源的直接检索、或向量+关键词的算法级混排（用 hybrid-search-retrieval）。触发词：多源检索、查询分解、企业搜索、跨源搜索、search orchestration",
+    "path": "00-meta/query-decomposition-search/SKILL.md"
   },
   {
     "name": "research-idea-generator",
@@ -700,6 +757,31 @@
     ],
     "description": "当需要给中文文本去 AI 味、降 AIGC、去除 AI 痕迹、论文降重或转换写作风格时使用；先检测 AI 标记再做最小必要改写并产出更自然的中文及改写说明；不适用于英文文本、内容真伪核验或凭空编造引用数据；触发词：去AI味、降AIGC、去除AI痕迹、论文降重、知网/维普检测、改成人话。",
     "path": "01-documents/humanize-chinese-text/SKILL.md"
+  },
+  {
+    "name": "interactive-pdf-viewer",
+    "title": "交互式 PDF 阅览",
+    "vol": "01-documents",
+    "domain": "文书/office",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "pdf",
+      "annotation",
+      "form-filling",
+      "signature",
+      "viewer",
+      "文书"
+    ],
+    "triggers": [
+      "打开PDF",
+      "标注合同",
+      "填表单",
+      "签字盖章",
+      "高亮审阅"
+    ],
+    "description": "当用户想打开/展示 PDF 并在可视化阅览器中协作（标注、高亮、盖章、填表单、放置签名/缩写）时使用；做实时渲染 PDF 并批量执行标注/填表/签名并截图复核的交互工作流；不适用于纯文本摘要或抽取（改用 Read）、生成新 PDF、出具有法律效力的数字签名；触发词：打开PDF、标注合同、填表单、签字盖章、高亮审阅",
+    "path": "01-documents/interactive-pdf-viewer/SKILL.md"
   },
   {
     "name": "internal-comms",
@@ -3437,6 +3519,38 @@
     "path": "02-engineering/observability-strategy-designer/SKILL.md"
   },
   {
+    "name": "operational-runbook-writer",
+    "title": "运维操作手册编写",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "研发",
+      "operations",
+      "runbook",
+      "SOP",
+      "on-call",
+      "ops",
+      "排错",
+      "回滚"
+    ],
+    "triggers": [
+      "runbook",
+      "操作手册",
+      "运维手册",
+      "值班手册",
+      "SOP",
+      "排错",
+      "回滚",
+      "升级路径",
+      "on-call",
+      "playbook"
+    ],
+    "description": "当需要把重复性运维/值班任务的\"部落知识\"沉淀为可重复执行的操作手册（runbook），或给现有流程补充排错、回滚、升级路径时使用；做产出含目的、前置条件、逐步精确命令、验证、排错表、回滚与升级表的 Markdown runbook；不适用于一次性事故的实时止损指挥（用事故指挥框架）或事后无指责复盘（用复盘报告撰写）。触发词：runbook、操作手册、运维手册、值班手册、SOP、排错、回滚、升级路径、on-call、playbook",
+    "path": "02-engineering/operational-runbook-writer/SKILL.md"
+  },
+  {
     "name": "performance-profiler",
     "title": "应用性能剖析（Node/Python/Go）",
     "vol": "02-engineering",
@@ -3606,6 +3720,32 @@
     ],
     "description": "当在 Windows 上编写或调试 PowerShell 脚本（含 Agent 生成的自动化脚本）时使用；做规避运算符/Unicode/空值/JSON 等高频陷阱，产出健壮可执行的 .ps1 脚本与命令；不适用于 Bash/Linux shell 脚本或 pwsh 跨平台高级特性教学；触发词：PowerShell、Windows 脚本、.ps1、cmdlet、Test-Path、ConvertTo-Json、ErrorActionPreference",
     "path": "02-engineering/powershell-windows/SKILL.md"
+  },
+  {
+    "name": "pre-deploy-checklist",
+    "title": "发布前核查清单",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "研发",
+      "misc",
+      "发布核查",
+      "部署清单",
+      "回滚预案",
+      "上线门禁",
+      "冒烟测试",
+      "金丝雀发布"
+    ],
+    "triggers": [
+      "发布前检查",
+      "上线清单",
+      "回滚触发",
+      "冒烟测试"
+    ],
+    "description": "当准备上线发布、变更含数据库迁移或特性开关、需在发版前核验 CI 状态与审批、或想提前约定回滚触发条件时使用；做生成结构化的发布前/中/后核查清单并产出回滚触发阈值文档；不适用于发布流程编排与版本号策略（用 release-manager）、CI/CD 流水线脚本实现或事故复盘。触发词：发布前检查、上线清单、回滚触发、冒烟测试",
+    "path": "02-engineering/pre-deploy-checklist/SKILL.md"
   },
   {
     "name": "prisma-orm-expert",
@@ -4369,6 +4509,33 @@
     "path": "02-engineering/tanstack-query/SKILL.md"
   },
   {
+    "name": "tech-debt-prioritizer",
+    "title": "技术债识别与排序",
+    "vol": "02-engineering",
+    "domain": "研发/architecture",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "tech-debt",
+      "refactoring",
+      "code-health",
+      "prioritization",
+      "maintenance",
+      "engineering"
+    ],
+    "triggers": [
+      "技术债",
+      "tech debt",
+      "重构什么",
+      "该重构哪里",
+      "代码健康度",
+      "维护 backlog",
+      "技术债审计"
+    ],
+    "description": "当需要系统盘点技术债、决定\"先重构什么\"、评估代码健康度或排维护 backlog 时使用；做按六类（代码/架构/测试/依赖/文档/基础设施）盘点技术债并用 影响×风险×工作量 打分，产出带优先级、工作量估算、业务理由的清单和可与功能开发并行的分阶段偿还计划；不适用于具体某段代码的逐行 bug 审查、单条重构的实现、或全新功能设计；触发词：技术债、tech debt、重构什么、该重构哪里、代码健康度、维护 backlog、技术债审计",
+    "path": "02-engineering/tech-debt-prioritizer/SKILL.md"
+  },
+  {
     "name": "tech-stack-evaluator",
     "title": "技术栈评估与 TCO 对比",
     "vol": "02-engineering",
@@ -4907,6 +5074,33 @@
     "path": "03-data/airflow-dag-patterns/SKILL.md"
   },
   {
+    "name": "analysis-qa-validator",
+    "title": "分析交付前质检",
+    "vol": "03-data",
+    "domain": "数据/analysis",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "数据",
+      "misc",
+      "分析质检",
+      "数据复核",
+      "方法论审查",
+      "口径校验",
+      "可视化审查",
+      "干系人汇报"
+    ],
+    "triggers": [
+      "分析复核",
+      "交付前质检",
+      "结论是否站得住",
+      "口径检查",
+      "上会前 review"
+    ],
+    "description": "当把分析/报表/SQL 结果交给干系人或上会前需要质检时使用；做方法论、计算、可视化与结论的交付前 QA，产出含「可发布/带注意事项发布/需返工」三级置信评级的校验报告；不适用于从零跑数据集画像（用 dataset-quality-auditor）、搭管道质量校验（用 data-quality-validator）或纯写 SQL（用 sql-query-builder）。触发词：分析复核、交付前质检、结论是否站得住、口径检查、上会前 review",
+    "path": "03-data/analysis-qa-validator/SKILL.md"
+  },
+  {
     "name": "chief-data-officer-advisor",
     "title": "首席数据官顾问（数据产品与治理）",
     "vol": "03-data",
@@ -5091,6 +5285,34 @@
     "path": "03-data/data-strategy-review/SKILL.md"
   },
   {
+    "name": "dataset-profiler",
+    "title": "数据集探查画像",
+    "vol": "03-data",
+    "domain": "数据/wrangling",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "数据",
+      "analysis",
+      "数据画像",
+      "profiling",
+      "探索性分析",
+      "数据质量",
+      "维度指标"
+    ],
+    "triggers": [
+      "数据画像",
+      "探查数据",
+      "profiling",
+      "空值率",
+      "基数分布",
+      "新表先看什么",
+      "该用哪些维度指标"
+    ],
+    "description": "当拿到陌生表/文件、动手分析前要先摸清其形状、质量与规律时使用；做全表+逐列画像（行列/粒度/主键、空值率、基数、分布、Top/Bottom 值），分类列角色、标记质量隐患，产出画像摘要表+问题清单+可跟进分析建议；不适用于深度修复清洗、设计 schema、搭 ETL 管道。触发词：数据画像、探查数据、profiling、空值率、基数分布、新表先看什么、该用哪些维度指标",
+    "path": "03-data/dataset-profiler/SKILL.md"
+  },
+  {
     "name": "dataset-quality-auditor",
     "title": "数据集质量审计",
     "vol": "03-data",
@@ -5268,6 +5490,31 @@
     ],
     "description": "当需要把同口径（主体/资产类别/日期）的总账（GL）与子账（subledger）抽取对账、在持仓或交易级匹配差异并按成因归类时使用；做归一化匹配、生成差异报告与汇总；不适用于无共同主键或两侧口径不可对齐、跨系统实时对账、纯账务凭证录入；触发词：对账、总账子账核对、GL recon、reconciliation、差异/挂账、break、月末对账。",
     "path": "03-data/gl-subledger-reconciler/SKILL.md"
+  },
+  {
+    "name": "html-dashboard-builder",
+    "title": "交互式 HTML 仪表盘构建",
+    "vol": "03-data",
+    "domain": "数据/analysis",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "数据可视化",
+      "HTML",
+      "Chart.js",
+      "仪表盘",
+      "前端",
+      "报表",
+      "misc"
+    ],
+    "triggers": [
+      "仪表盘",
+      "dashboard",
+      "KPI",
+      "可视化报表"
+    ],
+    "description": "当需要把查询结果、CSV 或样例数据做成可分享的单文件 HTML 仪表盘（KPI 卡片+图表+筛选+明细表）时使用；产出一个无需服务器、浏览器直接打开的自包含 .html；不适用于实时刷新看板、>10 万行数据或需后端的 BI 系统（改用专业 BI 工具）。触发词：仪表盘、dashboard、KPI、可视化报表",
+    "path": "03-data/html-dashboard-builder/SKILL.md"
   },
   {
     "name": "jq-json-processing",
@@ -7004,6 +7251,32 @@
     "path": "05-business/ab-test-setup-gates/SKILL.md"
   },
   {
+    "name": "account-reconciliation",
+    "title": "账户对账核对",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "finance",
+      "accounting",
+      "reconciliation",
+      "month-end-close",
+      "bank-reconciliation",
+      "intercompany"
+    ],
+    "triggers": [
+      "对账",
+      "银行对账",
+      "调节表",
+      "GL对子账",
+      "往来对账",
+      "reconciliation"
+    ],
+    "description": "当做月结/期末对账，需把总账（GL）余额与子分类账、银行对账单或往来方数据核对一致时使用；做银行对账、GL-子账核对、关联方往来对账，产出调节表+调节项分类+账龄/升级清单；不适用于出具审计意见/财务建议，及只算单期账不做两方比对；触发词：对账、银行对账、调节表、GL对子账、往来对账、reconciliation",
+    "path": "05-business/account-reconciliation/SKILL.md"
+  },
+  {
     "name": "ad-creative-generator",
     "title": "广告创意批量生成",
     "vol": "05-business",
@@ -7182,6 +7455,36 @@
     "path": "05-business/app-store-optimization/SKILL.md"
   },
   {
+    "name": "backlink-profile-analyzer",
+    "title": "外链画像与有毒链接分析",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "backlinks",
+      "off-page-seo",
+      "link-building",
+      "toxic-links",
+      "disavow",
+      "referring-domains",
+      "link-audit"
+    ],
+    "triggers": [
+      "外链分析",
+      "反向链接",
+      "有毒链接",
+      "链接建设",
+      "谁链接到我",
+      "backlink audit",
+      "disavow",
+      "referring domains"
+    ],
+    "description": "当需要评估反向链接（外链）画像质量、识别有毒/垃圾链接、对比竞品链接差距或挖掘外链建设机会时使用；按\"画像概览→链接质量→有毒链接→竞品对比→建设机会→变动追踪→报告\"七步产出含健康分·有毒比例·拒绝(disavow)建议·链接交集机会的外链审计报告；不适用于站内技术SEO诊断、内容创作或结构化数据实现；触发词：外链分析、反向链接、有毒链接、链接建设、谁链接到我、backlink audit、disavow、referring domains",
+    "path": "05-business/backlink-profile-analyzer/SKILL.md"
+  },
+  {
     "name": "billing-automation-systems",
     "title": "订阅计费与催收自动化系统",
     "vol": "05-business",
@@ -7258,6 +7561,33 @@
     ],
     "description": "当筹备董事会、投资人更新、融资路演等高风险对抗式审查时使用；做对抗式备会演练，产出脱稿数字清单、对抗问题库、坦诚叙事框架与会前48h检查表；不适用于内部团队周会、友好型进度同步、纯财务模型搭建；触发词：董事会、投资人更新、融资路演",
     "path": "05-business/board-meeting-prep/SKILL.md"
+  },
+  {
+    "name": "budget-variance-analysis",
+    "title": "预算差异归因分析",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "finance",
+      "fpa",
+      "variance",
+      "waterfall",
+      "bridge",
+      "budget-vs-actual"
+    ],
+    "triggers": [
+      "差异分析",
+      "量价分解",
+      "瀑布图",
+      "bridge",
+      "价量结构",
+      "预算vs实际",
+      "variance analysis"
+    ],
+    "description": "当需把预算/上期/预测 vs 实际的差异拆成可量化动因（量×价、率×结构、人头薪酬、费用类别）并做瀑布桥分析时使用；做差异分解+重要性筛查+瀑布/桥接对账表，每个动因带带符号金额并验证\"起点+各动因=终点\"；不适用于只写文字波动说明（→variance-flux-commentary）、不出审计/合规/预测结论、无底层量价人头数据时编造动因；触发词：差异分析、量价分解、瀑布图、bridge、价量结构、预算vs实际、variance analysis",
+    "path": "05-business/budget-variance-analysis/SKILL.md"
   },
   {
     "name": "campaign-attribution-analytics",
@@ -7418,6 +7748,34 @@
     ],
     "description": "当需要给陌生 B2B 客户写冷启动外联邮件或多触点跟进序列、且要提升回复率时使用；做的是产出主题行、开场、正文、CTA 与 3-5 封跟进邮件成品；不适用于已有关系的生命周期/培育邮件、纯品牌广告文案、群发垃圾邮件或抓取潜客名单；触发词：冷邮件、cold email、外联、prospecting、SDR、outbound、跟进序列、没人回我邮件。",
     "path": "05-business/cold-email-writer/SKILL.md"
+  },
+  {
+    "name": "compensation-analysis",
+    "title": "薪酬基准与定级分析",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "compensation",
+      "benchmarking",
+      "hr",
+      "equity",
+      "salary-band",
+      "retention",
+      "business"
+    ],
+    "triggers": [
+      "定薪",
+      "薪酬基准",
+      "offer 竞争力",
+      "薪酬带",
+      "股权授予建模",
+      "compensation",
+      "benchmark"
+    ],
+    "description": "当为某岗位定薪/判断 offer 是否有竞争力/给股权授予建模/上传薪酬数据找异常与留存风险时使用；按总薪酬框架拉市场分位带(P25/50/75/90)、对照薪酬带做定级、建股权模型并产出建议；不适用于真实抓取薪酬数据、个人发薪/HRIS 写操作、税务社保核算；触发词：定薪、薪酬基准、offer 竞争力、薪酬带、股权授予建模、compensation、benchmark",
+    "path": "05-business/compensation-analysis/SKILL.md"
   },
   {
     "name": "competitive-analysis",
@@ -7734,6 +8092,39 @@
     "path": "05-business/cro-revenue-advisor/SKILL.md"
   },
   {
+    "name": "customer-escalation-packager",
+    "title": "客户问题升级打包",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "customer-support",
+      "escalation",
+      "incident",
+      "triage",
+      "sla",
+      "reproduction-steps",
+      "business-impact"
+    ],
+    "triggers": [
+      "升级",
+      "escalate",
+      "escalation",
+      "上报研发",
+      "SLA breach",
+      "客户要流失",
+      "churn risk",
+      "多客户同 bug",
+      "安全升级",
+      "升级简报",
+      "复现步骤",
+      "reproduction steps"
+    ],
+    "description": "当一个支持问题超出常规客服范畴、需上报研发/产品/安全/管理层时使用（确诊 bug 需改代码、多客户同问题、高价值客户欲流失、超 SLA 未解、疑似安全事件）；做的事是判定是否该升级、跨工单/CRM/聊天/项目板汇集上下文、量化业务影响（广度/深度/时长/营收/时压）、选对升级目标层级、为 bug 写可复现步骤，并产出结构化「升级简报」与跟进节奏；不适用于已有文档解法或可在客服层自助解决的工单、也不替你执行修复或发客户邮件（仅打包升级）。触发词：升级、escalate、escalation、上报研发、SLA breach、客户要流失、churn risk、多客户同 bug、安全升级、升级简报、复现步骤、reproduction steps",
+    "path": "05-business/customer-escalation-packager/SKILL.md"
+  },
+  {
     "name": "customer-health-scorer",
     "title": "客户健康度评分与扩展机会",
     "vol": "05-business",
@@ -7806,6 +8197,36 @@
     "path": "05-business/customer-research-synthesizer/SKILL.md"
   },
   {
+    "name": "customer-response-drafter",
+    "title": "客户回复文案起草",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "客户支持",
+      "对客沟通",
+      "回复草稿",
+      "语气",
+      "升级",
+      "邮件",
+      "工单",
+      "坏消息",
+      "客户成功"
+    ],
+    "triggers": [
+      "客户回复",
+      "草拟回复",
+      "故障通知",
+      "升级处理",
+      "坏消息",
+      "拒绝需求",
+      "账单问题"
+    ],
+    "description": "当需为客户起草外发回复（产品答疑、故障/升级处理、坏消息告知、拒绝需求、账单问题）时使用；产出含语气标注、正文与「内部备注」的回复草稿，并给出语气/长度自检与跟进升级建议；不适用于内部沟通、营销文案或无需对客回复的任务；触发词：客户回复、草拟回复、故障通知、升级处理、坏消息、拒绝需求、账单问题",
+    "path": "05-business/customer-response-drafter/SKILL.md"
+  },
+  {
     "name": "data-storyteller",
     "title": "数据叙事与可视化表达",
     "vol": "05-business",
@@ -7862,6 +8283,35 @@
     "path": "05-business/deal-desk-reviewer/SKILL.md"
   },
   {
+    "name": "eeat-content-quality-auditor",
+    "title": "E-E-A-T 内容质量审计（CORE-EEAT 评分）",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "geo",
+      "e-e-a-t",
+      "core-eeat",
+      "content-quality",
+      "content-scoring",
+      "publish-readiness",
+      "audit"
+    ],
+    "triggers": [
+      "内容质量审计",
+      "EEAT 评分",
+      "文章能发吗",
+      "内容打几分",
+      "CORE-EEAT",
+      "publish readiness",
+      "E-E-A-T 分析"
+    ],
+    "description": "当内容发布前需做质量体检、判断能否上线、或评估 E-E-A-T 与 GEO/SEO 强度时使用；按 CORE-EEAT 80 项打分（8 维度、GEO+SEO 双系统、按内容类型加权），先跑 T04/C01/R10 否决项并据其封顶，产出含发布裁决（SHIP/FIX/BLOCK）、维度分、Top5 改进与行动计划的审计报告；不适用于内容创作、技术 SEO 诊断、Schema 实现或站点级权威审计；触发词：内容质量审计、EEAT 评分、文章能发吗、内容打几分、CORE-EEAT、publish readiness、E-E-A-T 分析",
+    "path": "05-business/eeat-content-quality-auditor/SKILL.md"
+  },
+  {
     "name": "email-drip-sequence",
     "title": "邮件序列与培育自动化设计",
     "vol": "05-business",
@@ -7895,6 +8345,57 @@
     "path": "05-business/email-drip-sequence/SKILL.md"
   },
   {
+    "name": "email-sequence-designer",
+    "title": "邮件序列编排设计",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "营销",
+      "邮件营销",
+      "生命周期营销",
+      "文案",
+      "自动化",
+      "增长"
+    ],
+    "triggers": [
+      "邮件序列",
+      "滴灌培育",
+      "onboarding 流程"
+    ],
+    "description": "当需要为生命周期或营销活动设计多封自动化邮件序列（含完整文案、节奏、分支与退出逻辑、性能基准）时使用；做邮件序列编排，产出序列概览表+逐封文案+流程图+分支规则+A/B建议+追踪指标；不适用于单封邮件撰写、内容日历或社媒投放。触发词：邮件序列、滴灌培育、onboarding 流程",
+    "path": "05-business/email-sequence-designer/SKILL.md"
+  },
+  {
+    "name": "financial-statements-generator",
+    "title": "财务三表生成",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "finance",
+      "accounting",
+      "financial-statements",
+      "gaap",
+      "month-end-close",
+      "variance"
+    ],
+    "triggers": [
+      "财务三表",
+      "损益表",
+      "income statement",
+      "资产负债表",
+      "现金流量表",
+      "月结",
+      "variance analysis",
+      "P&L"
+    ],
+    "description": "当做月度/季度/年度/YTD 损益表、月结需标记重大差异、实际对预算比对、或为管理层准备财务摘要时使用；做含本期 vs 上期 vs 上年同期 vs 预算的损益表加差异分析、关键指标与重大差异清单，并备资产负债表/现金流量表参考格式与 GAAP（ASC 220/210/230）列报口径；不适用于提供投资/会计意见、出审计结论或正式申报底稿，须经合格财务人员复核；触发词：财务三表、损益表、income statement、资产负债表、现金流量表、月结、variance analysis、P&L",
+    "path": "05-business/financial-statements-generator/SKILL.md"
+  },
+  {
     "name": "free-tool-marketing-strategy",
     "title": "免费工具营销策略",
     "vol": "05-business",
@@ -7922,6 +8423,35 @@
     "path": "05-business/free-tool-marketing-strategy/SKILL.md"
   },
   {
+    "name": "internal-linking-optimizer",
+    "title": "内部链接结构与锚文本优化",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "SEO",
+      "内链策略",
+      "锚文本",
+      "孤儿页修复",
+      "主题权威",
+      "权重流动",
+      "内容簇",
+      "站内架构"
+    ],
+    "triggers": [
+      "内链优化",
+      "锚文本优化",
+      "孤儿页",
+      "权重传递",
+      "站内链接",
+      "网站结构乱",
+      "内容簇"
+    ],
+    "description": "当需优化站内内链结构、锚文本分布、孤儿页、抓取深度或权重流动时使用；产出结构计分、孤儿页修复清单、内容簇(中枢-辐条)链路、上下文链接机会表与分阶段落地计划；不适用于决定写什么内容(用内容策略)、整站信息架构/URL重设计(用网站结构技能)或结构化数据标记(用schema标记)。触发词：内链优化、锚文本优化、孤儿页、权重传递、站内链接、网站结构乱、内容簇",
+    "path": "05-business/internal-linking-optimizer/SKILL.md"
+  },
+  {
     "name": "international-expansion-strategy",
     "title": "国际市场扩张策略",
     "vol": "05-business",
@@ -7947,6 +8477,59 @@
     ],
     "description": "当企业要进入新国家/地区、评估海外市场、规划本地化或组建区域团队时使用；做市场打分选择、进入模式决策、合规与本地化清单、分区 GTM 与团队结构落地（产出评分矩阵+扩张方案）；不适用于纯翻译外包、单一国内增长、跨境物流采购执行。触发词：国际扩张、市场进入、本地化、GTM、出海",
     "path": "05-business/international-expansion-strategy/SKILL.md"
+  },
+  {
+    "name": "interview-plan-builder",
+    "title": "结构化面试方案设计",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "招聘",
+      "结构化面试",
+      "胜任力",
+      "评分卡",
+      "行为面试",
+      "题库",
+      "面试官分工"
+    ],
+    "triggers": [
+      "面试方案",
+      "面试题库",
+      "评分卡",
+      "面试怎么做",
+      "胜任力面试"
+    ],
+    "description": "当为某岗位一次性产出一套可直接用的结构化面试方案时使用；做胜任力建模并产出面试包（面试官分工、按胜任力分组的行为/情境题库及追问、1-4 评分卡、复盘模板）；不适用于面试官打分偏差校准与历史数据分析（用 interview-system-designer）、求职者一侧备战（用 interview-job-coach）；触发词：面试方案、面试题库、评分卡、面试怎么做、胜任力面试",
+    "path": "05-business/interview-plan-builder/SKILL.md"
+  },
+  {
+    "name": "journal-entry-preparer",
+    "title": "会计分录编制",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "finance",
+      "accounting",
+      "journal-entry",
+      "month-end-close",
+      "accrual",
+      "audit"
+    ],
+    "triggers": [
+      "会计分录",
+      "journal entry",
+      "月结",
+      "应计",
+      "折旧摊销",
+      "收入确认"
+    ],
+    "description": "当月结需编制 AP/薪酬/预付摊销/折旧摊销/收入确认等会计分录、并为审计留痕时使用；做出借贷平衡、带支撑明细与复核清单的标准分录表加过账/上传说明；不适用于出具财务意见或审计/合规结论、也不替代专业人员复核。触发词：会计分录、journal entry、月结、应计、折旧摊销、收入确认",
+    "path": "05-business/journal-entry-preparer/SKILL.md"
   },
   {
     "name": "landing-page-copywriting",
@@ -8161,6 +8744,36 @@
     "path": "05-business/marketing-analytics-tracker/SKILL.md"
   },
   {
+    "name": "marketing-campaign-brief",
+    "title": "营销活动方案策划",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "marketing",
+      "商业",
+      "营销活动",
+      "campaign",
+      "内容日历",
+      "渠道策略",
+      "GTM",
+      "KPI",
+      "预算分配"
+    ],
+    "triggers": [
+      "营销活动",
+      "campaign",
+      "活动方案",
+      "内容日历",
+      "渠道策略",
+      "GTM",
+      "线索获取"
+    ],
+    "description": "当需要把营销目标（产品发布/线索获取/品牌造势/留存召回）转化为一份完整、可执行的活动方案 brief 时使用；做：按「目标·受众·讯息·渠道·度量」五要素框架，产出含活动概述、受众画像、核心讯息、渠道策略、逐周内容日历（含依赖）、内容物料清单、KPI、预算分配、风险与下一步的结构化 brief；不适用于撰写单篇文案/广告创意、纯渠道执行投放或定价方案设计；触发词：营销活动、campaign、活动方案、内容日历、渠道策略、GTM、线索获取",
+    "path": "05-business/marketing-campaign-brief/SKILL.md"
+  },
+  {
     "name": "marketing-copy-editor",
     "title": "营销文案审校",
     "vol": "05-business",
@@ -8185,6 +8798,43 @@
     ],
     "description": "当需要编辑、审查、打磨已有营销/转化文案时使用；做七遍聚焦审校（清晰、调性、So What、举证、具体化、情绪、零风险）并产出带 What+Why+How 与置信标记的修改建议与定稿；不适用于从零撰写新文案、内容策略或结构性改版；触发词：审校文案、润色、校对、改文案、copy review、proofread",
     "path": "05-business/marketing-copy-editor/SKILL.md"
+  },
+  {
+    "name": "marketing-performance-report",
+    "title": "营销绩效报告",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "marketing",
+      "performance-report",
+      "analytics",
+      "metrics",
+      "attribution",
+      "qbr",
+      "kpi",
+      "dashboard",
+      "optimization",
+      "business"
+    ],
+    "triggers": [
+      "performance report",
+      "绩效报告",
+      "营销报告",
+      "campaign results",
+      "活动复盘",
+      "metrics summary",
+      "指标汇总",
+      "周报",
+      "月报",
+      "QBR",
+      "季度回顾",
+      "ROAS",
+      "归因"
+    ],
+    "description": "当需要复盘营销活动、给利益相关方做周报/月报/季报(QBR)、或把数据翻译成带优化建议的执行摘要时使用；产出含执行摘要、关键指标看板、趋势分析、成败归因与优先级优化建议的营销绩效报告；不适用于单纯的活动方案策划(用 campaign-planner)、A/B 实验设计、底层埋点搭建。触发词：performance report、绩效报告、营销报告、campaign results、活动复盘、metrics summary、指标汇总、周报、月报、QBR、季度回顾、ROAS、归因",
+    "path": "05-business/marketing-performance-report/SKILL.md"
   },
   {
     "name": "marketing-psychology",
@@ -8228,6 +8878,57 @@
     ],
     "description": "当需要用心理学原理、认知偏差或行为科学解释「人为什么买」并影响消费决策时使用；做的是把心智模型映射到具体营销场景（定价/转化/信任/紧迫感/留存）并产出可落地的文案、定价结构与触达方案；不适用于具体落地页 CRO 实施、纯定价工程或基础文案撰写（另见相关技能）。触发词：营销心理、心智模型、mental models、认知偏差、cognitive bias、说服、persuasion、行为科学、锚定、anchoring、社会认同、social proof、稀缺、scarcity、损失厌恶、loss aversion、框架效应、framing、助推、nudge。",
     "path": "05-business/marketing-psychology/SKILL.md"
+  },
+  {
+    "name": "month-end-close-manager",
+    "title": "月末结账流程管理",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "财务",
+      "会计",
+      "月末结账",
+      "流程管理",
+      "对账",
+      "状态跟踪",
+      "关键路径"
+    ],
+    "triggers": [
+      "月末结账",
+      "close calendar",
+      "硬关账"
+    ],
+    "description": "当规划月结日历、跟踪结账进度、排查阻塞或按天编排结账活动时使用；产出按 T+N 排程的结账清单、依赖/关键路径与状态看板，加速软关账到硬关账；不适用于提供财务/会计判断或代替合资格财务人员复核。触发词：月末结账、close calendar、硬关账",
+    "path": "05-business/month-end-close-manager/SKILL.md"
+  },
+  {
+    "name": "offer-letter-drafter",
+    "title": "录用通知书起草",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "人力资源",
+      "招聘",
+      "薪酬",
+      "offer",
+      "录用通知",
+      "谈薪",
+      "股权"
+    ],
+    "triggers": [
+      "offer",
+      "录用通知书",
+      "录用意向书",
+      "谈薪",
+      "总薪酬包"
+    ],
+    "description": "当候选人确定要发 offer、需要拼装总薪酬包（base/股权/签字费）、撰写录用通知书正文或为招聘经理准备谈薪话术时使用；做录用通知书起草，产出薪酬包表格+条款+福利摘要+offer letter 正文+谈薪指引；不适用于候选人筛选评估、JD 撰写、入职手续办理、薪酬带宽体系设计；触发词：offer、录用通知书、录用意向书、谈薪、总薪酬包",
+    "path": "05-business/offer-letter-drafter/SKILL.md"
   },
   {
     "name": "paid-ad-creative",
@@ -8322,6 +9023,33 @@
     ],
     "description": "当需要设计或优化应用内付费墙、升级页、追售弹窗、功能门禁，把免费/试用用户转为付费或升级到更高档位时使用；产出触发点地图、整屏文案（标题/价值证明/对比/CTA/退出口）、升级流程图、暗黑模式审计与 A/B 实验清单；不适用于公开定价页（见 page-cro）或用户尚未到 aha 时刻的过早拦截（先修 onboarding-cro）。触发词：付费墙、升级页、追售/upsell、功能门禁、freemium 转化、试用到期",
     "path": "05-business/paywall-upgrade-cro/SKILL.md"
+  },
+  {
+    "name": "performance-review-builder",
+    "title": "绩效评估结构化",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "misc",
+      "人力资源",
+      "绩效管理",
+      "绩效评估",
+      "校准",
+      "晋升评定",
+      "反馈",
+      "模板"
+    ],
+    "triggers": [
+      "绩效评估",
+      "自评",
+      "校准",
+      "晋升评定"
+    ],
+    "description": "当绩效季启动、需要做自评/经理评语/校准（calibration）准备，或要把模糊反馈改写成具体行为示例时使用；做绩效评估结构化，产出自评模板、经理评估模板、校准准备文档（评分分布+晋升案例）；不适用于实时绩效改进计划(PIP)起草、薪酬数值核算或法律合规裁决。触发词：绩效评估、自评、校准、晋升评定",
+    "path": "05-business/performance-review-builder/SKILL.md"
   },
   {
     "name": "popup-modal-cro",
@@ -8537,6 +9265,29 @@
     "path": "05-business/saas-marketing-ideas/SKILL.md"
   },
   {
+    "name": "sales-call-summary",
+    "title": "销售通话纪要提炼",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "销售",
+      "纪要",
+      "跟进邮件",
+      "CRM",
+      "行动项"
+    ],
+    "triggers": [
+      "通话纪要",
+      "跟进邮件",
+      "行动项"
+    ],
+    "description": "当处理销售通话的原始笔记或转录稿、需产出可执行纪要时使用；做提炼讨论要点、抽取带负责人与截止日的行动项、梳理异议与竞品情报，并产出内部纪要与客户跟进邮件草稿；不适用于非销售场景的纯会议记录、实时录音转写或 CRM 自动写入（仅作建议不直接执行）；触发词：通话纪要、跟进邮件、行动项",
+    "path": "05-business/sales-call-summary/SKILL.md"
+  },
+  {
     "name": "sales-enablement",
     "title": "销售赋能物料制作",
     "vol": "05-business",
@@ -8566,6 +9317,32 @@
     ],
     "description": "当销售团队需要能直接推进/成交交易的可用物料时使用；产出销售演示稿、一页纸、异议应对、Demo 脚本、ROI 测算、销售手册、提案模板与买家画像卡，并按阶段/角色/用例定制；不适用于获客引流型营销内容、纯定价决策或冷邮件外联；触发词：销售物料、pitch deck、异议应对、demo 脚本、一页纸、销售手册、ROI 测算、提案模板、买家画像",
     "path": "05-business/sales-enablement/SKILL.md"
+  },
+  {
+    "name": "sales-forecast-builder",
+    "title": "加权销售预测构建器",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "销售",
+      "预测",
+      "pipeline",
+      "forecast",
+      "商业分析",
+      "misc"
+    ],
+    "triggers": [
+      "销售预测",
+      "加权预测",
+      "gap-to-quota",
+      "pipeline coverage",
+      "commit",
+      "upside"
+    ],
+    "description": "当需要从管道数据生成季度/期间销售预测、评估缺口或决定承诺/上行单时使用；按阶段概率算加权预测，产出乐观/可能/悲观三档、承诺vs上行拆分、风险标记与缺口分析；不适用于已成交财报口径核算或现金流/营收确认。触发词：销售预测、加权预测、gap-to-quota、pipeline coverage、commit/upside",
+    "path": "05-business/sales-forecast-builder/SKILL.md"
   },
   {
     "name": "sales-prospecting",
@@ -8661,6 +9438,60 @@
     "path": "05-business/seo-audit/SKILL.md"
   },
   {
+    "name": "seo-content-gap-analysis",
+    "title": "SEO 内容缺口与选题日历分析",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "seo",
+      "geo",
+      "content-gaps",
+      "topic-analysis",
+      "content-strategy",
+      "editorial-calendar",
+      "competitive-gap"
+    ],
+    "triggers": [
+      "内容缺口",
+      "选题规划",
+      "竞品话题",
+      "缺什么内容",
+      "还应该写什么"
+    ],
+    "description": "当需要对比自有站点与竞品、找出缺失关键词/话题/内容格式并排定选题日历时使用；做内容缺口审计并按高优先/快赢/长期分级，产出排序缺口清单、选题日历与成功指标；不适用于关键词难度抓取、外链建设或单篇内容写作；触发词：内容缺口、选题规划、竞品话题、缺什么内容、还应该写什么",
+    "path": "05-business/seo-content-gap-analysis/SKILL.md"
+  },
+  {
+    "name": "seo-content-refresher",
+    "title": "过时内容刷新与流量衰减修复",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "geo",
+      "content-refresh",
+      "content-decay",
+      "ranking-recovery",
+      "content-lifecycle",
+      "evergreen",
+      "republishing"
+    ],
+    "triggers": [
+      "内容更新",
+      "内容刷新",
+      "排名恢复",
+      "流量掉了",
+      "文章过时了"
+    ],
+    "description": "当老文章排名/流量衰减、内容过时（数据陈旧、缺新章节、新鲜度信号弱）需要刷新而非新建时使用；做衰减诊断与新鲜度评分→刷新候选优先级→可执行刷新计划（含新章节、最新数据、GEO 引用优化与再发布日期策略）并产出刷新报告；不适用于全新内容创作（用 seo-content-writer）、突发流量骤降取证（用 seo-traffic-drop-forensics）、纯技术审计（用 seo-audit）。触发词：内容更新、内容刷新、排名恢复、流量掉了、文章过时了",
+    "path": "05-business/seo-content-refresher/SKILL.md"
+  },
+  {
     "name": "seo-content-writer",
     "title": "SEO 内容写作",
     "vol": "05-business",
@@ -8682,6 +9513,160 @@
     ],
     "description": "当需要围绕关键词写既能被搜索引擎/生成式引擎收录、又对人有价值的内容（标题、结构、E-E-A-T、内链）时使用；触发词：SEO 文章、关键词、搜索排名、GEO、内容优化。",
     "path": "05-business/seo-content-writer/SKILL.md"
+  },
+  {
+    "name": "seo-entity-optimizer",
+    "title": "实体优化与知识图谱信号构建",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "geo",
+      "entity-optimization",
+      "knowledge-graph",
+      "knowledge-panel",
+      "brand-entity",
+      "wikidata",
+      "entity-disambiguation",
+      "ai-search",
+      "marketing"
+    ],
+    "triggers": [
+      "实体优化",
+      "知识图谱",
+      "品牌实体",
+      "知识面板",
+      "Wikidata",
+      "品牌搜不到",
+      "Google不认识我的品牌",
+      "实体消歧"
+    ],
+    "description": "当品牌/人物/产品在 Google 知识面板、Wikidata 或 AI 系统中无法被识别、被混淆或信息错误时使用；做实体现状审计（知识图谱/Wikidata/AI 引擎）+ 6 类 47 项信号缺口分析，产出规范实体画像、消歧策略与建设路线图；不适用于通用 SEO 审计（用 seo-audit）或结构化数据打标实现（用 schema-markup-builder）。触发词：实体优化、知识图谱、品牌实体、知识面板、Wikidata、品牌搜不到、Google不认识我的品牌、实体消歧",
+    "path": "05-business/seo-entity-optimizer/SKILL.md"
+  },
+  {
+    "name": "seo-keyword-research",
+    "title": "SEO 关键词研究与选题聚类",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "seo",
+      "keyword-research",
+      "search-volume",
+      "keyword-difficulty",
+      "topic-clusters",
+      "search-intent",
+      "long-tail",
+      "geo",
+      "marketing"
+    ],
+    "triggers": [
+      "关键词研究",
+      "挖词",
+      "长尾",
+      "内容选题",
+      "搜索量",
+      "关键词难度",
+      "写什么内容好",
+      "Ahrefs 替代"
+    ],
+    "description": "当为新页面/主题/营销活动启动关键词研究、需要搜索量与难度评估、长尾挖词或内容选题时使用；做八阶段挖词打分（机会值=量×意图值÷难度）、意图分类、GEO 可引用性标记与「支柱页+簇」聚类，产出含速赢/增长/GEO 机会的优先级清单与内容日历；不适用于纯外链/技术审计或不涉及搜索的内容创意；触发词：关键词研究、挖词、长尾、内容选题、搜索量、关键词难度、写什么内容好、Ahrefs 替代",
+    "path": "05-business/seo-keyword-research/SKILL.md"
+  },
+  {
+    "name": "seo-meta-tags-optimizer",
+    "title": "Meta 标签与 Open Graph 社媒卡片优化",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "meta-tags",
+      "title-tag",
+      "meta-description",
+      "open-graph",
+      "twitter-card",
+      "ctr",
+      "social-sharing"
+    ],
+    "triggers": [
+      "meta 标签",
+      "标题优化",
+      "元描述",
+      "TDK",
+      "Open Graph",
+      "OG 标签",
+      "社交预览",
+      "点击率",
+      "CTR"
+    ],
+    "description": "当需要为某个网页打造或重写 title/meta description 以及 OG、Twitter 社媒卡片等元标签、提升搜索点击率与分享预览质量时使用；产出可直接粘贴的完整 meta 代码块（含三套标题/描述备选、社媒卡片、CTR 优化与 A/B 测试建议）；不适用于正文内容写作、结构化数据 schema、技术 SEO 部署与外链/关键词难度抓取；触发词：meta 标签、标题优化、元描述、TDK、Open Graph、OG 标签、社交预览、点击率、CTR。",
+    "path": "05-business/seo-meta-tags-optimizer/SKILL.md"
+  },
+  {
+    "name": "seo-performance-reporter",
+    "title": "SEO/GEO 绩效报告与 KPI 仪表盘",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "geo",
+      "seo-reporting",
+      "performance-report",
+      "kpi-dashboard",
+      "traffic-report",
+      "monthly-report",
+      "stakeholder-report",
+      "roi",
+      "ai-citation"
+    ],
+    "triggers": [
+      "SEO报告",
+      "绩效仪表盘",
+      "流量报告",
+      "月报",
+      "汇报给老板"
+    ],
+    "description": "当需要汇总 SEO/GEO 数据、出月报/周报、给老板或客户做绩效汇报与 KPI 仪表盘时使用；做多源数据聚合→对比基准/竞品→算 ROI→把指标变动转成分优先级建议的可交付报告（含执行摘要、指标速览表与行动清单）；不适用于技术健康体检（用 seo-audit）、流量骤降取证（用 seo-traffic-drop-forensics）或 AI 引用内容改写（用 ai-search-seo）；触发词：SEO报告、绩效仪表盘、流量报告、月报、汇报给老板",
+    "path": "05-business/seo-performance-reporter/SKILL.md"
+  },
+  {
+    "name": "seo-rank-tracker",
+    "title": "关键词排名与 SERP 变化追踪",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "geo",
+      "rank-tracking",
+      "serp",
+      "keyword-rankings",
+      "position-monitoring",
+      "ai-visibility"
+    ],
+    "triggers": [
+      "排名追踪",
+      "查排名",
+      "关键词排名",
+      "SERP 位置监控",
+      "排名变了吗",
+      "我排第几",
+      "track rankings",
+      "ranking changes",
+      "position monitoring"
+    ],
+    "description": "当用户要追踪关键词排名、对比排名快照或检测排名涨跌时使用；基于导出数据或连接的 SEO/搜索控制台工具，记录当前排名、分析变化与归因、追踪 SERP 特性与 AI 可见性、对比竞品并产出排名报告与下一步动作；不适用于一次性 SEO 体检、流量下滑深度归因或排名修复实施；触发词：排名追踪、查排名、关键词排名、SERP 位置监控、排名变了吗、我排第几、track rankings、ranking changes、position monitoring",
+    "path": "05-business/seo-rank-tracker/SKILL.md"
   },
   {
     "name": "seo-site-architecture",
@@ -8741,6 +9726,33 @@
     ],
     "description": "当自然流量/排名突然骤降、疑似遭算法核心更新打击、人工处罚或重大技术回归时使用；做取证式事件响应——三级分诊→证据驱动归因→分期恢复方案与监控计划；不适用于常规 SEO 体检或机会优先级排序（用 seo-audit）、本地法律行业长期可见性（用 local-legal-seo-audit）。触发词：流量暴跌、排名骤降、收录掉了、核心更新、人工处罚、noindex 误改、迁移掉量",
     "path": "05-business/seo-traffic-drop-forensics/SKILL.md"
+  },
+  {
+    "name": "serp-feature-analysis",
+    "title": "SERP 搜索结果与 AI 概览分析",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "serp-analysis",
+      "serp-features",
+      "featured-snippet",
+      "ai-overview",
+      "people-also-ask",
+      "search-intent"
+    ],
+    "triggers": [
+      "SERP 分析",
+      "搜索结果分析",
+      "谁排第一",
+      "精选摘要",
+      "AI 概览",
+      "People Also Ask"
+    ],
+    "description": "当需要分析某关键词的搜索结果页（SERP）构成、排名规律、SERP 特性与 AI 概览（AI Overview）机会、判定搜索意图并估算真实难度时使用；做实时 SERP 取证并产出含特性清单·Top10 排名归因·意图判定·难度评分·最小竞争门槛·内容大纲的分析简报；不适用于写文章/落地页文案、技术 SEO 体检、Schema 部署或规模化建页；触发词：SERP 分析、搜索结果分析、谁排第一、精选摘要、AI 概览、People Also Ask",
+    "path": "05-business/serp-feature-analysis/SKILL.md"
   },
   {
     "name": "signup-flow-cro",
@@ -8879,6 +9891,69 @@
     ],
     "description": "当为种子轮/A 轮早期创业公司构建 3-5 年财务模型、做融资测算或准备投资人级财务时使用；做基于队列的收入预测、成本结构、现金流/烧钱跑道、三情景分析与单位经济测算，产出可交付的财务模型与假设；不适用于上市公司估值建模、做账报税或自动抓取行业基准数据；触发词：财务模型、收入预测、烧钱率、现金跑道、融资测算、financial model、burn rate、runway、ARR、CAC LTV",
     "path": "05-business/startup-financial-modeler/SKILL.md"
+  },
+  {
+    "name": "support-ticket-triage",
+    "title": "支持工单分诊",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "客户支持",
+      "工单",
+      "分诊",
+      "优先级",
+      "路由",
+      "判重",
+      "SLA",
+      "商业"
+    ],
+    "triggers": [
+      "工单分诊",
+      "ticket triage",
+      "定优先级",
+      "判重",
+      "路由"
+    ],
+    "description": "当新支持工单/客户问题进来需要归类、定级、判重并决定路由时使用；做工单分诊（分类+P1-P4 优先级+产品域+判重+路由+首响草稿），产出结构化分诊评估；不适用于完整客服回复撰写或正式升级，那应转交后续技能；触发词：工单分诊、ticket triage、定优先级、判重、路由",
+    "path": "05-business/support-ticket-triage/SKILL.md"
+  },
+  {
+    "name": "technical-seo-checker",
+    "title": "技术 SEO 体检（抓取/索引/核心网页指标）",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "technical-seo",
+      "core-web-vitals",
+      "crawlability",
+      "indexability",
+      "mobile-seo",
+      "robots-txt",
+      "xml-sitemap",
+      "canonical",
+      "hsts",
+      "site-migration",
+      "bulk-audit",
+      "llm-crawler"
+    ],
+    "triggers": [
+      "技术SEO",
+      "网站速度",
+      "核心网页指标",
+      "索引问题",
+      "Google找不到页面",
+      "robots.txt",
+      "sitemap",
+      "canonical",
+      "HSTS"
+    ],
+    "description": "当需要排查站点为何无法被搜索引擎抓取/收录/排名、做技术 SEO 健康体检（抓取、索引、Core Web Vitals、移动端、HTTPS/安全、重定向、结构化数据、hreflang）时使用；做九步带评分的技术审计，逐项记录证据·检查·问题·修复·分值，产出评分卡+按影响排序的修复路线图（支持迁移前/批量/AI 爬虫场景）；不适用于页面文案与内容创作（用 seo-content-writer）、结构化数据落地实现（用 schema-markup-builder）、流量骤降取证（用 seo-traffic-drop-forensics）、CRO 转化优化。触发词：技术SEO、网站速度、核心网页指标、索引问题、Google找不到页面、robots.txt、sitemap、canonical、HSTS",
+    "path": "05-business/technical-seo-checker/SKILL.md"
   },
   {
     "name": "user-onboarding-optimizer",
@@ -9194,6 +10269,56 @@
     "path": "06-creative/demo-video-generator/SKILL.md"
   },
   {
+    "name": "design-critique",
+    "title": "设计评审反馈",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "设计评审",
+      "UX",
+      "可用性",
+      "视觉层级",
+      "无障碍",
+      "Figma",
+      "设计反馈",
+      "原型评估"
+    ],
+    "triggers": [
+      "评审这个设计",
+      "critique mockup",
+      "Figma 链接反馈"
+    ],
+    "description": "当需要对界面/原型/视觉稿做结构化设计评审时使用；按可用性·层级·一致性·无障碍多维度产出带严重度分级和优先级建议的评审报告；不适用于纯代码实现、文案校对或无设计稿的需求讨论。触发词：评审这个设计、critique mockup、Figma 链接反馈",
+    "path": "06-creative/design-critique/SKILL.md"
+  },
+  {
+    "name": "design-dev-handoff",
+    "title": "设计开发交付规格",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "设计",
+      "前端",
+      "交付",
+      "Figma",
+      "设计令牌",
+      "响应式",
+      "可访问性",
+      "协作"
+    ],
+    "triggers": [
+      "设计交付",
+      "handoff",
+      "Figma 转开发"
+    ],
+    "description": "当设计稿定稿、要交给工程实现时使用；产出覆盖布局/设计令牌/组件 props/交互状态/响应式断点/边界情况/动效的开发交付规格文档；不适用于尚在探索的概念稿或纯视觉评审；触发词：设计交付、handoff、Figma 转开发",
+    "path": "06-creative/design-dev-handoff/SKILL.md"
+  },
+  {
     "name": "design-spells-microinteractions",
     "title": "网页微交互与设计细节灵感",
     "vol": "06-creative",
@@ -9447,6 +10572,36 @@
     "path": "06-creative/unreal-engine-cpp/SKILL.md"
   },
   {
+    "name": "ux-microcopy-writer",
+    "title": "UX 微文案撰写",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "design",
+      "UX文案",
+      "微文案",
+      "报错信息",
+      "空状态",
+      "CTA",
+      "本地化"
+    ],
+    "triggers": [
+      "UX 文案",
+      "微文案",
+      "按钮该写什么",
+      "报错文案",
+      "空状态",
+      "确认弹窗措辞",
+      "CTA 命名",
+      "引导文案"
+    ],
+    "description": "当需要为界面元素（按钮/CTA、报错、空状态、确认弹窗、提示气泡、加载态、引导文案）撰写或评审 UX 微文案，并产出推荐文案+备选方案+理由+本地化提示时使用；不适用于长篇营销文案、品牌口号、纯视觉设计或后端文案逻辑实现；触发词：UX 文案、微文案、按钮该写什么、报错文案、空状态、确认弹窗措辞、CTA 命名、引导文案",
+    "path": "06-creative/ux-microcopy-writer/SKILL.md"
+  },
+  {
     "name": "ux-research-design-toolkit",
     "title": "UX 研究与体验设计工具箱",
     "vol": "06-creative",
@@ -9534,6 +10689,33 @@
     ],
     "description": "当需要对视频/音频/直播/桌面会话做感知、索引、按时间戳检索证据、剪辑时间轴、加字幕叠层、转码改比例或生成媒体时使用；用 VideoDB Python SDK 摄入文件/URL/RTSP，建口语与视觉索引，search 返回带时间戳的可播片段，Timeline 编排导出 HLS 流；不适用于无 API key、转场/变速/裁切调色等需本地工具的操作；触发词：视频检索、加字幕、剪辑、转码、改竖屏、RTSP 直播告警、桌面录制",
     "path": "06-creative/videodb-perception-editing/SKILL.md"
+  },
+  {
+    "name": "activity-digest-generator",
+    "title": "活动动态摘要生成",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "digest",
+      "activity-summary",
+      "action-items",
+      "cross-source",
+      "mcp",
+      "catch-up"
+    ],
+    "triggers": [
+      "日报",
+      "周报",
+      "动态摘要",
+      "digest",
+      "catch up",
+      "离岗回归",
+      "待办汇总"
+    ],
+    "description": "当离岗回归补进度、开工想看待办与提及、或回顾一周决策与文档变更时使用；做扫描各连接源近期活动、按主题/项目聚合并按「行动项→决策→主题→提及→文档变更」结构产出日报/周报式摘要；不适用于实时事件流监听、单源深度检索或正式复盘报告；触发词：日报、周报、动态摘要、digest、catch up、离岗回归、待办汇总",
+    "path": "07-productivity/activity-digest-generator/SKILL.md"
   },
   {
     "name": "adr-writer",
@@ -10257,6 +11439,35 @@
     "path": "07-productivity/multi-agent-orchestrator/SKILL.md"
   },
   {
+    "name": "new-hire-onboarding-plan",
+    "title": "新员工入职计划",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "人力资源",
+      "入职",
+      "onboarding",
+      "新员工",
+      "30-60-90",
+      "清单模板",
+      "团队协作"
+    ],
+    "triggers": [
+      "入职",
+      "onboarding",
+      "新员工",
+      "Day 1",
+      "第一周",
+      "30",
+      "60",
+      "90"
+    ],
+    "description": "当某岗位已定入职日期、需要为新员工编排入职前清单、Day 1 日程、第一周安排与 30/60/90 天目标时使用；产出按角色定制的入职计划（账号/设备/buddy、Day 1 时段表、关键联系人与工具权限清单、阶段目标，含占位符）；不适用于薪酬谈判、劳动合同/合规裁决与具体法律意见；触发词：入职、onboarding、新员工、Day 1、第一周、30/60/90",
+    "path": "07-productivity/new-hire-onboarding-plan/SKILL.md"
+  },
+  {
     "name": "oncall-handoff-writer",
     "title": "值班交接记录撰写",
     "vol": "07-productivity",
@@ -10396,6 +11607,65 @@
     "path": "07-productivity/org-health-diagnostic/SKILL.md"
   },
   {
+    "name": "prd-spec-writer",
+    "title": "PRD 与功能规格撰写",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "产品管理",
+      "PRD",
+      "功能规格",
+      "用户故事",
+      "验收标准",
+      "目标与非目标",
+      "成功指标",
+      "范围管理",
+      "协作",
+      "pm"
+    ],
+    "triggers": [
+      "写 PRD",
+      "功能规格",
+      "目标与非目标",
+      "验收标准",
+      "需求分期"
+    ],
+    "description": "当要把模糊想法/用户请求/问题陈述转成结构化功能规格或 PRD 时使用；做出含问题陈述、目标/非目标、用户故事、P0/P1/P2 需求与 GWT 验收标准、领先/滞后成功指标、待解问题与分期路线的 Markdown 文档，并做范围收敛；不适用于纯 RICE 量化排序、工程实现/架构设计与 UI 视觉设计。触发词：写 PRD、功能规格、目标与非目标、验收标准、需求分期",
+    "path": "07-productivity/prd-spec-writer/SKILL.md"
+  },
+  {
+    "name": "process-sop-documenter",
+    "title": "业务流程 SOP 文档化",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "sop",
+      "process",
+      "raci",
+      "documentation",
+      "handoff",
+      "audit",
+      "operations",
+      "runbook"
+    ],
+    "triggers": [
+      "SOP",
+      "标准作业程序",
+      "流程文档化",
+      "RACI",
+      "操作手册",
+      "流程交接",
+      "process doc",
+      "standard operating procedure"
+    ],
+    "description": "当需要把存在某人脑子里的业务流程正式落成标准作业程序（SOP）——梳理交接环节、用 RACI 厘清谁负责谁拍板、为审计或交接编写流程文档、并补齐异常与边界情形时使用；产出含目的/范围/RACI 矩阵/流程图/分步细则/异常处理/度量指标的完整 SOP；不适用于流程瓶颈量化分析、销售漏斗或一次性项目计划。触发词：SOP、标准作业程序、流程文档化、RACI、操作手册、流程交接、process doc、standard operating procedure",
+    "path": "07-productivity/process-sop-documenter/SKILL.md"
+  },
+  {
     "name": "product-manager-toolkit",
     "title": "产品经理工具箱（RICE/PRD）",
     "vol": "07-productivity",
@@ -10421,6 +11691,33 @@
     ],
     "description": "当需要做特性优先级排序、用户访谈综合或撰写 PRD 时使用；用 RICE 打分脚本与访谈分析脚本产出优先级清单/季度路线图/洞察报告，并套用 PRD 模板与发现框架；不适用于纯工程实现、UI 视觉设计或营销投放执行。触发词：RICE、优先级、PRD、用户访谈、路线图",
     "path": "07-productivity/product-manager-toolkit/SKILL.md"
+  },
+  {
+    "name": "resource-capacity-planner",
+    "title": "资源产能规划",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "capacity-planning",
+      "产能规划",
+      "利用率",
+      "headcount",
+      "工作量分析",
+      "资源分配",
+      "季度规划"
+    ],
+    "triggers": [
+      "产能规划",
+      "利用率",
+      "人力盈缺",
+      "该不该招人",
+      "季度规划",
+      "过载"
+    ],
+    "description": "当做季度团队/项目产能规划、感觉团队过载需用数据佐证、纠结该招人还是砍优先级、或压力测试在手人力能否扛住下季度项目时使用；做工作量分析与利用率预测，产出当前利用率表、产能盈缺汇总、需求缺口、瓶颈与「招人/外包/降优先级/延期」建议方案；不适用于排队制运营定编（用 Erlang-C 那套）、千万级多项目组合治理、或个人待办管理。触发词：产能规划、利用率、人力盈缺、该不该招人、季度规划、过载",
+    "path": "07-productivity/resource-capacity-planner/SKILL.md"
   },
   {
     "name": "salesforce-automation",
@@ -10450,6 +11747,67 @@
     "path": "07-productivity/salesforce-automation/SKILL.md"
   },
   {
+    "name": "stakeholder-update-writer",
+    "title": "干系人进展更新撰写",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "干系人沟通",
+      "状态汇报",
+      "高管沟通",
+      "进度更新",
+      "风险沟通",
+      "ROAM",
+      "发布公告",
+      "协作"
+    ],
+    "triggers": [
+      "干系人更新",
+      "状态汇报",
+      "周报",
+      "月报",
+      "发布公告",
+      "风险升级",
+      "stakeholder update"
+    ],
+    "description": "当需按受众与节奏撰写干系人更新（高管周报/月报、发布公告、风险升级，或把同一进展改写成高管简报/工程明细/对客版本）时使用；产出含状态灯（绿/黄/红）、TL;DR、进展、风险与诉求的分受众结构化更新草稿；不适用于对外客服回复、营销文案或纯财务建模；触发词：干系人更新、状态汇报、周报、月报、发布公告、风险升级、stakeholder update",
+    "path": "07-productivity/stakeholder-update-writer/SKILL.md"
+  },
+  {
+    "name": "status-report-generator",
+    "title": "项目状态报告生成",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "status-report",
+      "reporting",
+      "leadership",
+      "project-management",
+      "kpi",
+      "risk",
+      "collaboration",
+      "pm"
+    ],
+    "triggers": [
+      "状态报告",
+      "项目周报",
+      "月报",
+      "领导汇报",
+      "健康度",
+      "红黄绿",
+      "风险与待决策",
+      "status report",
+      "KPI",
+      "stakeholder update"
+    ],
+    "description": "当为领导/干系人撰写周报、月报或季度更新，需把项目活动汇成红黄绿健康度叙事并暴露风险与待决策时使用；产出含执行摘要、KPI 指标表、进展/风险/待决策表与下期优先级的精炼状态报告；不适用于排程、纯纪要摘要或深度风险矩阵分析。触发词：状态报告、项目周报、月报、领导汇报、健康度、红黄绿、风险与待决策、status report、KPI、stakeholder update",
+    "path": "07-productivity/status-report-generator/SKILL.md"
+  },
+  {
     "name": "strategic-alignment-cascader",
     "title": "战略对齐自上而下级联",
     "vol": "07-productivity",
@@ -10471,6 +11829,37 @@
     ],
     "description": "当团队各自为政、OKR 互不衔接、部门局部最优损害公司目标时使用；做战略级联映射与失配诊断（孤儿目标/冲突/覆盖缺口/筒仓）并产出对齐评分与重对齐方案；不适用于个人绩效考核或战略本身的制定。触发词：战略对齐、OKR级联、孤儿OKR、部门筒仓",
     "path": "07-productivity/strategic-alignment-cascader/SKILL.md"
+  },
+  {
+    "name": "support-kb-article-writer",
+    "title": "支持知识库文章撰写",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "knowledge-base",
+      "kb-article",
+      "customer-support",
+      "self-service",
+      "faq",
+      "troubleshooting",
+      "documentation",
+      "seo"
+    ],
+    "triggers": [
+      "知识库文章",
+      "KB article",
+      "帮助中心",
+      "自助文档",
+      "FAQ",
+      "排障文档",
+      "已知问题",
+      "workaround",
+      "客户文档"
+    ],
+    "description": "当工单已解决/同类问题反复出现/需发布临时绕过方案或对外公告已知问题、要把它沉淀为可自助检索的知识库文章时使用；做按文章类型（How-to/排障/FAQ/已知问题/参考）模板产出含元数据、SEO 检索优化标题与发布注记的发布就绪 KB 草稿；不适用于面向单个客户的工单回复、内部 Runbook、事故复盘报告本身；触发词：知识库文章、KB article、帮助中心、自助文档、FAQ、排障文档、已知问题、workaround、客户文档",
+    "path": "07-productivity/support-kb-article-writer/SKILL.md"
   },
   {
     "name": "task-decomposition-planner",
@@ -10536,6 +11925,30 @@
     ],
     "description": "当需要为代码变更建立结构化审计记录、在 AI 会话过期前后做工作交接、或回顾追踪某变更状态时使用；用 JSON 记录 + 状态机 + 交接块在 docs/TC/ 下追踪每个变更的来龙去脉与下一步；不适用于仅从 git 历史生成 changelog、纯技术债清单、或排版/拼写等不影响行为的琐碎改动；触发词：追踪变更、track change、变更记录、会话交接、handoff、resume 续接、tc init/create/update、状态机、审计追踪",
     "path": "07-productivity/technical-change-tracker/SKILL.md"
+  },
+  {
+    "name": "vendor-evaluation",
+    "title": "供应商评估决策",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "采购",
+      "供应商管理",
+      "成本分析",
+      "风险评估",
+      "决策"
+    ],
+    "triggers": [
+      "供应商评估",
+      "续约决策",
+      "TCO",
+      "招投标比选",
+      "采购评审"
+    ],
+    "description": "当评估新供应商提案、决定续约/更换、或并排比选两家供应商时使用；产出结构化评估报告（TCO 成本拆解、风险矩阵、优劣势、采购建议与谈判筹码）；不适用于已定供应商的合同执行/付款/日常对账。触发词：供应商评估、续约决策、TCO、招投标比选、采购评审",
+    "path": "07-productivity/vendor-evaluation/SKILL.md"
   },
   {
     "name": "zapier-make-automation",
@@ -12025,6 +13438,33 @@
     "path": "08-security/soc2-compliance-preparer/SKILL.md"
   },
   {
+    "name": "sox-control-testing",
+    "title": "SOX 404 内控测试支持",
+    "vol": "08-security",
+    "domain": "安全/audit",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "compliance",
+      "SOX",
+      "内控",
+      "审计",
+      "ICFR",
+      "控制测试",
+      "缺陷分级"
+    ],
+    "triggers": [
+      "SOX 404",
+      "内控测试",
+      "控制测试",
+      "样本抽取",
+      "控制缺陷"
+    ],
+    "description": "当需要执行 SOX 404 财报内控（ICFR）测试、准备内外部审计时使用；做范围界定、样本抽取、测试底稿编制、证据评估与缺陷分级（缺陷/重大缺陷/重大弱点），产出控制矩阵/测试底稿/抽样方案/缺陷评估与整改计划；不适用于出具正式审计或法律意见、其他合规框架主审（SOC 2/ISO 27001 见互见）。触发词：SOX 404、内控测试、控制测试、样本抽取、控制缺陷",
+    "path": "08-security/sox-control-testing/SKILL.md"
+  },
+  {
     "name": "stride-threat-modeler",
     "title": "STRIDE威胁建模",
     "vol": "08-security",
@@ -12386,6 +13826,64 @@
     "path": "09-verticals/alpha-vantage-market-data/SKILL.md"
   },
   {
+    "name": "alphafold-database-access",
+    "title": "AlphaFold 蛋白结构数据库访问",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "science",
+      "结构生物学",
+      "药物发现",
+      "蛋白结构",
+      "AlphaFold",
+      "BioPython",
+      "生物信息学"
+    ],
+    "triggers": [
+      "AlphaFold",
+      "UniProt",
+      "pLDDT",
+      "PAE",
+      "蛋白结构预测",
+      "蛋白组下载"
+    ],
+    "description": "当需要按 UniProt ID 获取 AlphaFold 预测的蛋白 3D 结构、置信度或批量蛋白组数据时使用；用 BioPython/REST API/Google Cloud 下载 mmCIF/PDB 并分析 pLDDT 与 PAE，产出结构文件、置信度报告与高可信区域。不适用于实验结构（用 PDB）或自行跑预测（用 ColabFold/本地 AlphaFold）。触发词：AlphaFold、UniProt、pLDDT、PAE、蛋白结构预测、蛋白组下载",
+    "path": "09-verticals/alphafold-database-access/SKILL.md"
+  },
+  {
+    "name": "anndata-data-structure",
+    "title": "AnnData 单细胞数据结构",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "anndata",
+      "single-cell",
+      "scverse",
+      "h5ad",
+      "zarr",
+      "sparse-matrix",
+      "bioinformatics",
+      "science"
+    ],
+    "triggers": [
+      "anndata",
+      "h5ad",
+      "单细胞数据结构",
+      "obs",
+      "var",
+      "obsm",
+      "layers",
+      "concat",
+      "backed 模式"
+    ],
+    "description": "当构建/读写/拼接单细胞带注释矩阵（X + obs/var/layers/obsm/uns），或处理超内存 .h5ad/.zarr 时使用；用 anndata 完成对象构建、I/O、子集视图、层与嵌入、按 obs/var 拼接并产出标准 AnnData/.h5ad，供 Scanpy/scvi-tools 消费；不适用于聚类/差异表达/可视化等分析（用 single-cell-rnaseq-analysis）与概率建模（用 scvi-tools）；触发词：anndata、h5ad、单细胞数据结构、obs、var、obsm、layers、concat、backed 模式",
+    "path": "09-verticals/anndata-data-structure/SKILL.md"
+  },
+  {
     "name": "arm-cortex-firmware-expert",
     "title": "ARM Cortex-M 固件与驱动开发",
     "vol": "09-verticals",
@@ -12446,6 +13944,39 @@
     ],
     "description": "当用 Python 处理天文/天体物理数据（坐标变换、单位换算、FITS 读写、表格、时间系统、WCS、宇宙学）时使用；用 Astropy 编写或调试分析代码并产出量纲一致、可复现的结果；不适用于通用数据清洗或非天文数值计算（改用 pandas/numpy）。触发词：astropy、天文数据、astronomy、SkyCoord、坐标变换、FITS、WCS、宇宙学、cosmology、天文单位、Quantity",
     "path": "09-verticals/astronomy-data-toolkit/SKILL.md"
+  },
+  {
+    "name": "autodock-vina-docking",
+    "title": "AutoDock Vina 分子对接",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "molecular-docking",
+      "autodock-vina",
+      "drug-discovery",
+      "virtual-screening",
+      "structural-biology",
+      "meeko",
+      "rdkit",
+      "pdbqt",
+      "science"
+    ],
+    "triggers": [
+      "分子对接",
+      "docking",
+      "AutoDock Vina",
+      "PDBQT",
+      "虚拟筛选",
+      "virtual screening",
+      "结合能",
+      "binding affinity",
+      "Meeko",
+      "对接盒"
+    ],
+    "description": "当已知结合口袋、需预测小分子与蛋白靶点的结合构象/亲和力或做虚拟筛选打分排序时使用；用 Vina Python API + Meeko/RDKit 完成受体与配体备制、定义搜索盒、对接打分、构象与结合能分析及批量筛选，产出 PDBQT 构象与能量排名 CSV；不适用于结合位点未知的盲对接（用 DiffDock）、需要 CNN 打分（用 GNINA）或自由能微扰类高精度计算。触发词：分子对接、docking、AutoDock Vina、PDBQT、虚拟筛选、virtual screening、结合能、binding affinity、Meeko、对接盒。",
+    "path": "09-verticals/autodock-vina-docking/SKILL.md"
   },
   {
     "name": "backtesting-frameworks",
@@ -12533,6 +14064,63 @@
     "path": "09-verticals/board-minutes-drafter/SKILL.md"
   },
   {
+    "name": "breakout-trade-planner",
+    "title": "突破交易计划生成",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "trading",
+      "breakout",
+      "vcp",
+      "minervini",
+      "position-sizing",
+      "risk-management",
+      "alpaca",
+      "python"
+    ],
+    "triggers": [
+      "突破交易",
+      "breakout",
+      "VCP",
+      "Minervini",
+      "建仓计划",
+      "仓位管理",
+      "止损目标",
+      "Alpaca"
+    ],
+    "description": "当手上有 VCP 筛选器 JSON 输出、想把候选标的转成可执行的突破建仓计划时使用；做出按 Minervini 方法学计算的入场/止损/目标价、以最坏成交价定仓位与组合热度上限、并产出 Alpaca 兼容的下单模板（预挂 stop-limit / 确认后 limit 括号单）的 JSON+Markdown 计划；不适用于实盘自动下单执行、行情数据采集或 VCP 形态筛选本身；触发词：突破交易、breakout、VCP、Minervini、建仓计划、仓位管理、止损目标、Alpaca",
+    "path": "09-verticals/breakout-trade-planner/SKILL.md"
+  },
+  {
+    "name": "canslim-growth-screener",
+    "title": "CANSLIM 成长股筛选",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "选股",
+      "成长股",
+      "CANSLIM",
+      "美股",
+      "相对强弱",
+      "动量",
+      "Python"
+    ],
+    "triggers": [
+      "CANSLIM",
+      "成长股筛选",
+      "相对强弱RS",
+      "创52周新高"
+    ],
+    "description": "当需要按 William O'Neil 的 CANSLIM 方法对美股做成长股筛选、寻找盈利加速+价格动量+创新高的标的时使用；用 FMP API（Finviz 兜底机构持股）计算 C/A/N/S/L/I/M 七因子并加权打分（0-100），产出排名榜单与 JSON+Markdown 报告；不适用于价值/股息选股、实盘下单，熊市（M=0）应转持币；触发词：CANSLIM、成长股筛选、相对强弱RS、创52周新高",
+    "path": "09-verticals/canslim-growth-screener/SKILL.md"
+  },
+  {
     "name": "capa-root-cause-officer",
     "title": "医疗器械 CAPA 与根因分析",
     "vol": "09-verticals",
@@ -12595,6 +14183,121 @@
     "path": "09-verticals/carrier-relationship-management/SKILL.md"
   },
   {
+    "name": "cellchat-cell-communication",
+    "title": "CellChat 细胞间通讯推断",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "cellchat",
+      "cell-communication",
+      "ligand-receptor",
+      "scrna-seq",
+      "r",
+      "bioinformatics",
+      "pathway",
+      "science"
+    ],
+    "triggers": [
+      "CellChat",
+      "细胞通讯",
+      "配体受体",
+      "cell-cell communication",
+      "CellChatDB",
+      "netVisual"
+    ],
+    "description": "当用 scRNA-seq 推断并可视化细胞间配体-受体通讯、做通路信号网络与跨条件比较时使用；用 R 包 CellChat 从 Seurat/计数矩阵建对象→CellChatDB 子集→过表达基因→通讯概率→通路聚合→网络中心性→弦图/热图/气泡图→双条件对比，产出交互表与图；不适用于纯 Python 流程或多数据库共识排名（用 liana）、配体到靶基因调控推断（用 NicheNet）、人/鼠以外物种（需自建库）；触发词：CellChat、细胞通讯、配体受体、cell-cell communication、CellChatDB、netVisual",
+    "path": "09-verticals/cellchat-cell-communication/SKILL.md"
+  },
+  {
+    "name": "celltypist-cell-annotation",
+    "title": "CellTypist 单细胞自动注释",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "celltypist",
+      "single-cell",
+      "scRNA-seq",
+      "cell-annotation",
+      "logistic-regression",
+      "majority-voting",
+      "anndata",
+      "scanpy",
+      "science",
+      "bioinformatics"
+    ],
+    "triggers": [
+      "CellTypist",
+      "细胞类型注释",
+      "多数投票",
+      "majority_voting",
+      "置信度",
+      "Immune_All_Low",
+      "预训练模型"
+    ],
+    "description": "当对已归一化的 scRNA-seq（AnnData）做参考库驱动的细胞类型自动注释时使用；用 CellTypist 预训练逻辑回归模型（45+：泛免疫/肺/脑/胎儿/肿瘤微环境）产出每细胞标签、簇级多数投票标签与置信度，并可训练自定义模型；不适用于需 VAE 概率标签迁移+批次校正（用 scVI/scANVI）或 10+ 方法集成共识（用 popV），也不替代手动 marker 注释；触发词：CellTypist、细胞类型注释、多数投票、majority_voting、置信度、Immune_All_Low、预训练模型",
+    "path": "09-verticals/celltypist-cell-annotation/SKILL.md"
+  },
+  {
+    "name": "cellxgene-census",
+    "title": "CELLxGENE Census 海量单细胞查询",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "science",
+      "genomics",
+      "single-cell",
+      "scRNA-seq",
+      "cellxgene",
+      "census",
+      "tiledb-soma",
+      "anndata",
+      "pytorch"
+    ],
+    "triggers": [
+      "cellxgene census",
+      "单细胞图谱查询",
+      "get_anndata"
+    ],
+    "description": "当需要从 CZ CELLxGENE Census（6100 万+ 标准化人/鼠单细胞观测）按细胞类型/组织/疾病/物种检索表达数据时使用；用 cellxgene_census Python API 做元数据查询、取 AnnData、out-of-core 流式处理或 PyTorch 训练，产出可下游分析的矩阵；不适用于分析自有 scRNA-seq 数据（用 scanpy）或操作 AnnData 对象（用 anndata）。触发词：cellxgene census、单细胞图谱查询、get_anndata",
+    "path": "09-verticals/cellxgene-census/SKILL.md"
+  },
+  {
+    "name": "chembl-bioactivity-database",
+    "title": "ChEMBL 生物活性数据库查询",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "science",
+      "drug-discovery",
+      "cheminformatics",
+      "bioactivity",
+      "database",
+      "rest-api",
+      "chembl"
+    ],
+    "triggers": [
+      "ChEMBL",
+      "生物活性",
+      "IC50",
+      "Ki",
+      "EC50",
+      "靶点抑制剂",
+      "SAR",
+      "相似性检索",
+      "药物机制"
+    ],
+    "description": "当需要查询化合物、靶点或 IC50/Ki/EC50 等生物活性数据、做相似性/子结构检索或 SAR 分析时使用；用纯 requests 调 ChEMBL 公共 REST/JSON API（免 SDK、免鉴权）检索化合物/靶点/活性/药物机制与适应症并产出结构化结果。不适用于 SMILES 操作/指纹/描述符（用 rdkit）或更广覆盖的 PubChem 化合物检索。触发词：ChEMBL、生物活性、IC50/Ki/EC50、靶点抑制剂、SAR、相似性检索、药物机制",
+    "path": "09-verticals/chembl-bioactivity-database/SKILL.md"
+  },
+  {
     "name": "cheminformatics-toolkit",
     "title": "化学信息学工具箱（RDKit）",
     "vol": "09-verticals",
@@ -12654,6 +14357,63 @@
     "path": "09-verticals/cirq-quantum-circuits/SKILL.md"
   },
   {
+    "name": "clinvar-database",
+    "title": "ClinVar 变异临床意义查询",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "science",
+      "genomics",
+      "bioinformatics",
+      "ClinVar",
+      "NCBI",
+      "E-utilities",
+      "变异注释",
+      "临床基因组学",
+      "数据库查询"
+    ],
+    "triggers": [
+      "ClinVar",
+      "致病性",
+      "临床意义",
+      "rsID 查询",
+      "致病变异"
+    ],
+    "description": "当需要查询某变异的临床意义/致病性/疾病关联或筛出基因致病变异时使用；通过 NCBI E-utilities（ESearch/ESummary/EFetch）按基因/rsID/疾病/审阅星级检索 ClinVar，产出 ClinSig、审阅状态、疾病与提交者数据；不适用于 GWAS 群体关联（用 gwas-database）、变异功能后果预测（用 Ensembl VEP）、体细胞肿瘤变异（用 cosmic-database）。触发词：ClinVar、致病性、临床意义、rsID 查询、致病变异",
+    "path": "09-verticals/clinvar-database/SKILL.md"
+  },
+  {
+    "name": "cnvkit-copy-number",
+    "title": "CNVkit 体细胞拷贝数变异检测",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "cnvkit",
+      "cnv",
+      "copy-number",
+      "bioinformatics",
+      "somatic",
+      "wes",
+      "wgs",
+      "science"
+    ],
+    "triggers": [
+      "CNVkit",
+      "拷贝数变异",
+      "CNV",
+      "体细胞",
+      "扩增缺失",
+      "肿瘤纯度",
+      "SEG"
+    ],
+    "description": "当需要从 WES/WGS/靶向 panel 的 BAM 检测体细胞拷贝数变异（CNV）时使用；用 CNVkit（v0.9.x，CLI+cnvlib）对 target/antitarget bin 测深、对参照归一、CBS/HMM 分段、call 扩增/缺失、估纯度倍性并产出 cnr/cns/scatter/diagram 及 VCF/SEG/BED；不适用于带大型 PoN 的深度 WGS 队列（用 GATK CNV）或需 B-allele 频率建模（用 Control-FREEC）；触发词：CNVkit、拷贝数变异、CNV、体细胞、扩增缺失、肿瘤纯度、SEG",
+    "path": "09-verticals/cnvkit-copy-number/SKILL.md"
+  },
+  {
     "name": "component-sourcing-search",
     "title": "电子元器件选型采购搜索",
     "vol": "09-verticals",
@@ -12685,6 +14445,35 @@
     ],
     "description": "当为生产制造（JLCPCB/PCBWay 贴片）做元器件选型、查库存价格、下载数据手册或为 BOM 匹配 LCSC 编号时使用；用免鉴权的 jlcsearch 社区 API 按 MPN 或 Cxxxxx 检索立创/嘉立创零件、抓取规格与各仓库存、下载 PDF 手册并维护本地 datasheets 目录；不适用于打样级单买（应用 DigiKey/Mouser）、PCB 制板下单或原理图设计本身；触发词：LCSC、立创商城、嘉立创、JLCPCB、Cxxxxx、元器件选型、生产采购、BOM 选型、数据手册下载、datasheet、component sourcing",
     "path": "09-verticals/component-sourcing-search/SKILL.md"
+  },
+  {
+    "name": "contract-playbook-review",
+    "title": "合同对照评审红线",
+    "vol": "09-verticals",
+    "domain": "领域/legal",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "legal",
+      "contract-review",
+      "redline",
+      "playbook",
+      "negotiation",
+      "risk-assessment"
+    ],
+    "triggers": [
+      "合同评审",
+      "红线",
+      "playbook",
+      "条款评审",
+      "redline",
+      "谈判策略",
+      "limitation of liability",
+      "indemnification",
+      "review contract"
+    ],
+    "description": "当需对照团队谈判 playbook 评审供应商/客户合同、做逐条偏离标记并准备谈判红线时使用；产出含执行摘要、绿/黄/红逐条标记、可直接插入的红线建议、业务影响与谈判优先级的评审报告；不适用于起草合同、出具正式法律意见、单纯 NDA 速审（用 nda-triage-reviewer）；触发词：合同评审、红线、playbook、条款评审、redline、谈判策略、limitation of liability、indemnification、review contract",
+    "path": "09-verticals/contract-playbook-review/SKILL.md"
   },
   {
     "name": "customs-trade-compliance",
@@ -12778,6 +14567,67 @@
     "path": "09-verticals/dcf-valuation-model/SKILL.md"
   },
   {
+    "name": "deepchem-drug-discovery",
+    "title": "DeepChem 药物发现深度学习",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "deepchem",
+      "drug-discovery",
+      "molecular-ml",
+      "gnn",
+      "moleculenet",
+      "qsar",
+      "cheminformatics",
+      "deep-learning",
+      "science"
+    ],
+    "triggers": [
+      "deepchem",
+      "药物发现",
+      "分子性质预测",
+      "MoleculeNet",
+      "图神经网络",
+      "AttentiveFP",
+      "ChemBERTa",
+      "QSAR"
+    ],
+    "description": "当用 DeepChem 从 SMILES 训练分子性质预测模型、跑 MoleculeNet 基准、训练图神经网络或微调化学语言模型时使用；走加载-特征化-划分-训练-评估流水线产出模型与指标；不适用于无需深度学习的指纹化学信息学、仅特征化不训模型、蛋白对接；触发词：deepchem、药物发现、分子性质预测、MoleculeNet、图神经网络、AttentiveFP、ChemBERTa、QSAR",
+    "path": "09-verticals/deepchem-drug-discovery/SKILL.md"
+  },
+  {
+    "name": "deeptools-ngs-analysis",
+    "title": "deepTools NGS 覆盖度与信号可视化",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "bioinformatics",
+      "NGS",
+      "deeptools",
+      "ChIP-seq",
+      "ATAC-seq",
+      "RNA-seq",
+      "bigWig",
+      "coverage",
+      "visualization",
+      "QC"
+    ],
+    "triggers": [
+      "bigWig",
+      "bamCoverage",
+      "computeMatrix",
+      "plotHeatmap",
+      "ChIP-seq",
+      "ATAC-seq"
+    ],
+    "description": "当处理 ChIP/ATAC/RNA-seq 等 NGS 比对数据、需要把 BAM 转成归一化覆盖度轨道、做样本质控或绘制特征区信号图时使用；做 BAM→bigWig（RPGC/CPM/RPKM）归一化、相关性/PCA/指纹质控、TSS/peak 附近热图与谱图等产物；不适用于读段比对（用 STAR/BWA/bowtie2）、peak calling（用 MACS2/HOMER）、BAM/VCF 编程操作（用 pysam）；触发词：bigWig、bamCoverage、computeMatrix、plotHeatmap、ChIP-seq、ATAC-seq",
+    "path": "09-verticals/deeptools-ngs-analysis/SKILL.md"
+  },
+  {
     "name": "defi-protocol-templates",
     "title": "DeFi 协议合约模板",
     "vol": "09-verticals",
@@ -12861,6 +14711,36 @@
     ],
     "description": "当读写/匿名化 DICOM 医学影像（CT、MRI、X 光、超声、PET）或提取像素与元数据时使用；用 pydicom 完成读写、像素数组提取与窗宽窗位、PHI 匿名化、格式转换、压缩解压与序列三维重建；不适用于通用图像处理或非 DICOM 格式（PNG/JPEG/NIfTI 直接处理）。触发词：DICOM、pydicom、医学影像、dcm、PACS、像素数据、影像匿名化、医学图像",
     "path": "09-verticals/dicom-medical-imaging/SKILL.md"
+  },
+  {
+    "name": "diffdock-blind-docking",
+    "title": "DiffDock 扩散模型盲对接",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "diffdock",
+      "docking",
+      "blind-docking",
+      "diffusion-model",
+      "drug-discovery",
+      "structural-biology",
+      "rdkit",
+      "science"
+    ],
+    "triggers": [
+      "盲对接",
+      "DiffDock",
+      "蛋白配体对接",
+      "结合位点预测",
+      "扩散对接",
+      "blind docking",
+      "docking pose",
+      "置信度排序"
+    ],
+    "description": "当不知道配体在蛋白何处结合、需要盲对接或传统对接失败、想探索多种结合模式时使用；用 DiffDock 扩散生成模型从蛋白 PDB 与配体 SMILES/SDF 直接采样并按置信度排序的结合构象，提取口袋残基、可视化、可转 PDBQT 交 Vina 重打分；不适用于口袋已知且要高通量（用 Vina/GNINA）、>1万化合物大规模筛选（用 DiffDock-L/GNINA）、量子化学或纯实验统计；触发词：盲对接、DiffDock、蛋白配体对接、结合位点预测、扩散对接、blind docking、docking pose、置信度排序",
+    "path": "09-verticals/diffdock-blind-docking/SKILL.md"
   },
   {
     "name": "diligence-issue-extractor",
@@ -12957,6 +14837,33 @@
     "path": "09-verticals/dsar-response-builder/SKILL.md"
   },
   {
+    "name": "earnings-trade-analyzer",
+    "title": "财报后交易五因子评分",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "美股",
+      "量化筛选",
+      "动量交易",
+      "财报",
+      "PEAD",
+      "技术分析",
+      "FMP",
+      "评分系统"
+    ],
+    "triggers": [
+      "财报后交易",
+      "跳空评分",
+      "PEAD",
+      "动量筛选"
+    ],
+    "description": "当筛选近日财报后股票、量化排序财报跳空动量(PEAD)候选时使用；用 FMP 数据按五因子(跳空幅度/财报前趋势/量能/MA200/MA50)加权打 0-100 分并评 A/B/C/D 级，产出 JSON+Markdown 报告与可执行建议；不适用于盈利预测、基本面估值、实盘下单或非美股标的；触发词：财报后交易、跳空评分、PEAD、动量筛选",
+    "path": "09-verticals/earnings-trade-analyzer/SKILL.md"
+  },
+  {
     "name": "emc-precompliance-analyzer",
     "title": "EMC 电磁兼容预合规分析",
     "vol": "09-verticals",
@@ -13030,6 +14937,35 @@
     "path": "09-verticals/employment-contract-drafter/SKILL.md"
   },
   {
+    "name": "esignature-routing",
+    "title": "电子签署路由准备",
+    "vol": "09-verticals",
+    "domain": "领域/legal",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "legal",
+      "e-signature",
+      "contract",
+      "signing-workflow",
+      "execution",
+      "checklist"
+    ],
+    "triggers": [
+      "电子签署",
+      "送签",
+      "签字",
+      "签署顺序",
+      "e-signature",
+      "签署请求",
+      "用印",
+      "signature request",
+      "envelope"
+    ],
+    "description": "当一份合同已定稿、准备送签电子签名（e-signature）时使用；先跑签前核对清单、配置签署顺序与抄送，再生成签署请求配置或落地签署指引；不适用于起草/谈判合同条款、提供法律意见、对文档是否「已定稿」拍板；触发词：电子签署、送签、签字、签署顺序、e-signature、签署请求、用印、signature request、envelope",
+    "path": "09-verticals/esignature-routing/SKILL.md"
+  },
+  {
     "name": "eu-ai-act-compliance",
     "title": "欧盟 AI 法案合规分级",
     "vol": "09-verticals",
@@ -13093,6 +15029,40 @@
     ],
     "description": "当为进入欧盟市场的医疗器械（含软件 SaMD）做 MDR 2017/745 合规时使用；做器械分类、技术文档、临床证据、上市后监督与 EUDAMED/UDI 注册并产出可提交公告机构的合规材料；不适用于美国 FDA、IVDR 体外诊断或非医疗器械产品。触发词：MDR、附录VIII分类、CER临床评价、PMCF、EUDAMED、UDI",
     "path": "09-verticals/eu-mdr-745-specialist/SKILL.md"
+  },
+  {
+    "name": "fastp-fastq-preprocessing",
+    "title": "fastp FASTQ 质控与接头修剪",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "bioinformatics",
+      "genomics",
+      "fastp",
+      "fastq",
+      "qc",
+      "adapter-trimming",
+      "ngs",
+      "rnaseq",
+      "preprocessing",
+      "multiqc",
+      "science"
+    ],
+    "triggers": [
+      "fastp",
+      "FASTQ",
+      "接头修剪",
+      "adapter trimming",
+      "质控",
+      "QC",
+      "polyA",
+      "双端",
+      "MultiQC"
+    ],
+    "description": "当对 Illumina FASTQ（单端/双端、RNA-seq/WGS/WES/ChIP-seq/ATAC-seq）做比对前预处理时使用；用 fastp 一遍完成接头自动识别、质量/长度过滤、双端重叠校正、polyX 去尾，产出修剪后的 fastq.gz 和 HTML+JSON 质控报告，供 MultiQC 汇总；不适用于已比对 BAM/VCF 解析、需 FastQC 逐碱基详报或 Trimmomatic 滑窗精控的场景。触发词：fastp、FASTQ、接头修剪、adapter trimming、质控、QC、polyA、双端、MultiQC",
+    "path": "09-verticals/fastp-fastq-preprocessing/SKILL.md"
   },
   {
     "name": "fda-device-consultant",
@@ -13166,6 +15136,69 @@
     ],
     "description": "当为美国市场医疗器械做内部 QSR 审计、FDA 现场检查准备或 Form 483 整改时使用；用六问逼检法核查投诉/MDR、过程验证、DHR、CAPA、标签、483 闭环，产出检查就绪度判定与 Top3 行动清单；不适用于 ISO 13485 单独审计或非美国市场。触发词：FDA、QSR、21 CFR 820、Form 483、MDR",
     "path": "09-verticals/fda-qsr-audit-prep/SKILL.md"
+  },
+  {
+    "name": "finviz-screener-builder",
+    "title": "FinViz 选股器 URL 构建",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "选股",
+      "FinViz",
+      "URL构建",
+      "量化筛选",
+      "技术面",
+      "基本面"
+    ],
+    "triggers": [
+      "FinViz",
+      "选股",
+      "筛选股票",
+      "高配当成长股",
+      "超卖大盘股"
+    ],
+    "description": "当用户用自然语言描述选股条件（基本面/技术面/主题）并想在 FinViz 筛选时使用；做将口语需求映射为 FinViz 过滤代码、拼装并打开筛选器 URL；不适用于单只个股深度分析、持仓组合复盘、图表形态识别或财报事件选股；触发词：FinViz、选股、筛选股票、高配当成长股、超卖大盘股",
+    "path": "09-verticals/finviz-screener-builder/SKILL.md"
+  },
+  {
+    "name": "gatk-variant-calling",
+    "title": "GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "gatk",
+      "bioinformatics",
+      "genomics",
+      "variant-calling",
+      "germline",
+      "wgs",
+      "wes",
+      "vcf",
+      "gvcf",
+      "bqsr",
+      "science"
+    ],
+    "triggers": [
+      "GATK",
+      "HaplotypeCaller",
+      "GVCF",
+      "GenotypeGVCFs",
+      "BQSR",
+      "VQSR",
+      "种系变异",
+      "SNP",
+      "indel",
+      "联合分型",
+      "变异检测",
+      "joint genotyping"
+    ],
+    "description": "当需要从 WGS/WES 的 BWA-MEM2 比对、去重、BQSR 后 BAM 检测种系 SNP/indel 并对多样本队列联合分型时使用；用 GATK4 最佳实践流程跑 BQSR→HaplotypeCaller(GVCF)→GenomicsDBImport→GenotypeGVCFs→VQSR/硬过滤，产出每样本 GVCF 与过滤后的多样本 VCF；不适用于体细胞/肿瘤变异（用 Mutect2）、追求更快可改用 DeepVariant、单纯文件解析用 genomic-file-toolkit。触发词：GATK、HaplotypeCaller、GVCF、GenotypeGVCFs、BQSR、VQSR、种系变异、SNP、indel、联合分型、变异检测、joint genotyping",
+    "path": "09-verticals/gatk-variant-calling/SKILL.md"
   },
   {
     "name": "gdpr-data-handler",
@@ -13304,6 +15337,77 @@
     "path": "09-verticals/genomic-file-toolkit/SKILL.md"
   },
   {
+    "name": "gget-genomic-databases",
+    "title": "gget 统一基因组数据库接口",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "bioinformatics",
+      "genomics",
+      "gget",
+      "ensembl",
+      "blast",
+      "alphafold",
+      "enrichr",
+      "opentargets",
+      "cellxgene",
+      "cbioportal",
+      "science"
+    ],
+    "triggers": [
+      "gget",
+      "Ensembl 查基因",
+      "gget search",
+      "info",
+      "seq",
+      "BLAST",
+      "AlphaFold",
+      "Enrichr",
+      "OpenTargets",
+      "CELLxGENE",
+      "cBioPortal"
+    ],
+    "description": "当需要用一个统一的 Python/CLI 接口（gget）跨 Ensembl、UniProt、NCBI、BLAST/BLAT、AlphaFold、Enrichr、OpenTargets、CELLxGENE、cBioPortal/COSMIC、ARCHS4 等 20+ 基因组数据库做基因查询、取序列、比对、结构预测、富集与疾病/药物关联时使用；做选模块、调 gget 取数并产出 DataFrame/JSON/FASTA/PDB 结果；不适用于大批量或高级 BLAST 参数（用 biopython）与带限速的多库 SDK 编排（用 bioservices）；触发词：gget、Ensembl 查基因、gget search/info/seq、BLAST、AlphaFold、Enrichr、OpenTargets、CELLxGENE、cBioPortal",
+    "path": "09-verticals/gget-genomic-databases/SKILL.md"
+  },
+  {
+    "name": "gnomad-population-database",
+    "title": "gnomAD 人群变异频率查询",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "science",
+      "bioinformatics",
+      "genomics",
+      "gnomad",
+      "graphql",
+      "variant",
+      "population-frequency",
+      "constraint",
+      "clinical"
+    ],
+    "triggers": [
+      "gnomAD",
+      "人群频率",
+      "等位基因频率",
+      "AF",
+      "FAF95",
+      "pLI",
+      "LOEUF",
+      "约束分数",
+      "LoF",
+      "祖先分层",
+      "罕见变异",
+      "variant frequency"
+    ],
+    "description": "当需要查 gnomAD v4 人群等位基因频率、按祖先群体(AFR/AMR/EAS/NFE/SAS/FIN/ASJ/MID)分层、基因约束(pLI/LOEUF/missense z)或区域覆盖度，以判断变异稀有/基因 LoF 不耐受时使用；做 GraphQL 取数并产出 AF/FAF95/约束分数表或 CSV/图；不适用于致病性判定(用 ClinVar)、GWAS 关联(用 GWAS Catalog)或本地 VCF 解析；触发词：gnomAD、人群频率、等位基因频率、AF、FAF95、pLI、LOEUF、约束分数、LoF、祖先分层、罕见变异、variant frequency",
+    "path": "09-verticals/gnomad-population-database/SKILL.md"
+  },
+  {
     "name": "guided-statistical-analysis",
     "title": "统计分析与检验选择",
     "vol": "09-verticals",
@@ -13385,6 +15489,34 @@
     "path": "09-verticals/hardware-doc-generator/SKILL.md"
   },
   {
+    "name": "harmony-batch-correction",
+    "title": "Harmony 单细胞批次效应校正",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "单细胞",
+      "scRNA-seq",
+      "批次校正",
+      "Harmony",
+      "scanpy",
+      "Seurat",
+      "生物信息学",
+      "降维整合"
+    ],
+    "triggers": [
+      "批次校正",
+      "batch correction",
+      "Harmony",
+      "单细胞整合",
+      "harmonypy",
+      "批次效应"
+    ],
+    "description": "当需要整合来自不同样本/供体/测序批次的单细胞数据并消除技术性批次效应时使用；在 PCA 之后、UMAP 之前对嵌入做 Harmony 校正，产出 X_pca_harmony 校正嵌入及下游邻接图/UMAP/Leiden 聚类，不修改原始计数矩阵；不适用于需要概率式 VAE 校正(scVI)、纯图整合(BBKNN)或锚点式整合(Seurat CCA)的场景；触发词：批次校正、batch correction、Harmony、单细胞整合、harmonypy、批次效应",
+    "path": "09-verticals/harmony-batch-correction/SKILL.md"
+  },
+  {
     "name": "health-goal-analyzer",
     "title": "健康目标分析器",
     "vol": "09-verticals",
@@ -13415,6 +15547,35 @@
     ],
     "description": "当需要为个人健康管理评估目标质量、追踪进度并给出优化建议时使用；做 SMART 目标验证、进度/习惯/动机追踪、健康数据关联分析与 ECharts 可视化报告产出；不适用于医疗诊断、开处方或处理进食障碍/强迫行为。触发词：健康目标分析、SMART目标、health goal、目标进度追踪、habit streak、习惯养成、动机评估、数据关联分析、减重运动睡眠关联",
     "path": "09-verticals/health-goal-analyzer/SKILL.md"
+  },
+  {
+    "name": "institutional-flow-tracker",
+    "title": "13F 机构持仓流向追踪",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "13f",
+      "institutional",
+      "equity",
+      "screening",
+      "python",
+      "fmp"
+    ],
+    "triggers": [
+      "13F",
+      "机构持仓",
+      "机构流向",
+      "聪明钱",
+      "对冲基金持仓",
+      "institutional ownership",
+      "smart money",
+      "持仓变动"
+    ],
+    "description": "当需要用 SEC 13F 季报追踪机构（对冲基金/共同基金）持仓增减、识别「聪明钱」吸筹或派发的个股时使用；用 FMP API 跑筛选脚本与单股深挖，产出含持仓占比/季度变动/持有机构数/集中度/可靠性评级的中文研报；不适用于日内实时信号、微盘股(<1亿美元)及 3 个月内短线择时；触发词：13F、机构持仓、机构流向、聪明钱、对冲基金持仓、institutional ownership、smart money、持仓变动",
+    "path": "09-verticals/institutional-flow-tracker/SKILL.md"
   },
   {
     "name": "inventory-demand-planning",
@@ -13654,6 +15815,30 @@
     "path": "09-verticals/legal-hold-manager/SKILL.md"
   },
   {
+    "name": "legal-risk-classifier",
+    "title": "法律风险分级评估",
+    "vol": "09-verticals",
+    "domain": "领域/legal",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "法律",
+      "风险管理",
+      "合规",
+      "合同",
+      "评估框架"
+    ],
+    "triggers": [
+      "法律风险",
+      "合同风险",
+      "风险定级",
+      "是否需外部律师",
+      "风险矩阵"
+    ],
+    "description": "当需要评估合同/交易/事项的法律风险并定级时使用；做严重度×可能性打分、按 GREEN/YELLOW/ORANGE/RED 分级、判定是否升级至资深/外部法律顾问，并产出风险评估备忘与风险登记条目；不适用于出具正式法律意见、个案诉讼策略或替代合格律师审查；触发词：法律风险、合同风险、风险定级、是否需外部律师、风险矩阵",
+    "path": "09-verticals/legal-risk-classifier/SKILL.md"
+  },
+  {
     "name": "litigation-chronology-builder",
     "title": "案件事实时间线构建",
     "vol": "09-verticals",
@@ -13683,6 +15868,120 @@
     ],
     "description": "当需要从诉讼文档（举证材料/调查/卷宗/邮件/合同）抽取带日期事件、构建或更新案件事实时间线（chronology/timeline）时使用；做按案件理论抽取、去重、标注重要性与特权状态的时间线及事实陈述骨架；不适用于无源臆造事件、替律师裁断特权或矛盾、保证完整性；触发词：时间线、事实时间线、chronology、timeline、案件年表、统计事实、事实陈述、statement of facts、举证时间线、证人时间线。",
     "path": "09-verticals/litigation-chronology-builder/SKILL.md"
+  },
+  {
+    "name": "macro-regime-detector",
+    "title": "宏观周期切换检测",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "macro",
+      "regime-detection",
+      "cross-asset",
+      "asset-allocation",
+      "yield-curve",
+      "python",
+      "fmp"
+    ],
+    "triggers": [
+      "宏观体制",
+      "市场体制切换",
+      "结构性轮动",
+      "长期配置",
+      "RSP SPY",
+      "收益率曲线",
+      "信用利差",
+      "macro regime"
+    ],
+    "description": "当判断当前宏观市场处于何种结构性体制、是否正在发生1-2年级别的体制切换、或需要据此做战略性资产配置时使用；做用月频跨资产比价(RSP/SPY、10Y-2Y、HYG/LQD、IWM/SPY、SPY/TLT、XLY/XLP)的三层信号检测，加权打分并按决策树分类为集中/扩散/收缩/通胀/过渡五种体制，产出切换概率与配置建议的JSON+Markdown报告；不适用于2-8周战术择时、日内信号、个股选股或实盘下单；触发词：宏观体制、市场体制切换、结构性轮动、长期配置、RSP SPY、收益率曲线、信用利差、macro regime",
+    "path": "09-verticals/macro-regime-detector/SKILL.md"
+  },
+  {
+    "name": "macs3-peak-calling",
+    "title": "MACS3 ChIP/ATAC-seq 峰检测",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "生物信息",
+      "基因组学",
+      "表观遗传",
+      "ChIP-seq",
+      "ATAC-seq",
+      "峰检测",
+      "MACS3",
+      "science"
+    ],
+    "triggers": [
+      "MACS3",
+      "峰检测",
+      "ChIP-seq",
+      "ATAC-seq",
+      "narrowPeak",
+      "broadPeak"
+    ],
+    "description": "当需从 ChIP-seq/ATAC-seq/CUT&RUN 比对 BAM 中检测富集峰时使用；用 macs3 callpeak 以泊松模型相对 input/IgG 找富集区，产出 narrowPeak/broadPeak/summits 及信号轨；不适用于 RNA-seq 表达定量、变体检测或差异结合统计本身（交给 DiffBind/DESeq2）；触发词：MACS3、峰检测、ChIP-seq、ATAC-seq、narrowPeak、broadPeak",
+    "path": "09-verticals/macs3-peak-calling/SKILL.md"
+  },
+  {
+    "name": "market-breadth-analyzer",
+    "title": "市场宽度健康度评分",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "market-breadth",
+      "quant",
+      "equity",
+      "scoring",
+      "python"
+    ],
+    "triggers": [
+      "市场宽度",
+      "涨跌广度",
+      "参与率",
+      "breadth",
+      "宽度健康度",
+      "advance-decline",
+      "涨势是否广泛",
+      "仓位建议"
+    ],
+    "description": "当需要量化市场宽度健康度、判断涨势是否广泛、给出基于宽度的仓位建议时使用；用 TraderMonty 公开 CSV（免 API Key）跑 Python 脚本，按 6 维加权算 0-100 综合分并产出含健康区间、最强/最弱分项、关注价位、趋势的 JSON+Markdown 报告；不适用于个股选股/择时信号、回测撮合、自定义数据源接入与图形宽度图解读；触发词：市场宽度、涨跌广度、参与率、breadth、宽度健康度、advance-decline、涨势是否广泛、仓位建议",
+    "path": "09-verticals/market-breadth-analyzer/SKILL.md"
+  },
+  {
+    "name": "market-top-detector",
+    "title": "市场顶部概率检测",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "量化",
+      "择时",
+      "风险管理",
+      "美股",
+      "市场广度",
+      "情绪指标",
+      "O'Neil",
+      "Minervini"
+    ],
+    "triggers": [
+      "市场顶部",
+      "是否减仓",
+      "派发日",
+      "防御板块轮动",
+      "领涨股走弱",
+      "调整概率"
+    ],
+    "description": "当判断美股是否临近顶部、是否该减仓时使用；做 6 维量化打分（0-100）输出顶部概率与风险区间及行动建议；不适用于长周期泡沫评估或个股选股；触发词：市场顶部、是否减仓、派发日、防御板块轮动、领涨股走弱、调整概率",
+    "path": "09-verticals/market-top-detector/SKILL.md"
   },
   {
     "name": "marketing-claims-reviewer",
@@ -13785,6 +16084,35 @@
     "path": "09-verticals/math-proof-writer/SKILL.md"
   },
   {
+    "name": "maxquant-proteomics",
+    "title": "MaxQuant 蛋白质组学定量流程",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "proteomics",
+      "maxquant",
+      "perseus",
+      "lfq",
+      "silac",
+      "mass-spectrometry",
+      "differential-abundance",
+      "science"
+    ],
+    "triggers": [
+      "MaxQuant",
+      "proteinGroups",
+      "LFQ",
+      "SILAC",
+      "Perseus",
+      "火山图",
+      "蛋白质组学"
+    ],
+    "description": "当用 MaxQuant 做 LFQ/SILAC/TMT 蛋白质组学定量、并在 Python 中分析 proteinGroups.txt（过滤污染/decoy、log2 中位归一、MNAR 补值、t 检验+FDR、火山图、GO/通路富集）时使用；产出差异丰度表与发表级图表；不适用于 Thermo 原生处理（用 Proteome Discoverer）、GPU 加速搜库或 DIA（用 FragPipe/MSFragger）；触发词：MaxQuant、proteinGroups、LFQ、SILAC、Perseus、火山图、蛋白质组学",
+    "path": "09-verticals/maxquant-proteomics/SKILL.md"
+  },
+  {
     "name": "merger-accretion-dilution-model",
     "title": "并购增厚/摊薄分析模型",
     "vol": "09-verticals",
@@ -13846,6 +16174,39 @@
     ],
     "description": "当需要对蛋白质/小分子体系做分子动力学（MD）模拟与轨迹分析时使用；用 OpenMM 搭建体系并跑能量最小化、NVT/NPT 平衡与产能模拟，再用 MDAnalysis 算 RMSD/RMSF/接触/自由能并出图；不适用于量子化学/电子结构计算、对接打分（docking）或纯实验数据统计；触发词：分子动力学、MD模拟、OpenMM、MDAnalysis、RMSD、RMSF、力场、蛋白质动力学、molecular dynamics、trajectory analysis、PDBFixer",
     "path": "09-verticals/molecular-dynamics-simulation/SKILL.md"
+  },
+  {
+    "name": "muon-multiomics-singlecell",
+    "title": "muon 多模态单细胞多组学分析",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "muon",
+      "mudata",
+      "multiomics",
+      "single-cell",
+      "cite-seq",
+      "multiome",
+      "wnn",
+      "atac",
+      "mofa",
+      "science"
+    ],
+    "triggers": [
+      "muon",
+      "MuData",
+      "多组学",
+      "CITE-seq",
+      "10x Multiome",
+      "WNN",
+      "ATAC",
+      "CLR",
+      "MOFA"
+    ],
+    "description": "当对同一批细胞的两种及以上组学（10x Multiome RNA+ATAC、CITE-seq RNA+蛋白等）做联合分析时使用；用 muon/MuData 按模态分别预处理（ATAC 走 TF-IDF/LSI、蛋白走 CLR）并构建 WNN 联合嵌入、聚类、MOFA+ 因子分析，产出联合 UMAP/聚类/跨模态 marker；不适用于单一 RNA 模态（用 scanpy）、需深度概率批次校正（用 scvi-tools MultiVI/totalVI）；触发词：muon、MuData、多组学、CITE-seq、10x Multiome、WNN、ATAC、CLR、MOFA",
+    "path": "09-verticals/muon-multiomics-singlecell/SKILL.md"
   },
   {
     "name": "nda-triage-reviewer",
@@ -13942,6 +16303,450 @@
     "path": "09-verticals/nih-grant-finder/SKILL.md"
   },
   {
+    "name": "octagon-balance-sheet-data",
+    "title": "资产负债表数据检索",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "财务报表",
+      "资产负债表",
+      "财务分析",
+      "杠杆",
+      "Octagon",
+      "MCP"
+    ],
+    "triggers": [
+      "资产负债表",
+      "总资产",
+      "净负债",
+      "资本结构"
+    ],
+    "description": "当需要查询上市公司资产负债表（总资产、流动/非流动资产、总负债、股东权益、净负债）以分析财务状况、资本结构或杠杆水平时使用；通过 Octagon MCP 的 octagon-agent 工具按 ticker / 期数 / 条数拉取历史数据并生成结构化表格与趋势观察；不适用于实时报价、下单交易或未配置 Octagon MCP 的环境；触发词：资产负债表、总资产、净负债、资本结构",
+    "path": "09-verticals/octagon-balance-sheet-data/SKILL.md"
+  },
+  {
+    "name": "octagon-cash-flow-statement-data",
+    "title": "现金流量表数据检索",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "财务分析",
+      "现金流",
+      "自由现金流",
+      "资本配置",
+      "MCP",
+      "octagon"
+    ],
+    "triggers": [
+      "现金流量表",
+      "cash flow statement",
+      "经营现金流",
+      "自由现金流",
+      "FCF",
+      "资本开支",
+      "现金生成",
+      "octagon-agent"
+    ],
+    "description": "当需要按 Ticker 拉取上市公司实时或历史现金流量表（净利润、经营/投资/筹资现金流、自由现金流、期末现金）并据此判断现金生成、资本配置与流动性趋势时使用；通过 Octagon MCP 的 octagon-agent 工具取数并输出多期对照表与关键观察；不适用于实盘下单、自建三表建模逐项重算或离线无 MCP 的场景。触发词：现金流量表、cash flow statement、经营现金流、自由现金流、FCF、资本开支、现金生成、octagon-agent",
+    "path": "09-verticals/octagon-cash-flow-statement-data/SKILL.md"
+  },
+  {
+    "name": "octagon-earnings-call-analysis",
+    "title": "财报电话会纪要分析",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "财报",
+      "电话会议",
+      "前瞻指引",
+      "投研",
+      "Octagon MCP",
+      "尽调"
+    ],
+    "triggers": [
+      "财报电话会",
+      "earnings call",
+      "前瞻指引"
+    ],
+    "description": "当需要从财报电话会（earnings call）逐字稿中提取前瞻指引、战略重点、运营挑战与供应链信号并自动生成深挖追问时使用；借助 Octagon MCP 分析指定股票代码的最新电话会纪要，产出含营收/毛利/费用/税率指引、风险因素、AI 追问与逐字稿页码引用的结构化分析；不适用于实盘交易、行情数据拉取或无 Octagon MCP/API Key 的环境；触发词：财报电话会、earnings call、前瞻指引",
+    "path": "09-verticals/octagon-earnings-call-analysis/SKILL.md"
+  },
+  {
+    "name": "octagon-earnings-call-sentiment",
+    "title": "财报会管理层情绪分析",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "财报电话会",
+      "情绪分析",
+      "管理层语气",
+      "前瞻指引",
+      "MCP",
+      "投研"
+    ],
+    "triggers": [
+      "财报电话会情绪",
+      "管理层语气",
+      "前瞻信心"
+    ],
+    "description": "当需要评估上市公司财报电话会上管理层语气、信心与前瞻措辞时使用；经 Octagon MCP 对最新一期电话会做情绪/语气分析，产出乐观度、信心等级、风险表态、季度环比情绪变化及带页码引用的结构化结论；不适用于无法获取转写文本的非公开会，也不直接给出买卖/下单建议；触发词：财报电话会情绪、管理层语气、前瞻信心",
+    "path": "09-verticals/octagon-earnings-call-sentiment/SKILL.md"
+  },
+  {
+    "name": "octagon-equity-research-analyst",
+    "title": "股票研究分析编排",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "equity-research",
+      "投研报告",
+      "投资评级",
+      "估值",
+      "ESG",
+      "Octagon",
+      "MCP",
+      "编排"
+    ],
+    "triggers": [
+      "股票研究",
+      "equity research",
+      "首次覆盖",
+      "initiation of coverage",
+      "投资评级",
+      "目标价",
+      "买入卖出",
+      "尽职调查",
+      "同业比较",
+      "ESG",
+      "Octagon"
+    ],
+    "description": "当需要对一家上市公司做完整股票研究、撰写首次覆盖（Initiation of Coverage）报告、做尽职调查或形成带量化支撑的投资评级时使用；做法是编排 Octagon MCP 全套财务分析子技能（财报/增长/分部/估值/ESG/同业），按六阶段取数并合成机构级研究报告；不适用于实盘下单、单一财报数据抓取或不含投资观点的纯数据整理。触发词：股票研究、equity research、首次覆盖、initiation of coverage、投资评级、目标价、买入卖出、尽职调查、同业比较、ESG、Octagon",
+    "path": "09-verticals/octagon-equity-research-analyst/SKILL.md"
+  },
+  {
+    "name": "octagon-esg-ratings",
+    "title": "ESG评级检索（MSCI / Sustainalytics）",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "ESG",
+      "可持续投资",
+      "风险评估",
+      "责任投资",
+      "MCP",
+      "octagon"
+    ],
+    "triggers": [
+      "ESG评级",
+      "MSCI",
+      "Sustainalytics",
+      "可持续性评分",
+      "行业ESG排名",
+      "octagon-agent"
+    ],
+    "description": "当需要检索某上市公司的 ESG 评级与可持续性评分、做 ESG 筛选、风险评估或组合合规对齐时使用；通过 Octagon MCP 的 octagon-agent 工具按 Ticker 拉取 MSCI 评级、Sustainalytics 风险评分、E/S/G 分项与行业排名，并按分区表解读；不适用于非上市/无评级覆盖标的、需自建 ESG 评分模型，或离线无 MCP 的场景。触发词：ESG评级、MSCI、Sustainalytics、可持续性评分、行业ESG排名、octagon-agent",
+    "path": "09-verticals/octagon-esg-ratings/SKILL.md"
+  },
+  {
+    "name": "octagon-financial-growth-metrics",
+    "title": "财务同比增长指标",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "财务分析",
+      "同比增长",
+      "Octagon",
+      "MCP",
+      "基本面",
+      "利润表",
+      "现金流"
+    ],
+    "triggers": [
+      "同比增长",
+      "YoY growth",
+      "Octagon",
+      "财务指标趋势"
+    ],
+    "description": "当需要分析上市公司收入/利润/EPS/自由现金流的同比（YoY）增长趋势、横跨利润表与现金流量表诊断经营表现时使用；通过 Octagon MCP 的 octagon-agent 工具按 ticker 拉取多年 YoY 增长率表并输出增长洞察（峰值年、盈利与现金流背离、利润率扩张、回购信号）；不适用于绝对值财报建模、估值/DCF、单季实时行情或非美股无覆盖标的；触发词：同比增长、YoY growth、Octagon、财务指标趋势",
+    "path": "09-verticals/octagon-financial-growth-metrics/SKILL.md"
+  },
+  {
+    "name": "octagon-financial-health-scores",
+    "title": "财务健康评分（Z-Score / Piotroski）",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "财务分析",
+      "破产预测",
+      "信用分析",
+      "价值投资",
+      "MCP",
+      "octagon"
+    ],
+    "triggers": [
+      "Altman Z-Score",
+      "Piotroski",
+      "破产风险",
+      "财务健康评分",
+      "价值股筛选"
+    ],
+    "description": "当评估上市公司破产风险、财务强度、价值股质量或信用质量时使用；通过 Octagon MCP 的 octagon-agent 按 Ticker 拉取 Altman Z-Score 与 Piotroski F-Score 及支撑指标并据分区解读；不适用于金融/早期/轻资产公司打分或离线无 MCP。触发词：Altman Z-Score、Piotroski、破产风险、财务健康评分、价值股筛选",
+    "path": "09-verticals/octagon-financial-health-scores/SKILL.md"
+  },
+  {
+    "name": "octagon-income-statement-data",
+    "title": "利润表数据检索",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "财务数据",
+      "利润表",
+      "Octagon-MCP",
+      "上市公司",
+      "基本面分析"
+    ],
+    "triggers": [
+      "利润表",
+      "营收",
+      "净利润",
+      "EPS",
+      "income statement",
+      "Octagon"
+    ],
+    "description": "当需要分析上市公司营收、净利润、稀释每股收益等利润表绝对值，或对比不同财年规模时使用；通过 Octagon MCP（octagon-agent）按 ticker / 记录数 / FY|Q 周期检索实时利润表并生成同比、净利率等观察；不适用于私有公司、估值倍数或资产负债表/现金流量表（用对应技能）。触发词：利润表、营收、净利润、EPS、income statement、Octagon。",
+    "path": "09-verticals/octagon-income-statement-data/SKILL.md"
+  },
+  {
+    "name": "octagon-prediction-markets-research",
+    "title": "预测市场事件研究",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "预测市场",
+      "Kalshi",
+      "事件研究",
+      "错误定价",
+      "概率建模",
+      "MCP",
+      "octagon"
+    ],
+    "triggers": [
+      "预测市场",
+      "prediction market",
+      "Kalshi",
+      "错误定价",
+      "mispricing",
+      "事件概率",
+      "催化剂",
+      "Octagon"
+    ],
+    "description": "当需要对 Kalshi 预测市场某个事件做深度研究、对比市场价隐含概率与模型概率、定位错误定价或盘前研判催化剂时使用；做法是调用 Octagon MCP 的 octagon-prediction-markets-agent 生成结构化研报（市场概览/价格驱动/催化剂日历/历史结算/合约盘口/交易建议），并用 prediction_markets_history 取历史数据；不适用于实盘下单撮合、Polymarket（暂未支持）或离线无 MCP。触发词：预测市场、prediction market、Kalshi、错误定价、mispricing、事件概率、催化剂、Octagon",
+    "path": "09-verticals/octagon-prediction-markets-research/SKILL.md"
+  },
+  {
+    "name": "octagon-price-target-consensus",
+    "title": "分析师目标价共识",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "目标价",
+      "分析师共识",
+      "估值",
+      "卖方研究",
+      "MCP",
+      "octagon"
+    ],
+    "triggers": [
+      "目标价",
+      "price target",
+      "共识目标价",
+      "分析师评级",
+      "上涨空间",
+      "octagon-agent"
+    ],
+    "description": "当需要按 Ticker 评估某只股票的分析师目标价共识、判断上行/下行空间与分析师分歧度时使用；通过 Octagon MCP 的 octagon-agent 工具拉取共识/中位/最高/最低目标价，并结合现价算上涨空间、价差与偏度做解读；不适用于自建估值模型逐项重算内在价值、需历史目标价时序、或离线无 MCP 取数的场景。触发词：目标价、price target、共识目标价、分析师评级、上涨空间、octagon-agent",
+    "path": "09-verticals/octagon-price-target-consensus/SKILL.md"
+  },
+  {
+    "name": "octagon-ratings-snapshot",
+    "title": "公司评级与关键指标快照",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "股票评级",
+      "基本面分析",
+      "选股筛选",
+      "同业对比",
+      "MCP",
+      "octagon"
+    ],
+    "triggers": [
+      "评级快照",
+      "ratings snapshot",
+      "股票打分",
+      "综合评级",
+      "基本面初筛",
+      "DCF",
+      "ROE",
+      "ROA 评分",
+      "同业对比",
+      "octagon-agent"
+    ],
+    "description": "当需要对一只或多只上市公司股票做快速基本面初筛、横向质量对比或在尽调前打分排序时使用；通过 Octagon MCP 的 octagon-agent 工具按 Ticker 拉取综合评级（A–F）与 DCF、ROE、ROA、负债权益比、P/E、P/B 六项 1–5 分指标并据分区表解读；不适用于需自建模型逐项重算、做单标的深度估值或离线无 MCP 取数的场景。触发词：评级快照、ratings snapshot、股票打分、综合评级、基本面初筛、DCF/ROE/ROA 评分、同业对比、octagon-agent",
+    "path": "09-verticals/octagon-ratings-snapshot/SKILL.md"
+  },
+  {
+    "name": "octagon-sec-filing-analyst",
+    "title": "SEC 文件分析编排",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "sec",
+      "fintech",
+      "due-diligence",
+      "edgar",
+      "10-k",
+      "compliance",
+      "m-and-a",
+      "equity-research",
+      "octagon-mcp"
+    ],
+    "triggers": [
+      "SEC 文件分析",
+      "尽职调查",
+      "due diligence",
+      "10-K",
+      "10-Q",
+      "8-K",
+      "风险因素",
+      "MD&A",
+      "proxy",
+      "并购尽调"
+    ],
+    "description": "当对上市公司做尽职调查、合规审查、并购评估或全面公司画像、需基于 SEC 披露文件产出机构级研究报告时使用；做的是经 Octagon MCP（octagon-agent）按六阶段编排清点 10-K/10-Q/8-K/DEF 14A/S-1 等申报、抽取业务/风险/财务/治理披露并合成带逐条引用的尽调备忘录；不适用于无 Octagon MCP 的环境、单份申报的孤立抽取（用对应子技能）、或基于市场行情/财务建模本身的估值。触发词：SEC 文件分析、尽职调查、due diligence、10-K、10-Q、8-K、风险因素、MD&A、proxy、并购尽调",
+    "path": "09-verticals/octagon-sec-filing-analyst/SKILL.md"
+  },
+  {
+    "name": "octagon-sec-mda-analysis",
+    "title": "SEC 管理层讨论与分析（MD&A）解读",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "SEC",
+      "MD&A",
+      "财报分析",
+      "10-K",
+      "10-Q",
+      "Octagon",
+      "MCP",
+      "前瞻性陈述",
+      "投资研究"
+    ],
+    "triggers": [
+      "MD&A",
+      "管理层讨论与分析",
+      "10-K",
+      "10-Q",
+      "SEC",
+      "octagon-agent"
+    ],
+    "description": "当需要从美股上市公司 SEC 文件（10-K/10-Q）的 MD&A 段落中提取战略举措、财务表现、宏观挑战与前瞻性陈述时使用；通过 Octagon MCP 的 octagon-agent 用自然语言提示拉取并产出结构化 MD&A 解读（含数据来源 octagon-sec-agent）；不适用于无 Octagon API Key/未配置 MCP、非美股 SEC 体系、或需要逐字原文与下单交易的场景；触发词：MD&A、管理层讨论与分析、10-K、10-Q、SEC、octagon-agent",
+    "path": "09-verticals/octagon-sec-mda-analysis/SKILL.md"
+  },
+  {
+    "name": "octagon-sec-risk-factors",
+    "title": "SEC 风险因素提取",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "SEC",
+      "风险因素",
+      "10-K",
+      "10-Q",
+      "Octagon MCP",
+      "尽职调查",
+      "财报分析"
+    ],
+    "triggers": [
+      "SEC 风险因素",
+      "Item 1A",
+      "10-K 风险披露"
+    ],
+    "description": "当需要从美股 SEC 文件（10-K/10-Q）Item 1A 风险披露中提取归类并对比风险因素时使用；经 Octagon MCP 的 octagon-agent 抽取风险点，产出按宏观/运营/财务/法律/战略分类、带来源页码的清单；不适用于无 Octagon MCP、非美股 SEC 体系、或需法律与投资建议的场景；触发词：SEC 风险因素、Item 1A、10-K 风险披露",
+    "path": "09-verticals/octagon-sec-risk-factors/SKILL.md"
+  },
+  {
+    "name": "octagon-stock-quote",
+    "title": "实时股票报价",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "股票报价",
+      "行情",
+      "技术指标",
+      "移动均线",
+      "MCP",
+      "octagon"
+    ],
+    "triggers": [
+      "实时股价",
+      "报价",
+      "52周区间",
+      "市值",
+      "移动均线",
+      "octagon-agent"
+    ],
+    "description": "当需要查上市公司当前股价、涨跌、成交量、当日/52周区间、市值、50/200日均线时使用；通过 Octagon MCP 的 octagon-agent 按 Ticker 拉实时报价并解读区间位置与均线信号；不适用于实盘下单、毫秒级 tick 高频或离线无 MCP。触发词：实时股价、报价、52周区间、市值、移动均线、octagon-agent",
+    "path": "09-verticals/octagon-stock-quote/SKILL.md"
+  },
+  {
     "name": "odoo-localization-compliance",
     "title": "Odoo 本地化与税务合规",
     "vol": "09-verticals",
@@ -13978,6 +16783,90 @@
     "path": "09-verticals/odoo-localization-compliance/SKILL.md"
   },
   {
+    "name": "opentargets-database",
+    "title": "Open Targets 靶点-疾病关联查询",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "science",
+      "bioinformatics",
+      "drug-discovery",
+      "target-disease",
+      "graphql",
+      "open-targets",
+      "genomics"
+    ],
+    "triggers": [
+      "Open Targets",
+      "靶点疾病关联",
+      "association score",
+      "EFO",
+      "靶点优先级",
+      "tractability",
+      "known drugs",
+      "GraphQL"
+    ],
+    "description": "当需要用 Open Targets GraphQL API 查询靶点-疾病关联评分、证据、已知药物、可成药性或安全性时使用；做按基因/EFO 调 GraphQL 取关联打分、药物-靶点-疾病三角、证据明细并落表；不适用于生物活性 IC50/Ki 取数（用 chembl）、临床试验细节（用 clinicaltrials）；触发词：Open Targets、靶点疾病关联、association score、EFO、靶点优先级、tractability、known drugs、GraphQL",
+    "path": "09-verticals/opentargets-database/SKILL.md"
+  },
+  {
+    "name": "opentrons-protocol-api",
+    "title": "Opentrons 液体处理机器人协议",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "science",
+      "lab-automation",
+      "opentrons",
+      "liquid-handling",
+      "python",
+      "PCR",
+      "ELISA",
+      "magnetic-beads"
+    ],
+    "triggers": [
+      "Opentrons",
+      "OT-2",
+      "Flex",
+      "移液机器人"
+    ],
+    "description": "当用 Opentrons OT-2/Flex 液体处理机器人自动化湿实验（PCR 配液、系列稀释、ELISA、磁珠纯化、平板复制）时使用；用 Python Protocol API v2 编写含 metadata 与 run() 的协议、先 opentrons_simulate 本地仿真再上传机器人；不适用于 Hamilton/Tecan 等非 Opentrons 硬件（改用 pylabrobot）或纯协议检索（用 protocolsio）。触发词：Opentrons、OT-2/Flex、移液机器人",
+    "path": "09-verticals/opentrons-protocol-api/SKILL.md"
+  },
+  {
+    "name": "options-strategy-advisor",
+    "title": "期权策略分析与模拟",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "options",
+      "derivatives",
+      "black-scholes",
+      "greeks",
+      "risk",
+      "python"
+    ],
+    "triggers": [
+      "期权策略",
+      "备兑开仓",
+      "保护性认沽",
+      "价差",
+      "铁鹰",
+      "跨式",
+      "希腊值",
+      "IV crush"
+    ],
+    "description": "当用户要分析/对比期权策略、模拟盈亏、算希腊值或做财报期策略时使用；用 Black-Scholes 给期权理论定价、算 Delta/Gamma/Theta/Vega、模拟到期损益与盈亏图、给仓位与离场规则；不适用于实时报价/真实下单执行、个性化投资建议或美式期权精确定价；触发词：期权策略、备兑开仓、保护性认沽、价差、铁鹰、跨式、希腊值、IV crush。",
+    "path": "09-verticals/options-strategy-advisor/SKILL.md"
+  },
+  {
     "name": "oss-license-compliance",
     "title": "开源许可证合规审查",
     "vol": "09-verticals",
@@ -14005,6 +16894,38 @@
     ],
     "description": "当审查依赖清单/SBOM/单个库或准备开源出站代码、需判断 copyleft 义务与许可证兼容性时使用；做许可证家族分类、按部署模型映射义务并产出含风险分级与处置建议（遵守/替换/移除/法务复核/商业授权）的合规备忘录；不适用于安全漏洞或依赖版本升级审计（用 dependency-auditor），也不替代律师对争议性 copyleft 触发的最终裁决；触发词：开源许可证合规、license compliance、copyleft、GPL/AGPL/LGPL、SBOM 审查、open source review",
     "path": "09-verticals/oss-license-compliance/SKILL.md"
+  },
+  {
+    "name": "pair-trade-screener",
+    "title": "配对交易统计套利筛选",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "pair-trading",
+      "statistical-arbitrage",
+      "cointegration",
+      "market-neutral",
+      "mean-reversion",
+      "quant",
+      "python",
+      "statsmodels"
+    ],
+    "triggers": [
+      "配对交易",
+      "pair trading",
+      "统计套利",
+      "协整",
+      "cointegration",
+      "市场中性",
+      "均值回归",
+      "z-score",
+      "价差"
+    ],
+    "description": "当需要在板块内筛选配对交易/统计套利机会、构建市场中性策略或分析价差均值回归时使用；做出协整检验(ADF)、相关性与对冲比、价差z-score及进出场/仓位建议并产出可执行筛选脚本与报告；不适用于实盘下单执行、单边择时选股、期权/衍生品定价与行情数据采集清洗；触发词：配对交易、pair trading、统计套利、协整、cointegration、市场中性、均值回归、z-score、价差",
+    "path": "09-verticals/pair-trade-screener/SKILL.md"
   },
   {
     "name": "pcb-bom-manager",
@@ -14117,6 +17038,33 @@
     ],
     "description": "当评估私募股权（PE/Buyout）交易、压力测试假设或准备投委会（IC）回报材料时使用；据交易/融资/经营/退出假设快速搭建 IRR/MOIC 基准回报、二维敏感性表、三档情景与回报归因，产出 Excel 与一页 IC 摘要；不适用于公开股权估值、DCF 企业估值或非杠杆收购建模；触发词：returns analysis、IRR sensitivity、MOIC table、回报分析、敏感性表、估算回报、back of the envelope",
     "path": "09-verticals/pe-returns-sensitivity/SKILL.md"
+  },
+  {
+    "name": "pead-earnings-drift-screener",
+    "title": "财报后漂移 PEAD 选股",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "PEAD",
+      "选股",
+      "财报",
+      "周线K线",
+      "动量",
+      "FMP",
+      "Python"
+    ],
+    "triggers": [
+      "PEAD",
+      "财报后漂移",
+      "跳空高开",
+      "红K突破",
+      "周线动量"
+    ],
+    "description": "当需要从财报跳空高开股中筛选「财报后漂移(PEAD)」周线红K回踩-突破形态、给出分级与交易计划时使用；做出 PEAD 选股脚本运行、四阶段(监测/待信号/突破/过期)分类与入场/止损/目标(2R)报告(JSON+Markdown)；不适用于实盘下单撮合、行情数据采集或日内高频；触发词：PEAD、财报后漂移、跳空高开、红K突破、周线动量",
+    "path": "09-verticals/pead-earnings-drift-screener/SKILL.md"
   },
   {
     "name": "portfolio-rebalancer",
@@ -14294,6 +17242,98 @@
     ],
     "description": "当需要用 EvolutionaryScale 的 ESM3/ESM C 做蛋白质序列生成、结构预测、逆折叠、功能条件设计或提取嵌入向量时使用；做基于本地开源权重（Python 3.12，PyPI 上的 esm）或 Forge/Biohub 云 API 的蛋白质多模态生成与表征产物；不适用于通用 LLM 文本、小分子药物、基因组核酸序列或无生物背景的纯打分任务；触发词：ESM、ESM3、ESMC、蛋白质语言模型、protein language model、逆折叠、inverse folding、ESMFold、蛋白质嵌入、protein embedding、蛋白质设计。",
     "path": "09-verticals/protein-language-models/SKILL.md"
+  },
+  {
+    "name": "pubchem-compound-search",
+    "title": "PubChem 化合物检索",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "science",
+      "化学信息学",
+      "药物发现",
+      "PubChem",
+      "REST-API",
+      "化合物检索",
+      "理化属性"
+    ],
+    "triggers": [
+      "PubChem",
+      "CID",
+      "SMILES",
+      "PUG-REST"
+    ],
+    "description": "当需要按名称/CID/SMILES/InChIKey/分子式检索 PubChem 化合物、取理化属性或做相似性/子结构搜索时使用；用 requests 直连 PUG-REST/JSON API，产出 CID、属性表、同义词、生物活性与 SDF/PNG。不适用于本地化学信息学（用 rdkit）或靶点结合活性 IC50/Ki（用 chembl-database-bioactivity）。触发词：PubChem、CID、SMILES、PUG-REST",
+    "path": "09-verticals/pubchem-compound-search/SKILL.md"
+  },
+  {
+    "name": "pydeseq2-differential-expression",
+    "title": "PyDESeq2 批量 RNA-seq 差异表达分析",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "rnaseq",
+      "differential-expression",
+      "pydeseq2",
+      "deseq2",
+      "bioinformatics",
+      "negative-binomial",
+      "wald-test",
+      "volcano-plot",
+      "science"
+    ],
+    "triggers": [
+      "差异表达",
+      "DESeq2",
+      "pydeseq2",
+      "RNA-seq",
+      "火山图",
+      "负二项",
+      "批次校正",
+      "Wald 检验",
+      "padj",
+      "log2FoldChange"
+    ],
+    "description": "当你有批量 RNA-seq 原始整数计数矩阵 + 样本元数据，要做两组或多因子差异表达（DE）检验时使用；用纯 Python 的 PyDESeq2 拟合负二项 GLM、跑 Wald 检验（BH-FDR）、apeGLM LFC 收缩，产出 DE 结果表与火山图/MA 图；不适用于上游比对定量、单细胞每细胞 DE（先 pseudobulk）、通路富集（下游交富集技能）；触发词：差异表达、DESeq2、pydeseq2、RNA-seq、火山图、负二项、批次校正、Wald 检验、padj、log2FoldChange",
+    "path": "09-verticals/pydeseq2-differential-expression/SKILL.md"
+  },
+  {
+    "name": "pyopenms-mass-spectrometry",
+    "title": "PyOpenMS 质谱数据处理",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "mass-spectrometry",
+      "proteomics",
+      "metabolomics",
+      "pyopenms",
+      "bioinformatics"
+    ],
+    "triggers": [
+      "PyOpenMS",
+      "OpenMS",
+      "质谱",
+      "mass spectrometry",
+      "mzML",
+      "LC-MS",
+      "MS",
+      "蛋白质组学",
+      "proteomics",
+      "代谢组学",
+      "metabolomics",
+      "峰检测",
+      "peak picking",
+      "特征检测",
+      "FDR"
+    ],
+    "description": "当需要用 PyOpenMS（OpenMS 的 Python 绑定）处理 LC-MS/MS 蛋白质组学或代谢组学原始质谱数据时使用；做 mzML/mzXML 等格式读写、信号处理（平滑/峰检测/质心化）、特征检测与跨样本连接、肽段/蛋白鉴定及 FDR 控制、非靶向代谢组学流程，产出特征表/鉴定表（pandas/CSV）；不适用于简单谱库匹配与代谢物注释（用 matchms）、纯蛋白序列分析（用 biopython）、不读质谱数据的任务；触发词：PyOpenMS、OpenMS、质谱、mass spectrometry、mzML、LC-MS/MS、蛋白质组学、proteomics、代谢组学、metabolomics、峰检测、peak picking、特征检测、FDR。",
+    "path": "09-verticals/pyopenms-mass-spectrometry/SKILL.md"
   },
   {
     "name": "quality-documentation-control",
@@ -14523,6 +17563,37 @@
     "path": "09-verticals/scientific-manuscript-writing/SKILL.md"
   },
   {
+    "name": "scvi-tools-single-cell",
+    "title": "scvi-tools 单细胞深度生成模型",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "single-cell",
+      "scvi-tools",
+      "deep-learning",
+      "vae",
+      "batch-correction",
+      "cite-seq",
+      "anndata",
+      "bioinformatics",
+      "science"
+    ],
+    "triggers": [
+      "scvi-tools",
+      "scVI",
+      "scANVI",
+      "totalVI",
+      "批次校正",
+      "CITE-seq",
+      "迁移学习",
+      "概率差异表达"
+    ],
+    "description": "当需用深度生成模型（VAE）对单细胞组学做概率批次校正、半监督细胞注释、CITE-seq RNA+蛋白联合建模、参考→查询迁移学习或带不确定性的差异表达时使用；在 AnnData 原始计数上走 setup_anndata→train→get_* 统一 API，产出批次校正潜空间/去噪表达/细胞类型预测/概率 DE；不适用于无批次效应的常规聚类可视化（用 scanpy）或秒级线性批次校正（用 harmony）；触发词：scvi-tools、scVI、scANVI、totalVI、批次校正、CITE-seq、迁移学习、概率差异表达",
+    "path": "09-verticals/scvi-tools-single-cell/SKILL.md"
+  },
+  {
     "name": "single-cell-rnaseq-analysis",
     "title": "单细胞 RNA-seq 分析（Scanpy）",
     "vol": "09-verticals",
@@ -14551,6 +17622,76 @@
     ],
     "description": "当处理单细胞 RNA-seq 数据（.h5ad/10X/CSV）需做质控、归一化、降维聚类、找 marker 基因与可视化时使用；用 Scanpy/AnnData 跑标准探索流程并产出 UMAP/聚类/细胞类型注释与处理后 .h5ad；不适用于深度学习概率模型（用 scvi-tools）、跨条件严谨差异表达（先 pseudobulk 再用 pydeseq2）；触发词：单细胞、scRNA-seq、scanpy、anndata、UMAP、聚类、marker 基因、细胞类型注释",
     "path": "09-verticals/single-cell-rnaseq-analysis/SKILL.md"
+  },
+  {
+    "name": "snakemake-workflow-engine",
+    "title": "Snakemake 可复现生信流程引擎",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "snakemake",
+      "bioinformatics",
+      "workflow",
+      "pipeline",
+      "reproducible",
+      "ngs",
+      "hpc",
+      "slurm",
+      "conda",
+      "science"
+    ],
+    "triggers": [
+      "snakemake",
+      "Snakefile",
+      "rule",
+      "wildcards",
+      "expand",
+      "conda 环境",
+      "SLURM",
+      "DAG",
+      "可复现流程",
+      "NGS",
+      "变异调用"
+    ],
+    "description": "当需要用 Python 规则编排多步、可复现、可扩展的生信/计算流程（比对→排序→去重→变异调用，多样本批处理，本地到 SLURM/云无改代码）时使用；产出 Snakefile（rule/wildcard/expand/config/resources/conda 环境）、DAG 预览与集群 profile；不适用于 Nextflow/CWL/WDL 等其他引擎、纯 shell 循环或时序调度（用 Airflow/Prefect）；触发词：snakemake、Snakefile、rule、wildcards、expand、conda 环境、SLURM、DAG、可复现流程、NGS、变异调用。",
+    "path": "09-verticals/snakemake-workflow-engine/SKILL.md"
+  },
+  {
+    "name": "snpeff-variant-annotation",
+    "title": "SnpEff/SnpSift 变异功能注释与过滤",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "bioinformatics",
+      "genomics",
+      "variant-annotation",
+      "snpeff",
+      "snpsift",
+      "vcf",
+      "clinvar",
+      "dbsnp",
+      "hgvs",
+      "cyvcf2"
+    ],
+    "triggers": [
+      "snpEff",
+      "SnpSift",
+      "变异注释",
+      "VCF 注释",
+      "ANN 字段",
+      "HIGH impact",
+      "HGVS",
+      "ClinVar",
+      "dbSNP",
+      "de novo",
+      "功能影响"
+    ],
+    "description": "当需要给 VCF 变异预测功能影响（HIGH/MODERATE/LOW/MODIFIER）、基因/转录本/氨基酸改变/HGVS，并用 SnpSift 按影响等级或等位频率过滤、叠加 ClinVar/dbSNP 注释时使用；做基于 Java CLI（可 Python subprocess 编排）的快速注释、过滤、字段抽表与可视化，产出注释 VCF、过滤子集、TSV 表与汇总图；不适用于需 gnomAD/CADD/SpliceAI 多库一次注释（用 ANNOVAR）或 REST API/VEP 插件（用 Ensembl VEP）的场景。触发词：snpEff、SnpSift、变异注释、VCF 注释、ANN 字段、HIGH impact、HGVS、ClinVar、dbSNP、de novo、功能影响",
+    "path": "09-verticals/snpeff-variant-annotation/SKILL.md"
   },
   {
     "name": "solidity-security-auditor",
@@ -14615,6 +17756,75 @@
     ],
     "description": "当需要对 KiCad 原理图分析出的子电路（RC/LC 滤波、分压、运放、晶振等）做 SPICE 仿真验证时使用；自动生成测试平台、调用 ngspice/LTspice/Xyce 批处理仿真、产出 pass/warn/fail/skip 结构化报告并核对计算值与仿真值；不适用于无解析元件值、比较器/开环运放、有源振荡器、控制环路稳定性等无法仿真的场景；触发词：spice 仿真、电路仿真、滤波器截止频率、分压比验证、运放增益带宽、晶振负载电容、simulate circuit、run spice、verify with simulation。",
     "path": "09-verticals/spice-circuit-simulator/SKILL.md"
+  },
+  {
+    "name": "star-rnaseq-aligner",
+    "title": "STAR 剪接感知 RNA-seq 比对",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "bioinformatics",
+      "genomics",
+      "rnaseq",
+      "star",
+      "alignment",
+      "splice-junction",
+      "bam",
+      "encode",
+      "science"
+    ],
+    "triggers": [
+      "STAR",
+      "RNA-seq",
+      "比对",
+      "aligner",
+      "剪接位点",
+      "splice junction",
+      "BAM",
+      "基因计数",
+      "GeneCounts",
+      "二轮比对",
+      "twopass",
+      "genomeGenerate",
+      "sjdbOverhang"
+    ],
+    "description": "当需要把 bulk RNA-seq reads 比对到参考基因组、产出排序 BAM 与剪接位点表，供变异检测/IGV/deeptools/ENCODE 流程使用时用本条；用 STAR 建基因组索引、做（双轮）剪接感知比对，并可同步出基因计数，产出 Aligned.sortedByCoord.out.bam、SJ.out.tab、Log.final.out 与 ReadsPerGene.out.tab；不适用于只要转录本/基因定量而不需 BAM（用更快的 Salmon 伪比对）、单细胞 RNA-seq（用 scanpy）。触发词：STAR、RNA-seq、比对、aligner、剪接位点、splice junction、BAM、基因计数、GeneCounts、二轮比对、twopass、genomeGenerate、sjdbOverhang",
+    "path": "09-verticals/star-rnaseq-aligner/SKILL.md"
+  },
+  {
+    "name": "strategy-backtest-expert",
+    "title": "交易策略系统化回测指导",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "backtesting",
+      "robustness",
+      "validation",
+      "quant",
+      "methodology",
+      "risk"
+    ],
+    "triggers": [
+      "回测验证",
+      "压力测试",
+      "稳健性",
+      "过拟合",
+      "曲线拟合",
+      "前视偏差",
+      "幸存者偏差",
+      "滑点",
+      "样本外",
+      "走向前",
+      "参数敏感",
+      "回测评分"
+    ],
+    "description": "当要系统化压力测试/验证交易策略稳健性、判断一个回测能否上实盘、排查\"看着太好\"的可疑结果时使用；做\"往死里测\"方法论编排（假设零裁量化、参数平台而非尖峰、滑点摩擦加码、样本外步进、红旗清单）并用评分脚本产出 Deploy/Refine/Abandon 裁决；不适用于搭建回测引擎代码、采集行情数据、实盘下单或主观裁量交易；触发词：回测验证、压力测试、稳健性、过拟合、曲线拟合、前视偏差、幸存者偏差、滑点、样本外、走向前、参数敏感、回测评分。",
+    "path": "09-verticals/strategy-backtest-expert/SKILL.md"
   },
   {
     "name": "sympy-symbolic-math",
@@ -14716,6 +17926,64 @@
     "path": "09-verticals/three-statement-model/SKILL.md"
   },
   {
+    "name": "trade-position-sizer",
+    "title": "风险化仓位计算",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "交易",
+      "风险管理",
+      "仓位管理",
+      "凯利公式",
+      "ATR",
+      "止损",
+      "Python"
+    ],
+    "triggers": [
+      "仓位计算",
+      "买多少股",
+      "单笔风险",
+      "凯利公式",
+      "ATR 止损"
+    ],
+    "description": "当要为某笔多头股票交易确定买入股数、控制单笔风险或核查组合集中度时使用；用固定分数 / ATR / 凯利三法算出风险化仓位（股数、市值、止损、约束）并产出 JSON+MD 报告；不适用于做空、期权、加密及无止损的盲目买入；触发词：仓位计算、买多少股、单笔风险、凯利公式、ATR 止损",
+    "path": "09-verticals/trade-position-sizer/SKILL.md"
+  },
+  {
+    "name": "trade-signal-postmortem",
+    "title": "交易信号复盘归因",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "trading",
+      "postmortem",
+      "attribution",
+      "signal-quality",
+      "feedback-loop",
+      "python",
+      "quant"
+    ],
+    "triggers": [
+      "信号复盘",
+      "postmortem",
+      "交易复盘",
+      "归因",
+      "假阳性",
+      "false positive",
+      "命中率",
+      "权重校准",
+      "决策质量审计"
+    ],
+    "description": "当交易/量化信号已平仓或到达持有期（5/20日）、需复盘其实际表现并归因到产出该信号的策略/筛选器时使用；做对比预测方向与已实现收益、分类四类结局（真阳/假阳/错失/制度错配）、产出复盘记录(JSON)+权重调整与改进待办反馈+按策略月度的质量统计；不适用于实盘下单、行情抓取与信号生成本身；触发词：信号复盘、postmortem、交易复盘、归因、假阳性、false positive、命中率、权重校准、决策质量审计",
+    "path": "09-verticals/trade-signal-postmortem/SKILL.md"
+  },
+  {
     "name": "trading-strategy-backtester",
     "title": "交易策略回测框架",
     "vol": "09-verticals",
@@ -14750,6 +18018,31 @@
     "path": "09-verticals/trading-strategy-backtester/SKILL.md"
   },
   {
+    "name": "uniprot-protein-database",
+    "title": "UniProt 蛋白序列与注释数据库",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "生物信息",
+      "蛋白质组",
+      "数据库",
+      "REST-API",
+      "序列检索",
+      "ID映射",
+      "注释",
+      "Python"
+    ],
+    "triggers": [
+      "UniProt",
+      "蛋白序列",
+      "ID映射"
+    ],
+    "description": "当需要按基因/蛋白名/物种检索蛋白、取 FASTA 序列、跨库映射 ID（Ensembl/PDB/RefSeq/KEGG）或读取 Swiss-Prot 功能注释（GO/结构域/PTM）时使用；通过 UniProt REST API 完成检索、取序、批量/流式下载与 ID 映射并产出 TSV/JSON/FASTA。不适用于取 3D 结构（用 AlphaFold/PDB）或一站式多库访问（用 bioservices）。触发词：UniProt、蛋白序列、ID映射",
+    "path": "09-verticals/uniprot-protein-database/SKILL.md"
+  },
+  {
     "name": "unit-economics-analyzer",
     "title": "单位经济模型分析",
     "vol": "09-verticals",
@@ -14782,6 +18075,99 @@
     ],
     "description": "当评估 SaaS/订阅/经常性收入企业（尤其 PE 标的）的收入质量与客户经济性时使用；做 ARR 桥、队列留存、LTV/CAC、净留存与毛利瀑布的拆解并产出可对标的收入质量评分与红旗清单；不适用于一次性买断硬件、纯交易撮合无客户复购或个人理财规划。触发词：单位经济、收入质量、队列分析、cohort analysis、ARR 分析、LTV CAC、净留存、NDR、客户经济性、unit economics。",
     "path": "09-verticals/unit-economics-analyzer/SKILL.md"
+  },
+  {
+    "name": "value-dividend-screener",
+    "title": "价值红利股筛选",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "选股",
+      "分红",
+      "价值投资",
+      "股息率",
+      "基本面筛选",
+      "FMP",
+      "FINVIZ",
+      "Python"
+    ],
+    "triggers": [
+      "红利股筛选",
+      "股息率",
+      "分红增长",
+      "价值股",
+      "收息组合",
+      "dividend screener"
+    ],
+    "description": "当用户要筛选高质量分红股、构建收息组合、寻找估值合理又持续增长的红利标的时使用；做两段式量化筛选（FINVIZ Elite 预筛 + FMP 基本面细分析），按价值/成长/质量复合评分排名并产出 JSON 结果与 Markdown 报告；不适用于实盘下单、行情tick采集或非美股市场；触发词：红利股筛选、股息率、分红增长、价值股、收息组合、dividend screener",
+    "path": "09-verticals/value-dividend-screener/SKILL.md"
+  },
+  {
+    "name": "vcp-screener",
+    "title": "VCP 波动收缩形态选股",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "选股",
+      "技术分析",
+      "VCP",
+      "Minervini",
+      "动量",
+      "screener",
+      "python",
+      "FMP"
+    ],
+    "triggers": [
+      "VCP",
+      "波动收缩",
+      "Minervini",
+      "紧致基底",
+      "Stage 2",
+      "突破枢轴",
+      "缩量选股"
+    ],
+    "description": "当需要按 Minervini VCP（波动收缩形态）扫描 S&P 500、找处于 Stage 2 上升趋势且在突破枢轴附近形成紧致缩量基底的标的时使用；做 3 阶段筛选（行情预筛→7 点趋势模板→VCP 检测打分），产出含质量评分、执行状态、枢轴/止损/风险的候选清单与 JSON/MD 报告；不适用于实盘下单、行情采集或投资建议；触发词：VCP、波动收缩、Minervini、紧致基底、Stage 2、突破枢轴、缩量选股",
+    "path": "09-verticals/vcp-screener/SKILL.md"
+  },
+  {
+    "name": "viennarna-structure-prediction",
+    "title": "ViennaRNA RNA 二级结构预测",
+    "vol": "09-verticals",
+    "domain": "领域/science",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "rna",
+      "secondary-structure",
+      "viennarna",
+      "rnafold",
+      "mfe",
+      "base-pair-probability",
+      "sirna",
+      "sgrna",
+      "bioinformatics",
+      "science"
+    ],
+    "triggers": [
+      "RNA 二级结构",
+      "ViennaRNA",
+      "RNAfold",
+      "MFE",
+      "点括号",
+      "配对概率",
+      "siRNA 可及性",
+      "sgRNA",
+      "RNAduplex",
+      "cofold"
+    ],
+    "description": "当需要预测 RNA 二级结构（MFE 折叠、配对概率、RNA-RNA 互作）用于 siRNA/sgRNA 靶点可及性、核酶/适配体设计、miRNA-靶标配对时使用；用 ViennaRNA Python 绑定（import RNA）或 RNAfold CLI 跑「序列→MFE→配分函数与配对概率→点括号→双链」流程并产出结构/能量/bpp 矩阵与图；不适用于三级结构/3D 建模、需 Mfold 算法或 RNAstructure 特定输出、蛋白结构；触发词：RNA 二级结构、ViennaRNA、RNAfold、MFE、点括号、配对概率、siRNA 可及性、sgRNA、RNAduplex、cofold",
+    "path": "09-verticals/viennarna-structure-prediction/SKILL.md"
   },
   {
     "name": "worker-classification-analyzer",

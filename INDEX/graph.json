@@ -99,6 +99,13 @@
       "status": "stable"
     },
     {
+      "id": "multi-source-knowledge-synthesis",
+      "title": "多源知识综合",
+      "domain": "通用/communication",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "news-sentiment-briefing",
       "title": "多源新闻情感简报引擎",
       "domain": "通用/research",
@@ -116,6 +123,13 @@
       "id": "premortem-plan-challenger",
       "title": "事前验尸式计划挑战",
       "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "query-decomposition-search",
+      "title": "查询分解多源检索",
+      "domain": "通用/communication",
       "level": "进阶",
       "status": "stable"
     },
@@ -193,6 +207,13 @@
       "id": "humanize-chinese-text",
       "title": "中文 AI 味检测与降痕改写",
       "domain": "文书/writing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "interactive-pdf-viewer",
+      "title": "交互式 PDF 阅览",
+      "domain": "文书/office",
       "level": "进阶",
       "status": "stable"
     },
@@ -897,6 +918,13 @@
       "status": "stable"
     },
     {
+      "id": "operational-runbook-writer",
+      "title": "运维操作手册编写",
+      "domain": "研发/devops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "performance-profiler",
       "title": "应用性能剖析（Node/Python/Go）",
       "domain": "研发/observability",
@@ -936,6 +964,13 @@
       "title": "PowerShell Windows 实战",
       "domain": "研发/devops",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "pre-deploy-checklist",
+      "title": "发布前核查清单",
+      "domain": "研发/devops",
+      "level": "入门",
       "status": "stable"
     },
     {
@@ -1135,6 +1170,13 @@
       "status": "stable"
     },
     {
+      "id": "tech-debt-prioritizer",
+      "title": "技术债识别与排序",
+      "domain": "研发/architecture",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "tech-stack-evaluator",
       "title": "技术栈评估与 TCO 对比",
       "domain": "研发/architecture",
@@ -1268,6 +1310,13 @@
       "status": "stable"
     },
     {
+      "id": "analysis-qa-validator",
+      "title": "分析交付前质检",
+      "domain": "数据/analysis",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "chief-data-officer-advisor",
       "title": "首席数据官顾问（数据产品与治理）",
       "domain": "数据/analysis",
@@ -1310,6 +1359,13 @@
       "status": "stable"
     },
     {
+      "id": "dataset-profiler",
+      "title": "数据集探查画像",
+      "domain": "数据/wrangling",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "dataset-quality-auditor",
       "title": "数据集质量审计",
       "domain": "数据/wrangling",
@@ -1347,6 +1403,13 @@
     {
       "id": "gl-subledger-reconciler",
       "title": "总账与子账对账核对",
+      "domain": "数据/analysis",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "html-dashboard-builder",
+      "title": "交互式 HTML 仪表盘构建",
       "domain": "数据/analysis",
       "level": "进阶",
       "status": "stable"
@@ -1786,6 +1849,13 @@
       "status": "stable"
     },
     {
+      "id": "account-reconciliation",
+      "title": "账户对账核对",
+      "domain": "商业/copy",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "ad-creative-generator",
       "title": "广告创意批量生成",
       "domain": "商业/copy",
@@ -1828,6 +1898,13 @@
       "status": "stable"
     },
     {
+      "id": "backlink-profile-analyzer",
+      "title": "外链画像与有毒链接分析",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "billing-automation-systems",
       "title": "订阅计费与催收自动化系统",
       "domain": "商业/finance",
@@ -1845,6 +1922,13 @@
       "id": "board-meeting-prep",
       "title": "董事会对抗式备会演练",
       "domain": "商业/finance",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "budget-variance-analysis",
+      "title": "预算差异归因分析",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -1880,6 +1964,13 @@
       "id": "cold-email-writer",
       "title": "B2B 冷启动邮件撰写",
       "domain": "商业/sales",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "compensation-analysis",
+      "title": "薪酬基准与定级分析",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -1954,6 +2045,13 @@
       "status": "stable"
     },
     {
+      "id": "customer-escalation-packager",
+      "title": "客户问题升级打包",
+      "domain": "商业/copy",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "customer-health-scorer",
       "title": "客户健康度评分与扩展机会",
       "domain": "商业/growth",
@@ -1964,6 +2062,13 @@
       "id": "customer-research-synthesizer",
       "title": "客户调研与洞察综合",
       "domain": "商业/marketing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "customer-response-drafter",
+      "title": "客户回复文案起草",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -1982,9 +2087,30 @@
       "status": "stable"
     },
     {
+      "id": "eeat-content-quality-auditor",
+      "title": "E-E-A-T 内容质量审计（CORE-EEAT 评分）",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "email-drip-sequence",
       "title": "邮件序列与培育自动化设计",
       "domain": "商业/marketing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "email-sequence-designer",
+      "title": "邮件序列编排设计",
+      "domain": "商业/copy",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "financial-statements-generator",
+      "title": "财务三表生成",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -1996,9 +2122,30 @@
       "status": "stable"
     },
     {
+      "id": "internal-linking-optimizer",
+      "title": "内部链接结构与锚文本优化",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "international-expansion-strategy",
       "title": "国际市场扩张策略",
       "domain": "商业/growth",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "interview-plan-builder",
+      "title": "结构化面试方案设计",
+      "domain": "商业/copy",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "journal-entry-preparer",
+      "title": "会计分录编制",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -2052,8 +2199,22 @@
       "status": "stable"
     },
     {
+      "id": "marketing-campaign-brief",
+      "title": "营销活动方案策划",
+      "domain": "商业/copy",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "marketing-copy-editor",
       "title": "营销文案审校",
+      "domain": "商业/copy",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "marketing-performance-report",
+      "title": "营销绩效报告",
       "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
@@ -2062,6 +2223,20 @@
       "id": "marketing-psychology",
       "title": "营销心理与心智模型",
       "domain": "商业/marketing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "month-end-close-manager",
+      "title": "月末结账流程管理",
+      "domain": "商业/copy",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "offer-letter-drafter",
+      "title": "录用通知书起草",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -2083,6 +2258,13 @@
       "id": "paywall-upgrade-cro",
       "title": "应用内付费墙与升级转化优化",
       "domain": "商业/growth",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "performance-review-builder",
+      "title": "绩效评估结构化",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -2136,9 +2318,23 @@
       "status": "stable"
     },
     {
+      "id": "sales-call-summary",
+      "title": "销售通话纪要提炼",
+      "domain": "商业/copy",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "sales-enablement",
       "title": "销售赋能物料制作",
       "domain": "商业/sales",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "sales-forecast-builder",
+      "title": "加权销售预测构建器",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -2164,8 +2360,57 @@
       "status": "stable"
     },
     {
+      "id": "seo-content-gap-analysis",
+      "title": "SEO 内容缺口与选题日历分析",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "seo-content-refresher",
+      "title": "过时内容刷新与流量衰减修复",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "seo-content-writer",
       "title": "SEO 内容写作",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "seo-entity-optimizer",
+      "title": "实体优化与知识图谱信号构建",
+      "domain": "商业/seo",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "seo-keyword-research",
+      "title": "SEO 关键词研究与选题聚类",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "seo-meta-tags-optimizer",
+      "title": "Meta 标签与 Open Graph 社媒卡片优化",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "seo-performance-reporter",
+      "title": "SEO/GEO 绩效报告与 KPI 仪表盘",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "seo-rank-tracker",
+      "title": "关键词排名与 SERP 变化追踪",
       "domain": "商业/seo",
       "level": "进阶",
       "status": "stable"
@@ -2180,6 +2425,13 @@
     {
       "id": "seo-traffic-drop-forensics",
       "title": "SEO 流量骤降取证排查",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "serp-feature-analysis",
+      "title": "SERP 搜索结果与 AI 概览分析",
       "domain": "商业/seo",
       "level": "进阶",
       "status": "stable"
@@ -2216,6 +2468,20 @@
       "id": "startup-financial-modeler",
       "title": "创业财务模型构建",
       "domain": "商业/finance",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "support-ticket-triage",
+      "title": "支持工单分诊",
+      "domain": "商业/copy",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "technical-seo-checker",
+      "title": "技术 SEO 体检（抓取/索引/核心网页指标）",
+      "domain": "商业/seo",
       "level": "进阶",
       "status": "stable"
     },
@@ -2297,6 +2563,20 @@
       "status": "stable"
     },
     {
+      "id": "design-critique",
+      "title": "设计评审反馈",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "design-dev-handoff",
+      "title": "设计开发交付规格",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "design-spells-microinteractions",
       "title": "网页微交互与设计细节灵感",
       "domain": "创意/design",
@@ -2360,6 +2640,13 @@
       "status": "stable"
     },
     {
+      "id": "ux-microcopy-writer",
+      "title": "UX 微文案撰写",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "ux-research-design-toolkit",
       "title": "UX 研究与体验设计工具箱",
       "domain": "创意/design",
@@ -2378,6 +2665,13 @@
       "title": "VideoDB 视频感知索引与编辑",
       "domain": "创意/av",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "activity-digest-generator",
+      "title": "活动动态摘要生成",
+      "domain": "协作/knowledge",
+      "level": "入门",
       "status": "stable"
     },
     {
@@ -2556,6 +2850,13 @@
       "status": "stable"
     },
     {
+      "id": "new-hire-onboarding-plan",
+      "title": "新员工入职计划",
+      "domain": "协作/knowledge",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "oncall-handoff-writer",
       "title": "值班交接记录撰写",
       "domain": "协作/pm",
@@ -2591,9 +2892,30 @@
       "status": "stable"
     },
     {
+      "id": "prd-spec-writer",
+      "title": "PRD 与功能规格撰写",
+      "domain": "协作/knowledge",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "process-sop-documenter",
+      "title": "业务流程 SOP 文档化",
+      "domain": "协作/knowledge",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "product-manager-toolkit",
       "title": "产品经理工具箱（RICE/PRD）",
       "domain": "协作/pm",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "resource-capacity-planner",
+      "title": "资源产能规划",
+      "domain": "协作/knowledge",
       "level": "进阶",
       "status": "stable"
     },
@@ -2605,10 +2927,31 @@
       "status": "stable"
     },
     {
+      "id": "stakeholder-update-writer",
+      "title": "干系人进展更新撰写",
+      "domain": "协作/knowledge",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "status-report-generator",
+      "title": "项目状态报告生成",
+      "domain": "协作/knowledge",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "strategic-alignment-cascader",
       "title": "战略对齐自上而下级联",
       "domain": "协作/pm",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "support-kb-article-writer",
+      "title": "支持知识库文章撰写",
+      "domain": "协作/knowledge",
+      "level": "入门",
       "status": "stable"
     },
     {
@@ -2622,6 +2965,13 @@
       "id": "technical-change-tracker",
       "title": "技术变更记录与会话交接追踪",
       "domain": "协作/automation",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "vendor-evaluation",
+      "title": "供应商评估决策",
+      "domain": "协作/knowledge",
       "level": "进阶",
       "status": "stable"
     },
@@ -2983,6 +3333,13 @@
       "status": "stable"
     },
     {
+      "id": "sox-control-testing",
+      "title": "SOX 404 内控测试支持",
+      "domain": "安全/audit",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "stride-threat-modeler",
       "title": "STRIDE威胁建模",
       "domain": "安全/audit",
@@ -3067,6 +3424,20 @@
       "status": "stable"
     },
     {
+      "id": "alphafold-database-access",
+      "title": "AlphaFold 蛋白结构数据库访问",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "anndata-data-structure",
+      "title": "AnnData 单细胞数据结构",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "arm-cortex-firmware-expert",
       "title": "ARM Cortex-M 固件与驱动开发",
       "domain": "领域/hardware",
@@ -3076,6 +3447,13 @@
     {
       "id": "astronomy-data-toolkit",
       "title": "天文数据分析（Astropy）",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "autodock-vina-docking",
+      "title": "AutoDock Vina 分子对接",
       "domain": "领域/science",
       "level": "进阶",
       "status": "stable"
@@ -3102,6 +3480,20 @@
       "status": "stable"
     },
     {
+      "id": "breakout-trade-planner",
+      "title": "突破交易计划生成",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "canslim-growth-screener",
+      "title": "CANSLIM 成长股筛选",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "capa-root-cause-officer",
       "title": "医疗器械 CAPA 与根因分析",
       "domain": "领域/medical",
@@ -3113,6 +3505,34 @@
       "title": "承运商关系管理",
       "domain": "领域/fintech",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "cellchat-cell-communication",
+      "title": "CellChat 细胞间通讯推断",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "celltypist-cell-annotation",
+      "title": "CellTypist 单细胞自动注释",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "cellxgene-census",
+      "title": "CELLxGENE Census 海量单细胞查询",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "chembl-bioactivity-database",
+      "title": "ChEMBL 生物活性数据库查询",
+      "domain": "领域/science",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -3130,9 +3550,30 @@
       "status": "stable"
     },
     {
+      "id": "clinvar-database",
+      "title": "ClinVar 变异临床意义查询",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "cnvkit-copy-number",
+      "title": "CNVkit 体细胞拷贝数变异检测",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "component-sourcing-search",
       "title": "电子元器件选型采购搜索",
       "domain": "领域/hardware",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "contract-playbook-review",
+      "title": "合同对照评审红线",
+      "domain": "领域/legal",
       "level": "进阶",
       "status": "stable"
     },
@@ -3158,6 +3599,20 @@
       "status": "stable"
     },
     {
+      "id": "deepchem-drug-discovery",
+      "title": "DeepChem 药物发现深度学习",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "deeptools-ngs-analysis",
+      "title": "deepTools NGS 覆盖度与信号可视化",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "defi-protocol-templates",
       "title": "DeFi 协议合约模板",
       "domain": "领域/fintech",
@@ -3176,6 +3631,13 @@
       "title": "DICOM 医学影像处理",
       "domain": "领域/science",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "diffdock-blind-docking",
+      "title": "DiffDock 扩散模型盲对接",
+      "domain": "领域/science",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -3200,6 +3662,13 @@
       "status": "stable"
     },
     {
+      "id": "earnings-trade-analyzer",
+      "title": "财报后交易五因子评分",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "emc-precompliance-analyzer",
       "title": "EMC 电磁兼容预合规分析",
       "domain": "领域/hardware",
@@ -3209,6 +3678,13 @@
     {
       "id": "employment-contract-drafter",
       "title": "劳动合同与 HR 文书起草",
+      "domain": "领域/legal",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "esignature-routing",
+      "title": "电子签署路由准备",
       "domain": "领域/legal",
       "level": "进阶",
       "status": "stable"
@@ -3228,6 +3704,13 @@
       "status": "stable"
     },
     {
+      "id": "fastp-fastq-preprocessing",
+      "title": "fastp FASTQ 质控与接头修剪",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "fda-device-consultant",
       "title": "FDA 医疗器械注册路径顾问",
       "domain": "领域/medical",
@@ -3239,6 +3722,20 @@
       "title": "FDA QSR（21 CFR 820）审计准备",
       "domain": "领域/medical",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "finviz-screener-builder",
+      "title": "FinViz 选股器 URL 构建",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "gatk-variant-calling",
+      "title": "GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）",
+      "domain": "领域/science",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -3270,6 +3767,20 @@
       "status": "stable"
     },
     {
+      "id": "gget-genomic-databases",
+      "title": "gget 统一基因组数据库接口",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "gnomad-population-database",
+      "title": "gnomAD 人群变异频率查询",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "guided-statistical-analysis",
       "title": "统计分析与检验选择",
       "domain": "领域/science",
@@ -3284,9 +3795,23 @@
       "status": "stable"
     },
     {
+      "id": "harmony-batch-correction",
+      "title": "Harmony 单细胞批次效应校正",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "health-goal-analyzer",
       "title": "健康目标分析器",
       "domain": "领域/medical",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "institutional-flow-tracker",
+      "title": "13F 机构持仓流向追踪",
+      "domain": "领域/fintech",
       "level": "进阶",
       "status": "stable"
     },
@@ -3340,9 +3865,44 @@
       "status": "stable"
     },
     {
+      "id": "legal-risk-classifier",
+      "title": "法律风险分级评估",
+      "domain": "领域/legal",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "litigation-chronology-builder",
       "title": "案件事实时间线构建",
       "domain": "领域/legal",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "macro-regime-detector",
+      "title": "宏观周期切换检测",
+      "domain": "领域/fintech",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "macs3-peak-calling",
+      "title": "MACS3 ChIP/ATAC-seq 峰检测",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "market-breadth-analyzer",
+      "title": "市场宽度健康度评分",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "market-top-detector",
+      "title": "市场顶部概率检测",
+      "domain": "领域/fintech",
       "level": "进阶",
       "status": "stable"
     },
@@ -3368,6 +3928,13 @@
       "status": "stable"
     },
     {
+      "id": "maxquant-proteomics",
+      "title": "MaxQuant 蛋白质组学定量流程",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "merger-accretion-dilution-model",
       "title": "并购增厚/摊薄分析模型",
       "domain": "领域/fintech",
@@ -3377,6 +3944,13 @@
     {
       "id": "molecular-dynamics-simulation",
       "title": "分子动力学模拟（OpenMM/MDAnalysis）",
+      "domain": "领域/science",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "muon-multiomics-singlecell",
+      "title": "muon 多模态单细胞多组学分析",
       "domain": "领域/science",
       "level": "精通",
       "status": "stable"
@@ -3403,8 +3977,141 @@
       "status": "stable"
     },
     {
+      "id": "octagon-balance-sheet-data",
+      "title": "资产负债表数据检索",
+      "domain": "领域/fintech",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-cash-flow-statement-data",
+      "title": "现金流量表数据检索",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-earnings-call-analysis",
+      "title": "财报电话会纪要分析",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-earnings-call-sentiment",
+      "title": "财报会管理层情绪分析",
+      "domain": "领域/fintech",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-equity-research-analyst",
+      "title": "股票研究分析编排",
+      "domain": "领域/fintech",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-esg-ratings",
+      "title": "ESG评级检索（MSCI / Sustainalytics）",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-financial-growth-metrics",
+      "title": "财务同比增长指标",
+      "domain": "领域/fintech",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-financial-health-scores",
+      "title": "财务健康评分（Z-Score / Piotroski）",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-income-statement-data",
+      "title": "利润表数据检索",
+      "domain": "领域/fintech",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-prediction-markets-research",
+      "title": "预测市场事件研究",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-price-target-consensus",
+      "title": "分析师目标价共识",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-ratings-snapshot",
+      "title": "公司评级与关键指标快照",
+      "domain": "领域/fintech",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-sec-filing-analyst",
+      "title": "SEC 文件分析编排",
+      "domain": "领域/fintech",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-sec-mda-analysis",
+      "title": "SEC 管理层讨论与分析（MD&A）解读",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-sec-risk-factors",
+      "title": "SEC 风险因素提取",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "octagon-stock-quote",
+      "title": "实时股票报价",
+      "domain": "领域/fintech",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "odoo-localization-compliance",
       "title": "Odoo 本地化与税务合规",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "opentargets-database",
+      "title": "Open Targets 靶点-疾病关联查询",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "opentrons-protocol-api",
+      "title": "Opentrons 液体处理机器人协议",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "options-strategy-advisor",
+      "title": "期权策略分析与模拟",
       "domain": "领域/fintech",
       "level": "进阶",
       "status": "stable"
@@ -3414,6 +4121,13 @@
       "title": "开源许可证合规审查",
       "domain": "领域/legal",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "pair-trade-screener",
+      "title": "配对交易统计套利筛选",
+      "domain": "领域/fintech",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -3433,6 +4147,13 @@
     {
       "id": "pe-returns-sensitivity",
       "title": "PE 投资回报 IRR/MOIC 敏感性分析",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "pead-earnings-drift-screener",
+      "title": "财报后漂移 PEAD 选股",
       "domain": "领域/fintech",
       "level": "进阶",
       "status": "stable"
@@ -3475,6 +4196,27 @@
     {
       "id": "protein-language-models",
       "title": "蛋白质语言模型与设计（ESM）",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "pubchem-compound-search",
+      "title": "PubChem 化合物检索",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "pydeseq2-differential-expression",
+      "title": "PyDESeq2 批量 RNA-seq 差异表达分析",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "pyopenms-mass-spectrometry",
+      "title": "PyOpenMS 质谱数据处理",
       "domain": "领域/science",
       "level": "进阶",
       "status": "stable"
@@ -3529,8 +4271,29 @@
       "status": "stable"
     },
     {
+      "id": "scvi-tools-single-cell",
+      "title": "scvi-tools 单细胞深度生成模型",
+      "domain": "领域/science",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "single-cell-rnaseq-analysis",
       "title": "单细胞 RNA-seq 分析（Scanpy）",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "snakemake-workflow-engine",
+      "title": "Snakemake 可复现生信流程引擎",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "snpeff-variant-annotation",
+      "title": "SnpEff/SnpSift 变异功能注释与过滤",
       "domain": "领域/science",
       "level": "进阶",
       "status": "stable"
@@ -3546,6 +4309,20 @@
       "id": "spice-circuit-simulator",
       "title": "SPICE 电路仿真验证",
       "domain": "领域/hardware",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "star-rnaseq-aligner",
+      "title": "STAR 剪接感知 RNA-seq 比对",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "strategy-backtest-expert",
+      "title": "交易策略系统化回测指导",
+      "domain": "领域/fintech",
       "level": "进阶",
       "status": "stable"
     },
@@ -3571,6 +4348,20 @@
       "status": "stable"
     },
     {
+      "id": "trade-position-sizer",
+      "title": "风险化仓位计算",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "trade-signal-postmortem",
+      "title": "交易信号复盘归因",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "trading-strategy-backtester",
       "title": "交易策略回测框架",
       "domain": "领域/fintech",
@@ -3578,9 +4369,37 @@
       "status": "stable"
     },
     {
+      "id": "uniprot-protein-database",
+      "title": "UniProt 蛋白序列与注释数据库",
+      "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "unit-economics-analyzer",
       "title": "单位经济模型分析",
       "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "value-dividend-screener",
+      "title": "价值红利股筛选",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "vcp-screener",
+      "title": "VCP 波动收缩形态选股",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "viennarna-structure-prediction",
+      "title": "ViennaRNA RNA 二级结构预测",
+      "domain": "领域/science",
       "level": "进阶",
       "status": "stable"
     },
@@ -4184,6 +5003,36 @@
       "type": "related"
     },
     {
+      "from": "multi-source-knowledge-synthesis",
+      "to": "query-decomposition-search",
+      "type": "related"
+    },
+    {
+      "from": "multi-source-knowledge-synthesis",
+      "to": "activity-digest-generator",
+      "type": "related"
+    },
+    {
+      "from": "multi-source-knowledge-synthesis",
+      "to": "fact-checking",
+      "type": "related"
+    },
+    {
+      "from": "multi-source-knowledge-synthesis",
+      "to": "notebooklm-source-grounded-qa",
+      "type": "related"
+    },
+    {
+      "from": "multi-source-knowledge-synthesis",
+      "to": "query-decomposition-search",
+      "type": "combines_with"
+    },
+    {
+      "from": "multi-source-knowledge-synthesis",
+      "to": "news-sentiment-briefing",
+      "type": "combines_with"
+    },
+    {
       "from": "news-sentiment-briefing",
       "to": "daily-news-report",
       "type": "related"
@@ -4271,6 +5120,41 @@
     {
       "from": "premortem-plan-challenger",
       "to": "business-assumption-stress-test",
+      "type": "combines_with"
+    },
+    {
+      "from": "query-decomposition-search",
+      "to": "hybrid-search-retrieval",
+      "type": "related"
+    },
+    {
+      "from": "query-decomposition-search",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "related"
+    },
+    {
+      "from": "query-decomposition-search",
+      "to": "rag-implementation-workflow",
+      "type": "related"
+    },
+    {
+      "from": "query-decomposition-search",
+      "to": "exa-semantic-search",
+      "type": "related"
+    },
+    {
+      "from": "query-decomposition-search",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "combines_with"
+    },
+    {
+      "from": "query-decomposition-search",
+      "to": "rag-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "query-decomposition-search",
+      "to": "entity-research-dossier",
       "type": "combines_with"
     },
     {
@@ -4591,6 +5475,31 @@
     {
       "from": "humanize-chinese-text",
       "to": "wechat-official-account-growth",
+      "type": "combines_with"
+    },
+    {
+      "from": "interactive-pdf-viewer",
+      "to": "pdf-form-filler",
+      "type": "related"
+    },
+    {
+      "from": "interactive-pdf-viewer",
+      "to": "pdf-processing-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "interactive-pdf-viewer",
+      "to": "professional-proofreader",
+      "type": "related"
+    },
+    {
+      "from": "interactive-pdf-viewer",
+      "to": "pdf-form-filler",
+      "type": "combines_with"
+    },
+    {
+      "from": "interactive-pdf-viewer",
+      "to": "esignature-routing",
       "type": "combines_with"
     },
     {
@@ -6784,6 +7693,41 @@
       "type": "combines_with"
     },
     {
+      "from": "operational-runbook-writer",
+      "to": "postmortem-writer",
+      "type": "related"
+    },
+    {
+      "from": "operational-runbook-writer",
+      "to": "oncall-handoff-writer",
+      "type": "related"
+    },
+    {
+      "from": "operational-runbook-writer",
+      "to": "pre-deploy-checklist",
+      "type": "related"
+    },
+    {
+      "from": "operational-runbook-writer",
+      "to": "sre-incident-responder",
+      "type": "related"
+    },
+    {
+      "from": "operational-runbook-writer",
+      "to": "devops-troubleshooter",
+      "type": "combines_with"
+    },
+    {
+      "from": "operational-runbook-writer",
+      "to": "incident-commander-framework",
+      "type": "combines_with"
+    },
+    {
+      "from": "operational-runbook-writer",
+      "to": "observability-strategy-designer",
+      "type": "combines_with"
+    },
+    {
       "from": "performance-profiler",
       "to": "python-performance-optimization",
       "type": "related"
@@ -6851,6 +7795,41 @@
     {
       "from": "playwright-e2e-testing",
       "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "pre-deploy-checklist",
+      "to": "release-manager",
+      "type": "related"
+    },
+    {
+      "from": "pre-deploy-checklist",
+      "to": "deployment-engineer",
+      "type": "related"
+    },
+    {
+      "from": "pre-deploy-checklist",
+      "to": "ci-cd-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "pre-deploy-checklist",
+      "to": "feature-flags-architect",
+      "type": "related"
+    },
+    {
+      "from": "pre-deploy-checklist",
+      "to": "release-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "pre-deploy-checklist",
+      "to": "zero-downtime-migration-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "pre-deploy-checklist",
+      "to": "operational-runbook-writer",
       "type": "combines_with"
     },
     {
@@ -7534,6 +8513,41 @@
       "type": "combines_with"
     },
     {
+      "from": "tech-debt-prioritizer",
+      "to": "legacy-codebase-modernizer",
+      "type": "related"
+    },
+    {
+      "from": "tech-debt-prioritizer",
+      "to": "adr-management-patterns",
+      "type": "related"
+    },
+    {
+      "from": "tech-debt-prioritizer",
+      "to": "tech-stack-evaluator",
+      "type": "related"
+    },
+    {
+      "from": "tech-debt-prioritizer",
+      "to": "code-simplifier",
+      "type": "related"
+    },
+    {
+      "from": "tech-debt-prioritizer",
+      "to": "legacy-codebase-modernizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "tech-debt-prioritizer",
+      "to": "task-decomposition-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "tech-debt-prioritizer",
+      "to": "vp-engineering-advisor",
+      "type": "combines_with"
+    },
+    {
       "from": "temporal-workflow-python",
       "to": "saga-orchestration",
       "type": "related"
@@ -7994,6 +9008,36 @@
       "type": "combines_with"
     },
     {
+      "from": "analysis-qa-validator",
+      "to": "data-quality-validator",
+      "type": "related"
+    },
+    {
+      "from": "analysis-qa-validator",
+      "to": "dataset-quality-auditor",
+      "type": "related"
+    },
+    {
+      "from": "analysis-qa-validator",
+      "to": "data-quality-frameworks",
+      "type": "related"
+    },
+    {
+      "from": "analysis-qa-validator",
+      "to": "spreadsheet-formula-auditor",
+      "type": "related"
+    },
+    {
+      "from": "analysis-qa-validator",
+      "to": "dataset-profiler",
+      "type": "combines_with"
+    },
+    {
+      "from": "analysis-qa-validator",
+      "to": "html-dashboard-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "chief-data-officer-advisor",
       "to": "data-strategy-review",
       "type": "related"
@@ -8191,6 +9235,41 @@
     {
       "from": "data-strategy-review",
       "to": "kpi-dashboard-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "dataset-profiler",
+      "to": "dataset-quality-auditor",
+      "type": "related"
+    },
+    {
+      "from": "dataset-profiler",
+      "to": "data-quality-validator",
+      "type": "related"
+    },
+    {
+      "from": "dataset-profiler",
+      "to": "analysis-qa-validator",
+      "type": "related"
+    },
+    {
+      "from": "dataset-profiler",
+      "to": "csv-data-cleaner",
+      "type": "related"
+    },
+    {
+      "from": "dataset-profiler",
+      "to": "csv-data-cleaner",
+      "type": "combines_with"
+    },
+    {
+      "from": "dataset-profiler",
+      "to": "statsmodels-statistical-modeling",
+      "type": "combines_with"
+    },
+    {
+      "from": "dataset-profiler",
+      "to": "matplotlib-visualization",
       "type": "combines_with"
     },
     {
@@ -8396,6 +9475,36 @@
     {
       "from": "gl-subledger-reconciler",
       "to": "variance-flux-commentary",
+      "type": "combines_with"
+    },
+    {
+      "from": "html-dashboard-builder",
+      "to": "kpi-dashboard-design",
+      "type": "related"
+    },
+    {
+      "from": "html-dashboard-builder",
+      "to": "plotly-interactive-viz",
+      "type": "related"
+    },
+    {
+      "from": "html-dashboard-builder",
+      "to": "grafana-dashboards",
+      "type": "related"
+    },
+    {
+      "from": "html-dashboard-builder",
+      "to": "web-artifacts-builder",
+      "type": "related"
+    },
+    {
+      "from": "html-dashboard-builder",
+      "to": "sql-query-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "html-dashboard-builder",
+      "to": "kpi-dashboard-design",
       "type": "combines_with"
     },
     {
@@ -10539,6 +11648,41 @@
       "type": "combines_with"
     },
     {
+      "from": "account-reconciliation",
+      "to": "gl-subledger-reconciler",
+      "type": "related"
+    },
+    {
+      "from": "account-reconciliation",
+      "to": "month-end-close-manager",
+      "type": "related"
+    },
+    {
+      "from": "account-reconciliation",
+      "to": "journal-entry-preparer",
+      "type": "related"
+    },
+    {
+      "from": "account-reconciliation",
+      "to": "variance-flux-commentary",
+      "type": "related"
+    },
+    {
+      "from": "account-reconciliation",
+      "to": "month-end-close-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "account-reconciliation",
+      "to": "financial-statements-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "account-reconciliation",
+      "to": "sox-control-testing",
+      "type": "combines_with"
+    },
+    {
       "from": "ad-creative-generator",
       "to": "paid-ad-creative",
       "type": "related"
@@ -10749,6 +11893,36 @@
       "type": "combines_with"
     },
     {
+      "from": "backlink-profile-analyzer",
+      "to": "seo-audit",
+      "type": "related"
+    },
+    {
+      "from": "backlink-profile-analyzer",
+      "to": "internal-linking-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "backlink-profile-analyzer",
+      "to": "technical-seo-checker",
+      "type": "related"
+    },
+    {
+      "from": "backlink-profile-analyzer",
+      "to": "seo-traffic-drop-forensics",
+      "type": "related"
+    },
+    {
+      "from": "backlink-profile-analyzer",
+      "to": "competitive-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "backlink-profile-analyzer",
+      "to": "seo-performance-reporter",
+      "type": "combines_with"
+    },
+    {
       "from": "billing-automation-systems",
       "to": "churn-prevention",
       "type": "related"
@@ -10851,6 +12025,41 @@
     {
       "from": "board-meeting-prep",
       "to": "startup-financial-modeler",
+      "type": "combines_with"
+    },
+    {
+      "from": "budget-variance-analysis",
+      "to": "variance-flux-commentary",
+      "type": "related"
+    },
+    {
+      "from": "budget-variance-analysis",
+      "to": "financial-statements-generator",
+      "type": "related"
+    },
+    {
+      "from": "budget-variance-analysis",
+      "to": "gl-subledger-reconciler",
+      "type": "related"
+    },
+    {
+      "from": "budget-variance-analysis",
+      "to": "month-end-close-manager",
+      "type": "related"
+    },
+    {
+      "from": "budget-variance-analysis",
+      "to": "financial-statements-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "budget-variance-analysis",
+      "to": "variance-flux-commentary",
+      "type": "combines_with"
+    },
+    {
+      "from": "budget-variance-analysis",
+      "to": "board-deck-builder",
       "type": "combines_with"
     },
     {
@@ -11026,6 +12235,36 @@
     {
       "from": "cold-email-writer",
       "to": "sales-enablement",
+      "type": "combines_with"
+    },
+    {
+      "from": "compensation-analysis",
+      "to": "performance-review-builder",
+      "type": "related"
+    },
+    {
+      "from": "compensation-analysis",
+      "to": "offer-letter-drafter",
+      "type": "related"
+    },
+    {
+      "from": "compensation-analysis",
+      "to": "interview-plan-builder",
+      "type": "related"
+    },
+    {
+      "from": "compensation-analysis",
+      "to": "hr-partner-pro",
+      "type": "related"
+    },
+    {
+      "from": "compensation-analysis",
+      "to": "offer-letter-drafter",
+      "type": "combines_with"
+    },
+    {
+      "from": "compensation-analysis",
+      "to": "performance-review-builder",
       "type": "combines_with"
     },
     {
@@ -11379,6 +12618,41 @@
       "type": "combines_with"
     },
     {
+      "from": "customer-escalation-packager",
+      "to": "support-ticket-triage",
+      "type": "related"
+    },
+    {
+      "from": "customer-escalation-packager",
+      "to": "customer-response-drafter",
+      "type": "related"
+    },
+    {
+      "from": "customer-escalation-packager",
+      "to": "ai-customer-support",
+      "type": "related"
+    },
+    {
+      "from": "customer-escalation-packager",
+      "to": "customer-health-scorer",
+      "type": "related"
+    },
+    {
+      "from": "customer-escalation-packager",
+      "to": "support-ticket-triage",
+      "type": "combines_with"
+    },
+    {
+      "from": "customer-escalation-packager",
+      "to": "bug-hunter",
+      "type": "combines_with"
+    },
+    {
+      "from": "customer-escalation-packager",
+      "to": "stakeholder-update-writer",
+      "type": "combines_with"
+    },
+    {
       "from": "customer-health-scorer",
       "to": "churn-prevention",
       "type": "related"
@@ -11446,6 +12720,36 @@
     {
       "from": "customer-research-synthesizer",
       "to": "product-marketing-gtm-strategy",
+      "type": "combines_with"
+    },
+    {
+      "from": "customer-response-drafter",
+      "to": "ai-customer-support",
+      "type": "related"
+    },
+    {
+      "from": "customer-response-drafter",
+      "to": "customer-research-synthesizer",
+      "type": "related"
+    },
+    {
+      "from": "customer-response-drafter",
+      "to": "churn-prevention",
+      "type": "related"
+    },
+    {
+      "from": "customer-response-drafter",
+      "to": "cold-email-writer",
+      "type": "related"
+    },
+    {
+      "from": "customer-response-drafter",
+      "to": "ai-customer-support",
+      "type": "combines_with"
+    },
+    {
+      "from": "customer-response-drafter",
+      "to": "customer-health-scorer",
       "type": "combines_with"
     },
     {
@@ -11519,6 +12823,36 @@
       "type": "combines_with"
     },
     {
+      "from": "eeat-content-quality-auditor",
+      "to": "seo-content-writer",
+      "type": "related"
+    },
+    {
+      "from": "eeat-content-quality-auditor",
+      "to": "ai-search-seo",
+      "type": "related"
+    },
+    {
+      "from": "eeat-content-quality-auditor",
+      "to": "ai-answer-engine-seo",
+      "type": "related"
+    },
+    {
+      "from": "eeat-content-quality-auditor",
+      "to": "professional-proofreader",
+      "type": "related"
+    },
+    {
+      "from": "eeat-content-quality-auditor",
+      "to": "seo-content-refresher",
+      "type": "combines_with"
+    },
+    {
+      "from": "eeat-content-quality-auditor",
+      "to": "seo-content-writer",
+      "type": "combines_with"
+    },
+    {
       "from": "email-drip-sequence",
       "to": "lifecycle-email-sequence",
       "type": "related"
@@ -11551,6 +12885,71 @@
     {
       "from": "email-drip-sequence",
       "to": "analytics-tracking-setup",
+      "type": "combines_with"
+    },
+    {
+      "from": "email-sequence-designer",
+      "to": "email-drip-sequence",
+      "type": "related"
+    },
+    {
+      "from": "email-sequence-designer",
+      "to": "lifecycle-email-sequence",
+      "type": "related"
+    },
+    {
+      "from": "email-sequence-designer",
+      "to": "cold-email-writer",
+      "type": "related"
+    },
+    {
+      "from": "email-sequence-designer",
+      "to": "conversion-copywriter",
+      "type": "related"
+    },
+    {
+      "from": "email-sequence-designer",
+      "to": "transactional-email-template-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "email-sequence-designer",
+      "to": "landing-page-copywriting",
+      "type": "combines_with"
+    },
+    {
+      "from": "email-sequence-designer",
+      "to": "marketing-copy-editor",
+      "type": "combines_with"
+    },
+    {
+      "from": "financial-statements-generator",
+      "to": "budget-variance-analysis",
+      "type": "related"
+    },
+    {
+      "from": "financial-statements-generator",
+      "to": "three-statement-model",
+      "type": "related"
+    },
+    {
+      "from": "financial-statements-generator",
+      "to": "month-end-close-manager",
+      "type": "related"
+    },
+    {
+      "from": "financial-statements-generator",
+      "to": "variance-flux-commentary",
+      "type": "related"
+    },
+    {
+      "from": "financial-statements-generator",
+      "to": "budget-variance-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "financial-statements-generator",
+      "to": "board-deck-builder",
       "type": "combines_with"
     },
     {
@@ -11589,6 +12988,41 @@
       "type": "combines_with"
     },
     {
+      "from": "internal-linking-optimizer",
+      "to": "seo-site-architecture",
+      "type": "related"
+    },
+    {
+      "from": "internal-linking-optimizer",
+      "to": "seo-content-gap-analysis",
+      "type": "related"
+    },
+    {
+      "from": "internal-linking-optimizer",
+      "to": "programmatic-seo-builder",
+      "type": "related"
+    },
+    {
+      "from": "internal-linking-optimizer",
+      "to": "schema-markup-builder",
+      "type": "related"
+    },
+    {
+      "from": "internal-linking-optimizer",
+      "to": "seo-site-architecture",
+      "type": "combines_with"
+    },
+    {
+      "from": "internal-linking-optimizer",
+      "to": "seo-content-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "internal-linking-optimizer",
+      "to": "technical-seo-checker",
+      "type": "combines_with"
+    },
+    {
       "from": "international-expansion-strategy",
       "to": "market-sizing-analyst",
       "type": "related"
@@ -11621,6 +13055,71 @@
     {
       "from": "international-expansion-strategy",
       "to": "pricing-strategy",
+      "type": "combines_with"
+    },
+    {
+      "from": "interview-plan-builder",
+      "to": "interview-system-designer",
+      "type": "related"
+    },
+    {
+      "from": "interview-plan-builder",
+      "to": "hr-partner-pro",
+      "type": "related"
+    },
+    {
+      "from": "interview-plan-builder",
+      "to": "compensation-analysis",
+      "type": "related"
+    },
+    {
+      "from": "interview-plan-builder",
+      "to": "performance-review-builder",
+      "type": "related"
+    },
+    {
+      "from": "interview-plan-builder",
+      "to": "offer-letter-drafter",
+      "type": "combines_with"
+    },
+    {
+      "from": "interview-plan-builder",
+      "to": "new-hire-onboarding-plan",
+      "type": "combines_with"
+    },
+    {
+      "from": "journal-entry-preparer",
+      "to": "month-end-close-manager",
+      "type": "related"
+    },
+    {
+      "from": "journal-entry-preparer",
+      "to": "account-reconciliation",
+      "type": "related"
+    },
+    {
+      "from": "journal-entry-preparer",
+      "to": "gl-subledger-reconciler",
+      "type": "related"
+    },
+    {
+      "from": "journal-entry-preparer",
+      "to": "financial-statements-generator",
+      "type": "related"
+    },
+    {
+      "from": "journal-entry-preparer",
+      "to": "financial-statements-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "journal-entry-preparer",
+      "to": "account-reconciliation",
+      "type": "combines_with"
+    },
+    {
+      "from": "journal-entry-preparer",
+      "to": "variance-flux-commentary",
       "type": "combines_with"
     },
     {
@@ -11869,6 +13368,36 @@
       "type": "combines_with"
     },
     {
+      "from": "marketing-campaign-brief",
+      "to": "product-launch-strategy",
+      "type": "related"
+    },
+    {
+      "from": "marketing-campaign-brief",
+      "to": "content-marketing-strategist",
+      "type": "related"
+    },
+    {
+      "from": "marketing-campaign-brief",
+      "to": "content-strategy-planner",
+      "type": "related"
+    },
+    {
+      "from": "marketing-campaign-brief",
+      "to": "product-launch-strategy",
+      "type": "combines_with"
+    },
+    {
+      "from": "marketing-campaign-brief",
+      "to": "marketing-performance-report",
+      "type": "combines_with"
+    },
+    {
+      "from": "marketing-campaign-brief",
+      "to": "email-drip-sequence",
+      "type": "combines_with"
+    },
+    {
       "from": "marketing-copy-editor",
       "to": "conversion-copywriter",
       "type": "related"
@@ -11904,6 +13433,41 @@
       "type": "combines_with"
     },
     {
+      "from": "marketing-performance-report",
+      "to": "campaign-attribution-analytics",
+      "type": "related"
+    },
+    {
+      "from": "marketing-performance-report",
+      "to": "marketing-analytics-tracker",
+      "type": "related"
+    },
+    {
+      "from": "marketing-performance-report",
+      "to": "social-media-performance-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "marketing-performance-report",
+      "to": "data-storyteller",
+      "type": "related"
+    },
+    {
+      "from": "marketing-performance-report",
+      "to": "campaign-attribution-analytics",
+      "type": "combines_with"
+    },
+    {
+      "from": "marketing-performance-report",
+      "to": "kpi-dashboard-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "marketing-performance-report",
+      "to": "data-storyteller",
+      "type": "combines_with"
+    },
+    {
       "from": "marketing-psychology",
       "to": "conversion-copywriter",
       "type": "related"
@@ -11936,6 +13500,71 @@
     {
       "from": "marketing-psychology",
       "to": "pricing-strategy",
+      "type": "combines_with"
+    },
+    {
+      "from": "month-end-close-manager",
+      "to": "account-reconciliation",
+      "type": "related"
+    },
+    {
+      "from": "month-end-close-manager",
+      "to": "journal-entry-preparer",
+      "type": "related"
+    },
+    {
+      "from": "month-end-close-manager",
+      "to": "gl-subledger-reconciler",
+      "type": "related"
+    },
+    {
+      "from": "month-end-close-manager",
+      "to": "financial-statements-generator",
+      "type": "related"
+    },
+    {
+      "from": "month-end-close-manager",
+      "to": "variance-flux-commentary",
+      "type": "combines_with"
+    },
+    {
+      "from": "month-end-close-manager",
+      "to": "financial-statements-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "offer-letter-drafter",
+      "to": "compensation-analysis",
+      "type": "related"
+    },
+    {
+      "from": "offer-letter-drafter",
+      "to": "interview-plan-builder",
+      "type": "related"
+    },
+    {
+      "from": "offer-letter-drafter",
+      "to": "performance-review-builder",
+      "type": "related"
+    },
+    {
+      "from": "offer-letter-drafter",
+      "to": "hr-partner-pro",
+      "type": "related"
+    },
+    {
+      "from": "offer-letter-drafter",
+      "to": "compensation-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "offer-letter-drafter",
+      "to": "new-hire-onboarding-plan",
+      "type": "combines_with"
+    },
+    {
+      "from": "offer-letter-drafter",
+      "to": "hr-partner-pro",
       "type": "combines_with"
     },
     {
@@ -12041,6 +13670,36 @@
     {
       "from": "paywall-upgrade-cro",
       "to": "user-onboarding-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "performance-review-builder",
+      "to": "compensation-analysis",
+      "type": "related"
+    },
+    {
+      "from": "performance-review-builder",
+      "to": "interview-plan-builder",
+      "type": "related"
+    },
+    {
+      "from": "performance-review-builder",
+      "to": "new-hire-onboarding-plan",
+      "type": "related"
+    },
+    {
+      "from": "performance-review-builder",
+      "to": "hr-partner-pro",
+      "type": "related"
+    },
+    {
+      "from": "performance-review-builder",
+      "to": "compensation-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "performance-review-builder",
+      "to": "new-hire-onboarding-plan",
       "type": "combines_with"
     },
     {
@@ -12289,6 +13948,41 @@
       "type": "combines_with"
     },
     {
+      "from": "sales-call-summary",
+      "to": "meeting-transcript-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "sales-call-summary",
+      "to": "deal-desk-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "sales-call-summary",
+      "to": "sales-prospecting",
+      "type": "related"
+    },
+    {
+      "from": "sales-call-summary",
+      "to": "customer-research-synthesizer",
+      "type": "related"
+    },
+    {
+      "from": "sales-call-summary",
+      "to": "deal-pipeline-tracker",
+      "type": "combines_with"
+    },
+    {
+      "from": "sales-call-summary",
+      "to": "cold-email-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "sales-call-summary",
+      "to": "sales-enablement",
+      "type": "combines_with"
+    },
+    {
       "from": "sales-enablement",
       "to": "product-marketing-gtm-strategy",
       "type": "related"
@@ -12321,6 +14015,36 @@
     {
       "from": "sales-enablement",
       "to": "contract-proposal-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "sales-forecast-builder",
+      "to": "deal-pipeline-tracker",
+      "type": "related"
+    },
+    {
+      "from": "sales-forecast-builder",
+      "to": "cro-revenue-advisor",
+      "type": "related"
+    },
+    {
+      "from": "sales-forecast-builder",
+      "to": "deal-desk-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "sales-forecast-builder",
+      "to": "sales-prospecting",
+      "type": "related"
+    },
+    {
+      "from": "sales-forecast-builder",
+      "to": "deal-pipeline-tracker",
+      "type": "combines_with"
+    },
+    {
+      "from": "sales-forecast-builder",
+      "to": "startup-financial-modeler",
       "type": "combines_with"
     },
     {
@@ -12429,6 +14153,71 @@
       "type": "combines_with"
     },
     {
+      "from": "seo-content-gap-analysis",
+      "to": "seo-keyword-research",
+      "type": "related"
+    },
+    {
+      "from": "seo-content-gap-analysis",
+      "to": "content-engine-strategist",
+      "type": "related"
+    },
+    {
+      "from": "seo-content-gap-analysis",
+      "to": "seo-content-refresher",
+      "type": "related"
+    },
+    {
+      "from": "seo-content-gap-analysis",
+      "to": "serp-feature-analysis",
+      "type": "related"
+    },
+    {
+      "from": "seo-content-gap-analysis",
+      "to": "seo-content-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-content-gap-analysis",
+      "to": "seo-keyword-research",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-content-gap-analysis",
+      "to": "content-strategy-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-content-refresher",
+      "to": "seo-content-writer",
+      "type": "related"
+    },
+    {
+      "from": "seo-content-refresher",
+      "to": "seo-content-gap-analysis",
+      "type": "related"
+    },
+    {
+      "from": "seo-content-refresher",
+      "to": "seo-traffic-drop-forensics",
+      "type": "related"
+    },
+    {
+      "from": "seo-content-refresher",
+      "to": "seo-keyword-research",
+      "type": "related"
+    },
+    {
+      "from": "seo-content-refresher",
+      "to": "seo-performance-reporter",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-content-refresher",
+      "to": "seo-keyword-research",
+      "type": "combines_with"
+    },
+    {
       "from": "seo-content-writer",
       "to": "fact-checking",
       "type": "requires"
@@ -12466,6 +14255,176 @@
     {
       "from": "seo-content-writer",
       "to": "ai-search-seo",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-entity-optimizer",
+      "to": "ai-answer-engine-seo",
+      "type": "related"
+    },
+    {
+      "from": "seo-entity-optimizer",
+      "to": "ai-search-seo",
+      "type": "related"
+    },
+    {
+      "from": "seo-entity-optimizer",
+      "to": "schema-markup-builder",
+      "type": "related"
+    },
+    {
+      "from": "seo-entity-optimizer",
+      "to": "seo-audit",
+      "type": "related"
+    },
+    {
+      "from": "seo-entity-optimizer",
+      "to": "schema-markup-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-entity-optimizer",
+      "to": "ai-search-seo",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-entity-optimizer",
+      "to": "seo-content-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-keyword-research",
+      "to": "seo-content-gap-analysis",
+      "type": "related"
+    },
+    {
+      "from": "seo-keyword-research",
+      "to": "serp-feature-analysis",
+      "type": "related"
+    },
+    {
+      "from": "seo-keyword-research",
+      "to": "seo-content-writer",
+      "type": "related"
+    },
+    {
+      "from": "seo-keyword-research",
+      "to": "ai-search-seo",
+      "type": "related"
+    },
+    {
+      "from": "seo-keyword-research",
+      "to": "content-strategy-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-keyword-research",
+      "to": "seo-content-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-meta-tags-optimizer",
+      "to": "schema-markup-builder",
+      "type": "related"
+    },
+    {
+      "from": "seo-meta-tags-optimizer",
+      "to": "seo-content-writer",
+      "type": "related"
+    },
+    {
+      "from": "seo-meta-tags-optimizer",
+      "to": "technical-seo-checker",
+      "type": "related"
+    },
+    {
+      "from": "seo-meta-tags-optimizer",
+      "to": "seo-entity-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "seo-meta-tags-optimizer",
+      "to": "seo-content-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-meta-tags-optimizer",
+      "to": "schema-markup-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-meta-tags-optimizer",
+      "to": "seo-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-performance-reporter",
+      "to": "seo-rank-tracker",
+      "type": "related"
+    },
+    {
+      "from": "seo-performance-reporter",
+      "to": "seo-audit",
+      "type": "related"
+    },
+    {
+      "from": "seo-performance-reporter",
+      "to": "marketing-performance-report",
+      "type": "related"
+    },
+    {
+      "from": "seo-performance-reporter",
+      "to": "seo-content-gap-analysis",
+      "type": "related"
+    },
+    {
+      "from": "seo-performance-reporter",
+      "to": "seo-rank-tracker",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-performance-reporter",
+      "to": "html-dashboard-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-performance-reporter",
+      "to": "seo-content-refresher",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-rank-tracker",
+      "to": "seo-performance-reporter",
+      "type": "related"
+    },
+    {
+      "from": "seo-rank-tracker",
+      "to": "serp-feature-analysis",
+      "type": "related"
+    },
+    {
+      "from": "seo-rank-tracker",
+      "to": "seo-traffic-drop-forensics",
+      "type": "related"
+    },
+    {
+      "from": "seo-rank-tracker",
+      "to": "seo-keyword-research",
+      "type": "related"
+    },
+    {
+      "from": "seo-rank-tracker",
+      "to": "seo-performance-reporter",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-rank-tracker",
+      "to": "seo-content-refresher",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-rank-tracker",
+      "to": "seo-keyword-research",
       "type": "combines_with"
     },
     {
@@ -12536,6 +14495,36 @@
     {
       "from": "seo-traffic-drop-forensics",
       "to": "schema-markup-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "serp-feature-analysis",
+      "to": "seo-keyword-research",
+      "type": "related"
+    },
+    {
+      "from": "serp-feature-analysis",
+      "to": "seo-rank-tracker",
+      "type": "related"
+    },
+    {
+      "from": "serp-feature-analysis",
+      "to": "ai-answer-engine-seo",
+      "type": "related"
+    },
+    {
+      "from": "serp-feature-analysis",
+      "to": "seo-content-gap-analysis",
+      "type": "related"
+    },
+    {
+      "from": "serp-feature-analysis",
+      "to": "seo-keyword-research",
+      "type": "combines_with"
+    },
+    {
+      "from": "serp-feature-analysis",
+      "to": "seo-content-writer",
       "type": "combines_with"
     },
     {
@@ -12701,6 +14690,66 @@
     {
       "from": "startup-financial-modeler",
       "to": "market-sizing-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "support-ticket-triage",
+      "to": "customer-response-drafter",
+      "type": "related"
+    },
+    {
+      "from": "support-ticket-triage",
+      "to": "customer-escalation-packager",
+      "type": "related"
+    },
+    {
+      "from": "support-ticket-triage",
+      "to": "ai-customer-support",
+      "type": "related"
+    },
+    {
+      "from": "support-ticket-triage",
+      "to": "support-kb-article-writer",
+      "type": "related"
+    },
+    {
+      "from": "support-ticket-triage",
+      "to": "customer-response-drafter",
+      "type": "combines_with"
+    },
+    {
+      "from": "support-ticket-triage",
+      "to": "support-kb-article-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "support-ticket-triage",
+      "to": "customer-escalation-packager",
+      "type": "combines_with"
+    },
+    {
+      "from": "technical-seo-checker",
+      "to": "seo-audit",
+      "type": "related"
+    },
+    {
+      "from": "technical-seo-checker",
+      "to": "seo-site-architecture",
+      "type": "related"
+    },
+    {
+      "from": "technical-seo-checker",
+      "to": "schema-markup-builder",
+      "type": "related"
+    },
+    {
+      "from": "technical-seo-checker",
+      "to": "seo-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "technical-seo-checker",
+      "to": "seo-traffic-drop-forensics",
       "type": "combines_with"
     },
     {
@@ -13069,6 +15118,71 @@
       "type": "combines_with"
     },
     {
+      "from": "design-critique",
+      "to": "ux-ui-principles-audit",
+      "type": "related"
+    },
+    {
+      "from": "design-critique",
+      "to": "design-dev-handoff",
+      "type": "related"
+    },
+    {
+      "from": "design-critique",
+      "to": "ux-microcopy-writer",
+      "type": "related"
+    },
+    {
+      "from": "design-critique",
+      "to": "ui-design-system-builder",
+      "type": "related"
+    },
+    {
+      "from": "design-critique",
+      "to": "design-dev-handoff",
+      "type": "combines_with"
+    },
+    {
+      "from": "design-critique",
+      "to": "accessibility-wcag-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "design-critique",
+      "to": "ux-research-design-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "design-dev-handoff",
+      "to": "ui-design-system-builder",
+      "type": "related"
+    },
+    {
+      "from": "design-dev-handoff",
+      "to": "design-critique",
+      "type": "related"
+    },
+    {
+      "from": "design-dev-handoff",
+      "to": "frontend-design",
+      "type": "related"
+    },
+    {
+      "from": "design-dev-handoff",
+      "to": "web-component-design",
+      "type": "related"
+    },
+    {
+      "from": "design-dev-handoff",
+      "to": "ui-design-system-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "design-dev-handoff",
+      "to": "prd-spec-writer",
+      "type": "combines_with"
+    },
+    {
       "from": "design-spells-microinteractions",
       "to": "animejs-web-animation",
       "type": "related"
@@ -13324,6 +15438,41 @@
       "type": "combines_with"
     },
     {
+      "from": "ux-microcopy-writer",
+      "to": "ux-research-design-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "ux-microcopy-writer",
+      "to": "design-critique",
+      "type": "related"
+    },
+    {
+      "from": "ux-microcopy-writer",
+      "to": "conversion-copywriter",
+      "type": "related"
+    },
+    {
+      "from": "ux-microcopy-writer",
+      "to": "i18n-localization-patterns",
+      "type": "related"
+    },
+    {
+      "from": "ux-microcopy-writer",
+      "to": "frontend-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "ux-microcopy-writer",
+      "to": "conversion-rate-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "ux-microcopy-writer",
+      "to": "i18n-localization-patterns",
+      "type": "combines_with"
+    },
+    {
       "from": "ux-research-design-toolkit",
       "to": "ux-ui-principles-audit",
       "type": "related"
@@ -13406,6 +15555,36 @@
     {
       "from": "videodb-perception-editing",
       "to": "audio-to-markdown-transcriber",
+      "type": "combines_with"
+    },
+    {
+      "from": "activity-digest-generator",
+      "to": "status-report-generator",
+      "type": "related"
+    },
+    {
+      "from": "activity-digest-generator",
+      "to": "stakeholder-update-writer",
+      "type": "related"
+    },
+    {
+      "from": "activity-digest-generator",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "related"
+    },
+    {
+      "from": "activity-digest-generator",
+      "to": "meeting-transcript-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "activity-digest-generator",
+      "to": "status-report-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "activity-digest-generator",
+      "to": "stakeholder-update-writer",
       "type": "combines_with"
     },
     {
@@ -14284,6 +16463,41 @@
       "type": "combines_with"
     },
     {
+      "from": "new-hire-onboarding-plan",
+      "to": "hr-partner-pro",
+      "type": "related"
+    },
+    {
+      "from": "new-hire-onboarding-plan",
+      "to": "codebase-onboarding-doc",
+      "type": "related"
+    },
+    {
+      "from": "new-hire-onboarding-plan",
+      "to": "interview-system-designer",
+      "type": "related"
+    },
+    {
+      "from": "new-hire-onboarding-plan",
+      "to": "process-sop-documenter",
+      "type": "related"
+    },
+    {
+      "from": "new-hire-onboarding-plan",
+      "to": "offer-letter-drafter",
+      "type": "combines_with"
+    },
+    {
+      "from": "new-hire-onboarding-plan",
+      "to": "codebase-onboarding-doc",
+      "type": "combines_with"
+    },
+    {
+      "from": "new-hire-onboarding-plan",
+      "to": "company-culture-architect",
+      "type": "combines_with"
+    },
+    {
       "from": "oncall-handoff-writer",
       "to": "technical-change-tracker",
       "type": "related"
@@ -14459,6 +16673,71 @@
       "type": "combines_with"
     },
     {
+      "from": "prd-spec-writer",
+      "to": "product-manager-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "prd-spec-writer",
+      "to": "codebase-to-prd",
+      "type": "related"
+    },
+    {
+      "from": "prd-spec-writer",
+      "to": "agile-product-owner",
+      "type": "related"
+    },
+    {
+      "from": "prd-spec-writer",
+      "to": "status-report-generator",
+      "type": "related"
+    },
+    {
+      "from": "prd-spec-writer",
+      "to": "task-decomposition-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "prd-spec-writer",
+      "to": "design-dev-handoff",
+      "type": "combines_with"
+    },
+    {
+      "from": "process-sop-documenter",
+      "to": "technical-reference-builder",
+      "type": "related"
+    },
+    {
+      "from": "process-sop-documenter",
+      "to": "oncall-handoff-writer",
+      "type": "related"
+    },
+    {
+      "from": "process-sop-documenter",
+      "to": "operational-runbook-writer",
+      "type": "related"
+    },
+    {
+      "from": "process-sop-documenter",
+      "to": "support-kb-article-writer",
+      "type": "related"
+    },
+    {
+      "from": "process-sop-documenter",
+      "to": "operational-runbook-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "process-sop-documenter",
+      "to": "support-kb-article-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "process-sop-documenter",
+      "to": "technical-reference-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "product-manager-toolkit",
       "to": "agile-product-owner",
       "type": "related"
@@ -14491,6 +16770,36 @@
     {
       "from": "product-manager-toolkit",
       "to": "customer-research-synthesizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "resource-capacity-planner",
+      "to": "ops-capacity-planner",
+      "type": "related"
+    },
+    {
+      "from": "resource-capacity-planner",
+      "to": "enterprise-project-manager",
+      "type": "related"
+    },
+    {
+      "from": "resource-capacity-planner",
+      "to": "task-decomposition-planner",
+      "type": "related"
+    },
+    {
+      "from": "resource-capacity-planner",
+      "to": "agile-product-owner",
+      "type": "related"
+    },
+    {
+      "from": "resource-capacity-planner",
+      "to": "enterprise-project-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "resource-capacity-planner",
+      "to": "status-report-generator",
       "type": "combines_with"
     },
     {
@@ -14529,6 +16838,71 @@
       "type": "combines_with"
     },
     {
+      "from": "stakeholder-update-writer",
+      "to": "status-report-generator",
+      "type": "related"
+    },
+    {
+      "from": "stakeholder-update-writer",
+      "to": "internal-comms",
+      "type": "related"
+    },
+    {
+      "from": "stakeholder-update-writer",
+      "to": "activity-digest-generator",
+      "type": "related"
+    },
+    {
+      "from": "stakeholder-update-writer",
+      "to": "board-deck-builder",
+      "type": "related"
+    },
+    {
+      "from": "stakeholder-update-writer",
+      "to": "status-report-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "stakeholder-update-writer",
+      "to": "task-decomposition-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "stakeholder-update-writer",
+      "to": "enterprise-project-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "status-report-generator",
+      "to": "stakeholder-update-writer",
+      "type": "related"
+    },
+    {
+      "from": "status-report-generator",
+      "to": "activity-digest-generator",
+      "type": "related"
+    },
+    {
+      "from": "status-report-generator",
+      "to": "enterprise-project-manager",
+      "type": "related"
+    },
+    {
+      "from": "status-report-generator",
+      "to": "oncall-handoff-writer",
+      "type": "related"
+    },
+    {
+      "from": "status-report-generator",
+      "to": "stakeholder-update-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "status-report-generator",
+      "to": "deal-pipeline-tracker",
+      "type": "combines_with"
+    },
+    {
       "from": "strategic-alignment-cascader",
       "to": "company-operating-system",
       "type": "related"
@@ -14561,6 +16935,41 @@
     {
       "from": "strategic-alignment-cascader",
       "to": "org-change-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "support-kb-article-writer",
+      "to": "support-ticket-triage",
+      "type": "related"
+    },
+    {
+      "from": "support-kb-article-writer",
+      "to": "technical-reference-builder",
+      "type": "related"
+    },
+    {
+      "from": "support-kb-article-writer",
+      "to": "process-sop-documenter",
+      "type": "related"
+    },
+    {
+      "from": "support-kb-article-writer",
+      "to": "customer-response-drafter",
+      "type": "related"
+    },
+    {
+      "from": "support-kb-article-writer",
+      "to": "support-ticket-triage",
+      "type": "combines_with"
+    },
+    {
+      "from": "support-kb-article-writer",
+      "to": "seo-content-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "support-kb-article-writer",
+      "to": "process-sop-documenter",
       "type": "combines_with"
     },
     {
@@ -14631,6 +17040,36 @@
     {
       "from": "technical-change-tracker",
       "to": "postmortem-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "vendor-evaluation",
+      "to": "tech-stack-evaluator",
+      "type": "related"
+    },
+    {
+      "from": "vendor-evaluation",
+      "to": "competitive-analysis",
+      "type": "related"
+    },
+    {
+      "from": "vendor-evaluation",
+      "to": "ma-playbook",
+      "type": "related"
+    },
+    {
+      "from": "vendor-evaluation",
+      "to": "contract-playbook-review",
+      "type": "related"
+    },
+    {
+      "from": "vendor-evaluation",
+      "to": "contract-proposal-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "vendor-evaluation",
+      "to": "contract-playbook-review",
       "type": "combines_with"
     },
     {
@@ -16419,6 +18858,41 @@
       "type": "combines_with"
     },
     {
+      "from": "sox-control-testing",
+      "to": "soc2-compliance-preparer",
+      "type": "related"
+    },
+    {
+      "from": "sox-control-testing",
+      "to": "compliance-readiness-review",
+      "type": "related"
+    },
+    {
+      "from": "sox-control-testing",
+      "to": "iso27001-isms-implementer",
+      "type": "related"
+    },
+    {
+      "from": "sox-control-testing",
+      "to": "security-audit-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "sox-control-testing",
+      "to": "account-reconciliation",
+      "type": "combines_with"
+    },
+    {
+      "from": "sox-control-testing",
+      "to": "month-end-close-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "sox-control-testing",
+      "to": "compliance-readiness-review",
+      "type": "combines_with"
+    },
+    {
       "from": "stride-threat-modeler",
       "to": "attack-tree-construction",
       "type": "related"
@@ -16809,6 +19283,71 @@
       "type": "combines_with"
     },
     {
+      "from": "alphafold-database-access",
+      "to": "uniprot-protein-database",
+      "type": "related"
+    },
+    {
+      "from": "alphafold-database-access",
+      "to": "protein-language-models",
+      "type": "related"
+    },
+    {
+      "from": "alphafold-database-access",
+      "to": "opentargets-database",
+      "type": "related"
+    },
+    {
+      "from": "alphafold-database-access",
+      "to": "gget-genomic-databases",
+      "type": "related"
+    },
+    {
+      "from": "alphafold-database-access",
+      "to": "molecular-dynamics-simulation",
+      "type": "combines_with"
+    },
+    {
+      "from": "alphafold-database-access",
+      "to": "autodock-vina-docking",
+      "type": "combines_with"
+    },
+    {
+      "from": "anndata-data-structure",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "anndata-data-structure",
+      "to": "muon-multiomics-singlecell",
+      "type": "related"
+    },
+    {
+      "from": "anndata-data-structure",
+      "to": "scvi-tools-single-cell",
+      "type": "related"
+    },
+    {
+      "from": "anndata-data-structure",
+      "to": "cellxgene-census",
+      "type": "related"
+    },
+    {
+      "from": "anndata-data-structure",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "anndata-data-structure",
+      "to": "harmony-batch-correction",
+      "type": "combines_with"
+    },
+    {
+      "from": "anndata-data-structure",
+      "to": "scvi-tools-single-cell",
+      "type": "combines_with"
+    },
+    {
       "from": "arm-cortex-firmware-expert",
       "to": "kicad-design-reviewer",
       "type": "related"
@@ -16866,6 +19405,36 @@
     {
       "from": "astronomy-data-toolkit",
       "to": "guided-statistical-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "autodock-vina-docking",
+      "to": "diffdock-blind-docking",
+      "type": "related"
+    },
+    {
+      "from": "autodock-vina-docking",
+      "to": "cheminformatics-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "autodock-vina-docking",
+      "to": "deepchem-drug-discovery",
+      "type": "related"
+    },
+    {
+      "from": "autodock-vina-docking",
+      "to": "molecular-dynamics-simulation",
+      "type": "related"
+    },
+    {
+      "from": "autodock-vina-docking",
+      "to": "pubchem-compound-search",
+      "type": "combines_with"
+    },
+    {
+      "from": "autodock-vina-docking",
+      "to": "molecular-dynamics-simulation",
       "type": "combines_with"
     },
     {
@@ -16944,6 +19513,71 @@
       "type": "combines_with"
     },
     {
+      "from": "breakout-trade-planner",
+      "to": "vcp-screener",
+      "type": "related"
+    },
+    {
+      "from": "breakout-trade-planner",
+      "to": "trade-position-sizer",
+      "type": "related"
+    },
+    {
+      "from": "breakout-trade-planner",
+      "to": "earnings-trade-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "breakout-trade-planner",
+      "to": "pead-earnings-drift-screener",
+      "type": "related"
+    },
+    {
+      "from": "breakout-trade-planner",
+      "to": "vcp-screener",
+      "type": "combines_with"
+    },
+    {
+      "from": "breakout-trade-planner",
+      "to": "trade-position-sizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "breakout-trade-planner",
+      "to": "portfolio-risk-metrics",
+      "type": "combines_with"
+    },
+    {
+      "from": "canslim-growth-screener",
+      "to": "value-dividend-screener",
+      "type": "related"
+    },
+    {
+      "from": "canslim-growth-screener",
+      "to": "vcp-screener",
+      "type": "related"
+    },
+    {
+      "from": "canslim-growth-screener",
+      "to": "finviz-screener-builder",
+      "type": "related"
+    },
+    {
+      "from": "canslim-growth-screener",
+      "to": "breakout-trade-planner",
+      "type": "related"
+    },
+    {
+      "from": "canslim-growth-screener",
+      "to": "institutional-flow-tracker",
+      "type": "combines_with"
+    },
+    {
+      "from": "canslim-growth-screener",
+      "to": "trade-position-sizer",
+      "type": "combines_with"
+    },
+    {
       "from": "capa-root-cause-officer",
       "to": "iso13485-qms-audit",
       "type": "related"
@@ -17004,6 +19638,136 @@
       "type": "combines_with"
     },
     {
+      "from": "cellchat-cell-communication",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "cellchat-cell-communication",
+      "to": "celltypist-cell-annotation",
+      "type": "related"
+    },
+    {
+      "from": "cellchat-cell-communication",
+      "to": "gene-set-enrichment-analysis",
+      "type": "related"
+    },
+    {
+      "from": "cellchat-cell-communication",
+      "to": "muon-multiomics-singlecell",
+      "type": "related"
+    },
+    {
+      "from": "cellchat-cell-communication",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "cellchat-cell-communication",
+      "to": "celltypist-cell-annotation",
+      "type": "combines_with"
+    },
+    {
+      "from": "cellchat-cell-communication",
+      "to": "harmony-batch-correction",
+      "type": "combines_with"
+    },
+    {
+      "from": "celltypist-cell-annotation",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "celltypist-cell-annotation",
+      "to": "scvi-tools-single-cell",
+      "type": "related"
+    },
+    {
+      "from": "celltypist-cell-annotation",
+      "to": "anndata-data-structure",
+      "type": "related"
+    },
+    {
+      "from": "celltypist-cell-annotation",
+      "to": "harmony-batch-correction",
+      "type": "related"
+    },
+    {
+      "from": "celltypist-cell-annotation",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "celltypist-cell-annotation",
+      "to": "harmony-batch-correction",
+      "type": "combines_with"
+    },
+    {
+      "from": "cellxgene-census",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "cellxgene-census",
+      "to": "anndata-data-structure",
+      "type": "related"
+    },
+    {
+      "from": "cellxgene-census",
+      "to": "celltypist-cell-annotation",
+      "type": "related"
+    },
+    {
+      "from": "cellxgene-census",
+      "to": "scvi-tools-single-cell",
+      "type": "related"
+    },
+    {
+      "from": "cellxgene-census",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "cellxgene-census",
+      "to": "anndata-data-structure",
+      "type": "combines_with"
+    },
+    {
+      "from": "cellxgene-census",
+      "to": "gget-genomic-databases",
+      "type": "combines_with"
+    },
+    {
+      "from": "chembl-bioactivity-database",
+      "to": "pubchem-compound-search",
+      "type": "related"
+    },
+    {
+      "from": "chembl-bioactivity-database",
+      "to": "cheminformatics-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "chembl-bioactivity-database",
+      "to": "opentargets-database",
+      "type": "related"
+    },
+    {
+      "from": "chembl-bioactivity-database",
+      "to": "deepchem-drug-discovery",
+      "type": "related"
+    },
+    {
+      "from": "chembl-bioactivity-database",
+      "to": "autodock-vina-docking",
+      "type": "combines_with"
+    },
+    {
+      "from": "chembl-bioactivity-database",
+      "to": "cheminformatics-toolkit",
+      "type": "combines_with"
+    },
+    {
       "from": "cheminformatics-toolkit",
       "to": "materials-science-toolkit",
       "type": "related"
@@ -17049,6 +19813,71 @@
       "type": "combines_with"
     },
     {
+      "from": "clinvar-database",
+      "to": "gnomad-population-database",
+      "type": "related"
+    },
+    {
+      "from": "clinvar-database",
+      "to": "opentargets-database",
+      "type": "related"
+    },
+    {
+      "from": "clinvar-database",
+      "to": "snpeff-variant-annotation",
+      "type": "related"
+    },
+    {
+      "from": "clinvar-database",
+      "to": "uniprot-protein-database",
+      "type": "related"
+    },
+    {
+      "from": "clinvar-database",
+      "to": "gatk-variant-calling",
+      "type": "combines_with"
+    },
+    {
+      "from": "clinvar-database",
+      "to": "snpeff-variant-annotation",
+      "type": "combines_with"
+    },
+    {
+      "from": "clinvar-database",
+      "to": "gnomad-population-database",
+      "type": "combines_with"
+    },
+    {
+      "from": "cnvkit-copy-number",
+      "to": "gatk-variant-calling",
+      "type": "related"
+    },
+    {
+      "from": "cnvkit-copy-number",
+      "to": "snpeff-variant-annotation",
+      "type": "related"
+    },
+    {
+      "from": "cnvkit-copy-number",
+      "to": "genomic-file-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "cnvkit-copy-number",
+      "to": "star-rnaseq-aligner",
+      "type": "related"
+    },
+    {
+      "from": "cnvkit-copy-number",
+      "to": "genomic-file-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "cnvkit-copy-number",
+      "to": "snakemake-workflow-engine",
+      "type": "combines_with"
+    },
+    {
       "from": "component-sourcing-search",
       "to": "pcb-bom-manager",
       "type": "related"
@@ -17081,6 +19910,41 @@
     {
       "from": "component-sourcing-search",
       "to": "pcb-fab-assembly",
+      "type": "combines_with"
+    },
+    {
+      "from": "contract-playbook-review",
+      "to": "nda-triage-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "contract-playbook-review",
+      "to": "legal-risk-classifier",
+      "type": "related"
+    },
+    {
+      "from": "contract-playbook-review",
+      "to": "dpa-clause-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "contract-playbook-review",
+      "to": "general-counsel-advisor",
+      "type": "related"
+    },
+    {
+      "from": "contract-playbook-review",
+      "to": "legal-risk-classifier",
+      "type": "combines_with"
+    },
+    {
+      "from": "contract-playbook-review",
+      "to": "esignature-routing",
+      "type": "combines_with"
+    },
+    {
+      "from": "contract-playbook-review",
+      "to": "deal-desk-reviewer",
       "type": "combines_with"
     },
     {
@@ -17184,6 +20048,71 @@
       "type": "combines_with"
     },
     {
+      "from": "deepchem-drug-discovery",
+      "to": "cheminformatics-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "deepchem-drug-discovery",
+      "to": "protein-language-models",
+      "type": "related"
+    },
+    {
+      "from": "deepchem-drug-discovery",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "deepchem-drug-discovery",
+      "to": "scientific-database-lookup",
+      "type": "related"
+    },
+    {
+      "from": "deepchem-drug-discovery",
+      "to": "scikit-learn-ml",
+      "type": "related"
+    },
+    {
+      "from": "deepchem-drug-discovery",
+      "to": "cheminformatics-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "deepchem-drug-discovery",
+      "to": "scikit-learn-ml",
+      "type": "combines_with"
+    },
+    {
+      "from": "deeptools-ngs-analysis",
+      "to": "macs3-peak-calling",
+      "type": "related"
+    },
+    {
+      "from": "deeptools-ngs-analysis",
+      "to": "star-rnaseq-aligner",
+      "type": "related"
+    },
+    {
+      "from": "deeptools-ngs-analysis",
+      "to": "genomic-file-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "deeptools-ngs-analysis",
+      "to": "snakemake-workflow-engine",
+      "type": "related"
+    },
+    {
+      "from": "deeptools-ngs-analysis",
+      "to": "star-rnaseq-aligner",
+      "type": "combines_with"
+    },
+    {
+      "from": "deeptools-ngs-analysis",
+      "to": "macs3-peak-calling",
+      "type": "combines_with"
+    },
+    {
       "from": "defi-protocol-templates",
       "to": "blockchain-web3-developer",
       "type": "related"
@@ -17266,6 +20195,41 @@
     {
       "from": "dicom-medical-imaging",
       "to": "scikit-learn-ml",
+      "type": "combines_with"
+    },
+    {
+      "from": "diffdock-blind-docking",
+      "to": "autodock-vina-docking",
+      "type": "related"
+    },
+    {
+      "from": "diffdock-blind-docking",
+      "to": "deepchem-drug-discovery",
+      "type": "related"
+    },
+    {
+      "from": "diffdock-blind-docking",
+      "to": "cheminformatics-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "diffdock-blind-docking",
+      "to": "molecular-dynamics-simulation",
+      "type": "related"
+    },
+    {
+      "from": "diffdock-blind-docking",
+      "to": "cheminformatics-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "diffdock-blind-docking",
+      "to": "molecular-dynamics-simulation",
+      "type": "combines_with"
+    },
+    {
+      "from": "diffdock-blind-docking",
+      "to": "alphafold-database-access",
       "type": "combines_with"
     },
     {
@@ -17354,6 +20318,36 @@
       "type": "combines_with"
     },
     {
+      "from": "earnings-trade-analyzer",
+      "to": "pead-earnings-drift-screener",
+      "type": "related"
+    },
+    {
+      "from": "earnings-trade-analyzer",
+      "to": "octagon-earnings-call-analysis",
+      "type": "related"
+    },
+    {
+      "from": "earnings-trade-analyzer",
+      "to": "breakout-trade-planner",
+      "type": "related"
+    },
+    {
+      "from": "earnings-trade-analyzer",
+      "to": "trade-signal-postmortem",
+      "type": "related"
+    },
+    {
+      "from": "earnings-trade-analyzer",
+      "to": "trade-position-sizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "earnings-trade-analyzer",
+      "to": "trade-signal-postmortem",
+      "type": "combines_with"
+    },
+    {
       "from": "emc-precompliance-analyzer",
       "to": "kicad-design-reviewer",
       "type": "related"
@@ -17419,6 +20413,41 @@
       "type": "combines_with"
     },
     {
+      "from": "esignature-routing",
+      "to": "contract-playbook-review",
+      "type": "related"
+    },
+    {
+      "from": "esignature-routing",
+      "to": "contract-proposal-writer",
+      "type": "related"
+    },
+    {
+      "from": "esignature-routing",
+      "to": "nda-triage-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "esignature-routing",
+      "to": "deal-desk-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "esignature-routing",
+      "to": "contract-playbook-review",
+      "type": "combines_with"
+    },
+    {
+      "from": "esignature-routing",
+      "to": "contract-proposal-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "esignature-routing",
+      "to": "legal-risk-classifier",
+      "type": "combines_with"
+    },
+    {
       "from": "eu-ai-act-compliance",
       "to": "iso42001-aims-specialist",
       "type": "related"
@@ -17476,6 +20505,36 @@
     {
       "from": "eu-mdr-745-specialist",
       "to": "iso14971-risk-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "fastp-fastq-preprocessing",
+      "to": "star-rnaseq-aligner",
+      "type": "related"
+    },
+    {
+      "from": "fastp-fastq-preprocessing",
+      "to": "genomic-file-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "fastp-fastq-preprocessing",
+      "to": "gatk-variant-calling",
+      "type": "related"
+    },
+    {
+      "from": "fastp-fastq-preprocessing",
+      "to": "nextflow-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "fastp-fastq-preprocessing",
+      "to": "star-rnaseq-aligner",
+      "type": "combines_with"
+    },
+    {
+      "from": "fastp-fastq-preprocessing",
+      "to": "gatk-variant-calling",
       "type": "combines_with"
     },
     {
@@ -17546,6 +20605,71 @@
     {
       "from": "fda-qsr-audit-prep",
       "to": "iso13485-qms-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "finviz-screener-builder",
+      "to": "canslim-growth-screener",
+      "type": "related"
+    },
+    {
+      "from": "finviz-screener-builder",
+      "to": "vcp-screener",
+      "type": "related"
+    },
+    {
+      "from": "finviz-screener-builder",
+      "to": "value-dividend-screener",
+      "type": "related"
+    },
+    {
+      "from": "finviz-screener-builder",
+      "to": "pair-trade-screener",
+      "type": "related"
+    },
+    {
+      "from": "finviz-screener-builder",
+      "to": "breakout-trade-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "finviz-screener-builder",
+      "to": "trade-position-sizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "finviz-screener-builder",
+      "to": "backtesting-frameworks",
+      "type": "combines_with"
+    },
+    {
+      "from": "gatk-variant-calling",
+      "to": "cnvkit-copy-number",
+      "type": "related"
+    },
+    {
+      "from": "gatk-variant-calling",
+      "to": "snpeff-variant-annotation",
+      "type": "related"
+    },
+    {
+      "from": "gatk-variant-calling",
+      "to": "genomic-file-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "gatk-variant-calling",
+      "to": "star-rnaseq-aligner",
+      "type": "related"
+    },
+    {
+      "from": "gatk-variant-calling",
+      "to": "snpeff-variant-annotation",
+      "type": "combines_with"
+    },
+    {
+      "from": "gatk-variant-calling",
+      "to": "snakemake-workflow-engine",
       "type": "combines_with"
     },
     {
@@ -17669,6 +20793,71 @@
       "type": "combines_with"
     },
     {
+      "from": "gget-genomic-databases",
+      "to": "uniprot-protein-database",
+      "type": "related"
+    },
+    {
+      "from": "gget-genomic-databases",
+      "to": "scientific-database-lookup",
+      "type": "related"
+    },
+    {
+      "from": "gget-genomic-databases",
+      "to": "opentargets-database",
+      "type": "related"
+    },
+    {
+      "from": "gget-genomic-databases",
+      "to": "clinvar-database",
+      "type": "related"
+    },
+    {
+      "from": "gget-genomic-databases",
+      "to": "uniprot-protein-database",
+      "type": "combines_with"
+    },
+    {
+      "from": "gget-genomic-databases",
+      "to": "gene-set-enrichment-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "gget-genomic-databases",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "gnomad-population-database",
+      "to": "clinvar-database",
+      "type": "related"
+    },
+    {
+      "from": "gnomad-population-database",
+      "to": "gget-genomic-databases",
+      "type": "related"
+    },
+    {
+      "from": "gnomad-population-database",
+      "to": "snpeff-variant-annotation",
+      "type": "related"
+    },
+    {
+      "from": "gnomad-population-database",
+      "to": "uniprot-protein-database",
+      "type": "related"
+    },
+    {
+      "from": "gnomad-population-database",
+      "to": "gatk-variant-calling",
+      "type": "combines_with"
+    },
+    {
+      "from": "gnomad-population-database",
+      "to": "snpeff-variant-annotation",
+      "type": "combines_with"
+    },
+    {
       "from": "guided-statistical-analysis",
       "to": "statsmodels-statistical-modeling",
       "type": "related"
@@ -17734,6 +20923,41 @@
       "type": "combines_with"
     },
     {
+      "from": "harmony-batch-correction",
+      "to": "scvi-tools-single-cell",
+      "type": "related"
+    },
+    {
+      "from": "harmony-batch-correction",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "harmony-batch-correction",
+      "to": "muon-multiomics-singlecell",
+      "type": "related"
+    },
+    {
+      "from": "harmony-batch-correction",
+      "to": "anndata-data-structure",
+      "type": "related"
+    },
+    {
+      "from": "harmony-batch-correction",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "harmony-batch-correction",
+      "to": "celltypist-cell-annotation",
+      "type": "combines_with"
+    },
+    {
+      "from": "harmony-batch-correction",
+      "to": "anndata-data-structure",
+      "type": "combines_with"
+    },
+    {
       "from": "health-goal-analyzer",
       "to": "fact-checking",
       "type": "related"
@@ -17742,6 +20966,36 @@
       "from": "health-goal-analyzer",
       "to": "csv-data-cleaner",
       "type": "related"
+    },
+    {
+      "from": "institutional-flow-tracker",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "institutional-flow-tracker",
+      "to": "octagon-sec-filing-analyst",
+      "type": "related"
+    },
+    {
+      "from": "institutional-flow-tracker",
+      "to": "canslim-growth-screener",
+      "type": "related"
+    },
+    {
+      "from": "institutional-flow-tracker",
+      "to": "market-breadth-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "institutional-flow-tracker",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "institutional-flow-tracker",
+      "to": "portfolio-rebalancer",
+      "type": "combines_with"
     },
     {
       "from": "inventory-demand-planning",
@@ -17974,6 +21228,41 @@
       "type": "combines_with"
     },
     {
+      "from": "legal-risk-classifier",
+      "to": "contract-playbook-review",
+      "type": "related"
+    },
+    {
+      "from": "legal-risk-classifier",
+      "to": "nda-triage-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "legal-risk-classifier",
+      "to": "diligence-issue-extractor",
+      "type": "related"
+    },
+    {
+      "from": "legal-risk-classifier",
+      "to": "general-counsel-advisor",
+      "type": "related"
+    },
+    {
+      "from": "legal-risk-classifier",
+      "to": "contract-playbook-review",
+      "type": "combines_with"
+    },
+    {
+      "from": "legal-risk-classifier",
+      "to": "esignature-routing",
+      "type": "combines_with"
+    },
+    {
+      "from": "legal-risk-classifier",
+      "to": "diligence-issue-extractor",
+      "type": "combines_with"
+    },
+    {
       "from": "litigation-chronology-builder",
       "to": "deposition-outline-prep",
       "type": "related"
@@ -18001,6 +21290,136 @@
     {
       "from": "litigation-chronology-builder",
       "to": "legal-hold-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "macro-regime-detector",
+      "to": "market-breadth-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "macro-regime-detector",
+      "to": "market-top-detector",
+      "type": "related"
+    },
+    {
+      "from": "macro-regime-detector",
+      "to": "portfolio-risk-metrics",
+      "type": "related"
+    },
+    {
+      "from": "macro-regime-detector",
+      "to": "portfolio-rebalancer",
+      "type": "related"
+    },
+    {
+      "from": "macro-regime-detector",
+      "to": "portfolio-rebalancer",
+      "type": "combines_with"
+    },
+    {
+      "from": "macro-regime-detector",
+      "to": "tax-loss-harvesting",
+      "type": "combines_with"
+    },
+    {
+      "from": "macs3-peak-calling",
+      "to": "deeptools-ngs-analysis",
+      "type": "related"
+    },
+    {
+      "from": "macs3-peak-calling",
+      "to": "star-rnaseq-aligner",
+      "type": "related"
+    },
+    {
+      "from": "macs3-peak-calling",
+      "to": "snpeff-variant-annotation",
+      "type": "related"
+    },
+    {
+      "from": "macs3-peak-calling",
+      "to": "gatk-variant-calling",
+      "type": "related"
+    },
+    {
+      "from": "macs3-peak-calling",
+      "to": "deeptools-ngs-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "macs3-peak-calling",
+      "to": "gene-set-enrichment-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "macs3-peak-calling",
+      "to": "nextflow-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "market-breadth-analyzer",
+      "to": "macro-regime-detector",
+      "type": "related"
+    },
+    {
+      "from": "market-breadth-analyzer",
+      "to": "market-top-detector",
+      "type": "related"
+    },
+    {
+      "from": "market-breadth-analyzer",
+      "to": "breakout-trade-planner",
+      "type": "related"
+    },
+    {
+      "from": "market-breadth-analyzer",
+      "to": "trade-position-sizer",
+      "type": "related"
+    },
+    {
+      "from": "market-breadth-analyzer",
+      "to": "trade-position-sizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "market-breadth-analyzer",
+      "to": "macro-regime-detector",
+      "type": "combines_with"
+    },
+    {
+      "from": "market-top-detector",
+      "to": "market-breadth-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "market-top-detector",
+      "to": "macro-regime-detector",
+      "type": "related"
+    },
+    {
+      "from": "market-top-detector",
+      "to": "portfolio-rebalancer",
+      "type": "related"
+    },
+    {
+      "from": "market-top-detector",
+      "to": "institutional-flow-tracker",
+      "type": "related"
+    },
+    {
+      "from": "market-top-detector",
+      "to": "market-breadth-analyzer",
+      "type": "combines_with"
+    },
+    {
+      "from": "market-top-detector",
+      "to": "portfolio-rebalancer",
+      "type": "combines_with"
+    },
+    {
+      "from": "market-top-detector",
+      "to": "tax-loss-harvesting",
       "type": "combines_with"
     },
     {
@@ -18084,6 +21503,36 @@
       "type": "combines_with"
     },
     {
+      "from": "maxquant-proteomics",
+      "to": "pyopenms-mass-spectrometry",
+      "type": "related"
+    },
+    {
+      "from": "maxquant-proteomics",
+      "to": "pydeseq2-differential-expression",
+      "type": "related"
+    },
+    {
+      "from": "maxquant-proteomics",
+      "to": "gene-set-enrichment-analysis",
+      "type": "related"
+    },
+    {
+      "from": "maxquant-proteomics",
+      "to": "guided-statistical-analysis",
+      "type": "related"
+    },
+    {
+      "from": "maxquant-proteomics",
+      "to": "gene-set-enrichment-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "maxquant-proteomics",
+      "to": "pyopenms-mass-spectrometry",
+      "type": "combines_with"
+    },
+    {
       "from": "merger-accretion-dilution-model",
       "to": "lbo-model-builder",
       "type": "related"
@@ -18141,6 +21590,41 @@
     {
       "from": "molecular-dynamics-simulation",
       "to": "matplotlib-visualization",
+      "type": "combines_with"
+    },
+    {
+      "from": "muon-multiomics-singlecell",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "muon-multiomics-singlecell",
+      "to": "anndata-data-structure",
+      "type": "related"
+    },
+    {
+      "from": "muon-multiomics-singlecell",
+      "to": "scvi-tools-single-cell",
+      "type": "related"
+    },
+    {
+      "from": "muon-multiomics-singlecell",
+      "to": "macs3-peak-calling",
+      "type": "related"
+    },
+    {
+      "from": "muon-multiomics-singlecell",
+      "to": "harmony-batch-correction",
+      "type": "combines_with"
+    },
+    {
+      "from": "muon-multiomics-singlecell",
+      "to": "celltypist-cell-annotation",
+      "type": "combines_with"
+    },
+    {
+      "from": "muon-multiomics-singlecell",
+      "to": "single-cell-rnaseq-analysis",
       "type": "combines_with"
     },
     {
@@ -18229,6 +21713,546 @@
       "type": "combines_with"
     },
     {
+      "from": "octagon-balance-sheet-data",
+      "to": "octagon-income-statement-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-balance-sheet-data",
+      "to": "octagon-cash-flow-statement-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-balance-sheet-data",
+      "to": "octagon-financial-growth-metrics",
+      "type": "related"
+    },
+    {
+      "from": "octagon-balance-sheet-data",
+      "to": "octagon-financial-health-scores",
+      "type": "related"
+    },
+    {
+      "from": "octagon-balance-sheet-data",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-balance-sheet-data",
+      "to": "octagon-financial-health-scores",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-cash-flow-statement-data",
+      "to": "octagon-income-statement-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-cash-flow-statement-data",
+      "to": "octagon-balance-sheet-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-cash-flow-statement-data",
+      "to": "octagon-financial-health-scores",
+      "type": "related"
+    },
+    {
+      "from": "octagon-cash-flow-statement-data",
+      "to": "octagon-financial-growth-metrics",
+      "type": "related"
+    },
+    {
+      "from": "octagon-cash-flow-statement-data",
+      "to": "octagon-income-statement-data",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-cash-flow-statement-data",
+      "to": "octagon-balance-sheet-data",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-cash-flow-statement-data",
+      "to": "dcf-valuation-model",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-earnings-call-analysis",
+      "to": "octagon-earnings-call-sentiment",
+      "type": "related"
+    },
+    {
+      "from": "octagon-earnings-call-analysis",
+      "to": "octagon-sec-mda-analysis",
+      "type": "related"
+    },
+    {
+      "from": "octagon-earnings-call-analysis",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-earnings-call-analysis",
+      "to": "octagon-sec-filing-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-earnings-call-analysis",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-earnings-call-analysis",
+      "to": "earnings-trade-analyzer",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-earnings-call-sentiment",
+      "to": "octagon-earnings-call-analysis",
+      "type": "related"
+    },
+    {
+      "from": "octagon-earnings-call-sentiment",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-earnings-call-sentiment",
+      "to": "octagon-sec-mda-analysis",
+      "type": "related"
+    },
+    {
+      "from": "octagon-earnings-call-sentiment",
+      "to": "octagon-price-target-consensus",
+      "type": "related"
+    },
+    {
+      "from": "octagon-earnings-call-sentiment",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-earnings-call-sentiment",
+      "to": "octagon-earnings-call-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-earnings-call-sentiment",
+      "to": "earnings-trade-analyzer",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-equity-research-analyst",
+      "to": "dcf-valuation-model",
+      "type": "related"
+    },
+    {
+      "from": "octagon-equity-research-analyst",
+      "to": "three-statement-model",
+      "type": "related"
+    },
+    {
+      "from": "octagon-equity-research-analyst",
+      "to": "alpha-vantage-market-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-equity-research-analyst",
+      "to": "portfolio-risk-metrics",
+      "type": "related"
+    },
+    {
+      "from": "octagon-equity-research-analyst",
+      "to": "financial-analysis-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "octagon-equity-research-analyst",
+      "to": "dcf-valuation-model",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-equity-research-analyst",
+      "to": "three-statement-model",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-equity-research-analyst",
+      "to": "alpha-vantage-market-data",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-equity-research-analyst",
+      "to": "board-minutes-drafter",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-esg-ratings",
+      "to": "octagon-financial-health-scores",
+      "type": "related"
+    },
+    {
+      "from": "octagon-esg-ratings",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-esg-ratings",
+      "to": "alpha-vantage-market-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-esg-ratings",
+      "to": "portfolio-risk-metrics",
+      "type": "related"
+    },
+    {
+      "from": "octagon-esg-ratings",
+      "to": "portfolio-rebalancer",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-esg-ratings",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-esg-ratings",
+      "to": "alpha-vantage-market-data",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-financial-growth-metrics",
+      "to": "octagon-income-statement-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-financial-growth-metrics",
+      "to": "octagon-cash-flow-statement-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-financial-growth-metrics",
+      "to": "octagon-balance-sheet-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-financial-growth-metrics",
+      "to": "octagon-financial-health-scores",
+      "type": "related"
+    },
+    {
+      "from": "octagon-financial-growth-metrics",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-financial-growth-metrics",
+      "to": "octagon-ratings-snapshot",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-financial-health-scores",
+      "to": "alpha-vantage-market-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-financial-health-scores",
+      "to": "dcf-valuation-model",
+      "type": "related"
+    },
+    {
+      "from": "octagon-financial-health-scores",
+      "to": "portfolio-risk-metrics",
+      "type": "related"
+    },
+    {
+      "from": "octagon-financial-health-scores",
+      "to": "three-statement-model",
+      "type": "related"
+    },
+    {
+      "from": "octagon-financial-health-scores",
+      "to": "dcf-valuation-model",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-financial-health-scores",
+      "to": "alpha-vantage-market-data",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-financial-health-scores",
+      "to": "lbo-model-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-income-statement-data",
+      "to": "octagon-cash-flow-statement-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-income-statement-data",
+      "to": "octagon-balance-sheet-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-income-statement-data",
+      "to": "octagon-financial-growth-metrics",
+      "type": "related"
+    },
+    {
+      "from": "octagon-income-statement-data",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-income-statement-data",
+      "to": "octagon-cash-flow-statement-data",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-income-statement-data",
+      "to": "octagon-balance-sheet-data",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-income-statement-data",
+      "to": "three-statement-model",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-prediction-markets-research",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-prediction-markets-research",
+      "to": "octagon-sec-risk-factors",
+      "type": "related"
+    },
+    {
+      "from": "octagon-prediction-markets-research",
+      "to": "news-sentiment-briefing",
+      "type": "related"
+    },
+    {
+      "from": "octagon-prediction-markets-research",
+      "to": "macro-regime-detector",
+      "type": "related"
+    },
+    {
+      "from": "octagon-prediction-markets-research",
+      "to": "news-sentiment-briefing",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-prediction-markets-research",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-price-target-consensus",
+      "to": "octagon-ratings-snapshot",
+      "type": "related"
+    },
+    {
+      "from": "octagon-price-target-consensus",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-price-target-consensus",
+      "to": "octagon-stock-quote",
+      "type": "related"
+    },
+    {
+      "from": "octagon-price-target-consensus",
+      "to": "octagon-financial-health-scores",
+      "type": "related"
+    },
+    {
+      "from": "octagon-price-target-consensus",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-price-target-consensus",
+      "to": "octagon-stock-quote",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-price-target-consensus",
+      "to": "octagon-ratings-snapshot",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-ratings-snapshot",
+      "to": "octagon-financial-health-scores",
+      "type": "related"
+    },
+    {
+      "from": "octagon-ratings-snapshot",
+      "to": "octagon-price-target-consensus",
+      "type": "related"
+    },
+    {
+      "from": "octagon-ratings-snapshot",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-ratings-snapshot",
+      "to": "octagon-esg-ratings",
+      "type": "related"
+    },
+    {
+      "from": "octagon-ratings-snapshot",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-ratings-snapshot",
+      "to": "octagon-balance-sheet-data",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-sec-filing-analyst",
+      "to": "octagon-sec-mda-analysis",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-filing-analyst",
+      "to": "octagon-sec-risk-factors",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-filing-analyst",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-filing-analyst",
+      "to": "octagon-earnings-call-analysis",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-filing-analyst",
+      "to": "octagon-sec-mda-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-sec-filing-analyst",
+      "to": "octagon-sec-risk-factors",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-sec-filing-analyst",
+      "to": "diligence-issue-extractor",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-sec-mda-analysis",
+      "to": "octagon-sec-filing-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-mda-analysis",
+      "to": "octagon-sec-risk-factors",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-mda-analysis",
+      "to": "octagon-earnings-call-analysis",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-mda-analysis",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-mda-analysis",
+      "to": "octagon-sec-filing-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-sec-mda-analysis",
+      "to": "octagon-equity-research-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-sec-risk-factors",
+      "to": "three-statement-model",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-risk-factors",
+      "to": "lbo-model-builder",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-risk-factors",
+      "to": "dcf-valuation-model",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-risk-factors",
+      "to": "alpha-vantage-market-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-sec-risk-factors",
+      "to": "diligence-issue-extractor",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-sec-risk-factors",
+      "to": "dcf-valuation-model",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-sec-risk-factors",
+      "to": "portfolio-risk-metrics",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-stock-quote",
+      "to": "alpha-vantage-market-data",
+      "type": "related"
+    },
+    {
+      "from": "octagon-stock-quote",
+      "to": "octagon-financial-health-scores",
+      "type": "related"
+    },
+    {
+      "from": "octagon-stock-quote",
+      "to": "octagon-equity-research-analyst",
+      "type": "related"
+    },
+    {
+      "from": "octagon-stock-quote",
+      "to": "dcf-valuation-model",
+      "type": "related"
+    },
+    {
+      "from": "octagon-stock-quote",
+      "to": "octagon-financial-health-scores",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-stock-quote",
+      "to": "dcf-valuation-model",
+      "type": "combines_with"
+    },
+    {
+      "from": "octagon-stock-quote",
+      "to": "portfolio-risk-metrics",
+      "type": "combines_with"
+    },
+    {
       "from": "odoo-localization-compliance",
       "to": "customs-trade-compliance",
       "type": "related"
@@ -18246,6 +22270,106 @@
     {
       "from": "odoo-localization-compliance",
       "to": "gl-subledger-reconciler",
+      "type": "combines_with"
+    },
+    {
+      "from": "opentargets-database",
+      "to": "uniprot-protein-database",
+      "type": "related"
+    },
+    {
+      "from": "opentargets-database",
+      "to": "clinvar-database",
+      "type": "related"
+    },
+    {
+      "from": "opentargets-database",
+      "to": "chembl-bioactivity-database",
+      "type": "related"
+    },
+    {
+      "from": "opentargets-database",
+      "to": "gnomad-population-database",
+      "type": "related"
+    },
+    {
+      "from": "opentargets-database",
+      "to": "chembl-bioactivity-database",
+      "type": "combines_with"
+    },
+    {
+      "from": "opentargets-database",
+      "to": "uniprot-protein-database",
+      "type": "combines_with"
+    },
+    {
+      "from": "opentargets-database",
+      "to": "gene-set-enrichment-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "opentrons-protocol-api",
+      "to": "snakemake-workflow-engine",
+      "type": "related"
+    },
+    {
+      "from": "opentrons-protocol-api",
+      "to": "cheminformatics-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "opentrons-protocol-api",
+      "to": "research-experiment-designer",
+      "type": "related"
+    },
+    {
+      "from": "opentrons-protocol-api",
+      "to": "nextflow-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "opentrons-protocol-api",
+      "to": "research-experiment-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "opentrons-protocol-api",
+      "to": "pubchem-compound-search",
+      "type": "combines_with"
+    },
+    {
+      "from": "options-strategy-advisor",
+      "to": "portfolio-risk-metrics",
+      "type": "related"
+    },
+    {
+      "from": "options-strategy-advisor",
+      "to": "trade-position-sizer",
+      "type": "related"
+    },
+    {
+      "from": "options-strategy-advisor",
+      "to": "earnings-trade-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "options-strategy-advisor",
+      "to": "backtesting-frameworks",
+      "type": "related"
+    },
+    {
+      "from": "options-strategy-advisor",
+      "to": "portfolio-risk-metrics",
+      "type": "combines_with"
+    },
+    {
+      "from": "options-strategy-advisor",
+      "to": "octagon-stock-quote",
+      "type": "combines_with"
+    },
+    {
+      "from": "options-strategy-advisor",
+      "to": "trade-position-sizer",
       "type": "combines_with"
     },
     {
@@ -18276,6 +22400,36 @@
     {
       "from": "oss-license-compliance",
       "to": "supply-chain-risk-auditor",
+      "type": "combines_with"
+    },
+    {
+      "from": "pair-trade-screener",
+      "to": "strategy-backtest-expert",
+      "type": "related"
+    },
+    {
+      "from": "pair-trade-screener",
+      "to": "trading-strategy-backtester",
+      "type": "related"
+    },
+    {
+      "from": "pair-trade-screener",
+      "to": "backtesting-frameworks",
+      "type": "related"
+    },
+    {
+      "from": "pair-trade-screener",
+      "to": "portfolio-risk-metrics",
+      "type": "related"
+    },
+    {
+      "from": "pair-trade-screener",
+      "to": "trade-position-sizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "pair-trade-screener",
+      "to": "trading-strategy-backtester",
       "type": "combines_with"
     },
     {
@@ -18381,6 +22535,41 @@
     {
       "from": "pe-returns-sensitivity",
       "to": "ma-playbook",
+      "type": "combines_with"
+    },
+    {
+      "from": "pead-earnings-drift-screener",
+      "to": "earnings-trade-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "pead-earnings-drift-screener",
+      "to": "breakout-trade-planner",
+      "type": "related"
+    },
+    {
+      "from": "pead-earnings-drift-screener",
+      "to": "vcp-screener",
+      "type": "related"
+    },
+    {
+      "from": "pead-earnings-drift-screener",
+      "to": "canslim-growth-screener",
+      "type": "related"
+    },
+    {
+      "from": "pead-earnings-drift-screener",
+      "to": "trade-position-sizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "pead-earnings-drift-screener",
+      "to": "breakout-trade-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "pead-earnings-drift-screener",
+      "to": "trade-signal-postmortem",
       "type": "combines_with"
     },
     {
@@ -18541,6 +22730,101 @@
     {
       "from": "protein-language-models",
       "to": "scientific-database-lookup",
+      "type": "combines_with"
+    },
+    {
+      "from": "pubchem-compound-search",
+      "to": "chembl-bioactivity-database",
+      "type": "related"
+    },
+    {
+      "from": "pubchem-compound-search",
+      "to": "cheminformatics-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "pubchem-compound-search",
+      "to": "scientific-database-lookup",
+      "type": "related"
+    },
+    {
+      "from": "pubchem-compound-search",
+      "to": "autodock-vina-docking",
+      "type": "related"
+    },
+    {
+      "from": "pubchem-compound-search",
+      "to": "cheminformatics-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "pubchem-compound-search",
+      "to": "autodock-vina-docking",
+      "type": "combines_with"
+    },
+    {
+      "from": "pydeseq2-differential-expression",
+      "to": "star-rnaseq-aligner",
+      "type": "related"
+    },
+    {
+      "from": "pydeseq2-differential-expression",
+      "to": "gene-set-enrichment-analysis",
+      "type": "related"
+    },
+    {
+      "from": "pydeseq2-differential-expression",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "pydeseq2-differential-expression",
+      "to": "snakemake-workflow-engine",
+      "type": "related"
+    },
+    {
+      "from": "pydeseq2-differential-expression",
+      "to": "star-rnaseq-aligner",
+      "type": "combines_with"
+    },
+    {
+      "from": "pydeseq2-differential-expression",
+      "to": "gene-set-enrichment-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "pydeseq2-differential-expression",
+      "to": "matplotlib-visualization",
+      "type": "combines_with"
+    },
+    {
+      "from": "pyopenms-mass-spectrometry",
+      "to": "maxquant-proteomics",
+      "type": "related"
+    },
+    {
+      "from": "pyopenms-mass-spectrometry",
+      "to": "cheminformatics-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "pyopenms-mass-spectrometry",
+      "to": "gene-set-enrichment-analysis",
+      "type": "related"
+    },
+    {
+      "from": "pyopenms-mass-spectrometry",
+      "to": "guided-statistical-analysis",
+      "type": "related"
+    },
+    {
+      "from": "pyopenms-mass-spectrometry",
+      "to": "maxquant-proteomics",
+      "type": "combines_with"
+    },
+    {
+      "from": "pyopenms-mass-spectrometry",
+      "to": "gene-set-enrichment-analysis",
       "type": "combines_with"
     },
     {
@@ -18754,6 +23038,41 @@
       "type": "combines_with"
     },
     {
+      "from": "scvi-tools-single-cell",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "scvi-tools-single-cell",
+      "to": "harmony-batch-correction",
+      "type": "related"
+    },
+    {
+      "from": "scvi-tools-single-cell",
+      "to": "celltypist-cell-annotation",
+      "type": "related"
+    },
+    {
+      "from": "scvi-tools-single-cell",
+      "to": "muon-multiomics-singlecell",
+      "type": "related"
+    },
+    {
+      "from": "scvi-tools-single-cell",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "scvi-tools-single-cell",
+      "to": "anndata-data-structure",
+      "type": "combines_with"
+    },
+    {
+      "from": "scvi-tools-single-cell",
+      "to": "celltypist-cell-annotation",
+      "type": "combines_with"
+    },
+    {
       "from": "single-cell-rnaseq-analysis",
       "to": "gene-set-enrichment-analysis",
       "type": "related"
@@ -18781,6 +23100,71 @@
     {
       "from": "single-cell-rnaseq-analysis",
       "to": "nextflow-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "snakemake-workflow-engine",
+      "to": "nextflow-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "snakemake-workflow-engine",
+      "to": "genomic-file-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "snakemake-workflow-engine",
+      "to": "gatk-variant-calling",
+      "type": "related"
+    },
+    {
+      "from": "snakemake-workflow-engine",
+      "to": "star-rnaseq-aligner",
+      "type": "related"
+    },
+    {
+      "from": "snakemake-workflow-engine",
+      "to": "gatk-variant-calling",
+      "type": "combines_with"
+    },
+    {
+      "from": "snakemake-workflow-engine",
+      "to": "star-rnaseq-aligner",
+      "type": "combines_with"
+    },
+    {
+      "from": "snpeff-variant-annotation",
+      "to": "gatk-variant-calling",
+      "type": "related"
+    },
+    {
+      "from": "snpeff-variant-annotation",
+      "to": "clinvar-database",
+      "type": "related"
+    },
+    {
+      "from": "snpeff-variant-annotation",
+      "to": "gnomad-population-database",
+      "type": "related"
+    },
+    {
+      "from": "snpeff-variant-annotation",
+      "to": "genomic-file-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "snpeff-variant-annotation",
+      "to": "gatk-variant-calling",
+      "type": "combines_with"
+    },
+    {
+      "from": "snpeff-variant-annotation",
+      "to": "genomic-file-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "snpeff-variant-annotation",
+      "to": "clinvar-database",
       "type": "combines_with"
     },
     {
@@ -18841,6 +23225,66 @@
     {
       "from": "spice-circuit-simulator",
       "to": "datasheet-spec-extractor",
+      "type": "combines_with"
+    },
+    {
+      "from": "star-rnaseq-aligner",
+      "to": "fastp-fastq-preprocessing",
+      "type": "related"
+    },
+    {
+      "from": "star-rnaseq-aligner",
+      "to": "deeptools-ngs-analysis",
+      "type": "related"
+    },
+    {
+      "from": "star-rnaseq-aligner",
+      "to": "pydeseq2-differential-expression",
+      "type": "related"
+    },
+    {
+      "from": "star-rnaseq-aligner",
+      "to": "genomic-file-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "star-rnaseq-aligner",
+      "to": "fastp-fastq-preprocessing",
+      "type": "combines_with"
+    },
+    {
+      "from": "star-rnaseq-aligner",
+      "to": "pydeseq2-differential-expression",
+      "type": "combines_with"
+    },
+    {
+      "from": "strategy-backtest-expert",
+      "to": "trading-strategy-backtester",
+      "type": "related"
+    },
+    {
+      "from": "strategy-backtest-expert",
+      "to": "backtesting-frameworks",
+      "type": "related"
+    },
+    {
+      "from": "strategy-backtest-expert",
+      "to": "portfolio-risk-metrics",
+      "type": "related"
+    },
+    {
+      "from": "strategy-backtest-expert",
+      "to": "trading-strategy-backtester",
+      "type": "combines_with"
+    },
+    {
+      "from": "strategy-backtest-expert",
+      "to": "backtesting-frameworks",
+      "type": "combines_with"
+    },
+    {
+      "from": "strategy-backtest-expert",
+      "to": "alpha-vantage-market-data",
       "type": "combines_with"
     },
     {
@@ -18919,6 +23363,71 @@
       "type": "combines_with"
     },
     {
+      "from": "trade-position-sizer",
+      "to": "breakout-trade-planner",
+      "type": "related"
+    },
+    {
+      "from": "trade-position-sizer",
+      "to": "portfolio-risk-metrics",
+      "type": "related"
+    },
+    {
+      "from": "trade-position-sizer",
+      "to": "options-strategy-advisor",
+      "type": "related"
+    },
+    {
+      "from": "trade-position-sizer",
+      "to": "trade-signal-postmortem",
+      "type": "related"
+    },
+    {
+      "from": "trade-position-sizer",
+      "to": "breakout-trade-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "trade-position-sizer",
+      "to": "vcp-screener",
+      "type": "combines_with"
+    },
+    {
+      "from": "trade-position-sizer",
+      "to": "backtesting-frameworks",
+      "type": "combines_with"
+    },
+    {
+      "from": "trade-signal-postmortem",
+      "to": "earnings-trade-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "trade-signal-postmortem",
+      "to": "pead-earnings-drift-screener",
+      "type": "related"
+    },
+    {
+      "from": "trade-signal-postmortem",
+      "to": "strategy-backtest-expert",
+      "type": "related"
+    },
+    {
+      "from": "trade-signal-postmortem",
+      "to": "trade-position-sizer",
+      "type": "related"
+    },
+    {
+      "from": "trade-signal-postmortem",
+      "to": "earnings-trade-analyzer",
+      "type": "combines_with"
+    },
+    {
+      "from": "trade-signal-postmortem",
+      "to": "trading-strategy-backtester",
+      "type": "combines_with"
+    },
+    {
       "from": "trading-strategy-backtester",
       "to": "backtesting-frameworks",
       "type": "related"
@@ -18954,6 +23463,41 @@
       "type": "combines_with"
     },
     {
+      "from": "uniprot-protein-database",
+      "to": "gget-genomic-databases",
+      "type": "related"
+    },
+    {
+      "from": "uniprot-protein-database",
+      "to": "alphafold-database-access",
+      "type": "related"
+    },
+    {
+      "from": "uniprot-protein-database",
+      "to": "scientific-database-lookup",
+      "type": "related"
+    },
+    {
+      "from": "uniprot-protein-database",
+      "to": "protein-language-models",
+      "type": "related"
+    },
+    {
+      "from": "uniprot-protein-database",
+      "to": "gget-genomic-databases",
+      "type": "combines_with"
+    },
+    {
+      "from": "uniprot-protein-database",
+      "to": "alphafold-database-access",
+      "type": "combines_with"
+    },
+    {
+      "from": "uniprot-protein-database",
+      "to": "protein-language-models",
+      "type": "combines_with"
+    },
+    {
       "from": "unit-economics-analyzer",
       "to": "pe-returns-sensitivity",
       "type": "related"
@@ -18981,6 +23525,101 @@
     {
       "from": "unit-economics-analyzer",
       "to": "cfo-financial-advisor",
+      "type": "combines_with"
+    },
+    {
+      "from": "value-dividend-screener",
+      "to": "canslim-growth-screener",
+      "type": "related"
+    },
+    {
+      "from": "value-dividend-screener",
+      "to": "finviz-screener-builder",
+      "type": "related"
+    },
+    {
+      "from": "value-dividend-screener",
+      "to": "vcp-screener",
+      "type": "related"
+    },
+    {
+      "from": "value-dividend-screener",
+      "to": "dcf-valuation-model",
+      "type": "related"
+    },
+    {
+      "from": "value-dividend-screener",
+      "to": "portfolio-rebalancer",
+      "type": "combines_with"
+    },
+    {
+      "from": "value-dividend-screener",
+      "to": "portfolio-risk-metrics",
+      "type": "combines_with"
+    },
+    {
+      "from": "vcp-screener",
+      "to": "canslim-growth-screener",
+      "type": "related"
+    },
+    {
+      "from": "vcp-screener",
+      "to": "breakout-trade-planner",
+      "type": "related"
+    },
+    {
+      "from": "vcp-screener",
+      "to": "finviz-screener-builder",
+      "type": "related"
+    },
+    {
+      "from": "vcp-screener",
+      "to": "pead-earnings-drift-screener",
+      "type": "related"
+    },
+    {
+      "from": "vcp-screener",
+      "to": "trade-position-sizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "vcp-screener",
+      "to": "breakout-trade-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "vcp-screener",
+      "to": "backtesting-frameworks",
+      "type": "combines_with"
+    },
+    {
+      "from": "viennarna-structure-prediction",
+      "to": "gget-genomic-databases",
+      "type": "related"
+    },
+    {
+      "from": "viennarna-structure-prediction",
+      "to": "cheminformatics-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "viennarna-structure-prediction",
+      "to": "protein-language-models",
+      "type": "related"
+    },
+    {
+      "from": "viennarna-structure-prediction",
+      "to": "scientific-database-lookup",
+      "type": "related"
+    },
+    {
+      "from": "viennarna-structure-prediction",
+      "to": "snakemake-workflow-engine",
+      "type": "combines_with"
+    },
+    {
+      "from": "viennarna-structure-prediction",
+      "to": "scientific-database-lookup",
       "type": "combines_with"
     },
     {
