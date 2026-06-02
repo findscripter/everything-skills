@@ -1,0 +1,6 @@
+# 统一用 LF 换行（仓库面向跨平台的 Agent/工具消费）
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
