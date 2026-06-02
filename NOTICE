@@ -1,0 +1,31 @@
+技能大典 · Everything Skills — 署名 NOTICE
+==========================================
+
+本仓库收录的大部分技能为对以下开源项目的**精选改编与中文化**。在此向这些项目
+及其作者/贡献者致谢。每条改编技能的具体来源与许可，见其 SKILL.md frontmatter
+的 `source` / `source_license` 字段，以及自动生成的 INDEX/sources.md。
+
+上游来源与许可
+--------------
+  · anthropics/skills                      — Apache-2.0
+  · anthropics/financial-services          — Apache-2.0
+  · anthropics/claude-for-legal            — Apache-2.0
+  · wshobson/agents                        — MIT
+  · alirezarezvani/claude-skills           — MIT
+  · coreyhaines31/marketingskills          — MIT
+  · aklofas/kicad-happy                    — MIT
+  · voidful/academic-skills                — MIT
+  · K-Dense-AI/scientific-agent-skills     — MIT（逐条核验，仅收录可再分发条目）
+  · sickn33/antigravity-awesome-skills     — MIT（逐条核验，仅收录可再分发条目）
+  · trailofbits/skills                     — CC BY-SA 4.0（改编条目同以 CC BY-SA 4.0 提供）
+
+说明
+----
+  - 改编包括：翻译/重写为中文、适配本仓库的 SKILL.md 规范、补充触发词与互见关系、
+    精简内容。技术要点与关键约束尽量忠实于上游。
+  - 仅收录原始许可允许再分发的条目；专有 / 仅源代码可见 / 无许可 / 非商业(NC) /
+    GPL 系的条目均已排除。
+  - 完整的逐条来源—许可对照表，见 INDEX/sources.md（共 537 条采编条目）。
+
+如你是上述任一项目的作者，希望调整署名方式、或认为某条收录不当，请提 issue，
+我们会尽快配合更正或移除。

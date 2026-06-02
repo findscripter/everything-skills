@@ -1,0 +1,29 @@
+{
+  "_note": "卷→合法类(ASCII slug) 受控词表 + 别名归一表。scripts/build-index.mjs 据此校验 domain 的类；.vendor 归一脚本据此规范化。",
+  "vols": {
+    "00-meta":         { "cn": "通用", "classes": ["thinking", "research", "communication", "learning"] },
+    "01-documents":    { "cn": "文书", "classes": ["office", "markdown", "writing", "translation"] },
+    "02-engineering":  { "cn": "研发", "classes": ["frontend", "backend", "mobile", "review", "testing", "devops", "observability", "architecture"] },
+    "03-data":         { "cn": "数据", "classes": ["wrangling", "sql", "analysis", "pipeline"] },
+    "04-ai":           { "cn": "智能", "classes": ["prompting", "rag", "agents", "eval", "model-ops"] },
+    "05-business":     { "cn": "商业", "classes": ["marketing", "seo", "copy", "growth", "sales", "finance"] },
+    "06-creative":     { "cn": "创意", "classes": ["design", "image", "av", "brand"] },
+    "07-productivity": { "cn": "协作", "classes": ["pm", "knowledge", "automation", "scheduling"] },
+    "08-security":     { "cn": "安全", "classes": ["appsec", "audit", "ops", "compliance"] },
+    "09-verticals":    { "cn": "领域", "classes": ["science", "legal", "medical", "edu", "fintech", "hardware"] },
+    "10-platform":     { "cn": "平台", "classes": ["integration", "cli", "cloud", "browser", "mcp"] }
+  },
+  "aliases": {
+    "思维": "thinking", "研究": "research", "沟通": "communication", "学习": "learning",
+    "写作": "writing", "办公": "office", "翻译": "translation", "文档": "writing",
+    "前端": "frontend", "后端": "backend", "移动端": "mobile", "移动": "mobile",
+    "评审": "review", "审查": "review", "可观测": "observability", "测试": "testing", "架构": "architecture",
+    "清洗": "wrangling", "管道": "pipeline", "分析": "analysis", "strategy": "analysis",
+    "智能体": "agents", "评测": "eval", "提示工程": "prompting", "模型运维": "model-ops", "模型": "model-ops",
+    "增长": "growth", "营销": "marketing", "文案": "copy", "销售": "sales", "财务": "finance",
+    "视听": "av", "设计": "design", "图像": "image", "品牌": "brand",
+    "自动化": "automation", "知识": "knowledge", "项目管理": "pm", "日程": "scheduling",
+    "审计": "audit", "逆向": "appsec", "侦察": "appsec", "合规": "compliance", "运维": "ops", "应用安全": "appsec",
+    "云": "cloud", "集成": "integration", "浏览器": "browser"
+  }
+}

@@ -1,0 +1,38 @@
+技能大典 · Everything Skills — 许可与署名说明
+==============================================
+
+本仓库是一部**精选改编的合集（collective work）**：原创的体系结构 + 从多个上游
+开源仓库精选、改编、中文化的技能条目。不同部分适用不同许可，请按下述规则使用。
+
+1. 原创部分 —— CC BY 4.0
+-------------------------
+以下由本仓库原创的内容，采用「知识共享 署名 4.0 国际」(CC BY 4.0)：
+  - 分类体系与受控词表（TAXONOMY.md、taxonomy.json、SCHEMA.md）
+  - 生成器与脚本（scripts/、.claude-plugin/marketplace.json 等生成产物）
+  - 文档（README.md、CONTRIBUTING.md、ROADMAP.md 等）
+  - 原创编写的技能条目（其 frontmatter 不含 `source` 字段者）
+许可全文：https://creativecommons.org/licenses/by/4.0/
+
+2. 采编部分 —— 保留各自上游许可
+--------------------------------
+凡 frontmatter 含 `source` / `source_license` 字段的技能条目，均为对第三方
+开源技能的改编。每条**保留其上游许可**，已逐条声明于该条 `source_license`，并
+汇总于 INDEX/sources.md 与本仓库 NOTICE 文件。涉及的上游许可包括 MIT、
+Apache-2.0、CC BY 4.0、CC BY-SA 4.0。
+
+  · 来自 CC BY-SA 4.0 上游（如 trailofbits/skills）的条目及其改编，依据
+    ShareAlike 条款，**同样以 CC BY-SA 4.0 提供**。
+  · 来自 MIT / Apache-2.0 / CC BY 4.0 上游的条目，保留并遵循其原始许可，
+    并按要求保留署名（见 NOTICE）。
+
+3. 使用者义务
+-------------
+  - 使用、再分发或二次改编时，请**保留署名**（见 NOTICE 与各条 source 字段）。
+  - 对 CC BY-SA 4.0 的条目做改编再分发时，须以相同许可（CC BY-SA 4.0）发布。
+  - Apache-2.0 上游要求随附 NOTICE，本仓库已提供，请勿删除。
+
+4. 免责声明
+-----------
+本说明为善意的合规整理，**非法律意见**。若用于商业用途或有合规疑虑，请自行
+核对各条 `source_license` 并咨询专业法律人士。如你是某上游作者、认为署名或
+许可标注有误，请提 issue，我们将尽快更正或下架。
