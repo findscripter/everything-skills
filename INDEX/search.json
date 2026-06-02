@@ -1,5 +1,29 @@
 [
   {
+    "name": "agent-self-reflection",
+    "title": "Agent 自我反思复盘",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "通用",
+      "思维",
+      "元认知",
+      "复盘",
+      "决策",
+      "偏见检查",
+      "对话中断"
+    ],
+    "triggers": [
+      "反思",
+      "退一步",
+      "缩放视角"
+    ],
+    "description": "当对话陷入细节、用户喊\"退一步/缩放视角/我们是不是想多了\"或长时间深挖实现却无战略校验时使用；做对话的五维复盘（宏观视角/缺口分析/反思追问/偏见检查/上下文对齐），产出\"流水式无小标题\"评估并以 继续/转向/暂停提问 三选一的明确方向收尾；不适用于例行执行、需要写报告式结构化输出、或对话过短无可复盘上下文的场景；触发词：反思、退一步、缩放视角",
+    "path": "00-meta/agent-self-reflection/SKILL.md"
+  },
+  {
     "name": "boardroom-deliberation",
     "title": "C 级多角色董事会六阶段审议",
     "vol": "00-meta",
@@ -345,6 +369,33 @@
     "path": "00-meta/four-voice-decision-council/SKILL.md"
   },
   {
+    "name": "hard-call-advisor",
+    "title": "艰难抉择推演顾问",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "决策框架",
+      "思维工具",
+      "领导力",
+      "高管",
+      "风险评估",
+      "利益相关者",
+      "沟通计划",
+      "通用"
+    ],
+    "triggers": [
+      "艰难决定",
+      "裁员",
+      "转型",
+      "关停",
+      "开除联合创始人"
+    ],
+    "description": "当面对没有「正确答案」、只有「次坏选项」的高风险抉择（裁员/开除联合创始人/砍产品/转型/关停）时使用；用六步框架（可逆性测试→10/10/10→安迪·格鲁夫测试→利益相关者映射→预公告测试→沟通计划）逼出最不坏的选项并输出可执行的决策与沟通方案；不适用于可逆的低风险或纯数据驱动的常规决策。触发词：艰难决定、裁员、转型、关停、开除联合创始人",
+    "path": "00-meta/hard-call-advisor/SKILL.md"
+  },
+  {
     "name": "human-like-response-mirror",
     "title": "拟人化回应自我镜像循环",
     "vol": "00-meta",
@@ -553,6 +604,31 @@
     ],
     "description": "当用户想头脑风暴研究方向、寻找新 research idea、问\"接下来做什么研究/有什么可做/怎么找 gap\"时使用；按\"发散→文献验证→收敛\"三阶段产出候选清单、文献表、评分矩阵与一页提案；不适用于已定题后的具体实验执行或论文写作。触发词：brainstorm、想idea、研究方向、下一步做什么、找gap、research proposal、研究构想、选题",
     "path": "00-meta/research-idea-generator/SKILL.md"
+  },
+  {
+    "name": "structured-decision-framework",
+    "title": "结构化决策框架",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "决策",
+      "思维",
+      "决策记录",
+      "复盘",
+      "知识留存",
+      "治理",
+      "通用"
+    ],
+    "triggers": [
+      "登记决策",
+      "决策记录",
+      "复盘检查点",
+      "保留异议"
+    ],
+    "description": "当一个高风险/不可逆决策已拍板、需要落成可追溯的持久记录时使用；做法是把决策写成结构化记录（所选项+被否项及理由、可量化的成功/终止标准、逐字保留的异议、复盘检查点），并区分「原始过程」与「已批准结论」两层记忆、定期触发陈旧审计；不适用于尚未拍板的方案比选、低风险可逆小决定、纯任务排期。触发词：登记决策、决策记录、复盘检查点、保留异议",
+    "path": "00-meta/structured-decision-framework/SKILL.md"
   },
   {
     "name": "audio-to-markdown-transcriber",
@@ -1296,6 +1372,30 @@
     "path": "02-engineering/android-ui-verification/SKILL.md"
   },
   {
+    "name": "angularjs-to-angular-migration",
+    "title": "AngularJS 到 Angular 迁移",
+    "vol": "02-engineering",
+    "domain": "研发/frontend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "angular",
+      "angularjs",
+      "迁移",
+      "ngUpgrade",
+      "前端",
+      "重构"
+    ],
+    "triggers": [
+      "AngularJS 迁移",
+      "ngUpgrade",
+      "hybrid app",
+      "downgradeInjectable"
+    ],
+    "description": "当把 AngularJS(1.x) 应用迁移到现代 Angular(2+) 时使用；用 ngUpgrade 搭建混合应用、按特性渐进迁移 controller/directive/service/路由/表单并安全切换，产出可运行的 Angular 代码与迁移计划；不适用于已是现代 Angular 版本、或不涉及框架升级的小修。触发词：AngularJS 迁移、ngUpgrade、hybrid app、downgradeInjectable",
+    "path": "02-engineering/angularjs-to-angular-migration/SKILL.md"
+  },
+  {
     "name": "api-design-principles",
     "title": "REST与GraphQL API设计",
     "vol": "02-engineering",
@@ -1382,6 +1482,30 @@
     "path": "02-engineering/api-test-suite-builder/SKILL.md"
   },
   {
+    "name": "app-store-release-notes",
+    "title": "应用商店发版说明生成（基于 Git）",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "研发",
+      "发布",
+      "发版说明",
+      "App Store",
+      "release-notes",
+      "git",
+      "文案"
+    ],
+    "triggers": [
+      "发版说明",
+      "What's New",
+      "release notes"
+    ],
+    "description": "当需要把上次发布以来的 git 提交历史转写为面向用户的应用商店「What's New / 发版说明」时使用；做提交收集→用户影响筛选→按 新增/改进/修复 分组并产出 5-10 条短句要点；不适用于面向开发者的技术变更日志（CHANGELOG）、版本号判定或发布流程编排（用 release-manager）。触发词：发版说明、What's New、release notes",
+    "path": "02-engineering/app-store-release-notes/SKILL.md"
+  },
+  {
     "name": "astro-content-sites",
     "title": "Astro 内容型网站构建",
     "vol": "02-engineering",
@@ -1435,6 +1559,39 @@
     ],
     "description": "当用 asyncio 写 I/O 密集的异步并发（API/爬虫/WebSocket/批量请求/后台队列）时使用；做出带超时、限流、取消与结构化错误处理的 async/await 代码与排错方案；不适用于 CPU 密集任务、同步脚本足够或运行环境无事件循环的场景；触发词：asyncio、async/await、gather、并发请求、协程。",
     "path": "02-engineering/async-python-patterns/SKILL.md"
+  },
+  {
+    "name": "avalonia-zafiro-desktop",
+    "title": "Avalonia 跨平台桌面应用（Zafiro/MVVM）",
+    "vol": "02-engineering",
+    "domain": "研发/frontend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "avalonia",
+      "zafiro",
+      "dotnet",
+      "csharp",
+      "mvvm",
+      "响应式",
+      "dynamicdata",
+      "reactiveui",
+      "桌面应用",
+      "跨平台",
+      "函数式"
+    ],
+    "triggers": [
+      "Avalonia",
+      "Zafiro",
+      "MVVM",
+      "DynamicData",
+      "ReactiveUI",
+      "Result",
+      "Maybe",
+      "RefreshableCollection"
+    ],
+    "description": "当用 Avalonia UI + Zafiro 工具包写跨平台桌面应用、做纯 MVVM/函数式响应式架构或评审此类 C# 代码时使用；产出 ViewModel 不依赖 Avalonia、用 DynamicData 管线、Result/Maybe 做流程控制、复用 Zafiro 抽象的可维护代码与规约；不适用于非 Avalonia 技术栈、后端服务或纯运维。触发词：Avalonia、Zafiro、MVVM、DynamicData、ReactiveUI、Result、Maybe、RefreshableCollection",
+    "path": "02-engineering/avalonia-zafiro-desktop/SKILL.md"
   },
   {
     "name": "aws-cdk-patterns",
@@ -1518,6 +1675,35 @@
     ],
     "description": "当编写生产级 Bash 脚本、CI/CD 流水线或系统运维工具、需要容错与安全时使用；做严格模式、入参校验、错误陷阱/清理、日志与 dry-run 的防御式编码并产出可复用脚本模式；不适用于一次性临时命令或必须严格 POSIX sh 的环境；触发词：bash脚本、set -Eeuo pipefail、shell容错",
     "path": "02-engineering/bash-defensive-patterns/SKILL.md"
+  },
+  {
+    "name": "bats-shell-testing",
+    "title": "Bats Shell 脚本自动化测试",
+    "vol": "02-engineering",
+    "domain": "研发/testing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "bats",
+      "shell",
+      "测试",
+      "tdd",
+      "bash",
+      "ci",
+      "fixtures",
+      "脚本工程",
+      "研发",
+      "tap"
+    ],
+    "triggers": [
+      "bats",
+      "shell 脚本测试",
+      "@test",
+      "TAP",
+      "脚本 TDD"
+    ],
+    "description": "当为 Bash/POSIX shell 脚本、CLI 工具或 CI 流程写单元测试、做 TDD 时使用；做 Bats（Bash Automated Testing System）测试编写——断言退出码/输出/文件副作用、setup/teardown 夹具、命令打桩(stub)、CI 接入，产出 .bats 测试套件与 TAP 报告；不适用于非 shell 项目、跨服务集成测试、仅做 lint/格式化或纯 shellcheck 静态检查；触发词：bats、shell 脚本测试、@test、TAP、脚本 TDD",
+    "path": "02-engineering/bats-shell-testing/SKILL.md"
   },
   {
     "name": "bazel-build-optimization",
@@ -1736,6 +1922,68 @@
     ],
     "description": "当用 Bun 启动新 JS/TS 项目、从 Node.js 迁移、或用其内置打包/测试/SQLite/HTTP 等能力提速开发时使用；产出可运行的 Bun 项目脚手架、依赖与脚本配置、Bun 原生 API 代码及打包/编译产物；不适用于必须依赖 Node 专有 API（如 setImmediate、process.hrtime）或纯前端框架内部细节的场景。触发词：bun、bun.serve、bun:sqlite、bunx、bun test、bun build、@types/bun、从 Node 迁移",
     "path": "02-engineering/bun-runtime-development/SKILL.md"
+  },
+  {
+    "name": "c-language-pro",
+    "title": "C 语言高效编程与内存管理",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "C",
+      "研发",
+      "内存管理",
+      "指针",
+      "系统编程",
+      "嵌入式",
+      "并发",
+      "性能优化",
+      "POSIX"
+    ],
+    "triggers": [
+      "C",
+      "malloc",
+      "free",
+      "指针",
+      "内存泄漏",
+      "段错误",
+      "Valgrind",
+      "pthread",
+      "嵌入式"
+    ],
+    "description": "当用 C99/C11 写系统/嵌入式/高性能代码，或攻克内存管理、指针运算、POSIX 系统调用与 pthread 并发时使用；产出所有权清晰、零泄漏的 C 代码及 Makefile(-Wall -Wextra)、头文件守卫、单测与 Valgrind 干净输出；不适用于 C++/Rust、纯语法提问或无 C 工具链场景；触发词：C、malloc、free、指针、内存泄漏、段错误、Valgrind、pthread、嵌入式",
+    "path": "02-engineering/c-language-pro/SKILL.md"
+  },
+  {
+    "name": "c4-architecture-docs",
+    "title": "C4 模型架构文档自动生成",
+    "vol": "02-engineering",
+    "domain": "研发/architecture",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "架构",
+      "文档",
+      "C4-model",
+      "代码分析",
+      "Mermaid",
+      "OpenAPI",
+      "逆向工程"
+    ],
+    "triggers": [
+      "C4 模型",
+      "架构文档",
+      "Context",
+      "Container",
+      "Component",
+      "Code",
+      "系统上下文图",
+      "容器图",
+      "Mermaid C4"
+    ],
+    "description": "当需要为已有代码仓库生成 C4（Context/Container/Component/Code）架构文档时使用；用自底向上分析产出分层 Markdown 文档与 OpenAPI 规格到 C4-Documentation/；不适用于全新设计、单纯画一张图或非软件系统建模；触发词：C4 模型、架构文档、Context/Container/Component/Code、系统上下文图、容器图、Mermaid C4",
+    "path": "02-engineering/c4-architecture-docs/SKILL.md"
   },
   {
     "name": "chaos-engineering-runner",
@@ -2648,6 +2896,33 @@
     ],
     "description": "当需要完整审计轨迹、时间旅行查询或读写分离的事件驱动系统时使用；做事件存储、聚合/事件流、投影读模型、Saga 编排与版本演进的架构设计与落地；不适用于简单 CRUD、处处要求强一致、无法运维事件存储或投影的场景；触发词：事件溯源、CQRS、Saga",
     "path": "02-engineering/event-sourcing-cqrs/SKILL.md"
+  },
+  {
+    "name": "expo-router-native-ui",
+    "title": "Expo Router 原生 UI 构建",
+    "vol": "02-engineering",
+    "domain": "研发/mobile",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Expo",
+      "Expo Router",
+      "React Native",
+      "原生 UI",
+      "导航",
+      "移动开发",
+      "iOS",
+      "研发"
+    ],
+    "triggers": [
+      "Expo",
+      "Expo Router",
+      "React Native",
+      "NativeTabs",
+      "expo-router"
+    ],
+    "description": "当用 Expo Router 构建有原生质感的 React Native 应用（导航、原生组件、动画、原生 Tabs、Header/搜索、表单 Sheet、视觉特效）时使用；产出遵循 Apple HIG、优先 Expo Go、用内联样式+文件路由的可运行 UI 结构与代码；不适用于纯原生 Swift/Kotlin、纯 Web/H5 或与 Expo 无关的后端任务。触发词：Expo、Expo Router、React Native、NativeTabs、expo-router",
+    "path": "02-engineering/expo-router-native-ui/SKILL.md"
   },
   {
     "name": "fastapi-async-api",
@@ -5462,6 +5737,40 @@
     "path": "03-data/analysis-qa-validator/SKILL.md"
   },
   {
+    "name": "apify-multi-platform-scraper",
+    "title": "Apify 多平台 AI 数据抓取",
+    "vol": "03-data",
+    "domain": "数据/pipeline",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "apify",
+      "scraping",
+      "social-media",
+      "lead-generation",
+      "actor",
+      "mcpc",
+      "instagram",
+      "tiktok",
+      "youtube",
+      "facebook",
+      "google-maps",
+      "数据/misc"
+    ],
+    "triggers": [
+      "Apify",
+      "抓 Instagram",
+      "TikTok",
+      "YouTube",
+      "Facebook",
+      "Google Maps 商家",
+      "爬社媒",
+      "线索采集"
+    ],
+    "description": "当需要从社媒/地图/搜索等平台抓公开数据但还没选定具体 Apify Actor 时使用；做 AI 选 Actor→取 schema→运行→导出 CSV/JSON 的统一抓取流水线，覆盖 55+ Actor；不适用于登录/付费墙数据、无 APIFY_TOKEN、纯本地解析或写自定义爬虫。触发词：Apify、抓 Instagram/TikTok/YouTube/Facebook、Google Maps 商家、爬社媒、线索采集",
+    "path": "03-data/apify-multi-platform-scraper/SKILL.md"
+  },
+  {
     "name": "chief-data-officer-advisor",
     "title": "首席数据官顾问（数据产品与治理）",
     "vol": "03-data",
@@ -5489,6 +5798,34 @@
     ],
     "description": "当为创业公司做四类数据战略决策（训练数据权利、数据架构选型、客户数据资产估值/并购、数据团队序列）时使用；输出 GO/缓解/NO-GO 判定、架构与自建外购方案、风险调整估值与招聘路线图；不适用于 schema 设计、可观测性、查询优化、RAG/ML 平台等战术工程实现。触发词：CDO、数据战略、数据网格/湖仓、训练数据权利、数据资产估值",
     "path": "03-data/chief-data-officer-advisor/SKILL.md"
+  },
+  {
+    "name": "clickhouse-analytics-io",
+    "title": "ClickHouse 查询优化与分析",
+    "vol": "03-data",
+    "domain": "数据/sql",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "clickhouse",
+      "olap",
+      "analytics",
+      "columnar",
+      "query-optimization",
+      "materialized-view",
+      "data-engineering"
+    ],
+    "triggers": [
+      "ClickHouse",
+      "MergeTree",
+      "物化视图",
+      "列存分析",
+      "分区键",
+      "批量插入",
+      "慢查询日志"
+    ],
+    "description": "当用 ClickHouse 做 OLAP 分析、设计 MergeTree 表、优化分析查询、建物化视图或批量灌数时使用；按「选引擎→定分区/排序键→写高效查询→批量插入→物化视图→监控」产出建表 DDL、优化后 SQL 与灌数代码；不适用于 OLTP/高频点写、事务强一致或非 ClickHouse 库（PostgreSQL/MySQL 等）；触发词：ClickHouse、MergeTree、物化视图、列存分析、分区键、批量插入、慢查询日志。",
+    "path": "03-data/clickhouse-analytics-io/SKILL.md"
   },
   {
     "name": "csv-data-cleaner",
@@ -6664,6 +7001,30 @@
     "path": "04-ai/agent-payment-x402/SKILL.md"
   },
   {
+    "name": "agent-session-trace-audit",
+    "title": "AI 编码代理会话审计（成本/失败/延迟）",
+    "vol": "04-ai",
+    "domain": "智能/eval",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "AI 编码",
+      "可观测性",
+      "成本追踪",
+      "会话分析",
+      "CI 门禁",
+      "agenttrace"
+    ],
+    "triggers": [
+      "会话审计",
+      "成本飙升",
+      "工具失败率",
+      "CI 健康门禁"
+    ],
+    "description": "当需要复盘本地 AI 编码代理（Claude Code/Cursor/Gemini/Codex CLI 等）的会话为何慢、贵、浅、不稳，或为团队搭轻量 CI 健康门禁时使用；用 agenttrace 读取本地会话日志，产出成本/工具失败/延迟/异常/健康分的人读报告或 JSON 门禁结果，并支持两次尝试 diff 排查语义漂移；不适用于审计远端托管会话或上传私有日志到外部服务。触发词：会话审计、成本飙升、工具失败率、CI 健康门禁",
+    "path": "04-ai/agent-session-trace-audit/SKILL.md"
+  },
+  {
     "name": "agent-tool-builder",
     "title": "AI 智能体工具设计与构建",
     "vol": "04-ai",
@@ -6743,6 +7104,33 @@
     "path": "04-ai/agent-workflow-pattern-designer/SKILL.md"
   },
   {
+    "name": "agents-md-maintainer",
+    "title": "AGENTS.md 代理文档创建与维护",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "agents-md",
+      "claude-md",
+      "agent-docs",
+      "documentation",
+      "conventions",
+      "monorepo"
+    ],
+    "triggers": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "agent docs",
+      "代理文档",
+      "精简指令",
+      "create AGENTS.md",
+      "maintain agent docs"
+    ],
+    "description": "当需要为项目创建/更新/审计 AGENTS.md 或 CLAUDE.md、把冗长的 Agent 文档精简为高信号指令时使用；先分析仓库工具链与布局，再产出 <60 行（绝不超 100）的最小化 Agent 文档（含包管理、文件级命令、提交署名等必备小节）；不适用于面向人类的教程式 README/CONTRIBUTING、或把 linter 规则搬进文档；触发词：AGENTS.md、CLAUDE.md、agent docs、代理文档、精简指令、create AGENTS.md、maintain agent docs。",
+    "path": "04-ai/agents-md-maintainer/SKILL.md"
+  },
+  {
     "name": "ai-engineering-toolkit",
     "title": "AI 工程工作流工具箱",
     "vol": "04-ai",
@@ -6767,6 +7155,30 @@
     ],
     "description": "当需要在上线前用结构化方法评估提示词、规划上下文预算、设计 RAG 架构、红队审计 Agent、搭建评测框架或推演产品判断时使用；做六套可复现的 AI 工程工作流（量化打分+清单+决策树），产出评分、优化建议与可写入 CI 的模板；不适用于直接生产代码、替代环境内真实测试，或无授权对线上系统做攻击；触发词：提示词评估、上下文预算、RAG 设计、Agent 安全审计、评测框架、产品判断",
     "path": "04-ai/ai-engineering-toolkit/SKILL.md"
+  },
+  {
+    "name": "ai-model-knowledge-distill",
+    "title": "从 AI 模型蒸馏结构化领域知识",
+    "vol": "04-ai",
+    "domain": "智能/rag",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "智能",
+      "知识抽取",
+      "领域知识",
+      "数据护城河",
+      "mcp",
+      "参考数据",
+      "ollama"
+    ],
+    "triggers": [
+      "知识蒸馏",
+      "领域参考数据",
+      "bdistill"
+    ],
+    "description": "当需要把 AI 模型会话变成可累积、可检索、可导出的领域参考数据时使用；通过定向提问 + 质量评分 + 对抗校验，蒸馏出结构化 JSONL/CSV 知识库与表格化 ML 训练数据；不适用于训练竞品 LLM、替代专家审核或环境验证；触发词：知识蒸馏、领域参考数据、bdistill",
+    "path": "04-ai/ai-model-knowledge-distill/SKILL.md"
   },
   {
     "name": "autonomous-coding-agent-patterns",
@@ -6822,6 +7234,34 @@
     ],
     "description": "当你有一个目标文件、一条会输出可量化指标的评估命令、且代码在 git 仓库中，想让智能体长时间自动优化（更快/更小/质量更高）时使用；做的事：单变量改文件→提交→跑固定评估→改进则保留、变差则 git reset 回退→循环累积并记录到 results.tsv；不适用于无法量化、缺评估命令或不在 git 下的任务，也不要边改评估器边比对。触发词：优化、实验循环、autoresearch",
     "path": "04-ai/autoresearch-optimization-agent/SKILL.md"
+  },
+  {
+    "name": "azure-realtime-voice-ai",
+    "title": "Azure 实时语音 AI 应用构建",
+    "vol": "04-ai",
+    "domain": "智能/model-ops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "智能",
+      "misc",
+      "Azure",
+      "语音AI",
+      "实时音频",
+      "WebSocket",
+      "Python",
+      "gpt-4o-realtime",
+      "VAD",
+      "function-calling"
+    ],
+    "triggers": [
+      "Azure 实时语音",
+      "VoiceLive",
+      "gpt-4o-realtime",
+      "语音助手 WebSocket"
+    ],
+    "description": "当需用 Azure AI VoiceLive SDK（Python）通过 WebSocket 构建低延迟双向语音对话、实时语音助手或电话语音机器人时使用；做的事：建立异步连接、配置 session/语音/VAD、流式收发 PCM16 音频、处理事件与函数调用，产出可运行的实时语音应用骨架；不适用于：非 Azure 语音栈、批量离线语音转写、纯文本 LLM 对话。触发词：Azure 实时语音、VoiceLive、gpt-4o-realtime、语音助手 WebSocket",
+    "path": "04-ai/azure-realtime-voice-ai/SKILL.md"
   },
   {
     "name": "bdi-mental-states",
@@ -7721,6 +8161,32 @@
     "path": "04-ai/production-llm-app-builder/SKILL.md"
   },
   {
+    "name": "prompt-governance-policy",
+    "title": "提示词治理与合规",
+    "vol": "04-ai",
+    "domain": "智能/prompting",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "prompting",
+      "llmops",
+      "governance",
+      "evaluation",
+      "ab-testing"
+    ],
+    "triggers": [
+      "提示词版本管理",
+      "prompt registry",
+      "提示词回归",
+      "提示词 A",
+      "B",
+      "eval 流水线",
+      "生产提示词治理"
+    ],
+    "description": "当需要在生产环境大规模管理提示词时使用——做提示词注册表、评测流水线、版本化与受治理迭代（A/B、灰度、回滚），产出治理流程与产物；不适用于编写/优化单条提示词（用 prompt-template-designer / llm-prompt-optimizer）或 RAG 检索设计；触发词：提示词版本管理、prompt registry、提示词回归、提示词 A/B、eval 流水线、生产提示词治理",
+    "path": "04-ai/prompt-governance-policy/SKILL.md"
+  },
+  {
     "name": "prompt-template-designer",
     "title": "提示词模板设计",
     "vol": "04-ai",
@@ -8356,6 +8822,38 @@
     "path": "05-business/analytics-tracking-setup/SKILL.md"
   },
   {
+    "name": "andreessen-vc-lens",
+    "title": "安德森式风投视角评估",
+    "vol": "05-business",
+    "domain": "商业/growth",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "vc",
+      "market-first",
+      "pmf",
+      "decision",
+      "anti-sycophancy",
+      "startup",
+      "growth"
+    ],
+    "triggers": [
+      "该不该做",
+      "有没有市场",
+      "市场优先",
+      "PMF",
+      "产品市场契合",
+      "product market fit",
+      "压力测试点子",
+      "风投视角",
+      "andreessen",
+      "pmarca",
+      "为什么现在"
+    ],
+    "description": "当需要用市场优先的犀利风投视角压力测试创业点子/功能/押注，或判断是否已达 PMF 时使用；产出先反驳后立论、带置信度的 BUILD/DERISK/KILL 裁决与 PMF 信号评分；不适用于温和头脑风暴、求安慰背书或纯执行落地。触发词：该不该做、有没有市场、市场优先、PMF、产品市场契合、product market fit、压力测试点子、风投视角、andreessen、pmarca、为什么现在",
+    "path": "05-business/andreessen-vc-lens/SKILL.md"
+  },
+  {
     "name": "apollo-lead-enrichment",
     "title": "Apollo 线索富化（联系卡补全）",
     "vol": "05-business",
@@ -8635,6 +9133,32 @@
     "path": "05-business/budget-variance-analysis/SKILL.md"
   },
   {
+    "name": "buyer-persona-builder",
+    "title": "买家画像构建",
+    "vol": "05-business",
+    "domain": "商业/marketing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "marketing",
+      "买家画像",
+      "客户细分",
+      "用户研究",
+      "ICP",
+      "数据驱动"
+    ],
+    "triggers": [
+      "买家画像",
+      "用户画像",
+      "客户原型",
+      "ICP 画像",
+      "persona"
+    ],
+    "description": "当你已有用户/客户数据（分析、调研、访谈、工单）并要为营销与销售产出可落地的数据驱动买家画像时使用；做\"原型归类→人口/行为/动机聚合→痛点带频次→营销含义→置信度评级\"并输出结构化画像（文本/JSON）；不适用于零数据的\"拍脑袋\"画像、纯 UX 界面设计实现、或单画像覆盖全部人群。触发词：买家画像、用户画像、客户原型、ICP 画像、persona",
+    "path": "05-business/buyer-persona-builder/SKILL.md"
+  },
+  {
     "name": "campaign-attribution-analytics",
     "title": "营销活动归因分析",
     "vol": "05-business",
@@ -8686,6 +9210,34 @@
     ],
     "description": "当为初创/扩张期公司做财务建模、单位经济分析、融资规划、现金跑道管理或董事会财务材料时使用；做出 base/bull/bear 跑道模型、分队列 LTV 与分渠道 CAC、稀释与 cap table 推演、董事会财务页等可决策产物；不适用于纯记账/做账或常规财务分析师事务。触发词：burn rate、runway、LTV/CAC、融资",
     "path": "05-business/cfo-financial-advisor/SKILL.md"
+  },
+  {
+    "name": "channel-economics-model",
+    "title": "渠道经济性建模",
+    "vol": "05-business",
+    "domain": "商业/finance",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "finance",
+      "渠道经济性",
+      "cost-to-serve",
+      "渠道ROI",
+      "直销与渠道",
+      "渠道组合",
+      "单位经济",
+      "RevOps",
+      "敏感度分析"
+    ],
+    "triggers": [
+      "渠道经济性",
+      "直销vs渠道",
+      "渠道ROI",
+      "渠道组合"
+    ],
+    "description": "当季度复盘需厘清直销 vs 渠道/合作伙伴谁真正赚钱、要算满载 cost-to-serve、三镜头渠道 ROI 与受约束最优渠道组合时使用；做按渠道的满载成本、ROI 裁决（加码/维持/削减/退出）与敏感度组合建议，产出三份报告；不适用于设计伙伴分层与 revshare、RevOps 漏斗机制、战略 CRO 判断或历史 P&L 报表。触发词：渠道经济性、直销vs渠道、渠道ROI、渠道组合",
+    "path": "05-business/channel-economics-model/SKILL.md"
   },
   {
     "name": "churn-prevention",
@@ -10530,6 +11082,34 @@
     "path": "05-business/offer-letter-drafter/SKILL.md"
   },
   {
+    "name": "operator-audit-review",
+    "title": "Kubernetes Operator 审计复盘",
+    "vol": "05-business",
+    "domain": "商业/finance",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "kubernetes",
+      "operator",
+      "crd",
+      "reconcile",
+      "controller-runtime",
+      "kubebuilder",
+      "audit",
+      "devops"
+    ],
+    "triggers": [
+      "operator 审计",
+      "CRD 校验",
+      "reconcile lint",
+      "能力等级",
+      "operator-audit",
+      "kubebuilder"
+    ],
+    "description": "当需要审计 Kubernetes Operator 仓库（CRD 设计、Go reconcile 循环、OperatorHub 能力等级）或上线前做合规复盘时使用；做 CRD 校验、reconcile 反模式 lint、能力等级评分，产出按检查项分级（FAIL/WARN/PASS）的 Markdown 报告与进阶步骤；不适用于纯 Helm 打包、普通 kubectl 运维、通用 k8s 安全或非 Operator 工作负载；触发词：operator 审计、CRD 校验、reconcile lint、能力等级、operator-audit、kubebuilder",
+    "path": "05-business/operator-audit-review/SKILL.md"
+  },
+  {
     "name": "option-volatility-analysis",
     "title": "期权波动率分析",
     "vol": "05-business",
@@ -10621,6 +11201,37 @@
     ],
     "description": "当需要规划、创建、优化或扩量付费广告（Google Ads / Meta / LinkedIn / X / TikTok）并控制 CPA/ROAS 时使用；产出账户结构、广告文案集、受众与再营销定向方案、投放前检查清单与周度优化报告模板；不适用于落地页 CRO 文案优化、纯创意脚本/视觉概念或转化埋点的具体技术实现。触发词：paid ads、付费广告、PPC、投流、paid media、ad copy、广告文案、ROAS、CPA、retargeting、再营销、audience targeting、受众定向、信息流广告。",
     "path": "05-business/paid-ads-strategist/SKILL.md"
+  },
+  {
+    "name": "partnerships-strategy-architect",
+    "title": "战略合作伙伴架构",
+    "vol": "05-business",
+    "domain": "商业/sales",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "sales",
+      "合作伙伴",
+      "渠道",
+      "联合GTM",
+      "分润",
+      "OEM",
+      "经销",
+      "战略联盟",
+      "渠道冲突",
+      "伙伴分层"
+    ],
+    "triggers": [
+      "合作伙伴",
+      "分销商",
+      "OEM",
+      "战略联盟",
+      "分润",
+      "渠道冲突"
+    ],
+    "description": "当合作方上门索要分销/OEM/\"战略联盟\"条款、或要新建伙伴分层、或要决定重构·解约低效伙伴时使用；做伙伴分层判定（推荐/经销/OEM/SI/战略）、90天联合GTM计划、分润测算与解约触发条件，产出\"分层＋GTM计划＋分润区间＋解约红线\"建议包；不适用于技术售前POC、已签伙伴逐笔折扣审批、渠道ROI核算或改用收购替代合作。触发词：合作伙伴、分销商、OEM、战略联盟、分润、渠道冲突",
+    "path": "05-business/partnerships-strategy-architect/SKILL.md"
   },
   {
     "name": "paywall-upgrade-cro",
@@ -10913,6 +11524,33 @@
     ],
     "description": "当需要为 SaaS/订阅/平台产品设计定价、套餐分层与变现策略，或评估涨价时机时使用；做出价值度量选择、Good-Better-Best 分层、价格点测算与定价页方案等可执行产物；不适用于应用内升级弹窗/付费墙文案、单纯的转化率优化或会员留存挽回。触发词：定价、价格、套餐分层、定价分层、免费增值、freemium、免费试用、价值度量、value metric、支付意愿、willingness to pay、Van Westendorp、变现、monetization、涨价、price increase、按席位定价、per seat、定价页、pricing page、年付vs月付。",
     "path": "05-business/pricing-strategy/SKILL.md"
+  },
+  {
+    "name": "procurement-cost-optimizer",
+    "title": "采购成本优化",
+    "vol": "05-business",
+    "domain": "商业/finance",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "finance",
+      "采购",
+      "支出分类",
+      "供应商整合",
+      "unspsc",
+      "saas-audit",
+      "采购周期"
+    ],
+    "triggers": [
+      "支出审计",
+      "SaaS 审计",
+      "供应商整合",
+      "采购周期",
+      "续约聚集"
+    ],
+    "description": "当做年度 SaaS 审计、品类级支出复盘或供应商基盘精简时使用；产出 UNSPSC 对齐的支出分类（含帕累托与同比增长）、采购周期瓶颈记分卡、带风险标记的供应商整合方案三类可决策工件；不适用于单一已留用供应商绩效评分、财务结账与 P&L、合同条款起草。触发词：支出审计、SaaS 审计、供应商整合、采购周期、续约聚集",
+    "path": "05-business/procurement-cost-optimizer/SKILL.md"
   },
   {
     "name": "product-launch-strategy",
@@ -12089,6 +12727,33 @@
     "path": "05-business/swap-curve-strategy/SKILL.md"
   },
   {
+    "name": "team-culture-architect",
+    "title": "团队文化架构设计",
+    "vol": "05-business",
+    "domain": "商业/growth",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "growth",
+      "企业文化",
+      "组织建设",
+      "C-level",
+      "价值观",
+      "文化健康度",
+      "创始人"
+    ],
+    "triggers": [
+      "企业文化",
+      "价值观",
+      "文化准则",
+      "文化债",
+      "文化健康度"
+    ],
+    "description": "当需要把公司文化从\"墙上口号\"落成可观察、可度量的行为系统时使用；做使命愿景价值观提炼、价值观到行为锚点的翻译、文化准则文档、季度文化健康度测评与分阶段仪式设计，产出可执行的文化运营方案；不适用于个人职业发展辅导、纯 HR 流程或绩效考核机制设计。触发词：企业文化、价值观、文化准则、文化债、文化健康度",
+    "path": "05-business/team-culture-architect/SKILL.md"
+  },
+  {
     "name": "technical-seo-checker",
     "title": "技术 SEO 体检（抓取/索引/核心网页指标）",
     "vol": "05-business",
@@ -13092,6 +13757,34 @@
     "path": "07-productivity/atlassian-template-builder/SKILL.md"
   },
   {
+    "name": "board-prep-orchestrator",
+    "title": "董事会会前筹备编排",
+    "vol": "07-productivity",
+    "domain": "协作/pm",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "协作",
+      "pm",
+      "董事会",
+      "投资人关系",
+      "会前筹备",
+      "对抗式演练",
+      "叙事框架",
+      "编排"
+    ],
+    "triggers": [
+      "董事会筹备",
+      "会前编排",
+      "投资人更新",
+      "融资路演",
+      "模拟董事会",
+      "董事画像"
+    ],
+    "description": "当要为一次高风险董事会/投资人更新/融资路演系统性筹备，需把\"备数字、备问题、备叙事、备演练、备到人\"串成一条可执行流水线时使用；产出脱稿数字清单、对抗问题库、五段叙事框架、模拟董事会脚本、逐董事画像与会前48h/会中/会后清单；不适用于内部团队周会、友好型进度同步、纯财务建模或汇报材料排版。触发词：董事会筹备、会前编排、投资人更新、融资路演、模拟董事会、董事画像",
+    "path": "07-productivity/board-prep-orchestrator/SKILL.md"
+  },
+  {
     "name": "business-process-mapper",
     "title": "业务流程绘制与瓶颈分析",
     "vol": "07-productivity",
@@ -13184,6 +13877,30 @@
     ],
     "description": "当需要从 commit/PR/tag 自动产出 CHANGELOG 与 release notes、统一提交规范或配置发布流水线时使用；做基于 Conventional Commits + Keep a Changelog + SemVer，用 standard-version、semantic-release、git-cliff、commitizen 生成变更日志并联动版本号与 GitHub Release；不适用于人工手写/逐条编辑变更日志，也不覆盖无版本概念的产品文档撰写；触发词：changelog、变更日志、release notes、发布说明、conventional commits、约定式提交、语义化版本、semver、standard-version、semantic-release、git-cliff、commitizen",
     "path": "07-productivity/changelog-generator/SKILL.md"
+  },
+  {
+    "name": "chief-of-staff-ops",
+    "title": "幕僚长运营协调",
+    "vol": "07-productivity",
+    "domain": "协作/pm",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "协作",
+      "pm",
+      "编排",
+      "决策",
+      "C-suite",
+      "路由",
+      "多角色"
+    ],
+    "triggers": [
+      "幕僚长",
+      "分诊路由",
+      "董事会评议"
+    ],
+    "description": "当面对跨职能、需多角色决策的创始人/管理者问题时使用；做问题分诊、复杂度评分、按路由矩阵派给单角色或召开\"董事会\"并综合产出+记录决策；不适用于单一领域有明确答案的小问题（直接答即可）、纯执行落地、无角色协调诉求；触发词：幕僚长、分诊路由、董事会评议",
+    "path": "07-productivity/chief-of-staff-ops/SKILL.md"
   },
   {
     "name": "chief-of-staff-orchestrator",
@@ -13495,6 +14212,32 @@
     "path": "07-productivity/deal-pipeline-tracker/SKILL.md"
   },
   {
+    "name": "decision-log-recorder",
+    "title": "决策日志记录（两层记忆）",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "decision-log",
+      "memory",
+      "action-items",
+      "conflict-detection",
+      "knowledge",
+      "governance"
+    ],
+    "triggers": [
+      "决策日志",
+      "approved decisions",
+      "行动项",
+      "被否方案",
+      "DO_NOT_RESURFACE",
+      "决策冲突检测"
+    ],
+    "description": "当需要把团队/董事会会议中已批准的决策、负责人、行动项与被否方案沉淀为可追溯的「记忆」时使用；产出仅存已批准结论的 Layer 2 决策库（append-only）+ 完整原始记录的 Layer 1，并做冲突检测与逾期行动项跟踪；不适用于个体架构决策留痕（用 adr-writer）或会议纪要转写；触发词：决策日志、approved decisions、行动项、被否方案、DO_NOT_RESURFACE、决策冲突检测",
+    "path": "07-productivity/decision-log-recorder/SKILL.md"
+  },
+  {
     "name": "developer-experience-optimizer",
     "title": "开发者体验优化",
     "vol": "07-productivity",
@@ -13782,6 +14525,34 @@
     "path": "07-productivity/new-hire-onboarding-plan/SKILL.md"
   },
   {
+    "name": "office-hours-facilitator",
+    "title": "答疑时间会引导（创始人六问拷问）",
+    "vol": "07-productivity",
+    "domain": "协作/pm",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "协作",
+      "pm",
+      "决策框架",
+      "创始人拷问",
+      "YC office hours",
+      "强制澄清",
+      "立项评审",
+      "简报"
+    ],
+    "triggers": [
+      "答疑时间",
+      "六问拷问",
+      "决策前先想清楚",
+      "立项评审",
+      "融资前自检",
+      "创始人契合"
+    ],
+    "description": "当任何重大动作（融资/转型/新立项）或决策前需要先逼清思路时使用；做 YC 式六问书面拷问（问题/客户/分发/壁垒/资本/创始人契合）并产出一页 GREEN/YELLOW/RED 简报与路由建议；不适用于答案明确的小问题、纯执行或机械检索。触发词：答疑时间、六问拷问、决策前先想清楚、立项评审、融资前自检、创始人契合",
+    "path": "07-productivity/office-hours-facilitator/SKILL.md"
+  },
+  {
     "name": "oncall-handoff-writer",
     "title": "值班交接记录撰写",
     "vol": "07-productivity",
@@ -13978,6 +14749,32 @@
     ],
     "description": "当需要把存在某人脑子里的业务流程正式落成标准作业程序（SOP）——梳理交接环节、用 RACI 厘清谁负责谁拍板、为审计或交接编写流程文档、并补齐异常与边界情形时使用；产出含目的/范围/RACI 矩阵/流程图/分步细则/异常处理/度量指标的完整 SOP；不适用于流程瓶颈量化分析、销售漏斗或一次性项目计划。触发词：SOP、标准作业程序、流程文档化、RACI、操作手册、流程交接、process doc、standard operating procedure",
     "path": "07-productivity/process-sop-documenter/SKILL.md"
+  },
+  {
+    "name": "product-discovery-process",
+    "title": "产品探索发现流程",
+    "vol": "07-productivity",
+    "domain": "协作/pm",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "协作",
+      "pm",
+      "产品发现",
+      "机会方案树",
+      "假设验证",
+      "用户研究",
+      "去风险"
+    ],
+    "triggers": [
+      "产品探索",
+      "机会验证",
+      "假设映射",
+      "问题验证",
+      "探索冲刺"
+    ],
+    "description": "当你要在投入交付资源前验证产品机会、识别假设并测试问题-方案匹配时使用；用机会方案树(OST)+假设映射+问题/方案验证产出可决策的探索冲刺结论（继续/转向/停止）；不适用于已决定要做、只需排期或写需求文档的场景，那用 RICE 优先级或 PRD 技能。触发词：产品探索、机会验证、假设映射、问题验证、探索冲刺",
+    "path": "07-productivity/product-discovery-process/SKILL.md"
   },
   {
     "name": "product-manager-toolkit",
@@ -14322,6 +15119,35 @@
     ],
     "description": "当在授权红队/渗透测试中评估 Microsoft AD 域环境时使用；做侦察、凭据获取、Kerberos 票据攻击、横向移动到提权直至域控接管，产出枚举数据、哈希/票据与攻陷路径；不适用于未授权目标、非 AD/通用网络渗透、防御加固本身。触发词：Active Directory、Kerberoasting、DCSync、BloodHound、Golden Ticket、NTLM Relay",
     "path": "08-security/active-directory-attacks/SKILL.md"
+  },
+  {
+    "name": "agent-plugin-audit",
+    "title": "Agent 插件安全审计",
+    "vol": "08-security",
+    "domain": "安全/appsec",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "security",
+      "appsec",
+      "plugin-audit",
+      "publish-gate",
+      "quality-gate",
+      "marketplace-compliance",
+      "ci-gate",
+      "skill-validation"
+    ],
+    "triggers": [
+      "审计这个插件",
+      "发布前闸门",
+      "plugin audit",
+      "技能合规检查",
+      "上架前检查",
+      "8 阶段审计",
+      "quality gate"
+    ],
+    "description": "当要把一个技能/插件/Agent/命令合入或发布前做一次性全量闸门时使用；做结构+质量+脚本+安全+市场合规+生态集成+代码评审的 8 阶段审计并产出 PASS/带警告 PASS/FAIL 的闸门报告（自动修非关键项）；不适用于运行时沙箱、单纯安全扫描（用 agent-skill-security-scanner）、CVE 实时联网核验；触发词：审计这个插件、发布前闸门、plugin audit、技能合规检查、上架前检查、8 阶段审计、quality gate",
+    "path": "08-security/agent-plugin-audit/SKILL.md"
   },
   {
     "name": "agent-skill-security-scanner",
@@ -14735,6 +15561,32 @@
     ],
     "description": "当对已获授权的 Web 应用做安全测试、需要拦截/篡改 HTTP、重放请求、漏洞扫描或参数爆破时使用；做基于代理的拦截改包、Repeater 重放、Intruder 爆破与 Scanner 扫描并产出 PoC 与漏洞报告；不适用于未授权目标、非 Web 协议、纯防御加固或客户端二进制逆向；触发词：Burp、抓包改包、Repeater、Intruder、漏洞扫描",
     "path": "08-security/burp-suite-testing/SKILL.md"
+  },
+  {
+    "name": "burpsuite-project-parser",
+    "title": "Burp Suite 工程文件命令行解析",
+    "vol": "08-security",
+    "domain": "安全/audit",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "Burp Suite",
+      "工程文件解析",
+      "命令行",
+      "审计项",
+      "代理历史",
+      "正则检索"
+    ],
+    "triggers": [
+      ".burp",
+      "proxyHistory",
+      "auditItems",
+      "responseHeader 正则",
+      "Burp 工程解析"
+    ],
+    "description": "当需要从命令行检索、提取 Burp Suite 工程文件（.burp）中的审计发现、代理历史、站点地图或 HTTP 流量时使用；做用正则按响应头/响应体搜索、抽取 auditItems、按子组件过滤器分块取数并产出 JSON 结果；不适用于直接解析 .burp（依赖 Burp Pro + 解析扩展）、未授权数据或全量 dump；触发词：.burp、proxyHistory、auditItems、responseHeader 正则、Burp 工程解析",
+    "path": "08-security/burpsuite-project-parser/SKILL.md"
   },
   {
     "name": "c-cpp-security-review",
@@ -17890,6 +18742,34 @@
     ],
     "description": "当处理 ChIP/ATAC/RNA-seq 等 NGS 比对数据、需要把 BAM 转成归一化覆盖度轨道、做样本质控或绘制特征区信号图时使用；做 BAM→bigWig（RPGC/CPM/RPKM）归一化、相关性/PCA/指纹质控、TSS/peak 附近热图与谱图等产物；不适用于读段比对（用 STAR/BWA/bowtie2）、peak calling（用 MACS2/HOMER）、BAM/VCF 编程操作（用 pysam）；触发词：bigWig、bamCoverage、computeMatrix、plotHeatmap、ChIP-seq、ATAC-seq",
     "path": "09-verticals/deeptools-ngs-analysis/SKILL.md"
+  },
+  {
+    "name": "defi-natural-language-agent",
+    "title": "自然语言 DeFi 链上交易代理",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "defi",
+      "wallet",
+      "onchain",
+      "account-abstraction",
+      "eip-712",
+      "cli",
+      "agent",
+      "intent"
+    ],
+    "triggers": [
+      "DeFi 代理",
+      "链上交易",
+      "自然语言换币",
+      "Aomi",
+      "钱包签名",
+      "跨链桥"
+    ],
+    "description": "当用户想用自然语言在 EVM 链上做 DeFi 操作（查价/换币/质押/桥接）并签名上链时使用；驱动 Aomi CLI 把提示转成钱包待签交易，先 list+模拟再经显式批准签名；不适用于无网络后端、非本人账户或绕过防盗保护。触发词：DeFi 代理、链上交易、自然语言换币、Aomi、钱包签名、跨链桥",
+    "path": "09-verticals/defi-natural-language-agent/SKILL.md"
   },
   {
     "name": "defi-protocol-templates",
@@ -25047,6 +25927,35 @@
     "path": "10-platform/agentmail-email-infra/SKILL.md"
   },
   {
+    "name": "agentphone-voice-sms-agents",
+    "title": "AI 电话与短信代理（AgentPhone）",
+    "vol": "10-platform",
+    "domain": "平台/integration",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "平台",
+      "misc",
+      "电话",
+      "语音AI",
+      "短信",
+      "telephony",
+      "webhook",
+      "API",
+      "voice-agent"
+    ],
+    "triggers": [
+      "电话代理",
+      "语音通话",
+      "短信",
+      "号码",
+      "Webhook",
+      "转写"
+    ],
+    "description": "当需要给 AI 代理配备电话号码、发起/接听语音通话、收发短信、查看通话转写或配置 Webhook 时使用；调用 AgentPhone REST API（base=https://api.agentphone.to/v1）完成代理/号码/通话/短信/Webhook/用量的全生命周期管理，产出可直接执行的 curl 与 Webhook 处理代码；不适用于自建 Twilio/SIP/STUN 等底层电信栈或非 AgentPhone 平台。触发词：电话代理、语音通话、短信、号码、Webhook、转写。",
+    "path": "10-platform/agentphone-voice-sms-agents/SKILL.md"
+  },
+  {
     "name": "ai-native-cli-design",
     "title": "面向 AI 智能体的 CLI 设计规范",
     "vol": "10-platform",
@@ -25072,6 +25981,89 @@
     ],
     "description": "当设计/改造供 AI 智能体调用的命令行工具时使用；按 core/recommended/ecosystem 三层产出 JSON 优先、可校验的 CLI 契约（默认 JSON、结构化错误、退出码、护栏、agent/ 目录与自描述）；不适用于纯人类交互 CLI、GUI 或库 API 设计；触发词：agent CLI、AI 友好命令行、CLI JSON 输出、退出码规范、agent/ 目录",
     "path": "10-platform/ai-native-cli-design/SKILL.md"
+  },
+  {
+    "name": "amazon-alexa-skill-builder",
+    "title": "Amazon Alexa 语音技能开发（Claude + AWS）",
+    "vol": "10-platform",
+    "domain": "平台/cloud",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "voice",
+      "alexa",
+      "aws",
+      "smart-home",
+      "lambda",
+      "平台"
+    ],
+    "triggers": [
+      "Alexa",
+      "ASK CLI",
+      "语音技能",
+      "Smart Home"
+    ],
+    "description": "当需要用 ASK CLI + AWS Lambda 开发 Amazon Alexa 语音技能、并以 Claude 作为对话大脑（含 DynamoDB 记忆、Polly 语音、APL 屏显、Smart Home 控制）时使用；做交互模型/Lambda 处理器/部署脚本的搭建与产出；不适用于纯网页/移动 App 或非 Alexa 平台语音助手；触发词：Alexa、ASK CLI、语音技能、Smart Home",
+    "path": "10-platform/amazon-alexa-skill-builder/SKILL.md"
+  },
+  {
+    "name": "apify-actor-development",
+    "title": "Apify Actor 开发",
+    "vol": "10-platform",
+    "domain": "平台/cli",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "apify",
+      "actor",
+      "web-scraping",
+      "crawlee",
+      "serverless",
+      "docker",
+      "cli",
+      "deployment"
+    ],
+    "triggers": [
+      "apify actor",
+      "apify create",
+      "apify push",
+      "input_schema",
+      "actor.json",
+      "爬虫部署",
+      "serverless scraper",
+      "crawlee"
+    ],
+    "description": "当需要创建、修改或调试 Apify Actor（无服务器 Docker 抓取/自动化程序）时使用；引导选模板、配 input/output schema 与 actor.json、写入口逻辑、本地 apify run 测试并 apify push 部署；不适用于已有现成 Actor 直接调用（用 apify-ecommerce-scraper）、无 APIFY_TOKEN、或普通网页抓取无需打包为 Actor。触发词：apify actor、apify create、apify push、input_schema、actor.json、爬虫部署、serverless scraper、crawlee",
+    "path": "10-platform/apify-actor-development/SKILL.md"
+  },
+  {
+    "name": "apify-actorization",
+    "title": "将既有软件改造为 Apify Actor",
+    "vol": "10-platform",
+    "domain": "平台/cli",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "apify",
+      "actor",
+      "serverless",
+      "docker",
+      "web-scraping",
+      "crawlee",
+      "cli-wrapper",
+      "platform"
+    ],
+    "triggers": [
+      "apify actor",
+      "actorization",
+      "改造成 actor",
+      "apify push",
+      "apify init",
+      "input_schema",
+      "serverless 爬虫"
+    ],
+    "description": "当需要把现有 JS/TS、Python 脚本或任意 CLI 工具改造成可在 Apify 平台运行的 Actor（接受 JSON 输入、产出结构化 JSON、打包为 Docker 镜像并部署/变现）时使用；做 apify init 初始化 + SDK 生命周期包裹 + 配置 input/output/actor schema + apify run 本地测试 + apify push 部署，产出可上架的 Actor；不适用于从零写新爬虫、单纯调用现成 Actor、或无 apify CLI/APIFY_TOKEN。触发词：apify actor、actorization、改造成 actor、apify push、apify init、input_schema、serverless 爬虫",
+    "path": "10-platform/apify-actorization/SKILL.md"
   },
   {
     "name": "apify-ecommerce-scraper",
@@ -25234,6 +26226,65 @@
     ],
     "description": "当为初创/企业设计 Azure 基础设施、写 Bicep/ARM、做成本优化、配 Azure DevOps/GitHub Actions 流水线或迁移上云时使用；产出架构模式选型、Bicep IaC 模板、成本与安全评审清单；不适用于 AWS/GCP 选型、应用代码开发或具体业务建模；触发词：Azure、Bicep、AKS、App Service、Functions、Cosmos DB、成本优化",
     "path": "10-platform/azure-cloud-architect/SKILL.md"
+  },
+  {
+    "name": "azure-container-apps-deploy",
+    "title": "Azure Container Apps 容器化部署（azd）",
+    "vol": "10-platform",
+    "domain": "平台/cloud",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Azure",
+      "Container Apps",
+      "azd",
+      "Bicep",
+      "IaC",
+      "远程构建",
+      "Managed Identity",
+      "RBAC",
+      "DevOps",
+      "容器部署"
+    ],
+    "triggers": [
+      "azd",
+      "azd up",
+      "Azure Container Apps",
+      "azure.yaml",
+      "remoteBuild",
+      "Bicep",
+      "Managed Identity",
+      "containerapp"
+    ],
+    "description": "当用 Azure Developer CLI（azd）把前后端容器应用部署到 Azure Container Apps 时使用；产出 azure.yaml 服务定义、Bicep 基础设施、远程构建/托管身份/RBAC 配置与幂等 azd up 部署流程；不适用于 AWS/GCP 无服务器、AKS 原生 K8s 编排或纯应用代码开发。触发词：azd、azd up、Azure Container Apps、azure.yaml、remoteBuild、Bicep、Managed Identity、containerapp",
+    "path": "10-platform/azure-container-apps-deploy/SKILL.md"
+  },
+  {
+    "name": "azure-functions-serverless",
+    "title": "Azure Functions 无服务器开发",
+    "vol": "10-platform",
+    "domain": "平台/cloud",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "azure",
+      "serverless",
+      "azure-functions",
+      "durable-functions",
+      "isolated-worker",
+      "cold-start",
+      "dotnet",
+      "nodejs",
+      "python",
+      "平台/cloud"
+    ],
+    "triggers": [
+      "Azure Functions",
+      "Durable Functions",
+      "function app"
+    ],
+    "description": "当在 Azure 上构建生产级 Functions 无服务器应用（隔离工作进程 .NET / Node.js v4 / Python v2、HTTP/队列/定时/Blob 触发、Durable Functions 编排、冷启动优化）时使用；产出函数模板、host.json/部署配置与锋利边缘规避方案；不适用于 AWS Lambda、GCP 无服务器或容器化长驻服务。触发词：Azure Functions、Durable Functions、function app",
+    "path": "10-platform/azure-functions-serverless/SKILL.md"
   },
   {
     "name": "browser-automation-builder",

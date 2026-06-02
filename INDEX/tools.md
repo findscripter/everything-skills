@@ -6,6 +6,9 @@
 ### `.NET`
 - [`github-copilot-sdk`](../04-ai/github-copilot-sdk/SKILL.md) — GitHub Copilot SDK 编程集成
 
+### `.NET 8/9`
+- [`azure-functions-serverless`](../10-platform/azure-functions-serverless/SKILL.md) — Azure Functions 无服务器开发
+
 ### `/aiservices/scribe/jobs`
 - [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
 
@@ -36,6 +39,9 @@
 ### `/workflows`
 - [`agent-workflow-builder`](../07-productivity/agent-workflow-builder/SKILL.md) — 多智能体工作流编排脚本构建
 
+### `10/10/10框架`
+- [`hard-call-advisor`](../00-meta/hard-call-advisor/SKILL.md) — 艰难抉择推演顾问
+
 ### `100-Day Integration Plan`
 - [`ma-playbook`](../05-business/ma-playbook/SKILL.md) — 并购策略手册（尽调与估值整合）
 
@@ -50,6 +56,12 @@
 
 ### `@anthropic-ai/sdk (TypeScript)`
 - [`claude-api`](../04-ai/claude-api/SKILL.md) — Claude API 应用开发
+
+### `@aomi-labs/client`
+- [`defi-natural-language-agent`](../09-verticals/defi-natural-language-agent/SKILL.md) — 自然语言 DeFi 链上交易代理
+
+### `@azure/functions v4`
+- [`azure-functions-serverless`](../10-platform/azure-functions-serverless/SKILL.md) — Azure Functions 无服务器开发
 
 ### `@bull-board/api`
 - [`bullmq-job-queue`](../02-engineering/bullmq-job-queue/SKILL.md) — BullMQ Redis 任务队列后台处理
@@ -195,6 +207,9 @@
 ### `Android WebView (Kotlin)`
 - [`zoom-virtual-agent-builder`](../10-platform/zoom-virtual-agent-builder/SKILL.md) — Zoom 虚拟客服坐席集成
 
+### `Angular CLI`
+- [`angularjs-to-angular-migration`](../02-engineering/angularjs-to-angular-migration/SKILL.md) — AngularJS 到 Angular 迁移
+
 ### `Anime.js`
 - [`animejs-web-animation`](../06-creative/animejs-web-animation/SKILL.md) — Anime.js 高性能网页动画
 - [`design-spells-microinteractions`](../06-creative/design-spells-microinteractions/SKILL.md) — 网页微交互与设计细节灵感
@@ -226,6 +241,9 @@
 ### `Apple Mail`
 - [`social-connections-optimizer`](../05-business/social-connections-optimizer/SKILL.md) — 社交人脉优化（X/LinkedIn 网络重整与外联）
 
+### `Application Insights`
+- [`azure-functions-serverless`](../10-platform/azure-functions-serverless/SKILL.md) — Azure Functions 无服务器开发
+
 ### `Argo Rollouts`
 - [`deployment-engineer`](../02-engineering/deployment-engineer/SKILL.md) — CI/CD GitOps 部署工程
 
@@ -247,8 +265,20 @@
 ### `AutoDock Vina`
 - [`diffdock-blind-docking`](../09-verticals/diffdock-blind-docking/SKILL.md) — DiffDock 扩散模型盲对接
 
+### `Avalonia UI`
+- [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
+
 ### `Azure Advisor`
 - [`cloud-cost-optimization`](../10-platform/cloud-cost-optimization/SKILL.md) — 云成本优化
+
+### `Azure CLI (az)`
+- [`azure-functions-serverless`](../10-platform/azure-functions-serverless/SKILL.md) — Azure Functions 无服务器开发
+
+### `Azure Container Registry`
+- [`azure-container-apps-deploy`](../10-platform/azure-container-apps-deploy/SKILL.md) — Azure Container Apps 容器化部署（azd）
+
+### `Azure Functions Core Tools (func)`
+- [`azure-functions-serverless`](../10-platform/azure-functions-serverless/SKILL.md) — Azure Functions 无服务器开发
 
 ### `Azure Key Vault`
 - [`secrets-management`](../08-security/secrets-management/SKILL.md) — 密钥与凭据管理
@@ -287,6 +317,7 @@
 - [`browser-extension-builder`](../02-engineering/browser-extension-builder/SKILL.md) — 跨浏览器扩展构建与发布
 - [`bun-runtime-development`](../02-engineering/bun-runtime-development/SKILL.md) — Bun 运行时现代 JS/TS 开发
 - [`busybox-on-windows`](../10-platform/busybox-on-windows/SKILL.md) — Windows 上运行 BusyBox UNIX 工具
+- [`buyer-persona-builder`](../05-business/buyer-persona-builder/SKILL.md) — 买家画像构建
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查
 - [`capa-root-cause-officer`](../09-verticals/capa-root-cause-officer/SKILL.md) — 医疗器械 CAPA 与根因分析
 - [`chrome-extension-mv3`](../02-engineering/chrome-extension-mv3/SKILL.md) — Chrome MV3 扩展开发
@@ -375,6 +406,9 @@
 ### `Bash/cron`
 - [`threat-detection-hunting`](../08-security/threat-detection-hunting/SKILL.md) — 威胁狩猎与异常检测
 
+### `Bicep`
+- [`azure-container-apps-deploy`](../10-platform/azure-container-apps-deploy/SKILL.md) — Azure Container Apps 容器化部署（azd）
+
 ### `BigQuery`
 - [`alphafold-database-access`](../09-verticals/alphafold-database-access/SKILL.md) — AlphaFold 蛋白结构数据库访问
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程
@@ -437,6 +471,9 @@
 
 ### `Burp Suite Community/Professional`
 - [`burp-suite-testing`](../08-security/burp-suite-testing/SKILL.md) — Burp Suite Web 安全测试
+
+### `Burp Suite Professional`
+- [`burpsuite-project-parser`](../08-security/burpsuite-project-parser/SKILL.md) — Burp Suite 工程文件命令行解析
 
 ### `Burp 内置浏览器`
 - [`burp-suite-testing`](../08-security/burp-suite-testing/SKILL.md) — Burp Suite Web 安全测试
@@ -516,6 +553,12 @@
 
 ### `CSV/数据库数据源`
 - [`programmatic-seo-builder`](../05-business/programmatic-seo-builder/SKILL.md) — 程序化 SEO 批量建页
+
+### `CSharpFunctionalExtensions`
+- [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
+
+### `CUnit`
+- [`c-language-pro`](../02-engineering/c-language-pro/SKILL.md) — C 语言高效编程与内存管理
 
 ### `Calendar`
 - [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报
@@ -604,6 +647,9 @@
 ### `Claude API`
 - [`context-window-management`](../04-ai/context-window-management/SKILL.md) — LLM 上下文窗口管理策略
 
+### `Claude Code`
+- [`agent-session-trace-audit`](../04-ai/agent-session-trace-audit/SKILL.md) — AI 编码代理会话审计（成本/失败/延迟）
+
 ### `Claude Code PreToolUse hook`
 - [`security-antipattern-hook`](../08-security/security-antipattern-hook/SKILL.md) — 编码安全反模式拦截钩子
 
@@ -655,6 +701,9 @@
 
 ### `Codemagic/GitHub Actions`
 - [`flutter-expert`](../02-engineering/flutter-expert/SKILL.md) — Flutter 跨平台开发
+
+### `Codex CLI`
+- [`agent-session-trace-audit`](../04-ai/agent-session-trace-audit/SKILL.md) — AI 编码代理会话审计（成本/失败/延迟）
 
 ### `Common Room`
 - [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报
@@ -725,12 +774,18 @@
 ### `CrackMapExec`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
 
+### `Crawlee`
+- [`apify-actor-development`](../10-platform/apify-actor-development/SKILL.md) — Apify Actor 开发
+
 ### `Croston`
 - [`inventory-demand-planning`](../09-verticals/inventory-demand-planning/SKILL.md) — 库存需求计划
 
 ### `Crunchbase`
 - [`competitive-intel-tracker`](../05-business/competitive-intel-tracker/SKILL.md) — 竞争情报系统化追踪
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选
+
+### `Cursor`
+- [`agent-session-trace-audit`](../04-ai/agent-session-trace-audit/SKILL.md) — AI 编码代理会话审计（成本/失败/延迟）
 
 ### `Customer.io`
 - [`churn-prevention`](../05-business/churn-prevention/SKILL.md) — 流失预防与留存
@@ -822,6 +877,8 @@
 - [`discord-bot-architect`](../02-engineering/discord-bot-architect/SKILL.md) — 生产级 Discord 机器人架构
 
 ### `Docker`
+- [`apify-actor-development`](../10-platform/apify-actor-development/SKILL.md) — Apify Actor 开发
+- [`apify-actorization`](../10-platform/apify-actorization/SKILL.md) — 将既有软件改造为 Apify Actor
 - [`container-security-hardening`](../08-security/container-security-hardening/SKILL.md) — 容器镜像与运行时安全加固
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
@@ -866,6 +923,9 @@
 
 ### `Dynamic Tables`
 - [`snowflake-development`](../03-data/snowflake-development/SKILL.md) — Snowflake 数据开发
+
+### `DynamicData`
+- [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
 
 ### `DynamoDB`
 - [`nosql-distributed-db`](../03-data/nosql-distributed-db/SKILL.md) — 分布式 NoSQL 数据库专家
@@ -1012,7 +1072,17 @@
 ### `ExitWorktree`
 - [`parallel-agent-hub`](../04-ai/parallel-agent-hub/SKILL.md) — 并行多智能体竞赛协作中枢
 
+### `Expo`
+- [`expo-router-native-ui`](../02-engineering/expo-router-native-ui/SKILL.md) — Expo Router 原生 UI 构建
+
+### `Expo Go`
+- [`expo-router-native-ui`](../02-engineering/expo-router-native-ui/SKILL.md) — Expo Router 原生 UI 构建
+
+### `Expo Router`
+- [`expo-router-native-ui`](../02-engineering/expo-router-native-ui/SKILL.md) — Expo Router 原生 UI 构建
+
 ### `Express`
+- [`agentphone-voice-sms-agents`](../10-platform/agentphone-voice-sms-agents/SKILL.md) — AI 电话与短信代理（AgentPhone）
 - [`saas-multi-tenant-architecture`](../02-engineering/saas-multi-tenant-architecture/SKILL.md) — SaaS 多租户架构
 
 ### `Express.js`
@@ -1055,6 +1125,7 @@
 - [`competitive-intel-tracker`](../05-business/competitive-intel-tracker/SKILL.md) — 竞争情报系统化追踪
 
 ### `FastAPI`
+- [`agentphone-voice-sms-agents`](../10-platform/agentphone-voice-sms-agents/SKILL.md) — AI 电话与短信代理（AgentPhone）
 - [`production-llm-app-builder`](../04-ai/production-llm-app-builder/SKILL.md) — 生产级 LLM 应用与 RAG 系统构建
 
 ### `FastAPI/Uvicorn`
@@ -1088,6 +1159,7 @@
 - [`firmware-reverse-analyst`](../08-security/firmware-reverse-analyst/SKILL.md) — 固件逆向与 IoT 安全
 
 ### `Flask`
+- [`agentphone-voice-sms-agents`](../10-platform/agentphone-voice-sms-agents/SKILL.md) — AI 电话与短信代理（AgentPhone）
 - [`slack-bolt-bot-builder`](../10-platform/slack-bolt-bot-builder/SKILL.md) — Slack Bolt 机器人开发
 
 ### `Flask Webhook`
@@ -1181,6 +1253,9 @@
 
 ### `Gaussian`
 - [`materials-science-toolkit`](../09-verticals/materials-science-toolkit/SKILL.md) — 材料科学工具箱（Pymatgen）
+
+### `Gemini CLI`
+- [`agent-session-trace-audit`](../04-ai/agent-session-trace-audit/SKILL.md) — AI 编码代理会话审计（成本/失败/延迟）
 
 ### `Ghidra`
 - [`anti-reversing-techniques`](../08-security/anti-reversing-techniques/SKILL.md) — 反逆向技术分析
@@ -1587,6 +1662,7 @@
 
 ### `Java`
 - [`aws-cdk-patterns`](../02-engineering/aws-cdk-patterns/SKILL.md) — AWS CDK 构造与基础设施模式
+- [`burpsuite-project-parser`](../08-security/burpsuite-project-parser/SKILL.md) — Burp Suite 工程文件命令行解析
 - [`gatk-variant-calling`](../09-verticals/gatk-variant-calling/SKILL.md) — GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）
 - [`snpeff-variant-annotation`](../09-verticals/snpeff-variant-annotation/SKILL.md) — SnpEff/SnpSift 变异功能注释与过滤
 
@@ -1858,6 +1934,7 @@
 - [`referral-program-designer`](../05-business/referral-program-designer/SKILL.md) — 推荐与联盟计划设计
 
 ### `Mermaid`
+- [`c4-architecture-docs`](../02-engineering/c4-architecture-docs/SKILL.md) — C4 模型架构文档自动生成
 - [`mermaid-diagram-expert`](../06-creative/mermaid-diagram-expert/SKILL.md) — Mermaid 图表绘制专家
 - [`monorepo-navigator`](../02-engineering/monorepo-navigator/SKILL.md) — Monorepo 导航与构建优化
 
@@ -1958,6 +2035,7 @@
 - [`anti-reversing-techniques`](../08-security/anti-reversing-techniques/SKILL.md) — 反逆向技术分析
 
 ### `Node.js`
+- [`apify-actor-development`](../10-platform/apify-actor-development/SKILL.md) — Apify Actor 开发
 - [`discord-bot-architect`](../02-engineering/discord-bot-architect/SKILL.md) — 生产级 Discord 机器人架构
 - [`github-copilot-sdk`](../04-ai/github-copilot-sdk/SKILL.md) — GitHub Copilot SDK 编程集成
 - [`javascript-modern-pro`](../02-engineering/javascript-modern-pro/SKILL.md) — 现代 JavaScript 进阶
@@ -2015,6 +2093,9 @@
 
 ### `Node.js/Express`
 - [`api-security-best-practices`](../08-security/api-security-best-practices/SKILL.md) — API 安全设计最佳实践
+
+### `Node.js/apify SDK`
+- [`apify-actorization`](../10-platform/apify-actorization/SKILL.md) — 将既有软件改造为 Apify Actor
 
 ### `Notion`
 - [`competitive-intel-tracker`](../05-business/competitive-intel-tracker/SKILL.md) — 竞争情报系统化追踪
@@ -2132,6 +2213,9 @@
 
 ### `OpenAI/Anthropic/Ollama API`
 - [`crewai-multi-agent`](../04-ai/crewai-multi-agent/SKILL.md) — CrewAI 角色化多智能体框架
+
+### `OpenAPI 3.1`
+- [`c4-architecture-docs`](../02-engineering/c4-architecture-docs/SKILL.md) — C4 模型架构文档自动生成
 
 ### `OpenAPI/Swagger`
 - [`api-design-reviewer`](../02-engineering/api-design-reviewer/SKILL.md) — REST API 设计评审
@@ -2362,7 +2446,9 @@
 - [`alpha-vantage-market-data`](../09-verticals/alpha-vantage-market-data/SKILL.md) — Alpha Vantage 全球金融数据接入
 - [`alphafold-database-access`](../09-verticals/alphafold-database-access/SKILL.md) — AlphaFold 蛋白结构数据库访问
 - [`api-fuzzing-bug-bounty`](../08-security/api-fuzzing-bug-bounty/SKILL.md) — REST/GraphQL API 模糊测试与漏洞挖掘
+- [`apify-actor-development`](../10-platform/apify-actor-development/SKILL.md) — Apify Actor 开发
 - [`aws-cdk-patterns`](../02-engineering/aws-cdk-patterns/SKILL.md) — AWS CDK 构造与基础设施模式
+- [`azure-realtime-voice-ai`](../04-ai/azure-realtime-voice-ai/SKILL.md) — Azure 实时语音 AI 应用构建
 - [`biopython-molecular-biology`](../09-verticals/biopython-molecular-biology/SKILL.md) — Biopython 分子生物学工具箱
 - [`busco-completeness-interpretation`](../09-verticals/busco-completeness-interpretation/SKILL.md) — BUSCO 组装完整度解读
 - [`bwa-mem2-dna-aligner`](../09-verticals/bwa-mem2-dna-aligner/SKILL.md) — BWA-MEM2 短读 DNA 比对（WGS/WES/ChIP-seq）
@@ -2420,6 +2506,9 @@
 ### `Python twilio SDK`
 - [`twilio-communications`](../10-platform/twilio-communications/SKILL.md) — Twilio 短信与语音通信集成
 
+### `Python/apify SDK`
+- [`apify-actorization`](../10-platform/apify-actorization/SKILL.md) — 将既有软件改造为 Apify Actor
+
 ### `Python3`
 - [`shodan-reconnaissance`](../08-security/shodan-reconnaissance/SKILL.md) — Shodan 资产侦察方法论
 
@@ -2476,6 +2565,7 @@
 - [`gwas-catalog-database`](../09-verticals/gwas-catalog-database/SKILL.md) — GWAS Catalog 关联查询
 
 ### `REST API`
+- [`agentphone-voice-sms-agents`](../10-platform/agentphone-voice-sms-agents/SKILL.md) — AI 电话与短信代理（AgentPhone）
 - [`encode-database`](../09-verticals/encode-database/SKILL.md) — ENCODE 调控基因组数据库
 - [`scientific-database-lookup`](../09-verticals/scientific-database-lookup/SKILL.md) — 科研数据库 API 查询
 
@@ -2512,6 +2602,9 @@
 - [`convex-reactive-backend`](../02-engineering/convex-reactive-backend/SKILL.md) — Convex 响应式后端与实时订阅
 - [`glassmorphism-ui-design`](../06-creative/glassmorphism-ui-design/SKILL.md) — 玻璃拟态与空间感 UI 设计
 
+### `ReactiveUI`
+- [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
+
 ### `Read`
 - [`ad-creative-generator`](../05-business/ad-creative-generator/SKILL.md) — 广告创意批量生成
 - [`adversarial-code-reviewer`](../02-engineering/adversarial-code-reviewer/SKILL.md) — 对抗式代码评审
@@ -2536,7 +2629,9 @@
 - [`board-written-consent-drafter`](../09-verticals/board-written-consent-drafter/SKILL.md) — 董事会书面决议起草（一致同意书 / UWC）
 - [`brooks-design-lint`](../02-engineering/brooks-design-lint/SKILL.md) — 经典软工书籍驱动的设计审查（brooks-design-lint）
 - [`browser-extension-builder`](../02-engineering/browser-extension-builder/SKILL.md) — 跨浏览器扩展构建与发布
+- [`buyer-persona-builder`](../05-business/buyer-persona-builder/SKILL.md) — 买家画像构建
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查
+- [`c4-architecture-docs`](../02-engineering/c4-architecture-docs/SKILL.md) — C4 模型架构文档自动生成
 - [`capa-root-cause-officer`](../09-verticals/capa-root-cause-officer/SKILL.md) — 医疗器械 CAPA 与根因分析
 - [`chief-of-staff-orchestrator`](../07-productivity/chief-of-staff-orchestrator/SKILL.md) — 幕僚长多角色编排路由
 - [`chrome-extension-mv3`](../02-engineering/chrome-extension-mv3/SKILL.md) — Chrome MV3 扩展开发
@@ -2607,6 +2702,7 @@
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
 - [`new-hire-onboarding-plan`](../07-productivity/new-hire-onboarding-plan/SKILL.md) — 新员工入职计划
+- [`office-hours-facilitator`](../07-productivity/office-hours-facilitator/SKILL.md) — 答疑时间会引导（创始人六问拷问）
 - [`openapi-doc-generator`](../01-documents/openapi-doc-generator/SKILL.md) — OpenAPI 3.1 API 文档生成
 - [`ops-capacity-planner`](../07-productivity/ops-capacity-planner/SKILL.md) — 运营产能与人力规划
 - [`paid-ad-creative`](../05-business/paid-ad-creative/SKILL.md) — 付费广告创意制作与迭代
@@ -2707,6 +2803,9 @@
 
 ### `Rubeus`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
+
+### `RxJS`
+- [`angularjs-to-angular-migration`](../02-engineering/angularjs-to-angular-migration/SKILL.md) — AngularJS 到 Angular 迁移
 
 ### `S&P Global Capital IQ MCP`
 - [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递
@@ -2863,6 +2962,7 @@
 
 ### `Skill`
 - [`chief-of-staff-orchestrator`](../07-productivity/chief-of-staff-orchestrator/SKILL.md) — 幕僚长多角色编排路由
+- [`office-hours-facilitator`](../07-productivity/office-hours-facilitator/SKILL.md) — 答疑时间会引导（创始人六问拷问）
 
 ### `SkyArk`
 - [`aws-penetration-testing`](../08-security/aws-penetration-testing/SKILL.md) — AWS 云环境渗透测试
@@ -3003,6 +3103,9 @@
 ### `Sysmon`
 - [`threat-detection-hunting`](../08-security/threat-detection-hunting/SKILL.md) — 威胁狩猎与异常检测
 
+### `System.Reactive`
+- [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
+
 ### `TMS运输管理系统`
 - [`carrier-relationship-management`](../09-verticals/carrier-relationship-management/SKILL.md) — 承运商关系管理
 
@@ -3033,6 +3136,9 @@
 
 ### `TaskUpdate`
 - [`task-decomposition-planner`](../07-productivity/task-decomposition-planner/SKILL.md) — 任务拆解与依赖编排
+
+### `Task（子代理编排，可选）`
+- [`c4-architecture-docs`](../02-engineering/c4-architecture-docs/SKILL.md) — C4 模型架构文档自动生成
 
 ### `TensorRT`
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家
@@ -3108,6 +3214,7 @@
 - [`database-migration-strategies`](../02-engineering/database-migration-strategies/SKILL.md) — 跨 ORM 数据库迁移与回滚策略
 
 ### `TypeScript`
+- [`angularjs-to-angular-migration`](../02-engineering/angularjs-to-angular-migration/SKILL.md) — AngularJS 到 Angular 迁移
 - [`aws-cdk-patterns`](../02-engineering/aws-cdk-patterns/SKILL.md) — AWS CDK 构造与基础设施模式
 - [`convex-reactive-backend`](../02-engineering/convex-reactive-backend/SKILL.md) — Convex 响应式后端与实时订阅
 - [`react-state-management`](../02-engineering/react-state-management/SKILL.md) — React 状态管理
@@ -3304,6 +3411,7 @@
 - [`board-written-consent-drafter`](../09-verticals/board-written-consent-drafter/SKILL.md) — 董事会书面决议起草（一致同意书 / UWC）
 - [`browser-extension-builder`](../02-engineering/browser-extension-builder/SKILL.md) — 跨浏览器扩展构建与发布
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查
+- [`c4-architecture-docs`](../02-engineering/c4-architecture-docs/SKILL.md) — C4 模型架构文档自动生成
 - [`capa-root-cause-officer`](../09-verticals/capa-root-cause-officer/SKILL.md) — 医疗器械 CAPA 与根因分析
 - [`chief-of-staff-orchestrator`](../07-productivity/chief-of-staff-orchestrator/SKILL.md) — 幕僚长多角色编排路由
 - [`chrome-extension-mv3`](../02-engineering/chrome-extension-mv3/SKILL.md) — Chrome MV3 扩展开发
@@ -3354,6 +3462,7 @@
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
 - [`new-hire-onboarding-plan`](../07-productivity/new-hire-onboarding-plan/SKILL.md) — 新员工入职计划
+- [`office-hours-facilitator`](../07-productivity/office-hours-facilitator/SKILL.md) — 答疑时间会引导（创始人六问拷问）
 - [`openapi-doc-generator`](../01-documents/openapi-doc-generator/SKILL.md) — OpenAPI 3.1 API 文档生成
 - [`ops-capacity-planner`](../07-productivity/ops-capacity-planner/SKILL.md) — 运营产能与人力规划
 - [`paid-ad-creative`](../05-business/paid-ad-creative/SKILL.md) — 付费广告创意制作与迭代
@@ -3405,6 +3514,9 @@
 ### `Xcode Cloud`
 - [`ios-swiftui-developer`](../02-engineering/ios-swiftui-developer/SKILL.md) — iOS SwiftUI 原生开发
 
+### `Xcode/Android Studio (仅自定义构建时)`
+- [`expo-router-native-ui`](../02-engineering/expo-router-native-ui/SKILL.md) — Expo Router 原生 UI 构建
+
 ### `Xdebug`
 - [`php-pro`](../02-engineering/php-pro/SKILL.md) — PHP 进阶开发
 
@@ -3427,6 +3539,9 @@
 
 ### `Yelp`
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选
+
+### `Zafiro`
+- [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
 
 ### `Zapier`
 - [`zapier-make-automation`](../07-productivity/zapier-make-automation/SKILL.md) — Zapier 与 Make 无代码自动化
@@ -3535,6 +3650,9 @@
 ### `agent-eval`
 - [`coding-agent-headtohead-eval`](../04-ai/coding-agent-headtohead-eval/SKILL.md) — 编码 Agent 对比评测（通过率/成本/耗时）
 
+### `agenttrace`
+- [`agent-session-trace-audit`](../04-ai/agent-session-trace-audit/SKILL.md) — AI 编码代理会话审计（成本/失败/延迟）
+
 ### `ahrefs`
 - [`ai-search-seo`](../05-business/ai-search-seo/SKILL.md) — 面向 AI 搜索与 LLM 引用的 SEO 优化
 - [`seo-content-gap-analysis`](../05-business/seo-content-gap-analysis/SKILL.md) — SEO 内容缺口与选题日历分析
@@ -3571,6 +3689,9 @@
 
 ### `aims_gap_analyzer.py`
 - [`iso42001-aims-specialist`](../08-security/iso42001-aims-specialist/SKILL.md) — ISO 42001 AI 管理体系合规
+
+### `aiohttp`
+- [`azure-realtime-voice-ai`](../04-ai/azure-realtime-voice-ai/SKILL.md) — Azure 实时语音 AI 应用构建
 
 ### `air`
 - [`golang-pro`](../02-engineering/golang-pro/SKILL.md) — Go 现代工程实践
@@ -3652,11 +3773,17 @@
 ### `anthropic (Python SDK)`
 - [`claude-api`](../04-ai/claude-api/SKILL.md) — Claude API 应用开发
 
+### `anthropic-sdk`
+- [`amazon-alexa-skill-builder`](../10-platform/amazon-alexa-skill-builder/SKILL.md) — Amazon Alexa 语音技能开发（Claude + AWS）
+
 ### `anti_detection_checker.py`
 - [`browser-automation-builder`](../10-platform/browser-automation-builder/SKILL.md) — 浏览器自动化与抓取
 
 ### `antigravity`
 - [`complexity-cuts`](../02-engineering/complexity-cuts/SKILL.md) — 降低算法时空复杂度优化
+
+### `aomi`
+- [`defi-natural-language-agent`](../09-verticals/defi-natural-language-agent/SKILL.md) — 自然语言 DeFi 链上交易代理
 
 ### `apache-airflow`
 - [`airflow-dag-builder`](../03-data/airflow-dag-builder/SKILL.md) — Airflow 数据管道编排
@@ -3666,6 +3793,13 @@
 
 ### `api_scorecard.py`
 - [`api-design-reviewer`](../02-engineering/api-design-reviewer/SKILL.md) — REST API 设计评审
+
+### `apify`
+- [`apify-multi-platform-scraper`](../03-data/apify-multi-platform-scraper/SKILL.md) — Apify 多平台 AI 数据抓取
+
+### `apify-cli`
+- [`apify-actor-development`](../10-platform/apify-actor-development/SKILL.md) — Apify Actor 开发
+- [`apify-actorization`](../10-platform/apify-actorization/SKILL.md) — 将既有软件改造为 Apify Actor
 
 ### `apktool`
 - [`firebase-apk-scanner`](../08-security/firebase-apk-scanner/SKILL.md) — Android APK Firebase 配置扫描
@@ -3710,6 +3844,9 @@
 ### `ash`
 - [`posix-shell-scripting`](../02-engineering/posix-shell-scripting/SKILL.md) — POSIX Shell 可移植脚本
 
+### `ask-cli`
+- [`amazon-alexa-skill-builder`](../10-platform/amazon-alexa-skill-builder/SKILL.md) — Amazon Alexa 语音技能开发（Claude + AWS）
+
 ### `ask_user_question`
 - [`pitch-deck-refresh`](../05-business/pitch-deck-refresh/SKILL.md) — 投行演示稿数据刷新
 
@@ -3718,6 +3855,9 @@
 
 ### `assetfinder`
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
+
+### `assumption_mapper.py`
+- [`product-discovery-process`](../07-productivity/product-discovery-process/SKILL.md) — 产品探索发现流程
 
 ### `astropy`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
@@ -3751,6 +3891,9 @@
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
 - [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
+### `asyncio`
+- [`azure-realtime-voice-ai`](../04-ai/azure-realtime-voice-ai/SKILL.md) — Azure 实时语音 AI 应用构建
+
 ### `asyncpg`
 - [`hybrid-search-retrieval`](../04-ai/hybrid-search-retrieval/SKILL.md) — 向量与关键词混合检索
 
@@ -3770,6 +3913,7 @@
 - [`aws-cdk-patterns`](../02-engineering/aws-cdk-patterns/SKILL.md) — AWS CDK 构造与基础设施模式
 
 ### `aws-cli`
+- [`amazon-alexa-skill-builder`](../10-platform/amazon-alexa-skill-builder/SKILL.md) — Amazon Alexa 语音技能开发（Claude + AWS）
 - [`aws-cost-optimizer`](../10-platform/aws-cost-optimizer/SKILL.md) — AWS 成本分析与优化建议
 - [`aws-penetration-testing`](../08-security/aws-penetration-testing/SKILL.md) — AWS 云环境渗透测试
 - [`cloud-misconfig-auditor`](../08-security/cloud-misconfig-auditor/SKILL.md) — 云基础设施安全审计
@@ -3791,7 +3935,20 @@
 
 ### `az`
 - [`azure-cloud-architect`](../10-platform/azure-cloud-architect/SKILL.md) — Azure 云架构设计
+- [`azure-container-apps-deploy`](../10-platform/azure-container-apps-deploy/SKILL.md) — Azure Container Apps 容器化部署（azd）
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试
+
+### `azd`
+- [`azure-container-apps-deploy`](../10-platform/azure-container-apps-deploy/SKILL.md) — Azure Container Apps 容器化部署（azd）
+
+### `azure-ai-voicelive`
+- [`azure-realtime-voice-ai`](../04-ai/azure-realtime-voice-ai/SKILL.md) — Azure 实时语音 AI 应用构建
+
+### `azure-functions Python`
+- [`azure-functions-serverless`](../10-platform/azure-functions-serverless/SKILL.md) — Azure Functions 无服务器开发
+
+### `azure-identity`
+- [`azure-realtime-voice-ai`](../04-ai/azure-realtime-voice-ai/SKILL.md) — Azure 实时语音 AI 应用构建
 
 ### `backlink CSV`
 - [`backlink-profile-analyzer`](../05-business/backlink-profile-analyzer/SKILL.md) — 外链画像与有毒链接分析
@@ -3804,6 +3961,10 @@
 
 ### `bash`
 - [`ai-native-cli-design`](../10-platform/ai-native-cli-design/SKILL.md) — 面向 AI 智能体的 CLI 设计规范
+- [`apify-multi-platform-scraper`](../03-data/apify-multi-platform-scraper/SKILL.md) — Apify 多平台 AI 数据抓取
+- [`app-store-release-notes`](../02-engineering/app-store-release-notes/SKILL.md) — 应用商店发版说明生成（基于 Git）
+- [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
+- [`burpsuite-project-parser`](../08-security/burpsuite-project-parser/SKILL.md) — Burp Suite 工程文件命令行解析
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试
 - [`codeql-scanner`](../08-security/codeql-scanner/SKILL.md) — CodeQL 数据流漏洞扫描
 - [`fastp-fastq-preprocessing`](../09-verticals/fastp-fastq-preprocessing/SKILL.md) — fastp FASTQ 质控与接头修剪
@@ -3824,6 +3985,9 @@
 ### `batchql`
 - [`api-fuzzing-bug-bounty`](../08-security/api-fuzzing-bug-bounty/SKILL.md) — REST/GraphQL API 模糊测试与漏洞挖掘
 
+### `bats-core`
+- [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
+
 ### `bazel`
 - [`bazel-build-optimization`](../02-engineering/bazel-build-optimization/SKILL.md) — Bazel 大型单仓构建优化
 
@@ -3842,6 +4006,12 @@
 ### `bcrypt`
 - [`api-security-best-practices`](../08-security/api-security-best-practices/SKILL.md) — API 安全设计最佳实践
 
+### `bdistill`
+- [`ai-model-knowledge-distill`](../04-ai/ai-model-knowledge-distill/SKILL.md) — 从 AI 模型蒸馏结构化领域知识
+
+### `bdistill-mcp`
+- [`ai-model-knowledge-distill`](../04-ai/ai-model-knowledge-distill/SKILL.md) — 从 AI 模型蒸馏结构化领域知识
+
 ### `beautifulsoup4`
 - [`canslim-growth-screener`](../09-verticals/canslim-growth-screener/SKILL.md) — CANSLIM 成长股筛选
 - [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）
@@ -3858,6 +4028,9 @@
 
 ### `bgzip/tabix`
 - [`samtools-bam-processing`](../09-verticals/samtools-bam-processing/SKILL.md) — samtools BAM/SAM 处理
+
+### `bias_pattern_detector.py`
+- [`agent-self-reflection`](../00-meta/agent-self-reflection/SKILL.md) — Agent 自我反思复盘
 
 ### `bicep`
 - [`azure-cloud-architect`](../10-platform/azure-cloud-architect/SKILL.md) — Azure 云架构设计
@@ -3936,6 +4109,9 @@
 ### `burn_rate_calculator.py`
 - [`cfo-financial-advisor`](../05-business/cfo-financial-advisor/SKILL.md) — CFO 财务顾问（单位经济与融资）
 
+### `burpsuite-project-file-parser 扩展`
+- [`burpsuite-project-parser`](../08-security/burpsuite-project-parser/SKILL.md) — Burp Suite 工程文件命令行解析
+
 ### `burst`
 - [`unity-game-developer`](../06-creative/unity-game-developer/SKILL.md) — Unity 游戏开发
 
@@ -3998,6 +4174,12 @@
 ### `cfn-nag`
 - [`cloudformation-best-practices`](../02-engineering/cloudformation-best-practices/SKILL.md) — CloudFormation 模板与嵌套栈实践
 
+### `channel_mix_optimizer.py`
+- [`channel-economics-model`](../05-business/channel-economics-model/SKILL.md) — 渠道经济性建模
+
+### `channel_roi_analyzer.py`
+- [`channel-economics-model`](../05-business/channel-economics-model/SKILL.md) — 渠道经济性建模
+
 ### `chat`
 - [`activity-digest-generator`](../07-productivity/activity-digest-generator/SKILL.md) — 活动动态摘要生成
 
@@ -4026,11 +4208,15 @@
 ### `clang`
 - [`zeroize-audit`](../08-security/zeroize-audit/SKILL.md) — 敏感数据内存清零审计（zeroize-audit）
 
+### `clang-tidy`
+- [`c-language-pro`](../02-engineering/c-language-pro/SKILL.md) — C 语言高效编程与内存管理
+
 ### `class-variance-authority`
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) — Web 组件设计模式
 
 ### `claude`
 - [`ai-engineering-toolkit`](../04-ai/ai-engineering-toolkit/SKILL.md) — AI 工程工作流工具箱
+- [`ai-model-knowledge-distill`](../04-ai/ai-model-knowledge-distill/SKILL.md) — 从 AI 模型蒸馏结构化领域知识
 - [`astro-content-sites`](../02-engineering/astro-content-sites/SKILL.md) — Astro 内容型网站构建
 - [`bullet-point-structurer`](../00-meta/bullet-point-structurer/SKILL.md) — 层级化要点提炼与结构化笔记
 - [`hono-edge-api`](../02-engineering/hono-edge-api/SKILL.md) — Hono 边缘 Web 框架
@@ -4050,6 +4236,7 @@
 - [`skill-creator`](../04-ai/skill-creator/SKILL.md) — 技能创建与迭代（Skill Creator）
 
 ### `claude-code`
+- [`amazon-alexa-skill-builder`](../10-platform/amazon-alexa-skill-builder/SKILL.md) — Amazon Alexa 语音技能开发（Claude + AWS）
 - [`clean-craft-code-review`](../02-engineering/clean-craft-code-review/SKILL.md) — 整洁代码工艺评审（Uncle Bob）
 - [`complexity-cuts`](../02-engineering/complexity-cuts/SKILL.md) — 降低算法时空复杂度优化
 - [`dmux-multi-agent-workflows`](../04-ai/dmux-multi-agent-workflows/SKILL.md) — dmux 多 Agent 并行编排（tmux 面板）
@@ -4058,6 +4245,9 @@
 - [`property-auction-legal-analysis`](../09-verticals/property-auction-legal-analysis/SKILL.md) — 不动产拍卖法律分析
 - [`security-audit-toolkit`](../08-security/security-audit-toolkit/SKILL.md) — 安全审计与威胁建模工具箱
 - [`xiaohongshu-content-strategy`](../05-business/xiaohongshu-content-strategy/SKILL.md) — 小红书爆款内容策略
+
+### `clickhouse`
+- [`clickhouse-analytics-io`](../03-data/clickhouse-analytics-io/SKILL.md) — ClickHouse 查询优化与分析
 
 ### `clinic.js`
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
@@ -4087,6 +4277,7 @@
 - [`codeql-scanner`](../08-security/codeql-scanner/SKILL.md) — CodeQL 数据流漏洞扫描
 
 ### `codex`
+- [`ai-model-knowledge-distill`](../04-ai/ai-model-knowledge-distill/SKILL.md) — 从 AI 模型蒸馏结构化领域知识
 - [`bullet-point-structurer`](../00-meta/bullet-point-structurer/SKILL.md) — 层级化要点提炼与结构化笔记
 - [`dmux-multi-agent-workflows`](../04-ai/dmux-multi-agent-workflows/SKILL.md) — dmux 多 Agent 并行编排（tmux 面板）
 - [`vscode-extension-development`](../02-engineering/vscode-extension-development/SKILL.md) — VS Code 扩展开发与发布
@@ -4155,11 +4346,15 @@
 ### `conventional-commits`
 - [`release-manager`](../02-engineering/release-manager/SKILL.md) — 发布管理与部署协调
 
+### `conversation_depth_analyzer.py`
+- [`agent-self-reflection`](../00-meta/agent-self-reflection/SKILL.md) — Agent 自我反思复盘
+
 ### `convex/react`
 - [`convex-reactive-backend`](../02-engineering/convex-reactive-backend/SKILL.md) — Convex 响应式后端与实时订阅
 
 ### `copilot`
 - [`ai-engineering-toolkit`](../04-ai/ai-engineering-toolkit/SKILL.md) — AI 工程工作流工具箱
+- [`ai-model-knowledge-distill`](../04-ai/ai-model-knowledge-distill/SKILL.md) — 从 AI 模型蒸馏结构化领域知识
 - [`vscode-extension-development`](../02-engineering/vscode-extension-development/SKILL.md) — VS Code 扩展开发与发布
 
 ### `copilot CLI`
@@ -4180,6 +4375,9 @@
 ### `core.validators`
 - [`slack-gif-creator`](../06-creative/slack-gif-creator/SKILL.md) — Slack 动图制作器（slack-gif-creator）
 
+### `cost_to_serve_calculator.py`
+- [`channel-economics-model`](../05-business/channel-economics-model/SKILL.md) — 渠道经济性建模
+
 ### `courtlistener`
 - [`offer-restrictive-covenant-review`](../09-verticals/offer-restrictive-covenant-review/SKILL.md) — 录用函与竞业限制审查
 - [`privilege-log-reviewer`](../09-verticals/privilege-log-reviewer/SKILL.md) — 特权文件清单初审
@@ -4188,6 +4386,9 @@
 
 ### `crawl`
 - [`firecrawl-web-scraper`](../10-platform/firecrawl-web-scraper/SKILL.md) — Firecrawl 网页抓取
+
+### `crd_validator.py`
+- [`operator-audit-review`](../05-business/operator-audit-review/SKILL.md) — Kubernetes Operator 审计复盘
 
 ### `create_page`
 - [`confluence-space-architect`](../07-productivity/confluence-space-architect/SKILL.md) — Confluence 知识库空间架构
@@ -4229,6 +4430,7 @@
 
 ### `curl`
 - [`agentmail-email-infra`](../10-platform/agentmail-email-infra/SKILL.md) — AI 智能体邮件基础设施
+- [`agentphone-voice-sms-agents`](../10-platform/agentphone-voice-sms-agents/SKILL.md) — AI 电话与短信代理（AgentPhone）
 - [`api-fuzzing-bug-bounty`](../08-security/api-fuzzing-bug-bounty/SKILL.md) — REST/GraphQL API 模糊测试与漏洞挖掘
 - [`aws-penetration-testing`](../08-security/aws-penetration-testing/SKILL.md) — AWS 云环境渗透测试
 - [`broken-authentication-testing`](../08-security/broken-authentication-testing/SKILL.md) — 认证与会话漏洞检测利用
@@ -4251,6 +4453,7 @@
 
 ### `cursor`
 - [`ai-engineering-toolkit`](../04-ai/ai-engineering-toolkit/SKILL.md) — AI 工程工作流工具箱
+- [`ai-model-knowledge-distill`](../04-ai/ai-model-knowledge-distill/SKILL.md) — 从 AI 模型蒸馏结构化领域知识
 - [`astro-content-sites`](../02-engineering/astro-content-sites/SKILL.md) — Astro 内容型网站构建
 - [`bullet-point-structurer`](../00-meta/bullet-point-structurer/SKILL.md) — 层级化要点提炼与结构化笔记
 - [`clean-craft-code-review`](../02-engineering/clean-craft-code-review/SKILL.md) — 整洁代码工艺评审（Uncle Bob）
@@ -4386,6 +4589,9 @@
 ### `dig/nslookup`
 - [`devops-troubleshooter`](../02-engineering/devops-troubleshooter/SKILL.md) — DevOps 事故响应与可观测排障
 
+### `directional_recommendation_validator.py`
+- [`agent-self-reflection`](../00-meta/agent-self-reflection/SKILL.md) — Agent 自我反思复盘
+
 ### `discount_approval_router.py`
 - [`deal-desk-reviewer`](../05-business/deal-desk-reviewer/SKILL.md) — 交易台合同与折扣评审
 
@@ -4407,6 +4613,7 @@
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
 
 ### `docker`
+- [`azure-container-apps-deploy`](../10-platform/azure-container-apps-deploy/SKILL.md) — Azure Container Apps 容器化部署（azd）
 - [`computer-use-agents`](../04-ai/computer-use-agents/SKILL.md) — 计算机操作型 AI 智能体构建
 - [`gcp-cloud-run`](../10-platform/gcp-cloud-run/SKILL.md) — GCP Cloud Run 无服务器
 - [`nextflow-pipeline-builder`](../09-verticals/nextflow-pipeline-builder/SKILL.md) — Nextflow 生信流程构建
@@ -4561,6 +4768,12 @@
 
 ### `experiment_postmortem.py`
 - [`chaos-engineering-runner`](../02-engineering/chaos-engineering-runner/SKILL.md) — 混沌工程实验设计
+
+### `expo-glass-effect`
+- [`expo-router-native-ui`](../02-engineering/expo-router-native-ui/SKILL.md) — Expo Router 原生 UI 构建
+
+### `expo-image`
+- [`expo-router-native-ui`](../02-engineering/expo-router-native-ui/SKILL.md) — Expo Router 原生 UI 构建
 
 ### `express`
 - [`whatsapp-cloud-api`](../10-platform/whatsapp-cloud-api/SKILL.md) — WhatsApp Cloud API 集成
@@ -4724,6 +4937,7 @@
 - [`linux-privilege-escalation`](../08-security/linux-privilege-escalation/SKILL.md) — Linux 提权评估
 
 ### `gcc/clang`
+- [`c-language-pro`](../02-engineering/c-language-pro/SKILL.md) — C 语言高效编程与内存管理
 - [`constant-time-analyzer`](../08-security/constant-time-analyzer/SKILL.md) — 密码学常量时间侧信道分析
 
 ### `gcloud`
@@ -4732,6 +4946,7 @@
 - [`gcp-cloud-run`](../10-platform/gcp-cloud-run/SKILL.md) — GCP Cloud Run 无服务器
 
 ### `gdb`
+- [`c-language-pro`](../02-engineering/c-language-pro/SKILL.md) — C 语言高效编程与内存管理
 - [`gdb-debugging-cli`](../02-engineering/gdb-debugging-cli/SKILL.md) — GDB 崩溃与核心转储调试
 
 ### `gdb-cli`
@@ -4790,7 +5005,9 @@
 
 ### `git`
 - [`adversarial-code-reviewer`](../02-engineering/adversarial-code-reviewer/SKILL.md) — 对抗式代码评审
+- [`agent-plugin-audit`](../08-security/agent-plugin-audit/SKILL.md) — Agent 插件安全审计
 - [`agent-skill-security-scanner`](../08-security/agent-skill-security-scanner/SKILL.md) — AI 技能安装前安全扫描
+- [`app-store-release-notes`](../02-engineering/app-store-release-notes/SKILL.md) — 应用商店发版说明生成（基于 Git）
 - [`bazel-build-optimization`](../02-engineering/bazel-build-optimization/SKILL.md) — Bazel 大型单仓构建优化
 - [`changelog-generator`](../07-productivity/changelog-generator/SKILL.md) — 变更日志自动生成
 - [`codebase-onboarding-doc`](../07-productivity/codebase-onboarding-doc/SKILL.md) — 代码库上手文档生成
@@ -4833,6 +5050,7 @@
 - [`github-issue-writer`](../07-productivity/github-issue-writer/SKILL.md) — GitHub Issue 编写器
 
 ### `github-actions`
+- [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
 - [`changelog-generator`](../07-productivity/changelog-generator/SKILL.md) — 变更日志自动生成
 - [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）
 - [`terraform-specialist`](../10-platform/terraform-specialist/SKILL.md) — Terraform 基础设施即代码
@@ -5115,10 +5333,16 @@
 ### `joblib`
 - [`ensembl-database`](../09-verticals/ensembl-database/SKILL.md) — Ensembl 基因注释数据库
 
+### `joint_gtm_planner.py`
+- [`partnerships-strategy-architect`](../05-business/partnerships-strategy-architect/SKILL.md) — 战略合作伙伴架构
+
 ### `jq`
 - [`ai-ml-security-assessor`](../08-security/ai-ml-security-assessor/SKILL.md) — AI/ML系统安全评估
 - [`ai-native-cli-design`](../10-platform/ai-native-cli-design/SKILL.md) — 面向 AI 智能体的 CLI 设计规范
 - [`ai-system-security-audit`](../08-security/ai-system-security-audit/SKILL.md) — AI 系统安全评估（注入/越狱）
+- [`apify-multi-platform-scraper`](../03-data/apify-multi-platform-scraper/SKILL.md) — Apify 多平台 AI 数据抓取
+- [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
+- [`burpsuite-project-parser`](../08-security/burpsuite-project-parser/SKILL.md) — Burp Suite 工程文件命令行解析
 - [`cloud-misconfig-auditor`](../08-security/cloud-misconfig-auditor/SKILL.md) — 云基础设施安全审计
 - [`codeql-scanner`](../08-security/codeql-scanner/SKILL.md) — CodeQL 数据流漏洞扫描
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换
@@ -5168,6 +5392,9 @@
 
 ### `kotlinc`
 - [`constant-time-analyzer`](../08-security/constant-time-analyzer/SKILL.md) — 密码学常量时间侧信道分析
+
+### `kubebuilder`
+- [`operator-audit-review`](../05-business/operator-audit-review/SKILL.md) — Kubernetes Operator 审计复盘
 
 ### `kubectl`
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试
@@ -5264,6 +5491,10 @@
 ### `macs3`
 - [`macs3-peak-calling`](../09-verticals/macs3-peak-calling/SKILL.md) — MACS3 ChIP/ATAC-seq 峰检测
 
+### `make`
+- [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
+- [`c-language-pro`](../02-engineering/c-language-pro/SKILL.md) — C 语言高效编程与内存管理
+
 ### `mamba`
 - [`snakemake-workflow-engine`](../09-verticals/snakemake-workflow-engine/SKILL.md) — Snakemake 可复现生信流程引擎
 
@@ -5277,6 +5508,7 @@
 - [`contract-proposal-writer`](../05-business/contract-proposal-writer/SKILL.md) — 合同与商业提案撰写
 - [`data-storyteller`](../05-business/data-storyteller/SKILL.md) — 数据叙事与可视化表达
 - [`deal-pipeline-tracker`](../07-productivity/deal-pipeline-tracker/SKILL.md) — 交易管线与里程碑追踪
+- [`decision-log-recorder`](../07-productivity/decision-log-recorder/SKILL.md) — 决策日志记录（两层记忆）
 - [`demand-letter-drafter`](../09-verticals/demand-letter-drafter/SKILL.md) — 索赔函起草
 - [`deposition-outline-prep`](../09-verticals/deposition-outline-prep/SKILL.md) — 证人质询提纲准备
 - [`employee-handbook-update-diff`](../09-verticals/employee-handbook-update-diff/SKILL.md) — 员工手册变更影响分析
@@ -5440,6 +5672,9 @@
 ### `mcp__claude_ai_Apollo_MCP__apollo_people_bulk_match`
 - [`apollo-sequence-loader`](../05-business/apollo-sequence-loader/SKILL.md) — Apollo 外联序列批量加载
 
+### `mcpc`
+- [`apify-multi-platform-scraper`](../03-data/apify-multi-platform-scraper/SKILL.md) — Apify 多平台 AI 数据抓取
+
 ### `mdanalysis`
 - [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 
@@ -5471,6 +5706,7 @@
 - [`research-experiment-designer`](../09-verticals/research-experiment-designer/SKILL.md) — 科研实验设计
 
 ### `mktemp`
+- [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
 - [`posix-shell-scripting`](../02-engineering/posix-shell-scripting/SKILL.md) — POSIX Shell 可移植脚本
 
 ### `mockery`
@@ -5562,6 +5798,9 @@
 ### `nf-test`
 - [`nextflow-pipeline-builder`](../09-verticals/nextflow-pipeline-builder/SKILL.md) — Nextflow 生信流程构建
 
+### `ngUpgrade`
+- [`angularjs-to-angular-migration`](../02-engineering/angularjs-to-angular-migration/SKILL.md) — AngularJS 到 Angular 迁移
+
 ### `nginx`
 - [`websocket-realtime-engineer`](../02-engineering/websocket-realtime-engineer/SKILL.md) — WebSocket 实时通信工程
 
@@ -5583,6 +5822,7 @@
 - [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 
 ### `node`
+- [`apify-multi-platform-scraper`](../03-data/apify-multi-platform-scraper/SKILL.md) — Apify 多平台 AI 数据抓取
 - [`constant-time-analyzer`](../08-security/constant-time-analyzer/SKILL.md) — 密码学常量时间侧信道分析
 - [`mcp-builder`](../10-platform/mcp-builder/SKILL.md) — MCP 服务器构建
 - [`nih-grant-finder`](../09-verticals/nih-grant-finder/SKILL.md) — NIH 科研基金匹配与申报
@@ -5605,6 +5845,7 @@
 - [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）
 
 ### `npm`
+- [`defi-natural-language-agent`](../09-verticals/defi-natural-language-agent/SKILL.md) — 自然语言 DeFi 链上交易代理
 - [`sveltekit-fullstack`](../02-engineering/sveltekit-fullstack/SKILL.md) — SvelteKit 全栈开发
 - [`transformers-js`](../04-ai/transformers-js/SKILL.md) — Transformers.js 浏览器端模型推理
 - [`turborepo-caching`](../02-engineering/turborepo-caching/SKILL.md) — Turborepo 单仓构建缓存配置
@@ -5612,6 +5853,7 @@
 ### `npx`
 - [`cloudflare-workers-edge`](../10-platform/cloudflare-workers-edge/SKILL.md) — Cloudflare Workers KV D1 R2 边缘平台
 - [`cloudflare-workers-expert`](../02-engineering/cloudflare-workers-expert/SKILL.md) — Cloudflare Workers 边缘计算开发
+- [`defi-natural-language-agent`](../09-verticals/defi-natural-language-agent/SKILL.md) — 自然语言 DeFi 链上交易代理
 - [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) — 分析师财务预测：营收与EPS估计区间
 - [`octagon-balance-sheet-growth`](../09-verticals/octagon-balance-sheet-growth/SKILL.md) — 资产负债表同比增长分析
 - [`octagon-cash-flow-growth`](../09-verticals/octagon-cash-flow-growth/SKILL.md) — 现金流指标同比增长分析
@@ -5778,6 +6020,9 @@
 ### `okr_tracker.py`
 - [`coo-operations-advisor`](../07-productivity/coo-operations-advisor/SKILL.md) — COO 运营顾问（流程与 OKR 执行）
 
+### `ollama`
+- [`ai-model-knowledge-distill`](../04-ai/ai-model-knowledge-distill/SKILL.md) — 从 AI 模型蒸馏结构化领域知识
+
 ### `opa`
 - [`terraform-specialist`](../10-platform/terraform-specialist/SKILL.md) — Terraform 基础设施即代码
 
@@ -5809,6 +6054,12 @@
 
 ### `openzeppelin`
 - [`solidity-security-auditor`](../09-verticals/solidity-security-auditor/SKILL.md) — Solidity智能合约安全
+
+### `operator-sdk`
+- [`operator-audit-review`](../05-business/operator-audit-review/SKILL.md) — Kubernetes Operator 审计复盘
+
+### `operator_capability_audit.py`
+- [`operator-audit-review`](../05-business/operator-audit-review/SKILL.md) — Kubernetes Operator 审计复盘
 
 ### `ops_efficiency_analyzer.py`
 - [`coo-operations-advisor`](../07-productivity/coo-operations-advisor/SKILL.md) — COO 运营顾问（流程与 OKR 执行）
@@ -5931,6 +6182,9 @@
 ### `parquet`
 - [`spark-job-optimization`](../03-data/spark-job-optimization/SKILL.md) — Apache Spark 作业性能调优
 
+### `partner_tier_classifier.py`
+- [`partnerships-strategy-architect`](../05-business/partnerships-strategy-architect/SKILL.md) — 战略合作伙伴架构
+
 ### `patchright`
 - [`notebooklm-source-grounded-qa`](../00-meta/notebooklm-source-grounded-qa/SKILL.md) — NotebookLM 源锚定问答
 
@@ -5974,6 +6228,7 @@
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
 
 ### `persona_generator.py`
+- [`buyer-persona-builder`](../05-business/buyer-persona-builder/SKILL.md) — 买家画像构建
 - [`ux-research-design-toolkit`](../06-creative/ux-research-design-toolkit/SKILL.md) — UX 研究与体验设计工具箱
 
 ### `php`
@@ -6135,8 +6390,14 @@
 ### `psql`
 - [`postgresql-optimization`](../03-data/postgresql-optimization/SKILL.md) — PostgreSQL 性能优化
 
+### `pthreads`
+- [`c-language-pro`](../02-engineering/c-language-pro/SKILL.md) — C 语言高效编程与内存管理
+
 ### `puppeteer`
 - [`accessibility-wcag-audit`](../02-engineering/accessibility-wcag-audit/SKILL.md) — 无障碍 WCAG 合规审计
+
+### `purchasing_cycle_analyzer.py`
+- [`procurement-cost-optimizer`](../05-business/procurement-cost-optimizer/SKILL.md) — 采购成本优化
 
 ### `pwsh`
 - [`powershell-windows`](../02-engineering/powershell-windows/SKILL.md) — PowerShell Windows 实战
@@ -6233,7 +6494,9 @@
 - [`account-reconciliation`](../05-business/account-reconciliation/SKILL.md) — 账户对账核对
 - [`airflow-dag-builder`](../03-data/airflow-dag-builder/SKILL.md) — Airflow 数据管道编排
 - [`airflow-dag-patterns`](../03-data/airflow-dag-patterns/SKILL.md) — Airflow DAG 生产实践模式
+- [`amazon-alexa-skill-builder`](../10-platform/amazon-alexa-skill-builder/SKILL.md) — Amazon Alexa 语音技能开发（Claude + AWS）
 - [`analysis-qa-validator`](../03-data/analysis-qa-validator/SKILL.md) — 分析交付前质检
+- [`andreessen-vc-lens`](../05-business/andreessen-vc-lens/SKILL.md) — 安德森式风投视角评估
 - [`anndata-data-structure`](../09-verticals/anndata-data-structure/SKILL.md) — AnnData 单细胞数据结构
 - [`api-design-reviewer`](../02-engineering/api-design-reviewer/SKILL.md) — REST API 设计评审
 - [`apple-hig-advisor`](../06-creative/apple-hig-advisor/SKILL.md) — 苹果人机界面指南专家
@@ -6262,6 +6525,7 @@
 - [`data-strategy-review`](../03-data/data-strategy-review/SKILL.md) — 数据战略决策审查
 - [`datamol-cheminformatics`](../09-verticals/datamol-cheminformatics/SKILL.md) — Datamol 分子处理工具箱
 - [`datasheet-spec-extractor`](../09-verticals/datasheet-spec-extractor/SKILL.md) — 元器件规格书参数提取
+- [`decision-log-recorder`](../07-productivity/decision-log-recorder/SKILL.md) — 决策日志记录（两层记忆）
 - [`deepchem-drug-discovery`](../09-verticals/deepchem-drug-discovery/SKILL.md) — DeepChem 药物发现深度学习
 - [`depmap-crispr-essentiality`](../09-verticals/depmap-crispr-essentiality/SKILL.md) — DepMap CRISPR 基因必需性分析
 - [`encode-database`](../09-verticals/encode-database/SKILL.md) — ENCODE 调控基因组数据库
@@ -6306,6 +6570,7 @@
 - [`nih-grant-finder`](../09-verticals/nih-grant-finder/SKILL.md) — NIH 科研基金匹配与申报
 - [`notebooklm-source-grounded-qa`](../00-meta/notebooklm-source-grounded-qa/SKILL.md) — NotebookLM 源锚定问答
 - [`opentargets-database`](../09-verticals/opentargets-database/SKILL.md) — Open Targets 靶点-疾病关联查询
+- [`operator-audit-review`](../05-business/operator-audit-review/SKILL.md) — Kubernetes Operator 审计复盘
 - [`options-strategy-advisor`](../09-verticals/options-strategy-advisor/SKILL.md) — 期权策略分析与模拟
 - [`pair-trade-screener`](../09-verticals/pair-trade-screener/SKILL.md) — 配对交易统计套利筛选
 - [`pdf-form-filler`](../01-documents/pdf-form-filler/SKILL.md) — PDF 表单填写
@@ -6392,6 +6657,7 @@
 - [`macs3-peak-calling`](../09-verticals/macs3-peak-calling/SKILL.md) — MACS3 ChIP/ATAC-seq 峰检测
 
 ### `python3`
+- [`agent-plugin-audit`](../08-security/agent-plugin-audit/SKILL.md) — Agent 插件安全审计
 - [`agent-skill-security-scanner`](../08-security/agent-skill-security-scanner/SKILL.md) — AI 技能安装前安全扫描
 - [`ai-ml-security-assessor`](../08-security/ai-ml-security-assessor/SKILL.md) — AI/ML系统安全评估
 - [`ai-system-security-audit`](../08-security/ai-system-security-audit/SKILL.md) — AI 系统安全评估（注入/越狱）
@@ -6453,6 +6719,9 @@
 ### `qsreplace`
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
 
+### `quality_scorer.py`
+- [`agent-plugin-audit`](../08-security/agent-plugin-audit/SKILL.md) — Agent 插件安全审计
+
 ### `radare2`
 - [`firmware-reverse-analyst`](../08-security/firmware-reverse-analyst/SKILL.md) — 固件逆向与 IoT 安全
 
@@ -6503,6 +6772,12 @@
 ### `react-instantsearch-nextjs`
 - [`algolia-search-integration`](../02-engineering/algolia-search-integration/SKILL.md) — Algolia 搜索集成与索引优化
 
+### `react-native-reanimated`
+- [`expo-router-native-ui`](../02-engineering/expo-router-native-ui/SKILL.md) — Expo Router 原生 UI 构建
+
+### `react-native-safe-area-context`
+- [`expo-router-native-ui`](../02-engineering/expo-router-native-ui/SKILL.md) — Expo Router 原生 UI 构建
+
 ### `readelf`
 - [`binary-analysis-patterns`](../08-security/binary-analysis-patterns/SKILL.md) — 二进制逆向与汇编分析模式
 
@@ -6510,6 +6785,9 @@
 - [`dcf-valuation-model`](../09-verticals/dcf-valuation-model/SKILL.md) — DCF 现金流折现估值模型
 - [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) — LBO 杠杆收购模型构建
 - [`three-statement-model`](../09-verticals/three-statement-model/SKILL.md) — 三表联动财务模型
+
+### `reconcile_lint.py`
+- [`operator-audit-review`](../05-business/operator-audit-review/SKILL.md) — Kubernetes Operator 审计复盘
 
 ### `recordings_list`
 - [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
@@ -6580,6 +6858,9 @@
 
 ### `review_analyzer.py`
 - [`app-store-optimization`](../05-business/app-store-optimization/SKILL.md) — 应用商店优化ASO
+
+### `revshare_modeler.py`
+- [`partnerships-strategy-architect`](../05-business/partnerships-strategy-architect/SKILL.md) — 战略合作伙伴架构
 
 ### `rice_prioritizer.py`
 - [`product-manager-toolkit`](../07-productivity/product-manager-toolkit/SKILL.md) — 产品经理工具箱（RICE/PRD）
@@ -6733,6 +7014,9 @@
 ### `screening-mcp`
 - [`kyc-aml-rules-engine`](../08-security/kyc-aml-rules-engine/SKILL.md) — KYC/AML 风险评级规则引擎
 
+### `script_tester.py`
+- [`agent-plugin-audit`](../08-security/agent-plugin-audit/SKILL.md) — Agent 插件安全审计
+
 ### `scripts/architecture_designer.py`
 - [`azure-cloud-architect`](../10-platform/azure-cloud-architect/SKILL.md) — Azure 云架构设计
 - [`gcp-cloud-architect`](../10-platform/gcp-cloud-architect/SKILL.md) — GCP 云架构设计
@@ -6854,6 +7138,7 @@
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换
 
 ### `shellcheck`
+- [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
 - [`posix-shell-scripting`](../02-engineering/posix-shell-scripting/SKILL.md) — POSIX Shell 可移植脚本
 
 ### `shfmt`
@@ -6891,7 +7176,11 @@
 - [`programmatic-seo-builder`](../05-business/programmatic-seo-builder/SKILL.md) — 程序化 SEO 批量建页
 
 ### `skill_security_auditor.py`
+- [`agent-plugin-audit`](../08-security/agent-plugin-audit/SKILL.md) — Agent 插件安全审计
 - [`agent-skill-security-scanner`](../08-security/agent-skill-security-scanner/SKILL.md) — AI 技能安装前安全扫描
+
+### `skill_validator.py`
+- [`agent-plugin-audit`](../08-security/agent-plugin-audit/SKILL.md) — Agent 插件安全审计
 
 ### `slack`
 - [`oncall-handoff-writer`](../07-productivity/oncall-handoff-writer/SKILL.md) — 值班交接记录撰写
@@ -6978,6 +7267,9 @@
 ### `spec_validator.py`
 - [`spec-driven-workflow`](../02-engineering/spec-driven-workflow/SKILL.md) — 规约驱动开发工作流
 
+### `spend_categorizer.py`
+- [`procurement-cost-optimizer`](../05-business/procurement-cost-optimizer/SKILL.md) — 采购成本优化
+
 ### `spikeinterface`
 - [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析
 
@@ -6994,6 +7286,7 @@
 - [`account-roll-forward-schedule`](../05-business/account-roll-forward-schedule/SKILL.md) — 科目滚动结转表
 - [`analysis-qa-validator`](../03-data/analysis-qa-validator/SKILL.md) — 分析交付前质检
 - [`budget-variance-analysis`](../05-business/budget-variance-analysis/SKILL.md) — 预算差异归因分析
+- [`clickhouse-analytics-io`](../03-data/clickhouse-analytics-io/SKILL.md) — ClickHouse 查询优化与分析
 - [`data-quality-validator`](../03-data/data-quality-validator/SKILL.md) — 数据质量校验框架
 - [`data-question-analyzer`](../03-data/data-question-analyzer/SKILL.md) — 数据问题分析（从速查到正式报告）
 - [`dataset-profiler`](../03-data/dataset-profiler/SKILL.md) — 数据集探查画像
@@ -7046,6 +7339,9 @@
 
 ### `supertest`
 - [`javascript-testing-patterns`](../02-engineering/javascript-testing-patterns/SKILL.md) — JS/TS 测试策略
+
+### `supplier_consolidation.py`
+- [`procurement-cost-optimizer`](../05-business/procurement-cost-optimizer/SKILL.md) — 采购成本优化
 
 ### `sveltekit`
 - [`sveltekit-fullstack`](../02-engineering/sveltekit-fullstack/SKILL.md) — SvelteKit 全栈开发
@@ -7321,6 +7617,9 @@
 ### `vLLM`
 - [`local-llm-inference`](../04-ai/local-llm-inference/SKILL.md) — 本地 LLM 推理部署
 
+### `valgrind`
+- [`c-language-pro`](../02-engineering/c-language-pro/SKILL.md) — C 语言高效编程与内存管理
+
 ### `validate_citations.py`
 - [`citation-management`](../01-documents/citation-management/SKILL.md) — 研究写作引文系统化管理
 
@@ -7543,14 +7842,23 @@
 ### `云厂商日志(CloudWatch/Cloud Logging)`
 - [`devops-troubleshooter`](../02-engineering/devops-troubleshooter/SKILL.md) — DevOps 事故响应与可观测排障
 
+### `代码检索（codebase search / Glob / Grep）`
+- [`c4-architecture-docs`](../02-engineering/c4-architecture-docs/SKILL.md) — C4 模型架构文档自动生成
+
 ### `供应商门户`
 - [`returns-reverse-logistics`](../09-verticals/returns-reverse-logistics/SKILL.md) — 退货与逆向物流
 
 ### `决策日志`
 - [`design-brainstorming`](../00-meta/design-brainstorming/SKILL.md) — 构思转设计的结构化头脑风暴
 
+### `决策日志(~/.claude/decision-log.md)`
+- [`chief-of-staff-ops`](../07-productivity/chief-of-staff-ops/SKILL.md) — 幕僚长运营协调
+
 ### `分析平台(Mixpanel/Amplitude)`
 - [`ai-customer-support`](../05-business/ai-customer-support/SKILL.md) — AI 客户支持与情感分析
+
+### `利益相关者影响映射表`
+- [`hard-call-advisor`](../00-meta/hard-call-advisor/SKILL.md) — 艰难抉择推演顾问
 
 ### `前端表单/输入校验`
 - [`signup-flow-cro`](../05-business/signup-flow-cro/SKILL.md) — 注册流程转化优化
@@ -7561,6 +7869,9 @@
 ### `受限方筛查平台(OFAC/BIS)`
 - [`customs-trade-compliance`](../09-verticals/customs-trade-compliance/SKILL.md) — 海关报关与关税合规
 
+### `可逆性测试`
+- [`hard-call-advisor`](../00-meta/hard-call-advisor/SKILL.md) — 艰难抉择推演顾问
+
 ### `向量数据库(Pinecone/Qdrant/Weaviate)`
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
 
@@ -7569,6 +7880,9 @@
 
 ### `商标检索工具(TESS/EUIPO/Solve Intelligence/Descrybe等)`
 - [`trademark-clearance-knockout`](../09-verticals/trademark-clearance-knockout/SKILL.md) — 商标可注册性初筛
+
+### `安迪·格鲁夫测试`
+- [`hard-call-advisor`](../00-meta/hard-call-advisor/SKILL.md) — 艰难抉择推演顾问
 
 ### `官方 SDK: TypeScript/Python/Ruby/Go/Kotlin/Java/PHP/C#/CLI/Terraform`
 - [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) — X/Twitter 抓取与自动化（Xquik）
@@ -7591,6 +7905,9 @@
 ### `情感分析/NLP`
 - [`ai-customer-support`](../05-business/ai-customer-support/SKILL.md) — AI 客户支持与情感分析
 
+### `拖延自检清单`
+- [`hard-call-advisor`](../00-meta/hard-call-advisor/SKILL.md) — 艰难抉择推演顾问
+
 ### `拦截代理`
 - [`idor-vulnerability-testing`](../08-security/idor-vulnerability-testing/SKILL.md) — IDOR 越权漏洞测试
 
@@ -7605,6 +7922,9 @@
 
 ### `文件读写（决策落库，可选）`
 - [`four-voice-decision-council`](../00-meta/four-voice-decision-council/SKILL.md) — 四声决策议会（结构化异议与权衡）
+
+### `文件读写（决策记录归档）`
+- [`structured-decision-framework`](../00-meta/structured-decision-framework/SKILL.md) — 结构化决策框架
 
 ### `文件读写（简报与备忘录归档）`
 - [`boardroom-deliberation`](../00-meta/boardroom-deliberation/SKILL.md) — C 级多角色董事会六阶段审议
@@ -7749,3 +8069,6 @@
 
 ### `项目管理工具（可选）`
 - [`performance-review-builder`](../05-business/performance-review-builder/SKILL.md) — 绩效评估结构化
+
+### `预公告测试`
+- [`hard-call-advisor`](../00-meta/hard-call-advisor/SKILL.md) — 艰难抉择推演顾问

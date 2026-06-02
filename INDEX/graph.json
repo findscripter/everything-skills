@@ -1,6 +1,13 @@
 {
   "nodes": [
     {
+      "id": "agent-self-reflection",
+      "title": "Agent 自我反思复盘",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "boardroom-deliberation",
       "title": "C 级多角色董事会六阶段审议",
       "domain": "通用/thinking",
@@ -99,6 +106,13 @@
       "status": "stable"
     },
     {
+      "id": "hard-call-advisor",
+      "title": "艰难抉择推演顾问",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "human-like-response-mirror",
       "title": "拟人化回应自我镜像循环",
       "domain": "通用/communication",
@@ -151,6 +165,13 @@
       "id": "research-idea-generator",
       "title": "研究构想生成",
       "domain": "通用/research",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "structured-decision-framework",
+      "title": "结构化决策框架",
+      "domain": "通用/thinking",
       "level": "进阶",
       "status": "stable"
     },
@@ -358,6 +379,13 @@
       "status": "stable"
     },
     {
+      "id": "angularjs-to-angular-migration",
+      "title": "AngularJS 到 Angular 迁移",
+      "domain": "研发/frontend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "api-design-principles",
       "title": "REST与GraphQL API设计",
       "domain": "研发/architecture",
@@ -379,6 +407,13 @@
       "status": "stable"
     },
     {
+      "id": "app-store-release-notes",
+      "title": "应用商店发版说明生成（基于 Git）",
+      "domain": "研发/devops",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "astro-content-sites",
       "title": "Astro 内容型网站构建",
       "domain": "研发/frontend",
@@ -389,6 +424,13 @@
       "id": "async-python-patterns",
       "title": "Python 异步并发编程模式",
       "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "avalonia-zafiro-desktop",
+      "title": "Avalonia 跨平台桌面应用（Zafiro/MVVM）",
+      "domain": "研发/frontend",
       "level": "进阶",
       "status": "stable"
     },
@@ -410,6 +452,13 @@
       "id": "bash-defensive-patterns",
       "title": "防御式 Bash 脚本生产实践",
       "domain": "研发/devops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "bats-shell-testing",
+      "title": "Bats Shell 脚本自动化测试",
+      "domain": "研发/testing",
       "level": "进阶",
       "status": "stable"
     },
@@ -466,6 +515,20 @@
       "id": "bun-runtime-development",
       "title": "Bun 运行时现代 JS/TS 开发",
       "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "c-language-pro",
+      "title": "C 语言高效编程与内存管理",
+      "domain": "研发/backend",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "c4-architecture-docs",
+      "title": "C4 模型架构文档自动生成",
+      "domain": "研发/architecture",
       "level": "进阶",
       "status": "stable"
     },
@@ -698,6 +761,13 @@
       "title": "事件溯源与 CQRS 架构",
       "domain": "研发/architecture",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "expo-router-native-ui",
+      "title": "Expo Router 原生 UI 构建",
+      "domain": "研发/mobile",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -1408,10 +1478,24 @@
       "status": "stable"
     },
     {
+      "id": "apify-multi-platform-scraper",
+      "title": "Apify 多平台 AI 数据抓取",
+      "domain": "数据/pipeline",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "chief-data-officer-advisor",
       "title": "首席数据官顾问（数据产品与治理）",
       "domain": "数据/analysis",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "clickhouse-analytics-io",
+      "title": "ClickHouse 查询优化与分析",
+      "domain": "数据/sql",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -1695,6 +1779,13 @@
       "status": "stable"
     },
     {
+      "id": "agent-session-trace-audit",
+      "title": "AI 编码代理会话审计（成本/失败/延迟）",
+      "domain": "智能/eval",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "agent-tool-builder",
       "title": "AI 智能体工具设计与构建",
       "domain": "智能/agents",
@@ -1716,10 +1807,24 @@
       "status": "stable"
     },
     {
+      "id": "agents-md-maintainer",
+      "title": "AGENTS.md 代理文档创建与维护",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "ai-engineering-toolkit",
       "title": "AI 工程工作流工具箱",
       "domain": "智能/eval",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "ai-model-knowledge-distill",
+      "title": "从 AI 模型蒸馏结构化领域知识",
+      "domain": "智能/rag",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -1733,6 +1838,13 @@
       "id": "autoresearch-optimization-agent",
       "title": "自主实验优化智能体循环",
       "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "azure-realtime-voice-ai",
+      "title": "Azure 实时语音 AI 应用构建",
+      "domain": "智能/model-ops",
       "level": "进阶",
       "status": "stable"
     },
@@ -1961,6 +2073,13 @@
       "status": "stable"
     },
     {
+      "id": "prompt-governance-policy",
+      "title": "提示词治理与合规",
+      "domain": "智能/prompting",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "prompt-template-designer",
       "title": "提示词模板设计",
       "domain": "智能/prompting",
@@ -2122,6 +2241,13 @@
       "status": "stable"
     },
     {
+      "id": "andreessen-vc-lens",
+      "title": "安德森式风投视角评估",
+      "domain": "商业/growth",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "apollo-lead-enrichment",
       "title": "Apollo 线索富化（联系卡补全）",
       "domain": "商业/sales",
@@ -2192,6 +2318,13 @@
       "status": "stable"
     },
     {
+      "id": "buyer-persona-builder",
+      "title": "买家画像构建",
+      "domain": "商业/marketing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "campaign-attribution-analytics",
       "title": "营销活动归因分析",
       "domain": "商业/marketing",
@@ -2203,6 +2336,13 @@
       "title": "CFO 财务顾问（单位经济与融资）",
       "domain": "商业/finance",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "channel-economics-model",
+      "title": "渠道经济性建模",
+      "domain": "商业/finance",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -2640,6 +2780,13 @@
       "status": "stable"
     },
     {
+      "id": "operator-audit-review",
+      "title": "Kubernetes Operator 审计复盘",
+      "domain": "商业/finance",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "option-volatility-analysis",
       "title": "期权波动率分析",
       "domain": "商业/finance",
@@ -2657,6 +2804,13 @@
       "id": "paid-ads-strategist",
       "title": "付费广告投放策略",
       "domain": "商业/marketing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "partnerships-strategy-architect",
+      "title": "战略合作伙伴架构",
+      "domain": "商业/sales",
       "level": "进阶",
       "status": "stable"
     },
@@ -2727,6 +2881,13 @@
       "id": "pricing-strategy",
       "title": "定价与套餐策略",
       "domain": "商业/growth",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "procurement-cost-optimizer",
+      "title": "采购成本优化",
+      "domain": "商业/finance",
       "level": "进阶",
       "status": "stable"
     },
@@ -3018,6 +3179,13 @@
       "status": "stable"
     },
     {
+      "id": "team-culture-architect",
+      "title": "团队文化架构设计",
+      "domain": "商业/growth",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "technical-seo-checker",
       "title": "技术 SEO 体检（抓取/索引/核心网页指标）",
       "domain": "商业/seo",
@@ -3263,6 +3431,13 @@
       "status": "stable"
     },
     {
+      "id": "board-prep-orchestrator",
+      "title": "董事会会前筹备编排",
+      "domain": "协作/pm",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "business-process-mapper",
       "title": "业务流程绘制与瓶颈分析",
       "domain": "协作/automation",
@@ -3280,6 +3455,13 @@
       "id": "changelog-generator",
       "title": "变更日志自动生成",
       "domain": "协作/automation",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "chief-of-staff-ops",
+      "title": "幕僚长运营协调",
+      "domain": "协作/pm",
       "level": "进阶",
       "status": "stable"
     },
@@ -3361,6 +3543,13 @@
       "status": "stable"
     },
     {
+      "id": "decision-log-recorder",
+      "title": "决策日志记录（两层记忆）",
+      "domain": "协作/knowledge",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "developer-experience-optimizer",
       "title": "开发者体验优化",
       "domain": "协作/automation",
@@ -3431,6 +3620,13 @@
       "status": "stable"
     },
     {
+      "id": "office-hours-facilitator",
+      "title": "答疑时间会引导（创始人六问拷问）",
+      "domain": "协作/pm",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "oncall-handoff-writer",
       "title": "值班交接记录撰写",
       "domain": "协作/pm",
@@ -3477,6 +3673,13 @@
       "title": "业务流程 SOP 文档化",
       "domain": "协作/knowledge",
       "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "product-discovery-process",
+      "title": "产品探索发现流程",
+      "domain": "协作/pm",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -3561,6 +3764,13 @@
       "title": "Active Directory 攻击技术",
       "domain": "安全/appsec",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "agent-plugin-audit",
+      "title": "Agent 插件安全审计",
+      "domain": "安全/appsec",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -3658,6 +3868,13 @@
       "id": "burp-suite-testing",
       "title": "Burp Suite Web 安全测试",
       "domain": "安全/appsec",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "burpsuite-project-parser",
+      "title": "Burp Suite 工程文件命令行解析",
+      "domain": "安全/audit",
       "level": "进阶",
       "status": "stable"
     },
@@ -4400,6 +4617,13 @@
       "id": "deeptools-ngs-analysis",
       "title": "deepTools NGS 覆盖度与信号可视化",
       "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "defi-natural-language-agent",
+      "title": "自然语言 DeFi 链上交易代理",
+      "domain": "领域/fintech",
       "level": "进阶",
       "status": "stable"
     },
@@ -6063,8 +6287,36 @@
       "status": "stable"
     },
     {
+      "id": "agentphone-voice-sms-agents",
+      "title": "AI 电话与短信代理（AgentPhone）",
+      "domain": "平台/integration",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "ai-native-cli-design",
       "title": "面向 AI 智能体的 CLI 设计规范",
+      "domain": "平台/cli",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "amazon-alexa-skill-builder",
+      "title": "Amazon Alexa 语音技能开发（Claude + AWS）",
+      "domain": "平台/cloud",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "apify-actor-development",
+      "title": "Apify Actor 开发",
+      "domain": "平台/cli",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "apify-actorization",
+      "title": "将既有软件改造为 Apify Actor",
       "domain": "平台/cli",
       "level": "进阶",
       "status": "stable"
@@ -6107,6 +6359,20 @@
     {
       "id": "azure-cloud-architect",
       "title": "Azure 云架构设计",
+      "domain": "平台/cloud",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "azure-container-apps-deploy",
+      "title": "Azure Container Apps 容器化部署（azd）",
+      "domain": "平台/cloud",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "azure-functions-serverless",
+      "title": "Azure Functions 无服务器开发",
       "domain": "平台/cloud",
       "level": "进阶",
       "status": "stable"
@@ -6407,6 +6673,36 @@
     }
   ],
   "edges": [
+    {
+      "from": "agent-self-reflection",
+      "to": "executive-adversarial-mentor",
+      "type": "related"
+    },
+    {
+      "from": "agent-self-reflection",
+      "to": "premortem-plan-challenger",
+      "type": "related"
+    },
+    {
+      "from": "agent-self-reflection",
+      "to": "first-principles-assumption-auditor",
+      "type": "related"
+    },
+    {
+      "from": "agent-self-reflection",
+      "to": "business-assumption-stress-test",
+      "type": "related"
+    },
+    {
+      "from": "agent-self-reflection",
+      "to": "context-budget-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-self-reflection",
+      "to": "structured-decision-framework",
+      "type": "combines_with"
+    },
     {
       "from": "boardroom-deliberation",
       "to": "executive-adversarial-mentor",
@@ -6803,6 +7099,41 @@
       "type": "combines_with"
     },
     {
+      "from": "hard-call-advisor",
+      "to": "structured-decision-framework",
+      "type": "related"
+    },
+    {
+      "from": "hard-call-advisor",
+      "to": "four-voice-decision-council",
+      "type": "related"
+    },
+    {
+      "from": "hard-call-advisor",
+      "to": "premortem-plan-challenger",
+      "type": "related"
+    },
+    {
+      "from": "hard-call-advisor",
+      "to": "decision-navigator",
+      "type": "related"
+    },
+    {
+      "from": "hard-call-advisor",
+      "to": "boardroom-deliberation",
+      "type": "combines_with"
+    },
+    {
+      "from": "hard-call-advisor",
+      "to": "executive-adversarial-mentor",
+      "type": "combines_with"
+    },
+    {
+      "from": "hard-call-advisor",
+      "to": "decision-log-recorder",
+      "type": "combines_with"
+    },
+    {
       "from": "human-like-response-mirror",
       "to": "content-humanizer",
       "type": "related"
@@ -7010,6 +7341,36 @@
     {
       "from": "research-idea-generator",
       "to": "fact-checking",
+      "type": "combines_with"
+    },
+    {
+      "from": "structured-decision-framework",
+      "to": "decision-log-recorder",
+      "type": "related"
+    },
+    {
+      "from": "structured-decision-framework",
+      "to": "hard-call-advisor",
+      "type": "related"
+    },
+    {
+      "from": "structured-decision-framework",
+      "to": "four-voice-decision-council",
+      "type": "related"
+    },
+    {
+      "from": "structured-decision-framework",
+      "to": "premortem-plan-challenger",
+      "type": "related"
+    },
+    {
+      "from": "structured-decision-framework",
+      "to": "adr-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "structured-decision-framework",
+      "to": "business-assumption-stress-test",
       "type": "combines_with"
     },
     {
@@ -7783,6 +8144,41 @@
       "type": "combines_with"
     },
     {
+      "from": "angularjs-to-angular-migration",
+      "to": "modern-angular-expert",
+      "type": "related"
+    },
+    {
+      "from": "angularjs-to-angular-migration",
+      "to": "legacy-codebase-modernizer",
+      "type": "related"
+    },
+    {
+      "from": "angularjs-to-angular-migration",
+      "to": "zero-downtime-migration-architect",
+      "type": "related"
+    },
+    {
+      "from": "angularjs-to-angular-migration",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "angularjs-to-angular-migration",
+      "to": "modern-angular-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "angularjs-to-angular-migration",
+      "to": "legacy-codebase-modernizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "angularjs-to-angular-migration",
+      "to": "frontend-design",
+      "type": "combines_with"
+    },
+    {
       "from": "api-design-principles",
       "to": "code-reviewer",
       "type": "related"
@@ -7835,6 +8231,26 @@
     {
       "from": "api-test-suite-builder",
       "to": "fastapi-async-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "app-store-release-notes",
+      "to": "git-advanced-workflows",
+      "type": "requires"
+    },
+    {
+      "from": "app-store-release-notes",
+      "to": "release-manager",
+      "type": "related"
+    },
+    {
+      "from": "app-store-release-notes",
+      "to": "ios-swiftui-developer",
+      "type": "related"
+    },
+    {
+      "from": "app-store-release-notes",
+      "to": "conversion-copywriter",
       "type": "combines_with"
     },
     {
@@ -7905,6 +8321,66 @@
     {
       "from": "async-python-patterns",
       "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "avalonia-zafiro-desktop",
+      "to": "dotnet-backend-patterns",
+      "type": "related"
+    },
+    {
+      "from": "avalonia-zafiro-desktop",
+      "to": "electron-desktop-development",
+      "type": "related"
+    },
+    {
+      "from": "avalonia-zafiro-desktop",
+      "to": "clean-code-principles",
+      "type": "related"
+    },
+    {
+      "from": "avalonia-zafiro-desktop",
+      "to": "error-handling-patterns",
+      "type": "related"
+    },
+    {
+      "from": "avalonia-zafiro-desktop",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "avalonia-zafiro-desktop",
+      "to": "clean-code-principles",
+      "type": "combines_with"
+    },
+    {
+      "from": "bats-shell-testing",
+      "to": "posix-shell-scripting",
+      "type": "related"
+    },
+    {
+      "from": "bats-shell-testing",
+      "to": "bash-defensive-patterns",
+      "type": "related"
+    },
+    {
+      "from": "bats-shell-testing",
+      "to": "shellcheck-linting",
+      "type": "related"
+    },
+    {
+      "from": "bats-shell-testing",
+      "to": "test-coverage-gap-finder",
+      "type": "related"
+    },
+    {
+      "from": "bats-shell-testing",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "bats-shell-testing",
+      "to": "git-hooks-automation",
       "type": "combines_with"
     },
     {
@@ -8115,6 +8591,66 @@
     {
       "from": "bun-runtime-development",
       "to": "javascript-testing-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "c-language-pro",
+      "to": "cpp-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "c-language-pro",
+      "to": "c-cpp-security-review",
+      "type": "related"
+    },
+    {
+      "from": "c-language-pro",
+      "to": "gdb-debugging-cli",
+      "type": "related"
+    },
+    {
+      "from": "c-language-pro",
+      "to": "arm-cortex-firmware-expert",
+      "type": "related"
+    },
+    {
+      "from": "c-language-pro",
+      "to": "gdb-debugging-cli",
+      "type": "combines_with"
+    },
+    {
+      "from": "c-language-pro",
+      "to": "c-cpp-security-review",
+      "type": "combines_with"
+    },
+    {
+      "from": "c4-architecture-docs",
+      "to": "docs-architect",
+      "type": "related"
+    },
+    {
+      "from": "c4-architecture-docs",
+      "to": "adr-management-patterns",
+      "type": "related"
+    },
+    {
+      "from": "c4-architecture-docs",
+      "to": "codetour-walkthrough-builder",
+      "type": "related"
+    },
+    {
+      "from": "c4-architecture-docs",
+      "to": "backend-architecture-patterns",
+      "type": "related"
+    },
+    {
+      "from": "c4-architecture-docs",
+      "to": "adr-auto-capture",
+      "type": "combines_with"
+    },
+    {
+      "from": "c4-architecture-docs",
+      "to": "docs-architect",
       "type": "combines_with"
     },
     {
@@ -8815,6 +9351,41 @@
     {
       "from": "event-sourcing-cqrs",
       "to": "backend-architecture-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "expo-router-native-ui",
+      "to": "react-native-architecture",
+      "type": "related"
+    },
+    {
+      "from": "expo-router-native-ui",
+      "to": "flutter-expert",
+      "type": "related"
+    },
+    {
+      "from": "expo-router-native-ui",
+      "to": "ios-swiftui-developer",
+      "type": "related"
+    },
+    {
+      "from": "expo-router-native-ui",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "expo-router-native-ui",
+      "to": "apple-hig-advisor",
+      "type": "combines_with"
+    },
+    {
+      "from": "expo-router-native-ui",
+      "to": "frontend-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "expo-router-native-ui",
+      "to": "android-ui-verification",
       "type": "combines_with"
     },
     {
@@ -11223,6 +11794,36 @@
       "type": "combines_with"
     },
     {
+      "from": "apify-multi-platform-scraper",
+      "to": "apify-actor-development",
+      "type": "related"
+    },
+    {
+      "from": "apify-multi-platform-scraper",
+      "to": "apify-ecommerce-scraper",
+      "type": "related"
+    },
+    {
+      "from": "apify-multi-platform-scraper",
+      "to": "data-scraper-agent-builder",
+      "type": "related"
+    },
+    {
+      "from": "apify-multi-platform-scraper",
+      "to": "firecrawl-web-scraper",
+      "type": "related"
+    },
+    {
+      "from": "apify-multi-platform-scraper",
+      "to": "csv-data-cleaner",
+      "type": "combines_with"
+    },
+    {
+      "from": "apify-multi-platform-scraper",
+      "to": "dataset-profiler",
+      "type": "combines_with"
+    },
+    {
       "from": "chief-data-officer-advisor",
       "to": "data-strategy-review",
       "type": "related"
@@ -11250,6 +11851,41 @@
     {
       "from": "chief-data-officer-advisor",
       "to": "kpi-dashboard-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "clickhouse-analytics-io",
+      "to": "postgresql-optimization",
+      "type": "related"
+    },
+    {
+      "from": "clickhouse-analytics-io",
+      "to": "sql-query-builder",
+      "type": "related"
+    },
+    {
+      "from": "clickhouse-analytics-io",
+      "to": "nosql-distributed-db",
+      "type": "related"
+    },
+    {
+      "from": "clickhouse-analytics-io",
+      "to": "erd-schema-designer",
+      "type": "related"
+    },
+    {
+      "from": "clickhouse-analytics-io",
+      "to": "dbt-transformation-modeler",
+      "type": "combines_with"
+    },
+    {
+      "from": "clickhouse-analytics-io",
+      "to": "data-pipeline-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "clickhouse-analytics-io",
+      "to": "html-dashboard-builder",
       "type": "combines_with"
     },
     {
@@ -12593,6 +13229,36 @@
       "type": "combines_with"
     },
     {
+      "from": "agent-session-trace-audit",
+      "to": "coding-agent-headtohead-eval",
+      "type": "related"
+    },
+    {
+      "from": "agent-session-trace-audit",
+      "to": "llm-agent-benchmarking",
+      "type": "related"
+    },
+    {
+      "from": "agent-session-trace-audit",
+      "to": "langfuse-llm-observability",
+      "type": "related"
+    },
+    {
+      "from": "agent-session-trace-audit",
+      "to": "ai-engineering-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "agent-session-trace-audit",
+      "to": "cost-aware-llm-pipeline",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-session-trace-audit",
+      "to": "autonomous-coding-agent-patterns",
+      "type": "combines_with"
+    },
+    {
       "from": "agent-tool-builder",
       "to": "agent-tool-design",
       "type": "related"
@@ -12698,6 +13364,36 @@
       "type": "combines_with"
     },
     {
+      "from": "agents-md-maintainer",
+      "to": "skill-creator",
+      "type": "related"
+    },
+    {
+      "from": "agents-md-maintainer",
+      "to": "skill-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "agents-md-maintainer",
+      "to": "agent-tool-design",
+      "type": "related"
+    },
+    {
+      "from": "agents-md-maintainer",
+      "to": "codebase-onboarding-doc",
+      "type": "related"
+    },
+    {
+      "from": "agents-md-maintainer",
+      "to": "skill-creator",
+      "type": "combines_with"
+    },
+    {
+      "from": "agents-md-maintainer",
+      "to": "codebase-onboarding-doc",
+      "type": "combines_with"
+    },
+    {
       "from": "ai-engineering-toolkit",
       "to": "llm-judge-evaluation",
       "type": "related"
@@ -12730,6 +13426,36 @@
     {
       "from": "ai-engineering-toolkit",
       "to": "context-window-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "ai-model-knowledge-distill",
+      "to": "rag-implementation-workflow",
+      "type": "related"
+    },
+    {
+      "from": "ai-model-knowledge-distill",
+      "to": "embedding-model-strategies",
+      "type": "related"
+    },
+    {
+      "from": "ai-model-knowledge-distill",
+      "to": "self-improving-memory-agent",
+      "type": "related"
+    },
+    {
+      "from": "ai-model-knowledge-distill",
+      "to": "production-llm-app-builder",
+      "type": "related"
+    },
+    {
+      "from": "ai-model-knowledge-distill",
+      "to": "vector-index-tuning",
+      "type": "combines_with"
+    },
+    {
+      "from": "ai-model-knowledge-distill",
+      "to": "rag-pipeline-builder",
       "type": "combines_with"
     },
     {
@@ -12800,6 +13526,36 @@
     {
       "from": "autoresearch-optimization-agent",
       "to": "skill-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "azure-realtime-voice-ai",
+      "to": "claude-api",
+      "type": "related"
+    },
+    {
+      "from": "azure-realtime-voice-ai",
+      "to": "local-llm-inference",
+      "type": "related"
+    },
+    {
+      "from": "azure-realtime-voice-ai",
+      "to": "vercel-ai-sdk",
+      "type": "related"
+    },
+    {
+      "from": "azure-realtime-voice-ai",
+      "to": "websocket-realtime-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "azure-realtime-voice-ai",
+      "to": "twilio-communications",
+      "type": "combines_with"
+    },
+    {
+      "from": "azure-realtime-voice-ai",
+      "to": "production-llm-app-builder",
       "type": "combines_with"
     },
     {
@@ -13893,6 +14649,36 @@
       "type": "combines_with"
     },
     {
+      "from": "prompt-governance-policy",
+      "to": "prompt-template-designer",
+      "type": "related"
+    },
+    {
+      "from": "prompt-governance-policy",
+      "to": "llm-prompt-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "prompt-governance-policy",
+      "to": "llm-judge-evaluation",
+      "type": "related"
+    },
+    {
+      "from": "prompt-governance-policy",
+      "to": "langfuse-llm-observability",
+      "type": "related"
+    },
+    {
+      "from": "prompt-governance-policy",
+      "to": "ai-engineering-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "prompt-governance-policy",
+      "to": "llm-prompt-caching",
+      "type": "combines_with"
+    },
+    {
       "from": "prompt-template-designer",
       "to": "first-principles-thinking",
       "type": "requires"
@@ -14683,6 +15469,46 @@
       "type": "combines_with"
     },
     {
+      "from": "andreessen-vc-lens",
+      "to": "market-sizing-tam-sam-som",
+      "type": "related"
+    },
+    {
+      "from": "andreessen-vc-lens",
+      "to": "pricing-strategy",
+      "type": "related"
+    },
+    {
+      "from": "andreessen-vc-lens",
+      "to": "product-launch-strategy",
+      "type": "related"
+    },
+    {
+      "from": "andreessen-vc-lens",
+      "to": "cro-revenue-advisor",
+      "type": "related"
+    },
+    {
+      "from": "andreessen-vc-lens",
+      "to": "first-principles-thinking",
+      "type": "related"
+    },
+    {
+      "from": "andreessen-vc-lens",
+      "to": "market-sizing-tam-sam-som",
+      "type": "combines_with"
+    },
+    {
+      "from": "andreessen-vc-lens",
+      "to": "competitive-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "andreessen-vc-lens",
+      "to": "cfo-financial-advisor",
+      "type": "combines_with"
+    },
+    {
       "from": "apollo-lead-enrichment",
       "to": "sales-prospecting",
       "type": "related"
@@ -15013,6 +15839,41 @@
       "type": "combines_with"
     },
     {
+      "from": "buyer-persona-builder",
+      "to": "customer-research-synthesizer",
+      "type": "related"
+    },
+    {
+      "from": "buyer-persona-builder",
+      "to": "competitive-analysis",
+      "type": "related"
+    },
+    {
+      "from": "buyer-persona-builder",
+      "to": "market-sizing-analyst",
+      "type": "related"
+    },
+    {
+      "from": "buyer-persona-builder",
+      "to": "content-strategy-planner",
+      "type": "related"
+    },
+    {
+      "from": "buyer-persona-builder",
+      "to": "customer-research-synthesizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "buyer-persona-builder",
+      "to": "content-marketing-strategist",
+      "type": "combines_with"
+    },
+    {
+      "from": "buyer-persona-builder",
+      "to": "product-marketing-gtm-strategy",
+      "type": "combines_with"
+    },
+    {
       "from": "campaign-attribution-analytics",
       "to": "analytics-tracking-setup",
       "type": "related"
@@ -15080,6 +15941,36 @@
     {
       "from": "cfo-financial-advisor",
       "to": "pricing-strategy",
+      "type": "combines_with"
+    },
+    {
+      "from": "channel-economics-model",
+      "to": "unit-economics-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "channel-economics-model",
+      "to": "cfo-financial-advisor",
+      "type": "related"
+    },
+    {
+      "from": "channel-economics-model",
+      "to": "pricing-strategy",
+      "type": "related"
+    },
+    {
+      "from": "channel-economics-model",
+      "to": "partnerships-strategy-architect",
+      "type": "related"
+    },
+    {
+      "from": "channel-economics-model",
+      "to": "startup-financial-modeler",
+      "type": "combines_with"
+    },
+    {
+      "from": "channel-economics-model",
+      "to": "cro-revenue-advisor",
       "type": "combines_with"
     },
     {
@@ -17153,6 +18044,36 @@
       "type": "combines_with"
     },
     {
+      "from": "operator-audit-review",
+      "to": "kubernetes-architect",
+      "type": "related"
+    },
+    {
+      "from": "operator-audit-review",
+      "to": "golang-pro",
+      "type": "related"
+    },
+    {
+      "from": "operator-audit-review",
+      "to": "k8s-security-policies",
+      "type": "related"
+    },
+    {
+      "from": "operator-audit-review",
+      "to": "helm-chart-scaffolding",
+      "type": "related"
+    },
+    {
+      "from": "operator-audit-review",
+      "to": "kubernetes-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "operator-audit-review",
+      "to": "golang-pro",
+      "type": "combines_with"
+    },
+    {
       "from": "option-volatility-analysis",
       "to": "options-strategy-advisor",
       "type": "related"
@@ -17250,6 +18171,46 @@
     {
       "from": "paid-ads-strategist",
       "to": "campaign-attribution-analytics",
+      "type": "combines_with"
+    },
+    {
+      "from": "partnerships-strategy-architect",
+      "to": "deal-desk-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "partnerships-strategy-architect",
+      "to": "cro-revenue-advisor",
+      "type": "related"
+    },
+    {
+      "from": "partnerships-strategy-architect",
+      "to": "ma-playbook",
+      "type": "related"
+    },
+    {
+      "from": "partnerships-strategy-architect",
+      "to": "sales-enablement",
+      "type": "related"
+    },
+    {
+      "from": "partnerships-strategy-architect",
+      "to": "pricing-strategy",
+      "type": "related"
+    },
+    {
+      "from": "partnerships-strategy-architect",
+      "to": "deal-desk-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "partnerships-strategy-architect",
+      "to": "cro-revenue-advisor",
+      "type": "combines_with"
+    },
+    {
+      "from": "partnerships-strategy-architect",
+      "to": "sales-enablement",
       "type": "combines_with"
     },
     {
@@ -17575,6 +18536,36 @@
     {
       "from": "pricing-strategy",
       "to": "cfo-financial-advisor",
+      "type": "combines_with"
+    },
+    {
+      "from": "procurement-cost-optimizer",
+      "to": "vendor-evaluation",
+      "type": "related"
+    },
+    {
+      "from": "procurement-cost-optimizer",
+      "to": "channel-economics-model",
+      "type": "related"
+    },
+    {
+      "from": "procurement-cost-optimizer",
+      "to": "cfo-financial-advisor",
+      "type": "related"
+    },
+    {
+      "from": "procurement-cost-optimizer",
+      "to": "budget-variance-analysis",
+      "type": "related"
+    },
+    {
+      "from": "procurement-cost-optimizer",
+      "to": "vendor-evaluation",
+      "type": "combines_with"
+    },
+    {
+      "from": "procurement-cost-optimizer",
+      "to": "smb-cash-flow-forecast",
       "type": "combines_with"
     },
     {
@@ -18933,6 +19924,36 @@
       "type": "combines_with"
     },
     {
+      "from": "team-culture-architect",
+      "to": "company-culture-architect",
+      "type": "related"
+    },
+    {
+      "from": "team-culture-architect",
+      "to": "company-culture-builder",
+      "type": "related"
+    },
+    {
+      "from": "team-culture-architect",
+      "to": "org-health-diagnostic",
+      "type": "related"
+    },
+    {
+      "from": "team-culture-architect",
+      "to": "org-change-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "team-culture-architect",
+      "to": "headcount-org-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "team-culture-architect",
+      "to": "strategic-alignment-cascader",
+      "type": "combines_with"
+    },
+    {
       "from": "technical-seo-checker",
       "to": "seo-audit",
       "type": "related"
@@ -20033,6 +21054,51 @@
       "type": "combines_with"
     },
     {
+      "from": "board-prep-orchestrator",
+      "to": "board-meeting-prep",
+      "type": "related"
+    },
+    {
+      "from": "board-prep-orchestrator",
+      "to": "board-deck-builder",
+      "type": "related"
+    },
+    {
+      "from": "board-prep-orchestrator",
+      "to": "cfo-financial-advisor",
+      "type": "related"
+    },
+    {
+      "from": "board-prep-orchestrator",
+      "to": "investor-materials-builder",
+      "type": "related"
+    },
+    {
+      "from": "board-prep-orchestrator",
+      "to": "executive-adversarial-mentor",
+      "type": "related"
+    },
+    {
+      "from": "board-prep-orchestrator",
+      "to": "board-deck-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "board-prep-orchestrator",
+      "to": "executive-adversarial-mentor",
+      "type": "combines_with"
+    },
+    {
+      "from": "board-prep-orchestrator",
+      "to": "cfo-financial-advisor",
+      "type": "combines_with"
+    },
+    {
+      "from": "board-prep-orchestrator",
+      "to": "boardroom-deliberation",
+      "type": "combines_with"
+    },
+    {
       "from": "business-process-mapper",
       "to": "coo-operations-advisor",
       "type": "related"
@@ -20130,6 +21196,36 @@
     {
       "from": "changelog-generator",
       "to": "git-advanced-workflows",
+      "type": "combines_with"
+    },
+    {
+      "from": "chief-of-staff-ops",
+      "to": "chief-of-staff-orchestrator",
+      "type": "related"
+    },
+    {
+      "from": "chief-of-staff-ops",
+      "to": "boardroom-deliberation",
+      "type": "related"
+    },
+    {
+      "from": "chief-of-staff-ops",
+      "to": "multi-agent-orchestrator",
+      "type": "related"
+    },
+    {
+      "from": "chief-of-staff-ops",
+      "to": "office-hours-facilitator",
+      "type": "related"
+    },
+    {
+      "from": "chief-of-staff-ops",
+      "to": "decision-log-recorder",
+      "type": "combines_with"
+    },
+    {
+      "from": "chief-of-staff-ops",
+      "to": "task-decomposition-planner",
       "type": "combines_with"
     },
     {
@@ -20518,6 +21614,41 @@
       "type": "combines_with"
     },
     {
+      "from": "decision-log-recorder",
+      "to": "adr-writer",
+      "type": "related"
+    },
+    {
+      "from": "decision-log-recorder",
+      "to": "adr-management-patterns",
+      "type": "related"
+    },
+    {
+      "from": "decision-log-recorder",
+      "to": "meeting-transcript-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "decision-log-recorder",
+      "to": "stakeholder-update-writer",
+      "type": "related"
+    },
+    {
+      "from": "decision-log-recorder",
+      "to": "boardroom-deliberation",
+      "type": "combines_with"
+    },
+    {
+      "from": "decision-log-recorder",
+      "to": "meeting-transcript-analyzer",
+      "type": "combines_with"
+    },
+    {
+      "from": "decision-log-recorder",
+      "to": "status-report-generator",
+      "type": "combines_with"
+    },
+    {
       "from": "developer-experience-optimizer",
       "to": "codebase-onboarding-doc",
       "type": "related"
@@ -20868,6 +21999,36 @@
       "type": "combines_with"
     },
     {
+      "from": "office-hours-facilitator",
+      "to": "boardroom-deliberation",
+      "type": "related"
+    },
+    {
+      "from": "office-hours-facilitator",
+      "to": "business-assumption-stress-test",
+      "type": "related"
+    },
+    {
+      "from": "office-hours-facilitator",
+      "to": "premortem-plan-challenger",
+      "type": "related"
+    },
+    {
+      "from": "office-hours-facilitator",
+      "to": "executive-adversarial-mentor",
+      "type": "related"
+    },
+    {
+      "from": "office-hours-facilitator",
+      "to": "hard-call-advisor",
+      "type": "combines_with"
+    },
+    {
+      "from": "office-hours-facilitator",
+      "to": "andreessen-vc-lens",
+      "type": "combines_with"
+    },
+    {
       "from": "oncall-handoff-writer",
       "to": "technical-change-tracker",
       "type": "related"
@@ -21105,6 +22266,36 @@
     {
       "from": "process-sop-documenter",
       "to": "technical-reference-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "product-discovery-process",
+      "to": "product-manager-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "product-discovery-process",
+      "to": "prd-spec-writer",
+      "type": "related"
+    },
+    {
+      "from": "product-discovery-process",
+      "to": "agile-product-owner",
+      "type": "related"
+    },
+    {
+      "from": "product-discovery-process",
+      "to": "customer-research-synthesizer",
+      "type": "related"
+    },
+    {
+      "from": "product-discovery-process",
+      "to": "prd-spec-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "product-discovery-process",
+      "to": "product-manager-toolkit",
       "type": "combines_with"
     },
     {
@@ -21510,6 +22701,36 @@
     {
       "from": "active-directory-attacks",
       "to": "wireshark-traffic-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-plugin-audit",
+      "to": "agent-skill-security-scanner",
+      "type": "related"
+    },
+    {
+      "from": "agent-plugin-audit",
+      "to": "agentic-actions-auditor",
+      "type": "related"
+    },
+    {
+      "from": "agent-plugin-audit",
+      "to": "dependency-auditor",
+      "type": "related"
+    },
+    {
+      "from": "agent-plugin-audit",
+      "to": "adversarial-code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "agent-plugin-audit",
+      "to": "skill-creator",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-plugin-audit",
+      "to": "supply-chain-risk-auditor",
       "type": "combines_with"
     },
     {
@@ -22000,6 +23221,41 @@
     {
       "from": "burp-suite-testing",
       "to": "idor-vulnerability-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "burpsuite-project-parser",
+      "to": "burp-suite-testing",
+      "type": "related"
+    },
+    {
+      "from": "burpsuite-project-parser",
+      "to": "api-fuzzing-bug-bounty",
+      "type": "related"
+    },
+    {
+      "from": "burpsuite-project-parser",
+      "to": "false-positive-check",
+      "type": "related"
+    },
+    {
+      "from": "burpsuite-project-parser",
+      "to": "security-audit-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "burpsuite-project-parser",
+      "to": "penetration-testing-methodology",
+      "type": "combines_with"
+    },
+    {
+      "from": "burpsuite-project-parser",
+      "to": "ffuf-web-fuzzing",
+      "type": "combines_with"
+    },
+    {
+      "from": "burpsuite-project-parser",
+      "to": "red-team-recon",
       "type": "combines_with"
     },
     {
@@ -25450,6 +26706,36 @@
     {
       "from": "deeptools-ngs-analysis",
       "to": "macs3-peak-calling",
+      "type": "combines_with"
+    },
+    {
+      "from": "defi-natural-language-agent",
+      "to": "blockchain-web3-developer",
+      "type": "related"
+    },
+    {
+      "from": "defi-natural-language-agent",
+      "to": "agent-payment-x402",
+      "type": "related"
+    },
+    {
+      "from": "defi-natural-language-agent",
+      "to": "defi-protocol-templates",
+      "type": "related"
+    },
+    {
+      "from": "defi-natural-language-agent",
+      "to": "evm-token-decimals",
+      "type": "related"
+    },
+    {
+      "from": "defi-natural-language-agent",
+      "to": "solidity-security-auditor",
+      "type": "combines_with"
+    },
+    {
+      "from": "defi-natural-language-agent",
+      "to": "nodejs-keccak256-hashing",
       "type": "combines_with"
     },
     {
@@ -32863,6 +34149,41 @@
       "type": "combines_with"
     },
     {
+      "from": "agentphone-voice-sms-agents",
+      "to": "twilio-communications",
+      "type": "related"
+    },
+    {
+      "from": "agentphone-voice-sms-agents",
+      "to": "whatsapp-cloud-api",
+      "type": "related"
+    },
+    {
+      "from": "agentphone-voice-sms-agents",
+      "to": "agentmail-email-infra",
+      "type": "related"
+    },
+    {
+      "from": "agentphone-voice-sms-agents",
+      "to": "zoom-phone-integration",
+      "type": "related"
+    },
+    {
+      "from": "agentphone-voice-sms-agents",
+      "to": "twilio-communications",
+      "type": "combines_with"
+    },
+    {
+      "from": "agentphone-voice-sms-agents",
+      "to": "ai-customer-support",
+      "type": "combines_with"
+    },
+    {
+      "from": "agentphone-voice-sms-agents",
+      "to": "agent-tool-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "ai-native-cli-design",
       "to": "agent-tool-builder",
       "type": "related"
@@ -32895,6 +34216,96 @@
     {
       "from": "ai-native-cli-design",
       "to": "google-workspace-cli-admin",
+      "type": "combines_with"
+    },
+    {
+      "from": "amazon-alexa-skill-builder",
+      "to": "aws-serverless-builder",
+      "type": "related"
+    },
+    {
+      "from": "amazon-alexa-skill-builder",
+      "to": "aws-serverless-architect",
+      "type": "related"
+    },
+    {
+      "from": "amazon-alexa-skill-builder",
+      "to": "azure-realtime-voice-ai",
+      "type": "related"
+    },
+    {
+      "from": "amazon-alexa-skill-builder",
+      "to": "claude-api",
+      "type": "related"
+    },
+    {
+      "from": "amazon-alexa-skill-builder",
+      "to": "agentphone-voice-sms-agents",
+      "type": "combines_with"
+    },
+    {
+      "from": "amazon-alexa-skill-builder",
+      "to": "aws-cdk-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "apify-actor-development",
+      "to": "apify-actorization",
+      "type": "related"
+    },
+    {
+      "from": "apify-actor-development",
+      "to": "apify-ecommerce-scraper",
+      "type": "related"
+    },
+    {
+      "from": "apify-actor-development",
+      "to": "apify-multi-platform-scraper",
+      "type": "related"
+    },
+    {
+      "from": "apify-actor-development",
+      "to": "browser-automation-builder",
+      "type": "related"
+    },
+    {
+      "from": "apify-actor-development",
+      "to": "apify-actorization",
+      "type": "combines_with"
+    },
+    {
+      "from": "apify-actor-development",
+      "to": "data-scraper-agent-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "apify-actorization",
+      "to": "apify-actor-development",
+      "type": "related"
+    },
+    {
+      "from": "apify-actorization",
+      "to": "apify-multi-platform-scraper",
+      "type": "related"
+    },
+    {
+      "from": "apify-actorization",
+      "to": "ai-native-cli-design",
+      "type": "related"
+    },
+    {
+      "from": "apify-actorization",
+      "to": "apify-ecommerce-scraper",
+      "type": "related"
+    },
+    {
+      "from": "apify-actorization",
+      "to": "docker-container-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "apify-actorization",
+      "to": "apify-actor-development",
       "type": "combines_with"
     },
     {
@@ -33105,6 +34516,71 @@
     {
       "from": "azure-cloud-architect",
       "to": "github-actions-author",
+      "type": "combines_with"
+    },
+    {
+      "from": "azure-container-apps-deploy",
+      "to": "azure-cloud-architect",
+      "type": "related"
+    },
+    {
+      "from": "azure-container-apps-deploy",
+      "to": "azure-functions-serverless",
+      "type": "related"
+    },
+    {
+      "from": "azure-container-apps-deploy",
+      "to": "aws-serverless-builder",
+      "type": "related"
+    },
+    {
+      "from": "azure-container-apps-deploy",
+      "to": "docker-container-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "azure-container-apps-deploy",
+      "to": "terraform-specialist",
+      "type": "combines_with"
+    },
+    {
+      "from": "azure-container-apps-deploy",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "azure-container-apps-deploy",
+      "to": "gcp-cloud-run",
+      "type": "combines_with"
+    },
+    {
+      "from": "azure-functions-serverless",
+      "to": "azure-cloud-architect",
+      "type": "related"
+    },
+    {
+      "from": "azure-functions-serverless",
+      "to": "aws-serverless-architect",
+      "type": "related"
+    },
+    {
+      "from": "azure-functions-serverless",
+      "to": "azure-container-apps-deploy",
+      "type": "related"
+    },
+    {
+      "from": "azure-functions-serverless",
+      "to": "gcp-cloud-run",
+      "type": "related"
+    },
+    {
+      "from": "azure-functions-serverless",
+      "to": "terraform-specialist",
+      "type": "combines_with"
+    },
+    {
+      "from": "azure-functions-serverless",
+      "to": "ci-cd-pipeline-builder",
       "type": "combines_with"
     },
     {
