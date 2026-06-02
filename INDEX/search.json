@@ -123,6 +123,33 @@
     "path": "00-meta/claude-command-selector/SKILL.md"
   },
   {
+    "name": "context-budget-audit",
+    "title": "上下文窗口预算审计（裁剪臃肿组件）",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "上下文工程",
+      "token 优化",
+      "MCP 治理",
+      "技能审计",
+      "成本控制",
+      "Claude Code 配置",
+      "性能调优"
+    ],
+    "triggers": [
+      "上下文预算",
+      "context budget",
+      "token 占用",
+      "裁剪 MCP",
+      "瘦身",
+      "还有多少空间"
+    ],
+    "description": "当会话变慢/质量下降、刚加了一批技能/Agent/MCP、想确认还有多少上下文余量或扩容前评估空间时使用；做盘点 Agent/技能/规则/MCP/CLAUDE.md 的 token 占用，分类标记臃肿冗余组件，产出按节省量排序的优化报告与 Top3 建议；不适用于运行期单次任务的对话压缩、或精确逐 token 计费。触发词：上下文预算、context budget、token 占用、裁剪 MCP、瘦身、还有多少空间",
+    "path": "00-meta/context-budget-audit/SKILL.md"
+  },
+  {
     "name": "decision-navigator",
     "title": "分支提问引导决策导航",
     "vol": "00-meta",
@@ -292,6 +319,30 @@
     ],
     "description": "当需要剥离类比与惯例、从最基本事实重新推导方案，或拆解复杂/陌生问题时使用；触发词：第一性原理、从头推导、本质、拆解假设。",
     "path": "00-meta/first-principles-thinking/SKILL.md"
+  },
+  {
+    "name": "four-voice-decision-council",
+    "title": "四声决策议会（结构化异议与权衡）",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "决策",
+      "思维",
+      "对抗式评审",
+      "权衡",
+      "异议",
+      "防锚定",
+      "通用"
+    ],
+    "triggers": [
+      "换个意见",
+      "要不要上",
+      "多方权衡"
+    ],
+    "description": "当一个决策存在多条可信路径、没有明显赢家、需要在拍板前主动暴露权衡与异议时使用；做法是先独立形成架构师立场，再以「问题+精简上下文」并行起三个隔离子智能体（怀疑者/现实派/批评者），最后带偏置护栏综合出可手机阅读的判决；不适用于代码审查、实现拆解、架构设计或有标准答案的事实问题。触发词：换个意见、要不要上、多方权衡",
+    "path": "00-meta/four-voice-decision-council/SKILL.md"
   },
   {
     "name": "human-like-response-mirror",
@@ -657,6 +708,33 @@
     ],
     "description": "当拿到现有前端/后端/全栈代码库、需要逆向产出产品需求文档（PRD）或功能清单时使用；做三阶段扫描（全局扫描→逐页深析→结构化文档生成）并产出可让工程师或 AI 完整重建每个页面与接口的业务可读 PRD（README+分页文档+枚举/接口/页面关系附录）；不适用于无源码的纯需求规划、UI 视觉走查或单纯代码审查。触发词：生成PRD、逆向需求文档、代码转文档、梳理页面字段与接口",
     "path": "01-documents/codebase-to-prd/SKILL.md"
+  },
+  {
+    "name": "codetour-authoring",
+    "title": "CodeTour 代码导览编写",
+    "vol": "01-documents",
+    "domain": "文书/writing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "代码导览",
+      "CodeTour",
+      "onboarding",
+      "架构走读",
+      "PR 审查",
+      "技术文档",
+      "代码讲解"
+    ],
+    "triggers": [
+      "代码导览",
+      "code tour",
+      "onboarding 导览",
+      "架构走读",
+      "PR 导览",
+      "解释这块怎么工作"
+    ],
+    "description": "当用户要为代码库做入职引导、架构走读、PR/RCA/安全审查导览，或提出结构化「解释 X 如何工作」并想要可复用引导产物时使用；做按角色定深度、锚定真实文件与行号、按叙事弧写步骤，产出 .tours/ 下的 CodeTour .tour（JSON）文件；不适用于一次性口头解释、要散文式文档而非 .tour 产物、实现/重构任务，或无产物的宽泛代码库入职。触发词：代码导览、code tour、onboarding 导览、架构走读、PR 导览、解释这块怎么工作",
+    "path": "01-documents/codetour-authoring/SKILL.md"
   },
   {
     "name": "content-humanizer",
@@ -1038,6 +1116,32 @@
     "path": "01-documents/technical-reference-builder/SKILL.md"
   },
   {
+    "name": "visa-doc-translate",
+    "title": "签证申请材料双语翻译 PDF",
+    "vol": "01-documents",
+    "domain": "文书/translation",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "translation",
+      "visa",
+      "ocr",
+      "pdf",
+      "bilingual",
+      "reportlab"
+    ],
+    "triggers": [
+      "签证翻译",
+      "存款证明翻译",
+      "在职证明翻译",
+      "双语PDF",
+      "OCR翻译",
+      "certified translation"
+    ],
+    "description": "当需要把签证申请材料（存款证明/在职证明/营业执照等扫描件或照片）翻译成英文并生成原文+译文双语 PDF 时使用；做对图像做旋转校正与 OCR、专业英译、用 PIL/reportlab 拼出第1页原图第2页英译的认证式 PDF；不适用于纯文本/已是数字文档的翻译，也不做盖章公证等法律认证。触发词：签证翻译、存款证明翻译、在职证明翻译、双语PDF、OCR翻译、certified translation",
+    "path": "01-documents/visa-doc-translate/SKILL.md"
+  },
+  {
     "name": "accessibility-wcag-audit",
     "title": "无障碍 WCAG 合规审计",
     "vol": "02-engineering",
@@ -1064,6 +1168,30 @@
     ],
     "description": "当需要对 Web/移动端做无障碍（a11y）WCAG 合规审计、定位障碍并给出修复方案时使用；做自动化扫描+键盘/读屏/对比度手动核查、映射到 WCAG 准则并产出违规清单与修复指引；不适用于不涉及无障碍的通用 UI 评审或无法访问页面/设计稿的场景。触发词：无障碍、WCAG、a11y、axe、读屏、对比度",
     "path": "02-engineering/accessibility-wcag-audit/SKILL.md"
+  },
+  {
+    "name": "adr-auto-capture",
+    "title": "架构决策实时捕获为 ADR",
+    "vol": "02-engineering",
+    "domain": "研发/architecture",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "architecture",
+      "adr",
+      "decision-record",
+      "auto-capture",
+      "决策捕获",
+      "技术选型"
+    ],
+    "triggers": [
+      "记录这个决策",
+      "创建 ADR",
+      "为什么选 X",
+      "决策捕获"
+    ],
+    "description": "当编码/规划会话中出现架构决策瞬间（选型、取舍拍板、\"我们选了 X 而非 Y\"）时使用；自动识别决策信号、提议并在用户确认后落盘结构化 ADR（含 Context/Decision/Alternatives/Consequences），维护编号与索引；不适用于命名/格式等琐碎决策，也不擅自创建文件；触发词：记录这个决策、创建 ADR、为什么选 X、决策捕获",
+    "path": "02-engineering/adr-auto-capture/SKILL.md"
   },
   {
     "name": "adr-management-patterns",
@@ -1743,6 +1871,36 @@
     "path": "02-engineering/clean-craft-code-review/SKILL.md"
   },
   {
+    "name": "click-path-state-audit",
+    "title": "点击路径状态序列审计（隐性交互冲突）",
+    "vol": "02-engineering",
+    "domain": "研发/testing",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "click-path-audit",
+      "state-management",
+      "side-effects",
+      "race-condition",
+      "ui-bug",
+      "testing"
+    ],
+    "triggers": [
+      "点击路径",
+      "状态副作用",
+      "互相抵消",
+      "隐性重置",
+      "共享状态冲突",
+      "Zustand",
+      "Redux",
+      "按钮无反应",
+      "最终状态不一致",
+      "竞态"
+    ],
+    "description": "当系统化调试已扫过仍有\"按钮点了没反应/最终状态不对\"的报障、或共享状态 store 大重构后做交互回归时使用；逐个交互触点按调用顺序追踪状态读写与副作用，产出 store 副作用图、触点审计表与互相抵消/竞态的缺陷清单；不适用于纯崩溃/类型/接线类 bug（用 systematic-debugger）或单元接口测试；触发词：点击路径、状态副作用、互相抵消、隐性重置、共享状态冲突、Zustand、Redux、按钮无反应、最终状态不一致、竞态",
+    "path": "02-engineering/click-path-state-audit/SKILL.md"
+  },
+  {
     "name": "cloudflare-workers-expert",
     "title": "Cloudflare Workers 边缘计算开发",
     "vol": "02-engineering",
@@ -1894,6 +2052,33 @@
     ],
     "description": "当现有代码已能跑通但时间/空间复杂度偏高（慢、超时、OOM、N+1）需重构时使用；按\"验证-回滚-停止\"循环每次只做一处变换，产出降复杂度的 diff 加 before→after 实测；不适用于写新代码、纯 I/O/网络瓶颈、n<100 的启动期代码。触发词：O(n²)、超时、N+1。",
     "path": "02-engineering/complexity-cuts/SKILL.md"
+  },
+  {
+    "name": "content-hash-cache-pattern",
+    "title": "内容哈希缓存模式（SHA-256 路径无关）",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "缓存",
+      "content-hash",
+      "sha256",
+      "file-processing",
+      "backend",
+      "纯函数",
+      "SRP",
+      "engineering"
+    ],
+    "triggers": [
+      "内容哈希",
+      "SHA-256",
+      "文件缓存",
+      "缓存失效",
+      "纯函数"
+    ],
+    "description": "当为高成本、可重复的文件处理（PDF 解析、OCR、文本/图像抽取）加缓存、需要 --cache/--no-cache 开关、且不想改动现有纯函数时使用；用文件内容的 SHA-256 作缓存键、按 {hash}.json 落盘、以独立服务层包裹纯处理函数，产出路径无关、内容变即自动失效、损坏即视为未命中的缓存方案；不适用于必须实时最新的数据、超大缓存条目（改用流式）、或结果还依赖内容之外参数（如抽取配置）的场景；触发词：内容哈希、SHA-256、文件缓存、缓存失效、纯函数",
+    "path": "02-engineering/content-hash-cache-pattern/SKILL.md"
   },
   {
     "name": "convex-reactive-backend",
@@ -2965,6 +3150,37 @@
     "path": "02-engineering/helm-chart-scaffolding/SKILL.md"
   },
   {
+    "name": "hexagonal-architecture",
+    "title": "六边形架构（端口与适配器模式）",
+    "vol": "02-engineering",
+    "domain": "研发/architecture",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "六边形架构",
+      "端口与适配器",
+      "hexagonal",
+      "ports-and-adapters",
+      "领域核心",
+      "用例",
+      "出站端口",
+      "组合根",
+      "依赖倒置",
+      "可测试性",
+      "绞杀者迁移"
+    ],
+    "triggers": [
+      "端口与适配器",
+      "六边形",
+      "领域核心",
+      "出站端口",
+      "组合根",
+      "绞杀者迁移"
+    ],
+    "description": "当为新特性划清业务边界、解耦框架/传输/持久化，或重构紧耦合服务以提升可测试性时使用；用入站/出站端口与适配器隔离领域核心，产出特性优先目录、用例编排、组合根装配与按边界分层的测试方案；不适用于简单 CRUD、纯前端或局部小重构。触发词：端口与适配器、六边形、领域核心、出站端口、组合根、绞杀者迁移",
+    "path": "02-engineering/hexagonal-architecture/SKILL.md"
+  },
+  {
     "name": "hono-edge-api",
     "title": "Hono 边缘 Web 框架",
     "vol": "02-engineering",
@@ -3290,6 +3506,68 @@
     "path": "02-engineering/kubernetes-architect/SKILL.md"
   },
   {
+    "name": "laravel-app-specialist",
+    "title": "Laravel 应用开发专家",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "laravel",
+      "php",
+      "eloquent",
+      "queue",
+      "horizon",
+      "sanctum",
+      "livewire",
+      "api-resource",
+      "pest",
+      "后端",
+      "研发"
+    ],
+    "triggers": [
+      "Laravel",
+      "Eloquent",
+      "Artisan",
+      "Sanctum",
+      "Horizon",
+      "Livewire"
+    ],
+    "description": "当用 Laravel 10+/PHP 8.2+ 构建应用时使用；做 Eloquent 模型与关系、迁移、RESTful API（API Resource）、Sanctum 鉴权、队列/Horizon、Livewire 组件与 Pest/PHPUnit 测试并产出生产级代码；不适用于纯 PHP 语法、其他框架（Symfony/裸 PHP）、纯前端或纯 SQL 调优。触发词：Laravel、Eloquent、Artisan、Sanctum、Horizon、Livewire",
+    "path": "02-engineering/laravel-app-specialist/SKILL.md"
+  },
+  {
+    "name": "latency-critical-systems",
+    "title": "低延迟关键系统设计",
+    "vol": "02-engineering",
+    "domain": "研发/architecture",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "latency",
+      "performance",
+      "realtime",
+      "streaming",
+      "architecture",
+      "caching",
+      "backpressure"
+    ],
+    "triggers": [
+      "低延迟",
+      "热路径",
+      "p95",
+      "p99",
+      "实时",
+      "新鲜度",
+      "流式",
+      "行情",
+      "执行网关",
+      "背压"
+    ],
+    "description": "当设计/优化实时仪表盘、行情数据、流式 Agent、执行网关、队列、缓存等对新鲜度与 p95 延迟敏感的系统时使用；做出热路径拆解、分位延迟指标拆分、按优先级的优化清单与上线护栏方案；不适用于授权实盘下单/金融建议、纯吞吐批处理、无延迟要求的 CRUD；触发词：低延迟、热路径、p95、p99、实时、新鲜度、流式、行情、执行网关、背压",
+    "path": "02-engineering/latency-critical-systems/SKILL.md"
+  },
+  {
     "name": "legacy-codebase-modernizer",
     "title": "遗留系统现代化重构",
     "vol": "02-engineering",
@@ -3490,6 +3768,31 @@
     ],
     "description": "当用 NestJS 构建或排障企业级 Node.js 后端时使用；做模块/依赖注入设计、守卫拦截器管道、TypeORM/Mongoose 集成、Passport+JWT 鉴权、Jest/Supertest 测试与常见报错诊断并产出生产级代码；不适用于纯 TS 类型、纯 SQL 调优、前端或非 NestJS 框架。触发词：NestJS、依赖注入、forwardRef、Guard、Interceptor、TypeORM、Passport JWT",
     "path": "02-engineering/nestjs-expert/SKILL.md"
+  },
+  {
+    "name": "observability-dashboard-builder",
+    "title": "可运维监控仪表盘构建（Grafana/SigNoz）",
+    "vol": "02-engineering",
+    "domain": "研发/observability",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "研发",
+      "observability",
+      "Grafana",
+      "SigNoz",
+      "监控仪表盘",
+      "运维",
+      "可视化",
+      "PromQL"
+    ],
+    "triggers": [
+      "Grafana 仪表盘",
+      "SigNoz",
+      "监控面板"
+    ],
+    "description": "当要把一堆指标变成运维人员真能照着排障的监控仪表盘（Grafana/SigNoz 等）时使用；做从「运维四问」出发的面板分组设计，产出含标题/单位/阈值/模板变量的可用 dashboard JSON 与质量清单；不适用于 SLO/告警体系设计或一次性临场排障。触发词：Grafana 仪表盘、SigNoz、监控面板",
+    "path": "02-engineering/observability-dashboard-builder/SKILL.md"
   },
   {
     "name": "observability-strategy-designer",
@@ -3884,6 +4187,35 @@
     ],
     "description": "当为 Python 项目搭建 pytest 测试体系、写单元/集成测试或 mock 外部依赖时使用；用 fixture/参数化/mock/monkeypatch 按 AAA 模式产出可执行测试、conftest 与覆盖率配置；不适用于非 Python 语言或拿测试替代环境验证与专家评审。触发词：pytest、fixture、参数化、mock、覆盖率",
     "path": "02-engineering/python-testing-pytest/SKILL.md"
+  },
+  {
+    "name": "rails-hotwire-expert",
+    "title": "Rails 7+ 与 Hotwire 开发专家",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "rails",
+      "hotwire",
+      "turbo",
+      "active-record",
+      "sidekiq",
+      "action-cable",
+      "rspec",
+      "研发"
+    ],
+    "triggers": [
+      "Rails",
+      "Hotwire",
+      "Turbo",
+      "Action Cable",
+      "Sidekiq",
+      "Active Record",
+      "RSpec"
+    ],
+    "description": "当用 Rails 7+ 搭建带 Hotwire 的 Web 应用、做实时局部更新或后台任务时使用；产出 Active Record 防 N+1 查询、Turbo Frames/Streams 局部刷新、Action Cable 通道、Sidekiq Worker 与 RSpec 测试套件；不适用于非 Rails 栈、纯前端 SPA、仅需基础 Ruby 语法、或无法改动 Gemfile 与迁移的场景；触发词：Rails、Hotwire、Turbo、Action Cable、Sidekiq、Active Record、RSpec",
+    "path": "02-engineering/rails-hotwire-expert/SKILL.md"
   },
   {
     "name": "react-native-architecture",
@@ -4956,6 +5288,35 @@
     "path": "02-engineering/webapp-testing/SKILL.md"
   },
   {
+    "name": "websocket-realtime-engineer",
+    "title": "WebSocket 实时通信工程",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "backend",
+      "实时通信",
+      "WebSocket",
+      "Socket.IO",
+      "Redis",
+      "横向扩展",
+      "鉴权"
+    ],
+    "triggers": [
+      "WebSocket",
+      "Socket.IO",
+      "实时通信",
+      "双向消息",
+      "pub",
+      "sub",
+      "在线状态",
+      "房间管理"
+    ],
+    "description": "当构建 WebSocket/Socket.IO 实时双向通信系统时使用；产出带鉴权、房间、重连、Redis 横向扩展的服务端与客户端实现及扩缩容方案；不适用于单向服务器推送（用 SSE）、低频轮询或纯请求-响应场景。触发词：WebSocket、Socket.IO、实时通信、双向消息、pub/sub、在线状态、房间管理。",
+    "path": "02-engineering/websocket-realtime-engineer/SKILL.md"
+  },
+  {
     "name": "zero-downtime-migration-architect",
     "title": "零停机迁移与回滚架构",
     "vol": "02-engineering",
@@ -5311,6 +5672,37 @@
     "path": "03-data/data-question-analyzer/SKILL.md"
   },
   {
+    "name": "data-scraper-agent-builder",
+    "title": "自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）",
+    "vol": "03-data",
+    "domain": "数据/wrangling",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "data",
+      "wrangling",
+      "scraping",
+      "automation",
+      "llm-enrichment",
+      "gemini",
+      "github-actions",
+      "notion",
+      "cron",
+      "feedback-loop"
+    ],
+    "triggers": [
+      "定时抓取",
+      "监控网站",
+      "数据采集机器人",
+      "Gemini 结构化",
+      "GitHub Actions 爬虫",
+      "价格",
+      "职位监控"
+    ],
+    "description": "当需要为公开数据源（招聘/价格/新闻/GitHub/赛事等）搭一个定时抓取、用免费 LLM 打分结构化、写入 Notion/Sheets/Supabase 并从反馈学习的自动化 Agent 时使用；做\"采集→丰富→存储\"三层流水线脚手架与可跑代码，免费跑在 GitHub Actions；不适用于需登录/付费墙/违反 robots.txt 的私有数据、一次性手动抓取、纯入库后查询。触发词：定时抓取、监控网站、数据采集机器人、Gemini 结构化、GitHub Actions 爬虫、价格/职位监控",
+    "path": "03-data/data-scraper-agent-builder/SKILL.md"
+  },
+  {
     "name": "data-strategy-review",
     "title": "数据战略决策审查",
     "vol": "03-data",
@@ -5342,6 +5734,31 @@
     ],
     "description": "当任何计划触及训练数据、数据架构、数据产品化或数据团队招聘时使用；以六个 CDO 拷问对计划做决策导向的压力测试，产出含审查结论（SHIP/SHARPEN/BLOCK）与下一步的结构化审查报告；不适用于纯数据清洗、SQL 取数、ETL 实现等执行层任务；触发词：数据战略审查、CDO 审查、cdo review、data strategy review、训练数据合规、consent provenance、数据架构选型、warehouse lakehouse mesh、数据产品化、data monetization、M&A 数据尽调、数据团队招聘",
     "path": "03-data/data-strategy-review/SKILL.md"
+  },
+  {
+    "name": "data-throughput-accelerator",
+    "title": "大规模数据吞吐加速（导入/回填/ETL）",
+    "vol": "03-data",
+    "domain": "数据/pipeline",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "数据",
+      "pipeline",
+      "ETL",
+      "回填",
+      "数仓",
+      "性能优化",
+      "幂等",
+      "对账"
+    ],
+    "triggers": [
+      "回填",
+      "ETL提速",
+      "数仓装载"
+    ],
+    "description": "当大规模数据导入/回填/导出/ETL/数仓装载/清单追平/表同步需要在保证正确性的前提下显著提速时使用；做瓶颈分层定位与多变体基准对比，产出最快且行数/时间戳一致的可固化路径与硬核对账块；不适用于小数据量、单纯调度编排或与正确性无关的纯算力问题；触发词：回填、ETL提速、数仓装载",
+    "path": "03-data/data-throughput-accelerator/SKILL.md"
   },
   {
     "name": "dataset-profiler",
@@ -6128,6 +6545,36 @@
     "path": "03-data/zarr-chunked-arrays/SKILL.md"
   },
   {
+    "name": "agent-architecture-audit",
+    "title": "Agent 全栈架构诊断（12 层栈审计）",
+    "vol": "04-ai",
+    "domain": "智能/eval",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "智能",
+      "eval",
+      "Agent",
+      "架构审计",
+      "12层栈",
+      "包装层回归",
+      "记忆污染",
+      "工具纪律",
+      "隐藏修复循环",
+      "渲染破坏",
+      "诊断"
+    ],
+    "triggers": [
+      "包装层回归",
+      "记忆污染",
+      "工具纪律",
+      "隐藏修复循环",
+      "渲染破坏"
+    ],
+    "description": "当 Agent/LLM 应用上线前自检，或出现\"包装层加上后变差、模型在 playground 正常但在 Agent 里崩、调试超 15 分钟找不到根因\"时使用；做按 12 层栈定位包装层回归、记忆污染、工具纪律失效、隐藏修复循环与渲染破坏，产出按严重度排序的发现 + 代码优先修复计划 + 结构化 JSON 报告；不适用于通用代码调试、代码评审、安全扫描或性能基准。触发词：包装层回归、记忆污染、工具纪律、隐藏修复循环、渲染破坏",
+    "path": "04-ai/agent-architecture-audit/SKILL.md"
+  },
+  {
     "name": "agent-memory-architecture",
     "title": "智能体记忆架构设计",
     "vol": "04-ai",
@@ -6187,6 +6634,34 @@
     ],
     "description": "当为 AI 智能体设计跨会话记忆、长期记忆或 RAG 检索层时使用；做记忆类型分层（语义/情景/程序）、向量库选型、分块、后台记忆形成与衰减策略的可执行落地；不适用于生产级向量库运维、嵌入模型微调或知识图谱设计（应转交对应专家）。触发词：智能体记忆、长期记忆、向量库、RAG、情景记忆、跨会话记忆、LangMem、MemGPT",
     "path": "04-ai/agent-memory-systems/SKILL.md"
+  },
+  {
+    "name": "agent-payment-x402",
+    "title": "AI Agent x402 支付执行（非托管钱包与支出限额）",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "x402",
+      "agent-payment",
+      "spending-policy",
+      "non-custodial-wallet",
+      "mcp",
+      "agentwallet-sdk",
+      "okx-payments",
+      "base",
+      "x-layer",
+      "erc-4337"
+    ],
+    "triggers": [
+      "x402",
+      "Agent 支付",
+      "支出限额",
+      "agentwallet-sdk"
+    ],
+    "description": "当 Agent 需要为 402 计费的 API/服务/A2A 付费而又不能托管私钥时使用；做法是接入 x402 协议+MCP 支付服务器，由编排层预设 SpendingPolicy（按任务/会话预算、收款白名单、限速）并 fail-closed 强制，产出受限额约束的非托管支付链路；不适用于自建链上结算合约、法币/信用卡收银台或无预算门控的随意转账。触发词：x402、Agent 支付、支出限额、agentwallet-sdk",
+    "path": "04-ai/agent-payment-x402/SKILL.md"
   },
   {
     "name": "agent-tool-builder",
@@ -6440,6 +6915,36 @@
     "path": "04-ai/claude-api/SKILL.md"
   },
   {
+    "name": "coding-agent-headtohead-eval",
+    "title": "编码 Agent 对比评测（通过率/成本/耗时）",
+    "vol": "04-ai",
+    "domain": "智能/eval",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "评测",
+      "编码Agent",
+      "对比评测",
+      "通过率",
+      "成本",
+      "耗时",
+      "一致性",
+      "git-worktree",
+      "YAML",
+      "选型",
+      "CLI"
+    ],
+    "triggers": [
+      "编码 Agent 对比",
+      "agent-eval",
+      "通过率",
+      "git worktree",
+      "选型评测"
+    ],
+    "description": "当需要在自己代码库上把 Claude Code、Aider、Codex 等编码 Agent 做可复现的对比评测时使用；做基于 YAML 任务声明 + git worktree 隔离的多次运行，产出含通过率/成本/耗时/一致性的对比报告；不适用于评测纯对话/生成质量、单模型基准或无判据的开放任务。触发词：编码 Agent 对比、agent-eval、通过率、git worktree、选型评测",
+    "path": "04-ai/coding-agent-headtohead-eval/SKILL.md"
+  },
+  {
     "name": "computer-use-agents",
     "title": "计算机操作型 AI 智能体构建",
     "vol": "04-ai",
@@ -6550,6 +7055,37 @@
     "path": "04-ai/context-window-management/SKILL.md"
   },
   {
+    "name": "cost-aware-llm-pipeline",
+    "title": "成本感知 LLM 管线（模型路由与预算控制）",
+    "vol": "04-ai",
+    "domain": "智能/model-ops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "LLM",
+      "成本优化",
+      "模型路由",
+      "预算追踪",
+      "提示词缓存",
+      "重试退避",
+      "Anthropic",
+      "Claude API",
+      "批处理",
+      "model-ops"
+    ],
+    "triggers": [
+      "LLM 成本优化",
+      "模型路由",
+      "预算控制",
+      "Haiku Sonnet 选型",
+      "提示词缓存",
+      "API 支出",
+      "重试退避"
+    ],
+    "description": "当构建调用 LLM API 的应用、批处理复杂度不一的条目、或需把 API 支出控制在预算内时使用；做的是按任务复杂度自动路由模型、用不可变追踪器记账、窄范围重试与提示词缓存，产出「质量不降、成本受控」的可组合管线；不适用于单次低频调用、无成本压力、或仅问某个 SDK 单一用法的场景。触发词：LLM 成本优化、模型路由、预算控制、Haiku Sonnet 选型、提示词缓存、API 支出、重试退避",
+    "path": "04-ai/cost-aware-llm-pipeline/SKILL.md"
+  },
+  {
     "name": "crewai-multi-agent",
     "title": "CrewAI 角色化多智能体框架",
     "vol": "04-ai",
@@ -6574,6 +7110,34 @@
     ],
     "description": "当需要用 Python 搭建角色分工、可协作的多智能体团队时使用；用 CrewAI 设计 Agent 人设（role/goal/backstory）、定义 Task、编排 Crew（顺序/层级流程）并产出可运行的多智能体管线；不适用于显式状态机图编排（用 LangGraph）、单 Agent 简单脚本或非 Python 场景；触发词：crewai、多智能体团队、角色化 Agent、crew、collaborative agents",
     "path": "04-ai/crewai-multi-agent/SKILL.md"
+  },
+  {
+    "name": "dmux-multi-agent-workflows",
+    "title": "dmux 多 Agent 并行编排（tmux 面板）",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "多智能体",
+      "并行编排",
+      "dmux",
+      "tmux",
+      "git-worktree",
+      "跨harness",
+      "Claude-Code",
+      "Codex",
+      "divide-and-conquer"
+    ],
+    "triggers": [
+      "dmux",
+      "并行跑 Agent",
+      "多 Agent",
+      "split this work",
+      "tmux 面板编排"
+    ],
+    "description": "当需要在 tmux 面板里并行跑多个 AI Agent 会话、跨 Claude Code/Codex/OpenCode 等 harness 分而治之时使用；用 dmux 按 n 开面板派任务、按 m 合并产出，配 git worktree 隔离冲突文件、面板数控制在 5-6 以内；不适用于任务彼此依赖输出、需 Agent 间实时通信、或单会话内编程式并行（改用 Task 工具）的场景；触发词：dmux、并行跑 Agent、多 Agent、split this work、tmux 面板编排",
+    "path": "04-ai/dmux-multi-agent-workflows/SKILL.md"
   },
   {
     "name": "embedding-model-strategies",
@@ -6712,6 +7276,31 @@
     ],
     "description": "当构建 RAG 检索、搜索引擎，单用向量或关键词召回不足时使用；做向量召回+关键词召回+融合排序（RRF/线性/重排）的混合检索方案，产出可落地的 PostgreSQL/Elasticsearch/自定义管道实现；不适用于无需检索召回的纯生成或与混合检索无关的任务；触发词：混合检索、RRF、重排、pgvector、BM25",
     "path": "04-ai/hybrid-search-retrieval/SKILL.md"
+  },
+  {
+    "name": "iterative-context-retrieval",
+    "title": "迭代式上下文检索精炼模式",
+    "vol": "04-ai",
+    "domain": "智能/rag",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "rag",
+      "上下文工程",
+      "多智能体编排",
+      "检索精炼",
+      "相关性评分",
+      "子Agent"
+    ],
+    "triggers": [
+      "上下文检索",
+      "子Agent上下文",
+      "迭代检索",
+      "相关性评分",
+      "检索精炼"
+    ],
+    "description": "当多 Agent 工作流中子 Agent 不知道该用哪些上下文（盲发文件易超限或遗漏）时使用；以「派发-评估-精炼-循环」四阶段最多 3 轮地逐步收敛出高相关文件集；不适用于上下文已明确或单文件小任务。触发词：上下文检索、子Agent上下文、迭代检索、相关性评分、检索精炼",
+    "path": "04-ai/iterative-context-retrieval/SKILL.md"
   },
   {
     "name": "langfuse-llm-observability",
@@ -7050,6 +7639,35 @@
     "path": "04-ai/multi-agent-workflow-designer/SKILL.md"
   },
   {
+    "name": "on-device-foundation-models",
+    "title": "端侧基础模型（量化与隐私推理）",
+    "vol": "04-ai",
+    "domain": "智能/model-ops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "智能",
+      "model-ops",
+      "端侧推理",
+      "Apple",
+      "FoundationModels",
+      "Swift",
+      "隐私",
+      "离线",
+      "结构化输出",
+      "工具调用"
+    ],
+    "triggers": [
+      "FoundationModels",
+      "端侧模型",
+      "Apple Intelligence",
+      "Generable",
+      "隐私推理"
+    ],
+    "description": "当用 Apple FoundationModels 框架做端侧、隐私优先、可离线的文本生成/结构化抽取/工具调用时使用；产出可用性检查、@Generable 结构化输出、Tool 调用与快照流式 SwiftUI 方案；不适用于云端 LLM API、安卓桌面端侧推理或训练；触发词：FoundationModels、端侧模型、Apple Intelligence、Generable、隐私推理",
+    "path": "04-ai/on-device-foundation-models/SKILL.md"
+  },
+  {
     "name": "parallel-agent-hub",
     "title": "并行多智能体竞赛协作中枢",
     "vol": "04-ai",
@@ -7199,6 +7817,55 @@
     ],
     "description": "当需要为文档/知识库搭建检索增强生成（分块、向量化、检索、重排、拼接上下文）管道时使用；触发词：RAG、检索增强、向量库、知识库问答、embedding、重排。",
     "path": "04-ai/rag-pipeline-builder/SKILL.md"
+  },
+  {
+    "name": "recsys-pipeline-architect",
+    "title": "推荐排序管线架构师（六阶段 For You 模式）",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "推荐系统",
+      "排序管线",
+      "信息流",
+      "六阶段",
+      "多动作打分",
+      "重排",
+      "agents",
+      "架构脚手架"
+    ],
+    "triggers": [
+      "推荐系统",
+      "排序管线",
+      "for you 信息流"
+    ],
+    "description": "当要为「给定(用户,上下文)挑出 Top K 条目」的系统（信息流/推荐/RAG 重排/任务优先级/通知分诊/搜索与广告排序）设计或重构管线时使用；做六阶段编排（Source 取源→Hydrator 富化→Filter 过滤→Scorer 打分→Selector 选取→SideEffect 副作用），权衡单分值vs多动作、隔离vs联合、在线vs离线，产出可直接运行的脚手架（TS/Go/Python）；不适用于模型本身（双塔检索、Embedding 训练、Transformer 设计）与纯训练管线；触发词：推荐系统、排序管线、for you 信息流",
+    "path": "04-ai/recsys-pipeline-architect/SKILL.md"
+  },
+  {
+    "name": "regex-vs-llm-structured-text",
+    "title": "结构化文本解析：正则与 LLM 的取舍决策",
+    "vol": "04-ai",
+    "domain": "智能/prompting",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "prompting",
+      "llm",
+      "regex",
+      "parsing",
+      "cost-optimization"
+    ],
+    "triggers": [
+      "结构化解析",
+      "正则 vs LLM",
+      "置信度评分",
+      "混合管道",
+      "降本"
+    ],
+    "description": "当解析有重复模式的结构化文本（题库/表单/发票/文档）、要在正则与 LLM 之间取舍、或搭混合管道控成本时使用；做出\"正则优先 + 仅对低置信边角调 LLM\"的决策与流水线，产出可控成本的解析方案；不适用于自由格式高度可变文本（直接上 LLM）或一次性临时抽取；触发词：结构化解析、正则 vs LLM、置信度评分、混合管道、降本。",
+    "path": "04-ai/regex-vs-llm-structured-text/SKILL.md"
   },
   {
     "name": "self-improving-memory-agent",
@@ -9271,6 +9938,29 @@
     "path": "05-business/investment-thesis-tracker/SKILL.md"
   },
   {
+    "name": "investor-materials-builder",
+    "title": "投资人材料制作（路演 PPT / 备忘录 / 财务模型）",
+    "vol": "05-business",
+    "domain": "商业/finance",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "finance",
+      "融资",
+      "投资人材料",
+      "pitch-deck",
+      "财务模型"
+    ],
+    "triggers": [
+      "路演 PPT",
+      "投资备忘录",
+      "融资材料"
+    ],
+    "description": "当需要制作或修订融资材料（路演 PPT、一页纸、投资备忘录、加速器申请、财务模型）时使用；做对外融资资料的撰写与跨文档一致性核对，产出可在合伙人会议上经得起追问的材料；不适用于内部经营分析、产品文档或无融资目的的财务记账；触发词：路演 PPT、投资备忘录、融资材料",
+    "path": "05-business/investor-materials-builder/SKILL.md"
+  },
+  {
     "name": "journal-entry-preparer",
     "title": "会计分录编制",
     "vol": "05-business",
@@ -10130,6 +10820,34 @@
     ],
     "description": "当需要把已有演示稿（deck）里的旧数字批量换成新数字——季度刷新、财报更新、可比公司滚动、市场数据再基准——而非重做版式时使用；做的事是定位每处旧值（含不同量级/精度/单位写法及图表底层数据）、出变更清单经审批后做最小化替换并产出回执；不适用于重写叙事/重建幻灯片、未经确认就改派生指标（增长率、份额）、或从零搭建 deck。触发词：用Q4数据更新deck、刷新comps、roll forward、换新财报数字、把485M全改成512M、季度数据刷新。",
     "path": "05-business/pitch-deck-refresh/SKILL.md"
+  },
+  {
+    "name": "platform-native-content-engine",
+    "title": "平台原生内容引擎（多平台复用矩阵）",
+    "vol": "05-business",
+    "domain": "商业/marketing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "marketing",
+      "内容运营",
+      "社媒",
+      "内容复用",
+      "文案",
+      "增长"
+    ],
+    "triggers": [
+      "发帖",
+      "X thread",
+      "LinkedIn",
+      "短视频脚本",
+      "二次分发",
+      "内容复用",
+      "launch 序列"
+    ],
+    "description": "当需要把一份源素材（文章/播客/Demo/changelog/内部备忘）改写成 X、LinkedIn、短视频、YouTube、Newsletter 等平台原生内容，或搭建一条围绕产品与叙事的发布序列时使用；做源优先的拆解、按平台适配重写与质量门校验，产出多平台原生草稿矩阵；不适用于纯付费广告创意、视觉设计与从零定义品牌音色（先走 brand-voice）；触发词：发帖、X thread、LinkedIn、短视频脚本、二次分发、内容复用、launch 序列",
+    "path": "05-business/platform-native-content-engine/SKILL.md"
   },
   {
     "name": "popup-modal-cro",
@@ -11152,6 +11870,38 @@
     "path": "05-business/smb-quarterly-business-review/SKILL.md"
   },
   {
+    "name": "social-connections-optimizer",
+    "title": "社交人脉优化（X/LinkedIn 网络重整与外联）",
+    "vol": "05-business",
+    "domain": "商业/growth",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "growth",
+      "社交网络",
+      "外联",
+      "人脉",
+      "X",
+      "LinkedIn",
+      "暖路径"
+    ],
+    "triggers": [
+      "整理关注",
+      "该取关谁",
+      "该关注谁",
+      "重新连接",
+      "人脉重整",
+      "social graph",
+      "暖外联",
+      "warm intro",
+      "X DM",
+      "LinkedIn 外联"
+    ],
+    "description": "当需要整理 X/LinkedIn 关注与人脉、围绕当前优先事项重整社交图谱、并按渠道起草用户本人口吻的暖外联时使用；做评审优先的整理队列、关注/添加推荐、暖路径识别与多渠道草稿，产出可审阅后再执行的人脉优化报告；不适用于纯冷名单线索挖掘（见 sales-prospecting）、自动群发或无脑批量取关。触发词：整理关注、该取关谁、该关注谁、重新连接、人脉重整、social graph、暖外联、warm intro、X DM、LinkedIn 外联。",
+    "path": "05-business/social-connections-optimizer/SKILL.md"
+  },
+  {
     "name": "social-media-content-creator",
     "title": "社媒内容创作与排期",
     "vol": "05-business",
@@ -11815,6 +12565,40 @@
     ],
     "description": "当为已完成功能做最后打磨、想把\"功能性/平庸\"界面提升为\"有惊喜感/高级感\"时使用；做法是定位界面中无聊的标准组件，借鉴优秀微交互模式并适配品牌后用 CSS/Anime.js/Framer Motion 实现 60fps+ 的精致交互细节；不适用于核心功能尚未跑通、性能/可访问性优先、或微交互会妨碍可用性的场景。触发词：微交互、悬停动效、彩蛋。",
     "path": "06-creative/design-spells-microinteractions/SKILL.md"
+  },
+  {
+    "name": "fal-ai-media-generation",
+    "title": "fal.ai 多模态媒体生成（图像/视频/音频）",
+    "vol": "06-creative",
+    "domain": "创意/image",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "媒体生成",
+      "fal.ai",
+      "MCP",
+      "文生图",
+      "文生视频",
+      "图生视频",
+      "TTS",
+      "音效",
+      "Nano Banana",
+      "Seedance",
+      "Veo 3",
+      "Kling"
+    ],
+    "triggers": [
+      "生成图片",
+      "文生图",
+      "做缩略图",
+      "文生视频",
+      "图生视频",
+      "文字转语音",
+      "视频配音"
+    ],
+    "description": "当需要用 AI 生成图像、视频或语音/音乐/音效时使用；经 fal.ai MCP 的 search/find/generate/result/upload 等工具运行 Nano Banana、Seedance、Kling、Veo 3、CSM-1B、ThinkSound 等模型，产出图片/视频/音频文件或 URL；不适用于未配置 fal.ai MCP（FAL_KEY）或需精细本地剪辑调色的场景，后者回退 ffmpeg/VideoDB；触发词：生成图片、文生图、做缩略图、文生视频、图生视频、文字转语音、视频配音",
+    "path": "06-creative/fal-ai-media-generation/SKILL.md"
   },
   {
     "name": "glassmorphism-ui-design",
@@ -13990,6 +14774,32 @@
     "path": "08-security/c-cpp-security-review/SKILL.md"
   },
   {
+    "name": "cisco-ios-review-patterns",
+    "title": "Cisco IOS/IOS-XE 配置审查模式",
+    "vol": "08-security",
+    "domain": "安全/ops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "cisco",
+      "ios",
+      "网络",
+      "acl",
+      "安全",
+      "ops",
+      "变更管理",
+      "取证"
+    ],
+    "triggers": [
+      "Cisco IOS",
+      "show running-config",
+      "ACL 通配符掩码",
+      "变更窗口"
+    ],
+    "description": "当审查 Cisco IOS/IOS-XE 配置片段、规划变更窗口或从路由器/交换机取证时使用；做只读取证清单、配置模式定位、通配符掩码与 ACL 方向核对，产出可执行的变更检查清单；不适用于直接在生产设备下发变更或非 Cisco 平台。触发词：Cisco IOS、show running-config、ACL 通配符掩码、变更窗口",
+    "path": "08-security/cisco-ios-review-patterns/SKILL.md"
+  },
+  {
     "name": "cloud-misconfig-auditor",
     "title": "云基础设施安全审计",
     "vol": "08-security",
@@ -14163,6 +14973,36 @@
     ],
     "description": "当审查 Dockerfile 安全、修复容器 CVE、扫描镜像或为生产做容器加固时使用；做从镜像构建、扫描、运行时强制到供应链与 K8s Pod 安全的五层加固，产出加固 Dockerfile/Compose/K8s 清单与扫描签名流程；不适用于通用 Docker 用法、CI/CD 流水线本身或应用层安全（SQL 注入/XSS）；触发词：Dockerfile 安全、distroless、Trivy、seccomp、Cosign、Pod Security",
     "path": "08-security/container-security-hardening/SKILL.md"
+  },
+  {
+    "name": "defi-amm-security-audit",
+    "title": "DeFi AMM 智能合约安全审计",
+    "vol": "08-security",
+    "domain": "安全/appsec",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "DeFi",
+      "AMM",
+      "智能合约",
+      "Solidity",
+      "审计",
+      "闪电贷",
+      "价格操纵",
+      "Web3",
+      "appsec"
+    ],
+    "triggers": [
+      "AMM 审计",
+      "闪电贷攻击",
+      "价格操纵",
+      "三明治",
+      "滑点保护",
+      "重入"
+    ],
+    "description": "当审计 Uniswap/Curve/Balancer 类自动做市商（AMM）合约的 swap/mint/burn 逻辑时使用；按闪电贷、价格操纵、滑点、重入、整数运算、访问控制逐项审查并产出分级漏洞清单与加固建议；不适用于非 EVM 链、链下后端或非 AMM 的通用合约审计。触发词：AMM 审计、闪电贷攻击、价格操纵、三明治、滑点保护、重入",
+    "path": "08-security/defi-amm-security-audit/SKILL.md"
   },
   {
     "name": "dependency-auditor",
@@ -14613,6 +15453,36 @@
     ],
     "description": "当持有低权限 shell 需在授权范围内系统化排查并利用 Linux 配置缺陷提权到 root 时使用；做枚举-定位-利用全流程评估，产出提权路径、证据日志与修复建议；不适用于未授权渗透、Windows 提权或纯漏洞扫描。触发词：Linux提权、privilege escalation、SUID、sudo -l、GTFOBins",
     "path": "08-security/linux-privilege-escalation/SKILL.md"
+  },
+  {
+    "name": "network-interface-health",
+    "title": "网络接口健康诊断（错误/丢包/双工失配）",
+    "vol": "08-security",
+    "domain": "安全/ops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "网络",
+      "ops",
+      "接口诊断",
+      "CRC",
+      "丢包",
+      "双工",
+      "交换机",
+      "路由器",
+      "Linux",
+      "物理层"
+    ],
+    "triggers": [
+      "接口错误",
+      "丢包",
+      "CRC",
+      "双工失配",
+      "链路抖动",
+      "ifInErrors"
+    ],
+    "description": "当怀疑丢包、时延抖动、间歇不可达由物理链路/交换端口/线缆光模块/双工或拥塞引起时使用；做接口计数器取基线-等间隔-复测对比、CRC/runts/giants/drops/resets 归因、双工速率失配排查，产出方向定位与处置清单；不适用于纯路由/防火墙策略、应用层与 BGP/OSPF 控制面、DNS 解析故障；触发词：接口错误、丢包、CRC、双工失配、链路抖动、ifInErrors",
+    "path": "08-security/network-interface-health/SKILL.md"
   },
   {
     "name": "path-traversal-testing",
@@ -17651,6 +18521,36 @@
     "path": "09-verticals/encode-database/SKILL.md"
   },
   {
+    "name": "energy-procurement",
+    "title": "能源采购与电费优化（含 PPA 评估）",
+    "vol": "09-verticals",
+    "domain": "领域/hardware",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "能源采购",
+      "电力市场",
+      "电价优化",
+      "需量管理",
+      "PPA",
+      "对冲",
+      "可持续报告",
+      "hardware"
+    ],
+    "triggers": [
+      "能源采购",
+      "电价优化",
+      "需量电费",
+      "PPA",
+      "VPPA",
+      "对冲",
+      "负荷画像",
+      "Scope 2"
+    ],
+    "description": "当为多设施企业做电力/天然气采购、电价优化、需量电费治理或可再生能源 PPA 评估时使用；产出账单结构拆解、采购策略（固定/指数/区块+指数/分层对冲）、需量削峰 ROI 与 PPA/VPPA 风险调整 NPV 决策建议；不适用于居民/小微用电、能源交易撮合或电网运行调度。触发词：能源采购、电价优化、需量电费、PPA、VPPA、对冲、负荷画像、Scope 2。",
+    "path": "09-verticals/energy-procurement/SKILL.md"
+  },
+  {
     "name": "ensembl-database",
     "title": "Ensembl 基因注释数据库",
     "vol": "09-verticals",
@@ -17796,6 +18696,33 @@
     ],
     "description": "当为进入欧盟市场的医疗器械（含软件 SaMD）做 MDR 2017/745 合规时使用；做器械分类、技术文档、临床证据、上市后监督与 EUDAMED/UDI 注册并产出可提交公告机构的合规材料；不适用于美国 FDA、IVDR 体外诊断或非医疗器械产品。触发词：MDR、附录VIII分类、CER临床评价、PMCF、EUDAMED、UDI",
     "path": "09-verticals/eu-mdr-745-specialist/SKILL.md"
+  },
+  {
+    "name": "evm-token-decimals",
+    "title": "EVM 代币精度防错（小数位不匹配）",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "evm",
+      "erc20",
+      "web3",
+      "solidity",
+      "精度",
+      "区块链"
+    ],
+    "triggers": [
+      "ERC-20",
+      "decimals",
+      "小数位",
+      "跨链代币",
+      "桥接资产",
+      "USD 估值"
+    ],
+    "description": "当读取 ERC-20 余额、跨链比对代币数量或算法币价值时使用；运行时查询 decimals() 并按 (chain_id, token) 缓存，输出精度安全的归一化金额；不适用于非 EVM 链或链下数据库已存精度的纯展示场景；触发词：ERC-20、decimals、小数位、跨链代币、桥接资产、USD 估值",
+    "path": "09-verticals/evm-token-decimals/SKILL.md"
   },
   {
     "name": "fastp-fastq-preprocessing",
@@ -20286,6 +21213,35 @@
     ],
     "description": "当临床/科研人员要为一个明确的研究想法匹配 NIH 资助、定位科研立项策略并产出可编辑申报概览时使用；做 6 问拷问式收集→5 维 Consensus 定位→RePORTER 检索研究所/study section/NOSI→按职业阶段×范围×预实验数据匹配机制→生成 9 节 .docx；不适用于非 NIH 资助方（PCORI、DOD CDMRP、VA、基金会）。触发词：nih grant、find grants for my research、为研究找基金、NIH 资助匹配、科研基金申报、grant finder、研究所匹配",
     "path": "09-verticals/nih-grant-finder/SKILL.md"
+  },
+  {
+    "name": "nodejs-keccak256-hashing",
+    "title": "Node.js Keccak-256 以太坊哈希防错",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "web3",
+      "ethereum",
+      "keccak256",
+      "hashing",
+      "nodejs",
+      "typescript",
+      "fintech",
+      "ethers",
+      "viem"
+    ],
+    "triggers": [
+      "keccak256",
+      "sha3-256",
+      "函数选择器",
+      "存储槽",
+      "EIP-712",
+      "createHash 误用"
+    ],
+    "description": "当在 JS/TS 中计算以太坊函数选择器、事件 topic、EIP-712 类型哈希、存储槽或从公钥派生地址，或审查直接用 Node crypto 哈希以太坊数据的代码时使用；做 Keccak-256 与 NIST SHA3-256 的辨错并产出 ethers/viem/web3 正确哈希调用与审计命令；不适用于真正需要 NIST SHA3-256 的场景、非 EVM 链或合约本身的安全审计；触发词：keccak256、sha3-256、函数选择器、存储槽、EIP-712、createHash 误用",
+    "path": "09-verticals/nodejs-keccak256-hashing/SKILL.md"
   },
   {
     "name": "nprm-comment-decision-tracker",
@@ -24794,6 +25750,40 @@
     ],
     "description": "当需要跨 AWS/Azure/GCP 设计多云架构、做服务选型、规划跨云迁移或落地云无关抽象时使用；产出三云服务对照、四类多云模式选型、成本优化策略与四阶段迁移路线；不适用于单云内部调优、应用业务代码或纯本地数据中心。触发词：多云、云无关、AWS Azure GCP 选型、跨云迁移、容灾 DR、云中立",
     "path": "10-platform/multi-cloud-architecture/SKILL.md"
+  },
+  {
+    "name": "salesforce-apex-developer",
+    "title": "Salesforce Apex 与 LWC 开发",
+    "vol": "10-platform",
+    "domain": "平台/integration",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "salesforce",
+      "apex",
+      "lwc",
+      "soql",
+      "trigger",
+      "governor-limits",
+      "batch-apex",
+      "sfdx",
+      "ci-cd",
+      "integration"
+    ],
+    "triggers": [
+      "Salesforce",
+      "Apex",
+      "LWC",
+      "SOQL",
+      "SOSL",
+      "触发器",
+      "批处理",
+      "平台事件",
+      "治理限额",
+      "Salesforce DX"
+    ],
+    "description": "当在 Salesforce 平台上写/调 Apex、建 Lightning Web Components、优化 SOQL/SOSL、实现触发器/批处理/平台事件或做集成与 SFDX/CI-CD 时使用；做一套已批量化、守治理限额、测试覆盖≥90% 且经 scratch org 源驱动部署的 Apex+LWC 实现；不适用于纯声明式配置（Flow/Process Builder）、非 Salesforce CRM 或前端通用框架；触发词：Salesforce、Apex、LWC、SOQL、SOSL、触发器、批处理、平台事件、治理限额、Salesforce DX。",
+    "path": "10-platform/salesforce-apex-developer/SKILL.md"
   },
   {
     "name": "slack-bolt-bot-builder",

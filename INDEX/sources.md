@@ -16,12 +16,15 @@
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`activity-digest-generator`](../07-productivity/activity-digest-generator/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`ad-creative-generator`](../05-business/ad-creative-generator/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`adr-auto-capture`](../02-engineering/adr-auto-capture/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`adr-management-patterns`](../02-engineering/adr-management-patterns/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`adr-writer`](../07-productivity/adr-writer/SKILL.md) ← wshobson/agents　`MIT`
 - [`adversarial-code-reviewer`](../02-engineering/adversarial-code-reviewer/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`advisor-fit-analyzer`](../09-verticals/advisor-fit-analyzer/SKILL.md) ← voidful/academic-skills　`MIT`
+- [`agent-architecture-audit`](../04-ai/agent-architecture-audit/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`agent-memory-architecture`](../04-ai/agent-memory-architecture/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`agent-memory-systems`](../04-ai/agent-memory-systems/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`agent-payment-x402`](../04-ai/agent-payment-x402/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`agent-skill-security-scanner`](../08-security/agent-skill-security-scanner/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`agent-tool-design`](../04-ai/agent-tool-design/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
@@ -150,12 +153,14 @@
 - [`ci-cd-pipeline-builder`](../02-engineering/ci-cd-pipeline-builder/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`cim-builder`](../05-business/cim-builder/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`cirq-quantum-circuits`](../09-verticals/cirq-quantum-circuits/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`cisco-ios-review-patterns`](../08-security/cisco-ios-review-patterns/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`citation-management`](../01-documents/citation-management/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`claim-element-chart-builder`](../09-verticals/claim-element-chart-builder/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
 - [`claude-api`](../04-ai/claude-api/SKILL.md) ← anthropics/skills　`Apache-2.0`
 - [`claude-command-selector`](../00-meta/claude-command-selector/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`clean-code-principles`](../02-engineering/clean-code-principles/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`clean-craft-code-review`](../02-engineering/clean-craft-code-review/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`click-path-state-audit`](../02-engineering/click-path-state-audit/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`client-performance-report`](../09-verticals/client-performance-report/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`client-review-prep`](../09-verticals/client-review-prep/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`clinicaltrials-database-search`](../09-verticals/clinicaltrials-database-search/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
@@ -174,7 +179,9 @@
 - [`codebase-onboarding-doc`](../07-productivity/codebase-onboarding-doc/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`codebase-to-prd`](../01-documents/codebase-to-prd/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`codeql-scanner`](../08-security/codeql-scanner/SKILL.md) ← trailofbits/skills　`CC-BY-SA-4.0`
+- [`codetour-authoring`](../01-documents/codetour-authoring/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`codetour-walkthrough-builder`](../02-engineering/codetour-walkthrough-builder/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`coding-agent-headtohead-eval`](../04-ai/coding-agent-headtohead-eval/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`cold-email-writer`](../05-business/cold-email-writer/SKILL.md) ← coreyhaines31/marketingskills　`MIT`
 - [`company-culture-architect`](../07-productivity/company-culture-architect/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`company-culture-builder`](../07-productivity/company-culture-builder/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
@@ -195,9 +202,11 @@
 - [`constant-time-analyzer`](../08-security/constant-time-analyzer/SKILL.md) ← trailofbits/skills　`CC-BY-SA-4.0`
 - [`container-security-hardening`](../08-security/container-security-hardening/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`content-engine-strategist`](../05-business/content-engine-strategist/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`content-hash-cache-pattern`](../02-engineering/content-hash-cache-pattern/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`content-humanizer`](../01-documents/content-humanizer/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`content-marketing-strategist`](../05-business/content-marketing-strategist/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`content-strategy-planner`](../05-business/content-strategy-planner/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`context-budget-audit`](../00-meta/context-budget-audit/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`context-compression`](../04-ai/context-compression/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`context-window-management`](../04-ai/context-window-management/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`contract-amendment-history-tracer`](../09-verticals/contract-amendment-history-tracer/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
@@ -210,6 +219,7 @@
 - [`conversion-rate-optimizer`](../05-business/conversion-rate-optimizer/SKILL.md) ← coreyhaines31/marketingskills　`MIT`
 - [`convex-reactive-backend`](../02-engineering/convex-reactive-backend/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`coo-operations-advisor`](../07-productivity/coo-operations-advisor/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`cost-aware-llm-pipeline`](../04-ai/cost-aware-llm-pipeline/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`cpo-product-advisor`](../07-productivity/cpo-product-advisor/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`cpp-modern-pro`](../02-engineering/cpp-modern-pro/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`cqrs-implementation`](../02-engineering/cqrs-implementation/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
@@ -227,8 +237,10 @@
 - [`data-quality-frameworks`](../03-data/data-quality-frameworks/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`data-quality-validator`](../03-data/data-quality-validator/SKILL.md) ← wshobson/agents　`MIT`
 - [`data-question-analyzer`](../03-data/data-question-analyzer/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
+- [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`data-storyteller`](../05-business/data-storyteller/SKILL.md) ← wshobson/agents　`MIT`
 - [`data-strategy-review`](../03-data/data-strategy-review/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`data-throughput-accelerator`](../03-data/data-throughput-accelerator/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`database-design-advisor`](../02-engineering/database-design-advisor/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`database-migration-strategies`](../02-engineering/database-migration-strategies/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`datamol-cheminformatics`](../09-verticals/datamol-cheminformatics/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
@@ -248,6 +260,7 @@
 - [`decision-navigator`](../00-meta/decision-navigator/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`deepchem-drug-discovery`](../09-verticals/deepchem-drug-discovery/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`deeptools-ngs-analysis`](../09-verticals/deeptools-ngs-analysis/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
+- [`defi-amm-security-audit`](../08-security/defi-amm-security-audit/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`defi-protocol-templates`](../09-verticals/defi-protocol-templates/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`defuddle-web-extract`](../10-platform/defuddle-web-extract/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`demand-letter-drafter`](../09-verticals/demand-letter-drafter/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
@@ -269,6 +282,7 @@
 - [`distributed-tracing`](../02-engineering/distributed-tracing/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`django-async-pro`](../02-engineering/django-async-pro/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`dmca-takedown-notice`](../09-verticals/dmca-takedown-notice/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
+- [`dmux-multi-agent-workflows`](../04-ai/dmux-multi-agent-workflows/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`doc-coauthoring`](../01-documents/doc-coauthoring/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`docker-development-optimizer`](../02-engineering/docker-development-optimizer/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
@@ -294,6 +308,7 @@
 - [`employment-contract-drafter`](../09-verticals/employment-contract-drafter/SKILL.md) ← wshobson/agents　`MIT`
 - [`employment-termination-review`](../09-verticals/employment-termination-review/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
 - [`encode-database`](../09-verticals/encode-database/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
+- [`energy-procurement`](../09-verticals/energy-procurement/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`ensembl-database`](../09-verticals/ensembl-database/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`enterprise-project-manager`](../07-productivity/enterprise-project-manager/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`entity-compliance-tracker`](../09-verticals/entity-compliance-tracker/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
@@ -307,8 +322,10 @@
 - [`eu-ai-act-compliance`](../09-verticals/eu-ai-act-compliance/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`eu-mdr-745-specialist`](../09-verticals/eu-mdr-745-specialist/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`event-sourcing-cqrs`](../02-engineering/event-sourcing-cqrs/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`evm-token-decimals`](../09-verticals/evm-token-decimals/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`exa-semantic-search`](../10-platform/exa-semantic-search/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`executive-adversarial-mentor`](../00-meta/executive-adversarial-mentor/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`false-positive-check`](../08-security/false-positive-check/SKILL.md) ← trailofbits/skills　`CC-BY-SA-4.0`
 - [`fastapi-async-api`](../02-engineering/fastapi-async-api/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`fastp-fastq-preprocessing`](../09-verticals/fastp-fastq-preprocessing/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
@@ -332,6 +349,7 @@
 - [`flowio-flow-cytometry`](../09-verticals/flowio-flow-cytometry/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
 - [`flutter-expert`](../02-engineering/flutter-expert/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`four-voice-decision-council`](../00-meta/four-voice-decision-council/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`free-tool-marketing-strategy`](../05-business/free-tool-marketing-strategy/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`freedom-to-operate-triage`](../09-verticals/freedom-to-operate-triage/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
 - [`frontend-design`](../02-engineering/frontend-design/SKILL.md) ← anthropics/skills　`Apache-2.0`
@@ -377,6 +395,7 @@
 - [`headcount-org-planner`](../05-business/headcount-org-planner/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`health-goal-analyzer`](../09-verticals/health-goal-analyzer/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`helm-chart-scaffolding`](../02-engineering/helm-chart-scaffolding/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`hexagonal-architecture`](../02-engineering/hexagonal-architecture/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`histolab-wsi-tiling`](../09-verticals/histolab-wsi-tiling/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
 - [`hmdb-metabolome-database`](../09-verticals/hmdb-metabolome-database/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`hono-edge-api`](../02-engineering/hono-edge-api/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
@@ -414,6 +433,7 @@
 - [`investigation-memo-drafter`](../09-verticals/investigation-memo-drafter/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
 - [`investment-proposal-builder`](../09-verticals/investment-proposal-builder/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`investment-thesis-tracker`](../05-business/investment-thesis-tracker/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
+- [`investor-materials-builder`](../05-business/investor-materials-builder/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`ios-swiftui-developer`](../02-engineering/ios-swiftui-developer/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`ip-clause-review`](../09-verticals/ip-clause-review/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
 - [`ip-infringement-triage`](../09-verticals/ip-infringement-triage/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
@@ -425,6 +445,7 @@
 - [`iso27001-isms-implementer`](../08-security/iso27001-isms-implementer/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`iso42001-aims-specialist`](../08-security/iso42001-aims-specialist/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`istio-traffic-management`](../02-engineering/istio-traffic-management/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`iterative-context-retrieval`](../04-ai/iterative-context-retrieval/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`java-modern-pro`](../02-engineering/java-modern-pro/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`javascript-modern-pro`](../02-engineering/javascript-modern-pro/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
@@ -446,7 +467,9 @@
 - [`landing-page-copywriting`](../05-business/landing-page-copywriting/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`langfuse-llm-observability`](../04-ai/langfuse-llm-observability/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`langgraph-agent-framework`](../04-ai/langgraph-agent-framework/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`laravel-app-specialist`](../02-engineering/laravel-app-specialist/SKILL.md) ← jeffallan/claude-skills　`MIT`
 - [`laravel-security-audit`](../08-security/laravel-security-audit/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`latency-critical-systems`](../02-engineering/latency-critical-systems/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`lead-form-cro`](../05-business/lead-form-cro/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
@@ -519,6 +542,7 @@
 - [`nda-triage-reviewer`](../09-verticals/nda-triage-reviewer/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
 - [`neon-serverless-postgres`](../02-engineering/neon-serverless-postgres/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`network-interface-health`](../08-security/network-interface-health/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
 - [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
@@ -526,9 +550,11 @@
 - [`news-sentiment-briefing`](../00-meta/news-sentiment-briefing/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`nextflow-pipeline-builder`](../09-verticals/nextflow-pipeline-builder/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
 - [`nih-grant-finder`](../09-verticals/nih-grant-finder/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`nodejs-keccak256-hashing`](../09-verticals/nodejs-keccak256-hashing/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`nosql-distributed-db`](../03-data/nosql-distributed-db/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`notebooklm-source-grounded-qa`](../00-meta/notebooklm-source-grounded-qa/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`nprm-comment-decision-tracker`](../09-verticals/nprm-comment-decision-tracker/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
+- [`observability-dashboard-builder`](../02-engineering/observability-dashboard-builder/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`observability-strategy-designer`](../02-engineering/observability-strategy-designer/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) ← OctagonAI/skills　`MIT`
 - [`octagon-balance-sheet-data`](../09-verticals/octagon-balance-sheet-data/SKILL.md) ← OctagonAI/skills　`MIT`
@@ -579,6 +605,7 @@
 - [`odoo-localization-compliance`](../09-verticals/odoo-localization-compliance/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`offer-letter-drafter`](../05-business/offer-letter-drafter/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`offer-restrictive-covenant-review`](../09-verticals/offer-restrictive-covenant-review/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
+- [`on-device-foundation-models`](../04-ai/on-device-foundation-models/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`oncall-handoff-writer`](../07-productivity/oncall-handoff-writer/SKILL.md) ← wshobson/agents　`MIT`
 - [`openapi-doc-generator`](../01-documents/openapi-doc-generator/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`opentargets-database`](../09-verticals/opentargets-database/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
@@ -612,6 +639,7 @@
 - [`performance-review-builder`](../05-business/performance-review-builder/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`php-pro`](../02-engineering/php-pro/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`pitch-deck-refresh`](../05-business/pitch-deck-refresh/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
+- [`platform-native-content-engine`](../05-business/platform-native-content-engine/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`plotly-interactive-viz`](../03-data/plotly-interactive-viz/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`polars-bio-genomic-intervals`](../09-verticals/polars-bio-genomic-intervals/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
@@ -665,6 +693,7 @@
 - [`quickgo-go-database`](../09-verticals/quickgo-go-database/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`qutip-open-quantum-systems`](../09-verticals/qutip-open-quantum-systems/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
 - [`rag-implementation-workflow`](../04-ai/rag-implementation-workflow/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
+- [`rails-hotwire-expert`](../02-engineering/rails-hotwire-expert/SKILL.md) ← jeffallan/claude-skills　`MIT`
 - [`rcsb-pdb-database`](../09-verticals/rcsb-pdb-database/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`react-native-architecture`](../02-engineering/react-native-architecture/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
@@ -673,8 +702,10 @@
 - [`readme-doc-writer`](../01-documents/readme-doc-writer/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`recon-break-root-cause`](../05-business/recon-break-root-cause/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`recruiting-pipeline-tracker`](../05-business/recruiting-pipeline-tracker/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
+- [`recsys-pipeline-architect`](../04-ai/recsys-pipeline-architect/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`referral-program-designer`](../05-business/referral-program-designer/SKILL.md) ← coreyhaines31/marketingskills　`MIT`
+- [`regex-vs-llm-structured-text`](../04-ai/regex-vs-llm-structured-text/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`regulatory-policy-diff`](../09-verticals/regulatory-policy-diff/SKILL.md) ← anthropics/claude-for-legal　`Apache-2.0`
 - [`release-manager`](../02-engineering/release-manager/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`research-catalyst-calendar`](../05-business/research-catalyst-calendar/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
@@ -693,6 +724,7 @@
 - [`sales-enablement`](../05-business/sales-enablement/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`sales-forecast-builder`](../05-business/sales-forecast-builder/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) ← coreyhaines31/marketingskills　`MIT`
+- [`salesforce-apex-developer`](../10-platform/salesforce-apex-developer/SKILL.md) ← jeffallan/claude-skills　`MIT`
 - [`salesforce-automation`](../07-productivity/salesforce-automation/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`samtools-bam-processing`](../09-verticals/samtools-bam-processing/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`sast-configurator`](../08-security/sast-configurator/SKILL.md) ← wshobson/agents　`MIT`
@@ -750,6 +782,7 @@
 - [`snowflake-development`](../03-data/snowflake-development/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`snpeff-variant-annotation`](../09-verticals/snpeff-variant-annotation/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
 - [`soc2-compliance-preparer`](../08-security/soc2-compliance-preparer/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`social-connections-optimizer`](../05-business/social-connections-optimizer/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`social-media-content-creator`](../05-business/social-media-content-creator/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`social-media-multi-publisher`](../05-business/social-media-multi-publisher/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`social-media-performance-analyzer`](../05-business/social-media-performance-analyzer/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
@@ -836,6 +869,7 @@
 - [`vercel-ai-sdk`](../04-ai/vercel-ai-sdk/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`videodb-perception-editing`](../06-creative/videodb-perception-editing/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`viennarna-structure-prediction`](../09-verticals/viennarna-structure-prediction/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
+- [`visa-doc-translate`](../01-documents/visa-doc-translate/SKILL.md) ← affaan-m/everything-claude-code　`MIT`
 - [`vp-engineering-advisor`](../02-engineering/vp-engineering-advisor/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`vscode-extension-development`](../02-engineering/vscode-extension-development/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`vulnerability-variant-analysis`](../08-security/vulnerability-variant-analysis/SKILL.md) ← trailofbits/skills　`CC-BY-SA-4.0`
@@ -844,6 +878,7 @@
 - [`web-artifacts-builder`](../02-engineering/web-artifacts-builder/SKILL.md) ← anthropics/skills　`Apache-2.0`
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) ← wshobson/agents　`MIT`
 - [`webapp-testing`](../02-engineering/webapp-testing/SKILL.md) ← anthropics/skills　`Apache-2.0`
+- [`websocket-realtime-engineer`](../02-engineering/websocket-realtime-engineer/SKILL.md) ← jeffallan/claude-skills　`MIT`
 - [`wechat-official-account-growth`](../05-business/wechat-official-account-growth/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`
 - [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`whatsapp-cloud-api`](../10-platform/whatsapp-cloud-api/SKILL.md) ← sickn33/antigravity-awesome-skills　`MIT`

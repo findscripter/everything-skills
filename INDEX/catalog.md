@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-共 880 条技能。
+共 915 条技能。
 
 ## 卷〇 · 通用
 
@@ -20,11 +20,13 @@
 - [`research-idea-generator`](../00-meta/research-idea-generator/SKILL.md) — 研究构想生成　`通用/research` · 进阶
 - [`boardroom-deliberation`](../00-meta/boardroom-deliberation/SKILL.md) — C 级多角色董事会六阶段审议　`通用/thinking` · 进阶
 - [`business-assumption-stress-test`](../00-meta/business-assumption-stress-test/SKILL.md) — 商业假设压力测试　`通用/thinking` · 进阶
+- [`context-budget-audit`](../00-meta/context-budget-audit/SKILL.md) — 上下文窗口预算审计（裁剪臃肿组件）　`通用/thinking` · 进阶
 - [`decision-navigator`](../00-meta/decision-navigator/SKILL.md) — 分支提问引导决策导航　`通用/thinking` · 入门
 - [`design-brainstorming`](../00-meta/design-brainstorming/SKILL.md) — 构思转设计的结构化头脑风暴　`通用/thinking` · 进阶
 - [`executive-adversarial-mentor`](../00-meta/executive-adversarial-mentor/SKILL.md) — 高管对抗式思维伙伴　`通用/thinking` · 进阶
 - [`first-principles-assumption-auditor`](../00-meta/first-principles-assumption-auditor/SKILL.md) — 第一性原理假设审计　`通用/thinking` · 进阶
 - [`first-principles-thinking`](../00-meta/first-principles-thinking/SKILL.md) — 第一性原理思考　`通用/thinking` · 进阶
+- [`four-voice-decision-council`](../00-meta/four-voice-decision-council/SKILL.md) — 四声决策议会（结构化异议与权衡）　`通用/thinking` · 进阶
 - [`premortem-plan-challenger`](../00-meta/premortem-plan-challenger/SKILL.md) — 事前验尸式计划挑战　`通用/thinking` · 进阶
 
 ## 卷一 · 文书
@@ -39,12 +41,14 @@
 - [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理　`文书/office` · 进阶
 - [`professional-proofreader`](../01-documents/professional-proofreader/SKILL.md) — 专业文稿校对　`文书/office` · 入门
 - [`python-pptx-deck-generator`](../01-documents/python-pptx-deck-generator/SKILL.md) — python-pptx 幻灯片生成　`文书/office` · 入门
+- [`visa-doc-translate`](../01-documents/visa-doc-translate/SKILL.md) — 签证申请材料双语翻译 PDF　`文书/translation` · 进阶
 - [`audio-to-markdown-transcriber`](../01-documents/audio-to-markdown-transcriber/SKILL.md) — 音频转写为结构化 Markdown 文档　`文书/writing` · 进阶
 - [`avoid-ai-writing-patterns`](../01-documents/avoid-ai-writing-patterns/SKILL.md) — 识别并重写 AI 写作腔调　`文书/writing` · 进阶
 - [`beautiful-prose-stylist`](../01-documents/beautiful-prose-stylist/SKILL.md) — 凝练有力散文写作风格契约　`文书/writing` · 进阶
 - [`citation-management`](../01-documents/citation-management/SKILL.md) — 研究写作引文系统化管理　`文书/writing` · 进阶
 - [`code-tutorial-engineer`](../01-documents/code-tutorial-engineer/SKILL.md) — 代码教程与教学内容编写　`文书/writing` · 进阶
 - [`codebase-to-prd`](../01-documents/codebase-to-prd/SKILL.md) — 代码库逆向生成PRD　`文书/writing` · 进阶
+- [`codetour-authoring`](../01-documents/codetour-authoring/SKILL.md) — CodeTour 代码导览编写　`文书/writing` · 进阶
 - [`content-humanizer`](../01-documents/content-humanizer/SKILL.md) — AI文本人性化改写　`文书/writing` · 进阶
 - [`doc-coauthoring`](../01-documents/doc-coauthoring/SKILL.md) — 协作式文档共创工作流　`文书/writing` · 进阶
 - [`humanize-chinese-text`](../01-documents/humanize-chinese-text/SKILL.md) — 中文 AI 味检测与降痕改写　`文书/writing` · 进阶
@@ -53,6 +57,7 @@
 
 ## 卷二 · 研发
 
+- [`adr-auto-capture`](../02-engineering/adr-auto-capture/SKILL.md) — 架构决策实时捕获为 ADR　`研发/architecture` · 进阶
 - [`adr-management-patterns`](../02-engineering/adr-management-patterns/SKILL.md) — 架构决策记录（ADR）管理模式　`研发/architecture` · 进阶
 - [`api-design-principles`](../02-engineering/api-design-principles/SKILL.md) — REST与GraphQL API设计　`研发/architecture` · 进阶
 - [`backend-architecture-patterns`](../02-engineering/backend-architecture-patterns/SKILL.md) — 后端架构模式（整洁/六边形/DDD）　`研发/architecture` · 进阶
@@ -63,6 +68,8 @@
 - [`ddd-strategic-design`](../02-engineering/ddd-strategic-design/SKILL.md) — DDD 战略设计与限界上下文　`研发/architecture` · 进阶
 - [`event-sourcing-cqrs`](../02-engineering/event-sourcing-cqrs/SKILL.md) — 事件溯源与 CQRS 架构　`研发/architecture` · 精通
 - [`fullstack-project-scaffolder`](../02-engineering/fullstack-project-scaffolder/SKILL.md) — 全栈项目脚手架与技术栈选型　`研发/architecture` · 进阶
+- [`hexagonal-architecture`](../02-engineering/hexagonal-architecture/SKILL.md) — 六边形架构（端口与适配器模式）　`研发/architecture` · 进阶
+- [`latency-critical-systems`](../02-engineering/latency-critical-systems/SKILL.md) — 低延迟关键系统设计　`研发/architecture` · 精通
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构　`研发/architecture` · 进阶
 - [`microservices-patterns`](../02-engineering/microservices-patterns/SKILL.md) — 微服务架构模式　`研发/architecture` · 精通
 - [`monorepo-navigator`](../02-engineering/monorepo-navigator/SKILL.md) — Monorepo 导航与构建优化　`研发/architecture` · 进阶
@@ -79,6 +86,7 @@
 - [`bullmq-job-queue`](../02-engineering/bullmq-job-queue/SKILL.md) — BullMQ Redis 任务队列后台处理　`研发/backend` · 进阶
 - [`bun-runtime-development`](../02-engineering/bun-runtime-development/SKILL.md) — Bun 运行时现代 JS/TS 开发　`研发/backend` · 进阶
 - [`cloudflare-workers-expert`](../02-engineering/cloudflare-workers-expert/SKILL.md) — Cloudflare Workers 边缘计算开发　`研发/backend` · 进阶
+- [`content-hash-cache-pattern`](../02-engineering/content-hash-cache-pattern/SKILL.md) — 内容哈希缓存模式（SHA-256 路径无关）　`研发/backend` · 进阶
 - [`convex-reactive-backend`](../02-engineering/convex-reactive-backend/SKILL.md) — Convex 响应式后端与实时订阅　`研发/backend` · 进阶
 - [`cpp-modern-pro`](../02-engineering/cpp-modern-pro/SKILL.md) — 现代 C++ RAII 与 STL 惯用法　`研发/backend` · 进阶
 - [`database-migration-strategies`](../02-engineering/database-migration-strategies/SKILL.md) — 跨 ORM 数据库迁移与回滚策略　`研发/backend` · 进阶
@@ -97,10 +105,12 @@
 - [`java-modern-pro`](../02-engineering/java-modern-pro/SKILL.md) — Java 21+ 现代开发　`研发/backend` · 进阶
 - [`javascript-modern-pro`](../02-engineering/javascript-modern-pro/SKILL.md) — 现代 JavaScript 进阶　`研发/backend` · 进阶
 - [`kotlin-coroutines-flow`](../02-engineering/kotlin-coroutines-flow/SKILL.md) — Kotlin 协程与 Flow　`研发/backend` · 进阶
+- [`laravel-app-specialist`](../02-engineering/laravel-app-specialist/SKILL.md) — Laravel 应用开发专家　`研发/backend` · 进阶
 - [`neon-serverless-postgres`](../02-engineering/neon-serverless-postgres/SKILL.md) — Neon Serverless Postgres　`研发/backend` · 进阶
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构　`研发/backend` · 进阶
 - [`php-pro`](../02-engineering/php-pro/SKILL.md) — PHP 进阶开发　`研发/backend` · 精通
 - [`prisma-orm-expert`](../02-engineering/prisma-orm-expert/SKILL.md) — Prisma ORM 专家　`研发/backend` · 进阶
+- [`rails-hotwire-expert`](../02-engineering/rails-hotwire-expert/SKILL.md) — Rails 7+ 与 Hotwire 开发专家　`研发/backend` · 精通
 - [`rest-api-endpoint-builder`](../02-engineering/rest-api-endpoint-builder/SKILL.md) — 生产级 REST API 端点构建　`研发/backend` · 进阶
 - [`ruby-pro`](../02-engineering/ruby-pro/SKILL.md) — Ruby 进阶开发　`研发/backend` · 精通
 - [`rust-pro`](../02-engineering/rust-pro/SKILL.md) — Rust 进阶开发　`研发/backend` · 精通
@@ -110,6 +120,7 @@
 - [`transactional-email-template-builder`](../02-engineering/transactional-email-template-builder/SKILL.md) — 事务邮件模板系统构建　`研发/backend` · 进阶
 - [`trpc-typesafe-api`](../02-engineering/trpc-typesafe-api/SKILL.md) — tRPC 端到端类型安全 API　`研发/backend` · 进阶
 - [`uv-python-package-manager`](../02-engineering/uv-python-package-manager/SKILL.md) — uv 高速 Python 包管理　`研发/backend` · 入门
+- [`websocket-realtime-engineer`](../02-engineering/websocket-realtime-engineer/SKILL.md) — WebSocket 实时通信工程　`研发/backend` · 进阶
 - [`aws-cdk-patterns`](../02-engineering/aws-cdk-patterns/SKILL.md) — AWS CDK 构造与基础设施模式　`研发/devops` · 进阶
 - [`bash-defensive-patterns`](../02-engineering/bash-defensive-patterns/SKILL.md) — 防御式 Bash 脚本生产实践　`研发/devops` · 进阶
 - [`bazel-build-optimization`](../02-engineering/bazel-build-optimization/SKILL.md) — Bazel 大型单仓构建优化　`研发/devops` · 进阶
@@ -168,6 +179,7 @@
 - [`error-log-detective`](../02-engineering/error-log-detective/SKILL.md) — 日志错误模式排查　`研发/observability` · 进阶
 - [`grafana-dashboards`](../02-engineering/grafana-dashboards/SKILL.md) — Grafana 可观测看板　`研发/observability` · 进阶
 - [`incident-commander-framework`](../02-engineering/incident-commander-framework/SKILL.md) — 事故指挥与响应框架　`研发/observability` · 进阶
+- [`observability-dashboard-builder`](../02-engineering/observability-dashboard-builder/SKILL.md) — 可运维监控仪表盘构建（Grafana/SigNoz）　`研发/observability` · 进阶
 - [`observability-strategy-designer`](../02-engineering/observability-strategy-designer/SKILL.md) — 可观测性策略设计（指标日志追踪）　`研发/observability` · 进阶
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）　`研发/observability` · 进阶
 - [`postmortem-writer`](../02-engineering/postmortem-writer/SKILL.md) — 无指责复盘报告撰写　`研发/observability` · 进阶
@@ -191,6 +203,7 @@
 - [`android-ui-verification`](../02-engineering/android-ui-verification/SKILL.md) — Android 模拟器 UI 端到端验证　`研发/testing` · 进阶
 - [`api-test-suite-builder`](../02-engineering/api-test-suite-builder/SKILL.md) — API 集成测试套件生成　`研发/testing` · 进阶
 - [`browserstack-cross-browser-test`](../02-engineering/browserstack-cross-browser-test/SKILL.md) — BrowserStack 跨浏览器测试　`研发/testing` · 进阶
+- [`click-path-state-audit`](../02-engineering/click-path-state-audit/SKILL.md) — 点击路径状态序列审计（隐性交互冲突）　`研发/testing` · 精通
 - [`javascript-testing-patterns`](../02-engineering/javascript-testing-patterns/SKILL.md) — JS/TS 测试策略　`研发/testing` · 进阶
 - [`k6-load-testing`](../02-engineering/k6-load-testing/SKILL.md) — k6 负载压力测试　`研发/testing` · 进阶
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) — Playwright 端到端测试　`研发/testing` · 进阶
@@ -224,6 +237,7 @@
 - [`dask-distributed-dataframes`](../03-data/dask-distributed-dataframes/SKILL.md) — Dask 超内存分布式计算　`数据/pipeline` · 进阶
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程　`数据/pipeline` · 进阶
 - [`data-quality-frameworks`](../03-data/data-quality-frameworks/SKILL.md) — 数据质量验证框架　`数据/pipeline` · 进阶
+- [`data-throughput-accelerator`](../03-data/data-throughput-accelerator/SKILL.md) — 大规模数据吞吐加速（导入/回填/ETL）　`数据/pipeline` · 进阶
 - [`dbt-transformation-modeler`](../03-data/dbt-transformation-modeler/SKILL.md) — dbt数据转换建模　`数据/pipeline` · 进阶
 - [`dbt-transformation-patterns`](../03-data/dbt-transformation-patterns/SKILL.md) — dbt 数据转换建模与测试模式　`数据/pipeline` · 进阶
 - [`snowflake-development`](../03-data/snowflake-development/SKILL.md) — Snowflake 数据开发　`数据/pipeline` · 进阶
@@ -233,6 +247,7 @@
 - [`postgresql-optimization`](../03-data/postgresql-optimization/SKILL.md) — PostgreSQL 性能优化　`数据/sql` · 进阶
 - [`sql-query-builder`](../03-data/sql-query-builder/SKILL.md) — SQL 查询构建　`数据/sql` · 进阶
 - [`csv-data-cleaner`](../03-data/csv-data-cleaner/SKILL.md) — CSV 数据清洗　`数据/wrangling` · 入门
+- [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）　`数据/wrangling` · 进阶
 - [`dataset-profiler`](../03-data/dataset-profiler/SKILL.md) — 数据集探查画像　`数据/wrangling` · 入门
 - [`dataset-quality-auditor`](../03-data/dataset-quality-auditor/SKILL.md) — 数据集质量审计　`数据/wrangling` · 进阶
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换　`数据/wrangling` · 进阶
@@ -243,6 +258,7 @@
 
 - [`agent-memory-architecture`](../04-ai/agent-memory-architecture/SKILL.md) — 智能体记忆架构设计　`智能/agents` · 进阶
 - [`agent-memory-systems`](../04-ai/agent-memory-systems/SKILL.md) — AI 智能体记忆系统设计　`智能/agents` · 进阶
+- [`agent-payment-x402`](../04-ai/agent-payment-x402/SKILL.md) — AI Agent x402 支付执行（非托管钱包与支出限额）　`智能/agents` · 进阶
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) — AI 智能体工具设计与构建　`智能/agents` · 进阶
 - [`agent-tool-design`](../04-ai/agent-tool-design/SKILL.md) — 面向 Agent 的工具设计　`智能/agents` · 精通
 - [`agent-workflow-pattern-designer`](../04-ai/agent-workflow-pattern-designer/SKILL.md) — 智能体工作流模式设计　`智能/agents` · 进阶
@@ -251,6 +267,7 @@
 - [`bdi-mental-states`](../04-ai/bdi-mental-states/SKILL.md) — BDI 智能体信念-愿望-意图建模　`智能/agents` · 精通
 - [`computer-use-agents`](../04-ai/computer-use-agents/SKILL.md) — 计算机操作型 AI 智能体构建　`智能/agents` · 进阶
 - [`crewai-multi-agent`](../04-ai/crewai-multi-agent/SKILL.md) — CrewAI 角色化多智能体框架　`智能/agents` · 进阶
+- [`dmux-multi-agent-workflows`](../04-ai/dmux-multi-agent-workflows/SKILL.md) — dmux 多 Agent 并行编排（tmux 面板）　`智能/agents` · 进阶
 - [`github-copilot-sdk`](../04-ai/github-copilot-sdk/SKILL.md) — GitHub Copilot SDK 编程集成　`智能/agents` · 进阶
 - [`langgraph-agent-framework`](../04-ai/langgraph-agent-framework/SKILL.md) — LangGraph 智能体编排　`智能/agents` · 进阶
 - [`llm-conversation-memory`](../04-ai/llm-conversation-memory/SKILL.md) — LLM 对话持久记忆系统　`智能/agents` · 进阶
@@ -258,22 +275,27 @@
 - [`multi-agent-workflow-designer`](../04-ai/multi-agent-workflow-designer/SKILL.md) — 多智能体工作流设计　`智能/agents` · 进阶
 - [`parallel-agent-hub`](../04-ai/parallel-agent-hub/SKILL.md) — 并行多智能体竞赛协作中枢　`智能/agents` · 精通
 - [`pydantic-ai-agents`](../04-ai/pydantic-ai-agents/SKILL.md) — PydanticAI 智能体开发　`智能/agents` · 进阶
+- [`recsys-pipeline-architect`](../04-ai/recsys-pipeline-architect/SKILL.md) — 推荐排序管线架构师（六阶段 For You 模式）　`智能/agents` · 进阶
 - [`self-improving-memory-agent`](../04-ai/self-improving-memory-agent/SKILL.md) — 自改进记忆沉淀智能体　`智能/agents` · 进阶
 - [`skill-creator`](../04-ai/skill-creator/SKILL.md) — 技能创建与迭代（Skill Creator）　`智能/agents` · 进阶
 - [`skill-optimizer`](../04-ai/skill-optimizer/SKILL.md) — Agent 技能诊断与优化（Skill Optimizer）　`智能/agents` · 进阶
 - [`vercel-ai-sdk`](../04-ai/vercel-ai-sdk/SKILL.md) — Vercel AI SDK 应用开发　`智能/agents` · 进阶
+- [`agent-architecture-audit`](../04-ai/agent-architecture-audit/SKILL.md) — Agent 全栈架构诊断（12 层栈审计）　`智能/eval` · 精通
 - [`ai-engineering-toolkit`](../04-ai/ai-engineering-toolkit/SKILL.md) — AI 工程工作流工具箱　`智能/eval` · 精通
+- [`coding-agent-headtohead-eval`](../04-ai/coding-agent-headtohead-eval/SKILL.md) — 编码 Agent 对比评测（通过率/成本/耗时）　`智能/eval` · 进阶
 - [`langfuse-llm-observability`](../04-ai/langfuse-llm-observability/SKILL.md) — Langfuse LLM 可观测　`智能/eval` · 进阶
 - [`llm-agent-benchmarking`](../04-ai/llm-agent-benchmarking/SKILL.md) — LLM 智能体测试与基准评测　`智能/eval` · 进阶
 - [`llm-judge-evaluation`](../04-ai/llm-judge-evaluation/SKILL.md) — LLM-as-Judge 高级评测　`智能/eval` · 进阶
 - [`chief-ai-officer-advisor`](../04-ai/chief-ai-officer-advisor/SKILL.md) — 首席 AI 官顾问（自研对外采决策）　`智能/model-ops` · 进阶
 - [`claude-api`](../04-ai/claude-api/SKILL.md) — Claude API 应用开发　`智能/model-ops` · 进阶
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家　`智能/model-ops` · 精通
+- [`cost-aware-llm-pipeline`](../04-ai/cost-aware-llm-pipeline/SKILL.md) — 成本感知 LLM 管线（模型路由与预算控制）　`智能/model-ops` · 进阶
 - [`huggingface-hub-cli`](../04-ai/huggingface-hub-cli/SKILL.md) — Hugging Face Hub CLI（hf 命令行）　`智能/model-ops` · 进阶
 - [`huggingface-model-trainer`](../04-ai/huggingface-model-trainer/SKILL.md) — TRL 模型微调训练（Hugging Face Jobs）　`智能/model-ops` · 进阶
 - [`llm-model-router`](../04-ai/llm-model-router/SKILL.md) — 测量驱动的 LLM 模型路由　`智能/model-ops` · 进阶
 - [`local-llm-inference`](../04-ai/local-llm-inference/SKILL.md) — 本地 LLM 推理部署　`智能/model-ops` · 进阶
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps　`智能/model-ops` · 进阶
+- [`on-device-foundation-models`](../04-ai/on-device-foundation-models/SKILL.md) — 端侧基础模型（量化与隐私推理）　`智能/model-ops` · 进阶
 - [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析　`智能/model-ops` · 进阶
 - [`transformers-js`](../04-ai/transformers-js/SKILL.md) — Transformers.js 浏览器端模型推理　`智能/model-ops` · 进阶
 - [`context-compression`](../04-ai/context-compression/SKILL.md) — 智能体上下文压缩策略　`智能/prompting` · 进阶
@@ -281,8 +303,10 @@
 - [`llm-prompt-caching`](../04-ai/llm-prompt-caching/SKILL.md) — LLM 提示词缓存策略　`智能/prompting` · 进阶
 - [`llm-prompt-optimizer`](../04-ai/llm-prompt-optimizer/SKILL.md) — LLM 提示词优化　`智能/prompting` · 进阶
 - [`prompt-template-designer`](../04-ai/prompt-template-designer/SKILL.md) — 提示词模板设计　`智能/prompting` · 进阶
+- [`regex-vs-llm-structured-text`](../04-ai/regex-vs-llm-structured-text/SKILL.md) — 结构化文本解析：正则与 LLM 的取舍决策　`智能/prompting` · 进阶
 - [`embedding-model-strategies`](../04-ai/embedding-model-strategies/SKILL.md) — 嵌入模型选型与优化　`智能/rag` · 进阶
 - [`hybrid-search-retrieval`](../04-ai/hybrid-search-retrieval/SKILL.md) — 向量与关键词混合检索　`智能/rag` · 进阶
+- [`iterative-context-retrieval`](../04-ai/iterative-context-retrieval/SKILL.md) — 迭代式上下文检索精炼模式　`智能/rag` · 进阶
 - [`production-llm-app-builder`](../04-ai/production-llm-app-builder/SKILL.md) — 生产级 LLM 应用与 RAG 系统构建　`智能/rag` · 精通
 - [`rag-implementation-workflow`](../04-ai/rag-implementation-workflow/SKILL.md) — RAG 检索增强实现　`智能/rag` · 进阶
 - [`rag-pipeline-builder`](../04-ai/rag-pipeline-builder/SKILL.md) — RAG 检索管道搭建　`智能/rag` · 精通
@@ -333,6 +357,7 @@
 - [`ic-investment-memo`](../05-business/ic-investment-memo/SKILL.md) — 投委会投资备忘录（IC Memo）　`商业/finance` · 进阶
 - [`initiating-coverage-report`](../05-business/initiating-coverage-report/SKILL.md) — 首次覆盖研究报告　`商业/finance` · 精通
 - [`investment-thesis-tracker`](../05-business/investment-thesis-tracker/SKILL.md) — 投资逻辑跟踪维护　`商业/finance` · 进阶
+- [`investor-materials-builder`](../05-business/investor-materials-builder/SKILL.md) — 投资人材料制作（路演 PPT / 备忘录 / 财务模型）　`商业/finance` · 进阶
 - [`ma-buyer-list`](../05-business/ma-buyer-list/SKILL.md) — 并购潜在买家清单构建　`商业/finance` · 进阶
 - [`ma-deal-teaser`](../05-business/ma-deal-teaser/SKILL.md) — 并购匿名项目简介（Teaser）　`商业/finance` · 进阶
 - [`ma-playbook`](../05-business/ma-playbook/SKILL.md) — 并购策略手册（尽调与估值整合）　`商业/finance` · 进阶
@@ -378,6 +403,7 @@
 - [`signup-flow-cro`](../05-business/signup-flow-cro/SKILL.md) — 注册流程转化优化　`商业/growth` · 进阶
 - [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览　`商业/growth` · 进阶
 - [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）　`商业/growth` · 进阶
+- [`social-connections-optimizer`](../05-business/social-connections-optimizer/SKILL.md) — 社交人脉优化（X/LinkedIn 网络重整与外联）　`商业/growth` · 进阶
 - [`social-media-multi-publisher`](../05-business/social-media-multi-publisher/SKILL.md) — 多平台社媒发布调度　`商业/growth` · 进阶
 - [`user-onboarding-optimizer`](../05-business/user-onboarding-optimizer/SKILL.md) — 用户激活与引导优化　`商业/growth` · 进阶
 - [`wechat-official-account-growth`](../05-business/wechat-official-account-growth/SKILL.md) — 微信公众号内容增长策略　`商业/growth` · 进阶
@@ -395,6 +421,7 @@
 - [`marketing-psychology`](../05-business/marketing-psychology/SKILL.md) — 营销心理与心智模型　`商业/marketing` · 进阶
 - [`paid-ad-creative`](../05-business/paid-ad-creative/SKILL.md) — 付费广告创意制作与迭代　`商业/marketing` · 进阶
 - [`paid-ads-strategist`](../05-business/paid-ads-strategist/SKILL.md) — 付费广告投放策略　`商业/marketing` · 进阶
+- [`platform-native-content-engine`](../05-business/platform-native-content-engine/SKILL.md) — 平台原生内容引擎（多平台复用矩阵）　`商业/marketing` · 进阶
 - [`product-launch-strategy`](../05-business/product-launch-strategy/SKILL.md) — 产品发布策略规划　`商业/marketing` · 进阶
 - [`product-marketing-gtm-strategy`](../05-business/product-marketing-gtm-strategy/SKILL.md) — 产品营销定位与 GTM 策略　`商业/marketing` · 进阶
 - [`social-media-content-creator`](../05-business/social-media-content-creator/SKILL.md) — 社媒内容创作与排期　`商业/marketing` · 进阶
@@ -456,6 +483,7 @@
 - [`ux-research-design-toolkit`](../06-creative/ux-research-design-toolkit/SKILL.md) — UX 研究与体验设计工具箱　`创意/design` · 进阶
 - [`ux-ui-principles-audit`](../06-creative/ux-ui-principles-audit/SKILL.md) — UX/UI 原则评估与反模式检测　`创意/design` · 进阶
 - [`algorithmic-art`](../06-creative/algorithmic-art/SKILL.md) — 算法艺术：用 p5.js 生成可探索的生成式艺术　`创意/image` · 进阶
+- [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）　`创意/image` · 进阶
 - [`slack-gif-creator`](../06-creative/slack-gif-creator/SKILL.md) — Slack 动图制作器（slack-gif-creator）　`创意/image` · 进阶
 
 ## 卷七 · 协作
@@ -525,6 +553,7 @@
 - [`burp-suite-testing`](../08-security/burp-suite-testing/SKILL.md) — Burp Suite Web 安全测试　`安全/appsec` · 进阶
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查　`安全/appsec` · 精通
 - [`codeql-scanner`](../08-security/codeql-scanner/SKILL.md) — CodeQL 数据流漏洞扫描　`安全/appsec` · 进阶
+- [`defi-amm-security-audit`](../08-security/defi-amm-security-audit/SKILL.md) — DeFi AMM 智能合约安全审计　`安全/appsec` · 精通
 - [`ffuf-web-fuzzing`](../08-security/ffuf-web-fuzzing/SKILL.md) — ffuf Web 模糊测试　`安全/appsec` · 进阶
 - [`firmware-reverse-analyst`](../08-security/firmware-reverse-analyst/SKILL.md) — 固件逆向与 IoT 安全　`安全/appsec` · 进阶
 - [`idor-vulnerability-testing`](../08-security/idor-vulnerability-testing/SKILL.md) — IDOR 越权漏洞测试　`安全/appsec` · 进阶
@@ -555,6 +584,7 @@
 - [`kyc-document-parser`](../08-security/kyc-document-parser/SKILL.md) — KYC 开户文件结构化解析　`安全/compliance` · 进阶
 - [`soc2-compliance-preparer`](../08-security/soc2-compliance-preparer/SKILL.md) — SOC 2 审计准备与控制矩阵　`安全/compliance` · 进阶
 - [`aws-penetration-testing`](../08-security/aws-penetration-testing/SKILL.md) — AWS 云环境渗透测试　`安全/ops` · 精通
+- [`cisco-ios-review-patterns`](../08-security/cisco-ios-review-patterns/SKILL.md) — Cisco IOS/IOS-XE 配置审查模式　`安全/ops` · 进阶
 - [`cloud-misconfig-auditor`](../08-security/cloud-misconfig-auditor/SKILL.md) — 云基础设施安全审计　`安全/ops` · 进阶
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试　`安全/ops` · 精通
 - [`container-security-hardening`](../08-security/container-security-hardening/SKILL.md) — 容器镜像与运行时安全加固　`安全/ops` · 进阶
@@ -562,6 +592,7 @@
 - [`firebase-apk-scanner`](../08-security/firebase-apk-scanner/SKILL.md) — Android APK Firebase 配置扫描　`安全/ops` · 进阶
 - [`k8s-security-policies`](../08-security/k8s-security-policies/SKILL.md) — Kubernetes 安全策略　`安全/ops` · 进阶
 - [`linux-privilege-escalation`](../08-security/linux-privilege-escalation/SKILL.md) — Linux 提权评估　`安全/ops` · 进阶
+- [`network-interface-health`](../08-security/network-interface-health/SKILL.md) — 网络接口健康诊断（错误/丢包/双工失配）　`安全/ops` · 进阶
 - [`secrets-management`](../08-security/secrets-management/SKILL.md) — 密钥与凭据管理　`安全/ops` · 进阶
 - [`secrets-manager`](../08-security/secrets-manager/SKILL.md) — 密钥与凭据安全管理　`安全/ops` · 进阶
 - [`security-incident-response`](../08-security/security-incident-response/SKILL.md) — 安全事件分级与响应　`安全/ops` · 进阶
@@ -583,6 +614,7 @@
 - [`dcf-valuation-model`](../09-verticals/dcf-valuation-model/SKILL.md) — DCF 现金流折现估值模型　`领域/fintech` · 精通
 - [`defi-protocol-templates`](../09-verticals/defi-protocol-templates/SKILL.md) — DeFi 协议合约模板　`领域/fintech` · 进阶
 - [`earnings-trade-analyzer`](../09-verticals/earnings-trade-analyzer/SKILL.md) — 财报后交易五因子评分　`领域/fintech` · 进阶
+- [`evm-token-decimals`](../09-verticals/evm-token-decimals/SKILL.md) — EVM 代币精度防错（小数位不匹配）　`领域/fintech` · 进阶
 - [`finviz-screener-builder`](../09-verticals/finviz-screener-builder/SKILL.md) — FinViz 选股器 URL 构建　`领域/fintech` · 进阶
 - [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递　`领域/fintech` · 进阶
 - [`institutional-flow-tracker`](../09-verticals/institutional-flow-tracker/SKILL.md) — 13F 机构持仓流向追踪　`领域/fintech` · 进阶
@@ -594,6 +626,7 @@
 - [`market-breadth-analyzer`](../09-verticals/market-breadth-analyzer/SKILL.md) — 市场宽度健康度评分　`领域/fintech` · 进阶
 - [`market-top-detector`](../09-verticals/market-top-detector/SKILL.md) — 市场顶部概率检测　`领域/fintech` · 进阶
 - [`merger-accretion-dilution-model`](../09-verticals/merger-accretion-dilution-model/SKILL.md) — 并购增厚/摊薄分析模型　`领域/fintech` · 进阶
+- [`nodejs-keccak256-hashing`](../09-verticals/nodejs-keccak256-hashing/SKILL.md) — Node.js Keccak-256 以太坊哈希防错　`领域/fintech` · 进阶
 - [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) — 分析师财务预测：营收与EPS估计区间　`领域/fintech` · 进阶
 - [`octagon-balance-sheet-data`](../09-verticals/octagon-balance-sheet-data/SKILL.md) — 资产负债表数据检索　`领域/fintech` · 入门
 - [`octagon-balance-sheet-growth`](../09-verticals/octagon-balance-sheet-growth/SKILL.md) — 资产负债表同比增长分析　`领域/fintech` · 入门
@@ -662,6 +695,7 @@
 - [`component-sourcing-search`](../09-verticals/component-sourcing-search/SKILL.md) — 电子元器件选型采购搜索　`领域/hardware` · 进阶
 - [`datasheet-spec-extractor`](../09-verticals/datasheet-spec-extractor/SKILL.md) — 元器件规格书参数提取　`领域/hardware` · 进阶
 - [`emc-precompliance-analyzer`](../09-verticals/emc-precompliance-analyzer/SKILL.md) — EMC 电磁兼容预合规分析　`领域/hardware` · 进阶
+- [`energy-procurement`](../09-verticals/energy-procurement/SKILL.md) — 能源采购与电费优化（含 PPA 评估）　`领域/hardware` · 精通
 - [`hardware-doc-generator`](../09-verticals/hardware-doc-generator/SKILL.md) — 硬件工程文档生成　`领域/hardware` · 进阶
 - [`kicad-design-reviewer`](../09-verticals/kicad-design-reviewer/SKILL.md) — KiCad 电路设计审查　`领域/hardware` · 精通
 - [`pcb-bom-manager`](../09-verticals/pcb-bom-manager/SKILL.md) — 电子物料清单(BOM)管理　`领域/hardware` · 进阶
@@ -896,6 +930,7 @@
 - [`exa-semantic-search`](../10-platform/exa-semantic-search/SKILL.md) — Exa 语义搜索研究　`平台/integration` · 入门
 - [`github-actions-author`](../10-platform/github-actions-author/SKILL.md) — GitHub Actions工作流编写　`平台/integration` · 进阶
 - [`imessage-claude-bridge`](../10-platform/imessage-claude-bridge/SKILL.md) — iMessage 短信驱动 Claude 会话桥接　`平台/integration` · 进阶
+- [`salesforce-apex-developer`](../10-platform/salesforce-apex-developer/SKILL.md) — Salesforce Apex 与 LWC 开发　`平台/integration` · 进阶
 - [`slack-bolt-bot-builder`](../10-platform/slack-bolt-bot-builder/SKILL.md) — Slack Bolt 机器人开发　`平台/integration` · 进阶
 - [`slack-message-formatter`](../10-platform/slack-message-formatter/SKILL.md) — Slack 消息撰写与 mrkdwn 排版　`平台/integration` · 入门
 - [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）　`平台/integration` · 进阶

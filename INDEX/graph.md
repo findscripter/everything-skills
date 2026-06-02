@@ -27,6 +27,13 @@ graph LR
   caveman-compressed-mode -.-|related| human-like-response-mirror
   claude-command-selector -.-|related| skill-optimizer
   claude-command-selector -.-|related| skill-creator
+  context-budget-audit -.-|related| context-window-management
+  context-budget-audit -.-|related| context-compression
+  context-budget-audit -.-|related| skill-optimizer
+  context-budget-audit -.-|related| agent-architecture-audit
+  context-budget-audit ===|combines| skill-optimizer
+  context-budget-audit ===|combines| cost-aware-llm-pipeline
+  context-budget-audit ===|combines| agent-architecture-audit
   decision-navigator -.-|related| design-brainstorming
   decision-navigator -.-|related| first-principles-thinking
   decision-navigator -.-|related| executive-adversarial-mentor
@@ -58,6 +65,14 @@ graph LR
   first-principles-assumption-auditor ===|combines| premortem-plan-challenger
   first-principles-thinking ===|combines| business-assumption-stress-test
   first-principles-thinking ===|combines| design-brainstorming
+  four-voice-decision-council -.-|related| boardroom-deliberation
+  four-voice-decision-council -.-|related| executive-adversarial-mentor
+  four-voice-decision-council -.-|related| premortem-plan-challenger
+  four-voice-decision-council -.-|related| decision-navigator
+  four-voice-decision-council -.-|related| first-principles-thinking
+  four-voice-decision-council ===|combines| premortem-plan-challenger
+  four-voice-decision-council ===|combines| business-assumption-stress-test
+  four-voice-decision-council ===|combines| entity-research-dossier
   human-like-response-mirror -.-|related| content-humanizer
   human-like-response-mirror -.-|related| avoid-ai-writing-patterns
   human-like-response-mirror -.-|related| humanize-chinese-text
@@ -120,6 +135,12 @@ graph LR
   codebase-to-prd -.-|related| technical-reference-builder
   codebase-to-prd ===|combines| docs-architect
   codebase-to-prd ===|combines| doc-coauthoring
+  codetour-authoring -.-|related| codetour-walkthrough-builder
+  codetour-authoring -.-|related| code-tutorial-engineer
+  codetour-authoring -.-|related| codebase-onboarding-doc
+  codetour-authoring -.-|related| docs-architect
+  codetour-authoring ===|combines| codebase-onboarding-doc
+  codetour-authoring ===|combines| docs-architect
   content-humanizer -.-|related| humanize-chinese-text
   content-humanizer -.-|related| professional-proofreader
   content-humanizer ===|combines| marketing-copy-editor
@@ -177,6 +198,16 @@ graph LR
   readme-doc-writer ===|combines| changelog-generator
   technical-reference-builder ===|combines| openapi-doc-generator
   technical-reference-builder ===|combines| docs-architect
+  visa-doc-translate -.-|related| pdf-processing-toolkit
+  visa-doc-translate -.-|related| pdf-form-filler
+  visa-doc-translate -.-|related| markdown-to-docx
+  visa-doc-translate ===|combines| pdf-processing-toolkit
+  adr-auto-capture -.-|related| adr-management-patterns
+  adr-auto-capture -.-|related| adr-writer
+  adr-auto-capture -.-|related| technical-change-tracker
+  adr-auto-capture -.-|related| codetour-walkthrough-builder
+  adr-auto-capture ===|combines| spec-driven-workflow
+  adr-auto-capture ===|combines| brooks-design-lint
   adversarial-code-reviewer -.-|related| code-reviewer
   adversarial-code-reviewer -.-|related| clean-craft-code-review
   adversarial-code-reviewer -.-|related| brooks-design-lint
@@ -287,6 +318,13 @@ graph LR
   clean-craft-code-review ===|combines| backend-architecture-patterns
   clean-craft-code-review ===|combines| code-simplifier
   clean-craft-code-review ===|combines| legacy-codebase-modernizer
+  click-path-state-audit -.-|related| systematic-debugger
+  click-path-state-audit -.-|related| systematic-debugging-strategies
+  click-path-state-audit -.-|related| webapp-testing
+  click-path-state-audit -.-|related| react-state-management
+  click-path-state-audit ===|combines| playwright-e2e-testing
+  click-path-state-audit ===|combines| bug-hunter
+  click-path-state-audit ===|combines| react-state-management
   code-reviewer -.-|related| dependency-auditor
   code-simplifier -.-|related| complexity-cuts
   code-simplifier -.-|related| clean-craft-code-review
@@ -300,6 +338,12 @@ graph LR
   complexity-cuts ===|combines| systematic-debugger
   complexity-cuts ===|combines| code-reviewer
   complexity-cuts ===|combines| test-coverage-gap-finder
+  content-hash-cache-pattern -.-|related| llm-prompt-caching
+  content-hash-cache-pattern -.-|related| python-performance-optimization
+  content-hash-cache-pattern -.-|related| error-handling-patterns
+  content-hash-cache-pattern -.-|related| data-throughput-accelerator
+  content-hash-cache-pattern ===|combines| pdf-processing-toolkit
+  content-hash-cache-pattern ===|combines| async-python-patterns
   cpp-modern-pro -.-|related| gdb-debugging-cli
   cpp-modern-pro -.-|related| rust-pro
   cpp-modern-pro -.-|related| c-cpp-security-review
@@ -447,6 +491,15 @@ graph LR
   grpc-golang-services -.-|related| trpc-typesafe-api
   grpc-golang-services ===|combines| microservices-patterns
   grpc-golang-services ===|combines| service-mesh-architect
+  hexagonal-architecture -.-|related| backend-architecture-patterns
+  hexagonal-architecture -.-|related| clean-code-principles
+  hexagonal-architecture -.-|related| ddd-strategic-design
+  hexagonal-architecture -.-|related| ddd-context-mapping
+  hexagonal-architecture -.-|related| event-sourcing-cqrs
+  hexagonal-architecture -.-|related| api-design-principles
+  hexagonal-architecture ===|combines| zero-downtime-migration-architect
+  hexagonal-architecture ===|combines| database-migration-strategies
+  hexagonal-architecture ===|combines| api-test-suite-builder
   i18n-localization-patterns -.-|related| accessibility-wcag-audit
   i18n-localization-patterns -.-|related| wcag-22-audit-patterns
   i18n-localization-patterns -.-|related| react-state-management
@@ -487,6 +540,20 @@ graph LR
   kotlin-coroutines-flow ===|combines| java-modern-pro
   kotlin-coroutines-flow ===|combines| react-native-architecture
   kotlin-coroutines-flow ===|combines| error-handling-patterns
+  laravel-app-specialist -.-|related| php-pro
+  laravel-app-specialist -.-|related| laravel-security-audit
+  laravel-app-specialist -.-|related| rails-hotwire-expert
+  laravel-app-specialist -.-|related| rest-api-endpoint-builder
+  laravel-app-specialist ===|combines| database-migration-strategies
+  laravel-app-specialist ===|combines| laravel-security-audit
+  laravel-app-specialist ===|combines| api-test-suite-builder
+  latency-critical-systems -.-|related| performance-profiler
+  latency-critical-systems -.-|related| websocket-realtime-engineer
+  latency-critical-systems -.-|related| content-hash-cache-pattern
+  latency-critical-systems -.-|related| microservices-patterns
+  latency-critical-systems ===|combines| observability-strategy-designer
+  latency-critical-systems ===|combines| slo-sli-implementation
+  latency-critical-systems ===|combines| data-throughput-accelerator
   legacy-codebase-modernizer -.-|related| clean-code-principles
   legacy-codebase-modernizer -.-|related| code-simplifier
   legacy-codebase-modernizer -.-|related| database-migration-strategies
@@ -519,6 +586,13 @@ graph LR
   nestjs-expert -.-|related| graphql-architect
   nestjs-expert ===|combines| prisma-orm-expert
   nestjs-expert ===|combines| zod-schema-validation
+  observability-dashboard-builder -.-|related| grafana-dashboards
+  observability-dashboard-builder -.-|related| observability-strategy-designer
+  observability-dashboard-builder -.-|related| prometheus-configuration
+  observability-dashboard-builder -.-|related| distributed-tracing
+  observability-dashboard-builder ===|combines| slo-sli-implementation
+  observability-dashboard-builder ===|combines| prometheus-configuration
+  observability-dashboard-builder ===|combines| observability-strategy-designer
   observability-strategy-designer -.-|related| slo-sli-implementation
   observability-strategy-designer -.-|related| prometheus-configuration
   observability-strategy-designer ===|combines| grafana-dashboards
@@ -567,6 +641,11 @@ graph LR
   python-testing-pytest -.-|related| test-coverage-gap-finder
   python-testing-pytest -.-|related| async-python-patterns
   python-testing-pytest ===|combines| test-coverage-gap-finder
+  rails-hotwire-expert -.-|related| ruby-pro
+  rails-hotwire-expert -.-|related| django-async-pro
+  rails-hotwire-expert -.-|related| sveltekit-fullstack
+  rails-hotwire-expert ===|combines| websocket-realtime-engineer
+  rails-hotwire-expert ===|combines| rest-api-endpoint-builder
   react-native-architecture -.-|related| ios-swiftui-developer
   react-native-architecture -.-|related| react-state-management
   react-native-architecture ===|combines| tanstack-query
@@ -700,6 +779,13 @@ graph LR
   web-artifacts-builder ===|combines| frontend-design
   web-artifacts-builder ===|combines| webapp-testing
   webapp-testing ===|combines| code-reviewer
+  websocket-realtime-engineer -.-|related| convex-reactive-backend
+  websocket-realtime-engineer -.-|related| discord-bot-architect
+  websocket-realtime-engineer -.-|related| hono-edge-api
+  websocket-realtime-engineer -.-|related| rest-api-endpoint-builder
+  websocket-realtime-engineer ===|combines| bullmq-job-queue
+  websocket-realtime-engineer ===|combines| react-state-management
+  websocket-realtime-engineer ===|combines| distributed-tracing
   zero-downtime-migration-architect -.-|related| database-migration-strategies
   zero-downtime-migration-architect -.-|related| database-design-advisor
   zero-downtime-migration-architect -.-|related| release-manager
@@ -767,10 +853,24 @@ graph LR
   data-question-analyzer -.-|related| sql-query-builder
   data-question-analyzer ===|combines| html-dashboard-builder
   data-question-analyzer ===|combines| matplotlib-visualization
+  data-scraper-agent-builder -.-|related| browser-automation-builder
+  data-scraper-agent-builder -.-|related| firecrawl-web-scraper
+  data-scraper-agent-builder -.-|related| apify-ecommerce-scraper
+  data-scraper-agent-builder -.-|related| data-pipeline-engineer
+  data-scraper-agent-builder ===|combines| regex-vs-llm-structured-text
+  data-scraper-agent-builder ===|combines| cost-aware-llm-pipeline
+  data-scraper-agent-builder ===|combines| csv-data-cleaner
   data-strategy-review -.-|related| chief-ai-officer-advisor
   data-strategy-review -.-|related| data-pipeline-engineer
   data-strategy-review ===|combines| data-quality-frameworks
   data-strategy-review ===|combines| kpi-dashboard-design
+  data-throughput-accelerator -.-|related| data-pipeline-engineer
+  data-throughput-accelerator -.-|related| spark-job-optimization
+  data-throughput-accelerator -.-|related| dask-distributed-dataframes
+  data-throughput-accelerator -.-|related| data-quality-frameworks
+  data-throughput-accelerator ===|combines| data-quality-validator
+  data-throughput-accelerator ===|combines| airflow-dag-builder
+  data-throughput-accelerator ===|combines| gl-subledger-reconciler
   dataset-profiler -.-|related| dataset-quality-auditor
   dataset-profiler -.-|related| data-quality-validator
   dataset-profiler -.-|related| analysis-qa-validator
@@ -904,6 +1004,13 @@ graph LR
   zarr-chunked-arrays -.-|related| spark-job-optimization
   zarr-chunked-arrays ===|combines| dask-distributed-dataframes
   zarr-chunked-arrays ===|combines| matplotlib-visualization
+  agent-architecture-audit -.-|related| ai-engineering-toolkit
+  agent-architecture-audit -.-|related| agent-tool-design
+  agent-architecture-audit -.-|related| agent-memory-architecture
+  agent-architecture-audit -.-|related| skill-optimizer
+  agent-architecture-audit ===|combines| langfuse-llm-observability
+  agent-architecture-audit ===|combines| llm-agent-benchmarking
+  agent-architecture-audit ===|combines| coding-agent-headtohead-eval
   agent-memory-architecture -.-|related| agent-memory-systems
   agent-memory-architecture -.-|related| llm-conversation-memory
   agent-memory-architecture -.-|related| embedding-model-strategies
@@ -917,6 +1024,13 @@ graph LR
   agent-memory-systems ===|combines| rag-pipeline-builder
   agent-memory-systems ===|combines| vector-index-tuning
   agent-memory-systems ===|combines| hybrid-search-retrieval
+  agent-payment-x402 -.-|related| agent-tool-builder
+  agent-payment-x402 -.-|related| agent-tool-design
+  agent-payment-x402 -.-|related| mcp-builder
+  agent-payment-x402 -.-|related| stripe-integration
+  agent-payment-x402 ===|combines| agent-tool-builder
+  agent-payment-x402 ===|combines| mcp-builder
+  agent-payment-x402 ===|combines| langgraph-agent-framework
   agent-tool-builder -.-|related| agent-tool-design
   agent-tool-builder -.-|related| mcp-builder
   agent-tool-builder -.-|related| pydantic-ai-agents
@@ -974,6 +1088,13 @@ graph LR
   claude-api ===|combines| llm-prompt-optimizer
   claude-api ===|combines| context-window-management
   claude-api ===|combines| langfuse-llm-observability
+  coding-agent-headtohead-eval -.-|related| llm-judge-evaluation
+  coding-agent-headtohead-eval -.-|related| llm-agent-benchmarking
+  coding-agent-headtohead-eval -.-|related| autonomous-coding-agent-patterns
+  coding-agent-headtohead-eval -.-|related| ai-engineering-toolkit
+  coding-agent-headtohead-eval ===|combines| llm-judge-evaluation
+  coding-agent-headtohead-eval ===|combines| parallel-agent-hub
+  coding-agent-headtohead-eval ===|combines| llm-model-router
   computer-use-agents -.-|related| browser-automation-builder
   computer-use-agents -.-|related| computer-vision-expert
   computer-use-agents -.-|related| agent-tool-builder
@@ -999,6 +1120,12 @@ graph LR
   context-window-management -.-|related| llm-model-router
   context-window-management ===|combines| production-llm-app-builder
   context-window-management ===|combines| rag-pipeline-builder
+  cost-aware-llm-pipeline -.-|related| llm-model-router
+  cost-aware-llm-pipeline -.-|related| llm-prompt-caching
+  cost-aware-llm-pipeline -.-|related| claude-api
+  cost-aware-llm-pipeline -.-|related| production-llm-app-builder
+  cost-aware-llm-pipeline ===|combines| langfuse-llm-observability
+  cost-aware-llm-pipeline ===|combines| mlops-model-productionizer
   crewai-multi-agent -.-|related| langgraph-agent-framework
   crewai-multi-agent -.-|related| multi-agent-system-designer
   crewai-multi-agent -.-|related| multi-agent-workflow-designer
@@ -1006,6 +1133,13 @@ graph LR
   crewai-multi-agent ===|combines| agent-tool-builder
   crewai-multi-agent ===|combines| agent-workflow-pattern-designer
   crewai-multi-agent ===|combines| llm-agent-benchmarking
+  dmux-multi-agent-workflows -.-|related| parallel-agent-hub
+  dmux-multi-agent-workflows -.-|related| multi-agent-orchestrator
+  dmux-multi-agent-workflows -.-|related| multi-agent-system-designer
+  dmux-multi-agent-workflows -.-|related| autonomous-coding-agent-patterns
+  dmux-multi-agent-workflows ===|combines| git-worktrees-workflow
+  dmux-multi-agent-workflows ===|combines| tmux-session-management
+  dmux-multi-agent-workflows ===|combines| coding-agent-headtohead-eval
   embedding-model-strategies -.-|related| hybrid-search-retrieval
   embedding-model-strategies -.-|related| vector-index-tuning
   embedding-model-strategies -.-|related| rag-pipeline-builder
@@ -1036,6 +1170,12 @@ graph LR
   hybrid-search-retrieval -.-|related| rag-implementation-workflow
   hybrid-search-retrieval ===|combines| production-llm-app-builder
   hybrid-search-retrieval ===|combines| postgresql-optimization
+  iterative-context-retrieval -.-|related| hybrid-search-retrieval
+  iterative-context-retrieval -.-|related| rag-implementation-workflow
+  iterative-context-retrieval -.-|related| query-decomposition-search
+  iterative-context-retrieval -.-|related| context-compression
+  iterative-context-retrieval ===|combines| multi-agent-workflow-designer
+  iterative-context-retrieval ===|combines| context-window-management
   langfuse-llm-observability -.-|related| llm-judge-evaluation
   langfuse-llm-observability -.-|related| llm-agent-benchmarking
   langfuse-llm-observability -.-|related| ai-engineering-toolkit
@@ -1087,6 +1227,11 @@ graph LR
   multi-agent-workflow-designer ===|combines| agent-tool-design
   multi-agent-workflow-designer ===|combines| context-compression
   multi-agent-workflow-designer ===|combines| llm-agent-benchmarking
+  on-device-foundation-models -.-|related| local-llm-inference
+  on-device-foundation-models -.-|related| production-llm-app-builder
+  on-device-foundation-models -.-|related| agent-tool-design
+  on-device-foundation-models ===|combines| prompt-template-designer
+  on-device-foundation-models ===|combines| llm-model-router
   parallel-agent-hub -.-|related| multi-agent-system-designer
   parallel-agent-hub -.-|related| crewai-multi-agent
   parallel-agent-hub ===|combines| git-worktrees-workflow
@@ -1112,6 +1257,18 @@ graph LR
   rag-pipeline-builder -->|requires| prompt-template-designer
   rag-pipeline-builder ===|combines| vector-index-tuning
   rag-pipeline-builder ===|combines| llm-judge-evaluation
+  recsys-pipeline-architect -.-|related| hybrid-search-retrieval
+  recsys-pipeline-architect -.-|related| production-llm-app-builder
+  recsys-pipeline-architect -.-|related| rag-pipeline-builder
+  recsys-pipeline-architect -.-|related| vector-index-tuning
+  recsys-pipeline-architect ===|combines| embedding-model-strategies
+  recsys-pipeline-architect ===|combines| ab-test-designer
+  recsys-pipeline-architect ===|combines| agent-workflow-pattern-designer
+  regex-vs-llm-structured-text -.-|related| prompt-template-designer
+  regex-vs-llm-structured-text -.-|related| llm-model-router
+  regex-vs-llm-structured-text -.-|related| rag-pipeline-builder
+  regex-vs-llm-structured-text ===|combines| claude-api
+  regex-vs-llm-structured-text ===|combines| llm-judge-evaluation
   self-improving-memory-agent -.-|related| skill-creator
   self-improving-memory-agent ===|combines| skill-optimizer
   self-improving-memory-agent ===|combines| autonomous-coding-agent-patterns
@@ -1518,6 +1675,13 @@ graph LR
   investment-thesis-tracker -.-|related| morning-meeting-note
   investment-thesis-tracker ===|combines| equity-earnings-update-report
   investment-thesis-tracker ===|combines| earnings-preview-model
+  investor-materials-builder -.-|related| ib-pitch-deck-builder
+  investor-materials-builder -.-|related| board-deck-builder
+  investor-materials-builder -.-|related| startup-financial-modeler
+  investor-materials-builder -.-|related| pitch-deck-refresh
+  investor-materials-builder ===|combines| python-pptx-deck-generator
+  investor-materials-builder ===|combines| three-statement-model
+  investor-materials-builder ===|combines| market-sizing-tam-sam-som
   journal-entry-preparer -.-|related| month-end-close-manager
   journal-entry-preparer -.-|related| gl-subledger-reconciler
   journal-entry-preparer -.-|related| financial-statements-generator
@@ -1653,6 +1817,13 @@ graph LR
   pitch-deck-refresh -.-|related| board-deck-builder
   pitch-deck-refresh -.-|related| financial-model-updater
   pitch-deck-refresh ===|combines| company-tear-sheet
+  platform-native-content-engine -.-|related| content-engine-strategist
+  platform-native-content-engine -.-|related| content-marketing-strategist
+  platform-native-content-engine -.-|related| social-media-content-creator
+  platform-native-content-engine -.-|related| content-strategy-planner
+  platform-native-content-engine ===|combines| social-media-multi-publisher
+  platform-native-content-engine ===|combines| social-media-content-creator
+  platform-native-content-engine ===|combines| content-engine-strategist
   popup-modal-cro -.-|related| conversion-rate-optimizer
   popup-modal-cro -.-|related| signup-flow-cro
   popup-modal-cro ===|combines| conversion-rate-optimizer
@@ -1823,6 +1994,12 @@ graph LR
   smb-quarterly-business-review ===|combines| smb-business-pulse
   smb-quarterly-business-review ===|combines| smb-cash-flow-forecast
   smb-quarterly-business-review ===|combines| board-deck-builder
+  social-connections-optimizer -.-|related| sales-prospecting
+  social-connections-optimizer -.-|related| cold-email-writer
+  social-connections-optimizer -.-|related| social-media-multi-publisher
+  social-connections-optimizer -.-|related| x-twitter-automation
+  social-connections-optimizer ===|combines| apollo-lead-enrichment
+  social-connections-optimizer ===|combines| signal-based-call-prep
   social-media-content-creator -.-|related| social-media-multi-publisher
   social-media-content-creator -.-|related| social-media-performance-analyzer
   social-media-content-creator -.-|related| content-engine-strategist
@@ -1944,6 +2121,13 @@ graph LR
   design-spells-microinteractions ===|combines| animejs-web-animation
   design-spells-microinteractions ===|combines| tailwind-css-patterns
   design-spells-microinteractions ===|combines| web-artifacts-builder
+  fal-ai-media-generation -.-|related| slack-gif-creator
+  fal-ai-media-generation -.-|related| algorithmic-art
+  fal-ai-media-generation -.-|related| demo-video-generator
+  fal-ai-media-generation -.-|related| videodb-perception-editing
+  fal-ai-media-generation ===|combines| ad-creative-generator
+  fal-ai-media-generation ===|combines| mcp-builder
+  fal-ai-media-generation ===|combines| demo-video-generator
   glassmorphism-ui-design -.-|related| threejs-3d-web
   glassmorphism-ui-design -.-|related| frontend-design
   glassmorphism-ui-design ===|combines| threejs-3d-web
@@ -2338,6 +2522,12 @@ graph LR
   c-cpp-security-review ===|combines| codeql-scanner
   c-cpp-security-review ===|combines| vulnerability-variant-analysis
   c-cpp-security-review ===|combines| false-positive-check
+  cisco-ios-review-patterns -.-|related| network-interface-health
+  cisco-ios-review-patterns -.-|related| wireshark-traffic-analysis
+  cisco-ios-review-patterns -.-|related| cloud-misconfig-auditor
+  cisco-ios-review-patterns -.-|related| k8s-security-policies
+  cisco-ios-review-patterns ===|combines| change-management-request
+  cisco-ios-review-patterns ===|combines| security-incident-response
   cloud-misconfig-auditor -.-|related| cloud-penetration-testing
   cloud-misconfig-auditor -.-|related| k8s-security-policies
   cloud-misconfig-auditor -.-|related| container-security-hardening
@@ -2371,6 +2561,13 @@ graph LR
   container-security-hardening ===|combines| k8s-security-policies
   container-security-hardening ===|combines| dependency-auditor
   container-security-hardening ===|combines| docker-development-optimizer
+  defi-amm-security-audit -.-|related| solidity-security-auditor
+  defi-amm-security-audit -.-|related| defi-protocol-templates
+  defi-amm-security-audit -.-|related| blockchain-web3-developer
+  defi-amm-security-audit -.-|related| c-cpp-security-review
+  defi-amm-security-audit ===|combines| solidity-security-auditor
+  defi-amm-security-audit ===|combines| false-positive-check
+  defi-amm-security-audit ===|combines| security-audit-toolkit
   dependency-auditor -.-|related| supply-chain-risk-auditor
   dependency-auditor -.-|related| sast-configurator
   dependency-auditor -.-|related| oss-license-compliance
@@ -2457,6 +2654,13 @@ graph LR
   linux-privilege-escalation ===|combines| penetration-testing-methodology
   linux-privilege-escalation ===|combines| red-team-recon
   linux-privilege-escalation ===|combines| aws-penetration-testing
+  network-interface-health -.-|related| devops-troubleshooter
+  network-interface-health -.-|related| sre-incident-responder
+  network-interface-health -.-|related| observability-strategy-designer
+  network-interface-health -.-|related| wireshark-traffic-analysis
+  network-interface-health ===|combines| wireshark-traffic-analysis
+  network-interface-health ===|combines| devops-troubleshooter
+  network-interface-health ===|combines| sre-incident-responder
   path-traversal-testing -.-|related| api-fuzzing-bug-bounty
   path-traversal-testing ===|combines| burp-suite-testing
   path-traversal-testing ===|combines| penetration-testing-methodology
@@ -3002,6 +3206,13 @@ graph LR
   encode-database ===|combines| macs3-peak-calling
   encode-database ===|combines| deeptools-ngs-analysis
   encode-database ===|combines| bwa-mem2-dna-aligner
+  energy-procurement -.-|related| vendor-evaluation
+  energy-procurement -.-|related| inventory-demand-planning
+  energy-procurement -.-|related| dcf-valuation-model
+  energy-procurement -.-|related| pe-returns-sensitivity
+  energy-procurement ===|combines| financial-analysis-toolkit
+  energy-procurement ===|combines| dcf-valuation-model
+  energy-procurement ===|combines| vendor-evaluation
   ensembl-database -.-|related| gget-genomic-databases
   ensembl-database -.-|related| ucsc-genome-browser
   ensembl-database -.-|related| uniprot-protein-database
@@ -3029,6 +3240,13 @@ graph LR
   eu-mdr-745-specialist -.-|related| eu-ai-act-compliance
   eu-mdr-745-specialist ===|combines| iso13485-qms-implementer
   eu-mdr-745-specialist ===|combines| iso14971-risk-management
+  evm-token-decimals -.-|related| nodejs-keccak256-hashing
+  evm-token-decimals -.-|related| solidity-security-auditor
+  evm-token-decimals -.-|related| blockchain-web3-developer
+  evm-token-decimals -.-|related| defi-protocol-templates
+  evm-token-decimals ===|combines| blockchain-web3-developer
+  evm-token-decimals ===|combines| defi-protocol-templates
+  evm-token-decimals ===|combines| agent-payment-x402
   fastp-fastq-preprocessing -.-|related| star-rnaseq-aligner
   fastp-fastq-preprocessing -.-|related| genomic-file-toolkit
   fastp-fastq-preprocessing -.-|related| gatk-variant-calling
@@ -3436,6 +3654,11 @@ graph LR
   nih-grant-finder -.-|related| academic-paper-writer
   nih-grant-finder ===|combines| research-experiment-designer
   nih-grant-finder ===|combines| scientific-database-lookup
+  nodejs-keccak256-hashing -.-|related| solidity-security-auditor
+  nodejs-keccak256-hashing -.-|related| blockchain-web3-developer
+  nodejs-keccak256-hashing -.-|related| defi-protocol-templates
+  nodejs-keccak256-hashing ===|combines| defi-amm-security-audit
+  nodejs-keccak256-hashing ===|combines| agent-payment-x402
   nprm-comment-decision-tracker -.-|related| regulatory-policy-diff
   nprm-comment-decision-tracker -.-|related| legal-briefing-generator
   nprm-comment-decision-tracker -.-|related| compliance-policy-redraft
@@ -4158,6 +4381,13 @@ graph LR
   multi-cloud-architecture -.-|related| aws-serverless-architect
   multi-cloud-architecture ===|combines| terraform-specialist
   multi-cloud-architecture ===|combines| kubernetes-architect
+  salesforce-apex-developer -.-|related| salesforce-automation
+  salesforce-apex-developer -.-|related| web-component-design
+  salesforce-apex-developer -.-|related| typescript-advanced-types
+  salesforce-apex-developer -.-|related| api-design-principles
+  salesforce-apex-developer ===|combines| salesforce-automation
+  salesforce-apex-developer ===|combines| ci-cd-pipeline-builder
+  salesforce-apex-developer ===|combines| api-design-principles
   slack-bolt-bot-builder -.-|related| discord-bot-architect
   slack-bolt-bot-builder -.-|related| whatsapp-cloud-api
   slack-bolt-bot-builder -.-|related| twilio-communications

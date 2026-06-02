@@ -36,6 +36,13 @@
       "status": "stable"
     },
     {
+      "id": "context-budget-audit",
+      "title": "上下文窗口预算审计（裁剪臃肿组件）",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "decision-navigator",
       "title": "分支提问引导决策导航",
       "domain": "通用/thinking",
@@ -80,6 +87,13 @@
     {
       "id": "first-principles-thinking",
       "title": "第一性原理思考",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "four-voice-decision-council",
+      "title": "四声决策议会（结构化异议与权衡）",
       "domain": "通用/thinking",
       "level": "进阶",
       "status": "stable"
@@ -178,6 +192,13 @@
     {
       "id": "codebase-to-prd",
       "title": "代码库逆向生成PRD",
+      "domain": "文书/writing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "codetour-authoring",
+      "title": "CodeTour 代码导览编写",
       "domain": "文书/writing",
       "level": "进阶",
       "status": "stable"
@@ -288,9 +309,23 @@
       "status": "stable"
     },
     {
+      "id": "visa-doc-translate",
+      "title": "签证申请材料双语翻译 PDF",
+      "domain": "文书/translation",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "accessibility-wcag-audit",
       "title": "无障碍 WCAG 合规审计",
       "domain": "研发/frontend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "adr-auto-capture",
+      "title": "架构决策实时捕获为 ADR",
+      "domain": "研发/architecture",
       "level": "进阶",
       "status": "stable"
     },
@@ -470,6 +505,13 @@
       "status": "stable"
     },
     {
+      "id": "click-path-state-audit",
+      "title": "点击路径状态序列审计（隐性交互冲突）",
+      "domain": "研发/testing",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "cloudflare-workers-expert",
       "title": "Cloudflare Workers 边缘计算开发",
       "domain": "研发/backend",
@@ -508,6 +550,13 @@
       "id": "complexity-cuts",
       "title": "降低算法时空复杂度优化",
       "domain": "研发/review",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "content-hash-cache-pattern",
+      "title": "内容哈希缓存模式（SHA-256 路径无关）",
+      "domain": "研发/backend",
       "level": "进阶",
       "status": "stable"
     },
@@ -778,6 +827,13 @@
       "status": "stable"
     },
     {
+      "id": "hexagonal-architecture",
+      "title": "六边形架构（端口与适配器模式）",
+      "domain": "研发/architecture",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "hono-edge-api",
       "title": "Hono 边缘 Web 框架",
       "domain": "研发/backend",
@@ -862,6 +918,20 @@
       "status": "stable"
     },
     {
+      "id": "laravel-app-specialist",
+      "title": "Laravel 应用开发专家",
+      "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "latency-critical-systems",
+      "title": "低延迟关键系统设计",
+      "domain": "研发/architecture",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "legacy-codebase-modernizer",
       "title": "遗留系统现代化重构",
       "domain": "研发/architecture",
@@ -907,6 +977,13 @@
       "id": "nestjs-expert",
       "title": "NestJS 企业架构",
       "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "observability-dashboard-builder",
+      "title": "可运维监控仪表盘构建（Grafana/SigNoz）",
+      "domain": "研发/observability",
       "level": "进阶",
       "status": "stable"
     },
@@ -1006,6 +1083,13 @@
       "title": "Python pytest 测试模式",
       "domain": "研发/testing",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "rails-hotwire-expert",
+      "title": "Rails 7+ 与 Hotwire 开发专家",
+      "domain": "研发/backend",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -1282,6 +1366,13 @@
       "status": "stable"
     },
     {
+      "id": "websocket-realtime-engineer",
+      "title": "WebSocket 实时通信工程",
+      "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "zero-downtime-migration-architect",
       "title": "零停机迁移与回滚架构",
       "domain": "研发/architecture",
@@ -1366,9 +1457,23 @@
       "status": "stable"
     },
     {
+      "id": "data-scraper-agent-builder",
+      "title": "自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）",
+      "domain": "数据/wrangling",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "data-strategy-review",
       "title": "数据战略决策审查",
       "domain": "数据/analysis",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "data-throughput-accelerator",
+      "title": "大规模数据吞吐加速（导入/回填/ETL）",
+      "domain": "数据/pipeline",
       "level": "进阶",
       "status": "stable"
     },
@@ -1562,6 +1667,13 @@
       "status": "stable"
     },
     {
+      "id": "agent-architecture-audit",
+      "title": "Agent 全栈架构诊断（12 层栈审计）",
+      "domain": "智能/eval",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "agent-memory-architecture",
       "title": "智能体记忆架构设计",
       "domain": "智能/agents",
@@ -1571,6 +1683,13 @@
     {
       "id": "agent-memory-systems",
       "title": "AI 智能体记忆系统设计",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "agent-payment-x402",
+      "title": "AI Agent x402 支付执行（非托管钱包与支出限额）",
       "domain": "智能/agents",
       "level": "进阶",
       "status": "stable"
@@ -1639,6 +1758,13 @@
       "status": "stable"
     },
     {
+      "id": "coding-agent-headtohead-eval",
+      "title": "编码 Agent 对比评测（通过率/成本/耗时）",
+      "domain": "智能/eval",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "computer-use-agents",
       "title": "计算机操作型 AI 智能体构建",
       "domain": "智能/agents",
@@ -1667,8 +1793,22 @@
       "status": "stable"
     },
     {
+      "id": "cost-aware-llm-pipeline",
+      "title": "成本感知 LLM 管线（模型路由与预算控制）",
+      "domain": "智能/model-ops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "crewai-multi-agent",
       "title": "CrewAI 角色化多智能体框架",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "dmux-multi-agent-workflows",
+      "title": "dmux 多 Agent 并行编排（tmux 面板）",
       "domain": "智能/agents",
       "level": "进阶",
       "status": "stable"
@@ -1704,6 +1844,13 @@
     {
       "id": "hybrid-search-retrieval",
       "title": "向量与关键词混合检索",
+      "domain": "智能/rag",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "iterative-context-retrieval",
+      "title": "迭代式上下文检索精炼模式",
       "domain": "智能/rag",
       "level": "进阶",
       "status": "stable"
@@ -1793,6 +1940,13 @@
       "status": "stable"
     },
     {
+      "id": "on-device-foundation-models",
+      "title": "端侧基础模型（量化与隐私推理）",
+      "domain": "智能/model-ops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "parallel-agent-hub",
       "title": "并行多智能体竞赛协作中枢",
       "domain": "智能/agents",
@@ -1832,6 +1986,20 @@
       "title": "RAG 检索管道搭建",
       "domain": "智能/rag",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "recsys-pipeline-architect",
+      "title": "推荐排序管线架构师（六阶段 For You 模式）",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "regex-vs-llm-structured-text",
+      "title": "结构化文本解析：正则与 LLM 的取舍决策",
+      "domain": "智能/prompting",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -2332,6 +2500,13 @@
       "status": "stable"
     },
     {
+      "id": "investor-materials-builder",
+      "title": "投资人材料制作（路演 PPT / 备忘录 / 财务模型）",
+      "domain": "商业/finance",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "journal-entry-preparer",
       "title": "会计分录编制",
       "domain": "商业/copy",
@@ -2531,6 +2706,13 @@
       "id": "pitch-deck-refresh",
       "title": "投行演示稿数据刷新",
       "domain": "商业/finance",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "platform-native-content-engine",
+      "title": "平台原生内容引擎（多平台复用矩阵）",
+      "domain": "商业/marketing",
       "level": "进阶",
       "status": "stable"
     },
@@ -2780,6 +2962,13 @@
       "status": "stable"
     },
     {
+      "id": "social-connections-optimizer",
+      "title": "社交人脉优化（X/LinkedIn 网络重整与外联）",
+      "domain": "商业/growth",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "social-media-content-creator",
       "title": "社媒内容创作与排期",
       "domain": "商业/marketing",
@@ -2944,6 +3133,13 @@
       "id": "design-spells-microinteractions",
       "title": "网页微交互与设计细节灵感",
       "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "fal-ai-media-generation",
+      "title": "fal.ai 多模态媒体生成（图像/视频/音频）",
+      "domain": "创意/image",
       "level": "进阶",
       "status": "stable"
     },
@@ -3473,6 +3669,13 @@
       "status": "stable"
     },
     {
+      "id": "cisco-ios-review-patterns",
+      "title": "Cisco IOS/IOS-XE 配置审查模式",
+      "domain": "安全/ops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "cloud-misconfig-auditor",
       "title": "云基础设施安全审计",
       "domain": "安全/ops",
@@ -3512,6 +3715,13 @@
       "title": "容器镜像与运行时安全加固",
       "domain": "安全/ops",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "defi-amm-security-audit",
+      "title": "DeFi AMM 智能合约安全审计",
+      "domain": "安全/appsec",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -3622,6 +3832,13 @@
     {
       "id": "linux-privilege-escalation",
       "title": "Linux 提权评估",
+      "domain": "安全/ops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "network-interface-health",
+      "title": "网络接口健康诊断（错误/丢包/双工失配）",
       "domain": "安全/ops",
       "level": "进阶",
       "status": "stable"
@@ -4334,6 +4551,13 @@
       "status": "stable"
     },
     {
+      "id": "energy-procurement",
+      "title": "能源采购与电费优化（含 PPA 评估）",
+      "domain": "领域/hardware",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "ensembl-database",
       "title": "Ensembl 基因注释数据库",
       "domain": "领域/science",
@@ -4366,6 +4590,13 @@
       "title": "欧盟 MDR 2017/745 医疗器械合规",
       "domain": "领域/medical",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "evm-token-decimals",
+      "title": "EVM 代币精度防错（小数位不匹配）",
+      "domain": "领域/fintech",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -4925,6 +5156,13 @@
       "id": "nih-grant-finder",
       "title": "NIH 科研基金匹配与申报",
       "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "nodejs-keccak256-hashing",
+      "title": "Node.js Keccak-256 以太坊哈希防错",
+      "domain": "领域/fintech",
       "level": "进阶",
       "status": "stable"
     },
@@ -6000,6 +6238,13 @@
       "status": "stable"
     },
     {
+      "id": "salesforce-apex-developer",
+      "title": "Salesforce Apex 与 LWC 开发",
+      "domain": "平台/integration",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "slack-bolt-bot-builder",
       "title": "Slack Bolt 机器人开发",
       "domain": "平台/integration",
@@ -6273,6 +6518,41 @@
       "type": "related"
     },
     {
+      "from": "context-budget-audit",
+      "to": "context-window-management",
+      "type": "related"
+    },
+    {
+      "from": "context-budget-audit",
+      "to": "context-compression",
+      "type": "related"
+    },
+    {
+      "from": "context-budget-audit",
+      "to": "skill-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "context-budget-audit",
+      "to": "agent-architecture-audit",
+      "type": "related"
+    },
+    {
+      "from": "context-budget-audit",
+      "to": "skill-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "context-budget-audit",
+      "to": "cost-aware-llm-pipeline",
+      "type": "combines_with"
+    },
+    {
+      "from": "context-budget-audit",
+      "to": "agent-architecture-audit",
+      "type": "combines_with"
+    },
+    {
       "from": "decision-navigator",
       "to": "design-brainstorming",
       "type": "related"
@@ -6480,6 +6760,46 @@
     {
       "from": "first-principles-thinking",
       "to": "design-brainstorming",
+      "type": "combines_with"
+    },
+    {
+      "from": "four-voice-decision-council",
+      "to": "boardroom-deliberation",
+      "type": "related"
+    },
+    {
+      "from": "four-voice-decision-council",
+      "to": "executive-adversarial-mentor",
+      "type": "related"
+    },
+    {
+      "from": "four-voice-decision-council",
+      "to": "premortem-plan-challenger",
+      "type": "related"
+    },
+    {
+      "from": "four-voice-decision-council",
+      "to": "decision-navigator",
+      "type": "related"
+    },
+    {
+      "from": "four-voice-decision-council",
+      "to": "first-principles-thinking",
+      "type": "related"
+    },
+    {
+      "from": "four-voice-decision-council",
+      "to": "premortem-plan-challenger",
+      "type": "combines_with"
+    },
+    {
+      "from": "four-voice-decision-council",
+      "to": "business-assumption-stress-test",
+      "type": "combines_with"
+    },
+    {
+      "from": "four-voice-decision-council",
+      "to": "entity-research-dossier",
       "type": "combines_with"
     },
     {
@@ -6860,6 +7180,36 @@
     {
       "from": "codebase-to-prd",
       "to": "doc-coauthoring",
+      "type": "combines_with"
+    },
+    {
+      "from": "codetour-authoring",
+      "to": "codetour-walkthrough-builder",
+      "type": "related"
+    },
+    {
+      "from": "codetour-authoring",
+      "to": "code-tutorial-engineer",
+      "type": "related"
+    },
+    {
+      "from": "codetour-authoring",
+      "to": "codebase-onboarding-doc",
+      "type": "related"
+    },
+    {
+      "from": "codetour-authoring",
+      "to": "docs-architect",
+      "type": "related"
+    },
+    {
+      "from": "codetour-authoring",
+      "to": "codebase-onboarding-doc",
+      "type": "combines_with"
+    },
+    {
+      "from": "codetour-authoring",
+      "to": "docs-architect",
       "type": "combines_with"
     },
     {
@@ -7275,6 +7625,56 @@
     {
       "from": "technical-reference-builder",
       "to": "docs-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "visa-doc-translate",
+      "to": "pdf-processing-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "visa-doc-translate",
+      "to": "pdf-form-filler",
+      "type": "related"
+    },
+    {
+      "from": "visa-doc-translate",
+      "to": "markdown-to-docx",
+      "type": "related"
+    },
+    {
+      "from": "visa-doc-translate",
+      "to": "pdf-processing-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "adr-auto-capture",
+      "to": "adr-management-patterns",
+      "type": "related"
+    },
+    {
+      "from": "adr-auto-capture",
+      "to": "adr-writer",
+      "type": "related"
+    },
+    {
+      "from": "adr-auto-capture",
+      "to": "technical-change-tracker",
+      "type": "related"
+    },
+    {
+      "from": "adr-auto-capture",
+      "to": "codetour-walkthrough-builder",
+      "type": "related"
+    },
+    {
+      "from": "adr-auto-capture",
+      "to": "spec-driven-workflow",
+      "type": "combines_with"
+    },
+    {
+      "from": "adr-auto-capture",
+      "to": "brooks-design-lint",
       "type": "combines_with"
     },
     {
@@ -7858,6 +8258,41 @@
       "type": "combines_with"
     },
     {
+      "from": "click-path-state-audit",
+      "to": "systematic-debugger",
+      "type": "related"
+    },
+    {
+      "from": "click-path-state-audit",
+      "to": "systematic-debugging-strategies",
+      "type": "related"
+    },
+    {
+      "from": "click-path-state-audit",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "click-path-state-audit",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "click-path-state-audit",
+      "to": "playwright-e2e-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "click-path-state-audit",
+      "to": "bug-hunter",
+      "type": "combines_with"
+    },
+    {
+      "from": "click-path-state-audit",
+      "to": "react-state-management",
+      "type": "combines_with"
+    },
+    {
       "from": "code-reviewer",
       "to": "dependency-auditor",
       "type": "related"
@@ -7930,6 +8365,36 @@
     {
       "from": "complexity-cuts",
       "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "content-hash-cache-pattern",
+      "to": "llm-prompt-caching",
+      "type": "related"
+    },
+    {
+      "from": "content-hash-cache-pattern",
+      "to": "python-performance-optimization",
+      "type": "related"
+    },
+    {
+      "from": "content-hash-cache-pattern",
+      "to": "error-handling-patterns",
+      "type": "related"
+    },
+    {
+      "from": "content-hash-cache-pattern",
+      "to": "data-throughput-accelerator",
+      "type": "related"
+    },
+    {
+      "from": "content-hash-cache-pattern",
+      "to": "pdf-processing-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "content-hash-cache-pattern",
+      "to": "async-python-patterns",
       "type": "combines_with"
     },
     {
@@ -8733,6 +9198,51 @@
       "type": "combines_with"
     },
     {
+      "from": "hexagonal-architecture",
+      "to": "backend-architecture-patterns",
+      "type": "related"
+    },
+    {
+      "from": "hexagonal-architecture",
+      "to": "clean-code-principles",
+      "type": "related"
+    },
+    {
+      "from": "hexagonal-architecture",
+      "to": "ddd-strategic-design",
+      "type": "related"
+    },
+    {
+      "from": "hexagonal-architecture",
+      "to": "ddd-context-mapping",
+      "type": "related"
+    },
+    {
+      "from": "hexagonal-architecture",
+      "to": "event-sourcing-cqrs",
+      "type": "related"
+    },
+    {
+      "from": "hexagonal-architecture",
+      "to": "api-design-principles",
+      "type": "related"
+    },
+    {
+      "from": "hexagonal-architecture",
+      "to": "zero-downtime-migration-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "hexagonal-architecture",
+      "to": "database-migration-strategies",
+      "type": "combines_with"
+    },
+    {
+      "from": "hexagonal-architecture",
+      "to": "api-test-suite-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "i18n-localization-patterns",
       "to": "accessibility-wcag-audit",
       "type": "related"
@@ -8978,6 +9488,76 @@
       "type": "combines_with"
     },
     {
+      "from": "laravel-app-specialist",
+      "to": "php-pro",
+      "type": "related"
+    },
+    {
+      "from": "laravel-app-specialist",
+      "to": "laravel-security-audit",
+      "type": "related"
+    },
+    {
+      "from": "laravel-app-specialist",
+      "to": "rails-hotwire-expert",
+      "type": "related"
+    },
+    {
+      "from": "laravel-app-specialist",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "laravel-app-specialist",
+      "to": "database-migration-strategies",
+      "type": "combines_with"
+    },
+    {
+      "from": "laravel-app-specialist",
+      "to": "laravel-security-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "laravel-app-specialist",
+      "to": "api-test-suite-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "latency-critical-systems",
+      "to": "performance-profiler",
+      "type": "related"
+    },
+    {
+      "from": "latency-critical-systems",
+      "to": "websocket-realtime-engineer",
+      "type": "related"
+    },
+    {
+      "from": "latency-critical-systems",
+      "to": "content-hash-cache-pattern",
+      "type": "related"
+    },
+    {
+      "from": "latency-critical-systems",
+      "to": "microservices-patterns",
+      "type": "related"
+    },
+    {
+      "from": "latency-critical-systems",
+      "to": "observability-strategy-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "latency-critical-systems",
+      "to": "slo-sli-implementation",
+      "type": "combines_with"
+    },
+    {
+      "from": "latency-critical-systems",
+      "to": "data-throughput-accelerator",
+      "type": "combines_with"
+    },
+    {
       "from": "legacy-codebase-modernizer",
       "to": "clean-code-principles",
       "type": "related"
@@ -9160,6 +9740,41 @@
     {
       "from": "nestjs-expert",
       "to": "bullmq-job-queue",
+      "type": "combines_with"
+    },
+    {
+      "from": "observability-dashboard-builder",
+      "to": "grafana-dashboards",
+      "type": "related"
+    },
+    {
+      "from": "observability-dashboard-builder",
+      "to": "observability-strategy-designer",
+      "type": "related"
+    },
+    {
+      "from": "observability-dashboard-builder",
+      "to": "prometheus-configuration",
+      "type": "related"
+    },
+    {
+      "from": "observability-dashboard-builder",
+      "to": "distributed-tracing",
+      "type": "related"
+    },
+    {
+      "from": "observability-dashboard-builder",
+      "to": "slo-sli-implementation",
+      "type": "combines_with"
+    },
+    {
+      "from": "observability-dashboard-builder",
+      "to": "prometheus-configuration",
+      "type": "combines_with"
+    },
+    {
+      "from": "observability-dashboard-builder",
+      "to": "observability-strategy-designer",
       "type": "combines_with"
     },
     {
@@ -9510,6 +10125,36 @@
     {
       "from": "python-testing-pytest",
       "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "rails-hotwire-expert",
+      "to": "ruby-pro",
+      "type": "related"
+    },
+    {
+      "from": "rails-hotwire-expert",
+      "to": "laravel-app-specialist",
+      "type": "related"
+    },
+    {
+      "from": "rails-hotwire-expert",
+      "to": "django-async-pro",
+      "type": "related"
+    },
+    {
+      "from": "rails-hotwire-expert",
+      "to": "sveltekit-fullstack",
+      "type": "related"
+    },
+    {
+      "from": "rails-hotwire-expert",
+      "to": "websocket-realtime-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "rails-hotwire-expert",
+      "to": "rest-api-endpoint-builder",
       "type": "combines_with"
     },
     {
@@ -10373,6 +11018,41 @@
       "type": "combines_with"
     },
     {
+      "from": "websocket-realtime-engineer",
+      "to": "convex-reactive-backend",
+      "type": "related"
+    },
+    {
+      "from": "websocket-realtime-engineer",
+      "to": "discord-bot-architect",
+      "type": "related"
+    },
+    {
+      "from": "websocket-realtime-engineer",
+      "to": "hono-edge-api",
+      "type": "related"
+    },
+    {
+      "from": "websocket-realtime-engineer",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "websocket-realtime-engineer",
+      "to": "bullmq-job-queue",
+      "type": "combines_with"
+    },
+    {
+      "from": "websocket-realtime-engineer",
+      "to": "react-state-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "websocket-realtime-engineer",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
       "from": "zero-downtime-migration-architect",
       "to": "database-migration-strategies",
       "type": "related"
@@ -10773,6 +11453,41 @@
       "type": "combines_with"
     },
     {
+      "from": "data-scraper-agent-builder",
+      "to": "browser-automation-builder",
+      "type": "related"
+    },
+    {
+      "from": "data-scraper-agent-builder",
+      "to": "firecrawl-web-scraper",
+      "type": "related"
+    },
+    {
+      "from": "data-scraper-agent-builder",
+      "to": "apify-ecommerce-scraper",
+      "type": "related"
+    },
+    {
+      "from": "data-scraper-agent-builder",
+      "to": "data-pipeline-engineer",
+      "type": "related"
+    },
+    {
+      "from": "data-scraper-agent-builder",
+      "to": "regex-vs-llm-structured-text",
+      "type": "combines_with"
+    },
+    {
+      "from": "data-scraper-agent-builder",
+      "to": "cost-aware-llm-pipeline",
+      "type": "combines_with"
+    },
+    {
+      "from": "data-scraper-agent-builder",
+      "to": "csv-data-cleaner",
+      "type": "combines_with"
+    },
+    {
       "from": "data-strategy-review",
       "to": "chief-data-officer-advisor",
       "type": "related"
@@ -10800,6 +11515,41 @@
     {
       "from": "data-strategy-review",
       "to": "kpi-dashboard-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "data-throughput-accelerator",
+      "to": "data-pipeline-engineer",
+      "type": "related"
+    },
+    {
+      "from": "data-throughput-accelerator",
+      "to": "spark-job-optimization",
+      "type": "related"
+    },
+    {
+      "from": "data-throughput-accelerator",
+      "to": "dask-distributed-dataframes",
+      "type": "related"
+    },
+    {
+      "from": "data-throughput-accelerator",
+      "to": "data-quality-frameworks",
+      "type": "related"
+    },
+    {
+      "from": "data-throughput-accelerator",
+      "to": "data-quality-validator",
+      "type": "combines_with"
+    },
+    {
+      "from": "data-throughput-accelerator",
+      "to": "airflow-dag-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "data-throughput-accelerator",
+      "to": "gl-subledger-reconciler",
       "type": "combines_with"
     },
     {
@@ -11703,6 +12453,41 @@
       "type": "combines_with"
     },
     {
+      "from": "agent-architecture-audit",
+      "to": "ai-engineering-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "agent-architecture-audit",
+      "to": "agent-tool-design",
+      "type": "related"
+    },
+    {
+      "from": "agent-architecture-audit",
+      "to": "agent-memory-architecture",
+      "type": "related"
+    },
+    {
+      "from": "agent-architecture-audit",
+      "to": "skill-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "agent-architecture-audit",
+      "to": "langfuse-llm-observability",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-architecture-audit",
+      "to": "llm-agent-benchmarking",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-architecture-audit",
+      "to": "coding-agent-headtohead-eval",
+      "type": "combines_with"
+    },
+    {
       "from": "agent-memory-architecture",
       "to": "agent-memory-systems",
       "type": "related"
@@ -11770,6 +12555,41 @@
     {
       "from": "agent-memory-systems",
       "to": "hybrid-search-retrieval",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-payment-x402",
+      "to": "agent-tool-builder",
+      "type": "related"
+    },
+    {
+      "from": "agent-payment-x402",
+      "to": "agent-tool-design",
+      "type": "related"
+    },
+    {
+      "from": "agent-payment-x402",
+      "to": "mcp-builder",
+      "type": "related"
+    },
+    {
+      "from": "agent-payment-x402",
+      "to": "stripe-integration",
+      "type": "related"
+    },
+    {
+      "from": "agent-payment-x402",
+      "to": "agent-tool-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-payment-x402",
+      "to": "mcp-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-payment-x402",
+      "to": "langgraph-agent-framework",
       "type": "combines_with"
     },
     {
@@ -12078,6 +12898,41 @@
       "type": "combines_with"
     },
     {
+      "from": "coding-agent-headtohead-eval",
+      "to": "llm-judge-evaluation",
+      "type": "related"
+    },
+    {
+      "from": "coding-agent-headtohead-eval",
+      "to": "llm-agent-benchmarking",
+      "type": "related"
+    },
+    {
+      "from": "coding-agent-headtohead-eval",
+      "to": "autonomous-coding-agent-patterns",
+      "type": "related"
+    },
+    {
+      "from": "coding-agent-headtohead-eval",
+      "to": "ai-engineering-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "coding-agent-headtohead-eval",
+      "to": "llm-judge-evaluation",
+      "type": "combines_with"
+    },
+    {
+      "from": "coding-agent-headtohead-eval",
+      "to": "parallel-agent-hub",
+      "type": "combines_with"
+    },
+    {
+      "from": "coding-agent-headtohead-eval",
+      "to": "llm-model-router",
+      "type": "combines_with"
+    },
+    {
       "from": "computer-use-agents",
       "to": "autonomous-coding-agent-patterns",
       "type": "related"
@@ -12218,6 +13073,36 @@
       "type": "combines_with"
     },
     {
+      "from": "cost-aware-llm-pipeline",
+      "to": "llm-model-router",
+      "type": "related"
+    },
+    {
+      "from": "cost-aware-llm-pipeline",
+      "to": "llm-prompt-caching",
+      "type": "related"
+    },
+    {
+      "from": "cost-aware-llm-pipeline",
+      "to": "claude-api",
+      "type": "related"
+    },
+    {
+      "from": "cost-aware-llm-pipeline",
+      "to": "production-llm-app-builder",
+      "type": "related"
+    },
+    {
+      "from": "cost-aware-llm-pipeline",
+      "to": "langfuse-llm-observability",
+      "type": "combines_with"
+    },
+    {
+      "from": "cost-aware-llm-pipeline",
+      "to": "mlops-model-productionizer",
+      "type": "combines_with"
+    },
+    {
       "from": "crewai-multi-agent",
       "to": "langgraph-agent-framework",
       "type": "related"
@@ -12250,6 +13135,41 @@
     {
       "from": "crewai-multi-agent",
       "to": "llm-agent-benchmarking",
+      "type": "combines_with"
+    },
+    {
+      "from": "dmux-multi-agent-workflows",
+      "to": "parallel-agent-hub",
+      "type": "related"
+    },
+    {
+      "from": "dmux-multi-agent-workflows",
+      "to": "multi-agent-orchestrator",
+      "type": "related"
+    },
+    {
+      "from": "dmux-multi-agent-workflows",
+      "to": "multi-agent-system-designer",
+      "type": "related"
+    },
+    {
+      "from": "dmux-multi-agent-workflows",
+      "to": "autonomous-coding-agent-patterns",
+      "type": "related"
+    },
+    {
+      "from": "dmux-multi-agent-workflows",
+      "to": "git-worktrees-workflow",
+      "type": "combines_with"
+    },
+    {
+      "from": "dmux-multi-agent-workflows",
+      "to": "tmux-session-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "dmux-multi-agent-workflows",
+      "to": "coding-agent-headtohead-eval",
       "type": "combines_with"
     },
     {
@@ -12425,6 +13345,36 @@
     {
       "from": "hybrid-search-retrieval",
       "to": "agent-memory-systems",
+      "type": "combines_with"
+    },
+    {
+      "from": "iterative-context-retrieval",
+      "to": "hybrid-search-retrieval",
+      "type": "related"
+    },
+    {
+      "from": "iterative-context-retrieval",
+      "to": "rag-implementation-workflow",
+      "type": "related"
+    },
+    {
+      "from": "iterative-context-retrieval",
+      "to": "query-decomposition-search",
+      "type": "related"
+    },
+    {
+      "from": "iterative-context-retrieval",
+      "to": "context-compression",
+      "type": "related"
+    },
+    {
+      "from": "iterative-context-retrieval",
+      "to": "multi-agent-workflow-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "iterative-context-retrieval",
+      "to": "context-window-management",
       "type": "combines_with"
     },
     {
@@ -12848,6 +13798,31 @@
       "type": "combines_with"
     },
     {
+      "from": "on-device-foundation-models",
+      "to": "local-llm-inference",
+      "type": "related"
+    },
+    {
+      "from": "on-device-foundation-models",
+      "to": "production-llm-app-builder",
+      "type": "related"
+    },
+    {
+      "from": "on-device-foundation-models",
+      "to": "agent-tool-design",
+      "type": "related"
+    },
+    {
+      "from": "on-device-foundation-models",
+      "to": "prompt-template-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "on-device-foundation-models",
+      "to": "llm-model-router",
+      "type": "combines_with"
+    },
+    {
       "from": "parallel-agent-hub",
       "to": "autoresearch-optimization-agent",
       "type": "related"
@@ -13059,6 +14034,66 @@
     },
     {
       "from": "rag-pipeline-builder",
+      "to": "llm-judge-evaluation",
+      "type": "combines_with"
+    },
+    {
+      "from": "recsys-pipeline-architect",
+      "to": "hybrid-search-retrieval",
+      "type": "related"
+    },
+    {
+      "from": "recsys-pipeline-architect",
+      "to": "production-llm-app-builder",
+      "type": "related"
+    },
+    {
+      "from": "recsys-pipeline-architect",
+      "to": "rag-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "recsys-pipeline-architect",
+      "to": "vector-index-tuning",
+      "type": "related"
+    },
+    {
+      "from": "recsys-pipeline-architect",
+      "to": "embedding-model-strategies",
+      "type": "combines_with"
+    },
+    {
+      "from": "recsys-pipeline-architect",
+      "to": "ab-test-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "recsys-pipeline-architect",
+      "to": "agent-workflow-pattern-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "regex-vs-llm-structured-text",
+      "to": "prompt-template-designer",
+      "type": "related"
+    },
+    {
+      "from": "regex-vs-llm-structured-text",
+      "to": "llm-model-router",
+      "type": "related"
+    },
+    {
+      "from": "regex-vs-llm-structured-text",
+      "to": "rag-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "regex-vs-llm-structured-text",
+      "to": "claude-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "regex-vs-llm-structured-text",
       "to": "llm-judge-evaluation",
       "type": "combines_with"
     },
@@ -15448,6 +16483,41 @@
       "type": "combines_with"
     },
     {
+      "from": "investor-materials-builder",
+      "to": "ib-pitch-deck-builder",
+      "type": "related"
+    },
+    {
+      "from": "investor-materials-builder",
+      "to": "board-deck-builder",
+      "type": "related"
+    },
+    {
+      "from": "investor-materials-builder",
+      "to": "startup-financial-modeler",
+      "type": "related"
+    },
+    {
+      "from": "investor-materials-builder",
+      "to": "pitch-deck-refresh",
+      "type": "related"
+    },
+    {
+      "from": "investor-materials-builder",
+      "to": "python-pptx-deck-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "investor-materials-builder",
+      "to": "three-statement-model",
+      "type": "combines_with"
+    },
+    {
+      "from": "investor-materials-builder",
+      "to": "market-sizing-tam-sam-som",
+      "type": "combines_with"
+    },
+    {
       "from": "journal-entry-preparer",
       "to": "month-end-close-manager",
       "type": "related"
@@ -16400,6 +17470,41 @@
     {
       "from": "pitch-deck-refresh",
       "to": "company-tear-sheet",
+      "type": "combines_with"
+    },
+    {
+      "from": "platform-native-content-engine",
+      "to": "content-engine-strategist",
+      "type": "related"
+    },
+    {
+      "from": "platform-native-content-engine",
+      "to": "content-marketing-strategist",
+      "type": "related"
+    },
+    {
+      "from": "platform-native-content-engine",
+      "to": "social-media-content-creator",
+      "type": "related"
+    },
+    {
+      "from": "platform-native-content-engine",
+      "to": "content-strategy-planner",
+      "type": "related"
+    },
+    {
+      "from": "platform-native-content-engine",
+      "to": "social-media-multi-publisher",
+      "type": "combines_with"
+    },
+    {
+      "from": "platform-native-content-engine",
+      "to": "social-media-content-creator",
+      "type": "combines_with"
+    },
+    {
+      "from": "platform-native-content-engine",
+      "to": "content-engine-strategist",
       "type": "combines_with"
     },
     {
@@ -17578,6 +18683,36 @@
       "type": "combines_with"
     },
     {
+      "from": "social-connections-optimizer",
+      "to": "sales-prospecting",
+      "type": "related"
+    },
+    {
+      "from": "social-connections-optimizer",
+      "to": "cold-email-writer",
+      "type": "related"
+    },
+    {
+      "from": "social-connections-optimizer",
+      "to": "social-media-multi-publisher",
+      "type": "related"
+    },
+    {
+      "from": "social-connections-optimizer",
+      "to": "x-twitter-automation",
+      "type": "related"
+    },
+    {
+      "from": "social-connections-optimizer",
+      "to": "apollo-lead-enrichment",
+      "type": "combines_with"
+    },
+    {
+      "from": "social-connections-optimizer",
+      "to": "signal-based-call-prep",
+      "type": "combines_with"
+    },
+    {
       "from": "social-media-content-creator",
       "to": "social-media-multi-publisher",
       "type": "related"
@@ -18350,6 +19485,41 @@
     {
       "from": "design-spells-microinteractions",
       "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "fal-ai-media-generation",
+      "to": "slack-gif-creator",
+      "type": "related"
+    },
+    {
+      "from": "fal-ai-media-generation",
+      "to": "algorithmic-art",
+      "type": "related"
+    },
+    {
+      "from": "fal-ai-media-generation",
+      "to": "demo-video-generator",
+      "type": "related"
+    },
+    {
+      "from": "fal-ai-media-generation",
+      "to": "videodb-perception-editing",
+      "type": "related"
+    },
+    {
+      "from": "fal-ai-media-generation",
+      "to": "ad-creative-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "fal-ai-media-generation",
+      "to": "mcp-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "fal-ai-media-generation",
+      "to": "demo-video-generator",
       "type": "combines_with"
     },
     {
@@ -20868,6 +22038,36 @@
       "type": "combines_with"
     },
     {
+      "from": "cisco-ios-review-patterns",
+      "to": "network-interface-health",
+      "type": "related"
+    },
+    {
+      "from": "cisco-ios-review-patterns",
+      "to": "wireshark-traffic-analysis",
+      "type": "related"
+    },
+    {
+      "from": "cisco-ios-review-patterns",
+      "to": "cloud-misconfig-auditor",
+      "type": "related"
+    },
+    {
+      "from": "cisco-ios-review-patterns",
+      "to": "k8s-security-policies",
+      "type": "related"
+    },
+    {
+      "from": "cisco-ios-review-patterns",
+      "to": "change-management-request",
+      "type": "combines_with"
+    },
+    {
+      "from": "cisco-ios-review-patterns",
+      "to": "security-incident-response",
+      "type": "combines_with"
+    },
+    {
       "from": "cloud-misconfig-auditor",
       "to": "aws-penetration-testing",
       "type": "related"
@@ -21075,6 +22275,41 @@
     {
       "from": "container-security-hardening",
       "to": "docker-development-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "defi-amm-security-audit",
+      "to": "solidity-security-auditor",
+      "type": "related"
+    },
+    {
+      "from": "defi-amm-security-audit",
+      "to": "defi-protocol-templates",
+      "type": "related"
+    },
+    {
+      "from": "defi-amm-security-audit",
+      "to": "blockchain-web3-developer",
+      "type": "related"
+    },
+    {
+      "from": "defi-amm-security-audit",
+      "to": "c-cpp-security-review",
+      "type": "related"
+    },
+    {
+      "from": "defi-amm-security-audit",
+      "to": "solidity-security-auditor",
+      "type": "combines_with"
+    },
+    {
+      "from": "defi-amm-security-audit",
+      "to": "false-positive-check",
+      "type": "combines_with"
+    },
+    {
+      "from": "defi-amm-security-audit",
+      "to": "security-audit-toolkit",
       "type": "combines_with"
     },
     {
@@ -21635,6 +22870,41 @@
     {
       "from": "linux-privilege-escalation",
       "to": "aws-penetration-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "network-interface-health",
+      "to": "devops-troubleshooter",
+      "type": "related"
+    },
+    {
+      "from": "network-interface-health",
+      "to": "sre-incident-responder",
+      "type": "related"
+    },
+    {
+      "from": "network-interface-health",
+      "to": "observability-strategy-designer",
+      "type": "related"
+    },
+    {
+      "from": "network-interface-health",
+      "to": "wireshark-traffic-analysis",
+      "type": "related"
+    },
+    {
+      "from": "network-interface-health",
+      "to": "wireshark-traffic-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "network-interface-health",
+      "to": "devops-troubleshooter",
+      "type": "combines_with"
+    },
+    {
+      "from": "network-interface-health",
+      "to": "sre-incident-responder",
       "type": "combines_with"
     },
     {
@@ -24833,6 +26103,41 @@
       "type": "combines_with"
     },
     {
+      "from": "energy-procurement",
+      "to": "vendor-evaluation",
+      "type": "related"
+    },
+    {
+      "from": "energy-procurement",
+      "to": "inventory-demand-planning",
+      "type": "related"
+    },
+    {
+      "from": "energy-procurement",
+      "to": "dcf-valuation-model",
+      "type": "related"
+    },
+    {
+      "from": "energy-procurement",
+      "to": "pe-returns-sensitivity",
+      "type": "related"
+    },
+    {
+      "from": "energy-procurement",
+      "to": "financial-analysis-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "energy-procurement",
+      "to": "dcf-valuation-model",
+      "type": "combines_with"
+    },
+    {
+      "from": "energy-procurement",
+      "to": "vendor-evaluation",
+      "type": "combines_with"
+    },
+    {
       "from": "ensembl-database",
       "to": "gget-genomic-databases",
       "type": "related"
@@ -24980,6 +26285,41 @@
     {
       "from": "eu-mdr-745-specialist",
       "to": "iso14971-risk-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "evm-token-decimals",
+      "to": "nodejs-keccak256-hashing",
+      "type": "related"
+    },
+    {
+      "from": "evm-token-decimals",
+      "to": "solidity-security-auditor",
+      "type": "related"
+    },
+    {
+      "from": "evm-token-decimals",
+      "to": "blockchain-web3-developer",
+      "type": "related"
+    },
+    {
+      "from": "evm-token-decimals",
+      "to": "defi-protocol-templates",
+      "type": "related"
+    },
+    {
+      "from": "evm-token-decimals",
+      "to": "blockchain-web3-developer",
+      "type": "combines_with"
+    },
+    {
+      "from": "evm-token-decimals",
+      "to": "defi-protocol-templates",
+      "type": "combines_with"
+    },
+    {
+      "from": "evm-token-decimals",
+      "to": "agent-payment-x402",
       "type": "combines_with"
     },
     {
@@ -27470,6 +28810,36 @@
     {
       "from": "nih-grant-finder",
       "to": "scientific-database-lookup",
+      "type": "combines_with"
+    },
+    {
+      "from": "nodejs-keccak256-hashing",
+      "to": "evm-token-decimals",
+      "type": "related"
+    },
+    {
+      "from": "nodejs-keccak256-hashing",
+      "to": "solidity-security-auditor",
+      "type": "related"
+    },
+    {
+      "from": "nodejs-keccak256-hashing",
+      "to": "blockchain-web3-developer",
+      "type": "related"
+    },
+    {
+      "from": "nodejs-keccak256-hashing",
+      "to": "defi-protocol-templates",
+      "type": "related"
+    },
+    {
+      "from": "nodejs-keccak256-hashing",
+      "to": "defi-amm-security-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "nodejs-keccak256-hashing",
+      "to": "agent-payment-x402",
       "type": "combines_with"
     },
     {
@@ -32310,6 +33680,41 @@
     {
       "from": "multi-cloud-architecture",
       "to": "kubernetes-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "salesforce-apex-developer",
+      "to": "salesforce-automation",
+      "type": "related"
+    },
+    {
+      "from": "salesforce-apex-developer",
+      "to": "web-component-design",
+      "type": "related"
+    },
+    {
+      "from": "salesforce-apex-developer",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "salesforce-apex-developer",
+      "to": "api-design-principles",
+      "type": "related"
+    },
+    {
+      "from": "salesforce-apex-developer",
+      "to": "salesforce-automation",
+      "type": "combines_with"
+    },
+    {
+      "from": "salesforce-apex-developer",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "salesforce-apex-developer",
+      "to": "api-design-principles",
       "type": "combines_with"
     },
     {
