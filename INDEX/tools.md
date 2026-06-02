@@ -6,6 +6,9 @@
 ### `.NET`
 - [`github-copilot-sdk`](../04-ai/github-copilot-sdk/SKILL.md) — GitHub Copilot SDK 编程集成
 
+### `/aiservices/scribe/jobs`
+- [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
+
 ### `/build-fix`
 - [`claude-command-selector`](../00-meta/claude-command-selector/SKILL.md) — Claude命令与技能选择指南
 
@@ -93,6 +96,13 @@
 ### `@testing-library/react`
 - [`accessibility-wcag-audit`](../02-engineering/accessibility-wcag-audit/SKILL.md) — 无障碍 WCAG 合规审计
 
+### `@zoom/meetingsdk`
+- [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流
+
+### `@zoom/rtms`
+- [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流
+- [`zoom-rtms-realtime-media`](../10-platform/zoom-rtms-realtime-media/SKILL.md) — Zoom RTMS 实时音视频/转写处理
+
 ### `A/B testing`
 - [`conversion-rate-optimizer`](../05-business/conversion-rate-optimizer/SKILL.md) — 转化率优化分析
 - [`user-onboarding-optimizer`](../05-business/user-onboarding-optimizer/SKILL.md) — 用户激活与引导优化
@@ -168,12 +178,16 @@
 
 ### `AllChem`
 - [`cheminformatics-toolkit`](../09-verticals/cheminformatics-toolkit/SKILL.md) — 化学信息学工具箱（RDKit）
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
 
 ### `Amplitude`
 - [`marketing-analytics-tracker`](../05-business/marketing-analytics-tracker/SKILL.md) — 营销分析追踪方案
 
 ### `Anchor`
 - [`blockchain-web3-developer`](../09-verticals/blockchain-web3-developer/SKILL.md) — Web3 智能合约与 DeFi 开发
+
+### `Android WebView (Kotlin)`
+- [`zoom-virtual-agent-builder`](../10-platform/zoom-virtual-agent-builder/SKILL.md) — Zoom 虚拟客服坐席集成
 
 ### `Anime.js`
 - [`animejs-web-animation`](../06-creative/animejs-web-animation/SKILL.md) — Anime.js 高性能网页动画
@@ -193,6 +207,9 @@
 
 ### `Apollo Federation v2`
 - [`graphql-architect`](../02-engineering/graphql-architect/SKILL.md) — GraphQL 架构与联邦
+
+### `Apollo MCP`
+- [`apollo-lead-enrichment`](../05-business/apollo-lead-enrichment/SKILL.md) — Apollo 线索富化（联系卡补全）
 
 ### `Apollo Server`
 - [`graphql-architect`](../02-engineering/graphql-architect/SKILL.md) — GraphQL 架构与联邦
@@ -225,6 +242,12 @@
 - [`secrets-management`](../08-security/secrets-management/SKILL.md) — 密钥与凭据管理
 - [`secrets-manager`](../08-security/secrets-manager/SKILL.md) — 密钥与凭据安全管理
 
+### `BLAST+`
+- [`biopython-molecular-biology`](../09-verticals/biopython-molecular-biology/SKILL.md) — Biopython 分子生物学工具箱
+
+### `BUSCO`
+- [`busco-completeness-interpretation`](../09-verticals/busco-completeness-interpretation/SKILL.md) — BUSCO 组装完整度解读
+
 ### `BWA-MEM2`
 - [`gatk-variant-calling`](../09-verticals/gatk-variant-calling/SKILL.md) — GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）
 
@@ -237,6 +260,7 @@
 - [`alphafold-database-access`](../09-verticals/alphafold-database-access/SKILL.md) — AlphaFold 蛋白结构数据库访问
 - [`android-ui-verification`](../02-engineering/android-ui-verification/SKILL.md) — Android 模拟器 UI 端到端验证
 - [`api-test-suite-builder`](../02-engineering/api-test-suite-builder/SKILL.md) — API 集成测试套件生成
+- [`archs4-expression-database`](../09-verticals/archs4-expression-database/SKILL.md) — ARCHS4 RNA-seq 表达数据库
 - [`arm-cortex-firmware-expert`](../09-verticals/arm-cortex-firmware-expert/SKILL.md) — ARM Cortex-M 固件与驱动开发
 - [`attack-tree-construction`](../08-security/attack-tree-construction/SKILL.md) — 攻击树构建与威胁路径可视化
 - [`audio-to-markdown-transcriber`](../01-documents/audio-to-markdown-transcriber/SKILL.md) — 音频转写为结构化 Markdown 文档
@@ -267,6 +291,7 @@
 - [`docker-expert`](../02-engineering/docker-expert/SKILL.md) — Docker 容器优化专家
 - [`drizzle-orm-expert`](../02-engineering/drizzle-orm-expert/SKILL.md) — Drizzle ORM 模式设计
 - [`earnings-trade-analyzer`](../09-verticals/earnings-trade-analyzer/SKILL.md) — 财报后交易五因子评分
+- [`emdb-cryoem-database`](../09-verticals/emdb-cryoem-database/SKILL.md) — EMDB 冷冻电镜密度图查询
 - [`entity-research-dossier`](../00-meta/entity-research-dossier/SKILL.md) — 实体决策级调研档案（entity-research-dossier）
 - [`env-secrets-hygiene`](../08-security/env-secrets-hygiene/SKILL.md) — 环境变量与密钥卫生审计
 - [`error-log-detective`](../02-engineering/error-log-detective/SKILL.md) — 日志错误模式排查
@@ -285,12 +310,16 @@
 - [`html-dashboard-builder`](../03-data/html-dashboard-builder/SKILL.md) — 交互式 HTML 仪表盘构建
 - [`humanize-chinese-text`](../01-documents/humanize-chinese-text/SKILL.md) — 中文 AI 味检测与降痕改写
 - [`insecure-defaults-detector`](../08-security/insecure-defaults-detector/SKILL.md) — 不安全默认配置检测
+- [`interpro-domain-database`](../09-verticals/interpro-domain-database/SKILL.md) — InterPro 蛋白结构域数据库
+- [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) — JASPAR 转录因子结合谱
 - [`java-modern-pro`](../02-engineering/java-modern-pro/SKILL.md) — Java 21+ 现代开发
 - [`jetpack-compose-expert`](../02-engineering/jetpack-compose-expert/SKILL.md) — Android Jetpack Compose 开发专家
+- [`kegg-database`](../09-verticals/kegg-database/SKILL.md) — KEGG 通路与化合物数据库
 - [`kotlin-coroutines-flow`](../02-engineering/kotlin-coroutines-flow/SKILL.md) — Kotlin 协程与 Flow
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构
 - [`linux-privilege-escalation`](../08-security/linux-privilege-escalation/SKILL.md) — Linux 提权评估
 - [`llm-judge-evaluation`](../04-ai/llm-judge-evaluation/SKILL.md) — LLM-as-Judge 高级评测
+- [`medchem-compound-triage`](../09-verticals/medchem-compound-triage/SKILL.md) — 药物化学过滤与化合物筛选
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
 - [`notebooklm-source-grounded-qa`](../00-meta/notebooklm-source-grounded-qa/SKILL.md) — NotebookLM 源锚定问答
@@ -298,9 +327,14 @@
 - [`ops-capacity-planner`](../07-productivity/ops-capacity-planner/SKILL.md) — 运营产能与人力规划
 - [`paid-ad-creative`](../05-business/paid-ad-creative/SKILL.md) — 付费广告创意制作与迭代
 - [`parallel-agent-hub`](../04-ai/parallel-agent-hub/SKILL.md) — 并行多智能体竞赛协作中枢
+- [`pennylane-quantum-ml`](../09-verticals/pennylane-quantum-ml/SKILL.md) — PennyLane 量子机器学习
+- [`polars-bio-genomic-intervals`](../09-verticals/polars-bio-genomic-intervals/SKILL.md) — polars-bio 高性能基因组区间运算
+- [`pride-proteomics-database`](../09-verticals/pride-proteomics-database/SKILL.md) — PRIDE 蛋白质组数据集检索
+- [`product-margin-pricing-scenarios`](../05-business/product-margin-pricing-scenarios/SKILL.md) — 产品毛利与定价情景测算
 - [`pubchem-compound-search`](../09-verticals/pubchem-compound-search/SKILL.md) — PubChem 化合物检索
 - [`quality-documentation-control`](../09-verticals/quality-documentation-control/SKILL.md) — 医疗器械质量文件控制管理
 - [`react-native-architecture`](../02-engineering/react-native-architecture/SKILL.md) — React Native 架构模式
+- [`reactome-pathway-database`](../09-verticals/reactome-pathway-database/SKILL.md) — Reactome 通路数据库查询
 - [`rest-api-endpoint-builder`](../02-engineering/rest-api-endpoint-builder/SKILL.md) — 生产级 REST API 端点构建
 - [`sales-forecast-builder`](../05-business/sales-forecast-builder/SKILL.md) — 加权销售预测构建器
 - [`schema-markup-builder`](../05-business/schema-markup-builder/SKILL.md) — 结构化数据 Schema 标记
@@ -309,12 +343,15 @@
 - [`seo-site-architecture`](../05-business/seo-site-architecture/SKILL.md) — 网站结构与 URL 层级设计
 - [`service-mesh-architect`](../02-engineering/service-mesh-architect/SKILL.md) — 服务网格架构（Istio/Linkerd）
 - [`shellcheck-linting`](../02-engineering/shellcheck-linting/SKILL.md) — ShellCheck 脚本静态检查配置
+- [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）
 - [`supply-chain-risk-auditor`](../08-security/supply-chain-risk-auditor/SKILL.md) — 供应链依赖风险评估
 - [`trade-position-sizer`](../09-verticals/trade-position-sizer/SKILL.md) — 风险化仓位计算
 - [`trpc-typesafe-api`](../02-engineering/trpc-typesafe-api/SKILL.md) — tRPC 端到端类型安全 API
 - [`ui-design-system-builder`](../06-creative/ui-design-system-builder/SKILL.md) — UI 设计系统与设计令牌
+- [`unichem-compound-crossref`](../09-verticals/unichem-compound-crossref/SKILL.md) — UniChem 化合物 ID 交叉引用
 - [`zero-downtime-migration-architect`](../02-engineering/zero-downtime-migration-architect/SKILL.md) — 零停机迁移与回滚架构
 - [`zeroize-audit`](../08-security/zeroize-audit/SKILL.md) — 敏感数据内存清零审计（zeroize-audit）
+- [`zinc-compound-library`](../09-verticals/zinc-compound-library/SKILL.md) — ZINC 虚拟化合物库检索
 
 ### `Bash/cron`
 - [`threat-detection-hunting`](../08-security/threat-detection-hunting/SKILL.md) — 威胁狩猎与异常检测
@@ -328,6 +365,7 @@
 - [`alphafold-database-access`](../09-verticals/alphafold-database-access/SKILL.md) — AlphaFold 蛋白结构数据库访问
 
 ### `Biopython`
+- [`biopython-molecular-biology`](../09-verticals/biopython-molecular-biology/SKILL.md) — Biopython 分子生物学工具箱
 - [`diffdock-blind-docking`](../09-verticals/diffdock-blind-docking/SKILL.md) — DiffDock 扩散模型盲对接
 
 ### `Blackfire`
@@ -357,6 +395,9 @@
 ### `Buffer/Hootsuite/Later`
 - [`content-marketing-strategist`](../05-business/content-marketing-strategist/SKILL.md) — 全渠道内容营销策略
 
+### `Build 平台凭据 + HS256 JWT`
+- [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
+
 ### `BuildKit`
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
 - [`docker-development-optimizer`](../02-engineering/docker-development-optimizer/SKILL.md) — Docker构建与容器加固
@@ -378,6 +419,12 @@
 ### `Burp 内置浏览器`
 - [`burp-suite-testing`](../08-security/burp-suite-testing/SKILL.md) — Burp Suite Web 安全测试
 
+### `Butina`
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
+
+### `Buyer Universe Workbook`
+- [`ma-buyer-list`](../05-business/ma-buyer-list/SKILL.md) — 并购潜在买家清单构建
+
 ### `C++`
 - [`unreal-engine-cpp`](../06-creative/unreal-engine-cpp/SKILL.md) — Unreal Engine 5 C++ 开发
 
@@ -394,6 +441,18 @@
 ### `CLAUDE_CODE_WORKFLOWS`
 - [`agent-workflow-builder`](../07-productivity/agent-workflow-builder/SKILL.md) — 多智能体工作流编排脚本构建
 
+### `CLM MCP`
+- [`vendor-agreement-status-checker`](../09-verticals/vendor-agreement-status-checker/SKILL.md) — 供应商协议状态核查（CLM/CRM 跨系统）
+
+### `CLM MCP (Ironclad/Agiloft)`
+- [`vendor-agreement-redline-review`](../09-verticals/vendor-agreement-redline-review/SKILL.md) — 供应商协议审查与红线
+
+### `CLM MCP (coming soon)`
+- [`contract-amendment-history-tracer`](../09-verticals/contract-amendment-history-tracer/SKILL.md) — 合同修订历史追溯
+
+### `CPIC PostgREST API`
+- [`clinpgx-pharmacogenomics-database`](../09-verticals/clinpgx-pharmacogenomics-database/SKILL.md) — ClinPGx 药物基因组数据库
+
 ### `CPL placement file`
 - [`pcb-fab-assembly`](../09-verticals/pcb-fab-assembly/SKILL.md) — PCB 制造与贴片下单（JLCPCB）
 
@@ -402,6 +461,10 @@
 
 ### `CRM`
 - [`returns-reverse-logistics`](../09-verticals/returns-reverse-logistics/SKILL.md) — 退货与逆向物流
+- [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报
+
+### `CRM MCP`
+- [`vendor-agreement-status-checker`](../09-verticals/vendor-agreement-status-checker/SKILL.md) — 供应商协议状态核查（CLM/CRM 跨系统）
 
 ### `CRM(Salesforce/HubSpot)`
 - [`ai-customer-support`](../05-business/ai-customer-support/SKILL.md) — AI 客户支持与情感分析
@@ -424,6 +487,7 @@
 
 ### `CSV`
 - [`product-manager-toolkit`](../07-productivity/product-manager-toolkit/SKILL.md) — 产品经理工具箱（RICE/PRD）
+- [`smb-payroll-cash-planner`](../05-business/smb-payroll-cash-planner/SKILL.md) — 小微企业发薪现金筹划
 
 ### `CSV/XLSX BOM`
 - [`pcb-fab-assembly`](../09-verticals/pcb-fab-assembly/SKILL.md) — PCB 制造与贴片下单（JLCPCB）
@@ -431,8 +495,17 @@
 ### `CSV/数据库数据源`
 - [`programmatic-seo-builder`](../05-business/programmatic-seo-builder/SKILL.md) — 程序化 SEO 批量建页
 
+### `Calendar`
+- [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报
+
 ### `CallbackHandler`
 - [`langfuse-llm-observability`](../04-ai/langfuse-llm-observability/SKILL.md) — Langfuse LLM 可观测
+
+### `Canva Connect API`
+- [`canva-campaign-creator`](../06-creative/canva-campaign-creator/SKILL.md) — Canva 营销活动设计与排期生成
+
+### `Canva MCP`
+- [`canva-campaign-creator`](../06-creative/canva-campaign-creator/SKILL.md) — Canva 营销活动设计与排期生成
 
 ### `Canva/Midjourney`
 - [`content-marketing-strategist`](../05-business/content-marketing-strategist/SKILL.md) — 全渠道内容营销策略
@@ -478,6 +551,9 @@
 ### `Chargebee`
 - [`churn-prevention`](../05-business/churn-prevention/SKILL.md) — 流失预防与留存
 
+### `Chat MCP (Slack/Teams)`
+- [`vendor-agreement-status-checker`](../09-verticals/vendor-agreement-status-checker/SKILL.md) — 供应商协议状态核查（CLM/CRM 跨系统）
+
 ### `ChatGPT`
 - [`ai-answer-engine-seo`](../05-business/ai-answer-engine-seo/SKILL.md) — AI 答案引擎优化
 - [`seo-entity-optimizer`](../05-business/seo-entity-optimizer/SKILL.md) — 实体优化与知识图谱信号构建
@@ -518,6 +594,12 @@
 ### `Clearbit`
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选
 
+### `ClinPGx REST API`
+- [`clinpgx-pharmacogenomics-database`](../09-verticals/clinpgx-pharmacogenomics-database/SKILL.md) — ClinPGx 药物基因组数据库
+
+### `ClinicalTrials.gov API v2`
+- [`clinicaltrials-database-search`](../09-verticals/clinicaltrials-database-search/SKILL.md) — ClinicalTrials.gov 临床试验检索
+
 ### `Cloud Build`
 - [`gcp-cloud-architect`](../10-platform/gcp-cloud-architect/SKILL.md) — GCP 云架构设计
 - [`gcp-cloud-run`](../10-platform/gcp-cloud-run/SKILL.md) — GCP Cloud Run 无服务器
@@ -552,6 +634,12 @@
 ### `Codemagic/GitHub Actions`
 - [`flutter-expert`](../02-engineering/flutter-expert/SKILL.md) — Flutter 跨平台开发
 
+### `Common Room`
+- [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报
+
+### `Common Room（信号平台，可选连接器）`
+- [`signal-based-call-prep`](../05-business/signal-based-call-prep/SKILL.md) — 基于信号的客户通话准备（Common Room）
+
 ### `Comparable Transactions`
 - [`ma-playbook`](../05-business/ma-playbook/SKILL.md) — 并购策略手册（尽调与估值整合）
 
@@ -579,6 +667,15 @@
 ### `Consent Mode v2`
 - [`analytics-tracking-setup`](../05-business/analytics-tracking-setup/SKILL.md) — 分析埋点与转化追踪
 
+### `Contact Center Android SDK`
+- [`zoom-contact-center-app`](../10-platform/zoom-contact-center-app/SKILL.md) — Zoom Contact Center 应用开发
+
+### `Contact Center iOS SDK`
+- [`zoom-contact-center-app`](../10-platform/zoom-contact-center-app/SKILL.md) — Zoom Contact Center 应用开发
+
+### `Contact Mapping`
+- [`ma-buyer-list`](../05-business/ma-buyer-list/SKILL.md) — 并购潜在买家清单构建
+
 ### `Convex CLI (npx convex)`
 - [`convex-reactive-backend`](../02-engineering/convex-reactive-backend/SKILL.md) — Convex 响应式后端与实时订阅
 
@@ -598,7 +695,10 @@
 - [`cloud-cost-optimization`](../10-platform/cloud-cost-optimization/SKILL.md) — 云成本优化
 
 ### `CourtListener`
+- [`contract-amendment-history-tracer`](../09-verticals/contract-amendment-history-tracer/SKILL.md) — 合同修订历史追溯
+- [`deal-closing-checklist`](../09-verticals/deal-closing-checklist/SKILL.md) — 交易交割清单管理
 - [`diligence-issue-extractor`](../09-verticals/diligence-issue-extractor/SKILL.md) — 尽职调查问题提取
+- [`material-contract-disclosure-schedule`](../09-verticals/material-contract-disclosure-schedule/SKILL.md) — 重大合同披露附表构建
 
 ### `CrackMapExec`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
@@ -636,6 +736,12 @@
 ### `DCF`
 - [`ma-playbook`](../05-business/ma-playbook/SKILL.md) — 并购策略手册（尽调与估值整合）
 
+### `DDInter REST API`
+- [`ddinter-drug-interactions`](../09-verticals/ddinter-drug-interactions/SKILL.md) — DDInter 药物相互作用查询
+
+### `DMCA指定代理目录(copyright.gov/dmca-directory)`
+- [`dmca-takedown-notice`](../09-verticals/dmca-takedown-notice/SKILL.md) — DMCA 下架通知与反通知
+
 ### `DNAcopy`
 - [`cnvkit-copy-number`](../09-verticals/cnvkit-copy-number/SKILL.md) — CNVkit 体细胞拷贝数变异检测
 
@@ -644,6 +750,7 @@
 
 ### `DPA playbook (内部立场清单)`
 - [`dpa-clause-reviewer`](../09-verticals/dpa-clause-reviewer/SKILL.md) — 数据处理协议条款审查
+- [`dpa-playbook-review`](../09-verticals/dpa-playbook-review/SKILL.md) — 数据处理协议(DPA)审查
 
 ### `Dagster`
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程
@@ -656,6 +763,7 @@
 
 ### `DataStructs`
 - [`cheminformatics-toolkit`](../09-verticals/cheminformatics-toolkit/SKILL.md) — 化学信息学工具箱（RDKit）
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
 
 ### `Datadog/Grafana`
 - [`incident-commander-framework`](../02-engineering/incident-commander-framework/SKILL.md) — 事故指挥与响应框架
@@ -669,11 +777,15 @@
 ### `Delve (dlv)`
 - [`systematic-debugging-strategies`](../02-engineering/systematic-debugging-strategies/SKILL.md) — 系统化调试策略方法论
 
+### `DepMap API`
+- [`depmap-cancer-dependency`](../09-verticals/depmap-cancer-dependency/SKILL.md) — DepMap 癌症基因依赖图谱查询
+
 ### `Depth Anything V2`
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家
 
 ### `Descriptors`
 - [`cheminformatics-toolkit`](../09-verticals/cheminformatics-toolkit/SKILL.md) — 化学信息学工具箱（RDKit）
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
 
 ### `Detect-It-Easy`
 - [`anti-reversing-techniques`](../08-security/anti-reversing-techniques/SKILL.md) — 反逆向技术分析
@@ -692,6 +804,7 @@
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
 - [`sast-configurator`](../08-security/sast-configurator/SKILL.md) — SAST静态扫描配置
+- [`tiledbvcf-variant-store`](../09-verticals/tiledbvcf-variant-store/SKILL.md) — TileDB-VCF 大规模变异存储
 
 ### `Docker Compose`
 - [`container-security-hardening`](../08-security/container-security-hardening/SKILL.md) — 容器镜像与运行时安全加固
@@ -703,8 +816,15 @@
 ### `Dockerfile`
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
 
+### `DocuSign MCP`
+- [`vendor-agreement-redline-review`](../09-verticals/vendor-agreement-redline-review/SKILL.md) — 供应商协议审查与红线
+
+### `Document MCP (Box/Egnyte/SharePoint)`
+- [`vendor-agreement-status-checker`](../09-verticals/vendor-agreement-status-checker/SKILL.md) — 供应商协议状态核查（CLM/CRM 跨系统）
+
 ### `Draw`
 - [`cheminformatics-toolkit`](../09-verticals/cheminformatics-toolkit/SKILL.md) — 化学信息学工具箱（RDKit）
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
 
 ### `Drift/Hive`
 - [`flutter-expert`](../02-engineering/flutter-expert/SKILL.md) — Flutter 跨平台开发
@@ -717,6 +837,7 @@
 
 ### `Due Diligence Checklist`
 - [`ma-playbook`](../05-business/ma-playbook/SKILL.md) — 并购策略手册（尽调与估值整合）
+- [`pe-dd-checklist`](../05-business/pe-dd-checklist/SKILL.md) — 尽职调查清单生成跟踪
 
 ### `Durable Objects`
 - [`cloudflare-workers-edge`](../10-platform/cloudflare-workers-edge/SKILL.md) — Cloudflare Workers KV D1 R2 边缘平台
@@ -726,6 +847,9 @@
 
 ### `DynamoDB`
 - [`nosql-distributed-db`](../03-data/nosql-distributed-db/SKILL.md) — 分布式 NoSQL 数据库专家
+
+### `EBITDA Bridge`
+- [`ic-investment-memo`](../05-business/ic-investment-memo/SKILL.md) — 投委会投资备忘录（IC Memo）
 
 ### `ECharts 5.x`
 - [`health-goal-analyzer`](../09-verticals/health-goal-analyzer/SKILL.md) — 健康目标分析器
@@ -779,6 +903,7 @@
 - [`drizzle-orm-expert`](../02-engineering/drizzle-orm-expert/SKILL.md) — Drizzle ORM 模式设计
 - [`false-positive-check`](../08-security/false-positive-check/SKILL.md) — 漏洞误报核验
 - [`fastapi-async-api`](../02-engineering/fastapi-async-api/SKILL.md) — FastAPI 高性能异步 API
+- [`financial-model-updater`](../05-business/financial-model-updater/SKILL.md) — 财务模型数据更新
 - [`fullstack-project-scaffolder`](../02-engineering/fullstack-project-scaffolder/SKILL.md) — 全栈项目脚手架与技术栈选型
 - [`git-hooks-automation`](../02-engineering/git-hooks-automation/SKILL.md) — Git Hooks 质量门禁
 - [`grafana-dashboards`](../02-engineering/grafana-dashboards/SKILL.md) — Grafana 可观测看板
@@ -789,12 +914,16 @@
 - [`kotlin-coroutines-flow`](../02-engineering/kotlin-coroutines-flow/SKILL.md) — Kotlin 协程与 Flow
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构
 - [`llm-judge-evaluation`](../04-ai/llm-judge-evaluation/SKILL.md) — LLM-as-Judge 高级评测
+- [`ma-process-letter`](../05-business/ma-process-letter/SKILL.md) — 并购流程函与报价指引
 - [`marketing-copy-editor`](../05-business/marketing-copy-editor/SKILL.md) — 营销文案审校
+- [`medchem-compound-triage`](../09-verticals/medchem-compound-triage/SKILL.md) — 药物化学过滤与化合物筛选
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
 - [`new-hire-onboarding-plan`](../07-productivity/new-hire-onboarding-plan/SKILL.md) — 新员工入职计划
 - [`openapi-doc-generator`](../01-documents/openapi-doc-generator/SKILL.md) — OpenAPI 3.1 API 文档生成
 - [`parallel-agent-hub`](../04-ai/parallel-agent-hub/SKILL.md) — 并行多智能体竞赛协作中枢
+- [`pennylane-quantum-ml`](../09-verticals/pennylane-quantum-ml/SKILL.md) — PennyLane 量子机器学习
+- [`polars-bio-genomic-intervals`](../09-verticals/polars-bio-genomic-intervals/SKILL.md) — polars-bio 高性能基因组区间运算
 - [`prd-spec-writer`](../07-productivity/prd-spec-writer/SKILL.md) — PRD 与功能规格撰写
 - [`professional-proofreader`](../01-documents/professional-proofreader/SKILL.md) — 专业文稿校对
 - [`quality-documentation-control`](../09-verticals/quality-documentation-control/SKILL.md) — 医疗器械质量文件控制管理
@@ -811,6 +940,9 @@
 
 ### `Elasticsearch`
 - [`hybrid-search-retrieval`](../04-ai/hybrid-search-retrieval/SKILL.md) — 向量与关键词混合检索
+
+### `Email MCP`
+- [`vendor-agreement-status-checker`](../09-verticals/vendor-agreement-status-checker/SKILL.md) — 供应商协议状态核查（CLM/CRM 跨系统）
 
 ### `Emotion`
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) — Web 组件设计模式
@@ -831,8 +963,11 @@
 - [`exa-semantic-search`](../10-platform/exa-semantic-search/SKILL.md) — Exa 语义搜索研究
 
 ### `Excel`
+- [`ib-deal-tracker`](../05-business/ib-deal-tracker/SKILL.md) — 投行交易进度跟踪
 - [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) — LBO 杠杆收购模型构建
+- [`ma-buyer-list`](../05-business/ma-buyer-list/SKILL.md) — 并购潜在买家清单构建
 - [`merger-accretion-dilution-model`](../09-verticals/merger-accretion-dilution-model/SKILL.md) — 并购增厚/摊薄分析模型
+- [`pe-dd-checklist`](../05-business/pe-dd-checklist/SKILL.md) — 尽职调查清单生成跟踪
 - [`pe-returns-sensitivity`](../09-verticals/pe-returns-sensitivity/SKILL.md) — PE 投资回报 IRR/MOIC 敏感性分析
 - [`spreadsheet-formula-auditor`](../03-data/spreadsheet-formula-auditor/SKILL.md) — 电子表格公式与模型审计
 - [`tax-loss-harvesting`](../09-verticals/tax-loss-harvesting/SKILL.md) — 税务亏损收割策略
@@ -847,6 +982,9 @@
 
 ### `Express`
 - [`saas-multi-tenant-architecture`](../02-engineering/saas-multi-tenant-architecture/SKILL.md) — SaaS 多租户架构
+
+### `Express.js`
+- [`zoom-webhooks-setup`](../10-platform/zoom-webhooks-setup/SKILL.md) — Zoom Webhooks 事件订阅与校验
 
 ### `External Secrets Operator`
 - [`secrets-management`](../08-security/secrets-management/SKILL.md) — 密钥与凭据管理
@@ -875,6 +1013,9 @@
 - [`value-dividend-screener`](../09-verticals/value-dividend-screener/SKILL.md) — 价值红利股筛选
 - [`vcp-screener`](../09-verticals/vcp-screener/SKILL.md) — VCP 波动收缩形态选股
 
+### `FPCalculator`
+- [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
+
 ### `FTK Imager`
 - [`security-incident-response`](../08-security/security-incident-response/SKILL.md) — 安全事件分级与响应
 
@@ -899,6 +1040,9 @@
 ### `Figma`
 - [`design-dev-handoff`](../06-creative/design-dev-handoff/SKILL.md) — 设计开发交付规格
 
+### `Financial Tables`
+- [`ic-investment-memo`](../05-business/ic-investment-memo/SKILL.md) — 投委会投资备忘录（IC Memo）
+
 ### `Finviz`
 - [`canslim-growth-screener`](../09-verticals/canslim-growth-screener/SKILL.md) — CANSLIM 成长股筛选
 
@@ -922,6 +1066,12 @@
 
 ### `Florence-2 / PaliGemma 2 / Qwen2-VL`
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家
+
+### `FluidFFT`
+- [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
+
+### `FluidSim`
+- [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
 
 ### `Flutter DevTools`
 - [`flutter-expert`](../02-engineering/flutter-expert/SKILL.md) — Flutter 跨平台开发
@@ -958,11 +1108,17 @@
 - [`analytics-tracking-setup`](../05-business/analytics-tracking-setup/SKILL.md) — 分析埋点与转化追踪
 - [`marketing-analytics-tracker`](../05-business/marketing-analytics-tracker/SKILL.md) — 营销分析追踪方案
 
+### `GATK`
+- [`bwa-mem2-dna-aligner`](../09-verticals/bwa-mem2-dna-aligner/SKILL.md) — BWA-MEM2 短读 DNA 比对（WGS/WES/ChIP-seq）
+
 ### `GCP Recommender`
 - [`cloud-cost-optimization`](../10-platform/cloud-cost-optimization/SKILL.md) — 云成本优化
 
 ### `GDB`
 - [`anti-reversing-techniques`](../08-security/anti-reversing-techniques/SKILL.md) — 反逆向技术分析
+
+### `GEOparse`
+- [`geo-database`](../09-verticals/geo-database/SKILL.md) — NCBI GEO 表达数据访问
 
 ### `GLSL`
 - [`glsl-shader-programming`](../06-creative/glsl-shader-programming/SKILL.md) — GLSL 着色器编程：写顶点/片元着色器与常见视觉特效
@@ -1033,6 +1189,7 @@
 - [`adversarial-code-reviewer`](../02-engineering/adversarial-code-reviewer/SKILL.md) — 对抗式代码评审
 - [`agentic-actions-auditor`](../08-security/agentic-actions-auditor/SKILL.md) — AI Agent CI/CD 工作流安全审计
 - [`api-test-suite-builder`](../02-engineering/api-test-suite-builder/SKILL.md) — API 集成测试套件生成
+- [`board-written-consent-drafter`](../09-verticals/board-written-consent-drafter/SKILL.md) — 董事会书面决议起草（一致同意书 / UWC）
 - [`brooks-design-lint`](../02-engineering/brooks-design-lint/SKILL.md) — 经典软工书籍驱动的设计审查（brooks-design-lint）
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查
 - [`ci-cd-pipeline-builder`](../02-engineering/ci-cd-pipeline-builder/SKILL.md) — CI/CD流水线生成
@@ -1072,6 +1229,9 @@
 ### `Gobuster`
 - [`penetration-testing-methodology`](../08-security/penetration-testing-methodology/SKILL.md) — 渗透测试全生命周期
 
+### `Gong/通话录音（可选）`
+- [`signal-based-call-prep`](../05-business/signal-based-call-prep/SKILL.md) — 基于信号的客户通话准备（Common Room）
+
 ### `Good-Better-Best`
 - [`pricing-strategy`](../05-business/pricing-strategy/SKILL.md) — 定价与套餐策略
 
@@ -1096,6 +1256,9 @@
 
 ### `Google Disavow Tool`
 - [`backlink-profile-analyzer`](../05-business/backlink-profile-analyzer/SKILL.md) — 外链画像与有毒链接分析
+
+### `Google Drive`
+- [`contract-tabular-batch-review`](../09-verticals/contract-tabular-batch-review/SKILL.md) — 合同批量表格化审查
 
 ### `Google Maps`
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选
@@ -1166,6 +1329,7 @@
 - [`arm-cortex-firmware-expert`](../09-verticals/arm-cortex-firmware-expert/SKILL.md) — ARM Cortex-M 固件与驱动开发
 - [`auth-implementation-patterns`](../08-security/auth-implementation-patterns/SKILL.md) — 认证与授权系统实现模式
 - [`backend-security-coder`](../08-security/backend-security-coder/SKILL.md) — 后端安全编码与 API 防护
+- [`board-written-consent-drafter`](../09-verticals/board-written-consent-drafter/SKILL.md) — 董事会书面决议起草（一致同意书 / UWC）
 - [`brooks-design-lint`](../02-engineering/brooks-design-lint/SKILL.md) — 经典软工书籍驱动的设计审查（brooks-design-lint）
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查
 - [`code-simplifier`](../02-engineering/code-simplifier/SKILL.md) — 保持功能不变的代码简化
@@ -1202,8 +1366,17 @@
 ### `Grype`
 - [`container-security-hardening`](../08-security/container-security-hardening/SKILL.md) — 容器镜像与运行时安全加固
 
+### `GtoPdb Web Services API`
+- [`gtopdb-pharmacology-database`](../09-verticals/gtopdb-pharmacology-database/SKILL.md) — GtoPdb 药理学指南数据库查询
+
 ### `Gxss`
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
+
+### `HAL+JSON`
+- [`gwas-catalog-database`](../09-verticals/gwas-catalog-database/SKILL.md) — GWAS Catalog 关联查询
+
+### `HDF5/h5py`
+- [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
 
 ### `HRIS（可选）`
 - [`performance-review-builder`](../05-business/performance-review-builder/SKILL.md) — 绩效评估结构化
@@ -1249,6 +1422,12 @@
 ### `Holt-Winters`
 - [`inventory-demand-planning`](../09-verticals/inventory-demand-planning/SKILL.md) — 库存需求计划
 
+### `HubSpot Marketing API`
+- [`canva-campaign-creator`](../06-creative/canva-campaign-creator/SKILL.md) — Canva 营销活动设计与排期生成
+
+### `HubSpot 连接器`
+- [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）
+
 ### `Hunter`
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选
 
@@ -1274,6 +1453,12 @@
 
 ### `IMemoryCache`
 - [`dotnet-backend-patterns`](../02-engineering/dotnet-backend-patterns/SKILL.md) — dotnet 后端开发模式
+
+### `IP practice profile (内部立场清单/CLAUDE.md)`
+- [`ip-clause-review`](../09-verticals/ip-clause-review/SKILL.md) — 协议知识产权条款审查
+
+### `IP 管理系统 (Anaqua/CPA Global/PatSnap)`
+- [`invention-disclosure-screen`](../09-verticals/invention-disclosure-screen/SKILL.md) — 发明披露专利性初筛
 
 ### `Iceberg`
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程
@@ -1351,6 +1536,7 @@
 - [`algorithmic-art`](../06-creative/algorithmic-art/SKILL.md) — 算法艺术：用 p5.js 生成可探索的生成式艺术
 - [`animejs-web-animation`](../06-creative/animejs-web-animation/SKILL.md) — Anime.js 高性能网页动画
 - [`d3js-data-viz`](../06-creative/d3js-data-viz/SKILL.md) — D3.js 交互式数据可视化
+- [`zoom-virtual-agent-builder`](../10-platform/zoom-virtual-agent-builder/SKILL.md) — Zoom 虚拟客服坐席集成
 
 ### `JavaScript/Node.js`
 - [`gdpr-data-handling`](../08-security/gdpr-data-handling/SKILL.md) — GDPR 数据合规处理
@@ -1477,6 +1663,9 @@
 ### `LibreOffice`
 - [`dcf-valuation-model`](../09-verticals/dcf-valuation-model/SKILL.md) — DCF 现金流折现估值模型
 
+### `LibreOffice (soffice)`
+- [`ib-pitch-deck-builder`](../05-business/ib-pitch-deck-builder/SKILL.md) — 投行路演演示稿构建
+
 ### `LightGBM`
 - [`inventory-demand-planning`](../09-verticals/inventory-demand-planning/SKILL.md) — 库存需求计划
 
@@ -1506,11 +1695,33 @@
 
 ### `MCP`
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) — AI 智能体工具设计与构建
+- [`bond-futures-basis-analysis`](../05-business/bond-futures-basis-analysis/SKILL.md) — 国债期货基差分析
+- [`bond-relative-value-analysis`](../05-business/bond-relative-value-analysis/SKILL.md) — 债券相对价值分析
+- [`macro-rates-dashboard`](../05-business/macro-rates-dashboard/SKILL.md) — 宏观利率监测看板
 
 ### `MCP servers`
 - [`dcf-valuation-model`](../09-verticals/dcf-valuation-model/SKILL.md) — DCF 现金流折现估值模型
 
+### `MCP: equity_vol_surface`
+- [`option-volatility-analysis`](../05-business/option-volatility-analysis/SKILL.md) — 期权波动率分析
+
+### `MCP: fx_vol_surface`
+- [`option-volatility-analysis`](../05-business/option-volatility-analysis/SKILL.md) — 期权波动率分析
+
+### `MCP: option_template_list`
+- [`option-volatility-analysis`](../05-business/option-volatility-analysis/SKILL.md) — 期权波动率分析
+
+### `MCP: option_value`
+- [`option-volatility-analysis`](../05-business/option-volatility-analysis/SKILL.md) — 期权波动率分析
+
+### `MCP: qa_historical_equity_price`
+- [`option-volatility-analysis`](../05-business/option-volatility-analysis/SKILL.md) — 期权波动率分析
+
+### `MCP: tscc_historical_pricing_summaries`
+- [`option-volatility-analysis`](../05-business/option-volatility-analysis/SKILL.md) — 期权波动率分析
+
 ### `MDAnalysis`
+- [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 
 ### `MDR Gap Analyzer (scripts/mdr_gap_analyzer.py)`
@@ -1534,6 +1745,9 @@
 ### `MSigDB`
 - [`gene-set-enrichment-analysis`](../09-verticals/gene-set-enrichment-analysis/SKILL.md) — 通路与基因集富集分析
 
+### `MUSCLE`
+- [`biopython-molecular-biology`](../09-verticals/biopython-molecular-biology/SKILL.md) — Biopython 分子生物学工具箱
+
 ### `Mailchimp`
 - [`email-drip-sequence`](../05-business/email-drip-sequence/SKILL.md) — 邮件序列与培育自动化设计
 - [`lifecycle-email-sequence`](../05-business/lifecycle-email-sequence/SKILL.md) — 生命周期邮件序列设计
@@ -1543,6 +1757,8 @@
 
 ### `Markdown`
 - [`adr-management-patterns`](../02-engineering/adr-management-patterns/SKILL.md) — 架构决策记录（ADR）管理模式
+- [`ib-deal-tracker`](../05-business/ib-deal-tracker/SKILL.md) — 投行交易进度跟踪
+- [`ic-investment-memo`](../05-business/ic-investment-memo/SKILL.md) — 投委会投资备忘录（IC Memo）
 - [`mermaid-diagram-expert`](../06-creative/mermaid-diagram-expert/SKILL.md) — Mermaid 图表绘制专家
 
 ### `Markdown / 表格`
@@ -1553,10 +1769,14 @@
 
 ### `Markdown 编辑器`
 - [`board-deck-builder`](../05-business/board-deck-builder/SKILL.md) — 董事会与投资人汇报材料生成
+- [`ib-deck-quality-check`](../05-business/ib-deck-quality-check/SKILL.md) — 投行演示稿质量审查
 - [`performance-review-builder`](../05-business/performance-review-builder/SKILL.md) — 绩效评估结构化
 
 ### `Matplotlib`
+- [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
+- [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
+- [`qutip-open-quantum-systems`](../09-verticals/qutip-open-quantum-systems/SKILL.md) — QuTiP 开放量子系统仿真
 
 ### `MaxDiff`
 - [`pricing-strategy`](../05-business/pricing-strategy/SKILL.md) — 定价与套餐策略
@@ -1605,6 +1825,15 @@
 - [`churn-prevention`](../05-business/churn-prevention/SKILL.md) — 流失预防与留存
 - [`marketing-analytics-tracker`](../05-business/marketing-analytics-tracker/SKILL.md) — 营销分析追踪方案
 
+### `MolStandardize`
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
+
+### `MoleculeTransformer`
+- [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
+
+### `Monarch v3 REST API`
+- [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱
+
 ### `MongoDB`
 - [`gdpr-data-handling`](../08-security/gdpr-data-handling/SKILL.md) — GDPR 数据合规处理
 
@@ -1625,6 +1854,8 @@
 
 ### `NCBI E-utilities`
 - [`clinvar-database`](../09-verticals/clinvar-database/SKILL.md) — ClinVar 变异临床意义查询
+- [`dbsnp-database`](../09-verticals/dbsnp-database/SKILL.md) — dbSNP SNP 数据库查询
+- [`geo-database`](../09-verticals/geo-database/SKILL.md) — NCBI GEO 表达数据访问
 
 ### `NGLview`
 - [`diffdock-blind-docking`](../09-verticals/diffdock-blind-docking/SKILL.md) — DiffDock 扩散模型盲对接
@@ -1660,16 +1891,38 @@
 - [`discord-bot-architect`](../02-engineering/discord-bot-architect/SKILL.md) — 生产级 Discord 机器人架构
 - [`github-copilot-sdk`](../04-ai/github-copilot-sdk/SKILL.md) — GitHub Copilot SDK 编程集成
 - [`javascript-modern-pro`](../02-engineering/javascript-modern-pro/SKILL.md) — 现代 JavaScript 进阶
+- [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) — 分析师财务预测：营收与EPS估计区间
+- [`octagon-cash-flow-growth`](../09-verticals/octagon-cash-flow-growth/SKILL.md) — 现金流指标同比增长分析
 - [`octagon-cash-flow-statement-data`](../09-verticals/octagon-cash-flow-statement-data/SKILL.md) — 现金流量表数据检索
+- [`octagon-commodities-quote`](../09-verticals/octagon-commodities-quote/SKILL.md) — 大宗商品实时报价查询
+- [`octagon-earnings-analyst-questions`](../09-verticals/octagon-earnings-analyst-questions/SKILL.md) — 财报电话会分析师提问主题提取
 - [`octagon-earnings-call-analysis`](../09-verticals/octagon-earnings-call-analysis/SKILL.md) — 财报电话会纪要分析
 - [`octagon-earnings-call-sentiment`](../09-verticals/octagon-earnings-call-sentiment/SKILL.md) — 财报会管理层情绪分析
+- [`octagon-earnings-capital-allocation`](../09-verticals/octagon-earnings-capital-allocation/SKILL.md) — 管理层资本配置与股东回报解读
+- [`octagon-earnings-financial-guidance`](../09-verticals/octagon-earnings-financial-guidance/SKILL.md) — 财报前瞻业绩指引提取
 - [`octagon-esg-ratings`](../09-verticals/octagon-esg-ratings/SKILL.md) — ESG评级检索（MSCI / Sustainalytics）
 - [`octagon-financial-health-scores`](../09-verticals/octagon-financial-health-scores/SKILL.md) — 财务健康评分（Z-Score / Piotroski）
+- [`octagon-financial-metrics-analysis`](../09-verticals/octagon-financial-metrics-analysis/SKILL.md) — 利润表项目同比增长分析
+- [`octagon-forex-list`](../09-verticals/octagon-forex-list/SKILL.md) — 全球外汇货币对清单查询
+- [`octagon-historical-financial-ratings`](../09-verticals/octagon-historical-financial-ratings/SKILL.md) — 历史财务评级与指标趋势
+- [`octagon-historical-market-cap`](../09-verticals/octagon-historical-market-cap/SKILL.md) — 历史市值变动追踪
+- [`octagon-industry-pe-ratios`](../09-verticals/octagon-industry-pe-ratios/SKILL.md) — 行业市盈率对标分析
+- [`octagon-industry-performance-snapshot`](../09-verticals/octagon-industry-performance-snapshot/SKILL.md) — 行业表现每日快照
 - [`octagon-prediction-markets-research`](../09-verticals/octagon-prediction-markets-research/SKILL.md) — 预测市场事件研究
 - [`octagon-price-target-consensus`](../09-verticals/octagon-price-target-consensus/SKILL.md) — 分析师目标价共识
+- [`octagon-price-target-summary`](../09-verticals/octagon-price-target-summary/SKILL.md) — 分析师目标价汇总解读
 - [`octagon-ratings-snapshot`](../09-verticals/octagon-ratings-snapshot/SKILL.md) — 公司评级与关键指标快照
+- [`octagon-sector-pe-ratios`](../09-verticals/octagon-sector-pe-ratios/SKILL.md) — 板块市盈率基准对比
+- [`octagon-sector-performance-snapshot`](../09-verticals/octagon-sector-performance-snapshot/SKILL.md) — 板块表现快照
+- [`octagon-stock-grades`](../09-verticals/octagon-stock-grades/SKILL.md) — 顶级分析师股票评级查询
+- [`octagon-stock-price-change`](../09-verticals/octagon-stock-price-change/SKILL.md) — 多周期股价涨跌幅统计
 - [`octagon-stock-quote`](../09-verticals/octagon-stock-quote/SKILL.md) — 实时股票报价
 - [`transactional-email-template-builder`](../02-engineering/transactional-email-template-builder/SKILL.md) — 事务邮件模板系统构建
+- [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
+- [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流
+
+### `Node.js (jsrsasign)`
+- [`zoom-meeting-app-builder`](../10-platform/zoom-meeting-app-builder/SKILL.md) — Zoom 会议嵌入应用开发（Meeting SDK）
 
 ### `Node.js / npm`
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) — Playwright 端到端测试
@@ -1683,6 +1936,12 @@
 ### `Node.js crypto`
 - [`agentmail-email-infra`](../10-platform/agentmail-email-infra/SKILL.md) — AI 智能体邮件基础设施
 
+### `Node.js crypto (HMAC-SHA256)`
+- [`zoom-webhooks-setup`](../10-platform/zoom-webhooks-setup/SKILL.md) — Zoom Webhooks 事件订阅与校验
+
+### `Node.js crypto (PKCE)`
+- [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现
+
 ### `Node.js/Express`
 - [`api-security-best-practices`](../08-security/api-security-best-practices/SKILL.md) — API 安全设计最佳实践
 
@@ -1693,7 +1952,11 @@
 - [`codebase-onboarding-doc`](../07-productivity/codebase-onboarding-doc/SKILL.md) — 代码库上手文档生成
 
 ### `NumPy`
+- [`biopython-molecular-biology`](../09-verticals/biopython-molecular-biology/SKILL.md) — Biopython 分子生物学工具箱
+- [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
+- [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
+- [`qutip-open-quantum-systems`](../09-verticals/qutip-open-quantum-systems/SKILL.md) — QuTiP 开放量子系统仿真
 
 ### `Nx`
 - [`monorepo-navigator`](../02-engineering/monorepo-navigator/SKILL.md) — Monorepo 导航与构建优化
@@ -1723,20 +1986,49 @@
 - [`bdi-mental-states`](../04-ai/bdi-mental-states/SKILL.md) — BDI 智能体信念-愿望-意图建模
 
 ### `Octagon MCP`
+- [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) — 分析师财务预测：营收与EPS估计区间
 - [`octagon-balance-sheet-data`](../09-verticals/octagon-balance-sheet-data/SKILL.md) — 资产负债表数据检索
+- [`octagon-balance-sheet-growth`](../09-verticals/octagon-balance-sheet-growth/SKILL.md) — 资产负债表同比增长分析
+- [`octagon-batch-market-cap`](../09-verticals/octagon-batch-market-cap/SKILL.md) — 多公司市值批量对比
+- [`octagon-cash-flow-growth`](../09-verticals/octagon-cash-flow-growth/SKILL.md) — 现金流指标同比增长分析
 - [`octagon-cash-flow-statement-data`](../09-verticals/octagon-cash-flow-statement-data/SKILL.md) — 现金流量表数据检索
+- [`octagon-commodities-quote`](../09-verticals/octagon-commodities-quote/SKILL.md) — 大宗商品实时报价查询
+- [`octagon-company-market-cap`](../09-verticals/octagon-company-market-cap/SKILL.md) — 单公司市值查询
+- [`octagon-earnings-analyst-questions`](../09-verticals/octagon-earnings-analyst-questions/SKILL.md) — 财报电话会分析师提问主题提取
 - [`octagon-earnings-call-analysis`](../09-verticals/octagon-earnings-call-analysis/SKILL.md) — 财报电话会纪要分析
 - [`octagon-earnings-call-sentiment`](../09-verticals/octagon-earnings-call-sentiment/SKILL.md) — 财报会管理层情绪分析
+- [`octagon-earnings-capital-allocation`](../09-verticals/octagon-earnings-capital-allocation/SKILL.md) — 管理层资本配置与股东回报解读
+- [`octagon-earnings-financial-guidance`](../09-verticals/octagon-earnings-financial-guidance/SKILL.md) — 财报前瞻业绩指引提取
+- [`octagon-earnings-qa-analysis`](../09-verticals/octagon-earnings-qa-analysis/SKILL.md) — 财报电话会问答环节战略分析
 - [`octagon-equity-research-analyst`](../09-verticals/octagon-equity-research-analyst/SKILL.md) — 股票研究分析编排
 - [`octagon-esg-ratings`](../09-verticals/octagon-esg-ratings/SKILL.md) — ESG评级检索（MSCI / Sustainalytics）
 - [`octagon-financial-growth-metrics`](../09-verticals/octagon-financial-growth-metrics/SKILL.md) — 财务同比增长指标
 - [`octagon-financial-health-scores`](../09-verticals/octagon-financial-health-scores/SKILL.md) — 财务健康评分（Z-Score / Piotroski）
+- [`octagon-financial-metrics-analysis`](../09-verticals/octagon-financial-metrics-analysis/SKILL.md) — 利润表项目同比增长分析
+- [`octagon-forex-list`](../09-verticals/octagon-forex-list/SKILL.md) — 全球外汇货币对清单查询
+- [`octagon-historical-financial-ratings`](../09-verticals/octagon-historical-financial-ratings/SKILL.md) — 历史财务评级与指标趋势
+- [`octagon-historical-market-cap`](../09-verticals/octagon-historical-market-cap/SKILL.md) — 历史市值变动追踪
+- [`octagon-income-statement-growth`](../09-verticals/octagon-income-statement-growth/SKILL.md) — 利润表项目同比增长
+- [`octagon-industry-pe-ratios`](../09-verticals/octagon-industry-pe-ratios/SKILL.md) — 行业市盈率对标分析
+- [`octagon-industry-performance-snapshot`](../09-verticals/octagon-industry-performance-snapshot/SKILL.md) — 行业表现每日快照
 - [`octagon-prediction-markets-research`](../09-verticals/octagon-prediction-markets-research/SKILL.md) — 预测市场事件研究
 - [`octagon-price-target-consensus`](../09-verticals/octagon-price-target-consensus/SKILL.md) — 分析师目标价共识
+- [`octagon-price-target-summary`](../09-verticals/octagon-price-target-summary/SKILL.md) — 分析师目标价汇总解读
 - [`octagon-ratings-snapshot`](../09-verticals/octagon-ratings-snapshot/SKILL.md) — 公司评级与关键指标快照
+- [`octagon-revenue-geographic-segmentation`](../09-verticals/octagon-revenue-geographic-segmentation/SKILL.md) — 营收地理区域分部拆解
+- [`octagon-revenue-product-segmentation`](../09-verticals/octagon-revenue-product-segmentation/SKILL.md) — 营收产品分部拆解
+- [`octagon-sec-10k-analysis`](../09-verticals/octagon-sec-10k-analysis/SKILL.md) — SEC 10-K 年报分析
+- [`octagon-sec-8k-analysis`](../09-verticals/octagon-sec-8k-analysis/SKILL.md) — SEC 8-K 重大事项分析
+- [`octagon-sec-debt-covenant`](../09-verticals/octagon-sec-debt-covenant/SKILL.md) — 债务契约与信贷条款分析
 - [`octagon-sec-filing-analyst`](../09-verticals/octagon-sec-filing-analyst/SKILL.md) — SEC 文件分析编排
 - [`octagon-sec-mda-analysis`](../09-verticals/octagon-sec-mda-analysis/SKILL.md) — SEC 管理层讨论与分析（MD&A）解读
+- [`octagon-sec-proxy-analysis`](../09-verticals/octagon-sec-proxy-analysis/SKILL.md) — 委托书 DEF 14A 高管薪酬与治理分析
 - [`octagon-sec-risk-factors`](../09-verticals/octagon-sec-risk-factors/SKILL.md) — SEC 风险因素提取
+- [`octagon-sec-s1-analysis`](../09-verticals/octagon-sec-s1-analysis/SKILL.md) — SEC S-1 招股书与 IPO 分析
+- [`octagon-sector-pe-ratios`](../09-verticals/octagon-sector-pe-ratios/SKILL.md) — 板块市盈率基准对比
+- [`octagon-sector-performance-snapshot`](../09-verticals/octagon-sector-performance-snapshot/SKILL.md) — 板块表现快照
+- [`octagon-stock-grades`](../09-verticals/octagon-stock-grades/SKILL.md) — 顶级分析师股票评级查询
+- [`octagon-stock-price-change`](../09-verticals/octagon-stock-price-change/SKILL.md) — 多周期股价涨跌幅统计
 - [`octagon-stock-quote`](../09-verticals/octagon-stock-quote/SKILL.md) — 实时股票报价
 
 ### `Octagon MCP (octagon-agent)`
@@ -1780,10 +2072,15 @@
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家
 
 ### `OpenFF Toolkit`
+- [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 
 ### `OpenMM`
+- [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
+
+### `OpenSlide`
+- [`histolab-wsi-tiling`](../09-verticals/histolab-wsi-tiling/SKILL.md) — histolab 全视野病理切片分块
 
 ### `OpenTelemetry`
 - [`distributed-tracing`](../02-engineering/distributed-tracing/SKILL.md) — Jaeger/Tempo 分布式链路追踪
@@ -1807,7 +2104,18 @@
 - [`ab-test-designer`](../05-business/ab-test-designer/SKILL.md) — A/B 实验设计师
 
 ### `PDBFixer`
+- [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
+
+### `PDF`
+- [`investment-proposal-builder`](../09-verticals/investment-proposal-builder/SKILL.md) — 投资建议书撰写
+- [`ma-deal-teaser`](../05-business/ma-deal-teaser/SKILL.md) — 并购匿名项目简介（Teaser）
+
+### `PDF 阅读器`
+- [`pe-portfolio-monitoring`](../05-business/pe-portfolio-monitoring/SKILL.md) — 被投企业业绩跟踪监控
+
+### `PDF/演示导出工具`
+- [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）
 
 ### `PHPStan`
 - [`php-pro`](../02-engineering/php-pro/SKILL.md) — PHP 进阶开发
@@ -1820,6 +2128,9 @@
 
 ### `PMapper`
 - [`aws-penetration-testing`](../08-security/aws-penetration-testing/SKILL.md) — AWS 云环境渗透测试
+
+### `POST /aiservices/scribe/transcribe`
+- [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
 
 ### `Pacu`
 - [`aws-penetration-testing`](../08-security/aws-penetration-testing/SKILL.md) — AWS 云环境渗透测试
@@ -1844,12 +2155,25 @@
 ### `Patrol`
 - [`flutter-expert`](../02-engineering/flutter-expert/SKILL.md) — Flutter 跨平台开发
 
+### `PayPal`
+- [`product-margin-pricing-scenarios`](../05-business/product-margin-pricing-scenarios/SKILL.md) — 产品毛利与定价情景测算
+- [`smb-payroll-cash-planner`](../05-business/smb-payroll-cash-planner/SKILL.md) — 小微企业发薪现金筹划
+
+### `PayPal MCP`
+- [`smb-cash-flow-forecast`](../05-business/smb-cash-flow-forecast/SKILL.md) — 小微企业现金流预测（30/60/90 天）
+
+### `PayPal 连接器`
+- [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）
+
 ### `Perplexity`
 - [`ai-answer-engine-seo`](../05-business/ai-answer-engine-seo/SKILL.md) — AI 答案引擎优化
 - [`seo-entity-optimizer`](../05-business/seo-entity-optimizer/SKILL.md) — 实体优化与知识图谱信号构建
 
 ### `PgBouncer`
 - [`saas-multi-tenant-architecture`](../02-engineering/saas-multi-tenant-architecture/SKILL.md) — SaaS 多租户架构
+
+### `Picard`
+- [`bwa-mem2-dna-aligner`](../09-verticals/bwa-mem2-dna-aligner/SKILL.md) — BWA-MEM2 短读 DNA 比对（WGS/WES/ChIP-seq）
 
 ### `Pillow`
 - [`canvas-design`](../06-creative/canvas-design/SKILL.md) — 画布设计（Canvas Design）：用设计哲学驱动的海报与静态艺术品
@@ -1886,6 +2210,15 @@
 
 ### `Pothos`
 - [`graphql-architect`](../02-engineering/graphql-architect/SKILL.md) — GraphQL 架构与联邦
+
+### `PowerPoint`
+- [`investment-proposal-builder`](../09-verticals/investment-proposal-builder/SKILL.md) — 投资建议书撰写
+
+### `PowerPoint/pptx 工具`
+- [`ib-pitch-deck-builder`](../05-business/ib-pitch-deck-builder/SKILL.md) — 投行路演演示稿构建
+
+### `PowerPoint（可选单页）`
+- [`ma-deal-teaser`](../05-business/ma-deal-teaser/SKILL.md) — 并购匿名项目简介（Teaser）
 
 ### `PowerShell`
 - [`bun-runtime-development`](../02-engineering/bun-runtime-development/SKILL.md) — Bun 运行时现代 JS/TS 开发
@@ -1940,6 +2273,10 @@
 ### `Pub/Sub`
 - [`gcp-cloud-run`](../10-platform/gcp-cloud-run/SKILL.md) — GCP Cloud Run 无服务器
 
+### `PyTDC`
+- [`pytdc-therapeutics-data-commons`](../09-verticals/pytdc-therapeutics-data-commons/SKILL.md) — PyTDC 治疗学数据公地
+- [`pytdc-therapeutics-datasets`](../09-verticals/pytdc-therapeutics-datasets/SKILL.md) — Therapeutics Data Commons 药物数据集
+
 ### `PyTorch`
 - [`diffdock-blind-docking`](../09-verticals/diffdock-blind-docking/SKILL.md) — DiffDock 扩散模型盲对接
 
@@ -1952,12 +2289,17 @@
 - [`alphafold-database-access`](../09-verticals/alphafold-database-access/SKILL.md) — AlphaFold 蛋白结构数据库访问
 - [`api-fuzzing-bug-bounty`](../08-security/api-fuzzing-bug-bounty/SKILL.md) — REST/GraphQL API 模糊测试与漏洞挖掘
 - [`aws-cdk-patterns`](../02-engineering/aws-cdk-patterns/SKILL.md) — AWS CDK 构造与基础设施模式
+- [`biopython-molecular-biology`](../09-verticals/biopython-molecular-biology/SKILL.md) — Biopython 分子生物学工具箱
+- [`busco-completeness-interpretation`](../09-verticals/busco-completeness-interpretation/SKILL.md) — BUSCO 组装完整度解读
+- [`bwa-mem2-dna-aligner`](../09-verticals/bwa-mem2-dna-aligner/SKILL.md) — BWA-MEM2 短读 DNA 比对（WGS/WES/ChIP-seq）
 - [`canslim-growth-screener`](../09-verticals/canslim-growth-screener/SKILL.md) — CANSLIM 成长股筛选
 - [`canvas-design`](../06-creative/canvas-design/SKILL.md) — 画布设计（Canvas Design）：用设计哲学驱动的海报与静态艺术品
 - [`cheminformatics-toolkit`](../09-verticals/cheminformatics-toolkit/SKILL.md) — 化学信息学工具箱（RDKit）
 - [`competitive-matrix-builder`](../05-business/competitive-matrix-builder/SKILL.md) — 竞争分析矩阵构建
 - [`data-quality-frameworks`](../03-data/data-quality-frameworks/SKILL.md) — 数据质量验证框架
+- [`depmap-cancer-dependency`](../09-verticals/depmap-cancer-dependency/SKILL.md) — DepMap 癌症基因依赖图谱查询
 - [`discord-bot-architect`](../02-engineering/discord-bot-architect/SKILL.md) — 生产级 Discord 机器人架构
+- [`drugbank-database-access`](../09-verticals/drugbank-database-access/SKILL.md) — DrugBank 药物数据库解析
 - [`earnings-trade-analyzer`](../09-verticals/earnings-trade-analyzer/SKILL.md) — 财报后交易五因子评分
 - [`fda-device-consultant`](../09-verticals/fda-device-consultant/SKILL.md) — FDA 医疗器械注册路径顾问
 - [`gatk-variant-calling`](../09-verticals/gatk-variant-calling/SKILL.md) — GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）
@@ -1965,12 +2307,17 @@
 - [`genomic-file-toolkit`](../09-verticals/genomic-file-toolkit/SKILL.md) — 基因组文件处理（BAM/VCF/FASTQ）
 - [`github-copilot-sdk`](../04-ai/github-copilot-sdk/SKILL.md) — GitHub Copilot SDK 编程集成
 - [`health-goal-analyzer`](../09-verticals/health-goal-analyzer/SKILL.md) — 健康目标分析器
+- [`histolab-wsi-tiling`](../09-verticals/histolab-wsi-tiling/SKILL.md) — histolab 全视野病理切片分块
 - [`hybrid-search-retrieval`](../04-ai/hybrid-search-retrieval/SKILL.md) — 向量与关键词混合检索
+- [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) — JASPAR 转录因子结合谱
 - [`kpi-dashboard-design`](../03-data/kpi-dashboard-design/SKILL.md) — KPI 仪表盘设计
 - [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) — LBO 杠杆收购模型构建
 - [`monorepo-navigator`](../02-engineering/monorepo-navigator/SKILL.md) — Monorepo 导航与构建优化
 - [`pe-returns-sensitivity`](../09-verticals/pe-returns-sensitivity/SKILL.md) — PE 投资回报 IRR/MOIC 敏感性分析
+- [`qutip-open-quantum-systems`](../09-verticals/qutip-open-quantum-systems/SKILL.md) — QuTiP 开放量子系统仿真
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
 - [`three-statement-model`](../09-verticals/three-statement-model/SKILL.md) — 三表联动财务模型
+- [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流
 
 ### `Python 3.10+`
 - [`crewai-multi-agent`](../04-ai/crewai-multi-agent/SKILL.md) — CrewAI 角色化多智能体框架
@@ -2002,11 +2349,30 @@
 ### `Python3`
 - [`shodan-reconnaissance`](../08-security/shodan-reconnaissance/SKILL.md) — Shodan 资产侦察方法论
 
+### `Pythran/Transonic`
+- [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
+
 ### `QEMU`
 - [`firmware-reverse-analyst`](../08-security/firmware-reverse-analyst/SKILL.md) — 固件逆向与 IoT 安全
 
+### `QoE`
+- [`pe-dd-checklist`](../05-business/pe-dd-checklist/SKILL.md) — 尽职调查清单生成跟踪
+
+### `QuTiP`
+- [`qutip-open-quantum-systems`](../09-verticals/qutip-open-quantum-systems/SKILL.md) — QuTiP 开放量子系统仿真
+
 ### `Quantum ESPRESSO`
 - [`materials-science-toolkit`](../09-verticals/materials-science-toolkit/SKILL.md) — 材料科学工具箱（Pymatgen）
+
+### `QuickBooks`
+- [`product-margin-pricing-scenarios`](../05-business/product-margin-pricing-scenarios/SKILL.md) — 产品毛利与定价情景测算
+- [`smb-payroll-cash-planner`](../05-business/smb-payroll-cash-planner/SKILL.md) — 小微企业发薪现金筹划
+
+### `QuickBooks MCP`
+- [`smb-cash-flow-forecast`](../05-business/smb-cash-flow-forecast/SKILL.md) — 小微企业现金流预测（30/60/90 天）
+
+### `QuickBooks 连接器`
+- [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）
 
 ### `R`
 - [`cellchat-cell-communication`](../09-verticals/cellchat-cell-communication/SKILL.md) — CellChat 细胞间通讯推断
@@ -2018,14 +2384,25 @@
 ### `RACI`
 - [`enterprise-project-manager`](../07-productivity/enterprise-project-manager/SKILL.md) — 企业级项目组合管理
 
+### `RCSB Data GraphQL`
+- [`rcsb-pdb-database`](../09-verticals/rcsb-pdb-database/SKILL.md) — RCSB PDB 结构数据库查询
+
+### `RCSB Search API`
+- [`rcsb-pdb-database`](../09-verticals/rcsb-pdb-database/SKILL.md) — RCSB PDB 结构数据库查询
+
 ### `RDF/Turtle`
 - [`bdi-mental-states`](../04-ai/bdi-mental-states/SKILL.md) — BDI 智能体信念-愿望-意图建模
 
 ### `RDKit`
 - [`cheminformatics-toolkit`](../09-verticals/cheminformatics-toolkit/SKILL.md) — 化学信息学工具箱（RDKit）
 - [`diffdock-blind-docking`](../09-verticals/diffdock-blind-docking/SKILL.md) — DiffDock 扩散模型盲对接
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
+
+### `REST`
+- [`gwas-catalog-database`](../09-verticals/gwas-catalog-database/SKILL.md) — GWAS Catalog 关联查询
 
 ### `REST API`
+- [`encode-database`](../09-verticals/encode-database/SKILL.md) — ENCODE 调控基因组数据库
 - [`scientific-database-lookup`](../09-verticals/scientific-database-lookup/SKILL.md) — 科研数据库 API 查询
 
 ### `RICE`
@@ -2081,6 +2458,7 @@
 - [`backend-security-coder`](../08-security/backend-security-coder/SKILL.md) — 后端安全编码与 API 防护
 - [`bash-defensive-patterns`](../02-engineering/bash-defensive-patterns/SKILL.md) — 防御式 Bash 脚本生产实践
 - [`bevy-ecs-rust`](../02-engineering/bevy-ecs-rust/SKILL.md) — Bevy 实体组件系统 Rust 游戏开发
+- [`board-written-consent-drafter`](../09-verticals/board-written-consent-drafter/SKILL.md) — 董事会书面决议起草（一致同意书 / UWC）
 - [`brooks-design-lint`](../02-engineering/brooks-design-lint/SKILL.md) — 经典软工书籍驱动的设计审查（brooks-design-lint）
 - [`browser-extension-builder`](../02-engineering/browser-extension-builder/SKILL.md) — 跨浏览器扩展构建与发布
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查
@@ -2092,6 +2470,7 @@
 - [`code-simplifier`](../02-engineering/code-simplifier/SKILL.md) — 保持功能不变的代码简化
 - [`code-tutorial-engineer`](../01-documents/code-tutorial-engineer/SKILL.md) — 代码教程与教学内容编写
 - [`codebase-to-prd`](../01-documents/codebase-to-prd/SKILL.md) — 代码库逆向生成PRD
+- [`company-policy-lookup`](../07-productivity/company-policy-lookup/SKILL.md) — 公司政策查询与白话解释
 - [`compliance-readiness-review`](../08-security/compliance-readiness-review/SKILL.md) — 多框架合规就绪审查（compliance-readiness-review）
 - [`content-engine-strategist`](../05-business/content-engine-strategist/SKILL.md) — 内容引擎与主题集群策略
 - [`content-humanizer`](../01-documents/content-humanizer/SKILL.md) — AI文本人性化改写
@@ -2115,6 +2494,7 @@
 - [`fastapi-async-api`](../02-engineering/fastapi-async-api/SKILL.md) — FastAPI 高性能异步 API
 - [`fda-qsr-audit-prep`](../09-verticals/fda-qsr-audit-prep/SKILL.md) — FDA QSR（21 CFR 820）审计准备
 - [`file-organizer`](../07-productivity/file-organizer/SKILL.md) — 本地文件智能整理
+- [`financial-model-updater`](../05-business/financial-model-updater/SKILL.md) — 财务模型数据更新
 - [`finviz-screener-builder`](../09-verticals/finviz-screener-builder/SKILL.md) — FinViz 选股器 URL 构建
 - [`firebase-apk-scanner`](../08-security/firebase-apk-scanner/SKILL.md) — Android APK Firebase 配置扫描
 - [`fullstack-project-scaffolder`](../02-engineering/fullstack-project-scaffolder/SKILL.md) — 全栈项目脚手架与技术栈选型
@@ -2133,9 +2513,12 @@
 - [`landing-page-copywriting`](../05-business/landing-page-copywriting/SKILL.md) — 落地页营销文案撰写
 - [`laravel-security-audit`](../08-security/laravel-security-audit/SKILL.md) — Laravel 安全审计
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构
+- [`legal-client-intake`](../09-verticals/legal-client-intake/SKILL.md) — 法律客户结构化接案
 - [`llm-judge-evaluation`](../04-ai/llm-judge-evaluation/SKILL.md) — LLM-as-Judge 高级评测
+- [`ma-process-letter`](../05-business/ma-process-letter/SKILL.md) — 并购流程函与报价指引
 - [`marketing-campaign-brief`](../05-business/marketing-campaign-brief/SKILL.md) — 营销活动方案策划
 - [`marketing-copy-editor`](../05-business/marketing-copy-editor/SKILL.md) — 营销文案审校
+- [`medchem-compound-triage`](../09-verticals/medchem-compound-triage/SKILL.md) — 药物化学过滤与化合物筛选
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
 - [`new-hire-onboarding-plan`](../07-productivity/new-hire-onboarding-plan/SKILL.md) — 新员工入职计划
@@ -2143,10 +2526,14 @@
 - [`ops-capacity-planner`](../07-productivity/ops-capacity-planner/SKILL.md) — 运营产能与人力规划
 - [`paid-ad-creative`](../05-business/paid-ad-creative/SKILL.md) — 付费广告创意制作与迭代
 - [`parallel-agent-hub`](../04-ai/parallel-agent-hub/SKILL.md) — 并行多智能体竞赛协作中枢
+- [`pennylane-quantum-ml`](../09-verticals/pennylane-quantum-ml/SKILL.md) — PennyLane 量子机器学习
+- [`polars-bio-genomic-intervals`](../09-verticals/polars-bio-genomic-intervals/SKILL.md) — polars-bio 高性能基因组区间运算
 - [`prd-spec-writer`](../07-productivity/prd-spec-writer/SKILL.md) — PRD 与功能规格撰写
 - [`product-launch-strategy`](../05-business/product-launch-strategy/SKILL.md) — 产品发布策略规划
+- [`product-margin-pricing-scenarios`](../05-business/product-margin-pricing-scenarios/SKILL.md) — 产品毛利与定价情景测算
 - [`professional-proofreader`](../01-documents/professional-proofreader/SKILL.md) — 专业文稿校对
 - [`quality-documentation-control`](../09-verticals/quality-documentation-control/SKILL.md) — 医疗器械质量文件控制管理
+- [`quick-legal-problem-triage`](../09-verticals/quick-legal-problem-triage/SKILL.md) — 快速法律问题判定
 - [`react-native-architecture`](../02-engineering/react-native-architecture/SKILL.md) — React Native 架构模式
 - [`readme-doc-writer`](../01-documents/readme-doc-writer/SKILL.md) — README 文档撰写
 - [`resource-capacity-planner`](../07-productivity/resource-capacity-planner/SKILL.md) — 资源产能规划
@@ -2154,12 +2541,15 @@
 - [`sales-forecast-builder`](../05-business/sales-forecast-builder/SKILL.md) — 加权销售预测构建器
 - [`schema-markup-builder`](../05-business/schema-markup-builder/SKILL.md) — 结构化数据 Schema 标记
 - [`scientific-manuscript-writing`](../09-verticals/scientific-manuscript-writing/SKILL.md) — 科研论文写作（IMRAD）
+- [`sector-landscape-report`](../05-business/sector-landscape-report/SKILL.md) — 行业格局综述报告
 - [`self-improving-memory-agent`](../04-ai/self-improving-memory-agent/SKILL.md) — 自改进记忆沉淀智能体
 - [`semgrep-rule-creator`](../08-security/semgrep-rule-creator/SKILL.md) — Semgrep 自定义规则编写
 - [`seo-entity-optimizer`](../05-business/seo-entity-optimizer/SKILL.md) — 实体优化与知识图谱信号构建
 - [`seo-site-architecture`](../05-business/seo-site-architecture/SKILL.md) — 网站结构与 URL 层级设计
 - [`service-mesh-architect`](../02-engineering/service-mesh-architect/SKILL.md) — 服务网格架构（Istio/Linkerd）
 - [`shellcheck-linting`](../02-engineering/shellcheck-linting/SKILL.md) — ShellCheck 脚本静态检查配置
+- [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）
+- [`stock-idea-generation`](../05-business/stock-idea-generation/SKILL.md) — 选股投资思路生成
 - [`supply-chain-risk-auditor`](../08-security/supply-chain-risk-auditor/SKILL.md) — 供应链依赖风险评估
 - [`tailwind-css-patterns`](../02-engineering/tailwind-css-patterns/SKILL.md) — Tailwind CSS v4 模式与设计令牌
 - [`technical-reference-builder`](../01-documents/technical-reference-builder/SKILL.md) — 技术参考手册构建
@@ -2171,6 +2561,9 @@
 
 ### `Recurly`
 - [`churn-prevention`](../05-business/churn-prevention/SKILL.md) — 流失预防与留存
+
+### `Red Flag Log`
+- [`pe-dd-checklist`](../05-business/pe-dd-checklist/SKILL.md) — 尽职调查清单生成跟踪
 
 ### `Redis`
 - [`api-security-best-practices`](../08-security/api-security-best-practices/SKILL.md) — API 安全设计最佳实践
@@ -2196,6 +2589,9 @@
 
 ### `Responder`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
+
+### `Returns Analysis (IRR/MOIC)`
+- [`ic-investment-memo`](../05-business/ic-investment-memo/SKILL.md) — 投委会投资备忘录（IC Memo）
 
 ### `Revenue Multiple`
 - [`ma-playbook`](../05-business/ma-playbook/SKILL.md) — 并购策略手册（尽调与估值整合）
@@ -2223,6 +2619,9 @@
 
 ### `Rubeus`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
+
+### `S&P Global Capital IQ MCP`
+- [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递
 
 ### `SAF-T`
 - [`odoo-localization-compliance`](../09-verticals/odoo-localization-compliance/SKILL.md) — Odoo 本地化与税务合规
@@ -2272,6 +2671,7 @@
 - [`penetration-testing-methodology`](../08-security/penetration-testing-methodology/SKILL.md) — 渗透测试全生命周期
 
 ### `STAR`
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
 - [`star-rnaseq-aligner`](../09-verticals/star-rnaseq-aligner/SKILL.md) — STAR 剪接感知 RNA-seq 比对
 
 ### `STL`
@@ -2279,6 +2679,9 @@
 
 ### `STRIDE`
 - [`fda-device-consultant`](../09-verticals/fda-device-consultant/SKILL.md) — FDA 医疗器械注册路径顾问
+
+### `STRING REST API`
+- [`string-ppi-database`](../09-verticals/string-ppi-database/SKILL.md) — STRING 蛋白互作网络查询
 
 ### `SVG`
 - [`animejs-web-animation`](../06-creative/animejs-web-animation/SKILL.md) — Anime.js 高性能网页动画
@@ -2355,6 +2758,9 @@
 ### `SharpHound`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
 
+### `Sheets MCP / Sheets API (ADC)`
+- [`contract-tabular-batch-review`](../09-verticals/contract-tabular-batch-review/SKILL.md) — 合同批量表格化审查
+
 ### `Shopython`
 - [`shodan-reconnaissance`](../08-security/shodan-reconnaissance/SKILL.md) — Shodan 资产侦察方法论
 
@@ -2365,6 +2771,7 @@
 - [`aws-penetration-testing`](../08-security/aws-penetration-testing/SKILL.md) — AWS 云环境渗透测试
 
 ### `Slack`
+- [`deal-closing-checklist`](../09-verticals/deal-closing-checklist/SKILL.md) — 交易交割清单管理
 - [`sre-incident-responder`](../02-engineering/sre-incident-responder/SKILL.md) — SRE 事件响应
 
 ### `Slack/Teams`
@@ -2372,6 +2779,9 @@
 
 ### `Slither`
 - [`blockchain-web3-developer`](../09-verticals/blockchain-web3-developer/SKILL.md) — Web3 智能合约与 DeFi 开发
+
+### `Smart Embed iframe + postMessage`
+- [`zoom-phone-integration`](../10-platform/zoom-phone-integration/SKILL.md) — Zoom Phone 集成（呼叫/事件/API）
 
 ### `Snakemake`
 - [`gatk-variant-calling`](../09-verticals/gatk-variant-calling/SKILL.md) — GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）
@@ -2408,6 +2818,9 @@
 ### `SonarQube`
 - [`sast-configurator`](../08-security/sast-configurator/SKILL.md) — SAST静态扫描配置
 
+### `Sources & Uses`
+- [`ic-investment-memo`](../05-business/ic-investment-memo/SKILL.md) — 投委会投资备忘录（IC Memo）
+
 ### `Spark`
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程
 
@@ -2417,14 +2830,29 @@
 ### `SqliteSaver`
 - [`langgraph-agent-framework`](../04-ai/langgraph-agent-framework/SKILL.md) — LangGraph 智能体编排
 
+### `Square`
+- [`smb-payroll-cash-planner`](../05-business/smb-payroll-cash-planner/SKILL.md) — 小微企业发薪现金筹划
+
+### `Square MCP`
+- [`smb-cash-flow-forecast`](../05-business/smb-cash-flow-forecast/SKILL.md) — 小微企业现金流预测（30/60/90 天）
+
+### `StarSpace`
+- [`geniml-genomic-interval-ml`](../09-verticals/geniml-genomic-interval-ml/SKILL.md) — geniml 基因组区间机器学习
+
 ### `StateGraph`
 - [`langgraph-agent-framework`](../04-ai/langgraph-agent-framework/SKILL.md) — LangGraph 智能体编排
+
+### `Status Tracker`
+- [`pe-dd-checklist`](../05-business/pe-dd-checklist/SKILL.md) — 尽职调查清单生成跟踪
 
 ### `Statuspage`
 - [`incident-commander-framework`](../02-engineering/incident-commander-framework/SKILL.md) — 事故指挥与响应框架
 
 ### `Storylane`
 - [`user-onboarding-optimizer`](../05-business/user-onboarding-optimizer/SKILL.md) — 用户激活与引导优化
+
+### `Strategic Buyer Tiering`
+- [`ma-buyer-list`](../05-business/ma-buyer-list/SKILL.md) — 并购潜在买家清单构建
 
 ### `StreamableHTTP)`
 - [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) — X/Twitter 抓取与自动化（Xquik）
@@ -2438,12 +2866,16 @@
 ### `Stripe`
 - [`churn-prevention`](../05-business/churn-prevention/SKILL.md) — 流失预防与留存
 - [`referral-program-designer`](../05-business/referral-program-designer/SKILL.md) — 推荐与联盟计划设计
+- [`smb-payroll-cash-planner`](../05-business/smb-payroll-cash-planner/SKILL.md) — 小微企业发薪现金筹划
 
 ### `Stripe API`
 - [`billing-automation-systems`](../05-business/billing-automation-systems/SKILL.md) — 订阅计费与催收自动化系统
 
 ### `Stripe CLI`
 - [`stripe-integration`](../10-platform/stripe-integration/SKILL.md) — Stripe 支付与订阅集成
+
+### `Stripe MCP`
+- [`smb-cash-flow-forecast`](../05-business/smb-cash-flow-forecast/SKILL.md) — 小微企业现金流预测（30/60/90 天）
 
 ### `Stripe Node SDK (stripe)`
 - [`stripe-integration`](../10-platform/stripe-integration/SKILL.md) — Stripe 支付与订阅集成
@@ -2579,6 +3011,9 @@
 ### `UPX`
 - [`anti-reversing-techniques`](../08-security/anti-reversing-techniques/SKILL.md) — 反逆向技术分析
 
+### `URI schemes (zoomphonecall:// / zoomphonesms://)`
+- [`zoom-phone-integration`](../10-platform/zoom-phone-integration/SKILL.md) — Zoom Phone 集成（呼叫/事件/API）
+
 ### `UTM`
 - [`paid-ads-strategist`](../05-business/paid-ads-strategist/SKILL.md) — 付费广告投放策略
 
@@ -2591,8 +3026,13 @@
 ### `VASP`
 - [`materials-science-toolkit`](../09-verticals/materials-science-toolkit/SKILL.md) — 材料科学工具箱（Pymatgen）
 
+### `VDR MCP (Box/Datasite/iManage)`
+- [`contract-tabular-batch-review`](../09-verticals/contract-tabular-batch-review/SKILL.md) — 合同批量表格化审查
+
 ### `VDR MCP (Box/Intralinks/Datasite)`
+- [`deal-closing-checklist`](../09-verticals/deal-closing-checklist/SKILL.md) — 交易交割清单管理
 - [`diligence-issue-extractor`](../09-verticals/diligence-issue-extractor/SKILL.md) — 尽职调查问题提取
+- [`material-contract-disclosure-schedule`](../09-verticals/material-contract-disclosure-schedule/SKILL.md) — 重大合同披露附表构建
 
 ### `VIES VAT 校验`
 - [`billing-automation-systems`](../05-business/billing-automation-systems/SKILL.md) — 订阅计费与催收自动化系统
@@ -2617,6 +3057,9 @@
 
 ### `Vanilla Extract`
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) — Web 组件设计模式
+
+### `Variation Services API`
+- [`dbsnp-database`](../09-verticals/dbsnp-database/SKILL.md) — dbSNP SNP 数据库查询
 
 ### `Vercel`
 - [`neon-serverless-postgres`](../02-engineering/neon-serverless-postgres/SKILL.md) — Neon Serverless Postgres
@@ -2658,8 +3101,17 @@
 ### `Wagmi`
 - [`blockchain-web3-developer`](../09-verticals/blockchain-web3-developer/SKILL.md) — Web3 智能合约与 DeFi 开发
 
+### `Web Meeting SDK (ZoomMtg / ZoomMtgEmbedded)`
+- [`zoom-meeting-app-builder`](../10-platform/zoom-meeting-app-builder/SKILL.md) — Zoom 会议嵌入应用开发（Meeting SDK）
+
+### `Web Search`
+- [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报
+
 ### `Web Search/Fetch`
 - [`dcf-valuation-model`](../09-verticals/dcf-valuation-model/SKILL.md) — DCF 现金流折现估值模型
+
+### `Web 搜索（时效补充）`
+- [`signal-based-call-prep`](../05-business/signal-based-call-prep/SKILL.md) — 基于信号的客户通话准备（Common Room）
 
 ### `WebApplicationFactory`
 - [`dotnet-backend-patterns`](../02-engineering/dotnet-backend-patterns/SKILL.md) — dotnet 后端开发模式
@@ -2671,31 +3123,58 @@
 - [`daily-news-report`](../07-productivity/daily-news-report/SKILL.md) — 每日技术资讯抓取与简报生成
 - [`eeat-content-quality-auditor`](../05-business/eeat-content-quality-auditor/SKILL.md) — E-E-A-T 内容质量审计（CORE-EEAT 评分）
 - [`entity-research-dossier`](../00-meta/entity-research-dossier/SKILL.md) — 实体决策级调研档案（entity-research-dossier）
+- [`product-margin-pricing-scenarios`](../05-business/product-margin-pricing-scenarios/SKILL.md) — 产品毛利与定价情景测算
 - [`scientific-database-lookup`](../09-verticals/scientific-database-lookup/SKILL.md) — 科研数据库 API 查询
+- [`sector-landscape-report`](../05-business/sector-landscape-report/SKILL.md) — 行业格局综述报告
 - [`semgrep-rule-creator`](../08-security/semgrep-rule-creator/SKILL.md) — Semgrep 自定义规则编写
 - [`serp-feature-analysis`](../05-business/serp-feature-analysis/SKILL.md) — SERP 搜索结果与 AI 概览分析
+- [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）
 - [`technical-seo-checker`](../05-business/technical-seo-checker/SKILL.md) — 技术 SEO 体检（抓取/索引/核心网页指标）
 
 ### `WebGL`
 - [`glsl-shader-programming`](../06-creative/glsl-shader-programming/SKILL.md) — GLSL 着色器编程：写顶点/片元着色器与常见视觉特效
 
 ### `WebSearch`
+- [`action-compliance-check`](../09-verticals/action-compliance-check/SKILL.md) — 行动合规性检查（产品/业务举措）
 - [`advisor-fit-analyzer`](../09-verticals/advisor-fit-analyzer/SKILL.md) — 导师适配度分析
 - [`customer-research-synthesizer`](../05-business/customer-research-synthesizer/SKILL.md) — 客户调研与洞察综合
+- [`dmca-takedown-notice`](../09-verticals/dmca-takedown-notice/SKILL.md) — DMCA 下架通知与反通知
 - [`entity-research-dossier`](../00-meta/entity-research-dossier/SKILL.md) — 实体决策级调研档案（entity-research-dossier）
 - [`marketing-claims-reviewer`](../09-verticals/marketing-claims-reviewer/SKILL.md) — 营销宣传声明合规审查
+- [`product-launch-legal-review`](../09-verticals/product-launch-legal-review/SKILL.md) — 产品上线法律审查
+- [`sector-landscape-report`](../05-business/sector-landscape-report/SKILL.md) — 行业格局综述报告
+- [`trademark-clearance-knockout`](../09-verticals/trademark-clearance-knockout/SKILL.md) — 商标可注册性初筛
 
 ### `WebSocket`
 - [`full-page-screenshot`](../10-platform/full-page-screenshot/SKILL.md) — 整页网页截图捕获
+- [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流
+
+### `Webhook Subscriptions API (/webhooks/options)`
+- [`zoom-webhooks-setup`](../10-platform/zoom-webhooks-setup/SKILL.md) — Zoom Webhooks 事件订阅与校验
+
+### `Webhook 接收器`
+- [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
 
 ### `Westlaw`
+- [`contract-amendment-history-tracer`](../09-verticals/contract-amendment-history-tracer/SKILL.md) — 合同修订历史追溯
+- [`deal-closing-checklist`](../09-verticals/deal-closing-checklist/SKILL.md) — 交易交割清单管理
 - [`diligence-issue-extractor`](../09-verticals/diligence-issue-extractor/SKILL.md) — 尽职调查问题提取
+- [`material-contract-disclosure-schedule`](../09-verticals/material-contract-disclosure-schedule/SKILL.md) — 重大合同披露附表构建
 
 ### `Wikidata`
 - [`seo-entity-optimizer`](../05-business/seo-entity-optimizer/SKILL.md) — 实体优化与知识图谱信号构建
 
 ### `Wireshark`
 - [`wireshark-traffic-analysis`](../08-security/wireshark-traffic-analysis/SKILL.md) — Wireshark 流量分析
+
+### `Word (.docx)`
+- [`ic-investment-memo`](../05-business/ic-investment-memo/SKILL.md) — 投委会投资备忘录（IC Memo）
+
+### `Word/.docx`
+- [`ma-deal-teaser`](../05-business/ma-deal-teaser/SKILL.md) — 并购匿名项目简介（Teaser）
+
+### `Word/Markdown 编辑器`
+- [`pe-value-creation-plan`](../05-business/pe-value-creation-plan/SKILL.md) — 投后价值创造计划（EBITDA 桥与 100 天计划）
 
 ### `Write`
 - [`ad-creative-generator`](../05-business/ad-creative-generator/SKILL.md) — 广告创意批量生成
@@ -2714,6 +3193,7 @@
 - [`backend-security-coder`](../08-security/backend-security-coder/SKILL.md) — 后端安全编码与 API 防护
 - [`bash-defensive-patterns`](../02-engineering/bash-defensive-patterns/SKILL.md) — 防御式 Bash 脚本生产实践
 - [`bevy-ecs-rust`](../02-engineering/bevy-ecs-rust/SKILL.md) — Bevy 实体组件系统 Rust 游戏开发
+- [`board-written-consent-drafter`](../09-verticals/board-written-consent-drafter/SKILL.md) — 董事会书面决议起草（一致同意书 / UWC）
 - [`browser-extension-builder`](../02-engineering/browser-extension-builder/SKILL.md) — 跨浏览器扩展构建与发布
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查
 - [`capa-root-cause-officer`](../09-verticals/capa-root-cause-officer/SKILL.md) — 医疗器械 CAPA 与根因分析
@@ -2739,6 +3219,7 @@
 - [`entity-research-dossier`](../00-meta/entity-research-dossier/SKILL.md) — 实体决策级调研档案（entity-research-dossier）
 - [`false-positive-check`](../08-security/false-positive-check/SKILL.md) — 漏洞误报核验
 - [`fastapi-async-api`](../02-engineering/fastapi-async-api/SKILL.md) — FastAPI 高性能异步 API
+- [`financial-model-updater`](../05-business/financial-model-updater/SKILL.md) — 财务模型数据更新
 - [`fullstack-project-scaffolder`](../02-engineering/fullstack-project-scaffolder/SKILL.md) — 全栈项目脚手架与技术栈选型
 - [`git-hooks-automation`](../02-engineering/git-hooks-automation/SKILL.md) — Git Hooks 质量门禁
 - [`grafana-dashboards`](../02-engineering/grafana-dashboards/SKILL.md) — Grafana 可观测看板
@@ -2750,8 +3231,11 @@
 - [`java-modern-pro`](../02-engineering/java-modern-pro/SKILL.md) — Java 21+ 现代开发
 - [`jetpack-compose-expert`](../02-engineering/jetpack-compose-expert/SKILL.md) — Android Jetpack Compose 开发专家
 - [`landing-page-copywriting`](../05-business/landing-page-copywriting/SKILL.md) — 落地页营销文案撰写
+- [`legal-client-intake`](../09-verticals/legal-client-intake/SKILL.md) — 法律客户结构化接案
 - [`llm-judge-evaluation`](../04-ai/llm-judge-evaluation/SKILL.md) — LLM-as-Judge 高级评测
+- [`ma-process-letter`](../05-business/ma-process-letter/SKILL.md) — 并购流程函与报价指引
 - [`marketing-campaign-brief`](../05-business/marketing-campaign-brief/SKILL.md) — 营销活动方案策划
+- [`medchem-compound-triage`](../09-verticals/medchem-compound-triage/SKILL.md) — 药物化学过滤与化合物筛选
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
 - [`new-hire-onboarding-plan`](../07-productivity/new-hire-onboarding-plan/SKILL.md) — 新员工入职计划
@@ -2759,6 +3243,8 @@
 - [`ops-capacity-planner`](../07-productivity/ops-capacity-planner/SKILL.md) — 运营产能与人力规划
 - [`paid-ad-creative`](../05-business/paid-ad-creative/SKILL.md) — 付费广告创意制作与迭代
 - [`parallel-agent-hub`](../04-ai/parallel-agent-hub/SKILL.md) — 并行多智能体竞赛协作中枢
+- [`pennylane-quantum-ml`](../09-verticals/pennylane-quantum-ml/SKILL.md) — PennyLane 量子机器学习
+- [`polars-bio-genomic-intervals`](../09-verticals/polars-bio-genomic-intervals/SKILL.md) — polars-bio 高性能基因组区间运算
 - [`prd-spec-writer`](../07-productivity/prd-spec-writer/SKILL.md) — PRD 与功能规格撰写
 - [`product-launch-strategy`](../05-business/product-launch-strategy/SKILL.md) — 产品发布策略规划
 - [`professional-proofreader`](../01-documents/professional-proofreader/SKILL.md) — 专业文稿校对
@@ -2769,6 +3255,7 @@
 - [`rest-api-endpoint-builder`](../02-engineering/rest-api-endpoint-builder/SKILL.md) — 生产级 REST API 端点构建
 - [`schema-markup-builder`](../05-business/schema-markup-builder/SKILL.md) — 结构化数据 Schema 标记
 - [`scientific-manuscript-writing`](../09-verticals/scientific-manuscript-writing/SKILL.md) — 科研论文写作（IMRAD）
+- [`sector-landscape-report`](../05-business/sector-landscape-report/SKILL.md) — 行业格局综述报告
 - [`self-improving-memory-agent`](../04-ai/self-improving-memory-agent/SKILL.md) — 自改进记忆沉淀智能体
 - [`semgrep-rule-creator`](../08-security/semgrep-rule-creator/SKILL.md) — Semgrep 自定义规则编写
 - [`seo-entity-optimizer`](../05-business/seo-entity-optimizer/SKILL.md) — 实体优化与知识图谱信号构建
@@ -2787,6 +3274,9 @@
 
 ### `XGBoost`
 - [`inventory-demand-planning`](../09-verticals/inventory-demand-planning/SKILL.md) — 库存需求计划
+
+### `XLSX`
+- [`smb-payroll-cash-planner`](../05-business/smb-payroll-cash-planner/SKILL.md) — 小微企业发薪现金筹划
 
 ### `Xcode`
 - [`swiftui-best-practices`](../02-engineering/swiftui-best-practices/SKILL.md) — SwiftUI 状态管理与最佳实践
@@ -2835,6 +3325,48 @@
 ### `Zod`
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) — AI 智能体工具设计与构建
 - [`api-security-best-practices`](../08-security/api-security-best-practices/SKILL.md) — API 安全设计最佳实践
+
+### `Zoom AI Services Scribe API`
+- [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
+
+### `Zoom Apps SDK (zoomSdk)`
+- [`zoom-contact-center-app`](../10-platform/zoom-contact-center-app/SKILL.md) — Zoom Contact Center 应用开发
+
+### `Zoom Contact Center REST API`
+- [`zoom-contact-center-app`](../10-platform/zoom-contact-center-app/SKILL.md) — Zoom Contact Center 应用开发
+
+### `Zoom Contact Center Web SDK`
+- [`zoom-contact-center-app`](../10-platform/zoom-contact-center-app/SKILL.md) — Zoom Contact Center 应用开发
+
+### `Zoom KB REST API`
+- [`zoom-virtual-agent-builder`](../10-platform/zoom-virtual-agent-builder/SKILL.md) — Zoom 虚拟客服坐席集成
+
+### `Zoom Marketplace (SDK Key/Secret)`
+- [`zoom-meeting-app-builder`](../10-platform/zoom-meeting-app-builder/SKILL.md) — Zoom 会议嵌入应用开发（Meeting SDK）
+
+### `Zoom Marketplace Event Subscriptions`
+- [`zoom-webhooks-setup`](../10-platform/zoom-webhooks-setup/SKILL.md) — Zoom Webhooks 事件订阅与校验
+
+### `Zoom Marketplace OAuth (User / Server-to-Server)`
+- [`zoom-phone-integration`](../10-platform/zoom-phone-integration/SKILL.md) — Zoom Phone 集成（呼叫/事件/API）
+
+### `Zoom Marketplace 控制台`
+- [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现
+
+### `Zoom OAuth 端点 (zoom.us/oauth/*)`
+- [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现
+
+### `Zoom Phone REST API`
+- [`zoom-phone-integration`](../10-platform/zoom-phone-integration/SKILL.md) — Zoom Phone 集成（呼叫/事件/API）
+
+### `Zoom REST API v2 (api.zoom.us)`
+- [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现
+
+### `Zoom S2S OAuth`
+- [`zoom-virtual-agent-builder`](../10-platform/zoom-virtual-agent-builder/SKILL.md) — Zoom 虚拟客服坐席集成
+
+### `Zoom Webhook (Event Subscriptions)`
+- [`zoom-phone-integration`](../10-platform/zoom-phone-integration/SKILL.md) — Zoom Phone 集成（呼叫/事件/API）
 
 ### `ZoomInfo`
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选
@@ -2981,8 +3513,11 @@
 - [`celltypist-cell-annotation`](../09-verticals/celltypist-cell-annotation/SKILL.md) — CellTypist 单细胞自动注释
 - [`cellxgene-census`](../09-verticals/cellxgene-census/SKILL.md) — CELLxGENE Census 海量单细胞查询
 - [`harmony-batch-correction`](../09-verticals/harmony-batch-correction/SKILL.md) — Harmony 单细胞批次效应校正
+- [`lamindb-data-management`](../09-verticals/lamindb-data-management/SKILL.md) — LaminDB 生物数据治理
 - [`muon-multiomics-singlecell`](../09-verticals/muon-multiomics-singlecell/SKILL.md) — muon 多模态单细胞多组学分析
+- [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释
 - [`pydeseq2-differential-expression`](../09-verticals/pydeseq2-differential-expression/SKILL.md) — PyDESeq2 批量 RNA-seq 差异表达分析
+- [`scvelo-rna-velocity`](../09-verticals/scvelo-rna-velocity/SKILL.md) — scVelo RNA 速率分析
 - [`scvi-tools-single-cell`](../09-verticals/scvi-tools-single-cell/SKILL.md) — scvi-tools 单细胞深度生成模型
 - [`single-cell-rnaseq-analysis`](../09-verticals/single-cell-rnaseq-analysis/SKILL.md) — 单细胞 RNA-seq 分析（Scanpy）
 
@@ -3010,8 +3545,24 @@
 ### `apktool`
 - [`firebase-apk-scanner`](../08-security/firebase-apk-scanner/SKILL.md) — Android APK Firebase 配置扫描
 
+### `apollo_contacts_create`
+- [`apollo-lead-enrichment`](../05-business/apollo-lead-enrichment/SKILL.md) — Apollo 线索富化（联系卡补全）
+
+### `apollo_mixed_people_api_search`
+- [`apollo-lead-enrichment`](../05-business/apollo-lead-enrichment/SKILL.md) — Apollo 线索富化（联系卡补全）
+
+### `apollo_organizations_enrich`
+- [`apollo-lead-enrichment`](../05-business/apollo-lead-enrichment/SKILL.md) — Apollo 线索富化（联系卡补全）
+
+### `apollo_people_match`
+- [`apollo-lead-enrichment`](../05-business/apollo-lead-enrichment/SKILL.md) — Apollo 线索富化（联系卡补全）
+
 ### `aquasecurity/trivy-action`
 - [`github-actions-author`](../10-platform/github-actions-author/SKILL.md) — GitHub Actions工作流编写
+
+### `arboreto`
+- [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断
+- [`arboreto-grn-inference`](../09-verticals/arboreto-grn-inference/SKILL.md) — Arboreto 基因调控网络推断
 
 ### `argocd`
 - [`gitops-argocd-flux`](../02-engineering/gitops-argocd-flux/SKILL.md) — GitOps 自动化部署
@@ -3026,12 +3577,16 @@
 
 ### `arviz`
 - [`guided-statistical-analysis`](../09-verticals/guided-statistical-analysis/SKILL.md) — 统计分析与检验选择
+- [`pymc-bayesian-modeling`](../03-data/pymc-bayesian-modeling/SKILL.md) — PyMC 贝叶斯建模与 MCMC
 
 ### `arxiv`
 - [`research-idea-generator`](../00-meta/research-idea-generator/SKILL.md) — 研究构想生成
 
 ### `ash`
 - [`posix-shell-scripting`](../02-engineering/posix-shell-scripting/SKILL.md) — POSIX Shell 可移植脚本
+
+### `ask_user_question`
+- [`pitch-deck-refresh`](../05-business/pitch-deck-refresh/SKILL.md) — 投行演示稿数据刷新
 
 ### `aso_scorer.py`
 - [`app-store-optimization`](../05-business/app-store-optimization/SKILL.md) — 应用商店优化ASO
@@ -3041,27 +3596,35 @@
 
 ### `astropy`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
 ### `astropy.coordinates`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
 ### `astropy.cosmology`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
 ### `astropy.io.fits`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
 ### `astropy.table`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
 ### `astropy.time`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
 ### `astropy.units`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
 ### `astropy.wcs`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
 ### `asyncpg`
 - [`hybrid-search-retrieval`](../04-ai/hybrid-search-retrieval/SKILL.md) — 向量与关键词混合检索
@@ -3074,6 +3637,9 @@
 
 ### `audit_schedule_optimizer.py`
 - [`iso13485-qms-audit`](../09-verticals/iso13485-qms-audit/SKILL.md) — ISO 13485 质量体系内审
+
+### `awk`
+- [`vcf-variant-filtering`](../09-verticals/vcf-variant-filtering/SKILL.md) — VCF 变异质量过滤
 
 ### `aws-cdk`
 - [`aws-cdk-patterns`](../02-engineering/aws-cdk-patterns/SKILL.md) — AWS CDK 构造与基础设施模式
@@ -3136,9 +3702,17 @@
 ### `bazel`
 - [`bazel-build-optimization`](../02-engineering/bazel-build-optimization/SKILL.md) — Bazel 大型单仓构建优化
 
+### `bbknn`
+- [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释
+
 ### `bcftools`
+- [`bcftools-variant-manipulation`](../09-verticals/bcftools-variant-manipulation/SKILL.md) — bcftools VCF/BCF 变异处理
 - [`gatk-variant-calling`](../09-verticals/gatk-variant-calling/SKILL.md) — GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）
 - [`genomic-file-toolkit`](../09-verticals/genomic-file-toolkit/SKILL.md) — 基因组文件处理（BAM/VCF/FASTQ）
+- [`vcf-variant-filtering`](../09-verticals/vcf-variant-filtering/SKILL.md) — VCF 变异质量过滤
+
+### `bcftools/tabix`
+- [`tiledbvcf-variant-store`](../09-verticals/tiledbvcf-variant-store/SKILL.md) — TileDB-VCF 大规模变异存储
 
 ### `bcrypt`
 - [`api-security-best-practices`](../08-security/api-security-best-practices/SKILL.md) — API 安全设计最佳实践
@@ -3153,7 +3727,11 @@
 - [`ruby-pro`](../02-engineering/ruby-pro/SKILL.md) — Ruby 进阶开发
 
 ### `bgzip`
+- [`bcftools-variant-manipulation`](../09-verticals/bcftools-variant-manipulation/SKILL.md) — bcftools VCF/BCF 变异处理
 - [`snpeff-variant-annotation`](../09-verticals/snpeff-variant-annotation/SKILL.md) — SnpEff/SnpSift 变异功能注释与过滤
+
+### `bgzip/tabix`
+- [`samtools-bam-processing`](../09-verticals/samtools-bam-processing/SKILL.md) — samtools BAM/SAM 处理
 
 ### `bicep`
 - [`azure-cloud-architect`](../10-platform/azure-cloud-architect/SKILL.md) — Azure 云架构设计
@@ -3164,11 +3742,29 @@
 ### `biohub-api`
 - [`protein-language-models`](../09-verticals/protein-language-models/SKILL.md) — 蛋白质语言模型与设计（ESM）
 
+### `biom-format`
+- [`scikit-bio-sequence-toolkit`](../09-verticals/scikit-bio-sequence-toolkit/SKILL.md) — scikit-bio 序列与系统发育分析
+
+### `bionty`
+- [`lamindb-data-management`](../09-verticals/lamindb-data-management/SKILL.md) — LaminDB 生物数据治理
+
+### `biopython`
+- [`rcsb-pdb-database`](../09-verticals/rcsb-pdb-database/SKILL.md) — RCSB PDB 结构数据库查询
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
+
 ### `blast_radius_calculator.py`
 - [`chaos-engineering-runner`](../02-engineering/chaos-engineering-runner/SKILL.md) — 混沌工程实验设计
 
 ### `bom_manager.py`
 - [`pcb-bom-manager`](../09-verticals/pcb-bom-manager/SKILL.md) — 电子物料清单(BOM)管理
+
+### `bond_future_price`
+- [`bond-futures-basis-analysis`](../05-business/bond-futures-basis-analysis/SKILL.md) — 国债期货基差分析
+
+### `bond_price`
+- [`bond-futures-basis-analysis`](../05-business/bond-futures-basis-analysis/SKILL.md) — 国债期货基差分析
+- [`bond-relative-value-analysis`](../05-business/bond-relative-value-analysis/SKILL.md) — 债券相对价值分析
+- [`fixed-income-portfolio-review`](../05-business/fixed-income-portfolio-review/SKILL.md) — 固定收益组合审视
 
 ### `bootstrap`
 - [`research-experiment-designer`](../09-verticals/research-experiment-designer/SKILL.md) — 科研实验设计
@@ -3217,6 +3813,9 @@
 ### `burst`
 - [`unity-game-developer`](../06-creative/unity-game-developer/SKILL.md) — Unity 游戏开发
 
+### `bwa-mem2`
+- [`bwa-mem2-dna-aligner`](../09-verticals/bwa-mem2-dna-aligner/SKILL.md) — BWA-MEM2 短读 DNA 比对（WGS/WES/ChIP-seq）
+
 ### `cProfile`
 - [`python-performance-optimization`](../02-engineering/python-performance-optimization/SKILL.md) — Python 性能优化
 - [`systematic-debugger`](../02-engineering/systematic-debugger/SKILL.md) — 系统化调试与根因分析
@@ -3251,8 +3850,12 @@
 ### `cdk-cli`
 - [`aws-cdk-patterns`](../02-engineering/aws-cdk-patterns/SKILL.md) — AWS CDK 构造与基础设施模式
 
+### `cellpose`
+- [`cellpose-cell-segmentation`](../09-verticals/cellpose-cell-segmentation/SKILL.md) — Cellpose 细胞分割
+
 ### `celltypist`
 - [`celltypist-cell-annotation`](../09-verticals/celltypist-cell-annotation/SKILL.md) — CellTypist 单细胞自动注释
+- [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释
 
 ### `cellxgene_census`
 - [`cellxgene-census`](../09-verticals/cellxgene-census/SKILL.md) — CELLxGENE Census 海量单细胞查询
@@ -3395,8 +3998,12 @@
 - [`nextflow-pipeline-builder`](../09-verticals/nextflow-pipeline-builder/SKILL.md) — Nextflow 生信流程构建
 - [`snakemake-workflow-engine`](../09-verticals/snakemake-workflow-engine/SKILL.md) — Snakemake 可复现生信流程引擎
 
+### `conda/mamba`
+- [`tiledbvcf-variant-store`](../09-verticals/tiledbvcf-variant-store/SKILL.md) — TileDB-VCF 大规模变异存储
+
 ### `conda/pip`
 - [`diffdock-blind-docking`](../09-verticals/diffdock-blind-docking/SKILL.md) — DiffDock 扩散模型盲对接
+- [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 
 ### `confluence`
@@ -3437,7 +4044,9 @@
 - [`slack-gif-creator`](../06-creative/slack-gif-creator/SKILL.md) — Slack 动图制作器（slack-gif-creator）
 
 ### `courtlistener`
+- [`offer-restrictive-covenant-review`](../09-verticals/offer-restrictive-covenant-review/SKILL.md) — 录用函与竞业限制审查
 - [`privilege-log-reviewer`](../09-verticals/privilege-log-reviewer/SKILL.md) — 特权文件清单初审
+- [`wage-hour-employment-qa`](../09-verticals/wage-hour-employment-qa/SKILL.md) — 工时薪酬与雇佣法问答
 - [`worker-classification-analyzer`](../09-verticals/worker-classification-analyzer/SKILL.md) — 用工关系分类分析
 
 ### `crawl`
@@ -3448,6 +4057,10 @@
 
 ### `create_space`
 - [`confluence-space-architect`](../07-productivity/confluence-space-architect/SKILL.md) — Confluence 知识库空间架构
+
+### `credit_curve`
+- [`bond-futures-basis-analysis`](../05-business/bond-futures-basis-analysis/SKILL.md) — 国债期货基差分析
+- [`bond-relative-value-analysis`](../05-business/bond-relative-value-analysis/SKILL.md) — 债券相对价值分析
 
 ### `crewai`
 - [`crewai-multi-agent`](../04-ai/crewai-multi-agent/SKILL.md) — CrewAI 角色化多智能体框架
@@ -3464,8 +4077,15 @@
 ### `cross_analysis.py`
 - [`kicad-design-reviewer`](../09-verticals/kicad-design-reviewer/SKILL.md) — KiCad 电路设计审查
 
+### `crypto`
+- [`zoom-rtms-realtime-media`](../10-platform/zoom-rtms-realtime-media/SKILL.md) — Zoom RTMS 实时音视频/转写处理
+
 ### `csharp`
 - [`unity-game-developer`](../06-creative/unity-game-developer/SKILL.md) — Unity 游戏开发
+
+### `csv`
+- [`claim-element-chart-builder`](../09-verticals/claim-element-chart-builder/SKILL.md) — 权利要求/要件对照表构建
+- [`entity-compliance-tracker`](../09-verticals/entity-compliance-tracker/SKILL.md) — 主体合规与年报期限跟踪
 
 ### `ct_analyzer/analyzer.py`
 - [`constant-time-analyzer`](../08-security/constant-time-analyzer/SKILL.md) — 密码学常量时间侧信道分析
@@ -3485,6 +4105,9 @@
 - [`path-traversal-testing`](../08-security/path-traversal-testing/SKILL.md) — 路径遍历漏洞利用
 - [`scientific-database-lookup`](../09-verticals/scientific-database-lookup/SKILL.md) — 科研数据库 API 查询
 - [`shodan-reconnaissance`](../08-security/shodan-reconnaissance/SKILL.md) — Shodan 资产侦察方法论
+
+### `curl/axios`
+- [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现
 
 ### `curl/raw HTTP`
 - [`claude-api`](../04-ai/claude-api/SKILL.md) — Claude API 应用开发
@@ -3528,7 +4151,11 @@
 - [`observability-strategy-designer`](../02-engineering/observability-strategy-designer/SKILL.md) — 可观测性策略设计（指标日志追踪）
 
 ### `dask`
+- [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断
+- [`arboreto-grn-inference`](../09-verticals/arboreto-grn-inference/SKILL.md) — Arboreto 基因调控网络推断
+- [`dask-distributed-dataframes`](../03-data/dask-distributed-dataframes/SKILL.md) — Dask 超内存分布式计算
 - [`single-cell-rnaseq-analysis`](../09-verticals/single-cell-rnaseq-analysis/SKILL.md) — 单细胞 RNA-seq 分析（Scanpy）
+- [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组
 
 ### `dataLayer`
 - [`analytics-tracking-setup`](../05-business/analytics-tracking-setup/SKILL.md) — 分析埋点与转化追踪
@@ -3546,6 +4173,9 @@
 
 ### `dataloader`
 - [`api-design-principles`](../02-engineering/api-design-principles/SKILL.md) — REST与GraphQL API设计
+
+### `datamol`
+- [`datamol-cheminformatics`](../09-verticals/datamol-cheminformatics/SKILL.md) — Datamol 分子处理工具箱
 
 ### `datasheet_extract_cache.py`
 - [`datasheet-spec-extractor`](../09-verticals/datasheet-spec-extractor/SKILL.md) — 元器件规格书参数提取
@@ -3625,6 +4255,11 @@
 ### `display_pdf`
 - [`interactive-pdf-viewer`](../01-documents/interactive-pdf-viewer/SKILL.md) — 交互式 PDF 阅览
 
+### `distributed`
+- [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断
+- [`arboreto-grn-inference`](../09-verticals/arboreto-grn-inference/SKILL.md) — Arboreto 基因调控网络推断
+- [`dask-distributed-dataframes`](../03-data/dask-distributed-dataframes/SKILL.md) — Dask 超内存分布式计算
+
 ### `distroless`
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
 
@@ -3656,8 +4291,19 @@
 - [`docker-development-optimizer`](../02-engineering/docker-development-optimizer/SKILL.md) — Docker构建与容器加固
 
 ### `docx`
+- [`cease-and-desist-letter`](../09-verticals/cease-and-desist-letter/SKILL.md) — 停止侵权函起草与应对
+- [`cim-builder`](../05-business/cim-builder/SKILL.md) — 保密信息备忘录（CIM）撰写
+- [`client-performance-report`](../09-verticals/client-performance-report/SKILL.md) — 客户业绩报告生成
+- [`company-tear-sheet`](../05-business/company-tear-sheet/SKILL.md) — 公司速览资料卡生成
+- [`demand-letter-drafter`](../09-verticals/demand-letter-drafter/SKILL.md) — 索赔函起草
+- [`equity-earnings-update-report`](../05-business/equity-earnings-update-report/SKILL.md) — 股票财报点评报告撰写
+- [`initiating-coverage-report`](../05-business/initiating-coverage-report/SKILL.md) — 首次覆盖研究报告
+- [`investigation-memo-drafter`](../09-verticals/investigation-memo-drafter/SKILL.md) — 内部调查备忘录起草
+- [`investment-thesis-tracker`](../05-business/investment-thesis-tracker/SKILL.md) — 投资逻辑跟踪维护
 - [`legal-hold-manager`](../09-verticals/legal-hold-manager/SKILL.md) — 诉讼证据保全通知管理
+- [`legal-inquiry-responder`](../09-verticals/legal-inquiry-responder/SKILL.md) — 法律咨询应答（模板+升级判定）
 - [`meeting-transcript-analyzer`](../07-productivity/meeting-transcript-analyzer/SKILL.md) — 会议记录沟通模式分析
+- [`morning-meeting-note`](../05-business/morning-meeting-note/SKILL.md) — 晨会研究纪要起草
 - [`nih-grant-finder`](../09-verticals/nih-grant-finder/SKILL.md) — NIH 科研基金匹配与申报
 
 ### `doi_to_bibtex.py`
@@ -3668,6 +4314,9 @@
 
 ### `dotenv`
 - [`discord-bot-architect`](../02-engineering/discord-bot-architect/SKILL.md) — 生产级 Discord 机器人架构
+
+### `dpa-clause-reviewer`
+- [`vendor-agreement-redline-review`](../09-verticals/vendor-agreement-redline-review/SKILL.md) — 供应商协议审查与红线
 
 ### `drizzle`
 - [`erd-schema-designer`](../03-data/erd-schema-designer/SKILL.md) — ERD 与数据库范式设计
@@ -3746,8 +4395,13 @@
 
 ### `excel`
 - [`account-reconciliation`](../05-business/account-reconciliation/SKILL.md) — 账户对账核对
+- [`account-roll-forward-schedule`](../05-business/account-roll-forward-schedule/SKILL.md) — 科目滚动结转表
+- [`cim-builder`](../05-business/cim-builder/SKILL.md) — 保密信息备忘录（CIM）撰写
+- [`client-performance-report`](../09-verticals/client-performance-report/SKILL.md) — 客户业绩报告生成
+- [`client-review-prep`](../09-verticals/client-review-prep/SKILL.md) — 客户复盘会议准备
 - [`deal-pipeline-tracker`](../07-productivity/deal-pipeline-tracker/SKILL.md) — 交易管线与里程碑追踪
 - [`portfolio-rebalancer`](../09-verticals/portfolio-rebalancer/SKILL.md) — 投资组合再平衡
+- [`research-catalyst-calendar`](../05-business/research-catalyst-calendar/SKILL.md) — 覆盖标的催化剂日历
 
 ### `expansion_opportunity_scorer.py`
 - [`customer-health-scorer`](../05-business/customer-health-scorer/SKILL.md) — 客户健康度评分与扩展机会
@@ -3780,10 +4434,17 @@
 - [`mcp-builder`](../10-platform/mcp-builder/SKILL.md) — MCP 服务器构建
 
 ### `fastp`
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
 - [`fastp-fastq-preprocessing`](../09-verticals/fastp-fastq-preprocessing/SKILL.md) — fastp FASTQ 质控与接头修剪
+
+### `fastqc`
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
 
 ### `feature-flags`
 - [`pre-deploy-checklist`](../02-engineering/pre-deploy-checklist/SKILL.md) — 发布前核查清单
+
+### `featureCounts`
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
 
 ### `fetch`
 - [`design-critique`](../06-creative/design-critique/SKILL.md) — 设计评审反馈
@@ -3830,11 +4491,17 @@
 ### `firebase-tools`
 - [`firebase-backend`](../10-platform/firebase-backend/SKILL.md) — Firebase 后端集成
 
+### `fixed_income_risk_analytics`
+- [`fixed-income-portfolio-review`](../05-business/fixed-income-portfolio-review/SKILL.md) — 固定收益组合审视
+
 ### `flag_debt_scanner.py`
 - [`feature-flags-architect`](../02-engineering/feature-flags-architect/SKILL.md) — 功能开关架构与治理
 
 ### `flask`
 - [`whatsapp-cloud-api`](../10-platform/whatsapp-cloud-api/SKILL.md) — WhatsApp Cloud API 集成
+
+### `flowio`
+- [`flowio-flow-cytometry`](../09-verticals/flowio-flow-cytometry/SKILL.md) — FlowIO 流式细胞 FCS 解析
 
 ### `flutter CLI`
 - [`flutter-expert`](../02-engineering/flutter-expert/SKILL.md) — Flutter 跨平台开发
@@ -3865,6 +4532,9 @@
 
 ### `formidable`
 - [`file-upload-storage`](../02-engineering/file-upload-storage/SKILL.md) — 文件上传与云存储
+
+### `fsspec`
+- [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组
 
 ### `fundraising_model.py`
 - [`cfo-financial-advisor`](../05-business/cfo-financial-advisor/SKILL.md) — CFO 财务顾问（单位经济与融资）
@@ -3926,12 +4596,21 @@
 - [`security-audit-toolkit`](../08-security/security-audit-toolkit/SKILL.md) — 安全审计与威胁建模工具箱
 - [`xiaohongshu-content-strategy`](../05-business/xiaohongshu-content-strategy/SKILL.md) — 小红书爆款内容策略
 
+### `geniml`
+- [`geniml-genomic-interval-ml`](../09-verticals/geniml-genomic-interval-ml/SKILL.md) — geniml 基因组区间机器学习
+
 ### `geoip2`
 - [`gdpr-data-handler`](../09-verticals/gdpr-data-handler/SKILL.md) — GDPR合规数据处理
 - [`gdpr-data-handling`](../08-security/gdpr-data-handling/SKILL.md) — GDPR 数据合规处理
 
 ### `get_children`
 - [`confluence-space-architect`](../07-productivity/confluence-space-architect/SKILL.md) — Confluence 知识库空间架构
+
+### `get_meeting_assets`
+- [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
+
+### `get_recording_resource`
+- [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
 
 ### `gettext`
 - [`i18n-localization-patterns`](../02-engineering/i18n-localization-patterns/SKILL.md) — 国际化与本地化模式
@@ -4034,6 +4713,9 @@
 ### `golangci-lint`
 - [`golang-pro`](../02-engineering/golang-pro/SKILL.md) — Go 现代工程实践
 
+### `google-calendar`
+- [`research-catalyst-calendar`](../05-business/research-catalyst-calendar/SKILL.md) — 覆盖标的催化剂日历
+
 ### `google-keyword-planner`
 - [`seo-keyword-research`](../05-business/seo-keyword-research/SKILL.md) — SEO 关键词研究与选题聚类
 
@@ -4097,6 +4779,8 @@
 
 ### `h5py`
 - [`anndata-data-structure`](../09-verticals/anndata-data-structure/SKILL.md) — AnnData 单细胞数据结构
+- [`archs4-expression-database`](../09-verticals/archs4-expression-database/SKILL.md) — ARCHS4 RNA-seq 表达数据库
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 
 ### `hardhat`
 - [`solidity-security-auditor`](../09-verticals/solidity-security-auditor/SKILL.md) — Solidity智能合约安全
@@ -4106,9 +4790,16 @@
 
 ### `harmonypy`
 - [`harmony-batch-correction`](../09-verticals/harmony-batch-correction/SKILL.md) — Harmony 单细胞批次效应校正
+- [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释
 
 ### `hashcat`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
+
+### `hashlib`
+- [`brenda-enzyme-database`](../09-verticals/brenda-enzyme-database/SKILL.md) — BRENDA 酶动力学数据库
+
+### `hdbscan`
+- [`umap-dimensionality-reduction`](../03-data/umap-dimensionality-reduction/SKILL.md) — UMAP 非线性降维与可视化
 
 ### `hdrp`
 - [`unity-game-developer`](../06-creative/unity-game-developer/SKILL.md) — Unity 游戏开发
@@ -4145,6 +4836,9 @@
 ### `hf_whoami`
 - [`huggingface-model-trainer`](../04-ai/huggingface-model-trainer/SKILL.md) — TRL 模型微调训练（Hugging Face Jobs）
 
+### `histolab`
+- [`histolab-wsi-tiling`](../09-verticals/histolab-wsi-tiling/SKILL.md) — histolab 全视野病理切片分块
+
 ### `hnswlib`
 - [`vector-index-tuning`](../04-ai/vector-index-tuning/SKILL.md) — 向量索引调优
 
@@ -4152,7 +4846,9 @@
 - [`web-artifacts-builder`](../02-engineering/web-artifacts-builder/SKILL.md) — Web 制品构建器（React/Tailwind/shadcn 单文件产物）
 
 ### `htslib`
+- [`bcftools-variant-manipulation`](../09-verticals/bcftools-variant-manipulation/SKILL.md) — bcftools VCF/BCF 变异处理
 - [`genomic-file-toolkit`](../09-verticals/genomic-file-toolkit/SKILL.md) — 基因组文件处理（BAM/VCF/FASTQ）
+- [`samtools-bam-processing`](../09-verticals/samtools-bam-processing/SKILL.md) — samtools BAM/SAM 处理
 
 ### `httprobe`
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
@@ -4166,6 +4862,15 @@
 
 ### `hypothesis`
 - [`python-testing-pytest`](../02-engineering/python-testing-pytest/SKILL.md) — Python pytest 测试模式
+
+### `iOS WKWebView (Swift)`
+- [`zoom-virtual-agent-builder`](../10-platform/zoom-virtual-agent-builder/SKILL.md) — Zoom 虚拟客服坐席集成
+
+### `iOS/Android/macOS/Electron Native SDK`
+- [`zoom-meeting-app-builder`](../10-platform/zoom-meeting-app-builder/SKILL.md) — Zoom 会议嵌入应用开发（Meeting SDK）
+
+### `idc-index`
+- [`imaging-data-commons-query`](../09-verticals/imaging-data-commons-query/SKILL.md) — NCI 影像数据公地查询下载
 
 ### `idr`
 - [`macs3-peak-calling`](../09-verticals/macs3-peak-calling/SKILL.md) — MACS3 ChIP/ATAC-seq 峰检测
@@ -4182,17 +4887,36 @@
 ### `incident_classifier.py`
 - [`incident-commander-framework`](../02-engineering/incident-commander-framework/SKILL.md) — 事故指挥与响应框架
 
+### `inflation_curve`
+- [`macro-rates-dashboard`](../05-business/macro-rates-dashboard/SKILL.md) — 宏观利率监测看板
+- [`swap-curve-strategy`](../05-business/swap-curve-strategy/SKILL.md) — 利率互换曲线策略
+
 ### `interact`
 - [`interactive-pdf-viewer`](../01-documents/interactive-pdf-viewer/SKILL.md) — 交互式 PDF 阅览
 
 ### `intercom`
 - [`support-kb-article-writer`](../07-productivity/support-kb-article-writer/SKILL.md) — 支持知识库文章撰写
 
+### `interest_rate_curve`
+- [`bond-futures-basis-analysis`](../05-business/bond-futures-basis-analysis/SKILL.md) — 国债期货基差分析
+- [`bond-relative-value-analysis`](../05-business/bond-relative-value-analysis/SKILL.md) — 债券相对价值分析
+- [`fixed-income-portfolio-review`](../05-business/fixed-income-portfolio-review/SKILL.md) — 固定收益组合审视
+- [`macro-rates-dashboard`](../05-business/macro-rates-dashboard/SKILL.md) — 宏观利率监测看板
+- [`swap-curve-strategy`](../05-business/swap-curve-strategy/SKILL.md) — 利率互换曲线策略
+
+### `internal-gl-mcp`
+- [`account-roll-forward-schedule`](../05-business/account-roll-forward-schedule/SKILL.md) — 科目滚动结转表
+- [`accrual-schedule-builder`](../05-business/accrual-schedule-builder/SKILL.md) — 期末计提表与分录草拟
+
 ### `ioredis`
 - [`bullmq-job-queue`](../02-engineering/bullmq-job-queue/SKILL.md) — BullMQ Redis 任务队列后台处理
 
 ### `ipdb`
 - [`systematic-debugger`](../02-engineering/systematic-debugger/SKILL.md) — 系统化调试与根因分析
+
+### `ir_swap`
+- [`macro-rates-dashboard`](../05-business/macro-rates-dashboard/SKILL.md) — 宏观利率监测看板
+- [`swap-curve-strategy`](../05-business/swap-curve-strategy/SKILL.md) — 利率互换曲线策略
 
 ### `istioctl`
 - [`istio-traffic-management`](../02-engineering/istio-traffic-management/SKILL.md) — Istio 流量治理
@@ -4215,6 +4939,9 @@
 
 ### `jlcsearch API`
 - [`component-sourcing-search`](../09-verticals/component-sourcing-search/SKILL.md) — 电子元器件选型采购搜索
+
+### `joblib`
+- [`ensembl-database`](../09-verticals/ensembl-database/SKILL.md) — Ensembl 基因注释数据库
 
 ### `jq`
 - [`ai-ml-security-assessor`](../08-security/ai-ml-security-assessor/SKILL.md) — AI/ML系统安全评估
@@ -4239,6 +4966,9 @@
 ### `jsonwebtoken`
 - [`api-security-best-practices`](../08-security/api-security-best-practices/SKILL.md) — API 安全设计最佳实践
 
+### `jsrsasign`
+- [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流
+
 ### `k6`
 - [`k6-load-testing`](../02-engineering/k6-load-testing/SKILL.md) — k6 负载压力测试
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
@@ -4257,6 +4987,9 @@
 
 ### `kill_switch_audit.py`
 - [`feature-flags-architect`](../02-engineering/feature-flags-architect/SKILL.md) — 功能开关架构与治理
+
+### `kilosort`
+- [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析
 
 ### `knowledge-base`
 - [`activity-digest-generator`](../07-productivity/activity-digest-generator/SKILL.md) — 活动动态摘要生成
@@ -4285,6 +5018,9 @@
 ### `l10n modules`
 - [`odoo-localization-compliance`](../09-verticals/odoo-localization-compliance/SKILL.md) — Odoo 本地化与税务合规
 
+### `lamindb`
+- [`lamindb-data-management`](../09-verticals/lamindb-data-management/SKILL.md) — LaminDB 生物数据治理
+
 ### `langfuse.openai`
 - [`langfuse-llm-observability`](../04-ai/langfuse-llm-observability/SKILL.md) — Langfuse LLM 可观测
 
@@ -4299,6 +5035,10 @@
 
 ### `legal-research-connector`
 - [`dsar-response-builder`](../09-verticals/dsar-response-builder/SKILL.md) — 数据主体请求响应起草
+- [`international-hiring-eor-planner`](../09-verticals/international-hiring-eor-planner/SKILL.md) — 跨境招聘 EOR 与建实体规划
+- [`litigation-brief-section-drafter`](../09-verticals/litigation-brief-section-drafter/SKILL.md) — 诉讼书状章节起草
+- [`offer-restrictive-covenant-review`](../09-verticals/offer-restrictive-covenant-review/SKILL.md) — 录用函与竞业限制审查
+- [`wage-hour-employment-qa`](../09-verticals/wage-hour-employment-qa/SKILL.md) — 工时薪酬与雇佣法问答
 - [`worker-classification-analyzer`](../09-verticals/worker-classification-analyzer/SKILL.md) — 用工关系分类分析
 
 ### `legal-research-mcp`
@@ -4345,6 +5085,8 @@
 
 ### `lxml`
 - [`canslim-growth-screener`](../09-verticals/canslim-growth-screener/SKILL.md) — CANSLIM 成长股筛选
+- [`drugbank-database-access`](../09-verticals/drugbank-database-access/SKILL.md) — DrugBank 药物数据库解析
+- [`hmdb-metabolome-database`](../09-verticals/hmdb-metabolome-database/SKILL.md) — HMDB 人类代谢组数据库
 
 ### `macs3`
 - [`macs3-peak-calling`](../09-verticals/macs3-peak-calling/SKILL.md) — MACS3 ChIP/ATAC-seq 峰检测
@@ -4357,62 +5099,140 @@
 
 ### `markdown`
 - [`adr-writer`](../07-productivity/adr-writer/SKILL.md) — 架构决策记录（ADR）撰写
+- [`cease-and-desist-letter`](../09-verticals/cease-and-desist-letter/SKILL.md) — 停止侵权函起草与应对
+- [`claim-element-chart-builder`](../09-verticals/claim-element-chart-builder/SKILL.md) — 权利要求/要件对照表构建
 - [`contract-proposal-writer`](../05-business/contract-proposal-writer/SKILL.md) — 合同与商业提案撰写
 - [`data-storyteller`](../05-business/data-storyteller/SKILL.md) — 数据叙事与可视化表达
 - [`deal-pipeline-tracker`](../07-productivity/deal-pipeline-tracker/SKILL.md) — 交易管线与里程碑追踪
+- [`demand-letter-drafter`](../09-verticals/demand-letter-drafter/SKILL.md) — 索赔函起草
 - [`deposition-outline-prep`](../09-verticals/deposition-outline-prep/SKILL.md) — 证人质询提纲准备
+- [`employee-handbook-update-diff`](../09-verticals/employee-handbook-update-diff/SKILL.md) — 员工手册变更影响分析
 - [`employment-contract-drafter`](../09-verticals/employment-contract-drafter/SKILL.md) — 劳动合同与 HR 文书起草
+- [`entity-compliance-tracker`](../09-verticals/entity-compliance-tracker/SKILL.md) — 主体合规与年报期限跟踪
 - [`github-issue-writer`](../07-productivity/github-issue-writer/SKILL.md) — GitHub Issue 编写器
+- [`international-hiring-eor-planner`](../09-verticals/international-hiring-eor-planner/SKILL.md) — 跨境招聘 EOR 与建实体规划
+- [`invention-disclosure-screen`](../09-verticals/invention-disclosure-screen/SKILL.md) — 发明披露专利性初筛
+- [`investigation-memo-drafter`](../09-verticals/investigation-memo-drafter/SKILL.md) — 内部调查备忘录起草
+- [`investment-thesis-tracker`](../05-business/investment-thesis-tracker/SKILL.md) — 投资逻辑跟踪维护
+- [`ip-portfolio-register`](../09-verticals/ip-portfolio-register/SKILL.md) — 知识产权组合登记与续展
+- [`irac-essay-grader`](../09-verticals/irac-essay-grader/SKILL.md) — IRAC 法律论文评析
+- [`legal-briefing-generator`](../09-verticals/legal-briefing-generator/SKILL.md) — 法务情报简报（日报/专题/应急）
+- [`legal-case-brief`](../09-verticals/legal-case-brief/SKILL.md) — 判例摘要(case brief)
 - [`legal-hold-manager`](../09-verticals/legal-hold-manager/SKILL.md) — 诉讼证据保全通知管理
+- [`legal-inquiry-responder`](../09-verticals/legal-inquiry-responder/SKILL.md) — 法律咨询应答（模板+升级判定）
 - [`litigation-chronology-builder`](../09-verticals/litigation-chronology-builder/SKILL.md) — 案件事实时间线构建
 - [`meeting-transcript-analyzer`](../07-productivity/meeting-transcript-analyzer/SKILL.md) — 会议记录沟通模式分析
+- [`morning-meeting-note`](../05-business/morning-meeting-note/SKILL.md) — 晨会研究纪要起草
 - [`privacy-impact-assessor`](../09-verticals/privacy-impact-assessor/SKILL.md) — 隐私影响评估生成
+- [`research-catalyst-calendar`](../05-business/research-catalyst-calendar/SKILL.md) — 覆盖标的催化剂日历
 - [`status-report-generator`](../07-productivity/status-report-generator/SKILL.md) — 项目状态报告生成
+- [`subpoena-triage`](../09-verticals/subpoena-triage/SKILL.md) — 传票分级与异议框架
+- [`workplace-internal-investigation`](../09-verticals/workplace-internal-investigation/SKILL.md) — 职场内部调查框架
 
 ### `markdown-to-docx`
 - [`contract-playbook-review`](../09-verticals/contract-playbook-review/SKILL.md) — 合同对照评审红线
 - [`esignature-routing`](../09-verticals/esignature-routing/SKILL.md) — 电子签署路由准备
+- [`freedom-to-operate-triage`](../09-verticals/freedom-to-operate-triage/SKILL.md) — 专利自由实施(FTO)初评
+- [`inbound-demand-letter-triage`](../09-verticals/inbound-demand-letter-triage/SKILL.md) — 来函索赔分级评估
 - [`nda-triage-reviewer`](../09-verticals/nda-triage-reviewer/SKILL.md) — 保密协议分级速审
+- [`saas-subscription-agreement-review`](../09-verticals/saas-subscription-agreement-review/SKILL.md) — SaaS 订阅协议审查
+- [`vendor-agreement-redline-review`](../09-verticals/vendor-agreement-redline-review/SKILL.md) — 供应商协议审查与红线
 
 ### `marketing_budget_modeler.py`
 - [`cmo-marketing-advisor`](../05-business/cmo-marketing-advisor/SKILL.md) — CMO 市场营销顾问（品牌与增长）
 
 ### `markitdown`
+- [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递
+- [`ib-deck-quality-check`](../05-business/ib-deck-quality-check/SKILL.md) — 投行演示稿质量审查
 - [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
 ### `massdns`
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
 
+### `matchms`
+- [`matchms-spectral-matching`](../09-verticals/matchms-spectral-matching/SKILL.md) — matchms 质谱谱图匹配
+
 ### `matplotlib`
 - [`alphafold-database-access`](../09-verticals/alphafold-database-access/SKILL.md) — AlphaFold 蛋白结构数据库访问
+- [`arboreto-grn-inference`](../09-verticals/arboreto-grn-inference/SKILL.md) — Arboreto 基因调控网络推断
+- [`archs4-expression-database`](../09-verticals/archs4-expression-database/SKILL.md) — ARCHS4 RNA-seq 表达数据库
+- [`biopython-molecular-biology`](../09-verticals/biopython-molecular-biology/SKILL.md) — Biopython 分子生物学工具箱
 - [`canvas-design`](../06-creative/canvas-design/SKILL.md) — 画布设计（Canvas Design）：用设计哲学驱动的海报与静态艺术品
+- [`cellpose-cell-segmentation`](../09-verticals/cellpose-cell-segmentation/SKILL.md) — Cellpose 细胞分割
 - [`cnvkit-copy-number`](../09-verticals/cnvkit-copy-number/SKILL.md) — CNVkit 体细胞拷贝数变异检测
 - [`data-storyteller`](../05-business/data-storyteller/SKILL.md) — 数据叙事与可视化表达
+- [`ddinter-drug-interactions`](../09-verticals/ddinter-drug-interactions/SKILL.md) — DDInter 药物相互作用查询
 - [`dicom-medical-imaging`](../09-verticals/dicom-medical-imaging/SKILL.md) — DICOM 医学影像处理
+- [`encode-database`](../09-verticals/encode-database/SKILL.md) — ENCODE 调控基因组数据库
+- [`equity-earnings-update-report`](../05-business/equity-earnings-update-report/SKILL.md) — 股票财报点评报告撰写
 - [`gene-set-enrichment-analysis`](../09-verticals/gene-set-enrichment-analysis/SKILL.md) — 通路与基因集富集分析
 - [`gnomad-population-database`](../09-verticals/gnomad-population-database/SKILL.md) — gnomAD 人群变异频率查询
 - [`guided-statistical-analysis`](../09-verticals/guided-statistical-analysis/SKILL.md) — 统计分析与检验选择
+- [`gwas-catalog-database`](../09-verticals/gwas-catalog-database/SKILL.md) — GWAS Catalog 关联查询
+- [`histolab-wsi-tiling`](../09-verticals/histolab-wsi-tiling/SKILL.md) — histolab 全视野病理切片分块
+- [`initiating-coverage-report`](../05-business/initiating-coverage-report/SKILL.md) — 首次覆盖研究报告
+- [`interpro-domain-database`](../09-verticals/interpro-domain-database/SKILL.md) — InterPro 蛋白结构域数据库
+- [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) — JASPAR 转录因子结合谱
 - [`matplotlib-visualization`](../03-data/matplotlib-visualization/SKILL.md) — Matplotlib 数据可视化
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程
+- [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
+- [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) — NeuroKit2 生理信号处理（ECG/EEG/EDA）
 - [`pydeseq2-differential-expression`](../09-verticals/pydeseq2-differential-expression/SKILL.md) — PyDESeq2 批量 RNA-seq 差异表达分析
+- [`pymoo-multiobjective-optimization`](../09-verticals/pymoo-multiobjective-optimization/SKILL.md) — pymoo 多目标优化框架
 - [`pyopenms-mass-spectrometry`](../09-verticals/pyopenms-mass-spectrometry/SKILL.md) — PyOpenMS 质谱数据处理
 - [`quantum-circuit-builder`](../09-verticals/quantum-circuit-builder/SKILL.md) — 量子计算电路构建（Qiskit）
+- [`quickgo-go-database`](../09-verticals/quickgo-go-database/SKILL.md) — QuickGO GO 术语与注释
+- [`scikit-bio-sequence-toolkit`](../09-verticals/scikit-bio-sequence-toolkit/SKILL.md) — scikit-bio 序列与系统发育分析
+- [`scikit-image-bioimage`](../09-verticals/scikit-image-bioimage/SKILL.md) — scikit-image 生物图像处理
 - [`scikit-learn-ml`](../03-data/scikit-learn-ml/SKILL.md) — scikit-learn 机器学习
+- [`scvelo-rna-velocity`](../09-verticals/scvelo-rna-velocity/SKILL.md) — scVelo RNA 速率分析
 - [`seaborn-statistical-charts`](../03-data/seaborn-statistical-charts/SKILL.md) — Seaborn 统计图表
+- [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
 - [`snpeff-variant-annotation`](../09-verticals/snpeff-variant-annotation/SKILL.md) — SnpEff/SnpSift 变异功能注释与过滤
 - [`statsmodels-statistical-modeling`](../03-data/statsmodels-statistical-modeling/SKILL.md) — Statsmodels 统计建模
 - [`sympy-symbolic-math`](../09-verticals/sympy-symbolic-math/SKILL.md) — SymPy 符号数学计算
+- [`trackpy-particle-tracking`](../09-verticals/trackpy-particle-tracking/SKILL.md) — trackpy 单粒子追踪
+- [`ucsc-genome-browser`](../09-verticals/ucsc-genome-browser/SKILL.md) — UCSC 基因组浏览器 API
+- [`umap-dimensionality-reduction`](../03-data/umap-dimensionality-reduction/SKILL.md) — UMAP 非线性降维与可视化
 - [`viennarna-structure-prediction`](../09-verticals/viennarna-structure-prediction/SKILL.md) — ViennaRNA RNA 二级结构预测
 
 ### `maxquant`
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程
 
+### `mcp`
+- [`fx-carry-trade-eval`](../05-business/fx-carry-trade-eval/SKILL.md) — 外汇套息交易评估
+- [`recon-break-root-cause`](../05-business/recon-break-root-cause/SKILL.md) — 对账差异溯源根因分析
+
+### `mcp-gmail`
+- [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览
+
+### `mcp-google-calendar`
+- [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览
+
+### `mcp-hubspot`
+- [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览
+
 ### `mcp-inspector`
 - [`mcp-builder`](../10-platform/mcp-builder/SKILL.md) — MCP 服务器构建
 
+### `mcp-paypal`
+- [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览
+
 ### `mcp-pdf-server`
 - [`interactive-pdf-viewer`](../01-documents/interactive-pdf-viewer/SKILL.md) — 交互式 PDF 阅览
+
+### `mcp-quickbooks`
+- [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览
+
+### `mcp-slack`
+- [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览
+
+### `mcp-sp-global`
+- [`company-tear-sheet`](../05-business/company-tear-sheet/SKILL.md) — 公司速览资料卡生成
+
+### `mcp-square`
+- [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览
 
 ### `mcp__chrome-devtools__close_page`
 - [`daily-news-report`](../07-productivity/daily-news-report/SKILL.md) — 每日技术资讯抓取与简报生成
@@ -4425,6 +5245,30 @@
 
 ### `mcp__chrome-devtools__wait_for`
 - [`daily-news-report`](../07-productivity/daily-news-report/SKILL.md) — 每日技术资讯抓取与简报生成
+
+### `mcp__claude_ai_Apollo_MCP__apollo_contacts_create`
+- [`apollo-sequence-loader`](../05-business/apollo-sequence-loader/SKILL.md) — Apollo 外联序列批量加载
+
+### `mcp__claude_ai_Apollo_MCP__apollo_email_accounts_index`
+- [`apollo-sequence-loader`](../05-business/apollo-sequence-loader/SKILL.md) — Apollo 外联序列批量加载
+
+### `mcp__claude_ai_Apollo_MCP__apollo_emailer_campaigns_add_contact_ids`
+- [`apollo-sequence-loader`](../05-business/apollo-sequence-loader/SKILL.md) — Apollo 外联序列批量加载
+
+### `mcp__claude_ai_Apollo_MCP__apollo_emailer_campaigns_remove_or_stop_contact_ids`
+- [`apollo-sequence-loader`](../05-business/apollo-sequence-loader/SKILL.md) — Apollo 外联序列批量加载
+
+### `mcp__claude_ai_Apollo_MCP__apollo_emailer_campaigns_search`
+- [`apollo-sequence-loader`](../05-business/apollo-sequence-loader/SKILL.md) — Apollo 外联序列批量加载
+
+### `mcp__claude_ai_Apollo_MCP__apollo_mixed_people_api_search`
+- [`apollo-sequence-loader`](../05-business/apollo-sequence-loader/SKILL.md) — Apollo 外联序列批量加载
+
+### `mcp__claude_ai_Apollo_MCP__apollo_people_bulk_match`
+- [`apollo-sequence-loader`](../05-business/apollo-sequence-loader/SKILL.md) — Apollo 外联序列批量加载
+
+### `mdanalysis`
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 
 ### `meeko`
 - [`autodock-vina-docking`](../09-verticals/autodock-vina-docking/SKILL.md) — AutoDock Vina 分子对接
@@ -4465,6 +5309,15 @@
 ### `mofapy2`
 - [`muon-multiomics-singlecell`](../09-verticals/muon-multiomics-singlecell/SKILL.md) — muon 多模态单细胞多组学分析
 
+### `molfeat`
+- [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
+
+### `molfeat.calc`
+- [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
+
+### `molfeat.trans`
+- [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
+
 ### `mongodb`
 - [`gdpr-data-handler`](../09-verticals/gdpr-data-handler/SKILL.md) — GDPR合规数据处理
 
@@ -4474,6 +5327,9 @@
 ### `mp-api`
 - [`materials-science-toolkit`](../09-verticals/materials-science-toolkit/SKILL.md) — 材料科学工具箱（Pymatgen）
 
+### `mpi4py`
+- [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
+
 ### `multer`
 - [`file-upload-storage`](../02-engineering/file-upload-storage/SKILL.md) — 文件上传与云存储
 
@@ -4481,6 +5337,7 @@
 - [`deeptools-ngs-analysis`](../09-verticals/deeptools-ngs-analysis/SKILL.md) — deepTools NGS 覆盖度与信号可视化
 
 ### `multiqc`
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
 - [`fastp-fastq-preprocessing`](../09-verticals/fastp-fastq-preprocessing/SKILL.md) — fastp FASTQ 质控与接头修剪
 
 ### `muon`
@@ -4492,6 +5349,15 @@
 ### `n8n`
 - [`zapier-make-automation`](../07-productivity/zapier-make-automation/SKILL.md) — Zapier 与 Make 无代码自动化
 
+### `nav-mcp`
+- [`lp-nav-tieout`](../09-verticals/lp-nav-tieout/SKILL.md) — LP 对账单与基金 NAV 勾稽
+
+### `nd2reader`
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
+
+### `neo`
+- [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析
+
 ### `netcat`
 - [`linux-privilege-escalation`](../08-security/linux-privilege-escalation/SKILL.md) — Linux 提权评估
 
@@ -4499,12 +5365,18 @@
 - [`security-incident-response`](../08-security/security-incident-response/SKILL.md) — 安全事件分级与响应
 
 ### `networkx`
+- [`arboreto-grn-inference`](../09-verticals/arboreto-grn-inference/SKILL.md) — Arboreto 基因调控网络推断
+- [`ddinter-drug-interactions`](../09-verticals/ddinter-drug-interactions/SKILL.md) — DDInter 药物相互作用查询
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
+
+### `neurokit2`
+- [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) — NeuroKit2 生理信号处理（ECG/EEG/EDA）
 
 ### `next-intl`
 - [`i18n-localization-patterns`](../02-engineering/i18n-localization-patterns/SKILL.md) — 国际化与本地化模式
 
 ### `nextflow`
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
 - [`nextflow-pipeline-builder`](../09-verticals/nextflow-pipeline-builder/SKILL.md) — Nextflow 生信流程构建
 
 ### `nextjs`
@@ -4519,6 +5391,7 @@
 
 ### `ngrok`
 - [`whatsapp-cloud-api`](../10-platform/whatsapp-cloud-api/SKILL.md) — WhatsApp Cloud API 集成
+- [`zoom-webhooks-setup`](../10-platform/zoom-webhooks-setup/SKILL.md) — Zoom Webhooks 事件订阅与校验
 
 ### `ngspice`
 - [`kicad-design-reviewer`](../09-verticals/kicad-design-reviewer/SKILL.md) — KiCad 电路设计审查
@@ -4530,6 +5403,9 @@
 ### `nltk`
 - [`embedding-model-strategies`](../04-ai/embedding-model-strategies/SKILL.md) — 嵌入模型选型与优化
 
+### `nmrglue`
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
+
 ### `node`
 - [`constant-time-analyzer`](../08-security/constant-time-analyzer/SKILL.md) — 密码学常量时间侧信道分析
 - [`mcp-builder`](../10-platform/mcp-builder/SKILL.md) — MCP 服务器构建
@@ -4540,8 +5416,10 @@
 - [`turborepo-caching`](../02-engineering/turborepo-caching/SKILL.md) — Turborepo 单仓构建缓存配置
 
 ### `nodejs`
+- [`company-tear-sheet`](../05-business/company-tear-sheet/SKILL.md) — 公司速览资料卡生成
 - [`imessage-claude-bridge`](../10-platform/imessage-claude-bridge/SKILL.md) — iMessage 短信驱动 Claude 会话桥接
 - [`whatsapp-cloud-api`](../10-platform/whatsapp-cloud-api/SKILL.md) — WhatsApp Cloud API 集成
+- [`zoom-rtms-realtime-media`](../10-platform/zoom-rtms-realtime-media/SKILL.md) — Zoom RTMS 实时音视频/转写处理
 
 ### `notion`
 - [`support-kb-article-writer`](../07-productivity/support-kb-article-writer/SKILL.md) — 支持知识库文章撰写
@@ -4554,16 +5432,40 @@
 ### `npx`
 - [`cloudflare-workers-edge`](../10-platform/cloudflare-workers-edge/SKILL.md) — Cloudflare Workers KV D1 R2 边缘平台
 - [`cloudflare-workers-expert`](../02-engineering/cloudflare-workers-expert/SKILL.md) — Cloudflare Workers 边缘计算开发
+- [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) — 分析师财务预测：营收与EPS估计区间
+- [`octagon-balance-sheet-growth`](../09-verticals/octagon-balance-sheet-growth/SKILL.md) — 资产负债表同比增长分析
+- [`octagon-cash-flow-growth`](../09-verticals/octagon-cash-flow-growth/SKILL.md) — 现金流指标同比增长分析
 - [`octagon-cash-flow-statement-data`](../09-verticals/octagon-cash-flow-statement-data/SKILL.md) — 现金流量表数据检索
+- [`octagon-commodities-quote`](../09-verticals/octagon-commodities-quote/SKILL.md) — 大宗商品实时报价查询
+- [`octagon-earnings-analyst-questions`](../09-verticals/octagon-earnings-analyst-questions/SKILL.md) — 财报电话会分析师提问主题提取
 - [`octagon-earnings-call-analysis`](../09-verticals/octagon-earnings-call-analysis/SKILL.md) — 财报电话会纪要分析
 - [`octagon-earnings-call-sentiment`](../09-verticals/octagon-earnings-call-sentiment/SKILL.md) — 财报会管理层情绪分析
+- [`octagon-earnings-capital-allocation`](../09-verticals/octagon-earnings-capital-allocation/SKILL.md) — 管理层资本配置与股东回报解读
+- [`octagon-earnings-financial-guidance`](../09-verticals/octagon-earnings-financial-guidance/SKILL.md) — 财报前瞻业绩指引提取
 - [`octagon-esg-ratings`](../09-verticals/octagon-esg-ratings/SKILL.md) — ESG评级检索（MSCI / Sustainalytics）
 - [`octagon-financial-growth-metrics`](../09-verticals/octagon-financial-growth-metrics/SKILL.md) — 财务同比增长指标
 - [`octagon-financial-health-scores`](../09-verticals/octagon-financial-health-scores/SKILL.md) — 财务健康评分（Z-Score / Piotroski）
+- [`octagon-financial-metrics-analysis`](../09-verticals/octagon-financial-metrics-analysis/SKILL.md) — 利润表项目同比增长分析
+- [`octagon-forex-list`](../09-verticals/octagon-forex-list/SKILL.md) — 全球外汇货币对清单查询
+- [`octagon-historical-financial-ratings`](../09-verticals/octagon-historical-financial-ratings/SKILL.md) — 历史财务评级与指标趋势
+- [`octagon-historical-market-cap`](../09-verticals/octagon-historical-market-cap/SKILL.md) — 历史市值变动追踪
+- [`octagon-income-statement-growth`](../09-verticals/octagon-income-statement-growth/SKILL.md) — 利润表项目同比增长
+- [`octagon-industry-pe-ratios`](../09-verticals/octagon-industry-pe-ratios/SKILL.md) — 行业市盈率对标分析
+- [`octagon-industry-performance-snapshot`](../09-verticals/octagon-industry-performance-snapshot/SKILL.md) — 行业表现每日快照
 - [`octagon-prediction-markets-research`](../09-verticals/octagon-prediction-markets-research/SKILL.md) — 预测市场事件研究
 - [`octagon-price-target-consensus`](../09-verticals/octagon-price-target-consensus/SKILL.md) — 分析师目标价共识
+- [`octagon-price-target-summary`](../09-verticals/octagon-price-target-summary/SKILL.md) — 分析师目标价汇总解读
 - [`octagon-ratings-snapshot`](../09-verticals/octagon-ratings-snapshot/SKILL.md) — 公司评级与关键指标快照
+- [`octagon-revenue-geographic-segmentation`](../09-verticals/octagon-revenue-geographic-segmentation/SKILL.md) — 营收地理区域分部拆解
+- [`octagon-revenue-product-segmentation`](../09-verticals/octagon-revenue-product-segmentation/SKILL.md) — 营收产品分部拆解
+- [`octagon-sec-10k-analysis`](../09-verticals/octagon-sec-10k-analysis/SKILL.md) — SEC 10-K 年报分析
 - [`octagon-sec-mda-analysis`](../09-verticals/octagon-sec-mda-analysis/SKILL.md) — SEC 管理层讨论与分析（MD&A）解读
+- [`octagon-sec-proxy-analysis`](../09-verticals/octagon-sec-proxy-analysis/SKILL.md) — 委托书 DEF 14A 高管薪酬与治理分析
+- [`octagon-sec-s1-analysis`](../09-verticals/octagon-sec-s1-analysis/SKILL.md) — SEC S-1 招股书与 IPO 分析
+- [`octagon-sector-pe-ratios`](../09-verticals/octagon-sector-pe-ratios/SKILL.md) — 板块市盈率基准对比
+- [`octagon-sector-performance-snapshot`](../09-verticals/octagon-sector-performance-snapshot/SKILL.md) — 板块表现快照
+- [`octagon-stock-grades`](../09-verticals/octagon-stock-grades/SKILL.md) — 顶级分析师股票评级查询
+- [`octagon-stock-price-change`](../09-verticals/octagon-stock-price-change/SKILL.md) — 多周期股价涨跌幅统计
 - [`octagon-stock-quote`](../09-verticals/octagon-stock-quote/SKILL.md) — 实时股票报价
 
 ### `npx playwright test`
@@ -4581,30 +5483,54 @@
 ### `numpy`
 - [`alphafold-database-access`](../09-verticals/alphafold-database-access/SKILL.md) — AlphaFold 蛋白结构数据库访问
 - [`anndata-data-structure`](../09-verticals/anndata-data-structure/SKILL.md) — AnnData 单细胞数据结构
+- [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 - [`backtesting-frameworks`](../09-verticals/backtesting-frameworks/SKILL.md) — 量化策略回测系统构建
+- [`cellpose-cell-segmentation`](../09-verticals/cellpose-cell-segmentation/SKILL.md) — Cellpose 细胞分割
+- [`datamol-cheminformatics`](../09-verticals/datamol-cheminformatics/SKILL.md) — Datamol 分子处理工具箱
+- [`depmap-crispr-essentiality`](../09-verticals/depmap-crispr-essentiality/SKILL.md) — DepMap CRISPR 基因必需性分析
 - [`dicom-medical-imaging`](../09-verticals/dicom-medical-imaging/SKILL.md) — DICOM 医学影像处理
 - [`embedding-model-strategies`](../04-ai/embedding-model-strategies/SKILL.md) — 嵌入模型选型与优化
+- [`flowio-flow-cytometry`](../09-verticals/flowio-flow-cytometry/SKILL.md) — FlowIO 流式细胞 FCS 解析
 - [`gene-set-enrichment-analysis`](../09-verticals/gene-set-enrichment-analysis/SKILL.md) — 通路与基因集富集分析
+- [`gwas-catalog-database`](../09-verticals/gwas-catalog-database/SKILL.md) — GWAS Catalog 关联查询
+- [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) — JASPAR 转录因子结合谱
+- [`matchms-spectral-matching`](../09-verticals/matchms-spectral-matching/SKILL.md) — matchms 质谱谱图匹配
 - [`matplotlib-visualization`](../03-data/matplotlib-visualization/SKILL.md) — Matplotlib 数据可视化
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
+- [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) — NeuroKit2 生理信号处理（ECG/EEG/EDA）
 - [`options-strategy-advisor`](../09-verticals/options-strategy-advisor/SKILL.md) — 期权策略分析与模拟
 - [`pair-trade-screener`](../09-verticals/pair-trade-screener/SKILL.md) — 配对交易统计套利筛选
 - [`portfolio-risk-metrics`](../09-verticals/portfolio-risk-metrics/SKILL.md) — 投资组合风险指标计算
 - [`pydeseq2-differential-expression`](../09-verticals/pydeseq2-differential-expression/SKILL.md) — PyDESeq2 批量 RNA-seq 差异表达分析
+- [`pymc-bayesian-modeling`](../03-data/pymc-bayesian-modeling/SKILL.md) — PyMC 贝叶斯建模与 MCMC
+- [`pymoo-multiobjective-optimization`](../09-verticals/pymoo-multiobjective-optimization/SKILL.md) — pymoo 多目标优化框架
 - [`pyopenms-mass-spectrometry`](../09-verticals/pyopenms-mass-spectrometry/SKILL.md) — PyOpenMS 质谱数据处理
+- [`pytdc-therapeutics-data-commons`](../09-verticals/pytdc-therapeutics-data-commons/SKILL.md) — PyTDC 治疗学数据公地
+- [`pytdc-therapeutics-datasets`](../09-verticals/pytdc-therapeutics-datasets/SKILL.md) — Therapeutics Data Commons 药物数据集
 - [`python-performance-optimization`](../02-engineering/python-performance-optimization/SKILL.md) — Python 性能优化
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
+- [`scikit-bio-sequence-toolkit`](../09-verticals/scikit-bio-sequence-toolkit/SKILL.md) — scikit-bio 序列与系统发育分析
+- [`scikit-image-bioimage`](../09-verticals/scikit-image-bioimage/SKILL.md) — scikit-image 生物图像处理
 - [`scikit-learn-ml`](../03-data/scikit-learn-ml/SKILL.md) — scikit-learn 机器学习
+- [`scvelo-rna-velocity`](../09-verticals/scvelo-rna-velocity/SKILL.md) — scVelo RNA 速率分析
+- [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
 - [`slack-gif-creator`](../06-creative/slack-gif-creator/SKILL.md) — Slack 动图制作器（slack-gif-creator）
 - [`statsmodels-statistical-modeling`](../03-data/statsmodels-statistical-modeling/SKILL.md) — Statsmodels 统计建模
 - [`sympy-symbolic-math`](../09-verticals/sympy-symbolic-math/SKILL.md) — SymPy 符号数学计算
+- [`trackpy-particle-tracking`](../09-verticals/trackpy-particle-tracking/SKILL.md) — trackpy 单粒子追踪
 - [`trading-strategy-backtester`](../09-verticals/trading-strategy-backtester/SKILL.md) — 交易策略回测框架
+- [`umap-dimensionality-reduction`](../03-data/umap-dimensionality-reduction/SKILL.md) — UMAP 非线性降维与可视化
 - [`vector-index-tuning`](../04-ai/vector-index-tuning/SKILL.md) — 向量索引调优
 - [`viennarna-structure-prediction`](../09-verticals/viennarna-structure-prediction/SKILL.md) — ViennaRNA RNA 二级结构预测
 
 ### `numpy-financial`
 - [`pe-returns-sensitivity`](../09-verticals/pe-returns-sensitivity/SKILL.md) — PE 投资回报 IRR/MOIC 敏感性分析
+
+### `nwb`
+- [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析
 
 ### `objdump`
 - [`binary-analysis-patterns`](../08-security/binary-analysis-patterns/SKILL.md) — 二进制逆向与汇编分析模式
@@ -4613,23 +5539,58 @@
 - [`langfuse-llm-observability`](../04-ai/langfuse-llm-observability/SKILL.md) — Langfuse LLM 可观测
 
 ### `octagon-agent`
+- [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) — 分析师财务预测：营收与EPS估计区间
 - [`octagon-balance-sheet-data`](../09-verticals/octagon-balance-sheet-data/SKILL.md) — 资产负债表数据检索
+- [`octagon-balance-sheet-growth`](../09-verticals/octagon-balance-sheet-growth/SKILL.md) — 资产负债表同比增长分析
+- [`octagon-batch-market-cap`](../09-verticals/octagon-batch-market-cap/SKILL.md) — 多公司市值批量对比
+- [`octagon-cash-flow-growth`](../09-verticals/octagon-cash-flow-growth/SKILL.md) — 现金流指标同比增长分析
 - [`octagon-cash-flow-statement-data`](../09-verticals/octagon-cash-flow-statement-data/SKILL.md) — 现金流量表数据检索
+- [`octagon-commodities-quote`](../09-verticals/octagon-commodities-quote/SKILL.md) — 大宗商品实时报价查询
+- [`octagon-company-market-cap`](../09-verticals/octagon-company-market-cap/SKILL.md) — 单公司市值查询
 - [`octagon-esg-ratings`](../09-verticals/octagon-esg-ratings/SKILL.md) — ESG评级检索（MSCI / Sustainalytics）
 - [`octagon-financial-growth-metrics`](../09-verticals/octagon-financial-growth-metrics/SKILL.md) — 财务同比增长指标
 - [`octagon-financial-health-scores`](../09-verticals/octagon-financial-health-scores/SKILL.md) — 财务健康评分（Z-Score / Piotroski）
+- [`octagon-financial-metrics-analysis`](../09-verticals/octagon-financial-metrics-analysis/SKILL.md) — 利润表项目同比增长分析
+- [`octagon-forex-list`](../09-verticals/octagon-forex-list/SKILL.md) — 全球外汇货币对清单查询
+- [`octagon-historical-financial-ratings`](../09-verticals/octagon-historical-financial-ratings/SKILL.md) — 历史财务评级与指标趋势
+- [`octagon-historical-market-cap`](../09-verticals/octagon-historical-market-cap/SKILL.md) — 历史市值变动追踪
+- [`octagon-income-statement-growth`](../09-verticals/octagon-income-statement-growth/SKILL.md) — 利润表项目同比增长
+- [`octagon-industry-pe-ratios`](../09-verticals/octagon-industry-pe-ratios/SKILL.md) — 行业市盈率对标分析
+- [`octagon-industry-performance-snapshot`](../09-verticals/octagon-industry-performance-snapshot/SKILL.md) — 行业表现每日快照
 - [`octagon-price-target-consensus`](../09-verticals/octagon-price-target-consensus/SKILL.md) — 分析师目标价共识
+- [`octagon-price-target-summary`](../09-verticals/octagon-price-target-summary/SKILL.md) — 分析师目标价汇总解读
 - [`octagon-ratings-snapshot`](../09-verticals/octagon-ratings-snapshot/SKILL.md) — 公司评级与关键指标快照
+- [`octagon-revenue-geographic-segmentation`](../09-verticals/octagon-revenue-geographic-segmentation/SKILL.md) — 营收地理区域分部拆解
+- [`octagon-revenue-product-segmentation`](../09-verticals/octagon-revenue-product-segmentation/SKILL.md) — 营收产品分部拆解
+- [`octagon-sec-10k-analysis`](../09-verticals/octagon-sec-10k-analysis/SKILL.md) — SEC 10-K 年报分析
+- [`octagon-sec-8k-analysis`](../09-verticals/octagon-sec-8k-analysis/SKILL.md) — SEC 8-K 重大事项分析
+- [`octagon-sec-debt-covenant`](../09-verticals/octagon-sec-debt-covenant/SKILL.md) — 债务契约与信贷条款分析
 - [`octagon-sec-filing-analyst`](../09-verticals/octagon-sec-filing-analyst/SKILL.md) — SEC 文件分析编排
 - [`octagon-sec-mda-analysis`](../09-verticals/octagon-sec-mda-analysis/SKILL.md) — SEC 管理层讨论与分析（MD&A）解读
+- [`octagon-sec-proxy-analysis`](../09-verticals/octagon-sec-proxy-analysis/SKILL.md) — 委托书 DEF 14A 高管薪酬与治理分析
 - [`octagon-sec-risk-factors`](../09-verticals/octagon-sec-risk-factors/SKILL.md) — SEC 风险因素提取
+- [`octagon-sec-s1-analysis`](../09-verticals/octagon-sec-s1-analysis/SKILL.md) — SEC S-1 招股书与 IPO 分析
+- [`octagon-sector-pe-ratios`](../09-verticals/octagon-sector-pe-ratios/SKILL.md) — 板块市盈率基准对比
+- [`octagon-sector-performance-snapshot`](../09-verticals/octagon-sector-performance-snapshot/SKILL.md) — 板块表现快照
+- [`octagon-stock-grades`](../09-verticals/octagon-stock-grades/SKILL.md) — 顶级分析师股票评级查询
+- [`octagon-stock-price-change`](../09-verticals/octagon-stock-price-change/SKILL.md) — 多周期股价涨跌幅统计
 - [`octagon-stock-quote`](../09-verticals/octagon-stock-quote/SKILL.md) — 实时股票报价
 
+### `octagon-agent (Octagon MCP)`
+- [`octagon-sec-segment-reporting`](../09-verticals/octagon-sec-segment-reporting/SKILL.md) — SEC分部业绩报告分析
+
+### `octagon-financials-agent`
+- [`octagon-sec-segment-reporting`](../09-verticals/octagon-sec-segment-reporting/SKILL.md) — SEC分部业绩报告分析
+
 ### `octagon-mcp`
+- [`octagon-earnings-analyst-questions`](../09-verticals/octagon-earnings-analyst-questions/SKILL.md) — 财报电话会分析师提问主题提取
 - [`octagon-earnings-call-sentiment`](../09-verticals/octagon-earnings-call-sentiment/SKILL.md) — 财报会管理层情绪分析
 
 ### `octagon-prediction-markets-agent`
 - [`octagon-prediction-markets-research`](../09-verticals/octagon-prediction-markets-research/SKILL.md) — 预测市场事件研究
+
+### `octagon-sec-agent`
+- [`octagon-sec-segment-reporting`](../09-verticals/octagon-sec-segment-reporting/SKILL.md) — SEC分部业绩报告分析
 
 ### `odoo-bin`
 - [`odoo-localization-compliance`](../09-verticals/odoo-localization-compliance/SKILL.md) — Odoo 本地化与税务合规
@@ -4647,7 +5608,9 @@
 - [`api-design-principles`](../02-engineering/api-design-principles/SKILL.md) — REST与GraphQL API设计
 
 ### `openpyxl`
+- [`contract-tabular-batch-review`](../09-verticals/contract-tabular-batch-review/SKILL.md) — 合同批量表格化审查
 - [`dcf-valuation-model`](../09-verticals/dcf-valuation-model/SKILL.md) — DCF 现金流折现估值模型
+- [`initiating-coverage-report`](../05-business/initiating-coverage-report/SKILL.md) — 首次覆盖研究报告
 - [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) — LBO 杠杆收购模型构建
 - [`spreadsheet-formula-auditor`](../03-data/spreadsheet-formula-auditor/SKILL.md) — 电子表格公式与模型审计
 - [`three-statement-model`](../09-verticals/three-statement-model/SKILL.md) — 三表联动财务模型
@@ -4693,38 +5656,87 @@
 - [`account-reconciliation`](../05-business/account-reconciliation/SKILL.md) — 账户对账核对
 - [`alpha-vantage-market-data`](../09-verticals/alpha-vantage-market-data/SKILL.md) — Alpha Vantage 全球金融数据接入
 - [`anndata-data-structure`](../09-verticals/anndata-data-structure/SKILL.md) — AnnData 单细胞数据结构
+- [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断
+- [`arboreto-grn-inference`](../09-verticals/arboreto-grn-inference/SKILL.md) — Arboreto 基因调控网络推断
+- [`archs4-expression-database`](../09-verticals/archs4-expression-database/SKILL.md) — ARCHS4 RNA-seq 表达数据库
 - [`backtesting-frameworks`](../09-verticals/backtesting-frameworks/SKILL.md) — 量化策略回测系统构建
+- [`biopython-molecular-biology`](../09-verticals/biopython-molecular-biology/SKILL.md) — Biopython 分子生物学工具箱
+- [`brenda-enzyme-database`](../09-verticals/brenda-enzyme-database/SKILL.md) — BRENDA 酶动力学数据库
 - [`budget-variance-analysis`](../05-business/budget-variance-analysis/SKILL.md) — 预算差异归因分析
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
+- [`busco-completeness-interpretation`](../09-verticals/busco-completeness-interpretation/SKILL.md) — BUSCO 组装完整度解读
+- [`cellpose-cell-segmentation`](../09-verticals/cellpose-cell-segmentation/SKILL.md) — Cellpose 细胞分割
 - [`chembl-bioactivity-database`](../09-verticals/chembl-bioactivity-database/SKILL.md) — ChEMBL 生物活性数据库查询
+- [`clinicaltrials-database-search`](../09-verticals/clinicaltrials-database-search/SKILL.md) — ClinicalTrials.gov 临床试验检索
+- [`clinpgx-pharmacogenomics-database`](../09-verticals/clinpgx-pharmacogenomics-database/SKILL.md) — ClinPGx 药物基因组数据库
 - [`clinvar-database`](../09-verticals/clinvar-database/SKILL.md) — ClinVar 变异临床意义查询
 - [`csv-data-cleaner`](../03-data/csv-data-cleaner/SKILL.md) — CSV 数据清洗
 - [`data-storyteller`](../05-business/data-storyteller/SKILL.md) — 数据叙事与可视化表达
+- [`datamol-cheminformatics`](../09-verticals/datamol-cheminformatics/SKILL.md) — Datamol 分子处理工具箱
 - [`dataset-profiler`](../03-data/dataset-profiler/SKILL.md) — 数据集探查画像
+- [`dbsnp-database`](../09-verticals/dbsnp-database/SKILL.md) — dbSNP SNP 数据库查询
+- [`ddinter-drug-interactions`](../09-verticals/ddinter-drug-interactions/SKILL.md) — DDInter 药物相互作用查询
+- [`depmap-cancer-dependency`](../09-verticals/depmap-cancer-dependency/SKILL.md) — DepMap 癌症基因依赖图谱查询
+- [`depmap-crispr-essentiality`](../09-verticals/depmap-crispr-essentiality/SKILL.md) — DepMap CRISPR 基因必需性分析
+- [`drugbank-database-access`](../09-verticals/drugbank-database-access/SKILL.md) — DrugBank 药物数据库解析
+- [`emdb-cryoem-database`](../09-verticals/emdb-cryoem-database/SKILL.md) — EMDB 冷冻电镜密度图查询
+- [`encode-database`](../09-verticals/encode-database/SKILL.md) — ENCODE 调控基因组数据库
+- [`ensembl-database`](../09-verticals/ensembl-database/SKILL.md) — Ensembl 基因注释数据库
+- [`equity-earnings-update-report`](../05-business/equity-earnings-update-report/SKILL.md) — 股票财报点评报告撰写
 - [`fastp-fastq-preprocessing`](../09-verticals/fastp-fastq-preprocessing/SKILL.md) — fastp FASTQ 质控与接头修剪
 - [`financial-statements-generator`](../05-business/financial-statements-generator/SKILL.md) — 财务三表生成
+- [`flowio-flow-cytometry`](../09-verticals/flowio-flow-cytometry/SKILL.md) — FlowIO 流式细胞 FCS 解析
 - [`gene-set-enrichment-analysis`](../09-verticals/gene-set-enrichment-analysis/SKILL.md) — 通路与基因集富集分析
+- [`geo-database`](../09-verticals/geo-database/SKILL.md) — NCBI GEO 表达数据访问
 - [`gget-genomic-databases`](../09-verticals/gget-genomic-databases/SKILL.md) — gget 统一基因组数据库接口
 - [`gl-subledger-reconciler`](../03-data/gl-subledger-reconciler/SKILL.md) — 总账与子账对账核对
 - [`gnomad-population-database`](../09-verticals/gnomad-population-database/SKILL.md) — gnomAD 人群变异频率查询
+- [`gtopdb-pharmacology-database`](../09-verticals/gtopdb-pharmacology-database/SKILL.md) — GtoPdb 药理学指南数据库查询
 - [`guided-statistical-analysis`](../09-verticals/guided-statistical-analysis/SKILL.md) — 统计分析与检验选择
+- [`histolab-wsi-tiling`](../09-verticals/histolab-wsi-tiling/SKILL.md) — histolab 全视野病理切片分块
+- [`hmdb-metabolome-database`](../09-verticals/hmdb-metabolome-database/SKILL.md) — HMDB 人类代谢组数据库
+- [`imaging-data-commons-query`](../09-verticals/imaging-data-commons-query/SKILL.md) — NCI 影像数据公地查询下载
+- [`initiating-coverage-report`](../05-business/initiating-coverage-report/SKILL.md) — 首次覆盖研究报告
+- [`interpro-domain-database`](../09-verticals/interpro-domain-database/SKILL.md) — InterPro 蛋白结构域数据库
+- [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) — JASPAR 转录因子结合谱
 - [`kpi-dashboard-design`](../03-data/kpi-dashboard-design/SKILL.md) — KPI 仪表盘设计
+- [`lamindb-data-management`](../09-verticals/lamindb-data-management/SKILL.md) — LaminDB 生物数据治理
+- [`matchms-spectral-matching`](../09-verticals/matchms-spectral-matching/SKILL.md) — matchms 质谱谱图匹配
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程
+- [`metabolomics-workbench-database`](../09-verticals/metabolomics-workbench-database/SKILL.md) — Metabolomics Workbench 代谢组库
+- [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
+- [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) — NeuroKit2 生理信号处理（ECG/EEG/EDA）
 - [`opentargets-database`](../09-verticals/opentargets-database/SKILL.md) — Open Targets 靶点-疾病关联查询
 - [`pair-trade-screener`](../09-verticals/pair-trade-screener/SKILL.md) — 配对交易统计套利筛选
+- [`pe-portfolio-monitoring`](../05-business/pe-portfolio-monitoring/SKILL.md) — 被投企业业绩跟踪监控
 - [`plotly-interactive-viz`](../03-data/plotly-interactive-viz/SKILL.md) — Plotly 交互式可视化
 - [`portfolio-risk-metrics`](../09-verticals/portfolio-risk-metrics/SKILL.md) — 投资组合风险指标计算
+- [`pride-proteomics-database`](../09-verticals/pride-proteomics-database/SKILL.md) — PRIDE 蛋白质组数据集检索
 - [`pubchem-compound-search`](../09-verticals/pubchem-compound-search/SKILL.md) — PubChem 化合物检索
 - [`pydeseq2-differential-expression`](../09-verticals/pydeseq2-differential-expression/SKILL.md) — PyDESeq2 批量 RNA-seq 差异表达分析
 - [`pyopenms-mass-spectrometry`](../09-verticals/pyopenms-mass-spectrometry/SKILL.md) — PyOpenMS 质谱数据处理
+- [`pytdc-therapeutics-data-commons`](../09-verticals/pytdc-therapeutics-data-commons/SKILL.md) — PyTDC 治疗学数据公地
+- [`pytdc-therapeutics-datasets`](../09-verticals/pytdc-therapeutics-datasets/SKILL.md) — Therapeutics Data Commons 药物数据集
+- [`quickgo-go-database`](../09-verticals/quickgo-go-database/SKILL.md) — QuickGO GO 术语与注释
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
+- [`scikit-bio-sequence-toolkit`](../09-verticals/scikit-bio-sequence-toolkit/SKILL.md) — scikit-bio 序列与系统发育分析
+- [`scikit-image-bioimage`](../09-verticals/scikit-image-bioimage/SKILL.md) — scikit-image 生物图像处理
 - [`scikit-learn-ml`](../03-data/scikit-learn-ml/SKILL.md) — scikit-learn 机器学习
 - [`seaborn-statistical-charts`](../03-data/seaborn-statistical-charts/SKILL.md) — Seaborn 统计图表
+- [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
 - [`snpeff-variant-annotation`](../09-verticals/snpeff-variant-annotation/SKILL.md) — SnpEff/SnpSift 变异功能注释与过滤
 - [`star-rnaseq-aligner`](../09-verticals/star-rnaseq-aligner/SKILL.md) — STAR 剪接感知 RNA-seq 比对
 - [`statsmodels-statistical-modeling`](../03-data/statsmodels-statistical-modeling/SKILL.md) — Statsmodels 统计建模
+- [`string-ppi-database`](../09-verticals/string-ppi-database/SKILL.md) — STRING 蛋白互作网络查询
+- [`trackpy-particle-tracking`](../09-verticals/trackpy-particle-tracking/SKILL.md) — trackpy 单粒子追踪
 - [`trading-strategy-backtester`](../09-verticals/trading-strategy-backtester/SKILL.md) — 交易策略回测框架
+- [`ucsc-genome-browser`](../09-verticals/ucsc-genome-browser/SKILL.md) — UCSC 基因组浏览器 API
+- [`unichem-compound-crossref`](../09-verticals/unichem-compound-crossref/SKILL.md) — UniChem 化合物 ID 交叉引用
 - [`uniprot-protein-database`](../09-verticals/uniprot-protein-database/SKILL.md) — UniProt 蛋白序列与注释数据库
 - [`variance-flux-commentary`](../05-business/variance-flux-commentary/SKILL.md) — 财务差异（Flux）说明撰写
+- [`zinc-compound-library`](../09-verticals/zinc-compound-library/SKILL.md) — ZINC 虚拟化合物库检索
 
 ### `pandoc`
 - [`contract-proposal-writer`](../05-business/contract-proposal-writer/SKILL.md) — 合同与商业提案撰写
@@ -4748,16 +5760,25 @@
 ### `pdb / ipdb / breakpoint()`
 - [`systematic-debugging-strategies`](../02-engineering/systematic-debugging-strategies/SKILL.md) — 系统化调试策略方法论
 
+### `pdf`
+- [`client-performance-report`](../09-verticals/client-performance-report/SKILL.md) — 客户业绩报告生成
+- [`client-review-prep`](../09-verticals/client-review-prep/SKILL.md) — 客户复盘会议准备
+
 ### `pdf-form-filler`
 - [`contract-playbook-review`](../09-verticals/contract-playbook-review/SKILL.md) — 合同对照评审红线
 - [`esignature-routing`](../09-verticals/esignature-routing/SKILL.md) — 电子签署路由准备
+- [`inbound-demand-letter-triage`](../09-verticals/inbound-demand-letter-triage/SKILL.md) — 来函索赔分级评估
 - [`nda-triage-reviewer`](../09-verticals/nda-triage-reviewer/SKILL.md) — 保密协议分级速审
+- [`saas-subscription-agreement-review`](../09-verticals/saas-subscription-agreement-review/SKILL.md) — SaaS 订阅协议审查
 
 ### `pdf-reader`
 - [`academic-paper-explainer`](../09-verticals/academic-paper-explainer/SKILL.md) — 学术论文导读讲解
 
 ### `pdfplumber`
 - [`pdf-processing-toolkit`](../01-documents/pdf-processing-toolkit/SKILL.md) — PDF 处理工具箱
+
+### `pdftoppm`
+- [`ib-pitch-deck-builder`](../05-business/ib-pitch-deck-builder/SKILL.md) — 投行路演演示稿构建
 
 ### `pdftotext`
 - [`datasheet-spec-extractor`](../09-verticals/datasheet-spec-extractor/SKILL.md) — 元器件规格书参数提取
@@ -4778,9 +5799,15 @@
 ### `php`
 - [`php-pro`](../02-engineering/php-pro/SKILL.md) — PHP 进阶开发
 
+### `phy`
+- [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析
+
 ### `pillow`
 - [`dicom-medical-imaging`](../09-verticals/dicom-medical-imaging/SKILL.md) — DICOM 医学影像处理
 - [`slack-gif-creator`](../06-creative/slack-gif-creator/SKILL.md) — Slack 动图制作器（slack-gif-creator）
+
+### `pims`
+- [`trackpy-particle-tracking`](../09-verticals/trackpy-particle-tracking/SKILL.md) — trackpy 单粒子追踪
 
 ### `pingouin`
 - [`guided-statistical-analysis`](../09-verticals/guided-statistical-analysis/SKILL.md) — 统计分析与检验选择
@@ -4848,11 +5875,17 @@
 ### `poppler-utils`
 - [`pdf-processing-toolkit`](../01-documents/pdf-processing-toolkit/SKILL.md) — PDF 处理工具箱
 
+### `popv`
+- [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释
+
 ### `portfolio_analyzer.py`
 - [`cpo-product-advisor`](../07-productivity/cpo-product-advisor/SKILL.md) — CPO 产品顾问（愿景与组合策略）
 
 ### `position_sizer.py`
 - [`trade-position-sizer`](../09-verticals/trade-position-sizer/SKILL.md) — 风险化仓位计算
+
+### `postMessage (Smart Embed)`
+- [`zoom-contact-center-app`](../10-platform/zoom-contact-center-app/SKILL.md) — Zoom Contact Center 应用开发
 
 ### `postgresql`
 - [`postgresql-optimization`](../03-data/postgresql-optimization/SKILL.md) — PostgreSQL 性能优化
@@ -4866,6 +5899,7 @@
 - [`systematic-debugger`](../02-engineering/systematic-debugger/SKILL.md) — 系统化调试与根因分析
 
 ### `pptxgenjs`
+- [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递
 - [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
 ### `pre-commit`
@@ -4875,14 +5909,21 @@
 ### `prediction_markets_history`
 - [`octagon-prediction-markets-research`](../09-verticals/octagon-prediction-markets-research/SKILL.md) — 预测市场事件研究
 
+### `primary-source 一手来源引用`
+- [`dpa-playbook-review`](../09-verticals/dpa-playbook-review/SKILL.md) — 数据处理协议(DPA)审查
+
 ### `primary-source 引用`
 - [`dpa-clause-reviewer`](../09-verticals/dpa-clause-reviewer/SKILL.md) — 数据处理协议条款审查
+- [`ip-clause-review`](../09-verticals/ip-clause-review/SKILL.md) — 协议知识产权条款审查
 
 ### `printf`
 - [`posix-shell-scripting`](../02-engineering/posix-shell-scripting/SKILL.md) — POSIX Shell 可移植脚本
 
 ### `prisma`
 - [`erd-schema-designer`](../03-data/erd-schema-designer/SKILL.md) — ERD 与数据库范式设计
+
+### `probeinterface`
+- [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析
 
 ### `process_documenter.py`
 - [`business-process-mapper`](../07-productivity/business-process-mapper/SKILL.md) — 业务流程绘制与瓶颈分析
@@ -4922,6 +5963,12 @@
 ### `py3Dmol`
 - [`autodock-vina-docking`](../09-verticals/autodock-vina-docking/SKILL.md) — AutoDock Vina 分子对接
 
+### `pyJASPAR`
+- [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) — JASPAR 转录因子结合谱
+
+### `pyarrow`
+- [`dask-distributed-dataframes`](../03-data/dask-distributed-dataframes/SKILL.md) — Dask 超内存分布式计算
+
 ### `pyautogui`
 - [`computer-use-agents`](../04-ai/computer-use-agents/SKILL.md) — 计算机操作型 AI 智能体构建
 
@@ -4938,6 +5985,11 @@
 
 ### `pydicom`
 - [`dicom-medical-imaging`](../09-verticals/dicom-medical-imaging/SKILL.md) — DICOM 医学影像处理
+- [`imaging-data-commons-query`](../09-verticals/imaging-data-commons-query/SKILL.md) — NCI 影像数据公地查询下载
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
+
+### `pyhealth`
+- [`pyhealth-clinical-dl`](../09-verticals/pyhealth-clinical-dl/SKILL.md) — PyHealth 临床健康深度学习流水线
 
 ### `pylibjpeg`
 - [`dicom-medical-imaging`](../09-verticals/dicom-medical-imaging/SKILL.md) — DICOM 医学影像处理
@@ -4947,6 +5999,13 @@
 
 ### `pymc`
 - [`guided-statistical-analysis`](../09-verticals/guided-statistical-analysis/SKILL.md) — 统计分析与检验选择
+- [`pymc-bayesian-modeling`](../03-data/pymc-bayesian-modeling/SKILL.md) — PyMC 贝叶斯建模与 MCMC
+
+### `pymoo`
+- [`pymoo-multiobjective-optimization`](../09-verticals/pymoo-multiobjective-optimization/SKILL.md) — pymoo 多目标优化框架
+
+### `pymzml`
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 
 ### `pyopenms`
 - [`pyopenms-mass-spectrometry`](../09-verticals/pyopenms-mass-spectrometry/SKILL.md) — PyOpenMS 质谱数据处理
@@ -4957,9 +6016,13 @@
 
 ### `pysam`
 - [`genomic-file-toolkit`](../09-verticals/genomic-file-toolkit/SKILL.md) — 基因组文件处理（BAM/VCF/FASTQ）
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 
 ### `pyspark`
 - [`spark-job-optimization`](../03-data/spark-job-optimization/SKILL.md) — Apache Spark 作业性能调优
+
+### `pyteomics`
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 
 ### `pytesseract`
 - [`pdf-processing-toolkit`](../01-documents/pdf-processing-toolkit/SKILL.md) — PDF 处理工具箱
@@ -4988,46 +6051,68 @@
 - [`anndata-data-structure`](../09-verticals/anndata-data-structure/SKILL.md) — AnnData 单细胞数据结构
 - [`api-design-reviewer`](../02-engineering/api-design-reviewer/SKILL.md) — REST API 设计评审
 - [`apple-hig-advisor`](../06-creative/apple-hig-advisor/SKILL.md) — 苹果人机界面指南专家
+- [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断
 - [`async-python-patterns`](../02-engineering/async-python-patterns/SKILL.md) — Python 异步并发编程模式
 - [`autodock-vina-docking`](../09-verticals/autodock-vina-docking/SKILL.md) — AutoDock Vina 分子对接
 - [`azure-cloud-architect`](../10-platform/azure-cloud-architect/SKILL.md) — Azure 云架构设计
 - [`backtesting-frameworks`](../09-verticals/backtesting-frameworks/SKILL.md) — 量化策略回测系统构建
 - [`breakout-trade-planner`](../09-verticals/breakout-trade-planner/SKILL.md) — 突破交易计划生成
+- [`brenda-enzyme-database`](../09-verticals/brenda-enzyme-database/SKILL.md) — BRENDA 酶动力学数据库
 - [`budget-variance-analysis`](../05-business/budget-variance-analysis/SKILL.md) — 预算差异归因分析
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
+- [`cellpose-cell-segmentation`](../09-verticals/cellpose-cell-segmentation/SKILL.md) — Cellpose 细胞分割
 - [`celltypist-cell-annotation`](../09-verticals/celltypist-cell-annotation/SKILL.md) — CellTypist 单细胞自动注释
 - [`cnvkit-copy-number`](../09-verticals/cnvkit-copy-number/SKILL.md) — CNVkit 体细胞拷贝数变异检测
 - [`constant-time-analyzer`](../08-security/constant-time-analyzer/SKILL.md) — 密码学常量时间侧信道分析
 - [`coo-operations-advisor`](../07-productivity/coo-operations-advisor/SKILL.md) — COO 运营顾问（流程与 OKR 执行）
 - [`cpo-product-advisor`](../07-productivity/cpo-product-advisor/SKILL.md) — CPO 产品顾问（愿景与组合策略）
 - [`csv-data-cleaner`](../03-data/csv-data-cleaner/SKILL.md) — CSV 数据清洗
+- [`dask-distributed-dataframes`](../03-data/dask-distributed-dataframes/SKILL.md) — Dask 超内存分布式计算
 - [`data-quality-validator`](../03-data/data-quality-validator/SKILL.md) — 数据质量校验框架
+- [`data-question-analyzer`](../03-data/data-question-analyzer/SKILL.md) — 数据问题分析（从速查到正式报告）
 - [`data-strategy-review`](../03-data/data-strategy-review/SKILL.md) — 数据战略决策审查
+- [`datamol-cheminformatics`](../09-verticals/datamol-cheminformatics/SKILL.md) — Datamol 分子处理工具箱
 - [`datasheet-spec-extractor`](../09-verticals/datasheet-spec-extractor/SKILL.md) — 元器件规格书参数提取
 - [`deepchem-drug-discovery`](../09-verticals/deepchem-drug-discovery/SKILL.md) — DeepChem 药物发现深度学习
+- [`depmap-crispr-essentiality`](../09-verticals/depmap-crispr-essentiality/SKILL.md) — DepMap CRISPR 基因必需性分析
+- [`encode-database`](../09-verticals/encode-database/SKILL.md) — ENCODE 调控基因组数据库
+- [`equity-earnings-update-report`](../05-business/equity-earnings-update-report/SKILL.md) — 股票财报点评报告撰写
 - [`eu-ai-act-compliance`](../09-verticals/eu-ai-act-compliance/SKILL.md) — 欧盟 AI 法案合规分级
 - [`fastp-fastq-preprocessing`](../09-verticals/fastp-fastq-preprocessing/SKILL.md) — fastp FASTQ 质控与接头修剪
 - [`feature-flags-architect`](../02-engineering/feature-flags-architect/SKILL.md) — 功能开关架构与治理
 - [`financial-analysis-toolkit`](../03-data/financial-analysis-toolkit/SKILL.md) — 财务比率与 DCF 估值分析
 - [`financial-statements-generator`](../05-business/financial-statements-generator/SKILL.md) — 财务三表生成
+- [`flowio-flow-cytometry`](../09-verticals/flowio-flow-cytometry/SKILL.md) — FlowIO 流式细胞 FCS 解析
 - [`gdpr-data-handler`](../09-verticals/gdpr-data-handler/SKILL.md) — GDPR合规数据处理
 - [`gget-genomic-databases`](../09-verticals/gget-genomic-databases/SKILL.md) — gget 统一基因组数据库接口
 - [`gl-subledger-reconciler`](../03-data/gl-subledger-reconciler/SKILL.md) — 总账与子账对账核对
 - [`gnomad-population-database`](../09-verticals/gnomad-population-database/SKILL.md) — gnomAD 人群变异频率查询
+- [`gwas-catalog-database`](../09-verticals/gwas-catalog-database/SKILL.md) — GWAS Catalog 关联查询
+- [`hmdb-metabolome-database`](../09-verticals/hmdb-metabolome-database/SKILL.md) — HMDB 人类代谢组数据库
 - [`i18n-localization-patterns`](../02-engineering/i18n-localization-patterns/SKILL.md) — 国际化与本地化模式
+- [`ib-deck-quality-check`](../05-business/ib-deck-quality-check/SKILL.md) — 投行演示稿质量审查
+- [`imaging-data-commons-query`](../09-verticals/imaging-data-commons-query/SKILL.md) — NCI 影像数据公地查询下载
+- [`initiating-coverage-report`](../05-business/initiating-coverage-report/SKILL.md) — 首次覆盖研究报告
 - [`institutional-flow-tracker`](../09-verticals/institutional-flow-tracker/SKILL.md) — 13F 机构持仓流向追踪
 - [`interview-system-designer`](../07-productivity/interview-system-designer/SKILL.md) — 招聘面试体系与流程设计
 - [`iso13485-qms-audit`](../09-verticals/iso13485-qms-audit/SKILL.md) — ISO 13485 质量体系内审
 - [`iso14971-risk-management`](../09-verticals/iso14971-risk-management/SKILL.md) — ISO 14971 医疗器械风险管理
+- [`lamindb-data-management`](../09-verticals/lamindb-data-management/SKILL.md) — LaminDB 生物数据治理
 - [`macro-regime-detector`](../09-verticals/macro-regime-detector/SKILL.md) — 宏观周期切换检测
 - [`market-breadth-analyzer`](../09-verticals/market-breadth-analyzer/SKILL.md) — 市场宽度健康度评分
 - [`market-top-detector`](../09-verticals/market-top-detector/SKILL.md) — 市场顶部概率检测
+- [`matchms-spectral-matching`](../09-verticals/matchms-spectral-matching/SKILL.md) — matchms 质谱谱图匹配
 - [`materials-science-toolkit`](../09-verticals/materials-science-toolkit/SKILL.md) — 材料科学工具箱（Pymatgen）
 - [`matplotlib-visualization`](../03-data/matplotlib-visualization/SKILL.md) — Matplotlib 数据可视化
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程
 - [`mcp-builder`](../10-platform/mcp-builder/SKILL.md) — MCP 服务器构建
+- [`metabolomics-workbench-database`](../09-verticals/metabolomics-workbench-database/SKILL.md) — Metabolomics Workbench 代谢组库
+- [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
 - [`multi-agent-orchestrator`](../07-productivity/multi-agent-orchestrator/SKILL.md) — 多智能体任务编排器
 - [`muon-multiomics-singlecell`](../09-verticals/muon-multiomics-singlecell/SKILL.md) — muon 多模态单细胞多组学分析
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
+- [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) — NeuroKit2 生理信号处理（ECG/EEG/EDA）
+- [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析
 - [`nih-grant-finder`](../09-verticals/nih-grant-finder/SKILL.md) — NIH 科研基金匹配与申报
 - [`notebooklm-source-grounded-qa`](../00-meta/notebooklm-source-grounded-qa/SKILL.md) — NotebookLM 源锚定问答
 - [`opentargets-database`](../09-verticals/opentargets-database/SKILL.md) — Open Targets 靶点-疾病关联查询
@@ -5035,24 +6120,37 @@
 - [`pair-trade-screener`](../09-verticals/pair-trade-screener/SKILL.md) — 配对交易统计套利筛选
 - [`pdf-form-filler`](../01-documents/pdf-form-filler/SKILL.md) — PDF 表单填写
 - [`pdf-processing-toolkit`](../01-documents/pdf-processing-toolkit/SKILL.md) — PDF 处理工具箱
+- [`pe-portfolio-monitoring`](../05-business/pe-portfolio-monitoring/SKILL.md) — 被投企业业绩跟踪监控
 - [`pead-earnings-drift-screener`](../09-verticals/pead-earnings-drift-screener/SKILL.md) — 财报后漂移 PEAD 选股
 - [`plotly-interactive-viz`](../03-data/plotly-interactive-viz/SKILL.md) — Plotly 交互式可视化
 - [`polars-dataframe`](../03-data/polars-dataframe/SKILL.md) — Polars 高性能数据框
+- [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释
 - [`portfolio-risk-metrics`](../09-verticals/portfolio-risk-metrics/SKILL.md) — 投资组合风险指标计算
 - [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 - [`product-manager-toolkit`](../07-productivity/product-manager-toolkit/SKILL.md) — 产品经理工具箱（RICE/PRD）
 - [`protein-language-models`](../09-verticals/protein-language-models/SKILL.md) — 蛋白质语言模型与设计（ESM）
 - [`pydantic-ai-agents`](../04-ai/pydantic-ai-agents/SKILL.md) — PydanticAI 智能体开发
 - [`pydeseq2-differential-expression`](../09-verticals/pydeseq2-differential-expression/SKILL.md) — PyDESeq2 批量 RNA-seq 差异表达分析
+- [`pyhealth-clinical-dl`](../09-verticals/pyhealth-clinical-dl/SKILL.md) — PyHealth 临床健康深度学习流水线
+- [`pymc-bayesian-modeling`](../03-data/pymc-bayesian-modeling/SKILL.md) — PyMC 贝叶斯建模与 MCMC
+- [`pymoo-multiobjective-optimization`](../09-verticals/pymoo-multiobjective-optimization/SKILL.md) — pymoo 多目标优化框架
 - [`pyopenms-mass-spectrometry`](../09-verticals/pyopenms-mass-spectrometry/SKILL.md) — PyOpenMS 质谱数据处理
+- [`pytdc-therapeutics-data-commons`](../09-verticals/pytdc-therapeutics-data-commons/SKILL.md) — PyTDC 治疗学数据公地
+- [`pytdc-therapeutics-datasets`](../09-verticals/pytdc-therapeutics-datasets/SKILL.md) — Therapeutics Data Commons 药物数据集
 - [`python-performance-optimization`](../02-engineering/python-performance-optimization/SKILL.md) — Python 性能优化
 - [`python-pptx-deck-generator`](../01-documents/python-pptx-deck-generator/SKILL.md) — python-pptx 幻灯片生成
 - [`python-testing-pytest`](../02-engineering/python-testing-pytest/SKILL.md) — Python pytest 测试模式
+- [`quickgo-go-database`](../09-verticals/quickgo-go-database/SKILL.md) — QuickGO GO 术语与注释
 - [`rag-implementation-workflow`](../04-ai/rag-implementation-workflow/SKILL.md) — RAG 检索增强实现
 - [`rag-pipeline-builder`](../04-ai/rag-pipeline-builder/SKILL.md) — RAG 检索管道搭建
+- [`recon-break-root-cause`](../05-business/recon-break-root-cause/SKILL.md) — 对账差异溯源根因分析
+- [`scikit-bio-sequence-toolkit`](../09-verticals/scikit-bio-sequence-toolkit/SKILL.md) — scikit-bio 序列与系统发育分析
+- [`scikit-image-bioimage`](../09-verticals/scikit-image-bioimage/SKILL.md) — scikit-image 生物图像处理
 - [`scikit-learn-ml`](../03-data/scikit-learn-ml/SKILL.md) — scikit-learn 机器学习
+- [`scvelo-rna-velocity`](../09-verticals/scvelo-rna-velocity/SKILL.md) — scVelo RNA 速率分析
 - [`scvi-tools-single-cell`](../09-verticals/scvi-tools-single-cell/SKILL.md) — scvi-tools 单细胞深度生成模型
 - [`seaborn-statistical-charts`](../03-data/seaborn-statistical-charts/SKILL.md) — Seaborn 统计图表
+- [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
 - [`shopify-app-development`](../02-engineering/shopify-app-development/SKILL.md) — Shopify 应用与主题开发
 - [`single-cell-rnaseq-analysis`](../09-verticals/single-cell-rnaseq-analysis/SKILL.md) — 单细胞 RNA-seq 分析（Scanpy）
 - [`skill-creator`](../04-ai/skill-creator/SKILL.md) — 技能创建与迭代（Skill Creator）
@@ -5069,8 +6167,11 @@
 - [`stride-threat-modeler`](../08-security/stride-threat-modeler/SKILL.md) — STRIDE威胁建模
 - [`sympy-symbolic-math`](../09-verticals/sympy-symbolic-math/SKILL.md) — SymPy 符号数学计算
 - [`temporal-workflow-python`](../02-engineering/temporal-workflow-python/SKILL.md) — Temporal 持久工作流编排（Python）
+- [`trackpy-particle-tracking`](../09-verticals/trackpy-particle-tracking/SKILL.md) — trackpy 单粒子追踪
 - [`trade-signal-postmortem`](../09-verticals/trade-signal-postmortem/SKILL.md) — 交易信号复盘归因
 - [`trading-strategy-backtester`](../09-verticals/trading-strategy-backtester/SKILL.md) — 交易策略回测框架
+- [`ucsc-genome-browser`](../09-verticals/ucsc-genome-browser/SKILL.md) — UCSC 基因组浏览器 API
+- [`umap-dimensionality-reduction`](../03-data/umap-dimensionality-reduction/SKILL.md) — UMAP 非线性降维与可视化
 - [`uv-python-package-manager`](../02-engineering/uv-python-package-manager/SKILL.md) — uv 高速 Python 包管理
 - [`ux-research-design-toolkit`](../06-creative/ux-research-design-toolkit/SKILL.md) — UX 研究与体验设计工具箱
 - [`value-dividend-screener`](../09-verticals/value-dividend-screener/SKILL.md) — 价值红利股筛选
@@ -5080,6 +6181,8 @@
 - [`viennarna-structure-prediction`](../09-verticals/viennarna-structure-prediction/SKILL.md) — ViennaRNA RNA 二级结构预测
 - [`webapp-testing`](../02-engineering/webapp-testing/SKILL.md) — Web 应用测试（Playwright）
 - [`whatsapp-cloud-api`](../10-platform/whatsapp-cloud-api/SKILL.md) — WhatsApp Cloud API 集成
+- [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组
+- [`zoom-rtms-realtime-media`](../10-platform/zoom-rtms-realtime-media/SKILL.md) — Zoom RTMS 实时音视频/转写处理
 
 ### `python -m json.tool`
 - [`campaign-attribution-analytics`](../05-business/campaign-attribution-analytics/SKILL.md) — 营销活动归因分析
@@ -5114,6 +6217,7 @@
 - [`kicad-design-reviewer`](../09-verticals/kicad-design-reviewer/SKILL.md) — KiCad 电路设计审查
 - [`multi-agent-workflow-designer`](../04-ai/multi-agent-workflow-designer/SKILL.md) — 多智能体工作流设计
 - [`pcb-bom-manager`](../09-verticals/pcb-bom-manager/SKILL.md) — 电子物料清单(BOM)管理
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 - [`security-incident-response`](../08-security/security-incident-response/SKILL.md) — 安全事件分级与响应
 - [`spice-circuit-simulator`](../09-verticals/spice-circuit-simulator/SKILL.md) — SPICE 电路仿真验证
 - [`technical-change-tracker`](../07-productivity/technical-change-tracker/SKILL.md) — 技术变更记录与会话交接追踪
@@ -5124,7 +6228,15 @@
 
 ### `pytorch`
 - [`cellxgene-census`](../09-verticals/cellxgene-census/SKILL.md) — CELLxGENE Census 海量单细胞查询
+- [`pyhealth-clinical-dl`](../09-verticals/pyhealth-clinical-dl/SKILL.md) — PyHealth 临床健康深度学习流水线
 - [`scvi-tools-single-cell`](../09-verticals/scvi-tools-single-cell/SKILL.md) — scvi-tools 单细胞深度生成模型
+
+### `pytximport`
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
+
+### `qa_macroeconomic`
+- [`macro-rates-dashboard`](../05-business/macro-rates-dashboard/SKILL.md) — 宏观利率监测看板
+- [`swap-curve-strategy`](../05-business/swap-curve-strategy/SKILL.md) — 利率互换曲线策略
 
 ### `qdrant-client`
 - [`vector-index-tuning`](../04-ai/vector-index-tuning/SKILL.md) — 向量索引调优
@@ -5161,10 +6273,18 @@
 
 ### `rdkit`
 - [`autodock-vina-docking`](../09-verticals/autodock-vina-docking/SKILL.md) — AutoDock Vina 分子对接
+- [`datamol-cheminformatics`](../09-verticals/datamol-cheminformatics/SKILL.md) — Datamol 分子处理工具箱
 - [`deepchem-drug-discovery`](../09-verticals/deepchem-drug-discovery/SKILL.md) — DeepChem 药物发现深度学习
+- [`drugbank-database-access`](../09-verticals/drugbank-database-access/SKILL.md) — DrugBank 药物数据库解析
+- [`matchms-spectral-matching`](../09-verticals/matchms-spectral-matching/SKILL.md) — matchms 质谱谱图匹配
+- [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
+- [`pytdc-therapeutics-data-commons`](../09-verticals/pytdc-therapeutics-data-commons/SKILL.md) — PyTDC 治疗学数据公地
+- [`pytdc-therapeutics-datasets`](../09-verticals/pytdc-therapeutics-datasets/SKILL.md) — Therapeutics Data Commons 药物数据集
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 
 ### `rdkit.Chem`
 - [`cheminformatics-toolkit`](../09-verticals/cheminformatics-toolkit/SKILL.md) — 化学信息学工具箱（RDKit）
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
 
 ### `re (regex 静态扫描)`
 - [`agent-skill-security-scanner`](../08-security/agent-skill-security-scanner/SKILL.md) — AI 技能安装前安全扫描
@@ -5193,6 +6313,9 @@
 - [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) — LBO 杠杆收购模型构建
 - [`three-statement-model`](../09-verticals/three-statement-model/SKILL.md) — 三表联动财务模型
 
+### `recordings_list`
+- [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
+
 ### `reportlab`
 - [`billing-automation-systems`](../05-business/billing-automation-systems/SKILL.md) — 订阅计费与催收自动化系统
 - [`canvas-design`](../06-creative/canvas-design/SKILL.md) — 画布设计（Canvas Design）：用设计哲学驱动的海报与静态艺术品
@@ -5201,25 +6324,52 @@
 ### `requests`
 - [`alpha-vantage-market-data`](../09-verticals/alpha-vantage-market-data/SKILL.md) — Alpha Vantage 全球金融数据接入
 - [`alphafold-database-access`](../09-verticals/alphafold-database-access/SKILL.md) — AlphaFold 蛋白结构数据库访问
+- [`archs4-expression-database`](../09-verticals/archs4-expression-database/SKILL.md) — ARCHS4 RNA-seq 表达数据库
 - [`canslim-growth-screener`](../09-verticals/canslim-growth-screener/SKILL.md) — CANSLIM 成长股筛选
 - [`chembl-bioactivity-database`](../09-verticals/chembl-bioactivity-database/SKILL.md) — ChEMBL 生物活性数据库查询
+- [`clinicaltrials-database-search`](../09-verticals/clinicaltrials-database-search/SKILL.md) — ClinicalTrials.gov 临床试验检索
+- [`clinpgx-pharmacogenomics-database`](../09-verticals/clinpgx-pharmacogenomics-database/SKILL.md) — ClinPGx 药物基因组数据库
 - [`clinvar-database`](../09-verticals/clinvar-database/SKILL.md) — ClinVar 变异临床意义查询
 - [`component-sourcing-search`](../09-verticals/component-sourcing-search/SKILL.md) — 电子元器件选型采购搜索
+- [`dbsnp-database`](../09-verticals/dbsnp-database/SKILL.md) — dbSNP SNP 数据库查询
+- [`ddinter-drug-interactions`](../09-verticals/ddinter-drug-interactions/SKILL.md) — DDInter 药物相互作用查询
+- [`depmap-cancer-dependency`](../09-verticals/depmap-cancer-dependency/SKILL.md) — DepMap 癌症基因依赖图谱查询
+- [`emdb-cryoem-database`](../09-verticals/emdb-cryoem-database/SKILL.md) — EMDB 冷冻电镜密度图查询
+- [`encode-database`](../09-verticals/encode-database/SKILL.md) — ENCODE 调控基因组数据库
+- [`ensembl-database`](../09-verticals/ensembl-database/SKILL.md) — Ensembl 基因注释数据库
+- [`geo-database`](../09-verticals/geo-database/SKILL.md) — NCBI GEO 表达数据访问
 - [`gnomad-population-database`](../09-verticals/gnomad-population-database/SKILL.md) — gnomAD 人群变异频率查询
+- [`gtopdb-pharmacology-database`](../09-verticals/gtopdb-pharmacology-database/SKILL.md) — GtoPdb 药理学指南数据库查询
+- [`gwas-catalog-database`](../09-verticals/gwas-catalog-database/SKILL.md) — GWAS Catalog 关联查询
 - [`institutional-flow-tracker`](../09-verticals/institutional-flow-tracker/SKILL.md) — 13F 机构持仓流向追踪
+- [`interpro-domain-database`](../09-verticals/interpro-domain-database/SKILL.md) — InterPro 蛋白结构域数据库
+- [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) — JASPAR 转录因子结合谱
+- [`kegg-database`](../09-verticals/kegg-database/SKILL.md) — KEGG 通路与化合物数据库
 - [`market-breadth-analyzer`](../09-verticals/market-breadth-analyzer/SKILL.md) — 市场宽度健康度评分
+- [`metabolomics-workbench-database`](../09-verticals/metabolomics-workbench-database/SKILL.md) — Metabolomics Workbench 代谢组库
+- [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱
 - [`opentargets-database`](../09-verticals/opentargets-database/SKILL.md) — Open Targets 靶点-疾病关联查询
+- [`pride-proteomics-database`](../09-verticals/pride-proteomics-database/SKILL.md) — PRIDE 蛋白质组数据集检索
 - [`pubchem-compound-search`](../09-verticals/pubchem-compound-search/SKILL.md) — PubChem 化合物检索
+- [`quickgo-go-database`](../09-verticals/quickgo-go-database/SKILL.md) — QuickGO GO 术语与注释
+- [`rcsb-pdb-database`](../09-verticals/rcsb-pdb-database/SKILL.md) — RCSB PDB 结构数据库查询
+- [`reactome-pathway-database`](../09-verticals/reactome-pathway-database/SKILL.md) — Reactome 通路数据库查询
+- [`string-ppi-database`](../09-verticals/string-ppi-database/SKILL.md) — STRING 蛋白互作网络查询
 - [`trade-signal-postmortem`](../09-verticals/trade-signal-postmortem/SKILL.md) — 交易信号复盘归因
+- [`ucsc-genome-browser`](../09-verticals/ucsc-genome-browser/SKILL.md) — UCSC 基因组浏览器 API
+- [`unichem-compound-crossref`](../09-verticals/unichem-compound-crossref/SKILL.md) — UniChem 化合物 ID 交叉引用
 - [`uniprot-protein-database`](../09-verticals/uniprot-protein-database/SKILL.md) — UniProt 蛋白序列与注释数据库
 - [`value-dividend-screener`](../09-verticals/value-dividend-screener/SKILL.md) — 价值红利股筛选
 - [`vcp-screener`](../09-verticals/vcp-screener/SKILL.md) — VCP 波动收缩形态选股
+- [`zinc-compound-library`](../09-verticals/zinc-compound-library/SKILL.md) — ZINC 虚拟化合物库检索
 
 ### `requirements.txt`
 - [`oss-license-compliance`](../09-verticals/oss-license-compliance/SKILL.md) — 开源许可证合规审查
 
 ### `research-mcp`
+- [`compliance-policy-redraft`](../09-verticals/compliance-policy-redraft/SKILL.md) — 合规政策缺口改写
 - [`dsar-response-builder`](../09-verticals/dsar-response-builder/SKILL.md) — 数据主体请求响应起草
+- [`nprm-comment-decision-tracker`](../09-verticals/nprm-comment-decision-tracker/SKILL.md) — 立法征求意见期决策跟踪
 - [`regulatory-policy-diff`](../09-verticals/regulatory-policy-diff/SKILL.md) — 监管变更与制度差距分析
 
 ### `revenue_forecast_model.py`
@@ -5272,12 +6422,18 @@
 ### `rustfmt`
 - [`rust-pro`](../02-engineering/rust-pro/SKILL.md) — Rust 进阶开发
 
+### `salmon`
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排
+
 ### `samtools`
+- [`bcftools-variant-manipulation`](../09-verticals/bcftools-variant-manipulation/SKILL.md) — bcftools VCF/BCF 变异处理
+- [`bwa-mem2-dna-aligner`](../09-verticals/bwa-mem2-dna-aligner/SKILL.md) — BWA-MEM2 短读 DNA 比对（WGS/WES/ChIP-seq）
 - [`cnvkit-copy-number`](../09-verticals/cnvkit-copy-number/SKILL.md) — CNVkit 体细胞拷贝数变异检测
 - [`deeptools-ngs-analysis`](../09-verticals/deeptools-ngs-analysis/SKILL.md) — deepTools NGS 覆盖度与信号可视化
 - [`gatk-variant-calling`](../09-verticals/gatk-variant-calling/SKILL.md) — GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）
 - [`genomic-file-toolkit`](../09-verticals/genomic-file-toolkit/SKILL.md) — 基因组文件处理（BAM/VCF/FASTQ）
 - [`macs3-peak-calling`](../09-verticals/macs3-peak-calling/SKILL.md) — MACS3 ChIP/ATAC-seq 峰检测
+- [`samtools-bam-processing`](../09-verticals/samtools-bam-processing/SKILL.md) — samtools BAM/SAM 处理
 - [`star-rnaseq-aligner`](../09-verticals/star-rnaseq-aligner/SKILL.md) — STAR 剪接感知 RNA-seq 比对
 
 ### `sbt`
@@ -5295,8 +6451,11 @@
 ### `scanpy`
 - [`celltypist-cell-annotation`](../09-verticals/celltypist-cell-annotation/SKILL.md) — CellTypist 单细胞自动注释
 - [`cellxgene-census`](../09-verticals/cellxgene-census/SKILL.md) — CELLxGENE Census 海量单细胞查询
+- [`geniml-genomic-interval-ml`](../09-verticals/geniml-genomic-interval-ml/SKILL.md) — geniml 基因组区间机器学习
 - [`harmony-batch-correction`](../09-verticals/harmony-batch-correction/SKILL.md) — Harmony 单细胞批次效应校正
 - [`muon-multiomics-singlecell`](../09-verticals/muon-multiomics-singlecell/SKILL.md) — muon 多模态单细胞多组学分析
+- [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释
+- [`scvelo-rna-velocity`](../09-verticals/scvelo-rna-velocity/SKILL.md) — scVelo RNA 速率分析
 - [`scvi-tools-single-cell`](../09-verticals/scvi-tools-single-cell/SKILL.md) — scvi-tools 单细胞深度生成模型
 - [`single-cell-rnaseq-analysis`](../09-verticals/single-cell-rnaseq-analysis/SKILL.md) — 单细胞 RNA-seq 分析（Scanpy）
 
@@ -5309,25 +6468,47 @@
 ### `schema.org (JSON-LD)`
 - [`ai-answer-engine-seo`](../05-business/ai-answer-engine-seo/SKILL.md) — AI 答案引擎优化
 
+### `scikit-bio`
+- [`scikit-bio-sequence-toolkit`](../09-verticals/scikit-bio-sequence-toolkit/SKILL.md) — scikit-bio 序列与系统发育分析
+
+### `scikit-image`
+- [`cellpose-cell-segmentation`](../09-verticals/cellpose-cell-segmentation/SKILL.md) — Cellpose 细胞分割
+- [`scikit-image-bioimage`](../09-verticals/scikit-image-bioimage/SKILL.md) — scikit-image 生物图像处理
+
 ### `scikit-learn`
+- [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断
+- [`arboreto-grn-inference`](../09-verticals/arboreto-grn-inference/SKILL.md) — Arboreto 基因调控网络推断
 - [`deepchem-drug-discovery`](../09-verticals/deepchem-drug-discovery/SKILL.md) — DeepChem 药物发现深度学习
+- [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
 - [`pydeseq2-differential-expression`](../09-verticals/pydeseq2-differential-expression/SKILL.md) — PyDESeq2 批量 RNA-seq 差异表达分析
+- [`pytdc-therapeutics-data-commons`](../09-verticals/pytdc-therapeutics-data-commons/SKILL.md) — PyTDC 治疗学数据公地
+- [`pytdc-therapeutics-datasets`](../09-verticals/pytdc-therapeutics-datasets/SKILL.md) — Therapeutics Data Commons 药物数据集
 - [`scikit-learn-ml`](../03-data/scikit-learn-ml/SKILL.md) — scikit-learn 机器学习
+- [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
+- [`umap-dimensionality-reduction`](../03-data/umap-dimensionality-reduction/SKILL.md) — UMAP 非线性降维与可视化
 - [`vector-index-tuning`](../04-ai/vector-index-tuning/SKILL.md) — 向量索引调优
 
 ### `scipy`
 - [`anndata-data-structure`](../09-verticals/anndata-data-structure/SKILL.md) — AnnData 单细胞数据结构
+- [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断
+- [`depmap-cancer-dependency`](../09-verticals/depmap-cancer-dependency/SKILL.md) — DepMap 癌症基因依赖图谱查询
+- [`depmap-crispr-essentiality`](../09-verticals/depmap-crispr-essentiality/SKILL.md) — DepMap CRISPR 基因必需性分析
 - [`gene-set-enrichment-analysis`](../09-verticals/gene-set-enrichment-analysis/SKILL.md) — 通路与基因集富集分析
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
+- [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) — NeuroKit2 生理信号处理（ECG/EEG/EDA）
 - [`options-strategy-advisor`](../09-verticals/options-strategy-advisor/SKILL.md) — 期权策略分析与模拟
 - [`pair-trade-screener`](../09-verticals/pair-trade-screener/SKILL.md) — 配对交易统计套利筛选
 - [`portfolio-risk-metrics`](../09-verticals/portfolio-risk-metrics/SKILL.md) — 投资组合风险指标计算
 - [`pydeseq2-differential-expression`](../09-verticals/pydeseq2-differential-expression/SKILL.md) — PyDESeq2 批量 RNA-seq 差异表达分析
+- [`pymoo-multiobjective-optimization`](../09-verticals/pymoo-multiobjective-optimization/SKILL.md) — pymoo 多目标优化框架
 - [`quantum-circuit-builder`](../09-verticals/quantum-circuit-builder/SKILL.md) — 量子计算电路构建（Qiskit）
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
+- [`scikit-image-bioimage`](../09-verticals/scikit-image-bioimage/SKILL.md) — scikit-image 生物图像处理
 - [`statsmodels-statistical-modeling`](../03-data/statsmodels-statistical-modeling/SKILL.md) — Statsmodels 统计建模
 - [`sympy-symbolic-math`](../09-verticals/sympy-symbolic-math/SKILL.md) — SymPy 符号数学计算
+- [`trackpy-particle-tracking`](../09-verticals/trackpy-particle-tracking/SKILL.md) — trackpy 单粒子追踪
 
 ### `scipy.stats`
 - [`guided-statistical-analysis`](../09-verticals/guided-statistical-analysis/SKILL.md) — 统计分析与检验选择
@@ -5376,10 +6557,15 @@
 ### `scrublet`
 - [`single-cell-rnaseq-analysis`](../09-verticals/single-cell-rnaseq-analysis/SKILL.md) — 单细胞 RNA-seq 分析（Scanpy）
 
+### `scvelo`
+- [`scvelo-rna-velocity`](../09-verticals/scvelo-rna-velocity/SKILL.md) — scVelo RNA 速率分析
+
 ### `scvi-tools`
+- [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释
 - [`scvi-tools-single-cell`](../09-verticals/scvi-tools-single-cell/SKILL.md) — scvi-tools 单细胞深度生成模型
 
 ### `seaborn`
+- [`equity-earnings-update-report`](../05-business/equity-earnings-update-report/SKILL.md) — 股票财报点评报告撰写
 - [`guided-statistical-analysis`](../09-verticals/guided-statistical-analysis/SKILL.md) — 统计分析与检验选择
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程
 - [`pydeseq2-differential-expression`](../09-verticals/pydeseq2-differential-expression/SKILL.md) — PyDESeq2 批量 RNA-seq 差异表达分析
@@ -5390,6 +6576,9 @@
 
 ### `search_google_scholar.py`
 - [`citation-management`](../01-documents/citation-management/SKILL.md) — 研究写作引文系统化管理
+
+### `search_meetings`
+- [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
 
 ### `search_pubmed.py`
 - [`citation-management`](../01-documents/citation-management/SKILL.md) — 研究写作引文系统化管理
@@ -5442,8 +6631,12 @@
 ### `shadcn/ui`
 - [`web-artifacts-builder`](../02-engineering/web-artifacts-builder/SKILL.md) — Web 制品构建器（React/Tailwind/shadcn 单文件产物）
 
+### `shap`
+- [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
+
 ### `sharp`
 - [`file-upload-storage`](../02-engineering/file-upload-storage/SKILL.md) — 文件上传与云存储
+- [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递
 - [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
 ### `shell`
@@ -5457,6 +6650,9 @@
 
 ### `shodan-cli`
 - [`shodan-reconnaissance`](../08-security/shodan-reconnaissance/SKILL.md) — Shodan 资产侦察方法论
+
+### `simple-icons`
+- [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递
 
 ### `simulate_subcircuits.py`
 - [`spice-circuit-simulator`](../09-verticals/spice-circuit-simulator/SKILL.md) — SPICE 电路仿真验证
@@ -5474,11 +6670,44 @@
 ### `slack`
 - [`oncall-handoff-writer`](../07-productivity/oncall-handoff-writer/SKILL.md) — 值班交接记录撰写
 
+### `slack-mcp`
+- [`nprm-comment-decision-tracker`](../09-verticals/nprm-comment-decision-tracker/SKILL.md) — 立法征求意见期决策跟踪
+
 ### `slack_bolt`
 - [`slack-bolt-bot-builder`](../10-platform/slack-bolt-bot-builder/SKILL.md) — Slack Bolt 机器人开发
 
+### `slack_create_canvas`
+- [`slack-message-formatter`](../10-platform/slack-message-formatter/SKILL.md) — Slack 消息撰写与 mrkdwn 排版
+
+### `slack_read_channel`
+- [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）
+
+### `slack_read_thread`
+- [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）
+
+### `slack_read_user_profile`
+- [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）
+
 ### `slack_sdk`
 - [`slack-bolt-bot-builder`](../10-platform/slack-bolt-bot-builder/SKILL.md) — Slack Bolt 机器人开发
+
+### `slack_search_channels`
+- [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）
+
+### `slack_search_public`
+- [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）
+
+### `slack_search_public_and_private`
+- [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）
+
+### `slack_search_users`
+- [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）
+
+### `slack_send_message`
+- [`slack-message-formatter`](../10-platform/slack-message-formatter/SKILL.md) — Slack 消息撰写与 mrkdwn 排版
+
+### `slack_send_message_draft`
+- [`slack-message-formatter`](../10-platform/slack-message-formatter/SKILL.md) — Slack 消息撰写与 mrkdwn 排版
 
 ### `slackapi/slack-github-action`
 - [`github-actions-author`](../10-platform/github-actions-author/SKILL.md) — GitHub Actions工作流编写
@@ -5523,7 +6752,11 @@
 ### `spec_validator.py`
 - [`spec-driven-workflow`](../02-engineering/spec-driven-workflow/SKILL.md) — 规约驱动开发工作流
 
+### `spikeinterface`
+- [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析
+
 ### `spreadsheet`
+- [`client-performance-report`](../09-verticals/client-performance-report/SKILL.md) — 客户业绩报告生成
 - [`journal-entry-preparer`](../05-business/journal-entry-preparer/SKILL.md) — 会计分录编制
 - [`portfolio-rebalancer`](../09-verticals/portfolio-rebalancer/SKILL.md) — 投资组合再平衡
 - [`spreadsheet-formula-auditor`](../03-data/spreadsheet-formula-auditor/SKILL.md) — 电子表格公式与模型审计
@@ -5532,14 +6765,17 @@
 
 ### `sql`
 - [`account-reconciliation`](../05-business/account-reconciliation/SKILL.md) — 账户对账核对
+- [`account-roll-forward-schedule`](../05-business/account-roll-forward-schedule/SKILL.md) — 科目滚动结转表
 - [`analysis-qa-validator`](../03-data/analysis-qa-validator/SKILL.md) — 分析交付前质检
 - [`budget-variance-analysis`](../05-business/budget-variance-analysis/SKILL.md) — 预算差异归因分析
 - [`data-quality-validator`](../03-data/data-quality-validator/SKILL.md) — 数据质量校验框架
+- [`data-question-analyzer`](../03-data/data-question-analyzer/SKILL.md) — 数据问题分析（从速查到正式报告）
 - [`dataset-profiler`](../03-data/dataset-profiler/SKILL.md) — 数据集探查画像
 - [`erd-schema-designer`](../03-data/erd-schema-designer/SKILL.md) — ERD 与数据库范式设计
 - [`financial-statements-generator`](../05-business/financial-statements-generator/SKILL.md) — 财务三表生成
 - [`gl-subledger-reconciler`](../03-data/gl-subledger-reconciler/SKILL.md) — 总账与子账对账核对
 - [`journal-entry-preparer`](../05-business/journal-entry-preparer/SKILL.md) — 会计分录编制
+- [`recon-break-root-cause`](../05-business/recon-break-root-cause/SKILL.md) — 对账差异溯源根因分析
 - [`sql-query-builder`](../03-data/sql-query-builder/SKILL.md) — SQL 查询构建
 - [`variance-flux-commentary`](../05-business/variance-flux-commentary/SKILL.md) — 财务差异（Flux）说明撰写
 
@@ -5613,6 +6849,7 @@
 - [`research-experiment-designer`](../09-verticals/research-experiment-designer/SKILL.md) — 科研实验设计
 
 ### `tabix`
+- [`bcftools-variant-manipulation`](../09-verticals/bcftools-variant-manipulation/SKILL.md) — bcftools VCF/BCF 变异处理
 - [`genomic-file-toolkit`](../09-verticals/genomic-file-toolkit/SKILL.md) — 基因组文件处理（BAM/VCF/FASTQ）
 - [`snpeff-variant-annotation`](../09-verticals/snpeff-variant-annotation/SKILL.md) — SnpEff/SnpSift 变异功能注释与过滤
 
@@ -5651,6 +6888,9 @@
 
 ### `tenacity`
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
+
+### `tensorflow/torch(可选)`
+- [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
 
 ### `term_sheet_analyzer.py`
 - [`general-counsel-advisor`](../09-verticals/general-counsel-advisor/SKILL.md) — 总法律顾问（合同/IP/条款）
@@ -5693,12 +6933,22 @@
 ### `threat_signal_analyzer.py`
 - [`threat-detection-hunting`](../08-security/threat-detection-hunting/SKILL.md) — 威胁狩猎与异常检测
 
+### `tifffile`
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
+- [`scikit-image-bioimage`](../09-verticals/scikit-image-bioimage/SKILL.md) — scikit-image 生物图像处理
+
 ### `tiktoken`
 - [`context-window-management`](../04-ai/context-window-management/SKILL.md) — LLM 上下文窗口管理策略
 - [`embedding-model-strategies`](../04-ai/embedding-model-strategies/SKILL.md) — 嵌入模型选型与优化
 
 ### `tiledbsoma`
 - [`cellxgene-census`](../09-verticals/cellxgene-census/SKILL.md) — CELLxGENE Census 海量单细胞查询
+
+### `tiledbvcf (CLI)`
+- [`tiledbvcf-variant-store`](../09-verticals/tiledbvcf-variant-store/SKILL.md) — TileDB-VCF 大规模变异存储
+
+### `tiledbvcf (Python)`
+- [`tiledbvcf-variant-store`](../09-verticals/tiledbvcf-variant-store/SKILL.md) — TileDB-VCF 大规模变异存储
 
 ### `timeline_reconstructor.py`
 - [`incident-commander-framework`](../02-engineering/incident-commander-framework/SKILL.md) — 事故指挥与响应框架
@@ -5712,20 +6962,37 @@
 ### `tokio`
 - [`rust-pro`](../02-engineering/rust-pro/SKILL.md) — Rust 进阶开发
 
+### `tools/call`
+- [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
+
+### `tools/list`
+- [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
+
 ### `torch`
 - [`deepchem-drug-discovery`](../09-verticals/deepchem-drug-discovery/SKILL.md) — DeepChem 药物发现深度学习
 
 ### `tracemalloc`
 - [`python-performance-optimization`](../02-engineering/python-performance-optimization/SKILL.md) — Python 性能优化
 
+### `tracker.md 会话跟踪文件`
+- [`irac-essay-grader`](../09-verticals/irac-essay-grader/SKILL.md) — IRAC 法律论文评析
+
 ### `trackio`
 - [`huggingface-model-trainer`](../04-ai/huggingface-model-trainer/SKILL.md) — TRL 模型微调训练（Hugging Face Jobs）
+
+### `trackpy`
+- [`trackpy-particle-tracking`](../09-verticals/trackpy-particle-tracking/SKILL.md) — trackpy 单粒子追踪
 
 ### `trellis`
 - [`privilege-log-reviewer`](../09-verticals/privilege-log-reviewer/SKILL.md) — 特权文件清单初审
 
 ### `trl-jobs`
 - [`huggingface-model-trainer`](../04-ai/huggingface-model-trainer/SKILL.md) — TRL 模型微调训练（Hugging Face Jobs）
+
+### `tscc_historical_pricing_summaries`
+- [`bond-futures-basis-analysis`](../05-business/bond-futures-basis-analysis/SKILL.md) — 国债期货基差分析
+- [`macro-rates-dashboard`](../05-business/macro-rates-dashboard/SKILL.md) — 宏观利率监测看板
+- [`swap-curve-strategy`](../05-business/swap-curve-strategy/SKILL.md) — 利率互换曲线策略
 
 ### `tshark`
 - [`wireshark-traffic-analysis`](../08-security/wireshark-traffic-analysis/SKILL.md) — Wireshark 流量分析
@@ -5765,6 +7032,9 @@
 ### `ultralytics(YOLO26)`
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家
 
+### `umap-learn`
+- [`umap-dimensionality-reduction`](../03-data/umap-dimensionality-reduction/SKILL.md) — UMAP 非线性降维与可视化
+
 ### `unfurl`
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
 
@@ -5774,6 +7044,9 @@
 ### `unity-6-lts`
 - [`unity-game-developer`](../06-creative/unity-game-developer/SKILL.md) — Unity 游戏开发
 
+### `uniwig`
+- [`geniml-genomic-interval-ml`](../09-verticals/geniml-genomic-interval-ml/SKILL.md) — geniml 基因组区间机器学习
+
 ### `unsquashfs`
 - [`firmware-reverse-analyst`](../08-security/firmware-reverse-analyst/SKILL.md) — 固件逆向与 IoT 安全
 
@@ -5782,19 +7055,28 @@
 
 ### `urllib`
 - [`component-sourcing-search`](../09-verticals/component-sourcing-search/SKILL.md) — 电子元器件选型采购搜索
+- [`encode-database`](../09-verticals/encode-database/SKILL.md) — ENCODE 调控基因组数据库
 
 ### `urp`
 - [`unity-game-developer`](../06-creative/unity-game-developer/SKILL.md) — Unity 游戏开发
 
 ### `uv`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 - [`constant-time-analyzer`](../08-security/constant-time-analyzer/SKILL.md) — 密码学常量时间侧信道分析
+- [`dask-distributed-dataframes`](../03-data/dask-distributed-dataframes/SKILL.md) — Dask 超内存分布式计算
+- [`geniml-genomic-interval-ml`](../09-verticals/geniml-genomic-interval-ml/SKILL.md) — geniml 基因组区间机器学习
 - [`huggingface-model-trainer`](../04-ai/huggingface-model-trainer/SKILL.md) — TRL 模型微调训练（Hugging Face Jobs）
 - [`macro-regime-detector`](../09-verticals/macro-regime-detector/SKILL.md) — 宏观周期切换检测
 - [`materials-science-toolkit`](../09-verticals/materials-science-toolkit/SKILL.md) — 材料科学工具箱（Pymatgen）
 - [`polars-dataframe`](../03-data/polars-dataframe/SKILL.md) — Polars 高性能数据框
+- [`pyhealth-clinical-dl`](../09-verticals/pyhealth-clinical-dl/SKILL.md) — PyHealth 临床健康深度学习流水线
 - [`quantum-circuit-builder`](../09-verticals/quantum-circuit-builder/SKILL.md) — 量子计算电路构建（Qiskit）
 - [`uv-python-package-manager`](../02-engineering/uv-python-package-manager/SKILL.md) — uv 高速 Python 包管理
+- [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组
+
+### `uv/pip`
+- [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
 
 ### `uvx/uv`
 - [`zeroize-audit`](../08-security/zeroize-audit/SKILL.md) — 敏感数据内存清零审计（zeroize-audit）
@@ -5811,8 +7093,14 @@
 ### `validate_workflow.py`
 - [`agent-workflow-builder`](../07-productivity/agent-workflow-builder/SKILL.md) — 多智能体工作流编排脚本构建
 
+### `vcftools`
+- [`vcf-variant-filtering`](../09-verticals/vcf-variant-filtering/SKILL.md) — VCF 变异质量过滤
+
 ### `velero`
 - [`kubernetes-architect`](../02-engineering/kubernetes-architect/SKILL.md) — Kubernetes 云原生架构
+
+### `velocyto`
+- [`scvelo-rna-velocity`](../09-verticals/scvelo-rna-velocity/SKILL.md) — scVelo RNA 速率分析
 
 ### `videodb`
 - [`videodb-perception-editing`](../06-creative/videodb-perception-editing/SKILL.md) — VideoDB 视频感知索引与编辑
@@ -5839,9 +7127,13 @@
 - [`academic-paper-explainer`](../09-verticals/academic-paper-explainer/SKILL.md) — 学术论文导读讲解
 
 ### `web-search`
+- [`compliance-policy-redraft`](../09-verticals/compliance-policy-redraft/SKILL.md) — 合规政策缺口改写
 - [`content-strategy-planner`](../05-business/content-strategy-planner/SKILL.md) — 内容策略规划
+- [`earnings-preview-model`](../05-business/earnings-preview-model/SKILL.md) — 财报前瞻与预估建模
+- [`offer-restrictive-covenant-review`](../09-verticals/offer-restrictive-covenant-review/SKILL.md) — 录用函与竞业限制审查
 - [`privacy-impact-assessor`](../09-verticals/privacy-impact-assessor/SKILL.md) — 隐私影响评估生成
 - [`regulatory-policy-diff`](../09-verticals/regulatory-policy-diff/SKILL.md) — 监管变更与制度差距分析
+- [`wage-hour-employment-qa`](../09-verticals/wage-hour-employment-qa/SKILL.md) — 工时薪酬与雇佣法问答
 - [`worker-classification-analyzer`](../09-verticals/worker-classification-analyzer/SKILL.md) — 用工关系分类分析
 
 ### `webpack/next bundle-analyzer`
@@ -5851,9 +7143,14 @@
 - [`market-top-detector`](../09-verticals/market-top-detector/SKILL.md) — 市场顶部概率检测
 - [`news-sentiment-briefing`](../00-meta/news-sentiment-briefing/SKILL.md) — 多源新闻情感简报引擎
 
+### `websocket`
+- [`zoom-rtms-realtime-media`](../10-platform/zoom-rtms-realtime-media/SKILL.md) — Zoom RTMS 实时音视频/转写处理
+
 ### `westlaw`
 - [`dsar-response-builder`](../09-verticals/dsar-response-builder/SKILL.md) — 数据主体请求响应起草
+- [`offer-restrictive-covenant-review`](../09-verticals/offer-restrictive-covenant-review/SKILL.md) — 录用函与竞业限制审查
 - [`privilege-log-reviewer`](../09-verticals/privilege-log-reviewer/SKILL.md) — 特权文件清单初审
+- [`wage-hour-employment-qa`](../09-verticals/wage-hour-employment-qa/SKILL.md) — 工时薪酬与雇佣法问答
 - [`worker-classification-analyzer`](../09-verticals/worker-classification-analyzer/SKILL.md) — 用工关系分类分析
 
 ### `wfuzz`
@@ -5881,6 +7178,9 @@
 ### `wmsc.lcsc.com CDN`
 - [`component-sourcing-search`](../09-verticals/component-sourcing-search/SKILL.md) — 电子元器件选型采购搜索
 
+### `word`
+- [`client-review-prep`](../09-verticals/client-review-prep/SKILL.md) — 客户复盘会议准备
+
 ### `workflow_intake.py`
 - [`agent-workflow-builder`](../07-productivity/agent-workflow-builder/SKILL.md) — 多智能体工作流编排脚本构建
 
@@ -5891,11 +7191,18 @@
 - [`cloudflare-workers-edge`](../10-platform/cloudflare-workers-edge/SKILL.md) — Cloudflare Workers KV D1 R2 边缘平台
 - [`cloudflare-workers-expert`](../02-engineering/cloudflare-workers-expert/SKILL.md) — Cloudflare Workers 边缘计算开发
 
+### `ws`
+- [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流
+- [`zoom-rtms-realtime-media`](../10-platform/zoom-rtms-realtime-media/SKILL.md) — Zoom RTMS 实时音视频/转写处理
+
 ### `x64dbg`
 - [`anti-reversing-techniques`](../08-security/anti-reversing-techniques/SKILL.md) — 反逆向技术分析
 
 ### `xUnit`
 - [`dotnet-backend-patterns`](../02-engineering/dotnet-backend-patterns/SKILL.md) — dotnet 后端开发模式
+
+### `xarray`
+- [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组
 
 ### `xcode`
 - [`swift-concurrency`](../02-engineering/swift-concurrency/SKILL.md) — Swift 并发与 Actor 隔离
@@ -5903,11 +7210,30 @@
 ### `xdotool`
 - [`computer-use-agents`](../04-ai/computer-use-agents/SKILL.md) — 计算机操作型 AI 智能体构建
 
+### `xgboost/lightgbm(可选)`
+- [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
+
+### `xlsx`
+- [`claim-element-chart-builder`](../09-verticals/claim-element-chart-builder/SKILL.md) — 权利要求/要件对照表构建
+- [`smb-cash-flow-forecast`](../05-business/smb-cash-flow-forecast/SKILL.md) — 小微企业现金流预测（30/60/90 天）
+
 ### `xml.etree.ElementTree`
 - [`clinvar-database`](../09-verticals/clinvar-database/SKILL.md) — ClinVar 变异临床意义查询
+- [`dbsnp-database`](../09-verticals/dbsnp-database/SKILL.md) — dbSNP SNP 数据库查询
+- [`drugbank-database-access`](../09-verticals/drugbank-database-access/SKILL.md) — DrugBank 药物数据库解析
+- [`hmdb-metabolome-database`](../09-verticals/hmdb-metabolome-database/SKILL.md) — HMDB 人类代谢组数据库
 
 ### `yaml`
+- [`cease-and-desist-letter`](../09-verticals/cease-and-desist-letter/SKILL.md) — 停止侵权函起草与应对
+- [`contract-renewal-tracker`](../09-verticals/contract-renewal-tracker/SKILL.md) — 合同续约与取消窗口跟踪
+- [`demand-letter-drafter`](../09-verticals/demand-letter-drafter/SKILL.md) — 索赔函起草
+- [`entity-compliance-tracker`](../09-verticals/entity-compliance-tracker/SKILL.md) — 主体合规与年报期限跟踪
+- [`international-hiring-eor-planner`](../09-verticals/international-hiring-eor-planner/SKILL.md) — 跨境招聘 EOR 与建实体规划
+- [`investigation-memo-drafter`](../09-verticals/investigation-memo-drafter/SKILL.md) — 内部调查备忘录起草
+- [`ip-portfolio-register`](../09-verticals/ip-portfolio-register/SKILL.md) — 知识产权组合登记与续展
 - [`legal-hold-manager`](../09-verticals/legal-hold-manager/SKILL.md) — 诉讼证据保全通知管理
+- [`nprm-comment-decision-tracker`](../09-verticals/nprm-comment-decision-tracker/SKILL.md) — 立法征求意见期决策跟踪
+- [`workplace-internal-investigation`](../09-verticals/workplace-internal-investigation/SKILL.md) — 职场内部调查框架
 
 ### `yarGen`
 - [`yara-rule-authoring`](../08-security/yara-rule-authoring/SKILL.md) — YARA-X 恶意软件检测规则编写
@@ -5918,6 +7244,16 @@
 ### `yfinance`
 - [`macro-regime-detector`](../09-verticals/macro-regime-detector/SKILL.md) — 宏观周期切换检测
 
+### `yieldbook_bond_reference`
+- [`fixed-income-portfolio-review`](../05-business/fixed-income-portfolio-review/SKILL.md) — 固定收益组合审视
+
+### `yieldbook_cashflow`
+- [`fixed-income-portfolio-review`](../05-business/fixed-income-portfolio-review/SKILL.md) — 固定收益组合审视
+
+### `yieldbook_scenario`
+- [`bond-relative-value-analysis`](../05-business/bond-relative-value-analysis/SKILL.md) — 债券相对价值分析
+- [`fixed-income-portfolio-review`](../05-business/fixed-income-portfolio-review/SKILL.md) — 固定收益组合审视
+
 ### `yr (YARA-X CLI)`
 - [`yara-rule-authoring`](../08-security/yara-rule-authoring/SKILL.md) — YARA-X 恶意软件检测规则编写
 
@@ -5926,6 +7262,13 @@
 
 ### `zarr`
 - [`anndata-data-structure`](../09-verticals/anndata-data-structure/SKILL.md) — AnnData 单细胞数据结构
+- [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组
+
+### `zcc-sdk.js (Campaign SDK)`
+- [`zoom-virtual-agent-builder`](../10-platform/zoom-virtual-agent-builder/SKILL.md) — Zoom 虚拟客服坐席集成
+
+### `zeep`
+- [`brenda-enzyme-database`](../09-verticals/brenda-enzyme-database/SKILL.md) — BRENDA 酶动力学数据库
 
 ### `zendesk`
 - [`support-kb-article-writer`](../07-productivity/support-kb-article-writer/SKILL.md) — 支持知识库文章撰写
@@ -5968,6 +7311,9 @@
 ### `向量数据库(Pinecone/Qdrant/Weaviate/pgvector)`
 - [`production-llm-app-builder`](../04-ai/production-llm-app-builder/SKILL.md) — 生产级 LLM 应用与 RAG 系统构建
 
+### `商标检索工具(TESS/EUIPO/Solve Intelligence/Descrybe等)`
+- [`trademark-clearance-knockout`](../09-verticals/trademark-clearance-knockout/SKILL.md) — 商标可注册性初筛
+
 ### `官方 SDK: TypeScript/Python/Ruby/Go/Kotlin/Java/PHP/C#/CLI/Terraform`
 - [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) — X/Twitter 抓取与自动化（Xquik）
 
@@ -5979,6 +7325,9 @@
 
 ### `对话式AI平台(Intercom Fin/Zendesk AI/Freshdesk Freddy)`
 - [`ai-customer-support`](../05-business/ai-customer-support/SKILL.md) — AI 客户支持与情感分析
+
+### `工单系统(Jira/Linear) MCP`
+- [`product-launch-legal-review`](../09-verticals/product-launch-legal-review/SKILL.md) — 产品上线法律审查
 
 ### `工单系统(Zendesk/Freshdesk/Gorgias)`
 - [`ai-customer-support`](../05-business/ai-customer-support/SKILL.md) — AI 客户支持与情感分析
@@ -6007,6 +7356,9 @@
 ### `文档解析`
 - [`vendor-evaluation`](../07-productivity/vendor-evaluation/SKILL.md) — 供应商评估决策
 
+### `日历连接器（可选）`
+- [`signal-based-call-prep`](../05-business/signal-based-call-prep/SKILL.md) — 基于信号的客户通话准备（Common Room）
+
 ### `日志/控制台`
 - [`bug-hunter`](../02-engineering/bug-hunter/SKILL.md) — 症状到根因的缺陷追踪修复
 
@@ -6022,14 +7374,36 @@
 ### `欺诈检测平台`
 - [`returns-reverse-logistics`](../09-verticals/returns-reverse-logistics/SKILL.md) — 退货与逆向物流
 
+### `法律/专利检索工具 (Westlaw/CourtListener/USPTO/Solve Intelligence)`
+- [`invention-disclosure-screen`](../09-verticals/invention-disclosure-screen/SKILL.md) — 发明披露专利性初筛
+
 ### `法律检索工具 (Westlaw/CourtListener/Trellis/Descrybe)`
 - [`deposition-outline-prep`](../09-verticals/deposition-outline-prep/SKILL.md) — 证人质询提纲准备
+- [`subpoena-triage`](../09-verticals/subpoena-triage/SKILL.md) — 传票分级与异议框架
+
+### `法律检索工具 (Westlaw/Fastcase/CourtListener)`
+- [`legal-case-brief`](../09-verticals/legal-case-brief/SKILL.md) — 判例摘要(case brief)
+
+### `法律检索工具 (Westlaw/Fastcase/CourtListener) 仅供用户事后核验`
+- [`irac-essay-grader`](../09-verticals/irac-essay-grader/SKILL.md) — IRAC 法律论文评析
+
+### `法律检索工具(CourtListener等)`
+- [`trademark-clearance-knockout`](../09-verticals/trademark-clearance-knockout/SKILL.md) — 商标可注册性初筛
+
+### `法律检索工具(Westlaw/CourtListener/监管机构站点等)`
+- [`product-launch-legal-review`](../09-verticals/product-launch-legal-review/SKILL.md) — 产品上线法律审查
 
 ### `法律检索工具(Westlaw/CourtListener等)`
+- [`action-compliance-check`](../09-verticals/action-compliance-check/SKILL.md) — 行动合规性检查（产品/业务举措）
+- [`dmca-takedown-notice`](../09-verticals/dmca-takedown-notice/SKILL.md) — DMCA 下架通知与反通知
 - [`marketing-claims-reviewer`](../09-verticals/marketing-claims-reviewer/SKILL.md) — 营销宣传声明合规审查
 
 ### `法律检索工具/MCP (Westlaw 等)`
 - [`dpa-clause-reviewer`](../09-verticals/dpa-clause-reviewer/SKILL.md) — 数据处理协议条款审查
+
+### `法律检索工具/MCP (Westlaw/CourtListener 等)`
+- [`dpa-playbook-review`](../09-verticals/dpa-playbook-review/SKILL.md) — 数据处理协议(DPA)审查
+- [`ip-clause-review`](../09-verticals/ip-clause-review/SKILL.md) — 协议知识产权条款审查
 
 ### `浏览器 DevTools`
 - [`bug-hunter`](../02-engineering/bug-hunter/SKILL.md) — 症状到根因的缺陷追踪修复
@@ -6043,8 +7417,13 @@
 ### `漏斗与字段级埋点分析`
 - [`signup-flow-cro`](../05-business/signup-flow-cro/SKILL.md) — 注册流程转化优化
 
+### `演示文稿/PPT`
+- [`pe-value-creation-plan`](../05-business/pe-value-creation-plan/SKILL.md) — 投后价值创造计划（EBITDA 桥与 100 天计划）
+
 ### `演示文稿/PPT 工具`
 - [`board-deck-builder`](../05-business/board-deck-builder/SKILL.md) — 董事会与投资人汇报材料生成
+- [`ib-deck-quality-check`](../05-business/ib-deck-quality-check/SKILL.md) — 投行演示稿质量审查
+- [`pitch-deck-refresh`](../05-business/pitch-deck-refresh/SKILL.md) — 投行演示稿数据刷新
 
 ### `独立角色提示（多次隔离调用 LLM）`
 - [`boardroom-deliberation`](../00-meta/boardroom-deliberation/SKILL.md) — C 级多角色董事会六阶段审议
@@ -6060,6 +7439,12 @@
 
 ### `电子表格`
 - [`board-deck-builder`](../05-business/board-deck-builder/SKILL.md) — 董事会与投资人汇报材料生成
+- [`ib-pitch-deck-builder`](../05-business/ib-pitch-deck-builder/SKILL.md) — 投行路演演示稿构建
+- [`pitch-deck-refresh`](../05-business/pitch-deck-refresh/SKILL.md) — 投行演示稿数据刷新
+
+### `电子表格/Excel`
+- [`pe-portfolio-monitoring`](../05-business/pe-portfolio-monitoring/SKILL.md) — 被投企业业绩跟踪监控
+- [`pe-value-creation-plan`](../05-business/pe-value-creation-plan/SKILL.md) — 投后价值创造计划（EBITDA 桥与 100 天计划）
 
 ### `知识库`
 - [`support-ticket-triage`](../05-business/support-ticket-triage/SKILL.md) — 支持工单分诊
@@ -6093,6 +7478,9 @@
 
 ### `采购/合同系统`
 - [`vendor-evaluation`](../07-productivity/vendor-evaluation/SKILL.md) — 供应商评估决策
+
+### `隐私政策承诺文档`
+- [`dpa-playbook-review`](../09-verticals/dpa-playbook-review/SKILL.md) — 数据处理协议(DPA)审查
 
 ### `项目/缺陷跟踪器`
 - [`support-ticket-triage`](../05-business/support-ticket-triage/SKILL.md) — 支持工单分诊

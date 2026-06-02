@@ -740,6 +740,12 @@ graph LR
   csv-data-cleaner ===|combines| polars-dataframe
   csv-data-cleaner ===|combines| dataset-quality-auditor
   csv-data-cleaner ===|combines| matplotlib-visualization
+  dask-distributed-dataframes -.-|related| polars-dataframe
+  dask-distributed-dataframes -.-|related| spark-job-optimization
+  dask-distributed-dataframes -.-|related| zarr-chunked-arrays
+  dask-distributed-dataframes -.-|related| snowflake-development
+  dask-distributed-dataframes ===|combines| matplotlib-visualization
+  dask-distributed-dataframes ===|combines| scikit-learn-ml
   data-pipeline-engineer -.-|related| dbt-transformation-modeler
   data-pipeline-engineer -.-|related| snowflake-development
   data-pipeline-engineer -.-|related| spark-job-optimization
@@ -755,6 +761,12 @@ graph LR
   data-quality-validator -.-|related| dbt-transformation-patterns
   data-quality-validator ===|combines| dbt-transformation-patterns
   data-quality-validator ===|combines| data-pipeline-engineer
+  data-question-analyzer -.-|related| analysis-qa-validator
+  data-question-analyzer -.-|related| data-quality-validator
+  data-question-analyzer -.-|related| kpi-dashboard-design
+  data-question-analyzer -.-|related| sql-query-builder
+  data-question-analyzer ===|combines| html-dashboard-builder
+  data-question-analyzer ===|combines| matplotlib-visualization
   data-strategy-review -.-|related| chief-ai-officer-advisor
   data-strategy-review -.-|related| data-pipeline-engineer
   data-strategy-review ===|combines| data-quality-frameworks
@@ -845,6 +857,19 @@ graph LR
   postgresql-optimization -.-|related| neon-serverless-postgres
   postgresql-optimization ===|combines| sql-query-builder
   postgresql-optimization ===|combines| database-migration-strategies
+  pymc-bayesian-modeling -.-|related| statsmodels-statistical-modeling
+  pymc-bayesian-modeling -.-|related| scikit-learn-ml
+  pymc-bayesian-modeling -.-|related| guided-statistical-analysis
+  pymc-bayesian-modeling -.-|related| scientific-exploratory-data-analysis
+  pymc-bayesian-modeling ===|combines| data-question-analyzer
+  pymc-bayesian-modeling ===|combines| seaborn-statistical-charts
+  pymc-bayesian-modeling ===|combines| matplotlib-visualization
+  scientific-exploratory-data-analysis -.-|related| dataset-profiler
+  scientific-exploratory-data-analysis -.-|related| data-question-analyzer
+  scientific-exploratory-data-analysis -.-|related| guided-statistical-analysis
+  scientific-exploratory-data-analysis -.-|related| scientific-database-lookup
+  scientific-exploratory-data-analysis ===|combines| matplotlib-visualization
+  scientific-exploratory-data-analysis ===|combines| guided-statistical-analysis
   scikit-learn-ml -.-|related| statsmodels-statistical-modeling
   scikit-learn-ml -.-|related| matplotlib-visualization
   scikit-learn-ml -.-|related| mlops-model-productionizer
@@ -867,6 +892,18 @@ graph LR
   statsmodels-statistical-modeling -.-|related| guided-statistical-analysis
   statsmodels-statistical-modeling ===|combines| polars-dataframe
   statsmodels-statistical-modeling ===|combines| matplotlib-visualization
+  umap-dimensionality-reduction -.-|related| scikit-learn-ml
+  umap-dimensionality-reduction -.-|related| matplotlib-visualization
+  umap-dimensionality-reduction -.-|related| plotly-interactive-viz
+  umap-dimensionality-reduction -.-|related| scientific-exploratory-data-analysis
+  umap-dimensionality-reduction ===|combines| scikit-learn-ml
+  umap-dimensionality-reduction ===|combines| single-cell-rnaseq-analysis
+  umap-dimensionality-reduction ===|combines| scientific-exploratory-data-analysis
+  zarr-chunked-arrays -.-|related| polars-dataframe
+  zarr-chunked-arrays -.-|related| scientific-exploratory-data-analysis
+  zarr-chunked-arrays -.-|related| spark-job-optimization
+  zarr-chunked-arrays ===|combines| dask-distributed-dataframes
+  zarr-chunked-arrays ===|combines| matplotlib-visualization
   agent-memory-architecture -.-|related| agent-memory-systems
   agent-memory-architecture -.-|related| llm-conversation-memory
   agent-memory-architecture -.-|related| embedding-model-strategies
@@ -1079,6 +1116,12 @@ graph LR
   self-improving-memory-agent ===|combines| skill-optimizer
   self-improving-memory-agent ===|combines| autonomous-coding-agent-patterns
   self-improving-memory-agent ===|combines| autoresearch-optimization-agent
+  shap-model-explainability -.-|related| scikit-learn-ml
+  shap-model-explainability -.-|related| mlops-model-productionizer
+  shap-model-explainability -.-|related| statsmodels-statistical-modeling
+  shap-model-explainability -.-|related| computer-vision-expert
+  shap-model-explainability ===|combines| matplotlib-visualization
+  shap-model-explainability ===|combines| huggingface-model-trainer
   skill-creator -.-|related| skill-optimizer
   skill-creator -.-|related| agent-tool-builder
   skill-creator -.-|related| prompt-template-designer
@@ -1116,6 +1159,18 @@ graph LR
   account-reconciliation ===|combines| month-end-close-manager
   account-reconciliation ===|combines| financial-statements-generator
   account-reconciliation ===|combines| sox-control-testing
+  account-roll-forward-schedule -.-|related| gl-subledger-reconciler
+  account-roll-forward-schedule -.-|related| account-reconciliation
+  account-roll-forward-schedule -.-|related| accrual-schedule-builder
+  account-roll-forward-schedule -.-|related| month-end-close-manager
+  account-roll-forward-schedule ===|combines| variance-flux-commentary
+  account-roll-forward-schedule ===|combines| journal-entry-preparer
+  accrual-schedule-builder -.-|related| journal-entry-preparer
+  accrual-schedule-builder -.-|related| month-end-close-manager
+  accrual-schedule-builder -.-|related| variance-flux-commentary
+  accrual-schedule-builder ===|combines| account-reconciliation
+  accrual-schedule-builder ===|combines| financial-statements-generator
+  accrual-schedule-builder ===|combines| gl-subledger-reconciler
   ad-creative-generator -.-|related| paid-ad-creative
   ad-creative-generator -.-|related| conversion-copywriter
   ad-creative-generator -.-|related| landing-page-copywriting
@@ -1149,6 +1204,17 @@ graph LR
   analytics-tracking-setup ===|combines| campaign-attribution-analytics
   analytics-tracking-setup ===|combines| ab-test-designer
   analytics-tracking-setup ===|combines| conversion-rate-optimizer
+  apollo-lead-enrichment -.-|related| sales-prospecting
+  apollo-lead-enrichment -.-|related| apollo-sequence-loader
+  apollo-lead-enrichment -.-|related| signal-based-call-prep
+  apollo-lead-enrichment -.-|related| cold-email-writer
+  apollo-lead-enrichment ===|combines| apollo-sequence-loader
+  apollo-lead-enrichment ===|combines| cold-email-writer
+  apollo-sequence-loader -.-|related| sales-prospecting
+  apollo-sequence-loader -.-|related| cold-email-writer
+  apollo-sequence-loader -.-|related| email-sequence-designer
+  apollo-sequence-loader ===|combines| cold-email-writer
+  apollo-sequence-loader ===|combines| sales-prospecting
   app-store-optimization -.-|related| seo-audit
   app-store-optimization -.-|related| seo-content-writer
   app-store-optimization -.-|related| conversion-rate-optimizer
@@ -1181,6 +1247,17 @@ graph LR
   board-meeting-prep -.-|related| startup-financial-modeler
   board-meeting-prep ===|combines| cfo-financial-advisor
   board-meeting-prep ===|combines| startup-financial-modeler
+  bond-futures-basis-analysis -.-|related| bond-relative-value-analysis
+  bond-futures-basis-analysis -.-|related| swap-curve-strategy
+  bond-futures-basis-analysis -.-|related| fixed-income-portfolio-review
+  bond-futures-basis-analysis -.-|related| macro-rates-dashboard
+  bond-futures-basis-analysis ===|combines| fixed-income-portfolio-review
+  bond-futures-basis-analysis ===|combines| macro-rates-dashboard
+  bond-relative-value-analysis -.-|related| swap-curve-strategy
+  bond-relative-value-analysis -.-|related| fixed-income-portfolio-review
+  bond-relative-value-analysis -.-|related| macro-rates-dashboard
+  bond-relative-value-analysis ===|combines| research-catalyst-calendar
+  bond-relative-value-analysis ===|combines| portfolio-risk-metrics
   budget-variance-analysis -.-|related| variance-flux-commentary
   budget-variance-analysis -.-|related| financial-statements-generator
   budget-variance-analysis -.-|related| gl-subledger-reconciler
@@ -1203,6 +1280,12 @@ graph LR
   churn-prevention -.-|related| lifecycle-email-sequence
   churn-prevention ===|combines| customer-health-scorer
   churn-prevention ===|combines| lifecycle-email-sequence
+  cim-builder -.-|related| ib-pitch-deck-builder
+  cim-builder -.-|related| ma-deal-teaser
+  cim-builder -.-|related| ma-buyer-list
+  cim-builder -.-|related| company-tear-sheet
+  cim-builder ===|combines| ma-process-letter
+  cim-builder ===|combines| financial-model-updater
   cmo-marketing-advisor -.-|related| cro-revenue-advisor
   cmo-marketing-advisor -.-|related| product-marketing-gtm-strategy
   cmo-marketing-advisor -.-|related| content-marketing-strategist
@@ -1216,6 +1299,13 @@ graph LR
   cold-email-writer ===|combines| sales-prospecting
   cold-email-writer ===|combines| email-drip-sequence
   cold-email-writer ===|combines| sales-enablement
+  company-tear-sheet -.-|related| octagon-company-market-cap
+  company-tear-sheet -.-|related| initiating-coverage-report
+  company-tear-sheet -.-|related| sector-landscape-report
+  company-tear-sheet -.-|related| octagon-equity-research-analyst
+  company-tear-sheet ===|combines| ma-buyer-list
+  company-tear-sheet ===|combines| ic-investment-memo
+  company-tear-sheet ===|combines| ib-pitch-deck-builder
   compensation-analysis -.-|related| performance-review-builder
   compensation-analysis -.-|related| offer-letter-drafter
   compensation-analysis -.-|related| interview-plan-builder
@@ -1311,6 +1401,12 @@ graph LR
   deal-desk-reviewer -.-|related| sales-enablement
   deal-desk-reviewer ===|combines| pricing-strategy
   deal-desk-reviewer ===|combines| cro-revenue-advisor
+  earnings-preview-model -.-|related| octagon-earnings-financial-guidance
+  earnings-preview-model -.-|related| octagon-analyst-estimates
+  earnings-preview-model -.-|related| equity-earnings-update-report
+  earnings-preview-model -.-|related| octagon-price-target-consensus
+  earnings-preview-model ===|combines| octagon-earnings-call-analysis
+  earnings-preview-model ===|combines| research-catalyst-calendar
   eeat-content-quality-auditor -.-|related| seo-content-writer
   eeat-content-quality-auditor -.-|related| ai-search-seo
   eeat-content-quality-auditor -.-|related| ai-answer-engine-seo
@@ -1329,10 +1425,29 @@ graph LR
   email-sequence-designer ===|combines| transactional-email-template-builder
   email-sequence-designer ===|combines| landing-page-copywriting
   email-sequence-designer ===|combines| marketing-copy-editor
+  equity-earnings-update-report -.-|related| variance-flux-commentary
+  equity-earnings-update-report -.-|related| data-storyteller
+  equity-earnings-update-report -.-|related| board-deck-builder
+  equity-earnings-update-report -.-|related| market-sizing-analyst
+  equity-earnings-update-report -.-|related| competitive-analysis
+  equity-earnings-update-report ===|combines| data-storyteller
+  equity-earnings-update-report ===|combines| board-deck-builder
+  equity-earnings-update-report ===|combines| pricing-strategy
+  financial-model-updater -.-|related| three-statement-model
+  financial-model-updater -.-|related| earnings-preview-model
+  financial-model-updater -.-|related| startup-financial-modeler
+  financial-model-updater -.-|related| equity-earnings-update-report
+  financial-model-updater ===|combines| earnings-preview-model
+  financial-model-updater ===|combines| equity-earnings-update-report
+  financial-model-updater ===|combines| research-catalyst-calendar
   financial-statements-generator -.-|related| three-statement-model
   financial-statements-generator -.-|related| month-end-close-manager
   financial-statements-generator -.-|related| variance-flux-commentary
   financial-statements-generator ===|combines| board-deck-builder
+  fixed-income-portfolio-review -.-|related| portfolio-risk-metrics
+  fixed-income-portfolio-review -.-|related| macro-rates-dashboard
+  fixed-income-portfolio-review ===|combines| macro-rates-dashboard
+  fixed-income-portfolio-review ===|combines| portfolio-risk-metrics
   free-tool-marketing-strategy -.-|related| content-engine-strategist
   free-tool-marketing-strategy -.-|related| saas-marketing-ideas
   free-tool-marketing-strategy -.-|related| programmatic-seo-builder
@@ -1340,6 +1455,44 @@ graph LR
   free-tool-marketing-strategy ===|combines| programmatic-seo-builder
   free-tool-marketing-strategy ===|combines| landing-page-copywriting
   free-tool-marketing-strategy ===|combines| content-strategy-planner
+  fx-carry-trade-eval -.-|related| swap-curve-strategy
+  fx-carry-trade-eval -.-|related| macro-rates-dashboard
+  fx-carry-trade-eval -.-|related| option-volatility-analysis
+  fx-carry-trade-eval -.-|related| macro-regime-detector
+  fx-carry-trade-eval ===|combines| portfolio-risk-metrics
+  headcount-org-planner -.-|related| people-analytics-report
+  headcount-org-planner -.-|related| compensation-analysis
+  headcount-org-planner -.-|related| ops-capacity-planner
+  headcount-org-planner -.-|related| startup-financial-modeler
+  headcount-org-planner ===|combines| cfo-financial-advisor
+  headcount-org-planner ===|combines| resource-capacity-planner
+  ib-deal-tracker -.-|related| deal-pipeline-tracker
+  ib-deal-tracker -.-|related| pe-portfolio-monitoring
+  ib-deal-tracker -.-|related| research-catalyst-calendar
+  ib-deal-tracker -.-|related| ma-playbook
+  ib-deal-tracker ===|combines| ic-investment-memo
+  ib-deal-tracker ===|combines| ma-process-letter
+  ib-deal-tracker ===|combines| pe-dd-checklist
+  ib-deck-quality-check -.-|related| ib-pitch-deck-builder
+  ib-deck-quality-check -.-|related| pitch-deck-refresh
+  ib-deck-quality-check -.-|related| board-deck-builder
+  ib-deck-quality-check -.-|related| cim-builder
+  ib-deck-quality-check ===|combines| ib-pitch-deck-builder
+  ib-deck-quality-check ===|combines| pitch-deck-refresh
+  ib-pitch-deck-builder -.-|related| pitch-deck-refresh
+  ib-pitch-deck-builder -.-|related| board-deck-builder
+  ib-pitch-deck-builder ===|combines| pitch-deck-refresh
+  ic-investment-memo -.-|related| ma-playbook
+  ic-investment-memo -.-|related| pe-dd-checklist
+  ic-investment-memo -.-|related| cim-builder
+  ic-investment-memo -.-|related| ib-pitch-deck-builder
+  ic-investment-memo ===|combines| pe-dd-checklist
+  ic-investment-memo ===|combines| ma-playbook
+  initiating-coverage-report -.-|related| equity-earnings-update-report
+  initiating-coverage-report -.-|related| sector-landscape-report
+  initiating-coverage-report -.-|related| earnings-preview-model
+  initiating-coverage-report ===|combines| financial-model-updater
+  initiating-coverage-report ===|combines| research-catalyst-calendar
   internal-linking-optimizer -.-|related| seo-site-architecture
   internal-linking-optimizer -.-|related| seo-content-gap-analysis
   internal-linking-optimizer -.-|related| programmatic-seo-builder
@@ -1359,6 +1512,12 @@ graph LR
   interview-plan-builder -.-|related| performance-review-builder
   interview-plan-builder ===|combines| offer-letter-drafter
   interview-plan-builder ===|combines| new-hire-onboarding-plan
+  investment-thesis-tracker -.-|related| stock-idea-generation
+  investment-thesis-tracker -.-|related| research-catalyst-calendar
+  investment-thesis-tracker -.-|related| initiating-coverage-report
+  investment-thesis-tracker -.-|related| morning-meeting-note
+  investment-thesis-tracker ===|combines| equity-earnings-update-report
+  investment-thesis-tracker ===|combines| earnings-preview-model
   journal-entry-preparer -.-|related| month-end-close-manager
   journal-entry-preparer -.-|related| gl-subledger-reconciler
   journal-entry-preparer -.-|related| financial-statements-generator
@@ -1375,6 +1534,17 @@ graph LR
   lifecycle-email-sequence -.-|related| user-onboarding-optimizer
   lifecycle-email-sequence ===|combines| user-onboarding-optimizer
   lifecycle-email-sequence ===|combines| conversion-copywriter
+  ma-buyer-list -.-|related| ma-deal-teaser
+  ma-buyer-list -.-|related| ma-process-letter
+  ma-buyer-list -.-|related| ma-playbook
+  ma-buyer-list -.-|related| company-tear-sheet
+  ma-buyer-list ===|combines| cim-builder
+  ma-buyer-list ===|combines| pe-dd-checklist
+  ma-buyer-list ===|combines| ib-deal-tracker
+  ma-deal-teaser -.-|related| ma-process-letter
+  ma-deal-teaser -.-|related| ma-playbook
+  ma-deal-teaser ===|combines| ma-buyer-list
+  ma-deal-teaser ===|combines| cim-builder
   ma-playbook -.-|related| cfo-financial-advisor
   ma-playbook -.-|related| startup-financial-modeler
   ma-playbook -.-|related| competitive-analysis
@@ -1382,6 +1552,12 @@ graph LR
   ma-playbook ===|combines| cfo-financial-advisor
   ma-playbook ===|combines| startup-financial-modeler
   ma-playbook ===|combines| board-deck-builder
+  ma-process-letter -.-|related| ma-playbook
+  ma-process-letter -.-|related| cim-builder
+  ma-process-letter ===|combines| ma-buyer-list
+  ma-process-letter ===|combines| ma-deal-teaser
+  macro-rates-dashboard -.-|related| swap-curve-strategy
+  macro-rates-dashboard -.-|related| macro-regime-detector
   market-sizing-analyst -.-|related| market-sizing-tam-sam-som
   market-sizing-analyst -.-|related| startup-financial-modeler
   market-sizing-analyst ===|combines| startup-financial-modeler
@@ -1420,11 +1596,21 @@ graph LR
   month-end-close-manager -.-|related| gl-subledger-reconciler
   month-end-close-manager ===|combines| variance-flux-commentary
   month-end-close-manager ===|combines| financial-statements-generator
+  morning-meeting-note -.-|related| research-catalyst-calendar
+  morning-meeting-note -.-|related| equity-earnings-update-report
+  morning-meeting-note -.-|related| stock-idea-generation
+  morning-meeting-note -.-|related| earnings-preview-model
+  morning-meeting-note ===|combines| company-tear-sheet
   offer-letter-drafter -.-|related| interview-plan-builder
   offer-letter-drafter -.-|related| performance-review-builder
   offer-letter-drafter -.-|related| hr-partner-pro
   offer-letter-drafter ===|combines| new-hire-onboarding-plan
   offer-letter-drafter ===|combines| hr-partner-pro
+  option-volatility-analysis -.-|related| options-strategy-advisor
+  option-volatility-analysis -.-|related| portfolio-risk-metrics
+  option-volatility-analysis -.-|related| swap-curve-strategy
+  option-volatility-analysis ===|combines| trade-position-sizer
+  option-volatility-analysis ===|combines| portfolio-rebalancer
   paid-ad-creative -.-|related| paid-ads-strategist
   paid-ad-creative -.-|related| conversion-copywriter
   paid-ad-creative -.-|related| marketing-copy-editor
@@ -1440,9 +1626,33 @@ graph LR
   paywall-upgrade-cro ===|combines| pricing-strategy
   paywall-upgrade-cro ===|combines| churn-prevention
   paywall-upgrade-cro ===|combines| user-onboarding-optimizer
+  pe-dd-checklist -.-|related| ma-playbook
+  pe-dd-checklist -.-|related| deal-closing-checklist
+  pe-dd-checklist -.-|related| pe-portfolio-monitoring
+  pe-dd-checklist -.-|related| diligence-issue-extractor
+  pe-portfolio-monitoring -.-|related| pe-value-creation-plan
+  pe-portfolio-monitoring -.-|related| board-deck-builder
+  pe-portfolio-monitoring -.-|related| octagon-sec-debt-covenant
+  pe-portfolio-monitoring -.-|related| budget-variance-analysis
+  pe-portfolio-monitoring ===|combines| board-deck-builder
+  pe-portfolio-monitoring ===|combines| variance-flux-commentary
+  pe-value-creation-plan -.-|related| pe-dd-checklist
+  pe-value-creation-plan -.-|related| ma-playbook
+  pe-value-creation-plan -.-|related| headcount-org-planner
+  pe-value-creation-plan ===|combines| pe-portfolio-monitoring
+  pe-value-creation-plan ===|combines| pe-dd-checklist
+  pe-value-creation-plan ===|combines| board-deck-builder
+  people-analytics-report -.-|related| compensation-analysis
+  people-analytics-report -.-|related| org-health-diagnostic
+  people-analytics-report -.-|related| recruiting-pipeline-tracker
+  people-analytics-report ===|combines| headcount-org-planner
+  people-analytics-report ===|combines| kpi-dashboard-design
   performance-review-builder -.-|related| new-hire-onboarding-plan
   performance-review-builder -.-|related| hr-partner-pro
   performance-review-builder ===|combines| new-hire-onboarding-plan
+  pitch-deck-refresh -.-|related| board-deck-builder
+  pitch-deck-refresh -.-|related| financial-model-updater
+  pitch-deck-refresh ===|combines| company-tear-sheet
   popup-modal-cro -.-|related| conversion-rate-optimizer
   popup-modal-cro -.-|related| signup-flow-cro
   popup-modal-cro ===|combines| conversion-rate-optimizer
@@ -1455,6 +1665,12 @@ graph LR
   product-launch-strategy ===|combines| product-marketing-gtm-strategy
   product-launch-strategy ===|combines| social-media-content-creator
   product-launch-strategy ===|combines| paid-ads-strategist
+  product-margin-pricing-scenarios -.-|related| pricing-strategy
+  product-margin-pricing-scenarios -.-|related| unit-economics-analyzer
+  product-margin-pricing-scenarios -.-|related| smb-quarterly-business-review
+  product-margin-pricing-scenarios -.-|related| cfo-financial-advisor
+  product-margin-pricing-scenarios ===|combines| smb-cash-flow-forecast
+  product-margin-pricing-scenarios ===|combines| smb-business-pulse
   product-marketing-gtm-strategy -.-|related| sales-enablement
   product-marketing-gtm-strategy ===|combines| sales-enablement
   programmatic-seo-builder -.-|related| seo-site-architecture
@@ -1464,12 +1680,29 @@ graph LR
   programmatic-seo-builder ===|combines| schema-markup-builder
   programmatic-seo-builder ===|combines| seo-content-writer
   programmatic-seo-builder ===|combines| seo-site-architecture
+  recon-break-root-cause -.-|related| gl-subledger-reconciler
+  recon-break-root-cause -.-|related| account-reconciliation
+  recon-break-root-cause -.-|related| variance-flux-commentary
+  recon-break-root-cause -.-|related| month-end-close-manager
+  recon-break-root-cause ===|combines| journal-entry-preparer
+  recon-break-root-cause ===|combines| accrual-schedule-builder
+  recon-break-root-cause ===|combines| financial-statements-generator
+  recruiting-pipeline-tracker -.-|related| interview-plan-builder
+  recruiting-pipeline-tracker -.-|related| hr-partner-pro
+  recruiting-pipeline-tracker -.-|related| interview-system-designer
+  recruiting-pipeline-tracker -.-|related| deal-pipeline-tracker
+  recruiting-pipeline-tracker ===|combines| interview-plan-builder
+  recruiting-pipeline-tracker ===|combines| offer-letter-drafter
   referral-program-designer -.-|related| churn-prevention
   referral-program-designer -.-|related| user-onboarding-optimizer
   referral-program-designer -.-|related| saas-marketing-ideas
   referral-program-designer ===|combines| lifecycle-email-sequence
   referral-program-designer ===|combines| user-onboarding-optimizer
   referral-program-designer ===|combines| analytics-tracking-setup
+  research-catalyst-calendar -.-|related| earnings-preview-model
+  research-catalyst-calendar -.-|related| initiating-coverage-report
+  research-catalyst-calendar ===|combines| equity-earnings-update-report
+  research-catalyst-calendar ===|combines| investment-thesis-tracker
   saas-marketing-ideas -.-|related| cmo-marketing-advisor
   saas-marketing-ideas -.-|related| content-marketing-strategist
   saas-marketing-ideas ===|combines| content-strategy-planner
@@ -1496,6 +1729,11 @@ graph LR
   schema-markup-builder -.-|related| seo-audit
   schema-markup-builder -.-|related| seo-site-architecture
   schema-markup-builder ===|combines| seo-audit
+  sector-landscape-report -.-|related| market-sizing-tam-sam-som
+  sector-landscape-report -.-|related| competitive-analysis
+  sector-landscape-report -.-|related| competitive-matrix-builder
+  sector-landscape-report ===|combines| market-sizing-tam-sam-som
+  sector-landscape-report ===|combines| competitive-matrix-builder
   seo-audit -.-|related| seo-site-architecture
   seo-audit -.-|related| seo-traffic-drop-forensics
   seo-audit -.-|related| seo-content-writer
@@ -1557,10 +1795,34 @@ graph LR
   serp-feature-analysis -.-|related| ai-answer-engine-seo
   serp-feature-analysis ===|combines| seo-keyword-research
   serp-feature-analysis ===|combines| seo-content-writer
+  signal-based-call-prep -.-|related| weekly-external-call-brief
+  signal-based-call-prep -.-|related| sales-prospecting
+  signal-based-call-prep -.-|related| sales-call-summary
+  signal-based-call-prep ===|combines| company-tear-sheet
   signup-flow-cro -.-|related| user-onboarding-optimizer
   signup-flow-cro ===|combines| user-onboarding-optimizer
   signup-flow-cro ===|combines| conversion-rate-optimizer
   signup-flow-cro ===|combines| ab-test-designer
+  smb-business-pulse -.-|related| smb-quarterly-business-review
+  smb-business-pulse -.-|related| smb-cash-flow-forecast
+  smb-business-pulse -.-|related| smb-payroll-cash-planner
+  smb-business-pulse -.-|related| customer-health-scorer
+  smb-business-pulse ===|combines| kpi-dashboard-design
+  smb-cash-flow-forecast -.-|related| smb-payroll-cash-planner
+  smb-cash-flow-forecast -.-|related| smb-quarterly-business-review
+  smb-cash-flow-forecast -.-|related| startup-financial-modeler
+  smb-cash-flow-forecast ===|combines| cfo-financial-advisor
+  smb-cash-flow-forecast ===|combines| billing-automation-systems
+  smb-cash-flow-forecast ===|combines| financial-statements-generator
+  smb-payroll-cash-planner -.-|related| account-reconciliation
+  smb-payroll-cash-planner -.-|related| cfo-financial-advisor
+  smb-payroll-cash-planner ===|combines| smb-cash-flow-forecast
+  smb-payroll-cash-planner ===|combines| smb-quarterly-business-review
+  smb-quarterly-business-review -.-|related| smb-payroll-cash-planner
+  smb-quarterly-business-review -.-|related| board-deck-builder
+  smb-quarterly-business-review ===|combines| smb-business-pulse
+  smb-quarterly-business-review ===|combines| smb-cash-flow-forecast
+  smb-quarterly-business-review ===|combines| board-deck-builder
   social-media-content-creator -.-|related| social-media-multi-publisher
   social-media-content-creator -.-|related| social-media-performance-analyzer
   social-media-content-creator -.-|related| content-engine-strategist
@@ -1573,11 +1835,18 @@ graph LR
   social-media-performance-analyzer ===|combines| data-storyteller
   social-media-performance-analyzer ===|combines| campaign-attribution-analytics
   startup-financial-modeler ===|combines| board-deck-builder
+  stock-idea-generation -.-|related| canslim-growth-screener
+  stock-idea-generation -.-|related| value-dividend-screener
+  stock-idea-generation -.-|related| finviz-screener-builder
+  stock-idea-generation ===|combines| investment-thesis-tracker
+  stock-idea-generation ===|combines| initiating-coverage-report
   support-ticket-triage -.-|related| customer-response-drafter
   support-ticket-triage -.-|related| ai-customer-support
   support-ticket-triage -.-|related| support-kb-article-writer
   support-ticket-triage ===|combines| customer-response-drafter
   support-ticket-triage ===|combines| support-kb-article-writer
+  swap-curve-strategy -.-|related| fixed-income-portfolio-review
+  swap-curve-strategy ===|combines| fx-carry-trade-eval
   technical-seo-checker -.-|related| seo-audit
   technical-seo-checker -.-|related| seo-site-architecture
   technical-seo-checker -.-|related| schema-markup-builder
@@ -1600,6 +1869,11 @@ graph LR
   wechat-official-account-growth ===|combines| xiaohongshu-content-strategy
   wechat-official-account-growth ===|combines| social-media-content-creator
   wechat-official-account-growth ===|combines| content-strategy-planner
+  weekly-external-call-brief -.-|related| sales-prospecting
+  weekly-external-call-brief -.-|related| sales-call-summary
+  weekly-external-call-brief -.-|related| deal-pipeline-tracker
+  weekly-external-call-brief ===|combines| competitive-intel-tracker
+  weekly-external-call-brief ===|combines| entity-research-dossier
   xiaohongshu-content-strategy -.-|related| social-media-content-creator
   xiaohongshu-content-strategy -.-|related| content-strategy-planner
   xiaohongshu-content-strategy -.-|related| content-marketing-strategist
@@ -1631,6 +1905,13 @@ graph LR
   brand-guidelines ===|combines| theme-factory
   brand-guidelines ===|combines| python-pptx-deck-generator
   brand-guidelines ===|combines| web-artifacts-builder
+  canva-campaign-creator -.-|related| social-media-content-creator
+  canva-campaign-creator -.-|related| paid-ad-creative
+  canva-campaign-creator -.-|related| ad-creative-generator
+  canva-campaign-creator -.-|related| social-media-multi-publisher
+  canva-campaign-creator ===|combines| content-marketing-strategist
+  canva-campaign-creator ===|combines| email-drip-sequence
+  canva-campaign-creator ===|combines| brand-guidelines
   canvas-design -.-|related| theme-factory
   canvas-design -.-|related| ui-design-system-builder
   canvas-design ===|combines| brand-guidelines
@@ -1748,6 +2029,12 @@ graph LR
   business-process-mapper ===|combines| coo-operations-advisor
   business-process-mapper ===|combines| zapier-make-automation
   business-process-mapper ===|combines| ops-capacity-planner
+  change-management-request -.-|related| org-change-management
+  change-management-request -.-|related| org-change-management-adkar
+  change-management-request -.-|related| operational-runbook-writer
+  change-management-request -.-|related| technical-change-tracker
+  change-management-request ===|combines| operational-runbook-writer
+  change-management-request ===|combines| stakeholder-update-writer
   changelog-generator -.-|related| release-manager
   changelog-generator -.-|related| git-advanced-workflows
   changelog-generator -.-|related| technical-change-tracker
@@ -1784,6 +2071,13 @@ graph LR
   company-operating-system ===|combines| coo-operations-advisor
   company-operating-system ===|combines| strategic-alignment-cascader
   company-operating-system ===|combines| org-health-diagnostic
+  company-policy-lookup -.-|related| hr-partner-pro
+  company-policy-lookup -.-|related| process-sop-documenter
+  company-policy-lookup -.-|related| support-kb-article-writer
+  company-policy-lookup -.-|related| new-hire-onboarding-plan
+  company-policy-lookup ===|combines| hr-partner-pro
+  company-policy-lookup ===|combines| support-kb-article-writer
+  company-policy-lookup ===|combines| new-hire-onboarding-plan
   confluence-space-architect -.-|related| atlassian-admin
   confluence-space-architect -.-|related| jira-expert
   confluence-space-architect -.-|related| codebase-onboarding-doc
@@ -2250,6 +2544,12 @@ graph LR
   academic-paper-writer ===|combines| math-proof-writer
   academic-peer-reviewer -.-|related| scientific-manuscript-writing
   academic-peer-reviewer ===|combines| guided-statistical-analysis
+  action-compliance-check -.-|related| product-launch-legal-review
+  action-compliance-check -.-|related| feature-legal-risk-assessment
+  action-compliance-check -.-|related| legal-risk-classifier
+  action-compliance-check -.-|related| marketing-claims-reviewer
+  action-compliance-check ===|combines| product-launch-legal-review
+  action-compliance-check ===|combines| quick-legal-problem-triage
   advisor-fit-analyzer -.-|related| nih-grant-finder
   advisor-fit-analyzer -.-|related| academic-paper-explainer
   advisor-fit-analyzer ===|combines| scientific-database-lookup
@@ -2274,6 +2574,23 @@ graph LR
   anndata-data-structure ===|combines| single-cell-rnaseq-analysis
   anndata-data-structure ===|combines| harmony-batch-correction
   anndata-data-structure ===|combines| scvi-tools-single-cell
+  arboreto-gene-regulatory-networks -.-|related| arboreto-grn-inference
+  arboreto-gene-regulatory-networks -.-|related| single-cell-rnaseq-analysis
+  arboreto-gene-regulatory-networks -.-|related| gene-set-enrichment-analysis
+  arboreto-gene-regulatory-networks -.-|related| string-ppi-database
+  arboreto-gene-regulatory-networks ===|combines| anndata-data-structure
+  arboreto-grn-inference -.-|related| single-cell-rnaseq-analysis
+  arboreto-grn-inference -.-|related| anndata-data-structure
+  arboreto-grn-inference -.-|related| scvi-tools-single-cell
+  arboreto-grn-inference ===|combines| gene-set-enrichment-analysis
+  arboreto-grn-inference ===|combines| jaspar-tfbs-database
+  archs4-expression-database -.-|related| geo-database
+  archs4-expression-database -.-|related| gget-genomic-databases
+  archs4-expression-database -.-|related| encode-database
+  archs4-expression-database -.-|related| cellxgene-census
+  archs4-expression-database ===|combines| pydeseq2-differential-expression
+  archs4-expression-database ===|combines| gene-set-enrichment-analysis
+  archs4-expression-database ===|combines| single-cell-rnaseq-analysis
   arm-cortex-firmware-expert -.-|related| kicad-design-reviewer
   arm-cortex-firmware-expert -.-|related| datasheet-spec-extractor
   arm-cortex-firmware-expert -.-|related| component-sourcing-search
@@ -2286,6 +2603,12 @@ graph LR
   astronomy-data-toolkit -.-|related| sympy-symbolic-math
   astronomy-data-toolkit ===|combines| matplotlib-visualization
   astronomy-data-toolkit ===|combines| guided-statistical-analysis
+  astropy-astronomy-toolkit -.-|related| astronomy-data-toolkit
+  astropy-astronomy-toolkit -.-|related| sympy-symbolic-math
+  astropy-astronomy-toolkit -.-|related| materials-science-toolkit
+  astropy-astronomy-toolkit -.-|related| scientific-database-lookup
+  astropy-astronomy-toolkit ===|combines| matplotlib-visualization
+  astropy-astronomy-toolkit ===|combines| guided-statistical-analysis
   autodock-vina-docking -.-|related| diffdock-blind-docking
   autodock-vina-docking -.-|related| cheminformatics-toolkit
   autodock-vina-docking -.-|related| deepchem-drug-discovery
@@ -2298,6 +2621,19 @@ graph LR
   backtesting-frameworks ===|combines| alpha-vantage-market-data
   backtesting-frameworks ===|combines| portfolio-risk-metrics
   backtesting-frameworks ===|combines| trading-strategy-backtester
+  bcftools-variant-manipulation -.-|related| vcf-variant-filtering
+  bcftools-variant-manipulation -.-|related| gatk-variant-calling
+  bcftools-variant-manipulation -.-|related| snpeff-variant-annotation
+  bcftools-variant-manipulation -.-|related| samtools-bam-processing
+  bcftools-variant-manipulation ===|combines| gatk-variant-calling
+  bcftools-variant-manipulation ===|combines| vcf-variant-filtering
+  bcftools-variant-manipulation ===|combines| snpeff-variant-annotation
+  biopython-molecular-biology -.-|related| scikit-bio-sequence-toolkit
+  biopython-molecular-biology -.-|related| samtools-bam-processing
+  biopython-molecular-biology -.-|related| genomic-file-toolkit
+  biopython-molecular-biology -.-|related| gget-genomic-databases
+  biopython-molecular-biology ===|combines| gget-genomic-databases
+  biopython-molecular-biology ===|combines| uniprot-protein-database
   blockchain-web3-developer -.-|related| defi-protocol-templates
   blockchain-web3-developer -.-|related| solidity-security-auditor
   blockchain-web3-developer ===|combines| solidity-security-auditor
@@ -2307,6 +2643,11 @@ graph LR
   board-minutes-drafter -.-|related| legal-hold-manager
   board-minutes-drafter ===|combines| board-deck-builder
   board-minutes-drafter ===|combines| board-meeting-prep
+  board-written-consent-drafter -.-|related| board-minutes-drafter
+  board-written-consent-drafter -.-|related| general-counsel-advisor
+  board-written-consent-drafter -.-|related| esignature-routing
+  board-written-consent-drafter -.-|related| investigation-memo-drafter
+  board-written-consent-drafter ===|combines| deal-closing-checklist
   breakout-trade-planner -.-|related| vcp-screener
   breakout-trade-planner -.-|related| trade-position-sizer
   breakout-trade-planner -.-|related| earnings-trade-analyzer
@@ -2314,6 +2655,32 @@ graph LR
   breakout-trade-planner ===|combines| vcp-screener
   breakout-trade-planner ===|combines| trade-position-sizer
   breakout-trade-planner ===|combines| portfolio-risk-metrics
+  brenda-enzyme-database -.-|related| kegg-database
+  brenda-enzyme-database -.-|related| uniprot-protein-database
+  brenda-enzyme-database -.-|related| reactome-pathway-database
+  brenda-enzyme-database -.-|related| rdkit-cheminformatics
+  brenda-enzyme-database ===|combines| scientific-database-lookup
+  brenda-enzyme-database ===|combines| gget-genomic-databases
+  bulk-rnaseq-orchestrator -.-|related| star-rnaseq-aligner
+  bulk-rnaseq-orchestrator -.-|related| nextflow-pipeline-builder
+  bulk-rnaseq-orchestrator -.-|related| snakemake-workflow-engine
+  bulk-rnaseq-orchestrator -.-|related| pydeseq2-differential-expression
+  bulk-rnaseq-orchestrator ===|combines| fastp-fastq-preprocessing
+  bulk-rnaseq-orchestrator ===|combines| gene-set-enrichment-analysis
+  bulk-rnaseq-orchestrator ===|combines| genomic-file-toolkit
+  busco-completeness-interpretation -.-|related| nextflow-pipeline-builder
+  busco-completeness-interpretation -.-|related| snakemake-workflow-engine
+  busco-completeness-interpretation -.-|related| scikit-bio-sequence-toolkit
+  busco-completeness-interpretation -.-|related| bulk-rnaseq-orchestrator
+  busco-completeness-interpretation ===|combines| bulk-rnaseq-orchestrator
+  busco-completeness-interpretation ===|combines| samtools-bam-processing
+  bwa-mem2-dna-aligner -.-|related| star-rnaseq-aligner
+  bwa-mem2-dna-aligner -.-|related| samtools-bam-processing
+  bwa-mem2-dna-aligner -.-|related| fastp-fastq-preprocessing
+  bwa-mem2-dna-aligner -.-|related| gatk-variant-calling
+  bwa-mem2-dna-aligner ===|combines| fastp-fastq-preprocessing
+  bwa-mem2-dna-aligner ===|combines| samtools-bam-processing
+  bwa-mem2-dna-aligner ===|combines| gatk-variant-calling
   canslim-growth-screener -.-|related| value-dividend-screener
   canslim-growth-screener -.-|related| vcp-screener
   canslim-growth-screener -.-|related| finviz-screener-builder
@@ -2332,6 +2699,12 @@ graph LR
   carrier-relationship-management -.-|related| inventory-demand-planning
   carrier-relationship-management ===|combines| customs-trade-compliance
   carrier-relationship-management ===|combines| inventory-demand-planning
+  cease-and-desist-letter -.-|related| ip-infringement-triage
+  cease-and-desist-letter -.-|related| dmca-takedown-notice
+  cease-and-desist-letter -.-|related| demand-letter-drafter
+  cease-and-desist-letter -.-|related| trademark-clearance-knockout
+  cease-and-desist-letter ===|combines| ip-infringement-triage
+  cease-and-desist-letter ===|combines| demand-letter-drafter
   cellchat-cell-communication -.-|related| single-cell-rnaseq-analysis
   cellchat-cell-communication -.-|related| celltypist-cell-annotation
   cellchat-cell-communication -.-|related| gene-set-enrichment-analysis
@@ -2339,6 +2712,11 @@ graph LR
   cellchat-cell-communication ===|combines| single-cell-rnaseq-analysis
   cellchat-cell-communication ===|combines| celltypist-cell-annotation
   cellchat-cell-communication ===|combines| harmony-batch-correction
+  cellpose-cell-segmentation -.-|related| scikit-image-bioimage
+  cellpose-cell-segmentation -.-|related| histolab-wsi-tiling
+  cellpose-cell-segmentation -.-|related| trackpy-particle-tracking
+  cellpose-cell-segmentation -.-|related| dicom-medical-imaging
+  cellpose-cell-segmentation ===|combines| single-cell-rnaseq-analysis
   celltypist-cell-annotation -.-|related| single-cell-rnaseq-analysis
   celltypist-cell-annotation -.-|related| scvi-tools-single-cell
   celltypist-cell-annotation -.-|related| anndata-data-structure
@@ -2365,6 +2743,37 @@ graph LR
   cirq-quantum-circuits -.-|related| quantum-circuit-builder
   cirq-quantum-circuits ===|combines| sympy-symbolic-math
   cirq-quantum-circuits ===|combines| matplotlib-visualization
+  claim-element-chart-builder -.-|related| freedom-to-operate-triage
+  claim-element-chart-builder -.-|related| invention-disclosure-screen
+  claim-element-chart-builder -.-|related| ip-infringement-triage
+  claim-element-chart-builder -.-|related| litigation-chronology-builder
+  claim-element-chart-builder ===|combines| ip-portfolio-register
+  claim-element-chart-builder ===|combines| legal-case-brief
+  client-performance-report -.-|related| fixed-income-portfolio-review
+  client-performance-report -.-|related| client-review-prep
+  client-performance-report -.-|related| portfolio-risk-metrics
+  client-performance-report -.-|related| investment-proposal-builder
+  client-performance-report ===|combines| portfolio-rebalancer
+  client-performance-report ===|combines| tax-loss-harvesting
+  client-performance-report ===|combines| investment-thesis-tracker
+  client-review-prep -.-|related| investment-proposal-builder
+  client-review-prep -.-|related| portfolio-rebalancer
+  client-review-prep -.-|related| portfolio-risk-metrics
+  client-review-prep ===|combines| client-performance-report
+  client-review-prep ===|combines| portfolio-rebalancer
+  clinicaltrials-database-search -.-|related| pytdc-therapeutics-datasets
+  clinicaltrials-database-search -.-|related| drugbank-database-access
+  clinicaltrials-database-search -.-|related| scientific-database-lookup
+  clinicaltrials-database-search -.-|related| fda-device-consultant
+  clinicaltrials-database-search ===|combines| drugbank-database-access
+  clinicaltrials-database-search ===|combines| scientific-database-lookup
+  clinicaltrials-database-search ===|combines| pytdc-therapeutics-datasets
+  clinpgx-pharmacogenomics-database -.-|related| ddinter-drug-interactions
+  clinpgx-pharmacogenomics-database -.-|related| drugbank-database-access
+  clinpgx-pharmacogenomics-database -.-|related| clinvar-database
+  clinpgx-pharmacogenomics-database -.-|related| gtopdb-pharmacology-database
+  clinpgx-pharmacogenomics-database ===|combines| ddinter-drug-interactions
+  clinpgx-pharmacogenomics-database ===|combines| clinvar-database
   clinvar-database -.-|related| gnomad-population-database
   clinvar-database -.-|related| opentargets-database
   clinvar-database -.-|related| snpeff-variant-annotation
@@ -2378,6 +2787,11 @@ graph LR
   cnvkit-copy-number -.-|related| star-rnaseq-aligner
   cnvkit-copy-number ===|combines| genomic-file-toolkit
   cnvkit-copy-number ===|combines| snakemake-workflow-engine
+  compliance-policy-redraft -.-|related| regulatory-policy-diff
+  compliance-policy-redraft -.-|related| employee-handbook-update-diff
+  compliance-policy-redraft -.-|related| compliance-readiness-review
+  compliance-policy-redraft -.-|related| marketing-claims-reviewer
+  compliance-policy-redraft ===|combines| legal-briefing-generator
   component-sourcing-search -.-|related| pcb-bom-manager
   component-sourcing-search -.-|related| datasheet-spec-extractor
   component-sourcing-search -.-|related| pcb-fab-assembly
@@ -2385,6 +2799,20 @@ graph LR
   component-sourcing-search ===|combines| pcb-bom-manager
   component-sourcing-search ===|combines| datasheet-spec-extractor
   component-sourcing-search ===|combines| pcb-fab-assembly
+  contract-amendment-history-tracer -.-|related| contract-renewal-tracker
+  contract-amendment-history-tracer -.-|related| contract-playbook-review
+  contract-amendment-history-tracer -.-|related| material-contract-disclosure-schedule
+  contract-amendment-history-tracer -.-|related| contract-tabular-batch-review
+  contract-amendment-history-tracer ===|combines| deal-closing-checklist
+  contract-amendment-history-tracer ===|combines| esignature-routing
+  contract-escalation-router -.-|related| contract-playbook-review
+  contract-escalation-router -.-|related| nda-triage-reviewer
+  contract-escalation-router -.-|related| legal-risk-classifier
+  contract-escalation-router -.-|related| general-counsel-advisor
+  contract-escalation-router -.-|related| dpa-clause-reviewer
+  contract-escalation-router ===|combines| contract-playbook-review
+  contract-escalation-router ===|combines| esignature-routing
+  contract-escalation-router ===|combines| diligence-issue-extractor
   contract-playbook-review -.-|related| nda-triage-reviewer
   contract-playbook-review -.-|related| legal-risk-classifier
   contract-playbook-review -.-|related| dpa-clause-reviewer
@@ -2392,20 +2820,55 @@ graph LR
   contract-playbook-review ===|combines| legal-risk-classifier
   contract-playbook-review ===|combines| esignature-routing
   contract-playbook-review ===|combines| deal-desk-reviewer
+  contract-renewal-tracker -.-|related| vendor-agreement-status-checker
+  contract-renewal-tracker -.-|related| entity-compliance-tracker
+  contract-renewal-tracker -.-|related| employee-leave-deadline-tracker
+  contract-renewal-tracker ===|combines| vendor-agreement-redline-review
+  contract-renewal-tracker ===|combines| saas-subscription-agreement-review
+  contract-renewal-tracker ===|combines| esignature-routing
+  contract-tabular-batch-review -.-|related| contract-playbook-review
+  contract-tabular-batch-review -.-|related| diligence-issue-extractor
+  contract-tabular-batch-review -.-|related| pe-dd-checklist
+  contract-tabular-batch-review -.-|related| material-contract-disclosure-schedule
+  contract-tabular-batch-review ===|combines| diligence-issue-extractor
+  contract-tabular-batch-review ===|combines| pe-dd-checklist
   customs-trade-compliance -.-|related| returns-reverse-logistics
   customs-trade-compliance -.-|related| oss-license-compliance
   customs-trade-compliance -.-|related| regulatory-policy-diff
   customs-trade-compliance ===|combines| inventory-demand-planning
+  datamol-cheminformatics -.-|related| rdkit-cheminformatics
+  datamol-cheminformatics -.-|related| cheminformatics-toolkit
+  datamol-cheminformatics -.-|related| molfeat-molecular-featurization
+  datamol-cheminformatics -.-|related| deepchem-drug-discovery
+  datamol-cheminformatics ===|combines| rdkit-cheminformatics
+  datamol-cheminformatics ===|combines| molfeat-molecular-featurization
+  datamol-cheminformatics ===|combines| deepchem-drug-discovery
   datasheet-spec-extractor -.-|related| kicad-design-reviewer
   datasheet-spec-extractor -.-|related| pcb-bom-manager
   datasheet-spec-extractor -.-|related| spice-circuit-simulator
   datasheet-spec-extractor ===|combines| kicad-design-reviewer
   datasheet-spec-extractor ===|combines| pdf-processing-toolkit
+  dbsnp-database -.-|related| clinvar-database
+  dbsnp-database -.-|related| gnomad-population-database
+  dbsnp-database -.-|related| snpeff-variant-annotation
+  dbsnp-database -.-|related| opentargets-database
+  dbsnp-database ===|combines| gatk-variant-calling
+  dbsnp-database ===|combines| snpeff-variant-annotation
+  dbsnp-database ===|combines| clinvar-database
   dcf-valuation-model -.-|related| merger-accretion-dilution-model
   dcf-valuation-model -.-|related| lbo-model-builder
   dcf-valuation-model -.-|related| three-statement-model
   dcf-valuation-model ===|combines| three-statement-model
   dcf-valuation-model ===|combines| merger-accretion-dilution-model
+  ddinter-drug-interactions -.-|related| drugbank-database-access
+  ddinter-drug-interactions -.-|related| gtopdb-pharmacology-database
+  ddinter-drug-interactions -.-|related| pubchem-compound-search
+  ddinter-drug-interactions ===|combines| drugbank-database-access
+  deal-closing-checklist -.-|related| diligence-issue-extractor
+  deal-closing-checklist -.-|related| general-counsel-advisor
+  deal-closing-checklist -.-|related| litigation-chronology-builder
+  deal-closing-checklist ===|combines| diligence-issue-extractor
+  deal-closing-checklist ===|combines| general-counsel-advisor
   deepchem-drug-discovery -.-|related| cheminformatics-toolkit
   deepchem-drug-discovery -.-|related| protein-language-models
   deepchem-drug-discovery -.-|related| single-cell-rnaseq-analysis
@@ -2421,6 +2884,25 @@ graph LR
   deeptools-ngs-analysis ===|combines| macs3-peak-calling
   defi-protocol-templates -.-|related| solidity-security-auditor
   defi-protocol-templates ===|combines| solidity-security-auditor
+  demand-letter-drafter -.-|related| legal-hold-manager
+  demand-letter-drafter -.-|related| litigation-chronology-builder
+  demand-letter-drafter -.-|related| general-counsel-advisor
+  demand-letter-drafter -.-|related| privilege-log-reviewer
+  demand-letter-drafter ===|combines| legal-hold-manager
+  demand-letter-drafter ===|combines| litigation-chronology-builder
+  depmap-cancer-dependency -.-|related| depmap-crispr-essentiality
+  depmap-cancer-dependency -.-|related| gene-set-enrichment-analysis
+  depmap-cancer-dependency -.-|related| opentargets-database
+  depmap-cancer-dependency -.-|related| chembl-bioactivity-database
+  depmap-cancer-dependency ===|combines| single-cell-rnaseq-analysis
+  depmap-crispr-essentiality -.-|related| pydeseq2-differential-expression
+  depmap-crispr-essentiality -.-|related| gene-set-enrichment-analysis
+  depmap-crispr-essentiality -.-|related| guided-statistical-analysis
+  depmap-crispr-essentiality -.-|related| opentargets-database
+  depmap-crispr-essentiality -.-|related| scientific-database-lookup
+  depmap-crispr-essentiality ===|combines| gene-set-enrichment-analysis
+  depmap-crispr-essentiality ===|combines| guided-statistical-analysis
+  depmap-crispr-essentiality ===|combines| pydeseq2-differential-expression
   deposition-outline-prep -.-|related| litigation-chronology-builder
   deposition-outline-prep -.-|related| diligence-issue-extractor
   deposition-outline-prep -.-|related| privilege-log-reviewer
@@ -2445,12 +2927,29 @@ graph LR
   diligence-issue-extractor -.-|related| general-counsel-advisor
   diligence-issue-extractor ===|combines| ma-playbook
   diligence-issue-extractor ===|combines| general-counsel-advisor
+  dmca-takedown-notice -.-|related| general-counsel-advisor
+  dmca-takedown-notice -.-|related| marketing-claims-reviewer
+  dmca-takedown-notice -.-|related| oss-license-compliance
+  dmca-takedown-notice -.-|related| regulatory-policy-diff
+  dmca-takedown-notice ===|combines| general-counsel-advisor
+  dmca-takedown-notice ===|combines| legal-risk-classifier
   dpa-clause-reviewer -.-|related| gdpr-data-handler
   dpa-clause-reviewer -.-|related| dsar-response-builder
   dpa-clause-reviewer -.-|related| privacy-impact-assessor
   dpa-clause-reviewer -.-|related| nda-triage-reviewer
   dpa-clause-reviewer ===|combines| gdpr-data-handler
   dpa-clause-reviewer ===|combines| privacy-impact-assessor
+  dpa-playbook-review -.-|related| dpa-clause-reviewer
+  dpa-playbook-review -.-|related| privacy-impact-assessor
+  dpa-playbook-review -.-|related| gdpr-data-handler
+  dpa-playbook-review -.-|related| saas-subscription-agreement-review
+  dpa-playbook-review ===|combines| dsar-response-builder
+  dpa-playbook-review ===|combines| contract-playbook-review
+  drugbank-database-access -.-|related| gtopdb-pharmacology-database
+  drugbank-database-access -.-|related| pubchem-compound-search
+  drugbank-database-access ===|combines| chembl-bioactivity-database
+  drugbank-database-access ===|combines| rdkit-cheminformatics
+  drugbank-database-access ===|combines| opentargets-database
   dsar-response-builder -.-|related| gdpr-data-handler
   dsar-response-builder -.-|related| privacy-impact-assessor
   dsar-response-builder ===|combines| gdpr-data-handler
@@ -2467,10 +2966,52 @@ graph LR
   emc-precompliance-analyzer ===|combines| kicad-design-reviewer
   emc-precompliance-analyzer ===|combines| hardware-doc-generator
   emc-precompliance-analyzer ===|combines| spice-circuit-simulator
+  emdb-cryoem-database -.-|related| rcsb-pdb-database
+  emdb-cryoem-database -.-|related| alphafold-database-access
+  emdb-cryoem-database -.-|related| scientific-database-lookup
+  emdb-cryoem-database -.-|related| uniprot-protein-database
+  emdb-cryoem-database ===|combines| molecular-dynamics-openmm
+  emdb-cryoem-database ===|combines| protein-language-models
+  employee-handbook-update-diff -.-|related| regulatory-policy-diff
+  employee-handbook-update-diff -.-|related| worker-classification-analyzer
+  employee-handbook-update-diff -.-|related| employment-contract-drafter
+  employee-handbook-update-diff -.-|related| general-counsel-advisor
+  employee-handbook-update-diff ===|combines| regulatory-policy-diff
+  employee-handbook-update-diff ===|combines| general-counsel-advisor
+  employee-leave-deadline-tracker -.-|related| employment-termination-review
+  employee-leave-deadline-tracker -.-|related| legal-hold-manager
+  employee-leave-deadline-tracker -.-|related| general-counsel-advisor
+  employee-leave-deadline-tracker -.-|related| wage-hour-employment-qa
+  employee-leave-deadline-tracker -.-|related| employee-handbook-update-diff
+  employee-leave-deadline-tracker ===|combines| employment-termination-review
+  employee-leave-deadline-tracker ===|combines| general-counsel-advisor
   employment-contract-drafter -.-|related| worker-classification-analyzer
   employment-contract-drafter -.-|related| general-counsel-advisor
   employment-contract-drafter -.-|related| nda-triage-reviewer
   employment-contract-drafter ===|combines| worker-classification-analyzer
+  employment-termination-review -.-|related| employment-contract-drafter
+  employment-termination-review -.-|related| worker-classification-analyzer
+  employment-termination-review -.-|related| legal-hold-manager
+  employment-termination-review -.-|related| general-counsel-advisor
+  employment-termination-review ===|combines| worker-classification-analyzer
+  employment-termination-review ===|combines| employment-contract-drafter
+  encode-database -.-|related| geo-database
+  encode-database -.-|related| macs3-peak-calling
+  encode-database -.-|related| deeptools-ngs-analysis
+  encode-database -.-|related| ucsc-genome-browser
+  encode-database ===|combines| macs3-peak-calling
+  encode-database ===|combines| deeptools-ngs-analysis
+  encode-database ===|combines| bwa-mem2-dna-aligner
+  ensembl-database -.-|related| gget-genomic-databases
+  ensembl-database -.-|related| ucsc-genome-browser
+  ensembl-database -.-|related| uniprot-protein-database
+  ensembl-database -.-|related| gnomad-population-database
+  ensembl-database ===|combines| gget-genomic-databases
+  ensembl-database ===|combines| clinvar-database
+  entity-compliance-tracker -.-|related| ip-portfolio-register
+  entity-compliance-tracker -.-|related| employee-leave-deadline-tracker
+  entity-compliance-tracker -.-|related| legal-meeting-briefing
+  entity-compliance-tracker ===|combines| regulatory-policy-diff
   esignature-routing -.-|related| contract-playbook-review
   esignature-routing -.-|related| contract-proposal-writer
   esignature-routing -.-|related| nda-triage-reviewer
@@ -2504,12 +3045,42 @@ graph LR
   fda-qsr-audit-prep -.-|related| quality-documentation-control
   fda-qsr-audit-prep ===|combines| quality-documentation-control
   fda-qsr-audit-prep ===|combines| iso13485-qms-audit
+  feature-legal-risk-assessment -.-|related| legal-risk-classifier
+  feature-legal-risk-assessment -.-|related| product-launch-legal-review
+  feature-legal-risk-assessment -.-|related| regulatory-policy-diff
+  feature-legal-risk-assessment ===|combines| privacy-impact-assessor
+  feature-legal-risk-assessment ===|combines| marketing-claims-reviewer
   finviz-screener-builder -.-|related| vcp-screener
   finviz-screener-builder -.-|related| value-dividend-screener
   finviz-screener-builder -.-|related| pair-trade-screener
   finviz-screener-builder ===|combines| breakout-trade-planner
   finviz-screener-builder ===|combines| trade-position-sizer
   finviz-screener-builder ===|combines| backtesting-frameworks
+  flowio-flow-cytometry -.-|related| anndata-data-structure
+  flowio-flow-cytometry -.-|related| scikit-image-bioimage
+  flowio-flow-cytometry -.-|related| celltypist-cell-annotation
+  flowio-flow-cytometry -.-|related| single-cell-rnaseq-analysis
+  flowio-flow-cytometry ===|combines| umap-dimensionality-reduction
+  flowio-flow-cytometry ===|combines| guided-statistical-analysis
+  flowio-flow-cytometry ===|combines| seaborn-statistical-charts
+  fluidsim-cfd-simulation -.-|related| pymoo-multiobjective-optimization
+  fluidsim-cfd-simulation -.-|related| materials-science-toolkit
+  fluidsim-cfd-simulation -.-|related| sympy-symbolic-math
+  fluidsim-cfd-simulation -.-|related| astropy-astronomy-toolkit
+  fluidsim-cfd-simulation ===|combines| matplotlib-visualization
+  fluidsim-cfd-simulation ===|combines| scientific-exploratory-data-analysis
+  freedom-to-operate-triage -.-|related| ip-infringement-triage
+  freedom-to-operate-triage -.-|related| invention-disclosure-screen
+  freedom-to-operate-triage -.-|related| ip-portfolio-register
+  freedom-to-operate-triage ===|combines| claim-element-chart-builder
+  freedom-to-operate-triage ===|combines| ip-infringement-triage
+  freedom-to-operate-triage ===|combines| product-launch-legal-review
+  funding-round-digest -.-|related| ib-deal-tracker
+  funding-round-digest -.-|related| deal-pipeline-tracker
+  funding-round-digest -.-|related| company-tear-sheet
+  funding-round-digest -.-|related| octagon-equity-research-analyst
+  funding-round-digest ===|combines| company-tear-sheet
+  funding-round-digest ===|combines| ib-deal-tracker
   gatk-variant-calling -.-|related| snpeff-variant-annotation
   gatk-variant-calling -.-|related| genomic-file-toolkit
   gatk-variant-calling -.-|related| star-rnaseq-aligner
@@ -2526,10 +3097,22 @@ graph LR
   general-counsel-advisor -.-|related| nda-triage-reviewer
   general-counsel-advisor -.-|related| oss-license-compliance
   general-counsel-advisor ===|combines| nda-triage-reviewer
+  geniml-genomic-interval-ml -.-|related| polars-bio-genomic-intervals
+  geniml-genomic-interval-ml -.-|related| macs3-peak-calling
+  geniml-genomic-interval-ml -.-|related| deeptools-ngs-analysis
+  geniml-genomic-interval-ml -.-|related| encode-database
+  geniml-genomic-interval-ml ===|combines| single-cell-rnaseq-analysis
   genomic-file-toolkit -.-|related| single-cell-rnaseq-analysis
   genomic-file-toolkit -.-|related| nextflow-pipeline-builder
   genomic-file-toolkit ===|combines| nextflow-pipeline-builder
   genomic-file-toolkit ===|combines| gene-set-enrichment-analysis
+  geo-database -.-|related| cellxgene-census
+  geo-database -.-|related| gget-genomic-databases
+  geo-database -.-|related| clinvar-database
+  geo-database -.-|related| gnomad-population-database
+  geo-database ===|combines| pydeseq2-differential-expression
+  geo-database ===|combines| gene-set-enrichment-analysis
+  geo-database ===|combines| cellxgene-census
   gget-genomic-databases -.-|related| uniprot-protein-database
   gget-genomic-databases -.-|related| scientific-database-lookup
   gget-genomic-databases -.-|related| opentargets-database
@@ -2542,11 +3125,22 @@ graph LR
   gnomad-population-database -.-|related| uniprot-protein-database
   gnomad-population-database ===|combines| gatk-variant-calling
   gnomad-population-database ===|combines| snpeff-variant-annotation
+  gtopdb-pharmacology-database -.-|related| chembl-bioactivity-database
+  gtopdb-pharmacology-database -.-|related| pubchem-compound-search
+  gtopdb-pharmacology-database ===|combines| uniprot-protein-database
+  gtopdb-pharmacology-database ===|combines| scientific-database-lookup
   guided-statistical-analysis -.-|related| scientific-manuscript-writing
   guided-statistical-analysis -.-|related| research-experiment-designer
   guided-statistical-analysis ===|combines| research-experiment-designer
   guided-statistical-analysis ===|combines| statsmodels-statistical-modeling
   guided-statistical-analysis ===|combines| scientific-manuscript-writing
+  gwas-catalog-database -.-|related| clinvar-database
+  gwas-catalog-database -.-|related| dbsnp-database
+  gwas-catalog-database -.-|related| gnomad-population-database
+  gwas-catalog-database -.-|related| opentargets-database
+  gwas-catalog-database ===|combines| ensembl-database
+  gwas-catalog-database ===|combines| monarch-disease-phenotype
+  gwas-catalog-database ===|combines| gene-set-enrichment-analysis
   hardware-doc-generator -.-|related| kicad-design-reviewer
   hardware-doc-generator -.-|related| pcb-bom-manager
   hardware-doc-generator -.-|related| spice-circuit-simulator
@@ -2559,15 +3153,88 @@ graph LR
   harmony-batch-correction ===|combines| single-cell-rnaseq-analysis
   health-goal-analyzer -.-|related| fact-checking
   health-goal-analyzer -.-|related| csv-data-cleaner
+  histolab-wsi-tiling -.-|related| dicom-medical-imaging
+  histolab-wsi-tiling -.-|related| scikit-image-bioimage
+  histolab-wsi-tiling -.-|related| imaging-data-commons-query
+  histolab-wsi-tiling ===|combines| computer-vision-expert
+  histolab-wsi-tiling ===|combines| pyhealth-clinical-dl
+  hmdb-metabolome-database -.-|related| pubchem-compound-search
+  hmdb-metabolome-database -.-|related| kegg-database
+  hmdb-metabolome-database -.-|related| chembl-bioactivity-database
+  hmdb-metabolome-database -.-|related| uniprot-protein-database
+  hmdb-metabolome-database -.-|related| pyopenms-mass-spectrometry
+  hmdb-metabolome-database -.-|related| opentargets-database
+  hmdb-metabolome-database ===|combines| pyopenms-mass-spectrometry
+  hmdb-metabolome-database ===|combines| kegg-database
+  hmdb-metabolome-database ===|combines| gene-set-enrichment-analysis
+  imaging-data-commons-query -.-|related| dicom-medical-imaging
+  imaging-data-commons-query -.-|related| scientific-database-lookup
+  imaging-data-commons-query -.-|related| pyhealth-clinical-dl
+  imaging-data-commons-query ===|combines| dicom-medical-imaging
+  imaging-data-commons-query ===|combines| histolab-wsi-tiling
+  imaging-data-commons-query ===|combines| pyhealth-clinical-dl
+  inbound-demand-letter-triage -.-|related| demand-letter-drafter
+  inbound-demand-letter-triage -.-|related| cease-and-desist-letter
+  inbound-demand-letter-triage -.-|related| subpoena-triage
+  inbound-demand-letter-triage -.-|related| legal-risk-classifier
+  inbound-demand-letter-triage ===|combines| demand-letter-drafter
+  inbound-demand-letter-triage ===|combines| litigation-chronology-builder
   institutional-flow-tracker -.-|related| octagon-equity-research-analyst
   institutional-flow-tracker -.-|related| octagon-sec-filing-analyst
   institutional-flow-tracker -.-|related| canslim-growth-screener
   institutional-flow-tracker -.-|related| market-breadth-analyzer
   institutional-flow-tracker ===|combines| octagon-equity-research-analyst
   institutional-flow-tracker ===|combines| portfolio-rebalancer
+  international-hiring-eor-planner -.-|related| worker-classification-analyzer
+  international-hiring-eor-planner -.-|related| employment-contract-drafter
+  international-hiring-eor-planner -.-|related| offer-restrictive-covenant-review
+  international-hiring-eor-planner -.-|related| headcount-org-planner
+  international-hiring-eor-planner ===|combines| wage-hour-employment-qa
+  interpro-domain-database -.-|related| uniprot-protein-database
+  interpro-domain-database -.-|related| rcsb-pdb-database
+  interpro-domain-database -.-|related| string-ppi-database
+  interpro-domain-database -.-|related| quickgo-go-database
+  interpro-domain-database ===|combines| gget-genomic-databases
+  interpro-domain-database ===|combines| scientific-database-lookup
+  invention-disclosure-screen -.-|related| ip-infringement-triage
+  invention-disclosure-screen -.-|related| trademark-clearance-knockout
+  invention-disclosure-screen ===|combines| ip-portfolio-register
+  invention-disclosure-screen ===|combines| legal-risk-classifier
+  invention-disclosure-screen ===|combines| cease-and-desist-letter
   inventory-demand-planning -.-|related| returns-reverse-logistics
   inventory-demand-planning -.-|related| customs-trade-compliance
   inventory-demand-planning ===|combines| returns-reverse-logistics
+  investigation-memo-drafter -.-|related| litigation-chronology-builder
+  investigation-memo-drafter -.-|related| deposition-outline-prep
+  investigation-memo-drafter -.-|related| privilege-log-reviewer
+  investigation-memo-drafter -.-|related| general-counsel-advisor
+  investigation-memo-drafter -.-|related| diligence-issue-extractor
+  investigation-memo-drafter ===|combines| litigation-chronology-builder
+  investigation-memo-drafter ===|combines| general-counsel-advisor
+  investment-proposal-builder -.-|related| portfolio-rebalancer
+  investment-proposal-builder -.-|related| portfolio-risk-metrics
+  investment-proposal-builder ===|combines| client-performance-report
+  investment-proposal-builder ===|combines| portfolio-rebalancer
+  ip-clause-review -.-|related| contract-playbook-review
+  ip-clause-review -.-|related| saas-subscription-agreement-review
+  ip-clause-review -.-|related| dpa-clause-reviewer
+  ip-clause-review -.-|related| vendor-agreement-redline-review
+  ip-clause-review ===|combines| contract-playbook-review
+  ip-clause-review ===|combines| ip-portfolio-register
+  ip-clause-review ===|combines| claim-element-chart-builder
+  ip-infringement-triage -.-|related| dmca-takedown-notice
+  ip-infringement-triage -.-|related| trademark-clearance-knockout
+  ip-infringement-triage ===|combines| dmca-takedown-notice
+  ip-portfolio-register -.-|related| contract-renewal-tracker
+  ip-portfolio-register -.-|related| trademark-clearance-knockout
+  ip-portfolio-register -.-|related| invention-disclosure-screen
+  ip-portfolio-register ===|combines| freedom-to-operate-triage
+  irac-essay-grader -.-|related| legal-case-brief
+  irac-essay-grader -.-|related| academic-peer-reviewer
+  irac-essay-grader -.-|related| litigation-brief-section-drafter
+  irac-essay-grader -.-|related| quick-legal-problem-triage
+  irac-essay-grader ===|combines| legal-client-intake
+  irac-essay-grader ===|combines| citation-management
   iso13485-qms-audit -.-|related| iso13485-qms-implementer
   iso13485-qms-audit -.-|related| iso14971-risk-management
   iso13485-qms-audit ===|combines| capa-root-cause-officer
@@ -2578,25 +3245,85 @@ graph LR
   iso13485-qms-implementer ===|combines| iso14971-risk-management
   iso13485-qms-implementer ===|combines| quality-documentation-control
   iso13485-qms-implementer ===|combines| capa-root-cause-officer
+  jaspar-tfbs-database -.-|related| encode-database
+  jaspar-tfbs-database -.-|related| ensembl-database
+  jaspar-tfbs-database -.-|related| macs3-peak-calling
+  jaspar-tfbs-database -.-|related| deeptools-ngs-analysis
+  jaspar-tfbs-database ===|combines| ucsc-genome-browser
+  jaspar-tfbs-database ===|combines| geniml-genomic-interval-ml
+  jaspar-tfbs-database ===|combines| gene-set-enrichment-analysis
+  kegg-database -.-|related| gget-genomic-databases
+  kegg-database -.-|related| uniprot-protein-database
+  kegg-database -.-|related| pubchem-compound-search
+  kegg-database -.-|related| gene-set-enrichment-analysis
+  kegg-database -.-|related| scientific-database-lookup
+  kegg-database -.-|related| opentargets-database
+  kegg-database ===|combines| gene-set-enrichment-analysis
+  kegg-database ===|combines| gget-genomic-databases
+  kegg-database ===|combines| pubchem-compound-search
   kicad-design-reviewer -.-|related| spice-circuit-simulator
   kicad-design-reviewer -.-|related| pcb-bom-manager
   kicad-design-reviewer ===|combines| spice-circuit-simulator
   kicad-design-reviewer ===|combines| pcb-fab-assembly
+  lamindb-data-management -.-|related| anndata-data-structure
+  lamindb-data-management -.-|related| cellxgene-census
+  lamindb-data-management -.-|related| single-cell-rnaseq-analysis
+  lamindb-data-management -.-|related| scvi-tools-single-cell
+  lamindb-data-management ===|combines| single-cell-rnaseq-analysis
+  lamindb-data-management ===|combines| muon-multiomics-singlecell
   lbo-model-builder -.-|related| pe-returns-sensitivity
   lbo-model-builder -.-|related| merger-accretion-dilution-model
   lbo-model-builder -.-|related| three-statement-model
   lbo-model-builder ===|combines| pe-returns-sensitivity
   lbo-model-builder ===|combines| three-statement-model
   lbo-model-builder ===|combines| unit-economics-analyzer
+  legal-briefing-generator -.-|related| legal-meeting-briefing
+  legal-briefing-generator -.-|related| legal-risk-classifier
+  legal-briefing-generator -.-|related| regulatory-policy-diff
+  legal-briefing-generator -.-|related| legal-inquiry-responder
+  legal-briefing-generator ===|combines| legal-meeting-briefing
+  legal-briefing-generator ===|combines| legal-risk-classifier
+  legal-briefing-generator ===|combines| contract-renewal-tracker
+  legal-case-brief -.-|related| deposition-outline-prep
+  legal-case-brief -.-|related| general-counsel-advisor
+  legal-case-brief -.-|related| litigation-chronology-builder
+  legal-case-brief ===|combines| deposition-outline-prep
+  legal-client-intake -.-|related| legal-inquiry-responder
+  legal-client-intake -.-|related| legal-risk-classifier
+  legal-client-intake -.-|related| quick-legal-problem-triage
+  legal-client-intake -.-|related| investigation-memo-drafter
+  legal-client-intake ===|combines| legal-risk-classifier
+  legal-client-intake ===|combines| legal-case-brief
   legal-hold-manager -.-|related| litigation-chronology-builder
   legal-hold-manager -.-|related| privilege-log-reviewer
   legal-hold-manager -.-|related| diligence-issue-extractor
   legal-hold-manager ===|combines| litigation-chronology-builder
+  legal-inquiry-responder -.-|related| quick-legal-problem-triage
+  legal-inquiry-responder -.-|related| nda-triage-reviewer
+  legal-inquiry-responder -.-|related| dsar-response-builder
+  legal-inquiry-responder ===|combines| legal-risk-classifier
+  legal-meeting-briefing -.-|related| board-minutes-drafter
+  legal-meeting-briefing -.-|related| deposition-outline-prep
+  legal-meeting-briefing -.-|related| legal-inquiry-responder
+  legal-meeting-briefing ===|combines| meeting-transcript-analyzer
+  legal-meeting-briefing ===|combines| legal-hold-manager
   legal-risk-classifier -.-|related| nda-triage-reviewer
   legal-risk-classifier -.-|related| diligence-issue-extractor
   legal-risk-classifier -.-|related| general-counsel-advisor
   legal-risk-classifier ===|combines| diligence-issue-extractor
+  litigation-brief-section-drafter -.-|related| legal-case-brief
+  litigation-brief-section-drafter -.-|related| litigation-chronology-builder
+  litigation-brief-section-drafter -.-|related| deposition-outline-prep
+  litigation-brief-section-drafter ===|combines| legal-hold-manager
+  litigation-brief-section-drafter ===|combines| privilege-log-reviewer
+  litigation-brief-section-drafter ===|combines| demand-letter-drafter
   litigation-chronology-builder -.-|related| privilege-log-reviewer
+  lp-nav-tieout -.-|related| account-reconciliation
+  lp-nav-tieout -.-|related| gl-subledger-reconciler
+  lp-nav-tieout -.-|related| recon-break-root-cause
+  lp-nav-tieout -.-|related| pe-returns-sensitivity
+  lp-nav-tieout ===|combines| recon-break-root-cause
+  lp-nav-tieout ===|combines| gl-subledger-reconciler
   macro-regime-detector -.-|related| market-breadth-analyzer
   macro-regime-detector -.-|related| market-top-detector
   macro-regime-detector -.-|related| portfolio-risk-metrics
@@ -2623,6 +3350,17 @@ graph LR
   marketing-claims-reviewer -.-|related| marketing-copy-editor
   marketing-claims-reviewer ===|combines| conversion-copywriter
   marketing-claims-reviewer ===|combines| marketing-copy-editor
+  matchms-spectral-matching -.-|related| pyopenms-mass-spectrometry
+  matchms-spectral-matching -.-|related| maxquant-proteomics
+  matchms-spectral-matching -.-|related| metabolomics-workbench-database
+  matchms-spectral-matching -.-|related| hmdb-metabolome-database
+  matchms-spectral-matching ===|combines| pyopenms-mass-spectrometry
+  matchms-spectral-matching ===|combines| hmdb-metabolome-database
+  matchms-spectral-matching ===|combines| metabolomics-workbench-database
+  material-contract-disclosure-schedule -.-|related| general-counsel-advisor
+  material-contract-disclosure-schedule -.-|related| contract-playbook-review
+  material-contract-disclosure-schedule -.-|related| esignature-routing
+  material-contract-disclosure-schedule ===|combines| diligence-issue-extractor
   materials-science-toolkit -.-|related| molecular-dynamics-simulation
   materials-science-toolkit -.-|related| scientific-database-lookup
   materials-science-toolkit ===|combines| scientific-database-lookup
@@ -2636,13 +3374,41 @@ graph LR
   maxquant-proteomics -.-|related| guided-statistical-analysis
   maxquant-proteomics ===|combines| gene-set-enrichment-analysis
   maxquant-proteomics ===|combines| pyopenms-mass-spectrometry
+  medchem-compound-triage -.-|related| rdkit-cheminformatics
+  medchem-compound-triage -.-|related| datamol-cheminformatics
+  medchem-compound-triage -.-|related| cheminformatics-toolkit
+  medchem-compound-triage -.-|related| molfeat-molecular-featurization
+  medchem-compound-triage ===|combines| rdkit-cheminformatics
+  medchem-compound-triage ===|combines| deepchem-drug-discovery
   merger-accretion-dilution-model -.-|related| three-statement-model
   merger-accretion-dilution-model -.-|related| pe-returns-sensitivity
   merger-accretion-dilution-model ===|combines| three-statement-model
   merger-accretion-dilution-model ===|combines| ma-playbook
+  metabolomics-workbench-database -.-|related| hmdb-metabolome-database
+  metabolomics-workbench-database -.-|related| pyopenms-mass-spectrometry
+  metabolomics-workbench-database -.-|related| maxquant-proteomics
+  metabolomics-workbench-database ===|combines| pubchem-compound-search
+  molecular-dynamics-openmm -.-|related| molecular-dynamics-simulation
+  molecular-dynamics-openmm -.-|related| autodock-vina-docking
+  molecular-dynamics-openmm -.-|related| diffdock-blind-docking
+  molecular-dynamics-openmm -.-|related| rcsb-pdb-database
+  molecular-dynamics-openmm ===|combines| rdkit-cheminformatics
+  molecular-dynamics-openmm ===|combines| protein-language-models
   molecular-dynamics-simulation -.-|related| protein-language-models
   molecular-dynamics-simulation ===|combines| protein-language-models
   molecular-dynamics-simulation ===|combines| matplotlib-visualization
+  molfeat-molecular-featurization -.-|related| rdkit-cheminformatics
+  molfeat-molecular-featurization -.-|related| deepchem-drug-discovery
+  molfeat-molecular-featurization -.-|related| cheminformatics-toolkit
+  molfeat-molecular-featurization ===|combines| scikit-learn-ml
+  molfeat-molecular-featurization ===|combines| pubchem-compound-search
+  molfeat-molecular-featurization ===|combines| chembl-bioactivity-database
+  monarch-disease-phenotype -.-|related| opentargets-database
+  monarch-disease-phenotype -.-|related| clinvar-database
+  monarch-disease-phenotype -.-|related| gnomad-population-database
+  monarch-disease-phenotype -.-|related| gget-genomic-databases
+  monarch-disease-phenotype ===|combines| gene-set-enrichment-analysis
+  monarch-disease-phenotype ===|combines| clinvar-database
   muon-multiomics-singlecell -.-|related| single-cell-rnaseq-analysis
   muon-multiomics-singlecell -.-|related| scvi-tools-single-cell
   muon-multiomics-singlecell -.-|related| macs3-peak-calling
@@ -2651,6 +3417,18 @@ graph LR
   muon-multiomics-singlecell ===|combines| single-cell-rnaseq-analysis
   nda-triage-reviewer -.-|related| oss-license-compliance
   nda-triage-reviewer ===|combines| diligence-issue-extractor
+  neurokit2-biosignal-processing -.-|related| neuropixels-neural-recording
+  neurokit2-biosignal-processing -.-|related| pyhealth-clinical-dl
+  neurokit2-biosignal-processing -.-|related| dicom-medical-imaging
+  neurokit2-biosignal-processing -.-|related| statsmodels-statistical-modeling
+  neurokit2-biosignal-processing ===|combines| pyhealth-clinical-dl
+  neurokit2-biosignal-processing ===|combines| matplotlib-visualization
+  neurokit2-biosignal-processing ===|combines| guided-statistical-analysis
+  neuropixels-neural-recording -.-|related| dicom-medical-imaging
+  neuropixels-neural-recording -.-|related| scientific-exploratory-data-analysis
+  neuropixels-neural-recording -.-|related| guided-statistical-analysis
+  neuropixels-neural-recording ===|combines| matplotlib-visualization
+  neuropixels-neural-recording ===|combines| scientific-exploratory-data-analysis
   nextflow-pipeline-builder -.-|related| single-cell-rnaseq-analysis
   nextflow-pipeline-builder ===|combines| gene-set-enrichment-analysis
   nih-grant-finder -.-|related| research-experiment-designer
@@ -2658,18 +3436,65 @@ graph LR
   nih-grant-finder -.-|related| academic-paper-writer
   nih-grant-finder ===|combines| research-experiment-designer
   nih-grant-finder ===|combines| scientific-database-lookup
+  nprm-comment-decision-tracker -.-|related| regulatory-policy-diff
+  nprm-comment-decision-tracker -.-|related| legal-briefing-generator
+  nprm-comment-decision-tracker -.-|related| compliance-policy-redraft
+  nprm-comment-decision-tracker -.-|related| entity-compliance-tracker
+  nprm-comment-decision-tracker ===|combines| legal-meeting-briefing
+  octagon-analyst-estimates -.-|related| octagon-price-target-consensus
+  octagon-analyst-estimates -.-|related| octagon-financial-growth-metrics
+  octagon-analyst-estimates -.-|related| octagon-equity-research-analyst
+  octagon-analyst-estimates -.-|related| octagon-income-statement-data
+  octagon-analyst-estimates ===|combines| octagon-equity-research-analyst
+  octagon-analyst-estimates ===|combines| octagon-price-target-consensus
+  octagon-analyst-estimates ===|combines| octagon-income-statement-data
   octagon-balance-sheet-data -.-|related| octagon-income-statement-data
   octagon-balance-sheet-data -.-|related| octagon-cash-flow-statement-data
   octagon-balance-sheet-data -.-|related| octagon-financial-growth-metrics
   octagon-balance-sheet-data -.-|related| octagon-financial-health-scores
   octagon-balance-sheet-data ===|combines| octagon-equity-research-analyst
   octagon-balance-sheet-data ===|combines| octagon-financial-health-scores
+  octagon-balance-sheet-growth -.-|related| octagon-balance-sheet-data
+  octagon-balance-sheet-growth -.-|related| octagon-cash-flow-growth
+  octagon-balance-sheet-growth -.-|related| octagon-financial-growth-metrics
+  octagon-balance-sheet-growth -.-|related| octagon-income-statement-growth
+  octagon-balance-sheet-growth ===|combines| octagon-financial-health-scores
+  octagon-balance-sheet-growth ===|combines| octagon-equity-research-analyst
+  octagon-batch-market-cap -.-|related| octagon-company-market-cap
+  octagon-batch-market-cap -.-|related| octagon-historical-market-cap
+  octagon-batch-market-cap -.-|related| octagon-industry-pe-ratios
+  octagon-batch-market-cap -.-|related| octagon-sector-pe-ratios
+  octagon-batch-market-cap ===|combines| octagon-equity-research-analyst
+  octagon-batch-market-cap ===|combines| octagon-financial-health-scores
+  octagon-batch-market-cap ===|combines| company-tear-sheet
+  octagon-cash-flow-growth -.-|related| octagon-cash-flow-statement-data
+  octagon-cash-flow-growth -.-|related| octagon-financial-growth-metrics
+  octagon-cash-flow-growth -.-|related| octagon-income-statement-growth
+  octagon-cash-flow-growth ===|combines| octagon-financial-health-scores
+  octagon-cash-flow-growth ===|combines| octagon-equity-research-analyst
   octagon-cash-flow-statement-data -.-|related| octagon-income-statement-data
   octagon-cash-flow-statement-data -.-|related| octagon-financial-health-scores
   octagon-cash-flow-statement-data -.-|related| octagon-financial-growth-metrics
   octagon-cash-flow-statement-data ===|combines| octagon-income-statement-data
   octagon-cash-flow-statement-data ===|combines| octagon-balance-sheet-data
   octagon-cash-flow-statement-data ===|combines| dcf-valuation-model
+  octagon-commodities-quote -.-|related| octagon-stock-quote
+  octagon-commodities-quote -.-|related| octagon-forex-list
+  octagon-commodities-quote -.-|related| octagon-industry-performance-snapshot
+  octagon-commodities-quote -.-|related| octagon-stock-price-change
+  octagon-commodities-quote ===|combines| octagon-stock-quote
+  octagon-commodities-quote ===|combines| octagon-forex-list
+  octagon-commodities-quote ===|combines| macro-rates-dashboard
+  octagon-company-market-cap -.-|related| octagon-historical-market-cap
+  octagon-company-market-cap -.-|related| octagon-stock-quote
+  octagon-company-market-cap -.-|related| octagon-ratings-snapshot
+  octagon-company-market-cap ===|combines| octagon-batch-market-cap
+  octagon-company-market-cap ===|combines| octagon-historical-market-cap
+  octagon-earnings-analyst-questions -.-|related| octagon-earnings-call-analysis
+  octagon-earnings-analyst-questions -.-|related| octagon-earnings-qa-analysis
+  octagon-earnings-analyst-questions -.-|related| octagon-earnings-call-sentiment
+  octagon-earnings-analyst-questions -.-|related| octagon-earnings-financial-guidance
+  octagon-earnings-analyst-questions ===|combines| octagon-equity-research-analyst
   octagon-earnings-call-analysis -.-|related| octagon-earnings-call-sentiment
   octagon-earnings-call-analysis -.-|related| octagon-sec-mda-analysis
   octagon-earnings-call-analysis -.-|related| octagon-equity-research-analyst
@@ -2682,6 +3507,23 @@ graph LR
   octagon-earnings-call-sentiment ===|combines| octagon-equity-research-analyst
   octagon-earnings-call-sentiment ===|combines| octagon-earnings-call-analysis
   octagon-earnings-call-sentiment ===|combines| earnings-trade-analyzer
+  octagon-earnings-capital-allocation -.-|related| octagon-earnings-call-analysis
+  octagon-earnings-capital-allocation -.-|related| octagon-earnings-qa-analysis
+  octagon-earnings-capital-allocation -.-|related| octagon-earnings-financial-guidance
+  octagon-earnings-capital-allocation -.-|related| octagon-earnings-call-sentiment
+  octagon-earnings-capital-allocation ===|combines| octagon-sec-mda-analysis
+  octagon-earnings-capital-allocation ===|combines| octagon-equity-research-analyst
+  octagon-earnings-financial-guidance -.-|related| octagon-earnings-call-analysis
+  octagon-earnings-financial-guidance -.-|related| octagon-earnings-qa-analysis
+  octagon-earnings-financial-guidance -.-|related| octagon-earnings-call-sentiment
+  octagon-earnings-financial-guidance -.-|related| octagon-analyst-estimates
+  octagon-earnings-financial-guidance ===|combines| octagon-price-target-consensus
+  octagon-earnings-financial-guidance ===|combines| octagon-equity-research-analyst
+  octagon-earnings-financial-guidance ===|combines| equity-earnings-update-report
+  octagon-earnings-qa-analysis -.-|related| octagon-earnings-call-analysis
+  octagon-earnings-qa-analysis -.-|related| octagon-earnings-call-sentiment
+  octagon-earnings-qa-analysis ===|combines| octagon-earnings-call-analysis
+  octagon-earnings-qa-analysis ===|combines| octagon-equity-research-analyst
   octagon-equity-research-analyst -.-|related| dcf-valuation-model
   octagon-equity-research-analyst -.-|related| three-statement-model
   octagon-equity-research-analyst -.-|related| alpha-vantage-market-data
@@ -2709,9 +3551,47 @@ graph LR
   octagon-financial-health-scores ===|combines| dcf-valuation-model
   octagon-financial-health-scores ===|combines| alpha-vantage-market-data
   octagon-financial-health-scores ===|combines| lbo-model-builder
+  octagon-financial-metrics-analysis -.-|related| octagon-income-statement-growth
+  octagon-financial-metrics-analysis -.-|related| octagon-financial-growth-metrics
+  octagon-financial-metrics-analysis -.-|related| octagon-income-statement-data
+  octagon-financial-metrics-analysis -.-|related| octagon-cash-flow-growth
+  octagon-financial-metrics-analysis ===|combines| octagon-income-statement-data
+  octagon-financial-metrics-analysis ===|combines| octagon-revenue-geographic-segmentation
+  octagon-financial-metrics-analysis ===|combines| octagon-equity-research-analyst
+  octagon-forex-list -.-|related| octagon-stock-quote
+  octagon-forex-list -.-|related| fx-carry-trade-eval
+  octagon-forex-list -.-|related| octagon-stock-price-change
+  octagon-forex-list ===|combines| fx-carry-trade-eval
+  octagon-historical-financial-ratings -.-|related| octagon-ratings-snapshot
+  octagon-historical-financial-ratings -.-|related| octagon-financial-health-scores
+  octagon-historical-financial-ratings -.-|related| octagon-stock-grades
+  octagon-historical-financial-ratings -.-|related| octagon-historical-market-cap
+  octagon-historical-financial-ratings ===|combines| octagon-equity-research-analyst
+  octagon-historical-market-cap -.-|related| octagon-stock-quote
+  octagon-historical-market-cap -.-|related| alpha-vantage-market-data
+  octagon-historical-market-cap -.-|related| octagon-financial-growth-metrics
+  octagon-historical-market-cap -.-|related| dcf-valuation-model
+  octagon-historical-market-cap ===|combines| octagon-stock-quote
+  octagon-historical-market-cap ===|combines| dcf-valuation-model
+  octagon-historical-market-cap ===|combines| octagon-income-statement-data
+  octagon-historical-market-cap ===|combines| octagon-financial-growth-metrics
   octagon-income-statement-data -.-|related| octagon-equity-research-analyst
   octagon-income-statement-data ===|combines| octagon-balance-sheet-data
   octagon-income-statement-data ===|combines| three-statement-model
+  octagon-income-statement-growth -.-|related| octagon-income-statement-data
+  octagon-income-statement-growth ===|combines| octagon-financial-health-scores
+  octagon-income-statement-growth ===|combines| octagon-equity-research-analyst
+  octagon-industry-pe-ratios -.-|related| octagon-sector-pe-ratios
+  octagon-industry-pe-ratios -.-|related| octagon-industry-performance-snapshot
+  octagon-industry-pe-ratios -.-|related| octagon-historical-financial-ratings
+  octagon-industry-pe-ratios ===|combines| octagon-equity-research-analyst
+  octagon-industry-pe-ratios ===|combines| octagon-company-market-cap
+  octagon-industry-pe-ratios ===|combines| sector-landscape-report
+  octagon-industry-performance-snapshot -.-|related| octagon-sector-performance-snapshot
+  octagon-industry-performance-snapshot -.-|related| octagon-sector-pe-ratios
+  octagon-industry-performance-snapshot -.-|related| octagon-stock-price-change
+  octagon-industry-performance-snapshot ===|combines| octagon-equity-research-analyst
+  octagon-industry-performance-snapshot ===|combines| octagon-batch-market-cap
   octagon-prediction-markets-research -.-|related| octagon-equity-research-analyst
   octagon-prediction-markets-research -.-|related| octagon-sec-risk-factors
   octagon-prediction-markets-research -.-|related| news-sentiment-briefing
@@ -2725,11 +3605,48 @@ graph LR
   octagon-price-target-consensus ===|combines| octagon-equity-research-analyst
   octagon-price-target-consensus ===|combines| octagon-stock-quote
   octagon-price-target-consensus ===|combines| octagon-ratings-snapshot
+  octagon-price-target-summary -.-|related| octagon-price-target-consensus
+  octagon-price-target-summary -.-|related| octagon-analyst-estimates
+  octagon-price-target-summary -.-|related| octagon-stock-quote
+  octagon-price-target-summary -.-|related| octagon-ratings-snapshot
+  octagon-price-target-summary -.-|related| octagon-equity-research-analyst
+  octagon-price-target-summary ===|combines| octagon-price-target-consensus
+  octagon-price-target-summary ===|combines| octagon-stock-quote
+  octagon-price-target-summary ===|combines| octagon-analyst-estimates
+  octagon-price-target-summary ===|combines| octagon-income-statement-data
   octagon-ratings-snapshot -.-|related| octagon-financial-health-scores
   octagon-ratings-snapshot -.-|related| octagon-equity-research-analyst
   octagon-ratings-snapshot -.-|related| octagon-esg-ratings
   octagon-ratings-snapshot ===|combines| octagon-equity-research-analyst
   octagon-ratings-snapshot ===|combines| octagon-balance-sheet-data
+  octagon-revenue-geographic-segmentation -.-|related| octagon-revenue-product-segmentation
+  octagon-revenue-geographic-segmentation -.-|related| octagon-sec-segment-reporting
+  octagon-revenue-geographic-segmentation -.-|related| octagon-income-statement-data
+  octagon-revenue-geographic-segmentation -.-|related| octagon-financial-metrics-analysis
+  octagon-revenue-geographic-segmentation ===|combines| octagon-revenue-product-segmentation
+  octagon-revenue-geographic-segmentation ===|combines| octagon-income-statement-data
+  octagon-revenue-geographic-segmentation ===|combines| octagon-equity-research-analyst
+  octagon-revenue-product-segmentation -.-|related| octagon-sec-segment-reporting
+  octagon-revenue-product-segmentation -.-|related| octagon-income-statement-data
+  octagon-revenue-product-segmentation -.-|related| octagon-financial-metrics-analysis
+  octagon-revenue-product-segmentation ===|combines| octagon-equity-research-analyst
+  octagon-sec-10k-analysis -.-|related| octagon-sec-mda-analysis
+  octagon-sec-10k-analysis -.-|related| octagon-sec-risk-factors
+  octagon-sec-10k-analysis -.-|related| octagon-sec-filing-analyst
+  octagon-sec-10k-analysis -.-|related| octagon-sec-8k-analysis
+  octagon-sec-10k-analysis ===|combines| octagon-equity-research-analyst
+  octagon-sec-8k-analysis -.-|related| octagon-sec-filing-analyst
+  octagon-sec-8k-analysis -.-|related| octagon-sec-mda-analysis
+  octagon-sec-8k-analysis -.-|related| octagon-sec-risk-factors
+  octagon-sec-8k-analysis ===|combines| octagon-earnings-call-analysis
+  octagon-sec-8k-analysis ===|combines| octagon-equity-research-analyst
+  octagon-sec-debt-covenant -.-|related| octagon-sec-10k-analysis
+  octagon-sec-debt-covenant -.-|related| octagon-sec-filing-analyst
+  octagon-sec-debt-covenant -.-|related| octagon-sec-risk-factors
+  octagon-sec-debt-covenant -.-|related| octagon-financial-health-scores
+  octagon-sec-debt-covenant ===|combines| octagon-balance-sheet-data
+  octagon-sec-debt-covenant ===|combines| octagon-equity-research-analyst
+  octagon-sec-debt-covenant ===|combines| octagon-cash-flow-statement-data
   octagon-sec-filing-analyst -.-|related| octagon-sec-mda-analysis
   octagon-sec-filing-analyst -.-|related| octagon-sec-risk-factors
   octagon-sec-filing-analyst -.-|related| octagon-equity-research-analyst
@@ -2739,6 +3656,15 @@ graph LR
   octagon-sec-mda-analysis -.-|related| octagon-sec-risk-factors
   octagon-sec-mda-analysis -.-|related| octagon-equity-research-analyst
   octagon-sec-mda-analysis ===|combines| octagon-equity-research-analyst
+  octagon-sec-proxy-analysis -.-|related| octagon-sec-filing-analyst
+  octagon-sec-proxy-analysis -.-|related| octagon-sec-mda-analysis
+  octagon-sec-proxy-analysis -.-|related| octagon-sec-risk-factors
+  octagon-sec-proxy-analysis -.-|related| octagon-equity-research-analyst
+  octagon-sec-proxy-analysis -.-|related| octagon-esg-ratings
+  octagon-sec-proxy-analysis -.-|related| board-minutes-drafter
+  octagon-sec-proxy-analysis ===|combines| diligence-issue-extractor
+  octagon-sec-proxy-analysis ===|combines| portfolio-risk-metrics
+  octagon-sec-proxy-analysis ===|combines| dcf-valuation-model
   octagon-sec-risk-factors -.-|related| three-statement-model
   octagon-sec-risk-factors -.-|related| lbo-model-builder
   octagon-sec-risk-factors -.-|related| dcf-valuation-model
@@ -2746,6 +3672,36 @@ graph LR
   octagon-sec-risk-factors ===|combines| diligence-issue-extractor
   octagon-sec-risk-factors ===|combines| dcf-valuation-model
   octagon-sec-risk-factors ===|combines| portfolio-risk-metrics
+  octagon-sec-s1-analysis -.-|related| octagon-sec-filing-analyst
+  octagon-sec-s1-analysis -.-|related| octagon-sec-risk-factors
+  octagon-sec-s1-analysis -.-|related| octagon-sec-mda-analysis
+  octagon-sec-s1-analysis -.-|related| octagon-equity-research-analyst
+  octagon-sec-s1-analysis -.-|related| alpha-vantage-market-data
+  octagon-sec-s1-analysis ===|combines| diligence-issue-extractor
+  octagon-sec-s1-analysis ===|combines| dcf-valuation-model
+  octagon-sec-s1-analysis ===|combines| three-statement-model
+  octagon-sec-segment-reporting -.-|related| octagon-sec-10k-analysis
+  octagon-sec-segment-reporting -.-|related| octagon-sec-mda-analysis
+  octagon-sec-segment-reporting ===|combines| octagon-sec-filing-analyst
+  octagon-sec-segment-reporting ===|combines| octagon-sec-10k-analysis
+  octagon-sector-pe-ratios -.-|related| octagon-sector-performance-snapshot
+  octagon-sector-pe-ratios -.-|related| octagon-stock-grades
+  octagon-sector-pe-ratios ===|combines| octagon-industry-pe-ratios
+  octagon-sector-pe-ratios ===|combines| octagon-sector-performance-snapshot
+  octagon-sector-pe-ratios ===|combines| octagon-equity-research-analyst
+  octagon-sector-performance-snapshot -.-|related| octagon-industry-pe-ratios
+  octagon-sector-performance-snapshot -.-|related| octagon-ratings-snapshot
+  octagon-sector-performance-snapshot ===|combines| octagon-equity-research-analyst
+  octagon-stock-grades -.-|related| octagon-ratings-snapshot
+  octagon-stock-grades -.-|related| octagon-price-target-consensus
+  octagon-stock-grades -.-|related| octagon-financial-health-scores
+  octagon-stock-grades ===|combines| octagon-equity-research-analyst
+  octagon-stock-price-change -.-|related| octagon-stock-quote
+  octagon-stock-price-change -.-|related| octagon-historical-market-cap
+  octagon-stock-price-change -.-|related| octagon-stock-grades
+  octagon-stock-price-change -.-|related| octagon-price-target-consensus
+  octagon-stock-price-change ===|combines| octagon-equity-research-analyst
+  octagon-stock-price-change ===|combines| octagon-industry-performance-snapshot
   octagon-stock-quote -.-|related| alpha-vantage-market-data
   octagon-stock-quote -.-|related| octagon-financial-health-scores
   octagon-stock-quote -.-|related| octagon-equity-research-analyst
@@ -2757,6 +3713,13 @@ graph LR
   odoo-localization-compliance -.-|related| regulatory-policy-diff
   odoo-localization-compliance ===|combines| customs-trade-compliance
   odoo-localization-compliance ===|combines| gl-subledger-reconciler
+  offer-restrictive-covenant-review -.-|related| employment-contract-drafter
+  offer-restrictive-covenant-review -.-|related| worker-classification-analyzer
+  offer-restrictive-covenant-review -.-|related| wage-hour-employment-qa
+  offer-restrictive-covenant-review -.-|related| offer-letter-drafter
+  offer-restrictive-covenant-review ===|combines| international-hiring-eor-planner
+  offer-restrictive-covenant-review ===|combines| legal-risk-classifier
+  offer-restrictive-covenant-review ===|combines| esignature-routing
   opentargets-database -.-|related| uniprot-protein-database
   opentargets-database -.-|related| gnomad-population-database
   opentargets-database ===|combines| chembl-bioactivity-database
@@ -2797,14 +3760,40 @@ graph LR
   pead-earnings-drift-screener ===|combines| trade-position-sizer
   pead-earnings-drift-screener ===|combines| breakout-trade-planner
   pead-earnings-drift-screener ===|combines| trade-signal-postmortem
+  pennylane-quantum-ml -.-|related| quantum-circuit-builder
+  pennylane-quantum-ml -.-|related| cirq-quantum-circuits
+  pennylane-quantum-ml -.-|related| qutip-open-quantum-systems
+  pennylane-quantum-ml ===|combines| pymoo-multiobjective-optimization
+  pennylane-quantum-ml ===|combines| scikit-learn-ml
+  polars-bio-genomic-intervals -.-|related| genomic-file-toolkit
+  polars-bio-genomic-intervals -.-|related| samtools-bam-processing
+  polars-bio-genomic-intervals -.-|related| polars-dataframe
+  polars-bio-genomic-intervals ===|combines| genomic-file-toolkit
+  polars-bio-genomic-intervals ===|combines| macs3-peak-calling
+  polars-bio-genomic-intervals ===|combines| deeptools-ngs-analysis
+  popv-cell-annotation -.-|related| celltypist-cell-annotation
+  popv-cell-annotation -.-|related| single-cell-rnaseq-analysis
+  popv-cell-annotation -.-|related| scvi-tools-single-cell
+  popv-cell-annotation -.-|related| anndata-data-structure
+  popv-cell-annotation ===|combines| single-cell-rnaseq-analysis
+  popv-cell-annotation ===|combines| anndata-data-structure
   portfolio-rebalancer -.-|related| portfolio-risk-metrics
   portfolio-rebalancer -.-|related| tax-loss-harvesting
   portfolio-rebalancer ===|combines| portfolio-risk-metrics
   portfolio-rebalancer ===|combines| tax-loss-harvesting
   portfolio-risk-metrics -.-|related| trading-strategy-backtester
+  pride-proteomics-database -.-|related| maxquant-proteomics
+  pride-proteomics-database -.-|related| pyopenms-mass-spectrometry
+  pride-proteomics-database -.-|related| uniprot-protein-database
+  pride-proteomics-database -.-|related| metabolomics-workbench-database
+  pride-proteomics-database ===|combines| gene-set-enrichment-analysis
   privacy-impact-assessor -.-|related| regulatory-policy-diff
   privilege-log-reviewer ===|combines| litigation-chronology-builder
   privilege-log-reviewer ===|combines| legal-hold-manager
+  product-launch-legal-review -.-|related| legal-risk-classifier
+  product-launch-legal-review -.-|related| marketing-claims-reviewer
+  product-launch-legal-review ===|combines| privacy-impact-assessor
+  product-launch-legal-review ===|combines| product-launch-strategy
   property-auction-legal-analysis -.-|related| general-counsel-advisor
   property-auction-legal-analysis -.-|related| diligence-issue-extractor
   property-auction-legal-analysis ===|combines| general-counsel-advisor
@@ -2822,15 +3811,68 @@ graph LR
   pydeseq2-differential-expression ===|combines| star-rnaseq-aligner
   pydeseq2-differential-expression ===|combines| gene-set-enrichment-analysis
   pydeseq2-differential-expression ===|combines| matplotlib-visualization
+  pyhealth-clinical-dl -.-|related| dicom-medical-imaging
+  pyhealth-clinical-dl -.-|related| pytdc-therapeutics-datasets
+  pyhealth-clinical-dl -.-|related| scikit-learn-ml
+  pyhealth-clinical-dl ===|combines| mlops-model-productionizer
+  pyhealth-clinical-dl ===|combines| shap-model-explainability
+  pyhealth-clinical-dl ===|combines| guided-statistical-analysis
+  pymoo-multiobjective-optimization -.-|related| sympy-symbolic-math
+  pymoo-multiobjective-optimization -.-|related| scikit-learn-ml
+  pymoo-multiobjective-optimization -.-|related| statsmodels-statistical-modeling
+  pymoo-multiobjective-optimization ===|combines| fluidsim-cfd-simulation
+  pymoo-multiobjective-optimization ===|combines| matplotlib-visualization
   pyopenms-mass-spectrometry -.-|related| cheminformatics-toolkit
   pyopenms-mass-spectrometry -.-|related| gene-set-enrichment-analysis
   pyopenms-mass-spectrometry -.-|related| guided-statistical-analysis
   pyopenms-mass-spectrometry ===|combines| gene-set-enrichment-analysis
+  pytdc-therapeutics-data-commons -.-|related| chembl-bioactivity-database
+  pytdc-therapeutics-data-commons -.-|related| cheminformatics-toolkit
+  pytdc-therapeutics-data-commons -.-|related| deepchem-drug-discovery
+  pytdc-therapeutics-data-commons -.-|related| autodock-vina-docking
+  pytdc-therapeutics-data-commons -.-|related| protein-language-models
+  pytdc-therapeutics-data-commons ===|combines| deepchem-drug-discovery
+  pytdc-therapeutics-data-commons ===|combines| scikit-learn-ml
+  pytdc-therapeutics-data-commons ===|combines| cheminformatics-toolkit
+  pytdc-therapeutics-datasets -.-|related| pytdc-therapeutics-data-commons
+  pytdc-therapeutics-datasets -.-|related| deepchem-drug-discovery
+  pytdc-therapeutics-datasets -.-|related| molfeat-molecular-featurization
+  pytdc-therapeutics-datasets -.-|related| medchem-compound-triage
+  pytdc-therapeutics-datasets ===|combines| deepchem-drug-discovery
+  pytdc-therapeutics-datasets ===|combines| molfeat-molecular-featurization
+  pytdc-therapeutics-datasets ===|combines| datamol-cheminformatics
   quality-documentation-control -.-|related| iso13485-qms-audit
   quality-documentation-control -.-|related| capa-root-cause-officer
   quantum-circuit-builder -.-|related| sympy-symbolic-math
   quantum-circuit-builder ===|combines| sympy-symbolic-math
   quantum-circuit-builder ===|combines| matplotlib-visualization
+  quick-legal-problem-triage -.-|related| legal-risk-classifier
+  quick-legal-problem-triage -.-|related| action-compliance-check
+  quick-legal-problem-triage ===|combines| legal-risk-classifier
+  quickgo-go-database -.-|related| uniprot-protein-database
+  quickgo-go-database -.-|related| scientific-database-lookup
+  quickgo-go-database -.-|related| gene-set-enrichment-analysis
+  quickgo-go-database ===|combines| gene-set-enrichment-analysis
+  quickgo-go-database ===|combines| uniprot-protein-database
+  qutip-open-quantum-systems -.-|related| quantum-circuit-builder
+  qutip-open-quantum-systems -.-|related| cirq-quantum-circuits
+  qutip-open-quantum-systems -.-|related| sympy-symbolic-math
+  qutip-open-quantum-systems ===|combines| matplotlib-visualization
+  rcsb-pdb-database -.-|related| uniprot-protein-database
+  rcsb-pdb-database -.-|related| alphafold-database-access
+  rcsb-pdb-database ===|combines| molecular-dynamics-openmm
+  rcsb-pdb-database ===|combines| autodock-vina-docking
+  rdkit-cheminformatics -.-|related| cheminformatics-toolkit
+  rdkit-cheminformatics -.-|related| deepchem-drug-discovery
+  rdkit-cheminformatics ===|combines| pubchem-compound-search
+  rdkit-cheminformatics ===|combines| chembl-bioactivity-database
+  rdkit-cheminformatics ===|combines| autodock-vina-docking
+  reactome-pathway-database -.-|related| kegg-database
+  reactome-pathway-database -.-|related| gene-set-enrichment-analysis
+  reactome-pathway-database -.-|related| quickgo-go-database
+  reactome-pathway-database -.-|related| string-ppi-database
+  reactome-pathway-database ===|combines| gene-set-enrichment-analysis
+  reactome-pathway-database ===|combines| gget-genomic-databases
   regulatory-policy-diff -.-|related| compliance-readiness-review
   regulatory-policy-diff -.-|related| general-counsel-advisor
   regulatory-policy-diff ===|combines| compliance-readiness-review
@@ -2839,9 +3881,31 @@ graph LR
   research-experiment-designer -.-|related| academic-paper-writer
   research-experiment-designer ===|combines| scientific-manuscript-writing
   returns-reverse-logistics ===|combines| carrier-relationship-management
+  saas-subscription-agreement-review -.-|related| contract-playbook-review
+  saas-subscription-agreement-review -.-|related| vendor-agreement-redline-review
+  saas-subscription-agreement-review ===|combines| contract-playbook-review
+  saas-subscription-agreement-review ===|combines| dpa-playbook-review
+  samtools-bam-processing -.-|related| genomic-file-toolkit
+  samtools-bam-processing -.-|related| gatk-variant-calling
+  samtools-bam-processing ===|combines| gatk-variant-calling
   scientific-database-lookup -.-|related| genomic-file-toolkit
   scientific-database-lookup ===|combines| alpha-vantage-market-data
   scientific-manuscript-writing ===|combines| academic-peer-reviewer
+  scikit-bio-sequence-toolkit -.-|related| single-cell-rnaseq-analysis
+  scikit-bio-sequence-toolkit -.-|related| gene-set-enrichment-analysis
+  scikit-bio-sequence-toolkit -.-|related| genomic-file-toolkit
+  scikit-bio-sequence-toolkit ===|combines| matplotlib-visualization
+  scikit-image-bioimage -.-|related| dicom-medical-imaging
+  scikit-image-bioimage -.-|related| computer-vision-expert
+  scikit-image-bioimage ===|combines| single-cell-rnaseq-analysis
+  scikit-image-bioimage ===|combines| matplotlib-visualization
+  scvelo-rna-velocity -.-|related| single-cell-rnaseq-analysis
+  scvelo-rna-velocity -.-|related| scvi-tools-single-cell
+  scvelo-rna-velocity -.-|related| anndata-data-structure
+  scvelo-rna-velocity -.-|related| celltypist-cell-annotation
+  scvelo-rna-velocity ===|combines| harmony-batch-correction
+  scvelo-rna-velocity ===|combines| umap-dimensionality-reduction
+  scvelo-rna-velocity ===|combines| muon-multiomics-singlecell
   scvi-tools-single-cell -.-|related| single-cell-rnaseq-analysis
   scvi-tools-single-cell ===|combines| single-cell-rnaseq-analysis
   scvi-tools-single-cell ===|combines| celltypist-cell-annotation
@@ -2864,12 +3928,33 @@ graph LR
   strategy-backtest-expert ===|combines| trading-strategy-backtester
   strategy-backtest-expert ===|combines| backtesting-frameworks
   strategy-backtest-expert ===|combines| alpha-vantage-market-data
+  string-ppi-database -.-|related| uniprot-protein-database
+  string-ppi-database -.-|related| quickgo-go-database
+  string-ppi-database -.-|related| kegg-database
+  string-ppi-database ===|combines| gene-set-enrichment-analysis
+  string-ppi-database ===|combines| networkx-graph-analysis
+  subpoena-triage -.-|related| legal-hold-manager
+  subpoena-triage -.-|related| quick-legal-problem-triage
+  subpoena-triage -.-|related| investigation-memo-drafter
+  subpoena-triage ===|combines| legal-hold-manager
+  subpoena-triage ===|combines| litigation-chronology-builder
+  subpoena-triage ===|combines| privilege-log-reviewer
   sympy-symbolic-math -.-|related| guided-statistical-analysis
   sympy-symbolic-math -.-|related| matplotlib-visualization
   sympy-symbolic-math ===|combines| matplotlib-visualization
   tax-loss-harvesting -.-|related| portfolio-risk-metrics
   three-statement-model ===|combines| financial-analysis-toolkit
   three-statement-model ===|combines| spreadsheet-formula-auditor
+  tiledbvcf-variant-store -.-|related| bcftools-variant-manipulation
+  tiledbvcf-variant-store -.-|related| vcf-variant-filtering
+  tiledbvcf-variant-store -.-|related| gatk-variant-calling
+  tiledbvcf-variant-store -.-|related| genomic-file-toolkit
+  tiledbvcf-variant-store ===|combines| gatk-variant-calling
+  tiledbvcf-variant-store ===|combines| bcftools-variant-manipulation
+  trackpy-particle-tracking -.-|related| scikit-image-bioimage
+  trackpy-particle-tracking -.-|related| dicom-medical-imaging
+  trackpy-particle-tracking -.-|related| neuropixels-neural-recording
+  trackpy-particle-tracking ===|combines| matplotlib-visualization
   trade-position-sizer -.-|related| portfolio-risk-metrics
   trade-position-sizer -.-|related| trade-signal-postmortem
   trade-position-sizer ===|combines| vcp-screener
@@ -2877,8 +3962,21 @@ graph LR
   trade-signal-postmortem -.-|related| pead-earnings-drift-screener
   trade-signal-postmortem -.-|related| strategy-backtest-expert
   trade-signal-postmortem ===|combines| trading-strategy-backtester
+  trademark-clearance-knockout -.-|related| freedom-to-operate-triage
+  trademark-clearance-knockout ===|combines| ip-clause-review
+  trademark-clearance-knockout ===|combines| marketing-claims-reviewer
   trading-strategy-backtester -.-|related| portfolio-rebalancer
   trading-strategy-backtester ===|combines| portfolio-risk-metrics
+  ucsc-genome-browser -.-|related| gget-genomic-databases
+  ucsc-genome-browser -.-|related| geo-database
+  ucsc-genome-browser ===|combines| genomic-file-toolkit
+  ucsc-genome-browser ===|combines| deeptools-ngs-analysis
+  unichem-compound-crossref -.-|related| pubchem-compound-search
+  unichem-compound-crossref -.-|related| chembl-bioactivity-database
+  unichem-compound-crossref -.-|related| rdkit-cheminformatics
+  unichem-compound-crossref -.-|related| drugbank-database-access
+  unichem-compound-crossref ===|combines| cheminformatics-toolkit
+  unichem-compound-crossref ===|combines| pubchem-compound-search
   uniprot-protein-database -.-|related| scientific-database-lookup
   uniprot-protein-database -.-|related| protein-language-models
   uniprot-protein-database ===|combines| alphafold-database-access
@@ -2891,14 +3989,48 @@ graph LR
   value-dividend-screener -.-|related| dcf-valuation-model
   value-dividend-screener ===|combines| portfolio-rebalancer
   value-dividend-screener ===|combines| portfolio-risk-metrics
+  vcf-variant-filtering -.-|related| gatk-variant-calling
+  vcf-variant-filtering -.-|related| snpeff-variant-annotation
+  vcf-variant-filtering -.-|related| genomic-file-toolkit
+  vcf-variant-filtering ===|combines| gatk-variant-calling
+  vcf-variant-filtering ===|combines| snpeff-variant-annotation
   vcp-screener ===|combines| backtesting-frameworks
+  vendor-agreement-redline-review -.-|related| contract-playbook-review
+  vendor-agreement-redline-review -.-|related| vendor-agreement-status-checker
+  vendor-agreement-redline-review -.-|related| dpa-playbook-review
+  vendor-agreement-redline-review ===|combines| contract-playbook-review
+  vendor-agreement-redline-review ===|combines| contract-escalation-router
+  vendor-agreement-status-checker -.-|related| contract-amendment-history-tracer
+  vendor-agreement-status-checker -.-|related| vendor-evaluation
+  vendor-agreement-status-checker ===|combines| entity-compliance-tracker
   viennarna-structure-prediction -.-|related| gget-genomic-databases
   viennarna-structure-prediction -.-|related| cheminformatics-toolkit
   viennarna-structure-prediction -.-|related| protein-language-models
   viennarna-structure-prediction -.-|related| scientific-database-lookup
   viennarna-structure-prediction ===|combines| snakemake-workflow-engine
   viennarna-structure-prediction ===|combines| scientific-database-lookup
+  wage-hour-employment-qa -.-|related| worker-classification-analyzer
+  wage-hour-employment-qa -.-|related| general-counsel-advisor
+  wage-hour-employment-qa -.-|related| employment-contract-drafter
+  wage-hour-employment-qa -.-|related| fact-checking
+  wage-hour-employment-qa ===|combines| worker-classification-analyzer
   worker-classification-analyzer -.-|related| general-counsel-advisor
+  workplace-internal-investigation -.-|related| investigation-memo-drafter
+  workplace-internal-investigation -.-|related| legal-hold-manager
+  workplace-internal-investigation -.-|related| litigation-chronology-builder
+  workplace-internal-investigation -.-|related| privilege-log-reviewer
+  workplace-internal-investigation -.-|related| general-counsel-advisor
+  workplace-internal-investigation -.-|related| deposition-outline-prep
+  workplace-internal-investigation ===|combines| investigation-memo-drafter
+  workplace-internal-investigation ===|combines| legal-hold-manager
+  workplace-internal-investigation ===|combines| general-counsel-advisor
+  zinc-compound-library -.-|related| pubchem-compound-search
+  zinc-compound-library -.-|related| chembl-bioactivity-database
+  zinc-compound-library -.-|related| cheminformatics-toolkit
+  zinc-compound-library -.-|related| autodock-vina-docking
+  zinc-compound-library -.-|related| scientific-database-lookup
+  zinc-compound-library ===|combines| cheminformatics-toolkit
+  zinc-compound-library ===|combines| autodock-vina-docking
   agentmail-email-infra -.-|related| twilio-communications
   agentmail-email-infra -.-|related| whatsapp-cloud-api
   agentmail-email-infra -.-|related| transactional-email-template-builder
@@ -3033,6 +4165,18 @@ graph LR
   slack-bolt-bot-builder ===|combines| agent-tool-builder
   slack-bolt-bot-builder ===|combines| mcp-builder
   slack-bolt-bot-builder ===|combines| rest-api-endpoint-builder
+  slack-message-formatter -.-|related| slack-bolt-bot-builder
+  slack-message-formatter -.-|related| slack-search-techniques
+  slack-message-formatter -.-|related| slack-gif-creator
+  slack-message-formatter -.-|related| caveman-compressed-mode
+  slack-message-formatter ===|combines| internal-comms
+  slack-message-formatter ===|combines| activity-digest-generator
+  slack-search-techniques -.-|related| slack-bolt-bot-builder
+  slack-search-techniques -.-|related| exa-semantic-search
+  slack-search-techniques -.-|related| slack-gif-creator
+  slack-search-techniques ===|combines| slack-bolt-bot-builder
+  slack-search-techniques ===|combines| slack-message-formatter
+  slack-search-techniques ===|combines| meeting-transcript-analyzer
   stripe-integration -.-|related| pricing-strategy
   stripe-integration -.-|related| paywall-upgrade-cro
   stripe-integration -.-|related| transactional-email-template-builder
@@ -3068,4 +4212,61 @@ graph LR
   youtube-transcript-ingest -.-|related| firecrawl-web-scraper
   youtube-transcript-ingest ===|combines| rag-implementation-workflow
   youtube-transcript-ingest ===|combines| notebooklm-source-grounded-qa
+  zoom-ai-scribe-transcription -.-|related| zoom-rtms-realtime-media
+  zoom-ai-scribe-transcription -.-|related| zoom-meeting-bot-builder
+  zoom-ai-scribe-transcription -.-|related| audio-to-markdown-transcriber
+  zoom-ai-scribe-transcription -.-|related| youtube-transcript-ingest
+  zoom-ai-scribe-transcription ===|combines| zoom-oauth-setup
+  zoom-ai-scribe-transcription ===|combines| zoom-webhooks-setup
+  zoom-contact-center-app -.-|related| zoom-virtual-agent-builder
+  zoom-contact-center-app -.-|related| zoom-meeting-app-builder
+  zoom-contact-center-app -.-|related| zoom-product-surface-selector
+  zoom-contact-center-app -.-|related| zoom-phone-integration
+  zoom-contact-center-app ===|combines| zoom-product-surface-selector
+  zoom-contact-center-app ===|combines| zoom-oauth-setup
+  zoom-contact-center-app ===|combines| zoom-virtual-agent-builder
+  zoom-integration-planner -.-|related| zoom-product-surface-selector
+  zoom-integration-planner -.-|related| zoom-oauth-setup
+  zoom-integration-planner -.-|related| zoom-mcp-connectors
+  zoom-integration-planner -.-|related| zoom-meeting-app-builder
+  zoom-integration-planner ===|combines| zoom-product-surface-selector
+  zoom-integration-planner ===|combines| zoom-oauth-setup
+  zoom-mcp-connectors -.-|related| zoom-product-surface-selector
+  zoom-mcp-connectors -.-|related| zoom-oauth-setup
+  zoom-mcp-connectors -.-|related| mcp-builder
+  zoom-mcp-connectors ===|combines| zoom-rtms-realtime-media
+  zoom-meeting-app-builder -.-|related| zoom-meeting-bot-builder
+  zoom-meeting-app-builder -.-|related| zoom-product-surface-selector
+  zoom-meeting-app-builder -.-|related| zoom-oauth-setup
+  zoom-meeting-app-builder -.-|related| zoom-rtms-realtime-media
+  zoom-meeting-app-builder ===|combines| zoom-integration-planner
+  zoom-meeting-app-builder ===|combines| zoom-webhooks-setup
+  zoom-meeting-bot-builder -.-|related| zoom-rtms-realtime-media
+  zoom-meeting-bot-builder -.-|related| zoom-virtual-agent-builder
+  zoom-meeting-bot-builder -.-|related| zoom-product-surface-selector
+  zoom-meeting-bot-builder ===|combines| zoom-oauth-setup
+  zoom-meeting-bot-builder ===|combines| zoom-webhooks-setup
+  zoom-meeting-bot-builder ===|combines| zoom-ai-scribe-transcription
+  zoom-oauth-setup -.-|related| zoom-webhooks-setup
+  zoom-oauth-setup -.-|related| zoom-product-surface-selector
+  zoom-oauth-setup ===|combines| zoom-meeting-app-builder
+  zoom-oauth-setup ===|combines| zoom-webhooks-setup
+  zoom-phone-integration -.-|related| zoom-webhooks-setup
+  zoom-phone-integration -.-|related| zoom-oauth-setup
+  zoom-phone-integration -.-|related| zoom-meeting-app-builder
+  zoom-phone-integration ===|combines| zoom-oauth-setup
+  zoom-phone-integration ===|combines| zoom-webhooks-setup
+  zoom-phone-integration ===|combines| zoom-product-surface-selector
+  zoom-product-surface-selector ===|combines| zoom-meeting-app-builder
+  zoom-rtms-realtime-media -.-|related| zoom-webhooks-setup
+  zoom-rtms-realtime-media -.-|related| zoom-integration-planner
+  zoom-virtual-agent-builder -.-|related| zoom-phone-integration
+  zoom-virtual-agent-builder -.-|related| zoom-meeting-app-builder
+  zoom-virtual-agent-builder -.-|related| zoom-product-surface-selector
+  zoom-virtual-agent-builder ===|combines| zoom-integration-planner
+  zoom-virtual-agent-builder ===|combines| ai-customer-support
+  zoom-webhooks-setup -.-|related| zoom-integration-planner
+  zoom-webhooks-setup -.-|related| zoom-mcp-connectors
+  zoom-webhooks-setup -.-|related| zoom-product-surface-selector
+  zoom-webhooks-setup ===|combines| zoom-rtms-realtime-media
 ```

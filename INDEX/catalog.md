@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-共 665 条技能。
+共 880 条技能。
 
 ## 卷〇 · 通用
 
@@ -203,6 +203,7 @@
 - [`analysis-qa-validator`](../03-data/analysis-qa-validator/SKILL.md) — 分析交付前质检　`数据/analysis` · 进阶
 - [`chief-data-officer-advisor`](../03-data/chief-data-officer-advisor/SKILL.md) — 首席数据官顾问（数据产品与治理）　`数据/analysis` · 精通
 - [`data-quality-validator`](../03-data/data-quality-validator/SKILL.md) — 数据质量校验框架　`数据/analysis` · 进阶
+- [`data-question-analyzer`](../03-data/data-question-analyzer/SKILL.md) — 数据问题分析（从速查到正式报告）　`数据/analysis` · 进阶
 - [`data-strategy-review`](../03-data/data-strategy-review/SKILL.md) — 数据战略决策审查　`数据/analysis` · 进阶
 - [`financial-analysis-toolkit`](../03-data/financial-analysis-toolkit/SKILL.md) — 财务比率与 DCF 估值分析　`数据/analysis` · 进阶
 - [`gl-subledger-reconciler`](../03-data/gl-subledger-reconciler/SKILL.md) — 总账与子账对账核对　`数据/analysis` · 进阶
@@ -211,12 +212,16 @@
 - [`matplotlib-visualization`](../03-data/matplotlib-visualization/SKILL.md) — Matplotlib 数据可视化　`数据/analysis` · 入门
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析　`数据/analysis` · 进阶
 - [`plotly-interactive-viz`](../03-data/plotly-interactive-viz/SKILL.md) — Plotly 交互式可视化　`数据/analysis` · 进阶
+- [`pymc-bayesian-modeling`](../03-data/pymc-bayesian-modeling/SKILL.md) — PyMC 贝叶斯建模与 MCMC　`数据/analysis` · 精通
+- [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）　`数据/analysis` · 进阶
 - [`scikit-learn-ml`](../03-data/scikit-learn-ml/SKILL.md) — scikit-learn 机器学习　`数据/analysis` · 进阶
 - [`seaborn-statistical-charts`](../03-data/seaborn-statistical-charts/SKILL.md) — Seaborn 统计图表　`数据/analysis` · 进阶
 - [`spreadsheet-formula-auditor`](../03-data/spreadsheet-formula-auditor/SKILL.md) — 电子表格公式与模型审计　`数据/analysis` · 进阶
 - [`statsmodels-statistical-modeling`](../03-data/statsmodels-statistical-modeling/SKILL.md) — Statsmodels 统计建模　`数据/analysis` · 进阶
+- [`umap-dimensionality-reduction`](../03-data/umap-dimensionality-reduction/SKILL.md) — UMAP 非线性降维与可视化　`数据/analysis` · 进阶
 - [`airflow-dag-builder`](../03-data/airflow-dag-builder/SKILL.md) — Airflow 数据管道编排　`数据/pipeline` · 进阶
 - [`airflow-dag-patterns`](../03-data/airflow-dag-patterns/SKILL.md) — Airflow DAG 生产实践模式　`数据/pipeline` · 进阶
+- [`dask-distributed-dataframes`](../03-data/dask-distributed-dataframes/SKILL.md) — Dask 超内存分布式计算　`数据/pipeline` · 进阶
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程　`数据/pipeline` · 进阶
 - [`data-quality-frameworks`](../03-data/data-quality-frameworks/SKILL.md) — 数据质量验证框架　`数据/pipeline` · 进阶
 - [`dbt-transformation-modeler`](../03-data/dbt-transformation-modeler/SKILL.md) — dbt数据转换建模　`数据/pipeline` · 进阶
@@ -232,6 +237,7 @@
 - [`dataset-quality-auditor`](../03-data/dataset-quality-auditor/SKILL.md) — 数据集质量审计　`数据/wrangling` · 进阶
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换　`数据/wrangling` · 进阶
 - [`polars-dataframe`](../03-data/polars-dataframe/SKILL.md) — Polars 高性能数据框　`数据/wrangling` · 进阶
+- [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组　`数据/wrangling` · 进阶
 
 ## 卷四 · 智能
 
@@ -268,6 +274,7 @@
 - [`llm-model-router`](../04-ai/llm-model-router/SKILL.md) — 测量驱动的 LLM 模型路由　`智能/model-ops` · 进阶
 - [`local-llm-inference`](../04-ai/local-llm-inference/SKILL.md) — 本地 LLM 推理部署　`智能/model-ops` · 进阶
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps　`智能/model-ops` · 进阶
+- [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析　`智能/model-ops` · 进阶
 - [`transformers-js`](../04-ai/transformers-js/SKILL.md) — Transformers.js 浏览器端模型推理　`智能/model-ops` · 进阶
 - [`context-compression`](../04-ai/context-compression/SKILL.md) — 智能体上下文压缩策略　`智能/prompting` · 进阶
 - [`context-window-management`](../04-ai/context-window-management/SKILL.md) — LLM 上下文窗口管理策略　`智能/prompting` · 进阶
@@ -304,13 +311,50 @@
 - [`sales-call-summary`](../05-business/sales-call-summary/SKILL.md) — 销售通话纪要提炼　`商业/copy` · 入门
 - [`sales-forecast-builder`](../05-business/sales-forecast-builder/SKILL.md) — 加权销售预测构建器　`商业/copy` · 进阶
 - [`support-ticket-triage`](../05-business/support-ticket-triage/SKILL.md) — 支持工单分诊　`商业/copy` · 进阶
+- [`account-roll-forward-schedule`](../05-business/account-roll-forward-schedule/SKILL.md) — 科目滚动结转表　`商业/finance` · 进阶
+- [`accrual-schedule-builder`](../05-business/accrual-schedule-builder/SKILL.md) — 期末计提表与分录草拟　`商业/finance` · 进阶
 - [`billing-automation-systems`](../05-business/billing-automation-systems/SKILL.md) — 订阅计费与催收自动化系统　`商业/finance` · 进阶
 - [`board-deck-builder`](../05-business/board-deck-builder/SKILL.md) — 董事会与投资人汇报材料生成　`商业/finance` · 进阶
 - [`board-meeting-prep`](../05-business/board-meeting-prep/SKILL.md) — 董事会对抗式备会演练　`商业/finance` · 进阶
+- [`bond-futures-basis-analysis`](../05-business/bond-futures-basis-analysis/SKILL.md) — 国债期货基差分析　`商业/finance` · 精通
+- [`bond-relative-value-analysis`](../05-business/bond-relative-value-analysis/SKILL.md) — 债券相对价值分析　`商业/finance` · 精通
 - [`cfo-financial-advisor`](../05-business/cfo-financial-advisor/SKILL.md) — CFO 财务顾问（单位经济与融资）　`商业/finance` · 进阶
+- [`cim-builder`](../05-business/cim-builder/SKILL.md) — 保密信息备忘录（CIM）撰写　`商业/finance` · 进阶
+- [`company-tear-sheet`](../05-business/company-tear-sheet/SKILL.md) — 公司速览资料卡生成　`商业/finance` · 进阶
+- [`earnings-preview-model`](../05-business/earnings-preview-model/SKILL.md) — 财报前瞻与预估建模　`商业/finance` · 进阶
+- [`equity-earnings-update-report`](../05-business/equity-earnings-update-report/SKILL.md) — 股票财报点评报告撰写　`商业/finance` · 进阶
+- [`financial-model-updater`](../05-business/financial-model-updater/SKILL.md) — 财务模型数据更新　`商业/finance` · 进阶
+- [`fixed-income-portfolio-review`](../05-business/fixed-income-portfolio-review/SKILL.md) — 固定收益组合审视　`商业/finance` · 进阶
+- [`fx-carry-trade-eval`](../05-business/fx-carry-trade-eval/SKILL.md) — 外汇套息交易评估　`商业/finance` · 精通
+- [`headcount-org-planner`](../05-business/headcount-org-planner/SKILL.md) — 编制规划与组织架构设计　`商业/finance` · 进阶
+- [`ib-deal-tracker`](../05-business/ib-deal-tracker/SKILL.md) — 投行交易进度跟踪　`商业/finance` · 进阶
+- [`ib-deck-quality-check`](../05-business/ib-deck-quality-check/SKILL.md) — 投行演示稿质量审查　`商业/finance` · 进阶
+- [`ib-pitch-deck-builder`](../05-business/ib-pitch-deck-builder/SKILL.md) — 投行路演演示稿构建　`商业/finance` · 进阶
+- [`ic-investment-memo`](../05-business/ic-investment-memo/SKILL.md) — 投委会投资备忘录（IC Memo）　`商业/finance` · 进阶
+- [`initiating-coverage-report`](../05-business/initiating-coverage-report/SKILL.md) — 首次覆盖研究报告　`商业/finance` · 精通
+- [`investment-thesis-tracker`](../05-business/investment-thesis-tracker/SKILL.md) — 投资逻辑跟踪维护　`商业/finance` · 进阶
+- [`ma-buyer-list`](../05-business/ma-buyer-list/SKILL.md) — 并购潜在买家清单构建　`商业/finance` · 进阶
+- [`ma-deal-teaser`](../05-business/ma-deal-teaser/SKILL.md) — 并购匿名项目简介（Teaser）　`商业/finance` · 进阶
 - [`ma-playbook`](../05-business/ma-playbook/SKILL.md) — 并购策略手册（尽调与估值整合）　`商业/finance` · 进阶
+- [`ma-process-letter`](../05-business/ma-process-letter/SKILL.md) — 并购流程函与报价指引　`商业/finance` · 进阶
+- [`macro-rates-dashboard`](../05-business/macro-rates-dashboard/SKILL.md) — 宏观利率监测看板　`商业/finance` · 精通
 - [`market-sizing-tam-sam-som`](../05-business/market-sizing-tam-sam-som/SKILL.md) — 市场规模 TAM/SAM/SOM 测算　`商业/finance` · 进阶
+- [`morning-meeting-note`](../05-business/morning-meeting-note/SKILL.md) — 晨会研究纪要起草　`商业/finance` · 进阶
+- [`option-volatility-analysis`](../05-business/option-volatility-analysis/SKILL.md) — 期权波动率分析　`商业/finance` · 精通
+- [`pe-dd-checklist`](../05-business/pe-dd-checklist/SKILL.md) — 尽职调查清单生成跟踪　`商业/finance` · 进阶
+- [`pe-portfolio-monitoring`](../05-business/pe-portfolio-monitoring/SKILL.md) — 被投企业业绩跟踪监控　`商业/finance` · 进阶
+- [`pe-value-creation-plan`](../05-business/pe-value-creation-plan/SKILL.md) — 投后价值创造计划（EBITDA 桥与 100 天计划）　`商业/finance` · 进阶
+- [`people-analytics-report`](../05-business/people-analytics-report/SKILL.md) — 人力报表（编制/流失/组织健康度）　`商业/finance` · 进阶
+- [`pitch-deck-refresh`](../05-business/pitch-deck-refresh/SKILL.md) — 投行演示稿数据刷新　`商业/finance` · 进阶
+- [`product-margin-pricing-scenarios`](../05-business/product-margin-pricing-scenarios/SKILL.md) — 产品毛利与定价情景测算　`商业/finance` · 进阶
+- [`recon-break-root-cause`](../05-business/recon-break-root-cause/SKILL.md) — 对账差异溯源根因分析　`商业/finance` · 精通
+- [`research-catalyst-calendar`](../05-business/research-catalyst-calendar/SKILL.md) — 覆盖标的催化剂日历　`商业/finance` · 进阶
+- [`sector-landscape-report`](../05-business/sector-landscape-report/SKILL.md) — 行业格局综述报告　`商业/finance` · 进阶
+- [`smb-cash-flow-forecast`](../05-business/smb-cash-flow-forecast/SKILL.md) — 小微企业现金流预测（30/60/90 天）　`商业/finance` · 进阶
+- [`smb-payroll-cash-planner`](../05-business/smb-payroll-cash-planner/SKILL.md) — 小微企业发薪现金筹划　`商业/finance` · 进阶
 - [`startup-financial-modeler`](../05-business/startup-financial-modeler/SKILL.md) — 创业财务模型构建　`商业/finance` · 进阶
+- [`stock-idea-generation`](../05-business/stock-idea-generation/SKILL.md) — 选股投资思路生成　`商业/finance` · 进阶
+- [`swap-curve-strategy`](../05-business/swap-curve-strategy/SKILL.md) — 利率互换曲线策略　`商业/finance` · 精通
 - [`variance-flux-commentary`](../05-business/variance-flux-commentary/SKILL.md) — 财务差异（Flux）说明撰写　`商业/finance` · 进阶
 - [`ab-test-designer`](../05-business/ab-test-designer/SKILL.md) — A/B 实验设计师　`商业/growth` · 进阶
 - [`ab-test-setup-gates`](../05-business/ab-test-setup-gates/SKILL.md) — A/B 测试搭建与就绪门控　`商业/growth` · 进阶
@@ -332,6 +376,8 @@
 - [`referral-program-designer`](../05-business/referral-program-designer/SKILL.md) — 推荐与联盟计划设计　`商业/growth` · 进阶
 - [`saas-marketing-ideas`](../05-business/saas-marketing-ideas/SKILL.md) — SaaS 营销策略评分　`商业/growth` · 进阶
 - [`signup-flow-cro`](../05-business/signup-flow-cro/SKILL.md) — 注册流程转化优化　`商业/growth` · 进阶
+- [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览　`商业/growth` · 进阶
+- [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）　`商业/growth` · 进阶
 - [`social-media-multi-publisher`](../05-business/social-media-multi-publisher/SKILL.md) — 多平台社媒发布调度　`商业/growth` · 进阶
 - [`user-onboarding-optimizer`](../05-business/user-onboarding-optimizer/SKILL.md) — 用户激活与引导优化　`商业/growth` · 进阶
 - [`wechat-official-account-growth`](../05-business/wechat-official-account-growth/SKILL.md) — 微信公众号内容增长策略　`商业/growth` · 进阶
@@ -354,12 +400,17 @@
 - [`social-media-content-creator`](../05-business/social-media-content-creator/SKILL.md) — 社媒内容创作与排期　`商业/marketing` · 进阶
 - [`social-media-performance-analyzer`](../05-business/social-media-performance-analyzer/SKILL.md) — 社媒投放绩效分析　`商业/marketing` · 进阶
 - [`xiaohongshu-content-strategy`](../05-business/xiaohongshu-content-strategy/SKILL.md) — 小红书爆款内容策略　`商业/marketing` · 进阶
+- [`apollo-lead-enrichment`](../05-business/apollo-lead-enrichment/SKILL.md) — Apollo 线索富化（联系卡补全）　`商业/sales` · 进阶
+- [`apollo-sequence-loader`](../05-business/apollo-sequence-loader/SKILL.md) — Apollo 外联序列批量加载　`商业/sales` · 进阶
 - [`cold-email-writer`](../05-business/cold-email-writer/SKILL.md) — B2B 冷启动邮件撰写　`商业/sales` · 进阶
 - [`contract-proposal-writer`](../05-business/contract-proposal-writer/SKILL.md) — 合同与商业提案撰写　`商业/sales` · 进阶
 - [`cro-revenue-advisor`](../05-business/cro-revenue-advisor/SKILL.md) — CRO 营收增长顾问（B2B SaaS）　`商业/sales` · 精通
 - [`deal-desk-reviewer`](../05-business/deal-desk-reviewer/SKILL.md) — 交易台合同与折扣评审　`商业/sales` · 进阶
+- [`recruiting-pipeline-tracker`](../05-business/recruiting-pipeline-tracker/SKILL.md) — 招聘漏斗管理与候选人阶段跟踪　`商业/sales` · 进阶
 - [`sales-enablement`](../05-business/sales-enablement/SKILL.md) — 销售赋能物料制作　`商业/sales` · 进阶
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选　`商业/sales` · 进阶
+- [`signal-based-call-prep`](../05-business/signal-based-call-prep/SKILL.md) — 基于信号的客户通话准备（Common Room）　`商业/sales` · 进阶
+- [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报　`商业/sales` · 进阶
 - [`ai-answer-engine-seo`](../05-business/ai-answer-engine-seo/SKILL.md) — AI 答案引擎优化　`商业/seo` · 进阶
 - [`ai-search-seo`](../05-business/ai-search-seo/SKILL.md) — 面向 AI 搜索与 LLM 引用的 SEO 优化　`商业/seo` · 进阶
 - [`backlink-profile-analyzer`](../05-business/backlink-profile-analyzer/SKILL.md) — 外链画像与有毒链接分析　`商业/seo` · 进阶
@@ -391,6 +442,7 @@
 - [`brand-guidelines`](../06-creative/brand-guidelines/SKILL.md) — 品牌视觉规范（Anthropic）　`创意/brand` · 入门
 - [`animejs-web-animation`](../06-creative/animejs-web-animation/SKILL.md) — Anime.js 高性能网页动画　`创意/design` · 进阶
 - [`apple-hig-advisor`](../06-creative/apple-hig-advisor/SKILL.md) — 苹果人机界面指南专家　`创意/design` · 进阶
+- [`canva-campaign-creator`](../06-creative/canva-campaign-creator/SKILL.md) — Canva 营销活动设计与排期生成　`创意/design` · 进阶
 - [`canvas-design`](../06-creative/canvas-design/SKILL.md) — 画布设计（Canvas Design）：用设计哲学驱动的海报与静态艺术品　`创意/design` · 进阶
 - [`d3js-data-viz`](../06-creative/d3js-data-viz/SKILL.md) — D3.js 交互式数据可视化　`创意/design` · 进阶
 - [`design-critique`](../06-creative/design-critique/SKILL.md) — 设计评审反馈　`创意/design` · 进阶
@@ -423,6 +475,7 @@
 - [`atlassian-template-builder`](../07-productivity/atlassian-template-builder/SKILL.md) — Jira/Confluence 模板制作　`协作/knowledge` · 进阶
 - [`codebase-onboarding-doc`](../07-productivity/codebase-onboarding-doc/SKILL.md) — 代码库上手文档生成　`协作/knowledge` · 进阶
 - [`company-operating-system`](../07-productivity/company-operating-system/SKILL.md) — 公司运营系统框架（EOS/OKR）　`协作/knowledge` · 进阶
+- [`company-policy-lookup`](../07-productivity/company-policy-lookup/SKILL.md) — 公司政策查询与白话解释　`协作/knowledge` · 入门
 - [`confluence-space-architect`](../07-productivity/confluence-space-architect/SKILL.md) — Confluence 知识库空间架构　`协作/knowledge` · 进阶
 - [`hr-partner-pro`](../07-productivity/hr-partner-pro/SKILL.md) — HR 招聘与人事管理　`协作/knowledge` · 进阶
 - [`meeting-transcript-analyzer`](../07-productivity/meeting-transcript-analyzer/SKILL.md) — 会议记录沟通模式分析　`协作/knowledge` · 进阶
@@ -435,6 +488,7 @@
 - [`support-kb-article-writer`](../07-productivity/support-kb-article-writer/SKILL.md) — 支持知识库文章撰写　`协作/knowledge` · 入门
 - [`vendor-evaluation`](../07-productivity/vendor-evaluation/SKILL.md) — 供应商评估决策　`协作/knowledge` · 进阶
 - [`agile-product-owner`](../07-productivity/agile-product-owner/SKILL.md) — 敏捷产品负责人与待办管理　`协作/pm` · 进阶
+- [`change-management-request`](../07-productivity/change-management-request/SKILL.md) — 变更管理请求（影响分析+回滚计划）　`协作/pm` · 进阶
 - [`chief-of-staff-orchestrator`](../07-productivity/chief-of-staff-orchestrator/SKILL.md) — 幕僚长多角色编排路由　`协作/pm` · 进阶
 - [`company-culture-architect`](../07-productivity/company-culture-architect/SKILL.md) — 公司文化体系构建　`协作/pm` · 进阶
 - [`company-culture-builder`](../07-productivity/company-culture-builder/SKILL.md) — 公司文化构建与度量　`协作/pm` · 进阶
@@ -524,32 +578,67 @@
 - [`breakout-trade-planner`](../09-verticals/breakout-trade-planner/SKILL.md) — 突破交易计划生成　`领域/fintech` · 进阶
 - [`canslim-growth-screener`](../09-verticals/canslim-growth-screener/SKILL.md) — CANSLIM 成长股筛选　`领域/fintech` · 进阶
 - [`carrier-relationship-management`](../09-verticals/carrier-relationship-management/SKILL.md) — 承运商关系管理　`领域/fintech` · 精通
+- [`client-performance-report`](../09-verticals/client-performance-report/SKILL.md) — 客户业绩报告生成　`领域/fintech` · 进阶
+- [`client-review-prep`](../09-verticals/client-review-prep/SKILL.md) — 客户复盘会议准备　`领域/fintech` · 进阶
 - [`dcf-valuation-model`](../09-verticals/dcf-valuation-model/SKILL.md) — DCF 现金流折现估值模型　`领域/fintech` · 精通
 - [`defi-protocol-templates`](../09-verticals/defi-protocol-templates/SKILL.md) — DeFi 协议合约模板　`领域/fintech` · 进阶
 - [`earnings-trade-analyzer`](../09-verticals/earnings-trade-analyzer/SKILL.md) — 财报后交易五因子评分　`领域/fintech` · 进阶
 - [`finviz-screener-builder`](../09-verticals/finviz-screener-builder/SKILL.md) — FinViz 选股器 URL 构建　`领域/fintech` · 进阶
+- [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递　`领域/fintech` · 进阶
 - [`institutional-flow-tracker`](../09-verticals/institutional-flow-tracker/SKILL.md) — 13F 机构持仓流向追踪　`领域/fintech` · 进阶
 - [`inventory-demand-planning`](../09-verticals/inventory-demand-planning/SKILL.md) — 库存需求计划　`领域/fintech` · 进阶
+- [`investment-proposal-builder`](../09-verticals/investment-proposal-builder/SKILL.md) — 投资建议书撰写　`领域/fintech` · 进阶
 - [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) — LBO 杠杆收购模型构建　`领域/fintech` · 精通
+- [`lp-nav-tieout`](../09-verticals/lp-nav-tieout/SKILL.md) — LP 对账单与基金 NAV 勾稽　`领域/fintech` · 进阶
 - [`macro-regime-detector`](../09-verticals/macro-regime-detector/SKILL.md) — 宏观周期切换检测　`领域/fintech` · 精通
 - [`market-breadth-analyzer`](../09-verticals/market-breadth-analyzer/SKILL.md) — 市场宽度健康度评分　`领域/fintech` · 进阶
 - [`market-top-detector`](../09-verticals/market-top-detector/SKILL.md) — 市场顶部概率检测　`领域/fintech` · 进阶
 - [`merger-accretion-dilution-model`](../09-verticals/merger-accretion-dilution-model/SKILL.md) — 并购增厚/摊薄分析模型　`领域/fintech` · 进阶
+- [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) — 分析师财务预测：营收与EPS估计区间　`领域/fintech` · 进阶
 - [`octagon-balance-sheet-data`](../09-verticals/octagon-balance-sheet-data/SKILL.md) — 资产负债表数据检索　`领域/fintech` · 入门
+- [`octagon-balance-sheet-growth`](../09-verticals/octagon-balance-sheet-growth/SKILL.md) — 资产负债表同比增长分析　`领域/fintech` · 入门
+- [`octagon-batch-market-cap`](../09-verticals/octagon-batch-market-cap/SKILL.md) — 多公司市值批量对比　`领域/fintech` · 入门
+- [`octagon-cash-flow-growth`](../09-verticals/octagon-cash-flow-growth/SKILL.md) — 现金流指标同比增长分析　`领域/fintech` · 入门
 - [`octagon-cash-flow-statement-data`](../09-verticals/octagon-cash-flow-statement-data/SKILL.md) — 现金流量表数据检索　`领域/fintech` · 进阶
+- [`octagon-commodities-quote`](../09-verticals/octagon-commodities-quote/SKILL.md) — 大宗商品实时报价查询　`领域/fintech` · 入门
+- [`octagon-company-market-cap`](../09-verticals/octagon-company-market-cap/SKILL.md) — 单公司市值查询　`领域/fintech` · 入门
+- [`octagon-earnings-analyst-questions`](../09-verticals/octagon-earnings-analyst-questions/SKILL.md) — 财报电话会分析师提问主题提取　`领域/fintech` · 进阶
 - [`octagon-earnings-call-analysis`](../09-verticals/octagon-earnings-call-analysis/SKILL.md) — 财报电话会纪要分析　`领域/fintech` · 进阶
 - [`octagon-earnings-call-sentiment`](../09-verticals/octagon-earnings-call-sentiment/SKILL.md) — 财报会管理层情绪分析　`领域/fintech` · 入门
+- [`octagon-earnings-capital-allocation`](../09-verticals/octagon-earnings-capital-allocation/SKILL.md) — 管理层资本配置与股东回报解读　`领域/fintech` · 进阶
+- [`octagon-earnings-financial-guidance`](../09-verticals/octagon-earnings-financial-guidance/SKILL.md) — 财报前瞻业绩指引提取　`领域/fintech` · 进阶
+- [`octagon-earnings-qa-analysis`](../09-verticals/octagon-earnings-qa-analysis/SKILL.md) — 财报电话会问答环节战略分析　`领域/fintech` · 进阶
 - [`octagon-equity-research-analyst`](../09-verticals/octagon-equity-research-analyst/SKILL.md) — 股票研究分析编排　`领域/fintech` · 精通
 - [`octagon-esg-ratings`](../09-verticals/octagon-esg-ratings/SKILL.md) — ESG评级检索（MSCI / Sustainalytics）　`领域/fintech` · 进阶
 - [`octagon-financial-growth-metrics`](../09-verticals/octagon-financial-growth-metrics/SKILL.md) — 财务同比增长指标　`领域/fintech` · 入门
 - [`octagon-financial-health-scores`](../09-verticals/octagon-financial-health-scores/SKILL.md) — 财务健康评分（Z-Score / Piotroski）　`领域/fintech` · 进阶
+- [`octagon-financial-metrics-analysis`](../09-verticals/octagon-financial-metrics-analysis/SKILL.md) — 利润表项目同比增长分析　`领域/fintech` · 入门
+- [`octagon-forex-list`](../09-verticals/octagon-forex-list/SKILL.md) — 全球外汇货币对清单查询　`领域/fintech` · 入门
+- [`octagon-historical-financial-ratings`](../09-verticals/octagon-historical-financial-ratings/SKILL.md) — 历史财务评级与指标趋势　`领域/fintech` · 进阶
+- [`octagon-historical-market-cap`](../09-verticals/octagon-historical-market-cap/SKILL.md) — 历史市值变动追踪　`领域/fintech` · 进阶
 - [`octagon-income-statement-data`](../09-verticals/octagon-income-statement-data/SKILL.md) — 利润表数据检索　`领域/fintech` · 入门
+- [`octagon-income-statement-growth`](../09-verticals/octagon-income-statement-growth/SKILL.md) — 利润表项目同比增长　`领域/fintech` · 入门
+- [`octagon-industry-pe-ratios`](../09-verticals/octagon-industry-pe-ratios/SKILL.md) — 行业市盈率对标分析　`领域/fintech` · 进阶
+- [`octagon-industry-performance-snapshot`](../09-verticals/octagon-industry-performance-snapshot/SKILL.md) — 行业表现每日快照　`领域/fintech` · 入门
 - [`octagon-prediction-markets-research`](../09-verticals/octagon-prediction-markets-research/SKILL.md) — 预测市场事件研究　`领域/fintech` · 进阶
 - [`octagon-price-target-consensus`](../09-verticals/octagon-price-target-consensus/SKILL.md) — 分析师目标价共识　`领域/fintech` · 进阶
+- [`octagon-price-target-summary`](../09-verticals/octagon-price-target-summary/SKILL.md) — 分析师目标价汇总解读　`领域/fintech` · 进阶
 - [`octagon-ratings-snapshot`](../09-verticals/octagon-ratings-snapshot/SKILL.md) — 公司评级与关键指标快照　`领域/fintech` · 入门
+- [`octagon-revenue-geographic-segmentation`](../09-verticals/octagon-revenue-geographic-segmentation/SKILL.md) — 营收地理区域分部拆解　`领域/fintech` · 入门
+- [`octagon-revenue-product-segmentation`](../09-verticals/octagon-revenue-product-segmentation/SKILL.md) — 营收产品分部拆解　`领域/fintech` · 入门
+- [`octagon-sec-10k-analysis`](../09-verticals/octagon-sec-10k-analysis/SKILL.md) — SEC 10-K 年报分析　`领域/fintech` · 进阶
+- [`octagon-sec-8k-analysis`](../09-verticals/octagon-sec-8k-analysis/SKILL.md) — SEC 8-K 重大事项分析　`领域/fintech` · 进阶
+- [`octagon-sec-debt-covenant`](../09-verticals/octagon-sec-debt-covenant/SKILL.md) — 债务契约与信贷条款分析　`领域/fintech` · 进阶
 - [`octagon-sec-filing-analyst`](../09-verticals/octagon-sec-filing-analyst/SKILL.md) — SEC 文件分析编排　`领域/fintech` · 精通
 - [`octagon-sec-mda-analysis`](../09-verticals/octagon-sec-mda-analysis/SKILL.md) — SEC 管理层讨论与分析（MD&A）解读　`领域/fintech` · 进阶
+- [`octagon-sec-proxy-analysis`](../09-verticals/octagon-sec-proxy-analysis/SKILL.md) — 委托书 DEF 14A 高管薪酬与治理分析　`领域/fintech` · 进阶
 - [`octagon-sec-risk-factors`](../09-verticals/octagon-sec-risk-factors/SKILL.md) — SEC 风险因素提取　`领域/fintech` · 进阶
+- [`octagon-sec-s1-analysis`](../09-verticals/octagon-sec-s1-analysis/SKILL.md) — SEC S-1 招股书与 IPO 分析　`领域/fintech` · 进阶
+- [`octagon-sec-segment-reporting`](../09-verticals/octagon-sec-segment-reporting/SKILL.md) — SEC分部业绩报告分析　`领域/fintech` · 进阶
+- [`octagon-sector-pe-ratios`](../09-verticals/octagon-sector-pe-ratios/SKILL.md) — 板块市盈率基准对比　`领域/fintech` · 进阶
+- [`octagon-sector-performance-snapshot`](../09-verticals/octagon-sector-performance-snapshot/SKILL.md) — 板块表现快照　`领域/fintech` · 入门
+- [`octagon-stock-grades`](../09-verticals/octagon-stock-grades/SKILL.md) — 顶级分析师股票评级查询　`领域/fintech` · 入门
+- [`octagon-stock-price-change`](../09-verticals/octagon-stock-price-change/SKILL.md) — 多周期股价涨跌幅统计　`领域/fintech` · 入门
 - [`octagon-stock-quote`](../09-verticals/octagon-stock-quote/SKILL.md) — 实时股票报价　`领域/fintech` · 入门
 - [`odoo-localization-compliance`](../09-verticals/odoo-localization-compliance/SKILL.md) — Odoo 本地化与税务合规　`领域/fintech` · 进阶
 - [`options-strategy-advisor`](../09-verticals/options-strategy-advisor/SKILL.md) — 期权策略分析与模拟　`领域/fintech` · 进阶
@@ -578,91 +667,203 @@
 - [`pcb-bom-manager`](../09-verticals/pcb-bom-manager/SKILL.md) — 电子物料清单(BOM)管理　`领域/hardware` · 进阶
 - [`pcb-fab-assembly`](../09-verticals/pcb-fab-assembly/SKILL.md) — PCB 制造与贴片下单（JLCPCB）　`领域/hardware` · 进阶
 - [`spice-circuit-simulator`](../09-verticals/spice-circuit-simulator/SKILL.md) — SPICE 电路仿真验证　`领域/hardware` · 进阶
+- [`action-compliance-check`](../09-verticals/action-compliance-check/SKILL.md) — 行动合规性检查（产品/业务举措）　`领域/legal` · 进阶
 - [`board-minutes-drafter`](../09-verticals/board-minutes-drafter/SKILL.md) — 董事会会议纪要起草　`领域/legal` · 进阶
+- [`board-written-consent-drafter`](../09-verticals/board-written-consent-drafter/SKILL.md) — 董事会书面决议起草（一致同意书 / UWC）　`领域/legal` · 进阶
+- [`cease-and-desist-letter`](../09-verticals/cease-and-desist-letter/SKILL.md) — 停止侵权函起草与应对　`领域/legal` · 进阶
+- [`claim-element-chart-builder`](../09-verticals/claim-element-chart-builder/SKILL.md) — 权利要求/要件对照表构建　`领域/legal` · 精通
+- [`compliance-policy-redraft`](../09-verticals/compliance-policy-redraft/SKILL.md) — 合规政策缺口改写　`领域/legal` · 进阶
+- [`contract-amendment-history-tracer`](../09-verticals/contract-amendment-history-tracer/SKILL.md) — 合同修订历史追溯　`领域/legal` · 进阶
+- [`contract-escalation-router`](../09-verticals/contract-escalation-router/SKILL.md) — 合同问题审批升级路由　`领域/legal` · 进阶
 - [`contract-playbook-review`](../09-verticals/contract-playbook-review/SKILL.md) — 合同对照评审红线　`领域/legal` · 进阶
+- [`contract-renewal-tracker`](../09-verticals/contract-renewal-tracker/SKILL.md) — 合同续约与取消窗口跟踪　`领域/legal` · 进阶
+- [`contract-tabular-batch-review`](../09-verticals/contract-tabular-batch-review/SKILL.md) — 合同批量表格化审查　`领域/legal` · 进阶
 - [`customs-trade-compliance`](../09-verticals/customs-trade-compliance/SKILL.md) — 海关报关与关税合规　`领域/legal` · 精通
+- [`deal-closing-checklist`](../09-verticals/deal-closing-checklist/SKILL.md) — 交易交割清单管理　`领域/legal` · 进阶
+- [`demand-letter-drafter`](../09-verticals/demand-letter-drafter/SKILL.md) — 索赔函起草　`领域/legal` · 进阶
 - [`deposition-outline-prep`](../09-verticals/deposition-outline-prep/SKILL.md) — 证人质询提纲准备　`领域/legal` · 进阶
 - [`diligence-issue-extractor`](../09-verticals/diligence-issue-extractor/SKILL.md) — 尽职调查问题提取　`领域/legal` · 进阶
+- [`dmca-takedown-notice`](../09-verticals/dmca-takedown-notice/SKILL.md) — DMCA 下架通知与反通知　`领域/legal` · 进阶
 - [`dpa-clause-reviewer`](../09-verticals/dpa-clause-reviewer/SKILL.md) — 数据处理协议条款审查　`领域/legal` · 精通
+- [`dpa-playbook-review`](../09-verticals/dpa-playbook-review/SKILL.md) — 数据处理协议(DPA)审查　`领域/legal` · 精通
 - [`dsar-response-builder`](../09-verticals/dsar-response-builder/SKILL.md) — 数据主体请求响应起草　`领域/legal` · 进阶
+- [`employee-handbook-update-diff`](../09-verticals/employee-handbook-update-diff/SKILL.md) — 员工手册变更影响分析　`领域/legal` · 进阶
+- [`employee-leave-deadline-tracker`](../09-verticals/employee-leave-deadline-tracker/SKILL.md) — 员工休假期限跟踪　`领域/legal` · 进阶
 - [`employment-contract-drafter`](../09-verticals/employment-contract-drafter/SKILL.md) — 劳动合同与 HR 文书起草　`领域/legal` · 进阶
+- [`employment-termination-review`](../09-verticals/employment-termination-review/SKILL.md) — 员工解雇合规审查　`领域/legal` · 进阶
+- [`entity-compliance-tracker`](../09-verticals/entity-compliance-tracker/SKILL.md) — 主体合规与年报期限跟踪　`领域/legal` · 进阶
 - [`esignature-routing`](../09-verticals/esignature-routing/SKILL.md) — 电子签署路由准备　`领域/legal` · 进阶
 - [`eu-ai-act-compliance`](../09-verticals/eu-ai-act-compliance/SKILL.md) — 欧盟 AI 法案合规分级　`领域/legal` · 进阶
+- [`feature-legal-risk-assessment`](../09-verticals/feature-legal-risk-assessment/SKILL.md) — 功能法律风险深度评估　`领域/legal` · 进阶
+- [`freedom-to-operate-triage`](../09-verticals/freedom-to-operate-triage/SKILL.md) — 专利自由实施(FTO)初评　`领域/legal` · 精通
 - [`gdpr-data-handler`](../09-verticals/gdpr-data-handler/SKILL.md) — GDPR合规数据处理　`领域/legal` · 进阶
 - [`general-counsel-advisor`](../09-verticals/general-counsel-advisor/SKILL.md) — 总法律顾问（合同/IP/条款）　`领域/legal` · 进阶
+- [`inbound-demand-letter-triage`](../09-verticals/inbound-demand-letter-triage/SKILL.md) — 来函索赔分级评估　`领域/legal` · 进阶
+- [`international-hiring-eor-planner`](../09-verticals/international-hiring-eor-planner/SKILL.md) — 跨境招聘 EOR 与建实体规划　`领域/legal` · 进阶
+- [`invention-disclosure-screen`](../09-verticals/invention-disclosure-screen/SKILL.md) — 发明披露专利性初筛　`领域/legal` · 进阶
+- [`investigation-memo-drafter`](../09-verticals/investigation-memo-drafter/SKILL.md) — 内部调查备忘录起草　`领域/legal` · 进阶
+- [`ip-clause-review`](../09-verticals/ip-clause-review/SKILL.md) — 协议知识产权条款审查　`领域/legal` · 精通
+- [`ip-infringement-triage`](../09-verticals/ip-infringement-triage/SKILL.md) — 知识产权侵权线索分级　`领域/legal` · 进阶
+- [`ip-portfolio-register`](../09-verticals/ip-portfolio-register/SKILL.md) — 知识产权组合登记与续展　`领域/legal` · 进阶
+- [`irac-essay-grader`](../09-verticals/irac-essay-grader/SKILL.md) — IRAC 法律论文评析　`领域/legal` · 进阶
+- [`legal-briefing-generator`](../09-verticals/legal-briefing-generator/SKILL.md) — 法务情报简报（日报/专题/应急）　`领域/legal` · 进阶
+- [`legal-case-brief`](../09-verticals/legal-case-brief/SKILL.md) — 判例摘要(case brief)　`领域/legal` · 入门
+- [`legal-client-intake`](../09-verticals/legal-client-intake/SKILL.md) — 法律客户结构化接案　`领域/legal` · 进阶
 - [`legal-hold-manager`](../09-verticals/legal-hold-manager/SKILL.md) — 诉讼证据保全通知管理　`领域/legal` · 进阶
+- [`legal-inquiry-responder`](../09-verticals/legal-inquiry-responder/SKILL.md) — 法律咨询应答（模板+升级判定）　`领域/legal` · 进阶
+- [`legal-meeting-briefing`](../09-verticals/legal-meeting-briefing/SKILL.md) — 法务会议简报与行动项跟踪　`领域/legal` · 进阶
 - [`legal-risk-classifier`](../09-verticals/legal-risk-classifier/SKILL.md) — 法律风险分级评估　`领域/legal` · 进阶
+- [`litigation-brief-section-drafter`](../09-verticals/litigation-brief-section-drafter/SKILL.md) — 诉讼书状章节起草　`领域/legal` · 进阶
 - [`litigation-chronology-builder`](../09-verticals/litigation-chronology-builder/SKILL.md) — 案件事实时间线构建　`领域/legal` · 进阶
 - [`marketing-claims-reviewer`](../09-verticals/marketing-claims-reviewer/SKILL.md) — 营销宣传声明合规审查　`领域/legal` · 进阶
+- [`material-contract-disclosure-schedule`](../09-verticals/material-contract-disclosure-schedule/SKILL.md) — 重大合同披露附表构建　`领域/legal` · 进阶
 - [`nda-triage-reviewer`](../09-verticals/nda-triage-reviewer/SKILL.md) — 保密协议分级速审　`领域/legal` · 进阶
+- [`nprm-comment-decision-tracker`](../09-verticals/nprm-comment-decision-tracker/SKILL.md) — 立法征求意见期决策跟踪　`领域/legal` · 进阶
+- [`offer-restrictive-covenant-review`](../09-verticals/offer-restrictive-covenant-review/SKILL.md) — 录用函与竞业限制审查　`领域/legal` · 进阶
 - [`oss-license-compliance`](../09-verticals/oss-license-compliance/SKILL.md) — 开源许可证合规审查　`领域/legal` · 进阶
 - [`privacy-impact-assessor`](../09-verticals/privacy-impact-assessor/SKILL.md) — 隐私影响评估生成　`领域/legal` · 进阶
 - [`privilege-log-reviewer`](../09-verticals/privilege-log-reviewer/SKILL.md) — 特权文件清单初审　`领域/legal` · 进阶
+- [`product-launch-legal-review`](../09-verticals/product-launch-legal-review/SKILL.md) — 产品上线法律审查　`领域/legal` · 进阶
 - [`property-auction-legal-analysis`](../09-verticals/property-auction-legal-analysis/SKILL.md) — 不动产拍卖法律分析　`领域/legal` · 进阶
+- [`quick-legal-problem-triage`](../09-verticals/quick-legal-problem-triage/SKILL.md) — 快速法律问题判定　`领域/legal` · 进阶
 - [`regulatory-policy-diff`](../09-verticals/regulatory-policy-diff/SKILL.md) — 监管变更与制度差距分析　`领域/legal` · 进阶
+- [`saas-subscription-agreement-review`](../09-verticals/saas-subscription-agreement-review/SKILL.md) — SaaS 订阅协议审查　`领域/legal` · 进阶
+- [`subpoena-triage`](../09-verticals/subpoena-triage/SKILL.md) — 传票分级与异议框架　`领域/legal` · 进阶
+- [`trademark-clearance-knockout`](../09-verticals/trademark-clearance-knockout/SKILL.md) — 商标可注册性初筛　`领域/legal` · 进阶
+- [`vendor-agreement-redline-review`](../09-verticals/vendor-agreement-redline-review/SKILL.md) — 供应商协议审查与红线　`领域/legal` · 进阶
+- [`vendor-agreement-status-checker`](../09-verticals/vendor-agreement-status-checker/SKILL.md) — 供应商协议状态核查（CLM/CRM 跨系统）　`领域/legal` · 进阶
+- [`wage-hour-employment-qa`](../09-verticals/wage-hour-employment-qa/SKILL.md) — 工时薪酬与雇佣法问答　`领域/legal` · 进阶
 - [`worker-classification-analyzer`](../09-verticals/worker-classification-analyzer/SKILL.md) — 用工关系分类分析　`领域/legal` · 进阶
+- [`workplace-internal-investigation`](../09-verticals/workplace-internal-investigation/SKILL.md) — 职场内部调查框架　`领域/legal` · 进阶
 - [`capa-root-cause-officer`](../09-verticals/capa-root-cause-officer/SKILL.md) — 医疗器械 CAPA 与根因分析　`领域/medical` · 进阶
 - [`eu-mdr-745-specialist`](../09-verticals/eu-mdr-745-specialist/SKILL.md) — 欧盟 MDR 2017/745 医疗器械合规　`领域/medical` · 精通
 - [`fda-device-consultant`](../09-verticals/fda-device-consultant/SKILL.md) — FDA 医疗器械注册路径顾问　`领域/medical` · 进阶
 - [`fda-qsr-audit-prep`](../09-verticals/fda-qsr-audit-prep/SKILL.md) — FDA QSR（21 CFR 820）审计准备　`领域/medical` · 进阶
 - [`health-goal-analyzer`](../09-verticals/health-goal-analyzer/SKILL.md) — 健康目标分析器　`领域/medical` · 进阶
+- [`histolab-wsi-tiling`](../09-verticals/histolab-wsi-tiling/SKILL.md) — histolab 全视野病理切片分块　`领域/medical` · 进阶
+- [`imaging-data-commons-query`](../09-verticals/imaging-data-commons-query/SKILL.md) — NCI 影像数据公地查询下载　`领域/medical` · 进阶
 - [`iso13485-qms-audit`](../09-verticals/iso13485-qms-audit/SKILL.md) — ISO 13485 质量体系内审　`领域/medical` · 进阶
 - [`iso13485-qms-implementer`](../09-verticals/iso13485-qms-implementer/SKILL.md) — ISO 13485 质量管理体系实施　`领域/medical` · 进阶
 - [`iso14971-risk-management`](../09-verticals/iso14971-risk-management/SKILL.md) — ISO 14971 医疗器械风险管理　`领域/medical` · 进阶
+- [`medchem-compound-triage`](../09-verticals/medchem-compound-triage/SKILL.md) — 药物化学过滤与化合物筛选　`领域/medical` · 进阶
+- [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) — NeuroKit2 生理信号处理（ECG/EEG/EDA）　`领域/medical` · 进阶
+- [`pyhealth-clinical-dl`](../09-verticals/pyhealth-clinical-dl/SKILL.md) — PyHealth 临床健康深度学习流水线　`领域/medical` · 进阶
+- [`pytdc-therapeutics-datasets`](../09-verticals/pytdc-therapeutics-datasets/SKILL.md) — Therapeutics Data Commons 药物数据集　`领域/medical` · 进阶
 - [`quality-documentation-control`](../09-verticals/quality-documentation-control/SKILL.md) — 医疗器械质量文件控制管理　`领域/medical` · 进阶
 - [`academic-paper-explainer`](../09-verticals/academic-paper-explainer/SKILL.md) — 学术论文导读讲解　`领域/science` · 进阶
 - [`academic-paper-writer`](../09-verticals/academic-paper-writer/SKILL.md) — 顶会论文写作　`领域/science` · 进阶
 - [`academic-peer-reviewer`](../09-verticals/academic-peer-reviewer/SKILL.md) — 学术论文审稿　`领域/science` · 进阶
 - [`alphafold-database-access`](../09-verticals/alphafold-database-access/SKILL.md) — AlphaFold 蛋白结构数据库访问　`领域/science` · 进阶
 - [`anndata-data-structure`](../09-verticals/anndata-data-structure/SKILL.md) — AnnData 单细胞数据结构　`领域/science` · 进阶
+- [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断　`领域/science` · 进阶
+- [`arboreto-grn-inference`](../09-verticals/arboreto-grn-inference/SKILL.md) — Arboreto 基因调控网络推断　`领域/science` · 进阶
+- [`archs4-expression-database`](../09-verticals/archs4-expression-database/SKILL.md) — ARCHS4 RNA-seq 表达数据库　`领域/science` · 进阶
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）　`领域/science` · 进阶
+- [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱　`领域/science` · 进阶
 - [`autodock-vina-docking`](../09-verticals/autodock-vina-docking/SKILL.md) — AutoDock Vina 分子对接　`领域/science` · 进阶
+- [`bcftools-variant-manipulation`](../09-verticals/bcftools-variant-manipulation/SKILL.md) — bcftools VCF/BCF 变异处理　`领域/science` · 进阶
+- [`biopython-molecular-biology`](../09-verticals/biopython-molecular-biology/SKILL.md) — Biopython 分子生物学工具箱　`领域/science` · 进阶
+- [`brenda-enzyme-database`](../09-verticals/brenda-enzyme-database/SKILL.md) — BRENDA 酶动力学数据库　`领域/science` · 进阶
+- [`bulk-rnaseq-orchestrator`](../09-verticals/bulk-rnaseq-orchestrator/SKILL.md) — Bulk RNA-seq 端到端流程编排　`领域/science` · 进阶
+- [`busco-completeness-interpretation`](../09-verticals/busco-completeness-interpretation/SKILL.md) — BUSCO 组装完整度解读　`领域/science` · 进阶
+- [`bwa-mem2-dna-aligner`](../09-verticals/bwa-mem2-dna-aligner/SKILL.md) — BWA-MEM2 短读 DNA 比对（WGS/WES/ChIP-seq）　`领域/science` · 进阶
 - [`cellchat-cell-communication`](../09-verticals/cellchat-cell-communication/SKILL.md) — CellChat 细胞间通讯推断　`领域/science` · 进阶
+- [`cellpose-cell-segmentation`](../09-verticals/cellpose-cell-segmentation/SKILL.md) — Cellpose 细胞分割　`领域/science` · 进阶
 - [`celltypist-cell-annotation`](../09-verticals/celltypist-cell-annotation/SKILL.md) — CellTypist 单细胞自动注释　`领域/science` · 进阶
 - [`cellxgene-census`](../09-verticals/cellxgene-census/SKILL.md) — CELLxGENE Census 海量单细胞查询　`领域/science` · 进阶
 - [`chembl-bioactivity-database`](../09-verticals/chembl-bioactivity-database/SKILL.md) — ChEMBL 生物活性数据库查询　`领域/science` · 进阶
 - [`cheminformatics-toolkit`](../09-verticals/cheminformatics-toolkit/SKILL.md) — 化学信息学工具箱（RDKit）　`领域/science` · 进阶
 - [`cirq-quantum-circuits`](../09-verticals/cirq-quantum-circuits/SKILL.md) — Cirq 量子电路设计与仿真　`领域/science` · 进阶
+- [`clinicaltrials-database-search`](../09-verticals/clinicaltrials-database-search/SKILL.md) — ClinicalTrials.gov 临床试验检索　`领域/science` · 进阶
+- [`clinpgx-pharmacogenomics-database`](../09-verticals/clinpgx-pharmacogenomics-database/SKILL.md) — ClinPGx 药物基因组数据库　`领域/science` · 进阶
 - [`clinvar-database`](../09-verticals/clinvar-database/SKILL.md) — ClinVar 变异临床意义查询　`领域/science` · 进阶
 - [`cnvkit-copy-number`](../09-verticals/cnvkit-copy-number/SKILL.md) — CNVkit 体细胞拷贝数变异检测　`领域/science` · 进阶
+- [`datamol-cheminformatics`](../09-verticals/datamol-cheminformatics/SKILL.md) — Datamol 分子处理工具箱　`领域/science` · 进阶
+- [`dbsnp-database`](../09-verticals/dbsnp-database/SKILL.md) — dbSNP SNP 数据库查询　`领域/science` · 进阶
+- [`ddinter-drug-interactions`](../09-verticals/ddinter-drug-interactions/SKILL.md) — DDInter 药物相互作用查询　`领域/science` · 进阶
 - [`deepchem-drug-discovery`](../09-verticals/deepchem-drug-discovery/SKILL.md) — DeepChem 药物发现深度学习　`领域/science` · 进阶
 - [`deeptools-ngs-analysis`](../09-verticals/deeptools-ngs-analysis/SKILL.md) — deepTools NGS 覆盖度与信号可视化　`领域/science` · 进阶
+- [`depmap-cancer-dependency`](../09-verticals/depmap-cancer-dependency/SKILL.md) — DepMap 癌症基因依赖图谱查询　`领域/science` · 进阶
+- [`depmap-crispr-essentiality`](../09-verticals/depmap-crispr-essentiality/SKILL.md) — DepMap CRISPR 基因必需性分析　`领域/science` · 进阶
 - [`dicom-medical-imaging`](../09-verticals/dicom-medical-imaging/SKILL.md) — DICOM 医学影像处理　`领域/science` · 进阶
 - [`diffdock-blind-docking`](../09-verticals/diffdock-blind-docking/SKILL.md) — DiffDock 扩散模型盲对接　`领域/science` · 精通
+- [`drugbank-database-access`](../09-verticals/drugbank-database-access/SKILL.md) — DrugBank 药物数据库解析　`领域/science` · 进阶
+- [`emdb-cryoem-database`](../09-verticals/emdb-cryoem-database/SKILL.md) — EMDB 冷冻电镜密度图查询　`领域/science` · 进阶
+- [`encode-database`](../09-verticals/encode-database/SKILL.md) — ENCODE 调控基因组数据库　`领域/science` · 进阶
+- [`ensembl-database`](../09-verticals/ensembl-database/SKILL.md) — Ensembl 基因注释数据库　`领域/science` · 进阶
 - [`fastp-fastq-preprocessing`](../09-verticals/fastp-fastq-preprocessing/SKILL.md) — fastp FASTQ 质控与接头修剪　`领域/science` · 进阶
+- [`flowio-flow-cytometry`](../09-verticals/flowio-flow-cytometry/SKILL.md) — FlowIO 流式细胞 FCS 解析　`领域/science` · 进阶
+- [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真　`领域/science` · 精通
 - [`gatk-variant-calling`](../09-verticals/gatk-variant-calling/SKILL.md) — GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）　`领域/science` · 精通
 - [`gene-set-enrichment-analysis`](../09-verticals/gene-set-enrichment-analysis/SKILL.md) — 通路与基因集富集分析　`领域/science` · 进阶
+- [`geniml-genomic-interval-ml`](../09-verticals/geniml-genomic-interval-ml/SKILL.md) — geniml 基因组区间机器学习　`领域/science` · 进阶
 - [`genomic-file-toolkit`](../09-verticals/genomic-file-toolkit/SKILL.md) — 基因组文件处理（BAM/VCF/FASTQ）　`领域/science` · 进阶
+- [`geo-database`](../09-verticals/geo-database/SKILL.md) — NCBI GEO 表达数据访问　`领域/science` · 进阶
 - [`gget-genomic-databases`](../09-verticals/gget-genomic-databases/SKILL.md) — gget 统一基因组数据库接口　`领域/science` · 进阶
 - [`gnomad-population-database`](../09-verticals/gnomad-population-database/SKILL.md) — gnomAD 人群变异频率查询　`领域/science` · 进阶
+- [`gtopdb-pharmacology-database`](../09-verticals/gtopdb-pharmacology-database/SKILL.md) — GtoPdb 药理学指南数据库查询　`领域/science` · 进阶
 - [`guided-statistical-analysis`](../09-verticals/guided-statistical-analysis/SKILL.md) — 统计分析与检验选择　`领域/science` · 进阶
+- [`gwas-catalog-database`](../09-verticals/gwas-catalog-database/SKILL.md) — GWAS Catalog 关联查询　`领域/science` · 进阶
 - [`harmony-batch-correction`](../09-verticals/harmony-batch-correction/SKILL.md) — Harmony 单细胞批次效应校正　`领域/science` · 进阶
+- [`hmdb-metabolome-database`](../09-verticals/hmdb-metabolome-database/SKILL.md) — HMDB 人类代谢组数据库　`领域/science` · 进阶
+- [`interpro-domain-database`](../09-verticals/interpro-domain-database/SKILL.md) — InterPro 蛋白结构域数据库　`领域/science` · 进阶
+- [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) — JASPAR 转录因子结合谱　`领域/science` · 进阶
+- [`kegg-database`](../09-verticals/kegg-database/SKILL.md) — KEGG 通路与化合物数据库　`领域/science` · 进阶
+- [`lamindb-data-management`](../09-verticals/lamindb-data-management/SKILL.md) — LaminDB 生物数据治理　`领域/science` · 进阶
 - [`macs3-peak-calling`](../09-verticals/macs3-peak-calling/SKILL.md) — MACS3 ChIP/ATAC-seq 峰检测　`领域/science` · 进阶
+- [`matchms-spectral-matching`](../09-verticals/matchms-spectral-matching/SKILL.md) — matchms 质谱谱图匹配　`领域/science` · 进阶
 - [`materials-science-toolkit`](../09-verticals/materials-science-toolkit/SKILL.md) — 材料科学工具箱（Pymatgen）　`领域/science` · 进阶
 - [`math-proof-writer`](../09-verticals/math-proof-writer/SKILL.md) — 数学证明撰写　`领域/science` · 进阶
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程　`领域/science` · 进阶
+- [`metabolomics-workbench-database`](../09-verticals/metabolomics-workbench-database/SKILL.md) — Metabolomics Workbench 代谢组库　`领域/science` · 进阶
+- [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）　`领域/science` · 精通
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）　`领域/science` · 精通
+- [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化　`领域/science` · 进阶
+- [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱　`领域/science` · 进阶
 - [`muon-multiomics-singlecell`](../09-verticals/muon-multiomics-singlecell/SKILL.md) — muon 多模态单细胞多组学分析　`领域/science` · 精通
+- [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析　`领域/science` · 精通
 - [`nextflow-pipeline-builder`](../09-verticals/nextflow-pipeline-builder/SKILL.md) — Nextflow 生信流程构建　`领域/science` · 进阶
 - [`nih-grant-finder`](../09-verticals/nih-grant-finder/SKILL.md) — NIH 科研基金匹配与申报　`领域/science` · 进阶
 - [`opentargets-database`](../09-verticals/opentargets-database/SKILL.md) — Open Targets 靶点-疾病关联查询　`领域/science` · 进阶
 - [`opentrons-protocol-api`](../09-verticals/opentrons-protocol-api/SKILL.md) — Opentrons 液体处理机器人协议　`领域/science` · 进阶
+- [`pennylane-quantum-ml`](../09-verticals/pennylane-quantum-ml/SKILL.md) — PennyLane 量子机器学习　`领域/science` · 进阶
+- [`polars-bio-genomic-intervals`](../09-verticals/polars-bio-genomic-intervals/SKILL.md) — polars-bio 高性能基因组区间运算　`领域/science` · 进阶
+- [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释　`领域/science` · 进阶
+- [`pride-proteomics-database`](../09-verticals/pride-proteomics-database/SKILL.md) — PRIDE 蛋白质组数据集检索　`领域/science` · 进阶
 - [`protein-language-models`](../09-verticals/protein-language-models/SKILL.md) — 蛋白质语言模型与设计（ESM）　`领域/science` · 进阶
 - [`pubchem-compound-search`](../09-verticals/pubchem-compound-search/SKILL.md) — PubChem 化合物检索　`领域/science` · 进阶
 - [`pydeseq2-differential-expression`](../09-verticals/pydeseq2-differential-expression/SKILL.md) — PyDESeq2 批量 RNA-seq 差异表达分析　`领域/science` · 进阶
+- [`pymoo-multiobjective-optimization`](../09-verticals/pymoo-multiobjective-optimization/SKILL.md) — pymoo 多目标优化框架　`领域/science` · 进阶
 - [`pyopenms-mass-spectrometry`](../09-verticals/pyopenms-mass-spectrometry/SKILL.md) — PyOpenMS 质谱数据处理　`领域/science` · 进阶
+- [`pytdc-therapeutics-data-commons`](../09-verticals/pytdc-therapeutics-data-commons/SKILL.md) — PyTDC 治疗学数据公地　`领域/science` · 进阶
 - [`quantum-circuit-builder`](../09-verticals/quantum-circuit-builder/SKILL.md) — 量子计算电路构建（Qiskit）　`领域/science` · 进阶
+- [`quickgo-go-database`](../09-verticals/quickgo-go-database/SKILL.md) — QuickGO GO 术语与注释　`领域/science` · 进阶
+- [`qutip-open-quantum-systems`](../09-verticals/qutip-open-quantum-systems/SKILL.md) — QuTiP 开放量子系统仿真　`领域/science` · 进阶
+- [`rcsb-pdb-database`](../09-verticals/rcsb-pdb-database/SKILL.md) — RCSB PDB 结构数据库查询　`领域/science` · 进阶
+- [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱　`领域/science` · 进阶
+- [`reactome-pathway-database`](../09-verticals/reactome-pathway-database/SKILL.md) — Reactome 通路数据库查询　`领域/science` · 进阶
 - [`research-experiment-designer`](../09-verticals/research-experiment-designer/SKILL.md) — 科研实验设计　`领域/science` · 进阶
+- [`samtools-bam-processing`](../09-verticals/samtools-bam-processing/SKILL.md) — samtools BAM/SAM 处理　`领域/science` · 进阶
 - [`scientific-database-lookup`](../09-verticals/scientific-database-lookup/SKILL.md) — 科研数据库 API 查询　`领域/science` · 进阶
 - [`scientific-manuscript-writing`](../09-verticals/scientific-manuscript-writing/SKILL.md) — 科研论文写作（IMRAD）　`领域/science` · 进阶
+- [`scikit-bio-sequence-toolkit`](../09-verticals/scikit-bio-sequence-toolkit/SKILL.md) — scikit-bio 序列与系统发育分析　`领域/science` · 进阶
+- [`scikit-image-bioimage`](../09-verticals/scikit-image-bioimage/SKILL.md) — scikit-image 生物图像处理　`领域/science` · 进阶
+- [`scvelo-rna-velocity`](../09-verticals/scvelo-rna-velocity/SKILL.md) — scVelo RNA 速率分析　`领域/science` · 进阶
 - [`scvi-tools-single-cell`](../09-verticals/scvi-tools-single-cell/SKILL.md) — scvi-tools 单细胞深度生成模型　`领域/science` · 精通
 - [`single-cell-rnaseq-analysis`](../09-verticals/single-cell-rnaseq-analysis/SKILL.md) — 单细胞 RNA-seq 分析（Scanpy）　`领域/science` · 进阶
 - [`snakemake-workflow-engine`](../09-verticals/snakemake-workflow-engine/SKILL.md) — Snakemake 可复现生信流程引擎　`领域/science` · 进阶
 - [`snpeff-variant-annotation`](../09-verticals/snpeff-variant-annotation/SKILL.md) — SnpEff/SnpSift 变异功能注释与过滤　`领域/science` · 进阶
 - [`star-rnaseq-aligner`](../09-verticals/star-rnaseq-aligner/SKILL.md) — STAR 剪接感知 RNA-seq 比对　`领域/science` · 进阶
+- [`string-ppi-database`](../09-verticals/string-ppi-database/SKILL.md) — STRING 蛋白互作网络查询　`领域/science` · 进阶
 - [`sympy-symbolic-math`](../09-verticals/sympy-symbolic-math/SKILL.md) — SymPy 符号数学计算　`领域/science` · 进阶
+- [`tiledbvcf-variant-store`](../09-verticals/tiledbvcf-variant-store/SKILL.md) — TileDB-VCF 大规模变异存储　`领域/science` · 进阶
+- [`trackpy-particle-tracking`](../09-verticals/trackpy-particle-tracking/SKILL.md) — trackpy 单粒子追踪　`领域/science` · 进阶
+- [`ucsc-genome-browser`](../09-verticals/ucsc-genome-browser/SKILL.md) — UCSC 基因组浏览器 API　`领域/science` · 进阶
+- [`unichem-compound-crossref`](../09-verticals/unichem-compound-crossref/SKILL.md) — UniChem 化合物 ID 交叉引用　`领域/science` · 进阶
 - [`uniprot-protein-database`](../09-verticals/uniprot-protein-database/SKILL.md) — UniProt 蛋白序列与注释数据库　`领域/science` · 进阶
+- [`vcf-variant-filtering`](../09-verticals/vcf-variant-filtering/SKILL.md) — VCF 变异质量过滤　`领域/science` · 进阶
 - [`viennarna-structure-prediction`](../09-verticals/viennarna-structure-prediction/SKILL.md) — ViennaRNA RNA 二级结构预测　`领域/science` · 进阶
+- [`zinc-compound-library`](../09-verticals/zinc-compound-library/SKILL.md) — ZINC 虚拟化合物库检索　`领域/science` · 进阶
 
 ## 卷十 · 平台集成
 
@@ -696,8 +897,22 @@
 - [`github-actions-author`](../10-platform/github-actions-author/SKILL.md) — GitHub Actions工作流编写　`平台/integration` · 进阶
 - [`imessage-claude-bridge`](../10-platform/imessage-claude-bridge/SKILL.md) — iMessage 短信驱动 Claude 会话桥接　`平台/integration` · 进阶
 - [`slack-bolt-bot-builder`](../10-platform/slack-bolt-bot-builder/SKILL.md) — Slack Bolt 机器人开发　`平台/integration` · 进阶
+- [`slack-message-formatter`](../10-platform/slack-message-formatter/SKILL.md) — Slack 消息撰写与 mrkdwn 排版　`平台/integration` · 入门
+- [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）　`平台/integration` · 进阶
 - [`stripe-integration`](../10-platform/stripe-integration/SKILL.md) — Stripe 支付与订阅集成　`平台/integration` · 进阶
 - [`twilio-communications`](../10-platform/twilio-communications/SKILL.md) — Twilio 短信与语音通信集成　`平台/integration` · 进阶
 - [`whatsapp-cloud-api`](../10-platform/whatsapp-cloud-api/SKILL.md) — WhatsApp Cloud API 集成　`平台/integration` · 进阶
 - [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) — X/Twitter 抓取与自动化（Xquik）　`平台/integration` · 进阶
+- [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理　`平台/integration` · 进阶
+- [`zoom-contact-center-app`](../10-platform/zoom-contact-center-app/SKILL.md) — Zoom Contact Center 应用开发　`平台/integration` · 进阶
+- [`zoom-integration-planner`](../10-platform/zoom-integration-planner/SKILL.md) — Zoom 集成方案规划（架构/认证/里程碑）　`平台/integration` · 进阶
+- [`zoom-meeting-app-builder`](../10-platform/zoom-meeting-app-builder/SKILL.md) — Zoom 会议嵌入应用开发（Meeting SDK）　`平台/integration` · 进阶
+- [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流　`平台/integration` · 进阶
+- [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现　`平台/integration` · 进阶
+- [`zoom-phone-integration`](../10-platform/zoom-phone-integration/SKILL.md) — Zoom Phone 集成（呼叫/事件/API）　`平台/integration` · 进阶
+- [`zoom-product-surface-selector`](../10-platform/zoom-product-surface-selector/SKILL.md) — Zoom 构建面选型与权衡　`平台/integration` · 进阶
+- [`zoom-rtms-realtime-media`](../10-platform/zoom-rtms-realtime-media/SKILL.md) — Zoom RTMS 实时音视频/转写处理　`平台/integration` · 进阶
+- [`zoom-virtual-agent-builder`](../10-platform/zoom-virtual-agent-builder/SKILL.md) — Zoom 虚拟客服坐席集成　`平台/integration` · 进阶
+- [`zoom-webhooks-setup`](../10-platform/zoom-webhooks-setup/SKILL.md) — Zoom Webhooks 事件订阅与校验　`平台/integration` · 进阶
 - [`mcp-builder`](../10-platform/mcp-builder/SKILL.md) — MCP 服务器构建　`平台/mcp` · 精通
+- [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障　`平台/mcp` · 进阶
