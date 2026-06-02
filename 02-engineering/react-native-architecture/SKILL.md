@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Edit, Write, Bash]
 requires: []
-related: []
-combines_with: []
+related: [flutter-expert, jetpack-compose-expert, ios-swiftui-developer, react-state-management]
+combines_with: [tanstack-query, app-store-optimization, rest-api-endpoint-builder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

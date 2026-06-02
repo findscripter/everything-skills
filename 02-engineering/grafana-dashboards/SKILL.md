@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Write, Edit, Bash]
 requires: []
-related: []
-combines_with: []
+related: [prometheus-configuration, observability-strategy-designer, distributed-tracing, slo-sli-implementation]
+combines_with: [performance-profiler, devops-troubleshooter, kubernetes-architect]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

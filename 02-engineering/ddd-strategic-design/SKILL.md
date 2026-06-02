@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: []
-combines_with: []
+related: [ddd-context-mapping, backend-architecture-patterns, microservices-patterns, adr-management-patterns]
+combines_with: [event-sourcing-cqrs, saga-orchestration, fullstack-project-scaffolder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

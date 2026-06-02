@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [PostgreSQL, TypeScript, Prisma, Express, PgBouncer]
 requires: []
-related: []
-combines_with: []
+related: [microservices-patterns, database-design-advisor, postgresql-optimization, backend-architecture-patterns]
+combines_with: [billing-automation-systems, auth-implementation-patterns, postgresql-optimization]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

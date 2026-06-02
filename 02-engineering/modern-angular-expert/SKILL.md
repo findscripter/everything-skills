@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Edit, Write, Bash, Grep, Glob]
 requires: []
-related: []
-combines_with: []
+related: [react-state-management, sveltekit-fullstack, typescript-advanced-types, shadcn-ui-components]
+combines_with: [tailwind-css-patterns, tanstack-query, playwright-e2e-testing]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

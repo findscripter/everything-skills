@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Grep, Bash, Read]
 requires: []
-related: []
-combines_with: []
+related: [devops-troubleshooter, systematic-debugger, systematic-debugging-strategies, distributed-tracing]
+combines_with: [observability-strategy-designer, grafana-dashboards, incident-commander-framework]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

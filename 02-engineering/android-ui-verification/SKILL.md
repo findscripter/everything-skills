@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [adb, uiautomator, logcat, Bash]
 requires: []
-related: []
-combines_with: []
+related: [webapp-testing, playwright-e2e-testing, browserstack-cross-browser-test, react-native-architecture]
+combines_with: [react-native-architecture, jetpack-compose-expert, test-coverage-gap-finder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

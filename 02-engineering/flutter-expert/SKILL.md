@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [flutter CLI, dart CLI, Flutter DevTools, Riverpod/Bloc, Dio, Drift/Hive, Patrol, Codemagic/GitHub Actions]
 requires: []
-related: []
-combines_with: []
+related: [react-native-architecture, ios-swiftui-developer, jetpack-compose-expert, swiftui-best-practices]
+combines_with: [android-ui-verification, firebase-backend, app-store-optimization]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [@shopify/cli, graphql, node, python]
 requires: []
-related: []
-combines_with: []
+related: [stripe-integration, graphql-architect, rest-api-endpoint-builder, shadcn-ui-components]
+combines_with: [stripe-integration, billing-automation-systems, transactional-email-template-builder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [claude, cursor, gemini]
 requires: []
-related: []
-combines_with: []
+related: [sveltekit-fullstack, modern-angular-expert, frontend-design, progressive-web-app]
+combines_with: [tailwind-css-patterns, shadcn-ui-components, seo-site-architecture]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

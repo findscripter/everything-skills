@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Write, Edit, Bash, Grep, Glob]
 requires: []
-related: []
-combines_with: []
+related: [kotlin-coroutines-flow, android-ui-verification, flutter-expert, react-native-architecture]
+combines_with: [android-ui-verification, kotlin-coroutines-flow, app-store-optimization]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -4864,6 +4864,111 @@
       "type": "combines_with"
     },
     {
+      "from": "adversarial-code-reviewer",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "adversarial-code-reviewer",
+      "to": "clean-craft-code-review",
+      "type": "related"
+    },
+    {
+      "from": "adversarial-code-reviewer",
+      "to": "brooks-design-lint",
+      "type": "related"
+    },
+    {
+      "from": "adversarial-code-reviewer",
+      "to": "llm-coding-mistake-guardrails",
+      "type": "related"
+    },
+    {
+      "from": "adversarial-code-reviewer",
+      "to": "github-pr-comment-resolver",
+      "type": "combines_with"
+    },
+    {
+      "from": "adversarial-code-reviewer",
+      "to": "bug-hunter",
+      "type": "combines_with"
+    },
+    {
+      "from": "adversarial-code-reviewer",
+      "to": "security-audit-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "algolia-search-integration",
+      "to": "hybrid-search-retrieval",
+      "type": "related"
+    },
+    {
+      "from": "algolia-search-integration",
+      "to": "exa-semantic-search",
+      "type": "related"
+    },
+    {
+      "from": "algolia-search-integration",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "algolia-search-integration",
+      "to": "vector-index-tuning",
+      "type": "related"
+    },
+    {
+      "from": "algolia-search-integration",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "algolia-search-integration",
+      "to": "fastapi-async-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "algolia-search-integration",
+      "to": "react-state-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "android-ui-verification",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "android-ui-verification",
+      "to": "playwright-e2e-testing",
+      "type": "related"
+    },
+    {
+      "from": "android-ui-verification",
+      "to": "browserstack-cross-browser-test",
+      "type": "related"
+    },
+    {
+      "from": "android-ui-verification",
+      "to": "react-native-architecture",
+      "type": "related"
+    },
+    {
+      "from": "android-ui-verification",
+      "to": "react-native-architecture",
+      "type": "combines_with"
+    },
+    {
+      "from": "android-ui-verification",
+      "to": "jetpack-compose-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "android-ui-verification",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
       "from": "api-design-principles",
       "to": "code-reviewer",
       "type": "related"
@@ -4884,9 +4989,534 @@
       "type": "related"
     },
     {
+      "from": "api-test-suite-builder",
+      "to": "javascript-testing-patterns",
+      "type": "related"
+    },
+    {
+      "from": "api-test-suite-builder",
+      "to": "python-testing-pytest",
+      "type": "related"
+    },
+    {
+      "from": "api-test-suite-builder",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "api-test-suite-builder",
+      "to": "test-coverage-gap-finder",
+      "type": "related"
+    },
+    {
+      "from": "api-test-suite-builder",
+      "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "api-test-suite-builder",
+      "to": "api-design-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "api-test-suite-builder",
+      "to": "fastapi-async-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "astro-content-sites",
+      "to": "sveltekit-fullstack",
+      "type": "related"
+    },
+    {
+      "from": "astro-content-sites",
+      "to": "modern-angular-expert",
+      "type": "related"
+    },
+    {
+      "from": "astro-content-sites",
+      "to": "frontend-design",
+      "type": "related"
+    },
+    {
+      "from": "astro-content-sites",
+      "to": "progressive-web-app",
+      "type": "related"
+    },
+    {
+      "from": "astro-content-sites",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "astro-content-sites",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "astro-content-sites",
+      "to": "seo-site-architecture",
+      "type": "combines_with"
+    },
+    {
+      "from": "async-python-patterns",
+      "to": "fastapi-async-api",
+      "type": "related"
+    },
+    {
+      "from": "async-python-patterns",
+      "to": "python-performance-optimization",
+      "type": "related"
+    },
+    {
+      "from": "async-python-patterns",
+      "to": "go-concurrency-patterns",
+      "type": "related"
+    },
+    {
+      "from": "async-python-patterns",
+      "to": "kotlin-coroutines-flow",
+      "type": "related"
+    },
+    {
+      "from": "async-python-patterns",
+      "to": "bullmq-job-queue",
+      "type": "combines_with"
+    },
+    {
+      "from": "async-python-patterns",
+      "to": "python-testing-pytest",
+      "type": "combines_with"
+    },
+    {
+      "from": "async-python-patterns",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "bazel-build-optimization",
+      "to": "turborepo-caching",
+      "type": "related"
+    },
+    {
+      "from": "bazel-build-optimization",
+      "to": "monorepo-navigator",
+      "type": "related"
+    },
+    {
+      "from": "bazel-build-optimization",
+      "to": "ci-cd-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "bazel-build-optimization",
+      "to": "fullstack-project-scaffolder",
+      "type": "related"
+    },
+    {
+      "from": "bazel-build-optimization",
+      "to": "monorepo-navigator",
+      "type": "combines_with"
+    },
+    {
+      "from": "bazel-build-optimization",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "bazel-build-optimization",
+      "to": "docker-development-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "brooks-design-lint",
+      "to": "clean-craft-code-review",
+      "type": "related"
+    },
+    {
+      "from": "brooks-design-lint",
+      "to": "clean-code-principles",
+      "type": "related"
+    },
+    {
+      "from": "brooks-design-lint",
+      "to": "adversarial-code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "brooks-design-lint",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "brooks-design-lint",
+      "to": "backend-architecture-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "brooks-design-lint",
+      "to": "legacy-codebase-modernizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "brooks-design-lint",
+      "to": "systematic-debugger",
+      "type": "combines_with"
+    },
+    {
+      "from": "browser-extension-builder",
+      "to": "chrome-extension-mv3",
+      "type": "related"
+    },
+    {
+      "from": "browser-extension-builder",
+      "to": "electron-desktop-development",
+      "type": "related"
+    },
+    {
+      "from": "browser-extension-builder",
+      "to": "vscode-extension-development",
+      "type": "related"
+    },
+    {
+      "from": "browser-extension-builder",
+      "to": "frontend-design",
+      "type": "related"
+    },
+    {
+      "from": "browser-extension-builder",
+      "to": "typescript-advanced-types",
+      "type": "combines_with"
+    },
+    {
+      "from": "browser-extension-builder",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "browser-extension-builder",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "browserstack-cross-browser-test",
+      "to": "playwright-e2e-testing",
+      "type": "related"
+    },
+    {
+      "from": "browserstack-cross-browser-test",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "browserstack-cross-browser-test",
+      "to": "android-ui-verification",
+      "type": "related"
+    },
+    {
+      "from": "browserstack-cross-browser-test",
+      "to": "javascript-testing-patterns",
+      "type": "related"
+    },
+    {
+      "from": "browserstack-cross-browser-test",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "browserstack-cross-browser-test",
+      "to": "accessibility-wcag-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "browserstack-cross-browser-test",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "bullmq-job-queue",
+      "to": "temporal-workflow-python",
+      "type": "related"
+    },
+    {
+      "from": "bullmq-job-queue",
+      "to": "saga-orchestration",
+      "type": "related"
+    },
+    {
+      "from": "bullmq-job-queue",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "bullmq-job-queue",
+      "to": "error-handling-patterns",
+      "type": "related"
+    },
+    {
+      "from": "bullmq-job-queue",
+      "to": "nestjs-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "bullmq-job-queue",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "bullmq-job-queue",
+      "to": "transactional-email-template-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "bun-runtime-development",
+      "to": "javascript-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "bun-runtime-development",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "bun-runtime-development",
+      "to": "hono-edge-api",
+      "type": "related"
+    },
+    {
+      "from": "bun-runtime-development",
+      "to": "uv-python-package-manager",
+      "type": "related"
+    },
+    {
+      "from": "bun-runtime-development",
+      "to": "trpc-typesafe-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "bun-runtime-development",
+      "to": "turborepo-caching",
+      "type": "combines_with"
+    },
+    {
+      "from": "bun-runtime-development",
+      "to": "javascript-testing-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "chaos-engineering-runner",
+      "to": "sre-incident-responder",
+      "type": "related"
+    },
+    {
+      "from": "chaos-engineering-runner",
+      "to": "incident-commander-framework",
+      "type": "related"
+    },
+    {
+      "from": "chaos-engineering-runner",
+      "to": "devops-troubleshooter",
+      "type": "related"
+    },
+    {
+      "from": "chaos-engineering-runner",
+      "to": "slo-sli-implementation",
+      "type": "related"
+    },
+    {
+      "from": "chaos-engineering-runner",
+      "to": "k6-load-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "chaos-engineering-runner",
+      "to": "observability-strategy-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "chaos-engineering-runner",
+      "to": "postmortem-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "chrome-extension-mv3",
+      "to": "browser-extension-builder",
+      "type": "related"
+    },
+    {
+      "from": "chrome-extension-mv3",
+      "to": "electron-desktop-development",
+      "type": "related"
+    },
+    {
+      "from": "chrome-extension-mv3",
+      "to": "vscode-extension-development",
+      "type": "related"
+    },
+    {
+      "from": "chrome-extension-mv3",
+      "to": "progressive-web-app",
+      "type": "related"
+    },
+    {
+      "from": "chrome-extension-mv3",
+      "to": "typescript-advanced-types",
+      "type": "combines_with"
+    },
+    {
+      "from": "chrome-extension-mv3",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "chrome-extension-mv3",
+      "to": "javascript-modern-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "clean-code-principles",
+      "to": "clean-craft-code-review",
+      "type": "related"
+    },
+    {
+      "from": "clean-code-principles",
+      "to": "code-simplifier",
+      "type": "related"
+    },
+    {
+      "from": "clean-code-principles",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "clean-code-principles",
+      "to": "adversarial-code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "clean-code-principles",
+      "to": "legacy-codebase-modernizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "clean-code-principles",
+      "to": "code-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "clean-code-principles",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "clean-craft-code-review",
+      "to": "clean-code-principles",
+      "type": "related"
+    },
+    {
+      "from": "clean-craft-code-review",
+      "to": "brooks-design-lint",
+      "type": "related"
+    },
+    {
+      "from": "clean-craft-code-review",
+      "to": "adversarial-code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "clean-craft-code-review",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "clean-craft-code-review",
+      "to": "backend-architecture-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "clean-craft-code-review",
+      "to": "code-simplifier",
+      "type": "combines_with"
+    },
+    {
+      "from": "clean-craft-code-review",
+      "to": "legacy-codebase-modernizer",
+      "type": "combines_with"
+    },
+    {
       "from": "code-reviewer",
       "to": "dependency-auditor",
       "type": "related"
+    },
+    {
+      "from": "code-simplifier",
+      "to": "clean-code-principles",
+      "type": "related"
+    },
+    {
+      "from": "code-simplifier",
+      "to": "complexity-cuts",
+      "type": "related"
+    },
+    {
+      "from": "code-simplifier",
+      "to": "clean-craft-code-review",
+      "type": "related"
+    },
+    {
+      "from": "code-simplifier",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "code-simplifier",
+      "to": "legacy-codebase-modernizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "code-simplifier",
+      "to": "systematic-debugger",
+      "type": "combines_with"
+    },
+    {
+      "from": "code-simplifier",
+      "to": "adversarial-code-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "complexity-cuts",
+      "to": "python-performance-optimization",
+      "type": "related"
+    },
+    {
+      "from": "complexity-cuts",
+      "to": "code-simplifier",
+      "type": "related"
+    },
+    {
+      "from": "complexity-cuts",
+      "to": "clean-code-principles",
+      "type": "related"
+    },
+    {
+      "from": "complexity-cuts",
+      "to": "performance-profiler",
+      "type": "related"
+    },
+    {
+      "from": "complexity-cuts",
+      "to": "systematic-debugger",
+      "type": "combines_with"
+    },
+    {
+      "from": "complexity-cuts",
+      "to": "code-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "complexity-cuts",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
     },
     {
       "from": "cpp-modern-pro",
@@ -4924,6 +5554,531 @@
       "type": "combines_with"
     },
     {
+      "from": "cqrs-implementation",
+      "to": "event-sourcing-cqrs",
+      "type": "related"
+    },
+    {
+      "from": "cqrs-implementation",
+      "to": "saga-orchestration",
+      "type": "related"
+    },
+    {
+      "from": "cqrs-implementation",
+      "to": "microservices-patterns",
+      "type": "related"
+    },
+    {
+      "from": "cqrs-implementation",
+      "to": "ddd-strategic-design",
+      "type": "related"
+    },
+    {
+      "from": "cqrs-implementation",
+      "to": "event-sourcing-cqrs",
+      "type": "combines_with"
+    },
+    {
+      "from": "cqrs-implementation",
+      "to": "microservices-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "cqrs-implementation",
+      "to": "ddd-context-mapping",
+      "type": "combines_with"
+    },
+    {
+      "from": "ddd-context-mapping",
+      "to": "ddd-strategic-design",
+      "type": "related"
+    },
+    {
+      "from": "ddd-context-mapping",
+      "to": "microservices-patterns",
+      "type": "related"
+    },
+    {
+      "from": "ddd-context-mapping",
+      "to": "backend-architecture-patterns",
+      "type": "related"
+    },
+    {
+      "from": "ddd-context-mapping",
+      "to": "event-sourcing-cqrs",
+      "type": "related"
+    },
+    {
+      "from": "ddd-context-mapping",
+      "to": "saga-orchestration",
+      "type": "combines_with"
+    },
+    {
+      "from": "ddd-context-mapping",
+      "to": "cqrs-implementation",
+      "type": "combines_with"
+    },
+    {
+      "from": "ddd-context-mapping",
+      "to": "api-design-principles",
+      "type": "combines_with"
+    },
+    {
+      "from": "ddd-strategic-design",
+      "to": "ddd-context-mapping",
+      "type": "related"
+    },
+    {
+      "from": "ddd-strategic-design",
+      "to": "backend-architecture-patterns",
+      "type": "related"
+    },
+    {
+      "from": "ddd-strategic-design",
+      "to": "microservices-patterns",
+      "type": "related"
+    },
+    {
+      "from": "ddd-strategic-design",
+      "to": "adr-management-patterns",
+      "type": "related"
+    },
+    {
+      "from": "ddd-strategic-design",
+      "to": "event-sourcing-cqrs",
+      "type": "combines_with"
+    },
+    {
+      "from": "ddd-strategic-design",
+      "to": "saga-orchestration",
+      "type": "combines_with"
+    },
+    {
+      "from": "ddd-strategic-design",
+      "to": "fullstack-project-scaffolder",
+      "type": "combines_with"
+    },
+    {
+      "from": "distributed-tracing",
+      "to": "observability-strategy-designer",
+      "type": "related"
+    },
+    {
+      "from": "distributed-tracing",
+      "to": "performance-profiler",
+      "type": "related"
+    },
+    {
+      "from": "distributed-tracing",
+      "to": "grafana-dashboards",
+      "type": "related"
+    },
+    {
+      "from": "distributed-tracing",
+      "to": "prometheus-configuration",
+      "type": "related"
+    },
+    {
+      "from": "distributed-tracing",
+      "to": "microservices-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "distributed-tracing",
+      "to": "devops-troubleshooter",
+      "type": "combines_with"
+    },
+    {
+      "from": "distributed-tracing",
+      "to": "slo-sli-implementation",
+      "type": "combines_with"
+    },
+    {
+      "from": "django-async-pro",
+      "to": "fastapi-async-api",
+      "type": "related"
+    },
+    {
+      "from": "django-async-pro",
+      "to": "async-python-patterns",
+      "type": "related"
+    },
+    {
+      "from": "django-async-pro",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "django-async-pro",
+      "to": "temporal-workflow-python",
+      "type": "related"
+    },
+    {
+      "from": "django-async-pro",
+      "to": "python-testing-pytest",
+      "type": "combines_with"
+    },
+    {
+      "from": "django-async-pro",
+      "to": "postgresql-optimization",
+      "type": "combines_with"
+    },
+    {
+      "from": "django-async-pro",
+      "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "dotnet-backend-patterns",
+      "to": "java-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "dotnet-backend-patterns",
+      "to": "golang-pro",
+      "type": "related"
+    },
+    {
+      "from": "dotnet-backend-patterns",
+      "to": "nestjs-expert",
+      "type": "related"
+    },
+    {
+      "from": "dotnet-backend-patterns",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "dotnet-backend-patterns",
+      "to": "backend-architecture-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "dotnet-backend-patterns",
+      "to": "database-design-advisor",
+      "type": "combines_with"
+    },
+    {
+      "from": "dotnet-backend-patterns",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "drizzle-orm-expert",
+      "to": "prisma-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "drizzle-orm-expert",
+      "to": "database-migration-strategies",
+      "type": "related"
+    },
+    {
+      "from": "drizzle-orm-expert",
+      "to": "zod-schema-validation",
+      "type": "related"
+    },
+    {
+      "from": "drizzle-orm-expert",
+      "to": "neon-serverless-postgres",
+      "type": "related"
+    },
+    {
+      "from": "drizzle-orm-expert",
+      "to": "trpc-typesafe-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "drizzle-orm-expert",
+      "to": "typescript-advanced-types",
+      "type": "combines_with"
+    },
+    {
+      "from": "drizzle-orm-expert",
+      "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "electron-desktop-development",
+      "to": "chrome-extension-mv3",
+      "type": "related"
+    },
+    {
+      "from": "electron-desktop-development",
+      "to": "progressive-web-app",
+      "type": "related"
+    },
+    {
+      "from": "electron-desktop-development",
+      "to": "vscode-extension-development",
+      "type": "related"
+    },
+    {
+      "from": "electron-desktop-development",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "electron-desktop-development",
+      "to": "typescript-advanced-types",
+      "type": "combines_with"
+    },
+    {
+      "from": "electron-desktop-development",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "electron-desktop-development",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "error-handling-patterns",
+      "to": "bug-hunter",
+      "type": "related"
+    },
+    {
+      "from": "error-handling-patterns",
+      "to": "systematic-debugger",
+      "type": "related"
+    },
+    {
+      "from": "error-handling-patterns",
+      "to": "error-log-detective",
+      "type": "related"
+    },
+    {
+      "from": "error-handling-patterns",
+      "to": "saga-orchestration",
+      "type": "related"
+    },
+    {
+      "from": "error-handling-patterns",
+      "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "error-handling-patterns",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
+      "from": "error-handling-patterns",
+      "to": "microservices-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "error-log-detective",
+      "to": "devops-troubleshooter",
+      "type": "related"
+    },
+    {
+      "from": "error-log-detective",
+      "to": "systematic-debugger",
+      "type": "related"
+    },
+    {
+      "from": "error-log-detective",
+      "to": "systematic-debugging-strategies",
+      "type": "related"
+    },
+    {
+      "from": "error-log-detective",
+      "to": "distributed-tracing",
+      "type": "related"
+    },
+    {
+      "from": "error-log-detective",
+      "to": "observability-strategy-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "error-log-detective",
+      "to": "grafana-dashboards",
+      "type": "combines_with"
+    },
+    {
+      "from": "error-log-detective",
+      "to": "incident-commander-framework",
+      "type": "combines_with"
+    },
+    {
+      "from": "event-sourcing-cqrs",
+      "to": "cqrs-implementation",
+      "type": "related"
+    },
+    {
+      "from": "event-sourcing-cqrs",
+      "to": "saga-orchestration",
+      "type": "related"
+    },
+    {
+      "from": "event-sourcing-cqrs",
+      "to": "ddd-strategic-design",
+      "type": "related"
+    },
+    {
+      "from": "event-sourcing-cqrs",
+      "to": "microservices-patterns",
+      "type": "related"
+    },
+    {
+      "from": "event-sourcing-cqrs",
+      "to": "ddd-context-mapping",
+      "type": "combines_with"
+    },
+    {
+      "from": "event-sourcing-cqrs",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
+      "from": "event-sourcing-cqrs",
+      "to": "backend-architecture-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "fastapi-async-api",
+      "to": "async-python-patterns",
+      "type": "related"
+    },
+    {
+      "from": "fastapi-async-api",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "fastapi-async-api",
+      "to": "django-async-pro",
+      "type": "related"
+    },
+    {
+      "from": "fastapi-async-api",
+      "to": "graphql-architect",
+      "type": "related"
+    },
+    {
+      "from": "fastapi-async-api",
+      "to": "python-testing-pytest",
+      "type": "combines_with"
+    },
+    {
+      "from": "fastapi-async-api",
+      "to": "prisma-orm-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "fastapi-async-api",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
+      "from": "feature-flags-architect",
+      "to": "ab-test-setup-gates",
+      "type": "related"
+    },
+    {
+      "from": "feature-flags-architect",
+      "to": "release-manager",
+      "type": "related"
+    },
+    {
+      "from": "feature-flags-architect",
+      "to": "deployment-engineer",
+      "type": "related"
+    },
+    {
+      "from": "feature-flags-architect",
+      "to": "ci-cd-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "feature-flags-architect",
+      "to": "release-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "feature-flags-architect",
+      "to": "ab-test-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "feature-flags-architect",
+      "to": "deployment-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "file-upload-storage",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "file-upload-storage",
+      "to": "cloudflare-workers-edge",
+      "type": "related"
+    },
+    {
+      "from": "file-upload-storage",
+      "to": "aws-serverless-builder",
+      "type": "related"
+    },
+    {
+      "from": "file-upload-storage",
+      "to": "transactional-email-template-builder",
+      "type": "related"
+    },
+    {
+      "from": "file-upload-storage",
+      "to": "fastapi-async-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "file-upload-storage",
+      "to": "zod-schema-validation",
+      "type": "combines_with"
+    },
+    {
+      "from": "file-upload-storage",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "flutter-expert",
+      "to": "react-native-architecture",
+      "type": "related"
+    },
+    {
+      "from": "flutter-expert",
+      "to": "ios-swiftui-developer",
+      "type": "related"
+    },
+    {
+      "from": "flutter-expert",
+      "to": "jetpack-compose-expert",
+      "type": "related"
+    },
+    {
+      "from": "flutter-expert",
+      "to": "swiftui-best-practices",
+      "type": "related"
+    },
+    {
+      "from": "flutter-expert",
+      "to": "android-ui-verification",
+      "type": "combines_with"
+    },
+    {
+      "from": "flutter-expert",
+      "to": "firebase-backend",
+      "type": "combines_with"
+    },
+    {
+      "from": "flutter-expert",
+      "to": "app-store-optimization",
+      "type": "combines_with"
+    },
+    {
       "from": "frontend-design",
       "to": "brand-guidelines",
       "type": "related"
@@ -4954,6 +6109,601 @@
       "type": "combines_with"
     },
     {
+      "from": "fullstack-project-scaffolder",
+      "to": "tech-stack-evaluator",
+      "type": "related"
+    },
+    {
+      "from": "fullstack-project-scaffolder",
+      "to": "backend-architecture-patterns",
+      "type": "related"
+    },
+    {
+      "from": "fullstack-project-scaffolder",
+      "to": "monorepo-navigator",
+      "type": "related"
+    },
+    {
+      "from": "fullstack-project-scaffolder",
+      "to": "spec-driven-workflow",
+      "type": "related"
+    },
+    {
+      "from": "fullstack-project-scaffolder",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "fullstack-project-scaffolder",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "fullstack-project-scaffolder",
+      "to": "fastapi-async-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "go-concurrency-patterns",
+      "to": "golang-pro",
+      "type": "related"
+    },
+    {
+      "from": "go-concurrency-patterns",
+      "to": "grpc-golang-services",
+      "type": "related"
+    },
+    {
+      "from": "go-concurrency-patterns",
+      "to": "rust-pro",
+      "type": "related"
+    },
+    {
+      "from": "go-concurrency-patterns",
+      "to": "async-python-patterns",
+      "type": "related"
+    },
+    {
+      "from": "go-concurrency-patterns",
+      "to": "golang-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "go-concurrency-patterns",
+      "to": "grpc-golang-services",
+      "type": "combines_with"
+    },
+    {
+      "from": "go-concurrency-patterns",
+      "to": "performance-profiler",
+      "type": "combines_with"
+    },
+    {
+      "from": "golang-pro",
+      "to": "go-concurrency-patterns",
+      "type": "related"
+    },
+    {
+      "from": "golang-pro",
+      "to": "grpc-golang-services",
+      "type": "related"
+    },
+    {
+      "from": "golang-pro",
+      "to": "rust-pro",
+      "type": "related"
+    },
+    {
+      "from": "golang-pro",
+      "to": "java-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "golang-pro",
+      "to": "grpc-golang-services",
+      "type": "combines_with"
+    },
+    {
+      "from": "golang-pro",
+      "to": "performance-profiler",
+      "type": "combines_with"
+    },
+    {
+      "from": "golang-pro",
+      "to": "microservices-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "grafana-dashboards",
+      "to": "prometheus-configuration",
+      "type": "related"
+    },
+    {
+      "from": "grafana-dashboards",
+      "to": "observability-strategy-designer",
+      "type": "related"
+    },
+    {
+      "from": "grafana-dashboards",
+      "to": "distributed-tracing",
+      "type": "related"
+    },
+    {
+      "from": "grafana-dashboards",
+      "to": "slo-sli-implementation",
+      "type": "related"
+    },
+    {
+      "from": "grafana-dashboards",
+      "to": "performance-profiler",
+      "type": "combines_with"
+    },
+    {
+      "from": "grafana-dashboards",
+      "to": "devops-troubleshooter",
+      "type": "combines_with"
+    },
+    {
+      "from": "grafana-dashboards",
+      "to": "kubernetes-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "graphql-architect",
+      "to": "api-design-principles",
+      "type": "related"
+    },
+    {
+      "from": "graphql-architect",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "graphql-architect",
+      "to": "trpc-typesafe-api",
+      "type": "related"
+    },
+    {
+      "from": "graphql-architect",
+      "to": "fastapi-async-api",
+      "type": "related"
+    },
+    {
+      "from": "graphql-architect",
+      "to": "api-design-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "graphql-architect",
+      "to": "prisma-orm-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "graphql-architect",
+      "to": "tanstack-query",
+      "type": "combines_with"
+    },
+    {
+      "from": "grpc-golang-services",
+      "to": "golang-pro",
+      "type": "related"
+    },
+    {
+      "from": "grpc-golang-services",
+      "to": "go-concurrency-patterns",
+      "type": "related"
+    },
+    {
+      "from": "grpc-golang-services",
+      "to": "microservices-patterns",
+      "type": "related"
+    },
+    {
+      "from": "grpc-golang-services",
+      "to": "trpc-typesafe-api",
+      "type": "related"
+    },
+    {
+      "from": "grpc-golang-services",
+      "to": "golang-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "grpc-golang-services",
+      "to": "microservices-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "grpc-golang-services",
+      "to": "service-mesh-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "i18n-localization-patterns",
+      "to": "accessibility-wcag-audit",
+      "type": "related"
+    },
+    {
+      "from": "i18n-localization-patterns",
+      "to": "wcag-22-audit-patterns",
+      "type": "related"
+    },
+    {
+      "from": "i18n-localization-patterns",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "i18n-localization-patterns",
+      "to": "frontend-design",
+      "type": "related"
+    },
+    {
+      "from": "i18n-localization-patterns",
+      "to": "sveltekit-fullstack",
+      "type": "combines_with"
+    },
+    {
+      "from": "i18n-localization-patterns",
+      "to": "modern-angular-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "i18n-localization-patterns",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "java-modern-pro",
+      "to": "kotlin-coroutines-flow",
+      "type": "related"
+    },
+    {
+      "from": "java-modern-pro",
+      "to": "scala-pro",
+      "type": "related"
+    },
+    {
+      "from": "java-modern-pro",
+      "to": "golang-pro",
+      "type": "related"
+    },
+    {
+      "from": "java-modern-pro",
+      "to": "dotnet-backend-patterns",
+      "type": "related"
+    },
+    {
+      "from": "java-modern-pro",
+      "to": "nestjs-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "java-modern-pro",
+      "to": "graphql-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "java-modern-pro",
+      "to": "grpc-golang-services",
+      "type": "combines_with"
+    },
+    {
+      "from": "javascript-modern-pro",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "javascript-modern-pro",
+      "to": "bun-runtime-development",
+      "type": "related"
+    },
+    {
+      "from": "javascript-modern-pro",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "javascript-modern-pro",
+      "to": "javascript-testing-patterns",
+      "type": "related"
+    },
+    {
+      "from": "javascript-modern-pro",
+      "to": "chrome-extension-mv3",
+      "type": "combines_with"
+    },
+    {
+      "from": "javascript-modern-pro",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "javascript-modern-pro",
+      "to": "playwright-e2e-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "javascript-testing-patterns",
+      "to": "python-testing-pytest",
+      "type": "related"
+    },
+    {
+      "from": "javascript-testing-patterns",
+      "to": "playwright-e2e-testing",
+      "type": "related"
+    },
+    {
+      "from": "javascript-testing-patterns",
+      "to": "test-coverage-gap-finder",
+      "type": "related"
+    },
+    {
+      "from": "javascript-testing-patterns",
+      "to": "api-test-suite-builder",
+      "type": "related"
+    },
+    {
+      "from": "javascript-testing-patterns",
+      "to": "javascript-modern-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "javascript-testing-patterns",
+      "to": "playwright-e2e-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "javascript-testing-patterns",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "jetpack-compose-expert",
+      "to": "kotlin-coroutines-flow",
+      "type": "related"
+    },
+    {
+      "from": "jetpack-compose-expert",
+      "to": "android-ui-verification",
+      "type": "related"
+    },
+    {
+      "from": "jetpack-compose-expert",
+      "to": "flutter-expert",
+      "type": "related"
+    },
+    {
+      "from": "jetpack-compose-expert",
+      "to": "react-native-architecture",
+      "type": "related"
+    },
+    {
+      "from": "jetpack-compose-expert",
+      "to": "android-ui-verification",
+      "type": "combines_with"
+    },
+    {
+      "from": "jetpack-compose-expert",
+      "to": "kotlin-coroutines-flow",
+      "type": "combines_with"
+    },
+    {
+      "from": "jetpack-compose-expert",
+      "to": "app-store-optimization",
+      "type": "combines_with"
+    },
+    {
+      "from": "k6-load-testing",
+      "to": "playwright-e2e-testing",
+      "type": "related"
+    },
+    {
+      "from": "k6-load-testing",
+      "to": "api-test-suite-builder",
+      "type": "related"
+    },
+    {
+      "from": "k6-load-testing",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "k6-load-testing",
+      "to": "javascript-testing-patterns",
+      "type": "related"
+    },
+    {
+      "from": "k6-load-testing",
+      "to": "performance-profiler",
+      "type": "combines_with"
+    },
+    {
+      "from": "k6-load-testing",
+      "to": "grafana-dashboards",
+      "type": "combines_with"
+    },
+    {
+      "from": "k6-load-testing",
+      "to": "slo-sli-implementation",
+      "type": "combines_with"
+    },
+    {
+      "from": "kotlin-coroutines-flow",
+      "to": "jetpack-compose-expert",
+      "type": "related"
+    },
+    {
+      "from": "kotlin-coroutines-flow",
+      "to": "swift-concurrency",
+      "type": "related"
+    },
+    {
+      "from": "kotlin-coroutines-flow",
+      "to": "go-concurrency-patterns",
+      "type": "related"
+    },
+    {
+      "from": "kotlin-coroutines-flow",
+      "to": "async-python-patterns",
+      "type": "related"
+    },
+    {
+      "from": "kotlin-coroutines-flow",
+      "to": "java-modern-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "kotlin-coroutines-flow",
+      "to": "react-native-architecture",
+      "type": "combines_with"
+    },
+    {
+      "from": "kotlin-coroutines-flow",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "legacy-codebase-modernizer",
+      "to": "clean-code-principles",
+      "type": "related"
+    },
+    {
+      "from": "legacy-codebase-modernizer",
+      "to": "code-simplifier",
+      "type": "related"
+    },
+    {
+      "from": "legacy-codebase-modernizer",
+      "to": "database-migration-strategies",
+      "type": "related"
+    },
+    {
+      "from": "legacy-codebase-modernizer",
+      "to": "zero-downtime-migration-architect",
+      "type": "related"
+    },
+    {
+      "from": "legacy-codebase-modernizer",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "legacy-codebase-modernizer",
+      "to": "clean-code-principles",
+      "type": "combines_with"
+    },
+    {
+      "from": "legacy-codebase-modernizer",
+      "to": "adr-management-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "llm-coding-mistake-guardrails",
+      "to": "adversarial-code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "llm-coding-mistake-guardrails",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "llm-coding-mistake-guardrails",
+      "to": "clean-code-principles",
+      "type": "related"
+    },
+    {
+      "from": "llm-coding-mistake-guardrails",
+      "to": "autonomous-coding-agent-patterns",
+      "type": "related"
+    },
+    {
+      "from": "llm-coding-mistake-guardrails",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "llm-coding-mistake-guardrails",
+      "to": "systematic-debugger",
+      "type": "combines_with"
+    },
+    {
+      "from": "llm-coding-mistake-guardrails",
+      "to": "code-simplifier",
+      "type": "combines_with"
+    },
+    {
+      "from": "microservices-patterns",
+      "to": "backend-architecture-patterns",
+      "type": "related"
+    },
+    {
+      "from": "microservices-patterns",
+      "to": "service-mesh-architect",
+      "type": "related"
+    },
+    {
+      "from": "microservices-patterns",
+      "to": "ddd-strategic-design",
+      "type": "related"
+    },
+    {
+      "from": "microservices-patterns",
+      "to": "saga-orchestration",
+      "type": "related"
+    },
+    {
+      "from": "microservices-patterns",
+      "to": "kubernetes-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "microservices-patterns",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
+      "from": "microservices-patterns",
+      "to": "event-sourcing-cqrs",
+      "type": "combines_with"
+    },
+    {
+      "from": "modern-angular-expert",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "modern-angular-expert",
+      "to": "sveltekit-fullstack",
+      "type": "related"
+    },
+    {
+      "from": "modern-angular-expert",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "modern-angular-expert",
+      "to": "shadcn-ui-components",
+      "type": "related"
+    },
+    {
+      "from": "modern-angular-expert",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "modern-angular-expert",
+      "to": "tanstack-query",
+      "type": "combines_with"
+    },
+    {
+      "from": "modern-angular-expert",
+      "to": "playwright-e2e-testing",
+      "type": "combines_with"
+    },
+    {
       "from": "monorepo-navigator",
       "to": "code-reviewer",
       "type": "related"
@@ -4962,6 +6712,741 @@
       "from": "monorepo-navigator",
       "to": "dependency-auditor",
       "type": "related"
+    },
+    {
+      "from": "nestjs-expert",
+      "to": "fastapi-async-api",
+      "type": "related"
+    },
+    {
+      "from": "nestjs-expert",
+      "to": "trpc-typesafe-api",
+      "type": "related"
+    },
+    {
+      "from": "nestjs-expert",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "nestjs-expert",
+      "to": "graphql-architect",
+      "type": "related"
+    },
+    {
+      "from": "nestjs-expert",
+      "to": "prisma-orm-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "nestjs-expert",
+      "to": "zod-schema-validation",
+      "type": "combines_with"
+    },
+    {
+      "from": "nestjs-expert",
+      "to": "bullmq-job-queue",
+      "type": "combines_with"
+    },
+    {
+      "from": "observability-strategy-designer",
+      "to": "slo-sli-implementation",
+      "type": "related"
+    },
+    {
+      "from": "observability-strategy-designer",
+      "to": "distributed-tracing",
+      "type": "related"
+    },
+    {
+      "from": "observability-strategy-designer",
+      "to": "prometheus-configuration",
+      "type": "related"
+    },
+    {
+      "from": "observability-strategy-designer",
+      "to": "grafana-dashboards",
+      "type": "related"
+    },
+    {
+      "from": "observability-strategy-designer",
+      "to": "grafana-dashboards",
+      "type": "combines_with"
+    },
+    {
+      "from": "observability-strategy-designer",
+      "to": "incident-commander-framework",
+      "type": "combines_with"
+    },
+    {
+      "from": "observability-strategy-designer",
+      "to": "error-log-detective",
+      "type": "combines_with"
+    },
+    {
+      "from": "performance-profiler",
+      "to": "python-performance-optimization",
+      "type": "related"
+    },
+    {
+      "from": "performance-profiler",
+      "to": "complexity-cuts",
+      "type": "related"
+    },
+    {
+      "from": "performance-profiler",
+      "to": "devops-troubleshooter",
+      "type": "related"
+    },
+    {
+      "from": "performance-profiler",
+      "to": "distributed-tracing",
+      "type": "related"
+    },
+    {
+      "from": "performance-profiler",
+      "to": "k6-load-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "performance-profiler",
+      "to": "grafana-dashboards",
+      "type": "combines_with"
+    },
+    {
+      "from": "performance-profiler",
+      "to": "postgresql-optimization",
+      "type": "combines_with"
+    },
+    {
+      "from": "playwright-e2e-testing",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "playwright-e2e-testing",
+      "to": "browserstack-cross-browser-test",
+      "type": "related"
+    },
+    {
+      "from": "playwright-e2e-testing",
+      "to": "javascript-testing-patterns",
+      "type": "related"
+    },
+    {
+      "from": "playwright-e2e-testing",
+      "to": "android-ui-verification",
+      "type": "related"
+    },
+    {
+      "from": "playwright-e2e-testing",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "playwright-e2e-testing",
+      "to": "accessibility-wcag-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "playwright-e2e-testing",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "prisma-orm-expert",
+      "to": "drizzle-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "prisma-orm-expert",
+      "to": "database-migration-strategies",
+      "type": "related"
+    },
+    {
+      "from": "prisma-orm-expert",
+      "to": "neon-serverless-postgres",
+      "type": "related"
+    },
+    {
+      "from": "prisma-orm-expert",
+      "to": "postgresql-optimization",
+      "type": "related"
+    },
+    {
+      "from": "prisma-orm-expert",
+      "to": "nestjs-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "prisma-orm-expert",
+      "to": "trpc-typesafe-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "prisma-orm-expert",
+      "to": "zod-schema-validation",
+      "type": "combines_with"
+    },
+    {
+      "from": "progressive-web-app",
+      "to": "sveltekit-fullstack",
+      "type": "related"
+    },
+    {
+      "from": "progressive-web-app",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "progressive-web-app",
+      "to": "web-component-design",
+      "type": "related"
+    },
+    {
+      "from": "progressive-web-app",
+      "to": "browser-extension-builder",
+      "type": "related"
+    },
+    {
+      "from": "progressive-web-app",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "progressive-web-app",
+      "to": "accessibility-wcag-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "progressive-web-app",
+      "to": "performance-profiler",
+      "type": "combines_with"
+    },
+    {
+      "from": "prometheus-configuration",
+      "to": "grafana-dashboards",
+      "type": "related"
+    },
+    {
+      "from": "prometheus-configuration",
+      "to": "slo-sli-implementation",
+      "type": "related"
+    },
+    {
+      "from": "prometheus-configuration",
+      "to": "observability-strategy-designer",
+      "type": "related"
+    },
+    {
+      "from": "prometheus-configuration",
+      "to": "distributed-tracing",
+      "type": "related"
+    },
+    {
+      "from": "prometheus-configuration",
+      "to": "kubernetes-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "prometheus-configuration",
+      "to": "devops-troubleshooter",
+      "type": "combines_with"
+    },
+    {
+      "from": "prometheus-configuration",
+      "to": "sre-incident-responder",
+      "type": "combines_with"
+    },
+    {
+      "from": "python-performance-optimization",
+      "to": "complexity-cuts",
+      "type": "related"
+    },
+    {
+      "from": "python-performance-optimization",
+      "to": "performance-profiler",
+      "type": "related"
+    },
+    {
+      "from": "python-performance-optimization",
+      "to": "async-python-patterns",
+      "type": "related"
+    },
+    {
+      "from": "python-performance-optimization",
+      "to": "code-simplifier",
+      "type": "related"
+    },
+    {
+      "from": "python-performance-optimization",
+      "to": "python-testing-pytest",
+      "type": "combines_with"
+    },
+    {
+      "from": "python-performance-optimization",
+      "to": "polars-dataframe",
+      "type": "combines_with"
+    },
+    {
+      "from": "python-performance-optimization",
+      "to": "systematic-debugger",
+      "type": "combines_with"
+    },
+    {
+      "from": "python-testing-pytest",
+      "to": "javascript-testing-patterns",
+      "type": "related"
+    },
+    {
+      "from": "python-testing-pytest",
+      "to": "test-coverage-gap-finder",
+      "type": "related"
+    },
+    {
+      "from": "python-testing-pytest",
+      "to": "api-test-suite-builder",
+      "type": "related"
+    },
+    {
+      "from": "python-testing-pytest",
+      "to": "async-python-patterns",
+      "type": "related"
+    },
+    {
+      "from": "python-testing-pytest",
+      "to": "fastapi-async-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "python-testing-pytest",
+      "to": "django-async-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "python-testing-pytest",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "react-native-architecture",
+      "to": "flutter-expert",
+      "type": "related"
+    },
+    {
+      "from": "react-native-architecture",
+      "to": "jetpack-compose-expert",
+      "type": "related"
+    },
+    {
+      "from": "react-native-architecture",
+      "to": "ios-swiftui-developer",
+      "type": "related"
+    },
+    {
+      "from": "react-native-architecture",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "react-native-architecture",
+      "to": "tanstack-query",
+      "type": "combines_with"
+    },
+    {
+      "from": "react-native-architecture",
+      "to": "app-store-optimization",
+      "type": "combines_with"
+    },
+    {
+      "from": "react-native-architecture",
+      "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "react-state-management",
+      "to": "tanstack-query",
+      "type": "related"
+    },
+    {
+      "from": "react-state-management",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "react-state-management",
+      "to": "frontend-design",
+      "type": "related"
+    },
+    {
+      "from": "react-state-management",
+      "to": "modern-angular-expert",
+      "type": "related"
+    },
+    {
+      "from": "react-state-management",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "react-state-management",
+      "to": "zod-schema-validation",
+      "type": "combines_with"
+    },
+    {
+      "from": "react-state-management",
+      "to": "web-component-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "ruby-pro",
+      "to": "php-pro",
+      "type": "related"
+    },
+    {
+      "from": "ruby-pro",
+      "to": "golang-pro",
+      "type": "related"
+    },
+    {
+      "from": "ruby-pro",
+      "to": "java-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "ruby-pro",
+      "to": "rust-pro",
+      "type": "related"
+    },
+    {
+      "from": "ruby-pro",
+      "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "ruby-pro",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "ruby-pro",
+      "to": "code-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "saas-multi-tenant-architecture",
+      "to": "microservices-patterns",
+      "type": "related"
+    },
+    {
+      "from": "saas-multi-tenant-architecture",
+      "to": "database-design-advisor",
+      "type": "related"
+    },
+    {
+      "from": "saas-multi-tenant-architecture",
+      "to": "postgresql-optimization",
+      "type": "related"
+    },
+    {
+      "from": "saas-multi-tenant-architecture",
+      "to": "backend-architecture-patterns",
+      "type": "related"
+    },
+    {
+      "from": "saas-multi-tenant-architecture",
+      "to": "billing-automation-systems",
+      "type": "combines_with"
+    },
+    {
+      "from": "saas-multi-tenant-architecture",
+      "to": "auth-implementation-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "saas-multi-tenant-architecture",
+      "to": "postgresql-optimization",
+      "type": "combines_with"
+    },
+    {
+      "from": "saga-orchestration",
+      "to": "event-sourcing-cqrs",
+      "type": "related"
+    },
+    {
+      "from": "saga-orchestration",
+      "to": "cqrs-implementation",
+      "type": "related"
+    },
+    {
+      "from": "saga-orchestration",
+      "to": "microservices-patterns",
+      "type": "related"
+    },
+    {
+      "from": "saga-orchestration",
+      "to": "temporal-workflow-python",
+      "type": "related"
+    },
+    {
+      "from": "saga-orchestration",
+      "to": "ddd-context-mapping",
+      "type": "combines_with"
+    },
+    {
+      "from": "saga-orchestration",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
+      "from": "saga-orchestration",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "scala-pro",
+      "to": "java-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "scala-pro",
+      "to": "kotlin-coroutines-flow",
+      "type": "related"
+    },
+    {
+      "from": "scala-pro",
+      "to": "golang-pro",
+      "type": "related"
+    },
+    {
+      "from": "scala-pro",
+      "to": "rust-pro",
+      "type": "related"
+    },
+    {
+      "from": "scala-pro",
+      "to": "spark-job-optimization",
+      "type": "combines_with"
+    },
+    {
+      "from": "scala-pro",
+      "to": "graphql-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "scala-pro",
+      "to": "data-pipeline-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "shadcn-ui-components",
+      "to": "tailwind-css-patterns",
+      "type": "related"
+    },
+    {
+      "from": "shadcn-ui-components",
+      "to": "web-component-design",
+      "type": "related"
+    },
+    {
+      "from": "shadcn-ui-components",
+      "to": "ui-design-system-builder",
+      "type": "related"
+    },
+    {
+      "from": "shadcn-ui-components",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "shadcn-ui-components",
+      "to": "frontend-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "shadcn-ui-components",
+      "to": "sveltekit-fullstack",
+      "type": "combines_with"
+    },
+    {
+      "from": "shadcn-ui-components",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "shellcheck-linting",
+      "to": "bash-defensive-patterns",
+      "type": "related"
+    },
+    {
+      "from": "shellcheck-linting",
+      "to": "posix-shell-scripting",
+      "type": "related"
+    },
+    {
+      "from": "shellcheck-linting",
+      "to": "powershell-windows",
+      "type": "related"
+    },
+    {
+      "from": "shellcheck-linting",
+      "to": "git-hooks-automation",
+      "type": "related"
+    },
+    {
+      "from": "shellcheck-linting",
+      "to": "bash-defensive-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "shellcheck-linting",
+      "to": "git-hooks-automation",
+      "type": "combines_with"
+    },
+    {
+      "from": "shellcheck-linting",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "shopify-app-development",
+      "to": "stripe-integration",
+      "type": "related"
+    },
+    {
+      "from": "shopify-app-development",
+      "to": "graphql-architect",
+      "type": "related"
+    },
+    {
+      "from": "shopify-app-development",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "shopify-app-development",
+      "to": "shadcn-ui-components",
+      "type": "related"
+    },
+    {
+      "from": "shopify-app-development",
+      "to": "stripe-integration",
+      "type": "combines_with"
+    },
+    {
+      "from": "shopify-app-development",
+      "to": "billing-automation-systems",
+      "type": "combines_with"
+    },
+    {
+      "from": "shopify-app-development",
+      "to": "transactional-email-template-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "slo-sli-implementation",
+      "to": "prometheus-configuration",
+      "type": "related"
+    },
+    {
+      "from": "slo-sli-implementation",
+      "to": "grafana-dashboards",
+      "type": "related"
+    },
+    {
+      "from": "slo-sli-implementation",
+      "to": "observability-strategy-designer",
+      "type": "related"
+    },
+    {
+      "from": "slo-sli-implementation",
+      "to": "sre-incident-responder",
+      "type": "related"
+    },
+    {
+      "from": "slo-sli-implementation",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
+      "from": "slo-sli-implementation",
+      "to": "postmortem-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "slo-sli-implementation",
+      "to": "incident-commander-framework",
+      "type": "combines_with"
+    },
+    {
+      "from": "sveltekit-fullstack",
+      "to": "modern-angular-expert",
+      "type": "related"
+    },
+    {
+      "from": "sveltekit-fullstack",
+      "to": "astro-content-sites",
+      "type": "related"
+    },
+    {
+      "from": "sveltekit-fullstack",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "sveltekit-fullstack",
+      "to": "progressive-web-app",
+      "type": "related"
+    },
+    {
+      "from": "sveltekit-fullstack",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "sveltekit-fullstack",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "sveltekit-fullstack",
+      "to": "playwright-e2e-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "swift-concurrency",
+      "to": "swiftui-best-practices",
+      "type": "related"
+    },
+    {
+      "from": "swift-concurrency",
+      "to": "ios-swiftui-developer",
+      "type": "related"
+    },
+    {
+      "from": "swift-concurrency",
+      "to": "kotlin-coroutines-flow",
+      "type": "related"
+    },
+    {
+      "from": "swift-concurrency",
+      "to": "go-concurrency-patterns",
+      "type": "related"
+    },
+    {
+      "from": "swift-concurrency",
+      "to": "ios-swiftui-developer",
+      "type": "combines_with"
+    },
+    {
+      "from": "swift-concurrency",
+      "to": "swiftui-best-practices",
+      "type": "combines_with"
+    },
+    {
+      "from": "swift-concurrency",
+      "to": "systematic-debugger",
+      "type": "combines_with"
     },
     {
       "from": "systematic-debugger",
@@ -4977,6 +7462,356 @@
       "from": "systematic-debugger",
       "to": "code-reviewer",
       "type": "related"
+    },
+    {
+      "from": "systematic-debugging-strategies",
+      "to": "systematic-debugger",
+      "type": "related"
+    },
+    {
+      "from": "systematic-debugging-strategies",
+      "to": "bug-hunter",
+      "type": "related"
+    },
+    {
+      "from": "systematic-debugging-strategies",
+      "to": "error-log-detective",
+      "type": "related"
+    },
+    {
+      "from": "systematic-debugging-strategies",
+      "to": "gdb-debugging-cli",
+      "type": "related"
+    },
+    {
+      "from": "systematic-debugging-strategies",
+      "to": "performance-profiler",
+      "type": "combines_with"
+    },
+    {
+      "from": "systematic-debugging-strategies",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
+      "from": "systematic-debugging-strategies",
+      "to": "git-advanced-workflows",
+      "type": "combines_with"
+    },
+    {
+      "from": "tanstack-query",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "tanstack-query",
+      "to": "trpc-typesafe-api",
+      "type": "related"
+    },
+    {
+      "from": "tanstack-query",
+      "to": "zod-schema-validation",
+      "type": "related"
+    },
+    {
+      "from": "tanstack-query",
+      "to": "sveltekit-fullstack",
+      "type": "related"
+    },
+    {
+      "from": "tanstack-query",
+      "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "tanstack-query",
+      "to": "typescript-advanced-types",
+      "type": "combines_with"
+    },
+    {
+      "from": "tanstack-query",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "temporal-workflow-python",
+      "to": "saga-orchestration",
+      "type": "related"
+    },
+    {
+      "from": "temporal-workflow-python",
+      "to": "async-python-patterns",
+      "type": "related"
+    },
+    {
+      "from": "temporal-workflow-python",
+      "to": "fastapi-async-api",
+      "type": "related"
+    },
+    {
+      "from": "temporal-workflow-python",
+      "to": "bullmq-job-queue",
+      "type": "related"
+    },
+    {
+      "from": "temporal-workflow-python",
+      "to": "microservices-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "temporal-workflow-python",
+      "to": "event-sourcing-cqrs",
+      "type": "combines_with"
+    },
+    {
+      "from": "temporal-workflow-python",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
+      "from": "test-coverage-gap-finder",
+      "to": "python-testing-pytest",
+      "type": "related"
+    },
+    {
+      "from": "test-coverage-gap-finder",
+      "to": "javascript-testing-patterns",
+      "type": "related"
+    },
+    {
+      "from": "test-coverage-gap-finder",
+      "to": "api-test-suite-builder",
+      "type": "related"
+    },
+    {
+      "from": "test-coverage-gap-finder",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "test-coverage-gap-finder",
+      "to": "python-testing-pytest",
+      "type": "combines_with"
+    },
+    {
+      "from": "test-coverage-gap-finder",
+      "to": "javascript-testing-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "test-coverage-gap-finder",
+      "to": "playwright-e2e-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "trpc-typesafe-api",
+      "to": "zod-schema-validation",
+      "type": "related"
+    },
+    {
+      "from": "trpc-typesafe-api",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "trpc-typesafe-api",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "trpc-typesafe-api",
+      "to": "graphql-architect",
+      "type": "related"
+    },
+    {
+      "from": "trpc-typesafe-api",
+      "to": "zod-schema-validation",
+      "type": "combines_with"
+    },
+    {
+      "from": "trpc-typesafe-api",
+      "to": "tanstack-query",
+      "type": "combines_with"
+    },
+    {
+      "from": "trpc-typesafe-api",
+      "to": "drizzle-orm-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "turborepo-caching",
+      "to": "monorepo-navigator",
+      "type": "related"
+    },
+    {
+      "from": "turborepo-caching",
+      "to": "bazel-build-optimization",
+      "type": "related"
+    },
+    {
+      "from": "turborepo-caching",
+      "to": "ci-cd-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "turborepo-caching",
+      "to": "git-advanced-workflows",
+      "type": "related"
+    },
+    {
+      "from": "turborepo-caching",
+      "to": "typescript-advanced-types",
+      "type": "combines_with"
+    },
+    {
+      "from": "turborepo-caching",
+      "to": "deployment-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "turborepo-caching",
+      "to": "github-actions-author",
+      "type": "combines_with"
+    },
+    {
+      "from": "typescript-advanced-types",
+      "to": "javascript-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "typescript-advanced-types",
+      "to": "zod-schema-validation",
+      "type": "related"
+    },
+    {
+      "from": "typescript-advanced-types",
+      "to": "trpc-typesafe-api",
+      "type": "related"
+    },
+    {
+      "from": "typescript-advanced-types",
+      "to": "bun-runtime-development",
+      "type": "related"
+    },
+    {
+      "from": "typescript-advanced-types",
+      "to": "react-state-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "typescript-advanced-types",
+      "to": "shadcn-ui-components",
+      "type": "combines_with"
+    },
+    {
+      "from": "typescript-advanced-types",
+      "to": "nestjs-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "uv-python-package-manager",
+      "to": "async-python-patterns",
+      "type": "related"
+    },
+    {
+      "from": "uv-python-package-manager",
+      "to": "python-performance-optimization",
+      "type": "related"
+    },
+    {
+      "from": "uv-python-package-manager",
+      "to": "fastapi-async-api",
+      "type": "related"
+    },
+    {
+      "from": "uv-python-package-manager",
+      "to": "python-testing-pytest",
+      "type": "related"
+    },
+    {
+      "from": "uv-python-package-manager",
+      "to": "django-async-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "uv-python-package-manager",
+      "to": "docker-development-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "uv-python-package-manager",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "vp-engineering-advisor",
+      "to": "coo-operations-advisor",
+      "type": "related"
+    },
+    {
+      "from": "vp-engineering-advisor",
+      "to": "cpo-product-advisor",
+      "type": "related"
+    },
+    {
+      "from": "vp-engineering-advisor",
+      "to": "org-health-diagnostic",
+      "type": "related"
+    },
+    {
+      "from": "vp-engineering-advisor",
+      "to": "developer-experience-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "vp-engineering-advisor",
+      "to": "deployment-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "vp-engineering-advisor",
+      "to": "enterprise-project-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "vp-engineering-advisor",
+      "to": "developer-experience-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "vscode-extension-development",
+      "to": "browser-extension-builder",
+      "type": "related"
+    },
+    {
+      "from": "vscode-extension-development",
+      "to": "chrome-extension-mv3",
+      "type": "related"
+    },
+    {
+      "from": "vscode-extension-development",
+      "to": "electron-desktop-development",
+      "type": "related"
+    },
+    {
+      "from": "vscode-extension-development",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "vscode-extension-development",
+      "to": "codetour-walkthrough-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "vscode-extension-development",
+      "to": "developer-experience-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "vscode-extension-development",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
     },
     {
       "from": "web-artifacts-builder",
@@ -5016,6 +7851,76 @@
     {
       "from": "webapp-testing",
       "to": "code-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "zero-downtime-migration-architect",
+      "to": "database-migration-strategies",
+      "type": "related"
+    },
+    {
+      "from": "zero-downtime-migration-architect",
+      "to": "database-design-advisor",
+      "type": "related"
+    },
+    {
+      "from": "zero-downtime-migration-architect",
+      "to": "legacy-codebase-modernizer",
+      "type": "related"
+    },
+    {
+      "from": "zero-downtime-migration-architect",
+      "to": "release-manager",
+      "type": "related"
+    },
+    {
+      "from": "zero-downtime-migration-architect",
+      "to": "deployment-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "zero-downtime-migration-architect",
+      "to": "feature-flags-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "zero-downtime-migration-architect",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "zod-schema-validation",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "zod-schema-validation",
+      "to": "trpc-typesafe-api",
+      "type": "related"
+    },
+    {
+      "from": "zod-schema-validation",
+      "to": "tanstack-query",
+      "type": "related"
+    },
+    {
+      "from": "zod-schema-validation",
+      "to": "javascript-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "zod-schema-validation",
+      "to": "trpc-typesafe-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "zod-schema-validation",
+      "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "zod-schema-validation",
+      "to": "react-state-management",
       "type": "combines_with"
     },
     {
@@ -14326,6 +17231,41 @@
     {
       "from": "deposition-outline-prep",
       "to": "legal-hold-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "dicom-medical-imaging",
+      "to": "computer-vision-expert",
+      "type": "related"
+    },
+    {
+      "from": "dicom-medical-imaging",
+      "to": "genomic-file-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "dicom-medical-imaging",
+      "to": "single-cell-rnaseq-analysis",
+      "type": "related"
+    },
+    {
+      "from": "dicom-medical-imaging",
+      "to": "astronomy-data-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "dicom-medical-imaging",
+      "to": "guided-statistical-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "dicom-medical-imaging",
+      "to": "matplotlib-visualization",
+      "type": "combines_with"
+    },
+    {
+      "from": "dicom-medical-imaging",
+      "to": "scikit-learn-ml",
       "type": "combines_with"
     },
     {

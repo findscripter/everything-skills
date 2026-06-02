@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Bash, Read, Edit, Write]
 requires: []
-related: []
-combines_with: []
+related: [async-python-patterns, rest-api-endpoint-builder, django-async-pro, graphql-architect]
+combines_with: [python-testing-pytest, prisma-orm-expert, distributed-tracing]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

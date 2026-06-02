@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Write, Edit, Bash]
 requires: []
-related: []
-combines_with: []
+related: [event-sourcing-cqrs, saga-orchestration, microservices-patterns, ddd-strategic-design]
+combines_with: [event-sourcing-cqrs, microservices-patterns, ddd-context-mapping]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

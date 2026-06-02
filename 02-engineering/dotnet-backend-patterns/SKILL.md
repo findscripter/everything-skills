@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [EF Core, Dapper, Redis, xUnit, Moq, WebApplicationFactory, IMemoryCache, IDistributedCache]
 requires: []
-related: []
-combines_with: []
+related: [java-modern-pro, golang-pro, nestjs-expert, rest-api-endpoint-builder]
+combines_with: [backend-architecture-patterns, database-design-advisor, error-handling-patterns]
 license: MIT
 source: wshobson/agents
 source_license: MIT

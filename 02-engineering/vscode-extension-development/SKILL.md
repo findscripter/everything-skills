@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [claude, cursor, copilot, codex, gemini]
 requires: []
-related: []
-combines_with: []
+related: [browser-extension-builder, chrome-extension-mv3, electron-desktop-development, typescript-advanced-types]
+combines_with: [codetour-walkthrough-builder, developer-experience-optimizer, web-artifacts-builder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

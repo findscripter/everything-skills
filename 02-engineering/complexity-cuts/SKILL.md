@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [claude-code, antigravity, cursor, gemini-cli, codex-cli]
 requires: []
-related: []
-combines_with: []
+related: [python-performance-optimization, code-simplifier, clean-code-principles, performance-profiler]
+combines_with: [systematic-debugger, code-reviewer, test-coverage-gap-finder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

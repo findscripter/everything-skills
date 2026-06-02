@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Edit, Write, Bash, Grep, Glob]
 requires: []
-related: []
-combines_with: []
+related: [kotlin-coroutines-flow, scala-pro, golang-pro, dotnet-backend-patterns]
+combines_with: [nestjs-expert, graphql-architect, grpc-golang-services]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [React, TypeScript, Redux Toolkit, Zustand, Jotai, TanStack Query]
 requires: []
-related: []
-combines_with: []
+related: [tanstack-query, typescript-advanced-types, frontend-design, modern-angular-expert]
+combines_with: [shadcn-ui-components, zod-schema-validation, web-component-design]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

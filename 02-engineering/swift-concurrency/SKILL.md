@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [swift, xcode, swiftpm]
 requires: []
-related: []
-combines_with: []
+related: [swiftui-best-practices, ios-swiftui-developer, kotlin-coroutines-flow, go-concurrency-patterns]
+combines_with: [ios-swiftui-developer, swiftui-best-practices, systematic-debugger]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

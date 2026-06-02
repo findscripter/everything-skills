@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: []
-combines_with: []
+related: [bug-hunter, systematic-debugger, error-log-detective, saga-orchestration]
+combines_with: [rest-api-endpoint-builder, distributed-tracing, microservices-patterns]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

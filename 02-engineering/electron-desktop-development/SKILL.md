@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [electron, electron-builder, electron-forge, electron-vite, electron-updater, electron-store, electron-log, @electron/rebuild, Vite, Playwright, Vitest]
 requires: []
-related: []
-combines_with: []
+related: [chrome-extension-mv3, progressive-web-app, vscode-extension-development, react-state-management]
+combines_with: [typescript-advanced-types, shadcn-ui-components, ci-cd-pipeline-builder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [typescript, zod, react-hook-form, nextjs]
 requires: []
-related: []
-combines_with: []
+related: [typescript-advanced-types, trpc-typesafe-api, tanstack-query, javascript-modern-pro]
+combines_with: [trpc-typesafe-api, rest-api-endpoint-builder, react-state-management]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

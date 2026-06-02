@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [scala, sbt, zio, cats-effect, pekko, spark]
 requires: []
-related: []
-combines_with: []
+related: [java-modern-pro, kotlin-coroutines-flow, golang-pro, rust-pro]
+combines_with: [spark-job-optimization, graphql-architect, data-pipeline-engineer]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

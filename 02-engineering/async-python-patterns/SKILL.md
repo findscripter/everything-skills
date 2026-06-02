@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python]
 requires: []
-related: []
-combines_with: []
+related: [fastapi-async-api, python-performance-optimization, go-concurrency-patterns, kotlin-coroutines-flow]
+combines_with: [bullmq-job-queue, python-testing-pytest, error-handling-patterns]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

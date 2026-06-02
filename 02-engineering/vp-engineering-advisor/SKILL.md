@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [delivery_throughput_analyzer.py, eng_hiring_funnel_calculator.py, eng_team_structure_designer.py]
 requires: []
-related: []
-combines_with: []
+related: [coo-operations-advisor, cpo-product-advisor, org-health-diagnostic, developer-experience-optimizer]
+combines_with: [deployment-engineer, enterprise-project-manager, developer-experience-optimizer]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

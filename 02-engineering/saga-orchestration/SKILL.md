@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [编排器/状态存储（saga store）, 事件总线/消息队列（event bus / publisher）, 定时调度器（scheduler，用于超时）, 持久化执行框架（如 DBOS，可选）]
 requires: []
-related: []
-combines_with: []
+related: [event-sourcing-cqrs, cqrs-implementation, microservices-patterns, temporal-workflow-python]
+combines_with: [ddd-context-mapping, distributed-tracing, error-handling-patterns]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

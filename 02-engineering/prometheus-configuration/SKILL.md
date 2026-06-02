@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [prometheus, promtool, helm, docker-compose]
 requires: []
-related: []
-combines_with: []
+related: [grafana-dashboards, slo-sli-implementation, observability-strategy-designer, distributed-tracing]
+combines_with: [kubernetes-architect, devops-troubleshooter, sre-incident-responder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

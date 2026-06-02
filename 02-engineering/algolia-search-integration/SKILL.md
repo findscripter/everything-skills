@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [algoliasearch, react-instantsearch, react-instantsearch-nextjs, @algolia/autocomplete-js]
 requires: []
-related: []
-combines_with: []
+related: [hybrid-search-retrieval, exa-semantic-search, rest-api-endpoint-builder, vector-index-tuning]
+combines_with: [shadcn-ui-components, fastapi-async-api, react-state-management]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

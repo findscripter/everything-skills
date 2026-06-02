@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [slo_designer.py, alert_optimizer.py, dashboard_generator.py, Prometheus, Grafana]
 requires: []
-related: []
-combines_with: []
+related: [slo-sli-implementation, distributed-tracing, prometheus-configuration, grafana-dashboards]
+combines_with: [grafana-dashboards, incident-commander-framework, error-log-detective]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

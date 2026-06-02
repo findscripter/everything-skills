@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, cProfile, line_profiler, memory_profiler, py-spy, tracemalloc, numpy, pytest-benchmark]
 requires: []
-related: []
-combines_with: []
+related: [complexity-cuts, performance-profiler, async-python-patterns, code-simplifier]
+combines_with: [python-testing-pytest, polars-dataframe, systematic-debugger]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

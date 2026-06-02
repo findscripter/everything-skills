@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [experiment_designer.py, blast_radius_calculator.py, experiment_postmortem.py, Chaos Toolkit, Chaos Mesh, Litmus, Gremlin, AWS FIS]
 requires: []
-related: []
-combines_with: []
+related: [sre-incident-responder, incident-commander-framework, devops-troubleshooter, slo-sli-implementation]
+combines_with: [k6-load-testing, observability-strategy-designer, postmortem-writer]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

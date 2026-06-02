@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Write, Edit, Bash]
 requires: []
-related: []
-combines_with: []
+related: [chrome-extension-mv3, electron-desktop-development, vscode-extension-development, frontend-design]
+combines_with: [typescript-advanced-types, web-artifacts-builder, tailwind-css-patterns]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

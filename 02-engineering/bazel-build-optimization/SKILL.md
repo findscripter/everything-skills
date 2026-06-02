@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [bazel, git, dot]
 requires: []
-related: []
-combines_with: []
+related: [turborepo-caching, monorepo-navigator, ci-cd-pipeline-builder, fullstack-project-scaffolder]
+combines_with: [monorepo-navigator, ci-cd-pipeline-builder, docker-development-optimizer]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

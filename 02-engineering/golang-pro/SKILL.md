@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pprof, go tool trace, golangci-lint, staticcheck, go test, testify, mockery, OpenTelemetry, Prometheus, slog, wire, air]
 requires: []
-related: []
-combines_with: []
+related: [go-concurrency-patterns, grpc-golang-services, rust-pro, java-modern-pro]
+combines_with: [grpc-golang-services, performance-profiler, microservices-patterns]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [@playwright/test, playwright CLI, Node.js / npm, GitHub Actions, Chromium / Firefox / WebKit]
 requires: []
-related: []
-combines_with: []
+related: [webapp-testing, browserstack-cross-browser-test, javascript-testing-patterns, android-ui-verification]
+combines_with: [ci-cd-pipeline-builder, accessibility-wcag-audit, test-coverage-gap-finder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

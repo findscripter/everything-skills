@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [py-spy, clinic.js, go tool pprof, k6, EXPLAIN ANALYZE, Chrome DevTools, webpack/next bundle-analyzer, performance_profiler.py]
 requires: []
-related: []
-combines_with: []
+related: [python-performance-optimization, complexity-cuts, devops-troubleshooter, distributed-tracing]
+combines_with: [k6-load-testing, grafana-dashboards, postgresql-optimization]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

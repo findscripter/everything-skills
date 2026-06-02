@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Jest, Vitest, Testing Library, supertest, @faker-js/faker]
 requires: []
-related: []
-combines_with: []
+related: [python-testing-pytest, playwright-e2e-testing, test-coverage-gap-finder, api-test-suite-builder]
+combines_with: [javascript-modern-pro, playwright-e2e-testing, test-coverage-gap-finder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

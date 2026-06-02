@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [typescript]
 requires: []
-related: []
-combines_with: []
+related: [javascript-modern-pro, zod-schema-validation, trpc-typesafe-api, bun-runtime-development]
+combines_with: [react-state-management, shadcn-ui-components, nestjs-expert]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

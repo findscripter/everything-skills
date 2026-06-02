@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Grep, Glob, Bash, Edit, Write]
 requires: []
-related: []
-combines_with: []
+related: [zod-schema-validation, typescript-advanced-types, rest-api-endpoint-builder, graphql-architect]
+combines_with: [zod-schema-validation, tanstack-query, drizzle-orm-expert]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

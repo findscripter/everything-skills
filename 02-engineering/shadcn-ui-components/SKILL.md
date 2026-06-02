@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [npx shadcn@latest, pnpm dlx shadcn@latest, bunx --bun shadcn@latest]
 requires: []
-related: []
-combines_with: []
+related: [tailwind-css-patterns, web-component-design, ui-design-system-builder, react-state-management]
+combines_with: [frontend-design, sveltekit-fullstack, web-artifacts-builder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

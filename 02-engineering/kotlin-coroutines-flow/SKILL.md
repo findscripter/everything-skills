@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Edit, Bash]
 requires: []
-related: []
-combines_with: []
+related: [jetpack-compose-expert, swift-concurrency, go-concurrency-patterns, async-python-patterns]
+combines_with: [java-modern-pro, react-native-architecture, error-handling-patterns]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

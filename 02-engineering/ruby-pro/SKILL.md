@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [ruby, rails, rspec, minitest, rubocop, benchmark-ips, bundler, ruby-prof]
 requires: []
-related: []
-combines_with: []
+related: [php-pro, golang-pro, java-modern-pro, rust-pro]
+combines_with: [rest-api-endpoint-builder, error-handling-patterns, code-reviewer]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

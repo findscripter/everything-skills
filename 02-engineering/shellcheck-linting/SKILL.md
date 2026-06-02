@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Bash, Write, Edit, Read]
 requires: []
-related: []
-combines_with: []
+related: [bash-defensive-patterns, posix-shell-scripting, powershell-windows, git-hooks-automation]
+combines_with: [bash-defensive-patterns, git-hooks-automation, ci-cd-pipeline-builder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

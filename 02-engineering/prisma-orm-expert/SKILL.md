@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [bash]
 requires: []
-related: []
-combines_with: []
+related: [drizzle-orm-expert, database-migration-strategies, neon-serverless-postgres, postgresql-optimization]
+combines_with: [nestjs-expert, trpc-typesafe-api, zod-schema-validation]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

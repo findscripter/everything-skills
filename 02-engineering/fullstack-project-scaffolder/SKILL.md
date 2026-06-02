@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Bash, Read, Write, Edit]
 requires: []
-related: []
-combines_with: []
+related: [tech-stack-evaluator, backend-architecture-patterns, monorepo-navigator, spec-driven-workflow]
+combines_with: [ci-cd-pipeline-builder, shadcn-ui-components, fastapi-async-api]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

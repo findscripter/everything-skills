@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [git, Read, Grep, Glob]
 requires: []
-related: []
-combines_with: []
+related: [code-reviewer, clean-craft-code-review, brooks-design-lint, llm-coding-mistake-guardrails]
+combines_with: [github-pr-comment-resolver, bug-hunter, security-audit-toolkit]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

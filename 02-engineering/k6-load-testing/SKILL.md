@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [k6, claude, cursor, gemini]
 requires: []
-related: []
-combines_with: []
+related: [playwright-e2e-testing, api-test-suite-builder, webapp-testing, javascript-testing-patterns]
+combines_with: [performance-profiler, grafana-dashboards, slo-sli-implementation]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [bullmq, ioredis, @bull-board/api, @bull-board/express]
 requires: []
-related: []
-combines_with: []
+related: [temporal-workflow-python, saga-orchestration, rest-api-endpoint-builder, error-handling-patterns]
+combines_with: [nestjs-expert, error-handling-patterns, transactional-email-template-builder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

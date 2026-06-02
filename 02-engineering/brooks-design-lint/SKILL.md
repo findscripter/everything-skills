@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Grep, Glob]
 requires: []
-related: []
-combines_with: []
+related: [clean-craft-code-review, clean-code-principles, adversarial-code-reviewer, code-reviewer]
+combines_with: [backend-architecture-patterns, legacy-codebase-modernizer, systematic-debugger]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

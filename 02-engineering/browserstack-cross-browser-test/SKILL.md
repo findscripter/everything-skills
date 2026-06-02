@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [BrowserStack MCP, Playwright, npx playwright test, browserstack-local]
 requires: []
-related: []
-combines_with: []
+related: [playwright-e2e-testing, webapp-testing, android-ui-verification, javascript-testing-patterns]
+combines_with: [ci-cd-pipeline-builder, accessibility-wcag-audit, test-coverage-gap-finder]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

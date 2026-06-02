@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [react-i18next, next-intl, gettext, Intl API, python]
 requires: []
-related: []
-combines_with: []
+related: [accessibility-wcag-audit, wcag-22-audit-patterns, react-state-management, frontend-design]
+combines_with: [sveltekit-fullstack, modern-angular-expert, tailwind-css-patterns]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

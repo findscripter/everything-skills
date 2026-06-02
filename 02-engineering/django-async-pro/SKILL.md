@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Bash, Read, Edit, Write, Grep, Glob]
 requires: []
-related: []
-combines_with: []
+related: [fastapi-async-api, async-python-patterns, rest-api-endpoint-builder, temporal-workflow-python]
+combines_with: [python-testing-pytest, postgresql-optimization, rest-api-endpoint-builder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

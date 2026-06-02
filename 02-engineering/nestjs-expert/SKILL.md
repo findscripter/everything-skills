@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Grep, Glob, Bash, Edit, Write]
 requires: []
-related: []
-combines_with: []
+related: [fastapi-async-api, trpc-typesafe-api, rest-api-endpoint-builder, graphql-architect]
+combines_with: [prisma-orm-expert, zod-schema-validation, bullmq-job-queue]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

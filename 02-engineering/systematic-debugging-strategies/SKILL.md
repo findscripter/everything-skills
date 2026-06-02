@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pdb / ipdb / breakpoint(), Chrome DevTools / debugger, VS Code Debugger (launch.json), Delve (dlv), git bisect, cProfile / pprof / Lighthouse, Sentry / Bugsnag, v8.writeHeapSnapshot]
 requires: []
-related: []
-combines_with: []
+related: [systematic-debugger, bug-hunter, error-log-detective, gdb-debugging-cli]
+combines_with: [performance-profiler, distributed-tracing, git-advanced-workflows]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, pytest, pytest-cov, pytest-asyncio, pytest-mock, hypothesis]
 requires: []
-related: []
-combines_with: []
+related: [javascript-testing-patterns, test-coverage-gap-finder, api-test-suite-builder, async-python-patterns]
+combines_with: [fastapi-async-api, django-async-pro, test-coverage-gap-finder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

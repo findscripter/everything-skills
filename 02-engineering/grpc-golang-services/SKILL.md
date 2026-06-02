@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [buf, protoc, go, grpc-go, opentelemetry]
 requires: []
-related: []
-combines_with: []
+related: [golang-pro, go-concurrency-patterns, microservices-patterns, trpc-typesafe-api]
+combines_with: [golang-pro, microservices-patterns, service-mesh-architect]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [OpenTelemetry, Jaeger, Grafana Tempo, kubectl, Docker Compose]
 requires: []
-related: []
-combines_with: []
+related: [observability-strategy-designer, performance-profiler, grafana-dashboards, prometheus-configuration]
+combines_with: [microservices-patterns, devops-troubleshooter, slo-sli-implementation]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

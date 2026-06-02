@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [flag_debt_scanner.py, rollout_planner.py, kill_switch_audit.py, git, python]
 requires: []
-related: []
-combines_with: []
+related: [ab-test-setup-gates, release-manager, deployment-engineer, ci-cd-pipeline-builder]
+combines_with: [release-manager, ab-test-designer, deployment-engineer]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

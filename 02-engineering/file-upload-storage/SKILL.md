@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [file-type, AWS SDK (S3 PutObjectCommand / getSignedUrl), multer, formidable, sharp]
 requires: []
-related: []
-combines_with: []
+related: [rest-api-endpoint-builder, cloudflare-workers-edge, aws-serverless-builder, transactional-email-template-builder]
+combines_with: [fastapi-async-api, zod-schema-validation, error-handling-patterns]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

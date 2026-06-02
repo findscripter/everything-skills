@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Node.js, Jest, JSDoc]
 requires: []
-related: []
-combines_with: []
+related: [typescript-advanced-types, bun-runtime-development, react-state-management, javascript-testing-patterns]
+combines_with: [chrome-extension-mv3, shadcn-ui-components, playwright-e2e-testing]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

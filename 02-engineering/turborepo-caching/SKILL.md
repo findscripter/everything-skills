@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [turbo, npm, git, node]
 requires: []
-related: []
-combines_with: []
+related: [monorepo-navigator, bazel-build-optimization, ci-cd-pipeline-builder, git-advanced-workflows]
+combines_with: [typescript-advanced-types, deployment-engineer, github-actions-author]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Grep, Glob, Bash, Write, Edit]
 requires: []
-related: []
-combines_with: []
+related: [javascript-testing-patterns, python-testing-pytest, webapp-testing, test-coverage-gap-finder]
+combines_with: [rest-api-endpoint-builder, api-design-reviewer, fastapi-async-api]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

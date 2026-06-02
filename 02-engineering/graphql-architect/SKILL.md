@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Apollo Federation v2, Apollo Server, GraphQL Yoga, Pothos, Nexus, DataLoader, Redis, GraphQL Code Generator, Hasura, Prisma]
 requires: []
-related: []
-combines_with: []
+related: [api-design-principles, rest-api-endpoint-builder, trpc-typesafe-api, fastapi-async-api]
+combines_with: [api-design-reviewer, prisma-orm-expert, tanstack-query]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, temporalio, docker]
 requires: []
-related: []
-combines_with: []
+related: [saga-orchestration, async-python-patterns, fastapi-async-api, bullmq-job-queue]
+combines_with: [microservices-patterns, event-sourcing-cqrs, distributed-tracing]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT

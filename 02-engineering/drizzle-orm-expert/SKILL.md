@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Write, Edit, Bash]
 requires: []
-related: []
-combines_with: []
+related: [prisma-orm-expert, database-migration-strategies, zod-schema-validation, neon-serverless-postgres]
+combines_with: [trpc-typesafe-api, typescript-advanced-types, rest-api-endpoint-builder]
 license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
