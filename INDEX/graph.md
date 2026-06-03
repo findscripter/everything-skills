@@ -33,6 +33,21 @@ graph LR
   caveman-compressed-mode -.-|related| human-like-response-mirror
   claude-command-selector -.-|related| skill-optimizer
   claude-command-selector -.-|related| skill-creator
+  closed-loop-delivery -.-|related| structured-decision-framework
+  closed-loop-delivery -.-|related| pre-deploy-checklist
+  closed-loop-delivery -.-|related| code-reviewer
+  closed-loop-delivery -.-|related| deployment-engineer
+  closed-loop-delivery -.-|related| webapp-testing
+  closed-loop-delivery ===|combines| github-pr-comment-resolver
+  closed-loop-delivery ===|combines| pre-deploy-checklist
+  closed-loop-delivery ===|combines| ci-cd-pipeline-builder
+  codebase-structure-protocol -.-|related| filesystem-context-offload
+  codebase-structure-protocol -.-|related| monorepo-navigator
+  codebase-structure-protocol -.-|related| codebase-onboarding-doc
+  codebase-structure-protocol -.-|related| agents-md-maintainer
+  codebase-structure-protocol ===|combines| codebase-to-prd
+  codebase-structure-protocol ===|combines| legacy-codebase-modernizer
+  codebase-structure-protocol ===|combines| tech-debt-prioritizer
   context-budget-audit -.-|related| context-window-management
   context-budget-audit -.-|related| context-compression
   context-budget-audit -.-|related| skill-optimizer
@@ -40,6 +55,12 @@ graph LR
   context-budget-audit ===|combines| skill-optimizer
   context-budget-audit ===|combines| cost-aware-llm-pipeline
   context-budget-audit ===|combines| agent-architecture-audit
+  decision-cooldown-freeze -.-|related| hard-call-advisor
+  decision-cooldown-freeze -.-|related| structured-decision-framework
+  decision-cooldown-freeze -.-|related| decision-navigator
+  decision-cooldown-freeze -.-|related| premortem-plan-challenger
+  decision-cooldown-freeze ===|combines| decision-log-recorder
+  decision-cooldown-freeze ===|combines| four-voice-decision-council
   decision-navigator -.-|related| design-brainstorming
   decision-navigator -.-|related| first-principles-thinking
   decision-navigator -.-|related| executive-adversarial-mentor
@@ -65,6 +86,11 @@ graph LR
   fact-checking -.-|related| notebooklm-source-grounded-qa
   fact-checking -.-|related| citation-management
   fact-checking ===|combines| citation-management
+  filesystem-context-offload -.-|related| context-compression
+  filesystem-context-offload -.-|related| context-window-management
+  filesystem-context-offload -.-|related| context-budget-audit
+  filesystem-context-offload ===|combines| parallel-agent-dispatch
+  filesystem-context-offload ===|combines| iterative-context-retrieval
   first-principles-assumption-auditor -.-|related| first-principles-thinking
   first-principles-assumption-auditor -.-|related| premortem-plan-challenger
   first-principles-assumption-auditor ===|combines| business-assumption-stress-test
@@ -105,6 +131,19 @@ graph LR
   notebooklm-source-grounded-qa -.-|related| entity-research-dossier
   notebooklm-source-grounded-qa ===|combines| fact-checking
   notebooklm-source-grounded-qa ===|combines| citation-management
+  parallel-agent-dispatch -.-|related| multi-agent-orchestrator
+  parallel-agent-dispatch -.-|related| parallel-agent-hub
+  parallel-agent-dispatch -.-|related| dmux-multi-agent-workflows
+  parallel-agent-dispatch -.-|related| task-decomposition-planner
+  parallel-agent-dispatch ===|combines| multi-agent-workflow-designer
+  parallel-agent-dispatch ===|combines| agent-workflow-pattern-designer
+  parallel-agent-dispatch ===|combines| premortem-plan-challenger
+  plan-execution-checkpoints -.-|related| closed-loop-delivery
+  plan-execution-checkpoints -.-|related| premortem-plan-challenger
+  plan-execution-checkpoints -.-|related| parallel-agent-dispatch
+  plan-execution-checkpoints -.-|related| task-decomposition-planner
+  plan-execution-checkpoints ===|combines| spec-driven-workflow
+  plan-execution-checkpoints ===|combines| task-decomposition-planner
   premortem-plan-challenger ===|combines| business-assumption-stress-test
   query-decomposition-search -.-|related| hybrid-search-retrieval
   query-decomposition-search -.-|related| rag-implementation-workflow
@@ -116,6 +155,19 @@ graph LR
   research-idea-generator ===|combines| academic-paper-writer
   research-idea-generator ===|combines| nih-grant-finder
   research-idea-generator ===|combines| fact-checking
+  rsvp-speed-reader -.-|related| bullet-point-structurer
+  rsvp-speed-reader -.-|related| socratic-explainer
+  rsvp-speed-reader -.-|related| interactive-pdf-viewer
+  rsvp-speed-reader -.-|related| multi-source-knowledge-synthesis
+  rsvp-speed-reader ===|combines| web-artifacts-builder
+  rsvp-speed-reader ===|combines| youtube-transcript-ingest
+  rsvp-speed-reader ===|combines| interactive-pdf-viewer
+  socratic-explainer -.-|related| bullet-point-structurer
+  socratic-explainer -.-|related| claude-command-selector
+  socratic-explainer -.-|related| academic-paper-explainer
+  socratic-explainer ===|combines| code-tutorial-engineer
+  socratic-explainer ===|combines| notebooklm-source-grounded-qa
+  socratic-explainer ===|combines| multi-source-knowledge-synthesis
   structured-decision-framework -.-|related| decision-log-recorder
   structured-decision-framework -.-|related| four-voice-decision-council
   structured-decision-framework -.-|related| premortem-plan-challenger
@@ -168,10 +220,21 @@ graph LR
   doc-coauthoring -.-|related| internal-comms
   doc-coauthoring -.-|related| professional-proofreader
   doc-coauthoring ===|combines| professional-proofreader
+  doc-to-math-spec -.-|related| first-principles-assumption-auditor
+  doc-to-math-spec -.-|related| math-proof-writer
+  doc-to-math-spec -.-|related| guided-statistical-analysis
+  doc-to-math-spec ===|combines| sympy-symbolic-math
+  doc-to-math-spec ===|combines| math-proof-writer
   docs-architect -.-|related| technical-reference-builder
   docs-architect -.-|related| readme-doc-writer
   docs-architect -.-|related| codebase-onboarding-doc
   docs-architect ===|combines| openapi-doc-generator
+  html-animated-slides -.-|related| python-pptx-deck-generator
+  html-animated-slides -.-|related| pptx-document-processing
+  html-animated-slides -.-|related| web-artifacts-builder
+  html-animated-slides -.-|related| html-dashboard-builder
+  html-animated-slides ===|combines| theme-factory
+  html-animated-slides ===|combines| animejs-web-animation
   humanize-chinese-text -.-|related| professional-proofreader
   humanize-chinese-text ===|combines| xiaohongshu-content-strategy
   humanize-chinese-text ===|combines| wechat-official-account-growth
@@ -385,6 +448,13 @@ graph LR
   code-simplifier ===|combines| legacy-codebase-modernizer
   code-simplifier ===|combines| systematic-debugger
   code-simplifier ===|combines| adversarial-code-reviewer
+  codebase-to-wordpress-theme -.-|related| frontend-design
+  codebase-to-wordpress-theme -.-|related| php-pro
+  codebase-to-wordpress-theme -.-|related| accessibility-wcag-audit
+  codebase-to-wordpress-theme -.-|related| i18n-localization-patterns
+  codebase-to-wordpress-theme ===|combines| seo-audit
+  codebase-to-wordpress-theme ===|combines| technical-seo-checker
+  codebase-to-wordpress-theme ===|combines| schema-markup-builder
   complexity-cuts -.-|related| python-performance-optimization
   complexity-cuts -.-|related| clean-code-principles
   complexity-cuts -.-|related| performance-profiler
@@ -423,6 +493,12 @@ graph LR
   ddd-strategic-design ===|combines| event-sourcing-cqrs
   ddd-strategic-design ===|combines| saga-orchestration
   ddd-strategic-design ===|combines| fullstack-project-scaffolder
+  devcontainer-claude-setup -.-|related| docker-development-optimizer
+  devcontainer-claude-setup -.-|related| docker-expert
+  devcontainer-claude-setup -.-|related| docker-container-optimizer
+  devcontainer-claude-setup -.-|related| deployment-engineer
+  devcontainer-claude-setup ===|combines| ci-cd-pipeline-builder
+  devcontainer-claude-setup ===|combines| fullstack-project-scaffolder
   distributed-tracing -.-|related| observability-strategy-designer
   distributed-tracing -.-|related| performance-profiler
   distributed-tracing -.-|related| grafana-dashboards
@@ -451,12 +527,26 @@ graph LR
   drizzle-orm-expert ===|combines| trpc-typesafe-api
   drizzle-orm-expert ===|combines| typescript-advanced-types
   drizzle-orm-expert ===|combines| rest-api-endpoint-builder
+  dwarf-debug-format-expert -.-|related| gdb-debugging-cli
+  dwarf-debug-format-expert -.-|related| binary-analysis-patterns
+  dwarf-debug-format-expert -.-|related| c-language-pro
+  dwarf-debug-format-expert -.-|related| cpp-modern-pro
+  dwarf-debug-format-expert ===|combines| gdb-debugging-cli
+  dwarf-debug-format-expert ===|combines| anti-reversing-techniques
+  dwarf-debug-format-expert ===|combines| c-cpp-security-review
   electron-desktop-development -.-|related| progressive-web-app
   electron-desktop-development -.-|related| vscode-extension-development
   electron-desktop-development -.-|related| react-state-management
   electron-desktop-development ===|combines| typescript-advanced-types
   electron-desktop-development ===|combines| shadcn-ui-components
   electron-desktop-development ===|combines| ci-cd-pipeline-builder
+  elixir-otp-pro -.-|related| rust-pro
+  elixir-otp-pro -.-|related| scala-pro
+  elixir-otp-pro -.-|related| go-concurrency-patterns
+  elixir-otp-pro -.-|related| ruby-pro
+  elixir-otp-pro ===|combines| microservices-patterns
+  elixir-otp-pro ===|combines| distributed-tracing
+  elixir-otp-pro ===|combines| performance-profiler
   error-handling-patterns -.-|related| bug-hunter
   error-handling-patterns -.-|related| systematic-debugger
   error-handling-patterns -.-|related| error-log-detective
@@ -510,12 +600,30 @@ graph LR
   flutter-expert ===|combines| android-ui-verification
   flutter-expert ===|combines| firebase-backend
   flutter-expert ===|combines| app-store-optimization
+  fp-ts-pragmatic-guide -.-|related| fp-ts-refactor
+  fp-ts-pragmatic-guide -.-|related| typescript-advanced-types
+  fp-ts-pragmatic-guide -.-|related| javascript-modern-pro
+  fp-ts-pragmatic-guide -.-|related| error-handling-patterns
+  fp-ts-pragmatic-guide ===|combines| fp-ts-refactor
+  fp-ts-pragmatic-guide ===|combines| zod-schema-validation
+  fp-ts-pragmatic-guide ===|combines| typescript-advanced-types
+  fp-ts-refactor -.-|related| typescript-advanced-types
+  fp-ts-refactor -.-|related| javascript-modern-pro
+  fp-ts-refactor -.-|related| error-handling-patterns
+  fp-ts-refactor ===|combines| typescript-advanced-types
+  fp-ts-refactor ===|combines| error-handling-patterns
   frontend-design -.-|related| brand-guidelines
   frontend-design -.-|related| theme-factory
   frontend-design -.-|related| canvas-design
   frontend-design -.-|related| web-artifacts-builder
   frontend-design -.-|related| webapp-testing
   frontend-design ===|combines| webapp-testing
+  full-output-enforcement -.-|related| llm-coding-mistake-guardrails
+  full-output-enforcement -.-|related| code-reviewer
+  full-output-enforcement -.-|related| adversarial-code-reviewer
+  full-output-enforcement -.-|related| llm-prompt-optimizer
+  full-output-enforcement ===|combines| code-simplifier
+  full-output-enforcement ===|combines| code-reviewer
   fullstack-project-scaffolder -.-|related| tech-stack-evaluator
   fullstack-project-scaffolder -.-|related| backend-architecture-patterns
   fullstack-project-scaffolder -.-|related| monorepo-navigator
@@ -717,6 +825,13 @@ graph LR
   react-state-management ===|combines| shadcn-ui-components
   react-state-management ===|combines| zod-schema-validation
   react-state-management ===|combines| web-component-design
+  realtime-support-chat-widget -.-|related| websocket-realtime-engineer
+  realtime-support-chat-widget -.-|related| rest-api-endpoint-builder
+  realtime-support-chat-widget -.-|related| transactional-email-template-builder
+  realtime-support-chat-widget -.-|related| ai-customer-support
+  realtime-support-chat-widget ===|combines| database-design-advisor
+  realtime-support-chat-widget ===|combines| react-state-management
+  realtime-support-chat-widget ===|combines| support-ticket-triage
   ruby-pro -.-|related| php-pro
   ruby-pro -.-|related| golang-pro
   ruby-pro -.-|related| java-modern-pro
@@ -1104,6 +1219,12 @@ graph LR
   agent-payment-x402 ===|combines| agent-tool-builder
   agent-payment-x402 ===|combines| mcp-builder
   agent-payment-x402 ===|combines| langgraph-agent-framework
+  agent-readiness-aeo-check -.-|related| agent-tool-design
+  agent-readiness-aeo-check -.-|related| agent-tool-builder
+  agent-readiness-aeo-check -.-|related| coding-agent-headtohead-eval
+  agent-readiness-aeo-check -.-|related| agent-architecture-audit
+  agent-readiness-aeo-check ===|combines| agent-workflow-pattern-designer
+  agent-readiness-aeo-check ===|combines| ai-engineering-toolkit
   agent-session-trace-audit -.-|related| coding-agent-headtohead-eval
   agent-session-trace-audit -.-|related| llm-agent-benchmarking
   agent-session-trace-audit -.-|related| langfuse-llm-observability
@@ -1244,6 +1365,13 @@ graph LR
   embedding-model-strategies ===|combines| rag-implementation-workflow
   embedding-model-strategies ===|combines| production-llm-app-builder
   embedding-model-strategies ===|combines| agent-memory-systems
+  faf-ai-context-format -.-|related| agents-md-maintainer
+  faf-ai-context-format -.-|related| context-window-management
+  faf-ai-context-format -.-|related| context-compression
+  faf-ai-context-format -.-|related| codebase-structure-protocol
+  faf-ai-context-format ===|combines| mcp-builder
+  faf-ai-context-format ===|combines| agent-readiness-aeo-check
+  faf-ai-context-format ===|combines| codebase-onboarding-doc
   github-copilot-sdk -.-|related| vercel-ai-sdk
   github-copilot-sdk -.-|related| pydantic-ai-agents
   github-copilot-sdk -.-|related| autonomous-coding-agent-patterns
@@ -1353,6 +1481,13 @@ graph LR
   pydantic-ai-agents ===|combines| claude-api
   pydantic-ai-agents ===|combines| langfuse-llm-observability
   pydantic-ai-agents ===|combines| multi-agent-system-designer
+  rag-clarity-gate -.-|related| rag-implementation-workflow
+  rag-clarity-gate -.-|related| rag-pipeline-builder
+  rag-clarity-gate -.-|related| production-llm-app-builder
+  rag-clarity-gate -.-|related| embedding-model-strategies
+  rag-clarity-gate ===|combines| rag-pipeline-builder
+  rag-clarity-gate ===|combines| fact-checking
+  rag-clarity-gate ===|combines| ai-model-knowledge-distill
   rag-implementation-workflow -.-|related| rag-pipeline-builder
   rag-implementation-workflow -.-|related| embedding-model-strategies
   rag-implementation-workflow ===|combines| vector-index-tuning
@@ -1611,6 +1746,13 @@ graph LR
   competitive-matrix-builder ===|combines| competitive-analysis
   competitive-matrix-builder ===|combines| product-marketing-gtm-strategy
   competitive-matrix-builder ===|combines| sales-enablement
+  content-emotional-arc-design -.-|related| conversion-copywriter
+  content-emotional-arc-design -.-|related| landing-page-copywriting
+  content-emotional-arc-design -.-|related| psychology-conversion-copy
+  content-emotional-arc-design -.-|related| email-sequence-designer
+  content-emotional-arc-design ===|combines| marketing-psychology
+  content-emotional-arc-design ===|combines| conversion-rate-optimizer
+  content-emotional-arc-design ===|combines| email-sequence-designer
   content-engine-strategist -.-|related| content-strategy-planner
   content-engine-strategist -.-|related| content-marketing-strategist
   content-engine-strategist -.-|related| seo-content-writer
@@ -1995,6 +2137,11 @@ graph LR
   programmatic-seo-builder ===|combines| schema-markup-builder
   programmatic-seo-builder ===|combines| seo-content-writer
   programmatic-seo-builder ===|combines| seo-site-architecture
+  psychology-conversion-copy -.-|related| conversion-copywriter
+  psychology-conversion-copy -.-|related| landing-page-copywriting
+  psychology-conversion-copy -.-|related| marketing-psychology
+  psychology-conversion-copy ===|combines| conversion-rate-optimizer
+  psychology-conversion-copy ===|combines| email-sequence-designer
   recon-break-root-cause -.-|related| gl-subledger-reconciler
   recon-break-root-cause -.-|related| account-reconciliation
   recon-break-root-cause -.-|related| variance-flux-commentary
@@ -2851,6 +2998,13 @@ graph LR
   linux-privilege-escalation ===|combines| penetration-testing-methodology
   linux-privilege-escalation ===|combines| red-team-recon
   linux-privilege-escalation ===|combines| aws-penetration-testing
+  multi-framework-compliance-orchestrator -.-|related| compliance-readiness-review
+  multi-framework-compliance-orchestrator -.-|related| soc2-compliance-preparer
+  multi-framework-compliance-orchestrator -.-|related| iso27001-isms-implementer
+  multi-framework-compliance-orchestrator -.-|related| security-audit-toolkit
+  multi-framework-compliance-orchestrator ===|combines| gdpr-data-handling
+  multi-framework-compliance-orchestrator ===|combines| iso42001-aims-specialist
+  multi-framework-compliance-orchestrator ===|combines| dependency-auditor
   network-interface-health -.-|related| devops-troubleshooter
   network-interface-health -.-|related| sre-incident-responder
   network-interface-health -.-|related| observability-strategy-designer
@@ -2889,6 +3043,12 @@ graph LR
   security-audit-toolkit -.-|related| penetration-testing-methodology
   security-audit-toolkit ===|combines| stride-threat-modeler
   security-audit-toolkit ===|combines| security-incident-response
+  security-diff-review -.-|related| code-reviewer
+  security-diff-review -.-|related| adversarial-code-reviewer
+  security-diff-review -.-|related| security-audit-toolkit
+  security-diff-review -.-|related| sast-configurator
+  security-diff-review ===|combines| github-pr-comment-resolver
+  security-diff-review ===|combines| dependency-auditor
   security-incident-response -.-|related| threat-detection-hunting
   security-incident-response -.-|related| wireshark-traffic-analysis
   security-incident-response -.-|related| yara-rule-authoring
@@ -4551,6 +4711,13 @@ graph LR
   busybox-on-windows -.-|related| bash-defensive-patterns
   busybox-on-windows ===|combines| powershell-windows
   busybox-on-windows ===|combines| posix-shell-scripting
+  claimable-postgres-provision -.-|related| neon-serverless-postgres
+  claimable-postgres-provision -.-|related| postgresql-optimization
+  claimable-postgres-provision -.-|related| cloud-cost-optimization
+  claimable-postgres-provision -.-|related| database-migration-strategies
+  claimable-postgres-provision ===|combines| env-secrets-hygiene
+  claimable-postgres-provision ===|combines| prisma-orm-expert
+  claimable-postgres-provision ===|combines| drizzle-orm-expert
   cloud-cost-optimization -.-|related| multi-cloud-architecture
   cloud-cost-optimization -.-|related| terraform-specialist
   cloud-cost-optimization -.-|related| cfo-financial-advisor

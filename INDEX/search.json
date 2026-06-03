@@ -147,6 +147,55 @@
     "path": "00-meta/claude-command-selector/SKILL.md"
   },
   {
+    "name": "closed-loop-delivery",
+    "title": "验收标准闭环交付",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "交付流程",
+      "验收标准",
+      "自主执行",
+      "PR评审",
+      "部署验证",
+      "运行时验证",
+      "通用"
+    ],
+    "triggers": [
+      "闭环交付",
+      "对照验收标准",
+      "DoD",
+      "跑测再部署",
+      "复查PR评论"
+    ],
+    "description": "当编码/修复任务须对照明确验收标准（DoD）端到端完成、且要少让用户在实现-评审-部署-验证各环节反复插手时使用；做法是把需求转成可测标准，按「实现→本地验证→PR评审回合→dev部署+运行时取证→凭证化判定」闭环推进，产出含通过/未通过清单与运行时凭证的交付报告；不适用于纯问答、未批准的生产部署、缺密钥/权限的被阻塞任务。触发词：闭环交付、对照验收标准、DoD、跑测再部署、复查PR评论",
+    "path": "00-meta/closed-loop-delivery/SKILL.md"
+  },
+  {
+    "name": "codebase-structure-protocol",
+    "title": "代码库结构记忆协议",
+    "vol": "00-meta",
+    "domain": "通用/research",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "代码库导航",
+      "依赖图",
+      "影响分析",
+      "结构记忆",
+      "重构",
+      "上下文优化"
+    ],
+    "triggers": [
+      ".dsp",
+      "dsp-cli",
+      "结构映射"
+    ],
+    "description": "当 Agent 需要在大型代码库中持久记忆结构、导航依赖、做改前影响分析时使用；用 .dsp/ 目录与 dsp-cli 把\"实体-导入-导出及原因\"外化为可查图谱并随代码增量维护；不适用于纯内部实现改动、人类文档或 AST 全量转储；触发词：.dsp、dsp-cli、结构映射",
+    "path": "00-meta/codebase-structure-protocol/SKILL.md"
+  },
+  {
     "name": "context-budget-audit",
     "title": "上下文窗口预算审计（裁剪臃肿组件）",
     "vol": "00-meta",
@@ -172,6 +221,32 @@
     ],
     "description": "当会话变慢/质量下降、刚加了一批技能/Agent/MCP、想确认还有多少上下文余量或扩容前评估空间时使用；做盘点 Agent/技能/规则/MCP/CLAUDE.md 的 token 占用，分类标记臃肿冗余组件，产出按节省量排序的优化报告与 Top3 建议；不适用于运行期单次任务的对话压缩、或精确逐 token 计费。触发词：上下文预算、context budget、token 占用、裁剪 MCP、瘦身、还有多少空间",
     "path": "00-meta/context-budget-audit/SKILL.md"
+  },
+  {
+    "name": "decision-cooldown-freeze",
+    "title": "决策冷静期锁定",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "决策",
+      "思维",
+      "纪律",
+      "冷静期",
+      "不可逆决策",
+      "防冲动",
+      "通用"
+    ],
+    "triggers": [
+      "冷静期",
+      "决策锁定",
+      "防止冲动翻案",
+      "freeze",
+      "unfreeze"
+    ],
+    "description": "当一个高代价/不可逆决策已敲定、你担心因决策疲劳或情绪反复而冲动翻案时使用；做法是给该决策加一段冷静期锁（写入 freeze_until 日期 + 解锁条件 + 早退留痕），冷静期内拒绝重新争论该议题，仅当预设「终止判据」触发或显式 unfreeze 时才解锁；不适用于尚未拍板的决策、可逆小决策、或现实已变需重审的情形。触发词：冷静期、决策锁定、防止冲动翻案、freeze、unfreeze",
+    "path": "00-meta/decision-cooldown-freeze/SKILL.md"
   },
   {
     "name": "decision-navigator",
@@ -295,6 +370,34 @@
     ],
     "description": "当需要核实一条断言/数据/引用是否真实可靠、评估来源可信度、识别幻觉或张冠李戴时使用；触发词：核实、查证、事实核查、来源可信度、真假。",
     "path": "00-meta/fact-checking/SKILL.md"
+  },
+  {
+    "name": "filesystem-context-offload",
+    "title": "文件系统上下文卸载",
+    "vol": "00-meta",
+    "domain": "通用/research",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "上下文工程",
+      "token 优化",
+      "scratch pad",
+      "多 Agent 协作",
+      "动态上下文",
+      "记忆持久化",
+      "文件检索",
+      "grep glob"
+    ],
+    "triggers": [
+      "上下文卸载",
+      "context offload",
+      "scratch pad",
+      "按需加载",
+      "token 臃肿",
+      "filesystem context"
+    ],
+    "description": "当工具输出撑爆上下文窗口、需要跨长任务持久化状态、子 Agent 间共享信息、或任务所需上下文超出单窗口时使用；做把大块内容写入文件、上下文窗口只留摘要/路径指针，再用 ls/glob/grep/按行读取按需召回（卸载工具输出、持久化计划、子 Agent 文件工作区、动态加载技能、持久化终端日志、自我修改指令）；不适用于单轮即结束、上下文本就装得下、或对延迟极敏感（文件 I/O 有开销）的场景。触发词：上下文卸载、context offload、scratch pad、按需加载、token 臃肿、filesystem context",
+    "path": "00-meta/filesystem-context-offload/SKILL.md"
   },
   {
     "name": "first-principles-assumption-auditor",
@@ -529,6 +632,57 @@
     "path": "00-meta/notebooklm-source-grounded-qa/SKILL.md"
   },
   {
+    "name": "parallel-agent-dispatch",
+    "title": "并行独立任务分派",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "并行",
+      "子Agent",
+      "任务分派",
+      "测试修复",
+      "编排",
+      "通用"
+    ],
+    "triggers": [
+      "并行",
+      "子 Agent",
+      "独立任务"
+    ],
+    "description": "当面对 2 个以上彼此独立、无共享状态也无先后依赖的任务（如多个互不相关的测试失败、多个子系统各自损坏）时使用；为每个独立问题域派发一个子 Agent 并发处理，再回收摘要、查冲突、跑全量验证整合产物；不适用于失败相关联、需通览全局状态、还在探索性排障或会争抢同一文件/资源的场景。触发词：并行、子 Agent、独立任务",
+    "path": "00-meta/parallel-agent-dispatch/SKILL.md"
+  },
+  {
+    "name": "plan-execution-checkpoints",
+    "title": "分批执行计划与检查点",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "plan-execution",
+      "checkpoints",
+      "batch-execution",
+      "todowrite",
+      "human-in-the-loop",
+      "workflow",
+      "通用"
+    ],
+    "triggers": [
+      "执行计划",
+      "分批执行",
+      "检查点",
+      "计划落地",
+      "execute plan",
+      "batch execution",
+      "checkpoint review"
+    ],
+    "description": "当已有一份写好的实施计划、需要在独立会话中按批执行并在批次间留出审阅检查点时使用；做法是先批判性通读计划、用 TodoWrite 建任务、默认每批做前 3 个任务并逐项校验后停下汇报「Ready for feedback.」等反馈，产出可审阅的分批执行进度与验证输出；不适用于尚无计划文本、需要先写计划、或一口气跑完无需人工把关的小任务。触发词：执行计划、分批执行、检查点、计划落地、execute plan、batch execution、checkpoint review",
+    "path": "00-meta/plan-execution-checkpoints/SKILL.md"
+  },
+  {
     "name": "premortem-plan-challenger",
     "title": "事前验尸式计划挑战",
     "vol": "00-meta",
@@ -604,6 +758,56 @@
     ],
     "description": "当用户想头脑风暴研究方向、寻找新 research idea、问\"接下来做什么研究/有什么可做/怎么找 gap\"时使用；按\"发散→文献验证→收敛\"三阶段产出候选清单、文献表、评分矩阵与一页提案；不适用于已定题后的具体实验执行或论文写作。触发词：brainstorm、想idea、研究方向、下一步做什么、找gap、research proposal、研究构想、选题",
     "path": "00-meta/research-idea-generator/SKILL.md"
+  },
+  {
+    "name": "rsvp-speed-reader",
+    "title": "RSVP 快速阅读器",
+    "vol": "00-meta",
+    "domain": "通用/learning",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "速读",
+      "RSVP",
+      "Spritz",
+      "阅读辅助",
+      "前端单页应用",
+      "通用",
+      "可访问性"
+    ],
+    "triggers": [
+      "RSVP",
+      "速读",
+      "快速阅读",
+      "Spritz",
+      "ORP",
+      "逐词闪现"
+    ],
+    "description": "当需要让用户以 400–800+ WPM 速读长文本或 Agent 的长回复、又不愿逐行滚动时使用；做生成一个单页 RSVP 速读器（逐词闪现 + Spritz 式 ORP 红字对齐 + 速度/暂停控制）的 HTML 产物；不适用于需对照、跳读、做笔记、看代码块/表格或精读校对的场景。触发词：RSVP、速读、快速阅读、Spritz、ORP、逐词闪现",
+    "path": "00-meta/rsvp-speed-reader/SKILL.md"
+  },
+  {
+    "name": "socratic-explainer",
+    "title": "苏格拉底式启发讲解",
+    "vol": "00-meta",
+    "domain": "通用/learning",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "教学",
+      "讲解",
+      "苏格拉底法",
+      "对话式学习",
+      "通用"
+    ],
+    "triggers": [
+      "讲解",
+      "教我",
+      "帮我理解",
+      "像苏格拉底"
+    ],
+    "description": "当用户请求\"讲解/教我/帮我理解\"某个概念、理论或抽象思想时使用；用苏格拉底式对话（提问引导+单一类比+反思追问）产出循序渐进、引导用户自行抵达清晰的对话式讲解；不适用于求快速定义、安装配置、排错或事实速查。触发词：讲解、教我、帮我理解、像苏格拉底",
+    "path": "00-meta/socratic-explainer/SKILL.md"
   },
   {
     "name": "structured-decision-framework",
@@ -862,6 +1066,34 @@
     "path": "01-documents/doc-coauthoring/SKILL.md"
   },
   {
+    "name": "doc-to-math-spec",
+    "title": "文档转数学问题规范",
+    "vol": "01-documents",
+    "domain": "文书/writing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "数学建模",
+      "形式化",
+      "问题规范",
+      "MPS",
+      "零推断",
+      "证据引用",
+      "JSON输出",
+      "需求抽取",
+      "文书写作"
+    ],
+    "triggers": [
+      "形式化为数学",
+      "抽取数学结构",
+      "变量约束目标",
+      "转成MPS",
+      "找出缺失的形式化要素"
+    ],
+    "description": "当需要把叙述性技术文档、论文片段或问题描述形式化为「有据可循」的数学问题规范（MPS）时使用；做零推断式抽取，产出含变量/算子/约束/目标/不确定性、每项均引证原文且对缺失项显式标注的结构化 JSON 规范；不适用于求解优化模型、写证明，或自行补全文档中未给出的方程与数值。触发词：形式化为数学、抽取数学结构、变量约束目标、转成MPS、找出缺失的形式化要素",
+    "path": "01-documents/doc-to-math-spec/SKILL.md"
+  },
+  {
     "name": "docs-architect",
     "title": "代码库综合技术文档生成",
     "vol": "01-documents",
@@ -884,6 +1116,36 @@
     ],
     "description": "当需要从现有代码库产出长篇技术手册或架构文档时使用；分析架构、设计模式与实现细节，生成分章节、含图表说明、带代码引用的综合技术文档；不适用于单文件注释、README 速写或 API 参考自动抽取。触发词：架构文档、技术手册、代码库文档、onboarding 文档、设计决策记录。",
     "path": "01-documents/docs-architect/SKILL.md"
+  },
+  {
+    "name": "html-animated-slides",
+    "title": "动画 HTML 演示文稿生成",
+    "vol": "01-documents",
+    "domain": "文书/office",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "html",
+      "css",
+      "javascript",
+      "presentation",
+      "slide-deck",
+      "animation",
+      "viewport",
+      "pptx-conversion",
+      "zero-dependency"
+    ],
+    "triggers": [
+      "HTML幻灯片",
+      "网页PPT",
+      "演示文稿",
+      "slide deck",
+      "PPT转网页",
+      "满屏适配",
+      "reveal动画"
+    ],
+    "description": "当要从零创建或把 PPT/PPTX 转成纯前端、富动画、零依赖的单文件 HTML 幻灯片，且每页严格满屏（100vh）适配时使用；做的事是按内容与风格生成内联 CSS/JS、可键盘/滑动翻页、可选浏览器内编辑的自包含 .html 演示文稿；不适用于产出 .pptx 原生文件、需要框架/构建工具的工程，或普通网页/长文档；触发词：HTML幻灯片、网页PPT、演示文稿、slide deck、PPT转网页、满屏适配、reveal动画",
+    "path": "01-documents/html-animated-slides/SKILL.md"
   },
   {
     "name": "humanize-chinese-text",
@@ -2247,6 +2509,34 @@
     "path": "02-engineering/code-simplifier/SKILL.md"
   },
   {
+    "name": "codebase-to-wordpress-theme",
+    "title": "代码库转 WordPress 主题",
+    "vol": "02-engineering",
+    "domain": "研发/frontend",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "wordpress",
+      "主题开发",
+      "php",
+      "react",
+      "tailwind",
+      "acf",
+      "seo",
+      "前端迁移",
+      "研发"
+    ],
+    "triggers": [
+      "转 WordPress 主题",
+      "像素级一致",
+      "ACF",
+      "wp_nav_menu",
+      "SEO 保留"
+    ],
+    "description": "当把 React/Next.js/HTML 前端转成像素级一致、SEO 不丢失的 WordPress 主题，或审计已有转换的结构与 SEO 缺陷时使用；做四阶段取证式比对与改造，产出保留原 DOM/类名、接入动态菜单与 ACF 的 PHP 主题模板；不适用于纯静态托管、不接 WordPress CMS、或允许重排版改类名的场景；触发词：转 WordPress 主题、像素级一致、ACF、wp_nav_menu、SEO 保留",
+    "path": "02-engineering/codebase-to-wordpress-theme/SKILL.md"
+  },
+  {
     "name": "codetour-walkthrough-builder",
     "title": "CodeTour 代码导览生成",
     "vol": "02-engineering",
@@ -2549,6 +2839,31 @@
     "path": "02-engineering/deployment-engineer/SKILL.md"
   },
   {
+    "name": "devcontainer-claude-setup",
+    "title": "Devcontainer 隔离开发环境搭建",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "devcontainer",
+      "Docker",
+      "Claude Code",
+      "开发环境",
+      "沙箱隔离",
+      "VS Code",
+      "uv",
+      "多语言"
+    ],
+    "triggers": [
+      "devcontainer",
+      "隔离开发环境",
+      "沙箱 Claude Code"
+    ],
+    "description": "当需要为项目新增 Devcontainer 支持、搭建隔离/沙箱化的 Claude Code 开发环境时使用；做语言探测并在 .devcontainer/ 生成 Dockerfile、devcontainer.json、post_install.py、.zshrc、install.sh 等配置产物；不适用于已有 devcontainer 仅做微调、通用 Docker 问题或生产容器部署。触发词：devcontainer、隔离开发环境、沙箱 Claude Code",
+    "path": "02-engineering/devcontainer-claude-setup/SKILL.md"
+  },
+  {
     "name": "devops-troubleshooter",
     "title": "DevOps 事故响应与可观测排障",
     "vol": "02-engineering",
@@ -2787,6 +3102,33 @@
     "path": "02-engineering/drizzle-orm-expert/SKILL.md"
   },
   {
+    "name": "dwarf-debug-format-expert",
+    "title": "DWARF 调试格式专家",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "DWARF",
+      "调试信息",
+      "ELF",
+      "编译工具链",
+      "逆向分析",
+      "二进制"
+    ],
+    "triggers": [
+      "DWARF",
+      "调试信息",
+      "dwarfdump",
+      "llvm-dwarfdump",
+      "DIE",
+      "DW_TAG",
+      "libdwarf"
+    ],
+    "description": "当需要解析、校验或回答 DWARF (v3-v5) 调试信息，或编写/审阅解析 DWARF 数据的代码时使用；做 DWARF 标准答疑、用 dwarfdump/readelf/llvm-dwarfdump 提取与校验调试信息、产出可执行命令与解析代码；不适用于 DWARF v1/v2、纯 ELF 解析、运行时调试(gdb/lldb)、二进制逆向(Ghidra/IDA)或编译器生成问题；触发词：DWARF、调试信息、dwarfdump、llvm-dwarfdump、DIE、DW_TAG、libdwarf",
+    "path": "02-engineering/dwarf-debug-format-expert/SKILL.md"
+  },
+  {
     "name": "electron-desktop-development",
     "title": "Electron 桌面应用开发",
     "vol": "02-engineering",
@@ -2820,6 +3162,33 @@
     ],
     "description": "当用 Electron 构建/加固/打包跨平台桌面应用时使用；做安全的多进程架构（contextIsolation/sandbox + preload 白名单 IPC）、electron-builder 打包签名与 electron-updater 自动更新，产出可上线的工程骨架与配置；不适用于纯 Web 应用、Tauri、Chrome 扩展、移动端。触发词：Electron、preload、IPC、electron-builder、自动更新、代码签名",
     "path": "02-engineering/electron-desktop-development/SKILL.md"
+  },
+  {
+    "name": "elixir-otp-pro",
+    "title": "Elixir/OTP 并发编程",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "elixir",
+      "otp",
+      "并发",
+      "容错",
+      "phoenix",
+      "分布式",
+      "beam",
+      "研发"
+    ],
+    "triggers": [
+      "GenServer",
+      "监督树",
+      "Phoenix LiveView",
+      "let it crash",
+      "BEAM"
+    ],
+    "description": "当用 Elixir/OTP 构建高并发容错或分布式系统、设计监督树或开发 Phoenix LiveView 实时应用时使用；产出 OTP 应用（GenServer/Supervisor）、Phoenix 上下文与 ExUnit 测试；不适用于其他语言运行时、仅需基础语法或无法改动 mix 工程；触发词：GenServer、监督树、Phoenix LiveView、let it crash、BEAM",
+    "path": "02-engineering/elixir-otp-pro/SKILL.md"
   },
   {
     "name": "error-handling-patterns",
@@ -3035,6 +3404,62 @@
     "path": "02-engineering/flutter-expert/SKILL.md"
   },
   {
+    "name": "fp-ts-pragmatic-guide",
+    "title": "fp-ts 实用函数式编程",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "研发",
+      "fp-ts",
+      "TypeScript",
+      "函数式编程",
+      "Option",
+      "Either",
+      "TaskEither",
+      "重构"
+    ],
+    "triggers": [
+      "fp-ts",
+      "函数式编程",
+      "pipe",
+      "Option",
+      "Either",
+      "TaskEither"
+    ],
+    "description": "当用 TypeScript 处理可空值/错误/异步并想用 fp-ts 写更清晰函数式代码、或把命令式重构为函数式时使用；产出 pipe/Option/Either/map/flatMap 的 80/20 实用模式与前后对照重构方案；不适用于简单可选链(?.)、热点性能路径或团队不熟 FP 的场景。触发词：fp-ts、函数式编程、pipe、Option、Either、TaskEither",
+    "path": "02-engineering/fp-ts-pragmatic-guide/SKILL.md"
+  },
+  {
+    "name": "fp-ts-refactor",
+    "title": "命令式 TS 重构为 fp-ts",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fp-ts",
+      "typescript",
+      "重构",
+      "函数式编程",
+      "either",
+      "option",
+      "taskeither",
+      "reader",
+      "迁移"
+    ],
+    "triggers": [
+      "fp-ts",
+      "TaskEither",
+      "Either",
+      "Option",
+      "函数式重构"
+    ],
+    "description": "当把命令式 TypeScript 代码（try/catch、null 检查、回调、类 DI、循环、Promise 链）迁移到 fp-ts 函数式范式时使用；产出 Either/Option/Task/Reader 等价改写、组合管线与渐进迁移路径；不适用于简单同步代码、性能热点循环、第三方接口边界与团队不熟悉 fp-ts 的场景。触发词：fp-ts、TaskEither、Either/Option、函数式重构",
+    "path": "02-engineering/fp-ts-refactor/SKILL.md"
+  },
+  {
     "name": "frontend-design",
     "title": "前端设计",
     "vol": "02-engineering",
@@ -3067,6 +3492,27 @@
     ],
     "description": "当需要构建有强烈设计感的前端界面（组件、页面、落地页、仪表盘、海报、Web 应用）并产出可运行代码时使用；做：先定一个大胆且统一的美学方向，再实现排版/配色/动效/布局精雕细琢的生产级前端代码；不适用于纯后端逻辑、数据建模、无视觉诉求的脚本，或仅需中性默认样式的内部工具；触发词：前端设计、做个页面、落地页、landing page、UI、美化界面、React 组件、HTML/CSS、仪表盘、dashboard、网页、海报",
     "path": "02-engineering/frontend-design/SKILL.md"
+  },
+  {
+    "name": "full-output-enforcement",
+    "title": "完整无省略代码输出约束",
+    "vol": "02-engineering",
+    "domain": "研发/review",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "输出约束",
+      "代码生成",
+      "质量",
+      "misc"
+    ],
+    "triggers": [
+      "完整文件",
+      "不要省略",
+      "全量输出"
+    ],
+    "description": "当用户要求完整文件/完整实现/穷尽清单等不可省略的交付时使用；做强制输出全量内容并消除占位符与跳段，产出可直接运行的完整交付物；不适用于突破 token 上限、安全限制或编造不存在的代码/凭据/私有 API；触发词：完整文件、不要省略、全量输出",
+    "path": "02-engineering/full-output-enforcement/SKILL.md"
   },
   {
     "name": "fullstack-project-scaffolder",
@@ -4551,6 +4997,29 @@
     ],
     "description": "当在 React 应用里搭建全局状态、同步服务端数据、或在 Redux Toolkit/Zustand/Jotai/React Query 间选型时使用；做：按本地/全局/服务端/URL/表单分类对症选库，给出 TS 范式、乐观更新与旧 Redux 迁移方案；不适用于纯后端逻辑、非 React 框架或单组件 useState 即可的简单 UI 状态；触发词：状态管理、全局状态、Redux、Zustand、Jotai、React Query、服务端状态、乐观更新、状态选型",
     "path": "02-engineering/react-state-management/SKILL.md"
+  },
+  {
+    "name": "realtime-support-chat-widget",
+    "title": "实时客服聊天组件系统",
+    "vol": "02-engineering",
+    "domain": "研发/architecture",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "实时通信",
+      "WebSocket",
+      "客服系统",
+      "全栈",
+      "前端组件",
+      "邮件通知"
+    ],
+    "triggers": [
+      "在线客服",
+      "实时聊天组件",
+      "客服工作台"
+    ],
+    "description": "当需要在应用内搭建用户端浮动客服窗口 + 管理端工作台的实时聊天系统时使用；做数据模型、REST 接口、WebSocket 频道、前端组件、延时邮件通知的端到端落地方案与代码；不适用于群聊/多人房间、AI 自动应答机器人、纯邮件工单系统。触发词：在线客服、实时聊天组件、客服工作台",
+    "path": "02-engineering/realtime-support-chat-widget/SKILL.md"
   },
   {
     "name": "release-manager",
@@ -7001,6 +7470,34 @@
     "path": "04-ai/agent-payment-x402/SKILL.md"
   },
   {
+    "name": "agent-readiness-aeo-check",
+    "title": "工具 Agent 就绪度 AEO 评分",
+    "vol": "04-ai",
+    "domain": "智能/eval",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "智能",
+      "AEO",
+      "Agent就绪度",
+      "MCP选型",
+      "工具质量",
+      "工具评分",
+      "Clarvia",
+      "agent-readiness",
+      "tool-quality"
+    ],
+    "triggers": [
+      "AEO 评分",
+      "Agent 就绪度",
+      "MCP 选型",
+      "工具对比",
+      "Clarvia"
+    ],
+    "description": "当要把某个 MCP 服务器/API/CLI 工具纳入 Agent 工作流前，需要量化其\"Agent 就绪度\"、横向比较同类工具或在某品类里挑最优时使用；做接入 Clarvia AEO（Agent Experience Optimization）评分服务，对工具按 API 可达性、数据结构化、Agent 兼容性、信任信号四维打 0-100 分并给出分档解读、排行榜与对比建议，产出选型决策与可选 CI 质量门禁；不适用于工具的功能/安全/性能实测，也不替代环境内真实联调与专家复核。触发词：AEO 评分、Agent 就绪度、MCP 选型、工具对比、Clarvia",
+    "path": "04-ai/agent-readiness-aeo-check/SKILL.md"
+  },
+  {
     "name": "agent-session-trace-audit",
     "title": "AI 编码代理会话审计（成本/失败/延迟）",
     "vol": "04-ai",
@@ -7605,6 +8102,33 @@
     ],
     "description": "当为 RAG/向量检索选嵌入模型、调分块或评估检索质量时使用；做模型选型对照、分块/预处理/归一化/降维方案与 P@k、Recall、MRR、nDCG 评估并产出可落地管线代码；不适用于非向量检索的通用 NLP 或向量库部署运维。触发词：embedding、向量检索、RAG、分块、降维、多语言、检索评估",
     "path": "04-ai/embedding-model-strategies/SKILL.md"
+  },
+  {
+    "name": "faf-ai-context-format",
+    "title": ".faf AI 上下文格式专家",
+    "vol": "04-ai",
+    "domain": "智能/prompting",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "faf",
+      "ai-context",
+      "mcp",
+      "project-context",
+      "iana",
+      "yaml",
+      "bi-sync"
+    ],
+    "triggers": [
+      ".faf",
+      "faf-cli",
+      "AI 上下文格式",
+      "faf score",
+      "MCP 上下文",
+      "双向同步"
+    ],
+    "description": "当需要把代码库的项目上下文沉淀为可跨 AI 工具/会话持久复用的 .faf 文件、配置 faf 的 MCP 服务、做 AI 就绪度评分或与 CLAUDE.md/.cursorrules/GEMINI.md 双向同步时使用；用 faf-cli 初始化、评分、校验、增强并打通各平台上下文产物；不适用于一次性问答、纯代码生成、或非 .faf 体系的私有上下文方案；触发词：.faf、faf-cli、AI 上下文格式、faf score、MCP 上下文、双向同步。",
+    "path": "04-ai/faf-ai-context-format/SKILL.md"
   },
   {
     "name": "github-copilot-sdk",
@@ -8234,6 +8758,32 @@
     ],
     "description": "当用 Python 构建类型安全、可测试的生产级 LLM 智能体（结构化输出、工具调用、依赖注入、多模型切换）时使用；做出经 Pydantic 校验的 Agent 代码与单测；不适用于一次性裸提问、纯提示词设计或非 Python 栈；触发词：PydanticAI、Agent、result_type、@agent.tool、RunContext、ModelRetry、结构化输出。",
     "path": "04-ai/pydantic-ai-agents/SKILL.md"
+  },
+  {
+    "name": "rag-clarity-gate",
+    "title": "RAG 入库前文档清晰度校验",
+    "vol": "04-ai",
+    "domain": "智能/rag",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "rag",
+      "epistemic-quality",
+      "hallucination",
+      "hitl",
+      "document-verification",
+      "llm"
+    ],
+    "triggers": [
+      "清晰度门禁",
+      "入库前校验",
+      "幻觉风险",
+      "能否被 LLM 安全读取",
+      "CGD",
+      "HITL 核验"
+    ],
+    "description": "当文档要入 RAG 知识库 / 交给别的 LLM 前，需检查「假设/预测被当成事实」的幻觉风险时使用；做按 9 点逐项审查、强制补不确定性标记、走两轮 HITL 人工确认，产出带状态字段与校验记录的清晰度门禁文档（CGD）；不适用于核查事实真伪（只校验表述形式不验真值）、文档结构分类、改写润色排版；触发词：清晰度门禁、入库前校验、幻觉风险、能否被 LLM 安全读取、CGD、HITL 核验",
+    "path": "04-ai/rag-clarity-gate/SKILL.md"
   },
   {
     "name": "rag-implementation-workflow",
@@ -9525,6 +10075,29 @@
     ],
     "description": "当需要对自家产品与 2-4 个竞品做加权打分、量化排名时使用；做加权竞争矩阵+差距分析+市场定位（脚本输出 text/json），产出可对外的竞品测评结论；不适用于无结构化打分数据的纯定性调研或单一产品评估；触发词：竞品分析、竞争矩阵、加权打分、差距分析、市场定位、battle card",
     "path": "05-business/competitive-matrix-builder/SKILL.md"
+  },
+  {
+    "name": "content-emotional-arc-design",
+    "title": "内容情绪弧线设计",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "文案",
+      "情绪设计",
+      "转化",
+      "叙事心理",
+      "营销"
+    ],
+    "triggers": [
+      "情绪弧线",
+      "情绪曲线",
+      "情绪序列"
+    ],
+    "description": "当落地页/广告/邮件序列/销售文档/产品流需要受众从入场情绪走向行动情绪时使用；做受控情绪弧线设计（诊断入场情绪、定义出场情绪、铺设过渡路径、安放峰值、收束出口），产出可执行的逐节情绪序列；不适用于无明确行动目标或入/出场情绪不清的场景。触发词：情绪弧线、情绪曲线、情绪序列",
+    "path": "05-business/content-emotional-arc-design/SKILL.md"
   },
   {
     "name": "content-engine-strategist",
@@ -11669,6 +12242,31 @@
     ],
     "description": "当需要用模板+数据批量生成大量针对不同关键词/地点/实体的 SEO 落地页时使用；产出建页策略、12 套 Playbook 选型、页面模板（URL/标题/Meta/Schema）、内链与索引方案及质量清单；不适用于已上线页面的技术 SEO 审计或纯内容文案写作。触发词：programmatic SEO、pSEO、程序化SEO、批量建页、模板页、pages at scale、location pages、对比页、集成页、目录页、词条页",
     "path": "05-business/programmatic-seo-builder/SKILL.md"
+  },
+  {
+    "name": "psychology-conversion-copy",
+    "title": "消费心理学转化文案",
+    "vol": "05-business",
+    "domain": "商业/copy",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "文案",
+      "转化",
+      "消费心理学",
+      "说服",
+      "营销",
+      "misc"
+    ],
+    "triggers": [
+      "转化文案",
+      "销售页",
+      "说服心理",
+      "落地页文案"
+    ],
+    "description": "当需要把平淡或通用的营销文案改写成能驱动转化的高心理说服力文案时使用；做的是按受众认知阶段与情绪状态构建信念—情绪—行动序列，产出广告/落地页/销售页/产品描述/脚本文案；不适用于无明确受众与转化目标、纯品牌调性创意、或要求夸大不实承诺的场景；触发词：转化文案、销售页、说服心理、落地页文案",
+    "path": "05-business/psychology-conversion-copy/SKILL.md"
   },
   {
     "name": "recon-break-root-cause",
@@ -16307,6 +16905,36 @@
     "path": "08-security/linux-privilege-escalation/SKILL.md"
   },
   {
+    "name": "multi-framework-compliance-orchestrator",
+    "title": "多框架合规编排器（multi-framework-compliance-orchestrator）",
+    "vol": "08-security",
+    "domain": "安全/compliance",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "合规",
+      "compliance",
+      "安全",
+      "GRC",
+      "多框架",
+      "跨框架映射",
+      "证据管理",
+      "审计",
+      "ISO",
+      "SOC2",
+      "认证"
+    ],
+    "triggers": [
+      "多框架合规",
+      "跨框架映射",
+      "证据复用",
+      "模拟审计",
+      "认证就绪"
+    ],
+    "description": "当同时搭建多框架合规项目、规划年度审计日历或冲刺认证 stage 1 时使用；做四件事并产出结果——选框架(选择器)、算重叠(跨框架映射+证据复用)、模拟审计(从205场景库抽)、整合统一证据清单；不适用于单框架技术落地/控制项配置或日常证据维护；触发词：多框架合规、跨框架映射、证据复用、模拟审计、认证就绪",
+    "path": "08-security/multi-framework-compliance-orchestrator/SKILL.md"
+  },
+  {
     "name": "network-interface-health",
     "title": "网络接口健康诊断（错误/丢包/双工失配）",
     "vol": "08-security",
@@ -16571,6 +17199,32 @@
     ],
     "description": "当需要对代码/API/基础设施/AI 智能体做安全审计、威胁建模或事件响应时使用；以\"以攻者视角思考、以防御架构师身份落地\"为原则，按 6 阶段流程产出攻击面地图、STRIDE/PASTA 威胁模型、漏洞清单、加固方案、量化评分与上线裁决；不适用于功能开发、性能调优或与安全无关的通用任务。触发词：安全审计、威胁建模、STRIDE、加固、事件响应、提示注入。",
     "path": "08-security/security-audit-toolkit/SKILL.md"
+  },
+  {
+    "name": "security-diff-review",
+    "title": "安全导向的差异代码审查",
+    "vol": "08-security",
+    "domain": "安全/appsec",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "代码审查",
+      "diff",
+      "PR",
+      "威胁建模",
+      "git",
+      "misc"
+    ],
+    "triggers": [
+      "差异审查",
+      "安全审查",
+      "PR 审查",
+      "diff review",
+      "攻击面"
+    ],
+    "description": "当需要对 PR、提交范围或 diff 做安全向（而非通用）代码审查、且变更触及认证/加密/资金转移/外部调用/权限时使用；做按风险分级、git 溯源、影响面量化、攻击者建模并产出带证据的 markdown 审查报告；不适用于全新无基线代码、纯文档/格式变更或用户只要快速摘要的场景。触发词：差异审查、安全审查、PR 审查、diff review、攻击面",
+    "path": "08-security/security-diff-review/SKILL.md"
   },
   {
     "name": "security-incident-response",
@@ -26337,6 +26991,34 @@
     ],
     "description": "当在 Windows 上需要 ls/grep/sed 等 UNIX 命令行工具时使用；做下载单文件 busybox.exe 并以前缀方式调用 UNIX 命令；不适用于 UNIX/Linux/macOS（系统已自带）；触发词：busybox、Windows UNIX 工具、单文件 Unix 命令",
     "path": "10-platform/busybox-on-windows/SKILL.md"
+  },
+  {
+    "name": "claimable-postgres-provision",
+    "title": "即用临时 Postgres 数据库",
+    "vol": "10-platform",
+    "domain": "平台/cloud",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "postgres",
+      "neon",
+      "临时数据库",
+      "原型",
+      "测试环境",
+      "database-url",
+      "pg.new",
+      "get-db",
+      "平台"
+    ],
+    "triggers": [
+      "临时数据库",
+      "pg.new",
+      "claimable postgres",
+      "get-db",
+      "DATABASE_URL"
+    ],
+    "description": "当需要无注册、零信用卡的临时 Postgres（原型/演示/测试/Agent 自动建库）并写入 DATABASE_URL 时使用；做 pg.new（Neon Claimable Postgres）一键开库、解析连接串与 claim_url、写 .env、可选播种 SQL；不适用于生产负载、长期持久化、需指定区域/分支或强配额。触发词：临时数据库、pg.new、claimable postgres、get-db、DATABASE_URL",
+    "path": "10-platform/claimable-postgres-provision/SKILL.md"
   },
   {
     "name": "cloud-cost-optimization",

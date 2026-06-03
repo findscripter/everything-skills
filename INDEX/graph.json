@@ -43,8 +43,29 @@
       "status": "stable"
     },
     {
+      "id": "closed-loop-delivery",
+      "title": "验收标准闭环交付",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "codebase-structure-protocol",
+      "title": "代码库结构记忆协议",
+      "domain": "通用/research",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "context-budget-audit",
       "title": "上下文窗口预算审计（裁剪臃肿组件）",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "decision-cooldown-freeze",
+      "title": "决策冷静期锁定",
       "domain": "通用/thinking",
       "level": "进阶",
       "status": "stable"
@@ -80,6 +101,13 @@
     {
       "id": "fact-checking",
       "title": "事实核查",
+      "domain": "通用/research",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "filesystem-context-offload",
+      "title": "文件系统上下文卸载",
       "domain": "通用/research",
       "level": "进阶",
       "status": "stable"
@@ -148,6 +176,20 @@
       "status": "stable"
     },
     {
+      "id": "parallel-agent-dispatch",
+      "title": "并行独立任务分派",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "plan-execution-checkpoints",
+      "title": "分批执行计划与检查点",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "premortem-plan-challenger",
       "title": "事前验尸式计划挑战",
       "domain": "通用/thinking",
@@ -166,6 +208,20 @@
       "title": "研究构想生成",
       "domain": "通用/research",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "rsvp-speed-reader",
+      "title": "RSVP 快速阅读器",
+      "domain": "通用/learning",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "socratic-explainer",
+      "title": "苏格拉底式启发讲解",
+      "domain": "通用/learning",
+      "level": "入门",
       "status": "stable"
     },
     {
@@ -239,9 +295,23 @@
       "status": "stable"
     },
     {
+      "id": "doc-to-math-spec",
+      "title": "文档转数学问题规范",
+      "domain": "文书/writing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "docs-architect",
       "title": "代码库综合技术文档生成",
       "domain": "文书/markdown",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "html-animated-slides",
+      "title": "动画 HTML 演示文稿生成",
+      "domain": "文书/office",
       "level": "进阶",
       "status": "stable"
     },
@@ -603,6 +673,13 @@
       "status": "stable"
     },
     {
+      "id": "codebase-to-wordpress-theme",
+      "title": "代码库转 WordPress 主题",
+      "domain": "研发/frontend",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "codetour-walkthrough-builder",
       "title": "CodeTour 代码导览生成",
       "domain": "研发/architecture",
@@ -680,6 +757,13 @@
       "status": "stable"
     },
     {
+      "id": "devcontainer-claude-setup",
+      "title": "Devcontainer 隔离开发环境搭建",
+      "domain": "研发/devops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "devops-troubleshooter",
       "title": "DevOps 事故响应与可观测排障",
       "domain": "研发/observability",
@@ -736,10 +820,24 @@
       "status": "stable"
     },
     {
+      "id": "dwarf-debug-format-expert",
+      "title": "DWARF 调试格式专家",
+      "domain": "研发/backend",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "electron-desktop-development",
       "title": "Electron 桌面应用开发",
       "domain": "研发/frontend",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "elixir-otp-pro",
+      "title": "Elixir/OTP 并发编程",
+      "domain": "研发/backend",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -799,10 +897,31 @@
       "status": "stable"
     },
     {
+      "id": "fp-ts-pragmatic-guide",
+      "title": "fp-ts 实用函数式编程",
+      "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "fp-ts-refactor",
+      "title": "命令式 TS 重构为 fp-ts",
+      "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "frontend-design",
       "title": "前端设计",
       "domain": "研发/frontend",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "full-output-enforcement",
+      "title": "完整无省略代码输出约束",
+      "domain": "研发/review",
+      "level": "入门",
       "status": "stable"
     },
     {
@@ -1173,6 +1292,13 @@
       "id": "react-state-management",
       "title": "React 状态管理",
       "domain": "研发/frontend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "realtime-support-chat-widget",
+      "title": "实时客服聊天组件系统",
+      "domain": "研发/architecture",
       "level": "进阶",
       "status": "stable"
     },
@@ -1779,6 +1905,13 @@
       "status": "stable"
     },
     {
+      "id": "agent-readiness-aeo-check",
+      "title": "工具 Agent 就绪度 AEO 评分",
+      "domain": "智能/eval",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "agent-session-trace-audit",
       "title": "AI 编码代理会话审计（成本/失败/延迟）",
       "domain": "智能/eval",
@@ -1929,6 +2062,13 @@
       "id": "embedding-model-strategies",
       "title": "嵌入模型选型与优化",
       "domain": "智能/rag",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "faf-ai-context-format",
+      "title": ".faf AI 上下文格式专家",
+      "domain": "智能/prompting",
       "level": "进阶",
       "status": "stable"
     },
@@ -2090,6 +2230,13 @@
       "id": "pydantic-ai-agents",
       "title": "PydanticAI 智能体开发",
       "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "rag-clarity-gate",
+      "title": "RAG 入库前文档清晰度校验",
+      "domain": "智能/rag",
       "level": "进阶",
       "status": "stable"
     },
@@ -2405,6 +2552,13 @@
       "id": "competitive-matrix-builder",
       "title": "竞争分析矩阵构建",
       "domain": "商业/marketing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "content-emotional-arc-design",
+      "title": "内容情绪弧线设计",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -2916,6 +3070,13 @@
       "id": "programmatic-seo-builder",
       "title": "程序化 SEO 批量建页",
       "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "psychology-conversion-copy",
+      "title": "消费心理学转化文案",
+      "domain": "商业/copy",
       "level": "进阶",
       "status": "stable"
     },
@@ -4054,6 +4215,13 @@
       "status": "stable"
     },
     {
+      "id": "multi-framework-compliance-orchestrator",
+      "title": "多框架合规编排器（multi-framework-compliance-orchestrator）",
+      "domain": "安全/compliance",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "network-interface-health",
       "title": "网络接口健康诊断（错误/丢包/双工失配）",
       "domain": "安全/ops",
@@ -4113,6 +4281,13 @@
       "id": "security-audit-toolkit",
       "title": "安全审计与威胁建模工具箱",
       "domain": "安全/audit",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "security-diff-review",
+      "title": "安全导向的差异代码审查",
+      "domain": "安全/appsec",
       "level": "进阶",
       "status": "stable"
     },
@@ -6392,6 +6567,13 @@
       "status": "stable"
     },
     {
+      "id": "claimable-postgres-provision",
+      "title": "即用临时 Postgres 数据库",
+      "domain": "平台/cloud",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "cloud-cost-optimization",
       "title": "云成本优化",
       "domain": "平台/cloud",
@@ -6814,6 +6996,81 @@
       "type": "related"
     },
     {
+      "from": "closed-loop-delivery",
+      "to": "structured-decision-framework",
+      "type": "related"
+    },
+    {
+      "from": "closed-loop-delivery",
+      "to": "pre-deploy-checklist",
+      "type": "related"
+    },
+    {
+      "from": "closed-loop-delivery",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "closed-loop-delivery",
+      "to": "deployment-engineer",
+      "type": "related"
+    },
+    {
+      "from": "closed-loop-delivery",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "closed-loop-delivery",
+      "to": "github-pr-comment-resolver",
+      "type": "combines_with"
+    },
+    {
+      "from": "closed-loop-delivery",
+      "to": "pre-deploy-checklist",
+      "type": "combines_with"
+    },
+    {
+      "from": "closed-loop-delivery",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "codebase-structure-protocol",
+      "to": "filesystem-context-offload",
+      "type": "related"
+    },
+    {
+      "from": "codebase-structure-protocol",
+      "to": "monorepo-navigator",
+      "type": "related"
+    },
+    {
+      "from": "codebase-structure-protocol",
+      "to": "codebase-onboarding-doc",
+      "type": "related"
+    },
+    {
+      "from": "codebase-structure-protocol",
+      "to": "agents-md-maintainer",
+      "type": "related"
+    },
+    {
+      "from": "codebase-structure-protocol",
+      "to": "codebase-to-prd",
+      "type": "combines_with"
+    },
+    {
+      "from": "codebase-structure-protocol",
+      "to": "legacy-codebase-modernizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "codebase-structure-protocol",
+      "to": "tech-debt-prioritizer",
+      "type": "combines_with"
+    },
+    {
       "from": "context-budget-audit",
       "to": "context-window-management",
       "type": "related"
@@ -6846,6 +7103,36 @@
     {
       "from": "context-budget-audit",
       "to": "agent-architecture-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "decision-cooldown-freeze",
+      "to": "hard-call-advisor",
+      "type": "related"
+    },
+    {
+      "from": "decision-cooldown-freeze",
+      "to": "structured-decision-framework",
+      "type": "related"
+    },
+    {
+      "from": "decision-cooldown-freeze",
+      "to": "decision-navigator",
+      "type": "related"
+    },
+    {
+      "from": "decision-cooldown-freeze",
+      "to": "premortem-plan-challenger",
+      "type": "related"
+    },
+    {
+      "from": "decision-cooldown-freeze",
+      "to": "decision-log-recorder",
+      "type": "combines_with"
+    },
+    {
+      "from": "decision-cooldown-freeze",
+      "to": "four-voice-decision-council",
       "type": "combines_with"
     },
     {
@@ -7001,6 +7288,36 @@
     {
       "from": "fact-checking",
       "to": "citation-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "filesystem-context-offload",
+      "to": "context-compression",
+      "type": "related"
+    },
+    {
+      "from": "filesystem-context-offload",
+      "to": "context-window-management",
+      "type": "related"
+    },
+    {
+      "from": "filesystem-context-offload",
+      "to": "context-budget-audit",
+      "type": "related"
+    },
+    {
+      "from": "filesystem-context-offload",
+      "to": "codebase-structure-protocol",
+      "type": "related"
+    },
+    {
+      "from": "filesystem-context-offload",
+      "to": "parallel-agent-dispatch",
+      "type": "combines_with"
+    },
+    {
+      "from": "filesystem-context-offload",
+      "to": "iterative-context-retrieval",
       "type": "combines_with"
     },
     {
@@ -7244,6 +7561,71 @@
       "type": "combines_with"
     },
     {
+      "from": "parallel-agent-dispatch",
+      "to": "multi-agent-orchestrator",
+      "type": "related"
+    },
+    {
+      "from": "parallel-agent-dispatch",
+      "to": "parallel-agent-hub",
+      "type": "related"
+    },
+    {
+      "from": "parallel-agent-dispatch",
+      "to": "dmux-multi-agent-workflows",
+      "type": "related"
+    },
+    {
+      "from": "parallel-agent-dispatch",
+      "to": "task-decomposition-planner",
+      "type": "related"
+    },
+    {
+      "from": "parallel-agent-dispatch",
+      "to": "multi-agent-workflow-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "parallel-agent-dispatch",
+      "to": "agent-workflow-pattern-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "parallel-agent-dispatch",
+      "to": "premortem-plan-challenger",
+      "type": "combines_with"
+    },
+    {
+      "from": "plan-execution-checkpoints",
+      "to": "closed-loop-delivery",
+      "type": "related"
+    },
+    {
+      "from": "plan-execution-checkpoints",
+      "to": "premortem-plan-challenger",
+      "type": "related"
+    },
+    {
+      "from": "plan-execution-checkpoints",
+      "to": "parallel-agent-dispatch",
+      "type": "related"
+    },
+    {
+      "from": "plan-execution-checkpoints",
+      "to": "task-decomposition-planner",
+      "type": "related"
+    },
+    {
+      "from": "plan-execution-checkpoints",
+      "to": "spec-driven-workflow",
+      "type": "combines_with"
+    },
+    {
+      "from": "plan-execution-checkpoints",
+      "to": "task-decomposition-planner",
+      "type": "combines_with"
+    },
+    {
       "from": "premortem-plan-challenger",
       "to": "executive-adversarial-mentor",
       "type": "related"
@@ -7341,6 +7723,76 @@
     {
       "from": "research-idea-generator",
       "to": "fact-checking",
+      "type": "combines_with"
+    },
+    {
+      "from": "rsvp-speed-reader",
+      "to": "bullet-point-structurer",
+      "type": "related"
+    },
+    {
+      "from": "rsvp-speed-reader",
+      "to": "socratic-explainer",
+      "type": "related"
+    },
+    {
+      "from": "rsvp-speed-reader",
+      "to": "interactive-pdf-viewer",
+      "type": "related"
+    },
+    {
+      "from": "rsvp-speed-reader",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "related"
+    },
+    {
+      "from": "rsvp-speed-reader",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "rsvp-speed-reader",
+      "to": "youtube-transcript-ingest",
+      "type": "combines_with"
+    },
+    {
+      "from": "rsvp-speed-reader",
+      "to": "interactive-pdf-viewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "socratic-explainer",
+      "to": "bullet-point-structurer",
+      "type": "related"
+    },
+    {
+      "from": "socratic-explainer",
+      "to": "rsvp-speed-reader",
+      "type": "related"
+    },
+    {
+      "from": "socratic-explainer",
+      "to": "claude-command-selector",
+      "type": "related"
+    },
+    {
+      "from": "socratic-explainer",
+      "to": "academic-paper-explainer",
+      "type": "related"
+    },
+    {
+      "from": "socratic-explainer",
+      "to": "code-tutorial-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "socratic-explainer",
+      "to": "notebooklm-source-grounded-qa",
+      "type": "combines_with"
+    },
+    {
+      "from": "socratic-explainer",
+      "to": "multi-source-knowledge-synthesis",
       "type": "combines_with"
     },
     {
@@ -7634,6 +8086,31 @@
       "type": "combines_with"
     },
     {
+      "from": "doc-to-math-spec",
+      "to": "first-principles-assumption-auditor",
+      "type": "related"
+    },
+    {
+      "from": "doc-to-math-spec",
+      "to": "math-proof-writer",
+      "type": "related"
+    },
+    {
+      "from": "doc-to-math-spec",
+      "to": "guided-statistical-analysis",
+      "type": "related"
+    },
+    {
+      "from": "doc-to-math-spec",
+      "to": "sympy-symbolic-math",
+      "type": "combines_with"
+    },
+    {
+      "from": "doc-to-math-spec",
+      "to": "math-proof-writer",
+      "type": "combines_with"
+    },
+    {
       "from": "docs-architect",
       "to": "technical-reference-builder",
       "type": "related"
@@ -7661,6 +8138,36 @@
     {
       "from": "docs-architect",
       "to": "openapi-doc-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "html-animated-slides",
+      "to": "python-pptx-deck-generator",
+      "type": "related"
+    },
+    {
+      "from": "html-animated-slides",
+      "to": "pptx-document-processing",
+      "type": "related"
+    },
+    {
+      "from": "html-animated-slides",
+      "to": "web-artifacts-builder",
+      "type": "related"
+    },
+    {
+      "from": "html-animated-slides",
+      "to": "html-dashboard-builder",
+      "type": "related"
+    },
+    {
+      "from": "html-animated-slides",
+      "to": "theme-factory",
+      "type": "combines_with"
+    },
+    {
+      "from": "html-animated-slides",
+      "to": "animejs-web-animation",
       "type": "combines_with"
     },
     {
@@ -8869,6 +9376,41 @@
       "type": "combines_with"
     },
     {
+      "from": "codebase-to-wordpress-theme",
+      "to": "frontend-design",
+      "type": "related"
+    },
+    {
+      "from": "codebase-to-wordpress-theme",
+      "to": "php-pro",
+      "type": "related"
+    },
+    {
+      "from": "codebase-to-wordpress-theme",
+      "to": "accessibility-wcag-audit",
+      "type": "related"
+    },
+    {
+      "from": "codebase-to-wordpress-theme",
+      "to": "i18n-localization-patterns",
+      "type": "related"
+    },
+    {
+      "from": "codebase-to-wordpress-theme",
+      "to": "seo-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "codebase-to-wordpress-theme",
+      "to": "technical-seo-checker",
+      "type": "combines_with"
+    },
+    {
+      "from": "codebase-to-wordpress-theme",
+      "to": "schema-markup-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "complexity-cuts",
       "to": "python-performance-optimization",
       "type": "related"
@@ -9074,6 +9616,36 @@
       "type": "combines_with"
     },
     {
+      "from": "devcontainer-claude-setup",
+      "to": "docker-development-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "devcontainer-claude-setup",
+      "to": "docker-expert",
+      "type": "related"
+    },
+    {
+      "from": "devcontainer-claude-setup",
+      "to": "docker-container-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "devcontainer-claude-setup",
+      "to": "deployment-engineer",
+      "type": "related"
+    },
+    {
+      "from": "devcontainer-claude-setup",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "devcontainer-claude-setup",
+      "to": "fullstack-project-scaffolder",
+      "type": "combines_with"
+    },
+    {
       "from": "distributed-tracing",
       "to": "observability-strategy-designer",
       "type": "related"
@@ -9214,6 +9786,41 @@
       "type": "combines_with"
     },
     {
+      "from": "dwarf-debug-format-expert",
+      "to": "gdb-debugging-cli",
+      "type": "related"
+    },
+    {
+      "from": "dwarf-debug-format-expert",
+      "to": "binary-analysis-patterns",
+      "type": "related"
+    },
+    {
+      "from": "dwarf-debug-format-expert",
+      "to": "c-language-pro",
+      "type": "related"
+    },
+    {
+      "from": "dwarf-debug-format-expert",
+      "to": "cpp-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "dwarf-debug-format-expert",
+      "to": "gdb-debugging-cli",
+      "type": "combines_with"
+    },
+    {
+      "from": "dwarf-debug-format-expert",
+      "to": "anti-reversing-techniques",
+      "type": "combines_with"
+    },
+    {
+      "from": "dwarf-debug-format-expert",
+      "to": "c-cpp-security-review",
+      "type": "combines_with"
+    },
+    {
       "from": "electron-desktop-development",
       "to": "chrome-extension-mv3",
       "type": "related"
@@ -9246,6 +9853,41 @@
     {
       "from": "electron-desktop-development",
       "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "elixir-otp-pro",
+      "to": "rust-pro",
+      "type": "related"
+    },
+    {
+      "from": "elixir-otp-pro",
+      "to": "scala-pro",
+      "type": "related"
+    },
+    {
+      "from": "elixir-otp-pro",
+      "to": "go-concurrency-patterns",
+      "type": "related"
+    },
+    {
+      "from": "elixir-otp-pro",
+      "to": "ruby-pro",
+      "type": "related"
+    },
+    {
+      "from": "elixir-otp-pro",
+      "to": "microservices-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "elixir-otp-pro",
+      "to": "distributed-tracing",
+      "type": "combines_with"
+    },
+    {
+      "from": "elixir-otp-pro",
+      "to": "performance-profiler",
       "type": "combines_with"
     },
     {
@@ -9529,6 +10171,71 @@
       "type": "combines_with"
     },
     {
+      "from": "fp-ts-pragmatic-guide",
+      "to": "fp-ts-refactor",
+      "type": "related"
+    },
+    {
+      "from": "fp-ts-pragmatic-guide",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "fp-ts-pragmatic-guide",
+      "to": "javascript-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "fp-ts-pragmatic-guide",
+      "to": "error-handling-patterns",
+      "type": "related"
+    },
+    {
+      "from": "fp-ts-pragmatic-guide",
+      "to": "fp-ts-refactor",
+      "type": "combines_with"
+    },
+    {
+      "from": "fp-ts-pragmatic-guide",
+      "to": "zod-schema-validation",
+      "type": "combines_with"
+    },
+    {
+      "from": "fp-ts-pragmatic-guide",
+      "to": "typescript-advanced-types",
+      "type": "combines_with"
+    },
+    {
+      "from": "fp-ts-refactor",
+      "to": "fp-ts-pragmatic-guide",
+      "type": "related"
+    },
+    {
+      "from": "fp-ts-refactor",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "fp-ts-refactor",
+      "to": "javascript-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "fp-ts-refactor",
+      "to": "error-handling-patterns",
+      "type": "related"
+    },
+    {
+      "from": "fp-ts-refactor",
+      "to": "typescript-advanced-types",
+      "type": "combines_with"
+    },
+    {
+      "from": "fp-ts-refactor",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
       "from": "frontend-design",
       "to": "brand-guidelines",
       "type": "related"
@@ -9556,6 +10263,36 @@
     {
       "from": "frontend-design",
       "to": "webapp-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "full-output-enforcement",
+      "to": "llm-coding-mistake-guardrails",
+      "type": "related"
+    },
+    {
+      "from": "full-output-enforcement",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "full-output-enforcement",
+      "to": "adversarial-code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "full-output-enforcement",
+      "to": "llm-prompt-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "full-output-enforcement",
+      "to": "code-simplifier",
+      "type": "combines_with"
+    },
+    {
+      "from": "full-output-enforcement",
+      "to": "code-reviewer",
       "type": "combines_with"
     },
     {
@@ -10796,6 +11533,41 @@
     {
       "from": "react-state-management",
       "to": "web-component-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "realtime-support-chat-widget",
+      "to": "websocket-realtime-engineer",
+      "type": "related"
+    },
+    {
+      "from": "realtime-support-chat-widget",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "realtime-support-chat-widget",
+      "to": "transactional-email-template-builder",
+      "type": "related"
+    },
+    {
+      "from": "realtime-support-chat-widget",
+      "to": "ai-customer-support",
+      "type": "related"
+    },
+    {
+      "from": "realtime-support-chat-widget",
+      "to": "database-design-advisor",
+      "type": "combines_with"
+    },
+    {
+      "from": "realtime-support-chat-widget",
+      "to": "react-state-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "realtime-support-chat-widget",
+      "to": "support-ticket-triage",
       "type": "combines_with"
     },
     {
@@ -13229,6 +14001,36 @@
       "type": "combines_with"
     },
     {
+      "from": "agent-readiness-aeo-check",
+      "to": "agent-tool-design",
+      "type": "related"
+    },
+    {
+      "from": "agent-readiness-aeo-check",
+      "to": "agent-tool-builder",
+      "type": "related"
+    },
+    {
+      "from": "agent-readiness-aeo-check",
+      "to": "coding-agent-headtohead-eval",
+      "type": "related"
+    },
+    {
+      "from": "agent-readiness-aeo-check",
+      "to": "agent-architecture-audit",
+      "type": "related"
+    },
+    {
+      "from": "agent-readiness-aeo-check",
+      "to": "agent-workflow-pattern-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-readiness-aeo-check",
+      "to": "ai-engineering-toolkit",
+      "type": "combines_with"
+    },
+    {
       "from": "agent-session-trace-audit",
       "to": "coding-agent-headtohead-eval",
       "type": "related"
@@ -13961,6 +14763,41 @@
     {
       "from": "embedding-model-strategies",
       "to": "agent-memory-systems",
+      "type": "combines_with"
+    },
+    {
+      "from": "faf-ai-context-format",
+      "to": "agents-md-maintainer",
+      "type": "related"
+    },
+    {
+      "from": "faf-ai-context-format",
+      "to": "context-window-management",
+      "type": "related"
+    },
+    {
+      "from": "faf-ai-context-format",
+      "to": "context-compression",
+      "type": "related"
+    },
+    {
+      "from": "faf-ai-context-format",
+      "to": "codebase-structure-protocol",
+      "type": "related"
+    },
+    {
+      "from": "faf-ai-context-format",
+      "to": "mcp-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "faf-ai-context-format",
+      "to": "agent-readiness-aeo-check",
+      "type": "combines_with"
+    },
+    {
+      "from": "faf-ai-context-format",
+      "to": "codebase-onboarding-doc",
       "type": "combines_with"
     },
     {
@@ -14746,6 +15583,41 @@
     {
       "from": "pydantic-ai-agents",
       "to": "multi-agent-system-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "rag-clarity-gate",
+      "to": "rag-implementation-workflow",
+      "type": "related"
+    },
+    {
+      "from": "rag-clarity-gate",
+      "to": "rag-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "rag-clarity-gate",
+      "to": "production-llm-app-builder",
+      "type": "related"
+    },
+    {
+      "from": "rag-clarity-gate",
+      "to": "embedding-model-strategies",
+      "type": "related"
+    },
+    {
+      "from": "rag-clarity-gate",
+      "to": "rag-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "rag-clarity-gate",
+      "to": "fact-checking",
+      "type": "combines_with"
+    },
+    {
+      "from": "rag-clarity-gate",
+      "to": "ai-model-knowledge-distill",
       "type": "combines_with"
     },
     {
@@ -16276,6 +17148,41 @@
     {
       "from": "competitive-matrix-builder",
       "to": "sales-enablement",
+      "type": "combines_with"
+    },
+    {
+      "from": "content-emotional-arc-design",
+      "to": "conversion-copywriter",
+      "type": "related"
+    },
+    {
+      "from": "content-emotional-arc-design",
+      "to": "landing-page-copywriting",
+      "type": "related"
+    },
+    {
+      "from": "content-emotional-arc-design",
+      "to": "psychology-conversion-copy",
+      "type": "related"
+    },
+    {
+      "from": "content-emotional-arc-design",
+      "to": "email-sequence-designer",
+      "type": "related"
+    },
+    {
+      "from": "content-emotional-arc-design",
+      "to": "marketing-psychology",
+      "type": "combines_with"
+    },
+    {
+      "from": "content-emotional-arc-design",
+      "to": "conversion-rate-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "content-emotional-arc-design",
+      "to": "email-sequence-designer",
       "type": "combines_with"
     },
     {
@@ -18701,6 +19608,36 @@
     {
       "from": "programmatic-seo-builder",
       "to": "seo-site-architecture",
+      "type": "combines_with"
+    },
+    {
+      "from": "psychology-conversion-copy",
+      "to": "conversion-copywriter",
+      "type": "related"
+    },
+    {
+      "from": "psychology-conversion-copy",
+      "to": "landing-page-copywriting",
+      "type": "related"
+    },
+    {
+      "from": "psychology-conversion-copy",
+      "to": "marketing-psychology",
+      "type": "related"
+    },
+    {
+      "from": "psychology-conversion-copy",
+      "to": "content-emotional-arc-design",
+      "type": "related"
+    },
+    {
+      "from": "psychology-conversion-copy",
+      "to": "conversion-rate-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "psychology-conversion-copy",
+      "to": "email-sequence-designer",
       "type": "combines_with"
     },
     {
@@ -24129,6 +25066,41 @@
       "type": "combines_with"
     },
     {
+      "from": "multi-framework-compliance-orchestrator",
+      "to": "compliance-readiness-review",
+      "type": "related"
+    },
+    {
+      "from": "multi-framework-compliance-orchestrator",
+      "to": "soc2-compliance-preparer",
+      "type": "related"
+    },
+    {
+      "from": "multi-framework-compliance-orchestrator",
+      "to": "iso27001-isms-implementer",
+      "type": "related"
+    },
+    {
+      "from": "multi-framework-compliance-orchestrator",
+      "to": "security-audit-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "multi-framework-compliance-orchestrator",
+      "to": "gdpr-data-handling",
+      "type": "combines_with"
+    },
+    {
+      "from": "multi-framework-compliance-orchestrator",
+      "to": "iso42001-aims-specialist",
+      "type": "combines_with"
+    },
+    {
+      "from": "multi-framework-compliance-orchestrator",
+      "to": "dependency-auditor",
+      "type": "combines_with"
+    },
+    {
       "from": "network-interface-health",
       "to": "devops-troubleshooter",
       "type": "related"
@@ -24441,6 +25413,36 @@
     {
       "from": "security-audit-toolkit",
       "to": "security-incident-response",
+      "type": "combines_with"
+    },
+    {
+      "from": "security-diff-review",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "security-diff-review",
+      "to": "adversarial-code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "security-diff-review",
+      "to": "security-audit-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "security-diff-review",
+      "to": "sast-configurator",
+      "type": "related"
+    },
+    {
+      "from": "security-diff-review",
+      "to": "github-pr-comment-resolver",
+      "type": "combines_with"
+    },
+    {
+      "from": "security-diff-review",
+      "to": "dependency-auditor",
       "type": "combines_with"
     },
     {
@@ -34646,6 +35648,41 @@
     {
       "from": "busybox-on-windows",
       "to": "posix-shell-scripting",
+      "type": "combines_with"
+    },
+    {
+      "from": "claimable-postgres-provision",
+      "to": "neon-serverless-postgres",
+      "type": "related"
+    },
+    {
+      "from": "claimable-postgres-provision",
+      "to": "postgresql-optimization",
+      "type": "related"
+    },
+    {
+      "from": "claimable-postgres-provision",
+      "to": "cloud-cost-optimization",
+      "type": "related"
+    },
+    {
+      "from": "claimable-postgres-provision",
+      "to": "database-migration-strategies",
+      "type": "related"
+    },
+    {
+      "from": "claimable-postgres-provision",
+      "to": "env-secrets-hygiene",
+      "type": "combines_with"
+    },
+    {
+      "from": "claimable-postgres-provision",
+      "to": "prisma-orm-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "claimable-postgres-provision",
+      "to": "drizzle-orm-expert",
       "type": "combines_with"
     },
     {
