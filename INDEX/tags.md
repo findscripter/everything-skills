@@ -73,6 +73,9 @@
 ### `ABtest`
 - [`paid-ad-creative`](../05-business/paid-ad-creative/SKILL.md) — 付费广告创意制作与迭代
 
+### `ACH`
+- [`plaid-fintech-integration`](../09-verticals/plaid-fintech-integration/SKILL.md) — Plaid 金融数据 API 集成
+
 ### `ADA`
 - [`employee-leave-deadline-tracker`](../09-verticals/employee-leave-deadline-tracker/SKILL.md) — 员工休假期限跟踪
 
@@ -246,11 +249,20 @@
 - [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 - [`multi-cloud-architecture`](../10-platform/multi-cloud-architecture/SKILL.md) — 多云架构决策框架
 
+### `Azure OpenAI`
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
+
+### `B2B`
+- [`pakistan-payments-stack`](../09-verticals/pakistan-payments-stack/SKILL.md) — 巴基斯坦本地支付集成
+
 ### `B2B 销售`
 - [`sales-enablement`](../05-business/sales-enablement/SKILL.md) — 销售赋能物料制作
 
 ### `B2B-SaaS`
 - [`cro-revenue-advisor`](../05-business/cro-revenue-advisor/SKILL.md) — CRO 营收增长顾问（B2B SaaS）
+
+### `B2B集成`
+- [`odoo-edi-connector`](../09-verticals/odoo-edi-connector/SKILL.md) — Odoo EDI 电子数据交换
 
 ### `BAM`
 - [`samtools-bam-processing`](../09-verticals/samtools-bam-processing/SKILL.md) — samtools BAM/SAM 处理
@@ -272,6 +284,9 @@
 
 ### `BaaS`
 - [`convex-reactive-backend`](../02-engineering/convex-reactive-backend/SKILL.md) — Convex 响应式后端与实时订阅
+
+### `Bases`
+- [`obsidian-bases-builder`](../07-productivity/obsidian-bases-builder/SKILL.md) — Obsidian Bases 数据库视图
 
 ### `Bevy`
 - [`bevy-ecs-rust`](../02-engineering/bevy-ecs-rust/SKILL.md) — Bevy 实体组件系统 Rust 游戏开发
@@ -355,6 +370,7 @@
 ### `CI`
 - [`bazel-build-optimization`](../02-engineering/bazel-build-optimization/SKILL.md) — Bazel 大型单仓构建优化
 - [`git-hooks-automation`](../02-engineering/git-hooks-automation/SKILL.md) — Git Hooks 质量门禁
+- [`odoo-automated-tests`](../09-verticals/odoo-automated-tests/SKILL.md) — Odoo 自动化测试
 - [`turborepo-caching`](../02-engineering/turborepo-caching/SKILL.md) — Turborepo 单仓构建缓存配置
 
 ### `CI 门禁`
@@ -376,6 +392,7 @@
 - [`coding-agent-headtohead-eval`](../04-ai/coding-agent-headtohead-eval/SKILL.md) — 编码 Agent 对比评测（通过率/成本/耗时）
 - [`defuddle-web-extract`](../10-platform/defuddle-web-extract/SKILL.md) — Defuddle 网页正文提取为 Markdown
 - [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
+- [`personal-tool-builder`](../07-productivity/personal-tool-builder/SKILL.md) — 自用工具构建方法论
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
 
 ### `CMO`
@@ -420,6 +437,7 @@
 - [`cloud-misconfig-auditor`](../08-security/cloud-misconfig-auditor/SKILL.md) — 云基础设施安全审计
 
 ### `CSS`
+- [`scroll-driven-web-experience`](../02-engineering/scroll-driven-web-experience/SKILL.md) — 滚动驱动沉浸式网页体验
 - [`tailwind-css-patterns`](../02-engineering/tailwind-css-patterns/SKILL.md) — Tailwind CSS v4 模式与设计令牌
 
 ### `CSS Grid`
@@ -611,6 +629,12 @@
 - [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 - [`seaborn-statistical-charts`](../03-data/seaborn-statistical-charts/SKILL.md) — Seaborn 统计图表
 
+### `EDI`
+- [`odoo-edi-connector`](../09-verticals/odoo-edi-connector/SKILL.md) — Odoo EDI 电子数据交换
+
+### `EDIFACT`
+- [`odoo-edi-connector`](../09-verticals/odoo-edi-connector/SKILL.md) — Odoo EDI 电子数据交换
+
 ### `EDR`
 - [`threat-detection-hunting`](../08-security/threat-detection-hunting/SKILL.md) — 威胁狩猎与异常检测
 
@@ -635,6 +659,23 @@
 
 ### `EPS`
 - [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) — 分析师财务预测：营收与EPS估计区间
+
+### `ERC-1155`
+- [`nft-erc-standards`](../09-verticals/nft-erc-standards/SKILL.md) — NFT ERC-721/1155 标准精通
+
+### `ERC-721`
+- [`nft-erc-standards`](../09-verticals/nft-erc-standards/SKILL.md) — NFT ERC-721/1155 标准精通
+
+### `ERP`
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
+- [`odoo-ecommerce-configurator`](../09-verticals/odoo-ecommerce-configurator/SKILL.md) — Odoo 电商与网站配置
+- [`odoo-edi-connector`](../09-verticals/odoo-edi-connector/SKILL.md) — Odoo EDI 电子数据交换
+- [`odoo-hr-payroll-setup`](../09-verticals/odoo-hr-payroll-setup/SKILL.md) — Odoo 人力与薪酬配置
+- [`odoo-inventory-optimizer`](../09-verticals/odoo-inventory-optimizer/SKILL.md) — Odoo 库存优化
+- [`odoo-manufacturing-advisor`](../09-verticals/odoo-manufacturing-advisor/SKILL.md) — Odoo 制造 MRP 规划
+- [`odoo-migration-helper`](../09-verticals/odoo-migration-helper/SKILL.md) — Odoo 模块版本迁移
+- [`odoo-orm-expert`](../09-verticals/odoo-orm-expert/SKILL.md) — Odoo ORM 模式精通
+- [`odoo-purchase-workflow`](../09-verticals/odoo-purchase-workflow/SKILL.md) — Odoo 采购工作流
 
 ### `ESG`
 - [`octagon-equity-research-analyst`](../09-verticals/octagon-equity-research-analyst/SKILL.md) — 股票研究分析编排
@@ -737,6 +778,9 @@
 ### `FoundationModels`
 - [`on-device-foundation-models`](../04-ai/on-device-foundation-models/SKILL.md) — 端侧基础模型（量化与隐私推理）
 
+### `Framer-Motion`
+- [`scroll-driven-web-experience`](../02-engineering/scroll-driven-web-experience/SKILL.md) — 滚动驱动沉浸式网页体验
+
 ### `GA4`
 - [`analytics-tracking-setup`](../05-business/analytics-tracking-setup/SKILL.md) — 分析埋点与转化追踪
 
@@ -766,6 +810,7 @@
 
 ### `GSAP`
 - [`glassmorphism-ui-design`](../06-creative/glassmorphism-ui-design/SKILL.md) — 玻璃拟态与空间感 UI 设计
+- [`scroll-driven-web-experience`](../02-engineering/scroll-driven-web-experience/SKILL.md) — 滚动驱动沉浸式网页体验
 
 ### `GTM`
 - [`analytics-tracking-setup`](../05-business/analytics-tracking-setup/SKILL.md) — 分析埋点与转化追踪
@@ -781,6 +826,9 @@
 ### `Ghidra`
 - [`binary-analysis-patterns`](../08-security/binary-analysis-patterns/SKILL.md) — 二进制逆向与汇编分析模式
 - [`firmware-reverse-analyst`](../08-security/firmware-reverse-analyst/SKILL.md) — 固件逆向与 IoT 安全
+
+### `GitHub`
+- [`oss-contribution-hunter`](../00-meta/oss-contribution-hunter/SKILL.md) — 开源贡献机会挖掘（oss-contribution-hunter）
 
 ### `GitOps`
 - [`deployment-engineer`](../02-engineering/deployment-engineer/SKILL.md) — CI/CD GitOps 部署工程
@@ -833,6 +881,9 @@
 
 ### `HPO`
 - [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱
+
+### `HR`
+- [`odoo-hr-payroll-setup`](../09-verticals/odoo-hr-payroll-setup/SKILL.md) — Odoo 人力与薪酬配置
 
 ### `HS归类`
 - [`customs-trade-compliance`](../09-verticals/customs-trade-compliance/SKILL.md) — 海关报关与关税合规
@@ -900,6 +951,9 @@
 
 ### `IPC`
 - [`electron-desktop-development`](../02-engineering/electron-desktop-development/SKILL.md) — Electron 桌面应用开发
+
+### `IPN`
+- [`paypal-payment-integration`](../02-engineering/paypal-payment-integration/SKILL.md) — PayPal 支付集成
 
 ### `IPO`
 - [`octagon-sec-s1-analysis`](../09-verticals/octagon-sec-s1-analysis/SKILL.md) — SEC S-1 招股书与 IPO 分析
@@ -1207,6 +1261,9 @@
 ### `MPS`
 - [`doc-to-math-spec`](../01-documents/doc-to-math-spec/SKILL.md) — 文档转数学问题规范
 
+### `MRP`
+- [`odoo-manufacturing-advisor`](../09-verticals/odoo-manufacturing-advisor/SKILL.md) — Odoo 制造 MRP 规划
+
 ### `MSA`
 - [`deal-desk-reviewer`](../05-business/deal-desk-reviewer/SKILL.md) — 交易台合同与折扣评审
 
@@ -1267,6 +1324,9 @@
 ### `NDA`
 - [`legal-inquiry-responder`](../09-verticals/legal-inquiry-responder/SKILL.md) — 法律咨询应答（模板+升级判定）
 
+### `NFT`
+- [`nft-erc-standards`](../09-verticals/nft-erc-standards/SKILL.md) — NFT ERC-721/1155 标准精通
+
 ### `NGS`
 - [`deeptools-ngs-analysis`](../09-verticals/deeptools-ngs-analysis/SKILL.md) — deepTools NGS 覆盖度与信号可视化
 - [`samtools-bam-processing`](../09-verticals/samtools-bam-processing/SKILL.md) — samtools BAM/SAM 处理
@@ -1293,6 +1353,7 @@
 ### `Node.js`
 - [`bullmq-job-queue`](../02-engineering/bullmq-job-queue/SKILL.md) — BullMQ Redis 任务队列后台处理
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
+- [`plaid-fintech-integration`](../09-verticals/plaid-fintech-integration/SKILL.md) — Plaid 金融数据 API 集成
 - [`rest-api-endpoint-builder`](../02-engineering/rest-api-endpoint-builder/SKILL.md) — 生产级 REST API 端点构建
 
 ### `NotebookLM`
@@ -1332,6 +1393,7 @@
 ### `ORM`
 - [`database-migration-strategies`](../02-engineering/database-migration-strategies/SKILL.md) — 跨 ORM 数据库迁移与回滚策略
 - [`drizzle-orm-expert`](../02-engineering/drizzle-orm-expert/SKILL.md) — Drizzle ORM 模式设计
+- [`odoo-orm-expert`](../09-verticals/odoo-orm-expert/SKILL.md) — Odoo ORM 模式精通
 
 ### `OSINT`
 - [`shodan-reconnaissance`](../08-security/shodan-reconnaissance/SKILL.md) — Shodan 资产侦察方法论
@@ -1345,6 +1407,9 @@
 
 ### `OWBPA`
 - [`employment-termination-review`](../09-verticals/employment-termination-review/SKILL.md) — 员工解雇合规审查
+
+### `Obsidian`
+- [`obsidian-bases-builder`](../07-productivity/obsidian-bases-builder/SKILL.md) — Obsidian Bases 数据库视图
 
 ### `Octagon`
 - [`octagon-balance-sheet-data`](../09-verticals/octagon-balance-sheet-data/SKILL.md) — 资产负债表数据检索
@@ -1377,6 +1442,18 @@
 - [`octagon-revenue-product-segmentation`](../09-verticals/octagon-revenue-product-segmentation/SKILL.md) — 营收产品分部拆解
 - [`octagon-sec-segment-reporting`](../09-verticals/octagon-sec-segment-reporting/SKILL.md) — SEC分部业绩报告分析
 
+### `Odoo`
+- [`odoo-automated-tests`](../09-verticals/odoo-automated-tests/SKILL.md) — Odoo 自动化测试
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
+- [`odoo-ecommerce-configurator`](../09-verticals/odoo-ecommerce-configurator/SKILL.md) — Odoo 电商与网站配置
+- [`odoo-edi-connector`](../09-verticals/odoo-edi-connector/SKILL.md) — Odoo EDI 电子数据交换
+- [`odoo-hr-payroll-setup`](../09-verticals/odoo-hr-payroll-setup/SKILL.md) — Odoo 人力与薪酬配置
+- [`odoo-inventory-optimizer`](../09-verticals/odoo-inventory-optimizer/SKILL.md) — Odoo 库存优化
+- [`odoo-manufacturing-advisor`](../09-verticals/odoo-manufacturing-advisor/SKILL.md) — Odoo 制造 MRP 规划
+- [`odoo-migration-helper`](../09-verticals/odoo-migration-helper/SKILL.md) — Odoo 模块版本迁移
+- [`odoo-orm-expert`](../09-verticals/odoo-orm-expert/SKILL.md) — Odoo ORM 模式精通
+- [`odoo-purchase-workflow`](../09-verticals/odoo-purchase-workflow/SKILL.md) — Odoo 采购工作流
+
 ### `Ollama`
 - [`local-llm-inference`](../04-ai/local-llm-inference/SKILL.md) — 本地 LLM 推理部署
 
@@ -1392,6 +1469,7 @@
 
 ### `OpenZeppelin`
 - [`defi-protocol-templates`](../09-verticals/defi-protocol-templates/SKILL.md) — DeFi 协议合约模板
+- [`nft-erc-standards`](../09-verticals/nft-erc-standards/SKILL.md) — NFT ERC-721/1155 标准精通
 
 ### `Option`
 - [`fp-ts-pragmatic-guide`](../02-engineering/fp-ts-pragmatic-guide/SKILL.md) — fp-ts 实用函数式编程
@@ -1401,6 +1479,9 @@
 
 ### `PAINS`
 - [`medchem-compound-triage`](../09-verticals/medchem-compound-triage/SKILL.md) — 药物化学过滤与化合物筛选
+
+### `PCM`
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
 
 ### `PCR`
 - [`opentrons-protocol-api`](../09-verticals/opentrons-protocol-api/SKILL.md) — Opentrons 液体处理机器人协议
@@ -1417,6 +1498,9 @@
 
 ### `PHP`
 - [`laravel-security-audit`](../08-security/laravel-security-audit/SKILL.md) — Laravel 安全审计
+
+### `PKR`
+- [`pakistan-payments-stack`](../09-verticals/pakistan-payments-stack/SKILL.md) — 巴基斯坦本地支付集成
 
 ### `PMF`
 - [`cpo-product-advisor`](../07-productivity/cpo-product-advisor/SKILL.md) — CPO 产品顾问（愿景与组合策略）
@@ -1441,6 +1525,9 @@
 ### `PR 审查`
 - [`codetour-authoring`](../01-documents/codetour-authoring/SKILL.md) — CodeTour 代码导览编写
 
+### `PR 机会`
+- [`oss-contribution-hunter`](../00-meta/oss-contribution-hunter/SKILL.md) — 开源贡献机会挖掘（oss-contribution-hunter）
+
 ### `PRD`
 - [`codebase-to-prd`](../01-documents/codebase-to-prd/SKILL.md) — 代码库逆向生成PRD
 - [`doc-coauthoring`](../01-documents/doc-coauthoring/SKILL.md) — 协作式文档共创工作流
@@ -1454,7 +1541,14 @@
 - [`closed-loop-delivery`](../00-meta/closed-loop-delivery/SKILL.md) — 验收标准闭环交付
 
 ### `PayPal`
+- [`paypal-payment-integration`](../02-engineering/paypal-payment-integration/SKILL.md) — PayPal 支付集成
 - [`smb-payroll-cash-planner`](../05-business/smb-payroll-cash-planner/SKILL.md) — 小微企业发薪现金筹划
+
+### `Payroll`
+- [`odoo-hr-payroll-setup`](../09-verticals/odoo-hr-payroll-setup/SKILL.md) — Odoo 人力与薪酬配置
+
+### `Plaid`
+- [`plaid-fintech-integration`](../09-verticals/plaid-fintech-integration/SKILL.md) — Plaid 金融数据 API 集成
 
 ### `Playwright`
 - [`browser-automation-builder`](../10-platform/browser-automation-builder/SKILL.md) — 浏览器自动化与抓取
@@ -1464,6 +1558,7 @@
 ### `PostgreSQL`
 - [`database-design-advisor`](../02-engineering/database-design-advisor/SKILL.md) — 数据库选型与迁移设计
 - [`drizzle-orm-expert`](../02-engineering/drizzle-orm-expert/SKILL.md) — Drizzle ORM 模式设计
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
 
 ### `Postgres`
 - [`neon-serverless-postgres`](../02-engineering/neon-serverless-postgres/SKILL.md) — Neon Serverless Postgres
@@ -1511,6 +1606,9 @@
 - [`depmap-cancer-dependency`](../09-verticals/depmap-cancer-dependency/SKILL.md) — DepMap 癌症基因依赖图谱查询
 - [`fastapi-async-api`](../02-engineering/fastapi-async-api/SKILL.md) — FastAPI 高性能异步 API
 - [`geniml-genomic-interval-ml`](../09-verticals/geniml-genomic-interval-ml/SKILL.md) — geniml 基因组区间机器学习
+- [`odoo-automated-tests`](../09-verticals/odoo-automated-tests/SKILL.md) — Odoo 自动化测试
+- [`odoo-migration-helper`](../09-verticals/odoo-migration-helper/SKILL.md) — Odoo 模块版本迁移
+- [`odoo-orm-expert`](../09-verticals/odoo-orm-expert/SKILL.md) — Odoo ORM 模式精通
 - [`pead-earnings-drift-screener`](../09-verticals/pead-earnings-drift-screener/SKILL.md) — 财报后漂移 PEAD 选股
 - [`pennylane-quantum-ml`](../09-verticals/pennylane-quantum-ml/SKILL.md) — PennyLane 量子机器学习
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
@@ -1603,6 +1701,7 @@
 - [`emdb-cryoem-database`](../09-verticals/emdb-cryoem-database/SKILL.md) — EMDB 冷冻电镜密度图查询
 - [`interpro-domain-database`](../09-verticals/interpro-domain-database/SKILL.md) — InterPro 蛋白结构域数据库
 - [`kegg-database`](../09-verticals/kegg-database/SKILL.md) — KEGG 通路与化合物数据库
+- [`paypal-payment-integration`](../02-engineering/paypal-payment-integration/SKILL.md) — PayPal 支付集成
 - [`pride-proteomics-database`](../09-verticals/pride-proteomics-database/SKILL.md) — PRIDE 蛋白质组数据集检索
 - [`pubchem-compound-search`](../09-verticals/pubchem-compound-search/SKILL.md) — PubChem 化合物检索
 - [`rcsb-pdb-database`](../09-verticals/rcsb-pdb-database/SKILL.md) — RCSB PDB 结构数据库查询
@@ -1648,6 +1747,7 @@
 ### `React`
 - [`glassmorphism-ui-design`](../06-creative/glassmorphism-ui-design/SKILL.md) — 玻璃拟态与空间感 UI 设计
 - [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
+- [`react-flow-node-graph-architect`](../02-engineering/react-flow-node-graph-architect/SKILL.md) — ReactFlow 节点图应用架构
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) — Web 组件设计模式
 
@@ -1661,8 +1761,14 @@
 ### `React-Email`
 - [`transactional-email-template-builder`](../02-engineering/transactional-email-template-builder/SKILL.md) — 事务邮件模板系统构建
 
+### `ReactFlow`
+- [`react-flow-node-graph-architect`](../02-engineering/react-flow-node-graph-architect/SKILL.md) — ReactFlow 节点图应用架构
+
 ### `Reactome`
 - [`reactome-pathway-database`](../09-verticals/reactome-pathway-database/SKILL.md) — Reactome 通路数据库查询
+
+### `Realtime API`
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
 
 ### `Redis`
 - [`bullmq-job-queue`](../02-engineering/bullmq-job-queue/SKILL.md) — BullMQ Redis 任务队列后台处理
@@ -1689,6 +1795,7 @@
 ### `S3`
 - [`cloud-misconfig-auditor`](../08-security/cloud-misconfig-auditor/SKILL.md) — 云基础设施安全审计
 - [`file-upload-storage`](../02-engineering/file-upload-storage/SKILL.md) — 文件上传与云存储
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
 
 ### `SAM`
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家
@@ -1714,6 +1821,7 @@
 - [`content-marketing-strategist`](../05-business/content-marketing-strategist/SKILL.md) — 全渠道内容营销策略
 - [`free-tool-marketing-strategy`](../05-business/free-tool-marketing-strategy/SKILL.md) — 免费工具营销策略
 - [`internal-linking-optimizer`](../05-business/internal-linking-optimizer/SKILL.md) — 内部链接结构与锚文本优化
+- [`odoo-ecommerce-configurator`](../09-verticals/odoo-ecommerce-configurator/SKILL.md) — Odoo 电商与网站配置
 - [`seo-site-architecture`](../05-business/seo-site-architecture/SKILL.md) — 网站结构与 URL 层级设计
 - [`seo-traffic-drop-forensics`](../05-business/seo-traffic-drop-forensics/SKILL.md) — SEO 流量骤降取证排查
 
@@ -1794,6 +1902,7 @@
 - [`iconsax-icon-library`](../06-creative/iconsax-icon-library/SKILL.md) — Iconsax 图标库与生成
 
 ### `SaaS`
+- [`pakistan-payments-stack`](../09-verticals/pakistan-payments-stack/SKILL.md) — 巴基斯坦本地支付集成
 - [`soc2-compliance-preparer`](../08-security/soc2-compliance-preparer/SKILL.md) — SOC 2 审计准备与控制矩阵
 
 ### `SaaS指标`
@@ -1850,6 +1959,7 @@
 ### `Solidity`
 - [`defi-amm-security-audit`](../08-security/defi-amm-security-audit/SKILL.md) — DeFi AMM 智能合约安全审计
 - [`defi-protocol-templates`](../09-verticals/defi-protocol-templates/SKILL.md) — DeFi 协议合约模板
+- [`nft-erc-standards`](../09-verticals/nft-erc-standards/SKILL.md) — NFT ERC-721/1155 标准精通
 
 ### `Spline`
 - [`threejs-3d-web`](../02-engineering/threejs-3d-web/SKILL.md) — Three.js 网页 3D 体验开发
@@ -1904,6 +2014,7 @@
 - [`demo-video-generator`](../06-creative/demo-video-generator/SKILL.md) — 产品演示视频生成
 - [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）
 - [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
 
 ### `Tailwind`
 - [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
@@ -1952,6 +2063,8 @@
 - [`fp-ts-pragmatic-guide`](../02-engineering/fp-ts-pragmatic-guide/SKILL.md) — fp-ts 实用函数式编程
 - [`javascript-testing-patterns`](../02-engineering/javascript-testing-patterns/SKILL.md) — JS/TS 测试策略
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
+- [`plaid-fintech-integration`](../09-verticals/plaid-fintech-integration/SKILL.md) — Plaid 金融数据 API 集成
+- [`react-flow-node-graph-architect`](../02-engineering/react-flow-node-graph-architect/SKILL.md) — ReactFlow 节点图应用架构
 - [`react-native-architecture`](../02-engineering/react-native-architecture/SKILL.md) — React Native 架构模式
 
 ### `UDI`
@@ -2059,9 +2172,15 @@
 ### `WARN`
 - [`employment-termination-review`](../09-verticals/employment-termination-review/SKILL.md) — 员工解雇合规审查
 
+### `WAV`
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
+
 ### `WCAG`
 - [`ui-design-system-builder`](../06-creative/ui-design-system-builder/SKILL.md) — UI 设计系统与设计令牌
 - [`wcag-22-audit-patterns`](../02-engineering/wcag-22-audit-patterns/SKILL.md) — WCAG 2.2 无障碍审计模式
+
+### `WMS`
+- [`odoo-inventory-optimizer`](../09-verticals/odoo-inventory-optimizer/SKILL.md) — Odoo 库存优化
 
 ### `WSI`
 - [`histolab-wsi-tiling`](../09-verticals/histolab-wsi-tiling/SKILL.md) — histolab 全视野病理切片分块
@@ -2078,6 +2197,7 @@
 
 ### `Web3`
 - [`defi-amm-security-audit`](../08-security/defi-amm-security-audit/SKILL.md) — DeFi AMM 智能合约安全审计
+- [`nft-erc-standards`](../09-verticals/nft-erc-standards/SKILL.md) — NFT ERC-721/1155 标准精通
 
 ### `WebFetch`
 - [`entity-research-dossier`](../00-meta/entity-research-dossier/SKILL.md) — 实体决策级调研档案（entity-research-dossier）
@@ -2093,10 +2213,14 @@
 
 ### `WebSocket`
 - [`azure-realtime-voice-ai`](../04-ai/azure-realtime-voice-ai/SKILL.md) — Azure 实时语音 AI 应用构建
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
 - [`realtime-support-chat-widget`](../02-engineering/realtime-support-chat-widget/SKILL.md) — 实时客服聊天组件系统
 - [`websocket-realtime-engineer`](../02-engineering/websocket-realtime-engineer/SKILL.md) — WebSocket 实时通信工程
 
 ### `Webhook`
+- [`pakistan-payments-stack`](../09-verticals/pakistan-payments-stack/SKILL.md) — 巴基斯坦本地支付集成
+- [`paypal-payment-integration`](../02-engineering/paypal-payment-integration/SKILL.md) — PayPal 支付集成
+- [`plaid-fintech-integration`](../09-verticals/plaid-fintech-integration/SKILL.md) — Plaid 金融数据 API 集成
 - [`twilio-communications`](../10-platform/twilio-communications/SKILL.md) — Twilio 短信与语音通信集成
 - [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
 - [`zoom-integration-planner`](../10-platform/zoom-integration-planner/SKILL.md) — Zoom 集成方案规划（架构/认证/里程碑）
@@ -2118,8 +2242,14 @@
 ### `X`
 - [`social-connections-optimizer`](../05-business/social-connections-optimizer/SKILL.md) — 社交人脉优化（X/LinkedIn 网络重整与外联）
 
+### `X12`
+- [`odoo-edi-connector`](../09-verticals/odoo-edi-connector/SKILL.md) — Odoo EDI 电子数据交换
+
 ### `XLSX`
 - [`smb-cash-flow-forecast`](../05-business/smb-cash-flow-forecast/SKILL.md) — 小微企业现金流预测（30/60/90 天）
+
+### `XML视图`
+- [`odoo-migration-helper`](../09-verticals/odoo-migration-helper/SKILL.md) — Odoo 模块版本迁移
 
 ### `XSS相关`
 - [`html-injection-testing`](../08-security/html-injection-testing/SKILL.md) — HTML 注入测试
@@ -2132,6 +2262,7 @@
 
 ### `YAML`
 - [`coding-agent-headtohead-eval`](../04-ai/coding-agent-headtohead-eval/SKILL.md) — 编码 Agent 对比评测（通过率/成本/耗时）
+- [`obsidian-bases-builder`](../07-productivity/obsidian-bases-builder/SKILL.md) — Obsidian Bases 数据库视图
 
 ### `YARA`
 - [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
@@ -2163,6 +2294,7 @@
 
 ### `a11y`
 - [`accessibility-wcag-audit`](../02-engineering/accessibility-wcag-audit/SKILL.md) — 无障碍 WCAG 合规审计
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
 
 ### `ab-testing`
 - [`ab-test-designer`](../05-business/ab-test-designer/SKILL.md) — A/B 实验设计师
@@ -2189,12 +2321,16 @@
 ### `academic-writing`
 - [`academic-paper-writer`](../09-verticals/academic-paper-writer/SKILL.md) — 顶会论文写作
 
+### `access-control`
+- [`odoo-security-rules`](../09-verticals/odoo-security-rules/SKILL.md) — Odoo 访问控制与记录规则
+
 ### `access-token`
 - [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现
 
 ### `accessibility`
 - [`accessibility-wcag-audit`](../02-engineering/accessibility-wcag-audit/SKILL.md) — 无障碍 WCAG 合规审计
 - [`apple-hig-advisor`](../06-creative/apple-hig-advisor/SKILL.md) — 苹果人机界面指南专家
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
 
 ### `account-abstraction`
 - [`defi-natural-language-agent`](../09-verticals/defi-natural-language-agent/SKILL.md) — 自然语言 DeFi 链上交易代理
@@ -2209,6 +2345,7 @@
 - [`financial-statements-generator`](../05-business/financial-statements-generator/SKILL.md) — 财务三表生成
 - [`gl-subledger-reconciler`](../03-data/gl-subledger-reconciler/SKILL.md) — 总账与子账对账核对
 - [`journal-entry-preparer`](../05-business/journal-entry-preparer/SKILL.md) — 会计分录编制
+- [`odoo-accounting-setup`](../09-verticals/odoo-accounting-setup/SKILL.md) — Odoo 会计配置
 - [`odoo-localization-compliance`](../09-verticals/odoo-localization-compliance/SKILL.md) — Odoo 本地化与税务合规
 - [`variance-flux-commentary`](../05-business/variance-flux-commentary/SKILL.md) — 财务差异（Flux）说明撰写
 
@@ -2403,6 +2540,9 @@
 - [`scikit-bio-sequence-toolkit`](../09-verticals/scikit-bio-sequence-toolkit/SKILL.md) — scikit-bio 序列与系统发育分析
 - [`star-rnaseq-aligner`](../09-verticals/star-rnaseq-aligner/SKILL.md) — STAR 剪接感知 RNA-seq 比对
 
+### `allure`
+- [`playwright-java-e2e`](../02-engineering/playwright-java-e2e/SKILL.md) — Playwright Java 端到端测试
+
 ### `alpaca`
 - [`breakout-trade-planner`](../09-verticals/breakout-trade-planner/SKILL.md) — 突破交易计划生成
 
@@ -2511,6 +2651,7 @@
 - [`api-design-principles`](../02-engineering/api-design-principles/SKILL.md) — REST与GraphQL API设计
 - [`api-design-reviewer`](../02-engineering/api-design-reviewer/SKILL.md) — REST API 设计评审
 - [`hono-edge-api`](../02-engineering/hono-edge-api/SKILL.md) — Hono 边缘 Web 框架
+- [`odoo-rpc-api`](../09-verticals/odoo-rpc-api/SKILL.md) — Odoo JSON/XML-RPC 外部接口
 - [`trpc-typesafe-api`](../02-engineering/trpc-typesafe-api/SKILL.md) — tRPC 端到端类型安全 API
 
 ### `api-design`
@@ -2538,6 +2679,9 @@
 
 ### `app-development`
 - [`shopify-app-development`](../02-engineering/shopify-app-development/SKILL.md) — Shopify 应用与主题开发
+
+### `app-router`
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
 
 ### `appium`
 - [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
@@ -2595,6 +2739,7 @@
 
 ### `aria`
 - [`accessibility-wcag-audit`](../02-engineering/accessibility-wcag-audit/SKILL.md) — 无障碍 WCAG 合规审计
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
 
 ### `arr`
 - [`unit-economics-analyzer`](../09-verticals/unit-economics-analyzer/SKILL.md) — 单位经济模型分析
@@ -2706,6 +2851,9 @@
 
 ### `audit-trail`
 - [`technical-change-tracker`](../07-productivity/technical-change-tracker/SKILL.md) — 技术变更记录与会话交接追踪
+
+### `auth`
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
 
 ### `authentication`
 - [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现
@@ -2837,6 +2985,7 @@
 
 ### `bank-reconciliation`
 - [`account-reconciliation`](../05-business/account-reconciliation/SKILL.md) — 账户对账核对
+- [`odoo-accounting-setup`](../09-verticals/odoo-accounting-setup/SKILL.md) — Odoo 会计配置
 
 ### `base`
 - [`agent-payment-x402`](../04-ai/agent-payment-x402/SKILL.md) — AI Agent x402 支付执行（非托管钱包与支出限额）
@@ -3040,6 +3189,9 @@
 ### `blueprint`
 - [`atlassian-template-builder`](../07-productivity/atlassian-template-builder/SKILL.md) — Jira/Confluence 模板制作
 
+### `bmc`
+- [`business-model-canvas-architect`](../05-business/business-model-canvas-architect/SKILL.md) — 商业模式画布构建顾问
+
 ### `board-governance`
 - [`board-written-consent-drafter`](../09-verticals/board-written-consent-drafter/SKILL.md) — 董事会书面决议起草（一致同意书 / UWC）
 
@@ -3124,6 +3276,7 @@
 
 ### `browser-automation`
 - [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
+- [`marketing-screenshots-playwright`](../06-creative/marketing-screenshots-playwright/SKILL.md) — 应用营销截图自动生成
 - [`webapp-testing`](../02-engineering/webapp-testing/SKILL.md) — Web 应用测试（Playwright）
 
 ### `browser-extension`
@@ -3189,6 +3342,9 @@
 
 ### `business-impact`
 - [`customer-escalation-packager`](../05-business/customer-escalation-packager/SKILL.md) — 客户问题升级打包
+
+### `business-model`
+- [`business-model-canvas-architect`](../05-business/business-model-canvas-architect/SKILL.md) — 商业模式画布构建顾问
 
 ### `busybox`
 - [`busybox-on-windows`](../10-platform/busybox-on-windows/SKILL.md) — Windows 上运行 BusyBox UNIX 工具
@@ -3399,6 +3555,9 @@
 
 ### `chaos-mesh`
 - [`chaos-engineering-runner`](../02-engineering/chaos-engineering-runner/SKILL.md) — 混沌工程实验设计
+
+### `chart-of-accounts`
+- [`odoo-accounting-setup`](../09-verticals/odoo-accounting-setup/SKILL.md) — Odoo 会计配置
 
 ### `chatbot`
 - [`discord-bot-architect`](../02-engineering/discord-bot-architect/SKILL.md) — 生产级 Discord 机器人架构
@@ -4090,6 +4249,9 @@
 - [`glsl-shader-programming`](../06-creative/glsl-shader-programming/SKILL.md) — GLSL 着色器编程：写顶点/片元着色器与常见视觉特效
 - [`unity-game-developer`](../06-creative/unity-game-developer/SKILL.md) — Unity 游戏开发
 
+### `creator-economy`
+- [`notion-template-business`](../05-business/notion-template-business/SKILL.md) — Notion 模板生意运营
+
 ### `credibility`
 - [`investigation-memo-drafter`](../09-verticals/investigation-memo-drafter/SKILL.md) — 内部调查备忘录起草
 
@@ -4110,6 +4272,7 @@
 
 ### `crm`
 - [`email-drip-sequence`](../05-business/email-drip-sequence/SKILL.md) — 邮件序列与培育自动化设计
+- [`odoo-sales-crm-expert`](../09-verticals/odoo-sales-crm-expert/SKILL.md) — Odoo 销售与 CRM
 - [`salesforce-automation`](../07-productivity/salesforce-automation/SKILL.md) — Salesforce 自动化
 - [`vendor-agreement-status-checker`](../09-verticals/vendor-agreement-status-checker/SKILL.md) — 供应商协议状态核查（CLM/CRM 跨系统）
 - [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报
@@ -4121,6 +4284,7 @@
 ### `cron`
 - [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）
 - [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
 
 ### `cross-asset`
 - [`macro-regime-detector`](../09-verticals/macro-regime-detector/SKILL.md) — 宏观周期切换检测
@@ -4155,6 +4319,9 @@
 ### `css`
 - [`frontend-design`](../02-engineering/frontend-design/SKILL.md) — 前端设计
 - [`html-animated-slides`](../01-documents/html-animated-slides/SKILL.md) — 动画 HTML 演示文稿生成
+
+### `css-selector`
+- [`obsidian-clipper-templates`](../07-productivity/obsidian-clipper-templates/SKILL.md) — Obsidian 网页剪藏模板
 
 ### `csv`
 - [`csv-data-cleaner`](../03-data/csv-data-cleaner/SKILL.md) — CSV 数据清洗
@@ -4619,6 +4786,9 @@
 ### `digikey`
 - [`pcb-bom-manager`](../09-verticals/pcb-bom-manager/SKILL.md) — 电子物料清单(BOM)管理
 
+### `digital-product`
+- [`notion-template-business`](../05-business/notion-template-business/SKILL.md) — Notion 模板生意运营
+
 ### `dimensionality-reduction`
 - [`umap-dimensionality-reduction`](../03-data/umap-dimensionality-reduction/SKILL.md) — UMAP 非线性降维与可视化
 
@@ -4683,11 +4853,13 @@
 - [`docker-development-optimizer`](../02-engineering/docker-development-optimizer/SKILL.md) — Docker构建与容器加固
 - [`docker-expert`](../02-engineering/docker-expert/SKILL.md) — Docker 容器优化专家
 - [`github-actions-author`](../10-platform/github-actions-author/SKILL.md) — GitHub Actions工作流编写
+- [`odoo-docker-deployment`](../09-verticals/odoo-docker-deployment/SKILL.md) — Odoo Docker 生产部署
 - [`uv-python-package-manager`](../02-engineering/uv-python-package-manager/SKILL.md) — uv 高速 Python 包管理
 
 ### `docker-compose`
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
 - [`docker-development-optimizer`](../02-engineering/docker-development-optimizer/SKILL.md) — Docker构建与容器加固
+- [`odoo-docker-deployment`](../09-verticals/odoo-docker-deployment/SKILL.md) — Odoo Docker 生产部署
 
 ### `dockerfile`
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
@@ -4841,6 +5013,9 @@
 - [`test-coverage-gap-finder`](../02-engineering/test-coverage-gap-finder/SKILL.md) — 测试覆盖率缺口分析
 - [`webapp-testing`](../02-engineering/webapp-testing/SKILL.md) — Web 应用测试（Playwright）
 
+### `e2e-testing`
+- [`playwright-java-e2e`](../02-engineering/playwright-java-e2e/SKILL.md) — Playwright Java 端到端测试
+
 ### `earnings`
 - [`earnings-preview-model`](../05-business/earnings-preview-model/SKILL.md) — 财报前瞻与预估建模
 - [`equity-earnings-update-report`](../05-business/equity-earnings-update-report/SKILL.md) — 股票财报点评报告撰写
@@ -4962,6 +5137,12 @@
 ### `email`
 - [`agentmail-email-infra`](../10-platform/agentmail-email-infra/SKILL.md) — AI 智能体邮件基础设施
 - [`email-drip-sequence`](../05-business/email-drip-sequence/SKILL.md) — 邮件序列与培育自动化设计
+
+### `email-template`
+- [`odoo-qweb-templates`](../09-verticals/odoo-qweb-templates/SKILL.md) — Odoo QWeb 报表与模板
+
+### `embed`
+- [`photopea-embedded-editor`](../06-creative/photopea-embedded-editor/SKILL.md) — Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎
 
 ### `embedding`
 - [`embedding-model-strategies`](../04-ai/embedding-model-strategies/SKILL.md) — 嵌入模型选型与优化
@@ -5113,7 +5294,17 @@
 - [`erd-schema-designer`](../03-data/erd-schema-designer/SKILL.md) — ERD 与数据库范式设计
 
 ### `erp`
+- [`odoo-accounting-setup`](../09-verticals/odoo-accounting-setup/SKILL.md) — Odoo 会计配置
+- [`odoo-docker-deployment`](../09-verticals/odoo-docker-deployment/SKILL.md) — Odoo Docker 生产部署
 - [`odoo-localization-compliance`](../09-verticals/odoo-localization-compliance/SKILL.md) — Odoo 本地化与税务合规
+- [`odoo-module-developer`](../09-verticals/odoo-module-developer/SKILL.md) — Odoo 自定义模块开发
+- [`odoo-performance-tuner`](../09-verticals/odoo-performance-tuner/SKILL.md) — Odoo 性能诊断与调优
+- [`odoo-qweb-templates`](../09-verticals/odoo-qweb-templates/SKILL.md) — Odoo QWeb 报表与模板
+- [`odoo-rpc-api`](../09-verticals/odoo-rpc-api/SKILL.md) — Odoo JSON/XML-RPC 外部接口
+- [`odoo-sales-crm-expert`](../09-verticals/odoo-sales-crm-expert/SKILL.md) — Odoo 销售与 CRM
+- [`odoo-security-rules`](../09-verticals/odoo-security-rules/SKILL.md) — Odoo 访问控制与记录规则
+- [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
+- [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
 
 ### `error-handling`
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) — AI 智能体工具设计与构建
@@ -5324,6 +5515,9 @@
 ### `file-processing`
 - [`content-hash-cache-pattern`](../02-engineering/content-hash-cache-pattern/SKILL.md) — 内容哈希缓存模式（SHA-256 路径无关）
 
+### `filestore`
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
+
 ### `filtering`
 - [`bcftools-variant-manipulation`](../09-verticals/bcftools-variant-manipulation/SKILL.md) — bcftools VCF/BCF 变异处理
 
@@ -5511,6 +5705,9 @@
 ### `firestore`
 - [`firebase-backend`](../10-platform/firebase-backend/SKILL.md) — Firebase 后端集成
 
+### `fiscal-position`
+- [`odoo-accounting-setup`](../09-verticals/odoo-accounting-setup/SKILL.md) — Odoo 会计配置
+
 ### `fits`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
 - [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
@@ -5560,6 +5757,7 @@
 
 ### `forecasting`
 - [`inventory-demand-planning`](../09-verticals/inventory-demand-planning/SKILL.md) — 库存需求计划
+- [`odoo-sales-crm-expert`](../09-verticals/odoo-sales-crm-expert/SKILL.md) — Odoo 销售与 CRM
 
 ### `foreclosure`
 - [`property-auction-legal-analysis`](../09-verticals/property-auction-legal-analysis/SKILL.md) — 不动产拍卖法律分析
@@ -5576,6 +5774,9 @@
 ### `form-optimization`
 - [`conversion-rate-optimizer`](../05-business/conversion-rate-optimizer/SKILL.md) — 转化率优化分析
 - [`signup-flow-cro`](../05-business/signup-flow-cro/SKILL.md) — 注册流程转化优化
+
+### `form-view`
+- [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
 
 ### `formal-methods`
 - [`math-proof-writer`](../09-verticals/math-proof-writer/SKILL.md) — 数学证明撰写
@@ -5620,8 +5821,10 @@
 - [`magic-ui-component-generator`](../02-engineering/magic-ui-component-generator/SKILL.md) — AI UI 组件多方案生成
 - [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
+- [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
 - [`progressive-web-app`](../02-engineering/progressive-web-app/SKILL.md) — 渐进式 Web 应用 PWA
 - [`react-state-management`](../02-engineering/react-state-management/SKILL.md) — React 状态管理
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
 - [`tanstack-query`](../02-engineering/tanstack-query/SKILL.md) — TanStack Query 异步状态管理
 - [`threejs-3d-web`](../02-engineering/threejs-3d-web/SKILL.md) — Three.js 网页 3D 体验开发
 - [`typescript-advanced-types`](../02-engineering/typescript-advanced-types/SKILL.md) — TypeScript 高级类型系统
@@ -5715,6 +5918,7 @@
 
 ### `gemini`
 - [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）
+- [`pipecat-voice-assistant`](../04-ai/pipecat-voice-assistant/SKILL.md) — Pipecat 低延迟语音助手
 
 ### `gene-ontology`
 - [`quickgo-go-database`](../09-verticals/quickgo-go-database/SKILL.md) — QuickGO GO 术语与注释
@@ -5807,6 +6011,7 @@
 
 ### `gh-cli`
 - [`github-pr-comment-resolver`](../02-engineering/github-pr-comment-resolver/SKILL.md) — 处理 GitHub PR 评审评论
+- [`oss-contribution-hunter`](../00-meta/oss-contribution-hunter/SKILL.md) — 开源贡献机会挖掘（oss-contribution-hunter）
 
 ### `gif`
 - [`slack-gif-creator`](../06-creative/slack-gif-creator/SKILL.md) — Slack 动图制作器（slack-gif-creator）
@@ -5984,6 +6189,7 @@
 - [`market-sizing-tam-sam-som`](../05-business/market-sizing-tam-sam-som/SKILL.md) — 市场规模 TAM/SAM/SOM 测算
 - [`marketing-analytics-tracker`](../05-business/marketing-analytics-tracker/SKILL.md) — 营销分析追踪方案
 - [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线
+- [`notion-template-business`](../05-business/notion-template-business/SKILL.md) — Notion 模板生意运营
 - [`paywall-upgrade-cro`](../05-business/paywall-upgrade-cro/SKILL.md) — 应用内付费墙与升级转化优化
 - [`popup-modal-cro`](../05-business/popup-modal-cro/SKILL.md) — 弹窗与浮层转化优化
 - [`pricing-strategy`](../05-business/pricing-strategy/SKILL.md) — 定价与套餐策略
@@ -6017,6 +6223,9 @@
 
 ### `gui`
 - [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
+
+### `gumroad`
+- [`notion-template-business`](../05-business/notion-template-business/SKILL.md) — Notion 模板生意运营
 
 ### `gvcf`
 - [`gatk-variant-calling`](../09-verticals/gatk-variant-calling/SKILL.md) — GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）
@@ -6250,9 +6459,15 @@
 - [`temporal-workflow-python`](../02-engineering/temporal-workflow-python/SKILL.md) — Temporal 持久工作流编排（Python）
 - [`zoom-webhooks-setup`](../10-platform/zoom-webhooks-setup/SKILL.md) — Zoom Webhooks 事件订阅与校验
 
+### `iframe`
+- [`photopea-embedded-editor`](../06-creative/photopea-embedded-editor/SKILL.md) — Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎
+
 ### `image`
 - [`algorithmic-art`](../06-creative/algorithmic-art/SKILL.md) — 算法艺术：用 p5.js 生成可探索的生成式艺术
 - [`slack-gif-creator`](../06-creative/slack-gif-creator/SKILL.md) — Slack 动图制作器（slack-gif-creator）
+
+### `image-editor`
+- [`photopea-embedded-editor`](../06-creative/photopea-embedded-editor/SKILL.md) — Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎
 
 ### `image-optimization`
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
@@ -6338,6 +6553,7 @@
 - [`imessage-claude-bridge`](../10-platform/imessage-claude-bridge/SKILL.md) — iMessage 短信驱动 Claude 会话桥接
 - [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
 - [`ma-playbook`](../05-business/ma-playbook/SKILL.md) — 并购策略手册（尽调与估值整合）
+- [`odoo-rpc-api`](../09-verticals/odoo-rpc-api/SKILL.md) — Odoo JSON/XML-RPC 外部接口
 - [`salesforce-apex-developer`](../10-platform/salesforce-apex-developer/SKILL.md) — Salesforce Apex 与 LWC 开发
 - [`slack-bolt-bot-builder`](../10-platform/slack-bolt-bot-builder/SKILL.md) — Slack Bolt 机器人开发
 - [`slack-message-formatter`](../10-platform/slack-message-formatter/SKILL.md) — Slack 消息撰写与 mrkdwn 排版
@@ -6432,6 +6648,12 @@
 ### `ip-strategy`
 - [`invention-disclosure-screen`](../09-verticals/invention-disclosure-screen/SKILL.md) — 发明披露专利性初筛
 
+### `ir.rule`
+- [`odoo-security-rules`](../09-verticals/odoo-security-rules/SKILL.md) — Odoo 访问控制与记录规则
+
+### `ir.ui.view`
+- [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
+
 ### `irac`
 - [`irac-essay-grader`](../09-verticals/irac-essay-grader/SKILL.md) — IRAC 法律论文评析
 - [`legal-case-brief`](../09-verticals/legal-case-brief/SKILL.md) — 判例摘要(case brief)
@@ -6455,6 +6677,9 @@
 ### `issue`
 - [`github-issue-writer`](../07-productivity/github-issue-writer/SKILL.md) — GitHub Issue 编写器
 
+### `issue 挖掘`
+- [`oss-contribution-hunter`](../00-meta/oss-contribution-hunter/SKILL.md) — 开源贡献机会挖掘（oss-contribution-hunter）
+
 ### `issue-extraction`
 - [`diligence-issue-extractor`](../09-verticals/diligence-issue-extractor/SKILL.md) — 尽职调查问题提取
 
@@ -6476,12 +6701,16 @@
 
 ### `java`
 - [`minecraft-bukkit-plugin-dev`](../02-engineering/minecraft-bukkit-plugin-dev/SKILL.md) — Minecraft 服务端插件开发
+- [`playwright-java-e2e`](../02-engineering/playwright-java-e2e/SKILL.md) — Playwright Java 端到端测试
 
 ### `javascript`
 - [`algorithmic-art`](../06-creative/algorithmic-art/SKILL.md) — 算法艺术：用 p5.js 生成可探索的生成式艺术
 - [`bun-runtime-development`](../02-engineering/bun-runtime-development/SKILL.md) — Bun 运行时现代 JS/TS 开发
 - [`html-animated-slides`](../01-documents/html-animated-slides/SKILL.md) — 动画 HTML 演示文稿生成
 - [`javascript-modern-pro`](../02-engineering/javascript-modern-pro/SKILL.md) — 现代 JavaScript 进阶
+
+### `jaws`
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
 
 ### `jetpack-compose`
 - [`jetpack-compose-expert`](../02-engineering/jetpack-compose-expert/SKILL.md) — Android Jetpack Compose 开发专家
@@ -6510,6 +6739,7 @@
 
 ### `json`
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换
+- [`obsidian-clipper-templates`](../07-productivity/obsidian-clipper-templates/SKILL.md) — Obsidian 网页剪藏模板
 - [`technical-change-tracker`](../07-productivity/technical-change-tracker/SKILL.md) — 技术变更记录与会话交接追踪
 
 ### `json-ld`
@@ -6517,6 +6747,9 @@
 
 ### `json-output`
 - [`ai-native-cli-design`](../10-platform/ai-native-cli-design/SKILL.md) — 面向 AI 智能体的 CLI 设计规范
+
+### `json-rpc`
+- [`odoo-rpc-api`](../09-verticals/odoo-rpc-api/SKILL.md) — Odoo JSON/XML-RPC 外部接口
 
 ### `json-schema`
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) — AI 智能体工具设计与构建
@@ -6528,6 +6761,9 @@
 ### `julia`
 - [`julia-scientific-pro`](../02-engineering/julia-scientific-pro/SKILL.md) — Julia 科学计算工程
 
+### `junit5`
+- [`playwright-java-e2e`](../02-engineering/playwright-java-e2e/SKILL.md) — Playwright Java 端到端测试
+
 ### `jurisdiction`
 - [`offer-restrictive-covenant-review`](../09-verticals/offer-restrictive-covenant-review/SKILL.md) — 录用函与竞业限制审查
 
@@ -6537,6 +6773,9 @@
 
 ### `k6`
 - [`k6-load-testing`](../02-engineering/k6-load-testing/SKILL.md) — k6 负载压力测试
+
+### `kanban`
+- [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
 
 ### `kb-article`
 - [`support-kb-article-writer`](../07-productivity/support-kb-article-writer/SKILL.md) — 支持知识库文章撰写
@@ -6806,6 +7045,9 @@
 ### `legal-writing`
 - [`irac-essay-grader`](../09-verticals/irac-essay-grader/SKILL.md) — IRAC 法律论文评析
 
+### `lemon-squeezy`
+- [`notion-template-business`](../05-business/notion-template-business/SKILL.md) — Notion 模板生意运营
+
 ### `lerna`
 - [`monorepo-navigator`](../02-engineering/monorepo-navigator/SKILL.md) — Monorepo 导航与构建优化
 
@@ -7030,6 +7272,9 @@
 ### `managed-agents`
 - [`claude-api`](../04-ai/claude-api/SKILL.md) — Claude API 应用开发
 
+### `manifest`
+- [`odoo-module-developer`](../09-verticals/odoo-module-developer/SKILL.md) — Odoo 自定义模块开发
+
 ### `manifest-v3`
 - [`browser-extension-builder`](../02-engineering/browser-extension-builder/SKILL.md) — 跨浏览器扩展构建与发布
 - [`chrome-extension-mv3`](../02-engineering/chrome-extension-mv3/SKILL.md) — Chrome MV3 扩展开发
@@ -7088,6 +7333,7 @@
 - [`marketing-claims-reviewer`](../09-verticals/marketing-claims-reviewer/SKILL.md) — 营销宣传声明合规审查
 - [`marketing-performance-report`](../05-business/marketing-performance-report/SKILL.md) — 营销绩效报告
 - [`marketing-psychology`](../05-business/marketing-psychology/SKILL.md) — 营销心理与心智模型
+- [`marketing-screenshots-playwright`](../06-creative/marketing-screenshots-playwright/SKILL.md) — 应用营销截图自动生成
 - [`paid-ad-creative`](../05-business/paid-ad-creative/SKILL.md) — 付费广告创意制作与迭代
 - [`paid-ads-strategist`](../05-business/paid-ads-strategist/SKILL.md) — 付费广告投放策略
 - [`platform-native-content-engine`](../05-business/platform-native-content-engine/SKILL.md) — 平台原生内容引擎（多平台复用矩阵）
@@ -7214,6 +7460,7 @@
 
 ### `memory`
 - [`decision-log-recorder`](../07-productivity/decision-log-recorder/SKILL.md) — 决策日志记录（两层记忆）
+- [`odoo-performance-tuner`](../09-verticals/odoo-performance-tuner/SKILL.md) — Odoo 性能诊断与调优
 
 ### `memory-safety`
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查
@@ -7224,6 +7471,9 @@
 
 ### `mental-models`
 - [`marketing-psychology`](../05-business/marketing-psychology/SKILL.md) — 营销心理与心智模型
+
+### `mergeability`
+- [`oss-contribution-hunter`](../00-meta/oss-contribution-hunter/SKILL.md) — 开源贡献机会挖掘（oss-contribution-hunter）
 
 ### `message-passing`
 - [`chrome-extension-mv3`](../02-engineering/chrome-extension-mv3/SKILL.md) — Chrome MV3 扩展开发
@@ -7296,6 +7546,7 @@
 
 ### `middleware`
 - [`hono-edge-api`](../02-engineering/hono-edge-api/SKILL.md) — Hono 边缘 Web 框架
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
 
 ### `migration`
 - [`prisma-orm-expert`](../02-engineering/prisma-orm-expert/SKILL.md) — Prisma ORM 专家
@@ -7410,6 +7661,9 @@
 ### `model-context-protocol`
 - [`mcp-builder`](../10-platform/mcp-builder/SKILL.md) — MCP 服务器构建
 
+### `model-inheritance`
+- [`odoo-module-developer`](../09-verticals/odoo-module-developer/SKILL.md) — Odoo 自定义模块开发
+
 ### `model-ops`
 - [`chief-ai-officer-advisor`](../04-ai/chief-ai-officer-advisor/SKILL.md) — 首席 AI 官顾问（自研对外采决策）
 - [`claude-api`](../04-ai/claude-api/SKILL.md) — Claude API 应用开发
@@ -7427,6 +7681,9 @@
 
 ### `module`
 - [`terraform-module-builder`](../10-platform/terraform-module-builder/SKILL.md) — Terraform可复用模块构建
+
+### `module-development`
+- [`odoo-module-developer`](../09-verticals/odoo-module-developer/SKILL.md) — Odoo 自定义模块开发
 
 ### `mofa`
 - [`muon-multiomics-singlecell`](../09-verticals/muon-multiomics-singlecell/SKILL.md) — muon 多模态单细胞多组学分析
@@ -7465,6 +7722,7 @@
 
 ### `monetization`
 - [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
+- [`notion-template-business`](../05-business/notion-template-business/SKILL.md) — Notion 模板生意运营
 - [`pricing-strategy`](../05-business/pricing-strategy/SKILL.md) — 定价与套餐策略
 
 ### `mongoose`
@@ -7539,6 +7797,9 @@
 - [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
 - [`multi-agent-orchestrator`](../07-productivity/multi-agent-orchestrator/SKILL.md) — 多智能体任务编排器
 - [`task-decomposition-planner`](../07-productivity/task-decomposition-planner/SKILL.md) — 任务拆解与依赖编排
+
+### `multi-company`
+- [`odoo-security-rules`](../09-verticals/odoo-security-rules/SKILL.md) — Odoo 访问控制与记录规则
 
 ### `multi-objective-optimization`
 - [`pymoo-multiobjective-optimization`](../09-verticals/pymoo-multiobjective-optimization/SKILL.md) — pymoo 多目标优化框架
@@ -7644,6 +7905,7 @@
 
 ### `nextjs`
 - [`algolia-search-integration`](../02-engineering/algolia-search-integration/SKILL.md) — Algolia 搜索集成与索引优化
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
 - [`stripe-integration`](../10-platform/stripe-integration/SKILL.md) — Stripe 支付与订阅集成
 - [`tanstack-query`](../02-engineering/tanstack-query/SKILL.md) — TanStack Query 异步状态管理
 - [`trpc-typesafe-api`](../02-engineering/trpc-typesafe-api/SKILL.md) — tRPC 端到端类型安全 API
@@ -7659,6 +7921,9 @@
 
 ### `ngUpgrade`
 - [`angularjs-to-angular-migration`](../02-engineering/angularjs-to-angular-migration/SKILL.md) — AngularJS 到 Angular 迁移
+
+### `nginx`
+- [`odoo-docker-deployment`](../09-verticals/odoo-docker-deployment/SKILL.md) — Odoo Docker 生产部署
 
 ### `ngs`
 - [`fastp-fastq-preprocessing`](../09-verticals/fastp-fastq-preprocessing/SKILL.md) — fastp FASTQ 质控与接头修剪
@@ -7685,6 +7950,7 @@
 - [`full-page-screenshot`](../10-platform/full-page-screenshot/SKILL.md) — 整页网页截图捕获
 - [`github-copilot-sdk`](../04-ai/github-copilot-sdk/SKILL.md) — GitHub Copilot SDK 编程集成
 - [`javascript-modern-pro`](../02-engineering/javascript-modern-pro/SKILL.md) — 现代 JavaScript 进阶
+- [`marketing-screenshots-playwright`](../06-creative/marketing-screenshots-playwright/SKILL.md) — 应用营销截图自动生成
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
 - [`nodejs-keccak256-hashing`](../09-verticals/nodejs-keccak256-hashing/SKILL.md) — Node.js Keccak-256 以太坊哈希防错
 - [`zoom-webhooks-setup`](../10-platform/zoom-webhooks-setup/SKILL.md) — Zoom Webhooks 事件订阅与校验
@@ -7706,6 +7972,7 @@
 
 ### `notion`
 - [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）
+- [`notion-template-business`](../05-business/notion-template-business/SKILL.md) — Notion 模板生意运营
 
 ### `novelty`
 - [`invention-disclosure-screen`](../09-verticals/invention-disclosure-screen/SKILL.md) — 发明披露专利性初筛
@@ -7732,11 +7999,15 @@
 ### `nuts`
 - [`pymc-bayesian-modeling`](../03-data/pymc-bayesian-modeling/SKILL.md) — PyMC 贝叶斯建模与 MCMC
 
+### `nvda`
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
+
 ### `nx`
 - [`monorepo-navigator`](../02-engineering/monorepo-navigator/SKILL.md) — Monorepo 导航与构建优化
 
 ### `oauth`
 - [`google-workspace-cli-admin`](../10-platform/google-workspace-cli-admin/SKILL.md) — Google Workspace CLI 管理自动化
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
 - [`slack-bolt-bot-builder`](../10-platform/slack-bolt-bot-builder/SKILL.md) — Slack Bolt 机器人开发
 - [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
 - [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现
@@ -7757,6 +8028,9 @@
 - [`postmortem-writer`](../02-engineering/postmortem-writer/SKILL.md) — 无指责复盘报告撰写
 - [`prometheus-configuration`](../02-engineering/prometheus-configuration/SKILL.md) — Prometheus 监控配置
 - [`slo-sli-implementation`](../02-engineering/slo-sli-implementation/SKILL.md) — SLI/SLO 服务等级目标落地
+
+### `obsidian`
+- [`obsidian-clipper-templates`](../07-productivity/obsidian-clipper-templates/SKILL.md) — Obsidian 网页剪藏模板
 
 ### `oci`
 - [`terraform-module-builder`](../10-platform/terraform-module-builder/SKILL.md) — Terraform可复用模块构建
@@ -7790,7 +8064,17 @@
 - [`octagon-sec-filing-analyst`](../09-verticals/octagon-sec-filing-analyst/SKILL.md) — SEC 文件分析编排
 
 ### `odoo`
+- [`odoo-accounting-setup`](../09-verticals/odoo-accounting-setup/SKILL.md) — Odoo 会计配置
+- [`odoo-docker-deployment`](../09-verticals/odoo-docker-deployment/SKILL.md) — Odoo Docker 生产部署
 - [`odoo-localization-compliance`](../09-verticals/odoo-localization-compliance/SKILL.md) — Odoo 本地化与税务合规
+- [`odoo-module-developer`](../09-verticals/odoo-module-developer/SKILL.md) — Odoo 自定义模块开发
+- [`odoo-performance-tuner`](../09-verticals/odoo-performance-tuner/SKILL.md) — Odoo 性能诊断与调优
+- [`odoo-qweb-templates`](../09-verticals/odoo-qweb-templates/SKILL.md) — Odoo QWeb 报表与模板
+- [`odoo-rpc-api`](../09-verticals/odoo-rpc-api/SKILL.md) — Odoo JSON/XML-RPC 外部接口
+- [`odoo-sales-crm-expert`](../09-verticals/odoo-sales-crm-expert/SKILL.md) — Odoo 销售与 CRM
+- [`odoo-security-rules`](../09-verticals/odoo-security-rules/SKILL.md) — Odoo 访问控制与记录规则
+- [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
+- [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
 
 ### `off-page-seo`
 - [`backlink-profile-analyzer`](../05-business/backlink-profile-analyzer/SKILL.md) — 外链画像与有毒链接分析
@@ -7858,6 +8142,9 @@
 
 ### `open-targets`
 - [`opentargets-database`](../09-verticals/opentargets-database/SKILL.md) — Open Targets 靶点-疾病关联查询
+
+### `openai`
+- [`pipecat-voice-assistant`](../04-ai/pipecat-voice-assistant/SKILL.md) — Pipecat 低延迟语音助手
 
 ### `openapi`
 - [`api-design-reviewer`](../02-engineering/api-design-reviewer/SKILL.md) — REST API 设计评审
@@ -7936,6 +8223,7 @@
 
 ### `orm`
 - [`django-async-pro`](../02-engineering/django-async-pro/SKILL.md) — Django 5 异步 DRF Celery 开发
+- [`odoo-module-developer`](../09-verticals/odoo-module-developer/SKILL.md) — Odoo 自定义模块开发
 - [`prisma-orm-expert`](../02-engineering/prisma-orm-expert/SKILL.md) — Prisma ORM 专家
 
 ### `orthodb`
@@ -7943,6 +8231,9 @@
 
 ### `oss`
 - [`oss-license-compliance`](../09-verticals/oss-license-compliance/SKILL.md) — 开源许可证合规审查
+
+### `osterwalder`
+- [`business-model-canvas-architect`](../05-business/business-model-canvas-architect/SKILL.md) — 商业模式画布构建顾问
 
 ### `otp`
 - [`elixir-otp-pro`](../02-engineering/elixir-otp-pro/SKILL.md) — Elixir/OTP 并发编程
@@ -7969,6 +8260,9 @@
 
 ### `packet-capture`
 - [`wireshark-traffic-analysis`](../08-security/wireshark-traffic-analysis/SKILL.md) — Wireshark 流量分析
+
+### `page-object-model`
+- [`playwright-java-e2e`](../02-engineering/playwright-java-e2e/SKILL.md) — Playwright Java 端到端测试
 
 ### `paid-ads`
 - [`paid-ads-strategist`](../05-business/paid-ads-strategist/SKILL.md) — 付费广告投放策略
@@ -8000,6 +8294,7 @@
 
 ### `parallel`
 - [`dask-distributed-dataframes`](../03-data/dask-distributed-dataframes/SKILL.md) — Dask 超内存分布式计算
+- [`playwright-java-e2e`](../02-engineering/playwright-java-e2e/SKILL.md) — Playwright Java 端到端测试
 
 ### `parcel`
 - [`web-artifacts-builder`](../02-engineering/web-artifacts-builder/SKILL.md) — Web 制品构建器（React/Tailwind/shadcn 单文件产物）
@@ -8036,6 +8331,9 @@
 ### `payment`
 - [`stripe-integration`](../10-platform/stripe-integration/SKILL.md) — Stripe 支付与订阅集成
 
+### `payment-terms`
+- [`odoo-accounting-setup`](../09-verticals/odoo-accounting-setup/SKILL.md) — Odoo 会计配置
+
 ### `payments`
 - [`billing-automation-systems`](../05-business/billing-automation-systems/SKILL.md) — 订阅计费与催收自动化系统
 
@@ -8064,6 +8362,7 @@
 - [`datasheet-spec-extractor`](../09-verticals/datasheet-spec-extractor/SKILL.md) — 元器件规格书参数提取
 - [`hardware-doc-generator`](../09-verticals/hardware-doc-generator/SKILL.md) — 硬件工程文档生成
 - [`interactive-pdf-viewer`](../01-documents/interactive-pdf-viewer/SKILL.md) — 交互式 PDF 阅览
+- [`odoo-qweb-templates`](../09-verticals/odoo-qweb-templates/SKILL.md) — Odoo QWeb 报表与模板
 - [`pdf-form-filler`](../01-documents/pdf-form-filler/SKILL.md) — PDF 表单填写
 - [`pdf-processing-toolkit`](../01-documents/pdf-processing-toolkit/SKILL.md) — PDF 处理工具箱
 - [`visa-doc-translate`](../01-documents/visa-doc-translate/SKILL.md) — 签证申请材料双语翻译 PDF
@@ -8102,6 +8401,7 @@
 - [`graphql-architect`](../02-engineering/graphql-architect/SKILL.md) — GraphQL 架构与联邦
 - [`julia-scientific-pro`](../02-engineering/julia-scientific-pro/SKILL.md) — Julia 科学计算工程
 - [`latency-critical-systems`](../02-engineering/latency-critical-systems/SKILL.md) — 低延迟关键系统设计
+- [`odoo-performance-tuner`](../09-verticals/odoo-performance-tuner/SKILL.md) — Odoo 性能诊断与调优
 - [`postgresql-optimization`](../03-data/postgresql-optimization/SKILL.md) — PostgreSQL 性能优化
 - [`rust-pro`](../02-engineering/rust-pro/SKILL.md) — Rust 进阶开发
 - [`spark-job-optimization`](../03-data/spark-job-optimization/SKILL.md) — Apache Spark 作业性能调优
@@ -8158,6 +8458,12 @@
 ### `phoenix`
 - [`elixir-otp-pro`](../02-engineering/elixir-otp-pro/SKILL.md) — Elixir/OTP 并发编程
 
+### `photopea`
+- [`photopea-embedded-editor`](../06-creative/photopea-embedded-editor/SKILL.md) — Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎
+
+### `photoshop-scripting`
+- [`photopea-embedded-editor`](../06-creative/photopea-embedded-editor/SKILL.md) — Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎
+
 ### `php`
 - [`codebase-to-wordpress-theme`](../02-engineering/codebase-to-wordpress-theme/SKILL.md) — 代码库转 WordPress 主题
 - [`laravel-app-specialist`](../02-engineering/laravel-app-specialist/SKILL.md) — Laravel 应用开发专家
@@ -8186,12 +8492,16 @@
 ### `pinout`
 - [`datasheet-spec-extractor`](../09-verticals/datasheet-spec-extractor/SKILL.md) — 元器件规格书参数提取
 
+### `pipecat`
+- [`pipecat-voice-assistant`](../04-ai/pipecat-voice-assistant/SKILL.md) — Pipecat 低延迟语音助手
+
 ### `pipeline`
 - [`agent-workflow-builder`](../07-productivity/agent-workflow-builder/SKILL.md) — 多智能体工作流编排脚本构建
 - [`data-quality-frameworks`](../03-data/data-quality-frameworks/SKILL.md) — 数据质量验证框架
 - [`data-throughput-accelerator`](../03-data/data-throughput-accelerator/SKILL.md) — 大规模数据吞吐加速（导入/回填/ETL）
 - [`dbt-transformation-modeler`](../03-data/dbt-transformation-modeler/SKILL.md) — dbt数据转换建模
 - [`nextflow-pipeline-builder`](../09-verticals/nextflow-pipeline-builder/SKILL.md) — Nextflow 生信流程构建
+- [`odoo-sales-crm-expert`](../09-verticals/odoo-sales-crm-expert/SKILL.md) — Odoo 销售与 CRM
 - [`recruiting-pipeline-tracker`](../05-business/recruiting-pipeline-tracker/SKILL.md) — 招聘漏斗管理与候选人阶段跟踪
 - [`sales-forecast-builder`](../05-business/sales-forecast-builder/SKILL.md) — 加权销售预测构建器
 - [`scikit-learn-ml`](../03-data/scikit-learn-ml/SKILL.md) — scikit-learn 机器学习
@@ -8241,6 +8551,8 @@
 - [`demo-video-generator`](../06-creative/demo-video-generator/SKILL.md) — 产品演示视频生成
 - [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
 - [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
+- [`marketing-screenshots-playwright`](../06-creative/marketing-screenshots-playwright/SKILL.md) — 应用营销截图自动生成
+- [`playwright-java-e2e`](../02-engineering/playwright-java-e2e/SKILL.md) — Playwright Java 端到端测试
 - [`test-coverage-gap-finder`](../02-engineering/test-coverage-gap-finder/SKILL.md) — 测试覆盖率缺口分析
 - [`webapp-testing`](../02-engineering/webapp-testing/SKILL.md) — Web 应用测试（Playwright）
 
@@ -8351,8 +8663,13 @@
 - [`claimable-postgres-provision`](../10-platform/claimable-postgres-provision/SKILL.md) — 即用临时 Postgres 数据库
 
 ### `postgresql`
+- [`odoo-docker-deployment`](../09-verticals/odoo-docker-deployment/SKILL.md) — Odoo Docker 生产部署
+- [`odoo-performance-tuner`](../09-verticals/odoo-performance-tuner/SKILL.md) — Odoo 性能诊断与调优
 - [`postgresql-optimization`](../03-data/postgresql-optimization/SKILL.md) — PostgreSQL 性能优化
 - [`saas-multi-tenant-architecture`](../02-engineering/saas-multi-tenant-architecture/SKILL.md) — SaaS 多租户架构
+
+### `postmessage`
+- [`photopea-embedded-editor`](../06-creative/photopea-embedded-editor/SKILL.md) — Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎
 
 ### `postmortem`
 - [`postmortem-writer`](../02-engineering/postmortem-writer/SKILL.md) — 无指责复盘报告撰写
@@ -8418,6 +8735,9 @@
 
 ### `price-monitoring`
 - [`apify-ecommerce-scraper`](../10-platform/apify-ecommerce-scraper/SKILL.md) — Apify 电商数据抓取
+
+### `pricelist`
+- [`odoo-sales-crm-expert`](../09-verticals/odoo-sales-crm-expert/SKILL.md) — Odoo 销售与 CRM
 
 ### `pricing`
 - [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
@@ -8485,11 +8805,15 @@
 ### `product-counsel`
 - [`product-launch-legal-review`](../09-verticals/product-launch-legal-review/SKILL.md) — 产品上线法律审查
 
+### `product-hunt`
+- [`marketing-screenshots-playwright`](../06-creative/marketing-screenshots-playwright/SKILL.md) — 应用营销截图自动生成
+
 ### `product-marketing`
 - [`user-onboarding-optimizer`](../05-business/user-onboarding-optimizer/SKILL.md) — 用户激活与引导优化
 
 ### `profiling`
 - [`dataset-profiler`](../03-data/dataset-profiler/SKILL.md) — 数据集探查画像
+- [`odoo-performance-tuner`](../09-verticals/odoo-performance-tuner/SKILL.md) — Odoo 性能诊断与调优
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
 - [`python-performance-optimization`](../02-engineering/python-performance-optimization/SKILL.md) — Python 性能优化
 - [`systematic-debugger`](../02-engineering/systematic-debugger/SKILL.md) — 系统化调试与根因分析
@@ -8580,6 +8904,9 @@
 
 ### `provision-trace`
 - [`contract-amendment-history-tracer`](../09-verticals/contract-amendment-history-tracer/SKILL.md) — 合同修订历史追溯
+
+### `psd`
+- [`photopea-embedded-editor`](../06-creative/photopea-embedded-editor/SKILL.md) — Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎
 
 ### `pseudospectral`
 - [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
@@ -8685,9 +9012,13 @@
 - [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
+- [`odoo-module-developer`](../09-verticals/odoo-module-developer/SKILL.md) — Odoo 自定义模块开发
+- [`odoo-rpc-api`](../09-verticals/odoo-rpc-api/SKILL.md) — Odoo JSON/XML-RPC 外部接口
+- [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
 - [`opentrons-protocol-api`](../09-verticals/opentrons-protocol-api/SKILL.md) — Opentrons 液体处理机器人协议
 - [`options-strategy-advisor`](../09-verticals/options-strategy-advisor/SKILL.md) — 期权策略分析与模拟
 - [`pair-trade-screener`](../09-verticals/pair-trade-screener/SKILL.md) — 配对交易统计套利筛选
+- [`pipecat-voice-assistant`](../04-ai/pipecat-voice-assistant/SKILL.md) — Pipecat 低延迟语音助手
 - [`plotly-interactive-viz`](../03-data/plotly-interactive-viz/SKILL.md) — Plotly 交互式可视化
 - [`portfolio-risk-metrics`](../09-verticals/portfolio-risk-metrics/SKILL.md) — 投资组合风险指标计算
 - [`pydantic-ai-agents`](../04-ai/pydantic-ai-agents/SKILL.md) — PydanticAI 智能体开发
@@ -8797,6 +9128,12 @@
 
 ### `quickgo`
 - [`quickgo-go-database`](../09-verticals/quickgo-go-database/SKILL.md) — QuickGO GO 术语与注释
+
+### `quotation`
+- [`odoo-sales-crm-expert`](../09-verticals/odoo-sales-crm-expert/SKILL.md) — Odoo 销售与 CRM
+
+### `qweb`
+- [`odoo-qweb-templates`](../09-verticals/odoo-qweb-templates/SKILL.md) — Odoo QWeb 报表与模板
 
 ### `r`
 - [`cellchat-cell-communication`](../09-verticals/cellchat-cell-communication/SKILL.md) — CellChat 细胞间通讯推断
@@ -8926,6 +9263,9 @@
 - [`gl-subledger-reconciler`](../03-data/gl-subledger-reconciler/SKILL.md) — 总账与子账对账核对
 - [`recon-break-root-cause`](../05-business/recon-break-root-cause/SKILL.md) — 对账差异溯源根因分析
 
+### `record-rules`
+- [`odoo-security-rules`](../09-verticals/odoo-security-rules/SKILL.md) — Odoo 访问控制与记录规则
+
 ### `recruiting`
 - [`interview-system-designer`](../07-productivity/interview-system-designer/SKILL.md) — 招聘面试体系与流程设计
 
@@ -9028,6 +9368,9 @@
 ### `replenishment`
 - [`inventory-demand-planning`](../09-verticals/inventory-demand-planning/SKILL.md) — 库存需求计划
 
+### `report`
+- [`odoo-qweb-templates`](../09-verticals/odoo-qweb-templates/SKILL.md) — Odoo QWeb 报表与模板
+
 ### `report-generation`
 - [`hardware-doc-generator`](../09-verticals/hardware-doc-generator/SKILL.md) — 硬件工程文档生成
 
@@ -9120,6 +9463,9 @@
 - [`compensation-analysis`](../05-business/compensation-analysis/SKILL.md) — 薪酬基准与定级分析
 - [`referral-program-designer`](../05-business/referral-program-designer/SKILL.md) — 推荐与联盟计划设计
 - [`user-onboarding-optimizer`](../05-business/user-onboarding-optimizer/SKILL.md) — 用户激活与引导优化
+
+### `retina`
+- [`marketing-screenshots-playwright`](../06-creative/marketing-screenshots-playwright/SKILL.md) — 应用营销截图自动生成
 
 ### `retrieval`
 - [`rag-implementation-workflow`](../04-ai/rag-implementation-workflow/SKILL.md) — RAG 检索增强实现
@@ -9263,6 +9609,7 @@
 
 ### `rpc`
 - [`hono-edge-api`](../02-engineering/hono-edge-api/SKILL.md) — Hono 边缘 Web 框架
+- [`odoo-rpc-api`](../09-verticals/odoo-rpc-api/SKILL.md) — Odoo JSON/XML-RPC 外部接口
 
 ### `rsp`
 - [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) — NeuroKit2 生理信号处理（ECG/EEG/EDA）
@@ -9346,6 +9693,7 @@
 - [`contract-proposal-writer`](../05-business/contract-proposal-writer/SKILL.md) — 合同与商业提案撰写
 - [`cro-revenue-advisor`](../05-business/cro-revenue-advisor/SKILL.md) — CRO 营收增长顾问（B2B SaaS）
 - [`deal-desk-reviewer`](../05-business/deal-desk-reviewer/SKILL.md) — 交易台合同与折扣评审
+- [`odoo-sales-crm-expert`](../09-verticals/odoo-sales-crm-expert/SKILL.md) — Odoo 销售与 CRM
 - [`partnerships-strategy-architect`](../05-business/partnerships-strategy-architect/SKILL.md) — 战略合作伙伴架构
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选
 - [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报
@@ -9403,6 +9751,9 @@
 ### `scaffold`
 - [`datamol-cheminformatics`](../09-verticals/datamol-cheminformatics/SKILL.md) — Datamol 分子处理工具箱
 
+### `scaffolding`
+- [`odoo-module-developer`](../09-verticals/odoo-module-developer/SKILL.md) — Odoo 自定义模块开发
+
 ### `scala`
 - [`scala-pro`](../02-engineering/scala-pro/SKILL.md) — Scala 企业级开发
 
@@ -9436,6 +9787,9 @@
 
 ### `schema-markup`
 - [`ai-answer-engine-seo`](../05-business/ai-answer-engine-seo/SKILL.md) — AI 答案引擎优化
+
+### `schema-org`
+- [`obsidian-clipper-templates`](../07-productivity/obsidian-clipper-templates/SKILL.md) — Obsidian 网页剪藏模板
 
 ### `schematic`
 - [`hardware-doc-generator`](../09-verticals/hardware-doc-generator/SKILL.md) — 硬件工程文档生成
@@ -9580,6 +9934,9 @@
 ### `scratch pad`
 - [`filesystem-context-offload`](../00-meta/filesystem-context-offload/SKILL.md) — 文件系统上下文卸载
 
+### `screen-reader`
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
+
 ### `screener`
 - [`vcp-screener`](../09-verticals/vcp-screener/SKILL.md) — VCP 波动收缩形态选股
 
@@ -9591,6 +9948,7 @@
 ### `screenshot`
 - [`firecrawl-web-scraper`](../10-platform/firecrawl-web-scraper/SKILL.md) — Firecrawl 网页抓取
 - [`full-page-screenshot`](../10-platform/full-page-screenshot/SKILL.md) — 整页网页截图捕获
+- [`marketing-screenshots-playwright`](../06-creative/marketing-screenshots-playwright/SKILL.md) — 应用营销截图自动生成
 
 ### `scrna-seq`
 - [`cellchat-cell-communication`](../09-verticals/cellchat-cell-communication/SKILL.md) — CellChat 细胞间通讯推断
@@ -9661,6 +10019,7 @@
 - [`gdpr-data-handling`](../08-security/gdpr-data-handling/SKILL.md) — GDPR 数据合规处理
 - [`insecure-defaults-detector`](../08-security/insecure-defaults-detector/SKILL.md) — 不安全默认配置检测
 - [`kyc-document-parser`](../08-security/kyc-document-parser/SKILL.md) — KYC 开户文件结构化解析
+- [`odoo-security-rules`](../09-verticals/odoo-security-rules/SKILL.md) — Odoo 访问控制与记录规则
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
 - [`sast-configurator`](../08-security/sast-configurator/SKILL.md) — SAST静态扫描配置
 - [`secrets-management`](../08-security/secrets-management/SKILL.md) — 密钥与凭据管理
@@ -9758,6 +10117,9 @@
 ### `serp-features`
 - [`serp-feature-analysis`](../05-business/serp-feature-analysis/SKILL.md) — SERP 搜索结果与 AI 概览分析
 
+### `server-action`
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
+
 ### `serverless`
 - [`apify-actor-development`](../10-platform/apify-actor-development/SKILL.md) — Apify Actor 开发
 - [`apify-actorization`](../10-platform/apify-actorization/SKILL.md) — 将既有软件改造为 Apify Actor
@@ -9842,6 +10204,7 @@
 - [`oncall-handoff-writer`](../07-productivity/oncall-handoff-writer/SKILL.md) — 值班交接记录撰写
 
 ### `shopify`
+- [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
 - [`shopify-app-development`](../02-engineering/shopify-app-development/SKILL.md) — Shopify 应用与主题开发
 
 ### `short-read`
@@ -9958,6 +10321,9 @@
 ### `slo`
 - [`grafana-dashboards`](../02-engineering/grafana-dashboards/SKILL.md) — Grafana 可观测看板
 - [`slo-sli-implementation`](../02-engineering/slo-sli-implementation/SKILL.md) — SLI/SLO 服务等级目标落地
+
+### `slow-query`
+- [`odoo-performance-tuner`](../09-verticals/odoo-performance-tuner/SKILL.md) — Odoo 性能诊断与调优
 
 ### `slurm`
 - [`snakemake-workflow-engine`](../09-verticals/snakemake-workflow-engine/SKILL.md) — Snakemake 可复现生信流程引擎
@@ -10149,6 +10515,7 @@
 
 ### `ssr`
 - [`astro-content-sites`](../02-engineering/astro-content-sites/SKILL.md) — Astro 内容型网站构建
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
 - [`sveltekit-fullstack`](../02-engineering/sveltekit-fullstack/SKILL.md) — SvelteKit 全栈开发
 
 ### `stain-normalization`
@@ -10217,6 +10584,7 @@
 - [`ma-buyer-list`](../05-business/ma-buyer-list/SKILL.md) — 并购潜在买家清单构建
 
 ### `strategy`
+- [`business-model-canvas-architect`](../05-business/business-model-canvas-architect/SKILL.md) — 商业模式画布构建顾问
 - [`chief-data-officer-advisor`](../03-data/chief-data-officer-advisor/SKILL.md) — 首席数据官顾问（数据产品与治理）
 - [`competitive-analysis`](../05-business/competitive-analysis/SKILL.md) — 竞品分析与市场定位
 - [`saas-marketing-ideas`](../05-business/saas-marketing-ideas/SKILL.md) — SaaS 营销策略评分
@@ -10291,6 +10659,9 @@
 ### `summary`
 - [`academic-paper-explainer`](../09-verticals/academic-paper-explainer/SKILL.md) — 学术论文导读讲解
 
+### `supabase`
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
+
 ### `supply-chain`
 - [`agent-skill-security-scanner`](../08-security/agent-skill-security-scanner/SKILL.md) — AI 技能安装前安全扫描
 - [`agentic-actions-auditor`](../08-security/agentic-actions-auditor/SKILL.md) — AI Agent CI/CD 工作流安全审计
@@ -10352,6 +10723,9 @@
 ### `takedown`
 - [`dmca-takedown-notice`](../09-verticals/dmca-takedown-notice/SKILL.md) — DMCA 下架通知与反通知
 
+### `talkback`
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
+
 ### `tam-sam-som`
 - [`market-sizing-analyst`](../05-business/market-sizing-analyst/SKILL.md) — 市场规模测算（TAM/SAM/SOM）
 - [`market-sizing-tam-sam-som`](../05-business/market-sizing-tam-sam-som/SKILL.md) — 市场规模 TAM/SAM/SOM 测算
@@ -10376,6 +10750,7 @@
 
 ### `tax`
 - [`billing-automation-systems`](../05-business/billing-automation-systems/SKILL.md) — 订阅计费与催收自动化系统
+- [`odoo-accounting-setup`](../09-verticals/odoo-accounting-setup/SKILL.md) — Odoo 会计配置
 
 ### `tax-aware`
 - [`portfolio-rebalancer`](../09-verticals/portfolio-rebalancer/SKILL.md) — 投资组合再平衡
@@ -10413,6 +10788,10 @@
 
 ### `template`
 - [`atlassian-template-builder`](../07-productivity/atlassian-template-builder/SKILL.md) — Jira/Confluence 模板制作
+- [`odoo-qweb-templates`](../09-verticals/odoo-qweb-templates/SKILL.md) — Odoo QWeb 报表与模板
+
+### `template-business`
+- [`notion-template-business`](../05-business/notion-template-business/SKILL.md) — Notion 模板生意运营
 
 ### `templates`
 - [`confluence-space-architect`](../07-productivity/confluence-space-architect/SKILL.md) — Confluence 知识库空间架构
@@ -10456,6 +10835,7 @@
 - [`browserstack-cross-browser-test`](../02-engineering/browserstack-cross-browser-test/SKILL.md) — BrowserStack 跨浏览器测试
 - [`click-path-state-audit`](../02-engineering/click-path-state-audit/SKILL.md) — 点击路径状态序列审计（隐性交互冲突）
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
 - [`test-coverage-gap-finder`](../02-engineering/test-coverage-gap-finder/SKILL.md) — 测试覆盖率缺口分析
 - [`webapp-testing`](../02-engineering/webapp-testing/SKILL.md) — Web 应用测试（Playwright）
 
@@ -10754,6 +11134,9 @@
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
 - [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
 
+### `unittest`
+- [`odoo-automated-tests`](../09-verticals/odoo-automated-tests/SKILL.md) — Odoo 自动化测试
+
 ### `unity`
 - [`unity-game-developer`](../06-creative/unity-game-developer/SKILL.md) — Unity 游戏开发
 
@@ -10945,9 +11328,13 @@
 
 ### `voice`
 - [`amazon-alexa-skill-builder`](../10-platform/amazon-alexa-skill-builder/SKILL.md) — Amazon Alexa 语音技能开发（Claude + AWS）
+- [`pipecat-voice-assistant`](../04-ai/pipecat-voice-assistant/SKILL.md) — Pipecat 低延迟语音助手
 
 ### `voice-agent`
 - [`agentphone-voice-sms-agents`](../10-platform/agentphone-voice-sms-agents/SKILL.md) — AI 电话与短信代理（AgentPhone）
+
+### `voiceover`
+- [`screen-reader-a11y-testing`](../02-engineering/screen-reader-a11y-testing/SKILL.md) — 屏幕阅读器无障碍测试
 
 ### `vol-surface`
 - [`fx-carry-trade-eval`](../05-business/fx-carry-trade-eval/SKILL.md) — 外汇套息交易评估
@@ -11024,10 +11411,14 @@
 
 ### `web`
 - [`django-async-pro`](../02-engineering/django-async-pro/SKILL.md) — Django 5 异步 DRF Celery 开发
+- [`photopea-embedded-editor`](../06-creative/photopea-embedded-editor/SKILL.md) — Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎
 - [`zoom-meeting-app-builder`](../10-platform/zoom-meeting-app-builder/SKILL.md) — Zoom 会议嵌入应用开发（Meeting SDK）
 
 ### `web-api`
 - [`dotnet-backend-patterns`](../02-engineering/dotnet-backend-patterns/SKILL.md) — dotnet 后端开发模式
+
+### `web-clipper`
+- [`obsidian-clipper-templates`](../07-productivity/obsidian-clipper-templates/SKILL.md) — Obsidian 网页剪藏模板
 
 ### `web-copy`
 - [`conversion-copywriter`](../05-business/conversion-copywriter/SKILL.md) — 转化文案撰写
@@ -11061,6 +11452,7 @@
 ### `webhook`
 - [`agentmail-email-infra`](../10-platform/agentmail-email-infra/SKILL.md) — AI 智能体邮件基础设施
 - [`agentphone-voice-sms-agents`](../10-platform/agentphone-voice-sms-agents/SKILL.md) — AI 电话与短信代理（AgentPhone）
+- [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
 - [`slack-bolt-bot-builder`](../10-platform/slack-bolt-bot-builder/SKILL.md) — Slack Bolt 机器人开发
 - [`stripe-integration`](../10-platform/stripe-integration/SKILL.md) — Stripe 支付与订阅集成
 - [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流
@@ -11154,6 +11546,9 @@
 ### `worker-pool`
 - [`go-concurrency-patterns`](../02-engineering/go-concurrency-patterns/SKILL.md) — Go 并发模式
 
+### `worker-tuning`
+- [`odoo-performance-tuner`](../09-verticals/odoo-performance-tuner/SKILL.md) — Odoo 性能诊断与调优
+
 ### `workers`
 - [`cloudflare-workers-edge`](../10-platform/cloudflare-workers-edge/SKILL.md) — Cloudflare Workers KV D1 R2 边缘平台
 - [`cloudflare-workers-expert`](../02-engineering/cloudflare-workers-expert/SKILL.md) — Cloudflare Workers 边缘计算开发
@@ -11220,11 +11615,22 @@
 ### `xarray`
 - [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组
 
+### `xml`
+- [`odoo-qweb-templates`](../09-verticals/odoo-qweb-templates/SKILL.md) — Odoo QWeb 报表与模板
+- [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
+
 ### `xml-parsing`
 - [`drugbank-database-access`](../09-verticals/drugbank-database-access/SKILL.md) — DrugBank 药物数据库解析
 
+### `xml-rpc`
+- [`odoo-rpc-api`](../09-verticals/odoo-rpc-api/SKILL.md) — Odoo JSON/XML-RPC 外部接口
+
 ### `xml-sitemap`
 - [`technical-seo-checker`](../05-business/technical-seo-checker/SKILL.md) — 技术 SEO 体检（抓取/索引/核心网页指标）
+
+### `xmlrpc`
+- [`odoo-edi-connector`](../09-verticals/odoo-edi-connector/SKILL.md) — Odoo EDI 电子数据交换
+- [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
 
 ### `xquik`
 - [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) — X/Twitter 抓取与自动化（Xquik）
@@ -11302,6 +11708,9 @@
 
 ### `一致性`
 - [`coding-agent-headtohead-eval`](../04-ai/coding-agent-headtohead-eval/SKILL.md) — 编码 Agent 对比评测（通过率/成本/耗时）
+
+### `三单匹配`
+- [`odoo-purchase-workflow`](../09-verticals/odoo-purchase-workflow/SKILL.md) — Odoo 采购工作流
 
 ### `上下文优化`
 - [`codebase-structure-protocol`](../00-meta/codebase-structure-protocol/SKILL.md) — 代码库结构记忆协议
@@ -11685,6 +12094,9 @@
 ### `休假`
 - [`employee-leave-deadline-tracker`](../09-verticals/employee-leave-deadline-tracker/SKILL.md) — 员工休假期限跟踪
 
+### `休假管理`
+- [`odoo-hr-payroll-setup`](../09-verticals/odoo-hr-payroll-setup/SKILL.md) — Odoo 人力与薪酬配置
+
 ### `优先级`
 - [`support-ticket-triage`](../05-business/support-ticket-triage/SKILL.md) — 支持工单分诊
 
@@ -11706,6 +12118,9 @@
 
 ### `会计`
 - [`month-end-close-manager`](../05-business/month-end-close-manager/SKILL.md) — 月末结账流程管理
+
+### `会计过账`
+- [`odoo-hr-payroll-setup`](../09-verticals/odoo-hr-payroll-setup/SKILL.md) — Odoo 人力与薪酬配置
 
 ### `会议管理`
 - [`legal-meeting-briefing`](../09-verticals/legal-meeting-briefing/SKILL.md) — 法务会议简报与行动项跟踪
@@ -11754,6 +12169,11 @@
 ### `供应商管理`
 - [`iso13485-qms-implementer`](../09-verticals/iso13485-qms-implementer/SKILL.md) — ISO 13485 质量管理体系实施
 - [`vendor-evaluation`](../07-productivity/vendor-evaluation/SKILL.md) — 供应商评估决策
+
+### `供应链`
+- [`odoo-inventory-optimizer`](../09-verticals/odoo-inventory-optimizer/SKILL.md) — Odoo 库存优化
+- [`odoo-manufacturing-advisor`](../09-verticals/odoo-manufacturing-advisor/SKILL.md) — Odoo 制造 MRP 规划
+- [`odoo-purchase-workflow`](../09-verticals/odoo-purchase-workflow/SKILL.md) — Odoo 采购工作流
 
 ### `供应链安全`
 - [`container-security-hardening`](../08-security/container-security-hardening/SKILL.md) — 容器镜像与运行时安全加固
@@ -11829,6 +12249,7 @@
 
 ### `元数据`
 - [`citation-management`](../01-documents/citation-management/SKILL.md) — 研究写作引文系统化管理
+- [`nft-erc-standards`](../09-verticals/nft-erc-standards/SKILL.md) — NFT ERC-721/1155 标准精通
 
 ### `元数据优化`
 - [`app-store-optimization`](../05-business/app-store-optimization/SKILL.md) — 应用商店优化ASO
@@ -12030,6 +12451,9 @@
 ### `准入控制`
 - [`k8s-security-policies`](../08-security/k8s-security-policies/SKILL.md) — Kubernetes 安全策略
 
+### `凭据安全`
+- [`personal-tool-builder`](../07-productivity/personal-tool-builder/SKILL.md) — 自用工具构建方法论
+
 ### `凭据攻击`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
 
@@ -12140,6 +12564,7 @@
 - [`mermaid-diagram-expert`](../06-creative/mermaid-diagram-expert/SKILL.md) — Mermaid 图表绘制专家
 - [`minimalist-editorial-ui`](../06-creative/minimalist-editorial-ui/SKILL.md) — 极简编辑风界面设计
 - [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
 - [`ui-design-system-builder`](../06-creative/ui-design-system-builder/SKILL.md) — UI 设计系统与设计令牌
 - [`unreal-engine-cpp`](../06-creative/unreal-engine-cpp/SKILL.md) — Unreal Engine 5 C++ 开发
 - [`ux-microcopy-writer`](../06-creative/ux-microcopy-writer/SKILL.md) — UX 微文案撰写
@@ -12177,6 +12602,9 @@
 ### `利益相关者`
 - [`hard-call-advisor`](../00-meta/hard-call-advisor/SKILL.md) — 艰难抉择推演顾问
 
+### `制造`
+- [`odoo-manufacturing-advisor`](../09-verticals/odoo-manufacturing-advisor/SKILL.md) — Odoo 制造 MRP 规划
+
 ### `前瞻性陈述`
 - [`octagon-sec-mda-analysis`](../09-verticals/octagon-sec-mda-analysis/SKILL.md) — SEC 管理层讨论与分析（MD&A）解读
 
@@ -12203,6 +12631,8 @@
 - [`minimalist-editorial-ui`](../06-creative/minimalist-editorial-ui/SKILL.md) — 极简编辑风界面设计
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) — Playwright 端到端测试
+- [`react-flow-node-graph-architect`](../02-engineering/react-flow-node-graph-architect/SKILL.md) — ReactFlow 节点图应用架构
+- [`scroll-driven-web-experience`](../02-engineering/scroll-driven-web-experience/SKILL.md) — 滚动驱动沉浸式网页体验
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
 - [`sveltekit-fullstack`](../02-engineering/sveltekit-fullstack/SKILL.md) — SvelteKit 全栈开发
 - [`tailwind-css-patterns`](../02-engineering/tailwind-css-patterns/SKILL.md) — Tailwind CSS v4 模式与设计令牌
@@ -12339,6 +12769,9 @@
 - [`stakeholder-update-writer`](../07-productivity/stakeholder-update-writer/SKILL.md) — 干系人进展更新撰写
 - [`strategic-alignment-cascader`](../07-productivity/strategic-alignment-cascader/SKILL.md) — 战略对齐自上而下级联
 - [`zapier-make-automation`](../07-productivity/zapier-make-automation/SKILL.md) — Zapier 与 Make 无代码自动化
+
+### `协作-自动化`
+- [`personal-tool-builder`](../07-productivity/personal-tool-builder/SKILL.md) — 自用工具构建方法论
 
 ### `协作工作流`
 - [`doc-coauthoring`](../01-documents/doc-coauthoring/SKILL.md) — 协作式文档共创工作流
@@ -12552,7 +12985,11 @@
 - [`ux-research-design-toolkit`](../06-creative/ux-research-design-toolkit/SKILL.md) — UX 研究与体验设计工具箱
 
 ### `可移植性`
+- [`personal-tool-builder`](../07-productivity/personal-tool-builder/SKILL.md) — 自用工具构建方法论
 - [`posix-shell-scripting`](../02-engineering/posix-shell-scripting/SKILL.md) — POSIX Shell 可移植脚本
+
+### `可行性评分`
+- [`oss-contribution-hunter`](../00-meta/oss-contribution-hunter/SKILL.md) — 开源贡献机会挖掘（oss-contribution-hunter）
 
 ### `可观测性`
 - [`agent-session-trace-audit`](../04-ai/agent-session-trace-audit/SKILL.md) — AI 编码代理会话审计（成本/失败/延迟）
@@ -12576,6 +13013,7 @@
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
 - [`observability-dashboard-builder`](../02-engineering/observability-dashboard-builder/SKILL.md) — 可运维监控仪表盘构建（Grafana/SigNoz）
 - [`plotly-interactive-viz`](../03-data/plotly-interactive-viz/SKILL.md) — Plotly 交互式可视化
+- [`react-flow-node-graph-architect`](../02-engineering/react-flow-node-graph-architect/SKILL.md) — ReactFlow 节点图应用架构
 - [`threejs-3d-web`](../02-engineering/threejs-3d-web/SKILL.md) — Three.js 网页 3D 体验开发
 
 ### `可视化审查`
@@ -12630,6 +13068,9 @@
 - [`quick-legal-problem-triage`](../09-verticals/quick-legal-problem-triage/SKILL.md) — 快速法律问题判定
 - [`wcag-22-audit-patterns`](../02-engineering/wcag-22-audit-patterns/SKILL.md) — WCAG 2.2 无障碍审计模式
 
+### `合规安全`
+- [`plaid-fintech-integration`](../09-verticals/plaid-fintech-integration/SKILL.md) — Plaid 金融数据 API 集成
+
 ### `合规审计`
 - [`fda-qsr-audit-prep`](../09-verticals/fda-qsr-audit-prep/SKILL.md) — FDA QSR（21 CFR 820）审计准备
 - [`quality-documentation-control`](../09-verticals/quality-documentation-control/SKILL.md) — 医疗器械质量文件控制管理
@@ -12664,6 +13105,8 @@
 - [`fastapi-async-api`](../02-engineering/fastapi-async-api/SKILL.md) — FastAPI 高性能异步 API
 - [`laravel-app-specialist`](../02-engineering/laravel-app-specialist/SKILL.md) — Laravel 应用开发专家
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
+- [`paypal-payment-integration`](../02-engineering/paypal-payment-integration/SKILL.md) — PayPal 支付集成
 - [`trpc-typesafe-api`](../02-engineering/trpc-typesafe-api/SKILL.md) — tRPC 端到端类型安全 API
 
 ### `后端即服务`
@@ -12800,6 +13243,9 @@
 
 ### `商业秘密`
 - [`ip-infringement-triage`](../09-verticals/ip-infringement-triage/SKILL.md) — 知识产权侵权线索分级
+
+### `商业策略`
+- [`business-model-canvas-architect`](../05-business/business-model-canvas-architect/SKILL.md) — 商业模式画布构建顾问
 
 ### `商标`
 - [`ip-infringement-triage`](../09-verticals/ip-infringement-triage/SKILL.md) — 知识产权侵权线索分级
@@ -12938,6 +13384,7 @@
 
 ### `备份`
 - [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
 
 ### `复制`
 - [`database-design-advisor`](../02-engineering/database-design-advisor/SKILL.md) — 数据库选型与迁移设计
@@ -13322,6 +13769,7 @@
 - [`data-throughput-accelerator`](../03-data/data-throughput-accelerator/SKILL.md) — 大规模数据吞吐加速（导入/回填/ETL）
 - [`lp-nav-tieout`](../09-verticals/lp-nav-tieout/SKILL.md) — LP 对账单与基金 NAV 勾稽
 - [`month-end-close-manager`](../05-business/month-end-close-manager/SKILL.md) — 月末结账流程管理
+- [`pakistan-payments-stack`](../09-verticals/pakistan-payments-stack/SKILL.md) — 巴基斯坦本地支付集成
 
 ### `导航`
 - [`expo-router-native-ui`](../02-engineering/expo-router-native-ui/SKILL.md) — Expo Router 原生 UI 构建
@@ -13380,6 +13828,7 @@
 - [`claude-command-selector`](../00-meta/claude-command-selector/SKILL.md) — Claude命令与技能选择指南
 - [`jira-expert`](../07-productivity/jira-expert/SKILL.md) — Jira 项目与工作流专家
 - [`n8n-workflow-patterns`](../10-platform/n8n-workflow-patterns/SKILL.md) — n8n 工作流架构模式
+- [`odoo-purchase-workflow`](../09-verticals/odoo-purchase-workflow/SKILL.md) — Odoo 采购工作流
 
 ### `工作流编排`
 - [`agent-workflow-pattern-designer`](../04-ai/agent-workflow-pattern-designer/SKILL.md) — 智能体工作流模式设计
@@ -13391,6 +13840,9 @@
 
 ### `工作量分析`
 - [`resource-capacity-planner`](../07-productivity/resource-capacity-planner/SKILL.md) — 资源产能规划
+
+### `工具演进`
+- [`personal-tool-builder`](../07-productivity/personal-tool-builder/SKILL.md) — 自用工具构建方法论
 
 ### `工具纪律`
 - [`agent-architecture-audit`](../04-ai/agent-architecture-audit/SKILL.md) — Agent 全栈架构诊断（12 层栈审计）
@@ -13432,6 +13884,9 @@
 
 ### `工程文化`
 - [`kaizen-continuous-improvement`](../00-meta/kaizen-continuous-improvement/SKILL.md) — 改善持续改进法（Kaizen）
+
+### `巴基斯坦`
+- [`pakistan-payments-stack`](../09-verticals/pakistan-payments-stack/SKILL.md) — 巴基斯坦本地支付集成
 
 ### `市值`
 - [`octagon-batch-market-cap`](../09-verticals/octagon-batch-market-cap/SKILL.md) — 多公司市值批量对比
@@ -13573,6 +14028,12 @@
 ### `序列检索`
 - [`uniprot-protein-database`](../09-verticals/uniprot-protein-database/SKILL.md) — UniProt 蛋白序列与注释数据库
 
+### `库存同步`
+- [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
+
+### `库存管理`
+- [`odoo-inventory-optimizer`](../09-verticals/odoo-inventory-optimizer/SKILL.md) — Odoo 库存优化
+
 ### `应收应付`
 - [`smb-cash-flow-forecast`](../05-business/smb-cash-flow-forecast/SKILL.md) — 小微企业现金流预测（30/60/90 天）
 
@@ -13597,6 +14058,9 @@
 
 ### `开源`
 - [`readme-doc-writer`](../01-documents/readme-doc-writer/SKILL.md) — README 文档撰写
+
+### `开源贡献`
+- [`oss-contribution-hunter`](../00-meta/oss-contribution-hunter/SKILL.md) — 开源贡献机会挖掘（oss-contribution-hunter）
 
 ### `异常值`
 - [`dataset-quality-auditor`](../03-data/dataset-quality-auditor/SKILL.md) — 数据集质量审计
@@ -13687,6 +14151,9 @@
 ### `微阵列`
 - [`geo-database`](../09-verticals/geo-database/SKILL.md) — NCBI GEO 表达数据访问
 
+### `快速原型`
+- [`personal-tool-builder`](../07-productivity/personal-tool-builder/SKILL.md) — 自用工具构建方法论
+
 ### `快速响应`
 - [`quick-legal-problem-triage`](../09-verticals/quick-legal-problem-triage/SKILL.md) — 快速法律问题判定
 
@@ -13732,10 +14199,13 @@
 - [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
 - [`llm-prompt-caching`](../04-ai/llm-prompt-caching/SKILL.md) — LLM 提示词缓存策略
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
+- [`odoo-orm-expert`](../09-verticals/odoo-orm-expert/SKILL.md) — Odoo ORM 模式精通
 - [`php-pro`](../02-engineering/php-pro/SKILL.md) — PHP 进阶开发
 - [`python-performance-optimization`](../02-engineering/python-performance-optimization/SKILL.md) — Python 性能优化
+- [`react-flow-node-graph-architect`](../02-engineering/react-flow-node-graph-architect/SKILL.md) — ReactFlow 节点图应用架构
 - [`react-native-architecture`](../02-engineering/react-native-architecture/SKILL.md) — React Native 架构模式
 - [`ruby-pro`](../02-engineering/ruby-pro/SKILL.md) — Ruby 进阶开发
+- [`scroll-driven-web-experience`](../02-engineering/scroll-driven-web-experience/SKILL.md) — 滚动驱动沉浸式网页体验
 - [`threejs-3d-web`](../02-engineering/threejs-3d-web/SKILL.md) — Three.js 网页 3D 体验开发
 - [`unreal-engine-cpp`](../06-creative/unreal-engine-cpp/SKILL.md) — Unreal Engine 5 C++ 开发
 
@@ -13749,6 +14219,9 @@
 ### `性能调优`
 - [`context-budget-audit`](../00-meta/context-budget-audit/SKILL.md) — 上下文窗口预算审计（裁剪臃肿组件）
 - [`vector-index-tuning`](../04-ai/vector-index-tuning/SKILL.md) — 向量索引调优
+
+### `恢复`
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
 
 ### `恶意软件分析`
 - [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
@@ -14122,6 +14595,16 @@
 ### `摘要压缩`
 - [`context-window-management`](../04-ai/context-window-management/SKILL.md) — LLM 上下文窗口管理策略
 
+### `播客`
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
+
+### `支付`
+- [`odoo-ecommerce-configurator`](../09-verticals/odoo-ecommerce-configurator/SKILL.md) — Odoo 电商与网站配置
+
+### `支付集成`
+- [`pakistan-payments-stack`](../09-verticals/pakistan-payments-stack/SKILL.md) — 巴基斯坦本地支付集成
+- [`paypal-payment-integration`](../02-engineering/paypal-payment-integration/SKILL.md) — PayPal 支付集成
+
 ### `支出分类`
 - [`procurement-cost-optimizer`](../05-business/procurement-cost-optimizer/SKILL.md) — 采购成本优化
 
@@ -14287,6 +14770,9 @@
 - [`geo-database`](../09-verticals/geo-database/SKILL.md) — NCBI GEO 表达数据访问
 - [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱
 
+### `数据库视图`
+- [`obsidian-bases-builder`](../07-productivity/obsidian-bases-builder/SKILL.md) — Obsidian Bases 数据库视图
+
 ### `数据建模`
 - [`dbt-transformation-patterns`](../03-data/dbt-transformation-patterns/SKILL.md) — dbt 数据转换建模与测试模式
 
@@ -14349,6 +14835,9 @@
 
 ### `数据集`
 - [`huggingface-hub-cli`](../04-ai/huggingface-hub-cli/SKILL.md) — Hugging Face Hub CLI（hf 命令行）
+
+### `数据集成`
+- [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
 
 ### `数据集检索`
 - [`pride-proteomics-database`](../09-verticals/pride-proteomics-database/SKILL.md) — PRIDE 蛋白质组数据集检索
@@ -14490,6 +14979,7 @@
 
 ### `无障碍`
 - [`design-critique`](../06-creative/design-critique/SKILL.md) — 设计评审反馈
+- [`scroll-driven-web-experience`](../02-engineering/scroll-driven-web-experience/SKILL.md) — 滚动驱动沉浸式网页体验
 - [`swiftui-best-practices`](../02-engineering/swiftui-best-practices/SKILL.md) — SwiftUI 状态管理与最佳实践
 - [`ui-design-system-builder`](../06-creative/ui-design-system-builder/SKILL.md) — UI 设计系统与设计令牌
 - [`ux-ui-principles-audit`](../06-creative/ux-ui-principles-audit/SKILL.md) — UX/UI 原则评估与反模式检测
@@ -14560,6 +15050,7 @@
 - [`llm-judge-evaluation`](../04-ai/llm-judge-evaluation/SKILL.md) — LLM-as-Judge 高级评测
 - [`multi-agent-system-designer`](../04-ai/multi-agent-system-designer/SKILL.md) — 多智能体系统架构设计
 - [`multi-agent-workflow-designer`](../04-ai/multi-agent-workflow-designer/SKILL.md) — 多智能体工作流设计
+- [`pipecat-voice-assistant`](../04-ai/pipecat-voice-assistant/SKILL.md) — Pipecat 低延迟语音助手
 - [`production-llm-app-builder`](../04-ai/production-llm-app-builder/SKILL.md) — 生产级 LLM 应用与 RAG 系统构建
 - [`self-improving-memory-agent`](../04-ai/self-improving-memory-agent/SKILL.md) — 自改进记忆沉淀智能体
 
@@ -14572,6 +15063,7 @@
 ### `智能合约`
 - [`defi-amm-security-audit`](../08-security/defi-amm-security-audit/SKILL.md) — DeFi AMM 智能合约安全审计
 - [`defi-protocol-templates`](../09-verticals/defi-protocol-templates/SKILL.md) — DeFi 协议合约模板
+- [`nft-erc-standards`](../09-verticals/nft-erc-standards/SKILL.md) — NFT ERC-721/1155 标准精通
 
 ### `智能指针`
 - [`cpp-modern-pro`](../02-engineering/cpp-modern-pro/SKILL.md) — 现代 C++ RAII 与 STL 惯用法
@@ -14616,6 +15108,9 @@
 
 ### `本地XML`
 - [`hmdb-metabolome-database`](../09-verticals/hmdb-metabolome-database/SKILL.md) — HMDB 人类代谢组数据库
+
+### `本地优先`
+- [`personal-tool-builder`](../07-productivity/personal-tool-builder/SKILL.md) — 自用工具构建方法论
 
 ### `本地化`
 - [`i18n-localization-patterns`](../02-engineering/i18n-localization-patterns/SKILL.md) — 国际化与本地化模式
@@ -14842,6 +15337,7 @@
 - [`cpp-modern-pro`](../02-engineering/cpp-modern-pro/SKILL.md) — 现代 C++ RAII 与 STL 惯用法
 - [`hr-partner-pro`](../07-productivity/hr-partner-pro/SKILL.md) — HR 招聘与人事管理
 - [`legal-inquiry-responder`](../09-verticals/legal-inquiry-responder/SKILL.md) — 法律咨询应答（模板+升级判定）
+- [`obsidian-clipper-templates`](../07-productivity/obsidian-clipper-templates/SKILL.md) — Obsidian 网页剪藏模板
 - [`performance-review-builder`](../05-business/performance-review-builder/SKILL.md) — 绩效评估结构化
 - [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
@@ -14976,6 +15472,9 @@
 ### `测试环境`
 - [`claimable-postgres-provision`](../10-platform/claimable-postgres-provision/SKILL.md) — 即用临时 Postgres 数据库
 
+### `测试自动化`
+- [`playwright-java-e2e`](../02-engineering/playwright-java-e2e/SKILL.md) — Playwright Java 端到端测试
+
 ### `测试规划`
 - [`test-coverage-gap-finder`](../02-engineering/test-coverage-gap-finder/SKILL.md) — 测试覆盖率缺口分析
 
@@ -15076,6 +15575,9 @@
 ### `源锚定`
 - [`notebooklm-source-grounded-qa`](../00-meta/notebooklm-source-grounded-qa/SKILL.md) — NotebookLM 源锚定问答
 
+### `滚动交互`
+- [`scroll-driven-web-experience`](../02-engineering/scroll-driven-web-experience/SKILL.md) — 滚动驱动沉浸式网页体验
+
 ### `漂移检测`
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
 
@@ -15121,6 +15623,9 @@
 - [`feature-flags-architect`](../02-engineering/feature-flags-architect/SKILL.md) — 功能开关架构与治理
 - [`zero-downtime-migration-architect`](../02-engineering/zero-downtime-migration-architect/SKILL.md) — 零停机迁移与回滚架构
 
+### `灾备`
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
+
 ### `热修复`
 - [`release-manager`](../02-engineering/release-manager/SKILL.md) — 发布管理与部署协调
 
@@ -15129,6 +15634,15 @@
 
 ### `版本管理`
 - [`mise-toolchain-configurator`](../02-engineering/mise-toolchain-configurator/SKILL.md) — mise 工具链配置
+
+### `版本迁移`
+- [`odoo-migration-helper`](../09-verticals/odoo-migration-helper/SKILL.md) — Odoo 模块版本迁移
+
+### `版税`
+- [`nft-erc-standards`](../09-verticals/nft-erc-standards/SKILL.md) — NFT ERC-721/1155 标准精通
+
+### `物流配送`
+- [`odoo-ecommerce-configurator`](../09-verticals/odoo-ecommerce-configurator/SKILL.md) — Odoo 电商与网站配置
 
 ### `物理层`
 - [`network-interface-health`](../08-security/network-interface-health/SKILL.md) — 网络接口健康诊断（错误/丢包/双工失配）
@@ -15152,6 +15666,7 @@
 - [`flutter-expert`](../02-engineering/flutter-expert/SKILL.md) — Flutter 跨平台开发
 - [`jetpack-compose-expert`](../02-engineering/jetpack-compose-expert/SKILL.md) — Android Jetpack Compose 开发专家
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
+- [`react-flow-node-graph-architect`](../02-engineering/react-flow-node-graph-architect/SKILL.md) — ReactFlow 节点图应用架构
 - [`react-native-architecture`](../02-engineering/react-native-architecture/SKILL.md) — React Native 架构模式
 - [`swiftui-best-practices`](../02-engineering/swiftui-best-practices/SKILL.md) — SwiftUI 状态管理与最佳实践
 
@@ -15253,8 +15768,14 @@
 ### `电力市场`
 - [`energy-procurement`](../09-verticals/energy-procurement/SKILL.md) — 能源采购与电费优化（含 PPA 评估）
 
+### `电商`
+- [`odoo-ecommerce-configurator`](../09-verticals/odoo-ecommerce-configurator/SKILL.md) — Odoo 电商与网站配置
+
 ### `电商客服`
 - [`ai-customer-support`](../05-business/ai-customer-support/SKILL.md) — AI 客户支持与情感分析
+
+### `电商集成`
+- [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
 
 ### `电子签名`
 - [`quality-documentation-control`](../09-verticals/quality-documentation-control/SKILL.md) — 医疗器械质量文件控制管理
@@ -15353,6 +15874,10 @@
 ### `知识留存`
 - [`structured-decision-framework`](../00-meta/structured-decision-framework/SKILL.md) — 结构化决策框架
 
+### `知识管理`
+- [`obsidian-bases-builder`](../07-productivity/obsidian-bases-builder/SKILL.md) — Obsidian Bases 数据库视图
+- [`obsidian-clipper-templates`](../07-productivity/obsidian-clipper-templates/SKILL.md) — Obsidian 网页剪藏模板
+
 ### `知识综合`
 - [`multi-source-knowledge-synthesis`](../00-meta/multi-source-knowledge-synthesis/SKILL.md) — 多源知识综合
 
@@ -15413,6 +15938,7 @@
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构
 - [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
+- [`nextjs-supabase-auth`](../02-engineering/nextjs-supabase-auth/SKILL.md) — Next.js 与 Supabase 鉴权集成
 - [`observability-dashboard-builder`](../02-engineering/observability-dashboard-builder/SKILL.md) — 可运维监控仪表盘构建（Grafana/SigNoz）
 - [`observability-strategy-designer`](../02-engineering/observability-strategy-designer/SKILL.md) — 可观测性策略设计（指标日志追踪）
 - [`operational-runbook-writer`](../02-engineering/operational-runbook-writer/SKILL.md) — 运维操作手册编写
@@ -15458,6 +15984,9 @@
 
 ### `破产预测`
 - [`octagon-financial-health-scores`](../09-verticals/octagon-financial-health-scores/SKILL.md) — 财务健康评分（Z-Score / Piotroski）
+
+### `破坏性变更`
+- [`odoo-migration-helper`](../09-verticals/odoo-migration-helper/SKILL.md) — Odoo 模块版本迁移
 
 ### `硬件`
 - [`arm-cortex-firmware-expert`](../09-verticals/arm-cortex-firmware-expert/SKILL.md) — ARM Cortex-M 固件与驱动开发
@@ -15576,6 +16105,9 @@
 
 ### `笔记`
 - [`bullet-point-structurer`](../00-meta/bullet-point-structurer/SKILL.md) — 层级化要点提炼与结构化笔记
+
+### `笔记自动化`
+- [`obsidian-bases-builder`](../07-productivity/obsidian-bases-builder/SKILL.md) — Obsidian Bases 数据库视图
 
 ### `第一性原理`
 - [`first-principles-assumption-auditor`](../00-meta/first-principles-assumption-auditor/SKILL.md) — 第一性原理假设审计
@@ -15844,6 +16376,12 @@
 ### `网络诊断`
 - [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
 
+### `网页剪藏`
+- [`obsidian-clipper-templates`](../07-productivity/obsidian-clipper-templates/SKILL.md) — Obsidian 网页剪藏模板
+
+### `网页动画`
+- [`scroll-driven-web-experience`](../02-engineering/scroll-driven-web-experience/SKILL.md) — 滚动驱动沉浸式网页体验
+
 ### `网页抓取`
 - [`browser-automation-builder`](../10-platform/browser-automation-builder/SKILL.md) — 浏览器自动化与抓取
 - [`daily-news-report`](../07-productivity/daily-news-report/SKILL.md) — 每日技术资讯抓取与简报生成
@@ -15931,6 +16469,9 @@
 - [`bash-defensive-patterns`](../02-engineering/bash-defensive-patterns/SKILL.md) — 防御式 Bash 脚本生产实践
 - [`powershell-windows`](../02-engineering/powershell-windows/SKILL.md) — PowerShell Windows 实战
 
+### `脚本化`
+- [`personal-tool-builder`](../07-productivity/personal-tool-builder/SKILL.md) — 自用工具构建方法论
+
 ### `脚本工程`
 - [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
 - [`posix-shell-scripting`](../02-engineering/posix-shell-scripting/SKILL.md) — POSIX Shell 可移植脚本
@@ -15949,6 +16490,9 @@
 
 ### `自动化循环`
 - [`autoresearch-optimization-agent`](../04-ai/autoresearch-optimization-agent/SKILL.md) — 自主实验优化智能体循环
+
+### `自动化测试`
+- [`odoo-automated-tests`](../09-verticals/odoo-automated-tests/SKILL.md) — Odoo 自动化测试
 
 ### `自动微分`
 - [`pennylane-quantum-ml`](../09-verticals/pennylane-quantum-ml/SKILL.md) — PennyLane 量子机器学习
@@ -16062,7 +16606,11 @@
 - [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
 - [`threat-detection-hunting`](../08-security/threat-detection-hunting/SKILL.md) — 威胁狩猎与异常检测
 
+### `薪资规则`
+- [`odoo-hr-payroll-setup`](../09-verticals/odoo-hr-payroll-setup/SKILL.md) — Odoo 人力与薪酬配置
+
 ### `薪酬`
+- [`odoo-hr-payroll-setup`](../09-verticals/odoo-hr-payroll-setup/SKILL.md) — Odoo 人力与薪酬配置
 - [`offer-letter-drafter`](../05-business/offer-letter-drafter/SKILL.md) — 录用通知书起草
 
 ### `虚拟环境`
@@ -16171,6 +16719,9 @@
 - [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 - [`videodb-perception-editing`](../06-creative/videodb-perception-editing/SKILL.md) — VideoDB 视频感知索引与编辑
 
+### `视差`
+- [`scroll-driven-web-experience`](../02-engineering/scroll-driven-web-experience/SKILL.md) — 滚动驱动沉浸式网页体验
+
 ### `视觉回归`
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) — Playwright 端到端测试
 
@@ -16203,6 +16754,18 @@
 
 ### `计算机视觉`
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家
+
+### `订单同步`
+- [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
+
+### `订单履约`
+- [`odoo-ecommerce-configurator`](../09-verticals/odoo-ecommerce-configurator/SKILL.md) — Odoo 电商与网站配置
+
+### `订单自动化`
+- [`odoo-edi-connector`](../09-verticals/odoo-edi-connector/SKILL.md) — Odoo EDI 电子数据交换
+
+### `订阅计费`
+- [`paypal-payment-integration`](../02-engineering/paypal-payment-integration/SKILL.md) — PayPal 支付集成
 
 ### `认知重建`
 - [`first-principles-assumption-auditor`](../00-meta/first-principles-assumption-auditor/SKILL.md) — 第一性原理假设审计
@@ -16369,6 +16932,9 @@
 ### `语音IVR`
 - [`twilio-communications`](../10-platform/twilio-communications/SKILL.md) — Twilio 短信与语音通信集成
 
+### `语音助手`
+- [`pipecat-voice-assistant`](../04-ai/pipecat-voice-assistant/SKILL.md) — Pipecat 低延迟语音助手
+
 ### `语音转写`
 - [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
 
@@ -16410,6 +16976,9 @@
 ### `负载测试`
 - [`k6-load-testing`](../02-engineering/k6-load-testing/SKILL.md) — k6 负载压力测试
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
+
+### `贡献档案`
+- [`oss-contribution-hunter`](../00-meta/oss-contribution-hunter/SKILL.md) — 开源贡献机会挖掘（oss-contribution-hunter）
 
 ### `财务`
 - [`month-end-close-manager`](../05-business/month-end-close-manager/SKILL.md) — 月末结账流程管理
@@ -16646,6 +17215,8 @@
 - [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
 - [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
 - [`observability-dashboard-builder`](../02-engineering/observability-dashboard-builder/SKILL.md) — 可运维监控仪表盘构建（Grafana/SigNoz）
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
+- [`odoo-docker-deployment`](../09-verticals/odoo-docker-deployment/SKILL.md) — Odoo Docker 生产部署
 
 ### `运维自动化`
 - [`bash-defensive-patterns`](../02-engineering/bash-defensive-patterns/SKILL.md) — 防御式 Bash 脚本生产实践
@@ -16701,6 +17272,9 @@
 
 ### `追踪`
 - [`observability-strategy-designer`](../02-engineering/observability-strategy-designer/SKILL.md) — 可观测性策略设计（指标日志追踪）
+
+### `退款`
+- [`paypal-payment-integration`](../02-engineering/paypal-payment-integration/SKILL.md) — PayPal 支付集成
 
 ### `逆向分析`
 - [`dwarf-debug-format-expert`](../02-engineering/dwarf-debug-format-expert/SKILL.md) — DWARF 调试格式专家
@@ -16793,6 +17367,7 @@
 
 ### `部署`
 - [`ci-cd-pipeline-builder`](../02-engineering/ci-cd-pipeline-builder/SKILL.md) — CI/CD流水线生成
+- [`odoo-docker-deployment`](../09-verticals/odoo-docker-deployment/SKILL.md) — Odoo Docker 生产部署
 
 ### `部署协调`
 - [`release-manager`](../02-engineering/release-manager/SKILL.md) — 发布管理与部署协调
@@ -16813,6 +17388,7 @@
 - [`technical-reference-builder`](../01-documents/technical-reference-builder/SKILL.md) — 技术参考手册构建
 
 ### `采购`
+- [`odoo-purchase-workflow`](../09-verticals/odoo-purchase-workflow/SKILL.md) — Odoo 采购工作流
 - [`procurement-cost-optimizer`](../05-business/procurement-cost-optimizer/SKILL.md) — 采购成本优化
 - [`vendor-evaluation`](../07-productivity/vendor-evaluation/SKILL.md) — 供应商评估决策
 
@@ -16887,6 +17463,9 @@
 ### `金融数据`
 - [`helium-news-research-mcp`](../04-ai/helium-news-research-mcp/SKILL.md) — Helium 新闻研究 MCP
 
+### `金融科技`
+- [`pakistan-payments-stack`](../09-verticals/pakistan-payments-stack/SKILL.md) — 巴基斯坦本地支付集成
+
 ### `鉴权`
 - [`convex-reactive-backend`](../02-engineering/convex-reactive-backend/SKILL.md) — Convex 响应式后端与实时订阅
 - [`laravel-security-audit`](../08-security/laravel-security-audit/SKILL.md) — Laravel 安全审计
@@ -16895,6 +17474,9 @@
 
 ### `钓鱼`
 - [`html-injection-testing`](../08-security/html-injection-testing/SKILL.md) — HTML 注入测试
+
+### `银行数据聚合`
+- [`plaid-fintech-integration`](../09-verticals/plaid-fintech-integration/SKILL.md) — Plaid 金融数据 API 集成
 
 ### `链路追踪`
 - [`devops-troubleshooter`](../02-engineering/devops-troubleshooter/SKILL.md) — DevOps 事故响应与可观测排障
@@ -17047,8 +17629,14 @@
 ### `音效`
 - [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）
 
+### `音视频`
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
+
 ### `音视频处理`
 - [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
+
+### `音频流`
+- [`podcast-audio-generation`](../06-creative/podcast-audio-generation/SKILL.md) — 文本生成播客音频
 
 ### `音频转写`
 - [`audio-to-markdown-transcriber`](../01-documents/audio-to-markdown-transcriber/SKILL.md) — 音频转写为结构化 Markdown 文档
@@ -17086,11 +17674,17 @@
 ### `预算追踪`
 - [`cost-aware-llm-pipeline`](../04-ai/cost-aware-llm-pipeline/SKILL.md) — 成本感知 LLM 管线（模型路由与预算控制）
 
+### `领域/ERP`
+- [`odoo-automated-tests`](../09-verticals/odoo-automated-tests/SKILL.md) — Odoo 自动化测试
+
 ### `领域/misc`
 - [`geniml-genomic-interval-ml`](../09-verticals/geniml-genomic-interval-ml/SKILL.md) — geniml 基因组区间机器学习
 
 ### `领域/science`
 - [`drugbank-database-access`](../09-verticals/drugbank-database-access/SKILL.md) — DrugBank 药物数据库解析
+
+### `领域/金融科技`
+- [`plaid-fintech-integration`](../09-verticals/plaid-fintech-integration/SKILL.md) — Plaid 金融数据 API 集成
 
 ### `领域建模`
 - [`ddd-strategic-design`](../02-engineering/ddd-strategic-design/SKILL.md) — DDD 战略设计与限界上下文
@@ -17098,6 +17692,9 @@
 
 ### `领域核心`
 - [`hexagonal-architecture`](../02-engineering/hexagonal-architecture/SKILL.md) — 六边形架构（端口与适配器模式）
+
+### `领域模型`
+- [`odoo-orm-expert`](../09-verticals/odoo-orm-expert/SKILL.md) — Odoo ORM 模式精通
 
 ### `领域知识`
 - [`ai-model-knowledge-distill`](../04-ai/ai-model-knowledge-distill/SKILL.md) — 从 AI 模型蒸馏结构化领域知识

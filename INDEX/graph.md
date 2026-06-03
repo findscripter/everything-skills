@@ -161,6 +161,12 @@ graph LR
   notebooklm-source-grounded-qa -.-|related| entity-research-dossier
   notebooklm-source-grounded-qa ===|combines| fact-checking
   notebooklm-source-grounded-qa ===|combines| citation-management
+  oss-contribution-hunter -.-|related| entity-research-dossier
+  oss-contribution-hunter -.-|related| multi-source-knowledge-synthesis
+  oss-contribution-hunter -.-|related| codebase-structure-protocol
+  oss-contribution-hunter ===|combines| github-pr-comment-resolver
+  oss-contribution-hunter ===|combines| codebase-onboarding-doc
+  oss-contribution-hunter ===|combines| oss-license-compliance
   parallel-agent-dispatch -.-|related| multi-agent-orchestrator
   parallel-agent-dispatch -.-|related| parallel-agent-hub
   parallel-agent-dispatch -.-|related| dmux-multi-agent-workflows
@@ -872,6 +878,13 @@ graph LR
   nestjs-expert -.-|related| graphql-architect
   nestjs-expert ===|combines| prisma-orm-expert
   nestjs-expert ===|combines| zod-schema-validation
+  nextjs-supabase-auth -.-|related| auth-implementation-patterns
+  nextjs-supabase-auth -.-|related| neon-serverless-postgres
+  nextjs-supabase-auth -.-|related| nestjs-expert
+  nextjs-supabase-auth -.-|related| firebase-backend
+  nextjs-supabase-auth ===|combines| trpc-typesafe-api
+  nextjs-supabase-auth ===|combines| zod-schema-validation
+  nextjs-supabase-auth ===|combines| tanstack-query
   observability-dashboard-builder -.-|related| grafana-dashboards
   observability-dashboard-builder -.-|related| observability-strategy-designer
   observability-dashboard-builder -.-|related| prometheus-configuration
@@ -890,6 +903,13 @@ graph LR
   operational-runbook-writer ===|combines| devops-troubleshooter
   operational-runbook-writer ===|combines| incident-commander-framework
   operational-runbook-writer ===|combines| observability-strategy-designer
+  paypal-payment-integration -.-|related| stripe-integration
+  paypal-payment-integration -.-|related| plaid-fintech-integration
+  paypal-payment-integration -.-|related| agent-payment-x402
+  paypal-payment-integration -.-|related| billing-automation-systems
+  paypal-payment-integration ===|combines| rest-api-endpoint-builder
+  paypal-payment-integration ===|combines| transactional-email-template-builder
+  paypal-payment-integration ===|combines| error-handling-patterns
   performance-profiler -.-|related| python-performance-optimization
   performance-profiler -.-|related| devops-troubleshooter
   performance-profiler ===|combines| postgresql-optimization
@@ -897,6 +917,12 @@ graph LR
   playwright-e2e-testing ===|combines| ci-cd-pipeline-builder
   playwright-e2e-testing ===|combines| accessibility-wcag-audit
   playwright-e2e-testing ===|combines| test-coverage-gap-finder
+  playwright-java-e2e -.-|related| playwright-e2e-testing
+  playwright-java-e2e -.-|related| lambdatest-cross-framework-testing
+  playwright-java-e2e -.-|related| webapp-testing
+  playwright-java-e2e -.-|related| java-modern-pro
+  playwright-java-e2e ===|combines| api-test-suite-builder
+  playwright-java-e2e ===|combines| ci-cd-pipeline-builder
   pre-deploy-checklist -.-|related| release-manager
   pre-deploy-checklist -.-|related| deployment-engineer
   pre-deploy-checklist -.-|related| ci-cd-pipeline-builder
@@ -932,6 +958,13 @@ graph LR
   rails-hotwire-expert -.-|related| sveltekit-fullstack
   rails-hotwire-expert ===|combines| websocket-realtime-engineer
   rails-hotwire-expert ===|combines| rest-api-endpoint-builder
+  react-flow-node-graph-architect -.-|related| react-state-management
+  react-flow-node-graph-architect -.-|related| tanstack-query
+  react-flow-node-graph-architect -.-|related| typescript-advanced-types
+  react-flow-node-graph-architect -.-|related| frontend-design
+  react-flow-node-graph-architect ===|combines| react-state-management
+  react-flow-node-graph-architect ===|combines| d3js-data-viz
+  react-flow-node-graph-architect ===|combines| web-artifacts-builder
   react-native-architecture -.-|related| ios-swiftui-developer
   react-native-architecture -.-|related| react-state-management
   react-native-architecture ===|combines| tanstack-query
@@ -973,6 +1006,20 @@ graph LR
   scala-pro ===|combines| spark-job-optimization
   scala-pro ===|combines| graphql-architect
   scala-pro ===|combines| data-pipeline-engineer
+  screen-reader-a11y-testing -.-|related| accessibility-wcag-audit
+  screen-reader-a11y-testing -.-|related| wcag-22-audit-patterns
+  screen-reader-a11y-testing -.-|related| webapp-testing
+  screen-reader-a11y-testing -.-|related| playwright-e2e-testing
+  screen-reader-a11y-testing ===|combines| accessibility-wcag-audit
+  screen-reader-a11y-testing ===|combines| wcag-22-audit-patterns
+  screen-reader-a11y-testing ===|combines| frontend-design
+  scroll-driven-web-experience -.-|related| animejs-web-animation
+  scroll-driven-web-experience -.-|related| threejs-3d-web
+  scroll-driven-web-experience -.-|related| magic-motion-animator
+  scroll-driven-web-experience -.-|related| design-spells-microinteractions
+  scroll-driven-web-experience ===|combines| frontend-design
+  scroll-driven-web-experience ===|combines| web-artifacts-builder
+  scroll-driven-web-experience ===|combines| tailwind-css-patterns
   shadcn-ui-components -.-|related| tailwind-css-patterns
   shadcn-ui-components -.-|related| web-component-design
   shadcn-ui-components -.-|related| ui-design-system-builder
@@ -1597,6 +1644,13 @@ graph LR
   parallel-agent-hub ===|combines| git-worktrees-workflow
   parallel-agent-hub ===|combines| llm-judge-evaluation
   parallel-agent-hub ===|combines| langgraph-agent-framework
+  pipecat-voice-assistant -.-|related| azure-realtime-voice-ai
+  pipecat-voice-assistant -.-|related| agentphone-voice-sms-agents
+  pipecat-voice-assistant -.-|related| local-llm-inference
+  pipecat-voice-assistant -.-|related| claude-api
+  pipecat-voice-assistant ===|combines| twilio-communications
+  pipecat-voice-assistant ===|combines| cost-aware-llm-pipeline
+  pipecat-voice-assistant ===|combines| langgraph-agent-framework
   production-llm-app-builder -.-|related| rag-implementation-workflow
   production-llm-app-builder -.-|related| rag-pipeline-builder
   production-llm-app-builder ===|combines| multi-agent-system-designer
@@ -1816,6 +1870,13 @@ graph LR
   budget-variance-analysis ===|combines| financial-statements-generator
   budget-variance-analysis ===|combines| variance-flux-commentary
   budget-variance-analysis ===|combines| board-deck-builder
+  business-model-canvas-architect -.-|related| market-sizing-tam-sam-som
+  business-model-canvas-architect -.-|related| unit-economics-analyzer
+  business-model-canvas-architect -.-|related| competitive-analysis
+  business-model-canvas-architect -.-|related| pricing-strategy
+  business-model-canvas-architect ===|combines| startup-financial-modeler
+  business-model-canvas-architect ===|combines| investor-materials-builder
+  business-model-canvas-architect ===|combines| market-sizing-analyst
   buyer-persona-builder -.-|related| customer-research-synthesizer
   buyer-persona-builder -.-|related| competitive-analysis
   buyer-persona-builder -.-|related| market-sizing-analyst
@@ -2197,6 +2258,12 @@ graph LR
   morning-meeting-note -.-|related| stock-idea-generation
   morning-meeting-note -.-|related| earnings-preview-model
   morning-meeting-note ===|combines| company-tear-sheet
+  notion-template-business -.-|related| digital-product-monetization
+  notion-template-business -.-|related| micro-saas-launcher
+  notion-template-business -.-|related| free-tool-marketing-strategy
+  notion-template-business -.-|related| pricing-strategy
+  notion-template-business ===|combines| product-launch-strategy
+  notion-template-business ===|combines| obsidian-bases-builder
   offer-letter-drafter -.-|related| interview-plan-builder
   offer-letter-drafter -.-|related| performance-review-builder
   offer-letter-drafter -.-|related| hr-partner-pro
@@ -2626,6 +2693,13 @@ graph LR
   magic-motion-animator -.-|related| fal-ai-media-generation
   magic-motion-animator ===|combines| slack-gif-creator
   magic-motion-animator ===|combines| theme-factory
+  marketing-screenshots-playwright -.-|related| playwright-e2e-testing
+  marketing-screenshots-playwright -.-|related| full-page-screenshot
+  marketing-screenshots-playwright -.-|related| webapp-testing
+  marketing-screenshots-playwright -.-|related| browser-automation-builder
+  marketing-screenshots-playwright ===|combines| app-store-optimization
+  marketing-screenshots-playwright ===|combines| landing-page-copywriting
+  marketing-screenshots-playwright ===|combines| product-launch-strategy
   mermaid-diagram-expert -.-|related| d3js-data-viz
   mermaid-diagram-expert -.-|related| business-process-mapper
   mermaid-diagram-expert ===|combines| docs-architect
@@ -2642,6 +2716,18 @@ graph LR
   minimax-media-cli -.-|related| videodb-perception-editing
   minimax-media-cli ===|combines| ai-native-cli-design
   minimax-media-cli ===|combines| algorithmic-art
+  photopea-embedded-editor -.-|related| fal-ai-media-generation
+  photopea-embedded-editor -.-|related| slack-gif-creator
+  photopea-embedded-editor -.-|related| algorithmic-art
+  photopea-embedded-editor -.-|related| web-artifacts-builder
+  photopea-embedded-editor ===|combines| web-artifacts-builder
+  photopea-embedded-editor ===|combines| fal-ai-media-generation
+  podcast-audio-generation -.-|related| azure-realtime-voice-ai
+  podcast-audio-generation -.-|related| pipecat-voice-assistant
+  podcast-audio-generation -.-|related| minimax-media-cli
+  podcast-audio-generation -.-|related| fal-ai-media-generation
+  podcast-audio-generation ===|combines| audio-to-markdown-transcriber
+  podcast-audio-generation ===|combines| demo-video-generator
   slack-gif-creator -.-|related| videodb-perception-editing
   slack-gif-creator ===|combines| slack-bolt-bot-builder
   slack-gif-creator ===|combines| demo-video-generator
@@ -2864,6 +2950,17 @@ graph LR
   new-hire-onboarding-plan -.-|related| process-sop-documenter
   new-hire-onboarding-plan ===|combines| codebase-onboarding-doc
   new-hire-onboarding-plan ===|combines| company-culture-architect
+  obsidian-bases-builder -.-|related| obsidian-clipper-templates
+  obsidian-bases-builder -.-|related| confluence-space-architect
+  obsidian-bases-builder -.-|related| notion-template-business
+  obsidian-bases-builder -.-|related| company-policy-lookup
+  obsidian-bases-builder ===|combines| bullet-point-structurer
+  obsidian-bases-builder ===|combines| multi-source-knowledge-synthesis
+  obsidian-clipper-templates -.-|related| defuddle-web-extract
+  obsidian-clipper-templates -.-|related| citation-management
+  obsidian-clipper-templates -.-|related| bullet-point-structurer
+  obsidian-clipper-templates ===|combines| filesystem-context-offload
+  obsidian-clipper-templates ===|combines| multi-source-knowledge-synthesis
   office-hours-facilitator -.-|related| boardroom-deliberation
   office-hours-facilitator -.-|related| business-assumption-stress-test
   office-hours-facilitator -.-|related| premortem-plan-challenger
@@ -2895,6 +2992,12 @@ graph LR
   org-health-diagnostic -.-|related| company-operating-system
   org-health-diagnostic ===|combines| boardroom-deliberation
   org-health-diagnostic ===|combines| board-deck-builder
+  personal-tool-builder -.-|related| developer-experience-optimizer
+  personal-tool-builder -.-|related| ai-native-cli-design
+  personal-tool-builder -.-|related| zapier-make-automation
+  personal-tool-builder -.-|related| micro-saas-launcher
+  personal-tool-builder ===|combines| file-organizer
+  personal-tool-builder ===|combines| agent-tool-builder
   prd-spec-writer -.-|related| product-manager-toolkit
   prd-spec-writer -.-|related| codebase-to-prd
   prd-spec-writer -.-|related| agile-product-owner
@@ -4287,6 +4390,13 @@ graph LR
   neuropixels-neural-recording ===|combines| scientific-exploratory-data-analysis
   nextflow-pipeline-builder -.-|related| single-cell-rnaseq-analysis
   nextflow-pipeline-builder ===|combines| gene-set-enrichment-analysis
+  nft-erc-standards -.-|related| solidity-security-auditor
+  nft-erc-standards -.-|related| defi-protocol-templates
+  nft-erc-standards -.-|related| blockchain-web3-developer
+  nft-erc-standards -.-|related| evm-token-decimals
+  nft-erc-standards ===|combines| solidity-security-auditor
+  nft-erc-standards ===|combines| defi-amm-security-audit
+  nft-erc-standards ===|combines| nodejs-keccak256-hashing
   nih-grant-finder -.-|related| research-experiment-designer
   nih-grant-finder -.-|related| scientific-database-lookup
   nih-grant-finder -.-|related| academic-paper-writer
@@ -4570,10 +4680,112 @@ graph LR
   octagon-stock-quote ===|combines| octagon-financial-health-scores
   octagon-stock-quote ===|combines| dcf-valuation-model
   octagon-stock-quote ===|combines| portfolio-risk-metrics
+  odoo-accounting-setup -.-|related| odoo-localization-compliance
+  odoo-accounting-setup -.-|related| odoo-rpc-api
+  odoo-accounting-setup -.-|related| odoo-module-developer
+  odoo-accounting-setup -.-|related| odoo-xml-views-builder
+  odoo-accounting-setup ===|combines| odoo-localization-compliance
+  odoo-accounting-setup ===|combines| month-end-close-manager
+  odoo-automated-tests -.-|related| odoo-module-developer
+  odoo-automated-tests -.-|related| odoo-orm-expert
+  odoo-automated-tests -.-|related| odoo-rpc-api
+  odoo-automated-tests -.-|related| odoo-migration-helper
+  odoo-automated-tests ===|combines| odoo-docker-deployment
+  odoo-automated-tests ===|combines| odoo-module-developer
+  odoo-backup-strategy -.-|related| odoo-docker-deployment
+  odoo-backup-strategy -.-|related| odoo-performance-tuner
+  odoo-backup-strategy -.-|related| odoo-migration-helper
+  odoo-backup-strategy -.-|related| odoo-rpc-api
+  odoo-backup-strategy ===|combines| odoo-accounting-setup
+  odoo-backup-strategy ===|combines| secrets-management
+  odoo-docker-deployment -.-|related| odoo-performance-tuner
+  odoo-docker-deployment -.-|related| docker-expert
+  odoo-docker-deployment -.-|related| odoo-module-developer
+  odoo-docker-deployment ===|combines| docker-development-optimizer
+  odoo-docker-deployment ===|combines| odoo-localization-compliance
+  odoo-ecommerce-configurator -.-|related| odoo-sales-crm-expert
+  odoo-ecommerce-configurator -.-|related| odoo-shopify-integration
+  odoo-ecommerce-configurator -.-|related| odoo-inventory-optimizer
+  odoo-ecommerce-configurator -.-|related| odoo-module-developer
+  odoo-ecommerce-configurator ===|combines| odoo-accounting-setup
+  odoo-ecommerce-configurator ===|combines| odoo-localization-compliance
+  odoo-edi-connector -.-|related| odoo-rpc-api
+  odoo-edi-connector -.-|related| odoo-module-developer
+  odoo-edi-connector -.-|related| odoo-purchase-workflow
+  odoo-edi-connector -.-|related| odoo-shopify-integration
+  odoo-edi-connector ===|combines| odoo-module-developer
+  odoo-edi-connector ===|combines| odoo-inventory-optimizer
+  odoo-edi-connector ===|combines| odoo-purchase-workflow
+  odoo-hr-payroll-setup -.-|related| odoo-accounting-setup
+  odoo-hr-payroll-setup -.-|related| odoo-sales-crm-expert
+  odoo-hr-payroll-setup -.-|related| odoo-module-developer
+  odoo-hr-payroll-setup -.-|related| odoo-localization-compliance
+  odoo-hr-payroll-setup ===|combines| odoo-accounting-setup
+  odoo-hr-payroll-setup ===|combines| odoo-localization-compliance
+  odoo-inventory-optimizer -.-|related| odoo-purchase-workflow
+  odoo-inventory-optimizer -.-|related| odoo-manufacturing-advisor
+  odoo-inventory-optimizer -.-|related| odoo-sales-crm-expert
+  odoo-inventory-optimizer -.-|related| odoo-accounting-setup
+  odoo-inventory-optimizer ===|combines| odoo-purchase-workflow
+  odoo-inventory-optimizer ===|combines| odoo-manufacturing-advisor
   odoo-localization-compliance -.-|related| customs-trade-compliance
   odoo-localization-compliance -.-|related| regulatory-policy-diff
   odoo-localization-compliance ===|combines| customs-trade-compliance
   odoo-localization-compliance ===|combines| gl-subledger-reconciler
+  odoo-manufacturing-advisor -.-|related| odoo-purchase-workflow
+  odoo-manufacturing-advisor -.-|related| odoo-sales-crm-expert
+  odoo-manufacturing-advisor -.-|related| odoo-module-developer
+  odoo-manufacturing-advisor ===|combines| odoo-orm-expert
+  odoo-manufacturing-advisor ===|combines| inventory-demand-planning
+  odoo-migration-helper -.-|related| odoo-module-developer
+  odoo-migration-helper -.-|related| odoo-orm-expert
+  odoo-migration-helper -.-|related| legacy-framework-modernizer
+  odoo-migration-helper ===|combines| odoo-backup-strategy
+  odoo-migration-helper ===|combines| odoo-performance-tuner
+  odoo-module-developer -.-|related| odoo-orm-expert
+  odoo-module-developer -.-|related| odoo-xml-views-builder
+  odoo-module-developer -.-|related| odoo-security-rules
+  odoo-module-developer -.-|related| odoo-qweb-templates
+  odoo-module-developer ===|combines| odoo-migration-helper
+  odoo-orm-expert -.-|related| odoo-performance-tuner
+  odoo-orm-expert -.-|related| odoo-xml-views-builder
+  odoo-orm-expert -.-|related| odoo-security-rules
+  odoo-orm-expert ===|combines| odoo-module-developer
+  odoo-orm-expert ===|combines| odoo-automated-tests
+  odoo-orm-expert ===|combines| odoo-performance-tuner
+  odoo-performance-tuner -.-|related| postgresql-optimization
+  odoo-performance-tuner ===|combines| odoo-docker-deployment
+  odoo-performance-tuner ===|combines| postgresql-optimization
+  odoo-purchase-workflow -.-|related| odoo-accounting-setup
+  odoo-purchase-workflow -.-|related| odoo-sales-crm-expert
+  odoo-purchase-workflow ===|combines| odoo-accounting-setup
+  odoo-qweb-templates -.-|related| odoo-xml-views-builder
+  odoo-qweb-templates -.-|related| odoo-orm-expert
+  odoo-qweb-templates -.-|related| odoo-rpc-api
+  odoo-qweb-templates ===|combines| odoo-accounting-setup
+  odoo-qweb-templates ===|combines| transactional-email-template-builder
+  odoo-rpc-api -.-|related| odoo-orm-expert
+  odoo-rpc-api -.-|related| odoo-module-developer
+  odoo-rpc-api -.-|related| odoo-security-rules
+  odoo-rpc-api -.-|related| rest-api-endpoint-builder
+  odoo-rpc-api ===|combines| odoo-shopify-integration
+  odoo-rpc-api ===|combines| n8n-workflow-patterns
+  odoo-sales-crm-expert -.-|related| odoo-localization-compliance
+  odoo-sales-crm-expert -.-|related| sales-forecast-builder
+  odoo-sales-crm-expert -.-|related| salesforce-automation
+  odoo-sales-crm-expert ===|combines| sales-forecast-builder
+  odoo-sales-crm-expert ===|combines| sales-enablement
+  odoo-security-rules -.-|related| odoo-hr-payroll-setup
+  odoo-security-rules ===|combines| odoo-module-developer
+  odoo-security-rules ===|combines| odoo-automated-tests
+  odoo-shopify-integration -.-|related| odoo-rpc-api
+  odoo-shopify-integration -.-|related| shopify-app-development
+  odoo-shopify-integration ===|combines| odoo-inventory-optimizer
+  odoo-shopify-integration ===|combines| odoo-sales-crm-expert
+  odoo-shopify-integration ===|combines| shopify-app-development
+  odoo-xml-views-builder -.-|related| odoo-security-rules
+  odoo-xml-views-builder ===|combines| odoo-module-developer
+  odoo-xml-views-builder ===|combines| odoo-qweb-templates
   offer-restrictive-covenant-review -.-|related| employment-contract-drafter
   offer-restrictive-covenant-review -.-|related| worker-classification-analyzer
   offer-restrictive-covenant-review -.-|related| wage-hour-employment-qa
@@ -4608,6 +4820,13 @@ graph LR
   pair-trade-screener -.-|related| portfolio-risk-metrics
   pair-trade-screener ===|combines| trade-position-sizer
   pair-trade-screener ===|combines| trading-strategy-backtester
+  pakistan-payments-stack -.-|related| plaid-fintech-integration
+  pakistan-payments-stack -.-|related| stripe-integration
+  pakistan-payments-stack -.-|related| paypal-payment-integration
+  pakistan-payments-stack -.-|related| billing-automation-systems
+  pakistan-payments-stack ===|combines| account-reconciliation
+  pakistan-payments-stack ===|combines| kyc-aml-rules-engine
+  pakistan-payments-stack ===|combines| billing-automation-systems
   pcb-bom-manager -.-|related| pcb-fab-assembly
   pcb-bom-manager ===|combines| pcb-fab-assembly
   pcb-bom-manager ===|combines| kicad-design-reviewer
@@ -4626,6 +4845,11 @@ graph LR
   pennylane-quantum-ml -.-|related| qutip-open-quantum-systems
   pennylane-quantum-ml ===|combines| pymoo-multiobjective-optimization
   pennylane-quantum-ml ===|combines| scikit-learn-ml
+  plaid-fintech-integration -.-|related| stripe-integration
+  plaid-fintech-integration -.-|related| blockchain-web3-developer
+  plaid-fintech-integration ===|combines| billing-automation-systems
+  plaid-fintech-integration ===|combines| transactional-email-template-builder
+  plaid-fintech-integration ===|combines| zod-schema-validation
   polars-bio-genomic-intervals -.-|related| genomic-file-toolkit
   polars-bio-genomic-intervals -.-|related| samtools-bam-processing
   polars-bio-genomic-intervals -.-|related| polars-dataframe

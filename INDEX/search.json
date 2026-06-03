@@ -763,6 +763,33 @@
     "path": "00-meta/notebooklm-source-grounded-qa/SKILL.md"
   },
   {
+    "name": "oss-contribution-hunter",
+    "title": "开源贡献机会挖掘（oss-contribution-hunter）",
+    "vol": "00-meta",
+    "domain": "通用/research",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "开源贡献",
+      "GitHub",
+      "issue 挖掘",
+      "可行性评分",
+      "PR 机会",
+      "gh-cli",
+      "贡献档案",
+      "mergeability"
+    ],
+    "triggers": [
+      "找开源 issue",
+      "good first issue",
+      "help wanted",
+      "给某仓库提 PR",
+      "贡献档案"
+    ],
+    "description": "当你想在热门开源仓库挖「易合并、有影响力」的 issue 来贡献、或捞 help-wanted/good-first-issue 任务时使用；做发现仓库→提取标签 issue→可行性评分→产出含根因/修复策略/置信分的贡献档案；不适用于已锁定 issue 直接写代码、无 gh/搜索的离线环境、或刷 PR 数灌水。触发词：找开源 issue、good first issue、help wanted、给某仓库提 PR、贡献档案",
+    "path": "00-meta/oss-contribution-hunter/SKILL.md"
+  },
+  {
     "name": "parallel-agent-dispatch",
     "title": "并行独立任务分派",
     "vol": "00-meta",
@@ -5022,6 +5049,35 @@
     "path": "02-engineering/nestjs-expert/SKILL.md"
   },
   {
+    "name": "nextjs-supabase-auth",
+    "title": "Next.js 与 Supabase 鉴权集成",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "nextjs",
+      "supabase",
+      "auth",
+      "app-router",
+      "middleware",
+      "oauth",
+      "ssr",
+      "server-action",
+      "后端",
+      "研发"
+    ],
+    "triggers": [
+      "supabase auth",
+      "auth middleware",
+      "protected route",
+      "OAuth callback",
+      "会话管理"
+    ],
+    "description": "当在 Next.js App Router 项目中接入 Supabase Auth（登录/登出/OAuth/路由保护）时使用；产出浏览器与服务端 Supabase 客户端、middleware 会话刷新与守卫、OAuth 回调路由及 Server Action 鉴权代码；不适用于 Pages Router、非 Supabase 鉴权方案或纯数据库/RLS 设计。触发词：supabase auth、auth middleware、protected route、OAuth callback、会话管理",
+    "path": "02-engineering/nextjs-supabase-auth/SKILL.md"
+  },
+  {
     "name": "observability-dashboard-builder",
     "title": "可运维监控仪表盘构建（Grafana/SigNoz）",
     "vol": "02-engineering",
@@ -5104,6 +5160,33 @@
     ],
     "description": "当需要把重复性运维/值班任务的\"部落知识\"沉淀为可重复执行的操作手册（runbook），或给现有流程补充排错、回滚、升级路径时使用；做产出含目的、前置条件、逐步精确命令、验证、排错表、回滚与升级表的 Markdown runbook；不适用于一次性事故的实时止损指挥（用事故指挥框架）或事后无指责复盘（用复盘报告撰写）。触发词：runbook、操作手册、运维手册、值班手册、SOP、排错、回滚、升级路径、on-call、playbook",
     "path": "02-engineering/operational-runbook-writer/SKILL.md"
+  },
+  {
+    "name": "paypal-payment-integration",
+    "title": "PayPal 支付集成",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "PayPal",
+      "支付集成",
+      "后端",
+      "Webhook",
+      "IPN",
+      "订阅计费",
+      "退款",
+      "REST-API"
+    ],
+    "triggers": [
+      "PayPal",
+      "Express Checkout",
+      "IPN",
+      "订阅扣费",
+      "退款"
+    ],
+    "description": "当在后端接入 PayPal 收款、订阅或退款时使用；做 Orders v2 创建/捕获订单、IPN/Webhook 验签去重、Billing 订阅与退款的服务端落地；不适用于 Stripe/支付宝等其他支付渠道或纯前端按钮渲染；触发词：PayPal、Express Checkout、IPN、订阅扣费、退款",
+    "path": "02-engineering/paypal-payment-integration/SKILL.md"
   },
   {
     "name": "performance-profiler",
@@ -5190,6 +5273,36 @@
     ],
     "description": "当需要为 Web 应用搭建或扩展端到端（E2E）自动化测试时使用；用 Playwright 完成安装配置、编写测试脚本、视觉回归、跨浏览器与移动端模拟、并接入 CI/CD，产出可运行的测试套件与流水线；不适用于单元/接口测试、纯手工探索测试或非浏览器场景；触发词：Playwright、E2E、端到端测试、跨浏览器、视觉回归、浏览器自动化、CI 测试",
     "path": "02-engineering/playwright-e2e-testing/SKILL.md"
+  },
+  {
+    "name": "playwright-java-e2e",
+    "title": "Playwright Java 端到端测试",
+    "vol": "02-engineering",
+    "domain": "研发/testing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "playwright",
+      "java",
+      "e2e-testing",
+      "junit5",
+      "page-object-model",
+      "allure",
+      "parallel",
+      "测试自动化"
+    ],
+    "triggers": [
+      "Playwright Java",
+      "POM",
+      "JUnit5",
+      "Allure",
+      "跨浏览器",
+      "ThreadLocal",
+      "trace",
+      "并行测试"
+    ],
+    "description": "当用 Java 写浏览器端到端（E2E）测试、需要并行/跨浏览器/可追溯报告时使用；做基于页面对象模型（POM）+JUnit 5+Allure 的可落地测试脚手架与页面类/用例代码；不适用于纯 API 测试（用 REST Assured）或单元测试。触发词：Playwright Java、POM、JUnit5、Allure、跨浏览器、ThreadLocal、trace、并行测试",
+    "path": "02-engineering/playwright-java-e2e/SKILL.md"
   },
   {
     "name": "posix-shell-scripting",
@@ -5470,6 +5583,30 @@
     "path": "02-engineering/rails-hotwire-expert/SKILL.md"
   },
   {
+    "name": "react-flow-node-graph-architect",
+    "title": "ReactFlow 节点图应用架构",
+    "vol": "02-engineering",
+    "domain": "研发/frontend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "前端",
+      "React",
+      "ReactFlow",
+      "可视化",
+      "性能优化",
+      "状态管理",
+      "TypeScript"
+    ],
+    "triggers": [
+      "ReactFlow",
+      "节点图",
+      "自动布局"
+    ],
+    "description": "当用 ReactFlow 构建可交互节点图（树形导航/大数据量/复杂状态）时使用；做出层级展开、性能优化与状态管理（含撤销重做、自动布局、聚焦/搜索）的生产级实现；不适用于静态流程图、纯 SVG 绘图或非 ReactFlow 图库。触发词：ReactFlow、节点图、自动布局",
+    "path": "02-engineering/react-flow-node-graph-architect/SKILL.md"
+  },
+  {
     "name": "react-native-architecture",
     "title": "React Native 架构模式",
     "vol": "02-engineering",
@@ -5738,6 +5875,63 @@
     ],
     "description": "当用 Scala 做企业级函数式编程、分布式系统或大数据处理时使用；做架构选型、效果系统/Actor/流式建模、性能调优并产出可运行 Scala 代码与方案；不适用于纯 Java/Kotlin、与 Scala 无关的通用问题或仅环境配置；触发词：Scala、ZIO、Cats Effect、Pekko、Akka、Spark、Http4s、SBT。",
     "path": "02-engineering/scala-pro/SKILL.md"
+  },
+  {
+    "name": "screen-reader-a11y-testing",
+    "title": "屏幕阅读器无障碍测试",
+    "vol": "02-engineering",
+    "domain": "研发/testing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "accessibility",
+      "a11y",
+      "screen-reader",
+      "nvda",
+      "voiceover",
+      "jaws",
+      "talkback",
+      "aria",
+      "testing",
+      "frontend"
+    ],
+    "triggers": [
+      "屏幕阅读器",
+      "读屏",
+      "NVDA",
+      "VoiceOver",
+      "JAWS",
+      "ARIA",
+      "aria-live"
+    ],
+    "description": "当需要用真实屏幕阅读器验证 Web 应用无障碍、排查读屏/ARIA/动态播报/表单可访问性问题时使用；做按 NVDA/VoiceOver/JAWS/TalkBack 的浏览-焦点双模走查并产出测试脚本、缺陷清单与 ARIA 修复；不适用于纯自动化扫描或与读屏无关的通用 UI 评审。触发词：屏幕阅读器、读屏、NVDA、VoiceOver、JAWS、ARIA、aria-live",
+    "path": "02-engineering/screen-reader-a11y-testing/SKILL.md"
+  },
+  {
+    "name": "scroll-driven-web-experience",
+    "title": "滚动驱动沉浸式网页体验",
+    "vol": "02-engineering",
+    "domain": "研发/frontend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "前端",
+      "网页动画",
+      "滚动交互",
+      "GSAP",
+      "Framer-Motion",
+      "视差",
+      "性能优化",
+      "无障碍",
+      "CSS"
+    ],
+    "triggers": [
+      "滚动动画",
+      "视差",
+      "滚动叙事"
+    ],
+    "description": "当需要把网页做成「随滚动展开的叙事/电影感」体验（视差、滚动动画、Pin 钉住、横向滚动、进度揭示）时使用；产出滚动驱动的页面方案与可运行代码（GSAP ScrollTrigger / Framer Motion / CSS scroll-timeline），含 60fps 性能、移动端与无障碍兜底；不适用于普通静态页排版、纯 3D/WebGL（转 3d-web-experience）、框架级实现（转 frontend）；触发词：滚动动画、视差、滚动叙事",
+    "path": "02-engineering/scroll-driven-web-experience/SKILL.md"
   },
   {
     "name": "service-mesh-architect",
@@ -9275,6 +9469,30 @@
     "path": "04-ai/parallel-agent-hub/SKILL.md"
   },
   {
+    "name": "pipecat-voice-assistant",
+    "title": "Pipecat 低延迟语音助手",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "pipecat",
+      "voice",
+      "语音助手",
+      "gemini",
+      "openai",
+      "python",
+      "智能体"
+    ],
+    "triggers": [
+      "Pipecat",
+      "语音助手",
+      "低延迟语音流水线"
+    ],
+    "description": "当需要用 Pipecat 搭建实时对话式语音 Agent、把多家服务商（OpenAI STT/TTS、Google Gemini LLM）串成一条低延迟语音流水线时使用；做基于 Mic→VAD→STT→LLM→TTS→Speaker 的本地语音助手并产出可运行 Python 脚本与配置；不适用于端到端 speech-to-speech 一体模型、电话/WebRTC 远程接入或非 Pipecat 框架。触发词：Pipecat、语音助手、低延迟语音流水线",
+    "path": "04-ai/pipecat-voice-assistant/SKILL.md"
+  },
+  {
     "name": "production-llm-app-builder",
     "title": "生产级 LLM 应用与 RAG 系统构建",
     "vol": "04-ai",
@@ -10357,6 +10575,28 @@
     ],
     "description": "当需把预算/上期/预测 vs 实际的差异拆成可量化动因（量×价、率×结构、人头薪酬、费用类别）并做瀑布桥分析时使用；做差异分解+重要性筛查+瀑布/桥接对账表，每个动因带带符号金额并验证\"起点+各动因=终点\"；不适用于只写文字波动说明（→variance-flux-commentary）、不出审计/合规/预测结论、无底层量价人头数据时编造动因；触发词：差异分析、量价分解、瀑布图、bridge、价量结构、预算vs实际、variance analysis",
     "path": "05-business/budget-variance-analysis/SKILL.md"
+  },
+  {
+    "name": "business-model-canvas-architect",
+    "title": "商业模式画布构建顾问",
+    "vol": "05-business",
+    "domain": "商业/finance",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "business-model",
+      "osterwalder",
+      "strategy",
+      "bmc",
+      "商业策略"
+    ],
+    "triggers": [
+      "商业模式画布",
+      "九宫格",
+      "价值主张"
+    ],
+    "description": "当需要设计新业务模式、审计现有业务的收入-成本对齐或在转型时重验核心商业逻辑时使用；以 Osterwalder 九宫格画布迭代构建并校验逻辑一致性，产出可审计的商业模式画布。不适用于市场需求验证、财务预测（P&L）或法律实体设计。触发词：商业模式画布、九宫格、价值主张",
+    "path": "05-business/business-model-canvas-architect/SKILL.md"
   },
   {
     "name": "buyer-persona-builder",
@@ -12398,6 +12638,40 @@
     ],
     "description": "当为卖方/买方晨会(早7点morning meeting)起草覆盖股票的隔夜动态、交易想法与当日事件纪要时使用；做出1页内、有观点、可执行的晨会note(头条研判+隔夜/盘前动态+当日事件+交易想法)，含财报速评表与评级/目标价动作；不适用于深度研报、估值建模或无观点的纯新闻摘要；触发词：晨会、morning note、隔夜发生了什么、交易想法、morning call、晨会纪要、盘前",
     "path": "05-business/morning-meeting-note/SKILL.md"
+  },
+  {
+    "name": "notion-template-business",
+    "title": "Notion 模板生意运营",
+    "vol": "05-business",
+    "domain": "商业/growth",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "notion",
+      "digital-product",
+      "template-business",
+      "gumroad",
+      "lemon-squeezy",
+      "growth",
+      "monetization",
+      "creator-economy"
+    ],
+    "triggers": [
+      "notion 模板",
+      "notion template",
+      "卖模板",
+      "sell templates",
+      "数字产品",
+      "digital product",
+      "gumroad",
+      "lemon squeezy",
+      "模板生意",
+      "template business",
+      "模板定价",
+      "模板发售"
+    ],
+    "description": "当要把 Notion 模板做成可持续的数字产品生意（设计、定价、上架销售、获客、规模化到真实营收）时使用；做出模板分层定价、Gumroad/Lemon Squeezy/Notion Marketplace 上架方案、发布与获客打法、防盗版与客服减负、版本更新与发售前自检清单等可执行产物；不适用于在 Notion 里搭建/配置具体业务系统本身、纯通用 SaaS 定价或落地页文案撰写。触发词：notion 模板、notion template、卖模板、sell templates、数字产品、digital product、gumroad、lemon squeezy、模板生意、template business、模板定价、模板发售",
+    "path": "05-business/notion-template-business/SKILL.md"
   },
   {
     "name": "offer-letter-drafter",
@@ -14806,6 +15080,33 @@
     "path": "06-creative/magic-motion-animator/SKILL.md"
   },
   {
+    "name": "marketing-screenshots-playwright",
+    "title": "应用营销截图自动生成",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "screenshot",
+      "playwright",
+      "marketing",
+      "product-hunt",
+      "retina",
+      "browser-automation",
+      "nodejs"
+    ],
+    "triggers": [
+      "营销截图",
+      "Product Hunt 截图",
+      "落地页配图",
+      "应用商店截图",
+      "retina 截图",
+      "Playwright 截图"
+    ],
+    "description": "当需要为 Product Hunt、社媒、落地页或文档批量生成应用营销级截图时使用；用 Playwright 以 deviceScaleFactor:2 在 1440x900 视口产出 2880x1800 真 Retina PNG，含登录鉴权、按路由遍历页面、元素/整页/暗色模式与 kebab-case 编号命名；不适用于纯可视区随手截图、整页超长拼接（用 full-page-screenshot）、E2E 测试或无前端界面的抓取；触发词：营销截图、Product Hunt 截图、落地页配图、应用商店截图、retina 截图、Playwright 截图",
+    "path": "06-creative/marketing-screenshots-playwright/SKILL.md"
+  },
+  {
     "name": "mermaid-diagram-expert",
     "title": "Mermaid 图表绘制专家",
     "vol": "06-creative",
@@ -14889,6 +15190,63 @@
     ],
     "description": "当需要在终端用 MiniMax 平台批量生成文本/图像/视频/语音/音乐、做联网搜索或图像理解时使用；用 mmx CLI 配 agent 旗标（--non-interactive/--quiet/--output json/--async）产出媒体文件或 JSON；不适用于未装 mmx 或未鉴权、需精细本地剪辑调色（回退 ffmpeg）、或想走 fal.ai/ElevenLabs 等其他供应商的场景；触发词：mmx、MiniMax、文生视频、文生图、文字转语音、生成音乐、海螺、Hailuo",
     "path": "06-creative/minimax-media-cli/SKILL.md"
+  },
+  {
+    "name": "photopea-embedded-editor",
+    "title": "Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎",
+    "vol": "06-creative",
+    "domain": "创意/image",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "photopea",
+      "image-editor",
+      "embed",
+      "iframe",
+      "psd",
+      "postmessage",
+      "photoshop-scripting",
+      "web"
+    ],
+    "triggers": [
+      "Photopea",
+      "photopea.js",
+      "嵌入图像编辑器",
+      "runScript",
+      "saveToOE",
+      "PSD",
+      "图层脚本"
+    ],
+    "description": "当你要在网页/Web 应用里内嵌 Photopea 作图像编辑器、用宿主页 JS 远程驱动它（打开文件、跑脚本、改图层/文字、导出 PNG/JPG/WebP/PSD）时使用；做法是用 photopea.js 包装器 createEmbed + runScript 调用 Photoshop 兼容脚本 API，产出可运行的嵌入代码与编辑/导出流程；不适用于服务端无头批处理、桌面版 Photoshop 自动化或不嵌 Photopea 的纯前端画图；触发词：Photopea、photopea.js、嵌入图像编辑器、runScript、saveToOE、PSD、图层脚本",
+    "path": "06-creative/photopea-embedded-editor/SKILL.md"
+  },
+  {
+    "name": "podcast-audio-generation",
+    "title": "文本生成播客音频",
+    "vol": "06-creative",
+    "domain": "创意/av",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "音视频",
+      "TTS",
+      "播客",
+      "Azure OpenAI",
+      "Realtime API",
+      "WebSocket",
+      "PCM",
+      "WAV",
+      "音频流"
+    ],
+    "triggers": [
+      "文本转语音播客",
+      "文稿配音",
+      "Realtime 语音合成",
+      "PCM 转 WAV"
+    ],
+    "description": "当需要把文本/文稿转成自然口播的播客音频时使用；经 Azure OpenAI Realtime API（gpt-realtime-mini）走 WebSocket 流式收 PCM 音频+逐字稿，转 WAV 并 base64 回传前端播放；不适用于无 Azure 凭据、要求精确逐字音色克隆或长篇离线批量 TTS 的场景，后者回退专用 TTS；触发词：文本转语音播客、文稿配音、Realtime 语音合成、PCM 转 WAV",
+    "path": "06-creative/podcast-audio-generation/SKILL.md"
   },
   {
     "name": "slack-gif-creator",
@@ -16063,6 +16421,59 @@
     "path": "07-productivity/new-hire-onboarding-plan/SKILL.md"
   },
   {
+    "name": "obsidian-bases-builder",
+    "title": "Obsidian Bases 数据库视图",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Obsidian",
+      "Bases",
+      "知识管理",
+      "YAML",
+      "数据库视图",
+      "笔记自动化"
+    ],
+    "triggers": [
+      ".base",
+      "Bases",
+      "表格视图",
+      "卡片视图",
+      "过滤器",
+      "公式"
+    ],
+    "description": "当在 Obsidian 中需要把笔记按属性聚合成表格/卡片/列表视图时使用；编写并校验 .base（YAML）文件，定义过滤器、公式、汇总与多视图，产出可直接渲染的数据库视图；不适用于非 Obsidian 数据库或 Dataview 插件查询。触发词：.base、Bases、表格视图、卡片视图、过滤器、公式。",
+    "path": "07-productivity/obsidian-bases-builder/SKILL.md"
+  },
+  {
+    "name": "obsidian-clipper-templates",
+    "title": "Obsidian 网页剪藏模板",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "obsidian",
+      "web-clipper",
+      "知识管理",
+      "模板",
+      "json",
+      "css-selector",
+      "schema-org",
+      "网页剪藏"
+    ],
+    "triggers": [
+      "Obsidian 剪藏",
+      "Web Clipper 模板",
+      "剪藏 JSON",
+      "selector 变量",
+      "schema.org 剪藏"
+    ],
+    "description": "当需要为 Obsidian Web Clipper 制作/打磨可导入 JSON 剪藏模板（含变量、过滤器、条件/循环逻辑、触发器、属性字段映射）时使用；产出经选择器实证校验、可直接复制导入的模板 JSON；不适用于剪藏插件本身的安装运维、非 Obsidian 笔记工具或凭空猜测 DOM 选择器；触发词：Obsidian 剪藏、Web Clipper 模板、剪藏 JSON、selector 变量、schema.org 剪藏",
+    "path": "07-productivity/obsidian-clipper-templates/SKILL.md"
+  },
+  {
     "name": "office-hours-facilitator",
     "title": "答疑时间会引导（创始人六问拷问）",
     "vol": "07-productivity",
@@ -16228,6 +16639,33 @@
     ],
     "description": "当需要评估公司整体健康度、准备董事会汇报或识别高风险职能时使用；做跨 C 级（财务/营收/产品/工程/人力/运营/安全/市场）八维红黄绿评分并产出带优先级与级联预警的健康度仪表盘；不适用于单一职能深度复盘或个人绩效评估。触发词：组织健康度、health check、健康度仪表盘",
     "path": "07-productivity/org-health-diagnostic/SKILL.md"
+  },
+  {
+    "name": "personal-tool-builder",
+    "title": "自用工具构建方法论",
+    "vol": "07-productivity",
+    "domain": "协作/automation",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "协作-自动化",
+      "CLI",
+      "本地优先",
+      "快速原型",
+      "脚本化",
+      "工具演进",
+      "可移植性",
+      "凭据安全"
+    ],
+    "triggers": [
+      "自用工具",
+      "挠自己痒处",
+      "CLI 工具",
+      "本地应用",
+      "自动化我的重复任务"
+    ],
+    "description": "当你想把自己反复手动操作的痛点做成工具（脚本/CLI/本地应用）时使用；做从\"挠自己的痒处\"出发的快速原型→可靠脚本→可分享工具的演进，产出可执行的方案、技术栈选型与可移植/安全清单；不适用于无真实自身痛点的市场臆想、企业级多人协作系统或纯前端 UI 设计。触发词：自用工具、挠自己痒处、CLI 工具、本地应用、自动化我的重复任务",
+    "path": "07-productivity/personal-tool-builder/SKILL.md"
   },
   {
     "name": "prd-spec-writer",
@@ -24010,6 +24448,35 @@
     "path": "09-verticals/nextflow-pipeline-builder/SKILL.md"
   },
   {
+    "name": "nft-erc-standards",
+    "title": "NFT ERC-721/1155 标准精通",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Web3",
+      "NFT",
+      "Solidity",
+      "ERC-721",
+      "ERC-1155",
+      "OpenZeppelin",
+      "智能合约",
+      "元数据",
+      "版税"
+    ],
+    "triggers": [
+      "NFT",
+      "ERC-721",
+      "ERC-1155",
+      "铸造",
+      "版税",
+      "元数据"
+    ],
+    "description": "当用 Solidity 开发 NFT 合约（艺术品/游戏道具/收藏品/灵魂绑定）、接入市场或设计元数据时使用；做基于 OpenZeppelin 的 ERC-721/1155 合约编写、元数据(链上/IPFS)、EIP-2981 版税、SBT、动态 NFT 与 ERC721A 省 gas 铸造，产出可部署合约与校验清单；不适用于同质化代币(ERC-20)、DeFi、纯前端 dApp 或非以太坊兼容链。触发词：NFT、ERC-721、ERC-1155、铸造、版税、元数据",
+    "path": "09-verticals/nft-erc-standards/SKILL.md"
+  },
+  {
     "name": "nih-grant-finder",
     "title": "NIH 科研基金匹配与申报",
     "vol": "09-verticals",
@@ -25376,6 +25843,221 @@
     "path": "09-verticals/octagon-stock-quote/SKILL.md"
   },
   {
+    "name": "odoo-accounting-setup",
+    "title": "Odoo 会计配置",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "accounting",
+      "erp",
+      "chart-of-accounts",
+      "tax",
+      "fiscal-position",
+      "payment-terms",
+      "bank-reconciliation"
+    ],
+    "triggers": [
+      "odoo 会计",
+      "科目表",
+      "日记账",
+      "税码",
+      "财政税位",
+      "付款条件",
+      "银行对账",
+      "Net 30",
+      "early payment discount",
+      "reconciliation model"
+    ],
+    "description": "当从零搭建 Odoo 会计（科目表、日记账、税码、财政税位、付款条件、银行对账）时使用；做按菜单路径与精确字段值完成配置并给出验收清单；不适用于多币种汇兑损益、国家级电子发票合规（改用 odoo-localization-compliance）与薪酬会计；触发词：odoo 会计、科目表、日记账、税码、财政税位、付款条件、银行对账、Net 30、early payment discount、reconciliation model",
+    "path": "09-verticals/odoo-accounting-setup/SKILL.md"
+  },
+  {
+    "name": "odoo-automated-tests",
+    "title": "Odoo 自动化测试",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "领域/ERP",
+      "Odoo",
+      "自动化测试",
+      "Python",
+      "unittest",
+      "CI"
+    ],
+    "triggers": [
+      "odoo 测试",
+      "TransactionCase",
+      "HttpCase",
+      "--test-enable",
+      "test-tags"
+    ],
+    "description": "当为 Odoo 自定义模块写/跑自动化测试时使用；做编写 TransactionCase 单元测试、HttpCase 控制器测试与 CLI/CI 执行命令；不适用于 JS tour 浏览器测试、Mock 外部服务（SMTP/支付）、跨事务 commit 数据隔离；触发词：odoo 测试、TransactionCase、HttpCase、--test-enable、test-tags",
+    "path": "09-verticals/odoo-automated-tests/SKILL.md"
+  },
+  {
+    "name": "odoo-backup-strategy",
+    "title": "Odoo 备份与恢复策略",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Odoo",
+      "ERP",
+      "备份",
+      "恢复",
+      "PostgreSQL",
+      "filestore",
+      "运维",
+      "灾备",
+      "cron",
+      "S3"
+    ],
+    "triggers": [
+      "Odoo 备份",
+      "filestore",
+      "pg_restore 恢复"
+    ],
+    "description": "当为生产 Odoo 实例制定备份方案或灾后恢复时使用；产出含数据库+filestore 的备份脚本、cron 计划、S3 异地上传与可验证的恢复流程；不适用于 Odoo.sh 自带备份与多数据库实例（需自行循环）。触发词：Odoo 备份、filestore、pg_restore 恢复",
+    "path": "09-verticals/odoo-backup-strategy/SKILL.md"
+  },
+  {
+    "name": "odoo-docker-deployment",
+    "title": "Odoo Docker 生产部署",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "docker",
+      "docker-compose",
+      "postgresql",
+      "nginx",
+      "erp",
+      "部署",
+      "运维"
+    ],
+    "triggers": [
+      "Odoo 部署",
+      "docker-compose",
+      "PostgreSQL 容器",
+      "反向代理",
+      "workers 调优"
+    ],
+    "description": "当用 Docker/docker-compose 自托管部署或排障 Odoo 时使用；产出生产级 compose、odoo.conf、备份/更新命令与 Nginx+SSL 反代约束；不适用于 Odoo.sh 云托管、多容器水平扩展与共享 filestore。触发词：Odoo 部署、docker-compose、PostgreSQL 容器、反向代理、workers 调优",
+    "path": "09-verticals/odoo-docker-deployment/SKILL.md"
+  },
+  {
+    "name": "odoo-ecommerce-configurator",
+    "title": "Odoo 电商与网站配置",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Odoo",
+      "电商",
+      "ERP",
+      "支付",
+      "物流配送",
+      "SEO",
+      "订单履约"
+    ],
+    "triggers": [
+      "Odoo 电商",
+      "支付商",
+      "配送方式",
+      "弃购挽回"
+    ],
+    "description": "当用 Odoo 搭建/优化在线商店时使用；产出产品发布、支付/物流、SEO 与下单到履约配置的菜单路径与字段清单；不适用于多网站、B2B 专属价、订阅计费等企业版高级场景；触发词：Odoo 电商、支付商、配送方式、弃购挽回",
+    "path": "09-verticals/odoo-ecommerce-configurator/SKILL.md"
+  },
+  {
+    "name": "odoo-edi-connector",
+    "title": "Odoo EDI 电子数据交换",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Odoo",
+      "ERP",
+      "EDI",
+      "X12",
+      "EDIFACT",
+      "B2B集成",
+      "订单自动化",
+      "xmlrpc"
+    ],
+    "triggers": [
+      "EDI",
+      "X12",
+      "850",
+      "856",
+      "810",
+      "EDIFACT",
+      "贸易伙伴对接"
+    ],
+    "description": "当需要在 Odoo 中对接 EDI（X12/EDIFACT）实现 B2B 单据自动化时使用；做 EDI 报文与 Odoo 业务对象的字段映射、贸易伙伴配置及入站/出站单据解析入库（产出映射表+Python 解析代码）；不适用于纯人工录单、非 EDI 的 API/CSV 对接或一次性数据导入；触发词：EDI、X12、850/856/810、EDIFACT、贸易伙伴对接",
+    "path": "09-verticals/odoo-edi-connector/SKILL.md"
+  },
+  {
+    "name": "odoo-hr-payroll-setup",
+    "title": "Odoo 人力与薪酬配置",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Odoo",
+      "ERP",
+      "HR",
+      "薪酬",
+      "Payroll",
+      "薪资规则",
+      "休假管理",
+      "会计过账"
+    ],
+    "triggers": [
+      "薪资结构",
+      "salary rule",
+      "Odoo Payroll"
+    ],
+    "description": "当在 Odoo（企业版）配置 HR 与薪酬、调试薪资单或排查工资条金额时使用；做薪资结构/规则、休假政策、员工合同与薪酬过账到会计的端到端配置与问题定位；不适用于社区版（无 hr_payroll）、跨国混合薪酬、税务申报生成（W2/941）。触发词：薪资结构、salary rule、Odoo Payroll",
+    "path": "09-verticals/odoo-hr-payroll-setup/SKILL.md"
+  },
+  {
+    "name": "odoo-inventory-optimizer",
+    "title": "Odoo 库存优化",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Odoo",
+      "ERP",
+      "库存管理",
+      "WMS",
+      "供应链"
+    ],
+    "triggers": [
+      "Odoo 库存",
+      "补货规则",
+      "库存计价（FIFO",
+      "AVCO）",
+      "上架规则",
+      "多步仓库流"
+    ],
+    "description": "当配置/优化 Odoo 库存（计价、补货、上架、多步仓库流）时使用；做出带精确菜单路径的可执行配置方案；不适用于到岸成本、跨仓调拨复杂路由及无会计模块的社区版自动计价。触发词：Odoo 库存、补货规则、库存计价（FIFO/AVCO）、上架规则、多步仓库流",
+    "path": "09-verticals/odoo-inventory-optimizer/SKILL.md"
+  },
+  {
     "name": "odoo-localization-compliance",
     "title": "Odoo 本地化与税务合规",
     "vol": "09-verticals",
@@ -25410,6 +26092,339 @@
     ],
     "description": "当为特定国家的公司配置 Odoo 会计、税务与电子发票（e-invoicing）合规时使用；做本地化模块（l10n_*）选型安装、税码/财政税位（fiscal position）配置、CFDI/FatturaPA/SAF-T 等电子发票对接与税务申报；不适用于 Odoo 二次开发建模、非合规类的常规会计记账或脱离本地化模块手工搭建科目表；触发词：odoo 本地化、l10n、电子发票、e-invoicing、CFDI、FatturaPA、SAF-T、税务合规、财政税位、fiscal position、增值税 VAT/IVA/GST、科目表 chart of accounts",
     "path": "09-verticals/odoo-localization-compliance/SKILL.md"
+  },
+  {
+    "name": "odoo-manufacturing-advisor",
+    "title": "Odoo 制造 MRP 规划",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "ERP",
+      "Odoo",
+      "制造",
+      "MRP",
+      "供应链"
+    ],
+    "triggers": [
+      "物料清单",
+      "MRP",
+      "生产订单"
+    ],
+    "description": "当在 Odoo 配置物料清单/工作中心、跑 MRP 排程或排查生产订单缺料时使用；做 BoM/工序/补货规则配置与 MRP 运行结果解读，产出可落地的菜单路径与参数；不适用于 Maintenance/PLM/Quality 模块及外部预测对接；触发词：物料清单、MRP、生产订单",
+    "path": "09-verticals/odoo-manufacturing-advisor/SKILL.md"
+  },
+  {
+    "name": "odoo-migration-helper",
+    "title": "Odoo 模块版本迁移",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Odoo",
+      "ERP",
+      "版本迁移",
+      "破坏性变更",
+      "Python",
+      "XML视图"
+    ],
+    "triggers": [
+      "odoo 迁移",
+      "模块升级",
+      "attrs 改写"
+    ],
+    "description": "当把 Odoo 自定义模块跨大版本升级（v14→v15→v16→v17）时使用；按版本逐级给出 API/视图/弃用项的破坏性变更清单与前后对照修复，产出可执行迁移检查表；不适用于 v13 及更早、Odoo.sh 自动升级流程、OWL 组件深度重写；触发词：odoo 迁移、模块升级、attrs 改写",
+    "path": "09-verticals/odoo-migration-helper/SKILL.md"
+  },
+  {
+    "name": "odoo-module-developer",
+    "title": "Odoo 自定义模块开发",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "erp",
+      "python",
+      "orm",
+      "module-development",
+      "manifest",
+      "scaffolding",
+      "model-inheritance"
+    ],
+    "triggers": [
+      "odoo 模块",
+      "__manifest__",
+      "_inherit",
+      "ORM",
+      "models.Model",
+      "ir.model.access",
+      "脚手架"
+    ],
+    "description": "当从零搭建或扩展 Odoo 自定义模块（建模型、装清单、配安全）、排查模块加载/manifest 报错、正确实现 compute/onchange/constraint 时使用；做模块脚手架（__manifest__.py、models、views、security）、用 _inherit 扩展既有模型、按 Odoo 约定校验代码并产出可安装目录；不适用于 OWL/前端组件、纯 XML 视图、自动化测试与 v13 及更早结构；触发词：odoo 模块、__manifest__、_inherit、ORM、models.Model、ir.model.access、脚手架",
+    "path": "09-verticals/odoo-module-developer/SKILL.md"
+  },
+  {
+    "name": "odoo-orm-expert",
+    "title": "Odoo ORM 模式精通",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Odoo",
+      "ERP",
+      "ORM",
+      "Python",
+      "性能优化",
+      "领域模型"
+    ],
+    "triggers": [
+      "Odoo ORM",
+      "domain 过滤",
+      "computed 字段",
+      "N+1",
+      "recordset"
+    ],
+    "description": "当在 Odoo 中编写 search/browse/create/write/unlink、构造 domain、实现 computed/stored/related 字段或排查慢查询时使用；做出地道、性能安全的 ORM 代码与优化建议；不适用于 cr.execute 原生 SQL 深度调优、TransientModel 向导模式。触发词：Odoo ORM、domain 过滤、computed 字段、N+1、recordset",
+    "path": "09-verticals/odoo-orm-expert/SKILL.md"
+  },
+  {
+    "name": "odoo-performance-tuner",
+    "title": "Odoo 性能诊断与调优",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "erp",
+      "performance",
+      "postgresql",
+      "profiling",
+      "worker-tuning",
+      "slow-query",
+      "memory"
+    ],
+    "triggers": [
+      "odoo 慢",
+      "worker timeout",
+      "MemoryError",
+      "odoo.conf 调优",
+      "慢查询",
+      "pg_stat_statements",
+      "缺失索引",
+      "odoo profiler",
+      "N+1"
+    ],
+    "description": "当 Odoo 生产环境变慢、超时、报 MemoryError/Worker timeout，或需为指定服务器规格调优 odoo.conf 时使用；做 worker/内存/超时参数计算、用 pg_stat_statements 定位慢 SQL 与缺失索引、用内置 Profiler 抓 Python+SQL 链路并输出可落地配置改动；不适用于 Odoo 业务建模/二次开发、深度 PostgreSQL 参数（shared_buffers 等用 PGTune）、前端 JS 渲染性能、Odoo.sh 受限托管的底层调参；触发词：odoo 慢、worker timeout、MemoryError、odoo.conf 调优、慢查询、pg_stat_statements、缺失索引、odoo profiler、N+1",
+    "path": "09-verticals/odoo-performance-tuner/SKILL.md"
+  },
+  {
+    "name": "odoo-purchase-workflow",
+    "title": "Odoo 采购工作流",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "ERP",
+      "Odoo",
+      "采购",
+      "供应链",
+      "三单匹配",
+      "工作流"
+    ],
+    "triggers": [
+      "RFQ",
+      "采购订单",
+      "三单匹配",
+      "供应商账单",
+      "采购审批"
+    ],
+    "description": "当在 Odoo 中搭建或排查采购流程（询价单→采购订单→收货→供应商账单）时使用；产出含确切菜单路径、字段配置与三单匹配诊断的可执行指引，覆盖采购审批、供应商价目表、自动补货。不适用于分包采购（需制造模块）、EDI 自动单据交换或多层级审批矩阵。触发词：RFQ、采购订单、三单匹配、供应商账单、采购审批",
+    "path": "09-verticals/odoo-purchase-workflow/SKILL.md"
+  },
+  {
+    "name": "odoo-qweb-templates",
+    "title": "Odoo QWeb 报表与模板",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "qweb",
+      "erp",
+      "report",
+      "pdf",
+      "template",
+      "xml",
+      "email-template"
+    ],
+    "triggers": [
+      "odoo qweb",
+      "PDF 报表",
+      "ir.actions.report",
+      "t-field",
+      "t-foreach",
+      "邮件模板",
+      "external_layout"
+    ],
+    "description": "当用 Odoo QWeb 编写 PDF 报表、邮件模板或网站页面模板（XML）时使用；做生成 ir.actions.report 报表动作 + QWeb 模板，正确运用 t-if/t-foreach/t-field/t-out 指令、external_layout 与翻译，并排查渲染报错；不适用于网站路由(http.route)、QWeb-JS 看板/表单 widget 及 wkhtmltopdf 分页页边距调试；触发词：odoo qweb、PDF 报表、ir.actions.report、t-field、t-foreach、邮件模板、external_layout",
+    "path": "09-verticals/odoo-qweb-templates/SKILL.md"
+  },
+  {
+    "name": "odoo-rpc-api",
+    "title": "Odoo JSON/XML-RPC 外部接口",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "erp",
+      "rpc",
+      "xml-rpc",
+      "json-rpc",
+      "api",
+      "integration",
+      "python"
+    ],
+    "triggers": [
+      "odoo",
+      "JSON-RPC",
+      "XML-RPC",
+      "execute_kw",
+      "search_read",
+      "call_kw",
+      "API key",
+      "odoo 集成"
+    ],
+    "description": "当需要让外部应用通过 Odoo 的 JSON-RPC / XML-RPC 外部 API 读写记录、做集成或中间件、排查鉴权与权限报错时使用；做认证(authenticate 取 uid)、调用模型方法(execute_kw / call_kw)、记录增删改查并产出 Python/JavaScript/curl 可复制调用代码；不适用于 OAuth2 或会话 cookie 鉴权、二进制文件上传、Odoo 模块二次开发或本地化税务合规；触发词：odoo、JSON-RPC、XML-RPC、execute_kw、search_read、call_kw、API key、odoo 集成",
+    "path": "09-verticals/odoo-rpc-api/SKILL.md"
+  },
+  {
+    "name": "odoo-sales-crm-expert",
+    "title": "Odoo 销售与 CRM",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "crm",
+      "sales",
+      "erp",
+      "pipeline",
+      "quotation",
+      "pricelist",
+      "forecasting"
+    ],
+    "triggers": [
+      "odoo crm",
+      "销售管线",
+      "pipeline",
+      "报价模板",
+      "quotation template",
+      "价格表",
+      "pricelist",
+      "线索评分",
+      "lead scoring",
+      "销售预测"
+    ],
+    "description": "当配置或优化 Odoo CRM 销售管线与报价时使用；做管线阶段设计、报价模板（含可选产品）、分层价格表、销售团队与线索自动分配、预测看板配置；不适用于 Odoo 二开建模、财税本地化合规、脱离 Odoo 的通用销售方法论；触发词：odoo crm、销售管线、pipeline、报价模板、quotation template、价格表、pricelist、线索评分、lead scoring、销售预测",
+    "path": "09-verticals/odoo-sales-crm-expert/SKILL.md"
+  },
+  {
+    "name": "odoo-security-rules",
+    "title": "Odoo 访问控制与记录规则",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "erp",
+      "access-control",
+      "security",
+      "ir.rule",
+      "record-rules",
+      "multi-company"
+    ],
+    "triggers": [
+      "ir.model.access",
+      "ir.rule",
+      "记录规则",
+      "Access Denied",
+      "多公司"
+    ],
+    "description": "当为 Odoo 自定义模块配置权限或排查\"拒绝访问\"时使用；编写 ir.model.access.csv 模型级权限、ir.rule 记录规则与多公司可见性规则并定位错误；不适用于字段级权限、PostgreSQL 行级安全或 sudo() 绕过场景；触发词：ir.model.access、ir.rule、记录规则、Access Denied、多公司",
+    "path": "09-verticals/odoo-security-rules/SKILL.md"
+  },
+  {
+    "name": "odoo-shopify-integration",
+    "title": "Odoo 与 Shopify 集成",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "shopify",
+      "erp",
+      "电商集成",
+      "webhook",
+      "xmlrpc",
+      "库存同步",
+      "订单同步",
+      "数据集成"
+    ],
+    "triggers": [
+      "Odoo",
+      "Shopify",
+      "订单同步",
+      "库存同步",
+      "XMLRPC",
+      "Webhook"
+    ],
+    "description": "当需要把 Shopify 店铺与 Odoo ERP 双向同步（商品、库存、订单、客户）时使用；做数据流设计与字段映射，并产出 Shopify Webhook 接收端 + Odoo XMLRPC 写入代码；不适用于纯 Shopify 内部配置、与 Odoo 无关的电商任务或非 Odoo/Shopify 平台对接；触发词：Odoo、Shopify、订单同步、库存同步、XMLRPC、Webhook",
+    "path": "09-verticals/odoo-shopify-integration/SKILL.md"
+  },
+  {
+    "name": "odoo-xml-views-builder",
+    "title": "Odoo XML 视图构建",
+    "vol": "09-verticals",
+    "domain": "领域/erp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "odoo",
+      "erp",
+      "xml",
+      "ir.ui.view",
+      "form-view",
+      "kanban",
+      "frontend",
+      "python"
+    ],
+    "triggers": [
+      "odoo 视图",
+      "ir.ui.view",
+      "form",
+      "list",
+      "kanban",
+      "search 视图",
+      "attrs",
+      "invisible",
+      "statusbar",
+      "notebook"
+    ],
+    "description": "当为 Odoo 模型编写或修复 Form/List/Kanban/Search/Calendar/Graph 视图 XML 时使用；做生成可直接粘贴的 ir.ui.view 视图定义并处理 v14-16 的 attrs 到 v17 内联表达式迁移、visibility/groups/domain/widget 配置；不适用于 OWL/JS 组件、searchpanel、website QWeb 模板及企业版 Cohort/Map 视图；触发词：odoo 视图、ir.ui.view、form/list/kanban/search 视图、attrs、invisible、statusbar、notebook",
+    "path": "09-verticals/odoo-xml-views-builder/SKILL.md"
   },
   {
     "name": "offer-restrictive-covenant-review",
@@ -25589,6 +26604,34 @@
     "path": "09-verticals/pair-trade-screener/SKILL.md"
   },
   {
+    "name": "pakistan-payments-stack",
+    "title": "巴基斯坦本地支付集成",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "金融科技",
+      "支付集成",
+      "巴基斯坦",
+      "PKR",
+      "对账",
+      "Webhook",
+      "SaaS",
+      "B2B"
+    ],
+    "triggers": [
+      "JazzCash",
+      "Easypaisa",
+      "PKR",
+      "Raast",
+      "巴基斯坦支付",
+      "对账"
+    ],
+    "description": "当为面向巴基斯坦市场的 SaaS/B2B 接入 PKR 计费与本地支付（JazzCash、Easypaisa、银行/PSP，可选 Raast）时使用；产出支付边界架构、数据模型、Webhook 与对账方案及上线清单；不适用于纯国际卡收单、无巴基斯坦场景、纯定价策略或法律税务咨询。触发词：JazzCash、Easypaisa、PKR、Raast、巴基斯坦支付、对账",
+    "path": "09-verticals/pakistan-payments-stack/SKILL.md"
+  },
+  {
     "name": "pcb-bom-manager",
     "title": "电子物料清单(BOM)管理",
     "vol": "09-verticals",
@@ -25754,6 +26797,32 @@
     ],
     "description": "当用 PennyLane 训练含参量子电路、搭建混合量子-经典模型，或需要跨 IBM/Google/Rigetti/IonQ 硬件可移植时使用；做电路构建、自动微分梯度训练、VQE/QAOA 变分算法与 PyTorch/JAX/TF 集成的可执行流程并产出优化后参数/期望值/基态能量；不适用于 Qiskit/Cirq 等其他框架或开放量子系统建模（用 qutip）；触发词：pennylane、qml、量子机器学习、变分量子算法、VQE",
     "path": "09-verticals/pennylane-quantum-ml/SKILL.md"
+  },
+  {
+    "name": "plaid-fintech-integration",
+    "title": "Plaid 金融数据 API 集成",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "领域/金融科技",
+      "Plaid",
+      "银行数据聚合",
+      "ACH",
+      "Webhook",
+      "Node.js",
+      "TypeScript",
+      "合规安全"
+    ],
+    "triggers": [
+      "plaid",
+      "银行账户连接",
+      "ACH",
+      "open banking"
+    ],
+    "description": "当为应用接入 Plaid 实现银行账户连接、交易同步、身份核验或 ACH 转账时使用；产出 Link token 交换、transactions/sync、Auth/Identity、实时余额、Webhook 验签与错误恢复的可落地 Node/TS 模式；不适用于支付收单（用 Stripe）、欧洲 PSD2 之外的开放银行细则或对账分析建模；触发词：plaid、银行账户连接、ACH、open banking",
+    "path": "09-verticals/plaid-fintech-integration/SKILL.md"
   },
   {
     "name": "polars-bio-genomic-intervals",

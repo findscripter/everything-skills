@@ -211,6 +211,13 @@
       "status": "stable"
     },
     {
+      "id": "oss-contribution-hunter",
+      "title": "开源贡献机会挖掘（oss-contribution-hunter）",
+      "domain": "通用/research",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "parallel-agent-dispatch",
       "title": "并行独立任务分派",
       "domain": "通用/thinking",
@@ -1303,6 +1310,13 @@
       "status": "stable"
     },
     {
+      "id": "nextjs-supabase-auth",
+      "title": "Next.js 与 Supabase 鉴权集成",
+      "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "observability-dashboard-builder",
       "title": "可运维监控仪表盘构建（Grafana/SigNoz）",
       "domain": "研发/observability",
@@ -1324,6 +1338,13 @@
       "status": "stable"
     },
     {
+      "id": "paypal-payment-integration",
+      "title": "PayPal 支付集成",
+      "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "performance-profiler",
       "title": "应用性能剖析（Node/Python/Go）",
       "domain": "研发/observability",
@@ -1340,6 +1361,13 @@
     {
       "id": "playwright-e2e-testing",
       "title": "Playwright 端到端测试",
+      "domain": "研发/testing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "playwright-java-e2e",
+      "title": "Playwright Java 端到端测试",
       "domain": "研发/testing",
       "level": "进阶",
       "status": "stable"
@@ -1415,6 +1443,13 @@
       "status": "stable"
     },
     {
+      "id": "react-flow-node-graph-architect",
+      "title": "ReactFlow 节点图应用架构",
+      "domain": "研发/frontend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "react-native-architecture",
       "title": "React Native 架构模式",
       "domain": "研发/mobile",
@@ -1482,6 +1517,20 @@
       "title": "Scala 企业级开发",
       "domain": "研发/backend",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "screen-reader-a11y-testing",
+      "title": "屏幕阅读器无障碍测试",
+      "domain": "研发/testing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "scroll-driven-web-experience",
+      "title": "滚动驱动沉浸式网页体验",
+      "domain": "研发/frontend",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -2360,6 +2409,13 @@
       "status": "stable"
     },
     {
+      "id": "pipecat-voice-assistant",
+      "title": "Pipecat 低延迟语音助手",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "production-llm-app-builder",
       "title": "生产级 LLM 应用与 RAG 系统构建",
       "domain": "智能/rag",
@@ -2629,6 +2685,13 @@
       "id": "budget-variance-analysis",
       "title": "预算差异归因分析",
       "domain": "商业/copy",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "business-model-canvas-architect",
+      "title": "商业模式画布构建顾问",
+      "domain": "商业/finance",
       "level": "进阶",
       "status": "stable"
     },
@@ -3112,6 +3175,13 @@
       "id": "morning-meeting-note",
       "title": "晨会研究纪要起草",
       "domain": "商业/finance",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "notion-template-business",
+      "title": "Notion 模板生意运营",
+      "domain": "商业/growth",
       "level": "进阶",
       "status": "stable"
     },
@@ -3704,6 +3774,13 @@
       "status": "stable"
     },
     {
+      "id": "marketing-screenshots-playwright",
+      "title": "应用营销截图自动生成",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "mermaid-diagram-expert",
       "title": "Mermaid 图表绘制专家",
       "domain": "创意/design",
@@ -3720,6 +3797,20 @@
     {
       "id": "minimax-media-cli",
       "title": "MiniMax 多模态生成 CLI",
+      "domain": "创意/av",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "photopea-embedded-editor",
+      "title": "Photopea 嵌入式编辑器集成（photopea.js）：网页内嵌图像编辑引擎",
+      "domain": "创意/image",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "podcast-audio-generation",
+      "title": "文本生成播客音频",
       "domain": "创意/av",
       "level": "进阶",
       "status": "stable"
@@ -4012,6 +4103,20 @@
       "status": "stable"
     },
     {
+      "id": "obsidian-bases-builder",
+      "title": "Obsidian Bases 数据库视图",
+      "domain": "协作/knowledge",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "obsidian-clipper-templates",
+      "title": "Obsidian 网页剪藏模板",
+      "domain": "协作/knowledge",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "office-hours-facilitator",
       "title": "答疑时间会引导（创始人六问拷问）",
       "domain": "协作/pm",
@@ -4050,6 +4155,13 @@
       "id": "org-health-diagnostic",
       "title": "组织健康度跨职能诊断",
       "domain": "协作/pm",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "personal-tool-builder",
+      "title": "自用工具构建方法论",
+      "domain": "协作/automation",
       "level": "进阶",
       "status": "stable"
     },
@@ -5867,6 +5979,13 @@
       "status": "stable"
     },
     {
+      "id": "nft-erc-standards",
+      "title": "NFT ERC-721/1155 标准精通",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "nih-grant-finder",
       "title": "NIH 科研基金匹配与申报",
       "domain": "领域/science",
@@ -6210,9 +6329,149 @@
       "status": "stable"
     },
     {
+      "id": "odoo-accounting-setup",
+      "title": "Odoo 会计配置",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-automated-tests",
+      "title": "Odoo 自动化测试",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-backup-strategy",
+      "title": "Odoo 备份与恢复策略",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-docker-deployment",
+      "title": "Odoo Docker 生产部署",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-ecommerce-configurator",
+      "title": "Odoo 电商与网站配置",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-edi-connector",
+      "title": "Odoo EDI 电子数据交换",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-hr-payroll-setup",
+      "title": "Odoo 人力与薪酬配置",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-inventory-optimizer",
+      "title": "Odoo 库存优化",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "odoo-localization-compliance",
       "title": "Odoo 本地化与税务合规",
       "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-manufacturing-advisor",
+      "title": "Odoo 制造 MRP 规划",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-migration-helper",
+      "title": "Odoo 模块版本迁移",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-module-developer",
+      "title": "Odoo 自定义模块开发",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-orm-expert",
+      "title": "Odoo ORM 模式精通",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-performance-tuner",
+      "title": "Odoo 性能诊断与调优",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-purchase-workflow",
+      "title": "Odoo 采购工作流",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-qweb-templates",
+      "title": "Odoo QWeb 报表与模板",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-rpc-api",
+      "title": "Odoo JSON/XML-RPC 外部接口",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-sales-crm-expert",
+      "title": "Odoo 销售与 CRM",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-security-rules",
+      "title": "Odoo 访问控制与记录规则",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-shopify-integration",
+      "title": "Odoo 与 Shopify 集成",
+      "domain": "领域/erp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "odoo-xml-views-builder",
+      "title": "Odoo XML 视图构建",
+      "domain": "领域/erp",
       "level": "进阶",
       "status": "stable"
     },
@@ -6259,6 +6518,13 @@
       "status": "stable"
     },
     {
+      "id": "pakistan-payments-stack",
+      "title": "巴基斯坦本地支付集成",
+      "domain": "领域/fintech",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "pcb-bom-manager",
       "title": "电子物料清单(BOM)管理",
       "domain": "领域/hardware",
@@ -6290,6 +6556,13 @@
       "id": "pennylane-quantum-ml",
       "title": "PennyLane 量子机器学习",
       "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "plaid-fintech-integration",
+      "title": "Plaid 金融数据 API 集成",
+      "domain": "领域/fintech",
       "level": "进阶",
       "status": "stable"
     },
@@ -8068,6 +8341,36 @@
     {
       "from": "notebooklm-source-grounded-qa",
       "to": "citation-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "oss-contribution-hunter",
+      "to": "entity-research-dossier",
+      "type": "related"
+    },
+    {
+      "from": "oss-contribution-hunter",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "related"
+    },
+    {
+      "from": "oss-contribution-hunter",
+      "to": "codebase-structure-protocol",
+      "type": "related"
+    },
+    {
+      "from": "oss-contribution-hunter",
+      "to": "github-pr-comment-resolver",
+      "type": "combines_with"
+    },
+    {
+      "from": "oss-contribution-hunter",
+      "to": "codebase-onboarding-doc",
+      "type": "combines_with"
+    },
+    {
+      "from": "oss-contribution-hunter",
+      "to": "oss-license-compliance",
       "type": "combines_with"
     },
     {
@@ -12011,6 +12314,41 @@
       "type": "combines_with"
     },
     {
+      "from": "nextjs-supabase-auth",
+      "to": "auth-implementation-patterns",
+      "type": "related"
+    },
+    {
+      "from": "nextjs-supabase-auth",
+      "to": "neon-serverless-postgres",
+      "type": "related"
+    },
+    {
+      "from": "nextjs-supabase-auth",
+      "to": "nestjs-expert",
+      "type": "related"
+    },
+    {
+      "from": "nextjs-supabase-auth",
+      "to": "firebase-backend",
+      "type": "related"
+    },
+    {
+      "from": "nextjs-supabase-auth",
+      "to": "trpc-typesafe-api",
+      "type": "combines_with"
+    },
+    {
+      "from": "nextjs-supabase-auth",
+      "to": "zod-schema-validation",
+      "type": "combines_with"
+    },
+    {
+      "from": "nextjs-supabase-auth",
+      "to": "tanstack-query",
+      "type": "combines_with"
+    },
+    {
       "from": "observability-dashboard-builder",
       "to": "grafana-dashboards",
       "type": "related"
@@ -12116,6 +12454,41 @@
       "type": "combines_with"
     },
     {
+      "from": "paypal-payment-integration",
+      "to": "stripe-integration",
+      "type": "related"
+    },
+    {
+      "from": "paypal-payment-integration",
+      "to": "plaid-fintech-integration",
+      "type": "related"
+    },
+    {
+      "from": "paypal-payment-integration",
+      "to": "agent-payment-x402",
+      "type": "related"
+    },
+    {
+      "from": "paypal-payment-integration",
+      "to": "billing-automation-systems",
+      "type": "related"
+    },
+    {
+      "from": "paypal-payment-integration",
+      "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "paypal-payment-integration",
+      "to": "transactional-email-template-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "paypal-payment-integration",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
       "from": "performance-profiler",
       "to": "python-performance-optimization",
       "type": "related"
@@ -12183,6 +12556,36 @@
     {
       "from": "playwright-e2e-testing",
       "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "playwright-java-e2e",
+      "to": "playwright-e2e-testing",
+      "type": "related"
+    },
+    {
+      "from": "playwright-java-e2e",
+      "to": "lambdatest-cross-framework-testing",
+      "type": "related"
+    },
+    {
+      "from": "playwright-java-e2e",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "playwright-java-e2e",
+      "to": "java-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "playwright-java-e2e",
+      "to": "api-test-suite-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "playwright-java-e2e",
+      "to": "ci-cd-pipeline-builder",
       "type": "combines_with"
     },
     {
@@ -12423,6 +12826,41 @@
     {
       "from": "rails-hotwire-expert",
       "to": "rest-api-endpoint-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "react-flow-node-graph-architect",
+      "to": "react-state-management",
+      "type": "related"
+    },
+    {
+      "from": "react-flow-node-graph-architect",
+      "to": "tanstack-query",
+      "type": "related"
+    },
+    {
+      "from": "react-flow-node-graph-architect",
+      "to": "typescript-advanced-types",
+      "type": "related"
+    },
+    {
+      "from": "react-flow-node-graph-architect",
+      "to": "frontend-design",
+      "type": "related"
+    },
+    {
+      "from": "react-flow-node-graph-architect",
+      "to": "react-state-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "react-flow-node-graph-architect",
+      "to": "d3js-data-viz",
+      "type": "combines_with"
+    },
+    {
+      "from": "react-flow-node-graph-architect",
+      "to": "web-artifacts-builder",
       "type": "combines_with"
     },
     {
@@ -12668,6 +13106,76 @@
     {
       "from": "scala-pro",
       "to": "data-pipeline-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "screen-reader-a11y-testing",
+      "to": "accessibility-wcag-audit",
+      "type": "related"
+    },
+    {
+      "from": "screen-reader-a11y-testing",
+      "to": "wcag-22-audit-patterns",
+      "type": "related"
+    },
+    {
+      "from": "screen-reader-a11y-testing",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "screen-reader-a11y-testing",
+      "to": "playwright-e2e-testing",
+      "type": "related"
+    },
+    {
+      "from": "screen-reader-a11y-testing",
+      "to": "accessibility-wcag-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "screen-reader-a11y-testing",
+      "to": "wcag-22-audit-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "screen-reader-a11y-testing",
+      "to": "frontend-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "scroll-driven-web-experience",
+      "to": "animejs-web-animation",
+      "type": "related"
+    },
+    {
+      "from": "scroll-driven-web-experience",
+      "to": "threejs-3d-web",
+      "type": "related"
+    },
+    {
+      "from": "scroll-driven-web-experience",
+      "to": "magic-motion-animator",
+      "type": "related"
+    },
+    {
+      "from": "scroll-driven-web-experience",
+      "to": "design-spells-microinteractions",
+      "type": "related"
+    },
+    {
+      "from": "scroll-driven-web-experience",
+      "to": "frontend-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "scroll-driven-web-experience",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "scroll-driven-web-experience",
+      "to": "tailwind-css-patterns",
       "type": "combines_with"
     },
     {
@@ -16501,6 +17009,41 @@
       "type": "combines_with"
     },
     {
+      "from": "pipecat-voice-assistant",
+      "to": "azure-realtime-voice-ai",
+      "type": "related"
+    },
+    {
+      "from": "pipecat-voice-assistant",
+      "to": "agentphone-voice-sms-agents",
+      "type": "related"
+    },
+    {
+      "from": "pipecat-voice-assistant",
+      "to": "local-llm-inference",
+      "type": "related"
+    },
+    {
+      "from": "pipecat-voice-assistant",
+      "to": "claude-api",
+      "type": "related"
+    },
+    {
+      "from": "pipecat-voice-assistant",
+      "to": "twilio-communications",
+      "type": "combines_with"
+    },
+    {
+      "from": "pipecat-voice-assistant",
+      "to": "cost-aware-llm-pipeline",
+      "type": "combines_with"
+    },
+    {
+      "from": "pipecat-voice-assistant",
+      "to": "langgraph-agent-framework",
+      "type": "combines_with"
+    },
+    {
       "from": "production-llm-app-builder",
       "to": "rag-implementation-workflow",
       "type": "related"
@@ -17823,6 +18366,41 @@
     {
       "from": "budget-variance-analysis",
       "to": "board-deck-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "business-model-canvas-architect",
+      "to": "market-sizing-tam-sam-som",
+      "type": "related"
+    },
+    {
+      "from": "business-model-canvas-architect",
+      "to": "unit-economics-analyzer",
+      "type": "related"
+    },
+    {
+      "from": "business-model-canvas-architect",
+      "to": "competitive-analysis",
+      "type": "related"
+    },
+    {
+      "from": "business-model-canvas-architect",
+      "to": "pricing-strategy",
+      "type": "related"
+    },
+    {
+      "from": "business-model-canvas-architect",
+      "to": "startup-financial-modeler",
+      "type": "combines_with"
+    },
+    {
+      "from": "business-model-canvas-architect",
+      "to": "investor-materials-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "business-model-canvas-architect",
+      "to": "market-sizing-analyst",
       "type": "combines_with"
     },
     {
@@ -20118,6 +20696,36 @@
     {
       "from": "morning-meeting-note",
       "to": "company-tear-sheet",
+      "type": "combines_with"
+    },
+    {
+      "from": "notion-template-business",
+      "to": "digital-product-monetization",
+      "type": "related"
+    },
+    {
+      "from": "notion-template-business",
+      "to": "micro-saas-launcher",
+      "type": "related"
+    },
+    {
+      "from": "notion-template-business",
+      "to": "free-tool-marketing-strategy",
+      "type": "related"
+    },
+    {
+      "from": "notion-template-business",
+      "to": "pricing-strategy",
+      "type": "related"
+    },
+    {
+      "from": "notion-template-business",
+      "to": "product-launch-strategy",
+      "type": "combines_with"
+    },
+    {
+      "from": "notion-template-business",
+      "to": "obsidian-bases-builder",
       "type": "combines_with"
     },
     {
@@ -22876,6 +23484,41 @@
       "type": "combines_with"
     },
     {
+      "from": "marketing-screenshots-playwright",
+      "to": "playwright-e2e-testing",
+      "type": "related"
+    },
+    {
+      "from": "marketing-screenshots-playwright",
+      "to": "full-page-screenshot",
+      "type": "related"
+    },
+    {
+      "from": "marketing-screenshots-playwright",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "marketing-screenshots-playwright",
+      "to": "browser-automation-builder",
+      "type": "related"
+    },
+    {
+      "from": "marketing-screenshots-playwright",
+      "to": "app-store-optimization",
+      "type": "combines_with"
+    },
+    {
+      "from": "marketing-screenshots-playwright",
+      "to": "landing-page-copywriting",
+      "type": "combines_with"
+    },
+    {
+      "from": "marketing-screenshots-playwright",
+      "to": "product-launch-strategy",
+      "type": "combines_with"
+    },
+    {
       "from": "mermaid-diagram-expert",
       "to": "d3js-data-viz",
       "type": "related"
@@ -22963,6 +23606,66 @@
     {
       "from": "minimax-media-cli",
       "to": "algorithmic-art",
+      "type": "combines_with"
+    },
+    {
+      "from": "photopea-embedded-editor",
+      "to": "fal-ai-media-generation",
+      "type": "related"
+    },
+    {
+      "from": "photopea-embedded-editor",
+      "to": "slack-gif-creator",
+      "type": "related"
+    },
+    {
+      "from": "photopea-embedded-editor",
+      "to": "algorithmic-art",
+      "type": "related"
+    },
+    {
+      "from": "photopea-embedded-editor",
+      "to": "web-artifacts-builder",
+      "type": "related"
+    },
+    {
+      "from": "photopea-embedded-editor",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "photopea-embedded-editor",
+      "to": "fal-ai-media-generation",
+      "type": "combines_with"
+    },
+    {
+      "from": "podcast-audio-generation",
+      "to": "azure-realtime-voice-ai",
+      "type": "related"
+    },
+    {
+      "from": "podcast-audio-generation",
+      "to": "pipecat-voice-assistant",
+      "type": "related"
+    },
+    {
+      "from": "podcast-audio-generation",
+      "to": "minimax-media-cli",
+      "type": "related"
+    },
+    {
+      "from": "podcast-audio-generation",
+      "to": "fal-ai-media-generation",
+      "type": "related"
+    },
+    {
+      "from": "podcast-audio-generation",
+      "to": "audio-to-markdown-transcriber",
+      "type": "combines_with"
+    },
+    {
+      "from": "podcast-audio-generation",
+      "to": "demo-video-generator",
       "type": "combines_with"
     },
     {
@@ -24331,6 +25034,66 @@
       "type": "combines_with"
     },
     {
+      "from": "obsidian-bases-builder",
+      "to": "obsidian-clipper-templates",
+      "type": "related"
+    },
+    {
+      "from": "obsidian-bases-builder",
+      "to": "confluence-space-architect",
+      "type": "related"
+    },
+    {
+      "from": "obsidian-bases-builder",
+      "to": "notion-template-business",
+      "type": "related"
+    },
+    {
+      "from": "obsidian-bases-builder",
+      "to": "company-policy-lookup",
+      "type": "related"
+    },
+    {
+      "from": "obsidian-bases-builder",
+      "to": "bullet-point-structurer",
+      "type": "combines_with"
+    },
+    {
+      "from": "obsidian-bases-builder",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "combines_with"
+    },
+    {
+      "from": "obsidian-clipper-templates",
+      "to": "obsidian-bases-builder",
+      "type": "related"
+    },
+    {
+      "from": "obsidian-clipper-templates",
+      "to": "defuddle-web-extract",
+      "type": "related"
+    },
+    {
+      "from": "obsidian-clipper-templates",
+      "to": "citation-management",
+      "type": "related"
+    },
+    {
+      "from": "obsidian-clipper-templates",
+      "to": "bullet-point-structurer",
+      "type": "related"
+    },
+    {
+      "from": "obsidian-clipper-templates",
+      "to": "filesystem-context-offload",
+      "type": "combines_with"
+    },
+    {
+      "from": "obsidian-clipper-templates",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "combines_with"
+    },
+    {
       "from": "office-hours-facilitator",
       "to": "boardroom-deliberation",
       "type": "related"
@@ -24533,6 +25296,36 @@
     {
       "from": "org-health-diagnostic",
       "to": "board-deck-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "personal-tool-builder",
+      "to": "developer-experience-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "personal-tool-builder",
+      "to": "ai-native-cli-design",
+      "type": "related"
+    },
+    {
+      "from": "personal-tool-builder",
+      "to": "zapier-make-automation",
+      "type": "related"
+    },
+    {
+      "from": "personal-tool-builder",
+      "to": "micro-saas-launcher",
+      "type": "related"
+    },
+    {
+      "from": "personal-tool-builder",
+      "to": "file-organizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "personal-tool-builder",
+      "to": "agent-tool-builder",
       "type": "combines_with"
     },
     {
@@ -32841,6 +33634,41 @@
       "type": "combines_with"
     },
     {
+      "from": "nft-erc-standards",
+      "to": "solidity-security-auditor",
+      "type": "related"
+    },
+    {
+      "from": "nft-erc-standards",
+      "to": "defi-protocol-templates",
+      "type": "related"
+    },
+    {
+      "from": "nft-erc-standards",
+      "to": "blockchain-web3-developer",
+      "type": "related"
+    },
+    {
+      "from": "nft-erc-standards",
+      "to": "evm-token-decimals",
+      "type": "related"
+    },
+    {
+      "from": "nft-erc-standards",
+      "to": "solidity-security-auditor",
+      "type": "combines_with"
+    },
+    {
+      "from": "nft-erc-standards",
+      "to": "defi-amm-security-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "nft-erc-standards",
+      "to": "nodejs-keccak256-hashing",
+      "type": "combines_with"
+    },
+    {
       "from": "nih-grant-finder",
       "to": "advisor-fit-analyzer",
       "type": "related"
@@ -34441,6 +35269,251 @@
       "type": "combines_with"
     },
     {
+      "from": "odoo-accounting-setup",
+      "to": "odoo-localization-compliance",
+      "type": "related"
+    },
+    {
+      "from": "odoo-accounting-setup",
+      "to": "odoo-rpc-api",
+      "type": "related"
+    },
+    {
+      "from": "odoo-accounting-setup",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-accounting-setup",
+      "to": "odoo-xml-views-builder",
+      "type": "related"
+    },
+    {
+      "from": "odoo-accounting-setup",
+      "to": "odoo-localization-compliance",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-accounting-setup",
+      "to": "month-end-close-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-automated-tests",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-automated-tests",
+      "to": "odoo-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-automated-tests",
+      "to": "odoo-rpc-api",
+      "type": "related"
+    },
+    {
+      "from": "odoo-automated-tests",
+      "to": "odoo-migration-helper",
+      "type": "related"
+    },
+    {
+      "from": "odoo-automated-tests",
+      "to": "odoo-docker-deployment",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-automated-tests",
+      "to": "odoo-module-developer",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-backup-strategy",
+      "to": "odoo-docker-deployment",
+      "type": "related"
+    },
+    {
+      "from": "odoo-backup-strategy",
+      "to": "odoo-performance-tuner",
+      "type": "related"
+    },
+    {
+      "from": "odoo-backup-strategy",
+      "to": "odoo-migration-helper",
+      "type": "related"
+    },
+    {
+      "from": "odoo-backup-strategy",
+      "to": "odoo-rpc-api",
+      "type": "related"
+    },
+    {
+      "from": "odoo-backup-strategy",
+      "to": "odoo-accounting-setup",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-backup-strategy",
+      "to": "secrets-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-docker-deployment",
+      "to": "odoo-backup-strategy",
+      "type": "related"
+    },
+    {
+      "from": "odoo-docker-deployment",
+      "to": "odoo-performance-tuner",
+      "type": "related"
+    },
+    {
+      "from": "odoo-docker-deployment",
+      "to": "docker-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-docker-deployment",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-docker-deployment",
+      "to": "docker-development-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-docker-deployment",
+      "to": "odoo-localization-compliance",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-ecommerce-configurator",
+      "to": "odoo-sales-crm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-ecommerce-configurator",
+      "to": "odoo-shopify-integration",
+      "type": "related"
+    },
+    {
+      "from": "odoo-ecommerce-configurator",
+      "to": "odoo-inventory-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-ecommerce-configurator",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-ecommerce-configurator",
+      "to": "odoo-accounting-setup",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-ecommerce-configurator",
+      "to": "odoo-localization-compliance",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-edi-connector",
+      "to": "odoo-rpc-api",
+      "type": "related"
+    },
+    {
+      "from": "odoo-edi-connector",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-edi-connector",
+      "to": "odoo-purchase-workflow",
+      "type": "related"
+    },
+    {
+      "from": "odoo-edi-connector",
+      "to": "odoo-shopify-integration",
+      "type": "related"
+    },
+    {
+      "from": "odoo-edi-connector",
+      "to": "odoo-module-developer",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-edi-connector",
+      "to": "odoo-inventory-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-edi-connector",
+      "to": "odoo-purchase-workflow",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-hr-payroll-setup",
+      "to": "odoo-accounting-setup",
+      "type": "related"
+    },
+    {
+      "from": "odoo-hr-payroll-setup",
+      "to": "odoo-sales-crm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-hr-payroll-setup",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-hr-payroll-setup",
+      "to": "odoo-localization-compliance",
+      "type": "related"
+    },
+    {
+      "from": "odoo-hr-payroll-setup",
+      "to": "odoo-accounting-setup",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-hr-payroll-setup",
+      "to": "odoo-localization-compliance",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-inventory-optimizer",
+      "to": "odoo-purchase-workflow",
+      "type": "related"
+    },
+    {
+      "from": "odoo-inventory-optimizer",
+      "to": "odoo-manufacturing-advisor",
+      "type": "related"
+    },
+    {
+      "from": "odoo-inventory-optimizer",
+      "to": "odoo-sales-crm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-inventory-optimizer",
+      "to": "odoo-accounting-setup",
+      "type": "related"
+    },
+    {
+      "from": "odoo-inventory-optimizer",
+      "to": "odoo-purchase-workflow",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-inventory-optimizer",
+      "to": "odoo-manufacturing-advisor",
+      "type": "combines_with"
+    },
+    {
       "from": "odoo-localization-compliance",
       "to": "customs-trade-compliance",
       "type": "related"
@@ -34458,6 +35531,376 @@
     {
       "from": "odoo-localization-compliance",
       "to": "gl-subledger-reconciler",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-manufacturing-advisor",
+      "to": "odoo-inventory-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-manufacturing-advisor",
+      "to": "odoo-purchase-workflow",
+      "type": "related"
+    },
+    {
+      "from": "odoo-manufacturing-advisor",
+      "to": "odoo-sales-crm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-manufacturing-advisor",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-manufacturing-advisor",
+      "to": "odoo-orm-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-manufacturing-advisor",
+      "to": "inventory-demand-planning",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-migration-helper",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-migration-helper",
+      "to": "odoo-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-migration-helper",
+      "to": "odoo-automated-tests",
+      "type": "related"
+    },
+    {
+      "from": "odoo-migration-helper",
+      "to": "legacy-framework-modernizer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-migration-helper",
+      "to": "odoo-backup-strategy",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-migration-helper",
+      "to": "odoo-performance-tuner",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-module-developer",
+      "to": "odoo-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-module-developer",
+      "to": "odoo-xml-views-builder",
+      "type": "related"
+    },
+    {
+      "from": "odoo-module-developer",
+      "to": "odoo-security-rules",
+      "type": "related"
+    },
+    {
+      "from": "odoo-module-developer",
+      "to": "odoo-qweb-templates",
+      "type": "related"
+    },
+    {
+      "from": "odoo-module-developer",
+      "to": "odoo-automated-tests",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-module-developer",
+      "to": "odoo-migration-helper",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-orm-expert",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-orm-expert",
+      "to": "odoo-performance-tuner",
+      "type": "related"
+    },
+    {
+      "from": "odoo-orm-expert",
+      "to": "odoo-xml-views-builder",
+      "type": "related"
+    },
+    {
+      "from": "odoo-orm-expert",
+      "to": "odoo-security-rules",
+      "type": "related"
+    },
+    {
+      "from": "odoo-orm-expert",
+      "to": "odoo-module-developer",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-orm-expert",
+      "to": "odoo-automated-tests",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-orm-expert",
+      "to": "odoo-performance-tuner",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-performance-tuner",
+      "to": "odoo-docker-deployment",
+      "type": "related"
+    },
+    {
+      "from": "odoo-performance-tuner",
+      "to": "odoo-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-performance-tuner",
+      "to": "postgresql-optimization",
+      "type": "related"
+    },
+    {
+      "from": "odoo-performance-tuner",
+      "to": "odoo-backup-strategy",
+      "type": "related"
+    },
+    {
+      "from": "odoo-performance-tuner",
+      "to": "odoo-docker-deployment",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-performance-tuner",
+      "to": "postgresql-optimization",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-purchase-workflow",
+      "to": "odoo-inventory-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-purchase-workflow",
+      "to": "odoo-manufacturing-advisor",
+      "type": "related"
+    },
+    {
+      "from": "odoo-purchase-workflow",
+      "to": "odoo-accounting-setup",
+      "type": "related"
+    },
+    {
+      "from": "odoo-purchase-workflow",
+      "to": "odoo-sales-crm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-purchase-workflow",
+      "to": "odoo-inventory-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-purchase-workflow",
+      "to": "odoo-accounting-setup",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-purchase-workflow",
+      "to": "odoo-edi-connector",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-qweb-templates",
+      "to": "odoo-xml-views-builder",
+      "type": "related"
+    },
+    {
+      "from": "odoo-qweb-templates",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-qweb-templates",
+      "to": "odoo-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-qweb-templates",
+      "to": "odoo-rpc-api",
+      "type": "related"
+    },
+    {
+      "from": "odoo-qweb-templates",
+      "to": "odoo-accounting-setup",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-qweb-templates",
+      "to": "transactional-email-template-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-rpc-api",
+      "to": "odoo-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-rpc-api",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-rpc-api",
+      "to": "odoo-security-rules",
+      "type": "related"
+    },
+    {
+      "from": "odoo-rpc-api",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "odoo-rpc-api",
+      "to": "odoo-shopify-integration",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-rpc-api",
+      "to": "n8n-workflow-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-sales-crm-expert",
+      "to": "odoo-localization-compliance",
+      "type": "related"
+    },
+    {
+      "from": "odoo-sales-crm-expert",
+      "to": "sales-forecast-builder",
+      "type": "related"
+    },
+    {
+      "from": "odoo-sales-crm-expert",
+      "to": "salesforce-automation",
+      "type": "related"
+    },
+    {
+      "from": "odoo-sales-crm-expert",
+      "to": "sales-forecast-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-sales-crm-expert",
+      "to": "sales-enablement",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-security-rules",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-security-rules",
+      "to": "odoo-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-security-rules",
+      "to": "odoo-rpc-api",
+      "type": "related"
+    },
+    {
+      "from": "odoo-security-rules",
+      "to": "odoo-hr-payroll-setup",
+      "type": "related"
+    },
+    {
+      "from": "odoo-security-rules",
+      "to": "odoo-module-developer",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-security-rules",
+      "to": "odoo-automated-tests",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-shopify-integration",
+      "to": "odoo-ecommerce-configurator",
+      "type": "related"
+    },
+    {
+      "from": "odoo-shopify-integration",
+      "to": "odoo-rpc-api",
+      "type": "related"
+    },
+    {
+      "from": "odoo-shopify-integration",
+      "to": "odoo-edi-connector",
+      "type": "related"
+    },
+    {
+      "from": "odoo-shopify-integration",
+      "to": "shopify-app-development",
+      "type": "related"
+    },
+    {
+      "from": "odoo-shopify-integration",
+      "to": "odoo-inventory-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-shopify-integration",
+      "to": "odoo-sales-crm-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-shopify-integration",
+      "to": "shopify-app-development",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-xml-views-builder",
+      "to": "odoo-module-developer",
+      "type": "related"
+    },
+    {
+      "from": "odoo-xml-views-builder",
+      "to": "odoo-orm-expert",
+      "type": "related"
+    },
+    {
+      "from": "odoo-xml-views-builder",
+      "to": "odoo-qweb-templates",
+      "type": "related"
+    },
+    {
+      "from": "odoo-xml-views-builder",
+      "to": "odoo-security-rules",
+      "type": "related"
+    },
+    {
+      "from": "odoo-xml-views-builder",
+      "to": "odoo-module-developer",
+      "type": "combines_with"
+    },
+    {
+      "from": "odoo-xml-views-builder",
+      "to": "odoo-qweb-templates",
       "type": "combines_with"
     },
     {
@@ -34656,6 +36099,41 @@
       "type": "combines_with"
     },
     {
+      "from": "pakistan-payments-stack",
+      "to": "plaid-fintech-integration",
+      "type": "related"
+    },
+    {
+      "from": "pakistan-payments-stack",
+      "to": "stripe-integration",
+      "type": "related"
+    },
+    {
+      "from": "pakistan-payments-stack",
+      "to": "paypal-payment-integration",
+      "type": "related"
+    },
+    {
+      "from": "pakistan-payments-stack",
+      "to": "billing-automation-systems",
+      "type": "related"
+    },
+    {
+      "from": "pakistan-payments-stack",
+      "to": "account-reconciliation",
+      "type": "combines_with"
+    },
+    {
+      "from": "pakistan-payments-stack",
+      "to": "kyc-aml-rules-engine",
+      "type": "combines_with"
+    },
+    {
+      "from": "pakistan-payments-stack",
+      "to": "billing-automation-systems",
+      "type": "combines_with"
+    },
+    {
       "from": "pcb-bom-manager",
       "to": "component-sourcing-search",
       "type": "related"
@@ -34818,6 +36296,41 @@
     {
       "from": "pennylane-quantum-ml",
       "to": "scikit-learn-ml",
+      "type": "combines_with"
+    },
+    {
+      "from": "plaid-fintech-integration",
+      "to": "stripe-integration",
+      "type": "related"
+    },
+    {
+      "from": "plaid-fintech-integration",
+      "to": "paypal-payment-integration",
+      "type": "related"
+    },
+    {
+      "from": "plaid-fintech-integration",
+      "to": "pakistan-payments-stack",
+      "type": "related"
+    },
+    {
+      "from": "plaid-fintech-integration",
+      "to": "blockchain-web3-developer",
+      "type": "related"
+    },
+    {
+      "from": "plaid-fintech-integration",
+      "to": "billing-automation-systems",
+      "type": "combines_with"
+    },
+    {
+      "from": "plaid-fintech-integration",
+      "to": "transactional-email-template-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "plaid-fintech-integration",
+      "to": "zod-schema-validation",
       "type": "combines_with"
     },
     {

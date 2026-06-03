@@ -10,7 +10,7 @@
     "06-creative":     { "cn": "创意", "classes": ["design", "image", "av", "brand"] },
     "07-productivity": { "cn": "协作", "classes": ["pm", "knowledge", "automation", "scheduling"] },
     "08-security":     { "cn": "安全", "classes": ["appsec", "audit", "ops", "compliance"] },
-    "09-verticals":    { "cn": "领域", "classes": ["science", "legal", "medical", "edu", "fintech", "hardware"] },
+    "09-verticals":    { "cn": "领域", "classes": ["science", "legal", "medical", "edu", "fintech", "hardware", "erp"] },
     "10-platform":     { "cn": "平台", "classes": ["integration", "cli", "cloud", "browser", "mcp"] }
   },
   "aliases": {
