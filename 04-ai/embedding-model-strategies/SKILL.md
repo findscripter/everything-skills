@@ -4,7 +4,7 @@ title: 嵌入模型选型与优化
 description: 当为 RAG/向量检索选嵌入模型、调分块或评估检索质量时使用；做模型选型对照、分块/预处理/归一化/降维方案与 P@k、Recall、MRR、nDCG 评估并产出可落地管线代码；不适用于非向量检索的通用 NLP 或向量库部署运维。触发词：embedding、向量检索、RAG、分块、降维、多语言、检索评估
 domain: 智能/rag
 triggers: [选嵌入模型, embedding 选型, RAG 检索效果差, chunking 分块策略, 向量维度降维, 多语言嵌入, 检索质量评估, voyage/bge/e5 对比, Matryoshka 降维, text-embedding-3]
-tags: [embedding, 向量检索, RAG, 分块, 检索评估, 智能]
+tags: [embedding, 向量检索, rag, 分块, 检索评估, 智能]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

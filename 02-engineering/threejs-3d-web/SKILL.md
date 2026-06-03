@@ -4,7 +4,7 @@ title: Three.js 网页 3D 体验开发
 description: 当为网页构建交互式 3D 场景、产品配置器、沉浸式作品集或滚动驱动 3D 时使用；做技术选型(Spline/R3F/Three.js)、模型优化、性能调优并产出可运行的 3D 网页代码与降级方案；不适用于纯 3D 游戏引擎(Babylon/Unity)或后端/CAD 建模。触发词：Three.js、React Three Fiber、WebGL、Spline、3D 网站、产品配置器
 domain: 研发/frontend
 triggers: [Three.js, React Three Fiber, R3F, WebGL, Spline, 3D 网站, 网页 3D, 产品配置器, GLTF/GLB, 滚动驱动 3D, GLSL shader, 沉浸式作品集]
-tags: [frontend, 3D, Three.js, React Three Fiber, WebGL, 性能优化, 可视化, Spline]
+tags: [frontend, 3d, three.js, react three fiber, webgl, 性能优化, 可视化, spline]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

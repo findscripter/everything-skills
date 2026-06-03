@@ -4,7 +4,7 @@ title: 公司速览资料卡生成
 description: 当用户要为某家公司（给出公司名/股票代码）生成一页式速览资料卡、公司画像/概况/fact sheet、并购标的画像或销售拜访前情报时使用；通过 S&P Global / Kensho MCP 拉取 Capital IQ 实时数据、按受众组装成专业排版 DOCX；不适用于无 S&P Global MCP 工具可用、用训练记忆编造财务数据、或需要深度 initiation 报告/季度财报点评的场景；触发词：tear sheet、公司速览、company one-pager、公司画像、并购标的画像、销售拜访前情报
 domain: 商业/finance
 triggers: [tear sheet, 公司速览, company one-pager, 公司画像, company profile, fact sheet, company snapshot, 并购标的画像, M&A 标的画像, 销售拜访前情报, 公司概况资料卡, equity research summary]
-tags: [finance, tear-sheet, S&P-Capital-IQ, Kensho, MCP, DOCX, equity-research, M&A, corp-dev, sales]
+tags: [finance, tear-sheet, s&p-capital-iq, kensho, mcp, docx, equity-research, m&a, corp-dev, sales]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

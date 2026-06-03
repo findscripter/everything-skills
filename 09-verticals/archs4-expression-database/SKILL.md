@@ -4,7 +4,7 @@ title: ARCHS4 RNA-seq 表达数据库
 description: 当需要查 ARCHS4 跨 100 万+ 人/鼠 RNA-seq 样本的组织表达 z-score、共表达基因、按元数据搜样本，或取批量 HDF5 表达矩阵时使用；用 requests 直连 REST API（免鉴权）产出组织 z-score 表、共表达基因表、GEO/SRA 样本表与组织柱状/热图。不适用于变异群体频率（用 gnomad-population-database）、基因列表通路富集（用 gget-genomic-databases/gene-set-enrichment-analysis）、原始 series matrix 下载（用 geo-database）。触发词：ARCHS4、z-score、共表达、组织表达、RNA-seq、HDF5
 domain: 领域/science
 triggers: [ARCHS4, 组织表达 z-score, 共表达基因, correlations 共表达, RNA-seq 样本搜索, HDF5 表达矩阵, guilt-by-association, 组织特异性, maayanlab, GEO 样本元数据, co-expression network, h5py 切片]
-tags: [science, 基因组学, RNA-seq, ARCHS4, REST-API, 基因表达, 共表达]
+tags: [science, 基因组学, rna-seq, archs4, rest-api, 基因表达, 共表达]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

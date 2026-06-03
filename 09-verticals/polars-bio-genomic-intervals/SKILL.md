@@ -4,7 +4,7 @@ title: polars-bio 高性能基因组区间运算
 description: 当在 Polars DataFrame 上做基因组区间运算（overlap/nearest/merge/coverage/complement/subtract）或读写 BED/VCF/BAM/GFF 等生信格式、且数据量大需流式/云端处理时使用；做区间算术、生信文件 I/O、DataFusion SQL 查询、BAM 测序深度计算，产出 LazyFrame/DataFrame 结果。不适用于纯序列比对、变异注释或非区间型分析。触发词：基因组区间、overlap、bioframe 替代、BED/VCF/BAM、测序深度 depth
 domain: 领域/science
 triggers: [基因组区间运算, 区间 overlap/nearest/merge, 读写 BED/VCF/BAM/GFF, bioframe 替代方案, BAM 测序深度 pileup, 基因组数据 SQL 查询, 大基因组流式处理]
-tags: [生物信息, 基因组学, polars, 区间运算, 数据IO, DataFusion, Python]
+tags: [生物信息, 基因组学, polars, 区间运算, 数据io, datafusion, python]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

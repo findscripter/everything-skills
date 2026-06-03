@@ -4,7 +4,7 @@ title: 产品营销定位与 GTM 策略
 description: 当需要为产品做市场定位、ICP/买家画像、竞品情报与 GTM 上市规划时使用；产出定位陈述、价值主张、竞品 Battlecard、上市计划与销售赋能资料；不适用于绩效广告投放、品牌创意设计或纯增长黑客执行。触发词：定位、GTM、上市、竞品分析、ICP、Battlecard
 domain: 商业/marketing
 triggers: [产品营销, PMM, 定位, positioning, GTM, go-to-market, 上市策略, 竞品分析, battlecard, ICP, 买家画像, 销售赋能, win/loss 分析, 市场进入]
-tags: [商业, marketing, 产品营销, 定位, GTM, 竞品情报, 销售赋能, 市场进入]
+tags: [商业, marketing, 产品营销, 定位, gtm, 竞品情报, 销售赋能, 市场进入]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

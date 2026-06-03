@@ -4,7 +4,7 @@ title: 设计评审反馈
 description: 当需要对界面/原型/视觉稿做结构化设计评审时使用；按可用性·层级·一致性·无障碍多维度产出带严重度分级和优先级建议的评审报告；不适用于纯代码实现、文案校对或无设计稿的需求讨论。触发词：评审这个设计、critique mockup、Figma 链接反馈
 domain: 创意/design
 triggers: [评审这个设计, 看看这个设计稿, critique this mockup, review this design, Figma 链接反馈, 这个界面怎么样, 设计评审, 可用性检查]
-tags: [设计评审, UX, 可用性, 视觉层级, 无障碍, Figma, 设计反馈, 原型评估]
+tags: [设计评审, ux, 可用性, 视觉层级, 无障碍, figma, 设计反馈, 原型评估]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: fp-ts 实用函数式编程
 description: 当用 TypeScript 处理可空值/错误/异步并想用 fp-ts 写更清晰函数式代码、或把命令式重构为函数式时使用；产出 pipe/Option/Either/map/flatMap 的 80/20 实用模式与前后对照重构方案；不适用于简单可选链(?.)、热点性能路径或团队不熟 FP 的场景。触发词：fp-ts、函数式编程、pipe、Option、Either、TaskEither
 domain: 研发/backend
 triggers: [fp-ts, 函数式编程, functional programming, pipe, Option, Either, TaskEither, tryCatch, flatMap, 可空值处理, 错误即值, 命令式重构函数式]
-tags: [研发, fp-ts, TypeScript, 函数式编程, Option, Either, TaskEither, 重构]
+tags: [研发, fp-ts, typescript, 函数式编程, option, either, taskeither, 重构]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 付费广告创意制作与迭代
 description: 当为 Google Ads/Meta/LinkedIn/TikTok/X 等平台批量制作或基于投放数据迭代付费广告创意时使用；产出按角度组织、附字符数校验的标题/描述/正文变体集与迭代报告；不适用于活动策略/预算定向/落地页文案/A/B 显著性检验。触发词：广告创意、广告文案、RSA、信息流广告、批量变体、投放数据迭代
 domain: 商业/marketing
 triggers: [写广告文案, 生成广告标题, 批量广告变体, RSA 响应式搜索广告, 信息流广告创意, 根据投放数据迭代广告, Meta/Google/TikTok 广告创意]
-tags: [marketing, 广告创意, 付费广告, 文案, ABtest, performance-marketing]
+tags: [marketing, 广告创意, 付费广告, 文案, abtest, performance-marketing]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

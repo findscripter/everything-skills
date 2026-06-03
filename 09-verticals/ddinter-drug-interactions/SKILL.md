@@ -4,7 +4,7 @@ title: DDInter 药物相互作用查询
 description: 当需要查两药能否合用、相互作用严重度（major/moderate/minor）、机制与临床建议，或对多药清单做联合用药风险筛查时使用；经 DDInter REST API（免认证）按药名→DDInter ID 检索互作并产出分级报告/CSV/网络图；不适用于 FDA 药品标签文本、药物-基因（药物基因组）关联或不良事件上报。触发词：DDInter、药物相互作用、联合用药、配伍禁忌、严重度分级、polypharmacy
 domain: 领域/science
 triggers: [DDInter, 药物相互作用, 药物互作, 联合用药风险, 配伍禁忌, DDI 查询, 相互作用严重度, major moderate minor, polypharmacy 筛查, 两药能否合用]
-tags: [science, drug-discovery, pharmacology, DDInter, drug-drug-interaction, polypharmacy, REST-API, 数据库查询, 临床药学]
+tags: [science, drug-discovery, pharmacology, ddinter, drug-drug-interaction, polypharmacy, rest-api, 数据库查询, 临床药学]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 端侧基础模型（量化与隐私推理）
 description: 当用 Apple FoundationModels 框架做端侧、隐私优先、可离线的文本生成/结构化抽取/工具调用时使用；产出可用性检查、@Generable 结构化输出、Tool 调用与快照流式 SwiftUI 方案；不适用于云端 LLM API、安卓桌面端侧推理或训练；触发词：FoundationModels、端侧模型、Apple Intelligence、Generable、隐私推理
 domain: 智能/model-ops
 triggers: [FoundationModels, 端侧模型, on-device, Apple Intelligence, iOS 26, SystemLanguageModel, LanguageModelSession, Generable, Guide, Tool调用, 快照流式, PartiallyGenerated, 结构化输出, 隐私推理, 离线LLM, Swift, SwiftUI, 4096 token]
-tags: [智能, model-ops, 端侧推理, Apple, FoundationModels, Swift, 隐私, 离线, 结构化输出, 工具调用]
+tags: [智能, model-ops, 端侧推理, apple, foundationmodels, swift, 隐私, 离线, 结构化输出, 工具调用]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

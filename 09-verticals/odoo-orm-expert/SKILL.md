@@ -4,7 +4,7 @@ title: Odoo ORM 模式精通
 description: 当在 Odoo 中编写 search/browse/create/write/unlink、构造 domain、实现 computed/stored/related 字段或排查慢查询时使用；做出地道、性能安全的 ORM 代码与优化建议；不适用于 cr.execute 原生 SQL 深度调优、TransientModel 向导模式。触发词：Odoo ORM、domain 过滤、computed 字段、N+1、recordset
 domain: 领域/erp
 triggers: [Odoo ORM, search domain, computed 字段, N+1 查询, recordset, browse create write, search_count, mapped filtered]
-tags: [Odoo, ERP, ORM, Python, 性能优化, 领域模型]
+tags: [odoo, erp, orm, python, 性能优化, 领域模型]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

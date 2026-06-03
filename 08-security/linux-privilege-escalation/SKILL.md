@@ -4,7 +4,7 @@ title: Linux 提权评估
 description: 当持有低权限 shell 需在授权范围内系统化排查并利用 Linux 配置缺陷提权到 root 时使用；做枚举-定位-利用全流程评估，产出提权路径、证据日志与修复建议；不适用于未授权渗透、Windows 提权或纯漏洞扫描。触发词：Linux提权、privilege escalation、SUID、sudo -l、GTFOBins
 domain: 安全/ops
 triggers: [Linux 提权, privilege escalation, 提权评估, SUID 利用, sudo -l, GTFOBins, 内核提权, cron 提权, capabilities 提权, PATH 劫持, LinPEAS, 提到 root, NFS no_root_squash]
-tags: [安全, 渗透测试, 权限提升, Linux, 红队, misc]
+tags: [安全, 渗透测试, 权限提升, linux, 红队, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 长桥证券工具集：实时行情、组合与期权分析
 description: 当需要查港股/美股/A股/新加坡市场实时行情、K线、基本面、自选组合、持仓盈亏、期权与板块资金流时使用；通过 longbridge CLI（无则回退 MCP）以 JSON 输出按子命令拉数并用用户语言解读；不适用于自动下单、加密非 .HAS 标的或无凭证/无 CLI/MCP 环境。触发词：港股美股行情、自选股、持仓盈亏、期权分析、板块资金流、longbridge、长桥
 domain: 领域/fintech
 triggers: [港股美股A股行情, 实时报价 K线, 自选股, 持仓盈亏 账户, 期权分析, 板块排行 资金流, longbridge auth, 长桥证券]
-tags: [fintech, 证券, 行情, 组合, 期权, 港股, 美股, A股, CLI, MCP]
+tags: [fintech, 证券, 行情, 组合, 期权, 港股, 美股, a股, cli, mcp]
 level: 进阶
 status: stable
 agents: [claude-code, cursor, gemini-cli, codex]

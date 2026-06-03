@@ -4,7 +4,7 @@ title: LaminDB 生物数据治理
 description: 当为生物数据集（scRNA/AnnData/DataFrame/Zarr）做版本管理、谱系追踪、本体校验与可查询数据湖时使用；用 lamindb（含 bionty）以 track()/finish() 包裹分析，注册 Artifact、按 key/feature/本体过滤查询、用 Bionty 标准化细胞/基因术语并产出 FAIR 的可溯源 artifact；不适用于单细胞分析流程（聚类/差异表达用 single-cell-rnaseq-analysis）与纯本体查表（用 bionty 即可）；触发词：lamindb、lamin、artifact、谱系/lineage、ln.track、bionty、数据治理、FAIR、数据湖、本体校验
 domain: 领域/science
 triggers: [lamindb, lamin, artifact, 谱系, lineage, ln.track, bionty, 数据治理, FAIR, 数据湖, 本体校验, 数据版本]
-tags: [lamindb, bionty, data-management, lineage, provenance, FAIR, ontology, single-cell, bioinformatics, science]
+tags: [lamindb, bionty, data-management, lineage, provenance, fair, ontology, single-cell, bioinformatics, science]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

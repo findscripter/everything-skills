@@ -4,7 +4,7 @@ title: 多周期股价涨跌幅统计
 description: 当需要某只股票从 1 日到 10 年乃至历史最高的多周期涨跌幅、判断动量与趋势一致性、做长短期对比时使用；通过 Octagon MCP 的 octagon-agent 按 Ticker 拉全周期收益统计并解读分类/年化/相对基准 alpha；不适用于实盘下单、逐笔 tick 高频或离线无 MCP。触发词：股价涨跌幅、多周期收益、年化收益、动量分析、近一年回报、octagon-agent
 domain: 领域/fintech
 triggers: [股价涨跌幅, 多周期收益, 年化收益, 动量分析, 近一年回报 10年累计回报, 趋势一致性, octagon-agent, AAPL 收益]
-tags: [fintech, 股票收益, 涨跌幅, 动量, 年化收益, 相对强弱, MCP, octagon]
+tags: [fintech, 股票收益, 涨跌幅, 动量, 年化收益, 相对强弱, mcp, octagon]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

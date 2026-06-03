@@ -4,7 +4,7 @@ title: ISO 27001 信息安全体系实施
 description: 当需要落地或认证 ISO 27001:2022 ISMS、做安全风险评估、控制项落地、SoA、内审与事件响应（侧重 HealthTech/MedTech）时使用；产出风险登记册、SoA、差距分析与事件响应记录；不适用于纯渗透测试/代码安全审计或非信息安全的质量管理。触发词：ISO 27001、ISMS、安全风险评估、SoA、事件响应
 domain: 安全/compliance
 triggers: [实施 ISO 27001, ISMS 体系建设, 安全风险评估, 信息安全策略, ISO 27001 认证, 安全控制项落地, 事件响应计划, 医疗数据安全, 医疗器械网络安全, 合规差距分析 / SoA]
-tags: [安全, compliance, ISO27001, ISMS, 风险评估, 事件响应, HealthTech, MedTech]
+tags: [安全, compliance, iso27001, isms, 风险评估, 事件响应, healthtech, medtech]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

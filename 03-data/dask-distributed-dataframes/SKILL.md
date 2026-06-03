@@ -4,7 +4,7 @@ title: Dask 超内存分布式计算
 description: 当 pandas/NumPy 工作流超出内存或需跨核/跨机并行（约 100GiB 单机到 100TiB 集群）时使用；用 Dask 的 DataFrame/Array/Bag/Futures 构建惰性任务图并行执行，产出聚合结果或 Parquet/Zarr 落地；不适用于内存可容纳追求极速（用 polars）或单机核外分析（用 vaex）。触发词：dask、超内存、larger-than-RAM、并行、分布式、map_partitions
 domain: 数据/pipeline
 triggers: [dask, 超内存 larger-than-RAM, 并行处理, 分布式计算, pandas 扩展, NumPy 扩展, dask.dataframe, dask.array, dask.bag, Futures 任务图, map_partitions, compute 惰性求值, 集群 cluster, Parquet/Zarr 大数据]
-tags: [数据, misc, dask, distributed, larger-than-RAM, parallel, dataframe, array, futures, etl]
+tags: [数据, misc, dask, distributed, larger-than-ram, parallel, dataframe, array, futures, etl]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

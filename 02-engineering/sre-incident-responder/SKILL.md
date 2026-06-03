@@ -4,7 +4,7 @@ title: SRE 事件响应
 description: 当线上服务故障/告警触发、需要快速止损与事后复盘时使用；做事件指挥、分级定级、稳态恢复与无指责复盘（产出事件时间线、状态更新、复盘报告与改进项）；不适用于纯功能开发、单元测试或非线上的日常运维；触发词：线上故障、事件响应、止损、复盘、SLO 燃尽
 domain: 研发/devops
 triggers: [线上故障, P0, 事件响应, 止损, 复盘, post-mortem, SLO 燃尽, 故障定级, on-call, 回滚]
-tags: [SRE, 事件响应, 可观测性, 故障定级, 复盘, 止损, on-call]
+tags: [sre, 事件响应, 可观测性, 故障定级, 复盘, 止损, on-call]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: Odoo EDI 电子数据交换
 description: 当需要在 Odoo 中对接 EDI（X12/EDIFACT）实现 B2B 单据自动化时使用；做 EDI 报文与 Odoo 业务对象的字段映射、贸易伙伴配置及入站/出站单据解析入库（产出映射表+Python 解析代码）；不适用于纯人工录单、非 EDI 的 API/CSV 对接或一次性数据导入；触发词：EDI、X12、850/856/810、EDIFACT、贸易伙伴对接
 domain: 领域/erp
 triggers: [EDI, X12, EDIFACT, 850 采购订单, 856 ASN, 810 发票, 997 功能确认, 贸易伙伴对接, B2B 单据自动化, odoo edi]
-tags: [Odoo, ERP, EDI, X12, EDIFACT, B2B集成, 订单自动化, xmlrpc]
+tags: [odoo, erp, edi, x12, edifact, b2b集成, 订单自动化, xmlrpc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

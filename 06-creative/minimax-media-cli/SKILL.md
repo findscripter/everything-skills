@@ -4,7 +4,7 @@ title: MiniMax 多模态生成 CLI
 description: 当需要在终端用 MiniMax 平台批量生成文本/图像/视频/语音/音乐、做联网搜索或图像理解时使用；用 mmx CLI 配 agent 旗标（--non-interactive/--quiet/--output json/--async）产出媒体文件或 JSON；不适用于未装 mmx 或未鉴权、需精细本地剪辑调色（回退 ffmpeg）、或想走 fal.ai/ElevenLabs 等其他供应商的场景；触发词：mmx、MiniMax、文生视频、文生图、文字转语音、生成音乐、海螺、Hailuo
 domain: 创意/av
 triggers: [mmx, MiniMax CLI, 海螺/Hailuo 生成视频, 文生图/文生视频, 文字转语音/TTS, 生成音乐/BGM, MiniMax 联网搜索, 图像理解/vision describe, mmx auth login, 终端批量生成媒体]
-tags: [创意, 视听, 媒体生成, MiniMax, mmx, CLI, 文生图, 文生视频, TTS, 音乐生成, Hailuo, 联网搜索, VLM]
+tags: [创意, 视听, 媒体生成, minimax, mmx, cli, 文生图, 文生视频, tts, 音乐生成, hailuo, 联网搜索, vlm]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

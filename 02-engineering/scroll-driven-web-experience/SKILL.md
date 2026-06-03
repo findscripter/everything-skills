@@ -4,7 +4,7 @@ title: 滚动驱动沉浸式网页体验
 description: 当需要把网页做成「随滚动展开的叙事/电影感」体验（视差、滚动动画、Pin 钉住、横向滚动、进度揭示）时使用；产出滚动驱动的页面方案与可运行代码（GSAP ScrollTrigger / Framer Motion / CSS scroll-timeline），含 60fps 性能、移动端与无障碍兜底；不适用于普通静态页排版、纯 3D/WebGL（转 3d-web-experience）、框架级实现（转 frontend）；触发词：滚动动画、视差、滚动叙事
 domain: 研发/frontend
 triggers: [滚动动画, 视差, parallax, 滚动叙事, scroll storytelling, 交互式故事, 电影感网页, 沉浸式网页, ScrollTrigger, Pin 钉住, 横向滚动, 滚动揭示, scroll-timeline]
-tags: [前端, 网页动画, 滚动交互, GSAP, Framer-Motion, 视差, 性能优化, 无障碍, CSS]
+tags: [前端, 网页动画, 滚动交互, gsap, framer-motion, 视差, 性能优化, 无障碍, css]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

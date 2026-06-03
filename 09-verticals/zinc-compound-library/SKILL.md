@@ -4,7 +4,7 @@ title: ZINC 虚拟化合物库检索
 description: 当需要从 ZINC15/ZINC22 检索可购买的类药/先导/片段化合物、按 MW/logP/HBD/HBA 等性质过滤建库、做 SMILES 相似性搜索或下载 SDF/SMILES 用于对接虚拟筛选时使用；用 requests 直连 ZINC15 REST API 与 tranche/subset 批量下载，产出去重的 SMILES/SDF 库与供应商信息。不适用于本地化学信息学（用 cheminformatics-toolkit）、靶点结合活性 IC50/Ki（用 chembl-bioactivity-database）或已上市药物结构（用 pubchem-compound-search）。触发词：ZINC、虚拟筛选、可购买化合物、tranche、相似性搜索、片段库
 domain: 领域/science
 triggers: [ZINC, ZINC15, ZINC22, 虚拟筛选, virtual screening, 可购买化合物, for-sale, tranche, 类药, 先导化合物, lead-like, 片段库, fragment-based, 三规则, Rule of Three, SMILES 相似性, Tanimoto, 对接库, docking library, MW logP 过滤]
-tags: [science, 化学信息学, 药物发现, ZINC, 虚拟筛选, REST-API, 化合物库, 分子对接]
+tags: [science, 化学信息学, 药物发现, zinc, 虚拟筛选, rest-api, 化合物库, 分子对接]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

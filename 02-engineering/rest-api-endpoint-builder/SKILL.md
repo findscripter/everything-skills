@@ -4,7 +4,7 @@ title: 生产级 REST API 端点构建
 description: 当需要新建或扩展后端 REST API 端点时使用；按「路由→校验→鉴权→业务→错误处理→响应→文档→测试」分层产出生产级端点代码与规范；不适用于前端调用、GraphQL/gRPC 或纯架构选型；触发词：REST API、端点、路由、CRUD、接口
 domain: 研发/backend
 triggers: [创建 API 端点, 构建 REST API, 新增接口/路由, 实现 CRUD 操作, 给已有 API 加端点, 接口入参校验与鉴权, endpoint, REST route]
-tags: [backend, REST API, Node.js, Express, Fastify, 鉴权, 入参校验, 错误处理, 分页, CRUD]
+tags: [backend, rest api, node.js, express, fastify, 鉴权, 入参校验, 错误处理, 分页, crud]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

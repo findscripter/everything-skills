@@ -4,7 +4,7 @@ title: OpenAPI 3.1 API 文档生成
 description: 当需要为 REST/事件驱动 API 编写或重写规范、搭建交互式开发者文档与门户时使用；做 OpenAPI 3.1/AsyncAPI 规范编写、示例与鉴权流程补全、交互文档与多语言 SDK 生成及示例可测试化的产物；不适用于无 API 面、纯后端实现或只需内部速记的场景；触发词：OpenAPI、API 文档、SDK 生成、Swagger/Redoc、开发者门户
 domain: 文书/writing
 triggers: [编写 OpenAPI 规范, API 文档, OpenAPI 3.1, AsyncAPI, Swagger UI, Redoc, 生成 SDK, 开发者门户, 接口文档, 鉴权流程文档, Webhook 文档, API 迁移指南]
-tags: [writing, 文书, OpenAPI, API文档, SDK, 开发者体验, 技术写作]
+tags: [writing, 文书, openapi, api文档, sdk, 开发者体验, 技术写作]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: AI 颠覆护城河分析
 description: 当评估某业务/公司被 AI 颠覆的风险与护城河强弱时使用；做 10 向量压力打分 + AI 原生竞品接管推演 + 90 天防御行动计划；不适用于审计级市场调研或投资建议。触发词：AI 颠覆风险、护城河评估、AI 替代、竞争尽调、90 天防御
 domain: 商业/growth
 triggers: [我的业务会被 AI 颠覆吗, AI 原生创业公司会怎么抢我的市场, 未来 90 天该怎么防御 AI, 对某公司做 AI 替代风险尽调, 我的护城河在 AI 压力下还成立吗, 评估 AI 颠覆护城河]
-tags: [商业分析, 护城河, AI颠覆, 竞争战略, 尽职调查, growth, 风险评估]
+tags: [商业分析, 护城河, ai颠覆, 竞争战略, 尽职调查, growth, 风险评估]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

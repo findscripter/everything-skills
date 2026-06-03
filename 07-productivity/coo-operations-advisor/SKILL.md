@@ -4,7 +4,7 @@ title: COO 运营顾问（流程与 OKR 执行）
 description: 当需要把战略落地为可执行运营、搭建/复盘 OKR、设计流程、规划运营节奏或诊断瓶颈与扩张风险时使用；产出 OKR 级联框架、流程图与瓶颈修复计划、运营节奏模板、效率成熟度评分卡与扩张就绪报告；不适用于纯财务建模、人事政策或技术架构决策。触发词：OKR、运营流程、瓶颈、运营节奏、扩张
 domain: 协作/pm
 triggers: [设置 OKR, OKR 复盘, 流程优化, 运营瓶颈, 运营节奏, 团队扩张, 运营效率, 战略落地, RACI 决策, 流程成熟度]
-tags: [协作, pm, OKR, 运营, 流程设计, 扩张, 运营节奏]
+tags: [协作, pm, okr, 运营, 流程设计, 扩张, 运营节奏]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

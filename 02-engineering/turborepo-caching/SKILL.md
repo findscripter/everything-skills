@@ -4,7 +4,7 @@ title: Turborepo 单仓构建缓存配置
 description: 当在 monorepo 中配置 Turborepo、设计 pipeline 任务依赖、接入本地/远程缓存或在 CI 中按变更过滤构建时使用；产出 turbo.json 任务编排、远程缓存接入（Vercel 或自托管）、--filter 范围控制与缓存命中调试方案；不适用于非 Turborepo 单仓工具（Nx/Bazel/Rush 等）或单工程小项目。触发词：Turborepo、turbo.json、远程缓存、monorepo
 domain: 研发/devops
 triggers: [Turborepo, turbo.json, turbo build, 远程缓存, remote cache, monorepo, 单仓, pipeline, dependsOn, 缓存命中, cache miss, --filter, TURBO_TOKEN, Vercel 缓存, CI 构建优化]
-tags: [turborepo, monorepo, 单仓, 构建缓存, 远程缓存, pipeline, CI, Vercel, 研发效能, DevOps]
+tags: [turborepo, monorepo, 单仓, 构建缓存, 远程缓存, pipeline, ci, vercel, 研发效能, devops]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

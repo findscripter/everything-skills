@@ -4,7 +4,7 @@ title: SEC 8-K 重大事项分析
 description: 当需要实时追踪美股上市公司 8-K 临时公告中的重大事项与公司治理变动（并购、高管变动、业绩发布、网络安全事件、退市等）时使用；经 Octagon MCP 的 octagon-agent 抽取，产出含 8-K Item 编号、事件分类、材料性分级与发生时间的结构化摘要；不适用于无 Octagon MCP、非美股 SEC 体系、需投资或法律建议、或要逐字全文照录的场景；触发词：8-K、临时公告、重大事项、material event、Item 5.02
 domain: 领域/fintech
 triggers: [8-K 申报, 临时公告, 重大事项, material event, octagon-agent, 并购公告, 高管变动, Item 5.02, 业绩发布 8-K, 网络安全事件披露, 8-K/A 更正]
-tags: [fintech, SEC, 8-K, 重大事项, 并购监控, 公司治理, Octagon MCP, 事件驱动投资]
+tags: [fintech, sec, 8-k, 重大事项, 并购监控, 公司治理, octagon mcp, 事件驱动投资]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

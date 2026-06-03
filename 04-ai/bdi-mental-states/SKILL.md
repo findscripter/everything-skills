@@ -4,7 +4,7 @@ title: BDI 智能体信念-愿望-意图建模
 description: 当需要把外部 RDF 上下文转成智能体心智状态、为 LLM 智能体补充可解释的认知结构时使用；用 BDI 本体（信念/愿望/意图）建模认知链并产出 Turtle/SPARQL 模型与 T2B2T 双向流；不适用于无 RDF/本体需求的纯提示词或一般业务编排；触发词：BDI、信念愿望意图、心智状态建模、神经符号、可解释推理
 domain: 智能/agents
 triggers: [BDI, 信念-愿望-意图, 信念愿望意图建模, 心智状态建模, 认知智能体, RDF转信念, BDI本体, 理性智能体, 神经符号AI, 逻辑增强生成, LAG, T2B2T, 多智能体心智协调, 可解释推理链, SEMAS]
-tags: [智能体, BDI, 本体建模, RDF, 知识图谱, 神经符号, 可解释AI, 多智能体, SPARQL, misc]
+tags: [智能体, bdi, 本体建模, rdf, 知识图谱, 神经符号, 可解释ai, 多智能体, sparql, misc]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

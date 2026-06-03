@@ -4,7 +4,7 @@ title: 对抗式代码评审
 description: 当合并 PR 前、长时间编码后或怀疑「LGTM」过于宽松时使用；用三类敌对角色（破坏者/新人/安全审计员）对改动做强制挑刺评审，产出按严重级分类、含 BLOCK/CONCERNS/CLEAN 裁决的结构化报告；不适用于无 diff 可评审或仅需正向确认/纯风格格式化的场景。触发词：对抗式评审、adversarial review、合并前评审、敌对角色挑刺
 domain: 研发/review
 triggers: [对抗式代码评审, adversarial review, /adversarial-review, 合并前严格评审, 怀疑LGTM太宽松, 敌对角色挑刺, PR merge 前评审, 破坏者/新人/安全审计员, self-review trap]
-tags: [研发, code-review, 代码质量, PR, 安全审计, OWASP, 对抗评审]
+tags: [研发, code-review, 代码质量, pr, 安全审计, owasp, 对抗评审]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

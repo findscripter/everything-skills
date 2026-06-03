@@ -4,7 +4,7 @@ title: 内部链接结构与锚文本优化
 description: 当需优化站内内链结构、锚文本分布、孤儿页、抓取深度或权重流动时使用；产出结构计分、孤儿页修复清单、内容簇(中枢-辐条)链路、上下文链接机会表与分阶段落地计划；不适用于决定写什么内容(用内容策略)、整站信息架构/URL重设计(用网站结构技能)或结构化数据标记(用schema标记)。触发词：内链优化、锚文本优化、孤儿页、权重传递、站内链接、网站结构乱、内容簇
 domain: 商业/seo
 triggers: [内链优化/内部链接, 锚文本优化/anchor text, 孤儿页/orphan pages, 权重传递/link equity, 站内链接, 抓取深度/click depth, 内容簇/主题集群, 中枢-辐条/pillar-cluster, 网站结构乱, 内链策略]
-tags: [SEO, 内链策略, 锚文本, 孤儿页修复, 主题权威, 权重流动, 内容簇, 站内架构]
+tags: [seo, 内链策略, 锚文本, 孤儿页修复, 主题权威, 权重流动, 内容簇, 站内架构]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 自改进记忆沉淀智能体
 description: 当 Claude Code 自动记忆 MEMORY.md 攒满零散学习、想把复现模式固化成规则或技能时使用；做记忆审计、把模式从 MEMORY.md 毕业到 CLAUDE.md/.claude/rules、抽调试解法成技能、管理 200 行容量；不适用于一次性笔记或无 auto-memory 环境。触发词：自动记忆、MEMORY.md、记忆审计、CLAUDE.md、规则沉淀、提炼技能、记忆容量
 domain: 智能/agents
 triggers: [自动记忆, auto-memory, MEMORY.md, 记忆审计, memory review, 记忆沉淀, 规则提升, promote rule, CLAUDE.md, .claude/rules, 提炼技能, extract skill, 记忆容量, 记忆健康, self-improving, 自改进]
-tags: [智能体, agents, 自动记忆, CLAUDE.md, 规则治理, 技能提炼, 上下文工程, Claude Code]
+tags: [智能体, agents, 自动记忆, claude.md, 规则治理, 技能提炼, 上下文工程, claude code]
 level: 进阶
 status: stable
 agents: [claude-code]

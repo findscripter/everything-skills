@@ -4,7 +4,7 @@ title: DevOps 事故响应与可观测排障
 description: 当线上服务故障、性能劣化或告警触发需快速定位根因时使用；按「先取证再假设」流程，用日志/指标/链路追踪与 kubectl、dig、tcpdump 等定位问题、止血恢复并产出复盘与监控加固；不适用于纯代码业务逻辑 bug、单机本地开发调试或非运维域问题；触发词：事故响应、OOMKilled、504 超时、根因分析、可观测、链路追踪。
 domain: 研发/observability
 triggers: [线上事故响应/止血, Pod 频繁重启或 OOMKilled, 504/502 网关超时排查, 微服务链路性能瓶颈定位, DNS/服务发现解析异常, CI/CD 流水线失败或回滚, 数据库死锁/连接池耗尽, 做事故复盘与监控告警加固]
-tags: [DevOps, SRE, 事故响应, 可观测性, Kubernetes, 排障, 根因分析, 链路追踪]
+tags: [devops, sre, 事故响应, 可观测性, kubernetes, 排障, 根因分析, 链路追踪]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 分析埋点与转化追踪
 description: 当需要从零搭建/审计/调试 GA4、GTM 埋点与转化追踪时使用；做事件分类法设计、GA4+GTM 实现、转化与跨域/UTM 配置及数据质量校验，产出追踪计划、容器结构与修复清单；不适用于营销活动数据分析（用 campaign-analytics）或产品内 BI 看板（用 product-analytics）。触发词：GA4 搭建、Google Tag Manager/GTM、埋点、转化追踪、事件分类法、UTM、埋点审计
 domain: 商业/marketing
 triggers: [GA4 搭建, Google Tag Manager, GTM 配置, 埋点, 事件追踪, 转化追踪, 追踪计划, 事件分类法, 自定义维度, UTM 追踪, 埋点审计, 事件丢失, 跨域追踪, 同意模式]
-tags: [marketing, analytics, GA4, GTM, conversion-tracking, event-taxonomy, data-quality, 商业]
+tags: [marketing, analytics, ga4, gtm, conversion-tracking, event-taxonomy, data-quality, 商业]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

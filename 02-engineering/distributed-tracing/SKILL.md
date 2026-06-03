@@ -4,7 +4,7 @@ title: Jaeger/Tempo 分布式链路追踪
 description: 当需要排查微服务链路延迟/依赖/错误传播时使用；用 OpenTelemetry 埋点并部署 Jaeger/Tempo 输出可查询的链路与服务依赖图；不适用于单体无跨服务调用或仅需指标/日志的场景；触发词：分布式追踪、链路、Jaeger、Tempo、OpenTelemetry、span、trace
 domain: 研发/observability
 triggers: [分布式追踪, 链路追踪, Jaeger, Tempo, OpenTelemetry, trace, span, context propagation, 服务依赖图, 链路延迟排查, trace_id 关联日志, 采样策略]
-tags: [可观测性, 分布式追踪, Jaeger, Tempo, OpenTelemetry, 微服务, Kubernetes, 研发]
+tags: [可观测性, 分布式追踪, jaeger, tempo, opentelemetry, 微服务, kubernetes, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

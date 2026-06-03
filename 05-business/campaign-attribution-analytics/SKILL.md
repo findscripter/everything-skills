@@ -4,7 +4,7 @@ title: 营销活动归因分析
 description: 当需要评估营销活动表现、判定渠道贡献或核算投放回报时使用；用三个零依赖 Python CLI 对 JSON 数据做多触点归因、漏斗转化与 ROI/ROAS/CPA 核算并产出可读或 JSON 报告；不适用于实时数据接入、统计显著性检验或跨设备身份打通。触发词：归因模型、营销 ROI、漏斗转化
 domain: 商业/marketing
 triggers: [营销活动分析, 多触点归因, 归因模型, 时间衰减归因, 漏斗转化分析, 转化率漏斗, ROI 计算, ROAS, CPA / CAC, 渠道贡献评估, 广告投放回报, campaign analytics, attribution model]
-tags: [商业, marketing, 营销分析, 归因建模, 漏斗分析, ROI, 数据分析, python-cli]
+tags: [商业, marketing, 营销分析, 归因建模, 漏斗分析, roi, 数据分析, python-cli]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

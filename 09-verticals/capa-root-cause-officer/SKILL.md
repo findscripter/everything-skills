@@ -4,7 +4,7 @@ title: 医疗器械 CAPA 与根因分析
 description: 当医疗器械 QMS 出现投诉、审核发现或不合格需走纠正预防措施（CAPA）时使用；做根因分析（5Why/鱼骨/FTA/FMEA）、纠正与预防措施计划、有效性验证并产出 CAPA 计划与指标报告；不适用于风险管理（ISO 14971）或单纯返工等非系统性问题。触发词：CAPA 调查、根因分析、5Why、鱼骨图、有效性验证
 domain: 领域/medical
 triggers: [CAPA 调查, 根因分析, 5Why 分析, 鱼骨图, 纠正措施, 预防措施, 有效性验证, CAPA 指标, 不合格调查, 审核发现 CAPA]
-tags: [医疗器械, 质量管理, CAPA, 根因分析, ISO 13485, FDA 21 CFR 820, 合规]
+tags: [医疗器械, 质量管理, capa, 根因分析, iso 13485, fda 21 cfr 820, 合规]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 敏捷产品负责人与待办管理
 description: 当用 Scrum 写用户故事、定验收标准、拆 Epic、排 Sprint 或排序待办时使用；做出 INVEST 合规故事/GWT 验收标准/容量内的 Sprint 计划/加权优先级排序；不适用于纯看板、瀑布、通用任务管理及未适配的 SAFe/LeSS。触发词：用户故事、验收标准、Sprint 规划、故事点估算、拆 Epic、待办排序
 domain: 协作/pm
 triggers: [写用户故事, 创建验收标准, Sprint 规划, 故事点估算, 拆分 Epic, 待办排序, backlog grooming, definition of done, INVEST 校验, Given-When-Then, 团队容量, 速率跟踪]
-tags: [敏捷, Scrum, 产品负责人, 用户故事, Sprint规划, 待办管理, 验收标准, 协作, pm]
+tags: [敏捷, scrum, 产品负责人, 用户故事, sprint规划, 待办管理, 验收标准, 协作, pm]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

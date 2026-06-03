@@ -4,7 +4,7 @@ title: 基于信号的客户通话准备（Common Room）
 description: 当要在与某客户/潜客通话前快速准备时使用；做账户研究+参会人研究+信号综合，产出可 5 分钟扫读的通话准备简报（公司快照、参会人画像、信号高光、谈话要点、预判异议、目标产出）；不适用于通话后的纪要提炼（见 sales-call-summary）、纯线索建表（见 sales-prospecting）或凭空编造 deal 上下文；触发词：帮我准备和 X 的通话、prep me for call、会前准备、call prep、谈话要点
 domain: 商业/sales
 triggers: [call prep, 帮我准备和 X 的通话, prep me for my call, 会前准备, 通话准备, 谈话要点, 和某公司开会前要知道什么, prepare for a meeting, 客户会议准备, 参会人画像]
-tags: [商业, 销售, 会前准备, 信号, 账户研究, 参会人研究, 谈话要点, Common Room]
+tags: [商业, 销售, 会前准备, 信号, 账户研究, 参会人研究, 谈话要点, common room]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

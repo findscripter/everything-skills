@@ -4,7 +4,7 @@ title: 技术参考手册构建
 description: 当需要把 API、配置项或数据 Schema 整理成穷尽、可检索、字段级精确的技术参考手册时使用；做参数/方法/配置项的逐条编目，含类型、默认值、约束、错误码、示例与交叉引用的权威参考文档产物；不适用于教程、长篇架构叙事或 README 速写。触发词：API 参考、参数手册、配置项文档、Schema 文档、错误码表、字段参考
 domain: 文书/markdown
 triggers: [编写 API 参考手册, 整理参数与配置项文档, 生成 Schema 字段参考, 罗列错误码与异常表, 做可检索的技术参考, 为每个方法补全签名与示例, 配置项默认值与取值范围文档]
-tags: [技术文档, API参考, 参数手册, 配置文档, Schema, 文档工程, 技术写作]
+tags: [技术文档, api参考, 参数手册, 配置文档, schema, 文档工程, 技术写作]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

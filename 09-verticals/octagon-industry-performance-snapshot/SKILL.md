@@ -4,7 +4,7 @@ title: 行业表现每日快照
 description: 当需要按交易所+行业看某一交易日的行业整体表现（平均涨跌幅）、判断板块强弱或捕捉轮动信号时使用；通过 Octagon MCP 的 octagon-agent 工具用自然语言按日期/交易所/行业拉取行业每日平均变动，并据分区表解读量级、算超额 Alpha、识别催化与动量；不适用于个股逐笔/分钟级行情、自建因子重算或离线无 MCP 取数。触发词：行业快照、industry performance、板块涨跌、平均变动、行业轮动、octagon-agent
 domain: 领域/fintech
 triggers: [行业快照, industry performance, 板块涨跌, 平均变动, 行业轮动, sector rotation, 行业表现, 板块强弱, 动量追踪, octagon-agent]
-tags: [fintech, 行业表现, 板块分析, 行业轮动, 动量分析, MCP, octagon]
+tags: [fintech, 行业表现, 板块分析, 行业轮动, 动量分析, mcp, octagon]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

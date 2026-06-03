@@ -4,7 +4,7 @@ title: 自主编码智能体设计模式
 description: 当设计/实现自主编码智能体（Agent Loop、工具调用、权限审批、浏览器自动化、上下文与检查点、MCP 集成）时使用；产出可落地的架构模式、工具 Schema、权限分级与沙箱约束。不适用于单次问答式提示或不涉及工具执行的纯对话。触发词：autonomous agent、agent loop、工具调用、权限审批、沙箱、MCP
 domain: 智能/agents
 triggers: [构建自主编码智能体, 设计 agent loop / 工具调用 API, 实现权限与审批系统, 为智能体做浏览器自动化, 上下文注入与检查点恢复, 集成 MCP 动态工具, human-in-the-loop 工作流]
-tags: [智能体, agents, agent-loop, tool-calling, 权限审批, 沙箱, 浏览器自动化, MCP, 上下文管理, checkpoint]
+tags: [智能体, agents, agent-loop, tool-calling, 权限审批, 沙箱, 浏览器自动化, mcp, 上下文管理, checkpoint]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

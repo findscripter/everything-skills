@@ -4,7 +4,7 @@ title: D3.js 交互式数据可视化
 description: 当需要用 D3.js 构建自定义、交互式、出版级数据可视化（网络图、地理投影、弦图、热力图、力导向图等标准图表库做不出的图形）时使用；做绑定数据到 DOM、用比例尺/坐标轴/形状生成器渲染 SVG 并加上过渡、缩放、提示框等交互；不适用于 3D（改用 Three.js）或现成图表库够用的简单图。触发词：D3.js、数据可视化、力导向图
 domain: 创意/design
 triggers: [D3.js, d3, 数据可视化, 交互式图表, 力导向图, 弦图, 热力图, SVG 图表, 比例尺, 坐标轴, 缩放平移, 网络图, 可视化]
-tags: [d3js, 数据可视化, 前端, SVG, 交互, 图表, JavaScript, 创意]
+tags: [d3js, 数据可视化, 前端, svg, 交互, 图表, javascript, 创意]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

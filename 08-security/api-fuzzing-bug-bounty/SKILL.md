@@ -4,7 +4,7 @@ title: REST/GraphQL API 模糊测试与漏洞挖掘
 description: 当在授权的漏洞赏金或渗透测试中需要对 REST/SOAP/GraphQL API 做侦察、模糊测试与越权挖掘时使用；做端点枚举、IDOR/BOLA、注入、鉴权绕过、403 绕过与 GraphQL 内省/批处理攻击并产出可复现 PoC 与漏洞清单；不适用于未授权目标、生产破坏性攻击或前端 UI/业务逻辑测试。触发词：API 模糊测试、IDOR、GraphQL 内省、鉴权绕过、Swagger 枚举、漏洞赏金
 domain: 安全/appsec
 triggers: [API 模糊测试, REST API 渗透测试, GraphQL 安全测试, IDOR, BOLA 越权, GraphQL 内省 introspection, Swagger/OpenAPI 枚举, API 鉴权绕过, 403/401 绕过, JSON 注入 SQLi, 漏洞赏金 API, Kiterunner API 发现, 批处理速率限制绕过, XXE/SSRF via API]
-tags: [安全, appsec, API安全, 漏洞赏金, 渗透测试, GraphQL, REST, IDOR, 模糊测试, 越权, 攻击性安全]
+tags: [安全, appsec, api安全, 漏洞赏金, 渗透测试, graphql, rest, idor, 模糊测试, 越权, 攻击性安全]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

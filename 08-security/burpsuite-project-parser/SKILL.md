@@ -4,7 +4,7 @@ title: Burp Suite 工程文件命令行解析
 description: 当需要从命令行检索、提取 Burp Suite 工程文件（.burp）中的审计发现、代理历史、站点地图或 HTTP 流量时使用；做用正则按响应头/响应体搜索、抽取 auditItems、按子组件过滤器分块取数并产出 JSON 结果；不适用于直接解析 .burp（依赖 Burp Pro + 解析扩展）、未授权数据或全量 dump；触发词：.burp、proxyHistory、auditItems、responseHeader 正则、Burp 工程解析
 domain: 安全/audit
 triggers: [解析 .burp 工程文件, proxyHistory 子组件过滤, auditItems 审计项, responseHeader 正则搜索, responseBody 搜索, siteMap 站点地图, Burp 命令行解析, 代理历史 dump]
-tags: [安全, Burp Suite, 工程文件解析, 命令行, 审计项, 代理历史, 正则检索]
+tags: [安全, burp suite, 工程文件解析, 命令行, 审计项, 代理历史, 正则检索]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

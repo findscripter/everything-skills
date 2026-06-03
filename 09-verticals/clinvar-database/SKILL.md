@@ -4,7 +4,7 @@ title: ClinVar 变异临床意义查询
 description: 当需要查询某变异的临床意义/致病性/疾病关联或筛出基因致病变异时使用；通过 NCBI E-utilities（ESearch/ESummary/EFetch）按基因/rsID/疾病/审阅星级检索 ClinVar，产出 ClinSig、审阅状态、疾病与提交者数据；不适用于 GWAS 群体关联（用 gwas-database）、变异功能后果预测（用 Ensembl VEP）、体细胞肿瘤变异（用 cosmic-database）。触发词：ClinVar、致病性、临床意义、rsID 查询、致病变异
 domain: 领域/science
 triggers: [ClinVar, 变异临床意义, 致病性查询, pathogenic 变异, rsID 临床意义, 基因致病变异列表, 审阅星级, germline_classification, E-utilities 查 ClinVar, 变异疾病关联]
-tags: [science, genomics, bioinformatics, ClinVar, NCBI, E-utilities, 变异注释, 临床基因组学, 数据库查询]
+tags: [science, genomics, bioinformatics, clinvar, ncbi, e-utilities, 变异注释, 临床基因组学, 数据库查询]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

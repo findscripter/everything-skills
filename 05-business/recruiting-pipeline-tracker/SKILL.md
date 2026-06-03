@@ -4,7 +4,7 @@ title: 招聘漏斗管理与候选人阶段跟踪
 description: 当需要跟踪管理招聘漏斗（从 sourcing 到 offer accepted 的各阶段候选人）并监控招聘转化与效率指标时使用；做漏斗阶段建模、候选人阶段流转跟踪与指标计算，产出阶段看板/各阶段候选人统计/转化与速度指标报告；不适用于面试方案与题库设计（用 interview-plan-builder）、offer 起草与谈薪（用 offer-letter-drafter）、薪酬带宽建模（用 compensation-analysis）。触发词：招聘漏斗、recruiting update、candidate pipeline、how many candidates、hiring status、招聘进展、候选人阶段、漏斗转化、time to fill、offer 接受率
 domain: 商业/sales
 triggers: [招聘漏斗, recruiting update, candidate pipeline, how many candidates, hiring status, 招聘进展, 候选人阶段, 漏斗转化, time to fill, offer 接受率, 招聘 pipeline, 招聘看板]
-tags: [商业, 人力资源, 招聘, 招聘漏斗, pipeline, 候选人跟踪, 转化率, 招聘指标, ATS]
+tags: [商业, 人力资源, 招聘, 招聘漏斗, pipeline, 候选人跟踪, 转化率, 招聘指标, ats]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

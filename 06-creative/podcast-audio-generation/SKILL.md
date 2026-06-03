@@ -4,7 +4,7 @@ title: 文本生成播客音频
 description: 当需要把文本/文稿转成自然口播的播客音频时使用；经 Azure OpenAI Realtime API（gpt-realtime-mini）走 WebSocket 流式收 PCM 音频+逐字稿，转 WAV 并 base64 回传前端播放；不适用于无 Azure 凭据、要求精确逐字音色克隆或长篇离线批量 TTS 的场景，后者回退专用 TTS；触发词：文本转语音播客、文稿配音、Realtime 语音合成、PCM 转 WAV
 domain: 创意/av
 triggers: [文本生成播客, 文稿配音/口播, 文本转语音/TTS, Azure Realtime 语音合成, gpt-realtime-mini, PCM 转 WAV, 流式音频合成, base64 音频回传播放]
-tags: [创意, 音视频, TTS, 播客, Azure OpenAI, Realtime API, WebSocket, PCM, WAV, 音频流]
+tags: [创意, 音视频, tts, 播客, azure openai, realtime api, websocket, pcm, wav, 音频流]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

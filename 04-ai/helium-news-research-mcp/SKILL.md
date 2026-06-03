@@ -4,7 +4,7 @@ title: Helium 新闻研究 MCP
 description: 当需要做带媒体偏见标注的新闻检索、左中右平衡观点、来源可信度评估，或查实时股票/期权/加密数据与语义 meme 搜索时使用；做接入 Helium MCP（免鉴权 streamable HTTP）并按 9 个工具检索、产出偏见画像/平衡综述/行情分析；不适用于权威实时事实核验、投资决策背书或自建 MCP 服务（应转 mcp-builder）。触发词：新闻检索、媒体偏见、平衡观点、来源可信度、股票期权、Helium MCP
 domain: 智能/rag
 triggers: [新闻检索, news research, 媒体偏见, media bias, 偏见分析, 平衡新闻, balanced news, 左中右观点, 来源可信度, source bias, 文章偏见, 股票数据, ticker, 期权定价, option price, 交易策略, meme 搜索, 语义检索, Helium MCP, MCP 服务器]
-tags: [MCP, 新闻情报, 媒体偏见, RAG, 金融数据, 股票期权, 语义检索, 研究]
+tags: [mcp, 新闻情报, 媒体偏见, rag, 金融数据, 股票期权, 语义检索, 研究]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

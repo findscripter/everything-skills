@@ -4,7 +4,7 @@ title: 验收标准闭环交付
 description: 当编码/修复任务须对照明确验收标准（DoD）端到端完成、且要少让用户在实现-评审-部署-验证各环节反复插手时使用；做法是把需求转成可测标准，按「实现→本地验证→PR评审回合→dev部署+运行时取证→凭证化判定」闭环推进，产出含通过/未通过清单与运行时凭证的交付报告；不适用于纯问答、未批准的生产部署、缺密钥/权限的被阻塞任务。触发词：闭环交付、对照验收标准、DoD、跑测再部署、复查PR评论
 domain: 通用/thinking
 triggers: [闭环交付, closed-loop delivery, 验收标准, DoD, Definition of Done, 端到端完成, 跑测再部署, 复查PR评论, PR评审回合, dev部署验证, 运行时取证, 凭证化完成]
-tags: [交付流程, 验收标准, 自主执行, PR评审, 部署验证, 运行时验证, 通用]
+tags: [交付流程, 验收标准, 自主执行, pr评审, 部署验证, 运行时验证, 通用]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

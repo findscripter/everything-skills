@@ -4,7 +4,7 @@ title: shadcn/ui 组件库实践
 description: 当在前端项目中新增/组合/调试 shadcn/ui 组件、初始化项目或切换设计预设时使用；做组件查找-安装-组合的可执行操作并产出符合关键约束的 React/TSX 代码；不适用于非 shadcn/ui 的 UI 库或纯样式问题。触发词：shadcn、组件库、设计系统
 domain: 研发/frontend
 triggers: [shadcn, shadcn/ui, 组件库, 设计系统, registry, npx shadcn, 新增组件, FieldGroup, 切换预设, monorepo UI]
-tags: [前端, React, shadcn, 组件库, 设计系统, Tailwind, TSX, CLI]
+tags: [前端, react, shadcn, 组件库, 设计系统, tailwind, tsx, cli]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

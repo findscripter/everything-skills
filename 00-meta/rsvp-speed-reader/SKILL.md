@@ -4,7 +4,7 @@ title: RSVP 快速阅读器
 description: 当需要让用户以 400–800+ WPM 速读长文本或 Agent 的长回复、又不愿逐行滚动时使用；做生成一个单页 RSVP 速读器（逐词闪现 + Spritz 式 ORP 红字对齐 + 速度/暂停控制）的 HTML 产物；不适用于需对照、跳读、做笔记、看代码块/表格或精读校对的场景。触发词：RSVP、速读、快速阅读、Spritz、ORP、逐词闪现
 domain: 通用/learning
 triggers: [RSVP, 速读, 快速阅读, 逐词闪现, Spritz, ORP, speed read, WPM, 一个词一个词地读, 把回复做成速读]
-tags: [速读, RSVP, Spritz, 阅读辅助, 前端单页应用, 通用, 可访问性]
+tags: [速读, rsvp, spritz, 阅读辅助, 前端单页应用, 通用, 可访问性]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

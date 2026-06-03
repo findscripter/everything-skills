@@ -4,7 +4,7 @@ title: 技术栈评估与 TCO 对比
 description: 当为新项目选型、对比框架/云厂商或评估迁移路径时使用；做加权打分、5 年 TCO、生态健康、安全合规与迁移成本的数据化评估并产出带置信度的对比报告与建议；不适用于同类工具的琐碎二选一、已拍板的强制选型或紧急生产故障排查；触发词：技术栈对比、TCO、迁移评估
 domain: 研发/architecture
 triggers: [技术栈评估, 框架对比, TCO, 总拥有成本, 迁移评估, 选型, 云厂商对比, 生态健康, 技术选型, build vs buy]
-tags: [架构, 技术选型, TCO, 迁移, 云厂商, 评估决策]
+tags: [架构, 技术选型, tco, 迁移, 云厂商, 评估决策]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

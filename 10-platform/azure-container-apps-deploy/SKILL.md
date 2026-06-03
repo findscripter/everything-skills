@@ -4,7 +4,7 @@ title: Azure Container Apps 容器化部署（azd）
 description: 当用 Azure Developer CLI（azd）把前后端容器应用部署到 Azure Container Apps 时使用；产出 azure.yaml 服务定义、Bicep 基础设施、远程构建/托管身份/RBAC 配置与幂等 azd up 部署流程；不适用于 AWS/GCP 无服务器、AKS 原生 K8s 编排或纯应用代码开发。触发词：azd、azd up、Azure Container Apps、azure.yaml、remoteBuild、Bicep、Managed Identity、containerapp
 domain: 平台/cloud
 triggers: [azd up, azd init, azd env set, Azure Container Apps, azure.yaml, remoteBuild, containerapp host, Bicep main.parameters.json, Managed Identity principalId, postprovision RBAC hook, Container Apps 服务发现, azd deploy --service, az containerapp logs, 幂等部署, azd auth login]
-tags: [Azure, Container Apps, azd, Bicep, IaC, 远程构建, Managed Identity, RBAC, DevOps, 容器部署]
+tags: [azure, container apps, azd, bicep, iac, 远程构建, managed identity, rbac, devops, 容器部署]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

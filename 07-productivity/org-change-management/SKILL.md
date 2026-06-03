@@ -4,7 +4,7 @@ title: 组织变革管理ADKAR
 description: 当推行重组/换工具/战略转向/砍产品/换高管等组织变革，需有序落地并管理阻力时使用；用ADKAR五阶段（认知-意愿-知识-能力-巩固）产出沟通节奏、阻力应对话术与采用度度量；不适用于纯个人任务管理或一次性技术操作。触发词：变革管理、ADKAR、重组reorg、战略转向pivot
 domain: 协作/pm
 triggers: [变革管理, 组织变革, ADKAR, 重组, reorg, 战略转向, pivot, 换工具迁移, 砍产品, 换高管, 管理阻力, 变革落地, 采用度, 变革疲劳]
-tags: [协作, pm, 变革管理, ADKAR, 组织发展, 沟通, stakeholder, c-level]
+tags: [协作, pm, 变革管理, adkar, 组织发展, 沟通, stakeholder, c-level]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

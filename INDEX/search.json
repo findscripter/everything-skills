@@ -32,7 +32,7 @@
     "status": "stable",
     "tags": [
       "算法",
-      "Big-O",
+      "big-o",
       "复杂度",
       "性能",
       "代码审查",
@@ -187,7 +187,7 @@
       "交付流程",
       "验收标准",
       "自主执行",
-      "PR评审",
+      "pr评审",
       "部署验证",
       "运行时验证",
       "通用"
@@ -235,10 +235,10 @@
     "tags": [
       "上下文工程",
       "token 优化",
-      "MCP 治理",
+      "mcp 治理",
       "技能审计",
       "成本控制",
-      "Claude Code 配置",
+      "claude code 配置",
       "性能调优"
     ],
     "triggers": [
@@ -261,10 +261,10 @@
     "status": "stable",
     "tags": [
       "技能管理",
-      "AI编码工具",
-      "Cursor",
-      "Claude",
-      "Windsurf",
+      "ai编码工具",
+      "cursor",
+      "claude",
+      "windsurf",
       "规则文件",
       "跨工具",
       "文件操作"
@@ -363,9 +363,9 @@
       "竞争情报",
       "会前准备",
       "假设检验",
-      "WebSearch",
-      "WebFetch",
-      "SEC-EDGAR",
+      "websearch",
+      "webfetch",
+      "sec-edgar",
       "docx报告",
       "来源审计"
     ],
@@ -437,7 +437,7 @@
       "上下文工程",
       "token 优化",
       "scratch pad",
-      "多 Agent 协作",
+      "多 agent 协作",
       "动态上下文",
       "记忆持久化",
       "文件检索",
@@ -664,7 +664,7 @@
       "防错",
       "代码质量",
       "工程文化",
-      "YAGNI"
+      "yagni"
     ],
     "triggers": [
       "重构",
@@ -747,7 +747,7 @@
       "企业检索",
       "多源",
       "结论先行",
-      "RAG 后处理"
+      "rag 后处理"
     ],
     "triggers": [
       "综合",
@@ -795,12 +795,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "NotebookLM",
+      "notebooklm",
       "源锚定",
-      "RAG",
+      "rag",
       "文档问答",
       "浏览器自动化",
-      "Gemini",
+      "gemini",
       "研究",
       "可溯源"
     ],
@@ -825,7 +825,7 @@
       "规划",
       "施工计划",
       "任务拆解",
-      "多Agent协作",
+      "多agent协作",
       "对抗评审",
       "分支工作流",
       "通用"
@@ -849,10 +849,10 @@
     "status": "stable",
     "tags": [
       "开源贡献",
-      "GitHub",
+      "github",
       "issue 挖掘",
       "可行性评分",
-      "PR 机会",
+      "pr 机会",
       "gh-cli",
       "贡献档案",
       "mergeability"
@@ -876,7 +876,7 @@
     "status": "stable",
     "tags": [
       "并行",
-      "子Agent",
+      "子agent",
       "任务分派",
       "测试修复",
       "编排",
@@ -1004,8 +1004,8 @@
     "status": "stable",
     "tags": [
       "速读",
-      "RSVP",
-      "Spritz",
+      "rsvp",
+      "spritz",
       "阅读辅助",
       "前端单页应用",
       "通用",
@@ -1109,8 +1109,8 @@
       "会议纪要",
       "语音转文字",
       "文书",
-      "Markdown",
-      "LLM摘要"
+      "markdown",
+      "llm摘要"
     ],
     "triggers": [
       "转写音频",
@@ -1157,7 +1157,7 @@
       "文风",
       "散文",
       "改写",
-      "去AI腔",
+      "去ai腔",
       "文书"
     ],
     "triggers": [
@@ -1182,7 +1182,7 @@
       "misc",
       "学术写作",
       "引文管理",
-      "BibTeX",
+      "bibtex",
       "文献检索",
       "元数据",
       "校验"
@@ -1231,7 +1231,7 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "PRD",
+      "prd",
       "逆向工程",
       "需求文档",
       "代码分析",
@@ -1260,10 +1260,10 @@
     "status": "stable",
     "tags": [
       "代码导览",
-      "CodeTour",
+      "codetour",
       "onboarding",
       "架构走读",
-      "PR 审查",
+      "pr 审查",
       "技术文档",
       "代码讲解"
     ],
@@ -1290,7 +1290,7 @@
       "writing",
       "内容营销",
       "品牌声音",
-      "去AI味",
+      "去ai味",
       "改写",
       "文案润色"
     ],
@@ -1313,7 +1313,7 @@
       "文书",
       "文档写作",
       "协作工作流",
-      "PRD",
+      "prd",
       "决策文档",
       "读者测试"
     ],
@@ -1338,10 +1338,10 @@
       "数学建模",
       "形式化",
       "问题规范",
-      "MPS",
+      "mps",
       "零推断",
       "证据引用",
-      "JSON输出",
+      "json输出",
       "需求抽取",
       "文书写作"
     ],
@@ -1418,8 +1418,8 @@
     "status": "stable",
     "tags": [
       "中文写作",
-      "AI味检测",
-      "AIGC降痕",
+      "ai味检测",
+      "aigc降痕",
       "论文降重",
       "文风转换",
       "文本改写"
@@ -1503,7 +1503,7 @@
       "文书",
       "writing",
       "学术写作",
-      "LaTeX",
+      "latex",
       "期刊模板",
       "格式转换",
       "投稿",
@@ -1551,9 +1551,9 @@
     "tags": [
       "writing",
       "文书",
-      "OpenAPI",
-      "API文档",
-      "SDK",
+      "openapi",
+      "api文档",
+      "sdk",
       "开发者体验",
       "技术写作"
     ],
@@ -1702,7 +1702,7 @@
     "status": "stable",
     "tags": [
       "文档",
-      "README",
+      "readme",
       "技术写作",
       "开源",
       "项目说明",
@@ -1725,10 +1725,10 @@
     "status": "stable",
     "tags": [
       "技术文档",
-      "API参考",
+      "api参考",
       "参数手册",
       "配置文档",
-      "Schema",
+      "schema",
       "文档工程",
       "技术写作"
     ],
@@ -1777,9 +1777,9 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "VitePress",
+      "vitepress",
       "静态站点",
-      "Mermaid",
+      "mermaid",
       "文档工程",
       "暗色主题",
       "前端构建"
@@ -1907,9 +1907,9 @@
       "研发",
       "code-review",
       "代码质量",
-      "PR",
+      "pr",
       "安全审计",
-      "OWASP",
+      "owasp",
       "对抗评审"
     ],
     "triggers": [
@@ -1931,7 +1931,7 @@
     "tags": [
       "代码审计",
       "代码质量",
-      "AI生成代码",
+      "ai生成代码",
       "技术债",
       "生产就绪",
       "安全审查",
@@ -2011,7 +2011,7 @@
       "angular",
       "angularjs",
       "迁移",
-      "ngUpgrade",
+      "ngupgrade",
       "前端",
       "重构"
     ],
@@ -2093,12 +2093,12 @@
     "tags": [
       "研发",
       "testing",
-      "API测试",
+      "api测试",
       "集成测试",
       "契约测试",
-      "Vitest",
-      "Supertest",
-      "Pytest",
+      "vitest",
+      "supertest",
+      "pytest",
       "httpx",
       "回归测试"
     ],
@@ -2121,7 +2121,7 @@
       "研发",
       "发布",
       "发版说明",
-      "App Store",
+      "app store",
       "release-notes",
       "git",
       "文案"
@@ -2259,7 +2259,7 @@
       "架构",
       "整洁架构",
       "六边形架构",
-      "DDD",
+      "ddd",
       "领域驱动设计",
       "端口适配器",
       "依赖倒置",
@@ -2291,7 +2291,7 @@
       "脚本",
       "防御式编程",
       "错误处理",
-      "CI/CD",
+      "ci/cd",
       "运维自动化",
       "幂等",
       "研发",
@@ -2347,7 +2347,7 @@
       "monorepo",
       "远程缓存",
       "远程执行",
-      "CI",
+      "ci",
       "研发效能",
       "misc"
     ],
@@ -2367,9 +2367,9 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Bevy",
-      "Rust",
-      "ECS",
+      "bevy",
+      "rust",
+      "ecs",
       "游戏开发",
       "并行调度",
       "性能优化",
@@ -2451,7 +2451,7 @@
       "跨浏览器",
       "云测试",
       "兼容性",
-      "E2E",
+      "e2e",
       "研发"
     ],
     "triggers": [
@@ -2496,14 +2496,14 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "BullMQ",
-      "Redis",
+      "bullmq",
+      "redis",
       "任务队列",
       "后台处理",
-      "Node.js",
-      "TypeScript",
+      "node.js",
+      "typescript",
       "异步",
-      "Worker",
+      "worker",
       "限流",
       "重试退避",
       "定时任务",
@@ -2560,7 +2560,7 @@
     "level": "精通",
     "status": "stable",
     "tags": [
-      "C",
+      "c",
       "研发",
       "内存管理",
       "指针",
@@ -2568,7 +2568,7 @@
       "嵌入式",
       "并发",
       "性能优化",
-      "POSIX"
+      "posix"
     ],
     "triggers": [
       "C",
@@ -2594,10 +2594,10 @@
     "tags": [
       "架构",
       "文档",
-      "C4-model",
+      "c4-model",
       "代码分析",
-      "Mermaid",
-      "OpenAPI",
+      "mermaid",
+      "openapi",
       "逆向工程"
     ],
     "triggers": [
@@ -2708,8 +2708,8 @@
       "代码质量",
       "code-review",
       "命名",
-      "TDD",
-      "SRP",
+      "tdd",
+      "srp",
       "研发"
     ],
     "triggers": [
@@ -2729,7 +2729,7 @@
     "status": "stable",
     "tags": [
       "整洁架构",
-      "SOLID",
+      "solid",
       "code-review",
       "代码坏味道",
       "依赖规则",
@@ -2786,13 +2786,13 @@
     "status": "stable",
     "tags": [
       "云网络",
-      "VPC",
+      "vpc",
       "负载均衡",
-      "DNS",
-      "SSL/TLS",
+      "dns",
+      "ssl/tls",
       "零信任",
-      "mTLS",
-      "CDN",
+      "mtls",
+      "cdn",
       "服务网格",
       "多云",
       "可观测性"
@@ -2844,12 +2844,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "AWS",
-      "CloudFormation",
-      "IaC",
+      "aws",
+      "cloudformation",
+      "iac",
       "基础设施即代码",
       "嵌套栈",
-      "DevOps",
+      "devops",
       "研发"
     ],
     "triggers": [
@@ -3004,7 +3004,7 @@
       "file-processing",
       "backend",
       "纯函数",
-      "SRP",
+      "srp",
       "engineering"
     ],
     "triggers": [
@@ -3027,14 +3027,14 @@
     "tags": [
       "convex",
       "响应式后端",
-      "BaaS",
-      "TypeScript",
+      "baas",
+      "typescript",
       "实时订阅",
-      "Schema设计",
+      "schema设计",
       "鉴权",
       "文件存储",
       "定时任务",
-      "Next.js"
+      "next.js"
     ],
     "triggers": [
       "Convex",
@@ -3053,15 +3053,15 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "C++",
+      "c++",
       "研发",
-      "RAII",
-      "STL",
+      "raii",
+      "stl",
       "智能指针",
       "模板",
       "并发",
       "性能优化",
-      "现代C++"
+      "现代c++"
     ],
     "triggers": [
       "现代 C++",
@@ -3083,7 +3083,7 @@
     "status": "stable",
     "tags": [
       "架构",
-      "CQRS",
+      "cqrs",
       "事件溯源",
       "读写分离",
       "后端",
@@ -3110,16 +3110,16 @@
     "tags": [
       "数据库",
       "架构",
-      "Schema设计",
+      "schema设计",
       "数据迁移",
       "索引优化",
       "查询优化",
       "选型",
       "分库分表",
       "复制",
-      "PostgreSQL",
-      "MySQL",
-      "NoSQL"
+      "postgresql",
+      "mysql",
+      "nosql"
     ],
     "triggers": [
       "数据库设计",
@@ -3143,12 +3143,12 @@
     "tags": [
       "数据库",
       "迁移",
-      "ORM",
+      "orm",
       "回滚",
       "零停机",
-      "Sequelize",
-      "TypeORM",
-      "Prisma",
+      "sequelize",
+      "typeorm",
+      "prisma",
       "schema",
       "研发"
     ],
@@ -3215,12 +3215,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "CI/CD",
-      "GitOps",
+      "ci/cd",
+      "gitops",
       "部署工程",
       "渐进式交付",
-      "Kubernetes",
-      "DevOps",
+      "kubernetes",
+      "devops",
       "供应链安全",
       "可观测性"
     ],
@@ -3246,11 +3246,11 @@
     "status": "stable",
     "tags": [
       "devcontainer",
-      "Docker",
-      "Claude Code",
+      "docker",
+      "claude code",
       "开发环境",
       "沙箱隔离",
-      "VS Code",
+      "vs code",
       "uv",
       "多语言"
     ],
@@ -3270,11 +3270,11 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "DevOps",
-      "SRE",
+      "devops",
+      "sre",
       "事故响应",
       "可观测性",
-      "Kubernetes",
+      "kubernetes",
       "排障",
       "根因分析",
       "链路追踪"
@@ -3328,11 +3328,11 @@
     "tags": [
       "可观测性",
       "分布式追踪",
-      "Jaeger",
-      "Tempo",
-      "OpenTelemetry",
+      "jaeger",
+      "tempo",
+      "opentelemetry",
       "微服务",
-      "Kubernetes",
+      "kubernetes",
       "研发"
     ],
     "triggers": [
@@ -3479,14 +3479,14 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Drizzle",
-      "ORM",
-      "TypeScript",
+      "drizzle",
+      "orm",
+      "typescript",
       "数据库",
-      "Schema",
+      "schema",
       "迁移",
-      "Serverless",
-      "PostgreSQL"
+      "serverless",
+      "postgresql"
     ],
     "triggers": [
       "drizzle",
@@ -3508,9 +3508,9 @@
     "level": "精通",
     "status": "stable",
     "tags": [
-      "DWARF",
+      "dwarf",
       "调试信息",
-      "ELF",
+      "elf",
       "编译工具链",
       "逆向分析",
       "二进制"
@@ -3535,18 +3535,18 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Electron",
+      "electron",
       "桌面应用",
       "跨平台",
-      "IPC",
+      "ipc",
       "安全加固",
       "preload",
-      "contextIsolation",
+      "contextisolation",
       "打包分发",
       "代码签名",
       "自动更新",
       "electron-builder",
-      "TypeScript",
+      "typescript",
       "多进程架构",
       "研发",
       "misc"
@@ -3650,7 +3650,7 @@
     "tags": [
       "架构设计",
       "事件溯源",
-      "CQRS",
+      "cqrs",
       "事件驱动",
       "领域建模",
       "微服务",
@@ -3673,13 +3673,13 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Expo",
-      "Expo Router",
-      "React Native",
-      "原生 UI",
+      "expo",
+      "expo router",
+      "react native",
+      "原生 ui",
       "导航",
       "移动开发",
-      "iOS",
+      "ios",
       "研发"
     ],
     "triggers": [
@@ -3700,13 +3700,13 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "FastAPI",
+      "fastapi",
       "异步",
-      "Python",
+      "python",
       "微服务",
-      "Pydantic",
-      "SQLAlchemy",
-      "API",
+      "pydantic",
+      "sqlalchemy",
+      "api",
       "后端"
     ],
     "triggers": [
@@ -3733,9 +3733,9 @@
       "开关债务",
       "发布工程",
       "devops",
-      "LaunchDarkly",
-      "GrowthBook",
-      "Unleash"
+      "launchdarkly",
+      "growthbook",
+      "unleash"
     ],
     "triggers": [
       "feature flag",
@@ -3757,9 +3757,9 @@
     "tags": [
       "文件上传",
       "云存储",
-      "S3",
-      "R2",
-      "预签名URL",
+      "s3",
+      "r2",
+      "预签名url",
       "分片上传",
       "安全",
       "研发",
@@ -3812,11 +3812,11 @@
     "tags": [
       "研发",
       "fp-ts",
-      "TypeScript",
+      "typescript",
       "函数式编程",
-      "Option",
-      "Either",
-      "TaskEither",
+      "option",
+      "either",
+      "taskeither",
       "重构"
     ],
     "triggers": [
@@ -3926,9 +3926,9 @@
       "技术栈选型",
       "代码质量",
       "架构决策",
-      "Next.js",
-      "FastAPI",
-      "SLO"
+      "next.js",
+      "fastapi",
+      "slo"
     ],
     "triggers": [
       "脚手架",
@@ -3951,7 +3951,7 @@
       "gdb",
       "core-dump",
       "崩溃分析",
-      "C/C++",
+      "c/c++",
       "多线程",
       "死锁",
       "研发"
@@ -4011,7 +4011,7 @@
       "pre-commit",
       "commitlint",
       "代码质量",
-      "CI",
+      "ci",
       "研发",
       "misc"
     ],
@@ -4083,11 +4083,11 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "GitOps",
-      "Kubernetes",
-      "ArgoCD",
-      "FluxCD",
-      "CD",
+      "gitops",
+      "kubernetes",
+      "argocd",
+      "fluxcd",
+      "cd",
       "渐进发布",
       "密钥管理",
       "研发"
@@ -4278,11 +4278,11 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Helm",
-      "Kubernetes",
+      "helm",
+      "kubernetes",
       "打包部署",
       "模板化",
-      "DevOps",
+      "devops",
       "多环境",
       "研发/misc"
     ],
@@ -4364,13 +4364,13 @@
     "tags": [
       "混合云",
       "网络",
-      "VPN",
+      "vpn",
       "专线",
-      "BGP",
-      "Terraform",
-      "AWS",
-      "Azure",
-      "GCP",
+      "bgp",
+      "terraform",
+      "aws",
+      "azure",
+      "gcp",
       "高可用",
       "devops"
     ],
@@ -4399,7 +4399,7 @@
       "国际化",
       "前端",
       "翻译管理",
-      "RTL",
+      "rtl",
       "研发",
       "misc"
     ],
@@ -4421,7 +4421,7 @@
     "tags": [
       "研发",
       "observability",
-      "SRE",
+      "sre",
       "事故响应",
       "incident-response",
       "复盘",
@@ -4447,12 +4447,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "iOS",
-      "SwiftUI",
-      "Swift",
+      "ios",
+      "swiftui",
+      "swift",
       "移动开发",
-      "Apple",
-      "Xcode",
+      "apple",
+      "xcode",
       "研发"
     ],
     "triggers": [
@@ -4500,11 +4500,11 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Java",
-      "JVM",
-      "Spring Boot",
+      "java",
+      "jvm",
+      "spring boot",
       "虚拟线程",
-      "GraalVM",
+      "graalvm",
       "并发",
       "云原生",
       "微服务"
@@ -4552,11 +4552,11 @@
     "status": "stable",
     "tags": [
       "测试",
-      "JavaScript",
-      "TypeScript",
-      "Vitest",
-      "Jest",
-      "Testing-Library",
+      "javascript",
+      "typescript",
+      "vitest",
+      "jest",
+      "testing-library",
       "单元测试",
       "集成测试",
       "mock",
@@ -4644,9 +4644,9 @@
       "负载测试",
       "性能测试",
       "压测",
-      "API测试",
-      "CI/CD",
-      "SLA"
+      "api测试",
+      "ci/cd",
+      "sla"
     ],
     "triggers": [
       "k6",
@@ -4699,7 +4699,7 @@
       "多集群",
       "可观测性",
       "容器编排",
-      "DevOps"
+      "devops"
     ],
     "triggers": [
       "Kubernetes",
@@ -4720,13 +4720,13 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Kubernetes",
+      "kubernetes",
       "部署工作流",
-      "Helm",
+      "helm",
       "服务网格",
-      "GitOps",
+      "gitops",
       "可观测性",
-      "DevOps",
+      "devops",
       "生产就绪"
     ],
     "triggers": [
@@ -4750,18 +4750,18 @@
     "tags": [
       "测试",
       "test-automation",
-      "LambdaTest",
-      "E2E",
+      "lambdatest",
+      "e2e",
       "单元测试",
       "移动测试",
-      "BDD",
+      "bdd",
       "selenium",
       "playwright",
       "appium",
       "框架迁移",
-      "CI/CD",
+      "ci/cd",
       "研发",
-      "QA"
+      "qa"
     ],
     "triggers": [
       "lambdatest",
@@ -4927,10 +4927,10 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Linux",
+      "linux",
       "排障",
       "运维",
-      "DevOps",
+      "devops",
       "性能分析",
       "systemd",
       "网络诊断",
@@ -4957,7 +4957,7 @@
     "tags": [
       "编码准则",
       "code-review",
-      "LLM 编码",
+      "llm 编码",
       "简洁性",
       "重构"
     ],
@@ -5109,16 +5109,16 @@
     "tags": [
       "前端",
       "frontend",
-      "Angular",
-      "Signals",
+      "angular",
+      "signals",
       "响应式",
-      "Standalone",
-      "Zoneless",
-      "SSR",
-      "Hydration",
+      "standalone",
+      "zoneless",
+      "ssr",
+      "hydration",
       "状态管理",
       "性能优化",
-      "TypeScript"
+      "typescript"
     ],
     "triggers": [
       "Signals",
@@ -5176,15 +5176,15 @@
     "status": "stable",
     "tags": [
       "数据库",
-      "Postgres",
-      "Neon",
-      "Serverless",
-      "Prisma",
-      "Drizzle",
+      "postgres",
+      "neon",
+      "serverless",
+      "prisma",
+      "drizzle",
       "连接池",
       "数据库分支",
-      "Vercel",
-      "Edge"
+      "vercel",
+      "edge"
     ],
     "triggers": [
       "Neon",
@@ -5268,12 +5268,12 @@
     "tags": [
       "研发",
       "observability",
-      "Grafana",
-      "SigNoz",
+      "grafana",
+      "signoz",
       "监控仪表盘",
       "运维",
       "可视化",
-      "PromQL"
+      "promql"
     ],
     "triggers": [
       "Grafana 仪表盘",
@@ -5293,14 +5293,14 @@
     "tags": [
       "研发",
       "observability",
-      "SLO",
+      "slo",
       "监控告警",
       "指标",
       "日志",
       "追踪",
-      "SRE",
-      "Prometheus",
-      "Grafana"
+      "sre",
+      "prometheus",
+      "grafana"
     ],
     "triggers": [
       "SLO",
@@ -5321,7 +5321,7 @@
       "研发",
       "operations",
       "runbook",
-      "SOP",
+      "sop",
       "on-call",
       "ops",
       "排错",
@@ -5350,14 +5350,14 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "PayPal",
+      "paypal",
       "支付集成",
       "后端",
-      "Webhook",
-      "IPN",
+      "webhook",
+      "ipn",
       "订阅计费",
       "退款",
-      "REST-API"
+      "rest-api"
     ],
     "triggers": [
       "PayPal",
@@ -5380,9 +5380,9 @@
       "性能",
       "可观测性",
       "profiling",
-      "Node.js",
-      "Python",
-      "Go",
+      "node.js",
+      "python",
+      "go",
       "数据库优化",
       "负载测试",
       "内存泄漏",
@@ -5435,13 +5435,13 @@
     "status": "stable",
     "tags": [
       "测试",
-      "E2E",
-      "Playwright",
+      "e2e",
+      "playwright",
       "浏览器自动化",
       "视觉回归",
-      "CI/CD",
+      "ci/cd",
       "前端",
-      "QA"
+      "qa"
     ],
     "triggers": [
       "Playwright",
@@ -5686,7 +5686,7 @@
       "python",
       "性能优化",
       "profiling",
-      "cProfile",
+      "cprofile",
       "py-spy",
       "内存优化",
       "lru_cache",
@@ -5714,13 +5714,13 @@
     "status": "stable",
     "tags": [
       "测试",
-      "Python",
+      "python",
       "pytest",
       "fixture",
       "mock",
       "参数化",
       "覆盖率",
-      "TDD",
+      "tdd",
       "单元测试",
       "集成测试"
     ],
@@ -5772,12 +5772,12 @@
     "status": "stable",
     "tags": [
       "前端",
-      "React",
-      "ReactFlow",
+      "react",
+      "reactflow",
       "可视化",
       "性能优化",
       "状态管理",
-      "TypeScript"
+      "typescript"
     ],
     "triggers": [
       "ReactFlow",
@@ -5795,15 +5795,15 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "React Native",
-      "Expo",
+      "react native",
+      "expo",
       "移动开发",
-      "Expo Router",
+      "expo router",
       "状态管理",
       "离线优先",
-      "EAS",
+      "eas",
       "性能优化",
-      "TypeScript"
+      "typescript"
     ],
     "triggers": [
       "React Native",
@@ -5856,7 +5856,7 @@
     "status": "stable",
     "tags": [
       "实时通信",
-      "WebSocket",
+      "websocket",
       "客服系统",
       "全栈",
       "前端组件",
@@ -5904,15 +5904,15 @@
     "status": "stable",
     "tags": [
       "backend",
-      "REST API",
-      "Node.js",
-      "Express",
-      "Fastify",
+      "rest api",
+      "node.js",
+      "express",
+      "fastify",
       "鉴权",
       "入参校验",
       "错误处理",
       "分页",
-      "CRUD"
+      "crud"
     ],
     "triggers": [
       "REST API",
@@ -6099,12 +6099,12 @@
       "前端",
       "网页动画",
       "滚动交互",
-      "GSAP",
-      "Framer-Motion",
+      "gsap",
+      "framer-motion",
       "视差",
       "性能优化",
       "无障碍",
-      "CSS"
+      "css"
     ],
     "triggers": [
       "滚动动画",
@@ -6128,7 +6128,7 @@
       "linkerd",
       "云原生",
       "零信任",
-      "mTLS",
+      "mtls",
       "kubernetes",
       "可观测性"
     ],
@@ -6152,13 +6152,13 @@
     "status": "stable",
     "tags": [
       "前端",
-      "React",
+      "react",
       "shadcn",
       "组件库",
       "设计系统",
-      "Tailwind",
-      "TSX",
-      "CLI"
+      "tailwind",
+      "tsx",
+      "cli"
     ],
     "triggers": [
       "shadcn",
@@ -6182,11 +6182,11 @@
       "静态分析",
       "lint",
       "代码质量",
-      "CI/CD",
+      "ci/cd",
       "pre-commit",
-      "POSIX",
+      "posix",
       "研发",
-      "DevOps"
+      "devops"
     ],
     "triggers": [
       "shellcheck",
@@ -6261,7 +6261,7 @@
       "架构",
       "研发流程",
       "需求工程",
-      "TDD",
+      "tdd",
       "验收标准",
       "规约",
       "spec-driven"
@@ -6286,7 +6286,7 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "SRE",
+      "sre",
       "事件响应",
       "可观测性",
       "故障定级",
@@ -6364,13 +6364,13 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "SwiftUI",
+      "swiftui",
       "状态管理",
       "性能",
       "无障碍",
-      "Liquid Glass",
+      "liquid glass",
       "代码审查",
-      "iOS",
+      "ios",
       "研发"
     ],
     "triggers": [
@@ -6393,13 +6393,13 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "SwiftUI",
-      "Liquid Glass",
+      "swiftui",
+      "liquid glass",
       "液态玻璃",
-      "iOS 26",
-      "UI 材质",
+      "ios 26",
+      "ui 材质",
       "玻璃效果",
-      "Apple",
+      "apple",
       "研发"
     ],
     "triggers": [
@@ -6476,8 +6476,8 @@
     "status": "stable",
     "tags": [
       "前端",
-      "Tailwind",
-      "CSS",
+      "tailwind",
+      "css",
       "设计令牌",
       "响应式",
       "深色模式"
@@ -6555,7 +6555,7 @@
     "tags": [
       "架构",
       "技术选型",
-      "TCO",
+      "tco",
       "迁移",
       "云厂商",
       "评估决策"
@@ -6580,7 +6580,7 @@
       "golang",
       "workflow",
       "orchestration",
-      "mTLS",
+      "mtls",
       "distributed-systems",
       "saga",
       "durable-execution"
@@ -6666,13 +6666,13 @@
     "status": "stable",
     "tags": [
       "frontend",
-      "3D",
-      "Three.js",
-      "React Three Fiber",
-      "WebGL",
+      "3d",
+      "three.js",
+      "react three fiber",
+      "webgl",
       "性能优化",
       "可视化",
-      "Spline"
+      "spline"
     ],
     "triggers": [
       "Three.js",
@@ -6697,7 +6697,7 @@
       "backend",
       "邮件",
       "transactional-email",
-      "React-Email",
+      "react-email",
       "通知基础设施",
       "i18n",
       "可达性"
@@ -6757,7 +6757,7 @@
       "monorepo",
       "构建缓存",
       "remote-cache",
-      "CI/CD",
+      "ci/cd",
       "pipeline",
       "研发",
       "misc"
@@ -6784,10 +6784,10 @@
       "构建缓存",
       "远程缓存",
       "pipeline",
-      "CI",
-      "Vercel",
+      "ci",
+      "vercel",
       "研发效能",
-      "DevOps"
+      "devops"
     ],
     "triggers": [
       "Turborepo",
@@ -6888,7 +6888,7 @@
     "tags": [
       "研发管理",
       "交付效能",
-      "DORA",
+      "dora",
       "工程招聘",
       "团队结构",
       "生产纪律",
@@ -6938,11 +6938,11 @@
     "tags": [
       "前端",
       "无障碍",
-      "WCAG",
+      "wcag",
       "审计",
       "合规",
-      "HTML",
-      "ARIA"
+      "html",
+      "aria"
     ],
     "triggers": [
       "WCAG",
@@ -7000,11 +7000,11 @@
       "前端",
       "组件设计",
       "设计系统",
-      "React",
-      "Vue",
-      "Svelte",
-      "CSS-in-JS",
-      "UI"
+      "react",
+      "vue",
+      "svelte",
+      "css-in-js",
+      "ui"
     ],
     "triggers": [
       "组件库",
@@ -7081,9 +7081,9 @@
     "tags": [
       "backend",
       "实时通信",
-      "WebSocket",
-      "Socket.IO",
-      "Redis",
+      "websocket",
+      "socket.io",
+      "redis",
       "横向扩展",
       "鉴权"
     ],
@@ -7294,7 +7294,7 @@
       "训练数据合规",
       "并购尽调",
       "团队组织",
-      "C级顾问",
+      "c级顾问",
       "strategy"
     ],
     "triggers": [
@@ -7371,7 +7371,7 @@
       "misc",
       "dask",
       "distributed",
-      "larger-than-RAM",
+      "larger-than-ram",
       "parallel",
       "dataframe",
       "array",
@@ -7402,12 +7402,12 @@
       "流式处理",
       "数据仓库",
       "湖仓架构",
-      "ETL",
-      "ELT",
+      "etl",
+      "elt",
       "编排",
       "数据质量",
       "数据治理",
-      "CDC",
+      "cdc",
       "云数据平台",
       "misc"
     ],
@@ -7591,7 +7591,7 @@
     "tags": [
       "数据",
       "pipeline",
-      "ETL",
+      "etl",
       "回填",
       "数仓",
       "性能优化",
@@ -7709,11 +7709,11 @@
       "dbt",
       "数据工程",
       "数据建模",
-      "ELT",
+      "elt",
       "数据仓库",
       "数据质量",
       "增量处理",
-      "SQL",
+      "sql",
       "misc"
     ],
     "triggers": [
@@ -7822,8 +7822,8 @@
     "status": "stable",
     "tags": [
       "数据可视化",
-      "HTML",
-      "Chart.js",
+      "html",
+      "chart.js",
       "仪表盘",
       "前端",
       "报表",
@@ -8018,7 +8018,7 @@
       "misc",
       "polars",
       "dataframe",
-      "ETL",
+      "etl",
       "lazy-evaluation",
       "arrow",
       "pandas-migration"
@@ -8127,7 +8127,7 @@
     "status": "stable",
     "tags": [
       "数据",
-      "EDA",
+      "eda",
       "探索性分析",
       "科学数据",
       "生物信息",
@@ -8195,7 +8195,7 @@
       "统计图表",
       "matplotlib",
       "python",
-      "EDA"
+      "eda"
     ],
     "triggers": [
       "seaborn",
@@ -8459,7 +8459,7 @@
     "tags": [
       "智能",
       "eval",
-      "Agent",
+      "agent",
       "架构审计",
       "12层栈",
       "包装层回归",
@@ -8493,7 +8493,7 @@
       "知识图谱",
       "时序知识图谱",
       "向量检索",
-      "GraphRAG",
+      "graphrag",
       "上下文工程",
       "记忆整合"
     ],
@@ -8520,11 +8520,11 @@
       "agents",
       "记忆系统",
       "向量数据库",
-      "RAG",
+      "rag",
       "嵌入",
       "检索增强",
-      "LangMem",
-      "CoALA",
+      "langmem",
+      "coala",
       "上下文工程"
     ],
     "triggers": [
@@ -8577,12 +8577,12 @@
     "status": "stable",
     "tags": [
       "智能",
-      "AEO",
-      "Agent就绪度",
-      "MCP选型",
+      "aeo",
+      "agent就绪度",
+      "mcp选型",
       "工具质量",
       "工具评分",
-      "Clarvia",
+      "clarvia",
       "agent-readiness",
       "tool-quality"
     ],
@@ -8604,11 +8604,11 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "AI 编码",
+      "ai 编码",
       "可观测性",
       "成本追踪",
       "会话分析",
-      "CI 门禁",
+      "ci 门禁",
       "agenttrace"
     ],
     "triggers": [
@@ -8685,9 +8685,9 @@
     "tags": [
       "工具设计",
       "agent",
-      "MCP",
+      "mcp",
       "tool-design",
-      "API",
+      "api",
       "上下文工程",
       "错误处理",
       "命名约定"
@@ -8818,7 +8818,7 @@
       "权限审批",
       "沙箱",
       "浏览器自动化",
-      "MCP",
+      "mcp",
       "上下文管理",
       "checkpoint"
     ],
@@ -8868,13 +8868,13 @@
     "tags": [
       "智能",
       "misc",
-      "Azure",
-      "语音AI",
+      "azure",
+      "语音ai",
       "实时音频",
-      "WebSocket",
-      "Python",
+      "websocket",
+      "python",
       "gpt-4o-realtime",
-      "VAD",
+      "vad",
       "function-calling"
     ],
     "triggers": [
@@ -8895,14 +8895,14 @@
     "status": "stable",
     "tags": [
       "智能体",
-      "BDI",
+      "bdi",
       "本体建模",
-      "RDF",
+      "rdf",
       "知识图谱",
       "神经符号",
-      "可解释AI",
+      "可解释ai",
       "多智能体",
-      "SPARQL",
+      "sparql",
       "misc"
     ],
     "triggers": [
@@ -8925,13 +8925,13 @@
     "tags": [
       "智能",
       "model-ops",
-      "AI战略",
+      "ai战略",
       "build-vs-buy",
-      "EU-AI-Act",
-      "AI治理",
+      "eu-ai-act",
+      "ai治理",
       "成本经济学",
       "团队组织",
-      "CAIO",
+      "caio",
       "c-level"
     ],
     "triggers": [
@@ -8986,16 +8986,16 @@
     "status": "stable",
     "tags": [
       "评测",
-      "编码Agent",
+      "编码agent",
       "对比评测",
       "通过率",
       "成本",
       "耗时",
       "一致性",
       "git-worktree",
-      "YAML",
+      "yaml",
       "选型",
-      "CLI"
+      "cli"
     ],
     "triggers": [
       "编码 Agent 对比",
@@ -9015,14 +9015,14 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "AI智能体",
+      "ai智能体",
       "计算机操作",
       "视觉模型",
       "沙箱安全",
       "浏览器自动化",
       "提示注入防御",
-      "Anthropic",
-      "Playwright"
+      "anthropic",
+      "playwright"
     ],
     "triggers": [
       "computer use",
@@ -9051,12 +9051,12 @@
       "图像分割",
       "视觉语言模型",
       "深度估计",
-      "3D重建",
+      "3d重建",
       "边缘部署",
       "模型优化",
-      "YOLO",
-      "SAM",
-      "VLM"
+      "yolo",
+      "sam",
+      "vlm"
     ],
     "triggers": [
       "YOLO",
@@ -9102,7 +9102,7 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "LLM",
+      "llm",
       "上下文工程",
       "token预算",
       "摘要压缩",
@@ -9125,14 +9125,14 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "LLM",
+      "llm",
       "成本优化",
       "模型路由",
       "预算追踪",
       "提示词缓存",
       "重试退避",
-      "Anthropic",
-      "Claude API",
+      "anthropic",
+      "claude api",
       "批处理",
       "model-ops"
     ],
@@ -9188,8 +9188,8 @@
       "tmux",
       "git-worktree",
       "跨harness",
-      "Claude-Code",
-      "Codex",
+      "claude-code",
+      "codex",
       "divide-and-conquer"
     ],
     "triggers": [
@@ -9212,7 +9212,7 @@
     "tags": [
       "embedding",
       "向量检索",
-      "RAG",
+      "rag",
       "分块",
       "检索评估",
       "智能"
@@ -9292,10 +9292,10 @@
     "level": "入门",
     "status": "stable",
     "tags": [
-      "MCP",
+      "mcp",
       "新闻情报",
       "媒体偏见",
-      "RAG",
+      "rag",
       "金融数据",
       "股票期权",
       "语义检索",
@@ -9322,12 +9322,12 @@
     "tags": [
       "智能体记忆",
       "上下文工程",
-      "CLAUDE.md",
+      "claude.md",
       "token 优化",
       "分层记忆",
       "上下文路由",
       "省成本",
-      "HAM",
+      "ham",
       "目录级上下文"
     ],
     "triggers": [
@@ -9355,8 +9355,8 @@
       "cli",
       "模型仓库",
       "数据集",
-      "MLOps",
-      "AI/misc"
+      "mlops",
+      "ai/misc"
     ],
     "triggers": [
       "hf",
@@ -9379,11 +9379,11 @@
       "机器学习",
       "模型训练",
       "微调",
-      "TRL",
-      "Hugging Face",
-      "LoRA",
-      "GGUF",
-      "LLM"
+      "trl",
+      "hugging face",
+      "lora",
+      "gguf",
+      "llm"
     ],
     "triggers": [
       "TRL",
@@ -9405,15 +9405,15 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "RAG",
+      "rag",
       "检索",
       "向量检索",
       "关键词检索",
-      "RRF",
+      "rrf",
       "重排",
       "pgvector",
-      "Elasticsearch",
-      "BM25",
+      "elasticsearch",
+      "bm25",
       "召回"
     ],
     "triggers": [
@@ -9439,7 +9439,7 @@
       "多智能体编排",
       "检索精炼",
       "相关性评分",
-      "子Agent"
+      "子agent"
     ],
     "triggers": [
       "上下文检索",
@@ -9461,11 +9461,11 @@
     "tags": [
       "智能体",
       "agents",
-      "LangChain",
-      "RAG",
+      "langchain",
+      "rag",
       "记忆",
       "工具调用",
-      "LLM 工程"
+      "llm 工程"
     ],
     "triggers": [
       "LangChain",
@@ -9601,17 +9601,17 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "LLM",
+      "llm",
       "记忆系统",
-      "对话式AI",
+      "对话式ai",
       "短期记忆",
       "长期记忆",
       "实体记忆",
       "记忆检索",
       "记忆巩固",
       "用户隔离",
-      "Mem0",
-      "Redis",
+      "mem0",
+      "redis",
       "智能"
     ],
     "triggers": [
@@ -9633,12 +9633,12 @@
     "status": "stable",
     "tags": [
       "评测",
-      "LLM-as-judge",
+      "llm-as-judge",
       "成对比较",
       "评分量规",
       "偏差缓解",
       "置信度校准",
-      "Eval",
+      "eval",
       "智能体"
     ],
     "triggers": [
@@ -9686,14 +9686,14 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "LLM",
+      "llm",
       "缓存",
       "性能优化",
       "成本优化",
-      "Anthropic",
+      "anthropic",
       "提示工程",
-      "CAG",
-      "Redis"
+      "cag",
+      "redis"
     ],
     "triggers": [
       "提示词缓存",
@@ -9715,7 +9715,7 @@
     "status": "stable",
     "tags": [
       "提示工程",
-      "LLM",
+      "llm",
       "prompt",
       "few-shot",
       "chain-of-thought",
@@ -9742,11 +9742,11 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "本地LLM",
+      "本地llm",
       "推理引擎",
       "量化",
-      "Ollama",
-      "vLLM",
+      "ollama",
+      "vllm",
       "llama.cpp",
       "显存优化",
       "离线部署",
@@ -9833,7 +9833,7 @@
       "agents",
       "工作流编排",
       "多智能体",
-      "AI编排",
+      "ai编排",
       "流水线设计",
       "交接契约",
       "成本控制"
@@ -9857,9 +9857,9 @@
       "智能",
       "model-ops",
       "端侧推理",
-      "Apple",
-      "FoundationModels",
-      "Swift",
+      "apple",
+      "foundationmodels",
+      "swift",
       "隐私",
       "离线",
       "结构化输出",
@@ -9888,8 +9888,8 @@
       "git-worktree",
       "子智能体编排",
       "方案择优",
-      "DAG",
-      "LLM评审",
+      "dag",
+      "llm评审",
       "智能体协作"
     ],
     "triggers": [
@@ -10219,11 +10219,11 @@
       "智能体",
       "agents",
       "自动记忆",
-      "CLAUDE.md",
+      "claude.md",
       "规则治理",
       "技能提炼",
       "上下文工程",
-      "Claude Code"
+      "claude code"
     ],
     "triggers": [
       "自动记忆",
@@ -10339,7 +10339,7 @@
       "文档抓取",
       "知识库",
       "自动化",
-      "Claude",
+      "claude",
       "智能/misc"
     ],
     "triggers": [
@@ -10362,13 +10362,13 @@
       "transformers-js",
       "智能/模型运维",
       "浏览器推理",
-      "WebGPU",
-      "ONNX",
+      "webgpu",
+      "onnx",
       "量化",
       "嵌入向量",
-      "JavaScript",
-      "Hugging Face",
-      "客户端AI"
+      "javascript",
+      "hugging face",
+      "客户端ai"
     ],
     "triggers": [
       "transformers.js",
@@ -10390,11 +10390,11 @@
     "status": "stable",
     "tags": [
       "向量检索",
-      "RAG",
-      "HNSW",
+      "rag",
+      "hnsw",
       "量化",
       "性能调优",
-      "Qdrant",
+      "qdrant",
       "召回率",
       "智能"
     ],
@@ -10640,12 +10640,12 @@
     "status": "stable",
     "tags": [
       "客户支持",
-      "对话式AI",
+      "对话式ai",
       "情感分析",
       "工单自动化",
       "全渠道",
-      "CSAT",
-      "NPS",
+      "csat",
+      "nps",
       "知识库",
       "电商客服",
       "客户体验"
@@ -10671,7 +10671,7 @@
     "tags": [
       "商业分析",
       "护城河",
-      "AI颠覆",
+      "ai颠覆",
       "竞争战略",
       "尽职调查",
       "growth",
@@ -10726,8 +10726,8 @@
     "tags": [
       "marketing",
       "analytics",
-      "GA4",
-      "GTM",
+      "ga4",
+      "gtm",
       "conversion-tracking",
       "event-taxonomy",
       "data-quality",
@@ -10822,7 +10822,7 @@
       "apollo",
       "外联序列",
       "潜客获取",
-      "MCP"
+      "mcp"
     ],
     "triggers": [
       "apollo 序列",
@@ -10840,7 +10840,7 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "ASO",
+      "aso",
       "商业",
       "growth",
       "增长",
@@ -10848,10 +10848,10 @@
       "关键词研究",
       "元数据优化",
       "竞品分析",
-      "A/B测试",
+      "a/b测试",
       "移动营销",
-      "iOS",
-      "Android"
+      "ios",
+      "android"
     ],
     "triggers": [
       "ASO",
@@ -10933,7 +10933,7 @@
       "投资人关系",
       "汇报材料",
       "叙事框架",
-      "C-level"
+      "c-level"
     ],
     "triggers": [
       "董事会汇报",
@@ -10983,10 +10983,10 @@
       "fixed-income",
       "bond-futures",
       "basis-trading",
-      "CTD",
+      "ctd",
       "implied-repo",
       "yield-curve",
-      "MCP",
+      "mcp",
       "卖方研究",
       "利率衍生品"
     ],
@@ -11016,7 +11016,7 @@
       "relative-value",
       "spread",
       "scenario-analysis",
-      "MCP",
+      "mcp",
       "卖方研究"
     ],
     "triggers": [
@@ -11092,7 +11092,7 @@
       "买家画像",
       "客户细分",
       "用户研究",
-      "ICP",
+      "icp",
       "数据驱动"
     ],
     "triggers": [
@@ -11118,7 +11118,7 @@
       "营销分析",
       "归因建模",
       "漏斗分析",
-      "ROI",
+      "roi",
       "数据分析",
       "python-cli"
     ],
@@ -11140,11 +11140,11 @@
     "tags": [
       "商业",
       "finance",
-      "CFO",
+      "cfo",
       "融资",
       "单位经济",
       "现金跑道",
-      "SaaS指标",
+      "saas指标",
       "财务建模",
       "董事会"
     ],
@@ -11170,11 +11170,11 @@
       "finance",
       "渠道经济性",
       "cost-to-serve",
-      "渠道ROI",
+      "渠道roi",
       "直销与渠道",
       "渠道组合",
       "单位经济",
-      "RevOps",
+      "revops",
       "敏感度分析"
     ],
     "triggers": [
@@ -11246,7 +11246,7 @@
       "sell-side",
       "cim",
       "deal-materials",
-      "DOCX",
+      "docx",
       "投行"
     ],
     "triggers": [
@@ -11270,13 +11270,13 @@
     "tags": [
       "商业",
       "marketing",
-      "CMO",
+      "cmo",
       "品牌定位",
       "增长模型",
       "营销预算",
       "单位经济",
       "营销组织",
-      "C-level"
+      "c-level"
     ],
     "triggers": [
       "CMO",
@@ -11331,12 +11331,12 @@
     "tags": [
       "finance",
       "tear-sheet",
-      "S&P-Capital-IQ",
-      "Kensho",
-      "MCP",
-      "DOCX",
+      "s&p-capital-iq",
+      "kensho",
+      "mcp",
+      "docx",
       "equity-research",
-      "M&A",
+      "m&a",
       "corp-dev",
       "sales"
     ],
@@ -11507,7 +11507,7 @@
       "商业",
       "marketing",
       "内容运营",
-      "SEO",
+      "seo",
       "增长",
       "内容策略"
     ],
@@ -11530,7 +11530,7 @@
     "status": "stable",
     "tags": [
       "内容营销",
-      "SEO",
+      "seo",
       "社交媒体",
       "邮件营销",
       "内容分发",
@@ -11695,12 +11695,12 @@
       "商业",
       "sales",
       "营收增长",
-      "B2B-SaaS",
-      "CRO",
+      "b2b-saas",
+      "cro",
       "定价",
       "留存",
       "预测",
-      "C-level"
+      "c-level"
     ],
     "triggers": [
       "CRO",
@@ -11894,10 +11894,10 @@
       "折扣审批",
       "毛利评分",
       "合同红线",
-      "MSA",
+      "msa",
       "条款风险",
       "审批路由",
-      "RevOps"
+      "revops"
     ],
     "triggers": [
       "折扣审批",
@@ -12074,7 +12074,7 @@
       "earnings",
       "beat-miss",
       "valuation",
-      "DOCX",
+      "docx",
       "卖方研究"
     ],
     "triggers": [
@@ -12152,11 +12152,11 @@
       "债券",
       "组合分析",
       "久期",
-      "DV01",
+      "dv01",
       "现金流",
       "情景分析",
       "风险管理",
-      "MCP"
+      "mcp"
     ],
     "triggers": [
       "债券组合",
@@ -12180,7 +12180,7 @@
       "growth",
       "营销",
       "获客",
-      "SEO",
+      "seo",
       "免费工具",
       "lead-gen",
       "engineering-as-marketing"
@@ -12269,7 +12269,7 @@
       "里程碑",
       "行动项",
       "周复盘",
-      "M&A",
+      "m&a",
       "sell-side"
     ],
     "triggers": [
@@ -12295,10 +12295,10 @@
       "investment-banking",
       "pitch-deck",
       "质量审查",
-      "QC",
+      "qc",
       "数字一致性",
       "卖方研究",
-      "PPT"
+      "ppt"
     ],
     "triggers": [
       "deck 质量审查",
@@ -12376,9 +12376,9 @@
       "equity-research",
       "initiation",
       "valuation",
-      "DCF",
+      "dcf",
       "financial-model",
-      "DOCX",
+      "docx",
       "卖方研究"
     ],
     "triggers": [
@@ -12399,7 +12399,7 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "SEO",
+      "seo",
       "内链策略",
       "锚文本",
       "孤儿页修复",
@@ -12434,8 +12434,8 @@
       "市场进入",
       "本地化",
       "战略",
-      "GTM",
-      "C-level"
+      "gtm",
+      "c-level"
     ],
     "triggers": [
       "国际扩张",
@@ -12562,9 +12562,9 @@
       "文案",
       "落地页",
       "转化优化",
-      "CRO",
+      "cro",
       "标题公式",
-      "CTA"
+      "cta"
     ],
     "triggers": [
       "写文案",
@@ -12587,10 +12587,10 @@
       "商业",
       "growth",
       "转化率优化",
-      "CRO",
+      "cro",
       "表单",
       "留资",
-      "A/B测试",
+      "a/b测试",
       "线索获取",
       "用户体验",
       "移动端优化"
@@ -12760,7 +12760,7 @@
       "商业",
       "finance",
       "并购",
-      "M&A",
+      "m&a",
       "卖方流程",
       "投行",
       "报价规则",
@@ -12791,7 +12791,7 @@
       "inflation",
       "swap-spread",
       "dashboard",
-      "MCP",
+      "mcp",
       "宏观策略"
     ],
     "triggers": [
@@ -12919,8 +12919,8 @@
       "campaign",
       "内容日历",
       "渠道策略",
-      "GTM",
-      "KPI",
+      "gtm",
+      "kpi",
       "预算分配"
     ],
     "triggers": [
@@ -13224,8 +13224,8 @@
       "greeks",
       "vol-surface",
       "implied-realized",
-      "MCP",
-      "LSEG"
+      "mcp",
+      "lseg"
     ],
     "triggers": [
       "期权波动率",
@@ -13250,7 +13250,7 @@
       "广告创意",
       "付费广告",
       "文案",
-      "ABtest",
+      "abtest",
       "performance-marketing"
     ],
     "triggers": [
@@ -13314,9 +13314,9 @@
       "sales",
       "合作伙伴",
       "渠道",
-      "联合GTM",
+      "联合gtm",
       "分润",
-      "OEM",
+      "oem",
       "经销",
       "战略联盟",
       "渠道冲突",
@@ -13343,13 +13343,13 @@
     "tags": [
       "growth",
       "转化优化",
-      "CRO",
+      "cro",
       "付费墙",
       "freemium",
       "增长",
       "商业化",
       "追售",
-      "A/B测试"
+      "a/b测试"
     ],
     "triggers": [
       "付费墙",
@@ -13429,13 +13429,13 @@
       "商业",
       "finance",
       "私募股权",
-      "PE",
+      "pe",
       "投后管理",
-      "EBITDA桥",
+      "ebitda桥",
       "100天计划",
       "价值创造",
       "运营合伙人",
-      "KPI"
+      "kpi"
     ],
     "triggers": [
       "价值创造计划",
@@ -13519,7 +13519,7 @@
       "数据刷新",
       "comps",
       "财报更新",
-      "PowerPoint"
+      "powerpoint"
     ],
     "triggers": [
       "用Q4数据更新deck",
@@ -13569,10 +13569,10 @@
     "status": "stable",
     "tags": [
       "growth",
-      "CRO",
+      "cro",
       "弹窗",
       "线索捕获",
-      "A/B测试",
+      "a/b测试",
       "营销"
     ],
     "triggers": [
@@ -13663,8 +13663,8 @@
       "marketing",
       "商业",
       "产品发布",
-      "GTM",
-      "Product Hunt",
+      "gtm",
+      "product hunt",
       "增长",
       "渠道策略"
     ],
@@ -13722,7 +13722,7 @@
       "marketing",
       "产品营销",
       "定位",
-      "GTM",
+      "gtm",
       "竞品情报",
       "销售赋能",
       "市场进入"
@@ -13840,7 +13840,7 @@
       "候选人跟踪",
       "转化率",
       "招聘指标",
-      "ATS"
+      "ats"
     ],
     "triggers": [
       "招聘漏斗",
@@ -13957,7 +13957,7 @@
       "销售",
       "纪要",
       "跟进邮件",
-      "CRM",
+      "crm",
       "行动项"
     ],
     "triggers": [
@@ -13977,12 +13977,12 @@
     "status": "stable",
     "tags": [
       "销售赋能",
-      "B2B 销售",
+      "b2b 销售",
       "演示稿",
       "异议应对",
       "销售手册",
       "提案",
-      "ROI",
+      "roi",
       "买家画像"
     ],
     "triggers": [
@@ -14259,9 +14259,9 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "SEO",
+      "seo",
       "图像生成",
-      "OG",
+      "og",
       "信息图",
       "内容发布"
     ],
@@ -14406,13 +14406,13 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "SEO",
+      "seo",
       "信息架构",
-      "URL设计",
+      "url设计",
       "内链策略",
       "导航设计",
       "主题权威",
-      "技术SEO",
+      "技术seo",
       "网站重构"
     ],
     "triggers": [
@@ -14434,16 +14434,16 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "SEO",
+      "seo",
       "自然流量",
       "事件响应",
       "取证排查",
-      "Google-Search-Console",
+      "google-search-console",
       "核心更新",
       "人工处罚",
-      "技术SEO",
+      "技术seo",
       "网站迁移",
-      "EEAT"
+      "eeat"
     ],
     "triggers": [
       "流量暴跌",
@@ -14499,7 +14499,7 @@
       "账户研究",
       "参会人研究",
       "谈话要点",
-      "Common Room"
+      "common room"
     ],
     "triggers": [
       "帮我准备和 X 的通话",
@@ -14553,11 +14553,11 @@
       "商业",
       "growth",
       "小微企业",
-      "SMB",
+      "smb",
       "经营简报",
       "现金流",
       "销售管道",
-      "MCP连接器"
+      "mcp连接器"
     ],
     "triggers": [
       "经营脉搏",
@@ -14585,7 +14585,7 @@
       "小微企业",
       "应收应付",
       "预测",
-      "XLSX"
+      "xlsx"
     ],
     "triggers": [
       "现金流预测",
@@ -14613,8 +14613,8 @@
       "应收账款",
       "发薪",
       "催收",
-      "QuickBooks",
-      "PayPal"
+      "quickbooks",
+      "paypal"
     ],
     "triggers": [
       "发薪",
@@ -14638,11 +14638,11 @@
       "商业",
       "growth",
       "小微企业",
-      "QBR",
+      "qbr",
       "季度回顾",
       "财务叙事",
-      "QuickBooks",
-      "HubSpot",
+      "quickbooks",
+      "hubspot",
       "客户健康",
       "经营复盘"
     ],
@@ -14670,8 +14670,8 @@
       "社交网络",
       "外联",
       "人脉",
-      "X",
-      "LinkedIn",
+      "x",
+      "linkedin",
       "暖路径"
     ],
     "triggers": [
@@ -14728,7 +14728,7 @@
       "定时发布",
       "营销自动化",
       "商业增长",
-      "SocialClaw"
+      "socialclaw"
     ],
     "triggers": [
       "多平台发文",
@@ -14752,7 +14752,7 @@
       "marketing",
       "社媒分析",
       "互动率",
-      "ROI",
+      "roi",
       "广告投放",
       "数据对标",
       "绩效复盘"
@@ -14864,7 +14864,7 @@
       "优先级",
       "路由",
       "判重",
-      "SLA",
+      "sla",
       "商业"
     ],
     "triggers": [
@@ -14890,7 +14890,7 @@
       "互换",
       "收益率曲线",
       "宏观",
-      "MCP"
+      "mcp"
     ],
     "triggers": [
       "互换曲线",
@@ -14915,7 +14915,7 @@
       "growth",
       "企业文化",
       "组织建设",
-      "C-level",
+      "c-level",
       "价值观",
       "文化健康度",
       "创始人"
@@ -15147,9 +15147,9 @@
     "tags": [
       "动画",
       "前端",
-      "Anime.js",
-      "JavaScript",
-      "SVG",
+      "anime.js",
+      "javascript",
+      "svg",
       "交互设计",
       "创意"
     ],
@@ -15290,10 +15290,10 @@
       "d3js",
       "数据可视化",
       "前端",
-      "SVG",
+      "svg",
       "交互",
       "图表",
-      "JavaScript",
+      "javascript",
       "创意"
     ],
     "triggers": [
@@ -15319,7 +15319,7 @@
       "playwright",
       "ffmpeg",
       "edge-tts",
-      "TTS",
+      "tts",
       "动画",
       "营销"
     ],
@@ -15343,11 +15343,11 @@
     "status": "stable",
     "tags": [
       "设计评审",
-      "UX",
+      "ux",
       "可用性",
       "视觉层级",
       "无障碍",
-      "Figma",
+      "figma",
       "设计反馈",
       "原型评估"
     ],
@@ -15370,7 +15370,7 @@
       "设计",
       "前端",
       "交付",
-      "Figma",
+      "figma",
       "设计令牌",
       "响应式",
       "可访问性",
@@ -15393,11 +15393,11 @@
     "status": "stable",
     "tags": [
       "前端",
-      "UI/UX",
+      "ui/ux",
       "微交互",
       "动效",
       "设计细节",
-      "CSS动画",
+      "css动画",
       "用户体验"
     ],
     "triggers": [
@@ -15419,16 +15419,16 @@
       "创意",
       "媒体生成",
       "fal.ai",
-      "MCP",
+      "mcp",
       "文生图",
       "文生视频",
       "图生视频",
-      "TTS",
+      "tts",
       "音效",
-      "Nano Banana",
-      "Seedance",
-      "Veo 3",
-      "Kling"
+      "nano banana",
+      "seedance",
+      "veo 3",
+      "kling"
     ],
     "triggers": [
       "生成图片",
@@ -15452,12 +15452,12 @@
     "tags": [
       "创意/design",
       "前端",
-      "UI设计",
+      "ui设计",
       "动效",
       "玻璃拟态",
-      "GSAP",
-      "3D-CSS",
-      "React"
+      "gsap",
+      "3d-css",
+      "react"
     ],
     "triggers": [
       "玻璃拟态",
@@ -15512,12 +15512,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Google-Stitch",
-      "UI设计",
+      "google-stitch",
+      "ui设计",
       "提示词工程",
-      "AI生成界面",
+      "ai生成界面",
       "原型设计",
-      "Figma",
+      "figma",
       "前端",
       "创意"
     ],
@@ -15544,9 +15544,9 @@
       "前端",
       "视觉设计",
       "动效",
-      "UI/UX",
-      "Tailwind",
-      "React",
+      "ui/ux",
+      "tailwind",
+      "react",
       "微交互"
     ],
     "triggers": [
@@ -15570,9 +15570,9 @@
       "创意",
       "design",
       "icon",
-      "UI/UX",
+      "ui/ux",
       "设计系统",
-      "SVG"
+      "svg"
     ],
     "triggers": [
       "iconsax",
@@ -15594,12 +15594,12 @@
     "tags": [
       "创意/design",
       "前端",
-      "UI设计",
+      "ui设计",
       "野兽派",
       "瑞士印刷",
-      "CRT",
+      "crt",
       "遥测",
-      "CSS Grid"
+      "css grid"
     ],
     "triggers": [
       "野兽派",
@@ -15623,10 +15623,10 @@
       "av",
       "动效",
       "动画",
-      "Lottie",
+      "lottie",
       "微交互",
-      "Logo 动效",
-      "UI 动画",
+      "logo 动效",
+      "ui 动画",
       "社媒素材"
     ],
     "triggers": [
@@ -15675,12 +15675,12 @@
     "level": "入门",
     "status": "stable",
     "tags": [
-      "Mermaid",
+      "mermaid",
       "图表",
       "流程图",
       "时序图",
       "可视化",
-      "Markdown",
+      "markdown",
       "文档",
       "创意"
     ],
@@ -15728,16 +15728,16 @@
       "创意",
       "视听",
       "媒体生成",
-      "MiniMax",
+      "minimax",
       "mmx",
-      "CLI",
+      "cli",
       "文生图",
       "文生视频",
-      "TTS",
+      "tts",
       "音乐生成",
-      "Hailuo",
+      "hailuo",
       "联网搜索",
-      "VLM"
+      "vlm"
     ],
     "triggers": [
       "mmx",
@@ -15791,13 +15791,13 @@
     "tags": [
       "创意",
       "音视频",
-      "TTS",
+      "tts",
       "播客",
-      "Azure OpenAI",
-      "Realtime API",
-      "WebSocket",
-      "PCM",
-      "WAV",
+      "azure openai",
+      "realtime api",
+      "websocket",
+      "pcm",
+      "wav",
       "音频流"
     ],
     "triggers": [
@@ -15844,15 +15844,15 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "3D",
-      "Spline",
+      "3d",
+      "spline",
       "前端",
-      "React",
-      "Next.js",
-      "Vue",
+      "react",
+      "next.js",
+      "vue",
       "交互设计",
       "创意",
-      "WebGL"
+      "webgl"
     ],
     "triggers": [
       "Spline",
@@ -15876,7 +15876,7 @@
       "design",
       "前端",
       "设计系统",
-      "Stitch",
+      "stitch",
       "排版",
       "配色",
       "动效",
@@ -15902,8 +15902,8 @@
     "tags": [
       "前端",
       "网站生成",
-      "Stitch",
-      "MCP",
+      "stitch",
+      "mcp",
       "自动化",
       "迭代循环",
       "设计系统",
@@ -15965,7 +15965,7 @@
       "组件库",
       "响应式",
       "无障碍",
-      "WCAG",
+      "wcag",
       "研发交接"
     ],
     "triggers": [
@@ -16013,9 +16013,9 @@
     "status": "stable",
     "tags": [
       "游戏开发",
-      "Unreal Engine",
-      "UE5",
-      "C++",
+      "unreal engine",
+      "ue5",
+      "c++",
       "性能优化",
       "垃圾回收",
       "蓝图",
@@ -16046,7 +16046,7 @@
       "图片素材",
       "摄影图库",
       "配图",
-      "UI/UX",
+      "ui/ux",
       "性能优化"
     ],
     "triggers": [
@@ -16069,11 +16069,11 @@
     "tags": [
       "创意",
       "design",
-      "UX文案",
+      "ux文案",
       "微文案",
       "报错信息",
       "空状态",
-      "CTA",
+      "cta",
       "本地化"
     ],
     "triggers": [
@@ -16097,7 +16097,7 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "UX研究",
+      "ux研究",
       "用户画像",
       "旅程地图",
       "可用性测试",
@@ -16125,11 +16125,11 @@
     "tags": [
       "创意",
       "design",
-      "UX审计",
+      "ux审计",
       "反模式",
       "可用性",
       "无障碍",
-      "AI界面",
+      "ai界面",
       "用户流"
     ],
     "triggers": [
@@ -16154,13 +16154,13 @@
     "tags": [
       "创意",
       "视听",
-      "VideoDB",
+      "videodb",
       "视频索引",
       "视频检索",
       "字幕",
       "转码",
-      "Timeline",
-      "RTSP",
+      "timeline",
+      "rtsp",
       "直播",
       "桌面录制",
       "媒体生成",
@@ -16188,9 +16188,9 @@
     "tags": [
       "创意",
       "产品设计",
-      "AI渲染",
+      "ai渲染",
       "工业设计",
-      "Vizcom",
+      "vizcom",
       "效果图"
     ],
     "triggers": [
@@ -16217,7 +16217,7 @@
       "合规检查",
       "无障碍",
       "前端规范",
-      "Vercel"
+      "vercel"
     ],
     "triggers": [
       "Web 界面准则",
@@ -16323,10 +16323,10 @@
     "status": "stable",
     "tags": [
       "敏捷",
-      "Scrum",
+      "scrum",
       "产品负责人",
       "用户故事",
-      "Sprint规划",
+      "sprint规划",
       "待办管理",
       "验收标准",
       "协作",
@@ -16443,8 +16443,8 @@
       "pm",
       "变更管理",
       "change-management",
-      "CAB",
-      "ITSM",
+      "cab",
+      "itsm",
       "影响分析",
       "回滚",
       "风险评估",
@@ -16507,7 +16507,7 @@
       "pm",
       "编排",
       "决策",
-      "C-suite",
+      "c-suite",
       "路由",
       "多角色"
     ],
@@ -16645,10 +16645,10 @@
       "协作",
       "knowledge",
       "运营管理",
-      "OKR",
-      "EOS",
+      "okr",
+      "eos",
       "管理框架",
-      "C-level"
+      "c-level"
     ],
     "triggers": [
       "EOS",
@@ -16733,7 +16733,7 @@
     "tags": [
       "协作",
       "pm",
-      "OKR",
+      "okr",
       "运营",
       "流程设计",
       "扩张",
@@ -16760,8 +16760,8 @@
       "协作",
       "pm",
       "产品战略",
-      "C-level",
-      "PMF",
+      "c-level",
+      "pmf",
       "产品组合",
       "组织设计"
     ],
@@ -16783,9 +16783,9 @@
     "tags": [
       "资讯聚合",
       "网页抓取",
-      "Agent编排",
-      "Markdown报告",
-      "并行子Agent",
+      "agent编排",
+      "markdown报告",
+      "并行子agent",
       "缓存去重"
     ],
     "triggers": [
@@ -17033,12 +17033,12 @@
     "tags": [
       "协作",
       "项目管理",
-      "Jira",
-      "Atlassian",
-      "JQL",
+      "jira",
+      "atlassian",
+      "jql",
       "工作流",
       "敏捷",
-      "Scrum",
+      "scrum",
       "看板",
       "报表"
     ],
@@ -17204,10 +17204,10 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Obsidian",
-      "Bases",
+      "obsidian",
+      "bases",
       "知识管理",
-      "YAML",
+      "yaml",
       "数据库视图",
       "笔记自动化"
     ],
@@ -17261,7 +17261,7 @@
       "pm",
       "决策框架",
       "创始人拷问",
-      "YC office hours",
+      "yc office hours",
       "强制澄清",
       "立项评审",
       "简报"
@@ -17322,8 +17322,8 @@
       "headcount",
       "利用率",
       "排队论",
-      "Erlang-C",
-      "Little定律",
+      "erlang-c",
+      "little定律",
       "招聘排期"
     ],
     "triggers": [
@@ -17346,7 +17346,7 @@
       "协作",
       "pm",
       "变革管理",
-      "ADKAR",
+      "adkar",
       "组织发展",
       "沟通",
       "stakeholder",
@@ -17401,11 +17401,11 @@
       "pm",
       "组织诊断",
       "健康度",
-      "C级",
+      "c级",
       "董事会",
       "风险评估",
-      "OKR",
-      "DORA",
+      "okr",
+      "dora",
       "跨职能"
     ],
     "triggers": [
@@ -17425,7 +17425,7 @@
     "status": "stable",
     "tags": [
       "协作-自动化",
-      "CLI",
+      "cli",
       "本地优先",
       "快速原型",
       "脚本化",
@@ -17452,7 +17452,7 @@
     "status": "stable",
     "tags": [
       "产品管理",
-      "PRD",
+      "prd",
       "功能规格",
       "用户故事",
       "验收标准",
@@ -17538,11 +17538,11 @@
     "tags": [
       "产品管理",
       "优先级排序",
-      "RICE",
-      "PRD",
+      "rice",
+      "prd",
       "用户访谈",
       "产品发现",
-      "GTM",
+      "gtm",
       "协作"
     ],
     "triggers": [
@@ -17620,7 +17620,7 @@
       "协作",
       "项目管理",
       "敏捷",
-      "Scrum",
+      "scrum",
       "冲刺",
       "数据分析",
       "蒙特卡洛",
@@ -17652,7 +17652,7 @@
       "高管沟通",
       "进度更新",
       "风险沟通",
-      "ROAM",
+      "roam",
       "发布公告",
       "协作"
     ],
@@ -17711,7 +17711,7 @@
       "协作",
       "pm",
       "战略对齐",
-      "OKR",
+      "okr",
       "组织诊断"
     ],
     "triggers": [
@@ -17885,8 +17885,8 @@
       "appsec",
       "红队",
       "渗透测试",
-      "Active-Directory",
-      "Kerberos",
+      "active-directory",
+      "kerberos",
       "凭据攻击",
       "横向移动",
       "提权"
@@ -17974,7 +17974,7 @@
       "提示注入",
       "供应链",
       "代码审计",
-      "Agent技能",
+      "agent技能",
       "静态扫描",
       "misc"
     ],
@@ -18026,10 +18026,10 @@
     "tags": [
       "安全",
       "appsec",
-      "AI安全",
-      "LLM",
+      "ai安全",
+      "llm",
       "提示注入",
-      "MITRE-ATLAS",
+      "mitre-atlas",
       "护栏",
       "模型反演",
       "数据投毒"
@@ -18124,12 +18124,12 @@
     "tags": [
       "安全",
       "appsec",
-      "API安全",
+      "api安全",
       "漏洞赏金",
       "渗透测试",
-      "GraphQL",
-      "REST",
-      "IDOR",
+      "graphql",
+      "rest",
+      "idor",
       "模糊测试",
       "越权",
       "攻击性安全"
@@ -18155,11 +18155,11 @@
     "tags": [
       "安全",
       "appsec",
-      "API",
+      "api",
       "认证授权",
       "输入校验",
       "限流",
-      "OWASP",
+      "owasp",
       "后端"
     ],
     "triggers": [
@@ -18212,11 +18212,11 @@
       "appsec",
       "认证",
       "授权",
-      "JWT",
-      "OAuth2",
-      "RBAC",
+      "jwt",
+      "oauth2",
+      "rbac",
       "会话管理",
-      "API安全"
+      "api安全"
     ],
     "triggers": [
       "JWT",
@@ -18240,12 +18240,12 @@
       "安全",
       "ops",
       "云安全",
-      "AWS",
+      "aws",
       "渗透测试",
       "红队",
-      "IAM",
+      "iam",
       "提权",
-      "SSRF",
+      "ssrf",
       "横向移动"
     ],
     "triggers": [
@@ -18269,10 +18269,10 @@
       "安全",
       "misc",
       "后端",
-      "API",
+      "api",
       "认证授权",
       "注入防护",
-      "OWASP"
+      "owasp"
     ],
     "triggers": [
       "SQL注入",
@@ -18298,9 +18298,9 @@
       "汇编",
       "反编译",
       "x86-64",
-      "ARM",
-      "Ghidra",
-      "IDA",
+      "arm",
+      "ghidra",
+      "ida",
       "misc"
     ],
     "triggers": [
@@ -18324,12 +18324,12 @@
     "tags": [
       "安全",
       "渗透测试",
-      "Web 安全",
+      "web 安全",
       "认证",
       "会话管理",
-      "OWASP",
-      "JWT",
-      "MFA",
+      "owasp",
+      "jwt",
+      "mfa",
       "暴力破解",
       "misc"
     ],
@@ -18353,8 +18353,8 @@
     "tags": [
       "安全",
       "渗透测试",
-      "Web安全",
-      "Burp Suite",
+      "web安全",
+      "burp suite",
       "代理拦截",
       "漏洞扫描"
     ],
@@ -18377,7 +18377,7 @@
     "status": "stable",
     "tags": [
       "安全",
-      "Burp Suite",
+      "burp suite",
       "工程文件解析",
       "命令行",
       "审计项",
@@ -18468,16 +18468,16 @@
       "安全",
       "ops",
       "云安全",
-      "CSPM",
-      "IAM",
-      "S3",
+      "cspm",
+      "iam",
+      "s3",
       "安全组",
-      "IaC",
-      "Terraform",
-      "AWS",
-      "Azure",
-      "GCP",
-      "MITRE-ATTACK",
+      "iac",
+      "terraform",
+      "aws",
+      "azure",
+      "gcp",
+      "mitre-attack",
       "合规"
     ],
     "triggers": [
@@ -18502,10 +18502,10 @@
       "安全",
       "渗透测试",
       "云安全",
-      "Azure",
-      "AWS",
-      "GCP",
-      "IAM",
+      "azure",
+      "aws",
+      "gcp",
+      "iam",
       "红队",
       "misc"
     ],
@@ -18563,7 +18563,7 @@
       "compliance",
       "安全",
       "审计",
-      "ISO",
+      "iso",
       "认证",
       "证据管理",
       "风险治理"
@@ -18614,12 +18614,12 @@
     "tags": [
       "安全",
       "容器",
-      "Docker",
-      "Kubernetes",
+      "docker",
+      "kubernetes",
       "供应链安全",
       "镜像扫描",
       "运行时安全",
-      "DevSecOps"
+      "devsecops"
     ],
     "triggers": [
       "Dockerfile 安全",
@@ -18645,8 +18645,8 @@
       "恶意软件分析",
       "威胁情报",
       "事件响应",
-      "IOC",
-      "YARA",
+      "ioc",
+      "yara",
       "逆向工程"
     ],
     "triggers": [
@@ -18669,14 +18669,14 @@
     "status": "stable",
     "tags": [
       "安全",
-      "DeFi",
-      "AMM",
+      "defi",
+      "amm",
       "智能合约",
-      "Solidity",
+      "solidity",
       "审计",
       "闪电贷",
       "价格操纵",
-      "Web3",
+      "web3",
       "appsec"
     ],
     "triggers": [
@@ -18728,9 +18728,9 @@
       "secrets",
       "环境变量",
       "凭据轮换",
-      "CI/CD",
+      "ci/cd",
       "预提交检查",
-      "Vault"
+      "vault"
     ],
     "triggers": [
       "密钥泄露",
@@ -18784,10 +18784,10 @@
       "misc",
       "渗透测试",
       "ffuf",
-      "Web 模糊测试",
+      "web 模糊测试",
       "内容发现",
       "子域枚举",
-      "IDOR"
+      "idor"
     ],
     "triggers": [
       "ffuf",
@@ -18837,12 +18837,12 @@
       "安全",
       "misc",
       "固件",
-      "IoT",
+      "iot",
       "嵌入式",
       "逆向工程",
       "binwalk",
-      "Ghidra",
-      "QEMU",
+      "ghidra",
+      "qemu",
       "漏洞挖掘"
     ],
     "triggers": [
@@ -18901,7 +18901,7 @@
       "注入",
       "渗透测试",
       "钓鱼",
-      "XSS相关"
+      "xss相关"
     ],
     "triggers": [
       "HTML 注入",
@@ -18977,12 +18977,12 @@
     "tags": [
       "安全",
       "compliance",
-      "ISO27001",
-      "ISMS",
+      "iso27001",
+      "isms",
       "风险评估",
       "事件响应",
-      "HealthTech",
-      "MedTech"
+      "healthtech",
+      "medtech"
     ],
     "triggers": [
       "ISO 27001",
@@ -19004,12 +19004,12 @@
     "tags": [
       "安全",
       "compliance",
-      "ISO42001",
-      "AIMS",
-      "AI治理",
+      "iso42001",
+      "aims",
+      "ai治理",
       "内审",
       "风险管理",
-      "ISO23894"
+      "iso23894"
     ],
     "triggers": [
       "ISO42001",
@@ -19030,7 +19030,7 @@
       "kubernetes",
       "安全",
       "网络策略",
-      "RBAC",
+      "rbac",
       "准入控制",
       "合规",
       "纵深防御"
@@ -19125,13 +19125,13 @@
     "status": "stable",
     "tags": [
       "安全",
-      "Laravel",
-      "PHP",
+      "laravel",
+      "php",
       "代码审计",
-      "OWASP",
+      "owasp",
       "漏洞",
       "鉴权",
-      "Web 安全"
+      "web 安全"
     ],
     "triggers": [
       "Laravel 安全审计",
@@ -19152,7 +19152,7 @@
       "安全",
       "渗透测试",
       "权限提升",
-      "Linux",
+      "linux",
       "红队",
       "misc"
     ],
@@ -19179,11 +19179,11 @@
       "数字取证",
       "事件响应",
       "恶意软件分析",
-      "DFIR",
-      "Volatility3",
+      "dfir",
+      "volatility3",
       "内存取证",
       "蓝队",
-      "YARA"
+      "yara"
     ],
     "triggers": [
       "内存取证",
@@ -19208,7 +19208,7 @@
       "appsec",
       "红队",
       "漏洞利用",
-      "Metasploit",
+      "metasploit",
       "后渗透",
       "载荷生成"
     ],
@@ -19232,13 +19232,13 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "mTLS",
+      "mtls",
       "零信任",
       "服务网格",
-      "Istio",
-      "Linkerd",
+      "istio",
+      "linkerd",
       "证书管理",
-      "SPIFFE",
+      "spiffe",
       "安全",
       "ops"
     ],
@@ -19265,13 +19265,13 @@
       "合规",
       "compliance",
       "安全",
-      "GRC",
+      "grc",
       "多框架",
       "跨框架映射",
       "证据管理",
       "审计",
-      "ISO",
-      "SOC2",
+      "iso",
+      "soc2",
       "认证"
     ],
     "triggers": [
@@ -19295,12 +19295,12 @@
       "网络",
       "ops",
       "接口诊断",
-      "CRC",
+      "crc",
       "丢包",
       "双工",
       "交换机",
       "路由器",
-      "Linux",
+      "linux",
       "物理层"
     ],
     "triggers": [
@@ -19325,10 +19325,10 @@
       "安全",
       "misc",
       "渗透测试",
-      "Web漏洞",
+      "web漏洞",
       "路径遍历",
-      "LFI",
-      "RCE"
+      "lfi",
+      "rce"
     ],
     "triggers": [
       "路径遍历",
@@ -19382,8 +19382,8 @@
       "渗透练习",
       "网络服务",
       "服务枚举",
-      "SNMP",
-      "SMB"
+      "snmp",
+      "smb"
     ],
     "triggers": [
       "靶场搭建",
@@ -19567,7 +19567,7 @@
       "hardening",
       "pentest",
       "事件响应",
-      "LLM安全"
+      "llm安全"
     ],
     "triggers": [
       "安全审计",
@@ -19591,7 +19591,7 @@
       "安全",
       "代码审查",
       "diff",
-      "PR",
+      "pr",
       "威胁建模",
       "git",
       "misc"
@@ -19678,8 +19678,8 @@
     "tags": [
       "安全",
       "侦察",
-      "OSINT",
-      "Shodan",
+      "osint",
+      "shodan",
       "攻击面测绘",
       "资产发现",
       "漏洞测绘",
@@ -19737,12 +19737,12 @@
     "tags": [
       "安全",
       "compliance",
-      "SOC2",
+      "soc2",
       "审计",
       "控制矩阵",
       "风险管理",
       "证据收集",
-      "SaaS"
+      "saas"
     ],
     "triggers": [
       "SOC 2",
@@ -19764,10 +19764,10 @@
     "tags": [
       "安全",
       "compliance",
-      "SOX",
+      "sox",
       "内控",
       "审计",
-      "ICFR",
+      "icfr",
       "控制测试",
       "缺陷分级"
     ],
@@ -19848,10 +19848,10 @@
       "威胁狩猎",
       "threat-hunting",
       "异常检测",
-      "IOC",
-      "MITRE-ATTACK",
-      "SIEM",
-      "EDR",
+      "ioc",
+      "mitre-attack",
+      "siem",
+      "edr",
       "蓝队"
     ],
     "triggers": [
@@ -19877,7 +19877,7 @@
       "varlock",
       "脱敏",
       "log-redaction",
-      "AI-Agent-安全",
+      "ai-agent-安全",
       "dotenv",
       "凭据管理"
     ],
@@ -20187,12 +20187,12 @@
     "tags": [
       "fintech",
       "市场数据",
-      "金融API",
+      "金融api",
       "股票",
       "外汇",
       "加密货币",
       "技术指标",
-      "Python"
+      "python"
     ],
     "triggers": [
       "Alpha Vantage",
@@ -20214,8 +20214,8 @@
       "结构生物学",
       "药物发现",
       "蛋白结构",
-      "AlphaFold",
-      "BioPython",
+      "alphafold",
+      "biopython",
       "生物信息学"
     ],
     "triggers": [
@@ -20328,9 +20328,9 @@
     "tags": [
       "science",
       "基因组学",
-      "RNA-seq",
-      "ARCHS4",
-      "REST-API",
+      "rna-seq",
+      "archs4",
+      "rest-api",
       "基因表达",
       "共表达"
     ],
@@ -20355,12 +20355,12 @@
     "tags": [
       "嵌入式",
       "固件",
-      "ARM-Cortex-M",
-      "STM32",
-      "Teensy",
+      "arm-cortex-m",
+      "stm32",
+      "teensy",
       "驱动开发",
-      "DMA",
-      "RTOS",
+      "dma",
+      "rtos",
       "硬件"
     ],
     "triggers": [
@@ -20845,11 +20845,11 @@
       "fintech",
       "选股",
       "成长股",
-      "CANSLIM",
+      "canslim",
       "美股",
       "相对强弱",
       "动量",
-      "Python"
+      "python"
     ],
     "triggers": [
       "CANSLIM",
@@ -20870,10 +20870,10 @@
     "tags": [
       "医疗器械",
       "质量管理",
-      "CAPA",
+      "capa",
       "根因分析",
-      "ISO 13485",
-      "FDA 21 CFR 820",
+      "iso 13485",
+      "fda 21 cfr 820",
       "合规"
     ],
     "triggers": [
@@ -21025,7 +21025,7 @@
     "tags": [
       "celltypist",
       "single-cell",
-      "scRNA-seq",
+      "scrna-seq",
       "cell-annotation",
       "logistic-regression",
       "majority-voting",
@@ -21057,7 +21057,7 @@
       "science",
       "genomics",
       "single-cell",
-      "scRNA-seq",
+      "scrna-seq",
       "cellxgene",
       "census",
       "tiledb-soma",
@@ -21149,8 +21149,8 @@
       "量子电路",
       "仿真",
       "噪声建模",
-      "Google-Quantum-AI",
-      "Python",
+      "google-quantum-ai",
+      "python",
       "misc"
     ],
     "triggers": [
@@ -21312,9 +21312,9 @@
       "science",
       "genomics",
       "bioinformatics",
-      "ClinVar",
-      "NCBI",
-      "E-utilities",
+      "clinvar",
+      "ncbi",
+      "e-utilities",
       "变异注释",
       "临床基因组学",
       "数据库查询"
@@ -21577,11 +21577,11 @@
     "tags": [
       "海关合规",
       "贸易合规",
-      "HS归类",
+      "hs归类",
       "关税优化",
       "原产地",
       "受限方筛查",
-      "Incoterms",
+      "incoterms",
       "进出口单证",
       "misc"
     ],
@@ -21672,10 +21672,10 @@
       "science",
       "genomics",
       "bioinformatics",
-      "dbSNP",
-      "NCBI",
-      "E-utilities",
-      "SNP",
+      "dbsnp",
+      "ncbi",
+      "e-utilities",
+      "snp",
       "变异注释",
       "数据库查询"
     ],
@@ -21732,10 +21732,10 @@
       "science",
       "drug-discovery",
       "pharmacology",
-      "DDInter",
+      "ddinter",
       "drug-drug-interaction",
       "polypharmacy",
-      "REST-API",
+      "rest-api",
       "数据库查询",
       "临床药学"
     ],
@@ -21816,15 +21816,15 @@
     "status": "stable",
     "tags": [
       "bioinformatics",
-      "NGS",
+      "ngs",
       "deeptools",
-      "ChIP-seq",
-      "ATAC-seq",
-      "RNA-seq",
-      "bigWig",
+      "chip-seq",
+      "atac-seq",
+      "rna-seq",
+      "bigwig",
       "coverage",
       "visualization",
-      "QC"
+      "qc"
     ],
     "triggers": [
       "bigWig",
@@ -21873,12 +21873,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "DeFi",
-      "Solidity",
+      "defi",
+      "solidity",
       "智能合约",
       "区块链",
-      "OpenZeppelin",
-      "AMM",
+      "openzeppelin",
+      "amm",
       "质押",
       "治理",
       "闪电贷",
@@ -21934,11 +21934,11 @@
     "tags": [
       "生物信息",
       "癌症基因组学",
-      "DepMap",
-      "CRISPR",
+      "depmap",
+      "crispr",
       "靶点发现",
       "合成致死",
-      "Python",
+      "python",
       "数据分析"
     ],
     "triggers": [
@@ -22256,9 +22256,9 @@
       "量化筛选",
       "动量交易",
       "财报",
-      "PEAD",
+      "pead",
       "技术分析",
-      "FMP",
+      "fmp",
       "评分系统"
     ],
     "triggers": [
@@ -22323,8 +22323,8 @@
       "science",
       "结构生物学",
       "冷冻电镜",
-      "EMDB",
-      "REST-API",
+      "emdb",
+      "rest-api",
       "数据库查询",
       "密度图"
     ],
@@ -22377,8 +22377,8 @@
       "employment",
       "休假",
       "leave",
-      "FMLA",
-      "ADA",
+      "fmla",
+      "ada",
       "certification",
       "designation",
       "exhaustion",
@@ -22442,9 +22442,9 @@
       "termination",
       "遣散",
       "release",
-      "OWBPA",
-      "RIF",
-      "WARN",
+      "owbpa",
+      "rif",
+      "warn",
       "反报复",
       "反歧视",
       "终薪"
@@ -22506,7 +22506,7 @@
       "电力市场",
       "电价优化",
       "需量管理",
-      "PPA",
+      "ppa",
       "对冲",
       "可持续报告",
       "hardware"
@@ -22652,12 +22652,12 @@
     "tags": [
       "医疗器械",
       "法规合规",
-      "欧盟 MDR",
+      "欧盟 mdr",
       "质量管理",
       "临床评价",
       "上市后监督",
-      "UDI",
-      "EUDAMED",
+      "udi",
+      "eudamed",
       "medical"
     ],
     "triggers": [
@@ -22785,14 +22785,14 @@
     "status": "stable",
     "tags": [
       "医疗器械",
-      "FDA",
-      "QSR",
-      "21CFR820",
-      "QMSR",
+      "fda",
+      "qsr",
+      "21cfr820",
+      "qmsr",
       "合规审计",
-      "Form483",
-      "MDR",
-      "ISO13485",
+      "form483",
+      "mdr",
+      "iso13485",
       "监管事务"
     ],
     "triggers": [
@@ -22817,7 +22817,7 @@
       "风险管理",
       "产品法务",
       "上线评审",
-      "AI治理",
+      "ai治理",
       "决策文档"
     ],
     "triggers": [
@@ -22841,8 +22841,8 @@
     "tags": [
       "fintech",
       "选股",
-      "FinViz",
-      "URL构建",
+      "finviz",
+      "url构建",
       "量化筛选",
       "技术面",
       "基本面"
@@ -22964,9 +22964,9 @@
       "融资轮次",
       "估值",
       "资本市场",
-      "PPTX",
-      "Capital IQ",
-      "S&P Global",
+      "pptx",
+      "capital iq",
+      "s&p global",
       "简报"
     ],
     "triggers": [
@@ -23095,10 +23095,10 @@
       "general-counsel",
       "合同审查",
       "term-sheet",
-      "IP策略",
+      "ip策略",
       "监管合规",
       "startup",
-      "C-level"
+      "c-level"
     ],
     "triggers": [
       "合同审查",
@@ -23122,9 +23122,9 @@
       "机器学习",
       "嵌入",
       "单细胞",
-      "BED",
-      "scATAC-seq",
-      "Python"
+      "bed",
+      "scatac-seq",
+      "python"
     ],
     "triggers": [
       "geniml",
@@ -23191,13 +23191,13 @@
       "science",
       "genomics",
       "bioinformatics",
-      "GEO",
-      "NCBI",
-      "E-utilities",
-      "GEOparse",
+      "geo",
+      "ncbi",
+      "e-utilities",
+      "geoparse",
       "表达数据",
       "微阵列",
-      "RNA-seq",
+      "rna-seq",
       "数据库查询"
     ],
     "triggers": [
@@ -23436,11 +23436,11 @@
     "status": "stable",
     "tags": [
       "单细胞",
-      "scRNA-seq",
+      "scrna-seq",
       "批次校正",
-      "Harmony",
+      "harmony",
       "scanpy",
-      "Seurat",
+      "seurat",
       "生物信息学",
       "降维整合"
     ],
@@ -23496,11 +23496,11 @@
     "status": "stable",
     "tags": [
       "数字病理",
-      "WSI",
+      "wsi",
       "histolab",
       "tile-extraction",
       "stain-normalization",
-      "OpenSlide",
+      "openslide",
       "misc"
     ],
     "triggers": [
@@ -23522,11 +23522,11 @@
       "science",
       "代谢组学",
       "metabolomics",
-      "HMDB",
-      "本地XML",
+      "hmdb",
+      "本地xml",
       "质谱",
       "生物标志物",
-      "ID转换"
+      "id转换"
     ],
     "triggers": [
       "HMDB",
@@ -23547,19 +23547,19 @@
     "level": "精通",
     "status": "stable",
     "tags": [
-      "医院 IT",
+      "医院 it",
       "数字健康",
-      "HIMSS",
-      "ONA",
-      "JCI",
-      "HIS",
-      "PEP",
-      "HL7",
-      "FHIR",
-      "DICOM",
+      "himss",
+      "ona",
+      "jci",
+      "his",
+      "pep",
+      "hl7",
+      "fhir",
+      "dicom",
       "患者安全",
       "高可用",
-      "LGPD",
+      "lgpd",
       "medical"
     ],
     "triggers": [
@@ -23702,8 +23702,8 @@
       "science",
       "蛋白质组学",
       "结构域",
-      "InterPro",
-      "REST-API",
+      "interpro",
+      "rest-api",
       "蛋白家族",
       "结构生物学"
     ],
@@ -24008,10 +24008,10 @@
     "tags": [
       "医疗器械",
       "质量管理",
-      "ISO13485",
+      "iso13485",
       "合规",
       "审核",
-      "CAPA",
+      "capa",
       "过程确认",
       "供应商管理"
     ],
@@ -24108,8 +24108,8 @@
       "转录调控",
       "转录因子",
       "motif",
-      "JASPAR",
-      "TFBS"
+      "jaspar",
+      "tfbs"
     ],
     "triggers": [
       "JASPAR",
@@ -24136,11 +24136,11 @@
       "science",
       "生物信息学",
       "通路分析",
-      "KEGG",
-      "REST-API",
+      "kegg",
+      "rest-api",
       "基因",
       "化合物",
-      "ID 转换"
+      "id 转换"
     ],
     "triggers": [
       "KEGG",
@@ -24206,7 +24206,7 @@
       "data-management",
       "lineage",
       "provenance",
-      "FAIR",
+      "fair",
       "ontology",
       "single-cell",
       "bioinformatics",
@@ -24385,7 +24385,7 @@
       "模板",
       "数据主体请求",
       "诉讼保全",
-      "NDA",
+      "nda",
       "隐私",
       "传票",
       "升级判定"
@@ -24583,9 +24583,9 @@
       "期权",
       "港股",
       "美股",
-      "A股",
-      "CLI",
-      "MCP"
+      "a股",
+      "cli",
+      "mcp"
     ],
     "triggers": [
       "港股美股行情",
@@ -24611,8 +24611,8 @@
       "私募基金",
       "对账",
       "审计",
-      "NAV",
-      "LP"
+      "nav",
+      "lp"
     ],
     "triggers": [
       "NAV勾稽",
@@ -24665,10 +24665,10 @@
       "生物信息",
       "基因组学",
       "表观遗传",
-      "ChIP-seq",
-      "ATAC-seq",
+      "chip-seq",
+      "atac-seq",
       "峰检测",
-      "MACS3",
+      "macs3",
       "science"
     ],
     "triggers": [
@@ -24724,8 +24724,8 @@
       "美股",
       "市场广度",
       "情绪指标",
-      "O'Neil",
-      "Minervini"
+      "o'neil",
+      "minervini"
     ],
     "triggers": [
       "市场顶部",
@@ -24937,11 +24937,11 @@
       "化合物筛选",
       "成药性",
       "结构警示",
-      "PAINS",
-      "NIBR",
+      "pains",
+      "nibr",
       "分子复杂度",
       "datamol",
-      "RDKit",
+      "rdkit",
       "cheminformatics",
       "drug-discovery",
       "medchem"
@@ -25122,9 +25122,9 @@
       "science",
       "genomics",
       "bioinformatics",
-      "Monarch",
-      "MONDO",
-      "HPO",
+      "monarch",
+      "mondo",
+      "hpo",
       "罕见病",
       "知识图谱",
       "表型",
@@ -25346,12 +25346,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Web3",
-      "NFT",
-      "Solidity",
-      "ERC-721",
-      "ERC-1155",
-      "OpenZeppelin",
+      "web3",
+      "nft",
+      "solidity",
+      "erc-721",
+      "erc-1155",
+      "openzeppelin",
       "智能合约",
       "元数据",
       "版税"
@@ -25465,10 +25465,10 @@
       "分析师预测",
       "共识估计",
       "营收",
-      "EPS",
+      "eps",
       "估值",
       "卖方研究",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -25494,8 +25494,8 @@
       "资产负债表",
       "财务分析",
       "杠杆",
-      "Octagon",
-      "MCP"
+      "octagon",
+      "mcp"
     ],
     "triggers": [
       "资产负债表",
@@ -25520,8 +25520,8 @@
       "同比增长",
       "资本结构",
       "去杠杆",
-      "Octagon",
-      "MCP"
+      "octagon",
+      "mcp"
     ],
     "triggers": [
       "资产负债表增长",
@@ -25546,8 +25546,8 @@
       "同业对比",
       "组合分析",
       "筛选",
-      "Octagon",
-      "MCP"
+      "octagon",
+      "mcp"
     ],
     "triggers": [
       "市值对比",
@@ -25572,8 +25572,8 @@
       "现金流",
       "同比增长",
       "自由现金流",
-      "Octagon",
-      "MCP",
+      "octagon",
+      "mcp",
       "盈利质量"
     ],
     "triggers": [
@@ -25599,7 +25599,7 @@
       "现金流",
       "自由现金流",
       "资本配置",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -25630,7 +25630,7 @@
       "能源",
       "技术指标",
       "移动均线",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -25657,8 +25657,8 @@
       "估值",
       "规模分类",
       "股票",
-      "Octagon",
-      "MCP"
+      "octagon",
+      "mcp"
     ],
     "triggers": [
       "市值",
@@ -25681,10 +25681,10 @@
       "fintech",
       "财报电话会",
       "分析师问答",
-      "Q&A",
+      "q&a",
       "提问归因",
       "投研",
-      "Octagon MCP",
+      "octagon mcp",
       "尽调"
     ],
     "triggers": [
@@ -25708,7 +25708,7 @@
       "电话会议",
       "前瞻指引",
       "投研",
-      "Octagon MCP",
+      "octagon mcp",
       "尽调"
     ],
     "triggers": [
@@ -25732,7 +25732,7 @@
       "情绪分析",
       "管理层语气",
       "前瞻指引",
-      "MCP",
+      "mcp",
       "投研"
     ],
     "triggers": [
@@ -25757,7 +25757,7 @@
       "资本配置",
       "股东回报",
       "并购",
-      "Octagon MCP",
+      "octagon mcp",
       "投研"
     ],
     "triggers": [
@@ -25782,7 +25782,7 @@
       "前瞻陈述",
       "分部分析",
       "投研",
-      "Octagon MCP",
+      "octagon mcp",
       "尽调"
     ],
     "triggers": [
@@ -25803,13 +25803,13 @@
     "tags": [
       "fintech",
       "earnings-call",
-      "Q&A",
+      "q&a",
       "投研",
       "分析师",
       "战略分析",
       "情绪分析",
-      "Octagon",
-      "MCP"
+      "octagon",
+      "mcp"
     ],
     "triggers": [
       "财报电话会",
@@ -25837,9 +25837,9 @@
       "投研报告",
       "投资评级",
       "估值",
-      "ESG",
-      "Octagon",
-      "MCP",
+      "esg",
+      "octagon",
+      "mcp",
       "编排"
     ],
     "triggers": [
@@ -25867,11 +25867,11 @@
     "status": "stable",
     "tags": [
       "fintech",
-      "ESG",
+      "esg",
       "可持续投资",
       "风险评估",
       "责任投资",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -25896,8 +25896,8 @@
       "fintech",
       "财务分析",
       "同比增长",
-      "Octagon",
-      "MCP",
+      "octagon",
+      "mcp",
       "基本面",
       "利润表",
       "现金流"
@@ -25924,7 +25924,7 @@
       "破产预测",
       "信用分析",
       "价值投资",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -25951,8 +25951,8 @@
       "利润表",
       "基本面",
       "经营杠杆",
-      "Octagon",
-      "MCP"
+      "octagon",
+      "mcp"
     ],
     "triggers": [
       "利润表同比",
@@ -25978,7 +25978,7 @@
       "forex",
       "货币对",
       "流动性",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26006,7 +26006,7 @@
       "时间序列",
       "基本面分析",
       "风险监控",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26036,7 +26036,7 @@
       "历史数据",
       "趋势分析",
       "回撤",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26062,7 +26062,7 @@
       "fintech",
       "财务数据",
       "利润表",
-      "Octagon-MCP",
+      "octagon-mcp",
       "上市公司",
       "基本面分析"
     ],
@@ -26089,8 +26089,8 @@
       "财务分析",
       "同比增长",
       "利润表",
-      "Octagon",
-      "MCP",
+      "octagon",
+      "mcp",
       "基本面",
       "盈利能力"
     ],
@@ -26115,7 +26115,7 @@
       "行业对标",
       "估值",
       "同业分析",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26144,7 +26144,7 @@
       "板块分析",
       "行业轮动",
       "动量分析",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26168,11 +26168,11 @@
     "tags": [
       "fintech",
       "预测市场",
-      "Kalshi",
+      "kalshi",
       "事件研究",
       "错误定价",
       "概率建模",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26201,7 +26201,7 @@
       "分析师共识",
       "估值",
       "卖方研究",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26229,7 +26229,7 @@
       "趋势分析",
       "卖方研究",
       "覆盖度",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26257,7 +26257,7 @@
       "基本面分析",
       "选股筛选",
       "同业对比",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26289,8 +26289,8 @@
       "地理区域",
       "区域集中度",
       "汇率风险",
-      "Octagon",
-      "MCP"
+      "octagon",
+      "mcp"
     ],
     "triggers": [
       "地理分部",
@@ -26314,7 +26314,7 @@
       "营收拆解",
       "产品分部",
       "营收集中度",
-      "Octagon-MCP",
+      "octagon-mcp",
       "基本面分析"
     ],
     "triggers": [
@@ -26337,13 +26337,13 @@
     "status": "stable",
     "tags": [
       "fintech",
-      "SEC",
-      "10-K",
+      "sec",
+      "10-k",
       "年报分析",
       "风险因素",
-      "MD&A",
+      "md&a",
       "财务指标",
-      "Octagon MCP",
+      "octagon mcp",
       "投资研究",
       "尽职调查"
     ],
@@ -26367,12 +26367,12 @@
     "status": "stable",
     "tags": [
       "fintech",
-      "SEC",
-      "8-K",
+      "sec",
+      "8-k",
       "重大事项",
       "并购监控",
       "公司治理",
-      "Octagon MCP",
+      "octagon mcp",
       "事件驱动投资"
     ],
     "triggers": [
@@ -26401,8 +26401,8 @@
       "授信协议",
       "10-k",
       "credit-analysis",
-      "Octagon",
-      "MCP"
+      "octagon",
+      "mcp"
     ],
     "triggers": [
       "债务契约",
@@ -26458,13 +26458,13 @@
     "status": "stable",
     "tags": [
       "fintech",
-      "SEC",
-      "MD&A",
+      "sec",
+      "md&a",
       "财报分析",
-      "10-K",
-      "10-Q",
-      "Octagon",
-      "MCP",
+      "10-k",
+      "10-q",
+      "octagon",
+      "mcp",
       "前瞻性陈述",
       "投资研究"
     ],
@@ -26488,17 +26488,17 @@
     "status": "stable",
     "tags": [
       "fintech",
-      "SEC",
-      "DEF 14A",
+      "sec",
+      "def 14a",
       "委托书",
       "高管薪酬",
       "公司治理",
       "say-on-pay",
       "股东提案",
-      "Octagon",
-      "MCP",
+      "octagon",
+      "mcp",
       "投资研究",
-      "ESG"
+      "esg"
     ],
     "triggers": [
       "DEF 14A",
@@ -26520,11 +26520,11 @@
     "status": "stable",
     "tags": [
       "fintech",
-      "SEC",
+      "sec",
       "风险因素",
-      "10-K",
-      "10-Q",
-      "Octagon MCP",
+      "10-k",
+      "10-q",
+      "octagon mcp",
       "尽职调查",
       "财报分析"
     ],
@@ -26545,16 +26545,16 @@
     "status": "stable",
     "tags": [
       "fintech",
-      "SEC",
-      "S-1",
-      "IPO",
+      "sec",
+      "s-1",
+      "ipo",
       "招股书",
       "募资用途",
       "资本结构",
       "主要股东",
-      "Octagon",
-      "MCP",
-      "pre-IPO",
+      "octagon",
+      "mcp",
+      "pre-ipo",
       "投资研究"
     ],
     "triggers": [
@@ -26577,12 +26577,12 @@
     "status": "stable",
     "tags": [
       "fintech",
-      "SEC",
+      "sec",
       "财报分析",
       "分部报告",
-      "Octagon-MCP",
+      "octagon-mcp",
       "美股",
-      "ASC280"
+      "asc280"
     ],
     "triggers": [
       "分部业绩",
@@ -26603,11 +26603,11 @@
       "fintech",
       "板块市盈率",
       "估值基准",
-      "P/E",
+      "p/e",
       "相对估值",
       "板块轮动",
       "交易所",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26635,7 +26635,7 @@
       "基本面分析",
       "板块对比",
       "估值基准",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26663,7 +26663,7 @@
       "评级变动",
       "机构情绪",
       "升级降级",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26692,7 +26692,7 @@
       "动量",
       "年化收益",
       "相对强弱",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26719,7 +26719,7 @@
       "行情",
       "技术指标",
       "移动均线",
-      "MCP",
+      "mcp",
       "octagon"
     ],
     "triggers": [
@@ -26773,12 +26773,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "领域/ERP",
-      "Odoo",
+      "领域/erp",
+      "odoo",
       "自动化测试",
-      "Python",
+      "python",
       "unittest",
-      "CI"
+      "ci"
     ],
     "triggers": [
       "odoo 测试",
@@ -26798,16 +26798,16 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Odoo",
-      "ERP",
+      "odoo",
+      "erp",
       "备份",
       "恢复",
-      "PostgreSQL",
+      "postgresql",
       "filestore",
       "运维",
       "灾备",
       "cron",
-      "S3"
+      "s3"
     ],
     "triggers": [
       "Odoo 备份",
@@ -26852,12 +26852,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Odoo",
+      "odoo",
       "电商",
-      "ERP",
+      "erp",
       "支付",
       "物流配送",
-      "SEO",
+      "seo",
       "订单履约"
     ],
     "triggers": [
@@ -26877,12 +26877,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Odoo",
-      "ERP",
-      "EDI",
-      "X12",
-      "EDIFACT",
-      "B2B集成",
+      "odoo",
+      "erp",
+      "edi",
+      "x12",
+      "edifact",
+      "b2b集成",
       "订单自动化",
       "xmlrpc"
     ],
@@ -26906,11 +26906,11 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Odoo",
-      "ERP",
-      "HR",
+      "odoo",
+      "erp",
+      "hr",
       "薪酬",
-      "Payroll",
+      "payroll",
       "薪资规则",
       "休假管理",
       "会计过账"
@@ -26931,10 +26931,10 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Odoo",
-      "ERP",
+      "odoo",
+      "erp",
       "库存管理",
-      "WMS",
+      "wms",
       "供应链"
     ],
     "triggers": [
@@ -26992,10 +26992,10 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "ERP",
-      "Odoo",
+      "erp",
+      "odoo",
       "制造",
-      "MRP",
+      "mrp",
       "供应链"
     ],
     "triggers": [
@@ -27014,12 +27014,12 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Odoo",
-      "ERP",
+      "odoo",
+      "erp",
       "版本迁移",
       "破坏性变更",
-      "Python",
-      "XML视图"
+      "python",
+      "xml视图"
     ],
     "triggers": [
       "odoo 迁移",
@@ -27066,10 +27066,10 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Odoo",
-      "ERP",
-      "ORM",
-      "Python",
+      "odoo",
+      "erp",
+      "orm",
+      "python",
       "性能优化",
       "领域模型"
     ],
@@ -27122,8 +27122,8 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "ERP",
-      "Odoo",
+      "erp",
+      "odoo",
       "采购",
       "供应链",
       "三单匹配",
@@ -27391,8 +27391,8 @@
       "opentrons",
       "liquid-handling",
       "python",
-      "PCR",
-      "ELISA",
+      "pcr",
+      "elisa",
       "magnetic-beads"
     ],
     "triggers": [
@@ -27505,11 +27505,11 @@
       "金融科技",
       "支付集成",
       "巴基斯坦",
-      "PKR",
+      "pkr",
       "对账",
-      "Webhook",
-      "SaaS",
-      "B2B"
+      "webhook",
+      "saas",
+      "b2b"
     ],
     "triggers": [
       "JazzCash",
@@ -27643,13 +27643,13 @@
     "status": "stable",
     "tags": [
       "fintech",
-      "PEAD",
+      "pead",
       "选股",
       "财报",
-      "周线K线",
+      "周线k线",
       "动量",
-      "FMP",
-      "Python"
+      "fmp",
+      "python"
     ],
     "triggers": [
       "PEAD",
@@ -27673,10 +27673,10 @@
       "量子机器学习",
       "pennylane",
       "自动微分",
-      "VQE",
+      "vqe",
       "变分量子算法",
-      "Python",
-      "PyTorch-JAX-TensorFlow",
+      "python",
+      "pytorch-jax-tensorflow",
       "misc"
     ],
     "triggers": [
@@ -27698,12 +27698,12 @@
     "status": "stable",
     "tags": [
       "领域/金融科技",
-      "Plaid",
+      "plaid",
       "银行数据聚合",
-      "ACH",
-      "Webhook",
-      "Node.js",
-      "TypeScript",
+      "ach",
+      "webhook",
+      "node.js",
+      "typescript",
       "合规安全"
     ],
     "triggers": [
@@ -27727,9 +27727,9 @@
       "基因组学",
       "polars",
       "区间运算",
-      "数据IO",
-      "DataFusion",
-      "Python"
+      "数据io",
+      "datafusion",
+      "python"
     ],
     "triggers": [
       "基因组区间",
@@ -27843,10 +27843,10 @@
       "science",
       "蛋白质组学",
       "质谱",
-      "PRIDE",
-      "REST-API",
+      "pride",
+      "rest-api",
       "数据集检索",
-      "ProteomeXchange"
+      "proteomexchange"
     ],
     "triggers": [
       "PRIDE",
@@ -28019,8 +28019,8 @@
       "science",
       "化学信息学",
       "药物发现",
-      "PubChem",
-      "REST-API",
+      "pubchem",
+      "rest-api",
       "化合物检索",
       "理化属性"
     ],
@@ -28239,8 +28239,8 @@
     "tags": [
       "医疗器械",
       "质量管理体系",
-      "ISO13485",
-      "21CFR11",
+      "iso13485",
+      "21cfr11",
       "文件控制",
       "变更管理",
       "电子签名",
@@ -28360,7 +28360,7 @@
       "主方程",
       "量子光学",
       "数值仿真",
-      "Python",
+      "python",
       "科学计算"
     ],
     "triggers": [
@@ -28382,11 +28382,11 @@
       "结构生物学",
       "药物发现",
       "数据库",
-      "REST-API",
-      "GraphQL",
+      "rest-api",
+      "graphql",
       "蛋白结构",
       "序列搜索",
-      "Python"
+      "python"
     ],
     "triggers": [
       "PDB",
@@ -28444,12 +28444,12 @@
       "science",
       "生物信息学",
       "通路分析",
-      "Reactome",
-      "REST-API",
+      "reactome",
+      "rest-api",
       "富集分析",
-      "ORA",
+      "ora",
       "通路层级",
-      "ID 映射"
+      "id 映射"
     ],
     "triggers": [
       "Reactome",
@@ -28601,11 +28601,11 @@
     "tags": [
       "生物信息",
       "基因组学",
-      "NGS",
+      "ngs",
       "比对",
-      "BAM",
-      "SAM",
-      "CRAM",
+      "bam",
+      "sam",
+      "cram",
       "samtools",
       "质控",
       "science"
@@ -29220,8 +29220,8 @@
       "生物信息",
       "基因组学",
       "变异数据",
-      "TileDB",
-      "VCF",
+      "tiledb",
+      "vcf",
       "群体遗传",
       "数据存储",
       "misc"
@@ -29280,9 +29280,9 @@
       "风险管理",
       "仓位管理",
       "凯利公式",
-      "ATR",
+      "atr",
       "止损",
-      "Python"
+      "python"
     ],
     "triggers": [
       "仓位计算",
@@ -29420,10 +29420,10 @@
       "science",
       "化学信息学",
       "药物发现",
-      "UniChem",
-      "REST-API",
+      "unichem",
+      "rest-api",
       "标识符映射",
-      "InChIKey"
+      "inchikey"
     ],
     "triggers": [
       "UniChem",
@@ -29448,11 +29448,11 @@
       "生物信息",
       "蛋白质组",
       "数据库",
-      "REST-API",
+      "rest-api",
       "序列检索",
-      "ID映射",
+      "id映射",
       "注释",
-      "Python"
+      "python"
     ],
     "triggers": [
       "UniProt",
@@ -29510,9 +29510,9 @@
       "价值投资",
       "股息率",
       "基本面筛选",
-      "FMP",
-      "FINVIZ",
-      "Python"
+      "fmp",
+      "finviz",
+      "python"
     ],
     "triggers": [
       "红利股筛选",
@@ -29568,12 +29568,12 @@
       "fintech",
       "选股",
       "技术分析",
-      "VCP",
-      "Minervini",
+      "vcp",
+      "minervini",
       "动量",
       "screener",
       "python",
-      "FMP"
+      "fmp"
     ],
     "triggers": [
       "VCP",
@@ -29694,7 +29694,7 @@
       "legal",
       "employment",
       "wage-hour",
-      "FLSA",
+      "flsa",
       "overtime",
       "exemption",
       "final-pay",
@@ -29787,9 +29787,9 @@
       "science",
       "化学信息学",
       "药物发现",
-      "ZINC",
+      "zinc",
       "虚拟筛选",
-      "REST-API",
+      "rest-api",
       "化合物库",
       "分子对接"
     ],
@@ -29817,8 +29817,8 @@
       "email",
       "agent",
       "webhook",
-      "REST-API",
-      "AgentMail",
+      "rest-api",
+      "agentmail",
       "automation"
     ],
     "triggers": [
@@ -29840,11 +29840,11 @@
       "平台",
       "misc",
       "电话",
-      "语音AI",
+      "语音ai",
       "短信",
       "telephony",
       "webhook",
-      "API",
+      "api",
       "voice-agent"
     ],
     "triggers": [
@@ -30056,14 +30056,14 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "AWS",
+      "aws",
       "serverless",
       "云架构",
-      "IaC",
-      "CloudFormation",
+      "iac",
+      "cloudformation",
       "成本优化",
-      "Lambda",
-      "DynamoDB"
+      "lambda",
+      "dynamodb"
     ],
     "triggers": [
       "无服务器架构",
@@ -30138,15 +30138,15 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Azure",
-      "Container Apps",
+      "azure",
+      "container apps",
       "azd",
-      "Bicep",
-      "IaC",
+      "bicep",
+      "iac",
       "远程构建",
-      "Managed Identity",
-      "RBAC",
-      "DevOps",
+      "managed identity",
+      "rbac",
+      "devops",
       "容器部署"
     ],
     "triggers": [
@@ -30198,13 +30198,13 @@
     "status": "stable",
     "tags": [
       "浏览器自动化",
-      "Playwright",
+      "playwright",
       "网页抓取",
       "数据提取",
       "表单自动化",
       "反检测",
       "会话管理",
-      "Python"
+      "python"
     ],
     "triggers": [
       "网页抓取",
@@ -30306,17 +30306,17 @@
     "status": "stable",
     "tags": [
       "云成本",
-      "FinOps",
-      "AWS",
-      "Azure",
-      "GCP",
-      "OCI",
+      "finops",
+      "aws",
+      "azure",
+      "gcp",
+      "oci",
       "rightsizing",
       "预留实例",
-      "Spot",
+      "spot",
       "标签治理",
       "预算告警",
-      "Terraform",
+      "terraform",
       "多云"
     ],
     "triggers": [
@@ -30344,9 +30344,9 @@
       "workers",
       "边缘计算",
       "serverless",
-      "KV",
-      "D1",
-      "R2",
+      "kv",
+      "d1",
+      "r2",
       "wrangler"
     ],
     "triggers": [
@@ -30369,8 +30369,8 @@
     "status": "stable",
     "tags": [
       "网页提取",
-      "Markdown",
-      "CLI",
+      "markdown",
+      "cli",
       "内容清洗",
       "token优化",
       "defuddle"
@@ -30426,7 +30426,7 @@
       "misc",
       "搜索",
       "调研",
-      "Exa",
+      "exa",
       "语义检索"
     ],
     "triggers": [
@@ -30526,16 +30526,16 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "GCP",
-      "Google Cloud",
+      "gcp",
+      "google cloud",
       "云架构",
-      "Cloud Run",
-      "GKE",
-      "BigQuery",
+      "cloud run",
+      "gke",
+      "bigquery",
       "成本优化",
-      "Terraform",
-      "IaC",
-      "Cloud Build",
+      "terraform",
+      "iac",
+      "cloud build",
       "平台"
     ],
     "triggers": [
@@ -30556,16 +30556,16 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "GCP",
-      "Cloud Run",
-      "Serverless",
+      "gcp",
+      "cloud run",
+      "serverless",
       "容器",
-      "Pub/Sub",
-      "Cloud SQL",
-      "Secret Manager",
+      "pub/sub",
+      "cloud sql",
+      "secret manager",
       "冷启动",
       "并发",
-      "DevOps"
+      "devops"
     ],
     "triggers": [
       "Cloud Run",
@@ -30821,14 +30821,14 @@
     "tags": [
       "多云",
       "云架构",
-      "AWS",
-      "Azure",
-      "GCP",
+      "aws",
+      "azure",
+      "gcp",
       "云无关",
       "迁移",
       "容灾",
-      "Terraform",
-      "Kubernetes",
+      "terraform",
+      "kubernetes",
       "成本优化",
       "平台"
     ],
@@ -31090,7 +31090,7 @@
       "搜索",
       "抓取",
       "调研",
-      "Tavily",
+      "tavily",
       "网页检索"
     ],
     "triggers": [
@@ -31212,13 +31212,13 @@
     "tags": [
       "平台集成",
       "通信",
-      "短信SMS",
-      "语音IVR",
-      "WhatsApp",
-      "2FA验证",
-      "Webhook",
-      "Twilio",
-      "Python",
+      "短信sms",
+      "语音ivr",
+      "whatsapp",
+      "2fa验证",
+      "webhook",
+      "twilio",
+      "python",
       "限流重试"
     ],
     "triggers": [
@@ -31245,7 +31245,7 @@
       "代码检索",
       "语义搜索",
       "vexor",
-      "CLI工具",
+      "cli工具",
       "代码导航",
       "文件定位"
     ],
@@ -31324,12 +31324,12 @@
     "level": "入门",
     "status": "stable",
     "tags": [
-      "X",
-      "Twitter",
+      "x",
+      "twitter",
       "推文抓取",
-      "JSON",
-      "ADHX",
-      "LLM",
+      "json",
+      "adhx",
+      "llm",
       "社交平台"
     ],
     "triggers": [
@@ -31418,10 +31418,10 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "YouTube",
+      "youtube",
       "字幕转录",
       "yt-dlp",
-      "VTT",
+      "vtt",
       "知识库入库",
       "frontmatter",
       "平台/misc"
@@ -31444,12 +31444,12 @@
     "status": "stable",
     "tags": [
       "平台集成",
-      "Zoom",
+      "zoom",
       "语音转写",
-      "ASR",
+      "asr",
       "批量作业",
-      "Webhook",
-      "JWT鉴权",
+      "webhook",
+      "jwt鉴权",
       "音视频处理"
     ],
     "triggers": [
@@ -31472,13 +31472,13 @@
     "status": "stable",
     "tags": [
       "平台集成",
-      "Zoom",
-      "Contact Center",
+      "zoom",
+      "contact center",
       "客服中心",
-      "Web SDK",
-      "移动SDK",
-      "Android",
-      "iOS",
+      "web sdk",
+      "移动sdk",
+      "android",
+      "ios",
       "engagement",
       "softphone"
     ],
@@ -31503,16 +31503,16 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Zoom",
+      "zoom",
       "集成规划",
       "架构选型",
-      "OAuth",
+      "oauth",
       "scope 清单",
       "里程碑拆分",
-      "Webhook",
-      "Meeting SDK",
-      "Marketplace 评审",
-      "MCP"
+      "webhook",
+      "meeting sdk",
+      "marketplace 评审",
+      "mcp"
     ],
     "triggers": [
       "Zoom 集成",
@@ -31656,14 +31656,14 @@
     "tags": [
       "平台集成",
       "通信",
-      "Zoom Phone",
-      "软电话CTI",
-      "Webhook",
-      "Smart Embed",
-      "postMessage",
-      "OAuth",
-      "CRM集成",
-      "API迁移"
+      "zoom phone",
+      "软电话cti",
+      "webhook",
+      "smart embed",
+      "postmessage",
+      "oauth",
+      "crm集成",
+      "api迁移"
     ],
     "triggers": [
       "Zoom Phone",
@@ -31687,14 +31687,14 @@
     "level": "进阶",
     "status": "stable",
     "tags": [
-      "Zoom",
-      "API选型",
+      "zoom",
+      "api选型",
       "架构决策",
       "集成",
-      "Meeting-SDK",
-      "Video-SDK",
-      "Webhook",
-      "MCP"
+      "meeting-sdk",
+      "video-sdk",
+      "webhook",
+      "mcp"
     ],
     "triggers": [
       "Zoom 选型",

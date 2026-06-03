@@ -4,7 +4,7 @@ title: 利润表项目同比增长
 description: 当需要诊断上市公司利润表 5 项核心指标（营收/毛利/经营利润/净利润/摊薄 EPS）的同比（YoY）增长趋势、定位盈利拐点时使用；通过 Octagon MCP 的 octagon-agent 按 ticker 拉取多年 YoY 增长率表并产出盈利洞察（加速年、利润率背离、EPS 与净利差异、收缩期）；不适用于绝对值财报建模、估值/DCF、实时行情、现金流/资产负债表项或非美股无覆盖标的；触发词：利润表增长、income statement growth、Octagon
 domain: 领域/fintech
 triggers: [利润表同比增长, income statement growth, Octagon MCP, octagon-agent, 营收/净利润增长率, EPS Diluted 增长, 盈利拐点分析, FY/Q 增长率表]
-tags: [fintech, 财务分析, 同比增长, 利润表, Octagon, MCP, 基本面, 盈利能力]
+tags: [fintech, 财务分析, 同比增长, 利润表, octagon, mcp, 基本面, 盈利能力]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

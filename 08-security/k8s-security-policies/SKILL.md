@@ -4,7 +4,7 @@ title: Kubernetes 安全策略
 description: 当为 Kubernetes 集群做纵深防御加固时使用；用 Pod 安全标准、NetworkPolicy、RBAC、准入控制（OPA Gatekeeper/Istio mTLS）落地最小权限与网络分段配置并验证；不适用于应用部署、性能调优或非安全类清单生成。触发词：NetworkPolicy、RBAC、Pod 安全标准、准入控制、多租户隔离
 domain: 安全/ops
 triggers: [NetworkPolicy, RBAC, Pod 安全标准, PodSecurity, OPA Gatekeeper, 准入控制, 网络分段, 最小权限, 多租户隔离, securityContext, mTLS, CIS Benchmark]
-tags: [kubernetes, 安全, 网络策略, RBAC, 准入控制, 合规, 纵深防御]
+tags: [kubernetes, 安全, 网络策略, rbac, 准入控制, 合规, 纵深防御]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

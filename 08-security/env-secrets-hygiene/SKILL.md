@@ -4,7 +4,7 @@ title: 环境变量与密钥卫生审计
 description: 当审计 .env/源码是否误提交密钥、规划凭据轮换或排查生产缺变量故障时使用；做密钥泄露扫描、环境变量校验、轮换与应急遏制，产出按严重级排序的发现清单与预提交/CI 门禁；不适用于生产 Vault 基建/HA/灾备搭建（见 secrets-vault-manager）；触发词：密钥泄露、.env 审计、凭据轮换
 domain: 安全/ops
 triggers: [密钥泄露, secret 泄露, .env 审计, 凭据轮换, credential rotation, 缺少环境变量, missing env var, 硬编码密钥, gitleaks, pre-commit 密钥扫描, AWS access key 泄露, git 历史清密钥]
-tags: [安全, ops, 密钥管理, secrets, 环境变量, 凭据轮换, CI/CD, 预提交检查, Vault]
+tags: [安全, ops, 密钥管理, secrets, 环境变量, 凭据轮换, ci/cd, 预提交检查, vault]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

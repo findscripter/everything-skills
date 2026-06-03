@@ -4,7 +4,7 @@ title: ARM Cortex-M 固件与驱动开发
 description: 当为 ARM Cortex-M 系列单片机（Teensy 4.x、STM32 F4/F7/H7、nRF52、SAMD）编写固件、外设驱动或排查时序/内存一致性问题时使用；产出可编译的完整驱动模块（init/ISR/示例）、并发与 DMA 缓存方案、NVIC/临界区/HardFault 处理；不适用于纯应用层、桌面/服务器或非 Cortex-M 平台。触发词：Cortex-M、STM32、Teensy、DMA、HardFault
 domain: 领域/hardware
 triggers: [ARM Cortex-M 固件开发, STM32/Teensy/nRF52/SAMD 驱动, I2C/SPI/UART/ADC/DMA 外设驱动, Cortex-M7 内存屏障与缓存一致性, NVIC 中断优先级与临界区, HardFault 调试, DMA 缓存对齐与非缓存内存放置, FreeRTOS/Zephyr 嵌入式并发]
-tags: [嵌入式, 固件, ARM-Cortex-M, STM32, Teensy, 驱动开发, DMA, RTOS, 硬件]
+tags: [嵌入式, 固件, arm-cortex-m, stm32, teensy, 驱动开发, dma, rtos, 硬件]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

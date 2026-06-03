@@ -4,7 +4,7 @@ title: 投后价值创造计划（EBITDA 桥与 100 天计划）
 description: 当 PE 完成收购后规划投后执行、编制运营合伙人材料或搭建董事会级价值创造路线图时使用；做出映射到 EBITDA 桥的收入/成本/运营杠杆清单、100 天计划、KPI 看板与责任矩阵等可决策产物；不适用于尽调建模、估值或常规财务做账。触发词：价值创造计划、100 天计划、EBITDA 桥、投后运营计划
 domain: 商业/finance
 triggers: [价值创造计划, value creation plan, 100 天计划, 100-day plan, 投后执行, post-close plan, EBITDA 桥, EBITDA bridge, 运营计划 operating plan, 价值创造杠杆, value creation levers, 运营合伙人材料, KPI 看板, 投后改善, add-on 并购]
-tags: [商业, finance, 私募股权, PE, 投后管理, EBITDA桥, 100天计划, 价值创造, 运营合伙人, KPI]
+tags: [商业, finance, 私募股权, pe, 投后管理, ebitda桥, 100天计划, 价值创造, 运营合伙人, kpi]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 现代 Angular（v20+）开发专家
 description: 当开发或升级到 Angular v20+、用 Signals/独立组件/Zoneless/SSR 水合重构时使用；做现代响应式模式落地并产出可构建测试的组件、服务与路由代码；不适用于 AngularJS(1.x) 迁移、无法升级的旧版应用或纯 TypeScript 问题；触发词：Signals、Standalone、Zoneless、SSR 水合、@defer、inject
 domain: 研发/frontend
 triggers: [Angular, Signals, 信号, computed, effect, Standalone 组件, 独立组件, Zoneless, 无 zone.js, SSR, 水合, Hydration, @defer, 增量水合, input() output() model(), inject(), OnPush, NgOptimizedImage, 函数式路由守卫, 信号状态服务, v20, v21, v22]
-tags: [前端, frontend, Angular, Signals, 响应式, Standalone, Zoneless, SSR, Hydration, 状态管理, 性能优化, TypeScript]
+tags: [前端, frontend, angular, signals, 响应式, standalone, zoneless, ssr, hydration, 状态管理, 性能优化, typescript]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

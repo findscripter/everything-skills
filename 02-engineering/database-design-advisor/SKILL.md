@@ -4,7 +4,7 @@ title: 数据库选型与迁移设计
 description: 当需要做数据库选型（SQL/NoSQL）、设计 Schema、规划零停机迁移、优化索引与慢查询、设计分库分表与复制时使用；产出建模方案、迁移脚本（up/down）、索引与查询优化建议、选型决策矩阵；不适用于具体业务 SQL 调试代写、ORM 框架细节、运维集群部署。触发词：数据库设计、Schema、选型、迁移、索引、分库分表、慢查询
 domain: 研发/architecture
 triggers: [数据库设计, Schema 设计, 数据库选型, SQL 还是 NoSQL, 数据迁移, 零停机迁移, expand-contract, 索引优化, 慢查询, EXPLAIN, N+1, 分库分表, sharding, 读写分离, 读副本, 连接池, 数据建模, 范式, 数据库复制]
-tags: [数据库, 架构, Schema设计, 数据迁移, 索引优化, 查询优化, 选型, 分库分表, 复制, PostgreSQL, MySQL, NoSQL]
+tags: [数据库, 架构, schema设计, 数据迁移, 索引优化, 查询优化, 选型, 分库分表, 复制, postgresql, mysql, nosql]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

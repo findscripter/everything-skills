@@ -4,7 +4,7 @@ title: ISO 42001 AI 管理体系合规
 description: 当为 ISO/IEC 42001:2023 AI 管理体系（AIMS）做内审、认证准备或把 AI 系统纳入既有 27001/13485 体系时使用；做条款 4-10 差距打分、AI 风险登记册+附录A控制映射、条款9.2十二个月内审计划，产出审计就绪证据；不适用于高管 AI 战略或欧盟 AI 法案条款级合规；触发词：ISO42001、AIMS、AI风险登记册
 domain: 安全/compliance
 triggers: [ISO 42001, ISO/IEC 42001:2023, AI 管理体系, AIMS, AI 风险登记册, 附录 A 控制, AI 内审, 条款 9.2 内审计划, AI 影响评估, ISO 23894, AI 合规认证, AI 治理]
-tags: [安全, compliance, ISO42001, AIMS, AI治理, 内审, 风险管理, ISO23894]
+tags: [安全, compliance, iso42001, aims, ai治理, 内审, 风险管理, iso23894]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

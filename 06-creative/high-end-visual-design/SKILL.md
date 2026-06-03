@@ -4,7 +4,7 @@ title: 高端视觉界面设计
 description: 当需要产出 Awwwards/代理商级、Apple/Linear 风的高端落地页·作品集·SaaS·产品页界面（高级字体、空间留白、柔光纵深、流体微交互）时使用；做法是先掷"变体引擎"选定氛围+布局原型，再用 React/Tailwind 以双层包边、岛屿按钮、自定义缓动与滚动入场动效产出像素级前端代码；不适用于受限仪表盘·受监管产品·低端弱网环境，也不替代品牌策略·转化研究·无障碍与上线 QA。触发词：高端视觉、Awwwards、Apple 风、奢华界面、premium UI
 domain: 创意/design
 triggers: [高端视觉设计, Awwwards, 代理商级界面, Apple 风, Linear 风, 奢华界面, premium UI, 高级字体排印, 双层包边 Doppelrand, 流体微交互, 磁吸按钮, 滚动入场动效, 玻璃拟态导航, 变体引擎, high-end visual design]
-tags: [创意/design, 前端, 视觉设计, 动效, UI/UX, Tailwind, React, 微交互]
+tags: [创意/design, 前端, 视觉设计, 动效, ui/ux, tailwind, react, 微交互]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

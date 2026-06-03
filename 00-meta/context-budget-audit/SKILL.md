@@ -4,7 +4,7 @@ title: 上下文窗口预算审计（裁剪臃肿组件）
 description: 当会话变慢/质量下降、刚加了一批技能/Agent/MCP、想确认还有多少上下文余量或扩容前评估空间时使用；做盘点 Agent/技能/规则/MCP/CLAUDE.md 的 token 占用，分类标记臃肿冗余组件，产出按节省量排序的优化报告与 Top3 建议；不适用于运行期单次任务的对话压缩、或精确逐 token 计费。触发词：上下文预算、context budget、token 占用、裁剪 MCP、瘦身、还有多少空间
 domain: 通用/thinking
 triggers: [上下文预算, context budget, /context-budget, token 占用, 上下文太满, 裁剪 MCP, 技能瘦身, 还有多少上下文空间, 扩容前评估, 组件臃肿, MCP 太多, context overhead]
-tags: [上下文工程, token 优化, MCP 治理, 技能审计, 成本控制, Claude Code 配置, 性能调优]
+tags: [上下文工程, token 优化, mcp 治理, 技能审计, 成本控制, claude code 配置, 性能调优]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

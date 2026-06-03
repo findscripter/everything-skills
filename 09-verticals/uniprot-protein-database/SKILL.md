@@ -4,7 +4,7 @@ title: UniProt 蛋白序列与注释数据库
 description: 当需要按基因/蛋白名/物种检索蛋白、取 FASTA 序列、跨库映射 ID（Ensembl/PDB/RefSeq/KEGG）或读取 Swiss-Prot 功能注释（GO/结构域/PTM）时使用；通过 UniProt REST API 完成检索、取序、批量/流式下载与 ID 映射并产出 TSV/JSON/FASTA。不适用于取 3D 结构（用 AlphaFold/PDB）或一站式多库访问（用 bioservices）。触发词：UniProt、蛋白序列、ID映射
 domain: 领域/science
 triggers: [UniProt, 蛋白序列检索, FASTA 下载, ID 映射, Swiss-Prot 注释, GO 注释提取, 按基因名查蛋白, 蛋白 accession, REST API 查蛋白, 跨库 ID 转换]
-tags: [生物信息, 蛋白质组, 数据库, REST-API, 序列检索, ID映射, 注释, Python]
+tags: [生物信息, 蛋白质组, 数据库, rest-api, 序列检索, id映射, 注释, python]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

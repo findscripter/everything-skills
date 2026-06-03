@@ -4,7 +4,7 @@ title: 投行交易进度跟踪
 description: 当同时管理多笔在跑投行交易（sell-side/buy-side/融资/重组）、需跟踪里程碑与截止日、维护交易管线视图或准备每周交易复盘时使用；产出交易台账（管线总览＋每笔里程碑跟踪表＋行动项主清单＋每周复盘纪要，Excel/Markdown）并自动暴露临近截止日与逾期项；不适用于估值建模、尽调清单设计或法律文书起草（转交对应技能）。触发词：交易跟踪、交易状态、进展更新、交易管线、每周交易复盘、deal pipeline
 domain: 商业/finance
 triggers: [交易跟踪, deal tracker, 交易状态, deal status, 进展更新, process update, where are we on, 交易管线, deal pipeline, 每周交易复盘, weekly deal review, 里程碑跟踪, 逾期项, 行动项清单, 交易阶段]
-tags: [商业, finance, 投行, 交易跟踪, deal-pipeline, 里程碑, 行动项, 周复盘, M&A, sell-side]
+tags: [商业, finance, 投行, 交易跟踪, deal-pipeline, 里程碑, 行动项, 周复盘, m&a, sell-side]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

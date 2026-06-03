@@ -4,7 +4,7 @@ title: 营收地理区域分部拆解
 description: 当需要把上市公司营收按地理区域分部（美洲/欧洲/大中华/日本/亚太其他）拆解，以分析区域集中度、国际化扩张、汇率与地缘风险敞口时使用；通过 Octagon MCP 的 octagon-agent 工具按 ticker 拉取多年各区域营收表（flat 结构）并算区域占比/增速、生成集中度与汇率洞察；不适用于业务线/产品分部拆解、绝对值三表建模、估值或实时行情；触发词：地理分部、区域营收、geographic segment、区域集中度
 domain: 领域/fintech
 triggers: [地理分部营收, 区域营收拆解, geographic segment revenue, 区域集中度, 国际化扩张/海外占比, 汇率/地缘风险敞口, Octagon MCP, octagon-agent]
-tags: [fintech, 财务分析, 营收分部, 地理区域, 区域集中度, 汇率风险, Octagon, MCP]
+tags: [fintech, 财务分析, 营收分部, 地理区域, 区域集中度, 汇率风险, octagon, mcp]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

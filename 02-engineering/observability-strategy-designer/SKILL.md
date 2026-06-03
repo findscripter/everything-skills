@@ -4,7 +4,7 @@ title: 可观测性策略设计（指标日志追踪）
 description: 当为新服务接入可观测性、治理过于嘈杂的告警，或上量前建立 SLO 体系时使用；做指标/日志/追踪三支柱设计，产出 SLI/SLO、错误预算、多窗口燃尽率告警、Grafana 仪表盘与运行手册；不适用于纯业务数据分析或一次性故障排查。触发词：SLO、告警降噪、可观测性
 domain: 研发/observability
 triggers: [可观测性, observability, SLI, SLO, 错误预算, 燃尽率, burn rate, 黄金信号, golden signals, 告警降噪, 告警优化, Grafana 仪表盘, 分布式追踪, RED 方法, USE 方法, 监控接入, 运行手册, runbook]
-tags: [研发, observability, SLO, 监控告警, 指标, 日志, 追踪, SRE, Prometheus, Grafana]
+tags: [研发, observability, slo, 监控告警, 指标, 日志, 追踪, sre, prometheus, grafana]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

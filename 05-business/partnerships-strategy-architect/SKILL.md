@@ -4,7 +4,7 @@ title: 战略合作伙伴架构
 description: 当合作方上门索要分销/OEM/"战略联盟"条款、或要新建伙伴分层、或要决定重构·解约低效伙伴时使用；做伙伴分层判定（推荐/经销/OEM/SI/战略）、90天联合GTM计划、分润测算与解约触发条件，产出"分层＋GTM计划＋分润区间＋解约红线"建议包；不适用于技术售前POC、已签伙伴逐笔折扣审批、渠道ROI核算或改用收购替代合作。触发词：合作伙伴、分销商、OEM、战略联盟、分润、渠道冲突
 domain: 商业/sales
 triggers: [合作伙伴, 伙伴分层, 分销商, 经销商, OEM, 白标, 战略联盟, 分润, revshare, 联合GTM, 渠道冲突, 解约触发条件, MDF, partner tier, 推荐返佣, 转售商]
-tags: [商业, sales, 合作伙伴, 渠道, 联合GTM, 分润, OEM, 经销, 战略联盟, 渠道冲突, 伙伴分层]
+tags: [商业, sales, 合作伙伴, 渠道, 联合gtm, 分润, oem, 经销, 战略联盟, 渠道冲突, 伙伴分层]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

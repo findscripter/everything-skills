@@ -4,7 +4,7 @@ title: 干系人进展更新撰写
 description: 当需按受众与节奏撰写干系人更新（高管周报/月报、发布公告、风险升级，或把同一进展改写成高管简报/工程明细/对客版本）时使用；产出含状态灯（绿/黄/红）、TL;DR、进展、风险与诉求的分受众结构化更新草稿；不适用于对外客服回复、营销文案或纯财务建模；触发词：干系人更新、状态汇报、周报、月报、发布公告、风险升级、stakeholder update
 domain: 协作/knowledge
 triggers: [干系人更新, 状态汇报, 进度更新, 周报, 月报, 发布公告, 风险升级, stakeholder update, status update]
-tags: [干系人沟通, 状态汇报, 高管沟通, 进度更新, 风险沟通, ROAM, 发布公告, 协作]
+tags: [干系人沟通, 状态汇报, 高管沟通, 进度更新, 风险沟通, roam, 发布公告, 协作]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 投行演示稿数据刷新
 description: 当需要把已有演示稿（deck）里的旧数字批量换成新数字——季度刷新、财报更新、可比公司滚动、市场数据再基准——而非重做版式时使用；做的事是定位每处旧值（含不同量级/精度/单位写法及图表底层数据）、出变更清单经审批后做最小化替换并产出回执；不适用于重写叙事/重建幻灯片、未经确认就改派生指标（增长率、份额）、或从零搭建 deck。触发词：用Q4数据更新deck、刷新comps、roll forward、换新财报数字、把485M全改成512M、季度数据刷新。
 domain: 商业/finance
 triggers: [用Q4数据更新deck, 刷新comps, 可比公司滚动, roll forward, 换新财报数字, 把485M全改成512M, 季度数据刷新, 市场数据再基准, comp roll, earnings update deck]
-tags: [商业, finance, 投行, 演示稿, 数据刷新, comps, 财报更新, PowerPoint]
+tags: [商业, finance, 投行, 演示稿, 数据刷新, comps, 财报更新, powerpoint]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: QuTiP 开放量子系统仿真
 description: 当研究开放量子系统动力学（主方程、Lindblad、退相干、量子光学、腔 QED）时使用；用 QuTiP 搭建态/算符/哈密顿量并选 sesolve/mesolve/mcsolve 等求解器做时间演化与可视化产物；不适用于电路型量子计算与硬件执行（改用 qiskit/cirq/pennylane）。触发词：QuTiP、主方程、mesolve
 domain: 领域/science
 triggers: [QuTiP, 开放量子系统, 主方程, Lindblad, 退相干, mesolve, mcsolve, 量子光学, 腔 QED, Jaynes-Cummings, Bloch 球, Wigner 函数, Floquet, HEOM, 稳态求解, 量子轨迹]
-tags: [量子物理, 开放量子系统, 主方程, 量子光学, 数值仿真, Python, 科学计算]
+tags: [量子物理, 开放量子系统, 主方程, 量子光学, 数值仿真, python, 科学计算]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

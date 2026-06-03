@@ -4,7 +4,7 @@ title: 小微企业季度经营回顾（QBR）
 description: 当小微企业主/财务需要做季度经营回顾、把财务+销售+客户数据汇成一份可宣讲叙事时使用；拉取 QuickBooks 损益、PayPal 结算、HubSpot 成交数据，产出 500-800 字 QBR 叙事+3 机会+3 风险+可导出 PDF/deck；不适用于实时仪表盘、自动发布/群发或编造无数据指标。触发词：QBR、季度经营回顾、季度复盘、quarterly review、收入毛利趋势、季度财报会
 domain: 商业/growth
 triggers: [QBR, 季度经营回顾, 季度复盘, quarterly business review, quarterly review, 收入趋势, 毛利趋势, 客户健康, 季度机会与风险, 季度财报会, 小微企业季度回顾]
-tags: [商业, growth, 小微企业, QBR, 季度回顾, 财务叙事, QuickBooks, HubSpot, 客户健康, 经营复盘]
+tags: [商业, growth, 小微企业, qbr, 季度回顾, 财务叙事, quickbooks, hubspot, 客户健康, 经营复盘]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

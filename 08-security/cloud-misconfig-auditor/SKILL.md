@@ -4,7 +4,7 @@ title: 云基础设施安全审计
 description: 当需要在部署前/部署后系统性排查云配置错误（IAM 提权链、S3 公开暴露、安全组开放高危端口、IaC 安全缺口）时使用；做云安全态势评估（CSPM），产出按严重级别分类、附带 MITRE ATT&CK 映射与最小权限整改建议的发现清单；不适用于已发生的云入侵应急响应（见 incident-response）或应用层漏洞渗透（见 security-pen-testing）。触发词：云安全审计、IAM 提权、S3 公开桶、安全组、CSPM、配置错误
 domain: 安全/ops
 triggers: [云安全审计, 云配置错误, CSPM 云态势, IAM 提权链, iam:PassRole 提权, S3 公开暴露, S3 公开桶检查, 安全组开放端口, 0.0.0.0/0 入站, SSH/RDP 暴露, IaC 安全扫描, Terraform 安全检查, CloudFormation 安全, 最小权限审计, 云态势评估, AWS/Azure/GCP 安全基线]
-tags: [安全, ops, 云安全, CSPM, IAM, S3, 安全组, IaC, Terraform, AWS, Azure, GCP, MITRE-ATTACK, 合规]
+tags: [安全, ops, 云安全, cspm, iam, s3, 安全组, iac, terraform, aws, azure, gcp, mitre-attack, 合规]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

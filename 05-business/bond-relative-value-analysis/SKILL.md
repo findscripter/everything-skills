@@ -4,7 +4,7 @@ title: 债券相对价值分析
 description: 当判断债券贵/便宜、做利差分解（无风险+信用+残差）、对比同类券或跑利率冲击情景时使用；做基于 MCP 行情/曲线工具链的相对价值评估并产出利差分解表、情景损益表与贵/便宜建议；不适用于权益估值、纯发行定价、组合层级配置或无可比券与曲线数据的场景；触发词：相对价值、贵便宜、利差分解、Z-spread、G-spread、债券情景分析
 domain: 商业/finance
 triggers: [相对价值, 贵便宜, rich cheap, 利差分解, Z-spread, G-spread, 信用利差, 残差利差, 情景分析, 利率冲击, 债券相对价值, spread decomposition]
-tags: [finance, fixed-income, bond, relative-value, spread, scenario-analysis, MCP, 卖方研究]
+tags: [finance, fixed-income, bond, relative-value, spread, scenario-analysis, mcp, 卖方研究]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

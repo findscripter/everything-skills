@@ -4,7 +4,7 @@ title: Convex 响应式后端与实时订阅
 description: 当用 Convex 搭建/接入响应式后端，需设计 Schema、编写 TS 函数（query/mutation/action）、做实时订阅、鉴权、文件存储或定时任务时使用；产出可运行的 convex/ 函数、Schema、索引与客户端订阅代码；不适用于传统 SQL/ORM 或非 Convex 的 BaaS。触发词：Convex、响应式后端、实时订阅、useQuery
 domain: 研发/backend
 triggers: [Convex, convex dev, 响应式后端, 实时订阅, useQuery, useMutation, Convex Schema, Convex 鉴权, convex action, 定时函数 cron]
-tags: [convex, 响应式后端, BaaS, TypeScript, 实时订阅, Schema设计, 鉴权, 文件存储, 定时任务, Next.js]
+tags: [convex, 响应式后端, baas, typescript, 实时订阅, schema设计, 鉴权, 文件存储, 定时任务, next.js]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

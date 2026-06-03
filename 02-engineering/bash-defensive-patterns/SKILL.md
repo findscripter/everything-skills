@@ -4,7 +4,7 @@ title: 防御式 Bash 脚本生产实践
 description: 当编写生产级 Bash 脚本、CI/CD 流水线或系统运维工具、需要容错与安全时使用；做严格模式、入参校验、错误陷阱/清理、日志与 dry-run 的防御式编码并产出可复用脚本模式；不适用于一次性临时命令或必须严格 POSIX sh 的环境；触发词：bash脚本、set -Eeuo pipefail、shell容错
 domain: 研发/devops
 triggers: [写 Bash/shell 脚本, CI/CD 流水线脚本, 系统运维/部署自动化, set -Eeuo pipefail / 严格模式, trap 错误处理与清理, mktemp 临时文件安全, 脚本入参解析与校验, dry-run / 幂等脚本, shell 脚本日志, 脚本依赖检查]
-tags: [bash, shell, 脚本, 防御式编程, 错误处理, CI/CD, 运维自动化, 幂等, 研发, misc]
+tags: [bash, shell, 脚本, 防御式编程, 错误处理, ci/cd, 运维自动化, 幂等, 研发, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

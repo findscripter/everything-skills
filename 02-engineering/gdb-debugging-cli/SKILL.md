@@ -4,7 +4,7 @@ title: GDB 崩溃与核心转储调试
 description: 当需要用 GDB（经 gdb-cli）分析 C/C++ 程序的核心转储、附加调试运行进程、排查崩溃/死锁/内存问题时使用；做源码与运行时状态关联分析并产出根因定位结论；不适用于非 C/C++ 调试、无 GDB（需 9.0+ 带 Python）或非 Linux 环境；触发词：core dump、崩溃、死锁、gdb attach、backtrace、段错误
 domain: 研发/review
 triggers: [core dump 分析, 核心转储, 程序崩溃排查, 段错误 / segfault, 死锁分析, gdb attach 运行进程, backtrace / 调用栈, 空指针解引用, 多线程卡死, 内存损坏]
-tags: [调试, gdb, core-dump, 崩溃分析, C/C++, 多线程, 死锁, 研发]
+tags: [调试, gdb, core-dump, 崩溃分析, c/c++, 多线程, 死锁, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

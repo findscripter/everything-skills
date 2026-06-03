@@ -4,7 +4,7 @@ title: Unreal Engine 5 C++ 开发
 description: 当为 Unreal Engine 5.x 编写 C++（Actor、Component、UObject 派生类）、做性能优化、排查 GC/内存泄漏或暴露蓝图接口时使用；产出符合 Epic 规范、GC 安全且高性能的 UE5 C++ 代码与重构方案；不适用于纯蓝图项目、UE5 之前版本或非 Unreal 引擎。触发词：Unreal C++、UE5、UPROPERTY、UCLASS、垃圾回收、TSoftObjectPtr、Tick 优化
 domain: 创意/av
 triggers: [Unreal C++, UE5 C++, 虚幻引擎 C++, UPROPERTY, UCLASS, UFUNCTION, 垃圾回收, GC 内存泄漏, TSoftObjectPtr, TSoftClassPtr, Tick 优化, 蓝图暴露, Epic 编码规范, FindComponentByClass, UE_LOG]
-tags: [游戏开发, Unreal Engine, UE5, C++, 性能优化, 垃圾回收, 蓝图, 创意]
+tags: [游戏开发, unreal engine, ue5, c++, 性能优化, 垃圾回收, 蓝图, 创意]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

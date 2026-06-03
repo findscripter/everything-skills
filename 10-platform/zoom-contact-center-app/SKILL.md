@@ -4,7 +4,7 @@ title: Zoom Contact Center 应用开发
 description: 当为 Zoom Contact Center 开发坐席侧应用、网页嵌入（聊天/视频/活动）或 Android/iOS 原生 SDK 集成，且需处理互动上下文、状态切换、活动与预约回呼、跨版本漂移时使用；做一套覆盖初始化→构建渠道项→注册监听→启动→状态管理→释放的生命周期实现与排障方案；不适用于 Contact Center 的呼叫控制/队列 REST API（改用 REST 类）或非 Zoom 的客服平台。触发词：Zoom Contact Center、ZCC、engagement context、engagement status、campaign SDK、scheduled callback、getEngagementContext、onEngagementStatusChange
 domain: 平台/integration
 triggers: [Zoom Contact Center, ZCC, contact center sdk, engagement context / 互动上下文, engagement status / 互动状态, campaign SDK / 活动, scheduled callback / 预约回呼, getEngagementContext, onEngagementStatusChange, Zoom Apps SDK 侧边栏应用, web channel embed / 网页嵌入, Smart Embed CRM softphone]
-tags: [平台集成, Zoom, Contact Center, 客服中心, Web SDK, 移动SDK, Android, iOS, engagement, softphone]
+tags: [平台集成, zoom, contact center, 客服中心, web sdk, 移动sdk, android, ios, engagement, softphone]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

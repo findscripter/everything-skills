@@ -4,7 +4,7 @@ title: Mermaid 图表绘制专家
 description: 当需要用 Mermaid 文本语法快速绘制流程图、时序图、类图、状态图、ER 图、甘特图等可嵌入 Markdown/文档的图表时使用；做选对图类型、写出可渲染的 Mermaid 代码并附基础版+样式版与渲染说明；不适用于像素级精修的设计稿（用 Figma/画板）或纯数据可视化图表（用 D3/ECharts）。触发词：Mermaid、流程图、时序图
 domain: 创意/design
 triggers: [Mermaid, 流程图, 时序图, sequenceDiagram, 类图, 状态图, ER 图, erDiagram, 甘特图, gantt, 架构图, flowchart, graph, 用户旅程, Markdown 图表]
-tags: [Mermaid, 图表, 流程图, 时序图, 可视化, Markdown, 文档, 创意]
+tags: [mermaid, 图表, 流程图, 时序图, 可视化, markdown, 文档, 创意]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

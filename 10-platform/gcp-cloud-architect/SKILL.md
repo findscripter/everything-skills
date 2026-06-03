@@ -4,7 +4,7 @@ title: GCP 云架构设计
 description: 当需要为创业公司或企业设计 Google Cloud 架构、上线 Cloud Run/GKE、搭建 BigQuery 数据管道或优化 GCP 成本时使用；按需求选型架构模式并产出 Terraform/gcloud/Cloud Build 的 IaC 与成本优化清单；不适用于 AWS/Azure 或非云端本地部署。触发词：GCP、Cloud Run、GKE、BigQuery、成本优化
 domain: 平台/cloud
 triggers: [设计 GCP 架构, 部署到 Cloud Run 或 GKE, 搭建 BigQuery 数据管道, 优化 GCP 成本, 迁移到 Google Cloud, Google Cloud 基础设施选型, GCP Terraform/IaC 模板]
-tags: [GCP, Google Cloud, 云架构, Cloud Run, GKE, BigQuery, 成本优化, Terraform, IaC, Cloud Build, 平台]
+tags: [gcp, google cloud, 云架构, cloud run, gke, bigquery, 成本优化, terraform, iac, cloud build, 平台]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

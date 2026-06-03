@@ -4,7 +4,7 @@ title: 财报电话会问答环节战略分析
 description: 当需要从财报电话会（earnings call）问答（Q&A）环节挖掘战略意图、分析师关切与管理层即兴回应时使用；做法是经 Octagon MCP 按主题（战略优先级/竞争/利润率/资本配置/指引澄清）拆解问答，产出带原文页码引用的结构化洞察、回应质量评估与跟进问题清单；不适用于解读照本宣科的开场陈词（prepared remarks）、实盘交易，或脱离 Octagon 取数的凭空分析。触发词：财报电话会、earnings call、问答环节、Q&A、分析师提问、管理层回应、战略优先级、Octagon
 domain: 领域/fintech
 triggers: [财报电话会, earnings call, 问答环节, Q&A, 分析师提问, 管理层回应, 战略优先级, 指引澄清, 竞争动态, 利润率讨论, Octagon MCP]
-tags: [fintech, earnings-call, Q&A, 投研, 分析师, 战略分析, 情绪分析, Octagon, MCP]
+tags: [fintech, earnings-call, q&a, 投研, 分析师, 战略分析, 情绪分析, octagon, mcp]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

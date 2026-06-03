@@ -4,7 +4,7 @@ title: 海关报关与关税合规
 description: 当处理跨境进出口报关、HS 归类、关税优化、受限方筛查或多法域贸易合规时使用；产出归类裁定依据、单证清单、优惠原产地/估价方案与筛查处置记录；不适用于纯境内交易或替代正式法律意见。触发词：HS 归类、关税优化、报关单证、Incoterms、受限方筛查
 domain: 领域/legal
 triggers: [HS/HTS/TARIC 归类, 关税优化与原产地, 进出口报关单证, Incoterms 2020 选择, 受限方/SDN 筛查, 海关估价方法, FTA 优惠原产地, ISF 10+2 申报, 处罚与主动披露, 保税区/退税/暂时进口]
-tags: [海关合规, 贸易合规, HS归类, 关税优化, 原产地, 受限方筛查, Incoterms, 进出口单证, misc]
+tags: [海关合规, 贸易合规, hs归类, 关税优化, 原产地, 受限方筛查, incoterms, 进出口单证, misc]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

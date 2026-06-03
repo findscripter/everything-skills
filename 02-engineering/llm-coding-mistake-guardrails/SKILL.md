@@ -4,7 +4,7 @@ title: 减少 LLM 编码常见错误的准则
 description: 当用 LLM 编写、审查或重构代码时使用；产出最小可行改动 + 显式假设 + 可验证成功标准（先写复现/校验测试再实现）；不适用于无需谨慎权衡的琐碎改动或纯需求澄清；触发词：LLM 编码、外科手术式改动、过度设计、可验证目标
 domain: 研发/review
 triggers: [用 LLM 写代码, review 代码避免过度设计, 重构要保持最小改动, 把任务变成可验证目标, 代码过度复杂需要简化, 改动只动该动的]
-tags: [编码准则, code-review, LLM 编码, 简洁性, 重构]
+tags: [编码准则, code-review, llm 编码, 简洁性, 重构]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

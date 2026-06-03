@@ -4,7 +4,7 @@ title: 向量索引调优
 description: 当向量检索延迟高、召回不达标或内存占用过大时使用；做 HNSW 参数（M/efConstruction/efSearch）、量化策略与索引类型选型，产出可基准验证的索引配置与监控指标；不适用于嵌入模型选型、检索结果重排或召回链路的语义优化（属 RAG 上层）。触发词：HNSW、量化、召回率
 domain: 智能/rag
 triggers: [向量索引调优, HNSW 参数, efSearch, efConstruction, 向量量化, 标量量化, 乘积量化 PQ, 二值量化, 召回率 recall, 向量检索延迟, Qdrant 索引配置, IVF DiskANN, 亿级向量扩展, 索引内存优化]
-tags: [向量检索, RAG, HNSW, 量化, 性能调优, Qdrant, 召回率, 智能]
+tags: [向量检索, rag, hnsw, 量化, 性能调优, qdrant, 召回率, 智能]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

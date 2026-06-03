@@ -4,7 +4,7 @@ title: 网站结构与 URL 层级设计
 description: 当需审计/规划网站信息架构、URL 层级、导航或内链以解决结构性 SEO 问题时使用；产出站点树、URL 规范表、内链(中枢-辐条)方案与孤儿页修复清单；不适用于决定写什么内容(用内容策略)或结构化数据标记(用 schema 标记)。触发词：网站结构、URL 层级、内链、孤儿页、面包屑、内容簇
 domain: 商业/seo
 triggers: [网站结构, URL 层级/结构, 内链/内部链接, 孤儿页, 面包屑导航, 内容簇/主题集群, 中枢页/支柱页, silo 筒仓结构, 信息架构, 站点重组/网站重构, 根因是结构问题的 SEO]
-tags: [SEO, 信息架构, URL设计, 内链策略, 导航设计, 主题权威, 技术SEO, 网站重构]
+tags: [seo, 信息架构, url设计, 内链策略, 导航设计, 主题权威, 技术seo, 网站重构]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

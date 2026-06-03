@@ -4,7 +4,7 @@ title: SEC分部业绩报告分析
 description: 当需要从美股公司 10-K/10-Q 文件中研究业务分部（segment）的营收、营业利润、利润率、地区拆分与分部重组时使用；通过 Octagon MCP 的 octagon-agent 工具做分部业绩分析并产出结构化对比表与趋势解读；不适用于无 Octagon MCP 环境、非上市公司或整体财报（非分部维度）分析。触发词：分部业绩、segment revenue、10-K分部
 domain: 领域/fintech
 triggers: [分部业绩, segment reporting, 分部营收, 营业利润率分析, 地区营收拆分, 分部重组, 10-K 分部, 10-Q 分部, sum-of-parts, ASC 280]
-tags: [fintech, SEC, 财报分析, 分部报告, Octagon-MCP, 美股, ASC280]
+tags: [fintech, sec, 财报分析, 分部报告, octagon-mcp, 美股, asc280]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

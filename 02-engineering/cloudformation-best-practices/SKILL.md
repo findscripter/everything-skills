@@ -4,7 +4,7 @@ title: CloudFormation 模板与嵌套栈实践
 description: 当编写/审查 AWS CloudFormation 模板、设计嵌套或跨栈架构、排查栈创建更新失败与漂移时使用；产出可维护、可多环境复用的生产级模板与部署/校验命令；不适用于用户选用 CDK/Terraform 或纯应用代码的场景。触发词：CloudFormation、嵌套栈、漂移检测
 domain: 研发/devops
 triggers: [CloudFormation, CFN 模板, 嵌套栈, 跨栈引用, 漂移检测, cfn-lint, DeletionPolicy, UPDATE_ROLLBACK_FAILED, 多环境模板]
-tags: [AWS, CloudFormation, IaC, 基础设施即代码, 嵌套栈, DevOps, 研发]
+tags: [aws, cloudformation, iac, 基础设施即代码, 嵌套栈, devops, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

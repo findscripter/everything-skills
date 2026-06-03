@@ -4,7 +4,7 @@ title: 多框架合规就绪审查（compliance-readiness-review）
 description: 当采纳新合规框架、敲定年度审核日历或签署认证就绪结论前使用；用「六问质询」压测合规项目并产出就绪裁决（READY/STAGE-2/NOT-READY）与Top3行动项；不适用于单框架技术配置或日常证据维护；触发词：合规就绪、多框架审计、认证就绪
 domain: 安全/compliance
 triggers: [合规就绪审查, 多框架合规, 年度审核日历, 认证就绪签署, 认证 stage 1, 模拟审计, 跨框架证据复用, 管理评审 9.3, compliance readiness]
-tags: [合规, compliance, 安全, 审计, ISO, 认证, 证据管理, 风险治理]
+tags: [合规, compliance, 安全, 审计, iso, 认证, 证据管理, 风险治理]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

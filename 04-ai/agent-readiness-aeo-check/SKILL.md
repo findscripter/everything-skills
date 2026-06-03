@@ -4,7 +4,7 @@ title: 工具 Agent 就绪度 AEO 评分
 description: 当要把某个 MCP 服务器/API/CLI 工具纳入 Agent 工作流前，需要量化其"Agent 就绪度"、横向比较同类工具或在某品类里挑最优时使用；做接入 Clarvia AEO（Agent Experience Optimization）评分服务，对工具按 API 可达性、数据结构化、Agent 兼容性、信任信号四维打 0-100 分并给出分档解读、排行榜与对比建议，产出选型决策与可选 CI 质量门禁；不适用于工具的功能/安全/性能实测，也不替代环境内真实联调与专家复核。触发词：AEO 评分、Agent 就绪度、MCP 选型、工具对比、Clarvia
 domain: 智能/eval
 triggers: [给 MCP 服务器/API/CLI 打 Agent 就绪度分, 把工具加进 Agent 工作流前先评估, AEO / Agent Experience Optimization 评分, 同类工具横向对比哪个更适合 Agent, 在某品类里找评分最高的 MCP 服务器, Clarvia / clarvia-mcp-server / aeo_score / get_score_breakdown, CI 里设工具质量门禁 fail-under, 工具选型决策]
-tags: [智能, AEO, Agent就绪度, MCP选型, 工具质量, 工具评分, Clarvia, agent-readiness, tool-quality]
+tags: [智能, aeo, agent就绪度, mcp选型, 工具质量, 工具评分, clarvia, agent-readiness, tool-quality]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

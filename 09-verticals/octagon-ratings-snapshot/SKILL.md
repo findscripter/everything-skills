@@ -4,7 +4,7 @@ title: 公司评级与关键指标快照
 description: 当需要对一只或多只上市公司股票做快速基本面初筛、横向质量对比或在尽调前打分排序时使用；通过 Octagon MCP 的 octagon-agent 工具按 Ticker 拉取综合评级（A–F）与 DCF、ROE、ROA、负债权益比、P/E、P/B 六项 1–5 分指标并据分区表解读；不适用于需自建模型逐项重算、做单标的深度估值或离线无 MCP 取数的场景。触发词：评级快照、ratings snapshot、股票打分、综合评级、基本面初筛、DCF/ROE/ROA 评分、同业对比、octagon-agent
 domain: 领域/fintech
 triggers: [评级快照, ratings snapshot, 股票打分, 综合评级, 基本面初筛, 同业对比, DCF评分, ROE评分, octagon-agent, 选股筛选]
-tags: [fintech, 股票评级, 基本面分析, 选股筛选, 同业对比, MCP, octagon]
+tags: [fintech, 股票评级, 基本面分析, 选股筛选, 同业对比, mcp, octagon]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

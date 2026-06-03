@@ -4,7 +4,7 @@ title: 文件上传与云存储
 description: 当处理文件上传、对接 S3/Cloudflare R2、生成预签名 URL、做分片上传或图片优化时使用；做安全可靠的上传链路设计与产出可落地的校验/直传代码；不适用于纯前端 UI 交互、数据库元数据建模或 CDN 图片投递调优；触发词：文件上传、S3、R2、预签名 URL、分片上传、图片上传、云存储。
 domain: 研发/backend
 triggers: [文件上传, S3, Cloudflare R2, 预签名 URL, presigned URL, 分片上传, multipart, 图片上传, 云存储, object storage, 大文件上传]
-tags: [文件上传, 云存储, S3, R2, 预签名URL, 分片上传, 安全, 研发, misc]
+tags: [文件上传, 云存储, s3, r2, 预签名url, 分片上传, 安全, 研发, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

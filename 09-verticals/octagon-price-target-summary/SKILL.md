@@ -4,7 +4,7 @@ title: 分析师目标价汇总解读
 description: 当需要看某只股票分析师目标价在近一月/季/年/全期的均价与覆盖分析师数、判断目标价上升或下降趋势、衡量分析师情绪演变与上调下调动向时使用；通过 Octagon MCP 的 octagon-agent 按 Ticker 拉取多时段目标价汇总并解读趋势、覆盖度、共识强度与上行/下行空间；不适用于只要当前共识/中位/最高最低单快照（转 octagon-price-target-consensus）、自建估值模型重算内在价值、或离线无 MCP 取数。触发词：目标价趋势、price target summary、目标价历史、分析师情绪、上调下调、覆盖分析师数、octagon-agent
 domain: 领域/fintech
 triggers: [目标价趋势, 目标价汇总, price target summary, 目标价历史, 分析师情绪, 上调下调, 覆盖分析师数, 共识演变, octagon-agent, Octagon MCP]
-tags: [fintech, 目标价, 分析师情绪, 趋势分析, 卖方研究, 覆盖度, MCP, octagon]
+tags: [fintech, 目标价, 分析师情绪, 趋势分析, 卖方研究, 覆盖度, mcp, octagon]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

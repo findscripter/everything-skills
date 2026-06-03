@@ -4,7 +4,7 @@ title: 代码库逆向生成PRD
 description: 当拿到现有前端/后端/全栈代码库、需要逆向产出产品需求文档（PRD）或功能清单时使用；做三阶段扫描（全局扫描→逐页深析→结构化文档生成）并产出可让工程师或 AI 完整重建每个页面与接口的业务可读 PRD（README+分页文档+枚举/接口/页面关系附录）；不适用于无源码的纯需求规划、UI 视觉走查或单纯代码审查。触发词：生成PRD、逆向需求文档、代码转文档、梳理页面字段与接口
 domain: 文书/writing
 triggers: [生成PRD, 逆向生成需求文档, 把代码库转成PRD, code to prd, reverse-engineer requirements, 从现有代码提取产品规格, 梳理页面字段和交互, 整理功能清单, 记录API接口文档, 分析后端路由, 为已有项目补写需求文档]
-tags: [PRD, 逆向工程, 需求文档, 代码分析, 产品文档, 接口清单, 前端, 后端, 全栈, 文书写作]
+tags: [prd, 逆向工程, 需求文档, 代码分析, 产品文档, 接口清单, 前端, 后端, 全栈, 文书写作]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

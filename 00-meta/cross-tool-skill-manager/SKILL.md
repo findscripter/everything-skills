@@ -4,7 +4,7 @@ title: 跨工具技能管理：在 11 个工具间增删改技能
 description: 当需在多个 AI 编码工具（Cursor/Claude/Agents/Windsurf/Copilot/Codex/Cline/Aider/Continue/Roo/Augment）间查看、新建、编辑、启停、复制、移动或删除本地技能与规则文件时使用；产出针对各工具正确路径与格式的命令操作；不适用于工具私有只读插件缓存或线上技能市场。触发词：管理技能、跨工具复制技能、列出我的技能。
 domain: 通用/communication
 triggers: [管理技能, 列出我的技能, 新建一个技能, 把技能复制到X工具, 禁用/启用技能, 跨工具同步规则文件, 在 Cursor/Claude/Windsurf 间迁移技能]
-tags: [技能管理, AI编码工具, Cursor, Claude, Windsurf, 规则文件, 跨工具, 文件操作]
+tags: [技能管理, ai编码工具, cursor, claude, windsurf, 规则文件, 跨工具, 文件操作]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

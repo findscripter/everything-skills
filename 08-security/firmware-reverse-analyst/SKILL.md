@@ -4,7 +4,7 @@ title: 固件逆向与 IoT 安全
 description: 当需要对 IoT/嵌入式设备固件做提取、逆向与安全评估时使用；用 binwalk/Ghidra/QEMU 等完成固件解包、文件系统与二进制分析、漏洞挖掘并产出评估报告；不适用于未授权设备入侵、绕过 DRM 或制作恶意固件。触发词：固件、binwalk、IoT 安全
 domain: 安全/appsec
 triggers: [固件分析, 固件逆向, 固件提取, binwalk 解包, IoT 安全, 嵌入式安全, SquashFS 提取, 硬编码凭据, QEMU 固件仿真, UART/JTAG, 命令注入, 固件安全评估]
-tags: [安全, misc, 固件, IoT, 嵌入式, 逆向工程, binwalk, Ghidra, QEMU, 漏洞挖掘]
+tags: [安全, misc, 固件, iot, 嵌入式, 逆向工程, binwalk, ghidra, qemu, 漏洞挖掘]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

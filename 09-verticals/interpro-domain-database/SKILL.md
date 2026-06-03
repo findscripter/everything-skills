@@ -4,7 +4,7 @@ title: InterPro 蛋白结构域数据库
 description: 当需要查蛋白结构域架构、家族归类、跨成员库整合或结构域物种分布时使用；用 requests 直连 EBI InterPro REST API，产出某 UniProt 蛋白的全部 InterPro 条目、家族成员蛋白列表、物种分布与关联 PDB 结构。不适用于取蛋白序列/功能注释（用 uniprot-protein-database）或下载实验三维结构（用结构数据库技能）。触发词：InterPro、IPR、Pfam、结构域架构、蛋白家族
 domain: 领域/science
 triggers: [InterPro, IPR, Pfam, PANTHER, 结构域架构, 蛋白家族, domain architecture, 成员数据库, GO 注释, 物种分布, 结构域, SMART, PROSITE, EBI, UniProt 结构域]
-tags: [science, 蛋白质组学, 结构域, InterPro, REST-API, 蛋白家族, 结构生物学]
+tags: [science, 蛋白质组学, 结构域, interpro, rest-api, 蛋白家族, 结构生物学]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

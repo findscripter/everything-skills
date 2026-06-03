@@ -4,7 +4,7 @@ title: Python pytest 测试模式
 description: 当为 Python 项目搭建 pytest 测试体系、写单元/集成测试或 mock 外部依赖时使用；用 fixture/参数化/mock/monkeypatch 按 AAA 模式产出可执行测试、conftest 与覆盖率配置；不适用于非 Python 语言或拿测试替代环境验证与专家评审。触发词：pytest、fixture、参数化、mock、覆盖率
 domain: 研发/testing
 triggers: [写单元测试, 搭建 pytest 测试, fixture 夹具, 参数化测试, mock 依赖, monkeypatch, 测试覆盖率, pytest-cov, 测试异常, 异步测试 asyncio, 属性测试 hypothesis, conftest, tmp_path 临时文件, 测试数据库, TDD]
-tags: [测试, Python, pytest, fixture, mock, 参数化, 覆盖率, TDD, 单元测试, 集成测试]
+tags: [测试, python, pytest, fixture, mock, 参数化, 覆盖率, tdd, 单元测试, 集成测试]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

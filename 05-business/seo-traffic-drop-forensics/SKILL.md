@@ -4,7 +4,7 @@ title: SEO 流量骤降取证排查
 description: 当自然流量/排名突然骤降、疑似遭算法核心更新打击、人工处罚或重大技术回归时使用；做取证式事件响应——三级分诊→证据驱动归因→分期恢复方案与监控计划；不适用于常规 SEO 体检或机会优先级排序（用 seo-audit）、本地法律行业长期可见性（用 local-legal-seo-audit）。触发词：流量暴跌、排名骤降、收录掉了、核心更新、人工处罚、noindex 误改、迁移掉量
 domain: 商业/seo
 triggers: [自然流量突然暴跌怎么排查, 网站排名骤降原因分析, 怀疑被谷歌核心更新打击, GSC 收到人工处罚消息, site 收录数量骤减, 改版/迁移后流量掉了, robots.txt 或 noindex 误改导致掉量, SEO 事件响应取证报告]
-tags: [SEO, 自然流量, 事件响应, 取证排查, Google-Search-Console, 核心更新, 人工处罚, 技术SEO, 网站迁移, EEAT]
+tags: [seo, 自然流量, 事件响应, 取证排查, google-search-console, 核心更新, 人工处罚, 技术seo, 网站迁移, eeat]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: Drizzle ORM 模式设计
 description: 当用 TypeScript 搭建类型安全数据库层时使用；做 Drizzle 表结构/关系定义、关系查询、Drizzle Kit 迁移与 Serverless 客户端接入并产出可运行代码；不适用于 Prisma/TypeORM 等非 Drizzle 栈或纯运维调优；触发词：drizzle、schema、pgTable、drizzle-kit、relations、Neon/Turso
 domain: 研发/backend
 triggers: [drizzle, drizzle-orm, drizzle-kit, pgTable, schema 设计, relations 关系, db.query, InferSelectModel, 迁移 migrate, Neon, Turso, PlanetScale, Serverless 数据库, 从 Prisma 迁移]
-tags: [Drizzle, ORM, TypeScript, 数据库, Schema, 迁移, Serverless, PostgreSQL]
+tags: [drizzle, orm, typescript, 数据库, schema, 迁移, serverless, postgresql]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

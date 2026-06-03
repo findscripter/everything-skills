@@ -4,7 +4,7 @@ title: GCP Cloud Run 无服务器
 description: 当在 GCP 上构建无服务器容器服务或事件驱动函数时使用；产出 Cloud Run 部署配置、并发/冷启动调优与 Pub/Sub、Cloud SQL、Secret Manager 集成方案；不适用于 AWS Lambda、Azure Functions 或本地 K8s。触发词：Cloud Run、gcloud run deploy、Cloud Run Functions、冷启动、Pub/Sub、并发 concurrency
 domain: 平台/cloud
 triggers: [Cloud Run, gcloud run deploy, Cloud Run Functions, Cloud Functions gen2, 冷启动优化, cpu-boost, min-instances, 并发 concurrency, Pub/Sub 推送订阅, Cloud SQL 连接, Secret Manager, /tmp 内存, 容器启动超时, GCP 无服务器]
-tags: [GCP, Cloud Run, Serverless, 容器, Pub/Sub, Cloud SQL, Secret Manager, 冷启动, 并发, DevOps]
+tags: [gcp, cloud run, serverless, 容器, pub/sub, cloud sql, secret manager, 冷启动, 并发, devops]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

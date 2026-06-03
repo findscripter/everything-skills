@@ -4,7 +4,7 @@ title: Zoom Phone 集成（呼叫/事件/API）
 description: 当为 Web 应用或 CRM 接入 Zoom Phone、做嵌入式软电话/点击拨号/通话记录自动化时使用；做一套覆盖 OAuth、Phone REST API、Webhook 事件、Smart Embed postMessage 与 URI 唤起（zoomphonecall:// / zoomphonesms://）的集成方案，含 v1→v2→v3 迁移映射与签名/来源校验；不适用于 Zoom 视频会议（Meeting）、Zoom Contact Center 坐席路由或非 Zoom 电话渠道。触发词：Zoom Phone、软电话、点击拨号、通话记录、call history、Smart Embed、phone webhook、call handling、zoomphonecall
 domain: 平台/integration
 triggers: [Zoom Phone, 软电话 / smart embed, 点击拨号 click-to-call, 通话记录 call history, zoom phone api, zoom phone webhook, phone.* 事件, call handling 呼叫处理, zoomphonecall:// / zoomphonesms://, CRM 电话集成 CTI, call_history_uuid / call_element_id 迁移, 短信 SMS log event]
-tags: [平台集成, 通信, Zoom Phone, 软电话CTI, Webhook, Smart Embed, postMessage, OAuth, CRM集成, API迁移]
+tags: [平台集成, 通信, zoom phone, 软电话cti, webhook, smart embed, postmessage, oauth, crm集成, api迁移]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

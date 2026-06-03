@@ -4,7 +4,7 @@ title: 保密信息备忘录（CIM）撰写
 description: 当为卖方并购流程（sell-side）准备募售材料、起草保密信息备忘录、把公司资料整理成投资人可读文档时使用；产出含执行摘要/公司/行业/增长/客户/运营/财务/附录的 40-60 页 .docx 及 Excel 财务附录；不适用于买方材料、法律文书起草或正式估值建模。触发词：CIM、保密信息备忘录、募售材料、卖方材料、info memo、offering memorandum
 domain: 商业/finance
 triggers: [CIM, 保密信息备忘录, confidential information memorandum, offering memorandum, 募售备忘录, 募售材料, 卖方材料, sell-side, info memo, info memorandum, 投资备忘录, draft CIM]
-tags: [finance, investment-banking, ma, sell-side, cim, deal-materials, DOCX, 投行]
+tags: [finance, investment-banking, ma, sell-side, cim, deal-materials, docx, 投行]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

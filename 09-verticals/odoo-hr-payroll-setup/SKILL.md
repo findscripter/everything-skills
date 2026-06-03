@@ -4,7 +4,7 @@ title: Odoo 人力与薪酬配置
 description: 当在 Odoo（企业版）配置 HR 与薪酬、调试薪资单或排查工资条金额时使用；做薪资结构/规则、休假政策、员工合同与薪酬过账到会计的端到端配置与问题定位；不适用于社区版（无 hr_payroll）、跨国混合薪酬、税务申报生成（W2/941）。触发词：薪资结构、salary rule、Odoo Payroll
 domain: 领域/erp
 triggers: [Odoo 薪酬, 薪资结构, salary structure, salary rule, payslip 工资条, 休假政策 Time Off, 员工合同 contract.wage, 薪酬过账 journal, l10n payroll 本地化]
-tags: [Odoo, ERP, HR, 薪酬, Payroll, 薪资规则, 休假管理, 会计过账]
+tags: [odoo, erp, hr, 薪酬, payroll, 薪资规则, 休假管理, 会计过账]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

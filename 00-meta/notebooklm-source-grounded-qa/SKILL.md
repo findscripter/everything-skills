@@ -4,7 +4,7 @@ title: NotebookLM 源锚定问答
 description: 当需要从你已上传到 Google NotebookLM 的文档中拿「只基于这些源、不靠模型常识」的可溯源答案时使用；做的是驱动浏览器自动化登录并按笔记本提问、解析答案并按需追问直至信息齐全；不适用于开放网络检索、未上传到 NotebookLM 的资料、或拒绝可见浏览器手动登录的场景。触发词：NotebookLM、问我的笔记本、查我的文档、source-grounded、notebooklm.google.com
 domain: 通用/research
 triggers: [NotebookLM, 问我的笔记本, 查我的文档, ask my NotebookLM, 查询笔记本, source-grounded 问答, notebooklm.google.com/notebook, 把文档加进 NotebookLM]
-tags: [NotebookLM, 源锚定, RAG, 文档问答, 浏览器自动化, Gemini, 研究, 可溯源]
+tags: [notebooklm, 源锚定, rag, 文档问答, 浏览器自动化, gemini, 研究, 可溯源]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

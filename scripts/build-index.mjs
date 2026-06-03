@@ -201,7 +201,7 @@ const sorted = [...skills].sort((a, b) => (a.fm.name || '').localeCompare(b.fm.n
     const list = byVol.get(v.dir);
     if (!list || !list.length) continue;
     md += `\n## ${v.title}\n\n`;
-    for (const s of list.sort((a, b) => (a.fm.domain || '').localeCompare(b.fm.domain || ''))) {
+    for (const s of list.sort((a, b) => (a.fm.domain || '').localeCompare(b.fm.domain || '') || (a.fm.name || '').localeCompare(b.fm.name || ''))) {
       const dep = s.fm.status === 'deprecated' ? ' ~~(deprecated)~~' : '';
       md += `- [\`${s.fm.name}\`](../${linkOf(s)}) — ${s.fm.title || ''}${dep}　\`${s.fm.domain || ''}\`${s.fm.level ? ' · ' + s.fm.level : ''}\n`;
     }

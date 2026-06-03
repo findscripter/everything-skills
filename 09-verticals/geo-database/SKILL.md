@@ -4,7 +4,7 @@ title: NCBI GEO 表达数据访问
 description: 当需按物种/平台检索 GEO 表达数据集、下载解析 GSE 系列矩阵、抽样本元数据或加载表达矩阵到 pandas 时使用；用 GEOparse+E-utilities 产出 GSE/GPL/GSM 记录与基因注释表达矩阵；不适用于大规模单细胞（用 cellxgene-census）、原始 reads（去 ENA/SRA）。触发词：GEO、GSE、GEOparse、表达矩阵、series matrix
 domain: 领域/science
 triggers: [GEO, GSE 下载, GEOparse, series matrix, GPL 平台注释, GSM 样本元数据, 表达矩阵 pandas, E-utilities gds, GEO 数据集检索, SuperSeries SubSeries]
-tags: [science, genomics, bioinformatics, GEO, NCBI, E-utilities, GEOparse, 表达数据, 微阵列, RNA-seq, 数据库查询]
+tags: [science, genomics, bioinformatics, geo, ncbi, e-utilities, geoparse, 表达数据, 微阵列, rna-seq, 数据库查询]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

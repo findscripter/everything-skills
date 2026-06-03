@@ -4,7 +4,7 @@ title: Python 性能优化
 description: 当 Python 应用变慢、CPU/内存吃紧、需要在优化前定位真实瓶颈时使用；先用 cProfile/line_profiler/memory_profiler/py-spy 剖析热点，再按算法→数据结构→缓存→向量化→并行的次序优化并做前后基准对比；不适用于功能正确性 bug、非 Python 代码或线上分布式链路追踪；触发词：Python 性能、cProfile、py-spy、lru_cache、内存泄漏、慢。
 domain: 研发/review
 triggers: [Python 性能优化, 代码变慢, cProfile, line_profiler 逐行剖析, memory_profiler 内存, py-spy 生产环境剖析, lru_cache 缓存, 内存泄漏 tracemalloc, __slots__ 省内存, NumPy 向量化, multiprocessing CPU 密集, timeit 基准, 生成器省内存, 字典 O(1) 查找, 性能瓶颈]
-tags: [python, 性能优化, profiling, cProfile, py-spy, 内存优化, lru_cache, numpy, benchmark, engineering]
+tags: [python, 性能优化, profiling, cprofile, py-spy, 内存优化, lru_cache, numpy, benchmark, engineering]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

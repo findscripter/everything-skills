@@ -4,7 +4,7 @@ title: PRIDE 蛋白质组数据集检索
 description: 当需要在 PRIDE Archive 检索蛋白质组学公开数据集、按关键词+分面筛选、取项目元数据、列举/下载 RAW/PEAK/RESULT/FASTA 文件或查某 UniProt 蛋白被哪些项目报告时使用；用 requests 直连 PRIDE v3 REST API（免鉴权），产出项目列表、分面计数、文件清单与 FTP/Aspera 下载链接、SDRF 样本映射。不适用于肽段/PSM 级鉴定（v3 已无此端点，须下载 RESULT 文件本地解析）或蛋白序列注释（用 uniprot-protein-database）。触发词：PRIDE、PXD、ProteomeXchange、质谱数据集、proteomics、SDRF、RESULT 文件
 domain: 领域/science
 triggers: [PRIDE, PXD, ProteomeXchange, 质谱数据集, proteomics, 蛋白质组, SDRF, RESULT 文件, RAW 文件, 分面检索, 项目元数据, EBI, mzIdentML, 数据集下载]
-tags: [science, 蛋白质组学, 质谱, PRIDE, REST-API, 数据集检索, ProteomeXchange]
+tags: [science, 蛋白质组学, 质谱, pride, rest-api, 数据集检索, proteomexchange]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

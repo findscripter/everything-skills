@@ -4,7 +4,7 @@ title: 认证与会话漏洞检测利用
 description: 当对 Web 应用做认证/会话安全测试（已获书面授权）时使用；按 10 阶段方法对密码策略、用户名枚举、暴破/撞库、会话令牌与固定、超时、MFA、口令重置逐项检测并产出漏洞评估报告与修复建议；不适用于无授权测试、用真实泄露凭据登录他人账号、或第三方 SSO 越界；触发词：broken authentication、会话固定、JWT none、OTP 暴破、撞库
 domain: 安全/appsec
 triggers: [认证安全测试, 会话管理漏洞, 账户接管 account takeover, 暴力破解/撞库 credential stuffing, 会话固定 session fixation, JWT 令牌攻击, MFA/OTP 绕过, 口令重置漏洞, 用户名枚举, OWASP 失效的身份认证]
-tags: [安全, 渗透测试, Web 安全, 认证, 会话管理, OWASP, JWT, MFA, 暴力破解, misc]
+tags: [安全, 渗透测试, web 安全, 认证, 会话管理, owasp, jwt, mfa, 暴力破解, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

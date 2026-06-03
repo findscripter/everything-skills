@@ -4,7 +4,7 @@ title: 融资轮次要点速递
 description: 当用户要做交易流（deal flow）速递、周度融资复盘、交易盘点或资本市场简报时使用；做法是按所盯赛道/公司用 S&P Capital IQ 取近期融资轮次数据，提炼 3–5 条要点并生成一页式 PPTX 简报（含估值、Capital IQ 交易链接与 AI 免责声明）；不适用于深度个股研报、实时盯盘下单或多页报告。触发词：交易流速递、deal flow、周度融资复盘、deal roundup、资本市场简报
 domain: 领域/fintech
 triggers: [交易流速递, deal flow digest, 周度融资复盘, weekly funding recap, deal roundup, 交易盘点, 资本市场简报, capital markets update, 本周某赛道融资, 融资活动汇总]
-tags: [fintech, deal-flow, 融资轮次, 估值, 资本市场, PPTX, Capital IQ, S&P Global, 简报]
+tags: [fintech, deal-flow, 融资轮次, 估值, 资本市场, pptx, capital iq, s&p global, 简报]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

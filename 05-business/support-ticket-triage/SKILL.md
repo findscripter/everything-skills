@@ -4,7 +4,7 @@ title: 支持工单分诊
 description: 当新支持工单/客户问题进来需要归类、定级、判重并决定路由时使用；做工单分诊（分类+P1-P4 优先级+产品域+判重+路由+首响草稿），产出结构化分诊评估；不适用于完整客服回复撰写或正式升级，那应转交后续技能；触发词：工单分诊、ticket triage、定优先级、判重、路由
 domain: 商业/copy
 triggers: [新工单进来要分类定级, 判断工单 P1-P4 优先级, 决定工单路由到哪个团队, 检查是否重复或已知问题, 客户问题需要归类与首响, ticket triage / support triage]
-tags: [客户支持, 工单, 分诊, 优先级, 路由, 判重, SLA, 商业]
+tags: [客户支持, 工单, 分诊, 优先级, 路由, 判重, sla, 商业]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: AI 编码代理会话审计（成本/失败/延迟）
 description: 当需要复盘本地 AI 编码代理（Claude Code/Cursor/Gemini/Codex CLI 等）的会话为何慢、贵、浅、不稳，或为团队搭轻量 CI 健康门禁时使用；用 agenttrace 读取本地会话日志，产出成本/工具失败/延迟/异常/健康分的人读报告或 JSON 门禁结果，并支持两次尝试 diff 排查语义漂移；不适用于审计远端托管会话或上传私有日志到外部服务。触发词：会话审计、成本飙升、工具失败率、CI 健康门禁
 domain: 智能/eval
 triggers: [AI 编码会话为何慢/贵/浅/不稳, 复盘本地 agent 日志再重试, 搭 CI 会话健康门禁, 对比两次尝试找语义漂移, token/成本飙升排查, 工具失败与重试循环分析]
-tags: [AI 编码, 可观测性, 成本追踪, 会话分析, CI 门禁, agenttrace]
+tags: [ai 编码, 可观测性, 成本追踪, 会话分析, ci 门禁, agenttrace]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

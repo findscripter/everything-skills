@@ -4,7 +4,7 @@ title: 财报电话会分析师提问主题提取
 description: 当需要从财报电话会 Q&A 中提取分析师关切主题、按提问人归因并做主题分类时使用；经 Octagon MCP 分析指定股票代码最新一期电话会，产出关键主题、分析师归因、关切分级、管理层回应质量、未答问题、热度/季度趋势与带页码引用的结构化结论并生成深挖追问；不适用于无 Octagon MCP/API Key 的环境，也不直接给买卖/下单指令；触发词：分析师提问、earnings call Q&A、提问主题归因
 domain: 领域/fintech
 triggers: [分析师提问主题, earnings call Q&A 分析, 分析师关切归因, 管理层回应质量, 未答/回避问题 unanswered, 提问热度 heat map, 季度环比提问趋势, Octagon MCP]
-tags: [fintech, 财报电话会, 分析师问答, Q&A, 提问归因, 投研, Octagon MCP, 尽调]
+tags: [fintech, 财报电话会, 分析师问答, q&a, 提问归因, 投研, octagon mcp, 尽调]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

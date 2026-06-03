@@ -4,7 +4,7 @@ title: Seaborn 统计图表
 description: 当需要用 Seaborn 从 DataFrame 直接画统计图（散点/折线/分布/箱线/小提琴/热力图/回归/分面网格）并要出版级美观默认时使用；做选图型→建图→分面/语义映射→调主题配色→存图的可执行流程，产出图像文件；不适用于交互式/Web 图表（Plotly/Bokeh）、纯 matplotlib 底层绘制、地理/网络专用图。触发词：seaborn、统计图、热力图、分布图、分面、出版级配图
 domain: 数据/analysis
 triggers: [seaborn, 统计图表, 热力图, 分布图, 箱线图, 小提琴图, 分面网格, 回归图, 出版级配图, 数据可视化]
-tags: [seaborn, 数据可视化, 统计图表, matplotlib, python, EDA]
+tags: [seaborn, 数据可视化, 统计图表, matplotlib, python, eda]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

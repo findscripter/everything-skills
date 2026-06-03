@@ -4,7 +4,7 @@ title: 首次覆盖研究报告
 description: 当对一家公司做首次覆盖、需要产出 30-50 页机构级（JPM/GS/MS 风格）卖方深度研究报告时使用；分 5 个独立任务（公司研究→财务建模→估值→出图→成稿），逐任务产出 .md 研究稿、.xlsx 模型、25-35 张图与最终 DOCX；不适用于已覆盖公司的季度财报点评、flash 快评、或要求一次性自动跑完全流程；触发词：首次覆盖、initiating coverage、深度研究报告、价格目标、DCF 估值
 domain: 商业/finance
 triggers: [首次覆盖, initiating coverage, 深度研究报告, 卖方深度报告, 价格目标, DCF 估值, 可比公司, 股票研究报告, equity research, initiation report, 建仓覆盖]
-tags: [finance, equity-research, initiation, valuation, DCF, financial-model, DOCX, 卖方研究]
+tags: [finance, equity-research, initiation, valuation, dcf, financial-model, docx, 卖方研究]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

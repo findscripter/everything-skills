@@ -4,7 +4,7 @@ title: NFT ERC-721/1155 标准精通
 description: 当用 Solidity 开发 NFT 合约（艺术品/游戏道具/收藏品/灵魂绑定）、接入市场或设计元数据时使用；做基于 OpenZeppelin 的 ERC-721/1155 合约编写、元数据(链上/IPFS)、EIP-2981 版税、SBT、动态 NFT 与 ERC721A 省 gas 铸造，产出可部署合约与校验清单；不适用于同质化代币(ERC-20)、DeFi、纯前端 dApp 或非以太坊兼容链。触发词：NFT、ERC-721、ERC-1155、铸造、版税、元数据
 domain: 领域/fintech
 triggers: [NFT, ERC-721, ERC-1155, ERC721A, 铸造 mint, 版税 royalty EIP-2981, 元数据 metadata, 灵魂绑定 SBT, 动态 NFT, OpenSea 市场接入]
-tags: [Web3, NFT, Solidity, ERC-721, ERC-1155, OpenZeppelin, 智能合约, 元数据, 版税]
+tags: [web3, nft, solidity, erc-721, erc-1155, openzeppelin, 智能合约, 元数据, 版税]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

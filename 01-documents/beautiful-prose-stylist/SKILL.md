@@ -4,7 +4,7 @@ title: 凝练有力散文写作风格契约
 description: 当需要写出干净、精确、有力且无 AI 腔调的中文/英文散文或改写时使用；做的是把请求按风格契约改写成去模板化、动词驱动、节制留白的成稿；不适用于代码、表格、纯信息罗列或须保留官方话术的合规文本；触发词：散文、改写、文风、去AI腔、beautiful prose
 domain: 文书/writing
 triggers: [写一篇散文 / 随笔 / 评论, 把这段文字改写得更有力 / 去掉 AI 腔, 需要凝练、克制、动词驱动的文风, Apply the Beautiful Prose skill, 去除 em dash / 套话过渡 / 治愈式语气]
-tags: [写作, 文风, 散文, 改写, 去AI腔, 文书]
+tags: [写作, 文风, 散文, 改写, 去ai腔, 文书]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

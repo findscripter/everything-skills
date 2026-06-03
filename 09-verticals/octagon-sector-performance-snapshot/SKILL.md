@@ -4,7 +4,7 @@ title: 板块表现快照
 description: 当需要按交易所+板块（行业）拉取整个板块的聚合基本面画像——营收、EBITDA、净利润、市值、企业价值、员工数及增速与资本结构——用于板块体检、跨板块横比或给单一公司找板块基准时使用；通过 Octagon MCP 的 octagon-agent 工具一次取数并据板块基准区间解读，区分聚合/均值/中位/加权口径；不适用于单家公司逐项建模估值、自算指标或离线无 MCP 取数。触发词：板块表现、sector performance、板块快照、行业聚合指标、板块对比、按交易所板块、octagon-agent
 domain: 领域/fintech
 triggers: [板块表现, sector performance, 板块快照, 行业聚合指标, 板块对比, 按交易所板块, 板块体检, 板块基准, octagon-agent, 板块营收增速]
-tags: [fintech, 板块分析, 行业聚合, 基本面分析, 板块对比, 估值基准, MCP, octagon]
+tags: [fintech, 板块分析, 行业聚合, 基本面分析, 板块对比, 估值基准, mcp, octagon]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

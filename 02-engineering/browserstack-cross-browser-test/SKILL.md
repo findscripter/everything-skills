@@ -4,7 +4,7 @@ title: BrowserStack 跨浏览器测试
 description: 当需要把 Playwright 测试跑在 BrowserStack 云端真实浏览器/设备矩阵做跨浏览器、跨设备兼容性验证时使用；做配置 playwright.config 云端 projects、运行多浏览器测试、拉取构建/会话结果与视频日志；不适用于纯本地单浏览器测试或无 BrowserStack 账号场景；触发词：browserstack、跨浏览器、cloud testing、browser matrix、test on safari、firefox、浏览器兼容性
 domain: 研发/testing
 triggers: [browserstack, 跨浏览器, cross-browser, cloud testing, 云端测试, browser matrix, 浏览器矩阵, test on safari, test on firefox, 在 safari 上测试, 浏览器兼容性, browser compatibility, webkit 测试, cross-device]
-tags: [testing, browserstack, playwright, 跨浏览器, 云测试, 兼容性, E2E, 研发]
+tags: [testing, browserstack, playwright, 跨浏览器, 云测试, 兼容性, e2e, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

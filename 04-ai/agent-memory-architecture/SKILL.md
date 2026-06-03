@@ -4,7 +4,7 @@ title: 智能体记忆架构设计
 description: 当为需跨会话持久、保持实体一致或基于累积知识推理的智能体设计分层记忆架构时使用；做工作/短期/长期/实体/时序知识图谱五层选型与向量库→图→时序KG演进决策的可执行落地；不适用于具体向量库运维、嵌入模型选型/微调或端到端RAG流水线搭建。触发词：记忆架构、分层记忆、时序知识图谱、长期记忆、实体一致性、知识图谱记忆
 domain: 智能/agents
 triggers: [记忆架构, memory architecture, 分层记忆, memory layers, 时序知识图谱, temporal knowledge graph, 知识图谱记忆, knowledge graph memory, 长期记忆, long-term memory, 短期记忆, 工作记忆, working memory, 实体记忆, entity memory, 实体一致性, entity consistency, 跨会话持久, persist across sessions, 记忆整合, memory consolidation, 时间旅行查询, temporal query, Zep, GraphRAG, MemGPT, DMR]
-tags: [智能体, agents, 记忆架构, 知识图谱, 时序知识图谱, 向量检索, GraphRAG, 上下文工程, 记忆整合]
+tags: [智能体, agents, 记忆架构, 知识图谱, 时序知识图谱, 向量检索, graphrag, 上下文工程, 记忆整合]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

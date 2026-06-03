@@ -4,7 +4,7 @@ title: Playwright 端到端测试
 description: 当需要为 Web 应用搭建或扩展端到端（E2E）自动化测试时使用；用 Playwright 完成安装配置、编写测试脚本、视觉回归、跨浏览器与移动端模拟、并接入 CI/CD，产出可运行的测试套件与流水线；不适用于单元/接口测试、纯手工探索测试或非浏览器场景；触发词：Playwright、E2E、端到端测试、跨浏览器、视觉回归、浏览器自动化、CI 测试
 domain: 研发/testing
 triggers: [Playwright, E2E 测试, 端到端测试, 跨浏览器测试, 视觉回归, 浏览器自动化, playwright test, CI 中跑前端测试, page object, trace 追踪]
-tags: [测试, E2E, Playwright, 浏览器自动化, 视觉回归, CI/CD, 前端, QA]
+tags: [测试, e2e, playwright, 浏览器自动化, 视觉回归, ci/cd, 前端, qa]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

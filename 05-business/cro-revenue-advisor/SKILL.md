@@ -4,7 +4,7 @@ title: CRO 营收增长顾问（B2B SaaS）
 description: 当为 B2B SaaS 设计营收引擎、做季度/董事会预测、设定配额、评估定价或诊断净留存（NRR）时使用；产出加权管线预测、ARR 瀑布、NRR/流失分析、配额产能模型与定价建议；不适用于纯 PLG 自助产品的微观运营、个人销售话术或非 SaaS 业务。触发词：CRO、营收策略、ARR 增长、NRR/净留存、销售配额、定价策略、管线预测、流失分析。
 domain: 商业/sales
 triggers: [CRO, 营收策略, ARR增长, 净收入留存, NRR, GRR, 管线预测, 销售配额, 定价策略, 扩展收入, 流失分析, 销售产能, 董事会营收汇报, CAC回本, Magic Number, ICP画像]
-tags: [商业, sales, 营收增长, B2B-SaaS, CRO, 定价, 留存, 预测, C-level]
+tags: [商业, sales, 营收增长, b2b-saas, cro, 定价, 留存, 预测, c-level]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

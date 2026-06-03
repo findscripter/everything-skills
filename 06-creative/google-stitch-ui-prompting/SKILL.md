@@ -4,7 +4,7 @@ title: Google Stitch UI 设计：AI 界面提示词工程
 description: 当用 Google Stitch（Gemini 驱动的 Labs UI 生成器）由文字/草图生成 Web 或移动端界面时使用；做提示词工程，产出具体、含视觉风格与功能要求的可执行提示词及迭代/导出方案；不适用于手写生产代码、做交互动效实现或替代真人评审。触发词：Stitch、UI 提示词、文字转界面、界面生成、导出 Figma/HTML。
 domain: 创意/design
 triggers: [用 Google Stitch 生成 UI, 写界面/UI 提示词, 文字或草图转界面设计, 把 Stitch 设计导出到 Figma 或 HTML, 多屏 App 流程原型, AI 界面提示词工程]
-tags: [Google-Stitch, UI设计, 提示词工程, AI生成界面, 原型设计, Figma, 前端, 创意]
+tags: [google-stitch, ui设计, 提示词工程, ai生成界面, 原型设计, figma, 前端, 创意]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

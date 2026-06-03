@@ -4,7 +4,7 @@ title: k6 负载压力测试
 description: 当需要对 HTTP API、WebSocket 或浏览器场景做负载/压力/容量验证时使用；用 k6 编写 JS 测试脚本、配置 VUs/stages/thresholds（SLA）、分析结果并接入 CI/CD，产出可执行测试与达标报告；不适用于单元/接口功能测试与无脚本的纯监控。触发词：k6、负载测试、压测
 domain: 研发/testing
 triggers: [k6, 负载测试, 压力测试, 性能压测, load testing, stress test, SLA 验证, VUs 并发, thresholds 阈值, 性能回归]
-tags: [k6, 负载测试, 性能测试, 压测, API测试, CI/CD, SLA]
+tags: [k6, 负载测试, 性能测试, 压测, api测试, ci/cd, sla]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

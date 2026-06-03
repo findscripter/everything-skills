@@ -4,7 +4,7 @@ title: AI 客户支持与情感分析
 description: 当需要用 AI 自动化做客户支持时使用；产出对话机器人流程、工单路由/SLA 升级规则、情感分析与 CSAT/NPS 监控、全渠道与知识库自助方案；不适用于无 AI/自动化诉求的纯人工话术或与客服无关的任务；触发词：客户支持、客服机器人、情感分析、工单路由、CSAT、全渠道
 domain: 商业/growth
 triggers: [客户支持, 客服机器人, 情感分析, 工单路由, SLA 升级, CSAT, NPS, 全渠道客服, 知识库自助, Intercom, Zendesk, 客户流失预警]
-tags: [客户支持, 对话式AI, 情感分析, 工单自动化, 全渠道, CSAT, NPS, 知识库, 电商客服, 客户体验]
+tags: [客户支持, 对话式ai, 情感分析, 工单自动化, 全渠道, csat, nps, 知识库, 电商客服, 客户体验]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

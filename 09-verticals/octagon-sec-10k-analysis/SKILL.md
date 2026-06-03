@@ -4,7 +4,7 @@ title: SEC 10-K 年报分析
 description: 当需要对单家美股上市公司的 SEC 10-K 年报做整体分析、一次性抽取财务指标/风险因素/业务概览/MD&A 与披露要点时使用；经 Octagon MCP 的 octagon-agent 用自然语言提示拉取并产出带来源页码的结构化年报解读（数据源 octagon-financials-agent、octagon-sec-agent）；不适用于无 Octagon MCP/无 API Key、非美股 SEC 体系、需逐字法律级引用或下单交易；触发词：10-K、年报分析、SEC 年报、财务指标提取、风险因素、octagon-agent
 domain: 领域/fintech
 triggers: [10-K, 年报分析, SEC 年报, 财务指标提取, 风险因素, octagon-agent, octagon-mcp, 业务概览 MD&A, 同比对比 10-K, 上市公司年报解读]
-tags: [fintech, SEC, 10-K, 年报分析, 风险因素, MD&A, 财务指标, Octagon MCP, 投资研究, 尽职调查]
+tags: [fintech, sec, 10-k, 年报分析, 风险因素, md&a, 财务指标, octagon mcp, 投资研究, 尽职调查]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

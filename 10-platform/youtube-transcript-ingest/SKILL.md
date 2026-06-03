@@ -4,7 +4,7 @@ title: YouTube 字幕抓取入库
 description: 当用户给出单条 YouTube 视频 URL、想把演讲/播客/Keynote 的字幕抓成可检索 Markdown 时使用；用 yt-dlp 发现并下载字幕、清洗 VTT、写带 frontmatter 的库文件并生成 capture 种子；不适用于下载视频、频道/播放列表批量、直播或非 YouTube 源。触发词：YouTube 字幕、转录入库、yt-dlp、/ingest-youtube
 domain: 平台/cli
 triggers: [把这个 YouTube 视频转成文字稿, 抓取 YouTube 字幕入库, /ingest-youtube <url>, 总结这个 YouTube 演讲, yt-dlp 下载字幕清洗成 markdown, 把播客/keynote 同步进知识库]
-tags: [YouTube, 字幕转录, yt-dlp, VTT, 知识库入库, frontmatter, 平台/misc]
+tags: [youtube, 字幕转录, yt-dlp, vtt, 知识库入库, frontmatter, 平台/misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

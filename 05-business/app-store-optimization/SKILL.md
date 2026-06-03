@@ -4,7 +4,7 @@ title: 应用商店优化ASO
 description: 当为 iOS/Android App 提升商店搜索排名与下载转化时使用；做关键词研究打分、元数据优化、竞品差距分析、A/B 测试与上线清单，产出可落地的标题/副标题/描述/关键词域改写及测试方案；不适用于 Web 应用（用网页 SEO）、企业内部应用、TestFlight 测试版或纯付费投放策略。触发词：ASO、应用商店优化、应用排名、关键词、元数据
 domain: 商业/growth
 triggers: [ASO, 应用商店优化, App Store优化, 应用商店排名, App关键词, 应用元数据, Play商店优化, 商店详情页, 提升应用排名, 应用曝光, 应用商店SEO, App转化率, 应用上架]
-tags: [ASO, 商业, growth, 增长, 应用商店, 关键词研究, 元数据优化, 竞品分析, A/B测试, 移动营销, iOS, Android]
+tags: [aso, 商业, growth, 增长, 应用商店, 关键词研究, 元数据优化, 竞品分析, a/b测试, 移动营销, ios, android]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

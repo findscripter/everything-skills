@@ -4,7 +4,7 @@ title: Obsidian Bases 数据库视图
 description: 当在 Obsidian 中需要把笔记按属性聚合成表格/卡片/列表视图时使用；编写并校验 .base（YAML）文件，定义过滤器、公式、汇总与多视图，产出可直接渲染的数据库视图；不适用于非 Obsidian 数据库或 Dataview 插件查询。触发词：.base、Bases、表格视图、卡片视图、过滤器、公式。
 domain: 协作/knowledge
 triggers: [创建 .base 文件, Obsidian Bases, 笔记表格视图, 卡片视图/画廊视图, 按 tag/文件夹/属性过滤笔记, 为笔记定义公式/汇总列, 嵌入 base 视图到笔记, .base YAML 报错排查]
-tags: [Obsidian, Bases, 知识管理, YAML, 数据库视图, 笔记自动化]
+tags: [obsidian, bases, 知识管理, yaml, 数据库视图, 笔记自动化]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 现代 C++ RAII 与 STL 惯用法
 description: 当用 C++11/14/17/20/23 编写或重构代码、需要内存安全与高性能时使用；产出符合 Core Guidelines 的惯用代码、CMakeLists、单测与基准、Sanitizer 干净输出；不适用于 C 语言、嵌入式裸机或非 C++ 任务。触发词：现代 C++、RAII、智能指针、移动语义、STL 算法、模板
 domain: 研发/backend
 triggers: [现代 C++, RAII, 智能指针, unique_ptr, shared_ptr, 移动语义, 完美转发, STL 算法, 模板元编程, concepts, const 正确性, constexpr, Rule of Five, 异常安全, AddressSanitizer, Google Test, Catch2, Google Benchmark]
-tags: [C++, 研发, RAII, STL, 智能指针, 模板, 并发, 性能优化, 现代C++]
+tags: [c++, 研发, raii, stl, 智能指针, 模板, 并发, 性能优化, 现代c++]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 多云架构决策框架
 description: 当需要跨 AWS/Azure/GCP 设计多云架构、做服务选型、规划跨云迁移或落地云无关抽象时使用；产出三云服务对照、四类多云模式选型、成本优化策略与四阶段迁移路线；不适用于单云内部调优、应用业务代码或纯本地数据中心。触发词：多云、云无关、AWS Azure GCP 选型、跨云迁移、容灾 DR、云中立
 domain: 平台/cloud
 triggers: [多云架构, 云无关, cloud-agnostic, AWS Azure GCP 对比, 跨云迁移, 云服务选型, 多云容灾 DR, Best-of-Breed, 数据主权合规, 云中立抽象层, Kubernetes 多云, 多云成本优化]
-tags: [多云, 云架构, AWS, Azure, GCP, 云无关, 迁移, 容灾, Terraform, Kubernetes, 成本优化, 平台]
+tags: [多云, 云架构, aws, azure, gcp, 云无关, 迁移, 容灾, terraform, kubernetes, 成本优化, 平台]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

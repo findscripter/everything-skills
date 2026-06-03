@@ -4,7 +4,7 @@ title: 医院 IT 管理顾问
 description: 当管理医院 IT/数字化转型、备战 HIMSS/ONA/JCI 认证或集成 HIS/PEP（MV-SOUL、Tasy）时使用；做数字成熟度路线、临床安全（BCMA 闭环给药、CDSS）、HL7/FHIR/DICOM 互操作、关键系统高可用与合规（LGPD/NIST/ISO27001）顾问并产出可执行方案；不适用于临床/法律/财务的正式审计与替代医师判断。触发词：医院IT、HIMSS Stage7、ONA认证、HIS集成、PEP、HL7 FHIR、患者安全
 domain: 领域/medical
 triggers: [医院 IT 管理, HIMSS Stage 7 路线, EMRAM 数字成熟度, ONA 认证 IT, JCI 标准, HIS/PEP 集成, MV-SOUL/Tasy, HL7 FHIR 互操作, DICOM/PACS, BCMA 闭环给药, CDSS 临床决策支持, ICU/手术室零停机, LGPD 健康数据合规, RNDS 国家健康数据网]
-tags: [医院 IT, 数字健康, HIMSS, ONA, JCI, HIS, PEP, HL7, FHIR, DICOM, 患者安全, 高可用, LGPD, medical]
+tags: [医院 it, 数字健康, himss, ona, jci, his, pep, hl7, fhir, dicom, 患者安全, 高可用, lgpd, medical]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

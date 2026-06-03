@@ -4,7 +4,7 @@ title: 历史财务评级与指标趋势
 description: 当需要观察一家上市公司的评级与关键指标随时间的变化轨迹、识别升降级拐点或做长期财务健康趋势分析时使用；通过 Octagon MCP 的 octagon-agent 工具按 Ticker 拉取 N 条历史记录，含综合评分(1–5)、字母评级(A+–F)及 ROA/ROE/DCF/D-E 四项 1–5 分指标的时间序列并据趋势解读；不适用于单期快照初筛(用 ratings-snapshot)、自建模型重算或离线无 MCP。触发词：历史评级、评级趋势、ratings history、升降级、ROA/ROE 趋势、财务健康轨迹、octagon-agent
 domain: 领域/fintech
 triggers: [历史评级, 评级趋势, ratings history, 升级降级, ROA趋势, ROE趋势, 财务健康轨迹, 时间序列评分, octagon-agent, 评级变化监控]
-tags: [fintech, 历史评级, 趋势分析, 时间序列, 基本面分析, 风险监控, MCP, octagon]
+tags: [fintech, 历史评级, 趋势分析, 时间序列, 基本面分析, 风险监控, mcp, octagon]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

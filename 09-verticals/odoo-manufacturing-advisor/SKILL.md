@@ -4,7 +4,7 @@ title: Odoo 制造 MRP 规划
 description: 当在 Odoo 配置物料清单/工作中心、跑 MRP 排程或排查生产订单缺料时使用；做 BoM/工序/补货规则配置与 MRP 运行结果解读，产出可落地的菜单路径与参数；不适用于 Maintenance/PLM/Quality 模块及外部预测对接；触发词：物料清单、MRP、生产订单
 domain: 领域/erp
 triggers: [Odoo 制造, 物料清单 BoM, 工作中心 Work Center, MRP 排程, 补货规则, 生产订单缺料, 套件 Kit, 委外加工]
-tags: [ERP, Odoo, 制造, MRP, 供应链]
+tags: [erp, odoo, 制造, mrp, 供应链]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 计算机操作型 AI 智能体构建
 description: 当需要构建像人一样看屏幕、移鼠标、点击、输入的计算机操作型智能体时使用；做感知-推理-执行循环、Docker 沙箱隔离、敏感操作确认、动作日志与成本/上下文控制的可落地方案（含 Anthropic Computer Use、Playwright 浏览器自动化）；不适用于纯文本/纯 API 任务，也不适用于直接在真实主机上裸跑智能体。触发词：computer use、桌面自动化、屏幕控制 AI、视觉智能体、浏览器智能体、GUI 自动化、Operator
 domain: 智能/agents
 triggers: [computer use, 桌面自动化智能体, 屏幕控制 AI, 视觉智能体, GUI 自动化, Claude computer use, OpenAI Operator, 浏览器智能体, RPA AI, Playwright 自动化]
-tags: [AI智能体, 计算机操作, 视觉模型, 沙箱安全, 浏览器自动化, 提示注入防御, Anthropic, Playwright]
+tags: [ai智能体, 计算机操作, 视觉模型, 沙箱安全, 浏览器自动化, 提示注入防御, anthropic, playwright]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

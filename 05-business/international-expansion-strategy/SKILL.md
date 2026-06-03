@@ -4,7 +4,7 @@ title: 国际市场扩张策略
 description: 当企业要进入新国家/地区、评估海外市场、规划本地化或组建区域团队时使用；做市场打分选择、进入模式决策、合规与本地化清单、分区 GTM 与团队结构落地（产出评分矩阵+扩张方案）；不适用于纯翻译外包、单一国内增长、跨境物流采购执行。触发词：国际扩张、市场进入、本地化、GTM、出海
 domain: 商业/growth
 triggers: [国际扩张, 出海, 市场进入, 本地化, localization, GTM, go-to-market, 区域战略, 海外市场评估, 跨境扩张, 新国家进入, 区域团队组建, market entry]
-tags: [商业, growth, 国际化, 市场进入, 本地化, 战略, GTM, C-level]
+tags: [商业, growth, 国际化, 市场进入, 本地化, 战略, gtm, c-level]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

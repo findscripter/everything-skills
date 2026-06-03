@@ -4,7 +4,7 @@ title: Expo Router 原生 UI 构建
 description: 当用 Expo Router 构建有原生质感的 React Native 应用（导航、原生组件、动画、原生 Tabs、Header/搜索、表单 Sheet、视觉特效）时使用；产出遵循 Apple HIG、优先 Expo Go、用内联样式+文件路由的可运行 UI 结构与代码；不适用于纯原生 Swift/Kotlin、纯 Web/H5 或与 Expo 无关的后端任务。触发词：Expo、Expo Router、React Native、NativeTabs、expo-router
 domain: 研发/mobile
 triggers: [Expo, Expo Router, Expo Go, React Native, NativeTabs, expo-router, _layout.tsx, Stack.Screen, formSheet, headerLargeTitle, Link.Preview, expo-image SF Symbols, expo run:ios, EAS build, liquid glass expo-glass-effect]
-tags: [Expo, Expo Router, React Native, 原生 UI, 导航, 移动开发, iOS, 研发]
+tags: [expo, expo router, react native, 原生 ui, 导航, 移动开发, ios, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

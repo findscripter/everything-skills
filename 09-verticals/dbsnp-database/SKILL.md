@@ -4,7 +4,7 @@ title: dbSNP SNP 数据库查询
 description: 当按 rsID/基因/区间查 dbSNP 的等位基因/MAF/变异类型/坐标或批量解析 rsID 时使用；经 NCBI E-utilities 与 Variation Services API 产出 snp_class、global_mafs、chrpos 及 ClinVar/gnomAD 交叉引用；不适用于临床致病性策展（用 clinvar-database）或按祖源分层频率（用 gnomad-population-database）。触发词：dbSNP、rsID、SNP 频率、MAF、变异坐标、批量注释 rsID
 domain: 领域/science
 triggers: [dbSNP, rsID 查询, SNP 频率, MAF, 变异类型 snv indel, 变异坐标 GRCh38, 批量注释 rsID, Variation Services API, esearch snp, global_mafs]
-tags: [science, genomics, bioinformatics, dbSNP, NCBI, E-utilities, SNP, 变异注释, 数据库查询]
+tags: [science, genomics, bioinformatics, dbsnp, ncbi, e-utilities, snp, 变异注释, 数据库查询]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

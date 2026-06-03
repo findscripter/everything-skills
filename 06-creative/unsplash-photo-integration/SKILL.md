@@ -4,7 +4,7 @@ title: Unsplash 图库集成：免费高质量摄影图搜索接入
 description: 当为网站·App·营销物料挑选高质量免费摄影图、需替换占位图/平庸 stock 图时使用；做法是用艺术化关键词在 Unsplash 搜索、按方向与配色筛选、经 API 或直链获取并用动态参数（如 ?w=1600&q=85&fit=crop）按布局裁剪压缩后接入；不适用于自有插画/品牌 Logo/UI 图标、付费授权独占图、需明确商业授权或人物肖像权的场景。触发词：unsplash、免费配图、摄影图库、hero 配图、占位图替换
 domain: 创意/image
 triggers: [unsplash, 免费配图, 摄影图库, hero 配图, 占位图替换, stock 图替换, 高质量图片素材, 动态裁剪图片, 源图压缩参数]
-tags: [创意, misc, 图片素材, 摄影图库, 配图, UI/UX, 性能优化]
+tags: [创意, misc, 图片素材, 摄影图库, 配图, ui/ux, 性能优化]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

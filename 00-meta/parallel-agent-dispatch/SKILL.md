@@ -4,7 +4,7 @@ title: 并行独立任务分派
 description: 当面对 2 个以上彼此独立、无共享状态也无先后依赖的任务（如多个互不相关的测试失败、多个子系统各自损坏）时使用；为每个独立问题域派发一个子 Agent 并发处理，再回收摘要、查冲突、跑全量验证整合产物；不适用于失败相关联、需通览全局状态、还在探索性排障或会争抢同一文件/资源的场景。触发词：并行、子 Agent、独立任务
 domain: 通用/thinking
 triggers: [并行分派任务, 多个独立的测试失败, 把任务拆给子 Agent 并发处理, fan-out 子任务, 多个子系统各自报错, 一个 Agent 处理一个问题域]
-tags: [并行, 子Agent, 任务分派, 测试修复, 编排, 通用]
+tags: [并行, 子agent, 任务分派, 测试修复, 编排, 通用]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

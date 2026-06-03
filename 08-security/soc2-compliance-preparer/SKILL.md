@@ -4,7 +4,7 @@ title: SOC 2 审计准备与控制矩阵
 description: 当为 SaaS/云服务准备 SOC 2 Type I/II 审计时使用；做信任服务准则（TSC）映射、控制矩阵生成、差距分析、证据收集与审计就绪评估，产出控制矩阵/差距清单/证据台账/就绪评分；不适用于 ISO 27001、GDPR 等其他合规框架的主审。触发词：SOC 2、信任服务准则、控制矩阵、审计证据、差距分析
 domain: 安全/compliance
 triggers: [SOC 2, SOC2 审计, 信任服务准则, Trust Service Criteria, TSC 映射, 控制矩阵, control matrix, 审计证据收集, 差距分析, gap analysis, Type I, Type II, 审计就绪, 供应商风险评估, 子服务组织, CUEC]
-tags: [安全, compliance, SOC2, 审计, 控制矩阵, 风险管理, 证据收集, SaaS]
+tags: [安全, compliance, soc2, 审计, 控制矩阵, 风险管理, 证据收集, saas]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

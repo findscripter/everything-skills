@@ -4,7 +4,7 @@ title: 运营产能与人力规划
 description: 当运营负责人（客服/CX/客户成功/BizOps/IT/财务运营）需要按排队工作量给团队定编、做人力预算、评估利用率风险或排布季度招聘时使用；用 Erlang-C 排队论、P90 需求、缩水率调整的 FTE 与管理跨度触发，产出产能定编、利用率体检与12个月季度招聘计划；不适用于工程产能（看 DORA/周期时间）或3-5年战略人力规划。触发词：产能规划、定编、利用率、招聘排期
 domain: 协作/pm
 triggers: [运营产能规划, 团队定编/headcount 预算, 利用率超过80%或团队12个月内增长超50%, 客服/CX/客户成功/BizOps/IT/财务运营人力测算, 排队工作SLA未达标排查（定编/流程/瓶颈）, 季度招聘排期与管理岗触发, Erlang-C/P90 需求/缩水率 FTE 测算, M&A 或新业务线团队定编]
-tags: [bizops, 产能规划, headcount, 利用率, 排队论, Erlang-C, Little定律, 招聘排期]
+tags: [bizops, 产能规划, headcount, 利用率, 排队论, erlang-c, little定律, 招聘排期]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

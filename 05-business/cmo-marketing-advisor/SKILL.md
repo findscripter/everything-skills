@@ -4,7 +4,7 @@ title: CMO 市场营销顾问（品牌与增长）
 description: 当为扩张期公司做品牌定位、增长模型选型、营销预算分配与营销组织设计时使用；产出渠道预算模型、定位与信息框架、增长预测、招聘序列与董事会汇报口径。不适用于具体活动执行、内容创作、广告投放落地（另有专门技能）。触发词：CMO、品牌定位、增长模型、PLG、CAC、LTV、渠道组合、营销 ROI、payback、MQL。
 domain: 商业/marketing
 triggers: [CMO, 首席营销官, 品牌定位, 品牌战略, 增长模型, PLG, 产品驱动增长, 销售驱动增长, 社区驱动增长, 营销预算, CAC, 获客成本, LTV, 客户终身价值, 渠道组合, 营销 ROI, 管线贡献, 营销组织, 品类设计, 竞争定位, 增长飞轮, 回本周期, payback, MQL, 管线覆盖率, 营销团队搭建]
-tags: [商业, marketing, CMO, 品牌定位, 增长模型, 营销预算, 单位经济, 营销组织, C-level]
+tags: [商业, marketing, cmo, 品牌定位, 增长模型, 营销预算, 单位经济, 营销组织, c-level]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 网络接口健康诊断（错误/丢包/双工失配）
 description: 当怀疑丢包、时延抖动、间歇不可达由物理链路/交换端口/线缆光模块/双工或拥塞引起时使用；做接口计数器取基线-等间隔-复测对比、CRC/runts/giants/drops/resets 归因、双工速率失配排查，产出方向定位与处置清单；不适用于纯路由/防火墙策略、应用层与 BGP/OSPF 控制面、DNS 解析故障；触发词：接口错误、丢包、CRC、双工失配、链路抖动、ifInErrors
 domain: 安全/ops
 triggers: [接口错误, 丢包, CRC, 双工失配, 链路抖动, 端口 flapping, ifInErrors, ifOutDiscards, runts, giants, 速率协商, 计数器趋势, ethtool, show interfaces]
-tags: [网络, ops, 接口诊断, CRC, 丢包, 双工, 交换机, 路由器, Linux, 物理层]
+tags: [网络, ops, 接口诊断, crc, 丢包, 双工, 交换机, 路由器, linux, 物理层]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

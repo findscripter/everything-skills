@@ -4,7 +4,7 @@ title: 文件系统上下文卸载
 description: 当工具输出撑爆上下文窗口、需要跨长任务持久化状态、子 Agent 间共享信息、或任务所需上下文超出单窗口时使用；做把大块内容写入文件、上下文窗口只留摘要/路径指针，再用 ls/glob/grep/按行读取按需召回（卸载工具输出、持久化计划、子 Agent 文件工作区、动态加载技能、持久化终端日志、自我修改指令）；不适用于单轮即结束、上下文本就装得下、或对延迟极敏感（文件 I/O 有开销）的场景。触发词：上下文卸载、context offload、scratch pad、按需加载、token 臃肿、filesystem context
 domain: 通用/research
 triggers: [上下文卸载, context offload, filesystem context, scratch pad, 暂存盘, 按需加载, just-in-time context, 动态上下文发现, token 臃肿, 工具输出太大, 子 Agent 共享状态, 跨会话持久化, 动态技能加载, 终端日志持久化]
-tags: [上下文工程, token 优化, scratch pad, 多 Agent 协作, 动态上下文, 记忆持久化, 文件检索, grep glob]
+tags: [上下文工程, token 优化, scratch pad, 多 agent 协作, 动态上下文, 记忆持久化, 文件检索, grep glob]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

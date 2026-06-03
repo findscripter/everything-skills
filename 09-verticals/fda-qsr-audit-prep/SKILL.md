@@ -4,7 +4,7 @@ title: FDA QSR（21 CFR 820）审计准备
 description: 当为美国市场医疗器械做内部 QSR 审计、FDA 现场检查准备或 Form 483 整改时使用；用六问逼检法核查投诉/MDR、过程验证、DHR、CAPA、标签、483 闭环，产出检查就绪度判定与 Top3 行动清单；不适用于 ISO 13485 单独审计或非美国市场。触发词：FDA、QSR、21 CFR 820、Form 483、MDR
 domain: 领域/medical
 triggers: [FDA QSR 审计, 21 CFR 820, Form 483 整改, FDA 现场检查准备, MDR 上报, QMSR 合规, 510(k) PMA 提交前合规, DHR 抽样, CAPA 有效性验证, 医疗器械召回决策]
-tags: [医疗器械, FDA, QSR, 21CFR820, QMSR, 合规审计, Form483, MDR, ISO13485, 监管事务]
+tags: [医疗器械, fda, qsr, 21cfr820, qmsr, 合规审计, form483, mdr, iso13485, 监管事务]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

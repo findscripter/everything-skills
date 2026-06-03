@@ -4,7 +4,7 @@ title: 渠道经济性建模
 description: 当季度复盘需厘清直销 vs 渠道/合作伙伴谁真正赚钱、要算满载 cost-to-serve、三镜头渠道 ROI 与受约束最优渠道组合时使用；做按渠道的满载成本、ROI 裁决（加码/维持/削减/退出）与敏感度组合建议，产出三份报告；不适用于设计伙伴分层与 revshare、RevOps 漏斗机制、战略 CRO 判断或历史 P&L 报表。触发词：渠道经济性、直销vs渠道、渠道ROI、渠道组合
 domain: 商业/finance
 triggers: [渠道经济性, 直销vs渠道, 渠道盈利性, 渠道ROI, 渠道组合优化, cost-to-serve, 满载服务成本, MDF回报, 渠道复盘, channel economics, direct vs partner]
-tags: [商业, finance, 渠道经济性, cost-to-serve, 渠道ROI, 直销与渠道, 渠道组合, 单位经济, RevOps, 敏感度分析]
+tags: [商业, finance, 渠道经济性, cost-to-serve, 渠道roi, 直销与渠道, 渠道组合, 单位经济, revops, 敏感度分析]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

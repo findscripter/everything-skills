@@ -4,7 +4,7 @@ title: 数据管道与流式架构工程
 description: 当需要设计批处理/流式数据管道、数据仓库或湖仓架构、CDC 实时同步、数据质量与血缘治理时使用；做架构选型与可落地的摄取-转换-校验-监控管道实现及交付物；不适用于纯探索性数据分析、不含管道的 ML 建模、无法访问数据源或存储系统的场景。触发词：数据管道、Spark/dbt/Airflow、Kafka 流处理、湖仓 lakehouse、CDC、数据质量
 domain: 数据/pipeline
 triggers: [数据管道, ETL, ELT, 数据仓库, 湖仓, lakehouse, Spark, dbt, Airflow, Kafka, Flink, 流式处理, CDC, 变更数据捕获, 数据质量, 数据血缘, Snowflake, BigQuery, 数据建模, 维度建模, Delta Lake, Iceberg, 编排]
-tags: [数据工程, 数据管道, 流式处理, 数据仓库, 湖仓架构, ETL, ELT, 编排, 数据质量, 数据治理, CDC, 云数据平台, misc]
+tags: [数据工程, 数据管道, 流式处理, 数据仓库, 湖仓架构, etl, elt, 编排, 数据质量, 数据治理, cdc, 云数据平台, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 每日技术资讯抓取与简报生成
 description: 当需要按预设来源列表抓取技术资讯并产出每日简报时使用；做主 Agent 编排 + 子 Agent 并行抓取，筛选高质量条目并生成 Markdown 日报到 NewsReport/；不适用于单篇网页总结、无来源配置的开放式搜索、实时舆情监控；触发词：每日资讯、技术简报、daily news、抓取来源、日报生成
 domain: 协作/automation
 triggers: [每日资讯, 技术简报, daily news report, 抓取新闻来源, 生成日报, 资讯聚合, Hacker News 简报, 技术情报]
-tags: [资讯聚合, 网页抓取, Agent编排, Markdown报告, 并行子Agent, 缓存去重]
+tags: [资讯聚合, 网页抓取, agent编排, markdown报告, 并行子agent, 缓存去重]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

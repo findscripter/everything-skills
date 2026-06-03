@@ -4,7 +4,7 @@ title: SEC 管理层讨论与分析（MD&A）解读
 description: 当需要从美股上市公司 SEC 文件（10-K/10-Q）的 MD&A 段落中提取战略举措、财务表现、宏观挑战与前瞻性陈述时使用；通过 Octagon MCP 的 octagon-agent 用自然语言提示拉取并产出结构化 MD&A 解读（含数据来源 octagon-sec-agent）；不适用于无 Octagon API Key/未配置 MCP、非美股 SEC 体系、或需要逐字原文与下单交易的场景；触发词：MD&A、管理层讨论与分析、10-K、10-Q、SEC、octagon-agent
 domain: 领域/fintech
 triggers: [MD&A, 管理层讨论与分析, 10-K, 10-Q, SEC 财报解读, octagon-agent, octagon-mcp, 前瞻性陈述, 战略举措 财务表现, 管理层语气分析]
-tags: [fintech, SEC, MD&A, 财报分析, 10-K, 10-Q, Octagon, MCP, 前瞻性陈述, 投资研究]
+tags: [fintech, sec, md&a, 财报分析, 10-k, 10-q, octagon, mcp, 前瞻性陈述, 投资研究]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

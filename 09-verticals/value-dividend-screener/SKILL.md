@@ -4,7 +4,7 @@ title: 价值红利股筛选
 description: 当用户要筛选高质量分红股、构建收息组合、寻找估值合理又持续增长的红利标的时使用；做两段式量化筛选（FINVIZ Elite 预筛 + FMP 基本面细分析），按价值/成长/质量复合评分排名并产出 JSON 结果与 Markdown 报告；不适用于实盘下单、行情tick采集或非美股市场；触发词：红利股筛选、股息率、分红增长、价值股、收息组合、dividend screener
 domain: 领域/fintech
 triggers: [红利股筛选, 股息率 3%, 分红增长 CAGR, 价值股 低PE PB, 收息组合 income portfolio, dividend screener, FINVIZ FMP, 派息可持续性 payout ratio]
-tags: [fintech, 选股, 分红, 价值投资, 股息率, 基本面筛选, FMP, FINVIZ, Python]
+tags: [fintech, 选股, 分红, 价值投资, 股息率, 基本面筛选, fmp, finviz, python]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

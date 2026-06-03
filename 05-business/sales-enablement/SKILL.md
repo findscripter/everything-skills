@@ -4,7 +4,7 @@ title: 销售赋能物料制作
 description: 当销售团队需要能直接推进/成交交易的可用物料时使用；产出销售演示稿、一页纸、异议应对、Demo 脚本、ROI 测算、销售手册、提案模板与买家画像卡，并按阶段/角色/用例定制；不适用于获客引流型营销内容、纯定价决策或冷邮件外联；触发词：销售物料、pitch deck、异议应对、demo 脚本、一页纸、销售手册、ROI 测算、提案模板、买家画像
 domain: 商业/sales
 triggers: [销售物料, 销售赋能, pitch deck, 销售演示稿, 异议应对, demo 脚本, 一页纸, leave-behind, 销售手册, playbook, ROI 测算, 提案模板, 买家画像卡, 销售案例]
-tags: [销售赋能, B2B 销售, 演示稿, 异议应对, 销售手册, 提案, ROI, 买家画像]
+tags: [销售赋能, b2b 销售, 演示稿, 异议应对, 销售手册, 提案, roi, 买家画像]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

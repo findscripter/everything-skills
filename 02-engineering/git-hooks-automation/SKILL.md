@@ -4,7 +4,7 @@ title: Git Hooks 质量门禁
 description: 当需要在提交/推送前自动拦截代码质量问题（lint、格式化、类型检查、提交信息规范、密钥/大文件检测）时使用；用 Husky+lint-staged、pre-commit 框架或 core.hooksPath 搭建团队共享 Git 钩子并产出可执行配置；不适用于 CI 流水线编排或替代真实测试评审。触发词：git hooks、pre-commit、husky、lint-staged、commitlint、commit-msg、pre-push
 domain: 研发/devops
 triggers: [设置 git hooks, 添加 pre-commit 钩子, husky, lint-staged, commitlint, commit-msg 校验, pre-push 钩子, 提交信息规范, Conventional Commits, core.hooksPath, Husky v4 升级 v9, 提交前自动 lint, core.hooksPath 共享钩子]
-tags: [git, git-hooks, husky, lint-staged, pre-commit, commitlint, 代码质量, CI, 研发, misc]
+tags: [git, git-hooks, husky, lint-staged, pre-commit, commitlint, 代码质量, ci, 研发, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

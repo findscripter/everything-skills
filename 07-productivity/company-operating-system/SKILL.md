@@ -4,7 +4,7 @@ title: 公司运营系统框架（EOS/OKR）
 description: 当搭建公司运营机制、选型管理框架、设计会议节奏、建立权责体系或落地 OKR 时使用；产出含责权图、记分卡、会议节奏、IDS 议题解决、90 天 Rocks 的运营系统设计与 30 天落地清单；不适用于具体业务执行或单个职能的深度方案。触发词：EOS、Scaling Up、OKR、L10 会议、Rocks、记分卡、责权图、IDS、季度规划。
 domain: 协作/knowledge
 triggers: [搭建公司运营系统, 选管理框架, EOS, Scaling Up, OKR 落地, L10 会议, Rocks 季度优先级, 记分卡 scorecard, 责权图 accountability chart, IDS 议题解决, 设计会议节奏, 季度规划]
-tags: [协作, knowledge, 运营管理, OKR, EOS, 管理框架, C-level]
+tags: [协作, knowledge, 运营管理, okr, eos, 管理框架, c-level]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

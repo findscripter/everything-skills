@@ -4,7 +4,7 @@ title: AI文本人性化改写
 description: 当AI生成的文稿读起来机械、套话堆砌、缺乏个性或像委员会拼凑时使用；做识别AI痕迹、节奏与具体化重写、注入品牌声音三件事，产出审计报告/改写稿/前后对照与0-100人性化评分；不适用于从零创作初稿（用content-production）或SEO优化（用ai-seo）；触发词：这读着像AI、改得更像人、加点个性
 domain: 文书/writing
 triggers: [这读着像AI, 改得更像人, 加点个性, 太机械/太套路, 感觉很通用, 修一下AI腔, 注入我们的语气, 去AI味, humanize content, make it more human, sounds robotic, fix AI writing]
-tags: [文书, writing, 内容营销, 品牌声音, 去AI味, 改写, 文案润色]
+tags: [文书, writing, 内容营销, 品牌声音, 去ai味, 改写, 文案润色]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

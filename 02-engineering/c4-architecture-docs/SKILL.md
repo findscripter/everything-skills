@@ -4,7 +4,7 @@ title: C4 模型架构文档自动生成
 description: 当需要为已有代码仓库生成 C4（Context/Container/Component/Code）架构文档时使用；用自底向上分析产出分层 Markdown 文档与 OpenAPI 规格到 C4-Documentation/；不适用于全新设计、单纯画一张图或非软件系统建模；触发词：C4 模型、架构文档、Context/Container/Component/Code、系统上下文图、容器图、Mermaid C4
 domain: 研发/architecture
 triggers: [C4 模型, C4 架构文档, 架构文档生成, 系统上下文图, 容器图, Context Container Component Code, Mermaid C4 diagram, 为仓库生成架构图]
-tags: [架构, 文档, C4-model, 代码分析, Mermaid, OpenAPI, 逆向工程]
+tags: [架构, 文档, c4-model, 代码分析, mermaid, openapi, 逆向工程]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

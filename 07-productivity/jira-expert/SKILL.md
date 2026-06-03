@@ -4,7 +4,7 @@ title: Jira 项目与工作流专家
 description: 当需要在 Atlassian Jira 中建项目、配工作流、写 JQL、做仪表盘/报表、配自动化与自定义字段时使用；产出可执行的 MCP 命令、JQL 语句和配置步骤；不适用于飞书/Trello 等非 Jira 工具，也不做组织级权限/许可/账号开通（应升级给 Atlassian 管理员）。触发词：Jira、JQL、Sprint/冲刺、工作流
 domain: 协作/pm
 triggers: [Jira, JQL, Sprint, 冲刺, 工作流, 看板, Scrum, 燃尽图, 速度图, 自定义字段, 仪表盘, automation 自动化, issue 工单, backlog 待办]
-tags: [协作, 项目管理, Jira, Atlassian, JQL, 工作流, 敏捷, Scrum, 看板, 报表]
+tags: [协作, 项目管理, jira, atlassian, jql, 工作流, 敏捷, scrum, 看板, 报表]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

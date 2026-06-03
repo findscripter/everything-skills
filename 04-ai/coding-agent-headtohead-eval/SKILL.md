@@ -4,7 +4,7 @@ title: 编码 Agent 对比评测（通过率/成本/耗时）
 description: 当需要在自己代码库上把 Claude Code、Aider、Codex 等编码 Agent 做可复现的对比评测时使用；做基于 YAML 任务声明 + git worktree 隔离的多次运行，产出含通过率/成本/耗时/一致性的对比报告；不适用于评测纯对话/生成质量、单模型基准或无判据的开放任务。触发词：编码 Agent 对比、agent-eval、通过率、git worktree、选型评测
 domain: 智能/eval
 triggers: [编码 Agent 对比, agent-eval, Claude Code vs Aider, Codex 对比, 通过率评测, pass rate, 成本对比, 耗时对比, 一致性 consistency, git worktree 隔离, YAML 任务定义, 编码工具选型, 模型更新回归检查, LLM-as-judge 判据, 数据化选 Agent]
-tags: [评测, 编码Agent, 对比评测, 通过率, 成本, 耗时, 一致性, git-worktree, YAML, 选型, CLI]
+tags: [评测, 编码agent, 对比评测, 通过率, 成本, 耗时, 一致性, git-worktree, yaml, 选型, cli]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, aider, gemini-cli]

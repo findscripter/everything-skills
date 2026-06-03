@@ -4,7 +4,7 @@ title: CI/CD GitOps 部署工程
 description: 当设计/改进 CI/CD 流水线、落地 GitOps 与渐进式交付、做零停机发布时使用；产出含质量门禁/审批、回滚与可观测性的发布方案与流水线配置；不适用于纯本地开发自动化或不涉及部署管线的功能开发；触发词：CI/CD、GitOps、渐进式交付、蓝绿、金丝雀、零停机、ArgoCD
 domain: 研发/devops
 triggers: [设计 CI/CD 流水线, 落地 GitOps 工作流, 渐进式交付/金丝雀/蓝绿发布, 零停机部署与自动回滚, 在流水线中集成安全合规扫描, 多环境晋级与审批门禁, ArgoCD/Flux 持续部署, 容器镜像构建与签名]
-tags: [CI/CD, GitOps, 部署工程, 渐进式交付, Kubernetes, DevOps, 供应链安全, 可观测性]
+tags: [ci/cd, gitops, 部署工程, 渐进式交付, kubernetes, devops, 供应链安全, 可观测性]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

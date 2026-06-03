@@ -4,7 +4,7 @@ title: HMDB 人类代谢组数据库
 description: 当需查代谢物理化性质/通路/体液/疾病关联/谱图，或做质谱鉴定、HMDB↔KEGG/PubChem/ChEBI 转 ID 时使用；ElementTree 解析本地 ~6GB hmdb_metabolites.xml（无 REST API）产出结构化字段与候选表。不适用于在线化合物查询（用 pubchem-compound-search）。触发词：HMDB、代谢物、代谢组、生物标志物、质谱鉴定、谱图
 domain: 领域/science
 triggers: [HMDB, 代谢物, 代谢组, metabolite, metabolome, 生物标志物, biomarker, 质谱鉴定, m/z 匹配, 单同位素质量, SMILES, InChI, 通路, 生物体液, biofluid, 浓度参考范围, NMR, MS/MS, 谱图, ID 转换, ClassyFire]
-tags: [science, 代谢组学, metabolomics, HMDB, 本地XML, 质谱, 生物标志物, ID转换]
+tags: [science, 代谢组学, metabolomics, hmdb, 本地xml, 质谱, 生物标志物, id转换]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 董事会与投资人汇报材料生成
 description: 当需准备董事会会议、投资人更新、季度经营回顾或融资叙事材料时使用；整合各 C-level 视角生成有故事线、含目标与"so what"的董事会/投资人汇报 deck（结构、叙事、坏消息传达、自查清单）；不适用于对外销售/路演宣传页或编造无数据支撑的指标。触发词：董事会汇报、投资人更新、QBR/季度经营回顾、融资 deck、board pack、投资人关系。
 domain: 商业/finance
 triggers: [董事会汇报, 董事会材料, 投资人更新, 投资人月报, 季度经营回顾, QBR, 融资 deck, 融资叙事, board pack, 投资人关系, board deck, 如何向董事会传达坏消息]
-tags: [商业, finance, 董事会治理, 投资人关系, 汇报材料, 叙事框架, C-level]
+tags: [商业, finance, 董事会治理, 投资人关系, 汇报材料, 叙事框架, c-level]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

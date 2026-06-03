@@ -4,7 +4,7 @@ title: 事件溯源与 CQRS 架构
 description: 当需要完整审计轨迹、时间旅行查询或读写分离的事件驱动系统时使用；做事件存储、聚合/事件流、投影读模型、Saga 编排与版本演进的架构设计与落地；不适用于简单 CRUD、处处要求强一致、无法运维事件存储或投影的场景；触发词：事件溯源、CQRS、Saga
 domain: 研发/architecture
 triggers: [事件溯源, event sourcing, CQRS, 命令查询职责分离, 事件存储, event store, 投影, projection, 读模型, Saga, 流程管理器, process manager, 最终一致性, 审计轨迹, 时间旅行查询, 事件版本演进, 快照, snapshot, 事件驱动微服务]
-tags: [架构设计, 事件溯源, CQRS, 事件驱动, 领域建模, 微服务, 最终一致性, 审计]
+tags: [架构设计, 事件溯源, cqrs, 事件驱动, 领域建模, 微服务, 最终一致性, 审计]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

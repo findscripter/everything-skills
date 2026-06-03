@@ -4,7 +4,7 @@ title: deepTools NGS 覆盖度与信号可视化
 description: 当处理 ChIP/ATAC/RNA-seq 等 NGS 比对数据、需要把 BAM 转成归一化覆盖度轨道、做样本质控或绘制特征区信号图时使用；做 BAM→bigWig（RPGC/CPM/RPKM）归一化、相关性/PCA/指纹质控、TSS/peak 附近热图与谱图等产物；不适用于读段比对（用 STAR/BWA/bowtie2）、peak calling（用 MACS2/HOMER）、BAM/VCF 编程操作（用 pysam）；触发词：bigWig、bamCoverage、computeMatrix、plotHeatmap、ChIP-seq、ATAC-seq
 domain: 领域/science
 triggers: [把 BAM 转成 bigWig 覆盖度轨道, ChIP-seq / ATAC-seq / RNA-seq 信号可视化, TSS 或 peak 附近画热图/谱图, 样本相关性、PCA、指纹质控, treatment vs input 的 log2 比值轨道, ATAC-seq Tn5 偏移校正, deeptools / bamCoverage / computeMatrix / plotHeatmap]
-tags: [bioinformatics, NGS, deeptools, ChIP-seq, ATAC-seq, RNA-seq, bigWig, coverage, visualization, QC]
+tags: [bioinformatics, ngs, deeptools, chip-seq, atac-seq, rna-seq, bigwig, coverage, visualization, qc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

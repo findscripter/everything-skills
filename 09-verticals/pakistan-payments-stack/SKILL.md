@@ -4,7 +4,7 @@ title: 巴基斯坦本地支付集成
 description: 当为面向巴基斯坦市场的 SaaS/B2B 接入 PKR 计费与本地支付（JazzCash、Easypaisa、银行/PSP，可选 Raast）时使用；产出支付边界架构、数据模型、Webhook 与对账方案及上线清单；不适用于纯国际卡收单、无巴基斯坦场景、纯定价策略或法律税务咨询。触发词：JazzCash、Easypaisa、PKR、Raast、巴基斯坦支付、对账
 domain: 领域/fintech
 triggers: [JazzCash, Easypaisa, PKR 计费, Raast, 巴基斯坦支付集成, SBP PSO/PSP, 支付对账, Webhook 幂等]
-tags: [金融科技, 支付集成, 巴基斯坦, PKR, 对账, Webhook, SaaS, B2B]
+tags: [金融科技, 支付集成, 巴基斯坦, pkr, 对账, webhook, saas, b2b]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

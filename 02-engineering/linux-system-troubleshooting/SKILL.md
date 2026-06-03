@@ -4,7 +4,7 @@ title: Linux 系统排障
 description: 当 Linux 主机/服务出现性能劣化、服务故障、磁盘耗尽或网络异常需系统化定位时使用；按七步流程从系统画像→资源→进程→日志→网络→服务依次取证，用 top/free/df、ps/lsof/strace、journalctl、ss/dig、systemctl 定位根因并产出修复与防复发清单；不适用于 Windows/macOS、纯应用代码 bug 或缺访问权限时的臆测；触发词：服务器卡、CPU 飙高、磁盘满、OOM、服务挂了、网络不通。
 domain: 研发/devops
 triggers: [服务器变慢/负载高排查, CPU 或内存占用飙高定位, 磁盘空间耗尽 df 100%, systemd 服务启动失败或反复重启, 网络不通/DNS 解析异常, 进程僵死或资源占用过高 strace, 翻查 journalctl/syslog 找错误, 线上故障止血与根因分析]
-tags: [Linux, 排障, 运维, DevOps, 性能分析, systemd, 网络诊断, 日志分析]
+tags: [linux, 排障, 运维, devops, 性能分析, systemd, 网络诊断, 日志分析]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: DeFi 协议合约模板
 description: 当用 Solidity 搭建质押/AMM/治理/借贷/闪电贷等 DeFi 协议时使用；基于 OpenZeppelin 提供可直接套用的合约骨架并给出安全与上线检查清单；不适用于纯前端 DApp、链下数据分析或非 EVM 链。触发词：DeFi、Solidity、质押、AMM、治理代币、闪电贷
 domain: 领域/fintech
 triggers: [DeFi 协议, 智能合约模板, Solidity 质押合约, AMM 自动做市商, 治理代币, 闪电贷, 流动性挖矿, 借贷协议, StakingRewards, ERC20Votes]
-tags: [DeFi, Solidity, 智能合约, 区块链, OpenZeppelin, AMM, 质押, 治理, 闪电贷, misc]
+tags: [defi, solidity, 智能合约, 区块链, openzeppelin, amm, 质押, 治理, 闪电贷, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

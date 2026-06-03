@@ -4,7 +4,7 @@ title: 音频转写为结构化 Markdown 文档
 description: 当需要把音频/视频录音转成文字并产出结构化 Markdown（含元数据、逐字稿、会议纪要、摘要）时使用；用 Whisper/Faster-Whisper 转写并经 LLM 整理出参与者、议题、决策、待办；不适用于实时流式转写、说话人精确声纹识别或纯听写无结构需求；触发词：转写音频、会议纪要、语音转文字
 domain: 文书/writing
 triggers: [转写这段音频, 把录音转成文字, 音频转 Markdown, 生成会议纪要, 语音转文字, transcribe audio, 提取会议待办与决策, 给长音频做摘要]
-tags: [音频转写, whisper, 会议纪要, 语音转文字, 文书, Markdown, LLM摘要]
+tags: [音频转写, whisper, 会议纪要, 语音转文字, 文书, markdown, llm摘要]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

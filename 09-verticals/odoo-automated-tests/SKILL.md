@@ -4,7 +4,7 @@ title: Odoo 自动化测试
 description: 当为 Odoo 自定义模块写/跑自动化测试时使用；做编写 TransactionCase 单元测试、HttpCase 控制器测试与 CLI/CI 执行命令；不适用于 JS tour 浏览器测试、Mock 外部服务（SMTP/支付）、跨事务 commit 数据隔离；触发词：odoo 测试、TransactionCase、HttpCase、--test-enable、test-tags
 domain: 领域/erp
 triggers: [Odoo 自动化测试, odoo 单元测试, TransactionCase, HttpCase, tour 测试, --test-enable, --test-tags, odoo-bin 跑测试, Odoo CI 测试, @odoo-automated-tests]
-tags: [领域/ERP, Odoo, 自动化测试, Python, unittest, CI]
+tags: [领域/erp, odoo, 自动化测试, python, unittest, ci]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

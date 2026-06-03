@@ -4,7 +4,7 @@ title: SEC 风险因素提取
 description: 当需要从美股 SEC 文件（10-K/10-Q）Item 1A 风险披露中提取归类并对比风险因素时使用；经 Octagon MCP 的 octagon-agent 抽取风险点，产出按宏观/运营/财务/法律/战略分类、带来源页码的清单；不适用于无 Octagon MCP、非美股 SEC 体系、或需法律与投资建议的场景；触发词：SEC 风险因素、Item 1A、10-K 风险披露
 domain: 领域/fintech
 triggers: [SEC 风险因素, Item 1A, 10-K 风险披露, 10-Q 风险更新, octagon-agent, 风险因素归类, 同业风险对比, 年度风险变化]
-tags: [fintech, SEC, 风险因素, 10-K, 10-Q, Octagon MCP, 尽职调查, 财报分析]
+tags: [fintech, sec, 风险因素, 10-k, 10-q, octagon mcp, 尽职调查, 财报分析]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

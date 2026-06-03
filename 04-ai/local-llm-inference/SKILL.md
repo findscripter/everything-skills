@@ -4,7 +4,7 @@ title: 本地 LLM 推理部署
 description: 当需要在本地硬件上跑开源大模型时使用；按显存/内存约束选模型与量化格式、给出 Ollama/llama.cpp/vLLM 的可执行命令与正确 Chat 模板，产出离线推理部署方案；不适用于云端 API 调用、非 LLM 机器学习或从零训练；触发词：本地LLM、Ollama、量化、GGUF、显存、vLLM
 domain: 智能/model-ops
 triggers: [本地LLM, Ollama, llama.cpp, vLLM, LM Studio, 量化, GGUF, EXL2, AWQ, GPTQ, 显存, VRAM, num_ctx, Modelfile, Chat模板, ChatML, Llama3, DeepSeek, Mistral, Qwen, 离线推理, OOM, 本地部署大模型]
-tags: [本地LLM, 推理引擎, 量化, Ollama, vLLM, llama.cpp, 显存优化, 离线部署, 提示词模板, 智能]
+tags: [本地llm, 推理引擎, 量化, ollama, vllm, llama.cpp, 显存优化, 离线部署, 提示词模板, 智能]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: Stitch 设计品味：排版色彩布局动效系统生成
 description: 当需要为 Google Stitch 屏幕生成器产出语义化 DESIGN.md 设计系统、用自然语言描述加精确数值约束驱动 AI 生成高端非通用界面时使用；产出含氛围/色板/字体/组件/布局/动效/反模式七段的 DESIGN.md，覆盖反 AI-slop 规则（禁 Inter、禁纯黑、禁霓虹紫蓝、禁 3 等宽卡片）；不适用于已有成熟品牌设计系统、直接写最终前端代码、或保证 Stitch 像素级还原每条约束的场景。触发词：Stitch、DESIGN.md、设计系统、反 AI 通用 UI、设计品味
 domain: 创意/design
 triggers: [Stitch, DESIGN.md, 设计系统, 语义设计系统, 反 AI 通用 UI, anti-slop, 设计品味, Google Stitch, 氛围色板字体, premium UI 规范]
-tags: [创意, design, 前端, 设计系统, Stitch, 排版, 配色, 动效, 反模式]
+tags: [创意, design, 前端, 设计系统, stitch, 排版, 配色, 动效, 反模式]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

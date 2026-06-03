@@ -4,7 +4,7 @@ title: iOS SwiftUI 原生开发
 description: 当用 Swift 6 / SwiftUI 开发 iOS 18 原生应用（UI、状态管理、数据持久化、网络、上架）时使用；产出 SwiftUI 优先、含错误处理与无障碍的生产级 Swift 代码及工程方案；不适用于跨平台框架（Flutter/RN）、纯 Web 或后端任务。触发词：SwiftUI、Swift、iOS、Xcode、App Store
 domain: 研发/mobile
 triggers: [SwiftUI, Swift 6, iOS 18, Xcode, UIKit 桥接, Core Data, SwiftData, App Store 上架, Live Activities, Widget 小组件]
-tags: [iOS, SwiftUI, Swift, 移动开发, Apple, Xcode, 研发]
+tags: [ios, swiftui, swift, 移动开发, apple, xcode, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

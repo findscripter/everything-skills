@@ -4,7 +4,7 @@ title: Tavily 网络检索：搜索、抓取与内容提取
 description: 当需要用 Tavily API 检索实时网络信息、从 URL 提取正文、爬取整站或做带引用的网页调研时使用；做 Tavily search/extract/crawl 调用并产出带来源的结果与正文摘要；不适用于站内全文检索、纯本地/私有数据查询或将结果当权威事实直接采纳；触发词：Tavily、网页搜索、内容提取、网站爬取、实时信息调研
 domain: 平台/browser
 triggers: [Tavily, 网页搜索, 内容提取, 网站爬取, 实时信息, Web 调研, URL 抓取]
-tags: [平台, misc, 搜索, 抓取, 调研, Tavily, 网页检索]
+tags: [平台, misc, 搜索, 抓取, 调研, tavily, 网页检索]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

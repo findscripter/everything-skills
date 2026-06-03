@@ -4,7 +4,7 @@ title: 计算机视觉 YOLO/SAM/VLM 专家
 description: 当需要设计/实现/优化前沿计算机视觉流水线时使用；做实时检测（YOLO26）、可提示分割（SAM 3）、视觉语言理解（VLM）、深度/3D 重建与边缘部署的方案与代码产出；不适用于通用图像编辑、纯标注外包或非视觉的 ML 任务。触发词：YOLO、SAM、VLM、目标检测、语义分割、深度估计、ONNX、TensorRT、边缘部署
 domain: 智能/model-ops
 triggers: [计算机视觉, 目标检测, YOLO, YOLO26, SAM, Segment Anything, 语义分割, 实例分割, 可提示分割, 文本分割, VLM, 视觉语言模型, 视觉问答, VQA, 视觉定位, 深度估计, Depth Anything, 3D 重建, 单目深度, 相机标定, 视觉 SLAM, ONNX, TensorRT, 边缘部署, NPU, 实时检测, 小目标检测]
-tags: [智能, misc, 计算机视觉, 目标检测, 图像分割, 视觉语言模型, 深度估计, 3D重建, 边缘部署, 模型优化, YOLO, SAM, VLM]
+tags: [智能, misc, 计算机视觉, 目标检测, 图像分割, 视觉语言模型, 深度估计, 3d重建, 边缘部署, 模型优化, yolo, sam, vlm]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

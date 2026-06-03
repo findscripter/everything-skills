@@ -4,7 +4,7 @@ title: 药物化学过滤与化合物筛选
 description: 当需要对化合物库做药物化学过滤、初筛或优先级排序时使用；用 medchem（datamol/RDKit）施加成药性规则、结构警示、复杂度阈值与查询语言，产出可审计的通过/淘汰结果（DataFrame 或布尔掩码）；不适用于纯属性范围卡阈值（用 RuleFilters/描述符）、活性预测、对接打分、合成路线规划。触发词：药物化学过滤、成药性、Lipinski、PAINS、NIBR、复杂度、化合物筛选。
 domain: 领域/medical
 triggers: [药物化学过滤, 成药性规则, 化合物库初筛, Lipinski 五规则, PAINS 结构警示, NIBR 过滤, 分子复杂度, medchem, datamol, 苗头到先导, 化合物优先级排序, 结构警示目录]
-tags: [药物化学, 化合物筛选, 成药性, 结构警示, PAINS, NIBR, 分子复杂度, datamol, RDKit, cheminformatics, drug-discovery, medchem]
+tags: [药物化学, 化合物筛选, 成药性, 结构警示, pains, nibr, 分子复杂度, datamol, rdkit, cheminformatics, drug-discovery, medchem]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

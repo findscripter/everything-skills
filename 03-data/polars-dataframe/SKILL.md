@@ -4,7 +4,7 @@ title: Polars 高性能数据框
 description: 当处理内存可容纳（约 1-100GB）但 pandas 太慢的表格数据、构建 ETL/分析管道或从 pandas 迁移时使用；做表达式式列变换、惰性查询优化与并行聚合，产出 DataFrame/LazyFrame 及 CSV/Parquet 结果；不适用于超出内存的数据（改用 dask/vaex）。触发词：polars、惰性求求值、pandas 替代
 domain: 数据/wrangling
 triggers: [polars, 高性能数据框, pandas 太慢, 惰性求值 LazyFrame, scan_csv collect, 表达式 pl.col, group_by 聚合, Parquet 读写, pandas 迁移 Polars, ETL 管道]
-tags: [数据, misc, polars, dataframe, ETL, lazy-evaluation, arrow, pandas-migration]
+tags: [数据, misc, polars, dataframe, etl, lazy-evaluation, arrow, pandas-migration]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

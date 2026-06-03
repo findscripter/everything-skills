@@ -4,7 +4,7 @@ title: UniChem 化合物 ID 交叉引用
 description: 当需要把化合物在 ChEMBL/DrugBank/PubChem/ChEBI/PDB 等 20+ 库间的 ID 做交叉引用、用 InChIKey 解析到各库 source ID、按连接性找结构相关物时使用；用 EMBL-EBI UniChem REST API（除 /sources 外全 POST，无需鉴权）产出各库 ID 映射表与覆盖度。不适用于取 IC50/Ki 等实验活性（用 chembl-bioactivity-database）或本地化学信息学/性质预测（用 cheminformatics-toolkit、pubchem-compound-search）。触发词：UniChem、InChIKey、交叉引用、ID 映射、ChEMBL、DrugBank、connectivity
 domain: 领域/science
 triggers: [UniChem, InChIKey, 化合物交叉引用, ID 映射, ChEMBL, DrugBank, PubChem CID, ChEBI, connectivity, 结构相关物, source ID, 跨库标识符, EMBL-EBI]
-tags: [science, 化学信息学, 药物发现, UniChem, REST-API, 标识符映射, InChIKey]
+tags: [science, 化学信息学, 药物发现, unichem, rest-api, 标识符映射, inchikey]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

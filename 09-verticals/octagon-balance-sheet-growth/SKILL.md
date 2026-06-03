@@ -4,7 +4,7 @@ title: 资产负债表同比增长分析
 description: 当需要分析上市公司资产负债表各科目（总资产、总负债、股东权益、现金及等价物、存货）的同比（YoY）增长以诊断财务状况趋势、资本结构变化与流动性管理时使用；通过 Octagon MCP 的 octagon-agent 工具按 ticker / 期数 / 条数拉取多期 YoY 增长率表并输出去杠杆、轻资产、现金囤积、存货管理等结构化观察；不适用于绝对值财报建模、估值/DCF、实时报价下单或未配置 Octagon MCP 的环境；触发词：资产负债表增长、同比增长、去杠杆、Octagon
 domain: 领域/fintech
 triggers: [资产负债表同比增长, balance sheet growth, 总资产/总负债增长率, 股东权益增长, 去杠杆/资本结构变化, 现金及等价物趋势, 存货增长, Octagon MCP, octagon-agent]
-tags: [fintech, 财务报表, 资产负债表, 同比增长, 资本结构, 去杠杆, Octagon, MCP]
+tags: [fintech, 财务报表, 资产负债表, 同比增长, 资本结构, 去杠杆, octagon, mcp]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

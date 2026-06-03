@@ -4,7 +4,7 @@ title: 多框架合规编排器（multi-framework-compliance-orchestrator）
 description: 当同时搭建多框架合规项目、规划年度审计日历或冲刺认证 stage 1 时使用；做四件事并产出结果——选框架(选择器)、算重叠(跨框架映射+证据复用)、模拟审计(从205场景库抽)、整合统一证据清单；不适用于单框架技术落地/控制项配置或日常证据维护；触发词：多框架合规、跨框架映射、证据复用、模拟审计、认证就绪
 domain: 安全/compliance
 triggers: [多框架合规, 合规编排, 跨框架映射, 控制项重叠, 证据池, 证据复用, 模拟审计, 内审项目, 认证就绪, 年度审计日历, GRC, ISO 27001 + SOC 2, ISO 27001 + ISO 42001]
-tags: [合规, compliance, 安全, GRC, 多框架, 跨框架映射, 证据管理, 审计, ISO, SOC2, 认证]
+tags: [合规, compliance, 安全, grc, 多框架, 跨框架映射, 证据管理, 审计, iso, soc2, 认证]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 开源贡献机会挖掘（oss-contribution-hunter）
 description: 当你想在热门开源仓库挖「易合并、有影响力」的 issue 来贡献、或捞 help-wanted/good-first-issue 任务时使用；做发现仓库→提取标签 issue→可行性评分→产出含根因/修复策略/置信分的贡献档案；不适用于已锁定 issue 直接写代码、无 gh/搜索的离线环境、或刷 PR 数灌水。触发词：找开源 issue、good first issue、help wanted、给某仓库提 PR、贡献档案
 domain: 通用/research
 triggers: [找几个能上手的开源 issue, good first issue, help wanted 任务, 想给 langchain 提个 PR, 哪些热门仓库适合贡献, 帮我挖开源贡献机会, 生成贡献档案 dossier, 哪个 issue 容易被合并]
-tags: [开源贡献, GitHub, issue 挖掘, 可行性评分, PR 机会, gh-cli, 贡献档案, mergeability]
+tags: [开源贡献, github, issue 挖掘, 可行性评分, pr 机会, gh-cli, 贡献档案, mergeability]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 文档转技能：从网站/仓库/PDF 快速生成 AI 技能
 description: 当需要把文档网站、GitHub 仓库、PDF 或视频批量转成可用的 AI 技能（SKILL.md + references）时使用；用 skill-seekers 完成抓取→增强→打包→上传/安装到 Claude 或各 Agent 全流程；不适用于手写单条精炼技能、或源缺乏结构化文档时。触发词：文档转技能、爬文档建技能、skill-seekers、批量生成技能
 domain: 智能/agents
 triggers: [把文档/官网/仓库转成技能, 从 PDF 或视频生成 AI 技能, skill-seekers / Skill Seekers, 批量爬取文档建知识库技能, 给某框架快速做一个 Claude skill, 把 SKILL 打包上传到 Claude]
-tags: [技能工程, 文档抓取, 知识库, 自动化, Claude, 智能/misc]
+tags: [技能工程, 文档抓取, 知识库, 自动化, claude, 智能/misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

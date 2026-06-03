@@ -4,7 +4,7 @@ title: 宏观利率监测看板
 description: 当需要把宏观指标、国债/掉期收益率曲线、通胀盈亏平衡与实际利率拼成一张宏观利率看板，研判周期位置、政策路径与金融条件松紧时使用；做先广后深的工具链取数+合成，产出含宏观摘要表/曲线斜率/实际利率分解/掉期利差的结构化 dashboard；不适用于个券估值、交易信号或无 MCP 数据源的离线推演；触发词：宏观利率、收益率曲线、2s10s、实际利率、通胀盈亏平衡、掉期利差、金融条件
 domain: 商业/finance
 triggers: [宏观利率, 收益率曲线, yield curve, 2s10s, 实际利率, real rate, 通胀盈亏平衡, breakeven, 掉期利差, swap spread, 金融条件, 曲线倒挂, 政策利率预期]
-tags: [finance, macro, rates, yield-curve, inflation, swap-spread, dashboard, MCP, 宏观策略]
+tags: [finance, macro, rates, yield-curve, inflation, swap-spread, dashboard, mcp, 宏观策略]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

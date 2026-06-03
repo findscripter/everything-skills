@@ -4,7 +4,7 @@ title: LLM 提示词优化
 description: 当 LLM 提示词输出不稳定、含幻觉、格式不可解析或 token 浪费时使用；用 RSCIT 框架与少样本/思维链/结构化输出等模式把弱提示重写为可复用的精准提示并产出审计清单；不适用于模型微调、RAG 检索管线搭建或非提示层的工程问题；触发词：提示词优化、prompt engineering、减少幻觉、结构化输出、少样本
 domain: 智能/prompting
 triggers: [提示词优化, prompt 优化, prompt engineering, 减少幻觉, 结构化输出, JSON 输出, 少样本示例, 思维链, chain-of-thought, 系统提示词设计, 提示词太长 token 浪费, 同一提示换模型失效]
-tags: [提示工程, LLM, prompt, few-shot, chain-of-thought, 结构化输出, 幻觉抑制, token优化, 智能]
+tags: [提示工程, llm, prompt, few-shot, chain-of-thought, 结构化输出, 幻觉抑制, token优化, 智能]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

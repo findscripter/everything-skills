@@ -4,7 +4,7 @@ title: JASPAR 转录因子结合谱
 description: 当需按 TF 名/JASPAR ID/物种/结构类查询转录因子结合谱（PFM/PWM）或扫描 DNA 寻找潜在 TFBS 时使用；用 REST API 或 pyJASPAR 检索矩阵、算 PWM/信息量、滑窗打分、导出 MEME/JASPAR 格式，产出 motif 库与结合位点列表。不适用于从 ChIP-seq peak 做 de novo motif 发现（用 homer-motif-analysis）或调控变异打分（用 regulomedb-database）。触发词：JASPAR、转录因子结合位点、TFBS、PFM、PWM、motif、位置权重矩阵、CTCF、MEME 导出
 domain: 领域/science
 triggers: [JASPAR, 转录因子结合位点, TFBS, PFM, PWM, 位置频率矩阵, 位置权重矩阵, motif 库, DNA motif 扫描, MA0139.1, CTCF 结合, pyJASPAR, MEME 格式导出, 信息量 IC, TF 家族 motif, 启动子 TF 扫描]
-tags: [science, 生物信息学, 基因组学, 转录调控, 转录因子, motif, JASPAR, TFBS]
+tags: [science, 生物信息学, 基因组学, 转录调控, 转录因子, motif, jaspar, tfbs]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

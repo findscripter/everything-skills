@@ -4,7 +4,7 @@ title: 变更管理请求（影响分析+回滚计划）
 description: 当提出需审批的系统/流程变更、为CAB变更评审准备变更记录、或上线前要写清影响、风险、回滚与干系人沟通时使用；用评估-计划-执行-巩固框架产出一份结构化变更请求（含影响分析表、风险评估表、实施与沟通计划、可触发回滚步骤、审批清单）；不适用于不需审批的琐碎改动、纯代码审计追踪或事后复盘。触发词：变更请求、change request、CAB、变更评审、影响分析、回滚计划、上线审批
 domain: 协作/pm
 triggers: [变更请求, change request, CAB, 变更评审, 变更咨询委员会, 影响分析, 回滚计划, rollback, 上线审批, 部署审批, 变更记录, RFC, 风险评估, 干系人沟通, 实施计划]
-tags: [协作, pm, 变更管理, change-management, CAB, ITSM, 影响分析, 回滚, 风险评估, 审批流程]
+tags: [协作, pm, 变更管理, change-management, cab, itsm, 影响分析, 回滚, 风险评估, 审批流程]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

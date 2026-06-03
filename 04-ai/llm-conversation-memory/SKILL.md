@@ -4,7 +4,7 @@ title: LLM 对话持久记忆系统
 description: 当为对话式 AI 设计跨会话记忆（短期/长期/实体记忆）时使用；做分层记忆的存储、检索、巩固与按用户隔离的方案落地；不适用于知识图谱构建、语义搜索/向量库底层实现或数据库运维。触发词：对话记忆、记住用户、长期记忆、chat history、memory persistence
 domain: 智能/agents
 triggers: [对话记忆, 记住用户偏好, 长期记忆, 跨会话记忆, 记忆持久化, 实体记忆, chat history, conversation memory, memory persistence, Mem0, LangChain Memory, 记忆巩固]
-tags: [LLM, 记忆系统, 对话式AI, 短期记忆, 长期记忆, 实体记忆, 记忆检索, 记忆巩固, 用户隔离, Mem0, Redis, 智能]
+tags: [llm, 记忆系统, 对话式ai, 短期记忆, 长期记忆, 实体记忆, 记忆检索, 记忆巩固, 用户隔离, mem0, redis, 智能]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

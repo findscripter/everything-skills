@@ -4,7 +4,7 @@ title: 功能开关架构与治理
 description: 当新增、灰度、审计或下线功能开关（feature flag）时使用；做开关分类、渐进发布规划、熔断/kill-switch 审计与开关债务清理，产出发布计划表、债务清单与合并前门禁；不适用于纯视觉/文案改动（应走部署而非开关）。触发词：feature flag、灰度发布、kill switch、开关债务、LaunchDarkly
 domain: 研发/devops
 triggers: [新增功能开关, ship behind a flag / 开关后发布, 灰度发布 / rollout 计划, kill switch / 熔断开关, 陈旧开关 / 开关债务清理, 选型：LaunchDarkly/GrowthBook/Statsig/Unleash/Flipt, 渐进式交付 / progressive delivery]
-tags: [feature-flags, 渐进式交付, 灰度发布, kill-switch, 开关债务, 发布工程, devops, LaunchDarkly, GrowthBook, Unleash]
+tags: [feature-flags, 渐进式交付, 灰度发布, kill-switch, 开关债务, 发布工程, devops, launchdarkly, growthbook, unleash]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

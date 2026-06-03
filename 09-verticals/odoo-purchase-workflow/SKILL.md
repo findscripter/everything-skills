@@ -4,7 +4,7 @@ title: Odoo 采购工作流
 description: 当在 Odoo 中搭建或排查采购流程（询价单→采购订单→收货→供应商账单）时使用；产出含确切菜单路径、字段配置与三单匹配诊断的可执行指引，覆盖采购审批、供应商价目表、自动补货。不适用于分包采购（需制造模块）、EDI 自动单据交换或多层级审批矩阵。触发词：RFQ、采购订单、三单匹配、供应商账单、采购审批
 domain: 领域/erp
 triggers: [Odoo 采购, RFQ 询价单, 采购订单 PO, 三单匹配, 供应商账单, 采购审批, 供应商价目表, 收货验证, Bill Control]
-tags: [ERP, Odoo, 采购, 供应链, 三单匹配, 工作流]
+tags: [erp, odoo, 采购, 供应链, 三单匹配, 工作流]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: CANSLIM 成长股筛选
 description: 当需要按 William O'Neil 的 CANSLIM 方法对美股做成长股筛选、寻找盈利加速+价格动量+创新高的标的时使用；用 FMP API（Finviz 兜底机构持股）计算 C/A/N/S/L/I/M 七因子并加权打分（0-100），产出排名榜单与 JSON+Markdown 报告；不适用于价值/股息选股、实盘下单，熊市（M=0）应转持币；触发词：CANSLIM、成长股筛选、相对强弱RS、创52周新高
 domain: 领域/fintech
 triggers: [CANSLIM 筛选, O'Neil 成长股方法, 盈利加速+价格动量选股, 创52周新高 加 盈利加速, 相对强弱 RS Rating, FMP_API_KEY 美股筛选, 机构持股 Finviz 兜底]
-tags: [fintech, 选股, 成长股, CANSLIM, 美股, 相对强弱, 动量, Python]
+tags: [fintech, 选股, 成长股, canslim, 美股, 相对强弱, 动量, python]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

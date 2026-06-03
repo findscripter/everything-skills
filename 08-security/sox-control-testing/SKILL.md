@@ -4,7 +4,7 @@ title: SOX 404 内控测试支持
 description: 当需要执行 SOX 404 财报内控（ICFR）测试、准备内外部审计时使用；做范围界定、样本抽取、测试底稿编制、证据评估与缺陷分级（缺陷/重大缺陷/重大弱点），产出控制矩阵/测试底稿/抽样方案/缺陷评估与整改计划；不适用于出具正式审计或法律意见、其他合规框架主审（SOC 2/ISO 27001 见互见）。触发词：SOX 404、内控测试、控制测试、样本抽取、控制缺陷
 domain: 安全/audit
 triggers: [SOX 404, 内控测试, 控制测试, ICFR, 财报内控, 样本抽取, 抽样方案, 测试底稿, 工作底稿, 控制缺陷, 重大弱点, 重大缺陷, 穿行测试, 设计有效性, 运行有效性, ITGC, 关键控制, 审计准备, 整改计划]
-tags: [安全, compliance, SOX, 内控, 审计, ICFR, 控制测试, 缺陷分级]
+tags: [安全, compliance, sox, 内控, 审计, icfr, 控制测试, 缺陷分级]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

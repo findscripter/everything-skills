@@ -4,7 +4,7 @@ title: 认证与授权系统实现模式
 description: 当实现用户认证、保护 REST/GraphQL API、接入 OAuth2/SSO、设计会话或 RBAC、排查鉴权问题时使用；做认证策略选型、令牌生命周期、授权模型与策略执行点的安全实现并产出可落地代码与清单；不适用于仅做登录页 UI 文案/样式、纯基础设施无身份诉求、或无权改动鉴权策略与凭据存储的场景。触发词：JWT、OAuth2、RBAC、会话管理、令牌刷新、SSO。
 domain: 安全/appsec
 triggers: [实现用户认证登录系统, 给 REST/GraphQL API 加鉴权, 接入 OAuth2 社交登录或企业 SSO, 设计会话管理或 RBAC 权限模型, 排查认证或授权失败问题, 设计 JWT 访问令牌与刷新令牌流程, 做密码存储与登录限流加固]
-tags: [安全, appsec, 认证, 授权, JWT, OAuth2, RBAC, 会话管理, API安全]
+tags: [安全, appsec, 认证, 授权, jwt, oauth2, rbac, 会话管理, api安全]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

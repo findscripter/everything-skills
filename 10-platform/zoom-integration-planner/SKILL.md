@@ -4,7 +4,7 @@ title: Zoom 集成方案规划（架构/认证/里程碑）
 description: 当要把一个 Zoom 集成/应用想法落成可执行的实施方案时使用；做的是定用户流程与成功判据、选最小正确的 Zoom 接口面、列认证与 scope 清单、拆分阶段交付并产出风险/下一步与「最小可验证架构的交付物」；不适用于已确定接口面只差编码、非 Zoom 平台集成、或只问单一 OAuth/SDK 用法的场景。触发词：Zoom 集成、Zoom 应用、Zoom 方案、接口面选型、里程碑拆分、Meeting SDK、Marketplace 上架
 domain: 平台/integration
 triggers: [Zoom 集成方案, 规划 Zoom 应用, Zoom 集成怎么做, 选哪个 Zoom 接口面, Zoom 架构选型, Zoom 交付里程碑, Zoom OAuth 与 scope 规划, Zoom Marketplace 上架, plan zoom integration, zoom app build plan]
-tags: [Zoom, 集成规划, 架构选型, OAuth, scope 清单, 里程碑拆分, Webhook, Meeting SDK, Marketplace 评审, MCP]
+tags: [zoom, 集成规划, 架构选型, oauth, scope 清单, 里程碑拆分, webhook, meeting sdk, marketplace 评审, mcp]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

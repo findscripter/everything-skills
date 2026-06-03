@@ -4,7 +4,7 @@ title: AWS 云环境渗透测试
 description: 当对 AWS 云环境做获授权红队/渗透评估时使用；做 IAM 枚举、提权、元数据 SSRF 取凭证、S3/Lambda/EC2/SSM 利用与持久化并产出审计发现；不适用于无书面授权的测试、纯合规扫描或非 AWS 平台；触发词：AWS渗透、IAM提权、IMDS SSRF、S3桶、Pacu
 domain: 安全/ops
 triggers: [AWS渗透测试, AWS红队, IAM枚举, IAM提权, 影子管理员, 元数据SSRF, IMDSv1, IMDSv2, 169.254.169.254, S3桶利用, Lambda代码注入, SSM命令执行, EBS快照窃取, CloudTrail绕过, Pacu, enumerate-iam, 临时凭证窃取, 云持久化]
-tags: [安全, ops, 云安全, AWS, 渗透测试, 红队, IAM, 提权, SSRF, 横向移动]
+tags: [安全, ops, 云安全, aws, 渗透测试, 红队, iam, 提权, ssrf, 横向移动]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

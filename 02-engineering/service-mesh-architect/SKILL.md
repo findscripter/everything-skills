@@ -4,7 +4,7 @@ title: 服务网格架构（Istio/Linkerd）
 description: 当在 Kubernetes 上设计/落地服务网格（拓扑、零信任 mTLS、跨集群联邦、渐进式交付）时使用；产出网格选型、流量与安全策略、可观测性接入及运维手册；不适用于单纯写某条 Istio YAML（用 istio-traffic-management）或非网格的应用层业务问题；触发词：service mesh、istio、linkerd、mTLS、零信任、多集群
 domain: 研发/devops
 triggers: [设计服务网格架构, 选型 Istio 还是 Linkerd, 配置零信任 mTLS 网络, 搭建跨集群网格联邦, 金丝雀/蓝绿渐进式交付, 排查服务网格连通性, 服务网格可观测性接入]
-tags: [服务网格, service-mesh, istio, linkerd, 云原生, 零信任, mTLS, kubernetes, 可观测性]
+tags: [服务网格, service-mesh, istio, linkerd, 云原生, 零信任, mtls, kubernetes, 可观测性]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

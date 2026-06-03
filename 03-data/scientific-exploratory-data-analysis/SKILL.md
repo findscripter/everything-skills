@@ -4,7 +4,7 @@ title: 科学数据探索性分析（200+ 格式）
 description: 当拿到科学数据文件（化学/生信/显微/光谱/蛋白代谢/通用）、动手分析前要先识别格式并摸清结构质量时使用；做扩展名自动识别→载入格式专属库→格式专属 EDA（维度/统计/质量/元数据），产出含发现与下游分析建议的 Markdown 报告；不适用于通用表/CSV 的纯画像（用 dataset-profiler）、深度质量修复（用 dataset-quality-auditor）、统计建模或可视化本身。触发词：FASTQ、PDB、mzML、显微图像、HDF5、科学数据格式、EDA 报告
 domain: 数据/analysis
 triggers: [科学数据探索性分析, EDA 报告 scientific data, FASTQ, PDB, mzML, ND2 显微图像, HDF5 NPY 数组, 200+ 文件格式识别, 生信 基因组 格式, 光谱 质谱 蛋白组 格式, 这个科学文件是什么 怎么读, 格式专属分析建议]
-tags: [数据, EDA, 探索性分析, 科学数据, 生物信息, 化学, 显微成像, 光谱, 蛋白组学, 代谢组学, 文件格式识别]
+tags: [数据, eda, 探索性分析, 科学数据, 生物信息, 化学, 显微成像, 光谱, 蛋白组学, 代谢组学, 文件格式识别]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 能源采购与电费优化（含 PPA 评估）
 description: 当为多设施企业做电力/天然气采购、电价优化、需量电费治理或可再生能源 PPA 评估时使用；产出账单结构拆解、采购策略（固定/指数/区块+指数/分层对冲）、需量削峰 ROI 与 PPA/VPPA 风险调整 NPV 决策建议；不适用于居民/小微用电、能源交易撮合或电网运行调度。触发词：能源采购、电价优化、需量电费、PPA、VPPA、对冲、负荷画像、Scope 2。
 domain: 领域/hardware
 triggers: [能源采购, 电费优化, 电价优化, 需量电费, demand charge, PPA, VPPA, 可再生能源采购, REC, 负荷画像, load factor, 对冲策略, Scope 2, RE100, 峰值削减, 电力 RFP, 容量电费, LMP 基差]
-tags: [能源采购, 电力市场, 电价优化, 需量管理, PPA, 对冲, 可持续报告, hardware]
+tags: [能源采购, 电力市场, 电价优化, 需量管理, ppa, 对冲, 可持续报告, hardware]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

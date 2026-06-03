@@ -4,7 +4,7 @@ title: 首席数据官顾问（数据产品与治理）
 description: 当为创业公司做四类数据战略决策（训练数据权利、数据架构选型、客户数据资产估值/并购、数据团队序列）时使用；输出 GO/缓解/NO-GO 判定、架构与自建外购方案、风险调整估值与招聘路线图；不适用于 schema 设计、可观测性、查询优化、RAG/ML 平台等战术工程实现。触发词：CDO、数据战略、数据网格/湖仓、训练数据权利、数据资产估值
 domain: 数据/analysis
 triggers: [CDO, 首席数据官, 数据战略, 训练数据权利, 同意来源/consent provenance, 数据网格 data mesh, 湖仓 lakehouse, 奖牌架构 medallion, 数据产品, 数据变现/productization, 客户数据资产, 并购数据尽调 M&A, 自建还是外购 build-vs-buy, 数据团队招聘序列, 集中还是嵌入 centralize-vs-embed, k-匿名/差分隐私, GDPR 第6条 合法性基础, EU AI Act 高风险]
-tags: [数据战略, 数据治理, 数据架构, 数据产品, 训练数据合规, 并购尽调, 团队组织, C级顾问, strategy]
+tags: [数据战略, 数据治理, 数据架构, 数据产品, 训练数据合规, 并购尽调, 团队组织, c级顾问, strategy]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

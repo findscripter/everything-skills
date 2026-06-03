@@ -4,7 +4,7 @@ title: PayPal 支付集成
 description: 当在后端接入 PayPal 收款、订阅或退款时使用；做 Orders v2 创建/捕获订单、IPN/Webhook 验签去重、Billing 订阅与退款的服务端落地；不适用于 Stripe/支付宝等其他支付渠道或纯前端按钮渲染；触发词：PayPal、Express Checkout、IPN、订阅扣费、退款
 domain: 研发/backend
 triggers: [接入 PayPal 收款, 实现 Express Checkout 快捷结账, PayPal 订阅/周期扣费, 处理 PayPal 退款或争议, 处理 PayPal IPN/Webhook 回调, 支持国际多币种支付, PayPal Smart Buttons]
-tags: [PayPal, 支付集成, 后端, Webhook, IPN, 订阅计费, 退款, REST-API]
+tags: [paypal, 支付集成, 后端, webhook, ipn, 订阅计费, 退款, rest-api]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

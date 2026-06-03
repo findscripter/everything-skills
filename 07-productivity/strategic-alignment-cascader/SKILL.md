@@ -4,7 +4,7 @@ title: 战略对齐自上而下级联
 description: 当团队各自为政、OKR 互不衔接、部门局部最优损害公司目标时使用；做战略级联映射与失配诊断（孤儿目标/冲突/覆盖缺口/筒仓）并产出对齐评分与重对齐方案；不适用于个人绩效考核或战略本身的制定。触发词：战略对齐、OKR级联、孤儿OKR、部门筒仓
 domain: 协作/pm
 triggers: [战略对齐, OKR级联, 孤儿OKR, 冲突目标, 部门筒仓, 覆盖缺口, 战略传达失真, 对齐评分, 跨职能OKR, 重对齐]
-tags: [协作, pm, 战略对齐, OKR, 组织诊断]
+tags: [协作, pm, 战略对齐, okr, 组织诊断]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: Defuddle 网页正文提取为 Markdown
 description: 当用户给出网页 URL 需要阅读/总结/分析时使用；用 Defuddle CLI 提取去导航去广告的正文并产出干净 Markdown（含元数据）以节省 token；不适用于需登录/付费墙/重 JS 渲染的页面、需精确抓取或交互的场景。触发词：网页正文、Defuddle、URL 转 Markdown
 domain: 平台/browser
 triggers: [读取网页URL, 提取网页正文, 网页转Markdown, 总结这个链接, Defuddle, 节省token抓正文]
-tags: [网页提取, Markdown, CLI, 内容清洗, token优化, defuddle]
+tags: [网页提取, markdown, cli, 内容清洗, token优化, defuddle]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

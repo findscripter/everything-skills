@@ -4,7 +4,7 @@ title: FastAPI 高性能异步 API
 description: 当用 FastAPI 构建高并发异步 API/微服务、需要 async SQLAlchemy 2.0 + Pydantic V2 + JWT 鉴权、连接池与缓存等生产实践时使用；做异步端点、数据模型、依赖注入、测试与可观测性的设计与落地产物；不适用于同步 WSGI 框架（Flask/Django 同步视图）、纯前端或非 Python 服务。触发词：FastAPI、异步 API、Pydantic、SQLAlchemy async
 domain: 研发/backend
 triggers: [FastAPI, 异步 API, async API, Pydantic V2, SQLAlchemy async, asyncpg, WebSocket, JWT 鉴权, 微服务, Uvicorn, 依赖注入, API 限流]
-tags: [FastAPI, 异步, Python, 微服务, Pydantic, SQLAlchemy, API, 后端]
+tags: [fastapi, 异步, python, 微服务, pydantic, sqlalchemy, api, 后端]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

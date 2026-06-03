@@ -4,7 +4,7 @@ title: 云成本优化
 description: 当需要降低 AWS/Azure/GCP/OCI 云账单、对资源做 rightsizing、治理浪费或落地预算管控时使用；产出成本可视化标签体系、预留/Spot 定价策略、生命周期与自动伸缩配置及预算告警；不适用于纯应用性能调优或本地数据中心成本。触发词：云成本、rightsizing、预留实例、Spot、FinOps、成本告警
 domain: 平台/cloud
 triggers: [云成本优化, 降低云账单, rightsizing, 资源右调, 预留实例, Savings Plans, Spot 实例, 抢占式实例, 成本可视化, 成本分摊标签, 预算告警, 成本异常检测, FinOps, 多云成本, S3 生命周期, Committed Use Discount]
-tags: [云成本, FinOps, AWS, Azure, GCP, OCI, rightsizing, 预留实例, Spot, 标签治理, 预算告警, Terraform, 多云]
+tags: [云成本, finops, aws, azure, gcp, oci, rightsizing, 预留实例, spot, 标签治理, 预算告警, terraform, 多云]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

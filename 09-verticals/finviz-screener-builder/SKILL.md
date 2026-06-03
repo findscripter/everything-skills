@@ -4,7 +4,7 @@ title: FinViz 选股器 URL 构建
 description: 当用户用自然语言描述选股条件（基本面/技术面/主题）并想在 FinViz 筛选时使用；做将口语需求映射为 FinViz 过滤代码、拼装并打开筛选器 URL；不适用于单只个股深度分析、持仓组合复盘、图表形态识别或财报事件选股；触发词：FinViz、选股、筛选股票、高配当成长股、超卖大盘股
 domain: 领域/fintech
 triggers: [FinViz, 选股, 筛选股票, stock screener, 高配当成长小型股, 超卖大盘高ROE, 科技板块割安股, AI主题选股, 突破候选, 插内幕买入筛选]
-tags: [fintech, 选股, FinViz, URL构建, 量化筛选, 技术面, 基本面]
+tags: [fintech, 选股, finviz, url构建, 量化筛选, 技术面, 基本面]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

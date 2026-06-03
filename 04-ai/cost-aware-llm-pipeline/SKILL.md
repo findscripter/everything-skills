@@ -4,7 +4,7 @@ title: 成本感知 LLM 管线（模型路由与预算控制）
 description: 当构建调用 LLM API 的应用、批处理复杂度不一的条目、或需把 API 支出控制在预算内时使用；做的是按任务复杂度自动路由模型、用不可变追踪器记账、窄范围重试与提示词缓存，产出「质量不降、成本受控」的可组合管线；不适用于单次低频调用、无成本压力、或仅问某个 SDK 单一用法的场景。触发词：LLM 成本优化、模型路由、预算控制、Haiku Sonnet 选型、提示词缓存、API 支出、重试退避
 domain: 智能/model-ops
 triggers: [LLM 成本优化, 降低 API 费用, 模型路由怎么做, Haiku 还是 Sonnet, 按复杂度选模型, LLM 预算控制, API 支出超预算, 提示词缓存省钱, batch 调用太贵, cost aware llm pipeline, model routing by complexity, prompt caching]
-tags: [LLM, 成本优化, 模型路由, 预算追踪, 提示词缓存, 重试退避, Anthropic, Claude API, 批处理, model-ops]
+tags: [llm, 成本优化, 模型路由, 预算追踪, 提示词缓存, 重试退避, anthropic, claude api, 批处理, model-ops]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

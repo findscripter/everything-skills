@@ -4,7 +4,7 @@ title: 威胁狩猎与异常检测
 description: 当需要在已通过自动化告警的环境中主动狩猎潜伏威胁、分析 IOC 或检测遥测行为异常时使用；做假设驱动狩猎评分、IOC 时效筛查与扫描清单生成、z-score 统计异常检测，并按 MITRE ATT&CK 映射排序信号、产出可升级的狩猎结论与新检测规则；不适用于已声明事件的应急响应（见 incident-response）或红队攻击模拟（见 red-team）。触发词：威胁狩猎、IOC、异常检测
 domain: 安全/ops
 triggers: [威胁狩猎, threat hunting, IOC 分析, 异常检测, z-score, MITRE ATT&CK, 蜜罐告警, 横向移动, C2 beaconing, 失陷检测, telemetry 遥测, 假设驱动狩猎]
-tags: [安全, ops, 威胁狩猎, threat-hunting, 异常检测, IOC, MITRE-ATTACK, SIEM, EDR, 蓝队]
+tags: [安全, ops, 威胁狩猎, threat-hunting, 异常检测, ioc, mitre-attack, siem, edr, 蓝队]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

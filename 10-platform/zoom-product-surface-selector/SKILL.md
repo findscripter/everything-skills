@@ -4,7 +4,7 @@ title: Zoom 构建面选型与权衡
 description: 当你为某个 Zoom 产品想法或集成目标拍板技术路线时使用；做需求归类→主选 Zoom 构建面+最小支撑件→列权衡与落地序列的选型决策；不适用于具体 SDK/API 的逐行实现或鉴权排错。触发词：Zoom 选型、Meeting SDK vs Video SDK、Zoom 集成方案
 domain: 平台/integration
 triggers: [Zoom 选型, Zoom 集成方案, Meeting SDK 还是 Video SDK, Zoom 用 REST API 还是 Webhook, 嵌入 Zoom 会议, Zoom Apps 客户端内插件, Zoom MCP 工作流, Zoom Phone Contact Center 选哪个]
-tags: [Zoom, API选型, 架构决策, 集成, Meeting-SDK, Video-SDK, Webhook, MCP]
+tags: [zoom, api选型, 架构决策, 集成, meeting-sdk, video-sdk, webhook, mcp]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

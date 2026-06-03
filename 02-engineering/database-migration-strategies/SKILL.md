@@ -4,7 +4,7 @@ title: 跨 ORM 数据库迁移与回滚策略
 description: 当需要在 Sequelize/TypeORM/Prisma 等 ORM 上做 schema 变更、跨库迁移或线上零停机发布时使用；产出可双向执行（up/down）的迁移脚本、回滚预案与零停机分阶段方案；不适用于纯查询调优、备份恢复运维或无 ORM 的手工 SQL 改库；触发词：数据库迁移、回滚、零停机
 domain: 研发/backend
 triggers: [数据库迁移, schema 变更, 回滚策略, 零停机部署, 跨库迁移, ORM 迁移, migration, rollback, Sequelize, TypeORM, Prisma, 加字段, 改字段类型, 重命名列, 数据迁移, 蓝绿部署]
-tags: [数据库, 迁移, ORM, 回滚, 零停机, Sequelize, TypeORM, Prisma, schema, 研发]
+tags: [数据库, 迁移, orm, 回滚, 零停机, sequelize, typeorm, prisma, schema, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

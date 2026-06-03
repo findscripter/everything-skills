@@ -4,7 +4,7 @@ title: 免费工具营销策略
 description: 当你想用免费工具（计算器/生成器/检测器/评分器）做获客、SEO 或品牌曝光（engineering as marketing）时使用；用 6 因子框架评估创意、设计低摩擦工具与留资流程、规划 SEO 落地页与发布渠道，产出可执行方案与 ROI 测算；不适用于纯 SEO 内容或不含工具的获客（转 SEO 审计/内容策略）。触发词：免费工具、获客工具、计算器/生成器/检测器
 domain: 商业/growth
 triggers: [免费工具, engineering as marketing, 营销工具, 获客工具, lead gen tool, 计算器, 生成器, 检测器, 评分器, 做个工具引流, 免费资源, 互动工具]
-tags: [商业, growth, 营销, 获客, SEO, 免费工具, lead-gen, engineering-as-marketing]
+tags: [商业, growth, 营销, 获客, seo, 免费工具, lead-gen, engineering-as-marketing]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

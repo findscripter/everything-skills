@@ -4,7 +4,7 @@ title: 事故指挥与响应框架
 description: 当声明线上事故、跨团队协调止损或主持复盘（PIR）时使用；做严重级别分级、时间线重建、沟通模板与无责复盘产物；不适用于日常缺陷排期或单点非紧急工单。触发词：事故指挥、严重级别、SEV、复盘、PIR、止损
 domain: 研发/observability
 triggers: [声明事故, 事故指挥官, 线上故障/宕机, 严重级别分级 SEV1-SEV4, 跨团队协调止损, 主持复盘/PIR/事后分析, 时间线重建, 对外状态页/客户通告, 新服务搭建 on-call 值班]
-tags: [研发, observability, SRE, 事故响应, incident-response, 复盘, on-call, 可观测性]
+tags: [研发, observability, sre, 事故响应, incident-response, 复盘, on-call, 可观测性]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

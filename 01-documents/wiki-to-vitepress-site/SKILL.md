@@ -4,7 +4,7 @@ title: Wiki 转 VitePress：Markdown 转静态文档站点
 description: 当已有一批 Markdown wiki/文档页、需打包成可浏览的 VitePress 静态站点（暗色主题 + 可交互 Mermaid 图）时使用；脚手架 wiki-site/、写 config.mts/custom.css/theme，做暗色 Mermaid 三层修复与点击放大，npm run docs:build 产出 dist/；不适用于撰写文档内容本身、单文件转换或 MkDocs/Docusaurus 等其他生成器。触发词：build a site、打包成 VitePress、静态文档站、Mermaid 暗色、/deep-wiki:build
 domain: 文书/markdown
 triggers: [把 wiki 打包成 VitePress 站点, build a site, Markdown 转静态文档站, VitePress 暗色主题配置, 修复 Mermaid 暗色显示, Mermaid 图点击放大, 生成可浏览 HTML 文档站]
-tags: [VitePress, 静态站点, Mermaid, 文档工程, 暗色主题, 前端构建]
+tags: [vitepress, 静态站点, mermaid, 文档工程, 暗色主题, 前端构建]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

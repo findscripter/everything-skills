@@ -4,7 +4,7 @@ title: Azure 实时语音 AI 应用构建
 description: 当需用 Azure AI VoiceLive SDK（Python）通过 WebSocket 构建低延迟双向语音对话、实时语音助手或电话语音机器人时使用；做的事：建立异步连接、配置 session/语音/VAD、流式收发 PCM16 音频、处理事件与函数调用，产出可运行的实时语音应用骨架；不适用于：非 Azure 语音栈、批量离线语音转写、纯文本 LLM 对话。触发词：Azure 实时语音、VoiceLive、gpt-4o-realtime、语音助手 WebSocket
 domain: 智能/model-ops
 triggers: [Azure 实时语音, VoiceLive, azure-ai-voicelive, gpt-4o-realtime-preview, 实时语音助手, 双向语音 WebSocket, 语音对话机器人, server_vad / azure_semantic_vad, PCM16 音频流, DefaultAzureCredential 语音]
-tags: [智能, misc, Azure, 语音AI, 实时音频, WebSocket, Python, gpt-4o-realtime, VAD, function-calling]
+tags: [智能, misc, azure, 语音ai, 实时音频, websocket, python, gpt-4o-realtime, vad, function-calling]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

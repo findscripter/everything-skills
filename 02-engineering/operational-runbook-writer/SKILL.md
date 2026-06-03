@@ -4,7 +4,7 @@ title: 运维操作手册编写
 description: 当需要把重复性运维/值班任务的"部落知识"沉淀为可重复执行的操作手册（runbook），或给现有流程补充排错、回滚、升级路径时使用；做产出含目的、前置条件、逐步精确命令、验证、排错表、回滚与升级表的 Markdown runbook；不适用于一次性事故的实时止损指挥（用事故指挥框架）或事后无指责复盘（用复盘报告撰写）。触发词：runbook、操作手册、运维手册、值班手册、SOP、排错、回滚、升级路径、on-call、playbook
 domain: 研发/devops
 triggers: [runbook, 操作手册, 运维手册, 值班手册, SOP, 排错手册, 回滚步骤, 升级路径, on-call, playbook, 重复性运维任务]
-tags: [研发, operations, runbook, SOP, on-call, ops, 排错, 回滚]
+tags: [研发, operations, runbook, sop, on-call, ops, 排错, 回滚]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: Opentrons 液体处理机器人协议
 description: 当用 Opentrons OT-2/Flex 液体处理机器人自动化湿实验（PCR 配液、系列稀释、ELISA、磁珠纯化、平板复制）时使用；用 Python Protocol API v2 编写含 metadata 与 run() 的协议、先 opentrons_simulate 本地仿真再上传机器人；不适用于 Hamilton/Tecan 等非 Opentrons 硬件（改用 pylabrobot）或纯协议检索（用 protocolsio）。触发词：Opentrons、OT-2/Flex、移液机器人
 domain: 领域/science
 triggers: [Opentrons, OT-2, Flex 移液机器人, 液体处理协议, load_labware/load_instrument, transfer/distribute/consolidate, 热循环仪 thermocycler PCR, 磁力模块磁珠纯化, 系列稀释 ELISA, opentrons_simulate 仿真]
-tags: [science, lab-automation, opentrons, liquid-handling, python, PCR, ELISA, magnetic-beads]
+tags: [science, lab-automation, opentrons, liquid-handling, python, pcr, elisa, magnetic-beads]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

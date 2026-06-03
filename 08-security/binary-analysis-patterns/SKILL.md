@@ -4,7 +4,7 @@ title: 二进制逆向与汇编分析模式
 description: 当逆向编译后的二进制、读 x86-64/ARM 反汇编或还原程序逻辑（变量、结构体、函数签名、控制流）时使用；做汇编模式识别与 Ghidra/IDA 脚本辅助，产出还原的伪代码/类型/标注；不适用于源码可得、动态调试取值或纯漏洞利用编写。触发词：反汇编、汇编、Ghidra、IDA、调用约定、反编译
 domain: 安全/appsec
 triggers: [反汇编, 汇编分析, 二进制逆向, Ghidra, IDA Pro, IDAPython, 调用约定, 反编译, 函数序言, 栈帧, 结构体还原, x86-64, ARM64, AArch64, 跳转表, 类型还原]
-tags: [安全, 逆向工程, 二进制分析, 汇编, 反编译, x86-64, ARM, Ghidra, IDA, misc]
+tags: [安全, 逆向工程, 二进制分析, 汇编, 反编译, x86-64, arm, ghidra, ida, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

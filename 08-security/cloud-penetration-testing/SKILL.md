@@ -4,7 +4,7 @@ title: 多云基础设施渗透测试
 description: 当需要对 Azure/AWS/GCP 云环境做授权安全评估时使用；做侦察、认证、资源枚举、提权、数据提取、持久化并产出评估报告与加固建议；不适用于无书面授权的测试、动产线客户数据或纯本地主机渗透；触发词：云渗透、Azure/AWS/GCP、IAM 枚举、元数据服务、密钥泄露
 domain: 安全/ops
 triggers: [云渗透测试, Azure 渗透, AWS 渗透, GCP 渗透, 多云安全评估, IAM 提权, S3 桶枚举, Key Vault 密钥, 元数据服务 SSRF, 云资源枚举, ScoutSuite, Pacu]
-tags: [安全, 渗透测试, 云安全, Azure, AWS, GCP, IAM, 红队, misc]
+tags: [安全, 渗透测试, 云安全, azure, aws, gcp, iam, 红队, misc]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

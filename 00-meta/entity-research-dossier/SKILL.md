@@ -4,7 +4,7 @@ title: 实体决策级调研档案（entity-research-dossier）
 description: 当你要面见/投资/尽调/竞调某个公司·人物·非营利·政府机构，需要一份「检验假设」而非泛泛介绍的调研档案时使用；强制先说出你的假设，再做支持/反证双向取证，产出带假设裁决、身份事实、12个月时间线、关系网、声誉、红旗、3-5条对话切入点和来源审计的可编辑 Word（.docx）；不适用于「介绍一下微软」式通用画像、无消歧标识的同名实体、或拒不给出任何假设。触发词：调研某公司、给某人做背景档案、会前准备、投前尽调、竞品研究
 domain: 通用/research
 triggers: [调研这家公司, 给某人/某公司做背景档案, 帮我准备和XX的会面, 对XX做尽职调查, 我该了解这家公司的什么, 投前尽调/投资�diligence, 竞品/竞争对手研究, 面试前研究这家公司, 背景核查 background check, dossier on / due diligence on]
-tags: [实体调研, 尽职调查, 竞争情报, 会前准备, 假设检验, WebSearch, WebFetch, SEC-EDGAR, docx报告, 来源审计]
+tags: [实体调研, 尽职调查, 竞争情报, 会前准备, 假设检验, websearch, webfetch, sec-edgar, docx报告, 来源审计]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

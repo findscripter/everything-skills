@@ -4,7 +4,7 @@ title: Apollo 外联序列批量加载
 description: 当需要按目标画像（职位/行业/规模/地区）批量寻找潜客并加入指定 Apollo 外联序列（sequence/campaign）时使用；做检索匹配人选→富集创建联系人→入列序列并回执的端到端动作，产出入列清单与额度消耗汇总；不适用于序列内容编排、邮件正文撰写或非 Apollo 平台。触发词：apollo 序列、外联序列、批量加潜客
 domain: 商业/sales
 triggers: [Apollo 序列批量加载, 把潜客加入外联序列, sequence load 外联, 批量加联系人到 campaign, VP Sales 加进序列, list sequences 列序列]
-tags: [商业, sales, apollo, 外联序列, 潜客获取, MCP]
+tags: [商业, sales, apollo, 外联序列, 潜客获取, mcp]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: Bevy 实体组件系统 Rust 游戏开发
 description: 当用 Rust + Bevy 引擎开发游戏、需要把面向对象逻辑重构为数据导向 ECS 并设计可并行系统时使用；做组件/系统/资源/查询的建模与调度产出可运行的 ECS 代码与性能优化方案；不适用于非 Bevy 引擎、非 Rust 或纯渲染/美术管线问题；触发词：Bevy、ECS、Query、System、Resource、并行调度
 domain: 研发/backend
 triggers: [Bevy, ECS, 实体组件系统, Rust 游戏开发, Query 查询, System 系统, Resource 资源, 并行调度, 数据导向, Component 组件]
-tags: [Bevy, Rust, ECS, 游戏开发, 并行调度, 性能优化, 数据导向设计]
+tags: [bevy, rust, ecs, 游戏开发, 并行调度, 性能优化, 数据导向设计]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

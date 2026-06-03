@@ -4,7 +4,7 @@ title: Laravel 安全审计
 description: 当需要对 Laravel 10/11+ 应用做安全审计、排查漏洞与配置风险时使用；以攻击者视角逐项审查输入校验、鉴权、认证、数据库、文件上传、API、XSS、部署配置，按 Critical/High/Medium/Low/Informational 分级，产出含漏洞清单、利用场景与 Laravel 原生修复方案的报告；不适用于非 Laravel 项目、纯功能实现或纯架构（非安全）问题。触发词：Laravel 安全审计、漏洞排查、OWASP
 domain: 安全/audit
 triggers: [Laravel 安全审计, Laravel 漏洞排查, 审查鉴权/授权逻辑, 检查文件上传安全, API 限流与越权, IDOR / 批量赋值, APP_DEBUG / .env 暴露, OWASP Laravel]
-tags: [安全, Laravel, PHP, 代码审计, OWASP, 漏洞, 鉴权, Web 安全]
+tags: [安全, laravel, php, 代码审计, owasp, 漏洞, 鉴权, web 安全]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

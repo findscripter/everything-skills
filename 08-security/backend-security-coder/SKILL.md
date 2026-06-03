@@ -4,7 +4,7 @@ title: 后端安全编码与 API 防护
 description: 当编写或评审后端代码与 API、需要防注入/认证授权/安全响应时使用；做输入校验、参数化查询、JWT/会话、CSRF/SSRF 防护、安全响应头与限流的落地实现与加固清单；不适用于纯前端、合规审计/威胁建模/渗透测试规划（交 security-auditor）。触发词：SQL注入、JWT、CSRF、限流、安全响应头
 domain: 安全/appsec
 triggers: [后端安全编码, 防 SQL/NoSQL/命令注入, JWT 与会话安全, CSRF/SSRF 防护, 安全响应头与 CSP, API 限流与鉴权, 参数化查询, 密钥与敏感数据保护, 安全错误处理与日志]
-tags: [安全, misc, 后端, API, 认证授权, 注入防护, OWASP]
+tags: [安全, misc, 后端, api, 认证授权, 注入防护, owasp]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

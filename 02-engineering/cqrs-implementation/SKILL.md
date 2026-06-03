@@ -4,7 +4,7 @@ title: CQRS 读写职责分离架构实现
 description: 当要把读写模型拆分、独立扩展查询性能或构建事件溯源系统时使用；产出命令/查询双总线、读模型投影与最终一致性同步的可执行方案；不适用于简单 CRUD、无法运维独立读写库或处处要求强一致的场景。触发词：CQRS、读写分离、命令查询职责分离、事件溯源、读模型投影、最终一致性
 domain: 研发/architecture
 triggers: [CQRS, 读写分离, 命令查询职责分离, 事件溯源, 读模型投影, 命令总线, 查询总线, 最终一致性, 读写模型拆分]
-tags: [架构, CQRS, 事件溯源, 读写分离, 后端, 性能优化]
+tags: [架构, cqrs, 事件溯源, 读写分离, 后端, 性能优化]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

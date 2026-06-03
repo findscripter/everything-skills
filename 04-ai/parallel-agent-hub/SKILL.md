@@ -4,7 +4,7 @@ title: 并行多智能体竞赛协作中枢
 description: 当需要让多个智能体在同一任务上并行尝试不同方案并择优时使用；用 git worktree 隔离派生 N 个子智能体竞赛、按指标或 LLM 评审排名并合并最优分支；不适用于非 git 仓库、单方案确定性任务或需智能体间通信协作的场景；触发词：并行竞赛、多方案对比、spawn N 智能体
 domain: 智能/agents
 triggers: [尝试多种方案, 让多个智能体竞赛, 并行优化, spawn N 个智能体, 对比不同解法, fan-out/锦标赛, 生成内容变体, 对比不同草稿, A/B 测试文案, 探索多种策略]
-tags: [多智能体, 并行竞赛, git-worktree, 子智能体编排, 方案择优, DAG, LLM评审, 智能体协作]
+tags: [多智能体, 并行竞赛, git-worktree, 子智能体编排, 方案择优, dag, llm评审, 智能体协作]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

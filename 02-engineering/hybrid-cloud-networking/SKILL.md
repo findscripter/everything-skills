@@ -4,7 +4,7 @@ title: 混合云网络连接
 description: 当需要打通本地数据中心与公有云（AWS/Azure/GCP）的网络时使用；做选型 VPN/专线、用 Terraform 配置网关与 BGP 路由、设计 Hub-Spoke/多云拓扑并落实高可用与安全基线；不适用于纯云内网络、应用层组网或与混合云互联无关的任务；触发词：本地连云、VPN、专线、ExpressRoute、Direct Connect、BGP、混合云
 domain: 研发/devops
 triggers: [本地数据中心连云, Site-to-Site VPN, Direct Connect 专线, Azure ExpressRoute, GCP Cloud Interconnect, BGP 动态路由, Hub-and-Spoke 拓扑, 多云互联, VPN 隧道高可用, 混合云迁移]
-tags: [混合云, 网络, VPN, 专线, BGP, Terraform, AWS, Azure, GCP, 高可用, devops]
+tags: [混合云, 网络, vpn, 专线, bgp, terraform, aws, azure, gcp, 高可用, devops]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

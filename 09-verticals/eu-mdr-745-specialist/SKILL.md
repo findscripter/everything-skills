@@ -4,7 +4,7 @@ title: 欧盟 MDR 2017/745 医疗器械合规
 description: 当为进入欧盟市场的医疗器械（含软件 SaMD）做 MDR 2017/745 合规时使用；做器械分类、技术文档、临床证据、上市后监督与 EUDAMED/UDI 注册并产出可提交公告机构的合规材料；不适用于美国 FDA、IVDR 体外诊断或非医疗器械产品。触发词：MDR、附录VIII分类、CER临床评价、PMCF、EUDAMED、UDI
 domain: 领域/medical
 triggers: [MDR 合规, EU MDR 2017/745, 医疗器械分类, 附录 VIII 分类规则, 技术文档/技术文件, 临床评价 CER, PMCF 上市后临床跟踪, EUDAMED 注册, UDI 唯一器械标识, 公告机构 Notified Body, GSPR 通用安全与性能要求, PSUR/PMS 上市后监督]
-tags: [医疗器械, 法规合规, 欧盟 MDR, 质量管理, 临床评价, 上市后监督, UDI, EUDAMED, medical]
+tags: [医疗器械, 法规合规, 欧盟 mdr, 质量管理, 临床评价, 上市后监督, udi, eudamed, medical]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

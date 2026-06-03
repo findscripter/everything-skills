@@ -4,7 +4,7 @@ title: LaTeX 论文格式转换
 description: 当需要把 LaTeX 论文从一个期刊/出版社模板（如 Springer、IPOL）移植到另一个模板（如 MDPI、IEEE、Nature）时使用；做内容抽取、注入新模板、批量修正格式并编译排错，产出可零错误编译的目标格式 .tex 与 PDF；不适用于撰写论文内容、从零排版或处理非 LaTeX 文稿。触发词：LaTeX 转格式、期刊模板移植、MDPI、IEEE、pdflatex、单双栏转换
 domain: 文书/writing
 triggers: [LaTeX 转格式, 期刊模板移植, 论文格式转换, MDPI, IEEE, Springer, Nature, IPOL, pdflatex, bibtex, 单双栏转换, 投稿模板, tex 模板适配, documentclass]
-tags: [文书, writing, 学术写作, LaTeX, 期刊模板, 格式转换, 投稿, 编译排错]
+tags: [文书, writing, 学术写作, latex, 期刊模板, 格式转换, 投稿, 编译排错]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: VCP 波动收缩形态选股
 description: 当需要按 Minervini VCP（波动收缩形态）扫描 S&P 500、找处于 Stage 2 上升趋势且在突破枢轴附近形成紧致缩量基底的标的时使用；做 3 阶段筛选（行情预筛→7 点趋势模板→VCP 检测打分），产出含质量评分、执行状态、枢轴/止损/风险的候选清单与 JSON/MD 报告；不适用于实盘下单、行情采集或投资建议；触发词：VCP、波动收缩、Minervini、紧致基底、Stage 2、突破枢轴、缩量选股
 domain: 领域/fintech
 triggers: [VCP, 波动收缩, Minervini, 紧致基底, Stage 2, 趋势模板, 突破枢轴, pivot, 缩量, 选股, screener, trend template, 相对强度]
-tags: [fintech, 选股, 技术分析, VCP, Minervini, 动量, screener, python, FMP]
+tags: [fintech, 选股, 技术分析, vcp, minervini, 动量, screener, python, fmp]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

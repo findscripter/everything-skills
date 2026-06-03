@@ -4,7 +4,7 @@ title: Odoo 备份与恢复策略
 description: 当为生产 Odoo 实例制定备份方案或灾后恢复时使用；产出含数据库+filestore 的备份脚本、cron 计划、S3 异地上传与可验证的恢复流程；不适用于 Odoo.sh 自带备份与多数据库实例（需自行循环）。触发词：Odoo 备份、filestore、pg_restore 恢复
 domain: 领域/erp
 triggers: [Odoo 备份, Odoo 恢复, filestore, pg_dump, pg_restore, 数据库 dump, 备份脚本, cron 自动备份, S3 异地备份, 3-2-1 备份, 灾难恢复, Odoo 数据损坏]
-tags: [Odoo, ERP, 备份, 恢复, PostgreSQL, filestore, 运维, 灾备, cron, S3]
+tags: [odoo, erp, 备份, 恢复, postgresql, filestore, 运维, 灾备, cron, s3]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

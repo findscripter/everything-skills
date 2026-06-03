@@ -4,7 +4,7 @@ title: 安全导向的差异代码审查
 description: 当需要对 PR、提交范围或 diff 做安全向（而非通用）代码审查、且变更触及认证/加密/资金转移/外部调用/权限时使用；做按风险分级、git 溯源、影响面量化、攻击者建模并产出带证据的 markdown 审查报告；不适用于全新无基线代码、纯文档/格式变更或用户只要快速摘要的场景。触发词：差异审查、安全审查、PR 审查、diff review、攻击面
 domain: 安全/appsec
 triggers: [差异审查, 安全代码审查, PR 安全审查, diff security review, commit 范围审查, 攻击面分析, 影响面/blast radius, 删除的校验/权限代码, 认证加密改动审查, git blame 溯源安全回归]
-tags: [安全, 代码审查, diff, PR, 威胁建模, git, misc]
+tags: [安全, 代码审查, diff, pr, 威胁建模, git, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

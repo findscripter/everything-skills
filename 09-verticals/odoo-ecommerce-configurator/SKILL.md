@@ -4,7 +4,7 @@ title: Odoo 电商与网站配置
 description: 当用 Odoo 搭建/优化在线商店时使用；产出产品发布、支付/物流、SEO 与下单到履约配置的菜单路径与字段清单；不适用于多网站、B2B 专属价、订阅计费等企业版高级场景；触发词：Odoo 电商、支付商、配送方式、弃购挽回
 domain: 领域/erp
 triggers: [Odoo 电商, Odoo eCommerce, Odoo 网站建站, 在线商店配置, 支付商配置, Stripe 支付商, 配送方式 运费, 弃购挽回, 产品发布上架, 电商 SEO]
-tags: [Odoo, 电商, ERP, 支付, 物流配送, SEO, 订单履约]
+tags: [odoo, 电商, erp, 支付, 物流配送, seo, 订单履约]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: MACS3 ChIP/ATAC-seq 峰检测
 description: 当需从 ChIP-seq/ATAC-seq/CUT&RUN 比对 BAM 中检测富集峰时使用；用 macs3 callpeak 以泊松模型相对 input/IgG 找富集区，产出 narrowPeak/broadPeak/summits 及信号轨；不适用于 RNA-seq 表达定量、变体检测或差异结合统计本身（交给 DiffBind/DESeq2）；触发词：MACS3、峰检测、ChIP-seq、ATAC-seq、narrowPeak、broadPeak
 domain: 领域/science
 triggers: [MACS3, 峰检测, call peak, callpeak, ChIP-seq, ATAC-seq, narrowPeak, broadPeak, 组蛋白修饰, 转录因子结合位点, CUT&RUN, CUT&TAG, summits, 信号轨, 开放染色质]
-tags: [生物信息, 基因组学, 表观遗传, ChIP-seq, ATAC-seq, 峰检测, MACS3, science]
+tags: [生物信息, 基因组学, 表观遗传, chip-seq, atac-seq, 峰检测, macs3, science]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: SwiftUI Liquid Glass：液态玻璃 API 与回退实现
 description: 当在 SwiftUI 中采用、审查或重构 iOS 26+ Liquid Glass（液态玻璃）效果，需要正确的 API 用法、修饰符顺序、容器分组与版本回退时使用；产出原生 glassEffect/GlassEffectContainer/玻璃按钮样式的实现片段、审查清单与 #available 降级方案；不适用于自定义模糊堆砌、跨平台框架或纯后端。触发词：Liquid Glass、glassEffect、GlassEffectContainer、玻璃按钮、液态玻璃、glassEffectID
 domain: 研发/mobile
 triggers: [Liquid Glass, 液态玻璃, glassEffect, GlassEffectContainer, glassEffectID, glassEffectUnion, buttonStyle(.glass), glassProminent, interactive 玻璃, iOS 26 玻璃, 玻璃按钮, 玻璃变形 morph, ultraThinMaterial 回退]
-tags: [SwiftUI, Liquid Glass, 液态玻璃, iOS 26, UI 材质, 玻璃效果, Apple, 研发]
+tags: [swiftui, liquid glass, 液态玻璃, ios 26, ui 材质, 玻璃效果, apple, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

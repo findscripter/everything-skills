@@ -4,7 +4,7 @@ title: 历史市值变动追踪
 description: 当需要某只股票一段日期区间内的历史市值序列、找估值峰谷、算市值涨跌幅/CAGR、判市值波动或市值规模分类变迁时使用；通过 Octagon MCP 的 octagon-agent 按 Ticker+起止日期拉每日市值并解读趋势、回撤与里程碑；不适用于查当前实时市值、实盘交易或离线无 MCP。触发词：历史市值、市值变化、估值峰谷、市值回撤、CAGR、万亿里程碑、octagon-agent
 domain: 领域/fintech
 triggers: [历史市值, 市值变化, 市值趋势, 估值峰谷, 市值回撤, 市值CAGR, 万亿市值里程碑, octagon-agent]
-tags: [fintech, 市值, 估值, 历史数据, 趋势分析, 回撤, MCP, octagon]
+tags: [fintech, 市值, 估值, 历史数据, 趋势分析, 回撤, mcp, octagon]
 level: 进阶
 status: stable
 agents: [claude-code, cursor, gemini-cli, windsurf]

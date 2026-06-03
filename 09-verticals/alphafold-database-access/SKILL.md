@@ -4,7 +4,7 @@ title: AlphaFold 蛋白结构数据库访问
 description: 当需要按 UniProt ID 获取 AlphaFold 预测的蛋白 3D 结构、置信度或批量蛋白组数据时使用；用 BioPython/REST API/Google Cloud 下载 mmCIF/PDB 并分析 pLDDT 与 PAE，产出结构文件、置信度报告与高可信区域。不适用于实验结构（用 PDB）或自行跑预测（用 ColabFold/本地 AlphaFold）。触发词：AlphaFold、UniProt、pLDDT、PAE、蛋白结构预测、蛋白组下载
 domain: 领域/science
 triggers: [AlphaFold, AlphaFold DB, UniProt 结构, pLDDT, PAE, 蛋白结构预测, 预测蛋白结构下载, mmCIF 下载, 蛋白组批量下载, AF-P, 置信度分析, 结构对接受体]
-tags: [science, 结构生物学, 药物发现, 蛋白结构, AlphaFold, BioPython, 生物信息学]
+tags: [science, 结构生物学, 药物发现, 蛋白结构, alphafold, biopython, 生物信息学]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

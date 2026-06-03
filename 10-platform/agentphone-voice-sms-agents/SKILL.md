@@ -4,7 +4,7 @@ title: AI 电话与短信代理（AgentPhone）
 description: 当需要给 AI 代理配备电话号码、发起/接听语音通话、收发短信、查看通话转写或配置 Webhook 时使用；调用 AgentPhone REST API（base=https://api.agentphone.to/v1）完成代理/号码/通话/短信/Webhook/用量的全生命周期管理，产出可直接执行的 curl 与 Webhook 处理代码；不适用于自建 Twilio/SIP/STUN 等底层电信栈或非 AgentPhone 平台。触发词：电话代理、语音通话、短信、号码、Webhook、转写。
 domain: 平台/integration
 triggers: [AI 电话代理, 拨打电话/发起外呼, 收发短信 SMS, 买号/释放号码, 通话转写/录音, 配置 Webhook, AgentPhone, hosted/webhook 语音模式]
-tags: [平台, misc, 电话, 语音AI, 短信, telephony, webhook, API, voice-agent]
+tags: [平台, misc, 电话, 语音ai, 短信, telephony, webhook, api, voice-agent]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

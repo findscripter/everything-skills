@@ -4,7 +4,7 @@ title: RCSB PDB 结构数据库查询
 description: 当需要按关键词/属性/序列/3D 形状检索蛋白与核酸的实验结构（X 射线/冷冻电镜/NMR）、批量取元数据（分辨率/方法/物种/配体）或下载 mmCIF/PDB 坐标时使用；用纯 requests 调 RCSB 的 Search（REST）/Data（GraphQL）/Files 三套免鉴权接口完成检索→取元数据→下载并产出 PDB ID 列表、JSON 元数据与坐标文件。不适用于 AlphaFold 预测结构（用 alphafold-database-access）或仅取蛋白序列/注释（用 uniprot-protein-database）。触发词：PDB、RCSB、晶体结构、序列相似搜索、mmCIF 下载
 domain: 领域/science
 triggers: [PDB, RCSB, 晶体结构检索, 冷冻电镜结构, 序列相似性搜索, 3D结构相似, mmCIF 下载, 下载坐标文件, 按物种查结构, 蛋白配体复合物, GraphQL 取元数据, MMseqs2 序列搜索]
-tags: [结构生物学, 药物发现, 数据库, REST-API, GraphQL, 蛋白结构, 序列搜索, Python]
+tags: [结构生物学, 药物发现, 数据库, rest-api, graphql, 蛋白结构, 序列搜索, python]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

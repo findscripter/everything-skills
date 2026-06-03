@@ -4,7 +4,7 @@ title: 目标转施工蓝图：一句话转可执行分步计划
 description: 当一个跨多 PR/多会话/多 Agent 的工程目标需要拆成可独立冷启动执行的施工计划时使用；做研究→设计→起草→对抗评审→登记五步，把一句话目标拆成单 PR 粒度、每步带自包含上下文简报（含分支流程/CI 策略/回滚）的分步蓝图并存档；不适用于单 PR 可完成、用户说「直接做」、纯问答或探索性需求。触发词：施工蓝图、blueprint、目标拆计划、分步执行计划、多 PR 规划
 domain: 通用/thinking
 triggers: [施工蓝图, blueprint, 目标转计划, 分步执行计划, 多 PR 规划, 多会话工程计划, 单 PR 粒度拆分, 自包含步骤简报, 对抗式计划评审, 冷启动执行, 依赖图与并行步骤, construction plan]
-tags: [规划, 施工计划, 任务拆解, 多Agent协作, 对抗评审, 分支工作流, 通用]
+tags: [规划, 施工计划, 任务拆解, 多agent协作, 对抗评审, 分支工作流, 通用]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: LLM 上下文窗口管理策略
 description: 当构建多轮对话/长上下文 LLM 应用、上下文逼近或超出 token 上限时使用；做 token 计数、预算分配、分层路由、按重要性摘要与序位优化，产出可控的上下文拼装方案；不适用于 RAG 检索实现、模型微调、嵌入模型细节。触发词：上下文窗口、token 限制、上下文溢出。
 domain: 智能/prompting
 triggers: [上下文窗口, token 限制, 上下文管理, 上下文工程, 长上下文, 上下文溢出, context window, token limit]
-tags: [LLM, 上下文工程, token预算, 摘要压缩, 提示工程, 对话系统]
+tags: [llm, 上下文工程, token预算, 摘要压缩, 提示工程, 对话系统]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

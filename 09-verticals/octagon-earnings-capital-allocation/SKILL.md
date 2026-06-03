@@ -4,7 +4,7 @@ title: 管理层资本配置与股东回报解读
 description: 当需要从财报电话会逐字稿中提取管理层对资本配置、投资优先级、股东回报与并购意图的表态时使用；借助 Octagon MCP 分析指定股票代码，产出含 CapEx 拆分、回购/分红、并购意向、投资优先级与逐字稿页码引用的结构化资本配置分析；不适用于实盘交易、行情/基本面数字拉取或无 Octagon MCP/API Key 的环境；触发词：资本配置、股东回报、CapEx 指引
 domain: 领域/fintech
 triggers: [资本配置 capital allocation, 股东回报 shareholder returns, 股票回购 buyback, 分红派息 dividend policy, 资本开支 CapEx 计划, 并购意向 M&A appetite, 投资优先级 investment priorities, Octagon MCP]
-tags: [fintech, 财报, 电话会议, 资本配置, 股东回报, 并购, Octagon MCP, 投研]
+tags: [fintech, 财报, 电话会议, 资本配置, 股东回报, 并购, octagon mcp, 投研]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

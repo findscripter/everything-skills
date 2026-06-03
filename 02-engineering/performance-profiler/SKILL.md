@@ -4,7 +4,7 @@ title: 应用性能剖析（Node/Python/Go）
 description: 当排查慢接口、追查内存泄漏、做发布前性能预算或负载测试时使用；先建基线（P50/P95/P99、RPS、错误率、内存），用 flamegraph/py-spy/pprof 定位 CPU/内存/IO/数据库瓶颈并产出前后对比报告；不适用于功能正确性缺陷或纯前端渲染调试；触发词：性能剖析、慢接口、内存泄漏、flamegraph、负载测试、N+1
 domain: 研发/observability
 triggers: [性能剖析, 慢接口排查, 内存泄漏, flamegraph 火焰图, 负载测试 k6, N+1 查询, bundle 体积分析, P99 延迟超标, CPU 瓶颈, py-spy / pprof]
-tags: [性能, 可观测性, profiling, Node.js, Python, Go, 数据库优化, 负载测试, 内存泄漏, 研发]
+tags: [性能, 可观测性, profiling, node.js, python, go, 数据库优化, 负载测试, 内存泄漏, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: BullMQ Redis 任务队列后台处理
 description: 当在 Node.js/TypeScript 中需要用 Redis 做后台任务、异步处理、延迟/定时/重复任务、限流或多步任务流时使用；产出生产级的 Queue/Worker 配置、重试退避、优雅关闭与 Bull Board 监控代码；不适用于 Serverless 无 Redis 队列、复杂 Saga 工作流编排或纯事件溯源（应转 QStash/Temporal/事件架构）。触发词：BullMQ、任务队列、后台任务
 domain: 研发/backend
 triggers: [BullMQ, bull queue, redis queue, redis 队列, 后台任务, background job, job queue, 任务队列, delayed job, 延迟任务, repeatable job, 重复任务, worker process, 工作进程, job scheduling, 任务调度, async processing, 异步处理, FlowProducer, 任务流]
-tags: [BullMQ, Redis, 任务队列, 后台处理, Node.js, TypeScript, 异步, Worker, 限流, 重试退避, 定时任务, 研发]
+tags: [bullmq, redis, 任务队列, 后台处理, node.js, typescript, 异步, worker, 限流, 重试退避, 定时任务, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 迭代式上下文检索精炼模式
 description: 当多 Agent 工作流中子 Agent 不知道该用哪些上下文（盲发文件易超限或遗漏）时使用；以「派发-评估-精炼-循环」四阶段最多 3 轮地逐步收敛出高相关文件集；不适用于上下文已明确或单文件小任务。触发词：上下文检索、子Agent上下文、迭代检索、相关性评分、检索精炼
 domain: 智能/rag
 triggers: [子 Agent 不知道需要哪些文件, 盲发全部上下文导致超限或遗漏, 需要为检索 Agent 设计上下文收集策略, 代码库术语与查询关键词不匹配（如 rate 与 throttle）, 要在多智能体编排中精准喂给子 Agent 相关代码]
-tags: [rag, 上下文工程, 多智能体编排, 检索精炼, 相关性评分, 子Agent]
+tags: [rag, 上下文工程, 多智能体编排, 检索精炼, 相关性评分, 子agent]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 交易台合同与折扣评审
 description: 当成交前需评审单笔交易、折扣超出 AE 权限、客户红线修改 MSA、或要把折扣审批路由给具名审批人时使用；做交易毛利与风险打分、折扣审批链路由、条款雷区扫描，产出"评分卡＋具名审批人路由"建议包；不适用于撰写提案、设计折扣矩阵、或对全文合同做深度法务红线（转交对应技能）。触发词：折扣审批、MSA红线、毛利评分
 domain: 商业/sales
 triggers: [折扣审批, 折扣超AE权限, MSA红线, 交易毛利评分, 交易台评审, 审批链路由, 条款雷区扫描, 无上限赔偿, CFO签字, deal desk, discount approval]
-tags: [商业, sales, 交易台, 折扣审批, 毛利评分, 合同红线, MSA, 条款风险, 审批路由, RevOps]
+tags: [商业, sales, 交易台, 折扣审批, 毛利评分, 合同红线, msa, 条款风险, 审批路由, revops]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

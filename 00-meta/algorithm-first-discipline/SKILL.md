@@ -4,7 +4,7 @@ title: 算法先行思维纪律
 description: 当编写/审查含循环、查询、连接、递归或集合遍历（n 超过个位数）的代码时使用；动作：在写代码前先声明时间/空间复杂度、数据结构、算法族，按七步预写协议产出有复杂度论证的实现；不适用于 n<10 的平凡集合、一次性初始化代码、纯性能 profiling/常数因子调优。触发词：嵌套循环、N+1、includes/find 在循环里、await in loop、SELECT *、O(n^2)、Big-O。
 domain: 通用/thinking
 triggers: [写循环/递归/查询前要确定复杂度, 审查代码发现嵌套 for / N+1, 循环体内出现 .find/.includes/.indexOf, for/map/forEach 里 await 独立任务, 集合每项发一次查询, AI 生成代码看着地道但疑似 O(n^2), 声称这段代码很快/很高效但无推导, SELECT * / 无 WHERE 的批量改写]
-tags: [算法, Big-O, 复杂度, 性能, 代码审查, 数据结构, 思维纪律, 网关]
+tags: [算法, big-o, 复杂度, 性能, 代码审查, 数据结构, 思维纪律, 网关]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

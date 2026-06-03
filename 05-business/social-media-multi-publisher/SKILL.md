@@ -4,7 +4,7 @@ title: 多平台社媒发布调度
 description: 当需要用一个工作区 API Key 把同一内容编排、定时并一键发布到 X/LinkedIn/Instagram/Facebook/TikTok/Discord/Telegram/YouTube/Reddit/WordPress/Pinterest 等十余个社媒平台时使用；产出多平台发布活动（含内容、媒体、排期与平台校验），发布前列出目标并等用户确认；不适用于写文案本身、做数据复盘或无 API Key 的场景。触发词：多平台发文、社媒定时发布、跨平台同步、SocialClaw、社媒排期
 domain: 商业/growth
 triggers: [把内容同步发到多个社媒平台, 给社媒活动排期定时发布, 用一个API一键群发X/LinkedIn/Instagram, 上传图片视频并跨平台发布, 校验各平台发文时间与限流, 发布后拉取各平台数据指标, SocialClaw工作区怎么用]
-tags: [社交媒体, 多平台发布, 内容调度, 定时发布, 营销自动化, 商业增长, SocialClaw]
+tags: [社交媒体, 多平台发布, 内容调度, 定时发布, 营销自动化, 商业增长, socialclaw]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

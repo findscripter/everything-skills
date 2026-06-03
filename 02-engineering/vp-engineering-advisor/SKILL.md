@@ -4,7 +4,7 @@ title: 工程副总裁顾问（DORA 交付效能）
 description: 当 sprint 速度下滑、研发招聘漏斗失灵、团队结构不清或纠结何时增设技术负责人/工程经理时使用；产出 DORA 四指标诊断+瓶颈定位、招聘漏斗各级转化与缺口、squad/chapter/tribe 结构与扩编触发阈值、生产纪律审计的可执行整改计划；不适用于架构/技术选型决策（属 CTO 职责）与日常值班事故协调（属工程负责人）。触发词：DORA、交付效能、招聘漏斗
 domain: 研发/architecture
 triggers: [DORA 四指标, 部署频率/变更前置时间/MTTR/变更失败率, sprint 速度下滑、交付变慢, 研发招聘漏斗、time-to-fill、流水线缺口, squad/chapter/tribe 团队结构、Spotify 模型, 何时增设技术负责人/工程经理（manager-trigger）, on-call 值班、部署节奏、无责复盘文化, 周期时间与交付瓶颈定位]
-tags: [研发管理, 交付效能, DORA, 工程招聘, 团队结构, 生产纪律, 工程副总裁]
+tags: [研发管理, 交付效能, dora, 工程招聘, 团队结构, 生产纪律, 工程副总裁]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

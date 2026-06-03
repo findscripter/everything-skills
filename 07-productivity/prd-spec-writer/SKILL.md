@@ -4,7 +4,7 @@ title: PRD 与功能规格撰写
 description: 当要把模糊想法/用户请求/问题陈述转成结构化功能规格或 PRD 时使用；做出含问题陈述、目标/非目标、用户故事、P0/P1/P2 需求与 GWT 验收标准、领先/滞后成功指标、待解问题与分期路线的 Markdown 文档，并做范围收敛；不适用于纯 RICE 量化排序、工程实现/架构设计与 UI 视觉设计。触发词：写 PRD、功能规格、目标与非目标、验收标准、需求分期
 domain: 协作/knowledge
 triggers: [写 PRD / 功能规格, 把模糊想法转成结构化文档, 定义目标与非目标, 写用户故事与验收标准, Given-When-Then 验收标准, P0/P1/P2 需求分级, MoSCoW 取舍, 成功指标（领先/滞后）, 需求分期/拆 v1 v2, 范围收敛防 scope creep]
-tags: [产品管理, PRD, 功能规格, 用户故事, 验收标准, 目标与非目标, 成功指标, 范围管理, 协作, pm]
+tags: [产品管理, prd, 功能规格, 用户故事, 验收标准, 目标与非目标, 成功指标, 范围管理, 协作, pm]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

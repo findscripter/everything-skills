@@ -4,7 +4,7 @@ title: 容器镜像与运行时安全加固
 description: 当审查 Dockerfile 安全、修复容器 CVE、扫描镜像或为生产做容器加固时使用；做从镜像构建、扫描、运行时强制到供应链与 K8s Pod 安全的五层加固，产出加固 Dockerfile/Compose/K8s 清单与扫描签名流程；不适用于通用 Docker 用法、CI/CD 流水线本身或应用层安全（SQL 注入/XSS）；触发词：Dockerfile 安全、distroless、Trivy、seccomp、Cosign、Pod Security
 domain: 安全/ops
 triggers: [Docker 安全, 容器加固, Dockerfile 安全审查, distroless, 非 root 容器, 只读文件系统, Trivy 扫描, Grype, 镜像 CVE, 修复容器 CVE, SBOM, Cosign 签名, seccomp, AppArmor, Linux capabilities, Kubernetes Pod 安全, NetworkPolicy, RBAC 加固, Kyverno, 减少镜像攻击面]
-tags: [安全, 容器, Docker, Kubernetes, 供应链安全, 镜像扫描, 运行时安全, DevSecOps]
+tags: [安全, 容器, docker, kubernetes, 供应链安全, 镜像扫描, 运行时安全, devsecops]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

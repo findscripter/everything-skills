@@ -4,7 +4,7 @@ title: AI 动效动画生成
 description: 当需要给静态 Logo、UI、图标或社媒素材加 AI 驱动的高级动效时使用；按品类选预设、用 AI 助手以提示词生成运动并微调关键帧，导出 Lottie(JSON)/GIF/MP4 集成到 Web、App 或社媒；不适用于一行 CSS transition 的简单过渡、3D/视频剪辑或代码级动画编排；触发词：Logo 动效、UI 动画、图标动效、微交互、Lottie、动起来
 domain: 创意/av
 triggers: [让 Logo 动起来, Logo 动效, UI 动画, 界面动效, 图标动效, 微交互动画, 品牌动效揭示, loading 动画, 导出 Lottie, social media 动画素材, 把静态设计做成动画, magic animator]
-tags: [创意, av, 动效, 动画, Lottie, 微交互, Logo 动效, UI 动画, 社媒素材]
+tags: [创意, av, 动效, 动画, lottie, 微交互, logo 动效, ui 动画, 社媒素材]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: SEO 图像生成：OG 卡片、信息图与产品视觉
 description: 当为 SEO/内容发布生成 OG 卡片、博客头图、产品图、信息图、Schema 配图等成品视觉时使用；做按用例映射宽高比/分辨率/领域模式并经创意总监管线产出图片+SEO 清单（alt/命名/WebP/ImageObject/og:image）；不适用于未安装图像生成扩展、纯图像分析审计或非 SEO 场景；触发词：OG 图、信息图、产品图、hero 图、社交预览、SEO 配图。
 domain: 商业/seo
 triggers: [OG 图, 信息图, 产品图, hero 图, 社交预览, SEO 配图, schema 配图, 图像生成]
-tags: [SEO, 图像生成, OG, 信息图, 内容发布]
+tags: [seo, 图像生成, og, 信息图, 内容发布]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

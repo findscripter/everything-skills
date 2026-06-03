@@ -4,7 +4,7 @@ title: API 安全设计最佳实践
 description: 当设计/加固 REST、GraphQL、WebSocket API 或做安全评审与审计时使用；产出认证授权、输入校验、限流防滥用、数据保护与安全头的可落地方案与代码；不适用于纯前端 XSS、网络层 DDoS 清洗或合规法律意见；触发词：API 安全、JWT 鉴权、限流、SQL 注入、OWASP API Top 10
 domain: 安全/appsec
 triggers: [API 安全, 接口加固, JWT 鉴权, OAuth, RBAC 授权, 输入校验, SQL 注入防护, XSS 过滤, 限流, rate limit, DDoS 防护, OWASP API Top 10, 安全评审, 安全审计, 安全响应头, Helmet]
-tags: [安全, appsec, API, 认证授权, 输入校验, 限流, OWASP, 后端]
+tags: [安全, appsec, api, 认证授权, 输入校验, 限流, owasp, 后端]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

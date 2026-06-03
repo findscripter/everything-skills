@@ -4,7 +4,7 @@ title: Temporal Go 工作流：确定性编排与 mTLS
 description: 当用 Temporal Go SDK 构建持久化分布式编排（长流程、Saga、信号/定时器、子工作流）时使用；做确定性工作流、mTLS Worker、版本化与重放测试的生产级 Go 实现；不适用于 Python/Java/TS SDK、无持久化需求的简单请求响应或普通 cron。触发词：Temporal、Go SDK、workflow 确定性、mTLS Worker、GetVersion、ContinueAsNew、Selector 信号、Saga 编排
 domain: 研发/backend
 triggers: [Temporal, Temporal Go SDK, 工作流确定性, mTLS Worker, GetVersion 版本化, ContinueAsNew, Selector 信号, Saga 编排, 持久化执行, 重放测试]
-tags: [temporal, golang, workflow, orchestration, mTLS, distributed-systems, saga, durable-execution]
+tags: [temporal, golang, workflow, orchestration, mtls, distributed-systems, saga, durable-execution]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

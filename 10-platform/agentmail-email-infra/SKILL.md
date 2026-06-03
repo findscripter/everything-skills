@@ -4,7 +4,7 @@ title: AI 智能体邮件基础设施
 description: 当 AI 智能体需要真实邮箱完成注册/验证码/事务通信时使用；通过 AgentMail REST API 开通账号、收发邮件、注册 Webhook、查询 karma 余额并产出可执行调用；不适用于自建/企业 SMTP/IMAP 或个人邮箱代收。触发词：AgentMail、智能体邮箱、theagentmail.net
 domain: 平台/integration
 triggers: [AgentMail, 智能体邮箱, agent email, theagentmail.net, 验证码邮箱, 邮件 webhook, karma 余额, 注册收信, 收验证码, 临时邮箱 API]
-tags: [平台, integration, email, agent, webhook, REST-API, AgentMail, automation]
+tags: [平台, integration, email, agent, webhook, rest-api, agentmail, automation]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: samtools BAM/SAM 处理
 description: 当需对 SAM/BAM/CRAM 比对文件做排序、建索引、格式转换、FLAG/质量/区间过滤、QC 统计、去重或合并时使用；用 samtools CLI（view/sort/index/flagstat/stats/depth/markdup/merge）把比对器输出整理成可分析的已排序已建索引 BAM 并出质控指标；不适用于 Python 内编程式 BAM 操作（用 pysam/genomic-file-toolkit）、归一化 bigWig 覆盖轨（用 deeptools）、全基因组逐碱基深度（用 mosdepth）；触发词：samtools、BAM、SAM、CRAM、sort、index、flagstat、markdup、FLAG、view
 domain: 领域/science
 triggers: [samtools, BAM, SAM, CRAM, sort, index, flagstat, idxstats, stats, depth, coverage, markdup, 去重, PCR 重复, merge, view, FLAG, proper pair, mapping quality, fixmate, 排序, 建索引, 格式转换, 区间提取, 测序比对]
-tags: [生物信息, 基因组学, NGS, 比对, BAM, SAM, CRAM, samtools, 质控, science]
+tags: [生物信息, 基因组学, ngs, 比对, bam, sam, cram, samtools, 质控, science]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

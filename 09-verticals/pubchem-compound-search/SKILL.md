@@ -4,7 +4,7 @@ title: PubChem 化合物检索
 description: 当需要按名称/CID/SMILES/InChIKey/分子式检索 PubChem 化合物、取理化属性或做相似性/子结构搜索时使用；用 requests 直连 PUG-REST/JSON API，产出 CID、属性表、同义词、生物活性与 SDF/PNG。不适用于本地化学信息学（用 rdkit）或靶点结合活性 IC50/Ki（用 chembl-database-bioactivity）。触发词：PubChem、CID、SMILES、PUG-REST
 domain: 领域/science
 triggers: [PubChem, PUG-REST, CID, SMILES, InChIKey, 分子式检索, 理化属性, 相似性搜索, 子结构搜索, Tanimoto, 化合物检索, 同义词, SDF 下载, Lipinski, 类药五规则]
-tags: [science, 化学信息学, 药物发现, PubChem, REST-API, 化合物检索, 理化属性]
+tags: [science, 化学信息学, 药物发现, pubchem, rest-api, 化合物检索, 理化属性]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

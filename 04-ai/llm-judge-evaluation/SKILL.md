@@ -4,7 +4,7 @@ title: LLM-as-Judge 高级评测
 description: 当需要用 LLM 自动评测模型输出（评分、择优、建评分量规、做 A/B）时使用；做出含偏差缓解、置信度校准、量规生成的可落地评测流程与结构化打分产物；不适用于纯人工评测或无判别标准的开放生成。触发词：LLM-as-judge、成对比较、位置偏差、评分量规、评测流水线
 domain: 智能/eval
 triggers: [实现 LLM-as-judge, 比较模型输出/择优, 创建评分量规 rubric, 缓解评测偏差, 直接评分 direct scoring, 成对比较 pairwise, 位置偏差 position bias, 搭建评测流水线, 自动质量评估, 评测结果不一致排查, Prompt/模型 A/B 测试]
-tags: [评测, LLM-as-judge, 成对比较, 评分量规, 偏差缓解, 置信度校准, Eval, 智能体]
+tags: [评测, llm-as-judge, 成对比较, 评分量规, 偏差缓解, 置信度校准, eval, 智能体]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

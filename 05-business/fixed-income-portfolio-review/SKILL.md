@@ -4,7 +4,7 @@ title: 固定收益组合审视
 description: 当审视固定收益（债券）组合、需要批量定价后汇总成组合级久期/DV01/凸性、做现金流瀑布与利率情景压测时使用；调用 bond_price 等 MCP 工具算单券指标、自行按市值加权汇总并对标基准，产出含组合摘要表、行业/评级/期限构成、季度现金流瀑布、情景损益的组合审视报告；不适用于单只债券定价、权益/衍生品组合或无 MCP 工具接入的离线估算；触发词：债券组合、组合久期、DV01、现金流瀑布、利率情景压测
 domain: 商业/finance
 triggers: [债券组合, 固定收益组合, 组合久期, DV01, 凸性, 现金流瀑布, 利率情景, 压力测试, stress test, 组合审视, OAS, key rate duration, 利差, rate shock, 组合构成分析]
-tags: [finance, fixed-income, 债券, 组合分析, 久期, DV01, 现金流, 情景分析, 风险管理, MCP]
+tags: [finance, fixed-income, 债券, 组合分析, 久期, dv01, 现金流, 情景分析, 风险管理, mcp]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: Varlock 环境变量防护：会话中密钥零泄露管理
 description: 当在 AI Agent/Claude 会话、终端、日志或 git 提交中处理含密钥的环境变量、想让敏感值默认脱敏不外泄时使用；做法是用 varlock 在 .env.schema 中以 @sensitive/@type/@required 声明并校验 env，用 varlock run 注入运行时、用其自动脱敏的 redacted 输出替代明文 echo，产出可校验、可加密提交且日志安全的 env 工作流；不适用于生产级集中密钥库/HA/动态短期凭据基建（见 secrets-management）。触发词：varlock、env 脱敏、密钥不进日志、.env.schema、会话密钥泄露
 domain: 安全/appsec
 triggers: [varlock, env 脱敏, 密钥不进日志, redacted env, .env.schema, 会话密钥泄露, Claude 会话密钥, 环境变量校验, @dmno/varlock, secrets 零泄露, varlock run, env 加密提交]
-tags: [安全, secrets, 环境变量, env, varlock, 脱敏, log-redaction, AI-Agent-安全, dotenv, 凭据管理]
+tags: [安全, secrets, 环境变量, env, varlock, 脱敏, log-redaction, ai-agent-安全, dotenv, 凭据管理]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

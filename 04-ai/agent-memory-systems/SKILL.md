@@ -4,7 +4,7 @@ title: AI 智能体记忆系统设计
 description: 当为 AI 智能体设计跨会话记忆、长期记忆或 RAG 检索层时使用；做记忆类型分层（语义/情景/程序）、向量库选型、分块、后台记忆形成与衰减策略的可执行落地；不适用于生产级向量库运维、嵌入模型微调或知识图谱设计（应转交对应专家）。触发词：智能体记忆、长期记忆、向量库、RAG、情景记忆、跨会话记忆、LangMem、MemGPT
 domain: 智能/agents
 triggers: [智能体记忆, agent memory, 长期记忆, long-term memory, 记忆系统, 跨会话记忆, remember across sessions, 记忆检索, memory retrieval, 情景记忆, episodic memory, 语义记忆, semantic memory, 向量库, vector store, RAG, LangMem, MemGPT, Letta, Mem0, 对话历史, conversation history, 记忆衰减, 分块策略, chunking]
-tags: [智能体, agents, 记忆系统, 向量数据库, RAG, 嵌入, 检索增强, LangMem, CoALA, 上下文工程]
+tags: [智能体, agents, 记忆系统, 向量数据库, rag, 嵌入, 检索增强, langmem, coala, 上下文工程]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

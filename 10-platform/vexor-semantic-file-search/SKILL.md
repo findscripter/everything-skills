@@ -4,7 +4,7 @@ title: Vexor 语义文件检索：定位代码实现位置
 description: 当在中大型仓库中按意图（功能/作用）查找文件而非精确文件名或文本时使用；用 vexor 做语义检索，产出按相似度排序的文件路径、行号与片段预览；不适用于精确字符串匹配（用 grep）或需环境内验证/测试的场景；触发词：定位实现、语义检索、找文件、vexor
 domain: 平台/cli
 triggers: [定位实现在哪, 找到某功能的代码文件, 语义文件检索, 不确定文件位置, vexor, 按意图找文件, config loader 在哪, 查认证流程文档]
-tags: [代码检索, 语义搜索, vexor, CLI工具, 代码导航, 文件定位]
+tags: [代码检索, 语义搜索, vexor, cli工具, 代码导航, 文件定位]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

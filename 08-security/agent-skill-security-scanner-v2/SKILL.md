@@ -4,7 +4,7 @@ title: 技能安全扫描：采用前检测提示注入与恶意代码
 description: 当准备采用/安装第三方 Agent 技能、需在信任前评估其安全性时使用；做静态扫描+人工研判，产出含发现项/置信度/风险等级与采用建议的安全审查报告；不适用于自身代码漏洞审计或运行时沙箱防护。触发词：技能安全扫描、提示注入检测、采用前审查
 domain: 安全/audit
 triggers: [扫描技能安全, 采用前检测提示注入, 审查第三方技能, skill 恶意代码检测, 技能权限过宽审查, 供应链风险评估, scan skill security]
-tags: [安全, 提示注入, 供应链, 代码审计, Agent技能, 静态扫描, misc]
+tags: [安全, 提示注入, 供应链, 代码审计, agent技能, 静态扫描, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

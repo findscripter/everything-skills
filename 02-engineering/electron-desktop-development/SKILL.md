@@ -4,7 +4,7 @@ title: Electron 桌面应用开发
 description: 当用 Electron 构建/加固/打包跨平台桌面应用时使用；做安全的多进程架构（contextIsolation/sandbox + preload 白名单 IPC）、electron-builder 打包签名与 electron-updater 自动更新，产出可上线的工程骨架与配置；不适用于纯 Web 应用、Tauri、Chrome 扩展、移动端。触发词：Electron、preload、IPC、electron-builder、自动更新、代码签名
 domain: 研发/frontend
 triggers: [Electron, Electron 桌面应用, contextIsolation, preload 脚本, contextBridge, IPC 通信, ipcMain, ipcRenderer, electron-builder, electron-forge, electron-updater, 自动更新, 代码签名, notarize 公证, BrowserWindow, 主进程 渲染进程, 桌面应用打包, 白屏问题, 原生模块崩溃, 系统托盘, asar]
-tags: [Electron, 桌面应用, 跨平台, IPC, 安全加固, preload, contextIsolation, 打包分发, 代码签名, 自动更新, electron-builder, TypeScript, 多进程架构, 研发, misc]
+tags: [electron, 桌面应用, 跨平台, ipc, 安全加固, preload, contextisolation, 打包分发, 代码签名, 自动更新, electron-builder, typescript, 多进程架构, 研发, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

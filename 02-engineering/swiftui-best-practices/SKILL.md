@@ -4,7 +4,7 @@ title: SwiftUI 状态管理与最佳实践
 description: 当编写、审查或重构 SwiftUI 代码，需要状态管理、视图组合、性能、无障碍及 iOS 26+ Liquid Glass 的现行最佳实践时使用；产出基于事实、不绑定特定架构的整改建议与对照清单；不适用于完整 App 工程搭建/上架、跨平台（Flutter/RN）或纯后端。触发词：SwiftUI、状态管理、@State、property wrapper、视图重构、SwiftUI 性能、Liquid Glass
 domain: 研发/mobile
 triggers: [SwiftUI, 状态管理, @State, @Binding, @Observable, property wrapper, 视图组合, SwiftUI 性能, ForEach 性能, 动画 animation, 无障碍 accessibility, Liquid Glass, glassEffect, SwiftUI code review, SwiftUI 重构]
-tags: [SwiftUI, 状态管理, 性能, 无障碍, Liquid Glass, 代码审查, iOS, 研发]
+tags: [swiftui, 状态管理, 性能, 无障碍, liquid glass, 代码审查, ios, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

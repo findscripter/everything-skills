@@ -4,7 +4,7 @@ title: Kubernetes 云原生架构
 description: 当设计 K8s 平台架构、多集群战略、GitOps 与渐进式交付、服务网格/安全/多租户时使用；产出集群拓扑、GitOps 仓库结构、安全策略与可观测性方案；不适用于本地单节点开发集群或纯应用代码排障；触发词：Kubernetes、GitOps、ArgoCD、服务网格、多集群、平台工程
 domain: 研发/devops
 triggers: [设计 Kubernetes 平台架构, 多集群战略, GitOps 工作流, ArgoCD/Flux 持续部署, 渐进式交付（金丝雀/蓝绿）, 服务网格（Istio/Linkerd/Cilium）, 多租户与 RBAC 隔离, K8s 成本优化 FinOps, Pod 安全标准与网络策略, 灾难恢复与多区域容灾]
-tags: [kubernetes, 云原生, gitops, argocd, 服务网格, 平台工程, 多集群, 可观测性, 容器编排, DevOps]
+tags: [kubernetes, 云原生, gitops, argocd, 服务网格, 平台工程, 多集群, 可观测性, 容器编排, devops]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

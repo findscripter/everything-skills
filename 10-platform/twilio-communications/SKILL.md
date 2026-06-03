@@ -4,7 +4,7 @@ title: Twilio 短信与语音通信集成
 description: 当需要用 Twilio 构建短信、语音、WhatsApp 或手机验证（2FA）功能时使用；产出可直接落地的 Python 发送/接收、Verify 验证、TwiML IVR 与 Webhook 校验代码，覆盖 E.164 校验、退订合规、限流重试与签名验证；不适用于 AI 语音对话生成、邮件群发或非 Twilio 渠道。触发词：Twilio、发短信、语音呼叫、IVR、WhatsApp、手机验证 2FA、TwiML、X-Twilio-Signature
 domain: 平台/integration
 triggers: [Twilio, 发短信 / send SMS, 短信通知, 语音呼叫 / voice call, 手机号验证 / 2FA, WhatsApp Business API, TwiML / IVR 语音菜单, Twilio Verify OTP, X-Twilio-Signature 校验, 短信退订 STOP / 21610, A2P 10DLC 运营商过滤, 限流重试 30429]
-tags: [平台集成, 通信, 短信SMS, 语音IVR, WhatsApp, 2FA验证, Webhook, Twilio, Python, 限流重试]
+tags: [平台集成, 通信, 短信sms, 语音ivr, whatsapp, 2fa验证, webhook, twilio, python, 限流重试]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

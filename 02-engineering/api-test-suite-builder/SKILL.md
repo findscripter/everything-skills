@@ -4,7 +4,7 @@ title: API 集成测试套件生成
 description: 当需要为 REST API 批量补齐集成/契约测试时使用；扫描 Next.js/Express/FastAPI/Django REST 路由并生成覆盖鉴权、入参校验、错误码、分页、文件上传、限流的可运行测试套件（Vitest+Supertest 或 Pytest+httpx）；不适用于纯前端 UI、单元测试或 GraphQL/gRPC；触发词：生成 API 测试、集成测试套件、契约测试
 domain: 研发/testing
 triggers: [生成 API 测试, 集成测试套件, 契约测试, 测试 REST 接口, 补齐接口测试, API 回归测试, 鉴权/入参/错误码测试矩阵]
-tags: [研发, testing, API测试, 集成测试, 契约测试, Vitest, Supertest, Pytest, httpx, 回归测试]
+tags: [研发, testing, api测试, 集成测试, 契约测试, vitest, supertest, pytest, httpx, 回归测试]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

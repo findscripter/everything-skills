@@ -4,7 +4,7 @@ title: Java 21+ 现代开发
 description: 当用 Java 21+ LTS 构建高并发企业应用或 Spring Boot 3.x 服务时使用；做虚拟线程、模式匹配、record/sealed、GraalVM 原生镜像与可观测性的现代化改造与落地产物；不适用于 Java 8/11 遗留维护、非 JVM 语言或纯前端任务；触发词：虚拟线程、Spring Boot 3、GraalVM
 domain: 研发/backend
 triggers: [虚拟线程, Virtual Threads, Project Loom, 模式匹配, Spring Boot 3, GraalVM 原生镜像, Java 21, 结构化并发, ZGC 调优, Testcontainers]
-tags: [Java, JVM, Spring Boot, 虚拟线程, GraalVM, 并发, 云原生, 微服务]
+tags: [java, jvm, spring boot, 虚拟线程, graalvm, 并发, 云原生, 微服务]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: CFO 财务顾问（单位经济与融资）
 description: 当为初创/扩张期公司做财务建模、单位经济分析、融资规划、现金跑道管理或董事会财务材料时使用；做出 base/bull/bear 跑道模型、分队列 LTV 与分渠道 CAC、稀释与 cap table 推演、董事会财务页等可决策产物；不适用于纯记账/做账或常规财务分析师事务。触发词：burn rate、runway、LTV/CAC、融资
 domain: 商业/finance
 triggers: [CFO, 财务建模, burn rate, 跑道 runway, 单位经济, LTV, CAC, 融资 fundraising, term sheet, cap table, 稀释, NDR 净收入留存, burn multiple, rule of 40, 董事会财务材料, 场景规划, 现金管理]
-tags: [商业, finance, CFO, 融资, 单位经济, 现金跑道, SaaS指标, 财务建模, 董事会]
+tags: [商业, finance, cfo, 融资, 单位经济, 现金跑道, saas指标, 财务建模, 董事会]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

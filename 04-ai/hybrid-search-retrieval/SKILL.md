@@ -4,7 +4,7 @@ title: 向量与关键词混合检索
 description: 当构建 RAG 检索、搜索引擎，单用向量或关键词召回不足时使用；做向量召回+关键词召回+融合排序（RRF/线性/重排）的混合检索方案，产出可落地的 PostgreSQL/Elasticsearch/自定义管道实现；不适用于无需检索召回的纯生成或与混合检索无关的任务；触发词：混合检索、RRF、重排、pgvector、BM25
 domain: 智能/rag
 triggers: [混合检索, hybrid search, RRF, 倒数排名融合, 向量+关键词, 重排 rerank, cross-encoder, pgvector 全文检索, BM25 与向量结合, RAG 召回不足, 提升检索召回率, Elasticsearch 混合检索]
-tags: [RAG, 检索, 向量检索, 关键词检索, RRF, 重排, pgvector, Elasticsearch, BM25, 召回]
+tags: [rag, 检索, 向量检索, 关键词检索, rrf, 重排, pgvector, elasticsearch, bm25, 召回]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

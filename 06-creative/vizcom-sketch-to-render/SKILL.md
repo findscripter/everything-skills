@@ -4,7 +4,7 @@ title: Vizcom 草图转渲染：产品设计稿转全保真 3D
 description: 当需把粗略草图/线稿/文字概念变成产品级照片真实渲染或探索造型材质变体时使用；用 Vizcom 写精准带权重提示词产出高保真 3D 风格效果图；不适用于平面 UI、Logo、插画或需工程验证的成品决策；触发词：产品渲染、草图转渲染、Vizcom、概念效果图、材质质感
 domain: 创意/image
 triggers: [把草图变成效果图, 产品概念渲染, Vizcom 渲染, 硬件外观可视化, 草图转 3D 渲染, 工业设计效果图, concept render]
-tags: [创意, 产品设计, AI渲染, 工业设计, Vizcom, 效果图]
+tags: [创意, 产品设计, ai渲染, 工业设计, vizcom, 效果图]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 改善持续改进法（Kaizen）
 description: 当写代码、重构、做设计或评审需要稳步提升质量时使用；用四支柱（持续小改进/防错设计/标准化/按需交付）做出可验证的增量改动并防止整类错误；不适用于一次性推倒重写或无度量的提前优化。触发词：重构、改善、防错、提质
 domain: 通用/thinking
 triggers: [重构代码, 提升代码质量, 改善流程, 防错设计, 评审改进建议, 避免过度设计, 增量优化, 标准化模式]
-tags: [思维方法, 持续改进, 重构, 防错, 代码质量, 工程文化, YAGNI]
+tags: [思维方法, 持续改进, 重构, 防错, 代码质量, 工程文化, yagni]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

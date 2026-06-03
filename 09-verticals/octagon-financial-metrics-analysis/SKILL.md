@@ -4,7 +4,7 @@ title: 利润表项目同比增长分析
 description: 当需要诊断上市公司利润表各项（营收、营业成本、毛利、经营利润、净利润）的同比（YoY）增长、跨财年/季度比较经营表现时使用；通过 Octagon MCP 的 octagon-agent 按 Ticker 拉取多年逐项 YoY 增长率表并据「经营杠杆/利润率压缩/盈利加速」等模式输出趋势洞察与风险信号；不适用于绝对值财报、三表/估值建模、实时行情或非 Octagon 覆盖标的。触发词：利润表同比、YoY 增长、营收/净利润增速、Octagon、income statement growth
 domain: 领域/fintech
 triggers: [利润表同比增长, YoY income statement growth, 营收增速, 净利润增长率, 毛利/经营利润增长, Octagon MCP, octagon-agent, 经营杠杆分析]
-tags: [fintech, 财务分析, 同比增长, 利润表, 基本面, 经营杠杆, Octagon, MCP]
+tags: [fintech, 财务分析, 同比增长, 利润表, 基本面, 经营杠杆, octagon, mcp]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

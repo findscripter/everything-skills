@@ -4,7 +4,7 @@ title: Plaid 金融数据 API 集成
 description: 当为应用接入 Plaid 实现银行账户连接、交易同步、身份核验或 ACH 转账时使用；产出 Link token 交换、transactions/sync、Auth/Identity、实时余额、Webhook 验签与错误恢复的可落地 Node/TS 模式；不适用于支付收单（用 Stripe）、欧洲 PSD2 之外的开放银行细则或对账分析建模；触发词：plaid、银行账户连接、ACH、open banking
 domain: 领域/fintech
 triggers: [plaid, 银行账户连接, bank account linking, ACH 转账, account aggregation 账户聚合, open banking 开放银行, fintech 金融科技, transactions sync 交易同步, Link token, 身份核验 identity verification]
-tags: [领域/金融科技, Plaid, 银行数据聚合, ACH, Webhook, Node.js, TypeScript, 合规安全]
+tags: [领域/金融科技, plaid, 银行数据聚合, ach, webhook, node.js, typescript, 合规安全]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

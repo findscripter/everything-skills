@@ -4,7 +4,7 @@ title: Transformers.js 浏览器端模型推理
 description: 当需要在浏览器或 Node.js 端、无后端 ML 服务直接运行 Hugging Face 模型（文本/图像/音频/多模态/向量）时使用；做用 pipeline API 加载模型并产出推理结果，含设备(webgpu)、量化(dtype)、缓存与显存释放；不适用于需 Python 后端、训练/微调或超大模型(>数 GB)的生产重负载。触发词：transformers.js、浏览器端推理、pipeline、WebGPU、ONNX、嵌入向量
 domain: 智能/model-ops
 triggers: [transformers.js, @huggingface/transformers, 浏览器端模型推理, pipeline API, WebGPU 推理, ONNX 模型, 客户端 ML, feature-extraction 嵌入, 无后端跑模型, Hugging Face JS]
-tags: [transformers-js, 智能/模型运维, 浏览器推理, WebGPU, ONNX, 量化, 嵌入向量, JavaScript, Hugging Face, 客户端AI]
+tags: [transformers-js, 智能/模型运维, 浏览器推理, webgpu, onnx, 量化, 嵌入向量, javascript, hugging face, 客户端ai]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

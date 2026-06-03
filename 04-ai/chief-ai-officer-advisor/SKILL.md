@@ -4,7 +4,7 @@ title: 首席 AI 官顾问（自研对外采决策）
 description: 当创业团队需做 AI 战略决策时使用；做模型自研/微调/调 API 选型、监管风险分级、自托管成本拐点测算与 AI 团队招聘排序，产出含三年 TCO 与所需管控清单的可执行建议；不适用于 RAG、Agent、提示工程、评测设施等战术工程实现。触发词：CAIO、模型选型、EU AI Act、微调、自托管拐点
 domain: 智能/model-ops
 triggers: [要不要调 API 还是自己微调模型, 这个 AI 用例属于高风险吗, 什么时候自托管比调 API 划算, 下一个该招什么 AI 岗位, CAIO/首席 AI 官, EU AI Act 风险分级, 微调还是买现成模型 build vs buy, AI 治理与模型风险, API 转自托管的成本拐点, NIST AI RMF / 模型卡 / 评测集]
-tags: [智能, model-ops, AI战略, build-vs-buy, EU-AI-Act, AI治理, 成本经济学, 团队组织, CAIO, c-level]
+tags: [智能, model-ops, ai战略, build-vs-buy, eu-ai-act, ai治理, 成本经济学, 团队组织, caio, c-level]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: Odoo 模块版本迁移
 description: 当把 Odoo 自定义模块跨大版本升级（v14→v15→v16→v17）时使用；按版本逐级给出 API/视图/弃用项的破坏性变更清单与前后对照修复，产出可执行迁移检查表；不适用于 v13 及更早、Odoo.sh 自动升级流程、OWL 组件深度重写；触发词：odoo 迁移、模块升级、attrs 改写
 domain: 领域/erp
 triggers: [Odoo 模块升级, v16 升级 v17, attrs invisible 改写, 迁移破坏性变更, __manifest__ 版本号, odoo-upgrade 检查表, website_published 弃用, oe_chatter 迁移]
-tags: [Odoo, ERP, 版本迁移, 破坏性变更, Python, XML视图]
+tags: [odoo, erp, 版本迁移, 破坏性变更, python, xml视图]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

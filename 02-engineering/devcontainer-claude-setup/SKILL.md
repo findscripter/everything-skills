@@ -4,7 +4,7 @@ title: Devcontainer 隔离开发环境搭建
 description: 当需要为项目新增 Devcontainer 支持、搭建隔离/沙箱化的 Claude Code 开发环境时使用；做语言探测并在 .devcontainer/ 生成 Dockerfile、devcontainer.json、post_install.py、.zshrc、install.sh 等配置产物；不适用于已有 devcontainer 仅做微调、通用 Docker 问题或生产容器部署。触发词：devcontainer、隔离开发环境、沙箱 Claude Code
 domain: 研发/devops
 triggers: [set up a devcontainer, 添加 devcontainer 支持, 搭建隔离开发环境, 沙箱化 Claude Code 工作区, Reopen in Container, devcontainer up]
-tags: [devcontainer, Docker, Claude Code, 开发环境, 沙箱隔离, VS Code, uv, 多语言]
+tags: [devcontainer, docker, claude code, 开发环境, 沙箱隔离, vs code, uv, 多语言]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: X 帖子转 JSON：推文抓取为 LLM 友好结构
 description: 当用户分享 X/Twitter 链接、需读取或分析推文时使用；用 ADHX 免认证 API 把 x.com/twitter.com/adhx.com 链接抓成含正文、作者、互动数据的结构化 JSON 供 LLM 消费；不适用于需登录态、私密/受限帖子或直接爬取 x.com。触发词：X 帖子、推文转 JSON、ADHX、抓取推文、X Article、推文摘要
 domain: 平台/browser
 triggers: [用户分享了 x.com/twitter.com 链接, 把推文抓成结构化 JSON, 总结/分析某条 X 帖子, 提取 X Article 长文正文, 查推文点赞/转发/浏览量]
-tags: [X, Twitter, 推文抓取, JSON, ADHX, LLM, 社交平台]
+tags: [x, twitter, 推文抓取, json, adhx, llm, 社交平台]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

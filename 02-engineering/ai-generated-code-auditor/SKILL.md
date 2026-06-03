@@ -4,7 +4,7 @@ title: AI 代码审计：审查快速生成代码的结构脆弱性
 description: 当需要审查 AI 生成、vibe coding 或快速迭代出来的"能跑但脆弱"的代码、判断能否上生产时使用；做的是按七维度产出带严重度分级与可上线评分的审计报告，并给最小修复建议；不适用于风格洁癖纠错、需求级架构重写或脱离代码的空泛建议；触发词：AI 生成代码审查、能跑但脆弱、上生产前体检
 domain: 研发/review
 triggers: [AI 生成的代码能不能上生产, 审查一下这段 vibe coding 出来的代码, 原型转生产前帮我做代码体检, 这段代码能跑但感觉很脆弱, 帮我找隐藏的技术债, 项目交接前审计代码质量, review AI-generated code, production readiness audit]
-tags: [代码审计, 代码质量, AI生成代码, 技术债, 生产就绪, 安全审查, 重构, code-review]
+tags: [代码审计, 代码质量, ai生成代码, 技术债, 生产就绪, 安全审查, 重构, code-review]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

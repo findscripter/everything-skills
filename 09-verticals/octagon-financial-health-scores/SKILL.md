@@ -4,7 +4,7 @@ title: 财务健康评分（Z-Score / Piotroski）
 description: 当评估上市公司破产风险、财务强度、价值股质量或信用质量时使用；通过 Octagon MCP 的 octagon-agent 按 Ticker 拉取 Altman Z-Score 与 Piotroski F-Score 及支撑指标并据分区解读；不适用于金融/早期/轻资产公司打分或离线无 MCP。触发词：Altman Z-Score、Piotroski、破产风险、财务健康评分、价值股筛选
 domain: 领域/fintech
 triggers: [Altman Z-Score, Piotroski Score, 财务健康评分, 破产风险, 信用质量分析, 价值股筛选, octagon-agent, F-Score]
-tags: [fintech, 财务分析, 破产预测, 信用分析, 价值投资, MCP, octagon]
+tags: [fintech, 财务分析, 破产预测, 信用分析, 价值投资, mcp, octagon]
 level: 进阶
 status: stable
 agents: [claude-code, cursor, gemini-cli, windsurf]

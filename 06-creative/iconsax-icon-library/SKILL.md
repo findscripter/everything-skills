@@ -4,7 +4,7 @@ title: Iconsax 图标库与生成
 description: 当为现代数字产品挑选高质感图标或需要独特图标时使用；产出风格统一的 Iconsax 图标方案（搜索现有图标或用 Iconsax AI 生成并按 24×24 网格集成 SVG/Web 组件）；不适用于非 UI 资产、品牌大图或后端逻辑。触发词：iconsax、图标库、premium 图标、图标风格统一、AI 生成图标
 domain: 创意/design
 triggers: [iconsax, 图标库, premium 图标, 图标风格统一, AI 生成图标, 导航/工具栏图标, two-tone/linear/bold 风格]
-tags: [创意, design, icon, UI/UX, 设计系统, SVG]
+tags: [创意, design, icon, ui/ux, 设计系统, svg]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

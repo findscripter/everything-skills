@@ -4,7 +4,7 @@ title: 产品发布策略规划
 description: 当需要规划产品/功能/版本发布、Product Hunt 上线、灰度内测、候补名单或 GTM 上市时使用；产出分阶段发布计划、ORB 渠道图、发布日清单、Product Hunt 简报与发布后造势计划；不适用于纯文案撰写、定价方案设计或单一渠道执行。触发词：产品发布、Product Hunt、GTM 上市、候补名单、内测、发布清单、版本公告
 domain: 商业/marketing
 triggers: [规划产品发布, 功能上线/版本发布公告, Product Hunt 上线准备, GTM/上市策略, 候补名单/早鸟/灰度内测, 做发布清单/造势计划, 定价变更当作发布造势, 工程交付日期已定但无发布计划]
-tags: [marketing, 商业, 产品发布, GTM, Product Hunt, 增长, 渠道策略]
+tags: [marketing, 商业, 产品发布, gtm, product hunt, 增长, 渠道策略]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

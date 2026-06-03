@@ -4,7 +4,7 @@ title: 分析师财务预测：营收与EPS估计区间
 description: 当需要拉取上市公司未来年度的分析师营收/EPS 预测共识、低高区间与覆盖分析师数，用于前瞻预期、估值输入或与历史比对时使用；通过 Octagon MCP 的 octagon-agent 工具按 ticker 取多期估计表并输出洞察（隐含 CAGR、估计离散度、覆盖质量、近远期置信度、前瞻 P/E）；不适用于自建 DCF 逐项重算内在价值、要绝对值历史财报、要实时单季行情、或非 Octagon 覆盖标的；触发词：分析师预测、营收估计、EPS 估计、analyst estimates、Octagon
 domain: 领域/fintech
 triggers: [分析师预测, 营收估计, EPS 估计, analyst estimates, 共识预测, 估计区间, 前瞻 EPS, octagon-agent, Octagon MCP]
-tags: [fintech, 分析师预测, 共识估计, 营收, EPS, 估值, 卖方研究, MCP, octagon]
+tags: [fintech, 分析师预测, 共识估计, 营收, eps, 估值, 卖方研究, mcp, octagon]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

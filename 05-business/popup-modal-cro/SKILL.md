@@ -4,7 +4,7 @@ title: 弹窗与浮层转化优化
 description: 当需要设计或优化弹窗、模态框、浮层、侧滑条、横幅以提升转化（邮件/线索捕获、促销、公告、退出挽留）时使用；产出弹窗策略图（类型/触发/受众/频次/冲突规则）、完整文案集与 A/B 测试方案；不适用于弹窗内表单深度优化（form-cro）、整页转化（page-cro）、应用内引导浮层（onboarding-cro）。触发词：弹窗、退出挽留、邮件捕获
 domain: 商业/growth
 triggers: [弹窗转化, exit intent, 退出挽留, 模态框优化, 邮件捕获弹窗, lead capture popup, 公告横幅, 浮层, slide-in 侧滑, 弹窗 A/B 测试]
-tags: [growth, CRO, 弹窗, 线索捕获, A/B测试, 营销]
+tags: [growth, cro, 弹窗, 线索捕获, a/b测试, 营销]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

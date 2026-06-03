@@ -4,7 +4,7 @@ title: Cirq 量子电路设计与仿真
 description: 当用 Python 和 Cirq（Google Quantum AI 框架）设计、仿真或运行量子电路时使用；做电路构建、Simulator 仿真、参数扫描、噪声建模与硬件提交的可执行流程并产出测量直方图/态向量结果；不适用于 Qiskit/PennyLane 等其他框架或非量子计算任务；触发词：cirq、量子电路、量子仿真
 domain: 领域/science
 triggers: [cirq, 量子电路, 量子仿真, qubit, cirq.Simulator, cirq-google, cirq-ionq, 参数扫描 run_sweep, 量子门 Hadamard CNOT, 变分量子算法 VQE QAOA]
-tags: [量子计算, cirq, 量子电路, 仿真, 噪声建模, Google-Quantum-AI, Python, misc]
+tags: [量子计算, cirq, 量子电路, 仿真, 噪声建模, google-quantum-ai, python, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

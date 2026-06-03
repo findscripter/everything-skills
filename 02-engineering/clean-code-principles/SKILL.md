@@ -4,7 +4,7 @@ title: 整洁代码原则与重构
 description: 当编写新代码、评审 PR 或重构遗留代码时使用；依据 Uncle Bob《整洁代码》原则识别坏味道并把"能跑的代码"重写为"整洁的代码"，产出命名/函数/注释/错误处理等改进与检查清单；不适用于性能调优、架构选型或语言特性教学；触发词：整洁代码、重构、代码坏味道
 domain: 研发/review
 triggers: [整洁代码, 重构, 代码坏味道, code smell, clean code, 命名规范, 函数拆分, PR 评审, code review]
-tags: [整洁代码, 重构, 代码质量, code-review, 命名, TDD, SRP, 研发]
+tags: [整洁代码, 重构, 代码质量, code-review, 命名, tdd, srp, 研发]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

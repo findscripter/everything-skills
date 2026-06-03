@@ -4,7 +4,7 @@ title: 利润表数据检索
 description: 当需要分析上市公司营收、净利润、稀释每股收益等利润表绝对值，或对比不同财年规模时使用；通过 Octagon MCP（octagon-agent）按 ticker / 记录数 / FY|Q 周期检索实时利润表并生成同比、净利率等观察；不适用于私有公司、估值倍数或资产负债表/现金流量表（用对应技能）。触发词：利润表、营收、净利润、EPS、income statement、Octagon。
 domain: 领域/fintech
 triggers: [利润表, 营收, 净利润, 稀释每股收益, EPS, income statement, Octagon, 财报数据, 净利率, 同比增长]
-tags: [fintech, 财务数据, 利润表, Octagon-MCP, 上市公司, 基本面分析]
+tags: [fintech, 财务数据, 利润表, octagon-mcp, 上市公司, 基本面分析]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

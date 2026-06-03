@@ -4,7 +4,7 @@ title: 内容哈希缓存模式（SHA-256 路径无关）
 description: 当为高成本、可重复的文件处理（PDF 解析、OCR、文本/图像抽取）加缓存、需要 --cache/--no-cache 开关、且不想改动现有纯函数时使用；用文件内容的 SHA-256 作缓存键、按 {hash}.json 落盘、以独立服务层包裹纯处理函数，产出路径无关、内容变即自动失效、损坏即视为未命中的缓存方案；不适用于必须实时最新的数据、超大缓存条目（改用流式）、或结果还依赖内容之外参数（如抽取配置）的场景；触发词：内容哈希、SHA-256、文件缓存、缓存失效、纯函数
 domain: 研发/backend
 triggers: [内容哈希, content hash, SHA-256, 文件缓存, 缓存键, cache key, 缓存失效, 自动失效, PDF 解析缓存, OCR 缓存, 文本抽取, --cache, --no-cache, 纯函数, 服务层, 路径无关]
-tags: [缓存, content-hash, sha256, file-processing, backend, 纯函数, SRP, engineering]
+tags: [缓存, content-hash, sha256, file-processing, backend, 纯函数, srp, engineering]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 财报电话会纪要分析
 description: 当需要从财报电话会（earnings call）逐字稿中提取前瞻指引、战略重点、运营挑战与供应链信号并自动生成深挖追问时使用；借助 Octagon MCP 分析指定股票代码的最新电话会纪要，产出含营收/毛利/费用/税率指引、风险因素、AI 追问与逐字稿页码引用的结构化分析；不适用于实盘交易、行情数据拉取或无 Octagon MCP/API Key 的环境；触发词：财报电话会、earnings call、前瞻指引
 domain: 领域/fintech
 triggers: [财报电话会分析, earnings call transcript, 前瞻指引 guidance, 管理层战略重点, 运营挑战 headwinds, 供应链风险, AI 生成追问, Octagon MCP]
-tags: [fintech, 财报, 电话会议, 前瞻指引, 投研, Octagon MCP, 尽调]
+tags: [fintech, 财报, 电话会议, 前瞻指引, 投研, octagon mcp, 尽调]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

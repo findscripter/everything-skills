@@ -4,7 +4,7 @@ title: 文档转数学问题规范
 description: 当需要把叙述性技术文档、论文片段或问题描述形式化为「有据可循」的数学问题规范（MPS）时使用；做零推断式抽取，产出含变量/算子/约束/目标/不确定性、每项均引证原文且对缺失项显式标注的结构化 JSON 规范；不适用于求解优化模型、写证明，或自行补全文档中未给出的方程与数值。触发词：形式化为数学、抽取数学结构、变量约束目标、转成MPS、找出缺失的形式化要素
 domain: 文书/writing
 triggers: [把问题陈述形式化为数学, 抽取论文里的数学结构, 这段规范有哪些变量约束和目标, 把应用题转成结构化MPS, 找出问题表述里缺什么, formalize into math, extract mathematical structure, document to math spec, doc2math]
-tags: [数学建模, 形式化, 问题规范, MPS, 零推断, 证据引用, JSON输出, 需求抽取, 文书写作]
+tags: [数学建模, 形式化, 问题规范, mps, 零推断, 证据引用, json输出, 需求抽取, 文书写作]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

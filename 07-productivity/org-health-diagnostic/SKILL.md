@@ -4,7 +4,7 @@ title: 组织健康度跨职能诊断
 description: 当需要评估公司整体健康度、准备董事会汇报或识别高风险职能时使用；做跨 C 级（财务/营收/产品/工程/人力/运营/安全/市场）八维红黄绿评分并产出带优先级与级联预警的健康度仪表盘；不适用于单一职能深度复盘或个人绩效评估。触发词：组织健康度、health check、健康度仪表盘
 domain: 协作/pm
 triggers: [组织健康度, 健康度诊断, health check, 健康度仪表盘, 公司健康度, 董事会汇报评估, 高风险职能识别, health dashboard, 健康度评分卡, 风险仪表盘]
-tags: [协作, pm, 组织诊断, 健康度, C级, 董事会, 风险评估, OKR, DORA, 跨职能]
+tags: [协作, pm, 组织诊断, 健康度, c级, 董事会, 风险评估, okr, dora, 跨职能]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

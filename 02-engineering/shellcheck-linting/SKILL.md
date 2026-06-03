@@ -4,7 +4,7 @@ title: ShellCheck 脚本静态检查配置
 description: 当为 shell 脚本配置静态检查、修脚本告警或在 CI/CD 接入 lint 时使用；做安装/配置 .shellcheckrc、按 SC 码定位修复、抑制误报、接 pre-commit 与 CI 并产出可复用配置与门禁脚本；不适用于非 shell 脚本或运行期测试；触发词：shellcheck、.shellcheckrc、SC2086
 domain: 研发/devops
 triggers: [shellcheck, .shellcheckrc, shell 脚本 lint / 静态检查, SC2086 / SC2181 / SC2015 等错误码, 脚本告警如何修复, CI/CD 接入 shellcheck, pre-commit 钩子检查脚本, 抑制 shellcheck 误报, shellcheck disable 注释, POSIX 可移植性检查]
-tags: [shellcheck, shell, bash, 静态分析, lint, 代码质量, CI/CD, pre-commit, POSIX, 研发, DevOps]
+tags: [shellcheck, shell, bash, 静态分析, lint, 代码质量, ci/cd, pre-commit, posix, 研发, devops]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

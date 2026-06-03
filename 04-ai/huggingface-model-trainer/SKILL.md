@@ -4,7 +4,7 @@ title: TRL 模型微调训练（Hugging Face Jobs）
 description: 当需在 Hugging Face Jobs 云端 GPU 用 TRL 微调/训练语言模型（SFT/DPO/GRPO、LoRA、GGUF 导出）时使用；做 hf_jobs() 内联脚本提交、推送 Hub 并出监控信息；不适用于本地无云端 Jobs（付费计划）的训练或纯推理部署。触发词：TRL、微调、SFT/DPO/GRPO、hf_jobs、GGUF
 domain: 智能/model-ops
 triggers: [TRL 微调, SFT/DPO/GRPO 训练, Hugging Face Jobs, hf_jobs 提交训练, LoRA 微调大模型, 导出 GGUF, 云端 GPU 训练语言模型, trl-jobs]
-tags: [机器学习, 模型训练, 微调, TRL, Hugging Face, LoRA, GGUF, LLM]
+tags: [机器学习, 模型训练, 微调, trl, hugging face, lora, gguf, llm]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

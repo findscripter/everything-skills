@@ -4,7 +4,7 @@ title: 内存取证分析
 description: 当对内存镜像（RAM dump）做事件响应或恶意软件分析、需追查注入/隐藏进程/凭据/Rootkit 时使用；做内存采集→Volatility 3 分析→提取进程、网络、注册表、文件、YARA 命中等取证产物；不适用于纯磁盘/网络流量取证、活体系统在线排查或非内存证据；触发词：内存取证、memory dump、Volatility、malfind、内存镜像
 domain: 安全/ops
 triggers: [内存取证, 内存镜像分析, memory dump, RAM dump, Volatility, vol -f, malfind, 进程注入检测, WinPmem, LiME, 内存中提取凭据, Rootkit 检测, yarascan, 蓝队应急, 事件响应取证]
-tags: [安全, ops, 数字取证, 事件响应, 恶意软件分析, DFIR, Volatility3, 内存取证, 蓝队, YARA]
+tags: [安全, ops, 数字取证, 事件响应, 恶意软件分析, dfir, volatility3, 内存取证, 蓝队, yara]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

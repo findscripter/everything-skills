@@ -4,7 +4,7 @@ title: AI/ML系统安全评估
 description: 当评估 LLM/分类器/嵌入模型及智能体的提示注入、越狱、模型反演、数据投毒、工具滥用风险时使用；用 ai_threat_scanner.py 做静态签名扫描并按访问级别/微调范围打分、映射 MITRE ATLAS、产出风险报告与护栏建议；不适用于通用应用层渗透或基础设施行为异常检测。触发词：提示注入、越狱、ATLAS、模型反演、AI安全评估
 domain: 安全/appsec
 triggers: [提示注入, prompt injection, 越狱, jailbreak, 模型反演, 数据投毒, 智能体工具滥用, MITRE ATLAS, LLM安全评估, AI安全扫描, 护栏设计, 对抗鲁棒性]
-tags: [安全, appsec, AI安全, LLM, 提示注入, MITRE-ATLAS, 护栏, 模型反演, 数据投毒]
+tags: [安全, appsec, ai安全, llm, 提示注入, mitre-atlas, 护栏, 模型反演, 数据投毒]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

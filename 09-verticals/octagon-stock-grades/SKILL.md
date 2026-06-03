@@ -4,7 +4,7 @@ title: 顶级分析师股票评级查询
 description: 当需要追踪某只上市股票的分析师/机构评级与评级变动（升级、降级、维持、首次覆盖）及机构情绪走向时使用；通过 Octagon MCP 的 octagon-agent 工具按 Ticker 拉取评级历史并解读升降级趋势、评级等级映射与机构权重；不适用于实盘下单、需要价格目标数值或离线无 MCP 取数。触发词：分析师评级、评级变动、升级降级、stock grades、机构情绪、analyst rating、octagon-agent
 domain: 领域/fintech
 triggers: [分析师评级, 评级变动, 升级降级, stock grades, 机构情绪, analyst rating, 评级历史, octagon-agent]
-tags: [fintech, 分析师评级, 评级变动, 机构情绪, 升级降级, MCP, octagon]
+tags: [fintech, 分析师评级, 评级变动, 机构情绪, 升级降级, mcp, octagon]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

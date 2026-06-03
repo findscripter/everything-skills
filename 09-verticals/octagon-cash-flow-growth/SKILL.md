@@ -4,7 +4,7 @@ title: 现金流指标同比增长分析
 description: 当需要分析上市公司经营现金流/自由现金流/净现金流的同比（YoY）增长趋势、判断现金生成质量与资本配置效率时使用；通过 Octagon MCP 的 octagon-agent 工具按 ticker 拉取多年 YoY 增长率表并输出现金流洞察（现金生成走势、FCF 与 OCF 背离、净现金流波动、盈利质量核对）；不适用于绝对值现金流量表取数、估值/DCF、实盘下单或离线无 MCP 场景；触发词：现金流增长、cash flow growth、经营现金流增长、自由现金流增长、Octagon
 domain: 领域/fintech
 triggers: [现金流增长, cash flow growth, 经营现金流增长, OCF growth, 自由现金流增长, FCF growth, 净现金流增长, Octagon MCP]
-tags: [fintech, 财务分析, 现金流, 同比增长, 自由现金流, Octagon, MCP, 盈利质量]
+tags: [fintech, 财务分析, 现金流, 同比增长, 自由现金流, octagon, mcp, 盈利质量]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

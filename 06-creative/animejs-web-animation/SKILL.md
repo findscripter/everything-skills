@@ -4,7 +4,7 @@ title: Anime.js 高性能网页动画
 description: 当用 JavaScript 编排复杂、高保真网页动画（时间线、交错、SVG 路径）时使用；产出基于 Anime.js 的可运行动画代码与编排方案；不适用于一行 CSS transition 能搞定的简单过渡或后端逻辑。触发词：Anime.js、时间线动画、stagger 交错、SVG 路径动画、落地页编排
 domain: 创意/design
 triggers: [Anime.js, animejs, 网页动画, 时间线动画, anime.timeline, stagger 交错, 交错动画, SVG 路径动画, 落地页动画编排, spring 缓动, 高保真交互动效]
-tags: [动画, 前端, Anime.js, JavaScript, SVG, 交互设计, 创意]
+tags: [动画, 前端, anime.js, javascript, svg, 交互设计, 创意]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

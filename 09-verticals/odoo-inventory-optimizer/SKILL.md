@@ -4,7 +4,7 @@ title: Odoo 库存优化
 description: 当配置/优化 Odoo 库存（计价、补货、上架、多步仓库流）时使用；做出带精确菜单路径的可执行配置方案；不适用于到岸成本、跨仓调拨复杂路由及无会计模块的社区版自动计价。触发词：Odoo 库存、补货规则、库存计价（FIFO/AVCO）、上架规则、多步仓库流
 domain: 领域/erp
 triggers: [配置 Odoo 库存, 选择 FIFO 还是 AVCO 计价, 设置最小/最大补货规则, 设计两步收货/三步发货流程, 配置上架规则把货分到指定库位, 排查负库存或计价错误]
-tags: [Odoo, ERP, 库存管理, WMS, 供应链]
+tags: [odoo, erp, 库存管理, wms, 供应链]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

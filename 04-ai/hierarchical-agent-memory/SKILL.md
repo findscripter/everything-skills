@@ -4,7 +4,7 @@ title: 分层智能体记忆：目录级上下文与省 Token
 description: 当项目有 3+ 目录、智能体每轮都重读整个工程导致输入 token 暴涨时使用；做分层 CLAUDE.md 记忆体系搭建——根级全局上下文(~200 token)+ 子目录作用域上下文(~250 token/个)+ .memory 决策/模式/收件箱层，并配上下文路由与省 token 仪表盘；不适用于跨会话向量记忆/RAG 检索(转 agent-memory-systems)或单文件小项目。触发词：go ham、CLAUDE.md、分层记忆、目录级上下文、省 token、上下文路由、ham dashboard、ham savings
 domain: 智能/agents
 triggers: [go ham, ham, 分层记忆, hierarchical memory, CLAUDE.md, 目录级上下文, scoped memory, 省 token, reduce token, 上下文路由, context routing, ham dashboard, ham savings, ham audit, ham route, .memory, 智能体记忆分层, directory-scoped context]
-tags: [智能体记忆, 上下文工程, CLAUDE.md, token 优化, 分层记忆, 上下文路由, 省成本, HAM, 目录级上下文]
+tags: [智能体记忆, 上下文工程, claude.md, token 优化, 分层记忆, 上下文路由, 省成本, ham, 目录级上下文]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

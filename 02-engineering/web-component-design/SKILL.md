@@ -4,7 +4,7 @@ title: Web 组件设计模式
 description: 当构建 React/Vue/Svelte 组件库、设计组件 API 或落地前端设计系统时使用；做组合模式选型、CSS-in-JS 方案选择与可复用组件 API 的设计落地；不适用于纯样式微调、单页面一次性 UI 或后端逻辑；触发词：组件库、设计系统、复合组件、组件 API、CSS-in-JS
 domain: 研发/frontend
 triggers: [组件库, 设计系统, 复合组件, render props, 组件 API 设计, CSS-in-JS, Tailwind, styled-components, 可复用组件, Vue 插槽, Svelte runes, forwardRef]
-tags: [前端, 组件设计, 设计系统, React, Vue, Svelte, CSS-in-JS, UI]
+tags: [前端, 组件设计, 设计系统, react, vue, svelte, css-in-js, ui]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

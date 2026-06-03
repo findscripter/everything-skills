@@ -4,7 +4,7 @@ title: 股票研究分析编排
 description: 当需要对一家上市公司做完整股票研究、撰写首次覆盖（Initiation of Coverage）报告、做尽职调查或形成带量化支撑的投资评级时使用；做法是编排 Octagon MCP 全套财务分析子技能（财报/增长/分部/估值/ESG/同业），按六阶段取数并合成机构级研究报告；不适用于实盘下单、单一财报数据抓取或不含投资观点的纯数据整理。触发词：股票研究、equity research、首次覆盖、initiation of coverage、投资评级、目标价、买入卖出、尽职调查、同业比较、ESG、Octagon
 domain: 领域/fintech
 triggers: [股票研究, equity research, 首次覆盖, initiation of coverage, 投资评级, 目标价, 买入卖出评级, 尽职调查, 同业比较, ESG 评级, Octagon MCP]
-tags: [fintech, equity-research, 投研报告, 投资评级, 估值, ESG, Octagon, MCP, 编排]
+tags: [fintech, equity-research, 投研报告, 投资评级, 估值, esg, octagon, mcp, 编排]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli, windsurf]

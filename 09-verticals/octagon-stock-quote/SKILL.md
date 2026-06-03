@@ -4,7 +4,7 @@ title: 实时股票报价
 description: 当需要查上市公司当前股价、涨跌、成交量、当日/52周区间、市值、50/200日均线时使用；通过 Octagon MCP 的 octagon-agent 按 Ticker 拉实时报价并解读区间位置与均线信号；不适用于实盘下单、毫秒级 tick 高频或离线无 MCP。触发词：实时股价、报价、52周区间、市值、移动均线、octagon-agent
 domain: 领域/fintech
 triggers: [实时股价, 股票报价, 52周区间, 市值查询, 50日均线 200日均线, 成交量, octagon-agent, AAPL 股价]
-tags: [fintech, 股票报价, 行情, 技术指标, 移动均线, MCP, octagon]
+tags: [fintech, 股票报价, 行情, 技术指标, 移动均线, mcp, octagon]
 level: 入门
 status: stable
 agents: [claude-code, cursor, gemini-cli, windsurf]

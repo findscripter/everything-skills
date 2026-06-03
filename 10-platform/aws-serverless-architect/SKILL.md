@@ -4,7 +4,7 @@ title: AWS无服务器架构设计
 description: 当为初创团队设计 AWS 架构、生成 IaC 模板、优化云成本或上 AWS 时使用；做需求收集→选型→生成 CloudFormation/CDK/Terraform 模板→成本核算→部署校验，产出可落地架构方案与基础设施代码；不适用于非 AWS 云、纯应用代码或细粒度 IAM 安全审计。触发词：无服务器架构、CloudFormation、AWS成本优化
 domain: 平台/cloud
 triggers: [设计无服务器架构, 生成CloudFormation模板, AWS成本优化, 搭建AWS CI/CD, 迁移到AWS, Lambda API Gateway DynamoDB选型, 三层架构 ECS Fargate Aurora, CDK Terraform IaC生成]
-tags: [AWS, serverless, 云架构, IaC, CloudFormation, 成本优化, Lambda, DynamoDB]
+tags: [aws, serverless, 云架构, iac, cloudformation, 成本优化, lambda, dynamodb]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

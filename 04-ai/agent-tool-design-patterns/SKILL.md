@@ -4,7 +4,7 @@ title: 智能体工具设计：可被 Agent 高效调用的工具
 description: 当为 Agent 系统设计/重构工具集、排查工具误用或优化既有工具时使用；产出无歧义的工具描述、整合后的工具清单与可恢复的错误信息；不适用于给人类开发者写的普通 API 文档、与 Agent 无关的接口设计；触发词：工具设计、tool design、MCP、工具整合、错误信息
 domain: 智能/agents
 triggers: [为 Agent 系统新建工具, 排查工具调用失败或误用, 优化既有工具集提升 Agent 表现, 从零设计工具 API, 评估第三方工具能否给 Agent 用, 统一代码库里的工具命名约定, 工具描述写得太模糊导致 Agent 乱调, MCP 工具找不到 / tool not found]
-tags: [工具设计, agent, MCP, tool-design, API, 上下文工程, 错误处理, 命名约定]
+tags: [工具设计, agent, mcp, tool-design, api, 上下文工程, 错误处理, 命名约定]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

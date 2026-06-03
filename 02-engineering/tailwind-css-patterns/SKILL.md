@@ -4,7 +4,7 @@ title: Tailwind CSS v4 模式与设计令牌
 description: 当用 Tailwind v4 搭建样式体系、定义设计令牌或写响应式/容器查询组件时使用；做 CSS-first 配置、令牌分层、深色模式与现代布局并产出可复用样式；不适用于 v3 JS 配置迁移细节、纯原生 CSS 或其他 UI 框架；触发词：tailwind、@theme、容器查询
 domain: 研发/frontend
 triggers: [Tailwind v4, @theme 设计令牌, 容器查询 @container, 深色模式, OKLCH 颜色, utility-first CSS, CSS-first 配置]
-tags: [前端, Tailwind, CSS, 设计令牌, 响应式, 深色模式]
+tags: [前端, tailwind, css, 设计令牌, 响应式, 深色模式]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: Helm Chart 打包部署
 description: 当需要为 Kubernetes 应用做 Helm Chart 打包、模板化与多环境部署时使用；产出标准目录结构、Chart.yaml/values.yaml、模板与校验打包流程；不适用于裸 K8s manifest 编写或 GitOps 自动发布编排。触发词：Helm、Chart、values.yaml、helm create、多环境部署。
 domain: 研发/devops
 triggers: [Helm, Chart, helm create, values.yaml, Chart.yaml, 打包 Kubernetes 应用, 多环境部署, helm lint, helm template, Chart 依赖]
-tags: [Helm, Kubernetes, 打包部署, 模板化, DevOps, 多环境, 研发/misc]
+tags: [helm, kubernetes, 打包部署, 模板化, devops, 多环境, 研发/misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

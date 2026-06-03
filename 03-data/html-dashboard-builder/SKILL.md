@@ -4,7 +4,7 @@ title: 交互式 HTML 仪表盘构建
 description: 当需要把查询结果、CSV 或样例数据做成可分享的单文件 HTML 仪表盘（KPI 卡片+图表+筛选+明细表）时使用；产出一个无需服务器、浏览器直接打开的自包含 .html；不适用于实时刷新看板、>10 万行数据或需后端的 BI 系统（改用专业 BI 工具）。触发词：仪表盘、dashboard、KPI、可视化报表
 domain: 数据/analysis
 triggers: [仪表盘, dashboard, KPI 看板, 可视化报表, 图表报告, Chart.js, 数据可视化, executive overview, 把查询结果做成报表]
-tags: [数据可视化, HTML, Chart.js, 仪表盘, 前端, 报表, misc]
+tags: [数据可视化, html, chart.js, 仪表盘, 前端, 报表, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

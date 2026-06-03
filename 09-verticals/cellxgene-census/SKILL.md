@@ -4,7 +4,7 @@ title: CELLxGENE Census 海量单细胞查询
 description: 当需要从 CZ CELLxGENE Census（6100 万+ 标准化人/鼠单细胞观测）按细胞类型/组织/疾病/物种检索表达数据时使用；用 cellxgene_census Python API 做元数据查询、取 AnnData、out-of-core 流式处理或 PyTorch 训练，产出可下游分析的矩阵；不适用于分析自有 scRNA-seq 数据（用 scanpy）或操作 AnnData 对象（用 anndata）。触发词：cellxgene census、单细胞图谱查询、get_anndata
 domain: 领域/science
 triggers: [cellxgene census, CELLxGENE Census 查询, 单细胞图谱表达检索, get_anndata 取细胞, open_soma 连接 census, 按细胞类型/组织/疾病查单细胞, out-of-core 流式单细胞, Census PyTorch 训练]
-tags: [science, genomics, single-cell, scRNA-seq, cellxgene, census, tiledb-soma, anndata, pytorch]
+tags: [science, genomics, single-cell, scrna-seq, cellxgene, census, tiledb-soma, anndata, pytorch]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

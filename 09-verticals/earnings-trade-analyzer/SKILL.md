@@ -4,7 +4,7 @@ title: 财报后交易五因子评分
 description: 当筛选近日财报后股票、量化排序财报跳空动量(PEAD)候选时使用；用 FMP 数据按五因子(跳空幅度/财报前趋势/量能/MA200/MA50)加权打 0-100 分并评 A/B/C/D 级，产出 JSON+Markdown 报告与可执行建议；不适用于盈利预测、基本面估值、实盘下单或非美股标的；触发词：财报后交易、跳空评分、PEAD、动量筛选
 domain: 领域/fintech
 triggers: [财报后交易分析, 财报跳空评分, post-earnings momentum 筛选, PEAD 候选股, earnings gap scoring, 找最强财报反应, 盈余动量打分]
-tags: [fintech, 美股, 量化筛选, 动量交易, 财报, PEAD, 技术分析, FMP, 评分系统]
+tags: [fintech, 美股, 量化筛选, 动量交易, 财报, pead, 技术分析, fmp, 评分系统]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

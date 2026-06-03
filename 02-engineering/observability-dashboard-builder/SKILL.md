@@ -4,7 +4,7 @@ title: 可运维监控仪表盘构建（Grafana/SigNoz）
 description: 当要把一堆指标变成运维人员真能照着排障的监控仪表盘（Grafana/SigNoz 等）时使用；做从「运维四问」出发的面板分组设计，产出含标题/单位/阈值/模板变量的可用 dashboard JSON 与质量清单；不适用于 SLO/告警体系设计或一次性临场排障。触发词：Grafana 仪表盘、SigNoz、监控面板
 domain: 研发/observability
 triggers: [Grafana 仪表盘, SigNoz, 监控面板, 监控仪表盘, dashboard, 运维仪表盘, Kafka 监控, Elasticsearch 监控, API 网关监控, 可观测面板, 指标可视化, operational dashboard, 面板分组, vanity panel, 虚荣面板]
-tags: [研发, observability, Grafana, SigNoz, 监控仪表盘, 运维, 可视化, PromQL]
+tags: [研发, observability, grafana, signoz, 监控仪表盘, 运维, 可视化, promql]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

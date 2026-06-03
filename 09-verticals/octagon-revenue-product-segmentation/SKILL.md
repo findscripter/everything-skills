@@ -4,7 +4,7 @@ title: 营收产品分部拆解
 description: 当需要分析上市公司按产品分部（产品线/业务线）的营收构成、营收集中度、分部贡献占比时使用；通过 Octagon MCP 的 octagon-agent 按 ticker 拉取产品分部营收表并输出集中度、核心驱动、增长分部、多元化诊断；不适用于私有公司、按地区/客户的拆分、利润表绝对值或估值建模（用对应技能）。触发词：产品分部、营收拆解、业务线、product segment、revenue mix、Octagon
 domain: 领域/fintech
 triggers: [产品分部, 营收拆解, 业务线营收, 营收构成, 营收集中度, product segment, revenue mix, segment revenue, Octagon, 产品组合]
-tags: [fintech, 财务分析, 营收拆解, 产品分部, 营收集中度, Octagon-MCP, 基本面分析]
+tags: [fintech, 财务分析, 营收拆解, 产品分部, 营收集中度, octagon-mcp, 基本面分析]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: UX/UI 原则评估与反模式检测
 description: 当需要拿一份界面/屏幕/用户流去对照研究支撑的 UX/UI 原则做体检、找反模式（UX 异味）并产出带严重度与修复建议的审计报告时使用；不适用于从零做视觉稿、纯前端实现或无界面描述的拍脑袋评审；触发词：UX 审计、界面体检、反模式、UX 异味、可用性评估、AI 界面审查、用户流检查
 domain: 创意/design
 triggers: [UX 审计, 界面体检, 反模式, UX 异味, 可用性评估, AI 界面审查, 用户流检查, 无障碍审计, 设计走查]
-tags: [创意, design, UX审计, 反模式, 可用性, 无障碍, AI界面, 用户流]
+tags: [创意, design, ux审计, 反模式, 可用性, 无障碍, ai界面, 用户流]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

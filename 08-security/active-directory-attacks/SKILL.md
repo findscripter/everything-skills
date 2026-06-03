@@ -4,7 +4,7 @@ title: Active Directory 攻击技术
 description: 当在授权红队/渗透测试中评估 Microsoft AD 域环境时使用；做侦察、凭据获取、Kerberos 票据攻击、横向移动到提权直至域控接管，产出枚举数据、哈希/票据与攻陷路径；不适用于未授权目标、非 AD/通用网络渗透、防御加固本身。触发词：Active Directory、Kerberoasting、DCSync、BloodHound、Golden Ticket、NTLM Relay
 domain: 安全/appsec
 triggers: [Active Directory 攻击, AD 域渗透, Kerberoasting, AS-REP Roasting, DCSync, Pass-the-Hash, Golden Ticket, Silver Ticket, BloodHound, NTLM Relay, Responder, ntlmrelayx, Impacket, Mimikatz, Rubeus, CrackMapExec, 密码喷洒, ZeroLogon, PrintNightmare, ADCS ESC1, certipy, 域控接管, krbtgt]
-tags: [安全, appsec, 红队, 渗透测试, Active-Directory, Kerberos, 凭据攻击, 横向移动, 提权]
+tags: [安全, appsec, 红队, 渗透测试, active-directory, kerberos, 凭据攻击, 横向移动, 提权]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

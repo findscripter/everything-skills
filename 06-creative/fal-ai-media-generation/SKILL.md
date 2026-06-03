@@ -4,7 +4,7 @@ title: fal.ai 多模态媒体生成（图像/视频/音频）
 description: 当需要用 AI 生成图像、视频或语音/音乐/音效时使用；经 fal.ai MCP 的 search/find/generate/result/upload 等工具运行 Nano Banana、Seedance、Kling、Veo 3、CSM-1B、ThinkSound 等模型，产出图片/视频/音频文件或 URL；不适用于未配置 fal.ai MCP（FAL_KEY）或需精细本地剪辑调色的场景，后者回退 ffmpeg/VideoDB；触发词：生成图片、文生图、做缩略图、文生视频、图生视频、文字转语音、视频配音
 domain: 创意/image
 triggers: [生成图片/文生图, 图像编辑/重绘风格, 做缩略图/海报, 文生视频, 图生视频, 文字转语音/TTS, 视频配音/视频转音频, 生成音乐/音效, 估算生成成本, 查找媒体生成模型, fal.ai, generate image]
-tags: [创意, 媒体生成, fal.ai, MCP, 文生图, 文生视频, 图生视频, TTS, 音效, Nano Banana, Seedance, Veo 3, Kling]
+tags: [创意, 媒体生成, fal.ai, mcp, 文生图, 文生视频, 图生视频, tts, 音效, nano banana, seedance, veo 3, kling]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

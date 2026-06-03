@@ -4,7 +4,7 @@ title: 协作式文档共创工作流
 description: 当用户要起草 PRD / 设计文档 / 决策文档 / RFC / 提案等较重的书面文档时使用；以"上下文收集→分节精炼→读者测试"三阶段共创，逐节头脑风暴+精修产出可经受读者检验的成稿；不适用于一句话回复、随手笔记或用户明确要自由写作的场景；触发词：写文档、起草提案、PRD、设计文档、RFC
 domain: 文书/writing
 triggers: [写一份文档/proposal/spec, 起草 PRD / 设计文档 / 决策文档 / RFC, 帮我把这个项目写成正式文档, 想系统地共创一篇较长的书面材料, 把已有共享文档改写/补全/审阅]
-tags: [文书, 文档写作, 协作工作流, PRD, 决策文档, 读者测试]
+tags: [文书, 文档写作, 协作工作流, prd, 决策文档, 读者测试]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

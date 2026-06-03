@@ -4,7 +4,7 @@ title: 事务邮件模板系统构建
 description: 当为新产品搭建事务邮件、迁移邮件服务商或重构遗留邮件模板时使用；用 React Email 组件 + 统一发送层产出含暗黑模式/i18n/防垃圾优化/UTM 追踪的生产级模板系统；不适用于纯营销群发活动、富交互 HTML 页面或站内信。触发词：事务邮件、邮件模板、React Email、Resend、邮件发送、邮件可达性
 domain: 研发/backend
 triggers: [事务邮件, 邮件模板, React Email, Resend, Postmark, SendGrid, AWS SES, MJML, 邮件预览, 邮件可达性, 暗黑模式邮件, 邮件 i18n, 防垃圾邮件, UTM 追踪, 欢迎邮件, 发票邮件, 邮件验证]
-tags: [研发, backend, 邮件, transactional-email, React-Email, 通知基础设施, i18n, 可达性]
+tags: [研发, backend, 邮件, transactional-email, react-email, 通知基础设施, i18n, 可达性]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

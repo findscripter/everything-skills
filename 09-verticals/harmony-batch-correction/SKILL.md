@@ -4,7 +4,7 @@ title: Harmony 单细胞批次效应校正
 description: 当需要整合来自不同样本/供体/测序批次的单细胞数据并消除技术性批次效应时使用；在 PCA 之后、UMAP 之前对嵌入做 Harmony 校正，产出 X_pca_harmony 校正嵌入及下游邻接图/UMAP/Leiden 聚类，不修改原始计数矩阵；不适用于需要概率式 VAE 校正(scVI)、纯图整合(BBKNN)或锚点式整合(Seurat CCA)的场景；触发词：批次校正、batch correction、Harmony、单细胞整合、harmonypy、批次效应
 domain: 领域/science
 triggers: [批次效应校正, 单细胞数据整合, Harmony, harmonypy, scRNA-seq 去批次, X_pca_harmony, harmony_integrate, RunHarmony, 多批次合并, batch correction]
-tags: [单细胞, scRNA-seq, 批次校正, Harmony, scanpy, Seurat, 生物信息学, 降维整合]
+tags: [单细胞, scrna-seq, 批次校正, harmony, scanpy, seurat, 生物信息学, 降维整合]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

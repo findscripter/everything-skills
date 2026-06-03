@@ -4,7 +4,7 @@ title: 幕僚长运营协调
 description: 当面对跨职能、需多角色决策的创始人/管理者问题时使用；做问题分诊、复杂度评分、按路由矩阵派给单角色或召开"董事会"并综合产出+记录决策；不适用于单一领域有明确答案的小问题（直接答即可）、纯执行落地、无角色协调诉求；触发词：幕僚长、分诊路由、董事会评议
 domain: 协作/pm
 triggers: [幕僚长, 分诊, 路由矩阵, 董事会评议, 多角色协调, 复杂度评分, 决策日志, 综合产出, 该问谁, 跨职能决策, chief of staff, orchestrator]
-tags: [协作, pm, 编排, 决策, C-suite, 路由, 多角色]
+tags: [协作, pm, 编排, 决策, c-suite, 路由, 多角色]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

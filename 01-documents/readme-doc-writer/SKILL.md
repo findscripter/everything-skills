@@ -4,7 +4,7 @@ title: README 文档撰写
 description: 当需要为代码仓库新建或更新 README.md 时使用；先勘探代码库与部署目标，再按固定骨架产出一份覆盖本地开发/系统原理/生产部署的可复制粘贴 README；不适用于 API 参考、教程长文或设计文档等非 README 产物；触发词：写 readme、生成项目文档、document this project
 domain: 文书/markdown
 triggers: [写 readme, 生成 readme, 创建 readme, 更新 readme, 给项目写文档, document this project, 项目文档, readme.md]
-tags: [文档, README, 技术写作, 开源, 项目说明, misc]
+tags: [文档, readme, 技术写作, 开源, 项目说明, misc]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 员工解雇合规审查
 description: 当评估「能否解雇某员工」或在终止日前审查解雇方案时使用；做高风险旗标扫描、按辖区研究终薪时限/PTO/通知、遣散与免责协议（含 OWBPA）核查，产出「结论+逐旗标+辖区清单+遣散免责+举证链+放行/暂停」备忘。不适用于替代律师做决定或凭记忆背诵法条。触发词：解雇审查、能不能开掉这个人、term review、裁员/RIF、遣散与免责
 domain: 领域/legal
 triggers: [审查一起解雇能不能进行, 能不能开掉这个人/能否合法终止, term review 解雇前合规检查, 绩效解雇/严重违纪/RIF裁员/岗位撤销, 遣散金与免责协议（release）怎么给, 40岁以上员工免责需要满足 OWBPA 吗, 终薪发放时限/未休年假折现/裁员通知（WARN）]
-tags: [legal, employment, 解雇审查, termination, 遣散, release, OWBPA, RIF, WARN, 反报复, 反歧视, 终薪]
+tags: [legal, employment, 解雇审查, termination, 遣散, release, owbpa, rif, warn, 反报复, 反歧视, 终薪]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

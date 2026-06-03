@@ -4,7 +4,7 @@ title: 利率互换曲线策略
 description: 当需要分析利率互换（IRS）曲线形态、计算互换利差、分解实际利率或挖掘曲线交易机会时使用；做按多期限定价互换、叠加国债与通胀曲线、产出曲线表/指标/DV01 中性交易建议；不适用于单笔互换估值、信用衍生品或股票/商品策略；触发词：互换曲线、swap spread、陡峭/平坦化、蝶式、实际利率分解。
 domain: 商业/finance
 triggers: [互换曲线, swap spread, 互换利差, 陡峭化, 平坦化, 蝶式交易, 实际利率分解, 2s10s, 5s30s, DV01中性, 曲线交易]
-tags: [利率策略, 固定收益, 互换, 收益率曲线, 宏观, MCP]
+tags: [利率策略, 固定收益, 互换, 收益率曲线, 宏观, mcp]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

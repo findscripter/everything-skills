@@ -4,7 +4,7 @@ title: 并购流程函与报价指引
 description: 当卖方主导的并购流程需要向买方发出流程函、报价规则或管理层会议邀请时使用；起草初步意向(IOI)指引、第二轮/最终约束性报价规则、管理层会议邀请，产出带公司抬头与修订模式的 .docx 信函；不适用于估值建模、CIM/teaser 撰写或 NDA 起草；触发词：流程函、报价指引、IOI 意向函、最终轮报价规则、管理层会议邀请
 domain: 商业/finance
 triggers: [流程函, process letter, 报价指引, bid instructions, IOI 意向函, IOI letter, 最终轮报价规则, final round letter, 管理层会议邀请, management meeting invite, 约束性报价, 竞标规则]
-tags: [商业, finance, 并购, M&A, 卖方流程, 投行, 报价规则, 文档起草]
+tags: [商业, finance, 并购, m&a, 卖方流程, 投行, 报价规则, 文档起草]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

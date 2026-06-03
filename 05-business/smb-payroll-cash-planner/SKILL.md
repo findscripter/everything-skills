@@ -4,7 +4,7 @@ title: 小微企业发薪现金筹划
 description: 当小微企业主在发薪日前要确认现金是否够发工资、需先做现金预测再决定要不要催收逾期账款时使用；做"先预测现金缺口、再排序逾期发票并草拟催款"的两段式流水线，产出 30/60/90 天现金预测+缺口判定、按金额×逾期天数×付款历史排序的催款草稿、发薪前后现金头寸预估；不适用于正式记账做账、出审计/税务结论、未经业主逐条批准就发催款或对外承诺预测；触发词：发薪、现金预测、逾期发票催收、payroll、cash flow、invoice chase
 domain: 商业/finance
 triggers: [发薪, 现金预测, 逾期发票催收, 现金缺口, payroll, cash flow forecast, invoice chase, 发薪日现金, AR催收, 付款提醒]
-tags: [商业, finance, 小微企业, 现金流, 应收账款, 发薪, 催收, QuickBooks, PayPal]
+tags: [商业, finance, 小微企业, 现金流, 应收账款, 发薪, 催收, quickbooks, paypal]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

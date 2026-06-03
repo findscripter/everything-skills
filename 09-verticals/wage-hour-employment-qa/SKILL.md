@@ -4,7 +4,7 @@ title: 工时薪酬与雇佣法问答
 description: 当问工时薪酬/雇佣法问题（豁免、加班、餐休、休假、离职结薪、欠薪回算）需按特定州/国别给出经核查引证的现行规则时使用；做辖区识别+规则核查+引证+close-call标记，必要时跑FLSA常规工资率回算脚手架，产出对话式答案。不适用于凭记忆陈述法条、替律师对疑难拍板、未核查给回算金额、做50州普查。触发词：这岗位算豁免吗、要付加班费吗、餐休、离职结薪、未休年假、欠薪怎么算、is this exempt、overtime、final pay、back pay、regular rate
 domain: 领域/legal
 triggers: [这个岗位算豁免吗, 是否要付加班费, 必须给餐休吗, 离职工资什么时候发, 要付未休年假吗, 欠薪怎么算, X 州的规则, is this exempt, do we have to pay overtime, meal/rest breaks, when is final pay due, pay out accrued PTO, back pay, FLSA regular rate, what's the rule in this state]
-tags: [legal, employment, wage-hour, FLSA, overtime, exemption, final-pay, back-pay, labor-law]
+tags: [legal, employment, wage-hour, flsa, overtime, exemption, final-pay, back-pay, labor-law]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

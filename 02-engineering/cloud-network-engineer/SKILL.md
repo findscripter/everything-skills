@@ -4,7 +4,7 @@ title: 云网络工程
 description: 当在 AWS/Azure/GCP 或多云上设计、落地与排障云网络（VPC/子网/路由、负载均衡、DNS、SSL/TLS、零信任、服务网格、CDN 与性能优化）时使用；产出网络架构、连通性与安全策略、可观测接入及排障路径；不适用于纯应用业务逻辑、传统机房物理布线或非网络域问题；触发词：云网络、VPC、负载均衡、DNS、mTLS、零信任、CDN。
 domain: 研发/devops
 triggers: [设计多云/混合云网络架构, 规划 VPC 子网与路由/对等/Transit Gateway, 配置云负载均衡与全局流量分发, DNS 解析/故障转移/geo-routing 方案, SSL/TLS 终止与证书自动化(mTLS), 落地零信任网络分段, 排查云网络连通性/延迟/丢包, CDN 与 HTTP/2/HTTP/3 性能优化]
-tags: [云网络, VPC, 负载均衡, DNS, SSL/TLS, 零信任, mTLS, CDN, 服务网格, 多云, 可观测性]
+tags: [云网络, vpc, 负载均衡, dns, ssl/tls, 零信任, mtls, cdn, 服务网格, 多云, 可观测性]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 风险化仓位计算
 description: 当要为某笔多头股票交易确定买入股数、控制单笔风险或核查组合集中度时使用；用固定分数 / ATR / 凯利三法算出风险化仓位（股数、市值、止损、约束）并产出 JSON+MD 报告；不适用于做空、期权、加密及无止损的盲目买入；触发词：仓位计算、买多少股、单笔风险、凯利公式、ATR 止损
 domain: 领域/fintech
 triggers: [仓位计算, 买多少股, position sizing, 单笔风险, 风险百分比, 凯利公式, Kelly criterion, ATR 止损, 止损距离, 组合集中度, 板块敞口, 组合热度, how many shares]
-tags: [fintech, 交易, 风险管理, 仓位管理, 凯利公式, ATR, 止损, Python]
+tags: [fintech, 交易, 风险管理, 仓位管理, 凯利公式, atr, 止损, python]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

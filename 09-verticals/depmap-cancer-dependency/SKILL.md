@@ -4,7 +4,7 @@ title: DepMap 癌症基因依赖图谱查询
 description: 当需要判定某基因在特定癌种/突变背景细胞系中是否为生存依赖、寻找合成致死或药敏生物标志物时使用；做 DepMap CRISPR(Chronos) 依赖打分、选择性依赖筛选、共必需与生物标志物分析并产出排序结果；不适用于活体动物实验、临床患者数据或非肿瘤细胞系。触发词：DepMap、基因依赖、Chronos、合成致死、CRISPR筛选、靶点验证
 domain: 领域/science
 triggers: [DepMap, 癌症基因依赖, Chronos 依赖打分, 合成致死, 共必需基因, 靶点验证, 细胞系药敏, 选择性依赖, CRISPR 敲除筛选, gene effect]
-tags: [生物信息, 癌症基因组学, DepMap, CRISPR, 靶点发现, 合成致死, Python, 数据分析]
+tags: [生物信息, 癌症基因组学, depmap, crispr, 靶点发现, 合成致死, python, 数据分析]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

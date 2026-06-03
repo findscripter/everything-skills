@@ -4,7 +4,7 @@ title: 实时客服聊天组件系统
 description: 当需要在应用内搭建用户端浮动客服窗口 + 管理端工作台的实时聊天系统时使用；做数据模型、REST 接口、WebSocket 频道、前端组件、延时邮件通知的端到端落地方案与代码；不适用于群聊/多人房间、AI 自动应答机器人、纯邮件工单系统。触发词：在线客服、实时聊天组件、客服工作台
 domain: 研发/architecture
 triggers: [在线客服, 实时聊天组件, 客服工作台, 应用内支持聊天, 浮动聊天窗口, WebSocket 消息推送, 用户与管理员实时消息, live chat widget]
-tags: [实时通信, WebSocket, 客服系统, 全栈, 前端组件, 邮件通知]
+tags: [实时通信, websocket, 客服系统, 全栈, 前端组件, 邮件通知]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

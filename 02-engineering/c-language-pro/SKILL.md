@@ -4,7 +4,7 @@ title: C 语言高效编程与内存管理
 description: 当用 C99/C11 写系统/嵌入式/高性能代码，或攻克内存管理、指针运算、POSIX 系统调用与 pthread 并发时使用；产出所有权清晰、零泄漏的 C 代码及 Makefile(-Wall -Wextra)、头文件守卫、单测与 Valgrind 干净输出；不适用于 C++/Rust、纯语法提问或无 C 工具链场景；触发词：C、malloc、free、指针、内存泄漏、段错误、Valgrind、pthread、嵌入式
 domain: 研发/backend
 triggers: [C 语言, C99, C11, malloc, free, 内存泄漏, 内存池, 指针运算, 段错误, segfault, Valgrind, gdb, pthread, POSIX 系统调用, 嵌入式, include 守卫, clang-tidy, Makefile]
-tags: [C, 研发, 内存管理, 指针, 系统编程, 嵌入式, 并发, 性能优化, POSIX]
+tags: [c, 研发, 内存管理, 指针, 系统编程, 嵌入式, 并发, 性能优化, posix]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: 法律咨询应答（模板+升级判定）
 description: 当需要用既有模板回复常见法律咨询（数据主体请求 DSR、诉讼保全通知、供应商法律问题、业务团队 NDA 请求、隐私问询、传票/法律程序、保险报案）时使用；先跑升级触发器自检，无触发则套模板填具体事实/管辖/期限生成「待审阅草稿」+ 跟进事项，命中触发则停手、说明触发原因、给升级路径与「DRAFT-FOR COUNSEL REVIEW ONLY」草稿；不适用于提供法律意见、直接外发定稿、传票/监管/诉讼等必须律师定夺的场景。触发词：法律咨询回复、模板回复、DSR应答、保全通知、NDA请求、传票应答、升级判定
 domain: 领域/legal
 triggers: [法律咨询回复, 模板回复, DSR应答, 数据主体请求, 诉讼保全通知, 供应商法律问题, NDA请求, 隐私问询, 传票应答, 保险报案, 升级判定, legal response, data subject request, litigation hold notice]
-tags: [法律, 合规, 模板, 数据主体请求, 诉讼保全, NDA, 隐私, 传票, 升级判定]
+tags: [法律, 合规, 模板, 数据主体请求, 诉讼保全, nda, 隐私, 传票, 升级判定]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

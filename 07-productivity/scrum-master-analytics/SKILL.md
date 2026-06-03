@@ -4,7 +4,7 @@ title: Scrum 敏捷教练与冲刺数据分析
 description: 当需要做冲刺规划、复盘、团队健康度评估或基于 Jira 导出的 sprint JSON 做速度预测时使用；用三个 Python 脚本产出蒙特卡洛速度预测、6 维健康度评分与复盘行动项追踪报告；不适用于具体 Jira 配置/JQL/工作流搭建（交 jira-expert），也不写用户故事/待办（交 agile-product-owner）。触发词：Scrum、冲刺、速度、燃尽图、复盘、健康度
 domain: 协作/knowledge
 triggers: [Scrum, 敏捷教练, 冲刺规划, Sprint, 速度预测, 蒙特卡洛, 燃尽图, 复盘, Retrospective, 团队健康度, 故事点, 阻塞, Standup 站会, 待办梳理, Velocity]
-tags: [协作, 项目管理, 敏捷, Scrum, 冲刺, 数据分析, 蒙特卡洛, 复盘, 团队健康度, 速度预测]
+tags: [协作, 项目管理, 敏捷, scrum, 冲刺, 数据分析, 蒙特卡洛, 复盘, 团队健康度, 速度预测]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

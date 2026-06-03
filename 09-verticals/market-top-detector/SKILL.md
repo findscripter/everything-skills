@@ -4,7 +4,7 @@ title: 市场顶部概率检测
 description: 当判断美股是否临近顶部、是否该减仓时使用；做 6 维量化打分（0-100）输出顶部概率与风险区间及行动建议；不适用于长周期泡沫评估或个股选股；触发词：市场顶部、是否减仓、派发日、防御板块轮动、领涨股走弱、调整概率
 domain: 领域/fintech
 triggers: [市场顶部, 天井, 是否减仓, 派发日, distribution day, 防御板块轮动, 领涨股走弱, 调整概率, 市场风险, 利确时机]
-tags: [量化, 择时, 风险管理, 美股, 市场广度, 情绪指标, O'Neil, Minervini]
+tags: [量化, 择时, 风险管理, 美股, 市场广度, 情绪指标, o'neil, minervini]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

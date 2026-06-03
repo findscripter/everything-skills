@@ -4,7 +4,7 @@ title: LP 对账单与基金 NAV 勾稽
 description: 当 LP 资本账户对账单分发前、需以期末 NAV 包为准独立复核时使用；做逐行重算 LP 资本账户、按 0.01 容差比对并产出每行通过/失败标记与差异归因清单；不适用于直接改写对账单、生成 NAV 包本身或撰写 LP 报告。触发词：NAV勾稽、对账单复核、资本账户、LP对账、tie-out
 domain: 领域/fintech
 triggers: [NAV勾稽, 对账单复核, 资本账户重算, LP对账, tie-out, 瀑布分配核对, 基金NAV核对]
-tags: [fintech, 私募基金, 对账, 审计, NAV, LP]
+tags: [fintech, 私募基金, 对账, 审计, nav, lp]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

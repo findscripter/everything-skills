@@ -4,7 +4,7 @@ title: 财务同比增长指标
 description: 当需要分析上市公司收入/利润/EPS/自由现金流的同比（YoY）增长趋势、横跨利润表与现金流量表诊断经营表现时使用；通过 Octagon MCP 的 octagon-agent 工具按 ticker 拉取多年 YoY 增长率表并输出增长洞察（峰值年、盈利与现金流背离、利润率扩张、回购信号）；不适用于绝对值财报建模、估值/DCF、单季实时行情或非美股无覆盖标的；触发词：同比增长、YoY growth、Octagon、财务指标趋势
 domain: 领域/fintech
 triggers: [同比增长, YoY growth, Octagon MCP, octagon-agent, 营收/净利润增长率, EPS 增长, 自由现金流增长, 财务指标趋势分析]
-tags: [fintech, 财务分析, 同比增长, Octagon, MCP, 基本面, 利润表, 现金流]
+tags: [fintech, 财务分析, 同比增长, octagon, mcp, 基本面, 利润表, 现金流]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: VideoDB 视频感知索引与编辑
 description: 当需要对视频/音频/直播/桌面会话做感知、索引、按时间戳检索证据、剪辑时间轴、加字幕叠层、转码改比例或生成媒体时使用；用 VideoDB Python SDK 摄入文件/URL/RTSP，建口语与视觉索引，search 返回带时间戳的可播片段，Timeline 编排导出 HLS 流；不适用于无 API key、转场/变速/裁切调色等需本地工具的操作；触发词：视频检索、加字幕、剪辑、转码、改竖屏、RTSP 直播告警、桌面录制
 domain: 创意/av
 triggers: [视频检索/按时间戳找镜头, 给视频加字幕/烧录字幕, 剪辑时间轴/拼接片段, 转码改分辨率/改比例, 改竖屏/9:16/抖音, RTSP 直播监控告警, 桌面录屏并总结, 建视觉/口语索引, 视频转文字/转录, 生成图像/配音/配乐, VideoDB, video search]
-tags: [创意, 视听, VideoDB, 视频索引, 视频检索, 字幕, 转码, Timeline, RTSP, 直播, 桌面录制, 媒体生成, python]
+tags: [创意, 视听, videodb, 视频索引, 视频检索, 字幕, 转码, timeline, rtsp, 直播, 桌面录制, 媒体生成, python]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

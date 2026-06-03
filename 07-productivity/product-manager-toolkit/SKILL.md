@@ -4,7 +4,7 @@ title: 产品经理工具箱（RICE/PRD）
 description: 当需要做特性优先级排序、用户访谈综合或撰写 PRD 时使用；用 RICE 打分脚本与访谈分析脚本产出优先级清单/季度路线图/洞察报告，并套用 PRD 模板与发现框架；不适用于纯工程实现、UI 视觉设计或营销投放执行。触发词：RICE、优先级、PRD、用户访谈、路线图
 domain: 协作/pm
 triggers: [RICE 打分, 特性优先级排序, 写 PRD / 需求文档, 用户访谈分析与综合, 季度路线图规划, MoSCoW/ICE/Kano 取舍, Jobs to Be Done 拆解, North Star/HEART 指标设计]
-tags: [产品管理, 优先级排序, RICE, PRD, 用户访谈, 产品发现, GTM, 协作]
+tags: [产品管理, 优先级排序, rice, prd, 用户访谈, 产品发现, gtm, 协作]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

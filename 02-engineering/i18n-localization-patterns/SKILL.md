@@ -4,7 +4,7 @@ title: 国际化与本地化模式
 description: 当为面向多语言/多地区的 Web、SaaS 产品做国际化（i18n）与本地化（L10n），需检测硬编码文案、管理翻译键与 locale 文件、支持 RTL 时使用；做翻译键抽取、locale 文件结构设计、完整性校验与 RTL 适配，产出可上线的翻译方案；不适用于单语言内部工具或个人项目。触发词：i18n、本地化、RTL
 domain: 研发/frontend
 triggers: [i18n, 国际化, 本地化, L10n, 翻译, locale, 多语言, RTL, right-to-left, react-i18next, next-intl, gettext, 硬编码文案, pluralization, ICU]
-tags: [i18n, 本地化, 国际化, 前端, 翻译管理, RTL, 研发, misc]
+tags: [i18n, 本地化, 国际化, 前端, 翻译管理, rtl, 研发, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

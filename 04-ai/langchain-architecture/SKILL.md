@@ -4,7 +4,7 @@ title: LangChain 架构设计
 description: 当用 LangChain 构建带工具、记忆、检索的 LLM 应用与 Agent 时使用；做架构选型与可运行骨架（Agent/Chain/Memory/RAG/回调）并给生产清单；不适用于非 LangChain 的纯 Prompt 调用或与该框架无关的任务；触发词：LangChain、Agent、Chain、记忆、RAG、检索、回调
 domain: 智能/agents
 triggers: [LangChain, Agent 工具调用, Chain 链式编排, 对话记忆 Memory, RAG 检索问答, 向量库检索, 回调监控 callbacks, 多步 LLM 工作流]
-tags: [智能体, agents, LangChain, RAG, 记忆, 工具调用, LLM 工程]
+tags: [智能体, agents, langchain, rag, 记忆, 工具调用, llm 工程]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

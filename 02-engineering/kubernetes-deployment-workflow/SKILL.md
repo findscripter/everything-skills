@@ -4,7 +4,7 @@ title: Kubernetes 部署工作流
 description: 当需要把应用端到端部署到 Kubernetes 生产环境、串联容器化→清单→Helm→服务网格→安全→可观测→GitOps 交付时使用；产出分阶段的部署编排方案与质量门禁清单；不适用于单条 K8s 清单微调、纯本地容器调试或非 K8s 部署；触发词：Kubernetes 部署、K8s 上线、Helm 发布、服务网格、GitOps、生产就绪
 domain: 研发/devops
 triggers: [把应用部署到 Kubernetes, K8s 生产上线编排, Helm Chart 发布流程, 服务网格 mTLS 与流量治理, K8s 安全加固（RBAC/NetworkPolicy）, GitOps 持续部署, 生产就绪 K8s 配置, 容器化到上线的完整链路]
-tags: [Kubernetes, 部署工作流, Helm, 服务网格, GitOps, 可观测性, DevOps, 生产就绪]
+tags: [kubernetes, 部署工作流, helm, 服务网格, gitops, 可观测性, devops, 生产就绪]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

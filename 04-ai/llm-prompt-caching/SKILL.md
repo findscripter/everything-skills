@@ -4,7 +4,7 @@ title: LLM 提示词缓存策略
 description: 当为 LLM 应用降本提速、复用稳定前缀或重复响应时使用；做提示词缓存/响应缓存/CAG 的选型与落地，产出可缓存的提示结构、失效策略与命中率监控方案；不适用于 CDN、数据库查询、静态资源缓存。触发词：提示词缓存、prompt caching、cache_control、CAG、响应缓存、cache 命中率
 domain: 智能/prompting
 triggers: [提示词缓存, prompt caching, cache prompt, cache_control, ephemeral 缓存, 响应缓存, response cache, CAG, cache augmented generation, 缓存命中率, cache_read_input_tokens, 降低 LLM 成本, Redis 缓存 LLM, 语义缓存, 缓存失效, TTL]
-tags: [LLM, 缓存, 性能优化, 成本优化, Anthropic, 提示工程, CAG, Redis]
+tags: [llm, 缓存, 性能优化, 成本优化, anthropic, 提示工程, cag, redis]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

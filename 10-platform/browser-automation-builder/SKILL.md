@@ -4,7 +4,7 @@ title: 浏览器自动化与抓取
 description: 当需要用 Playwright 抓取网页数据、自动填表登录、截图存档、提取结构化数据或搭建可重复浏览器工作流时使用；产出含选择器策略、分页/会话/反检测/重试模式的 Python 自动化脚本与 JSON/CSV/JSONL 数据；不适用于写 E2E 测试（用 playwright-pro）、纯 API 测试或性能压测；触发词：网页抓取、自动填表、截图存PDF、反爬反检测、SPA动态内容、会话复用
 domain: 平台/browser
 triggers: [网页抓取, 爬虫, scrape, 自动填表, 表单自动化, Playwright, 浏览器自动化, 截图, 网页转PDF, 结构化数据提取, 分页抓取, 反检测, 反爬, 会话复用, cookie保存, SPA动态内容, 登录自动化, 下载报表]
-tags: [浏览器自动化, Playwright, 网页抓取, 数据提取, 表单自动化, 反检测, 会话管理, Python]
+tags: [浏览器自动化, playwright, 网页抓取, 数据提取, 表单自动化, 反检测, 会话管理, python]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

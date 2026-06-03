@@ -4,7 +4,7 @@ title: 预测市场事件研究
 description: 当需要对 Kalshi 预测市场某个事件做深度研究、对比市场价隐含概率与模型概率、定位错误定价或盘前研判催化剂时使用；做法是调用 Octagon MCP 的 octagon-prediction-markets-agent 生成结构化研报（市场概览/价格驱动/催化剂日历/历史结算/合约盘口/交易建议），并用 prediction_markets_history 取历史数据；不适用于实盘下单撮合、Polymarket（暂未支持）或离线无 MCP。触发词：预测市场、prediction market、Kalshi、错误定价、mispricing、事件概率、催化剂、Octagon
 domain: 领域/fintech
 triggers: [预测市场, prediction market, Kalshi, 错误定价, mispricing, 事件概率, 市场隐含概率, 催化剂日历, octagon-prediction-markets-agent, prediction_markets_history]
-tags: [fintech, 预测市场, Kalshi, 事件研究, 错误定价, 概率建模, MCP, octagon]
+tags: [fintech, 预测市场, kalshi, 事件研究, 错误定价, 概率建模, mcp, octagon]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

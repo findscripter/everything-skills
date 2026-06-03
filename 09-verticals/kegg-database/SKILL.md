@@ -4,7 +4,7 @@ title: KEGG 通路与化合物数据库
 description: 当需查 KEGG 通路/基因/化合物/药物、在 KEGG↔NCBI/UniProt/PubChem 转 ID、查药物相互作用或取通路富集背景时使用；requests 直连 REST API（七操作）产出基因集与 FASTA/MOL/PNG。不适用于多库 Python 聚合（用 gget-genomic-databases）。触发词：KEGG、通路、pathway、ID 转换、富集
 domain: 领域/science
 triggers: [KEGG, pathway, 通路, 代谢通路, hsa, KO orthology, ID 转换, conv, link, ddi, 药物相互作用, 富集背景, gene-set, 化合物, reaction, enzyme, KGML]
-tags: [science, 生物信息学, 通路分析, KEGG, REST-API, 基因, 化合物, ID 转换]
+tags: [science, 生物信息学, 通路分析, kegg, rest-api, 基因, 化合物, id 转换]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

@@ -4,7 +4,7 @@ title: DeFi AMM 智能合约安全审计
 description: 当审计 Uniswap/Curve/Balancer 类自动做市商（AMM）合约的 swap/mint/burn 逻辑时使用；按闪电贷、价格操纵、滑点、重入、整数运算、访问控制逐项审查并产出分级漏洞清单与加固建议；不适用于非 EVM 链、链下后端或非 AMM 的通用合约审计。触发词：AMM 审计、闪电贷攻击、价格操纵、三明治、滑点保护、重入
 domain: 安全/appsec
 triggers: [AMM 安全审计, 闪电贷攻击, flash loan, 价格操纵, 三明治攻击, sandwich, 滑点保护, slippage, 重入攻击, reentrancy, 预言机操纵, 恒定乘积, x*y=k, swap/mint/burn 审计]
-tags: [安全, DeFi, AMM, 智能合约, Solidity, 审计, 闪电贷, 价格操纵, Web3, appsec]
+tags: [安全, defi, amm, 智能合约, solidity, 审计, 闪电贷, 价格操纵, web3, appsec]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

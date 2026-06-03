@@ -4,7 +4,7 @@ title: JS/TS 测试策略
 description: 当为 JavaScript/TypeScript 项目搭建测试体系、写单元/集成/E2E 测试或 mock 依赖时使用；用 Jest/Vitest + Testing Library 按 AAA 模式产出可执行测试、覆盖率配置与 fixture 工厂；不适用于非 JS/TS 语言或纯环境验证、专家评审替代。触发词：单元测试、Vitest/Jest、mock、覆盖率、Testing Library
 domain: 研发/testing
 triggers: [写单元测试, 搭建测试框架, Vitest 配置, Jest 配置, mock 依赖, 测试覆盖率, React 组件测试, API 集成测试, TDD, 测试 Hook]
-tags: [测试, JavaScript, TypeScript, Vitest, Jest, Testing-Library, 单元测试, 集成测试, mock, 覆盖率]
+tags: [测试, javascript, typescript, vitest, jest, testing-library, 单元测试, 集成测试, mock, 覆盖率]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

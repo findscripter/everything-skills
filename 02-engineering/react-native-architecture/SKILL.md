@@ -4,7 +4,7 @@ title: React Native 架构模式
 description: 当用 Expo / React Native 起新项目或落地导航、状态管理、原生模块、离线优先架构与移动端性能/发布时使用；做项目结构、Expo Router、AuthProvider、React Query 离线缓存、原生能力封装、FlashList 优化与 EAS 构建发布的工程化方案产出；不适用于纯 Web 前端、Flutter/原生 iOS/Android 单端开发或与移动架构无关任务；触发词：React Native、Expo、Expo Router、EAS、离线优先、FlashList
 domain: 研发/mobile
 triggers: [React Native, Expo, Expo Router, EAS Build, 离线优先, FlashList, React Query 离线缓存, 原生模块, 推送通知, 生物识别, 移动端性能优化, OTA 更新]
-tags: [React Native, Expo, 移动开发, Expo Router, 状态管理, 离线优先, EAS, 性能优化, TypeScript]
+tags: [react native, expo, 移动开发, expo router, 状态管理, 离线优先, eas, 性能优化, typescript]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

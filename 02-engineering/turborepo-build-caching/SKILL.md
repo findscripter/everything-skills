@@ -4,7 +4,7 @@ title: Turborepo 缓存：Monorepo 本地与远程构建加速
 description: 当在 monorepo 中配置 Turborepo、优化构建流水线或排查缓存未命中时使用；做产出 turbo.json 流水线/远程缓存接入/过滤构建命令与 CI 配置；不适用于非 Turborepo 的构建工具或与缓存无关的任务；触发词：turborepo、turbo.json、remote cache
 domain: 研发/devops
 triggers: [配置 Turborepo, 优化 monorepo 构建, turbo.json 流水线, Turborepo 远程缓存, 排查缓存未命中, CI 只构建变更包, Vercel remote cache, 自建缓存服务器, turbo --filter]
-tags: [turborepo, monorepo, 构建缓存, remote-cache, CI/CD, pipeline, 研发, misc]
+tags: [turborepo, monorepo, 构建缓存, remote-cache, ci/cd, pipeline, 研发, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

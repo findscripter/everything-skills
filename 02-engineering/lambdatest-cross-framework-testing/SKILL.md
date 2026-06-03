@@ -4,7 +4,7 @@ title: LambdaTest 多框架测试自动化
 description: 当需要为 46 个主流测试框架（Selenium/Playwright/Cypress/Jest/pytest/Appium 等）跨 15+ 语言编写、脚手架、迁移或在 LambdaTest 云端跑自动化测试时使用；做按框架+语言选对工程结构/依赖/Runner 命令，配置本地或云端（RemoteWebDriver capabilities、LT_USERNAME/LT_ACCESS_KEY 走环境变量）并接入 CI/CD，产出生产级测试代码与流水线；不适用于纯手工探索测试、无回归价值的一次性脚本或缺少 LambdaTest 账号的云端场景；触发词：lambdatest、跨框架测试、selenium、playwright、appium、cucumber、框架迁移、云端测试
 domain: 研发/testing
 triggers: [lambdatest, 跨框架测试, test automation, selenium, playwright, cypress, appium, pytest, jest, cucumber, bdd 测试, 框架迁移, selenium 迁移 playwright, 云端测试, RemoteWebDriver, 测试脚手架, scaffold tests]
-tags: [测试, test-automation, LambdaTest, E2E, 单元测试, 移动测试, BDD, selenium, playwright, appium, 框架迁移, CI/CD, 研发, QA]
+tags: [测试, test-automation, lambdatest, e2e, 单元测试, 移动测试, bdd, selenium, playwright, appium, 框架迁移, ci/cd, 研发, qa]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

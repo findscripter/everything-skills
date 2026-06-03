@@ -4,7 +4,7 @@ title: 网页微交互与设计细节灵感
 description: 当为已完成功能做最后打磨、想把"功能性/平庸"界面提升为"有惊喜感/高级感"时使用；做法是定位界面中无聊的标准组件，借鉴优秀微交互模式并适配品牌后用 CSS/Anime.js/Framer Motion 实现 60fps+ 的精致交互细节；不适用于核心功能尚未跑通、性能/可访问性优先、或微交互会妨碍可用性的场景。触发词：微交互、悬停动效、彩蛋。
 domain: 创意/design
 triggers: [微交互, 悬停动效, 彩蛋, wow 效果, 加载动画, 滚动动效, 交互细节打磨, 高级感 UI, magic 设计, micro-interaction, design spells]
-tags: [前端, UI/UX, 微交互, 动效, 设计细节, CSS动画, 用户体验]
+tags: [前端, ui/ux, 微交互, 动效, 设计细节, css动画, 用户体验]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

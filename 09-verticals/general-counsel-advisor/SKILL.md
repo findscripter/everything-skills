@@ -4,7 +4,7 @@ title: 总法律顾问（合同/IP/条款）
 description: 当审查合同/条款清单、判断何时请外部律师、制定 IP 策略或评估合规暴露（HIPAA/GDPR/FDA/金融）时使用；做合同风险扫描、条款清单创始人友好度评分与监管触发映射，产出「结论+风险+反提案+待律师确认项」。不适用于替代持牌律师出具正式法律意见。触发词：合同审查、条款清单（term sheet）、IP 归属、监管暴露
 domain: 领域/legal
 triggers: [审查这份合同/MSA/SaaS/NDA/DPA/雇佣协议, 收到一份 term sheet 条款清单想评估, 判断什么时候该请外部律师, 制定 IP/发明归属/开源合规策略, 评估 HIPAA/GDPR/CCPA/FDA/金融监管暴露, 清算优先权/反稀释/期权池怎么看]
-tags: [legal, general-counsel, 合同审查, term-sheet, IP策略, 监管合规, startup, C-level]
+tags: [legal, general-counsel, 合同审查, term-sheet, ip策略, 监管合规, startup, c-level]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

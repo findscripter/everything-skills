@@ -4,7 +4,7 @@ title: 中文 AI 味检测与降痕改写
 description: 当需要给中文文本去 AI 味、降 AIGC、去除 AI 痕迹、论文降重或转换写作风格时使用；先检测 AI 标记再做最小必要改写并产出更自然的中文及改写说明；不适用于英文文本、内容真伪核验或凭空编造引用数据；触发词：去AI味、降AIGC、去除AI痕迹、论文降重、知网/维普检测、改成人话。
 domain: 文书/writing
 triggers: [去AI味, 降AIGC, 去除AI痕迹, 让文字更自然, 改成人话, 降低AI率, 论文降重, 知网检测, 维普检测, 万方检测, 改成小红书风格, 改成知乎风格]
-tags: [中文写作, AI味检测, AIGC降痕, 论文降重, 文风转换, 文本改写]
+tags: [中文写作, ai味检测, aigc降痕, 论文降重, 文风转换, 文本改写]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

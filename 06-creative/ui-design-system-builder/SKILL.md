@@ -4,7 +4,7 @@ title: UI 设计系统与设计令牌
 description: 当需要从品牌色生成完整设计令牌、构建组件体系或做研发交接时使用；产出 design token（CSS/SCSS/JSON）、色阶/字阶/8pt 栅格与交接清单；不适用于单页视觉稿、品牌 logo 设计或前端业务逻辑实现；触发词：设计令牌、设计系统、design token
 domain: 创意/design
 triggers: [生成设计令牌, design token, 设计系统, 色板/色阶生成, 字号阶梯/字阶, 8pt 栅格/间距系统, 导出 CSS 变量, 导出 SCSS 令牌, 组件体系/原子设计, 响应式断点, 流体字号 clamp, WCAG 对比度, 研发交接 handoff, Tailwind/styled-components 接入]
-tags: [创意, design, 设计系统, design-token, 组件库, 响应式, 无障碍, WCAG, 研发交接]
+tags: [创意, design, 设计系统, design-token, 组件库, 响应式, 无障碍, wcag, 研发交接]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

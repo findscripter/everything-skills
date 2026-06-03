@@ -4,7 +4,7 @@ title: SEC S-1 招股书与 IPO 分析
 description: 当需要从拟 IPO 公司 SEC S-1 注册声明（招股书）提取商业模式、风险因素、募资用途、资本结构与主要股东时使用；经 Octagon MCP 的 octagon-agent 提示拉取并产出结构化 S-1 解读与 IPO 评估框架；不适用于无 Octagon MCP、非美股 SEC、需逐字原文/投资建议或实盘下单；触发词：S-1、招股书、IPO 分析、募资用途、资本结构、主要股东
 domain: 领域/fintech
 triggers: [S-1, S-1 招股书, IPO 分析, 注册声明, 募资用途, use of proceeds, 资本结构 cap table, 主要股东, 锁定期 lock-up, octagon-agent, pre-IPO 研究]
-tags: [fintech, SEC, S-1, IPO, 招股书, 募资用途, 资本结构, 主要股东, Octagon, MCP, pre-IPO, 投资研究]
+tags: [fintech, sec, s-1, ipo, 招股书, 募资用途, 资本结构, 主要股东, octagon, mcp, pre-ipo, 投资研究]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

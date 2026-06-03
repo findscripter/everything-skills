@@ -4,7 +4,7 @@ title: mTLS 零信任配置
 description: 当为服务网格落地零信任、双向认证的服务间通信，或排查 TLS 握手与证书轮换问题时使用；做 Istio/Linkerd mTLS 策略、cert-manager/SPIFFE 证书签发与轮换、PeerAuthentication/DestinationRule 配置并验证产出；不适用于面向公网用户的单向 TLS、应用层鉴权或与 mTLS 无关的网络任务。触发词：mTLS、零信任、PeerAuthentication、证书轮换、SPIFFE、Istio、Linkerd
 domain: 安全/ops
 triggers: [mTLS, 双向 TLS, 零信任, zero-trust, PeerAuthentication, DestinationRule, 证书轮换, cert-manager, SPIFFE, SPIRE, Istio, Linkerd, TLS 握手, 服务网格 mTLS, STRICT 模式]
-tags: [mTLS, 零信任, 服务网格, Istio, Linkerd, 证书管理, SPIFFE, 安全, ops]
+tags: [mtls, 零信任, 服务网格, istio, linkerd, 证书管理, spiffe, 安全, ops]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

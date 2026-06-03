@@ -4,7 +4,7 @@ title: 表单转化率优化（lead-form-cro）
 description: 当优化非注册类表单（线索/留资、联系、Demo 申请、申请、调研、报价、结账表单）的完成率时使用；做字段审计与重设计，产出 问题/影响/修复/优先级 审计表、必填可选字段清单、字段顺序与布局规范、3 选 1 提交按钮文案、A/B 测试假设；不适用于账号注册/试用注册表单（用 signup-flow-cro）或弹窗内表单（用 popup-cro）。触发词：表单转化、留资表单、表单字段、完成率、表单摩擦
 domain: 商业/growth
 triggers: [表单转化率优化, 留资表单不转化, 表单字段太多, 联系表单优化, Demo 申请表单, 表单完成率低, 表单摩擦/弃填, 线索质量差但有量, 移动端表单转化差, 7 个以上字段长表单]
-tags: [商业, growth, 转化率优化, CRO, 表单, 留资, A/B测试, 线索获取, 用户体验, 移动端优化]
+tags: [商业, growth, 转化率优化, cro, 表单, 留资, a/b测试, 线索获取, 用户体验, 移动端优化]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

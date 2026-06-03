@@ -4,7 +4,7 @@ title: EMDB 冷冻电镜密度图查询
 description: 当需要按关键词检索 EMDB 冷冻电镜/电子断层密度图、取分辨率/方法/物种等元数据、找拟合 PDB 原子模型、推导 .map.gz 下载链接或抽取引用时使用；用 requests 直连 Entry REST API + EBI Search WS，产出元数据、map 下载 URL、拟合 PDB ID 与 DOI/PMID。不适用于实验原子坐标（用 pdb-database 思路或 RCSB）或 AI 预测结构（用 alphafold-database-access）。触发词：EMDB、cryo-EM、密度图、EMD-XXXXX、EBI Search
 domain: 领域/science
 triggers: [EMDB, cryo-EM, 冷冻电镜, 密度图, EMD-XXXXX, EBI Search, 拟合 PDB, 分辨率, map.gz, 电子断层, structure_determination, supramolecule]
-tags: [science, 结构生物学, 冷冻电镜, EMDB, REST-API, 数据库查询, 密度图]
+tags: [science, 结构生物学, 冷冻电镜, emdb, rest-api, 数据库查询, 密度图]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

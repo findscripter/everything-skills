@@ -4,7 +4,7 @@ title: 工业野兽派遥测 UI
 description: 当需要构建野兽派/工业风/瑞士印刷/CRT 终端/战术遥测类高密度数据界面（仪表盘、指挥中心、作品集、编辑型页面）时使用；用刚性 CSS Grid、极端字号反差、纯功能配色与模拟模拟信号劣化（半调、扫描线、抖动）产出原始机械质感的前端代码与视觉规范；不适用于消费级温暖品牌、无障碍敏感流程，也不可在同一界面混用明色印刷与暗色遥测两套基底。触发词：野兽派、brutalist、遥测 UI、CRT 终端、瑞士印刷
 domain: 创意/design
 triggers: [野兽派, brutalist, 工业风 UI, 瑞士印刷, CRT 终端, 扫描线, 战术遥测, telemetry HUD, 等宽字体仪表盘, 半调抖动, 1-bit dithering, 高密度数据界面, ASCII 框线, 指挥中心 UI]
-tags: [创意/design, 前端, UI设计, 野兽派, 瑞士印刷, CRT, 遥测, CSS Grid]
+tags: [创意/design, 前端, ui设计, 野兽派, 瑞士印刷, crt, 遥测, css grid]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

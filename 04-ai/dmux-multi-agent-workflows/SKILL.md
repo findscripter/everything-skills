@@ -4,7 +4,7 @@ title: dmux 多 Agent 并行编排（tmux 面板）
 description: 当需要在 tmux 面板里并行跑多个 AI Agent 会话、跨 Claude Code/Codex/OpenCode 等 harness 分而治之时使用；用 dmux 按 n 开面板派任务、按 m 合并产出，配 git worktree 隔离冲突文件、面板数控制在 5-6 以内；不适用于任务彼此依赖输出、需 Agent 间实时通信、或单会话内编程式并行（改用 Task 工具）的场景；触发词：dmux、并行跑 Agent、多 Agent、split this work、tmux 面板编排
 domain: 智能/agents
 triggers: [用 dmux 编排, 并行跑多个 Agent, split this work / 拆分并行, 多 Agent 工作流, tmux 面板管理 Agent, 跨 Claude Code 和 Codex 协作, research 和 implement 分两条轨, test 与 fix 双面板循环, 并行代码评审多视角, git worktree 隔离每个面板]
-tags: [多智能体, 并行编排, dmux, tmux, git-worktree, 跨harness, Claude-Code, Codex, divide-and-conquer]
+tags: [多智能体, 并行编排, dmux, tmux, git-worktree, 跨harness, claude-code, codex, divide-and-conquer]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

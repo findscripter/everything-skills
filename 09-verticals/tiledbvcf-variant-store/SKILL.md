@@ -4,7 +4,7 @@ title: TileDB-VCF 大规模变异存储
 description: 当需要把多份单样本 VCF/BCF 增量入库、按基因组区间/样本高速查询变异数据时使用；用 TileDB 稀疏数组建库、入库、查询、导出 VCF/TSV 并算等位基因频率；不适用于多样本合并 VCF、>1000 样本生产规模（转 TileDB-Cloud）或一般 VCF 文本处理。触发词：TileDB-VCF、变异存储、群体基因组学
 domain: 领域/science
 triggers: [TileDB-VCF, tiledbvcf, 变异存储, VCF 入库, 群体基因组学, 变异数据库, 队列研究 VCF, 等位基因频率, GWAS 数据准备, 稀疏数组变异]
-tags: [生物信息, 基因组学, 变异数据, TileDB, VCF, 群体遗传, 数据存储, misc]
+tags: [生物信息, 基因组学, 变异数据, tiledb, vcf, 群体遗传, 数据存储, misc]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

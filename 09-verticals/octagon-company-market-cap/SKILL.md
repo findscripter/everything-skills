@@ -4,7 +4,7 @@ title: 单公司市值查询
 description: 当需要查询单只上市股票的当前总市值、估值规模或大/中/小盘分类时使用；通过 Octagon MCP 的 octagon-agent 工具按 ticker 拉取市值数据并生成带日期与来源的结构化结果及规模解读；不适用于实时报价/下单、多公司批量对比、历史市值序列，或未配置 Octagon MCP 的环境；触发词：市值、market cap、估值规模、大盘股、万亿市值
 domain: 领域/fintech
 triggers: [市值, market cap, 市值查询, 估值规模/scale, 大盘股/mega-cap, 万亿市值/trillion, Octagon MCP, octagon-agent]
-tags: [fintech, 市值, 估值, 规模分类, 股票, Octagon, MCP]
+tags: [fintech, 市值, 估值, 规模分类, 股票, octagon, mcp]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

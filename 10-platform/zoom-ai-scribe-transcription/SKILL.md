@@ -4,7 +4,7 @@ title: Zoom AI Scribe 转写处理
 description: 当需要把上传或已存档的音视频文件转写成文本（含批量、Webhook 流水线）时使用 Zoom AI Services Scribe；产出 Build 平台 JWT 鉴权、快速模式同步转写、批量作业轮询/回调与 transcript JSON 落地的可执行方案；不适用于实时直播媒体低延迟转写（用 RTMS）、Zoom REST 录制清单或纯 HMAC 接收器加固。触发词：Zoom Scribe、转写音视频、批量转写、快速模式、Build 平台 JWT、转写 Webhook
 domain: 平台/integration
 triggers: [Zoom Scribe / AI Services Scribe, 转写音频/视频文件 / transcribe audio video, 批量转写 batch transcription, 快速模式 fast mode transcription, Build 平台 JWT / HS256, scribe 转写作业 jobs, 转写 Webhook 状态回调, 浏览器麦克风伪流式转写]
-tags: [平台集成, Zoom, 语音转写, ASR, 批量作业, Webhook, JWT鉴权, 音视频处理]
+tags: [平台集成, zoom, 语音转写, asr, 批量作业, webhook, jwt鉴权, 音视频处理]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

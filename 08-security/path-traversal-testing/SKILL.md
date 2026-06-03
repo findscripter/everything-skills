@@ -4,7 +4,7 @@ title: 路径遍历漏洞利用
 description: 当对授权目标做 Web 渗透、需检测/利用文件路径遍历（目录遍历/LFI）以读取服务器任意文件时使用；做参数定位、payload 构造与绕过、敏感文件读取乃至 LFI 提权到 RCE 的实操并产出漏洞证据与修复建议；不适用于未授权测试或生产数据破坏。触发词：路径遍历、目录遍历、LFI、../etc/passwd、文件下载参数
 domain: 安全/appsec
 triggers: [路径遍历, 目录遍历, LFI, 本地文件包含, ../etc/passwd, 文件下载参数测试, php://filter 读源码, 日志投毒 RCE, directory traversal]
-tags: [安全, misc, 渗透测试, Web漏洞, 路径遍历, LFI, RCE]
+tags: [安全, misc, 渗透测试, web漏洞, 路径遍历, lfi, rce]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

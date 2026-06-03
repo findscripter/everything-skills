@@ -4,7 +4,7 @@ title: Cloudflare Workers KV D1 R2 边缘平台
 description: 当用 Cloudflare Workers 把逻辑部署到边缘、接入 KV/D1/R2/Durable Objects 存储、做边缘缓存与请求改写、降低延迟时使用；产出 wrangler.toml 配置、绑定接入与 fetch 处理器代码；不适用于传统 Node/Express、AWS Lambda、GCP Functions 或不用边缘特性的纯前端。触发词：Cloudflare Workers、Wrangler、KV/D1/R2、边缘
 domain: 平台/cloud
 triggers: [Cloudflare Workers, Wrangler, wrangler.toml, KV, D1, R2, Durable Objects, 边缘计算, edge computing, Cloudflare Pages, waitUntil, 边缘缓存, wrangler dev, wrangler tail]
-tags: [平台, misc, cloudflare, workers, 边缘计算, serverless, KV, D1, R2, wrangler]
+tags: [平台, misc, cloudflare, workers, 边缘计算, serverless, kv, d1, r2, wrangler]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

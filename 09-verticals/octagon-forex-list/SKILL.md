@@ -4,7 +4,7 @@ title: 全球外汇货币对清单查询
 description: 当需要梳理全球外汇活跃交易货币对、区分主要/交叉/异国货币对并了解其流动性、点差、波动与驱动因素时使用；通过 Octagon MCP 的 octagon-agent 用自然语言拉取分类货币对清单并解读类别特征；不适用于实时报价、实盘下单或离线无 MCP。触发词：外汇货币对、major minor exotic、交叉盘、点差流动性、交易时段、octagon-agent
 domain: 领域/fintech
 triggers: [外汇货币对清单, major minor exotic, 交叉盘 cross pair, 异国货币对, 点差与流动性, 外汇交易时段, 货币对驱动因素, octagon-agent]
-tags: [fintech, 外汇, forex, 货币对, 流动性, MCP, octagon]
+tags: [fintech, 外汇, forex, 货币对, 流动性, mcp, octagon]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

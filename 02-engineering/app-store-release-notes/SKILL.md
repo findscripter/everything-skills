@@ -4,7 +4,7 @@ title: 应用商店发版说明生成（基于 Git）
 description: 当需要把上次发布以来的 git 提交历史转写为面向用户的应用商店「What's New / 发版说明」时使用；做提交收集→用户影响筛选→按 新增/改进/修复 分组并产出 5-10 条短句要点；不适用于面向开发者的技术变更日志（CHANGELOG）、版本号判定或发布流程编排（用 release-manager）。触发词：发版说明、What's New、release notes
 domain: 研发/devops
 triggers: [生成应用商店发版说明, What's New 文案, App Store release notes, 把提交转成用户可见要点, 上线更新说明, 应用更新点提炼]
-tags: [研发, 发布, 发版说明, App Store, release-notes, git, 文案]
+tags: [研发, 发布, 发版说明, app store, release-notes, git, 文案]
 level: 入门
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

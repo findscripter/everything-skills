@@ -4,7 +4,7 @@ title: 产品演示视频生成
 description: 当需要把截图/界面/场景描述做成产品演示、功能展示、宣传短片或 GIF 时使用；编排 playwright(截图)+edge-tts(配音)+ffmpeg(合成)，产出 demo-output/（HTML 场景、旁白脚本、scenes.json、build.sh、output.mp4 1920x1080）；不适用于剪辑已有视频素材、真人实拍或纯静态图文海报；触发词：演示视频、产品走查、功能展示、宣传片、demo、GIF
 domain: 创意/av
 triggers: [做个演示视频, 产品演示视频, 功能展示视频, 产品走查/walkthrough, 宣传片/promo, 录个 demo, 把截图做成视频, 把截图做成 GIF, 动画演示, marketing video, feature showcase]
-tags: [创意, av, 视频生成, 演示视频, playwright, ffmpeg, edge-tts, TTS, 动画, 营销]
+tags: [创意, av, 视频生成, 演示视频, playwright, ffmpeg, edge-tts, tts, 动画, 营销]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]

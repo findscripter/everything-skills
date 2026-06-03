@@ -4,7 +4,7 @@ title: Reactome 通路数据库查询
 description: 当需查 Reactome 生物通路/反应/实体、按关键词或稳定 ID 检索、跑基因列表通路富集（ORA）、取通路层级或跨库 ID 映射时使用；requests 直连 Content/Analysis 两套免鉴权 REST 接口产出通路 JSON、富集结果表与 token。不适用于 KEGG 代谢通路（用 kegg-database）、PPI 网络或纯富集统计选型。触发词：Reactome、通路富集、ORA、R-HSA、Analysis token、通路层级
 domain: 领域/science
 triggers: [Reactome, 通路富集, pathway enrichment, ORA, 过表征, R-HSA, 稳定 ID, Analysis token, 通路层级, Content Service, Analysis Service, reactome2py, 通路查询, 基因列表富集]
-tags: [science, 生物信息学, 通路分析, Reactome, REST-API, 富集分析, ORA, 通路层级, ID 映射]
+tags: [science, 生物信息学, 通路分析, reactome, rest-api, 富集分析, ora, 通路层级, id 映射]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
