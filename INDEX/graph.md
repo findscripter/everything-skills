@@ -62,6 +62,12 @@ graph LR
   context-budget-audit ===|combines| skill-optimizer
   context-budget-audit ===|combines| cost-aware-llm-pipeline
   context-budget-audit ===|combines| agent-architecture-audit
+  cross-tool-skill-manager -.-|related| skill-creator
+  cross-tool-skill-manager -.-|related| skill-optimizer
+  cross-tool-skill-manager -.-|related| skill-ecosystem-auditor
+  cross-tool-skill-manager -.-|related| agents-md-maintainer
+  cross-tool-skill-manager ===|combines| agent-skill-security-scanner
+  cross-tool-skill-manager ===|combines| claude-command-selector
   decision-cooldown-freeze -.-|related| hard-call-advisor
   decision-cooldown-freeze -.-|related| structured-decision-framework
   decision-cooldown-freeze -.-|related| decision-navigator
@@ -147,6 +153,13 @@ graph LR
   large-scale-math-algorithms -.-|related| latency-critical-systems
   large-scale-math-algorithms ===|combines| data-throughput-accelerator
   large-scale-math-algorithms ===|combines| performance-profiler
+  last-30-days-research -.-|related| news-sentiment-briefing
+  last-30-days-research -.-|related| entity-research-dossier
+  last-30-days-research -.-|related| multi-source-knowledge-synthesis
+  last-30-days-research -.-|related| query-decomposition-search
+  last-30-days-research ===|combines| x-twitter-scraper-toolkit
+  last-30-days-research ===|combines| fact-checking
+  last-30-days-research ===|combines| exa-semantic-search
   multi-source-knowledge-synthesis -.-|related| query-decomposition-search
   multi-source-knowledge-synthesis -.-|related| activity-digest-generator
   multi-source-knowledge-synthesis -.-|related| fact-checking
@@ -161,6 +174,13 @@ graph LR
   notebooklm-source-grounded-qa -.-|related| entity-research-dossier
   notebooklm-source-grounded-qa ===|combines| fact-checking
   notebooklm-source-grounded-qa ===|combines| citation-management
+  objective-to-build-blueprint -.-|related| plan-execution-checkpoints
+  objective-to-build-blueprint -.-|related| task-decomposition-planner
+  objective-to-build-blueprint -.-|related| spec-driven-workflow
+  objective-to-build-blueprint -.-|related| closed-loop-delivery
+  objective-to-build-blueprint ===|combines| parallel-agent-dispatch
+  objective-to-build-blueprint ===|combines| quota-aware-subagent-orchestrator
+  objective-to-build-blueprint ===|combines| hierarchical-agent-memory
   oss-contribution-hunter -.-|related| entity-research-dossier
   oss-contribution-hunter -.-|related| multi-source-knowledge-synthesis
   oss-contribution-hunter -.-|related| codebase-structure-protocol
@@ -198,6 +218,12 @@ graph LR
   rsvp-speed-reader ===|combines| web-artifacts-builder
   rsvp-speed-reader ===|combines| youtube-transcript-ingest
   rsvp-speed-reader ===|combines| interactive-pdf-viewer
+  skill-router-interviewer -.-|related| claude-command-selector
+  skill-router-interviewer -.-|related| decision-navigator
+  skill-router-interviewer -.-|related| cross-tool-skill-manager
+  skill-router-interviewer -.-|related| skill-ecosystem-auditor
+  skill-router-interviewer ===|combines| objective-to-build-blueprint
+  skill-router-interviewer ===|combines| query-decomposition-search
   socratic-explainer -.-|related| bullet-point-structurer
   socratic-explainer -.-|related| claude-command-selector
   socratic-explainer -.-|related| academic-paper-explainer
@@ -326,6 +352,20 @@ graph LR
   visa-doc-translate -.-|related| pdf-form-filler
   visa-doc-translate -.-|related| markdown-to-docx
   visa-doc-translate ===|combines| pdf-processing-toolkit
+  wiki-to-vitepress-site -.-|related| docs-architect
+  wiki-to-vitepress-site -.-|related| technical-reference-builder
+  wiki-to-vitepress-site -.-|related| readme-doc-writer
+  wiki-to-vitepress-site -.-|related| markdown-to-docx
+  wiki-to-vitepress-site ===|combines| mermaid-diagram-expert
+  wiki-to-vitepress-site ===|combines| docs-architect
+  wiki-to-vitepress-site ===|combines| codebase-onboarding-doc
+  xlsx-spreadsheet-authoring -.-|related| spreadsheet-formula-auditor
+  xlsx-spreadsheet-authoring -.-|related| python-pptx-deck-generator
+  xlsx-spreadsheet-authoring -.-|related| pdf-form-filler
+  xlsx-spreadsheet-authoring -.-|related| markdown-to-docx
+  xlsx-spreadsheet-authoring ===|combines| spreadsheet-formula-auditor
+  xlsx-spreadsheet-authoring ===|combines| csv-data-cleaner
+  xlsx-spreadsheet-authoring ===|combines| startup-financial-modeler
   adr-auto-capture -.-|related| adr-management-patterns
   adr-auto-capture -.-|related| adr-writer
   adr-auto-capture -.-|related| technical-change-tracker
@@ -339,6 +379,12 @@ graph LR
   adversarial-code-reviewer ===|combines| github-pr-comment-resolver
   adversarial-code-reviewer ===|combines| bug-hunter
   adversarial-code-reviewer ===|combines| security-audit-toolkit
+  ai-generated-code-auditor -.-|related| adversarial-code-reviewer
+  ai-generated-code-auditor -.-|related| code-reviewer
+  ai-generated-code-auditor -.-|related| vibe-code-production-cleanup
+  ai-generated-code-auditor -.-|related| llm-coding-mistake-guardrails
+  ai-generated-code-auditor ===|combines| web-mock-data-hunter
+  ai-generated-code-auditor ===|combines| security-diff-review
   algolia-search-integration -.-|related| hybrid-search-retrieval
   algolia-search-integration -.-|related| exa-semantic-search
   algolia-search-integration -.-|related| rest-api-endpoint-builder
@@ -1053,6 +1099,11 @@ graph LR
   swift-concurrency ===|combines| ios-swiftui-developer
   swift-concurrency ===|combines| swiftui-best-practices
   swift-concurrency ===|combines| systematic-debugger
+  swiftui-liquid-glass -.-|related| swiftui-best-practices
+  swiftui-liquid-glass -.-|related| ios-swiftui-developer
+  swiftui-liquid-glass -.-|related| swift-concurrency
+  swiftui-liquid-glass ===|combines| apple-hig-advisor
+  swiftui-liquid-glass ===|combines| glassmorphism-ui-design
   systematic-debugger -.-|related| first-principles-thinking
   systematic-debugger -.-|related| fact-checking
   systematic-debugger -.-|related| code-reviewer
@@ -1075,6 +1126,13 @@ graph LR
   tech-debt-prioritizer ===|combines| legacy-codebase-modernizer
   tech-debt-prioritizer ===|combines| task-decomposition-planner
   tech-debt-prioritizer ===|combines| vp-engineering-advisor
+  temporal-golang-workflows -.-|related| temporal-workflow-python
+  temporal-golang-workflows -.-|related| golang-pro
+  temporal-golang-workflows -.-|related| saga-orchestration
+  temporal-golang-workflows -.-|related| go-concurrency-patterns
+  temporal-golang-workflows ===|combines| mtls-zero-trust-config
+  temporal-golang-workflows ===|combines| grpc-golang-services
+  temporal-golang-workflows ===|combines| event-sourcing-cqrs
   temporal-workflow-python -.-|related| async-python-patterns
   temporal-workflow-python -.-|related| fastapi-async-api
   temporal-workflow-python ===|combines| microservices-patterns
@@ -1086,6 +1144,13 @@ graph LR
   trpc-typesafe-api -.-|related| rest-api-endpoint-builder
   trpc-typesafe-api ===|combines| zod-schema-validation
   trpc-typesafe-api ===|combines| tanstack-query
+  turborepo-build-caching -.-|related| turborepo-caching
+  turborepo-build-caching -.-|related| monorepo-navigator
+  turborepo-build-caching -.-|related| bazel-build-optimization
+  turborepo-build-caching -.-|related| ci-cd-pipeline-builder
+  turborepo-build-caching ===|combines| ci-cd-pipeline-builder
+  turborepo-build-caching ===|combines| monorepo-navigator
+  turborepo-build-caching ===|combines| git-worktrees-workflow
   turborepo-caching -.-|related| monorepo-navigator
   turborepo-caching -.-|related| ci-cd-pipeline-builder
   turborepo-caching -.-|related| git-advanced-workflows
@@ -1103,6 +1168,12 @@ graph LR
   uv-python-package-manager ===|combines| django-async-pro
   uv-python-package-manager ===|combines| docker-development-optimizer
   uv-python-package-manager ===|combines| ci-cd-pipeline-builder
+  vibe-code-production-cleanup -.-|related| clean-code-principles
+  vibe-code-production-cleanup -.-|related| code-simplifier
+  vibe-code-production-cleanup -.-|related| legacy-codebase-modernizer
+  vibe-code-production-cleanup ===|combines| pre-deploy-checklist
+  vibe-code-production-cleanup ===|combines| env-secrets-hygiene
+  vibe-code-production-cleanup ===|combines| web-mock-data-hunter
   vp-engineering-advisor -.-|related| coo-operations-advisor
   vp-engineering-advisor -.-|related| cpo-product-advisor
   vp-engineering-advisor -.-|related| org-health-diagnostic
@@ -1118,6 +1189,12 @@ graph LR
   web-artifacts-builder -.-|related| webapp-testing
   web-artifacts-builder ===|combines| frontend-design
   web-artifacts-builder ===|combines| webapp-testing
+  web-mock-data-hunter -.-|related| ai-generated-code-auditor
+  web-mock-data-hunter -.-|related| vibe-code-production-cleanup
+  web-mock-data-hunter -.-|related| adversarial-code-reviewer
+  web-mock-data-hunter -.-|related| code-reviewer
+  web-mock-data-hunter ===|combines| webapp-testing
+  web-mock-data-hunter ===|combines| click-path-state-audit
   webapp-testing ===|combines| code-reviewer
   websocket-realtime-engineer -.-|related| convex-reactive-backend
   websocket-realtime-engineer -.-|related| discord-bot-architect
@@ -1317,6 +1394,12 @@ graph LR
   pymc-bayesian-modeling ===|combines| data-question-analyzer
   pymc-bayesian-modeling ===|combines| seaborn-statistical-charts
   pymc-bayesian-modeling ===|combines| matplotlib-visualization
+  rss-news-sentiment-engine -.-|related| news-sentiment-briefing
+  rss-news-sentiment-engine -.-|related| daily-news-report
+  rss-news-sentiment-engine -.-|related| data-scraper-agent-builder
+  rss-news-sentiment-engine -.-|related| apify-multi-platform-scraper
+  rss-news-sentiment-engine ===|combines| data-pipeline-engineer
+  rss-news-sentiment-engine ===|combines| query-decomposition-search
   scientific-exploratory-data-analysis -.-|related| dataset-profiler
   scientific-exploratory-data-analysis -.-|related| data-question-analyzer
   scientific-exploratory-data-analysis -.-|related| guided-statistical-analysis
@@ -1352,6 +1435,16 @@ graph LR
   umap-dimensionality-reduction ===|combines| scikit-learn-ml
   umap-dimensionality-reduction ===|combines| single-cell-rnaseq-analysis
   umap-dimensionality-reduction ===|combines| scientific-exploratory-data-analysis
+  vector-database-engineer -.-|related| embedding-model-strategies
+  vector-database-engineer -.-|related| vector-index-tuning
+  vector-database-engineer -.-|related| hybrid-search-retrieval
+  vector-database-engineer -.-|related| nosql-distributed-db
+  vector-database-engineer -.-|related| postgresql-optimization
+  vector-database-engineer ===|combines| rag-pipeline-builder
+  vector-database-engineer ===|combines| rag-implementation-workflow
+  vector-database-engineer ===|combines| embedding-model-strategies
+  vector-database-engineer ===|combines| hybrid-search-retrieval
+  vector-database-engineer ===|combines| data-pipeline-engineer
   zarr-chunked-arrays -.-|related| polars-dataframe
   zarr-chunked-arrays -.-|related| scientific-exploratory-data-analysis
   zarr-chunked-arrays -.-|related| spark-job-optimization
@@ -1409,6 +1502,12 @@ graph LR
   agent-tool-design ===|combines| multi-agent-system-designer
   agent-tool-design ===|combines| langgraph-agent-framework
   agent-tool-design ===|combines| agent-workflow-pattern-designer
+  agent-tool-design-patterns -.-|related| agent-tool-design
+  agent-tool-design-patterns -.-|related| agent-tool-builder
+  agent-tool-design-patterns -.-|related| agent-readiness-aeo-check
+  agent-tool-design-patterns -.-|related| mcp-builder
+  agent-tool-design-patterns ===|combines| langgraph-agent-framework
+  agent-tool-design-patterns ===|combines| multi-agent-system-designer
   agent-workflow-pattern-designer -.-|related| multi-agent-workflow-designer
   agent-workflow-pattern-designer -.-|related| multi-agent-system-designer
   agent-workflow-pattern-designer -.-|related| langgraph-agent-framework
@@ -1549,6 +1648,13 @@ graph LR
   helium-news-research-mcp -.-|related| fact-checking
   helium-news-research-mcp ===|combines| query-decomposition-search
   helium-news-research-mcp ===|combines| multi-source-knowledge-synthesis
+  hierarchical-agent-memory -.-|related| agent-memory-architecture
+  hierarchical-agent-memory -.-|related| agent-memory-systems
+  hierarchical-agent-memory -.-|related| self-improving-memory-agent
+  hierarchical-agent-memory -.-|related| llm-conversation-memory
+  hierarchical-agent-memory ===|combines| context-compression
+  hierarchical-agent-memory ===|combines| agents-md-maintainer
+  hierarchical-agent-memory ===|combines| filesystem-context-offload
   huggingface-hub-cli -.-|related| huggingface-model-trainer
   huggingface-hub-cli -.-|related| transformers-js
   huggingface-hub-cli -.-|related| local-llm-inference
@@ -1676,6 +1782,13 @@ graph LR
   pydantic-ai-agents ===|combines| claude-api
   pydantic-ai-agents ===|combines| langfuse-llm-observability
   pydantic-ai-agents ===|combines| multi-agent-system-designer
+  quota-aware-subagent-orchestrator -.-|related| parallel-agent-hub
+  quota-aware-subagent-orchestrator -.-|related| multi-agent-orchestrator
+  quota-aware-subagent-orchestrator -.-|related| dmux-multi-agent-workflows
+  quota-aware-subagent-orchestrator -.-|related| cost-aware-llm-pipeline
+  quota-aware-subagent-orchestrator ===|combines| parallel-agent-dispatch
+  quota-aware-subagent-orchestrator ===|combines| llm-model-router
+  quota-aware-subagent-orchestrator ===|combines| task-decomposition-planner
   rag-clarity-gate -.-|related| rag-implementation-workflow
   rag-clarity-gate -.-|related| rag-pipeline-builder
   rag-clarity-gate -.-|related| production-llm-app-builder
@@ -1721,6 +1834,12 @@ graph LR
   skill-optimizer -.-|related| llm-prompt-optimizer
   skill-optimizer ===|combines| llm-judge-evaluation
   skill-optimizer ===|combines| langfuse-llm-observability
+  skill-seekers-doc-to-skill -.-|related| skill-creator
+  skill-seekers-doc-to-skill -.-|related| skill-optimizer
+  skill-seekers-doc-to-skill -.-|related| cross-tool-skill-manager
+  skill-seekers-doc-to-skill -.-|related| ai-model-knowledge-distill
+  skill-seekers-doc-to-skill ===|combines| agent-skill-security-scanner
+  skill-seekers-doc-to-skill ===|combines| skill-ecosystem-auditor
   transformers-js ===|combines| vercel-ai-sdk
   transformers-js ===|combines| rag-pipeline-builder
   vector-index-tuning -.-|related| rag-pipeline-builder
@@ -2455,6 +2574,13 @@ graph LR
   seo-entity-optimizer ===|combines| schema-markup-builder
   seo-entity-optimizer ===|combines| ai-search-seo
   seo-entity-optimizer ===|combines| seo-content-writer
+  seo-image-generator -.-|related| seo-meta-tags-optimizer
+  seo-image-generator -.-|related| unsplash-photo-integration
+  seo-image-generator -.-|related| social-share-card-hardener
+  seo-image-generator -.-|related| seo-content-writer
+  seo-image-generator ===|combines| seo-meta-tags-optimizer
+  seo-image-generator ===|combines| seo-content-writer
+  seo-image-generator ===|combines| social-share-card-hardener
   seo-keyword-research -.-|related| serp-feature-analysis
   seo-keyword-research -.-|related| seo-content-writer
   seo-keyword-research -.-|related| ai-search-seo
@@ -2535,6 +2661,11 @@ graph LR
   social-media-multi-publisher ===|combines| social-media-performance-analyzer
   social-media-performance-analyzer ===|combines| data-storyteller
   social-media-performance-analyzer ===|combines| campaign-attribution-analytics
+  social-share-card-hardener -.-|related| seo-meta-tags-optimizer
+  social-share-card-hardener -.-|related| technical-seo-checker
+  social-share-card-hardener -.-|related| schema-markup-builder
+  social-share-card-hardener ===|combines| seo-audit
+  social-share-card-hardener ===|combines| seo-performance-reporter
   startup-financial-modeler ===|combines| board-deck-builder
   stock-idea-generation -.-|related| canslim-growth-screener
   stock-idea-generation -.-|related| value-dividend-screener
@@ -2668,6 +2799,12 @@ graph LR
   glsl-shader-programming -.-|related| unreal-engine-cpp
   glsl-shader-programming ===|combines| threejs-3d-web
   glsl-shader-programming ===|combines| unity-game-developer
+  google-stitch-ui-prompting -.-|related| stitch-design-system-taste
+  google-stitch-ui-prompting -.-|related| stitch-iterative-build-loop
+  google-stitch-ui-prompting -.-|related| magic-ui-component-generator
+  google-stitch-ui-prompting -.-|related| high-end-visual-design
+  google-stitch-ui-prompting ===|combines| design-dev-handoff
+  google-stitch-ui-prompting ===|combines| web-artifacts-builder
   high-end-visual-design -.-|related| minimalist-editorial-ui
   high-end-visual-design -.-|related| glassmorphism-ui-design
   high-end-visual-design -.-|related| ui-design-system-builder
@@ -2731,6 +2868,21 @@ graph LR
   slack-gif-creator -.-|related| videodb-perception-editing
   slack-gif-creator ===|combines| slack-bolt-bot-builder
   slack-gif-creator ===|combines| demo-video-generator
+  spline-3d-web-integration -.-|related| threejs-3d-web
+  spline-3d-web-integration -.-|related| glsl-shader-programming
+  spline-3d-web-integration -.-|related| scroll-driven-web-experience
+  spline-3d-web-integration -.-|related| animejs-web-animation
+  spline-3d-web-integration ===|combines| high-end-visual-design
+  spline-3d-web-integration ===|combines| web-artifacts-builder
+  spline-3d-web-integration ===|combines| frontend-design
+  stitch-design-system-taste -.-|related| stitch-iterative-build-loop
+  stitch-design-system-taste -.-|related| ui-design-system-builder
+  stitch-design-system-taste -.-|related| high-end-visual-design
+  stitch-design-system-taste ===|combines| stitch-iterative-build-loop
+  stitch-design-system-taste ===|combines| theme-factory
+  stitch-iterative-build-loop -.-|related| high-end-visual-design
+  stitch-iterative-build-loop ===|combines| theme-factory
+  stitch-iterative-build-loop ===|combines| parallel-agent-hub
   theme-factory -.-|related| ui-design-system-builder
   theme-factory ===|combines| python-pptx-deck-generator
   theme-factory ===|combines| web-artifacts-builder
@@ -2743,6 +2895,12 @@ graph LR
   unity-game-developer -.-|related| bevy-ecs-rust
   unreal-engine-cpp -.-|related| bevy-ecs-rust
   unreal-engine-cpp ===|combines| glsl-shader-programming
+  unsplash-photo-integration -.-|related| fal-ai-media-generation
+  unsplash-photo-integration -.-|related| photopea-embedded-editor
+  unsplash-photo-integration -.-|related| theme-factory
+  unsplash-photo-integration ===|combines| seo-image-generator
+  unsplash-photo-integration ===|combines| web-artifacts-builder
+  unsplash-photo-integration ===|combines| frontend-design
   ux-microcopy-writer -.-|related| ux-research-design-toolkit
   ux-microcopy-writer -.-|related| conversion-copywriter
   ux-microcopy-writer -.-|related| i18n-localization-patterns
@@ -2759,6 +2917,18 @@ graph LR
   videodb-perception-editing -.-|related| youtube-transcript-ingest
   videodb-perception-editing ===|combines| demo-video-generator
   videodb-perception-editing ===|combines| audio-to-markdown-transcriber
+  vizcom-sketch-to-render -.-|related| fal-ai-media-generation
+  vizcom-sketch-to-render -.-|related| minimax-media-cli
+  vizcom-sketch-to-render -.-|related| high-end-visual-design
+  vizcom-sketch-to-render -.-|related| canvas-design
+  vizcom-sketch-to-render ===|combines| seo-image-generator
+  vizcom-sketch-to-render ===|combines| demo-video-generator
+  web-interface-guidelines-review -.-|related| ux-ui-principles-audit
+  web-interface-guidelines-review -.-|related| accessibility-wcag-audit
+  web-interface-guidelines-review -.-|related| wcag-22-audit-patterns
+  web-interface-guidelines-review -.-|related| design-critique
+  web-interface-guidelines-review ===|combines| frontend-design
+  web-interface-guidelines-review ===|combines| web-mock-data-hunter
   activity-digest-generator -.-|related| status-report-generator
   activity-digest-generator -.-|related| stakeholder-update-writer
   activity-digest-generator -.-|related| meeting-transcript-analyzer
@@ -2933,6 +3103,13 @@ graph LR
   interview-system-designer ===|combines| company-culture-builder
   interview-system-designer ===|combines| interview-job-coach
   jira-expert -.-|related| atlassian-admin
+  kanban-agent-pipeline-orchestrator -.-|related| multi-agent-orchestrator
+  kanban-agent-pipeline-orchestrator -.-|related| agent-workflow-builder
+  kanban-agent-pipeline-orchestrator -.-|related| parallel-agent-hub
+  kanban-agent-pipeline-orchestrator -.-|related| dmux-multi-agent-workflows
+  kanban-agent-pipeline-orchestrator ===|combines| quota-aware-subagent-orchestrator
+  kanban-agent-pipeline-orchestrator ===|combines| task-decomposition-planner
+  kanban-agent-pipeline-orchestrator ===|combines| jira-expert
   meeting-transcript-analyzer -.-|related| human-like-response-mirror
   meeting-transcript-analyzer -.-|related| caveman-compressed-mode
   meeting-transcript-analyzer -.-|related| oncall-handoff-writer
@@ -2944,6 +3121,12 @@ graph LR
   multi-agent-orchestrator -.-|related| parallel-agent-hub
   multi-agent-orchestrator ===|combines| task-decomposition-planner
   multi-agent-orchestrator ===|combines| multi-agent-workflow-designer
+  multi-project-dev-diary -.-|related| decision-log-recorder
+  multi-project-dev-diary -.-|related| activity-digest-generator
+  multi-project-dev-diary -.-|related| obsidian-bases-builder
+  multi-project-dev-diary -.-|related| technical-change-tracker
+  multi-project-dev-diary ===|combines| obsidian-clipper-templates
+  multi-project-dev-diary ===|combines| status-report-generator
   new-hire-onboarding-plan -.-|related| hr-partner-pro
   new-hire-onboarding-plan -.-|related| codebase-onboarding-doc
   new-hire-onboarding-plan -.-|related| interview-system-designer
@@ -3087,6 +3270,12 @@ graph LR
   agent-skill-security-scanner ===|combines| supply-chain-risk-auditor
   agent-skill-security-scanner ===|combines| dependency-auditor
   agent-skill-security-scanner ===|combines| false-positive-check
+  agent-skill-security-scanner-v2 -.-|related| agent-skill-security-scanner
+  agent-skill-security-scanner-v2 -.-|related| agent-plugin-audit
+  agent-skill-security-scanner-v2 -.-|related| skill-ecosystem-auditor
+  agent-skill-security-scanner-v2 -.-|related| ai-system-security-audit
+  agent-skill-security-scanner-v2 ===|combines| dependency-auditor
+  agent-skill-security-scanner-v2 ===|combines| supply-chain-risk-auditor
   agentic-actions-auditor -.-|related| ai-system-security-audit
   agentic-actions-auditor -.-|related| ai-ml-security-assessor
   agentic-actions-auditor -.-|related| insecure-defaults-detector
@@ -3412,6 +3601,12 @@ graph LR
   shodan-reconnaissance -.-|related| cloud-penetration-testing
   shodan-reconnaissance ===|combines| penetration-testing-methodology
   shodan-reconnaissance ===|combines| firmware-reverse-analyst
+  skill-ecosystem-auditor -.-|related| agent-plugin-audit
+  skill-ecosystem-auditor -.-|related| skill-optimizer
+  skill-ecosystem-auditor -.-|related| agent-readiness-aeo-check
+  skill-ecosystem-auditor ===|combines| skill-optimizer
+  skill-ecosystem-auditor ===|combines| skill-creator
+  skill-ecosystem-auditor ===|combines| agent-skill-security-scanner-v2
   soc2-compliance-preparer -.-|related| iso42001-aims-specialist
   soc2-compliance-preparer ===|combines| security-audit-toolkit
   sox-control-testing -.-|related| soc2-compliance-preparer
@@ -3430,6 +3625,12 @@ graph LR
   threat-detection-hunting -.-|related| shodan-reconnaissance
   threat-detection-hunting ===|combines| yara-rule-authoring
   threat-detection-hunting ===|combines| wireshark-traffic-analysis
+  varlock-env-secrets-guard -.-|related| env-secrets-hygiene
+  varlock-env-secrets-guard -.-|related| secrets-management
+  varlock-env-secrets-guard -.-|related| secrets-manager
+  varlock-env-secrets-guard -.-|related| insecure-defaults-detector
+  varlock-env-secrets-guard ===|combines| agent-skill-security-scanner
+  varlock-env-secrets-guard ===|combines| security-diff-review
   vulnerability-variant-analysis -.-|related| c-cpp-security-review
   wireshark-traffic-analysis -.-|related| firmware-reverse-analyst
   wireshark-traffic-analysis ===|combines| penetration-testing-methodology
@@ -4271,6 +4472,14 @@ graph LR
   litigation-brief-section-drafter ===|combines| privilege-log-reviewer
   litigation-brief-section-drafter ===|combines| demand-letter-drafter
   litigation-chronology-builder -.-|related| privilege-log-reviewer
+  longbridge-securities-toolkit -.-|related| octagon-stock-quote
+  longbridge-securities-toolkit -.-|related| alpha-vantage-market-data
+  longbridge-securities-toolkit -.-|related| portfolio-risk-metrics
+  longbridge-securities-toolkit -.-|related| portfolio-rebalancer
+  longbridge-securities-toolkit -.-|related| institutional-flow-tracker
+  longbridge-securities-toolkit ===|combines| portfolio-risk-metrics
+  longbridge-securities-toolkit ===|combines| portfolio-rebalancer
+  longbridge-securities-toolkit ===|combines| octagon-stock-quote
   lp-nav-tieout -.-|related| account-reconciliation
   lp-nav-tieout -.-|related| gl-subledger-reconciler
   lp-nav-tieout -.-|related| recon-break-root-cause
@@ -5217,6 +5426,11 @@ graph LR
   claimable-postgres-provision ===|combines| env-secrets-hygiene
   claimable-postgres-provision ===|combines| prisma-orm-expert
   claimable-postgres-provision ===|combines| drizzle-orm-expert
+  claude-code-settings-auditor -.-|related| ai-native-cli-design
+  claude-code-settings-auditor -.-|related| agent-skill-security-scanner
+  claude-code-settings-auditor -.-|related| skill-ecosystem-auditor
+  claude-code-settings-auditor ===|combines| mcp-builder
+  claude-code-settings-auditor ===|combines| devcontainer-claude-setup
   cloud-cost-optimization -.-|related| multi-cloud-architecture
   cloud-cost-optimization -.-|related| terraform-specialist
   cloud-cost-optimization -.-|related| cfo-financial-advisor
@@ -5319,6 +5533,13 @@ graph LR
   salesforce-apex-developer ===|combines| salesforce-automation
   salesforce-apex-developer ===|combines| ci-cd-pipeline-builder
   salesforce-apex-developer ===|combines| api-design-principles
+  sendblue-imessage-api -.-|related| imessage-claude-bridge
+  sendblue-imessage-api -.-|related| twilio-communications
+  sendblue-imessage-api -.-|related| whatsapp-cloud-api
+  sendblue-imessage-api -.-|related| agentphone-voice-sms-agents
+  sendblue-imessage-api ===|combines| transactional-email-template-builder
+  sendblue-imessage-api ===|combines| agentmail-email-infra
+  sendblue-imessage-api ===|combines| slack-bolt-bot-builder
   slack-bolt-bot-builder -.-|related| discord-bot-architect
   slack-bolt-bot-builder -.-|related| whatsapp-cloud-api
   slack-bolt-bot-builder -.-|related| twilio-communications
@@ -5342,6 +5563,13 @@ graph LR
   stripe-integration -.-|related| paywall-upgrade-cro
   stripe-integration -.-|related| transactional-email-template-builder
   stripe-integration ===|combines| rest-api-endpoint-builder
+  tavily-web-research -.-|related| exa-semantic-search
+  tavily-web-research -.-|related| firecrawl-web-scraper
+  tavily-web-research -.-|related| defuddle-web-extract
+  tavily-web-research -.-|related| browser-automation-builder
+  tavily-web-research ===|combines| query-decomposition-search
+  tavily-web-research ===|combines| multi-source-knowledge-synthesis
+  tavily-web-research ===|combines| fact-checking
   terraform-module-builder -.-|related| terraform-specialist
   terraform-module-builder -.-|related| aws-cdk-patterns
   terraform-module-builder -.-|related| cloudformation-best-practices
@@ -5360,15 +5588,35 @@ graph LR
   twilio-communications ===|combines| whatsapp-cloud-api
   twilio-communications ===|combines| auth-implementation-patterns
   twilio-communications ===|combines| transactional-email-template-builder
+  vexor-semantic-file-search -.-|related| vexor-vector-cli-setup
+  vexor-semantic-file-search -.-|related| codebase-structure-protocol
+  vexor-semantic-file-search -.-|related| monorepo-navigator
+  vexor-semantic-file-search ===|combines| codebase-onboarding-doc
+  vexor-semantic-file-search ===|combines| vexor-vector-cli-setup
+  vexor-vector-cli-setup -.-|related| exa-semantic-search
+  vexor-vector-cli-setup -.-|related| ai-native-cli-design
+  vexor-vector-cli-setup -.-|related| embedding-model-strategies
+  vexor-vector-cli-setup ===|combines| codebase-structure-protocol
+  vexor-vector-cli-setup ===|combines| rag-pipeline-builder
   whatsapp-cloud-api -.-|related| discord-bot-architect
   whatsapp-cloud-api ===|combines| ai-customer-support
   whatsapp-cloud-api ===|combines| rest-api-endpoint-builder
+  x-post-to-json-fetcher -.-|related| x-twitter-scraper-toolkit
+  x-post-to-json-fetcher -.-|related| x-twitter-automation
+  x-post-to-json-fetcher -.-|related| firecrawl-web-scraper
+  x-post-to-json-fetcher -.-|related| defuddle-web-extract
+  x-post-to-json-fetcher ===|combines| news-sentiment-briefing
+  x-post-to-json-fetcher ===|combines| browser-automation-builder
   x-twitter-automation -.-|related| apify-ecommerce-scraper
   x-twitter-automation -.-|related| social-media-multi-publisher
   x-twitter-automation -.-|related| browser-automation-builder
   x-twitter-automation ===|combines| social-media-multi-publisher
   x-twitter-automation ===|combines| social-media-content-creator
   x-twitter-automation ===|combines| social-media-performance-analyzer
+  x-twitter-scraper-toolkit -.-|related| x-twitter-automation
+  x-twitter-scraper-toolkit -.-|related| browser-automation-builder
+  x-twitter-scraper-toolkit ===|combines| social-media-multi-publisher
+  x-twitter-scraper-toolkit ===|combines| news-sentiment-briefing
   youtube-transcript-ingest -.-|related| audio-to-markdown-transcriber
   youtube-transcript-ingest -.-|related| firecrawl-web-scraper
   youtube-transcript-ingest ===|combines| rag-implementation-workflow

@@ -71,6 +71,13 @@
       "status": "stable"
     },
     {
+      "id": "cross-tool-skill-manager",
+      "title": "跨工具技能管理：在 11 个工具间增删改技能",
+      "domain": "通用/communication",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "decision-cooldown-freeze",
       "title": "决策冷静期锁定",
       "domain": "通用/thinking",
@@ -190,6 +197,13 @@
       "status": "stable"
     },
     {
+      "id": "last-30-days-research",
+      "title": "近 30 天研究：Reddit/X/Web 时效话题速成",
+      "domain": "通用/research",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "multi-source-knowledge-synthesis",
       "title": "多源知识综合",
       "domain": "通用/communication",
@@ -207,6 +221,13 @@
       "id": "notebooklm-source-grounded-qa",
       "title": "NotebookLM 源锚定问答",
       "domain": "通用/research",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "objective-to-build-blueprint",
+      "title": "目标转施工蓝图：一句话转可执行分步计划",
+      "domain": "通用/thinking",
       "level": "进阶",
       "status": "stable"
     },
@@ -256,6 +277,13 @@
       "id": "rsvp-speed-reader",
       "title": "RSVP 快速阅读器",
       "domain": "通用/learning",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "skill-router-interviewer",
+      "title": "技能路由顾问：访谈式定位最合适的技能",
+      "domain": "通用/thinking",
       "level": "入门",
       "status": "stable"
     },
@@ -456,6 +484,20 @@
       "status": "stable"
     },
     {
+      "id": "wiki-to-vitepress-site",
+      "title": "Wiki 转 VitePress：Markdown 转静态文档站点",
+      "domain": "文书/markdown",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "xlsx-spreadsheet-authoring",
+      "title": "XLSX 表格制作：Excel 文件创建与格式化",
+      "domain": "文书/office",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "accessibility-wcag-audit",
       "title": "无障碍 WCAG 合规审计",
       "domain": "研发/frontend",
@@ -479,6 +521,13 @@
     {
       "id": "adversarial-code-reviewer",
       "title": "对抗式代码评审",
+      "domain": "研发/review",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "ai-generated-code-auditor",
+      "title": "AI 代码审计：审查快速生成代码的结构脆弱性",
       "domain": "研发/review",
       "level": "进阶",
       "status": "stable"
@@ -1604,6 +1653,13 @@
       "status": "stable"
     },
     {
+      "id": "swiftui-liquid-glass",
+      "title": "SwiftUI Liquid Glass：液态玻璃 API 与回退实现",
+      "domain": "研发/mobile",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "systematic-debugger",
       "title": "系统化调试与根因分析",
       "domain": "研发/review",
@@ -1646,6 +1702,13 @@
       "status": "stable"
     },
     {
+      "id": "temporal-golang-workflows",
+      "title": "Temporal Go 工作流：确定性编排与 mTLS",
+      "domain": "研发/backend",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "temporal-workflow-python",
       "title": "Temporal 持久工作流编排（Python）",
       "domain": "研发/backend",
@@ -1681,6 +1744,13 @@
       "status": "stable"
     },
     {
+      "id": "turborepo-build-caching",
+      "title": "Turborepo 缓存：Monorepo 本地与远程构建加速",
+      "domain": "研发/devops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "turborepo-caching",
       "title": "Turborepo 单仓构建缓存配置",
       "domain": "研发/devops",
@@ -1699,6 +1769,13 @@
       "title": "uv 高速 Python 包管理",
       "domain": "研发/backend",
       "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "vibe-code-production-cleanup",
+      "title": "Vibe 代码清理：全栈应用上线前安全加固",
+      "domain": "研发/frontend",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -1733,6 +1810,13 @@
       "id": "web-component-design",
       "title": "Web 组件设计模式",
       "domain": "研发/frontend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "web-mock-data-hunter",
+      "title": "Mock 数据猎手：审计网页中的假数据与硬编码",
+      "domain": "研发/review",
       "level": "进阶",
       "status": "stable"
     },
@@ -1989,6 +2073,13 @@
       "status": "stable"
     },
     {
+      "id": "rss-news-sentiment-engine",
+      "title": "RSS 新闻情感引擎：多源聚合与结构化简报",
+      "domain": "数据/pipeline",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "scientific-exploratory-data-analysis",
       "title": "科学数据探索性分析（200+ 格式）",
       "domain": "数据/analysis",
@@ -2048,6 +2139,13 @@
       "id": "umap-dimensionality-reduction",
       "title": "UMAP 非线性降维与可视化",
       "domain": "数据/analysis",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "vector-database-engineer",
+      "title": "向量数据库工程：Pinecone/Weaviate 与语义检索",
+      "domain": "数据/sql",
       "level": "进阶",
       "status": "stable"
     },
@@ -2112,6 +2210,13 @@
       "title": "面向 Agent 的工具设计",
       "domain": "智能/agents",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "agent-tool-design-patterns",
+      "title": "智能体工具设计：可被 Agent 高效调用的工具",
+      "domain": "智能/agents",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -2266,6 +2371,13 @@
       "title": "Helium 新闻研究 MCP",
       "domain": "智能/rag",
       "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "hierarchical-agent-memory",
+      "title": "分层智能体记忆：目录级上下文与省 Token",
+      "domain": "智能/agents",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -2451,6 +2563,13 @@
       "status": "stable"
     },
     {
+      "id": "quota-aware-subagent-orchestrator",
+      "title": "配额感知子智能体编排：大型多文件任务并行",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "rag-clarity-gate",
       "title": "RAG 入库前文档清晰度校验",
       "domain": "智能/rag",
@@ -2509,6 +2628,13 @@
     {
       "id": "skill-optimizer",
       "title": "Agent 技能诊断与优化（Skill Optimizer）",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "skill-seekers-doc-to-skill",
+      "title": "文档转技能：从网站/仓库/PDF 快速生成 AI 技能",
       "domain": "智能/agents",
       "level": "进阶",
       "status": "stable"
@@ -3452,6 +3578,13 @@
       "status": "stable"
     },
     {
+      "id": "seo-image-generator",
+      "title": "SEO 图像生成：OG 卡片、信息图与产品视觉",
+      "domain": "商业/seo",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "seo-keyword-research",
       "title": "SEO 关键词研究与选题聚类",
       "domain": "商业/seo",
@@ -3566,6 +3699,13 @@
     {
       "id": "social-media-performance-analyzer",
       "title": "社媒投放绩效分析",
+      "domain": "商业/marketing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "social-share-card-hardener",
+      "title": "社交分享卡片加固：Open Graph 富链接预览修复",
       "domain": "商业/marketing",
       "level": "进阶",
       "status": "stable"
@@ -3746,6 +3886,13 @@
       "status": "stable"
     },
     {
+      "id": "google-stitch-ui-prompting",
+      "title": "Google Stitch UI 设计：AI 界面提示词工程",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "high-end-visual-design",
       "title": "高端视觉界面设计",
       "domain": "创意/design",
@@ -3823,6 +3970,27 @@
       "status": "stable"
     },
     {
+      "id": "spline-3d-web-integration",
+      "title": "Spline 3D 集成：交互式 3D 场景嵌入网页",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "stitch-design-system-taste",
+      "title": "Stitch 设计品味：排版色彩布局动效系统生成",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "stitch-iterative-build-loop",
+      "title": "Stitch 迭代构建循环：自主接力式网站搭建",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "theme-factory",
       "title": "主题工厂：为内容产物套用配色与字体主题",
       "domain": "创意/design",
@@ -3851,6 +4019,13 @@
       "status": "stable"
     },
     {
+      "id": "unsplash-photo-integration",
+      "title": "Unsplash 图库集成：免费高质量摄影图搜索接入",
+      "domain": "创意/image",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "ux-microcopy-writer",
       "title": "UX 微文案撰写",
       "domain": "创意/design",
@@ -3875,6 +4050,20 @@
       "id": "videodb-perception-editing",
       "title": "VideoDB 视频感知索引与编辑",
       "domain": "创意/av",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "vizcom-sketch-to-render",
+      "title": "Vizcom 草图转渲染：产品设计稿转全保真 3D",
+      "domain": "创意/image",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "web-interface-guidelines-review",
+      "title": "Web 界面准则审查：网页交互规范合规检查",
+      "domain": "创意/design",
       "level": "进阶",
       "status": "stable"
     },
@@ -4082,6 +4271,13 @@
       "status": "stable"
     },
     {
+      "id": "kanban-agent-pipeline-orchestrator",
+      "title": "看板智能体流水线：Asana/Linear 自动开发编排",
+      "domain": "协作/automation",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "meeting-transcript-analyzer",
       "title": "会议记录沟通模式分析",
       "domain": "协作/knowledge",
@@ -4092,6 +4288,13 @@
       "id": "multi-agent-orchestrator",
       "title": "多智能体任务编排器",
       "domain": "协作/automation",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "multi-project-dev-diary",
+      "title": "开发日记系统：多项目上下文自动记录器",
+      "domain": "协作/knowledge",
       "level": "进阶",
       "status": "stable"
     },
@@ -4288,6 +4491,13 @@
       "id": "agent-skill-security-scanner",
       "title": "AI 技能安装前安全扫描",
       "domain": "安全/appsec",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "agent-skill-security-scanner-v2",
+      "title": "技能安全扫描：采用前检测提示注入与恶意代码",
+      "domain": "安全/audit",
       "level": "进阶",
       "status": "stable"
     },
@@ -4705,6 +4915,13 @@
       "status": "stable"
     },
     {
+      "id": "skill-ecosystem-auditor",
+      "title": "技能生态审计：质量、安全、成本与重复检测",
+      "domain": "安全/audit",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "soc2-compliance-preparer",
       "title": "SOC 2 审计准备与控制矩阵",
       "domain": "安全/compliance",
@@ -4736,6 +4953,13 @@
       "id": "threat-detection-hunting",
       "title": "威胁狩猎与异常检测",
       "domain": "安全/ops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "varlock-env-secrets-guard",
+      "title": "Varlock 环境变量防护：会话中密钥零泄露管理",
+      "domain": "安全/appsec",
       "level": "进阶",
       "status": "stable"
     },
@@ -5807,6 +6031,13 @@
       "id": "litigation-chronology-builder",
       "title": "案件事实时间线构建",
       "domain": "领域/legal",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "longbridge-securities-toolkit",
+      "title": "长桥证券工具集：实时行情、组合与期权分析",
+      "domain": "领域/fintech",
       "level": "进阶",
       "status": "stable"
     },
@@ -7162,6 +7393,13 @@
       "status": "stable"
     },
     {
+      "id": "claude-code-settings-auditor",
+      "title": "Claude Code 设置审计：仓库权限配置推荐",
+      "domain": "平台/cli",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "cloud-cost-optimization",
       "title": "云成本优化",
       "domain": "平台/cloud",
@@ -7316,6 +7554,13 @@
       "status": "stable"
     },
     {
+      "id": "sendblue-imessage-api",
+      "title": "Sendblue 消息 API：代码收发 iMessage/SMS/RCS",
+      "domain": "平台/integration",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "slack-bolt-bot-builder",
       "title": "Slack Bolt 机器人开发",
       "domain": "平台/integration",
@@ -7341,6 +7586,13 @@
       "title": "Stripe 支付与订阅集成",
       "domain": "平台/integration",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "tavily-web-research",
+      "title": "Tavily 网络检索：搜索、抓取与内容提取",
+      "domain": "平台/browser",
+      "level": "入门",
       "status": "stable"
     },
     {
@@ -7372,6 +7624,20 @@
       "status": "stable"
     },
     {
+      "id": "vexor-semantic-file-search",
+      "title": "Vexor 语义文件检索：定位代码实现位置",
+      "domain": "平台/cli",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "vexor-vector-cli-setup",
+      "title": "Vexor 向量 CLI：语义文件搜索工具配置",
+      "domain": "平台/cli",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "whatsapp-cloud-api",
       "title": "WhatsApp Cloud API 集成",
       "domain": "平台/integration",
@@ -7379,9 +7645,23 @@
       "status": "stable"
     },
     {
+      "id": "x-post-to-json-fetcher",
+      "title": "X 帖子转 JSON：推文抓取为 LLM 友好结构",
+      "domain": "平台/browser",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "x-twitter-automation",
       "title": "X/Twitter 抓取与自动化（Xquik）",
       "domain": "平台/integration",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "x-twitter-scraper-toolkit",
+      "title": "X/Twitter 抓取工具：搜索、导出、发推与 DM",
+      "domain": "平台/browser",
       "level": "进阶",
       "status": "stable"
     },
@@ -7761,6 +8041,36 @@
     {
       "from": "context-budget-audit",
       "to": "agent-architecture-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "cross-tool-skill-manager",
+      "to": "skill-creator",
+      "type": "related"
+    },
+    {
+      "from": "cross-tool-skill-manager",
+      "to": "skill-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "cross-tool-skill-manager",
+      "to": "skill-ecosystem-auditor",
+      "type": "related"
+    },
+    {
+      "from": "cross-tool-skill-manager",
+      "to": "agents-md-maintainer",
+      "type": "related"
+    },
+    {
+      "from": "cross-tool-skill-manager",
+      "to": "agent-skill-security-scanner",
+      "type": "combines_with"
+    },
+    {
+      "from": "cross-tool-skill-manager",
+      "to": "claude-command-selector",
       "type": "combines_with"
     },
     {
@@ -8259,6 +8569,41 @@
       "type": "combines_with"
     },
     {
+      "from": "last-30-days-research",
+      "to": "news-sentiment-briefing",
+      "type": "related"
+    },
+    {
+      "from": "last-30-days-research",
+      "to": "entity-research-dossier",
+      "type": "related"
+    },
+    {
+      "from": "last-30-days-research",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "related"
+    },
+    {
+      "from": "last-30-days-research",
+      "to": "query-decomposition-search",
+      "type": "related"
+    },
+    {
+      "from": "last-30-days-research",
+      "to": "x-twitter-scraper-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "last-30-days-research",
+      "to": "fact-checking",
+      "type": "combines_with"
+    },
+    {
+      "from": "last-30-days-research",
+      "to": "exa-semantic-search",
+      "type": "combines_with"
+    },
+    {
       "from": "multi-source-knowledge-synthesis",
       "to": "query-decomposition-search",
       "type": "related"
@@ -8341,6 +8686,41 @@
     {
       "from": "notebooklm-source-grounded-qa",
       "to": "citation-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "objective-to-build-blueprint",
+      "to": "plan-execution-checkpoints",
+      "type": "related"
+    },
+    {
+      "from": "objective-to-build-blueprint",
+      "to": "task-decomposition-planner",
+      "type": "related"
+    },
+    {
+      "from": "objective-to-build-blueprint",
+      "to": "spec-driven-workflow",
+      "type": "related"
+    },
+    {
+      "from": "objective-to-build-blueprint",
+      "to": "closed-loop-delivery",
+      "type": "related"
+    },
+    {
+      "from": "objective-to-build-blueprint",
+      "to": "parallel-agent-dispatch",
+      "type": "combines_with"
+    },
+    {
+      "from": "objective-to-build-blueprint",
+      "to": "quota-aware-subagent-orchestrator",
+      "type": "combines_with"
+    },
+    {
+      "from": "objective-to-build-blueprint",
+      "to": "hierarchical-agent-memory",
       "type": "combines_with"
     },
     {
@@ -8571,6 +8951,36 @@
     {
       "from": "rsvp-speed-reader",
       "to": "interactive-pdf-viewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "skill-router-interviewer",
+      "to": "claude-command-selector",
+      "type": "related"
+    },
+    {
+      "from": "skill-router-interviewer",
+      "to": "decision-navigator",
+      "type": "related"
+    },
+    {
+      "from": "skill-router-interviewer",
+      "to": "cross-tool-skill-manager",
+      "type": "related"
+    },
+    {
+      "from": "skill-router-interviewer",
+      "to": "skill-ecosystem-auditor",
+      "type": "related"
+    },
+    {
+      "from": "skill-router-interviewer",
+      "to": "objective-to-build-blueprint",
+      "type": "combines_with"
+    },
+    {
+      "from": "skill-router-interviewer",
+      "to": "query-decomposition-search",
       "type": "combines_with"
     },
     {
@@ -9364,6 +9774,76 @@
       "type": "combines_with"
     },
     {
+      "from": "wiki-to-vitepress-site",
+      "to": "docs-architect",
+      "type": "related"
+    },
+    {
+      "from": "wiki-to-vitepress-site",
+      "to": "technical-reference-builder",
+      "type": "related"
+    },
+    {
+      "from": "wiki-to-vitepress-site",
+      "to": "readme-doc-writer",
+      "type": "related"
+    },
+    {
+      "from": "wiki-to-vitepress-site",
+      "to": "markdown-to-docx",
+      "type": "related"
+    },
+    {
+      "from": "wiki-to-vitepress-site",
+      "to": "mermaid-diagram-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "wiki-to-vitepress-site",
+      "to": "docs-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "wiki-to-vitepress-site",
+      "to": "codebase-onboarding-doc",
+      "type": "combines_with"
+    },
+    {
+      "from": "xlsx-spreadsheet-authoring",
+      "to": "spreadsheet-formula-auditor",
+      "type": "related"
+    },
+    {
+      "from": "xlsx-spreadsheet-authoring",
+      "to": "python-pptx-deck-generator",
+      "type": "related"
+    },
+    {
+      "from": "xlsx-spreadsheet-authoring",
+      "to": "pdf-form-filler",
+      "type": "related"
+    },
+    {
+      "from": "xlsx-spreadsheet-authoring",
+      "to": "markdown-to-docx",
+      "type": "related"
+    },
+    {
+      "from": "xlsx-spreadsheet-authoring",
+      "to": "spreadsheet-formula-auditor",
+      "type": "combines_with"
+    },
+    {
+      "from": "xlsx-spreadsheet-authoring",
+      "to": "csv-data-cleaner",
+      "type": "combines_with"
+    },
+    {
+      "from": "xlsx-spreadsheet-authoring",
+      "to": "startup-financial-modeler",
+      "type": "combines_with"
+    },
+    {
       "from": "adr-auto-capture",
       "to": "adr-management-patterns",
       "type": "related"
@@ -9426,6 +9906,36 @@
     {
       "from": "adversarial-code-reviewer",
       "to": "security-audit-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "ai-generated-code-auditor",
+      "to": "adversarial-code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "ai-generated-code-auditor",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "ai-generated-code-auditor",
+      "to": "vibe-code-production-cleanup",
+      "type": "related"
+    },
+    {
+      "from": "ai-generated-code-auditor",
+      "to": "llm-coding-mistake-guardrails",
+      "type": "related"
+    },
+    {
+      "from": "ai-generated-code-auditor",
+      "to": "web-mock-data-hunter",
+      "type": "combines_with"
+    },
+    {
+      "from": "ai-generated-code-auditor",
+      "to": "security-diff-review",
       "type": "combines_with"
     },
     {
@@ -13389,6 +13899,31 @@
       "type": "combines_with"
     },
     {
+      "from": "swiftui-liquid-glass",
+      "to": "swiftui-best-practices",
+      "type": "related"
+    },
+    {
+      "from": "swiftui-liquid-glass",
+      "to": "ios-swiftui-developer",
+      "type": "related"
+    },
+    {
+      "from": "swiftui-liquid-glass",
+      "to": "swift-concurrency",
+      "type": "related"
+    },
+    {
+      "from": "swiftui-liquid-glass",
+      "to": "apple-hig-advisor",
+      "type": "combines_with"
+    },
+    {
+      "from": "swiftui-liquid-glass",
+      "to": "glassmorphism-ui-design",
+      "type": "combines_with"
+    },
+    {
       "from": "systematic-debugger",
       "to": "first-principles-thinking",
       "type": "related"
@@ -13509,6 +14044,41 @@
       "type": "combines_with"
     },
     {
+      "from": "temporal-golang-workflows",
+      "to": "temporal-workflow-python",
+      "type": "related"
+    },
+    {
+      "from": "temporal-golang-workflows",
+      "to": "golang-pro",
+      "type": "related"
+    },
+    {
+      "from": "temporal-golang-workflows",
+      "to": "saga-orchestration",
+      "type": "related"
+    },
+    {
+      "from": "temporal-golang-workflows",
+      "to": "go-concurrency-patterns",
+      "type": "related"
+    },
+    {
+      "from": "temporal-golang-workflows",
+      "to": "mtls-zero-trust-config",
+      "type": "combines_with"
+    },
+    {
+      "from": "temporal-golang-workflows",
+      "to": "grpc-golang-services",
+      "type": "combines_with"
+    },
+    {
+      "from": "temporal-golang-workflows",
+      "to": "event-sourcing-cqrs",
+      "type": "combines_with"
+    },
+    {
       "from": "temporal-workflow-python",
       "to": "saga-orchestration",
       "type": "related"
@@ -13611,6 +14181,41 @@
     {
       "from": "trpc-typesafe-api",
       "to": "drizzle-orm-expert",
+      "type": "combines_with"
+    },
+    {
+      "from": "turborepo-build-caching",
+      "to": "turborepo-caching",
+      "type": "related"
+    },
+    {
+      "from": "turborepo-build-caching",
+      "to": "monorepo-navigator",
+      "type": "related"
+    },
+    {
+      "from": "turborepo-build-caching",
+      "to": "bazel-build-optimization",
+      "type": "related"
+    },
+    {
+      "from": "turborepo-build-caching",
+      "to": "ci-cd-pipeline-builder",
+      "type": "related"
+    },
+    {
+      "from": "turborepo-build-caching",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "turborepo-build-caching",
+      "to": "monorepo-navigator",
+      "type": "combines_with"
+    },
+    {
+      "from": "turborepo-build-caching",
+      "to": "git-worktrees-workflow",
       "type": "combines_with"
     },
     {
@@ -13719,6 +14324,41 @@
       "type": "combines_with"
     },
     {
+      "from": "vibe-code-production-cleanup",
+      "to": "ai-generated-code-auditor",
+      "type": "related"
+    },
+    {
+      "from": "vibe-code-production-cleanup",
+      "to": "clean-code-principles",
+      "type": "related"
+    },
+    {
+      "from": "vibe-code-production-cleanup",
+      "to": "code-simplifier",
+      "type": "related"
+    },
+    {
+      "from": "vibe-code-production-cleanup",
+      "to": "legacy-codebase-modernizer",
+      "type": "related"
+    },
+    {
+      "from": "vibe-code-production-cleanup",
+      "to": "pre-deploy-checklist",
+      "type": "combines_with"
+    },
+    {
+      "from": "vibe-code-production-cleanup",
+      "to": "env-secrets-hygiene",
+      "type": "combines_with"
+    },
+    {
+      "from": "vibe-code-production-cleanup",
+      "to": "web-mock-data-hunter",
+      "type": "combines_with"
+    },
+    {
       "from": "vp-engineering-advisor",
       "to": "coo-operations-advisor",
       "type": "related"
@@ -13811,6 +14451,41 @@
     {
       "from": "web-artifacts-builder",
       "to": "webapp-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "web-mock-data-hunter",
+      "to": "ai-generated-code-auditor",
+      "type": "related"
+    },
+    {
+      "from": "web-mock-data-hunter",
+      "to": "vibe-code-production-cleanup",
+      "type": "related"
+    },
+    {
+      "from": "web-mock-data-hunter",
+      "to": "adversarial-code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "web-mock-data-hunter",
+      "to": "code-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "web-mock-data-hunter",
+      "to": "vibe-code-production-cleanup",
+      "type": "combines_with"
+    },
+    {
+      "from": "web-mock-data-hunter",
+      "to": "webapp-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "web-mock-data-hunter",
+      "to": "click-path-state-audit",
       "type": "combines_with"
     },
     {
@@ -14999,6 +15674,36 @@
       "type": "combines_with"
     },
     {
+      "from": "rss-news-sentiment-engine",
+      "to": "news-sentiment-briefing",
+      "type": "related"
+    },
+    {
+      "from": "rss-news-sentiment-engine",
+      "to": "daily-news-report",
+      "type": "related"
+    },
+    {
+      "from": "rss-news-sentiment-engine",
+      "to": "data-scraper-agent-builder",
+      "type": "related"
+    },
+    {
+      "from": "rss-news-sentiment-engine",
+      "to": "apify-multi-platform-scraper",
+      "type": "related"
+    },
+    {
+      "from": "rss-news-sentiment-engine",
+      "to": "data-pipeline-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "rss-news-sentiment-engine",
+      "to": "query-decomposition-search",
+      "type": "combines_with"
+    },
+    {
       "from": "scientific-exploratory-data-analysis",
       "to": "dataset-profiler",
       "type": "related"
@@ -15299,6 +16004,56 @@
       "type": "combines_with"
     },
     {
+      "from": "vector-database-engineer",
+      "to": "embedding-model-strategies",
+      "type": "related"
+    },
+    {
+      "from": "vector-database-engineer",
+      "to": "vector-index-tuning",
+      "type": "related"
+    },
+    {
+      "from": "vector-database-engineer",
+      "to": "hybrid-search-retrieval",
+      "type": "related"
+    },
+    {
+      "from": "vector-database-engineer",
+      "to": "nosql-distributed-db",
+      "type": "related"
+    },
+    {
+      "from": "vector-database-engineer",
+      "to": "postgresql-optimization",
+      "type": "related"
+    },
+    {
+      "from": "vector-database-engineer",
+      "to": "rag-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "vector-database-engineer",
+      "to": "rag-implementation-workflow",
+      "type": "combines_with"
+    },
+    {
+      "from": "vector-database-engineer",
+      "to": "embedding-model-strategies",
+      "type": "combines_with"
+    },
+    {
+      "from": "vector-database-engineer",
+      "to": "hybrid-search-retrieval",
+      "type": "combines_with"
+    },
+    {
+      "from": "vector-database-engineer",
+      "to": "data-pipeline-engineer",
+      "type": "combines_with"
+    },
+    {
       "from": "zarr-chunked-arrays",
       "to": "dask-distributed-dataframes",
       "type": "related"
@@ -15596,6 +16351,36 @@
     {
       "from": "agent-tool-design",
       "to": "agent-workflow-pattern-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-tool-design-patterns",
+      "to": "agent-tool-design",
+      "type": "related"
+    },
+    {
+      "from": "agent-tool-design-patterns",
+      "to": "agent-tool-builder",
+      "type": "related"
+    },
+    {
+      "from": "agent-tool-design-patterns",
+      "to": "agent-readiness-aeo-check",
+      "type": "related"
+    },
+    {
+      "from": "agent-tool-design-patterns",
+      "to": "mcp-builder",
+      "type": "related"
+    },
+    {
+      "from": "agent-tool-design-patterns",
+      "to": "langgraph-agent-framework",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-tool-design-patterns",
+      "to": "multi-agent-system-designer",
       "type": "combines_with"
     },
     {
@@ -16331,6 +17116,41 @@
     {
       "from": "helium-news-research-mcp",
       "to": "multi-source-knowledge-synthesis",
+      "type": "combines_with"
+    },
+    {
+      "from": "hierarchical-agent-memory",
+      "to": "agent-memory-architecture",
+      "type": "related"
+    },
+    {
+      "from": "hierarchical-agent-memory",
+      "to": "agent-memory-systems",
+      "type": "related"
+    },
+    {
+      "from": "hierarchical-agent-memory",
+      "to": "self-improving-memory-agent",
+      "type": "related"
+    },
+    {
+      "from": "hierarchical-agent-memory",
+      "to": "llm-conversation-memory",
+      "type": "related"
+    },
+    {
+      "from": "hierarchical-agent-memory",
+      "to": "context-compression",
+      "type": "combines_with"
+    },
+    {
+      "from": "hierarchical-agent-memory",
+      "to": "agents-md-maintainer",
+      "type": "combines_with"
+    },
+    {
+      "from": "hierarchical-agent-memory",
+      "to": "filesystem-context-offload",
       "type": "combines_with"
     },
     {
@@ -17209,6 +18029,41 @@
       "type": "combines_with"
     },
     {
+      "from": "quota-aware-subagent-orchestrator",
+      "to": "parallel-agent-hub",
+      "type": "related"
+    },
+    {
+      "from": "quota-aware-subagent-orchestrator",
+      "to": "multi-agent-orchestrator",
+      "type": "related"
+    },
+    {
+      "from": "quota-aware-subagent-orchestrator",
+      "to": "dmux-multi-agent-workflows",
+      "type": "related"
+    },
+    {
+      "from": "quota-aware-subagent-orchestrator",
+      "to": "cost-aware-llm-pipeline",
+      "type": "related"
+    },
+    {
+      "from": "quota-aware-subagent-orchestrator",
+      "to": "parallel-agent-dispatch",
+      "type": "combines_with"
+    },
+    {
+      "from": "quota-aware-subagent-orchestrator",
+      "to": "llm-model-router",
+      "type": "combines_with"
+    },
+    {
+      "from": "quota-aware-subagent-orchestrator",
+      "to": "task-decomposition-planner",
+      "type": "combines_with"
+    },
+    {
       "from": "rag-clarity-gate",
       "to": "rag-implementation-workflow",
       "type": "related"
@@ -17511,6 +18366,36 @@
     {
       "from": "skill-optimizer",
       "to": "langfuse-llm-observability",
+      "type": "combines_with"
+    },
+    {
+      "from": "skill-seekers-doc-to-skill",
+      "to": "skill-creator",
+      "type": "related"
+    },
+    {
+      "from": "skill-seekers-doc-to-skill",
+      "to": "skill-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "skill-seekers-doc-to-skill",
+      "to": "cross-tool-skill-manager",
+      "type": "related"
+    },
+    {
+      "from": "skill-seekers-doc-to-skill",
+      "to": "ai-model-knowledge-distill",
+      "type": "related"
+    },
+    {
+      "from": "skill-seekers-doc-to-skill",
+      "to": "agent-skill-security-scanner",
+      "type": "combines_with"
+    },
+    {
+      "from": "skill-seekers-doc-to-skill",
+      "to": "skill-ecosystem-auditor",
       "type": "combines_with"
     },
     {
@@ -21999,6 +22884,41 @@
       "type": "combines_with"
     },
     {
+      "from": "seo-image-generator",
+      "to": "seo-meta-tags-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "seo-image-generator",
+      "to": "unsplash-photo-integration",
+      "type": "related"
+    },
+    {
+      "from": "seo-image-generator",
+      "to": "social-share-card-hardener",
+      "type": "related"
+    },
+    {
+      "from": "seo-image-generator",
+      "to": "seo-content-writer",
+      "type": "related"
+    },
+    {
+      "from": "seo-image-generator",
+      "to": "seo-meta-tags-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-image-generator",
+      "to": "seo-content-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "seo-image-generator",
+      "to": "social-share-card-hardener",
+      "type": "combines_with"
+    },
+    {
       "from": "seo-keyword-research",
       "to": "seo-content-gap-analysis",
       "type": "related"
@@ -22546,6 +23466,36 @@
     {
       "from": "social-media-performance-analyzer",
       "to": "campaign-attribution-analytics",
+      "type": "combines_with"
+    },
+    {
+      "from": "social-share-card-hardener",
+      "to": "seo-meta-tags-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "social-share-card-hardener",
+      "to": "seo-image-generator",
+      "type": "related"
+    },
+    {
+      "from": "social-share-card-hardener",
+      "to": "technical-seo-checker",
+      "type": "related"
+    },
+    {
+      "from": "social-share-card-hardener",
+      "to": "schema-markup-builder",
+      "type": "related"
+    },
+    {
+      "from": "social-share-card-hardener",
+      "to": "seo-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "social-share-card-hardener",
+      "to": "seo-performance-reporter",
       "type": "combines_with"
     },
     {
@@ -23359,6 +24309,36 @@
       "type": "combines_with"
     },
     {
+      "from": "google-stitch-ui-prompting",
+      "to": "stitch-design-system-taste",
+      "type": "related"
+    },
+    {
+      "from": "google-stitch-ui-prompting",
+      "to": "stitch-iterative-build-loop",
+      "type": "related"
+    },
+    {
+      "from": "google-stitch-ui-prompting",
+      "to": "magic-ui-component-generator",
+      "type": "related"
+    },
+    {
+      "from": "google-stitch-ui-prompting",
+      "to": "high-end-visual-design",
+      "type": "related"
+    },
+    {
+      "from": "google-stitch-ui-prompting",
+      "to": "design-dev-handoff",
+      "type": "combines_with"
+    },
+    {
+      "from": "google-stitch-ui-prompting",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "high-end-visual-design",
       "to": "minimalist-editorial-ui",
       "type": "related"
@@ -23689,6 +24669,96 @@
       "type": "combines_with"
     },
     {
+      "from": "spline-3d-web-integration",
+      "to": "threejs-3d-web",
+      "type": "related"
+    },
+    {
+      "from": "spline-3d-web-integration",
+      "to": "glsl-shader-programming",
+      "type": "related"
+    },
+    {
+      "from": "spline-3d-web-integration",
+      "to": "scroll-driven-web-experience",
+      "type": "related"
+    },
+    {
+      "from": "spline-3d-web-integration",
+      "to": "animejs-web-animation",
+      "type": "related"
+    },
+    {
+      "from": "spline-3d-web-integration",
+      "to": "high-end-visual-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "spline-3d-web-integration",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "spline-3d-web-integration",
+      "to": "frontend-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "stitch-design-system-taste",
+      "to": "google-stitch-ui-prompting",
+      "type": "related"
+    },
+    {
+      "from": "stitch-design-system-taste",
+      "to": "stitch-iterative-build-loop",
+      "type": "related"
+    },
+    {
+      "from": "stitch-design-system-taste",
+      "to": "ui-design-system-builder",
+      "type": "related"
+    },
+    {
+      "from": "stitch-design-system-taste",
+      "to": "high-end-visual-design",
+      "type": "related"
+    },
+    {
+      "from": "stitch-design-system-taste",
+      "to": "stitch-iterative-build-loop",
+      "type": "combines_with"
+    },
+    {
+      "from": "stitch-design-system-taste",
+      "to": "theme-factory",
+      "type": "combines_with"
+    },
+    {
+      "from": "stitch-iterative-build-loop",
+      "to": "stitch-design-system-taste",
+      "type": "related"
+    },
+    {
+      "from": "stitch-iterative-build-loop",
+      "to": "google-stitch-ui-prompting",
+      "type": "related"
+    },
+    {
+      "from": "stitch-iterative-build-loop",
+      "to": "high-end-visual-design",
+      "type": "related"
+    },
+    {
+      "from": "stitch-iterative-build-loop",
+      "to": "theme-factory",
+      "type": "combines_with"
+    },
+    {
+      "from": "stitch-iterative-build-loop",
+      "to": "parallel-agent-hub",
+      "type": "combines_with"
+    },
+    {
       "from": "theme-factory",
       "to": "brand-guidelines",
       "type": "related"
@@ -23796,6 +24866,41 @@
     {
       "from": "unreal-engine-cpp",
       "to": "glsl-shader-programming",
+      "type": "combines_with"
+    },
+    {
+      "from": "unsplash-photo-integration",
+      "to": "seo-image-generator",
+      "type": "related"
+    },
+    {
+      "from": "unsplash-photo-integration",
+      "to": "fal-ai-media-generation",
+      "type": "related"
+    },
+    {
+      "from": "unsplash-photo-integration",
+      "to": "photopea-embedded-editor",
+      "type": "related"
+    },
+    {
+      "from": "unsplash-photo-integration",
+      "to": "theme-factory",
+      "type": "related"
+    },
+    {
+      "from": "unsplash-photo-integration",
+      "to": "seo-image-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "unsplash-photo-integration",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "unsplash-photo-integration",
+      "to": "frontend-design",
       "type": "combines_with"
     },
     {
@@ -23916,6 +25021,66 @@
     {
       "from": "videodb-perception-editing",
       "to": "audio-to-markdown-transcriber",
+      "type": "combines_with"
+    },
+    {
+      "from": "vizcom-sketch-to-render",
+      "to": "fal-ai-media-generation",
+      "type": "related"
+    },
+    {
+      "from": "vizcom-sketch-to-render",
+      "to": "minimax-media-cli",
+      "type": "related"
+    },
+    {
+      "from": "vizcom-sketch-to-render",
+      "to": "high-end-visual-design",
+      "type": "related"
+    },
+    {
+      "from": "vizcom-sketch-to-render",
+      "to": "canvas-design",
+      "type": "related"
+    },
+    {
+      "from": "vizcom-sketch-to-render",
+      "to": "seo-image-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "vizcom-sketch-to-render",
+      "to": "demo-video-generator",
+      "type": "combines_with"
+    },
+    {
+      "from": "web-interface-guidelines-review",
+      "to": "ux-ui-principles-audit",
+      "type": "related"
+    },
+    {
+      "from": "web-interface-guidelines-review",
+      "to": "accessibility-wcag-audit",
+      "type": "related"
+    },
+    {
+      "from": "web-interface-guidelines-review",
+      "to": "wcag-22-audit-patterns",
+      "type": "related"
+    },
+    {
+      "from": "web-interface-guidelines-review",
+      "to": "design-critique",
+      "type": "related"
+    },
+    {
+      "from": "web-interface-guidelines-review",
+      "to": "frontend-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "web-interface-guidelines-review",
+      "to": "web-mock-data-hunter",
       "type": "combines_with"
     },
     {
@@ -24929,6 +26094,41 @@
       "type": "combines_with"
     },
     {
+      "from": "kanban-agent-pipeline-orchestrator",
+      "to": "multi-agent-orchestrator",
+      "type": "related"
+    },
+    {
+      "from": "kanban-agent-pipeline-orchestrator",
+      "to": "agent-workflow-builder",
+      "type": "related"
+    },
+    {
+      "from": "kanban-agent-pipeline-orchestrator",
+      "to": "parallel-agent-hub",
+      "type": "related"
+    },
+    {
+      "from": "kanban-agent-pipeline-orchestrator",
+      "to": "dmux-multi-agent-workflows",
+      "type": "related"
+    },
+    {
+      "from": "kanban-agent-pipeline-orchestrator",
+      "to": "quota-aware-subagent-orchestrator",
+      "type": "combines_with"
+    },
+    {
+      "from": "kanban-agent-pipeline-orchestrator",
+      "to": "task-decomposition-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "kanban-agent-pipeline-orchestrator",
+      "to": "jira-expert",
+      "type": "combines_with"
+    },
+    {
       "from": "meeting-transcript-analyzer",
       "to": "audio-to-markdown-transcriber",
       "type": "related"
@@ -24996,6 +26196,36 @@
     {
       "from": "multi-agent-orchestrator",
       "to": "multi-agent-workflow-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "multi-project-dev-diary",
+      "to": "decision-log-recorder",
+      "type": "related"
+    },
+    {
+      "from": "multi-project-dev-diary",
+      "to": "activity-digest-generator",
+      "type": "related"
+    },
+    {
+      "from": "multi-project-dev-diary",
+      "to": "obsidian-bases-builder",
+      "type": "related"
+    },
+    {
+      "from": "multi-project-dev-diary",
+      "to": "technical-change-tracker",
+      "type": "related"
+    },
+    {
+      "from": "multi-project-dev-diary",
+      "to": "obsidian-clipper-templates",
+      "type": "combines_with"
+    },
+    {
+      "from": "multi-project-dev-diary",
+      "to": "status-report-generator",
       "type": "combines_with"
     },
     {
@@ -25921,6 +27151,36 @@
     {
       "from": "agent-skill-security-scanner",
       "to": "false-positive-check",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-skill-security-scanner-v2",
+      "to": "agent-skill-security-scanner",
+      "type": "related"
+    },
+    {
+      "from": "agent-skill-security-scanner-v2",
+      "to": "agent-plugin-audit",
+      "type": "related"
+    },
+    {
+      "from": "agent-skill-security-scanner-v2",
+      "to": "skill-ecosystem-auditor",
+      "type": "related"
+    },
+    {
+      "from": "agent-skill-security-scanner-v2",
+      "to": "ai-system-security-audit",
+      "type": "related"
+    },
+    {
+      "from": "agent-skill-security-scanner-v2",
+      "to": "dependency-auditor",
+      "type": "combines_with"
+    },
+    {
+      "from": "agent-skill-security-scanner-v2",
+      "to": "supply-chain-risk-auditor",
       "type": "combines_with"
     },
     {
@@ -27959,6 +29219,41 @@
       "type": "combines_with"
     },
     {
+      "from": "skill-ecosystem-auditor",
+      "to": "agent-skill-security-scanner-v2",
+      "type": "related"
+    },
+    {
+      "from": "skill-ecosystem-auditor",
+      "to": "agent-plugin-audit",
+      "type": "related"
+    },
+    {
+      "from": "skill-ecosystem-auditor",
+      "to": "skill-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "skill-ecosystem-auditor",
+      "to": "agent-readiness-aeo-check",
+      "type": "related"
+    },
+    {
+      "from": "skill-ecosystem-auditor",
+      "to": "skill-optimizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "skill-ecosystem-auditor",
+      "to": "skill-creator",
+      "type": "combines_with"
+    },
+    {
+      "from": "skill-ecosystem-auditor",
+      "to": "agent-skill-security-scanner-v2",
+      "type": "combines_with"
+    },
+    {
       "from": "soc2-compliance-preparer",
       "to": "iso27001-isms-implementer",
       "type": "related"
@@ -28131,6 +29426,36 @@
     {
       "from": "threat-detection-hunting",
       "to": "wireshark-traffic-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "varlock-env-secrets-guard",
+      "to": "env-secrets-hygiene",
+      "type": "related"
+    },
+    {
+      "from": "varlock-env-secrets-guard",
+      "to": "secrets-management",
+      "type": "related"
+    },
+    {
+      "from": "varlock-env-secrets-guard",
+      "to": "secrets-manager",
+      "type": "related"
+    },
+    {
+      "from": "varlock-env-secrets-guard",
+      "to": "insecure-defaults-detector",
+      "type": "related"
+    },
+    {
+      "from": "varlock-env-secrets-guard",
+      "to": "agent-skill-security-scanner",
+      "type": "combines_with"
+    },
+    {
+      "from": "varlock-env-secrets-guard",
+      "to": "security-diff-review",
       "type": "combines_with"
     },
     {
@@ -32911,6 +34236,46 @@
     {
       "from": "litigation-chronology-builder",
       "to": "legal-hold-manager",
+      "type": "combines_with"
+    },
+    {
+      "from": "longbridge-securities-toolkit",
+      "to": "octagon-stock-quote",
+      "type": "related"
+    },
+    {
+      "from": "longbridge-securities-toolkit",
+      "to": "alpha-vantage-market-data",
+      "type": "related"
+    },
+    {
+      "from": "longbridge-securities-toolkit",
+      "to": "portfolio-risk-metrics",
+      "type": "related"
+    },
+    {
+      "from": "longbridge-securities-toolkit",
+      "to": "portfolio-rebalancer",
+      "type": "related"
+    },
+    {
+      "from": "longbridge-securities-toolkit",
+      "to": "institutional-flow-tracker",
+      "type": "related"
+    },
+    {
+      "from": "longbridge-securities-toolkit",
+      "to": "portfolio-risk-metrics",
+      "type": "combines_with"
+    },
+    {
+      "from": "longbridge-securities-toolkit",
+      "to": "portfolio-rebalancer",
+      "type": "combines_with"
+    },
+    {
+      "from": "longbridge-securities-toolkit",
+      "to": "octagon-stock-quote",
       "type": "combines_with"
     },
     {
@@ -38969,6 +40334,31 @@
       "type": "combines_with"
     },
     {
+      "from": "claude-code-settings-auditor",
+      "to": "ai-native-cli-design",
+      "type": "related"
+    },
+    {
+      "from": "claude-code-settings-auditor",
+      "to": "agent-skill-security-scanner",
+      "type": "related"
+    },
+    {
+      "from": "claude-code-settings-auditor",
+      "to": "skill-ecosystem-auditor",
+      "type": "related"
+    },
+    {
+      "from": "claude-code-settings-auditor",
+      "to": "mcp-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "claude-code-settings-auditor",
+      "to": "devcontainer-claude-setup",
+      "type": "combines_with"
+    },
+    {
       "from": "cloud-cost-optimization",
       "to": "aws-cost-optimizer",
       "type": "related"
@@ -39669,6 +41059,41 @@
       "type": "combines_with"
     },
     {
+      "from": "sendblue-imessage-api",
+      "to": "imessage-claude-bridge",
+      "type": "related"
+    },
+    {
+      "from": "sendblue-imessage-api",
+      "to": "twilio-communications",
+      "type": "related"
+    },
+    {
+      "from": "sendblue-imessage-api",
+      "to": "whatsapp-cloud-api",
+      "type": "related"
+    },
+    {
+      "from": "sendblue-imessage-api",
+      "to": "agentphone-voice-sms-agents",
+      "type": "related"
+    },
+    {
+      "from": "sendblue-imessage-api",
+      "to": "transactional-email-template-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "sendblue-imessage-api",
+      "to": "agentmail-email-infra",
+      "type": "combines_with"
+    },
+    {
+      "from": "sendblue-imessage-api",
+      "to": "slack-bolt-bot-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "slack-bolt-bot-builder",
       "to": "discord-bot-architect",
       "type": "related"
@@ -39801,6 +41226,41 @@
     {
       "from": "stripe-integration",
       "to": "firebase-backend",
+      "type": "combines_with"
+    },
+    {
+      "from": "tavily-web-research",
+      "to": "exa-semantic-search",
+      "type": "related"
+    },
+    {
+      "from": "tavily-web-research",
+      "to": "firecrawl-web-scraper",
+      "type": "related"
+    },
+    {
+      "from": "tavily-web-research",
+      "to": "defuddle-web-extract",
+      "type": "related"
+    },
+    {
+      "from": "tavily-web-research",
+      "to": "browser-automation-builder",
+      "type": "related"
+    },
+    {
+      "from": "tavily-web-research",
+      "to": "query-decomposition-search",
+      "type": "combines_with"
+    },
+    {
+      "from": "tavily-web-research",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "combines_with"
+    },
+    {
+      "from": "tavily-web-research",
+      "to": "fact-checking",
       "type": "combines_with"
     },
     {
@@ -39939,6 +41399,66 @@
       "type": "combines_with"
     },
     {
+      "from": "vexor-semantic-file-search",
+      "to": "vexor-vector-cli-setup",
+      "type": "related"
+    },
+    {
+      "from": "vexor-semantic-file-search",
+      "to": "codebase-structure-protocol",
+      "type": "related"
+    },
+    {
+      "from": "vexor-semantic-file-search",
+      "to": "monorepo-navigator",
+      "type": "related"
+    },
+    {
+      "from": "vexor-semantic-file-search",
+      "to": "codebase-onboarding-doc",
+      "type": "combines_with"
+    },
+    {
+      "from": "vexor-semantic-file-search",
+      "to": "vexor-vector-cli-setup",
+      "type": "combines_with"
+    },
+    {
+      "from": "vexor-vector-cli-setup",
+      "to": "vexor-semantic-file-search",
+      "type": "related"
+    },
+    {
+      "from": "vexor-vector-cli-setup",
+      "to": "exa-semantic-search",
+      "type": "related"
+    },
+    {
+      "from": "vexor-vector-cli-setup",
+      "to": "ai-native-cli-design",
+      "type": "related"
+    },
+    {
+      "from": "vexor-vector-cli-setup",
+      "to": "embedding-model-strategies",
+      "type": "related"
+    },
+    {
+      "from": "vexor-vector-cli-setup",
+      "to": "vexor-semantic-file-search",
+      "type": "combines_with"
+    },
+    {
+      "from": "vexor-vector-cli-setup",
+      "to": "codebase-structure-protocol",
+      "type": "combines_with"
+    },
+    {
+      "from": "vexor-vector-cli-setup",
+      "to": "rag-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "whatsapp-cloud-api",
       "to": "twilio-communications",
       "type": "related"
@@ -39974,6 +41494,36 @@
       "type": "combines_with"
     },
     {
+      "from": "x-post-to-json-fetcher",
+      "to": "x-twitter-scraper-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "x-post-to-json-fetcher",
+      "to": "x-twitter-automation",
+      "type": "related"
+    },
+    {
+      "from": "x-post-to-json-fetcher",
+      "to": "firecrawl-web-scraper",
+      "type": "related"
+    },
+    {
+      "from": "x-post-to-json-fetcher",
+      "to": "defuddle-web-extract",
+      "type": "related"
+    },
+    {
+      "from": "x-post-to-json-fetcher",
+      "to": "news-sentiment-briefing",
+      "type": "combines_with"
+    },
+    {
+      "from": "x-post-to-json-fetcher",
+      "to": "browser-automation-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "x-twitter-automation",
       "to": "apify-ecommerce-scraper",
       "type": "related"
@@ -40001,6 +41551,31 @@
     {
       "from": "x-twitter-automation",
       "to": "social-media-performance-analyzer",
+      "type": "combines_with"
+    },
+    {
+      "from": "x-twitter-scraper-toolkit",
+      "to": "x-twitter-automation",
+      "type": "related"
+    },
+    {
+      "from": "x-twitter-scraper-toolkit",
+      "to": "x-post-to-json-fetcher",
+      "type": "related"
+    },
+    {
+      "from": "x-twitter-scraper-toolkit",
+      "to": "browser-automation-builder",
+      "type": "related"
+    },
+    {
+      "from": "x-twitter-scraper-toolkit",
+      "to": "social-media-multi-publisher",
+      "type": "combines_with"
+    },
+    {
+      "from": "x-twitter-scraper-toolkit",
+      "to": "news-sentiment-briefing",
       "type": "combines_with"
     },
     {

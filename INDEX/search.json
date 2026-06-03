@@ -253,6 +253,31 @@
     "path": "00-meta/context-budget-audit/SKILL.md"
   },
   {
+    "name": "cross-tool-skill-manager",
+    "title": "跨工具技能管理：在 11 个工具间增删改技能",
+    "vol": "00-meta",
+    "domain": "通用/communication",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "技能管理",
+      "AI编码工具",
+      "Cursor",
+      "Claude",
+      "Windsurf",
+      "规则文件",
+      "跨工具",
+      "文件操作"
+    ],
+    "triggers": [
+      "管理技能",
+      "跨工具复制技能",
+      "列出我的技能"
+    ],
+    "description": "当需在多个 AI 编码工具（Cursor/Claude/Agents/Windsurf/Copilot/Codex/Cline/Aider/Continue/Roo/Augment）间查看、新建、编辑、启停、复制、移动或删除本地技能与规则文件时使用；产出针对各工具正确路径与格式的命令操作；不适用于工具私有只读插件缓存或线上技能市场。触发词：管理技能、跨工具复制技能、列出我的技能。",
+    "path": "00-meta/cross-tool-skill-manager/SKILL.md"
+  },
+  {
     "name": "decision-cooldown-freeze",
     "title": "决策冷静期锁定",
     "vol": "00-meta",
@@ -680,6 +705,33 @@
     "path": "00-meta/large-scale-math-algorithms/SKILL.md"
   },
   {
+    "name": "last-30-days-research",
+    "title": "近 30 天研究：Reddit/X/Web 时效话题速成",
+    "vol": "00-meta",
+    "domain": "通用/research",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "research",
+      "web-search",
+      "reddit",
+      "twitter-x",
+      "prompt-engineering",
+      "trend",
+      "misc"
+    ],
+    "triggers": [
+      "近30天",
+      "时效热议",
+      "Reddit X 调研",
+      "最佳",
+      "推荐 X",
+      "为某工具写提示词"
+    ],
+    "description": "当需要在 Reddit/X/Web 上调研近 30 天热议话题、快速成为该话题专家时使用；做的是解析话题与目标工具、跨源检索综合并产出可直接粘贴到目标工具的提示词；不适用于无时效性的通用知识问答或单纯网页摘要；触发词：近30天、时效热议、Reddit X 调研、最佳/推荐 X、为某工具写提示词。",
+    "path": "00-meta/last-30-days-research/SKILL.md"
+  },
+  {
     "name": "multi-source-knowledge-synthesis",
     "title": "多源知识综合",
     "vol": "00-meta",
@@ -761,6 +813,32 @@
     ],
     "description": "当需要从你已上传到 Google NotebookLM 的文档中拿「只基于这些源、不靠模型常识」的可溯源答案时使用；做的是驱动浏览器自动化登录并按笔记本提问、解析答案并按需追问直至信息齐全；不适用于开放网络检索、未上传到 NotebookLM 的资料、或拒绝可见浏览器手动登录的场景。触发词：NotebookLM、问我的笔记本、查我的文档、source-grounded、notebooklm.google.com",
     "path": "00-meta/notebooklm-source-grounded-qa/SKILL.md"
+  },
+  {
+    "name": "objective-to-build-blueprint",
+    "title": "目标转施工蓝图：一句话转可执行分步计划",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "规划",
+      "施工计划",
+      "任务拆解",
+      "多Agent协作",
+      "对抗评审",
+      "分支工作流",
+      "通用"
+    ],
+    "triggers": [
+      "施工蓝图",
+      "blueprint",
+      "目标拆计划",
+      "分步执行计划",
+      "多 PR 规划"
+    ],
+    "description": "当一个跨多 PR/多会话/多 Agent 的工程目标需要拆成可独立冷启动执行的施工计划时使用；做研究→设计→起草→对抗评审→登记五步，把一句话目标拆成单 PR 粒度、每步带自包含上下文简报（含分支流程/CI 策略/回滚）的分步蓝图并存档；不适用于单 PR 可完成、用户说「直接做」、纯问答或探索性需求。触发词：施工蓝图、blueprint、目标拆计划、分步执行计划、多 PR 规划",
+    "path": "00-meta/objective-to-build-blueprint/SKILL.md"
   },
   {
     "name": "oss-contribution-hunter",
@@ -943,6 +1021,32 @@
     ],
     "description": "当需要让用户以 400–800+ WPM 速读长文本或 Agent 的长回复、又不愿逐行滚动时使用；做生成一个单页 RSVP 速读器（逐词闪现 + Spritz 式 ORP 红字对齐 + 速度/暂停控制）的 HTML 产物；不适用于需对照、跳读、做笔记、看代码块/表格或精读校对的场景。触发词：RSVP、速读、快速阅读、Spritz、ORP、逐词闪现",
     "path": "00-meta/rsvp-speed-reader/SKILL.md"
+  },
+  {
+    "name": "skill-router-interviewer",
+    "title": "技能路由顾问：访谈式定位最合适的技能",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "技能路由",
+      "访谈式",
+      "推荐",
+      "选型",
+      "漏斗提问",
+      "新手引导",
+      "通用",
+      "学习"
+    ],
+    "triggers": [
+      "不知道用哪个技能",
+      "从哪开始",
+      "该用什么",
+      "which skill"
+    ],
+    "description": "当用户不知从何下手、不确定该用哪个技能、目标模糊只有大方向时使用；做一轮结构化访谈（漏斗式提问）后推荐 1 个主技能+至多 2 个辅技能，产出推荐理由、@调用语法与可直接粘贴的成品提示词；不适用于已明确技能后的实际执行（本条只做选型与推荐，不替代被推荐技能干活），也不替你安装未装技能。触发词：不知道用哪个技能、从哪开始、该用什么、which skill",
+    "path": "00-meta/skill-router-interviewer/SKILL.md"
   },
   {
     "name": "socratic-explainer",
@@ -1666,6 +1770,58 @@
     "path": "01-documents/visa-doc-translate/SKILL.md"
   },
   {
+    "name": "wiki-to-vitepress-site",
+    "title": "Wiki 转 VitePress：Markdown 转静态文档站点",
+    "vol": "01-documents",
+    "domain": "文书/markdown",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "VitePress",
+      "静态站点",
+      "Mermaid",
+      "文档工程",
+      "暗色主题",
+      "前端构建"
+    ],
+    "triggers": [
+      "build a site",
+      "打包成 VitePress",
+      "静态文档站",
+      "Mermaid 暗色",
+      "deep-wiki:build"
+    ],
+    "description": "当已有一批 Markdown wiki/文档页、需打包成可浏览的 VitePress 静态站点（暗色主题 + 可交互 Mermaid 图）时使用；脚手架 wiki-site/、写 config.mts/custom.css/theme，做暗色 Mermaid 三层修复与点击放大，npm run docs:build 产出 dist/；不适用于撰写文档内容本身、单文件转换或 MkDocs/Docusaurus 等其他生成器。触发词：build a site、打包成 VitePress、静态文档站、Mermaid 暗色、/deep-wiki:build",
+    "path": "01-documents/wiki-to-vitepress-site/SKILL.md"
+  },
+  {
+    "name": "xlsx-spreadsheet-authoring",
+    "title": "XLSX 表格制作：Excel 文件创建与格式化",
+    "vol": "01-documents",
+    "domain": "文书/office",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "文书",
+      "xlsx",
+      "excel",
+      "openpyxl",
+      "pandas",
+      "财务模型",
+      "公式"
+    ],
+    "triggers": [
+      "做Excel",
+      "生成xlsx",
+      "写公式",
+      "套格式",
+      "建财务模型",
+      "改表格"
+    ],
+    "description": "当需要创建、编辑或分析 .xlsx 表格（数据、公式、格式化、财务模型）时使用；做用 pandas 读析、openpyxl 写公式与样式、recalc.py 强制重算并产出零公式错误的工作簿；不适用于 .docx/.pptx、纯文本无表格需求或一次性问答；触发词：做Excel、生成xlsx、写公式、套格式、建财务模型、改表格",
+    "path": "01-documents/xlsx-spreadsheet-authoring/SKILL.md"
+  },
+  {
     "name": "accessibility-wcag-audit",
     "title": "无障碍 WCAG 合规审计",
     "vol": "02-engineering",
@@ -1764,6 +1920,31 @@
     ],
     "description": "当合并 PR 前、长时间编码后或怀疑「LGTM」过于宽松时使用；用三类敌对角色（破坏者/新人/安全审计员）对改动做强制挑刺评审，产出按严重级分类、含 BLOCK/CONCERNS/CLEAN 裁决的结构化报告；不适用于无 diff 可评审或仅需正向确认/纯风格格式化的场景。触发词：对抗式评审、adversarial review、合并前评审、敌对角色挑刺",
     "path": "02-engineering/adversarial-code-reviewer/SKILL.md"
+  },
+  {
+    "name": "ai-generated-code-auditor",
+    "title": "AI 代码审计：审查快速生成代码的结构脆弱性",
+    "vol": "02-engineering",
+    "domain": "研发/review",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "代码审计",
+      "代码质量",
+      "AI生成代码",
+      "技术债",
+      "生产就绪",
+      "安全审查",
+      "重构",
+      "code-review"
+    ],
+    "triggers": [
+      "AI 生成代码审查",
+      "能跑但脆弱",
+      "上生产前体检"
+    ],
+    "description": "当需要审查 AI 生成、vibe coding 或快速迭代出来的\"能跑但脆弱\"的代码、判断能否上生产时使用；做的是按七维度产出带严重度分级与可上线评分的审计报告，并给最小修复建议；不适用于风格洁癖纠错、需求级架构重写或脱离代码的空泛建议；触发词：AI 生成代码审查、能跑但脆弱、上生产前体检",
+    "path": "02-engineering/ai-generated-code-auditor/SKILL.md"
   },
   {
     "name": "algolia-search-integration",
@@ -6205,6 +6386,34 @@
     "path": "02-engineering/swiftui-best-practices/SKILL.md"
   },
   {
+    "name": "swiftui-liquid-glass",
+    "title": "SwiftUI Liquid Glass：液态玻璃 API 与回退实现",
+    "vol": "02-engineering",
+    "domain": "研发/mobile",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "SwiftUI",
+      "Liquid Glass",
+      "液态玻璃",
+      "iOS 26",
+      "UI 材质",
+      "玻璃效果",
+      "Apple",
+      "研发"
+    ],
+    "triggers": [
+      "Liquid Glass",
+      "glassEffect",
+      "GlassEffectContainer",
+      "玻璃按钮",
+      "液态玻璃",
+      "glassEffectID"
+    ],
+    "description": "当在 SwiftUI 中采用、审查或重构 iOS 26+ Liquid Glass（液态玻璃）效果，需要正确的 API 用法、修饰符顺序、容器分组与版本回退时使用；产出原生 glassEffect/GlassEffectContainer/玻璃按钮样式的实现片段、审查清单与 #available 降级方案；不适用于自定义模糊堆砌、跨平台框架或纯后端。触发词：Liquid Glass、glassEffect、GlassEffectContainer、玻璃按钮、液态玻璃、glassEffectID",
+    "path": "02-engineering/swiftui-liquid-glass/SKILL.md"
+  },
+  {
     "name": "systematic-debugger",
     "title": "系统化调试与根因分析",
     "vol": "02-engineering",
@@ -6360,6 +6569,36 @@
     "path": "02-engineering/tech-stack-evaluator/SKILL.md"
   },
   {
+    "name": "temporal-golang-workflows",
+    "title": "Temporal Go 工作流：确定性编排与 mTLS",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "temporal",
+      "golang",
+      "workflow",
+      "orchestration",
+      "mTLS",
+      "distributed-systems",
+      "saga",
+      "durable-execution"
+    ],
+    "triggers": [
+      "Temporal",
+      "Go SDK",
+      "workflow 确定性",
+      "mTLS Worker",
+      "GetVersion",
+      "ContinueAsNew",
+      "Selector 信号",
+      "Saga 编排"
+    ],
+    "description": "当用 Temporal Go SDK 构建持久化分布式编排（长流程、Saga、信号/定时器、子工作流）时使用；做确定性工作流、mTLS Worker、版本化与重放测试的生产级 Go 实现；不适用于 Python/Java/TS SDK、无持久化需求的简单请求响应或普通 cron。触发词：Temporal、Go SDK、workflow 确定性、mTLS Worker、GetVersion、ContinueAsNew、Selector 信号、Saga 编排",
+    "path": "02-engineering/temporal-golang-workflows/SKILL.md"
+  },
+  {
     "name": "temporal-workflow-python",
     "title": "Temporal 持久工作流编排（Python）",
     "vol": "02-engineering",
@@ -6507,6 +6746,31 @@
     "path": "02-engineering/trpc-typesafe-api/SKILL.md"
   },
   {
+    "name": "turborepo-build-caching",
+    "title": "Turborepo 缓存：Monorepo 本地与远程构建加速",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "turborepo",
+      "monorepo",
+      "构建缓存",
+      "remote-cache",
+      "CI/CD",
+      "pipeline",
+      "研发",
+      "misc"
+    ],
+    "triggers": [
+      "turborepo",
+      "turbo.json",
+      "remote cache"
+    ],
+    "description": "当在 monorepo 中配置 Turborepo、优化构建流水线或排查缓存未命中时使用；做产出 turbo.json 流水线/远程缓存接入/过滤构建命令与 CI 配置；不适用于非 Turborepo 的构建工具或与缓存无关的任务；触发词：turborepo、turbo.json、remote cache",
+    "path": "02-engineering/turborepo-build-caching/SKILL.md"
+  },
+  {
     "name": "turborepo-caching",
     "title": "Turborepo 单仓构建缓存配置",
     "vol": "02-engineering",
@@ -6587,6 +6851,32 @@
     ],
     "description": "当用 Python 建项目、装依赖、管虚拟环境/解释器或需可复现锁文件时使用；用 Rust 编写的 uv 替代 pip/poetry/pip-tools，做项目初始化、依赖增删锁定、Python 版本固定与 CI/Docker 提速，产出 pyproject.toml + uv.lock；不适用于 conda 生态、非 Python 包管理或运行时性能调优；触发词：uv、uv add、uv sync、pyproject、虚拟环境、锁文件",
     "path": "02-engineering/uv-python-package-manager/SKILL.md"
+  },
+  {
+    "name": "vibe-code-production-cleanup",
+    "title": "Vibe 代码清理：全栈应用上线前安全加固",
+    "vol": "02-engineering",
+    "domain": "研发/frontend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "cleanup",
+      "refactor",
+      "nextjs",
+      "fullstack",
+      "nodejs",
+      "production",
+      "vibe-code",
+      "重构",
+      "上线加固"
+    ],
+    "triggers": [
+      "vibe代码清理",
+      "上线前加固",
+      "死代码清理"
+    ],
+    "description": "当 AI 速成/vibe-coded 的全栈应用（Next.js、React、Node.js）能跑但有断裂导入、死代码、重复逻辑、环境变量混乱、需上线或交接前加固时使用；做小步可回滚的安全清理，产出无断链、含共享 helper、env 齐备且构建通过的可维护基线；不适用于重命名路由/API 契约、改 DB schema/鉴权/计费、大重写或删除未验证文件。触发词：vibe代码清理、上线前加固、死代码清理",
+    "path": "02-engineering/vibe-code-production-cleanup/SKILL.md"
   },
   {
     "name": "vp-engineering-advisor",
@@ -6725,6 +7015,31 @@
     ],
     "description": "当构建 React/Vue/Svelte 组件库、设计组件 API 或落地前端设计系统时使用；做组合模式选型、CSS-in-JS 方案选择与可复用组件 API 的设计落地；不适用于纯样式微调、单页面一次性 UI 或后端逻辑；触发词：组件库、设计系统、复合组件、组件 API、CSS-in-JS",
     "path": "02-engineering/web-component-design/SKILL.md"
+  },
+  {
+    "name": "web-mock-data-hunter",
+    "title": "Mock 数据猎手：审计网页中的假数据与硬编码",
+    "vol": "02-engineering",
+    "domain": "研发/review",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "mock-detection",
+      "web-audit",
+      "playwright",
+      "qa",
+      "ai-testing",
+      "研发"
+    ],
+    "triggers": [
+      "mock 数据",
+      "假数据",
+      "硬编码",
+      "vibe-coded 审计",
+      "数据是否真连"
+    ],
+    "description": "当审计 AI 生成 / vibe-coded 网页、签收他人交付物或怀疑仪表盘数据是种子假数据时使用；驱动真实浏览器分五步（盘点→点击→溯源→定性→报告）追每个可见值的来源，产出逐值标注 REAL/MOCK/LLM/HARDCODED/BROKEN/UNKNOWN 的 markdown 审计报告；不适用于未经授权站点的写操作、OAuth/2FA 登录或多页爬取；触发词：mock 数据、假数据、硬编码、vibe-coded 审计、数据是否真连",
+    "path": "02-engineering/web-mock-data-hunter/SKILL.md"
   },
   {
     "name": "webapp-testing",
@@ -7778,6 +8093,32 @@
     "path": "03-data/pymc-bayesian-modeling/SKILL.md"
   },
   {
+    "name": "rss-news-sentiment-engine",
+    "title": "RSS 新闻情感引擎：多源聚合与结构化简报",
+    "vol": "03-data",
+    "domain": "数据/pipeline",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "news",
+      "rss",
+      "sentiment-analysis",
+      "briefing",
+      "dedup",
+      "pipeline"
+    ],
+    "triggers": [
+      "RSS 聚合",
+      "新闻情感",
+      "舆情管道",
+      "结构化简报",
+      "影响力评分",
+      "去重"
+    ],
+    "description": "当需要把多个 RSS/检索源的科技新闻跑成一条「采集→去重→排序→情感标注」的数据管道、输出可机读的结构化简报（JSON/简报卡）时使用；做多源拉取、跨源同源稿去重、影响力 1-5 排序、情感与行业标签标注、成稿成卡；不适用于单源快讯、网页单篇总结、实时行情/盘口、把评分当权威投资或政策研判；触发词：RSS 聚合、新闻情感、舆情管道、结构化简报、影响力评分、去重",
+    "path": "03-data/rss-news-sentiment-engine/SKILL.md"
+  },
+  {
     "name": "scientific-exploratory-data-analysis",
     "title": "科学数据探索性分析（200+ 格式）",
     "vol": "03-data",
@@ -8048,6 +8389,39 @@
     "path": "03-data/umap-dimensionality-reduction/SKILL.md"
   },
   {
+    "name": "vector-database-engineer",
+    "title": "向量数据库工程：Pinecone/Weaviate 与语义检索",
+    "vol": "03-data",
+    "domain": "数据/sql",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "vector-database",
+      "pinecone",
+      "weaviate",
+      "qdrant",
+      "milvus",
+      "pgvector",
+      "semantic-search",
+      "rag",
+      "similarity-search",
+      "embeddings"
+    ],
+    "triggers": [
+      "向量数据库",
+      "Pinecone",
+      "Weaviate",
+      "Qdrant",
+      "Milvus",
+      "pgvector",
+      "语义检索",
+      "RAG",
+      "相似度搜索"
+    ],
+    "description": "当为 RAG/语义检索/推荐做向量库选型与端到端落地，在 Pinecone/Weaviate/Qdrant/Milvus/pgvector 间权衡并设计分块、元数据与扩容时使用；产出选型对照、索引(HNSW/IVF/PQ)与元数据 schema 及上线清单；不适用于嵌入选型评估、纯索引调参或关系型/NoSQL 建模；触发词：向量数据库、Pinecone、Weaviate、Qdrant、Milvus、pgvector、语义检索、RAG、相似度搜索",
+    "path": "03-data/vector-database-engineer/SKILL.md"
+  },
+  {
     "name": "zarr-chunked-arrays",
     "title": "Zarr 云端分块 N 维数组",
     "vol": "03-data",
@@ -8300,6 +8674,33 @@
     ],
     "description": "当为 Agent 系统设计/重构工具、排查工具被误用或漏选、精简工具集时使用；做出无歧义的工具契约（描述-触发-参数-返回-错误）、按合并原则整合工具、必要时做架构精简，产出可被模型可靠调用的工具集；不适用于给人类调用的普通 API 设计、单纯写提示词或业务代码实现；触发词：工具设计、tool design、function calling、工具描述、MCP、合并原则、工具太多。",
     "path": "04-ai/agent-tool-design/SKILL.md"
+  },
+  {
+    "name": "agent-tool-design-patterns",
+    "title": "智能体工具设计：可被 Agent 高效调用的工具",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "工具设计",
+      "agent",
+      "MCP",
+      "tool-design",
+      "API",
+      "上下文工程",
+      "错误处理",
+      "命名约定"
+    ],
+    "triggers": [
+      "工具设计",
+      "tool design",
+      "MCP",
+      "工具整合",
+      "错误信息"
+    ],
+    "description": "当为 Agent 系统设计/重构工具集、排查工具误用或优化既有工具时使用；产出无歧义的工具描述、整合后的工具清单与可恢复的错误信息；不适用于给人类开发者写的普通 API 文档、与 Agent 无关的接口设计；触发词：工具设计、tool design、MCP、工具整合、错误信息",
+    "path": "04-ai/agent-tool-design-patterns/SKILL.md"
   },
   {
     "name": "agent-workflow-pattern-designer",
@@ -8910,6 +9311,37 @@
     ],
     "description": "当需要做带媒体偏见标注的新闻检索、左中右平衡观点、来源可信度评估，或查实时股票/期权/加密数据与语义 meme 搜索时使用；做接入 Helium MCP（免鉴权 streamable HTTP）并按 9 个工具检索、产出偏见画像/平衡综述/行情分析；不适用于权威实时事实核验、投资决策背书或自建 MCP 服务（应转 mcp-builder）。触发词：新闻检索、媒体偏见、平衡观点、来源可信度、股票期权、Helium MCP",
     "path": "04-ai/helium-news-research-mcp/SKILL.md"
+  },
+  {
+    "name": "hierarchical-agent-memory",
+    "title": "分层智能体记忆：目录级上下文与省 Token",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "智能体记忆",
+      "上下文工程",
+      "CLAUDE.md",
+      "token 优化",
+      "分层记忆",
+      "上下文路由",
+      "省成本",
+      "HAM",
+      "目录级上下文"
+    ],
+    "triggers": [
+      "go ham",
+      "CLAUDE.md",
+      "分层记忆",
+      "目录级上下文",
+      "省 token",
+      "上下文路由",
+      "ham dashboard",
+      "ham savings"
+    ],
+    "description": "当项目有 3+ 目录、智能体每轮都重读整个工程导致输入 token 暴涨时使用；做分层 CLAUDE.md 记忆体系搭建——根级全局上下文(~200 token)+ 子目录作用域上下文(~250 token/个)+ .memory 决策/模式/收件箱层，并配上下文路由与省 token 仪表盘；不适用于跨会话向量记忆/RAG 检索(转 agent-memory-systems)或单文件小项目。触发词：go ham、CLAUDE.md、分层记忆、目录级上下文、省 token、上下文路由、ham dashboard、ham savings",
+    "path": "04-ai/hierarchical-agent-memory/SKILL.md"
   },
   {
     "name": "huggingface-hub-cli",
@@ -9628,6 +10060,31 @@
     "path": "04-ai/pydantic-ai-agents/SKILL.md"
   },
   {
+    "name": "quota-aware-subagent-orchestrator",
+    "title": "配额感知子智能体编排：大型多文件任务并行",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "子智能体编排",
+      "配额感知",
+      "并行多智能体",
+      "任务分解",
+      "模型路由",
+      "上下文隔离",
+      "成本控制",
+      "多文件任务"
+    ],
+    "triggers": [
+      "配额感知编排",
+      "多智能体并行",
+      "大型多文件任务"
+    ],
+    "description": "当一个任务横跨 3 个以上文件/组件、想多智能体并行推进、且曾在任务中途撞上配额耗尽时使用；做任务分解为隔离子智能体使命、按规模与复杂度路由模型（默认便宜快模型，贵模型限 1 个）、上下文隔离派发、依赖分轮并行执行并做轮间抽检与集成校验，产出一份 Mission Brief 编排蓝图与可交付集成结果；不适用于单文件改动、修单个 Bug、写 50 行内小脚本或只生成计划/回答问题。触发词：配额感知编排、多智能体并行、大型多文件任务",
+    "path": "04-ai/quota-aware-subagent-orchestrator/SKILL.md"
+  },
+  {
     "name": "rag-clarity-gate",
     "title": "RAG 入库前文档清晰度校验",
     "vol": "04-ai",
@@ -9869,6 +10326,30 @@
     ],
     "description": "当某条 Agent 技能（SKILL.md）不触发、误触发、烧 token 或想审计整个技能库质量时使用；做基于真实会话记录 + 静态质检的 8 维诊断，按 5 分制打分并输出 P0/P1/P2 修复清单（只读、不改源文件）；不适用于从零创建技能、改写技能内容或微调单句提示词；触发词：技能不触发、优化 skill、审计技能库、误触发、欠触发、description 触发率、token 浪费",
     "path": "04-ai/skill-optimizer/SKILL.md"
+  },
+  {
+    "name": "skill-seekers-doc-to-skill",
+    "title": "文档转技能：从网站/仓库/PDF 快速生成 AI 技能",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "技能工程",
+      "文档抓取",
+      "知识库",
+      "自动化",
+      "Claude",
+      "智能/misc"
+    ],
+    "triggers": [
+      "文档转技能",
+      "爬文档建技能",
+      "skill-seekers",
+      "批量生成技能"
+    ],
+    "description": "当需要把文档网站、GitHub 仓库、PDF 或视频批量转成可用的 AI 技能（SKILL.md + references）时使用；用 skill-seekers 完成抓取→增强→打包→上传/安装到 Claude 或各 Agent 全流程；不适用于手写单条精炼技能、或源缺乏结构化文档时。触发词：文档转技能、爬文档建技能、skill-seekers、批量生成技能",
+    "path": "04-ai/skill-seekers-doc-to-skill/SKILL.md"
   },
   {
     "name": "transformers-js",
@@ -13771,6 +14252,31 @@
     "path": "05-business/seo-entity-optimizer/SKILL.md"
   },
   {
+    "name": "seo-image-generator",
+    "title": "SEO 图像生成：OG 卡片、信息图与产品视觉",
+    "vol": "05-business",
+    "domain": "商业/seo",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "SEO",
+      "图像生成",
+      "OG",
+      "信息图",
+      "内容发布"
+    ],
+    "triggers": [
+      "OG 图",
+      "信息图",
+      "产品图",
+      "hero 图",
+      "社交预览",
+      "SEO 配图"
+    ],
+    "description": "当为 SEO/内容发布生成 OG 卡片、博客头图、产品图、信息图、Schema 配图等成品视觉时使用；做按用例映射宽高比/分辨率/领域模式并经创意总监管线产出图片+SEO 清单（alt/命名/WebP/ImageObject/og:image）；不适用于未安装图像生成扩展、纯图像分析审计或非 SEO 场景；触发词：OG 图、信息图、产品图、hero 图、社交预览、SEO 配图。",
+    "path": "05-business/seo-image-generator/SKILL.md"
+  },
+  {
     "name": "seo-keyword-research",
     "title": "SEO 关键词研究与选题聚类",
     "vol": "05-business",
@@ -14260,6 +14766,33 @@
     ],
     "description": "当需要分析社媒投放/活动表现、衡量互动率与广告 ROI、跨平台对标行业基准时使用；做投放数据校验→分平台计算互动率/CTR/ROAS→对标基准→排名优劣帖→产出优化建议报告；不适用于内容创作/排期或非社媒渠道分析；触发词：分析社媒、计算互动率、社媒 ROI、活动绩效、平台对标",
     "path": "05-business/social-media-performance-analyzer/SKILL.md"
+  },
+  {
+    "name": "social-share-card-hardener",
+    "title": "社交分享卡片加固：Open Graph 富链接预览修复",
+    "vol": "05-business",
+    "domain": "商业/marketing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "seo",
+      "open-graph",
+      "twitter-card",
+      "social-sharing",
+      "og-image",
+      "nextjs",
+      "metadata",
+      "商业"
+    ],
+    "triggers": [
+      "Open Graph",
+      "og:image",
+      "Twitter Card",
+      "富链接预览",
+      "分享卡片"
+    ],
+    "description": "当分享链接在 Facebook/LinkedIn/X/微信/Telegram/Slack/Discord 等平台预览缺失、过期、裁切或错误，或上线前需统一富链接预览时使用；做 OG/Twitter Card 元数据加固、绝对图片 URL 修复与预览调试，产出可复用元数据助手与排错清单；不适用于仅靠客户端 JS 注入标签、未部署的本地页面，也不替代品牌/可访问性/法务审查。触发词：Open Graph、og:image、Twitter Card、富链接预览、分享卡片",
+    "path": "05-business/social-share-card-hardener/SKILL.md"
   },
   {
     "name": "startup-financial-modeler",
@@ -14972,6 +15505,34 @@
     "path": "06-creative/glsl-shader-programming/SKILL.md"
   },
   {
+    "name": "google-stitch-ui-prompting",
+    "title": "Google Stitch UI 设计：AI 界面提示词工程",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Google-Stitch",
+      "UI设计",
+      "提示词工程",
+      "AI生成界面",
+      "原型设计",
+      "Figma",
+      "前端",
+      "创意"
+    ],
+    "triggers": [
+      "Stitch",
+      "UI 提示词",
+      "文字转界面",
+      "界面生成",
+      "导出 Figma",
+      "HTML"
+    ],
+    "description": "当用 Google Stitch（Gemini 驱动的 Labs UI 生成器）由文字/草图生成 Web 或移动端界面时使用；做提示词工程，产出具体、含视觉风格与功能要求的可执行提示词及迭代/导出方案；不适用于手写生产代码、做交互动效实现或替代真人评审。触发词：Stitch、UI 提示词、文字转界面、界面生成、导出 Figma/HTML。",
+    "path": "06-creative/google-stitch-ui-prompting/SKILL.md"
+  },
+  {
     "name": "high-end-visual-design",
     "title": "高端视觉界面设计",
     "vol": "06-creative",
@@ -15276,6 +15837,88 @@
     "path": "06-creative/slack-gif-creator/SKILL.md"
   },
   {
+    "name": "spline-3d-web-integration",
+    "title": "Spline 3D 集成：交互式 3D 场景嵌入网页",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "3D",
+      "Spline",
+      "前端",
+      "React",
+      "Next.js",
+      "Vue",
+      "交互设计",
+      "创意",
+      "WebGL"
+    ],
+    "triggers": [
+      "Spline",
+      "splinecode",
+      "spline-viewer",
+      "react-spline",
+      "3D 场景嵌入"
+    ],
+    "description": "当需要把 Spline.design 制作的交互式 3D 场景嵌入网页（原生 HTML/JS、React、Next.js、Vue 或 iframe）时使用；做技术栈选型、获取 .splinecode 场景 URL、运行时控制 API 接入并产出可运行嵌入代码；不适用于用 three.js/GLSL 手写 3D、纯静态图片或后端逻辑。触发词：Spline、splinecode、spline-viewer、react-spline、3D 场景嵌入",
+    "path": "06-creative/spline-3d-web-integration/SKILL.md"
+  },
+  {
+    "name": "stitch-design-system-taste",
+    "title": "Stitch 设计品味：排版色彩布局动效系统生成",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "design",
+      "前端",
+      "设计系统",
+      "Stitch",
+      "排版",
+      "配色",
+      "动效",
+      "反模式"
+    ],
+    "triggers": [
+      "Stitch",
+      "DESIGN.md",
+      "设计系统",
+      "反 AI 通用 UI",
+      "设计品味"
+    ],
+    "description": "当需要为 Google Stitch 屏幕生成器产出语义化 DESIGN.md 设计系统、用自然语言描述加精确数值约束驱动 AI 生成高端非通用界面时使用；产出含氛围/色板/字体/组件/布局/动效/反模式七段的 DESIGN.md，覆盖反 AI-slop 规则（禁 Inter、禁纯黑、禁霓虹紫蓝、禁 3 等宽卡片）；不适用于已有成熟品牌设计系统、直接写最终前端代码、或保证 Stitch 像素级还原每条约束的场景。触发词：Stitch、DESIGN.md、设计系统、反 AI 通用 UI、设计品味",
+    "path": "06-creative/stitch-design-system-taste/SKILL.md"
+  },
+  {
+    "name": "stitch-iterative-build-loop",
+    "title": "Stitch 迭代构建循环：自主接力式网站搭建",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "前端",
+      "网站生成",
+      "Stitch",
+      "MCP",
+      "自动化",
+      "迭代循环",
+      "设计系统",
+      "创意"
+    ],
+    "triggers": [
+      "Stitch",
+      "迭代构建循环",
+      "接力棒",
+      "自主搭站"
+    ],
+    "description": "当用 Stitch 跨多轮/多 Agent 自主接力搭建整站、每轮读任务→生成页→集成→交棒时使用；做基于 .stitch/next-prompt.md「接力棒」的闭环：读棒→查 SITE/DESIGN→Stitch 生成页→并入 site/public→更新文档→写下一棒；不适用于一次性单页生成、无 Stitch MCP 或无设计系统的场景；触发词：Stitch、迭代构建循环、接力棒、自主搭站",
+    "path": "06-creative/stitch-iterative-build-loop/SKILL.md"
+  },
+  {
     "name": "theme-factory",
     "title": "主题工厂：为内容产物套用配色与字体主题",
     "vol": "06-creative",
@@ -15389,6 +16032,32 @@
     ],
     "description": "当为 Unreal Engine 5.x 编写 C++（Actor、Component、UObject 派生类）、做性能优化、排查 GC/内存泄漏或暴露蓝图接口时使用；产出符合 Epic 规范、GC 安全且高性能的 UE5 C++ 代码与重构方案；不适用于纯蓝图项目、UE5 之前版本或非 Unreal 引擎。触发词：Unreal C++、UE5、UPROPERTY、UCLASS、垃圾回收、TSoftObjectPtr、Tick 优化",
     "path": "06-creative/unreal-engine-cpp/SKILL.md"
+  },
+  {
+    "name": "unsplash-photo-integration",
+    "title": "Unsplash 图库集成：免费高质量摄影图搜索接入",
+    "vol": "06-creative",
+    "domain": "创意/image",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "misc",
+      "图片素材",
+      "摄影图库",
+      "配图",
+      "UI/UX",
+      "性能优化"
+    ],
+    "triggers": [
+      "unsplash",
+      "免费配图",
+      "摄影图库",
+      "hero 配图",
+      "占位图替换"
+    ],
+    "description": "当为网站·App·营销物料挑选高质量免费摄影图、需替换占位图/平庸 stock 图时使用；做法是用艺术化关键词在 Unsplash 搜索、按方向与配色筛选、经 API 或直链获取并用动态参数（如 ?w=1600&q=85&fit=crop）按布局裁剪压缩后接入；不适用于自有插画/品牌 Logo/UI 图标、付费授权独占图、需明确商业授权或人物肖像权的场景。触发词：unsplash、免费配图、摄影图库、hero 配图、占位图替换",
+    "path": "06-creative/unsplash-photo-integration/SKILL.md"
   },
   {
     "name": "ux-microcopy-writer",
@@ -15508,6 +16177,58 @@
     ],
     "description": "当需要对视频/音频/直播/桌面会话做感知、索引、按时间戳检索证据、剪辑时间轴、加字幕叠层、转码改比例或生成媒体时使用；用 VideoDB Python SDK 摄入文件/URL/RTSP，建口语与视觉索引，search 返回带时间戳的可播片段，Timeline 编排导出 HLS 流；不适用于无 API key、转场/变速/裁切调色等需本地工具的操作；触发词：视频检索、加字幕、剪辑、转码、改竖屏、RTSP 直播告警、桌面录制",
     "path": "06-creative/videodb-perception-editing/SKILL.md"
+  },
+  {
+    "name": "vizcom-sketch-to-render",
+    "title": "Vizcom 草图转渲染：产品设计稿转全保真 3D",
+    "vol": "06-creative",
+    "domain": "创意/image",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "产品设计",
+      "AI渲染",
+      "工业设计",
+      "Vizcom",
+      "效果图"
+    ],
+    "triggers": [
+      "产品渲染",
+      "草图转渲染",
+      "Vizcom",
+      "概念效果图",
+      "材质质感"
+    ],
+    "description": "当需把粗略草图/线稿/文字概念变成产品级照片真实渲染或探索造型材质变体时使用；用 Vizcom 写精准带权重提示词产出高保真 3D 风格效果图；不适用于平面 UI、Logo、插画或需工程验证的成品决策；触发词：产品渲染、草图转渲染、Vizcom、概念效果图、材质质感",
+    "path": "06-creative/vizcom-sketch-to-render/SKILL.md"
+  },
+  {
+    "name": "web-interface-guidelines-review",
+    "title": "Web 界面准则审查：网页交互规范合规检查",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "design",
+      "界面审查",
+      "合规检查",
+      "无障碍",
+      "前端规范",
+      "Vercel"
+    ],
+    "triggers": [
+      "Web 界面准则",
+      "交互规范审查",
+      "合规检查",
+      "file:line",
+      "无障碍审查",
+      "Vercel guidelines"
+    ],
+    "description": "当需要拿指定文件去对照 Vercel「Web Interface Guidelines」做交互/无障碍/性能合规检查、并产出 file:line 简洁清单时使用；做规则抓取+逐文件审查+缺陷定位；不适用于无文件可审、纯视觉稿评审、或替你改代码；触发词：Web 界面准则、交互规范审查、合规检查、file:line、无障碍审查、Vercel guidelines",
+    "path": "06-creative/web-interface-guidelines-review/SKILL.md"
   },
   {
     "name": "activity-digest-generator",
@@ -16332,6 +17053,34 @@
     "path": "07-productivity/jira-expert/SKILL.md"
   },
   {
+    "name": "kanban-agent-pipeline-orchestrator",
+    "title": "看板智能体流水线：Asana/Linear 自动开发编排",
+    "vol": "07-productivity",
+    "domain": "协作/automation",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "kanban",
+      "orchestration",
+      "sdlc",
+      "multi-agent",
+      "quality-gates",
+      "cost-tracking",
+      "asana",
+      "linear"
+    ],
+    "triggers": [
+      "看板编排",
+      "kanban orchestration",
+      "自动开发流水线",
+      "SDLC orchestrate",
+      "多 worker 派单",
+      "对抗式评审 adversarial review"
+    ],
+    "description": "当想把现有看板（Asana/Linear/GitHub Projects）当成分布式状态机、编排多个 Claude Code worker 跑完「构建→评审→测试→集成」全自动开发流水线时使用；做的事是把 SPEC 拆成带依赖的看板任务、按传递优先级派单、用确定性门禁（tsc/eslint/test）+对抗式评审把关、逐任务记成本、无守护进程崩溃可恢复；不适用于单 worker 小改动、无看板/PM 工具、或不接受 AI 自动改主干的场景；触发词：看板编排、kanban orchestration、自动开发流水线、SDLC orchestrate、多 worker 派单、对抗式评审 adversarial review",
+    "path": "07-productivity/kanban-agent-pipeline-orchestrator/SKILL.md"
+  },
+  {
     "name": "meeting-transcript-analyzer",
     "title": "会议记录沟通模式分析",
     "vol": "07-productivity",
@@ -16390,6 +17139,33 @@
     ],
     "description": "当有 3 个以上专职 AI Agent 需协同完成复杂任务，且出现重复劳动、冲突改文件或质量参差时使用；做的事是搭建单一编排器（任务拆解→去重→路由→质量门禁→心跳监控）并产出任务登记表、委派指令与验收证据；不适用于单 Agent 简单任务或无需协同的场景；触发词：多智能体编排、multi-agent orchestration、任务路由 task routing、Agent 去重 anti-duplication、质量门禁 quality gate、心跳监控 heartbeat",
     "path": "07-productivity/multi-agent-orchestrator/SKILL.md"
+  },
+  {
+    "name": "multi-project-dev-diary",
+    "title": "开发日记系统：多项目上下文自动记录器",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "diary",
+      "dev-log",
+      "multi-project",
+      "context-firewall",
+      "notion",
+      "obsidian",
+      "daily-review"
+    ],
+    "triggers": [
+      "开发日记",
+      "dev log",
+      "每日复盘",
+      "进度总结",
+      "多项目日记",
+      "同步 Notion Obsidian"
+    ],
+    "description": "当想总结进度、写每日开发日志、做日终复盘并把多项目日记隔离归档再融合同步到 Notion/Obsidian 时使用；做先在各项目本地按日归档、再用脚本抽取全局/本项目素材、AI 融合写入全局日记并同步，全程不污染、不跨项目串台；不适用于实时事件监听、单文件随手记或正式对外报告；触发词：开发日记、dev log、每日复盘、进度总结、多项目日记、同步 Notion Obsidian",
+    "path": "07-productivity/multi-project-dev-diary/SKILL.md"
   },
   {
     "name": "new-hire-onboarding-plan",
@@ -17185,6 +17961,30 @@
     ],
     "description": "当要安装或评估来自不可信来源的第三方 Agent 技能（本地目录或 git 仓库）时使用；做静态安全审计并产出 PASS/WARN/FAIL 裁决、按严重级分组的发现项与修复建议；不适用于运行时动态沙箱、CVE 实时联网核验、逻辑炸弹/延时载荷检测；触发词：审计这个技能、技能安全扫描、这个技能安全吗、安装前安全检查、技能漏洞扫描、prompt injection 检测、供应链审计、audit this skill、is this skill safe、scan skill for security",
     "path": "08-security/agent-skill-security-scanner/SKILL.md"
+  },
+  {
+    "name": "agent-skill-security-scanner-v2",
+    "title": "技能安全扫描：采用前检测提示注入与恶意代码",
+    "vol": "08-security",
+    "domain": "安全/audit",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "提示注入",
+      "供应链",
+      "代码审计",
+      "Agent技能",
+      "静态扫描",
+      "misc"
+    ],
+    "triggers": [
+      "技能安全扫描",
+      "提示注入检测",
+      "采用前审查"
+    ],
+    "description": "当准备采用/安装第三方 Agent 技能、需在信任前评估其安全性时使用；做静态扫描+人工研判，产出含发现项/置信度/风险等级与采用建议的安全审查报告；不适用于自身代码漏洞审计或运行时沙箱防护。触发词：技能安全扫描、提示注入检测、采用前审查",
+    "path": "08-security/agent-skill-security-scanner-v2/SKILL.md"
   },
   {
     "name": "agentic-actions-auditor",
@@ -18897,6 +19697,37 @@
     "path": "08-security/shodan-reconnaissance/SKILL.md"
   },
   {
+    "name": "skill-ecosystem-auditor",
+    "title": "技能生态审计：质量、安全、成本与重复检测",
+    "vol": "08-security",
+    "domain": "安全/audit",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "security",
+      "misc",
+      "governance",
+      "audit",
+      "skill-health",
+      "quality-scoring",
+      "cost-optimization",
+      "duplication-detection",
+      "gap-analysis"
+    ],
+    "triggers": [
+      "审计技能生态",
+      "技能健康度",
+      "技能质量评分",
+      "重复技能检测",
+      "技能缺口分析",
+      "优化技能成本",
+      "audit skills ecosystem",
+      "skill health report"
+    ],
+    "description": "当要对整个技能/插件生态（多条技能）做体检、跑趋势对比或补缺口时使用；做代码质量/安全/性能/治理/文档/依赖/跨技能 7 维加权评分 + 成本优化 + 重复检测 + 缺口分析，产出分级 findings、健康报告与新技能建议；不适用于单条技能安装前安全扫描（用 agent-skill-security-scanner）、单条发布闸门（用 agent-plugin-audit）、运行时沙箱与 CVE 实时联网核验；触发词：审计技能生态、技能健康度、技能质量评分、重复技能检测、技能缺口分析、优化技能成本、audit skills ecosystem、skill health report",
+    "path": "08-security/skill-ecosystem-auditor/SKILL.md"
+  },
+  {
     "name": "soc2-compliance-preparer",
     "title": "SOC 2 审计准备与控制矩阵",
     "vol": "08-security",
@@ -19030,6 +19861,35 @@
     ],
     "description": "当需要在已通过自动化告警的环境中主动狩猎潜伏威胁、分析 IOC 或检测遥测行为异常时使用；做假设驱动狩猎评分、IOC 时效筛查与扫描清单生成、z-score 统计异常检测，并按 MITRE ATT&CK 映射排序信号、产出可升级的狩猎结论与新检测规则；不适用于已声明事件的应急响应（见 incident-response）或红队攻击模拟（见 red-team）。触发词：威胁狩猎、IOC、异常检测",
     "path": "08-security/threat-detection-hunting/SKILL.md"
+  },
+  {
+    "name": "varlock-env-secrets-guard",
+    "title": "Varlock 环境变量防护：会话中密钥零泄露管理",
+    "vol": "08-security",
+    "domain": "安全/appsec",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "secrets",
+      "环境变量",
+      "env",
+      "varlock",
+      "脱敏",
+      "log-redaction",
+      "AI-Agent-安全",
+      "dotenv",
+      "凭据管理"
+    ],
+    "triggers": [
+      "varlock",
+      "env 脱敏",
+      "密钥不进日志",
+      ".env.schema",
+      "会话密钥泄露"
+    ],
+    "description": "当在 AI Agent/Claude 会话、终端、日志或 git 提交中处理含密钥的环境变量、想让敏感值默认脱敏不外泄时使用；做法是用 varlock 在 .env.schema 中以 @sensitive/@type/@required 声明并校验 env，用 varlock run 注入运行时、用其自动脱敏的 redacted 输出替代明文 echo，产出可校验、可加密提交且日志安全的 env 工作流；不适用于生产级集中密钥库/HA/动态短期凭据基建（见 secrets-management）。触发词：varlock、env 脱敏、密钥不进日志、.env.schema、会话密钥泄露",
+    "path": "08-security/varlock-env-secrets-guard/SKILL.md"
   },
   {
     "name": "vulnerability-variant-analysis",
@@ -23707,6 +24567,37 @@
     ],
     "description": "当需要从诉讼文档（举证材料/调查/卷宗/邮件/合同）抽取带日期事件、构建或更新案件事实时间线（chronology/timeline）时使用；做按案件理论抽取、去重、标注重要性与特权状态的时间线及事实陈述骨架；不适用于无源臆造事件、替律师裁断特权或矛盾、保证完整性；触发词：时间线、事实时间线、chronology、timeline、案件年表、统计事实、事实陈述、statement of facts、举证时间线、证人时间线。",
     "path": "09-verticals/litigation-chronology-builder/SKILL.md"
+  },
+  {
+    "name": "longbridge-securities-toolkit",
+    "title": "长桥证券工具集：实时行情、组合与期权分析",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "证券",
+      "行情",
+      "组合",
+      "期权",
+      "港股",
+      "美股",
+      "A股",
+      "CLI",
+      "MCP"
+    ],
+    "triggers": [
+      "港股美股行情",
+      "自选股",
+      "持仓盈亏",
+      "期权分析",
+      "板块资金流",
+      "longbridge",
+      "长桥"
+    ],
+    "description": "当需要查港股/美股/A股/新加坡市场实时行情、K线、基本面、自选组合、持仓盈亏、期权与板块资金流时使用；通过 longbridge CLI（无则回退 MCP）以 JSON 输出按子命令拉数并用用户语言解读；不适用于自动下单、加密非 .HAS 标的或无凭证/无 CLI/MCP 环境。触发词：港股美股行情、自选股、持仓盈亏、期权分析、板块资金流、longbridge、长桥",
+    "path": "09-verticals/longbridge-securities-toolkit/SKILL.md"
   },
   {
     "name": "lp-nav-tieout",
@@ -29379,6 +30270,34 @@
     "path": "10-platform/claimable-postgres-provision/SKILL.md"
   },
   {
+    "name": "claude-code-settings-auditor",
+    "title": "Claude Code 设置审计：仓库权限配置推荐",
+    "vol": "10-platform",
+    "domain": "平台/cli",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "claude-code",
+      "settings",
+      "permissions",
+      "audit",
+      "read-only",
+      "monorepo",
+      "mcp",
+      "tech-stack-detection",
+      "misc"
+    ],
+    "triggers": [
+      "settings.json",
+      "claude 权限审计",
+      "只读 allow 清单",
+      "权限基线",
+      "mcp 配置"
+    ],
+    "description": "当为某仓库初始化或审计 Claude Code 的 .claude/settings.json 权限时使用；做检测技术栈/构建工具/monorepo 结构并产出仅含只读命令的 permissions allow 推荐清单（及按需的 .mcp.json 建议）；不适用于会改状态的安装/构建/部署命令、自定义脚本或绝对路径授权；触发词：settings.json、claude 权限审计、只读 allow 清单、权限基线、mcp 配置",
+    "path": "10-platform/claude-code-settings-auditor/SKILL.md"
+  },
+  {
     "name": "cloud-cost-optimization",
     "title": "云成本优化",
     "vol": "10-platform",
@@ -30009,6 +30928,34 @@
     "path": "10-platform/salesforce-apex-developer/SKILL.md"
   },
   {
+    "name": "sendblue-imessage-api",
+    "title": "Sendblue 消息 API：代码收发 iMessage/SMS/RCS",
+    "vol": "10-platform",
+    "domain": "平台/integration",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "sendblue",
+      "imessage",
+      "sms",
+      "rcs",
+      "messaging",
+      "api",
+      "webhooks"
+    ],
+    "triggers": [
+      "Sendblue",
+      "iMessage",
+      "SMS",
+      "RCS",
+      "message_handle",
+      "status_callback",
+      "webhook"
+    ],
+    "description": "当在服务端代码里收发 iMessage/SMS/RCS（文本、媒体、群发、特效、Tapback、状态回调、入站 Webhook）时使用；做 Sendblue HTTP API 集成并产出可运行的请求/回调处理；不适用于一次性 shell 发送（改用 sendblue-cli）或不需完整 HTTP 集成的场景；触发词：Sendblue、iMessage、SMS、RCS、message_handle、status_callback、webhook",
+    "path": "10-platform/sendblue-imessage-api/SKILL.md"
+  },
+  {
     "name": "slack-bolt-bot-builder",
     "title": "Slack Bolt 机器人开发",
     "vol": "10-platform",
@@ -30129,6 +31076,32 @@
     ],
     "description": "当为 Web 应用接入 Stripe 支付/订阅、调试 webhook 可靠性、迁移支付服务商或加用量计费时使用；做一套含 Checkout、订阅升降级按比例计费、幂等 webhook、客户门户与用量上报的生产级集成（Next.js/Express/Django）；不适用于线下收款、非 Stripe 渠道或纯前端样式问题；触发词：Stripe、订阅、subscription、支付、checkout、webhook、按比例计费、proration、用量计费、customer portal、试用、past_due。",
     "path": "10-platform/stripe-integration/SKILL.md"
+  },
+  {
+    "name": "tavily-web-research",
+    "title": "Tavily 网络检索：搜索、抓取与内容提取",
+    "vol": "10-platform",
+    "domain": "平台/browser",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "平台",
+      "misc",
+      "搜索",
+      "抓取",
+      "调研",
+      "Tavily",
+      "网页检索"
+    ],
+    "triggers": [
+      "Tavily",
+      "网页搜索",
+      "内容提取",
+      "网站爬取",
+      "实时信息调研"
+    ],
+    "description": "当需要用 Tavily API 检索实时网络信息、从 URL 提取正文、爬取整站或做带引用的网页调研时使用；做 Tavily search/extract/crawl 调用并产出带来源的结果与正文摘要；不适用于站内全文检索、纯本地/私有数据查询或将结果当权威事实直接采纳；触发词：Tavily、网页搜索、内容提取、网站爬取、实时信息调研",
+    "path": "10-platform/tavily-web-research/SKILL.md"
   },
   {
     "name": "terraform-module-builder",
@@ -30262,6 +31235,59 @@
     "path": "10-platform/twilio-communications/SKILL.md"
   },
   {
+    "name": "vexor-semantic-file-search",
+    "title": "Vexor 语义文件检索：定位代码实现位置",
+    "vol": "10-platform",
+    "domain": "平台/cli",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "代码检索",
+      "语义搜索",
+      "vexor",
+      "CLI工具",
+      "代码导航",
+      "文件定位"
+    ],
+    "triggers": [
+      "定位实现",
+      "语义检索",
+      "找文件",
+      "vexor"
+    ],
+    "description": "当在中大型仓库中按意图（功能/作用）查找文件而非精确文件名或文本时使用；用 vexor 做语义检索，产出按相似度排序的文件路径、行号与片段预览；不适用于精确字符串匹配（用 grep）或需环境内验证/测试的场景；触发词：定位实现、语义检索、找文件、vexor",
+    "path": "10-platform/vexor-semantic-file-search/SKILL.md"
+  },
+  {
+    "name": "vexor-vector-cli-setup",
+    "title": "Vexor 向量 CLI：语义文件搜索工具配置",
+    "vol": "10-platform",
+    "domain": "平台/cli",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "vexor",
+      "semantic-search",
+      "vector-search",
+      "embedding",
+      "cli",
+      "rag",
+      "file-search",
+      "claude-code",
+      "codex",
+      "platform"
+    ],
+    "triggers": [
+      "语义搜索文件",
+      "vexor",
+      "向量检索代码",
+      "embedding 文件搜索",
+      "自然语言找文件"
+    ],
+    "description": "当需要按语义（而非关键词/正则）在文件与代码库中检索内容、或为 Claude/Codex 智能体接入语义文件搜索能力时使用；用 vexor CLI 安装、配置嵌入与重排提供方、建立可复用索引并执行语义搜索，产出带相似度分数的结果与 agent skill 集成；不适用于纯字面/正则匹配（用 grep/ripgrep）、无嵌入 API Key 或本地模型时；触发词：语义搜索文件、vexor、向量检索代码、embedding 文件搜索、自然语言找文件",
+    "path": "10-platform/vexor-vector-cli-setup/SKILL.md"
+  },
+  {
     "name": "whatsapp-cloud-api",
     "title": "WhatsApp Cloud API 集成",
     "vol": "10-platform",
@@ -30289,6 +31315,33 @@
     ],
     "description": "当需要用 Meta 官方 WhatsApp Business Cloud API 收发消息、对接 webhook 或搭建自动客服时使用；做发文本/模板/交互消息、HMAC-SHA256 校验 webhook、24 小时会话窗口与合规管控，产出 Node.js/Python 可运行集成代码；不适用于个人 WhatsApp、已下线的 On-Premises API 或非 Meta 渠道。触发词：whatsapp、whatsapp business、whatsapp cloud api、api whatsapp、whatsapp 模板、whatsapp 机器人、chatbot whatsapp、whatsapp webhook、whatsapp 消息群发",
     "path": "10-platform/whatsapp-cloud-api/SKILL.md"
+  },
+  {
+    "name": "x-post-to-json-fetcher",
+    "title": "X 帖子转 JSON：推文抓取为 LLM 友好结构",
+    "vol": "10-platform",
+    "domain": "平台/browser",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "X",
+      "Twitter",
+      "推文抓取",
+      "JSON",
+      "ADHX",
+      "LLM",
+      "社交平台"
+    ],
+    "triggers": [
+      "X 帖子",
+      "推文转 JSON",
+      "ADHX",
+      "抓取推文",
+      "X Article",
+      "推文摘要"
+    ],
+    "description": "当用户分享 X/Twitter 链接、需读取或分析推文时使用；用 ADHX 免认证 API 把 x.com/twitter.com/adhx.com 链接抓成含正文、作者、互动数据的结构化 JSON 供 LLM 消费；不适用于需登录态、私密/受限帖子或直接爬取 x.com。触发词：X 帖子、推文转 JSON、ADHX、抓取推文、X Article、推文摘要",
+    "path": "10-platform/x-post-to-json-fetcher/SKILL.md"
   },
   {
     "name": "x-twitter-automation",
@@ -30323,6 +31376,39 @@
     ],
     "description": "当需要在 X/Twitter 上做推文搜索、用户/推文查询、粉丝及关注关系批量导出、媒体下载、账号监控与 Webhook、抽奖抽取，或发推/回复/点赞/转推/关注/私信等自动化时使用；通过 Xquik 平台 REST/MCP 及 SDK，按工作流配置并调用接口产出数据或写操作（写操作须经显式审批），可选 Hermes Tweet 或 TweetClaw 插件；不适用于无 XQUIK_API_KEY、未获授权操作他人账号、绕过 X 反爬自建爬虫、或非 X/Twitter 平台。触发词：推特抓取、X搜索、粉丝导出、发推、私信DM、账号监控、webhook、抽奖、xquik、twitter scraper",
     "path": "10-platform/x-twitter-automation/SKILL.md"
+  },
+  {
+    "name": "x-twitter-scraper-toolkit",
+    "title": "X/Twitter 抓取工具：搜索、导出、发推与 DM",
+    "vol": "10-platform",
+    "domain": "平台/browser",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "twitter",
+      "x-api",
+      "tweet-search",
+      "follower-export",
+      "automation",
+      "webhooks",
+      "mcp",
+      "sdk",
+      "cli",
+      "xquik",
+      "platform"
+    ],
+    "triggers": [
+      "推特抓取",
+      "X搜索",
+      "粉丝导出",
+      "发推",
+      "私信DM",
+      "账号监控",
+      "xquik",
+      "twitter scraper"
+    ],
+    "description": "当需要一套 X/Twitter 抓取与自动化工具箱（推文搜索、用户/推文查询、粉丝及关注关系批量导出、媒体下载、趋势、账号监控+Webhook、抽奖、以及发推/回复/点赞/转推/关注/私信写操作）时使用；做：经 Xquik 托管平台的 REST/MCP/多语言 SDK/CLI 配置鉴权并调端点，产出结构化数据或写动作（写操作须显式审批）；不适用于无 XQUIK_API_KEY、未授权操作他人账号、绕过 X 反爬自建爬虫、或非 X/Twitter 平台。触发词：推特抓取、X搜索、粉丝导出、发推、私信DM、账号监控、xquik、twitter scraper",
+    "path": "10-platform/x-twitter-scraper-toolkit/SKILL.md"
   },
   {
     "name": "youtube-transcript-ingest",
