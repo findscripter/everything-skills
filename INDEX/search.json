@@ -24,6 +24,36 @@
     "path": "00-meta/agent-self-reflection/SKILL.md"
   },
   {
+    "name": "algorithm-first-discipline",
+    "title": "算法先行思维纪律",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "算法",
+      "Big-O",
+      "复杂度",
+      "性能",
+      "代码审查",
+      "数据结构",
+      "思维纪律",
+      "网关"
+    ],
+    "triggers": [
+      "嵌套循环",
+      "N+1",
+      "includes",
+      "find 在循环里",
+      "await in loop",
+      "SELECT *",
+      "O(n^2)",
+      "Big-O"
+    ],
+    "description": "当编写/审查含循环、查询、连接、递归或集合遍历（n 超过个位数）的代码时使用；动作：在写代码前先声明时间/空间复杂度、数据结构、算法族，按七步预写协议产出有复杂度论证的实现；不适用于 n<10 的平凡集合、一次性初始化代码、纯性能 profiling/常数因子调优。触发词：嵌套循环、N+1、includes/find 在循环里、await in loop、SELECT *、O(n^2)、Big-O。",
+    "path": "00-meta/algorithm-first-discipline/SKILL.md"
+  },
+  {
     "name": "boardroom-deliberation",
     "title": "C 级多角色董事会六阶段审议",
     "vol": "00-meta",
@@ -523,6 +553,28 @@
     "path": "00-meta/human-like-response-mirror/SKILL.md"
   },
   {
+    "name": "idea-darwin-evolution",
+    "title": "达尔文式创意进化",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "思维",
+      "创意",
+      "迭代",
+      "评分框架",
+      "通用"
+    ],
+    "triggers": [
+      "创意进化",
+      "点子筛选",
+      "跨域碰撞"
+    ],
+    "description": "当手头有大量零散点子、需要系统化评估筛选与跨域碰撞时使用；把每个点子当作进化岛上的物种，按回合做评分、深化、杂交、变异，产出带血缘谱系与六维打分的物种卡及进化简报；不适用于单次头脑风暴出一两个点子、或已有明确方案只待执行的场景；触发词：创意进化、点子筛选、跨域碰撞",
+    "path": "00-meta/idea-darwin-evolution/SKILL.md"
+  },
+  {
     "name": "interview-job-coach",
     "title": "求职面试全流程辅导",
     "vol": "00-meta",
@@ -547,6 +599,85 @@
     ],
     "description": "当用户启动求职、备战某场面试、复盘面试录音或谈薪/处理薪资问题时使用；做 JD 拆解、简历与 LinkedIn 优化、模拟面试、面试逐字稿打分与谈薪话术的一体化产出，并以持久状态文件跨会话续接；不适用于一次性问答题库、岗位投递/简历自动生成（用 resume-builder）或真实代笔回答。触发词：求职辅导、模拟面试、面试复盘、谈薪、JD 拆解、storybank",
     "path": "00-meta/interview-job-coach/SKILL.md"
+  },
+  {
+    "name": "invariant-guard-correctness",
+    "title": "契约不变式正确性守卫",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "算法",
+      "正确性",
+      "循环不变式",
+      "契约",
+      "边界用例",
+      "形式化验证",
+      "通用",
+      "思维"
+    ],
+    "triggers": [
+      "循环不变式",
+      "二分边界",
+      "off-by-one"
+    ],
+    "description": "当编写或评审\"自以为熟悉\"的算法（循环/递归/原地修改/边界）时使用；在写代码前先落笔函数契约、循环不变式、终止性论证与边界清单，产出正确性优先的实现与自检；不适用于显然无误的一行式或纯并发同步推理；触发词：循环不变式、二分边界、off-by-one",
+    "path": "00-meta/invariant-guard-correctness/SKILL.md"
+  },
+  {
+    "name": "kaizen-continuous-improvement",
+    "title": "改善持续改进法（Kaizen）",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "思维方法",
+      "持续改进",
+      "重构",
+      "防错",
+      "代码质量",
+      "工程文化",
+      "YAGNI"
+    ],
+    "triggers": [
+      "重构",
+      "改善",
+      "防错",
+      "提质"
+    ],
+    "description": "当写代码、重构、做设计或评审需要稳步提升质量时使用；用四支柱（持续小改进/防错设计/标准化/按需交付）做出可验证的增量改动并防止整类错误；不适用于一次性推倒重写或无度量的提前优化。触发词：重构、改善、防错、提质",
+    "path": "00-meta/kaizen-continuous-improvement/SKILL.md"
+  },
+  {
+    "name": "large-scale-math-algorithms",
+    "title": "大规模数学算法升级",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "算法",
+      "概率数据结构",
+      "近似算法",
+      "bloom-filter",
+      "hyperloglog",
+      "fft",
+      "性能优化",
+      "思维",
+      "通用"
+    ],
+    "triggers": [
+      "Bloom",
+      "HyperLogLog",
+      "FFT",
+      "近似算法",
+      "大规模去重",
+      "基数估计"
+    ],
+    "description": "当 n≥10⁶ 的大数据/数值/几何/图算法已触及经典 O(n log n) 下限、需靠数学（概率结构、变换、降维、摊还）再降一个数量级时使用；按「经典下限→为何不够→命名技法→精确/近似+ε→新界推导→买卖代价→禁用场景→代码」八步协议给出可审计的升级方案与带 ε/δ 注释的代码；不适用于需精确结果的鉴权/计费/主键去重、n<10⁴ 非热路径、I/O 瓶颈。触发词：Bloom、HyperLogLog、FFT、近似算法、大规模去重、基数估计",
+    "path": "00-meta/large-scale-math-algorithms/SKILL.md"
   },
   {
     "name": "multi-source-knowledge-synthesis",
@@ -1229,6 +1360,34 @@
     ],
     "description": "当需要撰写公司内部沟通文书（3P 进展报、全员通讯、FAQ、状态/领导汇报、事故报告等）时使用；做按公司固定格式产出简洁、数据驱动的内部沟通稿；不适用于对外新闻稿、营销文案、SEO 文章或代码文档；触发词：内部沟通、3P 更新、进展报告、周报、全员通讯、newsletter、FAQ、常见问题、领导汇报、status update、incident report",
     "path": "01-documents/internal-comms/SKILL.md"
+  },
+  {
+    "name": "latex-paper-format-conversion",
+    "title": "LaTeX 论文格式转换",
+    "vol": "01-documents",
+    "domain": "文书/writing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "文书",
+      "writing",
+      "学术写作",
+      "LaTeX",
+      "期刊模板",
+      "格式转换",
+      "投稿",
+      "编译排错"
+    ],
+    "triggers": [
+      "LaTeX 转格式",
+      "期刊模板移植",
+      "MDPI",
+      "IEEE",
+      "pdflatex",
+      "单双栏转换"
+    ],
+    "description": "当需要把 LaTeX 论文从一个期刊/出版社模板（如 Springer、IPOL）移植到另一个模板（如 MDPI、IEEE、Nature）时使用；做内容抽取、注入新模板、批量修正格式并编译排错，产出可零错误编译的目标格式 .tex 与 PDF；不适用于撰写论文内容、从零排版或处理非 LaTeX 文稿。触发词：LaTeX 转格式、期刊模板移植、MDPI、IEEE、pdflatex、单双栏转换",
+    "path": "01-documents/latex-paper-format-conversion/SKILL.md"
   },
   {
     "name": "markdown-to-docx",
@@ -2409,6 +2568,38 @@
     ],
     "description": "当系统化调试已扫过仍有\"按钮点了没反应/最终状态不对\"的报障、或共享状态 store 大重构后做交互回归时使用；逐个交互触点按调用顺序追踪状态读写与副作用，产出 store 副作用图、触点审计表与互相抵消/竞态的缺陷清单；不适用于纯崩溃/类型/接线类 bug（用 systematic-debugger）或单元接口测试；触发词：点击路径、状态副作用、互相抵消、隐性重置、共享状态冲突、Zustand、Redux、按钮无反应、最终状态不一致、竞态",
     "path": "02-engineering/click-path-state-audit/SKILL.md"
+  },
+  {
+    "name": "cloud-network-engineer",
+    "title": "云网络工程",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "云网络",
+      "VPC",
+      "负载均衡",
+      "DNS",
+      "SSL/TLS",
+      "零信任",
+      "mTLS",
+      "CDN",
+      "服务网格",
+      "多云",
+      "可观测性"
+    ],
+    "triggers": [
+      "云网络",
+      "VPC",
+      "负载均衡",
+      "DNS",
+      "mTLS",
+      "零信任",
+      "CDN"
+    ],
+    "description": "当在 AWS/Azure/GCP 或多云上设计、落地与排障云网络（VPC/子网/路由、负载均衡、DNS、SSL/TLS、零信任、服务网格、CDN 与性能优化）时使用；产出网络架构、连通性与安全策略、可观测接入及排障路径；不适用于纯应用业务逻辑、传统机房物理布线或非网络域问题；触发词：云网络、VPC、负载均衡、DNS、mTLS、零信任、CDN。",
+    "path": "02-engineering/cloud-network-engineer/SKILL.md"
   },
   {
     "name": "cloudflare-workers-expert",
@@ -3845,6 +4036,33 @@
     "path": "02-engineering/grpc-golang-services/SKILL.md"
   },
   {
+    "name": "haskell-pro",
+    "title": "Haskell 函数式工程",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "haskell",
+      "functional-programming",
+      "type-system",
+      "concurrency",
+      "engineering"
+    ],
+    "triggers": [
+      "Haskell",
+      "GADT",
+      "typeclass",
+      "STM",
+      "Monad",
+      "Aeson",
+      "QuickCheck",
+      "Cabal"
+    ],
+    "description": "当用 Haskell 构建强类型纯函数式服务/库/系统，或攻克高级类型系统、纯度边界、并发与性能优化时使用；做类型驱动建模、STM/async 并发、解析与属性测试齐备的可编译 Haskell 代码；不适用于一次性脚本、只问基础语法、无法引入 Haskell 或纯运行时性能调优场景；触发词：Haskell、GADT、typeclass、STM、Monad、Aeson、QuickCheck、Cabal。",
+    "path": "02-engineering/haskell-pro/SKILL.md"
+  },
+  {
     "name": "helm-chart-scaffolding",
     "title": "Helm Chart 打包部署",
     "vol": "02-engineering",
@@ -3927,6 +4145,38 @@
     ],
     "description": "当用 TypeScript 构建可部署到 Cloudflare Workers / Deno / Bun / Node 等运行时的边缘 REST 或 RPC API、BFF 时使用；产出基于 Web 标准的 Hono 路由、中间件、zValidator 校验与 hc RPC 客户端代码骨架；不适用于强依赖 Node 专有 API（fs/path）或需重型框架的场景。触发词：Hono、边缘 API、Cloudflare Workers",
     "path": "02-engineering/hono-edge-api/SKILL.md"
+  },
+  {
+    "name": "hybrid-cloud-networking",
+    "title": "混合云网络连接",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "混合云",
+      "网络",
+      "VPN",
+      "专线",
+      "BGP",
+      "Terraform",
+      "AWS",
+      "Azure",
+      "GCP",
+      "高可用",
+      "devops"
+    ],
+    "triggers": [
+      "本地连云",
+      "VPN",
+      "专线",
+      "ExpressRoute",
+      "Direct Connect",
+      "BGP",
+      "混合云"
+    ],
+    "description": "当需要打通本地数据中心与公有云（AWS/Azure/GCP）的网络时使用；做选型 VPN/专线、用 Terraform 配置网关与 BGP 路由、设计 Hub-Spoke/多云拓扑并落实高可用与安全基线；不适用于纯云内网络、应用层组网或与混合云互联无关的任务；触发词：本地连云、VPN、专线、ExpressRoute、Direct Connect、BGP、混合云",
+    "path": "02-engineering/hybrid-cloud-networking/SKILL.md"
   },
   {
     "name": "i18n-localization-patterns",
@@ -4147,6 +4397,34 @@
     "path": "02-engineering/jetpack-compose-expert/SKILL.md"
   },
   {
+    "name": "julia-scientific-pro",
+    "title": "Julia 科学计算工程",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "julia",
+      "scientific-computing",
+      "performance",
+      "multiple-dispatch",
+      "numerical",
+      "engineering"
+    ],
+    "triggers": [
+      "Julia",
+      "多重派发",
+      "类型稳定",
+      "@code_warntype",
+      "BenchmarkTools",
+      "Pkg",
+      "CUDA.jl",
+      "DifferentialEquations"
+    ],
+    "description": "当用 Julia 1.10+ 写科学计算/数值/高性能代码，需要类型稳定、多重派发设计、性能调优或打包上线时使用；做类型稳定的可上线 Julia 代码、@code_warntype 诊断、BenchmarkTools 基准与 BlueStyle 规范化产物；不适用于一次性脚本、纯基础语法问答或无法引入 Julia 的场景；触发词：Julia、多重派发、类型稳定、@code_warntype、BenchmarkTools、Pkg、CUDA.jl、DifferentialEquations。",
+    "path": "02-engineering/julia-scientific-pro/SKILL.md"
+  },
+  {
     "name": "k6-load-testing",
     "title": "k6 负载压力测试",
     "vol": "02-engineering",
@@ -4225,6 +4503,70 @@
     ],
     "description": "当设计 K8s 平台架构、多集群战略、GitOps 与渐进式交付、服务网格/安全/多租户时使用；产出集群拓扑、GitOps 仓库结构、安全策略与可观测性方案；不适用于本地单节点开发集群或纯应用代码排障；触发词：Kubernetes、GitOps、ArgoCD、服务网格、多集群、平台工程",
     "path": "02-engineering/kubernetes-architect/SKILL.md"
+  },
+  {
+    "name": "kubernetes-deployment-workflow",
+    "title": "Kubernetes 部署工作流",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Kubernetes",
+      "部署工作流",
+      "Helm",
+      "服务网格",
+      "GitOps",
+      "可观测性",
+      "DevOps",
+      "生产就绪"
+    ],
+    "triggers": [
+      "Kubernetes 部署",
+      "K8s 上线",
+      "Helm 发布",
+      "服务网格",
+      "GitOps",
+      "生产就绪"
+    ],
+    "description": "当需要把应用端到端部署到 Kubernetes 生产环境、串联容器化→清单→Helm→服务网格→安全→可观测→GitOps 交付时使用；产出分阶段的部署编排方案与质量门禁清单；不适用于单条 K8s 清单微调、纯本地容器调试或非 K8s 部署；触发词：Kubernetes 部署、K8s 上线、Helm 发布、服务网格、GitOps、生产就绪",
+    "path": "02-engineering/kubernetes-deployment-workflow/SKILL.md"
+  },
+  {
+    "name": "lambdatest-cross-framework-testing",
+    "title": "LambdaTest 多框架测试自动化",
+    "vol": "02-engineering",
+    "domain": "研发/testing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "测试",
+      "test-automation",
+      "LambdaTest",
+      "E2E",
+      "单元测试",
+      "移动测试",
+      "BDD",
+      "selenium",
+      "playwright",
+      "appium",
+      "框架迁移",
+      "CI/CD",
+      "研发",
+      "QA"
+    ],
+    "triggers": [
+      "lambdatest",
+      "跨框架测试",
+      "selenium",
+      "playwright",
+      "appium",
+      "cucumber",
+      "框架迁移",
+      "云端测试"
+    ],
+    "description": "当需要为 46 个主流测试框架（Selenium/Playwright/Cypress/Jest/pytest/Appium 等）跨 15+ 语言编写、脚手架、迁移或在 LambdaTest 云端跑自动化测试时使用；做按框架+语言选对工程结构/依赖/Runner 命令，配置本地或云端（RemoteWebDriver capabilities、LT_USERNAME/LT_ACCESS_KEY 走环境变量）并接入 CI/CD，产出生产级测试代码与流水线；不适用于纯手工探索测试、无回归价值的一次性脚本或缺少 LambdaTest 账号的云端场景；触发词：lambdatest、跨框架测试、selenium、playwright、appium、cucumber、框架迁移、云端测试",
+    "path": "02-engineering/lambdatest-cross-framework-testing/SKILL.md"
   },
   {
     "name": "laravel-app-specialist",
@@ -4313,6 +4655,91 @@
     "path": "02-engineering/legacy-codebase-modernizer/SKILL.md"
   },
   {
+    "name": "legacy-framework-modernizer",
+    "title": "遗留系统现代化重构（框架迁移）",
+    "vol": "02-engineering",
+    "domain": "研发/architecture",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "架构",
+      "迁移",
+      "框架升级",
+      "技术债",
+      "向后兼容",
+      "绞杀者模式",
+      "回归测试",
+      "特性开关"
+    ],
+    "triggers": [
+      "框架迁移",
+      "版本升级",
+      "技术债",
+      "绞杀者模式",
+      "向后兼容"
+    ],
+    "description": "当把过时框架/语言版本迁移到现代栈（jQuery→React、Java 8→17、Python 2→3、存储过程→ORM、单体→微服务）时使用；用绞杀者模式产出分阶段迁移计划、补回归测试、兼容适配层、特性开关与每阶段回滚方案；不适用于全新绿地项目或无需保留旧行为的一次性重写。触发词：框架迁移、版本升级、技术债、绞杀者模式、向后兼容",
+    "path": "02-engineering/legacy-framework-modernizer/SKILL.md"
+  },
+  {
+    "name": "linux-sysadmin-shell-scripts",
+    "title": "Linux 运维脚本模板",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "shell",
+      "bash",
+      "运维",
+      "sysadmin",
+      "备份",
+      "监控",
+      "cron",
+      "日志分析",
+      "devops",
+      "研发"
+    ],
+    "triggers": [
+      "备份脚本",
+      "磁盘",
+      "CPU 监控",
+      "日志分析",
+      "用户管理",
+      "cron 定时"
+    ],
+    "description": "当需要在 Linux 服务器上快速搭起备份、监控、用户与安全、日志分析、自动化等运维脚本时使用；做生产可用的 Bash 脚本模板套用与改写，产出带时间戳/阈值告警/轮转/加密的 .sh 脚本与 cron 计划；不适用于 Windows（用 PowerShell）、可移植 POSIX sh（用 posix-shell-scripting）或一次性交互命令；触发词：备份脚本、磁盘/CPU 监控、日志分析、用户管理、cron 定时",
+    "path": "02-engineering/linux-sysadmin-shell-scripts/SKILL.md"
+  },
+  {
+    "name": "linux-system-troubleshooting",
+    "title": "Linux 系统排障",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "Linux",
+      "排障",
+      "运维",
+      "DevOps",
+      "性能分析",
+      "systemd",
+      "网络诊断",
+      "日志分析"
+    ],
+    "triggers": [
+      "服务器卡",
+      "CPU 飙高",
+      "磁盘满",
+      "OOM",
+      "服务挂了",
+      "网络不通"
+    ],
+    "description": "当 Linux 主机/服务出现性能劣化、服务故障、磁盘耗尽或网络异常需系统化定位时使用；按七步流程从系统画像→资源→进程→日志→网络→服务依次取证，用 top/free/df、ps/lsof/strace、journalctl、ss/dig、systemctl 定位根因并产出修复与防复发清单；不适用于 Windows/macOS、纯应用代码 bug 或缺访问权限时的臆测；触发词：服务器卡、CPU 飙高、磁盘满、OOM、服务挂了、网络不通。",
+    "path": "02-engineering/linux-system-troubleshooting/SKILL.md"
+  },
+  {
     "name": "llm-coding-mistake-guardrails",
     "title": "减少 LLM 编码常见错误的准则",
     "vol": "02-engineering",
@@ -4334,6 +4761,56 @@
     ],
     "description": "当用 LLM 编写、审查或重构代码时使用；产出最小可行改动 + 显式假设 + 可验证成功标准（先写复现/校验测试再实现）；不适用于无需谨慎权衡的琐碎改动或纯需求澄清；触发词：LLM 编码、外科手术式改动、过度设计、可验证目标",
     "path": "02-engineering/llm-coding-mistake-guardrails/SKILL.md"
+  },
+  {
+    "name": "magic-ui-component-generator",
+    "title": "AI UI 组件多方案生成",
+    "vol": "02-engineering",
+    "domain": "研发/frontend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "frontend",
+      "ui-generation",
+      "design-variations",
+      "react",
+      "typescript",
+      "tailwind",
+      "21st-dev"
+    ],
+    "triggers": [
+      "UI 组件",
+      "设计方案",
+      "Magic 21st.dev"
+    ],
+    "description": "当需要生成或增强前端 UI 组件（定价表、表单、Hero、Logo/图标）时使用；借助 21st.dev Magic 生成多套差异化设计方案供选型并落地生产级 TypeScript 代码；不适用于纯逻辑/后端开发或需精确还原既有设计稿的场景；触发词：UI 组件、设计方案、Magic 21st.dev",
+    "path": "02-engineering/magic-ui-component-generator/SKILL.md"
+  },
+  {
+    "name": "makepad-rust-ui",
+    "title": "Makepad Rust UI 开发",
+    "vol": "02-engineering",
+    "domain": "研发/frontend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "rust",
+      "makepad",
+      "gui",
+      "frontend",
+      "ui-framework",
+      "shader",
+      "cross-platform",
+      "live-design"
+    ],
+    "triggers": [
+      "Makepad",
+      "live_design",
+      "MPSL",
+      "cargo makepad"
+    ],
+    "description": "当用 Rust + Makepad 框架搭建跨平台 GUI（桌面/移动/Web）时使用；做工程脚手架、live_design! DSL 布局、事件处理、MPSL 着色器与 cargo-makepad 多端打包的实现产物；不适用于 egui/Tauri/Slint 等非 Makepad 栈、纯后端逻辑或无 GUI 的 Rust 项目。触发词：Makepad、live_design、MPSL、cargo makepad",
+    "path": "02-engineering/makepad-rust-ui/SKILL.md"
   },
   {
     "name": "microservices-patterns",
@@ -4359,6 +4836,60 @@
     ],
     "description": "当把单体拆分为微服务、设计服务边界与契约、选型服务间通信、处理分布式数据/事务、做韧性与可观测设计时使用；做出含边界划分、通信方式、Saga/熔断等模式与迁移步骤的架构方案；不适用于模块化单体可解决、纯原型或缺乏分布式运维能力的场景；触发词：微服务、服务拆分、Saga、熔断、事件驱动、API 网关。",
     "path": "02-engineering/microservices-patterns/SKILL.md"
+  },
+  {
+    "name": "minecraft-bukkit-plugin-dev",
+    "title": "Minecraft 服务端插件开发",
+    "vol": "02-engineering",
+    "domain": "研发/backend",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "minecraft",
+      "bukkit",
+      "spigot",
+      "paper",
+      "java",
+      "插件开发",
+      "backend",
+      "游戏服务端"
+    ],
+    "triggers": [
+      "Bukkit",
+      "Spigot",
+      "Paper 插件",
+      "PlaceholderAPI",
+      "NMS",
+      "plugin.yml"
+    ],
+    "description": "当为 Bukkit / Spigot / Paper 服务端开发或重构插件时使用；产出事件监听、命令、GUI、数据持久化与性能优化的可运行代码及构建配置；不适用于客户端 Mod（Forge/Fabric）、原版指令包或服务器运维。触发词：Bukkit、Spigot、Paper 插件、PlaceholderAPI、NMS、plugin.yml",
+    "path": "02-engineering/minecraft-bukkit-plugin-dev/SKILL.md"
+  },
+  {
+    "name": "mise-toolchain-configurator",
+    "title": "mise 工具链配置",
+    "vol": "02-engineering",
+    "domain": "研发/devops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "mise",
+      "devops",
+      "ci-cd",
+      "toolchain",
+      "runtime",
+      "版本管理"
+    ],
+    "triggers": [
+      "mise",
+      "mise.toml",
+      "工具链版本统一",
+      "从 asdf",
+      "nvm",
+      "pyenv 迁移"
+    ],
+    "description": "当需要为本地开发、CI/CD 或多语言团队统一运行时版本时使用；做的事：探测仓库已固定版本并生成可直接复制的 mise.toml 与引导/CI 命令（产物=mise.toml + bootstrap 脚本）；不适用于：环境特定的测试验证、替代专家评审，或在未授权仓库执行。触发词：mise、mise.toml、工具链版本统一、从 asdf/nvm/pyenv 迁移",
+    "path": "02-engineering/mise-toolchain-configurator/SKILL.md"
   },
   {
     "name": "modern-angular-expert",
@@ -8159,6 +8690,34 @@
     "path": "04-ai/github-copilot-sdk/SKILL.md"
   },
   {
+    "name": "helium-news-research-mcp",
+    "title": "Helium 新闻研究 MCP",
+    "vol": "04-ai",
+    "domain": "智能/rag",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "MCP",
+      "新闻情报",
+      "媒体偏见",
+      "RAG",
+      "金融数据",
+      "股票期权",
+      "语义检索",
+      "研究"
+    ],
+    "triggers": [
+      "新闻检索",
+      "媒体偏见",
+      "平衡观点",
+      "来源可信度",
+      "股票期权",
+      "Helium MCP"
+    ],
+    "description": "当需要做带媒体偏见标注的新闻检索、左中右平衡观点、来源可信度评估，或查实时股票/期权/加密数据与语义 meme 搜索时使用；做接入 Helium MCP（免鉴权 streamable HTTP）并按 9 个工具检索、产出偏见画像/平衡综述/行情分析；不适用于权威实时事实核验、投资决策背书或自建 MCP 服务（应转 mcp-builder）。触发词：新闻检索、媒体偏见、平衡观点、来源可信度、股票期权、Helium MCP",
+    "path": "04-ai/helium-news-research-mcp/SKILL.md"
+  },
+  {
     "name": "huggingface-hub-cli",
     "title": "Hugging Face Hub CLI（hf 命令行）",
     "vol": "04-ai",
@@ -8267,6 +8826,34 @@
     "path": "04-ai/iterative-context-retrieval/SKILL.md"
   },
   {
+    "name": "langchain-architecture",
+    "title": "LangChain 架构设计",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "智能体",
+      "agents",
+      "LangChain",
+      "RAG",
+      "记忆",
+      "工具调用",
+      "LLM 工程"
+    ],
+    "triggers": [
+      "LangChain",
+      "Agent",
+      "Chain",
+      "记忆",
+      "RAG",
+      "检索",
+      "回调"
+    ],
+    "description": "当用 LangChain 构建带工具、记忆、检索的 LLM 应用与 Agent 时使用；做架构选型与可运行骨架（Agent/Chain/Memory/RAG/回调）并给生产清单；不适用于非 LangChain 的纯 Prompt 调用或与该框架无关的任务；触发词：LangChain、Agent、Chain、记忆、RAG、检索、回调",
+    "path": "04-ai/langchain-architecture/SKILL.md"
+  },
+  {
     "name": "langfuse-llm-observability",
     "title": "Langfuse LLM 可观测",
     "vol": "04-ai",
@@ -8348,6 +8935,37 @@
     ],
     "description": "当需要测试、基准评测 LLM 智能体（行为测试、能力评估、可靠性指标、回归与生产监控）时使用；做统计化多次运行评估、行为契约/对抗测试、回归门禁与数据泄漏检测，产出含通过率、置信区间、违规项与上线建议的评测报告；不适用于模型训练评估（loss/perplexity）、公平性偏见测试或纯 UX 测试。触发词：智能体评测、benchmark、对抗测试、回归测试、数据泄漏",
     "path": "04-ai/llm-agent-benchmarking/SKILL.md"
+  },
+  {
+    "name": "llm-app-production-patterns",
+    "title": "LLM 应用生产级模式",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "智能",
+      "agents",
+      "llm",
+      "rag",
+      "react",
+      "function-calling",
+      "multi-agent",
+      "llmops",
+      "可靠性"
+    ],
+    "triggers": [
+      "RAG",
+      "ReAct",
+      "函数调用",
+      "计划执行",
+      "多智能体",
+      "Prompt 链",
+      "LLMOps",
+      "缓存限流回退"
+    ],
+    "description": "当需要在 RAG 检索策略、智能体架构（ReAct/函数调用/计划执行/多智能体）、Prompt 编排与生产可靠性模式之间选型并落地时使用；做按\"架构决策矩阵\"挑选模式并产出可运行实现骨架（混合检索、ReAct/工具调用循环、Prompt 链、缓存/限流/重试/回退、LLMOps 指标与评测）；不适用于无 LLM 的传统 ML、与 AI 无关的 UI 改动，或尚无数据源/部署目标时；触发词：RAG、ReAct、函数调用、计划执行、多智能体、Prompt 链、LLMOps、缓存限流回退",
+    "path": "04-ai/llm-app-production-patterns/SKILL.md"
   },
   {
     "name": "llm-conversation-memory",
@@ -8683,6 +9301,38 @@
     ],
     "description": "当需要构建/优化生产级 LLM 应用、RAG 检索系统或智能体编排时使用；做端到端架构设计与可观测、可控成本、带护栏的工程落地（含向量检索、混合检索、重排、多智能体、流式推理）并产出可上线代码与评测方案；不适用于无 LLM 的纯数据科学/传统 ML、与 AI 无关的纯 UI 改动、或无数据源与部署目标时；触发词：RAG、向量检索、智能体编排、LLM 上线、Prompt 工程、多模态",
     "path": "04-ai/production-llm-app-builder/SKILL.md"
+  },
+  {
+    "name": "production-ml-engineer",
+    "title": "生产级 ML 系统工程",
+    "vol": "04-ai",
+    "domain": "智能/model-ops",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "智能",
+      "model-ops",
+      "mlops",
+      "模型服务",
+      "特征工程",
+      "分布式训练",
+      "推理优化",
+      "模型监控"
+    ],
+    "triggers": [
+      "模型上线",
+      "模型服务",
+      "特征库",
+      "分布式训练",
+      "模型监控",
+      "漂移检测",
+      "A",
+      "B 测试",
+      "推理优化",
+      "MLOps"
+    ],
+    "description": "当要把机器学习落地为可上线、可扩展、可观测的生产系统时使用；做框架选型(PyTorch2.x/TF2.x/JAX)、模型服务架构、特征工程与特征库、分布式训练、A/B 与漂移监控的端到端设计与产出可运维方案；不适用于纯学术建模、算法研究或一次性离线实验；触发词：模型上线、模型服务、特征库、分布式训练、模型监控、漂移检测、A/B 测试、推理优化、MLOps",
+    "path": "04-ai/production-ml-engineer/SKILL.md"
   },
   {
     "name": "prompt-governance-policy",
@@ -9311,6 +9961,32 @@
     ],
     "description": "当需要用 AI 自动化做客户支持时使用；产出对话机器人流程、工单路由/SLA 升级规则、情感分析与 CSAT/NPS 监控、全渠道与知识库自助方案；不适用于无 AI/自动化诉求的纯人工话术或与客服无关的任务；触发词：客户支持、客服机器人、情感分析、工单路由、CSAT、全渠道",
     "path": "05-business/ai-customer-support/SKILL.md"
+  },
+  {
+    "name": "ai-disruption-moat-analyzer",
+    "title": "AI 颠覆护城河分析",
+    "vol": "05-business",
+    "domain": "商业/growth",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业分析",
+      "护城河",
+      "AI颠覆",
+      "竞争战略",
+      "尽职调查",
+      "growth",
+      "风险评估"
+    ],
+    "triggers": [
+      "AI 颠覆风险",
+      "护城河评估",
+      "AI 替代",
+      "竞争尽调",
+      "90 天防御"
+    ],
+    "description": "当评估某业务/公司被 AI 颠覆的风险与护城河强弱时使用；做 10 向量压力打分 + AI 原生竞品接管推演 + 90 天防御行动计划；不适用于审计级市场调研或投资建议。触发词：AI 颠覆风险、护城河评估、AI 替代、竞争尽调、90 天防御",
+    "path": "05-business/ai-disruption-moat-analyzer/SKILL.md"
   },
   {
     "name": "ai-search-seo",
@@ -10511,6 +11187,48 @@
     "path": "05-business/deal-desk-reviewer/SKILL.md"
   },
   {
+    "name": "digital-product-monetization",
+    "title": "数字产品变现策略",
+    "vol": "05-business",
+    "domain": "商业/growth",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "monetization",
+      "stripe",
+      "saas",
+      "subscription",
+      "pricing",
+      "churn",
+      "unit-economics",
+      "growth"
+    ],
+    "triggers": [
+      "变现",
+      "monetization",
+      "Stripe",
+      "订阅",
+      "subscription",
+      "付费墙",
+      "freemium",
+      "免费试用",
+      "trial",
+      "升级流程",
+      "upgrade",
+      "webhook",
+      "churn",
+      "流失",
+      "LTV",
+      "CAC",
+      "单位经济",
+      "unit economics",
+      "MRR",
+      "SaaS 商业模型"
+    ],
+    "description": "当为 SaaS/数字产品搭建变现体系、集成 Stripe 订阅与付费流、设计套餐与试用、防流失或测算单位经济时使用；做出 Stripe 接入（Checkout/Customer Portal/Webhook）、三档套餐与定价、anti-churn 序列、LTV/CAC 计算与 MRR 看板等可执行产物；不适用于纯定价分层策略（见 pricing-strategy）、应用内升级付费墙文案（见 paywall-upgrade-cro）或取消挽留细流程（见 churn-prevention）。触发词：变现、monetization、Stripe、订阅、subscription、付费墙、freemium、免费试用、trial、升级流程、upgrade、webhook、churn、流失、LTV、CAC、单位经济、unit economics、MRR、SaaS 商业模型",
+    "path": "05-business/digital-product-monetization/SKILL.md"
+  },
+  {
     "name": "earnings-preview-model",
     "title": "财报前瞻与预估建模",
     "vol": "05-business",
@@ -11193,6 +11911,32 @@
     "path": "05-business/lifecycle-email-sequence/SKILL.md"
   },
   {
+    "name": "linkedin-profile-optimizer",
+    "title": "LinkedIn 个人主页优化",
+    "vol": "05-business",
+    "domain": "商业/marketing",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "linkedin",
+      "personal-brand",
+      "marketing",
+      "career",
+      "copywriting",
+      "seo",
+      "growth"
+    ],
+    "triggers": [
+      "LinkedIn",
+      "个人主页优化",
+      "个人品牌",
+      "头衔重写",
+      "About"
+    ],
+    "description": "当需要审计/重写 LinkedIn 个人主页（头衔、About、经历、技能）以建立专业权威与搜索可见性时使用；做主页诊断「吐槽」、文案重写与增长策略，产出优化后的头衔/About/经历条目与内容支柱。不适用于直接抓取私域 LinkedIn 后台数据、代发私信或生成头像/Banner 图。触发词：LinkedIn、个人主页优化、个人品牌、头衔重写、About",
+    "path": "05-business/linkedin-profile-optimizer/SKILL.md"
+  },
+  {
     "name": "ma-buyer-list",
     "title": "并购潜在买家清单构建",
     "vol": "05-business",
@@ -11575,6 +12319,34 @@
     ],
     "description": "当需要用心理学原理、认知偏差或行为科学解释「人为什么买」并影响消费决策时使用；做的是把心智模型映射到具体营销场景（定价/转化/信任/紧迫感/留存）并产出可落地的文案、定价结构与触达方案；不适用于具体落地页 CRO 实施、纯定价工程或基础文案撰写（另见相关技能）。触发词：营销心理、心智模型、mental models、认知偏差、cognitive bias、说服、persuasion、行为科学、锚定、anchoring、社会认同、social proof、稀缺、scarcity、损失厌恶、loss aversion、框架效应、framing、助推、nudge。",
     "path": "05-business/marketing-psychology/SKILL.md"
+  },
+  {
+    "name": "micro-saas-launcher",
+    "title": "微型 SaaS 快速上线",
+    "vol": "05-business",
+    "domain": "商业/growth",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "商业",
+      "growth",
+      "saas",
+      "indie-hacker",
+      "mvp",
+      "定价",
+      "上线",
+      "留存"
+    ],
+    "triggers": [
+      "micro saas",
+      "indie hacker",
+      "saas mvp",
+      "快速上线",
+      "定价",
+      "独立开发"
+    ],
+    "description": "当你以独立开发者/小团队身份要把一个聚焦的 SaaS 产品在数周内验证并上线赚钱时使用；做点子验证→MVP→定价→上线→止血留存的可执行打法与产物；不适用于追求融资/独角兽规模、需大规模网络效应或重前端设计的项目；触发词：micro saas、indie hacker、saas mvp、快速上线、定价、独立开发",
+    "path": "05-business/micro-saas-launcher/SKILL.md"
   },
   {
     "name": "month-end-close-manager",
@@ -13926,6 +14698,114 @@
     "path": "06-creative/glsl-shader-programming/SKILL.md"
   },
   {
+    "name": "high-end-visual-design",
+    "title": "高端视觉界面设计",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "创意/design",
+      "前端",
+      "视觉设计",
+      "动效",
+      "UI/UX",
+      "Tailwind",
+      "React",
+      "微交互"
+    ],
+    "triggers": [
+      "高端视觉",
+      "Awwwards",
+      "Apple 风",
+      "奢华界面",
+      "premium UI"
+    ],
+    "description": "当需要产出 Awwwards/代理商级、Apple/Linear 风的高端落地页·作品集·SaaS·产品页界面（高级字体、空间留白、柔光纵深、流体微交互）时使用；做法是先掷\"变体引擎\"选定氛围+布局原型，再用 React/Tailwind 以双层包边、岛屿按钮、自定义缓动与滚动入场动效产出像素级前端代码；不适用于受限仪表盘·受监管产品·低端弱网环境，也不替代品牌策略·转化研究·无障碍与上线 QA。触发词：高端视觉、Awwwards、Apple 风、奢华界面、premium UI",
+    "path": "06-creative/high-end-visual-design/SKILL.md"
+  },
+  {
+    "name": "iconsax-icon-library",
+    "title": "Iconsax 图标库与生成",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "design",
+      "icon",
+      "UI/UX",
+      "设计系统",
+      "SVG"
+    ],
+    "triggers": [
+      "iconsax",
+      "图标库",
+      "premium 图标",
+      "图标风格统一",
+      "AI 生成图标"
+    ],
+    "description": "当为现代数字产品挑选高质感图标或需要独特图标时使用；产出风格统一的 Iconsax 图标方案（搜索现有图标或用 Iconsax AI 生成并按 24×24 网格集成 SVG/Web 组件）；不适用于非 UI 资产、品牌大图或后端逻辑。触发词：iconsax、图标库、premium 图标、图标风格统一、AI 生成图标",
+    "path": "06-creative/iconsax-icon-library/SKILL.md"
+  },
+  {
+    "name": "industrial-brutalist-ui",
+    "title": "工业野兽派遥测 UI",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意/design",
+      "前端",
+      "UI设计",
+      "野兽派",
+      "瑞士印刷",
+      "CRT",
+      "遥测",
+      "CSS Grid"
+    ],
+    "triggers": [
+      "野兽派",
+      "brutalist",
+      "遥测 UI",
+      "CRT 终端",
+      "瑞士印刷"
+    ],
+    "description": "当需要构建野兽派/工业风/瑞士印刷/CRT 终端/战术遥测类高密度数据界面（仪表盘、指挥中心、作品集、编辑型页面）时使用；用刚性 CSS Grid、极端字号反差、纯功能配色与模拟模拟信号劣化（半调、扫描线、抖动）产出原始机械质感的前端代码与视觉规范；不适用于消费级温暖品牌、无障碍敏感流程，也不可在同一界面混用明色印刷与暗色遥测两套基底。触发词：野兽派、brutalist、遥测 UI、CRT 终端、瑞士印刷",
+    "path": "06-creative/industrial-brutalist-ui/SKILL.md"
+  },
+  {
+    "name": "magic-motion-animator",
+    "title": "AI 动效动画生成",
+    "vol": "06-creative",
+    "domain": "创意/av",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "av",
+      "动效",
+      "动画",
+      "Lottie",
+      "微交互",
+      "Logo 动效",
+      "UI 动画",
+      "社媒素材"
+    ],
+    "triggers": [
+      "Logo 动效",
+      "UI 动画",
+      "图标动效",
+      "微交互",
+      "Lottie",
+      "动起来"
+    ],
+    "description": "当需要给静态 Logo、UI、图标或社媒素材加 AI 驱动的高级动效时使用；按品类选预设、用 AI 助手以提示词生成运动并微调关键帧，导出 Lottie(JSON)/GIF/MP4 集成到 Web、App 或社媒；不适用于一行 CSS transition 的简单过渡、3D/视频剪辑或代码级动画编排；触发词：Logo 动效、UI 动画、图标动效、微交互、Lottie、动起来",
+    "path": "06-creative/magic-motion-animator/SKILL.md"
+  },
+  {
     "name": "mermaid-diagram-expert",
     "title": "Mermaid 图表绘制专家",
     "vol": "06-creative",
@@ -13949,6 +14829,66 @@
     ],
     "description": "当需要用 Mermaid 文本语法快速绘制流程图、时序图、类图、状态图、ER 图、甘特图等可嵌入 Markdown/文档的图表时使用；做选对图类型、写出可渲染的 Mermaid 代码并附基础版+样式版与渲染说明；不适用于像素级精修的设计稿（用 Figma/画板）或纯数据可视化图表（用 D3/ECharts）。触发词：Mermaid、流程图、时序图",
     "path": "06-creative/mermaid-diagram-expert/SKILL.md"
+  },
+  {
+    "name": "minimalist-editorial-ui",
+    "title": "极简编辑风界面设计",
+    "vol": "06-creative",
+    "domain": "创意/design",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "design",
+      "前端",
+      "极简主义",
+      "ui",
+      "排版"
+    ],
+    "triggers": [
+      "极简界面",
+      "editorial 风",
+      "暖色单色",
+      "bento 网格",
+      "Notion 风"
+    ],
+    "description": "当需要做 Notion/Linear/Vercel 那类极简、编辑风、文档感的高端前端界面时使用；产出暖色单色系、1px 细边框、bento 网格、克制动效的 HTML/React/Tailwind 设计规范与代码；不适用于已有强品牌色系统、需要鲜艳渐变/重阴影/营销大色块的场景。触发词：极简界面、editorial 风、暖色单色、bento 网格、Notion 风。",
+    "path": "06-creative/minimalist-editorial-ui/SKILL.md"
+  },
+  {
+    "name": "minimax-media-cli",
+    "title": "MiniMax 多模态生成 CLI",
+    "vol": "06-creative",
+    "domain": "创意/av",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "创意",
+      "视听",
+      "媒体生成",
+      "MiniMax",
+      "mmx",
+      "CLI",
+      "文生图",
+      "文生视频",
+      "TTS",
+      "音乐生成",
+      "Hailuo",
+      "联网搜索",
+      "VLM"
+    ],
+    "triggers": [
+      "mmx",
+      "MiniMax",
+      "文生视频",
+      "文生图",
+      "文字转语音",
+      "生成音乐",
+      "海螺",
+      "Hailuo"
+    ],
+    "description": "当需要在终端用 MiniMax 平台批量生成文本/图像/视频/语音/音乐、做联网搜索或图像理解时使用；用 mmx CLI 配 agent 旗标（--non-interactive/--quiet/--output json/--async）产出媒体文件或 JSON；不适用于未装 mmx 或未鉴权、需精细本地剪辑调色（回退 ffmpeg）、或想走 fal.ai/ElevenLabs 等其他供应商的场景；触发词：mmx、MiniMax、文生视频、文生图、文字转语音、生成音乐、海螺、Hailuo",
+    "path": "06-creative/minimax-media-cli/SKILL.md"
   },
   {
     "name": "slack-gif-creator",
@@ -15456,6 +16396,36 @@
     "path": "07-productivity/salesforce-automation/SKILL.md"
   },
   {
+    "name": "scrum-master-analytics",
+    "title": "Scrum 敏捷教练与冲刺数据分析",
+    "vol": "07-productivity",
+    "domain": "协作/knowledge",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "协作",
+      "项目管理",
+      "敏捷",
+      "Scrum",
+      "冲刺",
+      "数据分析",
+      "蒙特卡洛",
+      "复盘",
+      "团队健康度",
+      "速度预测"
+    ],
+    "triggers": [
+      "Scrum",
+      "冲刺",
+      "速度",
+      "燃尽图",
+      "复盘",
+      "健康度"
+    ],
+    "description": "当需要做冲刺规划、复盘、团队健康度评估或基于 Jira 导出的 sprint JSON 做速度预测时使用；用三个 Python 脚本产出蒙特卡洛速度预测、6 维健康度评分与复盘行动项追踪报告；不适用于具体 Jira 配置/JQL/工作流搭建（交 jira-expert），也不写用户故事/待办（交 agile-product-owner）。触发词：Scrum、冲刺、速度、燃尽图、复盘、健康度",
+    "path": "07-productivity/scrum-master-analytics/SKILL.md"
+  },
+  {
     "name": "stakeholder-update-writer",
     "title": "干系人进展更新撰写",
     "vol": "07-productivity",
@@ -16425,6 +17395,34 @@
     "path": "08-security/container-security-hardening/SKILL.md"
   },
   {
+    "name": "defensive-malware-analyst",
+    "title": "防御性恶意软件分析",
+    "vol": "08-security",
+    "domain": "安全/ops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "ops",
+      "恶意软件分析",
+      "威胁情报",
+      "事件响应",
+      "IOC",
+      "YARA",
+      "逆向工程"
+    ],
+    "triggers": [
+      "恶意软件分析",
+      "样本分析",
+      "IOC 提取",
+      "YARA",
+      "沙箱",
+      "C2"
+    ],
+    "description": "当需要在隔离环境中对可疑样本做防御性分析（事件响应、威胁情报、检测规则开发）时使用；做静态/动态分析并产出 IOC、YARA 规则与分析报告；不适用于编写/分发恶意代码、未授权攻击或任何攻击性用途；触发词：恶意软件分析、样本分析、IOC 提取、YARA、沙箱、C2",
+    "path": "08-security/defensive-malware-analyst/SKILL.md"
+  },
+  {
     "name": "defi-amm-security-audit",
     "title": "DeFi AMM 智能合约安全审计",
     "vol": "08-security",
@@ -16650,6 +17648,32 @@
     ],
     "description": "当处理欧盟个人数据、做同意管理、响应数据主体请求（DSAR）或排查 GDPR 合规缺口时使用；产出合法依据梳理、同意/留存/脱敏代码骨架、DSAR 与数据泄露通报流程及合规清单；不适用于非个人数据处理或代替法务/DPO 终审；触发词：GDPR、数据合规、个人数据、同意管理、consent、数据主体请求、DSAR、被遗忘权、数据留存、隐私设计、数据泄露通报、breach notification",
     "path": "08-security/gdpr-data-handling/SKILL.md"
+  },
+  {
+    "name": "html-injection-testing",
+    "title": "HTML 注入测试",
+    "vol": "08-security",
+    "domain": "安全/appsec",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "appsec",
+      "web安全",
+      "注入",
+      "渗透测试",
+      "钓鱼",
+      "XSS相关"
+    ],
+    "triggers": [
+      "HTML 注入",
+      "HTML injection",
+      "钓鱼表单",
+      "页面篡改",
+      "输出转义"
+    ],
+    "description": "当对授权 Web 目标做应用安全测试、需识别用户输入未经转义直接渲染导致的 HTML 注入时使用；做注入点定位、payload 构造与利用（钓鱼表单/篡改/重定向）并产出漏洞报告与修复建议；不适用于未授权目标、纯 JS 执行型 XSS 深挖或前端渲染调试。触发词：HTML 注入、HTML injection、钓鱼表单、页面篡改、输出转义",
+    "path": "08-security/html-injection-testing/SKILL.md"
   },
   {
     "name": "idor-vulnerability-testing",
@@ -16905,6 +17929,94 @@
     "path": "08-security/linux-privilege-escalation/SKILL.md"
   },
   {
+    "name": "memory-forensics",
+    "title": "内存取证分析",
+    "vol": "08-security",
+    "domain": "安全/ops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "ops",
+      "数字取证",
+      "事件响应",
+      "恶意软件分析",
+      "DFIR",
+      "Volatility3",
+      "内存取证",
+      "蓝队",
+      "YARA"
+    ],
+    "triggers": [
+      "内存取证",
+      "memory dump",
+      "Volatility",
+      "malfind",
+      "内存镜像"
+    ],
+    "description": "当对内存镜像（RAM dump）做事件响应或恶意软件分析、需追查注入/隐藏进程/凭据/Rootkit 时使用；做内存采集→Volatility 3 分析→提取进程、网络、注册表、文件、YARA 命中等取证产物；不适用于纯磁盘/网络流量取证、活体系统在线排查或非内存证据；触发词：内存取证、memory dump、Volatility、malfind、内存镜像",
+    "path": "08-security/memory-forensics/SKILL.md"
+  },
+  {
+    "name": "metasploit-framework",
+    "title": "Metasploit 渗透框架",
+    "vol": "08-security",
+    "domain": "安全/appsec",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "渗透测试",
+      "appsec",
+      "红队",
+      "漏洞利用",
+      "Metasploit",
+      "后渗透",
+      "载荷生成"
+    ],
+    "triggers": [
+      "Metasploit",
+      "msfconsole",
+      "msfvenom",
+      "Meterpreter",
+      "exploit",
+      "payload",
+      "reverse_tcp"
+    ],
+    "description": "当在书面授权范围内需要用 Metasploit 做漏洞利用、载荷生成与后渗透时使用；做 msfconsole 模块检索/配置、msfvenom 生成多平台载荷、handler 监听、Meterpreter 会话操作与 post 模块采集，产出会话、利用证据与凭据/系统信息；不适用于无授权或超范围测试、纯被动信息收集、纯防御加固。触发词：Metasploit、msfconsole、msfvenom、Meterpreter、exploit、payload、reverse_tcp",
+    "path": "08-security/metasploit-framework/SKILL.md"
+  },
+  {
+    "name": "mtls-zero-trust-config",
+    "title": "mTLS 零信任配置",
+    "vol": "08-security",
+    "domain": "安全/ops",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "mTLS",
+      "零信任",
+      "服务网格",
+      "Istio",
+      "Linkerd",
+      "证书管理",
+      "SPIFFE",
+      "安全",
+      "ops"
+    ],
+    "triggers": [
+      "mTLS",
+      "零信任",
+      "PeerAuthentication",
+      "证书轮换",
+      "SPIFFE",
+      "Istio",
+      "Linkerd"
+    ],
+    "description": "当为服务网格落地零信任、双向认证的服务间通信，或排查 TLS 握手与证书轮换问题时使用；做 Istio/Linkerd mTLS 策略、cert-manager/SPIFFE 证书签发与轮换、PeerAuthentication/DestinationRule 配置并验证产出；不适用于面向公网用户的单向 TLS、应用层鉴权或与 mTLS 无关的网络任务。触发词：mTLS、零信任、PeerAuthentication、证书轮换、SPIFFE、Istio、Linkerd",
+    "path": "08-security/mtls-zero-trust-config/SKILL.md"
+  },
+  {
     "name": "multi-framework-compliance-orchestrator",
     "title": "多框架合规编排器（multi-framework-compliance-orchestrator）",
     "vol": "08-security",
@@ -17017,6 +18129,36 @@
     ],
     "description": "当在授权范围内对目标系统做安全评估、需要一套从信息收集到报告的端到端渗透方法论时使用；按侦察→扫描→漏洞分析→利用→权限维持→报告的阶段推进，产出侦察清单、漏洞评估、PoC 证据与含风险分级的最终报告；不适用于无书面授权的测试、超范围攻击或恶意入侵。触发词：渗透测试、漏洞评估、Kali/Nmap/Metasploit、安全评估报告。",
     "path": "08-security/penetration-testing-methodology/SKILL.md"
+  },
+  {
+    "name": "pentest-lab-network-services",
+    "title": "渗透实验网络服务搭建",
+    "vol": "08-security",
+    "domain": "安全/appsec",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "安全",
+      "靶场",
+      "appsec",
+      "渗透练习",
+      "网络服务",
+      "服务枚举",
+      "SNMP",
+      "SMB"
+    ],
+    "triggers": [
+      "靶场搭建",
+      "network 101",
+      "HTTP",
+      "HTTPS",
+      "SNMP",
+      "SMB 服务",
+      "服务枚举",
+      "Samba 共享"
+    ],
+    "description": "当需要在隔离靶场搭建并测试 HTTP/HTTPS/SNMP/SMB 等常见网络服务、用于练习服务枚举与日志分析时使用；做服务安装配置（Apache/IIS、snmpd、Samba）、防火墙放行、自签证书、枚举（snmpwalk/smbclient/enum4linux）与日志取证；不适用于生产环境、未授权扫描或真实攻击。触发词：靶场搭建、network 101、HTTP/HTTPS/SNMP/SMB 服务、服务枚举、Samba 共享",
+    "path": "08-security/pentest-lab-network-services/SKILL.md"
   },
   {
     "name": "red-team-recon",
@@ -21100,6 +22242,41 @@
     "path": "09-verticals/hmdb-metabolome-database/SKILL.md"
   },
   {
+    "name": "hospital-it-management",
+    "title": "医院 IT 管理顾问",
+    "vol": "09-verticals",
+    "domain": "领域/medical",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "医院 IT",
+      "数字健康",
+      "HIMSS",
+      "ONA",
+      "JCI",
+      "HIS",
+      "PEP",
+      "HL7",
+      "FHIR",
+      "DICOM",
+      "患者安全",
+      "高可用",
+      "LGPD",
+      "medical"
+    ],
+    "triggers": [
+      "医院IT",
+      "HIMSS Stage7",
+      "ONA认证",
+      "HIS集成",
+      "PEP",
+      "HL7 FHIR",
+      "患者安全"
+    ],
+    "description": "当管理医院 IT/数字化转型、备战 HIMSS/ONA/JCI 认证或集成 HIS/PEP（MV-SOUL、Tasy）时使用；做数字成熟度路线、临床安全（BCMA 闭环给药、CDSS）、HL7/FHIR/DICOM 互操作、关键系统高可用与合规（LGPD/NIST/ISO27001）顾问并产出可执行方案；不适用于临床/法律/财务的正式审计与替代医师判断。触发词：医院IT、HIMSS Stage7、ONA认证、HIS集成、PEP、HL7 FHIR、患者安全",
+    "path": "09-verticals/hospital-it-management/SKILL.md"
+  },
+  {
     "name": "imaging-data-commons-query",
     "title": "NCI 影像数据公地查询下载",
     "vol": "09-verticals",
@@ -21590,6 +22767,36 @@
     "path": "09-verticals/iso14971-risk-management/SKILL.md"
   },
   {
+    "name": "itil-service-management",
+    "title": "ITIL 服务管理顾问",
+    "vol": "09-verticals",
+    "domain": "领域/edu",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "itil",
+      "服务管理",
+      "service-management",
+      "ai治理",
+      "可持续性",
+      "价值流",
+      "数字产品",
+      "edu"
+    ],
+    "triggers": [
+      "ITIL",
+      "服务价值流",
+      "SVS",
+      "数字产品管理",
+      "AI 治理",
+      "XLA",
+      "FinOps",
+      "可持续 IT"
+    ],
+    "description": "当为 IT 团队提供 ITIL 4/5 服务管理咨询、设计服务价值流、落地 AI 治理或把可持续性（ESG）纳入服务时使用；做框架顾问，产出价值流地图、实践改造方案、XLA/治理与合规清单；不适用于具体工单系统配置、代码实现或脱离组织政策的合规裁定；触发词：ITIL、服务价值流、SVS、数字产品管理、AI 治理、XLA、FinOps、可持续 IT。",
+    "path": "09-verticals/itil-service-management/SKILL.md"
+  },
+  {
     "name": "jaspar-tfbs-database",
     "title": "JASPAR 转录因子结合谱",
     "vol": "09-verticals",
@@ -21928,6 +23135,38 @@
     "path": "09-verticals/legal-meeting-briefing/SKILL.md"
   },
   {
+    "name": "legal-policy-drafter",
+    "title": "隐私政策与法律条款起草",
+    "vol": "09-verticals",
+    "domain": "领域/legal",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "legal",
+      "privacy-policy",
+      "terms-of-service",
+      "gdpr",
+      "ccpa",
+      "cookie-policy",
+      "dpa",
+      "compliance",
+      "templates"
+    ],
+    "triggers": [
+      "隐私政策",
+      "privacy policy",
+      "服务条款",
+      "terms of service",
+      "Cookie 政策",
+      "数据处理协议 DPA",
+      "GDPR",
+      "CCPA",
+      "免责声明"
+    ],
+    "description": "当需要起草隐私政策、服务条款 ToS、Cookie 政策、数据处理协议 DPA、免责声明或法律告示时使用；做先确定适用法域与法规再套结构化模板，产出含强制披露条款、占位符与合规清单的合规草案并标注需法务定稿处；不适用于代替执业律师出具法律意见、判定条款可执行性或处理具体争议；触发词：隐私政策、privacy policy、服务条款、terms of service、Cookie 政策、数据处理协议 DPA、GDPR、CCPA、免责声明",
+    "path": "09-verticals/legal-policy-drafter/SKILL.md"
+  },
+  {
     "name": "legal-risk-classifier",
     "title": "法律风险分级评估",
     "vol": "09-verticals",
@@ -21950,6 +23189,30 @@
     ],
     "description": "当需要评估合同/交易/事项的法律风险并定级时使用；做严重度×可能性打分、按 GREEN/YELLOW/ORANGE/RED 分级、判定是否升级至资深/外部法律顾问，并产出风险评估备忘与风险登记条目；不适用于出具正式法律意见、个案诉讼策略或替代合格律师审查；触发词：法律风险、合同风险、风险定级、是否需外部律师、风险矩阵",
     "path": "09-verticals/legal-risk-classifier/SKILL.md"
+  },
+  {
+    "name": "lightning-network-architecture-review",
+    "title": "闪电网络架构评审",
+    "vol": "09-verticals",
+    "domain": "领域/fintech",
+    "level": "精通",
+    "status": "stable",
+    "tags": [
+      "fintech",
+      "bitcoin",
+      "lightning-network",
+      "layer2",
+      "protocol-review",
+      "channel-factory",
+      "架构评审"
+    ],
+    "triggers": [
+      "闪电网络",
+      "通道工厂",
+      "Layer2 扩容"
+    ],
+    "description": "当评审比特币闪电网络（Lightning）协议设计、对比通道工厂（channel factory）方案或权衡 Layer2 扩容取舍时使用；产出含信任模型、链上足迹、共识依赖、HTLC/PTLC 兼容性、活性与守望塔的结构化评审结论；不适用于非比特币/闪电网络场景或其他链的 Layer2。触发词：闪电网络、通道工厂、Layer2 扩容",
+    "path": "09-verticals/lightning-network-architecture-review/SKILL.md"
   },
   {
     "name": "litigation-brief-section-drafter",
@@ -22550,6 +23813,32 @@
     ],
     "description": "当需要把疾病/基因/表型在 Monarch 知识图谱里互查（MONDO 疾病→致病基因/HPO 表型、按患者 HPO 排候选基因、跨物种基因-表型）时使用；做：免认证调用 Monarch v3 REST API（/association/all、/entity、/search、/histopheno），产出基因-疾病-表型关联表与表型谱；不适用于药物-靶点证据评分（用 opentargets-database）、单变异临床致病性（用 clinvar-database）、群体 SNP-性状关联（GWAS Catalog）。触发词：Monarch、MONDO、HPO、表型、罕见病基因优先级、疾病基因关联、跨物种表型",
     "path": "09-verticals/monarch-disease-phenotype/SKILL.md"
+  },
+  {
+    "name": "moodle-external-api-dev",
+    "title": "Moodle 外部 API 开发",
+    "vol": "09-verticals",
+    "domain": "领域/edu",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "moodle",
+      "php",
+      "external-api",
+      "web-service",
+      "lms",
+      "edu",
+      "rest",
+      "ajax"
+    ],
+    "triggers": [
+      "Moodle",
+      "external_api",
+      "Web 服务",
+      "wsfunction"
+    ],
+    "description": "当为 Moodle 插件开发自定义 Web 服务（REST/AJAX）以暴露课程、测验、用户数据时使用；按外部 API 框架产出 external_api 三方法类、services.php 注册与权限/事务校验；不适用于前端主题、核心补丁或非 Moodle LMS；触发词：Moodle、external_api、Web 服务、wsfunction",
+    "path": "09-verticals/moodle-external-api-dev/SKILL.md"
   },
   {
     "name": "muon-multiomics-singlecell",
@@ -27335,6 +28624,63 @@
     "path": "10-platform/github-actions-author/SKILL.md"
   },
   {
+    "name": "go-playwright-automation",
+    "title": "Playwright Go 隐身浏览器自动化",
+    "vol": "10-platform",
+    "domain": "平台/browser",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "playwright",
+      "golang",
+      "browser-automation",
+      "web-scraping",
+      "stealth",
+      "anti-bot",
+      "zap",
+      "headless",
+      "spa-testing"
+    ],
+    "triggers": [
+      "playwright go",
+      "Go 浏览器自动化",
+      "stealth",
+      "避免检测",
+      "Cloudflare",
+      "human-like",
+      "SPA 抓取"
+    ],
+    "description": "当用 Go（playwright-go）写浏览器自动化/抓取/测试，且目标是 SPA 动态站或需绕过 Cloudflare/Akamai 反爬时使用；做\"单浏览器多 Context+Zap 日志+人类拟真（Bezier 鼠标/逐键输入/视口随机/UA 轮换）+defer 优雅关闭\"的生产级脚本骨架与可跑代码；不适用于静态 HTML 抓取（用更轻的 HTTP 爬虫）、解 CAPTCHA、或极严反爬。触发词：playwright go、Go 浏览器自动化、stealth、避免检测、Cloudflare、human-like、SPA 抓取",
+    "path": "10-platform/go-playwright-automation/SKILL.md"
+  },
+  {
+    "name": "go-rod-browser-automation",
+    "title": "go-rod 浏览器自动化",
+    "vol": "10-platform",
+    "domain": "平台/browser",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "browser",
+      "go",
+      "go-rod",
+      "web-scraping",
+      "automation",
+      "stealth",
+      "anti-bot",
+      "cdp",
+      "headless",
+      "platform"
+    ],
+    "triggers": [
+      "go-rod",
+      "浏览器自动化",
+      "stealth 反爬"
+    ],
+    "description": "当用 Go 抓取/自动化/测试网站、需无头浏览器渲染 SPA、或绕过反爬（Cloudflare/webdriver 指纹）时使用；做 go-rod + stealth 驱动 CDP 完成导航、定位、交互、拦截与抓取并产出数据/截图/PDF；不适用于解 CAPTCHA、Firefox/Safari、DRM 媒体或极强反爬。触发词：go-rod、浏览器自动化、stealth 反爬",
+    "path": "10-platform/go-rod-browser-automation/SKILL.md"
+  },
+  {
     "name": "google-workspace-cli-admin",
     "title": "Google Workspace CLI 管理自动化",
     "vol": "10-platform",
@@ -27389,6 +28735,31 @@
     ],
     "description": "当想用手机 iMessage/短信远程驱动笔记本上的 Claude Code 会话（发文字/语音/图片、跑代码、cd 切目录）时使用；做部署 njerschow/textme 本地守护进程、配置 Sendblue 凭证与手机号白名单、验证非白名单拦截后再持久化，产出可远控的「手机→Claude」入站通道；不适用于仅需「任务完成后发短信通知我」的纯出站场景（那是 sendblue-notify，无需守护进程）。触发词：text claude、手机控制 claude、远程驱动 claude、imessage 控制电脑、textme、sendblue 入站",
     "path": "10-platform/imessage-claude-bridge/SKILL.md"
+  },
+  {
+    "name": "linkedin-cli-automation",
+    "title": "LinkedIn CLI 自动化",
+    "vol": "10-platform",
+    "domain": "平台/integration",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "平台",
+      "integration",
+      "linkedin",
+      "automation",
+      "cli",
+      "social",
+      "outreach",
+      "sales-navigator"
+    ],
+    "triggers": [
+      "LinkedIn",
+      "领英",
+      "Sales Navigator"
+    ],
+    "description": "当需要用命令行脚本或 AI Agent 批量自动化 LinkedIn（抓取人/公司资料、搜索、发消息、管理人脉、发帖、Sales Navigator）时使用；做：用 linkedin CLI 调用 Linked API 云端浏览器执行操作并返回结构化 JSON；不适用于：网页手动操作、实时即时返回（操作需 30 秒到数分钟）。触发词：LinkedIn、领英、Sales Navigator",
+    "path": "10-platform/linkedin-cli-automation/SKILL.md"
   },
   {
     "name": "mcp-builder",
@@ -27483,6 +28854,56 @@
     ],
     "description": "当需要跨 AWS/Azure/GCP 设计多云架构、做服务选型、规划跨云迁移或落地云无关抽象时使用；产出三云服务对照、四类多云模式选型、成本优化策略与四阶段迁移路线；不适用于单云内部调优、应用业务代码或纯本地数据中心。触发词：多云、云无关、AWS Azure GCP 选型、跨云迁移、容灾 DR、云中立",
     "path": "10-platform/multi-cloud-architecture/SKILL.md"
+  },
+  {
+    "name": "n8n-mcp-tools-expert",
+    "title": "n8n-mcp 工具专家",
+    "vol": "10-platform",
+    "domain": "平台/mcp",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "n8n",
+      "mcp",
+      "工作流自动化",
+      "节点校验",
+      "工具选型",
+      "模板部署",
+      "平台"
+    ],
+    "triggers": [
+      "n8n-mcp",
+      "search_nodes",
+      "validate_node",
+      "n8n_update_partial_workflow",
+      "nodeType"
+    ],
+    "description": "当用 n8n-mcp MCP 工具集搜节点、校验配置、套模板或增删改工作流时使用；做工具选型、参数格式与迭代流程指引，产出可落地的搜索→校验→建流→激活闭环；不适用于在 n8n UI 手工拖拽或不走 MCP 的场景；触发词：n8n-mcp、search_nodes、validate_node、n8n_update_partial_workflow、nodeType",
+    "path": "10-platform/n8n-mcp-tools-expert/SKILL.md"
+  },
+  {
+    "name": "n8n-workflow-patterns",
+    "title": "n8n 工作流架构模式",
+    "vol": "10-platform",
+    "domain": "平台/integration",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "n8n",
+      "工作流",
+      "自动化",
+      "集成",
+      "架构模式"
+    ],
+    "triggers": [
+      "n8n",
+      "工作流模式",
+      "webhook",
+      "定时任务",
+      "AI Agent 工作流"
+    ],
+    "description": "当需要在动手搭建前为 n8n 工作流选定整体架构、判断该用哪种数据流形态时使用；产出 5 大核心模式选型+构建检查清单+数据流形态+常见坑速查，给出可执行的搭建路径；不适用于单节点逐字段调参或具体节点配置查证（改用 n8n-node-configuration）、表达式书写（改用 n8n-expression-syntax）、结构校验排错（改用 n8n-validation-expert）。触发词：n8n、工作流模式、webhook、定时任务、AI Agent 工作流",
+    "path": "10-platform/n8n-workflow-patterns/SKILL.md"
   },
   {
     "name": "salesforce-apex-developer",

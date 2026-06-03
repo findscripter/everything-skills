@@ -34,6 +34,9 @@
 ### `21CFR820`
 - [`fda-qsr-audit-prep`](../09-verticals/fda-qsr-audit-prep/SKILL.md) — FDA QSR（21 CFR 820）审计准备
 
+### `21st-dev`
+- [`magic-ui-component-generator`](../02-engineering/magic-ui-component-generator/SKILL.md) — AI UI 组件多方案生成
+
 ### `2FA验证`
 - [`twilio-communications`](../10-platform/twilio-communications/SKILL.md) — Twilio 短信与语音通信集成
 
@@ -114,6 +117,9 @@
 ### `AI编排`
 - [`multi-agent-workflow-designer`](../04-ai/multi-agent-workflow-designer/SKILL.md) — 多智能体工作流设计
 
+### `AI颠覆`
+- [`ai-disruption-moat-analyzer`](../05-business/ai-disruption-moat-analyzer/SKILL.md) — AI 颠覆护城河分析
+
 ### `AMM`
 - [`defi-amm-security-audit`](../08-security/defi-amm-security-audit/SKILL.md) — DeFi AMM 智能合约安全审计
 - [`defi-protocol-templates`](../09-verticals/defi-protocol-templates/SKILL.md) — DeFi 协议合约模板
@@ -182,6 +188,7 @@
 - [`cloud-misconfig-auditor`](../08-security/cloud-misconfig-auditor/SKILL.md) — 云基础设施安全审计
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试
 - [`cloudformation-best-practices`](../02-engineering/cloudformation-best-practices/SKILL.md) — CloudFormation 模板与嵌套栈实践
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 - [`multi-cloud-architecture`](../10-platform/multi-cloud-architecture/SKILL.md) — 多云架构决策框架
 
 ### `Active-Directory`
@@ -236,6 +243,7 @@
 - [`cloud-cost-optimization`](../10-platform/cloud-cost-optimization/SKILL.md) — 云成本优化
 - [`cloud-misconfig-auditor`](../08-security/cloud-misconfig-auditor/SKILL.md) — 云基础设施安全审计
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 - [`multi-cloud-architecture`](../10-platform/multi-cloud-architecture/SKILL.md) — 多云架构决策框架
 
 ### `B2B 销售`
@@ -247,11 +255,17 @@
 ### `BAM`
 - [`samtools-bam-processing`](../09-verticals/samtools-bam-processing/SKILL.md) — samtools BAM/SAM 处理
 
+### `BDD`
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
+
 ### `BDI`
 - [`bdi-mental-states`](../04-ai/bdi-mental-states/SKILL.md) — BDI 智能体信念-愿望-意图建模
 
 ### `BED`
 - [`geniml-genomic-interval-ml`](../09-verticals/geniml-genomic-interval-ml/SKILL.md) — geniml 基因组区间机器学习
+
+### `BGP`
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 
 ### `BM25`
 - [`hybrid-search-retrieval`](../04-ai/hybrid-search-retrieval/SKILL.md) — 向量与关键词混合检索
@@ -267,6 +281,9 @@
 
 ### `Bicep`
 - [`azure-container-apps-deploy`](../10-platform/azure-container-apps-deploy/SKILL.md) — Azure Container Apps 容器化部署（azd）
+
+### `Big-O`
+- [`algorithm-first-discipline`](../00-meta/algorithm-first-discipline/SKILL.md) — 算法先行思维纪律
 
 ### `BigQuery`
 - [`gcp-cloud-architect`](../10-platform/gcp-cloud-architect/SKILL.md) — GCP 云架构设计
@@ -329,6 +346,9 @@
 ### `CDC`
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程
 
+### `CDN`
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
+
 ### `CFO`
 - [`cfo-financial-advisor`](../05-business/cfo-financial-advisor/SKILL.md) — CFO 财务顾问（单位经济与融资）
 
@@ -345,6 +365,7 @@
 - [`deployment-engineer`](../02-engineering/deployment-engineer/SKILL.md) — CI/CD GitOps 部署工程
 - [`env-secrets-hygiene`](../08-security/env-secrets-hygiene/SKILL.md) — 环境变量与密钥卫生审计
 - [`k6-load-testing`](../02-engineering/k6-load-testing/SKILL.md) — k6 负载压力测试
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) — Playwright 端到端测试
 - [`shellcheck-linting`](../02-engineering/shellcheck-linting/SKILL.md) — ShellCheck 脚本静态检查配置
 
@@ -354,6 +375,7 @@
 ### `CLI`
 - [`coding-agent-headtohead-eval`](../04-ai/coding-agent-headtohead-eval/SKILL.md) — 编码 Agent 对比评测（通过率/成本/耗时）
 - [`defuddle-web-extract`](../10-platform/defuddle-web-extract/SKILL.md) — Defuddle 网页正文提取为 Markdown
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
 
 ### `CMO`
@@ -385,6 +407,9 @@
 - [`paywall-upgrade-cro`](../05-business/paywall-upgrade-cro/SKILL.md) — 应用内付费墙与升级转化优化
 - [`popup-modal-cro`](../05-business/popup-modal-cro/SKILL.md) — 弹窗与浮层转化优化
 
+### `CRT`
+- [`industrial-brutalist-ui`](../06-creative/industrial-brutalist-ui/SKILL.md) — 工业野兽派遥测 UI
+
 ### `CRUD`
 - [`rest-api-endpoint-builder`](../02-engineering/rest-api-endpoint-builder/SKILL.md) — 生产级 REST API 端点构建
 
@@ -396,6 +421,9 @@
 
 ### `CSS`
 - [`tailwind-css-patterns`](../02-engineering/tailwind-css-patterns/SKILL.md) — Tailwind CSS v4 模式与设计令牌
+
+### `CSS Grid`
+- [`industrial-brutalist-ui`](../06-creative/industrial-brutalist-ui/SKILL.md) — 工业野兽派遥测 UI
 
 ### `CSS-in-JS`
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) — Web 组件设计模式
@@ -495,8 +523,17 @@
 ### `DEF 14A`
 - [`octagon-sec-proxy-analysis`](../09-verticals/octagon-sec-proxy-analysis/SKILL.md) — 委托书 DEF 14A 高管薪酬与治理分析
 
+### `DFIR`
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
+
+### `DICOM`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
+
 ### `DMA`
 - [`arm-cortex-firmware-expert`](../09-verticals/arm-cortex-firmware-expert/SKILL.md) — ARM Cortex-M 固件与驱动开发
+
+### `DNS`
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
 
 ### `DOCX`
 - [`cim-builder`](../05-business/cim-builder/SKILL.md) — 保密信息备忘录（CIM）撰写
@@ -532,6 +569,8 @@
 - [`gcp-cloud-run`](../10-platform/gcp-cloud-run/SKILL.md) — GCP Cloud Run 无服务器
 - [`helm-chart-scaffolding`](../02-engineering/helm-chart-scaffolding/SKILL.md) — Helm Chart 打包部署
 - [`kubernetes-architect`](../02-engineering/kubernetes-architect/SKILL.md) — Kubernetes 云原生架构
+- [`kubernetes-deployment-workflow`](../02-engineering/kubernetes-deployment-workflow/SKILL.md) — Kubernetes 部署工作流
+- [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
 - [`shellcheck-linting`](../02-engineering/shellcheck-linting/SKILL.md) — ShellCheck 脚本静态检查配置
 - [`turborepo-caching`](../02-engineering/turborepo-caching/SKILL.md) — Turborepo 单仓构建缓存配置
 
@@ -556,6 +595,7 @@
 
 ### `E2E`
 - [`browserstack-cross-browser-test`](../02-engineering/browserstack-cross-browser-test/SKILL.md) — BrowserStack 跨浏览器测试
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) — Playwright 端到端测试
 
 ### `EAS`
@@ -653,6 +693,9 @@
 ### `FDA 21 CFR 820`
 - [`capa-root-cause-officer`](../09-verticals/capa-root-cause-officer/SKILL.md) — 医疗器械 CAPA 与根因分析
 
+### `FHIR`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
+
 ### `FINVIZ`
 - [`value-dividend-screener`](../09-verticals/value-dividend-screener/SKILL.md) — 价值红利股筛选
 
@@ -703,6 +746,7 @@
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试
 - [`gcp-cloud-architect`](../10-platform/gcp-cloud-architect/SKILL.md) — GCP 云架构设计
 - [`gcp-cloud-run`](../10-platform/gcp-cloud-run/SKILL.md) — GCP Cloud Run 无服务器
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 - [`multi-cloud-architecture`](../10-platform/multi-cloud-architecture/SKILL.md) — 多云架构决策框架
 
 ### `GEO`
@@ -741,6 +785,7 @@
 ### `GitOps`
 - [`deployment-engineer`](../02-engineering/deployment-engineer/SKILL.md) — CI/CD GitOps 部署工程
 - [`gitops-argocd-flux`](../02-engineering/gitops-argocd-flux/SKILL.md) — GitOps 自动化部署
+- [`kubernetes-deployment-workflow`](../02-engineering/kubernetes-deployment-workflow/SKILL.md) — Kubernetes 部署工作流
 
 ### `Go`
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
@@ -771,6 +816,15 @@
 ### `GrowthBook`
 - [`feature-flags-architect`](../02-engineering/feature-flags-architect/SKILL.md) — 功能开关架构与治理
 
+### `HIMSS`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
+
+### `HIS`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
+
+### `HL7`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
+
 ### `HMDB`
 - [`hmdb-metabolome-database`](../09-verticals/hmdb-metabolome-database/SKILL.md) — HMDB 人类代谢组数据库
 
@@ -787,6 +841,9 @@
 - [`html-dashboard-builder`](../03-data/html-dashboard-builder/SKILL.md) — 交互式 HTML 仪表盘构建
 - [`wcag-22-audit-patterns`](../02-engineering/wcag-22-audit-patterns/SKILL.md) — WCAG 2.2 无障碍审计模式
 
+### `Hailuo`
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
+
 ### `Harmony`
 - [`harmony-batch-correction`](../09-verticals/harmony-batch-correction/SKILL.md) — Harmony 单细胞批次效应校正
 
@@ -795,6 +852,7 @@
 
 ### `Helm`
 - [`helm-chart-scaffolding`](../02-engineering/helm-chart-scaffolding/SKILL.md) — Helm Chart 打包部署
+- [`kubernetes-deployment-workflow`](../02-engineering/kubernetes-deployment-workflow/SKILL.md) — Kubernetes 部署工作流
 
 ### `HubSpot`
 - [`smb-quarterly-business-review`](../05-business/smb-quarterly-business-review/SKILL.md) — 小微企业季度经营回顾（QBR）
@@ -837,6 +895,7 @@
 - [`hmdb-metabolome-database`](../09-verticals/hmdb-metabolome-database/SKILL.md) — HMDB 人类代谢组数据库
 
 ### `IOC`
+- [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
 - [`threat-detection-hunting`](../08-security/threat-detection-hunting/SKILL.md) — 威胁狩猎与异常检测
 
 ### `IPC`
@@ -894,8 +953,14 @@
 ### `IoT`
 - [`firmware-reverse-analyst`](../08-security/firmware-reverse-analyst/SKILL.md) — 固件逆向与 IoT 安全
 
+### `Istio`
+- [`mtls-zero-trust-config`](../08-security/mtls-zero-trust-config/SKILL.md) — mTLS 零信任配置
+
 ### `JASPAR`
 - [`jaspar-tfbs-database`](../09-verticals/jaspar-tfbs-database/SKILL.md) — JASPAR 转录因子结合谱
+
+### `JCI`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
 
 ### `JQL`
 - [`jira-expert`](../07-productivity/jira-expert/SKILL.md) — Jira 项目与工作流专家
@@ -960,10 +1025,14 @@
 - [`distributed-tracing`](../02-engineering/distributed-tracing/SKILL.md) — Jaeger/Tempo 分布式链路追踪
 - [`gitops-argocd-flux`](../02-engineering/gitops-argocd-flux/SKILL.md) — GitOps 自动化部署
 - [`helm-chart-scaffolding`](../02-engineering/helm-chart-scaffolding/SKILL.md) — Helm Chart 打包部署
+- [`kubernetes-deployment-workflow`](../02-engineering/kubernetes-deployment-workflow/SKILL.md) — Kubernetes 部署工作流
 - [`multi-cloud-architecture`](../10-platform/multi-cloud-architecture/SKILL.md) — 多云架构决策框架
 
 ### `LFI`
 - [`path-traversal-testing`](../08-security/path-traversal-testing/SKILL.md) — 路径遍历漏洞利用
+
+### `LGPD`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
 
 ### `LLM`
 - [`ai-ml-security-assessor`](../08-security/ai-ml-security-assessor/SKILL.md) — AI/ML系统安全评估
@@ -973,6 +1042,9 @@
 - [`llm-conversation-memory`](../04-ai/llm-conversation-memory/SKILL.md) — LLM 对话持久记忆系统
 - [`llm-prompt-caching`](../04-ai/llm-prompt-caching/SKILL.md) — LLM 提示词缓存策略
 - [`llm-prompt-optimizer`](../04-ai/llm-prompt-optimizer/SKILL.md) — LLM 提示词优化
+
+### `LLM 工程`
+- [`langchain-architecture`](../04-ai/langchain-architecture/SKILL.md) — LangChain 架构设计
 
 ### `LLM 编码`
 - [`llm-coding-mistake-guardrails`](../02-engineering/llm-coding-mistake-guardrails/SKILL.md) — 减少 LLM 编码常见错误的准则
@@ -995,8 +1067,17 @@
 ### `LSEG`
 - [`option-volatility-analysis`](../05-business/option-volatility-analysis/SKILL.md) — 期权波动率分析
 
+### `LaTeX`
+- [`latex-paper-format-conversion`](../01-documents/latex-paper-format-conversion/SKILL.md) — LaTeX 论文格式转换
+
 ### `Lambda`
 - [`aws-serverless-architect`](../10-platform/aws-serverless-architect/SKILL.md) — AWS无服务器架构设计
+
+### `LambdaTest`
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
+
+### `LangChain`
+- [`langchain-architecture`](../04-ai/langchain-architecture/SKILL.md) — LangChain 架构设计
 
 ### `LangMem`
 - [`agent-memory-systems`](../04-ai/agent-memory-systems/SKILL.md) — AI 智能体记忆系统设计
@@ -1010,8 +1091,12 @@
 ### `LinkedIn`
 - [`social-connections-optimizer`](../05-business/social-connections-optimizer/SKILL.md) — 社交人脉优化（X/LinkedIn 网络重整与外联）
 
+### `Linkerd`
+- [`mtls-zero-trust-config`](../08-security/mtls-zero-trust-config/SKILL.md) — mTLS 零信任配置
+
 ### `Linux`
 - [`linux-privilege-escalation`](../08-security/linux-privilege-escalation/SKILL.md) — Linux 提权评估
+- [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
 - [`network-interface-health`](../08-security/network-interface-health/SKILL.md) — 网络接口健康诊断（错误/丢包/双工失配）
 
 ### `Liquid Glass`
@@ -1022,6 +1107,12 @@
 
 ### `LoRA`
 - [`huggingface-model-trainer`](../04-ai/huggingface-model-trainer/SKILL.md) — TRL 模型微调训练（Hugging Face Jobs）
+
+### `Logo 动效`
+- [`magic-motion-animator`](../06-creative/magic-motion-animator/SKILL.md) — AI 动效动画生成
+
+### `Lottie`
+- [`magic-motion-animator`](../06-creative/magic-motion-animator/SKILL.md) — AI 动效动画生成
 
 ### `M&A`
 - [`company-tear-sheet`](../05-business/company-tear-sheet/SKILL.md) — 公司速览资料卡生成
@@ -1039,6 +1130,7 @@
 - [`company-tear-sheet`](../05-business/company-tear-sheet/SKILL.md) — 公司速览资料卡生成
 - [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）
 - [`fixed-income-portfolio-review`](../05-business/fixed-income-portfolio-review/SKILL.md) — 固定收益组合审视
+- [`helium-news-research-mcp`](../04-ai/helium-news-research-mcp/SKILL.md) — Helium 新闻研究 MCP
 - [`macro-rates-dashboard`](../05-business/macro-rates-dashboard/SKILL.md) — 宏观利率监测看板
 - [`octagon-analyst-estimates`](../09-verticals/octagon-analyst-estimates/SKILL.md) — 分析师财务预测：营收与EPS估计区间
 - [`octagon-balance-sheet-data`](../09-verticals/octagon-balance-sheet-data/SKILL.md) — 资产负债表数据检索
@@ -1148,9 +1240,15 @@
 - [`c4-architecture-docs`](../02-engineering/c4-architecture-docs/SKILL.md) — C4 模型架构文档自动生成
 - [`mermaid-diagram-expert`](../06-creative/mermaid-diagram-expert/SKILL.md) — Mermaid 图表绘制专家
 
+### `Metasploit`
+- [`metasploit-framework`](../08-security/metasploit-framework/SKILL.md) — Metasploit 渗透框架
+
 ### `Minervini`
 - [`market-top-detector`](../09-verticals/market-top-detector/SKILL.md) — 市场顶部概率检测
 - [`vcp-screener`](../09-verticals/vcp-screener/SKILL.md) — VCP 波动收缩形态选股
+
+### `MiniMax`
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 
 ### `Monarch`
 - [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱
@@ -1221,6 +1319,9 @@
 - [`coo-operations-advisor`](../07-productivity/coo-operations-advisor/SKILL.md) — COO 运营顾问（流程与 OKR 执行）
 - [`org-health-diagnostic`](../07-productivity/org-health-diagnostic/SKILL.md) — 组织健康度跨职能诊断
 - [`strategic-alignment-cascader`](../07-productivity/strategic-alignment-cascader/SKILL.md) — 战略对齐自上而下级联
+
+### `ONA`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
 
 ### `ONNX`
 - [`transformers-js`](../04-ai/transformers-js/SKILL.md) — Transformers.js 浏览器端模型推理
@@ -1310,6 +1411,9 @@
 ### `PEAD`
 - [`earnings-trade-analyzer`](../09-verticals/earnings-trade-analyzer/SKILL.md) — 财报后交易五因子评分
 - [`pead-earnings-drift-screener`](../09-verticals/pead-earnings-drift-screener/SKILL.md) — 财报后漂移 PEAD 选股
+
+### `PEP`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
 
 ### `PHP`
 - [`laravel-security-audit`](../08-security/laravel-security-audit/SKILL.md) — Laravel 安全审计
@@ -1424,6 +1528,7 @@
 - [`octagon-earnings-qa-analysis`](../09-verticals/octagon-earnings-qa-analysis/SKILL.md) — 财报电话会问答环节战略分析
 
 ### `QA`
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) — Playwright 端到端测试
 
 ### `QBR`
@@ -1456,7 +1561,9 @@
 ### `RAG`
 - [`agent-memory-systems`](../04-ai/agent-memory-systems/SKILL.md) — AI 智能体记忆系统设计
 - [`embedding-model-strategies`](../04-ai/embedding-model-strategies/SKILL.md) — 嵌入模型选型与优化
+- [`helium-news-research-mcp`](../04-ai/helium-news-research-mcp/SKILL.md) — Helium 新闻研究 MCP
 - [`hybrid-search-retrieval`](../04-ai/hybrid-search-retrieval/SKILL.md) — 向量与关键词混合检索
+- [`langchain-architecture`](../04-ai/langchain-architecture/SKILL.md) — LangChain 架构设计
 - [`notebooklm-source-grounded-qa`](../00-meta/notebooklm-source-grounded-qa/SKILL.md) — NotebookLM 源锚定问答
 - [`vector-index-tuning`](../04-ai/vector-index-tuning/SKILL.md) — 向量索引调优
 
@@ -1540,6 +1647,7 @@
 
 ### `React`
 - [`glassmorphism-ui-design`](../06-creative/glassmorphism-ui-design/SKILL.md) — 玻璃拟态与空间感 UI 设计
+- [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) — Web 组件设计模式
 
@@ -1621,7 +1729,11 @@
 - [`observability-strategy-designer`](../02-engineering/observability-strategy-designer/SKILL.md) — 可观测性策略设计（指标日志追踪）
 
 ### `SMB`
+- [`pentest-lab-network-services`](../08-security/pentest-lab-network-services/SKILL.md) — 渗透实验网络服务搭建
 - [`smb-business-pulse`](../05-business/smb-business-pulse/SKILL.md) — 小微企业经营脉搏速览
+
+### `SNMP`
+- [`pentest-lab-network-services`](../08-security/pentest-lab-network-services/SKILL.md) — 渗透实验网络服务搭建
 
 ### `SNP`
 - [`dbsnp-database`](../09-verticals/dbsnp-database/SKILL.md) — dbSNP SNP 数据库查询
@@ -1642,6 +1754,9 @@
 ### `SPARQL`
 - [`bdi-mental-states`](../04-ai/bdi-mental-states/SKILL.md) — BDI 智能体信念-愿望-意图建模
 
+### `SPIFFE`
+- [`mtls-zero-trust-config`](../08-security/mtls-zero-trust-config/SKILL.md) — mTLS 零信任配置
+
 ### `SQL`
 - [`dbt-transformation-patterns`](../03-data/dbt-transformation-patterns/SKILL.md) — dbt 数据转换建模与测试模式
 
@@ -1658,6 +1773,9 @@
 - [`clean-code-principles`](../02-engineering/clean-code-principles/SKILL.md) — 整洁代码原则与重构
 - [`content-hash-cache-pattern`](../02-engineering/content-hash-cache-pattern/SKILL.md) — 内容哈希缓存模式（SHA-256 路径无关）
 
+### `SSL/TLS`
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
+
 ### `SSR`
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 
@@ -1673,6 +1791,7 @@
 ### `SVG`
 - [`animejs-web-animation`](../06-creative/animejs-web-animation/SKILL.md) — Anime.js 高性能网页动画
 - [`d3js-data-viz`](../06-creative/d3js-data-viz/SKILL.md) — D3.js 交互式数据可视化
+- [`iconsax-icon-library`](../06-creative/iconsax-icon-library/SKILL.md) — Iconsax 图标库与生成
 
 ### `SaaS`
 - [`soc2-compliance-preparer`](../08-security/soc2-compliance-preparer/SKILL.md) — SOC 2 审计准备与控制矩阵
@@ -1691,6 +1810,7 @@
 ### `Scrum`
 - [`agile-product-owner`](../07-productivity/agile-product-owner/SKILL.md) — 敏捷产品负责人与待办管理
 - [`jira-expert`](../07-productivity/jira-expert/SKILL.md) — Jira 项目与工作流专家
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
 
 ### `Secret Manager`
 - [`gcp-cloud-run`](../10-platform/gcp-cloud-run/SKILL.md) — GCP Cloud Run 无服务器
@@ -1783,8 +1903,10 @@
 ### `TTS`
 - [`demo-video-generator`](../06-creative/demo-video-generator/SKILL.md) — 产品演示视频生成
 - [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 
 ### `Tailwind`
+- [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
 - [`tailwind-css-patterns`](../02-engineering/tailwind-css-patterns/SKILL.md) — Tailwind CSS v4 模式与设计令牌
 
@@ -1801,6 +1923,7 @@
 - [`cloud-cost-optimization`](../10-platform/cloud-cost-optimization/SKILL.md) — 云成本优化
 - [`cloud-misconfig-auditor`](../08-security/cloud-misconfig-auditor/SKILL.md) — 云基础设施安全审计
 - [`gcp-cloud-architect`](../10-platform/gcp-cloud-architect/SKILL.md) — GCP 云架构设计
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 - [`multi-cloud-architecture`](../10-platform/multi-cloud-architecture/SKILL.md) — 多云架构决策框架
 
 ### `Testing-Library`
@@ -1840,11 +1963,17 @@
 ### `UI`
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) — Web 组件设计模式
 
+### `UI 动画`
+- [`magic-motion-animator`](../06-creative/magic-motion-animator/SKILL.md) — AI 动效动画生成
+
 ### `UI/UX`
 - [`design-spells-microinteractions`](../06-creative/design-spells-microinteractions/SKILL.md) — 网页微交互与设计细节灵感
+- [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
+- [`iconsax-icon-library`](../06-creative/iconsax-icon-library/SKILL.md) — Iconsax 图标库与生成
 
 ### `UI设计`
 - [`glassmorphism-ui-design`](../06-creative/glassmorphism-ui-design/SKILL.md) — 玻璃拟态与空间感 UI 设计
+- [`industrial-brutalist-ui`](../06-creative/industrial-brutalist-ui/SKILL.md) — 工业野兽派遥测 UI
 
 ### `URL构建`
 - [`finviz-screener-builder`](../09-verticals/finviz-screener-builder/SKILL.md) — FinViz 选股器 URL 构建
@@ -1884,6 +2013,13 @@
 
 ### `VLM`
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
+
+### `VPC`
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
+
+### `VPN`
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 
 ### `VQE`
 - [`pennylane-quantum-ml`](../09-verticals/pennylane-quantum-ml/SKILL.md) — PennyLane 量子机器学习
@@ -1913,6 +2049,9 @@
 ### `Vitest`
 - [`api-test-suite-builder`](../02-engineering/api-test-suite-builder/SKILL.md) — API 集成测试套件生成
 - [`javascript-testing-patterns`](../02-engineering/javascript-testing-patterns/SKILL.md) — JS/TS 测试策略
+
+### `Volatility3`
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
 
 ### `Vue`
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) — Web 组件设计模式
@@ -1982,11 +2121,21 @@
 ### `XLSX`
 - [`smb-cash-flow-forecast`](../05-business/smb-cash-flow-forecast/SKILL.md) — 小微企业现金流预测（30/60/90 天）
 
+### `XSS相关`
+- [`html-injection-testing`](../08-security/html-injection-testing/SKILL.md) — HTML 注入测试
+
 ### `Xcode`
 - [`ios-swiftui-developer`](../02-engineering/ios-swiftui-developer/SKILL.md) — iOS SwiftUI 原生开发
 
+### `YAGNI`
+- [`kaizen-continuous-improvement`](../00-meta/kaizen-continuous-improvement/SKILL.md) — 改善持续改进法（Kaizen）
+
 ### `YAML`
 - [`coding-agent-headtohead-eval`](../04-ai/coding-agent-headtohead-eval/SKILL.md) — 编码 Agent 对比评测（通过率/成本/耗时）
+
+### `YARA`
+- [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
 
 ### `YC office hours`
 - [`office-hours-facilitator`](../07-productivity/office-hours-facilitator/SKILL.md) — 答疑时间会引导（创始人六问拷问）
@@ -2165,6 +2314,8 @@
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) — AI 智能体工具设计与构建
 - [`agent-workflow-pattern-designer`](../04-ai/agent-workflow-pattern-designer/SKILL.md) — 智能体工作流模式设计
 - [`autonomous-coding-agent-patterns`](../04-ai/autonomous-coding-agent-patterns/SKILL.md) — 自主编码智能体设计模式
+- [`langchain-architecture`](../04-ai/langchain-architecture/SKILL.md) — LangChain 架构设计
+- [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
 - [`multi-agent-system-designer`](../04-ai/multi-agent-system-designer/SKILL.md) — 多智能体系统架构设计
 - [`multi-agent-workflow-designer`](../04-ai/multi-agent-workflow-designer/SKILL.md) — 多智能体工作流设计
 - [`recsys-pipeline-architect`](../04-ai/recsys-pipeline-architect/SKILL.md) — 推荐排序管线架构师（六阶段 For You 模式）
@@ -2230,6 +2381,12 @@
 
 ### `ai安全`
 - [`production-llm-app-builder`](../04-ai/production-llm-app-builder/SKILL.md) — 生产级 LLM 应用与 RAG 系统构建
+
+### `ai治理`
+- [`itil-service-management`](../09-verticals/itil-service-management/SKILL.md) — ITIL 服务管理顾问
+
+### `ajax`
+- [`moodle-external-api-dev`](../09-verticals/moodle-external-api-dev/SKILL.md) — Moodle 外部 API 开发
 
 ### `alarp`
 - [`iso14971-risk-management`](../09-verticals/iso14971-risk-management/SKILL.md) — ISO 14971 医疗器械风险管理
@@ -2325,6 +2482,10 @@
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) — AI 智能体工具设计与构建
 - [`claude-api`](../04-ai/claude-api/SKILL.md) — Claude API 应用开发
 
+### `anti-bot`
+- [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
+
 ### `anti-corruption-layer`
 - [`ddd-context-mapping`](../02-engineering/ddd-context-mapping/SKILL.md) — DDD 限界上下文映射与集成契约
 
@@ -2378,6 +2539,9 @@
 ### `app-development`
 - [`shopify-app-development`](../02-engineering/shopify-app-development/SKILL.md) — Shopify 应用与主题开发
 
+### `appium`
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
+
 ### `apple`
 - [`apple-hig-advisor`](../06-creative/apple-hig-advisor/SKILL.md) — 苹果人机界面指南专家
 
@@ -2400,7 +2564,10 @@
 - [`c-cpp-security-review`](../08-security/c-cpp-security-review/SKILL.md) — C/C++ 内存安全审查
 - [`codeql-scanner`](../08-security/codeql-scanner/SKILL.md) — CodeQL 数据流漏洞扫描
 - [`defi-amm-security-audit`](../08-security/defi-amm-security-audit/SKILL.md) — DeFi AMM 智能合约安全审计
+- [`html-injection-testing`](../08-security/html-injection-testing/SKILL.md) — HTML 注入测试
 - [`insecure-defaults-detector`](../08-security/insecure-defaults-detector/SKILL.md) — 不安全默认配置检测
+- [`metasploit-framework`](../08-security/metasploit-framework/SKILL.md) — Metasploit 渗透框架
+- [`pentest-lab-network-services`](../08-security/pentest-lab-network-services/SKILL.md) — 渗透实验网络服务搭建
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
 - [`sast-configurator`](../08-security/sast-configurator/SKILL.md) — SAST静态扫描配置
 - [`security-antipattern-hook`](../08-security/security-antipattern-hook/SKILL.md) — 编码安全反模式拦截钩子
@@ -2572,7 +2739,9 @@
 - [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）
 - [`email-drip-sequence`](../05-business/email-drip-sequence/SKILL.md) — 邮件序列与培育自动化设计
 - [`full-page-screenshot`](../10-platform/full-page-screenshot/SKILL.md) — 整页网页截图捕获
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
 - [`imessage-claude-bridge`](../10-platform/imessage-claude-bridge/SKILL.md) — iMessage 短信驱动 Claude 会话桥接
+- [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
 - [`powershell-windows`](../02-engineering/powershell-windows/SKILL.md) — PowerShell Windows 实战
 - [`salesforce-automation`](../07-productivity/salesforce-automation/SKILL.md) — Salesforce 自动化
 - [`technical-change-tracker`](../07-productivity/technical-change-tracker/SKILL.md) — 技术变更记录与会话交接追踪
@@ -2585,6 +2754,7 @@
 ### `av`
 - [`demo-video-generator`](../06-creative/demo-video-generator/SKILL.md) — 产品演示视频生成
 - [`glsl-shader-programming`](../06-creative/glsl-shader-programming/SKILL.md) — GLSL 着色器编程：写顶点/片元着色器与常见视觉特效
+- [`magic-motion-animator`](../06-creative/magic-motion-animator/SKILL.md) — AI 动效动画生成
 - [`unity-game-developer`](../06-creative/unity-game-developer/SKILL.md) — Unity 游戏开发
 - [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) — Zoom 会议机器人 / 实时媒体工作流
 
@@ -2639,6 +2809,7 @@
 - [`async-python-patterns`](../02-engineering/async-python-patterns/SKILL.md) — Python 异步并发编程模式
 - [`content-hash-cache-pattern`](../02-engineering/content-hash-cache-pattern/SKILL.md) — 内容哈希缓存模式（SHA-256 路径无关）
 - [`go-concurrency-patterns`](../02-engineering/go-concurrency-patterns/SKILL.md) — Go 并发模式
+- [`minecraft-bukkit-plugin-dev`](../02-engineering/minecraft-bukkit-plugin-dev/SKILL.md) — Minecraft 服务端插件开发
 - [`rest-api-endpoint-builder`](../02-engineering/rest-api-endpoint-builder/SKILL.md) — 生产级 REST API 端点构建
 - [`shopify-app-development`](../02-engineering/shopify-app-development/SKILL.md) — Shopify 应用与主题开发
 - [`temporal-workflow-python`](../02-engineering/temporal-workflow-python/SKILL.md) — Temporal 持久工作流编排（Python）
@@ -2680,6 +2851,7 @@
 - [`bash-defensive-patterns`](../02-engineering/bash-defensive-patterns/SKILL.md) — 防御式 Bash 脚本生产实践
 - [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
 - [`shellcheck-linting`](../02-engineering/shellcheck-linting/SKILL.md) — ShellCheck 脚本静态检查配置
 
 ### `basis-trading`
@@ -2836,6 +3008,9 @@
 ### `bisect`
 - [`git-advanced-workflows`](../02-engineering/git-advanced-workflows/SKILL.md) — Git 高级工作流
 
+### `bitcoin`
+- [`lightning-network-architecture-review`](../09-verticals/lightning-network-architecture-review/SKILL.md) — 闪电网络架构评审
+
 ### `bizops`
 - [`business-process-mapper`](../07-productivity/business-process-mapper/SKILL.md) — 业务流程绘制与瓶颈分析
 - [`ops-capacity-planner`](../07-productivity/ops-capacity-planner/SKILL.md) — 运营产能与人力规划
@@ -2855,6 +3030,9 @@
 
 ### `blockchain`
 - [`blockchain-web3-developer`](../09-verticals/blockchain-web3-developer/SKILL.md) — Web3 智能合约与 DeFi 开发
+
+### `bloom-filter`
+- [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
 
 ### `blue-ocean`
 - [`competitive-analysis`](../05-business/competitive-analysis/SKILL.md) — 竞品分析与市场定位
@@ -2942,8 +3120,10 @@
 
 ### `browser`
 - [`full-page-screenshot`](../10-platform/full-page-screenshot/SKILL.md) — 整页网页截图捕获
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
 
 ### `browser-automation`
+- [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
 - [`webapp-testing`](../02-engineering/webapp-testing/SKILL.md) — Web 应用测试（Playwright）
 
 ### `browser-extension`
@@ -2976,6 +3156,9 @@
 ### `buildkit`
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
 - [`docker-development-optimizer`](../02-engineering/docker-development-optimizer/SKILL.md) — Docker构建与容器加固
+
+### `bukkit`
+- [`minecraft-bukkit-plugin-dev`](../02-engineering/minecraft-bukkit-plugin-dev/SKILL.md) — Minecraft 服务端插件开发
 
 ### `bulk-audit`
 - [`technical-seo-checker`](../05-business/technical-seo-checker/SKILL.md) — 技术 SEO 体检（抓取/索引/核心网页指标）
@@ -3097,6 +3280,7 @@
 
 ### `career`
 - [`interview-job-coach`](../00-meta/interview-job-coach/SKILL.md) — 求职面试全流程辅导
+- [`linkedin-profile-optimizer`](../05-business/linkedin-profile-optimizer/SKILL.md) — LinkedIn 个人主页优化
 
 ### `carrier-management`
 - [`carrier-relationship-management`](../09-verticals/carrier-relationship-management/SKILL.md) — 承运商关系管理
@@ -3129,6 +3313,7 @@
 - [`action-compliance-check`](../09-verticals/action-compliance-check/SKILL.md) — 行动合规性检查（产品/业务举措）
 - [`dpa-playbook-review`](../09-verticals/dpa-playbook-review/SKILL.md) — 数据处理协议(DPA)审查
 - [`dsar-response-builder`](../09-verticals/dsar-response-builder/SKILL.md) — 数据主体请求响应起草
+- [`legal-policy-drafter`](../09-verticals/legal-policy-drafter/SKILL.md) — 隐私政策与法律条款起草
 - [`privacy-impact-assessor`](../09-verticals/privacy-impact-assessor/SKILL.md) — 隐私影响评估生成
 
 ### `ccre`
@@ -3139,6 +3324,7 @@
 
 ### `cdp`
 - [`full-page-screenshot`](../10-platform/full-page-screenshot/SKILL.md) — 整页网页截图捕获
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
 
 ### `cease-and-desist`
 - [`cease-and-desist-letter`](../09-verticals/cease-and-desist-letter/SKILL.md) — 停止侵权函起草与应对
@@ -3201,6 +3387,9 @@
 
 ### `channel`
 - [`go-concurrency-patterns`](../02-engineering/go-concurrency-patterns/SKILL.md) — Go 并发模式
+
+### `channel-factory`
+- [`lightning-network-architecture-review`](../09-verticals/lightning-network-architecture-review/SKILL.md) — 闪电网络架构评审
 
 ### `channels`
 - [`django-async-pro`](../02-engineering/django-async-pro/SKILL.md) — Django 5 异步 DRF Celery 开发
@@ -3274,6 +3463,7 @@
 - [`churn-prevention`](../05-business/churn-prevention/SKILL.md) — 流失预防与留存
 - [`customer-health-scorer`](../05-business/customer-health-scorer/SKILL.md) — 客户健康度评分与扩展机会
 - [`customer-research-synthesizer`](../05-business/customer-research-synthesizer/SKILL.md) — 客户调研与洞察综合
+- [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
 
 ### `ci`
 - [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
@@ -3286,6 +3476,7 @@
 - [`ci-cd-pipeline-builder`](../02-engineering/ci-cd-pipeline-builder/SKILL.md) — CI/CD流水线生成
 - [`data-quality-frameworks`](../03-data/data-quality-frameworks/SKILL.md) — 数据质量验证框架
 - [`github-actions-author`](../10-platform/github-actions-author/SKILL.md) — GitHub Actions工作流编写
+- [`mise-toolchain-configurator`](../02-engineering/mise-toolchain-configurator/SKILL.md) — mise 工具链配置
 - [`salesforce-apex-developer`](../10-platform/salesforce-apex-developer/SKILL.md) — Salesforce Apex 与 LWC 开发
 - [`sast-configurator`](../08-security/sast-configurator/SKILL.md) — SAST静态扫描配置
 - [`secrets-management`](../08-security/secrets-management/SKILL.md) — 密钥与凭据管理
@@ -3362,6 +3553,7 @@
 - [`defi-natural-language-agent`](../09-verticals/defi-natural-language-agent/SKILL.md) — 自然语言 DeFi 链上交易代理
 - [`huggingface-hub-cli`](../04-ai/huggingface-hub-cli/SKILL.md) — Hugging Face Hub CLI（hf 命令行）
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换
+- [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
 - [`tmux-session-management`](../10-platform/tmux-session-management/SKILL.md) — tmux 会话与终端多路复用
 
 ### `cli-wrapper`
@@ -3568,6 +3760,7 @@
 - [`kyc-document-parser`](../08-security/kyc-document-parser/SKILL.md) — KYC 开户文件结构化解析
 - [`legal-briefing-generator`](../09-verticals/legal-briefing-generator/SKILL.md) — 法务情报简报（日报/专题/应急）
 - [`legal-hold-manager`](../09-verticals/legal-hold-manager/SKILL.md) — 诉讼证据保全通知管理
+- [`legal-policy-drafter`](../09-verticals/legal-policy-drafter/SKILL.md) — 隐私政策与法律条款起草
 - [`marketing-claims-reviewer`](../09-verticals/marketing-claims-reviewer/SKILL.md) — 营销宣传声明合规审查
 - [`multi-framework-compliance-orchestrator`](../08-security/multi-framework-compliance-orchestrator/SKILL.md) — 多框架合规编排器（multi-framework-compliance-orchestrator）
 - [`nprm-comment-decision-tracker`](../09-verticals/nprm-comment-decision-tracker/SKILL.md) — 立法征求意见期决策跟踪
@@ -3601,6 +3794,7 @@
 ### `concurrency`
 - [`async-python-patterns`](../02-engineering/async-python-patterns/SKILL.md) — Python 异步并发编程模式
 - [`go-concurrency-patterns`](../02-engineering/go-concurrency-patterns/SKILL.md) — Go 并发模式
+- [`haskell-pro`](../02-engineering/haskell-pro/SKILL.md) — Haskell 函数式工程
 - [`swift-concurrency`](../02-engineering/swift-concurrency/SKILL.md) — Swift 并发与 Actor 隔离
 
 ### `conda`
@@ -3768,6 +3962,9 @@
 ### `conviction`
 - [`investment-thesis-tracker`](../05-business/investment-thesis-tracker/SKILL.md) — 投资逻辑跟踪维护
 
+### `cookie-policy`
+- [`legal-policy-drafter`](../09-verticals/legal-policy-drafter/SKILL.md) — 隐私政策与法律条款起草
+
 ### `coordinates`
 - [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）
 - [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱
@@ -3793,6 +3990,7 @@
 - [`conversion-copywriter`](../05-business/conversion-copywriter/SKILL.md) — 转化文案撰写
 - [`conversion-rate-optimizer`](../05-business/conversion-rate-optimizer/SKILL.md) — 转化率优化分析
 - [`email-drip-sequence`](../05-business/email-drip-sequence/SKILL.md) — 邮件序列与培育自动化设计
+- [`linkedin-profile-optimizer`](../05-business/linkedin-profile-optimizer/SKILL.md) — LinkedIn 个人主页优化
 - [`marketing-copy-editor`](../05-business/marketing-copy-editor/SKILL.md) — 营销文案审校
 
 ### `core-dump`
@@ -3922,6 +4120,7 @@
 
 ### `cron`
 - [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
 
 ### `cross-asset`
 - [`macro-regime-detector`](../09-verticals/macro-regime-detector/SKILL.md) — 宏观周期切换检测
@@ -3931,6 +4130,9 @@
 
 ### `cross-functional`
 - [`international-hiring-eor-planner`](../09-verticals/international-hiring-eor-planner/SKILL.md) — 跨境招聘 EOR 与建实体规划
+
+### `cross-platform`
+- [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
 
 ### `cross-source`
 - [`activity-digest-generator`](../07-productivity/activity-digest-generator/SKILL.md) — 活动动态摘要生成
@@ -4331,6 +4533,8 @@
 - [`brand-guidelines`](../06-creative/brand-guidelines/SKILL.md) — 品牌视觉规范（Anthropic）
 - [`canva-campaign-creator`](../06-creative/canva-campaign-creator/SKILL.md) — Canva 营销活动设计与排期生成
 - [`frontend-design`](../02-engineering/frontend-design/SKILL.md) — 前端设计
+- [`iconsax-icon-library`](../06-creative/iconsax-icon-library/SKILL.md) — Iconsax 图标库与生成
+- [`minimalist-editorial-ui`](../06-creative/minimalist-editorial-ui/SKILL.md) — 极简编辑风界面设计
 - [`theme-factory`](../06-creative/theme-factory/SKILL.md) — 主题工厂：为内容产物套用配色与字体主题
 - [`ui-design-system-builder`](../06-creative/ui-design-system-builder/SKILL.md) — UI 设计系统与设计令牌
 - [`ux-microcopy-writer`](../06-creative/ux-microcopy-writer/SKILL.md) — UX 微文案撰写
@@ -4344,6 +4548,9 @@
 
 ### `design-token`
 - [`ui-design-system-builder`](../06-creative/ui-design-system-builder/SKILL.md) — UI 设计系统与设计令牌
+
+### `design-variations`
+- [`magic-ui-component-generator`](../02-engineering/magic-ui-component-generator/SKILL.md) — AI UI 组件多方案生成
 
 ### `designation`
 - [`employee-leave-deadline-tracker`](../09-verticals/employee-leave-deadline-tracker/SKILL.md) — 员工休假期限跟踪
@@ -4365,7 +4572,10 @@
 - [`feature-flags-architect`](../02-engineering/feature-flags-architect/SKILL.md) — 功能开关架构与治理
 - [`git-worktrees-workflow`](../02-engineering/git-worktrees-workflow/SKILL.md) — Git Worktrees 并行工作区
 - [`github-actions-author`](../10-platform/github-actions-author/SKILL.md) — GitHub Actions工作流编写
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 - [`istio-traffic-management`](../02-engineering/istio-traffic-management/SKILL.md) — Istio 流量治理
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
+- [`mise-toolchain-configurator`](../02-engineering/mise-toolchain-configurator/SKILL.md) — mise 工具链配置
 - [`operator-audit-review`](../05-business/operator-audit-review/SKILL.md) — Kubernetes Operator 审计复盘
 - [`prometheus-configuration`](../02-engineering/prometheus-configuration/SKILL.md) — Prometheus 监控配置
 - [`release-manager`](../02-engineering/release-manager/SKILL.md) — 发布管理与部署协调
@@ -4530,6 +4740,7 @@
 ### `dpa`
 - [`dpa-clause-reviewer`](../09-verticals/dpa-clause-reviewer/SKILL.md) — 数据处理协议条款审查
 - [`dpa-playbook-review`](../09-verticals/dpa-playbook-review/SKILL.md) — 数据处理协议(DPA)审查
+- [`legal-policy-drafter`](../09-verticals/legal-policy-drafter/SKILL.md) — 隐私政策与法律条款起草
 
 ### `dpia`
 - [`privacy-impact-assessor`](../09-verticals/privacy-impact-assessor/SKILL.md) — 隐私影响评估生成
@@ -4700,6 +4911,8 @@
 
 ### `edu`
 - [`advisor-fit-analyzer`](../09-verticals/advisor-fit-analyzer/SKILL.md) — 导师适配度分析
+- [`itil-service-management`](../09-verticals/itil-service-management/SKILL.md) — ITIL 服务管理顾问
+- [`moodle-external-api-dev`](../09-verticals/moodle-external-api-dev/SKILL.md) — Moodle 外部 API 开发
 
 ### `eeg`
 - [`neurokit2-biosignal-processing`](../09-verticals/neurokit2-biosignal-processing/SKILL.md) — NeuroKit2 生理信号处理（ECG/EEG/EDA）
@@ -4810,6 +5023,8 @@
 - [`code-reviewer`](../02-engineering/code-reviewer/SKILL.md) — 代码审查
 - [`content-hash-cache-pattern`](../02-engineering/content-hash-cache-pattern/SKILL.md) — 内容哈希缓存模式（SHA-256 路径无关）
 - [`error-handling-patterns`](../02-engineering/error-handling-patterns/SKILL.md) — 健壮错误处理模式
+- [`haskell-pro`](../02-engineering/haskell-pro/SKILL.md) — Haskell 函数式工程
+- [`julia-scientific-pro`](../02-engineering/julia-scientific-pro/SKILL.md) — Julia 科学计算工程
 - [`microservices-patterns`](../02-engineering/microservices-patterns/SKILL.md) — 微服务架构模式
 - [`prisma-orm-expert`](../02-engineering/prisma-orm-expert/SKILL.md) — Prisma ORM 专家
 - [`python-performance-optimization`](../02-engineering/python-performance-optimization/SKILL.md) — Python 性能优化
@@ -5027,6 +5242,9 @@
 ### `extension`
 - [`vscode-extension-development`](../02-engineering/vscode-extension-development/SKILL.md) — VS Code 扩展开发与发布
 
+### `external-api`
+- [`moodle-external-api-dev`](../09-verticals/moodle-external-api-dev/SKILL.md) — Moodle 外部 API 开发
+
 ### `facebook`
 - [`apify-multi-platform-scraper`](../03-data/apify-multi-platform-scraper/SKILL.md) — Apify 多平台 AI 数据抓取
 
@@ -5098,6 +5316,7 @@
 
 ### `fft`
 - [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
+- [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
 
 ### `ffuf`
 - [`ffuf-web-fuzzing`](../08-security/ffuf-web-fuzzing/SKILL.md) — ffuf Web 模糊测试
@@ -5211,6 +5430,7 @@
 - [`investment-proposal-builder`](../09-verticals/investment-proposal-builder/SKILL.md) — 投资建议书撰写
 - [`kyc-aml-rules-engine`](../08-security/kyc-aml-rules-engine/SKILL.md) — KYC/AML 风险评级规则引擎
 - [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) — LBO 杠杆收购模型构建
+- [`lightning-network-architecture-review`](../09-verticals/lightning-network-architecture-review/SKILL.md) — 闪电网络架构评审
 - [`lp-nav-tieout`](../09-verticals/lp-nav-tieout/SKILL.md) — LP 对账单与基金 NAV 勾稽
 - [`macro-regime-detector`](../09-verticals/macro-regime-detector/SKILL.md) — 宏观周期切换检测
 - [`market-breadth-analyzer`](../09-verticals/market-breadth-analyzer/SKILL.md) — 市场宽度健康度评分
@@ -5397,6 +5617,8 @@
 - [`astro-content-sites`](../02-engineering/astro-content-sites/SKILL.md) — Astro 内容型网站构建
 - [`browser-extension-builder`](../02-engineering/browser-extension-builder/SKILL.md) — 跨浏览器扩展构建与发布
 - [`frontend-design`](../02-engineering/frontend-design/SKILL.md) — 前端设计
+- [`magic-ui-component-generator`](../02-engineering/magic-ui-component-generator/SKILL.md) — AI UI 组件多方案生成
+- [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`progressive-web-app`](../02-engineering/progressive-web-app/SKILL.md) — 渐进式 Web 应用 PWA
 - [`react-state-management`](../02-engineering/react-state-management/SKILL.md) — React 状态管理
@@ -5426,8 +5648,10 @@
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) — AI 智能体工具设计与构建
 - [`agent-tool-design`](../04-ai/agent-tool-design/SKILL.md) — 面向 Agent 的工具设计
 - [`azure-realtime-voice-ai`](../04-ai/azure-realtime-voice-ai/SKILL.md) — Azure 实时语音 AI 应用构建
+- [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
 
 ### `functional-programming`
+- [`haskell-pro`](../02-engineering/haskell-pro/SKILL.md) — Haskell 函数式工程
 - [`scala-pro`](../02-engineering/scala-pro/SKILL.md) — Scala 企业级开发
 
 ### `fundraising`
@@ -5483,6 +5707,7 @@
 - [`dsar-response-builder`](../09-verticals/dsar-response-builder/SKILL.md) — 数据主体请求响应起草
 - [`gdpr-data-handler`](../09-verticals/gdpr-data-handler/SKILL.md) — GDPR合规数据处理
 - [`gdpr-data-handling`](../08-security/gdpr-data-handling/SKILL.md) — GDPR 数据合规处理
+- [`legal-policy-drafter`](../09-verticals/legal-policy-drafter/SKILL.md) — 隐私政策与法律条款起草
 - [`privacy-impact-assessor`](../09-verticals/privacy-impact-assessor/SKILL.md) — 隐私影响评估生成
 
 ### `gem`
@@ -5646,9 +5871,13 @@
 - [`gene-set-enrichment-analysis`](../09-verticals/gene-set-enrichment-analysis/SKILL.md) — 通路与基因集富集分析
 - [`github-copilot-sdk`](../04-ai/github-copilot-sdk/SKILL.md) — GitHub Copilot SDK 编程集成
 - [`go-concurrency-patterns`](../02-engineering/go-concurrency-patterns/SKILL.md) — Go 并发模式
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
 
 ### `go-annotation`
 - [`quickgo-go-database`](../09-verticals/quickgo-go-database/SKILL.md) — QuickGO GO 术语与注释
+
+### `go-rod`
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
 
 ### `go-to-market`
 - [`action-compliance-check`](../09-verticals/action-compliance-check/SKILL.md) — 行动合规性检查（产品/业务举措）
@@ -5658,6 +5887,7 @@
 - [`health-goal-analyzer`](../09-verticals/health-goal-analyzer/SKILL.md) — 健康目标分析器
 
 ### `golang`
+- [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
 - [`golang-pro`](../02-engineering/golang-pro/SKILL.md) — Go 现代工程实践
 - [`grpc-golang-services`](../02-engineering/grpc-golang-services/SKILL.md) — Go gRPC 服务构建
 
@@ -5737,19 +5967,23 @@
 ### `growth`
 - [`ab-test-designer`](../05-business/ab-test-designer/SKILL.md) — A/B 实验设计师
 - [`ab-test-setup-gates`](../05-business/ab-test-setup-gates/SKILL.md) — A/B 测试搭建与就绪门控
+- [`ai-disruption-moat-analyzer`](../05-business/ai-disruption-moat-analyzer/SKILL.md) — AI 颠覆护城河分析
 - [`andreessen-vc-lens`](../05-business/andreessen-vc-lens/SKILL.md) — 安德森式风投视角评估
 - [`app-store-optimization`](../05-business/app-store-optimization/SKILL.md) — 应用商店优化ASO
 - [`churn-prevention`](../05-business/churn-prevention/SKILL.md) — 流失预防与留存
 - [`competitive-analysis`](../05-business/competitive-analysis/SKILL.md) — 竞品分析与市场定位
 - [`conversion-rate-optimizer`](../05-business/conversion-rate-optimizer/SKILL.md) — 转化率优化分析
 - [`customer-health-scorer`](../05-business/customer-health-scorer/SKILL.md) — 客户健康度评分与扩展机会
+- [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
 - [`free-tool-marketing-strategy`](../05-business/free-tool-marketing-strategy/SKILL.md) — 免费工具营销策略
 - [`international-expansion-strategy`](../05-business/international-expansion-strategy/SKILL.md) — 国际市场扩张策略
 - [`lead-form-cro`](../05-business/lead-form-cro/SKILL.md) — 表单转化率优化（lead-form-cro）
 - [`lifecycle-email-sequence`](../05-business/lifecycle-email-sequence/SKILL.md) — 生命周期邮件序列设计
+- [`linkedin-profile-optimizer`](../05-business/linkedin-profile-optimizer/SKILL.md) — LinkedIn 个人主页优化
 - [`market-sizing-analyst`](../05-business/market-sizing-analyst/SKILL.md) — 市场规模测算（TAM/SAM/SOM）
 - [`market-sizing-tam-sam-som`](../05-business/market-sizing-tam-sam-som/SKILL.md) — 市场规模 TAM/SAM/SOM 测算
 - [`marketing-analytics-tracker`](../05-business/marketing-analytics-tracker/SKILL.md) — 营销分析追踪方案
+- [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线
 - [`paywall-upgrade-cro`](../05-business/paywall-upgrade-cro/SKILL.md) — 应用内付费墙与升级转化优化
 - [`popup-modal-cro`](../05-business/popup-modal-cro/SKILL.md) — 弹窗与浮层转化优化
 - [`pricing-strategy`](../05-business/pricing-strategy/SKILL.md) — 定价与套餐策略
@@ -5780,6 +6014,9 @@
 ### `guardrails`
 - [`ai-native-cli-design`](../10-platform/ai-native-cli-design/SKILL.md) — 面向 AI 智能体的 CLI 设计规范
 - [`ai-system-security-audit`](../08-security/ai-system-security-audit/SKILL.md) — AI 系统安全评估（注入/越狱）
+
+### `gui`
+- [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
 
 ### `gvcf`
 - [`gatk-variant-calling`](../09-verticals/gatk-variant-calling/SKILL.md) — GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）
@@ -5826,6 +6063,9 @@
 ### `hashing`
 - [`nodejs-keccak256-hashing`](../09-verticals/nodejs-keccak256-hashing/SKILL.md) — Node.js Keccak-256 以太坊哈希防错
 
+### `haskell`
+- [`haskell-pro`](../02-engineering/haskell-pro/SKILL.md) — Haskell 函数式工程
+
 ### `hcl`
 - [`terraform-module-builder`](../10-platform/terraform-module-builder/SKILL.md) — Terraform可复用模块构建
 
@@ -5836,6 +6076,10 @@
 - [`ops-capacity-planner`](../07-productivity/ops-capacity-planner/SKILL.md) — 运营产能与人力规划
 - [`people-analytics-report`](../05-business/people-analytics-report/SKILL.md) — 人力报表（编制/流失/组织健康度）
 - [`resource-capacity-planner`](../07-productivity/resource-capacity-planner/SKILL.md) — 资源产能规划
+
+### `headless`
+- [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
 
 ### `health`
 - [`health-goal-analyzer`](../09-verticals/health-goal-analyzer/SKILL.md) — 健康目标分析器
@@ -5943,6 +6187,9 @@
 ### `husky`
 - [`git-hooks-automation`](../02-engineering/git-hooks-automation/SKILL.md) — Git Hooks 质量门禁
 
+### `hyperloglog`
+- [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
+
 ### `hypothesis`
 - [`ab-test-designer`](../05-business/ab-test-designer/SKILL.md) — A/B 实验设计师
 
@@ -5979,6 +6226,9 @@
 
 ### `ice-scoring`
 - [`ab-test-designer`](../05-business/ab-test-designer/SKILL.md) — A/B 实验设计师
+
+### `icon`
+- [`iconsax-icon-library`](../06-creative/iconsax-icon-library/SKILL.md) — Iconsax 图标库与生成
 
 ### `icp`
 - [`customer-research-synthesizer`](../05-business/customer-research-synthesizer/SKILL.md) — 客户调研与洞察综合
@@ -6051,6 +6301,9 @@
 - [`postgresql-optimization`](../03-data/postgresql-optimization/SKILL.md) — PostgreSQL 性能优化
 - [`seo-audit`](../05-business/seo-audit/SKILL.md) — SEO 技术审计
 
+### `indie-hacker`
+- [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线
+
 ### `inflation`
 - [`macro-rates-dashboard`](../05-business/macro-rates-dashboard/SKILL.md) — 宏观利率监测看板
 
@@ -6083,6 +6336,7 @@
 - [`ddd-context-mapping`](../02-engineering/ddd-context-mapping/SKILL.md) — DDD 限界上下文映射与集成契约
 - [`github-actions-author`](../10-platform/github-actions-author/SKILL.md) — GitHub Actions工作流编写
 - [`imessage-claude-bridge`](../10-platform/imessage-claude-bridge/SKILL.md) — iMessage 短信驱动 Claude 会话桥接
+- [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
 - [`ma-playbook`](../05-business/ma-playbook/SKILL.md) — 并购策略手册（尽调与估值整合）
 - [`salesforce-apex-developer`](../10-platform/salesforce-apex-developer/SKILL.md) — Salesforce Apex 与 LWC 开发
 - [`slack-bolt-bot-builder`](../10-platform/slack-bolt-bot-builder/SKILL.md) — Slack Bolt 机器人开发
@@ -6211,11 +6465,17 @@
 - [`istio-traffic-management`](../02-engineering/istio-traffic-management/SKILL.md) — Istio 流量治理
 - [`service-mesh-architect`](../02-engineering/service-mesh-architect/SKILL.md) — 服务网格架构（Istio/Linkerd）
 
+### `itil`
+- [`itil-service-management`](../09-verticals/itil-service-management/SKILL.md) — ITIL 服务管理顾问
+
 ### `iuphar`
 - [`gtopdb-pharmacology-database`](../09-verticals/gtopdb-pharmacology-database/SKILL.md) — GtoPdb 药理学指南数据库查询
 
 ### `jailbreak`
 - [`ai-system-security-audit`](../08-security/ai-system-security-audit/SKILL.md) — AI 系统安全评估（注入/越狱）
+
+### `java`
+- [`minecraft-bukkit-plugin-dev`](../02-engineering/minecraft-bukkit-plugin-dev/SKILL.md) — Minecraft 服务端插件开发
 
 ### `javascript`
 - [`algorithmic-art`](../06-creative/algorithmic-art/SKILL.md) — 算法艺术：用 p5.js 生成可探索的生成式艺术
@@ -6264,6 +6524,9 @@
 
 ### `jtbd`
 - [`customer-research-synthesizer`](../05-business/customer-research-synthesizer/SKILL.md) — 客户调研与洞察综合
+
+### `julia`
+- [`julia-scientific-pro`](../02-engineering/julia-scientific-pro/SKILL.md) — Julia 科学计算工程
 
 ### `jurisdiction`
 - [`offer-restrictive-covenant-review`](../09-verticals/offer-restrictive-covenant-review/SKILL.md) — 录用函与竞业限制审查
@@ -6424,6 +6687,9 @@
 - [`irac-essay-grader`](../09-verticals/irac-essay-grader/SKILL.md) — IRAC 法律论文评析
 - [`legal-case-brief`](../09-verticals/legal-case-brief/SKILL.md) — 判例摘要(case brief)
 
+### `layer2`
+- [`lightning-network-architecture-review`](../09-verticals/lightning-network-architecture-review/SKILL.md) — 闪电网络架构评审
+
 ### `lazy-evaluation`
 - [`polars-dataframe`](../03-data/polars-dataframe/SKILL.md) — Polars 高性能数据框
 
@@ -6508,6 +6774,7 @@
 - [`legal-case-brief`](../09-verticals/legal-case-brief/SKILL.md) — 判例摘要(case brief)
 - [`legal-client-intake`](../09-verticals/legal-client-intake/SKILL.md) — 法律客户结构化接案
 - [`legal-hold-manager`](../09-verticals/legal-hold-manager/SKILL.md) — 诉讼证据保全通知管理
+- [`legal-policy-drafter`](../09-verticals/legal-policy-drafter/SKILL.md) — 隐私政策与法律条款起草
 - [`litigation-chronology-builder`](../09-verticals/litigation-chronology-builder/SKILL.md) — 案件事实时间线构建
 - [`marketing-claims-reviewer`](../09-verticals/marketing-claims-reviewer/SKILL.md) — 营销宣传声明合规审查
 - [`material-contract-disclosure-schedule`](../09-verticals/material-contract-disclosure-schedule/SKILL.md) — 重大合同披露附表构建
@@ -6562,6 +6829,9 @@
 ### `ligand-receptor`
 - [`cellchat-cell-communication`](../09-verticals/cellchat-cell-communication/SKILL.md) — CellChat 细胞间通讯推断
 
+### `lightning-network`
+- [`lightning-network-architecture-review`](../09-verticals/lightning-network-architecture-review/SKILL.md) — 闪电网络架构评审
+
 ### `likelihood-of-confusion`
 - [`trademark-clearance-knockout`](../09-verticals/trademark-clearance-knockout/SKILL.md) — 商标可注册性初筛
 
@@ -6576,6 +6846,10 @@
 
 ### `link-building`
 - [`backlink-profile-analyzer`](../05-business/backlink-profile-analyzer/SKILL.md) — 外链画像与有毒链接分析
+
+### `linkedin`
+- [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
+- [`linkedin-profile-optimizer`](../05-business/linkedin-profile-optimizer/SKILL.md) — LinkedIn 个人主页优化
 
 ### `linkedin-ads`
 - [`paid-ads-strategist`](../05-business/paid-ads-strategist/SKILL.md) — 付费广告投放策略
@@ -6619,6 +6893,9 @@
 ### `litmus`
 - [`chaos-engineering-runner`](../02-engineering/chaos-engineering-runner/SKILL.md) — 混沌工程实验设计
 
+### `live-design`
+- [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
+
 ### `livewire`
 - [`laravel-app-specialist`](../02-engineering/laravel-app-specialist/SKILL.md) — Laravel 应用开发专家
 
@@ -6631,6 +6908,7 @@
 - [`ai-system-security-audit`](../08-security/ai-system-security-audit/SKILL.md) — AI 系统安全评估（注入/越狱）
 - [`claude-api`](../04-ai/claude-api/SKILL.md) — Claude API 应用开发
 - [`crewai-multi-agent`](../04-ai/crewai-multi-agent/SKILL.md) — CrewAI 角色化多智能体框架
+- [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
 - [`production-llm-app-builder`](../04-ai/production-llm-app-builder/SKILL.md) — 生产级 LLM 应用与 RAG 系统构建
 - [`prompt-template-designer`](../04-ai/prompt-template-designer/SKILL.md) — 提示词模板设计
@@ -6657,10 +6935,14 @@
 - [`ai-answer-engine-seo`](../05-business/ai-answer-engine-seo/SKILL.md) — AI 答案引擎优化
 
 ### `llmops`
+- [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
 - [`prompt-governance-policy`](../04-ai/prompt-governance-policy/SKILL.md) — 提示词治理与合规
 
 ### `llvm-ir`
 - [`zeroize-audit`](../08-security/zeroize-audit/SKILL.md) — 敏感数据内存清零审计（zeroize-audit）
+
+### `lms`
+- [`moodle-external-api-dev`](../09-verticals/moodle-external-api-dev/SKILL.md) — Moodle 外部 API 开发
 
 ### `localization`
 - [`odoo-localization-compliance`](../09-verticals/odoo-localization-compliance/SKILL.md) — Odoo 本地化与税务合规
@@ -6695,6 +6977,8 @@
 - [`octagon-sec-filing-analyst`](../09-verticals/octagon-sec-filing-analyst/SKILL.md) — SEC 文件分析编排
 
 ### `mTLS`
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
+- [`mtls-zero-trust-config`](../08-security/mtls-zero-trust-config/SKILL.md) — mTLS 零信任配置
 - [`service-mesh-architect`](../02-engineering/service-mesh-architect/SKILL.md) — 服务网格架构（Istio/Linkerd）
 
 ### `ma`
@@ -6733,6 +7017,9 @@
 
 ### `make`
 - [`zapier-make-automation`](../07-productivity/zapier-make-automation/SKILL.md) — Zapier 与 Make 无代码自动化
+
+### `makepad`
+- [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
 
 ### `malware-analysis`
 - [`anti-reversing-techniques`](../08-security/anti-reversing-techniques/SKILL.md) — 反逆向技术分析
@@ -6795,6 +7082,7 @@
 - [`customer-research-synthesizer`](../05-business/customer-research-synthesizer/SKILL.md) — 客户调研与洞察综合
 - [`data-storyteller`](../05-business/data-storyteller/SKILL.md) — 数据叙事与可视化表达
 - [`email-drip-sequence`](../05-business/email-drip-sequence/SKILL.md) — 邮件序列与培育自动化设计
+- [`linkedin-profile-optimizer`](../05-business/linkedin-profile-optimizer/SKILL.md) — LinkedIn 个人主页优化
 - [`marketing-analytics-tracker`](../05-business/marketing-analytics-tracker/SKILL.md) — 营销分析追踪方案
 - [`marketing-campaign-brief`](../05-business/marketing-campaign-brief/SKILL.md) — 营销活动方案策划
 - [`marketing-claims-reviewer`](../09-verticals/marketing-claims-reviewer/SKILL.md) — 营销宣传声明合规审查
@@ -6868,6 +7156,7 @@
 - [`fx-carry-trade-eval`](../05-business/fx-carry-trade-eval/SKILL.md) — 外汇套息交易评估
 - [`github-copilot-sdk`](../04-ai/github-copilot-sdk/SKILL.md) — GitHub Copilot SDK 编程集成
 - [`mcp-builder`](../10-platform/mcp-builder/SKILL.md) — MCP 服务器构建
+- [`n8n-mcp-tools-expert`](../10-platform/n8n-mcp-tools-expert/SKILL.md) — n8n-mcp 工具专家
 - [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) — X/Twitter 抓取与自动化（Xquik）
 - [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
 
@@ -6896,6 +7185,7 @@
 ### `medical`
 - [`eu-mdr-745-specialist`](../09-verticals/eu-mdr-745-specialist/SKILL.md) — 欧盟 MDR 2017/745 医疗器械合规
 - [`health-goal-analyzer`](../09-verticals/health-goal-analyzer/SKILL.md) — 健康目标分析器
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
 
 ### `medical-device`
 - [`fda-device-consultant`](../09-verticals/fda-device-consultant/SKILL.md) — FDA 医疗器械注册路径顾问
@@ -7016,6 +7306,9 @@
 ### `mimic`
 - [`pyhealth-clinical-dl`](../09-verticals/pyhealth-clinical-dl/SKILL.md) — PyHealth 临床健康深度学习流水线
 
+### `minecraft`
+- [`minecraft-bukkit-plugin-dev`](../02-engineering/minecraft-bukkit-plugin-dev/SKILL.md) — Minecraft 服务端插件开发
+
 ### `minervini`
 - [`breakout-trade-planner`](../09-verticals/breakout-trade-planner/SKILL.md) — 突破交易计划生成
 
@@ -7079,6 +7372,9 @@
 ### `misclassification`
 - [`worker-classification-analyzer`](../09-verticals/worker-classification-analyzer/SKILL.md) — 用工关系分类分析
 
+### `mise`
+- [`mise-toolchain-configurator`](../02-engineering/mise-toolchain-configurator/SKILL.md) — mise 工具链配置
+
 ### `mission-vision`
 - [`company-culture-architect`](../07-productivity/company-culture-architect/SKILL.md) — 公司文化体系构建
 
@@ -7090,6 +7386,10 @@
 
 ### `mlops`
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
+- [`production-ml-engineer`](../04-ai/production-ml-engineer/SKILL.md) — 生产级 ML 系统工程
+
+### `mmx`
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 
 ### `mobile`
 - [`firebase-apk-scanner`](../08-security/firebase-apk-scanner/SKILL.md) — Android APK Firebase 配置扫描
@@ -7117,6 +7417,7 @@
 - [`llm-model-router`](../04-ai/llm-model-router/SKILL.md) — 测量驱动的 LLM 模型路由
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
 - [`on-device-foundation-models`](../04-ai/on-device-foundation-models/SKILL.md) — 端侧基础模型（量化与隐私推理）
+- [`production-ml-engineer`](../04-ai/production-ml-engineer/SKILL.md) — 生产级 ML 系统工程
 
 ### `model-routing`
 - [`llm-model-router`](../04-ai/llm-model-router/SKILL.md) — 测量驱动的 LLM 模型路由
@@ -7163,6 +7464,7 @@
 - [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
 
 ### `monetization`
+- [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
 - [`pricing-strategy`](../05-business/pricing-strategy/SKILL.md) — 定价与套餐策略
 
 ### `mongoose`
@@ -7193,6 +7495,9 @@
 
 ### `monthly-report`
 - [`seo-performance-reporter`](../05-business/seo-performance-reporter/SKILL.md) — SEO/GEO 绩效报告与 KPI 仪表盘
+
+### `moodle`
+- [`moodle-external-api-dev`](../09-verticals/moodle-external-api-dev/SKILL.md) — Moodle 外部 API 开发
 
 ### `morning-note`
 - [`morning-meeting-note`](../05-business/morning-meeting-note/SKILL.md) — 晨会研究纪要起草
@@ -7231,6 +7536,7 @@
 ### `multi-agent`
 - [`agent-workflow-builder`](../07-productivity/agent-workflow-builder/SKILL.md) — 多智能体工作流编排脚本构建
 - [`crewai-multi-agent`](../04-ai/crewai-multi-agent/SKILL.md) — CrewAI 角色化多智能体框架
+- [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
 - [`multi-agent-orchestrator`](../07-productivity/multi-agent-orchestrator/SKILL.md) — 多智能体任务编排器
 - [`task-decomposition-planner`](../07-productivity/task-decomposition-planner/SKILL.md) — 任务拆解与依赖编排
 
@@ -7250,6 +7556,9 @@
 ### `multiomics`
 - [`muon-multiomics-singlecell`](../09-verticals/muon-multiomics-singlecell/SKILL.md) — muon 多模态单细胞多组学分析
 
+### `multiple-dispatch`
+- [`julia-scientific-pro`](../02-engineering/julia-scientific-pro/SKILL.md) — Julia 科学计算工程
+
 ### `multiplexer`
 - [`tmux-session-management`](../10-platform/tmux-session-management/SKILL.md) — tmux 会话与终端多路复用
 
@@ -7262,12 +7571,19 @@
 ### `mvi`
 - [`jetpack-compose-expert`](../02-engineering/jetpack-compose-expert/SKILL.md) — Android Jetpack Compose 开发专家
 
+### `mvp`
+- [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线
+
 ### `mvvm`
 - [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
 - [`jetpack-compose-expert`](../02-engineering/jetpack-compose-expert/SKILL.md) — Android Jetpack Compose 开发专家
 
 ### `n-plus-one`
 - [`complexity-cuts`](../02-engineering/complexity-cuts/SKILL.md) — 降低算法时空复杂度优化
+
+### `n8n`
+- [`n8n-mcp-tools-expert`](../10-platform/n8n-mcp-tools-expert/SKILL.md) — n8n-mcp 工具专家
+- [`n8n-workflow-patterns`](../10-platform/n8n-workflow-patterns/SKILL.md) — n8n 工作流架构模式
 
 ### `navier-stokes`
 - [`fluidsim-cfd-simulation`](../09-verticals/fluidsim-cfd-simulation/SKILL.md) — FluidSim 计算流体力学仿真
@@ -7402,6 +7718,9 @@
 
 ### `nsga3`
 - [`pymoo-multiobjective-optimization`](../09-verticals/pymoo-multiobjective-optimization/SKILL.md) — pymoo 多目标优化框架
+
+### `numerical`
+- [`julia-scientific-pro`](../02-engineering/julia-scientific-pro/SKILL.md) — Julia 科学计算工程
 
 ### `numpy`
 - [`flowio-flow-cytometry`](../09-verticals/flowio-flow-cytometry/SKILL.md) — FlowIO 流式细胞 FCS 解析
@@ -7570,8 +7889,11 @@
 - [`aws-penetration-testing`](../08-security/aws-penetration-testing/SKILL.md) — AWS 云环境渗透测试
 - [`cisco-ios-review-patterns`](../08-security/cisco-ios-review-patterns/SKILL.md) — Cisco IOS/IOS-XE 配置审查模式
 - [`cloud-misconfig-auditor`](../08-security/cloud-misconfig-auditor/SKILL.md) — 云基础设施安全审计
+- [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
 - [`env-secrets-hygiene`](../08-security/env-secrets-hygiene/SKILL.md) — 环境变量与密钥卫生审计
 - [`firebase-apk-scanner`](../08-security/firebase-apk-scanner/SKILL.md) — Android APK Firebase 配置扫描
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
+- [`mtls-zero-trust-config`](../08-security/mtls-zero-trust-config/SKILL.md) — mTLS 零信任配置
 - [`network-interface-health`](../08-security/network-interface-health/SKILL.md) — 网络接口健康诊断（错误/丢包/双工失配）
 - [`operational-runbook-writer`](../02-engineering/operational-runbook-writer/SKILL.md) — 运维操作手册编写
 - [`secrets-manager`](../08-security/secrets-manager/SKILL.md) — 密钥与凭据安全管理
@@ -7630,6 +7952,9 @@
 - [`cold-email-writer`](../05-business/cold-email-writer/SKILL.md) — B2B 冷启动邮件撰写
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选
 
+### `outreach`
+- [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
+
 ### `overtime`
 - [`wage-hour-employment-qa`](../09-verticals/wage-hour-employment-qa/SKILL.md) — 工时薪酬与雇佣法问答
 
@@ -7668,6 +7993,7 @@
 ### `paper`
 - [`academic-paper-explainer`](../09-verticals/academic-paper-explainer/SKILL.md) — 学术论文导读讲解
 - [`academic-paper-writer`](../09-verticals/academic-paper-writer/SKILL.md) — 顶会论文写作
+- [`minecraft-bukkit-plugin-dev`](../02-engineering/minecraft-bukkit-plugin-dev/SKILL.md) — Minecraft 服务端插件开发
 
 ### `paper-review`
 - [`academic-peer-reviewer`](../09-verticals/academic-peer-reviewer/SKILL.md) — 学术论文审稿
@@ -7774,6 +8100,7 @@
 ### `performance`
 - [`astro-content-sites`](../02-engineering/astro-content-sites/SKILL.md) — Astro 内容型网站构建
 - [`graphql-architect`](../02-engineering/graphql-architect/SKILL.md) — GraphQL 架构与联邦
+- [`julia-scientific-pro`](../02-engineering/julia-scientific-pro/SKILL.md) — Julia 科学计算工程
 - [`latency-critical-systems`](../02-engineering/latency-critical-systems/SKILL.md) — 低延迟关键系统设计
 - [`postgresql-optimization`](../03-data/postgresql-optimization/SKILL.md) — PostgreSQL 性能优化
 - [`rust-pro`](../02-engineering/rust-pro/SKILL.md) — Rust 进阶开发
@@ -7799,6 +8126,9 @@
 
 ### `persona`
 - [`customer-research-synthesizer`](../05-business/customer-research-synthesizer/SKILL.md) — 客户调研与洞察综合
+
+### `personal-brand`
+- [`linkedin-profile-optimizer`](../05-business/linkedin-profile-optimizer/SKILL.md) — LinkedIn 个人主页优化
 
 ### `persuasion`
 - [`marketing-psychology`](../05-business/marketing-psychology/SKILL.md) — 营销心理与心智模型
@@ -7831,6 +8161,7 @@
 ### `php`
 - [`codebase-to-wordpress-theme`](../02-engineering/codebase-to-wordpress-theme/SKILL.md) — 代码库转 WordPress 主题
 - [`laravel-app-specialist`](../02-engineering/laravel-app-specialist/SKILL.md) — Laravel 应用开发专家
+- [`moodle-external-api-dev`](../09-verticals/moodle-external-api-dev/SKILL.md) — Moodle 外部 API 开发
 - [`php-pro`](../02-engineering/php-pro/SKILL.md) — PHP 进阶开发
 
 ### `phylogenetics`
@@ -7893,6 +8224,7 @@
 - [`ai-native-cli-design`](../10-platform/ai-native-cli-design/SKILL.md) — 面向 AI 智能体的 CLI 设计规范
 - [`apify-actorization`](../10-platform/apify-actorization/SKILL.md) — 将既有软件改造为 Apify Actor
 - [`docker-container-optimizer`](../10-platform/docker-container-optimizer/SKILL.md) — Docker 容器构建与加固
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
 - [`tmux-session-management`](../10-platform/tmux-session-management/SKILL.md) — tmux 会话与终端多路复用
 - [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) — Zoom 认证与 OAuth 实现
 
@@ -7907,6 +8239,8 @@
 ### `playwright`
 - [`browserstack-cross-browser-test`](../02-engineering/browserstack-cross-browser-test/SKILL.md) — BrowserStack 跨浏览器测试
 - [`demo-video-generator`](../06-creative/demo-video-generator/SKILL.md) — 产品演示视频生成
+- [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
 - [`test-coverage-gap-finder`](../02-engineering/test-coverage-gap-finder/SKILL.md) — 测试覆盖率缺口分析
 - [`webapp-testing`](../02-engineering/webapp-testing/SKILL.md) — Web 应用测试（Playwright）
 
@@ -8086,6 +8420,7 @@
 - [`apify-ecommerce-scraper`](../10-platform/apify-ecommerce-scraper/SKILL.md) — Apify 电商数据抓取
 
 ### `pricing`
+- [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
 - [`pricing-strategy`](../05-business/pricing-strategy/SKILL.md) — 定价与套餐策略
 - [`product-margin-pricing-scenarios`](../05-business/product-margin-pricing-scenarios/SKILL.md) — 产品毛利与定价情景测算
 
@@ -8109,6 +8444,9 @@
 - [`gdpr-data-handling`](../08-security/gdpr-data-handling/SKILL.md) — GDPR 数据合规处理
 - [`privacy-impact-assessor`](../09-verticals/privacy-impact-assessor/SKILL.md) — 隐私影响评估生成
 - [`product-launch-legal-review`](../09-verticals/product-launch-legal-review/SKILL.md) — 产品上线法律审查
+
+### `privacy-policy`
+- [`legal-policy-drafter`](../09-verticals/legal-policy-drafter/SKILL.md) — 隐私政策与法律条款起草
 
 ### `private-equity`
 - [`ic-investment-memo`](../05-business/ic-investment-memo/SKILL.md) — 投委会投资备忘录（IC Memo）
@@ -8233,6 +8571,9 @@
 
 ### `protobuf`
 - [`grpc-golang-services`](../02-engineering/grpc-golang-services/SKILL.md) — Go gRPC 服务构建
+
+### `protocol-review`
+- [`lightning-network-architecture-review`](../09-verticals/lightning-network-architecture-review/SKILL.md) — 闪电网络架构评审
 
 ### `provenance`
 - [`lamindb-data-management`](../09-verticals/lamindb-data-management/SKILL.md) — LaminDB 生物数据治理
@@ -8478,6 +8819,7 @@
 ### `rag`
 - [`ai-engineering-toolkit`](../04-ai/ai-engineering-toolkit/SKILL.md) — AI 工程工作流工具箱
 - [`iterative-context-retrieval`](../04-ai/iterative-context-retrieval/SKILL.md) — 迭代式上下文检索精炼模式
+- [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
 - [`production-llm-app-builder`](../04-ai/production-llm-app-builder/SKILL.md) — 生产级 LLM 应用与 RAG 系统构建
 - [`rag-clarity-gate`](../04-ai/rag-clarity-gate/SKILL.md) — RAG 入库前文档清晰度校验
@@ -8518,6 +8860,8 @@
 - [`algolia-search-integration`](../02-engineering/algolia-search-integration/SKILL.md) — Algolia 搜索集成与索引优化
 - [`codebase-to-wordpress-theme`](../02-engineering/codebase-to-wordpress-theme/SKILL.md) — 代码库转 WordPress 主题
 - [`frontend-design`](../02-engineering/frontend-design/SKILL.md) — 前端设计
+- [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
+- [`magic-ui-component-generator`](../02-engineering/magic-ui-component-generator/SKILL.md) — AI UI 组件多方案生成
 - [`react-state-management`](../02-engineering/react-state-management/SKILL.md) — React 状态管理
 - [`tanstack-query`](../02-engineering/tanstack-query/SKILL.md) — TanStack Query 异步状态管理
 - [`trpc-typesafe-api`](../02-engineering/trpc-typesafe-api/SKILL.md) — tRPC 端到端类型安全 API
@@ -8745,6 +9089,7 @@
 ### `rest`
 - [`api-design-principles`](../02-engineering/api-design-principles/SKILL.md) — REST与GraphQL API设计
 - [`api-design-reviewer`](../02-engineering/api-design-reviewer/SKILL.md) — REST API 设计评审
+- [`moodle-external-api-dev`](../09-verticals/moodle-external-api-dev/SKILL.md) — Moodle 外部 API 开发
 
 ### `rest-api`
 - [`chembl-bioactivity-database`](../09-verticals/chembl-bioactivity-database/SKILL.md) — ChEMBL 生物活性数据库查询
@@ -8948,7 +9293,11 @@
 - [`operational-runbook-writer`](../02-engineering/operational-runbook-writer/SKILL.md) — 运维操作手册编写
 - [`process-sop-documenter`](../07-productivity/process-sop-documenter/SKILL.md) — 业务流程 SOP 文档化
 
+### `runtime`
+- [`mise-toolchain-configurator`](../02-engineering/mise-toolchain-configurator/SKILL.md) — mise 工具链配置
+
 ### `rust`
+- [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
 - [`rust-pro`](../02-engineering/rust-pro/SKILL.md) — Rust 进阶开发
 - [`zeroize-audit`](../08-security/zeroize-audit/SKILL.md) — 敏感数据内存清零审计（zeroize-audit）
 
@@ -8959,6 +9308,8 @@
 - [`billing-automation-systems`](../05-business/billing-automation-systems/SKILL.md) — 订阅计费与催收自动化系统
 - [`churn-prevention`](../05-business/churn-prevention/SKILL.md) — 流失预防与留存
 - [`contract-renewal-tracker`](../09-verticals/contract-renewal-tracker/SKILL.md) — 合同续约与取消窗口跟踪
+- [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
+- [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线
 - [`pricing-strategy`](../05-business/pricing-strategy/SKILL.md) — 定价与套餐策略
 - [`saas-marketing-ideas`](../05-business/saas-marketing-ideas/SKILL.md) — SaaS 营销策略评分
 - [`saas-multi-tenant-architecture`](../02-engineering/saas-multi-tenant-architecture/SKILL.md) — SaaS 多租户架构
@@ -8998,6 +9349,9 @@
 - [`partnerships-strategy-architect`](../05-business/partnerships-strategy-architect/SKILL.md) — 战略合作伙伴架构
 - [`sales-prospecting`](../05-business/sales-prospecting/SKILL.md) — 销售线索挖掘与筛选
 - [`weekly-external-call-brief`](../05-business/weekly-external-call-brief/SKILL.md) — 本周外部会议综合预备简报
+
+### `sales-navigator`
+- [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
 
 ### `salesforce`
 - [`salesforce-apex-developer`](../10-platform/salesforce-apex-developer/SKILL.md) — Salesforce Apex 与 LWC 开发
@@ -9185,6 +9539,7 @@
 - [`zinc-compound-library`](../09-verticals/zinc-compound-library/SKILL.md) — ZINC 虚拟化合物库检索
 
 ### `scientific-computing`
+- [`julia-scientific-pro`](../02-engineering/julia-scientific-pro/SKILL.md) — Julia 科学计算工程
 - [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组
 
 ### `scientific-writing`
@@ -9333,6 +9688,9 @@
 ### `segmentation`
 - [`scikit-image-bioimage`](../09-verticals/scikit-image-bioimage/SKILL.md) — scikit-image 生物图像处理
 
+### `selenium`
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
+
 ### `self-description`
 - [`ai-native-cli-design`](../10-platform/ai-native-cli-design/SKILL.md) — 面向 AI 智能体的 CLI 设计规范
 
@@ -9369,6 +9727,7 @@
 - [`codebase-to-wordpress-theme`](../02-engineering/codebase-to-wordpress-theme/SKILL.md) — 代码库转 WordPress 主题
 - [`content-strategy-planner`](../05-business/content-strategy-planner/SKILL.md) — 内容策略规划
 - [`eeat-content-quality-auditor`](../05-business/eeat-content-quality-auditor/SKILL.md) — E-E-A-T 内容质量审计（CORE-EEAT 评分）
+- [`linkedin-profile-optimizer`](../05-business/linkedin-profile-optimizer/SKILL.md) — LinkedIn 个人主页优化
 - [`programmatic-seo-builder`](../05-business/programmatic-seo-builder/SKILL.md) — 程序化 SEO 批量建页
 - [`schema-markup-builder`](../05-business/schema-markup-builder/SKILL.md) — 结构化数据 Schema 标记
 - [`seo-audit`](../05-business/seo-audit/SKILL.md) — SEO 技术审计
@@ -9413,6 +9772,9 @@
 ### `service-account`
 - [`google-workspace-cli-admin`](../10-platform/google-workspace-cli-admin/SKILL.md) — Google Workspace CLI 管理自动化
 
+### `service-management`
+- [`itil-service-management`](../09-verticals/itil-service-management/SKILL.md) — ITIL 服务管理顾问
+
 ### `service-mesh`
 - [`istio-traffic-management`](../02-engineering/istio-traffic-management/SKILL.md) — Istio 流量治理
 - [`service-mesh-architect`](../02-engineering/service-mesh-architect/SKILL.md) — 服务网格架构（Istio/Linkerd）
@@ -9451,6 +9813,7 @@
 
 ### `shader`
 - [`glsl-shader-programming`](../06-creative/glsl-shader-programming/SKILL.md) — GLSL 着色器编程：写顶点/片元着色器与常见视觉特效
+- [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
 
 ### `shap`
 - [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
@@ -9465,6 +9828,7 @@
 - [`bash-defensive-patterns`](../02-engineering/bash-defensive-patterns/SKILL.md) — 防御式 Bash 脚本生产实践
 - [`bats-shell-testing`](../02-engineering/bats-shell-testing/SKILL.md) — Bats Shell 脚本自动化测试
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
 - [`posix-shell-scripting`](../02-engineering/posix-shell-scripting/SKILL.md) — POSIX Shell 可移植脚本
 - [`powershell-windows`](../02-engineering/powershell-windows/SKILL.md) — PowerShell Windows 实战
 - [`shellcheck-linting`](../02-engineering/shellcheck-linting/SKILL.md) — ShellCheck 脚本静态检查配置
@@ -9647,6 +10011,9 @@
 ### `soap-api`
 - [`brenda-enzyme-database`](../09-verticals/brenda-enzyme-database/SKILL.md) — BRENDA 酶动力学数据库
 
+### `social`
+- [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
+
 ### `social-media`
 - [`apify-multi-platform-scraper`](../03-data/apify-multi-platform-scraper/SKILL.md) — Apify 多平台 AI 数据抓取
 - [`canva-campaign-creator`](../06-creative/canva-campaign-creator/SKILL.md) — Canva 营销活动设计与排期生成
@@ -9687,6 +10054,9 @@
 ### `sow`
 - [`contract-proposal-writer`](../05-business/contract-proposal-writer/SKILL.md) — 合同与商业提案撰写
 
+### `spa-testing`
+- [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
+
 ### `spark`
 - [`spark-job-optimization`](../03-data/spark-job-optimization/SKILL.md) — Apache Spark 作业性能调优
 
@@ -9710,6 +10080,9 @@
 
 ### `spice`
 - [`spice-circuit-simulator`](../09-verticals/spice-circuit-simulator/SKILL.md) — SPICE 电路仿真验证
+
+### `spigot`
+- [`minecraft-bukkit-plugin-dev`](../02-engineering/minecraft-bukkit-plugin-dev/SKILL.md) — Minecraft 服务端插件开发
 
 ### `spike-sorting`
 - [`neuropixels-neural-recording`](../09-verticals/neuropixels-neural-recording/SKILL.md) — Neuropixels 神经电生理记录分析
@@ -9833,6 +10206,10 @@
 - [`internal-comms`](../01-documents/internal-comms/SKILL.md) — 内部沟通文书撰写
 - [`status-report-generator`](../07-productivity/status-report-generator/SKILL.md) — 项目状态报告生成
 
+### `stealth`
+- [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
+
 ### `storybank`
 - [`interview-job-coach`](../00-meta/interview-job-coach/SKILL.md) — 求职面试全流程辅导
 
@@ -9861,6 +10238,7 @@
 - [`string-ppi-database`](../09-verticals/string-ppi-database/SKILL.md) — STRING 蛋白互作网络查询
 
 ### `stripe`
+- [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
 - [`stripe-integration`](../10-platform/stripe-integration/SKILL.md) — Stripe 支付与订阅集成
 
 ### `structural-biology`
@@ -9899,6 +10277,7 @@
 ### `subscription`
 - [`billing-automation-systems`](../05-business/billing-automation-systems/SKILL.md) — 订阅计费与催收自动化系统
 - [`churn-prevention`](../05-business/churn-prevention/SKILL.md) — 流失预防与留存
+- [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
 - [`graphql-architect`](../02-engineering/graphql-architect/SKILL.md) — GraphQL 架构与联邦
 - [`saas-subscription-agreement-review`](../09-verticals/saas-subscription-agreement-review/SKILL.md) — SaaS 订阅协议审查
 - [`stripe-integration`](../10-platform/stripe-integration/SKILL.md) — Stripe 支付与订阅集成
@@ -9940,6 +10319,12 @@
 ### `sympy`
 - [`sympy-symbolic-math`](../09-verticals/sympy-symbolic-math/SKILL.md) — SymPy 符号数学计算
 
+### `sysadmin`
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
+
+### `systemd`
+- [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
+
 ### `systems-biology`
 - [`brenda-enzyme-database`](../09-verticals/brenda-enzyme-database/SKILL.md) — BRENDA 酶动力学数据库
 - [`string-ppi-database`](../09-verticals/string-ppi-database/SKILL.md) — STRING 蛋白互作网络查询
@@ -9952,6 +10337,7 @@
 
 ### `tailwind`
 - [`codebase-to-wordpress-theme`](../02-engineering/codebase-to-wordpress-theme/SKILL.md) — 代码库转 WordPress 主题
+- [`magic-ui-component-generator`](../02-engineering/magic-ui-component-generator/SKILL.md) — AI UI 组件多方案生成
 - [`web-artifacts-builder`](../02-engineering/web-artifacts-builder/SKILL.md) — Web 制品构建器（React/Tailwind/shadcn 单文件产物）
 
 ### `taint`
@@ -10031,6 +10417,7 @@
 ### `templates`
 - [`confluence-space-architect`](../07-productivity/confluence-space-architect/SKILL.md) — Confluence 知识库空间架构
 - [`employment-contract-drafter`](../09-verticals/employment-contract-drafter/SKILL.md) — 劳动合同与 HR 文书起草
+- [`legal-policy-drafter`](../09-verticals/legal-policy-drafter/SKILL.md) — 隐私政策与法律条款起草
 - [`programmatic-seo-builder`](../05-business/programmatic-seo-builder/SKILL.md) — 程序化 SEO 批量建页
 - [`prompt-template-designer`](../04-ai/prompt-template-designer/SKILL.md) — 提示词模板设计
 
@@ -10049,12 +10436,18 @@
 ### `termination`
 - [`employment-termination-review`](../09-verticals/employment-termination-review/SKILL.md) — 员工解雇合规审查
 
+### `terms-of-service`
+- [`legal-policy-drafter`](../09-verticals/legal-policy-drafter/SKILL.md) — 隐私政策与法律条款起草
+
 ### `terraform`
 - [`terraform-module-builder`](../10-platform/terraform-module-builder/SKILL.md) — Terraform可复用模块构建
 - [`terraform-specialist`](../10-platform/terraform-specialist/SKILL.md) — Terraform 基础设施即代码
 
 ### `terratest`
 - [`terraform-module-builder`](../10-platform/terraform-module-builder/SKILL.md) — Terraform可复用模块构建
+
+### `test-automation`
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
 
 ### `testing`
 - [`accessibility-wcag-audit`](../02-engineering/accessibility-wcag-audit/SKILL.md) — 无障碍 WCAG 合规审计
@@ -10162,6 +10555,9 @@
 
 ### `tool-validation`
 - [`agent-tool-builder`](../04-ai/agent-tool-builder/SKILL.md) — AI 智能体工具设计与构建
+
+### `toolchain`
+- [`mise-toolchain-configurator`](../02-engineering/mise-toolchain-configurator/SKILL.md) — mise 工具链配置
 
 ### `topic-analysis`
 - [`seo-content-gap-analysis`](../05-business/seo-content-gap-analysis/SKILL.md) — SEO 内容缺口与选题日历分析
@@ -10293,6 +10689,7 @@
 - [`trpc-typesafe-api`](../02-engineering/trpc-typesafe-api/SKILL.md) — tRPC 端到端类型安全 API
 
 ### `type-system`
+- [`haskell-pro`](../02-engineering/haskell-pro/SKILL.md) — Haskell 函数式工程
 - [`typescript-advanced-types`](../02-engineering/typescript-advanced-types/SKILL.md) — TypeScript 高级类型系统
 
 ### `typeorm`
@@ -10303,6 +10700,7 @@
 - [`bun-runtime-development`](../02-engineering/bun-runtime-development/SKILL.md) — Bun 运行时现代 JS/TS 开发
 - [`fp-ts-refactor`](../02-engineering/fp-ts-refactor/SKILL.md) — 命令式 TS 重构为 fp-ts
 - [`hono-edge-api`](../02-engineering/hono-edge-api/SKILL.md) — Hono 边缘 Web 框架
+- [`magic-ui-component-generator`](../02-engineering/magic-ui-component-generator/SKILL.md) — AI UI 组件多方案生成
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
 - [`nodejs-keccak256-hashing`](../09-verticals/nodejs-keccak256-hashing/SKILL.md) — Node.js Keccak-256 以太坊哈希防错
 - [`react-state-management`](../02-engineering/react-state-management/SKILL.md) — React 状态管理
@@ -10330,9 +10728,16 @@
 - [`flutter-expert`](../02-engineering/flutter-expert/SKILL.md) — Flutter 跨平台开发
 - [`frontend-design`](../02-engineering/frontend-design/SKILL.md) — 前端设计
 - [`jetpack-compose-expert`](../02-engineering/jetpack-compose-expert/SKILL.md) — Android Jetpack Compose 开发专家
+- [`minimalist-editorial-ui`](../06-creative/minimalist-editorial-ui/SKILL.md) — 极简编辑风界面设计
 
 ### `ui-bug`
 - [`click-path-state-audit`](../02-engineering/click-path-state-audit/SKILL.md) — 点击路径状态序列审计（隐性交互冲突）
+
+### `ui-framework`
+- [`makepad-rust-ui`](../02-engineering/makepad-rust-ui/SKILL.md) — Makepad Rust UI 开发
+
+### `ui-generation`
+- [`magic-ui-component-generator`](../02-engineering/magic-ui-component-generator/SKILL.md) — AI UI 组件多方案生成
 
 ### `ui-testing`
 - [`android-ui-verification`](../02-engineering/android-ui-verification/SKILL.md) — Android 模拟器 UI 端到端验证
@@ -10342,6 +10747,7 @@
 - [`umap-dimensionality-reduction`](../03-data/umap-dimensionality-reduction/SKILL.md) — UMAP 非线性降维与可视化
 
 ### `unit-economics`
+- [`digital-product-monetization`](../05-business/digital-product-monetization/SKILL.md) — 数字产品变现策略
 - [`unit-economics-analyzer`](../09-verticals/unit-economics-analyzer/SKILL.md) — 单位经济模型分析
 
 ### `units`
@@ -10634,6 +11040,11 @@
 - [`apify-actorization`](../10-platform/apify-actorization/SKILL.md) — 将既有软件改造为 Apify Actor
 - [`apify-ecommerce-scraper`](../10-platform/apify-ecommerce-scraper/SKILL.md) — Apify 电商数据抓取
 - [`firecrawl-web-scraper`](../10-platform/firecrawl-web-scraper/SKILL.md) — Firecrawl 网页抓取
+- [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
+- [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化
+
+### `web-service`
+- [`moodle-external-api-dev`](../09-verticals/moodle-external-api-dev/SKILL.md) — Moodle 外部 API 开发
 
 ### `web3`
 - [`blockchain-web3-developer`](../09-verticals/blockchain-web3-developer/SKILL.md) — Web3 智能合约与 DeFi 开发
@@ -10667,6 +11078,7 @@
 - [`zoom-virtual-agent-builder`](../10-platform/zoom-virtual-agent-builder/SKILL.md) — Zoom 虚拟客服坐席集成
 
 ### `web安全`
+- [`html-injection-testing`](../08-security/html-injection-testing/SKILL.md) — HTML 注入测试
 - [`idor-vulnerability-testing`](../08-security/idor-vulnerability-testing/SKILL.md) — IDOR 越权漏洞测试
 
 ### `weekly-planning`
@@ -10780,6 +11192,7 @@
 - [`avoid-ai-writing-patterns`](../01-documents/avoid-ai-writing-patterns/SKILL.md) — 识别并重写 AI 写作腔调
 - [`content-humanizer`](../01-documents/content-humanizer/SKILL.md) — AI文本人性化改写
 - [`internal-comms`](../01-documents/internal-comms/SKILL.md) — 内部沟通文书撰写
+- [`latex-paper-format-conversion`](../01-documents/latex-paper-format-conversion/SKILL.md) — LaTeX 论文格式转换
 - [`openapi-doc-generator`](../01-documents/openapi-doc-generator/SKILL.md) — OpenAPI 3.1 API 文档生成
 - [`seo-content-writer`](../05-business/seo-content-writer/SKILL.md) — SEO 内容写作
 
@@ -10851,6 +11264,9 @@
 ### `zafiro`
 - [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
 
+### `zap`
+- [`go-playwright-automation`](../10-platform/go-playwright-automation/SKILL.md) — Playwright Go 隐身浏览器自动化
+
 ### `zapier`
 - [`zapier-make-automation`](../07-productivity/zapier-make-automation/SKILL.md) — Zapier 与 Make 无代码自动化
 
@@ -10909,6 +11325,9 @@
 ### `上市后监督`
 - [`eu-mdr-745-specialist`](../09-verticals/eu-mdr-745-specialist/SKILL.md) — 欧盟 MDR 2017/745 医疗器械合规
 
+### `上线`
+- [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线
+
 ### `上线评审`
 - [`feature-legal-risk-assessment`](../09-verticals/feature-legal-risk-assessment/SKILL.md) — 功能法律风险深度评估
 
@@ -10920,6 +11339,9 @@
 
 ### `专利`
 - [`ip-infringement-triage`](../09-verticals/ip-infringement-triage/SKILL.md) — 知识产权侵权线索分级
+
+### `专线`
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 
 ### `业务流程自动化`
 - [`zapier-make-automation`](../07-productivity/zapier-make-automation/SKILL.md) — Zapier 与 Make 无代码自动化
@@ -10975,7 +11397,9 @@
 - [`sales-enablement`](../05-business/sales-enablement/SKILL.md) — 销售赋能物料制作
 
 ### `事件响应`
+- [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
 - [`iso27001-isms-implementer`](../08-security/iso27001-isms-implementer/SKILL.md) — ISO 27001 信息安全体系实施
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
 - [`security-audit-toolkit`](../08-security/security-audit-toolkit/SKILL.md) — 安全审计与威胁建模工具箱
 - [`seo-traffic-drop-forensics`](../05-business/seo-traffic-drop-forensics/SKILL.md) — SEO 流量骤降取证排查
 - [`sre-incident-responder`](../02-engineering/sre-incident-responder/SKILL.md) — SRE 事件响应
@@ -11042,6 +11466,9 @@
 
 ### `云测试`
 - [`browserstack-cross-browser-test`](../02-engineering/browserstack-cross-browser-test/SKILL.md) — BrowserStack 跨浏览器测试
+
+### `云网络`
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
 
 ### `互动增长`
 - [`social-media-content-creator`](../05-business/social-media-content-creator/SKILL.md) — 社媒内容创作与排期
@@ -11175,6 +11602,7 @@
 - [`clean-craft-code-review`](../02-engineering/clean-craft-code-review/SKILL.md) — 整洁代码工艺评审（Uncle Bob）
 
 ### `代码审查`
+- [`algorithm-first-discipline`](../00-meta/algorithm-first-discipline/SKILL.md) — 算法先行思维纪律
 - [`brooks-design-lint`](../02-engineering/brooks-design-lint/SKILL.md) — 经典软工书籍驱动的设计审查（brooks-design-lint）
 - [`security-diff-review`](../08-security/security-diff-review/SKILL.md) — 安全导向的差异代码审查
 - [`swiftui-best-practices`](../02-engineering/swiftui-best-practices/SKILL.md) — SwiftUI 状态管理与最佳实践
@@ -11206,6 +11634,7 @@
 - [`code-simplifier`](../02-engineering/code-simplifier/SKILL.md) — 保持功能不变的代码简化
 - [`fullstack-project-scaffolder`](../02-engineering/fullstack-project-scaffolder/SKILL.md) — 全栈项目脚手架与技术栈选型
 - [`git-hooks-automation`](../02-engineering/git-hooks-automation/SKILL.md) — Git Hooks 质量门禁
+- [`kaizen-continuous-improvement`](../00-meta/kaizen-continuous-improvement/SKILL.md) — 改善持续改进法（Kaizen）
 - [`shellcheck-linting`](../02-engineering/shellcheck-linting/SKILL.md) — ShellCheck 脚本静态检查配置
 
 ### `代码重构`
@@ -11224,6 +11653,9 @@
 ### `价值投资`
 - [`octagon-financial-health-scores`](../09-verticals/octagon-financial-health-scores/SKILL.md) — 财务健康评分（Z-Score / Piotroski）
 - [`value-dividend-screener`](../09-verticals/value-dividend-screener/SKILL.md) — 价值红利股筛选
+
+### `价值流`
+- [`itil-service-management`](../09-verticals/itil-service-management/SKILL.md) — ITIL 服务管理顾问
 
 ### `价值观`
 - [`company-culture-builder`](../07-productivity/company-culture-builder/SKILL.md) — 公司文化构建与度量
@@ -11470,6 +11902,9 @@
 ### `内存优化`
 - [`python-performance-optimization`](../02-engineering/python-performance-optimization/SKILL.md) — Python 性能优化
 
+### `内存取证`
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
+
 ### `内存泄漏`
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
 
@@ -11539,6 +11974,9 @@
 - [`bullet-point-structurer`](../00-meta/bullet-point-structurer/SKILL.md) — 层级化要点提炼与结构化笔记
 - [`human-like-response-mirror`](../00-meta/human-like-response-mirror/SKILL.md) — 拟人化回应自我镜像循环
 - [`professional-proofreader`](../01-documents/professional-proofreader/SKILL.md) — 专业文稿校对
+
+### `冲刺`
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
 
 ### `决策`
 - [`agent-self-reflection`](../00-meta/agent-self-reflection/SKILL.md) — Agent 自我反思复盘
@@ -11626,6 +12064,9 @@
 ### `分布式事务`
 - [`saga-orchestration`](../02-engineering/saga-orchestration/SKILL.md) — Saga 分布式事务编排
 
+### `分布式训练`
+- [`production-ml-engineer`](../04-ai/production-ml-engineer/SKILL.md) — 生产级 ML 系统工程
+
 ### `分布式追踪`
 - [`distributed-tracing`](../02-engineering/distributed-tracing/SKILL.md) — Jaeger/Tempo 分布式链路追踪
 
@@ -11693,7 +12134,12 @@
 - [`d3js-data-viz`](../06-creative/d3js-data-viz/SKILL.md) — D3.js 交互式数据可视化
 - [`demo-video-generator`](../06-creative/demo-video-generator/SKILL.md) — 产品演示视频生成
 - [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）
+- [`iconsax-icon-library`](../06-creative/iconsax-icon-library/SKILL.md) — Iconsax 图标库与生成
+- [`idea-darwin-evolution`](../00-meta/idea-darwin-evolution/SKILL.md) — 达尔文式创意进化
+- [`magic-motion-animator`](../06-creative/magic-motion-animator/SKILL.md) — AI 动效动画生成
 - [`mermaid-diagram-expert`](../06-creative/mermaid-diagram-expert/SKILL.md) — Mermaid 图表绘制专家
+- [`minimalist-editorial-ui`](../06-creative/minimalist-editorial-ui/SKILL.md) — 极简编辑风界面设计
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 - [`ui-design-system-builder`](../06-creative/ui-design-system-builder/SKILL.md) — UI 设计系统与设计令牌
 - [`unreal-engine-cpp`](../06-creative/unreal-engine-cpp/SKILL.md) — Unreal Engine 5 C++ 开发
 - [`ux-microcopy-writer`](../06-creative/ux-microcopy-writer/SKILL.md) — UX 微文案撰写
@@ -11702,6 +12148,8 @@
 
 ### `创意/design`
 - [`glassmorphism-ui-design`](../06-creative/glassmorphism-ui-design/SKILL.md) — 玻璃拟态与空间感 UI 设计
+- [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
+- [`industrial-brutalist-ui`](../06-creative/industrial-brutalist-ui/SKILL.md) — 工业野兽派遥测 UI
 - [`ux-research-design-toolkit`](../06-creative/ux-research-design-toolkit/SKILL.md) — UX 研究与体验设计工具箱
 
 ### `判重`
@@ -11748,8 +12196,11 @@
 - [`design-dev-handoff`](../06-creative/design-dev-handoff/SKILL.md) — 设计开发交付规格
 - [`design-spells-microinteractions`](../06-creative/design-spells-microinteractions/SKILL.md) — 网页微交互与设计细节灵感
 - [`glassmorphism-ui-design`](../06-creative/glassmorphism-ui-design/SKILL.md) — 玻璃拟态与空间感 UI 设计
+- [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
 - [`html-dashboard-builder`](../03-data/html-dashboard-builder/SKILL.md) — 交互式 HTML 仪表盘构建
 - [`i18n-localization-patterns`](../02-engineering/i18n-localization-patterns/SKILL.md) — 国际化与本地化模式
+- [`industrial-brutalist-ui`](../06-creative/industrial-brutalist-ui/SKILL.md) — 工业野兽派遥测 UI
+- [`minimalist-editorial-ui`](../06-creative/minimalist-editorial-ui/SKILL.md) — 极简编辑风界面设计
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) — Playwright 端到端测试
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
@@ -11786,10 +12237,13 @@
 ### `动效`
 - [`design-spells-microinteractions`](../06-creative/design-spells-microinteractions/SKILL.md) — 网页微交互与设计细节灵感
 - [`glassmorphism-ui-design`](../06-creative/glassmorphism-ui-design/SKILL.md) — 玻璃拟态与空间感 UI 设计
+- [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
+- [`magic-motion-animator`](../06-creative/magic-motion-animator/SKILL.md) — AI 动效动画生成
 
 ### `动画`
 - [`animejs-web-animation`](../06-creative/animejs-web-animation/SKILL.md) — Anime.js 高性能网页动画
 - [`demo-video-generator`](../06-creative/demo-video-generator/SKILL.md) — 产品演示视频生成
+- [`magic-motion-animator`](../06-creative/magic-motion-animator/SKILL.md) — AI 动效动画生成
 
 ### `动量`
 - [`canslim-growth-screener`](../09-verticals/canslim-growth-screener/SKILL.md) — CANSLIM 成长股筛选
@@ -11850,6 +12304,9 @@
 - [`iso13485-qms-implementer`](../09-verticals/iso13485-qms-implementer/SKILL.md) — ISO 13485 质量管理体系实施
 - [`quality-documentation-control`](../09-verticals/quality-documentation-control/SKILL.md) — 医疗器械质量文件控制管理
 
+### `医院 IT`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
+
 ### `升级`
 - [`customer-response-drafter`](../05-business/customer-response-drafter/SKILL.md) — 客户回复文案起草
 
@@ -11878,6 +12335,7 @@
 - [`prd-spec-writer`](../07-productivity/prd-spec-writer/SKILL.md) — PRD 与功能规格撰写
 - [`product-discovery-process`](../07-productivity/product-discovery-process/SKILL.md) — 产品探索发现流程
 - [`product-manager-toolkit`](../07-productivity/product-manager-toolkit/SKILL.md) — 产品经理工具箱（RICE/PRD）
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
 - [`stakeholder-update-writer`](../07-productivity/stakeholder-update-writer/SKILL.md) — 干系人进展更新撰写
 - [`strategic-alignment-cascader`](../07-productivity/strategic-alignment-cascader/SKILL.md) — 战略对齐自上而下级联
 - [`zapier-make-automation`](../07-productivity/zapier-make-automation/SKILL.md) — Zapier 与 Make 无代码自动化
@@ -11898,6 +12356,7 @@
 
 ### `单元测试`
 - [`javascript-testing-patterns`](../02-engineering/javascript-testing-patterns/SKILL.md) — JS/TS 测试策略
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
 - [`python-testing-pytest`](../02-engineering/python-testing-pytest/SKILL.md) — Python pytest 测试模式
 
 ### `单细胞`
@@ -12069,6 +12528,9 @@
 ### `召回率`
 - [`vector-index-tuning`](../04-ai/vector-index-tuning/SKILL.md) — 向量索引调优
 
+### `可持续性`
+- [`itil-service-management`](../09-verticals/itil-service-management/SKILL.md) — ITIL 服务管理顾问
+
 ### `可持续投资`
 - [`octagon-esg-ratings`](../09-verticals/octagon-esg-ratings/SKILL.md) — ESG评级检索（MSCI / Sustainalytics）
 
@@ -12094,6 +12556,7 @@
 
 ### `可观测性`
 - [`agent-session-trace-audit`](../04-ai/agent-session-trace-audit/SKILL.md) — AI 编码代理会话审计（成本/失败/延迟）
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
 - [`deployment-engineer`](../02-engineering/deployment-engineer/SKILL.md) — CI/CD GitOps 部署工程
 - [`devops-troubleshooter`](../02-engineering/devops-troubleshooter/SKILL.md) — DevOps 事故响应与可观测排障
 - [`distributed-tracing`](../02-engineering/distributed-tracing/SKILL.md) — Jaeger/Tempo 分布式链路追踪
@@ -12101,6 +12564,7 @@
 - [`golang-pro`](../02-engineering/golang-pro/SKILL.md) — Go 现代工程实践
 - [`incident-commander-framework`](../02-engineering/incident-commander-framework/SKILL.md) — 事故指挥与响应框架
 - [`kubernetes-architect`](../02-engineering/kubernetes-architect/SKILL.md) — Kubernetes 云原生架构
+- [`kubernetes-deployment-workflow`](../02-engineering/kubernetes-deployment-workflow/SKILL.md) — Kubernetes 部署工作流
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
 - [`production-llm-app-builder`](../04-ai/production-llm-app-builder/SKILL.md) — 生产级 LLM 应用与 RAG 系统构建
 - [`service-mesh-architect`](../02-engineering/service-mesh-architect/SKILL.md) — 服务网格架构（Istio/Linkerd）
@@ -12135,6 +12599,7 @@
 
 ### `可靠性`
 - [`llm-agent-benchmarking`](../04-ai/llm-agent-benchmarking/SKILL.md) — LLM 智能体测试与基准评测
+- [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
 
 ### `合作伙伴`
 - [`partnerships-strategy-architect`](../05-business/partnerships-strategy-architect/SKILL.md) — 战略合作伙伴架构
@@ -12186,6 +12651,9 @@
 ### `后台处理`
 - [`bullmq-job-queue`](../02-engineering/bullmq-job-queue/SKILL.md) — BullMQ Redis 任务队列后台处理
 
+### `后渗透`
+- [`metasploit-framework`](../08-security/metasploit-framework/SKILL.md) — Metasploit 渗透框架
+
 ### `后端`
 - [`api-security-best-practices`](../08-security/api-security-best-practices/SKILL.md) — API 安全设计最佳实践
 - [`backend-architecture-patterns`](../02-engineering/backend-architecture-patterns/SKILL.md) — 后端架构模式（整洁/六边形/DDD）
@@ -12200,6 +12668,9 @@
 
 ### `后端即服务`
 - [`firebase-backend`](../10-platform/firebase-backend/SKILL.md) — Firebase 后端集成
+
+### `向后兼容`
+- [`legacy-framework-modernizer`](../02-engineering/legacy-framework-modernizer/SKILL.md) — 遗留系统现代化重构（框架迁移）
 
 ### `向量数据库`
 - [`agent-memory-systems`](../04-ai/agent-memory-systems/SKILL.md) — AI 智能体记忆系统设计
@@ -12285,6 +12756,7 @@
 - [`ma-deal-teaser`](../05-business/ma-deal-teaser/SKILL.md) — 并购匿名项目简介（Teaser）
 - [`ma-process-letter`](../05-business/ma-process-letter/SKILL.md) — 并购流程函与报价指引
 - [`marketing-campaign-brief`](../05-business/marketing-campaign-brief/SKILL.md) — 营销活动方案策划
+- [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线
 - [`offer-letter-drafter`](../05-business/offer-letter-drafter/SKILL.md) — 录用通知书起草
 - [`partnerships-strategy-architect`](../05-business/partnerships-strategy-architect/SKILL.md) — 战略合作伙伴架构
 - [`pe-portfolio-monitoring`](../05-business/pe-portfolio-monitoring/SKILL.md) — 被投企业业绩跟踪监控
@@ -12316,6 +12788,7 @@
 - [`business-assumption-stress-test`](../00-meta/business-assumption-stress-test/SKILL.md) — 商业假设压力测试
 
 ### `商业分析`
+- [`ai-disruption-moat-analyzer`](../05-business/ai-disruption-moat-analyzer/SKILL.md) — AI 颠覆护城河分析
 - [`sales-forecast-builder`](../05-business/sales-forecast-builder/SKILL.md) — 加权销售预测构建器
 
 ### `商业化`
@@ -12346,6 +12819,7 @@
 ### `回归测试`
 - [`api-test-suite-builder`](../02-engineering/api-test-suite-builder/SKILL.md) — API 集成测试套件生成
 - [`bug-hunter`](../02-engineering/bug-hunter/SKILL.md) — 症状到根因的缺陷追踪修复
+- [`legacy-framework-modernizer`](../02-engineering/legacy-framework-modernizer/SKILL.md) — 遗留系统现代化重构（框架迁移）
 - [`llm-agent-benchmarking`](../04-ai/llm-agent-benchmarking/SKILL.md) — LLM 智能体测试与基准评测
 
 ### `回撤`
@@ -12360,6 +12834,9 @@
 
 ### `回滚预案`
 - [`pre-deploy-checklist`](../02-engineering/pre-deploy-checklist/SKILL.md) — 发布前核查清单
+
+### `团队健康度`
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
 
 ### `团队协作`
 - [`new-hire-onboarding-plan`](../07-productivity/new-hire-onboarding-plan/SKILL.md) — 新员工入职计划
@@ -12459,12 +12936,19 @@
 ### `增长模型`
 - [`cmo-marketing-advisor`](../05-business/cmo-marketing-advisor/SKILL.md) — CMO 市场营销顾问（品牌与增长）
 
+### `备份`
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
+
 ### `复制`
 - [`database-design-advisor`](../02-engineering/database-design-advisor/SKILL.md) — 数据库选型与迁移设计
+
+### `复杂度`
+- [`algorithm-first-discipline`](../00-meta/algorithm-first-discipline/SKILL.md) — 算法先行思维纪律
 
 ### `复盘`
 - [`agent-self-reflection`](../00-meta/agent-self-reflection/SKILL.md) — Agent 自我反思复盘
 - [`incident-commander-framework`](../02-engineering/incident-commander-framework/SKILL.md) — 事故指挥与响应框架
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
 - [`sre-incident-responder`](../02-engineering/sre-incident-responder/SKILL.md) — SRE 事件响应
 - [`structured-decision-framework`](../00-meta/structured-decision-framework/SKILL.md) — 结构化决策框架
 
@@ -12486,6 +12970,7 @@
 
 ### `多云`
 - [`cloud-cost-optimization`](../10-platform/cloud-cost-optimization/SKILL.md) — 云成本优化
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
 - [`multi-cloud-architecture`](../10-platform/multi-cloud-architecture/SKILL.md) — 多云架构决策框架
 
 ### `多动作打分`
@@ -12551,6 +13036,9 @@
 ### `头脑风暴`
 - [`design-brainstorming`](../00-meta/design-brainstorming/SKILL.md) — 构思转设计的结构化头脑风暴
 
+### `契约`
+- [`invariant-guard-correctness`](../00-meta/invariant-guard-correctness/SKILL.md) — 契约不变式正确性守卫
+
 ### `契约测试`
 - [`api-test-suite-builder`](../02-engineering/api-test-suite-builder/SKILL.md) — API 集成测试套件生成
 
@@ -12562,11 +13050,18 @@
 - [`security-audit-toolkit`](../08-security/security-audit-toolkit/SKILL.md) — 安全审计与威胁建模工具箱
 - [`security-diff-review`](../08-security/security-diff-review/SKILL.md) — 安全导向的差异代码审查
 
+### `威胁情报`
+- [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
+
 ### `威胁狩猎`
 - [`threat-detection-hunting`](../08-security/threat-detection-hunting/SKILL.md) — 威胁狩猎与异常检测
 
+### `媒体偏见`
+- [`helium-news-research-mcp`](../04-ai/helium-news-research-mcp/SKILL.md) — Helium 新闻研究 MCP
+
 ### `媒体生成`
 - [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 - [`videodb-perception-editing`](../06-creative/videodb-perception-editing/SKILL.md) — VideoDB 视频感知索引与编辑
 
 ### `子Agent`
@@ -12599,6 +13094,7 @@
 
 ### `学术写作`
 - [`citation-management`](../01-documents/citation-management/SKILL.md) — 研究写作引文系统化管理
+- [`latex-paper-format-conversion`](../01-documents/latex-paper-format-conversion/SKILL.md) — LaTeX 论文格式转换
 
 ### `安全`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
@@ -12618,20 +13114,26 @@
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试
 - [`compliance-readiness-review`](../08-security/compliance-readiness-review/SKILL.md) — 多框架合规就绪审查（compliance-readiness-review）
 - [`container-security-hardening`](../08-security/container-security-hardening/SKILL.md) — 容器镜像与运行时安全加固
+- [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
 - [`defi-amm-security-audit`](../08-security/defi-amm-security-audit/SKILL.md) — DeFi AMM 智能合约安全审计
 - [`env-secrets-hygiene`](../08-security/env-secrets-hygiene/SKILL.md) — 环境变量与密钥卫生审计
 - [`ffuf-web-fuzzing`](../08-security/ffuf-web-fuzzing/SKILL.md) — ffuf Web 模糊测试
 - [`file-upload-storage`](../02-engineering/file-upload-storage/SKILL.md) — 文件上传与云存储
 - [`firmware-reverse-analyst`](../08-security/firmware-reverse-analyst/SKILL.md) — 固件逆向与 IoT 安全
+- [`html-injection-testing`](../08-security/html-injection-testing/SKILL.md) — HTML 注入测试
 - [`idor-vulnerability-testing`](../08-security/idor-vulnerability-testing/SKILL.md) — IDOR 越权漏洞测试
 - [`iso27001-isms-implementer`](../08-security/iso27001-isms-implementer/SKILL.md) — ISO 27001 信息安全体系实施
 - [`iso42001-aims-specialist`](../08-security/iso42001-aims-specialist/SKILL.md) — ISO 42001 AI 管理体系合规
 - [`k8s-security-policies`](../08-security/k8s-security-policies/SKILL.md) — Kubernetes 安全策略
 - [`laravel-security-audit`](../08-security/laravel-security-audit/SKILL.md) — Laravel 安全审计
 - [`linux-privilege-escalation`](../08-security/linux-privilege-escalation/SKILL.md) — Linux 提权评估
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
+- [`metasploit-framework`](../08-security/metasploit-framework/SKILL.md) — Metasploit 渗透框架
+- [`mtls-zero-trust-config`](../08-security/mtls-zero-trust-config/SKILL.md) — mTLS 零信任配置
 - [`multi-framework-compliance-orchestrator`](../08-security/multi-framework-compliance-orchestrator/SKILL.md) — 多框架合规编排器（multi-framework-compliance-orchestrator）
 - [`path-traversal-testing`](../08-security/path-traversal-testing/SKILL.md) — 路径遍历漏洞利用
 - [`penetration-testing-methodology`](../08-security/penetration-testing-methodology/SKILL.md) — 渗透测试全生命周期
+- [`pentest-lab-network-services`](../08-security/pentest-lab-network-services/SKILL.md) — 渗透实验网络服务搭建
 - [`security-audit-toolkit`](../08-security/security-audit-toolkit/SKILL.md) — 安全审计与威胁建模工具箱
 - [`security-diff-review`](../08-security/security-diff-review/SKILL.md) — 安全导向的差异代码审查
 - [`shodan-reconnaissance`](../08-security/shodan-reconnaissance/SKILL.md) — Shodan 资产侦察方法论
@@ -12661,6 +13163,7 @@
 
 ### `定价`
 - [`cro-revenue-advisor`](../05-business/cro-revenue-advisor/SKILL.md) — CRO 营收增长顾问（B2B SaaS）
+- [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线
 
 ### `定位`
 - [`product-marketing-gtm-strategy`](../05-business/product-marketing-gtm-strategy/SKILL.md) — 产品营销定位与 GTM 策略
@@ -12839,6 +13342,7 @@
 - [`xiaohongshu-content-strategy`](../05-business/xiaohongshu-content-strategy/SKILL.md) — 小红书爆款内容策略
 
 ### `尽职调查`
+- [`ai-disruption-moat-analyzer`](../05-business/ai-disruption-moat-analyzer/SKILL.md) — AI 颠覆护城河分析
 - [`entity-research-dossier`](../00-meta/entity-research-dossier/SKILL.md) — 实体决策级调研档案（entity-research-dossier）
 - [`octagon-sec-10k-analysis`](../09-verticals/octagon-sec-10k-analysis/SKILL.md) — SEC 10-K 年报分析
 - [`octagon-sec-risk-factors`](../09-verticals/octagon-sec-risk-factors/SKILL.md) — SEC 风险因素提取
@@ -12875,11 +13379,15 @@
 ### `工作流`
 - [`claude-command-selector`](../00-meta/claude-command-selector/SKILL.md) — Claude命令与技能选择指南
 - [`jira-expert`](../07-productivity/jira-expert/SKILL.md) — Jira 项目与工作流专家
+- [`n8n-workflow-patterns`](../10-platform/n8n-workflow-patterns/SKILL.md) — n8n 工作流架构模式
 
 ### `工作流编排`
 - [`agent-workflow-pattern-designer`](../04-ai/agent-workflow-pattern-designer/SKILL.md) — 智能体工作流模式设计
 - [`multi-agent-workflow-designer`](../04-ai/multi-agent-workflow-designer/SKILL.md) — 多智能体工作流设计
 - [`saga-orchestration`](../02-engineering/saga-orchestration/SKILL.md) — Saga 分布式事务编排
+
+### `工作流自动化`
+- [`n8n-mcp-tools-expert`](../10-platform/n8n-mcp-tools-expert/SKILL.md) — n8n-mcp 工具专家
 
 ### `工作量分析`
 - [`resource-capacity-planner`](../07-productivity/resource-capacity-planner/SKILL.md) — 资源产能规划
@@ -12891,10 +13399,14 @@
 - [`agent-readiness-aeo-check`](../04-ai/agent-readiness-aeo-check/SKILL.md) — 工具 Agent 就绪度 AEO 评分
 
 ### `工具调用`
+- [`langchain-architecture`](../04-ai/langchain-architecture/SKILL.md) — LangChain 架构设计
 - [`on-device-foundation-models`](../04-ai/on-device-foundation-models/SKILL.md) — 端侧基础模型（量化与隐私推理）
 
 ### `工具质量`
 - [`agent-readiness-aeo-check`](../04-ai/agent-readiness-aeo-check/SKILL.md) — 工具 Agent 就绪度 AEO 评分
+
+### `工具选型`
+- [`n8n-mcp-tools-expert`](../10-platform/n8n-mcp-tools-expert/SKILL.md) — n8n-mcp 工具专家
 
 ### `工具链`
 - [`developer-experience-optimizer`](../07-productivity/developer-experience-optimizer/SKILL.md) — 开发者体验优化
@@ -12917,6 +13429,9 @@
 
 ### `工程文件解析`
 - [`burpsuite-project-parser`](../08-security/burpsuite-project-parser/SKILL.md) — Burp Suite 工程文件命令行解析
+
+### `工程文化`
+- [`kaizen-continuous-improvement`](../00-meta/kaizen-continuous-improvement/SKILL.md) — 改善持续改进法（Kaizen）
 
 ### `市值`
 - [`octagon-batch-market-cap`](../09-verticals/octagon-batch-market-cap/SKILL.md) — 多公司市值批量对比
@@ -12970,7 +13485,9 @@
 - [`exa-semantic-search`](../10-platform/exa-semantic-search/SKILL.md) — Exa 语义搜索研究
 - [`firebase-backend`](../10-platform/firebase-backend/SKILL.md) — Firebase 后端集成
 - [`gcp-cloud-architect`](../10-platform/gcp-cloud-architect/SKILL.md) — GCP 云架构设计
+- [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
 - [`multi-cloud-architecture`](../10-platform/multi-cloud-architecture/SKILL.md) — 多云架构决策框架
+- [`n8n-mcp-tools-expert`](../10-platform/n8n-mcp-tools-expert/SKILL.md) — n8n-mcp 工具专家
 - [`slack-search-techniques`](../10-platform/slack-search-techniques/SKILL.md) — Slack 检索技巧（消息/文件/人）
 
 ### `平台/cli`
@@ -13129,6 +13646,9 @@
 ### `形式化`
 - [`doc-to-math-spec`](../01-documents/doc-to-math-spec/SKILL.md) — 文档转数学问题规范
 
+### `形式化验证`
+- [`invariant-guard-correctness`](../00-meta/invariant-guard-correctness/SKILL.md) — 契约不变式正确性守卫
+
 ### `影响分析`
 - [`change-management-request`](../07-productivity/change-management-request/SKILL.md) — 变更管理请求（影响分析+回滚计划）
 - [`codebase-structure-protocol`](../00-meta/codebase-structure-protocol/SKILL.md) — 代码库结构记忆协议
@@ -13136,8 +13656,13 @@
 ### `待办管理`
 - [`agile-product-owner`](../07-productivity/agile-product-owner/SKILL.md) — 敏捷产品负责人与待办管理
 
+### `循环不变式`
+- [`invariant-guard-correctness`](../00-meta/invariant-guard-correctness/SKILL.md) — 契约不变式正确性守卫
+
 ### `微交互`
 - [`design-spells-microinteractions`](../06-creative/design-spells-microinteractions/SKILL.md) — 网页微交互与设计细节灵感
+- [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
+- [`magic-motion-animator`](../06-creative/magic-motion-animator/SKILL.md) — AI 动效动画生成
 
 ### `微信公众号`
 - [`wechat-official-account-growth`](../05-business/wechat-official-account-growth/SKILL.md) — 微信公众号内容增长策略
@@ -13171,6 +13696,9 @@
 - [`business-assumption-stress-test`](../00-meta/business-assumption-stress-test/SKILL.md) — 商业假设压力测试
 - [`decision-cooldown-freeze`](../00-meta/decision-cooldown-freeze/SKILL.md) — 决策冷静期锁定
 - [`four-voice-decision-council`](../00-meta/four-voice-decision-council/SKILL.md) — 四声决策议会（结构化异议与权衡）
+- [`idea-darwin-evolution`](../00-meta/idea-darwin-evolution/SKILL.md) — 达尔文式创意进化
+- [`invariant-guard-correctness`](../00-meta/invariant-guard-correctness/SKILL.md) — 契约不变式正确性守卫
+- [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
 - [`structured-decision-framework`](../00-meta/structured-decision-framework/SKILL.md) — 结构化决策框架
 
 ### `思维工具`
@@ -13178,9 +13706,14 @@
 
 ### `思维方法`
 - [`first-principles-assumption-auditor`](../00-meta/first-principles-assumption-auditor/SKILL.md) — 第一性原理假设审计
+- [`kaizen-continuous-improvement`](../00-meta/kaizen-continuous-improvement/SKILL.md) — 改善持续改进法（Kaizen）
 - [`premortem-plan-challenger`](../00-meta/premortem-plan-challenger/SKILL.md) — 事前验尸式计划挑战
 
+### `思维纪律`
+- [`algorithm-first-discipline`](../00-meta/algorithm-first-discipline/SKILL.md) — 算法先行思维纪律
+
 ### `性能`
+- [`algorithm-first-discipline`](../00-meta/algorithm-first-discipline/SKILL.md) — 算法先行思维纪律
 - [`performance-profiler`](../02-engineering/performance-profiler/SKILL.md) — 应用性能剖析（Node/Python/Go）
 - [`swiftui-best-practices`](../02-engineering/swiftui-best-practices/SKILL.md) — SwiftUI 状态管理与最佳实践
 
@@ -13196,6 +13729,7 @@
 - [`golang-pro`](../02-engineering/golang-pro/SKILL.md) — Go 现代工程实践
 - [`javascript-modern-pro`](../02-engineering/javascript-modern-pro/SKILL.md) — 现代 JavaScript 进阶
 - [`jetpack-compose-expert`](../02-engineering/jetpack-compose-expert/SKILL.md) — Android Jetpack Compose 开发专家
+- [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
 - [`llm-prompt-caching`](../04-ai/llm-prompt-caching/SKILL.md) — LLM 提示词缓存策略
 - [`modern-angular-expert`](../02-engineering/modern-angular-expert/SKILL.md) — 现代 Angular（v20+）开发专家
 - [`php-pro`](../02-engineering/php-pro/SKILL.md) — PHP 进阶开发
@@ -13206,6 +13740,7 @@
 - [`unreal-engine-cpp`](../06-creative/unreal-engine-cpp/SKILL.md) — Unreal Engine 5 C++ 开发
 
 ### `性能分析`
+- [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
 - [`systematic-debugging-strategies`](../02-engineering/systematic-debugging-strategies/SKILL.md) — 系统化调试策略方法论
 
 ### `性能测试`
@@ -13214,6 +13749,13 @@
 ### `性能调优`
 - [`context-budget-audit`](../00-meta/context-budget-audit/SKILL.md) — 上下文窗口预算审计（裁剪臃肿组件）
 - [`vector-index-tuning`](../04-ai/vector-index-tuning/SKILL.md) — 向量索引调优
+
+### `恶意软件分析`
+- [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
+
+### `患者安全`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
 
 ### `情感分析`
 - [`ai-customer-support`](../05-business/ai-customer-support/SKILL.md) — AI 客户支持与情感分析
@@ -13327,6 +13869,7 @@
 
 ### `技术债`
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构
+- [`legacy-framework-modernizer`](../02-engineering/legacy-framework-modernizer/SKILL.md) — 遗留系统现代化重构（框架迁移）
 
 ### `技术写作`
 - [`code-tutorial-engineer`](../01-documents/code-tutorial-engineer/SKILL.md) — 代码教程与教学内容编写
@@ -13384,6 +13927,9 @@
 ### `投研报告`
 - [`octagon-equity-research-analyst`](../09-verticals/octagon-equity-research-analyst/SKILL.md) — 股票研究分析编排
 
+### `投稿`
+- [`latex-paper-format-conversion`](../01-documents/latex-paper-format-conversion/SKILL.md) — LaTeX 论文格式转换
+
 ### `投行`
 - [`cim-builder`](../05-business/cim-builder/SKILL.md) — 保密信息备忘录（CIM）撰写
 - [`ib-deal-tracker`](../05-business/ib-deal-tracker/SKILL.md) — 投行交易进度跟踪
@@ -13411,6 +13957,9 @@
 
 ### `折扣审批`
 - [`deal-desk-reviewer`](../05-business/deal-desk-reviewer/SKILL.md) — 交易台合同与折扣评审
+
+### `护城河`
+- [`ai-disruption-moat-analyzer`](../05-business/ai-disruption-moat-analyzer/SKILL.md) — AI 颠覆护城河分析
 
 ### `护栏`
 - [`ai-ml-security-assessor`](../08-security/ai-ml-security-assessor/SKILL.md) — AI/ML系统安全评估
@@ -13458,6 +14007,9 @@
 ### `持仓管理`
 - [`investment-thesis-tracker`](../05-business/investment-thesis-tracker/SKILL.md) — 投资逻辑跟踪维护
 
+### `持续改进`
+- [`kaizen-continuous-improvement`](../00-meta/kaizen-continuous-improvement/SKILL.md) — 改善持续改进法（Kaizen）
+
 ### `指标`
 - [`observability-strategy-designer`](../02-engineering/observability-strategy-designer/SKILL.md) — 可观测性策略设计（指标日志追踪）
 
@@ -13479,6 +14031,9 @@
 ### `排期`
 - [`canva-campaign-creator`](../06-creative/canva-campaign-creator/SKILL.md) — Canva 营销活动设计与排期生成
 
+### `排版`
+- [`minimalist-editorial-ui`](../06-creative/minimalist-editorial-ui/SKILL.md) — 极简编辑风界面设计
+
 ### `排错`
 - [`operational-runbook-writer`](../02-engineering/operational-runbook-writer/SKILL.md) — 运维操作手册编写
 
@@ -13487,6 +14042,7 @@
 
 ### `排障`
 - [`devops-troubleshooter`](../02-engineering/devops-troubleshooter/SKILL.md) — DevOps 事故响应与可观测排障
+- [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
 - [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) — Zoom MCP 连接器规划与排障
 
 ### `探索性分析`
@@ -13504,6 +14060,9 @@
 
 ### `控制矩阵`
 - [`soc2-compliance-preparer`](../08-security/soc2-compliance-preparer/SKILL.md) — SOC 2 审计准备与控制矩阵
+
+### `推理优化`
+- [`production-ml-engineer`](../04-ai/production-ml-engineer/SKILL.md) — 生产级 ML 系统工程
 
 ### `推理引擎`
 - [`local-llm-inference`](../04-ai/local-llm-inference/SKILL.md) — 本地 LLM 推理部署
@@ -13547,6 +14106,9 @@
 
 ### `提问归因`
 - [`octagon-earnings-analyst-questions`](../09-verticals/octagon-earnings-analyst-questions/SKILL.md) — 财报电话会分析师提问主题提取
+
+### `插件开发`
+- [`minecraft-bukkit-plugin-dev`](../02-engineering/minecraft-bukkit-plugin-dev/SKILL.md) — Minecraft 服务端插件开发
 
 ### `搜索`
 - [`algolia-search-integration`](../02-engineering/algolia-search-integration/SKILL.md) — Algolia 搜索集成与索引优化
@@ -13594,6 +14156,7 @@
 ### `敏捷`
 - [`agile-product-owner`](../07-productivity/agile-product-owner/SKILL.md) — 敏捷产品负责人与待办管理
 - [`jira-expert`](../07-productivity/jira-expert/SKILL.md) — Jira 项目与工作流专家
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
 
 ### `教学`
 - [`socratic-explainer`](../00-meta/socratic-explainer/SKILL.md) — 苏格拉底式启发讲解
@@ -13612,6 +14175,15 @@
 
 ### `数字一致性`
 - [`ib-deck-quality-check`](../05-business/ib-deck-quality-check/SKILL.md) — 投行演示稿质量审查
+
+### `数字产品`
+- [`itil-service-management`](../09-verticals/itil-service-management/SKILL.md) — ITIL 服务管理顾问
+
+### `数字健康`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
+
+### `数字取证`
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
 
 ### `数字病理`
 - [`histolab-wsi-tiling`](../09-verticals/histolab-wsi-tiling/SKILL.md) — histolab 全视野病理切片分块
@@ -13659,6 +14231,7 @@
 - [`data-question-analyzer`](../03-data/data-question-analyzer/SKILL.md) — 数据问题分析（从速查到正式报告）
 - [`depmap-cancer-dependency`](../09-verticals/depmap-cancer-dependency/SKILL.md) — DepMap 癌症基因依赖图谱查询
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
 
 ### `数据刷新`
 - [`pitch-deck-refresh`](../05-business/pitch-deck-refresh/SKILL.md) — 投行演示稿数据刷新
@@ -13756,6 +14329,9 @@
 ### `数据管道`
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程
 
+### `数据结构`
+- [`algorithm-first-discipline`](../00-meta/algorithm-first-discipline/SKILL.md) — 算法先行思维纪律
+
 ### `数据质量`
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程
 - [`dataset-profiler`](../03-data/dataset-profiler/SKILL.md) — 数据集探查画像
@@ -13794,6 +14370,7 @@
 - [`content-humanizer`](../01-documents/content-humanizer/SKILL.md) — AI文本人性化改写
 - [`doc-coauthoring`](../01-documents/doc-coauthoring/SKILL.md) — 协作式文档共创工作流
 - [`interactive-pdf-viewer`](../01-documents/interactive-pdf-viewer/SKILL.md) — 交互式 PDF 阅览
+- [`latex-paper-format-conversion`](../01-documents/latex-paper-format-conversion/SKILL.md) — LaTeX 论文格式转换
 - [`openapi-doc-generator`](../01-documents/openapi-doc-generator/SKILL.md) — OpenAPI 3.1 API 文档生成
 - [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 - [`professional-proofreader`](../01-documents/professional-proofreader/SKILL.md) — 专业文稿校对
@@ -13877,9 +14454,11 @@
 
 ### `文生图`
 - [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 
 ### `文生视频`
 - [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 
 ### `文风`
 - [`beautiful-prose-stylist`](../01-documents/beautiful-prose-stylist/SKILL.md) — 凝练有力散文写作风格契约
@@ -13889,6 +14468,9 @@
 
 ### `新员工`
 - [`new-hire-onboarding-plan`](../07-productivity/new-hire-onboarding-plan/SKILL.md) — 新员工入职计划
+
+### `新闻情报`
+- [`helium-news-research-mcp`](../04-ai/helium-news-research-mcp/SKILL.md) — Helium 新闻研究 MCP
 
 ### `方案择优`
 - [`parallel-agent-hub`](../04-ai/parallel-agent-hub/SKILL.md) — 并行多智能体竞赛协作中枢
@@ -13918,6 +14500,8 @@
 
 ### `日志分析`
 - [`error-log-detective`](../02-engineering/error-log-detective/SKILL.md) — 日志错误模式排查
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
+- [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
 
 ### `时序图`
 - [`mermaid-diagram-expert`](../06-creative/mermaid-diagram-expert/SKILL.md) — Mermaid 图表绘制专家
@@ -13947,12 +14531,14 @@
 - [`embedding-model-strategies`](../04-ai/embedding-model-strategies/SKILL.md) — 嵌入模型选型与优化
 - [`langfuse-llm-observability`](../04-ai/langfuse-llm-observability/SKILL.md) — Langfuse LLM 可观测
 - [`llm-agent-benchmarking`](../04-ai/llm-agent-benchmarking/SKILL.md) — LLM 智能体测试与基准评测
+- [`llm-app-production-patterns`](../04-ai/llm-app-production-patterns/SKILL.md) — LLM 应用生产级模式
 - [`llm-conversation-memory`](../04-ai/llm-conversation-memory/SKILL.md) — LLM 对话持久记忆系统
 - [`llm-prompt-optimizer`](../04-ai/llm-prompt-optimizer/SKILL.md) — LLM 提示词优化
 - [`local-llm-inference`](../04-ai/local-llm-inference/SKILL.md) — 本地 LLM 推理部署
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
 - [`on-device-foundation-models`](../04-ai/on-device-foundation-models/SKILL.md) — 端侧基础模型（量化与隐私推理）
 - [`production-llm-app-builder`](../04-ai/production-llm-app-builder/SKILL.md) — 生产级 LLM 应用与 RAG 系统构建
+- [`production-ml-engineer`](../04-ai/production-ml-engineer/SKILL.md) — 生产级 ML 系统工程
 - [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
 - [`skill-optimizer`](../04-ai/skill-optimizer/SKILL.md) — Agent 技能诊断与优化（Skill Optimizer）
 - [`vector-index-tuning`](../04-ai/vector-index-tuning/SKILL.md) — 向量索引调优
@@ -13969,6 +14555,7 @@
 - [`autoresearch-optimization-agent`](../04-ai/autoresearch-optimization-agent/SKILL.md) — 自主实验优化智能体循环
 - [`bdi-mental-states`](../04-ai/bdi-mental-states/SKILL.md) — BDI 智能体信念-愿望-意图建模
 - [`context-compression`](../04-ai/context-compression/SKILL.md) — 智能体上下文压缩策略
+- [`langchain-architecture`](../04-ai/langchain-architecture/SKILL.md) — LangChain 架构设计
 - [`langgraph-agent-framework`](../04-ai/langgraph-agent-framework/SKILL.md) — LangGraph 智能体编排
 - [`llm-judge-evaluation`](../04-ai/llm-judge-evaluation/SKILL.md) — LLM-as-Judge 高级评测
 - [`multi-agent-system-designer`](../04-ai/multi-agent-system-designer/SKILL.md) — 多智能体系统架构设计
@@ -14002,9 +14589,21 @@
 ### `月末结账`
 - [`month-end-close-manager`](../05-business/month-end-close-manager/SKILL.md) — 月末结账流程管理
 
+### `服务枚举`
+- [`pentest-lab-network-services`](../08-security/pentest-lab-network-services/SKILL.md) — 渗透实验网络服务搭建
+
+### `服务管理`
+- [`itil-service-management`](../09-verticals/itil-service-management/SKILL.md) — ITIL 服务管理顾问
+
 ### `服务网格`
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
 - [`kubernetes-architect`](../02-engineering/kubernetes-architect/SKILL.md) — Kubernetes 云原生架构
+- [`kubernetes-deployment-workflow`](../02-engineering/kubernetes-deployment-workflow/SKILL.md) — Kubernetes 部署工作流
+- [`mtls-zero-trust-config`](../08-security/mtls-zero-trust-config/SKILL.md) — mTLS 零信任配置
 - [`service-mesh-architect`](../02-engineering/service-mesh-architect/SKILL.md) — 服务网格架构（Istio/Linkerd）
+
+### `期刊模板`
+- [`latex-paper-format-conversion`](../01-documents/latex-paper-format-conversion/SKILL.md) — LaTeX 论文格式转换
 
 ### `期限跟踪`
 - [`employee-leave-deadline-tracker`](../09-verticals/employee-leave-deadline-tracker/SKILL.md) — 员工休假期限跟踪
@@ -14077,6 +14676,9 @@
 ### `板块轮动`
 - [`octagon-sector-pe-ratios`](../09-verticals/octagon-sector-pe-ratios/SKILL.md) — 板块市盈率基准对比
 
+### `极简主义`
+- [`minimalist-editorial-ui`](../06-creative/minimalist-editorial-ui/SKILL.md) — 极简编辑风界面设计
+
 ### `构建优化`
 - [`bazel-build-optimization`](../02-engineering/bazel-build-optimization/SKILL.md) — Bazel 大型单仓构建优化
 
@@ -14092,6 +14694,7 @@
 - [`ddd-context-mapping`](../02-engineering/ddd-context-mapping/SKILL.md) — DDD 限界上下文映射与集成契约
 - [`ddd-strategic-design`](../02-engineering/ddd-strategic-design/SKILL.md) — DDD 战略设计与限界上下文
 - [`docs-architect`](../01-documents/docs-architect/SKILL.md) — 代码库综合技术文档生成
+- [`legacy-framework-modernizer`](../02-engineering/legacy-framework-modernizer/SKILL.md) — 遗留系统现代化重构（框架迁移）
 - [`spec-driven-workflow`](../02-engineering/spec-driven-workflow/SKILL.md) — 规约驱动开发工作流
 - [`tech-stack-evaluator`](../02-engineering/tech-stack-evaluator/SKILL.md) — 技术栈评估与 TCO 对比
 - [`zero-downtime-migration-architect`](../02-engineering/zero-downtime-migration-architect/SKILL.md) — 零停机迁移与回滚架构
@@ -14103,6 +14706,9 @@
 ### `架构审计`
 - [`agent-architecture-audit`](../04-ai/agent-architecture-audit/SKILL.md) — Agent 全栈架构诊断（12 层栈审计）
 
+### `架构模式`
+- [`n8n-workflow-patterns`](../10-platform/n8n-workflow-patterns/SKILL.md) — n8n 工作流架构模式
+
 ### `架构脚手架`
 - [`recsys-pipeline-architect`](../04-ai/recsys-pipeline-architect/SKILL.md) — 推荐排序管线架构师（六阶段 For You 模式）
 
@@ -14110,6 +14716,9 @@
 - [`azure-cloud-architect`](../10-platform/azure-cloud-architect/SKILL.md) — Azure 云架构设计
 - [`event-sourcing-cqrs`](../02-engineering/event-sourcing-cqrs/SKILL.md) — 事件溯源与 CQRS 架构
 - [`multi-agent-system-designer`](../04-ai/multi-agent-system-designer/SKILL.md) — 多智能体系统架构设计
+
+### `架构评审`
+- [`lightning-network-architecture-review`](../09-verticals/lightning-network-architecture-review/SKILL.md) — 闪电网络架构评审
 
 ### `架构走读`
 - [`codetour-authoring`](../01-documents/codetour-authoring/SKILL.md) — CodeTour 代码导览编写
@@ -14157,6 +14766,15 @@
 ### `格式化`
 - [`bullet-point-structurer`](../00-meta/bullet-point-structurer/SKILL.md) — 层级化要点提炼与结构化笔记
 
+### `格式转换`
+- [`latex-paper-format-conversion`](../01-documents/latex-paper-format-conversion/SKILL.md) — LaTeX 论文格式转换
+
+### `框架升级`
+- [`legacy-framework-modernizer`](../02-engineering/legacy-framework-modernizer/SKILL.md) — 遗留系统现代化重构（框架迁移）
+
+### `框架迁移`
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
+
 ### `案件摘要`
 - [`legal-client-intake`](../09-verticals/legal-client-intake/SKILL.md) — 法律客户结构化接案
 
@@ -14183,6 +14801,9 @@
 ### `概率建模`
 - [`octagon-prediction-markets-research`](../09-verticals/octagon-prediction-markets-research/SKILL.md) — 预测市场事件研究
 
+### `概率数据结构`
+- [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
+
 ### `模型仓库`
 - [`huggingface-hub-cli`](../04-ai/huggingface-hub-cli/SKILL.md) — Hugging Face Hub CLI（hf 命令行）
 
@@ -14192,8 +14813,12 @@
 ### `模型反演`
 - [`ai-ml-security-assessor`](../08-security/ai-ml-security-assessor/SKILL.md) — AI/ML系统安全评估
 
+### `模型服务`
+- [`production-ml-engineer`](../04-ai/production-ml-engineer/SKILL.md) — 生产级 ML 系统工程
+
 ### `模型监控`
 - [`mlops-model-productionizer`](../04-ai/mlops-model-productionizer/SKILL.md) — 机器学习模型生产化与 MLOps
+- [`production-ml-engineer`](../04-ai/production-ml-engineer/SKILL.md) — 生产级 ML 系统工程
 
 ### `模型训练`
 - [`huggingface-model-trainer`](../04-ai/huggingface-model-trainer/SKILL.md) — TRL 模型微调训练（Hugging Face Jobs）
@@ -14223,6 +14848,9 @@
 ### `模板化`
 - [`helm-chart-scaffolding`](../02-engineering/helm-chart-scaffolding/SKILL.md) — Helm Chart 打包部署
 
+### `模板部署`
+- [`n8n-mcp-tools-expert`](../10-platform/n8n-mcp-tools-expert/SKILL.md) — n8n-mcp 工具专家
+
 ### `模糊测试`
 - [`api-fuzzing-bug-bounty`](../08-security/api-fuzzing-bug-bounty/SKILL.md) — REST/GraphQL API 模糊测试与漏洞挖掘
 
@@ -14242,6 +14870,9 @@
 
 ### `正则检索`
 - [`burpsuite-project-parser`](../08-security/burpsuite-project-parser/SKILL.md) — Burp Suite 工程文件命令行解析
+
+### `正确性`
+- [`invariant-guard-correctness`](../00-meta/invariant-guard-correctness/SKILL.md) — 契约不变式正确性守卫
 
 ### `死锁`
 - [`gdb-debugging-cli`](../02-engineering/gdb-debugging-cli/SKILL.md) — GDB 崩溃与核心转储调试
@@ -14299,6 +14930,9 @@
 ### `法规合规`
 - [`eu-mdr-745-specialist`](../09-verticals/eu-mdr-745-specialist/SKILL.md) — 欧盟 MDR 2017/745 医疗器械合规
 
+### `注入`
+- [`html-injection-testing`](../08-security/html-injection-testing/SKILL.md) — HTML 注入测试
+
 ### `注入防护`
 - [`backend-security-coder`](../08-security/backend-security-coder/SKILL.md) — 后端安全编码与 API 防护
 
@@ -14330,6 +14964,7 @@
 - [`golang-pro`](../02-engineering/golang-pro/SKILL.md) — Go 现代工程实践
 - [`javascript-testing-patterns`](../02-engineering/javascript-testing-patterns/SKILL.md) — JS/TS 测试策略
 - [`kotlin-coroutines-flow`](../02-engineering/kotlin-coroutines-flow/SKILL.md) — Kotlin 协程与 Flow
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) — Playwright 端到端测试
 - [`python-testing-pytest`](../02-engineering/python-testing-pytest/SKILL.md) — Python pytest 测试模式
@@ -14375,6 +15010,9 @@
 ### `深色模式`
 - [`tailwind-css-patterns`](../02-engineering/tailwind-css-patterns/SKILL.md) — Tailwind CSS v4 模式与设计令牌
 
+### `混合云`
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
+
 ### `清单模板`
 - [`new-hire-onboarding-plan`](../07-productivity/new-hire-onboarding-plan/SKILL.md) — 新员工入职计划
 
@@ -14393,10 +15031,15 @@
 - [`burp-suite-testing`](../08-security/burp-suite-testing/SKILL.md) — Burp Suite Web 安全测试
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试
 - [`ffuf-web-fuzzing`](../08-security/ffuf-web-fuzzing/SKILL.md) — ffuf Web 模糊测试
+- [`html-injection-testing`](../08-security/html-injection-testing/SKILL.md) — HTML 注入测试
 - [`idor-vulnerability-testing`](../08-security/idor-vulnerability-testing/SKILL.md) — IDOR 越权漏洞测试
 - [`linux-privilege-escalation`](../08-security/linux-privilege-escalation/SKILL.md) — Linux 提权评估
+- [`metasploit-framework`](../08-security/metasploit-framework/SKILL.md) — Metasploit 渗透框架
 - [`path-traversal-testing`](../08-security/path-traversal-testing/SKILL.md) — 路径遍历漏洞利用
 - [`penetration-testing-methodology`](../08-security/penetration-testing-methodology/SKILL.md) — 渗透测试全生命周期
+
+### `渗透练习`
+- [`pentest-lab-network-services`](../08-security/pentest-lab-network-services/SKILL.md) — 渗透实验网络服务搭建
 
 ### `渠道`
 - [`partnerships-strategy-architect`](../05-business/partnerships-strategy-architect/SKILL.md) — 战略合作伙伴架构
@@ -14424,6 +15067,9 @@
 - [`bevy-ecs-rust`](../02-engineering/bevy-ecs-rust/SKILL.md) — Bevy 实体组件系统 Rust 游戏开发
 - [`unreal-engine-cpp`](../06-creative/unreal-engine-cpp/SKILL.md) — Unreal Engine 5 C++ 开发
 
+### `游戏服务端`
+- [`minecraft-bukkit-plugin-dev`](../02-engineering/minecraft-bukkit-plugin-dev/SKILL.md) — Minecraft 服务端插件开发
+
 ### `湖仓架构`
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程
 
@@ -14438,6 +15084,9 @@
 
 ### `漏洞`
 - [`laravel-security-audit`](../08-security/laravel-security-audit/SKILL.md) — Laravel 安全审计
+
+### `漏洞利用`
+- [`metasploit-framework`](../08-security/metasploit-framework/SKILL.md) — Metasploit 渗透框架
 
 ### `漏洞扫描`
 - [`burp-suite-testing`](../08-security/burp-suite-testing/SKILL.md) — Burp Suite Web 安全测试
@@ -14478,11 +15127,20 @@
 ### `版本控制`
 - [`git-advanced-workflows`](../02-engineering/git-advanced-workflows/SKILL.md) — Git 高级工作流
 
+### `版本管理`
+- [`mise-toolchain-configurator`](../02-engineering/mise-toolchain-configurator/SKILL.md) — mise 工具链配置
+
 ### `物理层`
 - [`network-interface-health`](../08-security/network-interface-health/SKILL.md) — 网络接口健康诊断（错误/丢包/双工失配）
 
+### `特征工程`
+- [`production-ml-engineer`](../04-ai/production-ml-engineer/SKILL.md) — 生产级 ML 系统工程
+
 ### `特征重要性`
 - [`shap-model-explainability`](../04-ai/shap-model-explainability/SKILL.md) — SHAP 模型可解释性分析
+
+### `特性开关`
+- [`legacy-framework-modernizer`](../02-engineering/legacy-framework-modernizer/SKILL.md) — 遗留系统现代化重构（框架迁移）
 
 ### `状态图`
 - [`langgraph-agent-framework`](../04-ai/langgraph-agent-framework/SKILL.md) — LangGraph 智能体编排
@@ -14524,6 +15182,12 @@
 
 ### `理化属性`
 - [`pubchem-compound-search`](../09-verticals/pubchem-compound-search/SKILL.md) — PubChem 化合物检索
+
+### `瑞士印刷`
+- [`industrial-brutalist-ui`](../06-creative/industrial-brutalist-ui/SKILL.md) — 工业野兽派遥测 UI
+
+### `生产就绪`
+- [`kubernetes-deployment-workflow`](../02-engineering/kubernetes-deployment-workflow/SKILL.md) — Kubernetes 部署工作流
 
 ### `生产纪律`
 - [`vp-engineering-advisor`](../02-engineering/vp-engineering-advisor/SKILL.md) — 工程副总裁顾问（DORA 交付效能）
@@ -14604,6 +15268,7 @@
 
 ### `留存`
 - [`cro-revenue-advisor`](../05-business/cro-revenue-advisor/SKILL.md) — CRO 营收增长顾问（B2B SaaS）
+- [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线
 
 ### `留资`
 - [`lead-form-cro`](../05-business/lead-form-cro/SKILL.md) — 表单转化率优化（lead-form-cro）
@@ -14619,6 +15284,9 @@
 
 ### `盈利质量`
 - [`octagon-cash-flow-growth`](../09-verticals/octagon-cash-flow-growth/SKILL.md) — 现金流指标同比增长分析
+
+### `监控`
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
 
 ### `监控仪表盘`
 - [`observability-dashboard-builder`](../02-engineering/observability-dashboard-builder/SKILL.md) — 可运维监控仪表盘构建（Grafana/SigNoz）
@@ -14740,8 +15408,10 @@
 - [`i18n-localization-patterns`](../02-engineering/i18n-localization-patterns/SKILL.md) — 国际化与本地化模式
 - [`incident-commander-framework`](../02-engineering/incident-commander-framework/SKILL.md) — 事故指挥与响应框架
 - [`ios-swiftui-developer`](../02-engineering/ios-swiftui-developer/SKILL.md) — iOS SwiftUI 原生开发
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
 - [`laravel-app-specialist`](../02-engineering/laravel-app-specialist/SKILL.md) — Laravel 应用开发专家
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
 - [`nestjs-expert`](../02-engineering/nestjs-expert/SKILL.md) — NestJS 企业架构
 - [`observability-dashboard-builder`](../02-engineering/observability-dashboard-builder/SKILL.md) — 可运维监控仪表盘构建（Grafana/SigNoz）
 - [`observability-strategy-designer`](../02-engineering/observability-strategy-designer/SKILL.md) — 可观测性策略设计（指标日志追踪）
@@ -14780,6 +15450,7 @@
 - [`vp-engineering-advisor`](../02-engineering/vp-engineering-advisor/SKILL.md) — 工程副总裁顾问（DORA 交付效能）
 
 ### `研究`
+- [`helium-news-research-mcp`](../04-ai/helium-news-research-mcp/SKILL.md) — Helium 新闻研究 MCP
 - [`notebooklm-source-grounded-qa`](../00-meta/notebooklm-source-grounded-qa/SKILL.md) — NotebookLM 源锚定问答
 
 ### `研究综合`
@@ -14805,6 +15476,9 @@
 
 ### `社媒分析`
 - [`social-media-performance-analyzer`](../05-business/social-media-performance-analyzer/SKILL.md) — 社媒投放绩效分析
+
+### `社媒素材`
+- [`magic-motion-animator`](../06-creative/magic-motion-animator/SKILL.md) — AI 动效动画生成
 
 ### `神经符号`
 - [`bdi-mental-states`](../04-ai/bdi-mental-states/SKILL.md) — BDI 智能体信念-愿望-意图建模
@@ -14852,6 +15526,9 @@
 - [`ios-swiftui-developer`](../02-engineering/ios-swiftui-developer/SKILL.md) — iOS SwiftUI 原生开发
 - [`react-native-architecture`](../02-engineering/react-native-architecture/SKILL.md) — React Native 架构模式
 
+### `移动测试`
+- [`lambdatest-cross-framework-testing`](../02-engineering/lambdatest-cross-framework-testing/SKILL.md) — LambdaTest 多框架测试自动化
+
 ### `移动端优化`
 - [`lead-form-cro`](../05-business/lead-form-cro/SKILL.md) — 表单转化率优化（lead-form-cro）
 
@@ -14871,6 +15548,9 @@
 - [`competitive-intel-tracker`](../05-business/competitive-intel-tracker/SKILL.md) — 竞争情报系统化追踪
 - [`competitive-matrix-builder`](../05-business/competitive-matrix-builder/SKILL.md) — 竞争分析矩阵构建
 - [`entity-research-dossier`](../00-meta/entity-research-dossier/SKILL.md) — 实体决策级调研档案（entity-research-dossier）
+
+### `竞争战略`
+- [`ai-disruption-moat-analyzer`](../05-business/ai-disruption-moat-analyzer/SKILL.md) — AI 颠覆护城河分析
 
 ### `竞争格局`
 - [`sector-landscape-report`](../05-business/sector-landscape-report/SKILL.md) — 行业格局综述报告
@@ -14914,7 +15594,10 @@
 - [`llm-coding-mistake-guardrails`](../02-engineering/llm-coding-mistake-guardrails/SKILL.md) — 减少 LLM 编码常见错误的准则
 
 ### `算法`
+- [`algorithm-first-discipline`](../00-meta/algorithm-first-discipline/SKILL.md) — 算法先行思维纪律
 - [`complexity-cuts`](../02-engineering/complexity-cuts/SKILL.md) — 降低算法时空复杂度优化
+- [`invariant-guard-correctness`](../00-meta/invariant-guard-correctness/SKILL.md) — 契约不变式正确性守卫
+- [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
 
 ### `管理员`
@@ -14959,6 +15642,7 @@
 - [`aws-penetration-testing`](../08-security/aws-penetration-testing/SKILL.md) — AWS 云环境渗透测试
 - [`cloud-penetration-testing`](../08-security/cloud-penetration-testing/SKILL.md) — 多云基础设施渗透测试
 - [`linux-privilege-escalation`](../08-security/linux-privilege-escalation/SKILL.md) — Linux 提权评估
+- [`metasploit-framework`](../08-security/metasploit-framework/SKILL.md) — Metasploit 渗透框架
 - [`penetration-testing-methodology`](../08-security/penetration-testing-methodology/SKILL.md) — 渗透测试全生命周期
 - [`shodan-reconnaissance`](../08-security/shodan-reconnaissance/SKILL.md) — Shodan 资产侦察方法论
 
@@ -15062,6 +15746,9 @@
 ### `绘图`
 - [`matplotlib-visualization`](../03-data/matplotlib-visualization/SKILL.md) — Matplotlib 数据可视化
 
+### `绞杀者模式`
+- [`legacy-framework-modernizer`](../02-engineering/legacy-framework-modernizer/SKILL.md) — 遗留系统现代化重构（框架迁移）
+
 ### `绞杀者迁移`
 - [`hexagonal-architecture`](../02-engineering/hexagonal-architecture/SKILL.md) — 六边形架构（端口与适配器模式）
 
@@ -15119,6 +15806,9 @@
 ### `编译工具链`
 - [`dwarf-debug-format-expert`](../02-engineering/dwarf-debug-format-expert/SKILL.md) — DWARF 调试格式专家
 
+### `编译排错`
+- [`latex-paper-format-conversion`](../01-documents/latex-paper-format-conversion/SKILL.md) — LaTeX 论文格式转换
+
 ### `缺失值`
 - [`dataset-quality-auditor`](../03-data/dataset-quality-auditor/SKILL.md) — 数据集质量审计
 
@@ -15128,6 +15818,9 @@
 ### `缺陷分级`
 - [`sox-control-testing`](../08-security/sox-control-testing/SKILL.md) — SOX 404 内控测试支持
 
+### `网关`
+- [`algorithm-first-discipline`](../00-meta/algorithm-first-discipline/SKILL.md) — 算法先行思维纪律
+
 ### `网站迁移`
 - [`seo-traffic-drop-forensics`](../05-business/seo-traffic-drop-forensics/SKILL.md) — SEO 流量骤降取证排查
 
@@ -15136,13 +15829,20 @@
 
 ### `网络`
 - [`cisco-ios-review-patterns`](../08-security/cisco-ios-review-patterns/SKILL.md) — Cisco IOS/IOS-XE 配置审查模式
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 - [`network-interface-health`](../08-security/network-interface-health/SKILL.md) — 网络接口健康诊断（错误/丢包/双工失配）
+
+### `网络服务`
+- [`pentest-lab-network-services`](../08-security/pentest-lab-network-services/SKILL.md) — 渗透实验网络服务搭建
 
 ### `网络科学`
 - [`networkx-graph-analysis`](../03-data/networkx-graph-analysis/SKILL.md) — NetworkX 图与网络分析
 
 ### `网络策略`
 - [`k8s-security-policies`](../08-security/k8s-security-policies/SKILL.md) — Kubernetes 安全策略
+
+### `网络诊断`
+- [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
 
 ### `网页抓取`
 - [`browser-automation-builder`](../10-platform/browser-automation-builder/SKILL.md) — 浏览器自动化与抓取
@@ -15184,6 +15884,9 @@
 ### `联合GTM`
 - [`partnerships-strategy-architect`](../05-business/partnerships-strategy-architect/SKILL.md) — 战略合作伙伴架构
 
+### `联网搜索`
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
+
 ### `股东回报`
 - [`octagon-earnings-capital-allocation`](../09-verticals/octagon-earnings-capital-allocation/SKILL.md) — 管理层资本配置与股东回报解读
 
@@ -15205,6 +15908,9 @@
 
 ### `股票收益`
 - [`octagon-stock-price-change`](../09-verticals/octagon-stock-price-change/SKILL.md) — 多周期股价涨跌幅统计
+
+### `股票期权`
+- [`helium-news-research-mcp`](../04-ai/helium-news-research-mcp/SKILL.md) — Helium 新闻研究 MCP
 
 ### `股票评级`
 - [`octagon-ratings-snapshot`](../09-verticals/octagon-ratings-snapshot/SKILL.md) — 公司评级与关键指标快照
@@ -15238,6 +15944,7 @@
 - [`email-sequence-designer`](../05-business/email-sequence-designer/SKILL.md) — 邮件序列编排设计
 - [`google-workspace-cli-admin`](../10-platform/google-workspace-cli-admin/SKILL.md) — Google Workspace CLI 管理自动化
 - [`lifecycle-email-sequence`](../05-business/lifecycle-email-sequence/SKILL.md) — 生命周期邮件序列设计
+- [`n8n-workflow-patterns`](../10-platform/n8n-workflow-patterns/SKILL.md) — n8n 工作流架构模式
 - [`zapier-make-automation`](../07-productivity/zapier-make-automation/SKILL.md) — Zapier 与 Make 无代码自动化
 
 ### `自动化循环`
@@ -15261,6 +15968,9 @@
 ### `自由现金流`
 - [`octagon-cash-flow-growth`](../09-verticals/octagon-cash-flow-growth/SKILL.md) — 现金流指标同比增长分析
 - [`octagon-cash-flow-statement-data`](../09-verticals/octagon-cash-flow-statement-data/SKILL.md) — 现金流量表数据检索
+
+### `节点校验`
+- [`n8n-mcp-tools-expert`](../10-platform/n8n-mcp-tools-expert/SKILL.md) — n8n-mcp 工具专家
 
 ### `苏格拉底法`
 - [`socratic-explainer`](../00-meta/socratic-explainer/SKILL.md) — 苏格拉底式启发讲解
@@ -15342,10 +16052,14 @@
 ### `董事会治理`
 - [`board-deck-builder`](../05-business/board-deck-builder/SKILL.md) — 董事会与投资人汇报材料生成
 
+### `蒙特卡洛`
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
+
 ### `蓝图`
 - [`unreal-engine-cpp`](../06-creative/unreal-engine-cpp/SKILL.md) — Unreal Engine 5 C++ 开发
 
 ### `蓝队`
+- [`memory-forensics`](../08-security/memory-forensics/SKILL.md) — 内存取证分析
 - [`threat-detection-hunting`](../08-security/threat-detection-hunting/SKILL.md) — 威胁狩猎与异常检测
 
 ### `薪酬`
@@ -15454,6 +16168,7 @@
 - [`spec-driven-workflow`](../02-engineering/spec-driven-workflow/SKILL.md) — 规约驱动开发工作流
 
 ### `视听`
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 - [`videodb-perception-editing`](../06-creative/videodb-perception-editing/SKILL.md) — VideoDB 视频感知索引与编辑
 
 ### `视觉回归`
@@ -15464,6 +16179,9 @@
 
 ### `视觉模型`
 - [`computer-use-agents`](../04-ai/computer-use-agents/SKILL.md) — 计算机操作型 AI 智能体构建
+
+### `视觉设计`
+- [`high-end-visual-design`](../06-creative/high-end-visual-design/SKILL.md) — 高端视觉界面设计
 
 ### `视觉语言模型`
 - [`computer-vision-expert`](../04-ai/computer-vision-expert/SKILL.md) — 计算机视觉 YOLO/SAM/VLM 专家
@@ -15505,6 +16223,9 @@
 
 ### `议题识别`
 - [`legal-client-intake`](../09-verticals/legal-client-intake/SKILL.md) — 法律客户结构化接案
+
+### `记忆`
+- [`langchain-architecture`](../04-ai/langchain-architecture/SKILL.md) — LangChain 架构设计
 
 ### `记忆巩固`
 - [`llm-conversation-memory`](../04-ai/llm-conversation-memory/SKILL.md) — LLM 对话持久记忆系统
@@ -15552,6 +16273,7 @@
 - [`clean-craft-code-review`](../02-engineering/clean-craft-code-review/SKILL.md) — 整洁代码工艺评审（Uncle Bob）
 
 ### `设计系统`
+- [`iconsax-icon-library`](../06-creative/iconsax-icon-library/SKILL.md) — Iconsax 图标库与生成
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
 - [`ui-design-system-builder`](../06-creative/ui-design-system-builder/SKILL.md) — UI 设计系统与设计令牌
 - [`web-component-design`](../02-engineering/web-component-design/SKILL.md) — Web 组件设计模式
@@ -15570,6 +16292,9 @@
 
 ### `访问控制`
 - [`idor-vulnerability-testing`](../08-security/idor-vulnerability-testing/SKILL.md) — IDOR 越权漏洞测试
+
+### `证书管理`
+- [`mtls-zero-trust-config`](../08-security/mtls-zero-trust-config/SKILL.md) — mTLS 零信任配置
 
 ### `证据引用`
 - [`doc-to-math-spec`](../01-documents/doc-to-math-spec/SKILL.md) — 文档转数学问题规范
@@ -15595,6 +16320,9 @@
 
 ### `评分卡`
 - [`interview-plan-builder`](../05-business/interview-plan-builder/SKILL.md) — 结构化面试方案设计
+
+### `评分框架`
+- [`idea-darwin-evolution`](../00-meta/idea-darwin-evolution/SKILL.md) — 达尔文式创意进化
 
 ### `评分系统`
 - [`earnings-trade-analyzer`](../09-verticals/earnings-trade-analyzer/SKILL.md) — 财报后交易五因子评分
@@ -15626,6 +16354,7 @@
 
 ### `语义检索`
 - [`exa-semantic-search`](../10-platform/exa-semantic-search/SKILL.md) — Exa 语义搜索研究
+- [`helium-news-research-mcp`](../04-ai/helium-news-research-mcp/SKILL.md) — Helium 新闻研究 MCP
 
 ### `语气`
 - [`customer-response-drafter`](../05-business/customer-response-drafter/SKILL.md) — 客户回复文案起草
@@ -15674,6 +16403,9 @@
 
 ### `谈话要点`
 - [`signal-based-call-prep`](../05-business/signal-based-call-prep/SKILL.md) — 基于信号的客户通话准备（Common Room）
+
+### `负载均衡`
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
 
 ### `负载测试`
 - [`k6-load-testing`](../02-engineering/k6-load-testing/SKILL.md) — k6 负载压力测试
@@ -15878,11 +16610,17 @@
 ### `软电话CTI`
 - [`zoom-phone-integration`](../10-platform/zoom-phone-integration/SKILL.md) — Zoom Phone 集成（呼叫/事件/API）
 
+### `载荷生成`
+- [`metasploit-framework`](../08-security/metasploit-framework/SKILL.md) — Metasploit 渗透框架
+
 ### `输入校验`
 - [`api-security-best-practices`](../08-security/api-security-best-practices/SKILL.md) — API 安全设计最佳实践
 
 ### `输出约束`
 - [`full-output-enforcement`](../02-engineering/full-output-enforcement/SKILL.md) — 完整无省略代码输出约束
+
+### `边界用例`
+- [`invariant-guard-correctness`](../00-meta/invariant-guard-correctness/SKILL.md) — 契约不变式正确性守卫
 
 ### `边缘计算`
 - [`cloudflare-workers-edge`](../10-platform/cloudflare-workers-edge/SKILL.md) — Cloudflare Workers KV D1 R2 边缘平台
@@ -15896,6 +16634,7 @@
 - [`drizzle-orm-expert`](../02-engineering/drizzle-orm-expert/SKILL.md) — Drizzle ORM 模式设计
 - [`fp-ts-refactor`](../02-engineering/fp-ts-refactor/SKILL.md) — 命令式 TS 重构为 fp-ts
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构
+- [`legacy-framework-modernizer`](../02-engineering/legacy-framework-modernizer/SKILL.md) — 遗留系统现代化重构（框架迁移）
 - [`multi-cloud-architecture`](../10-platform/multi-cloud-architecture/SKILL.md) — 多云架构决策框架
 - [`tech-stack-evaluator`](../02-engineering/tech-stack-evaluator/SKILL.md) — 技术栈评估与 TCO 对比
 - [`zero-downtime-migration-architect`](../02-engineering/zero-downtime-migration-architect/SKILL.md) — 零停机迁移与回滚架构
@@ -15904,6 +16643,8 @@
 - [`iso13485-qms-implementer`](../09-verticals/iso13485-qms-implementer/SKILL.md) — ISO 13485 质量管理体系实施
 
 ### `运维`
+- [`linux-sysadmin-shell-scripts`](../02-engineering/linux-sysadmin-shell-scripts/SKILL.md) — Linux 运维脚本模板
+- [`linux-system-troubleshooting`](../02-engineering/linux-system-troubleshooting/SKILL.md) — Linux 系统排障
 - [`observability-dashboard-builder`](../02-engineering/observability-dashboard-builder/SKILL.md) — 可运维监控仪表盘构建（Grafana/SigNoz）
 
 ### `运维自动化`
@@ -15930,6 +16671,9 @@
 ### `运行时验证`
 - [`closed-loop-delivery`](../00-meta/closed-loop-delivery/SKILL.md) — 验收标准闭环交付
 
+### `近似算法`
+- [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
+
 ### `进出口单证`
 - [`customs-trade-compliance`](../09-verticals/customs-trade-compliance/SKILL.md) — 海关报关与关税合规
 
@@ -15949,6 +16693,9 @@
 ### `连接池`
 - [`neon-serverless-postgres`](../02-engineering/neon-serverless-postgres/SKILL.md) — Neon Serverless Postgres
 
+### `迭代`
+- [`idea-darwin-evolution`](../00-meta/idea-darwin-evolution/SKILL.md) — 达尔文式创意进化
+
 ### `追售`
 - [`paywall-upgrade-cro`](../05-business/paywall-upgrade-cro/SKILL.md) — 应用内付费墙与升级转化优化
 
@@ -15962,6 +16709,7 @@
 - [`binary-analysis-patterns`](../08-security/binary-analysis-patterns/SKILL.md) — 二进制逆向与汇编分析模式
 - [`c4-architecture-docs`](../02-engineering/c4-architecture-docs/SKILL.md) — C4 模型架构文档自动生成
 - [`codebase-to-prd`](../01-documents/codebase-to-prd/SKILL.md) — 代码库逆向生成PRD
+- [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
 - [`firmware-reverse-analyst`](../08-security/firmware-reverse-analyst/SKILL.md) — 固件逆向与 IoT 安全
 
 ### `选型`
@@ -15996,6 +16744,9 @@
 - [`design-brainstorming`](../00-meta/design-brainstorming/SKILL.md) — 构思转设计的结构化头脑风暴
 - [`four-voice-decision-council`](../00-meta/four-voice-decision-council/SKILL.md) — 四声决策议会（结构化异议与权衡）
 - [`hard-call-advisor`](../00-meta/hard-call-advisor/SKILL.md) — 艰难抉择推演顾问
+- [`idea-darwin-evolution`](../00-meta/idea-darwin-evolution/SKILL.md) — 达尔文式创意进化
+- [`invariant-guard-correctness`](../00-meta/invariant-guard-correctness/SKILL.md) — 契约不变式正确性守卫
+- [`large-scale-math-algorithms`](../00-meta/large-scale-math-algorithms/SKILL.md) — 大规模数学算法升级
 - [`parallel-agent-dispatch`](../00-meta/parallel-agent-dispatch/SKILL.md) — 并行独立任务分派
 - [`plan-execution-checkpoints`](../00-meta/plan-execution-checkpoints/SKILL.md) — 分批执行计划与检查点
 - [`premortem-plan-challenger`](../00-meta/premortem-plan-challenger/SKILL.md) — 事前验尸式计划挑战
@@ -16016,11 +16767,17 @@
 ### `通过率`
 - [`coding-agent-headtohead-eval`](../04-ai/coding-agent-headtohead-eval/SKILL.md) — 编码 Agent 对比评测（通过率/成本/耗时）
 
+### `速度预测`
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
+
 ### `速读`
 - [`rsvp-speed-reader`](../00-meta/rsvp-speed-reader/SKILL.md) — RSVP 快速阅读器
 
 ### `遣散`
 - [`employment-termination-review`](../09-verticals/employment-termination-review/SKILL.md) — 员工解雇合规审查
+
+### `遥测`
+- [`industrial-brutalist-ui`](../06-creative/industrial-brutalist-ui/SKILL.md) — 工业野兽派遥测 UI
 
 ### `邮件`
 - [`customer-response-drafter`](../05-business/customer-response-drafter/SKILL.md) — 客户回复文案起草
@@ -16039,6 +16796,9 @@
 
 ### `部署协调`
 - [`release-manager`](../02-engineering/release-manager/SKILL.md) — 发布管理与部署协调
+
+### `部署工作流`
+- [`kubernetes-deployment-workflow`](../02-engineering/kubernetes-deployment-workflow/SKILL.md) — Kubernetes 部署工作流
 
 ### `部署工程`
 - [`deployment-engineer`](../02-engineering/deployment-engineer/SKILL.md) — CI/CD GitOps 部署工程
@@ -16080,12 +16840,16 @@
 - [`complexity-cuts`](../02-engineering/complexity-cuts/SKILL.md) — 降低算法时空复杂度优化
 - [`fp-ts-pragmatic-guide`](../02-engineering/fp-ts-pragmatic-guide/SKILL.md) — fp-ts 实用函数式编程
 - [`fp-ts-refactor`](../02-engineering/fp-ts-refactor/SKILL.md) — 命令式 TS 重构为 fp-ts
+- [`kaizen-continuous-improvement`](../00-meta/kaizen-continuous-improvement/SKILL.md) — 改善持续改进法（Kaizen）
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) — 遗留系统现代化重构
 - [`llm-coding-mistake-guardrails`](../02-engineering/llm-coding-mistake-guardrails/SKILL.md) — 减少 LLM 编码常见错误的准则
 
 ### `重试退避`
 - [`bullmq-job-queue`](../02-engineering/bullmq-job-queue/SKILL.md) — BullMQ Redis 任务队列后台处理
 - [`cost-aware-llm-pipeline`](../04-ai/cost-aware-llm-pipeline/SKILL.md) — 成本感知 LLM 管线（模型路由与预算控制）
+
+### `野兽派`
+- [`industrial-brutalist-ui`](../06-creative/industrial-brutalist-ui/SKILL.md) — 工业野兽派遥测 UI
 
 ### `量化`
 - [`local-llm-inference`](../04-ai/local-llm-inference/SKILL.md) — 本地 LLM 推理部署
@@ -16120,11 +16884,17 @@
 ### `金融API`
 - [`alpha-vantage-market-data`](../09-verticals/alpha-vantage-market-data/SKILL.md) — Alpha Vantage 全球金融数据接入
 
+### `金融数据`
+- [`helium-news-research-mcp`](../04-ai/helium-news-research-mcp/SKILL.md) — Helium 新闻研究 MCP
+
 ### `鉴权`
 - [`convex-reactive-backend`](../02-engineering/convex-reactive-backend/SKILL.md) — Convex 响应式后端与实时订阅
 - [`laravel-security-audit`](../08-security/laravel-security-audit/SKILL.md) — Laravel 安全审计
 - [`rest-api-endpoint-builder`](../02-engineering/rest-api-endpoint-builder/SKILL.md) — 生产级 REST API 端点构建
 - [`websocket-realtime-engineer`](../02-engineering/websocket-realtime-engineer/SKILL.md) — WebSocket 实时通信工程
+
+### `钓鱼`
+- [`html-injection-testing`](../08-security/html-injection-testing/SKILL.md) — HTML 注入测试
 
 ### `链路追踪`
 - [`devops-troubleshooter`](../02-engineering/devops-troubleshooter/SKILL.md) — DevOps 事故响应与可观测排障
@@ -16190,6 +16960,9 @@
 ### `防御规划`
 - [`attack-tree-construction`](../08-security/attack-tree-construction/SKILL.md) — 攻击树构建与威胁路径可视化
 
+### `防错`
+- [`kaizen-continuous-improvement`](../00-meta/kaizen-continuous-improvement/SKILL.md) — 改善持续改进法（Kaizen）
+
 ### `防锚定`
 - [`four-voice-decision-council`](../00-meta/four-voice-decision-council/SKILL.md) — 四声决策议会（结构化异议与权衡）
 
@@ -16215,6 +16988,7 @@
 
 ### `集成`
 - [`atlassian-admin`](../10-platform/atlassian-admin/SKILL.md) — Atlassian 产品管理与配置
+- [`n8n-workflow-patterns`](../10-platform/n8n-workflow-patterns/SKILL.md) — n8n 工作流架构模式
 - [`zoom-product-surface-selector`](../10-platform/zoom-product-surface-selector/SKILL.md) — Zoom 构建面选型与权衡
 
 ### `集成测试`
@@ -16226,6 +17000,8 @@
 - [`zoom-integration-planner`](../10-platform/zoom-integration-planner/SKILL.md) — Zoom 集成方案规划（架构/认证/里程碑）
 
 ### `零信任`
+- [`cloud-network-engineer`](../02-engineering/cloud-network-engineer/SKILL.md) — 云网络工程
+- [`mtls-zero-trust-config`](../08-security/mtls-zero-trust-config/SKILL.md) — mTLS 零信任配置
 - [`service-mesh-architect`](../02-engineering/service-mesh-architect/SKILL.md) — 服务网格架构（Istio/Linkerd）
 
 ### `零停机`
@@ -16259,8 +17035,14 @@
 ### `面试官分工`
 - [`interview-plan-builder`](../05-business/interview-plan-builder/SKILL.md) — 结构化面试方案设计
 
+### `靶场`
+- [`pentest-lab-network-services`](../08-security/pentest-lab-network-services/SKILL.md) — 渗透实验网络服务搭建
+
 ### `靶点发现`
 - [`depmap-cancer-dependency`](../09-verticals/depmap-cancer-dependency/SKILL.md) — DepMap 癌症基因依赖图谱查询
+
+### `音乐生成`
+- [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 
 ### `音效`
 - [`fal-ai-media-generation`](../06-creative/fal-ai-media-generation/SKILL.md) — fal.ai 多模态媒体生成（图像/视频/音频）
@@ -16273,6 +17055,7 @@
 
 ### `项目管理`
 - [`jira-expert`](../07-productivity/jira-expert/SKILL.md) — Jira 项目与工作流专家
+- [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
 
 ### `项目说明`
 - [`readme-doc-writer`](../01-documents/readme-doc-writer/SKILL.md) — README 文档撰写
@@ -16355,6 +17138,7 @@
 - [`trade-position-sizer`](../09-verticals/trade-position-sizer/SKILL.md) — 风险化仓位计算
 
 ### `风险评估`
+- [`ai-disruption-moat-analyzer`](../05-business/ai-disruption-moat-analyzer/SKILL.md) — AI 颠覆护城河分析
 - [`attack-tree-construction`](../08-security/attack-tree-construction/SKILL.md) — 攻击树构建与威胁路径可视化
 - [`boardroom-deliberation`](../00-meta/boardroom-deliberation/SKILL.md) — C 级多角色董事会六阶段审议
 - [`business-assumption-stress-test`](../00-meta/business-assumption-stress-test/SKILL.md) — 商业假设压力测试
@@ -16375,6 +17159,10 @@
 - [`closed-loop-delivery`](../00-meta/closed-loop-delivery/SKILL.md) — 验收标准闭环交付
 - [`prd-spec-writer`](../07-productivity/prd-spec-writer/SKILL.md) — PRD 与功能规格撰写
 - [`spec-driven-workflow`](../02-engineering/spec-driven-workflow/SKILL.md) — 规约驱动开发工作流
+
+### `高可用`
+- [`hospital-it-management`](../09-verticals/hospital-it-management/SKILL.md) — 医院 IT 管理顾问
+- [`hybrid-cloud-networking`](../02-engineering/hybrid-cloud-networking/SKILL.md) — 混合云网络连接
 
 ### `高管`
 - [`hard-call-advisor`](../00-meta/hard-call-advisor/SKILL.md) — 艰难抉择推演顾问

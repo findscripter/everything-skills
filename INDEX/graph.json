@@ -8,6 +8,13 @@
       "status": "stable"
     },
     {
+      "id": "algorithm-first-discipline",
+      "title": "算法先行思维纪律",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "boardroom-deliberation",
       "title": "C 级多角色董事会六阶段审议",
       "domain": "通用/thinking",
@@ -148,10 +155,38 @@
       "status": "stable"
     },
     {
+      "id": "idea-darwin-evolution",
+      "title": "达尔文式创意进化",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "interview-job-coach",
       "title": "求职面试全流程辅导",
       "domain": "通用/learning",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "invariant-guard-correctness",
+      "title": "契约不变式正确性守卫",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "kaizen-continuous-improvement",
+      "title": "改善持续改进法（Kaizen）",
+      "domain": "通用/thinking",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "large-scale-math-algorithms",
+      "title": "大规模数学算法升级",
+      "domain": "通用/thinking",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -334,6 +369,13 @@
       "title": "内部沟通文书撰写",
       "domain": "文书/writing",
       "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "latex-paper-format-conversion",
+      "title": "LaTeX 论文格式转换",
+      "domain": "文书/writing",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -641,6 +683,13 @@
       "id": "click-path-state-audit",
       "title": "点击路径状态序列审计（隐性交互冲突）",
       "domain": "研发/testing",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "cloud-network-engineer",
+      "title": "云网络工程",
+      "domain": "研发/devops",
       "level": "精通",
       "status": "stable"
     },
@@ -1009,6 +1058,13 @@
       "status": "stable"
     },
     {
+      "id": "haskell-pro",
+      "title": "Haskell 函数式工程",
+      "domain": "研发/backend",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "helm-chart-scaffolding",
       "title": "Helm Chart 打包部署",
       "domain": "研发/devops",
@@ -1026,6 +1082,13 @@
       "id": "hono-edge-api",
       "title": "Hono 边缘 Web 框架",
       "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "hybrid-cloud-networking",
+      "title": "混合云网络连接",
+      "domain": "研发/devops",
       "level": "进阶",
       "status": "stable"
     },
@@ -1086,6 +1149,13 @@
       "status": "stable"
     },
     {
+      "id": "julia-scientific-pro",
+      "title": "Julia 科学计算工程",
+      "domain": "研发/backend",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "k6-load-testing",
       "title": "k6 负载压力测试",
       "domain": "研发/testing",
@@ -1104,6 +1174,20 @@
       "title": "Kubernetes 云原生架构",
       "domain": "研发/devops",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "kubernetes-deployment-workflow",
+      "title": "Kubernetes 部署工作流",
+      "domain": "研发/devops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "lambdatest-cross-framework-testing",
+      "title": "LambdaTest 多框架测试自动化",
+      "domain": "研发/testing",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -1128,9 +1212,44 @@
       "status": "stable"
     },
     {
+      "id": "legacy-framework-modernizer",
+      "title": "遗留系统现代化重构（框架迁移）",
+      "domain": "研发/architecture",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "linux-sysadmin-shell-scripts",
+      "title": "Linux 运维脚本模板",
+      "domain": "研发/devops",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "linux-system-troubleshooting",
+      "title": "Linux 系统排障",
+      "domain": "研发/devops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "llm-coding-mistake-guardrails",
       "title": "减少 LLM 编码常见错误的准则",
       "domain": "研发/review",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "magic-ui-component-generator",
+      "title": "AI UI 组件多方案生成",
+      "domain": "研发/frontend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "makepad-rust-ui",
+      "title": "Makepad Rust UI 开发",
+      "domain": "研发/frontend",
       "level": "进阶",
       "status": "stable"
     },
@@ -1139,6 +1258,20 @@
       "title": "微服务架构模式",
       "domain": "研发/architecture",
       "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "minecraft-bukkit-plugin-dev",
+      "title": "Minecraft 服务端插件开发",
+      "domain": "研发/backend",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "mise-toolchain-configurator",
+      "title": "mise 工具链配置",
+      "domain": "研发/devops",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -2080,6 +2213,13 @@
       "status": "stable"
     },
     {
+      "id": "helium-news-research-mcp",
+      "title": "Helium 新闻研究 MCP",
+      "domain": "智能/rag",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "huggingface-hub-cli",
       "title": "Hugging Face Hub CLI（hf 命令行）",
       "domain": "智能/model-ops",
@@ -2108,6 +2248,13 @@
       "status": "stable"
     },
     {
+      "id": "langchain-architecture",
+      "title": "LangChain 架构设计",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "langfuse-llm-observability",
       "title": "Langfuse LLM 可观测",
       "domain": "智能/eval",
@@ -2126,6 +2273,13 @@
       "title": "LLM 智能体测试与基准评测",
       "domain": "智能/eval",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "llm-app-production-patterns",
+      "title": "LLM 应用生产级模式",
+      "domain": "智能/agents",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -2209,6 +2363,13 @@
       "id": "production-llm-app-builder",
       "title": "生产级 LLM 应用与 RAG 系统构建",
       "domain": "智能/rag",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "production-ml-engineer",
+      "title": "生产级 ML 系统工程",
+      "domain": "智能/model-ops",
       "level": "精通",
       "status": "stable"
     },
@@ -2369,6 +2530,13 @@
     {
       "id": "ai-customer-support",
       "title": "AI 客户支持与情感分析",
+      "domain": "商业/growth",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "ai-disruption-moat-analyzer",
+      "title": "AI 颠覆护城河分析",
       "domain": "商业/growth",
       "level": "进阶",
       "status": "stable"
@@ -2654,6 +2822,13 @@
       "status": "stable"
     },
     {
+      "id": "digital-product-monetization",
+      "title": "数字产品变现策略",
+      "domain": "商业/growth",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "earnings-preview-model",
       "title": "财报前瞻与预估建模",
       "domain": "商业/finance",
@@ -2829,6 +3004,13 @@
       "status": "stable"
     },
     {
+      "id": "linkedin-profile-optimizer",
+      "title": "LinkedIn 个人主页优化",
+      "domain": "商业/marketing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "ma-buyer-list",
       "title": "并购潜在买家清单构建",
       "domain": "商业/finance",
@@ -2909,6 +3091,13 @@
       "id": "marketing-psychology",
       "title": "营销心理与心智模型",
       "domain": "商业/marketing",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "micro-saas-launcher",
+      "title": "微型 SaaS 快速上线",
+      "domain": "商业/growth",
       "level": "进阶",
       "status": "stable"
     },
@@ -3487,10 +3676,52 @@
       "status": "stable"
     },
     {
+      "id": "high-end-visual-design",
+      "title": "高端视觉界面设计",
+      "domain": "创意/design",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
+      "id": "iconsax-icon-library",
+      "title": "Iconsax 图标库与生成",
+      "domain": "创意/design",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "industrial-brutalist-ui",
+      "title": "工业野兽派遥测 UI",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "magic-motion-animator",
+      "title": "AI 动效动画生成",
+      "domain": "创意/av",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "mermaid-diagram-expert",
       "title": "Mermaid 图表绘制专家",
       "domain": "创意/design",
       "level": "入门",
+      "status": "stable"
+    },
+    {
+      "id": "minimalist-editorial-ui",
+      "title": "极简编辑风界面设计",
+      "domain": "创意/design",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "minimax-media-cli",
+      "title": "MiniMax 多模态生成 CLI",
+      "domain": "创意/av",
+      "level": "进阶",
       "status": "stable"
     },
     {
@@ -3865,6 +4096,13 @@
       "status": "stable"
     },
     {
+      "id": "scrum-master-analytics",
+      "title": "Scrum 敏捷教练与冲刺数据分析",
+      "domain": "协作/knowledge",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "stakeholder-update-writer",
       "title": "干系人进展更新撰写",
       "domain": "协作/knowledge",
@@ -4096,6 +4334,13 @@
       "status": "stable"
     },
     {
+      "id": "defensive-malware-analyst",
+      "title": "防御性恶意软件分析",
+      "domain": "安全/ops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "defi-amm-security-audit",
       "title": "DeFi AMM 智能合约安全审计",
       "domain": "安全/appsec",
@@ -4148,6 +4393,13 @@
       "id": "gdpr-data-handling",
       "title": "GDPR 数据合规处理",
       "domain": "安全/compliance",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "html-injection-testing",
+      "title": "HTML 注入测试",
+      "domain": "安全/appsec",
       "level": "进阶",
       "status": "stable"
     },
@@ -4215,6 +4467,27 @@
       "status": "stable"
     },
     {
+      "id": "memory-forensics",
+      "title": "内存取证分析",
+      "domain": "安全/ops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "metasploit-framework",
+      "title": "Metasploit 渗透框架",
+      "domain": "安全/appsec",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "mtls-zero-trust-config",
+      "title": "mTLS 零信任配置",
+      "domain": "安全/ops",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "multi-framework-compliance-orchestrator",
       "title": "多框架合规编排器（multi-framework-compliance-orchestrator）",
       "domain": "安全/compliance",
@@ -4240,6 +4513,13 @@
       "title": "渗透测试全生命周期",
       "domain": "安全/audit",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "pentest-lab-network-services",
+      "title": "渗透实验网络服务搭建",
+      "domain": "安全/appsec",
+      "level": "入门",
       "status": "stable"
     },
     {
@@ -5181,6 +5461,13 @@
       "status": "stable"
     },
     {
+      "id": "hospital-it-management",
+      "title": "医院 IT 管理顾问",
+      "domain": "领域/medical",
+      "level": "精通",
+      "status": "stable"
+    },
+    {
       "id": "imaging-data-commons-query",
       "title": "NCI 影像数据公地查询下载",
       "domain": "领域/medical",
@@ -5293,6 +5580,13 @@
       "status": "stable"
     },
     {
+      "id": "itil-service-management",
+      "title": "ITIL 服务管理顾问",
+      "domain": "领域/edu",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "jaspar-tfbs-database",
       "title": "JASPAR 转录因子结合谱",
       "domain": "领域/science",
@@ -5370,10 +5664,24 @@
       "status": "stable"
     },
     {
+      "id": "legal-policy-drafter",
+      "title": "隐私政策与法律条款起草",
+      "domain": "领域/legal",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "legal-risk-classifier",
       "title": "法律风险分级评估",
       "domain": "领域/legal",
       "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "lightning-network-architecture-review",
+      "title": "闪电网络架构评审",
+      "domain": "领域/fintech",
+      "level": "精通",
       "status": "stable"
     },
     {
@@ -5513,6 +5821,13 @@
       "id": "monarch-disease-phenotype",
       "title": "Monarch 疾病表型知识图谱",
       "domain": "领域/science",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "moodle-external-api-dev",
+      "title": "Moodle 外部 API 开发",
+      "domain": "领域/edu",
       "level": "进阶",
       "status": "stable"
     },
@@ -6651,6 +6966,20 @@
       "status": "stable"
     },
     {
+      "id": "go-playwright-automation",
+      "title": "Playwright Go 隐身浏览器自动化",
+      "domain": "平台/browser",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "go-rod-browser-automation",
+      "title": "go-rod 浏览器自动化",
+      "domain": "平台/browser",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "google-workspace-cli-admin",
       "title": "Google Workspace CLI 管理自动化",
       "domain": "平台/cli",
@@ -6660,6 +6989,13 @@
     {
       "id": "imessage-claude-bridge",
       "title": "iMessage 短信驱动 Claude 会话桥接",
+      "domain": "平台/integration",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "linkedin-cli-automation",
+      "title": "LinkedIn CLI 自动化",
       "domain": "平台/integration",
       "level": "进阶",
       "status": "stable"
@@ -6682,6 +7018,20 @@
       "id": "multi-cloud-architecture",
       "title": "多云架构决策框架",
       "domain": "平台/cloud",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "n8n-mcp-tools-expert",
+      "title": "n8n-mcp 工具专家",
+      "domain": "平台/mcp",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
+      "id": "n8n-workflow-patterns",
+      "title": "n8n 工作流架构模式",
+      "domain": "平台/integration",
       "level": "进阶",
       "status": "stable"
     },
@@ -6883,6 +7233,41 @@
     {
       "from": "agent-self-reflection",
       "to": "structured-decision-framework",
+      "type": "combines_with"
+    },
+    {
+      "from": "algorithm-first-discipline",
+      "to": "large-scale-math-algorithms",
+      "type": "related"
+    },
+    {
+      "from": "algorithm-first-discipline",
+      "to": "complexity-cuts",
+      "type": "related"
+    },
+    {
+      "from": "algorithm-first-discipline",
+      "to": "invariant-guard-correctness",
+      "type": "related"
+    },
+    {
+      "from": "algorithm-first-discipline",
+      "to": "python-performance-optimization",
+      "type": "related"
+    },
+    {
+      "from": "algorithm-first-discipline",
+      "to": "closed-loop-delivery",
+      "type": "combines_with"
+    },
+    {
+      "from": "algorithm-first-discipline",
+      "to": "adversarial-code-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "algorithm-first-discipline",
+      "to": "code-reviewer",
       "type": "combines_with"
     },
     {
@@ -7471,9 +7856,134 @@
       "type": "combines_with"
     },
     {
+      "from": "idea-darwin-evolution",
+      "to": "design-brainstorming",
+      "type": "related"
+    },
+    {
+      "from": "idea-darwin-evolution",
+      "to": "research-idea-generator",
+      "type": "related"
+    },
+    {
+      "from": "idea-darwin-evolution",
+      "to": "first-principles-thinking",
+      "type": "related"
+    },
+    {
+      "from": "idea-darwin-evolution",
+      "to": "kaizen-continuous-improvement",
+      "type": "related"
+    },
+    {
+      "from": "idea-darwin-evolution",
+      "to": "business-assumption-stress-test",
+      "type": "combines_with"
+    },
+    {
+      "from": "idea-darwin-evolution",
+      "to": "structured-decision-framework",
+      "type": "combines_with"
+    },
+    {
+      "from": "idea-darwin-evolution",
+      "to": "premortem-plan-challenger",
+      "type": "combines_with"
+    },
+    {
       "from": "interview-job-coach",
       "to": "advisor-fit-analyzer",
       "type": "related"
+    },
+    {
+      "from": "invariant-guard-correctness",
+      "to": "algorithm-first-discipline",
+      "type": "related"
+    },
+    {
+      "from": "invariant-guard-correctness",
+      "to": "large-scale-math-algorithms",
+      "type": "related"
+    },
+    {
+      "from": "invariant-guard-correctness",
+      "to": "complexity-cuts",
+      "type": "related"
+    },
+    {
+      "from": "invariant-guard-correctness",
+      "to": "closed-loop-delivery",
+      "type": "related"
+    },
+    {
+      "from": "invariant-guard-correctness",
+      "to": "systematic-debugging-strategies",
+      "type": "combines_with"
+    },
+    {
+      "from": "invariant-guard-correctness",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "kaizen-continuous-improvement",
+      "to": "invariant-guard-correctness",
+      "type": "related"
+    },
+    {
+      "from": "kaizen-continuous-improvement",
+      "to": "algorithm-first-discipline",
+      "type": "related"
+    },
+    {
+      "from": "kaizen-continuous-improvement",
+      "to": "closed-loop-delivery",
+      "type": "related"
+    },
+    {
+      "from": "kaizen-continuous-improvement",
+      "to": "first-principles-thinking",
+      "type": "related"
+    },
+    {
+      "from": "kaizen-continuous-improvement",
+      "to": "clean-code-principles",
+      "type": "combines_with"
+    },
+    {
+      "from": "kaizen-continuous-improvement",
+      "to": "tech-debt-prioritizer",
+      "type": "combines_with"
+    },
+    {
+      "from": "large-scale-math-algorithms",
+      "to": "complexity-cuts",
+      "type": "related"
+    },
+    {
+      "from": "large-scale-math-algorithms",
+      "to": "algorithm-first-discipline",
+      "type": "related"
+    },
+    {
+      "from": "large-scale-math-algorithms",
+      "to": "python-performance-optimization",
+      "type": "related"
+    },
+    {
+      "from": "large-scale-math-algorithms",
+      "to": "latency-critical-systems",
+      "type": "related"
+    },
+    {
+      "from": "large-scale-math-algorithms",
+      "to": "data-throughput-accelerator",
+      "type": "combines_with"
+    },
+    {
+      "from": "large-scale-math-algorithms",
+      "to": "performance-profiler",
+      "type": "combines_with"
     },
     {
       "from": "multi-source-knowledge-synthesis",
@@ -8253,6 +8763,41 @@
     {
       "from": "internal-comms",
       "to": "data-storyteller",
+      "type": "combines_with"
+    },
+    {
+      "from": "latex-paper-format-conversion",
+      "to": "academic-paper-writer",
+      "type": "related"
+    },
+    {
+      "from": "latex-paper-format-conversion",
+      "to": "scientific-manuscript-writing",
+      "type": "related"
+    },
+    {
+      "from": "latex-paper-format-conversion",
+      "to": "academic-paper-explainer",
+      "type": "related"
+    },
+    {
+      "from": "latex-paper-format-conversion",
+      "to": "citation-management",
+      "type": "related"
+    },
+    {
+      "from": "latex-paper-format-conversion",
+      "to": "academic-paper-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "latex-paper-format-conversion",
+      "to": "citation-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "latex-paper-format-conversion",
+      "to": "academic-peer-reviewer",
       "type": "combines_with"
     },
     {
@@ -9333,6 +9878,41 @@
     {
       "from": "click-path-state-audit",
       "to": "react-state-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "cloud-network-engineer",
+      "to": "hybrid-cloud-networking",
+      "type": "related"
+    },
+    {
+      "from": "cloud-network-engineer",
+      "to": "service-mesh-architect",
+      "type": "related"
+    },
+    {
+      "from": "cloud-network-engineer",
+      "to": "istio-traffic-management",
+      "type": "related"
+    },
+    {
+      "from": "cloud-network-engineer",
+      "to": "mtls-zero-trust-config",
+      "type": "related"
+    },
+    {
+      "from": "cloud-network-engineer",
+      "to": "kubernetes-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "cloud-network-engineer",
+      "to": "cloud-misconfig-auditor",
+      "type": "combines_with"
+    },
+    {
+      "from": "cloud-network-engineer",
+      "to": "terraform-specialist",
       "type": "combines_with"
     },
     {
@@ -10506,6 +11086,36 @@
       "type": "combines_with"
     },
     {
+      "from": "haskell-pro",
+      "to": "fp-ts-pragmatic-guide",
+      "type": "related"
+    },
+    {
+      "from": "haskell-pro",
+      "to": "scala-pro",
+      "type": "related"
+    },
+    {
+      "from": "haskell-pro",
+      "to": "elixir-otp-pro",
+      "type": "related"
+    },
+    {
+      "from": "haskell-pro",
+      "to": "rust-pro",
+      "type": "related"
+    },
+    {
+      "from": "haskell-pro",
+      "to": "backend-architecture-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "haskell-pro",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
       "from": "hexagonal-architecture",
       "to": "backend-architecture-patterns",
       "type": "related"
@@ -10548,6 +11158,36 @@
     {
       "from": "hexagonal-architecture",
       "to": "api-test-suite-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "hybrid-cloud-networking",
+      "to": "cloud-network-engineer",
+      "type": "related"
+    },
+    {
+      "from": "hybrid-cloud-networking",
+      "to": "multi-cloud-architecture",
+      "type": "related"
+    },
+    {
+      "from": "hybrid-cloud-networking",
+      "to": "service-mesh-architect",
+      "type": "related"
+    },
+    {
+      "from": "hybrid-cloud-networking",
+      "to": "mtls-zero-trust-config",
+      "type": "related"
+    },
+    {
+      "from": "hybrid-cloud-networking",
+      "to": "terraform-specialist",
+      "type": "combines_with"
+    },
+    {
+      "from": "hybrid-cloud-networking",
+      "to": "terraform-module-builder",
       "type": "combines_with"
     },
     {
@@ -10726,6 +11366,36 @@
       "type": "combines_with"
     },
     {
+      "from": "julia-scientific-pro",
+      "to": "cpp-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "julia-scientific-pro",
+      "to": "rust-pro",
+      "type": "related"
+    },
+    {
+      "from": "julia-scientific-pro",
+      "to": "python-performance-optimization",
+      "type": "related"
+    },
+    {
+      "from": "julia-scientific-pro",
+      "to": "c-language-pro",
+      "type": "related"
+    },
+    {
+      "from": "julia-scientific-pro",
+      "to": "guided-statistical-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "julia-scientific-pro",
+      "to": "materials-science-toolkit",
+      "type": "combines_with"
+    },
+    {
       "from": "k6-load-testing",
       "to": "playwright-e2e-testing",
       "type": "related"
@@ -10793,6 +11463,76 @@
     {
       "from": "kotlin-coroutines-flow",
       "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "kubernetes-deployment-workflow",
+      "to": "kubernetes-architect",
+      "type": "related"
+    },
+    {
+      "from": "kubernetes-deployment-workflow",
+      "to": "helm-chart-scaffolding",
+      "type": "related"
+    },
+    {
+      "from": "kubernetes-deployment-workflow",
+      "to": "deployment-engineer",
+      "type": "related"
+    },
+    {
+      "from": "kubernetes-deployment-workflow",
+      "to": "gitops-argocd-flux",
+      "type": "related"
+    },
+    {
+      "from": "kubernetes-deployment-workflow",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "kubernetes-deployment-workflow",
+      "to": "k8s-security-policies",
+      "type": "combines_with"
+    },
+    {
+      "from": "kubernetes-deployment-workflow",
+      "to": "service-mesh-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "lambdatest-cross-framework-testing",
+      "to": "browserstack-cross-browser-test",
+      "type": "related"
+    },
+    {
+      "from": "lambdatest-cross-framework-testing",
+      "to": "playwright-e2e-testing",
+      "type": "related"
+    },
+    {
+      "from": "lambdatest-cross-framework-testing",
+      "to": "webapp-testing",
+      "type": "related"
+    },
+    {
+      "from": "lambdatest-cross-framework-testing",
+      "to": "javascript-testing-patterns",
+      "type": "related"
+    },
+    {
+      "from": "lambdatest-cross-framework-testing",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "lambdatest-cross-framework-testing",
+      "to": "playwright-e2e-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "lambdatest-cross-framework-testing",
+      "to": "test-coverage-gap-finder",
       "type": "combines_with"
     },
     {
@@ -10901,6 +11641,101 @@
       "type": "combines_with"
     },
     {
+      "from": "legacy-framework-modernizer",
+      "to": "legacy-codebase-modernizer",
+      "type": "related"
+    },
+    {
+      "from": "legacy-framework-modernizer",
+      "to": "zero-downtime-migration-architect",
+      "type": "related"
+    },
+    {
+      "from": "legacy-framework-modernizer",
+      "to": "angularjs-to-angular-migration",
+      "type": "related"
+    },
+    {
+      "from": "legacy-framework-modernizer",
+      "to": "tech-debt-prioritizer",
+      "type": "related"
+    },
+    {
+      "from": "legacy-framework-modernizer",
+      "to": "database-migration-strategies",
+      "type": "combines_with"
+    },
+    {
+      "from": "legacy-framework-modernizer",
+      "to": "feature-flags-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "legacy-framework-modernizer",
+      "to": "test-coverage-gap-finder",
+      "type": "combines_with"
+    },
+    {
+      "from": "linux-sysadmin-shell-scripts",
+      "to": "bash-defensive-patterns",
+      "type": "related"
+    },
+    {
+      "from": "linux-sysadmin-shell-scripts",
+      "to": "posix-shell-scripting",
+      "type": "related"
+    },
+    {
+      "from": "linux-sysadmin-shell-scripts",
+      "to": "linux-system-troubleshooting",
+      "type": "related"
+    },
+    {
+      "from": "linux-sysadmin-shell-scripts",
+      "to": "shellcheck-linting",
+      "type": "related"
+    },
+    {
+      "from": "linux-sysadmin-shell-scripts",
+      "to": "bats-shell-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "linux-sysadmin-shell-scripts",
+      "to": "operational-runbook-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "linux-system-troubleshooting",
+      "to": "linux-sysadmin-shell-scripts",
+      "type": "related"
+    },
+    {
+      "from": "linux-system-troubleshooting",
+      "to": "devops-troubleshooter",
+      "type": "related"
+    },
+    {
+      "from": "linux-system-troubleshooting",
+      "to": "network-interface-health",
+      "type": "related"
+    },
+    {
+      "from": "linux-system-troubleshooting",
+      "to": "error-log-detective",
+      "type": "related"
+    },
+    {
+      "from": "linux-system-troubleshooting",
+      "to": "sre-incident-responder",
+      "type": "combines_with"
+    },
+    {
+      "from": "linux-system-troubleshooting",
+      "to": "performance-profiler",
+      "type": "combines_with"
+    },
+    {
       "from": "llm-coding-mistake-guardrails",
       "to": "adversarial-code-reviewer",
       "type": "related"
@@ -10936,6 +11771,66 @@
       "type": "combines_with"
     },
     {
+      "from": "magic-ui-component-generator",
+      "to": "shadcn-ui-components",
+      "type": "related"
+    },
+    {
+      "from": "magic-ui-component-generator",
+      "to": "web-component-design",
+      "type": "related"
+    },
+    {
+      "from": "magic-ui-component-generator",
+      "to": "frontend-design",
+      "type": "related"
+    },
+    {
+      "from": "magic-ui-component-generator",
+      "to": "web-artifacts-builder",
+      "type": "related"
+    },
+    {
+      "from": "magic-ui-component-generator",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "magic-ui-component-generator",
+      "to": "react-state-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "makepad-rust-ui",
+      "to": "rust-pro",
+      "type": "related"
+    },
+    {
+      "from": "makepad-rust-ui",
+      "to": "avalonia-zafiro-desktop",
+      "type": "related"
+    },
+    {
+      "from": "makepad-rust-ui",
+      "to": "electron-desktop-development",
+      "type": "related"
+    },
+    {
+      "from": "makepad-rust-ui",
+      "to": "bevy-ecs-rust",
+      "type": "related"
+    },
+    {
+      "from": "makepad-rust-ui",
+      "to": "rust-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "makepad-rust-ui",
+      "to": "ui-design-system-builder",
+      "type": "combines_with"
+    },
+    {
       "from": "microservices-patterns",
       "to": "backend-architecture-patterns",
       "type": "related"
@@ -10968,6 +11863,71 @@
     {
       "from": "microservices-patterns",
       "to": "event-sourcing-cqrs",
+      "type": "combines_with"
+    },
+    {
+      "from": "minecraft-bukkit-plugin-dev",
+      "to": "java-modern-pro",
+      "type": "related"
+    },
+    {
+      "from": "minecraft-bukkit-plugin-dev",
+      "to": "kotlin-coroutines-flow",
+      "type": "related"
+    },
+    {
+      "from": "minecraft-bukkit-plugin-dev",
+      "to": "unity-game-developer",
+      "type": "related"
+    },
+    {
+      "from": "minecraft-bukkit-plugin-dev",
+      "to": "bevy-ecs-rust",
+      "type": "related"
+    },
+    {
+      "from": "minecraft-bukkit-plugin-dev",
+      "to": "java-modern-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "minecraft-bukkit-plugin-dev",
+      "to": "error-handling-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "minecraft-bukkit-plugin-dev",
+      "to": "performance-profiler",
+      "type": "combines_with"
+    },
+    {
+      "from": "mise-toolchain-configurator",
+      "to": "uv-python-package-manager",
+      "type": "related"
+    },
+    {
+      "from": "mise-toolchain-configurator",
+      "to": "devcontainer-claude-setup",
+      "type": "related"
+    },
+    {
+      "from": "mise-toolchain-configurator",
+      "to": "turborepo-caching",
+      "type": "related"
+    },
+    {
+      "from": "mise-toolchain-configurator",
+      "to": "bash-defensive-patterns",
+      "type": "related"
+    },
+    {
+      "from": "mise-toolchain-configurator",
+      "to": "ci-cd-pipeline-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "mise-toolchain-configurator",
+      "to": "git-hooks-automation",
       "type": "combines_with"
     },
     {
@@ -14836,6 +15796,36 @@
       "type": "combines_with"
     },
     {
+      "from": "helium-news-research-mcp",
+      "to": "news-sentiment-briefing",
+      "type": "related"
+    },
+    {
+      "from": "helium-news-research-mcp",
+      "to": "mcp-builder",
+      "type": "related"
+    },
+    {
+      "from": "helium-news-research-mcp",
+      "to": "exa-semantic-search",
+      "type": "related"
+    },
+    {
+      "from": "helium-news-research-mcp",
+      "to": "fact-checking",
+      "type": "related"
+    },
+    {
+      "from": "helium-news-research-mcp",
+      "to": "query-decomposition-search",
+      "type": "combines_with"
+    },
+    {
+      "from": "helium-news-research-mcp",
+      "to": "multi-source-knowledge-synthesis",
+      "type": "combines_with"
+    },
+    {
       "from": "huggingface-hub-cli",
       "to": "huggingface-model-trainer",
       "type": "related"
@@ -14971,6 +15961,36 @@
       "type": "combines_with"
     },
     {
+      "from": "langchain-architecture",
+      "to": "langgraph-agent-framework",
+      "type": "related"
+    },
+    {
+      "from": "langchain-architecture",
+      "to": "pydantic-ai-agents",
+      "type": "related"
+    },
+    {
+      "from": "langchain-architecture",
+      "to": "vercel-ai-sdk",
+      "type": "related"
+    },
+    {
+      "from": "langchain-architecture",
+      "to": "llm-app-production-patterns",
+      "type": "related"
+    },
+    {
+      "from": "langchain-architecture",
+      "to": "rag-implementation-workflow",
+      "type": "combines_with"
+    },
+    {
+      "from": "langchain-architecture",
+      "to": "agent-memory-architecture",
+      "type": "combines_with"
+    },
+    {
       "from": "langfuse-llm-observability",
       "to": "llm-judge-evaluation",
       "type": "related"
@@ -15073,6 +16093,36 @@
     {
       "from": "llm-agent-benchmarking",
       "to": "production-llm-app-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "llm-app-production-patterns",
+      "to": "production-llm-app-builder",
+      "type": "related"
+    },
+    {
+      "from": "llm-app-production-patterns",
+      "to": "autonomous-coding-agent-patterns",
+      "type": "related"
+    },
+    {
+      "from": "llm-app-production-patterns",
+      "to": "agent-workflow-pattern-designer",
+      "type": "related"
+    },
+    {
+      "from": "llm-app-production-patterns",
+      "to": "langchain-architecture",
+      "type": "related"
+    },
+    {
+      "from": "llm-app-production-patterns",
+      "to": "rag-implementation-workflow",
+      "type": "combines_with"
+    },
+    {
+      "from": "llm-app-production-patterns",
+      "to": "cost-aware-llm-pipeline",
       "type": "combines_with"
     },
     {
@@ -15483,6 +16533,36 @@
     {
       "from": "production-llm-app-builder",
       "to": "multi-agent-system-designer",
+      "type": "combines_with"
+    },
+    {
+      "from": "production-ml-engineer",
+      "to": "mlops-model-productionizer",
+      "type": "related"
+    },
+    {
+      "from": "production-ml-engineer",
+      "to": "production-llm-app-builder",
+      "type": "related"
+    },
+    {
+      "from": "production-ml-engineer",
+      "to": "llm-app-production-patterns",
+      "type": "related"
+    },
+    {
+      "from": "production-ml-engineer",
+      "to": "computer-vision-expert",
+      "type": "related"
+    },
+    {
+      "from": "production-ml-engineer",
+      "to": "data-pipeline-engineer",
+      "type": "combines_with"
+    },
+    {
+      "from": "production-ml-engineer",
+      "to": "shap-model-explainability",
       "type": "combines_with"
     },
     {
@@ -16268,6 +17348,41 @@
     {
       "from": "ai-customer-support",
       "to": "customer-health-scorer",
+      "type": "combines_with"
+    },
+    {
+      "from": "ai-disruption-moat-analyzer",
+      "to": "competitive-analysis",
+      "type": "related"
+    },
+    {
+      "from": "ai-disruption-moat-analyzer",
+      "to": "andreessen-vc-lens",
+      "type": "related"
+    },
+    {
+      "from": "ai-disruption-moat-analyzer",
+      "to": "business-assumption-stress-test",
+      "type": "related"
+    },
+    {
+      "from": "ai-disruption-moat-analyzer",
+      "to": "tech-stack-evaluator",
+      "type": "related"
+    },
+    {
+      "from": "ai-disruption-moat-analyzer",
+      "to": "competitive-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "ai-disruption-moat-analyzer",
+      "to": "market-sizing-analyst",
+      "type": "combines_with"
+    },
+    {
+      "from": "ai-disruption-moat-analyzer",
+      "to": "premortem-plan-challenger",
       "type": "combines_with"
     },
     {
@@ -17636,6 +18751,41 @@
       "type": "combines_with"
     },
     {
+      "from": "digital-product-monetization",
+      "to": "pricing-strategy",
+      "type": "related"
+    },
+    {
+      "from": "digital-product-monetization",
+      "to": "billing-automation-systems",
+      "type": "related"
+    },
+    {
+      "from": "digital-product-monetization",
+      "to": "paywall-upgrade-cro",
+      "type": "related"
+    },
+    {
+      "from": "digital-product-monetization",
+      "to": "churn-prevention",
+      "type": "related"
+    },
+    {
+      "from": "digital-product-monetization",
+      "to": "stripe-integration",
+      "type": "combines_with"
+    },
+    {
+      "from": "digital-product-monetization",
+      "to": "unit-economics-analyzer",
+      "type": "combines_with"
+    },
+    {
+      "from": "digital-product-monetization",
+      "to": "micro-saas-launcher",
+      "type": "combines_with"
+    },
+    {
       "from": "earnings-preview-model",
       "to": "octagon-earnings-financial-guidance",
       "type": "related"
@@ -18456,6 +19606,31 @@
       "type": "combines_with"
     },
     {
+      "from": "linkedin-profile-optimizer",
+      "to": "social-connections-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "linkedin-profile-optimizer",
+      "to": "linkedin-cli-automation",
+      "type": "related"
+    },
+    {
+      "from": "linkedin-profile-optimizer",
+      "to": "buyer-persona-builder",
+      "type": "related"
+    },
+    {
+      "from": "linkedin-profile-optimizer",
+      "to": "interview-job-coach",
+      "type": "combines_with"
+    },
+    {
+      "from": "linkedin-profile-optimizer",
+      "to": "content-strategy-planner",
+      "type": "combines_with"
+    },
+    {
       "from": "ma-buyer-list",
       "to": "ma-deal-teaser",
       "type": "related"
@@ -18858,6 +20033,36 @@
     {
       "from": "marketing-psychology",
       "to": "pricing-strategy",
+      "type": "combines_with"
+    },
+    {
+      "from": "micro-saas-launcher",
+      "to": "digital-product-monetization",
+      "type": "related"
+    },
+    {
+      "from": "micro-saas-launcher",
+      "to": "pricing-strategy",
+      "type": "related"
+    },
+    {
+      "from": "micro-saas-launcher",
+      "to": "product-launch-strategy",
+      "type": "related"
+    },
+    {
+      "from": "micro-saas-launcher",
+      "to": "saas-marketing-ideas",
+      "type": "related"
+    },
+    {
+      "from": "micro-saas-launcher",
+      "to": "fullstack-project-scaffolder",
+      "type": "combines_with"
+    },
+    {
+      "from": "micro-saas-launcher",
+      "to": "user-onboarding-optimizer",
       "type": "combines_with"
     },
     {
@@ -21546,6 +22751,131 @@
       "type": "combines_with"
     },
     {
+      "from": "high-end-visual-design",
+      "to": "minimalist-editorial-ui",
+      "type": "related"
+    },
+    {
+      "from": "high-end-visual-design",
+      "to": "glassmorphism-ui-design",
+      "type": "related"
+    },
+    {
+      "from": "high-end-visual-design",
+      "to": "ui-design-system-builder",
+      "type": "related"
+    },
+    {
+      "from": "high-end-visual-design",
+      "to": "design-spells-microinteractions",
+      "type": "related"
+    },
+    {
+      "from": "high-end-visual-design",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "high-end-visual-design",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "iconsax-icon-library",
+      "to": "ui-design-system-builder",
+      "type": "related"
+    },
+    {
+      "from": "iconsax-icon-library",
+      "to": "high-end-visual-design",
+      "type": "related"
+    },
+    {
+      "from": "iconsax-icon-library",
+      "to": "theme-factory",
+      "type": "related"
+    },
+    {
+      "from": "iconsax-icon-library",
+      "to": "magic-ui-component-generator",
+      "type": "related"
+    },
+    {
+      "from": "iconsax-icon-library",
+      "to": "ui-design-system-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "iconsax-icon-library",
+      "to": "design-dev-handoff",
+      "type": "combines_with"
+    },
+    {
+      "from": "industrial-brutalist-ui",
+      "to": "high-end-visual-design",
+      "type": "related"
+    },
+    {
+      "from": "industrial-brutalist-ui",
+      "to": "minimalist-editorial-ui",
+      "type": "related"
+    },
+    {
+      "from": "industrial-brutalist-ui",
+      "to": "glassmorphism-ui-design",
+      "type": "related"
+    },
+    {
+      "from": "industrial-brutalist-ui",
+      "to": "ui-design-system-builder",
+      "type": "related"
+    },
+    {
+      "from": "industrial-brutalist-ui",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "industrial-brutalist-ui",
+      "to": "frontend-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "industrial-brutalist-ui",
+      "to": "d3js-data-viz",
+      "type": "combines_with"
+    },
+    {
+      "from": "magic-motion-animator",
+      "to": "animejs-web-animation",
+      "type": "related"
+    },
+    {
+      "from": "magic-motion-animator",
+      "to": "demo-video-generator",
+      "type": "related"
+    },
+    {
+      "from": "magic-motion-animator",
+      "to": "design-spells-microinteractions",
+      "type": "related"
+    },
+    {
+      "from": "magic-motion-animator",
+      "to": "fal-ai-media-generation",
+      "type": "related"
+    },
+    {
+      "from": "magic-motion-animator",
+      "to": "slack-gif-creator",
+      "type": "combines_with"
+    },
+    {
+      "from": "magic-motion-animator",
+      "to": "theme-factory",
+      "type": "combines_with"
+    },
+    {
       "from": "mermaid-diagram-expert",
       "to": "d3js-data-viz",
       "type": "related"
@@ -21568,6 +22898,71 @@
     {
       "from": "mermaid-diagram-expert",
       "to": "codebase-onboarding-doc",
+      "type": "combines_with"
+    },
+    {
+      "from": "minimalist-editorial-ui",
+      "to": "high-end-visual-design",
+      "type": "related"
+    },
+    {
+      "from": "minimalist-editorial-ui",
+      "to": "glassmorphism-ui-design",
+      "type": "related"
+    },
+    {
+      "from": "minimalist-editorial-ui",
+      "to": "industrial-brutalist-ui",
+      "type": "related"
+    },
+    {
+      "from": "minimalist-editorial-ui",
+      "to": "ui-design-system-builder",
+      "type": "related"
+    },
+    {
+      "from": "minimalist-editorial-ui",
+      "to": "tailwind-css-patterns",
+      "type": "combines_with"
+    },
+    {
+      "from": "minimalist-editorial-ui",
+      "to": "theme-factory",
+      "type": "combines_with"
+    },
+    {
+      "from": "minimalist-editorial-ui",
+      "to": "web-artifacts-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "minimax-media-cli",
+      "to": "fal-ai-media-generation",
+      "type": "related"
+    },
+    {
+      "from": "minimax-media-cli",
+      "to": "demo-video-generator",
+      "type": "related"
+    },
+    {
+      "from": "minimax-media-cli",
+      "to": "magic-motion-animator",
+      "type": "related"
+    },
+    {
+      "from": "minimax-media-cli",
+      "to": "videodb-perception-editing",
+      "type": "related"
+    },
+    {
+      "from": "minimax-media-cli",
+      "to": "ai-native-cli-design",
+      "type": "combines_with"
+    },
+    {
+      "from": "minimax-media-cli",
+      "to": "algorithmic-art",
       "type": "combines_with"
     },
     {
@@ -23336,6 +24731,36 @@
       "type": "combines_with"
     },
     {
+      "from": "scrum-master-analytics",
+      "to": "agile-product-owner",
+      "type": "related"
+    },
+    {
+      "from": "scrum-master-analytics",
+      "to": "jira-expert",
+      "type": "related"
+    },
+    {
+      "from": "scrum-master-analytics",
+      "to": "enterprise-project-manager",
+      "type": "related"
+    },
+    {
+      "from": "scrum-master-analytics",
+      "to": "resource-capacity-planner",
+      "type": "related"
+    },
+    {
+      "from": "scrum-master-analytics",
+      "to": "task-decomposition-planner",
+      "type": "combines_with"
+    },
+    {
+      "from": "scrum-master-analytics",
+      "to": "status-report-generator",
+      "type": "combines_with"
+    },
+    {
       "from": "stakeholder-update-writer",
       "to": "status-report-generator",
       "type": "related"
@@ -24471,6 +25896,36 @@
       "type": "combines_with"
     },
     {
+      "from": "defensive-malware-analyst",
+      "to": "yara-rule-authoring",
+      "type": "related"
+    },
+    {
+      "from": "defensive-malware-analyst",
+      "to": "memory-forensics",
+      "type": "related"
+    },
+    {
+      "from": "defensive-malware-analyst",
+      "to": "binary-analysis-patterns",
+      "type": "related"
+    },
+    {
+      "from": "defensive-malware-analyst",
+      "to": "threat-detection-hunting",
+      "type": "related"
+    },
+    {
+      "from": "defensive-malware-analyst",
+      "to": "security-incident-response",
+      "type": "combines_with"
+    },
+    {
+      "from": "defensive-malware-analyst",
+      "to": "threat-detection-hunting",
+      "type": "combines_with"
+    },
+    {
       "from": "defi-amm-security-audit",
       "to": "solidity-security-auditor",
       "type": "related"
@@ -24748,6 +26203,41 @@
     {
       "from": "gdpr-data-handling",
       "to": "compliance-readiness-review",
+      "type": "combines_with"
+    },
+    {
+      "from": "html-injection-testing",
+      "to": "path-traversal-testing",
+      "type": "related"
+    },
+    {
+      "from": "html-injection-testing",
+      "to": "idor-vulnerability-testing",
+      "type": "related"
+    },
+    {
+      "from": "html-injection-testing",
+      "to": "broken-authentication-testing",
+      "type": "related"
+    },
+    {
+      "from": "html-injection-testing",
+      "to": "burp-suite-testing",
+      "type": "related"
+    },
+    {
+      "from": "html-injection-testing",
+      "to": "burp-suite-testing",
+      "type": "combines_with"
+    },
+    {
+      "from": "html-injection-testing",
+      "to": "penetration-testing-methodology",
+      "type": "combines_with"
+    },
+    {
+      "from": "html-injection-testing",
+      "to": "api-fuzzing-bug-bounty",
       "type": "combines_with"
     },
     {
@@ -25066,6 +26556,101 @@
       "type": "combines_with"
     },
     {
+      "from": "memory-forensics",
+      "to": "defensive-malware-analyst",
+      "type": "related"
+    },
+    {
+      "from": "memory-forensics",
+      "to": "threat-detection-hunting",
+      "type": "related"
+    },
+    {
+      "from": "memory-forensics",
+      "to": "yara-rule-authoring",
+      "type": "related"
+    },
+    {
+      "from": "memory-forensics",
+      "to": "binary-analysis-patterns",
+      "type": "related"
+    },
+    {
+      "from": "memory-forensics",
+      "to": "security-incident-response",
+      "type": "combines_with"
+    },
+    {
+      "from": "memory-forensics",
+      "to": "wireshark-traffic-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "metasploit-framework",
+      "to": "penetration-testing-methodology",
+      "type": "related"
+    },
+    {
+      "from": "metasploit-framework",
+      "to": "red-team-recon",
+      "type": "related"
+    },
+    {
+      "from": "metasploit-framework",
+      "to": "pentest-lab-network-services",
+      "type": "related"
+    },
+    {
+      "from": "metasploit-framework",
+      "to": "linux-privilege-escalation",
+      "type": "related"
+    },
+    {
+      "from": "metasploit-framework",
+      "to": "shodan-reconnaissance",
+      "type": "combines_with"
+    },
+    {
+      "from": "metasploit-framework",
+      "to": "active-directory-attacks",
+      "type": "combines_with"
+    },
+    {
+      "from": "metasploit-framework",
+      "to": "security-incident-response",
+      "type": "combines_with"
+    },
+    {
+      "from": "mtls-zero-trust-config",
+      "to": "service-mesh-architect",
+      "type": "related"
+    },
+    {
+      "from": "mtls-zero-trust-config",
+      "to": "istio-traffic-management",
+      "type": "related"
+    },
+    {
+      "from": "mtls-zero-trust-config",
+      "to": "k8s-security-policies",
+      "type": "related"
+    },
+    {
+      "from": "mtls-zero-trust-config",
+      "to": "secrets-management",
+      "type": "related"
+    },
+    {
+      "from": "mtls-zero-trust-config",
+      "to": "kubernetes-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "mtls-zero-trust-config",
+      "to": "container-security-hardening",
+      "type": "combines_with"
+    },
+    {
       "from": "multi-framework-compliance-orchestrator",
       "to": "compliance-readiness-review",
       "type": "related"
@@ -25203,6 +26788,36 @@
     {
       "from": "penetration-testing-methodology",
       "to": "security-audit-toolkit",
+      "type": "combines_with"
+    },
+    {
+      "from": "pentest-lab-network-services",
+      "to": "penetration-testing-methodology",
+      "type": "related"
+    },
+    {
+      "from": "pentest-lab-network-services",
+      "to": "red-team-recon",
+      "type": "related"
+    },
+    {
+      "from": "pentest-lab-network-services",
+      "to": "metasploit-framework",
+      "type": "related"
+    },
+    {
+      "from": "pentest-lab-network-services",
+      "to": "shodan-reconnaissance",
+      "type": "related"
+    },
+    {
+      "from": "pentest-lab-network-services",
+      "to": "wireshark-traffic-analysis",
+      "type": "combines_with"
+    },
+    {
+      "from": "pentest-lab-network-services",
+      "to": "linux-sysadmin-shell-scripts",
       "type": "combines_with"
     },
     {
@@ -29431,6 +31046,36 @@
       "type": "combines_with"
     },
     {
+      "from": "hospital-it-management",
+      "to": "fda-device-consultant",
+      "type": "related"
+    },
+    {
+      "from": "hospital-it-management",
+      "to": "eu-mdr-745-specialist",
+      "type": "related"
+    },
+    {
+      "from": "hospital-it-management",
+      "to": "iso13485-qms-implementer",
+      "type": "related"
+    },
+    {
+      "from": "hospital-it-management",
+      "to": "dicom-medical-imaging",
+      "type": "related"
+    },
+    {
+      "from": "hospital-it-management",
+      "to": "itil-service-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "hospital-it-management",
+      "to": "iso27001-isms-implementer",
+      "type": "combines_with"
+    },
+    {
       "from": "imaging-data-commons-query",
       "to": "dicom-medical-imaging",
       "type": "related"
@@ -29931,6 +31576,41 @@
       "type": "combines_with"
     },
     {
+      "from": "itil-service-management",
+      "to": "coo-operations-advisor",
+      "type": "related"
+    },
+    {
+      "from": "itil-service-management",
+      "to": "incident-commander-framework",
+      "type": "related"
+    },
+    {
+      "from": "itil-service-management",
+      "to": "process-sop-documenter",
+      "type": "related"
+    },
+    {
+      "from": "itil-service-management",
+      "to": "change-management-request",
+      "type": "related"
+    },
+    {
+      "from": "itil-service-management",
+      "to": "operational-runbook-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "itil-service-management",
+      "to": "sre-incident-responder",
+      "type": "combines_with"
+    },
+    {
+      "from": "itil-service-management",
+      "to": "org-change-management",
+      "type": "combines_with"
+    },
+    {
       "from": "jaspar-tfbs-database",
       "to": "encode-database",
       "type": "related"
@@ -30281,6 +31961,36 @@
       "type": "combines_with"
     },
     {
+      "from": "legal-policy-drafter",
+      "to": "dpa-clause-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "legal-policy-drafter",
+      "to": "dpa-playbook-review",
+      "type": "related"
+    },
+    {
+      "from": "legal-policy-drafter",
+      "to": "privacy-impact-assessor",
+      "type": "related"
+    },
+    {
+      "from": "legal-policy-drafter",
+      "to": "gdpr-data-handling",
+      "type": "related"
+    },
+    {
+      "from": "legal-policy-drafter",
+      "to": "gdpr-data-handler",
+      "type": "combines_with"
+    },
+    {
+      "from": "legal-policy-drafter",
+      "to": "legal-inquiry-responder",
+      "type": "combines_with"
+    },
+    {
       "from": "legal-risk-classifier",
       "to": "contract-playbook-review",
       "type": "related"
@@ -30313,6 +32023,36 @@
     {
       "from": "legal-risk-classifier",
       "to": "diligence-issue-extractor",
+      "type": "combines_with"
+    },
+    {
+      "from": "lightning-network-architecture-review",
+      "to": "blockchain-web3-developer",
+      "type": "related"
+    },
+    {
+      "from": "lightning-network-architecture-review",
+      "to": "solidity-security-auditor",
+      "type": "related"
+    },
+    {
+      "from": "lightning-network-architecture-review",
+      "to": "defi-protocol-templates",
+      "type": "related"
+    },
+    {
+      "from": "lightning-network-architecture-review",
+      "to": "defi-natural-language-agent",
+      "type": "related"
+    },
+    {
+      "from": "lightning-network-architecture-review",
+      "to": "defi-amm-security-audit",
+      "type": "combines_with"
+    },
+    {
+      "from": "lightning-network-architecture-review",
+      "to": "backend-architecture-patterns",
       "type": "combines_with"
     },
     {
@@ -30913,6 +32653,36 @@
     {
       "from": "monarch-disease-phenotype",
       "to": "clinvar-database",
+      "type": "combines_with"
+    },
+    {
+      "from": "moodle-external-api-dev",
+      "to": "php-pro",
+      "type": "related"
+    },
+    {
+      "from": "moodle-external-api-dev",
+      "to": "laravel-app-specialist",
+      "type": "related"
+    },
+    {
+      "from": "moodle-external-api-dev",
+      "to": "rest-api-endpoint-builder",
+      "type": "related"
+    },
+    {
+      "from": "moodle-external-api-dev",
+      "to": "api-design-principles",
+      "type": "related"
+    },
+    {
+      "from": "moodle-external-api-dev",
+      "to": "api-test-suite-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "moodle-external-api-dev",
+      "to": "backend-security-coder",
       "type": "combines_with"
     },
     {
@@ -36046,6 +37816,66 @@
       "type": "combines_with"
     },
     {
+      "from": "go-playwright-automation",
+      "to": "go-rod-browser-automation",
+      "type": "related"
+    },
+    {
+      "from": "go-playwright-automation",
+      "to": "browser-automation-builder",
+      "type": "related"
+    },
+    {
+      "from": "go-playwright-automation",
+      "to": "firecrawl-web-scraper",
+      "type": "related"
+    },
+    {
+      "from": "go-playwright-automation",
+      "to": "playwright-e2e-testing",
+      "type": "related"
+    },
+    {
+      "from": "go-playwright-automation",
+      "to": "golang-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "go-playwright-automation",
+      "to": "apify-ecommerce-scraper",
+      "type": "combines_with"
+    },
+    {
+      "from": "go-rod-browser-automation",
+      "to": "go-playwright-automation",
+      "type": "related"
+    },
+    {
+      "from": "go-rod-browser-automation",
+      "to": "browser-automation-builder",
+      "type": "related"
+    },
+    {
+      "from": "go-rod-browser-automation",
+      "to": "firecrawl-web-scraper",
+      "type": "related"
+    },
+    {
+      "from": "go-rod-browser-automation",
+      "to": "golang-pro",
+      "type": "related"
+    },
+    {
+      "from": "go-rod-browser-automation",
+      "to": "golang-pro",
+      "type": "combines_with"
+    },
+    {
+      "from": "go-rod-browser-automation",
+      "to": "firecrawl-web-scraper",
+      "type": "combines_with"
+    },
+    {
       "from": "google-workspace-cli-admin",
       "to": "ms365-tenant-admin",
       "type": "related"
@@ -36093,6 +37923,41 @@
     {
       "from": "imessage-claude-bridge",
       "to": "tmux-session-management",
+      "type": "combines_with"
+    },
+    {
+      "from": "linkedin-cli-automation",
+      "to": "apollo-lead-enrichment",
+      "type": "related"
+    },
+    {
+      "from": "linkedin-cli-automation",
+      "to": "x-twitter-automation",
+      "type": "related"
+    },
+    {
+      "from": "linkedin-cli-automation",
+      "to": "sales-prospecting",
+      "type": "related"
+    },
+    {
+      "from": "linkedin-cli-automation",
+      "to": "linkedin-profile-optimizer",
+      "type": "related"
+    },
+    {
+      "from": "linkedin-cli-automation",
+      "to": "apollo-sequence-loader",
+      "type": "combines_with"
+    },
+    {
+      "from": "linkedin-cli-automation",
+      "to": "cold-email-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "linkedin-cli-automation",
+      "to": "social-connections-optimizer",
       "type": "combines_with"
     },
     {
@@ -36193,6 +38058,66 @@
     {
       "from": "multi-cloud-architecture",
       "to": "kubernetes-architect",
+      "type": "combines_with"
+    },
+    {
+      "from": "n8n-mcp-tools-expert",
+      "to": "n8n-workflow-patterns",
+      "type": "related"
+    },
+    {
+      "from": "n8n-mcp-tools-expert",
+      "to": "mcp-builder",
+      "type": "related"
+    },
+    {
+      "from": "n8n-mcp-tools-expert",
+      "to": "zapier-make-automation",
+      "type": "related"
+    },
+    {
+      "from": "n8n-mcp-tools-expert",
+      "to": "agent-workflow-builder",
+      "type": "related"
+    },
+    {
+      "from": "n8n-mcp-tools-expert",
+      "to": "multi-agent-orchestrator",
+      "type": "combines_with"
+    },
+    {
+      "from": "n8n-mcp-tools-expert",
+      "to": "salesforce-automation",
+      "type": "combines_with"
+    },
+    {
+      "from": "n8n-workflow-patterns",
+      "to": "n8n-mcp-tools-expert",
+      "type": "related"
+    },
+    {
+      "from": "n8n-workflow-patterns",
+      "to": "zapier-make-automation",
+      "type": "related"
+    },
+    {
+      "from": "n8n-workflow-patterns",
+      "to": "agent-workflow-pattern-designer",
+      "type": "related"
+    },
+    {
+      "from": "n8n-workflow-patterns",
+      "to": "business-process-mapper",
+      "type": "related"
+    },
+    {
+      "from": "n8n-workflow-patterns",
+      "to": "salesforce-automation",
+      "type": "combines_with"
+    },
+    {
+      "from": "n8n-workflow-patterns",
+      "to": "mcp-builder",
       "type": "combines_with"
     },
     {
