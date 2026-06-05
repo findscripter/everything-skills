@@ -1,0 +1,6 @@
+{
+  "name": "everything-skills",
+  "description": "类书式 AI Agent 技能大典：精选/中文化/互见成网的开源技能库",
+  "version": "1.0.0",
+  "contextFileName": "GEMINI.md"
+}

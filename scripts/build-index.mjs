@@ -292,6 +292,45 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
   await fs.writeFile(path.join(ROOT, '.claude-plugin', 'marketplace.json'), JSON.stringify(mp, null, 2));
 }
 
+// 多 harness 上下文文件：CLAUDE.md / AGENTS.md / GEMINI.md 同源 + gemini-extension.json
+// 对标 obra/superpowers、wshobson/agents——让 Claude Code / Codex / Gemini CLI / Cursor 等都能发现并使用本库技能。
+// 注：本库技能分布在 11 个卷目录（非单一 skills/），故用「上下文文件指路」而非依赖目录约定的 skills 路径。
+{
+  const ctx = `<!-- 本文件由 scripts/build-index.mjs 自动生成，请勿手改。 -->
+# 技能大典 · Everything Skills —— AI Agent 使用指南
+
+本仓库是面向 AI Agent 的技能库：**${skills.length} 条 \`SKILL.md\` 技能**，按 11 卷功能域组织在 \`00-meta/\` … \`10-platform/\` 目录下（非单一 \`skills/\` 目录）。
+
+## 如何发现技能
+- Agent 按每条技能 frontmatter 的 \`description\` 字段匹配是否加载——不靠浏览目录。
+- 人工浏览：\`INDEX/catalog.md\`（按卷/类总目）、\`INDEX/tags.md\`（标签）、\`INDEX/graph.md\`（互见关系图）。
+- 机读召回：\`INDEX/search.json\`（name/description/triggers/domain 扁平记录，供"先粗筛域/标签、再按 description 精排"的两段式发现）。
+
+## 如何使用一条技能
+进入该技能文件夹，读取其 \`SKILL.md\` 并遵循「## 步骤 / 指令」。每条技能单一职责、自包含。
+
+## 安装（Claude Code 插件市场）
+\`\`\`
+/plugin marketplace add findscripter/everything-skills
+\`\`\`
+11 卷对应 11 个插件，可整库或按卷安装。
+
+## 技能间关系
+通过 frontmatter 的 \`requires\`(依赖) / \`related\`(相关) / \`combines_with\`(组合) 表达，汇总于 \`INDEX/graph.md\`。
+
+## 许可
+精选改编的合集，逐条许可见各 \`SKILL.md\` 的 \`source_license\` 与 \`INDEX/sources.md\`；总说明见 \`LICENSE\` 与 \`NOTICE\`。
+`;
+  for (const f of ['CLAUDE.md', 'AGENTS.md', 'GEMINI.md']) await fs.writeFile(path.join(ROOT, f), ctx);
+  const gemExt = {
+    name: 'everything-skills',
+    description: '类书式 AI Agent 技能大典：精选/中文化/互见成网的开源技能库',
+    version: '1.0.0',
+    contextFileName: 'GEMINI.md',
+  };
+  await fs.writeFile(path.join(ROOT, 'gemini-extension.json'), JSON.stringify(gemExt, null, 2));
+}
+
 // ---------- 汇报 ----------
 console.log(`扫描到 ${skills.length} 条技能，${edges.length} 条互见边。`);
 console.log('已生成 INDEX/{catalog,tags,tools,graph,sources}.md + graph.json + search.json + .claude-plugin/marketplace.json');
