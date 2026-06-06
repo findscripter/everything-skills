@@ -9,7 +9,7 @@
 >
 > **中文优先**：全库技能均为中文——这是以英文为主的技能生态里少见的体系化中文技能库。
 >
-> **English version** — a full English tree mirrors this library 1-to-1 (same `name`, same cross-references) under [`en/`](en/); start at [`en/README.md`](en/README.md). Where an upstream English original exists, the English tree **reuses it verbatim** rather than translating back from Chinese (`source` keeps every skill traceable).
+> **English version** — a full English tree mirrors this library 1-to-1 (same `name`, same cross-references) on the [`en`](https://github.com/findscripter/everything-skills/tree/en) branch. Where an upstream English original exists, the English tree **reuses it verbatim** rather than translating back from Chinese (`source` keeps every skill traceable).
 >
 > **安全与许可**：技能本体是给 Agent 的**指令文本**（非可执行程序）；凡涉及脚本/网络调用的已在各自「注意事项」中标注。本库为精选改编合集，逐条来源与许可见 [INDEX/sources.md](INDEX/sources.md)、总说明见 [LICENSE](LICENSE) / [NOTICE](NOTICE)。
 
