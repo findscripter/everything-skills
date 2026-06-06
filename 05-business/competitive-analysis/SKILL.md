@@ -1,14 +1,14 @@
 ---
 name: competitive-analysis
-title: 竞品分析与市场定位
-description: 当需要评估竞争格局、识别差异化机会或为创业/融资制定市场定位策略时使用；用波特五力、蓝海战略四步法和定位图，做出竞品画像、定位声明与可防御竞争优势分析等产物；不适用于纯财务建模、市场规模(TAM)测算或产品功能实现。触发词：竞品分析、竞争格局、市场定位、波特五力、five forces、蓝海战略、blue ocean、差异化、positioning、护城河、moat、竞争优势
+title: Competitive Landscape Analysis
+description: Analyze competition, identify differentiation opportunities, and develop winning market positioning strategies using Porter's Five Forces, Blue Ocean Strategy, and positioning maps. Use this skill when evaluating competitors, assessing market positioning, identifying sustainable competitive advantages, or preparing competitive strategy analysis for a startup or investor pitch.
 domain: 商业/growth
-triggers: [竞品分析, 竞争格局, 市场定位, 波特五力, five forces, 蓝海战略, blue ocean, 差异化, positioning, 护城河, moat, 竞争优势, 竞品画像, 定位声明, competitive analysis]
+triggers: [five forces, blue ocean, positioning, moat, competitive analysis]
 tags: [business, growth, strategy, competitive-analysis, positioning, porter-five-forces, blue-ocean, go-to-market]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [G2, Capterra, Glassdoor, SEC-filings]
+tools: []
 requires: []
 related: [competitive-matrix-builder, competitive-intel-tracker, market-sizing-analyst, product-marketing-gtm-strategy]
 combines_with: [market-sizing-analyst, product-marketing-gtm-strategy, pricing-strategy]
@@ -16,139 +16,511 @@ license: MIT
 source: wshobson/agents
 source_license: MIT
 ---
-## 何时使用
+# Competitive Landscape Analysis
 
-- 评估直接/间接竞争对手、判断行业吸引力与竞争强度。
-- 为创业项目或投资者 pitch 准备竞争策略、寻找差异化机会与可防御优势。
-- 需要产出竞品画像、定位图、定位声明、定价对比矩阵等可交付物。
+Comprehensive frameworks for analyzing competition, identifying differentiation opportunities, and developing winning market positioning strategies.
 
-**不该用边界：** 纯财务建模、市场规模（TAM/SAM/SOM）测算、产品功能实现，或仅需事实核查时，应换用对应技能；本技能聚焦"竞争与定位"的结构化分析，而非数据采集自动化。
+## Overview
 
-## 步骤
+Understand competitive dynamics using proven frameworks (Porter's Five Forces, Blue Ocean Strategy, positioning maps) to identify opportunities and craft defensible competitive advantages.
 
-1. **识别竞争对手** —— 直接、间接、潜在未来威胁三类都要列。
-2. **波特五力分析** —— 评估行业吸引力（见下）。
-3. **绘制定位图** —— 在 2~3 个客户最看重的维度上可视化竞争空间，找白地。
-4. **画像 Top 3-5 竞品** —— 用竞品画像模板深挖关键对手。
-5. **识别差异化** —— 用蓝海四步法（剔除/减少/提升/创造）找价值创新点。
-6. **定价分析** —— 用定价对比矩阵判断自己所处档位。
-7. **评估可防御优势** —— 用"护城河"四问检验是否可持续。
-8. **制定打法** —— 选择市场进入策略与滩头市场（beachhead）。
+## Porter's Five Forces
 
-## 指令
+Analyze industry attractiveness and competitive intensity.
 
-### 波特五力（Porter's Five Forces）
+### Force 1: Threat of New Entrants
 
-逐一打分（1-5）并汇总成记分卡，得出行业吸引力综合判断：
+**Barriers to Entry:**
 
-| 力量 | 强度(1-5) | 影响 | 关键因素 |
-| --- | --- | --- | --- |
-| 新进入者威胁 | 3 | 中 | 壁垒低但有网络效应 |
-| 供应商议价力 | 2 | 低 | 云厂商众多 |
-| 买方议价力 | 4 | 高 | 企业客户集中 |
-| 替代品威胁 | 3 | 中 | 人工流程可替代 |
-| 现有竞争 | 4 | 高 | 10+ 直接对手 |
+- Capital requirements
+- Economies of scale
+- Switching costs
+- Brand loyalty
+- Regulatory barriers
+- Access to distribution
+- Network effects
 
-- **新进入者威胁** —— 看进入壁垒：资本、规模经济、切换成本、品牌忠诚、监管、分销渠道、网络效应。壁垒低则威胁高。
-- **供应商议价力** —— 看供应商集中度、替代可得性、切换成本、前向一体化威胁。
-- **买方议价力** —— 看客户集中度、采购量、产品差异化、价格敏感度、后向一体化威胁。少数大客户贡献多数收入则买方力强。
-- **替代品威胁** —— 看替代方案的性价比与切换成本。
-- **现有竞争** —— 看对手数量、行业增速、差异化程度、退出壁垒；增长慢+同质化=高烈度。
+**High Threat:** Low barriers, easy to enter (e.g., simple SaaS tools)
+**Low Threat:** High barriers (e.g., regulated industries, hardware)
 
-### 蓝海战略四步法（Four Actions）
+**Analysis Questions:**
 
-通过价值创新寻找无人竞争的市场空间——更低成本 + 更高价值：
+- How easy is it for new competitors to enter?
+- What would it cost to launch a competing product?
+- Are there network effects or switching costs protecting incumbents?
 
-- **剔除（Eliminate）：** 哪些行业默认存在的因素可以彻底去掉？
-- **减少（Reduce）：** 哪些因素可降到行业标准以下？
-- **提升（Raise）：** 哪些因素可升到行业标准之上？
-- **创造（Create）：** 哪些行业从未提供的因素可以新增？
+### Force 2: Bargaining Power of Suppliers
 
-绘制战略画布（Strategy Canvas），把自己与对手在各竞争因素上的取值连成曲线对比。
+**Supplier Power Factors:**
 
-### 定位声明模板（Positioning Statement）
+- Supplier concentration
+- Availability of substitutes
+- Importance to supplier
+- Switching costs
+- Forward integration threat
+
+**High Power:** Few suppliers, critical inputs (e.g., cloud infrastructure providers)
+**Low Power:** Many alternatives, commoditized (e.g., generic services)
+
+**Analysis Questions:**
+
+- Who are our critical suppliers?
+- Could they raise prices or reduce quality?
+- Can we switch suppliers easily?
+
+### Force 3: Bargaining Power of Buyers
+
+**Buyer Power Factors:**
+
+- Buyer concentration
+- Volume purchased
+- Product differentiation
+- Price sensitivity
+- Backward integration threat
+
+**High Power:** Few large customers, standardized products (e.g., enterprise deals)
+**Low Power:** Many small customers, differentiated product (e.g., consumer subscriptions)
+
+**Analysis Questions:**
+
+- Can customers easily switch to competitors?
+- Do few customers generate most revenue?
+- How price-sensitive are buyers?
+
+### Force 4: Threat of Substitutes
+
+**Substitute Considerations:**
+
+- Alternative solutions
+- Price-performance tradeoff
+- Switching costs
+- Buyer propensity to substitute
+
+**High Threat:** Many alternatives, low switching cost (e.g., productivity software)
+**Low Threat:** Unique solution, high switching cost (e.g., ERP systems)
+
+**Analysis Questions:**
+
+- What alternative ways can customers solve this problem?
+- How do substitutes compare on price and performance?
+- What's the cost to switch to a substitute?
+
+### Force 5: Competitive Rivalry
+
+**Rivalry Intensity Factors:**
+
+- Number of competitors
+- Industry growth rate
+- Product differentiation
+- Exit barriers
+- Strategic stakes
+
+**High Rivalry:** Many competitors, slow growth, commoditized (e.g., email marketing)
+**Low Rivalry:** Few competitors, fast growth, differentiated (e.g., emerging AI tools)
+
+**Analysis Questions:**
+
+- How many direct competitors exist?
+- Is the market growing or stagnant?
+- How differentiated are offerings?
+- Are competitors competing on price or value?
+
+### Forces Analysis Summary
+
+Create a scorecard:
+
+| Force          | Intensity (1-5) | Impact | Key Factors                       |
+| -------------- | --------------- | ------ | --------------------------------- |
+| New Entrants   | 3               | Medium | Low barriers but network effects  |
+| Supplier Power | 2               | Low    | Many cloud providers              |
+| Buyer Power    | 4               | High   | Enterprise customers concentrated |
+| Substitutes    | 3               | Medium | Manual processes alternative      |
+| Rivalry        | 4               | High   | 10+ direct competitors            |
+
+**Overall Assessment:** Moderate industry attractiveness with high rivalry and buyer power
+
+## Blue Ocean Strategy
+
+Identify uncontested market space through value innovation.
+
+### Four Actions Framework
+
+**Eliminate:**
+What factors can be eliminated that the industry takes for granted?
+
+**Reduce:**
+What factors can be reduced well below industry standard?
+
+**Raise:**
+What factors can be raised well above industry standard?
+
+**Create:**
+What factors can be created that the industry never offered?
+
+### Strategy Canvas
+
+Map your offering vs. competitors on key factors.
+
+**Example: Budget Hotels**
 
 ```
-For [目标客户]
-Who [需求或机会陈述]
-Our product is [产品品类]
-That [核心收益陈述]
-Unlike [主要竞争替代品]
-Our product [核心差异化陈述]
+High |                    ★ Traditional Hotels
+     |          ★ Budget Hotels (new)
+     |
+Low  |___________________________________
+     Price  Luxury  Convenience  Cleanliness
+
+Budget Hotel Strategy:
+- Eliminate: Luxury amenities, room service
+- Reduce: Lobby size, staff
+- Raise: Cleanliness, online booking
+- Create: Self-service kiosks, mobile app
 ```
 
-### 竞品画像模板
+### Value Innovation
 
-每个关键对手记录：公司概况（成立/总部/融资/规模/团队/阶段）、产品（核心功能/目标客户/定价打包/技术栈/近期发布）、GTM（销售模式/营销/渠道/合作）、优势、劣势、战略（明示方向/推断优先级/可能下一步）。
+Find the sweet spot: Lower cost + higher value
 
-### 竞争情报来源
+**Steps:**
 
-- **公开来源：** 官网与博客、新闻稿、招聘启事（暗示战略）、客户评价（G2、Capterra）、社媒论坛、Glassdoor（员工视角）、SEC 财报（上市公司）、专利申请。
-- **直接调研：** 客户访谈、成单/丢单分析（win/loss）、销售反馈、产品试用、展会。
+1. Map industry competing factors
+2. Identify factors to eliminate/reduce (cost savings)
+3. Identify factors to raise/create (differentiation)
+4. Validate that combination creates new market space
 
-### 护城河四问（检验优势是否可持续）
+## Competitive Positioning
 
-逐条自问，任一为"否"则不构成可持续优势：
+### Positioning Map
 
-- 竞争对手能在 < 2 年内复制吗？
-- 这对客户真的重要吗？
-- 我们执行得比任何人都好吗？
-- 这个优势是否持久（durable）？
+Plot competitors on 2-3 key dimensions.
 
-常见可持续优势：网络效应、切换成本、规模经济、品牌、专有技术（专利/数据）、监管牌照。
+**Example Dimensions:**
 
-### 监控节奏
+- Price vs. Features
+- Complexity vs. Ease of Use
+- Enterprise vs. SMB Focus
+- Self-Service vs. High-Touch
+- Generalist vs. Specialist
 
-- **每周：** 产品发布说明、新闻提及。
-- **每月：** win/loss 复盘、定位图更新。
-- **每季：** 深度竞争复盘、策略调整。
-- **每年：** 重大战略重估、市场趋势分析。
+**How to Create:**
 
-## 示例
+1. Choose 2 dimensions most important to customers
+2. Plot all competitors
+3. Identify gaps (white space)
+4. Validate gap represents real customer need
 
-**定位图（在两维上画对手，找白地 gap）：**
-
-```
-高价
-    |  ★ 企业级A      ★ 企业级B
-    |          ● 我们的定位 (gap)
-    |  ★ 对手C        ★ 对手D
-低价 |____________________________________
-      简单                          复杂
-```
-
-**定位声明实例：**
+**Example:**
 
 ```
-For 电商公司
-Who 苦于邮件营销自动化
-Our product is 一个 AI 驱动的邮件平台
-That 把转化率提升 40%
-Unlike Klaviyo 和 Mailchimp
-Our product 用 AI 实现规模化个性化
+High Price
+    |
+    |  ★ Enterprise A      ★ Enterprise B
+    |
+    |          ● Our Position (gap)
+    |
+    |  ★ Competitor C      ★ Competitor D
+    |
+Low Price |____________________________________________
+        Simple                           Complex
 ```
 
-**定价对比矩阵：**
+### Differentiation Strategy
 
-| 竞品 | 入门价 | 中档 | 企业版 | 模式 |
-| --- | --- | --- | --- | --- |
-| 对手A | $29/月 | $99/月 | 定制 | 订阅 |
-| 对手B | $49/月 | $199/月 | $499/月 | 订阅 |
-| 我们 | $39/月 | $129/月 | 定制 | 订阅 |
+**How to Differentiate:**
 
-## 注意事项
+1. **Product Differentiation**
+   - Unique features
+   - Superior performance
+   - Better design/UX
+   - Integration ecosystem
 
-- 定位图维度必须选客户最看重的 2~3 个，并验证白地（gap）对应真实未满足需求，否则是伪机会。
-- 蓝海要同时做到"降成本"和"提价值"，只做一头不是价值创新。
-- 市场进入选滩头市场（beachhead）：细分可触达、痛点尖锐、竞争有限、客户愿付费、可向外扩张。例：不做"项目管理软件"，而做"面向建筑团队的项目管理"。
-- 差异化优势若 < 2 年可被复制，不要写进护城河叙事。
-- 情报以公开合规来源为主，避免越界获取。
+2. **Service Differentiation**
+   - Customer support quality
+   - Onboarding experience
+   - Response time
+   - Success programs
 
-## 互见
+3. **Brand Differentiation**
+   - Trust and reputation
+   - Thought leadership
+   - Community
+   - Values alignment
 
-- first-principles-thinking：拆解竞争假设、质疑行业默认因素时配合使用。
-- fact-checking：核实竞品融资、客户数、市场份额等情报数据。
+4. **Price Differentiation**
+   - Premium positioning
+   - Value positioning
+   - Transparent pricing
+   - Flexible packaging
 
----
+### Positioning Statement Framework
 
-本条采编自 wshobson/agents（MIT）。
+```
+For [target customer]
+Who [statement of need or opportunity]
+Our product is [product category]
+That [statement of key benefit]
+Unlike [primary competitive alternative]
+Our product [statement of primary differentiation]
+```
+
+**Example:**
+
+```
+For e-commerce companies
+Who struggle with email marketing automation
+Our product is an AI-powered email platform
+That increases conversion rates by 40%
+Unlike Klaviyo and Mailchimp
+Our product uses AI to personalize at scale
+```
+
+## Competitive Intelligence
+
+### Information Gathering
+
+**Public Sources:**
+
+- Company websites and blogs
+- Press releases and news
+- Job postings (hint at strategy)
+- Customer reviews (G2, Capterra)
+- Social media and forums
+- Glassdoor (employee insights)
+- SEC filings (public companies)
+- Patent filings
+
+**Direct Research:**
+
+- Customer interviews
+- Win/loss analysis
+- Sales team feedback
+- Product demos and trials
+- Conference attendance
+
+### Competitor Profile Template
+
+For each key competitor, document:
+
+**Company Overview:**
+
+- Founded, HQ, funding, size
+- Leadership team
+- Company stage and trajectory
+
+**Product:**
+
+- Core features
+- Target customers
+- Pricing and packaging
+- Technology stack
+- Recent launches
+
+**Go-to-Market:**
+
+- Sales model (self-serve, sales-led)
+- Marketing strategy
+- Distribution channels
+- Partnerships
+
+**Strengths:**
+
+- What they do better than anyone
+- Key competitive advantages
+- Market position
+
+**Weaknesses:**
+
+- Gaps in product
+- Customer complaints
+- Operational challenges
+
+**Strategy:**
+
+- Stated direction
+- Inferred priorities
+- Likely next moves
+
+## Competitive Pricing Analysis
+
+### Price Positioning
+
+**Premium (Top 25%):**
+
+- Superior product/service
+- Strong brand
+- High-touch sales
+- Enterprise focus
+
+**Mid-Market (Middle 50%):**
+
+- Balanced value
+- Standard features
+- Mixed sales model
+- Broad market
+
+**Value (Bottom 25%):**
+
+- Basic functionality
+- Self-service
+- Cost leadership
+- High volume, low margin
+
+### Pricing Comparison Matrix
+
+| Competitor   | Entry Price | Mid Tier | Enterprise | Model        |
+| ------------ | ----------- | -------- | ---------- | ------------ |
+| Competitor A | $29/mo      | $99/mo   | Custom     | Subscription |
+| Competitor B | $49/mo      | $199/mo  | $499/mo    | Subscription |
+| Us           | $39/mo      | $129/mo  | Custom     | Subscription |
+
+**Analysis:**
+
+- Are we priced competitively?
+- What does our pricing signal?
+- Are there gaps in our packaging?
+
+## Go-to-Market Strategy
+
+### Market Entry Strategies
+
+**Direct Competition:**
+
+- Head-to-head against established players
+- Requires differentiation and resources
+- Example: Better features at lower price
+
+**Niche Focus:**
+
+- Target underserved segment
+- Become specialist vs. generalist
+- Example: "Salesforce for real estate"
+
+**Disruptive Innovation:**
+
+- Target non-consumers or low end
+- Improve over time to move upmarket
+- Example: Freemium model disrupting enterprise
+
+**Platform Play:**
+
+- Build ecosystem and network effects
+- Aggregate complementary services
+- Example: Marketplace or API platform
+
+### Beachhead Market
+
+**Characteristics of Good Beachhead:**
+
+- Specific, reachable segment
+- Acute pain you solve well
+- Limited competition
+- Willing to pay
+- Can lead to expansion
+
+**Example:**
+Instead of "project management software", target "project management for construction teams"
+
+## Competitive Advantage
+
+### Sustainable Advantages
+
+**Network Effects:**
+
+- Value increases with users
+- Example: Slack, marketplaces
+
+**Switching Costs:**
+
+- High cost to change
+- Example: CRM systems with data
+
+**Economies of Scale:**
+
+- Unit costs decrease with volume
+- Example: Cloud infrastructure
+
+**Brand:**
+
+- Trust and reputation
+- Example: Security software
+
+**Proprietary Technology:**
+
+- Patents or trade secrets
+- Example: Algorithms, data
+
+**Regulatory:**
+
+- Licenses or approvals
+- Example: Fintech, healthcare
+
+### Testing Your Advantage
+
+Ask:
+
+- Can competitors copy this in < 2 years?
+- Does this matter to customers?
+- Do we execute this better than anyone?
+- Is this advantage durable?
+
+If "no" to any, it's not a sustainable advantage.
+
+## Competitive Monitoring
+
+### What to Track
+
+**Product Changes:**
+
+- New features
+- Pricing changes
+- Packaging adjustments
+
+**Market Signals:**
+
+- Funding announcements
+- Key hires (especially leadership)
+- Customer wins/losses
+- Partnerships
+
+**Performance Metrics:**
+
+- Revenue (if public or disclosed)
+- Customer count
+- Growth rate
+- Market share estimates
+
+### Monitoring Cadence
+
+**Weekly:**
+
+- Product release notes
+- News mentions
+
+**Monthly:**
+
+- Win/loss analysis review
+- Positioning map updates
+
+**Quarterly:**
+
+- Deep competitive review
+- Strategy adjustment
+
+**Annually:**
+
+- Major strategy reassessment
+- Market trends analysis
+
+
+## Quick Start
+
+To analyze competitive landscape:
+
+1. **Identify competitors** - Direct, indirect, and future threats
+2. **Apply Porter's Five Forces** - Assess industry attractiveness
+3. **Create positioning map** - Visualize competitive space
+4. **Profile top 3-5 competitors** - Deep dive on key rivals
+5. **Identify differentiation** - What makes you unique
+6. **Analyze pricing** - Where do you fit?
+7. **Assess advantages** - What's defensible?
+8. **Develop strategy** - How to win

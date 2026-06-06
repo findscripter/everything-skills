@@ -1,14 +1,14 @@
 ---
 name: threat-detection-hunting
-title: 威胁狩猎与异常检测
-description: 当需要在已通过自动化告警的环境中主动狩猎潜伏威胁、分析 IOC 或检测遥测行为异常时使用；做假设驱动狩猎评分、IOC 时效筛查与扫描清单生成、z-score 统计异常检测，并按 MITRE ATT&CK 映射排序信号、产出可升级的狩猎结论与新检测规则；不适用于已声明事件的应急响应（见 incident-response）或红队攻击模拟（见 red-team）。触发词：威胁狩猎、IOC、异常检测
+title: Threat Detection
+description: Use when hunting for threats in an environment, analyzing IOCs, or detecting behavioral anomalies in telemetry. Covers hypothesis-driven threat hunting, IOC sweep generation, z-score anomaly detection, and MITRE ATT&CK-mapped signal prioritization.
 domain: 安全/ops
-triggers: [威胁狩猎, threat hunting, IOC 分析, 异常检测, z-score, MITRE ATT&CK, 蜜罐告警, 横向移动, C2 beaconing, 失陷检测, telemetry 遥测, 假设驱动狩猎]
-tags: [安全, ops, 威胁狩猎, threat-hunting, 异常检测, ioc, mitre-attack, siem, edr, 蓝队]
-level: 进阶
+triggers: [threat hunting, z-score, MITRE ATT&CK, C2 beaconing]
+tags: [ops, threat-hunting, ioc, mitre-attack, siem, edr]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [threat_signal_analyzer.py, SIEM, EDR, Sysmon, MISP/OpenCTI, Bash/cron]
+tools: []
 requires: []
 related: [security-incident-response, yara-rule-authoring, wireshark-traffic-analysis, shodan-reconnaissance]
 combines_with: [security-incident-response, yara-rule-authoring, wireshark-traffic-analysis]
@@ -16,115 +16,297 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-威胁狩猎与异常检测：通过假设驱动狩猎、IOC 分析和统计异常检测，在告警触发之前主动发现已绕过自动化管控的攻击者活动。
+# Threat Detection
 
-## 何时使用
+Threat detection skill for proactive discovery of attacker activity through hypothesis-driven hunting, IOC analysis, and behavioral anomaly detection. This is NOT incident response (see incident-response) or red team operations (see red-team) — this is about finding threats that have evaded automated controls.
 
-适用：
-- 收到新威胁情报报告 / CVE 预警，需在自有环境快速验证是否已被利用。
-- 怀疑存在已绕过 EDR/SIEM 自动告警的潜伏威胁，需主动狩猎。
-- 需要对一批 IOC（IP/域名/哈希/URL/互斥体）做时效筛查并生成扫描清单。
-- 需对遥测（DNS 查询量、进程数、认证事件等）做基线偏离的统计异常检测。
-- 需把狩猎结论沉淀为新的检测规则，闭环反哺检测工程。
+---
 
-不该用（负边界）：
-- 已声明的安全事件的遏制与调查 → 用 incident-response（本技能是「告警前主动找」，非「事件后反应式处置」）。
-- 从攻击者视角测试防御的攻击模拟 → 用 red-team。
-- 云配置错误 / IAM / S3 暴露面的姿态评估 → 用 cloud-security。
+## Table of Contents
 
-与其他安全技能的区别：threat-detection 是主动（hunt before alerts）；incident-response 是反应式（遏制已声明事件）；red-team 是进攻式（模拟攻击）；cloud-security 是姿态评估（IAM/S3/网络暴露）。
+- [Overview](#overview)
+- [Threat Signal Analyzer](#threat-signal-analyzer)
+- [Threat Hunting Methodology](#threat-hunting-methodology)
+- [IOC Analysis](#ioc-analysis)
+- [Anomaly Detection](#anomaly-detection)
+- [MITRE ATT&CK Signal Prioritization](#mitre-attck-signal-prioritization)
+- [Deception and Honeypot Integration](#deception-and-honeypot-integration)
+- [Workflows](#workflows)
+- [Anti-Patterns](#anti-patterns)
+- [Cross-References](#cross-references)
 
-前置条件：对 SIEM/EDR 遥测、端点日志、网络流量有读权限；IOC 源需在 30 天内刷新以避免误报；狩猎假设须先按本环境收敛范围再执行。
+---
 
-## 步骤
+## Overview
 
-核心工具 `threat_signal_analyzer.py` 有三种模式：`hunt`（假设评分）、`ioc`（扫描清单生成）、`anomaly`（统计检测）。退出码：0=无高优先级发现；1=检出中优先级信号；2=确认高优先级发现（可用于自动升级）。
+### What This Skill Does
 
-1. 提出可测试假设：聚焦 1–2 个 ATT&CK 技术，先按本环境收敛范围。
-2. 假设评分：优先级 = 行为体相关性×3 + 管控缺口×2 + 数据可用性×1。评分 ≥7 升级为完整狩猎。
-3. IOC 时效筛查：刷新威胁情报源，过期 IOC 标为 stale 并排除出扫描清单。
-4. 异常检测：需 ≥14 天历史遥测建立基线；z-score ≥3.0 升级排查，2.0–2.9 记录加密采样，<2.0 正常。
-5. 三角验证与升级：所有异常须人工三角验证后再升级；确认的恶意活动转 incident-response。
-6. 闭环：将确认发现转化为新检测规则，误报 IOC 反馈给情报源。
+This skill provides the methodology and tooling for **proactive threat detection** — finding attacker activity through structured hunting hypotheses, IOC analysis, and statistical anomaly detection before alerts fire.
 
-## 指令
+### Distinction from Other Security Skills
+
+| Skill | Focus | Approach |
+|-------|-------|----------|
+| **threat-detection** (this) | Finding hidden threats | Proactive — hunt before alerts |
+| incident-response | Active incidents | Reactive — contain and investigate declared incidents |
+| red-team | Offensive simulation | Offensive — test defenses from attacker perspective |
+| cloud-security | Cloud misconfigurations | Posture — IAM, S3, network exposure |
+
+### Prerequisites
+
+Read access to SIEM/EDR telemetry, endpoint logs, and network flow data. IOC feeds require freshness within 30 days to avoid false positives. Hunting hypotheses must be scoped to the environment before execution.
+
+---
+
+## Threat Signal Analyzer
+
+The `threat_signal_analyzer.py` tool supports three modes: `hunt` (hypothesis scoring), `ioc` (sweep generation), and `anomaly` (statistical detection).
 
 ```bash
-# hunt 模式：对假设按 MITRE ATT&CK 覆盖评分
+# Hunt mode: score a hypothesis against MITRE ATT&CK coverage
 python3 scripts/threat_signal_analyzer.py --mode hunt \
   --hypothesis "Lateral movement via PtH using compromised service account" \
   --actor-relevance 3 --control-gap 2 --data-availability 2 --json
 
-# ioc 模式：从 IOC 源文件生成扫描目标
-python3 scripts/threat_signal_analyzer.py --mode ioc --ioc-file iocs.json --json
+# IOC mode: generate sweep targets from an IOC feed file
+python3 scripts/threat_signal_analyzer.py --mode ioc \
+  --ioc-file iocs.json --json
 
-# anomaly 模式：检测遥测事件的统计离群点
+# Anomaly mode: detect statistical outliers in telemetry events
 python3 scripts/threat_signal_analyzer.py --mode anomaly \
-  --events-file telemetry.json --baseline-mean 100 --baseline-std 25 --json
+  --events-file telemetry.json \
+  --baseline-mean 100 --baseline-std 25 --json
 
-# 列出支持的所有 MITRE ATT&CK 技术
+# List all supported MITRE ATT&CK techniques
 python3 scripts/threat_signal_analyzer.py --list-techniques
 ```
 
-IOC 文件格式：`{"ips": ["1.2.3.4"], "domains": ["malicious.example.com"], "hashes": ["abc123..."]}`
+### IOC file format
 
-遥测事件文件格式（数组）：`[{"timestamp":"2024-01-15T14:32:00Z","entity":"host-01","action":"dns_query","volume":450}]`
+```json
+{
+  "ips": ["1.2.3.4", "5.6.7.8"],
+  "domains": ["malicious.example.com"],
+  "hashes": ["abc123def456..."]
+}
+```
 
-IOC 类型与时效阈值（超期标 stale，排除扫描）：IP 30 天（防火墙/NetFlow/代理日志，T1071/T1105）；域名 30 天（DNS/代理日志，T1568/T1583）；文件哈希 90 天（EDR 文件创建/AV，T1105/T1027）；URL 14 天（代理/浏览历史，T1566.002）；互斥体名 180 天（EDR 运行时，T1055）。
+### Telemetry events file format
 
-高价值狩猎假设示例：WMI 横向移动 T1047（WMI/EDR 进程日志，WINRM 派生 WMI、异常父子链）；LOLBin 防御绕过 T1218（certutil/regsvr32/mshta 伴随网络活动）；C2 beaconing T1071.001（固定间隔 ±10% 抖动外联）；Pass-the-Hash T1550.002（4624 type3，NTLM 从异常源主机连管理共享）；LSASS 访问 T1003.001（非系统进程 OpenProcess lsass.exe）；Kerberoasting T1558.003（4769 大量 TGS 请求服务账户）；计划任务持久化 T1053.005（4698/Sysmon 1&11，非标准目录建任务）。
+```json
+[
+  {"timestamp": "2024-01-15T14:32:00Z", "entity": "host-01", "action": "dns_query", "volume": 450},
+  {"timestamp": "2024-01-15T14:33:00Z", "entity": "host-02", "action": "dns_query", "volume": 95}
+]
+```
 
-高价值异常目标：DNS 解析器（每主机每小时查询数 → beaconing/隧道/DGA）；端点（每日唯一进程数 → 恶意安装/LOLBin）；服务账户（每小时认证数 → 撞库/横向移动）；邮件网关（每小时附件类型 → 钓鱼爆发）；云 IAM（每身份每小时 API 调用 → 凭据失陷/外泄）。
+### Exit codes
 
-## 示例
+| Code | Meaning |
+|------|---------|
+| 0 | No high-priority findings |
+| 1 | Medium-priority signals detected |
+| 2 | High-priority confirmed findings |
 
-快速狩猎（30 分钟，应对新情报/CVE）：
+---
+
+## Threat Hunting Methodology
+
+Structured threat hunting follows a five-step loop: hypothesis → data source identification → query execution → finding triage → feedback to detection engineering.
+
+### Hypothesis Scoring
+
+| Factor | Weight | Description |
+|--------|--------|-------------|
+| Actor relevance | ×3 | How closely does this TTP match known threat actors in your sector? |
+| Control gap | ×2 | How many of your existing controls would miss this behavior? |
+| Data availability | ×1 | Do you have the telemetry data needed to test this hypothesis? |
+
+Priority score = (actor_relevance × 3) + (control_gap × 2) + (data_availability × 1)
+
+### High-Value Hunt Hypotheses by Tactic
+
+| Hypothesis | MITRE ID | Data Sources | Priority Signal |
+|-----------|----------|--------------|-----------------|
+| WMI lateral movement via remote execution | T1047 | WMI logs, EDR process telemetry | WMI process spawned from WINRM, unusual parent-child chain |
+| LOLBin execution for defense evasion | T1218 | Process creation, command-line args | certutil.exe, regsvr32.exe, mshta.exe with network activity |
+| Beaconing C2 via jitter-heavy intervals | T1071.001 | Proxy logs, DNS logs | Regular interval outbound connections ±10% jitter |
+| Pass-the-Hash lateral movement | T1550.002 | Windows security event 4624 type 3 | NTLM auth from unexpected source host to admin share |
+| LSASS memory access | T1003.001 | EDR memory access events | OpenProcess on lsass.exe from non-system process |
+| Kerberoasting | T1558.003 | Windows event 4769 | High volume TGS requests for service accounts |
+| Scheduled task persistence | T1053.005 | Sysmon Event 1/11, Windows 4698 | Scheduled task created in non-standard directory |
+
+---
+
+## IOC Analysis
+
+IOC analysis determines whether indicators are fresh, maps them to required sweep targets, and filters stale data that generates false positives.
+
+### IOC Types and Sweep Priority
+
+| IOC Type | Staleness Threshold | Sweep Target | MITRE Coverage |
+|---------|--------------------|--------------|----|
+| IP addresses | 30 days | Firewall logs, NetFlow, proxy logs | T1071, T1105 |
+| Domains | 30 days | DNS resolver logs, proxy logs | T1568, T1583 |
+| File hashes | 90 days | EDR file creation, AV scan logs | T1105, T1027 |
+| URLs | 14 days | Proxy access logs, browser history | T1566.002 |
+| Mutex names | 180 days | EDR runtime artifacts | T1055 |
+
+### IOC Staleness Handling
+
+IOCs older than their threshold are flagged as `stale` and excluded from sweep target generation. Running sweeps against stale IOCs inflates false positive rates and reduces SOC credibility. Refresh IOC feeds from threat intelligence platforms (MISP, OpenCTI, commercial TI) before every hunt cycle.
+
+---
+
+## Anomaly Detection
+
+Statistical anomaly detection identifies behavior that deviates from established baselines without relying on known-bad signatures.
+
+### Z-Score Thresholds
+
+| Z-Score | Classification | Response |
+|---------|---------------|----------|
+| < 2.0 | Normal | No action required |
+| 2.0–2.9 | Soft anomaly | Log and monitor — increase sampling |
+| ≥ 3.0 | Hard anomaly | Escalate to hunt analyst — investigate entity |
+
+### Baseline Requirements
+
+Effective anomaly detection requires at least 14 days of historical telemetry to establish a valid baseline. Baselines must be recomputed after:
+- Security incidents (post-incident behavior change)
+- Major infrastructure changes (cloud migrations, new SaaS deployments)
+- Seasonal usage pattern changes (end of quarter, holiday periods)
+
+### High-Value Anomaly Targets
+
+| Entity Type | Metric | Anomaly Indicator |
+|-------------|--------|--------------------|
+| DNS resolver | Queries per hour per host | Beaconing, tunneling, DGA |
+| Endpoint | Unique process executions per day | Malware installation, LOLBin abuse |
+| Service account | Auth events per hour | Credential stuffing, lateral movement |
+| Email gateway | Attachment types per hour | Phishing campaign spike |
+| Cloud IAM | API calls per identity per hour | Credential compromise, exfiltration |
+
+---
+
+## MITRE ATT&CK Signal Prioritization
+
+Each hunting hypothesis maps to one or more ATT&CK techniques. Techniques with multiple confirmed signals in your environment are higher priority.
+
+### Tactic Coverage Matrix
+
+| Tactic | Key Techniques | Primary Data Source |
+|--------|---------------|--------------------|-|
+| Initial Access | T1190, T1566, T1078 | Web access logs, email gateway, auth logs |
+| Execution | T1059, T1047, T1218 | Process creation, command-line, script execution |
+| Persistence | T1053, T1543, T1098 | Scheduled tasks, services, account changes |
+| Defense Evasion | T1027, T1562, T1070 | Process hollowing, log clearing, encoding |
+| Credential Access | T1003, T1558, T1110 | LSASS, Kerberos, auth failures |
+| Lateral Movement | T1550, T1021, T1534 | NTLM auth, remote services, internal spearphish |
+| Collection | T1074, T1560, T1114 | Staging directories, archive creation, email access |
+| Exfiltration | T1048, T1041, T1567 | Unusual outbound volume, DNS tunneling, cloud storage |
+| Command & Control | T1071, T1572, T1568 | Beaconing, protocol tunneling, DNS C2 |
+
+---
+
+## Deception and Honeypot Integration
+
+Deception assets generate high-fidelity alerts — any interaction with a honeypot is an unambiguous signal requiring investigation.
+
+### Deception Asset Types and Placement
+
+| Asset Type | Placement | Signal | ATT&CK Technique |
+|-----------|-----------|--------|-----------------|
+| Honeypot credentials in password vault | Vault secrets store | Credential access attempt | T1555 |
+| Honey tokens (fake AWS access keys) | Git repos, S3 objects | Reconnaissance or exfiltration | T1552.004 |
+| Honey files (named: passwords.xlsx) | File shares, endpoints | Collection staging | T1074 |
+| Honey accounts (dormant AD users) | Active Directory | Lateral movement pivot | T1078.002 |
+| Honeypot network services | DMZ, flat network segments | Network scanning, service exploitation | T1046, T1190 |
+
+Honeypot alerts bypass the standard scoring pipeline — any hit is an automatic SEV2 until proven otherwise.
+
+---
+
+## Workflows
+
+### Workflow 1: Quick Hunt (30 Minutes)
+
+For responding to a new threat intelligence report or CVE alert:
+
 ```bash
-# 1. 假设评分
+# 1. Score hypothesis against environment context
 python3 scripts/threat_signal_analyzer.py --mode hunt \
   --hypothesis "Exploitation of CVE-YYYY-NNNNN in Apache" \
   --actor-relevance 2 --control-gap 3 --data-availability 2 --json
-# 2. 构建 IOC 扫描清单
-echo '{"ips":["1.2.3.4"],"domains":["malicious.tld"],"hashes":[]}' > iocs.json
+
+# 2. Build IOC sweep list from threat intel
+echo '{"ips": ["1.2.3.4"], "domains": ["malicious.tld"], "hashes": []}' > iocs.json
 python3 scripts/threat_signal_analyzer.py --mode ioc --ioc-file iocs.json --json
-# 3. 近 24h Web 遥测异常
+
+# 3. Check for anomalies in web server telemetry from last 24h
 python3 scripts/threat_signal_analyzer.py --mode anomaly \
   --events-file web_events_24h.json --baseline-mean 80 --baseline-std 20 --json
 ```
-决策：hunt 优先级 ≥7 或任一 IOC 命中 → 升级为完整狩猎。
 
-持续监控（自动化，6 小时一次，退出码 2 自动告警）：
+**Decision**: If hunt priority ≥ 7 or any IOC sweep hits, escalate to full hunt.
+
+### Workflow 2: Full Threat Hunt (Multi-Day)
+
+**Day 1 — Hypothesis Generation:**
+1. Review threat intelligence feeds for sector-relevant TTPs
+2. Map last 30 days of security alerts to ATT&CK tactics to identify gaps
+3. Score top 5 hypotheses with threat_signal_analyzer.py hunt mode
+4. Prioritize by score — start with highest
+
+**Day 2 — Data Collection and Query Execution:**
+1. Pull relevant telemetry from SIEM (date range: last 14 days)
+2. Run anomaly detection across entity baselines
+3. Execute IOC sweeps for all feeds fresh within 30 days
+4. Review hunt playbooks in `references/hunt-playbooks.md`
+
+**Day 3 — Triage and Reporting:**
+1. Triage all anomaly findings — confirm or dismiss
+2. Escalate confirmed activity to incident-response
+3. Document new detection rules from hunt findings
+4. Submit false-positive IOCs back to TI provider
+
+### Workflow 3: Continuous Monitoring (Automated)
+
+Configure recurring anomaly detection against key entity baselines on a 6-hour cadence:
+
 ```bash
+# Run as cron job every 6 hours — auto-escalate on exit code 2
 python3 scripts/threat_signal_analyzer.py --mode anomaly \
   --events-file /var/log/telemetry/events_6h.json \
-  --baseline-mean "${BASELINE_MEAN}" --baseline-std "${BASELINE_STD}" \
+  --baseline-mean "${BASELINE_MEAN}" \
+  --baseline-std "${BASELINE_STD}" \
   --json > /var/log/threat-detection/$(date +%Y%m%d_%H%M%S).json
-if [ $? -eq 2 ]; then send_alert "Hard anomaly detected — threat_signal_analyzer"; fi
+
+# Alert on exit code 2 (hard anomaly)
+if [ $? -eq 2 ]; then
+  send_alert "Hard anomaly detected — threat_signal_analyzer"
+fi
 ```
 
-完整狩猎（多日）：Day1 复盘情报+映射近 30 天告警找覆盖缺口、评分 Top5 假设；Day2 拉近 14 天 SIEM 遥测跑基线异常+刷新 IOC 扫描+查狩猎 playbook；Day3 三角验证、升级 incident-response、沉淀检测规则、回报误报 IOC。
+---
 
-## 注意事项
+## Anti-Patterns
 
-反模式（务必避免）：
-1. 无假设狩猎 — 全量盲查只产噪声；每次狩猎须从聚焦 1–2 个 ATT&CK 技术的可测试假设开始。
-2. 使用过期 IOC — 超 30 天的 IOC 制造误报、训练分析员忽视告警；扫描前必查时效，自动扫描排除 stale。
-3. 跳过基线建立 — 无效基线会在正常高峰日误报；任何实体启用统计告警前需 ≥14 天基线。
-4. 只狩猎已知技术 — 仅打文档化 ATT&CK 会漏掉新型行为；定期加入开放式异常分析以暴露未知 TTP。
-5. 不闭环检测工程 — 确认恶意的发现必须产出新检测规则，否则狩猎无持久价值。
-6. 把异常当确认威胁 — 高 z-score 只代表偏离基线而非已确认恶意；所有异常须人工三角验证后再升级。
-7. 忽视蜜罐告警 — 与诱骗资产的任何交互都是高保真信号，蜜罐命中绕过常规评分管线，默认视为 SEV2 直到被证伪。
-
-基线在以下情况后须重算：安全事件后（行为变化）、重大基础设施变更（云迁移/新 SaaS）、季节性使用模式变化（季末/假期）。
-
-诱骗资产类型：密码库蜜罐凭据（T1555）；假 AWS 密钥蜜罐令牌放 Git/S3（T1552.004）；蜜罐文件如 passwords.xlsx 放共享/端点（T1074）；休眠 AD 蜜罐账户（T1078.002）；DMZ/扁平网段蜜罐网络服务（T1046/T1190）。
-
-## 互见
-
-- incident-response：狩猎确认的威胁升级到此做三角验证与遏制。
-- red-team：红队演练产生真实 TTP，反哺狩猎假设排序。
-- cloud-security：云姿态发现（开放 S3、IAM 通配）形成数据外泄 TTP 的狩猎目标。
-- security-pen-testing：渗透发现的攻击面应在修复后由狩猎持续监控。
+1. **Hunting without a hypothesis** — Running broad queries across all telemetry without a focused question generates noise, not signal. Every hunt must start with a testable hypothesis scoped to one or two ATT&CK techniques.
+2. **Using stale IOCs** — IOCs older than 30 days generate false positives that train analysts to ignore alerts. Always check IOC freshness before sweeping; exclude stale indicators from automated sweeps.
+3. **Skipping baseline establishment** — Anomaly detection without a valid baseline produces alerts on normal high-volume days. Require 14+ days of baseline data before enabling statistical alerting on any entity type.
+4. **Hunting only known techniques** — Hunting exclusively against documented ATT&CK techniques misses novel adversary behavior. Regularly include open-ended anomaly analysis that can surface unknown TTPs.
+5. **Not closing the feedback loop to detection engineering** — Hunt findings that confirm malicious behavior must produce new detection rules. Hunting that doesn't improve detection coverage has no lasting value.
+6. **Treating every anomaly as a confirmed threat** — High z-scores indicate deviation from baseline, not confirmed malice. All anomalies require human triage to confirm or dismiss before escalation.
+7. **Ignoring honeypot alerts** — Any interaction with a deception asset is a high-fidelity signal. Treating honeypot alerts as noise invalidates the entire deception investment.
 
 ---
-采编自 alirezarezvani/claude-skills（MIT License）。原技能名 threat-detection，本条目适配重写为 threat-detection-hunting。
+
+## Cross-References
+
+| Skill | Relationship |
+|-------|-------------|
+| [incident-response](../incident-response/SKILL.md) | Confirmed threats from hunting escalate to incident-response for triage and containment |
+| [red-team](../red-team/SKILL.md) | Red team exercises generate realistic TTPs that inform hunt hypothesis prioritization |
+| [cloud-security](../cloud-security/SKILL.md) | Cloud posture findings (open S3, IAM wildcards) create hunting targets for data exfiltration TTPs |
+| [security-pen-testing](../security-pen-testing/SKILL.md) | Pen test findings identify attack surfaces that threat hunting should monitor post-remediation |

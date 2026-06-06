@@ -1,14 +1,14 @@
 ---
 name: adversarial-code-reviewer
-title: 对抗式代码评审
-description: 当合并 PR 前、长时间编码后或怀疑「LGTM」过于宽松时使用；用三类敌对角色（破坏者/新人/安全审计员）对改动做强制挑刺评审，产出按严重级分类、含 BLOCK/CONCERNS/CLEAN 裁决的结构化报告；不适用于无 diff 可评审或仅需正向确认/纯风格格式化的场景。触发词：对抗式评审、adversarial review、合并前评审、敌对角色挑刺
+title: Adversarial Code Reviewer
+description: Adversarial code review that breaks the self-review monoculture. Use when you want a genuinely critical review of recent changes, before merging a PR, or when you suspect Claude is being too agreeable about code quality. Forces perspective shifts through hostile reviewer personas that catch blind spots the author's mental model shares with the reviewer.
 domain: 研发/review
-triggers: [对抗式代码评审, adversarial review, /adversarial-review, 合并前严格评审, 怀疑LGTM太宽松, 敌对角色挑刺, PR merge 前评审, 破坏者/新人/安全审计员, self-review trap]
-tags: [研发, code-review, 代码质量, pr, 安全审计, owasp, 对抗评审]
-level: 进阶
+triggers: [adversarial review, /adversarial-review, self-review trap]
+tags: [code-review, pr, owasp]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [git, Read, Grep, Glob]
+tools: []
 requires: []
 related: [code-reviewer, clean-craft-code-review, brooks-design-lint, llm-coding-mistake-guardrails]
 combines_with: [github-pr-comment-resolver, bug-hunter, security-audit-toolkit]
@@ -16,120 +16,239 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Adversarial Code Reviewer
 
-打破「自评审同质化」——当评审者与作者共享同一套心智模型时，容易给出「看起来没问题」的虚假通过。本技能通过强制切换为三类敌对角色，逼出盲点。
+## Description
 
-适用：
-- 合并任意 PR 前，尤其是无人评审的自写 PR
-- 长时间编码后（疲劳产生盲点）
-- 当 Claude/评审给出轻易的「looks good / LGTM」，需要第二意见
-- 安全敏感代码：鉴权、支付、数据访问、API 端点
-- 「直觉觉得哪里不对」时
+Adversarial code review skill that forces genuine perspective shifts through three hostile reviewer personas (Saboteur, New Hire, Security Auditor). Each persona MUST find at least one issue — no "LGTM" escapes. Findings are severity-classified and cross-promoted when caught by multiple personas.
 
-不该用（负边界）：
-- 没有任何 diff / 文件可评审（直接报「无可评审内容」）
-- 只想要正向确认或鼓励，而非挑错
-- 仅需纯格式化 / 风格 lint（本技能要求「实质优先于风格」）
-- 需要深度专项安全分析时，应转 `senior-security`
+## Features
 
-## 步骤
+- **Three adversarial personas** — Saboteur (production breaks), New Hire (maintainability), Security Auditor (OWASP-informed)
+- **Mandatory findings** — Each persona must surface at least one issue, eliminating rubber-stamp reviews
+- **Severity promotion** — Issues caught by 2+ personas are promoted one severity level
+- **Self-review trap breaker** — Concrete techniques to overcome shared mental model blind spots
+- **Structured verdicts** — BLOCK / CONCERNS / CLEAN with clear merge guidance
 
-### 第 1 步 收集改动
-按调用方式确定评审范围：
-- 无参数：`git diff`（未暂存）+ `git diff --cached`（已暂存）；若都为空则 `git diff HEAD~1`（最近一次提交）。
-- `--diff <ref>`：执行 `git diff <ref>`（如 `--diff HEAD~3`、`--diff main...HEAD`）。
-- `--file <path>`：读取整个文件，针对全文评审而非仅改动行。
+## Usage
 
-若找不到任何改动，停止并报告「无可评审内容」。
+```
+/adversarial-review              # Review staged/unstaged changes
+/adversarial-review --diff HEAD~3  # Review last 3 commits
+/adversarial-review --file src/auth.ts  # Review a specific file
+```
 
-### 第 2 步 读全上下文
-对 diff 中每个文件：
-1. 读**整个文件**，而非仅改动行——bug 藏在新代码与既有代码的交互处。
-2. 判断改动**目的**：缺陷修复 / 新特性 / 重构 / 配置变更 / 测试。
-3. 记录**项目约定**：CLAUDE.md、.editorconfig、lint 配置或既有模式。
+## Examples
 
-### 第 3 步 依次跑完三个角色
-每个角色**必须**至少产出一条发现。若某角色「没找到问题」，说明看得不够仔细——回去重看。
-
-### 第 4 步 去重与合成
-1. 合并重复发现（多角色命中同一问题）。
-2. 被 **2 个及以上角色**命中的发现，严重级**升一级**（NOTE→WARNING→CRITICAL）。
-3. 输出最终结构化报告与裁决。
-
-## 指令
-
-硬约束：
-- 不得软化、不得对冲。要么是问题，要么不是。禁止「这也许还行，但是……」。
-- 直接断言后果，例如：「当 `user` 为 undefined 时这里会抛 NullPointerException」，而非「可能有点小隐患」。
-- 新增代码缺测试 = 一条发现，永远成立，测试非可选。
-- 自评审破局：自底向上读（从最后一个函数倒着读）；读函数体前先陈述其契约，再核对函数体是否相符；默认每个变量可能为 null/undefined，每个外部调用都会失败；自问「若整段改动删掉会坏什么？答案是『什么都不坏』则改动可能多余」。
-
-三个角色：
-
-角色 1 破坏者（The Saboteur）——「我要在生产环境搞垮这段代码」。盯：未校验的输入、可能变得不一致的状态、无同步的并发访问、吞异常或返回误导结果的错误路径、对数据格式/大小/可用性的脆弱假设、off-by-one / 整数溢出 / 空指针解引用、资源泄漏（文件句柄、连接、订阅、监听器）。四问：最坏的输入是什么？外部调用失败/超时/返回垃圾会怎样？这段状态变更跑两次/并发/从不跑会怎样？两个分支都不对会怎样？
-
-角色 2 新人（The New Hire）——「我半年后要在零上下文下读懂并改这段代码」。盯：不表意的命名（`data` 指什么？`process()` 做什么？）、需翻 3+ 文件才懂的逻辑、魔法数 / 魔法串、一函数做多件事、缺类型信息逼读者追调用链、与周边风格/项目约定不一致、测实现细节而非行为的测试、描述「what」（冗余）而非「why」（有用）的注释。
-
-角色 3 安全审计员（The Security Auditor）——「这段代码会被攻击，我要先于攻击者找到漏洞」。OWASP 清单：注入（SQL/NoSQL/OS 命令/LDAP——用户输入未参数化进入查询或命令）、鉴权失效（硬编码凭据、新端点漏鉴权、token 出现在 URL 或日志）、数据暴露（敏感数据进错误信息/日志/响应，缺传输或静态加密）、不安全默认值（debug 开着、CORS 过宽、通配权限、默认口令）、缺访问控制（IDOR：用户 A 能否访问用户 B 数据、漏角色校验、提权路径）、依赖风险（含已知 CVE 的新依赖、锁到漏洞版本）、密钥（代码/配置/注释中的 API key、token、口令，包括「临时」的）。逐信任边界检查：输入是否校验、输出是否净化、是否最小权限、能否提权、是否引入新攻击面。
-
-每个角色都**必须**至少给一条发现；若代码真的无懈可击，则点出它依赖的最脆弱假设 / 最易误解处 / 最接近安全相关的假设。
-
-严重级与裁决：
-- CRITICAL：会导致数据丢失、安全入侵或生产事故，合并前必须修。→ BLOCK。
-- WARNING：边界场景易出 bug、损性能或误导后续维护者，合并前应修。→ 修复或明确接受风险并给理由。
-- NOTE：风格 / 小改进 / 文档缺口。→ 作者自行决定。
-
-裁决：BLOCK（≥1 CRITICAL，未解决不可合）/ CONCERNS（无 critical 但 ≥2 warning，自担风险合并）/ CLEAN（仅 note，可安全合并）。
-
-## 示例
-
-合并 PR 前评审：
+### Example: Reviewing a PR Before Merge
 
 ```
 /adversarial-review --diff main...HEAD
 ```
 
-输出固定结构：
+Produces a structured report with findings from all three personas, deduplicated and severity-ranked, ending with a BLOCK/CONCERNS/CLEAN verdict.
 
-```markdown
-## 对抗式评审：[评审对象简述]
+## Problem This Solves
 
-**范围：** [评审文件、改动行数、改动类型]
-**裁决：** BLOCK / CONCERNS / CLEAN
+When Claude reviews code it wrote (or code it just read), it shares the same mental model, assumptions, and blind spots as the author. This produces "Looks good to me" reviews on code that a fresh human reviewer would flag immediately. Users report this as one of the top frustrations with AI-assisted development.
 
-### 严重问题（Critical）
-[若有——阻断合并]
+This skill forces a genuine perspective shift by requiring you to adopt adversarial personas — each with different priorities, different fears, and different definitions of "bad code."
 
-### 警告（Warnings）
-[应修项]
+## Table of Contents
 
-### 提示（Notes）
-[可选修复项]
+1. [Quick Start](#quick-start)
+2. [Review Workflow](#review-workflow)
+3. [The Three Personas](#the-three-personas)
+4. [Severity Classification](#severity-classification)
+5. [Output Format](#output-format)
+6. [Anti-Patterns](#anti-patterns)
+7. [When to Use This](#when-to-use-this)
 
-### 小结
-[2-3 句：整体风险画像如何？最该先修的那一件事是什么？]
+## Quick Start
+
+```
+/adversarial-review              # Review staged/unstaged changes
+/adversarial-review --diff HEAD~3  # Review last 3 commits
+/adversarial-review --file src/auth.ts  # Review a specific file
 ```
 
-其他调用：`/adversarial-review`（评审暂存/未暂存改动）、`/adversarial-review --diff HEAD~3`（最近 3 次提交）、`/adversarial-review --file src/auth.ts`（指定文件全文）。
+## Review Workflow
 
-## 注意事项
+### Step 1: Gather the Changes
 
-反模式（务必避免）：
-- 「LGTM，无问题」——没找到说明看得不够，每次改动都至少有一处风险/假设/改进点。
-- 只报装饰性问题——只挑空白/格式却漏掉空指针，比不评审更糟，实质优先于风格。
-- 收着拳头——「这或许是个小隐患……」不行，要直接。
-- 复述 diff——「此函数用于处理鉴权」不是发现，要说它处理鉴权的方式哪里**错了**。
-- 忽略测试缺口——新代码无测试永远是一条发现。
-- 只看改动行——bug 活在新旧代码交互处，读全文件。
+Determine what to review based on invocation:
 
-提醒：本技能为 prompt-only，无外部工具依赖（仅需 git 取 diff、读文件）。它替代不了专项深度安全审计或常规质量评审，宜与之配合。
+- **No arguments:** Run `git diff` (unstaged) + `git diff --cached` (staged). If both empty, run `git diff HEAD~1` (last commit).
+- **`--diff <ref>`:** Run `git diff <ref>`.
+- **`--file <path>`:** Read the entire file. Focus review on the full file rather than just changes.
 
-## 互见
+If no changes are found, stop and report: "Nothing to review."
 
-- `senior-security`：深度安全专项分析（本技能命中安全面后下钻）。
-- `code-reviewer`：通用代码质量评审（与对抗评审互补）。
-- `ra-qm-team/`：质量管理工作流。
+### Step 2: Read the Full Context
+
+For every file in the diff:
+1. Read the **full file** (not just the changed lines) — bugs hide in how new code interacts with existing code.
+2. Identify the **purpose** of the change: bug fix, new feature, refactor, config change, test.
+3. Note any **project conventions** from CLAUDE.md, .editorconfig, linting configs, or existing patterns.
+
+### Step 3: Run All Three Personas
+
+Execute each persona sequentially. Each persona MUST produce at least one finding. If a persona finds nothing wrong, it has not looked hard enough — go back and look again.
+
+**IMPORTANT:** Do not soften findings. Do not hedge. Do not say "this might be fine but..." — either it's a problem or it isn't. Be direct.
+
+### Step 4: Deduplicate and Synthesize
+
+After all three personas have reported:
+1. Merge duplicate findings (same issue caught by multiple personas).
+2. Promote findings caught by 2+ personas to the next severity level.
+3. Produce the final structured output.
+
+## The Three Personas
+
+### Persona 1: The Saboteur
+
+**Mindset:** "I am trying to break this code in production."
+
+**Priorities:**
+- Input that was never validated
+- State that can become inconsistent
+- Concurrent access without synchronization
+- Error paths that swallow exceptions or return misleading results
+- Assumptions about data format, size, or availability that could be violated
+- Off-by-one errors, integer overflow, null/undefined dereferences
+- Resource leaks (file handles, connections, subscriptions, listeners)
+
+**Review Process:**
+1. For each function/method changed, ask: "What is the worst input I could send this?"
+2. For each external call, ask: "What if this fails, times out, or returns garbage?"
+3. For each state mutation, ask: "What if this runs twice? Concurrently? Never?"
+4. For each conditional, ask: "What if neither branch is correct?"
+
+**You MUST find at least one issue. If the code is genuinely bulletproof, note the most fragile assumption it relies on.**
 
 ---
-采编自 alirezarezvani/claude-skills（MIT 许可证），原技能 `adversarial-reviewer`（作者 ekreloff，v2.9.0），适配重写为中文「技能大典」条目。
+
+### Persona 2: The New Hire
+
+**Mindset:** "I just joined this team. I need to understand and modify this code in 6 months with zero context from the original author."
+
+**Priorities:**
+- Names that don't communicate intent (what does `data` mean? what does `process()` do?)
+- Logic that requires reading 3+ other files to understand
+- Magic numbers, magic strings, unexplained constants
+- Functions doing more than one thing (the name says X but it also does Y and Z)
+- Missing type information that forces the reader to trace through call chains
+- Inconsistency with surrounding code style or project conventions
+- Tests that test implementation details instead of behavior
+- Comments that describe *what* (redundant) instead of *why* (useful)
+
+**Review Process:**
+1. Read each changed function as if you've never seen the codebase. Can you understand what it does from the name, parameters, and body alone?
+2. Trace one code path end-to-end. How many files do you need to open?
+3. Check: would a new contributor know where to add a similar feature?
+4. Look for "the author knew something the reader won't" — implicit knowledge baked into the code.
+
+**You MUST find at least one issue. If the code is crystal clear, note the most likely point of confusion for a newcomer.**
+
+---
+
+### Persona 3: The Security Auditor
+
+**Mindset:** "This code will be attacked. My job is to find the vulnerability before an attacker does."
+
+**OWASP-Informed Checklist:**
+
+| Category | What to Look For |
+|----------|-----------------|
+| **Injection** | SQL, NoSQL, OS command, LDAP — any place user input reaches a query or command without parameterization |
+| **Broken Auth** | Hardcoded credentials, missing auth checks on new endpoints, session tokens in URLs or logs |
+| **Data Exposure** | Sensitive data in error messages, logs, or API responses; missing encryption at rest or in transit |
+| **Insecure Defaults** | Debug mode left on, permissive CORS, wildcard permissions, default passwords |
+| **Missing Access Control** | IDOR (can user A access user B's data?), missing role checks, privilege escalation paths |
+| **Dependency Risk** | New dependencies with known CVEs, pinned to vulnerable versions, unnecessary transitive dependencies |
+| **Secrets** | API keys, tokens, passwords in code, config, or comments — even "temporary" ones |
+
+**Review Process:**
+1. Identify every trust boundary the code crosses (user input, API calls, database, file system, environment variables).
+2. For each boundary: is input validated? Is output sanitized? Is the principle of least privilege followed?
+3. Check: could an authenticated user escalate privileges through this change?
+4. Check: does this change expose any new attack surface?
+
+**You MUST find at least one issue. If the code has no security surface, note the closest thing to a security-relevant assumption.**
+
+## Severity Classification
+
+| Severity | Definition | Action Required |
+|----------|-----------|-----------------|
+| **CRITICAL** | Will cause data loss, security breach, or production outage. Must fix before merge. | Block merge. |
+| **WARNING** | Likely to cause bugs in edge cases, degrade performance, or confuse future maintainers. Should fix before merge. | Fix or explicitly accept risk with justification. |
+| **NOTE** | Style issue, minor improvement opportunity, or documentation gap. Nice to fix. | Author's discretion. |
+
+**Promotion rule:** A finding flagged by 2+ personas is promoted one level (NOTE becomes WARNING, WARNING becomes CRITICAL).
+
+## Output Format
+
+Structure your review as follows:
+
+```markdown
+## Adversarial Review: [brief description of what was reviewed]
+
+**Scope:** [files reviewed, lines changed, type of change]
+**Verdict:** BLOCK / CONCERNS / CLEAN
+
+### Critical Findings
+[If any — these block the merge]
+
+### Warnings
+[Should-fix items]
+
+### Notes
+[Nice-to-fix items]
+
+### Summary
+[2-3 sentences: what's the overall risk profile? What's the single most important thing to fix?]
+```
+
+**Verdict definitions:**
+- **BLOCK** — 1+ CRITICAL findings. Do not merge until resolved.
+- **CONCERNS** — No criticals but 2+ warnings. Merge at your own risk.
+- **CLEAN** — Only notes. Safe to merge.
+
+## Anti-Patterns
+
+### What This Skill is NOT
+
+| Anti-Pattern | Why It's Wrong |
+|-------------|---------------|
+| "LGTM, no issues found" | If you found nothing, you didn't look hard enough. Every change has at least one risk, assumption, or improvement opportunity. |
+| Cosmetic-only findings | Reporting only whitespace/formatting while missing a null dereference is worse than no review at all. Substance first, style second. |
+| Pulling punches | "This might possibly be a minor concern..." — No. Be direct. "This will throw a NullPointerException when `user` is undefined." |
+| Restating the diff | "This function was added to handle authentication" is not a finding. What's WRONG with how it handles authentication? |
+| Ignoring test gaps | New code without tests is a finding. Always. Tests are not optional. |
+| Reviewing only the changed lines | Bugs live in the interaction between new code and existing code. Read the full file. |
+
+### The Self-Review Trap
+
+You are likely reviewing code you just wrote or just read. Your brain (weights) formed the same mental model that produced this code. You will naturally think it looks correct because it matches your expectations.
+
+**To break this pattern:**
+1. Read the code **bottom-up** (start from the last function, work backward).
+2. For each function, state its contract **before** reading the body. Does the body match?
+3. Assume every variable could be null/undefined until proven otherwise.
+4. Assume every external call will fail.
+5. Ask: "If I deleted this change entirely, what would break?" — if the answer is "nothing," the change might be unnecessary.
+
+## When to Use This
+
+- **Before merging any PR** — especially self-authored PRs with no human reviewer
+- **After a long coding session** — fatigue produces blind spots; this skill compensates
+- **When Claude said "looks good"** — if you got an easy approval, run this for a second opinion
+- **On security-sensitive code** — auth, payments, data access, API endpoints
+- **When something "feels off"** — trust that instinct and run an adversarial review
+
+## Cross-References
+
+- Related: `engineering-team/senior-security` — deep security analysis
+- Related: `engineering-team/code-reviewer` — general code quality review
+- Complementary: `ra-qm-team/` — quality management workflows

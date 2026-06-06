@@ -1,14 +1,14 @@
 ---
 name: agent-self-reflection
-title: Agent 自我反思复盘
-description: 当对话陷入细节、用户喊"退一步/缩放视角/我们是不是想多了"或长时间深挖实现却无战略校验时使用；做对话的五维复盘（宏观视角/缺口分析/反思追问/偏见检查/上下文对齐），产出"流水式无小标题"评估并以 继续/转向/暂停提问 三选一的明确方向收尾；不适用于例行执行、需要写报告式结构化输出、或对话过短无可复盘上下文的场景；触发词：反思、退一步、缩放视角
+title: Reflect — Mid-Conversation Reassessment
+description: Mid-conversation reflection skill that pauses execution and zooms out from detail-mode to honestly reassess direction, assumptions, and bias. Use when the user says 'reflect', 'take a step back', 'step back', 'zoom out', 'are we missing something', 'bigger picture', 'sanity check this', 'are we on track', 'are we overthinking this', 'forest for the trees', or any variation signaling intent to break out of detail-mode and reassess. Also trigger when the conversation has gone deep on implementation details without strategic check-in, or when the user shows signs of being stuck — that's often a signal the framing needs a reset, not more detail work. Intentionally low-intake: runs the 5-dimension analysis immediately when prior context is rich enough; asks one forcing clarifier only when invocation context is too thin to reassess from.
 domain: 通用/thinking
-triggers: [反思, 退一步, 退后一步, 缩放视角, 我们是不是漏了什么, 我们是不是想多了, 看看大局, 理一理方向, 现在跑偏了吗, 复盘一下, step back, zoom out, reflect]
-tags: [通用, 思维, 元认知, 复盘, 决策, 偏见检查, 对话中断]
-level: 进阶
+triggers: [step back, zoom out, reflect]
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bias_pattern_detector.py, conversation_depth_analyzer.py, directional_recommendation_validator.py]
+tools: []
 requires: []
 related: [executive-adversarial-mentor, premortem-plan-challenger, first-principles-assumption-auditor, business-assumption-stress-test]
 combines_with: [context-budget-audit, structured-decision-framework]
@@ -16,82 +16,175 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Reflect — Mid-Conversation Reassessment
 
-- 用户显式喊停："反思""退一步""缩放视角""我们是不是漏了什么""我们是不是想多了""理一理方向""现在跑偏了吗"等任何表达"跳出细节、重新评估"意图的话。
-- 隐式信号（仅"提议"反思，不要擅自启动）：对话连续 10+ 轮深挖实现细节却无战略校验；用户表现出卡顿/受挫；短时间内反复撞墙或来回改方向。检测到隐式信号时，先问用户"要不要退一步看一下"，而非单方面执行。
+> **Portability:** Pure-reasoning skill. No external tools required. Works in Claude Code CLI + Claude.ai web natively. Most portable in the v2 collection.
 
-**不该用的边界：**
-- 例行执行任务时（反思是暂停，不是边干边附带的副本——一旦边执行边"顺手反思"，你会过度偏向当前方向）。
-- 需要结构化报告输出时（本技能强制流水式叙述，无小标题/无项目符号）。
-- 对话过短、根本没有可复盘的上下文时——此时不强行编造问题，转而问用户想复盘什么（见步骤 0）。
+When invoked mid-conversation, this skill **pauses execution** and produces a frank reassessment of where the conversation has been heading. Output is **flowing analysis (no headers, conversational tone)** covering macro perspective, gap analysis, reflective inquiry, bias check, and contextual alignment. The skill ends with a clear directional recommendation: **continue, pivot, or pause to answer a specific question**.
 
-## 步骤
+## Invocation Triggers
 
-**0. 停止指令（复盘之前）。** 先中断当前线程，不要继续执行进行中的任务。复盘需要对完整对话历史的全部注意力，用户也期待一次明确的节奏中断。
+**Explicit phrases:**
 
-**1. 低介入式澄清（仅在上下文太薄时问，最多一问）。** 默认直接跑分析，不提问。仅当调用上下文过薄（如用户在全新对话开头粘贴"退一步"，没有可复盘的前文）时，问一个带默认值的强制选择：
+- "reflect"
+- "take a step back" / "step back"
+- "zoom out"
+- "are we missing something"
+- "bigger picture"
+- "what are we missing"
+- "let's pause"
+- "sanity check this"
+- "are we on track"
+- "are we overthinking this"
+- "forest for the trees"
 
-> **具体要我复盘什么？选一个：**
-> 1. 目标——我们在解对的问题吗？
-> 2. 路径——当前这条路是最优的吗？
-> 3. 假设——我们把什么当成了理所当然？
-> 4. 以上全部（有时间就默认选这个）
+**Implicit signals (no phrase needed):**
+
+- Conversation has gone 10+ turns deep on implementation details without strategic check-in
+- User shows signs of frustration or stuck-ness
+- Repeated dead-ends or pivots within a short span
+
+When you detect an implicit trigger, **don't auto-invoke** — ask the user if they want to step back. Implicit signals are a prompt to OFFER reflection, not to unilaterally run it.
+
+## Stop Directive (Before Reassessing)
+
+**Halt the current thread.** Don't continue execution of the in-progress task. Reflection is a pause, not a side-quest.
+
+This matters because:
+- Continuing detail work while "reflecting on the side" defeats the purpose — you'll over-weight the current direction
+- The user expects a clear break in cadence
+- The reassessment needs full attention to the conversation history
+
+## Grill-Me Optional Clarifier
+
+This skill is intentionally **low-intake** — most invocations should run the 5-dimension analysis immediately without questions. The grill-me discipline applies *only* when the invocation is ambiguous (e.g., user pastes "step back" at the start of a fresh conversation with no prior context to reassess).
+
+### Q1 (optional, asked only when context is too thin to reassess)
+
+> **What specifically should I reassess? Pick one:**
 >
-> *为什么问：* 我看到可复盘的前文有限，想聚焦而非瞎猜。想三个都看就直说。
+> 1. The goal — are we solving the right problem?
+> 2. The approach — is the path we're on the best one?
+> 3. The assumptions — what are we taking for granted?
+> 4. All of the above (default if you have time)
+>
+> *Why I'm asking:* I'm seeing limited prior context to reassess, so I want to focus the reflection rather than guess. If you'd rather I do all three, that's fine — say so.
 
-**2. 五维分析框架。** 从**最初目标往后重读完整对话**——不只是最近几轮。这是真复盘与"局部上下文摘要"的分水岭。
+Forcing choice with default. **Asked only when context is genuinely thin; otherwise skip and run the full analysis on existing conversation.**
 
-- **① 宏观视角：** 最初目标是什么？是否偏离？偏向更好还是更坏？用具体证据锚定，例如"第 3 轮目标是 X，到第 12 轮在做 Y——Y 是对 X 的有效收窄，还是漂移？"
-- **② 缺口分析：** 未经验证的假设、被遗漏的干系人/受众/用户、被跳过的约束（技术/合规/资源）、被否决但值得重看的备选、范围外的外部因素（时机/市场/依赖）。
-- **③ 反思追问：** 问题框定对不对？是不是在解一个相邻但更简单的问题？有没有把简单路径复杂化？有没有在回避更难但更有价值的路？换个人会不会有不同做法（新鲜眼光）？
-- **④ 偏见检查（五种，逐一对照对话模式取证）：**
+**Stop condition:** One question max. If the user invokes mid-conversation with normal context, no questions are asked — the skill runs directly.
 
-  | 偏见 | 识别线索 |
-  |---|---|
-  | 确认偏误 | 引用的证据只支持现有假设；反证缺席或被打发 |
-  | 沉没成本 | "已经投入了 X""都做到这份上了"，而非重新算成本/收益 |
-  | 锚定效应 | 困在第一个提到的选项；新选项只与它比较而非独立评估 |
-  | 复杂度偏好 | 不断加功能/步骤/保险措施，却给不出每一项的具体理由 |
-  | 近因偏误 | 过度看重最近几轮；更早但更重要的上下文被忽视 |
+## The 5-Dimension Analysis Framework
 
-  对每个检出的偏见：点名、引具体证据、给纠偏动作。
-- **⑤ 上下文对齐：** 这个方向是否服务用户的真实目标？是否忽略了外部因素？现在是否是用户时间/精力的最优用法？与用户其他已知项目/优先级有何关联？
+Re-read the **full conversation from the original goal forward** — not just recent turns. The discipline that distinguishes real reflection from local-context summary.
 
-**3. 收尾方向建议（强制，三选一）。** 每次复盘必须以下列之一收尾，且永远具体（绝不说"你再想想"）：
+### 1. Macro Perspective
 
-| 建议 | 何时 | 格式 |
+- **Original goal:** What did the user actually start trying to do?
+- **Drift detection:** Has the conversation moved away from that goal? Toward something better or worse?
+- **Connection check:** How does current work connect to the larger objective?
+
+Anchor with specific evidence: "At turn 3 the goal was X; by turn 12 we're working on Y. Is Y a productive narrowing of X, or a drift away?"
+
+### 2. Gap Analysis
+
+- **Unverified assumptions** — what are we taking for granted that we haven't checked?
+- **Missing stakeholders / audiences / users** — who needs this beyond the immediate context?
+- **Skipped constraints** — technical, regulatory, resource limits not addressed
+- **Dismissed alternatives** — paths considered but rejected; revisit briefly
+- **External factors** — timing, market, dependencies not in scope
+
+### 3. Reflective Inquiry
+
+- Is the problem framed correctly?
+- Solving the right problem vs. an adjacent easier one?
+- Simpler path being overcomplicated?
+- Harder but more valuable path being avoided?
+- **Fresh-eyes perspective:** would someone else approach this differently?
+
+### 4. Bias Check
+
+Five biases — recognize each through specific conversation patterns:
+
+| Bias | Recognition cue |
+|---|---|
+| **Confirmation bias** | Evidence cited only supports the working hypothesis; counter-evidence absent or dismissed |
+| **Sunk cost fallacy** | "We've already invested X" / "we're far enough in to..." instead of fresh cost/benefit |
+| **Anchoring** | Stuck on first option mentioned; new options compared against it rather than evaluated independently |
+| **Complexity bias** | Adding features / steps / safeguards without specific justification for each |
+| **Recency bias** | Over-weighting last few turns; older but important context being ignored |
+
+For each detected bias: name it, cite the specific evidence, suggest a corrective move.
+
+See [`references/cognitive_bias_canon.md`](references/cognitive_bias_canon.md) for the full canon.
+
+### 5. Contextual Alignment
+
+- Does the direction serve the user's actual goals (as known from context)?
+- Are external factors being ignored?
+- Is this the best use of the user's time and energy right now?
+- Connection to other known projects or priorities?
+
+## Tone and Format Rules
+
+The skill must produce:
+
+- **Flowing prose** — no headers, no bullet lists, no structured-report formatting
+- **Tight but thorough** — neither a one-liner nor a wall of text
+- **Direct critique when warranted** — with specific evidence from the conversation
+- **Validation when warranted** — with specific reasoning for why the path is solid
+- **No vague reassurance** — "looks good!" without reasoning is rejected
+- **No manufactured problems** — when the path is genuinely solid, say so with specific reasons; don't invent issues
+
+See [`references/honest_output_discipline.md`](references/honest_output_discipline.md) for the anti-manufactured-problems framing.
+
+## Closing Recommendation (Mandatory)
+
+Every run ends with one of three directional recommendations:
+
+| Recommendation | When | Format |
 |---|---|---|
-| 继续 | 路径稳健 | "继续。{为何稳健的具体理由}。" |
-| 转向 {X} | 已漂移 或 浮现更优路径 | "转向 {X}，放弃 {要砍掉的}。{具体证据}。" |
-| 暂停问 {Q} | 有个问题必须先答 | "暂停，先答 {Q}。不答它，下一步将冒 {具体代价} 的风险。" |
+| **Continue** | Path is solid | "Continue. {specific reasoning for why}." |
+| **Pivot to {X}** | Drift has occurred OR better path surfaced | "Pivot toward {X}, away from {what to drop}. {specific evidence}." |
+| **Pause for {Q}** | A specific question needs answering before continuing | "Pause for {Q}. Without answering this, the next step risks {specific cost}." |
 
-## 指令
+The closing is always specific — never "you should think more about this" or "consider your options."
 
-- 语气与格式：**流水式散文**，无小标题、无项目符号、无报告式结构；紧凑但充分（既不是一句话，也不是一堵墙）；该批评时带具体证据直接批评，该肯定时给出"为何稳健"的具体理由。
-- 拒绝模糊安慰（无理由的"看着不错！"一律否决）；拒绝制造问题（路径真稳健就明说，别编问题）。
-- 可选脚本（命令保持原样）：
-  - `scripts/bias_pattern_detector.py` —— 扫描对话文本，识别五种偏见的模式信号。
-  - `scripts/conversation_depth_analyzer.py` —— 统计轮数 + 检测隐式触发信号（10+ 细节轮、受挫标记）。
-  - `scripts/directional_recommendation_validator.py` —— 校验输出是否以 继续/转向/暂停 + 具体理由收尾。
+## Error Handling
 
-## 示例
+| Situation | Behavior |
+|---|---|
+| Conversation is very short (no real context to reassess) | Acknowledge limitation, ask user what they want reassessed (Q1 fires) |
+| Current direction is genuinely solid | State this clearly with reasoning; don't manufacture problems |
+| User invokes mid-task with no clear question | Default to macro perspective + bias check; offer to dig deeper |
+| Implicit trigger seems possible but unclear | Don't invoke proactively; ask user if they want to step back |
 
-用户：盯着登录模块的重试退避算法改了一上午，突然说"退一步看看"。
+## Tooling
 
-复盘（流水式，节选）：最初目标是"把登录失败率压下去"，但从第 4 轮起我们一直在调退避曲线的常数——这是宏观目标的有效收窄，还是漂移？数据上失败的大头其实是验证码超时，而非重试节奏，这条线索在第 2 轮出现过却没追。这里有明显的锚定：所有方案都围着"退避算法"这个最先提到的选项打转。同时带点复杂度偏好——又加了抖动、又加了熔断，但没说清各自针对哪类失败。**暂停，先答：失败到底卡在哪一环？** 不答它，继续调退避参数将冒"优化了占比 10% 的问题、放着 60% 的验证码超时不管"的风险。
+| Script | Role |
+|---|---|
+| `scripts/bias_pattern_detector.py` | Scan conversation text for patterns indicative of each of the 5 biases |
+| `scripts/conversation_depth_analyzer.py` | Count turns + detect implicit-trigger signals (10+ detail turns, frustration markers) |
+| `scripts/directional_recommendation_validator.py` | Verify output ends with Continue / Pivot / Pause + specific reasoning |
 
-## 注意事项
+## References
 
-- 隐式触发只用来"提议"反思，绝不擅自启动；不确定是否触发时，问用户而非主动执行。
-- 一定从最初目标往后重读完整对话，不要只复盘最近几轮。
-- 不要硬编码用户名或具体领域引用；不要在状态本就良好时编造问题；不要漏掉收尾的方向建议；不要边执行进行中任务边"顺手反思"。
+- [`references/cognitive_bias_canon.md`](references/cognitive_bias_canon.md) — 5 biases + recognition cues (7+ sources)
+- [`references/honest_output_discipline.md`](references/honest_output_discipline.md) — anti-manufactured-problems framing (7+ sources)
+- [`references/conversation_reflection_practice.md`](references/conversation_reflection_practice.md) — Schön reflective-practice canon (7+ sources)
 
-## 互见
+## Anti-Patterns To Reject
 
-- 同源 `capture`（头脑倾倒转行动）—— 本技能是其"轻提示流"姊妹篇。
-- 偏见识别可配合元认知/决策类技能；需要结构化报告时改用对应的报告型技能（本技能刻意只产出流水式叙述）。
+- Hardcoded user names or specific domain references
+- Structured-report output (headers, bullet lists) when prose is required
+- Manufactured problems when things are actually fine
+- Vague reassurance ("looks good!") instead of specific reasoning
+- Reassessing only recent turns instead of the full conversation
+- Skipping the closing directional recommendation
+- Continuing the in-progress task while "reflecting on the side"
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+**Version:** 1.0.0
+**Source spec:** [`megaprompts/02-reflect-megaprompt.md`](../../../../megaprompts/02-reflect-megaprompt.md)
+**Build pattern:** Path B (direct conversion). Productivity light-prompt-flow sibling of capture.

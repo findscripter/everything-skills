@@ -1,14 +1,14 @@
 ---
 name: k6-load-testing
-title: k6 负载压力测试
-description: 当需要对 HTTP API、WebSocket 或浏览器场景做负载/压力/容量验证时使用；用 k6 编写 JS 测试脚本、配置 VUs/stages/thresholds（SLA）、分析结果并接入 CI/CD，产出可执行测试与达标报告；不适用于单元/接口功能测试与无脚本的纯监控。触发词：k6、负载测试、压测
+title: k6 Load Testing
+description: Comprehensive k6 load testing skill for API, browser, and scalability testing. Write realistic load scenarios, analyze results, and integrate with CI/CD.
 domain: 研发/testing
-triggers: [k6, 负载测试, 压力测试, 性能压测, load testing, stress test, SLA 验证, VUs 并发, thresholds 阈值, 性能回归]
-tags: [k6, 负载测试, 性能测试, 压测, api测试, ci/cd, sla]
-level: 进阶
+triggers: [k6, load testing, stress test]
+tags: [k6, ci/cd, sla]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [k6, claude, cursor, gemini]
+tools: []
 requires: []
 related: [playwright-e2e-testing, api-test-suite-builder, webapp-testing, javascript-testing-patterns]
 combines_with: [performance-profiler, grafana-dashboards, slo-sli-implementation]
@@ -16,133 +16,623 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# k6 Load Testing
 
-适用：
-- 对 HTTP API、WebSocket 端点或浏览器（k6 Browser）场景做性能测试。
-- 在 CI/CD 中建立性能回归门禁，对比代码改动前后的性能。
-- 评估系统在不同负载下的表现：冒烟（Smoke）、负载（Load）、压力（Stress）、尖刺（Spike）、浸泡（Soak）。
-- 校验 SLA / 性能预算（如 p95 < 500ms、错误率 < 1%）。
+## Overview
 
-不该用：
-- 功能正确性验证（用单元/接口测试，而非负载测试）。
-- 无脚本的纯线上监控（用 APM/Prometheus 等，k6 是主动施压工具）。
-- 缺少目标、权限或成功标准时，先澄清再动手，勿对生产系统盲目施压。
+k6 is a modern, developer-centric load testing tool that helps you write and execute performance tests for HTTP APIs, WebSocket endpoints, and browser scenarios. This skill provides comprehensive guidance on writing realistic load tests, configuring test scenarios (smoke, load, stress, spike, soak), analyzing results, and integrating with CI/CD pipelines.
 
-## 步骤
+Use this skill when you need to validate system performance, identify bottlenecks, ensure SLA compliance, or catch performance regressions before deployment.
 
-1. 安装 k6（见下方指令）。
-2. 写最小脚本，先用 1-5 VUs 跑冒烟测试，确认脚本本身可用。
-3. 选定测试类型并配置 `options`（`vus`/`duration` 或 `stages` 渐增渐减）。
-4. 加 `thresholds` 表达 SLA，使阈值失败时 k6 返回非零退出码（CI 可据此判失败）。
-5. 用 `check()` 断言响应；按需做请求链、参数化、`SharedArray` 加载外部数据。
-6. 运行并导出结果（JSON / InfluxDB+Grafana / Prometheus / cloud）。
-7. 接入 CI/CD（GitHub Actions / GitLab CI），按需归档 results.json。
+---
 
-测试类型速查：
+## When to Use This Skill
 
-| 类型 | 用途 | 配置要点 |
-|------|------|----------|
-| Smoke 冒烟 | 验证脚本基本可用 | 低 VUs(1-5)、短时长 |
-| Load 负载 | 常规预期负载 | 按真实流量设目标 VUs |
-| Stress 压力 | 找崩溃临界点 | 超出容量持续加压 |
-| Spike 尖刺 | 突发流量冲击 | 快速拉升再骤降 |
-| Soak 浸泡 | 长期稳定性 | 超长时长运行 |
+- Use when you need to load test HTTP APIs, WebSocket endpoints, or browser scenarios
+- Use when setting up performance regression tests in CI/CD
+- Use when analyzing system behavior under various load conditions
+- Use when comparing performance between code changes
+- Use when validating SLA requirements and performance budgets
 
-## 指令
+---
+
+## k6 Basics
+
+### Installation
 
 ```bash
-# 安装
-brew install k6            # macOS
-choco install k6           # Windows
-# Linux: 见 k6 官方 apt 源安装
+# macOS
+brew install k6
 
-k6 install chromium        # 浏览器测试支持
+# Windows
+choco install k6
 
-# 运行与结果输出
-k6 run load-test.js                                  # 文本摘要
-k6 run --out json=results.json load-test.js          # JSON 便于解析
-k6 run --out influxdb=http://localhost:8086/k6 load-test.js
-k6 run --out prometheus=localhost:9090/k6 load-test.js
-k6 run --out cloud load-test.js
+# Linux
+sudo gpg -k
+sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+sudo apt-get update
+sudo apt-get install k6
 ```
 
-关键结果指标判读：`http_req_duration(p95)` 好<300ms / 警告 300-500ms / 差>500ms；`http_req_failed` 好<0.1% / 警告 0.1-1% / 差>1%。
-
-## 示例
-
-最小冒烟脚本：
+### Quick Start
 
 ```javascript
 // simple-test.js
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
-export const options = { vus: 10, duration: '30s' };
+export const options = {
+  vus: 10,
+  duration: '30s',
+};
 
 export default function () {
   const res = http.get('https://httpbin.test.k6.io/get');
+  
   check(res, {
     'status is 200': (r) => r.status === 200,
     'response time < 500ms': (r) => r.timings.duration < 500,
   });
+  
   sleep(1);
 }
 ```
 
-渐增负载 + SLA 阈值：
+Run with: `k6 run simple-test.js`
+
+---
+
+## Test Configuration
+
+### Common Options
 
 ```javascript
 export const options = {
+  // Virtual Users (concurrent users)
+  vus: 100,
+  
+  // Test duration
+  duration: '5m',
+  
+  // Or use stages for ramp-up/ramp-down
   stages: [
-    { duration: '30s', target: 20 },   // 渐增
-    { duration: '1m',  target: 100 },  // 维持
-    { duration: '30s', target: 0 },    // 渐降
+    { duration: '30s', target: 20 },   // Ramp up
+    { duration: '1m', target: 100 },  // Stay at 100
+    { duration: '30s', target: 0 },    // Ramp down
   ],
+  
+  // Thresholds (SLA)
   thresholds: {
-    http_req_duration: ['p(95)<500'],  // 95% 请求 < 500ms
-    http_req_failed:   ['rate<0.01'],  // 错误率 < 1%
+    http_req_duration: ['p(95)<500'],  // 95% requests < 500ms
+    http_req_failed: ['rate<0.01'],     // Error rate < 1%
+  },
+  
+  // Load zones (distributed testing)
+  ext: {
+    loadimpact: {
+      name: 'My Load Test',
+      distribution: {
+        'amazon:us:ashburn': { weight: 50 },
+        'amazon:eu: Dublin': { weight: 50 },
+      },
+    },
   },
 };
 ```
 
-带鉴权 + 参数化（SharedArray 共享数据，避免内存膨胀）：
+### Test Types
+
+| Type | Use Case | Configuration |
+|------|----------|---------------|
+| Smoke Test | Verify basic functionality | Low VUs (1-5), short duration |
+| Load Test | Normal expected load | Target VUs based on traffic |
+| Stress Test | Find breaking point | Ramp beyond capacity |
+| Spike Test | Sudden traffic spikes | Rapid increase/decrease |
+| Soak Test | Long-term stability | Extended duration |
+
+---
+
+## HTTP Testing
+
+### Basic Requests
+
+```javascript
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export default function () {
+  // GET request
+  const getRes = http.get('https://api.example.com/users');
+  
+  check(getRes, {
+    'GET succeeded': (r) => r.status === 200,
+    'has users': (r) => r.json('data.length') > 0,
+  });
+
+  // POST request with JSON body
+  const postRes = http.post('https://api.example.com/users', 
+    JSON.stringify({ name: 'Test User', email: 'test@example.com' }),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + __ENV.API_TOKEN,
+      },
+    }
+  );
+  
+  check(postRes, {
+    'POST succeeded': (r) => r.status === 201,
+    'user created': (r) => r.json('id') !== undefined,
+  });
+
+  sleep(1);
+}
+```
+
+### Request Chaining
+
+```javascript
+import http from 'k6/http';
+import { check } from 'k6';
+
+export default function () {
+  // Login and extract token
+  const loginRes = http.post('https://api.example.com/login', 
+    JSON.stringify({ email: 'test@example.com', password: 'password123' })
+  );
+  
+  const token = loginRes.json('access_token');
+  
+  // Use token in subsequent requests
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  };
+  
+  const profileRes = http.get('https://api.example.com/profile', {
+    headers: headers,
+  });
+  
+  check(profileRes, {
+    'profile loaded': (r) => r.status === 200,
+  });
+}
+```
+
+### Parameterized Testing
+
+```javascript
+import http from 'k6/http';
+import { check } from 'k6';
+
+const usernames = ['user1', 'user2', 'user3', 'user4', 'user5'];
+
+export default function () {
+  // Use shared array with VU-specific index
+  const username = usernames[__VU % usernames.length];
+  
+  const res = http.get(`https://api.example.com/users/${username}`);
+  
+  check(res, {
+    'user found': (r) => r.status === 200,
+  });
+}
+```
+
+---
+
+## Browser Testing (k6 Browser)
+
+```javascript
+import { browser } from 'k6/browser';
+
+export const options = {
+  scenarios: {
+    browser_test: {
+      executor: 'constant-vus',
+      vus: 5,
+      duration: '30s',
+      browser: {
+        type: 'chromium',
+      },
+    },
+  },
+};
+
+export default async function () {
+  const page = await browser.newPage();
+  
+  try {
+    await page.goto('https://example.com');
+    
+    const title = await page.title();
+    console.log(`Page title: ${title}`);
+    
+    // Click and interact
+    await page.click('button[data-testid="submit"]');
+    
+    // Wait for response
+    await page.waitForSelector('.success-message');
+    
+  } finally {
+    await page.close();
+  }
+}
+```
+
+Install browser support: `k6 install chromium`
+
+---
+
+## WebSocket Testing
+
+```javascript
+import ws from 'k6/ws';
+import { check } from 'k6';
+
+export default function () {
+  const url = 'wss://echo.websocket.org';
+  
+  ws.connect(url, {}, function (socket) {
+    socket.on('open', () => {
+      console.log('WebSocket connected');
+      socket.send('Hello WebSocket');
+    });
+    
+    socket.on('message', (data) => {
+      console.log(`Received: ${data}`);
+      check(data, {
+        'echo received': (d) => d.includes('Hello'),
+      });
+    });
+    
+    socket.on('close', () => {
+      console.log('WebSocket closed');
+    });
+    
+    // Send periodic messages
+    socket.setInterval(function () {
+      socket.send('ping');
+    }, 1000);
+    
+    // Close after 5 seconds
+    socket.setTimeout(function () {
+      socket.close();
+    }, 5000);
+  });
+}
+```
+
+---
+
+## Data Handling
+
+### CSV Data Source
 
 ```javascript
 import http from 'k6/http';
 import { check } from 'k6';
 import { SharedArray } from 'k6/data';
 
-const users = new SharedArray('users', () => JSON.parse(open('./users.json')));
+// Option 1: Load once, shared across VUs
+const users = new SharedArray('users', function () {
+  return open('./users.csv').split('\n').slice(1).map(line => {
+    const [email, password] = line.split(',');
+    return { email, password };
+  });
+});
 
 export default function () {
   const user = users[__VU % users.length];
+  
+  const res = http.post('https://api.example.com/login',
+    JSON.stringify({ email: user.email, password: user.password })
+  );
+  
+  check(res, { 'login successful': (r) => r.status === 200 });
+}
+```
+
+### JSON Data Source
+
+```javascript
+import http from 'k6/http';
+import { check } from 'k6';
+import { SharedArray } from 'k6/data';
+
+const products = new SharedArray('products', function () {
+  return JSON.parse(open('./products.json'));
+});
+
+export default function () {
+  const product = products[Math.floor(Math.random() * products.length)];
+  
+  const res = http.get(`https://api.example.com/products/${product.id}`);
+  
+  check(res, { 'product found': (r) => r.status === 200 });
+}
+```
+
+---
+
+## Thresholds & SLA
+
+### Basic Thresholds
+
+```javascript
+export const options = {
+  vus: 50,
+  duration: '2m',
+  
+  thresholds: {
+    // Response time thresholds
+    http_req_duration: ['p(95)<500', 'p(99)<1000'],
+    
+    // Error rate threshold
+    http_req_failed: ['rate<0.01'],
+    
+    // Throughput threshold
+    http_reqs: ['rate>100'],
+  },
+};
+```
+
+### Advanced Thresholds
+
+```javascript
+export const options = {
+  thresholds: {
+    // Multiple thresholds on same metric
+    http_req_duration: [
+      'p(90)<300',   // 90th percentile < 300ms
+      'p(95)<500',  // 95th percentile < 500ms
+      'p(99)<1000', // 99th percentile < 1s
+      'avg<200',    // average < 200ms
+    ],
+    
+    // Custom metrics
+    my_custom_metric: ['avg<100'],
+    
+    // Abort on threshold failure
+    'http_req_duration{method:GET}': ['p(95)<300'],
+  },
+};
+```
+
+---
+
+## Custom Metrics
+
+### Counters
+
+```javascript
+import http from 'k6/http';
+import { Counter, Trend, Rate, Gauge } from 'k6/metrics';
+
+// Define custom metrics
+const myCounter = new Counter('api_calls_total');
+const responseTime = new Trend('response_time');
+const errorRate = new Rate('error_rate');
+const activeUsers = new Gauge('active_users');
+
+export default function () {
+  const res = http.get('https://api.example.com/data');
+  
+  // Increment counter
+  myCounter.add(1);
+  
+  // Add to trend (for percentiles)
+  responseTime.add(res.timings.duration);
+  
+  // Track error rate
+  errorRate.add(res.status !== 200);
+  
+  // Set gauge value
+  activeUsers.add(__VU);
+  
+  // Tagged metrics
+  const taggedRes = http.get('https://api.example.com/users', {
+    tags: { endpoint: 'users', env: 'prod' },
+  });
+}
+```
+
+---
+
+## CI/CD Integration
+
+### GitHub Actions
+
+```yaml
+# .github/workflows/load-test.yml
+name: Load Tests
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup k6
+        uses: grafana/k6-action@v0.2.0
+        
+      - name: Run load test
+        env:
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+        run: k6 run --out json=results.json load-test.js
+        
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-results
+          path: results.json
+          
+      - name: Check thresholds
+        if: failure()
+        run: |
+          echo "Load test failed thresholds!"
+          exit 1
+```
+
+### GitLab CI
+
+```yaml
+# .gitlab-ci.yml
+load_test:
+  image: grafana/k6:latest
+  script:
+    - k6 run load-test.js
+  artifacts:
+    when: always
+    paths:
+      - results.json
+    reports:
+      junit: results.xml
+```
+
+---
+
+## Results Analysis
+
+### Built-in Reports
+
+```bash
+# Text summary
+k6 run load-test.js
+
+# JSON output for parsing
+k6 run --out json=results.json load-test.js
+
+# InfluxDB + Grafana
+k6 run --out influxdb=http://localhost:8086/k6 load-test.js
+
+# Prometheus remote write
+k6 run --out prometheus=localhost:9090/k6 load-test.js
+
+# Cloud results
+k6 run --out cloud load-test.js
+```
+
+### Interpreting Results
+
+| Metric | Description | Good | Warning | Bad |
+|--------|-------------|------|---------|-----|
+| http_req_duration (p95) | 95% response time | < 300ms | 300-500ms | > 500ms |
+| http_req_failed | Error rate | < 0.1% | 0.1-1% | > 1% |
+| http_reqs | Requests/sec | Meeting target | Near limit | At limit |
+| vus | Virtual users | Stable | Gradual increase | Unexpected spike |
+
+---
+
+## Examples
+
+### Example 1: Basic API Load Test
+
+```javascript
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  vus: 50,
+  duration: '2m',
+  thresholds: {
+    http_req_duration: ['p(95)<500'],
+    http_req_failed: ['rate<0.01'],
+  },
+};
+
+export default function () {
+  const res = http.get('https://api.example.com/users');
+  
+  check(res, {
+    'status is 200': (r) => r.status === 200,
+    'response time < 500ms': (r) => r.timings.duration < 500,
+  });
+  
+  sleep(1);
+}
+```
+
+### Example 2: Test with Authentication and Data Parameterization
+
+```javascript
+import http from 'k6/http';
+import { check } from 'k6';
+import { SharedArray } from 'k6/data';
+
+const users = new SharedArray('users', function () {
+  return JSON.parse(open('./users.json'));
+});
+
+export default function () {
+  const user = users[__VU % users.length];
+  
   const loginRes = http.post('https://api.example.com/login',
-    JSON.stringify({ email: user.email, password: user.password }));
+    JSON.stringify({ email: user.email, password: user.password })
+  );
+  
   const token = loginRes.json('access_token');
-  const res = http.get('https://api.example.com/profile',
-    { headers: { Authorization: `Bearer ${token}` } });
+  
+  const headers = { 'Authorization': `Bearer ${token}` };
+  const res = http.get('https://api.example.com/profile', { headers });
+  
   check(res, { 'profile loaded': (r) => r.status === 200 });
 }
 ```
 
-CI（GitHub Actions）核心步骤：用 `grafana/k6-action@v0.2.0` 安装，`k6 run --out json=results.json load-test.js` 运行，再 `actions/upload-artifact` 归档；阈值失败时 k6 退出码非零，job 自动失败。GitLab CI 用 `image: grafana/k6:latest` + `script: k6 run load-test.js`。
+---
 
-## 注意事项
+## Best Practices
 
-- 先冒烟后放大：1-5 VUs 验证脚本，再逐步加压。
-- 用真实数据参数化，用 `tags`（如 `tags: { endpoint: 'users' }`）做细粒度分析。
-- 阈值贴合 SLA，从宽到严按历史数据收紧；用 stages 预留预热时间。
-- 监控不只自家 API，也要看下游依赖；一个场景一个脚本，保持聚焦。
-- 常见坑：本地通过 CI 失败（核对 CI 资源与网络）；多次跑结果不稳（排查外部依赖/随机数据/测试数据污染）；k6 内存溢出（大数据用 `SharedArray`、减少 VUs 或 `--max-memory`）；阈值过严（先放宽再迭代）。
-- 安全：勿对未授权或生产系统盲目施压；输出需经环境特定验证，不能替代专家评审。
-
-## 互见
-
-- `performance-engineer`：更广义的性能优化。
-- `api-testing-observability-api-mock`：测试期 API 打桩/Mock。
-- `application-performance-performance-optimization`：性能优化。
-- 资源：k6 文档 https://k6.io/docs/ ，示例 https://github.com/grafana/k6/tree/master/examples 。
+- **Start with smoke test**: Verify test works with 1-5 VUs before scaling up
+- **Use realistic data**: Parameterize with real user data and behaviors
+- **Set meaningful thresholds**: Match your SLA and business requirements
+- **Warm up systems**: Include ramp-up time in stages
+- **Monitor external dependencies**: Track not just your APIs but downstream services
+- **Use tags**: Tag requests for granular analysis (`tags: { endpoint: 'users' }`)
+- **Keep tests focused**: One test file per scenario for clarity
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+
+## Common Pitfalls
+
+- **Problem:** Tests pass locally but fail in CI
+  **Solution:** Ensure CI environment has similar resources and network conditions
+
+- **Problem:** Inconsistent results between runs
+  **Solution:** Check for external dependencies, random data, or test data pollution
+
+- **Problem:** k6 runs out of memory
+  **Solution:** Use ` SharedArray` for large data, reduce VUs, or use `--max-memory` flag
+
+- **Problem:** Thresholds too strict
+  **Solution:** Start with relaxed thresholds, tighten based on historical data
+
+---
+
+## Related Skills
+
+- `@performance-engineer` - For broader performance optimization
+- `@api-testing-observability-api-mock` - For API mocking during testing
+- `@application-performance-performance-optimization` - For performance optimization
+
+---
+
+## Additional Resources
+
+- [k6 Documentation](https://k6.io/docs/)
+- [k6 Examples](https://github.com/grafana/k6/tree/master/examples)
+- [k6 Load Testing Guides](https://k6.io/guides/)
+- [k6 Cloud](https://k6.io/cloud/)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

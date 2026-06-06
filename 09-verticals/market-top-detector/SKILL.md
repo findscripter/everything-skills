@@ -1,14 +1,14 @@
 ---
 name: market-top-detector
-title: 市场顶部概率检测
-description: 当判断美股是否临近顶部、是否该减仓时使用；做 6 维量化打分（0-100）输出顶部概率与风险区间及行动建议；不适用于长周期泡沫评估或个股选股；触发词：市场顶部、是否减仓、派发日、防御板块轮动、领涨股走弱、调整概率
+title: Market Top Detector Skill
+description: Detects market top probability using O'Neil Distribution Days, Minervini Leading Stock Deterioration, and Monty Defensive Sector Rotation. Generates a 0-100 composite score with risk zone classification. Use when user asks about market top risk, distribution days, defensive rotation, leadership breakdown, or whether to reduce equity exposure. Focuses on 2-8 week tactical timing signals for 10-20% corrections.
 domain: 领域/fintech
-triggers: [市场顶部, 天井, 是否减仓, 派发日, distribution day, 防御板块轮动, 领涨股走弱, 调整概率, 市场风险, 利确时机]
-tags: [量化, 择时, 风险管理, 美股, 市场广度, 情绪指标, o'neil, minervini]
-level: 进阶
+triggers: [distribution day]
+tags: [o'neil, minervini]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, fmp-api, websearch]
+tools: []
 requires: []
 related: [market-breadth-analyzer, macro-regime-detector, portfolio-rebalancer, institutional-flow-tracker]
 combines_with: [market-breadth-analyzer, portfolio-rebalancer, tax-loss-harvesting]
@@ -16,117 +16,184 @@ license: MIT
 source: tradermonty/claude-trading-skills
 source_license: MIT
 ---
-# 市场顶部概率检测
+# Market Top Detector Skill
 
-融合 O'Neil 派发日、Minervini 领涨股恶化、Monty 防御板块轮动三套方法，用 6 维量化打分系统输出 0-100 的顶部概率综合分与风险区间，聚焦未来 2-8 周、对应 10-20% 回调的战术择时信号。
+## Purpose
 
-## 何时使用
+Detect the probability of a market top formation using a quantitative 6-component scoring system (0-100). Integrates three proven market top detection methodologies:
 
-适用：
-- 用户问「市场是否见顶 / 天井是否将近 / 现在该不该利确」。
-- 观察到派发日（distribution day）持续累积。
-- 防御板块跑赢成长，或领涨股走弱而指数仍坚挺。
-- 想评估未来 2-8 周的回调概率、判断减仓时机。
+1. **O'Neil** - Distribution Day accumulation (institutional selling)
+2. **Minervini** - Leading stock deterioration pattern
+3. **Monty** - Defensive sector rotation signal
 
-不该用（负边界）：
-- 长周期（月到年）泡沫评估、30%+ 崩盘风险 → 用 `us-market-bubble-detector`（Minsky/Kindleberger 框架，估值+情绪+社交）。
-- 个股选股 / 入场点判断 → 用筛选类技能（如 `vcp-screener`、`canslim-screener`）。
-- 与本技能定位区别见下表：
+Unlike the Bubble Detector (macro/multi-month evaluation), this skill focuses on **tactical 2-8 week timing signals** that precede 10-20% market corrections.
 
-| 维度 | 市场顶部检测 | 泡沫检测 |
-|---|---|---|
-| 时间窗 | 2-8 周 | 月到年 |
-| 目标 | 10-20% 回调 | 泡沫破裂(30%+) |
-| 方法 | O'Neil/Minervini/Monty | Minsky/Kindleberger |
-| 数据 | 价/量+广度 | 估值+情绪+社交 |
-| 分值 | 0-100 综合 | 0-15 分 |
+## When to Use This Skill
 
-## 前置条件
+- User asks "Is the market topping?" or "Are we near a top?"
+- User notices distribution days accumulating
+- User observes defensive sectors outperforming growth
+- User sees leading stocks breaking down while indices hold
+- User asks about reducing equity exposure timing
+- User wants to assess correction probability for the next 2-8 weeks
 
-- **FMP API Key**（必需）：设环境变量 `$FMP_API_KEY` 或传 `--api-key`；免费档够用，单次约 33 次调用。
-- **WebSearch**（必需）：采集 S&P 500 的 50DMA 广度与 CBOE 股票 Put/Call 比。
-- 可选增强：融资余额 YoY（情绪打分用，通常滞后 1-2 月）、VIX 期限结构（FMP 有 VIX3M 报价时自动识别，可用 `--vix-term` 覆盖）。
-- **数据新鲜度**：所有手工采集数据须为最近 3 个交易日内，过期数据降低分析质量。
+## Prerequisites
 
-## 步骤 / 指令
+**Required:**
+- **FMP API Key:** Set `$FMP_API_KEY` environment variable or pass `--api-key`. Free tier sufficient (~33 API calls per execution).
+- **WebSearch Access:** Required to collect S&P 500 breadth (50DMA %) and CBOE Put/Call ratio data.
 
-### 阶段 1 · WebSearch 采集数据
+**Optional:**
+- **Margin Debt Data:** Enhances sentiment scoring but typically 1-2 months lagged.
+- **VIX Term Structure:** Auto-detected from FMP API if VIX3M quote available; manual override via `--vix-term`.
+
+**Data Freshness:** All manually collected data should be from the most recent 3 business days for accurate analysis.
+
+## Difference from Bubble Detector
+
+| Aspect | Market Top Detector | Bubble Detector |
+|--------|-------------------|-----------------|
+| Timeframe | 2-8 weeks | Months to years |
+| Target | 10-20% correction | Bubble collapse (30%+) |
+| Methodology | O'Neil/Minervini/Monty | Minsky/Kindleberger |
+| Data | Price/Volume + Breadth | Valuation + Sentiment + Social |
+| Score Range | 0-100 composite | 0-15 points |
+
+---
+
+## Execution Workflow
+
+### Phase 1: Data Collection via WebSearch
+
+Before running the Python script, collect the following data using WebSearch.
+**Data Freshness Requirement:** All data must be from the most recent 3 business days. Stale data degrades analysis quality.
 
 ```
-1. 200DMA 广度  → 脚本自动从 TraderMonty GitHub Pages CSV 拉取，无需搜索。
-   覆盖：--breadth-200dma [值]；关闭自动拉取：--no-auto-breadth
-2. [必需] 50DMA 广度（有效区间 20-100）
-   主搜 "S&P 500 percent stocks above 50 day moving average"
-   兜底 "market breadth 50dma site:barchart.com"
-   片段差时直取 https://www.barchart.com/stocks/quotes/$S5FI/overview 读 lastPrice/tradeTime
-   记录数据日期
-3. [必需] CBOE 股票 Put/Call 比（有效区间 0.30-1.50）
-   主搜 "CBOE equity put call ratio today"
-   兜底 "put call ratio site:cboe.com"
-   CSV 端点过期时取 https://ycharts.com/indicators/cboe_equity_put_call_ratio 的 Last Value，标注为次级来源
-   记录数据日期
-4. [可选] VIX 期限结构：steep_contango/contango/flat/backwardation
-   主搜 "VIX VIX3M ratio term structure today"
-5. [可选] 融资余额 YoY %：主搜 "FINRA margin debt latest year over year percent"，记录报告月份
+1. S&P 500 Breadth (200DMA above %)
+   AUTO-FETCHED from TraderMonty CSV (no WebSearch needed)
+   The script fetches this automatically from GitHub Pages CSV data.
+   Override: --breadth-200dma [VALUE] to use a manual value instead.
+   Disable: --no-auto-breadth to skip auto-fetch entirely.
+
+2. [REQUIRED] S&P 500 Breadth (50DMA above %)
+   Valid range: 20-100
+   Primary search: "S&P 500 percent stocks above 50 day moving average"
+   Fallback: "market breadth 50dma site:barchart.com"
+   Direct fallback when search snippets are poor: fetch `https://www.barchart.com/stocks/quotes/$S5FI/overview` and extract the embedded `lastPrice` / `tradeTime` for “S&P 500 Stocks Above 50-Day Average”.
+   Record the data date
+
+3. [REQUIRED] CBOE Equity Put/Call Ratio
+   Valid range: 0.30-1.50
+   Primary search: "CBOE equity put call ratio today"
+   Fallback: "CBOE total put call ratio current"
+   Fallback: "put call ratio site:cboe.com"
+   Direct fallback when Cboe CSV endpoints are stale: fetch `https://ycharts.com/indicators/cboe_equity_put_call_ratio` and parse the “Last Value” / “Latest Period” table fields. Treat this as a secondary source and cite it in freshness notes.
+   Record the data date
+
+4. [OPTIONAL] VIX Term Structure
+   Values: steep_contango / contango / flat / backwardation
+   Primary search: "VIX VIX3M ratio term structure today"
+   Fallback: "VIX futures term structure contango backwardation"
+   Note: Auto-detected from FMP API if VIX3M quote available.
+   CLI --vix-term overrides auto-detection.
+
+5. [OPTIONAL] Margin Debt YoY %
+   Primary search: "FINRA margin debt latest year over year percent"
+   Fallback: "NYSE margin debt monthly"
+   Note: Typically 1-2 months lagged. Record the reporting month.
 ```
 
-### 阶段 2 · 执行 Python 脚本
+### Phase 2: Execute Python Script
+
+Run the script with collected data as CLI arguments:
 
 ```bash
 python3 skills/market-top-detector/scripts/market_top_detector.py \
   --api-key $FMP_API_KEY \
-  --breadth-50dma [值] --breadth-50dma-date [YYYY-MM-DD] \
-  --put-call [值] --put-call-date [YYYY-MM-DD] \
+  --breadth-50dma [VALUE] --breadth-50dma-date [YYYY-MM-DD] \
+  --put-call [VALUE] --put-call-date [YYYY-MM-DD] \
   --vix-term [steep_contango|contango|flat|backwardation] \
-  --margin-debt-yoy [值] --margin-debt-date [YYYY-MM-DD] \
+  --margin-debt-yoy [VALUE] --margin-debt-date [YYYY-MM-DD] \
   --output-dir reports/ \
-  --context "Consumer Confidence=[值]" "Gold Price=[值]"
-# 200DMA 广度自动拉取；需要时 --breadth-200dma 覆盖，--no-auto-breadth 关闭
+  --context "Consumer Confidence=[VALUE]" "Gold Price=[VALUE]"
+# 200DMA breadth is auto-fetched from TraderMonty CSV.
+# Override with --breadth-200dma [VALUE] if needed.
+# Disable with --no-auto-breadth to skip auto-fetch.
 ```
 
-脚本会：拉取 S&P500/QQQ/VIX 报价与历史 → 拉取领涨 ETF（ARKK, WCLD, IGV, XBI, SOXX, SMH, KWEB, TAN）与板块 ETF（XLU, XLP, XLV, VNQ, XLK, XLC, XLY）→ 计算 6 个分项 → 生成综合分与报告（JSON + Markdown）。
+The script will:
+1. Fetch S&P 500, QQQ, VIX quotes and history from FMP API
+2. Fetch Leading ETF (ARKK, WCLD, IGV, XBI, SOXX, SMH, KWEB, TAN) data
+3. Fetch Sector ETF (XLU, XLP, XLV, VNQ, XLK, XLC, XLY) data
+4. Calculate all 6 components
+5. Generate composite score and reports
 
-### 阶段 3 · 呈现结果
+### Phase 3: Present Results
 
-向用户突出：综合分与风险区间、数据新鲜度告警（>3 天）、最强预警信号（最高分项）、历史顶部对照、What-if 敏感性、按风险区间的行动建议、Follow-Through Day 状态、与上次运行的 Delta。
-
-## 示例
-
-### 6 维打分权重
-
-| # | 分项 | 权重 | 数据源 | 关键信号 |
-|---|---|---|---|---|
-| 1 | 派发日计数 | **25%** | FMP | 近 25 个交易日的机构抛售 |
-| 2 | 领涨股健康度 | **20%** | FMP | 成长 ETF 篮子恶化 |
-| 3 | 防御板块轮动 | **15%** | FMP | 防御 vs 成长相对强弱 |
-| 4 | 市场广度背离 | **15%** | CSV自动 + 搜索 | 200/50DMA 广度 vs 指数位 |
-| 5 | 指数技术形态 | **15%** | FMP | 均线结构、反弹失败、更低高点 |
-| 6 | 情绪与投机 | **10%** | FMP + 搜索 | VIX、Put/Call、期限结构 |
-
-### 风险区间映射
-
-| 分值 | 区间 | 风险预算 | 行动 |
-|---|---|---|---|
-| 0-20 | 绿(正常) | 100% | 正常操作 |
-| 21-40 | 黄(早期预警) | 80-90% | 收紧止损、减少新仓 |
-| 41-60 | 橙(风险升高) | 60-75% | 弱势仓位获利了结 |
-| 61-80 | 红(高概率见顶) | 40-55% | 积极获利了结 |
-| 81-100 | 危(顶部形成) | 20-35% | 最大防御、对冲 |
-
-## 注意事项
-
-- 输出文件：`market_top_YYYY-MM-DD_HHMMSS.json` 与 `.md`。
-- 这是战术择时信号、概率而非确定性；任一手工数据超过 3 天会显著降低可信度，须在报告中明确告警。
-- 参考文档按需加载：首次用读 `references/market_top_methodology.md`（完整框架）；派发日问题读 `references/distribution_day_guide.md`（含 Stalling Day、FTD 机制）；历史对照读 `references/historical_tops.md`（2000/2007/2018/2022 顶部）。常规执行无需加载，脚本已内置打分。
-
-## 互见
-
-- related：`us-market-bubble-detector` —— 长周期泡沫评估，与本技能短周期择时互补
-- related：`ibd-distribution-day-monitor` —— 单独追踪派发日（本技能分项 1 的细化）
-- related：`ftd-detector` —— Follow-Through Day 跟进确认，判断顶部后的反转
-- combines_with：`market-breadth-analyzer` —— 提供更细的广度背离数据，强化分项 4
-- combines_with：`exposure-coach` —— 把风险区间映射成具体仓位/敞口调整动作
+Present the generated Markdown report to the user, highlighting:
+- Composite score and risk zone
+- Data freshness warnings (if any data older than 3 days)
+- Strongest warning signal (highest component score)
+- Historical comparison (closest past top pattern)
+- What-if scenarios (sensitivity to key changes)
+- Recommended actions based on risk zone
+- Follow-Through Day status (if applicable)
+- Delta vs previous run (if prior report exists)
 
 ---
 
-采编自 tradermonty/claude-trading-skills（MIT）。
+## 6-Component Scoring System
+
+| # | Component | Weight | Data Source | Key Signal |
+|---|-----------|--------|-------------|------------|
+| 1 | Distribution Day Count | **25%** | FMP API | Institutional selling in last 25 trading days |
+| 2 | Leading Stock Health | **20%** | FMP API | Growth ETF basket deterioration |
+| 3 | Defensive Sector Rotation | **15%** | FMP API | Defensive vs Growth relative performance |
+| 4 | Market Breadth Divergence | **15%** | Auto (CSV) + WebSearch | 200DMA (auto) / 50DMA (WebSearch) breadth vs index level |
+| 5 | Index Technical Condition | **15%** | FMP API | MA structure, failed rallies, lower highs |
+| 6 | Sentiment & Speculation | **10%** | FMP + WebSearch | VIX, Put/Call, term structure |
+
+## Risk Zone Mapping
+
+| Score | Zone | Risk Budget | Action |
+|-------|------|-------------|--------|
+| 0-20 | Green (Normal) | 100% | Normal operations |
+| 21-40 | Yellow (Early Warning) | 80-90% | Tighten stops, reduce new entries |
+| 41-60 | Orange (Elevated Risk) | 60-75% | Profit-taking on weak positions |
+| 61-80 | Red (High Probability Top) | 40-55% | Aggressive profit-taking |
+| 81-100 | Critical (Top Formation) | 20-35% | Maximum defense, hedging |
+
+---
+
+## API Requirements
+
+**Required:** FMP API key (free tier sufficient: ~33 calls per execution)
+**Optional:** WebSearch data for breadth and sentiment (improves accuracy)
+
+## Output Files
+
+- JSON: `market_top_YYYY-MM-DD_HHMMSS.json`
+- Markdown: `market_top_YYYY-MM-DD_HHMMSS.md`
+
+## Reference Documents
+
+### `references/market_top_methodology.md`
+- Full methodology with O'Neil, Minervini, and Monty frameworks
+- Component scoring details and thresholds
+- Historical validation notes
+
+### `references/distribution_day_guide.md`
+- Detailed O'Neil Distribution Day rules
+- Stalling day identification
+- Follow-Through Day (FTD) mechanics
+
+### `references/historical_tops.md`
+- Analysis of 2000, 2007, 2018, 2022 market tops
+- Component score patterns during historical tops
+- Lessons learned and calibration data
+
+### When to Load References
+- **First use:** Load `market_top_methodology.md` for full framework understanding
+- **Distribution day questions:** Load `distribution_day_guide.md`
+- **Historical context:** Load `historical_tops.md`
+- **Regular execution:** References not needed - script handles scoring

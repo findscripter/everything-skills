@@ -1,14 +1,14 @@
 ---
 name: context-window-management
-title: LLM 上下文窗口管理策略
-description: 当构建多轮对话/长上下文 LLM 应用、上下文逼近或超出 token 上限时使用；做 token 计数、预算分配、分层路由、按重要性摘要与序位优化，产出可控的上下文拼装方案；不适用于 RAG 检索实现、模型微调、嵌入模型细节。触发词：上下文窗口、token 限制、上下文溢出。
+title: Context Window Management
+description: Strategies for managing LLM context windows including
 domain: 智能/prompting
-triggers: [上下文窗口, token 限制, 上下文管理, 上下文工程, 长上下文, 上下文溢出, context window, token limit]
-tags: [llm, 上下文工程, token预算, 摘要压缩, 提示工程, 对话系统]
-level: 进阶
+triggers: [context window, token limit]
+tags: [llm]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [tiktoken, LangChain, Claude API]
+tools: []
 requires: []
 related: [context-compression, llm-prompt-caching, llm-prompt-optimizer, llm-model-router]
 combines_with: [production-llm-app-builder, rag-pipeline-builder, claude-api]
@@ -16,97 +16,309 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Context Window Management
 
-适用于：
+Strategies for managing LLM context windows including summarization, trimming, routing, and avoiding context rot
 
-- 构建任意多轮对话系统，需要在固定 token 上限内稳定拼装上下文。
-- 上下文逼近或超出模型窗口，需要做摘要、裁剪、路由或预算分配。
-- 出现「上下文溢出 / token 超限 / 上下文腐化（context rot）」，或希望对长上下文做序位优化。
+## Capabilities
 
-不该用（负边界）：
+- context-engineering
+- context-summarization
+- context-trimming
+- context-routing
+- token-counting
+- context-prioritization
 
-- RAG 检索系统的具体实现、向量库与召回细节 → 见 `rag-implementation`。
-- 模型微调、嵌入模型选型。
-- 本技能聚焦上下文优化策略本身，不绑定某一框架的落地代码。
+## Prerequisites
 
-前置：了解 LLM 基础、分词（tokenization）、提示工程。
+- Knowledge: LLM fundamentals, Tokenization basics, Prompt engineering
+- Skills_recommended: prompt-engineering
 
-## 步骤
+## Scope
 
-1. 先数 token：发送前用 tiktoken 等统计各部分 token，绝不盲发（否则触发 WARNING：未计数易超限）。
-2. 分配预算：按比例为 system / 关键上下文 / 历史 / 当前 query / 响应预留切分总预算。
-3. 选策略路由：按总 token 落入分层（full → summarize → rag），同时选择匹配的模型。
-4. 压缩历史：超预算时按「重要性」而非单纯「时间」做智能摘要，保留用户偏好与决策。
-5. 序位拼装：把系统指令与关键上下文放最前（primacy），当前请求与关键约束放最后（recency）。
-6. 回收余量：各部分裁剪后若有剩余预算，优先回补给历史（对话价值最高）。
+- Does_not_cover: RAG implementation details, Model fine-tuning, Embedding models
+- Boundaries: Focus is context optimization, Covers strategies not specific implementations
 
-## 指令
+## Ecosystem
 
-- 始终先 `countTokens` 再构建，禁止无预算直发。
-- 裁剪历史时用摘要替代直接删除，避免丢失关键上下文（WARNING：朴素截断有损）。
-- token 上限按模型从配置读取，不要硬编码（INFE：硬编码上限）。
-- 摘要提示词须显式要求保留：用户偏好/决策、后续可能被引用的关键事实、对话整体脉络。
-- 摘要后恢复原始时间顺序（按 timestamp 排序）。
-- 委派触发：retrieval/rag/search → `rag-implementation`；memory/persistence → `conversation-memory`；cache → `prompt-caching`。
+### Primary_tools
 
-## 示例
+- tiktoken - OpenAI's tokenizer for counting tokens
+- LangChain - Framework with context management utilities
+- Claude API - 200K+ context with caching support
 
-分层路由 + 策略选择（核心骨架）：
+## Patterns
 
-```ts
-interface ContextTier { maxTokens: number; strategy: 'full' | 'summarize' | 'rag'; model: string; }
+### Tiered Context Strategy
+
+Different strategies based on context size
+
+**When to use**: Building any multi-turn conversation system
+
+interface ContextTier {
+    maxTokens: number;
+    strategy: 'full' | 'summarize' | 'rag';
+    model: string;
+}
 
 const TIERS: ContextTier[] = [
-  { maxTokens: 8000,     strategy: 'full',      model: 'claude-3-haiku' },
-  { maxTokens: 32000,    strategy: 'full',      model: 'claude-3-5-sonnet' },
-  { maxTokens: 100000,   strategy: 'summarize', model: 'claude-3-5-sonnet' },
-  { maxTokens: Infinity, strategy: 'rag',       model: 'claude-3-5-sonnet' },
+    { maxTokens: 8000, strategy: 'full', model: 'claude-3-haiku' },
+    { maxTokens: 32000, strategy: 'full', model: 'claude-3-5-sonnet' },
+    { maxTokens: 100000, strategy: 'summarize', model: 'claude-3-5-sonnet' },
+    { maxTokens: Infinity, strategy: 'rag', model: 'claude-3-5-sonnet' }
 ];
 
+async function selectStrategy(messages: Message[]): ContextTier {
+    const tokens = await countTokens(messages);
+
+    for (const tier of TIERS) {
+        if (tokens <= tier.maxTokens) {
+            return tier;
+        }
+    }
+    return TIERS[TIERS.length - 1];
+}
+
 async function prepareContext(messages: Message[]): PreparedContext {
-  const tokens = await countTokens(messages);
-  const tier = TIERS.find(t => tokens <= t.maxTokens) ?? TIERS.at(-1)!;
-  switch (tier.strategy) {
-    case 'full':      return { messages, model: tier.model };
-    case 'summarize': return { messages: [await summarizeOldMessages(messages), ...recentMessages(messages)], model: tier.model };
-    case 'rag':       return { messages: [...await retrieveRelevant(messages), ...recentMessages(messages)], model: tier.model };
-  }
+    const tier = await selectStrategy(messages);
+
+    switch (tier.strategy) {
+        case 'full':
+            return { messages, model: tier.model };
+
+        case 'summarize':
+            const summary = await summarizeOldMessages(messages);
+            return { messages: [summary, ...recentMessages(messages)], model: tier.model };
+
+        case 'rag':
+            const relevant = await retrieveRelevant(messages);
+            return { messages: [...relevant, ...recentMessages(messages)], model: tier.model };
+    }
 }
-```
 
-token 预算分配（按比例切分总窗口）：
+### Serial Position Optimization
 
-```ts
+Place important content at start and end
+
+**When to use**: Constructing prompts with significant context
+
+// LLMs weight beginning and end more heavily
+// Structure prompts to leverage this
+
+function buildOptimalPrompt(components: {
+    systemPrompt: string;
+    criticalContext: string;
+    conversationHistory: Message[];
+    currentQuery: string;
+}): string {
+    // START: System instructions (always first)
+    const parts = [components.systemPrompt];
+
+    // CRITICAL CONTEXT: Right after system (high primacy)
+    if (components.criticalContext) {
+        parts.push(`## Key Context\n${components.criticalContext}`);
+    }
+
+    // MIDDLE: Conversation history (lower weight)
+    // Summarize if long, keep recent messages full
+    const history = components.conversationHistory;
+    if (history.length > 10) {
+        const oldSummary = summarize(history.slice(0, -5));
+        const recent = history.slice(-5);
+        parts.push(`## Earlier Conversation (Summary)\n${oldSummary}`);
+        parts.push(`## Recent Messages\n${formatMessages(recent)}`);
+    } else {
+        parts.push(`## Conversation\n${formatMessages(history)}`);
+    }
+
+    // END: Current query (high recency)
+    // Restate critical requirements here
+    parts.push(`## Current Request\n${components.currentQuery}`);
+
+    // FINAL: Reminder of key constraints
+    parts.push(`Remember: ${extractKeyConstraints(components.systemPrompt)}`);
+
+    return parts.join('\n\n');
+}
+
+### Intelligent Summarization
+
+Summarize by importance, not just recency
+
+**When to use**: Context exceeds optimal size
+
+interface MessageWithMetadata extends Message {
+    importance: number;  // 0-1 score
+    hasCriticalInfo: boolean;  // User preferences, decisions
+    referenced: boolean;  // Was this referenced later?
+}
+
+async function smartSummarize(
+    messages: MessageWithMetadata[],
+    targetTokens: number
+): Message[] {
+    // Sort by importance, preserve order for tied scores
+    const sorted = [...messages].sort((a, b) =>
+        (b.importance + (b.hasCriticalInfo ? 0.5 : 0) + (b.referenced ? 0.3 : 0)) -
+        (a.importance + (a.hasCriticalInfo ? 0.5 : 0) + (a.referenced ? 0.3 : 0))
+    );
+
+    const keep: Message[] = [];
+    const summarizePool: Message[] = [];
+    let currentTokens = 0;
+
+    for (const msg of sorted) {
+        const msgTokens = await countTokens([msg]);
+        if (currentTokens + msgTokens < targetTokens * 0.7) {
+            keep.push(msg);
+            currentTokens += msgTokens;
+        } else {
+            summarizePool.push(msg);
+        }
+    }
+
+    // Summarize the low-importance messages
+    if (summarizePool.length > 0) {
+        const summary = await llm.complete(`
+            Summarize these messages, preserving:
+            - Any user preferences or decisions
+            - Key facts that might be referenced later
+            - The overall flow of conversation
+
+            Messages:
+            ${formatMessages(summarizePool)}
+        `);
+
+        keep.unshift({ role: 'system', content: `[Earlier context: ${summary}]` });
+    }
+
+    // Restore original order
+    return keep.sort((a, b) => a.timestamp - b.timestamp);
+}
+
+### Token Budget Allocation
+
+Allocate token budget across context components
+
+**When to use**: Need predictable context management
+
+interface TokenBudget {
+    system: number;      // System prompt
+    criticalContext: number;  // User prefs, key info
+    history: number;     // Conversation history
+    query: number;       // Current query
+    response: number;    // Reserved for response
+}
+
 function allocateBudget(totalTokens: number): TokenBudget {
-  return {
-    system:          Math.floor(totalTokens * 0.10), // 系统提示 10%
-    criticalContext: Math.floor(totalTokens * 0.15), // 关键上下文 15%
-    history:         Math.floor(totalTokens * 0.40), // 历史 40%
-    query:           Math.floor(totalTokens * 0.10), // 当前 query 10%
-    response:        Math.floor(totalTokens * 0.25), // 响应预留 25%
-  };
+    return {
+        system: Math.floor(totalTokens * 0.10),      // 10%
+        criticalContext: Math.floor(totalTokens * 0.15),  // 15%
+        history: Math.floor(totalTokens * 0.40),     // 40%
+        query: Math.floor(totalTokens * 0.10),       // 10%
+        response: Math.floor(totalTokens * 0.25),    // 25%
+    };
 }
+
+async function buildWithBudget(
+    components: ContextComponents,
+    modelMaxTokens: number
+): PreparedContext {
+    const budget = allocateBudget(modelMaxTokens);
+
+    // Truncate/summarize each component to fit budget
+    const prepared = {
+        system: truncateToTokens(components.system, budget.system),
+        criticalContext: truncateToTokens(
+            components.criticalContext, budget.criticalContext
+        ),
+        history: await summarizeToTokens(components.history, budget.history),
+        query: truncateToTokens(components.query, budget.query),
+    };
+
+    // Reallocate unused budget
+    const used = await countTokens(Object.values(prepared).join('\n'));
+    const remaining = modelMaxTokens - used - budget.response;
+
+    if (remaining > 0) {
+        // Give extra to history (most valuable for conversation)
+        prepared.history = await summarizeToTokens(
+            components.history,
+            budget.history + remaining
+        );
+    }
+
+    return prepared;
+}
+
+## Validation Checks
+
+### No Token Counting
+
+Severity: WARNING
+
+Message: Building context without token counting. May exceed model limits.
+
+Fix action: Count tokens before sending, implement budget allocation
+
+### Naive Message Truncation
+
+Severity: WARNING
+
+Message: Truncating messages without summarization. Critical context may be lost.
+
+Fix action: Summarize old messages instead of simply removing them
+
+### Hardcoded Token Limit
+
+Severity: INFO
+
+Message: Hardcoded token limit. Consider making configurable per model.
+
+Fix action: Use model-specific limits from configuration
+
+### No Context Management Strategy
+
+Severity: WARNING
+
+Message: LLM calls without context management strategy.
+
+Fix action: Implement context management: budgets, summarization, or RAG
+
+## Collaboration
+
+### Delegation Triggers
+
+- retrieval|rag|search -> rag-implementation (Need retrieval system)
+- memory|persistence|remember -> conversation-memory (Need memory storage)
+- cache|caching -> prompt-caching (Need caching optimization)
+
+### Complete Context System
+
+Skills: context-window-management, rag-implementation, conversation-memory, prompt-caching
+
+Workflow:
+
+```
+1. Design context strategy
+2. Implement RAG for large corpuses
+3. Set up memory persistence
+4. Add caching for performance
 ```
 
-序位优化：`[系统指令] → [## 关键上下文] → [## 早期对话(摘要)] + [## 最近消息] → [## 当前请求] → [关键约束提醒]`。历史超 10 条时，将较早的 N-5 条摘要、保留最近 5 条原文。
+## Related Skills
 
-按重要性摘要：综合 `importance + (hasCriticalInfo?0.5:0) + (referenced?0.3:0)` 排序，高分原样保留（累计至 `targetTokens*0.7`），低分进入摘要池统一压缩为一条 `[Earlier context: ...]` system 消息，最后按时间序还原。
+Works well with: `rag-implementation`, `conversation-memory`, `prompt-caching`, `llm-npc-dialogue`
 
-## 注意事项
+## When to Use
+- User mentions or implies: context window
+- User mentions or implies: token limit
+- User mentions or implies: context management
+- User mentions or implies: context engineering
+- User mentions or implies: long context
+- User mentions or implies: context overflow
 
-- 利用 LLM 的首末加权效应：开头放系统/关键信息，结尾复述关键要求与约束。
-- 摘要按「重要性」分级，别只按时间砍尾巴。
-- 预算可弹性回收，避免窗口浪费；响应区一定要预留，否则生成会被挤掉。
-- 输出非环境特定验证的替代品，关键链路仍需测试与人工复核；缺少必需输入/权限/成功标准时应先澄清再动手。
-
-## 互见
-
-- `rag-implementation`：大语料检索召回。
-- `conversation-memory`：长期记忆与持久化。
-- `prompt-caching`：缓存优化降本提速。
-- 完整上下文系统工作流：设计上下文策略 → 大语料接 RAG → 接入记忆持久化 → 加缓存提升性能。
-
----
-
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

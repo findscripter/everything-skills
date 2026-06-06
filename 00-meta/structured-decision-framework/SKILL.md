@@ -1,14 +1,14 @@
 ---
 name: structured-decision-framework
-title: 结构化决策框架
-description: 当一个高风险/不可逆决策已拍板、需要落成可追溯的持久记录时使用；做法是把决策写成结构化记录（所选项+被否项及理由、可量化的成功/终止标准、逐字保留的异议、复盘检查点），并区分「原始过程」与「已批准结论」两层记忆、定期触发陈旧审计；不适用于尚未拍板的方案比选、低风险可逆小决定、纯任务排期。触发词：登记决策、决策记录、复盘检查点、保留异议
+title: Structured Decision Framework
+description: Use after a high-stakes, irreversible decision is already APPROVED and must become a durable, auditable record; capture the chosen and rejected options with rationale, quantified success/kill criteria, verbatim-preserved dissent, and a review checkpoint, split into a two-layer me
 domain: 通用/thinking
-triggers: [登记决策, 决策记录归档, 成功与终止标准, 复盘检查点, 保留异议/不抹平分歧, 两层决策记忆, 陈旧决策审计, 把已批准方案写成记录, log a decision, decision record]
-tags: [决策, 思维, 决策记录, 复盘, 知识留存, 治理, 通用]
-level: 进阶
+triggers: [log a decision, decision record, approved decision log, success and kill criteria, review checkpoint, preserve dissent verbatim, two-layer decision memory, stale-decision audit, turn approved memo into a record]
+tags: [decision, thinking, decision-record, post-mortem, knowledge-retention, governance, general]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [文件读写（决策记录归档）]
+tools: []
 requires: []
 related: [decision-log-recorder, hard-call-advisor, four-voice-decision-council, premortem-plan-challenger]
 combines_with: [adr-writer, business-assumption-stress-test]
@@ -16,122 +16,116 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-# 结构化决策框架
+## When to use
 
-## 何时使用
+Use it when:
 
-适用：
+- A **high-stakes, irreversible, or strongly contested** decision **has already been made (APPROVED)** and you need to harden it from "we discussed it in a meeting" into a traceable, reviewable **durable record**.
+- You worry that later you will only remember "what was chosen" but forget "why someone disagreed" — and the dissent often turns out to have been correct once the kill criteria trigger.
+- You need to keep the **decision conclusion** and the **decision process** in separate stores: the conclusion feeds future decisions; the raw process is reference-only and never auto-replayed, so unresolved debates are never mistaken for settled consensus.
 
-- 一个**高风险、不可逆或有重大分歧**的决策**已经拍板**，需要把它从「会上讨论过」固化成可追溯、可复盘的**持久记录**。
-- 你担心日后只记得「选了什么」却忘了「为什么有人反对」——而反对意见往往在终止标准触发时被证明是对的。
-- 需要把**决策结论**与**决策过程**分开存：结论喂给未来决策，过程只作参考、不自动回灌，避免把「尚未解决的争论」误当成「已达成的共识」。
+Do NOT use it (negative boundaries):
 
-不该用（负边界）：
+- The decision is **not yet made** and is still in multi-perspective option weighing — that is deliberation (see `boardroom-deliberation`); this skill only handles logging **after approval**.
+- Low-risk, reversible, easily-changed small calls — heavyweight recording is just overhead.
+- Pure task scheduling / execution breakdown (that is "after the decision" delivery, not the decision itself).
 
-- 方案**尚未拍板**、还在多视角比选阶段——那是审议（见 `boardroom-deliberation`），本技能只处理「已批准之后」的登记。
-- 低风险、可逆、随手就能改的小决定——重记录是负担。
-- 纯任务排期 / 执行拆解（那是「决策之后」的落地，不是决策本身）。
+Core idea: **two-layer memory**. The raw process (every session, every party's position, every dissent) is read-only archive and is **never auto-fed back**; only the **approved conclusion** becomes the "company memory" that replays into future decisions. This isolation prevents the system from "remembering" unresolved debates as if they were decisions.
 
-核心理念：**两层记忆**。原始过程（每次讨论、每方立场、每条异议）只读留档、绝不自动反馈；只有**经批准的结论**才成为会回灌未来决策的「公司记忆」。这道隔离防止系统把未决争论「记成」决策。
+## Steps
 
-## 步骤
+1. **Read the source and verify approval.** Take the proposal/memo and confirm its status is `APPROVED`. If not approved, do not log — return it to deliberation.
+2. **Extract the structured decision record** fields: decision title, date decided, approver, option chosen, rejected options + one-line rationale, quantified success criteria, quantified kill criteria, **dissent preserved verbatim**, review checkpoint date.
+3. **Write to the "approved" layer.** Append to `~/.claude/decisions/approved/<YYYY-MM-DD>-<slug>.md` (one file per decision). This layer feeds future decisions.
+4. **Update the "raw" layer pointer.** Keep process material under `~/.claude/decisions/raw/`, and back-link to it from the approved record. The raw layer is read-only and never auto-replays.
+5. **Schedule the auto-revisit.** Default: trigger a review checkpoint after 90 days.
+6. **(Optional) Sync to the knowledge vault.** If a vault bridge is configured, also write a copy to `~/company-vault/10-decisions/`.
 
-1. **读取来源并校验批准**：拿到方案/备忘录，确认状态为「已批准（APPROVED）」。未批准 → 不登记，退回审议。
-2. **抽取结构化决策记录**字段：决策标题、决策日期、批准人、所选选项、被否选项+一句话理由、可量化的成功标准、可量化的终止标准、**逐字保留的异议**、复盘检查点日期。
-3. **写入「已批准」层**：追加到 `~/.claude/decisions/approved/<YYYY-MM-DD>-<slug>.md`（一决策一文件）。这一层会喂入未来决策。
-4. **更新「原始」层指针**：把过程材料留档于 `~/.claude/decisions/raw/`，并在已批准记录里反向链接到它。原始层只读、不自动回灌。
-5. **排定自动复盘**：默认 90 天后触发复盘检查点。
-6.（可选）**同步到知识库**：若配置了 vault 桥接，写一份到 `~/company-vault/10-decisions/`。
+Instructions / constraints:
 
-## 指令
+- Approved record path: `~/.claude/decisions/approved/<YYYY-MM-DD>-<slug>.md`; raw process archive: `~/.claude/decisions/raw/`.
+- Both success criteria and kill criteria must be **quantified** (metric + threshold + timeframe/action), otherwise they cannot be adjudicated at review time.
+- Dissent is **preserved verbatim** — do not summarize, delete, or edit it. This is the single most important discipline of the framework.
+- Default review cycle is 90 days; irreversible decisions may add a cooling-off lock.
 
-- 已批准记录路径：`~/.claude/decisions/approved/<YYYY-MM-DD>-<slug>.md`；原始过程留档：`~/.claude/decisions/raw/`。
-- 成功标准与终止标准都必须**可量化**（指标 + 阈值 + 时限/动作），否则复盘时无法判定。
-- 异议**逐字保留**，不要概括、不要删改——这是本框架最关键的纪律。
-- 默认复盘周期 90 天；不可逆决策可叠加冷静期锁定。
-
-决策记录模板：
+Decision record template:
 
 ```markdown
-# 决策：<标题>
-**决策日期：** YYYY-MM-DD
-**批准人：** <姓名>
-**来源备忘录：** <审议备忘录链接>
-**原始简报：** <原始简报链接>
-**复盘检查点：** YYYY-MM-DD（默认 90 天）
+# Decision: <title>
+**Decided:** YYYY-MM-DD
+**By:** <approver name>
+**Memo:** <link to deliberation memo>
+**Brief:** <link to original brief>
+**Review checkpoint:** YYYY-MM-DD (90d default)
 
-## 决策
-**所选：** <选项>
-**否决：** <其它选项 + 一句话理由>
+## Decision
+**Chose:** <option>
+**Rejected:** <other options + one-line why>
 
-## 成功标准（具约束力）
-- <指标，阈值，时限>
+## Success Criteria (binding)
+- <metric, threshold, timeframe>
 
-## 终止标准（具约束力）
-- <指标，阈值，触发后动作>
+## Kill Criteria (binding)
+- <metric, threshold, action>
 
-## 保留异议
-- **<异议方>：** <未解决的顾虑>
-- （逐字保留；异议永不抹除）
+## Preserved Dissent
+- **<dissenter>:** <unresolved concern>
+- (preserved verbatim; dissent never erased)
 
-## 下一步
-- 进入 90 天执行计划，截止 <日期>
+## Next Action
+- 90-day execution plan due <date>
 
-## 状态历史
-- YYYY-MM-DD：已批准（APPROVED）
+## Status History
+- YYYY-MM-DD: APPROVED
 ```
 
-陈旧决策审计（建议定期跑，如每周）：
+Stale-decision audit (run periodically, e.g. weekly):
 
-- 超过 90 天未复盘的决策 → 标记待复盘。
-- 终止标准已被触发的决策 → 立即标记。
-- 决策所依据的背景前提已变化的 → 标记重新评估。
+- Decisions > 90 days without a revisit → flag for review.
+- Decisions whose kill criteria have triggered → flag immediately.
+- Decisions whose underlying context/assumptions have changed → flag for re-examination.
 
-## 示例
+## Example
 
-议题：是否把核心产品迁移到云（已在审议中以 3:1 通过「分阶段迁移」，CFO 持成本异议）。
+Topic: should we migrate the core product to the cloud (already passed 3:1 in deliberation as a "phased migration", with the CFO holding a cost dissent).
 
-登记后写入 `~/.claude/decisions/approved/2026-06-03-cloud-migration.md`：
+After logging, written to `~/.claude/decisions/approved/2026-06-03-cloud-migration.md`:
 
 ```markdown
-# 决策：核心产品分阶段迁移到云
-**决策日期：** 2026-06-03
-**批准人：** 创始人
-**复盘检查点：** 2026-09-01（90 天）
+# Decision: Phased cloud migration of the core product
+**Decided:** 2026-06-03
+**By:** Founder
+**Review checkpoint:** 2026-09-01 (90d)
 
-## 决策
-**所选：** 分阶段迁移（先迁无状态服务）
-**否决：** 一次性整体迁移（回滚风险高）；维持自建（放弃弹性扩容）
+## Decision
+**Chose:** Phased migration (stateless services first)
+**Rejected:** Big-bang full migration (high rollback risk); keep self-hosted (forgo elastic scaling)
 
-## 成功标准（具约束力）
-- 第 1 阶段上线后 P95 延迟 ≤ 当前值，且月云成本 ≤ 预算 1.1 倍，3 个月内达成。
+## Success Criteria (binding)
+- After Phase 1 ships, P95 latency ≤ current value AND monthly cloud cost ≤ 1.1× budget, achieved within 3 months.
 
-## 终止标准（具约束力）
-- 若迁移期出现一次以上不可回滚的数据不一致事故 → 暂停后续阶段并复盘。
+## Kill Criteria (binding)
+- If one or more non-rollbackable data-inconsistency incidents occur during migration → pause remaining phases and run a post-mortem.
 
-## 保留异议
-- **CFO：** 三年 TCO 测算反而上升，出口流量费可能被低估（逐字保留，未解决）。
+## Preserved Dissent
+- **CFO:** 3-year TCO model actually rises; egress traffic fees may be underestimated (preserved verbatim, unresolved).
 
-## 状态历史
-- 2026-06-03：已批准（APPROVED）
+## Status History
+- 2026-06-03: APPROVED
 ```
 
-到 9 月检查点，若云成本超 CFO 预警的阈值，终止标准与那条**被保留的异议**会共同提醒：当初的反对可能是对的。
+At the September checkpoint, if cloud cost exceeds the CFO's warned threshold, the kill criteria together with that **preserved dissent** jointly signal that the original objection may have been right.
 
-## 注意事项
+## Notes
 
-- **两层隔离不可省**：原始过程绝不自动回灌未来决策，否则系统会把未决争论当成已有结论，凭空「记出」共识。
-- **异议逐字留痕**：即便采纳多数选项，未解决异议也单列保留、不抹平——它是复盘时最有价值的诚实凭证。
-- **成功/终止标准必须可量化**：写不出阈值的标准 = 复盘时无法判定 = 等于没写。
-- 只登记**已批准**的决策；状态非 APPROVED 一律退回，不要把草案污染进「公司记忆」。
-- 本框架管「记录与复盘」，不替代决策本身的多视角评审。
+- **The two-layer isolation is non-negotiable.** The raw process must never auto-feed future decisions; otherwise the system treats unresolved debate as a settled conclusion and "hallucinates" a consensus that never existed.
+- **Dissent leaves a verbatim trace.** Even when the majority option is adopted, unresolved dissent is listed separately and never smoothed over — it is the most valuable honesty receipt at post-mortem time.
+- **Success/kill criteria must be quantified.** A criterion with no threshold = unadjudicable at review = effectively not written.
+- **Only log APPROVED decisions.** Anything not in `APPROVED` status is returned; do not contaminate "company memory" with drafts.
+- This framework governs **recording and review**, not the multi-perspective evaluation of the decision itself.
 
-## 互见
+## See also
 
-- requires：无（但通常承接一次已完成的审议）。
-- related：`decision-navigator`（收敛卡壳问题到可执行步骤）、`premortem-plan-challenger`（事前死亡推演）、`executive-adversarial-mentor`（对抗式压测）。
-- combines_with：`boardroom-deliberation` —— 上游产出含投票与异议的备忘录，本技能负责把已批准结论固化成持久记录并排定复盘。
-
----
-
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+- requires: none (but typically follows a completed deliberation).
+- related: `decision-navigator` (converge a stuck problem into actionable steps), `premortem-plan-challenger` (pre-mortem failure analysis), `executive-adversarial-mentor` (adversarial stress test).
+- combines_with: `boardroom-deliberation` — the upstream produces a memo with votes and dissent; this skill hardens the approved conclusion into a durable record and schedules its review.

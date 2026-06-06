@@ -1,14 +1,14 @@
 ---
 name: resource-capacity-planner
-title: 资源产能规划
-description: 当做季度团队/项目产能规划、感觉团队过载需用数据佐证、纠结该招人还是砍优先级、或压力测试在手人力能否扛住下季度项目时使用；做工作量分析与利用率预测，产出当前利用率表、产能盈缺汇总、需求缺口、瓶颈与「招人/外包/降优先级/延期」建议方案；不适用于排队制运营定编（用 Erlang-C 那套）、千万级多项目组合治理、或个人待办管理。触发词：产能规划、利用率、人力盈缺、该不该招人、季度规划、过载
+title: Resource Capacity Planner
+description: Plan team/project resource capacity through workload analysis and utilization forecasting; use when heading into quarterly planning, when the team feels overallocated and you need the numbers, when deciding whether to hire or deprioritize, or when stress-testing whether upcoming 
 domain: 协作/knowledge
-triggers: [资源产能规划, 季度产能/人力规划, 团队过载需数据佐证, 招人还是砍优先级, 下季度项目能否扛住的压力测试, 利用率预测与目标设定, 工作量分析与人力盈缺, PTO/会议负荷折算实际可用工时]
-tags: [capacity-planning, 产能规划, 利用率, headcount, 工作量分析, 资源分配, 季度规划]
-level: 进阶
+triggers: [resource capacity planning, quarterly capacity/headcount planning, team feels overallocated and needs the numbers, hire vs. deprioritize decision, stress-test whether next quarter's projects fit current staff, utilization forecasting and target setting, workload analysis and headcount gap, convert PTO/meeting load into real available hours]
+tags: [capacity-planning, utilization, headcount, workload-analysis, resource-allocation, quarterly-planning, forecasting]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write]
+tools: []
 requires: []
 related: [ops-capacity-planner, enterprise-project-manager, task-decomposition-planner, agile-product-owner]
 combines_with: [enterprise-project-manager, status-report-generator]
@@ -16,112 +16,115 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+## When to use
 
-为**团队或项目**做产能与资源分配规划：工作量分析 + 利用率预测。典型触发：
+Plan capacity and resource allocation for a **team or project** — workload analysis plus utilization forecasting. Typical triggers:
 
-- **季度规划**前，要把下季度的需求和现有人力对齐。
-- 团队**感觉过载**，需要用数字证实（而非凭感觉）。
-- 纠结**该招人还是砍优先级**，需要量化两种走法的后果。
-- **压力测试**：判断即将启动的项目能否被现有人手扛下来。
+- Heading into **quarterly planning** and you need to align next quarter's demand with the people you have.
+- The team **feels overallocated** and you need the numbers (not a gut feeling) to prove it.
+- Deciding **whether to hire or deprioritize**, and you need to quantify the consequences of each path.
+- **Stress-testing** whether upcoming projects fit the people you have.
 
-需要你先提供的输入：
-- **团队规模与角色**：有哪些人。
-- **当前工作量**：他们在做什么（从项目跟踪工具导出或直接描述）。
-- **下阶段工作**：下季度有什么要做。
-- **约束**：预算、招聘周期、技能要求。
+What I need from you:
 
-**不该用边界**：
-- **排队制运营定编**（客服/CX/IT 运营按工单量定编）→ 用 Erlang-C 排队论那套，见 `ops-capacity-planner`，不同工作单元、不同数学。
-- **千万级多项目组合治理**（EMV/蒙特卡洛/WSJF、董事会级 RAG）→ 见 `enterprise-project-manager`。
-- **个人待办/任务管理** → 不需要本技能。
-- **1-5 年战略人力规划**（能力组合、人才供给、继任）→ 属战略 HR，本技能只做 0-12 个月。
+- **Team size and roles**: Who do you have?
+- **Current workload**: What are they working on? (Upload from a project tracker or describe.)
+- **Upcoming work**: What's coming next quarter?
+- **Constraints**: Budget, hiring timeline, skill requirements.
 
-## 步骤
+**Out of scope** (use a different skill):
 
-沿三个维度展开，按顺序产出。
+- **Queue-based operational staffing** (support/CX/IT ops sized by ticket volume) → use Erlang-C queueing math, see `ops-capacity-planner`. Different work units, different math.
+- **Large multi-project portfolio governance** (EMV / Monte Carlo / WSJF, board-level RAG) → see `enterprise-project-manager`.
+- **Personal to-do / task management** → this skill is not needed.
+- **1–5 year strategic workforce planning** (capability mix, talent supply, succession) → that's strategic HR; this skill covers only the 0–12 month horizon.
 
-1. **盘人（People）**：可用人头与技能、当前分配与利用率、已规划的招聘及到岗时间、外包/供应商产能。
-2. **盘钱（Budget）**：分类运营预算、项目专项预算、偏差追踪、预测 vs 实际。
-3. **盘时间（Time）**：项目时间线与依赖、关键路径、缓冲与应急、截止日管理。
-4. **折算真实可用工时**：从名义工时中扣除 PTO、节假日、病假、例会与上下文切换损耗——**人不可能 100% 投入项目工作**。
-5. **算利用率并标超配**：逐人算 利用率 = 已分配 ÷ 可用容量；按目标利用率（见下表）找定编点，标出任何 >100% 的人。
-6. **对需求排缺口**：把下阶段项目所需 FTE 与可用容量对齐，逐项标 Covered / Gap。
-7. **给方案与情景**：针对瓶颈给「招人 / 外包 / 重排优先级 / 延期」建议，并列「什么都不做 / 招 X 人 / 砍掉 Y」三种情景的后果。
+## Steps
 
-## 指令
+Work across three planning dimensions and produce output in order.
 
-**目标利用率（留缓冲，别按 100% 排）**：
+1. **People**: Available headcount and skills, current allocation and utilization, planned hires and timeline, contractor and vendor capacity.
+2. **Budget**: Operating budget by category, project-specific budgets, variance tracking, forecast vs. actual.
+3. **Time**: Project timelines and dependencies, critical path analysis, buffer and contingency planning, deadline management.
+4. **Convert to real available hours**: From nominal hours, subtract PTO, holidays, sick time, recurring meetings, and context-switching loss — people are never 100% available for project work.
+5. **Compute utilization and flag overallocation**: Per person, utilization = allocated ÷ available capacity; find the staffing point against the target utilization (table below), and flag anyone above 100%.
+6. **Map demand to gaps**: Align the FTEs each upcoming project needs against available capacity, marking each item Covered / Gap.
+7. **Give recommendations and scenarios**: For each bottleneck, recommend Hire / Contract / Reprioritize / Delay, and lay out the consequences of three scenarios — do nothing / hire X / cut Y.
 
-| 角色类型 | 目标利用率 | 说明 |
-|---|---|---|
-| IC / 专家 | 75-80% | 给响应式工作和成长留余地 |
-| 管理者 | 60-70% | 管理开销、会议、1:1 |
-| On-call / 支持 | 50-60% | 打断驱动的工作不可预测 |
+## Example
 
-**若接入连接器**：
-- 接入**项目跟踪工具** → 自动拉取当前工作量与工单分配，展示每人下个 sprint/季度的承诺量。
-- 接入**日历** → 计入 PTO、节假日、例会负荷，算出每人真实可用工时。
+**Utilization targets** (leave buffer; don't plan to 100%):
 
-## 示例
+| Role Type | Target Utilization | Notes |
+|-----------|-------------------|-------|
+| IC / Specialist | 75-80% | Leave room for reactive work and growth |
+| Manager | 60-70% | Management overhead, meetings, 1:1s |
+| On-call / Support | 50-60% | Interrupt-driven work is unpredictable |
 
-输出模板（Markdown）：
+**If connectors are available:**
+
+- If a **project tracker** is connected → pull current workload and ticket assignments automatically; show upcoming sprint or quarter commitments per person.
+- If a **calendar** is connected → factor in PTO, holidays, and recurring meeting load; calculate actual available hours per person.
+
+**Output template (Markdown):**
 
 ```markdown
-## 产能规划：[团队/项目]
-**周期：** [起止] | **团队规模：** [X]
+## Capacity Plan: [Team/Project]
+**Period:** [Date range] | **Team Size:** [X]
 
-### 当前利用率
-| 人/角色 | 容量 | 已分配 | 可用 | 利用率 |
-|---|---|---|---|---|
-| [姓名/角色] | [hrs/wk] | [hrs/wk] | [hrs/wk] | [X]% |
+### Current Utilization
+| Person/Role | Capacity | Allocated | Available | Utilization |
+|-------------|----------|-----------|-----------|-------------|
+| [Name/Role] | [hrs/wk] | [hrs/wk] | [hrs/wk] | [X]% |
 
-### 产能汇总
-- 总容量：[X] hrs/wk
-- 已分配：[X] hrs/wk（[X]%）
-- 可用：[X] hrs/wk（[X]%）
-- 超配：[X 人 >100%]
+### Capacity Summary
+- **Total capacity**: [X] hours/week
+- **Currently allocated**: [X] hours/week ([X]%)
+- **Available**: [X] hours/week ([X]%)
+- **Overallocated**: [X people above 100%]
 
-### 下阶段需求
-| 项目/举措 | 起 | 止 | 所需资源 | 缺口 |
-|---|---|---|---|---|
-| [项目] | [日期] | [日期] | [X FTE] | [Covered/Gap] |
+### Upcoming Demand
+| Project/Initiative | Start | End | Resources Needed | Gap |
+|--------------------|-------|-----|-----------------|-----|
+| [Project] | [Date] | [Date] | [X FTEs] | [Covered/Gap] |
 
-### 瓶颈
-- [被超额订阅的技能或角色]
-- [出现挤兑的时间段]
+### Bottlenecks
+- [Skill or role that's oversubscribed]
+- [Time period with a crunch]
 
-### 建议
-1. [招人 / 外包 / 重排优先级 / 延期]
-2. [具体行动]
+### Recommendations
+1. [Hire / Contract / Reprioritize / Delay]
+2. [Specific action]
 
-### 情景
-| 情景 | 后果 |
-|---|---|
-| 什么都不做 | [会发生什么] |
-| 招 [X] 人 | [改变什么] |
-| 砍掉 [Y] | [腾出什么] |
+### Scenarios
+| Scenario | Outcome |
+|----------|---------|
+| Do nothing | [What happens] |
+| Hire [X] | [What changes] |
+| Deprioritize [Y] | [What frees up] |
 ```
 
-## 注意事项
+## Notes
 
-常见坑（务必规避）：
-- **按 100% 利用率规划**——没给意外留缓冲；目标定在 80%。
-- **忽略会议负荷与上下文切换成本**。
-- **不计入休假、节假日和病假**。
-- **把所有工时当等价**（创意工作 ≠ 行政工作）。
+Common pitfalls (avoid these):
 
-实践提示：
-- **纳入全部工作**——BAU、项目、支持、会议都算，人不是 100% 投在项目上。
-- **定期更新**——产能规划很快过期，建议每月复盘。
+- **Planning to 100% utilization** — no buffer for surprises; target 80%.
+- **Ignoring meeting load and context-switching costs.**
+- **Not accounting for vacation, holidays, and sick time.**
+- **Treating all hours as equal** (creative work ≠ admin work).
 
-## 互见
+Practical tips:
 
-- related：`ops-capacity-planner` —— 排队制运营团队（客服/CX/IT）按工单量用 Erlang-C 定编，与本技能的项目型产能互补、勿混用。
-- related：`enterprise-project-manager` —— 多项目组合层的量化风险与资源优化，规模更大。
-- combines_with：`task-decomposition-planner` —— 先拆解工作量再喂入本技能算产能。
-- combines_with：`enterprise-project-manager` —— 把本技能的产能结论接入组合级治理与高管汇报。
+- **Include all work** — BAU, projects, support, meetings. People aren't 100% available for project work.
+- **Update regularly** — capacity plans go stale fast. Review monthly.
+
+## See also
+
+- related: `ops-capacity-planner` — queue-based operational teams (support/CX/IT) sized by ticket volume with Erlang-C; complements this project-style capacity skill, don't mix them up.
+- related: `enterprise-project-manager` — quantitative risk and resource optimization at the multi-project portfolio layer, larger scale.
+- combines_with: `task-decomposition-planner` — decompose the workload first, then feed it into this skill to compute capacity.
+- combines_with: `enterprise-project-manager` — route this skill's capacity conclusions into portfolio-level governance and executive reporting.
 
 ---
 
-采编自 anthropics/knowledge-work-plugins（Apache-2.0 许可证）。
+Adapted from anthropics/knowledge-work-plugins (Apache-2.0 license).

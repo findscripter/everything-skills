@@ -1,14 +1,14 @@
 ---
 name: spark-job-optimization
-title: Apache Spark 作业性能调优
-description: 当 Spark 作业慢、出现数据倾斜/shuffle 瓶颈/OOM，或需为大数据量管道做分区、缓存、Join、内存与 AQE 调优时使用；按「诊断→分区→Join→缓存→shuffle→内存→格式→验证」产出可执行 PySpark 代码与生产配置；不适用于非 Spark 引擎（Flink/Trino/单机 pandas/Polars）或与性能无关的纯 ETL 逻辑编写。触发词：Spark 慢、数据倾斜、shuffle 优化、broadcast join、AQE、executor 内存、repartition、Kryo
+title: Apache Spark Optimization
+description: Optimize Apache Spark jobs with partitioning, caching, shuffle optimization, and memory tuning. Use when improving Spark performance, debugging slow jobs, or scaling data processing pipelines.
 domain: 数据/pipeline
-triggers: [Spark 慢作业, 数据倾斜 data skew, shuffle 优化, broadcast join 广播连接, AQE 自适应执行, executor 内存 OOM, repartition coalesce, Kryo 序列化, 分区调优 partition, explain 执行计划, salting 加盐, bucket join 分桶]
+triggers: [repartition coalesce]
 tags: [spark, pyspark, data-pipeline, performance, shuffle, data-skew, partitioning, memory-tuning, aqe, pipeline]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, pyspark, spark-sql, parquet, delta-lake]
+tools: []
 requires: []
 related: [data-pipeline-engineer, polars-dataframe, airflow-dag-builder, snowflake-development]
 combines_with: [data-pipeline-engineer, airflow-dag-builder, data-quality-validator]
@@ -16,52 +16,64 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# Apache Spark 作业性能调优
+# Apache Spark Optimization
 
-> domain: 数据/pipeline · name: spark-job-optimization
+Production patterns for optimizing Apache Spark jobs including partitioning strategies, memory management, shuffle optimization, and performance tuning.
 
-## 何时使用
+## Do not use this skill when
 
-- Spark 作业运行慢、stage 卡顿、task 耗时长尾，或出现 OOM/磁盘 spill/频繁 GC。
-- 大数据量管道需要在分区、Join、缓存、shuffle、内存、文件格式层面系统性调优。
-- 排查数据倾斜（少数 task 远慢于其余）、reduce 端 shuffle 过大。
+- The task is unrelated to apache spark optimization
+- You need a different domain or tool outside this scope
 
-不该用的边界：
+## Instructions
 
-- 非 Spark 引擎（Flink、Trino/Presto、Dask、单机 pandas/Polars）—— 调优手段不通用。
-- 只是写业务 ETL 逻辑、没有性能诉求，或数据量小（单机即可）。
-- 缺少 Spark UI/执行计划等可观测信息且无法获取 —— 先补齐诊断输入再调。
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-## 步骤（决策流程）
+## Use this skill when
 
-按瓶颈定位，逐项处理，每步用 Spark UI 或 `df.explain` 验证收益：
+- Optimizing slow Spark jobs
+- Tuning memory and executor configuration
+- Implementing efficient partitioning strategies
+- Debugging Spark performance issues
+- Scaling Spark pipelines for large datasets
+- Reducing shuffle and data skew
 
-1. 诊断：开 Spark UI 看 stage/task 时长分布、shuffle read/write、spill、GC。`df.explain(mode="formatted")` 看物理计划；用 `spark_partition_id()` 统计各分区行数判断倾斜（max/avg > 2 即倾斜）。
-2. 开 AQE：`spark.sql.adaptive.enabled=true` + `coalescePartitions` + `skewJoin`，多数倾斜与分区数问题自动缓解，应作为第一步。
-3. 分区：单分区目标 128MB–256MB。减分区用 `coalesce`（无 shuffle）；需要均匀重分布才用 `repartition(n, key)`。读侧靠分区裁剪 + 谓词下推。
-4. Join：小表（< `autoBroadcastJoinThreshold`，约 10–50MB）用 `F.broadcast`；都大走 Sort-Merge；高频 Join 同键用 `bucketBy` 预分桶免 shuffle；严重倾斜用加盐（salting）。
-5. 缓存：仅当 DataFrame 被多次复用才 `cache()`/`persist()`，默认 `MEMORY_AND_DISK`；复杂血缘用 `checkpoint()` 截断。用完 `unpersist()`，勿过度缓存。
-6. shuffle：预聚合（map 端 combiner）、用 `approx_count_distinct` 代替 `distinct().count()`、开压缩（lz4）。
-7. 内存：`spark.executor.memory` + `memoryOverhead`，`memory.fraction`/`storageFraction` 划分执行与缓存区，按 OOM/spill 现象调。
-8. 格式：列式 Parquet/Delta + snappy；列裁剪只 `select` 所需列；Delta 用 `OPTIMIZE`/`ZORDER` 小文件合并与多维聚簇。
-9. 验证：复跑对比 stage 时长、shuffle 量、spill；倾斜看分区行数 skew ratio。
+## Core Concepts
 
-## 指令
+### 1. Spark Execution Model
 
-- 永远先开 AQE 再手动调，避免重复劳动。
-- 减少分区一律 `coalesce`，别用 `repartition`（后者触发全量 shuffle）。
-- 判存在性用 `df.take(1)` 或 `df.isEmpty()`，禁用 `.count()`。
-- 优先内置函数，避免无谓 UDF（破坏 codegen/列式优化）。
-- 大结果禁止 `collect()` 拉回 driver，保持数据分布式。
+```
+Driver Program
+    ↓
+Job (triggered by action)
+    ↓
+Stages (separated by shuffles)
+    ↓
+Tasks (one per partition)
+```
 
-## 示例
+### 2. Key Performance Factors
 
-优化版 SparkSession 与高效读写：
+| Factor | Impact | Solution |
+|--------|--------|----------|
+| **Shuffle** | Network I/O, disk I/O | Minimize wide transformations |
+| **Data Skew** | Uneven task duration | Salting, broadcast joins |
+| **Serialization** | CPU overhead | Use Kryo, columnar formats |
+| **Memory** | GC pressure, spills | Tune executor memory |
+| **Partitions** | Parallelism | Right-size partitions |
+
+## Quick Start
 
 ```python
-from pyspark.sql import SparkSession, functions as F
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
 
-spark = (SparkSession.builder.appName("OptimizedJob")
+# Create optimized Spark session
+spark = (SparkSession.builder
+    .appName("OptimizedJob")
     .config("spark.sql.adaptive.enabled", "true")
     .config("spark.sql.adaptive.coalescePartitions.enabled", "true")
     .config("spark.sql.adaptive.skewJoin.enabled", "true")
@@ -69,87 +81,365 @@ spark = (SparkSession.builder.appName("OptimizedJob")
     .config("spark.sql.shuffle.partitions", "200")
     .getOrCreate())
 
-df = spark.read.format("parquet").option("mergeSchema", "false").load("s3://bucket/data/")
-result = (df.filter(F.col("date") >= "2024-01-01")
-            .select("id", "amount", "category")
-            .groupBy("category").agg(F.sum("amount").alias("total")))
+# Read with optimized settings
+df = (spark.read
+    .format("parquet")
+    .option("mergeSchema", "false")
+    .load("s3://bucket/data/"))
+
+# Efficient transformations
+result = (df
+    .filter(F.col("date") >= "2024-01-01")
+    .select("id", "amount", "category")
+    .groupBy("category")
+    .agg(F.sum("amount").alias("total")))
+
 result.write.mode("overwrite").parquet("s3://bucket/output/")
 ```
 
-Join 三策 + 倾斜处理：
+## Patterns
+
+### Pattern 1: Optimal Partitioning
 
 ```python
-# 小表广播
-result = large_df.join(F.broadcast(small_df), on="key", how="left")
+# Calculate optimal partition count
+def calculate_partitions(data_size_gb: float, partition_size_mb: int = 128) -> int:
+    """
+    Optimal partition size: 128MB - 256MB
+    Too few: Under-utilization, memory pressure
+    Too many: Task scheduling overhead
+    """
+    return max(int(data_size_gb * 1024 / partition_size_mb), 1)
 
-# 分桶免 shuffle（写时分桶，Join 时同桶数即可）
-(df.write.bucketBy(200, "customer_id").sortBy("customer_id")
-   .mode("overwrite").saveAsTable("bucketed_orders"))
+# Repartition for even distribution
+df_repartitioned = df.repartition(200, "partition_key")
 
-# AQE 自动倾斜 Join
+# Coalesce to reduce partitions (no shuffle)
+df_coalesced = df.coalesce(100)
+
+# Partition pruning with predicate pushdown
+df = (spark.read.parquet("s3://bucket/data/")
+    .filter(F.col("date") == "2024-01-01"))  # Spark pushes this down
+
+# Write with partitioning for future queries
+(df.write
+    .partitionBy("year", "month", "day")
+    .mode("overwrite")
+    .parquet("s3://bucket/partitioned_output/"))
+```
+
+### Pattern 2: Join Optimization
+
+```python
+from pyspark.sql import functions as F
+from pyspark.sql.types import *
+
+# 1. Broadcast Join - Small table joins
+# Best when: One side < 10MB (configurable)
+small_df = spark.read.parquet("s3://bucket/small_table/")  # < 10MB
+large_df = spark.read.parquet("s3://bucket/large_table/")  # TBs
+
+# Explicit broadcast hint
+result = large_df.join(
+    F.broadcast(small_df),
+    on="key",
+    how="left"
+)
+
+# 2. Sort-Merge Join - Default for large tables
+# Requires shuffle, but handles any size
+result = large_df1.join(large_df2, on="key", how="inner")
+
+# 3. Bucket Join - Pre-sorted, no shuffle at join time
+# Write bucketed tables
+(df.write
+    .bucketBy(200, "customer_id")
+    .sortBy("customer_id")
+    .mode("overwrite")
+    .saveAsTable("bucketed_orders"))
+
+# Join bucketed tables (no shuffle!)
+orders = spark.table("bucketed_orders")
+customers = spark.table("bucketed_customers")  # Same bucket count
+result = orders.join(customers, on="customer_id")
+
+# 4. Skew Join Handling
+# Enable AQE skew join optimization
+spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")
 spark.conf.set("spark.sql.adaptive.skewJoin.skewedPartitionFactor", "5")
 spark.conf.set("spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes", "256MB")
 
-# 严重倾斜手动加盐：倾斜侧加随机盐，另一侧按盐数膨胀，再按 salted_key Join
-df_salted = (df_skewed
-    .withColumn("salt", (F.rand() * 10).cast("int"))
-    .withColumn("salted_key", F.concat(F.col("key"), F.lit("_"), F.col("salt"))))
-df_exploded = (df_other.crossJoin(spark.range(10).withColumnRenamed("id", "salt"))
-    .withColumn("salted_key", F.concat(F.col("key"), F.lit("_"), F.col("salt"))))
-result = df_salted.join(df_exploded, on="salted_key", how="inner")
+# Manual salting for severe skew
+def salt_join(df_skewed, df_other, key_col, num_salts=10):
+    """Add salt to distribute skewed keys"""
+    # Add salt to skewed side
+    df_salted = df_skewed.withColumn(
+        "salt",
+        (F.rand() * num_salts).cast("int")
+    ).withColumn(
+        "salted_key",
+        F.concat(F.col(key_col), F.lit("_"), F.col("salt"))
+    )
+
+    # Explode other side with all salts
+    df_exploded = df_other.crossJoin(
+        spark.range(num_salts).withColumnRenamed("id", "salt")
+    ).withColumn(
+        "salted_key",
+        F.concat(F.col(key_col), F.lit("_"), F.col("salt"))
+    )
+
+    # Join on salted key
+    return df_salted.join(df_exploded, on="salted_key", how="inner")
 ```
 
-检测分区倾斜：
+### Pattern 3: Caching and Persistence
 
 ```python
-parts = (df.withColumn("pid", F.spark_partition_id())
-           .groupBy("pid").count().orderBy(F.desc("count")))
-s = parts.select(F.max("count").alias("mx"), F.avg("count").alias("av")).collect()[0]
-print(f"skew ratio: {s['mx']/s['av']:.2f}x  (>2x 即倾斜)")
+from pyspark import StorageLevel
+
+# Cache when reusing DataFrame multiple times
+df = spark.read.parquet("s3://bucket/data/")
+df_filtered = df.filter(F.col("status") == "active")
+
+# Cache in memory (MEMORY_AND_DISK is default)
+df_filtered.cache()
+
+# Or with specific storage level
+df_filtered.persist(StorageLevel.MEMORY_AND_DISK_SER)
+
+# Force materialization
+df_filtered.count()
+
+# Use in multiple actions
+agg1 = df_filtered.groupBy("category").count()
+agg2 = df_filtered.groupBy("region").sum("amount")
+
+# Unpersist when done
+df_filtered.unpersist()
+
+# Storage levels explained:
+# MEMORY_ONLY - Fast, but may not fit
+# MEMORY_AND_DISK - Spills to disk if needed (recommended)
+# MEMORY_ONLY_SER - Serialized, less memory, more CPU
+# DISK_ONLY - When memory is tight
+# OFF_HEAP - Tungsten off-heap memory
+
+# Checkpoint for complex lineage
+spark.sparkContext.setCheckpointDir("s3://bucket/checkpoints/")
+df_complex = (df
+    .join(other_df, "key")
+    .groupBy("category")
+    .agg(F.sum("amount")))
+df_complex.checkpoint()  # Breaks lineage, materializes
 ```
 
-生产配置模板（节选）：
+### Pattern 4: Memory Tuning
 
 ```python
+# Executor memory configuration
+# spark-submit --executor-memory 8g --executor-cores 4
+
+# Memory breakdown (8GB executor):
+# - spark.memory.fraction = 0.6 (60% = 4.8GB for execution + storage)
+#   - spark.memory.storageFraction = 0.5 (50% of 4.8GB = 2.4GB for cache)
+#   - Remaining 2.4GB for execution (shuffles, joins, sorts)
+# - 40% = 3.2GB for user data structures and internal metadata
+
+spark = (SparkSession.builder
+    .config("spark.executor.memory", "8g")
+    .config("spark.executor.memoryOverhead", "2g")  # For non-JVM memory
+    .config("spark.memory.fraction", "0.6")
+    .config("spark.memory.storageFraction", "0.5")
+    .config("spark.sql.shuffle.partitions", "200")
+    # For memory-intensive operations
+    .config("spark.sql.autoBroadcastJoinThreshold", "50MB")
+    # Prevent OOM on large shuffles
+    .config("spark.sql.files.maxPartitionBytes", "128MB")
+    .getOrCreate())
+
+# Monitor memory usage
+def print_memory_usage(spark):
+    """Print current memory usage"""
+    sc = spark.sparkContext
+    for executor in sc._jsc.sc().getExecutorMemoryStatus().keySet().toArray():
+        mem_status = sc._jsc.sc().getExecutorMemoryStatus().get(executor)
+        total = mem_status._1() / (1024**3)
+        free = mem_status._2() / (1024**3)
+        print(f"{executor}: {total:.2f}GB total, {free:.2f}GB free")
+```
+
+### Pattern 5: Shuffle Optimization
+
+```python
+# Reduce shuffle data size
+spark.conf.set("spark.sql.shuffle.partitions", "auto")  # With AQE
+spark.conf.set("spark.shuffle.compress", "true")
+spark.conf.set("spark.shuffle.spill.compress", "true")
+
+# Pre-aggregate before shuffle
+df_optimized = (df
+    # Local aggregation first (combiner)
+    .groupBy("key", "partition_col")
+    .agg(F.sum("value").alias("partial_sum"))
+    # Then global aggregation
+    .groupBy("key")
+    .agg(F.sum("partial_sum").alias("total")))
+
+# Avoid shuffle with map-side operations
+# BAD: Shuffle for each distinct
+distinct_count = df.select("category").distinct().count()
+
+# GOOD: Approximate distinct (no shuffle)
+approx_count = df.select(F.approx_count_distinct("category")).collect()[0][0]
+
+# Use coalesce instead of repartition when reducing partitions
+df_reduced = df.coalesce(10)  # No shuffle
+
+# Optimize shuffle with compression
+spark.conf.set("spark.io.compression.codec", "lz4")  # Fast compression
+```
+
+### Pattern 6: Data Format Optimization
+
+```python
+# Parquet optimizations
+(df.write
+    .option("compression", "snappy")  # Fast compression
+    .option("parquet.block.size", 128 * 1024 * 1024)  # 128MB row groups
+    .parquet("s3://bucket/output/"))
+
+# Column pruning - only read needed columns
+df = (spark.read.parquet("s3://bucket/data/")
+    .select("id", "amount", "date"))  # Spark only reads these columns
+
+# Predicate pushdown - filter at storage level
+df = (spark.read.parquet("s3://bucket/partitioned/year=2024/")
+    .filter(F.col("status") == "active"))  # Pushed to Parquet reader
+
+# Delta Lake optimizations
+(df.write
+    .format("delta")
+    .option("optimizeWrite", "true")  # Bin-packing
+    .option("autoCompact", "true")  # Compact small files
+    .mode("overwrite")
+    .save("s3://bucket/delta_table/"))
+
+# Z-ordering for multi-dimensional queries
+spark.sql("""
+    OPTIMIZE delta.`s3://bucket/delta_table/`
+    ZORDER BY (customer_id, date)
+""")
+```
+
+### Pattern 7: Monitoring and Debugging
+
+```python
+# Enable detailed metrics
+spark.conf.set("spark.sql.codegen.wholeStage", "true")
+spark.conf.set("spark.sql.execution.arrow.pyspark.enabled", "true")
+
+# Explain query plan
+df.explain(mode="extended")
+# Modes: simple, extended, codegen, cost, formatted
+
+# Get physical plan statistics
+df.explain(mode="cost")
+
+# Monitor task metrics
+def analyze_stage_metrics(spark):
+    """Analyze recent stage metrics"""
+    status_tracker = spark.sparkContext.statusTracker()
+
+    for stage_id in status_tracker.getActiveStageIds():
+        stage_info = status_tracker.getStageInfo(stage_id)
+        print(f"Stage {stage_id}:")
+        print(f"  Tasks: {stage_info.numTasks}")
+        print(f"  Completed: {stage_info.numCompletedTasks}")
+        print(f"  Failed: {stage_info.numFailedTasks}")
+
+# Identify data skew
+def check_partition_skew(df):
+    """Check for partition skew"""
+    partition_counts = (df
+        .withColumn("partition_id", F.spark_partition_id())
+        .groupBy("partition_id")
+        .count()
+        .orderBy(F.desc("count")))
+
+    partition_counts.show(20)
+
+    stats = partition_counts.select(
+        F.min("count").alias("min"),
+        F.max("count").alias("max"),
+        F.avg("count").alias("avg"),
+        F.stddev("count").alias("stddev")
+    ).collect()[0]
+
+    skew_ratio = stats["max"] / stats["avg"]
+    print(f"Skew ratio: {skew_ratio:.2f}x (>2x indicates skew)")
+```
+
+## Configuration Cheat Sheet
+
+```python
+# Production configuration template
 spark_configs = {
+    # Adaptive Query Execution (AQE)
     "spark.sql.adaptive.enabled": "true",
     "spark.sql.adaptive.coalescePartitions.enabled": "true",
     "spark.sql.adaptive.skewJoin.enabled": "true",
+
+    # Memory
     "spark.executor.memory": "8g",
     "spark.executor.memoryOverhead": "2g",
     "spark.memory.fraction": "0.6",
     "spark.memory.storageFraction": "0.5",
+
+    # Parallelism
     "spark.sql.shuffle.partitions": "200",
+    "spark.default.parallelism": "200",
+
+    # Serialization
     "spark.serializer": "org.apache.spark.serializer.KryoSerializer",
+    "spark.sql.execution.arrow.pyspark.enabled": "true",
+
+    # Compression
     "spark.io.compression.codec": "lz4",
+    "spark.shuffle.compress": "true",
+
+    # Broadcast
     "spark.sql.autoBroadcastJoinThreshold": "50MB",
+
+    # File handling
     "spark.sql.files.maxPartitionBytes": "128MB",
+    "spark.sql.files.openCostInBytes": "4MB",
 }
 ```
 
-Delta 小文件合并与多维聚簇：
+## Best Practices
 
-```python
-spark.sql("OPTIMIZE delta.`s3://bucket/delta_table/` ZORDER BY (customer_id, date)")
-```
+### Do's
+- **Enable AQE** - Adaptive query execution handles many issues
+- **Use Parquet/Delta** - Columnar formats with compression
+- **Broadcast small tables** - Avoid shuffle for small joins
+- **Monitor Spark UI** - Check for skew, spills, GC
+- **Right-size partitions** - 128MB - 256MB per partition
 
-## 注意事项
+### Don'ts
+- **Don't collect large data** - Keep data distributed
+- **Don't use UDFs unnecessarily** - Use built-in functions
+- **Don't over-cache** - Memory is limited
+- **Don't ignore data skew** - It dominates job time
+- **Don't use `.count()` for existence** - Use `.take(1)` or `.isEmpty()`
 
-- 单分区 128MB–256MB 是经验值：太少欠并行/内存压力大，太多调度开销高。
-- `cache` 不是免费的：内存有限，过度缓存挤占执行区导致 spill，反而更慢。
-- 广播阈值有上限，盲目调大 `autoBroadcastJoinThreshold` 会撑爆 driver/executor。
-- 加盐会放大另一侧数据量，仅对确认的少数倾斜键使用，不要全表加盐。
-- 配置依赖集群规模与数据特征，模板需按 Spark UI 实测迭代，勿照搬。
-- 内存监控/`statusTracker` 等内部 API 跨 Spark 版本不稳定，仅作辅助诊断。
+## Resources
 
-## 互见
+- [Spark Performance Tuning](https://spark.apache.org/docs/latest/sql-performance-tuning.html)
+- [Spark Configuration](https://spark.apache.org/docs/latest/configuration.html)
+- [Databricks Optimization Guide](https://docs.databricks.com/en/optimizations/index.html)
 
-- related：`data-pipeline-engineer` —— Spark 是其批/流管道的核心计算引擎，本条聚焦其性能层
-- related：`polars-dataframe` —— 数据量在单机内存可容纳时的更轻量替代
-- combines_with：`airflow-dag-patterns` —— 用 Airflow 编排调度调优后的 Spark 作业
-- combines_with：`dbt-transformation-patterns` —— Spark/仓库上的分层转换建模与本条的执行优化互补
-- combines_with：`data-quality-frameworks` —— 管道在 Spark 计算外接入质量校验
-- related：`snowflake-development` —— 云数仓侧等价的管道与性能调优视角
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

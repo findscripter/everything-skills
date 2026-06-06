@@ -1,108 +1,116 @@
 ---
 name: fact-checking
-title: 事实核查
-description: 当需要核实一条断言/数据/引用是否真实可靠、评估来源可信度、识别幻觉或张冠李戴时使用；触发词：核实、查证、事实核查、来源可信度、真假。
+title: Fact-Checking
+description: Verify whether a claim, statistic, date, quote, or attribution is true and reliable; assess source credibility and catch hallucinations, misattributions, and fabricated citations. Triggers: fact-check, verify, debunk, source credibility, true or false.
 domain: 通用/research
+triggers: [fact-check, verify, debunk, source credibility, true or false, is this claim accurate, cross-check sources, detect misinformation, hallucinated citation, misattribution]
 tags: [research, verification, sources]
-level: 进阶
+level: intermediate
 status: stable
-version: 0.1.0
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
 related: [entity-research-dossier, news-sentiment-briefing, notebooklm-source-grounded-qa, citation-management]
 combines_with: [entity-research-dossier, citation-management]
 license: CC-BY-SA-4.0
+source: 
+source_license: 
 ---
-## 何时使用
+## When to use
 
-- 需要核实某条断言、统计数据、日期、人物、事件或引用是否真实、准确。
-- 需要评估信息来源的可信度（一手/二手、权威性、利益冲突、时效）。
-- 怀疑内容存在幻觉、张冠李戴、数字夸大、引文捏造、归因错误。
-- 在产出报告/结论前，对关键事实做交叉验证。
+- You need to verify whether a claim, statistic, date, person, event, or quote is real and accurate.
+- You need to assess the credibility of an information source (primary vs. secondary, authority, conflict of interest, recency).
+- You suspect the content contains hallucinations, misattribution, inflated numbers, fabricated quotes, or wrong attribution.
+- You want to cross-validate the key facts before shipping a report or conclusion.
 
-不该用：
-- 主观观点、价值判断、审美偏好、预测未来 —— 这些不可证伪，不适用事实核查。
-- 纯计算/逻辑推导问题 —— 用推理而非查证；归因到本技能反而拖慢。
-- 已明确标注为虚构、假设、示例的内容。
-- 无法触网且无本地证据可查时，直接标注「无法核实」，不要臆断为真。
+Do NOT use this skill for:
 
-## 步骤 / 指令
+- Subjective opinions, value judgments, aesthetic preferences, or predictions about the future — these are not falsifiable and are out of scope for fact-checking.
+- Pure computation or logical-deduction problems — reason it out instead of "verifying" it; routing these here only slows you down.
+- Content explicitly labeled as fictional, hypothetical, or illustrative.
+- When you have no internet access and no local evidence to check against — mark it "Unverifiable" directly; never assume it is true.
 
-```
-1. 拆分断言（atomize）
-   - 把待核内容拆成最小可验证单元：主体 + 谓词 + 数值/时间/地点。
-   - 一句话含多个事实时，逐条拆开，分别核查。
-   - 标记类型：[数据] [引用] [事件] [归因] [定义]。
-
-2. 设定核查问题
-   - 对每个单元写出可被证据证实或证伪的问题。
-   - 优先核查：高风险、易错（具体数字/日期/人名）、结论所依赖的关键前提。
-
-3. 取证（优先一手）
-   - 来源优先级：一手原始 > 权威机构/同行评审 > 主流二手 > 个人/匿名。
-   - 至少 2 个相互独立的来源交叉印证；独立=不同源头，转载不算独立。
-   - 引用类断言必须回溯到原文出处，逐字比对，确认未断章取义。
-   - 数据类断言核对：口径、单位、时间范围、统计主体是否一致。
-
-4. 评估来源可信度（逐源打分）
-   - 维度：权威性 / 一手程度 / 时效 / 利益冲突 / 可追溯性。
-   - 来源互相矛盾时，倾向更一手、更权威、更新的；记录分歧。
-
-5. 裁定并标注
-   - 每个单元给出结论：[属实] / [部分属实] / [失实] / [误导] / [无法核实]。
-   - [部分属实]/[误导] 说明哪部分对、哪部分偏。
-   - 附证据链：来源 + 关键摘录 + 链接/定位。
-
-6. 识别典型失真（专项检查）
-   - 张冠李戴：人物/机构/时间/地点被错配。
-   - 幻觉引文：引文/文献/数据看似具体但查无实据 → 判 [无法核实] 或 [失实]。
-   - 数字漂移：量级、单位、百分比 vs 百分点混淆。
-   - 过时为真：曾经成立但已被更新/推翻。
-
-7. 输出
-   - 逐单元给结论、置信度、证据链；保留不确定性，不强行下定论。
-```
-
-## 示例
-
-最小核查提示词：
+## Steps
 
 ```
-对以下文本逐条做事实核查：
-"<断言原文>"
-要求：
-1. 拆成最小可验证单元，标类型；
-2. 每个单元独立取证，至少 2 个独立来源，引用须回溯原文逐字比对；
-3. 裁定 [属实/部分属实/失实/误导/无法核实] + 置信度 + 证据链（来源/摘录/链接）；
-4. 专项排查张冠李戴、捏造引文、数字漂移、过时信息；
-5. 无证据时标 [无法核实]，禁止臆测。
+1. Atomize the claim
+   - Break the content into the smallest verifiable units: subject + predicate + number/date/place.
+   - When one sentence packs several facts, split them and check each separately.
+   - Tag each unit by type: [DATA] [QUOTE] [EVENT] [ATTRIBUTION] [DEFINITION].
+
+2. Frame the verification question
+   - For each unit, write a question that evidence can confirm or refute.
+   - Prioritize: high-risk and error-prone facts (specific numbers/dates/names) and the key premises the conclusion depends on.
+
+3. Gather evidence (primary first)
+   - Source priority: primary/original > authoritative body / peer-reviewed > mainstream secondary > personal/anonymous.
+   - Cross-confirm with at least 2 mutually independent sources; independent = different origin — a reprint of the same wire story does NOT count as independent.
+   - For quote claims, trace back to the original source and compare word-for-word; confirm it is not taken out of context.
+   - For data claims, check that the metric definition, unit, time range, and statistical subject all match.
+
+4. Assess source credibility (score each source)
+   - Dimensions: authority / how primary it is / recency / conflict of interest / traceability.
+   - When sources conflict, lean toward the more primary, more authoritative, and more recent one; record the disagreement.
+
+5. Adjudicate and label
+   - Give each unit a verdict: [TRUE] / [PARTLY TRUE] / [FALSE] / [MISLEADING] / [UNVERIFIABLE].
+   - For [PARTLY TRUE] / [MISLEADING], explain which part is right and which part is off.
+   - Attach an evidence chain: source + key excerpt + link/locator.
+
+6. Screen for common distortions (targeted checks)
+   - Misattribution: person/organization/time/place mismatched.
+   - Hallucinated citation: a quote, reference, or figure that looks specific but cannot be found anywhere → mark [UNVERIFIABLE] or [FALSE].
+   - Number drift: confused magnitude, units, or percent vs. percentage points.
+   - Stale-as-true: was once correct but has since been updated or overturned.
+
+7. Output
+   - For each unit, give the verdict, a confidence level, and the evidence chain; preserve uncertainty and do not force a conclusion.
 ```
 
-输出片段示例：
+## Example
+
+Minimal fact-check prompt:
 
 ```
-单元1 [数据]「X 2024 年营收增长 35%」
-  裁定：失实（置信度高）
-  证据：官方年报 P12，实为同比增长 13%（口径：总营收）。来源A[年报pdf] 与 来源B[监管披露] 一致。
-  失真类型：数字漂移（35% vs 13%）。
-
-单元2 [引用]「某人说过 '……' 」
-  裁定：无法核实
-  证据：检索一手讲话/著作未见该原话；二手转述无出处。建议不予采信。
+Fact-check the following text unit by unit:
+"<original claim>"
+Requirements:
+1. Atomize into smallest verifiable units and tag each by type;
+2. Gather evidence for each unit independently, with at least 2 independent sources;
+   quotes must be traced back to the original and compared word-for-word;
+3. Adjudicate [TRUE / PARTLY TRUE / FALSE / MISLEADING / UNVERIFIABLE]
+   + confidence + evidence chain (source / excerpt / link);
+4. Run targeted screens for misattribution, fabricated quotes, number drift, stale info;
+5. When there is no evidence, mark [UNVERIFIABLE] — never speculate.
 ```
 
-## 注意事项
+Sample output fragment:
 
-- 不可证伪即不核查：区分「事实陈述」与「观点/预测」，后者只评估论据质量。
-- 独立来源 ≠ 多个链接：同一通稿被多家转载仍算单一来源。
-- 引用必须回到原文，凭印象比对易引入二次幻觉。
-- 区分「无证据支持」与「有证据反驳」：前者标 [无法核实]，后者才标 [失实]。
-- 注意时效：核对证据本身的发布时间，避免用过时来源裁定当下事实。
-- 保留不确定性，宁可标 [无法核实] 也不要伪造确定性结论。
-- 警惕确认偏误：主动找反证，不要只检索支持既有结论的来源。
-- 网络来源可能被污染或互相抄错，AI 生成内容尤甚；优先权威一手。
+```
+Unit 1 [DATA] "X grew revenue 35% in 2024"
+  Verdict: FALSE (high confidence)
+  Evidence: official annual report p.12 — actual YoY growth was 13% (metric: total revenue).
+            Source A [annual report pdf] agrees with Source B [regulatory filing].
+  Distortion type: number drift (35% vs. 13%).
 
-## 互见
+Unit 2 [QUOTE] "Person Y said '...'"
+  Verdict: UNVERIFIABLE
+  Evidence: a search of primary speeches/writings found no such wording;
+            secondary retellings cite no source. Recommend not relying on it.
+```
 
-- related：first-principles-thinking（从第一性原理判断断言是否合理、定位最该优先核查的关键前提）。
+## Notes
+
+- Not falsifiable means not checkable: separate "statements of fact" from "opinions/predictions"; for the latter, only assess the quality of the supporting argument.
+- Independent sources != multiple links: the same press release republished by many outlets is still a single source.
+- Quotes must go back to the original; comparing from memory invites a second layer of hallucination.
+- Distinguish "no evidence to support" from "evidence to refute": the former is [UNVERIFIABLE], only the latter is [FALSE].
+- Mind recency: check the publication date of the evidence itself; do not adjudicate a present-day fact with a stale source.
+- Preserve uncertainty: better to mark [UNVERIFIABLE] than to manufacture a false sense of certainty.
+- Beware confirmation bias: actively seek disconfirming evidence instead of only retrieving sources that support the existing conclusion.
+- Web sources can be polluted or copy each other's errors — AI-generated content especially so; favor authoritative primary sources.
+
+## See also
+
+- related: first-principles-thinking (judge from first principles whether a claim is plausible and locate the key premise most worth checking first).
+- related: entity-research-dossier, citation-management — combine with these for deeper source gathering and reference tracking.

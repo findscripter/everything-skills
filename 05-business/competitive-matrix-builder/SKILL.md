@@ -1,14 +1,14 @@
 ---
 name: competitive-matrix-builder
-title: 竞争分析矩阵构建
-description: 当需要对自家产品与 2-4 个竞品做加权打分、量化排名时使用；做加权竞争矩阵+差距分析+市场定位（脚本输出 text/json），产出可对外的竞品测评结论；不适用于无结构化打分数据的纯定性调研或单一产品评估；触发词：竞品分析、竞争矩阵、加权打分、差距分析、市场定位、battle card
+title: Competitive Matrix Builder
+description: Build a weighted competitive scoring matrix with gap analysis and market positioning from structured 1-10 competitor scores; use for battle cards, quarterly competitive reviews, and product-strategy prep when you have (or can produce) per-dimension scores — not for purely qualita
 domain: 商业/marketing
-triggers: [竞品分析, 竞争分析矩阵, 竞争矩阵, 加权打分, 竞品打分, 差距分析, gap analysis, 市场定位, 竞品测评, battle card, 竞争对手对比, 竞品排名]
-tags: [marketing, 商业, 竞品分析, 竞争情报, 产品策略, 市场定位, 加权打分]
-level: 进阶
+triggers: [competitive analysis, competitive matrix, weighted scoring, competitor scoring, gap analysis, market positioning, competitor comparison, battle card, competitor ranking, competitive teardown, competitor benchmarking, product strategy review]
+tags: [marketing, business, competitive-analysis, competitive-intelligence, product-strategy, market-positioning, weighted-scoring]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [competitive_matrix_builder.py, Python, JSON]
+tools: []
 requires: []
 related: [competitive-analysis, competitive-intel-tracker, product-marketing-gtm-strategy, market-sizing-analyst]
 combines_with: [competitive-analysis, product-marketing-gtm-strategy, sales-enablement]
@@ -16,61 +16,42 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-- 产品策略 / 路线图评审前，需要量化「我们 vs 竞品」的相对位置。
-- 竞争对手发布重大功能或调价后，做快速对标。
-- 季度竞争复盘、进入新细分市场前、为销售准备 battle card（对标话术卡）。
-- 已经有（或能整理出）各竞品在若干维度上的 1-10 打分，希望加权汇总、排名、找差距与定位。
+- Before a product strategy or roadmap session, when you need to quantify "us vs. competitors" relative position.
+- When a competitor launches a major feature or pricing change and you need a fast benchmark.
+- For a quarterly competitive review, before entering a new market segment, or to prepare battle card data for a sales pitch.
+- When you already have (or can produce) 1-10 scores per dimension for each competitor and want to weight, rank, find gaps, and map positioning.
 
-不该用的边界：
-- 只有零散定性印象、拿不出按维度的结构化打分时，先走数据采集与打分，再回到本技能（脚本要求 `scores` 为数值）。
-- 只评估单一产品、不做横向对比时（本技能核心是矩阵化对比与排名）。
-- 需要实时抓取竞品数据时——本技能只做「打分→矩阵」的计算与呈现，数据采集另行完成。
+Out of scope / when NOT to use:
+- When you only have scattered qualitative impressions and no structured per-dimension scores — do the data collection and scoring first, then return here (the script requires numeric `scores`).
+- When evaluating a single product with no head-to-head comparison (the core of this skill is matrix comparison and ranking).
+- When you need to scrape competitor data live — this skill only computes and presents "scores → matrix"; data collection is a separate step.
 
-## 步骤
+## Steps
 
-1. 定义竞品：列出 2-4 个竞品，确认主攻对象；同时确定参与对比的维度（dimensions）。
-2. 采集与打分：每个竞品至少覆盖 3 类来源（官网/定价页、应用商店评论、招聘信息、SEO、社媒），按维度给出 1-10 分，并为每个分值附一条证据。建议覆盖维度参考 12 维评分卡：features、pricing、ux、performance、docs、support、integrations、security、scalability、brand、community、innovation。
-3. 整理为 JSON：填入 `your_product`、`competitors`、`dimensions`，可选 `weights`、`pricing`、`strengths`、`weaknesses`。
-4. 运行脚本生成矩阵：加权打分、排名、tier 分级、差距分析与定位分布。
-5. 解读输出：关注 BIGGEST OPPORTUNITIES（落后项，按 high/medium/low 优先级）与 COMPETITIVE ADVANTAGES（领先项），并据此形成行动项（快赢/中期/战略）。
+1. **Define competitors** — List 2-4 competitors and confirm which is the primary focus. Determine the dimensions to compare on.
+2. **Collect data and score** — Gather raw signals from at least 3 sources per competitor (website/pricing page, app store reviews, job postings, SEO, social). Score each dimension and attach at least one piece of supporting evidence. Suggested 12-dimension scorecard: features, pricing, ux, performance, docs, support, integrations, security, scalability, brand, community, innovation. Validation checkpoint: every dimension has a score and an evidence note.
+3. **Assemble JSON** — Fill in `your_product`, `competitors`, `dimensions`; optionally `weights`, `pricing`, `strengths`, `weaknesses`.
+4. **Run the matrix builder** — Generate weighted scores, ranking, tier classification, gap analysis, and positioning distribution.
+5. **Interpret output** — Focus on BIGGEST OPPORTUNITIES (where you're behind, by high/medium/low priority) and COMPETITIVE ADVANTAGES (where you lead), then translate into action items (quick wins / medium-term / strategic).
 
-## 指令
+## Example
+
+Commands:
 
 ```bash
-# 文本报告（默认）
+# Text report (default)
 python competitive_matrix_builder.py competitors.json --format text
 
-# JSON 输出（便于下游消费）
+# JSON output (for downstream consumption)
 python competitive_matrix_builder.py competitors.json --format json --output matrix.json
 
-# 自定义维度权重（例：定价权重 2、UX 权重 1.5）
+# Custom dimension weights (e.g., pricing weight 2, ux weight 1.5)
 python competitive_matrix_builder.py competitors.json --format text --weights pricing=2,ux=1.5
 ```
 
-输入 JSON 格式（`dimensions` 缺省时自动从第一个竞品的 scores 推断）：
-
-```json
-{
-  "your_product": { "name": "MyApp", "scores": {"ux": 8, "pricing": 7, "features": 9} },
-  "competitors": [
-    { "name": "Competitor A", "scores": {"ux": 7, "pricing": 9, "features": 6} }
-  ],
-  "dimensions": ["ux", "pricing", "features"]
-}
-```
-
-关键计算约束（与脚本一致，勿擅改）：
-- 归一化：原始分按 1-10 线性映射到 0-100（`normalize_score`），缺失维度按 0 计。
-- 综合分 = 加权归一化分之和 / 权重之和；权重缺省为 1.0。
-- Tier 分级（按综合分 0-100）：≥80 Leader、≥60 Strong Competitor、≥40 Viable Alternative、≥20 Niche Player，其余 Weak。
-- 差距分析（仅当提供 `your_product` 时输出）：对每个维度算 `gap_to_avg`、`gap_to_best`；状态 ahead/behind/parity 阈值为 ±0.5；优先级 high（落后最优 > 2 分）/medium（> 1 分）/low。
-- 排名按综合分降序；`your_product` 自动标记并参与排名（输出中以「← YOU」标识）。
-
-## 示例
-
-`competitors.json`：
+Input JSON format (if `dimensions` is omitted, it is auto-detected from the first competitor's `scores`):
 
 ```json
 {
@@ -83,23 +64,45 @@ python competitive_matrix_builder.py competitors.json --format text --weights pr
 }
 ```
 
-运行 `python competitive_matrix_builder.py competitors.json --format text --weights pricing=2` 后，文本报告依次给出：竞争排名表（含 tier 与「← YOU」）、维度明细表、BIGGEST OPPORTUNITIES（你落后的维度及优先级）、COMPETITIVE ADVANTAGES（你领先的维度）、MARKET POSITIONING（领导者、你的排名、分值区间/均值/标准差）。
+Running `python competitive_matrix_builder.py competitors.json --format text --weights pricing=2` produces a text report with, in order: COMPETITIVE RANKING (with tier and a `← YOU` marker), DIMENSION BREAKDOWN, BIGGEST OPPORTUNITIES (dimensions where you're behind, with priority), COMPETITIVE ADVANTAGES (dimensions where you lead), and MARKET POSITIONING (market leaders, your rank, score range / mean / stdev).
 
-12 维评分卡可用作打分锚点，例（UX 维度）：1=混乱高摩擦，3=可用，5=极致顺畅、几乎无摩擦。每个打分务必附证据，例：「Acme UX=2：应用商店评论 38 次提及『导航混乱』；激活前需 7 步；注册即要绑卡」。
+Scoring rubric (1-5 anchors used to assign the 12 dimensions; the script normalizes input on a 1-10 scale, so pick one scale and stay consistent):
 
-## 注意事项
+| # | Dimension | 1 (Weak) | 3 (Average) | 5 (Best-in-class) |
+|---|-----------|----------|-------------|-------------------|
+| 1 | Features | Core only, many gaps | Solid coverage | Comprehensive + unique |
+| 2 | Pricing | Confusing / overpriced | Market-rate, clear | Transparent, flexible, fair |
+| 3 | UX | Confusing, high friction | Functional | Delightful, minimal friction |
+| 4 | Performance | Slow, unreliable | Acceptable | Fast, high uptime |
+| 5 | Docs | Sparse, outdated | Decent coverage | Comprehensive, searchable |
+| 6 | Support | Email only, slow | Chat + email | 24/7, great response |
+| 7 | Integrations | 0-5 integrations | 6-25 | 26+ or deep ecosystem |
+| 8 | Security | No mentions | SOC2 claimed | SOC2 Type II, ISO 27001 |
+| 9 | Scalability | No enterprise tier | Mid-market ready | Enterprise-grade |
+| 10 | Brand | Generic, unmemorable | Decent positioning | Strong, differentiated |
+| 11 | Community | None | Forum / Slack | Active, vibrant community |
+| 12 | Innovation | No recent releases | Quarterly | Frequent, meaningful |
 
-- 打分尺度统一用 1-10（脚本归一化基于该区间）；混用 1-5 与 1-10 会让结果失真。
-- 每个分值都要有证据支撑，避免主观拍脑袋；差距优先级直接驱动行动项排序。
-- `weights` 既可写进 JSON，也可用 `--weights` 覆盖（命令行优先级更高），用于体现不同维度对你战略的重要性。
-- 竞品数量建议 2-4 个，过多会稀释对主攻对象的洞察。
-- 标准差只在竞品数 > 1 时才计算，单竞品场景定位分布参考意义有限。
+Every score needs evidence, e.g. "Acme UX=2: App Store reviews cite 'confusing navigation' (38 mentions); onboarding requires 7 steps before TTFV; CC required at signup."
 
-## 互见
+## Notes
 
-- 竞品调研全流程（数据采集 / 12 维评分卡 / SWOT / 定位图 / UX 审计 / 行动项 / 汇报模板）见源技能 competitive-teardown。
-- 输出可反哺：产品策略与 OKR 规划、落地页定位文案、销售 battle card。
+Key computation constraints (match the script — do not alter):
+- **Normalization:** raw scores are linearly mapped from 1-10 to 0-100 (`normalize_score`); a missing dimension counts as 0.
+- **Overall score** = sum of weighted normalized scores / sum of weights; default weight is 1.0 per dimension.
+- **Tier classification** (by overall 0-100): ≥80 Leader, ≥60 Strong Competitor, ≥40 Viable Alternative, ≥20 Niche Player, else Weak.
+- **Gap analysis** (only emitted when `your_product` is provided): per dimension computes `gap_to_avg` and `gap_to_best`; status is ahead/behind/parity with a ±0.5 threshold; priority is high (behind best by > 2), medium (> 1), else low.
+- **Ranking** is by overall score descending; `your_product` is automatically flagged, included in the ranking, and shown with `← YOU`.
+- Keep one scoring scale (the script normalizes against 1-10); mixing 1-5 and 1-10 distorts results.
+- `weights` can live in the JSON or be overridden with `--weights` (command line takes precedence), reflecting each dimension's strategic importance to you.
+- Use 2-4 competitors; too many dilutes insight on the primary target.
+- Standard deviation is only computed when there is more than one competitor; positioning distribution has limited meaning in a single-competitor case.
+
+## See also
+
+- Full competitor-research workflow (data collection / 12-dimension scorecard / SWOT / positioning map / UX audit / action items / stakeholder presentation) lives in the source skill `competitive-teardown`.
+- Outputs feed: product strategy and OKR planning, landing-page positioning copy, and sales battle cards.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+Adapted from alirezarezvani/claude-skills (MIT License).

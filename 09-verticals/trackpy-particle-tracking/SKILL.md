@@ -1,14 +1,14 @@
 ---
 name: trackpy-particle-tracking
-title: trackpy 单粒子追踪
-description: 当需对显微视频做单粒子追踪（SPT）与扩散分析时使用；用 trackpy 的 Crocker-Grier 算法逐帧亚像素定位亮点→连成轨迹→滤短轨→算 MSD 并拟合扩散系数 D（支持 2D/3D、drift 校正、运动模式分类），产出轨迹表/MSD 曲线/D 值/分类；不适用于需图形界面手动校轨（用 TrackMate）、交互可视化编辑（用 napari）或非粒子的图像分割；触发词：trackpy、单粒子追踪、SPT、particle tracking、MSD、扩散系数、轨迹连接、Crocker-Grier、pims
+title: trackpy
+description: Python library for single-particle tracking (SPT) in video microscopy via the Crocker-Grier algorithm. Locate particles (fluorescent spots, colloids, vesicles, cells) per frame, link into trajectories, filter short tracks, and compute MSD for diffusion analysis. 2D/3D with subpixel accuracy; reads TIF stacks, AVI, image series via pims. Use for quantitative SPT and diffusion coefficient extraction from fluorescence or brightfield video.
 domain: 领域/science
-triggers: [trackpy, 单粒子追踪, SPT, particle tracking, MSD, 扩散系数, 轨迹连接, Crocker-Grier, pims, drift 校正, 颗粒检测, 亚像素定位]
+triggers: [trackpy, SPT, particle tracking, MSD, Crocker-Grier, pims]
 tags: [particle-tracking, trackpy, spt, msd, diffusion, microscopy, pims, cell-biology, python, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [trackpy, pims, pandas, numpy, scipy, matplotlib, python]
+tools: []
 requires: []
 related: [scikit-image-bioimage, cellpose-cell-segmentation, dicom-medical-imaging, neuropixels-neural-recording]
 combines_with: [matplotlib-visualization]
@@ -16,108 +16,575 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# trackpy
 
-当有一段荧光/明场显微视频（标记的颗粒：量子点、荧光珠、囊泡、受体、胶体、病毒等），需要把每个颗粒的运动提取成**单条轨迹**并量化其扩散行为时使用本条。trackpy 用 Crocker-Grier 算法逐帧亚像素定位亮点，连成轨迹，再算均方位移（MSD）/扩散系数/运动模式。典型场景：
+## Overview
 
-- 荧光视频提取个体轨迹与扩散系数 D
-- 算 MSD 曲线、区分布朗扩散 / 受限 / 定向运动（anomalous exponent α）
-- 胶体动力学、脂膜扩散、胞内货物运输、病毒-细胞相互作用的逐粒子数据
-- 共聚焦 z-stack 时间序列做 3D 追踪（捕捉离面运动）
-- 去除载物台漂移（drift）后再算本征运动统计
-- 跨数百条轨迹做系综 MSD（emsd）以获得有统计功效的群体扩散参数
+trackpy is a Python library for single-particle tracking (SPT) in video microscopy. It implements the Crocker-Grier algorithm to locate bright spots in each frame with subpixel precision, then links those positions across frames into continuous trajectories. From trajectories, trackpy computes mean squared displacement (MSD), diffusion coefficients, and motion classifications (confined, normal, directed). It handles 2D fluorescence videos, 3D confocal z-stacks, and large image sequences via memory-efficient streaming through the pims image reader library.
 
-**不该用本条的边界：**
+## When to Use
 
-- 需要图形界面、手动校验/编辑轨迹、或与细胞分割器（Cellpose/StarDist）集成 → 用 **TrackMate**（Fiji/ImageJ 插件）
-- 想边看图像边交互可视化与手动编辑轨迹 → 用 **napari** + `napari-trackpy`
-- 任务是图像/细胞分割本身，而非点状颗粒的检测与连接 → 用分割工具
+- You have a fluorescence microscopy video of labeled particles (quantum dots, fluorescent beads, vesicles, receptors) and need to extract individual trajectories and diffusion coefficients.
+- You want to measure particle mobility: compute MSD curves and distinguish Brownian diffusion, directed motion, or confined motion from single-particle tracks.
+- You are analyzing colloid dynamics, lipid membrane diffusion, intracellular cargo transport, or virus-cell interactions where you need per-particle trajectory data.
+- You need 3D tracking from confocal z-stack time series to capture out-of-plane motion of particles or organelles.
+- You want to apply drift correction to remove stage drift before computing intrinsic particle motion statistics.
+- You need ensemble MSD averaged across hundreds of tracks to extract population-level diffusion behavior with statistical power.
+- Use `TrackMate` (Fiji/ImageJ plugin) instead when you need a graphical interface, manual curation of tracks, or integration with biological object segmenters (Cellpose, StarDist).
+- Use `napari` with `napari-trackpy` instead when you want interactive visualization and manual editing of trajectories alongside image data.
 
-## 步骤
+## Prerequisites
 
-标准 2D 流水线（每步可独立调参）：
+- **Python packages**: `trackpy`, `pims`, `pandas`, `numpy`, `matplotlib`, `scipy`
+- **Data requirements**: Grayscale or single-channel image sequence (TIF stack, AVI, or directory of PNG/TIF frames); particles should appear as bright Gaussian spots on a darker background (or use `invert=True` for dark spots on bright background)
+- **Environment**: Works in Jupyter notebooks and scripts; `pims` handles most microscopy formats; for ND2 or CZI files install `pims-nd2` or `aicsimageio`
 
-1. **装环境**：`pip install trackpy pims pandas numpy matplotlib scipy`；读 ND2/CZI/LIF 需另装 `pims-nd2` 或 `aicsimageio`。
-2. **读图**：`frames = pims.open("particles.tif")`（惰性读取，省内存，shape 为 (T, Y, X)）。
-3. **单帧调参（必做）**：先 `tp.locate(frames[0], diameter=11, minmass=300)` + `tp.annotate()` 目视核对，再批处理。`diameter` 取奇数、≈ 亮点像素直径。
-4. **批量检测**：`f = tp.batch(frames, diameter=11, minmass=300)`，画 mass 直方图选 `minmass` 切点（噪声峰与信号峰之间的谷）。
-5. **连轨迹**：`t = tp.link(f, search_range=5, memory=3)`（`search_range` 像素=帧间最大位移，取 ≈1.5× 预期；`memory` 容许颗粒短暂消失 N 帧）。
-6. **滤短轨**：`t = tp.filter_stubs(t, threshold=10)`，去掉 <10 帧的轨（短轨 MSD 方差大、污染拟合）。
-7. **去漂移**：`drift = tp.compute_drift(t); t = tp.subtract_drift(t.copy(), drift)`，**算 MSD 前必做**，否则高估 D。
-8. **算 MSD + 拟合 D**：`emsd = tp.emsd(t, mpp=0.16, fps=10, max_lagtime=50)`，对**前 10–20% lag 的线性段**用 `linregress` 拟合，2D 取 `D = slope/4`（3D 取 `slope/6`）。
+```bash
+pip install trackpy pims pandas numpy matplotlib scipy
+# For reading multi-channel or proprietary formats:
+pip install pims[bioformats]   # Bioformats via JPype
+pip install aicsimageio        # ND2, CZI, LIF via AICSImageIO
+```
 
-## 指令
-
-关键参数（来源约束，照搬即可）：
-
-| 参数 | 函数 | 默认 | 范围 | 作用 |
-|---|---|---|---|---|
-| `diameter` | locate/batch | 必填 | 奇数 ≥3（3D 给元组） | 颗粒像素直径，**必须奇数**；太小裂检、太大并检 |
-| `minmass` | locate/batch | 100 | 0~∞ | 最小积分亮度，主噪声过滤；从 0 起、看直方图定切点 |
-| `search_range` | link | 必填 | 1~50 px | 帧间最大位移；设 ≈1.5–2× 最大每帧位移 |
-| `memory` | link | 0 | 0~10 帧 | 颗粒可缺席帧数；荧光闪烁设 2~3 |
-| `threshold` | filter_stubs | 1 | 整数 ≥1 | 最短轨长（帧）；短轨 MSD 不可靠 |
-| `max_lagtime` | imsd/emsd | 100 | 整数 | MSD 最大滞后；取总帧数 10–20% 为宜 |
-| `mpp` | imsd/emsd | 1 | >0 | 微米/像素（显微标定），换算物理单位 |
-| `fps` | imsd/emsd | 1 | >0 | 帧率，换算秒 |
-| `separation` | locate/batch | diameter+1 | 整数 | 中心间最小距，防密集区重复计数 |
-| `invert` | locate/batch | False | True/False | 明场暗点设 True |
-
-运动分类：对每条 imsd 曲线在 log-log 下拟合 α（anomalous exponent）。`α≈1` 布朗；`α<0.7` 受限/亚扩散；`α>1.3` 定向/超扩散。`D_app = exp(intercept)/4`。
-
-## 示例
-
-完整 2D 流水线（含拟合 D 与导出）：
+## Quick Start
 
 ```python
-import trackpy as tp, pims, numpy as np
+import trackpy as tp
+import pims
+
+# Load a TIF image stack (T frames × Y × X)
+frames = pims.open("particles.tif")   # shape: (T, Y, X)
+
+# Locate particles in all frames
+f = tp.batch(frames, diameter=11, minmass=500)
+print(f"Found {len(f)} particle detections across {f['frame'].nunique()} frames")
+
+# Link into trajectories
+t = tp.link(f, search_range=5, memory=3)
+
+# Remove short-lived tracks (fewer than 10 frames)
+t = tp.filter_stubs(t, threshold=10)
+print(f"Retained {t['particle'].nunique()} trajectories")
+
+# Compute ensemble MSD
+imsd = tp.imsd(t, mpp=0.16, fps=10)   # mpp: microns per pixel, fps: frames per second
+print(imsd.head())
+```
+
+## Core API
+
+### Module 1: tp.locate() — Single-Frame Particle Detection
+
+`tp.locate()` finds bright circular features in one image frame using a bandpass filter followed by local maximum detection. It returns a DataFrame with subpixel x/y positions, integrated mass, signal, and eccentricity for each detected particle.
+
+```python
+import trackpy as tp
+import pims
+import matplotlib.pyplot as plt
+
+frames = pims.open("particles.tif")
+frame0 = frames[0]   # single 2D array
+
+# Locate particles: diameter must be odd integer, roughly matching spot size in pixels
+f0 = tp.locate(frame0, diameter=11, minmass=300, maxsize=None, separation=None)
+print(f"Detected {len(f0)} particles in frame 0")
+print(f0[['x', 'y', 'mass', 'size', 'ecc']].head())
+# x, y: subpixel centroid; mass: integrated brightness; size: Gaussian width; ecc: eccentricity (0=circular)
+```
+
+```python
+# Diagnostic plot: annotate detected particles on the raw frame
+fig, ax = plt.subplots(figsize=(8, 8))
+tp.annotate(f0, frame0, ax=ax, imshow_style={"cmap": "gray"})
+ax.set_title(f"Frame 0: {len(f0)} particles detected")
+plt.tight_layout()
+plt.savefig("locate_diagnostic.png", dpi=150)
+print("Saved locate_diagnostic.png")
+```
+
+### Module 2: tp.batch() — Multi-Frame Detection
+
+`tp.batch()` applies `tp.locate()` to every frame in an image sequence and concatenates results into a single DataFrame with a `frame` column. It accepts any pims-compatible image reader or a list of 2D arrays.
+
+```python
+import trackpy as tp
+import pims
+
+frames = pims.open("particles.tif")
+
+# Locate particles across all frames (same parameters as tp.locate)
+f = tp.batch(frames, diameter=11, minmass=300, processes=1)
+# processes=1 uses serial processing; set processes="auto" for multicore (requires joblib)
+print(f"Total detections: {len(f)}")
+print(f"Frames with data: {f['frame'].nunique()} / {len(frames)}")
+print(f"Mean particles per frame: {len(f)/f['frame'].nunique():.1f}")
+print(f.groupby('frame').size().describe())
+```
+
+```python
+# Mass histogram: use to choose minmass cutoff
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(6, 4))
+f['mass'].hist(bins=40, ax=ax)
+ax.axvline(300, color='red', linestyle='--', label='minmass=300')
+ax.set_xlabel("Integrated mass")
+ax.set_ylabel("Count")
+ax.set_title("Mass distribution of detections")
+ax.legend()
+plt.tight_layout()
+plt.savefig("mass_histogram.png", dpi=150)
+print("Saved mass_histogram.png — use to refine minmass cutoff")
+```
+
+### Module 3: tp.link() — Trajectory Linking
+
+`tp.link()` connects particle detections across frames into trajectories by solving a bipartite assignment problem (Hungarian algorithm). It adds a `particle` column (integer trajectory ID) to the positions DataFrame. `search_range` (pixels) is the maximum displacement between frames; `memory` allows a particle to disappear for up to N frames before being dropped.
+
+```python
+import trackpy as tp
+import pims
+
+frames = pims.open("particles.tif")
+f = tp.batch(frames, diameter=11, minmass=300)
+
+# Link: search_range in pixels; memory handles brief disappearances (blinking, out-of-focus)
+t = tp.link(f, search_range=5, memory=3)
+print(f"Number of unique trajectories: {t['particle'].nunique()}")
+print(f"Trajectory length distribution:")
+print(t.groupby('particle').size().describe())
+```
+
+```python
+# Visualize all trajectories overlaid on the first frame
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(8, 8))
+tp.plot_traj(t, superimpose=frames[0], ax=ax)
+ax.set_title(f"{t['particle'].nunique()} trajectories")
+plt.tight_layout()
+plt.savefig("trajectories.png", dpi=150)
+print("Saved trajectories.png")
+```
+
+### Module 4: tp.filter_stubs() — Short-Track Removal
+
+`tp.filter_stubs()` removes trajectories shorter than a given number of frames. Short tracks arise from noise detections, particles entering/leaving the field of view, or linking errors. Removing them improves MSD reliability because short tracks contribute high-variance MSD estimates at long lag times.
+
+```python
+import trackpy as tp
+import pims
+
+frames = pims.open("particles.tif")
+f = tp.batch(frames, diameter=11, minmass=300)
+t = tp.link(f, search_range=5, memory=3)
+
+before = t['particle'].nunique()
+t_filt = tp.filter_stubs(t, threshold=10)   # keep only tracks with ≥10 frames
+after = t_filt['particle'].nunique()
+print(f"Tracks before filtering: {before}")
+print(f"Tracks after filtering (≥10 frames): {after}")
+print(f"Removed {before - after} short tracks ({100*(before-after)/before:.1f}%)")
+```
+
+### Module 5: MSD Analysis — tp.imsd() and tp.emsd()
+
+`tp.imsd()` computes per-particle mean squared displacement as a function of lag time, returning a DataFrame (lag time as index, particle ID as columns). `tp.emsd()` computes the ensemble-averaged MSD across all particles. Both require the physical scale (`mpp`, microns per pixel) and frame rate (`fps`).
+
+```python
+import trackpy as tp
+import pims
+import matplotlib.pyplot as plt
+
+frames = pims.open("particles.tif")
+f = tp.batch(frames, diameter=11, minmass=300)
+t = tp.link(f, search_range=5, memory=3)
+t = tp.filter_stubs(t, threshold=10)
+
+mpp = 0.16    # microns per pixel (from microscope calibration)
+fps = 10.0    # frames per second
+
+# Individual MSD curves (one column per particle)
+imsd = tp.imsd(t, mpp=mpp, fps=fps, max_lagtime=100)
+print(f"IMSD shape: {imsd.shape}")  # (lag times) × (particles)
+
+# Ensemble MSD
+emsd = tp.emsd(t, mpp=mpp, fps=fps, max_lagtime=100)
+print(f"EMSD at lag 1 s: {emsd.iloc[0]:.4f} µm²")
+```
+
+```python
+# Plot ensemble MSD and fit diffusion coefficient
+import numpy as np
+import matplotlib.pyplot as plt
 from scipy.stats import linregress
 
-frames = pims.open("fluorescence_video.tif")          # (T, Y, X)
-f = tp.batch(frames, diameter=11, minmass=400, processes=1)
-t = tp.link(f, search_range=6, memory=3)
-t = tp.filter_stubs(t, threshold=15)                  # 去短轨
-drift = tp.compute_drift(t)
-t = tp.subtract_drift(t.copy(), drift)                # 去漂移（关键）
+mpp = 0.16
+fps = 10.0
 
-mpp, fps = 0.16, 10.0                                  # µm/px, 帧/秒
-emsd = tp.emsd(t, mpp=mpp, fps=fps, max_lagtime=50)
-lag, msd = emsd.index.values[:10], emsd.values[:10]   # 仅线性段
-slope, intercept, r, _, _ = linregress(lag, msd)
-D = slope / 4                                          # 2D: MSD=4Dt
-print(f"D = {D:.4f} µm²/s  (R²={r**2:.3f})")
-t.to_csv("trajectories.csv", index=False)
+# Fit MSD = 4*D*t (2D Brownian) over first 10 lag times
+lag_s = emsd.index.values[:10]   # lag times in seconds
+msd_vals = emsd.values[:10]
+slope, intercept, r, p, se = linregress(lag_s, msd_vals)
+D = slope / 4   # diffusion coefficient in µm²/s
+print(f"Diffusion coefficient D = {D:.4f} µm²/s  (R²={r**2:.3f})")
+
+fig, ax = plt.subplots(figsize=(6, 5))
+ax.plot(emsd.index, emsd.values, 'o-', label='Ensemble MSD')
+ax.plot(lag_s, slope * lag_s + intercept, 'r--', label=f'Fit: D={D:.4f} µm²/s')
+ax.set_xlabel("Lag time (s)")
+ax.set_ylabel("MSD (µm²)")
+ax.set_title("Ensemble Mean Squared Displacement")
+ax.legend()
+plt.tight_layout()
+plt.savefig("emsd.png", dpi=150)
+print("Saved emsd.png")
 ```
 
-3D 追踪（共聚焦 z-stack，T×Z×Y×X）：`diameter`/`search_range` 用 `(z,y,x)` 元组；z 步通常比 xy 粗 2–5×，对应放大 z 分量。
+### Module 6: Motion Analysis — Characterize and Drift Correction
+
+`tp.motion.characterize()` computes per-trajectory statistics (mean velocity, net displacement, straightness). `tp.subtract_drift()` removes bulk stage drift from trajectories before MSD analysis.
 
 ```python
-f0 = tp.locate(frames_4d[0], diameter=(7, 11, 11), minmass=2000)   # 传 3D 体积
-t3d = tp.link(f3d, search_range=(3, 6, 6), memory=2)               # 各向异性体素
-# z 坐标先按 mpp_z 缩放到 µm，emsd 传 mpp=1；3D 取 D = slope/6
+import trackpy as tp
+import pims
+
+frames = pims.open("particles.tif")
+f = tp.batch(frames, diameter=11, minmass=300)
+t = tp.link(f, search_range=5, memory=3)
+t = tp.filter_stubs(t, threshold=10)
+
+# Estimate and subtract drift (bulk movement of the sample/stage)
+drift = tp.compute_drift(t)
+print("Drift (first 5 frames):")
+print(drift.head())
+
+t_corrected = tp.subtract_drift(t.copy(), drift)
+print(f"Drift subtracted from {t_corrected['particle'].nunique()} trajectories")
 ```
 
-去漂移对比：`tp.emsd` 分别在去漂移前后调用，`ax.loglog` 叠图即可看漂移对 MSD 的贡献。剔除聚集体：`f = f[f['ecc'] < 0.3]`（ecc=0 圆、=1 线）。
+```python
+import trackpy as tp
 
-## 注意事项
+# Characterize individual trajectories (requires tp.motion module)
+from trackpy import motion
 
-- **`diameter` 必须奇数**且 ≈ 实际亮点像素宽；用 `tp.annotate()` 在单帧上目视核对后再 `tp.batch()`，省时间。
-- **算 MSD 前先去漂移**：载物台漂移会抬高 MSD、高估 D；`compute_drift` 应只在已知不动的颗粒（fiducial beads）上估计，否则会把真实运动当成漂移减掉。
-- **不要手动把位置乘 mpp 再连轨**：`tp.locate` 返回像素坐标，`mpp` 只在 `imsd`/`emsd` 应用；提前缩放会破坏以像素为单位的 `search_range`。
-- **只拟合线性段**：MSD 在长 lag 处样本少、噪声大；只取前 10–20% lag，且建议 ≥50 条轨迹做系综 MSD。
-- **几乎全是短轨被滤光**：多半 `search_range` 太小或 `memory=0` 遇闪烁——调大 `search_range` 到 1.5–2× 最大每帧位移、`memory` 设 2~3。
-- **检测过多/过少**：过多→抬高 `minmass`（取直方图谷值）；过少→降 `minmass`、查对比度、可先做背景扣除。
-- **`MemoryError`**：用 pims 惰性读取（默认）、`processes=1`、或对 `tp.locate` 逐帧循环分块。
-- **3D 只返回 2D 位置**：说明传进去的是 2D 帧，确认 `frame.ndim == 3`（Z,Y,X）。
-- 检测密集时调 `separation` 防重复计数；明场暗点设 `invert=True`。
+# Per-particle summary statistics
+char = motion.characterize(t, mpp=0.16, fps=10.0)
+print(char.columns.tolist())
+# Columns: 'alpha' (anomalous exponent), 'D_app' (apparent diffusion), 'r^2' (fit quality)
+print(char[['alpha', 'D_app']].describe())
+# alpha ~ 1.0: Brownian; alpha < 1: confined/subdiffusion; alpha > 1: directed/superdiffusion
+```
 
-## 互见
+## Common Workflows
 
-- related：`dicom-medical-imaging` —— 另一类显微/医学影像的读写与处理
-- related：`single-cell-rnaseq-analysis` —— 同属细胞生物学定量分析，下游可对接群体统计
-- related：`molecular-dynamics-simulation` —— 同样产出轨迹并算 MSD/扩散系数，方法学可互参
-- combines_with：`guided-statistical-analysis` —— 对多条轨迹的 D 值/α 做分组统计检验与显著性分析
+### Workflow 1: Full 2D Tracking Pipeline with MSD and Diffusion Coefficient
 
----
+**Goal**: Load a fluorescence video, locate and link particles across all frames, filter short tracks, compute MSD, and extract diffusion coefficients.
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。源技能原始 license 为 BSD-3-Clause（trackpy 代码许可），文档内容按 CC-BY-4.0 署名采编。
+```python
+import trackpy as tp
+import pims
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import linregress
+
+# ── 1. Load image sequence ──────────────────────────────────────────────────
+frames = pims.open("fluorescence_video.tif")   # (T, Y, X) grayscale TIF stack
+print(f"Loaded {len(frames)} frames, frame shape: {frames.frame_shape}")
+
+# ── 2. Tune detection on a single frame ─────────────────────────────────────
+f0 = tp.locate(frames[0], diameter=11, minmass=400)
+print(f"Frame 0: {len(f0)} particles detected")
+# Adjust diameter (odd integer ≥ spot size) and minmass until count looks right
+
+# ── 3. Batch detect across all frames ───────────────────────────────────────
+f = tp.batch(frames, diameter=11, minmass=400, processes=1)
+print(f"Total detections: {len(f)} across {f['frame'].nunique()} frames")
+
+# ── 4. Link into trajectories ────────────────────────────────────────────────
+t = tp.link(f, search_range=6, memory=3)
+print(f"Unique trajectories before filtering: {t['particle'].nunique()}")
+
+# ── 5. Remove short trajectories ─────────────────────────────────────────────
+t = tp.filter_stubs(t, threshold=15)
+print(f"Trajectories after filtering (≥15 frames): {t['particle'].nunique()}")
+
+# ── 6. Subtract stage drift ───────────────────────────────────────────────────
+drift = tp.compute_drift(t)
+t = tp.subtract_drift(t.copy(), drift)
+
+# ── 7. Compute MSD ────────────────────────────────────────────────────────────
+mpp = 0.16   # µm/pixel — from microscope calibration
+fps = 10.0   # frames per second
+
+emsd = tp.emsd(t, mpp=mpp, fps=fps, max_lagtime=50)
+imsd = tp.imsd(t, mpp=mpp, fps=fps, max_lagtime=50)
+
+# ── 8. Fit diffusion coefficient from linear regime (first 10 points) ─────────
+n_fit = 10
+lag_s = emsd.index.values[:n_fit]
+msd_v = emsd.values[:n_fit]
+slope, intercept, r, _, _ = linregress(lag_s, msd_v)
+D = slope / 4   # MSD = 4Dt for 2D Brownian
+print(f"Diffusion coefficient D = {D:.4f} µm²/s  (R²={r**2:.3f})")
+
+# ── 9. Plot ────────────────────────────────────────────────────────────────────
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# Individual + ensemble MSD
+axes[0].plot(imsd.index, imsd.values, alpha=0.2, color='steelblue', linewidth=0.8)
+axes[0].plot(emsd.index, emsd.values, 'k-', linewidth=2, label='Ensemble MSD')
+axes[0].plot(lag_s, slope * lag_s + intercept, 'r--', label=f'D={D:.4f} µm²/s')
+axes[0].set_xlabel("Lag time (s)")
+axes[0].set_ylabel("MSD (µm²)")
+axes[0].set_title("MSD: individual (blue) + ensemble (black)")
+axes[0].legend()
+
+# Trajectory overlay
+tp.plot_traj(t, superimpose=frames[0], ax=axes[1])
+axes[1].set_title(f"{t['particle'].nunique()} trajectories")
+
+plt.tight_layout()
+plt.savefig("tracking_results.png", dpi=150, bbox_inches="tight")
+print("Saved tracking_results.png")
+
+# ── 10. Export trajectories ───────────────────────────────────────────────────
+t.to_csv("trajectories.csv", index=False)
+emsd.to_csv("ensemble_msd.csv")
+print("Exported trajectories.csv and ensemble_msd.csv")
+```
+
+### Workflow 2: 3D Particle Tracking from Confocal Z-Stacks
+
+**Goal**: Track particles in 3D from a time-series of confocal z-stacks (T × Z × Y × X), link in 3D, and compute 3D MSD.
+
+```python
+import trackpy as tp
+import pims
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ── 1. Load 4D image stack (T × Z × Y × X) ─────────────────────────────────
+# pims opens multi-page TIF; reshape into (T, Z, Y, X) as needed
+raw = pims.open("confocal_3d_timeseries.tif")
+# Assume each "frame" in pims is one Z-slice; reshape to (T, Z, Y, X)
+T, n_z = 50, 20   # adjust to match acquisition
+frames_4d = np.array(raw).reshape(T, n_z, raw.frame_shape[0], raw.frame_shape[1])
+print(f"4D stack shape: {frames_4d.shape}")  # (T, Z, Y, X)
+
+# ── 2. Detect in 3D (tp.locate works on 3D arrays) ─────────────────────────
+# For 3D, pass a single 3D volume; diameter can be (z_diam, y_diam, x_diam)
+f0_3d = tp.locate(frames_4d[0], diameter=(7, 11, 11), minmass=2000)
+print(f"3D detections in t=0: {len(f0_3d)}")
+print(f0_3d[['x', 'y', 'z', 'mass']].head())
+
+# ── 3. Batch detect across all time points ──────────────────────────────────
+detections = []
+for t_idx in range(T):
+    frame_3d = frames_4d[t_idx]    # Z × Y × X
+    detected = tp.locate(frame_3d, diameter=(7, 11, 11), minmass=2000)
+    detected['frame'] = t_idx
+    detections.append(detected)
+
+import pandas as pd
+f3d = pd.concat(detections, ignore_index=True)
+print(f"Total 3D detections: {len(f3d)}")
+
+# ── 4. Link in 3D ────────────────────────────────────────────────────────────
+# search_range in pixels; use a 3-tuple (z, y, x) for anisotropic voxels
+t3d = tp.link(f3d, search_range=(3, 6, 6), memory=2)
+t3d = tp.filter_stubs(t3d, threshold=10)
+print(f"3D trajectories: {t3d['particle'].nunique()}")
+
+# ── 5. Compute 3D MSD ────────────────────────────────────────────────────────
+mpp_xy = 0.16   # µm/pixel in x, y
+mpp_z = 0.30    # µm/pixel in z (z-step size)
+fps = 1.0       # z-stack volume rate
+
+# Scale z coordinates to µm
+t3d_um = t3d.copy()
+t3d_um['x'] *= mpp_xy
+t3d_um['y'] *= mpp_xy
+t3d_um['z'] *= mpp_z
+
+emsd_3d = tp.emsd(t3d_um, mpp=1.0, fps=fps, max_lagtime=20)  # mpp=1 since already in µm
+print(f"3D ensemble MSD (lag=1 s): {emsd_3d.iloc[0]:.4f} µm²")
+
+# ── 6. Fit 3D diffusion coefficient (MSD = 6Dt for 3D) ─────────────────────
+from scipy.stats import linregress
+lag_s = emsd_3d.index.values[:8]
+slope, _, r, _, _ = linregress(lag_s, emsd_3d.values[:8])
+D_3d = slope / 6
+print(f"3D Diffusion coefficient D = {D_3d:.4f} µm²/s  (R²={r**2:.3f})")
+
+t3d.to_csv("trajectories_3d.csv", index=False)
+print("Saved trajectories_3d.csv")
+```
+
+## Key Parameters
+
+| Parameter | Module | Default | Range / Options | Effect |
+|-----------|--------|---------|-----------------|--------|
+| `diameter` | `locate`, `batch` | required | odd integer ≥ 3 (or tuple for 3D) | Approximate particle diameter in pixels; must be odd. Too small: split detections. Too large: merged detections |
+| `minmass` | `locate`, `batch` | `100` | `0` to `∞` | Minimum integrated brightness; primary filter against noise. Start at 0, plot mass histogram, set to separate noise peak |
+| `search_range` | `link` | required | `1`–`50` pixels | Max displacement between frames. Set to ~1.5× max expected per-frame movement |
+| `memory` | `link` | `0` | `0`–`10` frames | Frames a particle may be absent before track is broken; useful for blinking fluorophores |
+| `threshold` | `filter_stubs` | `1` | integer ≥ 1 | Minimum track length in frames; short tracks have unreliable MSD |
+| `max_lagtime` | `imsd`, `emsd` | `100` | integer | Maximum lag time in frames for MSD calculation; use ~10–20% of total frames for reliability |
+| `mpp` | `imsd`, `emsd` | `1` | float > 0 | Microns per pixel; converts pixel units to physical units (µm) |
+| `fps` | `imsd`, `emsd` | `1` | float > 0 | Frames per second; converts frame lag to seconds |
+| `separation` | `locate`, `batch` | `diameter+1` | integer | Minimum center-to-center distance between features; prevents double-counting dense particles |
+| `invert` | `locate`, `batch` | `False` | `True`, `False` | Set `True` for dark particles on bright background (transmitted light imaging) |
+
+## Best Practices
+
+1. **Always tune `diameter` and `minmass` on a single frame first**: Run `tp.locate()` on one representative frame and use `tp.annotate()` to visually check detections before committing to `tp.batch()`. Over-detection wastes time; under-detection misses particles.
+
+   ```python
+   f0 = tp.locate(frames[0], diameter=11, minmass=200)
+   tp.annotate(f0, frames[0])   # visual check in Jupyter
+   ```
+
+2. **Set `search_range` conservatively**: Too large a search range causes spurious links between unrelated particles in dense samples. Estimate typical per-frame displacement from `tp.locate()` output scatter before linking.
+
+3. **Subtract drift before computing MSD**: Stage drift inflates MSD, causing overestimation of D. Always call `tp.compute_drift()` + `tp.subtract_drift()` before `tp.emsd()`.
+
+4. **Use only the linear regime for diffusion coefficient fitting**: MSD curves become noisy at long lag times (few track pairs contribute). Fit only the first 10–20% of available lag times. Use log-log slope to detect non-Brownian behavior before fitting.
+
+5. **Do not mix `mpp` units between locate and MSD steps**: `tp.locate()` returns positions in pixels. `mpp` is applied only in `tp.imsd()`/`tp.emsd()`. Avoid rescaling positions manually before linking, as this breaks the pixel-unit search_range.
+
+6. **For 3D tracking with anisotropic voxels**: Pass `diameter` and `search_range` as tuples matching `(z, y, x)` axis order. The z-step is usually 2-5× coarser than xy pixel size; set the z component of `diameter` and `search_range` accordingly.
+
+## Common Recipes
+
+### Recipe: Drift Correction and Corrected MSD Comparison
+
+When to use: Compare raw vs drift-corrected MSD to assess stage drift contribution.
+
+```python
+import trackpy as tp
+import pims
+import matplotlib.pyplot as plt
+
+frames = pims.open("particles.tif")
+f = tp.batch(frames, diameter=11, minmass=400, processes=1)
+t = tp.link(f, search_range=6, memory=3)
+t = tp.filter_stubs(t, threshold=15)
+
+mpp, fps = 0.16, 10.0
+
+# MSD without drift correction
+emsd_raw = tp.emsd(t, mpp=mpp, fps=fps, max_lagtime=50)
+
+# Subtract drift
+drift = tp.compute_drift(t)
+t_corr = tp.subtract_drift(t.copy(), drift)
+emsd_corr = tp.emsd(t_corr, mpp=mpp, fps=fps, max_lagtime=50)
+
+fig, ax = plt.subplots(figsize=(6, 5))
+ax.loglog(emsd_raw.index, emsd_raw.values, 'r--', label='Raw MSD')
+ax.loglog(emsd_corr.index, emsd_corr.values, 'b-', label='Drift-corrected MSD')
+ax.set_xlabel("Lag time (s)")
+ax.set_ylabel("MSD (µm²)")
+ax.set_title("Effect of drift correction on MSD")
+ax.legend()
+plt.tight_layout()
+plt.savefig("drift_correction_comparison.png", dpi=150)
+print("Saved drift_correction_comparison.png")
+```
+
+### Recipe: Classify Particles by Diffusion Regime
+
+When to use: Separate particle population into confined, normal (Brownian), and directed motion based on log-log MSD slope (anomalous exponent alpha).
+
+```python
+import trackpy as tp
+import pims
+import numpy as np
+import pandas as pd
+from scipy.stats import linregress
+
+frames = pims.open("particles.tif")
+f = tp.batch(frames, diameter=11, minmass=400, processes=1)
+t = tp.link(f, search_range=6, memory=3)
+t = tp.filter_stubs(t, threshold=20)
+
+drift = tp.compute_drift(t)
+t = tp.subtract_drift(t.copy(), drift)
+
+mpp, fps = 0.16, 10.0
+imsd = tp.imsd(t, mpp=mpp, fps=fps, max_lagtime=30)
+
+# Fit log-log slope (anomalous exponent alpha) for each particle
+results = []
+for pid in imsd.columns:
+    curve = imsd[pid].dropna()
+    if len(curve) < 5:
+        continue
+    log_lag = np.log(curve.index.values)
+    log_msd = np.log(curve.values)
+    slope, intercept, r, _, _ = linregress(log_lag[:10], log_msd[:10])
+    D_app = np.exp(intercept) / 4   # apparent D from intercept
+    results.append({'particle': pid, 'alpha': slope, 'D_app': D_app, 'r2': r**2})
+
+df_char = pd.DataFrame(results)
+
+# Classify by alpha
+df_char['regime'] = pd.cut(
+    df_char['alpha'],
+    bins=[-np.inf, 0.7, 1.3, np.inf],
+    labels=['confined', 'brownian', 'directed']
+)
+print(df_char['regime'].value_counts())
+print(f"\nMean D by regime:\n{df_char.groupby('regime')['D_app'].mean()}")
+
+df_char.to_csv("particle_classification.csv", index=False)
+print("Saved particle_classification.csv")
+```
+
+### Recipe: Filter by Eccentricity to Remove Aggregates
+
+When to use: Exclude non-circular detections (doublets, aggregates, debris) that pass the mass threshold but are elongated.
+
+```python
+import trackpy as tp
+import pims
+
+frames = pims.open("particles.tif")
+f = tp.batch(frames, diameter=11, minmass=400, processes=1)
+
+# Eccentricity: 0 = perfect circle, 1 = line
+# Remove elongated features (likely aggregates or debris)
+f_round = f[f['ecc'] < 0.3]
+print(f"Before ecc filter: {len(f)} detections")
+print(f"After ecc filter (ecc<0.3): {len(f_round)} detections")
+print(f"Removed: {len(f)-len(f_round)} elongated features")
+
+t = tp.link(f_round, search_range=6, memory=3)
+t = tp.filter_stubs(t, threshold=10)
+print(f"Trajectories after eccentricity filtering: {t['particle'].nunique()}")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| Too many spurious detections | `minmass` too low or `diameter` mismatched to spot size | Plot mass histogram; raise `minmass` to the valley between noise and signal peaks. Verify `diameter` matches actual spot width in pixels |
+| Few or zero detections | `minmass` too high, or particles are dim / out of focus | Lower `minmass`; check image contrast; apply background subtraction before locate |
+| Very short trajectories (all stubs filtered out) | `search_range` too small for particle velocity, or `memory=0` with blinking | Increase `search_range` to 1.5–2× max per-frame displacement; set `memory=2` or `3` for blinking dyes |
+| MSD curves are noisy or non-monotonic at long lag times | Too few tracks or fitting too many lag points | Use only first 10–20% of lag times for fitting; ensure at least 50+ trajectories for ensemble MSD |
+| Drift correction makes MSD worse | Too few immobile reference particles; drift estimated from mobile particles | Include fiducial beads or immobile particles; use `tp.compute_drift()` only on particles known to be immobile |
+| `MemoryError` during `tp.batch()` | All frames loaded into RAM at once | Use pims lazy reader (default); set `processes=1`; process frames in chunks using a loop over `tp.locate()` |
+| 3D `locate` returns 2D positions only | Passed a 2D frame instead of a 3D volume | Confirm input array has 3 dimensions `(Z, Y, X)`; check `frames_4d[t_idx].ndim == 3` |
+| Linked trajectories fragment into many short segments | Particles moving faster than `search_range` between frames | Increase `search_range`; increase `memory`; consider sub-sampling frames if frame rate is very high |
+
+## References
+
+- [trackpy documentation](http://soft-matter.github.io/trackpy/) — official API reference, tutorials, and notebooks
+- [trackpy GitHub repository](https://github.com/soft-matter/trackpy) — source code, issue tracker, example notebooks
+- [Crocker, J.C. & Grier, D.G. (1996). Methods of Digital Video Microscopy for Colloidal Studies. *J. Colloid Interface Sci.* 179, 298–310](https://doi.org/10.1006/jcis.1996.0217) — original algorithm paper
+- [pims documentation](http://soft-matter.github.io/pims/) — image sequence reader library that integrates with trackpy
+- [trackpy walkthrough notebook](https://github.com/soft-matter/trackpy/blob/master/doc/tutorial/walkthrough.ipynb) — step-by-step tutorial for 2D tracking

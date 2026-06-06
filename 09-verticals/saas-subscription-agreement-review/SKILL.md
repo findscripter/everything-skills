@@ -1,14 +1,14 @@
 ---
 name: saas-subscription-agreement-review
-title: SaaS 订阅协议审查
-description: 当审查 SaaS/订阅协议、需对自动续约、涨价、数据可携出、SLA、子处理者、AI 训练权与责任上限做专项把关并准备红线时使用；产出含双重严重度（法律风险×业务摩擦）的 SaaS 专项发现、续约登记字段移交与红线建议；不适用于通用合同评审（用 contract-playbook-review）、NDA 速审（nda-triage-reviewer）、DPA 专项（dpa-clause-reviewer）、出具正式法律意见；触发词：SaaS 审查、订阅协议、自动续约、auto-renewal、涨价条款、SLA、子处理者、数据可携出、AI 训练权
+title: SaaS / Subscription Agreement Review
+description: Reference: review of SaaS subscription agreements with attention to the terms that matter most in subscription deals — auto-renewal mechanics, price escalation, data portability, uptime SLAs, and subprocessor rights. Loaded by /commercial-legal:review when a SaaS or subscription agreement is detecte
 domain: 领域/legal
-triggers: [SaaS 审查, 订阅协议, 自动续约, auto-renewal, 涨价条款, SLA, uptime, 子处理者, subprocessor, 数据可携出, data portability, AI 训练权]
+triggers: [auto-renewal, SLA, uptime, subprocessor, data portability]
 tags: [legal, saas, subscription, contract-review, auto-renewal, sla, data-portability, ai-training-rights, redline]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [pdf-form-filler, markdown-to-docx]
+tools: []
 requires: []
 related: [contract-playbook-review, ip-clause-review, dpa-playbook-review, vendor-agreement-redline-review]
 combines_with: [contract-playbook-review, dpa-playbook-review, contract-renewal-tracker]
@@ -16,102 +16,237 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# SaaS / Subscription Agreement Review
 
-- 在送签或谈判前审查 SaaS / 订阅类协议（供应商卖你平台，或你作为供应商卖给客户），需在通用合同评审之上，对 SaaS 特有「会咬人」的条款做专项把关。
-- 关注点：钱随续约滚雪球、数据逐月沉淀、迁移成本逐月升高——审查须以「将来一定要离开这家供应商」为前提。
+## Matter context
 
-**先定本方立场**：对方是卖平台给你 → 你是采购方（their paper）；你是供应商、对方是客户 → 你是销售方（our paper）。立场决定每个 playbook 立场（责任上限方向、赔偿方向、续约/终止权）。reseller / 白标不明确时必须先问。
-
-**不该用边界（命中即停或转更合适技能）：**
-- 通用条款（责任、赔偿、终止、管辖）的对照评审 → 先跑 `contract-playbook-review`，本条只做 SaaS 叠加层。
-- 单纯 NDA 速审 → `nda-triage-reviewer`；DPA 专项 → `dpa-clause-reviewer`。
-- 不起草合同、不出具正式法律意见；所有结论须经合格律师复核。
-- 无经律师审定的团队 playbook 立场时，**不得判可签**，应标注「仅按通用商业标准」或转人工。
-
-## 步骤
-
-1. **接收合同**：PDF/DOCX / CLM 链接 / 粘贴文本。PDF 扫描件可先用 `pdf-form-filler` 提取。
-2. **定本方立场**（销售/采购），并加载团队 playbook 的 `SaaS positions`；本条不内置阈值，数字随交易规模、供应商话语权、风险偏好而变。playbook 未覆盖某项时，问用户立场并记录后再进行。
-3. **辖区核查**：SaaS 条款（自动续约通知、涨价上限、数据可携出、子处理者）对辖区敏感，CA/NY/EU 规则分歧大，部分州有自动续约成文法可覆盖私约。合同选了别的准据法或跨辖区（EU 用户、CA 消费者）→ 必须标记 `[jurisdiction — verify]`，分析可能不可直接套用。
-4. **逐项跑 SaaS 叠加层**（见「指令」六类 + AI/ML 七维 + 责任上限四维）。
-5. **双重严重度**给每条发现打分，**续约日期与通知窗口无论是否触发都要抽取并记录**，移交续约登记。
-6. **生成红线**：默认最小粒度编辑（改词 > 改短语 > 重构子句 > 换句 > 整条替换），整条替换须在交接信里说明。
-
-## 指令
-
-**SaaS 专项六类（逐项写出合同实际写法，再对照 playbook，不套用本条硬阈值）：**
-
-| 类别 | 关键审查点 |
-|---|---|
-| 1 自动续约 | 续约期长度；取消通知窗口（提前 N 天）；通知方式（邮件/书面致法务/仅门户/挂号）；续约价格（同价/CPI 封顶/then-current list/不封顶自由裁量）。**抽取确切续约日期+通知窗口喂给续约登记** |
-| 2 涨价 | 年度涨幅（固定%/CPI/不封顶）；超量计费（公示费率/溢价/未定）；「fees」范围（仅订阅 vs 宽泛「附加服务」） |
-| 3 数据可携出与退出 | 导出格式（开放标准/有文档专有/「商业合理」）；可用性（自助随时/期内按请求/仅终止时）；终止后访问天数；导出成本（免费/T&M/按 GB-record）；删除证明。**供应商保留「匿名/聚合」衍生数据是实质立场，两个方向都要标记** |
-| 4 SLA/可用性 | 仅当业务真依赖该服务才查，否则跳过、不为可有可无的工具耗谈判筹码。Uptime 承诺；测量周期；补救（service credit 如何算/是否封顶/是否唯一救济）；维护排除窗口；credit-唯一救济与责任上限的交互 |
-| 5 子处理者 | 当前清单（公示/按请求/无）；变更通知期；异议权（阻断/通知即终止/仅通知/无）。SaaS 特殊在清单会随订阅周期变化 |
-| 6 服务变更与下线 | 实质不利变更的终止权；所依赖功能的下线通知期；替代功能的价位与功能对等 |
-
-**AI/ML 数据权决策（别只查「有无训练条款」，逐维过）**：①是否显式授予用客户数据/内容/使用数据做训练、模型改进；②是否经引用隐私政策/ToS 隐式授予（「依供应商不时更新的隐私政策」=埋雷；警惕「service improvement」「analytics」兜底与把日志/遥测从 Customer Data 定义中切出的「usage data」定义）；③匿名标准（无定义即弱，是否达 GDPR Recital 26 / HIPAA Safe Harbor，可逆否）；④竞争污染（供应商是否服务你的竞品，有无竞争隔离承诺）；⑤opt-out 范围与存续（是否覆盖全部 AI 用途、是否扛续约与 ToS 更新、按用户还是按组织）；⑥输出归属与第三方 LLM 子处理者（OpenAI/Anthropic/Google）；⑦下游监管链（EU AI Act 部署者义务、FTC §5）。七项全静默也是一条发现：「请求显式禁止或针对七维的明确 carve-out」。
-
-**责任上限决策（金额是最不重要的部分，逐维过）**：①直接 vs 间接/后果性（12 个月直接损害封顶 + 间接不封顶，与 12 个月累计封顶是两码事，两者都要写明）；②cap base 逐字引用（「12 个月」可指索赔前 12 个月已付/当期应付/当前订单/历来全部，差一个数量级，含糊就标记）；③cap 与 carveout 交互（$100K 上限 + 数据泄露/IP/保密不封顶 = 对真正会发生的纠纷形同不封顶，列清上限之上/之下各是什么，评估被封顶的面是否有意义）；④对每一维写出 playbook 立场。
-
-## 示例
-
-单条红线（最小粒度，改词优先）：
-```
-Clause: §8.2 Auto-Renewal
-Current: "...auto-renew for successive twelve (12) month terms unless..."
-Redline: "twelve (12)" → "twelve (12)"（保留），通知窗口 "thirty (30)" → "sixty (60) days"
-Rationale: 给财务足够的取消窗口，对齐 playbook（1-2 句，可外发对方律师）
-Priority: Must-have
-Fallback: 退而求其次接受 45 天 + 续约自动邮件提醒
-```
-
-SaaS 专项发现骨架（双重严重度：法律风险 🔴🟠🟡🟢 × 业务摩擦 🔴 阻断/🟠 拖慢/🟡 困惑/🟢 不可见；register 取两者较高者）：
-```markdown
-### Bottom line
-[可签 / 先争 X / 走人 — 一句话]
-
-## SaaS 专项发现
-### 自动续约   [法律 🟢 / 业务 🔴]
-续约日期: [date] | 取消截止: [date]（提前 N 天）
-续约价机制: [原文] | Playbook 契合: [区间内/偏离/未覆盖]
-喂续约登记: [yes — 续约登记所需记录]
-
-### 涨价 / 数据退出 / SLA / 子处理者 / 服务变更
-[逐项对照 playbook；数据退出这条是业务负责人最该读的]
-```
-> 数据退出、自动续约、涨价类发现常是 🟢 法律 / 🔴 业务——条款合法，但正是客户离不开、续约惊吓财务的原因。按业务摩擦严重度浮起，别只按法律风险。
-
-**移交续约登记**（字段不可确定则留空并注明，便于人工补）：
-```yaml
-counterparty: [name]
-agreement: [title]
-initial_term_end: [ISO date]
-renewal_mechanism: [如 "auto-renew annual"]
-notice_period_days: [int]
-cancel_by_effective: [ISO date = initial_term_end − notice_period_days]
-price_on_renewal: [原文机制]
-status: active
-```
-
-## 注意事项
-
-- **不提供法律意见**：始终提醒结论须经合格律师复核后方可依据。
-- **无声补充禁令**：辖区成文法（自动续约法、数据可携出强制、消费者保护）研究工具返回稀少时，报告所得即停，不得用网搜/模型知识默默填坑——给用户选项后由律师决定是否接受低置信来源。
-- **来源标注**：引用法条/判例须带 `[Westlaw]`/`[statute/regulator site]`/`[web search — verify]`/`[model knowledge — verify]`/`[user provided]`，带 `verify` 的优先核验，勿删标签。
-- **打哪些仗**：大供应商谈判意愿低（像航司谈票规则），按 playbook 区分「永远推/仅大额推/可让」，按合同金额与迁移成本校准——$5K/年易替代的工具轻审，$500K/年要在其上搭建的平台重审。
-- **超长合同/非英文**：先聚焦续约、终止、责任、数据、子处理者等关键章节并在 reviewer note 记录覆盖范围；非英文标注语言、问是否需翻译。
-- 最终报告需转 Word 交付时用 `markdown-to-docx`。
-
-## 互见
-
-- requires：`contract-playbook-review` —— 通用条款评审是底座，本条是 SaaS 叠加层
-- related：`nda-triage-reviewer`、`dpa-clause-reviewer` —— 更轻的 NDA 速审 / 数据保护专项
-- related：`legal-risk-classifier`、`general-counsel-advisor` —— 风险分级与升级、整体法务判断
-- related：`eu-ai-act-compliance`、`gdpr-data-handler` —— AI/ML 训练权下游监管、跨境与子处理者数据流
-- combines_with：`esignature-routing` —— 审定后路由签署
-- combines_with：`legal-risk-classifier` —— 把 SaaS 发现汇入风险分级与升级路由
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/commercial-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/commercial-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
 
 ---
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+
+## Purpose
+
+SaaS agreements have a distinct risk profile from one-time vendor contracts. The dollars compound over renewals, the data accumulates, and the switching cost grows every month. This skill reviews with that in mind.
+
+It runs the standard playbook check from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` and adds a SaaS-specific overlay on the terms that bite hardest in subscription deals.
+
+## Jurisdiction assumption
+
+SaaS terms (auto-renewal notice requirements, price-escalation caps, data-portability mandates, subprocessor rules) are jurisdiction-sensitive — California, New York, and EU rules diverge materially, and some states have auto-renewal statutes that override private contract terms. This review applies the team's positions from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`, which assume the governing law recorded there. If the agreement picks a different governing law, or the deal spans jurisdictions with statutory overrides (e.g., EU-based users, California consumers), flag it — the analysis may not transfer as written.
+
+> **No silent supplement.** If a research query to the configured legal research tool (Westlaw, or firm platform) returns few or no results for a statutory override that might bear on the deal (auto-renewal statute, data-portability mandate, consumer-protection rule), report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [jurisdiction / rule]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag as unverified and stop. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
+>
+> **Source attribution.** Where the review cites a statute, regulation, or case (e.g., a state auto-renewal law overriding contract terms), tag the citation: `[Westlaw]`, `[statute / regulator site]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations from the counterparty draft or house files. Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags.
+
+## Load the playbook
+
+**Which side?** Before applying the playbook, determine which side the company is on for this SaaS agreement. Usually obvious: if the counterparty is a SaaS vendor selling you their platform, you're purchasing-side. If you are the SaaS vendor and the counterparty is your customer, you're sales-side. If it's not obvious (a reseller arrangement, a white-label deal), ask: "Which side is [company] on for this agreement — vendor or customer?" Read the matching playbook section (`### Sales-side playbook` or `### Purchasing-side playbook`) from the config. Note which side in the output so the reviewer knows which playbook was applied. If the matching side is `[Not configured]`, stop and tell the user to run `/commercial-legal:cold-start-interview --side <side>` before this review can proceed.
+
+Read `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` first. The general playbook for the matching side (liability, indemnity, termination, governing law) applies fully — run all the standard checks from the vendor-agreement-review skill.
+
+Then look for a `## Playbook` → matching side → `SaaS positions` section. That's where the team records its positions on auto-renewal notice windows, acceptable price escalators, data export rights, SLA thresholds, subprocessor approval rights, and deprecation notice. This skill does not ship with defaults for these — the right numbers vary by deal size, vendor leverage, and the team's risk tolerance.
+
+If `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` doesn't address a SaaS-specific term that comes up in this review, ask:
+
+> Your playbook doesn't cover [term — e.g., "maximum acceptable auto-renewal notice window" or "whether vendor retention of anonymized derivatives is acceptable"]. What's your team's position? I'll add it to `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`.
+
+Record the answer and proceed.
+
+## SaaS-specific overlay
+
+For each category below, list what you found in the contract and compare to the team's position in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. Do not apply hardcoded thresholds from this skill.
+
+### 1. Auto-renewal mechanics
+
+The single most common way a SaaS deal goes wrong: nobody notices the renewal notice window and we're locked in for another year at a higher price.
+
+Check each element and compare against the team's `SaaS positions` in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`:
+
+- **Renewal term length** (e.g., same as initial, longer, multi-year auto-convert)
+- **Notice-to-cancel window** (number of days before renewal)
+- **Notice method** (email, written notice to legal, portal-only, certified mail)
+- **Price on renewal** (same, CPI-capped, then-current list, uncapped discretionary)
+
+**Extract and record** the exact renewal date and the notice window regardless of whether any item is flagged. This feeds the renewal-tracker skill.
+
+### 2. Price escalation
+
+Check each element against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`:
+
+- **Annual escalator** (fixed %, CPI, uncapped, etc.)
+- **Usage overage pricing** (published rate card, premium rate, unspecified)
+- **Scope of "fees"** (subscription only vs. "additional services" broadly defined)
+
+### 3. Data portability and exit
+
+When (not if) we leave this vendor, can we get our data out? Check each element against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`:
+
+- **Export format** (open/standard, proprietary-but-documented, "commercially reasonable")
+- **Export availability** (self-serve anytime, on request during term, only at termination)
+- **Post-termination access** (days available to export after termination)
+- **Export cost** (free, T&M, per-GB or per-record)
+- **Deletion certification** (certified on request, none, vendor retains derivatives)
+
+Vendor retention of "anonymized" or "aggregated" derivatives is a material position — confirm the team's stance in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` and flag either way.
+
+### 4. Uptime and SLA
+
+Only matters if the business actually depends on this service being up. If it's a nice-to-have tool, skip this section — don't spend negotiating capital on SLAs for a survey tool.
+
+Check each element against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`:
+
+- **Uptime commitment** (percentage, or "commercially reasonable efforts")
+- **Measurement period** (monthly, quarterly, annual)
+- **Remedy** (service credits — how calculated, whether capped, whether sole remedy)
+- **Scheduled maintenance exclusions** (defined window, advance notice, unlimited)
+- **Credit-as-sole-remedy** interaction with the liability cap
+
+### 5. Subprocessors
+
+This is a data protection issue but it's SaaS-specific because the subprocessor list *changes* over the life of the subscription.
+
+Check each element against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`:
+
+- **Current list** (published, on request, unavailable)
+- **Change notification** (advance notice period, or none)
+- **Objection rights** (blocking, notice-and-terminate, notice-only, none)
+
+### 6. Service changes and deprecation
+
+SaaS vendors change their product. Usually fine. Sometimes they deprecate the thing you bought.
+
+Check each element against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`:
+
+- **Material adverse changes** (right to terminate on material degradation, notice-only, unrestricted)
+- **Deprecation notice period** for features the team relies on
+- **Feature parity on replacement** (same price tier, higher tier)
+
+
+
+## AI and machine learning rights
+
+**AI/ML data rights decision procedure.** Don't just check whether an AI training clause exists. The #1 emerging negotiation point in SaaS contracts is structurally more than a one-line existence check. Work through:
+
+1. **Explicit grant.** Does the contract explicitly grant the vendor rights to use Customer Data / Customer Content / Usage Data for AI training, model improvement, or ML development? Purchasing-side: this is usually a NO — customer data training the vendor's models means the customer is subsidizing the vendor's product and possibly leaking competitive information. Sales-side: this is revenue if you get it, reputation risk if you abuse it.
+2. **Implicit grant via policy.** Does the contract incorporate the vendor's privacy policy or terms of service by reference? Can the vendor add training rights via a unilateral policy update? Check: "The parties agree to the Provider's Privacy Policy as updated from time to time" is a training-rights grant waiting to happen. Also watch for "service improvement" or "analytics" catch-alls and "usage data" definitions that carve logs/telemetry out of the Customer Data definition so data-use restrictions don't apply.
+3. **Anonymization standard.** If the vendor claims it only trains on "anonymized" or "aggregated" data, what's the standard? "Anonymized" without a definition is weak. Does it meet GDPR Recital 26 / HIPAA Safe Harbor / a named standard? Is it reversible?
+4. **Competitive contamination.** Does the vendor serve your competitors? If so, training on your data could leak competitive intelligence into outputs your competitors see. Is there a competitive isolation commitment?
+5. **Opt-out scope and durability.** If there's an opt-out, does it cover all AI uses or only some? Does it survive renewals and TOS updates? Is it per-user or per-org? Many vendors default to training and offer an opt-out buried in an admin console — check whether the contract makes the default explicit.
+6. **Output ownership.** If the SaaS product is itself AI-generated (drafting, summarization, analysis), who owns the outputs? Can the vendor use your outputs as training examples? Check third-party AI subprocessors too — the vendor may send customer data to a third-party LLM (OpenAI, Anthropic, Google) and the subprocessor list / data flow is where that shows up.
+7. **Downstream regulatory chain.** Does the vendor's use of your data for AI create regulatory exposure for YOU? EU AI Act deployer obligations, FTC §5 undisclosed data-sharing exposure (see *FTC v. Humor Rainbow/OkCupid*), state AI laws.
+
+Match each to a playbook position. The practice profile's `## AI/ML training rights` section should have positions for each. If the agreement is silent on all seven, that's still a finding: "The agreement is silent on AI/ML training rights — request an explicit prohibition or a defined carve-out tied to each of the seven dimensions above."
+
+## Liability cap decision procedure
+
+**The cap amount is the least important part of the cap.** Limitation-of-liability is not a single "check against playbook" item. Work through:
+
+1. **Direct vs. indirect/consequential damages.** Does the cap apply to ALL liability, or only direct damages? A 12-month cap on direct damages with uncapped consequential damages is a completely different position than a 12-month aggregate cap. State both treatments explicitly.
+
+2. **The cap base — quote it verbatim.** "12-month cap" could mean: (a) fees paid in the 12 months preceding the claim, (b) fees payable in the current 12-month period, (c) fees over the last 12 months of usage, (d) fees under the current order form, (e) total fees ever paid. These can differ by an order of magnitude. Quote the exact language. If ambiguous, flag it: "Cap base is ambiguous — `[the quoted language]` — could mean [X] or [Y]. Confirm before signing."
+
+3. **Cap-carveout interaction.** A $100K cap with uncapped indemnity for data breach, IP, and confidentiality is functionally uncapped for the claims that actually arise in SaaS disputes. Enumerate what sits ABOVE the cap (the carveouts), what sits BELOW (what's actually capped), and assess whether the capped surface is meaningful: "The cap covers [general contract breach]. Data breach, IP indemnity, and confidentiality are carved out and uncapped. For this vendor's risk profile, the capped surface is [meaningful / nominal]."
+
+4. **Your playbook position per dimension.** The practice profile should have positions for: direct cap (multiple of fees), indirect damages (excluded / capped / uncapped), carveout list (what's acceptable above the cap), and cap base (which definition you'll accept). If the playbook has one "standard position" field, note: "Your playbook has a single cap position — consider splitting into direct/indirect/carveouts/base for more precise review."
+
+## Jurisdiction delta check
+
+**The playbook applies one governing-law preference globally. Enforceability varies materially.** Check the SaaS contract's actual governing law against the top divergences before accepting playbook positions at face value:
+
+- **Non-solicits/non-competes:** Unenforceable in CA (Bus. & Prof. Code §16600). Restricted in many EU jurisdictions. Enforceable with limitations elsewhere. `[jurisdiction — verify]`
+- **Auto-renewal:** CA GBL §17600-17606, NY GBL §527-a, IL 815 ILCS 601 have specific consumer/B2B notice requirements. Other states vary. `[jurisdiction — verify]`
+- **Liability exclusions:** EU and UK unfair contract terms rules (UCTA 1977, Consumer Rights Act 2015) constrain consumer exclusions. Some US states limit exclusion of gross negligence or willful misconduct. `[jurisdiction — verify]`
+- **Indemnification:** Some states void indemnification for the indemnitee's own negligence. `[jurisdiction — verify]`
+- **Confidentiality term:** Some jurisdictions limit "perpetual" confidentiality to a reasonable period. `[jurisdiction — verify]`
+
+When the playbook position conflicts with the contract's governing-law enforceability, flag: "Your playbook prefers [X], but this contract is governed by [Y] law where [X] is [unenforceable / restricted / subject to statutory override]. `[jurisdiction — verify]`"
+
+## Redline granularity
+
+**Edit at the smallest possible granularity.** A redline is a negotiation artifact, not a rewrite. Wholesale clause replacement signals "we threw out your drafting" — it's aggressive, it forces the counterparty to re-read the whole clause, and it discards the parts of their drafting that were fine. Surgical redlines — strike a word, insert a phrase, restructure a subclause — signal "we have specific asks" and are faster to read, understand, and accept.
+
+Default to the smallest edit that achieves the playbook position:
+- Replace a **word** before a phrase. ("twelve (12)" → "twenty-four (24)")
+- Replace a **phrase** before a sentence. ("paid by the Buyer" → "paid and payable by the Buyer")
+- Restructure a **subclause** before replacing the sentence. (Add "(a)" and "(b)" to split a compound condition.)
+- Replace a **sentence** before replacing the clause.
+- Only replace a **whole clause** when the counterparty's version is so far from your position that surgical edits would be harder to read than a fresh draft — and when you do, say so in the transmittal: "We've replaced §8.2 rather than marking it up because the changes were extensive. Happy to walk you through the delta."
+
+When in doubt, smaller. A client who receives a surgical redline trusts that you read carefully. A client who receives a wholesale replacement wonders whether you read at all.
+
+## Output
+
+Use the vendor-agreement-review memo structure, with a SaaS-specific section added after the standard playbook checks. The vendor-agreement-review memo already carries the privilege header.
+
+**Dual severity.** Every SaaS-specific finding carries both axes (see CLAUDE.md `## Dual severity`):
+- **Legal risk:** 🔴 Critical | 🟠 High | 🟡 Medium | 🟢 Low
+- **Business friction:** 🔴 Blocks deals | 🟠 Slows deals | 🟡 Confuses customers | 🟢 Invisible
+
+Data-exit, auto-renewal, and price-escalation findings are the ones most likely to be 🟢 legal / 🔴 business — the clause is enforceable, but it's the reason a customer can't leave or a renewal surprises finance. Surface those at the business-friction severity, not the legal one.
+
+```markdown
+### Bottom line
+
+[Can you sign / Need to fight for X first / Walk — one-sentence why]
+
+### AI and machine learning rights
+
+[The #1 emerging SaaS negotiation point. Flag: explicit ML training clauses, "service improvement" catch-alls, usage data definitions, output ownership, third-party AI subprocessors, opt-out vs opt-in. If the agreement is silent: "Silent on AI/ML training rights — request explicit prohibition or defined carve-out."]
+
+## SaaS-specific findings
+
+### Auto-renewal
+**Renewal date:** [date]
+**Notice window:** Cancel by [date] ([N] days before renewal)
+**Renewal price mechanism:** [as written]
+**Playbook fit:** [within position / deviation / not addressed]
+**Flag for renewal-tracker:** [yes — and the record the tracker needs]
+
+### Price escalation
+[findings against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` positions]
+
+### Data exit
+[findings — this is the one the business owner should read]
+
+### SLA
+[findings, or "Skipped — service is not business-critical per [stakeholder]"]
+
+### Subprocessors
+[findings against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` positions]
+
+### Service changes
+[findings against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` positions]
+```
+
+## Handoffs
+
+**To renewal-tracker:** When you find the renewal date and notice window, hand them off. The renewal-tracker register expects the following fields (see `skills/renewal-tracker/references/renewal-register.yaml` for the full schema):
+
+```yaml
+counterparty:         [name]
+agreement:            [title]
+signed_date:          [ISO date]
+initial_term_end:     [ISO date]
+renewal_mechanism:    [e.g., "auto-renew annual"]
+notice_period_days:   [integer]
+cancel_by_effective:            [ISO date — initial_term_end minus notice_period_days]
+price_on_renewal:     [mechanism as written]
+annual_value:         [integer, if stated]
+business_owner:       [email, if known]
+clm_id:               [id if available]
+status:               active
+```
+
+If any field is not determinable from the contract or context, leave it out and note which fields were missing so the human can fill them in. `clm_id`, `annual_value`, and `business_owner` are especially likely to need human input.
+
+**To escalation-flagger:** If any of the SaaS-specific checks hits the team's "never accept" or escalation-trigger list in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`, the escalation-flagger skill routes it.
+
+## A note on what to fight over
+
+SaaS vendors, especially large ones, negotiate their paper about as willingly as airlines negotiate ticket terms. Pick battles *per the team's playbook* — the `SaaS positions` section in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` should distinguish between terms the team will always push on, terms it fights over only for material deals, and terms it lets slide. If the playbook doesn't draw those lines, ask.
+
+Calibrate based on contract value and switching cost. A $5K/year tool with easy alternatives gets a lighter touch than a $500K/year platform we'll build on top of.
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.

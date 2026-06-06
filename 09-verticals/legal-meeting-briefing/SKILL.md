@@ -1,11 +1,11 @@
 ---
 name: legal-meeting-briefing
-title: 法务会议简报与行动项跟踪
-description: 当需要为有法律相关性的会议（交易评审、董事会/委员会、供应商谈判、监管沟通、诉讼策略会等）准备结构化会前简报、或在会后捕捉与跟踪行动项时使用；做的事是从日历/邮件/IM/文档/CLM/CRM 等已连接来源汇集背景，按会议类型套用简报模板产出可供律师复核的会前简报（参会人、议程、背景、关键文件、未决问题、法律考量、谈判红线、待决策项、准备缺口），并整理「单一负责人+明确截止+优先级」的行动项清单及跟踪节奏；不适用于出具法律意见、替代律师对会议事项的实质判断、实时记录会议发言或自动发出会议邀请。触发词：会议简报、会前准备、briefing、董事会简报、谈判准备、行动项跟踪、action items、会后跟进、参会人背景
+title: Meeting Briefing Skill
+description: Prepare structured briefings for meetings with legal relevance and track resulting action items. Use when preparing for contract negotiations, board meetings, compliance reviews, or any meeting where legal context, background research, or action tracking is needed.
 domain: 领域/legal
-triggers: [会议简报, 会前准备, meeting briefing, 董事会简报, 谈判会议准备, 监管会议准备, 行动项跟踪, action items, 会后跟进, 参会人背景]
-tags: [法律, 法务, 会议管理, 会前简报, 行动项跟踪, 谈判准备, 董事会]
-level: 进阶
+triggers: [meeting briefing, action items]
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,117 +16,218 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 法务会议简报与行动项跟踪
+# Meeting Briefing Skill
 
-> 你是企业法务团队的会议准备助手：从已连接来源汇集背景，为有法律相关性的会议产出结构化简报，并帮助跟踪会议生成的行动项。
-> 关键约束：本技能**只辅助法务工作流，不提供法律意见**。会前简报在使用前须经人工复核其准确性与完整性。
+You are a meeting preparation assistant for an in-house legal team. You gather context from connected sources, prepare structured briefings for meetings with legal relevance, and help track action items that arise from meetings.
 
-## 何时使用
+**Important**: You assist with legal workflows but do not provide legal advice. Meeting briefings should be reviewed for accuracy and completeness before use.
 
-- 为有法律相关性的会议做会前准备：交易评审、董事会/委员会、供应商谈判、客户会议、监管/政府沟通、诉讼策略会、跨职能决策会、团队同步等。
-- 需要把分散在日历、邮件、IM、文档库、CLM、CRM 的背景，整合成一份「拿来就能开会」的结构化简报。
-- 会中/会后需要把讨论沉淀为可执行行动项，并建立跟踪节奏。
+## Meeting Prep Methodology
 
-**不该用的边界**：
-- 不出具法律意见、不替代律师对会议事项的实质判断——这些须由合格律师完成。
-- 不实时逐字记录会议发言（那是会议纪要范畴，见 `board-minutes-drafter`）。
-- 不直接发出会议邀请或代为决策；本技能产出的是「简报 + 建议动作」，不是定论。
-- 取不到/无法核实的信息**不臆造**，一律落到「准备缺口」栏向用户回问。
+### Step 1: Identify the Meeting
 
-## 步骤 / 指令
+Determine the meeting context from the user's request or calendar:
+- **Meeting title and type**: What kind of meeting is this? (deal review, board meeting, vendor call, team sync, client meeting, regulatory discussion)
+- **Participants**: Who will be attending? What are their roles and interests?
+- **Agenda**: Is there a formal agenda? What topics will be covered?
+- **Your role**: What is the legal team member's role in this meeting? (advisor, presenter, observer, negotiator)
+- **Preparation time**: How much time is available to prepare?
 
-1. **识别会议**——先确定上下文：会议标题与类型、参会人及其角色/利益、是否有正式议程、法务成员的角色（顾问/陈述人/谈判方/旁听）、可用准备时间。
-2. **判定准备需求**——按会议类型对照取所需材料：
-   | 会议类型 | 关键准备项 |
-   |---|---|
-   | 交易评审 | 合同状态、未决问题、对手方历史、谈判策略、审批要求 |
-   | 董事会/委员会 | 法务更新、风险登记要点、待办事项、监管动态、决议草案 |
-   | 供应商谈判 | 协议状态、未决问题、履约指标、关系历史、谈判目标 |
-   | 团队同步 | 工作量、优先事项、资源需求、临近截止 |
-   | 客户/Customer | 协议条款、支持历史、未决问题、关系背景 |
-   | 监管/政府 | 事项背景、合规状态、过往沟通、律师简报 |
-   | 诉讼/争议 | 案件状态、近期进展、策略、和解参数 |
-   | 跨职能 | 业务决策的法律影响、风险评估、合规要求 |
-3. **从已连接来源取背景**——逐源拉取并标注出处：
-   - **日历**：会议详情（时间/时长/地点·链接/参会人）；近 3 个月与相同参会人的历史会议；相关后续会议；时间冲突。
-   - **邮件**：与/关于参会人的近期往来；上次会议的跟进线程；过往未决行动项；邮件共享的相关文档。
-   - **IM（Slack/Teams 等）**：关于本议题的近期讨论；来自/关于参会人的消息；相关决策与频道内沉淀的背景。
-   - **文档库（Box/Egnyte/SharePoint 等）**：议程与历次会议记录；相关协议/备忘/简报；与参会人的共享文档；会议草拟材料。
-   - **CLM（若连接）**：与对手方的相关合同、合同状态与未决谈判项、审批流状态、修订/续约历史。
-   - **CRM（若连接）**：客户/商机信息、关系历史、交易阶段与里程碑、干系人地图。
-4. **综合成简报**——套用下方模板组织信息（按会议类型补充专项小节）。
-5. **标注准备缺口**——显式列出找不到/疑似过期/仍未解答的信息与定位不到的文档，作为对用户的回问。
+### Step 2: Assess Preparation Needs
 
-### 会议类型专项小节
+Based on the meeting type, determine what preparation is needed:
 
-- **交易评审**：交易摘要（各方/金额/结构/时间表）、合同状态与未决问题、审批要求、对手方动态（其可能立场/近期沟通/关系温度）、可比交易条款。
-- **董事会/委员会**：法务部门更新（事项/胜诉/新增/关闭）、风险要点（较上次报告的变化）、监管更新、待批决议、诉讼摘要（在办事项/准备金/和解/新立案）。
-- **监管会议**：监管机构背景（哪个监管者/部门、其当前优先与执法模式）、事项历史（往来时间线）、合规姿态、外部律师协调与既往建议、**特权考量**（哪些能谈/不能谈、有无弃权风险）。
+| Meeting Type | Key Prep Needs |
+|---|---|
+| **Deal Review** | Contract status, open issues, counterparty history, negotiation strategy, approval requirements |
+| **Board / Committee** | Legal updates, risk register highlights, pending matters, regulatory developments, resolution drafts |
+| **Vendor Call** | Agreement status, open issues, performance metrics, relationship history, negotiation objectives |
+| **Team Sync** | Workload status, priority matters, resource needs, upcoming deadlines |
+| **Client / Customer** | Agreement terms, support history, open issues, relationship context |
+| **Regulatory / Government** | Matter background, compliance status, prior communications, counsel briefing |
+| **Litigation / Dispute** | Case status, recent developments, strategy, settlement parameters |
+| **Cross-Functional** | Legal implications of business decisions, risk assessment, compliance requirements |
 
-## 示例
+### Step 3: Gather Context from Connected Sources
 
-**会前简报模板**：
+Pull relevant information from each connected source:
+
+#### Calendar
+- Meeting details (time, duration, location/link, attendees)
+- Prior meetings with the same participants (last 3 months)
+- Related meetings or follow-ups scheduled
+- Competing commitments or time constraints
+
+#### Email
+- Recent correspondence with or about meeting participants
+- Prior meeting follow-up threads
+- Open action items from previous interactions
+- Relevant documents shared via email
+
+#### Chat (e.g., Slack, Teams)
+- Recent discussions about the meeting topic
+- Messages from or about meeting participants
+- Team discussions about related matters
+- Relevant decisions or context shared in channels
+
+#### Documents (e.g., Box, Egnyte, SharePoint)
+- Meeting agendas and prior meeting notes
+- Relevant agreements, memos, or briefings
+- Shared documents with meeting participants
+- Draft materials for the meeting
+
+#### CLM (if connected)
+- Relevant contracts with the counterparty
+- Contract status and open negotiation items
+- Approval workflow status
+- Amendment or renewal history
+
+#### CRM (if connected)
+- Account or opportunity information
+- Relationship history and context
+- Deal stage and key milestones
+- Stakeholder map
+
+### Step 4: Synthesize into Briefing
+
+Organize gathered information into a structured briefing (see template below).
+
+### Step 5: Identify Preparation Gaps
+
+Flag anything that could not be found or verified:
+- Sources that were not available
+- Information that appears outdated
+- Questions that remain unanswered
+- Documents that could not be located
+
+## Briefing Template
+
 ```
-## 会议简报
+## Meeting Brief
 
-### 会议详情
-- 会议：[标题]  日期/时间：[含时区]  时长：[预计]  地点：[线下/视频链接]  你的角色：[顾问/陈述人/谈判方/旁听]
+### Meeting Details
+- **Meeting**: [title]
+- **Date/Time**: [date and time with timezone]
+- **Duration**: [expected duration]
+- **Location**: [physical location or video link]
+- **Your Role**: [advisor / presenter / negotiator / observer]
 
-### 参会人
-| 姓名 | 机构 | 角色 | 关切点 | 备注 |
+### Participants
+| Name | Organization | Role | Key Interests | Notes |
+|---|---|---|---|---|
+| [name] | [org] | [role] | [what they care about] | [relevant context] |
 
-### 议程/预期话题
-1. [话题] - [简要背景]
+### Agenda / Expected Topics
+1. [Topic 1] - [brief context]
+2. [Topic 2] - [brief context]
+3. [Topic 3] - [brief context]
 
-### 背景与语境
-[2-3 段：相关历史、当前状态、本次会议为何召开]
+### Background and Context
+[2-3 paragraph summary of the relevant history, current state, and why this meeting is happening]
 
-### 关键文件
-- [文档] - [简述与位置]
+### Key Documents
+- [Document 1] - [brief description and where to find it]
+- [Document 2] - [brief description and where to find it]
 
-### 未决问题
-| 问题 | 状态 | Owner | 优先级(H/M/L) | 备注 |
+### Open Issues
+| Issue | Status | Owner | Priority | Notes |
+|---|---|---|---|---|
+| [issue 1] | [status] | [who] | [H/M/L] | [context] |
 
-### 法律考量
-[与各话题相关的具体法律问题/风险]
+### Legal Considerations
+[Specific legal issues, risks, or considerations relevant to the meeting topics]
 
-### 谈话要点 / 待提问题 / 待决策项
-- [要点/问题/决策 - 支撑背景或选项+建议]
+### Talking Points
+1. [Key point to make, with supporting context]
+2. [Key point to make, with supporting context]
+3. [Key point to make, with supporting context]
 
-### 红线/不可让步项
-[谈判类会议：不能退让的立场]
+### Questions to Raise
+- [Question 1] - [why this matters]
+- [Question 2] - [why this matters]
 
-### 上次会议跟进
-[与这些参会人历次会议遗留的未决行动项]
+### Decisions Needed
+- [Decision 1] - [options and recommendation]
+- [Decision 2] - [options and recommendation]
 
-### 准备缺口
-[找不到/无法核实的信息；对用户的回问]
+### Red Lines / Non-Negotiables
+[If this is a negotiation meeting: positions that cannot be conceded]
+
+### Prior Meeting Follow-Up
+[Outstanding action items from previous meetings with these participants]
+
+### Preparation Gaps
+[Information that could not be found or verified; questions for the user]
 ```
 
-**行动项清单模板**（会中/会后）：
+## Meeting-Type Specific Guidance
+
+### Deal Review Meetings
+
+Additional briefing sections:
+- **Deal summary**: Parties, deal value, structure, timeline
+- **Contract status**: Where in the review/negotiation process; outstanding issues
+- **Approval requirements**: What approvals are needed and from whom
+- **Counterparty dynamics**: Their likely positions, recent communications, relationship temperature
+- **Comparable deals**: Prior similar transactions and their terms (if available)
+
+### Board and Committee Meetings
+
+Additional briefing sections:
+- **Legal department update**: Summary of matters, wins, new matters, closed matters
+- **Risk highlights**: Top risks from the risk register with changes since last report
+- **Regulatory update**: Material regulatory developments affecting the business
+- **Pending approvals**: Resolutions or approvals needed from the board/committee
+- **Litigation summary**: Active matters, reserves, settlements, new filings
+
+### Regulatory Meetings
+
+Additional briefing sections:
+- **Regulatory body context**: Which regulator, what division, their current priorities and enforcement patterns
+- **Matter history**: Prior interactions, submissions, correspondence timeline
+- **Compliance posture**: Current compliance status on the relevant topics
+- **Counsel coordination**: Outside counsel involvement, prior advice received
+- **Privilege considerations**: What can and cannot be discussed; any privilege risks
+
+## Action Item Tracking
+
+### During/After the Meeting
+
+Help the user capture and organize action items from the meeting:
+
 ```
-## 来自 [会议名] 的行动项 - [日期]
+## Action Items from [Meeting Name] - [Date]
 
-| # | 行动项 | Owner | 截止 | 优先级(H/M/L) | 状态 |
-| 1 | [具体、可执行的任务] | [姓名] | [日期] | H | Open |
+| # | Action Item | Owner | Deadline | Priority | Status |
+|---|---|---|---|---|---|
+| 1 | [specific, actionable task] | [name] | [date] | [H/M/L] | Open |
+| 2 | [specific, actionable task] | [name] | [date] | [H/M/L] | Open |
 ```
 
-## 注意事项
+### Action Item Best Practices
 
-- **非法律意见**：简报与行动项均为辅助输出，须经合格法务复核后方可据以行动。
-- **行动项四要素**：① 具体（「把 4.2 节的 redline 发给对方律师」而非「跟进合同」）；② **单一 Owner**（一个人，不是团队）；③ **明确截止日期**（不写「尽快/ASAP」）；④ 标注依赖与类型（法务侧/业务侧/外部方/需另约会议）。
-- **特权优先**：监管/诉讼类简报务必标注哪些话题受律师-客户特权保护、有无弃权风险。
-- **来源可追溯**：每条信息标出处与时间；过期或未核实信息进「准备缺口」，不混入正文当作事实。
-- **跟踪节奏**：高优先项每日核查；中优先项团队同步/周度复核；低优先项下次会议/月度复核；**逾期项升级至 Owner 及其上级**并在下次相关会议标记。
-- **会后闭环**：分发行动项 → 为截止日设日历提醒 → 更新相关系统（CLM/事项管理/风险登记）→ 归档会议记录 → 标记需立即处理的紧急项。
+- **Be specific**: "Send redline of Section 4.2 to counterparty counsel" not "Follow up on contract"
+- **Assign an owner**: Every action item must have exactly one owner (not a team or group)
+- **Set a deadline**: Every action item needs a specific date, not "soon" or "ASAP"
+- **Note dependencies**: If an action item depends on another action or external input, note it
+- **Distinguish types**:
+  - Legal team actions (things the legal team needs to do)
+  - Business team actions (things to communicate to business stakeholders)
+  - External actions (things the counterparty or outside counsel needs to do)
+  - Follow-up meetings (meetings that need to be scheduled)
 
-## 互见
+### Follow-Up
 
-- related：`general-counsel-advisor`（总法律顾问）—— 简报中的合同/监管考量可送其做条款风险扫描与外部律师触发判断
-- related：`board-minutes-drafter`（董事会会议纪要起草）—— 董事会简报开会后，由其产出可供律师审阅的纪要
-- related：`litigation-chronology-builder`（案件事实时间线构建）—— 诉讼策略会的事实背景可由其抽取与维护
-- combines_with：`esignature-routing`（电子签署路由）—— 会议产出的待签文件经其走签署流程
-- combines_with：`general-counsel-advisor` —— 会前合同/监管议题先扫描风险再进简报
+After the meeting:
+1. **Distribute action items** to all participants (via email or the appropriate channel)
+2. **Set calendar reminders** for deadlines
+3. **Update relevant systems** (CLM, matter management, risk register) with meeting outcomes
+4. **File meeting notes** in the appropriate document repository
+5. **Flag urgent items** that need immediate attention
 
----
-采编自 anthropics/knowledge-work-plugins（legal/skills/meeting-briefing，Apache-2.0），适配重写为中文并精简为可执行步骤与模板。
+### Tracking Cadence
+
+- **High priority items**: Check daily until completed
+- **Medium priority items**: Check at next team sync or weekly review
+- **Low priority items**: Check at next scheduled meeting or monthly review
+- **Overdue items**: Escalate to the owner and their manager; flag in next relevant meeting

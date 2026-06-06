@@ -1,14 +1,14 @@
 ---
 name: seo-traffic-drop-forensics
-title: SEO 流量骤降取证排查
-description: 当自然流量/排名突然骤降、疑似遭算法核心更新打击、人工处罚或重大技术回归时使用；做取证式事件响应——三级分诊→证据驱动归因→分期恢复方案与监控计划；不适用于常规 SEO 体检或机会优先级排序（用 seo-audit）、本地法律行业长期可见性（用 local-legal-seo-audit）。触发词：流量暴跌、排名骤降、收录掉了、核心更新、人工处罚、noindex 误改、迁移掉量
+title: SEO Forensic Incident Response
+description: Investigate sudden drops in organic traffic or rankings and run a structured forensic SEO incident response — triage, evidence-driven root-cause analysis, and a phased recovery plan; not for routine SEO audits.
 domain: 商业/seo
-triggers: [自然流量突然暴跌怎么排查, 网站排名骤降原因分析, 怀疑被谷歌核心更新打击, GSC 收到人工处罚消息, site 收录数量骤减, 改版/迁移后流量掉了, robots.txt 或 noindex 误改导致掉量, SEO 事件响应取证报告]
-tags: [seo, 自然流量, 事件响应, 取证排查, google-search-console, 核心更新, 人工处罚, 技术seo, 网站迁移, eeat]
-level: 进阶
+triggers: [organic traffic suddenly dropped how to investigate, sudden ranking drop root cause analysis, suspect hit by Google core update, received manual action message in GSC, site indexed page count dropped sharply, traffic fell after redesign or migration, robots.txt or noindex change caused traffic loss, SEO incident response forensic report]
+tags: [seo, organic-traffic, incident-response, forensics, google-search-console, core-update, manual-action, technical-seo, site-migration, eeat]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Google Search Console, GA4 / Matomo, 服务器/CDN 日志, 部署变更日志 (Git/CI-CD/CMS), Core Web Vitals / PageSpeed]
+tools: []
 requires: []
 related: [seo-audit, seo-site-architecture, schema-markup-builder, seo-content-writer]
 combines_with: [seo-audit, seo-content-writer, schema-markup-builder]
@@ -16,93 +16,90 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+You are an expert in forensic SEO incident response. Your goal is to investigate **sudden drops in organic traffic or rankings**, identify the most likely causes, and provide a prioritized remediation plan. This is not a generic SEO audit — it is built for **incident scenarios**: traffic crashes, suspected penalties, core update impacts, or major technical regressions.
 
-适用：自然流量或排名在短期内**突然、显著**下跌，需要定位最可能成因并给出按优先级排序的修复方案。典型事件包括流量崩盘、疑似人工处罚、核心更新冲击、重大技术回归（误改 robots.txt / noindex、迁移丢失跳转、5xx 激增等）。
+## When to use
 
-不该用（负边界）：
-- 只是想做常规 SEO 体检或机会点排序 → 用 `seo-audit`。
-- 聚焦法律/专业服务的长期本地可见性 → 用 `local-legal-seo-audit`。
+Use this skill when:
+- You need to understand and resolve a sudden, significant drop in organic traffic or rankings.
+- There are signs of a possible penalty, core update impact, major technical regression, or other SEO incident.
 
-这是**事件响应**技能，不是通用审计。核心是取证思维：先固定时间线与证据，再做假设驱动的归因，最后分期恢复。
+Do **not** use this skill when:
+- You need a routine SEO health check or prioritization of opportunities (use `seo-audit`).
+- You are focused on long-term local visibility for legal/professional services (use `local-legal-seo-audit`).
 
-## 步骤
+The core mindset is forensic: fix the timeline and evidence first, then run hypothesis-driven attribution, then recover in phases.
 
-### 1. 事件分诊（先问清上下文，别急着分析）
-- **现象**：何时首次发现？骤降（1–3 天）还是渐降（数周）？受影响指标（会话/点击/展现/转化）？全站、特定栏目还是特定页面？
-- **数据权限**：是否有 GSC、网站分析（GA4/Matomo）、服务器/CDN 日志、部署/变更日志（Git、CI/CD、CMS 发布记录）？
-- **近期变更清单**（重点排查掉量前 30–60 天）：改版/换主题、URL 结构变更或迁移、CMS/插件更新、主机/CDN/安全工具（WAF、防火墙）变更、robots.txt / sitemap / canonical / 跳转改动、批量内容编辑或内容删减。
-- **业务背景**：是否季节性行业？有无外部需求事件？历史上是否有过人工处罚？
+## Steps
 
-### 2. 事件分类（归入一类或多类，引导后续调查）
-1. **算法/核心更新冲击**：掉量时间点与已知 Google 核心更新对齐；冲击偏向某类查询或内容；同期无重大技术改动。
-2. **技术/基础设施故障**：收录/可抓取性骤损、5xx/4xx 大面积报错、robots.txt 或 meta noindex 改动、跳转或 canonical 错误。
-3. **人工处罚/违规**：GSC 出现人工处罚消息、品牌词与非品牌词同时骤降、历史上有激进外链或垃圾手法。
-4. **内容/质量重评**：特定栏目或主题被打击更重、内容稀薄/过时/大量 AI 生成、同期竞品内容显著改善。
-5. **需求/季节性/外部因素**：行业搜索需求整体下降、宏观事件或监管变化。
+### 1. Initial incident triage (clarify context before analyzing)
+- **Incident description**: When did you first notice the drop? Was it sudden (1–3 days) or gradual (weeks)? Which metrics are affected (sessions, clicks, impressions, conversions)? Is the impact site-wide, specific sections, or specific pages?
+- **Data access**: Do you have Google Search Console (GSC), web analytics (GA4, Matomo), server/CDN logs, and deployment/change logs (Git, CI/CD, CMS release notes)?
+- **Recent changes checklist** (ask explicitly about the 30–60 days before the drop): site redesign or theme change; URL structure changes or migrations; CMS/plugin updates; changes to hosting, CDN, or security tools (WAF, firewalls); changes to robots.txt, sitemap, canonical tags, or redirects; bulk content edits or content pruning.
+- **Business context**: Is this a seasonal niche? Any external events affecting demand? Any previous manual actions or penalties?
 
-### 3. 数据驱动调查（有 GSC + 分析权限时）
-- **时间线重建**：绘制近 6–12 个月的点击、展现、CTR、平均排名；定位掉量精确起点、判断是**台阶式骤降**还是**缓坡下滑**、看是否波及全部国家/设备。
-  - 台阶式骤降 → 多为技术故障、人工处罚、某次部署。
-  - 缓坡下滑 → 多为质量问题、竞品改善、算法重评。
-- **分段分析**：按设备（桌面/移动）、国家/地区、查询类型（品牌/非品牌）、页面类型（首页/分类/产品/博客/文档）切分。规律线索：仅移动端受影响 → 移动 UX/CWV/移动索引问题；单一国家 → 地理定向/hreflang；非品牌词比品牌词更重 → 多与算法/质量相关。
-- **页面级影响**：找出点击与展现跌幅最大的页面；曾经高流量页面中是否出现新 404 或被大量跳转；是否有页面脱离索引或丢失大部分排名词。核对：URL 变更未做跳转、canonical 改动、误加 noindex、模板/内容变更。
-- **技术完整性核查**（聚焦事件相关回归）：
-  - robots.txt：近期是否变动？关键栏目是否被误屏蔽？
-  - 收录与 noindex：GSC "已排除/已 noindex" 是否骤增？重要页面是否误设 meta noindex 或 X-Robots-Tag？
-  - 跳转：新增跳转链/跳转环？HTTP→HTTPS、www 与非 www 是否一致？迁移是否缺完整跳转映射？
-  - 服务器与可用性：日志或 GSC 中 5xx/4xx 是否上升？是否宕机或被安全工具限流？是否对 Googlebot 限速/封禁？
-  - Core Web Vitals：是否大面积骤降（尤其移动端）？
-- **内容与质量重评**（技术干净时再查）：哪些主题/内容类型受创最重？内容是否稀薄/通用/过时、过度优化堆砌关键词、缺原创数据与一手经验？按 **E-E-A-T** 评估——Experience（一手经验）、Expertise（作者资质明确）、Authoritativeness（引用与外部认可）、Trustworthiness（主体透明、政策与联系方式清晰）。
+### 2. Incident classification framework (place into one or more buckets to guide the investigation)
+1. **Algorithm / core update impact**: drop coincides with known Google core update dates; impact skewed toward certain query or content types; no major technical changes around the same time.
+2. **Technical / infrastructure failure**: indexing/crawlability suddenly impaired; widespread 5xx/4xx errors; robots.txt or meta noindex changes; broken redirects or canonicalization errors.
+3. **Manual action / policy violation**: manual action message in GSC; sudden, severe drop in both branded and non-branded queries; history of aggressive link building or spammy tactics.
+4. **Content / quality reassessment**: specific sections or topics hit harder; content thin, outdated, or heavily AI-generated; competitors significantly improved content around the same topics.
+5. **Demand / seasonality / external factors**: search demand drop in the niche; macro events, regulation changes, or market shifts.
 
-### 4. 取证假设构建（不要罗列零散问题）
-对每个可能成因，写成一条可验证假设：
-- **假设**：如"最近一次部署在关键模板上注入了 noindex 标签"。
-- **证据**：来自 GSC、分析、日志、代码 diff 或截图的数据点。
-- **影响范围**：哪些栏目/页面、跌了多少。
-- **验证步骤**：用什么检查可证实或推翻该假设。
-- **建议修复**：具体可执行的补救动作。
+### 3. Data-driven investigation (with GSC + analytics access)
+- **Timeline reconstruction**: Plot clicks, impressions, CTR, and average position over the last 6–12 months. Identify the exact start of the drop, whether it is step-like (sudden) or gradual, and whether it affects all countries/devices or specific segments.
+  - **Step-like drop** → technical issue, manual action, deployment.
+  - **Gradual slide** → quality issues, competitor improvements, algorithmic re-evaluation.
+- **Segment analysis**: Segment impact by device (desktop vs. mobile), country/region, query type (branded vs. non-branded), and page type (home, category, product, blog, docs). Patterns: only mobile affected → mobile UX/CWV/mobile-only indexing; specific country → geo-targeting, hreflang, local factors; non-branded hit harder than branded → often algorithm/quality-related.
+- **Page-level impact**: Identify top pages with the largest drop in clicks and impressions; new 404s or heavily redirected URLs among previously high-traffic pages; pages that disappeared from the index or lost most ranking queries. Check for URL changes without proper redirects, canonical changes, noindex additions, and template/content changes.
+- **Technical integrity checks** (focus on incident-related regressions):
+  - **Robots.txt**: any recent changes? key sections blocked unintentionally?
+  - **Indexation & noindex**: sudden spike in "Excluded" or "Noindexed" pages in GSC; important pages with meta noindex or X-Robots-Tag set incorrectly.
+  - **Redirects**: new redirect chains or loops; HTTP→HTTPS consistency; www vs. non-www consistency; migrations without full redirect mapping.
+  - **Server & availability**: increased 5xx/4xx in logs or GSC; downtime or throttling by security tools; rate-limiting or blocking of Googlebot.
+  - **Core Web Vitals**: sudden degradation affecting large portions of the site, especially on mobile.
+- **Content & quality reassessment** (when technical is clean): which topics/content types were hit hardest? Is content thin/generic/outdated, over-optimized or keyword-stuffed, or lacking original data, examples, or experience? Evaluate against **E-E-A-T** — Experience (first-hand experience), Expertise (qualified, clearly identified author), Authoritativeness (references, citations, recognition), Trustworthiness (clear ownership, policies, contact info).
 
-排序依据：① 影响严重度 ② 验证难易度 ③ 可逆性（回滚/调整的容易程度）。
+### 4. Forensic hypothesis building (don't list random issues)
+For each plausible cause, write a testable hypothesis:
+- **Hypothesis**: e.g., "A recent deployment introduced noindex tags on key templates."
+- **Evidence**: data points from GSC, analytics, logs, code diffs, or screenshots.
+- **Impact**: which sections/pages are affected and by how much.
+- **Test / validation step**: what check would confirm or refute this hypothesis.
+- **Suggested fix**: concrete remediation action.
 
-### 5. 产出取证报告
-- **执行摘要**：事件类型分类（技术/算法/人工处罚/混合）、影响日期区间与严重度（约 % 跌幅）、Top 3–5 最可能根因、整体置信度（低/中/高）。
-- **证据化发现**：逐条给出 发现 / 证据 / 可能成因 / 影响（高·中·低）/ 修复。
-- **分期行动计划**：
-  1. 关键即时修复（0–3 天）：解除抓取/收录/可用性阻断，回滚有害的近期部署。
-  2. 稳定化（3–14 天）：清理跳转、canonical、内链，恢复或改进关键内容与模板。
-  3. 恢复与加固（2–8 周）：内容质量提升、E-E-A-T 增强、技术加固防复发。
-  4. 监控计划：要盯的指标与看板、评估部分恢复的检查点、关闭事件的判定标准。
+Prioritize hypotheses by: (1) severity of impact, (2) ease of validation, (3) reversibility (how easy it is to roll back or adjust).
 
-## 指令
+### 5. Produce the forensic report
+- **Executive incident summary**: incident type classification (technical, algorithmic, manual action, mixed); date range of impact and severity (approximate % drop); top 3–5 likely root causes; overall confidence level (Low/Medium/High).
+- **Evidence-based findings**: for each key finding give Finding / Evidence / Likely cause / Impact (High·Medium·Low) / Fix.
+- **Prioritized action plan**:
+  1. **Critical immediate fixes (0–3 days)**: unblock crawling/indexing/availability; reverse harmful recent deployments.
+  2. **Stabilization (3–14 days)**: clean up redirects, canonicals, internal links; restore or improve critical content and templates.
+  3. **Recovery & hardening (2–8 weeks)**: content quality improvements; E-E-A-T enhancements; technical hardening to prevent recurrence.
+  4. **Monitoring plan**: metrics and dashboards to watch; checkpoints to assess partial recovery; criteria for closing the incident.
 
-落实排查时务必向用户确认这 5 个问题：
-1. 你具体何时发现掉量？该日期前后有没有变更记录？
-2. 是否有 GSC 与分析权限，能否提供关键截图或导出？
-3. 近 30–60 天是否有改版、迁移或重大插件/CMS 更新？
-4. 影响是全站性的，还是集中在某些栏目/国家/设备？
-5. 历史上是否收到过人工处罚或用过激进外链？
+### Task-specific questions to confirm with the user
+1. When exactly did you notice the drop? Any change logs around that date?
+2. Do you have GSC and analytics access, and can you share key screenshots or exports?
+3. Was there any redesign, migration, or major plugin/CMS update in the last 30–60 days?
+4. Is the impact site-wide, or concentrated in certain sections, countries, or devices?
+5. Have you ever received a manual action or used aggressive link building in the past?
 
-## 示例
+## Example
 
-场景：某站点桌面端流量平稳，但移动端点击在 2 天内骤降 ~60%，非品牌词受创远重于品牌词。
-- 分诊：骤降（台阶式）、仅移动端、非品牌词更重。
-- 假设 A：某次发布在移动模板上引入 CWV 退化或 noindex。验证：对比掉量日的 Git/CMS 发布记录 + GSC 移动端"已排除"页面 + 移动模板 meta 检查。
-- 假设 B：与同期 Google 核心更新对齐的质量重评。验证：核对核对核心更新公布日期、检查受创主题集中度。
-- 结论：先按可逆性最高的假设 A 排查（若部署回滚即可恢复，0–3 天即可验证），技术干净后再走假设 B 的内容/E-E-A-T 路线。
+Scenario: desktop organic traffic is stable, but mobile clicks fall ~60% within 2 days, with non-branded queries hit far harder than branded.
+- **Triage**: sudden (step-like) drop, mobile-only, non-branded heavier.
+- **Hypothesis A**: a release introduced a CWV regression or noindex on the mobile template. *Validation*: compare Git/CMS release notes against the drop date + GSC "Excluded" mobile pages + meta inspection of the mobile template.
+- **Hypothesis B**: a quality reassessment aligned with a concurrent Google core update. *Validation*: cross-check the core update announcement date and the concentration of affected topics.
+- **Conclusion**: chase the most reversible hypothesis first (A — if a deployment rollback restores traffic, it can be validated within 0–3 days); only after technical is clean, pursue the content/E-E-A-T path in hypothesis B.
 
-## 注意事项
+## Notes
+- Use this skill only when the task clearly matches the incident scope above. Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+- The output is not a substitute for environment-specific validation, testing, or expert review.
+- Investigate reversible, easy-to-validate technical regressions first, before algorithm/content hypotheses that are hard to verify quickly — this avoids burning the recovery window chasing the wrong direction.
 
-- 仅在任务明确落在上述事件范围内时使用；缺少必要输入、权限、安全边界或成功标准时，停下来先澄清。
-- 输出不能替代针对具体环境的验证、测试或专家复核。
-- 优先排查可逆、易验证的技术回归，再进入难以快速验证的算法/内容假设，避免误判方向浪费恢复窗口。
-
-## 互见
-
-- `seo-audit`：非事件场景下的常规 SEO 体检。
-- `ai-seo`：面向 AI 搜索体验的内容优化。
-- `schema-markup`：稳定恢复后实施结构化数据。
-- `analytics-tracking`：事件后确保度量口径正确。
-
----
-*采编自 sickn33/antigravity-awesome-skills（MIT 许可证）。*
+## See also
+- `seo-audit`: general SEO health checks outside of incident scenarios.
+- `ai-seo`: optimizing content for AI search experiences.
+- `schema-markup`: implementing structured data after stability is restored.
+- `analytics-tracking`: ensuring measurement is correct post-incident.

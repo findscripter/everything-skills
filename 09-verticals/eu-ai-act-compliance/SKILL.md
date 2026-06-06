@@ -1,14 +1,14 @@
 ---
 name: eu-ai-act-compliance
-title: 欧盟 AI 法案合规分级
-description: 当对一套 AI 系统做欧盟《AI 法案》（Regulation (EU) 2024/1689）合规分级、规划符合性评估或梳理各角色义务时使用；做风险分级（禁止/高风险/有限/最小）、Art.43 评估路线（模块 A/H）选型与 Annex IV 技术文档清单、按 提供者/部署者/进口商/分销商/授权代表 输出带条款引用的义务矩阵；不适用于是否上线 AI 的高管战略决策，也不替代法律意见；触发词：EU AI Act、欧盟 AI 法案、AI 法案、2024/1689、high-risk AI、高风险 AI、Annex III、conformity assessment、符合性评估、CE marking、GPAI、Article 5、FRIA
+title: EU AI Act Compliance Specialist
+description: EU AI Act (Regulation (EU) 2024/1689) operational compliance for compliance teams. Three Article-level decisions: (1) What's the risk tier of this AI system — prohibited (Art. 5), high-risk (Art. 6 + Annex III), limited-risk (Art. 50), or minimal-risk? (2) For high-risk systems, what's the Article 43 conformity assessment route (Module A internal control vs Module H full QMS + notified body) and what goes in the Annex IV technical documentation? (3) Per organizational role (provider / deployer / importer / distributor / authorized representative), what are the active obligations and deadlines? Use during AI system intake review, when planning conformity assessment, or when scoping deployer obligations. Cites Articles + Annexes for every output. NOT executive AI strategy (see chief-ai-officer-advisor). NOT a legal substitute.
 domain: 领域/legal
-triggers: [EU AI Act, 欧盟 AI 法案, AI 法案, Regulation 2024/1689, high-risk AI, 高风险 AI, 禁止类 AI, Annex III, Annex IV, conformity assessment, 符合性评估, CE marking, CE 标识, notified body, 公告机构, GPAI, 通用目的 AI, Article 5, Article 6, Article 50, Article 43, FRIA, 基本权利影响评估, provider deployer 义务, AI 合规分级]
+triggers: [EU AI Act, Regulation 2024/1689, high-risk AI, Annex III, Annex IV, conformity assessment, CE marking, notified body, GPAI, Article 5, Article 6, Article 50, Article 43, FRIA]
 tags: [legal, compliance, eu-ai-act, regulation, risk-classification, conformity-assessment, gpai, governance]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, ai_system_risk_classifier.py, conformity_assessment_planner.py, ai_act_obligation_tracker.py]
+tools: []
 requires: []
 related: [iso42001-aims-specialist, ai-system-security-audit, regulatory-policy-diff, gdpr-data-handler]
 combines_with: [iso42001-aims-specialist, ai-system-security-audit]
@@ -16,118 +16,193 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-本条用于对 AI 系统执行欧盟《AI 法案》（Regulation (EU) 2024/1689）的可操作合规工作，所有结论均按条款（Article）+ 附件（Annex）给出。
+# EU AI Act Compliance Specialist
 
-## 何时使用
+Article-cited operational skill for Regulation (EU) 2024/1689. **Three decisions, no executive AI strategy:**
 
-适用于三类条款级决策：
-1. **风险分级**——这套 AI 系统属于哪一档：禁止类（Art. 5）/ 高风险（Art. 6 + Annex III）/ 有限风险透明度（Art. 50）/ 最小风险。
-2. **高风险系统的符合性评估路线 + 文档包**——Art. 43 选模块 A（内部控制）还是模块 H（完整 QMS + 公告机构），以及 Annex IV 技术文档要装哪些内容。
-3. **按组织角色梳理义务**——提供者 / 部署者 / 进口商 / 分销商 / 授权代表（Art. 16、22、23、24、25、26）各自的义务与截止期。
+1. **What tier is this AI system?** — prohibited (Article 5) / high-risk (Article 6 + Annex III) / limited-risk transparency (Article 50) / minimal-risk
+2. **For high-risk systems, what's the conformity assessment route + documentation pack?** — Article 43 Module A vs Module H + Annex IV technical documentation
+3. **Per organizational role, what are the obligations?** — provider / deployer / importer / distributor / authorized representative matrix per Article 16, 22, 25, 26
 
-典型触发：AI 系统准入评审、规划符合性评估、界定部署者义务范围。
+This skill is **NOT chief-ai-officer-advisor**. CAIO decides whether to ship the AI feature at all and accepts business risk. This skill operates the conformity work that turns "we'll ship it" into Article-compliant artefacts.
 
-**不该用的边界：**
-- 不做"要不要上线这个 AI 功能"的高管战略决策与商业风险承担——那是 CAIO 的职责；本条只把"决定要上"落成符合条款的交付物。
-- 不替代法律意见。法案是有约束力的法规；新型疑难（是否构成 GPAI？Art. 6(3) 豁免是否适用？微调基础模型是否构成"实质性修改"？）须聘请合格外部法律顾问。
-- 不做 GDPR 工作。多数 AI 系统同时触发 GDPR（训练数据、输出处理），DPIA 与合法性基础另见 GDPR 专项条目；两法存在交叉（Recital 10、Art. 10 高风险训练数据）。
+This skill is **NOT a legal substitute**. The Act is binding regulation. For novel cases (Is this a GPAI model? Does Article 6(2) carve-out apply? Is fine-tuning a foundation model "substantial modification"?), engage qualified outside counsel. The skill cites Articles + Annexes and uses Commission/EDPB published interpretation but does not provide binding legal opinion.
 
-## 步骤
+This skill is **NOT GDPR**. Many AI systems also trigger GDPR (training data, output processing). See `ra-qm-team/skills/gdpr-dsgvo-expert/` for DPIA + lawful basis work. The Acts interact (Recital 10, Article 10 for high-risk training data).
 
-### 决策 A：风险分级
-判定顺序（工具内置同样顺序）：先查 Art. 5 禁止项 → 再查 Annex III 八大类 → 再套 Art. 6(3) 豁免 → 再查 Art. 50 透明度 → 否则归为最小风险。
+## Keywords
 
-- **禁止类（Art. 5）**：社会评分；工作/教育场景情绪识别；潜意识操纵；执法机关在公共空间实时远程生物识别（少数例外）。罚则最高 3500 万欧元 / 全球营业额 7%。
-- **Annex III 八大类**（触发即落入 Art. 6(2)）：生物识别、关键基础设施、教育、就业、基本公共服务、执法、移民、司法。
-- **Art. 6(3) 豁免**：Annex III 系统若仅 (a) 执行狭窄程序性任务、(b) 改进既有人工成果、(c) 检测决策模式但不替代人工判断、(d) 执行准备性任务，则**不**算高风险。**但**对自然人的画像（profiling）始终为高风险，豁免无效。
+EU AI Act, EU AI Regulation, Regulation 2024/1689, AI Act, AI regulation Europe, high-risk AI, prohibited AI, Article 5 AI Act, Article 6 AI Act, Article 9 AI Act, Article 50 AI Act, Annex III, Annex IV, conformity assessment, CE marking AI, notified body AI, Module A, Module H, technical documentation AI, post-market monitoring AI, fundamental rights impact assessment, FRIA, GPAI, general-purpose AI model, systemic risk GPAI, AI Office, ENISA AI, EDPB AI, AI Act timeline, AI Act penalties, EU AI Act provider, EU AI Act deployer, EU AI Act importer, EU AI Act distributor, EU AI Act fines, AI literacy
 
-### 决策 B：符合性评估 + Annex IV 技术文档
-高风险系统在投放市场前须证明符合性（Art. 43 + Annex VI/VII），两条路线：
-- **模块 A——内部控制（Annex VI）**：提供者自评，已落实统一标准的多数 Annex III 系统适用。
-- **模块 H——完整质量管理体系 + 技术文档（Annex VII）**：须公告机构介入；生物识别系统强制（Art. 43(1)）。
-
-**Annex IV 技术文档八项必备：** ①系统总体描述（预期用途、标识、版本）②系统要素详述（架构、训练数据、验证程序）③监测/运行/控制信息 ④风险管理体系描述（Art. 9）⑤投放后变更说明 ⑥所用统一标准清单（或替代方案）⑦欧盟符合性声明（Art. 47）⑧投放后监测体系描述（Art. 72）。
-
-### 决策 C：按角色义务追踪
-单一公司可同时扮演多个角色。
-
-| 角色 | 主要条款 | 关键义务 |
-|---|---|---|
-| 提供者 Art. 3(3) | 8–17、47、49、72 | 符合性评估；CE 标识；风险管理；数据治理；技术文档；投放后监测；严重事件报告（Art. 73） |
-| 部署者 Art. 3(4) | 26 | 按说明使用；人工监督；输入数据质量；记录留存（Art. 19）；告知员工（Art. 26(7)）；公共部门/基本服务须做 FRIA（Art. 27） |
-| 进口商 Art. 3(6) | 23 | 核验符合性、CE 标识、技术文档可得性 |
-| 分销商 Art. 3(7) | 24 | 投放前核验 CE 标识 + 文档 |
-| 授权代表 Art. 22 | 22 | 非欧盟提供者须指定，代表对提供者义务负责 |
-
-**关键（Art. 25）：** 部署者若对高风险系统作实质性修改，或以自己名义投放市场，即转为**提供者**并继承提供者全部义务。
-
-**GPAI 独立赛道（Art. 51–55）：** 训练算力超过 10²⁵ FLOPs 触发 Art. 51 系统性风险，规则更严，须单独评估。
-
-## 指令
-
-三个脚本均支持"空跑用内置样例 / 传 JSON 跑实际数据"：
+## Quick Start
 
 ```bash
-# 决策 A：按法案分级 AI 系统
-python scripts/ai_system_risk_classifier.py                    # 内置 5 系统样例
+# Decision A: Classify an AI system per the Act
+python scripts/ai_system_risk_classifier.py                       # embedded 5-system sample
 python scripts/ai_system_risk_classifier.py path/to/systems.json
 
-# 决策 B：为高风险系统生成符合性评估计划 + Annex IV 清单
-python scripts/conformity_assessment_planner.py                # 内置高风险样例
+# Decision B: Conformity assessment plan for a high-risk system
+python scripts/conformity_assessment_planner.py                   # embedded high-risk sample
 python scripts/conformity_assessment_planner.py path/to/system.json
 
-# 决策 C：按角色生成按截止期排序的义务矩阵
-python scripts/ai_act_obligation_tracker.py                    # 内置样例（提供者 + 部署者）
+# Decision C: Obligation tracker per organizational role
+python scripts/ai_act_obligation_tracker.py                       # embedded sample (provider + deployer)
 python scripts/ai_act_obligation_tracker.py path/to/roles.json
 ```
 
-**输出格式（每次产出固定结构，禁止脱离条款引用作答）：**
-```
-结论一句话：[分级 + 最重大义务]
-条款引用：[Article + 段号；不得在无引用下转述]
-本次决策：[分级 | 评估路线 | 义务范围 三选一]
-依据：[Article + Annex 引用；分级置信度]
-行动建议：[3 条具体下一步，含负责人 + 对齐法案分阶段生效的截止期]
-留待人工裁断：[合规官/法律顾问拍板项——分级争议、新型疑难、GPAI 阈值判定]
-```
+## Key Questions (ask these first)
 
-## 示例
+- **Does this AI system fall under Article 5 (prohibited practices)?** Social scoring, emotion recognition in workplace/education, manipulative subliminal techniques, real-time remote biometric identification in public — any of these are flat-out prohibited.
+- **Does it fall under Annex III (high-risk categories)?** 8 categories: biometrics, critical infrastructure, education, employment, essential services, law enforcement, migration, justice. Triggering Annex III triggers Article 6(2) — unless the Article 6(3) carve-outs apply.
+- **What organizational role does the company play?** Provider (placed on market), deployer (uses under own authority), importer (places third-country system on EU market), distributor (makes available in supply chain). Many companies are BOTH provider AND deployer simultaneously.
+- **Is this a general-purpose AI model?** GPAI has its own track (Articles 51–55) with stricter rules above 10²⁵ FLOPs training compute (Article 51 systemic risk).
+- **For high-risk: have we run Article 9 risk management AND Article 27 FRIA?** Article 9 is the lifecycle risk management; Article 27 is the Fundamental Rights Impact Assessment for public-sector deployers + essential services.
+- **What's the conformity assessment Module per Article 43?** Module A (internal control, possible for most Annex III systems) vs Module H (full QMS + notified body, required for biometrics + sometimes others).
 
-**AI 系统准入评审（单系统，约 2 小时）：**
+## Core Responsibilities
+
+### 1. AI System Risk Classification
+
+**The framework:** The Act takes a risk-based approach (Recital 26). Each AI system falls into exactly one of four tiers:
+
+| Tier | Source | Examples | Obligations |
+|---|---|---|---|
+| **Prohibited** | Article 5 | Social scoring; emotion recognition in workplace/education; subliminal manipulation; real-time public biometrics by law enforcement (with narrow exceptions) | Cannot be placed on market or used (penalties up to EUR 35M / 7% turnover) |
+| **High-risk** | Article 6 + Annex III; Article 6(1) + Annex I | CV-screening, credit scoring, biometric categorisation, safety components of regulated products | Articles 8–17 (provider) + Article 26 (deployer); conformity assessment; CE marking |
+| **Limited-risk (transparency)** | Article 50 | Chatbots, deepfakes, emotion recognition outside Article 5 contexts | Transparency disclosures to natural persons |
+| **Minimal-risk** | Default | Spam filters, video-game AI, inventory forecasters | None under the Act (voluntary codes of conduct, Article 95) |
+
+**Critical carve-outs (Article 6(3)):** an Annex III system is NOT high-risk if it (a) performs a narrow procedural task, (b) improves the result of previously completed human activity, (c) detects decision-making patterns without replacing human assessment, (d) performs a preparatory task. Caveat: profiling of natural persons is always Annex III high-risk regardless of carve-outs.
+
+**Run** `ai_system_risk_classifier.py` with system characteristics. The tool checks Article 5 prohibitions first, then Annex III categories, then Article 6(3) carve-outs, then Article 50 transparency, then minimal-risk default.
+
+See `references/eu_ai_act_titles.md` for the full Article-by-Article walkthrough.
+
+### 2. Conformity Assessment + Annex IV Technical Documentation
+
+**The framework (Article 43 + Annex VI/VII):** for high-risk AI systems, the provider must demonstrate conformity before placing on market. Two routes:
+
+- **Module A — Internal control** (Annex VI): provider self-assesses against the requirements. Applies to most Annex III systems where the provider has implemented harmonised standards.
+- **Module H — Full quality management system + technical documentation** (Annex VII): notified body involvement. Required for biometrics systems (Article 43(1)).
+
+**Required artifacts per Annex IV — Technical Documentation:**
+
+1. General description of the AI system (intended purpose, identification, version)
+2. Detailed description of system elements (architecture, training data, validation procedures)
+3. Information about monitoring, functioning and control
+4. Description of risk management system (Article 9)
+5. Description of changes after placing on market
+6. List of harmonised standards applied (or alternative)
+7. EU declaration of conformity (Article 47)
+8. Description of the post-market monitoring system (Article 72)
+
+**Run** `conformity_assessment_planner.py` to select the Module and produce the Annex IV checklist for a given high-risk system.
+
+See `references/high_risk_systems_annex_iii.md` for which systems require which conformity route.
+
+### 3. Per-Role Obligation Tracker
+
+**The framework (Articles 16, 22, 23, 24, 25, 26):** the Act distinguishes provider obligations (most) from downstream-actor obligations (deployer, importer, distributor, authorized representative). A single company can play multiple roles simultaneously.
+
+| Role | Primary Articles | Key obligations |
+|---|---|---|
+| **Provider** (Article 3(3)) | 8–17, 47, 49, 72 | Conformity assessment; CE marking; risk management; data governance; technical documentation; post-market monitoring; serious incident reporting (Article 73) |
+| **Deployer** (Article 3(4)) | 26 | Use according to instructions; human oversight; input data quality; record-keeping (Article 19); inform workers (Article 26(7)); FRIA if public-sector/essential-services (Article 27) |
+| **Importer** (Article 3(6)) | 23 | Verify conformity; affixed CE marking; technical documentation availability |
+| **Distributor** (Article 3(7)) | 24 | Verify CE marking + documentation before making available |
+| **Authorized representative** (Article 22) | 22 | Non-EU providers must appoint one; representative liable for provider obligations |
+
+**Important:** under Article 25, a deployer who substantially modifies a high-risk AI system, or places it on the market under their own name, becomes a **provider** and inherits provider obligations.
+
+**Run** `ai_act_obligation_tracker.py` with the roles JSON to produce a deadline-sorted obligation matrix.
+
+See `references/gpai_obligations.md` for the separate GPAI Articles 51–55 track.
+
+## Workflows
+
+### Workflow 1: AI System Intake Review (per system, ~2 hours)
+**Goal:** classify, identify obligations, scope the conformity work.
+
 ```bash
-# 1. 记录系统特征：用途、用户、数据、自主性、部署环境
-# 2. 跑分级器
+# 1. Document system characteristics: purpose, users, data, autonomy, deployment context
+# 2. Run classifier
 python scripts/ai_system_risk_classifier.py systems.json
-# 3. 若高风险：跑评估计划器
+# 3. If high-risk: run planner
 python scripts/conformity_assessment_planner.py system.json
-# 4. 厘清所扮演角色（提供者 / 部署者 / 两者）
+# 4. Identify org roles played (provider / deployer / both)
 python scripts/ai_act_obligation_tracker.py roles.json
-# 5. 若涉个人数据，交叉核对 GDPR DPIA
-# 6. 若已建 ISO 42001，交叉核对 AIMS 证据
-# 7. 产出：分级备忘 + 符合性计划 + 义务清单
+# 5. Cross-check with GDPR DPIA (gdpr-dsgvo-expert) if personal data
+# 6. Cross-check with ISO 42001 AIMS evidence (compliance-team-iso42001)
+# 7. Output: classification memo + conformity plan + obligation list
 ```
 
-**Annex IV 技术文档构建（单高风险系统，2–4 周）：** 跑评估计划器拿清单 → 汇总系统描述/架构/训练数据/验证/风险管理 → 复用 ISO 42001、ISO 27001 已有证据满足对应项 → 跑 Art. 9 风险管理生命周期 → 评估通过后再签 Art. 47 符合性声明 → 加贴 CE 标识（Art. 48） → 在欧盟数据库登记（Art. 71，Annex III 高风险系统）。
+### Workflow 2: Annex IV Technical Documentation Build (per high-risk system, 2–4 weeks)
+**Goal:** assemble the Annex IV pack before conformity assessment.
 
-**上线前义务审计：** 复核分级是否仍准确 → 确认高风险系统已完成符合性评估 → 确认 Art. 50 透明度要求（聊天机器人、深度伪造、情绪识别） → 确认 Art. 72 投放后监测已运行 → 确认 Art. 73 严重事件报告流程已成文 → 部署者确认 FRIA（Art. 27）已做、员工已告知（Art. 26(7)） → GPAI 确认 Art. 51–55 义务已满足。
+```bash
+# 1. Run conformity assessment planner to get the checklist
+python scripts/conformity_assessment_planner.py system.json
+# 2. Assemble: system description, architecture, training data, validation, risk management
+# 3. Reference ISO 42001 evidence where it satisfies Annex IV items
+# 4. Reference ISO 27001 evidence for security controls
+# 5. Run Article 9 risk management lifecycle
+# 6. Sign EU declaration of conformity (Article 47) AFTER assessment passes
+# 7. Affix CE marking (Article 48)
+# 8. Register in EU database (Article 71) — high-risk Annex III systems
+```
 
-## 注意事项
+### Workflow 3: Pre-Deployment Obligation Audit (per system, before launch)
+**Goal:** confirm all active obligations are in place before EU placement.
 
-- **逢输出必引条款**：每条结论都要带 Article + 段号 / Annex，不要在无引用的情况下转述法条。
-- **分级是单选**：法案采风险导向（Recital 26），每个系统恰好落入四档之一。
-- **画像永远高风险**：涉及对自然人画像的，Art. 6(3) 豁免一律不适用。
-- **角色会升级**：部署者实质性修改或贴牌投放即变提供者（Art. 25），义务陡增。
-- **分阶段生效**：截止期随 Title III 分期推进（2025 → 2026 → 2027），Art. 5 禁止清单可经授权法案扩充；年度刷新时须为每个系统重跑分级器与义务追踪器。
-- **新型疑难交律师**：GPAI 判定、6(3) 豁免适用性、"实质性修改"界定等留待合格外部法律顾问。
+```bash
+# 1. Confirm classification still correct (re-run classifier if system changed)
+# 2. Confirm conformity assessment completed (if high-risk)
+# 3. Confirm transparency requirements (Article 50) — for chatbots, deepfakes, emotion detection
+# 4. Confirm post-market monitoring system (Article 72) is live
+# 5. Confirm serious-incident reporting procedure (Article 73) is documented
+# 6. For deployers: FRIA done (Article 27, if applicable); workers informed (Article 26(7))
+# 7. For GPAI: Articles 51-55 obligations met if applicable
+```
 
-## 互见
+### Workflow 4: Annual Compliance Refresh (per organization, yearly)
+**Goal:** re-verify classifications + obligations as the Act phases in.
 
-- GDPR DPIA + 合法性基础（多数 AI 系统同时触发 GDPR）。
-- ISO 42001 AIMS（自愿性管理体系，可满足提供者 Art. 17 QMS 的部分要求）。
-- ISO 27001（满足 Art. 15 网络安全要求）。
-- ISO 14971 风险管理（Art. 6(1) 安全部件 AI 引用）。
-- MDR 2017/745（医疗器械 AI 交叉）。
-- 高管 AI 战略（chief-ai-officer-advisor，决定是否上线，与本条互补）。
+1. List all AI systems on or planned for EU market
+2. Run classifier for each — Article 5 prohibited list may expand via delegated acts
+3. Run obligation tracker — deadlines shift as Title III phases in (2025 → 2026 → 2027)
+4. For each high-risk system: verify post-market monitoring data flow + serious incident reporting capacity
+5. Update Annex IV technical documentation per Article 11 ongoing requirement
+6. Pair with ISO 42001 management review (Clause 9.3) if both operate
+
+## Output Standards
+
+```
+**Bottom Line:** [one sentence — classification + most-significant obligation]
+**Article Citation:** [Article + paragraph number; do not paraphrase without cite]
+**The Decision:** [one of: classify | conformity-route | obligation-scope]
+**The Evidence:** [Article + Annex references; classification confidence]
+**How to Act:** [3 concrete next steps with owner + deadline aligned to phasing]
+**Your Decision:** [the call for compliance officer or legal counsel — risk-class disputes, novel cases, GPAI threshold determinations]
+```
+
+## Adjacent Skills
+
+- `../../skills/gdpr-dsgvo-expert/` — GDPR DPIA + lawful basis (most AI systems also trigger GDPR)
+- `../../../compliance-team-iso42001/` — ISO 42001 AIMS (voluntary management system that satisfies parts of Article 17 QMS for providers)
+- `../../skills/information-security-manager-iso27001/` — ISO 27001 for cybersecurity requirements (Article 15)
+- `../../skills/risk-management-specialist/` — ISO 14971 risk management (referenced for safety-component AI under Article 6(1))
+- `../../skills/mdr-745-specialist/` — MDR 2017/745 (medical-device AI overlap)
+- `../../../../compliance-os/` — Meta-orchestrator for multi-framework programs
+- `../../../../c-level-advisor/chief-ai-officer-advisor/` — Executive AI strategy
+
+## References
+
+- [eu_ai_act_titles.md](references/eu_ai_act_titles.md) — Titles I–XII Article-by-Article walkthrough with deployer/provider/importer/distributor obligation breakdown
+- [high_risk_systems_annex_iii.md](references/high_risk_systems_annex_iii.md) — Annex III 8 categories detailed + Article 6(2)–(3) interaction + carve-out test
+- [gpai_obligations.md](references/gpai_obligations.md) — Articles 51–55 GPAI track + systemic-risk threshold + transparency rules + Code of Practice status
+- [cross_framework_mapping_ai_act.md](references/cross_framework_mapping_ai_act.md) — AI Act ↔ ISO 42001 ↔ NIST AI RMF ↔ GDPR control-level mapping
 
 ---
-本条采编自 alirezarezvani/claude-skills（MIT）。
+
+**Version:** 1.0.0
+**Status:** Production Ready

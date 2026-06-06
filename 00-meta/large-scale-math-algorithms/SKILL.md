@@ -1,14 +1,14 @@
 ---
 name: large-scale-math-algorithms
-title: 大规模数学算法升级
-description: 当 n≥10⁶ 的大数据/数值/几何/图算法已触及经典 O(n log n) 下限、需靠数学（概率结构、变换、降维、摊还）再降一个数量级时使用；按「经典下限→为何不够→命名技法→精确/近似+ε→新界推导→买卖代价→禁用场景→代码」八步协议给出可审计的升级方案与带 ε/δ 注释的代码；不适用于需精确结果的鉴权/计费/主键去重、n<10⁴ 非热路径、I/O 瓶颈。触发词：Bloom、HyperLogLog、FFT、近似算法、大规模去重、基数估计
+title: mathguard — Math-Heavy Optimization for AI Code
+description: Math-heavy escalation for n >= 10^6 — Bloom, HyperLogLog, Count-Min, MinHash/LSH, FFT, JL projection, sweep line. Use when classical O(n log n) is the floor and approximate or math wins.
 domain: 通用/thinking
-triggers: [大规模数据算法卡在 O(n log n), Bloom 过滤器判存在, HyperLogLog 基数/去重计数, Count-Min Sketch 热点统计, MinHash + LSH 相似度, FFT/NTT 多项式或大整数乘法, JL 投影高维降维, 近似算法换空间/时间, sweep line 区间重叠, union-find / 线段树 / Fenwick]
-tags: [算法, 概率数据结构, 近似算法, bloom-filter, hyperloglog, fft, 性能优化, 思维, 通用]
-level: 精通
+triggers: []
+tags: [bloom-filter, hyperloglog, fft]
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude-code, codex, cursor, gemini-cli]
+tools: []
 requires: []
 related: [complexity-cuts, algorithm-first-discipline, python-performance-optimization, latency-critical-systems]
 combines_with: [data-throughput-accelerator, performance-profiler]
@@ -16,126 +16,257 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# 大规模数学算法升级
+# mathguard — Math-Heavy Optimization for AI Code
 
-`complexity-cuts` 帮你把现有代码降一个复杂度档；本技能在**经典算法已是最优（O(n log n) 已是地板）**时介入，靠数学再凿穿一层地板——通常以「接受有界近似 / 利用结构 / 换到更聪明的代数空间」换取渐近优势。模型懂这些技法，但几乎从不主动提出，本技能负责逼它伸手去够。
+`lemmaly` makes you pick the right classical algorithm. `mathguard` kicks in when the classical algorithm is already optimal but **mathematics gives a better bound** — usually by accepting bounded approximation, exploiting structure, or moving to a smarter algebraic space.
 
-> 铁律：**没有书面 ε/δ 且调用方明确接受，绝不引入任何近似结构。** 把 Bloom 过滤器塞进调用方默认精确的路径，是生产事故，不是优化。
+The model knows these techniques. It almost never proposes them spontaneously. mathguard fixes that.
 
-## 何时使用
+**Violating the letter of these rules is violating the spirit of the skill.** A Bloom filter where the caller assumed exact answers is a production incident, not an optimization.
 
-适用：
+## When to Use This Skill
 
-- 大规模数据（**n ≥ 10⁶**）：相似检索、去重、Top-K / 重击者、流式分析、基数估计、向量检索、推荐。
-- 信号/图像处理、多项式或大整数运算、卷积、图距离、计算几何、随机化算法。
-- 经典 O(n log n) 已是地板、仍需渐近突破：Bloom、HyperLogLog、Count-Min、MinHash/LSH、FFT/NTT、JL 投影、sweep line、kd-tree/BVH、快速幂、幺半群并行归约、摊还势能法。
-- 通常在 `complexity-cuts` 或经典选型已确认「经典解不够」之后再加载。
+Use **mathguard** when:
 
-**不该用（负边界）**：
+- Working with large-scale data (`n ≥ 10⁶`): similarity search, deduplication, top-K / heavy-hitters, streaming analytics, cardinality estimation, embeddings, recommender systems.
+- Doing signal/image processing, polynomial or big-integer arithmetic, convolution, graph distance, computational geometry, randomized algorithms.
+- The classical O(n log n) is already the floor and you need an asymptotic win (Bloom filter, HyperLogLog, Count-Min Sketch, MinHash/LSH, FFT/NTT, Johnson-Lindenstrauss projection, sweep line, kd-tree/BVH, fast exponentiation, monoid parallel reduction, amortized potential method).
+- Loaded *after* `lemmaly` has confirmed the classical answer is not enough.
 
-- 调用方需要精确结果（鉴权、计费、为正确性去重、主键、任何流入主键的值）。
-- n 小（n < 10⁴）且不在热路径——线性扫描微秒级搞定。
-- 瓶颈在 I/O 而非 CPU/内存——数学优势会被网络/磁盘吃掉，退回去优化 I/O。
-- 团队无人能在凌晨 3 点 debug 这个技法（写下「team familiarity: ?」）。
+Do **not** use mathguard when:
+- The caller needs exact answers (auth, billing, dedup-for-correctness, primary keys).
+- `n` is small (n < 10⁴) and the path is not hot.
+- The bottleneck is I/O, not CPU/memory.
 
-## 步骤
-
-提出任何数学级技法前，消息须**按此顺序**包含 1–7，缺任一项不得提出；齐了再给第 8 项代码：
-
-1. **经典下限**：最好的非数学算法及其 Big-O（如「Hash join 是 O(n+m)，已经到顶」）。
-2. **为何经典不够**：n 太大 / 空间爆 / 实时截止 / 单机内存放不下。
-3. **命名技法**：必须**点名**，禁止「一个聪明的近似」这类含糊说法。
-4. **精确还是近似**：`mode: exact` 或 `mode: approximate`；近似须写 ε/δ（误报率、相对误差、失真界）+ 一句「调用方能否容忍这种错」。
-5. **新界推导**：一行 bound 论证（如「HLL：O(log log n) 位估基数，标准误 1.04/√m」）。无界不提。
-6. **买卖代价**：一行写清「买到（空间/时间/wall-clock/并行）vs 付出（accuracy ε=? / 复杂度 / 依赖 / 非确定性 / 数值稳定性）」；代价对调用方不可见则写「callers see no change」。
-7. **何时禁用**：至少一条 disqualifier。
-8. **代码或伪代码**。
-
-## 指令
-
-- **点名技法**（可审计 > 含糊）：`Bloom filter`、`HyperLogLog`、`Count-Min Sketch`、`MinHash + LSH`、`Johnson–Lindenstrauss 投影`、`FFT`、`NTT`、`Karatsuba`、`Strassen`、`快速幂`、`sweep line`、`kd-tree`、`BVH`、`带路径压缩的并查集`、`Boyer-Moore 多数投票`、`reservoir sampling`、`Floyd 龟兔判环`、`Fenwick 树`、`带 lazy 的线段树`、`幺半群 / 并行前缀扫描`。
-- **精确/近似先声明**：调用方需精确而无精确级胜法时，直说并停手——不得悄悄降级成近似。
-- 近似结构的代码**必须**含：① 一行注释点名技法 + 文档链接/引用；② 选定的误差参数（ε、δ、位数、维度）及为何取这些值；③ 一行渐近或实测 bound；④ 若调用方可能要精确，提供 exact-mode 回退路径。
-- 随机化技法须写明 seed 策略（固定以复现，或注明非确定性）。
-
-速查表（技法 → 问题 → 收益 → 注意）：
+## The Iron Law
 
 ```text
-判存在「见过这个 key 吗」    Bloom filter         O(n) 位，可调 ε   只误报，不能删
-流式去重/基数计数            HyperLogLog          O(log log n) 位   ~1% 相对误差，不能列元素
-流式 Top-K / 重击者          Count-Min + 堆       O(log(1/δ)·1/ε)   会高估，刻意选 ε,δ
-海量集合/文档相似            MinHash + LSH        亚线性 ANN 查询    调 recall/precision
-高维 k-NN                    JL 投影 → HNSW/IVF   O(log n)/查询      (1±ε) 失真，recall<1
-多项式/大整数乘法 O(n²)      FFT / NTT / Karatsuba O(n log n)        浮点 FFT 掉精度→整数用 NTT
-pow(a,b) mod p，b 大         快速幂(平方-乘)      O(log b)          防内部溢出，用模运算
-区间/矩形重叠对 O(n²)        sweep line + 活动集  O((n+k) log n)    k=输出规模
-合并下的连通分量            并查集(路径压缩+秩)  ≈O(1)/操作摊还     逆 Ackermann 近似常数
-区间和/单点更新             Fenwick 树           O(log n)/操作      包含区间，防 off-by-one
-判链表有环                  Floyd 龟兔           O(1) 空间          时间同阶，空间大胜
-n 项并行归约                幺半群 + 并行扫描     O(n/p + log p)    运算须满足结合律，先验证
+NO APPROXIMATE STRUCTURE WITHOUT WRITTEN ε/δ AND EXPLICIT CALLER ACCEPTANCE
 ```
 
-## 示例
+Probabilistic data structures (Bloom, HyperLogLog, Count-Min, MinHash/LSH, t-digest), randomized projections (JL), and lossy transforms (floating FFT) all change the answer's meaning. Before proposing one:
 
-**问题**：统计 24h 事件流的去重用户数。~20 亿事件/天，~5000 万唯一用户，上仪表盘，±2% 可接受。
+1. Write the error parameter the caller will see (false-positive rate, relative error, distortion bound).
+2. Identify the caller and state, in one sentence, that they tolerate this kind of wrong answer.
+3. If you cannot identify the caller, or they need exact (auth checks, billing, dedup keys, deduplication for correctness, anything that flows into a primary key), DO NOT propose the approximate structure. Keep classical, or escalate to a sharded/streaming exact design.
 
-**反面（静默 OOM 或更糟——计费错误）**：
+This rule has saved more incidents than any other in this skill. Do not soften it.
+
+## Non-negotiable rules
+
+1. **Declare exact vs approximate up front.** Before suggesting a math-level technique, state:
+   - `mode: exact` or `mode: approximate`
+   - If approximate: the error parameter (ε, δ, false-positive rate) and a sentence on whether the caller can tolerate it.
+   - If the caller needs exact and there is no exact win, say so and stop — do not silently degrade to approximate.
+
+2. **Cite the technique by name.** Never describe a probabilistic or numerical trick in vague terms. Name it: `Bloom filter`, `HyperLogLog`, `Count-Min Sketch`, `MinHash + LSH`, `Johnson–Lindenstrauss projection`, `FFT`, `NTT`, `fast exponentiation`, `Karatsuba`, `Strassen`, `sweep line`, `kd-tree`, `BVH`, `union-find with path compression`, `Floyd's cycle detection`, `Boyer-Moore majority`, `reservoir sampling`, `Knuth shuffle`, `Aho-Corasick`, `suffix automaton`, `segment tree with lazy propagation`, `Fenwick tree`, `monoid scan / parallel prefix`. A named technique is auditable; "a smart approximation" is not.
+
+3. **State the trade you are making.** Every math-level optimization buys something at a cost. In one line:
+   - Buys: `space`, `time`, `wall-clock`, `parallelism`.
+   - Costs: `accuracy ε=?`, `code complexity`, `dependency`, `non-determinism`, `numerical stability`.
+   - If the cost is invisible to the caller, write "callers see no change".
+
+4. **Justify the asymptotic win.** Do not propose a math technique without a one-line bound argument:
+   - "HyperLogLog: count uniques in O(log log n) bits at standard error 1.04/√m."
+   - "FFT: polynomial multiplication O(n log n) vs schoolbook O(n²)."
+   - "JL projection: preserves pairwise distances within (1±ε) using O(log n / ε²) dimensions."
+   - "Sweep line: rectangle overlap from O(n²) pair checks to O(n log n) events."
+   No bound, no proposal.
+
+5. **Forbid math cargo-culting.** Do not introduce these techniques when:
+   - n is small enough that a linear scan finishes in microseconds (n < ~10⁴ unless it is a hot path).
+   - The problem is I/O-bound — the math win disappears behind network/disk.
+   - Exact answers are required and no exact technique exists.
+   - The team will not maintain it (write that down: "team familiarity: ?").
+
+## The pre-proposal protocol
+
+Before suggesting a math-level technique, your message must contain — in this order:
+
+1. **The classical floor** — what is the best non-mathy algorithm and its Big-O? ("Hash join is O(n+m); we're already there.")
+2. **Why classical is not enough** — n too large, space blows up, real-time deadline, etc.
+3. **The math technique** — named (rule 2).
+4. **Exact or approximate** — with ε if approximate (rule 1).
+5. **The new bound** — with one-line derivation (rule 4).
+6. **The trade** — buys/costs (rule 3).
+7. **When NOT to use this** — at least one disqualifier.
+8. **The code or pseudocode.**
+
+If any of 1–7 is missing, do not propose the technique.
+
+## Playbook — math technique → problem → win → caveat
+
+### Sketches and probabilistic structures (massive data, approximate)
+
+| Problem | Classical | Math technique | Win | Caveat |
+|---|---|---|---|---|
+| Membership: "have I seen this key?" at scale | `Set<id>`, O(n) space | **Bloom filter** | O(n) bits at chosen ε false-positive | False positives only; cannot remove (use Cuckoo if needed) |
+| Count distinct values in a stream | `Set` to count, O(unique) space | **HyperLogLog** | O(log log n) bits, ~1% relative error | Approximate; cannot list elements |
+| Top-K / heavy hitters in a stream | full counter, O(unique) space | **Count-Min Sketch** + heap | O(log(1/δ)·1/ε) space | Overestimates; choose ε,δ deliberately |
+| Document / set similarity at scale | full Jaccard, O(n·m) | **MinHash + LSH** | Sub-linear ANN query | Tunes recall vs precision; param search |
+| k-NN in high-dim vectors | brute O(n·d) | **JL projection → HNSW / IVF** | O(log n) per query, (1±ε) distortion | Index build cost; recall < 1 |
+| Reservoir of size k from a stream of unknown length | buffer all, O(n) space | **Reservoir sampling** | O(k) space, uniform sample | Single-pass only |
+| Find majority element | counter map | **Boyer-Moore majority vote** | O(1) space, O(n) time | Requires majority exists; verify pass |
+| Quantiles in a stream | sort, O(n log n) | **t-digest / GK** | O(1/ε) space, ε-accurate quantiles | Approximate |
+
+### Fast arithmetic / transforms (numeric and combinatorial)
+
+| Problem | Classical | Math technique | Win | Caveat |
+|---|---|---|---|---|
+| Multiply two polynomials / big integers | O(n²) | **FFT / NTT / Karatsuba** | O(n log n) | Floating FFT loses precision — use NTT for integers |
+| Convolution of two signals | O(n·m) | **FFT-based convolution** | O((n+m) log(n+m)) | Numerical noise at very small magnitudes |
+| `pow(a, b) mod p`, b large | O(b) multiplications | **Fast exponentiation (square-and-multiply)** | O(log b) | Watch for overflow inside; use modular arithmetic |
+| GCD of large integers | repeated subtraction | **Euclidean algorithm** | O(log min) | Standard; AI sometimes still writes the subtraction loop |
+| Matrix multiplication, n large | O(n³) | **Strassen** (then Coppersmith-Winograd family) | O(n^2.81) | High constant; only wins for very large dense |
+| Solving Ax=b for sparse A | O(n³) dense | **Conjugate gradient / sparse LU** | O(nnz · iterations) | Numerical conditioning matters |
+| Modular inverse | brute force | **Extended Euclidean** or **Fermat** when p prime | O(log p) | p must be prime for Fermat |
+
+### Dimensionality reduction and linear algebra
+
+| Problem | Classical | Math technique | Win | Caveat |
+|---|---|---|---|---|
+| Similarity in d-dim, d large | O(n·d) brute | **JL projection** to k = O(log n / ε²) | O(n·k) at (1±ε) distortion | Random; verify on validation set |
+| Recommender from rating matrix | iterate full matrix | **Truncated SVD / matrix factorization** | O(k·(n+m)) for rank-k | Choose k; refresh strategy |
+| Document-term similarity | TF-IDF O(n·m) | **LSA via SVD** | rank-k approximation | Latent dims are not interpretable |
+| PCA on n samples in d dims | O(n·d²) | **Randomized SVD** | O(n·d·k) for rank-k | Randomized; set oversampling |
+
+### Geometry (spatial queries)
+
+| Problem | Classical | Math technique | Win | Caveat |
+|---|---|---|---|---|
+| Range / nearest-neighbor in 2D-3D | O(n) per query | **kd-tree / R-tree / BVH** | O(log n) per query | Degrades in high d; use ANN instead |
+| Rectangle / interval overlap pairs | O(n²) pair check | **Sweep line + active set (BBST)** | O((n+k) log n) | k = output size; segment tree variant exists |
+| Polygon point-in-polygon at scale | O(n·v) | **BSP / monotone decomposition / R-tree** | O(log v) per query after build | Build cost |
+| Convex hull of n points | O(n²) gift wrap | **Graham scan / Andrew's monotone chain** | O(n log n) | Numerical robustness for collinear |
+| Closest pair of points | O(n²) | **Divide and conquer** | O(n log n) | Carefully merge across the strip |
+
+### Graph and algebraic tricks
+
+| Problem | Classical | Math technique | Win | Caveat |
+|---|---|---|---|---|
+| Connected components under merges | recompute BFS each merge | **Union-Find with path compression + rank** | α(n) ≈ O(1) per op amortized | Inverse Ackermann is effectively constant |
+| Range sum / update on array | O(n) per query | **Fenwick tree** | O(log n) per op | Inclusive ranges; off-by-one risk |
+| Range query with monoid (sum/min/max/gcd) | O(n) per query | **Segment tree (with lazy if range updates)** | O(log n) | More code than Fenwick; more general |
+| LCA in a tree, many queries | O(n) per query | **Binary lifting** or **Euler tour + RMQ** | O(log n) or O(1) per query | Preprocessing cost |
+| Shortest path on DAG | Dijkstra | **Topo sort + relax** | O(V+E) | Only works on DAG |
+| Detect cycle in linked list | hash visited | **Floyd's tortoise and hare** | O(1) space | Same big-O time, dramatic space win |
+| Parallel reduction over n items | sequential fold | **Monoid + parallel scan** | O(n/p + log p) on p cores | Operation must be associative; verify it |
+
+### Amortized and online algorithms
+
+| Problem | Classical | Math technique | Win | Caveat |
+|---|---|---|---|---|
+| "Dynamic array push is expensive" | per-op O(n) on resize | **Amortized analysis (doubling)** | O(1) amortized | This is what `ArrayList` / `vec` already do; just defend it |
+| Streaming median | re-sort | **Two heaps (max-heap + min-heap)** | O(log n) per insert | Maintain size invariant |
+| Online interval scheduling | re-sort by deadline | **Greedy with priority queue** | O(log n) per arrival | Specific objective; check problem fit |
+| Sliding-window max | O(n·k) | **Monotonic deque** | O(n) total | Window invariant subtle to maintain |
+
+## Canonical example — counting distinct users
+
+**Problem.** Count unique users seen across a 24-hour event stream. ~2B events/day, ~50M unique users. Reported on a dashboard, ±2% is acceptable.
+
+### Without the protocol — silent OOM, or worse, silent billing error
 
 ```ts
-// "Just use a Set" —— 5000 万字符串静默撑爆机器
+// "Just use a Set" — silently OOMs the box at ~50M strings
 const seen = new Set<string>();
-for await (const e of stream) seen.add(e.userId);
-return seen.size;        // 精确，但进程在第 4100 万行就死了
+for await (const event of stream) {
+  seen.add(event.userId);
+}
+return seen.size; // exact, but the process died at row 41M
 ```
 
-更糟：拿 HyperLogLog「为性能」却插进按结果计费的管线——计费看到 4970 万而非 5000 万，一部分用户永远不被计费。
+Or worse — proposed *with* a HyperLogLog "for performance" but plugged into the billing pipeline, which keys off the result. Billing then sees 49.7M instead of 50.0M users and a fraction never get charged.
 
-**正面（可审计的 HLL）**：
+### With the protocol — auditable HLL
 
 ```ts
-// 经典下限: 精确 Set 需 O(unique) 内存，5000 万串×~50B ≈ 2.5GB
-// 为何不够: 仪表盘机器只有 512MB，每分钟刷新
-// 技法: HyperLogLog (HLL)
-// mode: approximate. ε ≈ 1.04/√m. m=2^14 寄存器 → ~0.8% 相对误差
-// 买卖: 买到 O(log log n) 位空间(~12KB); 付出 显示计数 ±0.8%
-// 禁用: 任何流入计费/主键/逐用户动作的场景
-// 调用方接受: 已确认——仪表盘产品负责人接受 ±2%，写在 PR 里
+// Classical floor: O(unique) memory for an exact Set. At 50M strings × ~50B each, ~2.5GB.
+// Why classical is not enough: dashboard box has 512MB and refreshes every minute.
+// Technique: HyperLogLog (HLL).
+// Mode: approximate. ε ≈ 1.04/√m. With m=2^14 registers → ~0.8% relative error.
+// Trade: buys O(log log n)-bit space (~12KB); costs ±0.8% on the displayed count.
+// When NOT to use: anything that flows into billing, primary keys, or per-user actions.
+// Caller acceptance: confirmed — dashboard product owner accepts ±2%, written in PR.
+
 import { createHLL } from 'hyperloglog-lite';
 const hll = createHLL({ precision: 14 });
-for await (const e of stream) hll.add(e.userId);
-return hll.estimate();   // 4960 万 ± 40 万；仪表盘读到 ~5000 万
+for await (const event of stream) {
+  hll.add(event.userId);
+}
+return hll.estimate(); // 49.6M ± 0.4M; dashboard reads ~50M
 ```
 
-两版技法相同，差别只在第二版把 ε 写进注释、点了调用方、显式列出 disqualifier（计费）——**可审计**。
+The first version is not "no HLL" — it is "HLL without writing down ε and who tolerates it." The second is identical in technique but auditable: ε is in the comment, the caller is named, the disqualifier (billing) is explicit.
 
-## 注意事项
+## Output discipline
 
-发车前核对清单（任一项打不上勾 = 不能上，退回经典或停下来问）：
+Code that uses a math-level technique must include:
 
-- [ ] 技法已点名（不是「一个聪明的近似」）。
-- [ ] 近似则 ε、δ（或等价误差参数）写在代码或 PR 描述里。
-- [ ] 已识别调用方并写明其对该误差的容忍度。
-- [ ] 有一行 bound 推导（渐近或实测）。
-- [ ] 至少一条「何时禁用」已记录。
-- [ ] 有 exact-mode 回退，或一行说明为何精确不可能。
-- [ ] 随机化则 seed 策略已记录（固定复现 / 注明非确定）。
-- [ ] 已审计假设精确的下游（在此值上 join、计费、鉴权、主键）。
+- One comment naming the technique with a doc link or one-line citation.
+- The exact error parameters chosen (ε, δ, bits, dimensions, etc.) and why those values.
+- A measured or asymptotic justification next to the chosen parameters.
+- An exact-mode fallback path, if the caller might need it.
 
-红线—立即 STOP：提概率结构却不写 ε、δ；说「这里能用 FFT」却不写 n 多大才真赢 schoolbook（多项式乘法约 n≥64 起 schoolbook 才开始输）；在 100×100 矩阵上推 Strassen；未经调用方同意切到近似输出；命不出 bound 的技法。
+## When to escalate or redirect
 
-边界与局限：
+- The bottleneck is I/O, not CPU/memory → go back to `lemmaly` rule 4; math will not help.
+- You need bit-exact reproducibility → avoid floating FFT, randomized projections, and probabilistic structures.
+- The result is consumed by a downstream system that assumes exact → keep classical or wrap with a validation pass.
+- You need a correctness proof (not just a bound) → load **invariant-guard** after picking the technique.
 
-- ε/δ 多为平均/高概率界，对抗性输入可击穿——写明威胁模型。
-- 库质量参差（seed、hash、内存布局各异），选维护活跃的库并锁版本。
-- 浮点 FFT / 随机 SVD / JL 累积浮点误差；要组合精确性用 NTT 或精确整数变体。
-- 本技能告诉你能凿穿哪层渐近天花板，**不测常数因子**——声称 wall-clock 胜出前先 benchmark（交给 `performance-profiler`）。
+## Rationalizations to watch for
 
-## 互见
+| Excuse | Reality |
+| --- | --- |
+| "A `set` works — I'll flag the memory issue in a comment." | Noticing the problem is not solving it. If memory is the budget, ship the structure that respects it. |
+| "Probabilistic structures sound fancy / academic." | Cloudflare runs Bloom filters in the request path. Redis ships HyperLogLog. These are production-tested, not academic. |
+| "Approximate is risky — I'll do exact and let it OOM later." | Silent OOM at 3am is riskier than a stated 0.81% error. State the ε, pick parameters, ship. |
+| "I'll just shard the set across machines." | Sharding multiplies your infra cost; HLL solves it in 12KB on one box. Ask whether you actually need exact. |
+| "FFT is overkill for this." | True 99% of the time. But state the n. At n ≥ ~64 for polynomial mult, schoolbook is already losing. |
+| "JL projection feels too lossy for embeddings." | At ε = 0.1, JL preserves pairwise distances within 10%. For ANN this is almost always fine — measure recall, do not eyeball. |
 
-- requires：无。
-- related：`complexity-cuts`（已有代码、瓶颈在 CPU/内存而非近似时，先走它做经典级降复杂度；本技能在其之上、经典触底时再加载）、`performance-profiler`（本技能不测常数因子，需实测 wall-clock 收益时用它）。
-- combines_with：`complexity-cuts` —— 经典优化触及地板后，接力到本技能用数学再降一档。
+## Red flags — STOP
 
----
+- Proposing a probabilistic structure without stating ε and δ.
+- Saying "we can use FFT here" without writing the n at which FFT actually beats schoolbook.
+- Using `JSON.parse(JSON.stringify(...))` to deep-clone when `structuredClone` exists, then claiming it as an optimization.
+- Recommending Strassen on a 100×100 matrix.
+- Switching to approximate output without the caller having agreed to it.
+- Naming a technique you cannot derive the bound for.
+- Math optimization where n is small and not on a hot path.
+- "Should be O(log n) on average" with no average-case argument.
 
-采编自 sickn33/antigravity-awesome-skills（mathguard，再溯源 morsechimwai/lemmaly，Apache-2.0 许可证）。
+## Verification checklist
+
+Before shipping code that uses a math-level technique:
+
+- [ ] The technique is named (no "a smart approximation").
+- [ ] If approximate: ε and δ (or the equivalent error parameter) are written in code or in the PR description.
+- [ ] The caller has been identified and their tolerance for that error is stated.
+- [ ] A one-line bound derivation is present (asymptotic or measured).
+- [ ] At least one disqualifier ("when NOT to use this") is documented.
+- [ ] An exact-mode fallback exists, OR a one-line note explains why exact is impossible.
+- [ ] If randomized: the seed strategy is documented (fixed for reproducibility, or stated as non-deterministic).
+- [ ] Downstream consumers that assume exactness (joins on this value, billing, auth, primary keys) have been audited.
+
+Cannot check every box? The technique is not ready to ship. Keep classical, or stop and ask.
+
+## Limitations
+
+- **Not for exact-required pipelines.** Any system where the result is a primary key, dedup key, billing input, or auth decision is out of scope — keep classical.
+- **Assumes representative inputs.** ε/δ bounds are average-case or high-probability; adversarial inputs can blow past them. State the threat model.
+- **Library quality varies.** Bloom / HLL / MinHash implementations differ in seed strategy, hash function, and memory layout — pick a maintained library and pin the version.
+- **Numerical stability.** Floating FFT, randomized SVD, and JL projection accumulate float error; for combinatorial exactness use NTT or exact integer variants.
+- **Team-familiarity risk.** A technique nobody can debug at 3 a.m. is a liability — write the maintainer note next to the trade-off.
+- **Not a profiler.** mathguard tells you which asymptotic ceiling you can break; it does not measure constant factors. Benchmark before claiming a wall-clock win.
+
+## The thesis, in one line
+
+> **When classical algorithms hit their floor, mathematics still has another floor below. mathguard makes the model reach for it instead of accepting the first answer.**
+
+## Related Skills
+
+- `lemmaly` — gateway; pick the classical algorithm first before reaching for math.
+- `invariant-guard` — for stating ε-bounds as part of the postcondition of an approximate algorithm.
+- `complexity-cuts` — when baseline code already exists and the bottleneck is CPU/memory, not approximation.

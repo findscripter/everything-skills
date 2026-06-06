@@ -1,14 +1,14 @@
 ---
 name: octagon-prediction-markets-research
-title: 预测市场事件研究
-description: 当需要对 Kalshi 预测市场某个事件做深度研究、对比市场价隐含概率与模型概率、定位错误定价或盘前研判催化剂时使用；做法是调用 Octagon MCP 的 octagon-prediction-markets-agent 生成结构化研报（市场概览/价格驱动/催化剂日历/历史结算/合约盘口/交易建议），并用 prediction_markets_history 取历史数据；不适用于实盘下单撮合、Polymarket（暂未支持）或离线无 MCP。触发词：预测市场、prediction market、Kalshi、错误定价、mispricing、事件概率、催化剂、Octagon
+title: Prediction Markets Analysis
+description: Generate deep research reports on prediction market events using the Octagon Prediction Markets Agent. Combines real-time Kalshi market data with AI-driven analysis to surface price drivers, compare market vs. model probabilities, and identify potential mispricings across 120+ active markets.
 domain: 领域/fintech
-triggers: [预测市场, prediction market, Kalshi, 错误定价, mispricing, 事件概率, 市场隐含概率, 催化剂日历, octagon-prediction-markets-agent, prediction_markets_history]
-tags: [fintech, 预测市场, kalshi, 事件研究, 错误定价, 概率建模, mcp, octagon]
-level: 进阶
+triggers: [prediction market, Kalshi, mispricing, octagon-prediction-markets-agent, prediction_markets_history]
+tags: [fintech, kalshi, mcp, octagon]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Octagon MCP, octagon-prediction-markets-agent, prediction_markets_history, npx, Node.js]
+tools: []
 requires: []
 related: [octagon-equity-research-analyst, octagon-sec-risk-factors, news-sentiment-briefing, macro-regime-detector]
 combines_with: [news-sentiment-briefing, octagon-equity-research-analyst]
@@ -16,141 +16,176 @@ license: MIT
 source: OctagonAI/skills
 source_license: MIT
 ---
-## 何时使用
+# Prediction Markets Analysis
 
-当需要对一个**预测市场事件**（目前仅 Kalshi）做带数据支撑的研究时使用：
+Generate comprehensive research reports on prediction market events using the Octagon Prediction Markets Agent. This skill combines real-time Kalshi market data with AI-driven analysis to identify mispricings, surface price drivers, and provide actionable trading insights.
 
-- 想知道**市场报价是否定价错误**——把众人共识价（市场隐含概率）和模型独立测算的概率作对比，找交易机会。
-- **盘前研究**：下注前先搞清驱动该合约价格的关键因素与基准率（历史结算结果）。
-- **催化剂监控**：盯住未来可能让合约价格翻转的事件（数据发布、会议、裁决等）。
-- 想要一份**结构化、可溯源**的事件研报（覆盖政治、经济、加密、体育、娱乐、科技、气候 120+ 活跃市场）。
+## Prerequisites
 
-**不该用的边界：**
+Ensure Octagon MCP is configured in your AI agent (Cursor, Claude Desktop, Windsurf, etc.). See [references/mcp-setup.md](references/mcp-setup.md) for installation instructions.
 
-- **实盘下单 / 券商撮合 / 交易执行**——本条只做研究与建议，不下单。
-- **Polymarket**——暂未支持（Coming soon），目前只覆盖 **Kalshi**。
-- **离线 / 未配置 Octagon MCP** 的环境——本条依赖 MCP 工具，无 MCP 无法取数。
-- 结论是辅助决策信号，不替代独立判断、风控与仓位管理。
+**Note**: Report generation requires Octagon Plus, Pro, or Enterprise subscription (3 credits per report). Cached reports are free for all users.
 
-**前置约束：** 报告**生成**需要 Octagon Plus / Pro / Enterprise 订阅（**每份 3 credits**）；**缓存报告对所有用户免费**。
+## Core Functionality
 
-## 步骤
+The Prediction Markets Agent provides:
 
-1. **确认 MCP 就绪**：环境已配置 Octagon MCP，`octagon-prediction-markets-agent` 工具可见（Windows 需先装 Node.js / npx；配置见下「指令」）。
-2. **拿到目标市场的 Kalshi URL**（如 `https://kalshi.com/markets/kxfeddecision/...`）或 Ticker。
-3. **选择变体**（按时效需求，见下表）：默认 / `:cache` / `:refresh`。
-4. **发起查询**：把 URL 直接给 agent，让其生成研报。
-5. **读研报六节**：市场概览 → 价格驱动 → 关键催化剂 → 历史结算 → 合约盘口 → 交易建议。
-6. **重点看模型 vs 市场价差**：价差越大，潜在错误定价信号越强。
-7. （可选）用 `prediction_markets_history` 取该 Ticker 的历史数据，看概率走势与基准率。
-8. **下注前**用 `:refresh` 拉一份最新报告，并核对成交量/未平仓量（OI）判断流动性再定仓位。
+| Capability | Description |
+|------------|-------------|
+| Market vs. Model Probability | Computes independent model probability and compares against live market price |
+| Event-Driven Research | Identifies key claims, catalysts, and decision-flipping events |
+| Historical Resolution Tracking | Surfaces past resolution outcomes for context on base rates |
+| Contract Snapshot | Returns live bid/ask spreads, last traded price, volume, and open interest |
+| Cross-Category Coverage | 120+ active markets across Politics, Economics, Crypto, Sports, Entertainment, Science & Tech, Climate |
 
-**模型变体（控制缓存行为）：**
+## Model Variants
 
-| 变体 | 行为 | 适用 |
-|---|---|---|
-| `octagon-prediction-markets-agent` | 默认：有缓存返缓存，否则现生成 | 通用 |
-| `octagon-prediction-markets-agent:cache` | 始终取缓存报告 | 最快，可能非最新 |
-| `octagon-prediction-markets-agent:refresh` | 始终现生成新报告 | 最新，耗时数分钟 |
+| Variant | Description | Use Case |
+|---------|-------------|----------|
+| `octagon-prediction-markets-agent` | Default. Returns cached report if available, otherwise generates new | General use |
+| `octagon-prediction-markets-agent:cache` | Always retrieves cached report | Fastest response, may not be latest |
+| `octagon-prediction-markets-agent:refresh` | Always generates fresh report | Most up-to-date, takes several minutes |
 
-## 指令
+## Example Queries
 
-**Octagon MCP 配置（Claude Desktop / Windsurf，`claude_desktop_config.json`）：**
-
-```json
-{
-  "mcpServers": {
-    "octagon-mcp-server": {
-      "command": "npx",
-      "args": ["-y", "octagon-mcp@latest"],
-      "env": { "OCTAGON_API_KEY": "YOUR_API_KEY_HERE" }
-    }
-  }
-}
-```
-
-API Key 在 https://app.octagonai.co 注册后于 API Keys 菜单生成。也支持远程 MCP：`https://mcp.octagonagents.com/mcp`（OAuth，推荐）。
-
-**生成研报：** 直接把 Kalshi URL 交给 agent 即可，例如：
-
+### Federal Reserve Policy
 ```
 Analyze this Fed decision prediction market: https://kalshi.com/markets/kxfeddecision/fed-meeting/kxfeddecision-26jun
 ```
 
-强制重生成（绕过缓存）：
-
+### Cryptocurrency Price Range
 ```
-Generate a fresh report (bypass cache) for: https://kalshi.com/markets/kxbtcminy/.../kxbtcminy-27jan01
+Research this Bitcoin price prediction market: https://kalshi.com/markets/kxbtcminy/how-low-will-bitcoin-fall-this-year/kxbtcminy-27jan01
 ```
 
-**取历史数据（`prediction_markets_history` 工具）：**
+### Sports Matchup
+```
+Analyze this NHL playoff prediction market: https://kalshi.com/markets/kxnhleast/eastern-conference-championship/kxnhleast-26
+```
+
+### Entertainment Awards
+```
+Research this Grammy nomination market: https://kalshi.com/markets/kxgrammynomsoty/grammy-nominees-for-song-of-the-year/kxgrammynomsoty-69
+```
+
+### IPO Timing
+```
+Analyze when SpaceX will IPO: https://kalshi.com/markets/kxipospacex/when-will-spacex-ipo/kxipospacex
+```
+
+### Force Fresh Report
+```
+Generate a fresh report (bypass cache) for: https://kalshi.com/markets/kxbtcminy/how-low-will-bitcoin-fall-this-year/kxbtcminy-27jan01
+```
+
+## Example Response Structure
+
+```markdown
+## Market Overview
+- **Event**: Fed Decision June 2026
+- **Resolution Date**: June 18, 2026
+- **Current Market Price**: 72% (Hold rates)
+- **Model Probability**: 68%
+- **Mispricing Signal**: Market slightly overpriced
+
+## Price Drivers
+1. **Recent Economic Data**: CPI trending lower, supporting rate hold
+2. **Fed Communications**: Dovish tone in recent FOMC minutes
+3. **Labor Market**: Unemployment stable at 4.1%
+
+## Key Catalysts
+| Date | Event | Potential Impact |
+|------|-------|------------------|
+| June 10 | CPI Release | High - could shift probabilities 5-10% |
+| June 12 | FOMC Statement | Medium - language on future path |
+
+## Historical Resolution Context
+- Last 6 meetings: 4 holds, 2 cuts
+- Model accuracy on this series: 78%
+
+## Contract Details
+| Outcome | Bid | Ask | Last | Volume | OI |
+|---------|-----|-----|------|--------|-----|
+| Hold | 0.71 | 0.73 | 0.72 | 15,234 | 89,000 |
+| Cut 25bp | 0.18 | 0.20 | 0.19 | 8,456 | 45,000 |
+| Hike | 0.08 | 0.10 | 0.09 | 2,100 | 12,000 |
+
+## Recommendation
+**Slight Sell** on Hold contract. Model sees 4% overpricing. Consider waiting for CPI data before positioning.
+```
+
+## Market Categories
+
+The agent covers 120+ active markets across:
+
+| Category | Example Markets |
+|----------|-----------------|
+| **Politics** | Elections, legislation, executive actions |
+| **Economics** | Fed decisions, inflation, employment data |
+| **Crypto** | Bitcoin/Ethereum price ranges, ETF approvals |
+| **Sports** | Championship outcomes, playoff matchups |
+| **Entertainment** | Awards shows, box office, streaming |
+| **Science & Tech** | Space launches, AI milestones, IPO timing |
+| **Climate** | Temperature records, hurricane landfalls |
+
+## Use Cases
+
+### Identify Mispricings
+Compare crowd consensus against model-derived probability to find trading opportunities.
+
+### Pre-Trade Research
+Research key drivers behind a prediction market price before placing a trade.
+
+### Catalyst Monitoring
+Monitor upcoming events that could move contract prices.
+
+### Event Analysis
+Get structured, sourced research on fast-moving events in politics, finance, and beyond.
+
+## Historical Data Access
+
+Use the `prediction_markets_history` tool to fetch historical data:
 
 ```
 Fetch historical data for prediction market ticker KXFEDDECISION-26JUN from January to June 2026
 ```
 
-参数：`ticker`（市场代码）、`captured_from`（起始日期）、`captured_to`（结束日期）、`limit`（记录数）、`cursor`（分页游标）。
+Parameters:
+- `ticker`: Market ticker symbol
+- `captured_from`: Start date filter
+- `captured_to`: End date filter
+- `limit`: Number of records
+- `cursor`: Pagination cursor
 
-**研报结构（agent 产出的固定六节）：**
+## Integration with Other Skills
 
-1. **市场概览（Market Overview）**：事件、结算日、当前市场价、模型概率、错误定价信号。
-2. **价格驱动（Price Drivers）**：影响当前定价的关键因素（经济数据、政策表态、基本面等）。
-3. **关键催化剂（Key Catalysts）**：日期 × 事件 × 潜在影响（哪些事件可能让概率移动 5–10%）。
-4. **历史结算（Historical Resolution Context）**：同系列过往结算结果与模型准确率，提供基准率参照。
-5. **合约盘口（Contract Details）**：各结果的 Bid / Ask / Last / Volume / Open Interest。
-6. **交易建议（Recommendation）**：模型相对市场的高估/低估幅度与方向建议。
+Combine with other Octagon skills for comprehensive analysis:
 
-## 示例
+| Skill | Integration Use |
+|-------|-----------------|
+| `earnings-call-analysis` | Analyze CEO comments relevant to prediction market events |
+| `sec-8k-analysis` | Track material events that could impact market outcomes |
+| `stock-performance` | Correlate stock moves with prediction market probabilities |
 
-**研报片段（Fed 6 月决议）：**
+## Analysis Tips
 
-```markdown
-## Market Overview
-- Event: Fed Decision June 2026
-- Resolution Date: June 18, 2026
-- Current Market Price: 72% (Hold rates)
-- Model Probability: 68%
-- Mispricing Signal: Market slightly overpriced
+1. **Check model vs. market spread**: Larger spreads suggest potential mispricings
 
-## Contract Details
-| Outcome | Bid | Ask | Last | Volume | OI |
-|---------|-----|-----|------|--------|-----|
-| Hold    | 0.71| 0.73| 0.72 | 15,234 | 89,000 |
-| Cut 25bp| 0.18| 0.20| 0.19 | 8,456  | 45,000 |
+2. **Monitor catalyst calendar**: Know when decision-flipping events are scheduled
 
-## Recommendation
-Slight Sell on Hold contract. 模型见 4% 高估，建议等 CPI 数据再建仓。
-```
+3. **Review resolution history**: Past accuracy provides context for current probabilities
 
-**各类查询模板（把 URL 换成目标市场）：**
+4. **Consider liquidity**: Check volume and open interest before sizing positions
 
-```
-# 加密价格区间
-Research this Bitcoin price prediction market: https://kalshi.com/markets/kxbtcminy/.../kxbtcminy-27jan01
-# 体育对阵
-Analyze this NHL playoff prediction market: https://kalshi.com/markets/kxnhleast/.../kxnhleast-26
-# IPO 时点
-Analyze when SpaceX will IPO: https://kalshi.com/markets/kxipospacex/when-will-spacex-ipo/kxipospacex
-```
+5. **Use cache wisely**: Use `:cache` for quick checks, `:refresh` before trading
 
-## 注意事项
+6. **Cross-reference sources**: Combine prediction market analysis with fundamental research
 
-- **先看模型 vs 市场价差**：价差大才是潜在错误定价；价差小不值得动手。
-- **盯催化剂日历**：知道哪些「翻转性事件」何时发生，临近时再决策。
-- **看结算历史**：同系列过往准确率是当前概率的参照系，别只看单点报价。
-- **核流动性**：建仓前查成交量与未平仓量（OI），流动性差则收紧仓位。
-- **用好缓存**：`:cache` 适合快速查看，`:refresh` 用在真正下单前（耗时数分钟、消耗 credits）。
-- **订阅与计费**：报告生成需 Plus/Pro/Enterprise，每份 3 credits；缓存免费。遇限流降低查询频率。
-- **API Key 安全**：通过 `OCTAGON_API_KEY` 环境变量注入，勿硬编码。
-- **平台范围**：当前只支持 Kalshi，Polymarket 尚未上线，勿对其它平台 URL 期待结果。
-- **结果定位**：研报是带来源的研判信号，不是投资建议，最终决策与风控自负。
+## Supported Platforms
 
-## 互见
+- **Kalshi**: Full support for all active markets
+- **Polymarket**: Coming soon
 
-- requires：无硬前置；但运行依赖已配置好的 **Octagon MCP**。
-- related：`octagon-financial-health-scores`、`octagon-equity-research-analyst`、`portfolio-risk-metrics`——可在事件研究外补财务/估值/组合风险维度。
-- combines_with：`octagon-equity-research-analyst`（把个股财报研判与相关事件市场概率交叉验证）、`octagon-financial-health-scores`（评估事件标的公司基本面强弱）、`portfolio-risk-metrics`（把事件下注的胜率/赔率纳入组合层风险度量）。
+## For More Markets
 
----
-
-本条采编自 OctagonAI/skills（MIT 许可），已做中文适配重写。
+Browse the full list of supported markets at [octagonai.co/markets](https://octagonai.co/markets).

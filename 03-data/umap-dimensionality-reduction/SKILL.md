@@ -1,14 +1,14 @@
 ---
 name: umap-dimensionality-reduction
-title: UMAP 非线性降维与可视化
-description: 当需要把高维数据非线性降到 2D/3D 做可视化、为聚类（如 HDBSCAN）做降维预处理、或做有监督/参数化 UMAP 特征工程时使用；用 umap-learn 拟合 manifold 嵌入并产出可复现的低维坐标与散点图；不适用于纯线性降维（用 PCA）、需保证全局距离严格保真的场景、未标准化的数据或仅做数据清洗。触发词：UMAP、降维、流形学习、可视化、HDBSCAN、t-SNE 替代
+title: UMAP-Learn
+description: UMAP dimensionality reduction. Fast nonlinear manifold learning for 2D/3D visualization, clustering preprocessing (HDBSCAN), supervised/parametric UMAP, for high-dimensional data.
 domain: 数据/analysis
-triggers: [UMAP, 降维, 流形学习, manifold, 可视化, 嵌入, embedding, HDBSCAN, 聚类预处理, t-SNE替代, n_neighbors, min_dist, 参数化UMAP, 有监督降维]
-tags: [umap, dimensionality-reduction, manifold-learning, visualization, clustering, hdbscan, python, scikit-learn, 数据/分析]
-level: 进阶
+triggers: [UMAP, manifold, embedding, HDBSCAN, n_neighbors, min_dist]
+tags: [umap, dimensionality-reduction, manifold-learning, visualization, clustering, hdbscan, python, scikit-learn]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, umap-learn, scikit-learn, numpy, matplotlib, hdbscan]
+tools: []
 requires: []
 related: [scikit-learn-ml, matplotlib-visualization, plotly-interactive-viz, scientific-exploratory-data-analysis]
 combines_with: [scikit-learn-ml, single-cell-rnaseq-analysis, scientific-exploratory-data-analysis]
@@ -16,133 +16,490 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# UMAP-Learn
 
-适用场景：
+## Overview
 
-- 把高维数据**非线性降维**到 2D/3D 做可视化，同时兼顾局部与全局结构（比 t-SNE 快、可扩展，全局结构更稳）。
-- 为密度聚类（HDBSCAN 等）做**降维预处理**，缓解维度灾难。
-- 有标签时做**有监督/半监督降维**或度量学习，作为下游分类器的特征工程。
-- 需要把训练好的嵌入器 `transform()` 到新数据，或用**参数化 UMAP**（神经网络映射）支持高效推断与反变换。
-- 用 `AlignedUMAP` 比较时序/批次等相关数据集，保持坐标系一致。
+UMAP (Uniform Manifold Approximation and Projection) is a dimensionality reduction technique for visualization and general non-linear dimensionality reduction. Apply this skill for fast, scalable embeddings that preserve local and global structure, supervised learning, and clustering preprocessing.
 
-不该用的边界：
+## Quick Start
 
-- 只需**线性降维**或要可解释的主成分方向 → 用 PCA（也可先 PCA 再 UMAP 提速）。
-- 需要**严格保真的全局距离/密度**做定量分析 → UMAP 不完全保距/保密度，可能制造伪聚类与伪间距。
-- 数据**未标准化** → 先标准化再用（见步骤），否则量纲大的维度主导嵌入。
-- 仅做数据清洗（缺失/去重/类型）→ 先用 `csv-data-cleaner`。
-- 不能替代环境相关验证、聚类质量复核与专家判断；可视化轴本身**无可解释量纲**。
+### Installation
 
-## 步骤 / 指令
+Requires Python 3.9+. Pin to a verified release:
 
-**安装**（锁定已验证版本，需 Python 3.9+）：
 ```bash
 uv pip install umap-learn==0.5.12
-uv pip install hdbscan                       # 聚类时另装
-uv pip install "umap-learn[parametric-umap]==0.5.12"   # 参数化UMAP，需TF 2.x
 ```
 
-**通用流程**：
+### Basic Usage
 
-1. **标准化**（关键预处理）：`StandardScaler().fit_transform(data)`，让各维等权。
-2. **按目的选参数**（可视化与聚类用不同配置，见下表）。
-3. **拟合**：`reducer.fit_transform(scaled)`；复用模型则 `fit()` 后取 `reducer.embedding_`。
-4. **务必设 `random_state=42`**：UMAP 是随机优化，不固定种子结果会抖动（注意设种子会关多线程、变慢）。
-5. **诊断**：散点图按标签着色；聚类后用 ARI 等指标评估并人工探查。
-
-**四个核心参数**：
-
-| 参数 | 默认 | 作用 | 取值指引 |
-|---|---|---|---|
-| `n_neighbors` | 15 | 局部 vs 全局结构 | 低(2–5)重局部细节但易碎片；15–20 平衡（起点）；高(50–200)重全局拓扑 |
-| `min_dist` | 0.1 | 低维点的最小间距/紧密度 | 0.0 利于聚类（点抱团）；0.1–0.3 可视化；0.5+ 松散保全局 |
-| `n_components` | 2 | 输出维度 | 2–3 可视化；5–10 聚类预处理（比 2D 更保密度）；10–50 做特征工程 |
-| `metric` | euclidean | 距离度量 | 数值用 `euclidean`；文本/文档向量用 `cosine`；二值用 `hamming`/`jaccard`；支持 Numba 自定义 |
-
-**场景化配置**：
+UMAP follows scikit-learn conventions and can be used as a drop-in replacement for t-SNE or PCA.
 
 ```python
-# 可视化（重局部）
+import umap
+from sklearn.preprocessing import StandardScaler
+
+# Prepare data (standardization is essential)
+scaled_data = StandardScaler().fit_transform(data)
+
+# Method 1: Single step (fit and transform)
+embedding = umap.UMAP().fit_transform(scaled_data)
+
+# Method 2: Separate steps (for reusing trained model)
+reducer = umap.UMAP(random_state=42)
+reducer.fit(scaled_data)
+embedding = reducer.embedding_  # Access the trained embedding
+```
+
+**Critical preprocessing requirement:** Always standardize features to comparable scales before applying UMAP to ensure equal weighting across dimensions.
+
+### Typical Workflow
+
+```python
+import umap
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+
+# 1. Preprocess data
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(raw_data)
+
+# 2. Create and fit UMAP
+reducer = umap.UMAP(
+    n_neighbors=15,
+    min_dist=0.1,
+    n_components=2,
+    metric='euclidean',
+    random_state=42
+)
+embedding = reducer.fit_transform(scaled_data)
+
+# 3. Visualize
+plt.scatter(embedding[:, 0], embedding[:, 1], c=labels, cmap='Spectral', s=5)
+plt.colorbar()
+plt.title('UMAP Embedding')
+plt.show()
+```
+
+## Parameter Tuning Guide
+
+UMAP has four primary parameters that control the embedding behavior. Understanding these is crucial for effective usage.
+
+### n_neighbors (default: 15)
+
+**Purpose:** Balances local versus global structure in the embedding.
+
+**How it works:** Controls the size of the local neighborhood UMAP examines when learning manifold structure.
+
+**Effects by value:**
+- **Low values (2-5):** Emphasizes fine local detail but may fragment data into disconnected components
+- **Medium values (15-20):** Balanced view of both local structure and global relationships (recommended starting point)
+- **High values (50-200):** Prioritizes broad topological structure at the expense of fine-grained details
+
+**Recommendation:** Start with 15 and adjust based on results. Increase for more global structure, decrease for more local detail.
+
+### min_dist (default: 0.1)
+
+**Purpose:** Controls how tightly points cluster in the low-dimensional space.
+
+**How it works:** Sets the minimum distance apart that points are allowed to be in the output representation.
+
+**Effects by value:**
+- **Low values (0.0-0.1):** Creates clumped embeddings useful for clustering; reveals fine topological details
+- **High values (0.5-0.99):** Prevents tight packing; emphasizes broad topological preservation over local structure
+
+**Recommendation:** Use 0.0 for clustering applications, 0.1-0.3 for visualization, 0.5+ for loose structure.
+
+### n_components (default: 2)
+
+**Purpose:** Determines the dimensionality of the embedded output space.
+
+**Key feature:** Unlike t-SNE, UMAP scales well in the embedding dimension, enabling use beyond visualization.
+
+**Common uses:**
+- **2-3 dimensions:** Visualization
+- **5-10 dimensions:** Clustering preprocessing (better preserves density than 2D)
+- **10-50 dimensions:** Feature engineering for downstream ML models
+
+**Recommendation:** Use 2 for visualization, 5-10 for clustering, higher for ML pipelines.
+
+### metric (default: 'euclidean')
+
+**Purpose:** Specifies how distance is calculated between input data points.
+
+**Supported metrics:**
+- **Minkowski variants:** euclidean, manhattan, chebyshev
+- **Spatial metrics:** canberra, braycurtis, haversine
+- **Correlation metrics:** cosine, correlation (good for text/document embeddings)
+- **Binary data metrics:** hamming, jaccard, dice, russellrao, kulsinski, rogerstanimoto, sokalmichener, sokalsneath, yule
+- **Custom metrics:** User-defined distance functions via Numba
+
+**Recommendation:** Use euclidean for numeric data, cosine for text/document vectors, hamming for binary data.
+
+### Parameter Tuning Example
+
+```python
+# For visualization with emphasis on local structure
 umap.UMAP(n_neighbors=15, min_dist=0.1, n_components=2, metric='euclidean')
-# 聚类预处理：邻居调大、min_dist=0、维度5–10
+
+# For clustering preprocessing
 umap.UMAP(n_neighbors=30, min_dist=0.0, n_components=10, metric='euclidean')
-# 文档嵌入
+
+# For document embeddings
 umap.UMAP(n_neighbors=15, min_dist=0.1, n_components=2, metric='cosine')
-# 保全局结构
+
+# For preserving global structure
 umap.UMAP(n_neighbors=100, min_dist=0.5, n_components=2, metric='euclidean')
 ```
 
-## 示例
+## Supervised and Semi-Supervised Dimension Reduction
 
-**基础可视化**（遵循 sklearn 约定，可直接替代 t-SNE/PCA）：
+UMAP supports incorporating label information to guide the embedding process, enabling class separation while preserving internal structure.
+
+### Supervised UMAP
+
+Pass target labels via the `y` parameter when fitting:
+
 ```python
-import umap, matplotlib.pyplot as plt
+# Supervised dimension reduction
+embedding = umap.UMAP().fit_transform(data, y=labels)
+```
+
+**Key benefits:**
+- Achieves cleanly separated classes
+- Preserves internal structure within each class
+- Maintains global relationships between classes
+
+**When to use:** When you have labeled data and want to separate known classes while keeping meaningful point embeddings.
+
+### Semi-Supervised UMAP
+
+For partial labels, mark unlabeled points with `-1` following scikit-learn convention:
+
+```python
+# Create semi-supervised labels
+semi_labels = labels.copy()
+semi_labels[unlabeled_indices] = -1
+
+# Fit with partial labels
+embedding = umap.UMAP().fit_transform(data, y=semi_labels)
+```
+
+**When to use:** When labeling is expensive or you have more data than labels available.
+
+### Metric Learning with UMAP
+
+Train a supervised embedding on labeled data, then apply to new unlabeled data:
+
+```python
+# Train on labeled data
+mapper = umap.UMAP().fit(train_data, train_labels)
+
+# Transform unlabeled test data
+test_embedding = mapper.transform(test_data)
+
+# Use as feature engineering for downstream classifier
+from sklearn.svm import SVC
+clf = SVC().fit(mapper.embedding_, train_labels)
+predictions = clf.predict(test_embedding)
+```
+
+**When to use:** For supervised feature engineering in machine learning pipelines.
+
+## UMAP for Clustering
+
+UMAP serves as effective preprocessing for density-based clustering algorithms like HDBSCAN, overcoming the curse of dimensionality.
+
+### Best Practices for Clustering
+
+**Key principle:** Configure UMAP differently for clustering than for visualization.
+
+**Recommended parameters:**
+- **n_neighbors:** Increase to ~30 (default 15 is too local and can create artificial fine-grained clusters)
+- **min_dist:** Set to 0.0 (pack points densely within clusters for clearer boundaries)
+- **n_components:** Use 5-10 dimensions (maintains performance while improving density preservation vs. 2D)
+
+### Clustering Workflow
+
+Install HDBSCAN separately for density-based clustering:
+
+```bash
+uv pip install hdbscan
+```
+
+```python
+import umap
+import hdbscan
 from sklearn.preprocessing import StandardScaler
 
-scaled = StandardScaler().fit_transform(raw_data)        # 标准化必做
-reducer = umap.UMAP(n_neighbors=15, min_dist=0.1,
-                    n_components=2, metric='euclidean', random_state=42)
-emb = reducer.fit_transform(scaled)
-plt.scatter(emb[:, 0], emb[:, 1], c=labels, cmap='Spectral', s=5)
-plt.colorbar(); plt.title('UMAP'); plt.show()
-```
+# 1. Preprocess data
+scaled_data = StandardScaler().fit_transform(data)
 
-**UMAP + HDBSCAN 聚类**（聚类与可视化分两套嵌入）：
-```python
-import umap, hdbscan
+# 2. UMAP with clustering-optimized parameters
+reducer = umap.UMAP(
+    n_neighbors=30,
+    min_dist=0.0,
+    n_components=10,  # Higher than 2 for better density preservation
+    metric='euclidean',
+    random_state=42
+)
+embedding = reducer.fit_transform(scaled_data)
+
+# 3. Apply HDBSCAN clustering
+clusterer = hdbscan.HDBSCAN(
+    min_cluster_size=15,
+    min_samples=5,
+    metric='euclidean'
+)
+labels = clusterer.fit_predict(embedding)
+
+# 4. Evaluate
 from sklearn.metrics import adjusted_rand_score
-
-scaled = StandardScaler().fit_transform(data)
-emb = umap.UMAP(n_neighbors=30, min_dist=0.0, n_components=10,
-                random_state=42).fit_transform(scaled)   # 聚类用高维嵌入
-labels = hdbscan.HDBSCAN(min_cluster_size=15, min_samples=5).fit_predict(emb)
-print("ARI:", adjusted_rand_score(true_labels, labels))
-print("噪声点:", sum(labels == -1))                       # -1 为噪声
+score = adjusted_rand_score(true_labels, labels)
+print(f"Adjusted Rand Score: {score:.3f}")
+print(f"Number of clusters: {len(set(labels)) - (1 if -1 in labels else 0)}")
+print(f"Noise points: {sum(labels == -1)}")
 ```
 
-**有监督 / 半监督降维**（半监督用 -1 标未标注点）：
+### Visualization After Clustering
+
 ```python
-emb = umap.UMAP().fit_transform(data, y=labels)          # 有监督
-semi = labels.copy(); semi[unlabeled_idx] = -1           # 半监督
-emb = umap.UMAP().fit_transform(data, y=semi)
+# Create 2D embedding for visualization (separate from clustering)
+vis_reducer = umap.UMAP(n_neighbors=15, min_dist=0.1, n_components=2, random_state=42)
+vis_embedding = vis_reducer.fit_transform(scaled_data)
+
+# Plot with cluster labels
+import matplotlib.pyplot as plt
+plt.scatter(vis_embedding[:, 0], vis_embedding[:, 1], c=labels, cmap='Spectral', s=5)
+plt.colorbar()
+plt.title('UMAP Visualization with HDBSCAN Clusters')
+plt.show()
 ```
 
-**transform 到新数据 + sklearn Pipeline**：
+**Important caveat:** UMAP does not completely preserve density and can create artificial cluster divisions. Always validate and explore resulting clusters.
+
+## Transforming New Data
+
+UMAP enables preprocessing of new data through its `transform()` method, allowing trained models to project unseen data into the learned embedding space.
+
+### Basic Transform Usage
+
+```python
+# Train on training data
+trans = umap.UMAP(n_neighbors=15, random_state=42).fit(X_train)
+
+# Transform test data
+test_embedding = trans.transform(X_test)
+```
+
+### Integration with Machine Learning Pipelines
+
+```python
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+import umap
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.2)
+
+# Preprocess
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Train UMAP
+reducer = umap.UMAP(n_components=10, random_state=42)
+X_train_embedded = reducer.fit_transform(X_train_scaled)
+X_test_embedded = reducer.transform(X_test_scaled)
+
+# Train classifier on embeddings
+clf = SVC()
+clf.fit(X_train_embedded, y_train)
+accuracy = clf.score(X_test_embedded, y_test)
+print(f"Test accuracy: {accuracy:.3f}")
+```
+
+### Important Considerations
+
+**Data consistency:** The transform method assumes the overall distribution in the higher-dimensional space is consistent between training and test data. When this assumption fails, consider using Parametric UMAP instead.
+
+**Performance:** Transform operations are efficient (typically <1 second), though initial calls may be slower due to Numba JIT compilation.
+
+**Scikit-learn compatibility:** UMAP follows standard sklearn conventions and works seamlessly in pipelines. Since 0.5.x, `UMAP` implements `get_feature_names_out()` for sklearn column-transformer pipelines:
+
 ```python
 from sklearn.pipeline import Pipeline
-from sklearn.svm import SVC
-pipe = Pipeline([('scaler', StandardScaler()),
-                 ('umap', umap.UMAP(n_components=10, random_state=42)),
-                 ('clf', SVC())])
-pipe.fit(X_train, y_train); pipe.predict(X_test)
-# 0.5.x 起支持 get_feature_names_out()
+
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('umap', umap.UMAP(n_components=10)),
+    ('classifier', SVC())
+])
+
+pipeline.fit(X_train, y_train)
+predictions = pipeline.predict(X_test)
+feature_names = pipeline.named_steps['umap'].get_feature_names_out()
 ```
 
-**参数化 UMAP / 反变换**：
+## Advanced Features
+
+### Parametric UMAP
+
+Parametric UMAP replaces direct embedding optimization with a learned neural network mapping function.
+
+**Key differences from standard UMAP:**
+- Uses TensorFlow/Keras to train encoder networks
+- Enables efficient transformation of new data
+- Supports reconstruction via decoder networks (inverse transform)
+- Allows custom architectures (CNNs for images, RNNs for sequences)
+
+**Installation:**
+```bash
+uv pip install "umap-learn[parametric-umap]==0.5.12"
+# Requires TensorFlow 2.x (install separately if needed)
+```
+
+**Basic usage:**
 ```python
 from umap.parametric_umap import ParametricUMAP
-emb = ParametricUMAP().fit_transform(data)               # 学到映射，新数据可高效 transform
-recon = reducer.inverse_transform(emb)                   # 反变换重建（凸包外不可靠）
+
+# Default architecture (3-layer 100-neuron fully-connected network)
+embedder = ParametricUMAP()
+embedding = embedder.fit_transform(data)
+
+# Transform new data efficiently
+new_embedding = embedder.transform(new_data)
 ```
 
-## 注意事项
+**Custom architecture:**
+```python
+import tensorflow as tf
 
-- **必须先标准化**：不标准化会让大量纲维度主导嵌入；全点塌成一团多半是没缩放或 `min_dist` 太小。
-- **轴无意义**：UMAP 坐标无可解释量纲，簇间距离/簇大小**不可定量解读**；它不完全保密度，可能制造伪聚类——务必验证。
-- **聚类要换参数**：默认 `n_neighbors=15` 太局部会造人工细簇；聚类用 `n_neighbors≈30, min_dist=0.0, n_components=5–10`。
-- **可复现**：设 `random_state`，否则每次结果略有不同。
-- **常见排错**：碎片化/断裂→调大 `n_neighbors`；簇太散→调小 `min_dist`；大数据慢→保持 `low_memory=True` 或先 PCA 降维；输入含 NaN/inf→先清洗（0.5.6+ 部分路径容忍，但仍建议干净输入）。
-- **transform 假设训练/测试同分布**，不满足时改用参数化 UMAP；首次调用因 Numba JIT 编译会偏慢。
-- **反变换**计算贵，仅在嵌入凸包内、簇间无大间隙处较准。
-- 不能替代环境相关验证与专家复核；输出仅供参考。
+# Define custom encoder
+encoder = tf.keras.Sequential([
+    tf.keras.layers.InputLayer(input_shape=(input_dim,)),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(64, activation='relu'),
+    tf.keras.layers.Dense(2)  # Output dimension
+])
 
-## 互见
+embedder = ParametricUMAP(encoder=encoder, dims=(input_dim,))
+embedding = embedder.fit_transform(data)
+```
 
-- requires：无。
-- related：`scikit-learn-ml`（含 PCA 等线性降维与下游建模，与 UMAP 非线性降维互补）；`statsmodels-statistical-modeling`（侧重统计推断）。
-- combines_with：`csv-data-cleaner`（降维前清洗脏数据）；`matplotlib-visualization`、`seaborn-statistical-charts`（嵌入散点图与诊断可视化）。
+**When to use Parametric UMAP:**
+- Need efficient transformation of new data after training
+- Require reconstruction capabilities (inverse transforms)
+- Want to combine UMAP with autoencoders
+- Working with complex data types (images, sequences) benefiting from specialized architectures
 
----
+**When to use standard UMAP:**
+- Need simplicity and quick prototyping
+- Dataset is small and computational efficiency isn't critical
+- Don't require learned transformations for future data
 
-采编自 K-Dense-AI/scientific-agent-skills（MIT 许可）；原 umap-learn 技能署 K-Dense Inc.、原始声明 BSD-3-Clause，均可再分发。
+### Inverse Transforms
+
+Inverse transforms enable reconstruction of high-dimensional data from low-dimensional embeddings.
+
+**Basic usage:**
+```python
+reducer = umap.UMAP()
+embedding = reducer.fit_transform(data)
+
+# Reconstruct high-dimensional data from embedding coordinates
+reconstructed = reducer.inverse_transform(embedding)
+```
+
+**Important limitations:**
+- Computationally expensive operation
+- Works poorly outside the convex hull of the embedding
+- Accuracy decreases in regions with gaps between clusters
+
+**Use cases:**
+- Understanding structure of embedded data
+- Visualizing smooth transitions between clusters
+- Exploring interpolations between data points
+- Generating synthetic samples in embedding space
+
+**Example: Exploring embedding space:**
+```python
+import numpy as np
+
+# Create grid of points in embedding space
+x = np.linspace(embedding[:, 0].min(), embedding[:, 0].max(), 10)
+y = np.linspace(embedding[:, 1].min(), embedding[:, 1].max(), 10)
+xx, yy = np.meshgrid(x, y)
+grid_points = np.c_[xx.ravel(), yy.ravel()]
+
+# Reconstruct samples from grid
+reconstructed_samples = reducer.inverse_transform(grid_points)
+```
+
+### AlignedUMAP
+
+For analyzing temporal or related datasets (e.g., time-series experiments, batch data):
+
+```python
+from umap import AlignedUMAP
+
+# List of related datasets
+datasets = [day1_data, day2_data, day3_data]
+
+# Create aligned embeddings
+mapper = AlignedUMAP().fit(datasets)
+aligned_embeddings = mapper.embeddings_  # List of embeddings
+```
+
+**When to use:** Comparing embeddings across related datasets while maintaining consistent coordinate systems.
+
+## Reproducibility
+
+To ensure reproducible results, always set the `random_state` parameter:
+
+```python
+reducer = umap.UMAP(random_state=42)
+```
+
+UMAP uses stochastic optimization, so results will vary slightly between runs without a fixed random state.
+
+## Common Issues and Solutions
+
+**Issue:** Disconnected components or fragmented clusters
+- **Solution:** Increase `n_neighbors` to emphasize more global structure
+
+**Issue:** Clusters too spread out or not well separated
+- **Solution:** Decrease `min_dist` to allow tighter packing
+
+**Issue:** Poor clustering results
+- **Solution:** Use clustering-specific parameters (n_neighbors=30, min_dist=0.0, n_components=5-10)
+
+**Issue:** Transform results differ significantly from training
+- **Solution:** Ensure test data distribution matches training, or use Parametric UMAP
+
+**Issue:** Slow performance on large datasets
+- **Solution:** Set `low_memory=True` (default), or consider dimensionality reduction with PCA first
+
+**Issue:** NaN or inf values in input data
+- **Solution:** Impute or drop invalid rows before fitting (0.5.6+ accepts NaN/inf in some paths, but clean numeric input is still recommended)
+
+**Issue:** All points collapsed to single cluster
+- **Solution:** Check data preprocessing (ensure proper scaling), increase `min_dist`
+
+## Resources
+
+### Official documentation
+
+- [UMAP user guide](https://umap-learn.readthedocs.io/en/latest/)
+- [Release notes](https://umap-learn.readthedocs.io/en/latest/release_notes.html)
+- [PyPI package](https://pypi.org/project/umap-learn/) (current stable: 0.5.12)
+- [GitHub repository](https://github.com/lmcinnes/umap)
+
+### references/
+
+Contains detailed API documentation:
+- `api_reference.md`: Complete UMAP class parameters and methods
+
+Load these references when detailed parameter information or advanced method usage is needed.

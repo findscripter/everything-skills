@@ -1,14 +1,14 @@
 ---
 name: firebase-backend
-title: Firebase 后端集成
-description: 当用 Firebase 搭建前端应用的后端（Auth、Firestore、Cloud Functions、Storage、Hosting）时使用；做数据建模、安全规则、实时监听、批量事务与社交登录的落地实现；不适用于强关系型数据建模、全文检索、支付、邮件发送、容器/K8s 部署。触发词：firebase、firestore、安全规则、cloud functions、社交登录
+title: Firebase
+description: Firebase gives you a complete backend in minutes - auth, database,
 domain: 平台/cloud
-triggers: [firebase, firestore, firebase auth, cloud functions, firebase storage, realtime database, firebase hosting, firebase emulator, 安全规则, security rules, firebase admin, 社交登录, 实时监听 onSnapshot]
-tags: [firebase, firestore, 后端即服务, 认证, 云函数, 安全规则, 实时数据, 平台]
-level: 进阶
+triggers: [firebase, firestore, firebase auth, cloud functions, firebase storage, realtime database, firebase hosting, firebase emulator, security rules, firebase admin]
+tags: [firebase, firestore]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [firebase, firebase-admin, firebase-functions, firebase-tools, @firebase/rules-unit-testing]
+tools: []
 requires: []
 related: [convex-reactive-backend, neon-serverless-postgres, cloudflare-workers-edge, gcp-cloud-run]
 combines_with: [firebase-apk-scanner, rest-api-endpoint-builder, stripe-integration]
@@ -16,183 +16,688 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Firebase
 
-- 给前端应用（Web/移动）快速搭一套后端：认证、数据库、文件存储、云函数、托管。
-- 需要 Firestore 数据建模、安全规则、实时监听、批量写/事务、社交登录、Token 管理。
-- 适配的场景：读多写少、可去规范化（denormalized）的数据模型。
+Firebase gives you a complete backend in minutes - auth, database, storage,
+functions, hosting. But the ease of setup hides real complexity. Security rules
+are your last line of defense, and they're often wrong. Firestore queries are
+limited, and you learn this after you've designed your data model.
 
-不该用（负边界，应转交其他技能）：
+This skill covers Firebase Authentication, Firestore, Realtime Database, Cloud
+Functions, Cloud Storage, and Firebase Hosting. Key insight: Firebase is
+optimized for read-heavy, denormalized data. If you're thinking relationally,
+you're thinking wrong.
 
-- 强关系型数据、需要 JOIN 的复杂关系建模 → 用关系型数据库技能（Firestore 无 JOIN，是错误选择）。
-- 全文检索 → Firestore 不支持，用 Algolia/Elasticsearch。
-- 支付 → Stripe；邮件发送 → SendGrid/Resend（Firebase 不含邮件）。
-- 容器/Kubernetes 部署 → DevOps 技能（超出 Firebase Hosting 能力）。
-- 复杂 OAuth 流程 → 专门的 OAuth 技能（Firebase Auth 只覆盖基础）。
+2025 lesson: Firestore pricing can surprise you. Reads are cheap until they're
+not. A poorly designed listener can cost more than a dedicated database. Plan
+your data model for your query patterns, not your data relationships.
 
-核心心智：Firebase 易上手但隐藏复杂度。安全规则是最后一道防线，且经常写错；按「查询模式」而非「数据关系」设计模型。Firestore 计费会反咬你——读操作便宜直到不便宜，一个糟糕的监听器可能比专用数据库更贵。
+## Principles
 
-## 步骤
+- Design data for queries, not relationships
+- Security rules are mandatory, not optional
+- Denormalize aggressively - duplication is cheap, joins are expensive
+- Batch writes and transactions for consistency
+- Use offline persistence wisely - it's not free
+- Cloud Functions for what clients shouldn't do
+- Environment-based config, never hardcode keys in client
 
-1. 选 SDK：客户端用模块化 `firebase`（v9+，可 tree-shaking）；服务端/云函数用 `firebase-admin`（全权限，绕过安全规则）。云函数用 `firebase-functions` v2。
-2. 按查询模式设计数据模型，激进去规范化（重复数据便宜，JOIN 昂贵）。
-3. 第一天就写安全规则，并用 `@firebase/rules-unit-testing` 做单测（规则 bug 就是安全漏洞）。
-4. 实时功能用 `onSnapshot`，组件卸载时务必 unsubscribe。
-5. 多文档一致性用 batch / transaction（单批次最多 500 个操作）。
-6. 本地开发用 `firebase-tools` 的 Emulator Suite，避免打到生产环境。
+## Capabilities
 
-## 指令
+- firebase-auth
+- firestore
+- firebase-realtime-database
+- firebase-cloud-functions
+- firebase-storage
+- firebase-hosting
+- firebase-security-rules
+- firebase-admin-sdk
+- firebase-emulators
 
-- 客户端模块化导入（小包体）：`import { getFirestore, doc, getDoc } from 'firebase/firestore'`，禁用 `firebase/compat/*`。
-- 客户端永远不硬编码密钥，走环境配置。
-- 客户端不该做的事放云函数。
-- `in` / `array-contains-any` 查询最多 30 个值；batch/transaction 最多 500 个操作。
-- 解绑：每个 `onSnapshot` 都要保存返回的 `unsubscribe` 并在清理时调用。
+## Scope
 
-## 示例
+- general-backend-architecture -> backend
+- payment-processing -> stripe
+- email-sending -> email
+- advanced-auth-flows -> authentication-oauth
+- kubernetes-deployment -> devops
 
-安全规则（Firestore，rules_version '2'，最后一道防线）：
+## Tooling
 
-```
+### Core
+
+- firebase - When: Client-side SDK Note: Modular SDK - tree-shakeable
+- firebase-admin - When: Server-side / Cloud Functions Note: Full access, bypasses security rules
+- firebase-functions - When: Cloud Functions v2 Note: v2 functions are recommended
+
+### Testing
+
+- @firebase/rules-unit-testing - When: Testing security rules Note: Essential - rules bugs are security bugs
+- firebase-tools - When: Emulator suite Note: Local development without hitting production
+
+### Frameworks
+
+- reactfire - When: React + Firebase Note: Hooks-based, handles subscriptions
+- vuefire - When: Vue + Firebase Note: Vue-specific bindings
+- angularfire - When: Angular + Firebase Note: Official Angular bindings
+
+## Patterns
+
+### Modular SDK Import
+
+Import only what you need for smaller bundles
+
+**When to use**: Client-side Firebase usage
+
+# MODULAR IMPORTS:
+
+"""
+Firebase v9+ uses modular SDK. Import only what you need.
+This enables tree-shaking and smaller bundles.
+"""
+
+// WRONG: v8-compat style (larger bundle)
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+const db = firebase.firestore();
+
+// RIGHT: v9+ modular (tree-shakeable)
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, doc, getDoc } from 'firebase/firestore';
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Get a document
+const docRef = doc(db, 'users', 'userId');
+const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+  console.log(docSnap.data());
+}
+
+// Query with constraints
+import { query, where, orderBy, limit } from 'firebase/firestore';
+
+const q = query(
+  collection(db, 'posts'),
+  where('published', '==', true),
+  orderBy('createdAt', 'desc'),
+  limit(10)
+);
+
+### Security Rules Design
+
+Secure your data with proper rules from day one
+
+**When to use**: Any Firestore database
+
+# FIRESTORE SECURITY RULES:
+
+"""
+Rules are your last line of defense. Every read and write
+goes through them. Get them wrong, and your data is exposed.
+"""
+
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function isSignedIn() { return request.auth != null; }
-    function isOwner(userId) { return request.auth.uid == userId; }
-    function isAdmin() { return request.auth.token.admin == true; }
 
-    match /users/{userId} {
-      allow read: if true;
-      allow write: if isOwner(userId);
-      match /private/{document=**} { allow read, write: if isOwner(userId); }
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
     }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return request.auth.token.admin == true;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      // Anyone can read public profile
+      allow read: if true;
+
+      // Only owner can write their own data
+      allow write: if isOwner(userId);
+
+      // Private subcollection
+      match /private/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Posts collection
     match /posts/{postId} {
+      // Anyone can read published posts
       allow read: if resource.data.published == true
                   || isOwner(resource.data.authorId);
+
+      // Only authenticated users can create
       allow create: if isSignedIn()
                     && request.resource.data.authorId == request.auth.uid;
+
+      // Only author can update/delete
       allow update, delete: if isOwner(resource.data.authorId);
     }
-    match /admin/{document=**} { allow read, write: if isAdmin(); }
+
+    // Admin-only collection
+    match /admin/{document=**} {
+      allow read, write: if isAdmin();
+    }
   }
 }
-```
 
-面向查询的数据建模（内嵌作者信息，1 次读取无需 JOIN）：
+### Data Modeling for Queries
 
-```js
+Design Firestore data structure around query patterns
+
+**When to use**: Designing Firestore schema
+
+# FIRESTORE DATA MODELING:
+
+"""
+Firestore is NOT relational. You can't JOIN.
+Design your data for how you'll QUERY it, not how it relates.
+"""
+
+// WRONG: Normalized (SQL thinking)
+// users/{userId}
+// posts/{postId} with authorId field
+// To get "posts by user" - need to query posts collection
+
+// RIGHT: Denormalized for queries
+// users/{userId}/posts/{postId} - subcollection
+// OR
+// posts/{postId} with embedded author data
+
+// Document structure for a post
 const post = {
-  title: 'My Post', content: '...',
-  author: { id: 'user456', name: 'Jane Doe', avatarUrl: '...' }, // 内嵌常用字段
-  tags: ['javascript', 'firebase'],   // array-contains 查询
-  stats: { likes: 42, comments: 7 },
+  id: 'post123',
+  title: 'My Post',
+  content: '...',
+
+  // Embed frequently-needed author data
+  author: {
+    id: 'user456',
+    name: 'Jane Doe',
+    avatarUrl: '...'
+  },
+
+  // Arrays for IN queries (max 30 items for 'in')
+  tags: ['javascript', 'firebase'],
+
+  // Maps for compound queries
+  stats: {
+    likes: 42,
+    comments: 7,
+    views: 1000
+  },
+
+  // Timestamps
   createdAt: serverTimestamp(),
-  published: true, featured: false    // 布尔位用于过滤
+  updatedAt: serverTimestamp(),
+
+  // Booleans for filtering
+  published: true,
+  featured: false
 };
-// 代价：作者改名要更新其所有 post —— 写复杂、读快
-```
 
-实时监听 + 清理（React Hook）：
+// Query patterns this enables:
+// - Get post with author info: 1 read (no join needed)
+// - Posts by tag: where('tags', 'array-contains', 'javascript')
+// - Featured posts: where('featured', '==', true)
+// - Recent posts: orderBy('createdAt', 'desc')
 
-```js
-useEffect(() => {
-  const unsubscribe = onSnapshot(doc(db, path), (snap) => {
-    setData(snap.exists() ? { id: snap.id, ...snap.data() } : null);
-  }, (err) => setError(err));
-  return () => unsubscribe();   // 卸载时解绑，防内存泄漏与多余读取
-}, [path]);
-```
+// When author updates their name, update all their posts
+// This is the tradeoff: writes are more complex, reads are fast
 
-事务（先读后写，保证一致性，如点赞计数）：
+### Real-time Listeners
 
-```js
-import { runTransaction, increment, serverTimestamp } from 'firebase/firestore';
-await runTransaction(db, async (tx) => {
-  const postRef = doc(db, 'posts', postId);
-  const likeRef = doc(db, 'posts', postId, 'likes', userId);
-  const postSnap = await tx.get(postRef);
-  if (!postSnap.exists()) throw new Error('Post not found');
-  if ((await tx.get(likeRef)).exists()) throw new Error('Already liked');
-  tx.update(postRef, { likeCount: increment(1) });
-  tx.set(likeRef, { userId, createdAt: serverTimestamp() });
-});
-```
+Subscribe to data changes with proper cleanup
 
-云函数 v2（HTTP 验证 Token / Firestore 触发器 / 定时任务）：
+**When to use**: Real-time features
 
-```js
+# REAL-TIME LISTENERS:
+
+"""
+onSnapshot creates a persistent connection. Always unsubscribe
+when component unmounts to prevent memory leaks and extra reads.
+"""
+
+// React hook for real-time document
+function useDocument(path) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const docRef = doc(db, path);
+
+    // Subscribe to document
+    const unsubscribe = onSnapshot(
+      docRef,
+      (snapshot) => {
+        if (snapshot.exists()) {
+          setData({ id: snapshot.id, ...snapshot.data() });
+        } else {
+          setData(null);
+        }
+        setLoading(false);
+      },
+      (err) => {
+        setError(err);
+        setLoading(false);
+      }
+    );
+
+    // Cleanup on unmount
+    return () => unsubscribe();
+  }, [path]);
+
+  return { data, loading, error };
+}
+
+// Usage
+function UserProfile({ userId }) {
+  const { data: user, loading } = useDocument(`users/${userId}`);
+
+  if (loading) return <Spinner />;
+  return <div>{user?.name}</div>;
+}
+
+// Collection with query
+function usePosts(limit = 10) {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, 'posts'),
+      where('published', '==', true),
+      orderBy('createdAt', 'desc'),
+      limit(limit)
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const results = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setPosts(results);
+    });
+
+    return () => unsubscribe();
+  }, [limit]);
+
+  return posts;
+}
+
+### Cloud Functions Patterns
+
+Server-side logic with Cloud Functions v2
+
+**When to use**: Backend logic, triggers, scheduled tasks
+
+# CLOUD FUNCTIONS V2:
+
+"""
+Cloud Functions run server-side code triggered by events.
+V2 uses more standard Node.js patterns and better scaling.
+"""
+
 import { onRequest } from 'firebase-functions/v2/https';
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 import { onSchedule } from 'firebase-functions/v2/scheduler';
+import { getFirestore } from 'firebase-admin/firestore';
+import { initializeApp } from 'firebase-admin/app';
 
-export const api = onRequest({ cors: true, region: 'us-central1' }, async (req, res) => {
-  const token = req.headers.authorization?.split('Bearer ')[1];
-  if (!token) return res.status(401).json({ error: 'Unauthorized' });
-  const decoded = await getAuth().verifyIdToken(token);
-  res.json({ userId: decoded.uid });
-});
+initializeApp();
+const db = getFirestore();
 
-export const onUserCreated = onDocumentCreated('users/{userId}', async (event) => {
-  if (!event.data) return;
-  await db.collection('notifications').add({ userId: event.params.userId, type: 'welcome' });
-});
+// HTTP function
+export const api = onRequest(
+  { cors: true, region: 'us-central1' },
+  async (req, res) => {
+    // Verify auth token
+    const token = req.headers.authorization?.split('Bearer ')[1];
+    if (!token) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
 
-export const dailyCleanup = onSchedule({ schedule: '0 0 * * *', timeZone: 'UTC' }, async () => {
-  // batch 删除 30 天前日志，单批 ≤500
-});
-```
+    try {
+      const decoded = await getAuth().verifyIdToken(token);
+      // Process request with decoded.uid
+      res.json({ userId: decoded.uid });
+    } catch (error) {
+      res.status(401).json({ error: 'Invalid token' });
+    }
+  }
+);
 
-社交登录（弹窗 vs 重定向：桌面用 popup，移动/iOS Safari 用 redirect）：
+// Firestore trigger - on document create
+export const onUserCreated = onDocumentCreated(
+  'users/{userId}',
+  async (event) => {
+    const snapshot = event.data;
+    const userId = event.params.userId;
 
-```js
+    if (!snapshot) return;
+
+    const userData = snapshot.data();
+
+    // Send welcome email, create related documents, etc.
+    await db.collection('notifications').add({
+      userId,
+      type: 'welcome',
+      message: `Welcome, ${userData.name}!`,
+      createdAt: FieldValue.serverTimestamp()
+    });
+  }
+);
+
+// Scheduled function (every day at midnight)
+export const dailyCleanup = onSchedule(
+  { schedule: '0 0 * * *', timeZone: 'UTC' },
+  async (event) => {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 30);
+
+    // Delete old documents
+    const oldDocs = await db.collection('logs')
+      .where('createdAt', '<', cutoff)
+      .limit(500)
+      .get();
+
+    const batch = db.batch();
+    oldDocs.docs.forEach(doc => batch.delete(doc.ref));
+    await batch.commit();
+
+    console.log(`Deleted ${oldDocs.size} old logs`);
+  }
+);
+
+### Batch Operations
+
+Atomic writes and transactions for consistency
+
+**When to use**: Multiple document updates that must succeed together
+
+# BATCH WRITES AND TRANSACTIONS:
+
+"""
+Batches: Multiple writes that all succeed or all fail.
+Transactions: Read-then-write operations with consistency.
+Max 500 operations per batch/transaction.
+"""
+
+import {
+  writeBatch, runTransaction, doc, getDoc,
+  increment, serverTimestamp
+} from 'firebase/firestore';
+
+// Batch write - no reads, just writes
+async function createPostWithTags(post, tags) {
+  const batch = writeBatch(db);
+
+  // Create post
+  const postRef = doc(collection(db, 'posts'));
+  batch.set(postRef, {
+    ...post,
+    createdAt: serverTimestamp()
+  });
+
+  // Update tag counts
+  for (const tag of tags) {
+    const tagRef = doc(db, 'tags', tag);
+    batch.set(tagRef, {
+      count: increment(1),
+      lastUsed: serverTimestamp()
+    }, { merge: true });
+  }
+
+  await batch.commit();
+  return postRef.id;
+}
+
+// Transaction - read and write atomically
+async function likePost(postId, userId) {
+  return runTransaction(db, async (transaction) => {
+    const postRef = doc(db, 'posts', postId);
+    const likeRef = doc(db, 'posts', postId, 'likes', userId);
+
+    const postSnap = await transaction.get(postRef);
+    if (!postSnap.exists()) {
+      throw new Error('Post not found');
+    }
+
+    const likeSnap = await transaction.get(likeRef);
+    if (likeSnap.exists()) {
+      throw new Error('Already liked');
+    }
+
+    // Increment like count and add like document
+    transaction.update(postRef, {
+      likeCount: increment(1)
+    });
+
+    transaction.set(likeRef, {
+      userId,
+      createdAt: serverTimestamp()
+    });
+
+    return postSnap.data().likeCount + 1;
+  });
+}
+
+### Social Login (Google, GitHub, etc.)
+
+OAuth provider setup and authentication flows
+
+**When to use**: Social login implementation
+
+# SOCIAL LOGIN WITH FIREBASE AUTH
+
+import {
+  getAuth, signInWithPopup, signInWithRedirect,
+  GoogleAuthProvider, GithubAuthProvider, OAuthProvider
+} from "firebase/auth";
+
+const auth = getAuth();
+
+// GOOGLE
+const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope("email");
+googleProvider.setCustomParameters({ prompt: "select_account" });
+
+async function signInWithGoogle() {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    return result.user;
+  } catch (error) {
+    if (error.code === "auth/account-exists-with-different-credential") {
+      return handleAccountConflict(error);
+    }
+    throw error;
+  }
+}
+
+// GITHUB
+const githubProvider = new GithubAuthProvider();
+githubProvider.addScope("read:user");
+
+// APPLE (Required for iOS apps!)
+const appleProvider = new OAuthProvider("apple.com");
+appleProvider.addScope("email");
+appleProvider.addScope("name");
+
+### Popup vs Redirect Auth
+
+When to use popup vs redirect for OAuth
+
+**When to use**: Choosing authentication flow
+
+# Popup: Desktop, SPA (simpler, can be blocked)
+# Redirect: Mobile, iOS Safari (always works)
+
 async function signIn(provider) {
   if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
     return signInWithRedirect(auth, provider);
   }
-  try { return await signInWithPopup(auth, provider); }
-  catch (e) {
-    if (e.code === 'auth/popup-blocked') return signInWithRedirect(auth, provider);
+  try {
+    return await signInWithPopup(auth, provider);
+  } catch (e) {
+    if (e.code === "auth/popup-blocked") {
+      return signInWithRedirect(auth, provider);
+    }
     throw e;
   }
 }
-// 账号冲突 auth/account-exists-with-different-credential 时，用 linkWithCredential 关联
-```
 
-Token 管理（后端 API 调用，自动刷新 + 401 重试）：
+// Check redirect result on page load
+useEffect(() => {
+  getRedirectResult(auth).then(r => r && setUser(r.user));
+}, []);
 
-```js
+### Account Linking
+
+Link multiple providers to one account
+
+**When to use**: User has accounts with different providers
+
+import { fetchSignInMethodsForEmail, linkWithCredential } from "firebase/auth";
+
+async function handleAccountConflict(error) {
+  const email = error.customData?.email;
+  const pendingCred = OAuthProvider.credentialFromError(error);
+  const methods = await fetchSignInMethodsForEmail(auth, email);
+
+  if (methods.includes("google.com")) {
+    alert("Sign in with Google to link accounts");
+    const result = await signInWithPopup(auth, new GoogleAuthProvider());
+    await linkWithCredential(result.user, pendingCred);
+    return result.user;
+  }
+}
+
+// Link new provider
+await linkWithPopup(auth.currentUser, new GithubAuthProvider());
+
+// Unlink provider (keep at least one!)
+await unlink(auth.currentUser, "github.com");
+
+### Auth State Persistence
+
+Control session lifetime
+
+**When to use**: Managing user sessions
+
+import { setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
+
+// LOCAL: survives browser close (default)
+// SESSION: cleared on tab close
+
+async function signInWithRememberMe(email, pass, remember) {
+  await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
+  return signInWithEmailAndPassword(auth, email, pass);
+}
+
+// React auth hook
+function useAuth() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => onAuthStateChanged(auth, u => { setUser(u); setLoading(false); }), []);
+  return { user, loading };
+}
+
+### Email Verification and Password Reset
+
+Complete email auth flow
+
+**When to use**: Email/password authentication
+
+import { sendEmailVerification, sendPasswordResetEmail, reauthenticateWithCredential } from "firebase/auth";
+
+// Sign up with verification
+async function signUp(email, password) {
+  const result = await createUserWithEmailAndPassword(auth, email, password);
+  await sendEmailVerification(result.user);
+  return result.user;
+}
+
+// Password reset
+await sendPasswordResetEmail(auth, email);
+
+// Change password (requires recent auth)
+const cred = EmailAuthProvider.credential(user.email, currentPass);
+await reauthenticateWithCredential(user, cred);
+await updatePassword(user, newPass);
+
+### Token Management for APIs
+
+Handle ID tokens for backend calls
+
+**When to use**: Authenticating with backend APIs
+
+import { getIdToken, onIdTokenChanged } from "firebase/auth";
+
+// Get token (auto-refreshes if expired)
+const token = await getIdToken(auth.currentUser);
+
+// API helper with auto-retry
 async function apiCall(url, opts = {}) {
   const token = await getIdToken(auth.currentUser);
-  const res = await fetch(url, { ...opts, headers: { ...opts.headers, Authorization: 'Bearer ' + token } });
+  const res = await fetch(url, {
+    ...opts,
+    headers: { ...opts.headers, Authorization: "Bearer " + token }
+  });
   if (res.status === 401) {
-    const fresh = await getIdToken(auth.currentUser, true); // 强制刷新
-    return fetch(url, { ...opts, headers: { ...opts.headers, Authorization: 'Bearer ' + fresh } });
+    const newToken = await getIdToken(auth.currentUser, true);
+    return fetch(url, { ...opts, headers: { ...opts.headers, Authorization: "Bearer " + newToken }});
   }
   return res;
 }
-```
 
-## 注意事项
+// Sync to cookie for SSR
+onIdTokenChanged(auth, async u => {
+  document.cookie = u ? "__session=" + await u.getIdToken() : "__session=; max-age=0";
+});
 
-- 安全规则是必选项，不是可选项；每次读写都过规则，写错即数据泄露。上线前用 rules-unit-testing 覆盖。
-- 按查询设计、不按关系设计；去规范化的代价是写更复杂、读更快。
-- 计费陷阱：监听器和大量读取会显著推高成本；为查询模式而非数据关系规划模型。
-- 离线持久化不是免费的，按需启用。
-- `firebase-admin` 绕过安全规则，只在受信任的服务端使用。
-- 框架绑定：React 用 reactfire、Vue 用 vuefire、Angular 用 angularfire（自动处理订阅）。
-- Apple 登录对 iOS App 是必需的（`new OAuthProvider('apple.com')`）。
-- 会话持久化：`browserLocalPersistence`（默认，关浏览器仍在）vs `browserSessionPersistence`（关标签页即清）。
-- 解绑/Unlink provider 时至少保留一个登录方式。
+// Check admin claim
+const { claims } = await auth.currentUser.getIdTokenResult();
+const isAdmin = claims.admin === true;
 
-## 互见
+## Collaboration
 
-- 关系型数据库技能：需要强关系建模 / JOIN 时。
-- OAuth 认证技能：复杂 OAuth 流程。
-- Stripe：支付集成（Firebase + Stripe 常见组合）。
-- 邮件技能：发送邮件（SendGrid/Resend）。
-- 搜索技能（Algolia/Elasticsearch）：全文检索。
-- DevOps 技能：容器 / Kubernetes 部署。
-- 常配合：Next.js App Router、React 模式。
+### Delegation Triggers
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+- user needs complex OAuth flow -> authentication-oauth (Firebase Auth handles basics, complex flows need OAuth skill)
+- user needs payment integration -> stripe (Firebase + Stripe common pattern)
+- user needs email functionality -> email (Firebase doesn't include email - use SendGrid, Resend, etc.)
+- user needs container deployment -> devops (Beyond Firebase Hosting - Kubernetes, Docker)
+- user needs relational data model -> postgres-wizard (Firestore is wrong choice for highly relational data)
+- user needs full-text search -> elasticsearch-search (Firestore doesn't support full-text search - use Algolia/Elastic)
+
+## Related Skills
+
+Works well with: `nextjs-app-router`, `react-patterns`, `authentication-oauth`, `stripe`
+
+## When to Use
+- User mentions or implies: firebase
+- User mentions or implies: firestore
+- User mentions or implies: firebase auth
+- User mentions or implies: cloud functions
+- User mentions or implies: firebase storage
+- User mentions or implies: realtime database
+- User mentions or implies: firebase hosting
+- User mentions or implies: firebase emulator
+- User mentions or implies: security rules
+- User mentions or implies: firebase admin
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

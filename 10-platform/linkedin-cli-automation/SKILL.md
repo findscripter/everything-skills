@@ -1,14 +1,14 @@
 ---
 name: linkedin-cli-automation
-title: LinkedIn CLI 自动化
-description: 当需要用命令行脚本或 AI Agent 批量自动化 LinkedIn（抓取人/公司资料、搜索、发消息、管理人脉、发帖、Sales Navigator）时使用；做：用 linkedin CLI 调用 Linked API 云端浏览器执行操作并返回结构化 JSON；不适用于：网页手动操作、实时即时返回（操作需 30 秒到数分钟）。触发词：LinkedIn、领英、Sales Navigator
+title: LinkedIn Automation via Rube MCP
+description: Automate LinkedIn tasks via Rube MCP (Composio): create posts, manage profile, company info, comments, and image uploads. Always search tools first for current schemas.
 domain: 平台/integration
-triggers: [LinkedIn 自动化, 领英抓取资料, linkedin CLI, Sales Navigator, 批量发 LinkedIn 消息, 管理 LinkedIn 人脉, LinkedIn 发帖, Linked API]
-tags: [平台, integration, linkedin, automation, cli, social, outreach, sales-navigator]
-level: 进阶
+triggers: [linkedin CLI, Sales Navigator, Linked API]
+tags: [integration, linkedin, automation, cli, social, outreach, sales-navigator]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [linkedin]
+tools: []
 requires: []
 related: [apollo-lead-enrichment, x-twitter-automation, sales-prospecting, linkedin-profile-optimizer]
 combines_with: [apollo-sequence-loader, cold-email-writer, social-connections-optimizer]
@@ -16,99 +16,179 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# LinkedIn Automation via Rube MCP
 
-当你要**从脚本或 AI Agent 编排 LinkedIn 操作**（而非手点网页 UI）时使用本技能：
+Automate LinkedIn operations through Composio's LinkedIn toolkit via Rube MCP.
 
-- 搭建外联、调研、招聘等依赖 LinkedIn 数据与私信的工作流。
-- 批量抓取人/公司资料，做线索或客户富集。
-- 编排多步 Sales Navigator 或自定义 workflow，需要 JSON 输出和退出码可判读。
+## Prerequisites
 
-**不该用的边界：**
+- Rube MCP must be connected (RUBE_SEARCH_TOOLS available)
+- Active LinkedIn connection via `RUBE_MANAGE_CONNECTIONS` with toolkit `linkedin`
+- Always call `RUBE_SEARCH_TOOLS` first to get current tool schemas
 
-- 需要即时返回结果时不要用——每次命令都驱动真实云端浏览器，耗时 **30 秒到数分钟**。
-- 一次性手动浏览、不需要程序化输出时，直接用网页更合适。
-- 缺少必要输入、权限、安全边界或成功标准时，先停下来向用户澄清，不要硬跑。
-- 使用真实账号自动化时，**必须遵守 LinkedIn 服务条款、当地法规及所在组织的合规政策**。
+## Setup
 
-## 步骤
+**Get Rube MCP**: Add `https://rube.app/mcp` as an MCP server in your client configuration. No API keys needed — just add the endpoint and it works.
 
-1. **确认工具**：若 `linkedin` 不可用，安装：`npm install -g @linkedapi/linkedin-cli`
-2. **鉴权**（命令返回退出码 2 时）：让用户到 [app.linkedapi.io](https://app.linkedapi.io) 注册/登录、连接 LinkedIn 账号，复制 **Linked API Token** 与 **Identification Token**，然后运行 `linkedin setup --linked-api-token=TOKEN --identification-token=TOKEN`。
-3. **执行命令**：所有命令统一加 `--json -q`，便于机器解析。
-4. **判读结果**：退出码 0 仅代表 API 调用成功，**必须再看 `success` 字段**判断动作是否真的成功；非 0 退出码代表基础设施错误。
 
-## 指令
+1. Verify Rube MCP is available by confirming `RUBE_SEARCH_TOOLS` responds
+2. Call `RUBE_MANAGE_CONNECTIONS` with toolkit `linkedin`
+3. If connection is not ACTIVE, follow the returned auth link to complete LinkedIn OAuth
+4. Confirm connection status shows ACTIVE before running any workflows
 
-**全局标志**（建议每条命令都带）：
+## Core Workflows
 
-| 标志 | 说明 |
-| --- | --- |
-| `--json` | 结构化 JSON 输出 |
-| `--quiet` / `-q` | 抑制 stderr 进度信息 |
-| `--fields name,url,...` | 仅输出指定字段 |
-| `--account "Name"` | 指定账号执行本命令 |
+### 1. Create a LinkedIn Post
 
-**输出格式**：成功 `{ "success": true, "data": {...} }`；失败 `{ "success": false, "error": { "type": "personNotFound", "message": "..." } }`。
+**When to use**: User wants to publish a text post on LinkedIn
 
-**退出码**：0 成功（仍需查 `success`）；1 一般错误；2 token 缺失/无效；3 需订阅/套餐；4 LinkedIn 账号问题；5 参数无效；6 限流；7 网络错误；8 workflow 超时（返回 workflowId 供恢复）。
+**Tool sequence**:
+1. `LINKEDIN_GET_MY_INFO` - Get authenticated user's profile info [Prerequisite]
+2. `LINKEDIN_REGISTER_IMAGE_UPLOAD` - Register image upload if post includes an image [Optional]
+3. `LINKEDIN_CREATE_LINKED_IN_POST` - Publish the post [Required]
 
-**核心命令一览**：
+**Key parameters**:
+- `text`: Post content text
+- `visibility`: 'PUBLIC' or 'CONNECTIONS'
+- `media_title`: Title for attached media
+- `media_description`: Description for attached media
 
-- 抓取个人：`linkedin person fetch <url> [--experience --education --skills --languages --posts --posts-limit N --comments --reactions] --json -q`（按需加标志，每个标志都增加耗时）
-- 搜索个人：`linkedin person search --term ... [--locations --industries --current-companies --previous-companies --schools --position --limit] --json -q`
-- 抓取公司：`linkedin company fetch <url> [--employees --dms --posts]`，员工过滤需配合 `--employees`（如 `--employees-position`、`--employees-locations`）
-- 搜索公司：`linkedin company search --term ... [--sizes "11-50,51-200" --locations --industries] --json -q`
-- 发消息：`linkedin message send <person-url> '<text>' --json -q`（文本 ≤1900 字符，单引号包裹）
-- 取会话：`linkedin message get <person-url> [--since TIMESTAMP] --json -q`（首次会触发后台同步、较慢）
-- 人脉：`connection status|send|list|pending|withdraw|remove`，如 `connection send <url> [--note '...'] [--email ...]`；`withdraw` 默认会同时取关，加 `--no-unfollow` 保留关注
-- 帖子：`post fetch <url> [--comments --comments-sort mostRecent --comments-replies --reactions]`；`post create '<text>' [--company-url --attachments "url:type:name"]`；`post react <url> --type like|love|support|celebrate|insightful|funny`；`post comment <url> '<text>'`（评论 ≤1000 字符）
-- 统计：`stats ssi` / `stats performance` / `stats usage --start ... --end ...`
-- Sales Navigator（需订阅，使用哈希 URL）：`navigator person fetch|search`、`navigator company fetch|search`、`navigator message send <url> '<text>' --subject '<subject>'`（InMail，正文 ≤1900、主题 ≤80）、`navigator message get`
-- 自定义工作流：`linkedin workflow run --file workflow.json --json -q`（或 stdin/inline）；`workflow status <id> [--wait]`
-- 账号管理：`account list` / `account switch "Name"` / `account rename "Name" --name "New"` / `reset [--all]`
+**Pitfalls**:
+- Must retrieve user profile URN via GET_MY_INFO before creating a post
+- Image uploads require a two-step process: register upload first, then include the asset in the post
+- Post text has character limits enforced by LinkedIn API
+- Visibility defaults may vary; always specify explicitly
 
-## 示例
+### 2. Get Profile Information
 
-```bash
-# 抓取个人资料 + 工作与教育经历
-linkedin person fetch https://www.linkedin.com/in/username --experience --education --json -q
+**When to use**: User wants to retrieve their LinkedIn profile or company details
 
-# 按公司与职位搜索人
-linkedin person search --current-companies "Google" --position "Engineer" --limit 20 --json -q
+**Tool sequence**:
+1. `LINKEDIN_GET_MY_INFO` - Get authenticated user's profile [Required]
+2. `LINKEDIN_GET_COMPANY_INFO` - Get company page details [Optional]
 
-# 抓公司的决策者和最近 10 条动态
-linkedin company fetch https://www.linkedin.com/company/name --dms --posts --posts-limit 10 --json -q
+**Key parameters**:
+- No parameters needed for GET_MY_INFO (uses authenticated user)
+- `organization_id`: Company/organization ID for GET_COMPANY_INFO
 
-# 发消息（单引号包裹文本）
-linkedin message send https://www.linkedin.com/in/username 'Hey, loved your latest post!' --json -q
+**Pitfalls**:
+- GET_MY_INFO returns the authenticated user only; cannot look up other users
+- Company info requires the numeric organization ID, not the company name or vanity URL
+- Some profile fields may be restricted based on OAuth scopes granted
 
-# 带文档附件发帖
-linkedin post create 'Our Q4 report' \
-  --attachments "https://example.com/report.pdf:document:Q4 Report" --json -q
+### 3. Manage Post Images
 
-# Sales Navigator 发 InMail
-linkedin navigator message send https://www.linkedin.com/in/username \
-  'Would love to chat about API integrations' --subject 'Partnership Opportunity' --json -q
+**When to use**: User wants to upload and attach images to LinkedIn posts
+
+**Tool sequence**:
+1. `LINKEDIN_REGISTER_IMAGE_UPLOAD` - Register an image upload with LinkedIn [Required]
+2. Upload the image binary to the returned upload URL [Required]
+3. `LINKEDIN_GET_IMAGES` - Verify uploaded image status [Optional]
+4. `LINKEDIN_CREATE_LINKED_IN_POST` - Create post with the image asset [Required]
+
+**Key parameters**:
+- `owner`: URN of the image owner (user or organization)
+- `image_id`: ID of the uploaded image for GET_IMAGES
+
+**Pitfalls**:
+- The upload is a two-phase process: register then upload binary
+- Image asset URN from registration must be used when creating the post
+- Supported formats typically include JPG, PNG, and GIF
+- Large images may take time to process before they are available
+
+### 4. Comment on Posts
+
+**When to use**: User wants to comment on an existing LinkedIn post
+
+**Tool sequence**:
+1. `LINKEDIN_CREATE_COMMENT_ON_POST` - Add a comment to a post [Required]
+
+**Key parameters**:
+- `post_id`: The URN or ID of the post to comment on
+- `text`: Comment content
+- `actor`: URN of the commenter (user or organization)
+
+**Pitfalls**:
+- Post ID must be a valid LinkedIn URN format
+- The actor URN must match the authenticated user or a managed organization
+- Rate limits apply to comment creation; avoid rapid-fire comments
+
+### 5. Delete a Post
+
+**When to use**: User wants to remove a previously published LinkedIn post
+
+**Tool sequence**:
+1. `LINKEDIN_DELETE_LINKED_IN_POST` - Delete the specified post [Required]
+
+**Key parameters**:
+- `post_id`: The URN or ID of the post to delete
+
+**Pitfalls**:
+- Deletion is permanent and cannot be undone
+- Only the post author or organization admin can delete a post
+- The post_id must be the exact URN returned when the post was created
+
+## Common Patterns
+
+### ID Resolution
+
+**User URN from profile**:
+```
+1. Call LINKEDIN_GET_MY_INFO
+2. Extract user URN (e.g., 'urn:li:person:XXXXXXXXXX')
+3. Use URN as actor/owner in subsequent calls
 ```
 
-## 注意事项
+**Organization ID from company**:
+```
+1. Call LINKEDIN_GET_COMPANY_INFO with organization_id
+2. Extract organization URN for posting as a company page
+```
 
-- **串行执行**：同一账号的所有操作逐个排队执行，多请求会排队。
-- **非即时**：真实浏览器在导航 LinkedIn，单次操作 30 秒到数分钟。
-- **时间均为 UTC**：所有日期时间按 UTC 处理。
-- **文本参数用单引号**：消息、帖子、评论的文本用单引号包裹，避免 shell 解析特殊字符。
-- **动作上限**：每账号限额在平台侧可配；`limitExceeded` 错误代表已达上限。
-- **URL 归一化**：响应中所有 LinkedIn URL 归一为 `https://www.linkedin.com/...` 且无尾部斜杠。
-- **空字段**：不可用字段返回 `null` 或 `[]`，不会被省略。
-- **附件限制**：最多 9 张图，或 1 个视频，或 1 个文档；类型不可混用。
-- 不要把输出当作环境特定校验/测试/专家评审的替代品。
+### Image Upload Flow
 
-## 互见
+- Call REGISTER_IMAGE_UPLOAD to get upload URL and asset URN
+- Upload the binary image to the provided URL
+- Use the asset URN when creating a post with media
+- Verify with GET_IMAGES if upload status is uncertain
 
-- 飞书侧的人脉/消息/外联场景可参考 `lark-im`、`lark-contact` 等 lark-* 技能（不同平台，能力不互通）。
-- 自定义 workflow JSON schema 见官方文档 https://linkedapi.io/docs/building-workflows/
+## Known Pitfalls
 
----
+**Authentication**:
+- LinkedIn OAuth tokens have limited scopes; ensure required permissions are granted
+- Tokens expire; re-authenticate if API calls return 401 errors
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+**URN Formats**:
+- LinkedIn uses URN identifiers (e.g., 'urn:li:person:ABC123')
+- Always use the full URN format, not just the alphanumeric ID portion
+- Organization URNs differ from person URNs
+
+**Rate Limits**:
+- LinkedIn API has strict daily rate limits on post creation and comments
+- Implement backoff strategies for bulk operations
+- Monitor 429 responses and respect Retry-After headers
+
+**Content Restrictions**:
+- Posts have character limits enforced by the API
+- Some content types (polls, documents) may require additional API features
+- HTML markup in post text is not supported
+
+## Quick Reference
+
+| Task | Tool Slug | Key Params |
+|------|-----------|------------|
+| Get my profile | LINKEDIN_GET_MY_INFO | (none) |
+| Create post | LINKEDIN_CREATE_LINKED_IN_POST | text, visibility |
+| Get company info | LINKEDIN_GET_COMPANY_INFO | organization_id |
+| Register image upload | LINKEDIN_REGISTER_IMAGE_UPLOAD | owner |
+| Get uploaded images | LINKEDIN_GET_IMAGES | image_id |
+| Delete post | LINKEDIN_DELETE_LINKED_IN_POST | post_id |
+| Comment on post | LINKEDIN_CREATE_COMMENT_ON_POST | post_id, text, actor |
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

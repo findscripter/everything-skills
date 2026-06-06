@@ -1,14 +1,14 @@
 ---
 name: openapi-doc-generator
-title: OpenAPI 3.1 API 文档生成
-description: 当需要为 REST/事件驱动 API 编写或重写规范、搭建交互式开发者文档与门户时使用；做 OpenAPI 3.1/AsyncAPI 规范编写、示例与鉴权流程补全、交互文档与多语言 SDK 生成及示例可测试化的产物；不适用于无 API 面、纯后端实现或只需内部速记的场景；触发词：OpenAPI、API 文档、SDK 生成、Swagger/Redoc、开发者门户
+title: OpenAPI 3.1 API Documentation Generator
+description: Use when authoring or rewriting specs for REST/event-driven APIs and building interactive developer docs and portals; produces OpenAPI 3.1/AsyncAPI specs with examples and auth flows, interactive docs, multi-language SDKs, and testable examples. Not for tasks with no API surface,
 domain: 文书/writing
-triggers: [编写 OpenAPI 规范, API 文档, OpenAPI 3.1, AsyncAPI, Swagger UI, Redoc, 生成 SDK, 开发者门户, 接口文档, 鉴权流程文档, Webhook 文档, API 迁移指南]
-tags: [writing, 文书, openapi, api文档, sdk, 开发者体验, 技术写作]
-level: 进阶
+triggers: [author OpenAPI spec, API documentation, OpenAPI 3.1, AsyncAPI, Swagger UI, Redoc, generate SDK, developer portal, API reference, auth flow docs, webhook documentation, API migration guide]
+tags: [writing, openapi, api-docs, sdk, developer-experience, technical-writing]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash]
+tools: []
 requires: []
 related: [technical-reference-builder, api-design-principles, docs-architect, rest-api-endpoint-builder]
 combines_with: [api-design-principles, code-tutorial-engineer]
@@ -16,55 +16,115 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适用：
-- 编写或更新 OpenAPI 3.1 / AsyncAPI 规范（REST、事件驱动、实时 API）。
-- 搭建开发者门户、SDK 文档或新手上手流程。
-- 提升既有 API 文档的质量、准确性与可发现性。
-- 从 API 规范生成多语言代码示例或 SDK。
+Use this skill when:
 
-不该用（负边界）：
-- 只需一段内部速记或非正式摘要。
-- 任务是纯后端实现，不涉及对外文档。
-- 没有任何 API 面或规范可供描述。
+- Creating or updating OpenAPI 3.1 / AsyncAPI specifications (REST, event-driven, real-time APIs).
+- Building developer portals, SDK docs, or onboarding flows.
+- Improving API documentation quality, accuracy, and discoverability.
+- Generating multi-language code examples or SDKs from API specs.
 
-## 步骤
+Do not use this skill when:
 
-1. 明确目标读者、API 范围与文档目标（先确认开发者画像与「首次成功时间」诉求）。
-2. 编写或校验规范：补全请求/响应示例、错误码、鉴权流程，并按 schema 做校验。
-3. 构建交互式文档（Swagger UI / Redoc / Stoplight），并用契约测试保证示例可运行、与实现一致。
-4. 规划维护：版本策略、破坏性变更迁移指南、弃用时间线与 changelog 自动化。
+- You only need a quick internal note or informal summary.
+- The task is pure backend implementation without outward-facing docs.
+- There is no API surface or spec to document.
 
-## 指令
+## Steps
 
-- 规范优先采用 OpenAPI 3.1（完整 JSON Schema 支持）；事件驱动 API 用 AsyncAPI，GraphQL 用 SDL。
-- 每个端点必须含可工作的示例（含 curl）、典型错误响应与鉴权方式；安全方案（OAuth 2.0 / OpenID Connect / API Key / JWT）给出可运行示例与刷新机制。
-- 遵循 docs-as-code：文档纳入 Git，接入 CI/CD 自动校验、自动部署。
-- 示例与代码片段须自动化测试（response 对照 schema 校验、curl 可执行），避免文档与实现漂移。
-- Webhook 文档须含 payload 示例与签名验证/安全说明。
-- 重实用、可运行示例，轻理论描述；渐进式披露，兼顾完整性与简洁。
+1. **Identify target users, API scope, and documentation goals** — confirm the developer personas and the "time-to-first-success" you are optimizing for.
+2. **Create or validate the specification** — add request/response examples, error codes, and auth flows, then validate against the schema.
+3. **Build interactive docs** (Swagger UI / Redoc / Stoplight) and ensure accuracy with contract tests so examples actually run and stay consistent with the implementation.
+4. **Plan maintenance** — versioning strategy, breaking-change migration guides, deprecation timelines, and changelog automation.
 
-## 示例
+## Instructions
 
-- 「为这个 REST API 编写完整的 OpenAPI 3.1 规范，含鉴权示例。」
-- 「从这份 OpenAPI 规范生成 Python、JavaScript、Go 三种 SDK。」
-- 「为 v1 升级到 v2 的开发者设计迁移指南。」
-- 「编写带安全最佳实践与 payload 示例的 Webhook 文档。」
-- 「为所有 API 文档中的代码示例搭建自动化测试。」
+- Prefer **OpenAPI 3.1** (full JSON Schema support) for the spec; use **AsyncAPI** for event-driven APIs and GraphQL **SDL** for GraphQL.
+- Every endpoint must include a working example (with curl), typical error responses, and the auth method. Security schemes (OAuth 2.0 / OpenID Connect / API Key / JWT) get runnable examples and refresh mechanisms.
+- Follow **docs-as-code**: keep docs in Git, wire CI/CD for automated validation and deployment.
+- Examples and snippets must be automatically tested (responses validated against schema, curl commands executable) to prevent docs from drifting from the implementation.
+- Webhook docs must include payload examples plus signature verification / security notes.
+- Favor practical, working examples over theoretical descriptions; use progressive disclosure to balance comprehensiveness with conciseness.
 
-## 注意事项
+## Example
 
-- 不要把产出当作环境特定校验、测试或专家评审的替代品；规范落地前需在真实环境验证。
-- 缺少必要输入（如目标读者、API 范围、鉴权方式、成功标准）或权限边界不明时，先停下来澄清。
-- 仅在任务明确落入上述范围时使用本技能。
-- 把文档当作产品：建立反馈闭环、持续迭代，关注可发现性（SEO/搜索）与可访问性。
+Validate and lint a spec, then generate SDKs:
 
-## 互见
+```bash
+# Lint with Spectral + Redocly
+npm install -g @stoplight/spectral-cli @redocly/cli
+spectral lint openapi.yaml
+redocly lint openapi.yaml
+redocly bundle openapi.yaml -o bundled.yaml
+redocly preview-docs openapi.yaml
 
-- 技术写作 / 文档风格规范类技能（文书 domain）。
-- API 设计与契约驱动开发相关技能。
-- CI/CD 与 docs-as-code 自动化部署相关技能。
+# Generate multi-language SDKs from the spec
+npm install -g @openapitools/openapi-generator-cli
+openapi-generator-cli generate -i openapi.yaml -g typescript-fetch \
+  -o ./generated/typescript-client \
+  --additional-properties=supportsES6=true,npmName=@myorg/api-client
+openapi-generator-cli generate -i openapi.yaml -g python \
+  -o ./generated/python-client --additional-properties=packageName=api_client
+openapi-generator-cli generate -i openapi.yaml -g go -o ./generated/go-client
+```
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+Minimal OpenAPI 3.1 skeleton with a JWT security scheme:
+
+```yaml
+openapi: 3.1.0
+info:
+  title: User Management API
+  version: 2.0.0
+servers:
+  - url: https://api.example.com/v2
+    description: Production
+paths:
+  /users:
+    get:
+      operationId: listUsers
+      summary: List all users
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserListResponse' }
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token from /auth/login
+security:
+  - bearerAuth: []
+```
+
+Representative requests:
+
+- "Create a comprehensive OpenAPI 3.1 specification for this REST API with authentication examples."
+- "Generate SDKs in Python, JavaScript, and Go from this OpenAPI spec."
+- "Design a migration guide for developers upgrading from API v1 to v2."
+- "Create webhook documentation with security best practices and payload examples."
+- "Build automated testing for all code examples in our API documentation."
+
+## Notes
+
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review; verify the spec in a real environment before shipping.
+- Stop and ask for clarification if required inputs (target audience, API scope, auth method, success criteria) or permission/safety boundaries are missing.
+- Use this skill only when the task clearly matches the scope above.
+- Treat documentation as a product: build feedback loops, iterate continuously, and optimize for discoverability (SEO/search) and accessibility.
+
+**Do's:** use `$ref` to reuse schemas/parameters/responses; add real-world examples; document all error codes; version the API (URL or header); use semantic versioning for spec changes.
+
+**Don'ts:** generic descriptions; skipping security schemes; forgetting `nullable`; mixing naming styles; hardcoding URLs instead of server variables.
+
+## See also
+
+- Technical writing / documentation style-guide skills (writing domain).
+- API design and contract-driven development skills (`api-design-principles`, `rest-api-endpoint-builder`).
+- CI/CD and docs-as-code automated deployment skills.
+- `technical-reference-builder`, `docs-architect`, `code-tutorial-engineer`.

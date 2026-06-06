@@ -1,14 +1,14 @@
 ---
 name: sector-landscape-report
-title: 行业格局综述报告
-description: 当需要为客户、行业首次覆盖或主题研究撰写行业/赛道格局综述时使用；做市场规模—竞争格局—估值—投资含义全景调研并产出综述报告（Word/PPT＋Excel附录）；不适用于单家公司深度估值建模或个股买卖建议；触发词：行业报告、赛道综述、市场格局、主题研究
+title: Sector Overview
+description: Create comprehensive industry and sector landscape reports covering market dynamics, competitive positioning, key players, and thematic trends. Use for client requests, sector initiations, thematic research pieces, or internal knowledge building. Triggers on "sector overview", "industry report", "market landscape", "sector analysis", "industry deep dive", or "thematic research".
 domain: 商业/finance
-triggers: [行业格局, 赛道综述, 行业报告, 市场格局, 行业研究, 主题研究, sector overview, industry report, market landscape]
-tags: [商业, finance, 行业研究, 市场分析, 竞争格局, 估值]
-level: 进阶
+triggers: [sector overview, industry report, market landscape]
+tags: [finance]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, WebSearch, WebFetch]
+tools: []
 requires: []
 related: [market-sizing-tam-sam-som, competitive-analysis, competitive-matrix-builder, initiating-coverage-report]
 combines_with: [market-sizing-tam-sam-som, competitive-matrix-builder]
@@ -16,73 +16,86 @@ license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0
 ---
-## 何时使用
+# Sector Overview
 
-适用于撰写行业或细分赛道的「格局综述」：客户委托报告、行业首次覆盖（sector initiation）、主题研究、内部知识沉淀，或为找投资标的做行业扫描。
+## Workflow
 
-不该用的边界：
-- 只需对单家公司做深度财务建模 / DCF 估值时——本技能聚焦行业全景而非个股建模。
-- 需要给出明确买入/卖出个股建议时——本技能产出格局判断与投资含义，不替代投资决策。
-- 缺乏可引用的公开市场数据来源时——综述高度依赖可溯源数据，先补数据再开工。
+### Step 1: Define Scope
 
-## 步骤
+- **Sector / subsector**: What industry and how narrowly defined?
+- **Purpose**: Client report, internal research, pitch material, idea generation
+- **Depth**: High-level overview (5-10 pages) or deep dive (20-30 pages)
+- **Angle**: Neutral landscape vs. thematic thesis (e.g., "AI infrastructure buildout")
+- **Universe**: Public companies only, or include private?
 
-### 步骤 1：界定范围（先对齐，再动手）
-- **赛道/子赛道**：是哪个行业，颗粒度多细。
-- **目的**：客户报告、内部研究、路演材料，还是产生投资想法。
-- **深度**：概览（5–10 页）还是深度（20–30 页）。
-- **视角**：中立的格局扫描，还是带主题论点（如「AI 基础设施扩张」）。
-- **样本范围**：仅上市公司，还是含未上市公司。
+### Step 2: Market Overview
 
-### 步骤 2：市场概览
-**市场规模与增速**：TAM（注明来源）、历史 5 年 CAGR、预测增速及关键假设、市场细分（按产品 / 地域 / 终端市场 / 客户类型）。
-**行业结构**：分散还是集中（CR5 市占率）、价值链地图（价值在哪环节沉淀）、商业模式类型（订阅 / 交易 / 授权 / 服务）、进入壁垒（资本 / 监管 / 技术 / 网络效应）。
-**关键趋势与驱动**：长期顺风（3–5 个主趋势）、逆风与风险、技术颠覆向量、监管动向、并购与整合趋势。
+**Market Size & Growth**
+- Total addressable market (TAM) with source
+- Historical growth rate (5-year CAGR)
+- Forecast growth rate and key assumptions
+- Market segmentation (by product, geography, end market, customer type)
 
-### 步骤 3：竞争格局
-对头部 5–10 家公司，用对比表打底：
+**Industry Structure**
+- Fragmented vs. consolidated — top 5 market share
+- Value chain map — where does value accrue?
+- Business model types (subscription, transaction, licensing, services)
+- Barriers to entry (capital, regulatory, technical, network effects)
 
-| 公司 | 营收 | 增速 | EBITDA 利润率 | 市占率 | 核心差异化 |
-|------|------|------|--------------|--------|-----------|
-|      |      |      |              |        |           |
+**Key Trends & Drivers**
+- Secular tailwinds (3-5 major trends)
+- Headwinds and risks
+- Technology disruption vectors
+- Regulatory developments
+- M&A activity and consolidation trends
 
-每家附简档：业务描述（2–3 句）、战略定位与护城河、近期动态（财报 / 并购 / 新品）、估值快照（P/E、EV/EBITDA、EV/Revenue）。
-**竞争动态**：靠什么竞争（价格 / 产品 / 服务 / 渠道）、谁在抢份额及原因、新进入者或邻近玩家的颠覆风险。
+### Step 3: Competitive Landscape
 
-### 步骤 4：估值背景
-- 板块交易倍数（当前与历史区间）。
-- 溢价/折价驱动因素（增长、利润率、市场地位）。
-- 近期并购交易倍数。
-- 板块相对大盘如何。
+**Company Profiles** (for top 5-10 players):
 
-### 步骤 5：投资含义
-- 风险收益比最佳的机会在哪。
-- 可借该赛道表达哪些主题性押注。
-- 赛道核心争议（多空论点对垒）。
-- 可能扭转赛道叙事的催化剂。
+| Company | Revenue | Growth | EBITDA Margin | Market Share | Key Differentiator |
+|---------|---------|--------|--------------|-------------|-------------------|
+| | | | | | |
 
-### 步骤 6：产出
-- Word 或 PowerPoint，含：市场概览与规模测算、竞争格局图、公司对比表、估值小结，以及关键图表（市场增长、份额变迁、估值历史）。
-- Excel 附录：详细的公司数据。
+For each company, brief profile:
+- Business description (2-3 sentences)
+- Strategic positioning and moat
+- Recent developments (earnings, M&A, product launches)
+- Valuation snapshot (P/E, EV/EBITDA, EV/Revenue)
 
-## 指令
-- 先用步骤 1 五要素与需求方确认范围，避免做完返工。
-- 所有市场规模数据必须标注来源（研究机构或测算方法），用 WebSearch/WebFetch 取数并记录链接与日期。
-- 在报告显著位置标注「数据截止日期」，并对可能过时的数据打旗标。
+**Competitive Dynamics**
+- How do companies compete? (price, product, service, distribution)
+- Who is gaining/losing share and why?
+- Disruption risk from new entrants or adjacent players
 
-## 示例
-用户：「帮我做一份『AI 基础设施』赛道的格局综述，给客户路演用，深度版。」
-执行要点：范围＝AI 基础设施子赛道、目的＝客户路演、深度＝20–30 页、视角＝带「AI 基建扩张」主题论点、样本＝上市为主可含关键未上市公司 → 按步骤 2–5 产出市场规模/结构/趋势、头部公司对比表＋简档、估值背景、投资含义，最后输出 PPT＋Excel 附录，并把「so what」对齐到该客户场景（如标的识别 / 市场进入）。
+### Step 4: Valuation Context
 
-## 注意事项
-- 所有市场规模数据务必溯源，区分「TAM 炒作」与现实可触达市场。
-- 行业综述「保鲜期」短，务必注明日期并标记可能陈旧的数据。
-- 图表是刚需：市场规模瀑布图、竞争定位矩阵、估值散点图。
-- 面向客户时，把「所以呢（so what）」对齐到其具体诉求（并购标的识别、竞争定位、市场进入）。
+- Sector trading multiples (current and historical range)
+- Premium/discount drivers (growth, margins, market position)
+- Recent M&A transaction multiples
+- How does the sector compare to the broader market?
 
-## 互见
-- 个股深度估值建模 / DCF（行业综述下钻到单一标的时）。
-- 主题投资论点撰写（将赛道格局升级为可执行投资主题时）。
+### Step 5: Investment Implications
 
----
-采编自 anthropics/financial-services（Apache-2.0）。
+- Where are the best risk/reward opportunities?
+- What thematic bets can be expressed through this sector?
+- Key debates in the sector (bull vs. bear arguments)
+- Catalysts that could change the sector narrative
+
+### Step 6: Output
+
+- Word document or PowerPoint with:
+  - Market overview and sizing
+  - Competitive landscape map
+  - Company comparison table
+  - Valuation summary
+  - Key charts: market growth, share trends, valuation history
+- Excel appendix with detailed company data
+
+## Important Notes
+
+- Source all market size data — cite the research firm or methodology
+- Distinguish between TAM hype and realistic addressable market
+- Sector overviews age fast — note the date and flag data that may be stale
+- Charts are essential — market size waterfall, competitive positioning matrix, valuation scatter plot
+- If for a client, tailor the "so what" to their specific situation (M&A target identification, competitive positioning, market entry)

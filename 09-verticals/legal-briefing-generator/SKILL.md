@@ -1,14 +1,14 @@
 ---
 name: legal-briefing-generator
-title: 法务情报简报（日报/专题/应急）
-description: 当法务人员需要跨邮件/日历/IM/合同库(CLM)/CRM 抓取法律相关动态、就某法律议题做内部检索、或对突发事件(数据泄露/诉讼威胁/监管问询)快速汇总背景时使用；按 daily/topic/incident 三模式生成结构化简报 .md（紧急项、合同管线、时间线、即时法律考量、建议下一步）；不适用于出具法律意见、正式判例法检索或替代执业律师审阅。触发词：法务日报、晨报、法律简报、专题检索、事件应急、数据泄露、监管问询
+title: /brief -- Legal Team Briefing
+description: Generate contextual briefings for legal work — daily summary, topic research, or incident response. Use when starting your day and need a scan of legal-relevant items across email, calendar, and contracts, when researching a specific legal question across internal sources, or when a developing situation (data breach, litigation threat, regulatory inquiry) needs rapid context.
 domain: 领域/legal
-triggers: [法务日报, 法律晨报, 法务简报, 法律简报, 专题简报, 议题检索, 事件应急简报, 突发事件, 数据泄露, 诉讼威胁, 监管问询, daily brief, topic brief, incident brief, legal briefing]
+triggers: [daily brief, topic brief, incident brief, legal briefing]
 tags: [legal, briefing, daily-brief, topic-research, incident-response, data-breach, compliance, markdown]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [markdown]
+tools: []
 requires: []
 related: [legal-meeting-briefing, legal-risk-classifier, regulatory-policy-diff, legal-inquiry-responder]
 combines_with: [legal-meeting-briefing, legal-risk-classifier, contract-renewal-tracker]
@@ -16,117 +16,205 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 法务情报简报（日报/专题/应急）
+# /brief -- Legal Team Briefing
 
-> 重要：本技能辅助法务工作流，**不提供法律意见**。简报须由合格法律专业人士审阅后方可据以行动。
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-## 何时使用
+Generate contextual briefings for legal work. Supports three modes: daily brief, topic brief, and incident brief.
 
-三种模式，无模式时先问用户要哪种：
+**Important**: This command assists with legal workflows but does not provide legal advice. Briefings should be reviewed by qualified legal professionals before being relied upon.
 
-- **daily（日报）**：开工时需横扫邮件 / 日历 / IM / 合同库(CLM) / CRM 中的法律相关动态，形成一份「今天该知道什么」的晨报。
-- **topic（专题）**：就某个具体法律议题（如「员工竞业条款现行做法」）在**内部可用来源**中检索、综合成结构化背景简报。
-- **incident（应急）**：突发事件（数据泄露、诉讼威胁、监管问询、IP 争议等）需在最短时间内汇总背景与即时法律考量。
-
-不该用：
-- **不出具法律意见 / 不做正式判例法检索**——需要现行法律权威或判例时，引导用户用 Westlaw / Lexis 等法律检索平台或外部律师。
-- **不替代律师审阅**——简报是给法务人员的工作底稿，不是定稿结论。
-- 源不可用时**不臆造**——明确标注「未检查 / 不可用」的缺口。
-
-## 步骤
-
-按模式路由（`daily | topic <query> | incident`）。每种来源「若已连接」才扫，未连接则计入缺口区。
-
-**daily**：逐一扫描各来源的法律相关项——
-- 邮件：新合同/审查请求、合规问题、对手方就在谈交易的回复、法务收件箱紧急项、外部律师沟通、监管/法律更新简讯。
-- 日历：今日需法务准备的会议（董事会、交易评审、供应商电话）、本周临近 deadline（合同到期、申报截止、答复期限）、法务团队例会。
-- IM：法务频道隔夜消息、@法务的求助、合规/隐私/NDA/条款等关键词提及、升级或紧急请求。
-- CLM：待审/待签合同、未来 30 天临近到期、新签生效协议。
-- CRM：进入需法务介入阶段的交易、标记需法务审查的新机会。
-
-**topic**：① 接收议题 query；② 跨来源检索——文档（内部备忘、既往分析、playbook、先例）、邮件（既往沟通）、IM（团队讨论）、CLM（相关合同/条款）；③ 综合成结构化简报。
-
-**incident**：① 接收事件描述；② 快速扫全部已连接来源——邮件（事件沟通）、IM（实时讨论与升级）、文档（应急预案、保险条款）、日历（已排应急会）、CLM（受影响合同、赔偿/保险条款）；③ 汇成可执行简报。**速度优先**：用现有信息快速出稿，不等齐全。
-
-## 指令
-
-**输出三种格式（按模式套用）**，统一为 Markdown：
-
-日报 —
-```
-## 每日法务简报 — [日期]
-### 紧急 / 需行动        （按紧迫度排序）
-### 合同管线            待你审查 / 待对手方回复 / 临近 deadline（本周）
-### 新请求              自上次简报以来收到的审查/NDA/合规请求
-### 今日日历            有法务相关性的会议 + 需做什么准备
-### 团队动态            法务频道关键消息/更新
-### 本周 deadline
-### 不可用来源          未连接或报错的来源
-```
-
-专题 —
-```
-## 专题简报：[议题]
-### 摘要（2-3 句执行级结论）
-### 背景（内部来源中的脉络与历史）
-### 现状（基于现有文档的组织立场/做法）
-### 关键考量（要素、风险、未决问题）
-### 内部先例（既往决策、备忘、立场）
-### 缺口（缺失信息 / 未可用来源）
-### 建议下一步
-```
-
-应急 —
-```
-## 应急简报：[议题]
-**编制时间**：[timestamp]   **定级**：[可判定时的严重度]
-### 态势摘要 / ### 时间线（按现有来源时序）
-### 即时法律考量（监管通报义务、证据保全义务、特免权顾虑）
-### 相关协议（合同、保单、赔偿/保险条款）
-### 内部已采取响应 / ### 关键联系人
-### 建议立即行动（1. 最紧急 2. … 3. …）
-### 信息缺口 / ### 已检查来源
-```
-
-**应急专项约束（务必遵守）**：
-- 立即标记任何**诉讼证据保全 / litigation hold** 义务（详见 `legal-hold-manager`）。
-- 关注**特免权**：如涉律师参与，简报恰当标注「律师-当事人特免 / 工作成果」（`[PRIVILEGED & CONFIDENTIAL — ATTORNEY-CLIENT]`）。
-- 涉数据泄露时，**标出适用通报时限**（如 GDPR 72 小时）。
-- 事关重大时，建议引入外部律师。
-
-## 示例
+## Invocation
 
 ```
-/brief daily
-/brief topic 员工竞业条款现行做法
-/brief incident 第三方供应商疑似数据泄露
+/brief daily              # Morning brief of legal-relevant items
+/brief topic [query]      # Research brief on a specific legal question
+/brief incident [topic]   # Rapid brief on a developing situation
 ```
 
-应急简报开头（含定级与特免标注）：
-```
-## 应急简报：供应商数据泄露
-**编制时间**：2026-06-02 09:30   **定级**：高（疑涉个人数据）
-[PRIVILEGED & CONFIDENTIAL — ATTORNEY-CLIENT WORK PRODUCT]
-### 即时法律考量
-- GDPR 第 33 条：自察觉起 72 小时内向监管机构通报（倒计时已起算）。
-- 已触发证据保全义务 → 见 legal-hold-manager。
-```
+If no mode is specified, ask the user which type of brief they need.
 
-## 注意事项
-
-- 来源不可用时**显著标注缺口**，让用户清楚哪些没查。
-- 日报应**随用户偏好迭代**（记住其觉得有用 / 想过滤的内容）。
-- 简报须**可执行**：每一项都给出明确下一步或入选理由。
-- **保持精简**：链接到原始材料，而非整段复述。
-- 全程不构成法律意见；最终判断与据以行动前，须经执业律师审阅。
-
-## 互见
-
-- related：`legal-risk-classifier` —— 对简报中识别出的事项做法律风险定级。
-- related：`litigation-chronology-builder` —— 应急/诉讼简报的时间线可下钻为正式案件时序。
-- related：`diligence-issue-extractor`、`privilege-log-reviewer` —— 专题检索与特免标注的配套。
-- combines_with：`legal-hold-manager` —— 应急简报标记保全义务后，由其签发/管理证据保全通知。
+## Modes
 
 ---
 
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+### Daily Brief
+
+A morning summary of everything a legal team member needs to know to start their day.
+
+#### Sources to Scan
+
+Check each connected source for legal-relevant items:
+
+**Email (if connected):**
+- New contract requests or review requests
+- Compliance questions or reports
+- Responses from counterparties on active negotiations
+- Flagged or urgent items from the legal team inbox
+- External counsel communications
+- Regulatory or legal update newsletters
+
+**Calendar (if connected):**
+- Today's meetings that need legal prep (board meetings, deal reviews, vendor calls)
+- Upcoming deadlines this week (contract expirations, filing deadlines, response deadlines)
+- Recurring legal team syncs
+
+**Chat (if connected):**
+- Overnight messages in legal team channels
+- Direct messages requesting legal input
+- Mentions of legal-relevant topics (contract, compliance, privacy, NDA, terms)
+- Escalations or urgent requests
+
+**CLM (if connected):**
+- Contracts awaiting review or signature
+- Approaching expiration dates (next 30 days)
+- Newly executed agreements
+
+**CRM (if connected):**
+- Deals moving to stages that require legal involvement
+- New opportunities flagged for legal review
+
+#### Output Format
+
+```
+## Daily Legal Brief -- [Date]
+
+### Urgent / Action Required
+[Items needing immediate attention, sorted by urgency]
+
+### Contract Pipeline
+- **Awaiting Your Review**: [count and list]
+- **Pending Counterparty Response**: [count and list]
+- **Approaching Deadlines**: [items due this week]
+
+### New Requests
+[Contract review requests, NDA requests, compliance questions received since last brief]
+
+### Calendar Today
+[Meetings with legal relevance and what prep is needed]
+
+### Team Activity
+[Key messages or updates from legal team channels]
+
+### This Week's Deadlines
+[Upcoming deadlines and filing dates]
+
+### Sources Not Available
+[Any sources that were not connected or returned errors]
+```
+
+---
+
+### Topic Brief
+
+Research and brief on a specific legal question or topic across available sources.
+
+#### Workflow
+
+1. Accept the topic query from the user
+2. Search across connected sources:
+   - **Documents**: Internal memos, prior analyses, playbooks, precedent
+   - **Email**: Prior communications on the topic
+   - **Chat**: Team discussions about the topic
+   - **CLM**: Related contracts or clauses
+3. Synthesize findings into a structured brief
+
+#### Output Format
+
+```
+## Topic Brief: [Topic]
+
+### Summary
+[2-3 sentence executive summary of findings]
+
+### Background
+[Context and history from internal sources]
+
+### Current State
+[What the organization's current position or approach is, based on available documents]
+
+### Key Considerations
+[Important factors, risks, or open questions]
+
+### Internal Precedent
+[Prior decisions, memos, or positions found in internal sources]
+
+### Gaps
+[What information is missing or what sources were not available]
+
+### Recommended Next Steps
+[What the user should do with this information]
+```
+
+#### Important Notes
+- Topic briefs synthesize what is available in connected sources; they do not substitute for formal legal research
+- If the topic requires current legal authority or case law, recommend the user consult a legal research platform (Westlaw, Lexis, etc.) or outside counsel
+- Always note the limitations of the sources searched
+
+---
+
+### Incident Brief
+
+Rapid briefing for developing situations that require immediate legal attention (data breaches, litigation threats, regulatory inquiries, IP disputes, etc.).
+
+#### Workflow
+
+1. Accept the incident topic or description
+2. Rapidly scan all connected sources for relevant context:
+   - **Email**: Communications about the incident
+   - **Chat**: Real-time discussions and escalations
+   - **Documents**: Relevant policies, response plans, insurance coverage
+   - **Calendar**: Scheduled response meetings
+   - **CLM**: Affected contracts, indemnification provisions, insurance requirements
+3. Compile into an actionable incident brief
+
+#### Output Format
+
+```
+## Incident Brief: [Topic]
+**Prepared**: [timestamp]
+**Classification**: [severity assessment if determinable]
+
+### Situation Summary
+[What is known about the incident]
+
+### Timeline
+[Chronological summary of events based on available sources]
+
+### Immediate Legal Considerations
+[Regulatory notification requirements, preservation obligations, privilege concerns]
+
+### Relevant Agreements
+[Contracts, insurance policies, or other agreements that may be implicated]
+
+### Internal Response
+[What response activity has already occurred based on email/chat]
+
+### Key Contacts
+[Relevant internal and external contacts identified from sources]
+
+### Recommended Immediate Actions
+1. [Most urgent action]
+2. [Second priority]
+3. [etc.]
+
+### Information Gaps
+[What is not yet known and needs to be determined]
+
+### Sources Checked
+[What was searched and what was not available]
+```
+
+#### Important Notes for Incident Briefs
+- Speed matters. Produce the brief quickly with available information rather than waiting for complete information
+- Flag any litigation hold or preservation obligations immediately
+- Note privilege considerations (mark the brief as attorney-client privileged / work product if appropriate)
+- If the incident may involve a data breach, flag applicable notification deadlines (e.g., 72 hours for GDPR)
+- Recommend outside counsel engagement if the matter is significant
+
+## General Notes
+
+- If sources are unavailable, note the gaps prominently so the user knows what was not checked
+- For daily briefs, learn the user's preferences over time (what they find useful, what they want filtered out)
+- Briefs should be actionable: every item should have a clear next step or reason for inclusion
+- Keep briefs concise. Link to source materials rather than reproducing them in full

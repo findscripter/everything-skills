@@ -1,14 +1,14 @@
 ---
 name: algolia-search-integration
-title: Algolia 搜索集成与索引优化
-description: 当为 Web/前端应用接入 Algolia 即时搜索、构建索引同步管道或调优相关性时使用；做 InstantSearch/SSR 集成、批量与增量索引、API Key 安全分发、可搜索属性与自定义排序、分面过滤与自动补全的落地方案；不适用于自建 ES/向量检索或非 Algolia 搜索后端。触发词：algolia、instantsearch、搜索索引、typeahead、faceted search
+title: Algolia Search Integration
+description: Expert patterns for Algolia search implementation, indexing
 domain: 研发/backend
-triggers: [接入 Algolia 搜索, React InstantSearch 集成, Next.js 搜索 SSR, Algolia 索引同步与批量更新, 搜索相关性/自定义排序调优, 分面过滤 faceted search, 搜索自动补全 autocomplete, Algolia API Key 安全, typeahead 即时搜索, search index 配置]
-tags: [algolia, instantsearch, 搜索, 索引, relevance, faceting, autocomplete, nextjs, react, backend]
-level: 进阶
+triggers: []
+tags: [algolia, instantsearch, relevance, faceting, autocomplete, nextjs, react, backend]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [algoliasearch, react-instantsearch, react-instantsearch-nextjs, @algolia/autocomplete-js]
+tools: []
 requires: []
 related: [hybrid-search-retrieval, exa-semantic-search, rest-api-endpoint-builder, vector-index-tuning]
 combines_with: [shadcn-ui-components, fastapi-async-api, react-state-management]
@@ -16,143 +16,918 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Algolia Search Integration
 
-适用：
-- 给前端应用接入 Algolia 即时搜索（type-ahead / search-as-you-type），用 React InstantSearch（含 Next.js SSR）。
-- 建立并维护索引同步管道：全量重建、整记录更新、增量部分更新。
-- 配置 API Key 安全策略（搜索专用 Key、Secured Key、限速 Key）。
-- 调优相关性：可搜索属性顺序、自定义排序、同义词、Query Rules。
-- 实现分面过滤（RefinementList / HierarchicalMenu / RangeInput）与自动补全 / 查询建议。
+Expert patterns for Algolia search implementation, indexing strategies, React InstantSearch, and relevance tuning
 
-不该用（负边界）：
-- 后端是自建 Elasticsearch / OpenSearch / Meilisearch / 向量检索，而非 Algolia——本技能命令与 SaaS 约束不通用。
-- 仅做一次性数据库全文 `LIKE` 查询、无需托管搜索服务的简单场景。
-- 缺少 App ID / Admin Key / 索引数据来源等必要输入时——先停下来确认。
+## Patterns
 
-## 步骤
+### React InstantSearch with Hooks
 
-1. 划分客户端：前端只用「搜索专用 Key」+ `algoliasearch/lite`；写操作（索引、配置、生成 Secured Key）一律放服务端，用 Admin Key。
-2. 设计记录结构：每条记录必须有唯一 `objectID`；日期用时间戳（`getTime()`）以便排序；剔除不需要检索的字段。
-3. 建立索引同步：优先增量更新（`partialUpdateObject`），批量写用 `saveObjects`（每批 1K–10K 条 / ≤10MB）；删除用 `deleteObjects(ids)` 而非 `deleteBy`。
-4. 配置索引设置：`searchableAttributes`（按重要性排序）、`attributesForFaceting`、`customRanking`（叠加业务指标），并加同义词与 Rules。
-5. 接入前端：普通 SPA 用 `<InstantSearch>`；Next.js SSR 用 `<InstantSearchNext>` 并 `export const dynamic = 'force-dynamic'`。
-6. 加分面与排序：分面属性须先在 `attributesForFaceting` 声明；多维排序用 replica 副本索引（如 `products_price_asc`）。
-7. 加自动补全：用 `@algolia/autocomplete-js` 或内置 Autocomplete widget，建议启用 Query Suggestions 索引。
-8. 校验上线：确认无 Admin Key 进入前端、无硬编码凭据、无循环单条索引、无频繁全量重建。
+Modern React InstantSearch setup using hooks for type-ahead search.
 
-## 指令
+Uses react-instantsearch-hooks-web package with algoliasearch client.
+Widgets are components that can be customized with classnames.
 
-- 前端搜索客户端（搜索专用 Key + lite）：
-```ts
+Key hooks:
+- useSearchBox: Search input handling
+- useHits: Access search results
+- useRefinementList: Facet filtering
+- usePagination: Result pagination
+- useInstantSearch: Full state access
+
+### Code_example
+
 // lib/algolia.ts
 import algoliasearch from 'algoliasearch/lite';
+
 export const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
-  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY!  // 仅搜索 Key
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY!  // Search-only key!
 );
+
 export const INDEX_NAME = 'products';
-```
 
-- 服务端批量索引（Admin Key，切勿暴露前端）：
-```ts
-const index = adminClient.initIndex('products');
-const BATCH_SIZE = 1000;
-for (let i = 0; i < records.length; i += BATCH_SIZE) {
-  await index.saveObjects(records.slice(i, i + BATCH_SIZE));
-}
-```
-
-- 部分更新与原子操作：
-```ts
-await index.partialUpdateObject({ objectID, price, updatedAt: Date.now() });
-await index.partialUpdateObject({
-  objectID, viewCount: { _operation: 'Increment', value: 1 },
-});
-```
-
-- 零停机全量重建（写临时索引 → 拷贝设置 → 原子交换）：
-```ts
-await tempIndex.saveObjects(/* ... */);
-await adminClient.copyIndex('products', 'products_temp', { scope: ['settings','synonyms','rules'] });
-await adminClient.moveIndex('products_temp', 'products');
-```
-
-- 服务端生成用户级 Secured Key：
-```ts
-adminClient.generateSecuredApiKey(searchKey, {
-  filters: `userId:${userId}`,
-  validUntil: Math.floor(Date.now()/1000) + 3600,
-  restrictIndices: ['user_documents'],
-});
-```
-
-- 索引相关性设置（顺序即权重）：
-```ts
-await index.setSettings({
-  searchableAttributes: ['name','brand','category','description'],
-  attributesForFaceting: ['category','brand','filterOnly(inStock)','searchable(tags)'],
-  customRanking: ['desc(popularity)','desc(rating)','desc(createdAt)'],
-  typoTolerance: true, minWordSizefor1Typo: 4, minWordSizefor2Typos: 8,
-  attributesToHighlight: ['name','description'],
-});
-```
-
-## 示例
-
-前端即时搜索（React InstantSearch + Hooks）：
-```tsx
+// components/Search.tsx
 'use client';
 import { InstantSearch, SearchBox, Hits, Configure } from 'react-instantsearch';
 import { searchClient, INDEX_NAME } from '@/lib/algolia';
+
+function Hit({ hit }: { hit: ProductHit }) {
+  return (
+    <article>
+      <h3>{hit.name}</h3>
+      <p>{hit.description}</p>
+      <span>${hit.price}</span>
+    </article>
+  );
+}
 
 export function ProductSearch() {
   return (
     <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
       <Configure hitsPerPage={20} />
-      <SearchBox placeholder="搜索产品..." />
+      <SearchBox
+        placeholder="Search products..."
+        classNames={{
+          root: 'relative',
+          input: 'w-full px-4 py-2 border rounded',
+        }}
+      />
       <Hits hitComponent={Hit} />
     </InstantSearch>
   );
 }
-```
-自定义 Hooks：`useSearchBox`（输入/refine）、`useHits`（结果）、`useRefinementList`（分面）、`usePagination`（分页）、`useInstantSearch`（全局状态/`status`）。
 
-分面 + 多维排序（排序需 replica 副本索引）：
-```tsx
-<SortBy items={[
-  { label: '相关性', value: 'products' },
-  { label: '价格升序', value: 'products_price_asc' },
-  { label: '评分', value: 'products_rating_desc' },
-]} />
-<HierarchicalMenu attributes={['categories.lvl0','categories.lvl1','categories.lvl2']} />
-<RefinementList attribute="brand" searchable showMore limit={5} />
-<RangeInput attribute="price" />
-// 副本: products_price_asc → customRanking: ['asc(price)']
-```
+// Custom hook usage
+import { useSearchBox, useHits, useInstantSearch } from 'react-instantsearch';
 
-Next.js SSR：用 `<InstantSearchNext>` 替换 `<InstantSearch>`，并设 `export const dynamic = 'force-dynamic'` 保证结果新鲜。
+function CustomSearch() {
+  const { query, refine } = useSearchBox();
+  const { hits } = useHits<ProductHit>();
+  const { status } = useInstantSearch();
 
-## 注意事项
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={(e) => refine(e.target.value)}
+        placeholder="Search..."
+      />
+      {status === 'loading' && <p>Loading...</p>}
+      <ul>
+        {hits.map((hit) => (
+          <li key={hit.objectID}>{hit.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-- 致命（CRITICAL）：Admin Key 绝不进入前端代码，它能删库改配置；前端只用搜索专用或 Secured Key。
-- 凭据全部走环境变量，禁止硬编码。
-- 索引用 Admin Key，搜索用搜索 Key——用错 Key 会报权限错误。
-- 批量索引：禁止循环里单条 `saveObject`；用 `saveObjects` 成批；删除用 `deleteObjects` 而非 `deleteBy`（昂贵且限速）。
-- 全量重建消耗大量操作配额且会刷新整个索引；小改动一律走 `partialUpdateObject` 增量。
-- 每次按键 = 一次搜索操作，注意配额；Algolia 自带防抖，无需手写。
-- 公开搜索设 `maxQueriesPerIPPerHour` 限速，防机器人耗尽配额。
-- 分面属性必须先在 `attributesForFaceting` 声明，否则报错；不展示的过滤用 `filterOnly()`。
-- `searchableAttributes` 顺序直接影响相关性；缺 `customRanking` 会忽略业务价值。
-- SSR 易出 hydration mismatch；副本索引会成倍增加存储；索引名勿含 PII（网络可见）。
+### Anti_patterns
 
-## 互见
+- Pattern: Using Admin API key in frontend code | Why: Admin key exposes full index control including deletion | Fix: Use search-only API key with restrictions
+- Pattern: Not using /lite client for frontend | Why: Full client includes unnecessary code for search | Fix: Import from algoliasearch/lite for smaller bundle
 
-- 电商下单/支付 → stripe-integration（搜索引导购买）
-- 搜索分析埋点 → segment-cdp（追踪查询与结果）
-- 用户鉴权（按用户发 Secured Key）→ clerk-auth
-- 索引数据来源（数据库）→ postgres-wizard
-- 索引任务的 Serverless 部署 → aws-serverless
+### References
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。原始来源标注为 vibeship-spawner-skills（Apache 2.0）。
+- https://www.algolia.com/doc/api-reference/widgets/react
+- https://www.algolia.com/doc/libraries/javascript/v5/methods/search/
+
+### Next.js Server-Side Rendering
+
+SSR integration for Next.js with react-instantsearch-nextjs package.
+
+Use <InstantSearchNext> instead of <InstantSearch> for SSR.
+Supports both Pages Router and App Router (experimental).
+
+Key considerations:
+- Set dynamic = 'force-dynamic' for fresh results
+- Handle URL synchronization with routing prop
+- Use getServerState for initial state
+
+### Code_example
+
+// app/search/page.tsx
+import { InstantSearchNext } from 'react-instantsearch-nextjs';
+import { searchClient, INDEX_NAME } from '@/lib/algolia';
+import { SearchBox, Hits, RefinementList } from 'react-instantsearch';
+
+// Force dynamic rendering for fresh search results
+export const dynamic = 'force-dynamic';
+
+export default function SearchPage() {
+  return (
+    <InstantSearchNext
+      searchClient={searchClient}
+      indexName={INDEX_NAME}
+      routing={{
+        router: {
+          cleanUrlOnDispose: false,
+        },
+      }}
+    >
+      <div className="flex gap-8">
+        <aside className="w-64">
+          <h3>Categories</h3>
+          <RefinementList attribute="category" />
+          <h3>Brand</h3>
+          <RefinementList attribute="brand" />
+        </aside>
+        <main className="flex-1">
+          <SearchBox placeholder="Search products..." />
+          <Hits hitComponent={ProductHit} />
+        </main>
+      </div>
+    </InstantSearchNext>
+  );
+}
+
+// For custom routing (URL synchronization)
+import { history } from 'instantsearch.js/es/lib/routers';
+import { simple } from 'instantsearch.js/es/lib/stateMappings';
+
+<InstantSearchNext
+  searchClient={searchClient}
+  indexName={INDEX_NAME}
+  routing={{
+    router: history({
+      getLocation: () =>
+        typeof window === 'undefined'
+          ? new URL(url) as unknown as Location
+          : window.location,
+    }),
+    stateMapping: simple(),
+  }}
+>
+  {/* widgets */}
+</InstantSearchNext>
+
+### Anti_patterns
+
+- Pattern: Using InstantSearch component for Next.js SSR | Why: Regular component doesn't support server-side rendering | Fix: Use InstantSearchNext from react-instantsearch-nextjs
+- Pattern: Static rendering for search pages | Why: Search results must be fresh for each request | Fix: Set export const dynamic = 'force-dynamic'
+
+### References
+
+- https://www.npmjs.com/package/react-instantsearch-nextjs
+- https://www.algolia.com/developers/code-exchange/instantsearch-and-next-js-starter
+
+### Data Synchronization and Indexing
+
+Indexing strategies for keeping Algolia in sync with your data.
+
+Three main approaches:
+1. Full Reindexing - Replace entire index (expensive)
+2. Full Record Updates - Replace individual records
+3. Partial Updates - Update specific attributes only
+
+Best practices:
+- Batch records (ideal: 10MB, 1K-10K records per batch)
+- Use incremental updates when possible
+- partialUpdateObjects for attribute-only changes
+- Avoid deleteBy (computationally expensive)
+
+### Code_example
+
+// lib/algolia-admin.ts (SERVER ONLY)
+import algoliasearch from 'algoliasearch';
+
+// Admin client - NEVER expose to frontend
+const adminClient = algoliasearch(
+  process.env.ALGOLIA_APP_ID!,
+  process.env.ALGOLIA_ADMIN_KEY!  // Admin key for indexing
+);
+
+const index = adminClient.initIndex('products');
+
+// Batch indexing (recommended approach)
+export async function indexProducts(products: Product[]) {
+  const records = products.map((p) => ({
+    objectID: p.id,  // Required unique identifier
+    name: p.name,
+    description: p.description,
+    price: p.price,
+    category: p.category,
+    inStock: p.inventory > 0,
+    createdAt: p.createdAt.getTime(),  // Use timestamps for sorting
+  }));
+
+  // Batch in chunks of ~1000-5000 records
+  const BATCH_SIZE = 1000;
+  for (let i = 0; i < records.length; i += BATCH_SIZE) {
+    const batch = records.slice(i, i + BATCH_SIZE);
+    await index.saveObjects(batch);
+  }
+}
+
+// Partial update - update only specific fields
+export async function updateProductPrice(productId: string, price: number) {
+  await index.partialUpdateObject({
+    objectID: productId,
+    price,
+    updatedAt: Date.now(),
+  });
+}
+
+// Partial update with operations
+export async function incrementViewCount(productId: string) {
+  await index.partialUpdateObject({
+    objectID: productId,
+    viewCount: {
+      _operation: 'Increment',
+      value: 1,
+    },
+  });
+}
+
+// Delete records (prefer this over deleteBy)
+export async function deleteProducts(productIds: string[]) {
+  await index.deleteObjects(productIds);
+}
+
+// Full reindex with zero-downtime (atomic swap)
+export async function fullReindex(products: Product[]) {
+  const tempIndex = adminClient.initIndex('products_temp');
+
+  // Index to temp index
+  await tempIndex.saveObjects(
+    products.map((p) => ({
+      objectID: p.id,
+      ...p,
+    }))
+  );
+
+  // Copy settings from main index
+  await adminClient.copyIndex('products', 'products_temp', {
+    scope: ['settings', 'synonyms', 'rules'],
+  });
+
+  // Atomic swap
+  await adminClient.moveIndex('products_temp', 'products');
+}
+
+### Anti_patterns
+
+- Pattern: Using deleteBy for bulk deletions | Why: deleteBy is computationally expensive and rate limited | Fix: Use deleteObjects with array of objectIDs
+- Pattern: Indexing one record at a time | Why: Creates indexing queue, slows down process | Fix: Batch records in groups of 1K-10K
+- Pattern: Full reindex for small changes | Why: Wastes operations, slower than incremental | Fix: Use partialUpdateObject for attribute changes
+
+### References
+
+- https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/in-depth/the-different-synchronization-strategies
+- https://www.algolia.com/blog/engineering/search-indexing-best-practices-for-top-performance-with-code-samples
+
+### API Key Security and Restrictions
+
+Secure API key configuration for Algolia.
+
+Key types:
+- Admin API Key: Full control (indexing, settings, deletion)
+- Search-Only API Key: Safe for frontend
+- Secured API Keys: Generated from base key with restrictions
+
+Restrictions available:
+- Indices: Limit accessible indices
+- Rate limit: Limit API calls per hour per IP
+- Validity: Set expiration time
+- HTTP referrers: Restrict to specific URLs
+- Query parameters: Enforce search parameters
+
+### Code_example
+
+// NEVER do this - admin key in frontend
+// const client = algoliasearch(appId, ADMIN_KEY);  // WRONG!
+
+// Correct: Use search-only key in frontend
+const searchClient = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY!
+);
+
+// Server-side: Generate secured API key
+// lib/algolia-secured-key.ts
+import algoliasearch from 'algoliasearch';
+
+const adminClient = algoliasearch(
+  process.env.ALGOLIA_APP_ID!,
+  process.env.ALGOLIA_ADMIN_KEY!
+);
+
+// Generate user-specific secured key
+export function generateSecuredKey(userId: string) {
+  const searchKey = process.env.ALGOLIA_SEARCH_KEY!;
+
+  return adminClient.generateSecuredApiKey(searchKey, {
+    // User can only see their own data
+    filters: `userId:${userId}`,
+    // Key expires in 1 hour
+    validUntil: Math.floor(Date.now() / 1000) + 3600,
+    // Restrict to specific index
+    restrictIndices: ['user_documents'],
+  });
+}
+
+// Rate-limited key for public APIs
+export async function createRateLimitedKey() {
+  const { key } = await adminClient.addApiKey({
+    acl: ['search'],
+    indexes: ['products'],
+    description: 'Public search with rate limit',
+    maxQueriesPerIPPerHour: 1000,
+    referers: ['https://mysite.com/*'],
+    validity: 0,  // Never expires
+  });
+
+  return key;
+}
+
+// API endpoint to get user's secured key
+// app/api/search-key/route.ts
+import { auth } from '@/lib/auth';
+import { generateSecuredKey } from '@/lib/algolia-secured-key';
+
+export async function GET() {
+  const session = await auth();
+  if (!session?.user) {
+    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const securedKey = generateSecuredKey(session.user.id);
+
+  return Response.json({ key: securedKey });
+}
+
+### Anti_patterns
+
+- Pattern: Hardcoding Admin API key in client code | Why: Exposes full index control to attackers | Fix: Use search-only key with restrictions
+- Pattern: Using same key for all users | Why: Can't restrict data access per user | Fix: Generate secured API keys with user filters
+- Pattern: No rate limiting on public search | Why: Bots can exhaust your search quota | Fix: Set maxQueriesPerIPPerHour on API key
+
+### References
+
+- https://www.algolia.com/doc/guides/security/api-keys
+- https://support.algolia.com/hc/en-us/articles/14339249272977-What-are-the-best-practices-to-manage-Algolia-API-keys-in-my-code-and-protect-them
+
+### Custom Ranking and Relevance Tuning
+
+Configure searchable attributes and custom ranking for relevance.
+
+Searchable attributes (order matters):
+1. Most important fields first (title, name)
+2. Secondary fields next (description, tags)
+3. Exclude non-searchable fields (image_url, id)
+
+Custom ranking:
+- Add business metrics (popularity, rating, date)
+- Use desc() for descending, asc() for ascending
+
+### Code_example
+
+// scripts/configure-index.ts
+import algoliasearch from 'algoliasearch';
+
+const adminClient = algoliasearch(
+  process.env.ALGOLIA_APP_ID!,
+  process.env.ALGOLIA_ADMIN_KEY!
+);
+
+const index = adminClient.initIndex('products');
+
+async function configureIndex() {
+  await index.setSettings({
+    // Searchable attributes in order of importance
+    searchableAttributes: [
+      'name',              // Most important
+      'brand',
+      'category',
+      'description',       // Least important
+    ],
+
+    // Attributes for faceting/filtering
+    attributesForFaceting: [
+      'category',
+      'brand',
+      'filterOnly(inStock)',  // Filter only, not displayed
+      'searchable(tags)',     // Searchable facet
+    ],
+
+    // Custom ranking (after text relevance)
+    customRanking: [
+      'desc(popularity)',     // Most popular first
+      'desc(rating)',         // Then by rating
+      'desc(createdAt)',      // Then by recency
+    ],
+
+    // Typo tolerance
+    typoTolerance: true,
+    minWordSizefor1Typo: 4,
+    minWordSizefor2Typos: 8,
+
+    // Query settings
+    queryLanguages: ['en'],
+    removeStopWords: ['en'],
+
+    // Highlighting
+    attributesToHighlight: ['name', 'description'],
+    highlightPreTag: '<mark>',
+    highlightPostTag: '</mark>',
+
+    // Pagination
+    hitsPerPage: 20,
+    paginationLimitedTo: 1000,
+
+    // Distinct (deduplication)
+    attributeForDistinct: 'productFamily',
+    distinct: true,
+  });
+
+  // Add synonyms
+  await index.saveSynonyms([
+    {
+      objectID: 'phone-mobile',
+      type: 'synonym',
+      synonyms: ['phone', 'mobile', 'cell', 'smartphone'],
+    },
+    {
+      objectID: 'laptop-notebook',
+      type: 'oneWaySynonym',
+      input: 'laptop',
+      synonyms: ['notebook', 'portable computer'],
+    },
+  ]);
+
+  // Add rules (query-based customization)
+  await index.saveRules([
+    {
+      objectID: 'boost-sale-items',
+      condition: {
+        anchoring: 'contains',
+        pattern: 'sale',
+      },
+      consequence: {
+        params: {
+          filters: 'onSale:true',
+          optionalFilters: ['featured:true'],
+        },
+      },
+    },
+  ]);
+
+  console.log('Index configured successfully');
+}
+
+configureIndex();
+
+### Anti_patterns
+
+- Pattern: Searching all attributes equally | Why: Reduces relevance, matches in descriptions rank same as titles | Fix: Order searchableAttributes by importance
+- Pattern: No custom ranking | Why: Relies only on text matching, ignores business value | Fix: Add popularity, rating, or recency to customRanking
+- Pattern: Indexing raw dates as strings | Why: Can't sort by date correctly | Fix: Use timestamps (getTime()) for date sorting
+
+### References
+
+- https://www.algolia.com/doc/guides/managing-results/relevance-overview
+- https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking
+
+### Faceted Search and Filtering
+
+Implement faceted navigation with refinement lists, range sliders,
+and hierarchical menus.
+
+Widget types:
+- RefinementList: Multi-select checkboxes
+- Menu: Single-select list
+- HierarchicalMenu: Nested categories
+- RangeInput/RangeSlider: Numeric ranges
+- ToggleRefinement: Boolean filters
+
+### Code_example
+
+'use client';
+import {
+  InstantSearch,
+  SearchBox,
+  Hits,
+  RefinementList,
+  HierarchicalMenu,
+  RangeInput,
+  ToggleRefinement,
+  ClearRefinements,
+  CurrentRefinements,
+  Stats,
+  SortBy,
+} from 'react-instantsearch';
+import { searchClient, INDEX_NAME } from '@/lib/algolia';
+
+export function ProductSearch() {
+  return (
+    <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
+      <div className="flex gap-8">
+        {/* Filters Sidebar */}
+        <aside className="w-64 space-y-6">
+          <ClearRefinements />
+          <CurrentRefinements />
+
+          {/* Category hierarchy */}
+          <div>
+            <h3 className="font-semibold mb-2">Categories</h3>
+            <HierarchicalMenu
+              attributes={[
+                'categories.lvl0',
+                'categories.lvl1',
+                'categories.lvl2',
+              ]}
+              limit={10}
+              showMore
+            />
+          </div>
+
+          {/* Brand filter */}
+          <div>
+            <h3 className="font-semibold mb-2">Brand</h3>
+            <RefinementList
+              attribute="brand"
+              searchable
+              searchablePlaceholder="Search brands..."
+              showMore
+              limit={5}
+              showMoreLimit={20}
+            />
+          </div>
+
+          {/* Price range */}
+          <div>
+            <h3 className="font-semibold mb-2">Price</h3>
+            <RangeInput
+              attribute="price"
+              precision={0}
+              classNames={{
+                input: 'w-20 px-2 py-1 border rounded',
+              }}
+            />
+          </div>
+
+          {/* In stock toggle */}
+          <ToggleRefinement
+            attribute="inStock"
+            label="In Stock Only"
+            on={true}
+          />
+
+          {/* Rating filter */}
+          <div>
+            <h3 className="font-semibold mb-2">Rating</h3>
+            <RefinementList
+              attribute="rating"
+              transformItems={(items) =>
+                items.map((item) => ({
+                  ...item,
+                  label: '★'.repeat(Number(item.label)),
+                }))
+              }
+            />
+          </div>
+        </aside>
+
+        {/* Results */}
+        <main className="flex-1">
+          <div className="flex justify-between items-center mb-4">
+            <SearchBox placeholder="Search products..." />
+            <SortBy
+              items={[
+                { label: 'Relevance', value: 'products' },
+                { label: 'Price (Low to High)', value: 'products_price_asc' },
+                { label: 'Price (High to Low)', value: 'products_price_desc' },
+                { label: 'Rating', value: 'products_rating_desc' },
+              ]}
+            />
+          </div>
+          <Stats />
+          <Hits hitComponent={ProductHit} />
+        </main>
+      </div>
+    </InstantSearch>
+  );
+}
+
+// For sorting, create replica indices
+// products_price_asc: customRanking: ['asc(price)']
+// products_price_desc: customRanking: ['desc(price)']
+// products_rating_desc: customRanking: ['desc(rating)']
+
+### Anti_patterns
+
+- Pattern: Faceting on non-faceted attributes | Why: Must declare attributesForFaceting in settings | Fix: Add attributes to attributesForFaceting array
+- Pattern: Not using filterOnly() for hidden filters | Why: Wastes facet computation on non-displayed attributes | Fix: Use filterOnly(attribute) for filters you won't show
+
+### References
+
+- https://www.algolia.com/doc/guides/managing-results/refine-results/faceting
+- https://www.algolia.com/doc/api-reference/widgets/refinement-list/react
+
+### Query Suggestions and Autocomplete
+
+Implement autocomplete with query suggestions and instant results.
+
+Uses @algolia/autocomplete-js for standalone autocomplete or
+integrate with InstantSearch using SearchBox.
+
+Query Suggestions require a separate index generated by Algolia.
+
+### Code_example
+
+// Standalone Autocomplete
+// components/Autocomplete.tsx
+'use client';
+import { autocomplete, getAlgoliaResults } from '@algolia/autocomplete-js';
+import algoliasearch from 'algoliasearch/lite';
+import { useEffect, useRef } from 'react';
+import '@algolia/autocomplete-theme-classic';
+
+const searchClient = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY!
+);
+
+export function Autocomplete() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const search = autocomplete({
+      container: containerRef.current,
+      placeholder: 'Search for products',
+      openOnFocus: true,
+      getSources({ query }) {
+        if (!query) return [];
+
+        return [
+          // Query suggestions
+          {
+            sourceId: 'suggestions',
+            getItems() {
+              return getAlgoliaResults({
+                searchClient,
+                queries: [
+                  {
+                    indexName: 'products_query_suggestions',
+                    query,
+                    params: { hitsPerPage: 5 },
+                  },
+                ],
+              });
+            },
+            templates: {
+              header() {
+                return 'Suggestions';
+              },
+              item({ item, html }) {
+                return html`<span>${item.query}</span>`;
+              },
+            },
+          },
+          // Instant results
+          {
+            sourceId: 'products',
+            getItems() {
+              return getAlgoliaResults({
+                searchClient,
+                queries: [
+                  {
+                    indexName: 'products',
+                    query,
+                    params: { hitsPerPage: 8 },
+                  },
+                ],
+              });
+            },
+            templates: {
+              header() {
+                return 'Products';
+              },
+              item({ item, html }) {
+                return html`
+                  <a href="/products/${item.objectID}">
+                    <img src="${item.image}" alt="${item.name}" />
+                    <span>${item.name}</span>
+                    <span>$${item.price}</span>
+                  </a>
+                `;
+              },
+            },
+            onSelect({ item, setQuery, refresh }) {
+              // Navigate on selection
+              window.location.href = `/products/${item.objectID}`;
+            },
+          },
+        ];
+      },
+    });
+
+    return () => search.destroy();
+  }, []);
+
+  return <div ref={containerRef} />;
+}
+
+// Combined with InstantSearch
+import { connectSearchBox } from 'react-instantsearch';
+import { autocomplete } from '@algolia/autocomplete-js';
+
+// Or use built-in Autocomplete widget
+import { Autocomplete as AlgoliaAutocomplete } from 'react-instantsearch';
+
+export function SearchWithAutocomplete() {
+  return (
+    <InstantSearch searchClient={searchClient} indexName="products">
+      <AlgoliaAutocomplete
+        placeholder="Search products..."
+        detachedMediaQuery="(max-width: 768px)"
+      />
+      <Hits hitComponent={ProductHit} />
+    </InstantSearch>
+  );
+}
+
+### Anti_patterns
+
+- Pattern: Creating autocomplete without debouncing | Why: Every keystroke triggers search, wastes operations | Fix: Algolia autocomplete handles debouncing automatically
+- Pattern: Not using Query Suggestions index | Why: Missing search analytics for popular queries | Fix: Enable Query Suggestions in Algolia dashboard
+
+### References
+
+- https://www.algolia.com/doc/ui-libraries/autocomplete/introduction/what-is-autocomplete
+- https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/query-suggestions/how-to/optimizing-query-suggestions-relevance/js
+
+## Sharp Edges
+
+### Admin API Key in Frontend Code
+
+Severity: CRITICAL
+
+### Indexing Rate Limits and Throttling
+
+Severity: HIGH
+
+### Record Size and Index Limits
+
+Severity: MEDIUM
+
+### PII in Index Names Visible in Network
+
+Severity: MEDIUM
+
+### Searchable Attributes Order Affects Relevance
+
+Severity: MEDIUM
+
+### Full Reindex Consumes All Operations
+
+Severity: MEDIUM
+
+### Every Keystroke Counts as Search Operation
+
+Severity: MEDIUM
+
+### SSR Hydration Mismatch with InstantSearch
+
+Severity: MEDIUM
+
+### Replica Indices for Sorting Multiply Storage
+
+Severity: LOW
+
+### Faceting Requires attributesForFaceting Declaration
+
+Severity: MEDIUM
+
+## Validation Checks
+
+### Admin API Key in Client Code
+
+Severity: ERROR
+
+Admin API key must never be exposed to client-side code
+
+Message: Admin API key exposed to client. Use search-only key.
+
+### Hardcoded Algolia API Key
+
+Severity: ERROR
+
+API keys should use environment variables
+
+Message: Hardcoded Algolia credentials. Use environment variables.
+
+### Search Key Used for Indexing
+
+Severity: ERROR
+
+Indexing operations require admin key, not search key
+
+Message: Search key used for indexing. Use admin key for write operations.
+
+### Single Record Indexing in Loop
+
+Severity: WARNING
+
+Batch records together for efficient indexing
+
+Message: Single record indexing in loop. Use saveObjects for batch indexing.
+
+### Using deleteBy for Deletion
+
+Severity: WARNING
+
+deleteBy is expensive and rate-limited
+
+Message: deleteBy is expensive. Prefer deleteObjects with specific IDs.
+
+### Frequent Full Reindex
+
+Severity: WARNING
+
+Full reindex wastes operations on unchanged data
+
+Message: Frequent full reindex. Consider incremental sync for unchanged data.
+
+### Full Client Instead of Lite
+
+Severity: INFO
+
+Use lite client for smaller bundle in frontend
+
+Message: Full Algolia client imported. Use algoliasearch/lite for frontend.
+
+### Regular InstantSearch in Next.js
+
+Severity: WARNING
+
+Use react-instantsearch-nextjs for SSR support
+
+Message: Using regular InstantSearch. Use InstantSearchNext for Next.js SSR.
+
+### Missing Searchable Attributes Configuration
+
+Severity: WARNING
+
+Configure searchableAttributes for better relevance
+
+Message: No searchableAttributes configured. Set attribute priority for relevance.
+
+### Missing Custom Ranking
+
+Severity: INFO
+
+Custom ranking improves business relevance
+
+Message: No customRanking configured. Add business metrics (popularity, rating).
+
+## Collaboration
+
+### Delegation Triggers
+
+- user needs e-commerce checkout -> stripe-integration (Product search leading to purchase)
+- user needs search analytics -> segment-cdp (Track search queries and results)
+- user needs user authentication -> clerk-auth (Secured API keys per user)
+- user needs database setup -> postgres-wizard (Source data for indexing)
+- user needs serverless deployment -> aws-serverless (Lambda for indexing jobs)
+
+## When to Use
+- User mentions or implies: adding search to
+- User mentions or implies: algolia
+- User mentions or implies: instantsearch
+- User mentions or implies: search api
+- User mentions or implies: search functionality
+- User mentions or implies: typeahead
+- User mentions or implies: autocomplete search
+- User mentions or implies: faceted search
+- User mentions or implies: search index
+- User mentions or implies: search as you type
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

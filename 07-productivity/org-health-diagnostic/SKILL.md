@@ -1,14 +1,14 @@
 ---
 name: org-health-diagnostic
-title: 组织健康度跨职能诊断
-description: 当需要评估公司整体健康度、准备董事会汇报或识别高风险职能时使用；做跨 C 级（财务/营收/产品/工程/人力/运营/安全/市场）八维红黄绿评分并产出带优先级与级联预警的健康度仪表盘；不适用于单一职能深度复盘或个人绩效评估。触发词：组织健康度、health check、健康度仪表盘
+title: Org Health Diagnostic
+description: Cross-functional organizational health check combining signals from all C-suite roles. Scores 8 dimensions on a traffic-light scale with drill-down recommendations. Use when assessing overall company health, preparing for board reviews, identifying at-risk functions, or when user mentions org health, health check, or health dashboard.
 domain: 协作/pm
-triggers: [组织健康度, 健康度诊断, health check, 健康度仪表盘, 公司健康度, 董事会汇报评估, 高风险职能识别, health dashboard, 健康度评分卡, 风险仪表盘]
-tags: [协作, pm, 组织诊断, 健康度, c级, 董事会, 风险评估, okr, dora, 跨职能]
-level: 进阶
+triggers: [health check, health dashboard]
+tags: [pm, okr, dora]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [health_scorer.py]
+tools: []
 requires: []
 related: [boardroom-deliberation, chief-of-staff-orchestrator, company-operating-system, company-culture-builder]
 combines_with: [boardroom-deliberation, chief-of-staff-orchestrator, board-deck-builder]
@@ -16,128 +16,174 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Org Health Diagnostic
 
-适用于需要**一眼看清公司整体状况**的场景：
+Eight dimensions. Traffic lights. Real benchmarks. Surfaces the problems you don't know you have.
 
-- 评估公司/团队整体健康度，定位你尚未察觉的问题。
-- 准备董事会评审、投资人更新或季度复盘。
-- 识别处于风险中的职能，预判即将发生的级联恶化。
-- 用户提到「组织健康度 / health check / 健康度仪表盘 / 风险仪表盘」等。
+## Keywords
+org health, organizational health, health diagnostic, health dashboard, health check, company health, functional health, team health, startup health, health scorecard, health assessment, risk dashboard
 
-**不该用的边界：**
-
-- 单一职能的深度根因分析（应交给对应的专项 C 级顾问技能下钻）。
-- 个人绩效评估、人才盘点（这是组织级而非个人级诊断）。
-- 缺乏任何量化指标、纯主观感受的场合——本技能依赖可对标的数据，但支持部分缺失。
-
-## 步骤
-
-1. **确定阶段**：先明确公司处于 Seed / Series A / B / C，阈值与权重随阶段变化（早期对烧钱倍数更宽容，后期对资本效率更严苛）。
-2. **采集八维指标**：按下方八个维度收集关键指标；缺失的指标标记为「[需补数据]」，不阻塞评分。
-3. **逐维评分**：每维按红黄绿对照阶段基准打 1–10 分。
-4. **加权汇总**：按阶段权重计算总分与趋势（↑改善 / →稳定 / ↓恶化）。
-5. **排优先级 + 级联预警**：列出红/黄项的行动建议，并用「维度联动表」预测下一个会被拖垮的维度。
-6. **输出仪表盘**：按标准格式呈现，标注下一周期需补齐的数据缺口。
-
-### 八个维度（含红黄绿阈值，以 Series A 为基准示例）
-
-| 维度 | 关键指标（绿 / 黄 / 红） |
-|---|---|
-| 💰 财务 (CFO) | 现金跑道 >12 / 6–12 / <6 月；烧钱倍数 <2x；毛利 >65%；客户集中度 <25% |
-| 📈 营收 (CRO) | NRR >110 / 100–110 / <100%；Logo 流失 <10%/年；管道覆盖 >3x；CAC 回收 <18 月 |
-| 🚀 产品 (CPO) | NPS >40 / 20–40 / <20；DAU/MAU >35%；核心功能采用 >55%；CSAT >4.2/5 |
-| ⚙️ 工程 (CTO) | DORA：部署频率（日）；变更失败率 <10%；MTTR <2h；技术债 <25%；P0/月 <2 |
-| 👥 人力 (CHRO) | 遗憾流失 <12% / 红 >18%；eNPS >30；填补周期 <45 天；内部晋升 >25% |
-| 🔄 运营 (COO) | OKR 完成率 >70 / 50–70 / <50%；决策周期 <48h；流程成熟度 1–5 级 |
-| 🔒 安全 (CISO) | 90 天事件数 0；关键 CVE 按 SLA 修复 100%；安全培训 >90%；渗透测试 <12 月 |
-| 📣 市场 (CMO) | 赢单率 >25%；自然 vs 付费线索占比（自然越高越健康）；CAC 趋势；品牌 NPS |
-
-> 完整四阶段（Seed/A/B/C）基准与权重见随技能附带的 `references/health-benchmarks.md`。
-
-### 红绿灯与评分
-
-- 🟢 绿 (7–10)：健康，维持并优化。
-- 🟡 黄 (4–6)：观察，趋势是关键——在改善还是恶化？
-- 🔴 红 (1–3)：需在 30 天内处置。
-- **总分** = 各维得分按阶段权重加权平均（如 Seed 期财务占 30%，安全 0%；C 期营收占 25%）。
-
-### 维度联动表（一个问题如何引爆另一个）
-
-| 若此维变红 | 接着盯这些维度 |
-|---|---|
-| 财务 | 人力（冻结招聘）→ 工程（冻结基建）→ 产品（砍范围） |
-| 营收 | 财务（现金缺口）→ 人力（流失风险）→ 市场（失去定位） |
-| 人力 | 工程（速度下降）→ 产品（质量下降）→ 营收（流失上升） |
-| 工程 | 产品（功能延期）→ 营收（因产品卡单） |
-| 产品 | 营收（NRR 跌、流失升）→ 市场（CAC 升、口碑枯竭） |
-| 运营 | 所有维度随时间退化（执行失败会级联到处蔓延） |
-
-**关键洞察**：人力是**领先指标**而非滞后指标——等流失体现在数字里时，下一波已成定局。优先修人力与工程问题，因为它们级联到一切；财务问题需即时响应（无滞后）。
-
-## 指令
-
-引导式 CLI 评分工具（仅依赖标准库）：
+## Quick Start
 
 ```bash
-python scripts/health_scorer.py        # 引导式 CLI：录入指标，输出评分仪表盘
-python scripts/health_scorer.py --json # 输出原始 JSON，便于集成
+python scripts/health_scorer.py        # Guided CLI — enter metrics, get scored dashboard
+python scripts/health_scorer.py --json # Output raw JSON for integration
 ```
 
-或直接描述指标，让助手评分：
-
+Or describe your metrics:
 ```
-/health [粘贴你的关键指标，或按提示作答]
+/health [paste your key metrics or answer prompts]
 /health:dimension [financial|revenue|product|engineering|people|ops|security|market]
 ```
 
-**优雅降级**：无需凑齐所有指标即可诊断。缺失指标 → 排除出评分并标记「[需补数据]」；可用维度的得分依然有效；报告会标出下个周期需补齐的缺口。
+## The 8 Dimensions
 
-## 示例
+### 1. 💰 Financial Health (CFO)
+**What it measures:** Can we fund operations and invest in growth?
 
-```
-组织健康度诊断 —— [公司] —— [日期]
-阶段：Series A   总分：6.1/10   趋势：↓ 恶化
+Key metrics:
+- **Runway** — months at current burn (Green: >12, Yellow: 6-12, Red: <6)
+- **Burn multiple** — net burn / net new ARR (Green: <1.5x, Yellow: 1.5-2.5x, Red: >2.5x)
+- **Gross margin** — SaaS target: >65% (Green: >70%, Yellow: 55-70%, Red: <55%)
+- **MoM growth rate** — contextual by stage (see benchmarks)
+- **Revenue concentration** — top customer % of ARR (Green: <15%, Yellow: 15-25%, Red: >25%)
 
-维度评分
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💰 财务    🟢 8.2  跑道 14 月，烧钱 1.6x —— 强
-📈 营收    🟡 5.8  NRR 104%，管道薄（覆盖 1.8x）
-🚀 产品    🟢 7.4  NPS 42，DAU/MAU 38%
-⚙️ 工程    🟡 5.2  技术债 30%，MTTR 3.2h
-👥 人力    🔴 3.8  流失 24%，工程士气低
-🔄 运营    🟡 6.0  OKR 完成率 65%
-🔒 安全    🟢 7.8  SOC 2 Type II 完成，0 事件
-📣 市场    🟡 5.5  CAC 上升，赢单率跌至 22%
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+### 2. 📈 Revenue Health (CRO)
+**What it measures:** Are customers staying, growing, and recommending us?
 
-最高优先级
-🔴 [1] 人力：流失 24% —— 60 天内工程速度将下滑
-   行动：CHRO + CEO 本周做留任审计，锁定前 5 位高风险人员
-🟡 [2] 营收：管道覆盖 1.8x —— 下季度未达标风险高
-   行动：CRO 30 天内补 3 个合格商机，否则下调预测
-🟡 [3] 工程：技术债占冲刺 30% —— Q3 交付会变慢
-   行动：CTO 提债务冲刺计划，COO 保护产能
+Key metrics:
+- **NRR (Net Revenue Retention)** — Green: >110%, Yellow: 100-110%, Red: <100%
+- **Logo churn rate (annualized)** — Green: <5%, Yellow: 5-10%, Red: >10%
+- **Pipeline coverage (next quarter)** — Green: >3x, Yellow: 2-3x, Red: <2x
+- **CAC payback period** — Green: <12 months, Yellow: 12-18, Red: >18 months
+- **Average ACV trend** — directional: growing, flat, declining
 
-观察
-→ 若流失持续，存在 人力→工程 级联风险（见维度联动表）
-```
+### 3. 🚀 Product Health (CPO)
+**What it measures:** Do customers love and use the product?
 
-## 注意事项
+Key metrics:
+- **NPS** — Green: >40, Yellow: 20-40, Red: <20
+- **DAU/MAU ratio** — engagement proxy (Green: >40%, Yellow: 20-40%, Red: <20%)
+- **Core feature adoption** — % of users using primary value feature (Green: >60%)
+- **Time-to-value** — days from signup to first core action (lower is better)
+- **Customer satisfaction (CSAT)** — Green: >4.2/5, Yellow: 3.5-4.2, Red: <3.5
 
-- **NRR 会掩盖问题**：NRR 110% 配 25% Logo 流失，意味着你靠大客户撑住收入却在丢小客户——务必同时看两者。
-- **DORA 是工程的行业标准**，但部署频率/MTTR 的「绿」阈值随阶段收紧，不要用绝对值一刀切。
-- **DAU/MAU 要看品类**：日用型工具（如邮件）期望日活，年度型工具（如预算工具）周活即健康；对标品类而非绝对基准。
-- **OKR 100% 完成 = 目标定太低**；60–70% 才是合理的有挑战且可执行区间；<40% 说明战略与产能脱节。
-- **遗憾流失** vs 非遗憾流失：只有「你愿意立刻重新雇佣、却为更好机会离开」的遗憾流失才反映健康问题；绩效淘汰属正常。
-- 权重随阶段动态变化，跨阶段比较总分时务必同时标注阶段。
+### 4. ⚙️ Engineering Health (CTO)
+**What it measures:** Can we ship reliably and sustain velocity?
 
-## 互见
+Key metrics:
+- **Deployment frequency** — Green: daily, Yellow: weekly, Red: monthly or less
+- **Change failure rate** — % of deployments causing incidents (Green: <5%, Red: >15%)
+- **Mean time to recovery (MTTR)** — Green: <1 hour, Yellow: 1-4 hours, Red: >4 hours
+- **Tech debt ratio** — % of sprint capacity on debt (Green: <20%, Yellow: 20-35%, Red: >35%)
+- **Incident frequency** — P0/P1 per month (Green: <2, Yellow: 2-5, Red: >5)
 
-- `references/health-benchmarks.md`：Seed/A/B/C 四阶段完整基准与权重表。
-- `scripts/health_scorer.py`：带红绿灯输出的 CLI 评分工具。
-- 各 C 级专项顾问技能（CFO/CRO/CPO/CTO/CHRO/COO/CISO/CMO）：用于对单一红/黄维度下钻根因。
+### 5. 👥 People Health (CHRO)
+**What it measures:** Is the team stable, engaged, and growing?
+
+Key metrics:
+- **Regrettable attrition (annualized)** — Green: <10%, Yellow: 10-20%, Red: >20%
+- **Engagement score** — (eNPS or similar; Green: >30, Yellow: 0-30, Red: <0)
+- **Time-to-fill (avg days)** — Green: <45, Yellow: 45-90, Red: >90
+- **Manager-to-IC ratio** — Green: 1:5–1:8, Yellow: 1:3–1:5 or 1:8–1:12, Red: outside
+- **Internal promotion rate** — at least 25-30% of senior roles filled internally
+
+### 6. 🔄 Operational Health (COO)
+**What it measures:** Are we executing our strategy with discipline?
+
+Key metrics:
+- **OKR completion rate** — % of key results hitting target (Green: >70%, Yellow: 50-70%, Red: <50%)
+- **Decision cycle time** — days from decision needed to decision made (Green: <48h, Yellow: 48h-1w)
+- **Meeting effectiveness** — % of meetings with clear outcome (qualitative)
+- **Process maturity** — level 1-5 scale (see COO advisor)
+- **Cross-functional initiative completion** — % on time, on scope
+
+### 7. 🔒 Security Health (CISO)
+**What it measures:** Are we protecting customers and maintaining compliance?
+
+Key metrics:
+- **Security incidents (last 90 days)** — Green: 0, Yellow: 1-2 minor, Red: 1+ major
+- **Compliance status** — certifications current/in-progress vs. overdue
+- **Vulnerability remediation SLA** — % of critical CVEs patched within SLA (Green: 100%)
+- **Security training completion** — % of team current (Green: >95%)
+- **Pen test recency** — Green: <12 months, Yellow: 12-24, Red: >24 months
+
+### 8. 📣 Market Health (CMO)
+**What it measures:** Are we winning in the market and growing efficiently?
+
+Key metrics:
+- **CAC trend** — improving, flat, or worsening QoQ
+- **Organic vs paid lead mix** — more organic = healthier (less fragile)
+- **Win rate** — % of qualified opportunities closed-won (Green: >25%, Yellow: 15-25%, Red: <15%)
+- **Competitive win rate** — against primary competitors specifically
+- **Brand NPS** — awareness + preference scores in ICP
 
 ---
 
-*采编自 [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills)（MIT 许可）。*
+## Scoring & Traffic Lights
+
+Each dimension is scored 1-10 with traffic light:
+- 🟢 **Green (7-10):** Healthy — maintain and optimize
+- 🟡 **Yellow (4-6):** Watch — trend matters; improving or declining?
+- 🔴 **Red (1-3):** Action required — address within 30 days
+
+**Overall Health Score:**
+Weighted average by company stage (see `references/health-benchmarks.md` for weights).
+
+---
+
+## Dimension Interactions (Why One Problem Creates Another)
+
+| If this dimension is red... | Watch these dimensions next |
+|-----------------------------|----------------------------|
+| Financial Health | People (freeze hiring) → Engineering (freeze infra) → Product (cut scope) |
+| Revenue Health | Financial (cash gap) → People (attrition risk) → Market (lose positioning) |
+| People Health | Engineering (velocity drops) → Product (quality drops) → Revenue (churn rises) |
+| Engineering Health | Product (features slip) → Revenue (deals stall on product) |
+| Product Health | Revenue (NRR drops, churn rises) → Market (CAC rises; referrals dry up) |
+| Operational Health | All dimensions degrade over time (execution failure cascades everywhere) |
+
+---
+
+## Dashboard Output Format
+
+```
+ORG HEALTH DIAGNOSTIC — [Company] — [Date]
+Stage: [Seed/A/B/C]   Overall: [Score]/10   Trend: [↑ Improving / → Stable / ↓ Declining]
+
+DIMENSION SCORES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💰 Financial    🟢 8.2  Runway 14mo, burn 1.6x — strong
+📈 Revenue      🟡 5.8  NRR 104%, pipeline thin (1.8x coverage)
+🚀 Product      🟢 7.4  NPS 42, DAU/MAU 38%
+⚙️  Engineering  🟡 5.2  Debt at 30%, MTTR 3.2h
+👥 People       🔴 3.8  Attrition 24%, eng morale low
+🔄 Operations   🟡 6.0  OKR 65% completion
+🔒 Security     🟢 7.8  SOC 2 Type II complete, 0 incidents
+📣 Market       🟡 5.5  CAC rising, win rate dropped to 22%
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TOP PRIORITIES
+🔴 [1] People: attrition at 24% — engineering velocity will drop in 60 days
+   Action: CHRO + CEO to run retention audit; target top 5 at-risk this week
+🟡 [2] Revenue: pipeline coverage at 1.8x — Q+1 miss risk is high
+   Action: CRO to add 3 qualified opps within 30 days or shift forecast down
+🟡 [3] Engineering: tech debt at 30% of sprint — shipping will slow by Q3
+   Action: CTO to propose debt sprint plan; COO to protect capacity
+
+WATCH
+→ People → Engineering cascade risk if attrition continues (see dimension interactions)
+```
+
+---
+
+## Graceful Degradation
+
+You don't need all metrics to run a diagnostic. The tool handles partial data:
+- Missing metric → excluded from score, flagged as "[data needed]"
+- Score still valid for available dimensions
+- Report flags which gaps to fill for next cycle
+
+## References
+- `references/health-benchmarks.md` — benchmarks by stage (Seed, A, B, C)
+- `scripts/health_scorer.py` — CLI scoring tool with traffic light output

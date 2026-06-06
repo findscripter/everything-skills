@@ -1,14 +1,14 @@
 ---
 name: trpc-typesafe-api
-title: tRPC 端到端类型安全 API
-description: 当用 TypeScript 单仓前后端（Next.js/Remix/Express+React）需要免 Schema、免代码生成的端到端类型安全 API，或为已有 tRPC 加鉴权中间件、订阅、SSR 调用时使用；做 router/procedure 设计、Zod 输入校验、双 context 工厂、protectedProcedure、客户端 React Query 接线并产出可落地代码；不适用于跨语言/异构客户端、纯 REST/GraphQL 契约、裸 SQL 或 ORM 调优。触发词：tRPC、router、procedure、Zod、createTRPCContext、protectedProcedure、useQuery
+title: tRPC Full-Stack
+description: Build end-to-end type-safe APIs with tRPC — routers, procedures, middleware, subscriptions, and Next.js/React integration patterns.
 domain: 研发/backend
-triggers: [tRPC, router, procedure, query, mutation, subscription, Zod 输入校验, createTRPCContext, createServerContext, protectedProcedure, middleware, fetchRequestHandler, createTRPCReact, useQuery, useMutation, createCallerFactory, AppRouter, httpBatchLink, wsLink, 类型安全 API]
-tags: [trpc, typescript, api, type-safety, nextjs, react, zod, react-query, fullstack, 后端, 研发]
-level: 进阶
+triggers: [tRPC, router, procedure, query, mutation, subscription, createTRPCContext, createServerContext, protectedProcedure, middleware, fetchRequestHandler, createTRPCReact, useQuery, useMutation, createCallerFactory, AppRouter, httpBatchLink, wsLink]
+tags: [trpc, typescript, api, type-safety, nextjs, react, zod, react-query, fullstack]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Grep, Glob, Bash, Edit, Write]
+tools: []
 requires: []
 related: [zod-schema-validation, typescript-advanced-types, rest-api-endpoint-builder, graphql-architect]
 combines_with: [zod-schema-validation, tanstack-query, drizzle-orm-expert]
@@ -16,50 +16,52 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# tRPC Full-Stack
 
-适用：
+## Overview
 
-- 用 TypeScript 搭建前后端同仓的全栈应用（Next.js、Remix、Express + React），希望服务端类型直接流到客户端，调用即自动补全、编译期校验、重构安全。
-- 想要端到端类型安全、又不愿背 REST/GraphQL 的 Schema 或代码生成负担。
-- 为已有 tRPC 项目新增实时订阅（subscription / WebSocket）。
-- 设计多级中间件（鉴权、限流、租户隔离）挂到 procedure 上。
-- 把现有 REST/GraphQL 接口增量迁移到 tRPC。
+tRPC lets you build fully type-safe APIs without writing a schema or code-generation step. Your TypeScript types flow from the server router directly to the client — so every API call is autocompleted, validated at compile time, and refactoring-safe. Use this skill when building TypeScript monorepos, Next.js apps, or any project where the server and client share a codebase.
 
-不该用：
+## When to Use This Skill
 
-- 客户端与服务端不共享 TypeScript 类型（移动原生、第三方异构调用方、跨语言）—— tRPC 的类型流失效，应给出 OpenAPI/GraphQL 等显式契约。
-- 需求是裸 SQL 调优或 ORM（Prisma 等）建模，转交对应专项。
-- 仅需对外暴露公开稳定的 HTTP 契约（公共 API、Webhook 回调）。
+- Use when building a TypeScript full-stack app (Next.js, Remix, Express + React) where the client and server share a single repo
+- Use when you want end-to-end type safety on API calls without REST/GraphQL schema overhead
+- Use when adding real-time features (subscriptions) to an existing tRPC setup
+- Use when designing multi-step middleware (auth, rate limiting, tenant scoping) on tRPC procedures
+- Use when migrating an existing REST/GraphQL API to tRPC incrementally
 
-## 核心概念
+## Core Concepts
 
-- **Router / Procedure**：router 把相关 procedure 分组（≈端点）。procedure 是类型化函数：`query` 读、`mutation` 写、`subscription` 实时流。
-- **Zod 输入校验**：所有 procedure 输入用 Zod 校验，handler 里拿到的是已校验、已推导类型的 `input`，无需手动解析。
-- **Context**：每请求构建一次的共享状态（auth session、db 客户端、headers）。**关键：Next.js App Router 与 Pages Router 必须用不同的 context 工厂**——App Router handler 收到的是 fetch `Request`，不是 Node 的 `NextApiRequest`。
-- **Middleware**：在 procedure 前链式执行，用于鉴权、日志、上下文增强，可为下游 procedure 收窄/扩展 context 类型。
+### Routers and Procedures
 
-## 步骤 / 指令
+A **router** groups related **procedures** (think: endpoints). Procedures are typed functions — `query` for reads, `mutation` for writes, `subscription` for real-time streams.
 
-1. 安装并初始化 tRPC 实例与可复用构建器（`router` / `publicProcedure` / `middleware`），在 `errorFormatter` 里透出 Zod 扁平化错误。
-2. 定义**两个 context 工厂**：`createTRPCContext`（HTTP handler 用，接 `FetchCreateContextFnOptions`）与 `createServerContext`（Server Component / RSC / cron 等服务端直调用，无 HTTP 请求）。`Context` 类型从 `createTRPCContext` 返回值推导。
-3. 写鉴权 middleware（`enforceAuth`）：session 缺失抛 `TRPCError({ code: 'UNAUTHORIZED' })`，并在 `next({ ctx })` 里收窄 `session` 为非空，导出 `protectedProcedure = t.procedure.use(enforceAuth)`。
-4. 按领域拆 router（post、user、billing…），public 用 `publicProcedure`、需登录用 `protectedProcedure`，每个 procedure 用 `.input(z....)` 校验。
-5. 在 `root.ts` 合并为 `appRouter`，并 **只导出类型** `export type AppRouter = typeof appRouter`（客户端永不 import `appRouter` 实例）。
-6. 挂载 API handler（App Router）：用 `fetchRequestHandler` + fetch 版 context 工厂，导出为 `GET` / `POST`。
-7. 客户端接线：`createTRPCReact<AppRouter>()` 建 `trpc`，用 `httpBatchLink` 配 `QueryClientProvider` 包裹应用。订阅需 `splitLink` 把 subscription 路由到 `wsLink`、query/mutation 到 `httpBatchLink`。
+### Input Validation with Zod
 
-## 示例
+All procedure inputs are validated with Zod schemas. The validated, typed input is available in the procedure handler — no manual parsing.
 
-安装：
+### Context
+
+`context` is shared state passed to every procedure — auth session, database client, request headers, etc. It is built once per request in a context factory. **Important:** Next.js App Router and Pages Router require separate context factories because App Router handlers receive a fetch `Request`, not a Node.js `NextApiRequest`.
+
+### Middleware
+
+Middleware chains run before a procedure. Use them for authentication, logging, and request enrichment. They can extend the context for downstream procedures.
+
+---
+
+## How It Works
+
+### Step 1: Install and Initialize
 
 ```bash
 npm install @trpc/server @trpc/client @trpc/react-query @tanstack/react-query zod
 ```
 
-实例与 Zod 错误透出（`src/server/trpc.ts`）：
+Create the tRPC instance and reusable builders:
 
 ```typescript
+// src/server/trpc.ts
 import { initTRPC, TRPCError } from '@trpc/server';
 import { type Context } from './context';
 import { ZodError } from 'zod';
@@ -70,7 +72,8 @@ const t = initTRPC.context<Context>().create({
       ...shape,
       data: {
         ...shape.data,
-        zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
+        zodError:
+          error.cause instanceof ZodError ? error.cause.flatten() : null,
       },
     };
   },
@@ -81,20 +84,30 @@ export const publicProcedure = t.procedure;
 export const middleware = t.middleware;
 ```
 
-双 context 工厂（`src/server/context.ts`）：
+### Step 2: Define Two Context Factories
+
+Next.js App Router handlers receive a fetch `Request` (not a Node.js `NextApiRequest`), so the context
+must be built differently depending on the call site. Define one factory per surface:
 
 ```typescript
+// src/server/context.ts
 import { type FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
-import { auth } from '@/server/auth';
+import { auth } from '@/server/auth'; // Next-Auth v5 / your auth helper
 import { db } from './db';
 
-// App Router Route Handler 用：opts.req 是 fetch Request
+/**
+ * Context for the HTTP handler (App Router Route Handler).
+ * `opts.req` is the fetch Request — auth is resolved server-side via `auth()`.
+ */
 export async function createTRPCContext(opts: FetchCreateContextFnOptions) {
-  const session = await auth();
+  const session = await auth(); // server-side auth — no req/res needed
   return { session, db, headers: opts.req.headers };
 }
 
-// Server Component / RSC / cron 直调用：无 HTTP 请求，直接 auth()
+/**
+ * Context for direct server-side callers (Server Components, RSC, cron jobs).
+ * No HTTP request is involved, so we call auth() directly from the server.
+ */
 export async function createServerContext() {
   const session = await auth();
   return { session, db };
@@ -103,54 +116,110 @@ export async function createServerContext() {
 export type Context = Awaited<ReturnType<typeof createTRPCContext>>;
 ```
 
-鉴权中间件与受保护 procedure：
+### Step 3: Build an Auth Middleware and Protected Procedure
 
 ```typescript
+// src/server/trpc.ts (continued)
 const enforceAuth = middleware(({ ctx, next }) => {
-  if (!ctx.session?.user) throw new TRPCError({ code: 'UNAUTHORIZED' });
-  return next({ ctx: { session: { ...ctx.session, user: ctx.session.user } } });
+  if (!ctx.session?.user) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+  return next({
+    ctx: {
+      // Narrows type: session is non-null from here
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
 });
 
 export const protectedProcedure = t.procedure.use(enforceAuth);
 ```
 
-带分页游标的 router（`src/server/routers/post.ts` 节选）：
+### Step 4: Create Routers
 
 ```typescript
+// src/server/routers/post.ts
+import { z } from 'zod';
+import { router, publicProcedure, protectedProcedure } from '../trpc';
+import { TRPCError } from '@trpc/server';
+
 export const postRouter = router({
   list: publicProcedure
-    .input(z.object({
-      limit: z.number().min(1).max(100).default(20),
-      cursor: z.string().optional(),
-    }))
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100).default(20),
+        cursor: z.string().optional(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const posts = await ctx.db.post.findMany({
         take: input.limit + 1,
         cursor: input.cursor ? { id: input.cursor } : undefined,
         orderBy: { createdAt: 'desc' },
       });
-      const nextCursor = posts.length > input.limit ? posts.pop()!.id : undefined;
+      const nextCursor =
+        posts.length > input.limit ? posts.pop()!.id : undefined;
       return { posts, nextCursor };
     }),
 
+  byId: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const post = await ctx.db.post.findUnique({ where: { id: input.id } });
+      if (!post) throw new TRPCError({ code: 'NOT_FOUND' });
+      return post;
+    }),
+
   create: protectedProcedure
-    .input(z.object({ title: z.string().min(1).max(200), body: z.string().min(1) }))
-    .mutation(async ({ ctx, input }) =>
-      ctx.db.post.create({ data: { ...input, authorId: ctx.session.user.id } })
-    ),
+    .input(
+      z.object({
+        title: z.string().min(1).max(200),
+        body: z.string().min(1),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.post.create({
+        data: { ...input, authorId: ctx.session.user.id },
+      });
+    }),
+
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const post = await ctx.db.post.findUnique({ where: { id: input.id } });
+      if (!post) throw new TRPCError({ code: 'NOT_FOUND' });
+      if (post.authorId !== ctx.session.user.id)
+        throw new TRPCError({ code: 'FORBIDDEN' });
+      return ctx.db.post.delete({ where: { id: input.id } });
+    }),
 });
 ```
 
-合并根 router 并只导出类型（`src/server/root.ts`）：
+### Step 5: Compose the Root Router and Export Types
 
 ```typescript
-export const appRouter = router({ post: postRouter, user: userRouter });
-export type AppRouter = typeof appRouter; // 客户端只 import 这个 type
+// src/server/root.ts
+import { router } from './trpc';
+import { postRouter } from './routers/post';
+import { userRouter } from './routers/user';
+
+export const appRouter = router({
+  post: postRouter,
+  user: userRouter,
+});
+
+// Export the type for the client — never import the appRouter itself on the client
+export type AppRouter = typeof appRouter;
 ```
 
-App Router handler（`src/app/api/trpc/[trpc]/route.ts`）：
+### Step 6: Mount the API Handler (Next.js App Router)
+
+The App Router handler must use `fetchRequestHandler` and the **fetch-based** context factory.
+`createTRPCContext` receives `FetchCreateContextFnOptions` (with a fetch `Request`), not
+a Pages Router `req/res` pair.
 
 ```typescript
+// src/app/api/trpc/[trpc]/route.ts
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { type FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
 import { appRouter } from '@/server/root';
@@ -161,75 +230,243 @@ const handler = (req: Request) =>
     endpoint: '/api/trpc',
     req,
     router: appRouter,
+    // opts is FetchCreateContextFnOptions — req is the fetch Request
     createContext: (opts: FetchCreateContextFnOptions) => createTRPCContext(opts),
   });
 
 export { handler as GET, handler as POST };
 ```
 
-客户端组件查询 + mutation 后失效缓存：
+### Step 7: Set Up the Client (React Query)
+
+```typescript
+// src/utils/trpc.ts
+import { createTRPCReact } from '@trpc/react-query';
+import type { AppRouter } from '@/server/root';
+
+export const trpc = createTRPCReact<AppRouter>();
+```
+
+```typescript
+// src/app/providers.tsx
+'use client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { httpBatchLink } from '@trpc/client';
+import { useState } from 'react';
+import { trpc } from '@/utils/trpc';
+
+export function TRPCProvider({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(() => new QueryClient());
+  const [trpcClient] = useState(() =>
+    trpc.createClient({
+      links: [
+        httpBatchLink({
+          url: '/api/trpc',
+          headers: () => ({ 'x-trpc-source': 'react' }),
+        }),
+      ],
+    })
+  );
+
+  return (
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </trpc.Provider>
+  );
+}
+```
+
+---
+
+## Examples
+
+### Example 1: Fetching Data in a Component
+
+```typescript
+// components/PostList.tsx
+'use client';
+import { trpc } from '@/utils/trpc';
+
+export function PostList() {
+  const { data, isLoading, error } = trpc.post.list.useQuery({ limit: 10 });
+
+  if (isLoading) return <p>Loading…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {data?.posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### Example 2: Mutation with Cache Invalidation
 
 ```typescript
 'use client';
 import { trpc } from '@/utils/trpc';
 
-// 查询
-const { data, isLoading, error } = trpc.post.list.useQuery({ limit: 10 });
+export function CreatePost() {
+  const utils = trpc.useUtils();
 
-// mutation：onSuccess 里 invalidate 触发 React Query 重取
-const utils = trpc.useUtils();
-const createPost = trpc.post.create.useMutation({
-  onSuccess: () => utils.post.list.invalidate(),
-});
+  const createPost = trpc.post.create.useMutation({
+    onSuccess: () => {
+      // Invalidate and refetch the post list
+      utils.post.list.invalidate();
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    createPost.mutate({
+      title: data.get('title') as string,
+      body: data.get('body') as string,
+    });
+    form.reset();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="title" placeholder="Title" required />
+      <textarea name="body" placeholder="Body" required />
+      <button type="submit" disabled={createPost.isPending}>
+        {createPost.isPending ? 'Creating…' : 'Create Post'}
+      </button>
+      {createPost.error && <p>{createPost.error.message}</p>}
+    </form>
+  );
+}
 ```
 
-服务端调用方（Server Component / SSR）—— 用 `createServerContext`，避免造空请求对象：
+### Example 3: Server-Side Caller (Server Components / SSR)
+
+Use `createServerContext` — the dedicated server-side factory — so that `auth()` is called
+correctly without needing a synthetic or empty request object:
 
 ```typescript
-import { createCallerFactory } from '@trpc/server';
+// app/posts/page.tsx (Next.js Server Component)
 import { appRouter } from '@/server/root';
+import { createCallerFactory } from '@trpc/server';
 import { createServerContext } from '@/server/context';
 
 const createCaller = createCallerFactory(appRouter);
-const caller = createCaller(await createServerContext());
-const { posts } = await caller.post.list({ limit: 20 });
+
+export default async function PostsPage() {
+  // Uses createServerContext — calls auth() server-side, no req/res cast needed
+  const caller = createCaller(await createServerContext());
+  const { posts } = await caller.post.list({ limit: 20 });
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+}
 ```
 
-实时订阅（节选）：服务端用 `observable` 包裹 `EventEmitter`，客户端 `trpc.notification.onNew.useSubscription(undefined, { onData })`，客户端配置需 `wsLink`。
+### Example 4: Real-Time Subscriptions (WebSocket)
 
-## 注意事项
+```typescript
+// server/routers/notifications.ts
+import { observable } from '@trpc/server/observable';
+import { EventEmitter } from 'events';
 
-最佳实践：
+const ee = new EventEmitter();
 
-- 只从服务端导出 `AppRouter` **类型**，客户端用 `import type { AppRouter }`，绝不 import `appRouter` 实例。
-- HTTP handler 用 `createTRPCContext`、Server Component / caller 用 `createServerContext`，两个工厂分开。
-- 所有输入用 Zod 校验（含分页游标、ID），不信任裸 `input`。
-- 按领域拆 router，在 `root.ts` 合并；中间件里扩展 context，避免一请求多次查库。
-- mutation 后用 `utils.<router>.<procedure>.invalidate()` 保持缓存新鲜。
-- 客户端实例按 provider 创建，勿全局共享（避免陈旧闭包）。
+export const notificationRouter = router({
+  onNew: protectedProcedure.subscription(({ ctx }) => {
+    return observable<{ message: string; at: Date }>((emit) => {
+      const onNotification = (data: { message: string }) => {
+        emit.next({ message: data.message, at: new Date() });
+      };
 
-安全：
+      const channel = `user:${ctx.session.user.id}`;
+      ee.on(channel, onNotification);
+      return () => ee.off(channel, onNotification);
+    });
+  }),
+});
+```
 
-- 鉴权一律在 `protectedProcedure` / middleware 强制执行，绝不只靠客户端校验。
-- 用 `TRPCError` 返回公开安全的 `message`，内部错误细节与堆栈只留服务端。
-- 公开 procedure 用 middleware 限流防滥用。
-
-常见坑：
-
-- protectedProcedure 里 session 恒为 `null`：检查 `createTRPCContext` 是否调用了正确的服务端 `auth()`，且 App Router handler 没有用 `as any` 塞 Pages Router 的 `req/res`。**禁止用 `as any` 强转 context**——类型不匹配会在 auth/session 取值返回 undefined 时变成运行时崩溃。
-- Server Component caller 鉴权查询失败：用 `createServerContext()`，别给 `createContext` 传空对象或 `{} as any`。
-- `Type error: AppRouter is not assignable to AnyRouter`：客户端用 `import type` 导入 `AppRouter`，不要导入整个模块。
-- mutation 后 UI 不更新：在 `onSuccess` 调 `invalidate()`。
-- `Cannot find module '@trpc/server/adapters/next'`：App Router 用 `@trpc/server/adapters/fetch` + `fetchRequestHandler`，`nextjs` adapter 仅限 Pages Router。
-- 订阅连不上：需 `splitLink` 把 subscription 走 `wsLink`、query/mutation 走 `httpBatchLink`。
-- 别把业务逻辑写进 route handler，留在 procedure 或 service 层。
-
-## 互见
-
-- related：`nestjs-expert` —— 另一条 Node 后端路线，需要面向公开/异构客户端的契约时可对比选型
-- related：`react-state-management` —— tRPC 客户端基于 React Query，服务端状态缓存与失效策略相通
-- combines_with：`prisma-orm-expert` —— procedure handler 里常用 Prisma 作为 `ctx.db`，配合做类型安全的数据访问层
+```typescript
+// Client usage — requires wsLink in the client config
+trpc.notification.onNew.useSubscription(undefined, {
+  onData(data) {
+    toast(data.message);
+  },
+});
+```
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Best Practices
+
+- ✅ **Export only `AppRouter` type** from server code — never import `appRouter` on the client
+- ✅ **Use separate context factories** — `createTRPCContext` for the HTTP handler, `createServerContext` for Server Components and callers
+- ✅ **Validate all inputs with Zod** — never trust raw `input` without a schema
+- ✅ **Split routers by domain** (posts, users, billing) and merge in `root.ts`
+- ✅ **Extend context in middleware** rather than querying the DB multiple times per request
+- ✅ **Use `utils.invalidate()`** after mutations to keep the cache fresh
+- ❌ **Don't cast context with `as any`** to silence type errors — the mismatch will surface as a runtime failure when auth or session lookups return undefined
+- ❌ **Don't use `createContext({} as any)`** in Server Components — use `createServerContext()` which calls `auth()` directly
+- ❌ **Don't put business logic in the route handler** — keep it in the procedure or a service layer
+- ❌ **Don't share the tRPC client instance globally** — create it per-provider to avoid stale closures
+
+---
+
+## Security & Safety Notes
+
+- Always enforce authorization in `protectedProcedure` — never rely on client-side checks alone
+- Validate all input shapes with Zod, including pagination cursors and IDs, to prevent injection via malformed inputs
+- Avoid exposing internal error details to clients — use `TRPCError` with a public-safe `message` and keep stack traces server-side only
+- Rate-limit public procedures using middleware to prevent abuse
+
+---
+
+## Common Pitfalls
+
+- **Problem:** Auth session is `null` in protected procedures even when the user is logged in
+  **Solution:** Ensure `createTRPCContext` uses the correct server-side auth call (e.g. `auth()` from Next-Auth v5) and is not receiving a Pages Router `req/res` cast via `as any` in an App Router handler
+
+- **Problem:** Server Component caller fails for auth-dependent queries
+  **Solution:** Use `createServerContext()` (the dedicated server-side factory) instead of passing an empty or synthetic object to `createContext`
+
+- **Problem:** "Type error: AppRouter is not assignable to AnyRouter"
+  **Solution:** Import `AppRouter` as a `type` import (`import type { AppRouter }`) on the client, not the full module
+
+- **Problem:** Mutations not reflecting in the UI after success
+  **Solution:** Call `utils.<router>.<procedure>.invalidate()` in `onSuccess` to trigger a refetch via React Query
+
+- **Problem:** "Cannot find module '@trpc/server/adapters/next'" with App Router
+  **Solution:** Use `@trpc/server/adapters/fetch` and `fetchRequestHandler` for the App Router; the `nextjs` adapter is for Pages Router only
+
+- **Problem:** Subscriptions not connecting
+  **Solution:** Subscriptions require `splitLink` — route subscriptions to `wsLink` and queries/mutations to `httpBatchLink`
+
+---
+
+## Related Skills
+
+- `@typescript-expert` — Deep TypeScript patterns used inside tRPC routers and generic utilities
+- `@react-patterns` — React hooks patterns that pair with `trpc.*.useQuery` and `useMutation`
+- `@test-driven-development` — Write procedure unit tests using `createCallerFactory` without an HTTP server
+- `@security-auditor` — Review tRPC middleware chains for auth bypass and input validation gaps
+
+## Additional Resources
+
+- [tRPC Official Docs](https://trpc.io/docs)
+- [create-t3-app](https://create.t3.gg) — Production Next.js starter with tRPC wired in
+- [tRPC GitHub](https://github.com/trpc/trpc)
+- [TanStack Query Docs](https://tanstack.com/query/latest)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

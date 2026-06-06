@@ -1,14 +1,14 @@
 ---
 name: kanban-agent-pipeline-orchestrator
-title: 看板智能体流水线：Asana/Linear 自动开发编排
-description: 当想把现有看板（Asana/Linear/GitHub Projects）当成分布式状态机、编排多个 Claude Code worker 跑完「构建→评审→测试→集成」全自动开发流水线时使用；做的事是把 SPEC 拆成带依赖的看板任务、按传递优先级派单、用确定性门禁（tsc/eslint/test）+对抗式评审把关、逐任务记成本、无守护进程崩溃可恢复；不适用于单 worker 小改动、无看板/PM 工具、或不接受 AI 自动改主干的场景；触发词：看板编排、kanban orchestration、自动开发流水线、SDLC orchestrate、多 worker 派单、对抗式评审 adversarial review
+title: AgentFlow
+description: Orchestrate autonomous AI development pipelines through your Kanban board (Asana, GitHub Projects, Linear). Manages multi-worker Claude Code dispatch, deterministic quality gates, adversarial review, per-task cost tracking, and crash-proof pipeline execution.
 domain: 协作/automation
-triggers: [看板编排, kanban orchestration, 自动开发流水线, SDLC orchestrate, 多 worker 派单, 对抗式评审, adversarial review, 质量门禁 quality gate, 传递优先级 transitive priority, 成本守护 cost guardrail]
+triggers: [kanban orchestration, SDLC orchestrate, adversarial review]
 tags: [kanban, orchestration, sdlc, multi-agent, quality-gates, cost-tracking, asana, linear]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude-code, git, crontab, tsc, eslint, asana, linear, github-projects]
+tools: []
 requires: []
 related: [multi-agent-orchestrator, agent-workflow-builder, parallel-agent-hub, dmux-multi-agent-workflows]
 combines_with: [quota-aware-subagent-orchestrator, task-decomposition-planner, jira-expert]
@@ -16,107 +16,199 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# 看板智能体流水线：Asana/Linear 自动开发编排
+# AgentFlow
 
-## 何时使用
+## Overview
 
-适用场景：
+AgentFlow turns your existing Kanban board into a fully autonomous AI development pipeline. Instead of building custom orchestration infrastructure, it treats your project management tool (Asana, GitHub Projects, Linear) as a distributed state machine — tasks move through stages, AI agents read and write state via comments, and humans intervene through the same UI they already use.
 
-- 想把现有看板（Asana / Linear / GitHub Projects）当成「分布式状态机」，让多个 Claude Code worker 自主跑完构建→评审→测试→集成的完整开发生命周期。
-- 需要在 AI 评审之前先过确定性硬门禁（tsc + eslint + 测试），用近乎零成本拦掉大部分问题。
-- 需要从手机端就能观测整条流水线，并随时拖动卡片人工接管。
-- 单人或小团队项目，需要自主派单 + 逐任务成本核算 + 跨会话崩溃可恢复的编排。
+The result is complete pipeline observability from your phone, free crash recovery (state lives in your PM tool, not in memory), and human override at any point by dragging a card.
 
-不该用：
+## When to Use This Skill
 
-- 单个 worker 即可完成的小改动，没有多阶段流转需求。
-- 没有看板 / PM 工具，或团队不接受 AI 自动改动主干（本技能会自动合并并在失败时 `git revert`）。
-- 缺少清晰 SPEC、CI 命令、权限或验收标准时——先停下来补齐，别贸然开跑。
+- Use when you need to orchestrate multiple Claude Code workers across a full development lifecycle (build, review, test, integrate)
+- Use when you want deterministic quality gates (tsc/eslint/tests) before AI review on AI-generated code
+- Use when you want full pipeline visibility from your Kanban board or phone
+- Use when running a solo or team project that needs autonomous task dispatch with cost tracking
+- Use when you need crash-proof orchestration that survives session restarts
 
-## 步骤
+## Core Concepts
 
-核心模型：**7 阶段看板流水线**＝Backlog → Research → Build → Review → Test → Integrate → Done。看板本身就是编排层，无需独立数据库 / 消息队列。状态全部活在 PM 工具里，因此崩溃即可恢复。
+### 7-Stage Kanban Pipeline
 
-1. **写 SPEC**：创建 `SPEC.md` 描述要构建什么（用于后续哈希比对防需求漂移）。
-2. **拆解上板**：`/spec-to-board` 读 SPEC，拆成原子任务、映射依赖、写到看板。
-3. **起 worker**：开 3–4 个终端，每个一个 slot（建议 2 个 builder + 1 reviewer + 1 tester），各自领任务、写代码、开 PR。
-4. **起编排器**：把一次性 sweep 加进 crontab，每 15 分钟扫一次——**无守护进程、无会话依赖**，崩了下一轮自动续上。编排器按「传递优先级」派单：谁能解锁最多下游任务就先建，自动算关键路径，并做冲突检测。
-5. **监控与干预**：手机打开看板看任务流动；把任意卡片拖到「Needs Human」即可人工接管；`/sdlc-health` 看终端仪表盘。
-6. **停机**：`/sdlc-stop` 优雅排空——在跑的 worker 做完手头任务，未开始的任务退回 Backlog。
+Tasks flow through: Backlog, Research, Build, Review, Test, Integrate, Done. Each stage has specific gates. The Kanban board IS the orchestration layer — no separate database, no message queue, no custom infrastructure.
 
-## 指令
+### Stateless Orchestrator
 
-可用命令：
+A crontab-driven one-shot sweep runs every 15 minutes. No daemon, no session dependency. If it crashes, the next sweep picks up where it left off because all state lives in your PM tool.
 
-- `/spec-to-board` —— 把 `SPEC.md` 拆成带依赖的原子任务并建到看板。
-- `/sdlc-orchestrate` —— 按传递优先级 + 冲突检测派单；以 crontab sweep 形式运行。
-- `/sdlc-worker --slot <N>` —— 在某个终端 slot 跑 worker，领任务、写代码、开 PR；并行跑 3–4 个。
-- `/sdlc-health` —— 实时仪表盘：每个任务的当前阶段、负责 Agent、重试次数、累计成本。
-- `/sdlc-stop` —— 优雅停机。
+### Deterministic Before Probabilistic
 
-阶段门禁（晋级前强制）：
+Hard gates (tsc + eslint + tests) run before any AI review, catching roughly 60% of issues at near-zero cost. AI review comes after, as a second layer.
+
+### Adversarial Review
+
+A different AI agent reviews code and must list 3 things wrong before deciding to pass. This prevents rubber-stamp approvals.
+
+### Transitive Priority Dispatch
+
+Tasks that unblock the most downstream work get built first, automatically computing the critical path.
+
+## Skills / Commands
+
+### `/spec-to-board`
+Decomposes a SPEC.md into atomic tasks on your Kanban board with dependencies mapped.
+
+### `/sdlc-orchestrate`
+Dispatches tasks to workers based on transitive priority and conflict detection. Runs as a crontab sweep.
+
+### `/sdlc-worker --slot <N>`
+Runs a worker in a terminal slot that picks up tasks, builds code, and creates PRs. Run 3-4 workers in parallel.
+
+### `/sdlc-health`
+Real-time pipeline status dashboard showing current stage, assigned agent, retry count, and accumulated cost for every task.
+
+### `/sdlc-stop`
+Graceful shutdown: active workers finish their current task, unstarted tasks return to Backlog.
+
+## Step-by-Step Guide
+
+### 1. Write Your Spec
+
+Create a `SPEC.md` for your project describing what you want to build.
+
+### 2. Decompose Into Tasks
 
 ```
-Build  → Review   : tsc + eslint + npm test 全过（确定性）
-Review → Test     : 对抗式评审者必须先列出 3 个问题，再决定是否放行
-Test   → Integrate: 新文件覆盖率达 80%
-Integrate → Done  : 合并后在 main 跑全量测试；失败自动 git revert
-```
-
-起多 worker（每个终端一条）：
-
-```bash
-claude -p "/sdlc-worker --slot T2"   # Builder
-claude -p "/sdlc-worker --slot T3"   # Builder
-claude -p "/sdlc-worker --slot T4"   # Reviewer
-claude -p "/sdlc-worker --slot T5"   # Tester
-```
-
-起编排器（crontab，每 15 分钟一次 sweep）：
-
-```bash
-crontab -e
-# 追加：
-*/15 * * * * ~/.claude/sdlc/agentflow-cron.sh >> /tmp/agentflow-orchestrate.log 2>&1
-```
-
-逐任务成本天花板（Sonnet 默认）：Research ~$0.10 / Build ~$0.40 / Review ~$0.10 / Test ~$0.05 / Integrate ~$0.03。守护：$3/$8 告警，$10/$20 硬停（Sonnet/Opus）并升级人工。
-
-## 示例
-
-最小闭环：
-
-```bash
-# 1) 写好 SPEC.md 后，拆解上板
 claude -p "/spec-to-board"
+```
 
-# 2) 开 4 个终端起 worker（见上）
+This reads your SPEC.md, decomposes it into atomic tasks, maps dependencies, and creates them on your Kanban board.
 
-# 3) crontab 起编排器，手机看板观察任务流动
+### 3. Start Workers
 
-# 4) 收工
+Open 3-4 terminal windows, each as a worker slot:
+
+```bash
+# Terminal 2 — Builder
+claude -p "/sdlc-worker --slot T2"
+
+# Terminal 3 — Builder
+claude -p "/sdlc-worker --slot T3"
+
+# Terminal 4 — Reviewer
+claude -p "/sdlc-worker --slot T4"
+
+# Terminal 5 — Tester
+claude -p "/sdlc-worker --slot T5"
+```
+
+### 4. Start the Orchestrator
+
+```bash
+# Add to crontab (runs every 15 minutes)
+crontab -e
+# Add: */15 * * * * ~/.claude/sdlc/agentflow-cron.sh >> /tmp/agentflow-orchestrate.log 2>&1
+```
+
+### 5. Monitor and Intervene
+
+Open your Kanban board on your phone. Watch tasks flow through the pipeline. Drag any card to "Needs Human" to intervene. Run `/sdlc-health` for a terminal dashboard.
+
+### 6. Stop the Pipeline
+
+```
 claude -p "/sdlc-stop"
 ```
 
-人工接管：任意时刻把卡片拖到「Needs Human」，worker 不再碰它；处理完拖回对应阶段即可。
+## Quality Gates
 
-## 注意事项
+Each stage enforces specific gates before promotion:
 
-- **先确定性后概率性**：硬门禁（tsc/eslint/test）能近零成本拦掉约 60% 问题，绝不要跳过。
-- **对抗式评审**防止橡皮图章：评审 Agent 必须先列 3 个问题才能判过。
-- **绝不 force-push 主干**：集成失败用 `git revert`（新提交，保 main 稳定）。
-- **崩溃可恢复**：状态全在 PM 工具，sweep 一次性运行无守护进程，崩了下一轮续跑。
-- **卡死/掉线检测**：心跳每 5 分钟，超 10 分钟无响应自动重派；任务卡 15 分钟以上没动、无新评论时用 `/sdlc-health` 查，必要时手动拖回 Backlog。
-- **2 次失败升级人工**；成本触顶任务打 `COST:CRITICAL` 标并转「Needs Human」——决定加预算 / 简化 / 拆分。
-- **范围与需求漂移**：PR diff 文件对照预测清单查 scope creep；SPEC 用 SHA-256 哈希比对查中途需求变更。
-- worker 数不要超过项目实际可并行度；定期回看 LEARNINGS.md 的失败模式。
+- **Build to Review**: `tsc` + `eslint` + `npm test` must all pass (deterministic)
+- **Review to Test**: Adversarial reviewer must list 3 issues before passing
+- **Test to Integrate**: 80% coverage threshold on new files
+- **Integrate to Done**: Full test suite on main after merge; auto-reverts on failure
 
-## 互见
+## Cost Tracking
 
-- requires：`multi-agent-orchestrator` —— 先掌握单编排器的拆解 / 路由 / 质量门禁 / 心跳基本盘，再上看板级全流水线。
-- related：`task-decomposition-planner`、`prd-spec-writer`、`jira-expert`、`scrum-master-analytics` —— SPEC 拆解、需求规格、看板/敏捷协作。
-- combines_with：`agent-workflow-builder`（编排单个 worker 的内部工作流）、`enterprise-project-manager`（把自动流水线接进项目治理）。
+Per-task cost tracking with stage ceilings (Sonnet defaults):
 
----
+- Research: ~$0.10
+- Build: ~$0.40
+- Review: ~$0.10
+- Test: ~$0.05
+- Integrate: ~$0.03
 
-本条采编自 sickn33/antigravity-awesome-skills（MIT）。
+Automatic guardrails: warning at $3/$8, hard stop at $10/$20 (Sonnet/Opus) with human escalation.
+
+## Safety and Recovery
+
+- **Auto-revert**: Integration failures trigger `git revert` (new commit, never force-push)
+- **Blocked tasks**: After 2 failed attempts, tasks escalate to human review
+- **Dead agent detection**: Heartbeat every 5 min, reassign after 10 min timeout
+- **Graceful shutdown**: `/sdlc-stop` drains workers, returns unstarted tasks to backlog
+- **Scope creep detection**: PR diff files compared against predicted files list
+- **Spec drift detection**: SHA-256 hash comparison catches requirement changes mid-sprint
+
+## Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/UrRhb/agentflow.git
+
+# Copy skills and prompts to your Claude Code config
+cp -r agentflow/skills/* ~/.claude/skills/
+cp -r agentflow/prompts/* ~/.claude/sdlc/prompts/
+cp agentflow/conventions.md ~/.claude/sdlc/conventions.md
+```
+
+Or install as a Claude Code plugin:
+
+```bash
+/plugin marketplace add UrRhb/agentflow
+/plugin install agentflow
+```
+
+## Best Practices
+
+- Do: Write a clear SPEC.md before running `/spec-to-board`
+- Do: Start with 3-4 workers for a typical project
+- Do: Monitor from your Kanban board and drag cards to "Needs Human" when needed
+- Do: Review LEARNINGS.md periodically — it captures common failure patterns
+- Don't: Skip the deterministic quality gates — they catch most issues cheaply
+- Don't: Force-push to main — AgentFlow uses `git revert` for safety
+- Don't: Run more workers than your project's parallelism supports
+
+## Troubleshooting
+
+### Problem: Worker appears stuck or dead
+**Symptoms:** Task card hasn't moved in 15+ minutes, no new comments
+**Solution:** The orchestrator detects dead agents via heartbeat and reassigns after 10 minutes. If the issue persists, run `/sdlc-health` to check status and manually drag the card back to Backlog.
+
+### Problem: Cost guardrail triggered
+**Symptoms:** Task moved to "Needs Human" with COST:CRITICAL tag
+**Solution:** Review the task's comment thread for accumulated context. Decide whether to increase the budget, simplify the task, or split it into smaller pieces.
+
+### Problem: Integration test failure after merge
+**Symptoms:** Task auto-reverted from main
+**Solution:** The auto-revert preserves main stability. Check the task's retry context in comments, which carries what was tried and what failed. The next worker assigned will use this context.
+
+## Related Skills
+
+- `@brainstorming` - Use before AgentFlow to design your SPEC.md
+- `@writing-plans` - Complements spec writing for task decomposition
+- `@test-driven-development` - Works well with AgentFlow's quality gates
+- `@subagent-driven-development` - Alternative approach to multi-agent coordination
+
+## Additional Resources
+
+- [AgentFlow Repository](https://github.com/UrRhb/agentflow)
+- [Architecture Documentation](https://github.com/UrRhb/agentflow/blob/main/docs/architecture.md)
+- [Gap Registry (45 failure modes)](https://github.com/UrRhb/agentflow/blob/main/docs/gap-registry.md)
+- [Getting Started Guide](https://github.com/UrRhb/agentflow/blob/main/docs/getting-started.md)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

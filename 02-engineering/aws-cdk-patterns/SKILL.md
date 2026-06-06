@@ -1,14 +1,14 @@
 ---
 name: aws-cdk-patterns
-title: AWS CDK 构造与基础设施模式
-description: 当用 TypeScript/Python/Java 编写 AWS CDK 基础设施、设计可复用 L2/L3 构造或多 Stack 应用、评审 CDK 最佳实践时使用；做出有状态/无状态分离、最小权限 IAM、默认监控的生产级 CDK 栈与构造产物；不适用于纯 CloudFormation 模板、Terraform 或一次性 CLI 建资源。触发词：CDK、construct、Stack、Lambda+DynamoDB API
+title: Aws Cdk Patterns
+description: Common AWS CDK patterns and constructs for building cloud infrastructure with TypeScript, Python, or Java. Use when designing reusable CDK stacks and L3 constructs.
 domain: 研发/devops
-triggers: [AWS CDK, CDK 构造, L2 L3 construct, 可复用 CDK 模式, 多 Stack 应用, serverless API Lambda DynamoDB, ECS 服务栈, CDK 评审最佳实践, RemovalPolicy 标签, cdk diff 部署]
-tags: [aws-cdk, iac, infrastructure, aws, typescript, serverless, construct, 研发]
-level: 进阶
+triggers: [AWS CDK, L2 L3 construct, serverless API Lambda DynamoDB]
+tags: [aws-cdk, iac, infrastructure, aws, typescript, serverless, construct]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [aws-cdk, cdk-cli, TypeScript, Python, Java]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,37 +16,36 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+You are an expert in AWS Cloud Development Kit (CDK) specializing in reusable patterns, L2/L3 constructs, and production-grade infrastructure stacks.
 
-适用：
-- 编写可复用的 CDK 构造或模式（L2/L3 construct）。
-- 设计多 Stack 的 CDK 应用并管理跨栈引用。
-- 落地常见基础设施模式：API + Lambda + DynamoDB、ECS 服务、静态站点、数据管道。
-- 按最佳实践与反模式评审已有 CDK 代码。
+## Use this skill when
 
-不该用（负边界）：
-- 用户要的是纯 CloudFormation 模板，不经过 CDK。
-- 任务是 Terraform 专属的。
-- 一次性、简单的 CLI 建资源就够了，无需写代码。
+- Building reusable CDK constructs or patterns
+- Designing multi-stack CDK applications
+- Implementing common infrastructure patterns (API + Lambda + DynamoDB, ECS services, static sites)
+- Reviewing CDK code for best practices and anti-patterns
 
-## 步骤 / 指令
+## Do not use this skill when
 
-1. 先识别目标基础设施模式（如无服务器 API、容器服务、数据管道），再选构造。
-2. 优先用 L2 构造，避免 L1（`Cfn*`）——L2 自带更安全的默认值；仅当 L2 无对应能力时才下沉到 L1。
-3. 所有 IAM 角色与策略遵循最小权限原则，优先用 `grantXxx()`（如 `table.grantReadWriteData(handler)`）而非手写宽泛策略。
-4. 为生产就绪合理设置 `RemovalPolicy`（有状态资源用 `RETAIN`）和统一标签 `cdk.Tags.of(this).add(...)`。
-5. 按可复用性拆分 Stack：有状态资源（数据库、桶）与无状态资源（计算、API）分栈，便于独立生命周期管理。
-6. 默认开启监控：CloudWatch 告警、X-Ray 追踪（`tracing: lambda.Tracing.ACTIVE`）。
-7. 每次部署前先 `cdk diff` 核对变更。
-8. 不要硬编码账号/区域，用 `cdk.Aws.ACCOUNT_ID`、`cdk.Aws.REGION` 等占位符。
+- The user needs raw CloudFormation templates without CDK
+- The task is Terraform-specific
+- Simple one-off CLI resource creation is sufficient
 
-## 示例
+## Instructions
 
-无服务器 API 模式（API Gateway + Lambda + DynamoDB），封装为可复用 L3 构造：
+1. Identify the infrastructure pattern needed (e.g., serverless API, container service, data pipeline).
+2. Use L2 constructs over L1 (Cfn*) constructs whenever possible for safer defaults.
+3. Apply the principle of least privilege for all IAM roles and policies.
+4. Use `RemovalPolicy` and `Tags` appropriately for production readiness.
+5. Structure stacks for reusability: separate stateful (databases, buckets) from stateless (compute, APIs).
+6. Enable monitoring by default (CloudWatch alarms, X-Ray tracing).
+
+## Examples
+
+### Example 1: Serverless API Pattern
 
 ```typescript
 import { Construct } from "constructs";
-import * as cdk from "aws-cdk-lib";
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
@@ -58,7 +57,7 @@ export class ServerlessApiPattern extends Construct {
     const table = new dynamodb.Table(this, "Table", {
       partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: cdk.RemovalPolicy.RETAIN, // 有状态资源保留，防误删
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
 
     const handler = new lambda.Function(this, "Handler", {
@@ -66,27 +65,30 @@ export class ServerlessApiPattern extends Construct {
       handler: "index.handler",
       code: lambda.Code.fromAsset("lambda"),
       environment: { TABLE_NAME: table.tableName },
-      tracing: lambda.Tracing.ACTIVE, // 默认开启 X-Ray
+      tracing: lambda.Tracing.ACTIVE,
     });
 
-    table.grantReadWriteData(handler); // 最小权限授予
+    table.grantReadWriteData(handler);
 
     new apigateway.LambdaRestApi(this, "Api", { handler });
   }
 }
 ```
 
-## 注意事项
+## Best Practices
 
-- 该做：用 `cdk.Tags.of(this).add()` 做一致标签；有状态与无状态资源分栈；每次部署前 `cdk diff`。
-- 别做：在有 L2 替代时仍用 L1（`Cfn*`）构造；硬编码账号 ID 或区域（改用 `cdk.Aws.ACCOUNT_ID`）。
-- 排障——栈间循环依赖：把共享资源抽到独立的基础（base）栈，通过构造函数 props 传递引用，打破环。
-- 边界：本技能产出不能替代环境特定的验证、测试与专家评审；缺少必要输入、权限、安全边界或验收标准时，先停下来澄清。
+- ✅ **Do:** Use `cdk.Tags.of(this).add()` for consistent tagging
+- ✅ **Do:** Separate stateful and stateless resources into different stacks
+- ✅ **Do:** Use `cdk diff` before every deploy
+- ❌ **Don't:** Use L1 (`Cfn*`) constructs when L2 alternatives exist
+- ❌ **Don't:** Hardcode account IDs or regions — use `cdk.Aws.ACCOUNT_ID`
 
-## 互见
+## Troubleshooting
 
-- 纯 CloudFormation / Terraform 等其他 IaC 工具：另寻对应技能。
-- IAM 最小权限、CloudWatch 监控告警等专项可与本技能配合使用。
+**Problem:** Circular dependency between stacks
+**Solution:** Extract shared resources into a dedicated base stack and pass references via constructor props.
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

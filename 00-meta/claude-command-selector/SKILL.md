@@ -1,14 +1,14 @@
 ---
 name: claude-command-selector
-title: Claude命令与技能选择指南
-description: 当不确定该用哪个 Claude Code 命令/Agent/Skill，或想查 /plan、/compact、/loop 等用法与触发时机时使用；做命令选择决策、产出推荐组合与决策路径；不适用于需要这些命令实际执行任务（本条只做选择与推荐，不替代具体执行）。触发词：用哪个命令、哪个 agent、命令速查表
+title: Claude Code Command Selection Guide
+description: Claude Code Command Selection Guide - Automatically recommend and select the right commands, agents, and skills in Claude Code. Use when: (1) user is unsure which command or tool to use, (2) needs to decide which agent/skill best fits the current task, (3) querying usage scenarios for /plan, /tdd, /
 domain: 通用/learning
-triggers: [不知道用哪个命令, 该用哪个 agent, 命令选择, /plan 怎么用, 什么时候 /compact, agent 选择指南, 命令速查表, 技能推荐, which command to use, which agent, command cheat sheet]
-tags: [claude-code, 命令选择, agent, skill, 工作流, 决策矩阵, 通用, 学习]
-level: 入门
+triggers: [which command to use, which agent, command cheat sheet]
+tags: [claude-code, agent, skill]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [/plan, /tdd, /e2e, /code-review, /build-fix, /compact, /clear, /loop, planner, code-reviewer, build-error-resolver, security-reviewer, tdd-guide]
+tools: []
 requires: []
 related: [skill-optimizer, skill-creator]
 combines_with: []
@@ -16,133 +16,303 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Claude Code Command Selection Guide
 
-- 面对一项任务，不确定该选哪个斜杠命令、Agent 还是 Skill 时。
-- 想快速查 `/plan`、`/tdd`、`/compact`、`/loop` 等命令的适用场景与触发时机时。
-- 需要按「任务阶段 / 问题类型 / 开发类型」给出推荐工具组合时。
-- 想要一份命令速查表或决策路径图时。
+This skill helps you choose the most appropriate command, agent, or skill for different scenarios.
 
-不该用的边界：
-- 本条只负责「选哪个」与「何时触发」，不替代被选中命令/Agent 的实际执行。真正干活时切到对应工具。
-- 不同环境装的命令/Agent 可能不同，先用 `/help` 核实本机实际可用项，本表为通用参考。
+## Quick Decision Flowchart
 
-## 步骤
+```mermaid
+graph TD
+    A[User Request] --> B{Request Type?}
+    B -->|New Feature| C[/plan]
+    B -->|Bug Fix| D[/tdd or build-error-resolver]
+    B -->|Code Review| E[/code-review or code-reviewer agent]
+    B -->|Testing| F[/e2e or tdd-guide agent]
+    B -->|Context Too Long| G[/compact]
+    B -->|Documentation| H[/docs or docs-lookup agent]
+    B -->|Looping Task| I[/loop]
+    B -->|Security Review| J[security-reviewer agent]
 
-1. 判断请求类型：新功能 / Bug 修复 / 代码审查 / 测试 / 上下文过长 / 文档 / 循环任务 / 安全审查。
-2. 按下方决策路径定位首选命令或 Agent。
-3. 若任务跨多个阶段，参考「场景决策矩阵」组合工具（计划在前、测试在中、审查在后）。
-4. 判断可否并行：独立任务并行，有依赖则串行。
-5. 执行后按「上下文管理时机」决定是否 `/compact`。
-
-## 指令
-
-决策路径（核心分支）：
-
-```
-用户请求
-├─ 新功能        → /plan（进入 Plan 模式）→ planner
-├─ Bug 修复      → /tdd（先写测试）或 build-error-resolver
-├─ 代码审查      → /code-review 或 code-reviewer
-├─ 测试          → /e2e 或 tdd-guide
-├─ 上下文过长    → /compact
-├─ 文档          → /docs 或 docs-lookup
-├─ 循环任务      → /loop
-└─ 安全审查      → security-reviewer
+    C --> K[planner agent]
+    D --> L{Build Failed?}
+    L -->|Yes| M[build-error-resolver]
+    L -->|No| N[tdd-guide]
+    E --> O[code-reviewer]
+    F --> P[e2e-runner]
 ```
 
-命令速查表：
+## 1. Built-in Slash Commands
 
-```
-开发工作流：
-/plan        进入计划模式（复杂任务）
-/tdd         TDD 工作流
-/e2e         端到端测试
-/code-review 代码审查
-/build-fix   修复构建
+### Session Management Commands
 
-会话管理：
-/compact     压缩上下文
-/clear       清空会话
-/loop        循环任务，如：/loop 5m check build status
-/fast        快速模式（仅 Opus 4.6）
-/model       切换模型，如：/model sonnet
+| Command | Use Case | Example |
+|---------|----------|---------|
+| `/compact` | Context too long (>150K tokens), slow response, task phase transition | `/compact` or auto-trigger |
+| `/clear` | Start fresh conversation, clear history | `/clear` |
+| `/loop` | Periodic task execution, automated looping work | `/loop 5m check build status` |
+| `/help` | View help, learn commands | `/help` |
+| `/fast` | Need faster response (Opus 4.6 only) | `/fast` |
+| `/model` | Switch model | `/model sonnet` |
 
-文档与记忆：
-/docs        更新文档
-/remember    保存记忆
-/tasks       查看任务
+### Development Workflow Commands
 
-帮助：
-/help        查看全部命令
-```
+| Command | Use Case | Activation Timing |
+|---------|----------|-------------------|
+| `/plan` | Start new feature, architecture refactor, complex tasks | **Enter Plan Mode** |
+| `/tdd` | Write tests, TDD development workflow | When test guidance needed |
+| `/e2e` | E2E testing, critical user flow verification | When browser testing needed |
+| `/code-review` | Code quality review | After writing code |
+| `/build-fix` | Build failure, type errors | When build fails |
+| `/learn` | Extract patterns from session, learning | Before session ends |
+| `/skill-create` | Create new skill from git history | When repeating patterns found |
 
-自动触发规则（无需用户明示即可主动调用）：
+### Documentation & Query Commands
 
-| 情况 | 自动动作 |
-|------|----------|
-| 写完/改完代码 | 立即调用 `code-reviewer` |
-| 构建失败 | 立即调用 `build-error-resolver`（最小改动、快速修复） |
-| 复杂功能请求 | 立即调用 `planner` |
-| 处理鉴权/敏感数据 | 立即调用 `security-reviewer`（OWASP 检测） |
-| 新功能/Bug 修复 | 立即调用 `tdd-guide`（先写测试） |
-| 架构决策 | 立即调用 `architect` |
-
-上下文管理时机（触发 `/compact`）：
-
-- Token > 150K：立即压缩。
-- 响应变慢：建议压缩。
-- 任务阶段切换 / 里程碑完成：在边界处压缩后继续。
-- 调试结束转新任务：用 `/clear` 清掉调试痕迹。
-- 最佳实践：调研后、实现前压缩（保留计划）；里程碑完成后压缩（清中间态）；切勿在实现中途压缩（会丢变量与路径）。
-
-## 示例
-
-场景决策矩阵（按任务阶段）：
-
-| 阶段 | 推荐组合 |
-|------|----------|
-| 需求分析 | `planner` + `Explore`（先计划后探索） |
-| 架构设计 | `architect` + `api-design` skill |
-| 开发前 | `tdd-guide` + `tdd-workflow` skill（测试先行） |
-| 开发中 | 直接编辑 + 快速迭代（保持心流） |
-| 开发后 | `code-reviewer` + `verification-loop`（质量门） |
-| 测试阶段 | `e2e-runner` + `e2e-testing` skill |
-| PR 前 | `security-reviewer` + `verification-loop`（最终验证） |
-
-按开发类型选 Skill：
-
-- 前端功能：`frontend-patterns` + `tdd-workflow`
-- 后端 API：`backend-patterns` + `api-design` + `tdd-workflow`
-- MCP 服务：`mcp-server-patterns` + `tdd-workflow`
-- 安全功能：`security-reviewer` + `security-review` skill
-
-并行 vs 串行：
-
-- 可并行（彼此独立）——PR 前：`code-reviewer`（质量）∥ `security-reviewer`（安全）∥ `e2e-runner`（端到端）。
-- 必串行（存在依赖）——新功能：`planner` → `tdd-guide` 写测试 → 实现 → `code-reviewer`；构建错误：`build-error-resolver` → 测试验证 → `code-reviewer`。
-
-完整示例（新增用户鉴权功能）：
-
-1. `/plan` → planner 出计划
-2. tdd-guide → 写测试
-3. 实现 → 编辑代码
-4. code-reviewer → 代码审查
-5. security-reviewer → 安全审查（鉴权敏感）
-6. e2e-runner → 端到端测试
-7. `/compact` → 里程碑完成后压缩
-
-## 注意事项
-
-- 核心原则：计划先行（复杂任务用 `/plan`）；测试先行（新功能用 `tdd-guide`）；写完即审（`code-reviewer`）；构建一挂即修（`build-error-resolver`）；敏感代码必审（`security-reviewer`）；PR 前全面验证（`verification-loop`）。
-- 本表中的具体命令名/Agent 名随版本与配置而异，落地前先 `/help` 确认；不可用时选用功能等价项。
-- `/fast` 仅在 Opus 4.6 下可用；`/compact` 在实现中途调用有丢上下文风险，谨慎使用。
-
-## 互见
-
-- TDD 工作流、端到端测试、安全审查（OWASP）等具体执行类技能。
-- 会话与上下文压缩策略（strategic-compact / verification-loop）。
+| Command | Use Case | Example |
+|---------|----------|---------|
+| `/docs` | Update project documentation | `/docs` |
+| `/update-codemaps` | Update code maps | `/update-codemaps` |
+| `/remember` | Save memory to memory system | `/remember user prefers concise output` |
+| `/tasks` | View task list | `/tasks` |
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+## 2. Agents Selection
+
+### Development Workflow Agents
+
+| Agent | Trigger Condition | Purpose |
+|-------|-------------------|---------|
+| `planner` | Complex feature request, architectural decision | Create implementation plan |
+| `architect` | System design, tech stack selection | Architecture analysis and decisions |
+| `tdd-guide` | New feature, bug fix | TDD workflow guidance |
+| `code-reviewer` | **Invoke immediately after writing code** | Code quality review |
+| `security-reviewer` | Handling auth, API, sensitive data | Security vulnerability detection |
+
+### Problem Solving Agents
+
+| Agent | Trigger Condition | Purpose |
+|-------|-------------------|---------|
+| `build-error-resolver` | **Invoke immediately when build fails** | Fix build/type errors |
+| `e2e-runner` | Critical user flows, before PR | E2E test execution |
+| `refactor-cleaner` | Code maintenance, dead code cleanup | Dead code detection and cleanup |
+| `doc-updater` | Update docs, codemaps | Documentation sync |
+
+### Research & Exploration Agents
+
+| Agent | Trigger Condition | Purpose |
+|-------|-------------------|---------|
+| `Explore` | Codebase exploration, file finding | Quick codebase exploration |
+| `general-purpose` | Complex multi-step tasks | General task handling |
+| `docs-lookup` | Query library/framework docs | Get latest API documentation |
+
+---
+
+## 3. Skills Selection
+
+### Workflow Skills
+
+| Skill | Trigger Timing | Purpose |
+|-------|----------------|---------|
+| `tdd-workflow` | Developing new feature/fixing bug | Complete TDD workflow guidance |
+| `verification-loop` | After feature completion, before PR | Comprehensive verification (build/test/lint/security) |
+| `strategic-compact` | Long session, context pressure | Guide when to manually `/compact` |
+
+### Architecture & Pattern Skills
+
+| Skill | Trigger Timing | Purpose |
+|-------|----------------|---------|
+| `frontend-patterns` | Frontend development | React/Next.js/Vue best practices |
+| `backend-patterns` | Backend development | API/service architecture patterns |
+| `api-design` | API design | RESTful/API design standards |
+| `mcp-server-patterns` | MCP server development | MCP configuration and patterns |
+
+### Testing Skills
+
+| Skill | Trigger Timing | Purpose |
+|-------|----------------|---------|
+| `e2e-testing` | E2E testing needs | Playwright test generation |
+| `security-review` | Security review needs | OWASP Top 10 detection |
+
+### Research Skills
+
+| Skill | Trigger Timing | Purpose |
+|-------|----------------|---------|
+| `deep-research` | Need deep research | Multi-round search and research |
+| `exa-search` | Need web search | Web content search |
+| `documentation-lookup` | Query library docs | Context7 documentation query |
+
+---
+
+## 4. Scenario Decision Matrix
+
+### By Task Phase
+
+| Phase | Recommended Tool Combination | Reason |
+|-------|------------------------------|--------|
+| **Requirements Analysis** | `planner` + `Explore` | Plan first, explore later |
+| **Architecture Design** | `architect` + `api-design` skill | Professional architecture guidance |
+| **Pre-Development** | `tdd-guide` + `tdd-workflow` skill | Test first |
+| **During Development** | Direct edit + quick iteration | Stay in flow |
+| **Post-Development** | `code-reviewer` + `verification-loop` | Quality gate |
+| **Testing Phase** | `e2e-runner` + `e2e-testing` skill | Complete test coverage |
+| **Before PR** | `security-reviewer` + `verification-loop` | Final verification |
+| **Build Failure** | `build-error-resolver` | Focused fix |
+
+### By Problem Type
+
+| Problem | Invoke Immediately | Note |
+|---------|--------------------|------|
+| Build failure | `build-error-resolver` | Minimal changes, quick fix |
+| Type error | `build-error-resolver` | TypeScript specialist |
+| Bug fix | `tdd-guide` | Write test then fix |
+| Security vulnerability | `security-reviewer` | OWASP detection |
+| Poor code quality | `code-reviewer` | Immediate review |
+| Missing documentation | `doc-updater` | Auto update |
+| Dead code | `refactor-cleaner` | Safe cleanup |
+
+### By Development Type
+
+| Development Type | Skills Combination |
+|------------------|--------------------|
+| Frontend feature | `frontend-patterns` + `tdd-workflow` |
+| Backend API | `backend-patterns` + `api-design` + `tdd-workflow` |
+| MCP server | `mcp-server-patterns` + `tdd-workflow` |
+| Database | `database-reviewer` agent |
+| Security feature | `security-reviewer` + `security-review` skill |
+
+---
+
+## 5. Parallel Execution Strategy
+
+### Parallelizable Scenarios
+
+Recommended: Launch multiple independent tasks simultaneously
+
+Scenario: Preparing PR after code completion
+- Agent 1: code-reviewer (code quality)
+- Agent 2: security-reviewer (security review)
+- Agent 3: e2e-runner (E2E tests)
+
+Scenario: Large refactor analysis
+- Agent 1: architect (architecture analysis)
+- Agent 2: Explore (code exploration)
+- Agent 3: refactor-cleaner (dead code detection)
+
+### Sequential Execution Required
+
+Cannot parallelize: Dependencies exist
+
+Scenario: Fixing build error
+- Sequence: build-error-resolver -> test verification -> code-reviewer
+
+Scenario: New feature development
+- Sequence: planner -> tdd-guide (write tests) -> implementation -> code-reviewer
+
+---
+
+## 6. Auto-Trigger Rules
+
+### Invoke Without User Request
+
+| Situation | Auto Action |
+|-----------|-------------|
+| Code written/modified | **Immediately invoke** `code-reviewer` |
+| Build fails | **Immediately invoke** `build-error-resolver` |
+| Complex feature request | **Immediately invoke** `planner` |
+| Handling auth/sensitive data | **Immediately invoke** `security-reviewer` |
+| New feature/bug fix | **Immediately invoke** `tdd-guide` |
+| Architectural decision | **Immediately invoke** `architect` |
+
+---
+
+## 7. Context Management Timing
+
+| Indicator | Trigger `/compact` |
+|-----------|-------------------|
+| Token > 150K | Immediately compact |
+| Slow response | Suggest compact |
+| Task phase switch | Compact at boundary |
+| Major milestone completed | Compact then continue |
+| Debugging ends -> new task | Clear debug traces |
+
+**Best Practices**:
+- Compact after research, before implementation (preserve plan)
+- Compact after milestone completion (clear intermediate state)
+- Don't compact mid-implementation (lose variables/paths)
+
+---
+
+## 8. Command Cheat Sheet
+
+```
+Development Workflow:
+/plan        -> Enter planning mode (complex tasks)
+/tdd         -> TDD workflow
+/e2e         -> E2E testing
+/code-review -> Code review
+/build-fix   -> Fix build
+
+Session Management:
+/compact     -> Compact context
+/clear       -> Clear session
+/loop        -> Looping task
+/fast        -> Fast mode
+
+Documentation & Memory:
+/docs        -> Update docs
+/remember    -> Save memory
+/tasks       -> View tasks
+
+Help:
+/help        -> View all commands
+```
+
+---
+
+## 9. Usage Examples
+
+### Example 1: New Feature Development
+
+User: Add user authentication feature
+
+Workflow:
+1. /plan -> planner agent creates plan
+2. tdd-guide -> write tests
+3. Implementation -> edit code
+4. code-reviewer -> code review
+5. security-reviewer -> security review (auth sensitive)
+6. e2e-runner -> E2E tests
+7. /compact -> compact after milestone completion
+
+### Example 2: Build Failure
+
+User: npm run build failed
+
+Workflow:
+1. build-error-resolver -> analyze error, minimal fix
+2. Verify build success
+3. code-reviewer -> check fix quality
+
+### Example 3: Code Refactoring
+
+User: Refactor authentication module
+
+Workflow:
+1. architect -> architecture analysis
+2. planner -> implementation plan
+3. refactor-cleaner -> dead code detection
+4. tdd-guide -> ensure test coverage
+5. Implementation -> refactor code
+6. verification-loop -> comprehensive verification
+
+---
+
+**Core Principles**:
+1. **Plan first, implement later** - Use `/plan` for complex tasks
+2. **Test first** - Use `tdd-guide` for new features
+3. **Review immediately after coding** - Use `code-reviewer` when code complete
+4. **Fix build immediately when failed** - Use `build-error-resolver`
+5. **Review sensitive code** - Use `security-reviewer` for auth/API
+6. **Verify comprehensively before PR** - Use `verification-loop`

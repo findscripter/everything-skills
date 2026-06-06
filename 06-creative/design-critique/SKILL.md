@@ -1,14 +1,14 @@
 ---
 name: design-critique
-title: 设计评审反馈
-description: 当需要对界面/原型/视觉稿做结构化设计评审时使用；按可用性·层级·一致性·无障碍多维度产出带严重度分级和优先级建议的评审报告；不适用于纯代码实现、文案校对或无设计稿的需求讨论。触发词：评审这个设计、critique mockup、Figma 链接反馈
+title: /design-critique
+description: Get structured design feedback on usability, hierarchy, and consistency. Trigger with "review this design", "critique this mockup", "what do you think of this screen?", or when sharing a Figma link or screenshot for feedback at any stage from exploration to final polish.
 domain: 创意/design
-triggers: [评审这个设计, 看看这个设计稿, critique this mockup, review this design, Figma 链接反馈, 这个界面怎么样, 设计评审, 可用性检查]
-tags: [设计评审, ux, 可用性, 视觉层级, 无障碍, figma, 设计反馈, 原型评估]
-level: 进阶
+triggers: [critique this mockup, review this design]
+tags: [ux, figma]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [figma, fetch, Read]
+tools: []
 requires: []
 related: [ux-ui-principles-audit, design-dev-handoff, ux-microcopy-writer, ui-design-system-builder]
 combines_with: [design-dev-handoff, accessibility-wcag-audit, ux-research-design-toolkit]
@@ -16,92 +16,115 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# /design-critique
 
-当有人分享设计稿（Figma 链接、截图或文字描述）并希望获得结构化、可执行的设计反馈时使用。适用于探索期、细化期到最终打磨期的任意阶段。
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-**不该用的边界：**
-- 纯前端/代码实现问题（用对应工程技能）。
-- 仅文案/内容校对（无需设计维度评估）。
-- 没有任何设计稿、只有抽象需求讨论时——先让对方提供设计或描述再评审。
+Get structured design feedback across multiple dimensions.
 
-## 步骤
+## Usage
 
-1. **获取设计**：若给出 Figma URL 则从 Figma 拉取（检视组件、tokens、图层）；若引用本地文件则 Read 读取；否则请对方描述或分享设计。
-2. **确认上下文**：这是什么？给谁用？处于哪个阶段（探索 / 细化 / 最终）？是否有聚焦点（如「只看移动端」「只看引导流程」）。阶段决定反馈尺度——早期探索与最终打磨的反馈侧重不同。
-3. **按五维框架逐项检视**（见下方指令）。
-4. **按 Output 模板产出报告**，每条问题标注严重度并给出可落地的修复建议。
-
-## 指令
-
-**评审框架（五维）：**
-
-1. **第一印象（2 秒）**：视线最先落在哪？是否正确？情绪反应如何？目的是否一目了然？
-2. **可用性**：用户能否达成目标？导航是否直觉？可交互元素是否明显？有无多余步骤？
-3. **视觉层级**：阅读顺序是否清晰？是否强调了正确的元素？留白是否有效？字体排印是否构建出正确层级？
-4. **一致性**：是否遵循设计系统？间距/颜色/字体是否统一？相似元素行为是否一致？
-5. **无障碍**：颜色对比度、触控目标尺寸、文字可读性、图片替代文本。
-
-**给反馈的方式：**
-- **要具体**：写「CTA 与导航在抢注意力」而非「布局有点乱」。
-- **讲原因**：把反馈连到设计原则或用户需求上。
-- **给替代方案**：不只指出问题，还要提出解法。
-- **肯定亮点**：好的反馈也包含正向观察。
-- **匹配阶段**：早期探索与最终打磨给不同粒度的反馈。
-
-**若连接器可用：** 设计工具连接时直接从 Figma 拉稿、对照现有设计系统查一致性；用户反馈连接时，把设计决策与近期用户反馈/工单交叉印证。
-
-## 示例
-
-输出模板：
-
-```markdown
-## 设计评审：[设计名称]
-
-### 总体印象
-[1-2 句首因反应——什么有效，最大的改进机会是什么]
-
-### 可用性
-| 问题 | 严重度 | 建议 |
-|------|--------|------|
-| [问题] | 🔴 严重 / 🟡 中等 / 🟢 轻微 | [修复] |
-
-### 视觉层级
-- **视线最先落点**：[元素] —— [是否正确？]
-- **阅读流**：[视线如何在布局中移动？]
-- **强调**：[是否强调了正确的元素？]
-
-### 一致性
-| 元素 | 问题 | 建议 |
-|------|------|------|
-| [字体/间距/颜色] | [不一致之处] | [修复] |
-
-### 无障碍
-- **颜色对比**：[关键文字是否通过]
-- **触控目标**：[尺寸是否足够]
-- **文字可读性**：[字号、行高]
-
-### 做得好的地方
-- [正向观察 1]
-- [正向观察 2]
-
-### 优先级建议
-1. **[最有影响的改动]** —— [为什么、怎么做]
-2. **[第二优先]** —— [为什么、怎么做]
-3. **[第三优先]** —— [为什么、怎么做]
+```
+/design-critique $ARGUMENTS
 ```
 
-## 注意事项
+Review the design: @$1
 
-- **附上上下文**：如「这是某 B2B SaaS 的结账流程」能让反馈更贴切。
-- **说明阶段**：早期探索 ≠ 最终打磨，反馈尺度不同。
-- **请求聚焦**：让对方指定「只看导航」，可在单一区域给出更深入的反馈。
-- 严重度统一用 🔴 严重 / 🟡 中等 / 🟢 轻微，便于对齐优先级。
+If a Figma URL is provided, pull the design from Figma. If a file is referenced, read it. Otherwise, ask the user to describe or share their design.
 
-## 互见
+## What I Need From You
 
-- 设计系统 / 视觉规范类技能（一致性核查）。
-- Figma 读取 / 资源拉取相关工具技能。
+- **The design**: Figma URL, screenshot, or detailed description
+- **Context**: What is this? Who is it for? What stage (exploration, refinement, final)?
+- **Focus** (optional): "Focus on mobile" or "Focus on the onboarding flow"
 
----
-采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+## Critique Framework
+
+### 1. First Impression (2 seconds)
+- What draws the eye first? Is that correct?
+- What's the emotional reaction?
+- Is the purpose immediately clear?
+
+### 2. Usability
+- Can the user accomplish their goal?
+- Is the navigation intuitive?
+- Are interactive elements obvious?
+- Are there unnecessary steps?
+
+### 3. Visual Hierarchy
+- Is there a clear reading order?
+- Are the right elements emphasized?
+- Is whitespace used effectively?
+- Is typography creating the right hierarchy?
+
+### 4. Consistency
+- Does it follow the design system?
+- Are spacing, colors, and typography consistent?
+- Do similar elements behave similarly?
+
+### 5. Accessibility
+- Color contrast ratios
+- Touch target sizes
+- Text readability
+- Alternative text for images
+
+## How to Give Feedback
+
+- **Be specific**: "The CTA competes with the navigation" not "the layout is confusing"
+- **Explain why**: Connect feedback to design principles or user needs
+- **Suggest alternatives**: Don't just identify problems, propose solutions
+- **Acknowledge what works**: Good feedback includes positive observations
+- **Match the stage**: Early exploration gets different feedback than final polish
+
+## Output
+
+```markdown
+## Design Critique: [Design Name]
+
+### Overall Impression
+[1-2 sentence first reaction — what works, what's the biggest opportunity]
+
+### Usability
+| Finding | Severity | Recommendation |
+|---------|----------|----------------|
+| [Issue] | 🔴 Critical / 🟡 Moderate / 🟢 Minor | [Fix] |
+
+### Visual Hierarchy
+- **What draws the eye first**: [Element] — [Is this correct?]
+- **Reading flow**: [How does the eye move through the layout?]
+- **Emphasis**: [Are the right things emphasized?]
+
+### Consistency
+| Element | Issue | Recommendation |
+|---------|-------|----------------|
+| [Typography/spacing/color] | [Inconsistency] | [Fix] |
+
+### Accessibility
+- **Color contrast**: [Pass/fail for key text]
+- **Touch targets**: [Adequate size?]
+- **Text readability**: [Font size, line height]
+
+### What Works Well
+- [Positive observation 1]
+- [Positive observation 2]
+
+### Priority Recommendations
+1. **[Most impactful change]** — [Why and how]
+2. **[Second priority]** — [Why and how]
+3. **[Third priority]** — [Why and how]
+```
+
+## If Connectors Available
+
+If **~~design tool** is connected:
+- Pull the design directly from Figma and inspect components, tokens, and layers
+- Compare against the existing design system for consistency
+
+If **~~user feedback** is connected:
+- Cross-reference design decisions with recent user feedback and support tickets
+
+## Tips
+
+1. **Share the context** — "This is a checkout flow for a B2B SaaS" helps me give relevant feedback.
+2. **Specify your stage** — Early exploration gets different feedback than final polish.
+3. **Ask me to focus** — "Just look at the navigation" gives you more depth on one area.

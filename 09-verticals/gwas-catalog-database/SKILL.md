@@ -1,14 +1,14 @@
 ---
 name: gwas-catalog-database
-title: GWAS Catalog 关联查询
-description: 当需要从 NHGRI-EBI GWAS Catalog REST API 查已发表 GWAS 的 SNP-性状关联、按性状(EFO)/变异(rsID)/基因/区域/PMID 检索、做疾病遗传结构/多效性/曼哈顿图取数时使用；做 HAL+JSON 取数并产出关联表、显著位点清单或汇总统计 FTP 路径；不适用于变异功能注释(用 gget/Ensembl VEP)、人群频率(用 gnomAD)、致病性判定(用 ClinVar)、药靶验证(用 OpenTargets)；触发词：GWAS、GWAS Catalog、SNP 关联、rsID、EFO、性状关联、全基因组显著、5e-8、多效性、汇总统计、PRS、曼哈顿图
+title: GWAS Catalog Database — SNP-Trait Association Queries
+description: NHGRI-EBI GWAS Catalog REST API for SNP-trait associations from published GWAS. Query studies, associations, variants, traits, genes, summary stats. Build PRS candidates, analyze pleiotropy, fetch stats for Manhattan plots. No auth.
 domain: 领域/science
-triggers: [GWAS, GWAS Catalog, SNP 关联, rsID, EFO, 性状关联, 全基因组显著, 5e-8, 多效性, pleiotropy, 汇总统计, summary statistics, PRS, 曼哈顿图, Manhattan plot, PMID 检索]
+triggers: [GWAS, GWAS Catalog, rsID, EFO, 5e-8, pleiotropy, summary statistics, PRS, Manhattan plot]
 tags: [science, bioinformatics, genomics, gwas, gwas-catalog, rest-api, snp, efo, association, variant]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, requests, matplotlib, numpy, REST, HAL+JSON]
+tools: []
 requires: []
 related: [clinvar-database, dbsnp-database, gnomad-population-database, opentargets-database]
 combines_with: [ensembl-database, monarch-disease-phenotype, gene-set-enrichment-analysis]
@@ -16,133 +16,623 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# GWAS Catalog Database — SNP-Trait Association Queries
 
-需要从 **NHGRI-EBI GWAS Catalog**（已发表全基因组关联研究的人工策展库）经其免费 REST API（`https://www.ebi.ac.uk/gwas/rest/api`，无需鉴权）取 SNP-性状关联证据时使用：
+## Overview
 
-- 查某疾病/性状关联的遗传变异（如「哪些 SNP 与 2 型糖尿病相关？」）。
-- 取某变异（rsID）的全基因组显著关联，或评估其**多效性**（一个 SNP 影响多少性状）。
-- 描绘复杂性状的遗传结构（位点数、效应量 OR/beta）。
-- 按疾病、基因或 PubMed ID 检索已发表 GWAS 研究。
-- 交叉 EFO 性状本体与 GWAS 证据；从关联区域构建候选基因清单。
-- 定位某研究的汇总统计（summary statistics）FTP 路径，供 meta 分析或 PRS 构建。
+The NHGRI-EBI GWAS Catalog is a curated collection of published genome-wide association studies, mapping SNP-trait associations with genomic context. The REST API provides programmatic access to studies, associations, variants, traits, genes, and summary statistics. All responses are HAL+JSON with embedded `_links` for pagination.
 
-**不该用的边界：**
-- 变异功能注释（后果预测、调控影响）→ 用 Ensembl VEP（经 `gget-genomic-databases`）。
-- 人群等位基因频率 → 用 `gnomad-population-database`；本库不给频率。
-- 临床致病性判定 → 用 `clinvar-database`；GWAS Catalog 只给关联统计。
-- 从 GWAS hits 做药靶验证 → 用 `opentargets-database`。
+## When to Use
 
-## 步骤
+- Finding genetic variants associated with a disease or trait (e.g., "which SNPs are linked to type 2 diabetes?")
+- Retrieving genome-wide significant associations for a specific variant (rs ID)
+- Exploring the genetic architecture of complex traits (number of loci, effect sizes)
+- Checking variant pleiotropy (how many traits a single SNP affects)
+- Downloading summary statistics for meta-analysis or polygenic risk score construction
+- Identifying published GWAS studies by disease, gene, or PubMed ID
+- Cross-referencing EFO trait ontology terms with GWAS evidence
+- Building candidate gene lists from GWAS association regions
+- For **drug target validation from GWAS hits**, use `opentargets-database` instead
+- For **variant functional annotation** (consequence prediction, regulatory impact), use Ensembl VEP via `gget`
 
-1. **统一辅助函数**：用 `gwas_get()` 发 GET 并 `raise_for_status()`，每次后 `time.sleep(0.2)` 礼貌延时（无官方限速）。
-2. **认清返回结构（HAL+JSON）**：列表/检索结果数据在 `_embedded`，分页元数据在 `page`（`totalElements`/`totalPages`），导航在 `_links`。**按 ID 直查返回单对象，没有 `_embedded`**。
-3. **选入口**：study（GCST）/ association / SNP（rsID）/ efoTrait / 基因 / 区域。
-4. **精确性状查询用规范名**：优先 `associations/search/findByEfoTrait?efoTrait=<规范性状名>`；许多旧 EFO ID 已重映射到 MONDO（如 `EFO_0000249` → `MONDO_0004975`），先 `efoTraits/search/findByEfoTrait` 解析当前 `shortForm` 再用。
-5. **关联不内嵌性状**：association 记录经 `_links.efoTraits.href` 暴露性状，需跟链解析（按 href 缓存避免重复请求）。
-6. **过滤显著性**：标准全基因组显著阈值 **p ≤ 5e-8**；务必按 `pvalue` 过滤，库内含各显著度的关联。
-7. **分页**：默认每页 20，`size` 最大 500；按 `page`（0 起）循环到 `totalPages-1`。
+## Prerequisites
 
-## 指令
+```bash
+pip install requests matplotlib numpy
+```
 
-### 统一辅助函数（所有查询复用）
+**API access**:
+- **No authentication** required -- fully open access
+- **Rate limits**: no official limit, but add `time.sleep(0.2)` between requests to be courteous
+- **Base URL**: `https://www.ebi.ac.uk/gwas/rest/api`
+- **Response format**: HAL+JSON with `_embedded` data and `_links` for pagination
+- **Pagination**: default 20 results per page; max 500 via `size` parameter
+
+## Quick Start
 
 ```python
-import requests, time
+import requests
+import time
+
 BASE = "https://www.ebi.ac.uk/gwas/rest/api"
 
 def gwas_get(endpoint, params=None):
-    r = requests.get(f"{BASE}/{endpoint}", params=params or {}, timeout=30)
-    r.raise_for_status()
+    """GWAS Catalog REST API helper with rate limiting and pagination support."""
+    url = f"{BASE}/{endpoint}"
+    resp = requests.get(url, params=params or {})
+    resp.raise_for_status()
     time.sleep(0.2)
-    return r.json()
+    return resp.json()
+
+# Find studies for a trait keyword. Study records have no top-level `title`
+# — the publication title lives at `publicationInfo.title`; the trait label
+# lives at `diseaseTrait.trait`.
+data = gwas_get("studies/search/findByDiseaseTrait", {"diseaseTrait": "diabetes"})
+studies = data["_embedded"]["studies"]
+print(f"Found {len(studies)} studies for 'diabetes'")
+for s in studies[:3]:
+    title = (s.get("publicationInfo") or {}).get("title", "N/A")
+    trait = (s.get("diseaseTrait") or {}).get("trait", "N/A")
+    print(f"  {s['accessionId']} | {trait[:40]:<40} | {title[:60]}")
 ```
 
-### 端点速查（含易踩坑修正）
+## Core API
 
-| 目的 | 端点 | 关键参数 / 注意 |
-|---|---|---|
-| 按性状检索研究 | `studies/search/findByDiseaseTrait` | `diseaseTrait`（关键词）；研究无顶层 title，标题在 `publicationInfo.title`，性状在 `diseaseTrait.trait` |
-| 按 PMID 检索研究 | `studies/search/findByPublicationIdPubmedId` | `pubmedId`；旧 `findByPubmedId` 在 /studies/ 上 404 |
-| 按性状取关联 | `associations/search/findByEfoTrait` | `efoTrait`=规范性状名（最稳） |
-| 按变异取关联 | `singleNucleotidePolymorphisms/{rs}/associations` | 性状走 `_links.efoTraits.href` |
-| 变异详情 | `singleNucleotidePolymorphisms/{rs}` | 位置在 `locations[]`，注意 `merged` 合并 |
-| 区域查变异 | `singleNucleotidePolymorphisms/search/findByChromBpLocationRange` | `chrom,bpStart,bpEnd`；`findByCytogeneticBand` 已移除 |
-| 按基因查变异 | `singleNucleotidePolymorphisms/search/findByGene` | `geneName` |
-| 性状查 EFO | `efoTraits/search/findByEfoTrait` | `trait`=规范标签；`findByDescription` 已移除 |
-| 有汇总统计的研究 | `studies/search/findByFullPvalueSet` | `fullPvalueSet=True` |
+### Module 1: Study Search
 
-> 汇总统计**不经 REST 暴露**（`studies/{acc}/summaryStatistics` 返回 404），改走 FTP：`http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/{acc前缀}001-{acc前缀}999/{acc}/`。
-
-## 示例
-
-**按性状取关联并提取 rsID/p 值**：
+Search GWAS studies by disease trait keyword or PubMed ID.
 
 ```python
+# Search studies by disease trait
+data = gwas_get("studies/search/findByDiseaseTrait", {"diseaseTrait": "breast cancer"})
+studies = data["_embedded"]["studies"]
+for s in studies[:5]:
+    pi = s.get("publicationInfo") or {}
+    print(f"  {s['accessionId']} | PMID:{pi.get('pubmedId','N/A')} | {pi.get('title','')[:60]}")
+
+time.sleep(0.2)
+
+# Search by PubMed ID. NOTE: the older `findByPubmedId` 404s on /studies/;
+# the working endpoint is `findByPublicationIdPubmedId`.
+data = gwas_get("studies/search/findByPublicationIdPubmedId", {"pubmedId": "25673413"})
+studies = data["_embedded"]["studies"]
+print(f"Studies from PMID 25673413: {len(studies)}")
+for s in studies:
+    trait = (s.get("diseaseTrait") or {}).get("trait", "N/A")
+    print(f"  {s['accessionId']}: {trait}")
+```
+
+### Module 2: Association Queries
+
+Retrieve SNP-trait associations filtered by trait (EFO term), variant, or p-value.
+
+```python
+# Associations by EFO trait. The old path `efoTraits/{shortForm}/associations`
+# also works *if* you have the current shortForm — but trait shortForms have
+# been re-mapped to MONDO (e.g. EFO_0000249 → MONDO_0004975). The most reliable
+# path is `associations/search/findByEfoTrait?efoTrait=<canonical trait name>`.
 data = gwas_get("associations/search/findByEfoTrait",
                 {"efoTrait": "type 2 diabetes mellitus", "size": 50})
-for a in data["_embedded"]["associations"][:5]:
+assocs = data["_embedded"]["associations"]
+print(f"Associations for 'type 2 diabetes mellitus': {len(assocs)}")
+
+for a in assocs[:5]:
+    pval = a.get("pvalue", None)
+    genes = []
+    for locus in a.get("loci", []) or []:
+        for gene in locus.get("authorReportedGenes", []) or []:
+            genes.append(gene.get("geneName", ""))
     loci = a.get("loci") or [{}]
     snps = [r.get("snps", [{}])[0].get("rsId", "N/A")
             for r in (loci[0].get("strongestRiskAlleles") or [])]
-    print(snps, a.get("pvalue"), a.get("orPerCopyNum"))
+    print(f"  rs={snps} | p={pval} | genes={genes}")
 ```
 
-**疾病遗传结构（解析 shortForm → 全量关联 → 过滤 5e-8）**：
+```python
+# Associations for a specific variant. NOTE: association records do not embed
+# `efoTraits` inline — they expose them via the `_links.efoTraits.href`
+# HAL link. Follow the link (cached if needed) to resolve trait names.
+data = gwas_get("singleNucleotidePolymorphisms/rs7903146/associations", {"size": 5})
+assocs = data["_embedded"]["associations"]
+print(f"Associations for rs7903146 (first page): {len(assocs)}")
+
+def association_traits(assoc):
+    """Resolve efoTraits via the HAL link on an association record."""
+    href = (assoc.get("_links") or {}).get("efoTraits", {}).get("href")
+    if not href:
+        return []
+    r = requests.get(href, timeout=15)
+    if not r.ok:
+        return []
+    return [t.get("trait") for t in r.json().get("_embedded", {}).get("efoTraits", [])]
+
+for a in assocs[:5]:
+    traits = association_traits(a)
+    print(f"  p={a.get('pvalue')} | OR={a.get('orPerCopyNum', 'N/A')} | traits={traits}")
+    time.sleep(0.1)
+```
+
+### Module 3: Variant Lookup
+
+Query variant details by rsID, chromosomal region, or cytogenetic band.
 
 ```python
-t = gwas_get("efoTraits/search/findByEfoTrait", {"trait": "schizophrenia"})
-efo = t["_embedded"]["efoTraits"][0]["shortForm"]   # 可能已是 MONDO_xxx
-allA, page = [], 0
+# Lookup single variant
+data = gwas_get("singleNucleotidePolymorphisms/rs7903146")
+loc = data.get("locations", [{}])[0]
+print(f"rs7903146: chr{loc.get('chromosomeName', '?')}:{loc.get('chromosomePosition', '?')}")
+print(f"  Functional class: {data.get('functionalClass', 'N/A')}")
+print(f"  Merged into: {data.get('merged', 'N/A')}")
+
+time.sleep(0.2)
+
+# Search variants by chromosomal region
+data = gwas_get("singleNucleotidePolymorphisms/search/findByChromBpLocationRange",
+                {"chrom": "10", "bpStart": "114750000", "bpEnd": "114800000", "size": 50})
+snps = data["_embedded"]["singleNucleotidePolymorphisms"]
+print(f"Variants in chr10:114750000-114800000: {len(snps)}")
+for v in snps[:5]:
+    print(f"  {v['rsId']}: {v.get('functionalClass', 'N/A')}")
+```
+
+```python
+# Search variants by gene name (the cytogenetic-band endpoint
+# `findByCytogeneticBand` was removed — use gene or chromosome-range instead).
+data = gwas_get("singleNucleotidePolymorphisms/search/findByGene",
+                {"geneName": "TCF7L2", "size": 5})
+snps = data["_embedded"]["singleNucleotidePolymorphisms"]
+print(f"Variants in TCF7L2: {len(snps)}")
+```
+
+### Module 4: Trait Search
+
+Browse and search EFO-mapped traits in the GWAS Catalog.
+
+```python
+# Search traits by exact name (the older `findByDescription` endpoint was
+# removed — search/efoTrait now expects the canonical trait label).
+data = gwas_get("efoTraits/search/findByEfoTrait", {"trait": "Alzheimer disease"})
+traits = data["_embedded"]["efoTraits"]
+print(f"Traits matching 'Alzheimer disease': {len(traits)}")
+for t in traits[:5]:
+    print(f"  {t['shortForm']}: {t['trait']}  (uri={t['uri']})")
+
+time.sleep(0.2)
+
+# Get specific trait by shortForm. NOTE: many legacy EFO IDs have been
+# re-mapped to MONDO (e.g. old `EFO_0000249` for Alzheimer is now
+# `MONDO_0004975` — `efoTraits/EFO_0000249` returns 404). Resolve via search
+# above first, then use the current shortForm:
+short_form = traits[0]["shortForm"]   # e.g. 'MONDO_0004975'
+data = gwas_get(f"efoTraits/{short_form}")
+print(f"Trait: {data['trait']}")
+print(f"  URI       : {data['uri']}")
+print(f"  shortForm : {data['shortForm']}")
+```
+
+### Module 5: Summary Statistics
+
+Access study-level summary statistics for downstream analysis (meta-analysis, PRS).
+
+```python
+# List studies with available summary statistics
+data = gwas_get("studies/search/findByFullPvalueSet", {"fullPvalueSet": True, "size": 10})
+studies = data["_embedded"]["studies"]
+print(f"Studies with summary stats (first page): {len(studies)}")
+for s in studies[:5]:
+    trait = (s.get("diseaseTrait") or {}).get("trait", "N/A")
+    print(f"  {s['accessionId']}: {trait[:50]}")
+
+time.sleep(0.2)
+
+# Summary statistics metadata is NOT exposed via the REST API
+# (`studies/{acc}/summaryStatistics` returns 404). Use the GWAS Catalog FTP
+# directly — paths are predictable by study accession:
+ftp_base = "http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics"
+acc = studies[0]["accessionId"]
+ftp_url = f"{ftp_base}/{acc[:-3]}001-{acc[:-3]}999/{acc}/"
+print(f"Summary stats FTP directory: {ftp_url}")
+```
+
+```python
+# Download summary statistics file (FTP)
+# Summary statistics are hosted on the GWAS Catalog FTP, not the REST API
+import urllib.request
+
+study_id = "GCST006867"  # Example study
+ftp_base = "http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics"
+# Actual paths vary by study; check the study page for the download link
+# Example: ftp_base/{study_id}/{study_id}.tsv.gz
+url = f"{ftp_base}/{study_id}"
+print(f"Summary stats FTP directory: {url}")
+# Use requests.get() or urllib to download the .tsv.gz file
+```
+
+### Module 6: Gene and Publication Search
+
+Find GWAS associations by gene name or retrieve publication metadata.
+
+```python
+# Search associations by gene
+data = gwas_get("singleNucleotidePolymorphisms/search/findByGene",
+                {"geneName": "BRCA1", "size": 50})
+snps = data["_embedded"]["singleNucleotidePolymorphisms"]
+print(f"Variants near BRCA1: {len(snps)}")
+for v in snps[:5]:
+    locs = v.get("locations", [{}])
+    pos = locs[0].get("chromosomePosition", "?") if locs else "?"
+    print(f"  {v['rsId']}: chr{locs[0].get('chromosomeName', '?')}:{pos}")
+
+time.sleep(0.2)
+
+# Get study publication details
+data = gwas_get("studies/GCST000392")
+pub = data.get("publicationInfo", {})
+print(f"Study: {data['accessionId']}")
+print(f"  Author: {pub.get('author', {}).get('fullname', 'N/A')}")
+print(f"  Journal: {pub.get('publication', 'N/A')}")
+print(f"  PMID: {pub.get('pubmedId', 'N/A')}")
+print(f"  Date: {pub.get('publicationDate', 'N/A')}")
+```
+
+## Key Concepts
+
+### Data Entities and Relationships
+
+The GWAS Catalog organizes data as interconnected entities:
+
+| Entity | Description | Key Identifier | Example |
+|--------|-------------|---------------|---------|
+| **Study** | A published GWAS experiment | GCST accession (e.g., `GCST000392`) | Wellcome Trust Case Control Consortium study |
+| **Association** | A SNP-trait association with p-value and effect size | Internal ID | rs7903146 associated with T2D at p=1e-40 |
+| **Variant (SNP)** | A single nucleotide polymorphism | rs number (e.g., `rs7903146`) | TCF7L2 variant |
+| **Trait** | A disease/phenotype mapped to EFO ontology | EFO ID (e.g., `EFO_0001360`) | Type 2 diabetes mellitus |
+| **Gene** | A gene near or harboring GWAS variants | Gene symbol (e.g., `TCF7L2`) | Transcription factor 7-like 2 |
+
+**Relationships**: Study --(reports)--> Association --(involves)--> Variant + Trait. Variants map to genomic positions and nearby genes.
+
+### HAL+JSON Response Structure
+
+All API responses follow HAL (Hypertext Application Language) format:
+
+| Top-level Section | Contents | Access Pattern |
+|-------------------|----------|----------------|
+| `_embedded` | Primary data objects (studies, associations, etc.) | `response["_embedded"]["studies"]` |
+| `_links` | Navigation links (self, next, prev, first, last) | `response["_links"]["next"]["href"]` |
+| `page` | Pagination metadata (size, totalElements, totalPages, number) | `response["page"]["totalElements"]` |
+
+### Genome-wide Significance
+
+The standard genome-wide significance threshold is **p <= 5 x 10^-8**, correcting for approximately 1 million independent tests across the human genome. Associations below this threshold are considered suggestive. The GWAS Catalog includes associations at various significance levels -- always check p-values when filtering results.
+
+### Key Identifiers
+
+- **GCST IDs**: GWAS Catalog study accessions (e.g., `GCST000392`)
+- **rs numbers**: dbSNP reference SNP identifiers (e.g., `rs7903146`)
+- **EFO terms**: Experimental Factor Ontology for trait standardization (e.g., `EFO_0001360` for type 2 diabetes)
+- **Cytogenetic bands**: Chromosomal location notation (e.g., `10q25.2`)
+
+## Common Workflows
+
+### Workflow 1: Disease Genetic Architecture
+
+**Goal**: Map the genetic landscape of a disease by collecting all genome-wide significant loci.
+
+```python
+import requests, time
+
+BASE = "https://www.ebi.ac.uk/gwas/rest/api"
+
+def gwas_get(endpoint, params=None):
+    url = f"{BASE}/{endpoint}"
+    resp = requests.get(url, params=params or {})
+    resp.raise_for_status()
+    time.sleep(0.2)
+    return resp.json()
+
+# Step 1: Resolve trait → current shortForm via findByEfoTrait
+# (the older `findByDescription` endpoint was removed).
+traits = gwas_get("efoTraits/search/findByEfoTrait", {"trait": "schizophrenia"})
+efo_id = traits["_embedded"]["efoTraits"][0]["shortForm"]
+print(f"Using EFO: {efo_id}")
+
+# Step 2: Get all associations for this trait — nested path
+# `efoTraits/{shortForm}/associations` works once you have the canonical shortForm.
+all_assocs = []
+page = 0
 while True:
-    d = gwas_get(f"efoTraits/{efo}/associations", {"size": 500, "page": page})
-    allA += d["_embedded"]["associations"]
-    if page >= d["page"]["totalPages"] - 1: break
+    data = gwas_get(f"efoTraits/{efo_id}/associations",
+                    {"size": 500, "page": page})
+    assocs = data["_embedded"]["associations"]
+    all_assocs.extend(assocs)
+    if page >= data["page"]["totalPages"] - 1:
+        break
     page += 1
-sig = [a for a in allA if a.get("pvalue") and a["pvalue"] < 5e-8]
-print(f"全部 {len(allA)}，全基因组显著 {len(sig)}")
+
+# Step 3: Filter genome-wide significant
+significant = [a for a in all_assocs if a.get("pvalue") and a["pvalue"] < 5e-8]
+print(f"Total associations: {len(all_assocs)}, genome-wide significant: {len(significant)}")
+
+# Step 4: Extract variant and effect details
+for a in significant[:10]:
+    risk_alleles = a.get("loci", [{}])[0].get("strongestRiskAlleles", [])
+    snp = risk_alleles[0].get("snps", [{}])[0].get("rsId", "N/A") if risk_alleles else "N/A"
+    or_val = a.get("orPerCopyNum", "N/A")
+    beta = a.get("betaNum", "N/A")
+    print(f"  {snp} | p={a['pvalue']:.2e} | OR={or_val} | beta={beta}")
 ```
 
-**多效性（变异 → 跟 efoTraits 链，按 href 缓存）**：
+### Workflow 2: Variant Pleiotropy Analysis
+
+**Goal**: Determine how many distinct traits a single variant is associated with.
 
 ```python
-assocs = gwas_get("singleNucleotidePolymorphisms/rs7903146/associations",
-                  {"size": 500})["_embedded"]["associations"]
-cache, traits = {}, set()
+import requests, time
+
+BASE = "https://www.ebi.ac.uk/gwas/rest/api"
+
+def gwas_get(endpoint, params=None):
+    url = f"{BASE}/{endpoint}"
+    resp = requests.get(url, params=params or {})
+    resp.raise_for_status()
+    time.sleep(0.2)
+    return resp.json()
+
+rs_id = "rs7903146"  # Well-known pleiotropic variant
+
+# Get all associations for this variant
+data = gwas_get(f"singleNucleotidePolymorphisms/{rs_id}/associations", {"size": 500})
+assocs = data["_embedded"]["associations"]
+
+# Association records don't embed efoTraits inline — follow the HAL
+# `_links.efoTraits.href` link per association. Cache per-href to avoid
+# duplicate fetches.
+trait_set = {}
+href_cache = {}
+def fetch_traits(href):
+    if href in href_cache:
+        return href_cache[href]
+    r = requests.get(href, timeout=15)
+    href_cache[href] = (r.json().get("_embedded", {}).get("efoTraits", [])) if r.ok else []
+    return href_cache[href]
+
 for a in assocs:
     href = (a.get("_links") or {}).get("efoTraits", {}).get("href")
-    if not href: continue
-    if href not in cache:
-        r = requests.get(href, timeout=15)
-        cache[href] = r.json().get("_embedded", {}).get("efoTraits", []) if r.ok else []
-    for x in cache[href]:
-        traits.add(x.get("shortForm"))
+    if not href:
+        continue
+    for t in fetch_traits(href):
+        tid = t.get("shortForm", "unknown")
+        if tid not in trait_set:
+            trait_set[tid] = {"trait": t.get("trait", "N/A"),
+                              "best_pval": a.get("pvalue", 1), "count": 0}
+        trait_set[tid]["count"] += 1
+        if a.get("pvalue") and a["pvalue"] < trait_set[tid]["best_pval"]:
+            trait_set[tid]["best_pval"] = a["pvalue"]
     time.sleep(0.1)
-print(f"rs7903146 关联 {len(traits)} 个不同性状")
+
+print(f"{rs_id} is associated with {len(trait_set)} distinct traits:")
+for tid, info in sorted(trait_set.items(), key=lambda x: x[1]["best_pval"]):
+    print(f"  {tid}: {info['trait']} (best p={info['best_pval']:.2e}, n={info['count']})")
 ```
 
-更多配方见源仓：曼哈顿图（`-log10(p)` vs 染色体偏移，画 5e-8/1e-5 阈值线，FTP 下载 `.tsv.gz`）、效应量森林图、交叉 PGS Catalog（同 EFO 查多基因评分 `pgscatalog.org/rest/score/search?trait_id=`）。
+### Workflow 3: Summary Statistics Manhattan Plot
 
-## 注意事项
+**Goal**: Download summary statistics for a study and create a Manhattan plot.
 
-- **`KeyError: '_embedded'`**：按 ID 直查（study/SNP/trait）返回单对象，`_embedded` 只在检索/列表结果里出现。
-- **EFO/MONDO 重映射**：直接 `efoTraits/EFO_0000249` 可能 404；务必先经 `findByEfoTrait` 解析当前 `shortForm`。
-- **关联不内嵌 `efoTraits`**：经 `_links.efoTraits.href` 跟链解析；批量时按 href 缓存。
-- **效应量缺失**：并非所有关联都报 OR/beta，`orPerCopyNum` 与 `betaNum` 都要查，有些研究只报 p 值。
-- **务必看祖先**：效应量与等位频率随人群而异，看 `initialSampleSize`/`replicationSampleSize` 了解祖先构成。
-- **别只信报告基因**：`authorReportedGenes` 未必是因果基因，需交叉功能注释与 eQTL。
-- **分页**：默认每页 20，漏数据多因没设 `size`；先看 `page.totalElements` 知总量再循环。
-- **数据季度更新**：看研究的 `lastUpdateDate`；EBI 临时不可用时退避重试，状态见 `ebi.ac.uk/gwas/status`。
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+import csv, gzip, io, requests
 
-## 互见
+# Simulated summary statistics for demonstration
+# In practice: download from GWAS Catalog FTP
+# url = "http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCSTXXXXXX/..."
+# resp = requests.get(url); data = gzip.decompress(resp.content)
 
-- related：`scientific-database-lookup` —— 需跨多个公开科研库泛化取数时走它。
-- related：`gget-genomic-databases` —— GWAS hit 的变异功能后果用其封装的 Ensembl VEP/BLAST 注释。
-- related：`uniprot-protein-database` —— 把关联基因映射到蛋白做下游解读。
-- combines_with：`gnomad-population-database` —— GWAS 给关联、gnomAD 给同一变异的人群频率，二者互补判罕见性。
-- combines_with：`clinvar-database` —— 关联区域的候选变异交叉临床致病性证据。
-- combines_with：`opentargets-database` —— 从 GWAS hits 做药靶验证与证据打分。
-- combines_with：`gene-set-enrichment-analysis` —— 用显著位点构建的候选基因集做富集分析。
+np.random.seed(42)
+n_snps = 5000
+chroms = np.random.choice(range(1, 23), size=n_snps)
+positions = np.random.randint(1, 250_000_000, size=n_snps)
+pvalues = np.random.uniform(0, 1, size=n_snps)
+# Add some "hits"
+pvalues[:20] = 10 ** np.random.uniform(-15, -8, size=20)
 
----
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+# Manhattan plot
+log_p = -np.log10(pvalues)
+chrom_offsets = {}
+running_offset = 0
+for c in range(1, 23):
+    chrom_offsets[c] = running_offset
+    running_offset += 250_000_000
+
+x_positions = [positions[i] + chrom_offsets[chroms[i]] for i in range(n_snps)]
+colors = ["#1f77b4" if c % 2 == 0 else "#ff7f0e" for c in chroms]
+
+fig, ax = plt.subplots(figsize=(14, 5))
+ax.scatter(x_positions, log_p, c=colors, s=4, alpha=0.6)
+ax.axhline(y=-np.log10(5e-8), color="red", linestyle="--", linewidth=0.8,
+           label="Genome-wide significance (p=5e-8)")
+ax.axhline(y=-np.log10(1e-5), color="blue", linestyle=":", linewidth=0.5,
+           label="Suggestive (p=1e-5)")
+ax.set_xlabel("Chromosome")
+ax.set_ylabel("-log10(p-value)")
+ax.set_title("GWAS Manhattan Plot")
+ax.legend(fontsize=8)
+
+# Chromosome labels
+tick_positions = [chrom_offsets[c] + 125_000_000 for c in range(1, 23)]
+ax.set_xticks(tick_positions)
+ax.set_xticklabels([str(c) for c in range(1, 23)], fontsize=7)
+plt.tight_layout()
+plt.savefig("manhattan_plot.png", dpi=300, bbox_inches="tight")
+print("Saved manhattan_plot.png")
+```
+
+## Key Parameters
+
+| Parameter | Function/Endpoint | Default | Range / Options | Effect |
+|-----------|-------------------|---------|-----------------|--------|
+| `size` | All paginated endpoints | `20` | `1`-`500` | Results per page |
+| `page` | All paginated endpoints | `0` | `0`-`totalPages-1` | Page number (0-indexed) |
+| `diseaseTrait` | `studies/search/findByDiseaseTrait` | -- | Any string | Trait keyword search |
+| `pubmedId` | `studies/search/findByPublicationIdPubmedId` | -- | Valid PMID | Study lookup by publication (`findByPubmedId` 404s on /studies/) |
+| `geneName` | `snps/search/findByGene` | -- | Gene symbol | Variants near a gene |
+| `chrom`, `bpStart`, `bpEnd` | `snps/search/findByChromBpLocationRange` | -- | chr:start-end | Regional variant query |
+| `fullPvalueSet` | `studies/search/findByFullPvalueSet` | -- | `True`/`False` | Filter studies with summary stats |
+| `trait` | `efoTraits/search/findByEfoTrait` | -- | Canonical trait name | Trait lookup by exact name (`findByDescription` was removed) |
+| `efoTrait` | `associations/search/findByEfoTrait` | -- | Canonical trait name | All associations for a trait |
+
+## Best Practices
+
+1. **Paginate large result sets**: Default page size is 20; set `size=500` and loop over pages for complete data retrieval. Check `page.totalElements` to know the full count before iterating.
+
+2. **Use EFO IDs for precise trait queries**: Free-text search may return related but different traits. Look up the exact EFO ID first, then query associations by EFO ID for precision.
+
+3. **Always check p-values**: The catalog contains associations at various significance levels. Filter to p < 5e-8 for genome-wide significant results unless you specifically need suggestive associations.
+
+4. **Be ancestry-aware**: Effect sizes and allele frequencies vary across populations. Check the `initialSampleSize` and `replicationSampleSize` fields to understand the ancestry composition of each study.
+
+5. **Add rate-limiting delays**: Although no official limit exists, `time.sleep(0.2)` between requests prevents server overload and avoids temporary blocks.
+
+6. **Cache frequently accessed data**: Study and trait metadata rarely change. Cache results locally when running batch analyses to reduce redundant API calls.
+
+7. **Anti-pattern -- Don't rely solely on reported genes**: Author-reported genes may not be the causal gene. Cross-reference with functional annotation tools and eQTL databases for biological interpretation.
+
+## Common Recipes
+
+### Recipe 1: Cross-Reference with PGS Catalog
+
+Identify polygenic scores available for a GWAS trait.
+
+```python
+import requests, time
+
+# Step 1: Get EFO/MONDO shortForm from GWAS Catalog
+# (the old `findByDescription` endpoint was removed; use `findByEfoTrait`)
+BASE = "https://www.ebi.ac.uk/gwas/rest/api"
+traits = requests.get(f"{BASE}/efoTraits/search/findByEfoTrait",
+                      params={"trait": "coronary artery disease"}).json()
+efo_id = traits["_embedded"]["efoTraits"][0]["shortForm"]
+time.sleep(0.2)
+
+# Step 2: Query PGS Catalog for scores using same EFO
+pgs_url = f"https://www.pgscatalog.org/rest/score/search?trait_id={efo_id}"
+pgs_data = requests.get(pgs_url).json()
+print(f"PGS scores for {efo_id}: {pgs_data.get('count', 0)}")
+for score in pgs_data.get("results", [])[:5]:
+    print(f"  {score['id']}: {score['name']} (variants: {score.get('variants_number', '?')})")
+```
+
+### Recipe 2: Regional Association Summary
+
+Collect all GWAS associations in a genomic region.
+
+```python
+import requests, time
+
+BASE = "https://www.ebi.ac.uk/gwas/rest/api"
+
+# Query region: chr9:21,900,000-22,200,000 (CDKN2A/2B locus)
+data = requests.get(f"{BASE}/singleNucleotidePolymorphisms/search/findByChromBpLocationRange",
+                    params={"chrom": "9", "bpStart": "21900000",
+                            "bpEnd": "22200000", "size": 200}).json()
+time.sleep(0.2)
+snps = data["_embedded"]["singleNucleotidePolymorphisms"]
+print(f"Variants in CDKN2A/2B locus: {len(snps)}")
+
+# Get associations for each variant
+region_assocs = []
+for v in snps[:10]:  # Limit for demo
+    rs = v["rsId"]
+    try:
+        a_data = requests.get(f"{BASE}/singleNucleotidePolymorphisms/{rs}/associations",
+                              params={"size": 50}).json()
+        time.sleep(0.2)
+        for a in a_data["_embedded"]["associations"]:
+            for t in a.get("efoTraits", []):
+                region_assocs.append({"rsId": rs, "trait": t["trait"],
+                                      "pvalue": a.get("pvalue")})
+    except Exception:
+        continue
+
+print(f"Total associations in region: {len(region_assocs)}")
+```
+
+### Recipe 3: Effect Size Forest Plot
+
+Visualize effect sizes across studies for a single variant.
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+import requests, time
+
+BASE = "https://www.ebi.ac.uk/gwas/rest/api"
+data = requests.get(f"{BASE}/singleNucleotidePolymorphisms/rs1801282/associations",
+                    params={"size": 100}).json()
+time.sleep(0.2)
+assocs = data["_embedded"]["associations"]
+
+# Extract OR values (filter to those with OR data)
+entries = []
+for a in assocs:
+    or_val = a.get("orPerCopyNum")
+    ci_text = a.get("range", "")
+    trait = a.get("efoTraits", [{}])[0].get("trait", "N/A") if a.get("efoTraits") else "N/A"
+    if or_val and or_val > 0:
+        entries.append({"trait": trait[:30], "or": or_val, "ci": ci_text})
+
+if entries:
+    fig, ax = plt.subplots(figsize=(8, max(3, len(entries) * 0.4)))
+    y_pos = range(len(entries))
+    ors = [e["or"] for e in entries]
+    labels = [f"{e['trait']} (OR={e['or']:.2f})" for e in entries]
+    ax.barh(y_pos, [np.log(o) for o in ors], color=["#d62728" if o > 1 else "#2ca02c" for o in ors])
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels(labels, fontsize=8)
+    ax.axvline(x=0, color="black", linewidth=0.8)
+    ax.set_xlabel("log(OR)")
+    ax.set_title("rs1801282 (PPARG) Effect Sizes")
+    plt.tight_layout()
+    plt.savefig("forest_plot.png", dpi=300, bbox_inches="tight")
+    print(f"Saved forest_plot.png with {len(entries)} entries")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `404 Not Found` | Invalid GCST, rs ID, or EFO ID | Verify identifier exists via search endpoint first |
+| Empty `_embedded` | No results for query | Broaden search terms or check spelling; try partial match |
+| `ConnectionError` / timeout | EBI server temporarily down | Retry with exponential backoff; check https://www.ebi.ac.uk/gwas/status |
+| Truncated results | Default pagination (20 per page) | Set `size=500` and iterate over `page` parameter |
+| Missing OR/beta values | Not all associations report effect sizes | Check both `orPerCopyNum` and `betaNum` fields; some studies report only p-values |
+| Stale data | Catalog updated quarterly | Check `lastUpdateDate` on studies; re-query if needed |
+| `KeyError: '_embedded'` | Endpoint returns single object, not list | Direct lookups (by ID) return a single object; `_embedded` only appears in search/list results |
+| Summary stats unavailable | Not all studies deposit summary stats | Filter with `findByFullPvalueSet=True` to find studies with available data |
+
+## Bundled Resources
+
+### `references/api_endpoints.md`
+
+**Covers**: Complete endpoint catalog for all 6 REST API groups (studies, associations, variants, traits, genes, summary statistics) with query parameters, plus response field tables for the main entity types (association fields, study fields, variant fields), HTTP error codes, and pagination patterns.
+
+**Relocated inline**: Core query patterns and the most common endpoints are demonstrated in Core API modules with full code examples. HAL+JSON structure and key identifier formats are in Key Concepts.
+
+**Omitted from original api_reference.md (794 lines)**: Advanced query composition patterns (multi-parameter chaining beyond what Core API shows), child/parent trait traversal details, detailed changelog/versioning notes. These are specialized and covered by EBI documentation.
+
+## Related Skills
+
+- **gget-genomic-databases** -- gene lookups, variant annotation, BLAST (upstream ID resolution)
+- **ensembl-database (planned)** -- variant effect prediction, regulatory annotations
+- **opentargets-database (planned)** -- drug target validation from GWAS hits
+- **clinvar-database (planned)** -- clinical variant interpretation
+- **bioservices-multi-database** -- cross-database queries integrating GWAS with pathway data
+
+## References
+
+- [GWAS Catalog website](https://www.ebi.ac.uk/gwas/) -- main portal for browsing and searching
+- [GWAS Catalog REST API documentation](https://www.ebi.ac.uk/gwas/rest/docs/api) -- official API reference
+- [GWAS Catalog GitHub](https://github.com/EBISPOT/goci) -- source code and issue tracker
+- [Summary Statistics FTP](http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/) -- bulk summary statistics downloads
+- [PGS Catalog](https://www.pgscatalog.org/) -- polygenic score database using GWAS data

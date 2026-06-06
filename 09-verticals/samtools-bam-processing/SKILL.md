@@ -1,14 +1,14 @@
 ---
 name: samtools-bam-processing
-title: samtools BAM/SAM 处理
-description: 当需对 SAM/BAM/CRAM 比对文件做排序、建索引、格式转换、FLAG/质量/区间过滤、QC 统计、去重或合并时使用；用 samtools CLI（view/sort/index/flagstat/stats/depth/markdup/merge）把比对器输出整理成可分析的已排序已建索引 BAM 并出质控指标；不适用于 Python 内编程式 BAM 操作（用 pysam/genomic-file-toolkit）、归一化 bigWig 覆盖轨（用 deeptools）、全基因组逐碱基深度（用 mosdepth）；触发词：samtools、BAM、SAM、CRAM、sort、index、flagstat、markdup、FLAG、view
+title: samtools — SAM/BAM/CRAM Alignment Toolkit
+description: CLI toolkit for SAM/BAM/CRAM: sort, index, convert, filter, QC alignments. Core commands: view, sort, index, flagstat, stats, depth, markdup, merge. Required between alignment and variant/peak calling. Use pysam for Python-native BAM access; deeptools for normalized coverage tracks.
 domain: 领域/science
-triggers: [samtools, BAM, SAM, CRAM, sort, index, flagstat, idxstats, stats, depth, coverage, markdup, 去重, PCR 重复, merge, view, FLAG, proper pair, mapping quality, fixmate, 排序, 建索引, 格式转换, 区间提取, 测序比对]
-tags: [生物信息, 基因组学, ngs, 比对, bam, sam, cram, samtools, 质控, science]
-level: 进阶
+triggers: [samtools, BAM, SAM, CRAM, sort, index, flagstat, idxstats, stats, depth, coverage, markdup, merge, view, FLAG, proper pair, mapping quality, fixmate]
+tags: [ngs, bam, sam, cram, samtools, science]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [samtools, htslib, bgzip/tabix]
+tools: []
 requires: []
 related: [bcftools-variant-manipulation, genomic-file-toolkit, bwa-mem2-dna-aligner, gatk-variant-calling]
 combines_with: [bwa-mem2-dna-aligner, gatk-variant-calling]
@@ -16,132 +16,380 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# samtools — SAM/BAM/CRAM Alignment Toolkit
 
-当你拿到比对器（BWA、STAR、bowtie2 等）输出的 SAM/BAM/CRAM，需要把它整理成下游分析（变异检测、峰检测、覆盖度）能直接吃的「已坐标排序 + 已建索引」BAM，并产出质控指标时，用 samtools。它是 NGS 流程里位于「比对」与「下游」之间的近乎标配组件。典型场景：
+## Overview
 
-- 比对后对 BAM 按坐标排序（建索引的前置），再建索引以支持区间随机查询。
-- 在 SAM/BAM/CRAM 间转换以省存储（BAM 约省 75%，CRAM 再省 40-50%，需参考 FASTA）。
-- 出比对 QC：mapping rate、insert size、每染色体读段数（flagstat / stats / idxstats / coverage）。
-- 按 mapping quality、SAM FLAG 位、基因组区间或 BED 过滤读段。
-- 变异检测前标记或移除 PCR 重复（collate→fixmate→sort→markdup）。
-- 合并多 lane / 多样本 BAM；按 BED 限定目标区降低下游 I/O。
+samtools is the standard command-line toolkit for processing sequence alignment files in SAM, BAM, and CRAM formats. It handles the complete alignment file lifecycle: format conversion, coordinate sorting, index creation, quality control statistics, read filtering, duplicate marking, and multi-file merging. samtools is a near-universal component of NGS pipelines between alignment (STAR, BWA) and downstream analysis (variant calling, peak calling, coverage).
 
-**不该用的边界**：需要在 Python 脚本里编程式读写 BAM/做 pileup，用 pysam（本库的 `genomic-file-toolkit`）；需要归一化 bigWig 覆盖轨与 ChIP/ATAC 信号图，用 deeptools；需要全基因组逐碱基深度（更快、并行），用 mosdepth；samtools 本身不做比对算法与变异/峰检测的统计建模。
+## When to Use
 
-## 步骤
+- Sorting BAM files by coordinate after alignment (required before indexing)
+- Indexing sorted BAM files for random access and region queries
+- Converting between SAM, BAM, and CRAM formats to save storage
+- Generating alignment QC metrics: mapping rates, insert sizes, per-chromosome stats
+- Filtering reads by mapping quality, FLAG bits, or genomic regions
+- Marking or removing PCR duplicates before variant calling
+- Merging multiple BAM files from different lanes or samples
+- Calculating per-base depth or coverage breadth for target regions
+- Use `pysam` instead for Python-native BAM manipulation in custom scripts
+- Use `deeptools bamCoverage` instead when you need normalized bigWig coverage tracks
+- Use `mosdepth` instead for whole-genome per-base depth (faster, parallelized)
 
-1. **排序**：比对器常输出未排序文件，先 `samtools sort` 按坐标排序（fixmate/markdup 需要的是按 name 排序，用 `-n`）。
-2. **建索引**：`samtools index` 生成 `.bai`（染色体 >512 Mbp 用 `-c` 生成 CSI）。**必须先排序再建索引**，否则失败或结果错误。
-3. **QC**：先跑 `flagstat`（秒级，能及早发现低 mapping rate 等比对失败），再视需要 `stats` / `idxstats` / `coverage`。
-4. **过滤**：用 `-q`（mapping quality）、`-f`/`-F`（FLAG 位）、区间字符串或 `-L bed` 提取所需子集。
-5. **去重（可选）**：变异检测前走完整 collate→fixmate→sort→markdup，再建索引。
-6. **合并/归档（可选）**：`samtools merge` 合并已排序 BAM；长期归档转 CRAM 并保留参考 FASTA。
+## Prerequisites
 
-## 指令
+- **Installation**: samtools 1.17+ recommended
+- **Input requirements**: SAM/BAM/CRAM files; CRAM requires FASTA reference
+- **Companion tools**: `samtools faidx` for FASTA indexing; `samtools sort` before `samtools index`
 
-前置检查：环境里可能已装好（如 pixi/conda），先 `command -v samtools`，有路径就跳过安装；pixi 项目内用 `pixi run samtools` 而非裸 `samtools`。
+> **Check before installing**: The tool may already be available in the current environment (e.g., inside a `pixi` / `conda` env). Run `command -v samtools` first and skip the install commands below if it returns a path. When running inside a pixi project, invoke the tool via `pixi run samtools` rather than bare `samtools`.
 
 ```bash
-conda install -c bioconda samtools   # 或 brew install samtools（macOS）
-samtools --version | head -1         # 建议 1.17+
+# Bioconda (recommended)
+conda install -c bioconda samtools
+
+# Homebrew (macOS)
+brew install samtools
+
+# Verify
+samtools --version | head -1
 ```
 
-比对后典型流程（排序 → 建索引 → QC）：
+## Quick Start
 
 ```bash
+# Typical post-alignment workflow: sort → index → QC
 samtools sort -@ 8 -o sorted.bam input.bam
 samtools index sorted.bam
 samtools flagstat sorted.bam
 ```
 
-关键参数：
+## Core API
 
-| 参数 | 子命令 | 默认 | 说明 |
-|---|---|---|---|
-| `-@` | 多数 | 0 | 额外压缩/IO 线程，近线性加速（I/O 密集） |
-| `-m` | sort | 768M | 每线程排序内存，如 `2G`/`4G` |
-| `-q` | view | 0 | 最低 mapping quality 过滤（0-60） |
-| `-f` | view | 0 | 仅保留 FLAG **全部**置位的读段 |
-| `-F` | view | 0 | 排除 FLAG **任一**置位的读段 |
-| `-b`/`-C`/`-T` | view | — | 输出 BAM / 输出 CRAM（需 `-T ref.fa`） |
-| `-L` | view | — | 仅 BED 区间内读段（靶向分析降 I/O） |
-| `-n` | sort | — | 按 read name 排序（fixmate/markdup 前置） |
-| `-c` | index | — | 生成 CSI 索引（染色体 >512 Mbp 必需） |
-| `-d`/`-r` | markdup | 0 / — | 光学重复像素距离 / 移除而非仅标记重复 |
+### Module 1: BAM/SAM I/O and Format Conversion
 
-常用 SAM FLAG 位：`1`=paired、`2`=proper pair、`4`=unmapped、`8`=mate unmapped、`16`=反向链、`64`=R1、`128`=R2、`256`=secondary、`1024`=PCR 重复、`2048`=supplementary。
-
-## 示例
-
-格式转换与过滤：
+Convert between SAM/BAM/CRAM formats and extract subsets.
 
 ```bash
-samtools view -b -h input.sam -o output.bam                 # SAM→BAM（约省 75% 空间）
-samtools view -C -T reference.fa input.bam -o output.cram   # BAM→CRAM（再省 40-50%）
-samtools view -q 20 -F 4 input.bam -o filtered.bam          # MQ≥20 且排除未比对
-samtools view -h sorted.bam "chr1:1000000-2000000" -o region.bam  # 区间提取（需索引，1-based）
-samtools view -c -F 4 input.bam                             # 仅计数已比对读段
-samtools view -F 2304 sorted.bam -o primary.bam             # 去 secondary+supplementary
-```
+# SAM → BAM (saves ~75% disk space)
+samtools view -b -h input.sam -o output.bam
 
-排序与索引：
+# BAM → CRAM (saves additional 40-50%)
+samtools view -C -T reference.fa input.bam -o output.cram
+
+# Filter: mapping quality ≥20, exclude unmapped (-F 4)
+samtools view -q 20 -F 4 input.bam -o filtered.bam
+
+# Extract specific region (requires index)
+samtools view -h sorted.bam "chr1:1000000-2000000" -o region.bam
+
+# Count reads matching filter
+samtools view -c -F 4 input.bam
+# Output: 45231923 (number of mapped reads)
+```
 
 ```bash
-samtools sort -@ 8 -m 2G input.bam -o sorted.bam   # 坐标排序
-samtools sort -n -@ 8 input.bam -o namesorted.bam  # 按 name 排序（markdup 前置）
-samtools index sorted.bam                          # 生成 sorted.bam.bai
-samtools index -c sorted.bam                        # 大染色体用 CSI
+# Extract reads as FASTQ (for realignment or de novo assembly)
+samtools fastq -@ 4 -1 R1.fastq.gz -2 R2.fastq.gz -0 unpaired.fastq.gz input.bam
+
+# Extract reads as FASTA
+samtools fasta input.bam > reads.fasta
+
+# Filter by read group
+samtools view -r SAMPLE_001 multi_rg.bam -o sample001.bam
 ```
 
-QC 统计：
+### Module 2: Sorting and Indexing
+
+Organize BAM files for efficient random access.
 
 ```bash
-samtools flagstat sorted.bam                        # 总数/已比对/proper pair（秒级）
-samtools idxstats sorted.bam                         # 每染色体 mapped/unmapped
-samtools stats -r reference.fa sorted.bam > full_stats.txt   # insert size/GC/碱基质量
-samtools coverage sorted.bam                         # 每区/每染色体 min/max/mean 覆盖
-samtools depth -b target_regions.bed sorted.bam > depth.txt  # 区间逐碱基深度
+# Sort by coordinate (required before indexing)
+samtools sort -@ 8 -m 2G input.bam -o sorted.bam
+
+# Sort by read name (required for fixmate/markdup)
+samtools sort -n -@ 8 input.bam -o namesorted.bam
+
+# Index sorted BAM (creates sorted.bam.bai)
+samtools index sorted.bam
+
+# For chromosomes > 512 Mbp: use CSI index instead
+samtools index -c sorted.bam
+
+# Group reads by name (fast, for fixmate — no full sort needed)
+samtools collate -o collated.bam input.bam
 ```
 
-完整去重流程（变异检测前，给 GATK 等）：
+### Module 3: Quality Control and Statistics
+
+Generate alignment QC metrics and coverage reports.
 
 ```bash
-samtools collate -@ 8 -o collated.bam aligned.bam
-samtools fixmate -m -@ 8 collated.bam fixmated.bam   # -m 写 mate 信息，markdup 必需
-samtools sort  -@ 8 -o dsorted.bam fixmated.bam
-samtools markdup -@ 8 -s dsorted.bam deduped.bam     # -s 输出去重统计；-r 直接移除
-samtools index deduped.bam
-samtools flagstat deduped.bam | grep duplic          # WGS 约 3-15%，amplicon 10-30%
-# NovaSeq 光学重复：samtools markdup -d 2500 dsorted.bam marked.bam
-```
+# Quick summary: total, mapped, paired, properly paired
+samtools flagstat sorted.bam
+# Example output:
+# 50000000 + 0 in total (QC-passed reads + QC-failed reads)
+# 48523111 + 0 mapped (97.05% : N/A)
+# 50000000 + 0 paired in sequencing
+# 48490234 + 0 properly paired (96.98% : N/A)
 
-合并与下采样：
+# Per-chromosome mapped/unmapped read counts
+samtools idxstats sorted.bam
+# chr1  248956422  12345678  0
+# chr2  242193529  11234567  0
+
+# Comprehensive stats (insert sizes, GC content, base quality)
+samtools stats -r reference.fa sorted.bam > full_stats.txt
+grep "^SN" full_stats.txt | cut -f2,3  # Summary Numbers only
+
+# Coverage report (min/max/mean per region/chromosome)
+samtools coverage sorted.bam
+```
 
 ```bash
-samtools merge -@ 8 merged.bam lane1.bam lane2.bam lane3.bam   # 所有输入须已排序
-samtools merge -b bam_list.txt -@ 8 merged.bam                # 从清单合并（每行一个）
-samtools view -b -s 0.30 input.bam -o down30.bam              # 随机下采样到 30%
+# Per-base read depth for specific regions
+samtools depth -b target_regions.bed sorted.bam > depth.txt
+# Output: chr  pos  depth (e.g., chr1  1000  45)
+
+# Statistics split by read group
+samtools stats -S RG sorted.bam > per_rg_stats.txt
 ```
 
-## 注意事项
+### Module 4: Read Filtering and FLAG Operations
 
-- **建索引失败 `fail to index`**：BAM 未坐标排序，先 `samtools sort -o sorted.bam input.bam`。
-- **`BAI index too large`**：染色体 >512 Mbp，改用 CSI：`samtools index -c input.bam`。
-- **`CRAM: reference not found`**：缺/错参考 FASTA，设 `REF_PATH` 或显式 `-T ref.fa`。
-- **去重结果不对**：跳过了 fixmate，必须走完整 collate→fixmate→sort→markdup；直接对坐标排序 BAM 跑 markdup 会误判。
-- **flagstat 显示 0% properly paired**：双端 BAM 缺 mate 信息，先 `samtools fixmate` 补 mate 坐标。
-- **排序很慢**：每线程内存不足，加大 `-m 4G`；内存受限则减小 `-@`。
-- **区间查询返空**：未建索引或坐标错；先 `samtools index`，并用 1-based 坐标 `chr1:1000-2000`。
-- **打开失败 / 文件疑似损坏**：路径不对或文件坏，`samtools quickcheck file.bam` 自检；生产运行尽量都加 `-@` 提速。
+Filter reads using SAM FLAG bits for specific subsets.
 
-## 互见
+```bash
+# FLAG reference — common masks:
+# 1    = paired         4  = unmapped
+# 2    = proper pair    8  = mate unmapped
+# 16   = reverse strand 64 = R1 (first in pair)
+# 128  = R2             256= secondary alignment
+# 1024 = PCR duplicate  2048= supplementary
 
-- requires：无
-- related：`genomic-file-toolkit`（Python/pysam 编程式 BAM/VCF 操作，CLI 之外的脚本场景）、`star-rnaseq-aligner` 与 `gatk-variant-calling`（samtools 的上游比对与下游变异检测）、`deeptools-ngs-analysis`（覆盖轨/信号图）、`macs3-peak-calling`（峰检测，吃排序 BAM）
-- combines_with：`fastp-fastq-preprocessing`（比对前 FASTQ 质控）、`gatk-variant-calling`（去重 BAM → 变异）、`deeptools-ngs-analysis`（BAM → bigWig）、`nextflow-pipeline-builder`（把这些步骤编排成可复现流程）
-- 官方文档：htslib.org/doc/samtools.html ｜ 源码 github.com/samtools/samtools
-- 文献：Danecek et al. (2021) "Twelve years of SAMtools and BCFtools", GigaScience 10(2)（DOI:10.1093/gigascience/giab008）；SAM 格式规范 samtools.github.io/hts-specs/SAMv1.pdf
+# Extract properly paired, mapped reads (FLAG 2 set, 4 unset)
+samtools view -f 2 -F 4 sorted.bam -o proper_pairs.bam
 
----
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），源条目许可 MIT。
+# Extract R1 reads only
+samtools view -f 64 sorted.bam -o R1.bam
+
+# Remove secondary and supplementary alignments
+samtools view -F 2304 sorted.bam -o primary.bam
+
+# Extract reads from BED file regions
+samtools view -L regions.bed -b sorted.bam -o regions.bam
+```
+
+### Module 5: Duplicate Handling
+
+Mark or remove PCR duplicates before variant calling.
+
+```bash
+# Full duplicate marking workflow (collate → fixmate → sort → markdup)
+samtools collate -@ 8 -o collated.bam input.bam
+samtools fixmate -m -@ 8 collated.bam fixmated.bam
+samtools sort -@ 8 -o sorted.bam fixmated.bam
+samtools markdup -@ 8 sorted.bam marked.bam
+samtools index marked.bam
+
+# Check duplication rate
+samtools flagstat marked.bam | grep "duplicates"
+# Output: 2345678 + 0 duplicates (4.83%)
+```
+
+```bash
+# NovaSeq optical duplicate detection (2500 pixel distance)
+samtools markdup -d 2500 sorted.bam marked_novaseq.bam
+
+# Remove duplicates instead of marking
+samtools markdup -r sorted.bam deduped.bam
+
+# Get duplication stats without writing output
+samtools markdup -s sorted.bam /dev/null
+```
+
+### Module 6: Multi-file Operations and Region Analysis
+
+Merge BAM files and perform region-level analysis.
+
+```bash
+# Merge multiple BAM files (all must be sorted)
+samtools merge -@ 8 merged.bam lane1.bam lane2.bam lane3.bam
+
+# Merge files listed in a text file (one per line)
+samtools merge -b bam_list.txt -@ 8 merged.bam
+
+# Merge with read group tags from filenames
+samtools merge -r merged.bam sample1.bam sample2.bam
+
+# Extract specific chromosome region from merged output
+samtools view -h merged.bam chr1 -b -o chr1.bam
+```
+
+## Key Concepts
+
+### SAM FLAG Bits
+
+FLAGS encode read properties as a sum of bit values. Common filtering patterns:
+
+| Common Filter | `-f` (require) | `-F` (exclude) | Selects |
+|---------------|----------------|----------------|---------|
+| Mapped reads | — | 4 | All aligned reads |
+| Proper pairs | 2 | — | Properly paired, both mapped |
+| Unique primary | — | 2308 | No secondary/supplementary/duplicate |
+| R1 only | 64 | — | First-in-pair reads |
+| Unmapped | 4 | — | Failed to align |
+
+### CRAM vs BAM vs SAM
+
+| Format | Size | Speed | Requires |
+|--------|------|-------|---------|
+| SAM | ~10× BAM | Slow I/O | Nothing |
+| BAM | 1× | Fast | `.bai` index for random access |
+| CRAM | ~0.6× BAM | Slightly slower | Reference FASTA + index |
+
+Use CRAM for long-term storage; BAM for active analysis.
+
+## Common Workflows
+
+### Workflow 1: Post-Alignment QC and Preparation
+
+**Goal**: Convert aligner output to analysis-ready BAM with QC metrics.
+
+```bash
+#!/bin/bash
+SAMPLE="sample_001"
+REF="reference.fa"
+THREADS=8
+
+# 1. Sort and index (aligner often outputs unsorted SAM/BAM)
+samtools sort -@ $THREADS -o ${SAMPLE}.sorted.bam ${SAMPLE}.bam
+samtools index ${SAMPLE}.sorted.bam
+
+# 2. QC metrics
+samtools flagstat ${SAMPLE}.sorted.bam > ${SAMPLE}.flagstat.txt
+samtools stats -r $REF ${SAMPLE}.sorted.bam > ${SAMPLE}.stats.txt
+samtools coverage ${SAMPLE}.sorted.bam > ${SAMPLE}.coverage.txt
+
+# 3. Per-chromosome stats
+samtools idxstats ${SAMPLE}.sorted.bam > ${SAMPLE}.idxstats.txt
+
+echo "QC complete: $(grep 'mapped (' ${SAMPLE}.flagstat.txt | head -1)"
+```
+
+### Workflow 2: Full Duplicate-Marking Pipeline
+
+**Goal**: Prepare BAM for GATK or other variant callers requiring deduplicated input.
+
+```bash
+#!/bin/bash
+INPUT="aligned.bam"
+FINAL="deduped.bam"
+THREADS=8
+
+# Collate → fixmate → sort → markdup
+samtools collate -@ $THREADS -o collated.bam $INPUT
+samtools fixmate -m -@ $THREADS collated.bam fixmated.bam
+samtools sort -@ $THREADS -o sorted.bam fixmated.bam
+samtools markdup -@ $THREADS -s sorted.bam $FINAL
+
+# Clean up intermediates
+rm collated.bam fixmated.bam sorted.bam
+
+# Index and verify
+samtools index $FINAL
+samtools flagstat $FINAL | grep "duplic"
+# Expected: 3-15% duplicates (WGS); 10-30% for amplicon
+```
+
+## Key Parameters
+
+| Parameter | Command | Default | Range/Options | Effect |
+|-----------|---------|---------|---------------|--------|
+| `-@` | Most | 0 | 1–N cores | Additional compression/I/O threads |
+| `-m` | sort | 768M | e.g., 2G, 4G | Memory per thread for sorting |
+| `-q` | view | 0 | 0–60 | Minimum mapping quality filter |
+| `-f` | view | 0 | FLAG bits | Include reads with ALL bits set |
+| `-F` | view | 0 | FLAG bits | Exclude reads with ANY bit set |
+| `-b` | view | — | flag | Output BAM format |
+| `-C` | view | — | flag | Output CRAM (requires `-T`) |
+| `-T` | view | — | FASTA path | Reference for CRAM output |
+| `-d` | markdup | 0 | 0–2500 | Optical duplicate pixel distance |
+| `-r` | markdup | — | flag | Remove duplicates (vs just mark) |
+| `-n` | sort | — | flag | Sort by read name instead of position |
+| `-c` | index | — | flag | Create CSI index (needed for chr > 512 Mb) |
+
+## Best Practices
+
+1. **Always sort before indexing**: `samtools index` requires coordinate-sorted input. Attempting to index an unsorted BAM will fail or produce incorrect results.
+
+2. **Use `-@` for all production runs**: Most samtools commands are I/O-bound. Adding `-@ 8` provides near-linear speedup for compression/decompression with minimal overhead.
+
+3. **Run flagstat before any analysis**: `samtools flagstat` runs in seconds and catches alignment failures (low mapping rate, unexpected paired-end rates) before wasting time on downstream steps.
+
+4. **Use the collate → fixmate → sort → markdup pipeline**: Running `samtools markdup` directly on coordinate-sorted BAM without fixmate produces incorrect duplicate detection. The mate information added by `fixmate -m` is essential.
+
+5. **Prefer CRAM for archiving**: CRAM reduces storage 40-50% vs BAM with no loss. Always store the reference FASTA alongside CRAM files.
+
+6. **Use `-L bed_file` for targeted analyses**: Restricting `samtools view` to BED-defined target regions (WES capture, amplicons) dramatically reduces I/O for downstream steps.
+
+## Common Recipes
+
+### Recipe: Batch Flagstat for Multiple Samples
+
+```bash
+# Process all BAM files in directory
+for bam in *.sorted.bam; do
+    echo "=== $bam ==="
+    samtools flagstat $bam | grep -E "mapped|properly paired|duplicates"
+done
+```
+
+### Recipe: Extract Unmapped Reads for De Novo Assembly
+
+```bash
+# Pull both unmapped reads (useful for pathogen detection)
+samtools view -f 4 -b input.bam -o unmapped.bam
+samtools fastq -@ 4 -1 unmapped_R1.fastq -2 unmapped_R2.fastq unmapped.bam
+echo "Unmapped pairs ready for de novo assembly"
+```
+
+### Recipe: Downsample BAM to Target Coverage
+
+```bash
+# Estimate current depth, then subsample to ~30×
+TOTAL=$(samtools flagstat input.bam | grep "mapped (" | head -1 | awk '{print $1}')
+GENOME_SIZE=3100000000  # hg38
+READ_LEN=150
+CURRENT_COV=$(echo "scale=1; $TOTAL * $READ_LEN / $GENOME_SIZE" | bc)
+TARGET_FRAC=$(echo "scale=3; 30 / $CURRENT_COV" | bc)
+echo "Current: ${CURRENT_COV}×; subsample fraction: $TARGET_FRAC"
+samtools view -b -s $TARGET_FRAC input.bam -o downsampled.bam
+samtools index downsampled.bam
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `[bam_index_build2] fail to index` | BAM not sorted by coordinate | Sort first: `samtools sort -o sorted.bam input.bam` |
+| `BAI index too large for chromosome` | Chromosome > 512 Mbp | Use CSI index: `samtools index -c input.bam` |
+| `CRAM: reference not found` | Missing or wrong reference FASTA | Set `REF_PATH` env var or use `-T ref.fa` |
+| Duplicate marking incorrect | `fixmate` step skipped | Run full pipeline: collate → fixmate → sort → markdup |
+| `flagstat` shows 0% properly paired | Paired-end BAM missing mate info | Run `samtools fixmate` to populate mate coordinates |
+| Very slow sorting | Low memory per thread | Increase `-m 4G`; reduce `-@` if memory-limited |
+| Region query returns nothing | BAM not indexed or wrong coords | Run `samtools index`; use 1-based coords: `chr1:1000-2000` |
+| `[E::hts_open_format] fail to open` | File path wrong or BAM corrupt | Verify path; test with `samtools quickcheck file.bam` |
+
+## Related Skills
+
+- **deeptools-ngs-analysis** — normalized bigWig coverage tracks and ChIP-seq visualization downstream of samtools
+- **pysam-genomic-files** — Python API for BAM manipulation in custom scripts
+- **bedtools-genomic-intervals** — genomic interval operations on BAM/BED files produced by samtools
+
+## References
+
+- [samtools documentation](https://www.htslib.org/doc/samtools.html) — official man pages and command reference
+- [GitHub: samtools/samtools](https://github.com/samtools/samtools) — source, releases, issue tracker
+- Danecek et al. (2021) "Twelve years of SAMtools and BCFtools" — [GigaScience 10(2)](https://doi.org/10.1093/gigascience/giab008)
+- [SAM format specification](https://samtools.github.io/hts-specs/SAMv1.pdf) — FLAG bits, CIGAR strings, optional tags

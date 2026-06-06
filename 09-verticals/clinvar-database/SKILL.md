@@ -1,14 +1,14 @@
 ---
 name: clinvar-database
-title: ClinVar 变异临床意义查询
-description: 当需要查询某变异的临床意义/致病性/疾病关联或筛出基因致病变异时使用；通过 NCBI E-utilities（ESearch/ESummary/EFetch）按基因/rsID/疾病/审阅星级检索 ClinVar，产出 ClinSig、审阅状态、疾病与提交者数据；不适用于 GWAS 群体关联（用 gwas-database）、变异功能后果预测（用 Ensembl VEP）、体细胞肿瘤变异（用 cosmic-database）。触发词：ClinVar、致病性、临床意义、rsID 查询、致病变异
+title: ClinVar Clinical Variants Database
+description: Query NCBI ClinVar via E-utilities for variant clinical significance, pathogenicity, disease associations. Search by gene/rsID/condition/review status; returns ClinSig, submitter data, conditions, HGVS. For GWAS use gwas-database; for variant consequence prediction use Ensembl VEP.
 domain: 领域/science
-triggers: [ClinVar, 变异临床意义, 致病性查询, pathogenic 变异, rsID 临床意义, 基因致病变异列表, 审阅星级, germline_classification, E-utilities 查 ClinVar, 变异疾病关联]
-tags: [science, genomics, bioinformatics, clinvar, ncbi, e-utilities, 变异注释, 临床基因组学, 数据库查询]
-level: 进阶
+triggers: [ClinVar, germline_classification]
+tags: [science, genomics, bioinformatics, clinvar, ncbi, e-utilities]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [requests, xml.etree.ElementTree, pandas, NCBI E-utilities]
+tools: []
 requires: []
 related: [gnomad-population-database, opentargets-database, snpeff-variant-annotation, uniprot-protein-database]
 combines_with: [gatk-variant-calling, snpeff-variant-annotation, gnomad-population-database]
@@ -16,123 +16,472 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# ClinVar Clinical Variants Database
 
-适用：
-- 判断某变异（rsID / HGVS / 基因组位置）在 ClinVar 是否有临床意义（ClinSig）分类。
-- 拉取某基因全部 致病/疑似致病（Pathogenic / Likely Pathogenic）变异。
-- 找出提交实验室之间的**冲突解读**（Conflicting interpretations）。
-- 提取变异关联的疾病/表型（OMIM/MIM、MeSH、HPO、trait_name）。
-- 构建优先筛选「临床可操作」变异的过滤管线。
+## Overview
 
-不该用（负边界）：
-- GWAS 群体层面 SNP-性状关联 → 用 `gwas-database`。
-- 变异功能后果预测（无需先有临床策展）→ 用 Ensembl VEP / `ensembl-database`。
-- 体细胞肿瘤变异 → 用 `cosmic-database`（ClinVar 以胚系为主）。
+ClinVar is NCBI's public archive of interpretations of variants submitted by clinical laboratories, researchers, and expert panels. It contains 2M+ variants with clinical significance classifications (Pathogenic, Likely Pathogenic, VUS, Likely Benign, Benign) for over 6,000 conditions. Access is free and requires no authentication via NCBI E-utilities.
 
-## 步骤 / 指令
+## When to Use
 
-ClinVar 是 NCBI 公共变异解读归档，免认证、免费，经 E-utilities 访问。所有调用须带 `email`（NCBI 政策）。**限速：未认证 3 req/s，带 API key 10 req/s**（key 免费注册 https://www.ncbi.nlm.nih.gov/account/）。
+- Checking whether a specific variant (rsID, HGVS, or genomic position) has a clinical significance classification
+- Retrieving all pathogenic/likely-pathogenic variants in a gene of interest
+- Identifying conflicting interpretations between submitting laboratories
+- Pulling condition/phenotype associations for a variant (MIM, MeSH, HPO terms)
+- Building variant filtering pipelines that prioritize clinically actionable variants
+- For somatic cancer variants, also check `cosmic-database`; for GWAS associations use `gwas-database`
 
-依赖：`pip install requests pandas`（`xml.etree` 属标准库）。
+## Prerequisites
 
-1. **ESearch** 按结构化查询拿 ClinVar Variation ID 列表。查询字段：`基因[gene]`、`rsID[rs]`、`疾病[dis]`、`OMIM[MIM]`、`致病性[clinsig]`、`"审阅状态"[review status]`。
-2. **ESummary** 按 ID 拿结构化摘要（JSON）。**注意 2024 schema 改版**：`clinical_significance` 已被 `germline_classification` 取代，`trait_set` 嵌套其下。
-3. **EFetch** 拿完整 XML（提交者级断言）。**必须** `rettype="vcv"` + `is_variationid="true"`；旧 `rettype="clinvarset"` 自 2024 起返回空壳。
-4. 大批量（>~1000 变异）改用 **FTP 全量** `variant_summary.txt.gz`，避免逐条 EFetch 触发限速。
+- **Python packages**: `requests`, `xml.etree.ElementTree` (stdlib)
+- **Data requirements**: gene symbols, rsIDs, HGVS strings, or ClinVar Variation IDs
+- **Environment**: internet connection; NCBI Entrez email required (set `email` parameter)
+- **Rate limits**: 3 requests/second unauthenticated; 10/second with API key (free at https://www.ncbi.nlm.nih.gov/account/)
 
-审阅星级（review status，证据质量）：0=无断言标准；1=单提交者有标准；2=多提交者无冲突；3=专家组（ENIGMA/ClinGen）；4=实践指南。自动化管线建议筛 **≥2 星** 去噪。
+```bash
+pip install requests
+# No additional packages required; xml.etree is part of Python stdlib
+```
 
-## 示例
-
-ESearch + ESummary 查某基因致病变异：
+## Quick Start
 
 ```python
-import requests, time
-EMAIL = "your@email.com"  # NCBI 政策必填
+import requests
+
+EMAIL = "your@email.com"  # required by NCBI policy
+
+def clinvar_search(query, retmax=10):
+    """Search ClinVar and return a list of ClinVar Variation IDs."""
+    r = requests.get(
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+        params={"db": "clinvar", "term": query, "retmax": retmax,
+                "retmode": "json", "email": EMAIL}
+    )
+    r.raise_for_status()
+    return r.json()["esearchresult"]["idlist"]
+
+# Find pathogenic BRCA1 variants
+ids = clinvar_search("BRCA1[gene] AND pathogenic[clinsig]", retmax=5)
+print(f"Found variation IDs: {ids}")
+```
+
+## Core API
+
+### Query 1: Search Variants by Gene and Clinical Significance
+
+Use ESearch to find ClinVar Variation IDs matching a structured query.
+
+```python
+import requests
+
+EMAIL = "your@email.com"
 BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
 def esearch(query, retmax=200):
     r = requests.get(f"{BASE}/esearch.fcgi",
-        params={"db": "clinvar", "term": query, "retmax": retmax,
-                "retmode": "json", "email": EMAIL})
+                     params={"db": "clinvar", "term": query,
+                             "retmax": retmax, "retmode": "json", "email": EMAIL})
     r.raise_for_status()
-    res = r.json()["esearchresult"]
-    return res["idlist"], int(res["count"])
+    result = r.json()["esearchresult"]
+    return result["idlist"], int(result["count"])
 
-# 致病/疑似致病 BRCA2 变异
+# Gene-specific pathogenic variants
 ids, total = esearch("BRCA2[gene] AND (pathogenic[clinsig] OR likely pathogenic[clinsig])")
-# 按 rsID： esearch("rs80357906[rs]") ；按疾病： esearch("breast cancer[dis] AND pathogenic[clinsig]")
+print(f"Pathogenic/LP BRCA2 variants: {total} total, retrieved {len(ids)}")
+print(f"First 5 IDs: {ids[:5]}")
+```
+
+```python
+# By rsID
+ids, _ = esearch("rs80357906[rs]")
+print(f"Variant IDs for rs80357906: {ids}")
+
+# By condition name
+ids, total = esearch("breast cancer[dis] AND pathogenic[clinsig]")
+print(f"Pathogenic variants for breast cancer: {total}")
+```
+
+### Query 2: Fetch Variant Summary Records
+
+Retrieve structured summary data (JSON) for a list of Variation IDs.
+
+```python
+import requests, json
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
 def esummary(ids):
+    """Fetch ESummary records for a list of ClinVar variation IDs."""
     r = requests.post(f"{BASE}/esummary.fcgi",
-        data={"db": "clinvar", "id": ",".join(ids),
-              "retmode": "json", "email": EMAIL})
+                      data={"db": "clinvar", "id": ",".join(ids),
+                            "retmode": "json", "email": EMAIL})
     r.raise_for_status()
     return r.json()["result"]
 
-result = esummary(ids[:50])
+ids, _ = esearch_func = lambda q: requests.get(
+    f"{BASE}/esearch.fcgi",
+    params={"db": "clinvar", "term": q, "retmax": 5, "retmode": "json", "email": EMAIL}
+).json()["esearchresult"]["idlist"]
+
+# Manual example with known IDs
+sample_ids = ["12375", "17684", "54270"]
+result = esummary(sample_ids)
+
 for vid in result.get("uids", []):
     rec = result[vid]
-    gc = rec.get("germline_classification", {})   # 2024 新字段
-    print(vid, rec.get("title"),
-          "| ClinSig:", gc.get("description"),
-          "| Review:", gc.get("review_status"),
-          "| 疾病:", "; ".join(t.get("trait_name","") for t in gc.get("trait_set", [])))
-    time.sleep(0.15)
+    # ClinVar 2024 schema: clinical_significance was replaced by germline_classification
+    # (also: clinical_impact_classification, oncogenicity_classification — same shape, often empty)
+    gc = rec.get("germline_classification", {})
+    print(f"\nVariation {vid}: {rec.get('title')}")
+    print(f"  ClinSig  : {gc.get('description')}")
+    print(f"  Review   : {gc.get('review_status')}")
+    print(f"  Gene     : {rec.get('genes', [{}])[0].get('symbol')}")
 ```
 
-EFetch 拿提交者级断言（XML，vcv）：
+### Query 3: Fetch Full XML Records
+
+Retrieve the complete variant record in XML for detailed submitter and condition data.
 
 ```python
+import requests
 import xml.etree.ElementTree as ET
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
 def efetch_xml(variation_ids):
+    # ClinVar 2024 XML overhaul: "clinvarset" rettype returns an empty stub.
+    # Use rettype="vcv" + is_variationid="true" to get the new <VariationArchive> records.
     r = requests.post(f"{BASE}/efetch.fcgi",
-        data={"db": "clinvar", "id": ",".join(variation_ids),
-              "rettype": "vcv", "is_variationid": "true",
-              "retmode": "xml", "email": EMAIL}, timeout=30)
+                      data={"db": "clinvar", "id": ",".join(variation_ids),
+                            "rettype": "vcv", "is_variationid": "true",
+                            "retmode": "xml", "email": EMAIL})
     r.raise_for_status()
     return ET.fromstring(r.text)
 
 root = efetch_xml(["17677"])  # BRCA1 c.5266dupC (rs80357906)
+
+# Aggregate (germline) classification — one per VariationArchive
 for va in root.iter("VariationArchive"):
+    name = va.get("VariationName")
     gc = va.find("./ClassifiedRecord/Classifications/GermlineClassification")
     desc = gc.find("Description") if gc is not None else None
-    print(va.get("VariationName"), "->", desc.text if desc is not None else "n/a")
-    for ca in va.iter("ClinicalAssertion"):   # 每个提交者一条
-        acc, cls = ca.find("ClinVarAccession"), ca.find("Classification/GermlineClassification")
+    rstat = gc.find("ReviewStatus") if gc is not None else None
+    print(f"{name}: {desc.text if desc is not None else 'n/a'} "
+          f"({rstat.text if rstat is not None else 'n/a'})")
+
+    # Per-submitter assertions
+    for ca in va.iter("ClinicalAssertion"):
+        acc = ca.find("ClinVarAccession")
+        cls = ca.find("Classification/GermlineClassification")
         if acc is not None and cls is not None:
-            print("  ", acc.get("SubmitterName","?"), ":", cls.text)
+            print(f"  {acc.get('SubmitterName', '?')}: {cls.text}")
 ```
 
-FTP 全量过滤（pandas）：
+### Query 4: ClinVar FTP Bulk Data
+
+For large-scale queries, download and parse the full variant summary file.
+
+```python
+import urllib.request
+import gzip, csv, io
+
+# Full summary (tab-separated, ~300 MB compressed)
+URL = "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz"
+
+# Stream and parse without full download
+with urllib.request.urlopen(URL) as resp:
+    with gzip.open(resp, "rt", encoding="utf-8") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        pathogenic_brca1 = []
+        for row in reader:
+            if row["GeneSymbol"] == "BRCA1" and "Pathogenic" in row["ClinicalSignificance"]:
+                pathogenic_brca1.append({
+                    "name": row["Name"],
+                    "clinsig": row["ClinicalSignificance"],
+                    "condition": row["PhenotypeList"],
+                    "rsid": row["RS# (dbSNP)"],
+                })
+        print(f"Pathogenic BRCA1 variants: {len(pathogenic_brca1)}")
+        for v in pathogenic_brca1[:3]:
+            print(f"  {v['name']} | {v['clinsig']} | rs{v['rsid']}")
+```
+
+### Query 5: Review Status and Conflicting Interpretations
+
+Filter variants by review status (evidence quality) and find conflicts.
+
+```python
+import requests
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+# Stars correspond to review levels:
+# 0 = no assertion criteria, 1 = criteria provided (single),
+# 2 = criteria provided (multiple), 3 = expert panel, 4 = practice guideline
+
+def search_by_review_stars(gene, min_stars=2):
+    """Search for variants with at least min_stars review status."""
+    star_terms = {1: "criteria provided, single submitter",
+                  2: "criteria provided, multiple submitters, no conflicts",
+                  3: "reviewed by expert panel",
+                  4: "practice guideline"}
+    terms = [f'"{star_terms[s]}"[review status]' for s in range(min_stars, 5) if s in star_terms]
+    query = f"{gene}[gene] AND (" + " OR ".join(terms) + ")"
+    r = requests.get(f"{BASE}/esearch.fcgi",
+                     params={"db": "clinvar", "term": query, "retmax": 100,
+                             "retmode": "json", "email": EMAIL})
+    return r.json()["esearchresult"]
+
+result = search_by_review_stars("BRCA1", min_stars=3)
+print(f"Expert-reviewed BRCA1 variants: {result['count']}")
+```
+
+### Query 6: Variant-to-Condition Mapping
+
+Extract condition (phenotype) data from ClinVar records.
+
+```python
+import requests, json
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+def get_conditions(variation_ids):
+    """Return condition data for a list of ClinVar variation IDs."""
+    r = requests.post(f"{BASE}/esummary.fcgi",
+                      data={"db": "clinvar", "id": ",".join(variation_ids),
+                            "retmode": "json", "email": EMAIL})
+    r.raise_for_status()
+    result = r.json()["result"]
+    conditions = {}
+    for vid in result.get("uids", []):
+        rec = result[vid]
+        # trait_set moved under germline_classification in the 2024 ClinVar JSON
+        trait_set = rec.get("germline_classification", {}).get("trait_set", [])
+        conditions[vid] = [t.get("trait_name") for t in trait_set]
+    return conditions
+
+sample_ids = ["12375", "17684", "54270"]
+cond_map = get_conditions(sample_ids)
+for vid, conds in cond_map.items():
+    print(f"Variation {vid}: {', '.join(conds)}")
+```
+
+## Key Concepts
+
+### ClinVar Variation ID vs. rsID
+
+ClinVar assigns its own stable Variation ID (integer) to each interpreted variant record. This differs from dbSNP rsIDs. A single rsID can correspond to multiple ClinVar Variation IDs if different alleles or interpretations are submitted separately.
+
+### Review Stars and Evidence Quality
+
+ClinVar's "review status" encodes the level of evidence:
+- **0 stars**: No assertion criteria provided
+- **1 star**: Criteria provided, single submitter
+- **2 stars**: Multiple submitters, no conflict
+- **3 stars**: Reviewed by expert panel (e.g., ENIGMA, ClinGen)
+- **4 stars**: Practice guideline
+
+## Common Workflows
+
+### Workflow 1: Gene Pathogenicity Report
+
+**Goal**: Retrieve all high-confidence pathogenic variants in a gene and export to CSV.
+
+```python
+import requests, json, time, pandas as pd
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+def search_gene_pathogenic(gene, clinsig="pathogenic"):
+    query = f"{gene}[gene] AND {clinsig}[clinsig]"
+    r = requests.get(f"{BASE}/esearch.fcgi",
+                     params={"db": "clinvar", "term": query, "retmax": 500,
+                             "retmode": "json", "email": EMAIL})
+    return r.json()["esearchresult"]["idlist"]
+
+def fetch_summaries(ids):
+    records = []
+    for i in range(0, len(ids), 100):
+        batch = ids[i:i+100]
+        r = requests.post(f"{BASE}/esummary.fcgi",
+                          data={"db": "clinvar", "id": ",".join(batch),
+                                "retmode": "json", "email": EMAIL})
+        result = r.json()["result"]
+        for vid in result.get("uids", []):
+            rec = result[vid]
+            # ClinVar 2024 schema: clinical_significance → germline_classification; trait_set nested inside it
+            gc = rec.get("germline_classification", {})
+            records.append({
+                "variation_id": vid,
+                "name": rec.get("title"),
+                "clinsig": gc.get("description"),
+                "review_status": gc.get("review_status"),
+                "gene": ",".join(g.get("symbol", "") for g in rec.get("genes", [])),
+                "conditions": "; ".join(t.get("trait_name", "") for t in gc.get("trait_set", [])),
+            })
+        time.sleep(0.15)
+    return records
+
+gene = "BRCA1"
+ids = search_gene_pathogenic(gene)
+print(f"Found {len(ids)} pathogenic variants in {gene}")
+
+records = fetch_summaries(ids)
+df = pd.DataFrame(records)
+df.to_csv(f"{gene}_pathogenic_variants.csv", index=False)
+print(f"Saved {len(df)} records → {gene}_pathogenic_variants.csv")
+print(df[["name", "clinsig", "review_status"]].head())
+```
+
+### Workflow 2: Variant Classification Check
+
+**Goal**: Check ClinVar status for a list of user-provided rsIDs or HGVS notations.
+
+```python
+import requests, time, pandas as pd
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+variants = ["rs80357906", "rs80357220", "rs28897672"]
+results = []
+
+for rsid in variants:
+    r = requests.get(f"{BASE}/esearch.fcgi",
+                     params={"db": "clinvar", "term": f"{rsid}[rs]",
+                             "retmax": 5, "retmode": "json", "email": EMAIL})
+    ids = r.json()["esearchresult"]["idlist"]
+    if not ids:
+        results.append({"rsid": rsid, "variation_id": None, "clinsig": "Not in ClinVar"})
+        continue
+
+    r2 = requests.post(f"{BASE}/esummary.fcgi",
+                       data={"db": "clinvar", "id": ",".join(ids[:1]),
+                             "retmode": "json", "email": EMAIL})
+    rec = r2.json()["result"][ids[0]]
+    gc = rec.get("germline_classification", {})  # 2024 ClinVar JSON
+    results.append({
+        "rsid": rsid,
+        "variation_id": ids[0],
+        "clinsig": gc.get("description", "Unknown"),
+        "review_status": gc.get("review_status"),
+    })
+    time.sleep(0.15)
+
+df = pd.DataFrame(results)
+print(df.to_string(index=False))
+```
+
+## Key Parameters
+
+| Parameter | Module | Default | Range / Options | Effect |
+|-----------|--------|---------|-----------------|--------|
+| `retmax` | ESearch | `20` | `1`–`10000` | Max records returned per query |
+| `retmode` | ESearch/ESummary | `"xml"` | `"json"`, `"xml"` | Response format |
+| `rettype` | EFetch | `"vcv"` | `"vcv"` | Record type for XML fetch (legacy `clinvarset` returns empty stub since 2024) |
+| `is_variationid` | EFetch | `"false"` | `"true"`/`"false"` | Set to `"true"` when fetching by ClinVar Variation ID with `rettype=vcv` |
+| `clinsig` query field | ESearch | — | `"pathogenic"`, `"likely pathogenic"`, `"VUS"` | Filter by clinical significance |
+| `review status` query field | ESearch | — | 0–4 star terms | Filter by evidence quality |
+| `email` | All | required | valid email | NCBI policy; prevents blocking |
+
+## Best Practices
+
+1. **Always set `email`**: NCBI requires an email in all E-utility calls for rate-limit attribution and policy compliance.
+
+2. **Use FTP bulk download for large queries**: For more than ~1000 variants, download `variant_summary.txt.gz` from the ClinVar FTP rather than looping over EFetch — it's faster and avoids rate limits.
+
+3. **Filter by review status**: Automated pipelines should filter to ≥2-star variants to reduce noise from single-submitter assertions without peer review.
+
+4. **Use API key for production**: Register at https://www.ncbi.nlm.nih.gov/account/ to get a free API key (`api_key` parameter) and triple your rate limit (3 → 10 req/s).
+
+5. **Handle VUS separately**: "Conflicting interpretations of pathogenicity" is its own ClinSig category — don't combine it with "VUS" in filters; they have different implications for clinical decision-making.
+
+## Common Recipes
+
+### Recipe: Check if rsID Is in ClinVar
+
+When to use: Quick lookup for a single known variant.
+
+```python
+import requests
+
+EMAIL = "your@email.com"
+rsid = "rs80357906"
+
+r = requests.get(
+    "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+    params={"db": "clinvar", "term": f"{rsid}[rs]",
+            "retmax": 1, "retmode": "json", "email": EMAIL}
+)
+count = int(r.json()["esearchresult"]["count"])
+print(f"{rsid}: {'found' if count else 'NOT'} in ClinVar ({count} records)")
+```
+
+### Recipe: Download Variant Summary TSV
+
+When to use: Bulk analysis — load entire ClinVar into a pandas DataFrame.
 
 ```python
 import pandas as pd
+
 url = "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz"
+# Only human GRCh38 pathogenic variants
 df = pd.read_csv(url, sep="\t", compression="gzip",
-    usecols=["Name","GeneSymbol","ClinicalSignificance","ReviewStatus",
-             "PhenotypeList","Assembly","RS# (dbSNP)"])
-df = df[(df["Assembly"]=="GRCh38") &
-        (df["ClinicalSignificance"].str.contains("Pathogenic", na=False))]
+                 usecols=["#AlleleID", "Name", "GeneSymbol", "ClinicalSignificance",
+                          "ReviewStatus", "PhenotypeList", "Assembly", "RS# (dbSNP)"])
+df = df[(df["Assembly"] == "GRCh38") & (df["ClinicalSignificance"].str.contains("Pathogenic", na=False))]
+print(f"Pathogenic variants (GRCh38): {len(df)}")
+df.to_csv("clinvar_pathogenic_grch38.csv", index=False)
 ```
 
-## 注意事项
+### Recipe: Search by OMIM Disease ID
 
-- **email 必填**：所有 E-utility 调用都要带，否则可能被封；生产环境注册 API key 把限速 3→10 req/s。
-- **2024 JSON 改版**：`KeyError: clinical_significance` → 改用 `rec["germline_classification"]`（另有 `clinical_impact_classification`、`oncogenicity_classification`，形状相同常为空）；`trait_set` 已移入其内。
-- **XML 空壳**：返回 `<ClinVarResult-Set><set/></ClinVarResult-Set>` 说明用了废弃的 `rettype="clinvarset"`，换 `vcv` + `is_variationid="true"`，解析根节点 `<VariationArchive>`。
-- **Variation ID ≠ rsID**：ClinVar 给每条解读记录分配稳定整数 Variation ID；一个 rsID 可对应多个 Variation ID（不同等位/解读分别提交）。
-- **VUS 与冲突解读分开**：「Conflicting interpretations of pathogenicity」是独立 ClinSig 类别，勿与 VUS 合并筛选，二者临床含义不同。
-- **rsID 查空**：rsID 未被 ClinVar 索引时 `idlist` 为空，改用 HGVS 或 基因+位置 查询。
-- **限速/超时**：HTTP 429 → 加 `time.sleep(0.35)`；EFetch XML 解析错误多因超时，设 `timeout=30` 并重试一次。同一 rsID 多结果时按 `review_status` 分组，优先高星条目。
+When to use: Find all ClinVar variants associated with a specific OMIM condition.
 
-## 互见
+```python
+import requests
 
-- `gwas-database` — GWAS Catalog 群体层面 SNP-性状关联（与 ClinVar 临床断言互补）。
-- `ensembl-database` — Ensembl VEP 预测变异功能后果，无需先有临床策展。
-- `cosmic-database` — 体细胞肿瘤变异库（与 ClinVar 胚系侧重互补）。
-- `pubmed-database` — 检索 ClinVar 提交中引用的支持文献。
+EMAIL = "your@email.com"
+omim_id = "604370"  # BRCA1-associated breast-ovarian cancer
 
----
-采编自 jaechang-hits/SciAgent-Skills（原 license CC0-1.0），按本仓库规范适配重写；本条目以 CC-BY-4.0 发布。
+r = requests.get(
+    "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+    params={"db": "clinvar", "term": f"{omim_id}[MIM]",
+            "retmax": 20, "retmode": "json", "email": EMAIL}
+)
+result = r.json()["esearchresult"]
+print(f"Variants for OMIM {omim_id}: {result['count']} total")
+print(f"First IDs: {result['idlist'][:5]}")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `HTTP 429` or no response | Rate limit exceeded | Add `time.sleep(0.35)` between requests; use API key |
+| Empty `idlist` for rsID query | rsID not indexed in ClinVar | Try HGVS notation or gene+position query instead |
+| Missing `clinsig` in summary | Variant has no interpretation | Check `review_status`; "no interpretation for the single variant" means no ClinSig yet |
+| XML parse error in EFetch | Incomplete response (timeout) | Set `requests.get(..., timeout=30)` and retry once |
+| `<ClinVarResult-Set><set/></ClinVarResult-Set>` empty stub | Using legacy `rettype="clinvarset"` (deprecated in 2024) | Switch to `rettype="vcv"` + `is_variationid="true"`; parse `<VariationArchive>` root |
+| `KeyError: clinical_significance` in ESummary parsing | Field renamed in 2024 ClinVar JSON | Use `rec["germline_classification"]` (also `clinical_impact_classification`, `oncogenicity_classification`); `trait_set` now nested inside `germline_classification` |
+| Conflicting results for same rsID | Multiple submissions with different interpretations | Group by `review_status` and prefer higher-star entries |
+| FTP download fails | Large file / slow connection | Use `pandas.read_csv` with `chunksize=100000` or pre-filter with `grep` |
+
+## Related Skills
+
+- `gwas-database` — GWAS Catalog for population-level SNP-trait associations (complement to ClinVar's clinical assertions)
+- `ensembl-database` — Ensembl VEP for predicting variant consequences without requiring prior clinical curation
+- `cosmic-database` — Somatic cancer variant database (complementary to ClinVar's germline focus)
+- `pubmed-database` — Retrieve supporting publications cited in ClinVar submissions
+
+## References
+
+- [ClinVar official site](https://www.ncbi.nlm.nih.gov/clinvar/) — Browse and download ClinVar data
+- [NCBI E-utilities documentation](https://www.ncbi.nlm.nih.gov/books/NBK25499/) — Full E-utilities API reference
+- [ClinVar FTP downloads](https://ftp.ncbi.nlm.nih.gov/pub/clinvar/) — Bulk data files (variant_summary.txt.gz, etc.)
+- [ClinVar data model](https://www.ncbi.nlm.nih.gov/clinvar/docs/help/) — Understanding review status stars and ClinSig categories

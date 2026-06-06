@@ -1,14 +1,14 @@
 ---
 name: llm-judge-evaluation
-title: LLM-as-Judge 高级评测
-description: 当需要用 LLM 自动评测模型输出（评分、择优、建评分量规、做 A/B）时使用；做出含偏差缓解、置信度校准、量规生成的可落地评测流程与结构化打分产物；不适用于纯人工评测或无判别标准的开放生成。触发词：LLM-as-judge、成对比较、位置偏差、评分量规、评测流水线
+title: LLM Evaluation
+description: Master comprehensive evaluation strategies for LLM applications, from automated metrics to human evaluation and A/B testing.
 domain: 智能/eval
-triggers: [实现 LLM-as-judge, 比较模型输出/择优, 创建评分量规 rubric, 缓解评测偏差, 直接评分 direct scoring, 成对比较 pairwise, 位置偏差 position bias, 搭建评测流水线, 自动质量评估, 评测结果不一致排查, Prompt/模型 A/B 测试]
-tags: [评测, llm-as-judge, 成对比较, 评分量规, 偏差缓解, 置信度校准, eval, 智能体]
-level: 进阶
+triggers: []
+tags: [llm-as-judge, eval]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash]
+tools: []
 requires: []
 related: [llm-agent-benchmarking, ai-engineering-toolkit, langfuse-llm-observability, llm-prompt-optimizer]
 combines_with: [production-llm-app-builder, rag-implementation-workflow, llm-conversation-memory]
@@ -16,112 +16,486 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# LLM Evaluation
 
-适用：
-- 搭建对 LLM 输出的自动化评测流水线。
-- 比较多个模型/Prompt 的响应并择优；做 Prompt 或模型变更的 A/B 测试。
-- 统一评测团队的质量标准、生成评分量规（rubric）。
-- 排查"评测结果忽高忽低/不一致"的问题，分析自动评测与人工评判的相关性。
+Master comprehensive evaluation strategies for LLM applications, from automated metrics to human evaluation and A/B testing.
 
-不该用（负边界）：
-- 任务有确定唯一答案、可用精确匹配/单元测试直接判定时——别用 LLM judge。
-- 纯主观且无任何可判别标准的开放创作，评测无意义。
-- 高风险终判完全替代人工：LLM judge 是辅助，不替代环境验证、测试与专家复核。
-- 缺少必要输入（评测标准、量纲、成功判据）时，先停下来澄清。
+## Do not use this skill when
 
-核心判断：LLM-as-Judge 不是单一技法，而是一族方法。选对方法 + 主动缓解已知偏差，是这里的核心能力。
+- The task is unrelated to llm evaluation
+- You need a different domain or tool outside this scope
 
-## 步骤
+## Instructions
 
-1. 选评测范式（决策树）：
-   - 是否存在客观 ground truth？→ 是：用**直接评分**（事实准确性、指令遵循、格式合规）。
-   - 否，是偏好/质量判断？→ 是：用**成对比较**（语气、风格、说服力、创意）。
-   - 否，有参考答案？→ 用**基于参考**的评测（摘要对照原文、翻译对照参考）。
-2. 定义标准：一个标准只测一个可观测维度（name / description / weight 0-1）。客观与主观标准分开。
-3. 选量纲并配量规：1-3（最低认知负荷）/ 1-5（标准 Likert，推荐）/ 1-10（仅在有详细分级描述时用）。
-4. 写评测 Prompt：**强制先给证据/理由，再给分**（CoT，可提升可靠性 15-25%）；输出结构化 JSON。
-5. 缓解偏差：成对比较必须**交换位置二次评测**并做一致性检查。
-6. 校准置信度：与位置一致性、证据强度挂钩。
-7. 验证与监控：对照人工判断算相关性；按标准/响应类型/模型追踪系统性分歧。
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-## 指令
+## Use this skill when
 
-- 永远要求"先证据后分数"，禁止无理由打分。
-- 成对比较永远交换位置，禁止单遍比较（会被位置偏差污染）。
-- 量纲粒度匹配量规细度：没有详细分级描述就别上 1-10。
-- 客观标准用直接评分，主观标准用成对比较，二者分开。
-- 必须输出置信度，并按位置一致性/证据强度校准。
-- 显式定义边界情形（edge cases）——歧义场景是评测方差的最大来源。
-- 用领域专属术语写量规（代码可读性谈变量/函数/注释；医疗准确性谈临床术语/证据标准）。
-- 一个标准 = 一个可测维度，禁止"超载标准"。
+- Measuring LLM application performance systematically
+- Comparing different models or prompts
+- Detecting performance regressions before deployment
+- Validating improvements from prompt changes
+- Building confidence in production systems
+- Establishing baselines and tracking progress over time
+- Debugging unexpected model behavior
 
-要主动缓解的系统性偏差：
-- **位置偏差**：成对比较中前置响应受偏爱 → 换位二评 + 多数票/一致性检查。
-- **长度偏差**：长答被高估 → 显式提示忽略长度、长度归一化。
-- **自我增强偏差**：模型偏爱自身输出 → 生成与评测用不同模型。
-- **冗长偏差**：无谓细节被高估 → 量规惩罚无关细节。
-- **权威偏差**：自信口吻被高估 → 要求引用证据 + 事实核查层。
+## Core Evaluation Types
 
-指标选择：二分类用 Recall/Precision/F1（辅 Cohen's κ）；序数量表用 Spearman's ρ/Kendall's τ（辅加权 κ）；成对偏好用一致率/位置一致性（辅置信度校准）；多标签用 Macro/Micro-F1。关键：系统性分歧比绝对一致率更值得关注——对特定标准持续与人工相左的 judge，比随机噪声更危险。
+### 1. Automated Metrics
+Fast, repeatable, scalable evaluation using computed scores.
 
-## 示例
+**Text Generation:**
+- **BLEU**: N-gram overlap (translation)
+- **ROUGE**: Recall-oriented (summarization)
+- **METEOR**: Semantic similarity
+- **BERTScore**: Embedding-based similarity
+- **Perplexity**: Language model confidence
 
-直接评分 Prompt（骨架）：
+**Classification:**
+- **Accuracy**: Percentage correct
+- **Precision/Recall/F1**: Class-specific performance
+- **Confusion Matrix**: Error patterns
+- **AUC-ROC**: Ranking quality
+
+**Retrieval (RAG):**
+- **MRR**: Mean Reciprocal Rank
+- **NDCG**: Normalized Discounted Cumulative Gain
+- **Precision@K**: Relevant in top K
+- **Recall@K**: Coverage in top K
+
+### 2. Human Evaluation
+Manual assessment for quality aspects difficult to automate.
+
+**Dimensions:**
+- **Accuracy**: Factual correctness
+- **Coherence**: Logical flow
+- **Relevance**: Answers the question
+- **Fluency**: Natural language quality
+- **Safety**: No harmful content
+- **Helpfulness**: Useful to the user
+
+### 3. LLM-as-Judge
+Use stronger LLMs to evaluate weaker model outputs.
+
+**Approaches:**
+- **Pointwise**: Score individual responses
+- **Pairwise**: Compare two responses
+- **Reference-based**: Compare to gold standard
+- **Reference-free**: Judge without ground truth
+
+## Quick Start
+
+```python
+from llm_eval import EvaluationSuite, Metric
+
+# Define evaluation suite
+suite = EvaluationSuite([
+    Metric.accuracy(),
+    Metric.bleu(),
+    Metric.bertscore(),
+    Metric.custom(name="groundedness", fn=check_groundedness)
+])
+
+# Prepare test cases
+test_cases = [
+    {
+        "input": "What is the capital of France?",
+        "expected": "Paris",
+        "context": "France is a country in Europe. Paris is its capital."
+    },
+    # ... more test cases
+]
+
+# Run evaluation
+results = suite.evaluate(
+    model=your_model,
+    test_cases=test_cases
+)
+
+print(f"Overall Accuracy: {results.metrics['accuracy']}")
+print(f"BLEU Score: {results.metrics['bleu']}")
 ```
-你是评估响应质量的专家评测者。
-## 原始 Prompt
-{prompt}
-## 待评响应
-{response}
-## 评测标准
-{逐条：name, description, weight}
-## 指令
-对每条标准：1) 在响应中找具体证据；2) 按量规打分（1-{max}）；
-3) 用证据论证分数；4) 给出一条具体改进建议。
-## 输出格式
-结构化 JSON：scores、justifications、summary。
+
+## Automated Metrics Implementation
+
+### BLEU Score
+```python
+from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
+
+def calculate_bleu(reference, hypothesis):
+    """Calculate BLEU score between reference and hypothesis."""
+    smoothie = SmoothingFunction().method4
+
+    return sentence_bleu(
+        [reference.split()],
+        hypothesis.split(),
+        smoothing_function=smoothie
+    )
+
+# Usage
+bleu = calculate_bleu(
+    reference="The cat sat on the mat",
+    hypothesis="A cat is sitting on the mat"
+)
 ```
 
-成对比较的**位置偏差缓解协议**：
-1. 第一遍：A 在前、B 在后。
-2. 第二遍：B 在前、A 在后。
-3. 一致性检查：两遍结论不一致 → 返回 TIE 并降低置信度。
-4. 终判：一致的胜者 + 取平均的置信度。置信度规则：两遍一致 → 取个体置信度均值；不一致 → confidence=0.5，verdict=TIE。
+### ROUGE Score
+```python
+from rouge_score import rouge_scorer
 
-成对比较示例（含换位映射）：
+def calculate_rouge(reference, hypothesis):
+    """Calculate ROUGE scores."""
+    scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)
+    scores = scorer.score(reference, hypothesis)
+
+    return {
+        'rouge1': scores['rouge1'].fmeasure,
+        'rouge2': scores['rouge2'].fmeasure,
+        'rougeL': scores['rougeL'].fmeasure
+    }
 ```
-第一遍(A在前): {"winner":"B","confidence":0.8}
-第二遍(B在前): {"winner":"A","confidence":0.6}  // A 因为 B 在首位而"赢"
-映射回第二遍: {"winner":"B","confidence":0.6}
-终判: {"winner":"B","confidence":0.7,
-       "positionConsistency":{"consistent":true,
-       "firstPassWinner":"B","secondPassWinner":"B"}}
+
+### BERTScore
+```python
+from bert_score import score
+
+def calculate_bertscore(references, hypotheses):
+    """Calculate BERTScore using pre-trained BERT."""
+    P, R, F1 = score(
+        hypotheses,
+        references,
+        lang='en',
+        model_type='microsoft/deberta-xlarge-mnli'
+    )
+
+    return {
+        'precision': P.mean().item(),
+        'recall': R.mean().item(),
+        'f1': F1.mean().item()
+    }
 ```
 
-量规生成：良好量规相比开放式打分可降低评测方差 40-60%。组件 = 分级描述 + 可观测特征 + 示例(可选) + 边界情形 + 打分准则。严格度三档：宽松（鼓励迭代）/ 平衡（生产默认）/ 严格（安全关键、高风险）。
+### Custom Metrics
+```python
+def calculate_groundedness(response, context):
+    """Check if response is grounded in provided context."""
+    # Use NLI model to check entailment
+    from transformers import pipeline
 
-规模化：① 多模型评审团（PoLL）聚合投票降单模偏差；② 分层评测（廉价模型筛选 + 昂贵模型处理边界）；③ 人在环（低置信度转人工，形成反馈闭环）。
+    nli = pipeline("text-classification", model="microsoft/deberta-large-mnli")
 
-## 注意事项
+    result = nli(f"{context} [SEP] {response}")[0]
 
-反模式速查：
-- 无理由打分 → 分数无依据、难调试。改为先证据后分。
-- 单遍成对比较 → 位置偏差污染。改为换位 + 一致性检查。
-- 超载标准 → 不可靠。一标准一维度。
-- 缺边界情形指引 → 歧义处理不一致。量规内显式写明。
-- 忽视置信度校准 → 高置信度的错判最危险。按位置一致性/证据强度校准。
+    # Return confidence that response is entailed by context
+    return result['score'] if result['label'] == 'ENTAILMENT' else 0.0
 
-其他：自动评测只有在与人工评判相关时才有价值；为迭代而设计，靠反馈闭环改进。本技能输出不替代环境验证、测试与专家复核。
+def calculate_toxicity(text):
+    """Measure toxicity in generated text."""
+    from detoxify import Detoxify
 
-## 互见
+    results = Detoxify('original').predict(text)
+    return max(results.values())  # Return highest toxicity score
 
-- context-fundamentals：评测 Prompt 需良好的上下文结构。
-- tool-design：评测工具需规范 schema 与错误处理。
-- context-optimization：评测 Prompt 可按 token 效率优化。
-- evaluation（基础）：本技能扩展其基础评测概念。
+def calculate_factuality(claim, knowledge_base):
+    """Verify factual claims against knowledge base."""
+    # Implementation depends on your knowledge base
+    # Could use retrieval + NLI, or fact-checking API
+    pass
+```
 
-外部研究：MT-Bench / Judging LLM-as-a-Judge (Zheng et al., 2023, arXiv:2306.05685)；G-Eval (Liu et al., 2023, arXiv:2303.16634)；Large Language Models are not Fair Evaluators (Wang et al., 2023, arXiv:2305.17926)；Eugene Yan: Evaluating the Effectiveness of LLM-Evaluators。
+## LLM-as-Judge Patterns
 
----
-采编自 sickn33/antigravity-awesome-skills（原作者 Muratcan Koylan，MIT 许可）。
+### Single Output Evaluation
+```python
+def llm_judge_quality(response, question):
+    """Use GPT-5 to judge response quality."""
+    prompt = f"""Rate the following response on a scale of 1-10 for:
+1. Accuracy (factually correct)
+2. Helpfulness (answers the question)
+3. Clarity (well-written and understandable)
+
+Question: {question}
+Response: {response}
+
+Provide ratings in JSON format:
+{{
+  "accuracy": <1-10>,
+  "helpfulness": <1-10>,
+  "clarity": <1-10>,
+  "reasoning": "<brief explanation>"
+}}
+"""
+
+    result = openai.ChatCompletion.create(
+        model="gpt-5",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0
+    )
+
+    return json.loads(result.choices[0].message.content)
+```
+
+### Pairwise Comparison
+```python
+def compare_responses(question, response_a, response_b):
+    """Compare two responses using LLM judge."""
+    prompt = f"""Compare these two responses to the question and determine which is better.
+
+Question: {question}
+
+Response A: {response_a}
+
+Response B: {response_b}
+
+Which response is better and why? Consider accuracy, helpfulness, and clarity.
+
+Answer with JSON:
+{{
+  "winner": "A" or "B" or "tie",
+  "reasoning": "<explanation>",
+  "confidence": <1-10>
+}}
+"""
+
+    result = openai.ChatCompletion.create(
+        model="gpt-5",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0
+    )
+
+    return json.loads(result.choices[0].message.content)
+```
+
+## Human Evaluation Frameworks
+
+### Annotation Guidelines
+```python
+class AnnotationTask:
+    """Structure for human annotation task."""
+
+    def __init__(self, response, question, context=None):
+        self.response = response
+        self.question = question
+        self.context = context
+
+    def get_annotation_form(self):
+        return {
+            "question": self.question,
+            "context": self.context,
+            "response": self.response,
+            "ratings": {
+                "accuracy": {
+                    "scale": "1-5",
+                    "description": "Is the response factually correct?"
+                },
+                "relevance": {
+                    "scale": "1-5",
+                    "description": "Does it answer the question?"
+                },
+                "coherence": {
+                    "scale": "1-5",
+                    "description": "Is it logically consistent?"
+                }
+            },
+            "issues": {
+                "factual_error": False,
+                "hallucination": False,
+                "off_topic": False,
+                "unsafe_content": False
+            },
+            "feedback": ""
+        }
+```
+
+### Inter-Rater Agreement
+```python
+from sklearn.metrics import cohen_kappa_score
+
+def calculate_agreement(rater1_scores, rater2_scores):
+    """Calculate inter-rater agreement."""
+    kappa = cohen_kappa_score(rater1_scores, rater2_scores)
+
+    interpretation = {
+        kappa < 0: "Poor",
+        kappa < 0.2: "Slight",
+        kappa < 0.4: "Fair",
+        kappa < 0.6: "Moderate",
+        kappa < 0.8: "Substantial",
+        kappa <= 1.0: "Almost Perfect"
+    }
+
+    return {
+        "kappa": kappa,
+        "interpretation": interpretation[True]
+    }
+```
+
+## A/B Testing
+
+### Statistical Testing Framework
+```python
+from scipy import stats
+import numpy as np
+
+class ABTest:
+    def __init__(self, variant_a_name="A", variant_b_name="B"):
+        self.variant_a = {"name": variant_a_name, "scores": []}
+        self.variant_b = {"name": variant_b_name, "scores": []}
+
+    def add_result(self, variant, score):
+        """Add evaluation result for a variant."""
+        if variant == "A":
+            self.variant_a["scores"].append(score)
+        else:
+            self.variant_b["scores"].append(score)
+
+    def analyze(self, alpha=0.05):
+        """Perform statistical analysis."""
+        a_scores = self.variant_a["scores"]
+        b_scores = self.variant_b["scores"]
+
+        # T-test
+        t_stat, p_value = stats.ttest_ind(a_scores, b_scores)
+
+        # Effect size (Cohen's d)
+        pooled_std = np.sqrt((np.std(a_scores)**2 + np.std(b_scores)**2) / 2)
+        cohens_d = (np.mean(b_scores) - np.mean(a_scores)) / pooled_std
+
+        return {
+            "variant_a_mean": np.mean(a_scores),
+            "variant_b_mean": np.mean(b_scores),
+            "difference": np.mean(b_scores) - np.mean(a_scores),
+            "relative_improvement": (np.mean(b_scores) - np.mean(a_scores)) / np.mean(a_scores),
+            "p_value": p_value,
+            "statistically_significant": p_value < alpha,
+            "cohens_d": cohens_d,
+            "effect_size": self.interpret_cohens_d(cohens_d),
+            "winner": "B" if np.mean(b_scores) > np.mean(a_scores) else "A"
+        }
+
+    @staticmethod
+    def interpret_cohens_d(d):
+        """Interpret Cohen's d effect size."""
+        abs_d = abs(d)
+        if abs_d < 0.2:
+            return "negligible"
+        elif abs_d < 0.5:
+            return "small"
+        elif abs_d < 0.8:
+            return "medium"
+        else:
+            return "large"
+```
+
+## Regression Testing
+
+### Regression Detection
+```python
+class RegressionDetector:
+    def __init__(self, baseline_results, threshold=0.05):
+        self.baseline = baseline_results
+        self.threshold = threshold
+
+    def check_for_regression(self, new_results):
+        """Detect if new results show regression."""
+        regressions = []
+
+        for metric in self.baseline.keys():
+            baseline_score = self.baseline[metric]
+            new_score = new_results.get(metric)
+
+            if new_score is None:
+                continue
+
+            # Calculate relative change
+            relative_change = (new_score - baseline_score) / baseline_score
+
+            # Flag if significant decrease
+            if relative_change < -self.threshold:
+                regressions.append({
+                    "metric": metric,
+                    "baseline": baseline_score,
+                    "current": new_score,
+                    "change": relative_change
+                })
+
+        return {
+            "has_regression": len(regressions) > 0,
+            "regressions": regressions
+        }
+```
+
+## Benchmarking
+
+### Running Benchmarks
+```python
+class BenchmarkRunner:
+    def __init__(self, benchmark_dataset):
+        self.dataset = benchmark_dataset
+
+    def run_benchmark(self, model, metrics):
+        """Run model on benchmark and calculate metrics."""
+        results = {metric.name: [] for metric in metrics}
+
+        for example in self.dataset:
+            # Generate prediction
+            prediction = model.predict(example["input"])
+
+            # Calculate each metric
+            for metric in metrics:
+                score = metric.calculate(
+                    prediction=prediction,
+                    reference=example["reference"],
+                    context=example.get("context")
+                )
+                results[metric.name].append(score)
+
+        # Aggregate results
+        return {
+            metric: {
+                "mean": np.mean(scores),
+                "std": np.std(scores),
+                "min": min(scores),
+                "max": max(scores)
+            }
+            for metric, scores in results.items()
+        }
+```
+
+## Resources
+
+- **references/metrics.md**: Comprehensive metric guide
+- **references/human-evaluation.md**: Annotation best practices
+- **references/benchmarking.md**: Standard benchmarks
+- **references/a-b-testing.md**: Statistical testing guide
+- **references/regression-testing.md**: CI/CD integration
+- **assets/evaluation-framework.py**: Complete evaluation harness
+- **assets/benchmark-dataset.jsonl**: Example datasets
+- **scripts/evaluate-model.py**: Automated evaluation runner
+
+## Best Practices
+
+1. **Multiple Metrics**: Use diverse metrics for comprehensive view
+2. **Representative Data**: Test on real-world, diverse examples
+3. **Baselines**: Always compare against baseline performance
+4. **Statistical Rigor**: Use proper statistical tests for comparisons
+5. **Continuous Evaluation**: Integrate into CI/CD pipeline
+6. **Human Validation**: Combine automated metrics with human judgment
+7. **Error Analysis**: Investigate failures to understand weaknesses
+8. **Version Control**: Track evaluation results over time
+
+## Common Pitfalls
+
+- **Single Metric Obsession**: Optimizing for one metric at the expense of others
+- **Small Sample Size**: Drawing conclusions from too few examples
+- **Data Contamination**: Testing on training data
+- **Ignoring Variance**: Not accounting for statistical uncertainty
+- **Metric Mismatch**: Using metrics not aligned with business goals
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

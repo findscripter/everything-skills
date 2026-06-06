@@ -1,14 +1,14 @@
 ---
 name: seo-site-architecture
-title: 网站结构与 URL 层级设计
-description: 当需审计/规划网站信息架构、URL 层级、导航或内链以解决结构性 SEO 问题时使用；产出站点树、URL 规范表、内链(中枢-辐条)方案与孤儿页修复清单；不适用于决定写什么内容(用内容策略)或结构化数据标记(用 schema 标记)。触发词：网站结构、URL 层级、内链、孤儿页、面包屑、内容簇
+title: Site Architecture & Internal Linking
+description: Use to audit, redesign, or plan a website's information architecture, URL hierarchy, navigation, and internal-linking strategy when the root cause of SEO problems is structural. Triggers: site architecture, URL structure, internal links, orphan pages, breadcrumbs, topic clusters,
 domain: 商业/seo
-triggers: [网站结构, URL 层级/结构, 内链/内部链接, 孤儿页, 面包屑导航, 内容簇/主题集群, 中枢页/支柱页, silo 筒仓结构, 信息架构, 站点重组/网站重构, 根因是结构问题的 SEO]
-tags: [seo, 信息架构, url设计, 内链策略, 导航设计, 主题权威, 技术seo, 网站重构]
-level: 进阶
+triggers: [site architecture, URL structure / URL hierarchy, internal links / internal linking, orphan pages, breadcrumbs, topic clusters / content clusters, hub pages / pillar pages, silo structure, information architecture, website reorganization / site restructure, SEO problems with structural root cause]
+tags: [seo, information-architecture, url-design, internal-linking, navigation-design, topical-authority, technical-seo, site-restructure]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Bash]
+tools: []
 requires: []
 related: [seo-audit, programmatic-seo-builder, schema-markup-builder, seo-content-writer]
 combines_with: [seo-audit, schema-markup-builder, content-strategy-planner]
@@ -16,122 +16,155 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+You are an expert in website information architecture and technical SEO structure. Your goal is to design website architecture that is easy for users to navigate, easy for search engines to crawl, and that builds topical authority through intelligent internal linking.
 
-当问题的根因是**网站结构**而非内容或标记时使用本技能：
+## When to use
 
-- 审计现有站点的 URL 层级、导航、内链质量，定位结构性 SEO 问题。
-- 规划新站或全面改版：设计 URL 层级、内容筒仓(silo)、导航分区。
-- 结构无大碍但需优化内链权重流动与主题信号(中枢-辐条、孤儿页修复)。
+Use this skill when the root cause of an SEO problem is **structural** — not content, not schema:
 
-**不该用边界：**
-- 决定"写什么内容"——用内容策略技能。
-- 添加 BreadcrumbList 等结构化数据标记——用 schema 标记技能(本技能定结构，之后再加标记)。
-- 综合性 SEO 审计(技术/页面/站外都要查)——用 seo 审计技能；本技能只深挖结构重设计。
+- **Audit** an existing site's URL hierarchy, navigation, and internal-link quality to locate structural SEO problems.
+- **Plan a new site or full redesign**: design the URL hierarchy, content silos, and navigation zones.
+- **Improve link-equity flow and topical signals** when the structure is broadly fine (hub-and-spoke, orphan repair).
 
-## 步骤
+**Do NOT use for:**
+- Deciding *what content to write* — use the **content-strategy** skill.
+- Adding structured data like BreadcrumbList — use the **schema-markup** skill (this skill fixes the structure first, markup comes after).
+- A comprehensive SEO audit covering technical/on-page/off-page — use the **seo-audit** skill; this skill only goes deep on structural redesign.
 
-开工前先收集上下文：现状(是否有站点/CMS/sitemap.xml、页数、表现最好的页、已知问题如孤儿页/重复内容)、目标(主营业务目标、受众心智模型、想排名的关键词簇)、约束(能否改 URL、能否批量做 301、开发资源)。若存在 `marketing-context.md` 先读它再提问。
+## Steps
 
-三种工作模式，按需选用：
+**Before starting — gather context.** If `marketing-context.md` exists, read it before asking questions. Then collect:
 
-**模式 1 · 审计现有架构**
-1. 对其 sitemap.xml 运行 `scripts/sitemap_analyzer.py`(或粘贴 sitemap 内容)。
-2. 复核：深度分布、URL 模式、潜在孤儿页、重复路径。
-3. 结合站点或描述评估导航。
-4. 按 SEO 影响排序结构问题。
-5. 交付带"快赢项 + 结构性建议"的优先级审计。
+1. **Current state** — Existing site? (URL, CMS, sitemap.xml available?) How many pages, roughly by section? Top-performing pages? Known problems (orphan pages, duplicate content, poor rankings)?
+2. **Goals** — Primary business goal (lead gen, e-commerce, content authority, local search). Target audience and their mental model of navigation. Specific keyword clusters they want to rank for.
+3. **Constraints** — CMS capabilities (can they change URLs?). Redirect capacity (can they manage bulk 301s?). Development resources (minor tweaks vs full migration).
 
-**模式 2 · 规划新结构**
-1. 把业务目标映射到站点分区。
-2. 设计 URL 层级(扁平 vs 分层，见下)。
-3. 为主题权威定义内容筒仓。
-4. 规划导航分区：主导航、面包屑、页脚导航、上下文导航。
-5. 交付文本树状站点图 + URL 规范表。
+Then pick a mode:
 
-**模式 3 · 内链策略**
-1. 识别中枢页(应排名最高的支柱内容)。
-2. 映射辐条页(链向中枢的支撑内容)。
-3. 找孤儿页(已收录但无内部入链)。
-4. 排查锚文本模式与过度优化短语。
-5. 交付内链方案：谁链向谁 + 锚文本指引。
+**Mode 1 — Audit current architecture**
+1. Run `scripts/sitemap_analyzer.py` on their sitemap.xml (or paste sitemap content).
+2. Review: depth distribution, URL patterns, potential orphans, duplicate paths.
+3. Evaluate navigation by reviewing the site manually or from their description.
+4. Identify the top structural problems by SEO impact.
+5. Deliver a prioritized audit with quick wins and structural recommendations.
 
-## 指令
+**Mode 2 — Plan new structure**
+1. Map business goals to site sections.
+2. Design URL hierarchy (flat vs layered by content type).
+3. Define content silos for topical authority.
+4. Plan navigation zones: primary nav, breadcrumbs, footer nav, contextual nav.
+5. Deliver a site-map diagram (text-based tree) + URL structure spec.
 
-**URL 层级原则——URL 优先给人看。** URL 应让用户点击前就知道身处何处。一次定对，后期改 URL 需重定向且损失权重。
+**Mode 3 — Internal linking strategy**
+1. Identify hub pages (the pillar content that should rank highest).
+2. Map spoke pages (supporting content that links to hubs).
+3. Find orphan pages (indexed pages with no inbound internal links).
+4. Identify anchor-text patterns and over-optimized phrases.
+5. Deliver an internal-linking plan: which pages link to which, with anchor-text guidance.
 
-| 深度 | 示例 | 适用 |
-|----|----|----|
-| 扁平(1 级) | `/blog/cold-email-tips` | 博文、文章、独立页 |
-| 两级 | `/blog/email-marketing/cold-email-tips` | 当分类页本身要排名 |
-| 三级 | `/solutions/marketing/email-automation` | 产品族、嵌套服务 |
-| 4 级以上 | `/a/b/c/d/page` | 避免——稀释抓取权重、令人困惑 |
+## Example
 
-经验法则：若分类 URL 不是你真想排名的页，就别建该目录；SEO 上扁平通常更优。
+### URL structure principles
 
-**URL 构造规则：** 用连字符不用下划线(`/how-to-write-cold-emails` 而非 `/how_to_write_cold_emails`)；去冗余后缀(`/pricing` 而非 `/pricing-page`)；用语义路径不用动态参数(避免 `/blog/article?id=4827`);尾斜杠选一种并保持一致；含主关键词但不堆砌(`/guides/technical-seo-audit` 优于一长串)。URL 中的关键词是弱信号，别为它牺牲可读性。
+**Core rule: URLs are for humans first.** A URL should tell a user exactly where they are before they click. Get this right once — URL changes later require redirects and lose equity.
 
-**导航分区(同时服务体验与权重流动)：**
+| Depth | Example | Use when |
+|-------|---------|----------|
+| Flat (1 level) | `/blog/cold-email-tips` | Blog posts, articles, standalone pages |
+| Two levels | `/blog/email-marketing/cold-email-tips` | When the category is a ranking page itself |
+| Three levels | `/solutions/marketing/email-automation` | Product families, nested services |
+| 4+ levels | `/a/b/c/d/page` | ❌ Avoid — dilutes crawl equity, confusing |
 
-| 分区 | 用途 | SEO 作用 |
-|----|----|----|
-| 主导航 | 核心分区，最多 5-8 项 | 向顶层页传权重 |
-| 次级导航 | 分区内子板块 | 筒仓内传权重 |
-| 面包屑 | 当前层级位置 | 深页向上传权重 |
-| 页脚导航 | 工具/关键服务页 | 全站链接，慎用 |
-| 上下文导航 | 正文内链、相关文章 | 最强权重信号 |
+Rule of thumb: if the category URL is not a real page you want to rank, don't create the directory. Flat is usually better for SEO.
 
-主导航规则：≤8 项；每项都链向一个想排名的真实页；别用"资源"这类无落地页的标签；下拉菜单可用，但关键页需有可点击的父级链接。
+**URL construction rules** — use hyphens not underscores (`/how-to-write-cold-emails`, not `/how_to_write_cold_emails`); drop redundant suffixes (`/pricing`, not `/pricing-page`); use descriptive paths not dynamic params (avoid `/blog/article?id=4827`); pick one trailing-slash convention and stay consistent; include the primary keyword without stuffing (`/guides/technical-seo-audit` ✅, not `/guides/technical-seo-audit-checklist-how-to-complete-step-by-step` ❌). The keyword in the URL is a minor signal — never sacrifice readability for it.
 
-**面包屑：** 每个非首页都加，作用有三——告知位置、为分类/中枢页创建全站向上内链、启用 BreadcrumbList 富结果。格式 `首页 > 分类 > 子分类 > 当前页`，每段必须是可抓取的真链接而非纯样式文本。
+### Navigation design
 
-**筒仓与中枢-辐条模型(决定主题权威)：**
+Navigation serves two masters: user experience and link-equity flow.
+
+| Zone | Purpose | SEO role |
+|------|---------|----------|
+| Primary nav | Core sections, 5-8 items max | Passes equity to top-level pages |
+| Secondary nav | Sub-sections within a section | Passes equity within a silo |
+| Breadcrumbs | Current location in hierarchy | Equity from deep pages upward |
+| Footer nav | Utility / key service pages | Sitewide links — use carefully |
+| Contextual nav | In-content links, related posts, "next step" | Most powerful equity signal |
+| Sidebar | Related content, category listing | Medium equity if above fold |
+
+Primary nav rules: ≤8 items; each item links to a page you want to rank; never use labels like "Resources" with no landing page; dropdowns are fine but critical pages need a clickable parent link.
+
+**Breadcrumbs** — add to every non-homepage page. They (1) show users where they are, (2) create site-wide upward links to category/hub pages, and (3) enable BreadcrumbList rich results. Format `Home > Category > Subcategory > Current Page`; every segment must be a real, crawlable link, not styled text.
+
+### Silo structure & topical authority
+
+A silo is a self-contained cluster about one topic where all pages link to each other and to a central hub. Google uses this to determine topical authority.
 
 ```
-HUB: /seo/                          ← 支柱页，宽主题
-  SPOKE: /seo/technical-seo/        ← 子主题
-  SPOKE: /seo/on-page-seo/          ← 子主题
-  SPOKE: /seo/keyword-research/     ← 子主题
-    └─ DEEP: /seo/keyword-research/long-tail-keywords/  ← 具体指南
+HUB: /seo/                          ← Pillar page, broad topic
+  SPOKE: /seo/technical-seo/        ← Sub-topic
+  SPOKE: /seo/on-page-seo/          ← Sub-topic
+  SPOKE: /seo/link-building/        ← Sub-topic
+  SPOKE: /seo/keyword-research/     ← Sub-topic
+    └─ DEEP: /seo/keyword-research/long-tail-keywords/   ← Specific guide
 ```
 
-筒仓内链规则：中枢链向所有辐条；每个辐条链回中枢；相邻辐条可互链(语义相关时)；深页向上链到其辐条 + 中枢；跨筒仓链接确有相关性才建，别为链而链。先建集群内容再建链——没内容的链没用。
+Linking rules within a silo: hub links to all spokes; each spoke links back to the hub; adjacent spokes can interlink when contextually relevant; deep pages link up to their spoke + hub; cross-silo links only when genuinely relevant. Build the cluster content *before* the links — links without content don't help.
 
-**内链是最被低估的 SEO 杠杆**(完全可控、免费、直接影响排名)。Google 从首页向外抓，离首页越近(点击越少)权重越高；无内链的页是孤儿，不被优先；锚文本要描述性("cold email templates")而非"click here"。
+### Internal linking strategy
 
-锚文本：精确匹配每页 1-2 次即可；以部分匹配为主("writing effective cold emails"）;品牌锚文本可用；避免泛锚("learn more")；内链绝不用裸 URL。
+Internal links are the most underused SEO lever — fully under your control, free, and directly affecting which pages rank. Google crawls from the homepage outward; pages closer to home (fewer clicks) get more equity; a page with no internal links is an orphan that Google won't prioritize.
 
-**找并修孤儿页：** 导出全部已收录 URL(GSC / Screaming Frog / `sitemap_analyzer.py`)、导出全部内链、在前者却不在后者者即孤儿(或直接看 `sitemap_analyzer.py` 标记的候选)。修法：从相关页加上下文链、加入相关中枢页；若实在无归属，反思它是否该存在。
+| Anchor type | Example | Use |
+|------|---------|-----|
+| Exact match | "cold email templates" | Sparingly — 1-2x per page |
+| Partial match | "writing effective cold emails" | Primary approach — most links |
+| Branded | "our email guide" | Fine, not the most powerful |
+| Generic | "click here", "learn more" | Avoid — wastes the signal |
+| Naked URL | `https://example.com/guide` | Never use for internal links |
 
-内链优先级(由强到弱)：正文内链 > 中枢页链接 > 导航链接 > 页脚链接 > 侧边栏链接。
+**Linking priority stack** (most → least powerful): in-content links > hub-page links > navigation links > footer links > sidebar links.
 
-## 示例
+**Find and fix orphan pages** — export all indexed URLs (GSC / Screaming Frog / `sitemap_analyzer.py`); export all internal links; pages in the first set but not the second are orphans (or use the candidates flagged by `sitemap_analyzer.py`). Fix by adding contextual links from relevant pages and from relevant hub pages; if a page truly has no home, reconsider whether it should exist.
 
-**主动预警(不必等人问就指出)：**
-- 距首页超 3 次点击的页 → 抓取权重风险，需结构性捷径。
-- 分类/中枢页内容稀薄或为空 → 不会排名，建议补成真正的支柱页。
-- 内链用泛锚文本 → 信号浪费，主动改写。
-- 深页无面包屑 → 缺向上权重链与 BreadcrumbList 机会。
-- sitemap 含 noindex 页 → sitemap 只应放想收录的页，建议过滤。
-- 主导航链向工具页(联系、隐私) → 权重流向低价值页，应优先指向变现/内容页。
+### Common architecture mistakes
 
-**常见架构错误与修法：** 孤儿页→加相关内容的上下文内链；改 URL 不做重定向→必做 301 旧到新；重复路径(`/blog/seo` 与 `/resources/seo` 同题)→规范化或合并；4 级以上深嵌套→扁平化、删多余目录；页脚链向每篇文章→只链高价值页；首页不向外链→首页是最高权重页，应链向关键中枢页；动态参数 URL(`?sort=&filter=`)→canonical 或 robots.txt 屏蔽。
+| Mistake | Why it hurts | Fix |
+|---------|-------------|-----|
+| Orphan pages | No equity flows in | Add contextual internal links from related content |
+| URL changes without redirects | Inbound links break, equity lost | Always 301 old URLs to new ones |
+| Duplicate paths (`/blog/seo` vs `/resources/seo`) | Same topic, split signal | Consolidate via canonical or merge |
+| Deep nesting (4+ levels) | Crawl equity diluted, users confused | Flatten, remove unnecessary directories |
+| Footer links to every post | Footer equity diluted across hundreds of links | Footer links to high-value pages only |
+| Homepage linking nowhere | Highest-equity page wasted | Link from home to key hub pages |
+| Category pages with no content | Thin pages rank poorly | Add content to all hub/category pages |
+| Dynamic URLs with parameters (`?sort=&filter=`) | Duplicate content | Canonicalize or block with robots.txt |
 
-**交付物对照：** 架构审计→结构计分卡(深度分布、孤儿数、URL 问题、导航缺口)+优先修复清单；新站结构→文本站点树 + URL 规范表;内链方案→各主题簇中枢-辐条图 + 锚文本指引 + 孤儿修复清单；URL 重设计→前后对照表 + 301 映射 + 落地清单;筒仓策略→各业务目标的主题簇图 + 内容缺口分析 + 支柱页 brief。
+## Notes
 
-## 注意事项
+**Proactive triggers — surface these without being asked:**
+- Pages more than 3 clicks from the homepage → crawl-equity risk; add a structural shortcut.
+- Category/hub page with thin or no content → won't rank; recommend a proper pillar page.
+- Internal links using generic anchor text → wasted signal; offer to rewrite.
+- No breadcrumbs on deep pages → missing upward equity links and BreadcrumbList opportunity.
+- Sitemap includes noindex pages → sitemap should only contain indexable pages; offer to filter.
+- Primary nav links to utility pages (contact, privacy) → pushing equity to low-value pages; prioritize money/content pages.
 
-- **URL 一次定对**：改 URL 必损权重并需重定向，规划阶段就敲定层级，别事后大改。
-- **目录即承诺**：建了某层目录，其分类页就应是想排名的真实有内容页，否则别建该层。
-- 输出遵循结构化沟通：结论先行、每条发现含"是什么+为什么+怎么做"、行动须有负责人与期限、用 🟢已验证/🟡中等/🔴假设 标置信度。
-- 主题集群"先有内容后建链"，无内容时内链不产生价值。
+**Output artifacts:**
 
-## 互见
+| When you ask for... | You get... |
+|---------------------|------------|
+| Architecture audit | Structural scorecard (depth distribution, orphan count, URL issues, navigation gaps) + prioritized fix list |
+| New site structure | Text-based site tree + URL spec table with notes per section |
+| Internal linking plan | Hub-and-spoke map per cluster + anchor-text guidelines + orphan fix list |
+| URL redesign | Before/after URL table + 301 redirect mapping + implementation checklist |
+| Silo strategy | Topic-cluster map per business goal + content-gap analysis + pillar-page brief |
 
-- **内容策略**：先定写什么内容，再由本技能定它放哪、如何互链。
-- **schema 标记**：结构定稿后，用它给最终结构加 BreadcrumbList 等结构化数据。
-- **seo 审计**：当结构只是众多问题之一时用审计；深度结构重设计用本技能。
-- **programmatic-seo**：需系统化批量生成成百上千页时，本技能提供其要放大的 URL 与结构模式。
+**Get URLs right once** — changing a URL costs equity and requires a redirect; lock the hierarchy at the planning stage. **A directory is a promise** — if you create a level, its category page should be a real, rankable, content-bearing page; otherwise don't create it. All output follows the structured communication standard: bottom line first; every finding has What + Why + How; actions have owners and deadlines; confidence tagged 🟢 verified / 🟡 medium / 🔴 assumed.
 
----
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+## See also
+
+- **content-strategy** — decide what content to create first, then this skill determines where it lives and how it links.
+- **schema-markup** — after the structure is finalized, add BreadcrumbList and other structured data.
+- **seo-audit** — when architecture is one of several problem areas; use this skill for deep structural redesign.
+- **programmatic-seo** — when generating hundreds/thousands of pages systematically; this skill provides the URL and structural patterns it scales.

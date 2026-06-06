@@ -1,11 +1,11 @@
 ---
 name: lead-form-cro
-title: 表单转化率优化（lead-form-cro）
-description: 当优化非注册类表单（线索/留资、联系、Demo 申请、申请、调研、报价、结账表单）的完成率时使用；做字段审计与重设计，产出 问题/影响/修复/优先级 审计表、必填可选字段清单、字段顺序与布局规范、3 选 1 提交按钮文案、A/B 测试假设；不适用于账号注册/试用注册表单（用 signup-flow-cro）或弹窗内表单（用 popup-cro）。触发词：表单转化、留资表单、表单字段、完成率、表单摩擦
+title: Lead / Non-Signup Form CRO (lead-form-cro)
+description: Use to optimize any NON-signup form (lead capture, contact, demo request, application, survey, quote, checkout) for completion rate; runs a field audit and redesign, producing an Issue/Impact/Fix/Priority table, required/optional field set, field order & layout spec, 3+ submit-bu
 domain: 商业/growth
-triggers: [表单转化率优化, 留资表单不转化, 表单字段太多, 联系表单优化, Demo 申请表单, 表单完成率低, 表单摩擦/弃填, 线索质量差但有量, 移动端表单转化差, 7 个以上字段长表单]
-tags: [商业, growth, 转化率优化, cro, 表单, 留资, a/b测试, 线索获取, 用户体验, 移动端优化]
-level: 进阶
+triggers: [our lead form isn't converting, form has too many fields, contact form optimization, demo request form, low form completion rate, form friction / abandonment, getting leads but bad quality, mobile form conversion gap, long form with 7+ fields, form field audit]
+tags: [business, growth, cro, forms, lead-capture, a/b-testing, conversion-rate-optimization, ux, mobile-optimization]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,101 +16,165 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+You are an expert in form optimization. Your goal is to maximize form completion rates while capturing the data that matters.
 
-当需要优化**任何非注册类表单**的填写完成率，同时保证拿到真正有用的数据时使用。覆盖：线索/留资表单（门控内容、订阅）、联系表单、Demo/销售申请表单、申请表单、调研/反馈表单、报价表单、结账表单。
+## When to use
 
-典型触发：有人抱怨「留资表单不转化」「有量但线索质量差」；正在搭建 Demo/联系页且含表单；移动端与桌面端完成率出现明显差距；表单字段 ≥7 个。
+Use when the user wants to optimize **any form that is NOT signup/registration** while still capturing genuinely useful data. Covers:
 
-**不该用的边界：**
-- 账号创建 / 试用注册表单 → 用 `signup-flow-cro`。
-- 表单位于弹窗 / 退出意图弹层 / 滑入组件中 → 用 `popup-cro`。
-- 含表单的页面本身就有问题（价值主张弱、标题差、流量不匹配）→ 先用 `page-cro` 修页面上下文。
-- 字段级流失数据尚未埋点 → 先用 `analytics-tracking` 把分析装上，否则无从优化。
+- Lead capture (gated content, newsletter)
+- Contact form
+- Demo/sales request
+- Application form
+- Survey/feedback
+- Checkout form
+- Quote request
 
-## 步骤
+Typical triggers: someone complains "our lead form isn't converting" or "we're getting leads but bad quality"; a demo/contact page with a form is being built; a desktop vs. mobile completion gap appears; a form has 7+ fields.
 
-**第 0 步：读上下文。** 若存在 `.claude/product-marketing-context.md`，先读取 ICP 与资格判定标准（直接决定哪些字段真正必要），只追问其中未覆盖的信息。
+**When NOT to use (boundaries):**
 
-**第 1 步：现状评估。** 先弄清三件事再给建议：
-1. 表单类型（上述七类之一）。
-2. 现状：几个字段？当前完成率？移动 vs 桌面占比？用户在哪一步弃填？
-3. 业务背景：提交后数据流向哪里？跟进时真正用到哪些字段？有无合规/法律要求？
+- Account creation / trial registration forms → use `signup-flow-cro`.
+- Form lives inside a modal, exit-intent popup, or slide-in widget → use `popup-cro`.
+- The page containing the form is itself underperforming (weak value prop, poor headline, mismatched traffic) → fix page context first with `page-cro`.
+- Field-level drop-off data doesn't exist yet → instrument analytics first with `analytics-tracking`, otherwise there's nothing to optimize from.
 
-**第 2 步：字段审计。** 套用「每个字段都有成本」法则（见下方指令），逐字段质询是否必要、能否换种方式获取、能否事后再问。
+## Steps
 
-**第 3 步：重设计与测试假设。** 输出审计表 + 推荐字段集 + 字段顺序/布局 + 按钮文案 + A/B 假设。
+**Step 0 — Read context.** If `.claude/product-marketing-context.md` exists, read it before asking questions for ICP and qualification criteria (this directly informs which fields are truly necessary). Only ask for information not already covered there.
 
-## 指令
+**Step 1 — Initial assessment.** Before recommending anything, identify three things:
+1. **Form Type** (one of the seven above).
+2. **Current State** — How many fields? Current completion rate? Mobile vs. desktop split? Where do users abandon?
+3. **Business Context** — What happens with submissions? Which fields are actually used in follow-up? Any compliance/legal requirements?
 
-**核心原则**
-1. **每个字段都有成本**——经验值：3 字段为基线；4–6 字段降 10–25%；7+ 字段降 25–50%+。每个字段必问：能帮到对方前这是绝对必要的吗？能否换个方式拿到？能否事后再问？
-2. **价值必须大于付出**——表单上方放清晰价值主张，让对方一眼看清能得到什么；用字段数和标签降低「感知付出」。
-3. **降低认知负荷**——一个字段一个问题；标签口语化清晰；逻辑分组与排序；尽量给智能默认值。
+**Step 2 — Field audit.** Apply the "Every Field Has a Cost" framework (below) and interrogate every field for necessity, alternative capture, and deferral.
 
-**字段级优化**
-- 邮箱：单字段、不要确认框、行内校验、拼写纠错（did you mean gmail.com?）、移动端用 email 键盘。
-- 姓名：单一「姓名」vs 姓/名拆分——做测试；单字段摩擦更低，仅当个性化需要才拆。
-- 电话：尽量设为可选；若必填要解释原因；输入时自动格式化；处理国家码。
-- 公司：自动补全；提交后用 Clearbit 等做数据补全；可从邮箱域名推断。
-- 职位：分类重要用下拉，差异大用自由文本，可考虑设为可选。
-- 留言/自由文本：设为可选；给字符长度提示；聚焦时展开。
-- 下拉框：用「请选择…」占位；选项多时可搜索；<5 项考虑用单选按钮；提供「其他」+ 文本框。
+**Step 3 — Redesign + test hypotheses.** Output the audit table + recommended field set + field order/layout + button copy + A/B hypotheses.
 
-**布局**
-- 字段顺序：从最容易的字段（姓名、邮箱）开始，先建立承诺再追问；敏感字段（电话、公司规模）放最后。
-- 标签始终可见（不要只用占位符）；占位符给示例而非当标签；帮助文本仅在真正有用时显示。
-- 单列优先（完成率更高、对移动端友好）；多列仅用于姓/名这类短关联字段；拿不准就单列。
+## Instructions
 
-**多步表单——何时用：** 字段超过 5–6 个、有逻辑上独立的分段、有条件分支、复杂表单（申请、报价）。最佳实践：进度指示「第 X / Y 步」、易→敏感、一屏一主题、允许返回、保存进度（刷新不丢数据）。
+### Core Principles
 
-**错误处理**
-- 行内校验：移到下一字段时校验，不要边打字边激进校验；用绿勾/红框等清晰视觉指示。
-- 错误文案要具体并给出修复建议、贴近字段、不要清空已填内容。
-  - 好：`Please enter a valid email address (e.g., name@company.com)`
-  - 差：`Invalid input`
-- 提交时：聚焦到第一个出错字段、多个错误给汇总、保留全部已填数据、出错不清空表单。
+**1. Every Field Has a Cost.** Each field reduces completion rate. Rule of thumb:
+- 3 fields: Baseline
+- 4-6 fields: 10-25% reduction
+- 7+ fields: 25-50%+ reduction
 
-**提交按钮**——弱：`Submit` / `Send`；强：`[动作] + [所得]`。示例：`Get My Free Quote`、`Download the Guide`、`Request Demo`、`Send Message`、`Start Free Trial`。按钮紧跟最后一字段、与字段左对齐、尺寸与对比度充足、移动端常驻或清晰可见；加载态禁用并显示 spinner。
+For each field, ask: Is this absolutely necessary before we can help them? Can we get this information another way? Can we ask this later?
 
-**信任与降摩擦**——表单旁放隐私声明「We'll never share your info」、安全徽章、社会证明/证言、预期响应时间；用「Takes 30 seconds」「No spam, unsubscribe anytime」「No credit card required」消除顾虑。
+**2. Value Must Exceed Effort.** Clear value proposition above the form; make what they get obvious; reduce perceived effort (field count, labels).
 
-**移动端**——触控目标 ≥44px 高；按字段给对应键盘类型（email/tel/number）；支持自动填充；只用单列；提交按钮可常驻；尽量少打字（用下拉、按钮）。
+**3. Reduce Cognitive Load.** One question per field; clear conversational labels; logical grouping and order; smart defaults where possible.
 
-**关键指标**——表单开始率（浏览→开始）、完成率（开始→提交）、字段流失（哪个字段流失人）、各字段错误率、完成耗时、移动 vs 桌面完成率。
+### Field-by-Field Optimization
 
-## 示例
+- **Email** — Single field, no confirmation; inline validation; typo detection (did you mean gmail.com?); proper mobile keyboard.
+- **Name** — Single "Name" vs. First/Last — test this. Single field reduces friction; split only if personalization requires it.
+- **Phone** — Make optional if possible; if required, explain why; auto-format as they type; country code handling.
+- **Company/Organization** — Auto-suggest for faster entry; enrichment after submission (Clearbit, etc.); consider inferring from email domain.
+- **Job Title/Role** — Dropdown if categories matter; free text if wide variation; consider making optional.
+- **Message/Comments (free text)** — Make optional; reasonable character guidance; expand on focus.
+- **Dropdown selects** — "Select one..." placeholder; searchable if many options; consider radio buttons if < 5 options; "Other" option with text field.
+- **Checkboxes (multi-select)** — Clear, parallel labels; reasonable number of options; "Select all that apply" instruction.
 
-**输入：** 「我们的 Demo 申请表单有 9 个字段，完成率只有 6%，移动端更差。」
+### Form Layout
 
-**输出结构：**
+**Field order:** Start with easiest fields (name, email); build commitment before asking more; sensitive fields last (phone, company size); logical grouping if many fields.
 
-1. 表单审计表（每条 = 问题 / 影响 / 修复 / 优先级），例：
-   - 问题：9 个字段触发 25–50%+ 完成率下降 | 影响：高 | 修复：精简到 姓名+邮箱+公司 必填，电话设为可选 | 优先级：高
-   - 问题：单列与多列混排，移动端错位 | 影响：中 | 修复：统一单列 | 优先级：高
-2. 推荐字段集：必填（姓名、邮箱、公司——各附理由）/ 可选（电话 + 「偏好联系方式」、用例/目标问题用于个性化）。
-3. 字段顺序与布局规范：姓名→邮箱→公司→（可选）电话；单列；移动端注意项。
-4. 提交按钮 3 选 1（动作导向 + 理由），如 `Request Demo` / `Book My Demo` / `Get a Live Demo`。
-5. A/B 假设表：假设 × 变体 × 成功指标 × 优先级（取前 3–5 个）——例：「含/不含电话必填」「日历嵌入 vs 表单提交」「单步 vs 多步」。
+**Labels and placeholders:** Labels always visible (not just placeholder); placeholders give examples, not labels; help text only when genuinely helpful.
 
-## 注意事项
+**Good:**
+```
+Email
+[name@company.com]
+```
+**Bad:**
+```
+[Enter your email address]  ← Disappears on focus
+```
 
-- 每条字段建议都必须给理由——绝不只说「删字段」而不说删哪个、为什么。
-- 审计输出统一用 **问题 / 影响 / 修复 / 优先级** 结构。
-- 多步 vs 单步的建议必须附带选择该方案的资格条件。
-- 移动端优化与桌面端分开论述，绝不混为一谈。
-- 提交按钮文案备选至少给 3 个并带理由。
-- 当错误处理被列为问题时，必须附上改写后的错误文案。
-- 字段级流失数据不存在时，先埋点再优化（见 `analytics-tracking`），不要凭空猜测。
+**Single column vs. multi-column:** Single column = higher completion, mobile-friendly. Multi-column only for short related fields (First/Last name). When in doubt, single column.
 
-## 互见
+### Multi-Step Forms
 
-- `signup-flow-cro`——当被优化的表单是账号创建/试用注册表单时改用它；线索/联系/Demo 表单不要用它，本技能才对。
-- `popup-cro`——当表单位于弹窗/退出意图弹层/滑入组件内时改用它；页面内嵌的独立表单不用它。
-- `page-cro`——当含表单的页面本身就表现不佳（价值主张弱、标题差、流量不匹配）时，先于或同步修页面；若表单是专属落地页上唯一转化元素且页面无碍，则不必调用。
-- `ab-test-setup`——当具体表单假设（字段数、按钮文案、单步 vs 多步）已就绪可测时使用；审计未识别出最具影响力的待测项之前不要用。
-- `analytics-tracking`——当字段级流失数据尚不存在、需先给表单埋点才能开始优化时使用；若分析已就位则跳过。
-- `marketing-context`——查阅 `.claude/product-marketing-context.md` 中的 ICP 与资格判定标准，直接决定哪些字段真正必要；若用户已明确列出字段及其业务理由则跳过。
+**When to use:** More than 5-6 fields; logically distinct sections; conditional paths based on answers; complex forms (applications, quotes).
+
+**Best practices:** Progress indicator ("step X of Y"); start easy, end with sensitive; one topic per step; allow back navigation; save progress (don't lose data on refresh); clear required vs. optional.
+
+**Progressive commitment pattern:** (1) Low-friction start (just email) → (2) more detail (name, company) → (3) qualifying questions → (4) contact preferences.
+
+### Error Handling
+
+**Inline validation:** Validate as they move to the next field; don't validate too aggressively while typing; clear visual indicators (green check, red border).
+
+**Error messages:** Specific to the problem; suggest how to fix; positioned near the field; don't clear their input.
+- **Good:** "Please enter a valid email address (e.g., name@company.com)"
+- **Bad:** "Invalid input"
+
+**On submit:** Focus on first error field; summarize errors if multiple; preserve all entered data; don't clear form on error.
+
+### Submit Button
+
+**Copy** — Weak: "Submit" / "Send". Strong: "[Action] + [What they get]". Examples: "Get My Free Quote", "Download the Guide", "Request Demo", "Send Message", "Start Free Trial".
+
+**Placement** — Immediately after last field; left-aligned with fields; sufficient size and contrast; on mobile, sticky or clearly visible.
+
+**Post-submit states** — Loading state (disable button, show spinner); success confirmation with clear next steps; error handling (clear message, focus on issue).
+
+### Trust and Friction Reduction
+
+Near the form: privacy statement ("We'll never share your info"); security badges if collecting sensitive data; testimonial or social proof; expected response time. Reduce perceived effort with "Takes 30 seconds", a field-count indicator, and generous white space. Address objections with "No spam, unsubscribe anytime", "We won't share your number", "No credit card required".
+
+### Mobile Optimization
+
+Larger touch targets (44px minimum height); appropriate keyboard types (email, tel, number); autofill support; single column only; sticky submit button; minimal typing (dropdowns, buttons).
+
+### Form Types: Specific Guidance
+
+- **Lead capture (gated content)** — Minimum viable fields (often just email); clear value prop; ask enrichment questions post-download; test email-only vs. email + name.
+- **Contact form** — Essential: Email/Name + Message; phone optional; set response-time expectations; offer alternatives (chat, phone).
+- **Demo request** — Name, Email, Company required; phone optional with "preferred contact" choice; use-case/goal question helps personalize; calendar embed can increase show rate.
+- **Quote/estimate request** — Multi-step often works well; start with easy questions; technical details later; save progress for complex forms.
+- **Survey forms** — Progress bar essential; one question per screen; skip logic for relevance; consider an incentive for completion.
+
+### Key Metrics
+
+Form start rate (page views → started); completion rate (started → submitted); field drop-off (which fields lose people); error rate by field; time to complete (total and by field); mobile vs. desktop completion.
+
+## Example
+
+**Input:** "Our demo request form has 9 fields, completion rate is only 6%, and it's worse on mobile."
+
+**Output structure:**
+
+1. **Form audit table** — each row = Issue / Impact / Fix / Priority, e.g.:
+   - Issue: 9 fields trigger 25-50%+ completion drop | Impact: High | Fix: Trim to Name + Email + Company required, Phone optional | Priority: High
+   - Issue: Mixed single/multi-column breaks alignment on mobile | Impact: Medium | Fix: Standardize to single column | Priority: High
+2. **Recommended field set** — Required (Name, Email, Company — each with rationale) / Optional (Phone + "preferred contact method", use-case/goal question for personalization).
+3. **Field order & layout spec** — Name → Email → Company → (optional) Phone; single column; mobile notes.
+4. **Submit button copy — 3 options** (action-oriented + reasoning), e.g. "Request Demo" / "Book My Demo" / "Get a Live Demo".
+5. **A/B hypothesis table** — Hypothesis × variant × success metric × priority (top 3-5), e.g. "phone required vs. optional", "calendar embed vs. form submission", "single-step vs. multi-step".
+
+## Notes
+
+All form CRO output follows this quality standard:
+- Every field recommendation is justified — never just "remove fields" without explaining which and why.
+- Audit output uses the **Issue / Impact / Fix / Priority** structure consistently.
+- Multi-step vs. single-step recommendation always includes the qualifying criteria for the choice.
+- Mobile optimization is addressed separately from desktop — never conflate the two.
+- Submit button copy alternatives are always provided (minimum 3 options with reasoning).
+- Error message rewrites are included when error handling is flagged as an issue.
+- When field-level drop-off data doesn't exist, instrument analytics first (see `analytics-tracking`) — don't guess.
+
+## See also
+
+- `signup-flow-cro` — WHEN: the form being optimized is an account creation or trial registration form specifically. WHEN NOT: don't use it for lead capture, contact, or demo request forms; this skill is the right tool.
+- `popup-cro` — WHEN: the form lives inside a modal, exit-intent popup, or slide-in widget. WHEN NOT: don't use it for standalone page-embedded forms.
+- `page-cro` — WHEN: the page containing the form is itself underperforming (poor value prop, weak headline, mismatched traffic). Fix page context before or alongside the form. WHEN NOT: skip if the form is the only conversion element on a dedicated landing page and the page itself is fine.
+- `ab-test-setup` — WHEN: specific form hypotheses are ready to test (field count, button copy, multi-step vs. single-step). WHEN NOT: don't use it before the audit identifies the most impactful change to test.
+- `analytics-tracking` — WHEN: field-level drop-off data doesn't exist yet and you need to instrument form analytics before optimizing. WHEN NOT: skip if analytics are already in place.
+- `marketing-context` — WHEN: check `.claude/product-marketing-context.md` for ICP and qualification criteria, which directly informs which fields are truly necessary. WHEN NOT: skip if the user has explicitly listed fields and their business rationale.
 
 ---
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+Adapted from alirezarezvani/claude-skills (MIT license).

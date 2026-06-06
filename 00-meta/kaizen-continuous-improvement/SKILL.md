@@ -1,11 +1,11 @@
 ---
 name: kaizen-continuous-improvement
-title: 改善持续改进法（Kaizen）
-description: 当写代码、重构、做设计或评审需要稳步提升质量时使用；用四支柱（持续小改进/防错设计/标准化/按需交付）做出可验证的增量改动并防止整类错误；不适用于一次性推倒重写或无度量的提前优化。触发词：重构、改善、防错、提质
+title: Kaizen: Continuous Improvement
+description: Use when improving code quality, refactoring, designing, or reviewing — apply four pillars (continuous improvement, error-proofing, standardization, just-in-time) to ship verifiable incremental changes and prevent whole classes of errors; not for big-bang rewrites or unmeasured p
 domain: 通用/thinking
-triggers: [重构代码, 提升代码质量, 改善流程, 防错设计, 评审改进建议, 避免过度设计, 增量优化, 标准化模式]
-tags: [思维方法, 持续改进, 重构, 防错, 代码质量, 工程文化, yagni]
-level: 进阶
+triggers: [refactor code, improve code quality, improve process, error-proof design, review improvement suggestions, avoid over-engineering, incremental optimization, standardize patterns]
+tags: [thinking-method, continuous-improvement, refactoring, error-proofing, code-quality, engineering-culture, yagni]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,111 +16,134 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适用于日常工程改进，贯穿写码、重构、架构设计、错误处理与代码评审。核心信条：许多小改进胜过一次大变更；错误在设计期预防，而非靠事后修补。
+Apply this to everyday engineering improvement — across implementation, refactoring, architecture and design decisions, error handling and validation, and code review. **Core principle:** many small improvements beat one big change; prevent errors at design time, not with fixes. Quality comes through incremental progress and prevention, not perfection through massive effort.
 
-**不该用（负边界）：**
-- 不为追求「一次到位的完美」而停滞——本法主张今天够好、明天更好。
-- 不做大爆炸式推倒重写；改进必须可拆分、可逐步验证。
-- 不做无度量的提前优化与「以防万一」的过度抽象——先有证据再加复杂度。
-- 任务边界、权限、安全约束或成功标准不清时，先停下来问清楚，再动手。
+**Do not use (negative boundaries):**
+- Don't stall chasing "perfect on the first try" — the method says good enough today, better tomorrow.
+- Don't do big-bang rewrites; improvements must be splittable and verifiable step by step.
+- Don't do unmeasured premature optimization or "just in case" over-abstraction — get evidence before adding complexity.
+- If task boundaries, permissions, safety constraints, or success criteria are unclear, stop and ask before acting.
 
-## 步骤
+## Steps
 
-四支柱，按需取用：
+Four pillars, applied as needed:
 
-**1. 持续改进（Kaizen）——增量优于革命**
-- 每次只做能提升质量的「最小可行变更」，验证通过后再做下一个。
-- 顺手改善：随手修小问题、删死代码、更新过时注释（限定在当前 scope 内）。
-- 三遍迭代法，不要一次全做：第一遍让它跑通 → 第二遍让它清晰 → 第三遍让它健壮/高效。
-- 重构时一次只治一种坏味道，每步提交、保持测试常绿，到「够好」（收益递减）就停。
-- 评审时建议增量改进而非重写，按 关键 → 重要 → 锦上添花 排序，接受「比之前更好」。
+**1. Continuous Improvement (Kaizen) — incremental over revolutionary**
+- Make the smallest viable change that improves quality; verify each change before the next; build momentum through small wins.
+- Always leave code better: fix small issues as you encounter them, refactor within scope, update outdated comments, remove dead code.
+- Iterative refinement, not all at once: first version make it work → second pass make it clear → third pass make it robust/efficient.
+- When refactoring, fix one smell at a time, commit after each improvement, keep tests passing, and stop at "good enough" (diminishing returns).
+- When reviewing, suggest incremental improvements (not rewrites), prioritize critical → important → nice-to-have, and accept "better than before."
 
-**2. 防错（Poka-Yoke）——让错误无法发生**
-分层防御，越靠左（越早）越好：① 类型系统（编译期）→ ② 边界校验（运行期、尽早）→ ③ 守卫/前置条件 → ④ 错误边界（优雅降级）。
-- 用类型让非法状态不可表达（联合类型带状态数据、`NonEmptyArray<T>`、品牌类型 `PositiveNumber`）。
-- 在系统边界校验一次，内部到处安全使用；绝不「先用后校验」。
-- 用早返回守卫表达并强制前置条件，快速且响亮地失败，给出清晰错误信息。
-- 配置「必填优于带默认的可选」，启动时校验全部配置，失败就让部署/启动挂掉，而非到生产请求时才炸。
+**2. Poka-Yoke (Error Proofing) — make errors impossible**
+Defense in layers, earliest (leftmost) is best: ① type system (compile time) → ② validation (runtime, early) → ③ guards (preconditions) → ④ error boundaries (graceful degradation).
+- Use types so invalid states are unrepresentable (discriminated unions with state data, `NonEmptyArray<T>`, branded types like `PositiveNumber`).
+- Validate once at the system boundary, then use safely everywhere inside; never use-before-validate.
+- Use early-return guards to express and enforce preconditions; fail fast and loudly with helpful messages. Make the correct path obvious and the incorrect path difficult.
+- Prefer required config over optional-with-defaults; validate all config at startup so deployment/boot fails — not a production request.
 
-**3. 标准化工作——沿用已被证明的模式**
-- 一致性优于聪明：沿用代码库既有模式，不重复造轮子；新模式需显著更优且团队共识。
-- 文档与代码同处：README 写架构、CLAUDE.md 写约定、注释写「为什么」而非「做什么」、复杂模式配示例。
-- 自动化标准：Linter 管风格、类型检查管契约、测试管行为、CI/CD 管质量门禁。
-- 落地前先搜代码库有无现成解法、查 CLAUDE.md 约定；破例需讨论并更新文档。
+**3. Standardized Work — follow proven patterns**
+- Consistency over cleverness: follow existing codebase patterns, don't reinvent solved problems; introduce a new pattern only if significantly better and the team agrees.
+- Documentation lives with code: README for architecture, CLAUDE.md for conventions, comments for "why" not "what", examples for complex patterns.
+- Automate standards: linters enforce style, type checks enforce contracts, tests verify behavior, CI/CD enforces quality gates.
+- Before adding a new pattern, search the codebase for existing solutions and check CLAUDE.md conventions; discuss exceptions and update docs.
 
-**4. 准时制（JIT / YAGNI）——只造此刻需要的**
-- 只实现当前需求，删掉「以后可能用到」的投机代码。
-- 用「能跑通的最简方案」起步，需求变了再加复杂度。
-- 优化先剖析后动手：先 profile 定位瓶颈，度量前后差异，接受「够好」的性能。
-- 抽象遵循「三次法则」：同类场景出现 3+ 次再抽象；宁可重复，不要错误的抽象。
+**4. Just-In-Time (JIT / YAGNI) — build only what's needed now**
+- Implement only current requirements; delete speculative "we might need this later" code.
+- Start with the simplest thing that works; add complexity only when requirements change.
+- Optimize when measured: profile to find the bottleneck first, measure before/after, accept "good enough" performance.
+- Abstract by the Rule of Three: wait for 3+ similar cases; prefer duplication over the wrong abstraction.
 
-## 指令
+**Directives**
+- Always make the smallest verifiable change; verify one before continuing.
+- Always leave code better than you found it.
+- Put validation at the boundary, before use; make the correct path obvious and the incorrect path hard.
+- Follow existing patterns; a new pattern must be better and agreed-on, and docs updated.
+- No optimization without measurement; no abstraction before 3+ occurrences; delete every "just in case" line.
 
-- 始终做最小可验证变更，做完一个验证一个再继续。
-- 永远让代码比你看到时更好（leave it better）。
-- 把校验放在边界、放在使用之前；让正确路径显而易见、错误路径难以走通。
-- 沿用既有模式；引入新模式必须更优且达成共识，并更新文档。
-- 没度量不优化，没出现 3+ 次不抽象，删除一切「以防万一」的代码。
+## Example
 
-## 示例
-
-三遍迭代（TypeScript，源自原技能）：
+Iterative refinement (TypeScript, from the original skill):
 
 ```typescript
-// 第一遍：跑通
+// Iteration 1: Make it work
 const calculateTotal = (items: Item[]) => {
   let total = 0;
-  for (let i = 0; i < items.length; i++) total += items[i].price * items[i].quantity;
+  for (let i = 0; i < items.length; i++) {
+    total += items[i].price * items[i].quantity;
+  }
   return total;
 };
 
-// 第二遍：清晰
+// Iteration 2: Make it clear (refactor)
 const calculateTotal = (items: Item[]): number =>
   items.reduce((total, item) => total + item.price * item.quantity, 0);
 
-// 第三遍：健壮（加校验）
+// Iteration 3: Make it robust (add validation)
 const calculateTotal = (items: Item[]): number => {
   if (!items?.length) return 0;
   return items.reduce((total, item) => {
-    if (item.price < 0 || item.quantity < 0) throw new Error('价格与数量必须非负');
+    if (item.price < 0 || item.quantity < 0) {
+      throw new Error('Price and quantity must be non-negative');
+    }
     return total + item.price * item.quantity;
   }, 0);
 };
 ```
 
-防错——边界校验一次，内部恒安全：
+Each step is complete, tested, and working — don't try all three at once.
+
+Poka-Yoke — validate once at the boundary, safe everywhere else:
 
 ```typescript
 type PositiveNumber = number & { readonly __brand: 'PositiveNumber' };
+
 const validatePositive = (n: number): PositiveNumber => {
-  if (n <= 0) throw new Error('必须为正数');
+  if (n <= 0) throw new Error('Must be positive');
   return n as PositiveNumber;
 };
-// 入口处校验一次
+
+const processPayment = (amount: PositiveNumber) => {
+  // amount is guaranteed positive, no need to re-check
+  const fee = amount * 0.03;
+};
+
+// Validate at system boundary
 const handlePaymentRequest = (req: Request) => {
-  const amount = validatePositive(req.body.amount);
-  processPayment(amount); // amount 已保证为正，内部无需再查
+  const amount = validatePositive(req.body.amount); // validate once
+  processPayment(amount);                           // use everywhere safely
 };
 ```
 
-配套命令（结构化问题分析，与本法配合）：`/why`（5 Whys 根因）、`/cause-and-effect`（鱼骨图多因分析）、`/plan-do-check-act`（PDCA 迭代）、`/analyse-problem`（A3 全量文档）、`/analyse`（Gemba/VSM/Muda 智能选法）。命令用于结构化攻坚，本法用于日常开发。
+Make invalid states unrepresentable with discriminated unions:
 
-## 注意事项
+```typescript
+type Order =
+  | { status: 'pending'; createdAt: Date }
+  | { status: 'processing'; startedAt: Date; estimatedCompletion: Date }
+  | { status: 'shipped'; trackingNumber: string; shippedAt: Date }
+  | { status: 'delivered'; deliveredAt: Date; signature: string };
+// Now it's impossible to be 'shipped' without a trackingNumber.
+```
 
-各支柱的红旗信号，出现即纠偏：
-- 违反持续改进：「以后再重构」（永远不会）、把代码留得更糟、用大爆炸重写代替增量。
-- 违反防错：「用户自己小心点就好」、先用后校验、可选配置且无校验。
-- 违反标准化：「我就喜欢按自己的来」、不查既有模式、无视项目约定。
-- 违反 JIT：「说不定哪天用得上」、还没用就先造框架、没度量就优化。
+Companion commands (structured problem analysis that pairs with this method): `/why` (5 Whys root cause), `/cause-and-effect` (Fishbone multi-factor), `/plan-do-check-act` (PDCA iteration), `/analyse-problem` (A3 full documentation), `/analyse` (smart selection of Gemba/VSM/Muda). Use commands for structured problem-solving; apply this skill for day-to-day development.
 
-记住：是「持续小改进 + 设计期防错 + 沿用成熟模式 + 只造所需」；不是「一次到位的完美 + 大重构 + 炫技抽象 + 提前优化」。本法不替代针对具体环境的验证、测试与专家评审。
+## Notes
 
-## 互见
+Red flags for each pillar — correct course the moment they appear:
+- Violating Continuous Improvement: "I'll refactor it later" (never happens), leaving code worse than you found it, big-bang rewrites instead of incremental.
+- Violating Poka-Yoke: "users should just be careful", validation after use instead of before, optional config with no validation.
+- Violating Standardized Work: "I prefer to do it my way", not checking existing patterns, ignoring project conventions.
+- Violating Just-In-Time: "we might need this someday", building frameworks before using them, optimizing without measuring.
 
-- 配套结构化命令：`/why`、`/cause-and-effect`、`/plan-do-check-act`、`/analyse-problem`、`/analyse`。
-- 通用/思维域内的其他「增量交付 / 防错设计 / YAGNI 与简化」类技能。
+Remember: it's "small improvements continuously + prevent errors by design + follow proven patterns + build only what's needed" — not "perfection on the first try + massive refactoring + clever abstractions + premature optimization." Mindset: good enough today, better tomorrow; repeat. This skill is not a substitute for environment-specific validation, testing, or expert review.
+
+## See also
+
+- Companion structured commands: `/why`, `/cause-and-effect`, `/plan-do-check-act`, `/analyse-problem`, `/analyse`.
+- Other "incremental delivery / error-proof design / YAGNI and simplification" skills in the thinking domain.
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT 许可证）。
+Adapted from sickn33/antigravity-awesome-skills (MIT License).

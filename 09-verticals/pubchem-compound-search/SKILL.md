@@ -1,14 +1,14 @@
 ---
 name: pubchem-compound-search
-title: PubChem 化合物检索
-description: 当需要按名称/CID/SMILES/InChIKey/分子式检索 PubChem 化合物、取理化属性或做相似性/子结构搜索时使用；用 requests 直连 PUG-REST/JSON API，产出 CID、属性表、同义词、生物活性与 SDF/PNG。不适用于本地化学信息学（用 rdkit）或靶点结合活性 IC50/Ki（用 chembl-database-bioactivity）。触发词：PubChem、CID、SMILES、PUG-REST
+title: PubChem Compound Search
+description: Query PubChem (110M+ compounds) directly via the PUG-REST/JSON API with plain `requests` — no SDK install required. Search by name/CID/SMILES/InChIKey/formula, retrieve properties (MW, XLogP, TPSA, H-bond counts), do similarity/substructure searches with async ListKey polling, fetch synonyms, descriptions, assay summaries, and download SDF/PNG. For local cheminformatics use rdkit; for bioactivity-centric workflows use chembl-database-bioactivity.
 domain: 领域/science
-triggers: [PubChem, PUG-REST, CID, SMILES, InChIKey, 分子式检索, 理化属性, 相似性搜索, 子结构搜索, Tanimoto, 化合物检索, 同义词, SDF 下载, Lipinski, 类药五规则]
-tags: [science, 化学信息学, 药物发现, pubchem, rest-api, 化合物检索, 理化属性]
-level: 进阶
+triggers: [PubChem, PUG-REST, CID, SMILES, InChIKey, Tanimoto, Lipinski]
+tags: [science, pubchem, rest-api]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, requests, pandas]
+tools: []
 requires: []
 related: [chembl-bioactivity-database, cheminformatics-toolkit, scientific-database-lookup, autodock-vina-docking]
 combines_with: [cheminformatics-toolkit, autodock-vina-docking]
@@ -16,88 +16,168 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# PubChem Compound Search
 
-适用：
+## Overview
 
-- 按名称、SMILES、InChIKey 或分子式查 PubChem CID。
-- 批量拉取理化属性（分子量、XLogP、TPSA、氢键供受体数、可旋转键、IUPAC 名、分子式）——一次请求多 CID 多属性。
-- 用 Tanimoto 相似性找结构类似物，或按子结构/药效团 motif 搜索（异步 ListKey）。
-- 取某 CID 的全部同义词/商品名/CAS、策展描述、生物活性 assay 汇总。
-- 标识符互转（name ↔ CID ↔ SMILES ↔ InChI ↔ InChIKey）。
-- 下载 2D SDF 或 PNG 结构图，供 RDKit/作图下游使用。
+PubChem (NCBI) is the largest freely available chemical database — 110M+ compounds, 280M+ substances, and millions of bioassay records. Its **PUG-REST JSON API** is the canonical programmatic surface, and every example here uses it directly via plain `requests`. The Python `pubchempy` wrapper is *not* required; the PUG-REST URL grammar is small enough that direct calls are more transparent, easier to retry/cache, and avoid sandbox dependency issues (the library is not in `TOOL_STATUS.md`).
 
-不该用（负边界）：
+The URL pattern is fixed and predictable:
 
-- 本地化学信息学（指纹、描述符、3D 构象、骨架提取）——用 `rdkit-cheminformatics`。
-- 深度靶点结合活性（IC50/Ki/Kd against specific targets）——用 `chembl-database-bioactivity`，其比 PubChem assay 汇总更细。
-- 蛋白结构/共晶——用 `pdb-database`。
+```
+https://pubchem.ncbi.nlm.nih.gov/rest/pug/<input>/<operation>/<output>
+```
 
-## 步骤 / 指令
+- `<input>`   = `compound/{name,cid,smiles,inchikey,formula}/<value>`
+- `<operation>` = `cids`, `property/<list>`, `synonyms`, `description`, `assaysummary`, `JSON` (full record), `SDF`, `PNG`
+- `<output>`  = `JSON`, `CSV`, `TXT`, `SDF`, `PNG`
 
-1. 准备环境：仅需 `requests`、`pandas`，标准环境已带；**无需 API key**。若在 pixi/conda 环境用 `pixi run python ...`。
-   ```bash
-   pip install requests pandas
-   ```
-2. 记住固定 URL 语法（PUG-REST）：
-   ```
-   https://pubchem.ncbi.nlm.nih.gov/rest/pug/<input>/<operation>/<output>
-   ```
-   - `<input>` = `compound/{name,cid,smiles,inchikey,inchi,formula}/<value>`
-   - `<operation>` = `cids`、`property/<csv>`、`synonyms`、`description`、`assaysummary`、`JSON`、`SDF`、`PNG`
-   - `<output>` = `JSON`、`CSV`、`TXT`、`SDF`、`PNG`
-3. **先解析 CID 再查属性**：从名称/外部标识符起步时，先 `cids/JSON` 拿到 CID 列表，再用 CID 查属性，下游查询需要这份规范 CID。
-4. **批量而非循环**：CID 与属性名都可 CSV 拼接，单次请求最多约 200 个 CID + 任意属性，一个往返。循环逐个查是最常见的限流陷阱。
-5. **每个 SMILES 都要 URL 编码**：`urllib.parse.quote(smi, safe="")`，否则 `#`、`+`、`/`、`\` 等会破坏路径解析（HTTP 400）。
-6. **相似性/子结构/分子式搜索按异步处理**：判断 `"Waiting" in resp`，命中则轮询 `compound/listkey/{key}/cids/JSON` 直到返回 `IdentifierList`，不要重发搜索（重发会另起 ListKey 浪费任务槽）。少数快搜首调即直接返回 `IdentifierList`，要兼容两种。
-7. **限流 ≤ 5 req/s、≤ 400 req/min**：紧循环里 `time.sleep(0.25)`；HTTP 503 = `PUGREST.ServerBusy`，等 10s 并降并发。
-8. **`MolecularWeight` 是字符串**（如 `"180.16"`），算术比较前 `float()`。
-9. **100+ CID 用 POST**：GET URL 超约 2000 字符可能被代理截断；改 `requests.post(f"{BASE}/compound/cid/property/MolecularWeight/JSON", data={"cid": cid_csv})`。
-10. **SMILES 属性名**：2025 PUG-REST 把 `CanonicalSMILES` 改名为 `SMILES`，新代码用 `SMILES`，响应字段也键为 `SMILES`。
+For long-running operations (similarity, substructure, formula) the API returns HTTP 202 + `{"Waiting": {"ListKey": "..."}}`; poll `compound/listkey/{key}/cids/JSON` until it returns `IdentifierList`. The skill handles this pattern in Module 4.
 
-## 示例
+## When to Use
 
-快速上手（name → CID → 属性）：
+- Looking up a compound by name, SMILES, InChIKey, or formula to get its PubChem CID
+- Retrieving molecular properties (molecular weight, XLogP, TPSA, H-bond donor/acceptor counts, rotatable bonds, formula, IUPAC name) for one or many CIDs in a single request
+- Finding structurally similar compounds via Tanimoto similarity (async ListKey poll)
+- Searching for compounds containing a substructure / pharmacophore motif
+- Fetching every synonym / trade name / CAS number for a CID
+- Pulling assay summary tables (active/inactive screening results) for a compound
+- Converting between identifier formats (name ↔ CID ↔ SMILES ↔ InChI ↔ InChIKey) in one API call
+- Downloading 2D SDF or PNG structures for figures or downstream RDKit work
+- For local cheminformatics (fingerprints, descriptors, 3D conformers, scaffold extraction) use `rdkit`
+- For deeper bioactivity / target-binding data (IC50, Ki against specific targets) use `chembl-database-bioactivity`
+
+## Prerequisites
+
+- **Python packages**: `requests`, `pandas` — both already in standard environments
+- **No API key required** — PubChem is fully public
+- **Rate limits**: max 5 requests/second and 400 requests/minute per IP. Throttle with `time.sleep(0.25)` in loops; return code 503 means you tripped the limit.
+
+If you are inside a pixi/conda environment that already provides `requests` and `pandas`, skip the install and invoke scripts with `pixi run python ...`.
+
+```bash
+pip install requests pandas
+```
+
+## Quick Start
 
 ```python
 import requests
+
 BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
 
+# name → CID
 cid = requests.get(f"{BASE}/compound/name/aspirin/cids/JSON").json()["IdentifierList"]["CID"][0]
+
+# CID → properties (single call, many fields)
 r = requests.get(
     f"{BASE}/compound/cid/{cid}/property/"
     "MolecularWeight,XLogP,TPSA,HBondDonorCount,HBondAcceptorCount,SMILES,IUPACName/JSON")
 p = r.json()["PropertyTable"]["Properties"][0]
-print(f"CID {cid} — {p['IUPACName']}  MW={p['MolecularWeight']} XLogP={p['XLogP']}")
+print(f"CID {cid} — {p['IUPACName']}")
+print(f"  MW={p['MolecularWeight']}  XLogP={p['XLogP']}  TPSA={p['TPSA']}")
+print(f"  HBD={p['HBondDonorCount']}  HBA={p['HBondAcceptorCount']}")
+print(f"  SMILES={p['SMILES']}")
 ```
 
-标识符解析（按 SMILES / InChIKey，注意编码）：
+## Core API
+
+### Module 1: Identifier lookup
+
+Resolve any external identifier to a PubChem CID via `/compound/{namespace}/{value}/cids/JSON`. Namespaces: `name`, `cid`, `smiles`, `inchikey`, `inchi`, `formula`.
 
 ```python
+import requests
 from urllib.parse import quote
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
+# By name (returns all matching CIDs as a list)
+cids = requests.get(f"{BASE}/compound/name/caffeine/cids/JSON").json()["IdentifierList"]["CID"]
+print(f"caffeine CIDs: {cids}")
+
+# By canonical SMILES (URL-encode!)
 smi = quote("CC(=O)OC1=CC=CC=C1C(=O)O", safe="")
 cid = requests.get(f"{BASE}/compound/smiles/{smi}/cids/JSON").json()["IdentifierList"]["CID"][0]
+print(f"aspirin SMILES → CID {cid}")
+
+# By InChIKey (exact match, fastest if you already have one)
 ikey = "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
 cid = requests.get(f"{BASE}/compound/inchikey/{ikey}/cids/JSON").json()["IdentifierList"]["CID"][0]
+print(f"InChIKey → CID {cid}")
 ```
 
-批量属性（4 个 CID，3 个属性，一个往返）：
+### Module 2: Property retrieval
+
+`/compound/cid/{cid_or_csv}/property/<csv-list>/JSON` returns all requested properties in one round trip. **CIDs and property names are both CSV-joinable** — batch up to ~200 CIDs and many properties at once.
 
 ```python
-import pandas as pd
+import requests
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
+# Full property set for a single compound (ibuprofen CID 3672)
+url = (f"{BASE}/compound/cid/3672/property/"
+       "MolecularWeight,XLogP,TPSA,HBondDonorCount,HBondAcceptorCount,"
+       "RotatableBondCount,SMILES,InChIKey,IUPACName,MolecularFormula/JSON")
+p = requests.get(url).json()["PropertyTable"]["Properties"][0]
+print(f"{p['IUPACName']}  formula={p['MolecularFormula']}")
+print(f"  MW={p['MolecularWeight']} XLogP={p['XLogP']} TPSA={p['TPSA']}")
+print(f"  HBD={p['HBondDonorCount']} HBA={p['HBondAcceptorCount']} RotB={p['RotatableBondCount']}")
+```
+
+```python
+import requests, pandas as pd
+
+# Batch: 4 CIDs, 3 properties — one request, one round trip
 cids = "2244,3672,2157,2662"   # aspirin, ibuprofen, naproxen, celecoxib
-r = requests.get(f"{BASE}/compound/cid/{cids}/property/MolecularWeight,XLogP,TPSA/JSON")
+r = requests.get(
+    f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cids}/property/"
+    "MolecularWeight,XLogP,TPSA/JSON")
 df = pd.DataFrame(r.json()["PropertyTable"]["Properties"])
+print(df.to_string(index=False))
 ```
 
-异步相似性/子结构搜索（核心 ListKey 轮询助手，到处复用）：
+### Module 3: Synonyms and description
+
+Synonyms (trade names, CAS numbers, alternative spellings) and curated descriptions live at `/compound/{ns}/{value}/{synonyms|description}/JSON`.
 
 ```python
-import time
+import requests
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
+# Full synonym list (aspirin has ~700)
+info = requests.get(f"{BASE}/compound/cid/2244/synonyms/JSON").json()["InformationList"]["Information"][0]
+print(f"aspirin synonyms: {len(info['Synonym'])}")
+for s in info["Synonym"][:8]:
+    print(f"  {s}")
+```
+
+```python
+import requests
+
+# Curated descriptions (NCBI MeSH, CAMEO, etc.)
+r = requests.get("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/description/JSON")
+for item in r.json()["InformationList"]["Information"]:
+    if "Description" in item:
+        print(f"[{item.get('DescriptionSourceName','?')}]")
+        print(f"  {item['Description'][:200]}…")
+        print()
+```
+
+### Module 4: Similarity & substructure search (async ListKey pattern)
+
+Structure searches return HTTP 202 + `{"Waiting": {"ListKey": "..."}}`. Poll `/compound/listkey/{key}/cids/JSON` every ~2s until it returns `IdentifierList`. Wrap this in a helper since it's used everywhere.
+
+```python
+import requests, time
 from urllib.parse import quote
 
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
 def poll_listkey(listkey, max_polls=10, interval=2.0):
-    """阻塞直到 PubChem 完成异步搜索；返回 CID 列表。"""
+    """Block until PubChem finishes async search; return CID list."""
     for _ in range(max_polls):
         time.sleep(interval)
         j = requests.get(f"{BASE}/compound/listkey/{listkey}/cids/JSON", timeout=20).json()
@@ -105,85 +185,362 @@ def poll_listkey(listkey, max_polls=10, interval=2.0):
             return j["IdentifierList"]["CID"]
     raise TimeoutError(f"ListKey {listkey} did not complete")
 
-# Tanimoto 相似性（90% 阈值，最多 20 条）
+# Tanimoto similarity (90% threshold, max 20 hits) — starting from aspirin SMILES
 smi = quote("CC(=O)OC1=CC=CC=C1C(=O)O", safe="")
-init = requests.get(f"{BASE}/compound/similarity/smiles/{smi}/JSON?Threshold=90&MaxRecords=20").json()
-cids = poll_listkey(init["Waiting"]["ListKey"]) if "Waiting" in init else init["IdentifierList"]["CID"]
+init = requests.get(
+    f"{BASE}/compound/similarity/smiles/{smi}/JSON?Threshold=90&MaxRecords=20").json()
+cids = poll_listkey(init["Waiting"]["ListKey"]) if "Waiting" in init \
+       else init["IdentifierList"]["CID"]
+print(f"aspirin @90% similarity: {len(cids)} hits, sample={cids[:5]}")
+```
 
-# 子结构（含磺酰胺 motif 的化合物）
+```python
+import requests
+from urllib.parse import quote
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
+# Substructure search — all compounds containing a sulfonamide group
 smi = quote("S(=O)(=O)N", safe="")
-init = requests.get(f"{BASE}/compound/substructure/smiles/{smi}/JSON?MaxRecords=20").json()
-cids = poll_listkey(init["Waiting"]["ListKey"]) if "Waiting" in init else init["IdentifierList"]["CID"]
+init = requests.get(
+    f"{BASE}/compound/substructure/smiles/{smi}/JSON?MaxRecords=20").json()
+cids = poll_listkey(init["Waiting"]["ListKey"]) if "Waiting" in init \
+       else init["IdentifierList"]["CID"]
+print(f"sulfonamide-containing CIDs: {len(cids)}, sample={cids[:5]}")
 ```
 
-下载 SDF / PNG：
+### Module 5: Assay summary (bioactivity data)
+
+`/compound/cid/{cid}/assaysummary/JSON` returns a `Table` of every PubChem BioAssay the compound appears in (assay AID, target, outcome, micromolar activity if available).
 
 ```python
-cid = 2519  # caffeine
-sdf = requests.get(f"{BASE}/compound/cid/{cid}/SDF", timeout=15).text          # 2D SDF；?record_type=3d 取 3D
+import requests, pandas as pd
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
+r = requests.get(f"{BASE}/compound/cid/2244/assaysummary/JSON", timeout=30)
+rows = r.json().get("Table", {}).get("Row", [])
+cols = r.json().get("Table", {}).get("Columns", {}).get("Column", [])
+print(f"aspirin appears in {len(rows)} bioassays")
+
+# First few columns + rows as a DataFrame
+df = pd.DataFrame([row["Cell"] for row in rows[:5]], columns=cols)
+print(df.iloc[:, :6].to_string(index=False))
+```
+
+### Module 6: Structure file download (SDF / PNG)
+
+`/compound/cid/{cid}/SDF` returns 2D MOL/SDF; `/compound/cid/{cid}/PNG` returns a structure image (use `?image_size=large` for higher resolution).
+
+```python
+import requests
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+cid = 2519   # caffeine
+
+# 2D SDF for downstream RDKit / OpenBabel
+sdf = requests.get(f"{BASE}/compound/cid/{cid}/SDF", timeout=15).text
+with open("caffeine.sdf", "w") as f:
+    f.write(sdf)
+print(f"caffeine.sdf: {len(sdf)} chars, ends with M  END={'M  END' in sdf}")
+
+# PNG structure image
 png = requests.get(f"{BASE}/compound/cid/{cid}/PNG?image_size=large", timeout=15).content
+with open("caffeine.png", "wb") as f:
+    f.write(png)
+print(f"caffeine.png: {len(png)} bytes")
 ```
 
-Lipinski 类药五规则速查：
+## Key Concepts
+
+### Async ListKey pattern
+
+Similarity, substructure, and formula searches are **asynchronous** — the API kicks off a background job and returns HTTP 202 with `{"Waiting": {"ListKey": "<id>"}}`. Poll `/compound/listkey/{id}/cids/JSON` every ~2 seconds until the response contains `IdentifierList`. Most searches finish in 5–15s; tighten polling for tiny searches, loosen for very large ones. Use the `poll_listkey` helper from Module 4 everywhere.
+
+A small fraction of fast searches return `IdentifierList` directly on the first call (no `Waiting` field); check for both possibilities.
+
+### Property name reference
+
+| API name              | Meaning                                   |
+| --------------------- | ----------------------------------------- |
+| `MolecularWeight`     | Molecular weight (g/mol, string)          |
+| `MolecularFormula`    | Hill-system formula                       |
+| `SMILES`              | Canonical SMILES (the 2025+ name; the old `CanonicalSMILES` may still work) |
+| `IUPACName`           | Curated IUPAC name                        |
+| `InChI` / `InChIKey`  | IUPAC InChI / InChIKey                    |
+| `XLogP`               | Computed logP (octanol/water)             |
+| `TPSA`                | Topological polar surface area (Å²)       |
+| `HBondDonorCount`     | Number of H-bond donors                   |
+| `HBondAcceptorCount`  | Number of H-bond acceptors                |
+| `RotatableBondCount`  | Number of rotatable bonds                 |
+| `HeavyAtomCount`      | Non-hydrogen atom count                   |
+| `Charge`              | Formal charge                             |
+
+CSV-join any subset in a single `/property/<csv>/JSON` URL. Note that `MolecularWeight` returns as a string; cast to `float` before arithmetic.
+
+### Response envelope shapes
+
+- `cids/JSON`             → `{"IdentifierList": {"CID": [int, ...]}}`
+- `property/.../JSON`     → `{"PropertyTable": {"Properties": [{...}, ...]}}` (one dict per CID, in input order)
+- `synonyms/JSON`         → `{"InformationList": {"Information": [{"CID": int, "Synonym": [str, ...]}]}}`
+- `description/JSON`      → `{"InformationList": {"Information": [{"CID": int, "Description": str, "DescriptionSourceName": str, ...}, ...]}}`
+- `assaysummary/JSON`     → `{"Table": {"Columns": {"Column": [...]}, "Row": [{"Cell": [...]}, ...]}}`
+- async-init (similarity, substructure, formula) → 202 with `{"Waiting": {"ListKey": "..."}}`
+- listkey poll            → `{"IdentifierList": {"CID": [...]}}` when ready
+
+## Common Workflows
+
+### Workflow 1: Property comparison across a drug panel
+
+**Goal**: side-by-side physicochemical comparison of a small molecule set.
 
 ```python
+import requests, pandas as pd, time
+from urllib.parse import quote
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
+drugs = ["aspirin", "ibuprofen", "naproxen", "celecoxib"]
+
+# Resolve names → CIDs in a loop (rate-limited)
+cids = []
+for d in drugs:
+    cid = requests.get(f"{BASE}/compound/name/{quote(d)}/cids/JSON",
+                       timeout=15).json()["IdentifierList"]["CID"][0]
+    cids.append(cid)
+    time.sleep(0.25)
+
+# Single batched property pull
+cid_csv = ",".join(str(c) for c in cids)
+r = requests.get(
+    f"{BASE}/compound/cid/{cid_csv}/property/"
+    "MolecularWeight,XLogP,TPSA,HBondDonorCount,HBondAcceptorCount/JSON")
+df = pd.DataFrame(r.json()["PropertyTable"]["Properties"])
+df["Name"] = drugs
+df = df[["Name", "CID", "MolecularWeight", "XLogP", "TPSA",
+         "HBondDonorCount", "HBondAcceptorCount"]]
+print(df.to_string(index=False))
+```
+
+### Workflow 2: Lead compound → similar analogs → properties
+
+**Goal**: starting from a kinase inhibitor (gefitinib), find 85%-similar analogs and pull their properties.
+
+```python
+import requests, time
+from urllib.parse import quote
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
+def poll_listkey(listkey, max_polls=10, interval=2.0):
+    for _ in range(max_polls):
+        time.sleep(interval)
+        j = requests.get(f"{BASE}/compound/listkey/{listkey}/cids/JSON",
+                         timeout=20).json()
+        if "IdentifierList" in j:
+            return j["IdentifierList"]["CID"]
+    raise TimeoutError("listkey timeout")
+
+# 1. lead → CID → canonical SMILES
+ref_cid = requests.get(
+    f"{BASE}/compound/name/gefitinib/cids/JSON").json()["IdentifierList"]["CID"][0]
+ref_smi = requests.get(
+    f"{BASE}/compound/cid/{ref_cid}/property/SMILES/JSON"
+    ).json()["PropertyTable"]["Properties"][0]["SMILES"]
+print(f"gefitinib CID={ref_cid}  SMILES={ref_smi}")
+
+# 2. similarity search
+smi_q = quote(ref_smi, safe="")
+init = requests.get(
+    f"{BASE}/compound/similarity/smiles/{smi_q}/JSON?Threshold=85&MaxRecords=15"
+    ).json()
+sim_cids = poll_listkey(init["Waiting"]["ListKey"]) if "Waiting" in init \
+           else init["IdentifierList"]["CID"]
+print(f"  {len(sim_cids)} analogs @85% Tanimoto")
+
+# 3. batch-pull properties for top 5 analogs
+cid_csv = ",".join(str(c) for c in sim_cids[:5])
+r = requests.get(
+    f"{BASE}/compound/cid/{cid_csv}/property/"
+    "MolecularWeight,XLogP,TPSA,RotatableBondCount/JSON")
+for row in r.json()["PropertyTable"]["Properties"]:
+    print(f"  CID {row['CID']}: MW={row['MolecularWeight']} XLogP={row['XLogP']}")
+```
+
+### Workflow 3: Pharmacophore screen via substructure → bioactivity check
+
+**Goal**: find compounds with a sulfonamide motif and check which have bioactivity records.
+
+```python
+import requests, time
+from urllib.parse import quote
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
+def poll_listkey(listkey, max_polls=10, interval=2.0):
+    for _ in range(max_polls):
+        time.sleep(interval)
+        j = requests.get(f"{BASE}/compound/listkey/{listkey}/cids/JSON",
+                         timeout=20).json()
+        if "IdentifierList" in j:
+            return j["IdentifierList"]["CID"]
+    raise TimeoutError("listkey timeout")
+
+smi = quote("S(=O)(=O)N", safe="")
+init = requests.get(
+    f"{BASE}/compound/substructure/smiles/{smi}/JSON?MaxRecords=10").json()
+cids = poll_listkey(init["Waiting"]["ListKey"]) if "Waiting" in init \
+       else init["IdentifierList"]["CID"]
+print(f"sulfonamide CIDs: {cids}")
+
+# Bioactivity row counts for the first few hits
+for cid in cids[:3]:
+    rows = requests.get(f"{BASE}/compound/cid/{cid}/assaysummary/JSON",
+                        timeout=30).json().get("Table", {}).get("Row", [])
+    print(f"  CID {cid}: {len(rows)} assay rows")
+    time.sleep(0.3)
+```
+
+## Key Parameters
+
+| Parameter         | Endpoint / Module                | Default | Range / Options                            | Effect                                                                  |
+| ----------------- | -------------------------------- | ------- | ------------------------------------------ | ----------------------------------------------------------------------- |
+| `<namespace>`     | `/compound/{ns}/<value>/...`     | —       | `name`, `cid`, `smiles`, `inchikey`, `inchi`, `formula` | Input identifier type                                                  |
+| `<property csv>`  | `/.../property/<csv>/JSON`       | —       | any subset of property names (see table)   | Which properties to return (one DB call per request)                    |
+| `Threshold`       | similarity (M4)                  | `90`    | `0`–`100`                                  | Tanimoto cutoff (percent)                                               |
+| `MaxRecords`      | similarity / substructure / formula | (server-side default) | `1`–`10000`                       | Cap on async result list                                                |
+| `image_size`      | `/compound/cid/{cid}/PNG`        | medium  | `small`, `large`, `WxH` (e.g. `500x500`)   | PNG output resolution                                                   |
+| `record_type`     | `/compound/cid/{cid}/SDF`        | `2d`    | `2d`, `3d`                                 | SDF dimensionality (`?record_type=3d`)                                  |
+| `MaxAssayResults` | `/compound/cid/{cid}/assaysummary/JSON` | —    | int                                        | Limit assay rows when compound has thousands of records                 |
+
+## Best Practices
+
+1. **Always go through `cids/JSON` first** when starting from a name or external identifier. The name→CID resolution and the CID→property lookup are separate calls; doing both at once via `name → property` works but throws away the canonical CID list that downstream queries need.
+
+2. **Batch properties, never loop them.** `compound/cid/2244,3672,2157,.../property/MolecularWeight,XLogP,.../JSON` accepts up to ~200 CIDs and any number of properties — one round trip instead of N. Looping `get_compounds` per name is the most common rate-limit trap.
+
+3. **URL-encode every SMILES.** Use `urllib.parse.quote(smiles, safe="")`. Bare SMILES with `=`, `#`, `(`, `)`, `[`, `]` will sometimes work but breaks unpredictably on `+`, `/`, `\`, or query-string-looking substrings.
+
+4. **Treat similarity/substructure/formula as async.** Branch on `"Waiting" in response` and poll `listkey` rather than re-issuing the search. Re-issuing creates a new ListKey and wastes the server's job slot.
+
+5. **Throttle ≤ 5 req/sec, ≤ 400/min.** Insert `time.sleep(0.25)` in any tight loop. HTTP 503 means you tripped the limit — wait 10s and reduce concurrency.
+
+6. **Cast `MolecularWeight` to `float`.** It's returned as a string (`"180.16"`) for full decimal fidelity. Comparing strings against numeric thresholds is a silent bug.
+
+7. **For 100+ CIDs use POST.** GET URLs over ~2000 chars get truncated by some HTTP proxies. PubChem also accepts `POST` with `cid` in the form body: `requests.post(f"{BASE}/compound/cid/property/MolecularWeight/JSON", data={"cid": cid_csv})`.
+
+8. **`SMILES` vs `CanonicalSMILES`.** PubChem renamed the canonical SMILES property to plain `SMILES` in the 2025 PUG-REST schema. Use `SMILES` in new code; the response field is also keyed `SMILES`.
+
+## Common Recipes
+
+### Recipe 1 — Lipinski's Rule of Five check
+
+```python
+import requests
+from urllib.parse import quote
+
+BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
+
 def check_lipinski(name):
-    cid = requests.get(f"{BASE}/compound/name/{quote(name)}/cids/JSON").json()["IdentifierList"]["CID"][0]
-    p = requests.get(f"{BASE}/compound/cid/{cid}/property/"
+    cid = requests.get(f"{BASE}/compound/name/{quote(name)}/cids/JSON"
+                       ).json()["IdentifierList"]["CID"][0]
+    p = requests.get(
+        f"{BASE}/compound/cid/{cid}/property/"
         "MolecularWeight,XLogP,HBondDonorCount,HBondAcceptorCount/JSON"
         ).json()["PropertyTable"]["Properties"][0]
-    mw, xlogp = float(p["MolecularWeight"]), p.get("XLogP", 0) or 0   # MW 是字符串；XLogP 可能为 None
+    mw, xlogp = float(p["MolecularWeight"]), p.get("XLogP", 0) or 0
+    hbd, hba  = p["HBondDonorCount"], p["HBondAcceptorCount"]
     rules = {"MW ≤ 500": mw <= 500, "XLogP ≤ 5": xlogp <= 5,
-             "HBD ≤ 5": p["HBondDonorCount"] <= 5, "HBA ≤ 10": p["HBondAcceptorCount"] <= 10}
-    return rules, sum(1 for ok in rules.values() if not ok)
+             "HBD ≤ 5": hbd <= 5,   "HBA ≤ 10": hba <= 10}
+    v = sum(1 for ok in rules.values() if not ok)
+    return rules, v
+
+rules, v = check_lipinski("metformin")
+print(f"violations: {v}/4 ({'PASS' if v <= 1 else 'FAIL'})")
+for r, ok in rules.items(): print(f"  {'✓' if ok else '✗'} {r}")
 ```
 
-健壮 Session（自动重试 / 429 / 503 退避）：
+### Recipe 2 — Pull every synonym / trade name
 
 ```python
+import requests
+
+r = requests.get("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/synonyms/JSON")
+syns = r.json()["InformationList"]["Information"][0]["Synonym"]
+print(f"{len(syns)} synonyms")
+for s in syns[:10]:
+    print(f"  {s}")
+```
+
+### Recipe 3 — Download a structure PNG
+
+```python
+import requests
+
+cid = 2519   # caffeine
+png = requests.get(
+    f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/PNG?image_size=large"
+    ).content
+with open("caffeine.png", "wb") as f:
+    f.write(png)
+print(f"wrote caffeine.png ({len(png)} bytes)")
+```
+
+### Recipe 4 — Robust session with retry / 429 handling
+
+```python
+import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+
 s = requests.Session()
 s.headers.update({"Accept": "application/json"})
 s.mount("https://", HTTPAdapter(max_retries=Retry(
-    total=4, backoff_factor=1.0, status_forcelist=[429, 500, 502, 503, 504],
+    total=4, backoff_factor=1.0,
+    status_forcelist=[429, 500, 502, 503, 504],
     allowed_methods=["GET", "POST"])))
+
+r = s.get(
+    "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/property/MolecularWeight/JSON",
+    timeout=15)
+r.raise_for_status()
+print(r.json()["PropertyTable"]["Properties"][0]["MolecularWeight"])
 ```
 
-## 注意事项
+## Expected Outputs
 
-常用属性名（CSV 任意拼接进 `/property/<csv>/JSON`）：`MolecularWeight`（字符串，g/mol）、`MolecularFormula`、`SMILES`、`IUPACName`、`InChI`/`InChIKey`、`XLogP`、`TPSA`(Å²)、`HBondDonorCount`、`HBondAcceptorCount`、`RotatableBondCount`、`HeavyAtomCount`、`Charge`。
+- **CID lookup** (`/.../cids/JSON`): `{"IdentifierList": {"CID": [...]}}` — list of integer CIDs, ordered by relevance for name searches.
+- **Properties** (`/.../property/.../JSON`): `{"PropertyTable": {"Properties": [{"CID": ..., "MolecularWeight": "180.16", ...}, ...]}}`. One row per CID in input order; `MolecularWeight` is a *string*.
+- **Synonyms**: `{"InformationList": {"Information": [{"CID": 2244, "Synonym": ["aspirin", "ACETYLSALICYLIC ACID", "50-78-2", ...]}]}}`.
+- **Async search init**: HTTP 202 with `{"Waiting": {"ListKey": "12345..."}}`. Poll `/compound/listkey/{key}/cids/JSON` until it returns `IdentifierList`.
+- **Assay summary**: `{"Table": {"Columns": {"Column": [...col names...]}, "Row": [{"Cell": [...]}, ...]}}`.
+- **SDF**: plain text starting with the CID header line; ends with `M  END` followed by SDF property blocks.
+- **PNG**: binary `image/png`, ~2–4 KB at default size, ~10–20 KB at `image_size=large`.
 
-响应信封形状：
+## Troubleshooting
 
-- `cids/JSON` → `{"IdentifierList": {"CID": [int, ...]}}`
-- `property/.../JSON` → `{"PropertyTable": {"Properties": [{...}, ...]}}`（一行一 CID，按输入序）
-- `synonyms/JSON` → `{"InformationList": {"Information": [{"CID": int, "Synonym": [...]}]}}`
-- `assaysummary/JSON` → `{"Table": {"Columns": {"Column": [...]}, "Row": [{"Cell": [...]}, ...]}}`
-- 异步初始化（similarity/substructure/formula）→ HTTP 202 + `{"Waiting": {"ListKey": "..."}}`
+| Problem                                                                         | Cause                                                                              | Solution                                                                                                                            |
+| ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| HTTP 404 `PUGREST.NotFound`                                                     | Name / SMILES / formula matched no record                                          | Try a CAS number or InChIKey; check spelling in the PubChem web UI; canonical SMILES from RDKit often resolves where input SMILES doesn't |
+| HTTP 202 stuck in `{"Waiting":...}` for a similarity/substructure call           | Async job still running                                                            | Poll `/compound/listkey/{key}/cids/JSON` every 2s up to ~30s; reduce `MaxRecords` if it never completes                              |
+| HTTP 503 `PUGREST.ServerBusy`                                                   | Tripped the 5-req/s or 400-req/min rate limit                                      | Insert `time.sleep(0.25)` in loops; use the Retry session in Recipe 4; reduce concurrency                                            |
+| HTTP 400 on a SMILES URL                                                        | SMILES wasn't URL-encoded                                                          | Wrap in `urllib.parse.quote(smi, safe="")` — `#`, `+`, `/` and `\` all break path parsing                                            |
+| `KeyError: 'SMILES'`                                                            | Asked for `CanonicalSMILES` (old name); 2025 PUG-REST returns just `SMILES`        | Use `SMILES` in the property CSV and read `p["SMILES"]`                                                                              |
+| `TypeError: '>' not supported between instances of 'str' and 'int'`             | `MolecularWeight` is a string                                                      | `float(p["MolecularWeight"])` before any arithmetic comparison                                                                       |
+| Batch `cid/2244,3672,...` returns only some rows                                | URL exceeded server limit                                                          | Switch to `requests.post(url, data={"cid": "2244,3672,..."})`; same URL minus the value, body carries the CSV                        |
+| Empty `assaysummary` Table                                                      | CID has no bioassay records                                                        | Not all compounds are assayed; verify on the PubChem web page                                                                        |
+| `XLogP` is `None` for a valid CID                                               | Property not computed for that compound                                            | Guard with `p.get("XLogP", 0) or 0` before arithmetic                                                                                |
 
-关键参数：`Threshold`（相似性，默认 90，0–100）、`MaxRecords`（异步结果上限，1–10000）、`image_size`（PNG，small/large/WxH）、`record_type`（SDF，2d/3d）、`MaxAssayResults`（限制 assay 行数）。
+## Related Skills
 
-常见排错：
+- `chembl-database-bioactivity` — IC50 / Ki / Kd target-binding data, deeper than PubChem's assay summaries
+- `rdkit-cheminformatics` — local SMILES/MOL manipulation, fingerprints, descriptors, scaffold extraction
+- `pdb-database` — protein structures co-crystallized with the small molecules found via PubChem CIDs
 
-- HTTP 404 `PUGREST.NotFound`：名称/SMILES/分子式无匹配——换 CAS 或 InChIKey；用 RDKit 规范化的 canonical SMILES 常能命中原始 SMILES 解析不到的记录。
-- HTTP 202 卡在 `Waiting`：异步任务仍在跑——每 2s 轮询 listkey 至约 30s；不完成就调小 `MaxRecords`。
-- HTTP 503 `PUGREST.ServerBusy`：触发限流——加 `time.sleep(0.25)`、用重试 Session、降并发。
-- HTTP 400（SMILES URL）：未 URL 编码——`quote(smi, safe="")`。
-- `KeyError: 'SMILES'`：用了旧名 `CanonicalSMILES`——改用 `SMILES`。
-- `TypeError '>' str vs int`：`MolecularWeight` 是字符串——先 `float()`。
-- 批量只返回部分行：URL 超限——改 POST，body 带 `{"cid": "..."}`。
-- `assaysummary` Table 为空：该 CID 无生物活性记录，属正常。
-- `XLogP` 为 `None`：该化合物未计算——用 `p.get("XLogP", 0) or 0` 兜底。
+## References
 
-参考：[PUG-REST 文档](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest)、[PUG-REST 教程](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest-tutorial)、[属性表](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest#section=Compound-Property-Tables)。
-
-## 互见
-
-- `chembl-database-bioactivity` — IC50/Ki/Kd 靶点结合数据，比 PubChem assay 汇总更深。
-- `rdkit-cheminformatics` — 本地 SMILES/MOL 操作、指纹、描述符、骨架提取。
-- `pdb-database` — 与 PubChem CID 小分子共晶的蛋白结构。
-
----
-
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+- [PubChem PUG-REST documentation](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest) — Full URL grammar reference
+- [PUG-REST tutorial with worked examples](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest-tutorial) — Step-by-step API walk-through
+- [PubChem property table](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest#section=Compound-Property-Tables) — Authoritative list of `/property/<name>` values and their semantics
+- [PubChem main site](https://pubchem.ncbi.nlm.nih.gov/) — Web interface for spot-checks
+- [Kim et al. (2023) Nucleic Acids Res — PubChem 2023 update](https://doi.org/10.1093/nar/gkac956)

@@ -1,14 +1,14 @@
 ---
 name: research-experiment-designer
-title: 科研实验设计
-description: 当需要把模糊研究想法转成严谨可复现实验计划（设计 ablation、选 baseline、定评估指标）时使用；做的事是按「假设→变量→指标→Baseline→Ablation→算力预算」六步产出结构化实验计划文档；不适用于已有计划只需跑代码、统计分析或论文写作。触发词：实验设计、experiment design、ablation、消融、baseline、基线、跑什么实验、evaluation metric、评估指标、如何验证方法、可复现
+title: 實驗設計技能
+description: 學術研究實驗設計技能——從研究假設到可重現實驗計畫的完整流程。當使用者需要規劃實驗、設計 ablation study、選擇 baseline、確定評估指標，或問「我應該跑哪些實驗」時，一定要使用此技能。觸發詞包括：實驗設計、experiment design、ablation、baseline、跑什麼實驗、evaluation metric、如何驗證方法。適用於機器學習、NLP、CV 等領域的實驗規劃。
 domain: 领域/science
-triggers: [实验设计, experiment design, ablation, 消融, baseline, 基线, 跑什么实验, evaluation metric, 评估指标, 如何验证方法, 可复现]
+triggers: [experiment design, ablation, baseline, evaluation metric]
 tags: [experiment-design, ablation, baseline, evaluation-metrics, reproducibility, machine-learning, research, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [t-test, bootstrap, t-SNE, mixed-precision, early-stopping]
+tools: []
 requires: []
 related: [guided-statistical-analysis, nih-grant-finder, scientific-manuscript-writing, academic-paper-writer]
 combines_with: [guided-statistical-analysis, nih-grant-finder, scientific-manuscript-writing]
@@ -16,103 +16,329 @@ license: MIT
 source: voidful/academic-skills
 source_license: MIT
 ---
-## 何时使用
+# Experiment Design Skill
 
-- 在 ML / NLP / CV 等领域，需要把一个模糊的研究想法变成**严谨、公平、可复现**的实验计划时。
-- 用户问「我应该跑哪些实验」「怎么设计 ablation」「该选哪些 baseline」「用什么评估指标」「怎么验证我的方法有效」。
-- 撰写论文/技术报告前的实验规划阶段，或审视已有实验是否覆盖充分。
+## Overview
 
-**不该用边界**：实验计划已定、只需写训练代码或跑实验；纯数据统计分析；论文写作/润色；非实证类研究（理论证明、综述）。这些场景请转用专门技能或直接执行。
+This skill provides a structured experiment design process suitable for academic research in machine learning, natural language processing, computer vision, and related fields. The goal is to help researchers move from a vague research idea to a rigorous, reproducible, and convincing experiment plan.
 
-好实验设计的四条底线：**可证伪**（结果能支持或否定假设）、**公平**（同条件比较）、**可复现**（他人能完整重现）、**充分**（覆盖足够面向支撑结论）。
+## Core Design Principles
 
-## 步骤
+A good experiment design should have the following characteristics:
 
-严格遵循六步推导链，每步产出是下一步输入：
-
-```
-假设 → 变量 → 指标 → Baseline → Ablation → 算力预算
-```
-
-### 1. 假设明确化
-将研究动机转成可测量、可证伪的具体假设，并拆解子假设。
-- 反例：「我们的方法更好」
-- 正例：「在 SQuAD 2.0 上，加入跨注意力后 F1 相较纯自注意力基线提升至少 2 个百分点」
-- 质量标准：具体性、可测量性、可证伪性、相关性。
-
-### 2. 变量定义
-- **自变量**（主动操控）：模型架构变体、训练策略、数据处理方式。
-- **因变量**（被测量）：性能（Accuracy/F1/BLEU）、效率（推理时延/显存）、质量（人工评分）。
-- **控制变量**（保持不变）：随机种子、数据集与切分、非研究对象的超参、硬件、预训练模型版本。
-- 三原则：**单一变量**（每次只改一个自变量）、**完整记录**、**取值范围有理论依据**。
-
-### 3. 评估指标选择
-- 优先领域公认标准指标；同时报性能、效率、稳健性多面向。
-- 报多种子的均值±标准差；必要时做显著性检验并标注 p 水平。
-- 常见指标：分类 Accuracy/Precision/Recall/F1/AUC-ROC；生成 BLEU/ROUGE/METEOR/BERTScore/人工评估；检索 MAP/MRR/NDCG/Recall@K；效率 FLOPs/参数量/时延/显存；稳健性 跨数据集表现/对抗准确率。
-
-### 4. Baseline 选择
-必须覆盖三类：**经典方法** + **当前 SOTA** + **简单基线**（随机/多数类/TF-IDF）。
-- 公平比较：同切分、同评估协议、尽量用原作者代码与超参；复现时须验证与原论文一致。
-- 常见错误：只比弱基线、不用最新 SOTA、基线超参未调、比较条件不一致。
-
-### 5. Ablation Study（四模式）
-- **组件消融**：每次只移除/替换一个组件，量化各组件贡献。
-- **超参敏感度**：选 2-4 个关键超参，合理范围内扫描，绘超参-性能曲线。
-- **跨数据集迁移**：在不同规模/领域数据集上测泛化，分析最佳/最差条件。
-- **定性分析**：注意力可视化、成功/失败案例、t-SNE 特征空间、错误类型统计。
-
-### 6. 算力预算
-估单次成本（GPU 时数/显存/存储），再算总量：
-
-```
-总 GPU 时数 = 单次时数 × 模型变体数 × 数据集数 × 随机种子数 × 超参组合数
-```
-
-预留 **1.5-2 倍**安全系数（含调试/预实验/追加）。优化：小数据集预实验、early stopping、混合精度、合理排优先级。
-
-## 指令
-
-- 引导用户依次完成六步，**每步产出作为下一步输入**，禁止跳步。
-- 强制可复现信息齐全：硬件（GPU 型号/数量）、软件（语言/框架/关键包版本）、随机性（种子列表/确定性算法）、训练协议（完整超参/优化器/学习率调度/数据增强/早停准则）、数据（版本/来源/预处理/切分）、评估协议（指标精确定义/评估频率/选模准则）。
-- 最终交付一份**结构化实验计划文档**，含 7 章：① 假设与子假设 ② 变量定义表 ③ 评估指标与统计方法 ④ Baseline 列表与设定 ⑤ Ablation 设计矩阵 ⑥ 算力预估与时程 ⑦ 可复现性信息。
-- 交付前过一遍质量检查清单（见下）。
-
-## 示例
-
-**输入**：研究主题/论文草稿 + 方法描述 + 可用算力。
-
-**输出片段（节选实验计划）**：
-- 假设 H1：在 SQuAD 2.0 上跨注意力使 F1 ≥ +2pt（5 种子均值，paired t-test，p<0.05）。
-- 自变量：注意力机制 ∈ {纯自注意力, 自+跨注意力}；控制变量：种子 {1,2,3,4,5}、bert-base-uncased、相同切分与超参。
-- 指标：EM、F1（主）；推理时延、显存（次）。
-- Baseline：BiDAF（经典）、当前榜首模型（SOTA）、多数类（简单）。
-- Ablation：移除跨注意力（组件）；扫描注意力头数 {4,8,12}（超参）；NewsQA 上测迁移（跨集）；注意力热图（定性）。
-- 算力：单次 6 GPU·h × 2 变体 × 1 集 × 5 种子 = 60 GPU·h，×1.5 = 90 GPU·h。
-
-**质量检查清单**：
-- [ ] 每个假设都有对应实验验证
-- [ ] 自变量取值范围已明确
-- [ ] 控制变量完整列出
-- [ ] 指标覆盖多面向
-- [ ] Baseline 含经典/SOTA/简单基线
-- [ ] Ablation 覆盖所有提出的组件
-- [ ] 算力预估含安全系数
-- [ ] 可复现信息完整
-- [ ] 统计检验方法已确定
-
-## 注意事项
-
-- **单一变量是底线**：一次改多个自变量会让结论无法归因。
-- 只与弱基线比较是最常见的致命错误，务必纳入最新 SOTA 并调好其超参。
-- 报均值不报方差等于没报；多种子 + 标准差 + 显著性检验缺一不可。
-- 算力预算务必乘安全系数，预实验几乎总会发现需要追加的实验。
-- 可复现性是审稿硬指标，硬件/软件/种子/协议任一缺失都会被质疑。
-
-## 互见
-
-- `first-principles-thinking`：在假设明确化阶段，用第一性原理拆解研究问题与核心假设。
-- `fact-checking`：核对 baseline 数值、SOTA 声明与引用是否与原论文一致。
+- **Falsifiability**: Experimental results must be able to support or refute the research hypothesis
+- **Fairness**: All compared subjects are evaluated under the same conditions
+- **Reproducibility**: Others can fully reproduce the experiment from the description
+- **Sufficiency**: The experiments cover enough aspects to support the paper's conclusions
 
 ---
-本条采编自 voidful/academic-skills（MIT）。
+
+## Experiment Design Pipeline
+
+A complete experiment design follows this six-step process:
+
+```
+Hypothesis → Variables → Metrics → Baseline → Ablation → Compute Budget
+```
+
+The output of each step is the input to the next, forming a rigorous chain of reasoning.
+
+---
+
+## Step 1: Clarify the Research Hypothesis
+
+### Purpose
+
+Turn a vague research motivation into a verifiable, concrete hypothesis.
+
+### Method
+
+1. **Identify the research question**: What question do you want to answer?
+2. **Propose a core hypothesis**: What is the expected answer to the question?
+3. **Make the hypothesis precise**: The hypothesis must be measurable and falsifiable
+4. **Decompose into sub-hypotheses**: Break a complex hypothesis into sub-hypotheses that can be verified one by one
+
+### Quality Criteria for a Hypothesis
+
+| Criterion | Description |
+|------|------|
+| Specificity | Clearly states the expected direction and magnitude of the effect |
+| Measurability | Can be verified with quantitative metrics |
+| Falsifiability | There exist possible experimental results that would refute the hypothesis |
+| Relevance | Directly related to the research question |
+
+### Example
+
+- Poor: "Our method is better"
+- Good: "On the SQuAD 2.0 dataset, adding a cross-attention mechanism improves the F1 score by at least 2 percentage points compared to a pure self-attention baseline"
+
+See also: [Experiment Planning Reference](references/experiment-planning.md)
+
+---
+
+## Step 2: Define Variables
+
+### Independent Variables
+
+The variables actively manipulated by the researcher, i.e., "what changes" in the experiment.
+
+- Variants of the model architecture
+- Differences in training strategy
+- Differences in data processing methods
+
+### Dependent Variables
+
+The variables used to measure the experimental results, i.e., "what is measured."
+
+- Model performance metrics (accuracy, F1, BLEU, etc.)
+- Efficiency metrics (inference time, memory usage)
+- Quality metrics (human evaluation scores)
+
+### Control Variables
+
+The variables held constant throughout the experiment to ensure fair comparison.
+
+- Random seed
+- Training dataset and split
+- Hyperparameters (the parts not under study)
+- Hardware environment
+- Pretrained model version
+
+### Variable Control Principles
+
+1. **Single-variable principle**: Change only one independent variable per experiment
+2. **Complete-recording principle**: The values of all variables must be recorded
+3. **Reasonable-range principle**: The value range of the independent variable should have a theoretical justification
+
+See also: [Experiment Planning Reference](references/experiment-planning.md)
+
+---
+
+## Step 3: Choose Evaluation Metrics
+
+### Selection Principles
+
+1. **Field conventions**: Prefer standard metrics recognized in the field
+2. **Multi-aspect coverage**: Report performance, efficiency, and robustness metrics together
+3. **Statistical significance**: Report the mean and standard deviation across multiple runs
+4. **Validity**: The metric truly reflects the aspect the research hypothesis focuses on
+
+### Common Metric Categories
+
+| Category | Example Metrics |
+|------|----------|
+| Classification tasks | Accuracy, Precision, Recall, F1-score, AUC-ROC |
+| Generation tasks | BLEU, ROUGE, METEOR, BERTScore, human evaluation |
+| Information retrieval | MAP, MRR, NDCG, Recall@K |
+| Efficiency metrics | FLOPs, parameter count, inference latency, memory footprint |
+| Robustness | Cross-dataset performance, adversarial-example accuracy |
+
+### Statistical Testing
+
+- Report the mean and standard deviation across runs with multiple random seeds
+- Perform statistical significance tests when necessary (e.g., paired t-test, bootstrap test)
+- Annotate the statistical significance level (p < 0.05, p < 0.01)
+
+---
+
+## Step 4: Baseline Selection and Setup
+
+### Required Baseline Types
+
+1. **Classic methods**: Historically important methods in the field
+2. **Current SOTA**: The latest best-performing methods
+3. **Simple baselines**: Simple but reasonable baseline methods (e.g., random, majority class, TF-IDF)
+
+### Fair Comparison Principles
+
+- Use the same data splits
+- Use the same evaluation protocol
+- Use the original authors' code and hyperparameters whenever possible
+- If reimplementation is required, verify that the reproduced results match the original paper
+
+### Common Mistakes
+
+- Comparing only against weak baselines
+- Not using the latest SOTA as a baseline
+- Leaving the baseline's hyperparameters untuned
+- Inconsistent comparison conditions (e.g., different pretrained models)
+
+See also: [Baseline Selection Guide](references/baseline-selection.md)
+
+---
+
+## Step 5: Ablation Study Design
+
+The ablation study is the key experiment for verifying the contribution of each component of a method. This skill defines four ablation modes:
+
+### Mode 1: Component Ablation
+
+Remove or replace each component of the method one at a time and observe the change in performance.
+
+- Remove only one component at a time
+- Record the performance change after removal
+- Use this to assess the contribution of each component
+
+### Mode 2: Hyperparameter Sensitivity
+
+Investigate the impact of key hyperparameters on performance.
+
+- Select the 2-4 most important hyperparameters
+- Vary the hyperparameter values within a reasonable range
+- Plot hyperparameter-vs-performance curves
+
+### Mode 3: Cross-Dataset Transfer
+
+Verify the generalization ability of the method.
+
+- Test on multiple different datasets
+- Include datasets of different scales and from different domains
+- Analyze under what conditions the method performs best or worst
+
+### Mode 4: Qualitative Analysis
+
+Gain a deeper understanding of model behavior through visualization and case analysis.
+
+- Attention-weight visualization
+- Analysis of success and failure cases
+- Feature-space visualization (e.g., t-SNE)
+- Classification and statistics of error types
+
+See also: [Ablation Design Guide](references/ablation-design.md)
+
+---
+
+## Step 6: Estimate Computational Resources
+
+### Items to Estimate
+
+1. **Cost of a single experiment**
+   - GPU hours
+   - Memory requirements
+   - Storage requirements
+
+2. **Total experiment volume**
+
+   ```
+   Total GPU hours = single-run hours × number of model variants × number of datasets × number of random seeds × number of hyperparameter combinations
+   ```
+
+3. **Safety factor**
+   - It is recommended to reserve 1.5-2x the estimated resources
+   - Account for debugging, pilot experiments, and additional follow-up experiments
+
+### Resource Optimization Strategies
+
+- Run pilot experiments on a small-scale dataset first
+- Use early stopping to save training time
+- Make good use of mixed-precision training
+- Plan the experiment priority order reasonably
+
+---
+
+## Reproducibility Requirements
+
+The experiment plan must include complete reproducibility information to ensure that others can reproduce the results precisely.
+
+### Required Disclosure Items
+
+1. **Hardware environment**
+   - GPU model and count
+   - CPU specifications
+   - Memory size
+
+2. **Software environment**
+   - Programming language version
+   - Deep learning framework version
+   - Versions of key packages
+
+3. **Randomness control**
+   - Random seed settings
+   - Deterministic algorithm settings
+   - The list of seeds used across runs
+
+4. **Training protocol**
+   - The complete list of hyperparameters
+   - Optimizer settings
+   - Learning rate schedule
+   - Data augmentation strategy
+   - Early stopping criteria
+
+5. **Data processing**
+   - Dataset version and source
+   - Preprocessing steps
+   - Data split method
+
+6. **Evaluation protocol**
+   - Precise definition of the evaluation metrics
+   - Evaluation frequency
+   - Model selection criteria
+
+See also: [Reproducibility Checklist](references/reproducibility-checklist.md)
+
+---
+
+## Output: Structured Experiment Plan Document
+
+The final output of this skill is a structured experiment plan document that contains the following sections:
+
+1. Research hypothesis and sub-hypotheses
+2. Variable definition table
+3. Evaluation metrics and statistical methods
+4. Baseline list and settings
+5. Ablation study design matrix
+6. Computational resource estimate and schedule plan
+7. Reproducibility information
+
+Template to use: [Experiment Plan Template](templates/experiment-plan.md)
+
+---
+
+## Usage Flow
+
+### Input
+
+- Research topic or paper draft
+- Description of the proposed method
+- Available computational resources
+
+### Processing
+
+1. Guide the user to clarify the research hypothesis
+2. Help define independent, dependent, and control variables
+3. Recommend evaluation metrics based on the task type
+4. Recommend baselines based on the research field
+5. Design the ablation study plan
+6. Estimate computational resource needs
+
+### Output
+
+- A complete experiment plan document (following the template format)
+- Recommendations for experiment priority order
+- Potential risks and mitigation plans
+
+---
+
+## Quality Checklist
+
+After completing the experiment plan, please confirm the following items:
+
+- [ ] Every research hypothesis has a corresponding experiment to verify it
+- [ ] The value ranges of all independent variables are clearly defined
+- [ ] All control variables are fully listed
+- [ ] The evaluation metrics cover multiple aspects
+- [ ] The baselines include classic methods, SOTA, and a simple baseline
+- [ ] The ablation study covers all proposed components
+- [ ] The computational resource estimate is reasonable and includes a safety factor
+- [ ] The reproducibility information is complete
+- [ ] The statistical testing method has been determined
+
+---
+
+## Reference Resources
+
+- [Experiment Planning Methods](references/experiment-planning.md)
+- [Baseline Selection Guide](references/baseline-selection.md)
+- [Ablation Design Guide](references/ablation-design.md)
+- [Reproducibility Checklist](references/reproducibility-checklist.md)
+- [Experiment Plan Template](templates/experiment-plan.md)

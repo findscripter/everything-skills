@@ -1,11 +1,11 @@
 ---
 name: tech-debt-prioritizer
-title: 技术债识别与排序
-description: 当需要系统盘点技术债、决定"先重构什么"、评估代码健康度或排维护 backlog 时使用；做按六类（代码/架构/测试/依赖/文档/基础设施）盘点技术债并用 影响×风险×工作量 打分，产出带优先级、工作量估算、业务理由的清单和可与功能开发并行的分阶段偿还计划；不适用于具体某段代码的逐行 bug 审查、单条重构的实现、或全新功能设计；触发词：技术债、tech debt、重构什么、该重构哪里、代码健康度、维护 backlog、技术债审计
+title: Tech Debt Management
+description: Identify, categorize, and prioritize technical debt. Trigger with "tech debt", "technical debt audit", "what should we refactor", "code health", or when the user asks about code quality, refactoring priorities, or maintenance backlog.
 domain: 研发/architecture
-triggers: [技术债, tech debt, 技术债审计, 重构什么, 该重构哪里, 代码健康度, code health, 维护 backlog, 重构优先级]
+triggers: [tech debt, code health]
 tags: [tech-debt, refactoring, code-health, prioritization, maintenance, engineering]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,91 +16,30 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 技术债识别与排序
+# Tech Debt Management
 
-## 何时使用
+Systematically identify, categorize, and prioritize technical debt.
 
-当团队问"我们到底该先重构什么"、需要盘点代码健康度、或要把零散的"待还的债"整理成一份可决策、可排期的清单时使用。本技能负责**识别 → 归类 → 打分排序 → 给偿还计划**这一整条链路。
+## Categories
 
-**不该用的边界：**
-- 不做某段代码的逐行 bug 审查 —— 那是 `code-reviewer`。
-- 不做单条债的具体重构/简化实现 —— 那是 `complexity-cuts` / `code-simplifier`。
-- 不做全新系统/技术选型的从零设计 —— 那是 `tech-stack-evaluator`。
-- 输入信息不足时（拿不到代码库、CI 数据、团队痛点访谈），先补齐证据再打分，避免凭空排序。
+| Type | Examples | Risk |
+|------|----------|------|
+| **Code debt** | Duplicated logic, poor abstractions, magic numbers | Bugs, slow development |
+| **Architecture debt** | Monolith that should be split, wrong data store | Scaling limits |
+| **Test debt** | Low coverage, flaky tests, missing integration tests | Regressions ship |
+| **Dependency debt** | Outdated libraries, unmaintained dependencies | Security vulns |
+| **Documentation debt** | Missing runbooks, outdated READMEs, tribal knowledge | Onboarding pain |
+| **Infrastructure debt** | Manual deploys, no monitoring, no IaC | Incidents, slow recovery |
 
-## 步骤 / 指令
+## Prioritization Framework
 
-```
-1. 识别  扫代码库 + 访谈团队，列出所有"拖慢/有风险"的点
-2. 归类  把每条债归入六大类（见下表），明确风险后果
-3. 打分  对每条按 影响/风险/工作量 三维评分（1-5）
-4. 排序  Priority = (Impact + Risk) × (6 - Effort)，降序
-5. 计划  给每条配工作量估算 + 业务理由；分阶段、可与功能开发并行
-```
+Score each item on:
+- **Impact**: How much does it slow the team down? (1-5)
+- **Risk**: What happens if we don't fix it? (1-5)
+- **Effort**: How hard is the fix? (1-5, inverted — lower effort = higher priority)
 
-**第 2 步 · 六类技术债（保留源分类，含典型表现与不修的风险）：**
+Priority = (Impact + Risk) x (6 - Effort)
 
-| 类型 | 典型表现 | 不修的风险 |
-|------|----------|------------|
-| **代码债** | 重复逻辑、抽象糟糕、魔法数字 | Bug 多、开发变慢 |
-| **架构债** | 该拆的单体、选错的数据存储 | 触及扩展上限 |
-| **测试债** | 覆盖率低、flaky 测试、缺集成测试 | 回归带着上线 |
-| **依赖债** | 过时的库、无人维护的依赖 | 安全漏洞 |
-| **文档债** | 缺 runbook、README 过时、知识只在个别人脑里 | 上手痛苦 |
-| **基础设施债** | 手动部署、无监控、无 IaC | 事故频发、恢复慢 |
+## Output
 
-**第 3 步 · 三维评分（每维 1-5）：**
-- **影响 Impact**：它把团队拖慢多少？
-- **风险 Risk**：不修会发生什么后果？
-- **工作量 Effort**：修起来多难？（公式里取反 —— 工作量越低优先级越高）
-
-**第 4 步 · 优先级公式（原样保留）：**
-
-```
-Priority = (Impact + Risk) × (6 - Effort)
-```
-
-高分（高影响高风险、低工作量）优先；这能自然把"好摘的果子"（quick wins）顶到前面。
-
-**第 5 步 · 产出物：** 一份按 Priority 降序的清单，每条带 **工作量估算 + 业务理由**，并给一个**分阶段偿还计划**，使偿还动作能穿插进日常功能开发节奏，而非要求停下来专门"还债季"。
-
-## 示例
-
-打分排序表：
-
-```markdown
-| 债项                       | 类型   | 影响 | 风险 | 工作量 | 优先级 | 工作量估算 | 业务理由                     |
-| ------------------------- | ----- | --- | --- | ----- | ----- | --------- | --------------------------- |
-| 支付模块重复的金额校验逻辑    | 代码   | 4   | 5   | 2     | 36    | 3 人日     | 校验不一致已致 2 起线上资损     |
-| auth 依赖的库已 EOL 含 CVE  | 依赖   | 3   | 5   | 2     | 32    | 2 人日     | 安全合规阻断，过审需要         |
-| 订单服务无集成测试           | 测试   | 4   | 4   | 4     | 16    | 8 人日     | 每次改动靠手测，回归常漏        |
-| 部署仍为手动脚本             | 基础设施| 3   | 3   | 3     | 18    | 5 人日     | 发布耗时长、易错，恢复慢        |
-```
-> 优先级 = (影响+风险)×(6-工作量)，例：第一行 (4+5)×(6-2)=36。
-
-分阶段偿还计划（与功能并行）：
-
-```markdown
-阶段一（本季 · quick wins）：补支付校验、升级 EOL 依赖 —— 高优先且低工作量，穿插进迭代
-阶段二（下季）：订单服务集成测试，随该域功能开发一并补
-阶段三（持续）：部署自动化 / IaC，作为平台基线工程推进
-```
-
-## 注意事项
-
-- **先证据后打分**：影响/风险/工作量都应有依据（线上事故数、CI 失败率、变更前置时间、团队痛点访谈），别拍脑袋。
-- **工作量在公式里取反**：`(6 - Effort)`，工作量 5 几乎归零优先级——天然偏好"小而值"的修复。
-- **业务理由是说服资源的关键**：每条债都要能翻译成"对客户/收入/合规/交付速度"的影响，否则排不进路线图。
-- **偿还要可并行**：计划应能穿插进功能开发，而非要求一个独立的"还债冲刺"，后者通常排不上优先级。
-- 排序结果是决策输入而非命令；与负责人对齐后再投入，避免重构与在研功能撞车。
-
-## 互见
-
-- related：`tech-stack-evaluator` —— 选型评估（架构债常源于早期选型）
-- related：`code-reviewer` —— 评审中发现的问题可沉淀为代码债条目
-- related：`adr-management-patterns` —— 架构债的决策与权衡用 ADR 记录
-- combines_with：`complexity-cuts` / `code-simplifier` —— 本技能定"修什么"，它们负责"怎么修"
-- combines_with：`release-manager` —— 把偿还动作排进发布节奏，与功能并行交付
-
----
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+Produce a prioritized list with estimated effort, business justification for each item, and a phased remediation plan that can be done alongside feature work.

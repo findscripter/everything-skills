@@ -1,14 +1,14 @@
 ---
 name: firmware-reverse-analyst
-title: 固件逆向与 IoT 安全
-description: 当需要对 IoT/嵌入式设备固件做提取、逆向与安全评估时使用；用 binwalk/Ghidra/QEMU 等完成固件解包、文件系统与二进制分析、漏洞挖掘并产出评估报告；不适用于未授权设备入侵、绕过 DRM 或制作恶意固件。触发词：固件、binwalk、IoT 安全
+title: Download from vendor
+description: Expert firmware analyst specializing in embedded systems, IoT security, and hardware reverse engineering.
 domain: 安全/appsec
-triggers: [固件分析, 固件逆向, 固件提取, binwalk 解包, IoT 安全, 嵌入式安全, SquashFS 提取, 硬编码凭据, QEMU 固件仿真, UART/JTAG, 命令注入, 固件安全评估]
-tags: [安全, misc, 固件, iot, 嵌入式, 逆向工程, binwalk, ghidra, qemu, 漏洞挖掘]
-level: 进阶
+triggers: [UART/JTAG]
+tags: [misc, iot, binwalk, ghidra, qemu]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [binwalk, Ghidra, radare2, QEMU, Firmadyne, jefferson, ubi_reader, checksec, unsquashfs, strings]
+tools: []
 requires: []
 related: [binary-analysis-patterns, anti-reversing-techniques, arm-cortex-firmware-expert, yara-rule-authoring]
 combines_with: [binary-analysis-patterns, anti-reversing-techniques, wireshark-traffic-analysis]
@@ -16,105 +16,317 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Download from vendor
+wget http://vendor.com/firmware/update.bin
 
-适用：
-- 对路由器、摄像头、智能家居等 IoT/嵌入式设备的固件做提取、解包与逆向。
-- 在固件中搜索硬编码凭据、后门账户、私钥等敏感信息。
-- 分析固件内二进制（httpd、cgi 等）的架构与漏洞，做命令注入/内存破坏类挖掘。
-- 用 QEMU/Firmadyne 仿真固件并动态测试 Web 服务。
-- 产出结构化的固件安全评估报告。
+# Extract from device via debug interface
+# UART console access
+screen /dev/ttyUSB0 115200
+# Copy firmware partition
+dd if=/dev/mtd0 of=/tmp/firmware.bin
 
-不该用（负边界）：
-- 任务与固件/嵌入式安全无关，或属于普通 Web/主机渗透——另选对应技能。
-- 未获设备所有者授权的入侵、非法绕过 DRM/授权、制作或植入恶意固件、工业间谍——一律拒绝。
-- 缺少授权证明、目标设备信息或成功标准时——先停下来澄清，不要直接动手。
-
-## 步骤
-
-1. 识别：用 `file`/`binwalk` 判别格式，熵分析检测加密/压缩，`strings` 初筛敏感词。
-2. 提取：`binwalk -e` 自动解包；嵌套固件用矩阵模式 `-eM`；特定文件系统（SquashFS/JFFS2/UBIFS）用专用工具。
-3. 文件系统分析：在 rootfs 中查配置、`passwd/shadow`、私钥、Web 脚本（cgi/php/lua）与可疑二进制。
-4. 二进制分析：确认架构（`readelf -h`），用 Ghidra/radare2 反汇编，`checksec` 看保护属性。
-5. 仿真验证：QEMU 用户态 chroot 或 Firmadyne 全系统仿真，动态测试网络服务。
-6. 报告：按检查清单核对，套用报告模板记录发现、PoC 与修复建议。
-
-## 指令
-
-- 先确认授权与合法研究背景，再进行任何提取与分析。
-- 优先 binwalk v3（Rust 重写，更快、误报更少）。
-- 命中加密固件（高熵且无可识别文件系统）时，转向硬件提取或寻找解密逻辑，不要硬解。
-- 凭据/私钥发现需脱敏处理，报告中标注位置而非明文外泄。
-- 需要更细示例时，可在源仓库 `resources/implementation-playbook.md` 查阅。
-
-## 示例
-
-识别与提取：
-```bash
-file firmware.bin
-binwalk firmware.bin
-binwalk -E firmware.bin            # 熵分析（检测压缩/加密）
-binwalk -e firmware.bin           # 自动解包
-binwalk -eM firmware.bin          # 递归矩阵模式（嵌套固件）
-unsquashfs filesystem.squashfs    # SquashFS
-jefferson filesystem.jffs2 -d output/   # JFFS2
-ubireader_extract_images firmware.ubi   # UBIFS
+# Extract via network protocols
+# TFTP during boot
+# HTTP/FTP from device web interface
 ```
 
-文件系统取证：
+### Hardware Methods
+```
+UART access         - Serial console connection
+JTAG/SWD           - Debug interface for memory access
+SPI flash dump     - Direct chip reading
+NAND/NOR dump      - Flash memory extraction
+Chip-off           - Physical chip removal and reading
+Logic analyzer     - Protocol capture and analysis
+```
+
+## Use this skill when
+
+- Working on download from vendor tasks or workflows
+- Needing guidance, best practices, or checklists for download from vendor
+
+## Do not use this skill when
+
+- The task is unrelated to download from vendor
+- You need a different domain or tool outside this scope
+
+## Instructions
+
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
+
+## Firmware Analysis Workflow
+
+### Phase 1: Identification
 ```bash
-find . -name "passwd" -o -name "shadow"
-grep -rn "BEGIN RSA PRIVATE KEY" .
+# Basic file identification
+file firmware.bin
+binwalk firmware.bin
+
+# Entropy analysis (detect compression/encryption)
+# Binwalk v3: generates entropy PNG graph
+binwalk --entropy firmware.bin
+binwalk -E firmware.bin  # Short form
+
+# Identify embedded file systems and auto-extract
+binwalk --extract firmware.bin
+binwalk -e firmware.bin  # Short form
+
+# String analysis
 strings -a firmware.bin | grep -i "password\|key\|secret"
+```
+
+### Phase 2: Extraction
+```bash
+# Binwalk v3 recursive extraction (matryoshka mode)
+binwalk --extract --matryoshka firmware.bin
+binwalk -eM firmware.bin  # Short form
+
+# Extract to custom directory
+binwalk -e -C ./extracted firmware.bin
+
+# Verbose output during recursive extraction
+binwalk -eM --verbose firmware.bin
+
+# Manual extraction for specific formats
+# SquashFS
+unsquashfs filesystem.squashfs
+
+# JFFS2
+jefferson filesystem.jffs2 -d output/
+
+# UBIFS
+ubireader_extract_images firmware.ubi
+
+# YAFFS
+unyaffs filesystem.yaffs
+
+# Cramfs
+cramfsck -x output/ filesystem.cramfs
+```
+
+### Phase 3: File System Analysis
+```bash
+# Explore extracted filesystem
+find . -name "*.conf" -o -name "*.cfg"
+find . -name "passwd" -o -name "shadow"
+find . -type f -executable
+
+# Find hardcoded credentials
+grep -r "password" .
+grep -r "api_key" .
+grep -rn "BEGIN RSA PRIVATE KEY" .
+
+# Analyze web interface
 find . -name "*.cgi" -o -name "*.php" -o -name "*.lua"
+
+# Check for vulnerable binaries
 checksec --dir=./bin/
 ```
 
-二进制与仿真：
+### Phase 4: Binary Analysis
 ```bash
-readelf -h bin/httpd              # 确认架构（ARM:LE:32:v7 / MIPS:BE:32 等）
-# QEMU 用户态仿真
-cp /usr/bin/qemu-arm-static ./squashfs-root/usr/bin/
-sudo chroot squashfs-root /usr/bin/qemu-arm-static /bin/httpd
-# Firmadyne 全系统仿真
-./scripts/getArch.sh ./images/1.tar.gz
-./scripts/makeImage.sh 1
-./scripts/inferNetwork.sh 1
-./scratch/1/run.sh
+# Identify architecture
+file bin/httpd
+readelf -h bin/httpd
+
+# Load in Ghidra with correct architecture
+# For ARM: specify ARM:LE:32:v7 or similar
+# For MIPS: specify MIPS:BE:32:default
+
+# Set up cross-compilation for testing
+# ARM
+arm-linux-gnueabi-gcc exploit.c -o exploit
+# MIPS
+mipsel-linux-gnu-gcc exploit.c -o exploit
 ```
 
-常见漏洞模式（命令注入）：
+## Common Vulnerability Classes
+
+### Authentication Issues
+```
+Hardcoded credentials     - Default passwords in firmware
+Backdoor accounts         - Hidden admin accounts
+Weak password hashing     - MD5, no salt
+Authentication bypass     - Logic flaws in login
+Session management        - Predictable tokens
+```
+
+### Command Injection
 ```c
-// 危险模式：用户输入直接拼进 system()
+// Vulnerable pattern
 char cmd[256];
 sprintf(cmd, "ping %s", user_input);
 system(cmd);
-// 测试载荷： ; id   | cat /etc/passwd   `whoami`   $(id)
+
+// Test payloads
+; id
+| cat /etc/passwd
+`whoami`
+$(id)
 ```
 
-评估检查清单（节选）：
+### Memory Corruption
 ```
-[ ] 固件提取成功      [ ] 架构识别
-[ ] 硬编码凭据搜索    [ ] Web 接口分析
-[ ] checksec 二进制保护属性
-[ ] 调试接口(UART/JTAG)是否禁用
-[ ] 更新机制/签名校验  [ ] 已知 CVE 核查
+Stack buffer overflow    - strcpy, sprintf without bounds
+Heap overflow           - Improper allocation handling
+Format string           - printf(user_input)
+Integer overflow        - Size calculations
+Use-after-free          - Improper memory management
 ```
 
-## 注意事项
+### Information Disclosure
+```
+Debug interfaces        - UART, JTAG left enabled
+Verbose errors          - Stack traces, paths
+Configuration files     - Exposed credentials
+Firmware updates        - Unencrypted downloads
+```
 
-- 合法用途：经授权的安全审计、漏洞赏金、学术研究、CTF、个人设备分析。
-- 重点漏洞类别：认证缺陷（硬编码/后门账户、弱哈希、登录绕过）、命令注入、内存破坏（栈/堆溢出、格式化字符串、整数溢出、UAF）、信息泄露（调试接口、详细报错、明文更新）。
-- 高熵固件多为加密/压缩，盲目解包会失败；先做熵分析判断。
-- 跨架构编译漏洞测试程序：ARM 用 `arm-linux-gnueabi-gcc`，MIPS 用 `mipsel-linux-gnu-gcc`。
-- 本技能不替代针对具体环境的验证与专家复核；输出仅作研究参考。
+## Tool Proficiency
 
-## 互见
+### Extraction Tools
+```
+binwalk v3           - Firmware extraction and analysis (Rust rewrite, faster, fewer false positives)
+firmware-mod-kit     - Firmware modification toolkit
+jefferson            - JFFS2 extraction
+ubi_reader           - UBIFS extraction
+sasquatch            - SquashFS with non-standard features
+```
 
-- 通用二进制逆向 / Ghidra 脚本化分析技能。
-- Web 应用漏洞挖掘技能（固件内 Web 接口可衔接）。
-- 漏洞利用开发 / 内存破坏利用编写技能。
+### Analysis Tools
+```
+Ghidra               - Multi-architecture disassembly
+IDA Pro              - Commercial disassembler
+Binary Ninja         - Modern RE platform
+radare2              - Scriptable analysis
+Firmware Analysis Toolkit (FAT)
+FACT                 - Firmware Analysis and Comparison Tool
+```
 
----
+### Emulation
+```
+QEMU                 - Full system and user-mode emulation
+Firmadyne            - Automated firmware emulation
+EMUX                 - ARM firmware emulator
+qemu-user-static     - Static QEMU for chroot emulation
+Unicorn              - CPU emulation framework
+```
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+### Hardware Tools
+```
+Bus Pirate           - Universal serial interface
+Logic analyzer       - Protocol analysis
+JTAGulator           - JTAG/UART discovery
+Flashrom             - Flash chip programmer
+ChipWhisperer        - Side-channel analysis
+```
+
+## Emulation Setup
+
+### QEMU User-Mode Emulation
+```bash
+# Install QEMU user-mode
+apt install qemu-user-static
+
+# Copy QEMU static binary to extracted rootfs
+cp /usr/bin/qemu-arm-static ./squashfs-root/usr/bin/
+
+# Chroot into firmware filesystem
+sudo chroot squashfs-root /usr/bin/qemu-arm-static /bin/sh
+
+# Run specific binary
+sudo chroot squashfs-root /usr/bin/qemu-arm-static /bin/httpd
+```
+
+### Full System Emulation with Firmadyne
+```bash
+# Extract firmware
+./sources/extractor/extractor.py -b brand -sql 127.0.0.1 \
+    -np -nk "firmware.bin" images
+
+# Identify architecture and create QEMU image
+./scripts/getArch.sh ./images/1.tar.gz
+./scripts/makeImage.sh 1
+
+# Infer network configuration
+./scripts/inferNetwork.sh 1
+
+# Run emulation
+./scratch/1/run.sh
+```
+
+## Security Assessment
+
+### Checklist
+```markdown
+[ ] Firmware extraction successful
+[ ] File system mounted and explored
+[ ] Architecture identified
+[ ] Hardcoded credentials search
+[ ] Web interface analysis
+[ ] Binary security properties (checksec)
+[ ] Network services identified
+[ ] Debug interfaces disabled
+[ ] Update mechanism security
+[ ] Encryption/signing verification
+[ ] Known CVE check
+```
+
+### Reporting Template
+```markdown
+# Firmware Security Assessment
+
+## Device Information
+- Manufacturer:
+- Model:
+- Firmware Version:
+- Architecture:
+
+## Findings Summary
+| Finding | Severity | Location |
+|---------|----------|----------|
+
+## Detailed Findings
+### Finding 1: [Title]
+- Severity: Critical/High/Medium/Low
+- Location: /path/to/file
+- Description:
+- Proof of Concept:
+- Remediation:
+
+## Recommendations
+1. ...
+```
+
+## Ethical Guidelines
+
+### Appropriate Use
+- Security audits with device owner authorization
+- Bug bounty programs
+- Academic research
+- CTF competitions
+- Personal device analysis
+
+### Never Assist With
+- Unauthorized device compromise
+- Bypassing DRM/licensing illegally
+- Creating malicious firmware
+- Attacking devices without permission
+- Industrial espionage
+
+## Response Approach
+
+1. **Verify authorization**: Ensure legitimate research context
+2. **Assess device**: Understand target device type and architecture
+3. **Guide acquisition**: Appropriate firmware extraction method
+4. **Analyze systematically**: Follow structured analysis workflow
+5. **Identify issues**: Security vulnerabilities and misconfigurations
+6. **Document findings**: Clear reporting with remediation guidance
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

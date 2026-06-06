@@ -1,14 +1,14 @@
 ---
 name: bullmq-job-queue
-title: BullMQ Redis 任务队列后台处理
-description: 当在 Node.js/TypeScript 中需要用 Redis 做后台任务、异步处理、延迟/定时/重复任务、限流或多步任务流时使用；产出生产级的 Queue/Worker 配置、重试退避、优雅关闭与 Bull Board 监控代码；不适用于 Serverless 无 Redis 队列、复杂 Saga 工作流编排或纯事件溯源（应转 QStash/Temporal/事件架构）。触发词：BullMQ、任务队列、后台任务
+title: BullMQ Specialist
+description: BullMQ expert for Redis-backed job queues, background processing,
 domain: 研发/backend
-triggers: [BullMQ, bull queue, redis queue, redis 队列, 后台任务, background job, job queue, 任务队列, delayed job, 延迟任务, repeatable job, 重复任务, worker process, 工作进程, job scheduling, 任务调度, async processing, 异步处理, FlowProducer, 任务流]
-tags: [bullmq, redis, 任务队列, 后台处理, node.js, typescript, 异步, worker, 限流, 重试退避, 定时任务, 研发]
-level: 进阶
+triggers: [BullMQ, bull queue, redis queue, background job, job queue, delayed job, repeatable job, worker process, job scheduling, async processing, FlowProducer]
+tags: [bullmq, redis, node.js, typescript, worker]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bullmq, ioredis, @bull-board/api, @bull-board/express]
+tools: []
 requires: []
 related: [temporal-workflow-python, saga-orchestration, rest-api-endpoint-builder, error-handling-patterns]
 combines_with: [nestjs-expert, error-handling-patterns, transactional-email-template-builder]
@@ -16,168 +16,391 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# BullMQ Specialist
 
-在 Node.js/TypeScript 应用里需要把耗时或可异步的工作交给 Redis 支撑的队列后台执行时使用，典型场景：
+BullMQ expert for Redis-backed job queues, background processing, and
+reliable async execution in Node.js/TypeScript applications.
 
-- 发邮件、推送、生成报表等后台任务，请求侧「即发即忘」。
-- 延迟任务（N 小时后提醒）、定时/重复任务（每天 9 点跑摘要）。
-- 任务优先级、限流（保护下游服务）、失败重试。
-- 多步任务流（父任务等待多个子任务完成，如下单 -> 校验库存/扣款/通知）。
+## Principles
 
-**不该用（应转交）：**
+- Jobs are fire-and-forget from the producer side - let the queue handle delivery
+- Always set explicit job options - defaults rarely match your use case
+- Idempotency is your responsibility - jobs may run more than once
+- Backoff strategies prevent thundering herds - exponential beats linear
+- Dead letter queues are not optional - failed jobs need a home
+- Concurrency limits protect downstream services - start conservative
+- Job data should be small - pass IDs, not payloads
+- Graceful shutdown prevents orphaned jobs - handle SIGTERM properly
 
-- 需要 Serverless / 边缘队列、不想自己管 Redis -> Upstash QStash。
-- 复杂工作流、Saga、补偿事务、长流程编排 -> Temporal 类工作流引擎。
-- 事件溯源 / CQRS / 事件流 -> 事件驱动架构。
-- Redis 集群、内存调优等基础设施 -> Redis 专项；部署、K8s、扩缩容 -> DevOps。
+## Capabilities
 
-**核心原则：** 生产者侧即发即忘；务必显式设置 job options（默认值很少合适）；幂等是你的责任（任务可能执行多次）；重试用指数退避防雪崩；失败任务要有归宿（死信/保留策略）；并发从保守起步；job data 只传 ID 不传大对象；处理 SIGTERM 优雅关闭防止孤儿任务。
+- bullmq-queues
+- job-scheduling
+- delayed-jobs
+- repeatable-jobs
+- job-priorities
+- rate-limiting-jobs
+- job-events
+- worker-patterns
+- flow-producers
+- job-dependencies
 
-## 步骤
+## Scope
 
-1. **建共享连接**：用 ioredis 建连接，必须设 `maxRetriesPerRequest: null`，否则 Redis 抖动时 Worker 会停摆。
-2. **建 Queue 并配默认项**：`attempts` + 指数 `backoff` + `removeOnComplete/removeOnFail` 保留策略。
-3. **建 Worker**：设置 `concurrency`（从小开始）和 `limiter` 限流；至少挂 `failed` 和 `stalled` 事件处理。
-4. **入队任务**：请求处理器里尽量不 `await queue.add`（即发即忘，更快响应）；按需设 `delay` / `repeat` / `priority`。
-5. **多步依赖**：用 `FlowProducer` 编排父子任务。
-6. **优雅关闭**：监听 `SIGTERM`/`SIGINT`，先 `pause` 再 `close`。
-7. **接监控**：用 Bull Board 可视化队列与任务状态。
+- redis-infrastructure -> redis-specialist
+- serverless-queues -> upstash-qstash
+- workflow-orchestration -> temporal-craftsman
+- event-sourcing -> event-architect
+- email-delivery -> email-systems
 
-## 指令
+## Tooling
 
-```bash
-npm i bullmq ioredis
-npm i @bull-board/api @bull-board/express   # 可选：可视化监控
-```
+### Core
 
-环境变量：`REDIS_URL`（如 `redis://localhost:6379`，托管可选 Upstash / Redis Cloud / ElastiCache / Railway）。
+- bullmq
+- ioredis
 
-## 示例
+### Hosting
 
-**基础队列 + Worker（任何新队列从这里开始）：**
+- upstash
+- redis-cloud
+- elasticache
+- railway
 
-```ts
+### Monitoring
+
+- bull-board
+- arena
+- bullmq-pro
+
+### Patterns
+
+- delayed-jobs
+- repeatable-jobs
+- job-flows
+- rate-limiting
+- sandboxed-processors
+
+## Patterns
+
+### Basic Queue Setup
+
+Production-ready BullMQ queue with proper configuration
+
+**When to use**: Starting any new queue implementation
+
 import { Queue, Worker, QueueEvents } from 'bullmq';
 import IORedis from 'ioredis';
 
-// 所有队列共享同一连接
+// Shared connection for all queues
 const connection = new IORedis(process.env.REDIS_URL, {
-  maxRetriesPerRequest: null,  // BullMQ 必需
+  maxRetriesPerRequest: null,  // Required for BullMQ
   enableReadyCheck: false,
 });
 
+// Create queue with sensible defaults
 const emailQueue = new Queue('emails', {
   connection,
   defaultJobOptions: {
     attempts: 3,
-    backoff: { type: 'exponential', delay: 1000 },
+    backoff: {
+      type: 'exponential',
+      delay: 1000,
+    },
     removeOnComplete: { count: 1000 },
     removeOnFail: { count: 5000 },
   },
 });
 
+// Worker with concurrency limit
 const worker = new Worker('emails', async (job) => {
   await sendEmail(job.data);
 }, {
   connection,
   concurrency: 5,
-  limiter: { max: 100, duration: 60000 }, // 每分钟 100 个
+  limiter: {
+    max: 100,
+    duration: 60000,  // 100 jobs per minute
+  },
 });
 
+// Handle events
 worker.on('failed', (job, err) => {
   console.error(`Job ${job?.id} failed:`, err);
 });
-```
 
-**延迟与定时（重复）任务：**
+### Delayed and Scheduled Jobs
 
-```ts
-// 延迟任务：延迟后执行一次
+Jobs that run at specific times or after delays
+
+**When to use**: Scheduling future tasks, reminders, or timed actions
+
+// Delayed job - runs once after delay
 await queue.add('reminder', { userId: 123 }, {
-  delay: 24 * 60 * 60 * 1000, // 24 小时
+  delay: 24 * 60 * 60 * 1000,  // 24 hours
 });
 
-// 重复任务：按 cron 执行，务必带时区
+// Repeatable job - runs on schedule
 await queue.add('daily-digest', { type: 'summary' }, {
-  repeat: { pattern: '0 9 * * *', tz: 'America/New_York' },
+  repeat: {
+    pattern: '0 9 * * *',  // Every day at 9am
+    tz: 'America/New_York',
+  },
 });
 
-// 移除重复任务（pattern + tz 要一致）
+// Remove repeatable job
 await queue.removeRepeatable('daily-digest', {
-  pattern: '0 9 * * *', tz: 'America/New_York',
+  pattern: '0 9 * * *',
+  tz: 'America/New_York',
 });
-```
 
-**任务流与依赖（父任务等所有子任务完成）：**
+### Job Flows and Dependencies
 
-```ts
+Complex multi-step job processing with parent-child relationships
+
+**When to use**: Jobs depend on other jobs completing first
+
 import { FlowProducer } from 'bullmq';
+
 const flowProducer = new FlowProducer({ connection });
 
+// Parent waits for all children to complete
 await flowProducer.add({
-  name: 'process-order', queueName: 'orders', data: { orderId: 123 },
+  name: 'process-order',
+  queueName: 'orders',
+  data: { orderId: 123 },
   children: [
-    { name: 'validate-inventory', queueName: 'inventory', data: { orderId: 123 } },
-    { name: 'charge-payment',      queueName: 'payments',  data: { orderId: 123 } },
-    { name: 'notify-warehouse',    queueName: 'notifications', data: { orderId: 123 } },
+    {
+      name: 'validate-inventory',
+      queueName: 'inventory',
+      data: { orderId: 123 },
+    },
+    {
+      name: 'charge-payment',
+      queueName: 'payments',
+      data: { orderId: 123 },
+    },
+    {
+      name: 'notify-warehouse',
+      queueName: 'notifications',
+      data: { orderId: 123 },
+    },
   ],
 });
-```
 
-**优雅关闭（部署/重启时不丢任务）：**
+### Graceful Shutdown
 
-```ts
+Properly close workers without losing jobs
+
+**When to use**: Deploying or restarting workers
+
 const shutdown = async () => {
-  await worker.pause();   // 停止接新任务
-  await worker.close();   // 等当前任务跑完
-  await queue.close();    // 关闭队列连接
+  console.log('Shutting down gracefully...');
+
+  // Stop accepting new jobs
+  await worker.pause();
+
+  // Wait for current jobs to finish (with timeout)
+  await worker.close();
+
+  // Close queue connection
+  await queue.close();
+
   process.exit(0);
 };
+
 process.on('SIGTERM', shutdown);
 process.on('SIGINT', shutdown);
-```
 
-**Bull Board 监控面板：**
+### Bull Board Dashboard
 
-```ts
+Visual monitoring for BullMQ queues
+
+**When to use**: Need visibility into queue status and job states
+
 import { createBullBoard } from '@bull-board/api';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { ExpressAdapter } from '@bull-board/express';
 
 const serverAdapter = new ExpressAdapter();
 serverAdapter.setBasePath('/admin/queues');
+
 createBullBoard({
-  queues: [new BullMQAdapter(emailQueue), new BullMQAdapter(orderQueue)],
+  queues: [
+    new BullMQAdapter(emailQueue),
+    new BullMQAdapter(orderQueue),
+  ],
   serverAdapter,
 });
+
 app.use('/admin/queues', serverAdapter.getRouter());
+
+## Validation Checks
+
+### Redis connection missing maxRetriesPerRequest
+
+Severity: ERROR
+
+BullMQ requires maxRetriesPerRequest null for proper reconnection handling
+
+Message: BullMQ queue/worker created without maxRetriesPerRequest: null on Redis connection. This will cause workers to stop on Redis connection issues.
+
+### No stalled job event handler
+
+Severity: WARNING
+
+Workers should handle stalled events to detect crashed workers
+
+Message: Worker created without 'stalled' event handler. Stalled jobs indicate worker crashes and should be monitored.
+
+### No failed job event handler
+
+Severity: WARNING
+
+Workers should handle failed events for monitoring and alerting
+
+Message: Worker created without 'failed' event handler. Failed jobs should be logged and monitored.
+
+### No graceful shutdown handling
+
+Severity: WARNING
+
+Workers should gracefully shut down on SIGTERM/SIGINT
+
+Message: Worker file without graceful shutdown handling. Jobs may be orphaned on deployment.
+
+### Awaiting queue.add in request handler
+
+Severity: INFO
+
+Queue additions should be fire-and-forget in request handlers
+
+Message: Queue.add awaited in request handler. Consider fire-and-forget for faster response.
+
+### Potentially large data in job payload
+
+Severity: WARNING
+
+Job data should be small - pass IDs not full objects
+
+Message: Job appears to have large inline data. Pass IDs instead of full objects to keep Redis memory low.
+
+### Job without timeout configuration
+
+Severity: INFO
+
+Jobs should have timeouts to prevent infinite execution
+
+Message: Job added without explicit timeout. Consider adding timeout to prevent stuck jobs.
+
+### Retry without backoff strategy
+
+Severity: WARNING
+
+Retries should use exponential backoff to avoid thundering herd
+
+Message: Job has retry attempts but no backoff strategy. Use exponential backoff to prevent thundering herd.
+
+### Repeatable job without explicit timezone
+
+Severity: WARNING
+
+Repeatable jobs should specify timezone to avoid DST issues
+
+Message: Repeatable job without explicit timezone. Will use server local time which can drift with DST.
+
+### Potentially high worker concurrency
+
+Severity: INFO
+
+High concurrency can overwhelm downstream services
+
+Message: Worker concurrency is high. Ensure downstream services can handle this load (DB connections, API rate limits).
+
+## Collaboration
+
+### Delegation Triggers
+
+- redis infrastructure|redis cluster|memory tuning -> redis-specialist (Queue needs Redis infrastructure)
+- serverless queue|edge queue|no redis -> upstash-qstash (Need queues without managing Redis)
+- complex workflow|saga|compensation|long-running -> temporal-craftsman (Need workflow orchestration beyond simple jobs)
+- event sourcing|CQRS|event streaming -> event-architect (Need event-driven architecture)
+- deploy|kubernetes|scaling|infrastructure -> devops (Queue needs infrastructure)
+- monitor|metrics|alerting|dashboard -> performance-hunter (Queue needs monitoring)
+
+### Email Queue Stack
+
+Skills: bullmq-specialist, email-systems, redis-specialist
+
+Workflow:
+
+```
+1. Email request received (API)
+2. Job queued with rate limiting (bullmq-specialist)
+3. Worker processes with backoff (bullmq-specialist)
+4. Email sent via provider (email-systems)
+5. Status tracked in Redis (redis-specialist)
 ```
 
-## 注意事项
+### Background Processing Stack
 
-逐条对应源技能的校验规则，按严重度排列：
+Skills: bullmq-specialist, backend, devops
 
-- **[ERROR] Redis 连接缺 `maxRetriesPerRequest: null`**：Queue/Worker 连接必须设它，否则 Redis 连接出问题时 Worker 会停摆、无法重连。
-- **[WARN] Worker 未挂 `stalled` 事件**：stalled 任务意味着 Worker 崩溃，必须监控。
-- **[WARN] Worker 未挂 `failed` 事件**：失败任务要记录并告警。
-- **[WARN] 无优雅关闭**：缺 SIGTERM/SIGINT 处理，部署时任务可能成孤儿。
-- **[WARN] payload 过大**：job data 要小，传 ID 不传完整对象，降低 Redis 内存占用。
-- **[WARN] 有重试但无退避策略**：retry 必须配指数退避，避免惊群（thundering herd）。
-- **[WARN] 重复任务未显式指定时区**：否则用服务器本地时间，会随夏令时漂移。
-- **[INFO] 请求处理器中 `await queue.add`**：建议即发即忘以加快响应。
-- **[INFO] 任务无超时配置**：建议设超时，防止任务卡死。
-- **[INFO] Worker 并发过高**：确认下游能扛住（数据库连接数、API 限流）。
+Workflow:
 
-## 互见
+```
+1. API receives request (backend)
+2. Long task queued for background (bullmq-specialist)
+3. Worker processes async (bullmq-specialist)
+4. Result stored/notified (backend)
+5. Workers scaled per load (devops)
+```
 
-- Redis 基础设施 / 集群 / 内存调优 -> redis 专项技能
-- Serverless / 无 Redis 队列 -> Upstash QStash
-- 复杂工作流 / Saga / 长流程编排 -> Temporal 类
-- 事件溯源 / CQRS / 事件流 -> 事件架构
-- 部署 / K8s / 扩缩容 -> DevOps；监控 / 指标 / 告警 -> 性能与可观测性
-- 常见组合：邮件队列栈（bullmq + 邮件系统 + redis）、后台处理栈（bullmq + backend + devops）、AI 处理流水线（bullmq + ai-workflow + 性能监控）、定时任务栈（bullmq + backend + redis）
+### AI Processing Pipeline
 
----
+Skills: bullmq-specialist, ai-workflow-automation, performance-hunter
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+Workflow:
+
+```
+1. AI task submitted (ai-workflow-automation)
+2. Job flow created with dependencies (bullmq-specialist)
+3. Workers process stages (bullmq-specialist)
+4. Performance monitored (performance-hunter)
+5. Results aggregated (ai-workflow-automation)
+```
+
+### Scheduled Tasks Stack
+
+Skills: bullmq-specialist, backend, redis-specialist
+
+Workflow:
+
+```
+1. Repeatable jobs defined (bullmq-specialist)
+2. Cron patterns with timezone (bullmq-specialist)
+3. Jobs execute on schedule (bullmq-specialist)
+4. State managed in Redis (redis-specialist)
+5. Results handled (backend)
+```
+
+## Related Skills
+
+Works well with: `redis-specialist`, `backend`, `nextjs-app-router`, `email-systems`, `ai-workflow-automation`, `performance-hunter`
+
+## When to Use
+- User mentions or implies: bullmq
+- User mentions or implies: bull queue
+- User mentions or implies: redis queue
+- User mentions or implies: background job
+- User mentions or implies: job queue
+- User mentions or implies: delayed job
+- User mentions or implies: repeatable job
+- User mentions or implies: worker process
+- User mentions or implies: job scheduling
+- User mentions or implies: async processing
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

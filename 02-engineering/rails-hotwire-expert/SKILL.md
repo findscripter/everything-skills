@@ -1,14 +1,14 @@
 ---
 name: rails-hotwire-expert
-title: Rails 7+ 与 Hotwire 开发专家
-description: 当用 Rails 7+ 搭建带 Hotwire 的 Web 应用、做实时局部更新或后台任务时使用；产出 Active Record 防 N+1 查询、Turbo Frames/Streams 局部刷新、Action Cable 通道、Sidekiq Worker 与 RSpec 测试套件；不适用于非 Rails 栈、纯前端 SPA、仅需基础 Ruby 语法、或无法改动 Gemfile 与迁移的场景；触发词：Rails、Hotwire、Turbo、Action Cable、Sidekiq、Active Record、RSpec
+title: Rails Expert
+description: Rails 7+ specialist that optimizes Active Record queries with includes/eager_load, implements Turbo Frames and Turbo Streams for partial page updates, configures Action Cable for WebSocket connections, sets up Sidekiq workers for background job processing, and writes comprehensive RSpec test suites. Use when building Rails 7+ web applications with Hotwire, real-time features, or background job processing. Invoke for Active Record optimization, Turbo Frames/Streams, Action Cable, Sidekiq, RSpec Rails.
 domain: 研发/backend
-triggers: [Rails 7, Ruby on Rails, Hotwire, Turbo Frames, Turbo Streams, Stimulus, Action Cable, WebSocket, Active Record 优化, N+1 查询, includes/eager_load, Sidekiq 后台任务, RSpec Rails, strong parameters, service object]
-tags: [rails, hotwire, turbo, active-record, sidekiq, action-cable, rspec, 研发]
-level: 精通
+triggers: [Rails 7, Ruby on Rails, Hotwire, Turbo Frames, Turbo Streams, Stimulus, Action Cable, WebSocket, includes/eager_load, RSpec Rails, strong parameters, service object]
+tags: [rails, hotwire, turbo, active-record, sidekiq, action-cable, rspec]
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [ruby, rails, hotwire, turbo-rails, stimulus, action-cable, sidekiq, rspec-rails, rubocop, factory_bot]
+tools: []
 requires: []
 related: [ruby-pro, laravel-app-specialist, django-async-pro, sveltekit-fullstack]
 combines_with: [websocket-realtime-engineer, rest-api-endpoint-builder]
@@ -16,57 +16,50 @@ license: MIT
 source: jeffallan/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Rails Expert
 
-适用：
-- 用 Rails 7+ 搭建或扩展 Web 应用，前端走 Hotwire（Turbo + Stimulus）而非独立 SPA。
-- 需要局部页面刷新（Turbo Frames / Streams）、WebSocket 实时推送（Action Cable）。
-- 把慢操作（发信、导出、第三方调用）下沉到 Sidekiq 后台任务。
-- 优化 Active Record：消除 N+1、补索引、加缓存；用 RSpec 补齐模型/请求/系统测试。
+## Core Workflow
 
-不该用（负边界）：
-- 非 Rails 栈，或后端用其他语言运行时。
-- 纯前端 SPA（React/Vue 独立前端 + Rails 仅作 JSON API 也尽量用 Hotwire 思路，否则另选技能）。
-- 只需基础 Ruby 语法解释。
-- 无法改动 Gemfile、迁移文件或工具链（代码与迁移无从落地）。
+1. **Analyze requirements** — Identify models, routes, real-time needs, background jobs
+2. **Scaffold resources** — `rails generate model User name:string email:string`, `rails generate controller Users`
+3. **Run migrations** — `rails db:migrate` and verify schema with `rails db:schema:dump`
+   - If migration fails: inspect `db/schema.rb` for conflicts, rollback with `rails db:rollback`, fix and retry
+4. **Implement** — Write controllers, models, add Hotwire (see Reference Guide below)
+5. **Validate** — `bundle exec rspec` must pass; `bundle exec rubocop` for style
+   - If specs fail: check error output, fix failing examples, re-run with `--format documentation` for detail
+   - If N+1 queries surface during review: add `includes`/`eager_load` (see Common Patterns) and re-run specs
+6. **Optimize** — Audit for N+1 queries, add missing indexes, add caching
 
-## 步骤
+## Reference Guide
 
-1. 梳理需求：识别模型与关联、路由、实时需求、后台任务边界。
-2. 脚手架：`rails generate model User name:string email:string`、`rails generate controller Users`。
-3. 跑迁移：`rails db:migrate`，用 `rails db:schema:dump` 校验 schema。
-   - 迁移失败：查 `db/schema.rb` 冲突 → `rails db:rollback` → 修正重试。
-4. 实现：写瘦控制器（强参数）+ 模型（关联/校验），复杂逻辑放 service object；按需接入 Hotwire / Action Cable / Sidekiq。
-5. 验证：`bundle exec rspec` 必须全绿；`bundle exec rubocop` 过风格检查。
-   - 测试失败：加 `--format documentation` 看细节，修正失败用例后重跑。
-   - 评审中冒出 N+1：补 `includes`/`eager_load` 后重跑。
-6. 优化：审计 N+1、为 `WHERE`/`ORDER BY`/`JOIN` 列补索引、加缓存。
+Load detailed guidance based on context:
 
-## 指令
+| Topic | Reference | Load When |
+|-------|-----------|-----------|
+| Hotwire/Turbo | `references/hotwire-turbo.md` | Turbo Frames, Streams, Stimulus controllers |
+| Active Record | `references/active-record.md` | Models, associations, queries, performance |
+| Background Jobs | `references/background-jobs.md` | Sidekiq, job design, queues, error handling |
+| Testing | `references/rspec-testing.md` | Model/request/system specs, factories |
+| API Development | `references/api-development.md` | API-only mode, serialization, authentication |
 
-- 实现一个 Rails 特性时，按需产出：迁移文件 → 模型（含关联与校验）→ 控制器（RESTful + 强参数）→ 视图或 Hotwire 装配 → RSpec（模型 + 请求）→ 关键架构决策一句话说明。
-- 集合查询凡涉及关联，一律用 `includes`/`eager_load` 防 N+1。
-- 控制器保持瘦身，复杂业务逻辑抽到 service object。
-- 慢操作走 `perform_later` 入 Sidekiq，绝不在请求周期内同步执行。
-- 原始 SQL 必须参数化或 `sanitize_sql`；勿在 URL 直接暴露内部自增 ID（按需用 UUID/slug）。
+## Common Patterns
 
-## 示例
-
-防 N+1（includes / eager_load）：
+### N+1 Prevention with includes/eager_load
 
 ```ruby
-# BAD — 触发 N+1
+# BAD — triggers N+1
 posts = Post.all
 posts.each { |post| puts post.author.name }
 
-# GOOD — 预加载关联
+# GOOD — eager load association
 posts = Post.includes(:author).all
+posts.each { |post| puts post.author.name }
 
-# GOOD — eager_load 强制 JOIN（按关联字段过滤时用）
+# GOOD — eager_load forces a JOIN (useful when filtering on association)
 posts = Post.eager_load(:author).where(authors: { verified: true })
 ```
 
-Turbo Frame 局部更新：
+### Turbo Frame Setup (partial page update)
 
 ```erb
 <%# app/views/posts/index.html.erb %>
@@ -90,7 +83,7 @@ def index
 end
 ```
 
-Sidekiq Worker 模板：
+### Sidekiq Worker Template
 
 ```ruby
 # app/jobs/send_welcome_email_job.rb
@@ -103,15 +96,15 @@ class SendWelcomeEmailJob < ApplicationJob
     UserMailer.welcome(user).deliver_now
   rescue ActiveRecord::RecordNotFound => e
     Rails.logger.warn("SendWelcomeEmailJob: user #{user_id} not found — #{e.message}")
-    # 记录已不存在，不再 raise，重试无意义
+    # Do not re-raise; record is gone, no point retrying
   end
 end
 
-# 从控制器或模型回调入队
+# Enqueue from controller or model callback
 SendWelcomeEmailJob.perform_later(user.id)
 ```
 
-强参数 + 瘦控制器：
+### Strong Parameters (controller template)
 
 ```ruby
 # app/controllers/posts_controller.rb
@@ -139,18 +132,28 @@ class PostsController < ApplicationController
 end
 ```
 
-## 注意事项
+## Constraints
 
-- 必做：每个关联集合查询防 N+1；测试争取 >95% 覆盖；复杂逻辑用 service object；为 `WHERE`/`ORDER BY`/`JOIN` 列补索引；慢操作下沉 Sidekiq。
-- 禁做：跳过迁移直接改 schema；用未 sanitize 的原始 SQL；无脑在 URL 暴露内部 ID。
-- 表单校验失败时 `render :new, status: :unprocessable_entity`（422），Turbo 才会正确替换帧而非误判成功跳转。
-- Sidekiq 任务参数只传 ID 等可序列化值，不要传整个 AR 对象。
+### MUST DO
+- Prevent N+1 queries with `includes`/`eager_load` on every collection query involving associations
+- Write comprehensive specs targeting >95% coverage
+- Use service objects for complex business logic; keep controllers thin
+- Add database indexes for every column used in `WHERE`, `ORDER BY`, or `JOIN`
+- Offload slow operations to Sidekiq — never run them synchronously in a request cycle
 
-## 互见
+### MUST NOT DO
+- Skip migrations for schema changes
+- Use raw SQL without sanitization (`sanitize_sql` or parameterized queries only)
+- Expose internal IDs in URLs without consideration
 
-- requires：`ruby-pro` —— Rails 之上需先具备 Ruby/Rails 惯用法与 RSpec 基础
-- related：`backend-architecture-patterns`、`database-design-advisor`、`code-reviewer`
-- combines_with：`rest-api-endpoint-builder` —— Rails API 模式下做端点契约；`database-design-advisor` —— 配合做迁移与索引设计
+## Output Templates
 
----
-采编自 [jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills)（MIT）。
+When implementing Rails features, provide:
+1. Migration file (if schema changes needed)
+2. Model file with associations and validations
+3. Controller with RESTful actions and strong parameters
+4. View files or Hotwire setup
+5. Spec files for models and requests
+6. Brief explanation of architectural decisions
+
+[Documentation](https://jeffallan.github.io/claude-skills/skills/backend/rails-expert/)

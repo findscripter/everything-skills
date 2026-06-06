@@ -1,14 +1,14 @@
 ---
 name: canva-campaign-creator
-title: Canva 营销活动设计与排期生成
-description: 当你拿到已批准的内容简报、要把它端到端落地为一场社媒+邮件营销活动时使用；做发布排期表→素材清单→Canva 设计生成→文案→HubSpot 排期入队（每步需 owner 显式批准）；不适用于邮件路径走 Canva 设计、自动发布、或无简报开工。触发词：做内容/生成帖子、营销活动落地、Canva 排期
+title: Canva Creator
+description: Takes an approved content brief and executes a campaign end-to-end: builds the posting calendar, generates Canva designs for social posts, drafts caption and email copy, and stages social sends in HubSpot. Canva is used for social posts only (Instagram, Facebook, X, LinkedIn) — email content is draf
 domain: 创意/design
-triggers: [把简报变成营销活动, 生成社媒帖子和设计, 做内容/创建素材, Canva 营销活动排期, 社媒发布日历 + HubSpot 排期]
-tags: [design, 创意, canva, 营销活动, social-media, hubspot, 排期, 内容生成]
-level: 进阶
+triggers: []
+tags: [design, canva, social-media, hubspot]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Canva Connect API, Canva MCP, HubSpot Marketing API]
+tools: []
 requires: []
 related: [social-media-content-creator, paid-ad-creative, ad-creative-generator, social-media-multi-publisher]
 combines_with: [content-marketing-strategist, email-drip-sequence, brand-guidelines]
@@ -16,152 +16,402 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# Canva Creator
 
-拿到一份**已批准的内容简报**后，需要把它端到端落地成一场营销活动：排期、出图、写文案、入队待发。本技能按五个串行阶段推进，**每个阶段都由 owner 显式批准后才进入下一阶段**：
+## Scope
 
-```
-简报 → 排期日历 → 素材清单 → Canva 设计 → 文案 → HubSpot 排期入队
-```
-
-两条路径分流（排期表用 `Path` 列标注每一行）：
-
-| 路径 | 渠道 | 产物 |
-|------|------|------|
-| Canva（社媒） | Instagram、Facebook、X、LinkedIn | Canva 设计 + 文案 + HubSpot 排期帖 |
-| 纯文本 | 邮件（newsletter / 营销 / drip） | 主题 + 预览文字 + 正文，内联呈现给 owner 自行发送 |
-
-**不该用本技能的边界：**
-- **邮件行绝不走 Canva**：不建模板、不 autofill、不复制设计、不上传/导出素材。邮件正文由 Claude 直接写成纯文本内联呈现。原因：邮件模板 autofill 在图片槽多于可用照片时会塞占位图，且缩略图在聊天预览里渲染失败。owner 若要 Canva 邮件设计 → 见源仓 `reference/gotchas.md` 的转向话术。
-- **不做自动发布**：所有 HubSpot 帖子只入队为 `SCHEDULED`，上线由 owner 控制。
-- **无简报不开工**：没有简报先索取，别凭空动手。
-
-## 步骤 / 指令
-
-### 飞行前检查（Stage 1 之前）
-
-1. **简报**：用户已引用/粘贴已批准简报；否则索取。
-2. **Canva 等级**：Pro/Teams 需从用户库手选模板（无 autofill API）；Enterprise 可从品牌模板 autofill。
-3. **HubSpot 等级**：社媒入队需 Marketing Hub Professional；Starter/Free → 跳过 Stage 5，改导出 CSV。
-4. **品牌素材**：确认磁盘上产品照路径，或 Canva 品牌套件已就绪。
-5. **生成预算**：开工前估算并公示设计总量。默认每行 3 个候选，每个设计约 5 次 API 调用（autofill + export + 轮询）。预计总设计数 > 30 时，先建议单候选模式；锁定该值贯穿整个会话。
+This skill handles a campaign in five sequential stages, each gated by owner
+approval:
 
 ```
-本次活动生成预算：
-  Canva（社媒）行数: 8
-  每行候选数:        3   （默认；说 "单候选" 改为 1）
-  设计总数:          24
-  API 调用（约）:    ~120
-Canva 限速 100 请求/分钟，约 2-3 分钟，余量充足。继续？
+brief → calendar → asset inventory → Canva designs → copy → HubSpot staging
 ```
 
-### Stage 1 — 发布排期日历
+| Path | Channels | What this skill produces |
+|------|----------|--------------------------|
+| Canva (social) | Instagram, Facebook, X/Twitter, LinkedIn | Canva design + caption + scheduled HubSpot post |
+| Text-only | Email (newsletter, marketing, drip) | Subject + preheader + body, surfaced inline for the owner to send |
 
-从简报提取主题、渠道、节奏、硬日期（上新/促销/节日）。建表，每行用 `Path` 列路由到 Canva 或纯文本：
-
-| Date | Channel | Path | Theme | Asset type | Caption/Subject angle |
-|------|---------|------|-------|------------|-----------------------|
-| Jun 2 | Instagram feed | Canva（社媒） | Linen launch | Square post | "finally, a dress…" |
-| Jun 5 | Email | 纯文本 | Linen launch | Email body | "Linen that actually breathes" |
-
-所有邮件行标 `纯文本`；默认 30 天封顶；提前标出排期冲突（同日同产品两帖）。
-
-**检查点 1**：展示日历 → "符合计划吗？要改日期/加渠道/换主题吗？" 迭代至批准后，**口头复述分流**："N 行走 Canva，M 行走纯文本"。在此抓错是免费的，出图之后再抓就不是了。
-
-### Stage 2 — 素材清单（仅 Canva 行）
-
-邮件行整段跳过。逐 Canva 行建清单：
-
-1. **逐一列出每个图片槽并命名**（`Header_Image`、`Product1_Image`…），**绝不**笼统写成 "产品图"。Enterprise 从 `GET /v1/brand-templates/{id}` 的 `dataset[].label` 读字段名；Pro/Teams 数模板里每个独立图片矩形。
-2. **盘点可用素材**：简报文本（产品名、报价、定价）、已上传 Canva 的照片（`GET /v1/assets`）或磁盘照片、品牌色与字体（Enterprise）。
-3. **建逐槽差距表**（每槽一行，不是每设计一行）：
-
-| Date | Slot name | Slot kind | Available asset | Status |
-|------|-----------|-----------|-----------------|--------|
-| Jun 2 | Hero_Image | image | bloom_summer.jpg → asset_id pending | upload |
-| Jun 9 | Product1_Image | image | — | **MISSING** |
-
-4. **槽位多于照片时暂停问 owner**（复用同图 / 补图 / 换简单模板），未选定前不发任何生成调用——空槽会渲染成 Canva 默认风景占位图。
-5. **上传缺图并拿到已验证的 asset ID**：`POST /v1/asset-uploads`，轮询 `GET /v1/asset-uploads/{job_id}` 直到 `status == "success"`，记录响应里的 `asset.id`——这是 autofill 图片字段**唯一**有效的值；传空串/URL/文件路径/过期 ID 都会静默渲染成 Canva 库存风景图。
-6. **确认清单**：向 owner 展示每槽已解决、每个图片 `asset.id` 已确认的完整表——这是调 Canva API 前最后一站。
-
-### Stage 3 — Canva 设计生成
-
-调任何 Canva API 前，重读日历，丢弃 `Path` 不是 `Canva（社媒）` 的行。
-
-**一次只处理一个日历行**，每行 3 候选（或飞行前选定值）。每行循环：生成候选 → 验证 → 导出 → 肉眼检查 → 重试失败项 → 呈现 → 等 owner 选 → 下一行。**行间停 30 秒**，不并行多行——这是防止中途撞配额的保护。
-
-- **轮询节奏**：每 3-5 秒查一次 job 状态，别更快。
-- **预览 URL 只有一种可安全嵌入**：autofill 返回的 `design.canva.ai` 缩略图几分钟内过期，嵌入会变成坏图。只嵌入永久导出 URL（`export-download.canva.com` 或 `export-design` MCP 工具）。原生 Cowork 轮播让其自行渲染，别重新嵌入。
-
-**单行循环：**
-1. **定模板**（每会话一次）：Enterprise `GET /v1/brand-templates` 按资产类型过滤；Pro/Teams `GET /v1/designs?ownership=any&query={模板名}`，呈现前 3 个让 owner 确认。**绝不替 Pro/Teams 自动选模板。**
-2. **并行生成本行候选**：Enterprise 每候选 `POST /v1/autofills`（模板 ID + 字段值），并发轮询；Pro/Teams `POST /v1/designs` 建副本，描述文本/图片编辑，收回 design ID。
-3. **验证 job 状态**：确认 `GET /autofills/{job_id}` 返回 `status == "success"` 且有 `result.design.id`。错误分级处理：
-   - `JOB_FAILED` → 读 `job.error.message`，修字段值/asset ID，重试一次。
-   - `RATE_LIMIT_EXCEEDED`（本会话首次）→ 等 60s，仅重试该候选一次。
-   - `RATE_LIMIT_EXCEEDED`（第二次）**或**任何 `quota_exceeded`/日上限错误 → **立即停止生成，不重试**，汇报进度并让 owner 选（切单候选跑完 / 暂停 60 分钟 / 用现有的转文案）。
-4. **每个成功候选导出为永久 PNG**（并行）：REST `POST /v1/exports`（`format.type: "png"`），轮询 `GET /v1/exports/{job_id}` 至成功，取 `urls[0]`；或 Canva MCP `export-design`。这些永久 URL 才用于预览嵌入和后续 HubSpot 附件。
-5. **肉眼验证每张导出**，命中即拒：带云和绿丘的通用风景（Canva 默认占位）、该放照片处的纯灰矩形、lorem-ipsum/模板默认文本、主体与简报不符（错产品/错品牌）。失败 → 复查该槽清单、修 `asset.id`、只重生成该候选、重导出、重验证。
-6. **部分失败按候选重试**：N 个里 1 个失败，只重生成那一个，别重做整行、别呈现半坏轮播。第二次仍失败 → 让 owner 选（跳过 / 换简单模板 / 换张照片再试）。
-7. **呈现本行候选**：让原生 Cowork 轮播渲染 autofill 结果，下方加文字提示让 owner 选。轮播不渲染时改嵌 Step 4 的永久 PNG；最终兜底链到 `https://www.canva.com/d/{design_id}`。**绝不重新嵌入 `design.canva.ai` URL。**
-8. **停 30 秒，进入下一行。**
-
-**检查点 2**：owner 为每个日历行选定一个设计即满足；要重生成只重生成那一个候选。
-
-### Stage 4 — 文案撰写
-
-每行写文案：社媒行写 caption，邮件行写整封邮件。
-
-**社媒 caption**（IG/FB/X/LinkedIn）：长度按渠道（IG ≤ 2200、FB ≤ 500 推荐、X ≤ 280）；结构 hook → 一个产品利益点 → CTA → 3-5 个话题标签（不是 30 个）；语气匹配简报 tone；不写 "Exciting news!"/"We're thrilled to announce" 这类填充。
-
-**邮件正文**（Claude 全写，无 Canva）：主题 ≤ 50 字、具体、不标题党；预览文字 ≤ 90 字、补充主题而非重复；正文纯散文 100-250 词（开头钩子 → 1-2 段实质 → 单一明确 CTA → 签名）；语气同社媒；**不引用图片**（别写 "见上图"）；每封一个 CTA。
-
-社媒 caption 内联呈现在对应行下；邮件按下列格式内联：
-
-```
-Subject: <主题>
-Preheader: <预览文字>
-
-<正文>
-```
-
-**检查点 3**："有要重写的 caption 或邮件吗？标出日期和改动。" 迭代至批准。
-
-### Stage 5 — HubSpot 排期入队 + 邮件交接
-
-社媒帖入队 HubSpot；邮件不入队，内联呈现给 owner 自行复制到其邮件工具。
-
-1. **建活动**：`POST /marketing/v3/campaigns`（活动名 + 起止日期）。
-2. **逐 `Canva（社媒）` 行入队**：`POST` 到 HubSpot Social API：`channel` 映射到 HubSpot 账号 ID；`scheduledAt` 用 ISO 8601 且调用前确认在未来；`content.body` 填已批准 caption；`attachments` 填 Stage 3 的永久 Canva 导出 PNG URL；`status` 恒为 `SCHEDULED`（**绝不 `PUBLISHED`**）。
-3. **确认队列**：`GET /marketing/v3/social/posts?status=SCHEDULED`，列出并给 HubSpot 活动视图直链。
-4. **交接邮件内容**：每个邮件行按发送日期分组，内联呈现已批准的主题 + 预览 + 正文，owner 自行复制到其邮件工具。
-
-**最终检查点**：告知社媒已排期入队（附链接，可在 HubSpot 取消/编辑），邮件内容内联待复制，问 "结束前还有要改的吗？"。
-
-## 示例
-
-完整可运行示例（单槽社媒、多槽模板）见源仓 `reference/examples/boutique-brief-campaign.md`。典型一行的端到端：Jun 2 IG 方图 → 清单 `Hero_Image` 上传拿 `asset.id` → 3 候选 autofill → 导出 3 张永久 PNG → 肉眼剔除风景占位 → 轮播呈现让 owner 选 1 → 写 caption（hook+利益点+CTA+4 标签）→ HubSpot 排期为 Jun 2 9:00 `SCHEDULED`。
-
-## 注意事项（审批闸门）
-
-- **邮件行不调任何 Canva**：每次 API 调用前重查 `Path` 列。
-- **不发布**：HubSpot 帖恒为 `SCHEDULED`。
-- **飞行前必公示生成预算**：owner 见总设计数并批准后再进 Stage 1。
-- **Stage 3 一次一行**：行内候选并行，行间串行 + 30s 间隔——这是配额保护。
-- **第二次配额错误就暂停问 owner**，绝不循环重试。
-- **呈现前必导出永久 PNG**：job 成功 ≠ 设计渲染正确。
-- **消息里绝不嵌 `design.canva.ai` URL**（会过期）。
-- **单候选失败绝不重做整行**：只按候选重试。
-- **Pro/Teams 绝不自动选模板**：始终确认。
-- **绝不跳过逐槽清单**：多槽模板任一空槽会渲染风景占位。
-- **绝不跳过检查点 1**：日历批准前出图是本技能最大的返工来源。
-
-## 互见
-
-- 源仓参考：`reference/canva-api.md`（Canva Connect API 端点、素材上传、导出格式、MCP 等价）、`reference/hubspot-staging.md`（HubSpot Social API 与非 Pro 等级的 CSV 兜底）、`reference/gotchas.md`（每种生产失败模式的好/坏对照）、`reference/examples/boutique-brief-campaign.md`（完整示例）。
-- 上游：内容简报通常来自 content-strategy 技能。
+**Canva is not used for email rows under any circumstance** — no templates,
+no autofill, no design copies, no asset uploads, no exports. The owner
+explicitly descoped Canva from the email path because email-template
+autofill produces placeholder graphics when image slots exceed available
+photos, and variation thumbnails fail to render in chat previews. If the
+owner asks for a Canva email design, see `reference/gotchas.md` for the
+redirect language.
 
 ---
 
-采编自 anthropics/knowledge-work-plugins（small-business/skills/canva-creator），遵循 Apache-2.0 许可。
+## Pre-flight
+
+Before Stage 1, confirm:
+
+1. **Brief.** The user has referenced or pasted an approved brief. If not:
+   "I'll need the content brief before I can build the campaign. Do you
+   have one from the content-strategy skill, or would you like to write
+   one now?"
+
+2. **Canva tier.** Pro/Teams require manual template selection from the
+   user's library (no autofill API). Enterprise can autofill from brand
+   templates.
+
+3. **HubSpot tier.** Social staging requires Marketing Hub Professional.
+   Starter or Free → skip Stage 5 and export a CSV instead
+   (see [reference/hubspot-staging.md](reference/hubspot-staging.md)).
+
+4. **Brand assets.** Confirm the path to product photos on disk or that
+   the brand kit is live in Canva.
+
+5. **Generation budget.** Estimate the campaign's Canva volume and surface
+   it before Stage 1 begins. Default is 3 candidates per Canva-bound row;
+   each design costs ~5 API calls (autofill + export + polling).
+
+   ```
+   Generation budget for this campaign:
+     Canva (social) rows: 8
+     Candidates per row:  3   (default — say "single candidate" to use 1)
+     Total designs:       24
+     API calls (approx):  ~120  (autofill + export + polling)
+
+   Canva limit: 100 requests/minute. This will take ~2-3 minutes of
+   generation, well within your tier limits. Proceed?
+   ```
+
+   If the projected total designs exceeds 30, recommend single-candidate
+   mode upfront — large campaigns run out of headroom fast. The owner can
+   override the default to 1, 2, or 3 candidates per row before Stage 1
+   starts. Lock the chosen value for the entire session.
+
+---
+
+## Workflow
+
+### Stage 1 — Posting calendar
+
+Pull from the brief: content themes, channels, cadence, hard dates
+(launches, sales, holidays).
+
+Build a calendar table with a `Path` column that routes every row to either
+Canva or text-only drafting:
+
+| Date | Channel | Path | Theme | Asset type | Caption/Subject angle |
+|------|---------|------|-------|------------|-----------------------|
+| Jun 2 | Instagram feed | Canva (social) | Linen launch | Square post | "finally, a dress…" |
+| Jun 5 | Email | Text-only | Linen launch | Email body | "Linen that actually breathes" |
+
+Tag every email-channel row as `Text-only` before presenting. Cap at 30
+days unless the brief specifies otherwise. Flag scheduling conflicts (two
+posts same day for the same product) up front.
+
+**Checkpoint 1.** Present the calendar. Ask: "Does this match the plan?
+Any dates to shift, channels to add, or themes to swap?" Iterate until
+approved, then restate the split out loud — "N rows go through Canva, M
+rows go through text-only drafting" — before moving on. Catching a
+miscategorization here is free; catching it after generating designs
+isn't.
+
+---
+
+### Stage 2 — Asset inventory (Canva rows only)
+
+Email rows skip this stage entirely. For each `Canva (social)` row, build
+a manifest of what the template needs and what's already available.
+
+1. **Enumerate every image slot by name.** Square Instagram posts usually
+   have 1-2 image slots; carousels and product grids can have 5+. List
+   them individually (`Header_Image`, `Product1_Image`, `Product2_Image`,
+   …) — never roll them up as "product images."
+   - Enterprise: read field names from `dataset[].label` on the brand
+     template (`GET /v1/brand-templates/{id}`).
+   - Pro/Teams: count every distinct image rectangle in the template.
+
+2. **Inventory available assets.** Text content from the brief (product
+   names, offer copy, taglines, pricing), product photos already uploaded
+   to Canva (`GET /v1/assets`) or on the owner's disk, brand kit colors
+   and fonts (Enterprise).
+
+3. **Build the slot-by-slot gap table.** One row per slot per design — not
+   per design.
+
+   | Date | Slot name | Slot kind | Available asset | Status |
+   |------|-----------|-----------|-----------------|--------|
+   | Jun 2 | Hero_Image | image | bloom_summer.jpg → asset_id pending | upload |
+   | Jun 2 | Headline | text | "Summer linen, finally" | ready |
+   | Jun 9 | Product1_Image | image | — | **MISSING** |
+
+4. **Resolve slot/asset mismatches with the owner.** If the template has
+   more image slots than the brief provides photos, pause and ask:
+
+   ```
+   The "Summer Carousel" template has 5 image slots. The brief gave me 1
+   photo (bloom_summer.jpg). How should I fill the other 4?
+
+     1. Reuse the same photo across all 5 slots
+     2. You send me 4 more photos (file paths)
+     3. Pick a simpler template with fewer slots
+   ```
+
+   No generation calls until the owner picks. Generating with empty slots
+   produces designs full of Canva's default landscape placeholders.
+
+5. **Upload missing photos and capture verified asset IDs.** Upload via
+   `POST /v1/asset-uploads`, then poll `GET /v1/asset-uploads/{job_id}`
+   until `status == "success"`. Record `asset.id` from the response — this
+   is the only value that works in an autofill image field. Passing an
+   empty string, a URL, a file path, or a stale ID silently renders
+   Canva's stock landscape graphic instead of the photo.
+
+6. **Confirm the manifest.** Show the owner the completed slot-by-slot
+   table with every slot resolved and every image `asset.id` confirmed.
+   This is the last stop before Canva API calls.
+
+---
+
+### Stage 3 — Canva design generation
+
+Before any Canva API call, re-read the calendar and drop any row whose
+`Path` is not `Canva (social)`. Email rows do not pass through this
+stage.
+
+Generate designs **one calendar row at a time**, with 3 candidates per row
+(or the value chosen at pre-flight). Each row follows the same loop:
+generate candidates → verify → export → visually check → retry failures
+→ present → wait for owner pick → next row. Pause 30 seconds between
+rows. This caps the burst at 3 generations + 3 exports per ~30s — well
+under Canva's 100 req/min rate limit. Do not parallelize multiple rows;
+one row at a time is the protection that keeps the owner from hitting
+quota mid-campaign.
+
+**Polling cadence.** Poll job status every 3-5 seconds, not faster.
+Tighter intervals burn quota without speeding up completion.
+
+**Preview URLs — only one type is safe to embed.** Autofill responses
+return `design.canva.ai` thumbnails that expire within minutes; embedding
+them as markdown images produces broken "Show Image" placeholders.
+Permanent export URLs (`export-download.canva.com` or the `export-design`
+MCP tool) do not expire. Native Cowork carousels render the autofill
+result directly using the connector's authenticated session — let them
+render on their own, don't re-embed.
+
+#### Row loop
+
+1. **Resolve template.** (Once per session — same template across rows
+   unless the calendar mixes asset types.)
+   - Enterprise: `GET /v1/brand-templates` filtered by asset type.
+   - Pro/Teams: `GET /v1/designs?ownership=any&query={template name}`,
+     surface top 3 to the owner, confirm one before generating.
+
+2. **Generate the row's candidates in parallel.** Fire the row's 3
+   candidates simultaneously (or N from pre-flight).
+   - Enterprise: `POST /v1/autofills` per candidate with the template ID
+     and field values. Poll all jobs concurrently.
+   - Pro/Teams: `POST /v1/designs` to create copies. Describe the text and
+     image edits the owner applies in Canva; collect design IDs back.
+
+3. **Verify job status.** For each candidate, confirm
+   `GET /autofills/{job_id}` returned `status == "success"` and
+   `result.design.id` is present. Handle errors per-design:
+   - `JOB_FAILED` → read `job.error.message`, fix the field values or
+     asset IDs, retry once.
+   - `RATE_LIMIT_EXCEEDED` (first hit this session) → wait 60s, retry
+     that one candidate once. This handles transient spikes.
+   - `RATE_LIMIT_EXCEEDED` (second hit this session) **or** any
+     `quota_exceeded` / daily-cap error → stop generation immediately.
+     Do not retry. Surface progress and ask:
+
+     ```
+     Canva is rate-limiting the campaign. Status so far:
+       ✓ Generated:  Posts 1-4 (12 designs)
+       ⏸ Remaining:  Posts 5-8 (12 designs not yet generated)
+
+     How should I proceed?
+       1. Switch to 1 candidate per remaining row (4 designs total) — finishes now
+       2. Pause campaign — resume in 60 minutes when quota refills
+       3. Stop generation — work with what we have, move to captions
+     ```
+
+     Wait for the owner's choice. Do not loop on retry.
+
+4. **Export each successful candidate to a permanent PNG.** Fire the
+   row's exports in parallel.
+   - REST: `POST /v1/exports` with `format.type: "png"`, poll
+     `GET /v1/exports/{job_id}` until success, capture `urls[0]`.
+   - Canva MCP: `export-design` with the design ID.
+
+   These permanent URLs are what get embedded in previews and attached to
+   the HubSpot post later. The autofill response thumbnail is never used
+   downstream.
+
+5. **Visually verify each export.** Look at the image and reject any of
+   these — they all indicate an unfilled slot or wrong asset:
+   - Generic landscape with clouds and green hills (Canva's default
+     placeholder)
+   - Solid gray rectangles where a photo should be
+   - Lorem-ipsum or template-default text
+   - Subject that doesn't match the brief (wrong product, wrong brand)
+
+   If a candidate fails verification: re-check the manifest for the
+   affected slot, fix the `asset.id`, regenerate that single candidate,
+   re-export, re-verify.
+
+6. **Retry per-candidate on partial failure.** If 1 of N candidates in
+   the row failed at Step 3 or 5, regenerate just that one — don't redo
+   the whole row and don't present a partial broken carousel. If the
+   second attempt also fails:
+
+   ```
+   The third candidate for the Jun 9 post keeps failing — Canva returned
+   [error / rendered placeholder]. How should I proceed?
+
+     1. Skip it — present the other 2 and move on
+     2. Swap to a simpler template for just this candidate
+     3. Try once more with a different photo
+   ```
+
+7. **Present the row's candidates.** Let the native Cowork carousel
+   render the autofill tool result. Below it, add a text prompt:
+
+   ```
+   Jun 9 candidates are ready — scroll through the carousel above.
+   Which one should I use for the Jun 9 post?
+   ```
+
+   If the carousel doesn't render or one position is broken, embed the
+   permanent export PNG URLs from Step 4 instead. Final fallback: link to
+   the design's Canva edit URL (`https://www.canva.com/d/{design_id}`).
+   Never re-embed `design.canva.ai` URLs.
+
+8. **Pause 30 seconds, then move to the next row.**
+
+**Checkpoint 2.** Satisfied once the owner has picked one design per
+calendar row. If they want a regenerate, regenerate only that one
+candidate.
+
+---
+
+### Stage 4 — Copy drafting
+
+For each calendar row, draft the copy. Social rows get a caption; email
+rows get a full email.
+
+**Social captions** — Instagram, Facebook, X, LinkedIn:
+
+- Length: channel-appropriate (Instagram ≤ 2,200 chars; Facebook ≤ 500
+  recommended; X ≤ 280).
+- Structure: hook → one product benefit → CTA → 3-5 hashtags (not 30).
+- Voice: match the brief's tone markers. If the brief says "casual and
+  friendly," don't write corporate copy.
+- No filler. No "Exciting news!" or "We're thrilled to announce." Open
+  with the value.
+
+**Email content** — Claude writes the entire email; no Canva:
+
+- Subject: ≤ 50 chars, specific, no clickbait. "Spring projects are
+  booking up" beats "Don't miss out!"
+- Preheader: ≤ 90 chars, complements the subject without repeating it.
+- Body: plain prose, 100-250 words. Opening line that earns the read →
+  1-2 paragraphs of substance → single clear CTA → sign-off.
+- Voice: same tone markers as social. Owners want their emails to sound
+  like them, not like a templated newsletter.
+- No image references. Don't write "see image above." If the owner wants
+  visuals, they add them in their email tool.
+- One CTA per email. Pick the most important action and lead with it.
+
+Present captions inline below each social row. Present full emails
+inline below each email row:
+
+```
+Subject: <subject line>
+Preheader: <preheader text>
+
+<body text>
+```
+
+For worked examples, see
+[reference/examples/boutique-brief-campaign.md](reference/examples/boutique-brief-campaign.md).
+
+**Checkpoint 3.** "Any captions or emails to rewrite? Flag the date and
+what to change." Iterate until approved.
+
+---
+
+### Stage 5 — HubSpot staging + email handoff
+
+Stage social posts in HubSpot. Email content is not staged — it's
+surfaced inline for the owner to copy into their email tool. For API
+field reference, see
+[reference/hubspot-staging.md](reference/hubspot-staging.md).
+
+1. **Create the campaign.** `POST /marketing/v3/campaigns` with the
+   campaign name and start/end dates from the calendar.
+
+2. **Stage each social post.** `POST` to the HubSpot Social API per
+   `Canva (social)` row:
+   - `channel`: map calendar channel to HubSpot account ID
+   - `scheduledAt`: ISO 8601 datetime — confirm it's in the future before
+     calling
+   - `content.body`: approved caption
+   - `attachments`: permanent Canva export PNG URL from Stage 3
+   - `status`: `SCHEDULED` (never `PUBLISHED`)
+
+3. **Confirm the queue.** Call
+   `GET /marketing/v3/social/posts?status=SCHEDULED`, surface the list,
+   provide a direct link to the HubSpot campaign view.
+
+4. **Surface email content for handoff.** For each email row, present the
+   approved subject + preheader + body inline, grouped by send date. The
+   owner copies these into their email tool (HubSpot Marketing Email,
+   Mailchimp, Gmail).
+
+**Final checkpoint.**
+
+```
+Your social posts are scheduled in HubSpot: [link]
+They'll go out as scheduled — you can cancel or edit any post in HubSpot.
+
+Email content is drafted below — copy each into your email tool when
+you're ready to send:
+
+  Jun 5 — "Spring projects are booking up"
+  Jul 15 — "Summer maintenance windows are filling"
+
+Anything to change before we're done?
+```
+
+---
+
+## Approval gates
+
+- **No Canva calls for email rows.** Re-check the `Path` column before
+  every API call.
+- **No publishing.** Every HubSpot post is staged as `SCHEDULED`; the
+  owner controls go-live.
+- **Always surface the generation budget at pre-flight.** Owner sees the
+  total design count and approves before Stage 1 begins.
+- **One row at a time in Stage 3.** Candidates within a row fire in
+  parallel, but rows are sequential with a 30s gap — this is the quota
+  protection.
+- **On the second quota error, pause and ask.** Never loop on retry.
+- **Always export to a permanent PNG before presenting.** Job success
+  doesn't mean the design rendered correctly.
+- **Never embed `design.canva.ai` URLs in messages.** They expire.
+- **Never regenerate the whole row when one candidate fails.**
+  Per-candidate retry only.
+- **Never auto-select a template for Pro/Teams users.** Always confirm.
+- **Never skip slot-by-slot inventory.** Multi-slot templates render
+  placeholder landscapes when any slot is empty.
+- **Never skip Checkpoint 1.** Generating before the calendar is approved
+  is the largest source of wasted work in this skill.
+
+---
+
+## Reference
+
+- [reference/canva-api.md](reference/canva-api.md) — Canva Connect API
+  endpoints, asset upload, export formats, MCP equivalents
+- [reference/hubspot-staging.md](reference/hubspot-staging.md) — HubSpot
+  Social API and CSV fallback for non-Pro tiers
+- [reference/gotchas.md](reference/gotchas.md) — Good / Bad patterns for
+  every failure mode this skill has hit in production
+- [reference/examples/boutique-brief-campaign.md](reference/examples/boutique-brief-campaign.md)
+  — full worked examples (single-slot social, multi-slot template)

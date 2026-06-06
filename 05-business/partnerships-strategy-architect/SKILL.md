@@ -1,14 +1,14 @@
 ---
 name: partnerships-strategy-architect
-title: 战略合作伙伴架构
-description: 当合作方上门索要分销/OEM/"战略联盟"条款、或要新建伙伴分层、或要决定重构·解约低效伙伴时使用；做伙伴分层判定（推荐/经销/OEM/SI/战略）、90天联合GTM计划、分润测算与解约触发条件，产出"分层＋GTM计划＋分润区间＋解约红线"建议包；不适用于技术售前POC、已签伙伴逐笔折扣审批、渠道ROI核算或改用收购替代合作。触发词：合作伙伴、分销商、OEM、战略联盟、分润、渠道冲突
+title: partnerships-architect
+description: Use when a startup is approached by a prospective partner and someone has to decide should we sign this partner, at what partner tier (referral / reseller / OEM / SI-consulting / strategic alliance), with what joint GTM commitment, and at what revshare. Classifies partner tier from independent-demand evidence vs. preferential-terms hunting, designs a 90-day joint GTM plan, models revshare against direct-sale margin, and surfaces kill criteria for unwinding under-performing partnerships. For Head of Partnerships, Head of BD, and Founder-CEOs doing reseller agreement, OEM deal, or strategic alliance review — not technical sale enablement, not channel cost economics, not M&A.
 domain: 商业/sales
-triggers: [合作伙伴, 伙伴分层, 分销商, 经销商, OEM, 白标, 战略联盟, 分润, revshare, 联合GTM, 渠道冲突, 解约触发条件, MDF, partner tier, 推荐返佣, 转售商]
-tags: [商业, sales, 合作伙伴, 渠道, 联合gtm, 分润, oem, 经销, 战略联盟, 渠道冲突, 伙伴分层]
-level: 进阶
+triggers: [OEM, revshare, MDF, partner tier]
+tags: [sales, oem]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [partner_tier_classifier.py, joint_gtm_planner.py, revshare_modeler.py]
+tools: []
 requires: []
 related: [deal-desk-reviewer, cro-revenue-advisor, ma-playbook, sales-enablement, pricing-strategy]
 combines_with: [deal-desk-reviewer, cro-revenue-advisor, sales-enablement]
@@ -16,84 +16,195 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# partnerships-architect
 
-当一个潜在合作方出现、有人必须拍板「要不要签、签在哪一层、给什么联合 GTM 承诺、按什么分润」时使用本技能。它产出分层结论＋GTM 计划＋分润区间＋解约红线，但**从不替你签约**——跑完之后由人决定。典型触发：
+## Purpose
 
-- 有合作方上门索要经销 / OEM / "战略" 条款。
-- 在设计一套新的伙伴分层（partner program）。
-- 某条现有合作正在低效运转，需决定：重新分层、重构 GTM，还是解约。
-- 大 Logo 想要"战略联盟"，你得验证它是真合作还是供应商锁定式作秀。
-- 咨询公司 / SI 想就你的产品拿服务分润。
-- 平台厂商提出 OEM / 白标，你需要把账算清楚。
-- 你怀疑"伙伴贡献"的单子其实是自家管线被薅去赚差价。
+Help Head of Partnerships, Head of BD, and Founder-CEOs answer four questions when a
+prospective partner shows up:
 
-**不该用于**：技术演示与 POC（用 sales-enablement 等技术售前类技能）；已签渠道的成本与 ROI 核算（用渠道经济类技能）；全公司营收策略与何时招 VP Channel（用 cro-revenue-advisor）；答案是"收购它"而非"与它合作"（用 ma-playbook）；已签伙伴合同的逐笔折扣审批（用 deal-desk-reviewer）。
+1. **Is this a real partner, or someone hunting preferential terms without independent demand?**
+2. **At what tier should we sign them?** (Referral / Reseller / OEM / SI-Consulting / Strategic Alliance)
+3. **What's the 90-day joint GTM plan that proves the partnership works?**
+4. **What revshare makes economic sense — and at what point does the partnership beat direct sale?**
 
-**核心判据**：拿不出独立需求证据（具名成交客户、终端客户关系、自有销售团队）的合作方，是在猎取优惠条款，不是合作伙伴——这类只签 REFERRAL 层或干脆不签。
+The skill emits a tier verdict + GTM plan + revshare band with explicit kill criteria. It
+does **not** sign the deal. The human, after running this skill, decides.
 
-## 步骤
+## When to use
 
-1. **录入（≈20 分钟）** —— 填 `assets/partnership_intake_template.md`：partner_name、partner_type、独立需求证据（其已成交的具名客户、终端客户关系、销售团队规模）、战略价值（地域/产品/品牌/渠道经济）、对方承诺（联合营销投入、专职人力、认证、销售目标）。若模板诚实地填不满，说明对方还不够实，**停下，退回去**。
-2. **分层判定** —— 跑 `partner_tier_classifier.py`，把伙伴排进 5 档之一：REFERRAL / RESELLER / OEM / SI-CONSULTING / STRATEGIC，各档有确定性地板线。**STRATEGIC 要求 named_accounts ≥ 5 且 多年期承诺 且 专职资源**。输出附理由与解约红线。
-3. **联合 GTM 计划** —— 跑 `joint_gtm_planner.py`，得 90 天计划：发布前里程碑（培训、认证、物料）、上线动作（目标客户、销售打法、MDF 分配）、季中检查点、90 天成功标准。校验会拦截：不能给 REFERRAL 层规划渠道主导 GTM，不能给非 OEM 层规划白标。
-4. **分润测算** —— 跑 `revshare_modeler.py`，算每单直销 vs 经伙伴的毛利、基于贡献深度（sourced > influenced > delivered）的推荐分润区间、伙伴 ROI 盈亏平衡点，以及在投射规模下伙伴经济是否真能跑赢直销。
-5. **决策** —— 把分层＋GTM 计划＋分润区间带进合作委员会。**本技能不签约，你签。** 把解约红线写进合同，触发时解约才是机械的、不扯皮。
+- A prospective partner has approached and asked for reseller / OEM / "strategic" terms
+- You're designing a new partner program tier structure
+- You're reviewing an existing partnership that's underperforming and need to decide: re-tier, restructure GTM, or unwind
+- A Big Logo wants a "strategic alliance" — and you need to validate it's real, not vendor-lock theatre
+- A consulting firm or SI wants services revshare on your product
+- A platform vendor offers OEM / white-label and you need to model the math
+- You suspect "partner-sourced" deals are actually your own pipeline being skimmed for margin
 
-## 指令
+**Do not use for:**
+- Technical demos and POCs → `business-growth/sales-engineer`
+- Cost-to-serve and ROI math on existing channel → sibling `channel-economics`
+- Whole-company revenue strategy → `c-level-advisor/cro-advisor`
+- Acquiring a company instead of partnering → `c-level-advisor/ma-playbook`
+- Per-deal discount approval inside a signed partner contract → `deal-desk`
 
-三个确定性脚本，纯标准库实现，`--help` 与 `--sample` 均可用：
+## Workflow
 
-```bash
-# 1. 伙伴分层判定（profile: saas | api | enterprise-software | marketplace | services | hardware）
-python3 scripts/partner_tier_classifier.py --sample
-python3 scripts/partner_tier_classifier.py --input intake.json --profile saas --output markdown
+### Step 1 — Intake (≈ 20 min)
 
-# 2. 90 天联合 GTM 计划
-python3 scripts/joint_gtm_planner.py --input gtm.json --profile saas --output markdown
+Fill `assets/partnership_intake_template.md`. Capture: partner_name, partner_type, evidence
+of independent demand (named accounts they've sourced, end-customer relationships,
+their sales team size), strategic value (geo / product / brand / channel economics),
+commitments they've offered (joint marketing spend, dedicated headcount, certification,
+sales targets).
 
-# 3. 分润区间 + 盈亏平衡 ROI + 长期经济
-python3 scripts/revshare_modeler.py --input revshare.json --output markdown
-```
+If the intake template can't be honestly filled out, the prospective partner has not
+demonstrated enough substance to evaluate. Stop. Go back to them.
 
-`--profile` 行业档只调默认值，**不覆盖你的数据**。"Partner-sourced（伙伴主导）"要求对方既引入交易又拥有主关系；"Partner-influenced（伙伴影响）"按更低区间付——归因（attribution）比 PPT 上的说辞更重要。
+### Step 2 — Tier classify
 
-**逼问清单（深度优先、逐题问、不打包；先锁 1-3 再开 4-7）**：
+Run `scripts/partner_tier_classifier.py --input intake.json --profile saas --output markdown`.
+Output ranks the partner into 1 of 5 tiers — REFERRAL / RESELLER / OEM / SI-CONSULTING /
+STRATEGIC — with deterministic floors. STRATEGIC requires named_accounts ≥ 5 AND
+multi-year commit AND dedicated resources. Skill emits rationale + kill criteria.
 
-1. 列出该伙伴过去 12 个月已成交的 5 个终端客户——且是你自己也会去打的客户。 → 答不出 = 无独立需求，最多签 REFERRAL。（Hessling：无独立需求是死掉伙伴层的头号根因）
-2. 这伙伴是在要优惠商业条款，还是在问怎么给你带客户？ → 折扣猎手开口谈条款，真伙伴开口谈客户；听第一次会的前 30 分钟。（Forrester：早期 SaaS 60%+ "伙伴询盘"是折扣猎取）
-3. 一句话说出联合价值主张，以及它服务的具名终端客户是谁？ → 若没有区别于双方各自单干的联合价值，那就不是合作，顶多是联合营销。（Geoffrey Moore：整体产品式合作存在于"任一方单独都交付不了客户成果"时）
-4. 在多少 % 折扣/分润、什么规模下，这合作能跑赢直销经济？ → 测算盈亏平衡管线量；若伙伴单子须占渠道量 30% 才能赢、而对方现实只能给 5%，你建了个亏本项目。（Chintagunta：无量级地板的渠道合作理论上盈亏平衡、实践中亏钱）
-5. 解约的具名红线是什么，是否写进合同？ → 季度最低管线地板、最低认证资源数、最低联合成交数、90 天补救期。无预定红线的解约会变 2 年法务战。（IBM 渠道冲突案例）
-6. 若该伙伴卖进了你某个直销客户，谁赢——你的销售还是它？ → 书面 Rules of Engagement，签约前公布；按具名客户/分段/地域划界，冲突由具名人裁决而非委员会。（Jay McBain：渠道冲突是头号伙伴项目杀手）
-7. 这到底是合作，还是该收购？ → 若对方有你复制不了的独立护城河 且 需多年独占 且 需类股权对齐，那是在描述收购，转 ma-playbook。（HP 渠道复盘：把合作做成无股权收购，比纯路径更毁价值）
+### Step 3 — Joint GTM plan
 
-7 题答完后，按 `partner_tier_classifier.py` → `joint_gtm_planner.py` → `revshare_modeler.py` 顺序执行。
+Run `scripts/joint_gtm_planner.py --input gtm.json --profile saas --output markdown`.
+Output: 90-day plan with pre-launch milestones (training, certification, materials),
+launch motion (target accounts, sales play, MDF allocation), mid-quarter checkpoint, and
+90-day success criteria. Validates: cannot plan channel-led GTM for REFERRAL tier; cannot
+plan white-label for non-OEM tier.
 
-## 示例
+### Step 4 — Revshare model
 
-样例：某大厂提"战略联盟"但拿不出具名成交客户、只承诺联合 PPT。分层器据 STRATEGIC 地板线（named_accounts ≥ 5 + 多年承诺 + 专职资源）判其**不达标，降至 REFERRAL**；GTM 校验拦截"给 REFERRAL 规划渠道主导 GTM"的越级；分润测算显示在对方可交付量级下伙伴经济跑不赢直销。结论：签 REFERRAL 返佣即可，把"季度管线地板未达即解约"写进合同。
+Run `scripts/revshare_modeler.py --input revshare.json --output markdown`. Computes
+margin per deal direct vs. via partner, recommended revshare % band based on partner
+contribution depth (sourced > influenced > delivered), break-even partner ROI, and
+long-term economics — at projected scale, does partner economics beat direct?
 
-## 注意事项
+### Step 5 — Decide
 
-- **伙伴 ≠ 任何来问的人。** 无独立需求者是折扣猎手；REFERRAL 层正是用来吸收他们而不送出经销毛利的。
-- **没有足够毛利覆盖支持成本就别给 OEM / 白标。** OEM 意味着你要支持一个不属于你的客户；分润盖不住二线支持成本就是亏本买卖。
-- **influenced 的单不要按 sourced 付。** 反正会成交的单，付 influenced 区间。
-- **每条低效合作都要有解约红线。** 无日落条款的"战略联盟"在发起高管离职后会变永久负担。
-- **渠道冲突别拖到销售离职才管。** 直销与伙伴撞同一客户时，你不是丢销售就是丢伙伴；ROE 要事前定，不是事后定。
-- **别把独占地域给弱伙伴**——会锁死那个本来真能拿单的强伙伴。
-- **MDF 必须带 ROI 问责**：无具名管线、无 ROL 报告、无季度对账的市场发展基金是补贴不是投资。
-- **合作结束要有退出方案**：客户连续性、数据交还、IP 清理、品牌撤除须事前谈定，关系闹僵后无法谈。
-- 分润 % 区间是建议；合同谈判、MDF 政策、独占条款是技能之外的人类商业决策。一签约，逐笔商业评审就转给 deal-desk-reviewer。
+Take tier + GTM plan + revshare band into the partnership committee. Skill does not sign
+the partner — you do. Document kill criteria in the contract so the unwind is mechanical
+when triggered.
 
-## 互见
+## Scripts
 
-- **deal-desk-reviewer**：已签伙伴合同的逐笔折扣审批与条款红线；本技能是签约**前**决定签不签、签哪层。
-- **cro-revenue-advisor**：战略级 CRO 判断（何时招 VP Channel、全公司营收结构）；本技能是逐个合作粒度。
-- **ma-playbook**：当答案是"收购它"而非"与它合作"时转入（伙伴有不可复制护城河 / 需多年独占 / 需股权对齐）。
-- **sales-enablement**：技术售前与销售物料，在合作决策做完、交易在途后运转。
-- **pricing-strategy**：产品定价模型与打包，在策略层；分润是合作层的经济分配。
+- `scripts/partner_tier_classifier.py` — 5-tier classifier with deterministic floors per tier
+- `scripts/joint_gtm_planner.py` — 90-day joint GTM plan generator with tier-validated motion
+- `scripts/revshare_modeler.py` — revshare band + break-even ROI + long-term economics
 
----
+All scripts: stdlib only. `--help` and `--sample` work on all three.
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+## References
+
+- `references/channel_partner_canon.md` — Caro on HP indirect channels, Chintagunta on channel economics, Hessling on partner programs, Forrester channel software stack, IDC channel research, Tien Tzuo subscription-channel models, Geoffrey Moore whole-product partnerships
+- `references/joint_gtm_canon.md` — Aaron Ross *Predictable Revenue* (cold-source vs partner), Winning by Design, Jay McBain on co-sell, Microsoft Partner Network playbook, AWS Partner Network research, SiriusDecisions partner benchmarks, Bridge Group SaaS partner data
+- `references/partnership_anti_patterns.md` — Forrester partner-led-from-your-pipeline research, Tom Tunguz on channel conflict, Hessling failure analyses, MIT Sloan on disproportionate strategic revshare, HP channel post-mortems, IBM channel-conflict cases, Salesforce AppExchange research
+
+## Assumptions
+
+- A partner who cannot produce evidence of independent demand (named accounts, end-customer
+  relationships, their own sales team) is hunting preferential terms, not a partner.
+- Industry profiles (`--profile`) tune defaults — they don't override your data.
+- Revshare % bands are recommendations; the contract negotiation, MDF policy, and
+  exclusivity terms are human commercial decisions outside this skill.
+- "Partner-sourced" requires the partner to have introduced the deal AND owned the
+  primary relationship. "Partner-influenced" pays at a lower band. Pay attribution
+  matters more than slide-deck claims.
+- This skill is for partnership design, not signed-partner deal management — once
+  signed, per-deal commercial review routes to `deal-desk`.
+- Kill criteria are mandatory. A partnership without a written unwind trigger compounds
+  the bad-partner problem over years.
+
+## Anti-patterns
+
+- **"Partner = anyone who asked."** A partner with no independent demand is a discount hunter.
+  Run the tier classifier — REFERRAL tier exists precisely to absorb these without giving
+  away reseller margin.
+- **Granting OEM / white-label terms without margin sufficient to fund support.** OEM means
+  you support a customer you don't own. If the revshare doesn't fund Tier-2 support cost,
+  the OEM deal is a losing trade.
+- **Paying sourced-tier revshare on influenced-only deals.** Influenced ≠ sourced. The deal
+  was going to close anyway. Pay the influenced rate.
+- **No kill criteria for under-performing partner.** "Strategic alliances" without sunset
+  clauses become permanent obligations after the executive sponsor leaves.
+- **Channel conflict ignored until reps quit.** When your direct rep and your partner both
+  show up at the same account, you lose either the rep or the partner. Decide the rules of
+  engagement before, not after.
+- **Exclusive territory granted to a weak partner.** This locks out the strong partner who
+  would have actually sourced the deals.
+- **MDF without ROI accountability.** Market Development Funds without named pipeline,
+  reported ROI, and a quarterly true-up are subsidy, not investment.
+- **No offboarding plan when partnership ends.** Customer continuity, data hand-back, IP
+  cleanup, and brand take-down must be pre-negotiated. They're impossible to negotiate after
+  the relationship has soured.
+
+## Distinct from
+
+- **business-growth/sales-engineer** — technical sale: demos, POCs, integration scoping.
+  Operates after the partnership decision is made and a deal is in flight.
+- **channel-economics** (sibling) — cost-to-serve and ROI math on an existing channel.
+  Quantifies whether a signed partner is profitable. partnerships-architect decides
+  whether to sign in the first place and at what tier.
+- **c-level-advisor/cro-advisor** — strategic CRO judgment (when to hire a VP Channel,
+  whole-company revenue mix decisions). partnerships-architect is per-partnership.
+- **c-level-advisor/ma-playbook** — when the answer is "acquire them" not "partner with
+  them." Trigger: the partner has independent moat you cannot replicate, or the
+  partnership requires equity to align incentives. Re-route to ma-playbook.
+- **deal-desk** — per-deal discount approval on signed partner contracts.
+
+## Forcing-question library (Matt Pocock grill discipline)
+
+Walked one at a time by `/cs:grill-commercial` or the orchestrator. Recommended answer +
+canon citation per question. Never bundled. Lock 1-3 before opening 4-6.
+
+1. **"Name 5 end customers this partner has already sold to in the last 12 months — at companies you would target yourself."**
+   Recommended: if they cannot, they have no independent demand. Sign at REFERRAL tier only,
+   if at all. Reseller/OEM/Strategic floors require demonstrated end-customer relationships.
+   Canon: Joe Hessling — partner-program failure analyses identify "no independent demand"
+   as the #1 root cause of dead partner tiers.
+
+2. **"Is this partner asking for preferential commercial terms, or asking how to bring you customers?"**
+   Recommended: discount hunters lead with terms; real partners lead with accounts. Listen
+   to the first 30 minutes of the first meeting.
+   Canon: Forrester channel research — 60%+ of "partner inquiries" at early-stage SaaS are
+   discount hunting, not channel investment.
+
+3. **"What's the joint value proposition in one sentence, and who is the named end-customer it serves?"**
+   Recommended: if there is no joint value prop distinct from either party's solo offering,
+   there is no partnership — there is co-marketing at best.
+   Canon: Geoffrey Moore (*Crossing the Chasm*) — whole-product partnerships exist when
+   neither party alone delivers the customer outcome.
+
+4. **"At what % discount / revshare does this partnership beat the direct-sale economics, and at what scale?"**
+   Recommended: model break-even pipeline volume. If partner-sourced deals must exceed
+   30% of channel volume to beat direct, and partner can plausibly deliver 5%, you have
+   built a losing program.
+   Canon: Pradeep Chintagunta (Chicago Booth) on channel economics — channel partnerships
+   without volume floor break even in theory and lose money in practice.
+
+5. **"What are the named kill criteria for unwinding this partnership, and are they in the contract?"**
+   Recommended: minimum pipeline floor by quarter, minimum certified resources, minimum
+   joint deals closed, 90-day cure period. Unwinding without pre-agreed criteria becomes
+   a 2-year legal battle.
+   Canon: IBM channel-conflict case studies (1990s post-divestiture) — undocumented kill
+   criteria converted bad partners into permanent obligations.
+
+6. **"If this partner sells to one of YOUR direct accounts, who wins — your rep or them?"**
+   Recommended: Rules of Engagement in writing, signed before kickoff. Territory by named
+   account, by segment, or by geo. Conflict resolution at named human, not committee.
+   Canon: Jay McBain (Canalys) — channel conflict is the #1 partner program killer; written
+   ROE published before partner signs prevents 80% of disputes.
+
+7. **"Is this a partnership, or should this be an acquisition?"**
+   Recommended: if the partner has independent moat you cannot replicate AND the
+   partnership requires multi-year exclusivity AND the partnership requires equity-like
+   alignment, you're describing an acquisition. Re-route to `ma-playbook`.
+   Canon: HP channel post-mortems (Indigo, EDS partial integrations) — partnerships
+   structured as acquisitions-without-equity destroy more value than either pure path.
+
+Walk depth-first. Lock 1-3 (is this a real partner?) before opening 4-7 (is the structure
+right?). After all 7 are answered, invoke `partner_tier_classifier.py` →
+`joint_gtm_planner.py` → `revshare_modeler.py` in sequence.

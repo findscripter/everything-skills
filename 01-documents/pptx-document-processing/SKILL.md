@@ -1,14 +1,14 @@
 ---
 name: pptx-document-processing
-title: PPTX 演示文稿处理
-description: 当需要创建、编辑或分析 .pptx 演示文稿（含正文/讲者备注/批注/版式/主题/媒体）时使用；做拆解 OOXML、抽取文本、按 HTML 或模板生成幻灯片并产出 .pptx；不适用于纯文本无版式需求、Word/Excel 文档或一句话答复；触发词：做PPT、生成幻灯片、改PPTX、套模板做演示、提取演示文稿文本
+title: PPTX Document Processing
+description: Create, edit, or analyze .pptx presentations (body text, speaker notes, comments, layouts, themes, media) by unpacking OOXML, extracting text, or generating slides from HTML or a template; use it for "make a deck", "generate slides", "edit a PPTX", "apply a company template", or 
 domain: 文书/office
-triggers: [帮我做一份PPT/演示文稿, 把内容生成幻灯片, 编辑/修改现有 PPTX 的某页, 按公司模板套做演示, 提取/总结 PPTX 里的文字、备注或批注]
-tags: [文书, pptx, 演示文稿, ooxml, html2pptx, 模板]
-level: 进阶
+triggers: [make me a PPT/presentation, turn this content into slides, edit/change a specific slide in an existing PPTX, build a deck following a company template, extract/summarize the text, notes, or comments in a PPTX]
+tags: [documents, pptx, presentation, ooxml, html2pptx, template]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, markitdown, pptxgenjs, playwright, sharp, libreoffice, poppler]
+tools: []
 requires: []
 related: [python-pptx-deck-generator, markdown-to-docx, theme-factory]
 combines_with: [python-pptx-deck-generator, board-deck-builder]
@@ -16,129 +16,163 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当用户要**创建、编辑或分析 `.pptx` 演示文稿**时使用。`.pptx` 本质是一个 ZIP 包，内含 XML 与媒体资源，可读可改。按四类任务分流：
+Use this when a user asks you to **create, edit, or analyze a `.pptx` presentation**. A `.pptx` file is essentially a ZIP archive containing XML files and other resources you can read or edit. Different tasks have different tools and workflows:
 
-- **读/分析内容**：抽取正文、讲者备注、批注、版式、动画、设计配色字体。
-- **从零创建（无模板）**：走 html2pptx 工作流，把 HTML 幻灯片转成定位精确的 PPTX。
-- **编辑现有文稿**：直接改 OOXML（拆包→改 XML→校验→打包）。
-- **套模板创建**：复用现成模板的版式，复制重排幻灯片后替换占位文本。
+- **Read / analyze content**: extract body text, speaker notes, comments, layouts, animations, design colors and fonts.
+- **Create from scratch (no template)**: use the html2pptx workflow to convert HTML slides into a precisely positioned PPTX.
+- **Edit an existing deck**: work directly with the raw OOXML (unpack → edit XML → validate → repack).
+- **Create from a template**: reuse an existing template's layouts, duplicate/reorder slides, then replace placeholder text.
 
-不该用的边界：
+Out of scope:
 
-- 只需纯文本、无版式/视觉要求 → 直接写 Markdown 或正文，别做 PPTX。
-- 目标是 Word（`.docx`）或 Excel（`.xlsx`）→ 用对应文档技能，不用本技能。
-- 仅需把 PPTX 内容做问答/总结 → 用「读/分析」分支抽文本即可，不必生成新文件。
-- 一句话回复、随手笔记不构成演示场景。
+- Plain text with no layout/visual requirement → just write Markdown or prose; do not produce a PPTX.
+- The target is Word (`.docx`) or Excel (`.xlsx`) → use the corresponding document skill instead.
+- Only need Q&A or a summary of an existing PPTX → use the read/analyze branch to extract text; do not generate a new file.
+- One-line replies and quick notes are not presentations.
 
-## 步骤 / 指令
+## Steps
 
-### A. 读取与分析
+### A. Reading and analyzing content
 
-- 只读正文：转 Markdown
+- **Text extraction** — convert the document to markdown:
   ```bash
   python -m markitdown path-to-file.pptx
   ```
-- 需要备注/批注/版式/动画/复杂格式：必须拆包读原始 XML
+- **Raw XML access** — required for comments, speaker notes, slide layouts, animations, design elements, and complex formatting. Unpack the presentation and read its raw XML:
   ```bash
   python ooxml/scripts/unpack.py <office_file> <output_dir>
   ```
-  脚本若不在该路径，用 `find . -name "unpack.py"` 定位。关键结构：
-  - `ppt/presentation.xml` 主元数据与幻灯片引用
-  - `ppt/slides/slide{N}.xml` 单页内容
-  - `ppt/notesSlides/notesSlide{N}.xml` 讲者备注
-  - `ppt/comments/modernComment_*.xml` 批注
-  - `ppt/slideLayouts/`、`ppt/slideMasters/`、`ppt/theme/`、`ppt/media/`
-- **仿照示例设计时**先提取配色与字体：读 `ppt/theme/theme1.xml` 的 `<a:clrScheme>`/`<a:fontScheme>`；看 `slide1.xml` 实际 `<a:rPr>` 用法；用 grep 搜 `<a:solidFill>`、`<a:srgbClr>` 跨文件找配色字体。
+  The unpack script lives at `skills/pptx/ooxml/scripts/unpack.py` relative to the project root. If it isn't there, locate it with `find . -name "unpack.py"`. Key file structures:
+  - `ppt/presentation.xml` — main metadata and slide references
+  - `ppt/slides/slide{N}.xml` — individual slide contents
+  - `ppt/notesSlides/notesSlide{N}.xml` — speaker notes per slide
+  - `ppt/comments/modernComment_*.xml` — comments for specific slides
+  - `ppt/slideLayouts/`, `ppt/slideMasters/`, `ppt/theme/`, `ppt/media/`
+- **Typography and color extraction (when given an example design to emulate)**: (1) read `ppt/theme/theme1.xml` for colors (`<a:clrScheme>`) and fonts (`<a:fontScheme>`); (2) sample `ppt/slides/slide1.xml` for actual font usage (`<a:rPr>`) and colors; (3) grep across all XML files for color (`<a:solidFill>`, `<a:srgbClr>`) and font references.
 
-### B. 从零创建（html2pptx）
+### B. Creating from scratch (html2pptx)
 
-1. **强制先读整份** `html2pptx.md`（不要设行数范围），掌握语法与硬规则再动手。
-2. 动手前**先声明设计取向**：分析主题/行业/受众，选 3–5 色调色板（主色+辅色+点缀，确保对比度），只用 web 安全字体（Arial、Helvetica、Times New Roman、Georgia、Courier New、Verdana、Tahoma、Trebuchet MS、Impact）。
-3. 每页一个 HTML，按 16:9 设 `720pt × 405pt`；文本用 `<p>/<h1>-<h6>/<ul>/<ol>`；图表/表格区用 `class="placeholder"`（灰底占位）。**渐变与图标先用 Sharp 栅格化为 PNG** 再引用。
-4. 含图表/表格的页用「整页布局」或「两栏布局（如 40%/60%）」，**严禁**文字上、图表下的纵向堆叠。
-5. 写并运行 JS，用 `scripts/html2pptx.js` 的 `html2pptx()` 处理每页，用 PptxGenJS API 往占位区加图表/表格，`pptx.writeFile()` 保存。
-6. **视觉校验**：生成缩略图网格 `python scripts/thumbnail.py output.pptx workspace/thumbnails --cols 4`，逐页查文字截断/重叠/贴边/对比度不足，有问题改 HTML 再重生成，直至无误。
+1. **MANDATORY — read the entire file**: read `html2pptx.md` completely, start to finish, with **no range limits**, to learn the syntax, critical formatting rules, and best practices before proceeding.
+2. **State your design approach BEFORE writing code**: consider subject matter, tone, industry, and any brand colors. Pick a 3–5 color palette (dominant + supporting + accent) with strong contrast. Use **web-safe fonts only**: Arial, Helvetica, Times New Roman, Georgia, Courier New, Verdana, Tahoma, Trebuchet MS, Impact. Build a clear visual hierarchy through size, weight, and color, and keep patterns consistent across slides.
+3. Create one HTML file per slide with proper dimensions (e.g. `720pt × 405pt` for 16:9). Use `<p>`, `<h1>`–`<h6>`, `<ul>`, `<ol>` for all text. Use `class="placeholder"` (rendered with a gray background) for areas where charts/tables will go. **Rasterize gradients and icons to PNG first using Sharp**, then reference them in the HTML.
+4. For slides with charts/tables/images, use a **full-slide layout** or a **two-column layout** (header spanning full width, then e.g. a 40%/60% flex split — text/bullets in one column, featured content in the other). **NEVER vertically stack** text above a chart/table in a single column.
+5. Create and run a JavaScript file using the `scripts/html2pptx.js` library: call `html2pptx()` to process each HTML file, add charts/tables to placeholder areas via the PptxGenJS API, and save with `pptx.writeFile()`.
+6. **Visual validation**: generate a thumbnail grid and inspect it:
+   ```bash
+   python scripts/thumbnail.py output.pptx workspace/thumbnails --cols 4
+   ```
+   Examine each slide for text cutoff, text/shape overlap, content too close to edges, and insufficient contrast. If issues are found, adjust HTML margins/spacing/colors and regenerate. Repeat until all slides are visually correct.
 
-### C. 编辑现有文稿
+### C. Editing an existing presentation
 
-1. **强制先读整份** `ooxml.md`（约 500 行，不要设范围）。
-2. 拆包 `python ooxml/scripts/unpack.py <office_file> <output_dir>`。
-3. 改 XML（主要是 `ppt/slides/slide{N}.xml`）。
-4. **每改一处立即校验并修错**：`python ooxml/scripts/validate.py <dir> --original <file>`。
-5. 打包 `python ooxml/scripts/pack.py <input_directory> <office_file>`。
+1. **MANDATORY — read the entire file**: read `ooxml.md` (~500 lines) completely, start to finish, with **no range limits**.
+2. Unpack: `python ooxml/scripts/unpack.py <office_file> <output_dir>`
+3. Edit the XML (primarily `ppt/slides/slide{N}.xml` and related files).
+4. **CRITICAL — validate immediately after each edit and fix all errors before proceeding**:
+   ```bash
+   python ooxml/scripts/validate.py <dir> --original <file>
+   ```
+5. Pack the final presentation: `python ooxml/scripts/pack.py <input_directory> <office_file>`
 
-### D. 套模板创建
+### D. Creating from a template
 
-1. 抽文本 + 生成缩略图：`python -m markitdown template.pptx > template-content.md`；`python scripts/thumbnail.py template.pptx`，整读 `template-content.md`。
-2. 写 `template-inventory.md` 盘点每页（**0 起索引**：首页=0，末页=count-1），逐页记版式与用途。
-3. 据盘点写 `outline.md` 与模板映射：**版式必须匹配真实内容数量**（两栏只用于恰好 2 项，三栏只用于恰好 3 项，引用版式只用于真实带署名的引语，占位多于内容则不选）。先数内容块再选版式。
-4. 复制/重排/删页：`python scripts/rearrange.py template.pptx working.pptx 0,34,34,50,52`（索引可重复以复制该页）。
-5. 抽全量文本清单：`python scripts/inventory.py working.pptx text-inventory.json`，整读该 JSON（slide-N / shape-N，按视觉位置排序，含 placeholder_type 与段落属性）。
-6. 生成替换文本存 `replacement-text.json`：只引用清单中**确实存在**的 shape；给需要内容的 shape 加 `paragraphs`（**不是** replacement_paragraphs）；**未给 paragraphs 的 shape 会被自动清空**；标题/段头 `"bold": true`，列表项 `"bullet": true, "level": 0`（bullet 为真时 level 必填且别再设 alignment、别在文本里写 •/-/* 符号）；保留原始对齐/字体/颜色（`"color":"FF0000"` 或 `"theme_color":"DARK_1"`）。
-7. 应用：`python scripts/replace.py working.pptx replacement-text.json output.pptx`（脚本会先校验 shape 存在、清空全部清单内 shape、再按 JSON 写回并保留格式；越界 shape/slide 会一次性报全部错误）。
+1. **Extract text and create a thumbnail grid**:
+   ```bash
+   python -m markitdown template.pptx > template-content.md
+   python scripts/thumbnail.py template.pptx
+   ```
+   Read the entire `template-content.md` (no range limits).
+2. **Analyze and save an inventory** to `template-inventory.md`. Slides are **0-indexed** (first slide = 0, last = count-1). List **every** slide individually with its index, layout code (if any), and purpose.
+3. **Build an outline with template mapping** in `outline.md`. **Match layout structure to actual content**: two-column layouts ONLY for exactly 2 items, three-column ONLY for exactly 3, image+text ONLY when you have real images, quote layouts ONLY for real attributed quotes. Never pick a layout with more placeholders than you have content. **Count your content pieces BEFORE selecting a layout.** Example mapping (0-based; a 73-slide template has indices 0–72):
+   ```python
+   template_mapping = [
+       0,   # Title/Cover
+       34,  # B1: Title and body
+       34,  # B1 again (duplicate)
+       50,  # E1: Quote
+       54,  # F2: Closing + Text
+   ]
+   ```
+4. **Duplicate, reorder, and delete slides** with `rearrange.py` (0-based indices; repeat an index to duplicate that slide):
+   ```bash
+   python scripts/rearrange.py template.pptx working.pptx 0,34,34,50,52
+   ```
+5. **Extract ALL text** with `inventory.py`, then read the entire output JSON (no range limits):
+   ```bash
+   python scripts/inventory.py working.pptx text-inventory.json
+   ```
+   Shapes are named `shape-0`, `shape-1`, … ordered by visual position (top-to-bottom, left-to-right); slides are `slide-0`, `slide-1`, …. Only non-default properties are included; `placeholder_type` may be TITLE, CENTER_TITLE, SUBTITLE, BODY, OBJECT, or null. SLIDE_NUMBER placeholders are filtered out.
+6. **Generate replacement text** and save to `replacement-text.json`:
+   - Only reference shapes that **actually exist** in the inventory (`replace.py` validates this).
+   - **AUTOMATIC CLEARING**: every text shape in the inventory is cleared unless you provide a `paragraphs` field for it (the field is `paragraphs`, **not** `replacement_paragraphs`).
+   - Headers/titles typically get `"bold": true`; list items get `"bullet": true, "level": 0` (`level` is required when `bullet` is true).
+   - When `bullet: true`, do **NOT** include bullet symbols (•, -, *) in text and do **NOT** set `alignment` — both are handled automatically.
+   - Preserve original alignment, font, and color: `"color": "FF0000"` (RGB) or `"theme_color": "DARK_1"` (theme).
+7. **Apply replacements**:
+   ```bash
+   python scripts/replace.py working.pptx replacement-text.json output.pptx
+   ```
+   The script extracts the inventory, validates all referenced shapes exist, clears every inventory shape, then writes new text only to shapes with `paragraphs`, preserving formatting. Out-of-range shape/slide references are reported all at once.
 
-### 辅助：转图做视觉分析
+### Helper: convert to images for visual analysis
 
 ```bash
 soffice --headless --convert-to pdf template.pptx
-pdftoppm -jpeg -r 150 template.pdf slide   # 生成 slide-1.jpg...，-f/-l 限定页范围
+pdftoppm -jpeg -r 150 template.pdf slide   # produces slide-1.jpg, slide-2.jpg, ...; use -f/-l to limit pages
 ```
 
-## 示例
+## Example
 
-最小可用——抽取演示文稿正文：
+Minimal — extract presentation body text:
 
 ```bash
 python -m markitdown deck.pptx
 ```
 
-改某页文字（编辑分支）：
+Edit one slide (editing branch):
 
 ```bash
 python ooxml/scripts/unpack.py deck.pptx ./unpacked
-# 编辑 ./unpacked/ppt/slides/slide3.xml
+# edit ./unpacked/ppt/slides/slide3.xml
 python ooxml/scripts/validate.py ./unpacked --original deck.pptx
 python ooxml/scripts/pack.py ./unpacked deck-edited.pptx
 ```
 
-`replacement-text.json` 片段（套模板分支）：
+`replacement-text.json` fragment (template branch):
 
 ```json
 {
   "slide-0": {
     "shape-0": {
       "paragraphs": [
-        { "text": "新标题", "alignment": "CENTER", "bold": true },
-        { "text": "首条要点（无需符号）", "bullet": true, "level": 0 }
+        { "text": "New Title", "alignment": "CENTER", "bold": true },
+        { "text": "First bullet point (no symbol)", "bullet": true, "level": 0 }
       ]
     }
   }
 }
 ```
 
-给 Agent 的提示词模板：
+Agent prompt template:
 
-> 用 `template.pptx` 做一份 5 页演示：先盘点模板每页版式（0 起索引），按内容块数量选匹配版式，rearrange 出 working.pptx，inventory 抽文本，生成 replacement-text.json 后 replace 出 output.pptx，最后用 thumbnail 逐页核对无截断/重叠再交付。
+> Build a 5-slide deck from `template.pptx`: first inventory every template slide's layout (0-indexed), pick layouts matching the number of content pieces, `rearrange` into working.pptx, `inventory` the text, produce `replacement-text.json`, then `replace` into output.pptx, and finally verify each slide with `thumbnail` for no cutoff/overlap before delivering.
 
-## 注意事项
+## Notes
 
-- 一律用**绝对路径**；脚本默认在 `skills/pptx/ooxml/scripts/` 下，路径不符先 `find` 定位。
-- 编辑分支**每改一处立即 validate**，校验失败先修再继续，别累积错误到打包阶段才发现。
-- 套模板分支索引**0 起**；rearrange 前核对索引在范围内（73 页模板索引为 0–72），越界会报错。
-- replace 的「自动清空」是默认行为：凡清单里有、JSON 里没给 `paragraphs` 的 shape 都会被清空，别遗漏需保留的页。
-- bullet 为真时**别写项目符号字符、别设 alignment**，符号与左对齐由脚本自动处理。
-- html2pptx 里**渐变/图标必须先栅格化为 PNG** 再引用，否则定位与渲染会出错；只用 web 安全字体。
-- 缩略图视觉校验是必经环节，命令静默成功不代表版面正确，务必读图核对。
-- 依赖须就位：`markitdown[pptx]`、`pptxgenjs`、`playwright`、`react-icons`、`sharp`、LibreOffice、poppler-utils、`defusedxml`（安全 XML 解析）。
-- 代码风格：简洁、避免冗长变量名与多余 print。处理外部来源文件前确认无加密/权限限制。
+- Always use **absolute paths**; scripts default to `skills/pptx/ooxml/scripts/` — if a path doesn't match, `find` the script first.
+- In the editing branch, **validate immediately after each edit** and fix failures before continuing; don't let errors pile up until packing.
+- Template indices are **0-based**; confirm indices are in range before `rearrange` (a 73-slide template is 0–72) — out-of-range values error out.
+- `replace.py` **automatic clearing** is the default: any inventory shape without `paragraphs` in the JSON is cleared, so don't omit content you want to keep.
+- When `bullet` is true, **do not write bullet characters and do not set alignment** — symbols and left alignment are applied automatically.
+- In html2pptx, **gradients/icons must be rasterized to PNG first**, then referenced; use web-safe fonts only.
+- The thumbnail visual check is mandatory — a silent command success does not mean the layout is correct, so read the image and verify.
+- Required dependencies (should already be installed): `markitdown[pptx]`, `pptxgenjs`, `playwright`, `react-icons`, `sharp`, LibreOffice, poppler-utils, `defusedxml` (secure XML parsing).
+- Code style: write concise code; avoid verbose variable names, redundant operations, and unnecessary print statements. Confirm source files aren't encrypted or permission-restricted before processing.
 
-## 互见
+## See also
 
-- requires：无。
-- related：`markdown-to-docx`（目标是 Word 而非演示时改用）、`doc-coauthoring`（先共创文档大纲，再据此做 PPT）。
-- combines_with：`pdf-form-filler`（演示导出 PDF 后若需在表单字段上填写时搭配）。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+- requires: none.
+- related: `markdown-to-docx` (use when the target is Word, not a presentation); `python-pptx-deck-generator`; `theme-factory`.
+- combines_with: `python-pptx-deck-generator`, `board-deck-builder`.

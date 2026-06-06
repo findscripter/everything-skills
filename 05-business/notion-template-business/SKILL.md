@@ -1,14 +1,14 @@
 ---
 name: notion-template-business
-title: Notion 模板生意运营
-description: 当要把 Notion 模板做成可持续的数字产品生意（设计、定价、上架销售、获客、规模化到真实营收）时使用；做出模板分层定价、Gumroad/Lemon Squeezy/Notion Marketplace 上架方案、发布与获客打法、防盗版与客服减负、版本更新与发售前自检清单等可执行产物；不适用于在 Notion 里搭建/配置具体业务系统本身、纯通用 SaaS 定价或落地页文案撰写。触发词：notion 模板、notion template、卖模板、sell templates、数字产品、digital product、gumroad、lemon squeezy、模板生意、template business、模板定价、模板发售
+title: Notion Template Business
+description: Expert in building and selling Notion templates as a business - not
 domain: 商业/growth
-triggers: [notion 模板, notion template, 卖模板, sell templates, 数字产品, digital product, gumroad, lemon squeezy, 模板生意, template business, 模板定价, 模板发售, notion marketplace]
+triggers: [notion template, sell templates, digital product, gumroad, lemon squeezy, template business, notion marketplace]
 tags: [notion, digital-product, template-business, gumroad, lemon-squeezy, growth, monetization, creator-economy]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Notion, Gumroad, Lemon Squeezy, Stripe, Notion Marketplace]
+tools: []
 requires: []
 related: [digital-product-monetization, micro-saas-launcher, free-tool-marketing-strategy, pricing-strategy]
 combines_with: [product-launch-strategy, obsidian-bases-builder]
@@ -16,58 +16,66 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# Notion 模板生意运营
+# Notion Template Business
 
-把 Notion 模板当成「数字产品生意」来做，而不是单纯做个模板。核心认知：用户买的不是模板本身，而是它解决的具体问题。围绕设计、定价、上架、获客、规模化，建一套能产出真实营收的系统。
+Expert in building and selling Notion templates as a business - not just making
+templates, but building a sustainable digital product business. Covers template
+design, pricing, marketplaces, marketing, and scaling to real revenue.
 
-## 何时使用
+**Role**: Template Business Architect
 
-当用户想「靠卖 Notion 模板赚钱」或要把已有模板做成可持续生意时使用，典型场景：
+You know templates are real businesses that can generate serious income.
+You've seen creators make six figures selling Notion templates. You
+understand it's not about the template - it's about the problem it solves.
+You build systems that turn templates into scalable digital products.
 
-- 设计一个「卖得动」的模板包（含文档、示例数据、bonus）
-- 制定模板定价与套餐分层、bundle 组合
-- 选择并配置销售渠道（Gumroad / Lemon Squeezy / Notion Marketplace / 自有站）
-- 规划发售与获客（邮件列表、社媒、SEO、Product Hunt）
-- 应对盗版、客服爆量、渠道单一、模板过时四类增长阻力
-- 发售前过一遍质量自检清单
+### Expertise
 
-不该用的边界：
+- Template design
+- Digital product strategy
+- Gumroad/Lemon Squeezy
+- Template marketing
+- Notion features
+- Support systems
 
-- 只是要在 Notion 里搭一个 CRM/任务系统等「业务系统」本身 —— 那是 Notion 使用技巧，不是把它做成生意
-- 纯通用 SaaS/订阅定价方法论 —— 见 `pricing-strategy`
-- 落地页/销售页文案撰写 —— 见 `landing-page-copywriting`、`conversion-copywriter`
+## Capabilities
 
-## 步骤
+- Notion template design
+- Template pricing strategies
+- Gumroad/Lemon Squeezy setup
+- Template marketing
+- Notion marketplace strategy
+- Template support systems
+- Template documentation
+- Bundle strategies
 
-1. 选品类：从「卖得动的品类」里锁定一个能解决具体问题的方向（生产力/商业/个人/教育/创意）。
-2. 设计模板包：按「主模板 + 文档 + bonus」三层结构搭建，配示例数据与空状态引导。
-3. 定价分层：用价值锚定法定 Basic/Pro/Ultimate 三档，并规划 bundle 与免费引流款。
-4. 选渠道：按费率/受众/控制力权衡平台，理想是多渠道而非押注单一平台。
-5. 准备发售：发售前 2 周用免费模板建邮件列表、做 demo 视频、社媒预热。
-6. 发售与长尾：发售日打邮件列表为主，之后用 SEO/YouTube/目录沉淀长尾流量。
-7. 交付前过「发售前自检清单」（见注意事项）。
+## Patterns
 
-## 指令
+### Template Design
 
-### 什么样的模板卖得动
+Creating templates people pay for
 
-| 因素 | 为何重要 |
-|------|----------|
-| 解决具体问题 | 价值主张清晰 |
-| 设计精美 | 第一印象 + 可分享性 |
-| 易于自定义 | 用户能据为己用 |
-| 文档完善 | 减少客服、提升满意度 |
-| 内容充实 | 让人觉得物有所值 |
+**When to use**: When designing a Notion template
 
-### 模板包结构
+## Template Design
 
+### What Makes Templates Sell
+| Factor | Why It Matters |
+|--------|----------------|
+| Solves specific problem | Clear value proposition |
+| Beautiful design | First impression, shareability |
+| Easy to customize | Users make it their own |
+| Good documentation | Reduces support, increases satisfaction |
+| Comprehensive | Feels worth the price |
+
+### Template Structure
 ```
 Template Package:
 ├── Main Template
-│   ├── Dashboard（第一印象）
-│   ├── Core Pages（核心功能）
-│   ├── Supporting Pages（附加页）
-│   └── Examples/Sample Data（示例数据）
+│   ├── Dashboard (first impression)
+│   ├── Core Pages (main functionality)
+│   ├── Supporting Pages (extras)
+│   └── Examples/Sample Data
 ├── Documentation
 │   ├── Getting Started Guide
 │   ├── Feature Walkthrough
@@ -77,71 +85,475 @@ Template Package:
     └── Color Themes
 ```
 
-设计原则：风格统一、层级与导航清晰、空状态有引导、用示例数据展示可能性、视图对移动端友好。
+### Design Principles
+- Clean, consistent styling
+- Clear hierarchy and navigation
+- Helpful empty states
+- Example data to show possibilities
+- Mobile-friendly views
 
-### 定价：价值锚定 + 分层
+### Template Categories That Sell
+| Category | Examples |
+|----------|----------|
+| Productivity | Second brain, task management |
+| Business | CRM, project management |
+| Personal | Finance tracker, habit tracker |
+| Education | Study system, course notes |
+| Creative | Content calendar, portfolio |
 
-| 档位 | 价格区间 | 含什么 |
-|------|----------|--------|
-| Basic | $15-29 | 仅核心模板 |
-| Pro | $39-79 | 模板 + 附加内容 |
-| Ultimate | $99-199 | 全部 + 更新 |
+### Pricing Strategy
 
-定价按价值而非成本：`每月省时 × 小时单价 × 12 = 年价值`，定价取价值的 1-3%。示例：每月省 5h × $50 × 12 = $3000 价值 → 定 $49-99。
+Pricing Notion templates for profit
 
-Bundle：单品 $29-49；3-5 个打包 $79-129（约 7 折）；全家桶 $149-299（最划算）。免费款用作引流磁铁（涨邮件列表 / 升级钩子 / 社会证明 / SEO 引流）。
+**When to use**: When setting template prices
 
-### 销售渠道对比
+## Template Pricing
 
-| 平台 | 费率 | 优势 | 劣势 |
-|------|------|------|------|
-| Gumroad | 10% | 简单、信任度高 | 费率偏高 |
-| Lemon Squeezy | 5-8% | 现代、费率低 | 较新 |
-| Notion Marketplace | 0% | 自带流量 | 需审核 |
-| 自有站 | 3%（Stripe） | 完全掌控 | 需自建受众 |
+### Price Anchoring
+| Tier | Price Range | What to Include |
+|------|-------------|-----------------|
+| Basic | $15-29 | Core template only |
+| Pro | $39-79 | Template + extras |
+| Ultimate | $99-199 | Everything + updates |
 
-Gumroad 上架流程：① 注册 → ② 新建产品 → ③ 上传模板（duplicate 复制链接）→ ④ 写有说服力的描述 → ⑤ 加预览图/视频 → ⑥ 定价 → ⑦ 开折扣 → ⑧ 发布。
+### Pricing Factors
+```
+Value created:
+- Time saved per month × 12 months
+- Problems solved
+- Comparable products cost
 
-### 发售与获客
+Example:
+- Saves 5 hours/month
+- 5 hours × $50/hour × 12 = $3000 value
+- Price at $49-99 (1-3% of value)
+```
+
+### Bundle Strategy
+- Individual templates: $29-49
+- Bundle of 3-5: $79-129 (30% off)
+- All-access: $149-299 (best value)
+
+### Free vs Paid
+| Free Template | Purpose |
+|---------------|---------|
+| Lead magnet | Email list growth |
+| Upsell vehicle | "Get the full version" |
+| Social proof | Reviews, shares |
+| SEO | Traffic to paid |
+
+### Sales Channels
+
+Where to sell templates
+
+**When to use**: When setting up sales
+
+## Sales Channels
+
+### Platform Comparison
+| Platform | Fee | Pros | Cons |
+|----------|-----|------|------|
+| Gumroad | 10% | Simple, trusted | Higher fees |
+| Lemon Squeezy | 5-8% | Modern, lower fees | Newer |
+| Notion Marketplace | 0% | Built-in audience | Approval needed |
+| Your site | 3% (Stripe) | Full control | Build audience |
+
+### Gumroad Setup
+```
+1. Create account
+2. Add product
+3. Upload template (duplicate link)
+4. Write compelling description
+5. Add preview images/video
+6. Set price
+7. Enable discounts
+8. Publish
+```
+
+### Notion Marketplace
+- Apply as creator
+- Higher quality bar
+- Built-in discovery
+- Lower individual prices
+- Good for volume
+
+### Your Own Site
+- Use Lemon Squeezy embed
+- Custom landing pages
+- Build email list
+- Full brand control
+
+### Template Marketing
+
+Getting template sales
+
+**When to use**: When launching and promoting templates
+
+## Template Marketing
+
+### Launch Strategy
+```
+Pre-launch (2 weeks):
+- Build email list with free template
+- Share work-in-progress on Twitter
+- Create demo video
+
+Launch day:
+- Email list (biggest sales)
+- Twitter thread with demo
+- Product Hunt (optional)
+- Reddit (if appropriate)
+- Discord communities
+
+Post-launch:
+- SEO content (how-to articles)
+- YouTube tutorials
+- Template directories
+- Affiliate partnerships
+```
+
+### Twitter Marketing
+```
+Tweet types that work:
+- Template reveals (before/after)
+- Problem → Solution threads
+- Behind the scenes
+- User testimonials
+- Free template giveaways
+```
+
+### SEO Play
+| Content | Example |
+|---------|---------|
+| Tutorial | "How to build a CRM in Notion" |
+| Comparison | "Notion vs Airtable for X" |
+| Template | "Free Notion budget template" |
+| Listicle | "10 Notion templates for students" |
+
+### Email Marketing
+- Free template → email signup
+- Welcome sequence with value
+- Launch emails for new templates
+- Bundle deals for list
+
+## Sharp Edges
+
+### Templates getting shared/pirated
+
+Severity: MEDIUM
+
+Situation: Free copies of your paid template circulating
+
+Symptoms:
+- Templates appearing on pirate sites
+- Fewer sales despite visibility
+- Users asking about "free version"
+- Duplicate templates on marketplace
+
+Why this breaks:
+Digital products are easily copied.
+Notion doesn't have DRM.
+Cheap customers share.
+Can't fully prevent.
+
+Recommended fix:
+
+## Handling Template Piracy
+
+### Accept Reality
+- Some piracy is inevitable
+- Pirates often weren't buyers anyway
+- Focus on paying customers
+- Don't obsess over it
+
+### Mitigation Strategies
+| Strategy | Implementation |
+|----------|----------------|
+| Watermarking | Your brand in template |
+| Unique IDs | Per-purchase tracking |
+| Updates | Pirates get old versions |
+| Community | Buyers get Discord/support |
+| Bonuses | Extra files, not in Notion |
+
+### Value-Add Approach
+```
+Template alone: $29
+Template + Video course: $49
+Template + Course + Support: $99
+
+Pirates get the template
+Buyers get the full experience
+```
+
+### When to Act
+- Mass distribution (DMCA takedown)
+- Reselling your work (legal action)
+- On major platforms (report)
+- Small sharing: Usually not worth effort
+
+### Drowning in customer support requests
+
+Severity: MEDIUM
+
+Situation: Too many questions eating all your time
+
+Symptoms:
+- Inbox full of support emails
+- Same questions over and over
+- No time to create new templates
+- Resentment toward customers
+
+Why this breaks:
+Template not intuitive.
+Poor documentation.
+Unclear instructions.
+Supporting too many products.
+
+Recommended fix:
+
+## Scaling Template Support
+
+### Reduce Support Needs
+```
+1. Better onboarding in template
+   - Welcome page with instructions
+   - Tooltips on complex features
+   - Example data showing usage
+
+2. Comprehensive docs
+   - Getting started guide
+   - Feature-by-feature walkthrough
+   - Video tutorials
+   - FAQ from real questions
+
+3. Self-serve resources
+   - Searchable knowledge base
+   - Video library
+   - Community forum
+```
+
+### Support Tiers
+| Tier | Support Level |
+|------|---------------|
+| Basic ($19) | Docs only |
+| Pro ($49) | Email support |
+| Premium ($99) | Video calls |
+
+### Automate What You Can
+- Auto-reply with docs links
+- Template FAQ responses
+- Canned responses for common issues
+- Community helps each other
+
+### When Overwhelmed
+- Raise prices (fewer, better customers)
+- Reduce product line
+- Hire VA for support
+- Create course instead of 1:1
+
+### All sales from one marketplace
+
+Severity: MEDIUM
+
+Situation: 100% of revenue from Notion/Gumroad
+
+Symptoms:
+- 100% sales from one platform
+- No email list
+- Panic when platform changes
+- No direct customer contact
+
+Why this breaks:
+Platform can change rules.
+Fees can increase.
+Algorithm changes.
+No direct customer relationship.
+
+Recommended fix:
+
+## Diversifying Sales Channels
+
+### Channel Mix Goal
+```
+Ideal distribution:
+- 40% Your website (direct)
+- 30% Gumroad/Lemon Squeezy
+- 20% Notion Marketplace
+- 10% Other (affiliates, etc.)
+```
+
+### Building Direct Channel
+1. Create your own site
+2. Use Lemon Squeezy/Stripe
+3. Build email list
+4. Drive traffic via content
+
+### Email List Priority
+```
+Email list value:
+- Direct communication
+- No algorithm
+- Launch to engaged audience
+- Repeat buyers
+
+Growth tactics:
+- Free template lead magnet
+- Newsletter with Notion tips
+- Early access offers
+```
+
+### Reducing Risk
+| Action | Why |
+|--------|-----|
+| Own your audience | Email list, social |
+| Multiple platforms | Not dependent on one |
+| Direct sales | Best margins, full control |
+| Diversify products | Not just Notion |
+
+### Old templates becoming outdated
+
+Severity: LOW
+
+Situation: Templates breaking with Notion updates
+
+Symptoms:
+- Is this still maintained?
+- Templates missing new features
+- Competitors look more modern
+- Support for old versions
+
+Why this breaks:
+Notion adds new features.
+Old templates look dated.
+Competitors have newer features.
+Buyers expect updates.
+
+Recommended fix:
+
+## Template Update Strategy
+
+### Update Types
+| Type | Frequency | What |
+|------|-----------|------|
+| Bug fixes | As needed | Fix broken things |
+| Feature adds | Quarterly | New Notion features |
+| Major refresh | Yearly | Full redesign |
+
+### Communication
+```
+- Changelog in template
+- Email to buyers
+- Social announcement
+- "Last updated" badge
+```
+
+### Pricing for Updates
+| Model | Pros | Cons |
+|-------|------|------|
+| Free forever | Happy customers | Work for free |
+| 1 year free | Sets expectations | Admin overhead |
+| Major = paid | Revenue | Upset customers |
+
+### Sustainable Approach
+- Free bug fixes always
+- Free minor updates for 1 year
+- Major versions at discount for existing
+- Clear communication upfront
+
+## Validation Checks
+
+### Template Without Documentation
+
+Severity: HIGH
+
+Message: No documentation - will create support burden.
+
+Fix action: Create getting started guide, FAQ, and video walkthrough
+
+### No Template Preview Images
+
+Severity: HIGH
+
+Message: No preview images - buyers can't see what they're getting.
+
+Fix action: Add high-quality screenshots and demo video
+
+### No Clear Pricing Strategy
+
+Severity: MEDIUM
+
+Message: No pricing strategy - may be leaving money on table.
+
+Fix action: Research competitors, create tiers, use price anchoring
+
+### No Email List Building
+
+Severity: MEDIUM
+
+Message: Not building email list - missing owned audience.
+
+Fix action: Create free template lead magnet and email capture
+
+### No Refund Policy Stated
+
+Severity: MEDIUM
+
+Message: No clear refund policy.
+
+Fix action: Add clear refund policy to product page
+
+## Collaboration
+
+### Delegation Triggers
+
+- landing page|sales page -> landing-page-design (Template sales page)
+- copywriting|description|headline -> copywriting (Template sales copy)
+- SEO|content|blog|traffic -> seo (Template content marketing)
+- email|newsletter|list -> email (Email marketing for templates)
+- SaaS|subscription|app -> micro-saas-launcher (Graduating to SaaS)
+
+### Template Launch
+
+Skills: notion-template-business, landing-page-design, copywriting, email
+
+Workflow:
 
 ```
-发售前（2 周）：免费模板建邮件列表 / Twitter 晒进度 / 做 demo 视频
-发售日：邮件列表（销量主力）/ Twitter demo 长帖 / Product Hunt（可选）/ Reddit / Discord 社群
-发售后：SEO how-to 文章 / YouTube 教程 / 模板目录 / 联盟分销
+1. Design template with documentation
+2. Create sales page
+3. Write compelling copy
+4. Build email list with free template
+5. Launch to list
+6. Promote on social
 ```
 
-SEO 选题：教程（"How to build a CRM in Notion"）、对比（"Notion vs Airtable for X"）、免费模板词（"Free Notion budget template"）、清单（"10 Notion templates for students"）。
+### SEO-Driven Template Business
 
-### 四类增长阻力与对策
+Skills: notion-template-business, seo, content-strategy
 
-- 被盗版（中）：盗版无法根除，盗版者多本就不会付费。对策——水印/品牌烙印、按购买生成唯一 ID、买家才有更新与 Discord 支持、把核心价值放在「模板之外」（视频课/答疑）。仅在大规模分发（DMCA）、转售你的作品（法律手段）、上主流平台时才出手。
-- 客服爆量（中）：根因是模板不直观 / 文档差。对策——模板内置 onboarding（欢迎页+提示+示例数据）、做完善文档与视频、按档位分支持级别（文档 / 邮件 / 视频）、自动回复带文档链接、社群互助、必要时涨价或砍 SKU。
-- 渠道单一（中）：100% 营收来自一个平台 = 平台改规则就崩。目标分布 ≈ 自有站 40% / Gumroad·Lemon 30% / Notion Marketplace 20% / 其他 10%。优先建邮件列表（你拥有的受众，不受算法影响）。
-- 模板过时（低）：Notion 出新功能后旧模板显旧。更新节奏——Bug 修复随时、季度加新功能、年度大改版。承诺基线：Bug 修复永久免费、小更新 1 年内免费、大版本对老客户打折升级，且提前清晰沟通。
+Workflow:
 
-## 示例
+```
+1. Research template keywords
+2. Create free templates for traffic
+3. Write how-to content
+4. Funnel to paid templates
+5. Build organic traffic engine
+```
 
-某自助生产力模板：选「Second brain」品类（解决信息散乱问题）。三档定价 Basic $19（核心页）/ Pro $49 锚点（含 icon 包+视频教程，标为推荐）/ Ultimate $99（全部+1 年更新+Discord）。免费版做「极简版 second brain」当引流磁铁换邮箱。主渠道用 Gumroad（上传 duplicate 链接 + 5 张预览图 + 60s demo），同时申请上 Notion Marketplace 蹭自带流量。发售前 2 周靠免费版攒 500 邮箱，发售日邮件 + Twitter demo 帖打主力。客服侧在模板首页放 Getting Started + FAQ，把同质问题前置消化。
+## Related Skills
 
-## 注意事项
+Works well with: `micro-saas-launcher`, `copywriting`, `landing-page-design`, `seo`
 
-发售前自检清单（HIGH 项必过）：
+## When to Use
+- User mentions or implies: notion template
+- User mentions or implies: sell templates
+- User mentions or implies: digital product
+- User mentions or implies: notion business
+- User mentions or implies: gumroad
+- User mentions or implies: template business
 
-- [HIGH] 有完整文档（Getting Started + FAQ + 视频）—— 否则客服会被淹
-- [HIGH] 有高质量预览图/demo 视频 —— 否则买家看不到买的是什么
-- [MED] 有清晰的分层定价（做了竞品调研 + 价值锚定）—— 否则把钱留在桌上
-- [MED] 在建邮件列表（免费款 + 邮箱捕获）—— 否则没有自有受众
-- [MED] 产品页写明退款政策
-
-其他：Notion 无 DRM，别在防盗版上过度内耗，把精力放在付费用户的「模板之外的体验」上；切忌只押一个销售平台。
-
-## 互见
-
-- related：`pricing-strategy` —— 通用定价方法论（价值度量 / Van Westendorp）可深化模板分层
-- related：`free-tool-marketing-strategy` —— 免费模板当引流磁铁的系统打法
-- related：`micro-saas-launcher` —— 模板生意「毕业」升级为 SaaS 时切换
-- combines_with：`landing-page-copywriting` / `conversion-copywriter` —— 写模板销售页与转化文案
-- combines_with：`email-drip-sequence` —— 免费款换邮箱后的欢迎/发售邮件序列
-- combines_with：`seo-content-writer` —— how-to 内容沉淀长尾搜索流量
-
-本条采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

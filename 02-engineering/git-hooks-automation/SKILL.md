@@ -1,14 +1,14 @@
 ---
 name: git-hooks-automation
-title: Git Hooks 质量门禁
-description: 当需要在提交/推送前自动拦截代码质量问题（lint、格式化、类型检查、提交信息规范、密钥/大文件检测）时使用；用 Husky+lint-staged、pre-commit 框架或 core.hooksPath 搭建团队共享 Git 钩子并产出可执行配置；不适用于 CI 流水线编排或替代真实测试评审。触发词：git hooks、pre-commit、husky、lint-staged、commitlint、commit-msg、pre-push
+title: Git Hooks Automation
+description: Master Git hooks setup with Husky, lint-staged, pre-commit framework, and commitlint. Automate code quality gates, formatting, linting, and commit message enforcement before code reaches CI.
 domain: 研发/devops
-triggers: [设置 git hooks, 添加 pre-commit 钩子, husky, lint-staged, commitlint, commit-msg 校验, pre-push 钩子, 提交信息规范, Conventional Commits, core.hooksPath, Husky v4 升级 v9, 提交前自动 lint, core.hooksPath 共享钩子]
-tags: [git, git-hooks, husky, lint-staged, pre-commit, commitlint, 代码质量, ci, 研发, misc]
-level: 进阶
+triggers: [husky, lint-staged, commitlint, Conventional Commits, core.hooksPath]
+tags: [git, git-hooks, husky, lint-staged, pre-commit, commitlint, ci, misc]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, Edit, Write, Read]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,126 +16,416 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Git Hooks Automation
 
-在「问题进 CI 之前」于本地拦截：把 lint、格式化、类型检查、测试、提交信息校验、密钥/大文件扫描挂到 Git 生命周期，秒级反馈而非分钟级。
+Automate code quality enforcement at the Git level. Set up hooks that lint, format, test, and validate before commits and pushes ever reach your CI pipeline — catching issues in seconds instead of minutes.
 
-适用：
-- 要求"配置 git hooks / 加 pre-commit 钩子"。
-- 搭建 Husky、lint-staged、pre-commit 框架或 commitlint。
-- 强制 Conventional Commits 提交规范。
-- 提交前 lint/格式化/类型检查，推送前跑测试。
-- 从 Husky v4 迁移到 v9+，或从零引入钩子。
+## When to Use This Skill
 
-不该用（负边界）：
-- 设计/编排 CI 流水线本身（钩子只是第一道防线，CI 才是事实来源）——这属于 CI 模板范畴。
-- 把钩子当作替代真实测试、环境验证或人工评审的手段。
-- 所需输入（技术栈、目标钩子、规范约束）不明时，先澄清再动手。
+- User asks to "set up git hooks" or "add pre-commit hooks"
+- Configuring Husky, lint-staged, or the pre-commit framework
+- Enforcing commit message conventions (Conventional Commits, commitlint)
+- Automating linting, formatting, or type-checking before commits
+- Setting up pre-push hooks for test runners
+- Migrating from Husky v4 to v9+ or adopting hooks from scratch
+- User mentions "pre-commit", "commit-msg", "pre-push", "lint-staged", or "githooks"
 
-核心约束：`.git/hooks/` 是本地的、不随仓库共享，所以才需要 Husky 或 `core.hooksPath`。
+## Git Hooks Fundamentals
 
-## 步骤
+Git hooks are scripts that run automatically at specific points in the Git workflow. They live in `.git/hooks/` and are not version-controlled by default — which is why tools like Husky exist.
 
-1. 判断技术栈：Node/TS 选 Husky+lint-staged；Python/多语言选 pre-commit 框架；其他语言用 shell 脚本 + `core.hooksPath`。
-2. 安装并初始化钩子目录。
-3. 配置「仅对暂存文件」运行的命令（速度关键）。
-4. 按需加 commit-msg（提交信息规范）与 pre-push（测试）。
-5. 全量跑一次校验存量代码，再纳入团队共享（提交到仓库）。
-6. 在 CI 中复跑同一套校验，兜住被 `--no-verify` 绕过的提交。
+### Hook Types & When They Fire
 
-## 指令
+| Hook | Fires When | Common Use |
+|---|---|---|
+| `pre-commit` | Before commit is created | Lint, format, type-check staged files |
+| `prepare-commit-msg` | After default msg, before editor | Auto-populate commit templates |
+| `commit-msg` | After user writes commit message | Enforce commit message format |
+| `post-commit` | After commit is created | Notifications, logging |
+| `pre-push` | Before push to remote | Run tests, check branch policies |
+| `pre-rebase` | Before rebase starts | Prevent rebase on protected branches |
+| `post-merge` | After merge completes | Install deps, run migrations |
+| `post-checkout` | After checkout/switch | Install deps, rebuild assets |
 
-Husky v9+（Node/TS）：
+### Native Git Hooks (No Framework)
 
 ```bash
+# Create a pre-commit hook manually
+cat > .git/hooks/pre-commit << 'EOF'
+#!/bin/sh
+set -e
+
+# Run linter on staged files only
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(js|ts|jsx|tsx)$' || true)
+
+if [ -n "$STAGED_FILES" ]; then
+  echo "🔍 Linting staged files..."
+  echo "$STAGED_FILES" | xargs npx eslint --fix
+  echo "$STAGED_FILES" | xargs git add  # Re-stage after fixes
+fi
+EOF
+chmod +x .git/hooks/pre-commit
+```
+
+**Problem**: `.git/hooks/` is local-only and not shared with the team. Use a framework instead.
+
+## Husky + lint-staged (Node.js Projects)
+
+The modern standard for JavaScript/TypeScript projects. Husky manages Git hooks; lint-staged runs commands only on staged files for speed.
+
+### Quick Setup (Husky v9+)
+
+```bash
+# Install
 npm install --save-dev husky lint-staged
-npx husky init                       # 生成 .husky/ 目录与 pre-commit
+
+# Initialize Husky (creates .husky/ directory)
+npx husky init
+
+# The init command creates a pre-commit hook — edit it:
 echo "npx lint-staged" > .husky/pre-commit
 ```
 
-`package.json` 中配置 lint-staged（只跑暂存文件）：
+### Configure lint-staged in `package.json`
 
 ```json
 {
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["eslint --fix --max-warnings=0", "prettier --write"],
-    "*.{css,scss}": ["prettier --write", "stylelint --fix"],
-    "*.{json,md,yml,yaml}": ["prettier --write"]
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --max-warnings=0",
+      "prettier --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --write",
+      "stylelint --fix"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   }
 }
 ```
 
-提交信息校验（commitlint）：
+### Add Commit Message Linting
 
 ```bash
+# Install commitlint
 npm install --save-dev @commitlint/cli @commitlint/config-conventional
-# commitlint.config.js: extends ['@commitlint/config-conventional']，可加 subject-max-length=72 等规则
+
+# Create commitlint config
+cat > commitlint.config.js << 'EOF'
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'type-enum': [2, 'always', [
+      'feat', 'fix', 'docs', 'style', 'refactor',
+      'perf', 'test', 'build', 'ci', 'chore', 'revert'
+    ]],
+    'subject-max-length': [2, 'always', 72],
+    'body-max-line-length': [2, 'always', 100]
+  }
+};
+EOF
+
+# Add commit-msg hook
 echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
-echo "npm test" > .husky/pre-push   # 推送前跑测试
 ```
 
-pre-commit 框架（Python/多语言）—— `.pre-commit-config.yaml` 用 YAML 声明、隔离环境运行：
+### Add Pre-Push Hook
 
 ```bash
+# Run tests before pushing
+echo "npm test" > .husky/pre-push
+```
+
+### Complete Husky Directory Structure
+
+```
+project/
+├── .husky/
+│   ├── pre-commit        # npx lint-staged
+│   ├── commit-msg        # npx --no -- commitlint --edit $1
+│   └── pre-push          # npm test
+├── commitlint.config.js
+├── package.json          # lint-staged config here
+└── ...
+```
+
+## pre-commit Framework (Python / Polyglot)
+
+Language-agnostic framework that works with any project. Hooks are defined in YAML and run in isolated environments.
+
+### Setup
+
+```bash
+# Install (Python required)
 pip install pre-commit
-# 配置 repos：pre-commit-hooks(trailing-whitespace/check-yaml/check-added-large-files --maxkb=500/detect-private-key)、black、ruff(--fix)+ruff-format、shellcheck、conventional-pre-commit(stages:[commit-msg])
+
+# Create config
+cat > .pre-commit-config.yaml << 'EOF'
+repos:
+  # Built-in checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  # Python formatting
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black
+
+  # Python linting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: ['--fix']
+      - id: ruff-format
+
+  # Shell script linting
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+
+  # Commit message format
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.2.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+EOF
+
+# Install hooks into .git/hooks/
 pre-commit install
 pre-commit install --hook-type commit-msg
-pre-commit run --all-files          # 首次全量
+
+# Run against all files (first time)
+pre-commit run --all-files
 ```
 
-常用命令：`pre-commit autoupdate`（更新版本）、`pre-commit run <hook-id>`、`pre-commit clean`（清缓存）。
-
-任意语言 —— 共享自定义 shell 钩子：
+### Key Commands
 
 ```bash
-git config core.hooksPath .githooks   # 指向仓库内目录，随仓库共享
-chmod +x .githooks/*
+pre-commit install              # Install hooks
+pre-commit run --all-files      # Run on everything (CI or first setup)
+pre-commit autoupdate           # Update hook versions
+pre-commit run <hook-id>        # Run a specific hook
+pre-commit clean                # Clear cached environments
 ```
 
-绕过钩子（应稀少）：`git commit --no-verify`、`git push --no-verify`、`SKIP=eslint git commit ...`。
+## Custom Hook Scripts (Any Language)
 
-## 示例
+For projects not using Node or Python, write hooks directly in shell.
 
-`.githooks/pre-commit` 便携脚本（任意语言，关键逻辑）：
+### Portable Pre-Commit Hook
 
 ```bash
 #!/bin/sh
+# .githooks/pre-commit — Team-shared hooks directory
 set -e
-# 1. 禁止直接提交到 main/master
-BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || echo detached)
-[ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ] && { echo "禁止直接提交到 $BRANCH，请用特性分支"; exit 1; }
-# 2. 调试残留：console.log / debugger / binding.pry / import pdb -> 命中即 exit 1
-# 3. 大文件 >1MB -> exit 1
-# 4. 密钥模式 AKIA[0-9A-Z]{16} / sk-... / ghp_... / password=... -> 命中即 exit 1
-echo "✅ 全部 pre-commit 校验通过"
+
+echo "=== Pre-Commit Checks ==="
+
+# 1. Prevent commits to main/master
+BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || echo "detached")
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+  echo "❌ Direct commits to $BRANCH are not allowed. Use a feature branch."
+  exit 1
+fi
+
+# 2. Check for debugging artifacts
+if git diff --cached --diff-filter=ACM | grep -nE '(console\.log|debugger|binding\.pry|import pdb)' > /dev/null 2>&1; then
+  echo "⚠️  Debug statements found in staged files:"
+  git diff --cached --diff-filter=ACM | grep -nE '(console\.log|debugger|binding\.pry|import pdb)'
+  echo "Remove them or use git commit --no-verify to bypass."
+  exit 1
+fi
+
+# 3. Check for large files (>1MB)
+LARGE_FILES=$(git diff --cached --name-only --diff-filter=ACM | while read f; do
+  size=$(wc -c < "$f" 2>/dev/null || echo 0)
+  if [ "$size" -gt 1048576 ]; then echo "$f ($((size/1024))KB)"; fi
+done)
+if [ -n "$LARGE_FILES" ]; then
+  echo "❌ Large files detected:"
+  echo "$LARGE_FILES"
+  exit 1
+fi
+
+# 4. Check for secrets patterns
+if git diff --cached --diff-filter=ACM | grep -nEi '(AKIA[0-9A-Z]{16}|sk-[a-zA-Z0-9]{48}|ghp_[a-zA-Z0-9]{36}|password\s*=\s*["\x27][^"\x27]+["\x27])' > /dev/null 2>&1; then
+  echo "🚨 Potential secrets detected in staged changes! Review before committing."
+  exit 1
+fi
+
+echo "✅ All pre-commit checks passed"
 ```
 
-CI 复跑（GitHub Actions，兜底被绕过的钩子）：
+### Share Custom Hooks via `core.hooksPath`
+
+```bash
+# In your repo, set a shared hooks directory
+git config core.hooksPath .githooks
+
+# Add to project setup docs or Makefile
+# Makefile
+setup:
+	git config core.hooksPath .githooks
+	chmod +x .githooks/*
+```
+
+## CI Integration
+
+Hooks are a first line of defense, but CI is the source of truth.
+
+### Run pre-commit in CI (GitHub Actions)
 
 ```yaml
-# pre-commit/action@v3.0.1 或：npm ci && npx eslint . --max-warnings=0 && npx prettier --check .
+# .github/workflows/lint.yml
+name: Lint
+on: [push, pull_request]
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: pre-commit/action@v3.0.1
 ```
 
-## 注意事项
+### Run lint-staged in CI (Validation Only)
 
-- 只跑暂存文件：绝不在每次提交时 lint 整个代码库（用 lint-staged，而非 `eslint src/`）。
-- 能自动修就自动修：多用 `--fix` 降低开发摩擦。
-- 钩子要快：pre-commit 目标 < 5 秒；频繁被 `--no-verify` 绕过说明钩子太慢或太严，应修钩子而非纵容绕过。
-- 失败要响亮：错误信息附带可执行的修复指引。
-- 团队共享：用 Husky 或 `core.hooksPath` 让钩子纳入版本控制；纯 `.git/hooks/` 改动无法分享。
-- CI 是事实来源：钩子是便利，CI 才是强制执行者，两者校验保持一致。
-- 渐进引入：先只做格式化（低摩擦），1-2 周后加 lint，再加提交信息校验、pre-push 测试，避免团队抵触。
+```yaml
+# Validate that lint-staged would pass (catch bypassed hooks)
+name: Lint Check
+on: [pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npx eslint . --max-warnings=0
+      - run: npx prettier --check .
+```
 
-常见排错：钩子静默跳过→未安装，跑 `npx husky init` / `pre-commit install`；"Permission denied"→`chmod +x`；本地通过 CI 失败→在 CI 固定 Node/Python 版本。Husky v4→v9 迁移：卸载旧版并删 `.husky`、删 `package.json` 里 `husky.hooks` 配置，再 `npx husky init` 重建钩子（新版用 `.husky/` 目录里的纯脚本）。
+## Common Pitfalls & Fixes
 
-## 互见
+### Hooks Not Running
 
-- `codebase-audit-pre-push` —— 推送前的深度审计。
-- `bash-pro` —— 自定义钩子的进阶 shell 脚本。
-- `github-actions-templates` —— CI/CD 工作流模板。
-- `verification-before-completion` —— 声明完成前的验证。
+| Symptom | Cause | Fix |
+|---|---|---|
+| Hooks silently skipped | Not installed in `.git/hooks/` | Run `npx husky init` or `pre-commit install` |
+| "Permission denied" | Hook file not executable | `chmod +x .husky/pre-commit` |
+| Hooks run but wrong ones | Stale hooks from old setup | Delete `.git/hooks/` contents, reinstall |
+| Works locally, fails in CI | Different Node/Python versions | Pin versions in CI config |
 
----
+### Performance Issues
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+```json
+// ❌ Slow: runs on ALL files every commit
+{
+  "scripts": {
+    "precommit": "eslint src/ && prettier --write src/"
+  }
+}
+
+// ✅ Fast: lint-staged runs ONLY on staged files
+{
+  "lint-staged": {
+    "*.{js,ts}": ["eslint --fix", "prettier --write"]
+  }
+}
+```
+
+### Bypassing Hooks (When Needed)
+
+```bash
+# Skip all hooks for a single commit
+git commit --no-verify -m "wip: quick save"
+
+# Skip pre-push only
+git push --no-verify
+
+# Skip specific pre-commit hooks
+SKIP=eslint git commit -m "fix: update config"
+```
+
+> **Warning**: Bypassing hooks should be rare. If your team frequently bypasses, the hooks are too slow or too strict — fix them.
+
+## Migration Guide
+
+### Husky v4 → v9 Migration
+
+```bash
+# 1. Remove old Husky
+npm uninstall husky
+rm -rf .husky
+
+# 2. Remove old config from package.json
+# Delete "husky": { "hooks": { ... } } section
+
+# 3. Install fresh
+npm install --save-dev husky
+npx husky init
+
+# 4. Recreate hooks
+echo "npx lint-staged" > .husky/pre-commit
+echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
+
+# 5. Clean up — old Husky used package.json config,
+#    new Husky uses .husky/ directory with plain scripts
+```
+
+### Adopting Hooks on an Existing Project
+
+```bash
+# Step 1: Start with formatting only (low friction)
+# lint-staged config:
+{ "*.{js,ts}": ["prettier --write"] }
+
+# Step 2: Add linting after team adjusts (1-2 weeks later)
+{ "*.{js,ts}": ["eslint --fix", "prettier --write"] }
+
+# Step 3: Add commit message linting
+# Step 4: Add pre-push test runner
+
+# Gradual adoption prevents team resistance
+```
+
+## Key Principles
+
+- **Staged files only** — Never lint the entire codebase on every commit
+- **Auto-fix when possible** — `--fix` flags reduce developer friction
+- **Fast hooks** — Pre-commit should complete in < 5 seconds
+- **Fail loud** — Clear error messages with actionable fixes
+- **Team-shared** — Use Husky or `core.hooksPath` so hooks are version-controlled
+- **CI as backup** — Hooks are convenience; CI is the enforcer
+- **Gradual adoption** — Start with formatting, add linting, then testing
+
+## Related Skills
+
+- `@codebase-audit-pre-push` - Deep audit before GitHub push
+- `@verification-before-completion` - Verification before claiming work is done
+- `@bash-pro` - Advanced shell scripting for custom hooks
+- `@github-actions-templates` - CI/CD workflow templates
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

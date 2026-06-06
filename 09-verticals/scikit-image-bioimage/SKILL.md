@@ -1,14 +1,14 @@
 ---
 name: scikit-image-bioimage
-title: scikit-image 生物图像处理
-description: 当用 Python 处理显微/荧光生物图像（TIFF/PNG，NumPy 数组）需做读写、滤波去噪、阈值/分水岭分割、形态学、区域属性测量、斑点/特征检测时使用；用 scikit-image+SciPy 跑分割-测量流程并产出标注掩膜、regionprops 表格(CSV)与叠加图；不适用于实时视频(用 OpenCV)、深度学习触碰细胞分割(用 CellPose)、交互式多维可视化(用 napari)；触发词：scikit-image、skimage、显微图像、细胞核分割、watershed、regionprops、阈值、形态学、blob 检测
+title: OpenCV — Bio-image Computer Vision
+description: Computer vision for bio-image preprocessing, feature detection, real-time microscopy. Color conversion, morphology, contour/blob detection, template matching, optical flow on fluorescence/brightfield. 10-100× faster than pure Python via C++. Use scikit-image for scientific morphometry/regionprops; OpenCV for real-time, video, classical feature extraction.
 domain: 领域/science
-triggers: [scikit-image, skimage, 显微图像, 细胞核分割, watershed, regionprops, 阈值分割, 形态学, blob 检测, 荧光图像]
+triggers: [scikit-image, skimage, watershed, regionprops]
 tags: [scikit-image, skimage, bioimage, microscopy, segmentation, image-processing, regionprops, watershed, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, scikit-image, numpy, scipy, tifffile, pandas, matplotlib]
+tools: []
 requires: []
 related: [cellpose-cell-segmentation, histolab-wsi-tiling, dicom-medical-imaging, computer-vision-expert]
 combines_with: [single-cell-rnaseq-analysis, matplotlib-visualization]
@@ -16,120 +16,406 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-# scikit-image 生物图像处理
+# OpenCV — Bio-image Computer Vision
 
-## 何时使用
+## Overview
 
-当你用 Python 对显微/荧光生物图像做处理与定量分析时使用本条，典型场景：
+OpenCV (cv2) provides optimized C++-backed image processing routines for preprocessing, segmentation, feature extraction, and video analysis of biological images. In life sciences, OpenCV is used for fluorescence image enhancement (background subtraction, CLAHE), morphological segmentation (watershed, contour detection), brightfield cell detection, and real-time microscopy stream processing. Unlike scikit-image (which emphasizes scientific measurement), OpenCV prioritizes computational speed and video support — making it ideal for preprocessing pipelines and real-time imaging applications.
 
-- 预处理荧光显微图像：去背景、去噪、光照不均校正、对比度增强（CLAHE）
-- 用阈值或分水岭分割细胞、细胞核、细胞器
-- 测量对象属性：面积、周长、强度统计、形状描述子（偏心率等）
-- 形态学操作：腐蚀、膨胀、开/闭运算、填孔、骨架化
-- 斑点/特征检测（LoG/DoG 检测细胞核、puncta），图像配准
-- 批量对一整个文件夹的图像跑同一套流程并导出 CSV
+## When to Use
 
-**不该用本条的边界：**
+- Preprocessing fluorescence or brightfield images: background subtraction, CLAHE, Gaussian/median blur
+- Detecting cell contours, blobs, or edges without deep learning (classical methods)
+- Processing video streams from live-cell imaging microscopes in real-time
+- Template matching for finding repeated structures (organelles, crystals, patterns)
+- Applying morphological operations (erosion, dilation, opening, closing) for mask refinement
+- Computing optical flow between video frames for cell tracking
+- Use **scikit-image** instead for scientific morphometry, regionprops, and scientific image I/O (TIFF metadata)
+- Use **Cellpose** or **StarDist** instead for deep-learning cell segmentation on fluorescence images
 
-- 实时视频处理 / GPU 加速 → 用 OpenCV
-- 深度学习细胞分割（密集贴合细胞精度更好）→ 用 CellPose
-- 交互式多维图像可视化与标注 → 用 napari
-- 全玻片（WSI）切片处理 → 用 PathML / histolab
+## Prerequisites
 
-## 步骤
-
-1. 装环境并确认 dtype：图像即 NumPy 数组，处理前先 `img_as_float` 转 float64[0,1]
-2. 读图：`io.imread` / `tifffile.imread`（多通道 CZYX/ZCYX）/ `ImageCollection`（批量）
-3. 预处理：高斯/中值去噪 → top-hat 去背景 → 可选 CLAHE 增强
-4. 阈值：`threshold_otsu/li/triangle`，得二值掩膜
-5. 清理掩膜：`remove_small_objects` + `remove_small_holes`
-6. 分割贴合对象：距离变换 → `peak_local_max` 找种子 → `watershed`
-7. 测量：`label` → `regionprops(_table)`（带 `intensity_image`）→ 转 DataFrame
-8. 导出/可视化：CSV + `label2rgb` 叠加图，发表图 `dpi=300`
-
-## 指令
+- **Python packages**: `opencv-python`, `numpy`, `matplotlib`
+- **Optional**: `opencv-contrib-python` for extra modules (SIFT, SURF, optical flow)
 
 ```bash
-pip install scikit-image numpy scipy matplotlib
-pip install tifffile aicsimageio   # 读专有显微格式
-python -c "import skimage; print(skimage.__version__)"
+# Install OpenCV
+pip install opencv-python
+
+# Install with extra contributed modules (SIFT, SURF, etc.)
+pip install opencv-contrib-python
+
+# Verify
+python -c "import cv2; print(cv2.__version__)"
+# 4.10.0
 ```
 
-关键约束：**dtype 决定一切**。多数算法期望 float64∈[0,1]；处理前 `img_as_float(img)`，存盘前 `img_as_uint`。在 uint8/uint16 上做减法会静默截断到 0。
-
-形状约定：灰度 `(H,W)`；RGB `(H,W,3)`；多通道 `(H,W,C)`；Z 栈 `(Z,H,W)`。
-
-## 示例
-
-最小流程（读图 → 去噪 → 阈值 → 测量）：
+## Quick Start
 
 ```python
-from skimage import io, filters, measure, img_as_float
+import cv2
 import numpy as np
 
-img = img_as_float(io.imread("cells.tif"))
-smooth = filters.gaussian(img, sigma=1.5)
-binary = smooth > filters.threshold_otsu(smooth)
+# Read and display image info
+img = cv2.imread("cells.tif", cv2.IMREAD_GRAYSCALE)
+print(f"Shape: {img.shape}, dtype: {img.dtype}")
+print(f"Min: {img.min()}, Max: {img.max()}")
 
-regions = measure.regionprops(measure.label(binary))
-print(f"对象数 {len(regions)}, 平均面积 {np.mean([r.area for r in regions]):.1f} px²")
+# Apply Gaussian blur and threshold
+blurred = cv2.GaussianBlur(img, (5, 5), 0)
+_, binary = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+print(f"Cells detected (rough): {np.sum(binary > 0)} foreground pixels")
 ```
 
-分水岭分离贴合细胞核 + 按核测 GFP 强度（双通道 DAPI=ch0/GFP=ch1）：
+## Core API
+
+### Module 1: Image I/O and Color Space Conversion
+
+Read, write, and convert images between color spaces.
 
 ```python
-from skimage import filters, morphology, measure, img_as_float
-from skimage.segmentation import watershed
-from skimage.feature import peak_local_max
-from scipy import ndimage as ndi
-import tifffile, pandas as pd, numpy as np
+import cv2
+import numpy as np
 
-img = tifffile.imread("cells.tif")
-dapi, gfp = img_as_float(img[0]), img_as_float(img[1])
+# Read image (GRAYSCALE, COLOR, or UNCHANGED for 16-bit)
+img_gray  = cv2.imread("cells.tif", cv2.IMREAD_GRAYSCALE)   # uint8
+img_color = cv2.imread("rgb.tif", cv2.IMREAD_COLOR)         # BGR order!
+img_16bit = cv2.imread("16bit.tif", cv2.IMREAD_UNCHANGED)   # uint16
 
-# DAPI 分割 + 清理
-binary = filters.gaussian(dapi, sigma=2) > filters.threshold_otsu(dapi)
-binary = morphology.remove_small_objects(binary, min_size=200)
-binary = morphology.remove_small_holes(binary, area_threshold=500)
+print(f"Grayscale shape: {img_gray.shape}, dtype: {img_gray.dtype}")
+print(f"Color shape:     {img_color.shape}")
 
-# 距离变换 → 种子 → 分水岭
-distance = ndi.distance_transform_edt(binary)
-coords = peak_local_max(distance, min_distance=30, labels=binary)
-mask = np.zeros_like(distance, dtype=bool); mask[tuple(coords.T)] = True
-markers = ndi.label(mask)[0]
-labels = watershed(-distance, markers, mask=binary)
+# Color space conversions
+img_rgb  = cv2.cvtColor(img_color, cv2.COLOR_BGR2RGB)   # BGR → RGB
+img_hsv  = cv2.cvtColor(img_color, cv2.COLOR_BGR2HSV)   # BGR → HSV
+img_gray2 = cv2.cvtColor(img_color, cv2.COLOR_BGR2GRAY) # BGR → gray
 
-# 按核测 GFP → DataFrame → CSV
-props = measure.regionprops(labels, intensity_image=gfp)
-df = pd.DataFrame([{"id": p.label, "area_px2": p.area,
-                    "gfp_mean": p.mean_intensity, "ecc": p.eccentricity}
-                   for p in props])
-df.to_csv("nucleus_measurements.csv", index=False)
-print(f"核数 {len(df)}, 平均 GFP {df['gfp_mean'].mean():.3f}")
+# Write image
+cv2.imwrite("output.png", img_gray)
+cv2.imwrite("output_16bit.tif", img_16bit)
+print("Images written.")
 ```
 
-常用算子速查：去背景 `morphology.white_tophat(img, disk(50))`；斑点检测 `feature.blob_log(img, min_sigma=5, max_sigma=20, threshold=0.05)`（列为 `[y,x,sigma]`，半径=√2·sigma）；形态学 `opening/closing(binary, disk(3))`；配准 `registration.phase_cross_correlation(ref, moving)`。
+### Module 2: Filtering and Enhancement
 
-按属性筛选有效细胞：`df[(df.area>100)&(df.area<5000)&(df.ecc<0.9)]`。
+Apply filters and contrast enhancement for image preprocessing.
 
-## 注意事项
+```python
+import cv2
+import numpy as np
 
-- **先转 float**：`img = img_as_float(img)` 作为第一步，否则整数运算溢出/截断（`OverflowError` 或静默归 0）。
-- **务必可视化中间结果**：分割前把二值掩膜叠原图（`label2rgb`）核对——静默分割错误是最常见失败模式。
-- **贴合对象必用 watershed**：单纯阈值分不开相邻核；过分割时调大 `peak_local_max` 的 `min_distance` 并平滑距离图。
-- **阈值在代表性样本上调**：Otsu 适合双峰直方图，困难图用 `filters.try_all_threshold(img)` 对比 Otsu/Li/Triangle。
-- **`regionprops` 缺强度统计**：忘了传 `intensity_image=img`。
-- **物理单位换算**：`area_um2 = area_px * pixel_size_um**2`，像素尺寸取自显微镜元数据。
-- **批量前先验证**：在 3-5 张人工计数过的图上核对对象数，再跑全量。
-- **3D 别当 2D**：先看 `img.shape` 判断是否 Z 栈，逐切片或用 3D 函数处理。
+img = cv2.imread("cells.tif", cv2.IMREAD_GRAYSCALE)
 
-## 互见
+# Gaussian blur (noise reduction)
+blurred = cv2.GaussianBlur(img, (7, 7), sigmaX=1.5)
 
-- related：`dicom-medical-imaging` —— 临床/放射影像（DICOM）处理，与生物显微成像同属影像分析
-- related：`single-cell-rnaseq-analysis` —— 影像定量与单细胞转录组互为单细胞表型的两条证据链
-- combines_with：`scientific-database-lookup` —— 把测量结果关联到基因/蛋白数据库做下游解读
-- combines_with：`scientific-manuscript-writing` —— 把分割叠加图与定量表格写入论文图表
+# Median blur (salt-and-pepper noise)
+median = cv2.medianBlur(img, 5)
 
----
+# CLAHE: Contrast Limited Adaptive Histogram Equalization (for microscopy)
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+clahe_img = clahe.apply(img)
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+# Top-hat filter for bright spots on dark background
+kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
+tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel)
+
+print(f"CLAHE range: [{clahe_img.min()}, {clahe_img.max()}]")
+cv2.imwrite("clahe_enhanced.tif", clahe_img)
+```
+
+### Module 3: Thresholding and Binary Segmentation
+
+Convert grayscale images to binary masks using various thresholding methods.
+
+```python
+import cv2
+import numpy as np
+
+img = cv2.imread("nuclei.tif", cv2.IMREAD_GRAYSCALE)
+
+# Otsu's thresholding (automatic threshold selection)
+thresh_val, otsu_mask = cv2.threshold(img, 0, 255,
+                                      cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+print(f"Otsu threshold: {thresh_val:.0f}")
+
+# Adaptive thresholding (handles uneven illumination)
+adaptive = cv2.adaptiveThreshold(
+    img, 255,
+    cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+    cv2.THRESH_BINARY,
+    blockSize=11,     # neighborhood size (odd)
+    C=2,              # constant subtracted from mean
+)
+
+# For 16-bit images: normalize first
+img_16 = cv2.imread("16bit_nuclei.tif", cv2.IMREAD_UNCHANGED)
+img_8 = cv2.normalize(img_16, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+_, mask_16 = cv2.threshold(img_8, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+print(f"Otsu mask foreground: {mask_16.sum() / 255} pixels")
+```
+
+### Module 4: Contour Detection and Measurement
+
+Find and measure cell contours from binary masks.
+
+```python
+import cv2
+import numpy as np
+import pandas as pd
+
+img = cv2.imread("cells.tif", cv2.IMREAD_GRAYSCALE)
+blurred = cv2.GaussianBlur(img, (5, 5), 0)
+_, binary = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+# Remove small objects with morphological opening
+kernel = np.ones((3, 3), np.uint8)
+cleaned = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel, iterations=2)
+
+# Find contours
+contours, hierarchy = cv2.findContours(cleaned, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+print(f"Objects detected: {len(contours)}")
+
+# Measure each contour
+records = []
+for i, cnt in enumerate(contours):
+    area = cv2.contourArea(cnt)
+    if area < 50: continue  # skip tiny objects
+    perimeter = cv2.arcLength(cnt, True)
+    x, y, w, h = cv2.boundingRect(cnt)
+    (cx, cy), radius = cv2.minEnclosingCircle(cnt)
+    records.append({"cell_id": i, "area": area, "perimeter": perimeter,
+                     "x": x, "y": y, "w": w, "h": h, "radius": radius})
+
+df = pd.DataFrame(records)
+print(f"Cells > 50 px²: {len(df)}")
+print(df[["area", "perimeter", "radius"]].describe())
+```
+
+### Module 5: Morphological Operations for Mask Refinement
+
+Refine segmentation masks with morphological operations.
+
+```python
+import cv2
+import numpy as np
+
+# Load binary mask (from thresholding or Cellpose)
+mask = cv2.imread("rough_mask.png", cv2.IMREAD_GRAYSCALE)
+_, mask = cv2.threshold(mask, 127, 255, cv2.THRESH_BINARY)
+
+# Structural elements
+ellipse = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
+rect    = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
+
+# Opening: remove small bright noise
+opened = cv2.morphologyEx(mask, cv2.MORPH_OPEN, ellipse, iterations=1)
+
+# Closing: fill small holes inside cells
+closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, ellipse, iterations=2)
+
+# Dilation: expand cell boundaries slightly
+dilated = cv2.dilate(closed, ellipse, iterations=1)
+
+# Distance transform for watershed seed generation
+dist = cv2.distanceTransform(closed, cv2.DIST_L2, 5)
+_, seeds = cv2.threshold(dist, 0.5 * dist.max(), 255, 0)
+seeds = seeds.astype(np.uint8)
+print(f"Potential cell centers: {cv2.connectedComponents(seeds)[0] - 1}")
+```
+
+### Module 6: Video Processing for Live-Cell Imaging
+
+Process video streams from time-lapse microscopy.
+
+```python
+import cv2
+import numpy as np
+
+# Process a time-lapse video file
+cap = cv2.VideoCapture("timelapse.avi")
+fps = cap.get(cv2.CAP_PROP_FPS)
+n_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+print(f"Video: {n_frames} frames at {fps} FPS")
+
+# Background subtraction (remove static background)
+bg_subtractor = cv2.createBackgroundSubtractorMOG2(
+    history=50, varThreshold=25, detectShadows=False
+)
+
+frame_counts = []
+frame_idx = 0
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret: break
+    
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    fg_mask = bg_subtractor.apply(gray)
+    
+    # Count moving objects in this frame
+    contours, _ = cv2.findContours(fg_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    moving = [c for c in contours if cv2.contourArea(c) > 100]
+    frame_counts.append(len(moving))
+    frame_idx += 1
+
+cap.release()
+print(f"Processed {frame_idx} frames. Mean moving objects: {np.mean(frame_counts):.1f}")
+```
+
+## Key Parameters
+
+| Parameter | Module | Default | Effect |
+|-----------|--------|---------|--------|
+| `sigmaX` | `GaussianBlur` | auto from ksize | Gaussian standard deviation; larger = more smoothing |
+| `clipLimit` | `createCLAHE` | `40.0` | Maximum contrast amplification; 2.0–4.0 for microscopy |
+| `tileGridSize` | `createCLAHE` | `(8,8)` | Tile size for local histogram equalization |
+| `blockSize` | `adaptiveThreshold` | required | Neighborhood size for adaptive threshold (must be odd, ≥ 3) |
+| `C` | `adaptiveThreshold` | required | Constant subtracted from mean; positive to subtract |
+| `iterations` | `morphologyEx` | `1` | Number of erosion/dilation cycles; higher = stronger effect |
+| `history` | `BackgroundSubtractorMOG2` | `500` | Frames to model background; lower = faster adaptation |
+| `varThreshold` | `BackgroundSubtractorMOG2` | `16` | Pixel variance threshold; higher = less sensitive |
+| `minArea` | contour filter | — | Minimum `cv2.contourArea(cnt)` to keep; filter noise |
+| `cv2.IMREAD_UNCHANGED` | `imread` | — | Preserve bit-depth (16-bit, 32-bit); required for scientific images |
+
+## Common Workflows
+
+### Workflow 1: Fluorescence Nucleus Detection Pipeline
+
+```python
+import cv2
+import numpy as np
+import pandas as pd
+
+def detect_nuclei(image_path: str, min_area: int = 200) -> pd.DataFrame:
+    """Detect DAPI-stained nuclei from a fluorescence image."""
+    img = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
+    
+    # Normalize 16-bit to 8-bit
+    if img.dtype == np.uint16:
+        img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+    
+    # Preprocess: CLAHE → Gaussian blur
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    enhanced = clahe.apply(img)
+    blurred = cv2.GaussianBlur(enhanced, (5, 5), 1.5)
+    
+    # Segment: Otsu threshold → morphological opening
+    _, binary = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    cleaned = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel, iterations=1)
+    
+    # Find and measure contours
+    contours, _ = cv2.findContours(cleaned, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    records = []
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        if area < min_area: continue
+        M = cv2.moments(cnt)
+        if M["m00"] == 0: continue
+        cx = int(M["m10"] / M["m00"])
+        cy = int(M["m01"] / M["m00"])
+        records.append({"area": area, "cx": cx, "cy": cy,
+                         "perimeter": cv2.arcLength(cnt, True)})
+    
+    return pd.DataFrame(records)
+
+df = detect_nuclei("dapi.tif", min_area=300)
+print(f"Nuclei detected: {len(df)}")
+print(df.describe())
+```
+
+### Workflow 2: Batch Process Image Directory
+
+```python
+import cv2
+import numpy as np
+import pandas as pd
+from pathlib import Path
+
+def process_image(path: str) -> dict:
+    img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+    if img is None:
+        return {}
+    blurred = cv2.GaussianBlur(img, (5, 5), 0)
+    _, binary = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cells = [c for c in contours if cv2.contourArea(c) > 200]
+    return {"file": Path(path).name, "cell_count": len(cells),
+            "mean_area": np.mean([cv2.contourArea(c) for c in cells]) if cells else 0}
+
+results = [process_image(str(p)) for p in sorted(Path("images").glob("*.tif"))]
+df = pd.DataFrame([r for r in results if r])
+print(df)
+df.to_csv("batch_results.csv", index=False)
+print("Saved: batch_results.csv")
+```
+
+## Common Recipes
+
+### Recipe 1: Annotate Detected Cells on Image
+
+```python
+import cv2
+import numpy as np
+
+img = cv2.imread("cells.tif", cv2.IMREAD_GRAYSCALE)
+img_color = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+
+blurred = cv2.GaussianBlur(img, (5, 5), 0)
+_, binary = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+for i, cnt in enumerate(contours):
+    if cv2.contourArea(cnt) < 200: continue
+    # Draw contour outline
+    cv2.drawContours(img_color, [cnt], -1, (0, 255, 0), 2)
+    # Label with cell number
+    M = cv2.moments(cnt)
+    if M["m00"] > 0:
+        cx, cy = int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"])
+        cv2.putText(img_color, str(i), (cx - 5, cy), cv2.FONT_HERSHEY_SIMPLEX,
+                    0.4, (255, 255, 0), 1)
+
+cv2.imwrite("annotated_cells.png", img_color)
+print(f"Annotated {len(contours)} cells. Saved: annotated_cells.png")
+```
+
+### Recipe 2: Background Subtraction with Rolling Ball
+
+```python
+import cv2
+import numpy as np
+
+def rolling_ball_background(img: np.ndarray, radius: int = 50) -> np.ndarray:
+    """Estimate and subtract background using a blur approximation."""
+    kernel_size = 2 * radius + 1
+    background = cv2.GaussianBlur(img, (kernel_size, kernel_size), radius / 3)
+    corrected = cv2.subtract(img, background)
+    return corrected
+
+img = cv2.imread("uneven_fluorescence.tif", cv2.IMREAD_GRAYSCALE)
+corrected = rolling_ball_background(img, radius=50)
+cv2.imwrite("background_corrected.tif", corrected)
+print(f"Background corrected. Range: [{corrected.min()}, {corrected.max()}]")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `imread` returns `None` | File not found or unsupported format | Use absolute path; verify with `Path(path).exists()`; for TIFF use `cv2.IMREAD_UNCHANGED` |
+| 16-bit image shows as black | `IMREAD_GRAYSCALE` clips to uint8 | Use `cv2.IMREAD_UNCHANGED` and normalize: `cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX)` |
+| BGR vs RGB color mismatch | OpenCV uses BGR, matplotlib uses RGB | Convert: `rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)` before `plt.imshow()` |
+| Contours split one cell into many | Binary mask has holes or noise | Apply `cv2.MORPH_CLOSE` before contour detection; increase Gaussian blur sigma |
+| `GaussianBlur` requires odd kernel | Even kernel size provided | Always use odd kernel sizes: 3, 5, 7, 9; `ksize=(5,5)` not `(4,4)` |
+| CLAHE makes image worse | clipLimit too high | Reduce `clipLimit` to 1.5–2.0; increase `tileGridSize` to `(16,16)` |
+| Background subtraction removes cells | History too short for MOG2 | Increase `history` parameter; use static frame subtraction for microscopy |
+| Performance slow on large images | Python loop over pixels | Use vectorized NumPy operations or CUDA-accelerated `cv2.cuda` module |
+
+## References
+
+- [OpenCV Python documentation](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html) — full Python API reference and tutorials
+- [OpenCV GitHub: opencv/opencv](https://github.com/opencv/opencv) — source code and Python bindings
+- Bradski G (2000) "The OpenCV Library" — *Dr. Dobb's Journal of Software Tools* 25(11):120-125
+- [PyImageSearch tutorials](https://pyimagesearch.com/) — applied OpenCV for computer vision in biological imaging

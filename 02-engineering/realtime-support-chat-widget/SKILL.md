@@ -1,14 +1,14 @@
 ---
 name: realtime-support-chat-widget
-title: 实时客服聊天组件系统
-description: 当需要在应用内搭建用户端浮动客服窗口 + 管理端工作台的实时聊天系统时使用；做数据模型、REST 接口、WebSocket 频道、前端组件、延时邮件通知的端到端落地方案与代码；不适用于群聊/多人房间、AI 自动应答机器人、纯邮件工单系统。触发词：在线客服、实时聊天组件、客服工作台
+title: Live Support Chat Widget
+description: Build a real-time support chat system with a floating widget for users and an admin dashboard for support staff. Use when the user wants live chat, customer support chat, real-time messaging, or in-app support.
 domain: 研发/architecture
-triggers: [在线客服, 实时聊天组件, 客服工作台, 应用内支持聊天, 浮动聊天窗口, WebSocket 消息推送, 用户与管理员实时消息, live chat widget]
-tags: [实时通信, websocket, 客服系统, 全栈, 前端组件, 邮件通知]
-level: 进阶
+triggers: [live chat widget]
+tags: [websocket]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [WebSocket/ActionCable/Pusher/Ably, REST API, 关系型数据库(PostgreSQL/MySQL), 后台任务队列, 事务邮件服务(Postmark/SendGrid/SES/Resend)]
+tools: []
 requires: []
 related: [websocket-realtime-engineer, rest-api-endpoint-builder, transactional-email-template-builder, ai-customer-support]
 combines_with: [database-design-advisor, react-state-management, support-ticket-triage]
@@ -16,144 +16,558 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Live Support Chat Widget
 
-需要在产品里嵌入「实时客服聊天」时使用，典型诉求：
+Build a real-time support chat system with a floating widget for users and an admin dashboard for support staff.
 
-- 给应用加一个右下角浮动聊天窗口（用户端）。
-- 搭建客服/管理员工作台，集中查看、回复、归档会话。
-- 实现用户与客服之间的双向实时消息推送。
-- 提供应用内支持渠道，并在客服回复后补发邮件提醒。
+## When to Use This Skill
 
-不该用边界（出现以下场景请改用其他方案）：
+Use when the user wants to:
+- Add a live chat widget to their app
+- Build customer support chat functionality
+- Create real-time messaging between users and admins
+- Add an in-app support channel
 
-- 多人群聊 / 频道 / 房间式聊天（本方案核心约束是「每用户一会话」）。
-- AI 自动应答机器人、工单分配/路由、坐席排班等复杂客服中台。
-- 纯异步邮件工单，无实时性要求。
-- 端到端加密 IM、音视频通话。
+## Architecture Overview
 
-适用前先确认：是否有用户鉴权体系、是否能区分 `admin` 角色、运行环境是否支持 WebSocket（serverless 需走 Pusher/Ably 等托管方案）。缺少必要输入或边界不清时先停下来澄清。
-
-## 步骤
-
-整体架构：前端分「用户浮动组件」与「管理员工作台」两端，经 WebSocket（实时）+ REST（拉取/状态变更）连后端；后端含两个频道（每会话 ChatChannel、全局 AdminNotificationChannel）、两张表（Chat、Message）与一个延时邮件 Job。
-
-### 步骤 1：数据模型
-
-建两张表，主键推荐 UUID（不可猜测）。
-
-`support_chats`：`user_id`（外键，UNIQUE，每用户一会话）、`last_message_at`（排序用）、`admin_viewed_at`（管理员最后查看时间）、`archived_at`（null=活跃，有值=已归档）、时间戳。
-
-`support_messages`：`chat_id`（外键）、`content`（text，必填）、`sender_type`（枚举 `user`|`admin`）、`read_at`（null=未读）、时间戳。
-
-关键索引：`support_chats.user_id`(unique)、`last_message_at`、`archived_at`、`support_messages.chat_id`，以及复合索引 `(chat_id, created_at)`（保证按时间排序）。
-
-关系：`User has_one SupportChat`；`SupportChat has_many SupportMessages`。
-
-模型方法（伪码）：
-
-```pseudo
-# Chat
-touch_last_message()  -> last_message_at = now()
-unread_for_admin?()   -> 存在 message(sender_type='user' 且 created_at > admin_viewed_at)
-mark_viewed_by_admin()-> admin_viewed_at = now()
-archive() / unarchive() / archived?()  -> 操作 archived_at
-
-# Message after_create
-chat.touch_last_message()
-if sender_type=='user' and chat.archived?: chat.unarchive()   # 用户来信自动复活归档会话
-# after_create_commit
-broadcast 到 support_chat 频道
-if sender_type=='user': broadcast 到 admin 通知频道
-if sender_type=='admin': 安排 5 分钟延时邮件
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        FRONTEND                                 │
+├─────────────────────────────┬───────────────────────────────────┤
+│   User Widget               │   Admin Dashboard                 │
+│   - Floating chat button    │   - Chat list (active/archived)   │
+│   - Message panel           │   - Conversation view             │
+│   - Unread badge            │   - Archive/restore controls      │
+│   - Connection indicator    │   - User info display             │
+└─────────────┬───────────────┴───────────────┬───────────────────┘
+              │                               │
+              │     WebSocket + REST API      │
+              ▼                               ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                        BACKEND                                  │
+├─────────────────────────────────────────────────────────────────┤
+│   Channels                  │   Controllers                     │
+│   - ChatChannel (per chat)  │   - User: get/create chat         │
+│   - AdminChannel (global)   │   - Admin: list, view, archive    │
+├─────────────────────────────┼───────────────────────────────────┤
+│   Models                    │   Jobs                            │
+│   - Chat (1 per user)       │   - Email notification (delayed)  │
+│   - Message (many per chat) │                                   │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-### 步骤 2：REST 接口
+## Implementation Guide
 
-用户端：`GET /support_chat`（取或建当前用户会话+消息）、`PATCH /support_chat/mark_read`（标记管理员消息已读）。
+### Step 1: Data Models
 
-管理端：`GET /admin/chats?archived=true|false`（列表）、`GET /admin/chats/:id`（详情）、`POST /admin/chats/:id/archive`、`POST /admin/chats/:id/unarchive`。
+Create two tables: `support_chats` and `support_messages`.
 
-列表查询要点：按 `archived_at` 过滤、`includes(:user,:messages)` 防 N+1、`order(last_message_at desc)`；每项返回 `user_email`、末条消息预览（截断 100）、末条发送方、消息数、`unread`、`archived`。
+**support_chats**
+```
+id              - primary key (UUID recommended)
+user_id         - foreign key to users (UNIQUE - one chat per user)
+last_message_at - timestamp (for sorting chats by recency)
+admin_viewed_at - timestamp (tracks when admin last viewed)
+archived_at     - timestamp (null = active, set = archived)
+created_at
+updated_at
+```
 
-### 步骤 3：WebSocket 频道
+**support_messages**
+```
+id              - primary key (UUID recommended)
+chat_id         - foreign key to support_chats
+content         - text (required)
+sender_type     - enum: 'user' | 'admin'
+read_at         - timestamp (null = unread)
+created_at
+updated_at
+```
 
-`ChatChannel`（每会话一条流）：订阅时校验 `chat.user_id==current_user.id || current_user.is_admin`，不通过则 `reject`，通过则 `stream_from "support_chat:#{chat_id}"`；`send_message` 动作按当前角色写入 `sender_type`，空内容直接丢弃。
+**Key indexes:**
+- `support_chats.user_id` (unique)
+- `support_chats.last_message_at` (for sorting)
+- `support_chats.archived_at` (for filtering)
+- `support_messages.chat_id`
+- `support_messages.(chat_id, created_at)` (composite, for ordering)
 
-`AdminNotificationChannel`（全体管理员一条全局流）：非 admin `reject`，否则 `stream_from "admin_support_notifications"`。
+**Model relationships:**
+```
+User has_one SupportChat
+SupportChat belongs_to User
+SupportChat has_many SupportMessages
+SupportMessage belongs_to SupportChat
+```
 
-广播：消息落库后向 `support_chat:#{chat.id}` 推 `{type:"new_message", message}`；若发送方是 `user`，再向 `admin_support_notifications` 推 `{type:"new_user_message", chat_id, user_email, message}`。
+**Model methods to implement:**
 
-### 步骤 4：用户端浮动组件
+Chat model:
+```pseudo
+function touch_last_message()
+  update last_message_at = now()
 
-组件树：`ChatWidget` → `ChatButton`（fixed 右下角，含未读角标，封顶显示 `9+`）+ `ChatPanel`（Header 含连接状态点 / 可滚动 MessageList / InputArea）。
+function unread_for_admin?()
+  return exists message where sender_type = 'user'
+    and created_at > admin_viewed_at
 
-状态 Hook `useSupportChat`：挂载时 `fetch('/support_chat')`，把已有消息 id 灌进 `seenMessageIds`（去重用）；`chat.id` 变化时订阅 ChatChannel，收到 `new_message` 先查重复 id（命中即丢弃）再入列，管理员消息播提示音；连接/断开同步 `connected`；卸载时退订。`sendMessage` 走 `subscription.perform('send_message', {content: content.trim()})`。
+function mark_viewed_by_admin()
+  update admin_viewed_at = now()
 
-交互：点击切换面板；打开时自动 `markAsRead()`；新消息自动滚到底；绿点=已连接；Enter 发送、Shift+Enter 换行。样式：用户消息右对齐主色，管理员消息左对齐浅色，各带时间戳。
+function archive()
+  update archived_at = now()
 
-### 步骤 5：管理员工作台
+function unarchive()
+  update archived_at = null
 
-列表页：标题「Support Chats」+ [Active]/[Archived] Tab；卡片按 `last_message_at desc`，显示未读标记、用户邮箱、末条预览、消息数+相对时间；末条来自管理员时加「You: 」前缀；点击进详情。
+function archived?()
+  return archived_at != null
+```
 
-详情页：顶部用户邮箱 + 归档/恢复按钮 + 返回；消息按日期分组加分隔线；**方向与用户端相反**（用户左、管理员右）；显示发送者标签；复用同一 WebSocket 订阅；页面加载时服务端调用 `mark_viewed_by_admin()`。
+Message model:
+```pseudo
+after_create:
+  chat.touch_last_message()
+  if sender_type == 'user' and chat.archived?:
+    chat.unarchive()  // Auto-reactivate on new user message
 
-### 步骤 6：延时邮件通知
+after_create_commit:
+  broadcast_to_chat_channel(message_data)
+  if sender_type == 'user':
+    broadcast_to_admin_notification_channel(message_data, chat_info)
+  if sender_type == 'admin':
+    schedule_email_notification(delay: 5.minutes)
+```
 
-`SupportReplyNotificationJob`（管理员发消息时安排，延时 5 分钟）。守卫子句缺一不可：`sender_type != 'admin'` 跳过、`read_at != null`（已读）跳过、`chat.archived?` 跳过；其余发送邮件，正文含截断预览+打开会话链接。延时让用户先有机会在应用内看到，避免秒回刷屏轰炸。
+### Step 2: API Endpoints
 
-### 步骤 7：TypeScript 类型
+**User-facing:**
+```
+GET  /support_chat       - Get or create user's chat with messages
+PATCH /support_chat/mark_read - Mark admin messages as read
+```
 
-定义 `SupportMessage`、`SupportChat`、`SupportChatListItem`、`AdminSupportChat`，以及频道消息 `ChatChannelMessage{type:'new_message'}`、`AdminNotificationMessage{type:'new_user_message'}`。时间字段统一 ISO8601 字符串。
+**Admin-facing:**
+```
+GET  /admin/chats              - List chats (query: archived=true/false)
+GET  /admin/chats/:id          - Get chat with messages
+POST /admin/chats/:id/archive  - Archive chat
+POST /admin/chats/:id/unarchive - Restore chat
+```
 
-## 关键设计决策
+**Controller logic:**
 
-1. 每用户一会话——简化 UX，历史连续。
-2. 归档=软删除——保留历史、可恢复。
-3. 自动复活——用户向已归档会话发消息即 unarchive。
-4. 延时邮件——5 分钟防刷屏。
-5. 消息去重——自己发的消息会经广播回声，靠 `seenMessageIds` 拦截。
-6. 独立 admin 频道——为全局未读数、桌面通知等后续能力留口。
+User GET /support_chat:
+```pseudo
+function show()
+  chat = current_user.support_chat || create_chat(user: current_user)
+  return {
+    id: chat.id,
+    messages: chat.messages.map(m => serialize_message(m))
+  }
+```
 
-## 示例
+Admin GET /admin/chats:
+```pseudo
+function index()
+  chats = SupportChat
+    .where(archived_at: params.archived ? not_null : null)
+    .includes(:user, :messages)
+    .order(last_message_at: desc)
 
-Rails 端模型与频道（保留源关键实现）：
+  return chats.map(c => {
+    id: c.id,
+    user_email: c.user.email,
+    last_message_preview: c.messages.last?.content.truncate(100),
+    last_message_sender: c.messages.last?.sender_type,
+    message_count: c.messages.count,
+    unread: c.unread_for_admin?,
+    archived: c.archived?
+  })
+```
 
+### Step 3: WebSocket Channels
+
+Create two channels for real-time communication.
+
+**ChatChannel** (specific to each chat):
+```pseudo
+class ChatChannel
+  on_subscribe(chat_id):
+    chat = find_chat(chat_id)
+    if not authorized(chat):
+      reject()
+      return
+    stream_from "support_chat:#{chat_id}"
+
+  function authorized(chat):
+    return chat.user_id == current_user.id OR current_user.is_admin
+
+  action send_message(content):
+    if content.blank: return
+    sender_type = current_user.is_admin ? 'admin' : 'user'
+    chat.messages.create(content: content, sender_type: sender_type)
+```
+
+**AdminNotificationChannel** (global for all admins):
+```pseudo
+class AdminNotificationChannel
+  on_subscribe:
+    if not current_user.is_admin:
+      reject()
+      return
+    stream_from "admin_support_notifications"
+```
+
+**Broadcasting (from Message model):**
+```pseudo
+function broadcast_message():
+  message_data = {
+    id: id,
+    content: content,
+    sender_type: sender_type,
+    read_at: read_at,
+    created_at: created_at
+  }
+
+  // Broadcast to chat subscribers (user + any viewing admins)
+  broadcast("support_chat:#{chat.id}", {
+    type: "new_message",
+    message: message_data
+  })
+
+  // Notify all admins when user sends message
+  if sender_type == 'user':
+    broadcast("admin_support_notifications", {
+      type: "new_user_message",
+      chat_id: chat.id,
+      user_email: chat.user.email,
+      message: message_data
+    })
+```
+
+### Step 4: Frontend - User Widget
+
+Create a floating chat widget with these components:
+
+**Component structure:**
+```
+ChatWidget (root container)
+├── ChatButton (fixed position, bottom-right)
+│   ├── Icon (message bubble when closed, X when open)
+│   └── UnreadBadge (shows count, caps at "9+")
+└── ChatPanel (slides up when open)
+    ├── Header (title + connection status dot)
+    ├── MessageList (scrollable)
+    │   └── MessageBubble (styled by sender_type)
+    └── InputArea
+        ├── Textarea (auto-expanding)
+        └── SendButton
+```
+
+**State management hook:**
+```pseudo
+function useSupportChat():
+  state:
+    chat: Chat | null
+    connected: boolean
+    loading: boolean
+
+  refs:
+    consumer: WebSocketConsumer
+    subscription: ChannelSubscription
+    seenMessageIds: Set<string>  // For deduplication
+
+  on_mount:
+    fetch('/support_chat')
+      .then(data => {
+        chat = data
+        seenMessageIds.addAll(data.messages.map(m => m.id))
+      })
+
+  when chat.id changes:
+    subscription = consumer.subscribe('ChatChannel', { chat_id: chat.id })
+    subscription.on_received(data => {
+      if data.type == 'new_message':
+        if seenMessageIds.has(data.message.id): return  // Dedupe
+        seenMessageIds.add(data.message.id)
+        chat.messages.push(data.message)
+        if data.message.sender_type == 'admin':
+          play_notification_sound()
+    })
+    subscription.on_connected(() => connected = true)
+    subscription.on_disconnected(() => connected = false)
+
+  on_unmount:
+    subscription.unsubscribe()
+
+  function sendMessage(content):
+    subscription.perform('send_message', { content: content.trim() })
+
+  function markAsRead():
+    fetch('/support_chat/mark_read', { method: 'PATCH' })
+    // Update local state to mark admin messages as read
+
+  return { chat, connected, loading, sendMessage, markAsRead }
+```
+
+**Widget behavior:**
+- Show floating button at bottom-right corner (fixed position)
+- Display unread count badge (count messages where sender_type='admin' and read_at=null)
+- Toggle panel open/closed on button click
+- Auto-call markAsRead() when panel opens
+- Auto-scroll to bottom when new messages arrive
+- Show connection status indicator (green dot = connected)
+- Keyboard: Enter to send, Shift+Enter for newline
+
+**Message styling:**
+- User messages: right-aligned, primary color background
+- Admin messages: left-aligned, secondary/muted background
+- Show timestamp on each message
+
+### Step 5: Frontend - Admin Dashboard
+
+Create two pages: chat list and chat detail.
+
+**Chat List Page:**
+```
+Header: "Support Chats"
+Tabs: [Active] [Archived]
+
+Chat cards (sorted by last_message_at desc):
+┌─────────────────────────────────────────┐
+│ [Unread indicator] user@example.com     │
+│ Last message preview text...            │
+│ 5 messages · 2 minutes ago              │
+└─────────────────────────────────────────┘
+```
+
+Features:
+- Tab filtering (active vs archived)
+- Unread indicator (highlight border or badge)
+- Click to navigate to detail
+- Show "You: " prefix if last message was from admin
+
+**Chat Detail Page:**
+```
+Header: user@example.com [Archive/Restore button]
+Back link
+
+Messages (grouped by date):
+──── Monday, January 29 ────
+[User bubble]  Message content
+               10:30 AM
+
+          [Admin bubble] Reply content
+                         10:35 AM
+
+Input area (same as widget)
+```
+
+Features:
+- Group messages by date with dividers
+- User messages left, admin messages right (opposite of user widget)
+- Show sender label ("You" for admin, user email/name for user)
+- Archive/restore toggle button
+- Same WebSocket subscription as user widget for real-time updates
+- Call mark_viewed_by_admin() when page loads (server-side)
+
+### Step 6: Email Notifications
+
+Send email to user when admin replies and user hasn't seen it.
+
+**Job/worker:**
+```pseudo
+class SupportReplyNotificationJob
+  perform(message):
+    if message.sender_type != 'admin': return
+    if message.read_at != null: return  // Already read, skip
+
+    send_email(
+      to: message.chat.user.email,
+      subject: "New reply from Support",
+      body: "You have a new message from our support team..."
+    )
+```
+
+**Scheduling:**
+- Schedule job with 5-minute delay when admin sends message
+- This gives user time to see message in-app before email
+- Job checks if still unread before sending
+
+### Step 7: TypeScript Types
+
+```typescript
+interface SupportMessage {
+  id: string
+  content: string
+  sender_type: 'user' | 'admin'
+  read_at: string | null  // ISO8601
+  created_at: string      // ISO8601
+}
+
+interface SupportChat {
+  id: string
+  messages: SupportMessage[]
+}
+
+interface SupportChatListItem {
+  id: string
+  user_id: string
+  user_email: string
+  last_message_at: string | null
+  last_message_preview: string | null
+  last_message_sender: 'user' | 'admin' | null
+  message_count: number
+  unread: boolean
+  archived: boolean
+}
+
+interface AdminSupportChat {
+  id: string
+  user_id: string
+  user_email: string
+  archived: boolean
+  messages: SupportMessage[]
+}
+
+// WebSocket message types
+interface ChatChannelMessage {
+  type: 'new_message'
+  message: SupportMessage
+}
+
+interface AdminNotificationMessage {
+  type: 'new_user_message'
+  chat_id: string
+  user_email: string
+  message: SupportMessage
+}
+```
+
+## Key Design Decisions
+
+1. **One chat per user** - Simplifies UX, user always has same conversation history
+2. **Soft-delete via archiving** - Preserves history, allows restore
+3. **Auto-unarchive** - When user sends message to archived chat, reactivate it
+4. **Delayed email notifications** - 5 min delay prevents spam for rapid replies
+5. **Message deduplication** - Track seen IDs to prevent duplicates from send + broadcast echo
+6. **Separate admin channel** - Allows future features like global unread count, desktop notifications
+
+## Testing Checklist
+
+After implementation:
+- [ ] User can open widget and send message
+- [ ] Admin sees message in real-time on dashboard
+- [ ] Admin can reply and user sees it instantly
+- [ ] Unread badge shows correct count
+- [ ] Badge clears when widget opens
+- [ ] Connection indicator reflects actual status
+- [ ] Archive/restore works correctly
+- [ ] Auto-unarchive triggers on user message
+- [ ] Email sends after 5 min if message unread
+- [ ] Email does NOT send if user already read message
+- [ ] Messages appear in chronological order
+- [ ] No duplicate messages appear
+
+## Common Pitfalls
+
+1. **Forgetting deduplication** - Messages sent by current user echo back via broadcast
+2. **Race conditions on read status** - Use database transactions
+3. **WebSocket auth** - Verify user can access the specific chat
+4. **Stale connection status** - Handle reconnection gracefully
+5. **Missing indexes** - Add composite index on (chat_id, created_at)
+6. **Email timing** - Use background job, not synchronous send
+
+---
+
+## Framework-Specific Guidance
+
+### Ruby on Rails
+
+**Models:**
 ```ruby
+# app/models/support_chat.rb
+class SupportChat < ApplicationRecord
+  belongs_to :user
+  has_many :support_messages, dependent: :destroy
+
+  scope :active, -> { where(archived_at: nil) }
+  scope :archived, -> { where.not(archived_at: nil) }
+  scope :recent_first, -> { order(last_message_at: :desc) }
+
+  def touch_last_message
+    update_column(:last_message_at, Time.current)
+  end
+
+  def unread_for_admin?
+    support_messages.where(sender_type: :user)
+      .where("created_at > ?", admin_viewed_at || Time.at(0)).exists?
+  end
+
+  def archive!
+    update_column(:archived_at, Time.current)
+  end
+
+  def unarchive!
+    update_column(:archived_at, nil)
+  end
+end
+
+# app/models/support_message.rb
 class SupportMessage < ApplicationRecord
   belongs_to :support_chat
   enum :sender_type, { user: 0, admin: 1 }
   validates :content, presence: true
+
   after_create :update_chat_timestamp
   after_create :auto_unarchive, if: :user?
   after_create_commit :broadcast_message
   after_create_commit :schedule_notification, if: :admin?
 
+  private
+
   def broadcast_message
-    ActionCable.server.broadcast("support_chat:#{support_chat_id}",
-      { type: "new_message", message: { id:, content:, sender_type:, read_at:, created_at: } })
+    ActionCable.server.broadcast("support_chat:#{support_chat_id}", {
+      type: "new_message",
+      message: { id:, content:, sender_type:, read_at:, created_at: }
+    })
   end
+
   def schedule_notification
     SupportReplyNotificationJob.set(wait: 5.minutes).perform_later(self)
   end
 end
+```
 
+**Channel:**
+```ruby
+# app/channels/support_chat_channel.rb
 class SupportChatChannel < ApplicationCable::Channel
   def subscribed
     @chat = SupportChat.find(params[:chat_id])
     reject unless @chat.user_id == current_user.id || current_user.admin?
     stream_from "support_chat:#{@chat.id}"
   end
+
   def send_message(data)
-    @chat.support_messages.create!(content: data["content"],
-      sender_type: current_user.admin? ? :admin : :user)
+    @chat.support_messages.create!(
+      content: data["content"],
+      sender_type: current_user.admin? ? :admin : :user
+    )
   end
 end
 ```
 
-迁移（注意复合索引）：
-
+**Migration:**
 ```ruby
+create_table :support_chats, id: :uuid do |t|
+  t.references :user, type: :uuid, null: false, foreign_key: true, index: { unique: true }
+  t.datetime :last_message_at
+  t.datetime :admin_viewed_at
+  t.datetime :archived_at
+  t.timestamps
+end
+
 create_table :support_messages, id: :uuid do |t|
   t.references :support_chat, type: :uuid, null: false, foreign_key: true
   t.text :content, null: false
@@ -164,47 +578,336 @@ end
 add_index :support_messages, [:support_chat_id, :created_at]
 ```
 
-React Hook 去重核心：
+### React (with any backend)
 
+**Hook:**
 ```typescript
-ws.onmessage = (event) => {
-  const data = JSON.parse(event.data)
-  if (data.type === 'new_message' && !seenIds.current.has(data.message.id)) {
-    seenIds.current.add(data.message.id)
-    setChat(prev => prev ? { ...prev, messages: [...prev.messages, data.message] } : prev)
-  }
+// hooks/useSupportChat.ts
+import { useEffect, useState, useRef, useCallback } from 'react'
+
+export function useSupportChat(websocketUrl: string) {
+  const [chat, setChat] = useState<Chat | null>(null)
+  const [connected, setConnected] = useState(false)
+  const wsRef = useRef<WebSocket | null>(null)
+  const seenIds = useRef(new Set<string>())
+
+  useEffect(() => {
+    fetch('/api/support_chat').then(r => r.json()).then(data => {
+      setChat(data)
+      data.messages.forEach((m: Message) => seenIds.current.add(m.id))
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!chat?.id) return
+    const ws = new WebSocket(`${websocketUrl}?chat_id=${chat.id}`)
+    wsRef.current = ws
+
+    ws.onopen = () => setConnected(true)
+    ws.onclose = () => setConnected(false)
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data)
+      if (data.type === 'new_message' && !seenIds.current.has(data.message.id)) {
+        seenIds.current.add(data.message.id)
+        setChat(prev => prev ? { ...prev, messages: [...prev.messages, data.message] } : prev)
+      }
+    }
+    return () => ws.close()
+  }, [chat?.id])
+
+  const sendMessage = useCallback((content: string) => {
+    wsRef.current?.send(JSON.stringify({ action: 'send_message', content }))
+  }, [])
+
+  return { chat, connected, sendMessage }
 }
-const sendMessage = (content: string) =>
-  wsRef.current?.send(JSON.stringify({ action: 'send_message', content }))
 ```
 
-Widget 未读角标：`chat.messages.filter(m => m.sender_type==='admin' && !m.read_at).length`，>9 显示 `9+`。
+**Widget Component:**
+```tsx
+// components/ChatWidget.tsx
+export function ChatWidget() {
+  const [isOpen, setIsOpen] = useState(false)
+  const { chat, connected, sendMessage } = useSupportChat('/ws/chat')
+  const [input, setInput] = useState('')
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
-其他栈速记：Next.js（App Router）用 `getServerSession` 鉴权、Prisma `findUnique({where:{userId}})` 取或建会话，serverless 走 Pusher `trigger`/`subscribe`；Laravel 在 `booted()` 的 `created` 钩子里 `broadcast(new NewSupportMessage($message))->toOthers()` 并 `delay(now()->addMinutes(5))`；Vue 用 `useSupportChat` composable，逻辑同 React。
+  const unreadCount = chat?.messages.filter(
+    m => m.sender_type === 'admin' && !m.read_at
+  ).length ?? 0
 
-实时技术选型：Rails→ActionCable，Node→Socket.IO，任意栈+serverless→Pusher/Ably/Supabase Realtime；WebSocket 不可用时降级为每 5 秒 `?since=lastMessageTime` 轮询。
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [chat?.messages])
 
-数据库：PostgreSQL（推荐，UUID + `timestamptz`）、MySQL（`CHAR(36)`/`BINARY(16)` + `utf8mb4` 存 emoji）、SQLite（原型，UUID 存 TEXT、时间存 ISO8601）、MongoDB（消息量有界可内嵌）。邮件服务：Postmark/SendGrid/AWS SES/Resend。
+  const handleSend = () => {
+    if (!input.trim()) return
+    sendMessage(input.trim())
+    setInput('')
+  }
 
-## 注意事项
+  return (
+    <div className="fixed bottom-4 right-4 z-50">
+      {isOpen ? (
+        <div className="w-80 h-96 bg-white rounded-lg shadow-xl flex flex-col">
+          <header className="p-3 border-b flex justify-between items-center">
+            <span>Support Chat</span>
+            <span className={`w-2 h-2 rounded-full ${connected ? 'bg-green-500' : 'bg-gray-400'}`} />
+          </header>
+          <div className="flex-1 overflow-y-auto p-3 space-y-2">
+            {chat?.messages.map(m => (
+              <div key={m.id} className={`p-2 rounded ${m.sender_type === 'user' ? 'bg-blue-100 ml-auto' : 'bg-gray-100'}`}>
+                {m.content}
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
+          <div className="p-3 border-t flex gap-2">
+            <input value={input} onChange={e => setInput(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleSend()}
+              className="flex-1 border rounded px-2" placeholder="Type a message..." />
+            <button onClick={handleSend} className="px-3 py-1 bg-blue-500 text-white rounded">Send</button>
+          </div>
+        </div>
+      ) : (
+        <button onClick={() => setIsOpen(true)} className="w-14 h-14 bg-blue-500 rounded-full text-white relative">
+          💬
+          {unreadCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-xs w-5 h-5 rounded-full flex items-center justify-center">
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </span>
+          )}
+        </button>
+      )}
+    </div>
+  )
+}
+```
 
-- 必做去重：自己发的消息会经广播回声重复出现，务必用 seen-id 集合拦截。
-- 读状态有竞态：更新 `read_at` 走数据库事务。
-- WebSocket 必须鉴权：校验当前用户能否访问该具体会话。
-- 优雅处理重连，避免连接状态显示陈旧。
-- 别漏复合索引 `(chat_id, created_at)`，否则消息排序慢。
-- 邮件一律走后台 Job，禁止同步发送；发送前再次校验是否仍未读/未归档。
+### Next.js (App Router)
 
-验收清单：用户发消息→管理员实时可见→回复用户即时收到；未读角标计数正确、打开即清零；连接指示反映真实状态；归档/恢复正常、用户来信自动复活；5 分钟后仅在未读时发邮件、已读则不发；消息时序正确且无重复。
+**API Route:**
+```typescript
+// app/api/support-chat/route.ts
+import { getServerSession } from 'next-auth'
+import { prisma } from '@/lib/prisma'
 
-本技能仅在任务明确落在上述范围内时使用；产出不替代针对具体环境的验证、测试与专家评审。
+export async function GET() {
+  const session = await getServerSession()
+  if (!session?.user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
-## 互见
+  let chat = await prisma.supportChat.findUnique({
+    where: { userId: session.user.id },
+    include: { messages: { orderBy: { createdAt: 'asc' } } }
+  })
 
-- 实时通信底座选型（ActionCable / Socket.IO / Pusher / Ably / SSE）。
-- 后台任务队列与延时 Job（邮件通知调度）。
-- 用户鉴权与角色（区分 user / admin）。
+  if (!chat) {
+    chat = await prisma.supportChat.create({
+      data: { userId: session.user.id },
+      include: { messages: true }
+    })
+  }
+
+  return Response.json(chat)
+}
+```
+
+**WebSocket with Pusher/Ably (serverless-friendly):**
+```typescript
+// For serverless, use Pusher, Ably, or similar
+import Pusher from 'pusher'
+const pusher = new Pusher({ appId, key, secret, cluster })
+
+// When message is created:
+await pusher.trigger(`support-chat-${chatId}`, 'new-message', messageData)
+
+// Client-side with pusher-js:
+const channel = pusher.subscribe(`support-chat-${chatId}`)
+channel.bind('new-message', (data) => { /* update state */ })
+```
+
+### PHP/Laravel
+
+**Models:**
+```php
+// app/Models/SupportChat.php
+class SupportChat extends Model
+{
+    protected $casts = ['last_message_at' => 'datetime', 'archived_at' => 'datetime'];
+
+    public function user() { return $this->belongsTo(User::class); }
+    public function messages() { return $this->hasMany(SupportMessage::class); }
+
+    public function scopeActive($query) { return $query->whereNull('archived_at'); }
+    public function scopeArchived($query) { return $query->whereNotNull('archived_at'); }
+
+    public function isUnreadForAdmin(): bool {
+        return $this->messages()
+            ->where('sender_type', 'user')
+            ->where('created_at', '>', $this->admin_viewed_at ?? '1970-01-01')
+            ->exists();
+    }
+}
+
+// app/Models/SupportMessage.php
+class SupportMessage extends Model
+{
+    protected static function booted() {
+        static::created(function ($message) {
+            $message->supportChat->update(['last_message_at' => now()]);
+            broadcast(new NewSupportMessage($message))->toOthers();
+
+            if ($message->sender_type === 'admin') {
+                SendSupportReplyNotification::dispatch($message)->delay(now()->addMinutes(5));
+            }
+        });
+    }
+}
+```
+
+**Broadcasting Event:**
+```php
+// app/Events/NewSupportMessage.php
+class NewSupportMessage implements ShouldBroadcast
+{
+    public function __construct(public SupportMessage $message) {}
+
+    public function broadcastOn() {
+        return new PrivateChannel('support-chat.' . $this->message->support_chat_id);
+    }
+
+    public function broadcastAs() { return 'new-message'; }
+}
+```
+
+### Vue.js
+
+**Composable:**
+```typescript
+// composables/useSupportChat.ts
+import { ref, onMounted, onUnmounted } from 'vue'
+
+export function useSupportChat() {
+  const chat = ref<Chat | null>(null)
+  const connected = ref(false)
+  let ws: WebSocket | null = null
+  const seenIds = new Set<string>()
+
+  onMounted(async () => {
+    const res = await fetch('/api/support-chat')
+    chat.value = await res.json()
+    chat.value?.messages.forEach(m => seenIds.add(m.id))
+
+    ws = new WebSocket(`/ws/chat?id=${chat.value?.id}`)
+    ws.onopen = () => connected.value = true
+    ws.onclose = () => connected.value = false
+    ws.onmessage = (e) => {
+      const data = JSON.parse(e.data)
+      if (data.type === 'new_message' && !seenIds.has(data.message.id)) {
+        seenIds.add(data.message.id)
+        chat.value?.messages.push(data.message)
+      }
+    }
+  })
+
+  onUnmounted(() => ws?.close())
+
+  const sendMessage = (content: string) => {
+    ws?.send(JSON.stringify({ action: 'send_message', content }))
+  }
+
+  return { chat, connected, sendMessage }
+}
+```
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Database Recommendations
+
+### PostgreSQL (Recommended)
+- Use UUID primary keys for security (non-guessable IDs)
+- Use `timestamptz` for all datetime columns
+- Add GIN index on content for full-text search (optional)
+
+### MySQL
+- Use `CHAR(36)` or `BINARY(16)` for UUIDs
+- Use `DATETIME(6)` for microsecond precision
+- Consider `utf8mb4` charset for emoji support
+
+### SQLite (Development/Small Scale)
+- Works fine for prototyping
+- Store UUIDs as TEXT
+- No native datetime type, store as ISO8601 strings
+
+### MongoDB (Document Store)
+- Embed messages in chat document if message count is bounded
+- Or use separate collection with chat_id reference
+- Use TTL index on archived chats for auto-cleanup (optional)
+
+---
+
+## Email Processing Recommendations
+
+### Transactional Email Services
+- **Postmark** - Best deliverability, simple API
+- **SendGrid** - Good free tier, robust
+- **AWS SES** - Cheapest at scale
+- **Resend** - Modern DX, React email templates
+
+### Implementation Pattern
+```pseudo
+// Always use background jobs for email
+Job: SendSupportReplyNotification
+  delay: 5 minutes after admin message
+
+  perform(message_id):
+    message = find_message(message_id)
+
+    // Guard clauses - don't send if:
+    if message.sender_type != 'admin': return
+    if message.read_at != null: return        // Already read
+    if message.chat.archived?: return         // Chat archived
+
+    send_email(
+      to: message.chat.user.email,
+      template: 'support_reply',
+      data: { message_preview: message.content.truncate(200) }
+    )
+```
+
+### Email Template Tips
+- Include message preview (truncated)
+- Add direct link to open chat (if web app)
+- Keep subject simple: "New reply from [App] Support"
+- Include unsubscribe link for compliance
+
+---
+
+## Real-Time Technology Options
+
+| Technology | Best For | Serverless? |
+|------------|----------|-------------|
+| ActionCable (Rails) | Rails apps | No |
+| Socket.IO | Node.js apps | No |
+| Pusher | Any stack | Yes |
+| Ably | Any stack | Yes |
+| Supabase Realtime | Supabase users | Yes |
+| Firebase RTDB | Firebase users | Yes |
+| Server-Sent Events | Simple one-way | Yes |
+
+### Fallback Strategy
+If WebSocket unavailable, implement polling:
+```pseudo
+// Poll every 5 seconds when disconnected
+if (!websocket.connected) {
+  setInterval(() => {
+    fetch('/api/support-chat/messages?since=' + lastMessageTime)
+      .then(newMessages => appendMessages(newMessages))
+  }, 5000)
+}
+```
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: linux-sysadmin-shell-scripts
-title: Linux 运维脚本模板
-description: 当需要在 Linux 服务器上快速搭起备份、监控、用户与安全、日志分析、自动化等运维脚本时使用；做生产可用的 Bash 脚本模板套用与改写，产出带时间戳/阈值告警/轮转/加密的 .sh 脚本与 cron 计划；不适用于 Windows（用 PowerShell）、可移植 POSIX sh（用 posix-shell-scripting）或一次性交互命令；触发词：备份脚本、磁盘/CPU 监控、日志分析、用户管理、cron 定时
+title: OS/Shell Scripting Troubleshooting Workflow Bundle
+description: Operating system and shell scripting troubleshooting workflow for Linux, macOS, and Windows. Covers bash scripting, system administration, debugging, and automation.
 domain: 研发/devops
-triggers: [写备份脚本, tar/rsync 备份, 数据库备份 mysqldump, 备份轮转, 磁盘/CPU 监控告警, 系统健康检查, 用户创建/密码过期, openssl 文件加密, 日志错误提取, access.log 分析, 网络连通性检查, cron 定时任务, 服务重启脚本, 目录同步清理, Git 仓库批量更新]
-tags: [shell, bash, 运维, sysadmin, 备份, 监控, cron, 日志分析, devops, 研发]
-level: 入门
+triggers: []
+tags: [shell, bash, sysadmin, cron, devops]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bash, tar, rsync, mysqldump, openssl, cron, systemctl, awk, find, curl, ssh]
+tools: []
 requires: []
 related: [bash-defensive-patterns, posix-shell-scripting, linux-system-troubleshooting, shellcheck-linting]
 combines_with: [bats-shell-testing, operational-runbook-writer]
@@ -16,128 +16,427 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# Linux 运维脚本模板
+# OS/Shell Scripting Troubleshooting Workflow Bundle
 
-## 何时使用
+## Overview
 
-- **该用**：在 Linux/Unix（bash）上需要一套即取即用的运维脚本骨架——定时备份（本地/远程/数据库）、资源监控与告警、用户与密码策略、文件加密、日志与访问日志分析、网络探活、cron 调度、目录同步/清理、系统信息采集、Git 仓库批量更新。把模板里的 `/path/to/...`、阈值、主机名替换成自己的即可落地，再用 cron 调度。
-- **不该用（负边界）**：
-  - 目标是 Windows → 用 `powershell-windows`，本套是 bash。
-  - 脚本要在 dash/BusyBox ash/多 Unix 上**可移植** → 用 `posix-shell-scripting`（本套用了数组、`[[`、`&>` 等 bashism）。
-  - 只是一次性、不复用的交互命令，无需脚本化。
-  - 要的是健壮工程化（`set -euo pipefail`、trap、错误处理范式）→ 先看 `bash-defensive-patterns` 再套本模板。
+Comprehensive workflow for operating system troubleshooting, shell scripting, and system administration across Linux, macOS, and Windows. This bundle orchestrates skills for debugging system issues, creating robust scripts, and automating administrative tasks.
 
-## 步骤
+## When to Use This Workflow
 
-1. **选模板**：按任务从下方「指令」九类里挑对应骨架。
-2. **改参数**：替换路径、阈值、用户名、主机、库名等占位符；变量一律加引号 `"$var"`。
-3. **赋权运行**：`chmod +x script.sh && ./script.sh`；后台跑 `nohup ./script.sh &`。
-4. **先测后用**：非生产环境跑通，必要时 `bash -x script.sh` 调试。
-5. **调度**：交给 cron（见下）或 systemd timer；告警类脚本接邮件/Slack 通知。
-6. **加固**（推荐）：补 `set -euo pipefail`、`trap` 清理、绝对路径、输入校验——见 `bash-defensive-patterns`。
+Use this workflow when:
+- Debugging shell script errors
+- Creating production-ready bash scripts
+- Troubleshooting system issues
+- Automating system administration tasks
+- Managing processes and services
+- Configuring system resources
 
-## 指令
+## Workflow Phases
 
-约定：`${var:-default}` 取默认、`$(date +%Y%m%d_%H%M%S)` 时间戳、`"$@"` 全参数、`$(( ))` 算术。
+### Phase 1: Environment Assessment
 
-**① 备份**
-- 目录打包：`tar -czf "$backup_dir/backup_$(date +%Y%m%d_%H%M%S).tar.gz" "$source_dir"`
-- 远程同步：`rsync -avz --progress "$source_dir" user@host:/path/to/backup`
-- 备份轮转（超过 `max_backups` 删最旧）：
-  ```bash
-  while [ "$(ls -1 "$backup_dir" | wc -l)" -gt "$max_backups" ]; do
-      oldest=$(ls -1t "$backup_dir" | tail -n 1)
-      rm -r "$backup_dir/$oldest"
-  done
-  ```
-- 数据库：`mysqldump -u "$db_user" -p"$db_pass" "$db" > dump.sql && gzip dump.sql`（密码勿硬编码，见注意事项）。
+#### Skills to Invoke
+- `bash-linux` - Linux bash patterns
+- `bash-pro` - Professional bash scripting
+- `bash-defensive-patterns` - Defensive scripting
 
-**② 监控告警**（阈值默认 90）
-- CPU：`cpu=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | cut -d. -f1); [ "$cpu" -gt "$threshold" ] && echo "ALERT: CPU $cpu%"`
-- 磁盘：`disk=$(df -h | grep "$partition" | awk '{print $5}' | cut -d% -f1); [ "$disk" -gt "$threshold" ] && echo "ALERT: disk $disk%"`
-- 健康检查：把 `uptime`、`cat /proc/loadavg`、`free -h`、`df -h`、`ps aux --sort=-%cpu | head -10` 用 `{ ...; } > report.txt` 汇总。
+#### Actions
+1. Identify operating system and version
+2. Check available tools and commands
+3. Verify permissions and access
+4. Assess system resources
+5. Review logs and error messages
 
-**③ 用户管理**
-- 建用户（先判存在）：`id "$u" &>/dev/null || { useradd -m -s /bin/bash "$u"; passwd "$u"; }`
-- 密码过期巡检：遍历 `grep "/bin/bash" /etc/passwd | cut -d: -f1`，对每个 `chage -l "$user" | grep "Password expires"`。
-
-**④ 安全**
-- 随机密码：`openssl rand -base64 48 | tr -dc 'a-zA-Z0-9!@#$%^&*' | head -c "${1:-16}"`
-- 文件加解密（AES-256-CBC + PBKDF2）：
-  ```bash
-  openssl enc -aes-256-cbc -salt -pbkdf2 -in "$f" -out "$f.enc"        # 加密
-  openssl enc -aes-256-cbc -d  -pbkdf2 -in "$f" -out "${f%.enc}"       # 解密
-  ```
-
-**⑤ 日志分析**
-- 错误提取：`grep -i "error\|fail\|critical" "${1:-/var/log/syslog}" > out.txt`
-- access.log 三连：Top IP `awk '{print $1}' log | sort | uniq -c | sort -rn | head`；Top URL `$7`；状态码分布 `$9`。
-
-**⑥ 网络**
-- 探活：`for h in "${hosts[@]}"; do ping -c 1 -W 2 "$h" &>/dev/null && echo "[UP] $h" || echo "[DOWN] $h"; done`
-- 网站可用性：`curl --output /dev/null --silent --head --fail --max-time 10 "$url"`
-- 网卡信息：`ip addr show "$iface" || ifconfig "$iface"`；路由 `ip route | grep "$iface"`。
-
-**⑦ 自动化**
-- 幂等装包：`dpkg -l | grep -q "^ii  $pkg" || sudo apt-get install -y "$pkg"`
-- 加 cron：`(crontab -l 2>/dev/null; echo "0 2 * * * /path/script.sh") | crontab -`
-- 服务重启：`systemctl is-active --quiet "$svc" && sudo systemctl restart "$svc" || sudo systemctl start "$svc"`
-
-**⑧ 文件操作**
-- 镜像同步（含删除）：`rsync -avz --delete "$src/" "$dst/"`
-- 清理旧文件：`find "${1:-/tmp}" -type f -mtime +"${2:-7}" -exec rm -v {} \;`
-- 目录占用 Top：`du -sh "$path"/* | sort -rh | head -20`
-
-**⑨ 系统/开发**
-- 信息采集：把 `hostname`、`uname -a`、`lscpu`、`free -h`、`df -h`、`ip -br addr`、`who` 汇入报告。
-- Git 批量更新：对每个 repo `[ -d "$repo/.git" ] && (cd "$repo"; git fetch --all; git pull origin "$(git branch --show-current)")`
-- 远程执行：`ssh "$server" "bash -s" < ./local_script.sh`
-
-**cron 格式**：`分(0-59) 时(0-23) 日(1-31) 月(1-12) 周(0-7，0/7=周日)`。
-
-## 示例
-
-带时间戳的目录备份脚本（最小可用）：
-
+#### Diagnostic Commands
 ```bash
-#!/bin/bash
-backup_dir="/data/backups"
-source_dir="/var/www"
-ts=$(date +%Y%m%d_%H%M%S)
-tar -czf "$backup_dir/backup_$ts.tar.gz" "$source_dir"
-echo "Backup completed: backup_$ts.tar.gz"
+# System information
+uname -a
+cat /etc/os-release
+hostnamectl
+
+# Resource usage
+top
+htop
+df -h
+free -m
+
+# Process information
+ps aux
+pgrep -f pattern
+lsof -i :port
+
+# Network status
+netstat -tulpn
+ss -tulpn
+ip addr show
 ```
 
-磁盘超阈告警 + 邮件（接入通知）：
-
-```bash
-#!/bin/bash
-threshold=90
-disk=$(df -h | grep "/dev/sda1" | awk '{print $5}' | cut -d% -f1)
-if [ "$disk" -gt "$threshold" ]; then
-    mail -s "Disk Alert" admin@example.com <<< "Disk usage: $disk%"
-fi
+#### Copy-Paste Prompts
+```
+Use @bash-linux to diagnose system performance issues
 ```
 
-每天凌晨 2 点跑备份：`(crontab -l 2>/dev/null; echo "0 2 * * * /opt/backup.sh") | crontab -`
+### Phase 2: Script Analysis
 
-## 注意事项
+#### Skills to Invoke
+- `bash-defensive-patterns` - Defensive scripting
+- `shellcheck-configuration` - ShellCheck linting
+- `bats-testing-patterns` - Bats testing
 
-- **先非生产验证**：备份/删除/轮转类脚本误删风险高，`rm -r`、`--delete`、`find -exec rm` 务必先在测试目录跑通。
-- **绝对路径**：cron 环境 PATH/CWD 与登录 shell 不同，脚本内一律用绝对路径，避免相对路径踩空。
-- **变量加引号**：`"$var"` 处理含空格/特殊字符的路径；裸 `$var` 会分词出错。
-- **权限**：建用户、装包、重启服务、改 cron 多需 root/sudo；按最小权限运行。
-- **密码不硬编码**：`mysqldump -p"$db_pass"`、`db_pass="..."` 仅作模板演示；生产用 `~/.my.cnf`（chmod 600）、环境变量或密钥管理，勿提交进仓库。
-- **加密口令**：`openssl enc` 会交互或从 stdin 读口令，妥善保管，丢了无法解密。
-- **告警去重**：监控脚本直接 cron 高频跑会刷屏告警，建议加状态文件做去抖/静默窗口。
-- **bashism 提醒**：本套用了数组 `("${a[@]}")`、`[[`、`&>`、`==`——只在 bash 下可靠；要可移植转 `posix-shell-scripting`。
-- **调试**：`bash -x script.sh` 逐行追踪；健壮化加 `set -euo pipefail` + `trap`，详见 `bash-defensive-patterns`。
+#### Actions
+1. Run ShellCheck for linting
+2. Analyze script structure
+3. Identify potential issues
+4. Check error handling
+5. Verify variable usage
 
-## 互见
+#### ShellCheck Usage
+```bash
+# Install ShellCheck
+sudo apt install shellcheck  # Debian/Ubuntu
+brew install shellcheck      # macOS
 
-- requires：`bash-defensive-patterns` —— 套模板前先掌握 `set -euo pipefail`/trap/错误处理，避免脚本静默失败。
-- related：`posix-shell-scripting` —— 需跨 dash/BusyBox 可移植时改用；`powershell-windows` —— Windows 侧对应能力；`operational-runbook-writer` —— 把这些脚本沉淀成可执行运维手册。
-- combines_with：`shellcheck-linting` —— 提交前静态检查脚本质量；`git-hooks-automation` / `ci-cd-pipeline-builder` —— 把校验与脚本纳入门禁与流水线调度。
+# Run ShellCheck
+shellcheck script.sh
+shellcheck -f gcc script.sh
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+# Fix common issues
+# - Use quotes around variables
+# - Check exit codes
+# - Handle errors properly
+```
+
+#### Copy-Paste Prompts
+```
+Use @shellcheck-configuration to lint and fix shell scripts
+```
+
+### Phase 3: Debugging
+
+#### Skills to Invoke
+- `systematic-debugging` - Systematic debugging
+- `debugger` - Debugging specialist
+- `error-detective` - Error pattern detection
+
+#### Actions
+1. Enable debug mode
+2. Add logging statements
+3. Trace execution flow
+4. Isolate failing sections
+5. Test components individually
+
+#### Debug Techniques
+```bash
+# Enable debug mode
+set -x  # Print commands
+set -e  # Exit on error
+set -u  # Exit on undefined variable
+set -o pipefail  # Pipeline failure detection
+
+# Add logging
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> /var/log/script.log
+}
+
+# Trap errors
+trap 'echo "Error on line $LINENO"' ERR
+
+# Test sections
+bash -n script.sh  # Syntax check
+bash -x script.sh  # Trace execution
+```
+
+#### Copy-Paste Prompts
+```
+Use @systematic-debugging to trace and fix shell script errors
+```
+
+### Phase 4: Script Development
+
+#### Skills to Invoke
+- `bash-pro` - Professional scripting
+- `bash-defensive-patterns` - Defensive patterns
+- `linux-shell-scripting` - Shell scripting
+
+#### Actions
+1. Design script structure
+2. Implement functions
+3. Add error handling
+4. Include input validation
+5. Add help documentation
+
+#### Script Template
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Constants
+readonly SCRIPT_NAME=$(basename "$0")
+readonly SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+
+# Logging
+log() {
+    local level="$1"
+    shift
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$level] $*" >&2
+}
+
+info() { log "INFO" "$@"; }
+warn() { log "WARN" "$@"; }
+error() { log "ERROR" "$@"; exit 1; }
+
+# Usage
+usage() {
+    cat <<EOF
+Usage: $SCRIPT_NAME [OPTIONS]
+
+Options:
+    -h, --help      Show this help message
+    -v, --verbose   Enable verbose output
+    -d, --debug     Enable debug mode
+
+Examples:
+    $SCRIPT_NAME --verbose
+    $SCRIPT_NAME -d
+EOF
+}
+
+# Main function
+main() {
+    local verbose=false
+    local debug=false
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            -v|--verbose)
+                verbose=true
+                shift
+                ;;
+            -d|--debug)
+                debug=true
+                set -x
+                shift
+                ;;
+            *)
+                error "Unknown option: $1"
+                ;;
+        esac
+    done
+
+    info "Script started"
+    # Your code here
+    info "Script completed"
+}
+
+main "$@"
+```
+
+#### Copy-Paste Prompts
+```
+Use @bash-pro to create a production-ready backup script
+```
+
+```
+Use @linux-shell-scripting to automate system maintenance tasks
+```
+
+### Phase 5: Testing
+
+#### Skills to Invoke
+- `bats-testing-patterns` - Bats testing framework
+- `test-automator` - Test automation
+
+#### Actions
+1. Write Bats tests
+2. Test edge cases
+3. Test error conditions
+4. Verify expected outputs
+5. Run test suite
+
+#### Bats Test Example
+```bash
+#!/usr/bin/env bats
+
+@test "script returns success" {
+    run ./script.sh
+    [ "$status" -eq 0 ]
+}
+
+@test "script handles missing arguments" {
+    run ./script.sh
+    [ "$status" -ne 0 ]
+    [ "$output" == *"Usage:"* ]
+}
+
+@test "script creates expected output" {
+    run ./script.sh --output test.txt
+    [ -f "test.txt" ]
+}
+```
+
+#### Copy-Paste Prompts
+```
+Use @bats-testing-patterns to write tests for shell scripts
+```
+
+### Phase 6: System Troubleshooting
+
+#### Skills to Invoke
+- `devops-troubleshooter` - DevOps troubleshooting
+- `incident-responder` - Incident response
+- `server-management` - Server management
+
+#### Actions
+1. Identify symptoms
+2. Check system logs
+3. Analyze resource usage
+4. Test connectivity
+5. Verify configurations
+6. Implement fixes
+
+#### Troubleshooting Commands
+```bash
+# Check logs
+journalctl -xe
+tail -f /var/log/syslog
+dmesg | tail
+
+# Network troubleshooting
+ping host
+traceroute host
+curl -v http://host
+dig domain
+nslookup domain
+
+# Process troubleshooting
+strace -p PID
+lsof -p PID
+iotop
+
+# Disk troubleshooting
+du -sh /*
+find / -type f -size +100M
+lsof | grep deleted
+```
+
+#### Copy-Paste Prompts
+```
+Use @devops-troubleshooter to diagnose server connectivity issues
+```
+
+```
+Use @incident-responder to investigate system outage
+```
+
+### Phase 7: Automation
+
+#### Skills to Invoke
+- `workflow-automation` - Workflow automation
+- `cicd-automation-workflow-automate` - CI/CD automation
+- `linux-shell-scripting` - Shell scripting
+
+#### Actions
+1. Identify automation opportunities
+2. Design automation workflows
+3. Implement scripts
+4. Schedule with cron/systemd
+5. Monitor automation health
+
+#### Cron Examples
+```bash
+# Edit crontab
+crontab -e
+
+# Backup every day at 2 AM
+0 2 * * * /path/to/backup.sh
+
+# Clean logs weekly
+0 3 * * 0 /path/to/cleanup.sh
+
+# Monitor disk space hourly
+0 * * * * /path/to/monitor.sh
+```
+
+#### Systemd Timer Example
+```ini
+# /etc/systemd/system/backup.timer
+[Unit]
+Description=Daily backup timer
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+#### Copy-Paste Prompts
+```
+Use @workflow-automation to create automated system maintenance workflow
+```
+
+## Common Troubleshooting Scenarios
+
+### High CPU Usage
+```bash
+top -bn1 | head -20
+ps aux --sort=-%cpu | head -10
+pidstat 1 5
+```
+
+### Memory Issues
+```bash
+free -h
+vmstat 1 10
+cat /proc/meminfo
+```
+
+### Disk Space
+```bash
+df -h
+du -sh /* 2>/dev/null | sort -h
+find / -type f -size +500M 2>/dev/null
+```
+
+### Network Issues
+```bash
+ip addr show
+ip route show
+ss -tulpn
+curl -v http://target
+```
+
+### Service Failures
+```bash
+systemctl status service-name
+journalctl -u service-name -f
+systemctl restart service-name
+```
+
+## Quality Gates
+
+Before completing workflow, verify:
+- [ ] All scripts pass ShellCheck
+- [ ] Tests pass with Bats
+- [ ] Error handling implemented
+- [ ] Logging configured
+- [ ] Documentation complete
+- [ ] Automation scheduled
+
+## Related Workflow Bundles
+
+- `development` - Software development
+- `cloud-devops` - Cloud and DevOps
+- `security-audit` - Security testing
+- `database` - Database operations
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

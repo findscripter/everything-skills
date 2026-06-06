@@ -1,14 +1,14 @@
 ---
 name: opentargets-database
-title: Open Targets 靶点-疾病关联查询
-description: 当需要用 Open Targets GraphQL API 查询靶点-疾病关联评分、证据、已知药物、可成药性或安全性时使用；做按基因/EFO 调 GraphQL 取关联打分、药物-靶点-疾病三角、证据明细并落表；不适用于生物活性 IC50/Ki 取数（用 chembl）、临床试验细节（用 clinicaltrials）；触发词：Open Targets、靶点疾病关联、association score、EFO、靶点优先级、tractability、known drugs、GraphQL
+title: Open Targets Platform Database
+description: Query Open Targets GraphQL API for target-disease associations, evidence, drug links, safety. Search targets by gene, diseases by EFO ID; scores from 20+ sources, drug mechanisms, tractability. For ChEMBL use chembl-database-bioactivity; for trials use clinicaltrials-database-search.
 domain: 领域/science
-triggers: [Open Targets, 靶点疾病关联, association score, EFO ID, 靶点优先级, tractability, 可成药性, known drugs, drug-target-disease, GraphQL API]
+triggers: [Open Targets, association score, EFO ID, tractability, known drugs, drug-target-disease, GraphQL API]
 tags: [science, bioinformatics, drug-discovery, target-disease, graphql, open-targets, genomics]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, requests, pandas, GraphQL, curl]
+tools: []
 requires: []
 related: [uniprot-protein-database, clinvar-database, chembl-bioactivity-database, gnomad-population-database]
 combines_with: [chembl-bioactivity-database, uniprot-protein-database, gene-set-enrichment-analysis]
@@ -16,154 +16,602 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# Open Targets Platform Database
 
-需要从 **Open Targets Platform** 的公开 GraphQL API（免鉴权）系统化获取靶点-疾病关联与药物发现证据时使用。典型任务：
+## Overview
 
-- 给定疾病，按总关联分对所有靶点排序，做**靶点优先级**并导出证据分解。
-- 给定基因，找其全部关联疾病及置信分。
-- 取靶点的**已知药物**（获批/在研）、作用机制（MoA）与临床阶段。
-- 评估靶点**可成药性 / tractability**（小分子、抗体、PROTAC 倾向）。
-- 拉某靶点-疾病对的**证据明细**（GWAS、ClinVar、文献等）。
-- 查靶点的**安全性 / 不良事件**（safetyLiabilities）。
+Open Targets Platform integrates evidence from genetics, genomics, literature, and drug databases to systematically score target-disease associations for 60,000+ targets and 20,000+ diseases/phenotypes. The public GraphQL API (no authentication required) provides access to association scores, evidence from 20+ data sources (GWAS, ClinVar, ChEMBL, drugs, pathways, mouse models, expression), and detailed drug-target-disease triangles.
 
-数据覆盖 60000+ 靶点、20000+ 疾病/表型，关联分由 20+ 数据源（遗传、体细胞突变、已知药物、通路、文献、表达、动物模型等）经**调和求和（harmonic sum）**聚合为 0–1 分。
+## When to Use
 
-**不该用的边界：**
-- 化合物生物活性 IC50/Ki/Kd 等定量数据 → 用 `chembl-database-bioactivity`。
-- 临床试验细节（入组、研究设计、地点） → 用 `clinicaltrials-database-search`。
-- 不负责对结果做深度统计建模，只取回原始数据并标注来源。
-- 仅泛查多个科研库、不确定该查哪个库时 → 先用 `scientific-database-lookup` 选库。
+- Ranking therapeutic targets for a disease by overall association score and evidence breakdown
+- Finding all diseases associated with a gene of interest and their confidence scores
+- Retrieving approved and investigational drugs for a target, with mechanism of action and clinical phase
+- Assessing target druggability and tractability (small molecule, antibody, PROTAC likelihood)
+- Pulling genetic association evidence (GWAS hits, variant-to-gene mappings) for a target-disease pair
+- Exploring safety/adverse event data for a drug target from FAERS and literature
+- For bioactivity IC50/Ki data use `chembl-database-bioactivity`; for clinical trial details use `clinicaltrials-database-search`
 
-## 步骤
+## Prerequisites
 
-1. **解析标识符**：疾病用 EFO ID（如 `EFO_0000305`=乳腺癌），靶点用 Ensembl 基因 ID（如 `ENSG00000141510`=TP53）。名称不可直接用——先调 `search` 查规范 ID。
-2. **选查询**：按意图挑下方「指令」中的查询（靶点查疾病 / 疾病查靶点 / 已知药物 / 证据 / 安全性 / 可成药性）。
-3. **发请求**：统一 POST 到 `https://api.platform.opentargets.org/api/v4/graphql`，body 为 `{"query": gql, "variables": {...}}`。Python 用 `requests`，命令行用 `curl -X POST`（GraphQL 为 POST，GET 不可用）。
-4. **分页**：`page: {index, size}`，默认 size=10；大结果集翻页，单次别超 ~500 行。
-5. **返回**：给出每个查询的原始结果 + 关键字段表（关联分、子分、药物、证据来源），并落 CSV。
+- **Python packages**: `requests`
+- **Data requirements**: gene symbols (HGNC), Ensembl gene IDs, disease EFO IDs, or drug names
+- **Environment**: internet connection; no authentication needed
+- **Rate limits**: no hard limit stated; use reasonable delays for large queries (>100 targets)
 
-## 指令
+```bash
+pip install requests
+```
 
-### 端点与通用函数
+## Quick Start
 
 ```python
 import requests
+
 OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
 
 def ot_query(gql, variables=None):
     r = requests.post(OT_URL, json={"query": gql, "variables": variables or {}})
     r.raise_for_status()
     return r.json()["data"]
+
+# Top disease associations for BRCA1
+query = """
+query TargetDiseases($ensgId: String!) {
+  target(ensemblId: $ensgId) {
+    id
+    approvedSymbol
+    associatedDiseases(page: {index: 0, size: 5}) {
+      rows {
+        disease { id name }
+        score
+      }
+    }
+  }
+}
+"""
+data = ot_query(query, {"ensgId": "ENSG00000012048"})
+target = data["target"]
+print(f"Target: {target['approvedSymbol']}")
+for row in target["associatedDiseases"]["rows"]:
+    print(f"  {row['disease']['name']}: {row['score']:.3f}")
 ```
 
-### 查询速查
+## Core API
 
-| 意图 | 入口字段 | 关键返回 |
-|---|---|---|
-| 名称/符号 → ID | `search(queryString, entityNames:["target"|"disease"])` | `hits{id name}` |
-| 靶点 → 关联疾病 | `target(ensemblId).associatedDiseases(page, orderByScore:"score")` | `score`、`datatypeScores{id score}` |
-| 疾病 → 关联靶点 | `disease(efoId).associatedTargets(page, orderByScore:"score")` | `target{approvedSymbol}`、`score` |
-| 靶点 → 已知药物 | `target(ensemblId).drugAndClinicalCandidates` | `drug{name drugType mechanismsOfAction}`、`maxClinicalStage` |
-| 靶点-疾病 → 证据 | `disease(efoId).evidences(ensemblIds, datasourceIds, enableIndirect)` | `datasourceId score variantRsId` |
-| 靶点 → 安全性 | `target(ensemblId).safetyLiabilities` | `event effects datasource` |
-| 靶点 → 可成药性 | `target(ensemblId).tractability` | `label modality value` |
+### Query 1: Target Lookup by Gene Symbol
 
-### 关键参数
-
-| 参数 | 模块 | 默认 | 范围/选项 | 作用 |
-|---|---|---|---|---|
-| `page.size` | 关联 | 10 | 1–10000 | 每页行数 |
-| `page.index` | 关联 | 0 | 0–N | 翻页索引 |
-| `orderByScore` | 关联 | `"score"` | `"score"`/子分 ID | 排序依据 |
-| `datasourceIds` | 证据 | 全部 | 数据源 ID 列表 | 按源过滤证据 |
-| `enableIndirect` | 证据 | false | true/false | 含疾病子型（EFO 子节点）证据 |
-
-### 子分（datatypeScores）常用 ID
-
-`genetic_association`、`somatic_mutation`、`known_drug`、`affected_pathway`、`literature`、`rna_expression`、`animal_model`。遗传验证可筛 `genetic_association > 0.1`；药物重定位优先 `known_drug`。
-
-## 示例
-
-### 疾病名 → EFO ID（关联查询前必做）
+Search for a target and retrieve basic metadata (Ensembl ID, biotype, description).
 
 ```python
-q = 'query S($q:String!){search(queryString:$q,entityNames:["disease"]){hits{id name score}}}'
-for h in ot_query(q, {"q": "breast cancer"})["search"]["hits"][:5]:
-    print(h["id"], h["name"])   # EFO_0000305: breast carcinoma ...
+import requests
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+def ot_query(gql, variables=None):
+    r = requests.post(OT_URL, json={"query": gql, "variables": variables or {}})
+    r.raise_for_status()
+    return r.json()["data"]
+
+# Search by gene symbol
+query = """
+query SearchTarget($sym: String!) {
+  search(queryString: $sym, entityNames: ["target"]) {
+    hits {
+      id
+      name
+      entity
+      object {
+        ... on Target {
+          approvedSymbol
+          approvedName
+          biotype
+          functionDescriptions
+        }
+      }
+    }
+  }
+}
+"""
+data = ot_query(query, {"sym": "BRCA1"})
+for hit in data["search"]["hits"][:3]:
+    obj = hit.get("object", {})
+    print(f"ID: {hit['id']} | {obj.get('approvedSymbol')} | {obj.get('biotype')}")
+    descs = obj.get("functionDescriptions", [])
+    if descs:
+        print(f"  Function: {descs[0][:120]}")
 ```
 
-### 工作流：疾病的靶点优先级（落 CSV）
+```python
+# Direct lookup by Ensembl ID
+query2 = """
+query Target($ensgId: String!) {
+  target(ensemblId: $ensgId) {
+    id approvedSymbol approvedName biotype
+    tractability { label modality value }
+  }
+}
+"""
+data2 = ot_query(query2, {"ensgId": "ENSG00000141510"})  # TP53
+t = data2["target"]
+print(f"\n{t['approvedSymbol']} ({t['id']}): {t['biotype']}")
+print("Tractability:")
+for tr in t.get("tractability", [])[:5]:
+    print(f"  {tr['modality']} | {tr['label']}: {tr['value']}")
+```
+
+### Query 2: Target-Disease Associations
+
+Retrieve association scores for a target across all associated diseases.
 
 ```python
-import pandas as pd
-q = """
-query($efoId:String!,$size:Int!){
-  disease(efoId:$efoId){ name
-    associatedTargets(page:{index:0,size:$size},orderByScore:"score"){
-      count rows{ target{id approvedSymbol biotype} score datatypeScores{id score} } } } }"""
-data = ot_query(q, {"efoId": "EFO_0003060", "size": 50})  # NSCLC
+import requests, pandas as pd
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+def ot_query(gql, variables=None):
+    r = requests.post(OT_URL, json={"query": gql, "variables": variables or {}})
+    r.raise_for_status()
+    return r.json()["data"]
+
+query = """
+query Associations($ensgId: String!, $size: Int!) {
+  target(ensemblId: $ensgId) {
+    approvedSymbol
+    associatedDiseases(page: {index: 0, size: $size}, orderByScore: "score") {
+      count
+      rows {
+        disease { id name therapeuticAreas { name } }
+        score
+        datatypeScores { id score }
+      }
+    }
+  }
+}
+"""
+data = ot_query(query, {"ensgId": "ENSG00000012048", "size": 20})
+target = data["target"]
+assoc = target["associatedDiseases"]
+print(f"{target['approvedSymbol']}: {assoc['count']} associated diseases")
+
 rows = []
-for r in data["disease"]["associatedTargets"]["rows"]:
-    t = r["target"]; sc = {d["id"]: round(d["score"],3) for d in r.get("datatypeScores",[])}
-    rows.append({"target": t["approvedSymbol"], "ensembl_id": t["id"],
-                 "overall_score": round(r["score"],4), **sc})
-pd.DataFrame(rows).to_csv("target_prioritization.csv", index=False)
+for r in assoc["rows"]:
+    scores = {d["id"]: d["score"] for d in r.get("datatypeScores", [])}
+    rows.append({
+        "disease": r["disease"]["name"],
+        "disease_id": r["disease"]["id"],
+        "overall_score": round(r["score"], 4),
+        "genetics": round(scores.get("genetic_association", 0), 3),
+        "drugs": round(scores.get("known_drug", 0), 3),
+        "literature": round(scores.get("literature", 0), 3),
+    })
+
+df = pd.DataFrame(rows)
+print(df.head(10).to_string(index=False))
 ```
 
-### 靶点的已知药物（药物-靶点-疾病三角）
+### Query 3: Disease-Target Associations
+
+Given a disease, retrieve all associated targets ranked by score.
 
 ```python
-q = """
+import requests, pandas as pd
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+def ot_query(gql, variables=None):
+    r = requests.post(OT_URL, json={"query": gql, "variables": variables or {}})
+    r.raise_for_status()
+    return r.json()["data"]
+
+query = """
+query DiseaseTargets($efoId: String!, $size: Int!) {
+  disease(efoId: $efoId) {
+    id name
+    associatedTargets(page: {index: 0, size: $size}, orderByScore: "score") {
+      count
+      rows {
+        target { id approvedSymbol biotype }
+        score
+        datatypeScores { id score }
+      }
+    }
+  }
+}
+"""
+# EFO_0000305 = breast carcinoma
+data = ot_query(query, {"efoId": "EFO_0000305", "size": 10})
+disease = data["disease"]
+print(f"Disease: {disease['name']}")
+print(f"Total associated targets: {disease['associatedTargets']['count']}")
+
+for row in disease["associatedTargets"]["rows"][:5]:
+    t = row["target"]
+    print(f"  {t['approvedSymbol']:12s} score={row['score']:.3f} biotype={t['biotype']}")
+```
+
+### Query 4: Known Drugs for a Target
+
+Retrieve approved and investigational drugs, their mechanism, and clinical phase.
+
+```python
+import requests, pandas as pd
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+def ot_query(gql, variables=None):
+    r = requests.post(OT_URL, json={"query": gql, "variables": variables or {}})
+    r.raise_for_status()
+    return r.json()["data"]
+
+query = """
+query KnownDrugs($ensgId: String!) {
+  target(ensemblId: $ensgId) {
+    approvedSymbol
+    drugAndClinicalCandidates {
+      count
+      rows {
+        maxClinicalStage
+        drug { id name drugType maximumClinicalStage mechanismsOfAction { rows { mechanismOfAction } } }
+        diseases { disease { id name } }
+      }
+    }
+  }
+}
+"""
+data = ot_query(query, {"ensgId": "ENSG00000146648"})  # EGFR
+target = data["target"]
+drugs_data = target["drugAndClinicalCandidates"]
+print(f"{target['approvedSymbol']}: {drugs_data['count']} drug-indication pairs")
+
+rows = []
+for r in drugs_data["rows"]:
+    drug = r["drug"]
+    moa = drug.get("mechanismsOfAction") or {}
+    moa_first = (moa.get("rows") or [{}])[0].get("mechanismOfAction")
+    first_disease = (r.get("diseases") or [{}])[0].get("disease") or {}
+    rows.append({
+        "drug": drug["name"],
+        "type": drug["drugType"],
+        "maxClinicalStage": r["maxClinicalStage"],
+        "approved": drug["maximumClinicalStage"] == "PHASE_4",
+        "indication": first_disease.get("name", "n/a"),
+        "mechanism": moa_first,
+    })
+
+df = pd.DataFrame(rows).drop_duplicates(subset=["drug", "indication"])
+print(df.head(10).to_string(index=False))
+```
+
+### Query 5: Evidence for a Specific Target-Disease Pair
+
+Retrieve detailed evidence records (GWAS, ClinVar, literature) for a target-disease pair.
+
+```python
+import requests
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+def ot_query(gql, variables=None):
+    r = requests.post(OT_URL, json={"query": gql, "variables": variables or {}})
+    r.raise_for_status()
+    return r.json()["data"]
+
+query = """
+query Evidence($ensgId: String!, $efoId: String!) {
+  disease(efoId: $efoId) {
+    evidences(
+      ensemblIds: [$ensgId]
+      enableIndirect: true
+      size: 10
+      datasourceIds: ["gwas_catalog", "clinvar", "chembl"]
+    ) {
+      count
+      rows {
+        datasourceId
+        score
+        variantRsId
+        studyId
+        publicationYear
+        clinicalSignificances
+      }
+    }
+  }
+}
+"""
+data = ot_query(query, {"ensgId": "ENSG00000012048", "efoId": "EFO_0000305"})
+evidences = data["disease"]["evidences"]
+print(f"Evidence records: {evidences['count']}")
+for ev in evidences["rows"][:5]:
+    print(f"  Source: {ev['datasourceId']:20s} | Score: {ev['score']:.3f}")
+```
+
+### Query 6: Safety and Adverse Events
+
+Retrieve known adverse events and safety data for a target.
+
+```python
+import requests
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+def ot_query(gql, variables=None):
+    r = requests.post(OT_URL, json={"query": gql, "variables": variables or {}})
+    r.raise_for_status()
+    return r.json()["data"]
+
+query = """
+query Safety($ensgId: String!) {
+  target(ensemblId: $ensgId) {
+    approvedSymbol
+    safetyLiabilities {
+      event
+      effects { direction dosing }
+      biosamples { tissueLabel cellLabel }
+      datasource
+    }
+  }
+}
+"""
+data = ot_query(query, {"ensgId": "ENSG00000146648"})  # EGFR
+target = data["target"]
+print(f"Safety liabilities for {target['approvedSymbol']}:")
+for s in target.get("safetyLiabilities", [])[:5]:
+    print(f"  Event: {s['event']}")
+    # 2025 schema: `datasource` is a scalar literature-citation string,
+    # not the legacy `datasources[{name, pmid}]` list of objects
+    print(f"    Source: {s.get('datasource', 'n/a')}")
+    for eff in s.get("effects", []) or []:
+        print(f"    Effect: direction={eff.get('direction')} dosing={eff.get('dosing')}")
+```
+
+## Key Concepts
+
+### Association Scores
+
+Open Targets uses harmonic sum aggregation to combine evidence from multiple data sources into a 0–1 association score. Subscores include: genetic_association, somatic_mutation, known_drug, affected_pathway, literature, RNA_expression, animal_model, and others. Higher scores indicate more and stronger evidence.
+
+### EFO IDs for Diseases
+
+Open Targets uses Experimental Factor Ontology (EFO) identifiers for diseases (e.g., `EFO_0000305` for breast carcinoma). Search by disease name using the `search` query to find EFO IDs before querying associations.
+
+## Common Workflows
+
+### Workflow 1: Target Prioritization for a Disease
+
+**Goal**: Given a disease, rank all associated targets by overall score and export with evidence breakdown.
+
+```python
+import requests, pandas as pd, time
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+def ot_query(gql, variables=None):
+    r = requests.post(OT_URL, json={"query": gql, "variables": variables or {}})
+    r.raise_for_status()
+    return r.json()["data"]
+
+def disease_search(name):
+    q = 'query S($q:String!){search(queryString:$q,entityNames:["disease"]){hits{id name}}}'
+    data = ot_query(q, {"q": name})
+    return [(h["id"], h["name"]) for h in data["search"]["hits"][:3]]
+
+def get_top_targets(efo_id, n=50):
+    q = """
+    query($efoId:String!,$size:Int!){
+      disease(efoId:$efoId){
+        name
+        associatedTargets(page:{index:0,size:$size},orderByScore:"score"){
+          count
+          rows{
+            target{id approvedSymbol biotype}
+            score
+            datatypeScores { id score }
+          }
+        }
+      }
+    }"""
+    data = ot_query(q, {"efoId": efo_id, "size": n})
+    disease = data["disease"]
+    rows = []
+    for row in disease["associatedTargets"]["rows"]:
+        t = row["target"]
+        scores = {d["id"]: round(d["score"], 3) for d in row.get("datatypeScores", [])}
+        rows.append({
+            "target": t["approvedSymbol"],
+            "ensembl_id": t["id"],
+            "biotype": t["biotype"],
+            "overall_score": round(row["score"], 4),
+            **scores
+        })
+    return disease["name"], pd.DataFrame(rows)
+
+# Step 1: Find EFO ID for disease
+candidates = disease_search("non-small cell lung carcinoma")
+print("Disease candidates:", candidates)
+
+# Step 2: Get top targets
+disease_name, df = get_top_targets("EFO_0003060", n=50)
+df.to_csv("target_prioritization.csv", index=False)
+print(f"\nTop targets for {disease_name}:")
+cols = [c for c in ["target", "overall_score", "genetic_association", "known_drug", "literature", "rna_expression", "somatic_mutation"] if c in df.columns]
+print(df[cols].head(10).to_string(index=False))
+```
+
+### Workflow 2: Drug-Target-Disease Triangle
+
+**Goal**: For a target, retrieve all drugs and their associated indications and phases.
+
+```python
+import requests, pandas as pd
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+def ot_query(gql, variables=None):
+    r = requests.post(OT_URL, json={"query": gql, "variables": variables or {}})
+    r.raise_for_status()
+    return r.json()["data"]
+
+query = """
 query($ensgId:String!){
-  target(ensemblId:$ensgId){ approvedSymbol
-    drugAndClinicalCandidates{ count rows{
-      maxClinicalStage
-      drug{id name drugType maximumClinicalStage mechanismsOfAction{rows{mechanismOfAction}}}
-      diseases{disease{id name}} } } } }"""
-data = ot_query(q, {"ensgId": "ENSG00000146648"})  # EGFR
-for r in data["target"]["drugAndClinicalCandidates"]["rows"]:
-    d = r["drug"]
-    moa = ((d.get("mechanismsOfAction") or {}).get("rows") or [{}])[0].get("mechanismOfAction")
-    approved = d["maximumClinicalStage"] == "PHASE_4"   # 获批判据
-    print(d["name"], d["drugType"], "approved" if approved else r["maxClinicalStage"], moa)
+  target(ensemblId:$ensgId){
+    approvedSymbol
+    drugAndClinicalCandidates{
+      count
+      rows{
+        maxClinicalStage
+        drug{id name drugType maximumClinicalStage mechanismsOfAction { rows { mechanismOfAction } } }
+        diseases { disease { id name } }
+      }
+    }
+  }
+}"""
+
+targets = {
+    "EGFR": "ENSG00000146648",
+    "ERBB2": "ENSG00000141736",
+}
+
+all_rows = []
+for sym, ensg in targets.items():
+    data = ot_query(query, {"ensgId": ensg})
+    for row in data["target"]["drugAndClinicalCandidates"]["rows"]:
+        drug = row["drug"]
+        moa = drug.get("mechanismsOfAction") or {}
+        moa_first = (moa.get("rows") or [{}])[0].get("mechanismOfAction")
+        first_disease = (row.get("diseases") or [{}])[0].get("disease") or {}
+        all_rows.append({
+            "target": sym,
+            "drug": drug["name"],
+            "drug_type": drug["drugType"],
+            "maxClinicalStage": row["maxClinicalStage"],
+            "approved": drug["maximumClinicalStage"] == "PHASE_4",
+            "indication": first_disease.get("name", "n/a"),
+            "mechanism": moa_first,
+        })
+
+df = pd.DataFrame(all_rows)
+df.to_csv("drug_target_matrix.csv", index=False)
+print(df.head(10).to_string(index=False))
 ```
 
-### 证据明细（按数据源过滤）
+## Key Parameters
+
+| Parameter | Module | Default | Range / Options | Effect |
+|-----------|--------|---------|-----------------|--------|
+| `page.size` | Associations | `10` | `1`–`10000` | Records per page |
+| `page.index` | Associations | `0` | `0`–N | Page index for pagination |
+| `orderByScore` | Associations | `"score"` | `"score"`, component IDs | Sort associations by score |
+| `datasourceIds` | Evidence | all sources | list of datasource IDs | Filter evidence by source |
+| `enableIndirect` | Evidence | `false` | `true`/`false` | Include child disease evidence |
+| `entityNames` | Search | all | `["target"]`, `["disease"]` | Filter search entity type |
+
+## Best Practices
+
+1. **Use EFO IDs for diseases**: Disease names vary; always use the `search` query to get the canonical EFO ID before running association queries to avoid name-matching issues.
+
+2. **Paginate for full result sets**: Default page size is 10; use `page.size: 10000` for complete results, but be aware this can return large payloads.
+
+3. **Filter by `datatypeScores`**: For genetic target validation, filter on `genetic_association` subscore > 0.1; for drug repurposing, prioritize `known_drug` subscore.
+
+4. **Use `enableIndirect: true`** in evidence queries to include evidence for disease subtypes (child terms in EFO hierarchy).
+
+5. **Cache GraphQL responses**: Open Targets data updates quarterly; cache responses during analysis to avoid redundant API calls.
+
+## Common Recipes
+
+### Recipe: Disease Name to EFO ID
+
+When to use: Resolve a disease name to the EFO ID needed for association queries.
 
 ```python
-q = """
-query($ensgId:String!,$efoId:String!){
-  disease(efoId:$efoId){
-    evidences(ensemblIds:[$ensgId], enableIndirect:true, size:10,
-              datasourceIds:["gwas_catalog","clinvar","chembl"]){
-      count rows{ datasourceId score variantRsId studyId publicationYear clinicalSignificances } } } }"""
-ev = ot_query(q, {"ensgId":"ENSG00000012048","efoId":"EFO_0000305"})["disease"]["evidences"]
+import requests
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+query = """
+query($q: String!) {
+  search(queryString: $q, entityNames: ["disease"]) {
+    hits { id name score }
+  }
+}"""
+r = requests.post(OT_URL, json={"query": query, "variables": {"q": "breast cancer"}})
+for hit in r.json()["data"]["search"]["hits"][:5]:
+    print(f"{hit['id']}: {hit['name']} (score={hit['score']:.3f})")
 ```
 
-### curl 等价（GraphQL 为 POST）
+### Recipe: Target Tractability Assessment
 
-```bash
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"query":"{target(ensemblId:\"ENSG00000141510\"){approvedSymbol tractability{label modality value}}}"}' \
-  https://api.platform.opentargets.org/api/v4/graphql
+When to use: Assess whether a target is tractable for small molecules, antibodies, or PROTACs.
+
+```python
+import requests
+
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
+
+query = """
+query($ensgId: String!) {
+  target(ensemblId: $ensgId) {
+    approvedSymbol
+    tractability { label modality value }
+  }
+}"""
+r = requests.post(OT_URL, json={"query": query, "variables": {"ensgId": "ENSG00000141510"}})
+t = r.json()["data"]["target"]
+print(f"Tractability for {t['approvedSymbol']}:")
+for tr in t.get("tractability", []):
+    if tr["value"]:
+        print(f"  [{tr['modality']}] {tr['label']}")
 ```
 
-## 注意事项
+### Recipe: Approved Drugs for a Disease
 
-- **疾病必须用 EFO ID**：名称易歧义，关联查询前先 `search` 取规范 EFO ID，否则 `rows` 为空。
-- **靶点用 Ensembl ID**：基因符号 ≠ Ensembl ID，符号先经 `search` 解析；否则 target not found。
-- **获批判据**：药物是否获批看 `drug.maximumClinicalStage == "PHASE_4"`，不是看 `maxClinicalStage`（后者是该靶点-适应症对的最高阶段）。
-- **2025 schema 变化**：`safetyLiabilities` 的 `datasource` 是标量文献引用字符串，不再是旧版 `datasources[{name,pmid}]` 对象列表。
-- **分页**：默认仅 10 行；要全集用大 size 但注意 payload，建议封顶 500 行并多次翻页。`enableIndirect:true` 纳入 EFO 子型证据。
-- **缓存**：Open Targets 数据按季度更新；分析期内缓存响应避免重复请求。
-- **报错排查**：HTTP 400 多为字段名/查询不合 schema，对照 https://api.platform.opentargets.org/api/v4/graphql 的 playground；`rows` 空查 EFO/Ensembl ID 是否正确；`drugAndClinicalCandidates` 空表示 ChEMBL 无药物证据，改查临床前活性请用 `chembl-database-bioactivity`；并非所有靶点都有 tractability（字段可能为空）。
+When to use: Find all approved drugs for a disease with phase 4 evidence.
 
-## 互见
+```python
+import requests, pandas as pd
 
-- requires：`scientific-database-lookup` —— 选库、标识符（EFO/Ensembl）解析与 GraphQL/POST 取数的通用底座。
-- related：`gene-set-enrichment-analysis`、`protein-language-models`、`molecular-dynamics-simulation`
-- combines_with：`scientific-database-lookup` —— 先解析疾病→EFO、基因→Ensembl，再调本技能的 GraphQL 取关联与药物证据。
+OT_URL = "https://api.platform.opentargets.org/api/v4/graphql"
 
----
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+query = """
+query($efoId: String!) {
+  disease(efoId: $efoId) {
+    name
+    drugAndClinicalCandidates { count rows {
+      maxClinicalStage
+      drug { name maximumClinicalStage drugType }
+    }}
+  }
+}"""
+r = requests.post(OT_URL, json={"query": query, "variables": {"efoId": "EFO_0000305"}})
+data = r.json()["data"]["disease"]
+approved = [row for row in data["drugAndClinicalCandidates"]["rows"] if row["drug"]["maximumClinicalStage"] == "PHASE_4"]
+print(f"Approved drugs for {data['name']}: {len(approved)}")
+for row in approved[:5]:
+    print(f"  {row['drug']['name']} ({row['drug']['drugType']})  maxStage={row['maxClinicalStage']}")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `HTTP 400` with GraphQL error | Malformed query or invalid field name | Check query against GraphQL schema at https://api.platform.opentargets.org/api/v4/graphql |
+| Empty `rows` in associations | EFO ID not recognized | Use `search` query to find correct EFO ID |
+| Target not found | Gene symbol vs Ensembl ID mismatch | Use `search` query first to resolve Ensembl ID |
+| Slow query for large result set | `page.size` too large | Cap at 500 rows; paginate with multiple requests |
+| Missing tractability data | Target not assessed | Not all targets have tractability; check `tractability` field is non-null |
+| `drugAndClinicalCandidates` empty | No drug-target evidence in ChEMBL | Use `chembl-database-bioactivity` for preclinical compound activity |
+
+## Related Skills
+
+- `chembl-database-bioactivity` — Bioactivity IC50/Ki data for compounds against targets
+- `clinicaltrials-database-search` — Detailed clinical trial information for drugs found via Open Targets
+- `ensembl-database` — Ensembl IDs and variant annotations needed as input to Open Targets queries
+- `string-database-ppi` — Protein-protein interaction networks to contextualize target biology
+
+## References
+
+- [Open Targets Platform](https://platform.opentargets.org/) — Interactive target-disease browser
+- [Open Targets GraphQL API documentation](https://platform-docs.opentargets.org/data-access/graphql-api) — Query reference and schema
+- [GraphQL playground](https://api.platform.opentargets.org/api/v4/graphql) — Interactive query builder
+- [Open Targets data sources](https://platform-docs.opentargets.org/evidence) — Evidence types and scoring methodology

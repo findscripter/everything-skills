@@ -1,14 +1,14 @@
 ---
 name: shellcheck-linting
-title: ShellCheck 脚本静态检查配置
-description: 当为 shell 脚本配置静态检查、修脚本告警或在 CI/CD 接入 lint 时使用；做安装/配置 .shellcheckrc、按 SC 码定位修复、抑制误报、接 pre-commit 与 CI 并产出可复用配置与门禁脚本；不适用于非 shell 脚本或运行期测试；触发词：shellcheck、.shellcheckrc、SC2086
+title: ShellCheck Configuration and Static Analysis
+description: Configure and run ShellCheck static analysis for shell scripts: install, write .shellcheckrc, fix SC-code warnings, suppress false positives, and wire into pre-commit and CI/CD. Use when linting shell scripts or fixing SC2086/SC2181/SC2015 and similar warnings; not for non-shell 
 domain: 研发/devops
-triggers: [shellcheck, .shellcheckrc, shell 脚本 lint / 静态检查, SC2086 / SC2181 / SC2015 等错误码, 脚本告警如何修复, CI/CD 接入 shellcheck, pre-commit 钩子检查脚本, 抑制 shellcheck 误报, shellcheck disable 注释, POSIX 可移植性检查]
-tags: [shellcheck, shell, bash, 静态分析, lint, 代码质量, ci/cd, pre-commit, posix, 研发, devops]
-level: 进阶
+triggers: [shellcheck, .shellcheckrc, shell script lint / static analysis, SC2086 / SC2181 / SC2015 error codes, how to fix shell script warnings, integrate shellcheck into CI/CD, pre-commit hook to check scripts, suppress shellcheck false positives, shellcheck disable comment, POSIX portability check]
+tags: [shellcheck, shell, bash, static-analysis, lint, code-quality, ci/cd, pre-commit, posix, devops]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, Write, Edit, Read]
+tools: []
 requires: []
 related: [bash-defensive-patterns, posix-shell-scripting, powershell-windows, git-hooks-automation]
 combines_with: [bash-defensive-patterns, git-hooks-automation, ci-cd-pipeline-builder]
@@ -16,67 +16,104 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适用：为 shell 脚本搭建 lint 基础设施、在 CI/CD 流水线对脚本做质量门禁、读懂并修复 ShellCheck 告警、为项目定制规则集（开启/关闭检查）、抑制误报、推进脚本通过质量门、保障跨 shell 可移植性。
+Use this skill when:
 
-不该用（负边界）：
-- 任务与 shell 脚本的静态检查无关（如运行期单元测试、性能压测）。
-- 需要的是另一种语言/工具的 linter（Python 用 ruff、JS 用 eslint 等）。
-- 把 ShellCheck 输出当成环境相关验证的替代品——它是静态分析，不替代实跑测试与专家评审。
+- Setting up linting for shell scripts in CI/CD pipelines
+- Analyzing existing shell scripts for issues
+- Understanding ShellCheck error codes and warnings, and fixing them
+- Configuring ShellCheck for specific project requirements (enabling/disabling checks)
+- Integrating ShellCheck into development workflows (pre-commit, editors)
+- Suppressing false positives and configuring rule sets
+- Enforcing consistent code quality standards and migrating scripts to meet quality gates
+- Ensuring cross-shell portability
 
-## 步骤
+Do NOT use this skill when:
 
-1. 安装并核对版本：`shellcheck --version`。
-2. 在项目根放 `.shellcheckrc`，固定目标 shell 方言（`shell=bash` 或 `sh`），集中管理开关。
-3. 本地逐个或并行扫描脚本，按 SC 码定位问题。
-4. 优先按修复原则改代码，而非一律 `disable`；确需抑制的写行内注释并注明理由。
-5. 接入 pre-commit 钩子（提交前拦截）与 CI（合并前门禁），`--format=gcc/json` 便于机器解析。
+- The task is unrelated to shell-script static analysis (e.g., runtime unit tests, performance/load testing)
+- You need a linter for a different language/tool (Python `ruff`, JS `eslint`, etc.)
+- You would treat ShellCheck output as a substitute for environment-specific validation — it is static analysis, not a replacement for real test runs and expert review
 
-决策：能改就改（引号、`if` 判断退出码等）；规则性误报（如未跟随 source 文件 SC1091）才整体关闭，并在配置里写明原因。
+## Steps
 
-## 指令
+1. Install ShellCheck and verify the version: `shellcheck --version`.
+2. Drop a `.shellcheckrc` in the project root to pin the target shell dialect (`shell=bash` or `sh`) and centralize enable/disable flags.
+3. Scan scripts locally, one at a time or in parallel, locating problems by their SC code.
+4. Prefer fixing the code over blanket `disable`; when suppression is truly needed, add an inline comment that states the reason.
+5. Wire it into a pre-commit hook (block before commit) and CI (gate before merge), using `--format=gcc`/`json` for machine parsing.
 
-安装：
+Decision rule: fix what can be fixed (quoting, checking exit codes directly with `if`, etc.); only disable rule-level false positives wholesale (e.g., SC1091 not following sourced files), and document the reason in the config.
+
+## Example
+
+### Installation
+
 ```bash
-brew install shellcheck        # macOS
-apt-get install shellcheck     # Ubuntu/Debian
-shellcheck --version           # 校验
+# macOS with Homebrew
+brew install shellcheck
+
+# Ubuntu/Debian
+apt-get install shellcheck
+
+# From source
+git clone https://github.com/koalaman/shellcheck.git
+cd shellcheck && make build && make install
+
+# Verify installation
+shellcheck --version
 ```
 
-`.shellcheckrc`（项目级，放仓库根）：
+### .shellcheckrc (project root)
+
 ```
+# Shell dialect to analyze against
 shell=bash
+
+# Enable optional checks
 enable=avoid-nullary-conditions,require-variable-braces,check-unassigned-uppercase
-# SC1091：不跟随 source 文件，误报多
+
+# SC1091: Not following sourced files (many false positives)
 disable=SC1091
-# SC2119：参数调用风格提示
+# SC2119: Use function_name instead of function_name -- (arguments)
 disable=SC2119
+
+# External files to source for context
 external-sources=true
 ```
 
-常见命令档位：
+Environment variables:
+
 ```bash
-# 严格可移植（按 sh 检查、跟随 source）
+export SHELLCHECK_SHELL=bash         # default shell target
+export SHELLCHECK_CONFIG=~/.shellcheckrc
+```
+
+### Command profiles
+
+```bash
+# Strict / portable (analyze as sh, follow sourced files)
 shellcheck --shell=sh --external-sources --check-sourced script.sh
-# Bash 开发（开全部检查 + 精选排除）
+
+# Bash development (all checks + curated exclusions)
 shellcheck --shell=bash --enable=all --exclude=SC1091,SC2119 script.sh
-# CI 门禁：扫全部 .sh，发现问题即失败
+
+# CI gate: scan every .sh, fail on any issue
 find . -type f -name "*.sh" -print0 | xargs -0 -P4 -n1 shellcheck --format=gcc
 ```
 
-抑制误报（务必注明原因，能改勿关）：
+### Suppressing false positives (always state the reason; fix, don't disable, when possible)
+
 ```bash
-# shellcheck disable=SC2086   # 仅对下一行生效
+# shellcheck disable=SC2086   # applies to the next line only
 # shellcheck source=./helper.sh
 source helper.sh
 ```
 
-输出格式：`--format=gcc`（CI 友好）、`--format=json`（程序解析）、`--format=quiet`（仅靠退出码）。
+Output formats: `--format=gcc` (CI-friendly), `--format=json` (programmatic parsing), `--format=quiet` (exit code only).
 
-## 示例
+### Pre-commit hook (`.git/hooks/pre-commit`, only changed scripts)
 
-pre-commit 钩子（`.git/hooks/pre-commit`，只检查本次改动的脚本）：
 ```bash
 #!/bin/bash
 set -e
@@ -87,7 +124,8 @@ git diff --cached --name-only | grep '\.sh$' | while read -r script; do
 done
 ```
 
-GitHub Actions：
+### GitHub Actions
+
 ```yaml
 name: ShellCheck
 on: [push, pull_request]
@@ -102,30 +140,70 @@ jobs:
           find . -type f -name "*.sh" -exec shellcheck {} \;
 ```
 
-典型告警与修法：
-```bash
-# SC2086 加引号防分词/通配      for i in "${list[@]}"; do ... done
-# SC2181 直接判退出码           if some_command; then ... fi
-# SC2015 用 if 而非 && ||       if [ -f "$f" ]; then ...; else ...; fi
-# SC2016 单引号不展开变量       echo "value: $VAR"
-# SC2009 用 pgrep 代替 grep     pgrep -f myprocess
+### GitLab CI
+
+```yaml
+shellcheck:
+  stage: lint
+  image: koalaman/shellcheck-alpine
+  script:
+    - find . -type f -name "*.sh" -exec shellcheck {} \;
+  allow_failure: false
 ```
 
-## 注意事项
+### Common violations and fixes
 
-- 务必按目标 shell 检查（别拿 bash 当 sh 分析），否则误报/漏报。
-- 排除规则要在配置里写注释说明缘由；尽量改代码而非关告警。
-- `--enable=all` 配合谨慎排除可获得最严检查；定期升级 ShellCheck 以获取新规则。
-- 大批量脚本用 `xargs -P` 并行或对结果做哈希缓存提速。
-- 缺少输入、权限或验收标准时先停下澄清，别用静态结果替代实跑验证。
-- 参考：ShellCheck 仓库 https://github.com/koalaman/shellcheck ；Wiki（按 SC 码查解释）https://www.shellcheck.net/wiki/ 。
+```bash
+# SC2086  Double quote to prevent word splitting/globbing
+for i in "${list[@]}"; do echo "$i"; done
 
-## 互见
+# SC2181  Check the exit code directly with if
+if some_command; then echo "success"; fi
 
-- related：`bash-defensive-patterns` —— 防御式 Bash 编码，ShellCheck 是其落地的检查器
-- combines_with：`ci-cd-pipeline-builder` —— 把脚本检查接入流水线门禁
-- combines_with：`pre-commit`/Git 钩子类技能 —— 提交前本地拦截
+# SC2015  Use if-then-else instead of && ||
+if [ -f "$file" ]; then echo "exists"; else echo "not found"; fi
+
+# SC2016  Expressions don't expand in single quotes
+echo "Variable value: $VAR"
+
+# SC2009  Use pgrep instead of grepping ps output
+pgrep -f myprocess
+```
+
+### Parallel checking and result caching
+
+```bash
+# Parallel (faster than a sequential loop)
+find . -name "*.sh" -print0 | xargs -0 -P4 -n1 shellcheck
+
+# Hash-based cache: skip files whose content is unchanged
+CACHE_DIR=".shellcheck_cache"; mkdir -p "$CACHE_DIR"
+check_script() {
+    local script="$1" hash cache_file
+    hash=$(sha256sum "$script" | cut -d' ' -f1)
+    cache_file="$CACHE_DIR/$hash"
+    if [[ ! -f "$cache_file.ok" ]]; then
+        shellcheck "$script" > "$cache_file" 2>&1 && touch "$cache_file.ok" || return 1
+    fi
+}
+```
+
+## Notes
+
+- Always analyze against the target shell (don't analyze bash as sh), or you get false positives/negatives.
+- Document every exclusion in the config with the reason; fix the code rather than silencing the warning whenever practical.
+- `--enable=all` with careful exclusions gives the strictest checking; update ShellCheck regularly to pick up new checks.
+- For large script sets, use `xargs -P` for parallelism or hash-cache results to speed up.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing — do not treat static results as a substitute for real test runs.
+- Reference: ShellCheck repo https://github.com/koalaman/shellcheck ; Wiki (look up explanations by SC code) https://www.shellcheck.net/wiki/ .
+
+## See also
+
+- related: `bash-defensive-patterns` — defensive Bash coding; ShellCheck is the enforcing checker for it
+- combines_with: `ci-cd-pipeline-builder` — wire script linting into pipeline gates
+- combines_with: `git-hooks-automation` / pre-commit skills — block issues locally before push
+- related: `posix-shell-scripting`, `powershell-windows`
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+Adapted from sickn33/antigravity-awesome-skills (MIT).

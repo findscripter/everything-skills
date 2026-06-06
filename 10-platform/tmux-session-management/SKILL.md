@@ -1,14 +1,14 @@
 ---
 name: tmux-session-management
-title: tmux 会话与终端多路复用
-description: 当需要在远程服务器跑断连不死的持久会话、用脚本搭建多窗格终端布局，或在 bash 中非交互编排 tmux 时使用；做会话/窗口/窗格的创建附加销毁、send-keys/capture-pane 无附加驱动与捕获、整套工作区一键脚本及 ~/.tmux.conf 配置；不适用于 GNU screen、SSH 隧道/端口转发本身与窗格内具体业务命令；触发词：tmux、会话保活、send-keys、capture-pane、多窗格、SSH 断连、终端复用
+title: tmux — Terminal Multiplexer
+description: Expert tmux session, window, and pane management for terminal multiplexing, persistent remote workflows, and shell scripting automation.
 domain: 平台/cli
-triggers: [tmux, 会话保活, session, send-keys, capture-pane, 多窗格, split-window, SSH 断连, 终端复用, tmux.conf, detached session, has-session]
+triggers: [tmux, session, send-keys, capture-pane, split-window, tmux.conf, detached session, has-session]
 tags: [tmux, terminal, multiplexer, session, window, pane, shell, remote, ssh, automation, cli, platform]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [tmux, bash, ssh]
+tools: []
 requires: []
 related: [posix-shell-scripting, bash-defensive-patterns, busybox-on-windows, powershell-windows]
 combines_with: [imessage-claude-bridge, posix-shell-scripting]
@@ -16,152 +16,366 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# tmux — Terminal Multiplexer
 
-适用于：在远程服务器搭建跨 SSH 断连存活的持久会话；运行需在断连后继续的长任务（部署、训练、构建）；用脚本一键拉起多窗格布局（编辑器 + 测试 + 日志）；在 bash 中**非交互**地驱动 tmux（创建会话、注入命令、抓取输出做轮询）。识别信号：用户提到「断连后任务还在跑」「一个脚本开好整套终端」「不进 tmux 也能给某窗格发命令」。
+## Overview
 
-不该用：不负责 GNU `screen`（机制相近但命令不同，需求明确指 screen 时转交）；不实现 SSH 本身的隧道/端口转发/密钥管理（tmux 只搭在 SSH 之上）；不替代窗格内运行的具体业务命令（如 docker、vim、npm 的用法属各自技能）。
+`tmux` keeps terminal sessions alive across SSH disconnects, splits work across multiple panes, and enables fully scriptable terminal automation. This skill covers session management, window/pane layout, keybinding patterns, and using `tmux` non-interactively from shell scripts — essential for remote servers, long-running jobs, and automated workflows.
 
-## 三级模型与步骤
+## When to Use This Skill
 
-tmux 三层：**session**（顶层，断连存活）> **window**（会话内的标签页）> **pane**（窗口内的分屏）。一切既可从外部 `tmux <命令>` 控制，也可在内部用前缀键（默认 `Ctrl-b`，下文记作 Prefix）操作。脚本化首选**外部命令**。
+- Use when setting up or managing persistent terminal sessions on remote servers
+- Use when the user needs to run long-running processes that survive SSH disconnects
+- Use when scripting multi-pane terminal layouts (e.g., logs + shell + editor)
+- Use when automating `tmux` commands from bash scripts without user interaction
 
-非交互编排标准流程：
-1. **幂等守门**：先 `tmux has-session -t NAME 2>/dev/null` 判断，存在则附加、否则新建，避免重复建会话。
-2. **建后台会话并给定尺寸**：`tmux new-session -d -s NAME -x 220 -y 50`。`-d` 后台；`-x/-y` 必给，否则窗格可能 0x0，检测终端尺寸的程序会异常。
-3. **布局**：`new-window` 建窗口、`split-window -h/-v` 分屏。
-4. **注入命令**：`tmux send-keys -t 目标 "cmd" Enter`（`Enter` 大写，缺它只输入不执行）。
-5. **读输出**：`tmux capture-pane -t 目标 -p` 拿窗格内容，可接 `grep` 做轮询等待。
-6. 收尾 `tmux attach -t NAME`（人接管）或留后台。
+## How It Works
 
-目标定位语法：`session:window.pane`（如 `dev:editor.1`、`work:2`、`work:1.0`）。
+`tmux` has three hierarchy levels: **sessions** (top level, survives disconnects), **windows** (tabs within a session), and **panes** (splits within a window). Everything is controllable from outside via `tmux <command>` or from inside via the prefix key (`Ctrl-b` by default).
 
-## 指令速查
+### Session Management
 
-会话：
-- `tmux new-session -s work` / `-d` 后台 / `-d -s build "make all"` 建后台并跑命令
-- `tmux attach -t work`（裸 `attach` 接最近一个）；内部 Prefix+d 分离
-- `tmux ls`（= list-sessions）；`tmux kill-session -t work`；`-a` 杀除当前外全部
-- `tmux rename-session -t old new`；`tmux switch-client -t other`
-- `tmux has-session -t work 2>/dev/null && echo exists`（脚本判存在）
+```bash
+# Create a new named session
+tmux new-session -s work
 
-窗口：
-- `tmux new-window -t work -n logs`；`-t work:3 -n server "python -m http.server 8080"`
-- `tmux list-windows -t work`；`tmux select-window -t work:logs`
-- `tmux rename-window -t work:2 editor`；`tmux kill-window -t work:logs`；`tmux move-window -s work:3 -t work:1`
-- 内部：Prefix+c 新建 / `,` 改名 / `&` 关闭 / n,p 上下个 / 0-9 跳号
+# Create detached (background) session
+tmux new-session -d -s work
 
-窗格：
-- `tmux split-window -h -t work:1`（左右）/ `-v`（上下）/ 追加命令 `-h -t work:1 "tail -f /var/log/syslog"`
-- `tmux select-pane -t work:1.0`；`tmux resize-pane -t work:1.0 -R 20`（向右扩 20 列，方向 -L/-R/-U/-D）；`-Z` 切换缩放（全屏）
-- `tmux swap-pane -s work:1.0 -t work:1.1`；`tmux kill-pane -t work:1.1`
-- 内部：Prefix+% 竖分 / `"` 横分 / 方向键导航 / z 缩放 / x 杀 / `{`,`}` 与前后交换
+# Create detached session and start a command
+tmux new-session -d -s build -x 220 -y 50 "make all"
 
-无附加驱动窗格（自动化核心）：
-- `tmux send-keys -t work:1.0 "ls -la" Enter`
-- `tmux send-keys -t work:1.0 C-c`（发 Ctrl+C 停进程）
-- `tmux send-keys -t work:1.0 "git commit -m '"`（不带 Enter，预填提示）
-- `tmux capture-pane -t work:1.0 -p | grep ERROR`（抓输出过滤）
-- `tmux pipe-pane -t work:1.0 "cat >> ~/session.log"`（把窗格输出持续落盘）
+# Attach to a session
+tmux attach -t work
+tmux attach          # attaches to most recent session
 
-复制模式/缓冲：Prefix+`[` 进入（向上翻屏），vi 模式下 `/`,`?` 搜索、Space 起选、Enter 复制、q 退出；Prefix+`]` 粘贴。`tmux list-buffers` / `show-buffer` / `save-buffer /tmp/out.txt` / `load-buffer /tmp/data.txt`。
+# List all sessions
+tmux list-sessions
+tmux ls
 
-## 示例
+# Detach from inside tmux
+# Prefix + d   (Ctrl-b d)
 
-一键开发工作区脚本（幂等，最有价值的模式）：
+# Kill a session
+tmux kill-session -t work
+
+# Kill all sessions except the current one
+tmux kill-session -a
+
+# Rename a session from outside
+tmux rename-session -t old-name new-name
+
+# Switch to another session from outside
+tmux switch-client -t other-session
+
+# Check if a session exists (useful in scripts)
+tmux has-session -t work 2>/dev/null && echo "exists"
+```
+
+### Window Management
+
+```bash
+# Create a new window in the current session
+tmux new-window -t work -n "logs"
+
+# Create a window running a specific command
+tmux new-window -t work:3 -n "server" "python -m http.server 8080"
+
+# List windows
+tmux list-windows -t work
+
+# Select (switch to) a window
+tmux select-window -t work:logs
+tmux select-window -t work:2       # by index
+
+# Rename a window
+tmux rename-window -t work:2 "editor"
+
+# Kill a window
+tmux kill-window -t work:logs
+
+# Move window to a new index
+tmux move-window -s work:3 -t work:1
+
+# From inside tmux:
+# Prefix + c     — new window
+# Prefix + ,     — rename window
+# Prefix + &     — kill window
+# Prefix + n/p   — next/previous window
+# Prefix + 0-9   — switch to window by number
+```
+
+### Pane Management
+
+```bash
+# Split pane vertically (left/right)
+tmux split-window -h -t work:1
+
+# Split pane horizontally (top/bottom)
+tmux split-window -v -t work:1
+
+# Split and run a command
+tmux split-window -h -t work:1 "tail -f /var/log/syslog"
+
+# Select a pane by index
+tmux select-pane -t work:1.0
+
+# Resize panes
+tmux resize-pane -t work:1.0 -R 20   # expand right by 20 cols
+tmux resize-pane -t work:1.0 -D 10   # shrink down by 10 rows
+tmux resize-pane -Z                   # toggle zoom (fullscreen)
+
+# Swap panes
+tmux swap-pane -s work:1.0 -t work:1.1
+
+# Kill a pane
+tmux kill-pane -t work:1.1
+
+# From inside tmux:
+# Prefix + %     — split vertical
+# Prefix + "     — split horizontal
+# Prefix + arrow — navigate panes
+# Prefix + z     — zoom/unzoom current pane
+# Prefix + x     — kill pane
+# Prefix + {/}   — swap pane with previous/next
+```
+
+### Sending Commands to Panes Without Being Attached
+
+```bash
+# Send a command to a specific pane and press Enter
+tmux send-keys -t work:1.0 "ls -la" Enter
+
+# Run a command in a background pane without attaching
+tmux send-keys -t work:editor "vim src/main.py" Enter
+
+# Send Ctrl+C to stop a running process
+tmux send-keys -t work:1.0 C-c
+
+# Send text without pressing Enter (useful for pre-filling prompts)
+tmux send-keys -t work:1.0 "git commit -m '"
+
+# Clear a pane
+tmux send-keys -t work:1.0 "clear" Enter
+
+# Check what's in a pane (capture its output)
+tmux capture-pane -t work:1.0 -p
+tmux capture-pane -t work:1.0 -p | grep "ERROR"
+```
+
+### Scripting a Full Workspace Layout
+
+This is the most powerful pattern: create a fully configured multi-pane workspace from a single script.
 
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
+
 SESSION="dev"
 
-# 已存在则直接附加
+# Bail if session already exists
 tmux has-session -t "$SESSION" 2>/dev/null && {
-  echo "Session $SESSION 已存在，附加中..."
-  tmux attach -t "$SESSION"; exit 0
+  echo "Session $SESSION already exists. Attaching..."
+  tmux attach -t "$SESSION"
+  exit 0
 }
 
-# 建会话 + 首个窗口（给定尺寸）
-tmux new-session -d -s "$SESSION" -n editor -x 220 -y 50
+# Create session with first window
+tmux new-session -d -s "$SESSION" -n "editor" -x 220 -y 50
 
-# 窗口1：编辑器 + 测试并排
+# Window 1: editor + test runner side by side
 tmux send-keys -t "$SESSION:editor" "vim ." Enter
 tmux split-window -h -t "$SESSION:editor"
 tmux send-keys -t "$SESSION:editor.1" "npm test -- --watch" Enter
 tmux select-pane -t "$SESSION:editor.0"
 
-# 窗口2：服务 + 日志
-tmux new-window -t "$SESSION" -n server
+# Window 2: server logs
+tmux new-window -t "$SESSION" -n "server"
 tmux send-keys -t "$SESSION:server" "docker compose up" Enter
 tmux split-window -v -t "$SESSION:server"
 tmux send-keys -t "$SESSION:server.1" "tail -f logs/app.log" Enter
 
-tmux new-window -t "$SESSION" -n shell
+# Window 3: general shell
+tmux new-window -t "$SESSION" -n "shell"
+
+# Focus first window
 tmux select-window -t "$SESSION:editor"
+
+# Attach
 tmux attach -t "$SESSION"
 ```
 
-可复用自动化函数：
+### Configuration (`~/.tmux.conf`)
 
 ```bash
-# 幂等会话：建或附加
+# Change prefix to Ctrl-a (screen-style)
+unbind C-b
+set -g prefix C-a
+bind C-a send-prefix
+
+# Enable mouse support
+set -g mouse on
+
+# Start window/pane numbering at 1
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Renumber windows when one is closed
+set -g renumber-windows on
+
+# Increase scrollback buffer
+set -g history-limit 50000
+
+# Use vi keys in copy mode
+setw -g mode-keys vi
+
+# Faster key repetition
+set -s escape-time 0
+
+# Reload config without restarting
+bind r source-file ~/.tmux.conf \; display "Config reloaded"
+
+# Intuitive splits: | and -
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+
+# New windows open in current directory
+bind c new-window -c "#{pane_current_path}"
+
+# Status bar
+set -g status-right "#{session_name} | %H:%M %d-%b"
+set -g status-interval 5
+```
+
+### Copy Mode and Scrollback
+
+```bash
+# Enter copy mode (scroll up through output)
+# Prefix + [
+
+# In vi mode:
+# / to search forward, ? to search backward
+# Space to start selection, Enter to copy
+# q to exit copy mode
+
+# Paste the most recent buffer
+# Prefix + ]
+
+# List paste buffers
+tmux list-buffers
+
+# Show the most recent buffer
+tmux show-buffer
+
+# Save buffer to a file
+tmux save-buffer /tmp/tmux-output.txt
+
+# Load a file into a buffer
+tmux load-buffer /tmp/data.txt
+
+# Pipe pane output to a command
+tmux pipe-pane -t work:1.0 "cat >> ~/session.log"
+```
+
+### Practical Automation Patterns
+
+```bash
+# Idempotent session: create or attach
 ensure_session() {
   local name="$1"
-  tmux has-session -t "$name" 2>/dev/null || tmux new-session -d -s "$name"
+  tmux has-session -t "$name" 2>/dev/null \
+    || tmux new-session -d -s "$name"
   tmux attach -t "$name"
 }
 
-# 轮询等待某窗格出现指定输出
+# Run a command in a new background window and tail its output
+run_bg() {
+  local session="${1:-main}" cmd="${*:2}"
+  tmux new-window -t "$session" -n "bg-$$"
+  tmux send-keys -t "$session:bg-$$" "$cmd" Enter
+}
+
+# Wait for a pane to produce specific output (polling)
 wait_for_output() {
-  local target="$1" pattern="$2" timeout="${3:-30}" elapsed=0
+  local target="$1" pattern="$2" timeout="${3:-30}"
+  local elapsed=0
   while (( elapsed < timeout )); do
     tmux capture-pane -t "$target" -p | grep -q "$pattern" && return 0
-    sleep 1; (( elapsed++ ))
+    sleep 1
+    (( elapsed++ ))
   done
   return 1
 }
+
+# Kill all background windows matching a name prefix
+kill_bg_windows() {
+  local session="$1" prefix="${2:-bg-}"
+  tmux list-windows -t "$session" -F "#W" \
+    | grep "^${prefix}" \
+    | while read -r win; do
+        tmux kill-window -t "${session}:${win}"
+      done
+}
 ```
 
-远程 / SSH 工作流：
+### Remote and SSH Workflows
 
 ```bash
-# SSH 进去直接附加，没有则新建
+# SSH and immediately attach to an existing session
 ssh user@host -t "tmux attach -t work || tmux new-session -s work"
-# 远程发后台部署，断连不影响
+
+# Run a command on remote host inside a tmux session (fire and forget)
 ssh user@host "tmux new-session -d -s deploy 'bash /opt/deploy.sh'"
-# 只读附加旁观（不会误输入），适合共享/结对
-ssh user@host -t "tmux attach -t deploy -r"
+
+# Watch the remote session output from another terminal
+ssh user@host -t "tmux attach -t deploy -r"  # read-only attach
+
+# Pair programming: share a session (both users attach to the same session)
+# User 1:
+tmux new-session -s shared
+# User 2 (same server):
+tmux attach -t shared
 ```
 
-`~/.tmux.conf` 关键配置：
+## Best Practices
 
-```bash
-unbind C-b; set -g prefix C-a; bind C-a send-prefix  # 前缀改 Ctrl-a
-set -g mouse on                       # 鼠标支持
-set -g base-index 1; setw -g pane-base-index 1; set -g renumber-windows on
-set -g history-limit 50000            # 加大回滚缓冲
-setw -g mode-keys vi                  # 复制模式用 vi 键
-set -s escape-time 0                  # 去掉 ESC 延迟
-bind r source-file ~/.tmux.conf \; display "Config reloaded"  # 热重载
-bind | split-window -h -c "#{pane_current_path}"  # | 竖分、保持当前目录
-bind - split-window -v -c "#{pane_current_path}"
-```
+- Always name sessions (`-s name`) in scripts — unnamed sessions are hard to target reliably
+- Use `tmux has-session -t name 2>/dev/null` before creating to make scripts idempotent
+- Set `-x` and `-y` when creating detached sessions to give panes a proper size for commands that check terminal dimensions
+- Use `send-keys ... Enter` for automation rather than piping stdin — it works even when the target pane is running an interactive program
+- Keep `~/.tmux.conf` in version control for reproducibility across machines
+- Prefer `bind -n` for bindings that don't need the prefix, but only for keys that don't conflict with application shortcuts
 
-## 注意事项
+## Security & Safety Notes
 
-- **脚本里永远命名会话**（`-s name`）：匿名会话难以可靠定位。
-- **建后台会话务必带 `-x/-y`**：否则窗格 0x0，依赖终端尺寸的程序出错。
-- **自动化用 `send-keys ... Enter`** 而非管道喂 stdin：即便目标窗格在跑交互程序也有效；`Enter` 必须大写，否则只输入不回车。
-- **幂等守门** `has-session ... || new-session -d`：避免每次跑都建重复会话。
-- 安全：`send-keys` 不经确认直接在窗格执行命令，**下手前核对 `-t session:window.pane` 目标**，防止误发到错误窗格；共享会话给协作者用 `-r` 只读附加；勿把密钥写进窗口/窗格标题或会话环境变量（共享机上易泄露）。
-- 常见坑：报 `no server running` → 先 `tmux start-server` 或先建一个后台会话；复制模式选择异常 → 确认 `~/.tmux.conf` 里 `mode-keys vi`/`emacs` 与习惯一致。
-- 把 `~/.tmux.conf` 纳入版本控制，跨机一致可复现。
+- `send-keys` executes commands in a pane without confirmation — verify the target (`-t session:window.pane`) before use in scripts to avoid sending keystrokes to the wrong pane
+- Read-only attach (`-r`) is appropriate when sharing sessions with others to prevent accidental input
+- Avoid storing secrets in tmux window/pane titles or environment variables exported into sessions on shared machines
 
-## 互见
+## Common Pitfalls
 
-- requires：`posix-shell-scripting` —— tmux 编排脚本本身就是 shell 脚本，需先具备健壮脚本能力
-- related：`bash-defensive-patterns` —— 用 `set -euo pipefail`、幂等守门等防御式写法包裹 tmux 编排
-- combines_with：`ai-native-cli-design` —— 设计供 Agent 非交互驱动的 CLI 工作流时，tmux 提供后台会话与输出捕获的承载层
+- **Problem:** `tmux` commands from a script fail with "no server running"
+  **Solution:** Start the server first with `tmux start-server`, or create a detached session before running other commands.
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+- **Problem:** Pane size is 0x0 when creating a detached session
+  **Solution:** Pass explicit dimensions: `tmux new-session -d -s name -x 200 -y 50`.
+
+- **Problem:** `send-keys` types the text but doesn't run the command
+  **Solution:** Ensure you pass `Enter` (capital E) as a second argument: `tmux send-keys -t target "cmd" Enter`.
+
+- **Problem:** Script creates a duplicate session each run
+  **Solution:** Guard with `tmux has-session -t name 2>/dev/null || tmux new-session -d -s name`.
+
+- **Problem:** Copy-mode selection doesn't work as expected
+  **Solution:** Confirm `mode-keys vi` or `mode-keys emacs` is set to match your preference in `~/.tmux.conf`.
+
+## Related Skills
+
+- `@bash-pro` — Writing the shell scripts that orchestrate tmux sessions
+- `@bash-linux` — General Linux terminal patterns used inside tmux panes
+- `@ssh` — Combining tmux with SSH for persistent remote workflows
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

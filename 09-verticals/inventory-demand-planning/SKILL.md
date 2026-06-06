@@ -1,14 +1,14 @@
 ---
 name: inventory-demand-planning
-title: 库存需求计划
-description: 当为多门店零售/分销做需求预测、安全库存、补货策略与促销/季节计划时使用；做方法选型+安全库存与补货量计算+促销提升与季末降价决策，产出可执行采购策略；不适用于单 SKU 简单算术、生产排程(MRP/APS)或供应商寻源谈判；触发词：需求预测、安全库存、补货、促销提升、ABC/XYZ、降价、demand forecast、safety stock、replenishment、reorder point、EOQ、promo lift
+title: Inventory Demand Planning
+description: Codified expertise for demand forecasting, safety stock optimisation, replenishment planning, and promotional lift estimation at multi-location retailers.
 domain: 领域/fintech
-triggers: [需求预测, 安全库存, 补货, 促销提升, ABC/XYZ分类, 降价时机, 再订货点, demand forecast, safety stock, replenishment, reorder point, EOQ, promo lift, WMAPE]
+triggers: [demand forecast, safety stock, replenishment, reorder point, EOQ, promo lift, WMAPE]
 tags: [inventory, demand-planning, forecasting, retail, supply-chain, safety-stock, replenishment]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Holt-Winters, STL, Croston, LightGBM, XGBoost, Lasso, Ridge]
+tools: []
 requires: []
 related: [returns-reverse-logistics, carrier-relationship-management, customs-trade-compliance]
 combines_with: [carrier-relationship-management, returns-reverse-logistics]
@@ -16,79 +16,224 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to Use
+Use this skill when forecasting product demand, calculating optimal safety stock levels, planning inventory replenishment cycles, estimating the impact of retail promotions, or conducting ABC/XYZ inventory segmentation.
 
-为 40–200 门店、300–800 活跃 SKU 的多地点零售/分销做需求与库存策略时使用，覆盖：预测方法选型与调参、安全库存与补货逻辑设计、促销提升与回落估计、ABC/XYZ 分级、季节进货与降价/清货决策、慢动销淘汰、以及排查慢性缺货/超储/预测偏差。
+# Inventory Demand Planning
 
-**不该用**：单 SKU 的简单算术；生产排程 / MRP / APS 工厂排产；供应商寻源与商务谈判本身；缺少历史销量、提前期、服务水平目标等关键输入时——应先停下来索要输入，而非硬算。输出不能替代环境内的验证、测试与专家复核。
+## Role and Context
 
-## 步骤
+You are a senior demand planner at a multi-location retailer operating 40–200 stores with regional distribution centers. You manage 300–800 active SKUs across categories including grocery, general merchandise, seasonal, and promotional assortments. Your systems include a demand planning suite (Blue Yonder, Oracle Demantra, or Kinaxis), an ERP (SAP, Oracle), a WMS for DC-level inventory, POS data feeds at the store level, and vendor portals for purchase order management. You sit between merchandising (which decides what to sell and at what price), supply chain (which manages warehouse capacity and transportation), and finance (which sets inventory investment budgets and GMROI targets). Your job is to translate commercial intent into executable purchase orders while minimizing both stockouts and excess inventory.
 
-1. **判定需求形态**，据此选预测方法（见“方法选型”表）。
-2. **清洗历史**：剥离促销量、按“相对节假日的周”对齐日历偏移（如复活节在 3 月/4 月间漂移），再拟合基线。
-3. **分级**：先 ABC（按毛利贡献，非营收），再 XYZ（按去季节、去促销后的需求变异系数 CV），形成 9 宫格策略矩阵。
-4. **算安全库存**：按分级查服务水平 → Z 值 → 代公式；提前期不稳就用含 LT 方差的公式；间歇性需求改用 Croston + 自助法分布。
-5. **定补货**：用库存头寸（非仅在手）触发再订货点/EOQ；按整箱/托盘取整；按供应商分层定评审频率。
-6. **叠促销层**：基线 × 提升倍数，并强制建模促销后回落。
-7. **监控**：周跟踪 WMAPE / 偏差 / 跟踪信号，越界触发换模型或上报。
+## Core Knowledge
 
-## 指令
+### Forecasting Methods and When to Use Each
 
-**预测方法（按形态）**
-- 稳定低波动 → 加权移动平均(4–8 周)；季节品**禁用**移动平均（滞后半个窗口）。
-- 含趋势 → Holt 双指数；季节循环 → Holt-Winters（增长用乘法、平稳用加法），α/β/γ 在留出集上调（α>0.3 追噪声，α<0.1 反应迟钝，切勿在拟合同一数据上调参）。
-- 季节漂移/需剥离基线 → STL 分解（对离群稳健）。
-- 外因驱动（价格弹性、促销、天气）→ 因果回归，促销特征编码折扣深度/陈列/DM/跨品类，用 Lasso/Ridge 强正则，按**时间外**而非样本外验证。
-- 大数据(1000+ SKU×2 年周数据)+ML 团队 → LightGBM/XGBoost（促销/间歇品 WMAPE 优 10–20%），季度重训。
+**Moving Averages (simple, weighted, trailing):** Use for stable-demand, low-variability items where recent history is a reliable predictor. A 4-week simple moving average works for commodity staples. Weighted moving averages (heavier on recent weeks) work better when demand is stable but shows slight drift. Never use moving averages on seasonal items — they lag trend changes by half the window length.
 
-**安全库存**
-- 基础：`SS = Z × σ_d × √(LT + RP)`（仅适用正态、平稳需求）。
-- 提前期不稳：`SS = Z × √(LT_avg × σ_d² + d_avg² × σ_LT²)`；LT 的 CV>0.3 时 SS 可比纯需求公式高 40–60%。
-- 间歇/块状：Croston/SBA 预测 + 自助法需求分布算 SS。
-- 服务水平：A 项 95%(Z=1.65)，A+ 关键 99%(Z=2.33)，C 项 90%(Z=1.28)；95%→99% SS 近翻倍，先量化增量投资再承诺。
-- 新品无 σ_d：取 3–5 个同生命周期相似品做代理，前 8 周加 20–30% 缓冲再渐收。
+**Exponential Smoothing (single, double, triple):** Single exponential smoothing (SES, alpha 0.1–0.3) suits stationary demand with noise. Double exponential smoothing (Holt's) adds trend tracking — use for items with consistent growth or decline. Triple exponential smoothing (Holt-Winters) adds seasonal indices — this is the workhorse for seasonal items with 52-week or 12-month cycles. The alpha/beta/gamma parameters are critical: high alpha (>0.3) chases noise in volatile items; low alpha (<0.1) responds too slowly to regime changes. Optimize on holdout data, never on the same data used for fitting.
 
-**补货**
-- 库存头寸 `IP = 在手 + 在途 − 缺货欠交 − 已分配`，**绝不只看在手**（会重复下单）。
-- ROP = 提前期内平均需求 + 安全库存；`EOQ = √(2DS/H)`，必按厂商箱/层/托盘取整。
-- Min = 提前期需求 + SS；Max = Min + EOQ；IP 触 Min 补到 Max。
-- 周期评审(R,S)：S = (R+LT) 期需求 + SS；按供应商分层频率：A 商周评、B 双周、C 月评。
+**Seasonal Decomposition (STL, classical, X-13ARIMA-SEATS):** When you need to isolate trend, seasonal, and residual components separately. STL (Seasonal and Trend decomposition using Loess) is robust to outliers. Use seasonal decomposition when seasonal patterns are shifting year over year, when you need to remove seasonality before applying a different model to the de-seasonalized data, or when building promotional lift estimates on top of a clean baseline.
 
-**XYZ 阈值**：X 即 CV<0.5；Y 为 0.5–1.0；Z>1.0。策略：AX 自动补货+紧 SS；AZ 每周期人工复核；CX 自动+宽松评审；CZ 候选淘汰/改按单。
+**Causal/Regression Models:** When external factors drive demand beyond the item's own history — price elasticity, promotional flags, weather, competitor actions, local events. The practical challenge is feature engineering: promotional flags should encode depth (% off), display type, circular feature, and cross-category promo presence. Overfitting on sparse promo history is the single biggest pitfall. Regularize aggressively (Lasso/Ridge) and validate on out-of-time, not out-of-sample.
 
-## 示例
+**Machine Learning (gradient boosting, neural nets):** Justified when you have large data (1,000+ SKUs × 2+ years of weekly history), multiple external regressors, and an ML engineering team. LightGBM/XGBoost with proper feature engineering outperforms simpler methods by 10–20% WAPE on promotional and intermittent items. But they require continuous monitoring — model drift in retail is real and quarterly retraining is the minimum.
 
-**方法选型与触发器（节选）**
+### Forecast Accuracy Metrics
 
-| 需求形态 | 首选方法 | 兜底 | 复核触发 |
-|---|---|---|---|
-| 稳定高量无季节 | 加权移动平均(4–8 周) | 单指数 SES | WMAPE>25% 连续 4 周 |
-| 趋势(增/降) | Holt 双指数 | 近 26 周线性回归 | 跟踪信号超 ±4 |
-| 季节重复 | Holt-Winters | STL+残差 SES | 同期模式相关 <0.7 |
-| 间歇/块状(>30% 零需求) | Croston/SBA | 需求间隔自助模拟 | 平均间隔漂移 >30% |
-| 促销驱动 | 因果回归(基线+提升层) | 类比品提升+基线 | 促销后实绩偏 >40% |
-| 新品(0–12 周) | 类比品生命周期曲线 | 品类均值向实绩衰减 | 自有 WMAPE 稳于类比 |
+- **MAPE (Mean Absolute Percentage Error):** Standard metric but breaks on low-volume items (division by near-zero actuals produces inflated percentages). Use only for items averaging 50+ units/week.
+- **Weighted MAPE (WMAPE):** Sum of absolute errors divided by sum of actuals. Prevents low-volume items from dominating the metric. This is the metric finance cares about because it reflects dollars.
+- **Bias:** Average signed error. Positive bias = forecast systematically too high (overstock risk). Negative bias = systematically too low (stockout risk). Bias < ±5% is healthy. Bias > 10% in either direction means a structural problem in the model, not noise.
+- **Tracking Signal:** Cumulative error divided by MAD (mean absolute deviation). When tracking signal exceeds ±4, the model has drifted and needs intervention — either re-parameterize or switch methods.
 
-**促销提升与回落**：典型提升——单 TPR 降价 15–40%；TPR+陈列+DM 80–200%；引流/亏本品 300–500%+。蚕食：近似替代品取被提升量的 10–30%。**必建回落**：默认为增量提升的 40%，按 60/30/10 分布于促销后三周。提交格式：“基线 500/周；提升 180%(增 900)；回落 −35% 持续 2 周；置信 ±25%。”
+### Safety Stock Calculation
 
-**降价时机（季中达成率）**：≥80% 持价、按需谨慎补货；60–79% 降 20–25%、停补；40–59% 立即降 30–40%、取消未交 PO；<40% 降 50%+、走清货并复盘买手错误。经验：降价每延迟 1 周，剩余库存损失 3–5 个点毛利。
+The textbook formula is `SS = Z × σ_d × √(LT + RP)` where Z is the service level z-score, σ_d is the standard deviation of demand per period, LT is lead time in periods, and RP is review period in periods. In practice, this formula works only for normally distributed, stationary demand.
 
-**慢动销淘汰（季度评，全部满足才标记）**：周供应 >26；近 13 周速率 <首 13 周的 50%；未来 8 周无促销；无合同/陈列约束；有替代或品类可吸收缺口。标记后降 30% 卖 4 周，仍不动升至 50% 或清货，设首次降价后 8 周硬退场日。
+**Service Level Targets:** 95% service level (Z=1.65) is standard for A-items. 99% (Z=2.33) for critical/A+ items where stockout cost dwarfs holding cost. 90% (Z=1.28) is acceptable for C-items. Moving from 95% to 99% nearly doubles safety stock — always quantify the inventory investment cost of the incremental service level before committing.
 
-## 注意事项
+**Lead Time Variability:** When vendor lead times are uncertain, use `SS = Z × √(LT_avg × σ_d² + d_avg² × σ_LT²)` — this captures both demand variability and lead time variability. Vendors with coefficient of variation (CV) on lead time > 0.3 need safety stock adjustments that can be 40–60% higher than demand-only formulas suggest.
 
-- **幻影库存**：系统说 200 实盘 40 时，所有补货决策皆错；“在手充足却仍掉服务水平”即怀疑，立即对该 SKU 循环盘点。
-- **供应商 MOQ 冲突**：EOQ 算 150 但 MOQ 500——优先同供应商凑单达额、谈降 MOQ，或在持有成本低于换供时接受超量。
-- **病毒式飙升(500–2000%)**：不追单（4–8 周提前期到货时浪已过），用现货应对+分配规则防囤积，仅当飙升持续 4+ 周才改基线。
-- **提前期骤增/形态突变**：跟踪信号连续两期超 ±4 即触发换模型；提前期翻倍则立即重算 SS 并下应急补单。
-- **指标红线**：WMAPE 目标 <25%(红 >35%)；偏差 ±5%(红 >±10% 连 4 周)；A 项在库率 >97%；总周供应 4–8 周；超储(>26 周) <5% SKU。偏差为正=系统性高估(超储)，为负=低估(缺货)。
-- **上报阈值**：A 项 7 日内将缺货 → 4 小时内通知计划经理+品类买手；服务水平跌破 90% → 48 小时内根因分析。
-- 量化优先于断言；对买手用“销售节奏需价格行动以达毛利目标”，绝不说“我们买多了”。
+**Lumpy/Intermittent Demand:** Normal-distribution safety stock fails for items with many zero-demand periods. Use Croston's method for forecasting intermittent demand (separate forecasts for demand interval and demand size), and compute safety stock using a bootstrapped demand distribution rather than analytical formulas.
 
-## 互见
+**New Products:** No demand history means no σ_d. Use analogous item profiling — find the 3–5 most similar items at the same lifecycle stage and use their demand variability as a proxy. Add a 20–30% buffer for the first 8 weeks, then taper as own history accumulates.
 
-- first-principles-thinking：在形态突变/无历史新品时回到需求第一性假设重建模型。
-- csv-data-cleaner：清洗 POS/销量原始数据、剥离促销量与对齐日历前的预处理。
-- sql-query-builder：从 ERP/WMS/POS 拉取销量、在途、库存头寸明细。
+### Reorder Logic
 
-—— 本条采编自 sickn33/antigravity-awesome-skills（MIT）。
+**Inventory Position:** `IP = On-Hand + On-Order − Backorders − Committed (allocated to open customer orders)`. Never reorder based on on-hand alone — you will double-order when POs are in transit.
+
+**Min/Max:** Simple, suitable for stable-demand items with consistent lead times. Min = average demand during lead time + safety stock. Max = Min + EOQ. When IP drops to Min, order up to Max. The weakness: it doesn't adapt to changing demand patterns without manual adjustment.
+
+**Reorder Point / EOQ:** ROP = average demand during lead time + safety stock. EOQ = √(2DS/H) where D = annual demand, S = ordering cost, H = holding cost per unit per year. EOQ is theoretically optimal for constant demand, but in practice you round to vendor case packs, layer quantities, or pallet tiers. A "perfect" EOQ of 847 units means nothing if the vendor ships in cases of 24.
+
+**Periodic Review (R,S):** Review inventory every R periods, order up to target level S. Better when you consolidate orders to a vendor on fixed days (e.g., Tuesday orders for Thursday pickup). R is set by vendor delivery schedule; S = average demand during (R + LT) + safety stock for that combined period.
+
+**Vendor Tier-Based Frequencies:** A-vendors (top 10 by spend) get weekly review cycles. B-vendors (next 20) get bi-weekly. C-vendors (remaining) get monthly. This aligns review effort with financial impact and allows consolidation discounts.
+
+### Promotional Planning
+
+**Demand Signal Distortion:** Promotions create artificial demand peaks that contaminate baseline forecasting. Strip promotional volume from history before fitting baseline models. Keep a separate "promotional lift" layer that applies multiplicatively on top of the baseline during promo weeks.
+
+**Lift Estimation Methods:** (1) Year-over-year comparison of promoted vs. non-promoted periods for the same item. (2) Cross-elasticity model using historical promo depth, display type, and media support as inputs. (3) Analogous item lift — new items borrow lift profiles from similar items in the same category that have been promoted before. Typical lifts: 15–40% for TPR (temporary price reduction) only, 80–200% for TPR + display + circular feature, 300–500%+ for doorbuster/loss-leader events.
+
+**Cannibalization:** When SKU A is promoted, SKU B (same category, similar price point) loses volume. Estimate cannibalization at 10–30% of lifted volume for close substitutes. Ignore cannibalization across categories unless the promo is a traffic driver that shifts basket composition.
+
+**Forward-Buy Calculation:** Customers stock up during deep promotions, creating a post-promo dip. The dip duration correlates with product shelf life and promotional depth. A 30% off promotion on a pantry item with 12-month shelf life creates a 2–4 week dip as households consume stockpiled units. A 15% off promotion on a perishable produces almost no dip.
+
+**Post-Promo Dip:** Expect 1–3 weeks of below-baseline demand after a major promotion. The dip magnitude is typically 30–50% of the incremental lift, concentrated in the first week post-promo. Failing to forecast the dip leads to excess inventory and markdowns.
+
+### ABC/XYZ Classification
+
+**ABC (Value):** A = top 20% of SKUs driving 80% of revenue/margin. B = next 30% driving 15%. C = bottom 50% driving 5%. Classify on margin contribution, not revenue, to avoid overinvesting in high-revenue low-margin items.
+
+**XYZ (Predictability):** X = CV of demand < 0.5 (highly predictable). Y = CV 0.5–1.0 (moderately predictable). Z = CV > 1.0 (erratic/lumpy). Compute on de-seasonalized, de-promoted demand to avoid penalizing seasonal items that are actually predictable within their pattern.
+
+**Policy Matrix:** AX items get automated replenishment with tight safety stock. AZ items need human review every cycle — they're high-value but erratic. CX items get automated replenishment with generous review periods. CZ items are candidates for discontinuation or make-to-order conversion.
+
+### Seasonal Transition Management
+
+**Buy Timing:** Seasonal buys (e.g., holiday, summer, back-to-school) are committed 12–20 weeks before selling season. Allocate 60–70% of expected season demand in the initial buy, reserving 30–40% for reorder based on early-season sell-through. This "open-to-buy" reserve is your hedge against forecast error.
+
+**Markdown Timing:** Begin markdowns when sell-through pace drops below 60% of plan at the season midpoint. Early shallow markdowns (20–30% off) recover more margin than late deep markdowns (50–70% off). The rule of thumb: every week of delay in markdown initiation costs 3–5 percentage points of margin on the remaining inventory.
+
+**Season-End Liquidation:** Set a hard cutoff date (typically 2–3 weeks before the next season's product arrives). Everything remaining at cutoff goes to outlet, liquidator, or donation. Holding seasonal product into the next year rarely works — style items date, and warehousing cost erodes any margin recovery from selling next season.
+
+## Decision Frameworks
+
+### Forecast Method Selection by Demand Pattern
+
+| Demand Pattern                                  | Primary Method                                                          | Fallback Method                           | Review Trigger                                        |
+| ----------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------- | ----------------------------------------------------- |
+| Stable, high-volume, no seasonality             | Weighted moving average (4–8 weeks)                                     | Single exponential smoothing              | WMAPE > 25% for 4 consecutive weeks                   |
+| Trending (growth or decline)                    | Holt's double exponential smoothing                                     | Linear regression on recent 26 weeks      | Tracking signal exceeds ±4                            |
+| Seasonal, repeating pattern                     | Holt-Winters (multiplicative for growing seasonal, additive for stable) | STL decomposition + SES on residual       | Season-over-season pattern correlation < 0.7          |
+| Intermittent / lumpy (>30% zero-demand periods) | Croston's method or SBA (Syntetos-Boylan Approximation)                 | Bootstrap simulation on demand intervals  | Mean inter-demand interval shifts by >30%             |
+| Promotion-driven                                | Causal regression (baseline + promo lift layer)                         | Analogous item lift + baseline            | Post-promo actuals deviate >40% from forecast         |
+| New product (0–12 weeks history)                | Analogous item profile with lifecycle curve                             | Category average with decay toward actual | Own-data WMAPE stabilizes below analogous-based WMAPE |
+| Event-driven (weather, local events)            | Regression with external regressors                                     | Manual override with documented rationale |                                                       |
+
+### Safety Stock Service Level Selection
+
+| Segment                               | Target Service Level | Z-Score   | Rationale                                                                                    |
+| ------------------------------------- | -------------------- | --------- | -------------------------------------------------------------------------------------------- |
+| AX (high-value, predictable)          | 97.5%                | 1.96      | High value justifies investment; low variability keeps SS moderate                           |
+| AY (high-value, moderate variability) | 95%                  | 1.65      | Standard target; variability makes higher SL prohibitively expensive                         |
+| AZ (high-value, erratic)              | 92–95%               | 1.41–1.65 | Erratic demand makes high SL astronomically expensive; supplement with expediting capability |
+| BX/BY                                 | 95%                  | 1.65      | Standard target                                                                              |
+| BZ                                    | 90%                  | 1.28      | Accept some stockout risk on mid-tier erratic items                                          |
+| CX/CY                                 | 90–92%               | 1.28–1.41 | Low value doesn't justify high SS investment                                                 |
+| CZ                                    | 85%                  | 1.04      | Candidate for discontinuation; minimal investment                                            |
+
+### Promotional Lift Decision Framework
+
+1. **Is there historical lift data for this SKU-promo type combination?** → Use own-item lift with recency weighting (most recent 3 promos weighted 50/30/20).
+2. **No own-item data but same category has been promoted?** → Use analogous item lift adjusted for price point and brand tier.
+3. **Brand-new category or promo type?** → Use conservative category-average lift discounted 20%. Build in a wider safety stock buffer for the promo period.
+4. **Cross-promoted with another category?** → Model the traffic driver separately from the cross-promo beneficiary. Apply cross-elasticity coefficient if available; default 0.15 lift for cross-category halo.
+5. **Always model the post-promo dip.** Default to 40% of incremental lift, concentrated 60/30/10 across the three post-promo weeks.
+
+### Markdown Timing Decision
+
+| Sell-Through at Season Midpoint | Action                                                                               | Expected Margin Recovery  |
+| ------------------------------- | ------------------------------------------------------------------------------------ | ------------------------- |
+| ≥ 80% of plan                   | Hold price. Reorder cautiously if weeks of supply < 3.                               | Full margin               |
+| 60–79% of plan                  | Take 20–25% markdown. No reorder.                                                    | 70–80% of original margin |
+| 40–59% of plan                  | Take 30–40% markdown immediately. Cancel any open POs.                               | 50–65% of original margin |
+| < 40% of plan                   | Take 50%+ markdown. Explore liquidation channels. Flag buying error for post-mortem. | 30–45% of original margin |
+
+### Slow-Mover Kill Decision
+
+Evaluate quarterly. Flag for discontinuation when ALL of the following are true:
+
+- Weeks of supply > 26 at current sell-through rate
+- Last 13-week sales velocity < 50% of the item's first 13 weeks (lifecycle declining)
+- No promotional activity planned in the next 8 weeks
+- Item is not contractually obligated (planogram commitment, vendor agreement)
+- Replacement or substitution SKU exists or category can absorb the gap
+
+If flagged, initiate markdown at 30% off for 4 weeks. If still not moving, escalate to 50% off or liquidation. Set a hard exit date 8 weeks from first markdown. Do not allow slow movers to linger indefinitely in the assortment — they consume shelf space, warehouse slots, and working capital.
+
+## Key Edge Cases
+
+Brief summaries here. Full analysis in [edge-cases.md](references/edge-cases.md).
+
+1. **New product launch with zero history:** Analogous item profiling is your only tool. Select analogs carefully — match on price point, category, brand tier, and target demographic, not just product type. Commit a conservative initial buy (60% of analog-based forecast) and build in weekly auto-replenishment triggers.
+
+2. **Viral social media spike:** Demand jumps 500–2,000% with no warning. Do not chase — by the time your supply chain responds (4–8 week lead times), the spike is over. Capture what you can from existing inventory, issue allocation rules to prevent a single location from hoarding, and let the wave pass. Revise the baseline only if sustained demand persists 4+ weeks post-spike.
+
+3. **Supplier lead time doubling overnight:** Recalculate safety stock immediately using the new lead time. If SS doubles, you likely cannot fill the gap from current inventory. Place an emergency order for the delta, negotiate partial shipments, and identify secondary suppliers. Communicate to merchandising that service levels will temporarily drop.
+
+4. **Cannibalization from an unplanned promotion:** A competitor or another department runs an unplanned promo that steals volume from your category. Your forecast will over-project. Detect early by monitoring daily POS for a pattern break, then manually override the forecast downward. Defer incoming orders if possible.
+
+5. **Demand pattern regime change:** An item that was stable-seasonal suddenly shifts to trending or erratic. Common after a reformulation, packaging change, or competitor entry/exit. The old model will fail silently. Monitor tracking signal weekly — when it exceeds ±4 for two consecutive periods, trigger a model re-selection.
+
+6. **Phantom inventory:** WMS says you have 200 units; physical count reveals 40. Every forecast and replenishment decision based on that phantom inventory is wrong. Suspect phantom inventory when service level drops despite "adequate" on-hand. Conduct cycle counts on any item with stockouts that the system says shouldn't have occurred.
+
+7. **Vendor MOQ conflicts:** Your EOQ says order 150 units; the vendor's minimum order quantity is 500. You either over-order (accepting weeks of excess inventory) or negotiate. Options: consolidate with other items from the same vendor to meet dollar minimums, negotiate a lower MOQ for this SKU, or accept the overage if holding cost is lower than ordering from an alternative supplier.
+
+8. **Holiday calendar shift effects:** When key selling holidays shift position in the calendar (e.g., Easter moves between March and April), week-over-week comparisons break. Align forecasts to "weeks relative to holiday" rather than calendar weeks. A failure to account for Easter shifting from Week 13 to Week 16 will create significant forecast error in both years.
+
+## Communication Patterns
+
+### Tone Calibration
+
+- **Vendor routine reorder:** Transactional, brief, PO-reference-driven. "PO #XXXX for delivery week of MM/DD per our agreed schedule."
+- **Vendor lead time escalation:** Firm, fact-based, quantifies business impact. "Our analysis shows your lead time has increased from 14 to 22 days over the past 8 weeks. This has resulted in X stockout events. We need a corrective plan by [date]."
+- **Internal stockout alert:** Urgent, actionable, includes estimated revenue at risk. Lead with the customer impact, not the inventory metric. "SKU X will stock out at 12 locations by Thursday. Estimated lost sales: $XX,000. Recommended action: [expedite/reallocate/substitute]."
+- **Markdown recommendation to merchandising:** Data-driven, includes margin impact analysis. Never frame it as "we bought too much" — frame as "sell-through pace requires price action to meet margin targets."
+- **Promotional forecast submission:** Structured, with baseline, lift, and post-promo dip called out separately. Include assumptions and confidence range. "Baseline: 500 units/week. Promotional lift estimate: 180% (900 incremental). Post-promo dip: −35% for 2 weeks. Confidence: ±25%."
+- **New product forecast assumptions:** Document every assumption explicitly so it can be audited at post-mortem. "Based on analogs [list], we project 200 units/week in weeks 1–4, declining to 120 units/week by week 8. Assumptions: price point $X, distribution to 80 doors, no competitive launch in window."
+
+Brief templates above. Full versions with variables in [communication-templates.md](references/communication-templates.md).
+
+## Escalation Protocols
+
+### Automatic Escalation Triggers
+
+| Trigger                                               | Action                                                 | Timeline                   |
+| ----------------------------------------------------- | ------------------------------------------------------ | -------------------------- |
+| Projected stockout on A-item within 7 days            | Alert demand planning manager + category merchant      | Within 4 hours             |
+| Vendor confirms lead time increase > 25%              | Notify supply chain director; recalculate all open POs | Within 1 business day      |
+| Promotional forecast miss > 40% (over or under)       | Post-promo debrief with merchandising and vendor       | Within 1 week of promo end |
+| Excess inventory > 26 weeks of supply on any A/B item | Markdown recommendation to merchandising VP            | Within 1 week of detection |
+| Forecast bias exceeds ±10% for 4 consecutive weeks    | Model review and re-parameterization                   | Within 2 weeks             |
+| New product sell-through < 40% of plan after 4 weeks  | Assortment review with merchandising                   | Within 1 week              |
+| Service level drops below 90% for any category        | Root cause analysis and corrective plan                | Within 48 hours            |
+
+### Escalation Chain
+
+Level 1 (Demand Planner) → Level 2 (Planning Manager, 24 hours) → Level 3 (Director of Supply Chain Planning, 48 hours) → Level 4 (VP Supply Chain, 72+ hours or any A-item stockout at enterprise customer)
+
+## Performance Indicators
+
+Track weekly and trend monthly:
+
+| Metric                                          | Target       | Red Flag            |
+| ----------------------------------------------- | ------------ | ------------------- |
+| WMAPE (weighted mean absolute percentage error) | < 25%        | > 35%               |
+| Forecast bias                                   | ±5%          | > ±10% for 4+ weeks |
+| In-stock rate (A-items)                         | > 97%        | < 94%               |
+| In-stock rate (all items)                       | > 95%        | < 92%               |
+| Weeks of supply (aggregate)                     | 4–8 weeks    | > 12 or < 3         |
+| Excess inventory (>26 weeks supply)             | < 5% of SKUs | > 10% of SKUs       |
+| Dead stock (zero sales, 13+ weeks)              | < 2% of SKUs | > 5% of SKUs        |
+| Purchase order fill rate from vendors           | > 95%        | < 90%               |
+| Promotional forecast accuracy (WMAPE)           | < 35%        | > 50%               |
+
+## Additional Resources
+
+- For detailed decision frameworks, optimization models, and method selection trees, see [decision-frameworks.md](references/decision-frameworks.md)
+- For the comprehensive edge case library with full resolution playbooks, see [edge-cases.md](references/edge-cases.md)
+- For complete communication templates with variables and tone guidance, see [communication-templates.md](references/communication-templates.md)
+
+### When to Use
+Use this skill when you need to **forecast demand and shape inventory policy across SKUs, stores, and vendors**:
+
+- Selecting and tuning forecasting methods, safety stock policies, and reorder logic for different demand patterns.
+- Planning promotions, seasonal transitions, markdowns, and end‑of‑life strategies while balancing service, cash, and margin.
+- Investigating chronic stockouts, excess inventory, or forecast bias and redesigning the planning process with clearer decision frameworks.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

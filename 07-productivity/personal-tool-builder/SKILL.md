@@ -1,14 +1,14 @@
 ---
 name: personal-tool-builder
-title: 自用工具构建方法论
-description: 当你想把自己反复手动操作的痛点做成工具（脚本/CLI/本地应用）时使用；做从"挠自己的痒处"出发的快速原型→可靠脚本→可分享工具的演进，产出可执行的方案、技术栈选型与可移植/安全清单；不适用于无真实自身痛点的市场臆想、企业级多人协作系统或纯前端 UI 设计。触发词：自用工具、挠自己痒处、CLI 工具、本地应用、自动化我的重复任务
+title: Personal Tool Builder
+description: Expert in building custom tools that solve your own problems first.
 domain: 协作/automation
-triggers: [做个工具, 自用工具, 挠自己的痒处, 解决我自己的问题, 写个 CLI, 本地小应用, 自动化我的, 给自己用的脚本]
-tags: [协作-自动化, cli, 本地优先, 快速原型, 脚本化, 工具演进, 可移植性, 凭据安全]
-level: 进阶
+triggers: []
+tags: [cli]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, Write, Edit, Read]
+tools: []
 requires: []
 related: [developer-experience-optimizer, ai-native-cli-design, zapier-make-automation, micro-saas-launcher]
 combines_with: [file-organizer, agent-tool-builder]
@@ -16,101 +16,784 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Personal Tool Builder
 
-当你有一个**自己反复遭遇的真实痛点**，想用最小成本做成工具来解决它时。最好的产品常常起步于个人工具：先给自己挠痒处，做到自己每天都用，再发现别人也有同样的痒处。
+Expert in building custom tools that solve your own problems first. The best products
+often start as personal tools - scratch your own itch, build for yourself, then
+discover others have the same itch. Covers rapid prototyping, local-first apps,
+CLI tools, scripts that grow into products, and the art of dogfooding.
 
-适用：把每天手动操作 10 次的事自动化、做 CLI、做本地优先的小应用、把脚本逐步养成产品、为自己 dogfood。
+**Role**: Personal Tool Architect
 
-**不该用（负边界）**：
-- 没有真实自身痛点，只是"觉得别人会想要""这会很酷""市场上有空白"——这类多半是坏痒处，先别建。
-- 一上来就要企业级、多人协作、跨团队的复杂系统。
-- 纯 UI/视觉设计需求。
-- 需要环境特定的真实测试与专家评审才能定论的场景——本方法论不替代实测。
+You believe the best tools come from real problems. You've built dozens of
+personal tools - some stayed personal, others became products used by thousands.
+You know that building for yourself means you have perfect product-market fit
+with at least one user. You build fast, iterate constantly, and only polish
+what proves useful.
 
-## 步骤
+### Expertise
 
-1. **识别真痒处**：用一句话能描述问题；每周都会遇到；已经手动解决过；理想情况下每天会用。任一不满足就要警惕。
-2. **从丑陋起步（Day 1）**：写一个只解决"你自己问题"的脚本——没有 UI、硬编码路径和你的数据、零错误处理、你看得懂每一行。
-3. **跑稳（Week 1）**：处理你自己的边界情况，加上你真正需要的功能；仍然丑，但可靠。
-4. **可能帮到别人（Month 1）**：给未来的你写最简文档、用配置替代硬编码、再考虑分享。
-5. **选型**：CLI 用 Node(commander/chalk) 或 Python(click)；存储按复杂度选 JSON 文件 / better-sqlite3 / IndexedDB / Electron/Tauri+SQLite。
-6. **判断是否产品化**：见下方信号表，命中"别人主动要""每天在用""解决 $100+ 问题""别人愿付费"再投入。
-7. **分享前过安全与可移植清单**（见注意事项）。
+- Rapid prototyping
+- CLI development
+- Local-first architecture
+- Script automation
+- Problem identification
+- Tool evolution
 
-## 指令
+## Capabilities
 
-**Node CLI 起手（commander）**：
+- Personal productivity tools
+- Scratch-your-own-itch methodology
+- Rapid prototyping for personal use
+- CLI tool development
+- Local-first applications
+- Script-to-product evolution
+- Dogfooding practices
+- Personal automation
+
+## Patterns
+
+### Scratch Your Own Itch
+
+Building from personal pain points
+
+**When to use**: When starting any personal tool
+
+## The Itch-to-Tool Process
+
+### Identifying Real Itches
+```
+Good itches:
+- "I do this manually 10x per day"
+- "This takes me 30 minutes every time"
+- "I wish X just did Y"
+- "Why doesn't this exist?"
+
+Bad itches (usually):
+- "People should want this"
+- "This would be cool"
+- "There's a market for..."
+- "AI could probably..."
+```
+
+### The 10-Minute Test
+| Question | Answer |
+|----------|--------|
+| Can you describe the problem in one sentence? | Required |
+| Do you experience this problem weekly? | Must be yes |
+| Have you tried solving it manually? | Must have |
+| Would you use this daily? | Should be yes |
+
+### Start Ugly
+```
+Day 1: Script that solves YOUR problem
+- No UI, just works
+- Hardcoded paths, your data
+- Zero error handling
+- You understand every line
+
+Week 1: Script that works reliably
+- Handle your edge cases
+- Add the features YOU need
+- Still ugly, but robust
+
+Month 1: Tool that might help others
+- Basic docs (for future you)
+- Config instead of hardcoding
+- Consider sharing
+```
+
+### CLI Tool Architecture
+
+Building command-line tools that last
+
+**When to use**: When building terminal-based tools
+
+## CLI Tool Stack
+
+### Node.js CLI Stack
 ```javascript
+// package.json
+{
+  "name": "my-tool",
+  "version": "1.0.0",
+  "bin": {
+    "mytool": "./bin/cli.js"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",    // Argument parsing
+    "chalk": "^5.3.0",          // Colors
+    "ora": "^8.0.0",            // Spinners
+    "inquirer": "^9.2.0",       // Interactive prompts
+    "conf": "^12.0.0"           // Config storage
+  }
+}
+
+// bin/cli.js
 #!/usr/bin/env node
 import { Command } from 'commander';
+import chalk from 'chalk';
+
 const program = new Command();
-program.name('mytool').description('一句话说明').version('1.0.0');
-program.command('do-thing')
-  .option('-v, --verbose', '详细输出')
-  .action(async (opts) => { /* 你的逻辑 */ });
+
+program
+  .name('mytool')
+  .description('What it does in one line')
+  .version('1.0.0');
+
+program
+  .command('do-thing')
+  .description('Does the thing')
+  .option('-v, --verbose', 'Verbose output')
+  .action(async (options) => {
+    // Your logic here
+  });
+
 program.parse();
 ```
-package.json 关键：`"bin": { "mytool": "./bin/cli.js" }`，依赖按需取 commander/chalk/ora/inquirer/conf。
 
-**Python CLI 起手（click，推荐）**：
+### Python CLI Stack
 ```python
+# Using Click (recommended)
 import click
+
 @click.group()
-def cli(): """工具说明"""; pass
+def cli():
+    """Tool description."""
+    pass
+
 @cli.command()
 @click.option('--name', '-n', required=True)
-def process(name): click.echo(f'Processing {name}')
-if __name__ == '__main__': cli()
+@click.option('--verbose', '-v', is_flag=True)
+def process(name, verbose):
+    """Process something."""
+    click.echo(f'Processing {name}')
+
+if __name__ == '__main__':
+    cli()
 ```
 
-**本地存储——简单用 JSON，复杂用 SQLite**：
+### Distribution
+| Method | Complexity | Reach |
+|--------|------------|-------|
+| npm publish | Low | Node devs |
+| pip install | Low | Python devs |
+| Homebrew tap | Medium | Mac users |
+| Binary release | Medium | Everyone |
+| Docker image | Medium | Tech users |
+
+### Local-First Apps
+
+Apps that work offline and own your data
+
+**When to use**: When building personal productivity apps
+
+## Local-First Architecture
+
+### Why Local-First for Personal Tools
+```
+Benefits:
+- Works offline
+- Your data stays yours
+- No server costs
+- Instant, no latency
+- Works forever (no shutdown)
+
+Trade-offs:
+- Sync is hard
+- No collaboration (initially)
+- Platform-specific work
+```
+
+### Stack Options
+| Stack | Best For | Complexity |
+|-------|----------|------------|
+| Electron + SQLite | Desktop apps | Medium |
+| Tauri + SQLite | Lightweight desktop | Medium |
+| Browser + IndexedDB | Web apps | Low |
+| PWA + OPFS | Mobile-friendly | Low |
+| CLI + JSON files | Scripts | Very Low |
+
+### Simple Local Storage
 ```javascript
-import { homedir } from 'os'; import { join } from 'path';
-const DATA_DIR = join(homedir(), '.mytool');   // 可移植路径
-// JSON：loadData/saveData 读写 join(DATA_DIR,'data.json')
-// SQLite：new Database(join(DATA_DIR,'data.db'))，建表用 CREATE TABLE IF NOT EXISTS
+// For simple tools: JSON file storage
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { homedir } from 'os';
+import { join } from 'path';
+
+const DATA_DIR = join(homedir(), '.mytool');
+const DATA_FILE = join(DATA_DIR, 'data.json');
+
+function loadData() {
+  if (!existsSync(DATA_FILE)) return { items: [] };
+  return JSON.parse(readFileSync(DATA_FILE, 'utf8'));
+}
+
+function saveData(data) {
+  if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR);
+  writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+}
 ```
 
-**演进四阶段**：① 个人脚本（只你用、硬编码，数小时~数天）→ ② 可分享工具（README + 基本错误信息 + 配置文件，数天）→ ③ 公开工具（安装说明、跨平台、版本号、基本测试，一两周）→ ④ 产品（落地页、文档站、支持渠道、隐私友好埋点、收款，数周~数月）。
+### SQLite for More Complex Tools
+```javascript
+// better-sqlite3 for Node.js
+import Database from 'better-sqlite3';
+import { join } from 'path';
+import { homedir } from 'os';
 
-## 示例
+const db = new Database(join(homedir(), '.mytool', 'data.db'));
 
-**场景：把每天手动转码的操作做成 CLI。**
+// Create tables on first run
+db.exec(`
+  CREATE TABLE IF NOT EXISTS items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
 
-1. 识别：每天手动跑 ffmpeg 10 次 → 真痒处。
-2. Day 1 丑脚本：硬编码输入目录，直接调 ffmpeg，跑通即可。
-3. 加依赖检查，避免"在我机器上能跑"：
+// Fast synchronous queries
+const items = db.prepare('SELECT * FROM items').all();
+```
+
+### Script to Product Evolution
+
+Growing a script into a real product
+
+**When to use**: When a personal tool shows promise
+
+## Evolution Path
+
+### Stage 1: Personal Script
+```
+Characteristics:
+- Only you use it
+- Hardcoded values
+- No error handling
+- Works on your machine
+
+Time: Hours to days
+```
+
+### Stage 2: Shareable Tool
+```
+Add:
+- README explaining what it does
+- Basic error messages
+- Config file instead of hardcoding
+- Works on similar machines
+
+Time: Days
+```
+
+### Stage 3: Public Tool
+```
+Add:
+- Installation instructions
+- Cross-platform support
+- Proper error handling
+- Version numbers
+- Basic tests
+
+Time: Week or two
+```
+
+### Stage 4: Product
+```
+Add:
+- Landing page
+- Documentation site
+- User support channel
+- Analytics (privacy-respecting)
+- Payment integration (if monetizing)
+
+Time: Weeks to months
+```
+
+### Signs You Should Productize
+| Signal | Strength |
+|--------|----------|
+| Others asking for it | Strong |
+| You use it daily | Strong |
+| Solves $100+ problem | Strong |
+| Others would pay | Very strong |
+| Competition exists but sucks | Strong |
+| You're embarrassed by it | Actually good |
+
+## Sharp Edges
+
+### Tool only works in your specific environment
+
+Severity: MEDIUM
+
+Situation: Script fails when you try to share it
+
+Symptoms:
+- Works on my machine
+- Scripts failing for others
+- Path not found errors
+- Command not found errors
+
+Why this breaks:
+Hardcoded absolute paths.
+Relies on your installed tools.
+Assumes your OS/shell.
+Uses your auth tokens.
+
+Recommended fix:
+
+## Making Tools Portable
+
+### Common Portability Issues
+| Issue | Fix |
+|-------|-----|
+| Hardcoded paths | Use ~ or env vars |
+| Specific shell | Declare shell in shebang |
+| Missing deps | Check and prompt to install |
+| Auth tokens | Use config file or env |
+| OS-specific | Test on other OS or use cross-platform libs |
+
+### Path Portability
+```javascript
+// Bad
+const dataFile = '~/data.json';
+
+// Good
+import { homedir } from 'os';
+import { join } from 'path';
+const dataFile = join(homedir(), '.mytool', 'data.json');
+```
+
+### Dependency Checking
 ```javascript
 import { execSync } from 'child_process';
-function checkDep(cmd, hint) {
-  try { execSync(`which ${cmd}`, { stdio: 'ignore' }); }
-  catch { console.error(`Missing: ${cmd}\nInstall: ${hint}`); process.exit(1); }
+
+function checkDep(cmd, installHint) {
+  try {
+    execSync(`which ${cmd}`, { stdio: 'ignore' });
+  } catch {
+    console.error(`Missing: ${cmd}`);
+    console.error(`Install: ${installHint}`);
+    process.exit(1);
+  }
 }
+
 checkDep('ffmpeg', 'brew install ffmpeg');
 ```
-4. 路径改可移植（`join(homedir(), '.mytool', ...)` 而非 `'~/data.json'`）。
-5. 加自文档化头注释（WHAT/WHY/WHERE/DEPS + 最后可用日期），方便半年后的你。
-6. 朋友开始要 → 对照产品化信号，考虑加 web UI 并 `npm publish`。
 
-## 注意事项
+### Cross-Platform Considerations
+```javascript
+import { platform } from 'os';
 
-- **凭据绝不入码**（CRITICAL）：`const KEY='sk-xxx'` 是错的；用 `process.env.MY_API_KEY` 或 gitignore 的 config.json。提交前审查 git 历史是否泄密。
-- **服务只绑 localhost**（HIGH）：个人工具的 web UI 必须 `app.listen(3000, '127.0.0.1')`，绝不用 `'0.0.0.0'` 暴露到网络。
-- **可移植性**：硬编码绝对路径→用 `homedir()`/env；shell 写进 shebang；缺依赖要检测并提示安装；OS 差异用 `platform()`/`sep` 处理。脚本顶部加 `#!/usr/bin/env node`（或 python3）。
-- **驯服配置**：优先级 智能默认 > 单一配置文件 > 环境变量 > 命令行 flag > 交互提问。"我会想改吗"才暴露选项，而非"有人可能想改吗"。每个边界都加 flag 会让配置比工具还大。
-- **为遗忘而设计**：假设未来的你不记得为何/如何/数据在哪/依赖干嘛。README 写 WHY 而非只写 WHAT；架构简单、依赖最少、数据用标准格式。出错时友好降级，打印数据位置让用户手动取数据。
-- **别忘的小项**：CLI 要有 `.description()` 与 `--help`（否则未来的你忘了怎么用）；保留版本号与 `--version`；移除调试 console.log；同步操作包 try/catch。
-- **何时放手**：6 个月没用、问题已不存在、有更好工具、会推倒重来——就归档（注明原因、导出标准格式数据、别删，可能以后还要）。
+const isWindows = platform() === 'win32';
+const isMac = platform() === 'darwin';
+const isLinux = platform() === 'linux';
 
-## 互见
+// Path separator
+import { sep } from 'path';
+// Use sep instead of hardcoded / or \
+```
 
-- 想把工具变现/做成 SaaS → micro-saas-launcher
-- 浏览器扩展/Chrome 扩展 → browser-extension-builder
-- 自动化/工作流/cron/触发器 → workflow-automation
-- 后端/API/数据库 → backend
-- AI/GPT/Claude/LLM 包装 → ai-wrapper-product
-- Telegram bot → telegram-bot-builder
+### Configuration becomes unmanageable
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。原条目上游源为 vibeship-spawner-skills（Apache 2.0）。
+Severity: MEDIUM
+
+Situation: Too many config options making the tool unusable
+
+Symptoms:
+- Config file is huge
+- Users confused by options
+- You forget what options exist
+- Every bug fix adds a flag
+
+Why this breaks:
+Adding options instead of opinions.
+Fear of making decisions.
+Every edge case becomes an option.
+Config file larger than the tool.
+
+Recommended fix:
+
+## Taming Configuration
+
+### The Config Hierarchy
+```
+Best to worst:
+1. Smart defaults (no config needed)
+2. Single config file
+3. Environment variables
+4. Command-line flags
+5. Interactive prompts
+
+Use sparingly:
+6. Config directory with multiple files
+7. Config inheritance/merging
+```
+
+### Opinionated Defaults
+```javascript
+// Instead of 10 options, pick reasonable defaults
+const defaults = {
+  outputDir: join(homedir(), '.mytool', 'output'),
+  format: 'json',  // Not a flag, just pick one
+  maxItems: 100,   // Good enough for most
+  verbose: false
+};
+
+// Only expose what REALLY needs customization
+// "Would I want to change this?" - not "Could someone?"
+```
+
+### Config File Pattern
+```javascript
+// ~/.mytool/config.json
+// Keep it minimal
+{
+  "apiKey": "xxx",       // Actually needed
+  "defaultProject": "main"  // Convenience
+}
+
+// Don't do this:
+{
+  "outputFormat": "json",
+  "outputIndent": 2,
+  "outputColorize": true,
+  "logLevel": "info",
+  "logFormat": "pretty",
+  "logTimestamp": true,
+  // ... 50 more options
+}
+```
+
+### When to Add Options
+| Add option if... | Don't add if... |
+|------------------|-----------------|
+| Users ask repeatedly | You imagine someone might want |
+| Security/auth related | It's a "nice to have" |
+| Fundamental behavior change | It's a micro-preference |
+| Environment-specific | You can pick a good default |
+
+### Personal tool becomes unmaintained
+
+Severity: LOW
+
+Situation: Tool you built is now broken and you don't want to fix it
+
+Symptoms:
+- Script hasn't run in months
+- Don't remember how it works
+- Dependencies outdated
+- Workflow has changed
+
+Why this breaks:
+Built for old workflow.
+Dependencies broke.
+Lost interest.
+No documentation for yourself.
+
+Recommended fix:
+
+## Sustainable Personal Tools
+
+### Design for Abandonment
+```
+Assume future-you won't remember:
+- Why you built this
+- How it works
+- Where the data is
+- What the dependencies do
+
+Build accordingly:
+- README with WHY, not just WHAT
+- Simple architecture
+- Minimal dependencies
+- Data in standard formats
+```
+
+### Minimal Dependency Strategy
+| Approach | When to Use |
+|----------|-------------|
+| Zero deps | Simple scripts |
+| Core deps only | CLI tools |
+| Lock versions | Important tools |
+| Bundle deps | Distribution |
+
+### Self-Documenting Pattern
+```javascript
+#!/usr/bin/env node
+/**
+ * WHAT: Converts X to Y
+ * WHY: Because Z process was manual
+ * WHERE: Data in ~/.mytool/
+ * DEPS: Needs ffmpeg installed
+ *
+ * Last used: 2024-01
+ * Still works as of: 2024-01
+ */
+
+// Tool code here
+```
+
+### Graceful Degradation
+```javascript
+// When things break, fail helpfully
+try {
+  await runMainFeature();
+} catch (err) {
+  console.error('Tool broken. Error:', err.message);
+  console.error('');
+  console.error('Data location: ~/.mytool/data.json');
+  console.error('You can manually access your data there.');
+  process.exit(1);
+}
+```
+
+### When to Let Go
+```
+Signs to abandon:
+- Haven't used in 6+ months
+- Problem no longer exists
+- Better tool now exists
+- Would rebuild differently
+
+How to abandon gracefully:
+- Archive in clear state
+- Note why abandoned
+- Export data to standard format
+- Don't delete (might want later)
+```
+
+### Personal tools with security vulnerabilities
+
+Severity: HIGH
+
+Situation: Your personal tool exposes sensitive data or access
+
+Symptoms:
+- API keys in source code
+- Tool accessible on network
+- Credentials in git history
+- Personal data exposed
+
+Why this breaks:
+"It's just for me" mentality.
+Credentials in code.
+No input validation.
+Accidental exposure.
+
+Recommended fix:
+
+## Security in Personal Tools
+
+### Common Mistakes
+| Risk | Mitigation |
+|------|------------|
+| API keys in code | Use env vars or config file |
+| Tool exposed on network | Bind to localhost only |
+| No input validation | Validate even your own input |
+| Logs contain secrets | Sanitize logging |
+| Git commits with secrets | .gitignore config files |
+
+### Credential Management
+```javascript
+// Never in code
+const API_KEY = 'sk-xxx'; // BAD
+
+// Environment variable
+const API_KEY = process.env.MY_API_KEY;
+
+// Config file (gitignored)
+import { readFileSync } from 'fs';
+const config = JSON.parse(
+  readFileSync(join(homedir(), '.mytool', 'config.json'))
+);
+const API_KEY = config.apiKey;
+```
+
+### Localhost-Only Servers
+```javascript
+// If your tool has a web UI
+import express from 'express';
+const app = express();
+
+// ALWAYS bind to localhost for personal tools
+app.listen(3000, '127.0.0.1', () => {
+  console.log('Running on http://localhost:3000');
+});
+
+// NEVER do this for personal tools:
+// app.listen(3000, '0.0.0.0') // Exposes to network!
+```
+
+### Before Sharing
+```
+Checklist:
+[ ] No hardcoded credentials
+[ ] Config file is gitignored
+[ ] README mentions credential setup
+[ ] No personal paths in code
+[ ] No sensitive data in repo
+[ ] Reviewed git history for secrets
+```
+
+## Validation Checks
+
+### Hardcoded Absolute Paths
+
+Severity: MEDIUM
+
+Message: Hardcoded absolute path - use homedir() or environment variables.
+
+Fix action: Use os.homedir() or path.join for portable paths
+
+### Hardcoded Credentials
+
+Severity: CRITICAL
+
+Message: Potential hardcoded credential - use environment variables or config file.
+
+Fix action: Move to process.env.VAR or external config file (gitignored)
+
+### Server Bound to All Interfaces
+
+Severity: HIGH
+
+Message: Server exposed to network - bind to localhost for personal tools.
+
+Fix action: Use '127.0.0.1' or 'localhost' instead of '0.0.0.0'
+
+### Missing Error Handling
+
+Severity: MEDIUM
+
+Message: Sync operation without error handling - wrap in try/catch.
+
+Fix action: Add try/catch for graceful error messages
+
+### CLI Without Help
+
+Severity: LOW
+
+Message: CLI has no help - future you will forget how to use it.
+
+Fix action: Add .description() and --help to CLI commands
+
+### Tool Without README
+
+Severity: LOW
+
+Message: No README - document for your future self.
+
+Fix action: Add README with: what it does, why you built it, how to use it
+
+### Debug Console Logs Left In
+
+Severity: LOW
+
+Message: Debug logging left in code - remove or use proper logging.
+
+Fix action: Remove debug logs or use a proper logger with levels
+
+### Script Missing Shebang
+
+Severity: LOW
+
+Message: Script missing shebang - won't execute directly.
+
+Fix action: Add #!/usr/bin/env node (or python3) at top of file
+
+### Tool Without Version
+
+Severity: LOW
+
+Message: No version tracking - will cause confusion when updating.
+
+Fix action: Add version to package.json and --version flag
+
+## Collaboration
+
+### Delegation Triggers
+
+- sell|monetize|SaaS|charge -> micro-saas-launcher (Productizing personal tool)
+- browser extension|chrome extension -> browser-extension-builder (Building browser-based tool)
+- automate|workflow|cron|trigger -> workflow-automation (Automation setup)
+- API|server|database|postgres -> backend (Backend infrastructure)
+- telegram bot -> telegram-bot-builder (Telegram-based tool)
+- AI|GPT|Claude|LLM -> ai-wrapper-product (AI-powered tool)
+
+### CLI Tool That Becomes Product
+
+Skills: personal-tool-builder, micro-saas-launcher
+
+Workflow:
+
+```
+1. Build CLI for yourself
+2. Share with friends/colleagues
+3. Get feedback and iterate
+4. Add web UI (optional)
+5. Set up payments
+6. Launch publicly
+```
+
+### Personal Automation Stack
+
+Skills: personal-tool-builder, workflow-automation, backend
+
+Workflow:
+
+```
+1. Identify repetitive task
+2. Build script to automate
+3. Add triggers (cron, webhook)
+4. Store results/logs
+5. Monitor and iterate
+```
+
+### AI-Powered Personal Tool
+
+Skills: personal-tool-builder, ai-wrapper-product
+
+Workflow:
+
+```
+1. Identify task AI can help with
+2. Build minimal wrapper
+3. Tune prompts for your use case
+4. Add to daily workflow
+5. Consider sharing if useful
+```
+
+### Browser Tool to Extension
+
+Skills: personal-tool-builder, browser-extension-builder
+
+Workflow:
+
+```
+1. Build bookmarklet or userscript
+2. Validate it solves the problem
+3. Convert to proper extension
+4. Add to Chrome/Firefox store
+5. Share with others
+```
+
+## Related Skills
+
+Works well with: `micro-saas-launcher`, `browser-extension-builder`, `workflow-automation`, `backend`
+
+## When to Use
+- User mentions or implies: build a tool
+- User mentions or implies: personal tool
+- User mentions or implies: scratch my itch
+- User mentions or implies: solve my problem
+- User mentions or implies: CLI tool
+- User mentions or implies: local app
+- User mentions or implies: automate my
+- User mentions or implies: build for myself
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

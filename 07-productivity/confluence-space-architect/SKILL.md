@@ -1,14 +1,14 @@
 ---
 name: confluence-space-architect
-title: Confluence 知识库空间架构
-description: 当需要在 Atlassian Confluence 中搭建或重构空间、设计页面层级与权限、制作含宏的模板、嵌入 Jira 报表、做知识库审计或定立文档治理规范时使用；产出空间结构、模板、权限方案与治理清单；不适用于 Jira 工单本身的增删改、非 Confluence 的 wiki（如飞书 wiki/Notion）。触发词：confluence、知识库、wiki 空间、页面层级、空间权限、页面模板、confluence 宏、CQL、jira 宏、文档治理
+title: Atlassian Confluence Expert
+description: Atlassian Confluence expert for creating and managing spaces, knowledge bases, and documentation. Configures space permissions and hierarchies, creates page templates with macros, sets up documentation taxonomies, designs page layouts, and manages content governance. Use when users need to build or restructure a Confluence space, design page hierarchies with permission structures, author or standardise documentation templates, embed Jira reports in pages, run knowledge base audits, or establish documentation standards and collaborative workflows.
 domain: 协作/knowledge
-triggers: [confluence, 知识库, wiki 空间, 页面层级, 空间权限, 页面模板, confluence 宏, cql, jira 宏, 文档治理]
+triggers: [confluence, cql]
 tags: [confluence, atlassian, knowledge-base, documentation, wiki, macros, templates, permissions, governance, cql]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Confluence MCP Server, create_space, create_page, update_page, search (CQL), get_children, add_label, Confluence Macros]
+tools: []
 requires: []
 related: [atlassian-template-builder, atlassian-admin, jira-expert, codebase-onboarding-doc]
 combines_with: [atlassian-template-builder, atlassian-admin, jira-expert]
@@ -16,74 +16,69 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Atlassian Confluence Expert
 
-当用户需要在 Atlassian Confluence 中完成以下工作时使用：
+Master-level expertise in Confluence space management, documentation architecture, content creation, macros, templates, and collaborative knowledge management.
 
-- 新建或重构空间（Space），规划页面层级与导航；
-- 配置空间权限方案（查看/编辑/创建/删除/管理）；
-- 制作可复用的页面模板（会议纪要、项目概览、决策记录、复盘等），并嵌入宏；
-- 在页面中嵌入 Jira 工单列表或图表、按标签聚合内容；
-- 做知识库审计、定立命名规范、评审周期与归档策略等文档治理规范。
+## Atlassian MCP Integration
 
-不该用于：操作 Jira 工单本身（建单/改状态用 Jira 相关技能）；非 Confluence 的知识库（飞书 wiki、Notion、语雀等，结构与宏语法不通用）；纯文档写作而不涉及空间/模板/权限架构。
+**Primary Tool**: Confluence MCP Server
 
-## 步骤
-
-1. 定空间：先判定空间类型（团队 / 项目 / 知识库 / 个人），据此选权限方案与首页形态。
-2. 建空间：用清晰的 `key` + `name` + `description` 创建，设置带概览的首页。
-3. 配权限：按方案授予 View/Edit/Create/Delete 与 Admin；**验收**——用非管理员测试账号访问，确认权限层级正确。
-4. 搭层级：建立 parent-child 页面树，导航深度不超过 3 层，命名一致，会议纪要带日期戳。
-5. 做模板：抽取可复用内容模式 → 建页加占位符与填写说明 → 用宏排版 → 存为模板 → 共享到空间或设全局；**验收**——先从模板建测试页确认占位渲染正常再共享。
-6. 接 Jira：需要时用 `{jira}` / `{jirachart}` 宏嵌入工单与图表（与 Jira 技能协作）。
-7. 立治理：定义内容分类法、评审周期、归档策略与质量清单，并监控采用度。
-
-## 指令
-
-通过 Confluence MCP Server 调用核心操作：
+**Key Operations**:
 
 ```
-// 新建空间
+// Create a new space
 create_space({ key: "TEAM", name: "Engineering Team", description: "Engineering team knowledge base" })
 
-// 在父页面下建子页（body 用 storage-format HTML）
-create_page({ spaceKey: "TEAM", title: "Sprint 42 Notes", parentId: "123456", body: "<p>Meeting notes</p>" })
+// Create a page under a parent
+create_page({ spaceKey: "TEAM", title: "Sprint 42 Notes", parentId: "123456", body: "<p>Meeting notes in storage-format HTML</p>" })
 
-// 更新页面（version 必须递增，否则冲突）
+// Update an existing page (version must be incremented)
 update_page({ pageId: "789012", version: 4, body: "<p>Updated content</p>" })
 
-// 删除页面
+// Delete a page
 delete_page({ pageId: "789012" })
 
-// CQL 检索
+// Search with CQL
 search({ cql: 'space = "TEAM" AND label = "meeting-notes" ORDER BY lastModified DESC' })
 
-// 查子页以巡检层级
+// Retrieve child pages for hierarchy inspection
 get_children({ pageId: "123456" })
 
-// 打标签
+// Apply a label to a page
 add_label({ pageId: "789012", label: "archived" })
 ```
 
-常用宏速查：
+**Integration Points**:
+- Create documentation for Senior PM projects
+- Support Scrum Master with ceremony templates
+- Link to Jira issues for Jira Expert
+- Provide templates for Template Creator
 
-- 提示块：`{info}…{info}`、`{note}`、`{warning}`、`{tip}`
-- 折叠：`{expand:title=Click to expand}…{expand}`
-- 目录：`{toc:maxLevel=3}`
-- 摘录复用：`{excerpt}…{excerpt}` + `{excerpt-include:Page Name}`
-- Jira 工单：`{jira:JQL=project = PROJ AND status = "In Progress"}`
-- Jira 图表：`{jirachart:type=pie|jql=project = PROJ|statType=statuses}`
-- 标签聚合：`{contentbylabel:label=meeting-notes|maxResults=20}`
-- 状态徽标：`{status:colour=Green|title=Approved}`
-- 任务清单：`{tasks}- [ ] Task 1\n- [x] Task 2{tasks}`
-- 日期：`{date:format=dd MMM yyyy}`
-- 两栏布局：`{section}{column:width=50%}…{column}{column:width=50%}…{column}{section}`
-- 面板/代码：`{panel:title=…|borderColor=#ccc}…{panel}`、`{code:javascript}…{code}`
+> **See also**: `MACROS.md` for macro syntax reference, `TEMPLATES.md` for full template library, `PERMISSIONS.md` for permission scheme details.
 
-## 示例
+## Workflows
 
-推荐的空间页面树（≤3 层）：
+### Space Creation
+1. Determine space type (Team, Project, Knowledge Base, Personal)
+2. Create space with clear name and description
+3. Set space homepage with overview
+4. Configure space permissions:
+   - View, Edit, Create, Delete
+   - Admin privileges
+5. Create initial page tree structure
+6. Add space shortcuts for navigation
+7. **Verify**: Navigate to the space URL and confirm the homepage loads; check that a non-admin test user sees the correct permission level
+8. **HANDOFF TO**: Teams for content population
 
+### Page Architecture
+**Best Practices**:
+- Use page hierarchy (parent-child relationships)
+- Maximum 3 levels deep for navigation
+- Consistent naming conventions
+- Date-stamp meeting notes
+
+**Recommended Structure**:
 ```
 Space Home
 ├── Overview & Getting Started
@@ -92,36 +87,302 @@ Space Home
 │   ├── Communication Channels
 │   └── Working Agreements
 ├── Projects
-│   ├── Project A (Overview / Requirements / Meeting Notes)
+│   ├── Project A
+│   │   ├── Overview
+│   │   ├── Requirements
+│   │   └── Meeting Notes
 │   └── Project B
 ├── Processes & Workflows
 ├── Meeting Notes (Archive)
 └── Resources & References
 ```
 
-常用模板及关键小节：
+### Template Creation
+1. Identify repeatable content pattern
+2. Create page with structure and placeholders
+3. Add instructions in placeholders
+4. Format with appropriate macros
+5. Save as template
+6. Share with space or make global
+7. **Verify**: Create a test page from the template and confirm all placeholders render correctly before sharing with the team
+8. **USE**: References for advanced template patterns
 
-| 模板 | 用途 | 关键小节 |
-|------|------|----------|
-| 会议纪要 | Sprint/团队会议 | 议程、讨论、决议、行动项（tasks 宏）|
-| 项目概览 | 立项与状态 | Quick Facts 面板、目标、干系人表、里程碑（jira 宏）、风险 |
-| 决策记录 | 架构/策略决策 | 背景、备选方案、决策、影响、下一步 |
-| 冲刺复盘 | 敏捷仪式 | 做得好（info）、待改进（warning）、行动项（tasks）、指标 |
+### Documentation Strategy
+1. **Assess** current documentation state
+2. **Define** documentation goals and audience
+3. **Organize** content taxonomy and structure
+4. **Create** templates and guidelines
+5. **Migrate** existing documentation
+6. **Train** teams on best practices
+7. **Monitor** usage and adoption
+8. **REPORT TO**: Senior PM on documentation health
 
-权限方案示例：团队空间——团队成员 View/Edit/Create，团队负责人 Admin，其他人无权限。
+### Knowledge Base Management
+**Article Types**:
+- How-to guides
+- Troubleshooting docs
+- FAQs
+- Reference documentation
+- Process documentation
 
-## 注意事项
+**Quality Standards**:
+- Clear title and description
+- Structured with headings
+- Updated date visible
+- Owner identified
+- Reviewed quarterly
 
-- `update_page` 的 `version` 必须比当前版本大，否则乐观锁冲突；先读取再 +1。
-- `body` 默认是 storage-format（HTML），不是纯文本/Markdown；模板里的占位符需在共享前实测渲染。
-- 导航深度控制在 3 层内；命名规范、标签、所有者三者缺一会拉低可检索性。
-- 治理基线：关键文档每月评审、标准文档每季度、归档文档每年；过期内容打 `archived` + 日期标签，保留 2 年后删除并留审计痕迹。
-- 需升级到 Atlassian Admin 的场景：组织级模板、跨空间权限、Blueprint 配置、全局自动化、空间导入导出——这些超出本技能范围。
-- 健康巡检指标：长期未更新页、无所有者页、重复内容、坏链、空空间、孤立页。
+## Essential Macros
 
-## 互见
+> Full macro reference with all parameters: see `MACROS.md`.
 
-- Jira 相关技能：本技能用 `{jira}`/`{jirachart}` 嵌入工单与图表，但建单、改状态、JQL 调试归 Jira 技能。
-- 模板/Blueprint 配置：跨空间或全局模板需配合 Atlassian Admin。
+### Content Macros
+**Info, Note, Warning, Tip**:
+```
+{info}
+Important information here
+{info}
+```
 
-本条采编自 alirezarezvani/claude-skills（MIT）。
+**Expand**:
+```
+{expand:title=Click to expand}
+Hidden content here
+{expand}
+```
+
+**Table of Contents**:
+```
+{toc:maxLevel=3}
+```
+
+**Excerpt & Excerpt Include**:
+```
+{excerpt}
+Reusable content
+{excerpt}
+
+{excerpt-include:Page Name}
+```
+
+### Dynamic Content
+**Jira Issues**:
+```
+{jira:JQL=project = PROJ AND status = "In Progress"}
+```
+
+**Jira Chart**:
+```
+{jirachart:type=pie|jql=project = PROJ|statType=statuses}
+```
+
+**Recently Updated**:
+```
+{recently-updated:spaces=@all|max=10}
+```
+
+**Content by Label**:
+```
+{contentbylabel:label=meeting-notes|maxResults=20}
+```
+
+### Collaboration Macros
+**Status**:
+```
+{status:colour=Green|title=Approved}
+```
+
+**Task List**:
+```
+{tasks}
+- [ ] Task 1
+- [x] Task 2 completed
+{tasks}
+```
+
+**User Mention**:
+```
+@username
+```
+
+**Date**:
+```
+{date:format=dd MMM yyyy}
+```
+
+## Page Layouts & Formatting
+
+**Two-Column Layout**:
+```
+{section}
+{column:width=50%}
+Left content
+{column}
+{column:width=50%}
+Right content
+{column}
+{section}
+```
+
+**Panel**:
+```
+{panel:title=Panel Title|borderColor=#ccc}
+Panel content
+{panel}
+```
+
+**Code Block**:
+```
+{code:javascript}
+const example = "code here";
+{code}
+```
+
+## Templates Library
+
+> Full template library with complete markup: see `TEMPLATES.md`. Key templates summarised below.
+
+| Template | Purpose | Key Sections |
+|----------|---------|--------------|
+| **Meeting Notes** | Sprint/team meetings | Agenda, Discussion, Decisions, Action Items (tasks macro) |
+| **Project Overview** | Project kickoff & status | Quick Facts panel, Objectives, Stakeholders table, Milestones (Jira macro), Risks |
+| **Decision Log** | Architectural/strategic decisions | Context, Options Considered, Decision, Consequences, Next Steps |
+| **Sprint Retrospective** | Agile ceremony docs | What Went Well (info), What Didn't (warning), Action Items (tasks), Metrics |
+
+## Space Permissions
+
+> Full permission scheme details: see `PERMISSIONS.md`.
+
+### Permission Schemes
+**Public Space**:
+- All users: View
+- Team members: Edit, Create
+- Space admins: Admin
+
+**Team Space**:
+- Team members: View, Edit, Create
+- Team leads: Admin
+- Others: No access
+
+**Project Space**:
+- Stakeholders: View
+- Project team: Edit, Create
+- PM: Admin
+
+## Content Governance
+
+**Review Cycles**:
+- Critical docs: Monthly
+- Standard docs: Quarterly
+- Archive docs: Annually
+
+**Archiving Strategy**:
+- Move outdated content to Archive space
+- Label with "archived" and date
+- Maintain for 2 years, then delete
+- Keep audit trail
+
+**Content Quality Checklist**:
+- [ ] Clear, descriptive title
+- [ ] Owner/author identified
+- [ ] Last updated date visible
+- [ ] Appropriate labels applied
+- [ ] Links functional
+- [ ] Formatting consistent
+- [ ] No sensitive data exposed
+
+## Decision Framework
+
+**When to Escalate to Atlassian Admin**:
+- Need org-wide template
+- Require cross-space permissions
+- Blueprint configuration
+- Global automation rules
+- Space export/import
+
+**When to Collaborate with Jira Expert**:
+- Embed Jira queries and charts
+- Link pages to Jira issues
+- Create Jira-based reports
+- Sync documentation with tickets
+
+**When to Support Scrum Master**:
+- Sprint documentation templates
+- Retrospective pages
+- Team working agreements
+- Process documentation
+
+**When to Support Senior PM**:
+- Executive report pages
+- Portfolio documentation
+- Stakeholder communication
+- Strategic planning docs
+
+## Handoff Protocols
+
+**FROM Senior PM**:
+- Documentation requirements
+- Space structure needs
+- Template requirements
+- Knowledge management strategy
+
+**TO Senior PM**:
+- Documentation coverage reports
+- Content usage analytics
+- Knowledge gaps identified
+- Template adoption metrics
+
+**FROM Scrum Master**:
+- Sprint ceremony templates
+- Team documentation needs
+- Meeting notes structure
+- Retrospective format
+
+**TO Scrum Master**:
+- Configured templates
+- Space for team docs
+- Training on best practices
+- Documentation guidelines
+
+**WITH Jira Expert**:
+- Jira-Confluence linking
+- Embedded Jira reports
+- Issue-to-page connections
+- Cross-tool workflow
+
+## Best Practices
+
+**Organization**:
+- Consistent naming conventions
+- Meaningful labels
+- Logical page hierarchy
+- Related pages linked
+- Clear navigation
+
+**Maintenance**:
+- Regular content audits
+- Remove duplication
+- Update outdated information
+- Archive obsolete content
+- Monitor page analytics
+
+## Analytics & Metrics
+
+**Usage Metrics**:
+- Page views per space
+- Most visited pages
+- Search queries
+- Contributor activity
+- Orphaned pages
+
+**Health Indicators**:
+- Pages without recent updates
+- Pages without owners
+- Duplicate content
+- Broken links
+- Empty spaces
+
+## Related Skills
+
+- **Jira Expert** (`project-management/jira-expert/`) — Jira issue macros and linking complement Confluence docs
+- **Atlassian Templates** (`project-management/atlassian-templates/`) — Template patterns for Confluence content creation

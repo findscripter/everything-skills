@@ -1,14 +1,14 @@
 ---
 name: three-statement-model
-title: 三表联动财务模型
-description: 当需要在已有 Excel/openpyxl 模板中填充并联动利润表、资产负债表、现金流量表时使用；做法是用公式（而非硬编码值）填充历史数与假设驱动、建立三表勾稽并逐表校验产出可审计的三表模型；不适用于从零设计模型版式、估值/DCF/LBO 建模或纯数据录入。触发词：三表模型、3-statement model、财务建模、利润表/资产负债表/现金流量表联动、IS BS CF、资产负债表平衡、现金勾稽、cash tie-out、情景分析
+title: 3-Statement Financial Model Template Completion
+description: Complete, populate and fill out 3-statement financial model templates (Income Statement, Balance Sheet, Cash Flow Statement) . Use when asked to fill out model templates, complete existing model frameworks, populate financial models with data, complete a partially filled IS/BS/CF framework, or link integrated financial statements within an existing template structure. Triggers include requests to fill in, complete, or populate a 3-statement model template
 domain: 领域/fintech
-triggers: [三表模型, 3-statement model, 财务建模, 利润表资产负债表现金流量表联动, IS BS CF, 资产负债表平衡, 现金勾稽, cash tie-out, 情景分析]
+triggers: [3-statement model, IS BS CF, cash tie-out]
 tags: [fintech, financial-modeling, excel, openpyxl, office-js, three-statement]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Excel, Office JS, Python, openpyxl, recalc.py]
+tools: []
 requires: []
 related: [dcf-valuation-model, lbo-model-builder, merger-accretion-dilution-model, financial-analysis-toolkit]
 combines_with: [dcf-valuation-model, financial-analysis-toolkit, spreadsheet-formula-auditor]
@@ -16,77 +16,406 @@ license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0
 ---
-## 何时使用
+# 3-Statement Financial Model Template Completion
 
-- 当任务是**填充/补全/联动**一个已有的三表财务模型模板（利润表 IS、资产负债表 BS、现金流量表 CF），并在三表之间建立正确勾稽关系时使用。
-- 触发场景：填模板、补全半成品 IS/BS/CF 框架、按数据填充财务模型、跨标签页链接三表。
+Complete and populate integrated financial model templates with proper linkages between Income Statement, Balance Sheet, and Cash Flow Statement.
 
-**不该用（负边界）：**
-- 不用于从零设计模型版式（无现成模板时另议结构）。
-- 不用于估值（DCF / LBO / 可比公司）建模——本条只管三表本身的填充与联动。
-- 不用于把计算好的数值当作纯数据录入——本条核心恰是「用公式而非硬编码」。
+## ⚠️ CRITICAL PRINCIPLES — Read Before Populating Any Template
 
-## 步骤
+**Environment — Office JS vs Python:**
+- **If running inside Excel (Office Add-in / Office JS):** Use Office JS directly. Write formulas via `range.formulas = [["=D14*(1+Assumptions!$B$5)"]]` — never `range.values` for derived cells. No separate recalc; Excel computes natively. Use `context.workbook.worksheets.getItem(...)` to navigate tabs.
+- **If generating a standalone .xlsx file:** Use Python/openpyxl. Write `ws["D15"] = "=D14*(1+Assumptions!$B$5)"`, then run `recalc.py` before delivery.
+- **Office JS merged cell pitfall:** Do NOT call `.merge()` then set `.values` on the merged range — throws `InvalidArgument` because the range still reports its pre-merge dimensions. Instead write value to top-left cell alone, then merge + format the full range: `ws.getRange("A1").values = [["INCOME STATEMENT"]]; const h = ws.getRange("A1:G1"); h.merge(); h.format.fill.color = "#1F4E79";`
+- All principles below apply identically in either environment.
 
-1. **映射模板结构**：先通读所有标签页，识别 IS/BS/CF/WC（营运资本）/DA（折旧摊销）/Debt（债务）/NOL（税务亏损结转）/Assumptions（假设）/Checks（校验）。区分输入单元格 vs 公式单元格（按字体色：蓝=输入，黑=公式，绿=跨表链接），核对单位行（$百万 / % / x）与期间标签（FY2024A 历史 / FY2025E 预测，通常向后预测 5 年）。**展示识别结果，经用户确认后再动任何单元格。**
-2. **填历史实际数**：仅写入指定输入单元格，确认数值与期间匹配源数据后，向用户展示历史区块确认。
-3. **建 IS 预测**：预测项按「占净收入百分比」法用公式驱动，跑小计校验（毛利、EBIT、EBT、净利润），展示后再进入 BS。
-4. **建 BS**：逐期跑平衡校验（资产 = 负债 + 权益），展示后再进入 CF。
-5. **建 CF**：核对现金勾稽（CF 期末现金 = BS 现金），展示后再定稿。
-6. **跨表完整性校验 + 终审**：见下方校验表；切换所有情景确认各档校验通过，清理所有 #REF! / #DIV/0! / #VALUE! / #NAME? 错误。
+**Formulas over hardcodes (non-negotiable):**
+- Every projection cell, roll-forward, linkage, and subtotal MUST be an Excel formula — never a pre-computed value
+- When using Python/openpyxl: write formula strings (`ws["D15"] = "=D14*(1+Assumptions!$B$5)"`), NOT computed results (`ws["D15"] = 12500`)
+- The ONLY cells that should contain hardcoded numbers are: (1) historical actuals, (2) assumption drivers in the Assumptions tab
+- If you find yourself computing a value in Python and writing the result to a cell — STOP. Write the formula instead.
+- Why: the model must flex when scenarios toggle or assumptions change. Hardcodes break every downstream integrity check silently.
 
-> **关键纪律：不要一口气端到端填完再整体呈现。** 在每张表处断点、展示工作、尽早抓错。
+**Verify step-by-step with the user:**
+1. **After mapping the template** → show the user which tabs/sections you've identified and confirm before touching any cells
+2. **After populating historicals** → show the user the historical block and confirm values/periods match source data
+3. **After building IS projections** → run the subtotal checks, show the user the projected IS, confirm before moving to BS
+4. **After building BS** → show the user the balance check (Assets = L+E) for every period, confirm before moving to CF
+5. **After building CF** → show the user the cash tie-out (CF ending cash = BS cash), confirm before finalizing
+6. **Do NOT populate the entire model end-to-end and present it complete** — break at each statement, show the work, catch errors early
 
-## 指令
+## Formatting — Professional Blue/Grey Palette (Default unless template/user specifies otherwise)
 
-**环境二选一（Office JS vs Python）：**
-- **在 Excel 内运行（Office 加载项 / Office JS）**：直接写公式，`range.formulas = [["=D14*(1+Assumptions!$B$5)"]]`——派生单元格**绝不用** `range.values`。Excel 原生重算，无需单独 recalc。用 `context.workbook.worksheets.getItem(...)` 切标签页。
-- **生成独立 .xlsx**：用 Python/openpyxl 写公式字符串 `ws["D15"] = "=D14*(1+Assumptions!$B$5)"`，交付前运行 `recalc.py`。
-- **Office JS 合并单元格坑**：不要先 `.merge()` 再对合并区域设 `.values`（会抛 `InvalidArgument`，因区域仍按合并前尺寸上报）。正确做法：先给左上角单元格写值，再合并+格式化整区：`ws.getRange("A1").values=[["INCOME STATEMENT"]]; const h=ws.getRange("A1:G1"); h.merge(); h.format.fill.color="#1F4E79";`
+**Keep colors minimal.** Use only blues and greys for cell fills. Do NOT introduce greens, yellows, oranges, or multiple accent colors — a clean model uses restraint.
 
-**公式高于硬编码（不可妥协）：** 每个预测、滚动结转、链接、小计都必须是公式，绝不是预先算好的值。openpyxl 写 `ws["D15"]="=D14*(1+Assumptions!$B$5)"` 而非 `ws["D15"]=12500`。唯一可硬编码的：(1) 历史实际数；(2) Assumptions 标签的假设驱动。若发现自己在 Python 里算出值再写入单元格——停下，改写公式。原因：模型须随情景切换/假设变化而联动，硬编码会静默破坏每个下游校验。
-
-**关键勾稽公式（净收入口径；毛利须用净收入而非毛收入）：**
-```
-毛利 = 净收入 − 营业成本
-EBITDA = EBIT + D&A
-预测成本/费用 = 净收入 × 对应百分比假设（COGS/S&M/G&A/R&D/SBC）
-留存收益 = 期初RE + 净利润 + SBC − 股利 = 期末RE
-利息费用 = 平均债务余额 × 利率（用期初余额避免循环，或开迭代计算）
-```
-
-**核心校验（必须恒成立）：**
-| 校验 | 公式 | 期望 |
+| Element | Fill | Font |
 |---|---|---|
-| 资产负债表平衡 | 资产 − 负债 − 权益 | = 0 |
-| 现金勾稽 | CF 期末现金 − BS 现金 | = 0 |
-| 净利润链接 | IS 净利润 − CF 起点净利润 | = 0 |
-| 留存收益 | 期初RE + NI + SBC − 股利 − BS期末RE | = 0 |
-| 权益融资 | ΔCommon Stock/APIC(BS) − Equity Issuance(CFF) | = 0 |
+| Section headers (IS / BS / CF titles) | Dark blue `#1F4E79` | White bold |
+| Column headers (FY2024A, FY2025E, etc.) | Light blue `#D9E1F2` | Black bold |
+| Input cells (historicals, assumption drivers) | Light grey `#F2F2F2` or white | Blue `#0000FF` |
+| Formula cells | White | Black |
+| Cross-tab links | White | Green `#008000` |
+| Check rows / key totals | Medium blue `#BDD7EE` | Black bold |
 
-**符号约定：** CFO 中 D&A/SBC 为正（加回）、ΔAR 增加为负（占用现金）、ΔAP 增加为正（现金来源）；CFI 中 CapEx 为负；CFF 中举债为正、还债/分红为负。
+**That's 3 blues + 1 grey + white.** If the template has its own color scheme, follow the template instead.
 
-**循环引用处理：** 利息 → 净利润 → 现金 → 债务余额 → 利息 形成循环。Excel 启用迭代计算（File → Options → Formulas），最大迭代 100、最大变化 0.001，并在 Assumptions 加断路器开关。
+Font color signals *what* a cell is (input/formula/link). Fill color signals *where* you are (header/data/check).
 
-## 示例
+## Model Structure
 
-填充某 .xlsx 三表模板（openpyxl 路径）：
-1. 通读标签页 → 识别出 `IS / BS / CF / Assumptions / Checks`，向用户确认。
-2. 历史 FY2024A：把营收、各费用历史实际数硬编码进蓝字输入格。
-3. 预测 FY2025E 营业成本写公式 `ws["E5"] = "=E4*Assumptions!$B$6"`（E4=净收入，B6=成本占比假设），不写 `=12500`。
-4. BS 现金格链接 CF：`ws["C8"] = "=CF!C40"`；BS 平衡校验格 `="=Assets - Liabilities - Equity"` 应显示 0。
-5. 运行 `recalc.py` 后检查 Checks 标签 Master Status 为「✓ ALL CHECKS PASS」。
+### Identifying Template Tab Organization
 
-## 注意事项
+Templates vary in their tab naming conventions and organization. Before populating, review all tabs to understand the template's structure. Below are common tab names and their typical contents:
 
-- **配色克制**：默认蓝/灰调——深蓝 `#1F4E79`（节标题，白粗体）、浅蓝 `#D9E1F2`（列头）、中蓝 `#BDD7EE`（校验/合计）、浅灰 `#F2F2F2`（输入）。字体色表「是什么」（蓝=输入/黑=公式/绿=跨表链接），填充色表「在哪里」。不引入绿/黄/橙等多余强调色。若模板自带配色，跟随模板。
-- **不破坏既有公式**：只改输入格；拷贝数据用「选择性粘贴-数值」(Ctrl+Shift+V) 避免覆盖公式；核对单位（千/百万/原值）与符号约定；删行列前先查全表依赖。
-- **NOL 与税务**：新业务期初 NOL = 0，仅 EBT<0 时按 ABS(EBT) 累积；利用额 ≤ EBT×80%（2017 后联邦上限）；应税所得 ≤ 0 时税额 = 0；DTA = 期末NOL × 税率，须勾稽到 BS。
-- **可选模块**：利润率分析、信用/杠杆指标、情景分析（Base/Upside/Downside，用 CHOOSE 或 INDEX/MATCH 配下拉切换）仅在用户要求或模板明确需要时才做；情景层级须满足 Upside > Base > Downside（NI/EBITDA/FCF/各利润率），杠杆指标方向相反。
+| Common Tab Names | Contents to Look For |
+|------------------|----------------------|
+| IS, P&L, Income Statement | Income Statement |
+| BS, Balance Sheet | Balance Sheet |
+| CF, CFS, Cash Flow | Cash Flow Statement |
+| WC, Working Capital | Working Capital Schedule |
+| DA, D&A, Depreciation, PP&E | Depreciation & Amortization Schedule |
+| Debt, Debt Schedule | Debt Schedule |
+| NOL, Tax, DTA | Net Operating Loss Schedule |
+| Assumptions, Inputs, Drivers | Driver assumptions and inputs |
+| Checks, Audit, Validation | Error-checking dashboard |
 
-## 互见
+**Template Review Checklist**
+- Identify which tabs exist in the template (not all templates include every schedule)
+- Note any template-specific tabs not listed above
+- Understand tab dependencies (e.g., which schedules feed into the main statements)
+- Locate input cells vs. formula cells on each tab
 
-- 数据来自 SEC 10-K/10-Q 等监管文件时，参考源技能 `references/sec-filings.md` 的抽取指引。
+### Understanding Template Structure
 
----
-本条采编自 anthropics/financial-services（Apache-2.0）。
+Before populating a template, familiarize yourself with its existing layout to ensure data is entered in the correct locations and formulas remain intact.
+
+**Identifying Row Structure**
+- Locate the model title at top of each tab
+- Identify section headers and their visual separation
+- Find the units row indicating $ millions, %, x, etc.
+- Note column headers distinguishing Actuals vs. Estimates periods
+- Confirm period labels (e.g., FY2024A, FY2025E)
+- Identify input cells vs. formula cells (typically distinguished by font color)
+
+**Identifying Column Structure**
+- Confirm line item labels in leftmost column
+- Verify historical years precede projection years
+- Note the visual border separating historical from projected periods
+- Check for consistent column order across all tabs
+
+**Working with Named Ranges**
+Templates often use named ranges for key inputs and outputs. Before entering data:
+- Review existing named ranges in the template (Formulas → Name Manager in Excel)
+- Common named ranges include: Revenue growth rates, cost percentages, key outputs (Net Income, EBITDA, Total Debt, Cash), scenario selector cell
+- Ensure inputs are entered in cells that feed into these named ranges
+
+### Projection Period
+- Templates typically project 5 years forward from last historical year
+- Verify historical (A) vs. projected (E) columns are clearly separated
+- Confirm columns use fiscal year notation (e.g., FY2024A, FY2025E)
+
+## Margin Analysis
+
+**Note: The following margin analysis should only be performed if prompted by the user or if the template explicitly requires it. If no prompt is given, skip this section.**
+
+Calculate and display profitability margins on the Income Statement (IS) tab to track operational efficiency and enable peer comparison.
+
+### Core Margins to Include
+
+| Margin | Formula | What It Measures |
+|--------|---------|------------------|
+| Gross Margin | Gross Profit / Revenue | Pricing power, production efficiency |
+| EBITDA Margin | EBITDA / Revenue | Core operating profitability |
+| EBIT Margin | EBIT / Revenue | Operating profitability after D&A |
+| Net Income Margin | Net Income / Revenue | Bottom-line profitability |
+
+### Income Statement Layout with Margins
+
+Display margin percentages directly below each profit line item:
+- Gross Margin % below Gross Profit
+- EBIT Margin % below EBIT
+- EBITDA Margin % below EBITDA
+- Net Income Margin % below Net Income
+
+## Credit Metrics
+
+**Note: The following Credit analysis should only be performed if prompted by the user or if the template explicitly requires it. If no prompt is given, skip this section.**
+
+Calculate and display credit/leverage metrics on the Balance Sheet (BS) tab to assess financial health, debt capacity, and covenant compliance.
+
+### Core Credit Metrics to Include
+
+| Metric | Formula | What It Measures |
+|--------|---------|------------------|
+| Total Debt / EBITDA | Total Debt / LTM EBITDA | Leverage multiple |
+| Net Debt / EBITDA | (Total Debt - Cash) / LTM EBITDA | Leverage net of cash |
+| Interest Coverage | EBITDA / Interest Expense | Ability to service debt |
+| Debt / Total Cap | Total Debt / (Total Debt + Equity) | Capital structure |
+| Debt / Equity | Total Debt / Total Equity | Financial leverage |
+| Current Ratio | Current Assets / Current Liabilities | Short-term liquidity |
+| Quick Ratio | (Current Assets - Inventory) / Current Liabilities | Immediate liquidity |
+
+### Credit Metric Hierarchy Checks
+
+Validate that Upside shows strongest credit profile:
+- Leverage: Upside < Base < Downside (lower is better)
+- Coverage: Upside > Base > Downside (higher is better)
+- Liquidity: Upside > Base > Downside (higher is better)
+
+### Covenant Compliance Tracking
+
+If debt covenants are known, add explicit compliance checks comparing actual metrics to covenant thresholds.
+
+## Scenario Analysis (Base / Upside / Downside)
+
+Use a scenario toggle (dropdown) in the Assumptions tab with CHOOSE or INDEX/MATCH formulas.
+
+| Scenario | Description |
+|----------|-------------|
+| Base Case | Management guidance or consensus estimates |
+| Upside Case | Above-guidance growth, margin expansion |
+| Downside Case | Below-trend growth, margin compression |
+
+**Key Drivers to Sensitize**: Revenue growth, Gross margin, SG&A %, DSO/DIO/DPO, CapEx %, Interest rate, Tax rate.
+
+**Scenario Audit Checks**: Toggle switches all statements, BS balances in all scenarios, Cash ties out, Hierarchy holds (Upside > Base > Downside for NI, EBITDA, FCF, margins).
+
+## SEC Filings Data Extraction
+
+If the template specifically requires pulling data from SEC filings (10-K, 10-Q), see [references/sec-filings.md](references/sec-filings.md) for detailed extraction guidance. This reference is only needed when populating templates with public company data from regulatory filings.
+
+## Completing Model Templates
+
+This section provides general guidance for completing any 3-statement financial model template while preserving existing formulas and ensuring data integrity.
+
+### Step 1: Analyze the Template Structure
+
+Before entering any data, thoroughly review the template to understand its architecture:
+
+**Identify Input vs. Formula Cells**
+- Look for visual cues (font color, cell shading) that distinguish input cells from formula cells
+- Common conventions: Blue font = inputs, Black font = formulas, Green font = links to other sheets
+- Use Excel's Trace Precedents/Dependents (Formulas → Trace Precedents) to understand cell relationships
+- Check for named ranges that may control key inputs (Formulas → Name Manager)
+
+**Map the Template's Flow**
+- Identify which tabs feed into others (e.g., Assumptions → IS → BS → CF)
+- Note any supporting schedules and their linkages to main statements
+- Document the template's specific line items and structure before populating
+
+### Step 2: Filling in Data Without Breaking Formulas
+
+**Golden Rules for Data Entry**
+
+| Rule | Description |
+|------|-------------|
+| Only edit input cells | Never overwrite cells containing formulas unless intentionally replacing the formula |
+| Preserve cell references | When copying data, use Paste Values (Ctrl+Shift+V) to avoid overwriting formulas with source formatting |
+| Match the template's units | Verify if template uses thousands, millions, or actual values before entering data |
+| Respect sign conventions | Follow the template's existing sign convention (e.g., expenses as positive or negative) |
+| Check for circular references | If the template uses iterative calculations, ensure Enable Iterative Calculation is turned on |
+
+**Safe Data Entry Process**
+1. Identify the exact cells designated for input (usually highlighted or labeled)
+2. Enter historical data first, then verify formulas are calculating correctly for those periods
+3. Enter assumption drivers that feed forecast calculations
+4. Review calculated outputs to confirm formulas are working as intended
+5. If a formula cell must be modified, document the original formula before making changes
+
+**Handling Pre-Built Formulas**
+- If formulas reference cells you haven't populated yet, expect temporary errors (#REF!, #DIV/0!) until all inputs are complete
+- When formulas produce unexpected results, trace precedents to identify missing or incorrect inputs
+- Never delete rows/columns without checking for formula dependencies across all tabs
+
+### Step 3: Validating Formulas
+
+**Formula Integrity Checks**
+
+Before relying on template outputs, validate that formulas are functioning correctly:
+
+| Check Type | Method |
+|------------|--------|
+| Trace precedents | Select a formula cell → Formulas → Trace Precedents to verify it references correct inputs |
+| Trace dependents | Verify key inputs flow to expected output cells |
+| Evaluate formula | Use Formulas → Evaluate Formula to step through complex calculations |
+| Check for hardcodes | Projection formulas should reference assumptions, not contain hardcoded values |
+| Test with known values | Input simple test values to verify formulas produce expected results |
+| Cross-tab consistency | Ensure the same formula logic applies across all projection periods |
+
+**Common Formula Issues to Watch For**
+- Mixed absolute/relative references causing incorrect results when copied across periods
+- Broken links to external files or deleted ranges (#REF! errors)
+- Division by zero in early periods before revenue ramps (#DIV/0! errors)
+- Circular reference warnings (may be intentional for interest calculations)
+- Inconsistent formulas across projection columns (use Ctrl+\ to find differences)
+
+**Validating Cross-Tab Linkages**
+- Confirm values that appear on multiple tabs are linked (not duplicated)
+- Verify schedule totals tie to corresponding line items on main statements
+- Check that period labels align across all tabs
+
+### Step 4: Quality Checks by Sheet
+
+Perform these validation checks on each sheet after populating the template:
+
+**Income Statement (IS) Quality Checks**
+- Revenue figures match source data for historical periods
+- All expense line items sum to reported totals
+- Subtotals (Gross Profit, EBIT, EBT, Net Income) calculate correctly
+- Tax calculation logic is appropriate (handles losses correctly)
+- Forecast drivers reference assumptions tab (no hardcodes)
+- Period-over-period changes are directionally reasonable
+
+**Balance Sheet (BS) Quality Checks**
+- Assets = Liabilities + Equity for every period (primary check)
+- Cash balance matches Cash Flow Statement ending cash
+- Working capital accounts tie to supporting schedules (if applicable)
+- Retained Earnings rolls forward correctly: Prior RE + Net Income - Dividends +/- Adjustments = Ending RE
+- Debt balances tie to debt schedule (if applicable)
+- All balance sheet items have appropriate signs (assets positive, most liabilities positive)
+
+**Cash Flow Statement (CF) Quality Checks**
+- Net Income at top of CFO matches Income Statement Net Income
+- Non-cash add-backs (D&A, SBC, etc.) tie to their source schedules/statements
+- Working capital changes have correct signs (increase in asset = use of cash = negative)
+- CapEx ties to PP&E schedule or fixed asset roll-forward
+- Financing activities tie to changes in debt and equity accounts on BS
+- Ending Cash matches Balance Sheet Cash
+- Beginning Cash equals prior period Ending Cash
+
+**Supporting Schedule Quality Checks**
+- Opening balances equal prior period closing balances
+- Roll-forward logic is complete (Beginning + Additions - Deductions = Ending)
+- Schedule totals tie to main statement line items
+- Assumptions used in calculations match Assumptions tab
+
+### Step 5: Cross-Statement Integrity Checks
+
+After validating individual sheets, confirm the three statements are properly integrated:
+
+| Check | Formula | Expected Result |
+|-------|---------|-----------------|
+| Balance Sheet Balance | Assets - Liabilities - Equity | = 0 |
+| Cash Tie-Out | CF Ending Cash - BS Cash | = 0 |
+| Net Income Link | IS Net Income - CF Starting Net Income | = 0 |
+| Retained Earnings | Prior RE + NI - Dividends - BS Ending RE | = 0 (adjust for SBC/other items as needed) |
+
+### Step 6: Final Review
+
+Before considering the model complete:
+- Toggle through all scenarios (if applicable) to verify checks pass in each case
+- Review all #REF!, #DIV/0!, #VALUE!, and #NAME? errors and resolve or document
+- Confirm all input cells have been populated (search for placeholder values)
+- Verify units are consistent across all tabs
+- Save a clean version before making any additional modifications
+
+## Model Validation and Audit
+
+This section consolidates all validation checks and audit procedures for completed templates.
+
+### Core Linkages (Must Always Hold)
+
+See [references/formulas.md](references/formulas.md) for all formula details.
+
+| Check | Formula | Expected Result |
+|-------|---------|-----------------|
+| Balance Sheet Balance | Assets - Liabilities - Equity | = 0 |
+| Cash Tie-Out | CF Ending Cash - BS Cash | = 0 |
+| Cash Monthly vs Annual | Closing Cash (Monthly) - Closing Cash (Annual) | = 0 |
+| Net Income Link | IS Net Income - CF Starting Net Income | = 0 |
+| Retained Earnings | Prior RE + NI + SBC - Dividends - BS Ending RE | = 0 |
+| Equity Financing | ΔCommon Stock/APIC (BS) - Equity Issuance (CFF) | = 0 |
+| Year 0 Equity | Equity Raised (Year 0) - Beginning Equity Capital (Year 1) | = 0 |
+
+### Sign Convention Reference
+
+| Statement | Item | Sign Convention |
+|-----------|------|-----------------|
+| CFO | D&A, SBC | Positive (add-back) |
+| CFO | ΔAR (increase) | Negative (use of cash) |
+| CFO | ΔAP (increase) | Positive (source of cash) |
+| CFI | CapEx | Negative |
+| CFF | Debt issuance | Positive |
+| CFF | Debt repayments | Negative |
+| CFF | Dividends | Negative |
+
+### Circular Reference Handling
+
+Interest expense creates circularity: Interest → Net Income → Cash → Debt Balance → Interest
+
+Enable iterative calculation in Excel: File → Options → Formulas → Enable iterative calculation. Set maximum iterations to 100, maximum change to 0.001. Add a circuit breaker toggle in Assumptions tab.
+
+### Check Categories
+
+**Section 1: Currency Consistency**
+- Currency identified and documented in Assumptions
+- All tabs use consistent currency symbol and scale
+- Units row matches model currency
+
+**Section 2: Balance Sheet Integrity**
+- Assets = Liabilities + Equity (for each period)
+- Formula: Assets - Liabilities - Equity (must = 0)
+
+**Section 3: Cash Flow Integrity**
+- Cash ties to BS (CF Ending Cash = BS Cash)
+- Cash Monthly vs Annual: Closing Cash (Monthly) = Closing Cash (Annual)
+- NI ties to IS (CF Net Income = IS Net Income)
+- D&A ties to schedule
+- SBC ties to IS
+- ΔAR, ΔInventory, ΔAP tie to WC schedule
+- CapEx ties to DA schedule
+
+**Section 4: Retained Earnings**
+- RE roll-forward check: Prior RE + NI + SBC - Dividends = Ending RE
+- Show component breakdown for debugging
+
+**Section 5: Working Capital**
+- AR, Inventory, AP tie to BS
+- DSO, DIO, DPO reasonability checks (flag if outside normal ranges)
+
+**Section 6: Debt Schedule**
+- Total Debt ties to BS (Current + LT Debt)
+- Interest calculation ties to IS
+
+**Section 6b: Equity Financing**
+- Equity issuance proceeds tie to BS Common Stock/APIC increase
+- Cash increase from equity = Equity account increase (must balance)
+- Equity Raise Tie-Out: ΔCommon Stock/APIC (BS) = Equity Issuance (CFF) (must = 0)
+- Year 0 Equity Tie-Out: Equity Raised (Year 0) = Beginning Equity Capital (Year 1)
+
+**Section 6c: NOL Schedule**
+- Beginning NOL (Year 1 / Formation) = 0 (new business starts with zero NOL)
+- NOL increases only when EBT < 0 (losses must be realized to generate NOL)
+- DTA ties to BS (NOL Schedule DTA = BS Deferred Tax Asset)
+- NOL utilization ≤ 80% of EBT (post-2017 federal limitation)
+- NOL balance is non-negative (cannot utilize more than available)
+- NOL generated only when EBT < 0
+- Tax expense = 0 when taxable income ≤ 0
+
+**Section 7: Scenario Hierarchy**
+- Absolute metrics: Upside > Base > Downside (NI, EBITDA, FCF)
+- Margins: Upside > Base > Downside (GM%, EBITDA%, NI%)
+- Credit metrics: Upside < Base < Downside for leverage (inverted)
+
+**Section 8: Formula Integrity**
+- COGS, S&M, G&A, R&D, SBC driven by % of Revenue (no hardcodes)
+- Consistent formulas across projection years
+- No #REF!, #DIV/0!, #VALUE! errors
+
+**Section 9: Credit Metric Thresholds**
+- Flag metrics as Green/Yellow/Red based on covenant thresholds
+- Summary of any red flags
+
+### Master Check Formula
+
+Aggregate all section statuses into a single master check:
+- If all sections pass → "✓ ALL CHECKS PASS"
+- If any section fails → "✗ ERRORS DETECTED - REVIEW BELOW"
+
+### Quick Debug Workflow
+
+When Master Status shows errors:
+1. Scroll to find red-highlighted sections
+2. Identify which check category has failures
+3. Navigate to source tab to investigate
+4. Fix the underlying issue
+5. Return to Checks tab to verify resolution

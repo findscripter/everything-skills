@@ -1,14 +1,14 @@
 ---
 name: react-flow-node-graph-architect
-title: ReactFlow 节点图应用架构
-description: 当用 ReactFlow 构建可交互节点图（树形导航/大数据量/复杂状态）时使用；做出层级展开、性能优化与状态管理（含撤销重做、自动布局、聚焦/搜索）的生产级实现；不适用于静态流程图、纯 SVG 绘图或非 ReactFlow 图库。触发词：ReactFlow、节点图、自动布局
+title: ReactFlow Architect
+description: Build production-ready ReactFlow applications with hierarchical navigation, performance optimization, and advanced state management.
 domain: 研发/frontend
-triggers: [ReactFlow, 节点图, 流程图编辑器, 树形导航, Dagre 自动布局, 节点图性能优化, 撤销重做, 聚焦模式]
-tags: [前端, react, reactflow, 可视化, 性能优化, 状态管理, typescript]
-level: 进阶
+triggers: [ReactFlow]
+tags: [react, reactflow, typescript]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [reactflow, dagre, lodash.debounce, React.memo, useMemo, useCallback]
+tools: []
 requires: []
 related: [react-state-management, tanstack-query, typescript-advanced-types, frontend-design]
 combines_with: [react-state-management, d3js-data-viz, web-artifacts-builder]
@@ -16,35 +16,13 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# ReactFlow Architect
 
-当你要用 **ReactFlow** 搭建生产级的可交互节点图时使用本技能，典型场景：
+Build production-ready ReactFlow applications with hierarchical navigation, performance optimization, and advanced state management.
 
-- 需要**层级树形导航**（父子节点、可展开/折叠）。
-- 数据量大（数百至上千节点），需要**增量渲染与 memo 化**控制性能。
-- 需要**复杂状态管理**：选中、展开集合、撤销/重做、持久化、自动保存。
-- 需要 **Dagre 自动布局**、**聚焦模式**、**节点搜索定位**等进阶交互。
+## Quick Start
 
-不该用的边界：
-
-- 只是画静态流程图/示意图，用 Mermaid、PlantUML 或纯 SVG 更省事。
-- 使用的不是 ReactFlow（如 D3、Cytoscape、X6、vis-network），模式不直接通用。
-- 节点数极小且无交互需求，直接用最简 `<ReactFlow>` 即可，无需本技能的优化套路。
-
-## 步骤 / 指令
-
-1. **起步**：装 `reactflow`，渲染最小图验证依赖与样式正常。
-2. **定义类型**：先用 TypeScript 给节点 `data` 建模（`level`、`hasChildren`、`isExpanded`、`category` 等），类型先行避免后期返工。
-3. **构建可见集**：树形场景用 `expandedIds: Set<string>` 递归从根节点计算可见节点/边，而非渲染全量。
-4. **接状态管理**：用 `useReducer` 统一处理选中、展开、更新、撤销/重做；展开/选中走 action，保证可回溯。
-5. **加性能层**：节点组件 `React.memo` + 自定义比较函数；`useMemo` 缓存样式化边；`Map` 做 O(1) 查找。
-6. **接自动布局**：用 Dagre 计算坐标，并 `debounce`（约 150ms）+ 缓存结果，避免高频交互抖动。
-7. **加进阶交互**（按需）：聚焦模式隔离选中节点及其直接连接；搜索后展开父链并 `fitView` 定位。
-8. **校验性能**：节点数 > 500 提示虚拟化；单帧渲染估算 > 16ms（掉 60fps）则优化。
-
-## 示例
-
-最小可交互图：
+Create basic interactive graph:
 
 ```tsx
 import ReactFlow, { Node, Edge } from "reactflow";
@@ -53,6 +31,7 @@ const nodes: Node[] = [
   { id: "1", position: { x: 0, y: 0 }, data: { label: "Node 1" } },
   { id: "2", position: { x: 100, y: 100 }, data: { label: "Node 2" } },
 ];
+
 const edges: Edge[] = [{ id: "e1-2", source: "1", target: "2" }];
 
 export default function Graph() {
@@ -60,146 +39,596 @@ export default function Graph() {
 }
 ```
 
-树形可见集递归（只渲染展开路径）：
+## Core Patterns
+
+### Hierarchical Tree Navigation
+
+Build expandable/collapsible tree structures with parent-child relationships.
+
+#### Node Schema
+
+```typescript
+interface TreeNode extends Node {
+  data: {
+    label: string;
+    level: number;
+    hasChildren: boolean;
+    isExpanded: boolean;
+    childCount: number;
+    category: "root" | "category" | "process" | "detail";
+  };
+}
+```
+
+#### Incremental Node Building
 
 ```typescript
 const buildVisibleNodes = useCallback(
-  (allNodes: TreeNode[], expandedIds: Set<string>) => {
+  (allNodes: TreeNode[], expandedIds: Set<string>, otherDeps: any[]) => {
     const visibleNodes = new Map<string, TreeNode>();
+    const visibleEdges = new Map<string, TreeEdge>();
+
+    // Start with root nodes
     const rootNodes = allNodes.filter((n) => n.data.level === 0);
+
+    // Recursively add visible nodes
     const addVisibleChildren = (node: TreeNode) => {
       visibleNodes.set(node.id, node);
+
       if (expandedIds.has(node.id)) {
-        allNodes
-          .filter((n) => n.parentNode === node.id)
-          .forEach(addVisibleChildren);
+        const children = allNodes.filter((n) => n.parentNode === node.id);
+        children.forEach((child) => addVisibleChildren(child));
       }
     };
-    rootNodes.forEach(addVisibleChildren);
-    return { nodes: Array.from(visibleNodes.values()) };
+
+    rootNodes.forEach((root) => addVisibleChildren(root));
+
+    return {
+      nodes: Array.from(visibleNodes.values()),
+      edges: Array.from(visibleEdges.values()),
+    };
   },
   [],
 );
 ```
 
-memo 化节点 + memo 化样式边（命中重渲染热点）：
+### Performance Optimization
+
+Handle large datasets with incremental rendering and memoization.
+
+#### Incremental Rendering
 
 ```typescript
-const ProcessNode = memo(
-  ({ data, selected }: NodeProps) => (
-    <div className={`process-node ${selected ? "selected" : ""}`}>{data.label}</div>
-  ),
-  (prev, next) =>
-    prev.data.label === next.data.label &&
-    prev.selected === next.selected &&
-    prev.data.isExpanded === next.data.isExpanded,
-);
+const useIncrementalGraph = (
+  allNodes: Node[],
+  allEdges: Edge[],
+  expandedList: string[],
+) => {
+  const prevExpandedListRef = useRef<Set<string>>(new Set());
+  const prevOtherDepsRef = useRef<any[]>([]);
 
-const styledEdges = useMemo(
-  () =>
-    edges.map((edge) => ({
-      ...edge,
-      style: {
-        ...edge.style,
-        strokeWidth: selectedEdgeId === edge.id ? 3 : 2,
-        stroke: selectedEdgeId === edge.id ? "#3b82f6" : "#94a3b8",
-      },
-      animated: selectedEdgeId === edge.id,
-    })),
-  [edges, selectedEdgeId],
-);
-```
+  const { visibleNodes, visibleEdges } = useMemo(() => {
+    const currentExpandedSet = new Set(expandedList);
+    const prevExpandedSet = prevExpandedListRef.current;
 
-Dagre 自动布局（去抖 + 缓存）：
+    // Check if expanded list changed
+    const expandedChanged = !areSetsEqual(currentExpandedSet, prevExpandedSet);
 
-```typescript
-import dagre from "dagre";
+    // Check if other dependencies changed
+    const otherDepsChanged = !arraysEqual(otherDeps, prevOtherDepsRef.current);
 
-const layoutOptions = { rankdir: "TB", nodesep: 100, ranksep: 150, marginx: 50, marginy: 50, edgesep: 10 };
+    if (expandedChanged && !otherDepsChanged) {
+      // Only expanded list changed - incremental update
+      return buildIncrementalUpdate(
+        cachedVisibleNodesRef.current,
+        cachedVisibleEdgesRef.current,
+        allNodes,
+        allEdges,
+        currentExpandedSet,
+        prevExpandedSet,
+      );
+    } else {
+      // Full rebuild needed
+      return buildFullGraph(allNodes, allEdges, currentExpandedSet);
+    }
+  }, [allNodes, allEdges, expandedList, ...otherDeps]);
 
-const applyLayout = (nodes: Node[], edges: Edge[]) => {
-  const g = new dagre.graphlib.Graph();
-  g.setGraph(layoutOptions);
-  g.setDefaultEdgeLabel(() => ({}));
-  nodes.forEach((n) => g.setNode(n.id, { width: 200, height: 100 }));
-  edges.forEach((e) => g.setEdge(e.source, e.target));
-  dagre.layout(g);
-  return nodes.map((n) => ({
-    ...n,
-    position: { x: g.node(n.id).x - 100, y: g.node(n.id).y - 50 },
-  }));
+  return { visibleNodes, visibleEdges };
 };
-
-const debouncedLayout = useMemo(() => debounce(applyLayout, 150), []);
 ```
 
-Reducer 管展开/选中（撤销重做的基础）：
+#### Memoization Patterns
+
+```typescript
+// Memoize node components to prevent unnecessary re-renders
+const ProcessNode = memo(({ data, selected }: NodeProps) => {
+  return (
+    <div className={`process-node ${selected ? 'selected' : ''}`}>
+      {data.label}
+    </div>
+  );
+}, (prevProps, nextProps) => {
+  // Custom comparison function
+  return (
+    prevProps.data.label === nextProps.data.label &&
+    prevProps.selected === nextProps.selected &&
+    prevProps.data.isExpanded === nextProps.data.isExpanded
+  );
+});
+
+// Memoize edge calculations
+const styledEdges = useMemo(() => {
+  return edges.map(edge => ({
+    ...edge,
+    style: {
+      ...edge.style,
+      strokeWidth: selectedEdgeId === edge.id ? 3 : 2,
+      stroke: selectedEdgeId === edge.id ? '#3b82f6' : '#94a3b8',
+    },
+    animated: selectedEdgeId === edge.id,
+  }));
+}, [edges, selectedEdgeId]);
+```
+
+### State Management
+
+Complex node/edge state patterns with undo/redo and persistence.
+
+#### Reducer Pattern
 
 ```typescript
 type GraphAction =
   | { type: "SELECT_NODE"; payload: string }
+  | { type: "SELECT_EDGE"; payload: string }
   | { type: "TOGGLE_EXPAND"; payload: string }
-  | { type: "UNDO" } | { type: "REDO" };
+  | { type: "UPDATE_NODES"; payload: Node[] }
+  | { type: "UPDATE_EDGES"; payload: Edge[] }
+  | { type: "UNDO" }
+  | { type: "REDO" };
 
 const graphReducer = (state: GraphState, action: GraphAction): GraphState => {
   switch (action.type) {
     case "SELECT_NODE":
-      return { ...state, selectedNodeId: action.payload, selectedEdgeId: null };
-    case "TOGGLE_EXPAND": {
-      const next = new Set(state.expandedNodeIds);
-      next.has(action.payload) ? next.delete(action.payload) : next.add(action.payload);
-      return { ...state, expandedNodeIds: next, isDirty: true };
-    }
+      return {
+        ...state,
+        selectedNodeId: action.payload,
+        selectedEdgeId: null,
+      };
+
+    case "TOGGLE_EXPAND":
+      const newExpanded = new Set(state.expandedNodeIds);
+      if (newExpanded.has(action.payload)) {
+        newExpanded.delete(action.payload);
+      } else {
+        newExpanded.add(action.payload);
+      }
+      return {
+        ...state,
+        expandedNodeIds: newExpanded,
+        isDirty: true,
+      };
+
     default:
       return state;
   }
 };
 ```
 
-聚焦模式（隔离选中节点及其直接连接）：
+#### History Management
 
 ```typescript
-const useFocusMode = (selectedNodeId: string, allNodes: Node[], allEdges: Edge[]) =>
-  useMemo(() => {
-    if (!selectedNodeId) return { nodes: allNodes, edges: allEdges };
-    const connected = new Set([selectedNodeId]);
-    const focusedEdges = allEdges.filter((e) => {
-      const hit = e.source === selectedNodeId || e.target === selectedNodeId;
-      if (hit) { connected.add(e.source); connected.add(e.target); }
-      return hit;
-    });
-    return { nodes: allNodes.filter((n) => connected.has(n.id)), edges: focusedEdges };
-  }, [selectedNodeId, allNodes, allEdges]);
+const useHistoryManager = (
+  state: GraphState,
+  dispatch: Dispatch<GraphAction>,
+) => {
+  const canUndo = state.historyIndex > 0;
+  const canRedo = state.historyIndex < state.history.length - 1;
+
+  const undo = useCallback(() => {
+    if (canUndo) {
+      const newIndex = state.historyIndex - 1;
+      const historyEntry = state.history[newIndex];
+
+      dispatch({
+        type: "RESTORE_FROM_HISTORY",
+        payload: {
+          ...historyEntry,
+          historyIndex: newIndex,
+        },
+      });
+    }
+  }, [canUndo, state.historyIndex, state.history]);
+
+  const saveToHistory = useCallback(() => {
+    dispatch({ type: "SAVE_TO_HISTORY" });
+  }, [dispatch]);
+
+  return { canUndo, canRedo, undo, redo, saveToHistory };
+};
 ```
 
-## 注意事项
+## Advanced Features
 
-性能红线（来自源技能的硬约束）：
+### Auto-Layout Integration
 
-- 节点 **> 500** → 上虚拟化或裁剪可见节点；**> 1000** 必须虚拟化。
-- 单帧估算 **> 16ms** 会掉 60fps → 用 memo 化 + 增量渲染。
-- 节点组件统一 `React.memo`；边创建/操作函数用 `useCallback`，依赖要稳定。
-- 高频交互（拖拽、连续展开）时 `debounce` 布局计算并缓存结果。
+Integrate Dagre for automatic graph layout:
 
-内存与状态：
+```typescript
+import dagre from "dagre";
 
-- 用 `Map` 做 O(1) 查找，替代 `array.find`：`new Map(allNodes.map((n) => [n.id, n]))`。
-- `useEffect` 返回清理函数，清空 `nodesMapRef`/`edgesMapRef` 等残留引用，必要时用 `WeakMap` 存临时数据。
-- 不该触发重渲染的对象（如自动保存数据）放 `useRef`，更新属性而非替换引用。
+const layoutOptions = {
+  rankdir: "TB", // Top to Bottom
+  nodesep: 100, // Node separation
+  ranksep: 150, // Rank separation
+  marginx: 50,
+  marginy: 50,
+  edgesep: 10,
+};
 
-常见坑：
+const applyLayout = (nodes: Node[], edges: Edge[]) => {
+  const g = new dagre.graphlib.Graph();
+  g.setGraph(layoutOptions);
+  g.setDefaultEdgeLabel(() => ({}));
 
-- 手动定位与自动布局冲突 → 用受控定位状态，分离「手动/自动」两种布局模式。
-- 展开卡顿 → 增量渲染 + 变更检测（仅展开集变化时走增量更新，否则全量重建）。
-- 过度重渲染 → `memo` + `useMemo` + `useCallback` 三件套，配稳定依赖。
+  // Add nodes to graph
+  nodes.forEach((node) => {
+    g.setNode(node.id, { width: 200, height: 100 });
+  });
 
-边界提醒：本技能给的是估算式性能分析与模式，不能替代真实环境下的实测、Profiler 与专家评审；缺关键输入或约束时先暂停澄清。
+  // Add edges to graph
+  edges.forEach((edge) => {
+    g.setEdge(edge.source, edge.target);
+  });
 
-## 互见
+  // Calculate layout
+  dagre.layout(g);
 
-- 性能分析可配套一个静态扫描脚本（`scripts/graph-analyzer.js`）统计节点/边数、估算渲染时间并给优化建议，用于 CI 或代码审查。
-- 与「前端性能优化」「React 渲染优化」类技能配合使用效果更佳。
+  // Apply positions
+  return nodes.map((node) => ({
+    ...node,
+    position: {
+      x: g.node(node.id).x - 100,
+      y: g.node(node.id).y - 50,
+    },
+  }));
+};
 
----
+// Debounce layout calculations
+const debouncedLayout = useMemo(() => debounce(applyLayout, 150), []);
+```
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可证）。
+### Focus Mode
+
+Isolate selected nodes and their direct connections:
+
+```typescript
+const useFocusMode = (
+  selectedNodeId: string,
+  allNodes: Node[],
+  allEdges: Edge[],
+) => {
+  return useMemo(() => {
+    if (!selectedNodeId) return { nodes: allNodes, edges: allEdges };
+
+    // Get direct connections
+    const connectedNodeIds = new Set([selectedNodeId]);
+    const focusedEdges: Edge[] = [];
+
+    allEdges.forEach((edge) => {
+      if (edge.source === selectedNodeId || edge.target === selectedNodeId) {
+        focusedEdges.push(edge);
+        connectedNodeIds.add(edge.source);
+        connectedNodeIds.add(edge.target);
+      }
+    });
+
+    // Get connected nodes
+    const focusedNodes = allNodes.filter((n) => connectedNodeIds.has(n.id));
+
+    return { nodes: focusedNodes, edges: focusedEdges };
+  }, [selectedNodeId, allNodes, allEdges]);
+};
+
+// Smooth transitions for focus mode
+const focusModeStyles = {
+  transition: "all 0.3s ease-in-out",
+  opacity: isInFocus ? 1 : 0.3,
+  filter: isInFocus ? "none" : "blur(2px)",
+};
+```
+
+### Search Integration
+
+Search and navigate to specific nodes:
+
+```typescript
+const searchNodes = useCallback((nodes: Node[], query: string) => {
+  if (!query.trim()) return [];
+
+  const lowerQuery = query.toLowerCase();
+  return nodes.filter(
+    (node) =>
+      node.data.label.toLowerCase().includes(lowerQuery) ||
+      node.data.description?.toLowerCase().includes(lowerQuery),
+  );
+}, []);
+
+const navigateToSearchResult = (nodeId: string) => {
+  // Expand parent nodes
+  const nodePath = calculateBreadcrumbPath(nodeId, allNodes);
+  const parentIds = nodePath.slice(0, -1).map((n) => n.id);
+
+  setExpandedIds((prev) => new Set([...prev, ...parentIds]));
+  setSelectedNodeId(nodeId);
+
+  // Fit view to node
+  fitView({ nodes: [{ id: nodeId }], duration: 800 });
+};
+```
+
+## Performance Tools
+
+### Graph Performance Analyzer
+
+Create a performance analysis script:
+
+```javascript
+// scripts/graph-analyzer.js
+class GraphAnalyzer {
+  analyzeCode(content, filePath) {
+    const analysis = {
+      metrics: {
+        nodeCount: this.countNodes(content),
+        edgeCount: this.countEdges(content),
+        renderTime: this.estimateRenderTime(content),
+        memoryUsage: this.estimateMemoryUsage(content),
+        complexity: this.calculateComplexity(content),
+      },
+      issues: [],
+      optimizations: [],
+      patterns: this.detectPatterns(content),
+    };
+
+    // Detect performance issues
+    this.detectPerformanceIssues(analysis);
+
+    // Suggest optimizations
+    this.suggestOptimizations(analysis);
+
+    return analysis;
+  }
+
+  countNodes(content) {
+    const nodePatterns = [
+      /nodes:\s*\[.*?\]/gs,
+      /const\s+\w+\s*=\s*\[.*?id:.*?position:/gs,
+    ];
+
+    let totalCount = 0;
+    nodePatterns.forEach((pattern) => {
+      const matches = content.match(pattern);
+      if (matches) {
+        matches.forEach((match) => {
+          const nodeMatches = match.match(/id:\s*['"`][^'"`]+['"`]/g);
+          if (nodeMatches) {
+            totalCount += nodeMatches.length;
+          }
+        });
+      }
+    });
+
+    return totalCount;
+  }
+
+  estimateRenderTime(content) {
+    const nodeCount = this.countNodes(content);
+    const edgeCount = this.countEdges(content);
+
+    // Base render time estimation (ms)
+    const baseTime = 5;
+    const nodeTime = nodeCount * 0.1;
+    const edgeTime = edgeCount * 0.05;
+
+    return baseTime + nodeTime + edgeTime;
+  }
+
+  detectPerformanceIssues(analysis) {
+    const { metrics } = analysis;
+
+    if (metrics.nodeCount > 500) {
+      analysis.issues.push({
+        type: "HIGH_NODE_COUNT",
+        severity: "high",
+        message: `Too many nodes (${metrics.nodeCount}). Consider virtualization.`,
+        suggestion: "Implement virtualization or reduce visible nodes",
+      });
+    }
+
+    if (metrics.renderTime > 16) {
+      analysis.issues.push({
+        type: "SLOW_RENDER",
+        severity: "high",
+        message: `Render time (${metrics.renderTime.toFixed(2)}ms) exceeds 60fps.`,
+        suggestion: "Optimize with memoization and incremental rendering",
+      });
+    }
+  }
+}
+```
+
+## Best Practices
+
+### Performance Guidelines
+
+1. **Use React.memo** for node components to prevent unnecessary re-renders
+2. **Implement virtualization** for graphs with 1000+ nodes
+3. **Debounce layout calculations** during rapid interactions
+4. **Use useCallback** for edge creation and manipulation functions
+5. **Implement proper TypeScript types** for nodes and edges
+
+### Memory Management
+
+```typescript
+// Use Map for O(1) lookups instead of array.find
+const nodesById = useMemo(
+  () => new Map(allNodes.map((n) => [n.id, n])),
+  [allNodes],
+);
+
+// Cache layout results
+const layoutCacheRef = useRef<Map<string, Node[]>>(new Map());
+
+// Proper cleanup in useEffect
+useEffect(() => {
+  return () => {
+    // Clean up any lingering references
+    nodesMapRef.current.clear();
+    edgesMapRef.current.clear();
+  };
+}, []);
+```
+
+### State Optimization
+
+```typescript
+// Use useRef for objects that shouldn't trigger re-renders
+const autoSaveDataRef = useRef({
+  nodes: [],
+  edges: [],
+  lastSaved: Date.now(),
+});
+
+// Update properties without breaking reference
+const updateAutoSaveData = (newNodes: Node[], newEdges: Edge[]) => {
+  autoSaveDataRef.current.nodes = newNodes;
+  autoSaveDataRef.current.edges = newEdges;
+  autoSaveDataRef.current.lastSaved = Date.now();
+};
+```
+
+## Common Problems & Solutions
+
+### Performance Issues
+
+- **Problem**: Lag during node expansion
+- **Solution**: Implement incremental rendering with change detection
+
+- **Problem**: Memory usage increases over time
+- **Solution**: Proper cleanup in useEffect hooks and use WeakMap for temporary data
+
+### Layout Conflicts
+
+- **Problem**: Manual positioning conflicts with auto-layout
+- **Solution**: Use controlled positioning state and separate layout modes
+
+### Rendering Issues
+
+- **Problem**: Excessive re-renders
+- **Solution**: Use memo, useMemo, and useCallback with stable dependencies
+
+- **Problem**: Slow layout calculations
+- **Solution**: Debounce layout calculations and cache results
+
+## Complete Example
+
+```typescript
+import React, { useState, useCallback, useMemo, useRef } from 'react';
+import ReactFlow, { Node, Edge, useReactFlow } from 'reactflow';
+import dagre from 'dagre';
+import { debounce } from 'lodash';
+
+interface GraphState {
+  nodes: Node[];
+  edges: Edge[];
+  selectedNodeId: string | null;
+  expandedNodeIds: Set<string>;
+  history: GraphState[];
+  historyIndex: number;
+}
+
+export default function InteractiveGraph() {
+  const [state, setState] = useState<GraphState>({
+    nodes: [],
+    edges: [],
+    selectedNodeId: null,
+    expandedNodeIds: new Set(),
+    history: [],
+    historyIndex: 0,
+  });
+
+  const { fitView } = useReactFlow();
+  const layoutCacheRef = useRef<Map<string, Node[]>>(new Map());
+
+  // Memoized styled edges
+  const styledEdges = useMemo(() => {
+    return state.edges.map(edge => ({
+      ...edge,
+      style: {
+        ...edge.style,
+        strokeWidth: state.selectedNodeId === edge.source || state.selectedNodeId === edge.target ? 3 : 2,
+        stroke: state.selectedNodeId === edge.source || state.selectedNodeId === edge.target ? '#3b82f6' : '#94a3b8',
+      },
+      animated: state.selectedNodeId === edge.source || state.selectedNodeId === edge.target,
+    }));
+  }, [state.edges, state.selectedNodeId]);
+
+  // Debounced layout calculation
+  const debouncedLayout = useMemo(
+    () => debounce((nodes: Node[], edges: Edge[]) => {
+      const cacheKey = generateLayoutCacheKey(nodes, edges);
+
+      if (layoutCacheRef.current.has(cacheKey)) {
+        return layoutCacheRef.current.get(cacheKey)!;
+      }
+
+      const layouted = applyDagreLayout(nodes, edges);
+      layoutCacheRef.current.set(cacheKey, layouted);
+
+      return layouted;
+    }, 150),
+    []
+  );
+
+  const handleNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
+    setState(prev => ({
+      ...prev,
+      selectedNodeId: node.id,
+    }));
+  }, []);
+
+  const handleToggleExpand = useCallback((nodeId: string) => {
+    setState(prev => {
+      const newExpanded = new Set(prev.expandedNodeIds);
+      if (newExpanded.has(nodeId)) {
+        newExpanded.delete(nodeId);
+      } else {
+        newExpanded.add(nodeId);
+      }
+
+      return {
+        ...prev,
+        expandedNodeIds: newExpanded,
+      };
+    });
+  }, []);
+
+  return (
+    <ReactFlow
+      nodes={state.nodes}
+      edges={styledEdges}
+      onNodeClick={handleNodeClick}
+      fitView
+    />
+  );
+}
+```
+
+This comprehensive skill provides everything needed to build production-ready ReactFlow applications with hierarchical navigation, performance optimization, and advanced state management patterns.
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

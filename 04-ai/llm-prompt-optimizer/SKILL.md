@@ -1,11 +1,11 @@
 ---
 name: llm-prompt-optimizer
-title: LLM 提示词优化
-description: 当 LLM 提示词输出不稳定、含幻觉、格式不可解析或 token 浪费时使用；用 RSCIT 框架与少样本/思维链/结构化输出等模式把弱提示重写为可复用的精准提示并产出审计清单；不适用于模型微调、RAG 检索管线搭建或非提示层的工程问题；触发词：提示词优化、prompt engineering、减少幻觉、结构化输出、少样本
+title: LLM Prompt Optimizer
+description: Use when improving prompts for any LLM. Applies proven prompt engineering techniques to boost output quality, reduce hallucinations, and cut token usage.
 domain: 智能/prompting
-triggers: [提示词优化, prompt 优化, prompt engineering, 减少幻觉, 结构化输出, JSON 输出, 少样本示例, 思维链, chain-of-thought, 系统提示词设计, 提示词太长 token 浪费, 同一提示换模型失效]
-tags: [提示工程, llm, prompt, few-shot, chain-of-thought, 结构化输出, 幻觉抑制, token优化, 智能]
-level: 进阶
+triggers: [prompt engineering, chain-of-thought]
+tags: [llm, prompt, few-shot, chain-of-thought]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,104 +16,107 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# LLM Prompt Optimizer
 
-适用：
-- 提示返回结果飘忽、含糊或出现幻觉，需要稳定可复现的输出。
-- 需要从 LLM 可靠拿到结构化/JSON 输出。
-- 为 AI Agent 或聊天机器人设计系统提示词。
-- 想在不牺牲质量的前提下压缩 token、降低成本。
-- 复杂任务需引入思维链（CoT）逐步推理。
-- 同一提示在某模型可用、换到另一模型却失效。
+## Overview
 
-不该用（负边界）：
-- 问题出在模型能力本身，需要微调/换模型，而非改提示。
-- 需要外部知识检索（应搭建 RAG/检索管线），而非靠提示词解决。
-- 属于非提示层的工程问题（接口、超时、配额、部署），改提示无济于事。
-- 缺少必要输入、权限、安全边界或成功判据时，应先停下澄清，而非硬写提示。
+This skill transforms weak, vague, or inconsistent prompts into precision-engineered instructions that reliably produce high-quality outputs from any LLM (Claude, Gemini, GPT-4, Llama, etc.). It applies systematic prompt engineering frameworks — from zero-shot to few-shot, chain-of-thought, and structured output patterns.
 
-## 步骤
+## When to Use This Skill
 
-1. 诊断弱提示。先对照问题模式定位病因，再动手：
+- Use when a prompt returns inconsistent, vague, or hallucinated results
+- Use when you need structured/JSON output from an LLM reliably
+- Use when designing system prompts for AI agents or chatbots
+- Use when you want to reduce token usage without sacrificing quality
+- Use when implementing chain-of-thought reasoning for complex tasks
+- Use when prompts work on one model but fail on another
 
-   | 问题 | 症状 | 修法 |
-   |------|------|------|
-   | 太含糊 | 答案泛泛、无用 | 补角色 + 上下文 + 约束 |
-   | 无结构 | 输出难解析 | 显式指定输出格式 |
-   | 幻觉 | 自信地答错 | 加“不确定就说不知道” |
-   | 不一致 | 每次答案都不同 | 加少样本示例 |
-   | 太啰嗦 | 冗长灌水 | 加长度约束 |
+## Step-by-Step Guide
 
-2. 套用 RSCIT 框架。每条优化后的提示都应具备：
-   - R 角色（Role）：AI 在此扮演谁。
-   - S 情境（Situation）：它需要哪些上下文。
-   - C 约束（Constraints）：规则与边界。
-   - I 指令（Instructions）：具体要做什么。
-   - T 模板（Template）：输出应长成什么样。
+### 1. Diagnose the Weak Prompt
 
-3. 按任务类型选模式（见下方「指令」中的可复制模板）：推理任务用思维链；分类/抽取用少样本；要机读结果用结构化 JSON；事实问答用幻觉抑制；成本敏感场景做提示压缩。
+Before optimizing, identify which problem pattern applies:
 
-4. 过审计清单（见「注意事项」），通过后再投入生产。
+| Problem | Symptom | Fix |
+|---------|---------|-----|
+| Too vague | Generic, unhelpful answers | Add role + context + constraints |
+| No structure | Unformatted, hard-to-parse output | Specify output format explicitly |
+| Hallucination | Confident wrong answers | Add "say I don't know if unsure" |
+| Inconsistent | Different answers each run | Add few-shot examples |
+| Too long | Verbose, padded responses | Add length constraints |
 
-## 指令
+### 2. Apply the RSCIT Framework
 
-RSCIT 改写示例
+Every optimized prompt should have:
 
-弱提示：
+- **R** — **Role**: Who is the AI in this interaction?
+- **S** — **Situation**: What context does it need?
+- **C** — **Constraints**: What are the rules and limits?
+- **I** — **Instructions**: What exactly should it do?
+- **T** — **Template**: What should the output look like?
+
+**Before (weak prompt):**
 ```
-解释机器学习。
+Explain machine learning.
 ```
 
-优化后：
+**After (optimized prompt):**
 ```
-你是一名资深 ML 工程师，正在向初级开发者讲解概念。
+You are a senior ML engineer explaining concepts to a junior developer.
 
-情境：该开发者有 1 年 Python 经验，但没有 ML 背景。
+Context: The developer has 1 year of Python experience but no ML background.
 
-任务：用通俗语言解释“有监督机器学习”。
+Task: Explain supervised machine learning in simple terms.
 
-约束：
-- 用一个日常生活中的类比
-- 不超过 200 字
-- 不出现数学公式
-- 末尾给出一条可执行的下一步建议
+Constraints:
+- Use an analogy from everyday life
+- Maximum 200 words
+- No mathematical formulas
+- End with one actionable next step
 
-格式：纯叙述，不用项目符号。
-```
-
-思维链（CoT）模式（数学/逻辑/多步任务）：
-```
-逐步解决该问题，每一步都展示推理过程。
-只有在完成全部推理后，才给出最终答案。
-
-问题：[在此填入问题]
-
-思考过程：
-步骤 1：[已知是什么]
-步骤 2：[要求是什么]
-步骤 3：[应用逻辑或公式]
-步骤 4：[验证答案]
-
-最终答案：
+Format: Plain prose, no bullet points.
 ```
 
-少样本（Few-Shot）模式（分类/抽取）：
-```
-将客户评论的情感分类为 POSITIVE、NEGATIVE 或 NEUTRAL。
+### 3. Chain-of-Thought (CoT) Pattern
 
-示例：
-评论："这产品超出了我的预期！" -> POSITIVE
-评论："到货就是坏的，客服还没用。" -> NEGATIVE
-评论："产品和描述一致，没什么特别。" -> NEUTRAL
+For reasoning tasks, instruct the model to think step-by-step:
 
-现在分类：
-评论："[在此填入评论]" ->
+```
+Solve this problem step by step, showing your work at each stage.
+Only provide the final answer after completing all reasoning steps.
+
+Problem: [your problem here]
+
+Thinking process:
+Step 1: [identify what's given]
+Step 2: [identify what's needed]
+Step 3: [apply logic or formula]
+Step 4: [verify the answer]
+
+Final Answer:
 ```
 
-结构化 JSON 输出模式：
+### 4. Few-Shot Examples Pattern
+
+Provide 2-3 examples to establish the pattern:
+
 ```
-从下方文本中抽取以下信息，仅返回合法 JSON。
-不要包含任何解释或 markdown —— 只输出原始 JSON 对象。
+Classify the sentiment of customer reviews as POSITIVE, NEGATIVE, or NEUTRAL.
+
+Examples:
+Review: "This product exceeded my expectations!" -> POSITIVE
+Review: "It arrived broken and support was useless." -> NEGATIVE  
+Review: "Product works as described, nothing special." -> NEUTRAL
+
+Now classify:
+Review: "[your review here]" ->
+```
+
+### 5. Structured JSON Output Pattern
+
+```
+Extract the following information from the text below and return it as valid JSON only.
+Do not include any explanation or markdown — just the raw JSON object.
 
 Schema:
 {
@@ -123,74 +126,72 @@ Schema:
   "role": string | null
 }
 
-文本：[在此填入输入文本]
+Text: [input text here]
 ```
 
-幻觉抑制模式：
+### 6. Reduce Hallucination Pattern
+
 ```
-仅根据所提供的上下文回答下列问题。
-若上下文中不含答案，则严格回复："我没有足够的信息来回答这个问题。"
-不要编造或推断上下文中不存在的信息。
+Answer the following question based ONLY on the provided context.
+If the answer is not contained in the context, respond with exactly: "I don't have enough information to answer this."
+Do not make up or infer information not present in the context.
 
-上下文：
-[在此填入上下文]
+Context:
+[your context here]
 
-问题：[在此填入问题]
-```
-
-提示压缩（不损质量地降 token）：
-```
-# 冗长（昂贵）
-"请仔细分析下面这段代码，并就它做了什么、如何运作、以及你可能发现的潜在问题，给出详尽的解释。"
-
-# 压缩（高效，质量相当）
-"分析这段代码：说明它做什么、如何运作，并标出任何问题。"
+Question: [your question here]
 ```
 
-## 示例
+### 7. Prompt Compression Techniques
 
-场景：某抽取接口时好时坏，有时返回 markdown 包裹的 JSON，下游解析报错。
+Reduce token count without losing effectiveness:
 
-处理：
-- 诊断 = 「无结构」+「不一致」。
-- 套结构化 JSON 模式，明确「仅返回合法 JSON，不含解释或 markdown」。
-- 补 2-3 条少样本，把 email/company 缺失映射为 null。
-- 把格式指令移到提示末尾、示例之后，并用强措辞「你必须只返回合法 JSON」。
-- 事实类任务把温度降到 0.0-0.3。
-结果：输出稳定可机读，下游解析不再报错。
+```
+# Verbose (expensive)
+"Please carefully analyze the following code and provide a detailed explanation of 
+what it does, how it works, and any potential issues you might find."
 
-## 注意事项
+# Compressed (efficient, same quality)
+"Analyze this code: explain what it does, how it works, and flag any issues."
+```
 
-应做：
-- 始终显式指定输出格式（JSON / markdown / 纯文本 / 项目符号）。
-- 用分隔符（```、---）把指令与内容隔开。
-- 用边界用例测试（空输入、异常数据）。
-- 把系统提示词纳入版本管理。
-- 数学、逻辑或多步任务加「逐步思考」。
+## Best Practices
 
-不应做：
-- 只用否定式指令（「别啰嗦」）—— 要给出正向替代（「用 3 个项目符号，每条不超过 20 字」）。
-- 假设模型懂你的代码库上下文 —— 务必随提示带上。
-- 同一提示不经测试就跨模型复用 —— 不同模型行为不同。
+- ✅ **Do:** Always specify the output format (JSON, markdown, plain text, bullet list)
+- ✅ **Do:** Use delimiters (```, ---) to separate instructions from content
+- ✅ **Do:** Test prompts with edge cases (empty input, unusual data)
+- ✅ **Do:** Version your system prompts in source control
+- ✅ **Do:** Add "think step by step" for math, logic, or multi-step tasks
+- ❌ **Don't:** Use negative-only instructions ("don't be verbose") — add positive alternatives
+- ❌ **Don't:** Assume the model knows your codebase context — always include it
+- ❌ **Don't:** Use the same prompt across different models without testing — they behave differently
 
-上线前审计清单：
-- [ ] 是否有清晰的角色/人设？
-- [ ] 输出格式是否显式定义？
-- [ ] 边界用例（空输入、歧义数据）是否处理？
-- [ ] 长度是否合适（不过长也不过短）？
-- [ ] 是否在 5+ 组多样输入上测过？
-- [ ] 事实类任务是否做了幻觉抑制？
+## Prompt Audit Checklist
 
-常见故障排查：
-- 模型无视格式指令：把格式指令挪到提示末尾、示例之后，用强措辞「你必须只返回合法 JSON」。
-- 多次运行结果不一致：降低温度（事实类 0.0-0.3），并补更多少样本。
-- Playground 能跑、生产失效：确认系统提示是否正确下发；用 token 计数器核查是否超出 token 上限。
-- 输出过长：加显式字/句数限制，如「恰好 3 个项目符号，每条少于 20 字」。
+Before using a prompt in production:
 
-## 互见
+- [ ] Does it have a clear role/persona?
+- [ ] Is the output format explicitly defined?
+- [ ] Are edge cases handled (empty input, ambiguous data)?
+- [ ] Is the length appropriate (not too long/short)?
+- [ ] Has it been tested on 5+ varied inputs?
+- [ ] Is hallucination risk addressed for factual tasks?
 
-- 适用任意 LLM（Claude、Gemini、GPT-4、Llama 等），跨模型复用前务必各自回归测试。
-- 涉及外部知识接入时，优先考虑 RAG/检索管线而非纯提示词。
+## Troubleshooting
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+**Problem:** Model ignores format instructions
+**Solution:** Move format instructions to the END of the prompt, after examples. Use strong language: "You MUST return only valid JSON."
+
+**Problem:** Inconsistent results between runs
+**Solution:** Lower the temperature setting (0.0-0.3 for factual tasks). Add more few-shot examples.
+
+**Problem:** Prompt works in playground but fails in production
+**Solution:** Check if system prompt is being sent correctly. Verify token limits aren't being exceeded (use a token counter).
+
+**Problem:** Output is too long
+**Solution:** Add explicit word/sentence limits: "Respond in exactly 3 bullet points, each under 20 words."
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

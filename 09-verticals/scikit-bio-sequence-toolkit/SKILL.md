@@ -1,14 +1,14 @@
 ---
 name: scikit-bio-sequence-toolkit
-title: scikit-bio 序列与系统发育分析
-description: 当需要用 Python 做生物序列处理、序列比对、系统发育树、微生物组多样性(alpha/beta、UniFrac)、PCoA 排序与 PERMANOVA 等生态统计，并读写 FASTA/FASTQ/Newick/BIOM 时使用；用 scikit-bio 跑标准生信流程并产出比对/进化树/距离矩阵/排序坐标/显著性结果；不适用于多序列比对建树的重活(用 MAFFT/IQ-TREE/RAxML)、单细胞表达分析(用 scanpy)、基因组比对/变异调用(用专用 NGS 工具)；触发词：scikit-bio、skbio、序列比对、系统发育树、UniFrac、多样性、PCoA、PERMANOVA、Newick、BIOM
+title: scikit-bio
+description: Biological data toolkit. Sequence analysis, alignments, phylogenetic trees, diversity metrics (alpha/beta, UniFrac), ordination (PCoA), PERMANOVA, FASTA/Newick I/O, for microbiome analysis.
 domain: 领域/science
-triggers: [scikit-bio, skbio, 序列比对, 系统发育树, UniFrac, 多样性, PCoA, PERMANOVA, Newick, BIOM, 微生物组, 距离矩阵]
+triggers: [scikit-bio, skbio, UniFrac, PCoA, PERMANOVA, Newick, BIOM]
 tags: [scikit-bio, skbio, bioinformatics, phylogenetics, alignment, microbiome, diversity, ordination, permanova, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, scikit-bio, numpy, pandas, matplotlib, biom-format]
+tools: []
 requires: []
 related: [biopython-molecular-biology, single-cell-rnaseq-analysis, gene-set-enrichment-analysis, genomic-file-toolkit]
 combines_with: [matplotlib-visualization]
@@ -16,125 +16,461 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-# scikit-bio 序列与系统发育分析
+# scikit-bio
 
-## 何时使用
+## Overview
 
-当你需要用 Python 在一个库内完成「序列操作 → 比对 → 建树 → 多样性 → 排序 → 生态统计」这条生信链路时使用本条，典型场景：
+scikit-bio is a comprehensive Python library for working with biological data. Apply this skill for bioinformatics analyses spanning sequence manipulation, alignment, phylogenetics, microbial ecology, and multivariate statistics.
 
-- 处理 DNA/RNA/Protein 序列：反向互补、转录、翻译、找 motif、算 Hamming/k-mer 距离
-- 成对序列比对（全局/局部/半全局），或用 `TabularMSA` 装载多序列比对
-- 由距离矩阵建系统发育树（NJ、UPGMA、GME/BME），算 patristic / Robinson-Foulds 距离
-- 微生物组多样性：alpha（Shannon、Chao1、Faith's PD）、beta（Bray-Curtis、Jaccard、UniFrac）
-- 排序（PCoA/CCA/RDA）与生态统计检验（PERMANOVA、ANOSIM、Mantel、PERMDISP）
-- 读写 FASTA/FASTQ/GenBank/Newick/BIOM/Clustal/PHYLIP 等 19+ 格式
+## When to Use This Skill
 
-**不该用本条的边界：**
+This skill should be used when the user:
+- Works with biological sequences (DNA, RNA, protein)
+- Needs to read/write biological file formats (FASTA, FASTQ, GenBank, Newick, BIOM, etc.)
+- Performs sequence alignments or searches for motifs
+- Constructs or analyzes phylogenetic trees
+- Calculates diversity metrics (alpha/beta diversity, UniFrac distances)
+- Performs ordination analysis (PCoA, CCA, RDA)
+- Runs statistical tests on biological/ecological data (PERMANOVA, ANOSIM, Mantel)
+- Analyzes microbiome or community ecology data
+- Works with protein embeddings from language models
+- Needs to manipulate biological data tables
 
-- 大规模**从头**多序列比对 / 最大似然建树 → 用 MAFFT、IQ-TREE、RAxML（skbio 的比对器是成对动态规划，建树从距离矩阵起步）
-- 单细胞表达探索（QC/聚类/UMAP）→ 用 scanpy（见 `single-cell-rnaseq-analysis`）
-- 测序读段比对到参考、变异调用 → 用 BWA/minimap2/GATK 等专用 NGS 工具
-- 仅做格式互转/索引的常规基因组文件操作 → 见 `genomic-file-toolkit`
+## Core Capabilities
 
-## 步骤
+### 1. Sequence Manipulation
 
-1. 装环境：`uv pip install scikit-bio`（Python 3.10+，NumPy 2.0+；0.7+ 有预编译 wheel）
-2. 读入数据：序列用 `skbio.DNA.read`，树用 `TreeNode.read`，BIOM 表用 `Table.read`
-3. 选链路：序列处理 / 成对比对 / 建树 / 多样性 / 排序 / 统计检验（见下方各示例）
-4. 计数表统一为**整数丰度**（非相对频率），样本×特征；可直接传 ndarray/DataFrame/BIOM/AnnData（0.7+ dispatch）
-5. 系统发育多样性指标须同时传 `tree=` 与 `taxa=`（特征名→树叶映射）
-6. 排序/检验吃 `DistanceMatrix`；显著性检验用 999+ 次置换
-7. 写盘：`seq.write` / `tree.write` / `pcoa_results.write` / `dm.write`
+Work with biological sequences using specialized classes for DNA, RNA, and protein data.
 
-## 指令
+**Key operations:**
+- Read/write sequences from FASTA, FASTQ, GenBank, EMBL formats
+- Sequence slicing, concatenation, and searching
+- Reverse complement, transcription (DNA→RNA), and translation (RNA→protein)
+- Find motifs and patterns using regex
+- Calculate distances (Hamming, k-mer based)
+- Handle sequence quality scores and metadata
 
-- 序列类：`DNA`/`RNA`/`Protein` 带字母表校验，`Sequence` 不限字母表；FASTQ 质量分自动进 positional metadata。
-- 比对引擎是 0.7.0 引入的 `pair_align`（替代已移除的 SSW 与已弃用的纯 Python 比对器）；便捷封装 `pair_align_nucl`（类 BLASTN）、`pair_align_prot`（类 BLASTP，BLOSUM62）。
-- `sub_score` 收 `(match, mismatch)` 元组或矩阵名（`'NUC.4.4'`、`'BLOSUM62'`）；`gap_cost` 收单值（线性）或 `(open, extend)`（仿射）。
-- 建树：`nj`/`upgma` 经典法，大树用 `gme`/`bme` 并用 `nni` 精修；`cophenet()`（原 `tip_tip_distances`）出 patristic 距离矩阵；`compare_rfd` 是 Robinson-Foulds。
-- 多样性 API 改名：旧 `otu_ids` → `taxa=`，`observed_otus` → `observed_features`/`sobs`；alpha 返回 `pandas.Series`，beta 返回 `DistanceMatrix`。
-
-## 示例
-
+**Common patterns:**
 ```python
 import skbio
-from skbio import DNA, Protein, TreeNode, DistanceMatrix
-from skbio.alignment import pair_align_nucl, pair_align_prot, pair_align, TabularMSA
-from skbio.tree import nj
-from skbio.diversity import alpha_diversity, beta_diversity
-from skbio.stats.ordination import pcoa
-from skbio.stats.distance import permanova, mantel
 
-# 1. 序列操作
-seq = DNA.read('input.fasta')
-rc      = seq.reverse_complement()
-protein = seq.transcribe().translate()
-hits    = seq.find_with_regex('ATG[ACGT]{3}')
-seq_ng  = seq.degap()
+# Read sequences from file
+seq = skbio.DNA.read('input.fasta')
 
-# 2. 成对比对
-s1, s2 = DNA('ACTACCAGATTACTTACGGATCAGG'), DNA('CGAAACTACTAGATTACGGATCTTA')
-aln  = pair_align_nucl(s1, s2)        # BLASTN-like
-print(aln.score)
-path = aln.paths[0]                   # PairAlignPath，repr 显示 CIGAR
-gapped = path.to_aligned((s1, s2))
-msa  = TabularMSA.from_path_seqs(path, (s1, s2))
-aln_local = pair_align(s1, s2, mode='local')                       # Smith-Waterman
-aln_aff   = pair_align(s1, s2, sub_score=(2, -3), gap_cost=(5, 2)) # 仿射 gap
-aln_prot  = pair_align_prot(Protein('HEAGAWGHEE'), Protein('PAWHEAE'))
+# Sequence operations
+rc = seq.reverse_complement()
+rna = seq.transcribe()
+protein = rna.translate()
 
-# 3. 建树（从距离矩阵）
-tree = nj(distance_matrix)
-lca  = tree.lca(['taxon1', 'taxon2'])
-cophenetic_dm = tree.cophenet()
-rf   = tree.compare_rfd(other_tree)
+# Find motifs
+motif_positions = seq.find_with_regex('ATG[ACGT]{3}')
 
-# 4. 多样性（系统发育指标需 tree + taxa）
-shan = alpha_diversity('shannon', counts, ids=sample_ids)
-fpd  = alpha_diversity('faith_pd', counts, ids=sample_ids, tree=tree, taxa=feature_ids)
-bc   = beta_diversity('braycurtis', counts, ids=sample_ids)
-uni  = beta_diversity('unweighted_unifrac', counts, ids=sample_ids,
-                      tree=tree, taxa=feature_ids)
-
-# 5. 排序 + 统计检验
-res = pcoa(bc, dimensions=3)
-pc1, pc2 = res.samples['PC1'], res.samples['PC2']
-fig = res.plot(sample_metadata, column='bodysite')
-pm  = permanova(bc, grouping, permutations=999)
-print(pm['p-value'])
-r, p = mantel(dm1, dm2, method='pearson', permutations=999)[:2]
+# Check for properties
+has_degens = seq.has_degenerates()
+seq_no_gaps = seq.degap()
 ```
 
-典型微生物组工作流：读 BIOM 表 → 算 alpha/beta 多样性 → PCoA 排序 → PERMANOVA 检验。
+**Important notes:**
+- Use `DNA`, `RNA`, `Protein` classes for grammared sequences with validation
+- Use `Sequence` class for generic sequences without alphabet restrictions
+- Quality scores automatically loaded from FASTQ files into positional metadata
+- Metadata types: sequence-level (ID, description), positional (per-base), interval (regions/features)
 
+### 2. Sequence Alignment
+
+Perform pairwise and multiple sequence alignments using the `pair_align` engine (introduced in scikit-bio 0.7.0), a versatile and efficient dynamic-programming aligner.
+
+**Key capabilities:**
+- Global, local, and semi-global alignment (free ends configurable) in one function
+- Convenience wrappers `pair_align_nucl` (BLASTN-like) and `pair_align_prot` (BLASTP-like)
+- Configurable scoring: match/mismatch tuple or named substitution matrix; linear or affine gap penalties
+- `PairAlignPath` results carry CIGAR strings and convert to aligned sequences
+- Multiple sequence alignment storage and manipulation with `TabularMSA`
+
+**Common patterns:**
+```python
+from skbio import DNA, Protein
+from skbio.alignment import pair_align_nucl, pair_align_prot, pair_align, TabularMSA
+
+# Nucleotide alignment with BLASTN-like defaults
+seq1, seq2 = DNA('ACTACCAGATTACTTACGGATCAGG'), DNA('CGAAACTACTAGATTACGGATCTTA')
+aln = pair_align_nucl(seq1, seq2)
+aln.score                                  # alignment score (float)
+path = aln.paths[0]                        # PairAlignPath (repr shows CIGAR)
+aligned_seqs = path.to_aligned((seq1, seq2))  # list of gapped strings
+
+# Build a TabularMSA from the alignment path + original sequences
+msa = TabularMSA.from_path_seqs(path, (seq1, seq2))
+
+# Customize the algorithm via pair_align (default mode='global')
+aln = pair_align(seq1, seq2, mode='local')                       # Smith-Waterman
+aln = pair_align(seq1, seq2, sub_score=(2, -3), gap_cost=(5, 2)) # affine gaps
+aln = pair_align(seq1, seq2, sub_score='NUC.4.4', gap_cost=3)    # substitution matrix, linear gap
+
+# Protein alignment (BLASTP-like, BLOSUM62)
+aln = pair_align_prot(Protein('HEAGAWGHEE'), Protein('PAWHEAE'))
+
+# Read a multiple alignment from file and summarize
+msa = TabularMSA.read('alignment.fasta', constructor=DNA)
+consensus = msa.consensus()
+```
+
+**Important notes:**
+- `pair_align` replaces the removed SSW wrapper (`local_pairwise_align_ssw`, `StripedSmithWaterman`) and the deprecated pure-Python aligners (`global_pairwise_align`, `local_pairwise_align_nucleotide`, etc.)
+- The result is a `PairAlignResult` that also unpacks as `score, paths, matrices` (use `keep_matrices=True` to retain the DP matrix)
+- `sub_score` accepts a `(match, mismatch)` tuple or a matrix name (e.g., `'NUC.4.4'`, `'BLOSUM62'`); `gap_cost` accepts a single number (linear) or `(open, extend)` tuple (affine)
+- Parse external CIGAR strings with `PairAlignPath.from_cigar('1I8M2D5M2I')`; score an existing alignment with `align_score(...)` and build a distance matrix from an MSA with `align_dists(...)`
+
+### 3. Phylogenetic Trees
+
+Construct, manipulate, and analyze phylogenetic trees representing evolutionary relationships.
+
+**Key capabilities:**
+- Tree construction from distance matrices (UPGMA/WPGMA, Neighbor Joining, GME, BME)
+- Tree rearrangement with nearest neighbor interchange (`nni`)
+- Tree manipulation (pruning, rerooting, traversal)
+- Distance calculations (patristic via `cophenet`, Robinson-Foulds via `compare_rfd`)
+- ASCII visualization
+- Newick format I/O
+
+**Common patterns:**
+```python
+from skbio import TreeNode
+from skbio.tree import nj, upgma, gme, bme, rf_dists
+
+# Read tree from file
+tree = TreeNode.read('tree.nwk')
+
+# Construct tree from distance matrix
+tree = nj(distance_matrix)
+
+# Tree operations
+subtree = tree.shear(['taxon1', 'taxon2', 'taxon3'])
+tips = [node for node in tree.tips()]
+lca = tree.lca(['taxon1', 'taxon2'])
+
+# Calculate distances
+patristic_dist = tree.find('taxon1').distance(tree.find('taxon2'))
+cophenetic_dm = tree.cophenet()           # patristic distance matrix among tips
+
+# Compare two trees (Robinson-Foulds)
+rf_distance = tree.compare_rfd(other_tree)
+# Pairwise RF distances among many trees -> DistanceMatrix
+rf_dm = rf_dists([tree, other_tree, third_tree])
+```
+
+**Important notes:**
+- Use `nj()` for neighbor joining (classic phylogenetic method)
+- Use `upgma()` for UPGMA/WPGMA (assumes molecular clock)
+- GME and BME are highly scalable for large trees; refine topology with `nni()`
+- `cophenet()` (formerly `tip_tip_distances`) returns the patristic distance matrix; `compare_rfd()` is the Robinson-Foulds method (`compare_wrfd`/`compare_cophenet` for weighted/cophenetic variants)
+- `lca()` is the lowest common ancestor; `lowest_common_ancestor` remains as an alias
+- Trees can be rooted or unrooted; some metrics require specific rooting
+
+### 4. Diversity Analysis
+
+Calculate alpha and beta diversity metrics for microbial ecology and community analysis.
+
+**Key capabilities:**
+- Alpha diversity: richness (`sobs`, `observed_features`, `chao1`, `ace`), Shannon, Simpson, Hill numbers (`hill`), Faith's PD (`faith_pd`), generalized PD (`phydiv`), Pielou's evenness
+- Beta diversity: Bray-Curtis, Jaccard, weighted/unweighted UniFrac, Euclidean distances
+- Phylogenetic diversity metrics (require tree input)
+- Rarefaction and subsampling
+- Integration with ordination and statistical tests
+
+**Common patterns:**
+```python
+from skbio.diversity import alpha_diversity, beta_diversity
+
+# Alpha diversity (phylogenetic metrics take taxa= for tip-name mapping)
+alpha = alpha_diversity('shannon', counts_matrix, ids=sample_ids)
+faith_pd = alpha_diversity('faith_pd', counts_matrix, ids=sample_ids,
+                           tree=tree, taxa=feature_ids)
+
+# Beta diversity
+bc_dm = beta_diversity('braycurtis', counts_matrix, ids=sample_ids)
+unifrac_dm = beta_diversity('unweighted_unifrac', counts_matrix,
+                            ids=sample_ids, tree=tree, taxa=feature_ids)
+
+# Get available metrics
+from skbio.diversity import get_alpha_diversity_metrics
+print(get_alpha_diversity_metrics())
+```
+
+**Important notes:**
+- Counts must be integers representing abundances, not relative frequencies
+- The phylogenetic-metric argument is `taxa=` (renamed from `otu_ids` in 0.6.0; the old name is a deprecated alias); `observed_otus` is now `observed_features` (or `sobs`)
+- `counts_matrix` may be any table-like input (NumPy array, pandas/polars DataFrame, BIOM `Table`, or AnnData) via the dispatch system
+- Phylogenetic metrics (Faith's PD, UniFrac) require tree and taxa-to-tip mapping
+- Use `partial_beta_diversity()` for specific sample pairs, or `block_beta_diversity()` for large block-decomposed calculations
+- Alpha diversity returns a `pandas.Series`, beta diversity returns a `DistanceMatrix`
+
+### 5. Ordination Methods
+
+Reduce high-dimensional biological data to visualizable lower-dimensional spaces.
+
+**Key capabilities:**
+- PCoA (Principal Coordinate Analysis) from distance matrices
+- CA (Correspondence Analysis) for contingency tables
+- CCA (Canonical Correspondence Analysis) with environmental constraints
+- RDA (Redundancy Analysis) for linear relationships
+- Biplot projection for feature interpretation
+
+**Common patterns:**
+```python
+from skbio.stats.ordination import pcoa, cca
+import skbio
+
+# PCoA from distance matrix (limit dimensions for large matrices)
+pcoa_results = pcoa(distance_matrix, dimensions=3)
+pc1 = pcoa_results.samples['PC1']
+pc2 = pcoa_results.samples['PC2']
+
+# Built-in scatter plot colored by a metadata column
+fig = pcoa_results.plot(sample_metadata, column='bodysite')
+
+# CCA with environmental variables
+cca_results = cca(species_matrix, environmental_matrix)
+
+# Save/load ordination results
+pcoa_results.write('ordination.txt')
+results = skbio.OrdinationResults.read('ordination.txt')
+```
+
+**Important notes:**
+- PCoA works with any distance/dissimilarity matrix; pass `dimensions` as an int (count) or a float in (0, 1] (fraction of cumulative variance to retain)
+- `OrdinationResults` exposes pandas-based attributes: `samples`, `features`, `eigvals`, `proportion_explained`, `biplot_scores`, `sample_constraints`
+- CCA reveals environmental drivers of community composition
+- `OrdinationResults.plot()` produces a matplotlib figure; results also integrate with seaborn/plotly
+
+### 6. Statistical Testing
+
+Perform hypothesis tests specific to ecological and biological data.
+
+**Key capabilities:**
+- PERMANOVA: test group differences using distance matrices
+- ANOSIM: alternative test for group differences
+- PERMDISP: test homogeneity of group dispersions
+- Mantel test: correlation between distance matrices
+- Bioenv: find environmental variables correlated with distances
+- Differential abundance: `ancom`, `dirmult_ttest`, and `dirmult_lme` (longitudinal mixed-effects) in `skbio.stats.composition`
+
+**Common patterns:**
+```python
+from skbio.stats.distance import permanova, anosim, mantel
+
+# Test if groups differ significantly
+permanova_results = permanova(distance_matrix, grouping, permutations=999)
+print(f"p-value: {permanova_results['p-value']}")
+
+# ANOSIM test
+anosim_results = anosim(distance_matrix, grouping, permutations=999)
+
+# Mantel test between two distance matrices
+mantel_results = mantel(dm1, dm2, method='pearson', permutations=999)
+print(f"Correlation: {mantel_results[0]}, p-value: {mantel_results[1]}")
+
+# Differential abundance on a feature table (raw counts recommended)
+from skbio.stats.composition import dirmult_ttest
+da = dirmult_ttest(counts_table, grouping, treatment='caseA', reference='control')
+```
+
+**Important notes:**
+- Permutation tests provide non-parametric significance testing
+- Use 999+ permutations for robust p-values
+- PERMANOVA sensitive to dispersion differences; pair with PERMDISP
+- Mantel tests assess matrix correlation (e.g., geographic vs genetic distance)
+- Supply differential-abundance tests with raw counts, not pre-normalized proportions, to preserve magnitude information
+
+### 7. File I/O and Format Conversion
+
+Read and write 19+ biological file formats with automatic format detection.
+
+**Supported formats:**
+- Sequences: FASTA, FASTQ, GenBank, EMBL, QSeq
+- Alignments: Clustal, PHYLIP, Stockholm
+- Trees: Newick
+- Tables: BIOM (HDF5 and JSON)
+- Distances: delimited square matrices
+- Analysis: BLAST+6/7, GFF3, Ordination results
+- Metadata: TSV/CSV with validation
+
+**Common patterns:**
+```python
+import skbio
+
+# Read with automatic format detection
+seq = skbio.DNA.read('file.fasta', format='fasta')
+tree = skbio.TreeNode.read('tree.nwk')
+
+# Write to file
+seq.write('output.fasta', format='fasta')
+
+# Generator for large files (memory efficient)
+for seq in skbio.io.read('large.fasta', format='fasta', constructor=skbio.DNA):
+    process(seq)
+
+# Convert formats
+seqs = list(skbio.io.read('input.fastq', format='fastq', constructor=skbio.DNA))
+skbio.io.write(seqs, format='fasta', into='output.fasta')
+```
+
+**Important notes:**
+- Use generators for large files to avoid memory issues
+- Format can be auto-detected when `into` parameter specified
+- Some objects can be written to multiple formats
+- Support for stdin/stdout piping with `verify=False`
+
+### 8. Distance Matrices
+
+Create and manipulate distance/dissimilarity matrices with statistical methods.
+
+**Key capabilities:**
+- Store symmetric (`DistanceMatrix`, hollow diagonal) or general pairwise (`PairwiseMatrix`) data
+- ID-based indexing and slicing
+- Integration with diversity, ordination, and statistical tests
+- Read/write delimited text format
+
+**Common patterns:**
+```python
+from skbio import DistanceMatrix
+import numpy as np
+
+# Create from array
+data = np.array([[0, 1, 2], [1, 0, 3], [2, 3, 0]])
+dm = DistanceMatrix(data, ids=['A', 'B', 'C'])
+
+# Access distances
+dist_ab = dm['A', 'B']
+row_a = dm['A']
+
+# Read from file
+dm = DistanceMatrix.read('distances.txt')
+
+# Use in downstream analyses
+pcoa_results = pcoa(dm)
+permanova_results = permanova(dm, grouping)
+```
+
+**Important notes:**
+- `DistanceMatrix` enforces symmetry and a zero (hollow) diagonal; it is a subclass of `SymmetricMatrix`
+- `PairwiseMatrix` (renamed from `DissimilarityMatrix`, which is kept as a deprecated alias) allows general/asymmetric values
+- IDs enable integration with metadata and biological knowledge
+- Compatible with pandas, numpy, and scikit-learn
+
+### 9. Biological Tables
+
+Work with feature tables (OTU/ASV tables) common in microbiome research.
+
+**Key capabilities:**
+- BIOM format I/O (HDF5 and JSON) via the native `Table` class
+- Table dispatch system (0.7.0+): functions accept any `table_like` input — BIOM `Table`, pandas/polars DataFrame, NumPy array, or AnnData — without explicit conversion
+- Data augmentation techniques (`phylomix`, `mixup`, `aitchison_mixup`, `compos_cutmix`)
+- Sample/feature filtering and normalization
+- Metadata integration
+
+**Common patterns:**
 ```python
 from skbio import Table
+from skbio.diversity import beta_diversity
+
+# Read BIOM table
 table = Table.read('table.biom')
+
+# Access data
+sample_ids = table.ids(axis='sample')
+feature_ids = table.ids(axis='observation')
+counts = table.matrix_data
+
+# Filter
+filtered = table.filter(sample_ids_to_keep, axis='sample')
+
+# Pass table-like objects directly to scikit-bio drivers (dispatch system)
 import pandas as pd
-df = pd.read_table('data.tsv', index_col=0)   # 样本×特征
-bdiv = beta_diversity('braycurtis', df)        # dispatch，无需手动转换
+df = pd.read_table('data.tsv', index_col=0)   # samples x features
+bdiv = beta_diversity('braycurtis', df)         # no manual conversion needed
 ```
 
-## 注意事项
+**Important notes:**
+- BIOM tables are standard in QIIME 2 workflows
+- Rows typically represent samples, columns represent features (OTUs/ASVs)
+- Supports sparse and dense representations
+- With the dispatch system, functions return the same format as their input, or a user-specified output format
 
-- **计数须为整数丰度**，不是相对频率；差异丰度检验（`dirmult_ttest`/`ancom`，在 `skbio.stats.composition`）也要喂原始计数以保留量级。
-- **系统发育多样性必给 `tree=` + `taxa=`**（特征名→树叶映射），否则无法计算 Faith's PD / UniFrac。
-- **PERMANOVA 对组间离散度敏感**：配合 `permdisp` 一起看；置换次数 ≥ 999 才有稳健 p 值。
-- **PCoA `dimensions`**：传 int 限维数，传 (0,1] 的 float 限累计方差占比；大矩阵务必限维。
-- **大文件用生成器**：`skbio.io.read(..., constructor=skbio.DNA)` 逐条处理省内存；大树优先 GME/BME 而非 NJ；beta 可用 `partial_beta_diversity`/`block_beta_diversity` 分块并行。
-- **BIOM 选 HDF5** 而非 JSON 更高效；表行通常是样本、列是特征（OTU/ASV）。
-- API 改名提醒：`tip_tip_distances→cophenet`、`lowest_common_ancestor→lca`(保留别名)、`DissimilarityMatrix→PairwiseMatrix`(保留弃用别名)、`otu_ids→taxa`。
-- 与生态打通：序列经标准格式与 Biopython 互通；表与 pandas/polars/AnnData 互通；距离矩阵兼容 scikit-learn；与 QIIME 2 工件（BIOM/树/距离矩阵）无缝衔接。
+### 10. Protein Embeddings
 
-## 互见
+Work with protein language model embeddings for downstream analysis.
 
-- related：`genomic-file-toolkit` —— 测序文件格式转换/索引等常规处理
-- related：`single-cell-rnaseq-analysis` —— 单细胞表达探索另走 scanpy
-- related：`protein-language-models` —— skbio 的 `ProteinEmbedding` 可把蛋白嵌入转距离矩阵/排序，对接此条
-- related：`scientific-database-lookup` —— 查序列/物种/通路注释
-- combines_with：`nextflow-pipeline-builder` —— 把本条分析步骤编排进可复现流水线
-- combines_with：`gene-set-enrichment-analysis` —— 多样性/差异结果接富集分析
+**Key capabilities:**
+- Store embeddings from protein language models (ESM, ProtTrans, etc.)
+- Convert embeddings to distance matrices
+- Generate ordination objects for visualization
+- Export to numpy/pandas for ML workflows
 
----
+**Common patterns:**
+```python
+from skbio.embedding import ProteinEmbedding, ProteinVector
 
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT），适配重写而非逐字翻译。
+# Create embedding from array
+embedding = ProteinEmbedding(embedding_array, sequence_ids)
+
+# Convert to distance matrix for analysis
+dm = embedding.to_distances(metric='euclidean')
+
+# PCoA visualization of embedding space
+pcoa_results = embedding.to_ordination(metric='euclidean', method='pcoa')
+
+# Export for machine learning
+array = embedding.to_array()
+df = embedding.to_dataframe()
+```
+
+**Important notes:**
+- Embeddings bridge protein language models with traditional bioinformatics
+- Compatible with scikit-bio's distance/ordination/statistics ecosystem
+- SequenceEmbedding and ProteinEmbedding provide specialized functionality
+- Useful for sequence clustering, classification, and visualization
+
+## Best Practices
+
+### Installation
+```bash
+uv pip install scikit-bio
+```
+Requires Python 3.10+ and NumPy 2.0+. Pre-compiled wheels are published for each release since 0.7.0, so most platforms install without a compiler. Conda users can instead run `conda install -c conda-forge scikit-bio`.
+
+### Performance Considerations
+- Use generators for large sequence files to minimize memory usage
+- For massive phylogenetic trees, prefer GME or BME over NJ
+- Beta diversity calculations can be parallelized with `partial_beta_diversity()`
+- BIOM format (HDF5) more efficient than JSON for large tables
+
+### Integration with Ecosystem
+- Sequences interoperate with Biopython via standard formats
+- Tables integrate with pandas, polars, and AnnData
+- Distance matrices compatible with scikit-learn
+- Ordination results visualizable with matplotlib/seaborn/plotly
+- Works seamlessly with QIIME 2 artifacts (BIOM, trees, distance matrices)
+
+### Common Workflows
+1. **Microbiome diversity analysis**: Read BIOM table → Calculate alpha/beta diversity → Ordination (PCoA) → Statistical testing (PERMANOVA)
+2. **Phylogenetic analysis**: Read sequences → Align → Build distance matrix → Construct tree → Calculate phylogenetic distances
+3. **Sequence processing**: Read FASTQ → Quality filter → Trim/clean → Find motifs → Translate → Write FASTA
+4. **Comparative genomics**: Read sequences → Pairwise alignment → Calculate distances → Build tree → Analyze clades
+
+## Reference Documentation
+
+For detailed API information, parameter specifications, and advanced usage examples, refer to `references/api_reference.md` which contains comprehensive documentation on:
+- Complete method signatures and parameters for all capabilities
+- Extended code examples for complex workflows
+- Troubleshooting common issues
+- Performance optimization tips
+- Integration patterns with other libraries
+
+## Additional Resources
+
+- Official documentation: https://scikit.bio/docs/latest/
+- GitHub repository: https://github.com/scikit-bio/scikit-bio
+- Changelog: https://github.com/scikit-bio/scikit-bio/blob/main/CHANGELOG.md
+- Reference paper: "scikit-bio: a fundamental Python library for biological omic data," *Nature Methods* (2025), https://www.nature.com/articles/s41592-025-02981-z
+- Forum support: https://forum.qiime2.org (scikit-bio is part of QIIME 2 ecosystem)

@@ -1,11 +1,11 @@
 ---
 name: interview-plan-builder
-title: 结构化面试方案设计
-description: 当为某岗位一次性产出一套可直接用的结构化面试方案时使用；做胜任力建模并产出面试包（面试官分工、按胜任力分组的行为/情境题库及追问、1-4 评分卡、复盘模板）；不适用于面试官打分偏差校准与历史数据分析（用 interview-system-designer）、求职者一侧备战（用 interview-job-coach）；触发词：面试方案、面试题库、评分卡、面试怎么做、胜任力面试
+title: Interview Prep
+description: Create structured interview plans with competency-based questions and scorecards. Trigger with "interview plan for", "interview questions for", "how should we interview", "scorecard for", or when the user is preparing to interview candidates.
 domain: 商业/copy
-triggers: [面试方案, 面试题库, 评分卡, 面试怎么做, 胜任力面试, 结构化面试, interview plan, interview questions, scorecard, 行为面试题, 情境面试题, 面试复盘模板]
-tags: [商业, 招聘, 结构化面试, 胜任力, 评分卡, 行为面试, 题库, 面试官分工]
-level: 进阶
+triggers: [interview plan, interview questions, scorecard]
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,91 +16,35 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 结构化面试方案设计
+# Interview Prep
 
-为某个具体岗位一次性产出一套**可直接落地**的结构化面试方案：把岗位拆成胜任力，为每项胜任力配题，给出统一评分量规和复盘模板，让多位面试官以同一口径、基于证据而非直觉来评估候选人。
+Create structured interview plans to evaluate candidates consistently and fairly.
 
-## 何时使用
+## Interview Design Principles
 
-- 要开一个岗位、需要一套「下周就能用」的完整面试包（题库 + 评分卡 + 复盘表）。
-- 团队凭感觉面试、各问各的、打分口径不一，需要先立结构。
-- 招聘经理问「这个岗位该怎么面 / 问什么 / 怎么打分」。
+1. **Structured**: Same questions for all candidates in the role
+2. **Competency-based**: Map questions to specific skills and behaviors
+3. **Evidence-based**: Use behavioral and situational questions
+4. **Diverse panel**: Multiple perspectives reduce bias
+5. **Scored**: Use rubrics, not gut feelings
 
-**不该用的边界：**
-- 要对已有面试官的历史打分做偏差/校准分析、设计多轮 loop 编排与去偏机制——那是体系级工作，用 `interview-system-designer`。
-- 候选人一侧的备战、模拟面试、谈薪——用 `interview-job-coach`。
-- 写 JD、入离职、PTO、绩效/PIP 等更宽的人事事务——用 `hr-partner-pro`。
-- 属地劳动法合规裁决、具体法律意见——转交律师，本技能不覆盖。
+## Interview Plan Components
 
-## 设计原则（贯穿全程）
+### Role Competencies
+Define 4-6 key competencies for the role (e.g., technical skills, communication, leadership, problem-solving).
 
-1. **结构化**：同一岗位的所有候选人问同一套核心题，保证可比。
-2. **基于胜任力**：每道题都映射到一项明确的技能或行为，不问「闲聊题」。
-3. **基于证据**：用行为题（过去做过什么）和情境题（会怎么处理），而非主观印象。
-4. **多元面试组**：多位面试官、多视角，降低单点偏见。
-5. **量规打分**：用 1-4 量规打分，不用「感觉不错」。
+### Question Bank
+For each competency, provide:
+- 2-3 behavioral questions ("Tell me about a time...")
+- 1-2 situational questions ("How would you handle...")
+- Follow-up probes
 
-## 步骤
+### Scorecard
+Rate each competency on a consistent scale (1-4) with clear descriptions of what each level looks like.
 
-**1 · 胜任力建模**
-为岗位定义 **4-6 项**关键胜任力（如：技术能力、沟通、领导力、问题解决、协作、岗位专项硬技能）。每项给一句可观察的定义（这岗位上「做得好」长什么样）。
+### Debrief Template
+Structured format for interviewers to share findings and make a decision.
 
-**2 · 面试官分工（谁面什么）**
-把胜任力分配到各位面试官，**每项至少由一人深挖、避免全员都问同一项**。明确每轮时长与负责的胜任力，形成一张分工表。
+## Output
 
-**3 · 按胜任力配题（题库）**
-对**每一项**胜任力给出：
-- 2-3 道**行为题**：「请讲一次你……」（Tell me about a time…）
-- 1-2 道**情境题**：「如果遇到……你会怎么处理」（How would you handle…）
-- 每题配 1-2 个**追问探针**（probe），用来逼出细节、区分「真做过」与「听说过」。
-
-**4 · 评分卡（1-4 量规）**
-每项胜任力用一致的 **1-4** 量表打分，并为每一档写清「长什么样」的描述，让不同面试官对同一表现给出接近的分数：
-
-| 分 | 含义 | 描述要点 |
-|---|---|---|
-| 1 | 明显不足 | 无相关证据 / 出现明显反例 |
-| 2 | 低于要求 | 有零散证据但不稳定、需大量带教 |
-| 3 | 符合要求 | 有清晰、可信、贴合岗位的证据 |
-| 4 | 超出要求 | 证据强、可迁移、能拔高团队水平 |
-
-**5 · 复盘模板（debrief）**
-给面试官一份结构化复盘表：逐项胜任力的打分 + 支撑证据（具体事例，不写形容词）、整体倾向（强烈推荐/推荐/不推荐/强烈不推荐）、以及最终决策口径。**先各自独立记录、再开会汇总**，避免从众。
-
-## 指令
-
-- 输入：岗位名称 + 职级 + JD（或核心职责若干条）。缺 JD 时，先据岗位名反推 4-6 项胜任力并请用户确认。
-- 输出一套完整面试包：①胜任力清单与定义 → ②面试官分工表 → ③按胜任力分组的题库（行为题 + 情境题 + 追问）→ ④1-4 评分卡（每档有描述）→ ⑤复盘模板。
-- 评分量规对所有岗位统一用 1-4，不要临时换标度。
-
-## 示例
-
-岗位「高级后端工程师」，胜任力之一「系统设计」：
-
-- 行为题：「请讲一次你设计的系统在上线后遇到了预期之外的负载，你当时怎么定位和处理的？」
-  - 追问：当时的瓶颈在哪一层？你权衡掉了什么？事后改了什么机制？
-- 情境题：「如果要把一个单体服务在零停机前提下拆成两个服务，你会怎么规划迁移？」
-  - 追问：数据一致性怎么保证？回滚方案是什么？
-
-复盘记录示例（一项）：
-> 系统设计：**3/4**。证据——独立定位到连接池耗尽，给出了带回滚的灰度迁移方案；但对一致性权衡的讨论偏浅。
-
-## 注意事项
-
-- **每道题必须挂在一项胜任力上**；问不出证据的「聊天题」一律删。
-- 行为题优先于情境题：过去真实行为比假设性回答更难造假。
-- 评分卡每一档都要有可观察描述，否则 1-4 仍会退化成「凭感觉」。
-- 复盘**先独立记录再汇总**，先发言的人不应锚定其他人的判断。
-- 同岗位核心题保持一致，否则候选人之间不可比，结构化失去意义。
-- 涉及背景调查、薪酬、属地劳动法等敏感/合规事项，超出本技能范围，转交专业职能或律师。
-
-## 互见
-
-- related：`interview-system-designer` —— 进一步做多轮 loop 编排、面试官打分偏差校准与历史数据分析的体系级升级。
-- related：`interview-job-coach` —— 候选人一侧的对应技能（备战、模拟、谈薪）。
-- combines_with：`hr-partner-pro` —— 配合 JD、入职 30/60/90、员工关系等更宽的人事流程闭环。
-- combines_with：`company-culture-builder` —— 让胜任力与评分口径对齐团队文化与用人标准。
-
----
-
-采编自 anthropics/knowledge-work-plugins（Apache-2.0 许可证）。
+Produce a complete interview kit: panel assignment (who interviews for what), question bank by competency, scoring rubric, and debrief template.

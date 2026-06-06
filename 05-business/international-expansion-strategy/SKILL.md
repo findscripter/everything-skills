@@ -1,11 +1,11 @@
 ---
 name: international-expansion-strategy
-title: 国际市场扩张策略
-description: 当企业要进入新国家/地区、评估海外市场、规划本地化或组建区域团队时使用；做市场打分选择、进入模式决策、合规与本地化清单、分区 GTM 与团队结构落地（产出评分矩阵+扩张方案）；不适用于纯翻译外包、单一国内增长、跨境物流采购执行。触发词：国际扩张、市场进入、本地化、GTM、出海
+title: International Expansion
+description: International market expansion strategy. Market selection, entry modes, localization, regulatory compliance, and go-to-market by region. Use when expanding to new countries, evaluating international markets, planning localization, or building regional teams.
 domain: 商业/growth
-triggers: [国际扩张, 出海, 市场进入, 本地化, localization, GTM, go-to-market, 区域战略, 海外市场评估, 跨境扩张, 新国家进入, 区域团队组建, market entry]
-tags: [商业, growth, 国际化, 市场进入, 本地化, 战略, gtm, c-level]
-level: 进阶
+triggers: [localization, GTM, go-to-market, market entry]
+tags: [growth, gtm, c-level]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,110 +16,96 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# International Expansion
 
-适用：
+Frameworks for expanding into new markets: selection, entry, localization, and execution.
 
-- 评估是否进入某个新国家/地区，需要在多个候选市场间排序取舍。
-- 已选定目标市场，需决定进入模式（远程出口 / 合作伙伴 / 本地团队 / 设立实体 / 收购）。
-- 规划本地化（产品、GTM、运营三层）与合规时间线。
-- 组建区域团队、对齐 C 级各角色在扩张中的分工。
+## Keywords
+international expansion, market entry, localization, go-to-market, GTM, regional strategy, international markets, market selection, cross-border, global expansion
 
-不该用（负边界）：
+## Quick Start
 
-- 仅需把文案/UI 翻译成另一种语言的纯翻译外包工作——本技能强调"文化适配而非逐字翻译"，但不是翻译执行手册。
-- 单一本土市场的增长优化（属一般增长策略，不涉及跨境）。
-- 跨境物流、关税申报、供应链采购等执行级运营事务。
+**Decision sequence:** Market selection → Entry mode → Regulatory assessment → Localization plan → GTM strategy → Team structure → Launch.
 
-核心决策序列：**市场选择 → 进入模式 → 合规评估 → 本地化方案 → GTM 策略 → 团队结构 → 上线**。
+## Market Selection Framework
 
-## 步骤
+### Scoring Matrix
+| Factor | Weight | How to Assess |
+|--------|--------|---------------|
+| Market size (addressable) | 25% | TAM in target segment, willingness to pay |
+| Competitive intensity | 20% | Incumbent strength, market gaps |
+| Regulatory complexity | 20% | Barriers to entry, compliance cost, timeline |
+| Cultural distance | 15% | Language, business practices, buying behavior |
+| Existing traction | 10% | Inbound demand, existing customers, partnerships |
+| Operational complexity | 10% | Time zones, infrastructure, payment systems |
 
-1. **市场选择（打分矩阵）**：用加权矩阵对候选市场打分排序，取分最高者优先。
-2. **进入模式选择**：按"投入/控制力/风险"匹配市场，遵循默认升级路径——出口 → 合作伙伴 → 本地团队 → 实体，随营收增长逐级毕业。
-3. **合规评估（前置硬约束）**：在投入承诺**之前**完成监管评估，明确审批时间线、合规成本与准入壁垒，判断能否在文书完成前先上线。
-4. **本地化方案**：按产品 / GTM / 运营三张清单逐项落实。
-5. **GTM 策略**：基于本地购买行为重做信息传递、渠道、本地案例与社会证明，禁止照搬母市场。
-6. **团队结构**：按 C 级角色分工对齐资源（见下表），先验证需求再招本地团队。
-7. **上线**：执行并回看关键问题清单。
+### Entry Modes
+| Mode | Investment | Control | Risk | Best For |
+|------|-----------|---------|------|----------|
+| **Export** (sell remotely) | Low | Low | Low | Testing demand |
+| **Partnership** (reseller/distributor) | Medium | Medium | Medium | Markets with strong local requirements |
+| **Local team** (hire in-market) | High | High | High | Strategic markets with proven demand |
+| **Entity** (full subsidiary) | Very high | Full | High | Major markets, regulatory requirement |
+| **Acquisition** | Highest | Full | Highest | Fast market entry with existing base |
 
-## 指令
+**Default path:** Export → Partnership → Local team → Entity (graduate as revenue justifies).
 
-**市场选择打分矩阵（权重固定）**
+## Localization Checklist
 
-| 因素 | 权重 | 评估方式 |
-|------|------|----------|
-| 市场规模（可触达） | 25% | 目标细分的 TAM、付费意愿 |
-| 竞争激烈度 | 20% | 在位者强度、市场空白 |
-| 监管复杂度 | 20% | 准入壁垒、合规成本、时间线 |
-| 文化距离 | 15% | 语言、商业惯例、购买行为 |
-| 现有牵引力 | 10% | 自然流入需求、现有客户、合作 |
-| 运营复杂度 | 10% | 时区、基础设施、支付体系 |
+### Product
+- [ ] Language (UI, documentation, support content)
+- [ ] Currency and pricing (local pricing, not just conversion)
+- [ ] Payment methods (varies wildly by market)
+- [ ] Date/time/number formats
+- [ ] Legal requirements (data residency, privacy)
+- [ ] Cultural adaptation (not just translation)
 
-**进入模式对照**
+### Go-to-Market
+- [ ] Messaging adaptation (what resonates locally)
+- [ ] Channel strategy (channels differ by market)
+- [ ] Local case studies and social proof
+- [ ] Local partnerships and integrations
+- [ ] Event/conference presence
+- [ ] Local SEO and content
 
-| 模式 | 投入 | 控制力 | 风险 | 最适合 |
-|------|------|--------|------|--------|
-| 出口（远程销售） | 低 | 低 | 低 | 测试需求 |
-| 合作伙伴（经销/代理） | 中 | 中 | 中 | 强本地化要求的市场 |
-| 本地团队（在地招聘） | 高 | 高 | 高 | 需求已验证的战略市场 |
-| 实体（全资子公司） | 极高 | 完全 | 高 | 大市场、监管强制 |
-| 收购 | 最高 | 完全 | 最高 | 借现有客户基础快速进入 |
+### Operations
+- [ ] Legal entity (if required)
+- [ ] Tax compliance
+- [ ] Employment law (if hiring locally)
+- [ ] Customer support (hours, language)
+- [ ] Banking and payments
 
-**默认路径**：出口 → 合作伙伴 → 本地团队 → 实体（随营收逐级升级）。
+## Key Questions
 
-**本地化清单**
+- "Is there pull from the market, or are we pushing?"
+- "What's the cost of entry vs the 3-year revenue opportunity?"
+- "Can we serve this market from HQ, or do we need boots on the ground?"
+- "What's the regulatory timeline? Can we launch before the paperwork is done?"
+- "Who's winning in this market and what would it take to displace them?"
 
-- 产品：语言（UI/文档/支持）、币种与本地定价（非简单汇率换算）、本地支付方式、日期/时间/数字格式、法律要求（数据驻留、隐私）、文化适配。
-- GTM：信息传递适配、渠道策略、本地案例与社会证明、本地合作与集成、活动/会议露出、本地 SEO 与内容。
-- 运营：法律实体（如需）、税务合规、雇佣法（本地招聘时）、客户支持（时区与语言）、银行与支付。
+## Common Mistakes
 
-**C 级角色分工**
+| Mistake | Why It Happens | Prevention |
+|---------|---------------|------------|
+| Entering too many markets at once | FOMO, board pressure | Max 1-2 new markets per year |
+| Copy-paste GTM from home market | Assuming buyers are the same | Research local buying behavior |
+| Underestimating regulatory cost | "We'll figure it out" | Regulatory assessment BEFORE committing |
+| Hiring too early | Optimism | Prove demand before hiring local team |
+| Wrong pricing (just converting) | Laziness | Research willingness to pay locally |
 
-| 角色 | 贡献 |
-|------|------|
-| CEO | 市场选择、战略承诺 |
-| CFO | 投入测算、ROI 建模、实体结构 |
-| CRO | 营收目标、销售模式适配 |
-| CMO | 定位、渠道策略、本地品牌 |
-| CPO | 本地化路线图、功能优先级 |
-| CTO | 基础设施、数据驻留、扩展性 |
-| CHRO | 本地招聘、雇佣法、薪酬 |
-| COO | 运营搭建、流程适配 |
+## Integration with C-Suite Roles
 
-## 示例
+| Role | Contribution |
+|------|-------------|
+| CEO | Market selection, strategic commitment |
+| CFO | Investment sizing, ROI modeling, entity structure |
+| CRO | Revenue targets, sales model adaptation |
+| CMO | Positioning, channel strategy, local brand |
+| CPO | Localization roadmap, feature priorities |
+| CTO | Infrastructure, data residency, scaling |
+| CHRO | Local hiring, employment law, comp |
+| COO | Operations setup, process adaptation |
 
-**场景：SaaS 公司评估进入欧盟市场**
-
-1. 打分矩阵：欧盟市场规模高（25%×高），但监管复杂度高（GDPR/数据驻留拉低 20% 项），文化距离中等。综合分若高于其他候选则优先。
-2. 进入模式：先以"出口（远程销售）"测试需求，待营收验证后升级到"合作伙伴"或设立实体（GDPR 数据驻留可能强制要求本地实体）。
-3. 合规前置：在投入前完成监管评估，确认数据驻留与隐私时间线——判断能否在实体文书完成前先用合规架构上线。
-4. 本地化：本地币种定价（非汇率换算）、本地支付方式、GDPR 隐私合规、按本地购买行为重做 GTM 信息。
-
-## 注意事项
-
-关键追问（决策前必答）：
-
-- 是市场在"拉"我们，还是我们在"推"？
-- 进入成本 vs 三年营收机会，划算吗？
-- 能从总部远程服务，还是必须"在地有人"？
-- 监管时间线多长？能否在文书完成前上线？
-- 这个市场谁在赢，取代他们要付出什么？
-
-常见错误与防范：
-
-| 错误 | 成因 | 防范 |
-|------|------|------|
-| 一次进入太多市场 | FOMO、董事会压力 | 每年最多 1–2 个新市场 |
-| 照搬母市场 GTM | 误以为买家相同 | 研究本地购买行为 |
-| 低估监管成本 | "到时候再说" | 承诺前先做监管评估 |
-| 招人太早 | 盲目乐观 | 先证明需求再招本地团队 |
-| 定价错误（仅汇率换算） | 偷懒 | 调研本地付费意愿 |
-
-## 互见
-
-- 详细分市场类型进入手册：`references/market-entry-playbook.md`
-- 重点区域专项考量（EU、US、APAC、LATAM）：`references/regional-guide.md`
-
----
-采编自 alirezarezvani/claude-skills（MIT）。
+## Resources
+- `references/market-entry-playbook.md` — detailed entry playbook by market type
+- `references/regional-guide.md` — specific considerations for key regions (EU, US, APAC, LATAM)

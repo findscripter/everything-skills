@@ -1,14 +1,14 @@
 ---
 name: clean-craft-code-review
-title: 整洁代码工艺评审（Uncle Bob）
-description: 当做代码评审、写新代码、重构或讨论架构边界时使用；按 Robert C. Martin（Uncle Bob）的整洁架构/SOLID/坏味道/职业实践给出依赖方向、边界与可落地重构建议，产出"指明文件+原则+1~2 个具体重构"的评审清单；不适用于替代 lint/格式化、自动化测试或语法风格强制；触发词：整洁架构、依赖规则、SOLID、代码评审
+title: Uncle Bob Craft
+description: Use when performing code review, writing or refactoring code, or discussing architecture; complements clean-code and does not replace project linter/formatter.
 domain: 研发/review
-triggers: [整洁架构, 依赖规则, Dependency Rule, SOLID, 代码坏味道, 边界划分, code review, 代码评审, 设计模式滥用, 重构方向, Uncle Bob, clean architecture]
-tags: [整洁架构, solid, code-review, 代码坏味道, 依赖规则, 设计模式, 职业实践, 研发, 评审]
-level: 进阶
+triggers: [Dependency Rule, SOLID, code review, Uncle Bob, clean architecture]
+tags: [solid, code-review]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude-code, cursor, gemini-cli]
+tools: []
 requires: []
 related: [clean-code-principles, brooks-design-lint, adversarial-code-reviewer, code-reviewer]
 combines_with: [backend-architecture-patterns, code-simplifier, legacy-codebase-modernizer]
@@ -16,86 +16,98 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Uncle Bob Craft
 
-聚合 Uncle Bob 全套著作（《整洁代码》《整洁架构》《匠艺整洁之道 The Clean Coder》《敏捷整洁之道 Clean Agile》及设计模式纪律）的工艺与设计判据，用于**评审**和**写**代码。它**只给工艺/设计判据**，与项目 linter/formatter、自动化测试互补，不取代它们。
+Apply Robert C. Martin (Uncle Bob) criteria for **code review and production**: Clean Code, Clean Architecture, The Clean Coder, Clean Agile, and design-pattern discipline. This skill is **complementary** to the existing `@clean-code` skill (which focuses on the Clean Code book) and to your project's linter/formatter—it does not replace them.
 
-- **代码评审**：检查依赖规则、边界、上下文中的 SOLID、坏味道，给出具体重构建议。
-- **重构**：决定提炼什么、边界画在哪、某个设计模式是否值得引入。
-- **架构讨论**：检查分层边界、依赖方向、关注点分离。
-- **设计模式抉择**：判断"正确使用"还是"货物崇拜/过度设计"。
-- **估算与职业操守**：引用 Clean Coder（学会说不、可持续节奏、三点估算）。
-- **敏捷实践**：引用 Clean Agile（铁十字、TDD、重构、结对）。
+## Overview
 
-**不该用的边界**：
+This skill aggregates principles from Uncle Bob's body of work for **reviewing** and **writing** code: naming and functions (via `@clean-code`), architecture and boundaries (Clean Architecture), professionalism and estimation (The Clean Coder), agile values and practices (Clean Agile), and design-pattern use vs misuse. Use it to evaluate structure, dependencies, SOLID in context, code smells, and professional practices. It provides craft and design criteria only—not syntax or style enforcement, which remain the responsibility of your linter and formatter.
 
-- 不替代项目 **linter / formatter**——花括号风格、行宽、缩进等语法/风格交给工具，本技能不管。
-- 不替代**自动化测试**——它可提醒你写测试，但不运行也不生成测试。
-- 不做语法/风格强制；专注结构、依赖、坏味道、职业实践。
-- 名字与函数级的整洁（命名、注释、函数拆分）属另一技能 `clean-code-principles`，本技能引用它而非重复。
+## When to Use This Skill
 
-## 步骤
+- **Code review**: Apply Dependency Rule, boundaries, SOLID, and smell heuristics; suggest concrete refactors.
+- **Refactoring**: Decide what to extract, where to draw boundaries, and whether a design pattern is justified.
+- **Architecture discussion**: Check layer boundaries, dependency direction, and separation of concerns.
+- **Design patterns**: Assess correct use vs cargo-cult or overuse before introducing a pattern.
+- **Estimation and professionalism**: Apply Clean Coder ideas (saying no, sustainable pace, three-point estimates).
+- **Agile practices**: Reference Clean Agile (Iron Cross, TDD, refactoring, pair programming) when discussing process.
+- **Do not use** to replace or override the project's linter, formatter, or automated tests.
 
-**评审代码时（逐项过）：**
+## Aggregators by Source
 
-1. **边界与依赖规则**：确认依赖**指向内层**（用例不依赖 UI / DB 细节、业务规则不依赖框架）。
-2. **上下文中的 SOLID**：仅就**改动到的代码**检查 SRP、OCP、LSP、ISP、DIP，是否有违反。
-3. **坏味道扫描**：按下表逐项扫，**指明文件/区域**地列出。
-4. **具体建议**：给 1~2 个可落地重构（如"提炼为函数 X""引入接口让该层不依赖具体 DB 客户端""把这个用例对 web 框架的 import 反转过来"）。
-5. **测试与匠艺**：测试是否存在；是否有违反职业操守的"以后再修"式压力 hack。
+| Source | Focus | Where to go |
+|--------|--------|-------------|
+| **Clean Code** | Names, functions, comments, formatting, tests, classes, smells | Use `@clean-code` for detail; this skill references it for review/production. |
+| **Clean Architecture** | Dependency Rule, layers, boundaries, SOLID in architecture | See [reference.md](./reference.md) and [references/clean-architecture.md](./references/clean-architecture.md). |
+| **The Clean Coder** | Professionalism, estimation, saying no, sustainable pace | See [reference.md](./reference.md) and [references/clean-coder.md](./references/clean-coder.md). |
+| **Clean Agile** | Values, Iron Cross, TDD, refactoring, pair programming | See [reference.md](./reference.md) and [references/clean-agile.md](./references/clean-agile.md). |
+| **Design patterns** | When to use, misuse, cargo cult | See [reference.md](./reference.md) and [references/design-patterns.md](./references/design-patterns.md). |
 
-**写/重构代码时：**
+## Design Patterns: Use vs Misuse
 
-1. 偏好**短小、单一职责**的函数与类（命名/结构细节用 `clean-code-principles`）。
-2. 依赖**指向内层**：业务规则在中心，适配器在边缘。
-3. 设计模式**仅在重复或变化点出现时**引入，不为"显得企业级"而加。
-4. 重构**小步走**，测试全程保持绿色；先改名/改结构再加行为，一次只清一个坏味道。
+- **Use patterns** when they solve a real design problem (e.g., variation in behavior, lifecycle, or cross-cutting concern), not to look "enterprise."
+- **Avoid cargo cult**: Do not add Factory/Strategy/Repository just because the codebase "should" have them; add them when duplication or rigidity justifies the abstraction.
+- **Signs of misuse**: Pattern name in every class name, layers that only delegate without logic, patterns that make simple code harder to follow.
+- **Rule of thumb**: Introduce a pattern when you feel the third duplication or the second reason to change; name the pattern in code or docs so intent is clear.
 
-## 指令
+## Smells and Heuristics (Summary)
 
-**坏味道与启发式（评审时用它"命名"问题）：**
+| Smell / Heuristic | Meaning |
+|-------------------|--------|
+| **Rigidity** | Small change forces many edits. |
+| **Fragility** | Changes break unrelated areas. |
+| **Immobility** | Hard to reuse in another context. |
+| **Viscosity** | Easy to hack, hard to do the right thing. |
+| **Needless complexity** | Speculative or unused abstraction. |
+| **Needless repetition** | DRY violated; same idea in multiple places. |
+| **Opacity** | Code is hard to understand. |
 
-| 坏味道 | 含义 |
-|---|---|
-| 僵化 Rigidity | 小改动牵连大量修改 |
-| 脆弱 Fragility | 改动击穿不相关区域 |
-| 不可移植 Immobility | 难以在别处复用 |
-| 黏滞 Viscosity | 走捷径容易、做对的事很难 |
-| 无谓复杂 Needless complexity | 投机或未用的抽象 |
-| 无谓重复 Needless repetition | 违反 DRY，同一想法散落多处 |
-| 晦涩 Opacity | 代码难以理解 |
+Full lists (including heuristics C1–T9-style) are in [reference.md](./reference.md). Use these in review to name issues and suggest refactors (extract, move dependency, introduce boundary).
 
-**设计模式：使用 vs 滥用**
+## Review vs Production
 
-- **该用**：解决真实设计问题（行为变化、生命周期、横切关注点）时引入。
-- **避免货物崇拜**：不要因为"应该有"就硬塞 Factory/Strategy/Repository；当重复或僵化逼出抽象时才加。
-- **滥用信号**：每个类名都带模式名；只转发无逻辑的"贴膜"层；模式让简单代码更难读。
-- **经验法则**：到**第三次重复**或**第二个变化轴**时再引入；在代码或文档里点明模式名以传达意图。
+| Context | Apply |
+|---------|--------|
+| **Code review** | Dependency Rule and boundaries; SOLID in context; list smells; suggest one or two concrete refactors (e.g., extract function, invert dependency); check tests and professionalism (tests present, no obvious pressure hacks). |
+| **Writing new code** | Prefer small functions and single responsibility; depend inward (Clean Architecture); write tests first when doing TDD; avoid patterns until duplication or variation justifies them. |
+| **Refactoring** | Identify one smell at a time; refactor in small steps with tests green; improve names and structure before adding behavior. |
 
-**评审 vs 生产 vs 重构**
+## How It Works
 
-| 场景 | 应用 |
-|---|---|
-| 评审 | 依赖规则与边界；上下文 SOLID；列坏味道；提 1~2 个具体重构；查测试与职业操守 |
-| 写新代码 | 小函数+单一职责；依赖向内；做 TDD 时先写测试；重复/变化未出现前不引模式 |
-| 重构 | 一次一个坏味道；小步且测试常绿；先改名与结构再加行为 |
+### When reviewing code
 
-## 示例
+1. **Boundaries and Dependency Rule**: Check that dependencies point inward (e.g., use cases do not depend on UI or DB details). See [references/clean-architecture.md](./references/clean-architecture.md).
+2. **SOLID in context**: Check Single Responsibility, Open/Closed, Liskov, Interface Segregation, Dependency Inversion where they apply to the changed code.
+3. **Smells**: Scan for rigidity, fragility, immobility, viscosity, needless complexity/repetition, opacity; list them with file/area.
+4. **Concrete suggestions**: Propose one or two refactors (e.g., "Extract this into a function named X," "Introduce an interface so this layer does not depend on the concrete DB client").
+5. **Tests and craft**: Note if tests exist and if the change respects sustainable pace (no obvious "we'll fix it later" comments that violate professionalism).
 
-**评审提示词（可直接复制）：**
+### When writing or refactoring code
+
+1. Prefer **small, single-purpose** functions and classes; use `@clean-code` for naming and structure.
+2. Keep **dependencies pointing inward**; put business rules in the center, adapters at the edges.
+3. Introduce **design patterns** only when duplication or variation justifies them.
+4. Refactor in **small steps** with tests staying green.
+
+## Examples
+
+### Example 1: Code review prompt (copy-pasteable)
+
+Use this to ask for an Uncle Bob–oriented review:
 
 ```markdown
-请用 Uncle Bob 工艺判据评审此改动：
-1. 依赖规则与边界 —— 依赖是否都指向内层？
-2. 上下文 SOLID —— 改动到的代码有无违反？
-3. 坏味道 —— 列出僵化/脆弱/不可移植/黏滞/无谓复杂或重复/晦涩。
-4. 给 1~2 个具体重构（如提炼函数、反转依赖）。
-不要重复 lint/format，聚焦结构与设计。
+Please review this change using Uncle Bob craft criteria (@uncle-bob-craft):
+1. Dependency Rule and boundaries — do dependencies point inward?
+2. SOLID in context — any violations in the touched code?
+3. Smells — list rigidity, fragility, immobility, viscosity, needless complexity/repetition, or opacity.
+4. Suggest one or two concrete refactors (e.g., extract function, invert dependency).
+Do not duplicate lint/format; focus on structure and design.
 ```
 
-**前/后：提炼并命名（消除晦涩 + 单一抽象层级）**
+### Example 2: Before/after (extract and name)
 
-改前（一个函数做多件事、意图晦涩）：
+**Before (opacity, does more than one thing):**
 
 ```python
 def process(d):
@@ -106,7 +118,7 @@ def process(d):
     return d
 ```
 
-改后（意图清晰、单一抽象层级）：
+**After (clear intent, single level of abstraction):**
 
 ```python
 def apply_discount(amount: float, discount_type: int) -> float:
@@ -121,21 +133,38 @@ def process(order: dict) -> dict:
     return order
 ```
 
-## 注意事项
+## Best Practices
 
-- 评审时**点名原则与位置**，别只说"违反了 SOLID"。反例→正例："SRP：该函数既解析又持久化，拆成 parse 与 persist"；"依赖规则违反：用例 import 了 web 框架"。
-- **每次评审至少给一个具体重构**（提炼、改名、反转依赖），否则评审无法落地。
-- **始终单独跑项目 linter/formatter 与测试**——不要因为"已经套了 Uncle Bob"就跳过。
-- 别把每个类都套 Factory/Strategy；只在真实设计需求（第三次重复、第二个变化轴）时引入模式。
-- 这些是**摘要不是原书**。完整的 Clean Code 启发式、组件原则（REP/CCP/CRP、ADP/SDP/SAP）与详细案例见原著。
+- ✅ Use `@clean-code` for naming, functions, comments, and formatting; use this skill for architecture, boundaries, SOLID, smells, and process.
+- ✅ In review, name the smell or principle (e.g., "Dependency Rule violation: use case imports from the web framework").
+- ✅ Suggest at least one concrete refactor per review (extract, rename, invert dependency).
+- ✅ Run the project linter and formatter separately; this skill does not replace them.
+- ❌ Do not use this skill to enforce syntax or style; that is the linter's job.
+- ❌ Do not add design patterns without a clear duplication or variation reason.
 
-## 互见
+## Common Pitfalls
 
-- requires：`clean-code-principles` —— 名字/函数/注释级整洁是本技能的基础，本技能在其上补架构、边界、跨书判据。
-- related：`code-reviewer`、`adversarial-code-reviewer`、`api-design-reviewer` —— 把本技能的原则用于差异评审与内联评论。
-- related：`ddd-strategic-design`、`backend-architecture-patterns` —— 高层结构与限界上下文，与依赖规则/边界判据互补。
-- combines_with：`error-handling-patterns` —— 评审错误处理边界时一起用，落实"用异常而非返回码、不返回/传入 null"。
+- **Problem:** Treating every class as needing a Factory or Strategy.  
+  **Solution:** Introduce patterns only when you have a real design need (third duplication, second axis of change).
 
----
+- **Problem:** Review only listing "violates SOLID" without saying where or how.  
+  **Solution:** Point to the file/function and which principle (e.g., "SRP: this function parses and persists; split into parse and persist").
 
-采编自 [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills)（MIT 许可证），内容基于 Robert C. Martin（Uncle Bob）《Clean Code》《Clean Architecture》《The Clean Coder》《Clean Agile》。
+- **Problem:** Skipping the project linter because "we applied Uncle Bob."  
+  **Solution:** This skill is about craft and design; always run the project's lint and format.
+
+## Related Skills
+
+- **`@clean-code`** — Detailed Clean Code book material (names, functions, comments, formatting, tests, classes, smells). Use for day-to-day code quality; use uncle-bob-craft for architecture and cross-book criteria.
+- **`@architecture`** — General architecture decisions and trade-offs. Use when choosing high-level structure; use uncle-bob-craft for Dependency Rule and boundaries.
+- **`@code-review-excellence`** — Code review practices. Combine with uncle-bob-craft for principle-based review.
+- **`@refactor-clean-code`** — Refactoring toward clean code. Use with uncle-bob-craft when refactoring for boundaries and SOLID.
+- **`@test-driven-development`** — TDD workflow. Aligns with Clean Agile and Clean Coder (tests as requirement, sustainable pace).
+
+## Limitations
+
+- **Does not replace the project linter or formatter.** Run lint and format separately; this skill gives design and craft criteria only.
+- **Does not replace automated tests.** It can remind you to write tests (Clean Coder, Clean Agile) but does not run or generate them.
+- **Complementary to tooling.** Use it alongside existing CI, lint, and test suites.
+- **No syntax or style enforcement.** It focuses on structure, dependencies, smells, and professional practice, not on brace style or line length.
+- **Summaries, not the books.** Full Clean Code heuristics, component principles (REP/CCP/CRP, ADP/SDP/SAP), and detailed stories are in the books; we reference the most used parts. See [reference.md](./reference.md) "Scope and attribution."

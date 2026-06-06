@@ -1,14 +1,14 @@
 ---
 name: neuropixels-neural-recording
-title: Neuropixels 神经电生理记录分析
-description: 当分析 Neuropixels 高密度细胞外电生理记录（.ap.bin/.lf.bin/.meta、SpikeGLX/OpenEphys/NWB）需做预处理、漂移校正、spike sorting、质量指标与 unit 筛选时使用；用 SpikeInterface + Kilosort4 跑「原始数据→可发表 curated units」全流程并产出 sorting/质量指标 CSV/Phy/NWB；不适用于钙成像或 LFP/EEG/胞内记录、单细胞 RNA-seq（用 single-cell-rnaseq-analysis）；触发词：Neuropixels、spike sorting、Kilosort4、SpikeGLX、Open Ephys、质量指标、unit curation、细胞外电生理
+title: Neuropixels Data Analysis
+description: Neuropixels neural recording analysis. Load SpikeGLX/OpenEphys data, preprocess, motion correction, Kilosort4 spike sorting, quality metrics, Allen/IBL curation, AI-assisted visual analysis, for Neuropixels 1.0/2.0 extracellular electrophysiology. Use when working with neural recordings, spike sorting, extracellular electrophysiology, or when the user mentions Neuropixels, SpikeGLX, Open Ephys, Kilosort, quality metrics, or unit curation.
 domain: 领域/science
-triggers: [Neuropixels, spike sorting, Kilosort4, SpikeGLX, Open Ephys, 质量指标, unit curation, 细胞外电生理]
+triggers: [Neuropixels, spike sorting, Kilosort4, SpikeGLX, Open Ephys, unit curation]
 tags: [neuropixels, spike-sorting, kilosort, spikeinterface, electrophysiology, neuroscience, quality-metrics, science]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [spikeinterface, kilosort, probeinterface, neo, python, phy, nwb]
+tools: []
 requires: []
 related: [neurokit2-biosignal-processing, dicom-medical-imaging, scientific-exploratory-data-analysis, guided-statistical-analysis]
 combines_with: [matplotlib-visualization, scientific-exploratory-data-analysis]
@@ -16,71 +16,134 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# Neuropixels Data Analysis
 
-当你需要分析 Neuropixels 高密度细胞外电生理记录、把原始数据走到可发表的 curated 单元（units）时使用本条，典型场景：
+## Overview
 
-- 处理 Neuropixels 1.0 / 2.0（单杆 / 4 杆）记录：`.ap.bin`、`.lf.bin`、`.meta`
-- 从 SpikeGLX、Open Ephys 或 NWB 格式载入数据
-- 预处理：高通滤波、CAR（共同参考）、坏道检测
-- 检测并校正运动 / 漂移（drift）
-- spike sorting（Kilosort4 / SpykingCircus2 / Mountainsort5 / Tridesclous2）
-- 计算质量指标（SNR、ISI violations、presence ratio、amplitude cutoff）
-- 用 Allen / IBL 标准做自动 / AI 辅助 curation
-- 导出到 Phy（人工复核）或 NWB
+Comprehensive toolkit for analyzing Neuropixels high-density neural recordings using current best practices from SpikeInterface, Allen Institute, and International Brain Laboratory (IBL). Supports the full workflow from raw data to publication-ready curated units.
 
-**不该用本条的情况**：钙成像 / 双光子、LFP/EEG/MEG、胞内（patch-clamp）记录均不适用——本条专注高密度细胞外锋电位；测序类数据（单细胞 RNA-seq）请用 `single-cell-rnaseq-analysis`。
+## When to Use This Skill
 
-## 硬件与格式速查
+This skill should be used when:
+- Working with Neuropixels recordings (.ap.bin, .lf.bin, .meta files)
+- Loading data from SpikeGLX, Open Ephys, or NWB formats
+- Preprocessing neural recordings (filtering, CAR, bad channel detection)
+- Detecting and correcting motion/drift in recordings
+- Running spike sorting (Kilosort4, SpykingCircus2, Mountainsort5)
+- Computing quality metrics (SNR, ISI violations, presence ratio)
+- Curating units using Allen/IBL criteria
+- Creating visualizations of neural data
+- Exporting results to Phy or NWB
 
-| 探针 | 电极 | 通道 | 备注 |
-|---|---|---|---|
-| Neuropixels 1.0 | 960 | 384 | **必须** 做 `phase_shift` 校正 |
-| Neuropixels 2.0（单杆） | 1280 | 384 | 几何更密 |
-| Neuropixels 2.0（4 杆） | 5120 | 384 | 多脑区记录 |
+## Supported Hardware & Formats
 
-| 格式 | 扩展名 | Reader |
-|---|---|---|
-| SpikeGLX | `.ap.bin` `.lf.bin` `.meta` | `si.read_spikeglx()` |
-| Open Ephys | `.continuous` `.oebin` | `si.read_openephys()` |
+| Probe | Electrodes | Channels | Notes |
+|-------|-----------|----------|-------|
+| Neuropixels 1.0 | 960 | 384 | Requires phase_shift correction |
+| Neuropixels 2.0 (single) | 1280 | 384 | Denser geometry |
+| Neuropixels 2.0 (4-shank) | 5120 | 384 | Multi-region recording |
+
+| Format | Extension | Reader |
+|--------|-----------|--------|
+| SpikeGLX | `.ap.bin`, `.lf.bin`, `.meta` | `si.read_spikeglx()` |
+| Open Ephys | `.continuous`, `.oebin` | `si.read_openephys()` |
 | NWB | `.nwb` | `si.read_nwb()` |
 
-## 步骤
+## Quick Start
 
-1. **载入数据**，按需先截一小段验证流程。
-2. **预处理**：高通 → `phase_shift`（仅 1.0）→ 坏道剔除 → 中值 CAR。
-3. **查漂移（务必先做）**：估计 motion，画 drift map；漂移 >10μm 才做校正。
-4. **spike sorting**：优先 Kilosort4（需 GPU，比 CPU 快 10–50×），无 GPU 退 CPU sorter。
-5. **后处理**：建 `SortingAnalyzer`，算 waveforms/templates/amplitudes/correlograms/unit_locations/quality_metrics。
-6. **curation**：用 Allen / IBL 阈值过滤，边界单元（如 3<snr<8）转人工或 AI 辅助。
-7. **出报告 + 导出**：HTML 报告、Phy、NWB、质量指标 CSV。
-
-## 指令
+### Basic Import and Setup
 
 ```python
 import spikeinterface.full as si
+import neuropixels_analysis as npa
+
+# Configure parallel processing
 job_kwargs = dict(n_jobs=-1, chunk_duration='1s', progress_bar=True)
+```
 
-# 1. 载入（SpikeGLX 最常见）
+### Loading Data
+
+```python
+# SpikeGLX (most common)
 recording = si.read_spikeglx('/path/to/data', stream_id='imec0.ap')
-# 看可用流：streams, ids = si.get_neo_streams('spikeglx', '/path/to/data')  # ['imec0.ap','imec0.lf','nidq']
-# 测试截段：recording = recording.frame_slice(0, int(60 * recording.get_sampling_frequency()))
 
-# 2. 预处理链
+# Open Ephys (common for many labs)
+recording = si.read_openephys('/path/to/Record_Node_101/')
+
+# Check available streams
+streams, ids = si.get_neo_streams('spikeglx', '/path/to/data')
+print(streams)  # ['imec0.ap', 'imec0.lf', 'nidq']
+
+# For testing with subset of data
+recording = recording.frame_slice(0, int(60 * recording.get_sampling_frequency()))
+```
+
+### Complete Pipeline (One Command)
+
+```python
+# Run full analysis pipeline
+results = npa.run_pipeline(
+    recording,
+    output_dir='output/',
+    sorter='kilosort4',
+    curation_method='allen',
+)
+
+# Access results
+sorting = results['sorting']
+metrics = results['metrics']
+labels = results['labels']
+```
+
+## Standard Analysis Workflow
+
+### 1. Preprocessing
+
+```python
+# Recommended preprocessing chain
 rec = si.highpass_filter(recording, freq_min=400)
-rec = si.phase_shift(rec)                 # Neuropixels 1.0 必需，2.0 不需
+rec = si.phase_shift(rec)  # Required for Neuropixels 1.0
 bad_ids, _ = si.detect_bad_channels(rec)
 rec = rec.remove_channels(bad_ids)
 rec = si.common_reference(rec, operator='median')
-rec.save(folder='preprocessed/')          # 存盘避免重算
 
-# 3. spike sorting
-sorting = si.run_sorter('kilosort4', rec, folder='ks4_output')   # 需 GPU
-# CPU 备选：'tridesclous2' / 'spykingcircus2' / 'mountainsort5'
-# print(si.installed_sorters())
+# Or use our wrapper
+rec = npa.preprocess(recording)
+```
 
-# 4. 后处理 + 质量指标
+### 2. Check and Correct Drift
+
+```python
+# Check for drift (always do this!)
+motion_info = npa.estimate_motion(rec, preset='kilosort_like')
+npa.plot_drift(rec, motion_info, output='drift_map.png')
+
+# Apply correction if needed
+if motion_info['motion'].max() > 10:  # microns
+    rec = npa.correct_motion(rec, preset='nonrigid_accurate')
+```
+
+### 3. Spike Sorting
+
+```python
+# Kilosort4 (recommended, requires GPU)
+sorting = si.run_sorter('kilosort4', rec, folder='ks4_output')
+
+# CPU alternatives
+sorting = si.run_sorter('tridesclous2', rec, folder='tdc2_output')
+sorting = si.run_sorter('spykingcircus2', rec, folder='sc2_output')
+sorting = si.run_sorter('mountainsort5', rec, folder='ms5_output')
+
+# Check available sorters
+print(si.installed_sorters())
+```
+
+### 4. Postprocessing
+
+```python
+# Create analyzer and compute all extensions
 analyzer = si.create_sorting_analyzer(sorting, rec, sparse=True)
+
 analyzer.compute('random_spikes', max_spikes_per_unit=500)
 analyzer.compute('waveforms', ms_before=1.0, ms_after=2.0)
 analyzer.compute('templates', operators=['average', 'std'])
@@ -88,68 +151,207 @@ analyzer.compute('spike_amplitudes')
 analyzer.compute('correlograms', window_ms=50.0, bin_ms=1.0)
 analyzer.compute('unit_locations', method='monopolar_triangulation')
 analyzer.compute('quality_metrics')
+
 metrics = analyzer.get_extension('quality_metrics').get_data()
+```
 
-# 5. curation（Allen 保守阈值）
-good_units = metrics.query(
-    "presence_ratio > 0.9 and isi_violations_ratio < 0.5 and amplitude_cutoff < 0.1"
-).index.tolist()
+### 5. Curation
 
-# 6. 导出
+```python
+# Allen Institute criteria (conservative)
+good_units = metrics.query("""
+    presence_ratio > 0.9 and
+    isi_violations_ratio < 0.5 and
+    amplitude_cutoff < 0.1
+""").index.tolist()
+
+# Or use automated curation
+labels = npa.curate(metrics, method='allen')  # 'allen', 'ibl', 'strict'
+```
+
+### 6. AI-Assisted Curation (For Uncertain Units)
+
+When using this skill with Claude Code, Claude can directly analyze waveform plots and provide expert curation decisions. For programmatic API access:
+
+```python
+from anthropic import Anthropic
+
+# Setup API client
+client = Anthropic()
+
+# Analyze uncertain units visually
+uncertain = metrics.query('snr > 3 and snr < 8').index.tolist()
+
+for unit_id in uncertain:
+    result = npa.analyze_unit_visually(analyzer, unit_id, api_client=client)
+    print(f"Unit {unit_id}: {result['classification']}")
+    print(f"  Reasoning: {result['reasoning'][:100]}...")
+```
+
+**Claude Code Integration**: When running within Claude Code, ask Claude to examine waveform/correlogram plots directly - no API setup required.
+
+### 7. Generate Analysis Report
+
+```python
+# Generate comprehensive HTML report with visualizations
+report_dir = npa.generate_analysis_report(results, 'output/')
+# Opens report.html with summary stats, figures, and unit table
+
+# Print formatted summary to console
+npa.print_analysis_summary(results)
+```
+
+### 8. Export Results
+
+```python
+# Export to Phy for manual review
 si.export_to_phy(analyzer, output_folder='phy_export/',
                  compute_pc_features=True, compute_amplitudes=True)
+
+# Export to NWB
 from spikeinterface.exporters import export_to_nwb
 export_to_nwb(rec, sorting, 'output.nwb')
+
+# Save quality metrics
 metrics.to_csv('quality_metrics.csv')
 ```
 
-**漂移检查（sorting 前必做）**：估计 motion 并可视化，仅当最大位移 >10μm 才校正（`preset` 选 `kilosort_like` 快 / `nonrigid_accurate` 适合严重漂移）。
+## Common Pitfalls and Best Practices
 
-**AI 辅助 curation**：在 Claude Code 内可直接让 Claude 查看 waveform/correlogram 图给出判定，无需 API；编程方式则用 anthropic SDK 对边界单元逐个视觉分析。
+1. **Always check drift** before spike sorting - drift > 10μm significantly impacts quality
+2. **Use phase_shift** for Neuropixels 1.0 probes (not needed for 2.0)
+3. **Save preprocessed data** to avoid recomputing - use `rec.save(folder='preprocessed/')`
+4. **Use GPU** for Kilosort4 - it's 10-50x faster than CPU alternatives
+5. **Review uncertain units manually** - automated curation is a starting point
+6. **Combine metrics with AI** - use metrics for clear cases, AI for borderline units
+7. **Document your thresholds** - different analyses may need different criteria
+8. **Export to Phy** for critical experiments - human oversight is valuable
 
-安装：`pip install spikeinterface[full] probeinterface neo`；sorter 按需 `pip install kilosort`（GPU）/ `spykingcircus` / `mountainsort5`；可选 `anthropic`、`ibl-neuropixel ibllib`。
+## Key Parameters to Adjust
 
-## 关键参数
+### Preprocessing
+- `freq_min`: Highpass cutoff (300-400 Hz typical)
+- `detect_threshold`: Bad channel detection sensitivity
 
-- **预处理**：`freq_min` 高通截止 300–400 Hz；`detect_threshold` 坏道检测灵敏度。
-- **运动校正**：`preset` = `kilosort_like`（快）/ `nonrigid_accurate`（严重漂移更准）。
-- **Kilosort4**：`batch_size`（默认 30000）；`nblocks`（长录增大）；`Th_learned`（越低锋电位越多）。
-- **质量指标**：`snr_threshold` 3–5；`isi_violations_ratio` 0.01–0.5；`presence_ratio` 0.5–0.95。
+### Motion Correction
+- `preset`: 'kilosort_like' (fast) or 'nonrigid_accurate' (better for severe drift)
 
-## 示例
+### Spike Sorting (Kilosort4)
+- `batch_size`: Samples per batch (30000 default)
+- `nblocks`: Number of drift blocks (increase for long recordings)
+- `Th_learned`: Detection threshold (lower = more spikes)
 
+### Quality Metrics
+- `snr_threshold`: Signal-to-noise cutoff (3-5 typical)
+- `isi_violations_ratio`: Refractory violations (0.01-0.5)
+- `presence_ratio`: Recording coverage (0.5-0.95)
+
+## Bundled Resources
+
+### scripts/preprocess_recording.py
+Automated preprocessing script:
 ```bash
-# 全流程一条命令（截一段 60s 验证）
-python - <<'PY'
-import spikeinterface.full as si
-rec = si.read_spikeglx('raw_data/recording_g0/recording_g0_imec0', stream_id='imec0.ap')
-rec = rec.frame_slice(0, int(60*rec.get_sampling_frequency()))
-rec = si.common_reference(si.phase_shift(si.highpass_filter(rec, freq_min=400)), operator='median')
-sorting = si.run_sorter('kilosort4', rec, folder='ks4_output')
-print('units:', len(sorting.unit_ids))
-PY
+python scripts/preprocess_recording.py /path/to/data --output preprocessed/
 ```
 
-典型工程目录：`raw_data/` → `preprocessed/` → `motion/` → `sorting_output/` → `analyzer/` → `phy_export/` → `results/`（`quality_metrics.csv` / `curation_labels.json` / `output.nwb`）。
+### scripts/run_sorting.py
+Run spike sorting:
+```bash
+python scripts/run_sorting.py preprocessed/ --sorter kilosort4 --output sorting/
+```
 
-## 注意事项
+### scripts/compute_metrics.py
+Compute quality metrics and apply curation:
+```bash
+python scripts/compute_metrics.py sorting/ preprocessed/ --output metrics/ --curation allen
+```
 
-1. **永远先查漂移** 再 sorting：drift >10μm 会显著拖累质量。
-2. **Neuropixels 1.0 用 `phase_shift`**，2.0 不需要——用错会破坏波形对齐。
-3. **存预处理结果**（`rec.save(folder=...)`）避免重算。
-4. **Kilosort4 用 GPU**：比 CPU 快 10–50×。
-5. **自动 curation 只是起点**，边界单元务必人工 / AI 复核；关键实验导出到 Phy 做人工把关。
-6. **记录你的阈值**：不同分析需不同标准，阈值要可追溯。
-7. 进一步参考：SpikeInterface 文档（spikeinterface.readthedocs.io）、Kilosort4（github.com/MouseLand/Kilosort）、IBL ibl-neuropixel、Allen ecephys_spike_sorting、Bombcell（自动 QC）。
+### scripts/export_to_phy.py
+Export to Phy for manual curation:
+```bash
+python scripts/export_to_phy.py metrics/analyzer --output phy_export/
+```
 
-## 互见
+### assets/analysis_template.py
+Complete analysis template. Copy and customize:
+```bash
+cp assets/analysis_template.py my_analysis.py
+# Edit parameters and run
+python my_analysis.py
+```
 
-- related：`single-cell-rnaseq-analysis` —— 同为 K-Dense 科学计算系，但面向测序而非电生理
-- related：`scientific-database-lookup` —— 查神经科学 / 基因相关数据库
-- combines_with：`nextflow-pipeline-builder` / `snakemake-workflow-engine` —— 把 sorting 多步流程封装成可复现 pipeline
+### references/standard_workflow.md
+Detailed step-by-step workflow with explanations for each stage.
 
----
+### references/api_reference.md
+Quick function reference organized by module.
 
-采编自 K-Dense-AI/scientific-agent-skills（MIT）。
+### references/plotting_guide.md
+Comprehensive visualization guide for publication-quality figures.
 
-> 适配说明：原任务给定 `domain=领域/misc`，但本仓库 `taxonomy.json` 中 09-verticals（领域）卷无 `misc` 类，`scripts/build-index.mjs`（line 108）会对未受控类报 **error**；同源姊妹条目 `single-cell-rnaseq-analysis` 已采用 `领域/science`。故落盘时 frontmatter 应写 `domain: 领域/science` 以通过校验。建议 frontmatter：`license: MIT`、`source: K-Dense-AI/scientific-agent-skills`、`source_license: MIT`、`status: stable`、`agents: [claude-code, codex, cursor, gemini-cli]`。
+## Detailed Reference Guides
+
+| Topic | Reference |
+|-------|-----------|
+| Full workflow | [references/standard_workflow.md](references/standard_workflow.md) |
+| API reference | [references/api_reference.md](references/api_reference.md) |
+| Plotting guide | [references/plotting_guide.md](references/plotting_guide.md) |
+| Preprocessing | [references/PREPROCESSING.md](references/PREPROCESSING.md) |
+| Spike sorting | [references/SPIKE_SORTING.md](references/SPIKE_SORTING.md) |
+| Motion correction | [references/MOTION_CORRECTION.md](references/MOTION_CORRECTION.md) |
+| Quality metrics | [references/QUALITY_METRICS.md](references/QUALITY_METRICS.md) |
+| Automated curation | [references/AUTOMATED_CURATION.md](references/AUTOMATED_CURATION.md) |
+| AI-assisted curation | [references/AI_CURATION.md](references/AI_CURATION.md) |
+| Waveform analysis | [references/ANALYSIS.md](references/ANALYSIS.md) |
+
+## Installation
+
+```bash
+# Core packages
+pip install spikeinterface[full] probeinterface neo
+
+# Spike sorters
+pip install kilosort          # Kilosort4 (GPU required)
+pip install spykingcircus     # SpykingCircus2 (CPU)
+pip install mountainsort5     # Mountainsort5 (CPU)
+
+# Our toolkit
+pip install neuropixels-analysis
+
+# Optional: AI curation
+pip install anthropic
+
+# Optional: IBL tools
+pip install ibl-neuropixel ibllib
+```
+
+## Project Structure
+
+```
+project/
+├── raw_data/
+│   └── recording_g0/
+│       └── recording_g0_imec0/
+│           ├── recording_g0_t0.imec0.ap.bin
+│           └── recording_g0_t0.imec0.ap.meta
+├── preprocessed/           # Saved preprocessed recording
+├── motion/                 # Motion estimation results
+├── sorting_output/         # Spike sorter output
+├── analyzer/               # SortingAnalyzer (waveforms, metrics)
+├── phy_export/             # For manual curation
+├── ai_curation/            # AI analysis reports
+└── results/
+    ├── quality_metrics.csv
+    ├── curation_labels.json
+    └── output.nwb
+```
+
+## Additional Resources
+
+- **SpikeInterface Docs**: https://spikeinterface.readthedocs.io/
+- **Neuropixels Tutorial**: https://spikeinterface.readthedocs.io/en/stable/how_to/analyze_neuropixels.html
+- **Kilosort4 GitHub**: https://github.com/MouseLand/Kilosort
+- **IBL Neuropixel Tools**: https://github.com/int-brain-lab/ibl-neuropixel
+- **Allen Institute ecephys**: https://github.com/AllenInstitute/ecephys_spike_sorting
+- **Bombcell (Automated QC)**: https://github.com/Julie-Fabre/bombcell
+- **SpikeAgent (AI Curation)**: https://github.com/SpikeAgent/SpikeAgent

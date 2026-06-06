@@ -1,14 +1,14 @@
 ---
 name: new-hire-onboarding-plan
-title: 新员工入职计划
-description: 当某岗位已定入职日期、需要为新员工编排入职前清单、Day 1 日程、第一周安排与 30/60/90 天目标时使用；产出按角色定制的入职计划（账号/设备/buddy、Day 1 时段表、关键联系人与工具权限清单、阶段目标，含占位符）；不适用于薪酬谈判、劳动合同/合规裁决与具体法律意见；触发词：入职、onboarding、新员工、Day 1、第一周、30/60/90
+title: New Hire Onboarding Plan
+description: Generate a role-tailored onboarding plan for a new hire with a confirmed start date — pre-start checklist, Day 1 schedule, Week 1 plan, and 30/60/90-day goals; use when prepping accounts/equipment/buddy, scheduling Day 1/Week 1, or setting ramp goals. Not for comp negotiation or 
 domain: 协作/knowledge
-triggers: [入职, onboarding, 新员工, 入职清单, Day 1, 第一周计划, 30/60/90 目标, 入职 buddy, 试用期目标, 新人融入]
-tags: [人力资源, 入职, onboarding, 新员工, 30-60-90, 清单模板, 团队协作]
-level: 入门
+triggers: [onboarding, new hire, Day 1, first week plan, 30/60/90 goals, onboarding buddy, pre-start checklist, ramp plan]
+tags: [human-resources, onboarding, new-hire, 30-60-90, checklist-template, team-collaboration]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit]
+tools: []
 requires: []
 related: [hr-partner-pro, codebase-onboarding-doc, interview-system-designer, process-sop-documenter]
 combines_with: [offer-letter-drafter, codebase-onboarding-doc, company-culture-architect]
@@ -16,102 +16,102 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 新员工入职计划
+## When to use
 
-## 何时使用
-当某岗位已确定到岗日期、要为新员工搭一份可执行的入职计划时使用：覆盖**入职前准备 → Day 1 → 第一周 → 30/60/90 天目标**。输出是一份按角色定制、可直接照做的 Markdown 清单。
+Use this when a role is filled, a start date is confirmed, and you need to build an actionable onboarding plan for the new hire. It covers the full arc: **Pre-Start → Day 1 → Week 1 → 30/60/90-day goals**. The output is a role-tailored, ready-to-execute Markdown checklist.
 
-**不该用它的边界**：
-- 不做薪酬谈判、劳动合同起草、劳动法/属地合规裁决——这些转交 HR 专员或本地律师。
-- 不是面试/招聘体系设计（见互见 `interview-system-designer`），它从「人已录用、即将到岗」开始。
-- 不替代真实的 HRIS/IT 工单——计划列出待办，落地仍需相关系统执行。
+**Out of scope:**
+- No compensation negotiation, employment-contract drafting, or labor-law / jurisdictional compliance rulings — hand those to an HR partner or local counsel.
+- This is not interview or hiring-pipeline design (see related `interview-system-designer`); it starts *after* the candidate is hired and about to join.
+- It does not replace real HRIS/IT tickets — the plan lists the to-dos, but the underlying systems still have to execute them.
 
-## 步骤 / 指令
-1. **收齐 5 个输入**（缺一项就留占位符 `[…]`，不要瞎编）：
-   - 新员工姓名 · 岗位/职位 · 加入团队 · 到岗日期 · 直属经理。
-2. **按角色定制**：工程师、设计师、销售的工具与文档清单不同。据岗位补全「账号/工具」「必读文档」「30/60/90 目标」。
-3. **填四段计划**，套用下方模板：入职前 → Day 1 → 第一周 → 30/60/90 天目标 + 关键联系人 + 工具权限表。
-4. **Day 1 别压满**：Day 1 聚焦环境搭建与关系建立，深度工作从第 2 周起。
-5. **指派一名 buddy**（非直属经理的同伴），写进「关键联系人」。
-6. 若接入了连接器，按「连接器增强」自动拉取/创建，否则全部留占位符待人工补。
+## Steps
 
-## 示例
+1. **Collect the 5 inputs** (if any is missing, leave a `[…]` placeholder — do not invent values):
+   - New hire name · Role/position · Team they're joining · Start date · Manager.
+2. **Tailor to the role.** An engineer, a designer, and a salesperson need different tools, access, and required reading. Fill in the role-specific "accounts/tools", "key docs to read", and "30/60/90 goals" accordingly.
+3. **Fill the four phases** using the template below: Pre-Start → Day 1 → Week 1 → 30/60/90-day goals, plus Key Contacts and a Tools Access table.
+4. **Don't overload Day 1.** Focus Day 1 on setup and relationship-building; deep work starts in Week 2.
+5. **Assign a buddy** — a peer who is *not* their manager — and record them under Key Contacts.
+6. If connectors are wired up, auto-pull/create per "If Connectors Available"; otherwise leave placeholders for a human to fill.
+
+## Example
+
 ```markdown
-## 入职计划：[姓名] — [岗位]
-**到岗日期：** [日期] | **团队：** [团队] | **经理：** [经理]
+## Onboarding Plan: [Name] — [Role]
+**Start Date:** [Date] | **Team:** [Team] | **Manager:** [Manager]
 
-### 入职前（Day 1 之前）
-- [ ] 发欢迎邮件：到岗日期/时间、报到地点与流程
-- [ ] 开通账号：邮箱、IM、[按角色的工具]
-- [ ] 申领设备（笔记本、显示器、外设）
-- [ ] 加入团队日历与例会
-- [ ] 指派入职 buddy：[建议人选]
-- [ ] 准备工位 / 远程环境配置说明
+### Pre-Start (Before Day 1)
+- [ ] Send welcome email with start date, time, and logistics
+- [ ] Set up accounts: email, Slack, [tools for role]
+- [ ] Order equipment (laptop, monitor, peripherals)
+- [ ] Add to team calendar and recurring meetings
+- [ ] Assign onboarding buddy: [Suggested person]
+- [ ] Prepare desk / remote setup instructions
 
 ### Day 1
-| 时间 | 活动 | 同行人 |
-|------|------|--------|
-| 9:00 | 欢迎与入职导览 | 经理 |
-| 10:00 | IT 配置与工具讲解 | IT / Buddy |
-| 11:00 | 团队介绍 | 团队 |
-| 12:00 | 欢迎午餐 | 经理 + 团队 |
-| 13:30 | 公司概览与价值观 | 经理 |
-| 15:00 | 岗位预期与 30/60/90 计划 | 经理 |
-| 16:00 | 自由探索工具与文档 | 自己 |
+| Time | Activity | With |
+|------|----------|------|
+| 9:00 | Welcome and orientation | Manager |
+| 10:00 | IT setup and tool walkthrough | IT / Buddy |
+| 11:00 | Team introductions | Team |
+| 12:00 | Welcome lunch | Manager + Team |
+| 1:30 | Company overview and values | Manager |
+| 3:00 | Role expectations and 30/60/90 plan | Manager |
+| 4:00 | Free time to explore tools and docs | Self |
 
-### 第一周
-- [ ] 完成必修合规培训
-- [ ] 阅读关键文档：[按角色列出]
-- [ ] 与每位团队成员 1:1
-- [ ] 旁听关键会议
-- [ ] 领取首个小任务/项目
-- [ ] 周末与经理 check-in
+### Week 1
+- [ ] Complete required compliance training
+- [ ] Read key documentation: [list for role]
+- [ ] 1:1 with each team member
+- [ ] Shadow key meetings
+- [ ] First small task or project assigned
+- [ ] End-of-week check-in with manager
 
-### 30 天目标
-1. [对齐岗位的目标]
-2. [对齐岗位的目标]
-3. [对齐岗位的目标]
+### 30-Day Goals
+1. [Goal aligned to role]
+2. [Goal aligned to role]
+3. [Goal aligned to role]
 
-### 60 天目标
-1. [目标]
-2. [目标]
+### 60-Day Goals
+1. [Goal]
+2. [Goal]
 
-### 90 天目标
-1. [目标]
-2. [目标]
+### 90-Day Goals
+1. [Goal]
+2. [Goal]
 
-### 关键联系人
-| 人 | 角色 | 找他做什么 |
-|----|------|-----------|
-| [经理] | 经理 | 日常指导 |
-| [Buddy] | 入职 buddy | 答疑、文化、导航 |
-| [IT 联系人] | IT | 工具权限、设备 |
-| [HR 联系人] | HR | 福利、政策 |
+### Key Contacts
+| Person | Role | For What |
+|--------|------|----------|
+| [Manager] | Manager | Day-to-day guidance |
+| [Buddy] | Onboarding Buddy | Questions, culture, navigation |
+| [IT Contact] | IT | Tool access, equipment |
+| [HR Contact] | HR | Benefits, policies |
 
-### 所需工具权限
-| 工具 | 权限级别 | 已申请 |
-|------|---------|--------|
-| [工具] | [级别] | [ ] |
+### Tools Access Needed
+| Tool | Access Level | Requested |
+|------|-------------|-----------|
+| [Tool] | [Level] | [ ] |
 ```
 
-## 连接器增强（若已接入）
-- **HRIS**：拉取新员工资料与团队组织架构；按角色自动填充工具权限表。
-- **知识库**：链接相关入职文档、团队 wiki、runbook；拉取该团队既有入职清单做定制。
-- **日历**：自动创建 Day 1 日程与第一周会议邀约。
+### If Connectors Available
+- **HRIS connected:** pull new hire details and team org chart; auto-populate the tools access list based on role.
+- **Knowledge base connected:** link to relevant onboarding docs, team wikis, and runbooks; pull the team's existing onboarding checklist to customize.
+- **Calendar connected:** create Day 1 calendar events and Week 1 meeting invites automatically.
 
-## 注意事项
-- **务必按角色定制**——工程师与设计师的入职内容差异很大，套模板而不裁剪等于没做。
-- **Day 1 不要排满**——首日重在搭建与关系，留出自由探索时间。
-- **buddy 必须是非经理的同伴**——有个「随时能问的人」对新人融入影响很大。
-- 缺失信息一律用 `[…]` 占位，不要编造姓名、日期或权限级别。
-- 涉及合同、薪酬、合规争议的事项超出本技能范围，转交 HR/律师。
+## Notes
 
-## 互见
-- related：`hr-partner-pro` —— 入职是其人事工作流的一环，可复用其 30/60/90 与 PTO 模板。
-- related：`interview-system-designer` —— 上游环节（招聘选人），本技能从录用后接手。
-- related：`company-culture-builder` —— Day 1「价值观/文化」部分可引用其文化资产。
-- combines_with：`task-decomposition-planner` —— 把 30/60/90 目标拆成可指派、可追踪的任务清单。
-- combines_with：`org-change-management` —— 批量入职/团队扩张时，配合做组织变更与融入管理。
+- **Always customize for the role** — an engineer's onboarding looks very different from a designer's; applying the template without tailoring it is the same as not doing it.
+- **Don't overload Day 1** — the first day is for setup and relationships; leave free time to explore.
+- **The buddy must be a non-manager peer** — having a "someone I can always ask" person makes a huge difference to how fast a new hire settles in.
+- Use `[…]` for any missing information — never fabricate names, dates, or access levels.
+- Contracts, compensation, and compliance disputes are out of scope — route them to HR or counsel.
 
----
-采编自 [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins)（Apache-2.0）。
+## See also
+
+- related `hr-partner-pro` — onboarding is one stage of its broader people-ops workflow; reuse its 30/60/90 and PTO templates.
+- related `interview-system-designer` — the upstream stage (hiring/selection); this skill takes over after the offer is accepted.
+- related `company-culture-builder` — the Day 1 "values/culture" segment can reference its culture assets.
+- combines_with `task-decomposition-planner` — break the 30/60/90 goals into assignable, trackable task lists.
+- combines_with `org-change-management` — for batch onboarding / team scaling, pair with org-change and integration management.

@@ -1,14 +1,14 @@
 ---
 name: geniml-genomic-interval-ml
-title: geniml 基因组区间机器学习
-description: 当处理 BED 文件 / scATAC-seq 等基因组区间数据并需用机器学习学习区间嵌入、构建共识峰、做相似检索与聚类时使用；做 geniml 全流程（分词→Region2Vec/BEDspace/scEmbed 训练→universe 构建→评估检索）并产出嵌入向量、共识 universe.bed 与聚类结果；不适用于变异检测、序列比对、表达定量等非区间嵌入任务。触发词：geniml、Region2Vec、scEmbed、BEDspace、consensus peak、BED 嵌入
+title: Geniml: Genomic Interval Machine Learning
+description: This skill should be used when working with genomic interval data (BED files) for machine learning tasks. Use for training region embeddings (Region2Vec, BEDspace), single-cell ATAC-seq analysis (scEmbed), building consensus peaks (universes), or any ML-based analysis of genomic regions. Applies to BED file collections, scATAC-seq data, chromatin accessibility datasets, and region-based genomic feature learning.
 domain: 领域/science
-triggers: [geniml, Region2Vec, scEmbed, BEDspace, 基因组区间嵌入, consensus peak, 共识峰 universe, scATAC-seq 嵌入, BED 文件机器学习, region2vec 分词训练]
-tags: [领域/misc, 基因组学, 机器学习, 嵌入, 单细胞, bed, scatac-seq, python]
-level: 进阶
+triggers: [geniml, Region2Vec, scEmbed, BEDspace, consensus peak]
+tags: [bed, scatac-seq, python]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [geniml, uv, scanpy, uniwig, StarSpace]
+tools: []
 requires: []
 related: [polars-bio-genomic-intervals, macs3-peak-calling, deeptools-ngs-analysis, encode-database]
 combines_with: [single-cell-rnaseq-analysis]
@@ -16,137 +16,310 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# Geniml: Genomic Interval Machine Learning
 
-当你手头是**基因组区间数据**（BED 文件集合、scATAC-seq 染色质可及性、峰集合），并希望用无监督机器学习把区间 / 单细胞 / 元数据标签映射成向量，进而做相似检索、聚类、降维或下游 ML 时，用 geniml。典型场景：
+## Overview
 
-- 给 BED 文件集合学习区间嵌入做特征向量 → Region2Vec
-- 区间与元数据（细胞类型、组织、条件）联合嵌入、跨模态检索（区间↔标签）→ BEDspace
-- scATAC-seq 单细胞聚类 / 细胞类型注释、与 scanpy 集成 → scEmbed
-- 从多份 BED 构建统计严谨的共识峰参考集（universe）→ Consensus Peaks
+Geniml is a Python package for building machine learning models on genomic interval data from BED files. It provides unsupervised methods for learning embeddings of genomic regions, single cells, and metadata labels, enabling similarity searches, clustering, and downstream ML tasks.
 
-**不该用的边界**：geniml 解决的是「区间嵌入 / 共识峰 / 区间级 ML」。若任务是变异检测、序列比对、基因表达定量、motif 扫描、通路富集等非区间嵌入分析，本技能不适用，应改用对应专用工具（GATK、STAR、DESeq2 等）。另外它要求输入为 BED / AnnData 形式的区间坐标；纯序列 FASTA 不是其输入。
+## Installation
 
-## 步骤
-
-总体顺序：**构建 universe → 分词 → 训练 → 评估 / 检索**。universe（共识峰参考集）是分词的字典，质量决定一切。
-
-### 安装
+Install geniml using uv:
 
 ```bash
-uv pip install geniml          # 基础
-uv pip install 'geniml[ml]'    # 含 PyTorch 等 ML 依赖
-uv pip install git+https://github.com/databio/geniml.git  # 开发版
+uv pip install geniml
 ```
 
-### 1. 构建 universe（共识峰）
-
-四种方法，按统计严谨度递增、算力消耗递增：
-
-- **CC**（Coverage Cutoff）：阈值法，最简单
-- **CCF**（Coverage Cutoff Flexible）：给边界加置信区间
-- **ML**（最大似然）：对位置做概率建模
-- **HMM**（隐马尔可夫）：复杂状态建模，最重
+For ML dependencies (PyTorch, etc.):
 
 ```bash
-cat bed_files/*.bed > combined.bed
-uniwig -m 25 combined.bed chrom.sizes coverage/   # 生成覆盖度轨道
-
-geniml universe build cc \
-  --coverage-folder coverage/ \
-  --output-file universe.bed \
-  --cutoff 5 --merge 100 --filter-size 50
-
-geniml universe evaluate \
-  --universe universe.bed \
-  --coverage-folder coverage/ \
-  --bed-folder bed_files/
+uv pip install 'geniml[ml]'
 ```
 
-### 2. Region2Vec：区间嵌入
+Development version from GitHub:
 
-word2vec 风格无监督学习，三步：分词 → 训练 → 评估。
+```bash
+uv pip install git+https://github.com/databio/geniml.git
+```
+
+## Core Capabilities
+
+Geniml provides five primary capabilities, each detailed in dedicated reference files:
+
+### 1. Region2Vec: Genomic Region Embeddings
+
+Train unsupervised embeddings of genomic regions using word2vec-style learning.
+
+**Use for:** Dimensionality reduction of BED files, region similarity analysis, feature vectors for downstream ML.
+
+**Workflow:**
+1. Tokenize BED files using a universe reference
+2. Train Region2Vec model on tokens
+3. Generate embeddings for regions
+
+**Reference:** See `references/region2vec.md` for detailed workflow, parameters, and examples.
+
+### 2. BEDspace: Joint Region and Metadata Embeddings
+
+Train shared embeddings for region sets and metadata labels using StarSpace.
+
+**Use for:** Metadata-aware searches, cross-modal queries (region→label or label→region), joint analysis of genomic content and experimental conditions.
+
+**Workflow:**
+1. Preprocess regions and metadata
+2. Train BEDspace model
+3. Compute distances
+4. Query across regions and labels
+
+**Reference:** See `references/bedspace.md` for detailed workflow, search types, and examples.
+
+### 3. scEmbed: Single-Cell Chromatin Accessibility Embeddings
+
+Train Region2Vec models on single-cell ATAC-seq data for cell-level embeddings.
+
+**Use for:** scATAC-seq clustering, cell-type annotation, dimensionality reduction of single cells, integration with scanpy workflows.
+
+**Workflow:**
+1. Prepare AnnData with peak coordinates
+2. Pre-tokenize cells
+3. Train scEmbed model
+4. Generate cell embeddings
+5. Cluster and visualize with scanpy
+
+**Reference:** See `references/scembed.md` for detailed workflow, parameters, and examples.
+
+### 4. Consensus Peaks: Universe Building
+
+Build reference peak sets (universes) from BED file collections using multiple statistical methods.
+
+**Use for:** Creating tokenization references, standardizing regions across datasets, defining consensus features with statistical rigor.
+
+**Workflow:**
+1. Combine BED files
+2. Generate coverage tracks
+3. Build universe using CC, CCF, ML, or HMM method
+
+**Methods:**
+- **CC (Coverage Cutoff)**: Simple threshold-based
+- **CCF (Coverage Cutoff Flexible)**: Confidence intervals for boundaries
+- **ML (Maximum Likelihood)**: Probabilistic modeling of positions
+- **HMM (Hidden Markov Model)**: Complex state modeling
+
+**Reference:** See `references/consensus_peaks.md` for method comparison, parameters, and examples.
+
+### 5. Utilities: Supporting Tools
+
+Additional tools for caching, randomization, evaluation, and search.
+
+**Available utilities:**
+- **BBClient**: BED file caching for repeated access
+- **BEDshift**: Randomization preserving genomic context
+- **Evaluation**: Metrics for embedding quality (silhouette, Davies-Bouldin, etc.)
+- **Tokenization**: Region tokenization utilities (hard, soft, universe-based)
+- **Text2BedNN**: Neural search backends for genomic queries
+
+**Reference:** See `references/utilities.md` for detailed usage of each utility.
+
+## Common Workflows
+
+### Basic Region Embedding Pipeline
 
 ```python
 from geniml.tokenization import hard_tokenization
 from geniml.region2vec import region2vec
 from geniml.evaluation import evaluate_embeddings
 
-hard_tokenization(src_folder='bed_files/', dst_folder='tokens/',
-                  universe_file='universe.bed', p_value_threshold=1e-9)
-region2vec(token_folder='tokens/', save_dir='model/',
-           num_shufflings=1000, embedding_dim=100)
-metrics = evaluate_embeddings(embeddings_file='model/embeddings.npy',
-                              labels_file='metadata.csv')
+# Step 1: Tokenize BED files
+hard_tokenization(
+    src_folder='bed_files/',
+    dst_folder='tokens/',
+    universe_file='universe.bed',
+    p_value_threshold=1e-9
+)
+
+# Step 2: Train Region2Vec
+region2vec(
+    token_folder='tokens/',
+    save_dir='model/',
+    num_shufflings=1000,
+    embedding_dim=100
+)
+
+# Step 3: Evaluate
+metrics = evaluate_embeddings(
+    embeddings_file='model/embeddings.npy',
+    labels_file='metadata.csv'
+)
 ```
 
-CLI：`geniml region2vec --token-folder tokens/ --save-dir model/ --num-shuffle 1000`
-
-### 3. BEDspace：区间 + 元数据联合嵌入
-
-基于 StarSpace，把区间集与元数据标签嵌入同一空间，支持 r2l（区间查标签）/ l2r 等检索。流程：预处理 → 训练 → 算距离 → 检索。
-
-```bash
-geniml bedspace preprocess --input regions/ --metadata labels.csv --universe universe.bed
-geniml bedspace train --input preprocessed.txt --output model/ --dim 100
-geniml bedspace search -t r2l -d distances.pkl -q query.bed -n 10
-```
-
-### 4. scEmbed：单细胞 ATAC-seq 嵌入
-
-在 scATAC-seq 上训练 Region2Vec 得到细胞级嵌入，与 scanpy 无缝集成。**务必先预分词以加速训练**。
+### scATAC-seq Analysis Pipeline
 
 ```python
 import scanpy as sc
 from geniml.scembed import ScEmbed
 from geniml.io import tokenize_cells
 
+# Step 1: Load data
 adata = sc.read_h5ad('scatac_data.h5ad')
-tokenize_cells(adata='scatac_data.h5ad', universe_file='universe.bed', output='tokens.parquet')
 
+# Step 2: Tokenize cells
+tokenize_cells(
+    adata='scatac_data.h5ad',
+    universe_file='universe.bed',
+    output='tokens.parquet'
+)
+
+# Step 3: Train scEmbed
 model = ScEmbed(embedding_dim=100)
 model.train(dataset='tokens.parquet', epochs=100)
-adata.obsm['scembed_X'] = model.encode(adata)
 
+# Step 4: Generate embeddings
+embeddings = model.encode(adata)
+adata.obsm['scembed_X'] = embeddings
+
+# Step 5: Cluster with scanpy
 sc.pp.neighbors(adata, use_rep='scembed_X')
-sc.tl.leiden(adata); sc.tl.umap(adata)
+sc.tl.leiden(adata)
+sc.tl.umap(adata)
 ```
 
-### 5. 配套工具（Utilities）
+### Universe Building and Evaluation
 
-- **BBClient**：缓存远端 BED（BEDbase 仓库），避免重复下载
-- **BEDshift**：保留基因组上下文的随机化，生成统计零模型：`geniml bedshift --input peaks.bed --genome hg38 --preserve-chrom --iterations 100`
-- **Evaluation**：嵌入质量指标（silhouette、Davies-Bouldin 等）
-- **Tokenization**：hard / soft / universe-based 多种分词
-- **Text2BedNN**：基因组查询的神经检索后端
+```bash
+# Generate coverage
+cat bed_files/*.bed > combined.bed
+uniwig -m 25 combined.bed chrom.sizes coverage/
 
-## 示例
+# Build universe with coverage cutoff
+geniml universe build cc \
+  --coverage-folder coverage/ \
+  --output-file universe.bed \
+  --cutoff 5 \
+  --merge 100 \
+  --filter-size 50
 
-**选型速查**：
-- 批量数据（ChIP-seq / ATAC-seq）、无元数据、跨实验比较区间集 → **Region2Vec**
-- 有元数据标签、要按标签查区间或反查、建可检索基因组库 → **BEDspace**
-- 单细胞 ATAC-seq 聚类 / 细胞类型注释、要接 scanpy → **scEmbed**
-- 需要分词参考集、把多实验合成共识、要统计严谨的区间定义 → **Universe Building**
-- 缓存远端 BED / 造零模型 / 评估嵌入 / 建检索接口 → **Utilities**
+# Evaluate universe quality
+geniml universe evaluate \
+  --universe universe.bed \
+  --coverage-folder coverage/ \
+  --bed-folder bed_files/
+```
 
-## 注意事项
+## CLI Reference
 
-- **universe 质量是命门**：分词覆盖率理想 >80%，训练前先核验。
-- **基因组版本要对齐**：universe 与数据的 assembly 必须一致（如都是 hg38），否则分词覆盖率会崩。
-- **可复现**：记录所有参数与随机种子。
-- **算力**：ML / HMM 的 universe 方法很重；scEmbed 大数据集要分批或降采样。
-- 常见报错排查：
-  - 「分词覆盖率过低」→ 检查 universe 完整性，p 值阈值放宽（1e-9 → 1e-6），确认 assembly 一致。
-  - 「训练不收敛」→ 学习率调到 0.01–0.05，增大 epoch，检查预处理。
-  - 「内存溢出」→ scEmbed 减小 batch、分块、用预分词。
-  - 「StarSpace not found」（BEDspace）→ 单独装 StarSpace，正确设置 `--path-to-starspace`。
-- 集成：scEmbed 嵌入直接进 `adata.obsm`；远端仓库用 BBClient；模型可导出到 Hugging Face（databio 组织）分享；R 端可用 reticulate。
+Geniml provides command-line interfaces for major operations:
 
-## 互见
+```bash
+# Region2Vec training
+geniml region2vec --token-folder tokens/ --save-dir model/ --num-shuffle 1000
 
-- 生态：BEDbase（统一区间平台）、BEDboss（BED 处理流水线）、Gtars（基因组工具）、BBClient（仓库客户端）。
-- 文档：https://docs.bedbase.org/geniml/ ，源码：https://github.com/databio/geniml ，预训练模型在 Hugging Face（databio）。
-- 同领域可对照其他单细胞 / 基因组嵌入技能（scanpy 工作流、共识峰构建相关条目）。
+# BEDspace preprocessing
+geniml bedspace preprocess --input regions/ --metadata labels.csv --universe universe.bed
 
----
-采编自 K-Dense-AI/scientific-agent-skills（MIT）。
+# BEDspace training
+geniml bedspace train --input preprocessed.txt --output model/ --dim 100
+
+# BEDspace search
+geniml bedspace search -t r2l -d distances.pkl -q query.bed -n 10
+
+# Universe building
+geniml universe build cc --coverage-folder coverage/ --output universe.bed --cutoff 5
+
+# BEDshift randomization
+geniml bedshift --input peaks.bed --genome hg38 --preserve-chrom --iterations 100
+```
+
+## When to Use Which Tool
+
+**Use Region2Vec when:**
+- Working with bulk genomic data (ChIP-seq, ATAC-seq, etc.)
+- Need unsupervised embeddings without metadata
+- Comparing region sets across experiments
+- Building features for downstream supervised learning
+
+**Use BEDspace when:**
+- Metadata labels available (cell types, tissues, conditions)
+- Need to query regions by metadata or vice versa
+- Want joint embedding space for regions and labels
+- Building searchable genomic databases
+
+**Use scEmbed when:**
+- Analyzing single-cell ATAC-seq data
+- Clustering cells by chromatin accessibility
+- Annotating cell types from scATAC-seq
+- Integration with scanpy is desired
+
+**Use Universe Building when:**
+- Need reference peak sets for tokenization
+- Combining multiple experiments into consensus
+- Want statistically rigorous region definitions
+- Building standard references for a project
+
+**Use Utilities when:**
+- Need to cache remote BED files (BBClient)
+- Generating null models for statistics (BEDshift)
+- Evaluating embedding quality (Evaluation)
+- Building search interfaces (Text2BedNN)
+
+## Best Practices
+
+### General Guidelines
+
+- **Universe quality is critical**: Invest time in building comprehensive, well-constructed universes
+- **Tokenization validation**: Check coverage (>80% ideal) before training
+- **Parameter tuning**: Experiment with embedding dimensions, learning rates, and training epochs
+- **Evaluation**: Always validate embeddings with multiple metrics and visualizations
+- **Documentation**: Record parameters and random seeds for reproducibility
+
+### Performance Considerations
+
+- **Pre-tokenization**: For scEmbed, always pre-tokenize cells for faster training
+- **Memory management**: Large datasets may require batch processing or downsampling
+- **Computational resources**: ML/HMM universe methods are computationally intensive
+- **Model caching**: Use BBClient to avoid repeated downloads
+
+### Integration Patterns
+
+- **With scanpy**: scEmbed embeddings integrate seamlessly as `adata.obsm` entries
+- **With BEDbase**: Use BBClient for accessing remote BED repositories
+- **With Hugging Face**: Export trained models for sharing and reproducibility
+- **With R**: Use reticulate for R integration (see utilities reference)
+
+## Related Projects
+
+Geniml is part of the BEDbase ecosystem:
+
+- **BEDbase**: Unified platform for genomic regions
+- **BEDboss**: Processing pipeline for BED files
+- **Gtars**: Genomic tools and utilities
+- **BBClient**: Client for BEDbase repositories
+
+## Additional Resources
+
+- **Documentation**: https://docs.bedbase.org/geniml/
+- **GitHub**: https://github.com/databio/geniml
+- **Pre-trained models**: Available on Hugging Face (databio organization)
+- **Publications**: Cited in documentation for methodological details
+
+## Troubleshooting
+
+**"Tokenization coverage too low":**
+- Check universe quality and completeness
+- Adjust p-value threshold (try 1e-6 instead of 1e-9)
+- Ensure universe matches genome assembly
+
+**"Training not converging":**
+- Adjust learning rate (try 0.01-0.05 range)
+- Increase training epochs
+- Check data quality and preprocessing
+
+**"Out of memory errors":**
+- Reduce batch size for scEmbed
+- Process data in chunks
+- Use pre-tokenization for single-cell data
+
+**"StarSpace not found" (BEDspace):**
+- Install StarSpace separately: https://github.com/facebookresearch/StarSpace
+- Set `--path-to-starspace` parameter correctly
+
+For detailed troubleshooting and method-specific issues, consult the appropriate reference file.

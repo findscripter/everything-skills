@@ -1,14 +1,14 @@
 ---
 name: pcb-bom-manager
-title: 电子物料清单(BOM)管理
-description: 当为 KiCad 电子项目做元器件选型、采购、报价、备料或可制造性准备时使用；以原理图符号属性为单一事实源，分析原理图、查询分销商、校验封装规格、回写属性、导出 BOM 跟踪 CSV 并生成下单文件；不适用于非 KiCad 工程、纯软件 BOM 或机械零件清单。触发词：BOM、物料清单、bill of materials、元器件选型、采购下单、分销商搜索、distributor、报价、cost estimate、查库存、check stock、JLCPCB、LCSC、DigiKey、Mouser、立创、嘉立创、PCB 备料、可制造性
+title: BOM Management
+description: BOM (Bill of Materials) management for electronics projects — the primary orchestrator skill that coordinates DigiKey, Mouser, LCSC, element14, JLCPCB, PCBWay, and KiCad skills into a unified workflow. Create, update, and maintain BOMs with part numbers, costs, quantities stored as KiCad symbol properties. ALWAYS trigger this skill for any task involving component sourcing, pricing, ordering, distributor searches, BOM export, or fabrication preparation — even if the user names a specific distributor or fab house (e.g. "search DigiKey for...", "generate JLCPCB BOM", "order from Mouser"). This skill decides which distributor/fab skills to invoke and in what order. Also trigger on phrases like "what parts do I need", "order components", "how much will this cost", "export for JLCPCB", "find parts for this board", "cost estimate", "compare pricing", or "check stock".
 domain: 领域/hardware
-triggers: [BOM, 物料清单, bill of materials, 元器件选型, 采购下单, 分销商搜索, distributor, 报价, cost estimate, 查库存, check stock, JLCPCB, LCSC, DigiKey, Mouser, 立创, 嘉立创, PCB备料, 可制造性]
+triggers: [BOM, bill of materials, distributor, cost estimate, check stock, JLCPCB, LCSC, DigiKey, Mouser]
 tags: [bom, kicad, hardware, pcb, electronics, procurement, distributor, jlcpcb, lcsc, digikey, mouser, manufacturing]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python3, bom_manager.py, edit_properties.py, sync_datasheet_urls.py, KiCad, InteractiveHtmlBom]
+tools: []
 requires: []
 related: [component-sourcing-search, pcb-fab-assembly, kicad-design-reviewer, datasheet-spec-extractor]
 combines_with: [component-sourcing-search, pcb-fab-assembly, kicad-design-reviewer]
@@ -16,98 +16,370 @@ license: MIT
 source: aklofas/kicad-happy
 source_license: MIT
 ---
-## 何时使用
+# BOM Management
 
-适用：为 KiCad 电子工程做元器件选型、采购、报价、备料、可制造性（DFM/下单）准备。本技能是 BOM 全生命周期的编排者——分析原理图、搜索分销商、校验零件、回写属性、导出跟踪 CSV、生成下单文件。即使用户只点名某家分销商或工厂（如「在 DigiKey 搜…」「生成 JLCPCB BOM」「从 Mouser 下单」），也由本技能决定调用哪些分销商/工厂子技能及顺序。
+BOM data lives in **KiCad schematic symbol properties** as the single source of truth. This skill orchestrates the full lifecycle: analyze the schematic, search distributors, validate parts, write properties back, export tracking CSVs, and generate order files.
 
-核心原则：**BOM 数据存在 KiCad 原理图符号属性里，是唯一事实源**；CSV 仅作导出与跟踪。
+## Related Skills
 
-不该用：
-- 非 KiCad 工程（无 `.kicad_sch`）、纯软件依赖清单（用 dependency-auditor）。
-- 机械/结构件清单、纯 Excel 报价表无原理图来源。
-- 仅需读原理图/PCB/封装而不涉及采购——那属于 `kicad` 子技能。
+| Skill | Purpose |
+|-------|---------|
+| `kicad` | Read/analyze schematics, PCB, footprints |
+| `digikey` | Search DigiKey, download datasheets (primary prototype source) |
+| `mouser` | Search Mouser (secondary prototype source) |
+| `lcsc` | Search LCSC (production/JLCPCB parts) |
+| `element14` | Search Newark/Farnell/element14 (international) |
+| `jlcpcb` | PCB fabrication & assembly ordering |
+| `pcbway` | Alternative PCB fab & assembly |
 
-## 步骤
+## Scripts
 
-1. **分析工程**：跑 `analyze` 得到字段命名约定、已填/缺失分销商、首选分销商；同时找已存在的 `bom/bom.csv`。字段约定异常时直接读原理图核对。
-2. **同步数据手册（立即做）**：手册是选型与校验的关键上下文。优先级 DigiKey（直链 PDF，最佳）> element14（无反爬，可靠）> LCSC（仅 LCSC 件）> Mouser（常被拦，最后手段）。脚本幂等、共享 `datasheets/` 目录、跳过已下载件。告诉用户手册存放位置。
-3. **收集零件信息**：按可用字段定策略——有 MPN→按 MPN 搜各分销商拿 PN 与库存；有分销商 PN 无 MPN→先搜该商拿 MPN 再搜其他；只有 Value+Footprint→按描述搜（如「100nF 0402 X7R 16V」）。**注意逗号分隔的多 MPN**（如电池座+卡扣），须拆开各自搜，整串搜会命中错件。原型优先 DigiKey/Mouser，量产用 LCSC。
-4. **校验匹配**：勿默认现有 PN 正确（会停产/改号）；404 即标记替换。逐项核对：封装匹配原理图 Footprint（见交叉参照表）、规格匹配（容值/阻值/耐压/容差）、描述合理、生命周期未 EOL、数据手册是直链 PDF。有歧义先问用户——错件比缺件更糟。
-5. **回写原理图**：用 `edit_properties.py`，先 `--dry-run` 再正式。**尊重工程已有字段名**（已是 `Digi-Key_PN` 就别写 `DigiKey`，规范名仅用于新工程）；**写 MPN 时永远同时写 Manufacturer**（API 都返回，免费数据）。
-6. **导出 BOM 跟踪 CSV**：`export` 重新导出会**保留用户管理列**（stock、Chosen_Distributor、Validated、Notes），只更新原理图派生列。
-7. **查库存**：逐个分销商 PN 查实时库存，更新 CSV 库存列并记日期；首选商缺货则标记并建议替代。
-8. **定首选分销商**（Chosen_Distributor）：综合库存、目标量价格、起订量/倍数、货期、合并发货。原型合并到 1–2 家（DigiKey+Mouser），量产 LCSC/JLCPCB 最省。
-9. **重同步手册/URL**：补 3–5 步新增件（已下载件自动跳过）。
-10. **依手册校验设计**：读手册核对功能是否符合电路（耐压 vs 轨压、温漂、功耗；稳压器 Vin/Vout/电流；MOSFET Vds/Rds(on)/阈值等）。大 BOM（50+）聚焦电源/关键信号路径，普通贴片无需深查。
-11. **生成下单文件**：先问板数（设 `--boards`）；预检无缺口、CSV 最新、Chosen_Distributor 已设、库存新鲜。逗号 PN 自动拆行、DNP 件排除，每家分销商出一份上传格式文件。先给用户审阅再下单，并查价给出每家总额。
-
-## 指令
+Use `<skill-path>` to reference the BOM skill directory.
 
 ```bash
-# 1. 分析原理图（JSON，递归子图）
-python3 <skill-path>/scripts/bom_manager.py analyze path/to/x.kicad_sch --json --recursive
-# 仅看缺口：追加 --gaps-only
+# Analyze schematic (JSON output, recursive sub-sheets)
+python3 <skill-path>/scripts/bom_manager.py analyze path/to/schematic.kicad_sch --json --recursive
 
-# 2. 导出/合并 BOM 跟踪 CSV
-python3 <skill-path>/scripts/bom_manager.py export path/to/x.kicad_sch -o bom/bom.csv --recursive
+# Export BOM tracking CSV (creates new or merges with existing)
+python3 <skill-path>/scripts/bom_manager.py export path/to/schematic.kicad_sch -o bom/bom.csv --recursive
 
-# 3. 回写符号属性（先 dry-run，再去掉它正式写）
+# Generate per-distributor order files (5 boards + 2 spares/line)
+python3 <skill-path>/scripts/bom_manager.py order bom/bom.csv --boards 5 --spares 2
+
+# Quick single-distributor order (bypasses Chosen_Distributor column)
+python3 <skill-path>/scripts/bom_manager.py order bom/bom.csv --distributor digikey
+
+# Write properties to schematic (dry-run first, then apply)
+echo '{"R1": {"MPN": "RC0805FR-0710KL", "Manufacturer": "Yageo"}}' \
+  | python3 <skill-path>/scripts/edit_properties.py path/to/schematic.kicad_sch --dry-run
+
+# Sync datasheet URLs from manifest.json back into schematic Datasheet properties
+python3 <skill-path>/scripts/sync_datasheet_urls.py path/to/schematic.kicad_sch --recursive --dry-run
+```
+
+## Workflow
+
+Skip steps that don't apply. Common shortcuts:
+- **"Add Mouser PNs"** — search Mouser by MPN for each part → validate → write to schematic → update CSV
+- **"Fill in the gaps"** — run analyzer with `--gaps-only`, address each missing field
+- **"Update datasheet URLs"** — run `sync_datasheet_urls.py` to backfill empty Datasheet fields from the datasheets manifest
+- **"Prepare for production"** — ensure every part has an LCSC number, check stock, set Chosen_Distributor to LCSC
+
+### Step 1: Understand the Project
+
+```bash
+python3 <skill-path>/scripts/bom_manager.py analyze path/to/schematic.kicad_sch --json --recursive
+```
+
+The output tells you the project's field naming convention, which distributors are populated, what's missing, and the preferred distributor. Also look for an existing BOM tracking CSV in the project directory or `bom/` folder.
+
+The script covers common patterns, but some projects use internal key systems or parametric fields. See `references/part-number-conventions.md` for the full catalog. Read the schematic if something seems off.
+
+### Step 2: Sync Datasheets
+
+**Do this immediately.** Datasheets are essential context for validation and part selection. Run the preferred distributor's sync first; if some fail, try others — they share the same `datasheets/` directory and skip already-downloaded parts.
+
+```bash
+python3 <digikey-skill-path>/scripts/sync_datasheets_digikey.py path/to/schematic.kicad_sch --recursive
+python3 <lcsc-skill-path>/scripts/sync_datasheets_lcsc.py path/to/schematic.kicad_sch --recursive
+python3 <element14-skill-path>/scripts/sync_datasheets_element14.py path/to/schematic.kicad_sch --recursive
+```
+
+DigiKey is best (direct PDF URLs). element14 is reliable (no bot protection). LCSC works for LCSC-only parts. Mouser is a last resort (often blocks downloads).
+
+**Tell the user where datasheets are** (e.g., `hardware/<project>/datasheets/`). They'll reference them often.
+
+**Cross-revision projects:** Use a single shared datasheets directory at the project level rather than per-revision. The same MPN's datasheet doesn't change between revisions.
+
+Re-sync after writing new MPNs (Step 5) — the scripts are idempotent. Then backfill Datasheet URLs into the schematic:
+
+```bash
+python3 <skill-path>/scripts/sync_datasheet_urls.py path/to/schematic.kicad_sch --recursive
+```
+
+This reads `datasheets/manifest.json` (legacy name `index.json` still supported) and writes discovered datasheet URLs into empty schematic `Datasheet` properties. Opportunistic — only fills blanks. If a schematic already has a different URL, it warns about the mismatch without overwriting (use `--overwrite` to replace). Run with `--dry-run` first to preview.
+
+### Step 3: Gather Part Information
+
+**Watch for comma-separated MPNs.** Some symbols track multiple physical parts (e.g., battery holder + clip). Split on commas and search each MPN independently — searching the combined string matches the wrong product.
+
+Search strategy based on what's available:
+- Has MPN → search distributors by MPN to get their PNs and stock
+- Has distributor PN but no MPN → search that distributor, get MPN, then search others
+- Has only Value + Footprint → search by description (e.g., "100nF 0402 X7R 16V")
+
+Use the project's preferred distributor first, then alternates. Prototype: DigiKey primary, Mouser secondary. Production: LCSC.
+
+### Step 4: Validate Matches
+
+**Don't assume existing PNs are correct** — distributor PNs go stale (discontinued, renumbered). Verify existing PNs resolve against the API. If a PN returns 404, flag it for replacement.
+
+For every match, verify:
+1. **Package** matches the schematic footprint (see cross-reference table below)
+2. **Specs** match (capacitance, resistance, voltage, tolerance)
+3. **Description** makes sense (a resistor ref should get a resistor)
+4. **Lifecycle** — not obsolete or EOL
+5. **Datasheet URL** is a direct PDF link (not a product page)
+
+If ambiguous, ask the user. A wrong part is worse than a missing part.
+
+### Step 5: Update the Schematic
+
+**KiCad coexistence.** The script detects KiCad's lock file and warns but proceeds. KiCad doesn't auto-detect external changes — it keeps its in-memory copy. If KiCad is open, tell the user: *"Close and reopen the schematic (File → Open Recent) to see the changes. Don't save from KiCad first."*
+
+If unsaved KiCad work exists, ask them to save first (Ctrl+S), then run the script, then reopen.
+
+```bash
 echo '{"R1": {"MPN": "RC0805FR-0710KL", "Manufacturer": "Yageo", "DigiKey": "311-10.0KCRCT-ND"}}' \
-  | python3 <skill-path>/scripts/edit_properties.py path/to/x.kicad_sch --dry-run
-# 非 git 工程或想留改前副本：追加 --backup（默认不建 .bak，靠 git）
+  | python3 <skill-path>/scripts/edit_properties.py path/to/schematic.kicad_sch
+```
 
-# 4. 把数据手册 URL 从 manifest.json 回填到空 Datasheet 属性（仅填空，冲突仅告警）
-python3 <skill-path>/scripts/sync_datasheet_urls.py path/to/x.kicad_sch --recursive --dry-run
+**Backups:** By default, no `.bak` file is created (git tracks changes). Pass `--backup` if the schematic is not in a git repo or has uncommitted changes the user wants to preserve.
 
-# 5. 生成下单文件（5 板 + 每行 2 备件；--boards 乘量，--spares 乘后再加）
+**Respect the project's convention.** Write to `"Digi-Key_PN"` if that's what exists, not `"DigiKey"`. Use canonical names only for new projects.
+
+**Always write Manufacturer alongside MPN** — every API returns it, it's free data.
+
+### Step 6: Update the BOM Tracking CSV
+
+```bash
+python3 <skill-path>/scripts/bom_manager.py export path/to/schematic.kicad_sch -o bom/bom.csv --recursive
+```
+
+CSV columns are dynamic — only distributors the project uses get columns. Base columns: Reference, Qty, Value, Footprint, MPN, Manufacturer. Each active distributor gets a PN column + stock column. Tail columns: Chosen_Distributor, Datasheet, Validated, DNP, Notes.
+
+The **Notes** column is seeded from schematic `BOM Comments` properties (or aliases like `Notes`, `Remarks`, `Ordering Notes`, etc.) on first export. On re-export, user edits in the CSV take priority — existing Notes values are preserved and schematic-sourced comments won't overwrite them.
+
+**Merge behavior:** Re-exporting preserves user-managed columns (stock, Chosen_Distributor, Validated, Notes) while updating schematic-derived columns.
+
+### Step 7: Check Stock
+
+For each part with a distributor PN, query current stock via the corresponding distributor skill. Update stock columns in the CSV. Stock data goes stale — note the date and re-check before ordering.
+
+If the chosen distributor is out of stock, flag it and suggest the alternate.
+
+### Step 8: Set Chosen Distributor
+
+Factors: stock availability, price at order qty, minimum order/multiples, lead time, shipping consolidation (fewer distributors = fewer shipments).
+
+For prototypes, consolidate to 1-2 distributors (DigiKey + Mouser). For production, LCSC/JLCPCB is cheapest.
+
+### Step 9: Re-Sync Datasheets & URLs
+
+Re-run Step 2 (download + URL backfill) to pick up parts added in Steps 3-5. Fast — already-downloaded files are skipped.
+
+### Step 10: Validate Datasheets Against Design
+
+Read downloaded datasheets and verify parts are functionally correct for the circuit. This catches wrong-part-number errors that Step 4 might miss.
+
+**What to check by type:**
+- **Passives** — voltage rating vs rail voltage, temperature coefficient, power dissipation
+- **Regulators** — Vin range, Vout, max current, quiescent current
+- **MCUs/ICs** — supply voltage, I/O levels, peripherals, pinout
+- **Connectors** — pin count, pitch, current/voltage rating
+- **MOSFETs** — Vds, Rds(on), gate threshold, thermal dissipation
+- **Diodes** — Vf, Vr, current rating, recovery time
+
+For large BOMs (50+ parts), focus on power components, critical signal paths, and anything the user flagged. Commodity passives usually don't need deep review.
+
+### Step 11: Generate Order Files
+
+**Ask how many boards** if not already known — this sets the `--boards` multiplier.
+
+**Pre-flight:** verify no gaps, CSV is current, Chosen_Distributor is set (or use `--distributor` flag), stock is fresh.
+
+```bash
+# Using Chosen_Distributor column, 5 boards + 2 spares
 python3 <skill-path>/scripts/bom_manager.py order bom/bom.csv -o bom/orders/ --boards 5 --spares 2
-# 快速单分销商（绕过 Chosen_Distributor 列）
+
+# Or quick single-distributor order
 python3 <skill-path>/scripts/bom_manager.py order bom/bom.csv --distributor digikey
 ```
 
-CSV 列是动态的——只有工程实际用到的分销商才出列。基础列：Reference、Qty、Value、Footprint、MPN、Manufacturer；每个活跃分销商加 PN 列+库存列；尾列：Chosen_Distributor、Datasheet、Validated、DNP、Notes。Notes 首次导出从符号 `BOM Comments`（及别名 Notes/Remarks/Ordering Notes 等）播种，再导出时用户在 CSV 的编辑优先、不被覆盖。
+`--boards` multiplies all quantities. `--spares` adds a flat extra per line after multiplication. `--distributor` bypasses Chosen_Distributor — generates an order for all parts with that distributor's PN.
 
-封装/Footprint 交叉参照（`R_` 换 `C_`/`L_`，前缀 `Resistor_SMD:`/`Capacitor_SMD:` 等）：
+Comma-separated PNs (accessories) are auto-split into separate order lines. DNP parts excluded. The script produces one file per distributor in the correct upload format (see `references/ordering-and-fabrication.md` for format details).
+
+Present the order summary and let the user review/edit before ordering.
+
+**Cost estimate:** After generating order files, query pricing from distributor APIs at the order quantity and present a total per distributor. See `references/ordering-and-fabrication.md` for the cost summary template.
+
+## BOM Corner Cases & Per-Component Notes
+
+Real projects have BOM quirks that don't fit neatly into standard fields. These are the things that get lost between design and ordering — a connector that's only for prototyping, a cable shared between two boards, a part that needs to be ordered from a specific vendor lot. **Actively look for these** during BOM analysis; don't wait for the user to mention them.
+
+### BOM Comments Field
+
+The `BOM Comments` symbol property (canonical name) captures per-component freeform notes. It flows into the `Notes` column in the exported CSV. The script recognizes many aliases: `BOM Notes`, `Ordering Notes`, `Assembly Notes`, `Notes`, `Remarks`, `Comment`, and underscore/space variants.
+
+**When to suggest adding BOM Comments:**
+- Component is prototype-only (DNP in production, or vice versa)
+- Component has ordering constraints (minimum order qty, long lead time, specific vendor lot)
+- Component is shared with another board (ribbon cables, mating connectors, shared harnesses)
+- Component has assembly notes (orientation matters, hand-solder only, apply after reflow)
+- Component has substitution rules (acceptable alternates, pin-compatible swaps)
+- Component has conditional population (different value for different product variants/SKUs)
+
+**Example values:**
+```
+"Proto only — DNP in production"
+"Shares ribbon cable with power board — don't double-order"
+"Must be Murata GRM series, no substitution (validated for EMI)"
+"Hand-solder after reflow — temperature sensitive"
+"Order 10% extra — fragile QFN rework difficult"
+"Use 10K for rev A, 4.7K for rev B"
+"Mating connector: Molex 39-01-2040 on cable side"
+```
+
+### Where Else to Look for BOM Quirks
+
+The schematic symbol property is the best place for per-component notes, but projects scatter this information everywhere. Check all of these:
+
+1. **Schematic text annotations** — free text placed on the schematic sheet. The `kicad` skill's analyzer extracts these as `text_annotations`. Look for notes near components about ordering, assembly, or variants.
+
+2. **Title block comments** — the title block has numbered comment fields. Sometimes used for board-level BOM notes ("All passives 0402 unless marked", "Order from DigiKey for proto").
+
+3. **Project README / docs** — look for `README.md`, `docs/`, `bom/README.md`, or any text file mentioning parts, ordering, or assembly. These often contain the highest-level BOM decisions.
+
+4. **Existing BOM CSV Notes column** — if a `bom.csv` already exists, read the Notes column. The user may have added notes there that aren't in the schematic.
+
+5. **Project-level config** (`.kicad-happy.json`) — `preferred_suppliers` sets sourcing priority, `bom` section sets field naming and grouping conventions. See `skills/kicad/references/config-reference.md` for the full schema.
+
+6. **Schematic symbol Description field** — sometimes used for assembly notes rather than part description (e.g., "100nF bypass - place close to U3 pin 4").
+
+7. **KiCad custom fields with non-standard names** — fields like `Assembly`, `Order`, `Variant`, `Config`, `SKU` may contain BOM-relevant info. The analyzer flags these as `unrecognized_fields`.
+
+8. **DNP with context** — a DNP component may need a note about *why* it's DNP and *when* to populate it. KiCad's DNP flag is boolean — the reason belongs in BOM Comments.
+
+### Multi-Board / System-Level BOM Concerns
+
+When a project has multiple boards (e.g., main board + daughter board, or sender + receiver):
+
+- **Shared cables/connectors** — document on both boards which connector mates with which, and note "don't double-order" on cables shared between boards
+- **Shared power supplies** — if boards share a PSU, document which board's BOM includes it
+- **Common parts across boards** — when ordering, consolidate quantities across boards. Note in each board's BOM which parts are shared
+- **Board-specific variants** — if the same PCB is used with different stuffing options (e.g., different resistor values for different output voltages), use BOM Comments to document the variant rules
+
+### Non-BOM Items
+
+Some project-specific items aren't on the schematic but need ordering alongside the BOM. Commonly forgotten:
+
+- **Mating connectors & cables** — if the schematic has a connector, the other half needs ordering too (board-to-board, ribbon cables, wire harnesses)
+- **Stencil** — order a framed stencil with the PCBs (~$7 from JLCPCB/PCBWay)
+- **Programming/debug adapter** — Tag-Connect cable, SWD ribbon, specific USB cable for the board's debug connector
+- **Antenna cables** — U.FL to SMA pigtails if the board has an RF connector
+- **Mounting hardware** — standoffs, screws, nuts specific to the enclosure
+- **Thermal management** — heat sinks, thermal pads for specific components
+
+Track these as rows in the BOM CSV with `Reference` = `--` and a Note, or in a separate `bom/non-bom-items.csv`. Mention them separately in cost estimates.
+
+### Presenting BOM Comments
+
+When generating reports or order summaries, **always surface BOM comments prominently** — they're the designer's voice about exceptions and gotchas. Don't bury them. In the order summary, list any component with a BOM comment separately after the main table so the user sees them before clicking "order."
+
+## Package/Footprint Cross-Reference
 
 | Imperial | Metric | KiCad Footprint |
-|---|---|---|
+|----------|--------|----------------|
 | 0201 | 0603 | `R_0201_0603Metric` |
 | 0402 | 1005 | `R_0402_1005Metric` |
 | 0603 | 1608 | `R_0603_1608Metric` |
 | 0805 | 2012 | `R_0805_2012Metric` |
 | 1206 | 3216 | `R_1206_3216Metric` |
 
-## 示例
+Replace `R_` with `C_` or `L_` as appropriate. Prefix with `Resistor_SMD:`, `Capacitor_SMD:`, etc.
 
-「为生产准备」工作流：
-1. `analyze --gaps-only` 找缺口，确保每件有 LCSC 编号。
-2. 逐件查 LCSC 库存、区分 basic/extended 件。
-3. `edit_properties.py` 把缺的 LCSC/MPN 回写，Chosen_Distributor 设为 LCSC。
-4. `export` 刷新 CSV；过「生产就绪清单」：全部有 MPN+LCSC、无 EOL、库存已验、BOM/CPL/Gerber 格式正确、设计规则达工厂下限、原型已测。
-5. 生成 Interactive BOM 供贴装核对：
+## BOM Diffing
+
+When the schematic changes between revisions, compare the old and new BOM to identify added, removed, and changed parts. Highlight which new parts need sourcing.
+
+## Interactive BOM (ibom)
+
+Generates an HTML page showing component locations on the PCB — essential for hand-assembly.
+
 ```bash
 pip install InteractiveHtmlBom
-generate_interactive_bom board.kicad_pcb --dest-dir bom/ \
+generate_interactive_bom board.kicad_pcb \
+  --dest-dir bom/ --name-format "%f_ibom_%r" \
   --extra-fields "MPN,Manufacturer,DigiKey,Mouser,LCSC" \
   --group-fields "Value,Footprint,MPN" \
   --checkboxes "Sourced,Placed" --dnp-field "DNP" --no-browser
 ```
 
-## 注意事项
+## Reference Files
 
-- **KiCad 并发**：脚本检测到 KiCad 锁文件会告警但继续。KiCad 不感知外部改动，仍用内存副本。若 KiCad 开着，告诉用户：改后「关闭并重新打开原理图（File → Open Recent）才能看到变化，别先从 KiCad 保存」；有未保存内容先 Ctrl+S 再跑脚本再重开。
-- **MPN 是万能键**——最先填，启用全链交叉引用；关键件用 `AltMPN` 留二供。
-- **主动找 BOM 怪癖**，别等用户说：仅原型/仅量产件、起订量/长货期/指定批次、跨板共享线缆连接器（标「勿重复下单」）、装配注意（手焊、回流后贴）、变体填充规则。这些写进 `BOM Comments`，并在订单摘要里**单独突出列出**，让用户下单前看到。
-- **非 BOM 但要一起买**：对插连接器/线缆、钢网（JLCPCB/PCBWay 约 $7）、烧录/调试转接（Tag-Connect、SWD 排线）、天线 pigtail、安装五金、散热件。用 `Reference=--` 加进 CSV 或单列 `bom/non-bom-items.csv`，报价里单独提。
-- **库存会过期**：记录查询日期，下单前重查。原型价≠量产价，按目标量查价。
-- **可清理/gitignore**：`datasheets/`、`bom/orders/`、`*.bak` 不入 git（可重生）；`bom/bom.csv` 入 git（含用户策划数据，无法从原理图重生）。
+Read these when you need detailed lookup data:
+- `references/kicad-fields.md` — field definitions, aliases, S-expression format, part number patterns
+- `references/ordering-and-fabrication.md` — distributor paste formats, gerber export, CPL, cost templates
+- `references/part-number-conventions.md` — detailed analysis of naming patterns across 56+ real projects
 
-## 互见
+## Production Readiness Checklist
 
-- `kicad` 子技能：读/分析原理图、PCB、封装，提取文本注释与未识别字段。
-- 分销商/工厂子技能：`digikey`、`mouser`、`lcsc`、`element14`、`jlcpcb`、`pcbway`——本技能决定调用哪个及顺序。
-- 参考文件（需细查时读）：`references/kicad-fields.md`（字段定义/别名/S-表达式）、`references/ordering-and-fabrication.md`（分销商粘贴格式、Gerber/CPL、成本模板）、`references/part-number-conventions.md`（56+ 真实工程命名约定）。
-- dependency-auditor：软件依赖清单审计（与本硬件 BOM 互补，勿混用）。
+- [ ] All parts have MPN and LCSC numbers (for JLCPCB) or MPN (for PCBWay)
+- [ ] No obsolete or EOL parts
+- [ ] Stock verified, basic vs extended parts identified
+- [ ] BOM and CPL exported in correct format
+- [ ] Gerbers exported and verified
+- [ ] Design rules meet manufacturer minimums (see `jlcpcb` or `pcbway` skill)
+- [ ] Prototype fully tested
 
----
-本条采编自 aklofas/kicad-happy（MIT）。
+## Generated Files & Cleanup
+
+The BOM and distributor skills create files in the project tree. Know what they are so you can clean up or `.gitignore` them.
+
+### Files created in the project directory
+
+| File/Dir | Created By | Purpose | Keep in git? |
+|----------|-----------|---------|--------------|
+| `datasheets/` | DigiKey, LCSC, element14, Mouser sync scripts | Downloaded PDF datasheets | No — large binaries, re-downloadable |
+| `datasheets/manifest.json` | Datasheet sync scripts | Tracks download status per MPN (legacy name: `index.json`) | No — regenerated by sync |
+| `bom/bom.csv` | `bom_manager.py export` | BOM tracking spreadsheet | Yes — user-curated data |
+| `bom/orders/*.csv` | `bom_manager.py order` | Per-distributor order upload files | No — regenerated before each order |
+| `*.YYYYMMDD_HHMMSS.bak` | `edit_properties.py --backup` | Schematic backup before edits | No — use git instead |
+
+The `kicad` skill also creates analyzer JSON and design review markdown reports with user-chosen filenames — see its "Generated Files" section for tracking and cleanup guidance.
+
+### Temporary files (outside project)
+
+| File | Location | Purpose |
+|------|----------|---------|
+| `digikey_token_cache.json` | System temp dir | OAuth token cache (9-min TTL, mode 0600) |
+| `manifest.tmp` | `datasheets/` | Atomic write staging — renamed to `manifest.json`, never persists |
+
+### Cleanup commands
+
+```bash
+# Remove downloaded datasheets (re-downloadable)
+rm -rf datasheets/
+
+# Remove order files (regenerate before ordering)
+rm -rf bom/orders/
+
+# Remove schematic backups
+rm -f *.bak
+
+# Remove KiCad analyzer/report files (filenames vary — check project instructions file)
+```
+
+### Suggested .gitignore additions
+
+```gitignore
+# BOM skill working files
+datasheets/
+bom/orders/
+*.bak
+```
+
+Keep `bom/bom.csv` tracked — it contains user-curated data (Chosen_Distributor, Validated, Notes) that can't be regenerated from the schematic alone.
+
+## Tips
+
+- **MPN is the universal key** — populate it first, enables cross-referencing everything
+- **Schematic is source of truth** — all BOM data in symbol properties, exported as needed
+- **DigiKey first, Mouser second** for prototyping; LCSC for production
+- **CSV round-trip** — Edit Symbol Fields > Export/Import CSV for bulk updates
+- **Field Name Templates** (KiCad 9+) — pre-define MPN, Manufacturer, LCSC, DigiKey, Mouser
+- **DigiKey token reuse** — cached to temp file with 9-minute TTL; no need to re-auth per call
+- **Second source** — use `AltMPN` field for critical parts
+- **Price at target qty** — prototype pricing != production pricing
+- **BOM Comments** — use the `BOM Comments` symbol property for ordering/assembly quirks that don't fit in standard fields. Flows into CSV Notes column. Check schematic text annotations, README, and existing CSV notes for scattered BOM info too.

@@ -1,11 +1,11 @@
 ---
 name: offer-letter-drafter
-title: 录用通知书起草
-description: 当候选人确定要发 offer、需要拼装总薪酬包（base/股权/签字费）、撰写录用通知书正文或为招聘经理准备谈薪话术时使用；做录用通知书起草，产出薪酬包表格+条款+福利摘要+offer letter 正文+谈薪指引；不适用于候选人筛选评估、JD 撰写、入职手续办理、薪酬带宽体系设计；触发词：offer、录用通知书、录用意向书、谈薪、总薪酬包
+title: Offer Letter Drafter
+description: Draft a complete, ready-to-send offer letter with a total comp package (base, equity, signing bonus, target bonus), terms, benefits, and negotiation guidance for the hiring manager. Use when a candidate is approved and an offer is decided; triggers: offer, offer letter, draft off
 domain: 商业/copy
-triggers: [offer, 录用通知书, 录用意向书, offer letter, 谈薪, 总薪酬包, 签字费, 股权 vesting, 招聘经理谈薪话术]
-tags: [商业, 人力资源, 招聘, 薪酬, offer, 录用通知, 谈薪, 股权]
-level: 进阶
+triggers: [offer, offer letter, draft offer, total comp package, signing bonus, equity vesting, negotiation guidance, hiring manager talking points]
+tags: [business, human-resources, recruiting, compensation, offer, negotiation, equity]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,95 +16,98 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 录用通知书起草
+## When to use
 
-## 何时使用
+Use this when a candidate has passed interviews and **the decision to extend an offer has already been made**, and you need to turn a verbal agreement into a complete, ready-to-send offer letter. Typical actions: assemble the total comp package (base, equity, signing bonus, target bonus), write the offer letter text itself, and prep negotiation / counter-offer guidance for the hiring manager.
 
-候选人面试通过、**已决定要发 offer**，需要把口头共识落成一份完整、可发出的录用通知书时使用。典型动作：拼装总薪酬包（base、股权、签字费、目标奖金）、写 offer letter 正文、为招聘经理准备谈薪/反报价的指引。
+**Not for:**
+- Candidate screening, interview evaluation, or the hire/no-hire decision — that happens before an offer; this skill assumes "do we extend?" is already settled.
+- Writing the JD / opening the requisition or headcount approval itself.
+- Onboarding (background checks, contract signing flow) — that happens after the offer.
+- Designing the company-wide compensation bands — this skill *consumes* a band to price a single candidate, it does not build the band.
 
-**不该用边界：**
-- 候选人筛选、面试评估、是否录用的决策——那是 offer 之前的事，本技能假定「发不发」已拍板。
-- JD / 招聘需求撰写、headcount 审批本身。
-- 入职手续（onboarding、背调、合同签署流程）——offer 之后的事。
-- 公司级薪酬带宽（comp band）体系的设计——本技能是**消费**带宽给单个候选人定价，不是建带宽。
+## Steps
 
-## 步骤
+Source command: `/draft-offer <role and level>`.
 
-按顺序补齐六要素，缺哪项先回填，别留空白发出去：
+Fill in the six essentials in order; if anything is missing, backfill it first rather than sending a letter with blanks:
 
-1. **职位与 title**——具体岗位名。
-2. **级别**——Junior / Mid / Senior / Staff 等（决定薪酬带宽落点）。
-3. **工作地点**——Office / Remote / Hybrid（影响薪酬与福利）。
-4. **薪酬**——base、股权（股数 + 估值口径 + vesting）、签字费（如有）、目标奖金（如有）。
-5. **入职日期**。
-6. **汇报对象**（hiring manager）。
+1. **Role and title** — the specific position.
+2. **Level** — Junior, Mid, Senior, Staff, etc. (determines where you land in the comp band).
+3. **Location** — Office / Remote / Hybrid (affects comp and benefits).
+4. **Compensation** — base salary, equity (share count + valuation method + vesting schedule), signing bonus (if any), target bonus (if any).
+5. **Start date**.
+6. **Hiring manager** (who they report to).
 
-信息不全时，主动逐项追问、帮对方想清楚，而不是直接套模板出残缺 offer。
+If details are incomplete, actively ask for each one and help the requester think them through — do not stamp out a template with gaps.
 
-填齐后按下方「示例」的固定结构产出，五个区块齐全：薪酬包表格 → 条款 → 福利摘要 → offer letter 正文 → 给招聘经理的备注。
+Once complete, produce the fixed five-block structure shown under **Example**: compensation package table → terms → benefits summary → offer letter text → notes for the hiring manager.
 
-## 指令
+### If connectors are available
 
-源命令：`/draft-offer <role and level>`（传入岗位与级别）。
+If an **HRIS** is connected (e.g. Workday, BambooHR, Rippling, Gusto):
+- Pull comp band data for the level/role.
+- Verify headcount approval.
+- Auto-populate benefits details.
 
-**若接入了 HRIS（人力系统）：** 拉取该级别/岗位的薪酬带宽、核对 headcount 审批、自动带出福利明细。
+If an **ATS** is connected (e.g. Greenhouse, Lever, Ashby, Workable):
+- Pull candidate details from the application.
+- Update offer status in the pipeline.
 
-**若接入了 ATS（招聘系统）：** 从候选人申请中拉取个人信息、在 pipeline 中更新 offer 状态。
+Without connectors, the above data is supplied manually or gathered by asking.
 
-无连接器时，以上数据靠人工提供或追问补齐。
+## Example
 
-## 示例
-
-输出固定结构（Markdown）：
+Output the following fixed structure (Markdown):
 
 ```markdown
-## 录用通知书草稿：[岗位] — [级别]
+## Offer Letter Draft: [Role] — [Level]
 
-### 薪酬包
-| 组成 | 明细 |
-|------|------|
-| **基本年薪** | ¥[X]/年 |
-| **股权** | [X 股/单位]，[vesting 计划] |
-| **签字费** | ¥[X]（如适用）|
-| **目标奖金** | base 的 [X]%（如适用）|
-| **首年总薪酬** | ¥[X] |
+### Compensation Package
+| Component | Details |
+|-----------|---------|
+| **Base Salary** | $[X]/year |
+| **Equity** | [X shares/units], [vesting schedule] |
+| **Signing Bonus** | $[X] (if applicable) |
+| **Target Bonus** | [X]% of base (if applicable) |
+| **Total First-Year Comp** | $[X] |
 
-### 条款
-- **入职日期**：[日期]
-- **汇报对象**：[经理]
-- **工作地点**：[Office / Remote / Hybrid]
-- **雇佣类型**：[全职 / 非全职]
+### Terms
+- **Start Date**: [Date]
+- **Reports To**: [Manager]
+- **Location**: [Office / Remote / Hybrid]
+- **Employment Type**: [Full-time, Exempt]
 
-### 福利摘要
-[与该候选人相关的关键福利亮点]
+### Benefits Summary
+[Key benefits highlights relevant to the candidate]
 
-### 录用通知书正文
+### Offer Letter Text
 
-尊敬的 [候选人姓名]：
+Dear [Candidate Name],
 
-我们很高兴向您发出 [公司] [岗位] 一职的录用邀请……
+We are pleased to offer you the position of [Title] at [Company]...
 
-[完整 offer letter 正文]
+[Complete offer letter text]
 
-### 给招聘经理的备注
-- [谈薪 / 反报价指引（如需要）]
-- [薪酬带宽背景]
-- [需要标注的风险或考量]
+### Notes for Hiring Manager
+- [Negotiation guidance if needed]
+- [Comp band context]
+- [Any flags or considerations]
 ```
 
-## 注意事项
+## Notes
 
-- **报总薪酬，不只报 base**——候选人横向对比的是 total comp，孤立的 base 容易被低估。
-- **股权写具体**——股数、当前估值口径、vesting 计划三者齐全；含糊的「有期权」毫无说服力。
-- **个性化**——在正文里引用面试过程中的一个细节，让通知书有温度，而非冷冰冰的模板。
-- 数字发出前对照源系统核验（薪酬带宽、审批状态），别用过期导出。
-- 「给招聘经理的备注」与 offer letter 正文分离：前者是内部谈薪弹药，不可随正文发给候选人。
+- **Include total comp, not just base** — candidates compare total compensation; an isolated base number reads as low.
+- **Be specific about equity** — share count, current valuation method, and vesting schedule, all three. A vague "you'll get options" carries no weight.
+- **Personalize** — reference something from the interview process in the letter body to make it warm rather than a cold template.
+- Verify the numbers against the source system (comp band, approval status) before they go out — never ship from a stale export.
+- Keep the "Notes for Hiring Manager" block separate from the offer letter text: it is internal negotiation ammunition and must not be sent to the candidate.
 
-## 互见
+## See also
 
-- related：人力资源域内的 JD 撰写、薪酬带宽设计、入职流程相关条目。
-- combines_with：薪酬建模 / 谈薪话术类技能，可在定价与反报价环节联用。
+- related: comp-analysis / compensation band design, interview-plan-builder, performance-review-builder, hr-partner-pro.
+- combines_with: compensation-analysis and negotiation-talking-points skills for pricing and counter-offers; new-hire-onboarding-plan for the post-acceptance handoff.
 
 ---
 
-采编自 anthropics/knowledge-work-plugins（Apache-2.0 许可证）。
+Adapted from anthropics/knowledge-work-plugins (Apache-2.0 license).

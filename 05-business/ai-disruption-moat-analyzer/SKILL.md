@@ -1,11 +1,11 @@
 ---
 name: ai-disruption-moat-analyzer
-title: AI 颠覆护城河分析
-description: 当评估某业务/公司被 AI 颠覆的风险与护城河强弱时使用；做 10 向量压力打分 + AI 原生竞品接管推演 + 90 天防御行动计划；不适用于审计级市场调研或投资建议。触发词：AI 颠覆风险、护城河评估、AI 替代、竞争尽调、90 天防御
+title: AI Disruption Moat Analyzer
+description: Use to assess a business's AI disruption risk and moat strength: a 10-vector pressure map (0-10 scoring), an AI-native competitor takeover storyboard, and a 90-day defensive action plan. Not audit-grade market research or investment advice. Triggers: AI disruption risk, moat asse
 domain: 商业/growth
-triggers: [我的业务会被 AI 颠覆吗, AI 原生创业公司会怎么抢我的市场, 未来 90 天该怎么防御 AI, 对某公司做 AI 替代风险尽调, 我的护城河在 AI 压力下还成立吗, 评估 AI 颠覆护城河]
-tags: [商业分析, 护城河, ai颠覆, 竞争战略, 尽职调查, growth, 风险评估]
-level: 进阶
+triggers: [Is my business at risk from AI and where am I most exposed, How would an AI-native startup take over my market, What should I do in the next 90 days to defend against AI disruption, Run AI displacement due diligence on this company, Does my competitive moat hold up under AI pressure, Analyze AI disruption and moat strength]
+tags: [business analysis, moat, ai disruption, competitive strategy, due diligence, growth, risk assessment]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,97 +16,98 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当你需要回答以下这类问题时使用本技能：
+Use this skill to answer questions like:
 
-- 「我的业务会不会被 AI 颠覆？哪里最脆弱？」
-- 「一家 AI 原生创业公司会怎样接管我的市场？」
-- 「接下来 90 天，我该做什么来防御 AI 冲击？」
-- 「我在对某公司做尽职调查——它的 AI 替代风险有多大？」
-- 「在 AI 压力下，我的竞争护城河到底还成不成立？」
+- "Is my business at risk from AI? Where am I most exposed?"
+- "How would an AI-native startup take over my market?"
+- "What should I do in the next 90 days to defend against AI disruption?"
+- "I'm doing due diligence on [company] — what's their AI displacement risk?"
+- "Where does my competitive moat actually hold against AI pressure?"
 
-**不该用的边界：**
+**Out of scope / limitations:**
 
-- 产出的是**战略风险分析**，不是经过审计的市场调研，也不是投资建议；不要据此直接下投资决策。
-- 结论依赖用户提供或从可靠来源采集的公司、市场、监管、竞争上下文；输入不实则结论失真。
-- 颠覆剧本只是规划工具；分数会随新证据变化，应定期复盘，不要当成一次性定论。
+- Produces **strategic risk analysis**, not audited market research or investment advice. Do not make investment decisions on its output alone.
+- Conclusions depend on current company, market, regulatory, and competitive context supplied by the user or gathered from reliable sources. Bad inputs produce distorted conclusions.
+- Treats disruption scenarios as planning tools; scores shift as new evidence appears and should be revisited periodically, not taken as a one-time verdict.
 
-## 步骤
+## Steps
 
-### 第 1 步 — 收集输入
+### Step 1 — Gather inputs
 
-若用户未提供，先问清三项：
+Ask if not provided:
 
-- **行业**（如「房地产」「社区银行」「零售药房」「律所」）
-- **主体类型**（如「独立经纪人」「个体执业者」「区域加盟商」）
-- **目标名称**（可选——若要做指名分析，给出具体组织名）
+- **Industry** (e.g., "real estate", "community banking", "retail pharmacy", "law firm")
+- **Entity type** (e.g., "independent broker", "solo practitioner", "regional franchise")
+- **Target name** (optional — a specific organization for named analysis)
 
-### 第 2 步 — 10 向量压力图
+### Step 2 — 10-vector pressure map
 
-对以下**正好 10 个**向量逐一打分（0–10 分），不要中途停在最明显的几个上：
+Score AI disruption pressure across **exactly these 10 vectors** (0–10). Do not stop at the most obvious ones:
 
-| # | 向量 | 衡量什么 |
-|---|------|---------|
-| 1 | **labor_substitution 人力替代** | 哪些岗位/职能可被直接自动化 |
-| 2 | **customer_interface 客户触点** | AI 如何改变客户触达该主体的方式 |
-| 3 | **knowledge_commoditization 知识商品化** | AI 是否把该主体出售的专业知识变成大路货 |
-| 4 | **pricing_pressure 价格压力** | AI 是否让低成本竞品得以低价抢单 |
-| 5 | **supply_chain_automation 供应链自动化** | AI 是否改变投入成本或供应商关系 |
-| 6 | **data_moat 数据护城河** | 该主体是否拥有 AI 无法复制的专有数据 |
-| 7 | **trust_relationship_moat 信任关系护城河** | 客户忠诚在多大程度上抵御替代 |
-| 8 | **distribution_channel_disruption 分销渠道颠覆** | AI 是否造出绕开该主体的新渠道 |
-| 9 | **regulatory_compliance_exposure 监管合规暴露** | AI 是否改变监管或责任格局 |
-| 10 | **decision_speed_gap 决策速度差** | AI 是否以让该主体处于劣势的方式加速决策 |
+| # | Vector | What to measure |
+|---|--------|----------------|
+| 1 | **labor_substitution** | Which roles/functions are directly automatable |
+| 2 | **customer_interface** | How AI changes how customers reach this entity |
+| 3 | **knowledge_commoditization** | Does AI commoditize the expertise this entity sells |
+| 4 | **pricing_pressure** | Does AI enable lower-cost competitors to undercut |
+| 5 | **supply_chain_automation** | Does AI change input costs or supplier relationships |
+| 6 | **data_moat** | Does this entity have proprietary data AI can't replicate |
+| 7 | **trust_relationship_moat** | How much does customer loyalty protect against displacement |
+| 8 | **distribution_channel_disruption** | Does AI create new channels that bypass this entity |
+| 9 | **regulatory_compliance_exposure** | Does AI alter the regulatory or liability landscape |
+| 10 | **decision_speed_gap** | Does AI accelerate decisions in ways that disadvantage this entity |
 
-每个向量产出四项：**score（分数）**、**headline（一句话结论）**、**near_term（12 个月内）**、**far_term（3 年后）**。
+For each vector produce: **score**, **headline** (one line), **near_term** (12 months), **far_term** (3 years).
 
-**综合风险分** = 10 个向量的均值。任一向量 **≥ 7** 标记为「关键风险（critical）」。
+**Aggregate risk score:** mean of all 10 vectors. Flag any vector **≥ 7** as critical.
 
-### 第 3 步 — AI 正门接管剧本
+### Step 3 — AI front-door takeover storyboard
 
-用 6 步叙事，讲清一个 AI 原生竞品如何替代该主体（必须贴合具体行业/主体，不要写成通用颠覆套话）：
+A 6-step narrative of how an AI-native competitor displaces this entity (keep it specific to the industry/entity, not a generic disruption narrative):
 
-1. 入口（从哪里切入）
-2. 楔子（拿下市场前 10%）
-3. 加速（什么让它复利式增长）
-4. 临界点（在场玩家再也无法翻盘的时刻）
-5. 余波（之后的市场格局）
-6. 幸存者画像（什么样的主体能活下来）
+1. The entry point
+2. The wedge (first 10% of market)
+3. The acceleration (what makes it compound)
+4. The tipping point (when the incumbent can't recover)
+5. The aftermath
+6. The survivor profile
 
-### 第 4 步 — 90 天反击计划
+### Step 4 — 90-day counterstrike plan
 
-- **A 轨（第 0–30 天）：即时防御** — 该停什么、该保护什么
-- **B 轨（第 31–60 天）：智能层搭建** — 需要加固的数据/关系
-- **C 轨（第 61–90 天）：进攻定位** — 把 AI 压力反过来当成竞争武器
+- **Track A (Days 0–30): Immediate defense** — what to stop, what to protect
+- **Track B (Days 31–60): Intelligence-layer build** — data/relationships to fortify
+- **Track C (Days 61–90): Offensive positioning** — use AI pressure as a competitive weapon
 
-## 指令
+## Example
 
-- 先把 10 个向量**全部**打完分再算综合分；克制「看到几个明显的就收手」的冲动。
-- 剧本要落到具体行业/主体上，拒绝泛泛的颠覆叙事。
-- C 轨必须是 90 天内可执行的动作，而非望远镜式的 3 年愿景。
-- **不要把 data_moat 和 trust_relationship_moat 混为一谈**——二者的保护机制不同：数据护城河靠不可复制的专有数据，信任护城河靠客户忠诚与关系黏性。
+Input: industry = community banking, entity type = regional independent bank, target = (unnamed).
 
-## 示例
+Expected output skeleton:
 
-输入：行业=社区银行，主体类型=区域性独立银行，目标=（不指名）。
+1. **10-vector pressure map** — e.g., `customer_interface=8` (AI assistants compare rates directly and bypass branches), `trust_relationship_moat=6` (local long-standing relationships still create stickiness), `data_moat=4` (transaction data exists but can't outmatch national-scale models)... give each vector a headline / near_term / far_term; aggregate = mean; list vectors ≥ 7 as critical.
+2. **Takeover storyboard** — an AI-native "digital bank" enters via micro-lending (entry point) → wins underserved segments with second-level approvals (wedge) → a data flywheel lowers underwriting cost (acceleration) → superior rates plus experience make deposit outflow irreversible (tipping point) → the regional bank is reduced to a conduit (aftermath) → those with deep local relationships plus compliance licensing survive (survivor profile).
+3. **90-day plan** — Track A: pause low-ROI branch expansion, lock in high-value customer relationships; Track B: connect local credit data, build digital touchpoints; Track C: package "local trust + compliance" into a selling point AI competitors can't easily replicate.
 
-期望产出骨架：
+## Notes
 
-1. **10 向量压力图**——例如 `customer_interface=8`（AI 助手直接比价、绕开网点）、`trust_relationship_moat=6`（本地长期关系仍有黏性）、`data_moat=4`（交易数据有，但难抵全国级模型）……逐项给 headline / near_term / far_term；综合分取均值，把 ≥7 的向量列为关键。
-2. **接管剧本**——AI 原生「数字银行」从小微贷切入（入口）→ 以秒级审批拿下被忽视客群（楔子）→ 数据飞轮压低风控成本（加速）→ 利率与体验双碾压使存款外流不可逆（临界点）→ 区域行沦为通道（余波）→ 深耕本地关系+合规牌照者幸存（幸存者画像）。
-3. **90 天计划**——A 轨：暂停低 ROI 网点扩张、锁定高价值客户关系；B 轨：打通本地信贷数据、建数字化触点；C 轨：把「本地信任+合规」做成 AI 竞品难复制的卖点对外主打。
+Best practices:
 
-## 注意事项
+- ✅ Score all 10 vectors before calculating the aggregate — resist stopping at the obvious ones.
+- ✅ Keep the storyboard specific to industry/entity, not a generic disruption narrative.
+- ✅ Track C should be actionable within 90 days, not an aspirational 3-year strategy.
+- ❌ Don't conflate `data_moat` with `trust_relationship_moat` — they protect differently: a data moat relies on non-replicable proprietary data, while a trust moat relies on customer loyalty and relationship stickiness.
 
-- 这是规划与决策辅助工具，不替代尽职调查、法律或投资意见。
-- 分数主观，务必写明 headline 的依据，便于他人复核与后续复盘。
-- 上下文越新越准；监管、竞品、技术变化快，建议每季度重算一次。
+Other notes:
 
-## 互见
+- This is a planning and decision-support tool. It does not replace due diligence, legal, or investment advice.
+- Scores are subjective — always record the basis for each headline so others can review and re-run later.
+- Fresher context is more accurate; regulation, competitors, and technology move fast, so recompute about once a quarter.
 
-- 同域 growth/竞争战略类技能（市场进入、定位分析）可与本技能配合，先用本技能定位风险，再下钻具体打法。
+## See also
 
----
-
-采编自 [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) 之 `moatmri`（原作者 IntuiTek¹，MIT License）。
+- Same-domain growth / competitive-strategy skills (market entry, positioning analysis) pair well: use this skill to locate risk first, then drill down into specific tactics.
+- Related: competitive-analysis, andreessen-vc-lens, business-assumption-stress-test, tech-stack-evaluator.
+- Combines with: competitive-analysis, market-sizing-analyst, premortem-plan-challenger.
+- Adapted from [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) `moatmri` (original author IntuiTek¹, MIT License). Full BYOK tool and source: [thebrierfox/moatmri-skill](https://github.com/thebrierfox/moatmri-skill).

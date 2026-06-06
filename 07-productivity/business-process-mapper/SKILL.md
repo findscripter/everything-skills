@@ -1,14 +1,14 @@
 ---
 name: business-process-mapper
-title: 业务流程绘制与瓶颈分析
-description: 当需要把采购/入职/事故交接/客户开通等内部业务流程文档化、按阶段量化周期时间并定位瓶颈时使用；产出泳道流程图、周期分析（P50/P90、增值比、Little 定律吞吐）与按严重度排序的瓶颈清单（含根因假设与单点改进建议）；不适用于销售漏斗、系统 SLO 可靠性或一次性项目管理。触发词：业务流程图、流程梳理、瓶颈分析、周期时间、value stream、BPMN、cycle time、bottleneck
+title: process-mapper
+description: Use when a BizOps lead, COO, or process-improvement owner needs to document an end-to-end business process (procurement, employee onboarding, incident handoff, customer-onboarding, claims adjudication) in BPMN-style notation, measure cycle times by stage, surface where work spends most of its time waiting vs. being worked, and quantify the gap between processing time and total elapsed time. Pairs Lean / Six Sigma / Theory-of-Constraints canon with deterministic stdlib-only Python tools to produce a process map, a ranked bottleneck list (with severity + root-cause hypothesis), and a cycle-time analysis (P50, P90, value-add ratio, Little's-Law throughput). Distinct from sales-pipeline, system-reliability (SLO), and strategic-OKR work — this is tactical process documentation for internal operations.
 domain: 协作/automation
-triggers: [业务流程图, 流程梳理, 瓶颈分析, 周期时间, 增值比, value stream, BPMN, cycle time, bottleneck]
+triggers: [value stream, BPMN, cycle time, bottleneck]
 tags: [bizops, process, bpmn, bottleneck, cycle-time, lean, six-sigma, value-stream]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python3, process_documenter.py, bottleneck_detector.py, cycle_time_analyzer.py, json]
+tools: []
 requires: []
 related: [coo-operations-advisor, ops-capacity-planner, company-operating-system, mermaid-diagram-expert]
 combines_with: [coo-operations-advisor, zapier-make-automation, ops-capacity-planner]
@@ -16,87 +16,95 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# process-mapper
 
-当一名运营负责人（BizOps/COO/流程改进 Owner）需要做以下事情时使用本技能：
+BPMN-style business process documentation, bottleneck detection, and cycle-time analysis for internal-operations leaders.
 
-- 把一条可重复的内部业务流程（采购申请、供应商/员工入职、事故交接、报销、客户开通、理赔审核等）用 BPMN 风格的泳道图文档化。
-- 已知流程"太慢"但说不清瓶颈在哪一阶段。
-- 已在测周期时间，却没测增值比（VA%），判断不出流程是健康还是充满浪费。
-- 跨职能交接频繁掉单、根因不明。
+## Purpose
 
-核心洞察：办公流程的总耗时里，绝大部分是排队/等待/审批时间，而非真正在做事。瓶颈用确定性规则点名，不靠 LLM 直觉。
+Internal-operations work suffers from three recurring failure modes:
 
-**不该用的边界（务必先判断再决定是否调用）：**
+1. **Implicit process** — the steps exist only in tribal knowledge, so handoffs drop and onboarding takes weeks.
+2. **Invisible waiting** — most of the elapsed time on any business process is queue / wait / approval time, not actual work; teams optimize the wrong stage.
+3. **Local optimization** — Goldratt's Theory of Constraints is ignored; resources are added to non-constraint stages, gaining nothing.
 
-- 销售漏斗、线索转化、客户成功留存等**对外**增长动作 —— 本技能只管**内部**运营流程。
-- 系统可靠性 SLO / 错误预算 / 燃尽告警 —— 那是系统正常运行时间，不是业务流程周期时间。
-- 战略层面"该先修哪条流程"的优先级决策 —— 本技能是优先级定下来之后的**战术执行**工具。
-- 一次性项目，或 Jira/Confluence 工单跟踪 —— 本技能做流程**设计**，不做工单**追踪**。
-- 用户连阶段级周期数据（哪怕是粗略 P50/P90 估值）都给不出 —— 那么第一步应是去埋点测量流程，而不是画图。
+This skill produces a documented process map, identifies where work waits, and points the constraint out by name with deterministic logic — not LLM intuition.
 
-## 步骤
+## When to use
 
-确定性五步流，三个脚本仅依赖 Python 标准库：
+- Documenting a new business process (procurement intake, vendor onboarding, employee onboarding, incident handoff, expense reimbursement, customer onboarding, claims adjudication).
+- An existing process is "too slow" but nobody can name the bottleneck.
+- Cycle time is being measured but value-add ratio is not — so the team can't tell whether the process is healthy or waste-heavy.
+- Cross-functional handoffs are dropping work and root cause is unclear.
 
-1. **录入（Intake）。** 把流程写成一个 JSON 文件，每个阶段一条记录，字段：`name`、`owner`、`type`（`value-add` | `wait` | `rework`）、`duration_minutes_p50`、`duration_minutes_p90`。顶层还需 `process_name` 与 `wip`（在制品数量，供 Little 定律用）。
-2. **绘制阶段图。** 运行 `process_documenter.py`，产出 ASCII 泳道图 + 规范化 JSON 工件。泳道按 owner 分行，跨职能交接一目了然。
-3. **测周期时间。** 运行 `cycle_time_analyzer.py`，计算总 P50、总 P90、增值比 VA%、等待%、返工%，以及 Little 定律吞吐估算（WIP / 周期时间）。判定：**VA% > 25% = 健康（HEALTHY）；10–25% = 典型（TYPICAL，多数非制造流程落在此区间）；< 10% = 浪费严重（WASTE-HEAVY）**。
-4. **检测瓶颈。** 运行 `bottleneck_detector.py` 并指定 `--profile`（saas / services / manufacturing / healthcare），产出按严重度（CRITICAL / HIGH / MEDIUM）排序的清单，每条含根因假设 + 一条推荐动作。
-5. **给建议。** 把瓶颈清单与周期判定结合，依 Goldratt"一切服从于约束"原则，每次只推荐**一个**聚焦约束点的改进动作。绝不建议优化非约束阶段。
+## Workflow
 
-## 指令
+Five-step deterministic flow:
 
-模板与三脚本配套使用（先填模板的阶段表，再翻译成 JSON）：
+1. **Intake.** Capture the process as a JSON file with one entry per stage: `name`, `owner`, `type` (`value-add` | `wait` | `rework`), `duration_minutes_p50`, `duration_minutes_p90`. Use `assets/process_template.md` and its JSON skeleton.
+2. **Map stages.** Run `process_documenter.py` to produce an ASCII swim-lane diagram + a normalized JSON artifact. The swim-lane separates lanes by owner so cross-functional handoffs become visible.
+3. **Measure cycle time.** Run `cycle_time_analyzer.py` to compute total P50, total P90, value-add ratio (VA%), and a Little's-Law throughput estimate. Verdict: VA% > 25% = HEALTHY, 10–25% = TYPICAL, < 10% = WASTE-HEAVY.
+4. **Detect bottlenecks.** Run `bottleneck_detector.py` with the appropriate `--profile` (saas / services / manufacturing / healthcare). Output is a ranked list with severity (CRITICAL / HIGH / MEDIUM), root-cause hypothesis, and one recommended action per finding.
+5. **Recommend.** Pair the bottleneck list with the cycle-time verdict; recommend a single constraint-focused intervention per Goldratt's "subordinate everything to the constraint" rule. Don't recommend optimization of a non-constraint stage.
 
-```
-python3 scripts/process_documenter.py    --input my-process.json
-python3 scripts/bottleneck_detector.py   --input my-process.json --profile saas
-python3 scripts/cycle_time_analyzer.py   --input my-process.json --profile saas
-```
+## Scripts
 
-- `process_documenter.py`：读取并校验流程 JSON，输出 Markdown 泳道图（按 owner 分行，阶段标注 type + 时长）及下游可用的规范化 JSON。`--sample` 可打印一个 6 阶段采购申请示例。
-- `bottleneck_detector.py` 的三条确定性规则：
-  - **R1：** 某阶段 P50 > 2× 增值阶段均值 → 阶段瓶颈。
-  - **R2：** 等待态占总周期 > 40% → 交接瓶颈。
-  - **R3：** 返工占总周期 > 15% → 质量瓶颈。
-  - 阈值随 `--profile` 调整：manufacturing 容忍的等待最少（wait≤30%、返工≤10%、倍数 1.8），services（≤50%/15%/2.5）与 healthcare（≤55%/12%/2.5）因人工/监管环节容忍更高，saas 为默认基线（≤40%/15%/2.0）。
-- **type 三类定义（Lean 正典）：** `value-add` = 从客户视角真正改变工作产物、客户愿意为之付费（多数阶段并非增值）；`wait` = 排队/闲置/等人，是办公流程周期膨胀的最大来源；`rework` = 修复上游缺陷而存在，Six Sigma 视其为上游质量问题。
+**`scripts/process_documenter.py`** — Reads a process JSON, validates it, and emits a text-based BPMN-style swim-lane diagram in Markdown (lanes by owner, stages annotated with type + duration). Also outputs a normalized JSON artifact for downstream tools. Stdlib only. `--sample` prints a 6-stage procurement-intake example.
 
-## 示例
+**`scripts/bottleneck_detector.py`** — Applies three deterministic detection rules: (a) stage P50 > 2× mean of value-add stages, (b) wait-state % > 40% of total cycle, (c) rework % > 15%. Thresholds adjust by `--profile` because SaaS, services, manufacturing, and healthcare have different "normal" wait ratios. Output is a ranked list with severity, hypothesis, action.
 
-一条采购申请流程的典型阶段（节选 JSON）：
+**`scripts/cycle_time_analyzer.py`** — Computes total P50 and P90 cycle time, value-add ratio (VA%), wait %, rework %, and a Little's-Law throughput estimate (WIP / cycle time). Per Lean canon: VA% > 25% = HEALTHY, 10–25% = TYPICAL (most non-manufacturing processes land here), < 10% = WASTE-HEAVY.
 
-```json
-{
-  "process_name": "采购申请",
-  "wip": 12,
-  "stages": [
-    {"name": "提交申请", "owner": "申请人", "type": "value-add", "duration_minutes_p50": 15, "duration_minutes_p90": 30},
-    {"name": "等待经理审批队列", "owner": "经理", "type": "wait", "duration_minutes_p50": 480, "duration_minutes_p90": 1440},
-    {"name": "等待财务复核", "owner": "财务", "type": "wait", "duration_minutes_p50": 720, "duration_minutes_p90": 2880},
-    {"name": "返工——缺供应商 W-9", "owner": "申请人", "type": "rework", "duration_minutes_p50": 120, "duration_minutes_p90": 360}
-  ]
-}
-```
+## References
 
-跑下来两段 `wait` 合计远超处理时间，VA% 很可能落入 WASTE-HEAVY；R2 触发交接瓶颈，约束点是审批队列，建议是移除交接/取消批处理，而非给等待型流程加人。
+- `references/lean_six_sigma_canon.md` — TIMWOOD wastes, value-stream mapping, Theory of Constraints, Kanban WIP, Little's Law. Cites Womack & Jones, Rother & Shook, Goldratt, Ohno, Liker, Pyzdek, Anderson.
+- `references/bpmn_essentials.md` — Pools, lanes, gateways, events, message flows, common notation mistakes. Cites the OMG BPMN 2.0 spec, Silver, Allweyer, Freund/Rücker, OASIS, ISO/IEC 19510:2013.
+- `references/bottleneck_anti_patterns.md` — Seven specific anti-patterns drawn from Goldratt, Kim et al., Spear, DORA, Deming, and process-mining research.
 
-## 注意事项
+## Assumptions
 
-- **一次只映射一条流程。** Goldratt：约束是单点。同时画十条会稀释注意力。
-- **不要优化非约束阶段。** 若阶段 4 是瓶颈，加速阶段 2 只会在阶段 4 前堆积在制品。一切服从于约束。
-- **别把总周期时间当成处理时间。** 二者几乎从不相等，VA% 揭示这道鸿沟。
-- **别给等待型流程加人。** 等待时间不靠堆人头解决，靠移除交接或批处理。
-- **别把返工当独立问题。** 返工环路属于流程图的一部分；藏起来会低估真实周期时间。
-- **type 标注必须诚实。** 把"等待"错标成"增值"是最常见的数据质量失败。
-- **as-is 优先。** 先映射现状流程，识别瓶颈后再画 to-be 目标流程（Rother & Shook《Learning to See》）。
-- **能用真实数据就别用估值。** 从工单系统（Jira/ServiceNow/Zendesk）拉阶段时长；估值仅供首轮，做任何变更决策前须替换为实测值。
+1. The user can provide stage-level cycle-time data (even rough P50 / P90 estimates). If they cannot, the first step is to instrument the process — not to map it.
+2. "Process" here means a repeatable business workflow with discrete stages, not a one-off project.
+3. The user has authority to act on bottlenecks (or can route findings to someone who does). Without that, the output is academic.
+4. Stage `type` is honest: a "value-add" stage labeled as such by the user really does change the work product from the customer's perspective. Mis-labelling waiting as value-add is the most common data-quality failure.
 
-## 互见
+## Anti-patterns
 
-- `first-principles-thinking`：在质疑"流程为何如此"、拆解约束根因时配合使用。
+- **Mapping every process at once.** Pick one. Goldratt: the constraint is a single point.
+- **Optimizing the non-constraint.** If stage 4 is the bottleneck, speeding up stage 2 just builds inventory in front of stage 4. Subordinate everything to the constraint.
+- **Mistaking total cycle time for processing time.** They are almost never the same; VA% reveals the gap.
+- **Adding people to a wait-bound process.** Wait time is not solved by more headcount; it's solved by removing the handoff or batch.
+- **Treating rework as a separate problem.** Rework loops belong in the process map. Hiding them understates true cycle time.
 
----
+## Distinct from
 
-本条采编自 alirezarezvani/claude-skills（MIT 许可）。
+- **business-growth skills** — external sales motion, lead-funnel conversion, customer-success retention. Process-mapper is *internal* operations.
+- **engineering/slo-architect** — system-reliability SLOs / error budgets / burn-rate alerts. Process-mapper is *business-process* cycle time, not system uptime.
+- **c-level-advisor (COO / CEO)** — strategic prioritization of which processes to fix. Process-mapper is the tactical instrument used after that prioritization decision.
+- **project-management skills** — Jira / Confluence ticket workflow tooling. Process-mapper is process *design*, not ticket *tracking*.
+
+## Forcing-question library (Matt Pocock grill discipline)
+
+Before invoking the tools, the orchestrator (or `/cs:grill-bizops`) walks the user through these questions **one at a time, with a recommended answer + canon citation**. Never bundled.
+
+1. **"Do you have measured cycle times for the top-3 longest stages, or only estimates?"**
+   Recommended: insist on measured data.
+   Canon: Goldratt 1984 (*The Goal*) — optimizing estimated bottlenecks reliably attacks the wrong constraint.
+
+2. **"Are you mapping the *current* process (as-is) or the *intended* process (to-be)?"**
+   Recommended: map as-is first. To-be after bottleneck is identified.
+   Canon: Rother & Shook 1999 (*Learning to See*) — value-stream mapping starts with the current state, always.
+
+3. **"Where do handoffs occur between teams, and how long does each handoff wait?"**
+   Recommended: log every handoff with median wait time.
+   Canon: Reinertsen 2009 (*Principles of Product Development Flow*) — wait time at handoffs is the largest invisible cost.
+
+4. **"What's your batch size at each stage?"**
+   Recommended: drive batch size toward 1 wherever possible.
+   Canon: Anderson 2010 (*Kanban*) — batch size correlates 1:1 with cycle time variance.
+
+5. **"What's the rework rate per stage?"**
+   Recommended: surface it explicitly; rework loops belong in the map.
+   Canon: Pyzdek (*Six Sigma Handbook*) — hidden rework drives 30-50% of total cycle time in service processes.
+
+Walk depth-first. Don't open question 4 before 1-3 are answered. After all 5 are locked, invoke `process_documenter.py` → `bottleneck_detector.py` → `cycle_time_analyzer.py` in sequence.

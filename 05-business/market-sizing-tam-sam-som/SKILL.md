@@ -1,11 +1,11 @@
 ---
 name: market-sizing-tam-sam-som
-title: 市场规模 TAM/SAM/SOM 测算
-description: 当为创业/新业务做市场规模论证、给投资人或商业计划估算 TAM/SAM/SOM、或交叉验证一个已有市场规模数字时使用；按自顶向下/自底向上/价值理论三法套公式算出三层市场、配数据源清单与三角校准、按受众组织呈现；不适用于真实抓数、竞品财务尽调、估值或事实背书；触发词：市场规模、TAM、SAM、SOM、可触达市场、market sizing、addressable market
+title: Market Sizing Analysis
+description: Comprehensive market sizing methodologies for calculating Total Addressable Market (TAM), Serviceable Available Market (SAM), and Serviceable Obtainable Market (SOM) for startup opportunities.
 domain: 商业/finance
-triggers: [市场规模, TAM, SAM, SOM, 市场容量, 可触达市场, market sizing, addressable market, 可服务市场]
+triggers: [TAM, SAM, SOM, market sizing, addressable market]
 tags: [market-sizing, tam-sam-som, business, growth, startup, fundraising, methodology]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,115 +16,423 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Market Sizing Analysis
 
-- 为创业/新业务估算市场机会，需要算出 TAM（总可触达市场）/SAM（可服务市场）/SOM（可获得市场）三层。
-- 为融资路演、商业计划书或战略选品准备"投资人级"市场规模论证，需要方法、公式、数据源与呈现结构。
-- 交叉验证一个已有市场规模数字是否站得住脚（自顶向下 vs 自底向上三角校准）。
-- 触发词：市场规模、TAM、SAM、SOM、市场容量、可触达市场、market sizing、addressable market。
+Comprehensive market sizing methodologies for calculating Total Addressable Market (TAM), Serviceable Available Market (SAM), and Serviceable Obtainable Market (SOM) for startup opportunities.
 
-不该用的边界：
-- 不负责真实抓取行业研报、政府数据、竞品财报——本技能给方法/公式/结构与数据源**线索**，数据需用户提供或另行检索。
-- 不做竞品财务尽调、公司估值或 M&A 分析。
-- 不对引用的市场数字做最终事实背书；外部数据与"研究表明"类断言一律标 [需核查] 交 `fact-checking`。
-- 不替代真实客户访谈与定价调研（价值理论法依赖这些一手输入）。
+## Use this skill when
 
-## 步骤 / 指令
+- Working on market sizing analysis tasks or workflows
+- Needing guidance, best practices, or checklists for market sizing analysis
 
-输入：`problem`（要解决的问题）、`customers`（目标客户与门槛）、`category`（产品/服务品类）、`geography`（地域）、`horizon`（一般 3-5 年）、可选 `pricing`/`segments[]`。
+## Do not use this skill when
 
+- The task is unrelated to market sizing analysis
+- You need a different domain or tool outside this scope
+
+## Instructions
+
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
+
+## Overview
+
+Market sizing provides the foundation for startup strategy, fundraising, and business planning. Calculate market opportunity using three complementary methodologies: top-down (industry reports), bottom-up (customer segment calculations), and value theory (willingness to pay).
+
+## Core Concepts
+
+### The Three-Tier Market Framework
+
+**TAM (Total Addressable Market)**
+- Total revenue opportunity if achieving 100% market share
+- Defines the universe of potential customers
+- Used for long-term vision and market validation
+- Example: All email marketing software revenue globally
+
+**SAM (Serviceable Available Market)**
+- Portion of TAM targetable with current product/service
+- Accounts for geographic, segment, or capability constraints
+- Represents realistic addressable opportunity
+- Example: AI-powered email marketing for e-commerce in North America
+
+**SOM (Serviceable Obtainable Market)**
+- Realistic market share achievable in 3-5 years
+- Accounts for competition, resources, and market dynamics
+- Used for financial projections and fundraising
+- Example: 2-5% of SAM based on competitive landscape
+
+### When to Use Each Methodology
+
+**Top-Down Analysis**
+- Use when established market research exists
+- Best for mature, well-defined markets
+- Validates market existence and growth
+- Starts with industry reports and narrows down
+
+**Bottom-Up Analysis**
+- Use when targeting specific customer segments
+- Best for new or niche markets
+- Most credible for investors
+- Builds from customer data and pricing
+
+**Value Theory**
+- Use when creating new market categories
+- Best for disruptive innovations
+- Estimates based on value creation
+- Calculates willingness to pay for problem solution
+
+## Three-Methodology Framework
+
+### Methodology 1: Top-Down Analysis
+
+Start with total market size and narrow to addressable segments.
+
+**Process:**
+1. Identify total market category from research reports
+2. Apply geographic filters (target regions)
+3. Apply segment filters (target industries/customers)
+4. Calculate competitive positioning adjustments
+
+**Formula:**
 ```
-1. 定义市场（五问）
-   解决什么问题 / 谁是客户 / 什么品类 / 什么地域 / 什么时间窗。
-   写成一句可证伪的市场定义，避免"整个行业都是我的市场"。
-
-2. 选方法（至少 2 法交叉）
-   Top-Down 自顶向下 : 成熟市场、有现成研报。从品类总盘往下切。快、可信、验证市场存在；新品类易高估。
-   Bottom-Up 自底向上: B2B/细分/新市场。从客户数 × 单客年收入往上加。投资人最认；需详尽客户调研、耗时。
-   Value 价值理论    : 全新品类/颠覆式创新、无现成市场。从问题成本×解决比例×付费意愿推；展示价值创造但假设多、难验证。
-
-3. 算 TAM
-   Top-Down:   TAM = 品类总规模（注明来源与年份，必要时套增长率，多源校验）
-   Bottom-Up:  TAM = Σ(细分客户数 × 单客年收入/ACV)
-   Value:      单客价值 = 问题成本 × 可解决比例
-               单客定价 = 单客价值 × 付费意愿%(通常 10-30%)
-               TAM      = 可触达客户数 × 单客定价
-
-4. 算 SAM = TAM × (同时满足全部过滤条件的比例)
-   过滤维度：地域 / 产品能力 / 客户门槛(规模·行业·用例) / 渠道可达 / 合规限制。
-   逐个相乘，例：SAM = TAM × 地域% × 品类% × 能力%
-
-5. 算 SOM = SAM × 现实可夺取份额
-   新进入者 3-5 年通常 2-5%；保守做法：
-   SOM(第3年)=SAM×2%   SOM(第5年)=SAM×5%
-
-6. 验证与三角校准（必做）
-   - 自顶向下与自底向上结果应落在 30% 以内。
-   - 用赛道内上市公司分部营收对照(10-K/财报)，sanity-check 客户数、定价、份额假设。
-   - 红旗：TAM 过小(VC 项目 < $1B) / TAM 过大无数据支撑 / SOM 过激(5 年 > 10%) / 两法差异 > 50%。
-
-7. 标注与交付
-   每个数字附：发布者+报告名+年份+地域口径+所做调整。外部数据标 [需核查]。
-```
-
-数据源速查：
-```
-Top-Down  : Gartner / Forrester / IDC、政府统计(Census/BLS/行业协会)、上市公司财报、Statista / CB Insights / PitchBook
-Bottom-Up : 客户访谈与问卷、销售/CRM 数据、LinkedIn / ZoomInfo / Crunchbase、竞品情报、学术研究
-Value     : 客户问题量化、时间/成本研究、ROI 案例、定价与付费意愿(WTP)调研
-```
-
-行业速查公式：
-```
-SaaS:             TAM = 目标公司数 × 平均 ACV × (1 + 扩张率)
-平台/Marketplace: TAM = 品类 GMV × 预期抽成率(take rate)
-消费/C 端:        TAM = 总用户数 × ARPU × 年购买频次
-B2B 服务:         TAM = 目标公司数 × 平均单值 × 年成交次数
-```
-
-呈现结构（按受众组织）：
-```
-对投资人: 市场定义+问题域 → TAM/SAM/SOM 及方法 → 数据源与假设 → 增长预测与驱动 → 竞争格局
-          要点：先讲自底向上(最可信)，再用自顶向下三角验证，点出保守假设并接到收入预测。
-对战略:   可触达分层 → 按机会量排序 → 分层进入策略 → 渗透时间线 → 资源需求
-          要点：聚焦 SAM/SOM，下钻分层细节，接到 GTM 计划。
-```
-
-## 示例
-
-B2B SaaS（AI 邮件营销，面向北美电商）自顶向下 SAM 拆解：
-```
-TAM        : $10B 全球邮件营销
-× 0.40 地域 : 北美
-× 0.30 品类 : 电商聚焦
-× 0.60 能力 : 需 AI 功能
-SAM = $10B × 0.40 × 0.30 × 0.60 = $720M
-
-SOM:
-  第3年 = $720M × 2% = $14.4M
-  第5年 = $720M × 5% = $36M
-
-三角验证: 与自底向上结果应落在 30% 以内；对照赛道上市公司营收印证市场真实存在。
+TAM = Total Market Category Size
+SAM = TAM × Geographic % × Segment %
+SOM = SAM × Realistic Capture Rate (2-5%)
 ```
 
-## 注意事项
+**When to use:** Established markets with available research (e.g., SaaS, fintech, e-commerce)
 
-- 别把 TAM 当 SAM：必须套上真实的产品/地域/客户过滤，诚实写出可服务部分。
-- SOM 别冒进：新进入者 5 年内极少拿到 > 5% 份额，要给可信的爬坡时间线。
-- 别只用自顶向下：单用缺可信度，投资人偏好自底向上验证，永远多法三角。
-- 别挑数据(cherry-pick)：用一致、近 2 年内的口径，混用方法须说明，所有假设写明。
-- 别忽略市场动态：纳入增长/衰退、竞争强度、切换成本与壁垒。
-- 数据卫生：统计数字、研报引用、"研究表明"一律标 [需核查] 交 `fact-checking`，本技能不自行担保事实。
-- 单一职责：只给方法、公式、数据源线索、校准与呈现逻辑，不抓数、不背书、不估值。
+**Strengths:** Quick, uses credible data, validates market existence
 
-## 互见
+**Limitations:** May overestimate for new categories, less granular
 
-- related：`market-sizing-analyst` —— 同主题的另一版测算指南，可对照其示例与算法细节互补。
-- related：`first-principles-thinking` —— 价值理论法的"问题成本→付费意愿"推导本质是第一性原理拆解，无现成市场时配合。
-- related：`fact-checking` —— 所有外部市场数字、研报引用、竞品营收须经其核验。
-- related：`competitive-analysis` —— SOM 的现实份额与竞争格局判断依赖竞品分析输入。
-- combines_with：`startup-financial-modeler` —— 把 TAM/SAM/SOM 接入收入预测与财务模型。
-- combines_with：`board-deck-builder` —— 把测算结论转为投资人/董事会路演页。
+### Methodology 2: Bottom-Up Analysis
 
----
-本条采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+Build market size from customer segment calculations.
+
+**Process:**
+1. Define target customer segments
+2. Estimate number of potential customers per segment
+3. Determine average revenue per customer
+4. Calculate realistic penetration rates
+
+**Formula:**
+```
+TAM = Σ (Segment Size × Annual Revenue per Customer)
+SAM = TAM × (Segments You Can Serve / Total Segments)
+SOM = SAM × Realistic Penetration Rate (Year 3-5)
+```
+
+**When to use:** B2B, niche markets, specific customer segments
+
+**Strengths:** Most credible for investors, granular, defensible
+
+**Limitations:** Requires detailed customer research, time-intensive
+
+### Methodology 3: Value Theory
+
+Calculate based on value created and willingness to pay.
+
+**Process:**
+1. Identify problem being solved
+2. Quantify current cost of problem (time, money, inefficiency)
+3. Calculate value of solution (savings, gains, efficiency)
+4. Estimate willingness to pay (typically 10-30% of value)
+5. Multiply by addressable customer base
+
+**Formula:**
+```
+Value per Customer = Problem Cost × % Solved by Solution
+Price per Customer = Value × Willingness to Pay % (10-30%)
+TAM = Total Potential Customers × Price per Customer
+SAM = TAM × % Meeting Buy Criteria
+SOM = SAM × Realistic Adoption Rate
+```
+
+**When to use:** New categories, disruptive innovations, unclear existing markets
+
+**Strengths:** Shows value creation, works for new markets
+
+**Limitations:** Requires assumptions, harder to validate
+
+## Step-by-Step Process
+
+### Step 1: Define the Market
+
+Clearly specify what market is being measured.
+
+**Questions to answer:**
+- What problem is being solved?
+- Who are the target customers?
+- What's the product/service category?
+- What's the geographic scope?
+- What's the time horizon?
+
+**Example:**
+- Problem: E-commerce companies struggle with email marketing automation
+- Customers: E-commerce stores with >$1M annual revenue
+- Category: AI-powered email marketing software
+- Geography: North America initially, global expansion
+- Horizon: 3-5 year opportunity
+
+### Step 2: Gather Data Sources
+
+Identify credible data for calculations.
+
+**Top-Down Sources:**
+- Industry research reports (Gartner, Forrester, IDC)
+- Government statistics (Census, BLS, trade associations)
+- Public company filings and earnings
+- Market research firms (Statista, CB Insights, PitchBook)
+
+**Bottom-Up Sources:**
+- Customer interviews and surveys
+- Sales data and CRM records
+- Industry databases (LinkedIn, ZoomInfo, Crunchbase)
+- Competitive intelligence
+- Academic research
+
+**Value Theory Sources:**
+- Customer problem quantification
+- Time/cost studies
+- ROI case studies
+- Pricing research and willingness-to-pay surveys
+
+### Step 3: Calculate TAM
+
+Apply chosen methodology to determine total market.
+
+**For Top-Down:**
+1. Find total category size from research
+2. Document data source and year
+3. Apply growth rate if needed
+4. Validate with multiple sources
+
+**For Bottom-Up:**
+1. Count total potential customers
+2. Calculate average annual revenue per customer
+3. Multiply to get TAM
+4. Break down by segment
+
+**For Value Theory:**
+1. Quantify total addressable customer base
+2. Calculate value per customer
+3. Estimate pricing based on value
+4. Multiply for TAM
+
+### Step 4: Calculate SAM
+
+Narrow TAM to serviceable addressable market.
+
+**Apply Filters:**
+- Geographic constraints (regions you can serve)
+- Product limitations (features you currently have)
+- Customer requirements (size, industry, use case)
+- Distribution channel access
+- Regulatory or compliance restrictions
+
+**Formula:**
+```
+SAM = TAM × (% matching all filters)
+```
+
+**Example:**
+- TAM: $10B global email marketing
+- Geographic filter: 40% (North America)
+- Product filter: 30% (e-commerce focus)
+- Feature filter: 60% (need AI capabilities)
+- SAM = $10B × 0.40 × 0.30 × 0.60 = $720M
+
+### Step 5: Calculate SOM
+
+Determine realistic obtainable market share.
+
+**Consider:**
+- Current market share of competitors
+- Typical market share for new entrants (2-5%)
+- Resources available (funding, team, time)
+- Go-to-market effectiveness
+- Competitive advantages
+- Time to achieve (3-5 years typically)
+
+**Conservative Approach:**
+```
+SOM (Year 3) = SAM × 2%
+SOM (Year 5) = SAM × 5%
+```
+
+**Example:**
+- SAM: $720M
+- Year 3 SOM: $720M × 2% = $14.4M
+- Year 5 SOM: $720M × 5% = $36M
+
+### Step 6: Validate and Triangulate
+
+Cross-check using multiple methods.
+
+**Validation Techniques:**
+1. Compare top-down and bottom-up results (should be within 30%)
+2. Check against public company revenues in space
+3. Validate customer count assumptions
+4. Sense-check pricing assumptions
+5. Review with industry experts
+6. Compare to similar market categories
+
+**Red Flags:**
+- TAM that's too small (< $1B for VC-backed startups)
+- TAM that's too large (unsupported by data)
+- SOM that's too aggressive (> 10% in 5 years for new entrant)
+- Inconsistency between methodologies (> 50% difference)
+
+## Industry-Specific Considerations
+
+### SaaS Markets
+
+**Key Metrics:**
+- Number of potential businesses in target segment
+- Average contract value (ACV)
+- Typical market penetration rates
+- Expansion revenue potential
+
+**TAM Calculation:**
+```
+TAM = Total Target Companies × Average ACV × (1 + Expansion Rate)
+```
+
+### Marketplace Markets
+
+**Key Metrics:**
+- Gross Merchandise Value (GMV) of category
+- Take rate (% of GMV you capture)
+- Total transactions or users
+
+**TAM Calculation:**
+```
+TAM = Total Category GMV × Expected Take Rate
+```
+
+### Consumer Markets
+
+**Key Metrics:**
+- Total addressable users/households
+- Average revenue per user (ARPU)
+- Engagement frequency
+
+**TAM Calculation:**
+```
+TAM = Total Users × ARPU × Purchase Frequency per Year
+```
+
+### B2B Services
+
+**Key Metrics:**
+- Number of target companies by size/industry
+- Average project value or retainer
+- Typical buying frequency
+
+**TAM Calculation:**
+```
+TAM = Total Target Companies × Average Deal Size × Deals per Year
+```
+
+## Presenting Market Sizing
+
+### For Investors
+
+**Structure:**
+1. Market definition and problem scope
+2. TAM/SAM/SOM with methodology
+3. Data sources and assumptions
+4. Growth projections and drivers
+5. Competitive landscape context
+
+**Key Points:**
+- Lead with bottom-up calculation (most credible)
+- Show triangulation with top-down
+- Explain conservative assumptions
+- Link to revenue projections
+- Highlight market growth rate
+
+### For Strategy
+
+**Structure:**
+1. Addressable customer segments
+2. Prioritization by opportunity size
+3. Entry strategy by segment
+4. Expected penetration timeline
+5. Resource requirements
+
+**Key Points:**
+- Focus on SAM and SOM
+- Show segment-level detail
+- Connect to go-to-market plan
+- Identify expansion opportunities
+- Discuss competitive positioning
+
+## Common Mistakes to Avoid
+
+**Mistake 1: Confusing TAM with SAM**
+- Don't claim entire market as addressable
+- Apply realistic product/geographic constraints
+- Be honest about serviceable market
+
+**Mistake 2: Overly Aggressive SOM**
+- New entrants rarely capture > 5% in 5 years
+- Account for competition and resources
+- Show realistic ramp timeline
+
+**Mistake 3: Using Only Top-Down**
+- Investors prefer bottom-up validation
+- Top-down alone lacks credibility
+- Always triangulate with multiple methods
+
+**Mistake 4: Cherry-Picking Data**
+- Use consistent, recent data sources
+- Don't mix methodologies inappropriately
+- Document all assumptions clearly
+
+**Mistake 5: Ignoring Market Dynamics**
+- Account for market growth/decline
+- Consider competitive intensity
+- Factor in switching costs and barriers
+
+## Additional Resources
+
+### Reference Files
+
+For detailed methodologies and frameworks:
+- **`references/methodology-deep-dive.md`** - Comprehensive guide to each methodology with step-by-step worksheets
+- **`references/data-sources.md`** - Curated list of market research sources, databases, and tools
+- **`references/industry-templates.md`** - Specific templates for SaaS, marketplace, consumer, B2B, and fintech markets
+
+### Example Files
+
+Working examples with complete calculations:
+- **`examples/saas-market-sizing.md`** - Complete TAM/SAM/SOM for a B2B SaaS product
+- **`examples/marketplace-sizing.md`** - Marketplace platform market opportunity calculation
+- **`examples/value-theory-example.md`** - Value-based market sizing for disruptive innovation
+
+Use these examples as templates for your own market sizing analysis. Each includes real numbers, data sources, and assumptions documented clearly.
+
+## Quick Start
+
+To perform market sizing analysis:
+
+1. **Define the market** - Problem, customers, category, geography
+2. **Choose methodology** - Bottom-up (preferred) or top-down + triangulation
+3. **Gather data** - Industry reports, customer data, competitive intelligence
+4. **Calculate TAM** - Apply methodology formula
+5. **Narrow to SAM** - Apply product, geographic, segment filters
+6. **Estimate SOM** - 2-5% realistic capture rate
+7. **Validate** - Cross-check with alternative methods
+8. **Document** - Show methodology, sources, assumptions
+9. **Present** - Structure for audience (investors, strategy, operations)
+
+For detailed step-by-step guidance on each methodology, reference the files in `references/` directory. For complete worked examples, see `examples/` directory.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

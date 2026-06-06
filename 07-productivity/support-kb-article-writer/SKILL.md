@@ -1,14 +1,14 @@
 ---
 name: support-kb-article-writer
-title: 支持知识库文章撰写
-description: 当工单已解决/同类问题反复出现/需发布临时绕过方案或对外公告已知问题、要把它沉淀为可自助检索的知识库文章时使用；做按文章类型（How-to/排障/FAQ/已知问题/参考）模板产出含元数据、SEO 检索优化标题与发布注记的发布就绪 KB 草稿；不适用于面向单个客户的工单回复、内部 Runbook、事故复盘报告本身；触发词：知识库文章、KB article、帮助中心、自助文档、FAQ、排障文档、已知问题、workaround、客户文档
+title: /kb-article
+description: Draft a knowledge base article from a resolved issue or common question. Use when a ticket resolution is worth documenting for self-service, the same question keeps coming up, a workaround needs to be published, or a known issue should be communicated to customers.
 domain: 协作/knowledge
-triggers: [知识库文章, KB article, 帮助中心, 自助文档, FAQ, 排障文档, troubleshooting, 已知问题, known issue, workaround, 客户文档, help center]
+triggers: [KB article, FAQ, troubleshooting, known issue, workaround, help center]
 tags: [knowledge-base, kb-article, customer-support, self-service, faq, troubleshooting, documentation, seo]
-level: 入门
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [zendesk, intercom, confluence, notion]
+tools: []
 requires: []
 related: [support-ticket-triage, technical-reference-builder, process-sop-documenter, customer-response-drafter]
 combines_with: [support-ticket-triage, seo-content-writer, process-sop-documenter]
@@ -16,102 +16,348 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 支持知识库文章撰写
+# /kb-article
 
-## 何时使用
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-当一次工单解决、常见问题或临时绕过方案值得沉淀为**客户可自助检索**的知识库（KB）文章时使用。典型触发：
+Draft a publish-ready knowledge base article from a resolved support issue, common question, or documented workaround. Structures the content for searchability and self-service.
 
-- 一个工单的解决方案值得文档化以减少重复工单。
-- 同一个问题反复被问（内容缺口）。
-- 某绕过方案需要对外发布。
-- 某已知问题需要主动告知客户。
-
-**不该用的边界**：
-
-- 面向单个客户的工单/邮件回复（那是一次性沟通，不进 KB）。
-- 内部 Runbook / 排障手册（面向工程师、含敏感内部细节）。
-- 事故复盘 / Postmortem 报告本身（KB 文章只引用其链接，不写根因分析）。
-- 营销博客、产品发布说明。
-
-## 步骤
-
-1. **解析源材料**，识别五要素：原始问题是什么 / 解决方案或答案是什么 / 影响谁（用户类型、套餐、配置） / 频率（一次性 vs 反复） / 适配哪种文章类型。
-2. **拉取上下文（若给了工单号）**：从支持平台拉完整工单线程与内部备注；查 KB 是否已有相似文章（决定**更新 vs 新建**）；查关联 bug/需求。
-3. **选文章类型并套模板**（见示例的 5 类模板）。
-4. **按检索优化写作**：标题用客户语言、首句平实复述问题、嵌入精确报错原文、加同义词与别名。
-5. **输出草稿 + 元数据 + 发布注记**（见指令的输出结构）。
-6. **给后续动作**：是否检查重复文章 / 调整受众技术深度 / 写配套文章 / 出内部增强版。
-
-## 指令
-
-**判定「更新已有 vs 新建」**：产品变更需刷新步骤、文章大体正确仅缺细节、客户反馈某节困惑、发现更优方案 → **更新**；新功能/新领域、解决工单暴露空缺、旧文混入太多主题需拆分、不同受众需另一种讲法 → **新建**。
-
-**检索优化（文章找不到 = 无用）**：
-
-- 标题要具体含客户搜索词：用「如何用 Okta 配置 SSO」而非「SSO 设置」；用「修复：仪表盘显示空白页」而非「仪表盘问题」；含**精确报错原文**「报错：导入数据时 'Connection refused'」。
-- 用客户语言而非内部术语：「登录不了」而非「认证失败」。
-- 加同义词（删除/移除、导出/下载、仪表盘/首页）与多种问法。
-
-**首句公式**（按类型）：How-to=「本指南教你如何〈完成 X〉」；排障=「如果你看到〈症状〉，本文说明如何修复」；FAQ=「〈客户原话问题〉？答案如下」；已知问题=「部分用户遇到〈症状〉，以下是已知情况与绕过方法」。
-
-**格式规则**：用 H2/H3 分节；顺序步骤用有序列表、非顺序用无序列表；UI 元素名/关键词加粗；命令、API、报错、配置值用代码块；对比/选项用表格；警告与提示用 callout；段落 2-4 句封顶；一节只讲一件事，混了就拆。
-
-**输出结构**：
+## Usage
 
 ```
-## KB 文章草稿
-**标题:** [客户语言、含搜索词]
-**类型:** [How-to / 排障 / FAQ / 已知问题 / 参考]
-**分类:** [产品域]   **标签:** [可检索标签]   **受众:** [全部/管理员/开发者/某套餐]
+/kb-article <resolved issue, ticket reference, or topic description>
+```
+
+Examples:
+- `/kb-article How to configure SSO with Okta — resolved this for 3 customers last month`
+- `/kb-article Ticket #4521 — customer couldn't export data over 10k rows`
+- `/kb-article Common question: how to set up webhook notifications`
+- `/kb-article Known issue: dashboard charts not loading on Safari 16`
+
+## Workflow
+
+### 1. Understand the Source Material
+
+Parse the input to identify:
+
+- **What was the problem?** The original issue, question, or error
+- **What was the solution?** The resolution, workaround, or answer
+- **Who does this affect?** User type, plan level, or configuration
+- **How common is this?** One-off or recurring issue
+- **What article type fits best?** How-to, troubleshooting, FAQ, known issue, or reference (see article types below)
+
+If a ticket reference is provided, look up the full context:
+
+- **~~support platform**: Pull the ticket thread, resolution, and any internal notes
+- **~~knowledge base**: Check if a similar article already exists (update vs. create new)
+- **~~project tracker**: Check if there's a related bug or feature request
+
+### 2. Draft the Article
+
+Using the article structure, formatting standards, and searchability best practices below:
+
+- Follow the template for the chosen article type (how-to, troubleshooting, FAQ, known issue, or reference)
+- Apply the searchability best practices: customer-language title, plain-language opening sentence, exact error messages, common synonyms
+- Keep it scannable: headers, numbered steps, short paragraphs
+
+### 3. Generate the Article
+
+Present the draft with metadata:
+
+```
+## KB Article Draft
+
+**Title:** [Article title]
+**Type:** [How-to / Troubleshooting / FAQ / Known Issue / Reference]
+**Category:** [Product area or topic]
+**Tags:** [Searchable tags]
+**Audience:** [All users / Admins / Developers / Specific plan]
+
 ---
-[正文 — 按下方对应类型模板]
+
+[Full article content — using the appropriate template below]
+
 ---
-### 发布注记
-- 来源: [工单号/对话/内部讨论]
-- 待更新的已有文章: [若有重叠]
-- 需谁评审: [技术准确性需 SME 把关时]
-- 建议复查日期: [何时回看]
+
+### Publishing Notes
+- **Source:** [Ticket #, customer conversation, or internal discussion]
+- **Existing articles to update:** [If this overlaps with existing content]
+- **Review needed from:** [SME or team if technical accuracy needs verification]
+- **Suggested review date:** [When to revisit for accuracy]
 ```
 
-## 示例
+### 4. Offer Next Steps
 
-**How-to 模板**：`# 如何〈完成任务〉` → 概览 / 前置条件 / 步骤（每步动词开头、给精确路径如「进入 设置 > 集成 > API 密钥」、说明操作后应看到什么如「应出现绿色确认横幅」）/ 验证是否成功 / 常见问题 / 相关文章。
+After generating the article:
+- "Want me to check if a similar article already exists in your ~~knowledge base?"
+- "Should I adjust the technical depth for a different audience?"
+- "Want me to draft a companion article (e.g., a how-to to go with this troubleshooting guide)?"
+- "Should I create an internal-only version with additional technical detail?"
 
-**排障模板**：`# 〈用户看到的问题〉` → 症状（先写症状，客户按看到的搜）/ 原因（简短非术语）/ 解决（方案 1 主修复、方案 2 备选）/ 预防 / 仍有问题？（指向支持）。多方案时最可能的修复放最前。
+---
 
-**FAQ 模板**：`# 〈客户原话问题〉` → 直接答案（1-3 句、首句即答）/ 细节 / 相关问题。需要走查的就该是 How-to 而非 FAQ。
+## Article Structure and Formatting Standards
 
-**已知问题模板**：
+### Universal Article Elements
 
-```markdown
-# 已知问题：〈简述〉
-**状态:** [排查中 / 有绕过方案 / 修复中 / 已解决]
-**影响:** [谁/什么受影响]   **最后更新:** [日期]
-## 症状
-[用户遇到的现象]
-## 绕过方案
-[绕过步骤，或「暂无绕过方案」]
-## 修复时间线
-[预期修复日期或当前状态]
-## 更新记录
-- [日期]: [更新]
+Every KB article should include:
+
+1. **Title**: Clear, searchable, describes the outcome or problem (not internal jargon)
+2. **Overview**: 1-2 sentences explaining what this article covers and who it's for
+3. **Body**: Structured content appropriate to the article type
+4. **Related articles**: Links to relevant companion content
+5. **Metadata**: Category, tags, audience, last updated date
+
+### Formatting Rules
+
+- **Use headers (H2, H3)** to break content into scannable sections
+- **Use numbered lists** for sequential steps
+- **Use bullet lists** for non-sequential items
+- **Use bold** for UI element names, key terms, and emphasis
+- **Use code blocks** for commands, API calls, error messages, and configuration values
+- **Use tables** for comparisons, options, or reference data
+- **Use callouts/notes** for warnings, tips, and important caveats
+- **Keep paragraphs short** — 2-4 sentences max
+- **One idea per section** — if a section covers two topics, split it
+
+## Writing for Searchability
+
+Articles are useless if customers can't find them. Optimize every article for search:
+
+### Title Best Practices
+
+| Good Title | Bad Title | Why |
+|------------|-----------|-----|
+| "How to configure SSO with Okta" | "SSO Setup" | Specific, includes the tool name customers search for |
+| "Fix: Dashboard shows blank page" | "Dashboard Issue" | Includes the symptom customers experience |
+| "API rate limits and quotas" | "API Information" | Includes the specific terms customers search for |
+| "Error: 'Connection refused' when importing data" | "Import Problems" | Includes the exact error message |
+
+### Keyword Optimization
+
+- **Include exact error messages** — customers copy-paste error text into search
+- **Use customer language**, not internal terminology — "can't log in" not "authentication failure"
+- **Include common synonyms** — "delete/remove", "dashboard/home page", "export/download"
+- **Add alternate phrasings** — address the same issue from different angles in the overview
+- **Tag with product areas** — make sure category and tags match how customers think about the product
+
+### Opening Sentence Formula
+
+Start every article with a sentence that restates the problem or task in plain language:
+
+- **How-to**: "This guide shows you how to [accomplish X]."
+- **Troubleshooting**: "If you're seeing [symptom], this article explains how to fix it."
+- **FAQ**: "[Question in the customer's words]? Here's the answer."
+- **Known issue**: "Some users are experiencing [symptom]. Here's what we know and how to work around it."
+
+## Article Type Templates
+
+### How-to Articles
+
+**Purpose**: Step-by-step instructions for accomplishing a task.
+
+**Structure**:
+```
+# How to [accomplish task]
+
+[Overview — what this guide covers and when you'd use it]
+
+## Prerequisites
+- [What's needed before starting]
+
+## Steps
+### 1. [Action]
+[Instruction with specific details]
+
+### 2. [Action]
+[Instruction]
+
+## Verify It Worked
+[How to confirm success]
+
+## Common Issues
+- [Issue]: [Fix]
+
+## Related Articles
+- [Links]
 ```
 
-状态务必保持最新（陈旧的已知问题最毁信任）；修复上线后标记「已解决」并保留 30 天供仍按旧症状搜索的客户。
+**Best practices**:
+- Start each step with a verb
+- Include the specific path: "Go to Settings > Integrations > API Keys"
+- Mention what the user should see after each step ("You should see a green confirmation banner")
+- Test the steps yourself or verify with a recent ticket resolution
 
-## 注意事项
+### Troubleshooting Articles
 
-- **一文一题**：一篇文章只解决一个问题，过长就拆，用链接互串。
-- **可检索压倒一切**：客户搜不到的文章等于不存在；把精确报错原文与客户口语词放进标题和概览。
-- **互链方向**：排障→How-to（「配置步骤见〈如何配置 X〉」）、How-to→排障、FAQ→详细指南、已知问题→绕过方案；KB 内用相对链接（重构后更稳）；避免无意义循环链接。
-- **激进维护**：错的文章比没有文章更糟。建议节奏——已知问题状态每周更新、月度排查 6 个月未更新的陈旧内容、季度审计高流量文章准确性与内容缺口。
-- **技术准确性**：涉及命令/配置/API 的文章需 SME 评审；步骤要自己实测或用近期工单解决过程核对。
-- 引用的事实（版本号、影响面、报错）应来自工单与系统，不确定要标注。
-- 本条采编自 anthropics/knowledge-work-plugins（Apache-2.0），保留其 5 类文章模板、检索优化（客户语言标题/精确报错/同义词）、首句公式、格式规则、更新 vs 新建判据、维护节奏与文章生命周期等关键约束。
+**Purpose**: Diagnose and resolve a specific problem.
 
-## 互见
+**Structure**:
+```
+# [Problem description — what the user sees]
 
-- related：`internal-comms` —— 对内/对外的事故与状态公告写法可复用，已知问题文章可引用其 status update。
-- related：`ai-customer-support` —— 一线工单解决方案是 KB 文章的主要素材源，KB 反过来降低重复工单。
-- combines_with：`ai-customer-support` —— 工单解决 → 沉淀 KB → 自助分流，形成支持闭环。
+## Symptoms
+- [What the user observes]
+
+## Cause
+[Why this happens — brief, non-jargon explanation]
+
+## Solution
+### Option 1: [Primary fix]
+[Steps]
+
+### Option 2: [Alternative if Option 1 doesn't work]
+[Steps]
+
+## Prevention
+[How to avoid this in the future]
+
+## Still Having Issues?
+[How to get help]
+```
+
+**Best practices**:
+- Lead with symptoms, not causes — customers search for what they see
+- Provide multiple solutions when possible (most likely fix first)
+- Include a "Still having issues?" section that points to support
+- If the root cause is complex, keep the customer-facing explanation simple
+
+### FAQ Articles
+
+**Purpose**: Quick answer to a common question.
+
+**Structure**:
+```
+# [Question — in the customer's words]
+
+[Direct answer — 1-3 sentences]
+
+## Details
+[Additional context, nuance, or explanation if needed]
+
+## Related Questions
+- [Link to related FAQ]
+- [Link to related FAQ]
+```
+
+**Best practices**:
+- Answer the question in the first sentence
+- Keep it concise — if the answer needs a walkthrough, it's a how-to, not an FAQ
+- Group related FAQs and link between them
+
+### Known Issue Articles
+
+**Purpose**: Document a known bug or limitation with a workaround.
+
+**Structure**:
+```
+# [Known Issue]: [Brief description]
+
+**Status:** [Investigating / Workaround Available / Fix In Progress / Resolved]
+**Affected:** [Who/what is affected]
+**Last updated:** [Date]
+
+## Symptoms
+[What users experience]
+
+## Workaround
+[Steps to work around the issue, or "No workaround available"]
+
+## Fix Timeline
+[Expected fix date or current status]
+
+## Updates
+- [Date]: [Update]
+```
+
+**Best practices**:
+- Keep the status current — nothing erodes trust faster than a stale known issue article
+- Update the article when the fix ships and mark as resolved
+- If resolved, keep the article live for 30 days for customers still searching the old symptoms
+
+## Review and Maintenance Cadence
+
+Knowledge bases decay without maintenance. Follow this schedule:
+
+| Activity | Frequency | Who |
+|----------|-----------|-----|
+| **New article review** | Before publishing | Peer review + SME for technical content |
+| **Accuracy audit** | Quarterly | Support team reviews top-traffic articles |
+| **Stale content check** | Monthly | Flag articles not updated in 6+ months |
+| **Known issue updates** | Weekly | Update status on all open known issues |
+| **Analytics review** | Monthly | Check which articles have low helpfulness ratings or high bounce rates |
+| **Gap analysis** | Quarterly | Identify top ticket topics without KB articles |
+
+### Article Lifecycle
+
+1. **Draft**: Written, needs review
+2. **Published**: Live and available to customers
+3. **Needs update**: Flagged for revision (product change, feedback, or age)
+4. **Archived**: No longer relevant but preserved for reference
+5. **Retired**: Removed from the knowledge base
+
+### When to Update vs. Create New
+
+**Update existing** when:
+- The product changed and steps need refreshing
+- The article is mostly right but missing a detail
+- Feedback indicates customers are confused by a specific section
+- A better workaround or solution was found
+
+**Create new** when:
+- A new feature or product area needs documentation
+- A resolved ticket reveals a gap — no article exists for this topic
+- The existing article covers too many topics and should be split
+- A different audience needs the same information explained differently
+
+## Linking and Categorization Taxonomy
+
+### Category Structure
+
+Organize articles into a hierarchy that matches how customers think:
+
+```
+Getting Started
+├── Account setup
+├── First-time configuration
+└── Quick start guides
+
+Features & How-tos
+├── [Feature area 1]
+├── [Feature area 2]
+└── [Feature area 3]
+
+Integrations
+├── [Integration 1]
+├── [Integration 2]
+└── API reference
+
+Troubleshooting
+├── Common errors
+├── Performance issues
+└── Known issues
+
+Billing & Account
+├── Plans and pricing
+├── Billing questions
+└── Account management
+```
+
+### Linking Best Practices
+
+- **Link from troubleshooting to how-to**: "For setup instructions, see [How to configure X]"
+- **Link from how-to to troubleshooting**: "If you encounter errors, see [Troubleshooting X]"
+- **Link from FAQ to detailed articles**: "For a full walkthrough, see [Guide to X]"
+- **Link from known issues to workarounds**: Keep the chain from problem to solution short
+- **Use relative links** within the KB — they survive restructuring better than absolute URLs
+- **Avoid circular links** — if A links to B, B shouldn't link back to A unless both are genuinely useful entry points
+
+## KB Writing Best Practices
+
+1. Write for the customer who is frustrated and searching for an answer — be clear, direct, and helpful
+2. Every article should be findable through search using the words a customer would type
+3. Test your articles — follow the steps yourself or have someone unfamiliar with the topic follow them
+4. Keep articles focused — one problem, one solution. Split if an article is growing too long
+5. Maintain aggressively — a wrong article is worse than no article
+6. Track what's missing — every ticket that could have been a KB article is a content gap
+7. Measure impact — articles that don't get traffic or don't reduce tickets need to be improved or retired

@@ -1,11 +1,11 @@
 ---
 name: ip-infringement-triage
-title: 知识产权侵权线索分级
-description: 当商标/著作权/专利/商业秘密出现疑似侵权（你侵他人或他人侵你、冒牌仿品、是否值得追究）需要先做要素梳理时使用；做按权利类型逐要素分级、输出"分别指向哪方"的标记清单与分诊备忘录；不适用于下结论是否构成侵权、替代权利要求书/损害鉴定、起草警告函或DMCA下架；触发词：侵权分诊、商标混淆、合理使用、claim chart、商业秘密、是否侵权
+title: /infringement-triage
+description: Infringement triage across trademark, copyright, patent, and trade secret — a flag list with the factors cutting each way, not a finding. Use when assessing whether someone is infringing your IP or whether you might be infringing theirs, when a knockoff or copycat surfaces, or when deciding whether 
 domain: 领域/legal
-triggers: [侵权分诊, 商标混淆, 合理使用, claim chart, 商业秘密, 是否侵权, 冒牌仿品, 侵权线索分级, DMCA安全港, 商业外观]
-tags: [legal, 知识产权, 侵权分析, 商标, 著作权, 专利, 商业秘密, triage]
-level: 进阶
+triggers: [claim chart]
+tags: [legal, triage]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,98 +16,620 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-# 知识产权侵权线索分级
+# /infringement-triage
 
-> **这是线索分级（triage），不是侵权与否的结论。** 侵权判断高度依赖事实且法律复杂；分级只识别要素、标记最关键项，**绝不下结论**。是否构成侵权属于法律意见，须由律师就事实、权利范围、管辖法律与抗辩作出判断。基于分级即行动（发警告函、拒绝停止、起诉或决定放弃）而不经律师复核，是企业落入费用承担、Rule 11 制裁、确认不侵权之诉、（专利上）三倍赔偿的典型路径。
+**This is a triage, not a finding of infringement or non-infringement.**
+Infringement analysis is fact-intensive and legally complex. Acting on a
+triage — sending a cease-and-desist, refusing to stop, filing suit, or
+deciding not to — without attorney review is how companies end up on the
+wrong side of fee awards, Rule 11 sanctions, declaratory-judgment actions,
+and (for patents) treble damages.
 
-## 何时使用
+## Instructions
 
-- **适用**：商标 / 著作权 / 专利 / 商业秘密领域，出现"他人疑似侵我"或"我方疑似被指"，冒牌、仿品、抄袭浮现，或需判断某事项是否值得追究、如何追究——需要先把要素铺开、标记分歧点时。
-- **不该用（负边界）**：
-  - **不得下结论**——这是最高优先的护栏，永远不判定"构成/不构成侵权"。
-  - 不替代调查问卷证据、损害赔偿专家、权利要求解释。
-  - 不把合理使用作为法律问题定性——它是事实密集型，留给律师与法院。
-  - 不起草警告函 / 下架通知 / 起诉状——交给专门技能并经审批链把关。
-  - 不评估超出本次管辖范围的他国抗辩——跨境则标记需当地法分析。
+1. Read `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`. If it
+   contains `[PLACEHOLDER]`, stop and direct to `/ip-legal:cold-start-interview`.
+2. Follow the workflow below.
+3. Ask which right is at issue — trademark / copyright / patent / trade secret
+   / mixed. If mixed, run each separately; do not blend.
+4. Run common intake (party posture — senior or accused, jurisdiction, timing,
+   exhibits).
+5. Walk the mode-specific factors:
+   - **Trademark** — circuit's confusion test + dilution (if famous) +
+     false advertising (if a comparative claim).
+   - **Copyright** — ownership + registration + access + substantial
+     similarity + fair use + DMCA safe harbor (if applicable).
+   - **Patent** — claim-chart first pass (route to `fto-triage` output
+     structure); literal + DOE; indirect + divided; invalidity defenses to
+     consider.
+   - **Trade secret** — secrecy + reasonable measures + misappropriation;
+     preemption + reverse-engineering flags.
+6. Produce a flag list with direction — what cuts toward the senior party,
+   what cuts toward the accused, what's mixed. Never conclude.
+7. Write the triage memo to the matter folder or practice outputs folder. Apply
+   the work-product header per role.
+8. End with recommended next steps, the non-lawyer gate if the role is
+   non-lawyer, and — if the practice posture supports assertion — an offer to
+   draft the C&D via `/ip-legal:cease-desist` or the takedown via
+   `/ip-legal:takedown`. Do not draft automatically.
 
-**方向不对称**：漏判是单向门（警告函没发、商标在市场上通用化；时效跑掉；侵权作品继续在线）；过判是双向门（律师再收窄）。**站在双向门一侧——宁可多标记。**
+This skill never concludes. If uncertain, flag — the attorney decides.
 
-## 步骤 / 指令
-
-1. **选权利**：先问"在分诊哪种权利？"——商标 / 著作权 / 专利 / 商业秘密 / 混合或不确定。**多种权利在场则各自分别跑，不要混在一起**（要素、管辖规则、救济各不相同）。
-2. **通用初诊**（等回答后再走要素）：
-   - **立场**：你是疑似在先方（他人取我）还是疑似被指方（我方被审视）？前者导向主张函，后者导向风险备忘录。
-   - **管辖**：哪国 / 巡回区 / 法院？未指明默认美国联邦；可能适用外国法则标记。
-   - **时效**：诉讼时效 / 懈怠（laches）时钟是否在走？
-   - **证据**：截图、URL、包装照、代码片段、离职员工合同等。
-3. **走对应模式的要素**（见下）。
-4. **产出带方向的标记清单**：哪些指向在先方、哪些指向被指方、哪些两可。**绝不下结论。**
-5. **按角色加注工作成果抬头**，写入备忘录；非律师角色追加"非律师闸门"。
-6. **结尾给下一步**；若实务立场支持主张，**仅提议**起草警告函或下架，不自动起草。
-
-### 商标模式
-
-- **混淆**：用所在巡回区的多因素检验（du Pont / Polaroid / Sleekcraft 等，cite 检验来源）。逐因素标方向：标识相似（形/音/义/整体印象）、商品服务相似（来源预期而非同一）、销售渠道、消费者老练度、在先标识强度（臆造/任意/暗示/描述性+第二含义/通用）、意图（抄袭、仿冒商业外观）、实际混淆（问卷/误投咨询/社媒）、扩张可能（bridge-the-gap）。
-- **淡化**：联邦 TDRA（15 U.S.C. § 1125(c)）+ 适用州法。**驰名门槛**须对一般消费公众驰名，小众驰名不够（*Starbucks Corp. v. Wolfe's Borough Coffee*, 588 F.3d 97 (2d Cir. 2009)）；区分弱化（distinctiveness）与污损（reputation）；抗辩含比较广告、新闻报道、合理使用、非商业使用。不全国驰名则标"淡化偏牵强"。
-- **虚假广告 / 比较性主张**：Lanham Act § 43(a) / 15 U.S.C. § 1125(a) 的实质性、虚假或误导、欺骗、商业言论、损害诸要素；区分字面虚假 / 隐含虚假 / 夸张吹嘘（puffery 不可诉）；标记佐证证据。
-
-### 著作权模式
-
-- **权属**：原告是否为权利人或有诉权的专有被许可人？雇佣作品、共同作者、转让、终止权均需标记。
-- **登记**：17 U.S.C. § 411 以登记（或预登记）为美国联邦起诉前提；*Fourth Estate v. Wall-Street.com*, 586 U.S. 296 (2019)——须实际获准登记，仅申请不够。未登记则标"事实上无法起诉"。
-- **接触 + 实质性相似**：两条证明抄袭路径——接触+佐证性相似；或惊人相似（striking similarity，纵无接触证据亦推定）。实质性相似用所在巡回区检验（2d 普通观察者；9th *Krofft*/*Swirsky* 外在/内在；4th/7th/11th 各变体），标明适用哪个。
-- **合理使用**：17 U.S.C. § 107 四要素整体衡量——使用目的与性质（转换性；商业/非商业）、被用作品性质（事实功能 vs 创作）、使用比例与实质性、对原作市场的影响。近期标杆 *Google v. Oracle*, 593 U.S. 1 (2021)；*Andy Warhol Foundation v. Goldsmith*, 598 U.S. 508 (2023)——**Warhol 收窄了转换性范围，下级法院仍在适用**，转换性分析须谨慎标记。
-- **DMCA 安全港**：17 U.S.C. § 512。被指方为托管用户内容的服务商时，标 § 512(c) 是否适用：指定代理人、通知—下架程序、无实际/红旗知情、无可控的可归因经济利益、收到有效通知后迅速下架；须有重复侵权人政策。**安全港不及于服务商自身的直接侵权。**
-
-### 专利模式
-
-**先查被主张专利号前缀，再走流程。**
-- **`D` 前缀 = 外观设计专利（35 U.S.C. §171）**：检验、claim 结构、损害都不同。**不要做 claim chart、不要做等同原则、不要逐要素映射。** 用普通观察者检验（*Egyptian Goddess v. Swisa*, 543 F.3d 665 (Fed. Cir. 2008) 全席）——熟悉在先设计的普通观察者是否会误以为被诉设计与专利设计相同；比对**整体装饰外观**而非单个要素；被诉品须挪用区别于在先设计的**新颖点**。功能性特征不受保护——相似若落在功能决定的特征上，标"可能超出保护范围"。§289 总利润损害（*Samsung v. Apple*, 580 U.S. 53 (2016)）是专家工作，不计算。同一外观事实通常并行触发 **商业外观**（Lanham §43(a)；产品构型需第二含义 *Wal-Mart v. Samara*, 529 U.S. 205 (2000)，且须非功能性 *TrafFix v. Marketing Displays*, 532 U.S. 23 (2001)）——作并行轨标记。外观分诊多为索要图样（专利全部视图含虚线弃权、被诉品可比角度照片、已知在先设计）+ 分析框架，超出首轮即转设计专利专家。
-- **`RE` 前缀 = 再颁专利**：按其再颁的实用专利处理，但标再颁特有抗辩（§252 中用权、recapture、原专利要求）。
-- **`PP` 前缀 = 植物专利（35 U.S.C. §161）**：独立体系，本技能不分析，转植物专利律师。
-- **无 D/RE/PP = 实用专利**，走流程：被诉产品/方法技术描述 → 锁定专利 → 每条独立权利要求做 claim chart 逐要素映射 → **先字面侵权，等同原则（DOE）作标记** → 间接（诱导、帮助）与分离式侵权作标记 → **无效抗辩**（§102 抵触、§103 显而易见、§112 书面描述/可实施/明确性、§101 适格性 *Alice*/*Mayo*；已知 IPR/PGR、在先技术、审查历史）逐项标记不发表意见 → **不可执行抗辩**（不当行为、审查懈怠、转让人/被许可人禁反言）律师专属 → **损害立场**（所失利润 vs 合理许可费 Georgia-Pacific、标记、起诉前通知、故意——读本分诊可能影响故意认定）。
-- **跨境**：美国 claim chart（全要素、DOE、审查历史禁反言、§284/§289）不通用于德、中、日、欧统一专利法院；明确告知须按目标法域分析。
-- 完整逐要素 claim chart（含 pin cite、权利要求解释、从属权利要求、核验流程）转专门的 claim-chart 技能。
-
-### 商业秘密模式
-
-- **是否为秘密**：联邦 DTSA（18 U.S.C. § 1836 et seq.）+ 适用州 UTSA（纽约/麻州等非 UTSA 域用普通法检验）。标：非普遍知悉（对公众或业内能从披露获益者）、源于保密的经济价值、公共要素的组合/汇编亦可成秘密（*Altavion v. Konica Minolta*）。
-- **合理措施**：员工/承包商/对手方 NDA（范围、签署、执行？）；访问控制（角色/物理/需知）；标识（保密标记）；离职面谈与材料返还；保密政策/培训。**标"已有"与"缺失"——"合理"由律师定，分级只列举不裁断。**
-- **不当获取**：以不正当手段获取，或违反义务而披露/使用——含盗窃、贿赂、虚假陈述、违反或诱导违反保密义务、（电子或其他）间谍（18 U.S.C. § 1839(6)）。**离职员工事实型**：新雇主、工作重叠、离职时点、带走文件（已返还？）、访问日志、招募渠道、发明转让协议。**反向工程**若手段合法是抗辩——标其在本案事实下是否可信。
-- **优先适用（preemption）**：州侵权请求（不正当竞争、侵占、违反保密）是否被 UTSA 优先排除——标记。
-
-## 示例
+## Examples
 
 ```
-/ip-infringement-triage "竞品上线名为 APEXSEED 的工具（第9类），我方 APEXLEAF 已在第9类注册——可能混淆？"
+/ip-legal:infringement-triage "competitor launched a tool called APEXSEED in class 9 — we have APEXLEAF registered in class 9; likely confusion?"
 ```
-→ 商标模式：走 Sleekcraft 八因素，逐项标"指向在先方/被指方/两可"，给"非结论"结语，按实务立场给主张路由建议。
 
 ```
-/ip-infringement-triage "前工程师把我们模型架构的笔记带去了竞争对手——可能是商业秘密？"
+/ip-legal:infringement-triage "former engineer took notes on our model architecture to a competitor — possible trade secret?"
 ```
-→ 商业秘密模式三组标记：秘密性 / 措施 / 不当获取，离职员工事实型清单（离职时点、带走文件、访问日志、发明转让协议），标反向工程抗辩是否可信。
 
-**输出格式（所有模式）**：抬头 → `# 侵权线索分级 — [类型]（非结论）` → 护栏段 → 分级结果（绿/黄/红，一句话理由）→ 立场与范围（立场/权利/管辖/适用框架与法条/时效立场/已审证据）→ 要素分析（模式专属表，每项一个标记+方向）→ 抗辩与门槛 → "孰利孰弊"汇总表（因素 | 标记 | 方向：在先/被指/两可）→ **结论：本技能不下结论** → 建议下一步 → 引证核验提示。
+```
+/ip-legal:infringement-triage
+```
 
-## 注意事项
-
-- **绝不下结论**——每份输出顶部都放护栏段，不删、不软化。不确定就标记，律师来定。
-- **引证一律核验**：案例、法条、注册号、权利要求引文、证据在依赖前须对权威源核对；巡回区检验因地而异、随时间变，确认现行控制性权威。**未检索的内容默认是模型知识（`[model knowledge — verify]`），不因"看起来对"而升级标签。**
-- **管辖识别**：默认框架多为美国中心；遇非美管辖不要默默套美国法，明确标"此处用美国框架，[管辖]法不同，套用会给出看似正确的错误答案"。
-- **去向核验**：`PRIVILEGED & CONFIDENTIAL` 抬头是标签不是控制；发往公开渠道/全员列表/对手方/客户会破坏特权——发送前确认是否在特权圈内，外发版本（警告函、DMCA 通知、对外摘要）须去除抬头。
-- **非律师闸门**：角色为非律师时，输出附"这是研究分级而非法律意见 + 一页可带给律师的摘要 + 三个该问的问题"，并指明如何找到执业律师（律协转介、美国专利须 USPTO 注册代理人、商标查 INTA 名录）。
-- **不自动起草**：是否主张是审批人的决定，不是分级的——仅提议起草警告函 / DMCA 下架。
-- **语气**：逐因素、逐标记，不要含糊散文。律师读完应清楚知道哪些因素被标、哪些抗辩适用、下一步该做什么以主张或退让。
-
-## 互见
-
-- related：`ip-fto-triage` —— 专利模式是 FTO 的镜像（同 claim chart、同 DOE、同全要素），方向相反（被诉品 vs 自有品）
-- related：`ip-clearance` —— 商标混淆检验的案例引证与选择逻辑出处
-- combines_with：`ip-claim-chart` —— 分诊给首轮强弱映射，逐要素完整 claim chart 由它构建
-- combines_with：`ip-cease-desist` —— 分诊指向主张且立场支持时，用其标记清单作事实基础起草警告函（经审批链）
-- combines_with：`ip-takedown` —— 著作权模式被诉为托管内容时，准备 DMCA 下架
+(And the skill will ask which right and for the facts.)
 
 ---
 
-*采编自 anthropics/claude-for-legal（Apache-2.0）的 ip-legal/infringement-triage，适配重写为中文并精简，保留关键法条、判例与"绝不下结论"护栏。*
+## THIS IS A TRIAGE, NOT A FINDING
+
+**The loudest guardrail in the plugin. Say this at the top of every output. Do
+not drop it. Do not soften it.**
+
+> **This is a triage, not a finding of infringement or non-infringement.**
+> Infringement analysis is fact-intensive and legally complex. The triage
+> identifies the factors and flags the ones that matter most; it does not
+> conclude. A conclusion that something does or does not infringe is a legal
+> opinion that requires an attorney's judgment on the facts, the claim or
+> right scope, the relevant jurisdiction's law, and the likely defenses.
+> Acting on a triage — sending a cease-and-desist, refusing to stop, filing
+> suit, or deciding not to — without attorney review is how companies end up
+> on the wrong side of fee awards, Rule 11 sanctions, declaratory-judgment
+> actions, and (for patents) treble damages.
+
+Under-calling a conflict is a one-way door — a C&D not sent and a mark goes
+generic in the market; a claim not chased and the statute of limitations runs;
+a copied copyrighted work kept on the site. Over-calling is a two-way door —
+the attorney narrows. Stay on the two-way door side.
+
+---
+
+## Matter context
+
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/ip-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/ip-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+
+Infringement triages often lead into cease-and-desist drafting or takedown
+routing. Open a matter if one isn't active and the practice is private — the
+triage, the C&D, and any downstream response belong in one workspace.
+
+---
+
+## Load the practice profile first
+
+Read `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`. Pull:
+
+- **Role** from `## Who's using this`.
+- **Enforcement posture** from `## Enforcement posture` — the triage output
+  should end with a routing suggestion consistent with the stated posture
+  (aggressive / measured / conservative) and the named approver for the
+  relevant letter type.
+- **Registered in / enforce where** from `## IP practice profile` — determines
+  which circuit / jurisdiction test to apply by default.
+- **Integrations** from `## Available integrations` — CourtListener,
+  Solve Intelligence each affects whether the triage can cite to case law,
+  prior rulings, or prior art.
+- **Decision posture** from `## Decision posture on subjective legal calls` —
+  this skill never concludes on a subjective threshold.
+
+If the config has `[PLACEHOLDER]`, surface this bounce:
+
+> I notice you haven't configured your practice profile yet — that's how I tailor posture, jurisdictions, and approval chain to your practice.
+>
+> **Two choices:**
+> - Run `/ip-legal:cold-start-interview` (2 minutes) to configure your profile, then I'll run this tailored to YOUR practice.
+> - Say **"provisional"** and I'll run this against generic defaults — US jurisdiction, middle risk appetite, lawyer role, no playbook — and tag every output `[PROVISIONAL — configure your profile for tailored output]` so you can see what I do before committing.
+
+### Provisional mode
+
+If the user says "provisional," run the infringement triage normally using these generic defaults: middle risk appetite, lawyer role, US jurisdiction, no playbook (do the full analysis rather than matching against a position list). Tag the reviewer note and every finding block with `[PROVISIONAL]`. At the end of the output, append:
+
+> "That was a generic run against default assumptions. Run `/ip-legal:cold-start-interview` to get output calibrated to YOUR practice — your playbook, your jurisdiction, your risk appetite. 2 minutes."
+
+---
+
+## Mode selection
+
+Ask at the top, before anything else:
+
+> Which right are we triaging?
+>
+> 1. **Trademark** — confusion, dilution, or false advertising
+> 2. **Copyright** — substantial similarity, fair use, DMCA safe harbor
+> 3. **Patent** — claim-chart first pass, literal read + doctrine of equivalents
+> 4. **Trade secret** — secrecy, reasonable measures, misappropriation
+> 5. **Mixed / not sure** — describe the facts and I'll pick
+
+If the user picks "not sure," help them sort. The same facts can implicate
+multiple rights (e.g., a competitor's product uses our logo — trademark; and
+the product is a near-copy of ours — possible patent, copyright on packaging,
+possible trade dress; and a former employee launched it — trade secret).
+
+**If more than one right is in play, run the triage for each, separately.**
+Don't mash them together. Each right has different factors, different
+jurisdictional rules, and different remedies.
+
+---
+
+## Intake (common to all modes)
+
+> Before I walk factors:
+>
+> 1. **Posture.** Are you the potentially senior party (they're taking
+>    yours) or the potentially accused party (we're the ones being looked at)?
+>    The factors are symmetric but the output differs — a "mine's being
+>    copied" triage routes toward an assertion letter; a "we might be
+>    exposed" triage routes toward a risk memo.
+> 2. **Jurisdiction.** Which country / circuit / court? US federal default if
+>    not specified. Flag if foreign law may apply.
+> 3. **Timing.** Is a statute of limitations or laches clock running?
+> 4. **What exhibits / evidence / source documents do you have?** A screenshot,
+>    a URL, a packaging photo, a code excerpt, an ex-employee contract.
+
+Wait for the answer before walking factors.
+
+---
+
+## Trademark mode
+
+### Confusion
+
+Use the applicable circuit's multi-factor test. Cite the test (du Pont /
+Polaroid / Sleekcraft / other — see the `clearance` skill for the case
+citations and pick logic). Walk each factor and flag what cuts each way.
+
+- **Similarity of marks** — sight / sound / meaning / commercial impression.
+- **Similarity of goods or services** — expected-source test, not identity.
+- **Channels of trade.**
+- **Consumer sophistication.**
+- **Strength of the senior mark** — fanciful / arbitrary / suggestive /
+  descriptive with secondary meaning / generic.
+- **Intent** — evidence of copying, knock-off trade dress, near-miss mark.
+- **Actual confusion** — any evidence (surveys, misdirected inquiries, social).
+- **Likelihood of expansion / bridge-the-gap** — whether the zones overlap
+  commercially.
+
+### Dilution
+
+Apply the federal TDRA (15 U.S.C. § 1125(c)) and any applicable state statute.
+
+- **Fame threshold.** The senior mark must be famous to the general consuming
+  public — a niche-famous mark is not enough. *Starbucks Corp. v. Wolfe's
+  Borough Coffee, Inc.*, 588 F.3d 97 (2d Cir. 2009) is representative.
+- **Blurring vs. tarnishment.** Blurring = distinctiveness harm; tarnishment
+  = reputation harm.
+- **Defenses** — comparative advertising, news reporting, fair use,
+  non-commercial use.
+
+If the senior mark is not plainly famous nationally, flag dilution as a
+stretch.
+
+### False advertising / comparative claims
+
+If the triage is prompted by a competitor's comparative ad or a claim about
+product attributes:
+
+- Apply Lanham Act § 43(a) / 15 U.S.C. § 1125(a) for the materiality,
+  falsity-or-misleading, deception, commercial-speech, and injury elements.
+- Flag whether the statement is literally false, implicitly false, or
+  puffery. Puffery is not actionable.
+- Substantiation evidence the claimant has or needs.
+
+### Output
+
+Factors table; what cuts each way; a "not a finding" conclusion line. End with
+a routing suggestion against the enforcement posture in the practice profile.
+
+---
+
+## Copyright mode
+
+### Ownership
+
+Is the claimant the owner (or exclusive licensee with standing)? Work-for-hire
+issues; joint authorship; assignments; and termination rights all flag.
+
+### Registration
+
+17 U.S.C. § 411 requires registration (or preregistration) as a precondition
+to filing an infringement action in US federal court. *Fourth Estate Public
+Benefit Corp. v. Wall-Street.com, LLC*, 586 U.S. 296 (2019) — registration
+means actually issued, not just applied for. Flag registration status; if
+not registered, flag the practical bar on filing.
+
+### Access + substantial similarity
+
+Two paths to proving copying:
+
+- **Access + probative similarity** — defendant had access and the works share
+  features probative of copying.
+- **Striking similarity** — even absent proof of access, the similarity is so
+  striking that independent creation is unlikely.
+
+For substantial similarity, apply the circuit's test (Second Circuit's
+ordinary-observer; Ninth Circuit's extrinsic / intrinsic under *Krofft* and
+*Swirsky*; Fourth / Seventh / Eleventh circuits' variations). Flag which
+test applies.
+
+### Fair use
+
+17 U.S.C. § 107 four factors, analyzed as a whole:
+
+1. Purpose and character of the use (transformativeness; commercial vs.
+   non-commercial).
+2. Nature of the copyrighted work (factual / functional vs. creative).
+3. Amount and substantiality of the portion used.
+4. Effect on the market for the original.
+
+Recent touchstones: *Google LLC v. Oracle America, Inc.*, 593 U.S. 1 (2021);
+*Andy Warhol Found. for the Visual Arts, Inc. v. Goldsmith*, 598 U.S. 508
+(2023). Flag the transformativeness analysis carefully — *Warhol* narrowed
+the scope of transformative use and is still being applied by lower courts.
+
+### DMCA safe harbor
+
+17 U.S.C. § 512. If the accused is a service provider hosting user content,
+flag whether § 512(c) applies: designated agent, notice-and-takedown
+procedure, no actual or red-flag knowledge, no financial benefit
+attributable to infringement the provider could control, expeditious
+takedown on valid notice. Repeat-infringer policy required. Safe harbor does
+not cover direct infringement by the service provider itself.
+
+### Output
+
+Factors flagged; fair-use balance with "the triage does not conclude";
+ownership / registration / safe-harbor threshold notes. Routing per posture.
+
+---
+
+## Patent mode
+
+**Route to `/ip-legal:fto-triage` for the detailed framework.** This mode is the
+mirror image of the FTO skill — same claim charts, same doctrine-of-equivalents
+flag, same all-elements rule — applied to an accused product instead of one's
+own.
+
+### Design patent (D-number) — branch before the workflow
+
+**Check the asserted patent's registration number FIRST.** If it has a `D`,
+`RE`, or `PP` prefix (e.g., `D712,345`), it's not a utility patent and the
+workflow below does NOT apply. Branch per prefix:
+
+- **`D` prefix — design patent (35 U.S.C. §171).** Different test, different
+  claim structure, different damages. Do NOT build a claim chart, do NOT run
+  doctrine of equivalents, do NOT do element-by-element mapping. Design
+  patents have a single claim defined by the drawings; charting a figure as
+  if it were a utility claim element list is wrong doctrine.
+- **`RE` prefix — reissue patent.** Treat as the utility patent it reissued,
+  but flag reissue-specific defenses (intervening rights under §252,
+  recapture rule, original-patent requirement).
+- **`PP` prefix — plant patent.** Separate regime (35 U.S.C. §161). Asexually
+  reproduced plant varieties. Route to plant-patent counsel; this skill does
+  not analyze plant patents.
+
+**Design patent infringement test — ordinary observer.** *Egyptian Goddess,
+Inc. v. Swisa, Inc.*, 543 F.3d 665 (Fed. Cir. 2008) (en banc). The question
+is whether an ordinary observer, **familiar with the prior art designs**,
+would be deceived into thinking the accused design is the same as the
+patented design. Compare **overall ornamental appearance**, not individual
+elements. The accused product must appropriate the **novelty** that
+distinguishes the patented design from the prior art (the "point of novelty"
+survives as a guidepost inside the ordinary-observer test, not as a separate
+test).
+
+**Functional-vs-ornamental filter.** Design patents protect ornamental
+features only; functional features are not protected. If the accused
+similarity is in features dictated by function, flag that the overlap may
+fall outside the patented scope.
+
+**§289 total-profit damages flag.** Design patent damages under 35 U.S.C.
+§289 are the infringer's **total profits on the "article of manufacture,"**
+which can be the whole product or a component. *Samsung Electronics Co. v.
+Apple Inc.*, 580 U.S. 53 (2016). This is a separate analysis from utility
+patent reasonable-royalty / lost-profits and is specialist work — do not
+compute.
+
+**Trade dress cross-flag.** The same ornamental-shape facts are usually also
+a **trade dress** question under Lanham Act §43(a) (15 U.S.C. §1125(a)).
+Product configuration trade dress requires **secondary meaning** (*Wal-Mart
+Stores, Inc. v. Samara Bros., Inc.*, 529 U.S. 205 (2000)) and must be
+**non-functional** (*TrafFix Devices, Inc. v. Marketing Displays, Inc.*,
+532 U.S. 23 (2001)). Flag trade dress as a parallel track; the tests are
+different but the evidence overlaps.
+
+### Design patent triage — output
+
+Because you cannot see the patent drawings or the accused product directly,
+the design patent triage is mostly a request for the materials and a frame
+for the analysis:
+
+- **Ask for the drawings.** "I can't run the ordinary-observer test without
+  seeing the patent figures and the accused product. Paste or attach: (a)
+  the patent drawings (all figures, including any broken-line disclaimers),
+  (b) photos of the accused product from comparable angles, (c) any prior
+  art designs you're aware of."
+- **Prior-art landscape.** Ordinary observer is a *comparison* test — the
+  observer is "familiar with the prior art," so the scope of the patented
+  design narrows as the prior-art field crowds. Flag what prior art is
+  known and what's missing.
+- **Functional-vs-ornamental analysis.** Walk the features and flag which
+  look functional (and therefore unprotected) vs. ornamental.
+- **Broken lines.** Design patents use solid lines for claimed features and
+  broken lines for unclaimed environmental context. Flag whether the
+  alleged copying is in claimed (solid-line) or unclaimed (broken-line)
+  territory.
+- **§289 damages flag** as above.
+- **Trade dress cross-flag** as above.
+
+**Route to a design patent specialist for anything beyond first-pass triage.**
+Design patent litigation is a subspecialty (Perkins Coie, Sterne Kessler,
+Desmarais, Kirkland's design team, Gibson Dunn's design group are
+representative; use your practice profile's IP litigation OC as the starting
+point). This skill flags issues; it does not assess infringement.
+
+### Utility patent workflow
+
+The rest of this mode assumes the asserted patent is a **utility patent**
+(no `D`/`RE`/`PP` prefix). If the D-number branch above applies, stop here.
+
+> **Patent systems differ by jurisdiction.** The US claim chart (all-elements rule, doctrine of equivalents, prosecution history estoppel, §284/§289 damages) does not transfer to other systems:
+> - **Germany:** Utility models (Gebrauchsmuster), the Schneidmesser/Kunststoffrohrteil questions for DOE, bifurcated validity/infringement proceedings.
+> - **China:** Utility models (shiyong xinxing), CNIPA examination, different claim construction.
+> - **Japan:** Utility models, JPO examination, a narrower DOE.
+> - **Europe (unified patent court):** UPC procedure as of 2023.
+>
+> When non-US jurisdictions are in scope: "This analysis uses the US claim-charting framework. A product manufactured in China and sold in the EU needs CNIPA and EP analysis, not a US claim chart. I can flag the issues a US analysis surfaces, but the infringement and validity calls require [jurisdiction]-specific review."
+
+### Workflow
+
+- Accused product / process / method — described in technical detail.
+- Identified patent(s) at issue.
+- Claim chart for each independent claim: element-by-element mapping to the
+  accused product.
+- Literal infringement first. DOE as a flag.
+- Indirect (induced, contributory) and divided infringement as flags.
+- **Invalidity defenses to consider** — anticipation (§ 102), obviousness
+  (§ 103), § 112 written-description / enablement / definiteness, § 101
+  subject-matter eligibility (*Alice* / *Mayo*). Known IPR or PGR outcomes,
+  known prior art, known prosecution history. Flag each; do not opine.
+- **Unenforceability defenses** — inequitable conduct flag, prosecution
+  laches flag, assignor / licensee estoppel flag. Each is attorney-only.
+- **Damages posture** — lost profits vs. reasonable royalty (Georgia-Pacific
+  factors), marking, pre-suit notice, willfulness (reading this triage may
+  factor into willfulness — see the FTO skill's willfulness note).
+
+### Output
+
+Claim charts. Element flags. Defense flags. Routing to patent counsel. See
+the `fto-triage` skill for the full output structure — the infringement-triage
+patent mode uses the same format with "accused product" substituted for
+"own product."
+
+### Handoff to the full claim chart
+
+For a detailed element-by-element claim chart suitable for infringement or
+invalidity contentions, run `/litigation-legal:claim-chart`. This triage's
+claim chart is a first pass to identify the strongest and weakest mappings;
+the litigation claim chart builds the full chart with pin cites, claim
+construction flags, dependent claims, and the verification workflow that
+contentions require.
+
+---
+
+## Trade secret mode
+
+### Was it a secret?
+
+Apply the Defend Trade Secrets Act (18 U.S.C. § 1836 et seq.) for federal
+purposes and the applicable state UTSA (or, in New York / Massachusetts /
+other non-UTSA jurisdictions, the state's common-law test). Flag:
+
+- **Not generally known** — to the public or to others in the industry who can
+  obtain economic value from disclosure.
+- **Economic value from secrecy** — independent economic value actual or
+  potential, derived from not being generally known.
+- **Combinations and compilations** — a combination of public elements can
+  be a trade secret (*Altavion v. Konica Minolta*, and the Restatement view).
+
+### Reasonable measures
+
+- NDAs with employees, contractors, counterparties. Scope, signed, enforced?
+- Access controls — technical (role-based), physical (doors, badges),
+  organizational (need-to-know).
+- Marking — confidentiality legends on documents, code, data.
+- Exit interviews / return of materials on termination.
+- Trade-secret policy / training.
+
+Flag what's in place and what's missing. *Reasonable* is fact-specific; the
+triage does not decide whether the measures were reasonable — it lists them.
+
+### Misappropriation
+
+Acquisition by improper means, or disclosure / use in breach of duty.
+Improper means includes theft, bribery, misrepresentation, breach or
+inducement of breach of a duty to maintain secrecy, or espionage (electronic
+or otherwise). 18 U.S.C. § 1839(6).
+
+- **Former employee fact pattern:** new employer, overlapping work,
+  departure timing, documents taken (and returned?), access logs, recruiting
+  channels, assignment and invention-assignment agreements.
+- **Inadvertent disclosure:** Was disclosure made by a person with a duty? Did
+  the recipient know or have reason to know of the breach?
+- **Reverse engineering** — a defense if the means were lawful. Flag whether
+  reverse engineering is plausible on the facts.
+
+### Preemption
+
+Where state tort claims (unfair competition, conversion, breach of confidence)
+might be preempted by the UTSA, flag preemption. Some jurisdictions preserve
+contract claims; others preempt most tort claims addressing the same facts.
+
+### Output
+
+Three flag groups — secrecy, measures, misappropriation — each with what cuts
+each way. Routing per posture.
+
+---
+
+## Output format (all modes)
+
+Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md` `## Outputs`.
+
+```markdown
+[WORK-PRODUCT HEADER]
+
+# Infringement Triage — [Trademark | Copyright | Patent | Trade Secret] (NOT A FINDING)
+
+**This is a triage, not a finding of infringement or non-infringement.** The
+triage identifies factors and flags what matters most; it does not conclude.
+A conclusion requires an attorney's judgment on the facts, the right scope,
+jurisdiction, and defenses. Acting on a triage without attorney review is
+how companies end up on the wrong side of fee awards, Rule 11 sanctions,
+declaratory-judgment actions, and enhanced damages.
+
+**Triage result:** [GREEN / YELLOW / RED — one sentence why]
+
+## Posture and scope
+
+- **Party posture:** [senior / accused]
+- **Right at issue:** [trademark / copyright / patent / trade secret]
+- **Jurisdiction:** [US federal — specific circuit / state / foreign]
+- **Legal framework applied:** [cite the governing test and statute]
+- **Statute of limitations / laches posture:** [clock status]
+- **Exhibits / evidence reviewed:** [list]
+
+## Factor analysis
+
+[Mode-specific factor table — confusion factors / fair-use factors / claim chart
+/ trade-secret elements. Each factor has a flag and a direction. This is
+a flag list, not a verdict.]
+
+## Defenses and thresholds
+
+[Mode-specific: dilution fame threshold / registration prerequisite /
+§ 512 safe harbor / invalidity / inequitable conduct / preemption /
+reverse-engineering / consent / license / laches / statute of limitations.
+Flag each.]
+
+## What cuts which way — summary
+
+| Factor | Flag | Direction (senior / accused / mixed) |
+|---|---|---|
+| [factor 1] | [note] | [direction] |
+
+**Conclusion:** *This skill does not conclude.* Attorney judgment required
+before acting. The factors cutting [direction] are [brief summary]; the
+factors cutting [direction] are [brief summary].
+
+## Recommended next steps
+
+- [formal opinion from counsel / route to IP OC named in the practice profile]
+- [evidence preservation and hold — if a litigation clock is running]
+- [fact development needed before a decision — e.g., access logs, prosecution
+  history, market studies, survey evidence]
+- [routing per `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`
+  `## Enforcement posture`, if the posture is to assert]
+
+## Citation verification
+
+Every case, statute, registration number, claim quote, and exhibit cited here
+must be verified against the authoritative source before relying on it.
+Jurisdictional tests vary by circuit and change over time — confirm the
+current controlling authority.
+```
+
+---
+
+## Non-lawyer gate
+
+Before issuing the output, read `## Who's using this`. If the Role is Non-lawyer:
+
+> This output is a research triage, not legal advice. Sending a C&D, deciding
+> not to stop, filing suit, or relying on "it's fair use" based on this triage
+> alone has legal consequences — including Rule 11 sanctions for a baseless
+> assertion, declaratory-judgment exposure for a threatening letter, treble
+> damages on the patent side, and fee awards in unfair-competition cases.
+> An attorney needs to evaluate before you move.
+>
+> Here's a brief to bring to an attorney:
+>
+> [Generate a 1-page summary: the right at issue, the posture, the facts and
+> evidence, the factors surfaced, the defenses flagged, and the three
+> questions to ask the attorney.]
+>
+> If you need to find a licensed attorney, solicitor, barrister, or other authorised legal professional in your jurisdiction: your professional regulator's referral service is
+> the starting point (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent). For patents in the US, the attorney must be registered before the
+> USPTO; for other jurisdictions, use the relevant patent office register. For trademarks, INTA maintains a directory of practitioners worldwide.
+
+Deliver the triage alongside the brief.
+
+---
+
+## Output location
+
+If matter workspaces are enabled and a matter is active, write to
+`~/.claude/plugins/config/claude-for-legal/ip-legal/matters/<matter-slug>/outputs/infringe-<mode>-<subject-slug>-YYYY-MM-DD.md`.
+Otherwise write to
+`~/.claude/plugins/config/claude-for-legal/ip-legal/outputs/infringe-<mode>-<subject-slug>-YYYY-MM-DD.md`
+and surface the path.
+
+Append a one-line entry to the matter's `history.md` if a matter is active.
+
+---
+
+## Handoff to enforcement skills
+
+If the triage output points toward an assertion and the practice profile's
+posture supports it, offer:
+
+> Want me to draft a cease-and-desist on this? Run `/ip-legal:cease-desist`.
+> I'll use the flag list from this triage as the factual basis and apply the
+> approval chain from your practice profile — the letter won't go anywhere
+> without the approver signing off.
+
+Or, if the mode is copyright and the accused is hosted content:
+
+> Want me to prepare a DMCA takedown? Run `/ip-legal:takedown`.
+
+Do not draft the letter automatically from the triage. The decision to assert
+is the approver's, not the triage's.
+
+---
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+## What this skill does not do
+
+- **Conclude infringement or non-infringement.** Ever. The loudest guardrail.
+- **Substitute for survey evidence, damages experts, or claim construction.**
+- **Evaluate jurisdiction-specific defenses outside the triage's jurisdiction
+  scope.** If the facts cross borders, flag that foreign-law analysis is
+  required.
+- **Decide fair use as a matter of law.** Fair use is fact-intensive and
+  reserved for the attorney and, ultimately, the court.
+- **Draft the C&D, takedown, or complaint.** Those are separate skills
+  (`/ip-legal:cease-desist`, `/ip-legal:takedown`) gated by the approval
+  chain in the practice profile.
+- **Quote outputs to counterparties.** Privileged if the header applies.
+
+---
+
+## Tone
+
+Factor-by-factor, flag-by-flag. No hedging prose. The guardrail at the top
+does the scope work; the analysis does the analysis. A lawyer should leave
+the output knowing exactly which factors are flagged, which defenses apply,
+and what they need to do next to either assert or stand down.

@@ -1,14 +1,14 @@
 ---
 name: spec-driven-workflow
-title: 规约驱动开发工作流
-description: 当需要在写代码前先定义规约、验收标准、从规格生成测试或推行规格优先开发时使用；产出含九大必填小节的规约文档、可追溯的验收标准与测试桩；不适用于无明确需求的探索性原型或纯文档补写（事后补写不算规约）。触发词：写规约、验收标准、规格优先、需求先行、Given/When/Then
+title: Spec-Driven Workflow
+description: Use when the user asks to write specs before code, define acceptance criteria, plan features before implementation, generate tests from specifications, or follow spec-first development practices.
 domain: 研发/architecture
-triggers: [写规约, spec先行, 验收标准, 规格优先开发, 从规格生成测试, 需求先行, feature spec, Given/When/Then, RFC 2119]
-tags: [架构, 研发流程, 需求工程, tdd, 验收标准, 规约, spec-driven]
-level: 进阶
+triggers: [write spec, spec-first, acceptance criteria, spec-driven development, generate tests from spec, requirements first, feature spec, Given/When/Then, RFC 2119]
+tags: [architecture, engineering-process, requirements-engineering, tdd, acceptance-criteria, spec, spec-driven]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [spec_generator.py, spec_validator.py, test_extractor.py]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,105 +16,152 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当满足以下任一情况时采用本工作流：
+Adopt this workflow whenever any of the following holds:
 
-- 用户要求在写代码前先写规约、定义验收标准，或推行规格优先（spec-first）开发。
-- 新功能需要在实现前明确范围、约束与边界，避免范围蔓延。
-- 需要从规格直接派生测试用例，把验收标准 1:1 转成测试。
+- The user asks to write specs before code, define acceptance criteria, or follow spec-first development.
+- A new feature needs its scope, constraints, and boundaries pinned down before implementation, to avoid scope creep.
+- You need to derive test cases directly from a specification, translating acceptance criteria 1:1 into tests.
 
-铁律：**无已批准规约，不写代码。没有例外，没有「快速原型」，没有「以后补文档」。** 规约不是文档，而是契约：它定义系统 MUST、SHOULD、WILL NOT 做什么；每行代码可回溯到一条需求，每个测试可回溯到一条验收标准。不在规约里的，就不实现。
+The Iron Law:
 
-不该用的边界：
-- 纯探索性 spike / 概念验证，需求尚不成形——先探索清楚再回到本流程。
-- 事后补写文档来描述「已经做了什么」——那是文档不是规约，应改名为文档（见反模式 4）。
-- 单行修复、纯重构、无行为变更的内部清理——直接走 TDD 重构即可。
+```
+NO CODE WITHOUT AN APPROVED SPEC.
+NO EXCEPTIONS. NO "QUICK PROTOTYPES." NO "I'LL DOCUMENT IT LATER."
+```
 
-## 步骤
+A spec is not documentation — it is a contract. It defines what the system MUST do, what it SHOULD do, and what it explicitly WILL NOT do. Every line of code traces back to a requirement; every test traces back to an acceptance criterion. If it is not in the spec, it does not get built.
 
-六个阶段，每阶段有明确出口判据：
+Why spec-first matters: it eliminates rework (60-80% of defects originate from requirements, not implementation — catching ambiguity in a spec costs minutes, catching it in production costs days); it forces clarity (if you cannot write what the system should do in plain language, you do not understand the problem); it enables parallelism (once approved, frontend/backend/QA/docs start simultaneously); it creates accountability (the spec is the definition of done); and it feeds TDD directly (Given/When/Then criteria translate 1:1 into test cases).
 
-1. **收集需求**：访谈用户（解决什么问题、谁是用户、成功长什么样、明确不做什么），阅读现有代码，识别约束与未知项。出口：能在 2 分钟内向不了解项目的人讲清这个功能。
-2. **撰写规约**：按九大必填小节填满模板，不留空白；为所有需求编号（FR-、NFR-、AC-、EC-、OS-）；精确使用 RFC 2119 关键词；验收标准用 Given/When/Then。出口：把规约交给没参加需求会的开发者，他无需追问即可实现。
-3. **校验规约**：运行 `spec_validator.py` 并过人工清单。出口：校验得分 ≥ 80 且人工清单全通过。
-4. **生成测试**：用 `test_extractor.py` 从验收标准抽取测试桩。每条 AC / EC 至少一个用例，测试只定义断言不含实现，初始必须全红（TDD 的 RED）。出口：得到一份每个测试都以「未实现」失败的测试文件。
-5. **实现**：一次只挑一条验收标准（从最简单起），用最小代码让其测试通过，跑全量测试无回归，提交，再挑下一条。出口：全部测试通过、全部 AC 满足。
-6. **自审**：过自审清单，任一项不过先修复再宣告完成。
+Do NOT use it for:
 
-## 指令
+- Pure exploratory spikes / proofs of concept where requirements are not yet formed — explore first, then return to this workflow.
+- Post-hoc documentation describing "what was already built" — that is documentation, not a spec (see Anti-Pattern 4); relabel it.
+- One-line fixes, pure refactors, or internal cleanup with no behavior change — go straight to TDD refactoring.
 
-九大必填小节（不适用时写「N/A —— 原因」，证明考虑过而非遗漏）：
-1. 标题与元数据（作者、日期、状态 Draft/In Review/Approved/Superseded、评审人）
-2. 背景（为何存在，2-4 段，附指标/工单等证据）
-3. 功能需求（RFC 2119 关键词，编号 FR-N，原子且可测）
-4. 非功能需求（性能/安全/可访问性/可扩展/可靠，均带可度量阈值）
-5. 验收标准（Given/When/Then，每条至少引用一个 FR-/NFR-）
-6. 边界情况（编号 EC-N，覆盖每个外部依赖的失败模式）
-7. API 契约（TypeScript 风格接口，覆盖成功与错误响应）
-8. 数据模型（表格：字段、类型、约束；需求中每个实体都要有模型）
-9. 范围之外（显式排除并说明理由，防止范围蔓延）
+## Steps
 
-RFC 2119 关键词：MUST 绝对要求 / MUST NOT 绝对禁止 / SHOULD 推荐（省略需书面理由）/ MAY 可选（由实现者裁量）。
+Six phases, each with an explicit exit criterion.
 
-工具命令：
+**Phase 1 — Gather Requirements.** Interview the user: What problem does this solve? Who are the users? What does success look like? What explicitly should NOT be built? Read existing code, identify constraints (performance budgets, security, backward compatibility), and list every unknown (each unknown is a risk — surface it now, not during implementation). *Exit:* you can explain the feature to someone unfamiliar with the project in 2 minutes.
+
+**Phase 2 — Write Spec.** Fill every section of the template (below) — no section left blank. Number all requirements (FR-*, NFR-*, AC-*, EC-*, OS-*), use RFC 2119 keywords precisely, write acceptance criteria in Given/When/Then, define API contracts with TypeScript-style types, and list explicit exclusions in Out of Scope. *Exit:* a developer who was not in the requirements meeting can implement the feature without asking clarifying questions.
+
+**Phase 3 — Validate Spec.** Run the validator and the manual checklist:
 
 ```bash
-# 生成规约模板
+python spec_validator.py --file spec.md --strict
+```
+
+Manual checklist: every FR has at least one AC; every AC is testable (no subjective language); API contracts cover all endpoints in requirements; data models cover all entities; edge cases cover failure modes for every external dependency; Out of Scope is explicit about what was considered and rejected; non-functional requirements have measurable thresholds. *Exit:* spec scores 80+ on validator and all manual items pass.
+
+**Phase 4 — Generate Tests.** Extract test stubs from acceptance criteria before writing implementation:
+
+```bash
+python test_extractor.py --file spec.md --framework pytest --output tests/
+```
+
+Each AC and each EC becomes one or more test cases. Tests are stubs — they define the assertion but not the implementation — and all MUST fail initially (the RED phase of TDD). *Exit:* a test file where every test fails with "not implemented" or equivalent.
+
+**Phase 5 — Implement.** Pick one acceptance criterion (start with the simplest), make its test(s) pass with minimal code, run the full suite (no regressions), commit, then pick the next. Do NOT implement anything not in the spec; do NOT optimize or refactor before all ACs pass; if you discover a missing requirement, STOP and update the spec first. *Exit:* all tests pass, all ACs satisfied.
+
+**Phase 6 — Self-Review.** Run the Self-Review Checklist (Notes). If any item fails, fix it before declaring the task complete.
+
+### The spec format — 9 mandatory sections
+
+No section is optional. If a section does not apply, write "N/A — [reason]" so reviewers know it was considered, not forgotten.
+
+| # | Section | Key Rules |
+|---|---------|-----------|
+| 1 | **Title and Metadata** | Author, date, status (Draft/In Review/Approved/Superseded), reviewers |
+| 2 | **Context** | Why this feature exists. 2-4 paragraphs with evidence (metrics, tickets). |
+| 3 | **Functional Requirements** | RFC 2119 keywords. Numbered FR-N. Each atomic and testable. |
+| 4 | **Non-Functional Requirements** | Performance, security, accessibility, scalability, reliability — all with measurable thresholds. |
+| 5 | **Acceptance Criteria** | Given/When/Then. Every AC references at least one FR-* or NFR-*. |
+| 6 | **Edge Cases** | Numbered EC-N. Cover failure modes for every external dependency. |
+| 7 | **API Contracts** | TypeScript-style interfaces. Cover success and error responses. |
+| 8 | **Data Models** | Table format: field, type, constraints. Every entity from requirements has a model. |
+| 9 | **Out of Scope** | Explicit exclusions with reasons. Prevents scope creep during implementation. |
+
+RFC 2119 keywords: **MUST** = absolute requirement / **MUST NOT** = absolute prohibition / **SHOULD** = recommended (omit only with documented justification) / **MAY** = optional, implementer's discretion.
+
+### Bounded autonomy — STOP and ask when
+
+Scope creep detected (something needed but not in the spec — the spec may have excluded it deliberately); ambiguity exceeds 30% for a requirement; breaking changes required (existing API contract, DB schema, public interface); security implications (authentication, authorization, encryption, PII); performance characteristics you cannot measure or guarantee; cross-team dependencies. **Continue autonomously when:** the spec is clear and unambiguous for the current task; all ACs have passing tests and you are refactoring internals; changes are non-breaking; implementation is a direct translation of a well-defined AC; error handling follows established codebase patterns.
+
+When you must stop, escalate with a recommendation — never an open-ended question:
+
+```markdown
+## Escalation: [Brief Title]
+
+**Blocked on:** [requirement ID, e.g., FR-3]
+**Question:** [Specific, answerable question — not "what should I do?"]
+**Options considered:**
+  A. [Option] — Pros: [...] Cons: [...]
+  B. [Option] — Pros: [...] Cons: [...]
+**My recommendation:** [A or B, with reasoning]
+**Impact of waiting:** [What is blocked until this is resolved?]
+```
+
+## Example
+
+Take a "Password Reset" feature. In Context, justify why it is needed with tickets and metrics. Write functional requirements (e.g., "FR-1: The system MUST send a one-time reset link after a user submits their registered email") with paired non-functional requirements (e.g., "NFR-1: The reset email MUST be sent in < 30s"). Write acceptance criteria in Given/When/Then:
+
+> AC-1 (references FR-1): Given a registered user clicks "Forgot password" on the login page, When they enter a valid email and submit, Then the system sends a one-time link valid for 15 minutes.
+
+Cover external-dependency failures in edge cases, e.g. "EC-1: Email service timeout — the system MUST return a friendly message and allow retry." Then `test_extractor.py` turns every AC/EC into a pytest stub (all red initially), and the implementation phase lights them up one by one.
+
+Tool commands:
+
+```bash
+# Generate a spec template
 python spec_generator.py --name "User Authentication" --description "OAuth 2.0 login flow"
 
-# 校验规约完整度（0-100 分），严格模式
+# Validate a spec (0-100 score), strict mode
 python spec_validator.py --file specs/auth.md --strict
 
-# 从验收标准抽取测试用例
+# Extract test cases from acceptance criteria
 python test_extractor.py --file specs/auth.md --framework pytest --output tests/test_auth.py
 ```
 
-有界自治——何时必须停下来升级（STOP & Ask）：检测到范围蔓延、对某需求的歧义超过 30%、需要破坏性变更（改既有 API/库 schema/公共接口）、触及安全（认证/授权/加密/PII）、性能特征无法度量、存在跨团队依赖。何时可自主继续：规约对当前任务清晰无歧义、所有 AC 已有通过测试而你在重构内部、变更非破坏性、实现是某条明确 AC 的直接翻译、错误处理沿用代码库既有模式。
+| Script | Purpose | Key Flags |
+|--------|---------|-----------|
+| `spec_generator.py` | Generate spec template from feature name/description | `--name`, `--description`, `--format`, `--json` |
+| `spec_validator.py` | Validate spec completeness (0-100 score) | `--file`, `--strict`, `--json` |
+| `test_extractor.py` | Extract test stubs from acceptance criteria | `--file`, `--framework`, `--output`, `--json` |
 
-升级时务必带方案，不要开放式提问：
+## Notes
 
-```markdown
-## 升级：[简短标题]
-**受阻于：** [需求 ID，如 FR-3]
-**问题：** [具体、可回答的问题，不是「我该怎么办」]
-**已考虑选项：**
-  A. [选项] —— 优点：… 缺点：…
-  B. [选项] —— 优点：… 缺点：…
-**我的建议：** [A 或 B，附理由]
-**等待的影响：** [在此解决前什么被阻塞？]
+**Self-Review Checklist** (verify ALL before marking done): every AC has a passing test; every EC has a test; no scope creep (if you added something, update the spec or remove it); API contracts match implementation field-for-field (names, types, status codes); every error response defined in the spec has a test that triggers it; non-functional requirements verified with evidence (benchmark, load test, profiling); data model matches the DB schema (no extra columns, no missing constraints); out-of-scope items were not built.
+
+Avoid these anti-patterns:
+
+1. **Coding before spec approval** — review surfaces changes; you end up with code implementing a rejected design. Do not start until status is "Approved."
+2. **Vague acceptance criteria** — "should work well" / "should be responsive" are untestable. Every AC must be machine-verifiable; if you cannot write a test for it, rewrite it.
+3. **Missing edge cases** — happy path only leads developers to invent inconsistent error handling. For every external dependency, specify at least one failure scenario.
+4. **Spec as post-hoc documentation** — a spec written after the code is documentation; it cannot catch design errors because the design is frozen. Relabel it.
+5. **Gold-plating beyond spec** — "while I was in there, I also added…" introduces untested, unreviewed code. File a new spec for extra features.
+6. **Acceptance criteria without traceability** — an orphaned AC means either a requirement is missing or the criterion is unnecessary. Every AC-* MUST reference at least one FR-* or NFR-*.
+7. **Skipping validation** — always run `spec_validator.py --strict` before implementation and fix all warnings.
+
+**Integration with TDD:** this workflow produces the test stubs (Phase 4, RED), then hands off to TDD's red-green-refactor. The spec tells you WHAT to test; TDD tells you HOW to implement.
+
+```
+Spec-Driven Workflow          TDD (Red-Green-Refactor)
+─────────────────────         ──────────────────────────
+Phase 4: Generate Tests  ──→  RED: Tests exist and fail
+Phase 5: Implement       ──→  GREEN: Minimal code to pass
+Phase 6: Self-Review     ──→  REFACTOR: Clean up internals
 ```
 
-自审清单（标记完成前全部核对）：每条 AC 都有通过的测试；每个 EC 都有测试；无范围蔓延；API 契约与实现逐字段一致；每个错误响应都有触发它的测试；非功能需求有证据（基准/压测/profiling）；数据模型与库 schema 一致；范围之外的项确实没被实现。
+## See also
 
-## 示例
-
-以「密码重置」功能为例：先在背景小节用工单与指标说明为何要做，再写 FR（如「FR-1：系统 MUST 在用户提交注册邮箱后发送一次性重置链接」），配套写非功能需求（如「NFR-1：重置邮件 MUST 在 < 30s 内发出」）。验收标准用 Given/When/Then：
-
-> AC-1（引用 FR-1）：Given 已注册用户在登录页点击「忘记密码」，When 输入正确邮箱并提交，Then 系统发送含有效期 15 分钟的一次性链接。
-
-边界情况覆盖外部依赖失败，如「EC-1：邮件服务超时——系统 MUST 返回友好提示并允许重试」。随后 `test_extractor.py` 把每条 AC/EC 转成 pytest 桩（初始全红），实现阶段逐条点亮。
-
-## 注意事项
-
-避免以下反模式：
-
-- **规约批准前就编码**：评审会带出改动，你会得到实现了被否方案的代码。状态变为 Approved 前不开工。
-- **含糊验收标准**：「系统应工作良好」「UI 应响应迅速」无法测。每条 AC 必须机器可验证，写不出测试就重写标准。
-- **缺失边界情况**：只规定 happy path，错误路径靠开发现场发挥导致行为不一致。每个外部依赖至少给一个失败场景。
-- **事后补规约**：写于代码之后的不是规约，是文档，无法捕捉已冻结的设计错误——请改名为文档。
-- **超规镀金**：「顺手加了…」会引入未测、未评审的代码。不在规约里就别做，新功能另立规约。
-- **验收标准无追溯**：孤立的 AC 意味着要么缺需求要么该标准多余。每条 AC- MUST 至少引用一个 FR-/NFR-。
-- **跳过校验**：开工前必跑 `spec_validator.py --strict` 并修掉所有告警。
-
-与 TDD 的衔接：本工作流在 Phase 4 产出测试桩（RED），之后交给 TDD 的红-绿-重构。规约告诉你测什么，TDD 告诉你怎么实现。
-
-## 互见
-
-- TDD 指南（tdd-guide）：红-绿-重构、覆盖率分析、框架特定测试模式（Jest/Pytest/JUnit），在本流程 Phase 4 之后接手。
-- 聚焦修复（focused-fix）：当规约驱动的实现出现系统性问题时用于诊断。
-- RAG 架构（rag-architect）：若功能涉及检索或知识系统，用它在规约内做技术设计。
-- 参考资料：spec_format_guide.md（完整模板与示例）、bounded_autonomy_rules.md（停/继续决策矩阵）、acceptance_criteria_patterns.md（Given/When/Then 模式库）。
+- **tdd-guide** — Red-green-refactor cycle, coverage analysis, framework-specific test patterns (Jest/Pytest/JUnit). Use after Phase 4 of this workflow.
+- **focused-fix** — Deep-dive feature repair; use for diagnosis when a spec-driven implementation has systemic issues.
+- **rag-architect** — If the feature involves retrieval or knowledge systems, use it for the technical design within the spec.
+- References: `spec_format_guide.md` (complete template with section-by-section examples), `bounded_autonomy_rules.md` (full stop/continue decision matrix), `acceptance_criteria_patterns.md` (Given/When/Then pattern library).
 
 ---
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+Adapted from alirezarezvani/claude-skills (MIT License).

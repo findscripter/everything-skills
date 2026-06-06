@@ -1,14 +1,14 @@
 ---
 name: bulk-rnaseq-orchestrator
-title: Bulk RNA-seq 端到端流程编排
-description: 当你手握 bulk RNA-seq 原始 FASTQ 或定量输出、要走「可复现可辩护」的完整差异表达研究时使用；做实验设计/QC 把关→比对定量（nf-core/rnaseq 或 STAR/Salmon 两条路）→基因级计数矩阵→分发给差异表达/富集/作图的流程编排，产出计数矩阵+元数据模板+各阶段交接；不适用于单细胞（用 single-cell-rnaseq-analysis）、只做 DE 统计（用 pydeseq2）或只做富集；触发词：RNA-seq、bulk、FASTQ to DESeq2、nf-core/rnaseq、STAR、Salmon、计数矩阵、链特异性、QC、流程编排
+title: Bulk RNA-seq
+description: End-to-end bulk RNA-seq orchestrator — takes raw FASTQ reads through QC and trimming (FastQC, fastp/Trim Galore), alignment and quantification (STAR, Salmon, featureCounts), assembles a gene-level counts matrix, then hands off to differential expression (pydeseq2), pathway/GSEA enrichment (pathway-enrichment), and publication figures (scientific-visualization). Use whenever the user has bulk RNA-seq reads or quant output and wants a complete, reproducible differential-expression workflow — e.g. "analyze my RNA-seq", "FASTQ to DESeq2", "run nf-core/rnaseq", "STAR/Salmon quantification", "build a counts matrix for DESeq2", or "go from reads to differentially expressed genes and enriched pathways". Routes between an nf-core/rnaseq (Nextflow) path and a standalone STAR/Salmon path, and covers experimental design, strandedness, and QC gates. For single-cell RNA-seq use the scanpy skill instead.
 domain: 领域/science
-triggers: [RNA-seq, bulk, FASTQ to DESeq2, nf-core/rnaseq, STAR, Salmon, featureCounts, 计数矩阵, 链特异性, QC 把关, 差异表达流程, 流程编排]
+triggers: [RNA-seq, bulk, FASTQ to DESeq2, nf-core/rnaseq, STAR, Salmon, featureCounts]
 tags: [rnaseq, bulk-rnaseq, orchestration, nf-core, star, salmon, counts-matrix, qc, bioinformatics, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [nextflow, STAR, salmon, featureCounts, fastqc, fastp, multiqc, python, pytximport, pandas]
+tools: []
 requires: []
 related: [star-rnaseq-aligner, nextflow-pipeline-builder, snakemake-workflow-engine, pydeseq2-differential-expression]
 combines_with: [fastp-fastq-preprocessing, gene-set-enrichment-analysis, genomic-file-toolkit]
@@ -16,112 +16,192 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# Bulk RNA-seq
 
-当用户手里有 **bulk RNA-seq 原始 reads（FASTQ）或定量输出**，想要一条**完整、可复现、可辩护**的差异表达研究链路时用本条。本条是**编排器/路由**，不重复造轮子：把已有的各阶段技能按正确顺序串起来，补上唯一的真空地带（原始 reads → 基因级计数矩阵），并守住决定结果可信度的**设计与 QC 决策**。典型请求：「分析我的 RNA-seq」「FASTQ 到 DESeq2」「跑 nf-core/rnaseq」「STAR/Salmon 定量」「为 DESeq2 构计数矩阵」「从 reads 到差异基因和富集通路」。
+## Overview
 
-「可辩护」= 三件事贯穿始终：**可复现**（钉死管线/工具版本、容器、记录参数、固定随机种子）、**QC 把关**（定量前中后都看 QC，不跳过）、**统计可靠**（足够重复、设计匹配生物学、计数正确处理、FDR 控制）。
+This skill orchestrates a complete, **defensible** bulk RNA-seq differential-expression study, from raw sequencing reads to enriched pathways and figures. It is a router, not a reimplementation: most stages already have dedicated skills in this repo, and this skill connects them in the right order, fills the one real gap (raw reads → a gene-level counts matrix), and enforces the design and QC decisions that determine whether the final result is trustworthy.
 
-**不该用的边界：**
-- 单细胞 / 单核 RNA-seq → 用 `single-cell-rnaseq-analysis`（Scanpy），样本即细胞、模型不同。
-- 只做 DE 统计（已有计数矩阵）→ 直接用 `pydeseq2-differential-expression`。
-- 只做通路 / GSEA 富集 → 用 `gene-set-enrichment-analysis`。
-- 单步比对器细节（建索引、二轮比对参数）→ 用 `star-rnaseq-aligner`、`fastp-fastq-preprocessing`。
+"Defensible" means three things, applied throughout:
+- **Reproducible** — pinned pipeline/tool versions, containers where possible, recorded parameters, fixed random seeds.
+- **Quality-gated** — QC is inspected and acted on before, during, and after quantification, not skipped.
+- **Statistically sound** — adequate replication, a design that matches the biology, counts handled correctly, and FDR-controlled testing.
 
-## 步骤
+The pipeline is: **FastQC/trim → align/quant (STAR/Salmon) → counts → DE (pydeseq2) → enrichment (pathway-enrichment) → figures**.
 
-自上而下，**别跳设计/QC 阶段——bulk RNA-seq 最常翻车在这里**。流程总览：`FastQC/trim → 比对定量(STAR/Salmon) → 计数 → DE(pydeseq2) → 富集 → 作图`。
+## When to Use This Skill
 
-1. **设计与样本表**：确认每组 ≥3 生物学重复，识别批次/混杂，定清比较组；构建 samplesheet 并校验（`scripts/validate_samplesheet.py`）。
-2. **原始 reads QC**：逐文件 FastQC，MultiQC 聚合；看每碱基质量、接头含量、重复率、过表达序列。
-3. **去接头**：`fastp` 或 `Trim Galore` 去接头与低质量尾，再跑一次 FastQC 确认（Path A 自动做）。
-4. **比对/定量**：STAR（基因组比对 + `--quantMode GeneCounts`）和/或 Salmon（转录本伪比对，decoy-aware）。**务必确定链特异性——极易搞错且会悄悄砍掉约一半计数**；用 Salmon `-l A` 自动推断并核对已分配 reads 比例。
-5. **构建计数矩阵**：定量输出 → 基因×样本整数矩阵 + 元数据模板（`scripts/build_counts_matrix.py`）。
-6. **差异表达** → 交 `pydeseq2-differential-expression`：载 `counts.csv`+`metadata.csv`，设计如 `~batch + condition`，拟合 + FDR 检验；看 PCA 与 p 值直方图做 QC。
-7. **富集** → 交 `gene-set-enrichment-analysis`：GSEA 用**全量**基因按 DESeq2 `stat` 列预排序；ORA 用阈值命中表（padj<0.05，可加 |log2FC|>1）。**先把 Ensembl ID 映射成 symbol**。
-8. **作图**：火山图、MA 图、样本距离热图、PCA、富集点图，配合 MultiQC 报告讲 QC 故事。
+Use this skill when the user wants to:
+- Go from FASTQ files (or a sequencing run) to differentially expressed genes and pathways.
+- Run or configure `nf-core/rnaseq`, or align/quantify with STAR, Salmon, or featureCounts.
+- Turn Salmon/STAR/featureCounts output into a counts matrix ready for DESeq2/PyDESeq2.
+- Design or sanity-check a bulk RNA-seq experiment (replicates, batch, strandedness) before committing compute.
+- Scope an end-to-end RNA-seq analysis and decide which tools and skills to chain.
 
-## 指令
+This is **bulk** RNA-seq (samples = biological specimens). For single-cell/nuclei data use `scanpy`; for the DE statistics alone use `pydeseq2`; for enrichment alone use `pathway-enrichment`.
 
-**两条上游路径——选一条走到底**（产出等价的基因计数）：
+## The Pipeline at a Glance
 
-| 选 **Path A — nf-core/rnaseq** | 选 **Path B — 单机工具** |
-|---|---|
-| 要领域标准、可审计、可引用的管线，一条命令 | 样本少、想逐步学习/检查每一步 |
-| 样本多、要上 HPC/云 | 无 Nextflow/容器，或受限环境 |
-| 看重可复现 + 完整 MultiQC 报告 | 需要管线不暴露的非标准步骤 |
-| → 经 `nextflow-pipeline-builder` 驱动 | → 跟单机配方逐步跑 |
+```mermaid
+flowchart TD
+    fastq["Raw FASTQ + samplesheet"] --> qc["FastQC + MultiQC"]
+    qc --> trim["Trim: fastp / Trim Galore"]
+    trim --> align["Align + quant: STAR and/or Salmon"]
+    align --> counts["Gene-level counts matrix"]
+    counts --> de["Differential expression"]
+    de --> enrich["Pathway / GSEA enrichment"]
+    de --> fig["Figures"]
+    enrich --> fig
+    nfcore["nf-core/rnaseq via nextflow skill"] -.->|"path A"| align
+    manual["Standalone recipes (this skill)"] -.->|"path B"| align
+    bridge["build_counts_matrix.py (this skill)"] -.-> counts
+    pydeseq2skill["pydeseq2 skill"] -.-> de
+    pwskill["pathway-enrichment skill"] -.-> enrich
+    vizskill["scientific-visualization skill"] -.-> fig
+```
 
-**拿不准就选 Path A**：它已把 FastQC→去接头→STAR/Salmon→定量→tximport→MultiQC 用审阅过的默认参数串好，最可辩护。两条路都汇到**基因级计数矩阵**，之后流程一致。
+## Two Upstream Paths — Pick One
 
-环境安装：
+The reads → counts stage can be run two ways. They produce equivalent gene counts; choose by context, then stay on that path.
+
+| Use **Path A — `nf-core/rnaseq`** when… | Use **Path B — standalone tools** when… |
+|------------------------------------------|------------------------------------------|
+| You want the field-standard, audited, citable pipeline with one command | You have a few samples and want to learn/inspect each step |
+| Many samples, or you'll scale to HPC/cloud | No Nextflow/containers available, or a constrained environment |
+| Reproducibility and a full MultiQC report matter most | You need a non-standard step the pipeline doesn't expose |
+| → Drive it through the **`nextflow`** skill | → Follow `references/upstream-manual.md` |
+
+When unsure, prefer **Path A**: `nf-core/rnaseq` already wires together FastQC → trimming → STAR/Salmon → quantification → tximport → MultiQC with sensible, reviewed defaults, which is the most defensible option. Path B exists for transparency and constrained setups.
+
+Both paths converge on a **gene-level counts matrix**, after which the workflow is identical.
+
+## Setup
+
 ```bash
-# 本条胶水（桥接 + 交接）
+# This skill's glue (bridge + handoffs) — Python
 uv pip install pytximport pandas
-# 下游技能自装依赖：pydeseq2 / gseapy gprofiler-official
-# Path B 单机工具（bioconda，钉版本保可复现）
+
+# Downstream skills install their own deps:
+#   pydeseq2 skill           -> uv pip install pydeseq2
+#   pathway-enrichment skill -> uv pip install gseapy gprofiler-official
+
+# Path A (nf-core): only Nextflow + a container engine are needed — see the `nextflow` skill.
+
+# Path B (standalone tools): install via bioconda. Pin versions for reproducibility.
 conda create -n rnaseq -c bioconda -c conda-forge \
   fastqc fastp trim-galore "star=2.7.11b" "salmon=1.10.3" subread multiqc
 ```
-**记录确切版本**（管线 revision、工具版本、参考基因组+注释 release）——它们进 methods 段、决定可复现性。
 
-**计数→DE 桥（本条独占的关键胶水）**：`scripts/build_counts_matrix.py` 把定量输出转成 `pydeseq2` 恰好要的格式——
-- **Salmon**（`--from salmon`）：用 `pytximport` 按 `counts_from_abundance="length_scaled_tpm"` 聚到基因级（基因级 DE 的正确选择），需 `tx2gene` 映射。
-- **STAR**（`--from star`）：读各 `ReadsPerGene.out.tab`，按 `--strandedness`（unstranded/forward/reverse）选列。
-- **featureCounts**（`--from featurecounts`）：解析合并矩阵。
+Record the exact versions you use (pipeline revision, tool versions, reference genome + annotation release) — they belong in the methods section and make the analysis reproducible.
 
-产出 `counts.csv`（基因×样本整数）+ `metadata_template.csv`。**Salmon/RSEM 计数是估计值（非整数），会被四舍五入成整数**——因为 PyDESeq2 要求整数计数，配 `length_scaled_tpm` 时这是可接受的。
+## Quick Start
 
-## 示例
+### Path A — nf-core/rnaseq (recommended)
 
-**Path A — nf-core/rnaseq（推荐）**：
 ```bash
-# 0. 先校验 samplesheet（提前捕获最常见失败）
+# 0. Validate the samplesheet first (catches the most common failures early)
 python scripts/validate_samplesheet.py --samplesheet samplesheet.csv
-# 1. 用内置微型数据冒烟测试环境
-nextflow run nf-core/rnaseq -r 3.26.0 -profile test,docker --outdir test_results
-# 2. 正式跑：钉 revision、选 aligner、传 samplesheet + 参考
-nextflow run nf-core/rnaseq -r 3.26.0 -profile docker \
-  --input samplesheet.csv --genome GRCh38 \
-  --aligner star_salmon --outdir results -resume
-```
-nf-core/rnaseq 内部跑 tximport，计数**已合并**，**无需桥接脚本**；DE 直接用 `results/star_salmon/salmon.merged.gene_counts_length_scaled.tsv`。
 
-**Path B — 单机 STAR/Salmon（缩略）**：
+# 1. Smoke-test the environment with tiny bundled data
+nextflow run nf-core/rnaseq -r 3.26.0 -profile test,docker --outdir test_results
+
+# 2. Real run: pin the revision, pick an aligner, pass a samplesheet + reference
+nextflow run nf-core/rnaseq -r 3.26.0 \
+  -profile docker \
+  --input samplesheet.csv \
+  --genome GRCh38 \
+  --aligner star_salmon \
+  --outdir results \
+  -resume
+```
+
+`nf-core/rnaseq` runs tximport internally, so gene counts come out **already merged** — no bridge script needed. Use `results/star_salmon/salmon.merged.gene_counts_length_scaled.tsv` for DE. Samplesheet format, aligner choice, and outputs: `references/upstream-nfcore.md`. For engine/HPC/cloud/container detail, use the **`nextflow`** skill.
+
+### Path B — standalone STAR/Salmon (abbreviated)
+
 ```bash
-fastqc -o qc/ reads/*.fastq.gz                          # 1. QC 原始 reads
+fastqc -o qc/ reads/*.fastq.gz                      # 1. QC raw reads
 fastp -i s1_R1.fq.gz -I s1_R2.fq.gz \
       -o s1_R1.trim.fq.gz -O s1_R2.trim.fq.gz \
-      --thread 4 -j s1.fastp.json                       # 2. 去接头/低质量
+      --thread 4 -j s1.fastp.json                   # 2. Trim adapters/low-quality
 salmon quant -i salmon_index -l A \
       -1 s1_R1.trim.fq.gz -2 s1_R2.trim.fq.gz \
-      --gcBias --seqBias -p 8 -o quant/s1               # 3. 逐样本定量
-# Path B 专用：汇成计数矩阵 + 元数据模板
-python scripts/build_counts_matrix.py --from salmon \
-  --quant-dir quant/ --tx2gene tx2gene.tsv --output-dir counts/
+      --gcBias --seqBias -p 8 -o quant/s1            # 3. Quantify (per sample)
 ```
 
-## 注意事项
+Full recipes (FastQC, fastp/Trim Galore, STAR index+align+`--quantMode GeneCounts`, Salmon decoy-aware index, featureCounts, strandedness): `references/upstream-manual.md`.
 
-致使结果错误/不可复现的高频坑：
-1. **重复太少**：每组 <3 生物学重复几乎无功效、离散度估计不稳；加重复比测更深更值。
-2. **批次与条件混杂**：若处理组与对照组分别在不同天/lane 处理，效应不可恢复；要随机化并建模已知批次（`~batch + condition`）。
-3. **链特异性搞错**：选错 STAR 列、featureCounts `-s` 或 Salmon 文库类型会悄悄丢约一半 reads；用 `-l A` 或推断，并核对已分配比例。
-4. **把 TPM/FPKM 喂给 DESeq2**：DESeq2 要原始（或 length-scaled）**计数**，绝不能传 TPM/FPKM/已归一化值——桥脚本会处理。
-5. **非整数计数**：PyDESeq2 要整数，Salmon 估计值需四舍五入（桥脚本已做）。
-6. **基因 ID 不匹配进富集**：DESeq2 输出常是 Ensembl ID，Enrichr/MSigDB 要 symbol；进富集前先映射，否则「啥都不显著」。
-7. **跳过定量后 QC**：信 DE 前必看 PCA 与样本距离热图——它们暴露标签互换、离群与隐藏批次。
-8. **跨样本混用比对器**：每个样本用同一工具、版本、参考、参数。
-9. **不钉版本**：「latest」管线/基因组不可复现；钉 `-r`、工具版本、基因组/注释 release。
+### Counts → DE → enrichment (both paths)
 
-## 互见
+```bash
+# Path B only: assemble a gene x sample counts matrix + metadata template for PyDESeq2
+python scripts/build_counts_matrix.py --from salmon \
+  --quant-dir quant/ --tx2gene tx2gene.tsv --output-dir counts/
 
-- combines_with：`pydeseq2-differential-expression` —— 本条产出的计数矩阵 + 元数据的标准下游 DE 引擎。
-- combines_with：`gene-set-enrichment-analysis` —— DE 结果按 `stat` 预排序做 GSEA / 命中表做 ORA。
-- combines_with：`nextflow-pipeline-builder` —— Path A 的执行底座，驱动 nf-core/rnaseq、上 HPC/云/容器。
-- related：`star-rnaseq-aligner`、`fastp-fastq-preprocessing` —— Path B 单步比对/去接头的细节技能。
-- related：`single-cell-rnaseq-analysis` —— 相关但不同，单细胞走它；`genomic-file-toolkit` —— BAM/计数表 I/O；`snakemake-workflow-engine` —— 另一种流水线封装选择。
+# Then hand off (see the dedicated skills):
+#   pydeseq2:           counts.csv + metadata.csv -> DE table (log2FC, padj, stat)
+#   pathway-enrichment: rank by `stat` (GSEA) or padj+|LFC| hit list (ORA)
+#   scientific-visualization / matplotlib: volcano, MA, heatmap, PCA, enrichment dotplot
+```
 
----
+## Stage-by-Stage Workflow
 
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT），适配重写而非逐字翻译。
+Work top to bottom. Each stage names the skill or file that owns the detail. Don't skip the design/QC stages — they are where bulk RNA-seq studies most often go wrong.
+
+1. **Design & sample sheet.** Confirm ≥3 biological replicates per group, identify batch/confounders, and choose the comparison(s). Build the samplesheet and validate it with `scripts/validate_samplesheet.py`. Rationale and rules: `references/design-and-qc.md`.
+2. **Raw-read QC.** FastQC per file; aggregate with MultiQC. Check per-base quality, adapter content, duplication, and over-representation. Thresholds: `references/design-and-qc.md`.
+3. **Trimming.** Remove adapters and low-quality tails (via `fastp` or `Trim Galore`). Re-run FastQC to confirm. Recipes: `references/upstream-manual.md` (Path A does this for you).
+4. **Align / quantify.** STAR (genome alignment + `--quantMode GeneCounts`) and/or Salmon (transcript quasi-mapping, decoy-aware). Determine strandedness — it is easy to get wrong and silently halves your counts. Detail: `references/upstream-manual.md`; pipeline params: `references/upstream-nfcore.md`.
+5. **Build the counts matrix.** Turn quant output into a gene × sample integer matrix and a metadata template (`scripts/build_counts_matrix.py`). The estimated-count and gene-ID-mapping nuances live in `references/counts-and-handoff.md`.
+6. **Differential expression → `pydeseq2` skill.** Load `counts.csv` + `metadata.csv`, set the design (e.g. `~batch + condition`), fit, and test with FDR control. Inspect the PCA and p-value histogram as QC.
+7. **Enrichment → `pathway-enrichment` skill.** For GSEA, rank the *full* gene list by the DESeq2 `stat`; for ORA, pass the thresholded hit list (padj < 0.05, optionally |log2FC| > 1). Map gene IDs to symbols first.
+8. **Figures → `scientific-visualization` skill.** Volcano, MA, sample-distance heatmap, PCA, and enrichment dotplots, plus the MultiQC report for the QC narrative.
+
+## The counts → DE bridge (the key glue)
+
+This is the one stage with no upstream/downstream skill, so this skill owns it. `scripts/build_counts_matrix.py` converts quant output into exactly what `pydeseq2` expects:
+
+- **Salmon** (`--from salmon`): aggregates per-sample `quant.sf` to gene level with `pytximport` using `counts_from_abundance="length_scaled_tpm"` (the right choice for gene-level DE), needs a `tx2gene` map.
+- **STAR** (`--from star`): reads each `ReadsPerGene.out.tab`, selecting the column for your `--strandedness` (unstranded/forward/reverse).
+- **featureCounts** (`--from featurecounts`): parses the combined `featureCounts` matrix.
+
+It writes `counts.csv` (genes × samples, integers) and `metadata_template.csv` (one row per sample) for you to fill in. **Salmon/RSEM counts are estimates (non-integer); they are rounded to integers** because PyDESeq2 requires integer counts — see `references/counts-and-handoff.md` for why this is acceptable with `length_scaled_tpm` and how it differs from the offset-based DESeq2+tximport route. That reference also covers Ensembl→symbol mapping (needed before enrichment) and the exact orientation PyDESeq2 wants.
+
+## Common Pitfalls
+
+These cause most wrong or irreproducible bulk RNA-seq results:
+
+1. **Too few replicates.** <3 biological replicates per group gives almost no power and unstable dispersion estimates. More replicates beat deeper sequencing.
+2. **Confounded batch and condition.** If every treated sample was processed on a different day/lane than controls, the effect is unrecoverable. Randomize, and model known batches (`~batch + condition`). See `references/design-and-qc.md`.
+3. **Wrong strandedness.** Choosing the wrong STAR column or featureCounts `-s`/Salmon library type silently discards ~half the reads. Use Salmon `-l A` or infer strandedness, and verify the assigned-reads fraction.
+4. **Feeding TPM/FPKM to DESeq2.** DESeq2 needs raw (or length-scaled) **counts**, never TPM/FPKM/normalized values. The bridge handles this.
+5. **Non-integer counts.** PyDESeq2 requires integers; round Salmon estimates (the bridge does this).
+6. **Gene-ID mismatch into enrichment.** DESeq2 output is often Ensembl IDs; Enrichr/MSigDB want symbols. Map IDs before `pathway-enrichment` or "nothing is significant".
+7. **Skipping post-quant QC.** Always look at the PCA and sample-distance heatmap before trusting DE — they expose swapped labels, outliers, and hidden batches.
+8. **Mixing aligners across samples.** Quantify every sample with the same tool, version, reference, and parameters.
+9. **Unpinned versions.** "latest" pipelines/genomes make results unreproducible; pin `-r`, tool versions, and the genome/annotation release.
+
+## Integration with Other Skills
+
+- **Upstream execution:** `nextflow` (runs `nf-core/rnaseq`, Path A; HPC/cloud/containers).
+- **Reference data / gene IDs:** `gget` (`gget ref` for genome+GTF, `gget info`/`gget search` for ID mapping), `database-lookup` (Ensembl/NCBI), `biopython`/`pysam` (FASTA/BAM handling).
+- **Differential expression:** `pydeseq2` (the DE engine this skill hands counts to).
+- **Enrichment:** `pathway-enrichment` (ORA + GSEA; its `scripts/run_enrichment.py` reads a DESeq2 results CSV directly).
+- **Figures & reporting:** `scientific-visualization`, `matplotlib`, `seaborn`; `scientific-writing` for the methods/results narrative.
+- **Related but distinct:** `scanpy` (single-cell), `statistical-analysis` (multiple-testing depth).
+
+## Reference Files
+
+Read the relevant file when you need depth — each is self-contained:
+
+- `references/upstream-nfcore.md` — Path A: samplesheet format, `--aligner`/`--pseudo_aligner` choice, key params, the `salmon.merged.gene_counts*.tsv` outputs, MultiQC, and what to hand to `pydeseq2`.
+- `references/upstream-manual.md` — Path B: FastQC, fastp/Trim Galore, STAR genome index + alignment + `--quantMode GeneCounts`, Salmon decoy-aware index + `quant`, featureCounts, and how to determine strandedness.
+- `references/counts-and-handoff.md` — turning quant output into PyDESeq2-ready `counts.csv`/`metadata.csv` (pytximport, STAR column selection, featureCounts), the integer/estimated-count nuance, Ensembl→symbol mapping, and the DE→enrichment rank/hit-list recipe.
+- `references/design-and-qc.md` — experimental design (replication, batch, confounding, design formulas) and QC-metric interpretation (mapping rate, duplication, rRNA, complexity, PCA/outliers) — the defensible-pipeline backbone.
+
+## Resources
+
+- nf-core/rnaseq: https://nf-co.re/rnaseq · STAR: https://github.com/alexdobin/STAR · Salmon: https://salmon.readthedocs.io
+- fastp: https://github.com/OpenGene/fastp · Trim Galore: https://github.com/FelixKrueger/TrimGalore · MultiQC: https://multiqc.info
+- pytximport: https://pytximport.complextissue.com · featureCounts (Subread): https://subread.sourceforge.net
+- Method background: Love et al. 2014 (DESeq2) DOI 10.1186/s13059-014-0550-8 · Soneson et al. 2015 (tximport) DOI 10.12688/f1000research.7563.2

@@ -1,14 +1,14 @@
 ---
 name: sendblue-imessage-api
-title: Sendblue 消息 API：代码收发 iMessage/SMS/RCS
-description: 当在服务端代码里收发 iMessage/SMS/RCS（文本、媒体、群发、特效、Tapback、状态回调、入站 Webhook）时使用；做 Sendblue HTTP API 集成并产出可运行的请求/回调处理；不适用于一次性 shell 发送（改用 sendblue-cli）或不需完整 HTTP 集成的场景；触发词：Sendblue、iMessage、SMS、RCS、message_handle、status_callback、webhook
+title: Sendblue API
+description: Send and receive iMessage, SMS, and RCS from application code via the Sendblue HTTP API — text, media, group messages, send styles, reactions, typing indicators, status callbacks, and inbound webhooks.
 domain: 平台/integration
-triggers: [Sendblue, iMessage 发送, 蓝色气泡, SMS API, RCS 消息, 发短信 API, 群发消息, iMessage 特效, send_style, Tapback 反应, status_callback, 入站 webhook, message_handle, evaluate-service, send-message 接口]
+triggers: [Sendblue, SMS API, send_style, status_callback, message_handle, evaluate-service]
 tags: [sendblue, imessage, sms, rcs, messaging, api, webhooks]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude, cursor, gemini]
+tools: []
 requires: []
 related: [imessage-claude-bridge, twilio-communications, whatsapp-cloud-api, agentphone-voice-sms-agents]
 combines_with: [transactional-email-template-builder, agentmail-email-infra, slack-bolt-bot-builder]
@@ -16,23 +16,28 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Sendblue API
 
-- 在长期运行的服务（server / worker / function）里用应用代码发送 Sendblue 消息时。
-- 需要通过 Webhook 接收入站消息时。
-- 需要 CLI 不暴露的能力：发送特效（send styles）、反应（reactions）、群发、输入指示、状态回调、媒体上传，或超出基础 CRUD 的联系人 API。
+## Overview
 
-不该用的边界：
-- 只是 shell 上下文的一次性外发（脚本、cron、agent hook、「X 完成时 ping 我」）——改用 [[sendblue-cli]]。
-- 不需要完整 HTTP 集成时，无需引入本技能。
+Sendblue is a REST API that sends iMessage (blue bubbles), SMS, and RCS from a provisioned phone number. Everything is plain JSON over HTTPS — no SDK is required. The API covers outbound 1:1 and group sends, iMessage effects, reactions, typing indicators, status callbacks, and inbound webhooks.
 
-风险提示：每一次外发、联系人/Webhook 变更、已读回执、反应、输入指示都是「改变状态」操作。先向用户预览收件人、发送线路、内容、回调/Webhook 变更，等明确确认后再发。
+## When to Use This Skill
 
-## 步骤
+- Use when writing application code (server, worker, function) that sends Sendblue messages as part of a long-running service.
+- Use when receiving inbound messages via webhooks.
+- Use when you need features the CLI does not expose: send styles, reactions, group messages, typing indicators, status callbacks, media uploads, or the contacts API beyond basic CRUD.
+- Reach for [[sendblue-cli]] instead for shell-context outbound: one-shot scripts, cron jobs, agent hooks, "ping me when X" workflows.
 
-### 1. 鉴权
+## How It Works
 
-Base URL：`https://api.sendblue.com`。每个请求都需要两个请求头（外加 `Content-Type: application/json`）：
+### Step 1: Authenticate
+
+```
+https://api.sendblue.com
+```
+
+Every request needs two headers:
 
 ```
 sb-api-key-id: <YOUR_API_KEY_ID>
@@ -40,9 +45,9 @@ sb-api-secret-key: <YOUR_API_SECRET>
 Content-Type: application/json
 ```
 
-两个值必须留在服务端，绝不能下发到浏览器或移动端。
+Keep both values server-side — never ship them to a browser or mobile client.
 
-### 2. 发送消息
+### Step 2: Send a message
 
 ```bash
 curl -X POST https://api.sendblue.com/api/send-message \
@@ -56,46 +61,37 @@ curl -X POST https://api.sendblue.com/api/send-message \
   }'
 ```
 
-- 号码必须是 E.164 格式（如 `+15551234567`）。
-- `from_number` 必须是你自己拥有的线路，用 `GET /api/lines` 列出。
+Phone numbers must be E.164. `from_number` must be a line you own — list yours with `GET /api/lines`.
 
-### 3. 跟踪送达
+### Step 3: Track delivery
 
-同步响应里有：
-- `message_handle`（Apple GUID）——**务必持久化**，反应、回复、关联状态回调都要用它。
-- `status`：`REGISTERED`、`PENDING`、`QUEUED`、`ACCEPTED`、`SENT`、`DELIVERED`、`DECLINED`、`ERROR`。
+The synchronous response includes a `message_handle` (Apple GUID — persist this; you need it for reactions and replies) and a `status` from `REGISTERED`, `PENDING`, `QUEUED`, `ACCEPTED`, `SENT`, `DELIVERED`, `DECLINED`, `ERROR`. Only `DELIVERED` means it landed. Use `status_callback` instead of polling `/api/status`.
 
-只有 `DELIVERED` 才代表真正送达。优先用 `status_callback`，而不是轮询 `GET /api/status`。
+### Step 4: Receive inbound
 
-### 4. 接收入站
+Configure webhook URLs in the dashboard or via `POST /api/account/webhooks`. Sendblue POSTs JSON to your endpoint. Respond with 2xx promptly — non-2xx triggers retries and duplicate deliveries. Event types: `receive`, `outbound`, `typing_indicator`, `call_log`, `line_blocked`, `line_assigned`, `contact_created`.
 
-在 Dashboard 或通过 `POST /api/account/webhooks` 配置 Webhook URL。Sendblue 会向你的端点 POST JSON。**尽快返回 2xx**——非 2xx 会触发重试和重复投递。
+## Core Endpoints
 
-事件类型：`receive`、`outbound`、`typing_indicator`、`call_log`、`line_blocked`、`line_assigned`、`contact_created`。
+| Method | Path | Purpose |
+|--------|------|---------|
+| POST | `/api/send-message` | Send a 1:1 message (text and/or media) |
+| POST | `/api/send-group-message` | Send to multiple recipients |
+| POST | `/api/create-group` | Create a named group thread |
+| POST | `/api/send-reaction` | Send a tapback (love/like/dislike/laugh/emphasize/question) |
+| POST | `/api/send-typing-indicator` | Show "typing…" in the recipient's thread |
+| POST | `/api/mark-read` | Send a read receipt |
+| POST | `/api/upload-file` / `/api/upload-media-object` | Upload media (direct or from URL) |
+| GET | `/api/status` | Poll a message's delivery status |
+| GET | `/api/evaluate-service` | Check whether a number is on iMessage |
+| GET | `/api/v2/messages` / `/api/v2/messages/:id` | Read message history |
+| GET / POST / PUT / DELETE | `/api/v2/contacts[...]` | Manage contacts |
+| GET | `/api/lines` | List your Sendblue phone numbers |
+| POST | `/api/account/webhooks` | CRUD webhook subscriptions |
 
-## 指令
+## Examples
 
-核心端点：
-
-| Method | Path | 用途 |
-|--------|------|------|
-| POST | `/api/send-message` | 发送 1:1 消息（文本和/或媒体） |
-| POST | `/api/send-group-message` | 群发给多个收件人 |
-| POST | `/api/create-group` | 创建命名群线程 |
-| POST | `/api/send-reaction` | 发送 Tapback（love/like/dislike/laugh/emphasize/question） |
-| POST | `/api/send-typing-indicator` | 在对方线程显示「正在输入…」 |
-| POST | `/api/mark-read` | 发送已读回执 |
-| POST | `/api/upload-file` / `/api/upload-media-object` | 上传媒体（直传或从 URL） |
-| GET | `/api/status` | 轮询消息送达状态 |
-| GET | `/api/evaluate-service` | 检查某号码是否在 iMessage 上 |
-| GET | `/api/v2/messages` / `/api/v2/messages/:id` | 读取消息历史 |
-| GET/POST/PUT/DELETE | `/api/v2/contacts[...]` | 管理联系人 |
-| GET | `/api/lines` | 列出你的 Sendblue 号码 |
-| POST | `/api/account/webhooks` | 增删改查 Webhook 订阅 |
-
-## 示例
-
-### 示例 1：带媒体、特效与状态回调
+### Example 1: Send with media, effects, and a status callback
 
 ```json
 POST /api/send-message
@@ -109,9 +105,9 @@ POST /api/send-message
 }
 ```
 
-`content` 和/或 `media_url` 至少有一个。`send_style` 仅 iMessage 生效（SMS 上静默忽略），合法值：`celebration`、`shooting_star`、`fireworks`、`lasers`、`love`、`confetti`、`balloons`、`spotlight`、`echo`、`invisible`、`gentle`、`loud`、`slam`。文本最长 18,996 字符；媒体 iMessage 最大 100 MB、SMS 最大 5 MB。
+`content` and/or `media_url` is required. `send_style` is iMessage-only — valid values: `celebration`, `shooting_star`, `fireworks`, `lasers`, `love`, `confetti`, `balloons`, `spotlight`, `echo`, `invisible`, `gentle`, `loud`, `slam`. Ignored on SMS. Text up to 18,996 chars; media up to 100 MB on iMessage, 5 MB on SMS.
 
-### 示例 2：群发
+### Example 2: Group message
 
 ```json
 POST /api/send-group-message
@@ -122,22 +118,22 @@ POST /api/send-group-message
 }
 ```
 
-响应返回 `group_id`——持久化它，后续往同一线程追加消息，避免每次新建群。
+The response returns a `group_id` — persist it to send follow-ups into the same thread instead of creating a new one each time.
 
-### 示例 3：对消息发反应
+### Example 3: React to a message
 
 ```json
 POST /api/send-reaction
 {
   "from_number": "+1YOUR_SENDBLUE_NUMBER",
-  "message_handle": "<上一次发送返回的 message_handle>",
+  "message_handle": "<message_handle from prior send>",
   "reaction": "love"
 }
 ```
 
-反应仅 iMessage 可用，且需要原消息的 `message_handle`。合法值：`love`、`like`、`dislike`、`laugh`、`emphasize`、`question`。
+Reactions only work on iMessage and need the original message's `message_handle`. Valid values: `love`, `like`, `dislike`, `laugh`, `emphasize`, `question`.
 
-### 示例 4：入站 Webhook 载荷（`receive`）
+### Example 4: Inbound webhook payload (`receive`)
 
 ```json
 {
@@ -153,37 +149,52 @@ POST /api/send-reaction
 }
 ```
 
-状态回调载荷（`outbound`）镜像 send-message 响应，随消息从 `SENT` → `DELIVERED`（或 `ERROR`）更新。
+Status callback payloads (`outbound`) mirror the send-message response and update as the message moves through `SENT` → `DELIVERED` (or `ERROR`).
 
-## 注意事项
+## Best Practices
 
-最佳实践：
-- 每次发送都持久化 `message_handle`——反应、回复、关联状态回调都靠它。
-- 用 `status_callback` 取代轮询，更省成本也更准。
-- Webhook 快速返回 2xx，再异步处理；非 2xx 会导致重复投递（同一 `message_handle` 可能到达多次，端点需幂等）。
-- 依赖 iMessage 专属特性前，先用 `/api/evaluate-service` 检查对方服务类型。
-- 入站媒体 URL 约 30 天过期，收到时立即转存到自己的存储。
+- ✅ **Persist `message_handle` on every send.** You need it for reactions, replies, and correlating status callbacks.
+- ✅ **Use `status_callback` over polling.** It's lower-cost and more accurate than `GET /api/status`.
+- ✅ **Return 2xx fast from your webhook**, then process async. Non-2xx triggers duplicate deliveries.
+- ✅ **Check service with `/api/evaluate-service`** before relying on iMessage-only features for a recipient.
+- ✅ **Rehost inbound media on receipt** — media URLs expire in ~30 days.
+- ❌ **Don't ship `sb-api-key-id` / `sb-api-secret-key` to a client.** They are server-side credentials.
+- ❌ **Don't treat a 200 on `/api/send-message` as delivery.** It only means "accepted".
 
-常见坑：
-- **只接受 E.164**：`5551234567` 或 `(555) 123-4567` 会失败，必须 `+15551234567`。
-- **`from_number` 必须是你的线路**：伪造或未开通的号码会报错。
-- **`send_style` 在 SMS 上静默无效**（绿色气泡收件人）。
-- **状态是异步的**：`/api/send-message` 返回 200 只代表「已接受」，不等于「已送达」。
-- **每条线路有速率限制**：单号码爆发式群发会触发 Apple 反垃圾启发式判定——放慢节奏或拆分到多条线路。
+## Limitations
 
-安全：
-- `sb-api-key-id` / `sb-api-secret-key` 是服务端凭据，不能出现在浏览器、移动端或 CI 日志里。
-- Webhook 端点应走 HTTPS 且幂等。
-- 消息内容会在对方锁屏预览中可见，不要嵌入密钥、令牌或完整 PII——改为附带需鉴权的链接。
-- 凭据泄露时从 Dashboard 轮换 API 密钥，旧密钥对在轮换后立即失效。
+- Synchronous send responses only report acceptance, not delivery. Final state arrives via `status_callback` or `GET /api/status`.
+- `send_style` silently no-ops on SMS (green-bubble recipients).
+- Inbound media URLs expire in ~30 days.
+- Per-line rate limits apply; bursting many sends from one number can trip Apple's spam heuristics — pace them or split across lines.
+- Reactions and effects are iMessage-only.
 
-## 互见
+## Security & Safety Notes
 
-- [[sendblue-cli]]——shell 上下文外发的封装（脚本、cron、agent hook），不需要完整 HTTP 集成时用它。
-- [[sendblue-notify]]——在 API/CLI 之上做「X 完成时给我发消息」通知的模式与文案规则。
-- 完整参考：https://docs.sendblue.com/ ；官网：https://sendblue.com
-- 本文未展开的进阶能力：轮播卡片（`/api/send-carousel`）、FaceTime/联系人卡片分享、高级 Webhook 过滤、超出基础 CRUD 的联系人 API——见文档站。
+- Keep `sb-api-key-id` and `sb-api-secret-key` server-side. They are not safe in browser, mobile, or CI logs.
+- Treat every outbound send, contact/webhook mutation, read receipt, reaction, or typing indicator as state-changing. Preview the recipient, sender line, content, and callback/webhook changes, then wait for explicit user confirmation before sending.
+- Webhook endpoints should be on HTTPS and idempotent — same `message_handle` may arrive more than once.
+- Sensitive data in message content is visible in lock-screen previews on the recipient's device. Don't embed secrets, tokens, or full PII — link to an authenticated dashboard or shortened payload instead.
+- Rotate API keys from the Sendblue dashboard if either value is exposed; the old pair is invalidated on rotation.
 
----
+## Common Pitfalls
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+- **E.164 only.** `5551234567` or `(555) 123-4567` will fail — always send `+15551234567`.
+- **`from_number` must be one of your lines.** A spoofed or unprovisioned number returns an error.
+- **`send_style` silently no-ops on SMS.** If the recipient is green-bubble, effects don't render — check service first with `/api/evaluate-service` if it matters.
+- **Store `message_handle`.** You need it for reactions, replies, and correlating status callbacks back to your records.
+- **Media URLs expire in ~30 days.** If you need durable media from inbound webhooks, download and re-host on receipt.
+- **Status is async.** A 200 on `/api/send-message` means accepted, not delivered. Use `status_callback` rather than blocking on the synchronous response.
+- **Webhook retries on non-2xx.** Return 200 even when you've decided to ignore the event; otherwise expect duplicate deliveries.
+- **Rate limits apply per line.** Bursting many sends from one number trips Apple's spam heuristics — pace them or split across lines.
+
+## Related Skills
+
+- `@sendblue-cli` — Shell wrapper for shell-context outbound (scripts, cron, agent hooks). Use it when you don't need a full HTTP integration.
+- `@sendblue-notify` — Patterns and copy rules for outbound "text me when X is done" notifications layered on top of the API or CLI.
+
+## Links
+
+- Full reference: <https://docs.sendblue.com/>
+- Sendblue: <https://sendblue.com>
+- Useful undocumented-here features: carousels (`/api/send-carousel`), FaceTime/contact-card sharing, advanced webhook filtering, contacts API beyond basic CRUD — see the docs site.

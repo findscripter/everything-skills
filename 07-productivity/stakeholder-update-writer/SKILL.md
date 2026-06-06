@@ -1,11 +1,11 @@
 ---
 name: stakeholder-update-writer
-title: 干系人进展更新撰写
-description: 当需按受众与节奏撰写干系人更新（高管周报/月报、发布公告、风险升级，或把同一进展改写成高管简报/工程明细/对客版本）时使用；产出含状态灯（绿/黄/红）、TL;DR、进展、风险与诉求的分受众结构化更新草稿；不适用于对外客服回复、营销文案或纯财务建模；触发词：干系人更新、状态汇报、周报、月报、发布公告、风险升级、stakeholder update
+title: Stakeholder Update
+description: Generate a stakeholder update tailored to audience and cadence. Use when writing a weekly or monthly status for leadership, announcing a launch, escalating a risk or blocker, or translating the same progress into exec-brief, engineering-detail, or customer-facing versions.
 domain: 协作/knowledge
-triggers: [干系人更新, 状态汇报, 进度更新, 周报, 月报, 发布公告, 风险升级, stakeholder update, status update]
-tags: [干系人沟通, 状态汇报, 高管沟通, 进度更新, 风险沟通, roam, 发布公告, 协作]
-level: 进阶
+triggers: [stakeholder update, status update]
+tags: [roam]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,132 +16,349 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# Stakeholder Update
 
-当需要把一段工作进展，按**受众**和**节奏**整理成一条得体的干系人更新时使用。典型场景：
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-- 周期性汇报：给领导/团队的周报、月报。
-- 发布公告：功能或产品上线，说明范围、影响与反馈渠道。
-- 风险升级：把某个风险或阻塞点向上抛出，明确诉求。
-- 一次性更新：转向、重大决策、需要拍板的事项。
-- 同一进展改写多版：高管简报版 / 工程明细版 / 跨职能版 / 对客版。
+Generate a stakeholder update tailored to the audience and cadence.
 
-不该用（负边界）：
-
-- 对客户**对外**回复（用客户回复类技能）。
-- 纯营销/落地页/获客文案（用营销文案类技能）。
-- 纯财务模型搭建或三表预测（那是数据准备，本技能聚焦「如何讲清楚」）。
-- 本技能只产出**草稿**，数字与承诺发送前仍需人工核验。
-
-## 步骤
-
-1. **定更新类型**：周报（进展/阻塞/下一步）/ 月报（趋势/里程碑/战略对齐）/ 发布公告 / 一次性（升级/转向/决策）。
-2. **定受众**：高管（结果导向、战略框定、极简）/ 工程团队（技术细节、阻塞、待定决策）/ 跨职能伙伴（共同目标、依赖）/ 客户外部（收益导向、清晰时间线、零黑话）/ 董事会（指标驱动、聚焦风险、极简）。
-3. **拉取背景**：从可用来源补齐——项目跟踪（路线图/里程碑状态、自上次更新已完成项、在险/受阻项、迭代进度）、团队聊天（讨论与异步决策、暴露的阻塞）、会议记录/转录（决策与行动项）、知识库（决策文档、设计评审）。无可用工具时，向用户索取四要素：**自上次更新完成了什么 / 当前阻塞与风险 / 已做或待定的决策 / 接下来做什么**。
-4. **按受众生成**：套用下方对应模板与状态/风险框架。
-5. **复核交付**：主动问是否调语气、详略或侧重；按渠道排版（邮件/聊天贴/文档/幻灯片）；需要时直接代写可发送的消息。
-
-## 指令
-
-**核心原则**：
-
-- **别埋导语**——开头就讲最重要的那件事；有坏消息**先讲**，别藏在好消息后面。
-- **状态灯反映真实判断**，不是对方爱听的话。黄不是失败，是良好的风险管理。
-- **诉求必须具体可执行**——「需要支持」不是诉求，「周五前对 X 拍板」才是。
-- 对高管一律用**结果与目标**框定，不堆活动与任务（「我们上线 X 并拉动了 Y 指标」，而非「开了 14 次站会、关了 23 个工单」）。
-- 长度匹配受众注意力：高管几条要点；工程给到所需细节。
-
-**状态灯（绿/黄/红）判据**：
-
-- **绿（On Track）**：按计划推进、无重大风险、能如期兑现承诺。真的顺利才用绿，别当默认值。
-- **黄（At Risk）**：进度慢于计划或风险已出现，缓解进行中但结果不确定；不干预可能误期。**越早标黄，可选项越多。**
-- **红（Off Track）**：显著落后、有重大阻塞且无清晰缓解，不重大干预（砍范围/加资源/延期）必误期。真正需要求助时才用红，别等到来不及。
-
-**改灯规则**：见到风险**首个**苗头即转黄（而非确定变坏时）；自己手段用尽、需要升级时转红；风险**真正解除**才转回绿（仅暂停不算）；每次改灯都注明「因 X 转黄」。
-
-**ROAM 风险框架**：Resolved（已解除，记录如何解的）/ Owned（有人正在管，写明 owner 与缓解计划）/ Accepted（已知但选择不缓解，记录理由）/ Mitigated（已降到可接受，记录所做动作）。
-
-**讲清一个风险的五步**：①清晰陈述「存在 X 风险，因为 Y」→ ②量化影响「若发生，后果是 Z」→ ③说明概率「这件事可能/也许/不太可能，依据是…」→ ④给出缓解「我们正用 … 应对」→ ⑤提出诉求「需要你给 … 来进一步降低风险」。常见错误：把风险埋进好消息、含糊（不说清是什么/多久/为何）、只报风险不给缓解、拖太久（早报是规划输入，晚报是救火）。
-
-**输出规范**：保持可扫读，关键点加粗、列表用要点。高管更新控制在 **200–300 字以内**；工程更新可长，但仍要分块便于略读。
-
-## 示例
-
-**高管 / 领导版**（结果导向，<200 字）：
+## Usage
 
 ```
-状态: [绿 / 黄 / 红]
-
-TL;DR: [一句话——最该知道的事]
-
-进展:
-- [已达成结果，挂到目标/OKR]
-- [里程碑及其影响]
-- [关键指标变动]
-
-风险:
-- [风险]: [缓解计划]。[如需，附诉求]。
-
-待定决策:
-- [决策]: [选项 + 推荐]。需在 [日期] 前。
-
-下一里程碑:
-- [里程碑] —— [日期]
+/stakeholder-update $ARGUMENTS
 ```
 
-**工程团队版**（多给链接，便于点进细节）：
+## Workflow
+
+### 1. Determine Update Type
+
+Ask the user what kind of update:
+- **Weekly**: Regular cadence update on progress, blockers, and next steps
+- **Monthly**: Higher-level summary with trends, milestones, and strategic alignment
+- **Launch**: Announcement of a feature or product launch with details and impact
+- **Ad-hoc**: One-off update for a specific situation (escalation, pivot, major decision)
+
+### 2. Determine Audience
+
+Ask who the update is for:
+- **Executives / leadership**: High-level, outcome-focused, strategic framing, brief
+- **Engineering team**: Technical detail, implementation context, blockers, decisions needed
+- **Cross-functional partners**: Context-appropriate detail, focus on shared goals and dependencies
+- **Customers / external**: Benefits-focused, clear timelines, no internal jargon
+- **Board**: Metrics-driven, strategic, risk-focused, very concise
+
+### 3. Pull Context from Connected Tools
+
+If **~~project tracker** is connected:
+- Pull status of roadmap items and milestones
+- Identify completed items since last update
+- Surface items that are at risk or blocked
+- Pull sprint or iteration progress
+
+If **~~chat** is connected:
+- Search for relevant team discussions and decisions
+- Find blockers or issues raised in channels
+- Identify key decisions made asynchronously
+
+If **~~meeting transcription** is connected:
+- Pull recent meeting notes and discussion summaries
+- Find decisions and action items from relevant meetings
+
+If **~~knowledge base** is connected:
+- Search for recent meeting notes
+- Find decision documents or design reviews
+
+If no tools are connected, ask the user to provide:
+- What was accomplished since the last update
+- Current blockers or risks
+- Key decisions made or needed
+- What is coming next
+
+### 4. Generate the Update
+
+Structure the update for the target audience using the templates and frameworks below.
+
+**For executives**: TL;DR, status color (G/Y/R), key progress tied to goals, decisions made, risks with mitigation, specific asks, and next milestones. Keep it under 300 words.
+
+**For engineering**: What shipped (with links), what is in progress (with owners), blockers, decisions needed (with options and recommendation), and what is coming next.
+
+**For cross-functional partners**: What is coming that affects them, what you need from them (with deadlines), decisions that impact their team, and areas open for input.
+
+**For customers**: What is new (framed as benefits), what is coming soon, known issues with workarounds, and how to provide feedback. No internal jargon.
+
+**For launch announcements**: What launched, why it matters, key details (scope, availability, limitations), success metrics, rollout plan, and feedback channels.
+
+### 5. Review and Deliver
+
+After generating the update:
+- Ask if the user wants to adjust tone, detail level, or emphasis
+- Offer to format for the delivery channel (email, chat post, doc, slides)
+- If **~~chat** is connected, offer to draft the message for sending
+
+## Update Templates by Audience
+
+### Executive / Leadership Update
+Executives want: strategic context, progress against goals, risks that need their help, decisions that need their input.
+
+**Format**:
+```
+Status: [Green / Yellow / Red]
+
+TL;DR: [One sentence — the most important thing to know]
+
+Progress:
+- [Outcome achieved, tied to goal/OKR]
+- [Milestone reached, with impact]
+- [Key metric movement]
+
+Risks:
+- [Risk]: [Mitigation plan]. [Ask if needed].
+
+Decisions needed:
+- [Decision]: [Options with recommendation]. Need by [date].
+
+Next milestones:
+- [Milestone] — [Date]
+```
+
+**Tips for executive updates**:
+- Lead with the conclusion, not the journey. Executives want "we shipped X and it moved Y metric" not "we had 14 standups and resolved 23 tickets."
+- Keep it under 200 words. If they want more, they will ask.
+- Status color should reflect YOUR genuine assessment, not what you think they want to hear. Yellow is not a failure — it is good risk management.
+- Only include risks you want help with. Do not list risks you are already handling unless they need to know.
+- Asks must be specific: "Decision on X by Friday" not "support needed."
+
+### Engineering Team Update
+Engineers want: clear priorities, technical context, blockers resolved, decisions that affect their work.
+
+**Format**:
+```
+Shipped:
+- [Feature/fix] — [Link to PR/ticket]. [Impact if notable].
+
+In progress:
+- [Item] — [Owner]. [Expected completion]. [Blockers if any].
+
+Decisions:
+- [Decision made]: [Rationale]. [Link to ADR if exists].
+- [Decision needed]: [Context]. [Options]. [Recommendation].
+
+Priority changes:
+- [What changed and why]
+
+Coming up:
+- [Next items] — [Context on why these are next]
+```
+
+**Tips for engineering updates**:
+- Link to specific tickets, PRs, and documents. Engineers want to click through for details.
+- When priorities change, explain why. Engineers are more bought in when they understand the reason.
+- Be explicit about what is blocking them and what you are doing to unblock it.
+- Do not waste their time with information that does not affect their work.
+
+### Cross-Functional Partner Update
+Partners (design, marketing, sales, support) want: what is coming that affects them, what they need to prepare for, how to give input.
+
+**Format**:
+```
+What's coming:
+- [Feature/launch] — [Date]. [What this means for your team].
+
+What we need from you:
+- [Specific ask] — [Context]. By [date].
+
+Decisions made:
+- [Decision] — [How it affects your team].
+
+Open for input:
+- [Topic we'd love feedback on] — [How to provide it].
+```
+
+### Customer / External Update
+Customers want: what is new, what is coming, how it benefits them, how to get started.
+
+**Format**:
+```
+What's new:
+- [Feature] — [Benefit in customer terms]. [How to use it / link].
+
+Coming soon:
+- [Feature] — [Expected timing]. [Why it matters to you].
+
+Known issues:
+- [Issue] — [Status]. [Workaround if available].
+
+Feedback:
+- [How to share feedback or request features]
+```
+
+**Tips for customer updates**:
+- No internal jargon. No ticket numbers. No technical implementation details.
+- Frame everything in terms of what the customer can now DO, not what you built.
+- Be honest about timelines but do not overcommit. "Later this quarter" is better than a date you might miss.
+- Only mention known issues if they are customer-impacting and you have a resolution plan.
+
+## Status Reporting Framework
+
+### Green / Yellow / Red Status
+
+**Green** (On Track):
+- Progressing as planned
+- No significant risks or blockers
+- On track to meet commitments and deadlines
+- Use Green when things are genuinely going well — not as a default
+
+**Yellow** (At Risk):
+- Progress is slower than planned, or a risk has materialized
+- Mitigation is underway but outcome is uncertain
+- May miss commitments without intervention or scope adjustment
+- Use Yellow proactively — the earlier you flag risk, the more options you have
+
+**Red** (Off Track):
+- Significantly behind plan
+- Major blocker or risk without clear mitigation
+- Will miss commitments without significant intervention (scope cut, resource addition, timeline extension)
+- Use Red when you genuinely need help. Do not wait until it is too late.
+
+### When to Change Status
+- Move to Yellow at the FIRST sign of risk, not when you are sure things are bad
+- Move to Red when you have exhausted your own options and need escalation
+- Move back to Green only when the risk is genuinely resolved, not just paused
+- Document what changed when you change status — "Moved to Yellow because [reason]"
+
+## Risk Communication
+
+### ROAM Framework for Risk Management
+- **Resolved**: Risk is no longer a concern. Document how it was resolved.
+- **Owned**: Risk is acknowledged and someone is actively managing it. State the owner and the mitigation plan.
+- **Accepted**: Risk is known but we are choosing to proceed without mitigation. Document the rationale.
+- **Mitigated**: Actions have reduced the risk to an acceptable level. Document what was done.
+
+### Communicating Risks Effectively
+1. **State the risk clearly**: "There is a risk that [thing] happens because [reason]"
+2. **Quantify the impact**: "If this happens, the consequence is [impact]"
+3. **State the likelihood**: "This is [likely/possible/unlikely] because [evidence]"
+4. **Present the mitigation**: "We are managing this by [actions]"
+5. **Make the ask**: "We need [specific help] to further reduce this risk"
+
+### Common Mistakes in Risk Communication
+- Burying risks in good news. Lead with risks when they are important.
+- Being vague: "There might be some delays" — specify what, how long, and why.
+- Presenting risks without mitigations. Every risk should come with a plan.
+- Waiting too long. A risk communicated early is a planning input. A risk communicated late is a fire drill.
+
+## Decision Documentation (ADRs)
+
+### Architecture Decision Record Format
+Document important decisions for future reference:
 
 ```
-已交付:
-- [功能/修复] — [PR/工单链接]。[如有，影响]。
+# [Decision Title]
 
-进行中:
-- [事项] — [Owner]。[预计完成]。[如有，阻塞]。
+## Status
+[Proposed / Accepted / Deprecated / Superseded by ADR-XXX]
 
-决策:
-- [已定]: [理由]。[ADR 链接（如有）]。
-- [待定]: [背景]。[选项]。[推荐]。
+## Context
+What is the situation that requires a decision? What forces are at play?
 
-优先级变化:
-- [变了什么、为什么]
+## Decision
+What did we decide? State the decision clearly and directly.
 
-接下来:
-- [下批事项] — [为何是这些]
+## Consequences
+What are the implications of this decision?
+- Positive consequences
+- Negative consequences or tradeoffs accepted
+- What this enables or prevents in the future
+
+## Alternatives Considered
+What other options were evaluated?
+For each: what was it, why was it rejected?
 ```
 
-**对客 / 外部版**（按收益讲，零内部黑话，无工单号）：
+### When to Write an ADR
+- Strategic product decisions (which market segment to target, which platform to support)
+- Significant technical decisions (architecture choices, vendor selection, build vs buy)
+- Controversial decisions where people disagreed (document the rationale for future reference)
+- Decisions that constrain future options (choosing a technology, signing a partnership)
+- Decisions you expect people to question later (capture the context while it is fresh)
 
-```
-新功能:
-- [功能] — [对客户意味的收益]。[如何使用/链接]。
+### Tips for Decision Documentation
+- Write ADRs close to when the decision is made, not weeks later
+- Include who was involved in the decision and who made the final call
+- Document the context generously — future readers will not have today's context
+- It is okay to document decisions that were wrong in hindsight — add a "superseded by" link
+- Keep them short. One page is better than five.
 
-即将推出:
-- [功能] — [预计时间]。[为何与你相关]。
+## Meeting Facilitation
 
-已知问题:
-- [问题] — [状态]。[绕行方案（如有）]。
+### Stand-up / Daily Sync
+**Purpose**: Surface blockers, coordinate work, maintain momentum.
+**Format**: Each person shares:
+- What they accomplished since last sync
+- What they are working on next
+- What is blocking them
 
-反馈:
-- [如何反馈或提需求]
-```
+**Facilitation tips**:
+- Keep it to 15 minutes. If discussions emerge, take them offline.
+- Focus on blockers — this is the highest-value part of standup
+- Track blockers and follow up on resolution
+- Cancel standup if there is nothing to sync on. Respect people's time.
 
-源命令：`/stakeholder-update <更新类型与受众>`。调用示例：「给领导写一份本周状态更新」「升级这个阻塞风险」「把这版进展改写成对客版本」。
+### Sprint / Iteration Planning
+**Purpose**: Commit to work for the next sprint. Align on priorities and scope.
+**Format**:
+1. Review: what shipped last sprint, what carried over, what was cut
+2. Priorities: what are the most important things to accomplish this sprint
+3. Capacity: how much can the team take on (account for PTO, on-call, meetings)
+4. Commitment: select items from the backlog that fit capacity and priorities
+5. Dependencies: flag any cross-team or external dependencies
 
-## 注意事项
+**Facilitation tips**:
+- Come with a proposed priority order. Do not ask the team to prioritize from scratch.
+- Push back on overcommitment. It is better to commit to less and deliver reliably.
+- Ensure every item has a clear owner and clear acceptance criteria.
+- Flag items that are underscoped or have hidden complexity.
 
-- 草稿仅供发送前参考：所有数字、时间线、承诺均须人工核验，不得超出授权。
-- 严防外泄不可对外的路线图、内部口径或敏感信息（尤其对客版）。
-- 对客版只在「影响客户且已有解决计划」时才提已知问题；时间线宁可写「本季度晚些」也别承诺一个可能错过的日期。
-- 高管版只列「需要他们帮忙」的风险；已在自己掌控中的风险，除非必须知会，否则不必列。
-- 状态灯宁可提前标黄，也别用绿色粉饰；这是风险沟通，不是乐观表态。
+### Retrospective
+**Purpose**: Reflect on what went well, what did not, and what to change.
+**Format**:
+1. Set the stage: remind the team of the goal and create psychological safety
+2. Gather data: what went well, what did not go well, what was confusing
+3. Generate insights: identify patterns and root causes
+4. Decide actions: pick 1-3 specific improvements to try next sprint
+5. Close: thank people for honest feedback
 
-## 互见
+**Facilitation tips**:
+- Create psychological safety. People must feel safe to be honest.
+- Focus on systems and processes, not individuals.
+- Limit to 1-3 action items. More than that and nothing changes.
+- Follow up on previous retro action items. If you never follow up, people stop engaging.
+- Vary the retro format occasionally to prevent staleness.
 
-- related：`board-meeting-prep` —— 高风险对抗式董事会/投资人审查的备会演练，本技能聚焦常规分受众进展更新
-- related：`adr-writer` —— 更新中「已定决策」可链接到正式 ADR 留痕
-- related：`meeting-transcript-analyzer` —— 从会议转录提取决策与行动项，作为更新的输入
-- combines_with：`board-deck-builder` —— 把更新内容沉淀为面向董事会/高管的演示材料
+### Stakeholder Review / Demo
+**Purpose**: Show progress, gather feedback, build alignment.
+**Format**:
+1. Context: remind stakeholders of the goal and what they saw last time
+2. Demo: show what was built. Use real product, not slides.
+3. Metrics: share any early data or feedback
+4. Feedback: structured time for questions and input
+5. Next steps: what is coming next and when the next review will be
 
----
+**Facilitation tips**:
+- Demo the real product whenever possible. Slides are not demos.
+- Frame feedback collection: "What feedback do you have on X?" is better than "Any thoughts?"
+- Capture feedback visibly and commit to addressing it (or explaining why not)
+- Set expectations about what kind of feedback is actionable at this stage
 
-采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+## Output Format
+
+Keep updates scannable. Use bold for key points, bullets for lists. Executive updates should be under 300 words. Engineering updates can be longer but should still be structured for skimming.
+
+## Tips
+
+- The most common mistake in stakeholder updates is burying the lead. Start with the most important thing.
+- Status colors (Green/Yellow/Red) should reflect reality, not optimism. Yellow is not a failure — it is good risk communication.
+- Asks should be specific and actionable. "We need help" is not an ask. "We need a decision on X by Friday" is.
+- For executives, frame everything in terms of outcomes and goals, not activities and tasks.
+- If there is bad news, lead with it. Do not hide it after good news.
+- Match the length to the audience's attention. Executives get a few bullets. Engineering gets the details they need.

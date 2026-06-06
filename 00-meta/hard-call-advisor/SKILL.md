@@ -1,14 +1,14 @@
 ---
 name: hard-call-advisor
-title: 艰难抉择推演顾问
-description: 当面对没有「正确答案」、只有「次坏选项」的高风险抉择（裁员/开除联合创始人/砍产品/转型/关停）时使用；用六步框架（可逆性测试→10/10/10→安迪·格鲁夫测试→利益相关者映射→预公告测试→沟通计划）逼出最不坏的选项并输出可执行的决策与沟通方案；不适用于可逆的低风险或纯数据驱动的常规决策。触发词：艰难决定、裁员、转型、关停、开除联合创始人
+title: Hard-Call Advisor: Framework for Decisions With No Good Options
+description: Use for high-stakes, no-right-answer calls (layoffs, firing a co-founder, killing a product, pivoting, shutting down); runs a six-step framework (reversibility test → 10/10/10 → Andy Grove test → stakeholder mapping → pre-announcement test → communication plan) to force out the l
 domain: 通用/thinking
-triggers: [艰难决定, 没有好选项的决策, 裁员决策, 开除联合创始人, 砍掉产品线, 业务转型/pivot, 关停公司或业务, 一直在拖延的决定, 不可逆决策, 高风险抉择]
-tags: [决策框架, 思维工具, 领导力, 高管, 风险评估, 利益相关者, 沟通计划, 通用]
-level: 进阶
+triggers: [hard decision, decision with no good options, layoff decision, firing a co-founder, killing a product line, business pivot, shutting down company or business unit, a decision you keep delaying, irreversible decision, high-stakes call]
+tags: [decision-framework, thinking-tool, leadership, executive, risk-assessment, stakeholders, communication-plan, general]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [10/10/10框架, 可逆性测试, 安迪·格鲁夫测试, 利益相关者影响映射表, 预公告测试, 拖延自检清单]
+tools: []
 requires: []
 related: [structured-decision-framework, four-voice-decision-council, premortem-plan-challenger, decision-navigator]
 combines_with: [boardroom-deliberation, executive-adversarial-mentor, decision-log-recorder]
@@ -16,118 +16,121 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-用于那些「让你凌晨三点睡不着」的决策：开除联合创始人、裁掉 20% 团队、砍掉用户喜欢但难以为继的产品、业务转型、关停。这类决策的特征不是数据不清楚——数据往往很清楚——而是：
+For the decisions that keep you up at 3am: firing a co-founder, laying off 20% of the team, killing a product that customers love, pivoting, shutting down. These decisions don't have a right answer — they have a *less wrong* answer. This framework helps you find it.
 
-- 影响真实的人（有人失业、关系破裂、团队受伤）；
-- 你已经拖了很久（意味着问题比当初更严重）；
-- 不可逆（与大多数商业决策不同，难以撤销）；
-- 你身处局中（你对「正确答案」的判断被自己的情绪扭曲）。
+They're hard not because the data is unclear (it often is clear), but because:
 
-核心信念：**大多数艰难决策都是「迟到的决策」**。拖得越久，代价越大——6 个月前需要砍 10%，现在要砍 25%；本该在第 4 个月谈的联合创始人对话，拖到第 14 个月才发生。
+1. **Real people are affected** — someone loses a job, a relationship ends, a team is hurt.
+2. **You've been avoiding the decision** — which means the problem is already worse than it was.
+3. **Irreversibility** — unlike most business decisions, you can't undo this easily.
+4. **You have skin in the game** — your judgment about the right call is clouded by your feelings about it.
 
-**不该用的边界：**
-- 决策可逆、风险低 → 直接试错、学习、调整即可，不必动用整套框架（把可逆决策当成不可逆来对待，本身就是一种逃避）；
-- 纯数据/常规运营决策（选供应商、调价等）→ 用普通决策方法即可；
-- 需要专业法律/财务/合规结论的环节 → 本框架帮你想清楚，但不替代律师、CFO、合规专家。
+Core belief: **most hard decisions are late decisions.** The longer you wait, the worse the situation gets — the company that needed a 10% cut 6 months ago now needs a 25% cut; the co-founder conversation that should have happened at month 4 is happening at month 14.
 
-## 步骤
+**Do NOT use when:**
+- The decision is reversible and low-risk → just try it, learn, and adjust. (Treating a reversible decision like it's irreversible is itself a form of avoidance.)
+- It's a purely data-driven / routine operating decision (picking a vendor, adjusting price) → use ordinary decision methods.
+- The step requires a definitive legal / financial / compliance conclusion → this framework helps you think it through, but does not replace your lawyer, CFO, or compliance expert.
 
-### 第 1 步：可逆性测试（最重要，先做）
+## Steps
 
-先问一个问题：**这件事能撤销吗？**
-- **可逆**——试、学、调（换供应商、砍功能、改策略）；
-- **部分可逆**——撤销很痛但可能（重组、调整联创职责）；
-- **不可逆**——无法挽回（裁掉某个人、关停有客户锁定的产品、注销法律实体）。
+Run `/hard-call <decision>` and work through all six steps in order. Final output: (1) the "least wrong" option with reasoning, (2) the stakeholder impact map, (3) a ready-to-send communication / announcement plan.
 
-对不可逆决策，确定性的门槛要更高，行动前要做更多尽调——不是因为你可能错，而是因为你收不回来。
+### Step 1: The Reversibility Test (most important — do first)
 
-### 第 2 步：10/10/10 框架
+The most important question first: **can you undo this?**
 
-对每个选项问三个时间维度：
-- **10 分钟后**：做完这个决定，你立刻会有什么感受？
-- **10 个月后**：影响是什么？问题真的解决了吗？
-- **10 年后**：回头看，这是不是对的决定？
+- **Reversible** — try it, learn, adjust (fire the vendor, kill the feature, change the strategy).
+- **Partially reversible** — painful to undo but possible (restructure, change co-founder roles).
+- **Irreversible** — cannot be undone (lay off a person, shut down a product with customer lock-in, close a legal entity).
 
-10 分钟的感受通常最不可靠；10 年的视角通常最能澄清什么才是对的。**多数艰难决策放到 10 年看都是明显的，问题在于你能否扛住那 10 分钟的痛。**
+For irreversible decisions, the bar for certainty is higher and you must do more due diligence before acting — not because you might be wrong, but because you can't take it back. **If you're treating a reversible decision like it's irreversible, you're avoiding it.**
 
-### 第 3 步：安迪·格鲁夫测试（Andy Grove Test）
+### Step 2: The 10/10/10 Framework
 
-格鲁夫对战略决策的原话："If we got replaced tomorrow and a new CEO came in, what would they do?"（如果我们明天被换掉、来了个新 CEO，他会怎么做？）
+Ask three questions about each option:
 
-一双没有情感投入、没有沉没成本的全新眼睛，从外部看，明显该做的是什么？如果答案对外人很清晰，那真正的问题就变成：**你为什么还没做？**
+- **10 minutes from now**: How will you feel immediately after making this decision?
+- **10 months from now**: What will the impact be? Will the problem be solved?
+- **10 years from now**: When you look back, will this have been the right call?
 
-### 第 4 步：利益相关者影响映射
+The 10-minute feeling is usually the least reliable guide; the 10-year view usually clarifies what the right call actually is. **Most hard decisions look obvious at 10 years. The question is whether you can tolerate the 10-minute pain.**
 
-对每个选项，画出谁受影响、如何受影响：
+### Step 3: The Andy Grove Test
 
-| 利益相关者 | 选项 A 影响 | 选项 B 影响 | 他们的反应 |
-|-----------|-----------|-----------|-----------|
-| 受影响的员工 | | | |
-| 留下的团队 | | | |
-| 客户 | | | |
-| 投资人 | | | |
-| 你自己 | | | |
+Andy Grove's test for strategic decisions: *"If we got replaced tomorrow and a new CEO came in, what would they do?"*
 
-目的不是找到「谁都不伤害」的选项——它不存在——而是在决定前看清全貌。
+A fresh set of eyes — no emotional investment in the current path, no sunk cost. What's the obvious right call from the outside? If the answer is clear to an outsider, the real question becomes: **why haven't you done it yet?**
 
-### 第 5 步：预公告测试
+### Step 4: Stakeholder Impact Mapping
 
-做决定前，先把公告写出来：给团队的邮件、给客户的消息、你要进行的那场对话。
+For each option, map who's affected and how:
 
-**如果你写不出这份公告，你就还没准备好做这个决定。**
+| Stakeholder | Option A Impact | Option B Impact | Their reaction |
+|-------------|----------------|----------------|----------------|
+| Affected employees | | | |
+| Remaining team | | | |
+| Customers | | | |
+| Investors | | | |
+| You | | | |
 
-写的过程会逼你直面你正在做的事的现实，也会检验你的理由是否经得起推敲——「我们做这个改变是因为……」这句话，说出来是否站得住脚？
+This isn't about finding the option that hurts nobody — there isn't one. It's about understanding the full picture before you decide.
 
-### 第 6 步：沟通计划
+### Step 5: The Pre-Announcement Test
 
-艰难决策几乎总是因为沟通糟糕而变得更糟。决定本身不是唯一重要的，**怎么做**同样关键。为每个决定规划：
-- **谁先知道**（直接受影响的人，先于任何其他人）；
-- **怎么告诉他**（尽量当面，涉及个人影响绝不用邮件）；
-- **说什么**（诚实、直接、有同理心）；
-- **他能问什么**（对每个问题都有准备）；
-- **接下来呢**（给出之后会发生什么的清晰图景）。
+Before making the decision, write the announcement: the email to the team, the message to the customer, the conversation you'll have.
 
-## 指令
+**If you can't write that announcement, you're not ready to make the decision.**
 
-`/hard-call <决策>` —— 输入你正在纠结的决策，依次走完上面六步，最终产出：①「最不坏」的选项及理由；②利益相关者映射表；③可直接发出的沟通/公告方案。
+Writing it forces you to confront the reality of what you're doing, and surfaces whether your reasoning holds under examination. "We're making this change because…" — does that sentence ring true?
 
-## 示例
+### Step 6: The Communication Plan
 
-**场景：要不要请一位联合创始人离开。**
+Hard decisions almost always get harder if communication is bad. The decision itself is not the only thing that matters — *how* it's done matters enormously. For every hard call, plan:
 
-先做拖延自检（见「注意事项」），若命中多条，规则是：**如果你为这件事纠结超过 3 个月，你其实已经知道答案了——问题是「何时」，不是「是否」**。然后回答关键问题：
-- 这是「能力问题」还是「价值观/文化问题」？（两种是完全不同的对话）
-- 你是否真的明确说过——不是暗示，而是直接说——问题所在？
-- 股权结构（cap table）怎样，法律影响是什么？
-- 有没有更合适的角色，还是必须完全退出？
-- 谁需要知道（董事会、团队、投资人），按什么顺序？
+- **Who needs to know first** — the person directly affected, before anyone else.
+- **How you'll tell them** — in person when possible; never via email for personal impact.
+- **What you'll say** — honest, direct, compassionate.
+- **What they can ask** — be ready for every question.
+- **What comes next** — give them a clear picture of what happens after.
 
-**其他高频决策的「铁律」：**
-- **裁员**——一次砍够、砍到位、有尊严地砍。不确定比清晰更伤人；裁得不够深比不裁更糟（两轮裁员摧毁信任）。
-- **转型（Pivot）**——转型应由「新机会的证据」拉动，而非被「当前路径的失败」推动。先分清这是真转型（新方向）还是优化（同方向换打法）。
-- **砍产品线**——先想清现有客户怎么办、迁移路径是什么、做这条线的人去哪、以及「砍掉」是不是最优解（也许「卖掉」或「分拆」更好）、对内对外的叙事是什么。
+## Example
 
-## 注意事项
+**Scenario: whether to ask a co-founder to leave.**
 
-**拖延自检清单**——出现以下信号，说明你一直在逃避这个艰难决策：
-- 你为它纠结、每周都想，已经超过一个月；
-- 你在指望「情况会自己解决」；
-- 你在等更多数据，但永远觉得不够；
-- 这场对话你在脑子里演练过很多遍，却从没在现实中发生；
-- 周围的人已经注意到了这个问题。
+First run the Avoiding-It Test (see Notes). If several signals hit, the rule is: **if you've been thinking about this for more than 3 months, you already know the answer — the question is *when*, not *whether*.** Then answer the key questions:
 
-**延迟的代价几乎总是高于决策本身的代价。**每多等一个月，问题就复利式恶化：不合适的联创越来越根深蒂固，该死的产品线消耗越来越多资源，该离开的人影响着周围的人。
+- Is this a *performance* problem or a *values/culture* problem? (Completely different conversations.)
+- Have you been explicit — not hinted, but direct — about the problem?
+- What does the cap table look like and what are the legal implications?
+- Is there a role that works better for them, or is this a full exit?
+- Who needs to know (board, team, investors) and in what order?
 
-**做出这个决定。清晰地做。有尊严地做。**
+**"Iron rules" for other high-frequency hard calls:**
 
-## 互见
+- **Layoffs** — Cut once, cut deep, cut with dignity. Uncertainty is worse than clarity; insufficient layoffs are worse than none (two rounds destroy trust). Is this a one-time reset or the start of a longer decline? Is severance fair? How do you keep the best people from leaving after?
+- **Pivoting** — A pivot should be *pulled by evidence of new opportunity*, not *pushed by failure of the current path*. First distinguish a true pivot (new direction) from an optimization (same direction, different tactic). What are you keeping vs. abandoning, and how do you tell customers who bought the old vision?
+- **Killing a product line** — First decide: what happens to current customers, what's the migration path, where do the people who built it go, and is "kill it" actually optimal (maybe "sell it" or "spin it out" is better)? What's the narrative, internally and externally?
 
-- 决策前用「质询/挑战（pre-mortem 预演）」「压力测试假设」类技能对方案做对抗式检验；
-- 决策后用「复盘/事后回顾」类技能对照预设标准评估结果；
-- 涉及董事会沟通时，结合「董事会准备」类技能。
+## Notes
 
----
+**The Avoiding-It Test** — you know you've been avoiding a hard call if:
 
-采编自 alirezarezvani/claude-skills（MIT 许可证），原技能 `/em:hard-call`。已适配重写为中文，保留可逆性测试、10/10/10、安迪·格鲁夫测试、利益相关者映射、预公告测试、沟通计划及拖延自检等核心构件。
+- You've thought about it every week for more than a month.
+- You're hoping the situation will "resolve itself."
+- You're waiting for more data that you'll never feel is enough.
+- You've had the conversation in your head many times but never in real life.
+- Other people around you have noticed the problem.
+
+**The cost of delay is almost always higher than the cost of the decision.** Every month you wait, the problem compounds: the co-founder who isn't working out becomes more entrenched, the product line that needs to die consumes more resources, the person who needs to be let go affects the people around them.
+
+**Make the call. Make it clearly. Make it with dignity.**
+
+## See also
+
+- Before deciding, stress-test the plan with adversarial / pre-mortem skills (challenge assumptions, surface failure modes): `premortem-plan-challenger`, `executive-adversarial-mentor`.
+- Structure the choice with `structured-decision-framework`, `four-voice-decision-council`, `decision-navigator`, or a `boardroom-deliberation`.
+- After deciding, evaluate outcomes against your pre-set criteria with a retrospective, and log the call with `decision-log-recorder`.
+- When board communication is involved, combine with board-preparation skills.

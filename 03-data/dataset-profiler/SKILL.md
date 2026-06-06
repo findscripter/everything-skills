@@ -1,14 +1,14 @@
 ---
 name: dataset-profiler
-title: 数据集探查画像
-description: 当拿到陌生表/文件、动手分析前要先摸清其形状、质量与规律时使用；做全表+逐列画像（行列/粒度/主键、空值率、基数、分布、Top/Bottom 值），分类列角色、标记质量隐患，产出画像摘要表+问题清单+可跟进分析建议；不适用于深度修复清洗、设计 schema、搭 ETL 管道。触发词：数据画像、探查数据、profiling、空值率、基数分布、新表先看什么、该用哪些维度指标
+title: Dataset Profiler
+description: Profile a new table or file before analysis: shape, grain, primary key, null rates, cardinality, distributions, quality flags, and recommended dimensions/metrics/follow-ups. Use when encountering an unfamiliar dataset, checking null rates or column distributions, spotting duplica
 domain: 数据/wrangling
-triggers: [数据画像, 探查数据集 explore data, profiling, 新表先看什么, 摸清数据形状, 空值率 null rate, 基数 cardinality, 列分布 distribution, 重复值 占位值检测, 该选哪些维度和指标, 建议跟进分析, 数据集概览 overview]
-tags: [数据, analysis, 数据画像, profiling, 探索性分析, 数据质量, 维度指标]
-level: 入门
+triggers: [profile a dataset, explore data, data profiling, what to look at in a new table, understand data shape, null rate, cardinality, column distribution, duplicate and placeholder detection, which dimensions and metrics to use, recommend follow-up analyses, dataset overview]
+tags: [data, analysis, profiling, exploratory-analysis, data-quality, dimensions-metrics, wrangling]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [sql, python3, pandas, polars]
+tools: []
 requires: []
 related: [dataset-quality-auditor, data-quality-validator, analysis-qa-validator, csv-data-cleaner]
 combines_with: [csv-data-cleaner, statsmodels-statistical-modeling, matplotlib-visualization]
@@ -16,88 +16,156 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+## When to use
 
-适用于：第一次接触一张表或一个上传文件，在写具体查询/做正式分析**之前**，快速建立"这数据长什么样、能不能信、值得从哪切入"的全局认知。典型请求：
+Use this when you first encounter a table or an uploaded file and need to understand "what this data looks like, whether it can be trusted, and where it is worth digging in" **before** writing specific queries or doing formal analysis. Typical requests:
 
-- "帮我探查/画像一下这张表（或这个 CSV/Parquet/Excel/JSON）" → 输出概览 + 逐列画像 + 质量隐患 + 跟进建议。
-- "这份数据该用哪些维度和指标来分析？" → 输出推荐维度列、关键指标列、可做趋势的时间列。
-- "这表能直接用吗 / 有没有坑？" → 输出按严重度标记的质量问题清单。
+- "Profile/explore this table (or this CSV/Parquet/Excel/JSON)" -> output an overview + per-column profile + quality issues + follow-up suggestions.
+- "Which dimensions and metrics should I use to analyze this data?" -> output recommended dimension columns, key metric columns, and time columns suitable for trends.
+- "Can I use this table as-is / are there gotchas?" -> output a quality-issue list flagged by severity.
 
-不该用（负边界）：
-- 要**深度清洗/修复**并打数据质量分（DQS）、判缺失机制 → 用 `dataset-quality-auditor`。
-- 要**设计或优化 schema / 范式 / ER 图** → 用 `erd-schema-designer`。
-- 要**搭建 ETL 管道本身** → 用数据管道类技能。
+Do NOT use this (negative boundaries):
+- For **deep cleaning/repair** plus a data quality score (DQS) and missingness-mechanism diagnosis -> use `dataset-quality-auditor`.
+- To **design or optimize a schema / normal form / ER diagram** -> use `erd-schema-designer`.
+- To **build the ETL pipeline itself** -> use a data-pipeline skill.
 
-定位：本技能是"先看一眼"的探查层，输出是地图而非治理方案；发现需要动手修的问题就转交质量审计。
+Positioning: this is the "take a first look" exploration layer. Its output is a map, not a remediation plan. When you find something that needs fixing, hand it off to a quality audit.
 
-## 步骤
+## Steps
 
-**1. 接入数据**
-- 接了数仓 MCP：解析表名（处理 schema 前缀，歧义则列候选）→ 取元数据（列名/类型/注释）→ 对活数据跑画像查询。
-- 给了文件（CSV/Excel/Parquet/JSON）：读入工作数据集，从数据推断列类型。
-- 都没有：请用户给表名或上传文件；若只描述了 schema，则给出"该跑哪些画像查询"的指引。
+### 1. Access the Data
 
-**2. 摸清结构（分析前必答）**
-- 表级：多少行/列？粒度=一行代表什么？主键是哪列、唯一吗？最近更新时间？数据回溯到多早？
-- 列角色分类，每列归一类：**标识符**（主键/外键/实体 ID）·**维度**（status/type/region 等类别属性）·**指标**（金额/计数/时长/分数）·**时间**（created_at 等）·**文本**（自由文本）·**布尔**·**结构化**（JSON/数组/嵌套）。
+**If a data warehouse MCP server is connected:**
+1. Resolve the table name (handle schema prefixes, suggest matches if ambiguous).
+2. Query table metadata: column names, types, descriptions if available.
+3. Run profiling queries against the live data.
 
-**3. 生成画像（按列类型跑对应检查）**
-- 全部列：空值数与空值率、distinct 数与基数比（distinct/total）、Top 5–10 高频值、Bottom 5 低频值（抓异常）。
-- 数值列：min/max/mean/median、标准差、分位数 p1/p5/p25/p75/p95/p99、零值数、（异常时）负值数。
-- 字符串列：min/max/avg 长度、空串数、格式/正则规律、大小写一致性、首尾空格数。
-- 日期列：min/max 日期、空日期、（异常时）未来日期、按月/周分布、时间序列缺口。
-- 布尔列：true/false/null 计数、true 率。
-- **按列类型分组（维度/指标/日期/ID），用整洁摘要表呈现。**
+**If a file is provided (CSV, Excel, Parquet, JSON):**
+1. Read the file and load into a working dataset.
+2. Infer column types from the data.
 
-**4. 标记质量隐患（启发式，每条值得快速一看）**
-- 高空值率：>5% 警告、>20% 告警。
-- 基数反常：本该高基数的 `user_id` 只有 50 个值（或本该类别的列基数爆炸）。
-- 可疑值：本应为正却现负数、历史数据里出现未来日期、占位值（`N/A`/`TBD`/`test`/`999999`）。
-- 重复：是否存在自然键，该键是否有重复。
-- 分布偏斜：极偏分布会扭曲均值。
-- 编码问题：类别字段大小写混用、首尾空格、格式不统一。
+**If neither:**
+1. Ask the user to provide a table name (with their warehouse connected) or upload a file.
+2. If they describe a table schema, provide guidance on what profiling queries to run.
 
-**5. 发现关系与规律** → 外键候选、层级（country>state>city）、数值列相关、派生列、冗余列。
+### 2. Understand Structure (answer before analyzing)
 
-**6. 推荐维度与指标** → 适合切片的维度列（基数 3–50）、有意义分布的指标列、可做趋势的时间列、潜在 join 键。
+**Table-level questions:** How many rows and columns? What is the grain (one row per what)? What is the primary key, and is it unique? When was the data last updated? How far back does the data go?
 
-**7. 给出 3–5 条可跟进分析**，例如："按 [time] 对 [metric] 做趋势、再按 [dimension] 拆分"、"对 [偏斜列] 做分布深挖找离群"、"[metric_a] 与 [metric_b] 相关性分析"。
+**Column classification** — categorize each column as one of:
+- **Identifier**: unique keys, foreign keys, entity IDs
+- **Dimension**: categorical attributes for grouping/filtering (status, type, region, category)
+- **Metric**: quantitative values for measurement (revenue, count, duration, score)
+- **Temporal**: dates and timestamps (created_at, updated_at, event_date)
+- **Text**: free-form text fields (description, notes, name)
+- **Boolean**: true/false flags
+- **Structural**: JSON, arrays, nested structures
 
-## 指令
+### 3. Generate Data Profile (run checks per column type)
 
-数仓接入时用以下 SQL 探查 schema（PostgreSQL 示例，其它库语法相近）：
+**Table-level:** total row count; column count and type breakdown; approximate table size (if available from metadata); date-range coverage (min/max of date columns).
 
+**All columns:** null count and null rate; distinct count and cardinality ratio (distinct / total); most common values (top 5-10 with frequencies); least common values (bottom 5, to spot anomalies).
+
+**Numeric columns (metrics):**
+```
+min, max, mean, median (p50)
+standard deviation
+percentiles: p1, p5, p25, p75, p95, p99
+zero count
+negative count (if unexpected)
+```
+
+**String columns (dimensions, text):**
+```
+min length, max length, avg length
+empty string count
+pattern analysis (do values follow a format?)
+case consistency (all upper, all lower, mixed?)
+leading/trailing whitespace count
+```
+
+**Date/timestamp columns:**
+```
+min date, max date
+null dates
+future dates (if unexpected)
+distribution by month/week
+gaps in time series
+```
+
+**Boolean columns:**
+```
+true count, false count, null count
+true rate
+```
+
+**Present the profile as a clean summary table, grouped by column type (dimensions, metrics, dates, IDs).**
+
+### 4. Identify Data Quality Issues (heuristic — each worth a quick look)
+
+- **High null rates**: >5% nulls (warn), >20% nulls (alert).
+- **Low cardinality surprises**: columns that should be high-cardinality but aren't (e.g., a `user_id` with only 50 distinct values).
+- **High cardinality surprises**: columns that should be categorical but have too many distinct values.
+- **Suspicious values**: negative amounts where only positive is expected, future dates in historical data, obvious placeholders (`N/A`, `TBD`, `test`, `999999`).
+- **Duplicate detection**: check whether there is a natural key and whether it has duplicates.
+- **Distribution skew**: extremely skewed numeric distributions that could distort averages.
+- **Encoding issues**: mixed case in categorical fields, trailing whitespace, inconsistent formats.
+
+### 5. Discover Relationships and Patterns
+
+After profiling individual columns: **foreign key candidates** (ID columns that may link to other tables); **hierarchies** (natural drill-down paths, country > state > city); **correlations** (numeric columns that move together); **derived columns** (computed from others); **redundant columns** (identical or near-identical info).
+
+### 6. Suggest Interesting Dimensions and Metrics
+
+- **Best dimension columns** for slicing (categorical, reasonable cardinality of 3-50 values).
+- **Key metric columns** for measurement (numeric, meaningful distributions).
+- **Time columns** suitable for trend analysis.
+- **Natural groupings/hierarchies** apparent in the data.
+- **Potential join keys** linking to other tables (ID columns, foreign keys).
+
+### 7. Recommend Follow-Up Analyses
+
+Suggest 3-5 specific analyses, for example:
+- "Trend analysis on [metric] by [time_column] grouped by [dimension]"
+- "Distribution deep-dive on [skewed_column] to understand outliers"
+- "Data quality investigation on [problematic_column]"
+- "Correlation analysis between [metric_a] and [metric_b]"
+- "Cohort analysis using [date_column] and [status_column]"
+
+### Instructions / reference
+
+**Schema exploration queries** (PostgreSQL shown; other engines are similar):
 ```sql
--- 列出某 schema 下所有表
+-- List all tables in a schema
 SELECT table_name, table_type
 FROM information_schema.tables
 WHERE table_schema = 'public'
 ORDER BY table_name;
 
--- 列详情（类型 / 是否可空 / 默认值）
+-- Column details (type / nullable / default)
 SELECT column_name, data_type, is_nullable, column_default
 FROM information_schema.columns
 WHERE table_name = 'my_table'
 ORDER BY ordinal_position;
 
--- 表大小
+-- Table sizes
 SELECT relname, pg_size_pretty(pg_total_relation_size(relid))
 FROM pg_catalog.pg_statio_user_tables
 ORDER BY pg_total_relation_size(relid) DESC;
 
--- 行数：逐表 SELECT COUNT(*) FROM <table>
+-- Row counts: run per-table -> SELECT COUNT(*) FROM <table>
 ```
 
-文件用 pandas/polars：`df.shape`、`df.dtypes`、`df.describe()`、`df.isna().mean()`（空值率）、`df.nunique()`（基数）、`df[col].value_counts().head(10)`（Top 值）。
+For files, use pandas/polars: `df.shape`, `df.dtypes`, `df.describe()`, `df.isna().mean()` (null rate), `df.nunique()` (cardinality), `df[col].value_counts().head(10)` (top values).
 
-**完整性分级**（每列打色）：🟢 Complete >99% 非空 · 🟡 Mostly 95–99%（查空值来源）· 🟠 Incomplete 80–95%（搞清是否要紧）· 🔴 Sparse <80%（不填补恐不可用）。
+**Completeness score** (rate each column): Complete (>99% non-null) = green; Mostly complete (95-99%) = yellow, investigate the nulls; Incomplete (80-95%) = orange, understand why and whether it matters; Sparse (<80%) = red, may not be usable without imputation.
 
-**分布形态识别**（数值列）：正态（均值≈中位、钟形）· 右偏（高值长尾，营收/会话时长常见）· 左偏 · 双峰（两个总体）· 幂律（少量极大、大量极小，用户活跃度常见）· 均匀（常为合成/随机）。
+**Distribution shapes** (numeric columns): Normal (mean ≈ median, bell-shaped); Skewed right (long tail of high values — revenue, session duration); Skewed left; Bimodal (two distinct populations); Power law (few very large, many small — user activity); Uniform (often synthetic or random).
 
-## 示例
+## Example
 
-输出统一用此结构：
+Use this consistent output structure:
 
 ```
 ## Data Profile: [table_name]
@@ -108,34 +176,50 @@ ORDER BY pg_total_relation_size(relid) DESC;
 - Date range: 2021-03-15 to 2024-01-22
 
 ### Column Details
-[按列类型分组的摘要表]
+[summary table grouped by column type]
 
 ### Data Quality Issues
-[带严重度标记的问题清单]
+[flagged issues with severity]
 
 ### Recommended Explorations
-[编号的跟进分析建议]
+[numbered list of suggested follow-up analyses]
 ```
 
-需要沉淀给团队复用时，补一份 schema 文档：表描述、粒度、主键、行数(含日期)、更新频率、负责人，再用「列 | 类型 | 描述 | 示例值 | 备注」表格列出关键列，并记下 join 关系与已知坑。
+When documenting a dataset for team reuse, add a schema doc: table description, grain, primary key, row count (with date), update frequency, owner — then list key columns in a `Column | Type | Description | Example Values | Notes` table, and record join relationships and known gotchas.
 
-## 注意事项
+```markdown
+## Table: [schema.table_name]
 
-- **超大表（100M+ 行）默认抽样画像**，需要精确计数时务必显式说明。
-- **质量标记是启发式**——不是每个旗标都是真问题，但每个都值得快速一看。
-- 一致性深查：同概念多种写法（`USA`/`US`/`United States`/`us`）、数字存成字符串、跨列矛盾（`status=completed` 但 `completed_at` 为空）、外键对不上父记录。
-- 准确性红旗：占位值（`0`/`-1`/`999999`/`N/A`/`test`）、某单值频率异常高（默认值）、不可能值（年龄>150、负时长、远期日期）、整数尾全是 0/5（暗示估算非测量）。
-- 相关 ≠ 因果：报告强相关（|r|>0.7）时必须显式声明这点。
-- 本技能只"看"不"改"——发现需要动手修的问题，转交 `dataset-quality-auditor`，不要在探查阶段擅自清洗。
+**Description**: [What this table represents]
+**Grain**: [One row per...]
+**Primary Key**: [column(s)]
+**Row Count**: [approximate, with date]
+**Update Frequency**: [real-time / hourly / daily / weekly]
+**Owner**: [team or person responsible]
 
-## 互见
+### Key Columns
+| Column | Type | Description | Example Values | Notes |
+|--------|------|-------------|----------------|-------|
+| user_id | STRING | Unique user identifier | "usr_abc123" | FK to users.id |
+| event_type | STRING | Type of event | "click", "view", "purchase" | 15 distinct values |
+| revenue | DECIMAL | Transaction revenue in USD | 29.99, 149.00 | Null for non-purchase events |
+| created_at | TIMESTAMP | When the event occurred | 2024-01-15 14:23:01 | Partitioned on this column |
+```
 
-- related：`dataset-quality-auditor` —— 探查发现问题后，转它做五维审计 + DQS 评分 + 修复方案。
-- related：`csv-data-cleaner` —— 画像暴露脏数据后用它清洗整形。
-- related：`erd-schema-designer` —— 问题根因在 schema/关系设计时转它。
-- combines_with：`sql-query-builder` —— 探查结论落成具体取数查询。
-- combines_with：`kpi-dashboard-design` —— 用推荐出的维度/指标搭看板。
-- combines_with：`matplotlib-visualization` / `polars-dataframe` —— 画分布图、跑高效逐列画像。
+## Notes
 
----
-采编自 anthropics/knowledge-work-plugins（Apache-2.0 许可证）。
+- **Very large tables (100M+ rows) are profiled by sampling by default** — say so explicitly if you need exact counts.
+- **Quality flags are heuristic** — not every flag is a real problem, but each is worth a quick look.
+- Consistency checks: same concept represented differently (`USA` / `US` / `United States` / `us`); numbers stored as strings; cross-column contradictions (`status = "completed"` but `completed_at` is null); foreign keys that don't match any parent record; business-rule violations (negative quantities, end dates before start dates, percentages > 100).
+- Accuracy red flags: placeholder values (`0`, `-1`, `999999`, `N/A`, `TBD`, `test`, `xxx`); a single value with suspiciously high frequency (default); impossible values (ages > 150, far-future dates, negative durations); round-number bias (all values ending in 0/5 suggests estimation, not measurement).
+- Correlation does not imply causation — when reporting strong correlations (|r| > 0.7), flag this explicitly.
+- This skill only "looks," it does not "fix." When you find something that needs hands-on repair, hand it off to `dataset-quality-auditor` — do not silently clean during exploration.
+
+## See also
+
+- related: `dataset-quality-auditor` — after profiling surfaces problems, hand off for a multi-dimensional audit + DQS scoring + remediation plan.
+- related: `csv-data-cleaner` — clean and reshape once profiling exposes dirty data.
+- related: `erd-schema-designer` — when the root cause lies in schema/relationship design.
+- combines_with: `sql-query-builder` — turn profiling conclusions into concrete extraction queries.
+- combines_with: `kpi-dashboard-design` — build a dashboard from the recommended dimensions/metrics.
+- combines_with: `matplotlib-visualization` / `polars-dataframe` — plot distributions and run efficient per-column profiling.

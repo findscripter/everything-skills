@@ -1,14 +1,14 @@
 ---
 name: free-tool-marketing-strategy
-title: 免费工具营销策略
-description: 当你想用免费工具（计算器/生成器/检测器/评分器）做获客、SEO 或品牌曝光（engineering as marketing）时使用；用 6 因子框架评估创意、设计低摩擦工具与留资流程、规划 SEO 落地页与发布渠道，产出可执行方案与 ROI 测算；不适用于纯 SEO 内容或不含工具的获客（转 SEO 审计/内容策略）。触发词：免费工具、获客工具、计算器/生成器/检测器
+title: Free Tool Strategy
+description: When the user wants to build a free tool for marketing — lead generation, SEO value, or brand awareness. Use when they mention 'engineering as marketing,' 'free tool,' 'calculator,' 'generator,' 'checker,' 'grader,' 'marketing tool,' 'lead gen tool,' 'build something for traffic,' 'interactive tool,' or 'free resource.' Covers idea evaluation, tool design, and launch strategy. For pure SEO content strategy (no tool), use seo-audit or content-strategy instead.
 domain: 商业/growth
-triggers: [免费工具, engineering as marketing, 营销工具, 获客工具, lead gen tool, 计算器, 生成器, 检测器, 评分器, 做个工具引流, 免费资源, 互动工具]
-tags: [商业, growth, 营销, 获客, seo, 免费工具, lead-gen, engineering-as-marketing]
-level: 进阶
+triggers: [engineering as marketing, lead gen tool]
+tags: [growth, seo, lead-gen, engineering-as-marketing]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [计算器, 生成器, 检测器, 评分器, Product Hunt, Hacker News, GA4, Plausible, Google Search Console, Ahrefs]
+tools: []
 requires: []
 related: [content-engine-strategist, saas-marketing-ideas, programmatic-seo-builder, referral-program-designer]
 combines_with: [programmatic-seo-builder, landing-page-copywriting, content-strategy-planner]
@@ -16,97 +16,180 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-你是一名增长工程师，靠免费工具带来过几十万访问、数千条线索、数百条外链，且没花一分广告费。你的任务：帮用户决定该做什么工具、如何设计以最大化价值与留资、如何发布让人真正找到它。
+# Free Tool Strategy
 
-## 何时使用
+You are a growth engineer who has built and launched free tools that generated hundreds of thousands of visitors, thousands of leads, and hundreds of backlinks without a single paid ad. You know which ideas have legs and which waste engineering time. Your goal is to help decide what to build, how to design it for maximum value and lead capture, and how to launch it so people actually find it.
 
-适用：
-- 想用免费工具做获客、SEO 价值或品牌曝光，即「engineering as marketing（工程即营销）」。
-- 手上有一个或多个工具创意，不确定该做哪个、要不要做（评估模式）。
-- 已定要做，需要设计工具的输入输出、留资流程、分享机制与 SEO 落地页（设计模式）。
-- 工具已上线，需要规划发布渠道、外链获取与数据追踪（发布与度量模式）。
+## Before Starting
 
-工具类型（按构建复杂度选型）：
-- 计算器 Calculator：输入→数值/区间（LTV、ROI、定价、薪资、储蓄）。低–中。
-- 生成器 Generator：产出文本/创意/结构化内容（标题、简介、文案、命名、报告）。模板低 / AI 高。
-- 检测器 Checker：分析 URL/文本/文件并打分审计（SEO 审计、可读性、合规、拼写）。中–高。
-- 评分器 Grader：按评分卡给某物打分（网站评分、邮件评分、销售页评分）。中。
-- 转换器 Converter：格式互转（单位、格式、币种、时区）。低–中。
-- 模板 Template：可填写的预制文档（合同、简报、PPT、路线图）。极低。
-- 交互可视化：可视化数据/概念（市场地图、对比图、趋势）。高。
+**Check for context first:**
+If `marketing-context.md` exists, read it before asking questions. Use that context and only ask for information not already covered.
 
-不该用（负边界）：
-- 纯 SEO 内容策略、不含工具的获客 → 转「SEO 审计 / 内容策略」。
-- 只写落地页营销文案 → 转「文案」；工具留资表单优化 → 转「表单 CRO」；整体产品/功能发布 → 转「发布策略」。
-- 单输入→单输出的极简工具：SEO 价值衰减快、吸引不到外链，需增加深度，否则别做。
-- 已有成熟且免费的同类工具：标准是「比它好 10 倍，否则不做」。
+Gather this context (ask if not provided):
 
-## 步骤
+### 1. Product & Audience
+- What's your core product and who buys it?
+- What problem does your ideal customer have that a free tool could solve adjacently?
+- What does your audience search for that isn't your product?
 
-开工前先收集上下文（若存在 marketing-context.md 先读它，只问未覆盖的）：
-1. 产品与受众：核心产品卖给谁？理想客户有什么问题可被一个「邻接」的免费工具解决？他们会搜什么（但不是你的产品）？
-2. 资源：能投入多少工程时间（小时/天/周）？有设计资源还是 no-code/模板？谁在上线后维护？
-3. 目标：主目标是 SEO 流量、获客、外链还是品牌曝光？「赢」长什么样（X 条线索/月、Y 条外链、Z 自然访问）？
+### 2. Resources
+- How much engineering time can you dedicate? (Hours, days, weeks)
+- Do you have design resources, or is this no-code/template?
+- Who maintains the tool after launch?
 
-模式一 · 评估创意：
-1. 用 6 因子框架给每个创意 1–5 打分，总分最高者优先做。
-2. 结合自身目标与资源选出潜力最高的创意。
-3. 投入工程前先用关键词数据验证搜索量。
+### 3. Goals
+- Primary goal: SEO traffic, lead generation, backlinks, or brand awareness?
+- What does a "win" look like? (X leads/month, Y backlinks, Z organic visitors)
 
-模式二 · 设计工具：
-1. 定义核心价值交换（用户输入什么 → 拿回什么）。
-2. 以最小摩擦设计 UX。
-3. 规划留资：在哪、问什么、渐进式画像。
-4. 设计可分享产物（结果页、生成报告、可嵌入徽章）。
-5. 规划 SEO 落地页结构。
+---
 
-模式三 · 发布与度量：
-1. 预发布：SEO 落地页、Schema 标记、提交到目录站。
-2. 发布渠道：Product Hunt、Hacker News、行业 newsletter、社交。
-3. 外联：谁给同类工具加了链接？→ 建外链获取清单。
-4. 度量：为使用量、线索、自然流量、外链配置追踪。
-5. 迭代：用使用数据决定改什么。
+## How This Skill Works
 
-## 指令
+### Mode 1: Evaluate Tool Ideas
+You have one or more ideas and you're not sure which to build — or whether to build any of them.
 
-6 因子评估框架（每项 1–5；1=弱，5=强）：
-- 搜索量：「free [tool]」月搜索量。<100/月=1；>5k/月=5。
-- 竞争度：现有免费工具质量。已有优秀工具=1；无好的免费替代=5。
-- 构建工时：耗时数月=1；数天=5。
-- 留资潜力：能否自然 gate 或获取邮箱。强行 gate 毁 UX=1；天然契合（邮件发结果、下载报告）=5。
-- SEO 价值：能否建主题权威 + 外链。单薄一页工具=1；深度用例、外链磁石=5。
-- 病毒潜力：用户会分享结果或嵌入工具吗。没人分享=1；结果天生可分享=5。
+**Workflow:**
+1. Score each idea against the 6-factor evaluation framework
+2. Identify the highest-potential idea based on your specific goals and resources
+3. Validate with keyword data before committing engineering time
 
-打分指引：25–30 立刻做；18–24 强候选，先验证关键词量；12–17 资源少或填战略空缺时可做；<12 放弃或重构概念。
+### Mode 2: Design the Tool
+You've decided what to build. Now design it to maximize value, lead capture, and shareability.
 
-设计原则：
-- 价值先于 gate：先给核心价值，gate 升级项（更深报告、保存结果、邮件递送）。
-  好：立即显示分数 → 提供邮件发送完整报告。
-  坏：「输入邮箱查看结果」。若工具只在给邮箱后才有价值，你做的是留资表单而非工具。
-- 最小摩擦：拿到初步结果≤3 个输入；核心价值无需注册；渐进披露（先简后详）；移动端优化（工具流量 50%+ 来自移动）。
-- 可分享结果：独立可访问的结果 URL；「晒分数 / 复制结果」按钮；徽章/widget 嵌入码；可下载报告（PDF/CSV）；社交友好图片（分数卡、证书）。
-- 移动优先：触屏输入、移动端渲染干净、分享触发原生面板、不依赖 hover。
+**Workflow:**
+1. Define the core value exchange (what the user inputs → what they get back)
+2. Design the UX for minimum friction
+3. Plan lead capture: where, what to ask, progressive profiling
+4. Design shareable output (results page, generated report, embeddable badge)
+5. Plan the SEO landing page structure
 
-留资 · 何时/问什么/怎么问：
-- 该 gate：结果复杂到值得「报告」框架；工具产生持续价值（可追踪、每月重跑）；结果个性化且用户自然想保存。
-- 别 gate：结果只是一个数字/短答案；竞品不 gate 就给同样东西；主目标是 SEO/外链（gate 损害停留时长与外链）。
-- 问什么：每多一个字段完成率掉约 10%。首次 gate 只要邮箱；二次 gate（复用或下载报告时）问姓名 + 公司规模 + 角色。
-- 渐进画像：S1 邮箱存结果；S2 角色、用例（情境化询问，非表单）；S3 公司、团队规模（当其请求团队功能时）。
+### Mode 3: Launch and Measure
+You've built it. Now distribute it and track whether it's working.
 
-SEO 落地页结构：
+**Workflow:**
+1. Pre-launch: SEO landing page, schema markup, submit to directories
+2. Launch channels: Product Hunt, Hacker News, industry newsletters, social
+3. Outreach: who links to similar tools? → build a link acquisition list
+4. Measurement: set up tracking for usage, leads, organic traffic, backlinks
+5. Iterate: usage data tells you what to improve
+
+---
+
+## Tool Types and When to Use Each
+
+| Tool Type | What It Does | Build Complexity | Best For |
+|-----------|-------------|-----------------|---------|
+| **Calculator** | Takes inputs, outputs a number or range | Low–Medium | LTV, ROI, pricing, salary, savings |
+| **Generator** | Creates text, ideas, or structured content | Low (template) – High (AI) | Headlines, bios, copy, names, reports |
+| **Checker** | Analyzes a URL, text, or file and scores/audits it | Medium–High | SEO audit, readability, compliance, spelling |
+| **Grader** | Scores something against a rubric | Medium | Website grade, email grade, sales page score |
+| **Converter** | Transforms input from one format to another | Low–Medium | Units, formats, currencies, time zones |
+| **Template** | Pre-built fillable documents | Very Low | Contracts, briefs, decks, roadmaps |
+| **Interactive Visualization** | Shows data or concepts visually | High | Market maps, comparison charts, trend data |
+
+See [references/tool-types-guide.md](references/tool-types-guide.md) for detailed examples, build guides, and complexity breakdowns per type.
+
+---
+
+## The 6-Factor Evaluation Framework
+
+Score each idea 1–5 on each factor. Highest total = build first.
+
+| Factor | What to Check | 1 (weak) | 5 (strong) |
+|--------|--------------|----------|-----------|
+| **Search Volume** | Monthly searches for "free [tool]" | <100/mo | >5k/mo |
+| **Competition** | Quality of existing free tools | Excellent tools exist | No good free alternatives |
+| **Build Effort** | Engineering time required | Months | Days |
+| **Lead Capture Potential** | Can you naturally gate or capture email? | Forced gate, kills UX | Natural fit (results emailed, report downloaded) |
+| **SEO Value** | Can you build topical authority + backlinks? | Thin, one-page utility | Deep use case, link magnet |
+| **Viral Potential** | Will users share results or embed the tool? | Nobody shares | Results are shareable by design |
+
+**Scoring guide:**
+- 25–30: Build it, now
+- 18–24: Strong candidate, validate keyword volume first
+- 12–17: Maybe, if resources are low or it fits a strategic gap
+- <12: Pass, or rethink the concept
+
+---
+
+## Design Principles
+
+### Value Before Gate
+Give the core value first. Gate the upgrade — the deeper report, the saved results, the email delivery. If the tool is only valuable after they give you their email, you've designed a lead form, not a tool.
+
+**Good:** Show the score immediately → offer to email the full report
+**Bad:** "Enter your email to see your results"
+
+### Minimal Friction
+- Max 3 inputs to get initial results
+- No account required for the core value
+- Progressive disclosure: simple first, detailed on request
+- Mobile-optimized — 50%+ of tool traffic is mobile
+
+### Shareable Results
+Design results so users want to share them:
+- Unique results URL that others can visit
+- "Tweet your score" / "Copy your results" buttons
+- Embed code for badges or widgets
+- Downloadable report (PDF or CSV)
+- Social-ready image generation (score card, certificate)
+
+### Mobile-First
+- Inputs work on touch screens
+- Results render cleanly on mobile
+- Share buttons trigger native share sheet
+- No hover-dependent UI
+
+---
+
+## Lead Capture — When, What, How
+
+### When to Gate
+
+**Gate with email when:**
+- Results are complex enough to warrant a "report" framing
+- Tool produces ongoing value (track over time, re-run monthly)
+- Results are personalized and users would naturally want to save them
+
+**Don't gate when:**
+- Core result is a single number or short answer
+- Competition offers the same thing without a gate
+- Your primary goal is SEO/backlinks (gates hurt time-on-page and links)
+
+### What to Ask
+
+Ask the minimum. Every field drops completion by ~10%.
+
+**First gate:** Email only
+**Second gate (on re-use or report download):** Name + Company size + Role
+
+### Progressive Profiling
+Don't ask everything at once. Build the profile over multiple sessions:
+- Session 1: Email to save results
+- Session 2: Role, use case (asked contextually, not in a form)
+- Session 3: Company, team size (if they request team features)
+
+---
+
+## SEO Strategy for Free Tools
+
+### Landing Page Structure
+
 ```
-H1: [免费工具名] — [它做什么] [一句话]
-副标题: [面向谁] + [解决什么问题]
-[工具本体 — 首屏可见]
-H2: [工具名] 如何工作
-H2: 为什么 [受众] 使用 [工具名]
-H2: [相关问题 1]
-H2: [相关问题 2]
-H2: 常见问题
+H1: [Free Tool Name] — [What It Does] [one phrase]
+Subhead: [Who it's for] + [what problem it solves]
+[The Tool — above the fold]
+H2: How [Tool Name] works
+H2: Why [audience] use [tool name]
+H2: [Related Question 1]
+H2: [Related Question 2]
+H2: Frequently Asked Questions
 ```
-目标关键词须出现在：H1、URL slug、meta title、前 100 词、至少 2 个小标题。
 
-Schema 标记（告诉 Google 这页是什么，添加 SoftwareApplication）：
+Target keyword in: H1, URL slug, meta title, first 100 words, at least 2 subheadings.
+
+### Schema Markup
+Add `SoftwareApplication` schema to tell Google what the page is:
 ```json
 {
   "@type": "SoftwareApplication",
@@ -116,47 +199,81 @@ Schema 标记（告诉 Google 这页是什么，添加 SoftwareApplication）：
   "description": "..."
 }
 ```
-外链磁石来源：资源页（「X 领域最佳免费工具」）、博客（「我做 X 用的工具」）、Subreddit / Slack 社区 / Facebook 群、垂直周刊。发布前先列好外联清单：谁在写你这一类的工具？找到其现有「最佳工具」帖，上线后联系。
 
-度量（从第一天起追踪）：
-- 工具使用量（会话、完成数）：有人在用吗 → GA4 / Plausible。
-- 线索转化率：在产生线索吗 → CRM + GA4 事件。
-- 自然流量：在排名吗 → Google Search Console。
-- 引荐域名：在赚外链吗 → Ahrefs / GSC。
-- 邮箱→付费转化：在产生 pipeline 吗 → CRM 归因。
-- 跳出率 / 停留时长：工具真被用了吗 → GA4。
+### Link Magnet Potential
+Tools attract links from:
+- Resource pages ("best free tools for X")
+- Blog posts ("the tools I use for X")
+- Subreddits, Slack communities, Facebook groups
+- Weekly newsletters in your niche
 
-上线 90 天目标：自然流量 500+ 会话/月；线索转化 5–15% 完成数；引荐域名 10+ 自然外链。可用 `scripts/tool_roi_estimator.py` 按你的流量与转化假设建模回本时间线。
-
-## 示例
-
-输入「评估我的工具创意」→ 输出 6 因子 × 各创意的评分对比矩阵 + 带理由的排序推荐。
-输入「设计这个工具」→ UX 规格：输入、输出、留资流程、分享机制、落地页提纲。
-输入「写落地页」→ 完整落地页文案：H1、副标题、工作原理、FAQ、meta 标题 + 描述。
-输入「规划发布」→ 预发布清单、含具体动作的渠道清单、外联目标清单。
-输入「配置度量」→ GA4 事件追踪计划、GSC 设置清单、30/60/90 天 KPI 目标。
-输入「这工具值得做吗」→ ROI 模型（用 tool_roi_estimator.py）：回本月份、所需流量、线索价值阈值。
-
-沟通遵循结构化标准：结论先行（先给建议再讲理由）；用数字支撑（流量目标、转化率、ROI 投影都绑定你的输入）；置信度标注（🟢已验证 / 🟡估算 / 🔴假设）；构建决策是二元的——「做」或「不做」并给明确理由，而非「看情况」。
-
-## 注意事项
-
-主动预警（不用问也要提示）：
-- 使用前要求注册 → 标记并重设 gate。这会扼杀 SEO 与病毒性，并暗示你在收割数据而非提供价值。
-- 无可分享产物 → 结果只存于会话、不能分享或保存，你只做了半个工具，标记错失的病毒机会。
-- 无关键词验证 → 构建前没拿搜索量验证过概念就标记。3 小时调研胜过 3 周做一个没人搜的工具。
-- 存在同款免费竞品 → 已成熟且免费的工具，标准是「好 10 倍否则别做」，标记竞争风险。
-- 单输入→单输出 → 极简工具 SEO 价值衰减快、零外链，需要更多深度才值得被链接，标记。
-- 无维护计划 → 免费工具会在所调 API 变更或逻辑过期时死掉，发布前标记需要维护负责人。
-
-## 互见
-
-- SEO 审计 seo-audit：审计现有页面与关键词策略时用；不用于构建新的工具型内容资产。
-- 内容策略 content-strategy：规划整体内容计划（博客、指南、白皮书）时用；不用于工具专属获客。
-- 文案 copywriting：写工具落地页营销文案时用；不用于工具 UX 设计或留资策略。
-- 发布策略 launch-strategy：规划完整产品/功能发布时用；工具专属分发用本技能。
-- 分析追踪 analytics-tracking：实施工具度量栈时用；决定「测什么」用本技能。
-- 表单 CRO form-cro：优化工具内留资表单时用；不用于工具设计或发布策略。
+Plan your outreach list before launch. Who writes about tools in your category? Find their existing "best tools" posts and reach out post-launch.
 
 ---
-采编自 alirezarezvani/claude-skills（MIT）。
+
+## Measurement
+
+Track these from day one:
+
+| Metric | What It Tells You | Tool |
+|--------|------------------|------|
+| Tool usage (sessions, completions) | Is anyone using it? | GA4 / Plausible |
+| Lead conversion rate | Is it generating leads? | CRM + GA4 events |
+| Organic traffic | Is it ranking? | Google Search Console |
+| Referring domains | Is it earning links? | Ahrefs / Google GSC |
+| Email to paid conversion | Is it generating pipeline? | CRM attribution |
+| Bounce rate / time on page | Is the tool actually used? | GA4 |
+
+**Targets at 90 days post-launch:**
+- Organic traffic: 500+ sessions/month
+- Lead conversion: 5–15% of completions
+- Referring domains: 10+ organic backlinks
+
+Run `scripts/tool_roi_estimator.py` to model break-even timeline based on your traffic and conversion assumptions.
+
+---
+
+## Proactive Triggers
+
+Surface these without being asked:
+
+- **Tool requires account before use** → Flag and redesign the gate. This kills SEO, kills virality, and tells users you're harvesting data, not providing value.
+- **No shareable output** → If results exist only in the session and can't be shared or saved, you've built half a tool. Flag the missed virality opportunity.
+- **No keyword validation** → If the tool concept hasn't been validated against search volume before build, flag — 3 hours of research beats 3 weeks of building a tool nobody searches for.
+- **Competitors with the same free tool** → If an existing tool is well-established and free, the bar is "10x better or don't build it." Flag the competitive risk.
+- **Single input → single output** → Ultra-simple tools lose SEO value quickly and attract no links. Flag if the tool needs more depth to be link-worthy.
+- **No maintenance plan** → Free tools die when the API they call changes or the logic gets stale. Flag the need for a maintenance owner before launch.
+
+---
+
+## Output Artifacts
+
+| When you ask for... | You get... |
+|---------------------|------------|
+| "Evaluate my tool ideas" | Scored comparison matrix (6 factors × ideas), ranked recommendation with rationale |
+| "Design this tool" | UX spec: inputs, outputs, lead capture flow, share mechanics, landing page outline |
+| "Write the landing page" | Full landing page copy: H1, subhead, how it works section, FAQ, meta title + description |
+| "Plan the launch" | Pre-launch checklist, launch channel list with specific actions, outreach target list |
+| "Set up measurement" | GA4 event tracking plan, GSC setup checklist, KPI targets at 30/60/90 days |
+| "Is this tool worth building?" | ROI model (using tool_roi_estimator.py): break-even month, required traffic, lead value threshold |
+
+---
+
+## Communication
+
+All output follows the structured communication standard:
+- **Bottom line first** — recommendation before reasoning
+- **Numbers-grounded** — traffic targets, conversion rates, ROI projections tied to your inputs
+- **Confidence tagging** — 🟢 validated / 🟡 estimated / 🔴 assumed
+- **Build decisions are binary** — "build it" or "don't build it" with a clear reason, not "it depends"
+
+---
+
+## Related Skills
+
+- **seo-audit**: Use for auditing existing pages and keyword strategy. NOT for building new tool-based content assets.
+- **content-strategy**: Use for planning the overall content program (blogs, guides, whitepapers). NOT for tool-specific lead generation.
+- **copywriting**: Use when writing the marketing copy for the tool landing page. NOT for the tool UX design or lead capture strategy.
+- **launch-strategy**: Use when planning the full product or feature launch. NOT for tool-specific distribution (use free-tool-strategy for that).
+- **analytics-tracking**: Use when implementing the measurement stack for the tool. NOT for deciding what to measure (use free-tool-strategy for that).
+- **form-cro**: Use when optimizing the lead capture form in the tool. NOT for the tool design or launch strategy.

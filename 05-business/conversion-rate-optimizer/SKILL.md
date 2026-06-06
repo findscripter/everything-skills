@@ -1,14 +1,14 @@
 ---
 name: conversion-rate-optimizer
-title: 转化率优化分析
-description: 当需要诊断并提升营销页面或表单的转化率（首页、落地页、定价页、功能页、留资/联系表单）时使用；按价值主张、标题、CTA、视觉层级、信任背书、异议处理、摩擦点七维度审计，产出「速赢/高影响改动/A-B 测试假设/文案备选」分级建议；不适用于注册流、激活引导、弹窗等专项（另见对应技能），也不做实际埋点统计或代码改写。触发词：CRO、conversion rate optimization、转化率优化、提升转化、页面不转化、落地页优化、表单放弃、form abandonment、低转化、landing page。
+title: Conversion Rate Optimization (CRO)
+description: When the user wants to optimize, improve, or increase conversions on any marketing page or form — including homepage, landing pages, pricing pages, feature pages, lead capture forms, or contact forms. Also use when the user says 'CRO,' 'conversion rate optimization,' 'this page isn't converting,' 'improve conversions,' 'why isn't this page working,' 'my landing page sucks,' 'form abandonment,' 'nobody's converting,' 'low conversion rate,' or 'this page needs work.' Use this even if the user just shares a URL and asks for feedback. For signup/registration flows, see signup. For post-signup activation, see onboarding. For popups/modals, see popups.
 domain: 商业/growth
-triggers: [CRO, conversion rate optimization, 转化率优化, 提升转化, 页面不转化, 落地页优化, 表单放弃, form abandonment, 低转化, landing page]
+triggers: [CRO, conversion rate optimization, form abandonment, landing page]
 tags: [cro, conversion, growth, landing-page, marketing, ab-testing, form-optimization, copywriting]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [A/B testing, heatmaps, session recording, web analytics]
+tools: []
 requires: []
 related: [landing-page-copywriting, conversion-copywriter, lead-form-cro, signup-flow-cro]
 combines_with: [ab-test-designer, landing-page-copywriting, customer-research-synthesizer]
@@ -16,74 +16,183 @@ license: MIT
 source: coreyhaines31/marketingskills
 source_license: MIT
 ---
-你是转化率优化（CRO）专家。目标：审计营销页面/表单，给出可落地、可排期、可验证的改进建议，而非泛泛而谈。
+# Conversion Rate Optimization (CRO)
 
-## 何时使用
+You are a conversion rate optimization expert. Your goal is to analyze marketing pages and provide actionable recommendations to improve conversion rates.
 
-- 用户给出一个页面 URL 或截图，想知道「为什么不转化 / 怎么提升」：首页、落地页、定价页、功能页、博客页，或留资/联系/索取演示表单。
-- 触发说法：CRO、转化率优化、提升转化、页面不转化、落地页/表单优化、form abandonment、低转化率。即便用户只丢一个链接说「帮我看看」，也适用。
+## Initial Assessment
 
-不该用（负边界）：
-- 注册/登录流程本身的问题 → 用注册流专项。
-- 注册后的激活、首次使用引导 → 用 onboarding 专项。
-- 弹窗/模态的策略 → 用 popups 专项。
-- 整页文案重写 → 用文案专项。
-- 实际的 A/B 平台埋点、统计显著性计算、前端代码改写 → 本技能只产出假设与方案，不替代实现与统计工具。
+**Check for product marketing context first:**
+If `.agents/product-marketing.md` exists (or `.claude/product-marketing.md`, or the legacy `product-marketing-context.md` filename, in older setups), read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
 
-开工前先确认（已知则不再问）：① 页面类型；② 主转化目标（注册/索取演示/购买/订阅/下载/联系销售）；③ 流量来源（自然/付费/邮件/社交）。若仓库存在 `.agents/product-marketing.md`（或 `.claude/product-marketing.md`），先读它，只补问其中未覆盖的信息。
+Before providing recommendations, identify:
 
-## 步骤
+1. **Page Type**: Homepage, landing page, pricing, feature, blog, about, other
+2. **Primary Conversion Goal**: Sign up, request demo, purchase, subscribe, download, contact sales
+3. **Traffic Context**: Where are visitors coming from? (organic, paid, email, social)
 
-按「影响力从高到低」逐维诊断，每发现一个问题都标注：问题 → 影响 → 修复建议 → 优先级（高/中/低）。
+---
 
-1. 价值主张清晰度（影响最大）：访客能否在 5 秒内看懂「这是什么、为何与我有关」？是否聚焦收益而非堆功能？用客户语言还是黑话？是否贪多而丢了最重要那一点。
-2. 标题有效性：是否传达核心价值、是否足够具体（含数字/时间/结果）、是否与流量来源信息一致。强标题范式：结果导向「获得 X 而无需 Y」、具体化、社会证明「已有 10000+ 团队加入」。
-3. CTA 的位置/文案/层级：是否只有一个清晰的主操作、首屏可见、按钮文案传递价值而非动作（弱：提交/注册/了解更多；强：开始免费试用/获取我的报告/查看定价）；主次 CTA 是否合理、是否在关键决策点重复出现。
-4. 视觉层级与可扫描性：扫读能否抓到主信息、重点元素是否够突出、留白是否充足、配图是支撑还是干扰。
-5. 信任背书与社会证明：客户 logo（尤其知名）、带姓名/照片的具体证言、含真实数字的案例片段、评分与评论数、（必要时）安全徽章。放在 CTA 附近和收益主张之后。
-6. 异议处理：价格/价值、「对我的场景管用吗」、实施难度、「不管用怎么办」——用 FAQ、保证条款、对比内容、流程透明来回应。
-7. 摩擦点：表单字段过多、下一步不清、导航混乱、不必要的必填项、移动端体验差、加载慢。
+## CRO Analysis Framework
 
-表单专项遵循「字段即成本」：3 个字段=基线；4–6 个字段约降 10–25% 完成率；7+ 个字段降 25–50%+。每个字段都自问：现在帮到对方之前真的必需吗？能否换种方式拿到？能否稍后再要？
+Analyze the page across these dimensions, in order of impact:
 
-## 指令
+### 1. Value Proposition Clarity (Highest Impact)
 
-- 单列布局优先（完成率更高、移动端友好）；多列只用于短的关联字段（名/姓）。
-- 标签始终可见，别只靠 placeholder（聚焦时会消失，用户不知在填什么）；placeholder 放示例不放标签。好：`Email` + `name@company.com`；差：`Enter your email address`（聚焦即消失）。
-- 邮箱单字段不要二次确认 + 内联校验 + 拼写纠错（did you mean gmail.com?）+ 正确的移动键盘类型。电话尽量设为可选，必填则说明原因并自动格式化。
-- 内联校验在切换到下一字段时触发，别在输入中途激进报错；错误信息要具体可修复并保留已填内容。好：`请输入有效邮箱（如 name@company.com）`；差：`Invalid input`。提交报错时聚焦第一个错误字段、汇总多处错误、绝不清空表单。
-- 移动端触控目标 ≥ 44px 高度、按字段给合适键盘类型（email/tel/number）、支持自动填充、提交按钮可吸顶或始终可见。
-- 字段数 > 5–6、有明显分段或条件分支时改多步表单：进度指示（第 X 步/共 Y 步）、先易后敏感、可返回、刷新不丢数据。
-- 仅在值得验证的假设上建议 A/B 测试，别拿主观臆断当结论。
+**Check for:**
+- Can a visitor understand what this is and why they should care within 5 seconds?
+- Is the primary benefit clear, specific, and differentiated?
+- Is it written in the customer's language (not company jargon)?
 
-## 示例
+**Common issues:**
+- Feature-focused instead of benefit-focused
+- Too vague or too clever (sacrificing clarity)
+- Trying to say everything instead of the most important thing
 
-输出按这四级组织：
+### 2. Headline Effectiveness
 
-### 速赢（立即可做）
-改动小、见效快。例：把首屏按钮文案 `Submit` 改为 `获取我的免费报价`；表单去掉「确认邮箱」字段；电话改为可选并加一句「我们绝不分享你的号码」。
+**Evaluate:**
+- Does it communicate the core value proposition?
+- Is it specific enough to be meaningful?
+- Does it match the traffic source's messaging?
 
-### 高影响改动（优先排期）
-工作量大但显著拉升转化。例：重写首屏价值主张，从功能罗列改为结果导向标题；7 字段单步表单拆成 3 步并加进度条。
+**Strong headline patterns:**
+- Outcome-focused: "Get [desired outcome] without [pain point]"
+- Specificity: Include numbers, timeframes, or concrete details
+- Social proof: "Join 10,000+ teams who..."
 
-### A/B 测试假设
-落地页例：标题与广告文案完全一致 vs 通用标题；移除导航做单焦点页 vs 保留导航。定价页例：`最受欢迎` 徽章 vs 无徽章；月付/年付切换并高亮节省额。演示请求页例：含电话字段 vs 不含。
+### 3. CTA Placement, Copy, and Hierarchy
 
-### 文案备选
-对标题、CTA 等关键元素各给 2–3 个备选并附理由，例：`开始免费试用` / `查看实时演示` / `预约 15 分钟通话`，分别对应不同购买意向阶段。
+**Primary CTA assessment:**
+- Is there one clear primary action?
+- Is it visible without scrolling?
+- Does the button copy communicate value, not just action?
+  - Weak: "Submit," "Sign Up," "Learn More"
+  - Strong: "Start Free Trial," "Get My Report," "See Pricing"
 
-## 注意事项
+**CTA hierarchy:**
+- Is there a logical primary vs. secondary CTA structure?
+- Are CTAs repeated at key decision points?
 
-- 价值必须大于付出：表单上方先讲清「填了能得到什么」，并降低感知成本（字段数、「30 秒填完」、留白）。
-- 提交按钮文案 = 动作 + 所得，避免单纯的「提交/发送」；提交后给加载态、成功确认（明确下一步）、失败态（清晰提示并聚焦问题）。
-- 表单旁放隐私承诺（「绝不分享你的信息」「无需信用卡」「随时退订」）以化解异议。
-- 衡量指标：表单开始率（浏览→开始）、完成率（开始→提交）、逐字段流失、按字段错误率、完成耗时、移动 vs 桌面完成率。建议而非替代真实埋点。
-- 分页类型套用对应范式：首页给冷流量清晰定位并兼顾「想买」和「还在调研」；落地页与流量信息匹配、尽量去导航、单页讲完整论证；定价页清晰对比、标推荐方案、化解「我该选哪个」焦虑；功能页把功能连到收益并给试用/购买路径。
+### 4. Visual Hierarchy and Scannability
 
-## 互见
+**Check:**
+- Can someone scanning get the main message?
+- Are the most important elements visually prominent?
+- Is there enough white space?
+- Do images support or distract from the message?
 
-- seo-content-writer：页面/表单文案需要结合搜索意图重写时。
-- frontend-design：落地页视觉层级、布局与组件实现层面。
-- webapp-testing：把推荐改动做成可回归验证的页面/表单测试时。
+### 5. Trust Signals and Social Proof
 
-本条采编自 coreyhaines31/marketingskills（MIT），已按 AI Agent 消费场景适配重写。
+**Types to look for:**
+- Customer logos (especially recognizable ones)
+- Testimonials (specific, attributed, with photos)
+- Case study snippets with real numbers
+- Review scores and counts
+- Security badges (where relevant)
+
+**Placement:** Near CTAs and after benefit claims
+
+### 6. Objection Handling
+
+**Common objections to address:**
+- Price/value concerns
+- "Will this work for my situation?"
+- Implementation difficulty
+- "What if it doesn't work?"
+
+**Address through:** FAQ sections, guarantees, comparison content, process transparency
+
+### 7. Friction Points
+
+**Look for:**
+- Too many form fields
+- Unclear next steps
+- Confusing navigation
+- Required information that shouldn't be required
+- Mobile experience issues
+- Long load times
+
+---
+
+## Output Format
+
+Structure your recommendations as:
+
+### Quick Wins (Implement Now)
+Easy changes with likely immediate impact.
+
+### High-Impact Changes (Prioritize)
+Bigger changes that require more effort but will significantly improve conversions.
+
+### Test Ideas
+Hypotheses worth A/B testing rather than assuming.
+
+### Copy Alternatives
+For key elements (headlines, CTAs), provide 2-3 alternatives with rationale.
+
+---
+
+## Page-Specific Frameworks
+
+### Homepage CRO
+- Clear positioning for cold visitors
+- Quick path to most common conversion
+- Handle both "ready to buy" and "still researching"
+
+### Landing Page CRO
+- Message match with traffic source
+- Single CTA (remove navigation if possible)
+- Complete argument on one page
+
+### Pricing Page CRO
+- Clear plan comparison
+- Recommended plan indication
+- Address "which plan is right for me?" anxiety
+
+### Feature Page CRO
+- Connect feature to benefit
+- Use cases and examples
+- Clear path to try/buy
+
+### Blog Post CRO
+- Contextual CTAs matching content topic
+- Inline CTAs at natural stopping points
+
+---
+
+## Experiment Ideas
+
+When recommending experiments, consider tests for:
+- Hero section (headline, visual, CTA)
+- Trust signals and social proof placement
+- Pricing presentation
+- Form optimization
+- Navigation and UX
+
+**For comprehensive experiment ideas by page type**: See [references/experiments.md](references/experiments.md)
+
+---
+
+## Task-Specific Questions
+
+1. What's your current conversion rate and goal?
+2. Where is traffic coming from?
+3. What does your signup/purchase flow look like after this page?
+4. Do you have user research, heatmaps, or session recordings?
+5. What have you already tried?
+
+---
+
+## Related Skills
+
+- **signup**: If the issue is in the signup process itself
+- **popups**: If considering popups as part of the strategy
+- **copywriting**: If the page needs a complete copy rewrite
+- **ab-testing**: To properly test recommended changes
+
+---
+
+## Form Optimization
+
+For detailed form CRO guidance — including field optimization, multi-step forms, error handling, and form-specific experiments — see [references/form.md](references/form.md).

@@ -1,14 +1,14 @@
 ---
 name: soc2-compliance-preparer
-title: SOC 2 审计准备与控制矩阵
-description: 当为 SaaS/云服务准备 SOC 2 Type I/II 审计时使用；做信任服务准则（TSC）映射、控制矩阵生成、差距分析、证据收集与审计就绪评估，产出控制矩阵/差距清单/证据台账/就绪评分；不适用于 ISO 27001、GDPR 等其他合规框架的主审。触发词：SOC 2、信任服务准则、控制矩阵、审计证据、差距分析
+title: SOC 2 Compliance
+description: Use when the user asks to prepare for SOC 2 audits, map Trust Service Criteria, build control matrices, collect audit evidence, perform gap analysis, or assess SOC 2 Type I vs Type II readiness.
 domain: 安全/compliance
-triggers: [SOC 2, SOC2 审计, 信任服务准则, Trust Service Criteria, TSC 映射, 控制矩阵, control matrix, 审计证据收集, 差距分析, gap analysis, Type I, Type II, 审计就绪, 供应商风险评估, 子服务组织, CUEC]
-tags: [安全, compliance, soc2, 审计, 控制矩阵, 风险管理, 证据收集, saas]
-level: 进阶
+triggers: [SOC 2, Trust Service Criteria, control matrix, gap analysis, Type I, Type II, CUEC]
+tags: [compliance, soc2, saas]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [control_matrix_builder.py, evidence_tracker.py, gap_analyzer.py]
+tools: []
 requires: []
 related: [iso27001-isms-implementer, compliance-readiness-review, gdpr-data-handling, iso42001-aims-specialist]
 combines_with: [compliance-readiness-review, iso27001-isms-implementer, security-audit-toolkit]
@@ -16,106 +16,415 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# SOC 2 Compliance
 
-当 SaaS、云基础设施或托管服务商需要向企业客户证明数据管理能力，准备 SOC 2 审计时使用。典型场景：
+SOC 2 Type I and Type II compliance preparation for SaaS companies. Covers Trust Service Criteria mapping, control matrix generation, evidence collection, gap analysis, and audit readiness assessment.
 
-- 选择并映射五大信任服务准则（TSC），判定哪些类别在审计范围内。
-- 生成控制矩阵，把每条准则落到具体控制、责任人、证据与测试程序。
-- 做差距分析（Type I 看设计、Type II 加运行有效性）并制定整改计划。
-- 收集/追踪审计证据，做审计就绪评分。
-- 评估供应商/子服务组织风险，建立持续合规机制。
+## Table of Contents
 
-**不该用的边界：**
-- 主审 ISO 27001、GDPR、HIPAA、PCI-DSS 等其他框架——这些另有专门技能（见互见），本技能仅在与 SOC 2 共享证据时配合。
-- 替代持证审计师出具正式 SOC 2 报告——本技能服务于「被审方准备」，不是审计意见。
-- 仅需要一次性安全加固、渗透测试或漏洞修复，与合规审计无关时。
+- [Overview](#overview)
+- [Trust Service Criteria](#trust-service-criteria)
+- [Control Matrix Generation](#control-matrix-generation)
+- [Gap Analysis Workflow](#gap-analysis-workflow)
+- [Evidence Collection](#evidence-collection)
+- [Audit Readiness Checklist](#audit-readiness-checklist)
+- [Vendor Management](#vendor-management)
+- [Continuous Compliance](#continuous-compliance)
+- [Anti-Patterns](#anti-patterns)
+- [Tools](#tools)
+- [References](#references)
+- [Cross-References](#cross-references)
 
-**Type I vs Type II 速判：**
+---
 
-| 维度 | Type I | Type II |
-|------|--------|---------|
-| 范围 | 某时点的控制设计 | 设计 + 一段时间的运行有效性 |
-| 周期 | 单一日期快照 | 观察窗口 3–12 个月（典型 6） |
-| 证据 | 控制描述、策略 | 控制描述 + 运行证据（日志、工单、截图） |
-| 适合 | 首次合规、急于进入市场 | 成熟组织、企业客户要求 |
+## Overview
 
-典型路径：差距评估(4–8 周) → 整改(8–16 周) → Type I 审计(4–6 周) → 观察期(6–12 月) → Type II 审计(4–6 周) → 年度续审。
+### What Is SOC 2?
 
-## 步骤
+SOC 2 (System and Organization Controls 2) is an auditing framework developed by the AICPA that evaluates how a service organization manages customer data. It applies to any technology company that stores, processes, or transmits customer information — primarily SaaS, cloud infrastructure, and managed service providers.
 
-1. **确定范围**：Security（通用准则 CC1–CC9）对每份 SOC 2 报告都**必选**；Availability(A1)、Confidentiality(C1)、Processing Integrity(PI1)、Privacy(P1–P8) 四类按业务需要可选。切忌「过度纳入」——只选客户/业务真正要求的类别。
-   - 有 SLA、停机直接影响业务 → 选 Availability。
-   - 处理商业秘密/合同保密信息 → 选 Confidentiality。
-   - 数据准确性关键（金融、医疗、分析）→ 选 Processing Integrity。
-   - 处理 PII 且客户要隐私保证 → 选 Privacy（与 GDPR 互补）。
+### Type I vs Type II
 
-2. **生成控制矩阵**：用 `control_matrix_builder.py` 生成基线矩阵，再按真实环境定制。控制命名约定：`SEC-`(Security)、`AVL-`(Availability)、`CON-`(Confidentiality)、`PRI-`(Processing Integrity)、`PRV-`(Privacy)。每条控制至少含：Control ID、TSC 映射、描述、类型（预防/检测/纠正）、责任人、频率、证据类型、测试程序。校验覆盖——每条所选准则至少对应一条控制。
+| Aspect | Type I | Type II |
+|--------|--------|---------|
+| **Scope** | Design of controls at a point in time | Design AND operating effectiveness over a period |
+| **Duration** | Snapshot (single date) | Observation window (3-12 months, typically 6) |
+| **Evidence** | Control descriptions, policies | Control descriptions + operating evidence (logs, tickets, screenshots) |
+| **Cost** | $20K-$50K (audit fees) | $30K-$100K+ (audit fees) |
+| **Timeline** | 1-2 months (audit phase) | 6-12 months (observation + audit) |
+| **Best For** | First-time compliance, rapid market need | Mature organizations, enterprise customers |
 
-3. **差距分析**（用 `gap_analyzer.py`）：
-   - 现状梳理：盘点现有策略/流程/技术控制，映射到 TSC，采样证据，访谈控制责任人。
-   - 识别四类差距：缺失控制 / 部分实现（缺证据或不一致）/ 设计差距 / 运行差距（仅 Type II）。
-   - 整改计划：为每个差距记录 Gap ID、受影响准则、描述、整改动作、责任人、优先级、目标日期、依赖项。
+### Who Needs SOC 2?
 
-4. **按优先级排期整改**：Critical 2–4 周、High 4–8 周、Medium 8–12 周、Low 12–16 周。
+- **SaaS companies** selling to enterprise customers
+- **Cloud infrastructure providers** handling customer workloads
+- **Data processors** managing PII, PHI, or financial data
+- **Managed service providers** with access to client systems
+- **Any vendor** whose customers require third-party assurance
 
-5. **收集与追踪证据**（用 `evidence_tracker.py`），尽量自动化（见指令），逐步从「时点取证」转向「持续合规」。
+### Typical Journey
 
-6. **审计就绪评分**：对照清单打分，90–100% 可直接审计；75–89% 先补小差距；50–74% 需整改；<50% 需重建合规体系。
+```
+Gap Assessment → Remediation → Type I Audit → Observation Period → Type II Audit → Annual Renewal
+    (4-8 wk)      (8-16 wk)     (4-6 wk)       (6-12 mo)          (4-6 wk)       (ongoing)
+```
 
-## 指令
+---
 
-工具脚本（保留源命令）：
+## Trust Service Criteria
+
+SOC 2 is organized around five Trust Service Criteria (TSC) categories. **Security** is required for every SOC 2 report; the remaining four are optional and selected based on business need.
+
+### Security (Common Criteria CC1-CC9) — Required
+
+The foundation of every SOC 2 report. Maps to COSO 2013 principles.
+
+| Criteria | Domain | Key Controls |
+|----------|--------|-------------|
+| **CC1** | Control Environment | Integrity/ethics, board oversight, org structure, competence, accountability |
+| **CC2** | Communication & Information | Internal/external communication, information quality |
+| **CC3** | Risk Assessment | Risk identification, fraud risk, change impact analysis |
+| **CC4** | Monitoring Activities | Ongoing monitoring, deficiency evaluation, corrective actions |
+| **CC5** | Control Activities | Policies/procedures, technology controls, deployment through policies |
+| **CC6** | Logical & Physical Access | Access provisioning, authentication, encryption, physical restrictions |
+| **CC7** | System Operations | Vulnerability management, anomaly detection, incident response |
+| **CC8** | Change Management | Change authorization, testing, approval, emergency changes |
+| **CC9** | Risk Mitigation | Vendor/business partner risk management |
+
+### Availability (A1) — Optional
+
+| Criteria | Focus | Key Controls |
+|----------|-------|-------------|
+| **A1.1** | Capacity management | Infrastructure scaling, resource monitoring, capacity planning |
+| **A1.2** | Recovery operations | Backup procedures, disaster recovery, BCP testing |
+| **A1.3** | Recovery testing | DR drills, failover testing, RTO/RPO validation |
+
+**Select when:** Customers depend on your uptime; you have SLAs; downtime causes direct business impact.
+
+### Confidentiality (C1) — Optional
+
+| Criteria | Focus | Key Controls |
+|----------|-------|-------------|
+| **C1.1** | Identification | Data classification policy, confidential data inventory |
+| **C1.2** | Protection | Encryption at rest and in transit, DLP, access restrictions |
+| **C1.3** | Disposal | Secure deletion procedures, media sanitization, retention enforcement |
+
+**Select when:** You handle trade secrets, proprietary data, or contractually confidential information.
+
+### Processing Integrity (PI1) — Optional
+
+| Criteria | Focus | Key Controls |
+|----------|-------|-------------|
+| **PI1.1** | Accuracy | Input validation, processing checks, output verification |
+| **PI1.2** | Completeness | Transaction monitoring, reconciliation, error handling |
+| **PI1.3** | Timeliness | SLA monitoring, processing delay alerts, batch job monitoring |
+| **PI1.4** | Authorization | Processing authorization controls, segregation of duties |
+
+**Select when:** Data accuracy is critical (financial processing, healthcare records, analytics platforms).
+
+### Privacy (P1-P8) — Optional
+
+| Criteria | Focus | Key Controls |
+|----------|-------|-------------|
+| **P1** | Notice | Privacy policy, data collection notice, purpose limitation |
+| **P2** | Choice & Consent | Opt-in/opt-out, consent management, preference tracking |
+| **P3** | Collection | Minimal collection, lawful basis, purpose specification |
+| **P4** | Use, Retention, Disposal | Purpose limitation, retention schedules, secure disposal |
+| **P5** | Access | Data subject access requests, correction rights |
+| **P6** | Disclosure & Notification | Third-party sharing, breach notification |
+| **P7** | Quality | Data accuracy verification, correction mechanisms |
+| **P8** | Monitoring & Enforcement | Privacy program monitoring, complaint handling |
+
+**Select when:** You process PII and customers expect privacy assurance (complements GDPR compliance).
+
+---
+
+## Control Matrix Generation
+
+A control matrix maps each TSC criterion to specific controls, owners, evidence, and testing procedures.
+
+### Matrix Structure
+
+| Field | Description |
+|-------|-------------|
+| **Control ID** | Unique identifier (e.g., SEC-001, AVL-003) |
+| **TSC Mapping** | Which criteria the control addresses (e.g., CC6.1, A1.2) |
+| **Control Description** | What the control does |
+| **Control Type** | Preventive, Detective, or Corrective |
+| **Owner** | Responsible person/team |
+| **Frequency** | Continuous, Daily, Weekly, Monthly, Quarterly, Annual |
+| **Evidence Type** | Screenshot, Log, Policy, Config, Ticket |
+| **Testing Procedure** | How the auditor verifies the control |
+
+### Control Naming Convention
+
+```
+{CATEGORY}-{NUMBER}
+SEC-001 through SEC-NNN  → Security
+AVL-001 through AVL-NNN  → Availability
+CON-001 through CON-NNN  → Confidentiality
+PRI-001 through PRI-NNN  → Processing Integrity
+PRV-001 through PRV-NNN  → Privacy
+```
+
+### Workflow
+
+1. Select applicable TSC categories based on business needs
+2. Run `control_matrix_builder.py` to generate the baseline matrix
+3. Customize controls to match your actual environment
+4. Assign owners and evidence requirements
+5. Validate coverage — every selected TSC criterion must have at least one control
+
+---
+
+## Gap Analysis Workflow
+
+### Phase 1: Current State Assessment
+
+1. **Document existing controls** — inventory all security policies, procedures, and technical controls
+2. **Map to TSC** — align existing controls to Trust Service Criteria
+3. **Collect evidence samples** — gather proof that controls exist and operate
+4. **Interview control owners** — verify understanding and execution
+
+### Phase 2: Gap Identification
+
+Run `gap_analyzer.py` against your current controls to identify:
+
+- **Missing controls** — TSC criteria with no corresponding control
+- **Partially implemented** — Control exists but lacks evidence or consistency
+- **Design gaps** — Control designed but does not adequately address the criteria
+- **Operating gaps** (Type II only) — Control designed correctly but not operating effectively
+
+### Phase 3: Remediation Planning
+
+For each gap, define:
+
+| Field | Description |
+|-------|-------------|
+| Gap ID | Reference identifier |
+| TSC Criteria | Affected criteria |
+| Gap Description | What is missing or insufficient |
+| Remediation Action | Specific steps to close the gap |
+| Owner | Person responsible for remediation |
+| Priority | Critical / High / Medium / Low |
+| Target Date | Completion deadline |
+| Dependencies | Other gaps or projects that must complete first |
+
+### Phase 4: Timeline Planning
+
+| Priority | Target Remediation |
+|----------|--------------------|
+| Critical | 2-4 weeks |
+| High | 4-8 weeks |
+| Medium | 8-12 weeks |
+| Low | 12-16 weeks |
+
+---
+
+## Evidence Collection
+
+### Evidence Types by Control Category
+
+| Control Area | Primary Evidence | Secondary Evidence |
+|--------------|-----------------|-------------------|
+| Access Management | User access reviews, provisioning tickets | Role matrix, access logs |
+| Change Management | Change tickets, approval records | Deployment logs, test results |
+| Incident Response | Incident tickets, postmortems | Runbooks, escalation records |
+| Vulnerability Management | Scan reports, patch records | Remediation timelines |
+| Encryption | Configuration screenshots, certificate inventory | Key rotation logs |
+| Backup & Recovery | Backup logs, DR test results | Recovery time measurements |
+| Monitoring | Alert configurations, dashboard screenshots | On-call schedules, escalation records |
+| Policy Management | Signed policies, version history | Training completion records |
+| Vendor Management | Vendor assessments, SOC 2 reports | Contract reviews, risk registers |
+
+### Automation Opportunities
+
+| Area | Automation Approach |
+|------|-------------------|
+| Access reviews | Integrate IAM with ticketing (automatic quarterly review triggers) |
+| Configuration evidence | Infrastructure-as-code snapshots, compliance-as-code tools |
+| Vulnerability scans | Scheduled scanning with auto-generated reports |
+| Change management | Git-based audit trail (commits, PRs, approvals) |
+| Uptime monitoring | Automated SLA dashboards with historical data |
+| Backup verification | Automated restore tests with success/failure logging |
+
+### Continuous Monitoring
+
+Move from point-in-time evidence collection to continuous compliance:
+
+1. **Automated evidence gathering** — scripts that pull evidence on schedule
+2. **Control dashboards** — real-time visibility into control status
+3. **Alert-based monitoring** — notify when a control drifts out of compliance
+4. **Evidence repository** — centralized, timestamped evidence storage
+
+---
+
+## Audit Readiness Checklist
+
+### Pre-Audit Preparation (4-6 Weeks Before)
+
+- [ ] All controls documented with descriptions, owners, and frequencies
+- [ ] Evidence collected for the entire observation period (Type II)
+- [ ] Control matrix reviewed and gaps remediated
+- [ ] Policies signed and distributed within the last 12 months
+- [ ] Access reviews completed within the required frequency
+- [ ] Vulnerability scans current (no critical/high unpatched > SLA)
+- [ ] Incident response plan tested within the last 12 months
+- [ ] Vendor risk assessments current for all subservice organizations
+- [ ] DR/BCP tested and documented within the last 12 months
+- [ ] Employee security training completed for all staff
+
+### Readiness Scoring
+
+| Score | Rating | Meaning |
+|-------|--------|---------|
+| 90-100% | Audit Ready | Proceed with confidence |
+| 75-89% | Minor Gaps | Address before scheduling audit |
+| 50-74% | Significant Gaps | Remediation required |
+| < 50% | Not Ready | Major program build-out needed |
+
+### Common Audit Findings
+
+| Finding | Root Cause | Prevention |
+|---------|-----------|-----------|
+| Incomplete access reviews | Manual process, no reminders | Automate quarterly review triggers |
+| Missing change approvals | Emergency changes bypass process | Define emergency change procedure with post-hoc approval |
+| Stale vulnerability scans | Scanner misconfigured | Automated weekly scans with alerting |
+| Policy not acknowledged | No tracking mechanism | Annual e-signature workflow |
+| Missing vendor assessments | No vendor inventory | Maintain vendor register with review schedule |
+
+---
+
+## Vendor Management
+
+### Third-Party Risk Assessment
+
+Every vendor that accesses, stores, or processes customer data must be assessed:
+
+1. **Vendor inventory** — maintain a register of all service providers
+2. **Risk classification** — categorize vendors by data access level
+3. **Due diligence** — collect SOC 2 reports, security questionnaires, certifications
+4. **Contractual protections** — ensure DPAs, security requirements, breach notification clauses
+5. **Ongoing monitoring** — annual reassessment, continuous news monitoring
+
+### Vendor Risk Tiers
+
+| Tier | Data Access | Assessment Frequency | Requirements |
+|------|-------------|---------------------|-------------|
+| Critical | Processes/stores customer data | Annual + continuous monitoring | SOC 2 Type II, penetration test, security review |
+| High | Accesses customer environment | Annual | SOC 2 Type II or equivalent, questionnaire |
+| Medium | Indirect access, support tools | Annual questionnaire | Security certifications, questionnaire |
+| Low | No data access | Biennial questionnaire | Basic security questionnaire |
+
+### Subservice Organizations
+
+When your SOC 2 report relies on controls at a subservice organization (e.g., AWS, GCP, Azure):
+
+- **Inclusive method** — your report covers the subservice org's controls (requires their cooperation)
+- **Carve-out method** — your report excludes their controls but references their SOC 2 report
+- Most companies use **carve-out** and include complementary user entity controls (CUECs)
+
+---
+
+## Continuous Compliance
+
+### From Point-in-Time to Continuous
+
+| Aspect | Point-in-Time | Continuous |
+|--------|---------------|-----------|
+| Evidence collection | Manual, before audit | Automated, ongoing |
+| Control monitoring | Periodic review | Real-time dashboards |
+| Drift detection | Found during audit | Alert-based, immediate |
+| Remediation | Reactive | Proactive |
+| Audit preparation | 4-8 week scramble | Always ready |
+
+### Implementation Steps
+
+1. **Automate evidence gathering** — cron jobs, API integrations, IaC snapshots
+2. **Build control dashboards** — aggregate control status into a single view
+3. **Configure drift alerts** — notify when controls fall out of compliance
+4. **Establish review cadence** — weekly control owner check-ins, monthly steering
+5. **Maintain evidence repository** — centralized, timestamped, auditor-accessible
+
+### Annual Re-Assessment Cycle
+
+| Quarter | Activities |
+|---------|-----------|
+| Q1 | Annual risk assessment, policy refresh, vendor reassessment launch |
+| Q2 | Internal control testing, remediation of findings |
+| Q3 | Pre-audit readiness review, evidence completeness check |
+| Q4 | External audit, management assertion, report distribution |
+
+---
+
+## Anti-Patterns
+
+| Anti-Pattern | Why It Fails | Better Approach |
+|--------------|-------------|----------------|
+| Point-in-time compliance | Controls degrade between audits; gaps found during audit | Implement continuous monitoring and automated evidence |
+| Manual evidence collection | Time-consuming, inconsistent, error-prone | Automate with scripts, IaC, and compliance platforms |
+| Missing vendor assessments | Auditors flag incomplete vendor due diligence | Maintain vendor register with risk-tiered assessment schedule |
+| Copy-paste policies | Generic policies don't match actual operations | Tailor policies to your actual environment and technology stack |
+| Security theater | Controls exist on paper but aren't followed | Verify operating effectiveness; build controls into workflows |
+| Skipping Type I | Jumping to Type II without foundational readiness | Start with Type I to validate control design before observation |
+| Over-scoping TSC | Including all 5 categories when only Security is needed | Select categories based on actual customer/business requirements |
+| Treating audit as a project | Compliance degrades after the report is issued | Build compliance into daily operations and engineering culture |
+
+---
+
+## Tools
+
+### Control Matrix Builder
+
+Generates a SOC 2 control matrix from selected TSC categories.
 
 ```bash
-# 生成控制矩阵（markdown / json / csv）
+# Generate full security matrix in markdown
 python scripts/control_matrix_builder.py --categories security --format md
+
+# Generate matrix for multiple categories as JSON
 python scripts/control_matrix_builder.py --categories security,availability,confidentiality --format json
+
+# All categories, CSV output
 python scripts/control_matrix_builder.py --categories security,availability,confidentiality,processing-integrity,privacy --format csv
+```
 
-# 追踪每条控制的证据状态
+### Evidence Tracker
+
+Tracks evidence collection status per control.
+
+```bash
+# Check evidence status from a control matrix
 python scripts/evidence_tracker.py --matrix controls.json --status
-python scripts/evidence_tracker.py --matrix controls.json --status --json
 
-# 差距分析（Type I 仅设计；Type II 含运行有效性）
+# JSON output for integration
+python scripts/evidence_tracker.py --matrix controls.json --status --json
+```
+
+### Gap Analyzer
+
+Analyzes current controls against SOC 2 requirements and identifies gaps.
+
+```bash
+# Type I gap analysis
 python scripts/gap_analyzer.py --controls current_controls.json --type type1
+
+# Type II gap analysis (includes operating effectiveness)
 python scripts/gap_analyzer.py --controls current_controls.json --type type2 --json
 ```
 
-证据自动化方向（从手工取证转向持续合规）：
-- 访问复核：IAM 与工单系统集成，季度复核自动触发。
-- 配置证据：IaC 快照、compliance-as-code 工具。
-- 漏洞扫描：定时扫描 + 自动生成报告。
-- 变更管理：基于 Git 的审计轨迹（commit、PR、审批）。
-- 备份验证：自动恢复测试并记录成功/失败。
+---
 
-持续合规四件套：自动取证脚本 → 控制状态看板 → 漂移告警 → 集中、带时间戳、审计师可访问的证据库。
+## References
 
-## 示例
-
-为一家向企业销售、有 SLA、处理客户 PII 的 SaaS 准备首次 SOC 2：
-
-1. 范围：选 Security(必选) + Availability(有 SLA) + Privacy(处理 PII)，暂不纳入 Confidentiality/Processing Integrity，避免过度扩范围。先做 **Type I** 验证控制设计。
-2. 生成矩阵：`python scripts/control_matrix_builder.py --categories security,availability,privacy --format json` 得到 controls.json，再补真实责任人与证据要求。
-3. 差距分析：`python scripts/gap_analyzer.py --controls controls.json --type type1`，发现「访问复核无提醒、变更缺审批记录」两项关键差距，列入整改（Critical/High）。
-4. 证据追踪：`python scripts/evidence_tracker.py --matrix controls.json --status` 找出尚缺证据的控制，对访问复核接入工单自动触发。
-5. 审计前 4–6 周对照清单评分，达 90%+ 后约审，并对 AWS 等子服务组织采用 carve-out 法、补充 CUEC。
-
-## 注意事项
-
-- **Security 必选**，其余四类按需选择；范围越窄越易通过，切勿默认全选五类。
-- **先 Type I 再 Type II**：跳过 Type I 直接做 Type II，常因控制设计未验证而失败。
-- **避免「安全剧场」**：控制不能只停在纸面。Type II 审的是运行有效性，需把控制嵌进日常工作流并留痕。
-- **不要复制粘贴通用策略**：策略须贴合真实环境与技术栈，否则审计会标记不符。
-- **供应商/子服务组织风险必查**：维护供应商台账并分级（Critical 年审+持续监控且要 SOC 2 Type II/渗透测试；High 年审;Medium 年度问卷;Low 两年问卷）。依赖 AWS/GCP/Azure 时多用 carve-out 法并补充用户实体补充控制（CUEC）。
-- **合规不是一次性项目**：报告签发后控制会退化。把持续监控、漂移告警、年度再评估（Q1 风险评估/策略刷新、Q2 内部测试整改、Q3 就绪复核、Q4 外审）固化为流程。
-- **常见审计发现与预防**：访问复核不全→自动化季度触发；变更缺审批→定义紧急变更的事后审批程序；漏洞扫描过期→每周自动扫描+告警；策略未签收→年度电子签流程；缺供应商评估→维护供应商台账与复核排期。
-
-## 互见
-
-- **gdpr-dsgvo-expert**：SOC 2 Privacy 准则与 GDPR 高度重叠，处理欧盟个人数据时配合使用。
-- **information-security-manager-iso27001**：ISO 27001 附录 A 控制与 SOC 2 Security 准则密切对应，双框架可共享证据。
-- **isms-audit-expert**：审计方法论与发现项管理可直接迁移到 SOC 2 审计准备。
+- [Trust Service Criteria Reference](references/trust_service_criteria.md) — All 5 TSC categories with sub-criteria, control objectives, and evidence examples
+- [Evidence Collection Guide](references/evidence_collection_guide.md) — Evidence types per control, automation tools, documentation requirements
+- [Type I vs Type II Comparison](references/type1_vs_type2.md) — Detailed comparison, timeline, cost analysis, and upgrade path
 
 ---
-*采编自 alirezarezvani/claude-skills（MIT License）。*
+
+## Cross-References
+
+- **[gdpr-dsgvo-expert](../gdpr-dsgvo-expert/SKILL.md)** — SOC 2 Privacy criteria overlaps significantly with GDPR requirements; use together when processing EU personal data
+- **[information-security-manager-iso27001](../information-security-manager-iso27001/SKILL.md)** — ISO 27001 Annex A controls map closely to SOC 2 Security criteria; organizations pursuing both can share evidence
+- **[isms-audit-expert](../isms-audit-expert/SKILL.md)** — Audit methodology and finding management patterns transfer directly to SOC 2 audit preparation

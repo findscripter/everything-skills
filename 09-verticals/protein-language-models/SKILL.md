@@ -1,14 +1,14 @@
 ---
 name: protein-language-models
-title: 蛋白质语言模型与设计（ESM）
-description: 当需要用 EvolutionaryScale 的 ESM3/ESM C 做蛋白质序列生成、结构预测、逆折叠、功能条件设计或提取嵌入向量时使用；做基于本地开源权重（Python 3.12，PyPI 上的 esm）或 Forge/Biohub 云 API 的蛋白质多模态生成与表征产物；不适用于通用 LLM 文本、小分子药物、基因组核酸序列或无生物背景的纯打分任务；触发词：ESM、ESM3、ESMC、蛋白质语言模型、protein language model、逆折叠、inverse folding、ESMFold、蛋白质嵌入、protein embedding、蛋白质设计。
+title: ESM: Evolutionary Scale Modeling
+description: Comprehensive toolkit for EvolutionaryScale protein language models including ESM3 (generative multimodal design across sequence, structure, and function) and ESM C (efficient embeddings). Use for protein sequence/structure/function tasks, inverse folding, embeddings, variant design, and ESMFold2 structure prediction via Biohub. Supports local open weights (Python 3.12, esm on PyPI) and cloud Forge/Biohub APIs with ESM_API_KEY authentication.
 domain: 领域/science
-triggers: [ESM, ESM3, ESMC, 蛋白质语言模型, protein language model, 逆折叠, inverse folding, ESMFold, 蛋白质嵌入, protein embedding, 蛋白质设计]
+triggers: [ESM, ESM3, ESMC, protein language model, inverse folding, ESMFold, protein embedding]
 tags: [protein, bioinformatics, esm, protein-design, embeddings]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, esm, forge-api, biohub-api]
+tools: []
 requires: []
 related: [molecular-dynamics-simulation, cheminformatics-toolkit, single-cell-rnaseq-analysis]
 combines_with: [molecular-dynamics-simulation, scientific-database-lookup]
@@ -16,119 +16,316 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# ESM: Evolutionary Scale Modeling
 
-需要用 EvolutionaryScale 的蛋白质语言模型完成下列任务时使用：
+## Overview
 
-- **生成型设计（ESM3，多模态）**：补全/变体设计、按功能注释条件生成、序列<->结构<->功能跨模态生成。
-- **结构相关**：从序列预测结构、逆折叠（从结构反推序列）、ESMFold2 结构预测（经 Biohub）。
-- **表征（ESM C）**：提取蛋白质嵌入向量，供分类、相似度、功能预测等下游 ML 使用。
+ESM provides state-of-the-art protein language models for understanding, generating, and designing proteins. This skill enables working with two model families: ESM3 for generative protein design across sequence, structure, and function, and ESM C for efficient protein representation learning and embeddings.
 
-触发词：ESM、ESM3、ESMC、蛋白质语言模型、protein language model、逆折叠、inverse folding、ESMFold、蛋白质嵌入、protein embedding、蛋白质设计。
+## Core Capabilities
 
-**不该用（边界）：**
-- 通用 LLM 文本生成/对话 → 用普通大模型，ESM 只懂蛋白质序列。
-- 小分子/化合物药物设计、对接打分 → 用 RDKit/对接工具，不是蛋白质 LM。
-- 基因组/核酸（DNA/RNA）序列建模 → ESM 面向氨基酸序列，非核苷酸。
-- 仅做序列比对/BLAST 检索这类无需深度表征的任务 → 用传统生信工具更轻。
-- 真实下游决策前未做湿实验或结构验证 → 生成结果须验证，勿直接当结论。
+### 1. Protein Sequence Generation with ESM3
 
-## 步骤 / 指令
+Generate novel protein sequences with desired properties using multimodal generative modeling.
 
-1. **选模型**（按场景，见下）：
-   - 本地实验/原型：`esm3-sm-open-v1`（1.4B，开源权重）或 `esmc-300m`。
-   - 生产质量：`esm3-medium-2024-08`（7B，仅 Forge）。
-   - 最高精度：`esm3-large-2024-03`（98B）或 `esmc-6b-2024-12`（仅 Forge/SageMaker）。
-   - 高吞吐：Forge API + 批量异步执行器。
-2. **装环境**：要求 **Python 3.12**（`>=3.12,<3.13`）。`uv pip install "esm==3.2.3"`；NVIDIA GPU 推荐再装 `flash-attn`。Forge 客户端随 `esm` 包发行，云推理无需额外安装。
-3. **配鉴权（仅云端需要）**：按序检查 `ESM_API_KEY`：环境变量 → 本地 `.env`（只取该键）→ 到 Forge / Biohub 开发者控制台申请。**绝不硬编码或提交 token**。`esm.sdk.client()` 在省略 `token` 时会自动读取 `ESM_API_KEY`。
-4. **构造输入**：用 `ESMProtein` 封装序列；`_` 表示待生成的掩码位；逆折叠用 `ESMProtein.from_pdb(...)` 并将 `.sequence=None`。
-5. **生成/编码**：调 `model.generate(protein, GenerationConfig(track=..., num_steps=..., temperature=...))`；`track` 取 `sequence`/`structure`/`function`。嵌入走 ESM C 的 `encode -> forward`。
-6. **链式思维细化**（复杂设计）：分步切换 track，逐步从结构→序列→功能迭代精修。
-7. **取产物**：序列 `protein.sequence`；结构 `protein.coordinates` 或 `protein.to_pdb()`；嵌入为 forward 输出张量。
-8. **验证**：用结构预测自洽性或湿实验校验生成序列，按需回调 `temperature`/`num_steps`。
+**When to use:**
+- Designing proteins with specific functional properties
+- Completing partial protein sequences
+- Generating variants of existing proteins
+- Creating proteins with desired structural characteristics
 
-## 示例
+**Basic usage:**
 
-本地序列补全（ESM3 开源权重）：
 ```python
 from esm.models.esm3 import ESM3
 from esm.sdk.api import ESM3InferenceClient, ESMProtein, GenerationConfig
 
+# Load model locally
 model: ESM3InferenceClient = ESM3.from_pretrained("esm3-sm-open-v1").to("cuda")
-protein = ESMProtein(sequence="MPRT___KEND")  # '_' 为掩码位
+
+# Create protein prompt
+protein = ESMProtein(sequence="MPRT___KEND")  # '_' represents masked positions
+
+# Generate completion
 protein = model.generate(protein, GenerationConfig(track="sequence", num_steps=8))
 print(protein.sequence)
 ```
 
-云端（Forge，接口同本地）：
+**For remote/cloud usage via Forge API:**
+
 ```python
-import os, esm
+import os
+import esm
 from esm.sdk.api import ESMProtein, GenerationConfig
 
+# Same interface as local ESM3 — token from ESM_API_KEY (see Authentication)
 model = esm.sdk.client("esm3-medium-2024-08", token=os.environ["ESM_API_KEY"])
+
+# Generate
 protein = model.generate(protein, GenerationConfig(track="sequence", num_steps=8))
 ```
 
-逆折叠（由结构设计序列）：
+See `references/esm3-api.md` for detailed ESM3 model specifications, advanced generation configurations, and multimodal prompting examples.
+
+### 2. Structure Prediction and Inverse Folding
+
+Use ESM3's structure track for structure prediction from sequence or inverse folding (sequence design from structure).
+
+**Structure prediction:**
+
 ```python
-protein = ESMProtein.from_pdb("target_structure.pdb")
-protein.sequence = None  # 移除原序列
-designed = model.generate(
+from esm.sdk.api import ESM3InferenceClient, ESMProtein, GenerationConfig
+
+# Predict structure from sequence
+protein = ESMProtein(sequence="MPRTKEINDAGLIVHSP...")
+protein_with_structure = model.generate(
     protein,
-    GenerationConfig(track="sequence", num_steps=50, temperature=0.7),
+    GenerationConfig(track="structure", num_steps=protein.sequence.count("_"))
+)
+
+# Access predicted structure
+coordinates = protein_with_structure.coordinates  # 3D coordinates
+pdb_string = protein_with_structure.to_pdb()
+```
+
+**Inverse folding (sequence from structure):**
+
+```python
+# Design sequence for a target structure
+protein_with_structure = ESMProtein.from_pdb("target_structure.pdb")
+protein_with_structure.sequence = None  # Remove sequence
+
+# Generate sequence that folds to this structure
+designed_protein = model.generate(
+    protein_with_structure,
+    GenerationConfig(track="sequence", num_steps=50, temperature=0.7)
 )
 ```
 
-ESM C 提取嵌入：
+### 3. Protein Embeddings with ESM C
+
+Generate high-quality embeddings for downstream tasks like function prediction, classification, or similarity analysis.
+
+**When to use:**
+- Extracting protein representations for machine learning
+- Computing sequence similarities
+- Feature extraction for protein classification
+- Transfer learning for protein-related tasks
+
+**Basic usage:**
+
 ```python
 from esm.models.esmc import ESMC
 from esm.sdk.api import ESMProtein
 
+# Load ESM C model
 model = ESMC.from_pretrained("esmc-300m").to("cuda")
+
+# Get embeddings
 protein = ESMProtein(sequence="MPRTKEINDAGLIVHSP...")
-tensor = model.encode(protein)
-embeddings = model.forward(tensor)
+protein_tensor = model.encode(protein)
+
+# Generate embeddings
+embeddings = model.forward(protein_tensor)
 ```
 
-功能条件生成（指定功能注释生成新蛋白）：
+**Batch processing:**
+
+```python
+# Encode multiple proteins
+proteins = [
+    ESMProtein(sequence="MPRTKEIND..."),
+    ESMProtein(sequence="AGLIVHSPQ..."),
+    ESMProtein(sequence="KTEFLNDGR...")
+]
+
+embeddings_list = [model.logits(model.forward(model.encode(p))) for p in proteins]
+```
+
+See `references/esm-c-api.md` for ESM C model details, efficiency comparisons, and advanced embedding strategies.
+
+### 4. Function Conditioning and Annotation
+
+Use ESM3's function track to generate proteins with specific functional annotations or predict function from sequence.
+
+**Function-conditioned generation:**
+
 ```python
 from esm.sdk.api import ESMProtein, FunctionAnnotation, GenerationConfig
 
+# Create protein with desired function
 protein = ESMProtein(
-    sequence="_" * 200,
-    function_annotations=[FunctionAnnotation(label="fluorescent_protein", start=50, end=150)],
+    sequence="_" * 200,  # Generate 200 residue protein
+    function_annotations=[
+        FunctionAnnotation(label="fluorescent_protein", start=50, end=150)
+    ]
 )
-out = model.generate(protein, GenerationConfig(track="sequence", num_steps=200))
+
+# Generate sequence with specified function
+functional_protein = model.generate(
+    protein,
+    GenerationConfig(track="sequence", num_steps=200)
+)
 ```
 
-Forge 异步批处理：
+### 5. Chain-of-Thought Generation
+
+Iteratively refine protein designs using ESM3's chain-of-thought generation approach.
+
 ```python
-import os, asyncio, esm
+from esm.sdk.api import GenerationConfig
+
+# Multi-step refinement
+protein = ESMProtein(sequence="MPRT" + "_" * 100 + "KEND")
+
+# Step 1: Generate initial structure
+config = GenerationConfig(track="structure", num_steps=50)
+protein = model.generate(protein, config)
+
+# Step 2: Refine sequence based on structure
+config = GenerationConfig(track="sequence", num_steps=50, temperature=0.5)
+protein = model.generate(protein, config)
+
+# Step 3: Predict function
+config = GenerationConfig(track="function", num_steps=20)
+protein = model.generate(protein, config)
+```
+
+### 6. Batch Processing with Forge API
+
+Process multiple proteins efficiently using Forge's async executor.
+
+```python
+import os
+import asyncio
+import esm
+
 client = esm.sdk.client("esm3-medium-2024-08", token=os.environ["ESM_API_KEY"])
 
-async def batch_generate(proteins):
-    tasks = [client.async_generate(p, GenerationConfig(track="sequence")) for p in proteins]
+# Async batch processing
+async def batch_generate(proteins_list):
+    tasks = [
+        client.async_generate(protein, GenerationConfig(track="sequence"))
+        for protein in proteins_list
+    ]
     return await asyncio.gather(*tasks)
 
+# Execute
 proteins = [ESMProtein(sequence=f"MPRT{'_' * 50}KEND") for _ in range(10)]
 results = asyncio.run(batch_generate(proteins))
 ```
 
-## 注意事项
+See `references/forge-api.md` for detailed Forge API documentation, authentication, rate limits, and batch processing patterns.
 
-- **Python 版本强约束**：当前发行版仅支持 `3.12`，环境不匹配直接装不上。
-- **密钥安全**：`ESM_API_KEY` 只从环境或 `.env` 读取，不写进脚本、不入版本库；`KeyError` 即提示未配置而非吞掉。
-- **temperature 控制多样性**：`0.0` 确定性、`1.0` 多样；批量/逆折叠常用 `0.5~0.7`。
-- **6B 权重不开放本地裸跑**：`esmc-6b` 需经 Forge 或 SageMaker。
-- **平台迁移**：部分服务（含 ESMFold2 结构预测）正迁往 biohub.ai，SDK 类名可能仍写 "Forge"；ESMFold2/Biohub 专属配置见源仓库 `references/biohub-platform.md`。
-- **嵌入要点**：尽量批量编码、缓存复用、算相似度前归一化；查询与建库务必用同一模型。
-- **生产化**：加重试/限流与错误处理，监控 token 用量，重负载考虑 SageMaker 专用部署。
-- **负责任使用**：遵循 Responsible Biodesign Framework（responsiblebiodesign.ai），设计新蛋白前评估生物安全与伦理，实验验证前审慎。
+## Model Selection Guide
 
-## 互见
+**ESM3 Models (Generative):**
+- `esm3-sm-open-v1` (1.4B) - Open weights, local usage, good for experimentation
+- `esm3-medium-2024-08` (7B) - Best balance of quality and speed (Forge only)
+- `esm3-large-2024-03` (98B) - Highest quality, slower (Forge only)
 
-- 暂无强相关的本仓技能可联动；如需为生成的蛋白质嵌入做下游向量检索/聚类，可自行接入通用向量管道。
+**ESM C Models (Embeddings):**
+- `esmc-300m` (30 layers) - Lightweight, fast inference (open weights, local)
+- `esmc-600m` (36 layers) - Balanced performance (open weights, local)
+- `esmc-6b-2024-12` (80 layers) - Maximum quality (Forge API; local 6B weights require Forge or SageMaker)
 
----
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT License）。
+**Selection criteria:**
+- **Local development/testing:** Use `esm3-sm-open-v1` or `esmc-300m`
+- **Production quality:** Use `esm3-medium-2024-08` via Forge
+- **Maximum accuracy:** Use `esm3-large-2024-03` or `esmc-6b-2024-12` via Forge
+- **High throughput:** Use Forge API with batch executor
+- **Cost optimization:** Use smaller models, implement caching strategies
+
+## Installation
+
+Install from PyPI ([`esm` on PyPI](https://pypi.org/project/esm/) by EvolutionaryScale). Requires **Python 3.12** (`>=3.12,<3.13` for current releases).
+
+**Basic installation:**
+
+```bash
+uv pip install "esm==3.2.3"
+```
+
+**With Flash Attention (recommended for faster inference on NVIDIA GPUs):**
+
+```bash
+uv pip install "esm==3.2.3"
+uv pip install flash-attn --no-build-isolation
+```
+
+The Forge client ships with the `esm` package — no extra install for cloud inference.
+
+## Authentication
+
+Forge API access requires an API key. Never hardcode tokens in scripts or commit them to version control.
+
+1. Check whether `ESM_API_KEY` is already set in the environment.
+2. If not, check a local `.env` for `ESM_API_KEY` only (do not load unrelated secrets).
+3. If still missing, create a key at [Forge](https://forge.evolutionaryscale.ai) (or [Biohub developer console](https://biohub.ai/developer-console/api-keys) for newer ESMFold2 endpoints).
+
+```python
+import os
+
+token = os.environ["ESM_API_KEY"]  # raises KeyError if unset
+```
+
+`esm.sdk.client()` reads `ESM_API_KEY` automatically when `token` is omitted.
+
+**Biohub platform:** EvolutionaryScale is migrating some services (including ESMFold2 structure prediction) to [biohub.ai](https://biohub.ai). SDK class names may still reference "Forge". See `references/biohub-platform.md` for ESMFold2 and Biohub-specific setup.
+
+## Common Workflows
+
+For detailed examples and complete workflows, see `references/workflows.md` which includes:
+- Novel GFP design with chain-of-thought
+- Protein variant generation and screening
+- Structure-based sequence optimization
+- Function prediction pipelines
+- Embedding-based clustering and analysis
+
+## References
+
+This skill includes comprehensive reference documentation:
+
+- `references/esm3-api.md` - ESM3 model architecture, API reference, generation parameters, and multimodal prompting
+- `references/esm-c-api.md` - ESM C model details, embedding strategies, and performance optimization
+- `references/forge-api.md` - Forge platform documentation, authentication, batch processing, and deployment
+- `references/biohub-platform.md` - Biohub API migration, ESMFold2 structure prediction, and developer-console auth
+- `references/workflows.md` - Complete examples and common workflow patterns
+
+These references contain detailed API specifications, parameter descriptions, and advanced usage patterns. Load them as needed for specific tasks.
+
+## Best Practices
+
+**For generation tasks:**
+- Start with smaller models for prototyping (`esm3-sm-open-v1`)
+- Use temperature parameter to control diversity (0.0 = deterministic, 1.0 = diverse)
+- Implement iterative refinement with chain-of-thought for complex designs
+- Validate generated sequences with structure prediction or wet-lab experiments
+
+**For embedding tasks:**
+- Batch process sequences when possible for efficiency
+- Cache embeddings for repeated analyses
+- Normalize embeddings when computing similarities
+- Use appropriate model size based on downstream task requirements
+
+**For production deployment:**
+- Use Forge API for scalability and latest models
+- Implement error handling and retry logic for API calls
+- Monitor token usage and implement rate limiting
+- Consider AWS SageMaker deployment for dedicated infrastructure
+
+## Resources and Documentation
+
+- **GitHub Repository:** https://github.com/evolutionaryscale/esm (releases through v3.2.x; see also [Biohub/esm](https://github.com/Biohub/esm) for ESMFold2)
+- **Forge Platform:** https://forge.evolutionaryscale.ai
+- **Biohub Platform:** https://biohub.ai
+- **Scientific Paper:** Hayes et al., Science (2025) - https://www.science.org/doi/10.1126/science.ads0018
+- **Blog Posts:**
+  - ESM3 Release: https://www.evolutionaryscale.ai/blog/esm3-release
+  - ESM C Launch: https://www.evolutionaryscale.ai/blog/esm-cambrian
+- **Community:** Slack community at https://bit.ly/3FKwcWd
+- **Model Weights:** HuggingFace EvolutionaryScale organization
+
+## Responsible Use
+
+ESM is designed for beneficial applications in protein engineering, drug discovery, and scientific research. Follow the Responsible Biodesign Framework (https://responsiblebiodesign.ai/) when designing novel proteins. Consider biosafety and ethical implications of protein designs before experimental validation.

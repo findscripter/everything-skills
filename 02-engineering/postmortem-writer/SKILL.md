@@ -1,11 +1,11 @@
 ---
 name: postmortem-writer
-title: 无指责复盘报告撰写
-description: 当事故（SEV1/SEV2、客户面中断>15min、数据丢失/安全、险些酿祸的 near-miss）结束后需要做事后复盘时使用；做产出无指责复盘文档（执行摘要、UTC 时间线、根因分析、行动项），用 5 Whys 把责任从"谁"导向"系统条件"，并落成带 owner/截止日的可追踪工单；不适用于事故进行中的实时应急处置、纯监控告警配置或代码改动审查；触发词：复盘、事后复盘、postmortem、blameless、无指责、根因分析、RCA、5 Whys、事故时间线、incident review、action items。
+title: Postmortem Writing
+description: Write effective blameless postmortems with root cause analysis, timelines, and action items. Use when conducting incident reviews, writing postmortem documents, or improving incident response processes.
 domain: 研发/observability
-triggers: [复盘, 事后复盘, postmortem, blameless, 无指责, 根因分析, RCA, 5 Whys, 事故时间线, incident review, action items]
+triggers: [postmortem, blameless, RCA, 5 Whys, incident review, action items]
 tags: [postmortem, incident-response, observability, sre, rca]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,100 +16,231 @@ license: MIT
 source: wshobson/agents
 source_license: MIT
 ---
-## 何时使用
+# Postmortem Writing
 
-事故结束后需要把"发生了什么、为什么、如何防止再发"沉淀成组织可学习的文档时使用。
+Comprehensive guide to writing effective, blameless postmortems that drive organizational learning and prevent incident recurrence.
 
-触发条件（满足其一即应写复盘）：
-- SEV1 / SEV2 级事故；
-- 客户面中断 > 15 分钟；
-- 数据丢失或安全事件；
-- 险些酿成严重后果的 near-miss、新出现的故障模式、需要非常规人工干预的事故。
+## When to Use This Skill
 
-不该用的边界：
-- 事故**进行中**的实时止血/应急指挥 —— 本技能只做事后复盘，不做在线处置。
-- 纯监控告警阈值/看板配置 —— 那是可观测性建设，不是复盘。
-- 审查具体代码改动找 bug —— 那是代码审查，不在本技能范围（复盘只把"评审漏看"作为贡献因素记录，不逐行审代码）。
-- 只想给个人定责追责 —— 与无指责原则冲突，直接拒绝。
+- Conducting post-incident reviews
+- Writing postmortem documents
+- Facilitating blameless postmortem meetings
+- Identifying root causes and contributing factors
+- Creating actionable follow-up items
+- Building organizational learning culture
 
-## 步骤 / 指令
+## Core Concepts
+
+### 1. Blameless Culture
+
+| Blame-Focused            | Blameless                         |
+| ------------------------ | --------------------------------- |
+| "Who caused this?"       | "What conditions allowed this?"   |
+| "Someone made a mistake" | "The system allowed this mistake" |
+| Punish individuals       | Improve systems                   |
+| Hide information         | Share learnings                   |
+| Fear of speaking up      | Psychological safety              |
+
+### 2. Postmortem Triggers
+
+- SEV1 or SEV2 incidents
+- Customer-facing outages > 15 minutes
+- Data loss or security incidents
+- Near-misses that could have been severe
+- Novel failure modes
+- Incidents requiring unusual intervention
+
+## Quick Start
+
+### Postmortem Timeline
 
 ```
-Day 0   事故发生
-Day 1-2 趁记忆新鲜起草复盘文档（草稿）
-Day 3-5 召开无指责复盘会
-Day 5-7 定稿，逐条行动项建工单
-Week 2+ 跟踪行动项关闭
-季度    横向回看多起事故的模式
+Day 0: Incident occurs
+Day 1-2: Draft postmortem document
+Day 3-5: Postmortem meeting
+Day 5-7: Finalize document, create tickets
+Week 2+: Action item completion
+Quarterly: Review patterns across incidents
 ```
 
-撰写流程：
+## Templates and detailed worked examples
 
-1. 立无指责基调。把每个问题从"谁造成的"改写成"是什么系统条件允许了它"：
-   - "谁犯了错" → "系统为何允许这个错误发生"
-   - 目标是改进系统、共享教训、建立心理安全，而非惩罚个人。
+Full template library and detailed worked examples live in `references/details.md`. Read that file when you need the concrete templates.
 
-2. 填执行摘要：一段话讲清 何时 + 影响范围（受影响客户数、收入损失、工单数、是否有数据/安全影响）+ 根因一句话 + 如何恢复。
+## References
+- [Connection Pool Best Practices](internal-wiki/connection-pools)
+- [Deployment Runbook](internal-wiki/deployment-runbook)
+```
 
-3. 写时间线（统一用 UTC，表格化）：部署完成、首次告警、ack、宣告级别、定位根因、决定回滚、回滚完成、完全恢复 —— 每行 `时间 | 事件`，精确到分钟。
+### Template 2: 5 Whys Analysis
 
-4. 根因分析，用 **5 Whys** 逐层下钻，每层都要**给证据**（指标截图、代码 diff、PR 号、评审记录、缺失的测试/文档）：
-   - 服务为何失败 → 连接耗尽 → 为何耗尽 → 每请求新建连接 → 为何绕过连接池 → 开发者不熟代码约定 → 为何不熟 → 缺连接管理模式文档。
-   - 区分**直接原因 / 贡献因素 / 系统性根因**（通常根因是测试缺失、文档缺失、评审清单缺项这类系统问题，而非某个人）。
-
-5. 复盘三视角各写"做对了 / 没做好"：
-   - 检测（Detection）：告警是否及时、阈值是否合理、有无部署关联告警；
-   - 响应（Response）：定位/决策/沟通；
-   - 影响（Impact）：客户、业务、技术三层量化。
-
-6. 行动项必须可执行、有主、有期、入工单，并按"预防/检测/缓解"归类、按影响×成本排优先级（P0/P1/P2）：
-   `优先级 | 行动 | Owner | 截止日 | 工单号`。无孤儿行动项。
-
-7. 开复盘会（60 分钟）：开场重申无指责(5) → 走时间线(15) → 分析讨论(20) → 行动项(15) → 收尾确认 owner(5)。把指责一律导回系统层面，记录异议，给沉默者发言机会，控时打断跑题。
-
-## 示例
-
-5 Whys 片段（每问必带证据）：
 ```markdown
-### Why #2: 为什么数据库连接被耗尽？
-答：每个请求都新建连接，而非复用连接池。
-证据：代码 diff 显示用了 DriverManager.getConnection()，而非池化 DataSource。
-```
+# 5 Whys Analysis: [Incident]
 
-根因→改进映射表：
-```markdown
-| 根因         | 改进                | 类型   |
-| ----------- | ------------------ | ------ |
-| 缺测试       | 补连接池行为集成测试  | 预防   |
-| 缺文档       | 文档化连接管理模式    | 预防   |
-| 评审有缺口    | 更新评审清单         | 检测   |
-| 无金丝雀      | 实施金丝雀发布        | 缓解   |
-```
+## Problem Statement
 
-行动项表：
-```markdown
-| 优先级 | 行动                       | Owner  | 截止日     | 工单    |
-| ----- | ------------------------- | ------ | --------- | ------- |
-| P0    | 补连接池行为集成测试         | @alice | 2024-01-22 | ENG-1234 |
-| P0    | 数据库连接告警阈值降到 70%   | @bob   | 2024-01-17 | OPS-567  |
-| P1    | 文档化连接管理模式           | @alice | 2024-01-29 | DOC-89   |
-```
+Payment service experienced 47-minute outage due to database connection exhaustion.
 
-轻量复盘（小事故，SEV3）模板：标题/日期/时长/级别 → 发生了什么 → 时间线 → 根因 → 修复（即时+长期带工单号）→ 教训一句话。
+## Analysis
 
-## 注意事项
+### Why #1: Why did the service fail?
 
-- 永远不点名羞辱（name and shame）；写成定责文档会直接扼杀学习。
-- 立即开写，记忆衰减极快；要具体：精确时间、精确报错、附图作视觉证据。
-- 不要做浅层分析（连追 5 个"为什么"）；不要零行动项（浪费会议）；行动项要现实可达，否则永不关闭。
-- 小事故别跳过——它们揭示模式；行动项必须有 owner，否则成孤儿；务必跟踪到关闭，事后核验完成。
-- 别造无意义的忙活（busywork），行动项要真正有价值。
+**Answer**: Database connections were exhausted, causing all new requests to fail.
 
-## 互见
-
-- requires：无。
-- related：无。
-- combines_with：无。
+**Evidence**: Metrics showed connection count at 100/100 (max), with 500+ pending requests.
 
 ---
-本条采编自 wshobson/agents（MIT）。
+
+### Why #2: Why were database connections exhausted?
+
+**Answer**: Each incoming request opened a new database connection instead of using the connection pool.
+
+**Evidence**: Code diff shows direct `DriverManager.getConnection()` instead of pooled `DataSource`.
+
+---
+
+### Why #3: Why did the code bypass the connection pool?
+
+**Answer**: A developer refactored the repository class and inadvertently changed the connection acquisition method.
+
+**Evidence**: PR #1234 shows the change, made while fixing a different bug.
+
+---
+
+### Why #4: Why wasn't this caught in code review?
+
+**Answer**: The reviewer focused on the functional change (the bug fix) and didn't notice the infrastructure change.
+
+**Evidence**: Review comments only discuss business logic.
+
+---
+
+### Why #5: Why isn't there a safety net for this type of change?
+
+**Answer**: We lack automated tests that verify connection pool behavior and lack documentation about our connection patterns.
+
+**Evidence**: Test suite has no tests for connection handling; wiki has no article on database connections.
+
+## Root Causes Identified
+
+1. **Primary**: Missing automated tests for infrastructure behavior
+2. **Secondary**: Insufficient documentation of architectural patterns
+3. **Tertiary**: Code review checklist doesn't include infrastructure considerations
+
+## Systemic Improvements
+
+| Root Cause    | Improvement                       | Type       |
+| ------------- | --------------------------------- | ---------- |
+| Missing tests | Add infrastructure behavior tests | Prevention |
+| Missing docs  | Document connection patterns      | Prevention |
+| Review gaps   | Update review checklist           | Detection  |
+| No canary     | Implement canary deployments      | Mitigation |
+```
+
+### Template 3: Quick Postmortem (Minor Incidents)
+
+```markdown
+# Quick Postmortem: [Brief Title]
+
+**Date**: 2024-01-15 | **Duration**: 12 min | **Severity**: SEV3
+
+## What Happened
+
+API latency spiked to 5s due to cache miss storm after cache flush.
+
+## Timeline
+
+- 10:00 - Cache flush initiated for config update
+- 10:02 - Latency alerts fire
+- 10:05 - Identified as cache miss storm
+- 10:08 - Enabled cache warming
+- 10:12 - Latency normalized
+
+## Root Cause
+
+Full cache flush for minor config update caused thundering herd.
+
+## Fix
+
+- Immediate: Enabled cache warming
+- Long-term: Implement partial cache invalidation (ENG-999)
+
+## Lessons
+
+Don't full-flush cache in production; use targeted invalidation.
+```
+
+## Facilitation Guide
+
+### Running a Postmortem Meeting
+
+```markdown
+## Meeting Structure (60 minutes)
+
+### 1. Opening (5 min)
+
+- Remind everyone of blameless culture
+- "We're here to learn, not to blame"
+- Review meeting norms
+
+### 2. Timeline Review (15 min)
+
+- Walk through events chronologically
+- Ask clarifying questions
+- Identify gaps in timeline
+
+### 3. Analysis Discussion (20 min)
+
+- What failed?
+- Why did it fail?
+- What conditions allowed this?
+- What would have prevented it?
+
+### 4. Action Items (15 min)
+
+- Brainstorm improvements
+- Prioritize by impact and effort
+- Assign owners and due dates
+
+### 5. Closing (5 min)
+
+- Summarize key learnings
+- Confirm action item owners
+- Schedule follow-up if needed
+
+## Facilitation Tips
+
+- Keep discussion on track
+- Redirect blame to systems
+- Encourage quiet participants
+- Document dissenting views
+- Time-box tangents
+```
+
+## Anti-Patterns to Avoid
+
+| Anti-Pattern            | Problem                    | Better Approach                 |
+| ----------------------- | -------------------------- | ------------------------------- |
+| **Blame game**          | Shuts down learning        | Focus on systems                |
+| **Shallow analysis**    | Doesn't prevent recurrence | Ask "why" 5 times               |
+| **No action items**     | Waste of time              | Always have concrete next steps |
+| **Unrealistic actions** | Never completed            | Scope to achievable tasks       |
+| **No follow-up**        | Actions forgotten          | Track in ticketing system       |
+
+## Best Practices
+
+### Do's
+
+- **Start immediately** - Memory fades fast
+- **Be specific** - Exact times, exact errors
+- **Include graphs** - Visual evidence
+- **Assign owners** - No orphan action items
+- **Share widely** - Organizational learning
+
+### Don'ts
+
+- **Don't name and shame** - Ever
+- **Don't skip small incidents** - They reveal patterns
+- **Don't make it a blame doc** - That kills learning
+- **Don't create busywork** - Actions should be meaningful
+- **Don't skip follow-up** - Verify actions completed

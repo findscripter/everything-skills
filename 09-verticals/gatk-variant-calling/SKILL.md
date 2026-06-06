@@ -1,14 +1,14 @@
 ---
 name: gatk-variant-calling
-title: GATK 种系变异检测最佳实践（HaplotypeCaller 联合分型）
-description: 当需要从 WGS/WES 的 BWA-MEM2 比对、去重、BQSR 后 BAM 检测种系 SNP/indel 并对多样本队列联合分型时使用；用 GATK4 最佳实践流程跑 BQSR→HaplotypeCaller(GVCF)→GenomicsDBImport→GenotypeGVCFs→VQSR/硬过滤，产出每样本 GVCF 与过滤后的多样本 VCF；不适用于体细胞/肿瘤变异（用 Mutect2）、追求更快可改用 DeepVariant、单纯文件解析用 genomic-file-toolkit。触发词：GATK、HaplotypeCaller、GVCF、GenotypeGVCFs、BQSR、VQSR、种系变异、SNP、indel、联合分型、变异检测、joint genotyping
+title: GATK — Germline Variant Calling Pipeline
+description: GATK Best Practices for germline SNP/indel calling from WGS/WES BAMs. Per-sample HaplotypeCaller GVCFs, GenomicsDBImport, GenotypeGVCFs joint calling, VQSR or hard filters. Requires BWA-MEM2-aligned, markdup, BQSR BAMs. Use DeepVariant for a faster DL alternative; GATK is the NIH/ENCODE standard.
 domain: 领域/science
-triggers: [GATK, HaplotypeCaller, GVCF, GenotypeGVCFs, GenomicsDBImport, BQSR, VQSR, 种系变异, SNP, indel, 联合分型, 变异检测, joint genotyping, VCF, DeepVariant]
+triggers: [GATK, HaplotypeCaller, GVCF, GenotypeGVCFs, GenomicsDBImport, BQSR, VQSR, SNP, indel, joint genotyping, VCF, DeepVariant]
 tags: [gatk, bioinformatics, genomics, variant-calling, germline, wgs, wes, vcf, gvcf, bqsr, science]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [gatk4, Java, samtools, bcftools, BWA-MEM2, Python, Snakemake]
+tools: []
 requires: []
 related: [cnvkit-copy-number, snpeff-variant-annotation, genomic-file-toolkit, star-rnaseq-aligner]
 combines_with: [snpeff-variant-annotation, snakemake-workflow-engine]
@@ -16,128 +16,324 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# GATK — Germline Variant Calling Pipeline
 
-当需要按 GATK 最佳实践从 Illumina WGS/WES 数据检测种系（germline）SNP 与 indel 时使用本条，典型场景：
+## Overview
 
-- 从已 BWA-MEM2 比对、标记重复（markdup）、BQSR 校正的 BAM 检测种系变异。
-- 对多样本队列（家系、病例-对照）做联合分型（joint genotyping），可增量扩样本而不重算旧样本。
-- 在 HaplotypeCaller 前做碱基质量分数重校正（BQSR）提升检出准确度。
-- 产出 GVCF，供后续 VEP/ANNOVAR/SnpEff 注释。
+GATK (Genome Analysis Toolkit) implements the GATK Best Practices workflow for calling SNPs and indels from Illumina WGS and WES data. The pipeline runs HaplotypeCaller per sample (producing GVCF files), consolidates GVCFs with GenomicsDBImport, performs joint genotyping with GenotypeGVCFs, and filters variants with VQSR (Variant Quality Score Recalibration) or hard filters. GATK requires BWA-MEM2-aligned, duplicate-marked, and base quality score recalibrated (BQSR) BAM files as input. It integrates with Picard tools, samtools, and bcftools for pre- and post-processing. The GATK4 workflow is the NIH/ENCODE standard for germline variant calling in research and clinical genomics.
 
-不该用本条的边界：
+## When to Use
 
-- 体细胞/肿瘤变异检测 → 用 Mutect2（GATK 的体细胞工具），本条只管种系。
-- 追求更快且精度相当 → 用 DeepVariant（Google，深度学习）；无需局部重组装的快速检测 → 用 bcftools call。
-- 仅做 BAM/VCF 读写、区域抓取、覆盖度统计等文件级操作 → 用 `genomic-file-toolkit`，不必上完整流水线。
-- 大规模分布式编排 → 用 `nextflow-pipeline-builder` 或 Snakemake 包裹本条命令。
+- Calling germline SNPs and indels from WGS or WES samples for population genetics or clinical variant analysis
+- Running joint genotyping across multiple samples for cohort-scale studies (families, case-control)
+- Applying base quality score recalibration (BQSR) to improve variant calling accuracy before HaplotypeCaller
+- Generating GVCF files for scalable cohort expansion: add new samples without reprocessing existing ones
+- Producing variant call sets for downstream annotation with Ensembl VEP, ANNOVAR, or SnpEff
+- Use **DeepVariant** (Google) instead for a faster deep-learning approach with comparable accuracy
+- Use **bcftools call** instead for rapid variant calling without assembly-based local realignment
 
-前置条件：GATK4、Java 17+、samtools、BWA-MEM2；参考基因组 FASTA + 已知位点 VCF（dbSNP、1000G、Mills indels）；输入 BAM 必须带 `@RG` 读组头。安装前先 `command -v gatk`，pixi 环境内用 `pixi run gatk`。
+## Prerequisites
 
-## 步骤
+- **Software**: GATK4, Java 17+, samtools, BWA-MEM2
+- **Reference files**: genome FASTA + known variants VCF (dbSNP, 1000G, Mills indels)
+- **Input**: duplicate-marked, sorted BAM with `@RG` read group headers (from BWA-MEM2)
 
-1. **BQSR**：`BaseRecalibrator` 建重校正表 → `ApplyBQSR` 输出校正后 BAM。
-2. **HaplotypeCaller（GVCF 模式）**：每样本独立调用，`-ERC GVCF` 产出每样本 GVCF。WES 加 `-L 靶区间 --interval-padding 100`。
-3. **GenomicsDBImport**：用 `--sample-name-map`（样本名\t路径 的 TSV）按染色体合并 GVCF 进 GenomicsDB。
-4. **GenotypeGVCFs**：在 GenomicsDB 上联合分型，按染色体输出，再 `MergeVcfs` 合并为队列 VCF。
-5. **过滤**：小队列/外显子用硬过滤（`SelectVariants` 拆 SNP/indel → `VariantFiltration` 加阈值 → `MergeVcfs` 合回）；变异数 >10k 的大队列可用 VQSR。
-6. **解析**：`bcftools query` 提取 PASS 位点字段，转 pandas DataFrame 做下游分析。
+> **Check before installing**: The tool may already be available in the current environment (e.g., inside a `pixi` / `conda` env). Run `command -v gatk` first and skip the install commands below if it returns a path. When running inside a pixi project, invoke the tool via `pixi run gatk` rather than bare `gatk`.
 
-关键参数：`-ERC GVCF`（队列工作流必选）；`--native-pair-hmm-threads 4~8`（HaplotypeCaller 最耗 CPU 步，配区间列表按染色体并行）；`--dbsnp` 注 rsID；`--stand-call-conf 30`（最低发射质量）；大基因组加 `--java-options "-Xmx16g"`。
+```bash
+# Install GATK4
+wget https://github.com/broadinstitute/gatk/releases/download/4.6.0.0/gatk-4.6.0.0.zip
+unzip gatk-4.6.0.0.zip
+export GATK="$PWD/gatk-4.6.0.0/gatk"
 
-## 示例
+# Or with conda
+conda install -c bioconda gatk4
 
-BQSR（已知位点拼成多个 `--known-sites`）：
+# Verify
+gatk --version
+# GATK v4.6.0.0
+
+# Download GATK resource bundle files (GRCh38)
+# From gs://gcp-public-data--broad-references/hg38/v0/ (requires gsutil or Broad FTP)
+```
+
+## Quick Start
 
 ```bash
 GENOME="GRCh38.fa"
-gatk BaseRecalibrator -R $GENOME -I sample1.markdup.bam \
-    --known-sites dbsnp_146.hg38.vcf.gz \
-    --known-sites Mills_and_1000G_gold_standard.indels.hg38.vcf.gz \
+DBSNP="dbsnp_146.hg38.vcf.gz"
+
+# Run HaplotypeCaller in GVCF mode
+gatk HaplotypeCaller \
+    -R $GENOME \
+    -I sample1.markdup.bam \
+    -O sample1.g.vcf.gz \
+    -ERC GVCF \
+    --dbsnp $DBSNP \
+    --native-pair-hmm-threads 4
+
+echo "GVCF: sample1.g.vcf.gz"
+```
+
+## Workflow
+
+### Step 1: Base Quality Score Recalibration (BQSR)
+
+Correct systematic errors in base quality scores before variant calling.
+
+```bash
+GENOME="GRCh38.fa"
+KNOWN_SITES="dbsnp_146.hg38.vcf.gz Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+KNOWN_FLAGS=$(printf -- '--known-sites %s ' $KNOWN_SITES)
+
+# Step 1a: Build recalibration table
+gatk BaseRecalibrator \
+    -R $GENOME \
+    -I sample1.markdup.bam \
+    $KNOWN_FLAGS \
     -O sample1.recal.table
-gatk ApplyBQSR -R $GENOME -I sample1.markdup.bam \
-    --bqsr-recal-file sample1.recal.table -O sample1.bqsr.bam
+
+# Step 1b: Apply recalibration
+gatk ApplyBQSR \
+    -R $GENOME \
+    -I sample1.markdup.bam \
+    --bqsr-recal-file sample1.recal.table \
+    -O sample1.bqsr.bam
+
+echo "BQSR BAM: sample1.bqsr.bam"
+samtools flagstat sample1.bqsr.bam | head -3
 ```
 
-HaplotypeCaller（GVCF 模式，队列推荐）：
+### Step 2: Call Variants with HaplotypeCaller (GVCF Mode)
+
+Run per-sample variant calling, producing an intermediate GVCF for joint genotyping.
 
 ```bash
-gatk HaplotypeCaller -R GRCh38.fa -I sample1.bqsr.bam \
-    -O gvcfs/sample1.g.vcf.gz -ERC GVCF \
-    --dbsnp dbsnp_146.hg38.vcf.gz --native-pair-hmm-threads 4
-# WES 加：-L exome_targets.interval_list --interval-padding 100
+# HaplotypeCaller in GVCF mode (recommended for cohort analysis)
+gatk HaplotypeCaller \
+    -R GRCh38.fa \
+    -I sample1.bqsr.bam \
+    -O gvcfs/sample1.g.vcf.gz \
+    -ERC GVCF \
+    --dbsnp dbsnp_146.hg38.vcf.gz \
+    --native-pair-hmm-threads 4
+
+# For WES: specify target intervals
+# gatk HaplotypeCaller ... -L exome_targets.interval_list --interval-padding 100
+
+echo "GVCF: gvcfs/sample1.g.vcf.gz"
+zcat gvcfs/sample1.g.vcf.gz | grep -v "^#" | wc -l
 ```
 
-合并 GVCF → 联合分型（按染色体，可并行）：
+### Step 3: Consolidate GVCFs with GenomicsDBImport
+
+Merge per-sample GVCFs for efficient joint genotyping.
 
 ```bash
-# sample_map.txt 每行：样本名<TAB>GVCF路径
+# Create sample map file: sample_name\tpath_to_gvcf
+printf "ctrl_1\tgvcfs/ctrl_1.g.vcf.gz\n" > sample_map.txt
+printf "ctrl_2\tgvcfs/ctrl_2.g.vcf.gz\n" >> sample_map.txt
+printf "treat_1\tgvcfs/treat_1.g.vcf.gz\n" >> sample_map.txt
+printf "treat_2\tgvcfs/treat_2.g.vcf.gz\n" >> sample_map.txt
+
+# Import GVCFs into GenomicsDB for each chromosome
 for CHR in chr1 chr2 chr3; do
-  gatk GenomicsDBImport --sample-name-map sample_map.txt \
-      --genomicsdb-workspace-path genomicsdb/${CHR} -L $CHR --reader-threads 4
-  gatk GenotypeGVCFs -R GRCh38.fa -V gendb://genomicsdb/${CHR} \
-      --dbsnp dbsnp_146.hg38.vcf.gz -O vcfs/cohort_${CHR}.vcf.gz
+    gatk GenomicsDBImport \
+        --sample-name-map sample_map.txt \
+        --genomicsdb-workspace-path genomicsdb/${CHR} \
+        -L $CHR \
+        --reader-threads 4
 done
-gatk MergeVcfs $(ls vcfs/cohort_chr*.vcf.gz | sed 's/^/-I /') -O vcfs/cohort_all.vcf.gz
+
+echo "GenomicsDB created for $(ls genomicsdb/ | wc -l) chromosomes"
 ```
 
-硬过滤（小队列/外显子，分 SNP 与 indel 用不同阈值）：
+### Step 4: Joint Genotyping with GenotypeGVCFs
+
+Genotype all samples simultaneously across the GenomicsDB.
 
 ```bash
-gatk SelectVariants -V vcfs/cohort_all.vcf.gz --select-type-to-include SNP   -O vcfs/snps.vcf.gz
+# Joint genotype all samples
+mkdir -p vcfs
+for CHR in chr1 chr2 chr3; do
+    gatk GenotypeGVCFs \
+        -R GRCh38.fa \
+        -V gendb://genomicsdb/${CHR} \
+        --dbsnp dbsnp_146.hg38.vcf.gz \
+        -O vcfs/cohort_${CHR}.vcf.gz
+done
+
+# Merge per-chromosome VCFs
+gatk MergeVcfs \
+    $(ls vcfs/cohort_chr*.vcf.gz | sed 's/^/-I /') \
+    -O vcfs/cohort_all.vcf.gz
+
+echo "Joint genotyping complete: vcfs/cohort_all.vcf.gz"
+gatk CountVariants -V vcfs/cohort_all.vcf.gz
+```
+
+### Step 5: Variant Filtration (Hard Filters)
+
+Apply hard filters for small cohorts where VQSR is underpowered.
+
+```bash
+# Separate SNPs and indels
+gatk SelectVariants -V vcfs/cohort_all.vcf.gz --select-type-to-include SNP -O vcfs/snps.vcf.gz
 gatk SelectVariants -V vcfs/cohort_all.vcf.gz --select-type-to-include INDEL -O vcfs/indels.vcf.gz
 
-gatk VariantFiltration -V vcfs/snps.vcf.gz \
-  --filter-expression "QD < 2.0"          --filter-name "QD2" \
-  --filter-expression "FS > 60.0"         --filter-name "FS60" \
-  --filter-expression "MQ < 40.0"         --filter-name "MQ40" \
-  --filter-expression "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" \
-  -O vcfs/snps_filtered.vcf.gz
+# Apply hard filters: SNPs
+gatk VariantFiltration \
+    -V vcfs/snps.vcf.gz \
+    --filter-expression "QD < 2.0" --filter-name "QD2" \
+    --filter-expression "FS > 60.0" --filter-name "FS60" \
+    --filter-expression "MQ < 40.0" --filter-name "MQ40" \
+    --filter-expression "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" \
+    -O vcfs/snps_filtered.vcf.gz
 
-gatk VariantFiltration -V vcfs/indels.vcf.gz \
-  --filter-expression "QD < 2.0"             --filter-name "QD2" \
-  --filter-expression "FS > 200.0"           --filter-name "FS200" \
-  --filter-expression "ReadPosRankSum < -20.0" --filter-name "ReadPosRankSum-20" \
-  -O vcfs/indels_filtered.vcf.gz
+# Apply hard filters: Indels
+gatk VariantFiltration \
+    -V vcfs/indels.vcf.gz \
+    --filter-expression "QD < 2.0" --filter-name "QD2" \
+    --filter-expression "FS > 200.0" --filter-name "FS200" \
+    --filter-expression "ReadPosRankSum < -20.0" --filter-name "ReadPosRankSum-20" \
+    -O vcfs/indels_filtered.vcf.gz
 
+# Merge filtered SNPs + indels
 gatk MergeVcfs -I vcfs/snps_filtered.vcf.gz -I vcfs/indels_filtered.vcf.gz \
-  -O vcfs/cohort_filtered.vcf.gz
+    -O vcfs/cohort_filtered.vcf.gz
+
+echo "PASS variants: $(bcftools view -f PASS vcfs/cohort_filtered.vcf.gz | grep -v '^#' | wc -l)"
 ```
 
-提取 PASS 位点到 DataFrame：
+### Step 6: Parse VCF Results with Python
+
+Extract variants, annotate with gene info, and prepare a DataFrame.
 
 ```python
-import subprocess, io, pandas as pd
-r = subprocess.run(
+import subprocess
+import pandas as pd
+import io
+
+# Use bcftools query to extract fields from filtered VCF
+result = subprocess.run(
     ["bcftools", "query",
      "-f", "%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\t%INFO/QD\t%INFO/FS\n",
-     "-i", "FILTER='PASS'", "vcfs/cohort_filtered.vcf.gz"],
-    capture_output=True, text=True)
-cols = ["CHR","POS","ID","REF","ALT","QUAL","FILTER","QD","FS"]
-df = pd.read_csv(io.StringIO(r.stdout), sep="\t", names=cols)
+     "-i", "FILTER='PASS'",
+     "vcfs/cohort_filtered.vcf.gz"],
+    capture_output=True, text=True
+)
+
+cols = ["CHR", "POS", "ID", "REF", "ALT", "QUAL", "FILTER", "QD", "FS"]
+df = pd.read_csv(io.StringIO(result.stdout), sep="\t", names=cols)
+df["QUAL"] = pd.to_numeric(df["QUAL"], errors="coerce")
+df["QD"] = pd.to_numeric(df["QD"], errors="coerce")
+
 print(f"PASS variants: {len(df)}")
+print(f"SNPs:  {(df['REF'].str.len() == 1) & (df['ALT'].str.len() == 1)).sum()}")
+print(f"Indels: {((df['REF'].str.len() > 1) | (df['ALT'].str.len() > 1)).sum()}")
+print(df.head())
 df.to_csv("pass_variants.tsv", sep="\t", index=False)
 ```
 
-单样本（无队列）：跳过 GenomicsDBImport，HaplotypeCaller 不加 `-ERC GVCF` 直出 VCF，再硬过滤。
+## Key Parameters
 
-## 注意事项
+| Parameter | Default | Range/Options | Effect |
+|-----------|---------|---------------|--------|
+| `-ERC` | `NONE` | `GVCF`, `BP_RESOLUTION` | Emit reference confidence mode; `GVCF` for cohort workflows |
+| `--native-pair-hmm-threads` | `4` | 1–32 | Threads for pair-HMM in HaplotypeCaller (most CPU-intensive step) |
+| `-L` | whole genome | interval file or chr | Restrict calling to intervals (exome targets, BED regions) |
+| `--dbsnp` | — | VCF path | dbSNP VCF for rsID annotation in output |
+| `--stand-call-conf` | `30` | 0–100 | Min genotype quality score to emit a variant call |
+| `-G` | `StandardAnnotation` | annotation group | Annotation modules to apply (StandardHCAnnotation for HaplotypeCaller) |
+| `--sample-name-map` | — | TSV file | Sample-to-GVCF mapping for GenomicsDBImport |
+| `--reader-threads` | `1` | 1–16 | Threads for GenomicsDBImport reading |
+| `--filter-expression` | — | JEXL expression | Hard filter expression (e.g., `"QD < 2.0"`) |
+| `--java-options` | — | `-Xmx4g` | Java heap size; use `-Xmx16g` for large genomes |
 
-- **缺 @RG 头**：`SAM/BAM file has no @RG header` → 重新比对时带 `-R "@RG\tID:...\tSM:...\tPL:ILLUMINA"`。
-- **Java OOM**：加 `--java-options "-Xmx16g"`（大基因组更高）。
-- **HaplotypeCaller 慢**：单线程 HMM 是瓶颈，加 `--native-pair-hmm-threads 8`，并用区间列表按染色体并行。
-- **染色体命名要一致**：BAM 与参考 FASTA 必须同用 `chr1` 或 `1`，否则 `IndexOutOfBoundsException`；GVCF 为空多因区间错或该区域无 reads（`samtools view -c sample.bam chrN` 核对）。
-- **VQSR 需足量变异**：变异 <10k（小队列/外显子）时 VQSR 训练不足，改用硬过滤。
-- **GenomicsDB 不能复用已存在路径**：重跑前 `rm -rf genomicsdb/chrN`。
-- **索引缺失**：`gatk IndexFeatureFile -I file.vcf.gz` 或 `tabix -p vcf file.vcf.gz` 补 `.tbi`。
-- 硬过滤阈值是经验值（SNP 与 indel 不同），按数据质量调整；务必先看变异质控指标分布。
+## Common Recipes
 
-## 互见
+### Recipe 1: Single-Sample Variant Calling (No Cohort)
 
-- requires：`genomic-file-toolkit` —— BAM/VCF 的读写、索引、区域抓取与覆盖度统计是本流程的输入/输出处理基础。
-- related：`gene-set-enrichment-analysis` —— 变异/基因列表的下游富集解读；`single-cell-rnaseq-analysis` —— 同属基因组学分析家族。
-- combines_with：`nextflow-pipeline-builder` —— 把 BQSR→HaplotypeCaller→联合分型各步包成可复现、可并行的工作流（Snakemake 同理，源中已给 Snakefile 示例）。
+```bash
+# For a single sample, skip GenomicsDBImport and call directly
+gatk HaplotypeCaller \
+    -R GRCh38.fa \
+    -I sample.bqsr.bam \
+    -O sample.vcf.gz \
+    --dbsnp dbsnp_146.hg38.vcf.gz \
+    --native-pair-hmm-threads 8
 
----
+# Hard filter the single-sample VCF
+gatk VariantFiltration \
+    -V sample.vcf.gz \
+    --filter-expression "QD < 2.0" --filter-name "QD2" \
+    --filter-expression "FS > 60.0" --filter-name "FS60" \
+    -O sample_filtered.vcf.gz
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+echo "PASS variants: $(bcftools view -f PASS sample_filtered.vcf.gz | grep -v '^#' | wc -l)"
+```
+
+### Recipe 2: Run Full Pipeline with Snakemake
+
+```python
+# Snakefile — GATK BQSR + HaplotypeCaller
+configfile: "config.yaml"
+SAMPLES = config["samples"]
+GENOME  = config["genome"]
+DBSNP   = config["dbsnp"]
+KNOWN   = config["known_sites"]
+
+rule all:
+    input: expand("gvcfs/{sample}.g.vcf.gz", sample=SAMPLES)
+
+rule bqsr:
+    input: bam="markdup/{sample}.markdup.bam"
+    output: bam="bqsr/{sample}.bqsr.bam"
+    shell:
+        """
+        gatk BaseRecalibrator -R {GENOME} -I {input.bam} \
+             --known-sites {KNOWN} -O bqsr/{wildcards.sample}.recal.table &&
+        gatk ApplyBQSR -R {GENOME} -I {input.bam} \
+             --bqsr-recal-file bqsr/{wildcards.sample}.recal.table \
+             -O {output.bam}
+        """
+
+rule haplotypecaller:
+    input: bam="bqsr/{sample}.bqsr.bam"
+    output: gvcf="gvcfs/{sample}.g.vcf.gz"
+    threads: 4
+    shell:
+        "gatk HaplotypeCaller -R {GENOME} -I {input.bam} -O {output.gvcf} "
+        "-ERC GVCF --dbsnp {DBSNP} --native-pair-hmm-threads {threads}"
+```
+
+## Expected Outputs
+
+| Output | Format | Description |
+|--------|--------|-------------|
+| `*.g.vcf.gz` | GVCF | Per-sample GVCF with reference confidence blocks; input to GenomicsDBImport |
+| `cohort_all.vcf.gz` | VCF | Joint-genotyped multi-sample VCF; unfiltered |
+| `cohort_filtered.vcf.gz` | VCF | Filtered VCF; FILTER=PASS for passing variants |
+| `*.recal.table` | BQSR | Base quality recalibration table from BaseRecalibrator |
+| `*.bqsr.bam` | BAM | Recalibrated BAM; use as HaplotypeCaller input |
+| `genomicsdb/` | Directory | GenomicsDB workspace per chromosome for joint genotyping |
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `SAM/BAM file has no @RG header` | Missing read group from BWA-MEM2 | Re-align with `-R "@RG\tID:...\tSM:...\tPL:ILLUMINA"` |
+| Java OutOfMemoryError | Insufficient heap size | Add `--java-options "-Xmx16g"` or more |
+| HaplotypeCaller very slow | Single-threaded HMM | Add `--native-pair-hmm-threads 8`; use interval lists to parallelize by chr |
+| Empty GVCF output | Wrong interval or no reads in region | Check `samtools view -c sample.bam chrN` for read counts |
+| VQSR fails (< 10k variants) | Too few variants for training | Use hard filters instead of VQSR for small cohorts or exomes |
+| GenomicsDB import fails on existing path | GenomicsDB workspace already exists | Delete existing workspace: `rm -rf genomicsdb/chr1` before re-running |
+| `IndexOutOfBoundsException` | Chromosome name mismatch between BAM and reference | Ensure genome FASTA and BAM use same chr naming (chr1 vs 1) |
+| BCFtools/tabix index missing | Tabix index (.tbi) not created | Run `gatk IndexFeatureFile -I file.vcf.gz` or `tabix -p vcf file.vcf.gz` |
+
+## References
+
+- [GATK documentation](https://gatk.broadinstitute.org/hc/en-us) — official pipeline guides and tool documentation
+- [GATK Best Practices for germline short variants](https://gatk.broadinstitute.org/hc/en-us/articles/360035535932) — step-by-step protocol
+- [GATK GitHub: broadinstitute/gatk](https://github.com/broadinstitute/gatk) — source code, releases, and resource bundle
+- Van der Auwera GA & O'Connor BD (2020) *Genomics in the Cloud* — O'Reilly Media; comprehensive GATK4 guide

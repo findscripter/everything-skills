@@ -1,14 +1,14 @@
 ---
 name: humanize-chinese-text
-title: 中文 AI 味检测与降痕改写
-description: 当需要给中文文本去 AI 味、降 AIGC、去除 AI 痕迹、论文降重或转换写作风格时使用；先检测 AI 标记再做最小必要改写并产出更自然的中文及改写说明；不适用于英文文本、内容真伪核验或凭空编造引用数据；触发词：去AI味、降AIGC、去除AI痕迹、论文降重、知网/维普检测、改成人话。
+title: Humanize Chinese
+description: Detect and rewrite AI-like Chinese text with a practical workflow for scoring, humanization, academic AIGC reduction, and style conversion. Use when the user asks to 去AI味, 降AIGC, 去除AI痕迹, 论文降重, 知网检测, 维普检测, humanize chinese, detect AI text, or make Chinese text sound more natural.
 domain: 文书/writing
-triggers: [去AI味, 降AIGC, 去除AI痕迹, 让文字更自然, 改成人话, 降低AI率, 论文降重, 知网检测, 维普检测, 万方检测, 改成小红书风格, 改成知乎风格]
-tags: [中文写作, ai味检测, aigc降痕, 论文降重, 文风转换, 文本改写]
-level: 进阶
+triggers: []
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Edit, Write, Bash]
+tools: []
 requires: []
 related: [content-humanizer, avoid-ai-writing-patterns, beautiful-prose-stylist, professional-proofreader]
 combines_with: [xiaohongshu-content-strategy, wechat-official-account-growth]
@@ -16,54 +16,55 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Humanize Chinese
 
-适用：
-- 用户要求「去AI味 / 降AIGC / 去除AI痕迹 / 让文字更自然 / 改成人话 / 降低AI率」。
-- 需要排查某段中文是否存在 AI 写作痕迹或可疑措辞。
-- 论文、报告、毕业论文等学术文本需面向知网（CNKI）、维普（VIP）、万方（Wanfang）做 AIGC 降痕。
-- 需要把中文改写成特定风格：知乎、小红书、公众号、微博、文学、口语、学术。
+Use this skill when you need to detect AI-like Chinese writing, rewrite it to feel less synthetic, reduce AIGC signals in academic prose, or convert the text into a more specific Chinese writing style.
 
-不该用（负边界）：
-- 英文或其他非中文文本。
-- 把本技能当成事实真伪、数据正确性的核验工具。
-- 任何需要凭空捏造引用、证据、数据的场景（严禁伪造）。
-- 输入、权限、安全边界或成功标准缺失时——先停下来问清楚，不要硬改。
+## When to Use
+- Use when the user says `去AI味`, `降AIGC`, `去除AI痕迹`, `让文字更自然`, `改成人话`, or `降低AI率`
+- Use when the user wants a Chinese text checked for AI-writing patterns or suspicious phrasing
+- Use when the user wants academic-paper-specific AIGC reduction for CNKI, VIP, or Wanfang-style checks
+- Use when the user wants Chinese text rewritten into a different style such as `zhihu`, `xiaohongshu`, `wechat`, `weibo`, `literary`, or `academic`
 
-## 步骤
+## Core Workflow
 
-1. 先检测，后改写。不要盲改，先标出最明显的 AI 标记：
-   - 僵硬的「首先/其次/最后」镜像结构；
-   - 机械连接词，如「综上所述」「值得注意的是」「由此可见」；
-   - 高大空、信息密度低的抽象表述；
-   - 句子节奏、段落长度高度雷同；
-   - 学术文字过于完整、过于确定、过于模板化。
-   若用户给的是短样本，先直接点出可疑短语，再动手改。
+### 1. Detect Before Rewriting
 
-2. 用最小有效改动重写。优先定点改，而非整段重生成：
-   - 删冗余连接词，而不是逐句换皮；
-   - 打散句长与段落节奏；
-   - 替换重复出现的动词和名词短语；
-   - 把抽象总结换成具体观察；
-   - 保留原有论点、事实、引用和术语不变。
+Start by identifying the most obvious AI markers instead of rewriting blindly:
 
-3. 校验结果。改完确认文本：
-   - 含义不变；
-   - 模板感下降；
-   - 节奏更自然；
-   - 未引入事实漂移；
-   - 语域贴合目标读者。学术文本须保留学术腔，不要过度口语化。
+- rigid `first/second/finally` structures
+- mechanical connectors such as `综上所述`, `值得注意的是`, `由此可见`
+- abstract grandiose wording with low information density
+- repeated sentence rhythm and paragraph length
+- academic prose that sounds too complete, too certain, or too template-driven
 
-4.（学术专项）AIGC 降痕：保留学科术语；把 AI 学术套话换成更落地的表达；适度加入审慎措辞，降低绝对化口吻；让各小节不再是同一套模板；若结论显得「不自然地圆满」，补充局限或不确定性。安全方向示例：
-   - 「本文旨在」→「本文尝试」或「本研究关注」
-   - 「具有重要意义」→「值得关注」或「有一定参考价值」
-   - 「研究表明」→「前人研究发现」或「已有文献显示」
+If the user provides a short sample, call out the suspicious phrases directly before rewriting.
 
-5.（可选）风格转换：仅在底稿已通顺自然后再做。换风格时只动语气、结构和表层措辞，保持原意稳定。
+### 2. Rewrite in the Smallest Useful Pass
 
-## 指令
+Prefer targeted rewrites over total regeneration:
 
-若用户本地有源工具包克隆，可走 CLI：
+- remove formulaic connectors rather than paraphrasing every sentence
+- vary sentence length and paragraph rhythm
+- replace repeated verbs and noun phrases
+- swap abstract summaries for concrete observations where possible
+- keep the original claims, facts, citations, and terminology intact
+
+### 3. Validate the Result
+
+After rewriting, verify that the text:
+
+- still says the same thing
+- sounds less templated
+- uses more natural rhythm
+- does not introduce factual drift
+- stays in the correct register for the target audience
+
+For academic text, preserve a scholarly tone. Do not over-casualize.
+
+## Optional CLI Flow
+
+If the user has a local clone of the source toolkit, these examples are useful:
 
 ```bash
 python3 scripts/detect_cn.py text.txt -v
@@ -72,44 +73,80 @@ python3 scripts/academic_cn.py paper.txt -o clean.txt --compare
 python3 scripts/style_cn.py text.txt --style xiaohongshu -o out.txt
 ```
 
-可用时的 CLI 顺序：1) 检测并审视可疑句；2) 改写或对比；3) 对清洗后的文件重跑检测；4) 按需转换目标风格。
+Use this CLI sequence when available:
 
-支持的风格方向：`casual`、`zhihu`、`xiaohongshu`、`wechat`、`academic`、`literary`、`weibo`。
+1. detect and inspect suspicious sentences
+2. rewrite or compare
+3. rerun detection on the cleaned file
+4. optionally convert into a target style
 
-脚本不可用时，走手动改写套路：
-- 先删无意义的弱转折；
-- 把重复短语合并成一句更有力的话；
-- 在自然转折处断句，而非硬凑长平衡句；
-- 把生硬机械的碎句适当合并；
-- 用具体措辞替换泛泛抽象；
-- 让节奏轻微起伏，避免全文匀速「行军」。
+## Manual Rewrite Playbook
 
-## 示例
+If the scripts are unavailable, use this manual process.
 
-输入（AI 味明显）：
-> 综上所述，本文旨在系统性地研究该问题。首先，我们分析了背景；其次，我们提出了方法；最后，我们得出了具有重要意义的结论。研究表明，该方法效果显著。
+### Common AI Markers
 
-改写思路（1-3 条）：
-- 删机械连接词「综上所述」「首先/其次/最后」镜像结构；
-- 「本文旨在/具有重要意义/研究表明」换成审慎落地表达；
-- 打散匀速句长。
+- numbered or mirrored structures that feel too symmetrical
+- filler transitions that add no meaning
+- repeated stock phrases
+- overly even sentence length
+- conclusions that sound final, polished, and risk-free
 
-输出：
-> 本文尝试拆解这个问题。先看背景，再给出方法，最后落到结论。已有文献显示，该方法在测试场景下有一定改善，仍受样本规模所限。
+### Rewrite Moves
 
-## 注意事项
+- delete weak transitions first
+- collapse repetitive phrases into one stronger sentence
+- split sentences at natural turns instead of forcing long balanced structures
+- merge choppy sentences when they feel robotic
+- replace generic abstractions with concrete wording
+- introduce light variation in cadence so the prose does not march at a constant tempo
 
-- 输出规则：先列出发现的主要 AI 痕迹；用 1-3 条短 bullet 说明改写策略；返回改写后的中文；必要时补一句尚存的薄弱处。
-- 不要伪造引用、证据或数据。
-- 学术文本保留学术语域，不要过度口语化。
-- 本技能不替代环境相关的验证、测试或专家评审。
-- 任务超出上述范围时不要硬套；缺输入/权限/安全边界/成功标准时先问清。
+## Academic AIGC Reduction
 
-## 互见
+For papers, reports, or theses:
 
-- resume-builder：中文简历生成，同属中文文书产出场景。
-- code-review / simplify：若改写对象是代码注释或文档，可配合质量复核。
+- keep discipline-specific terminology unchanged
+- replace AI-academic stock phrases with more grounded scholarly phrasing
+- reduce absolute certainty with measured hedging where appropriate
+- vary paragraph structure so each section does not read like the same template
+- add limitations or uncertainty if the conclusion feels unnaturally complete
 
----
+Examples of safer direction changes:
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可），其上游为 `voidborne-d/humanize-chinese` 项目及其检测/改写 CLI 工作流。
+- `本文旨在` -> `本文尝试` or `本研究关注`
+- `具有重要意义` -> `值得关注` or `有一定参考价值`
+- `研究表明` -> `前人研究发现` or `已有文献显示`
+
+Do not invent citations, evidence, or data.
+
+## Style Conversion
+
+Use style conversion only after the base text is readable and natural.
+
+Supported style directions from the source workflow:
+
+- `casual`
+- `zhihu`
+- `xiaohongshu`
+- `wechat`
+- `academic`
+- `literary`
+- `weibo`
+
+When switching style, keep the user's meaning stable and change only tone, structure, and surface wording.
+
+## Output Rules
+
+- Show the main AI-like patterns you found
+- Explain the rewrite strategy in 1-3 short bullets
+- Return the rewritten Chinese text
+- If helpful, include a short note on remaining weak spots
+
+## Source
+
+Adapted from the `voidborne-d/humanize-chinese` project and its CLI/script workflow for Chinese AI-text detection and rewriting.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

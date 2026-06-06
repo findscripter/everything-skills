@@ -1,14 +1,14 @@
 ---
 name: fastp-fastq-preprocessing
-title: fastp FASTQ 质控与接头修剪
-description: 当对 Illumina FASTQ（单端/双端、RNA-seq/WGS/WES/ChIP-seq/ATAC-seq）做比对前预处理时使用；用 fastp 一遍完成接头自动识别、质量/长度过滤、双端重叠校正、polyX 去尾，产出修剪后的 fastq.gz 和 HTML+JSON 质控报告，供 MultiQC 汇总；不适用于已比对 BAM/VCF 解析、需 FastQC 逐碱基详报或 Trimmomatic 滑窗精控的场景。触发词：fastp、FASTQ、接头修剪、adapter trimming、质控、QC、polyA、双端、MultiQC
+title: fastp — Fast FASTQ Quality Control and Adapter Trimming
+description: All-in-one FASTQ QC and adapter trimming. Auto-detects Illumina adapters, filters low-quality reads, corrects paired-end overlaps, emits HTML+JSON QC in one pass. 3-10x faster than Trim Galore/Trimmomatic. First step before STAR, BWA-MEM2, or Salmon.
 domain: 领域/science
-triggers: [fastp, FASTQ, 接头修剪, adapter trimming, 质控, QC, polyA, 双端, PE, MultiQC, 比对前预处理]
+triggers: [fastp, FASTQ, adapter trimming, QC, polyA, PE, MultiQC]
 tags: [bioinformatics, genomics, fastp, fastq, qc, adapter-trimming, ngs, rnaseq, preprocessing, multiqc, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [fastp, multiqc, python, pandas, snakemake, conda, bash]
+tools: []
 requires: []
 related: [star-rnaseq-aligner, genomic-file-toolkit, gatk-variant-calling, nextflow-pipeline-builder]
 combines_with: [star-rnaseq-aligner, gatk-variant-calling]
@@ -16,183 +16,360 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# fastp — Fast FASTQ Quality Control and Adapter Trimming
 
-当 Agent 需要在比对（STAR/BWA-MEM2/Salmon）之前对 Illumina 原始测序数据做一站式质控与接头修剪时使用本条，典型场景：
+## Overview
 
-- 任何 NGS 流程（RNA-seq、WGS、WES、ChIP-seq、ATAC-seq）比对前去接头、去低质量碱基。
-- 作为流程第一步，逐样本产出 HTML+JSON 质控报告，再交 MultiQC 汇总。
-- 双端数据优先用重叠（overlap）自动识别接头，而非手动指定接头序列。
-- 3′ 端富集 RNA-seq（QuantSeq、Smart-seq）去 polyA/polyX 尾。
-- 按 UMI 或 index 拆分 FASTQ 用于解多路复用（demultiplexing）。
+fastp performs adapter trimming, quality filtering, and QC reporting for Illumina FASTQ files in a single multi-threaded pass. It automatically detects adapter sequences from paired-end read overlaps — eliminating the need to specify adapters manually. fastp corrects mismatches in paired-end overlap regions, filters reads by quality score and length, removes polyX tails (polyA for RNA-seq), and generates interactive HTML and machine-readable JSON QC reports. Being 3–10× faster than Trim Galore and Trimmomatic while providing comparable or better results, fastp has become the standard preprocessing step before alignment in WGS, RNA-seq, and ChIP-seq pipelines.
 
-**不该用本条的边界：**
+## When to Use
 
-- 已比对/已变异的文件（BAM/CRAM/VCF）解析、覆盖度统计 → 用 genomic-file-toolkit。
-- 需要 FastQC 那种逐碱基质量详细图随修剪一并产出 → 用 Trim Galore。
-- 需要细粒度滑动窗口（sliding-window）裁剪步骤的精细控制 → 用 Trimmomatic。
+- Trimming Illumina adapters and low-quality bases before alignment in any NGS pipeline (RNA-seq, WGS, WES, ChIP-seq, ATAC-seq)
+- Generating per-sample QC reports (HTML + JSON) as the first step of a pipeline, before MultiQC aggregation
+- Processing paired-end reads where adapter auto-detection from overlap is preferred over manual adapter specification
+- Removing polyA tails from RNA-seq reads from 3′ end-enriched protocols (Smart-seq, QuantSeq)
+- Splitting a FASTQ file by UMI or by index for demultiplexing workflows
+- Use **Trim Galore** as an alternative when TrimGalore's detailed per-base quality report from FastQC is required alongside trimming
+- Use **Trimmomatic** as an alternative for fine-grained control of sliding-window trimming steps
 
-fastp 比 Trim Galore / Trimmomatic 快 3–10×，单遍多线程，效果相当或更好，已是上述流程的标准预处理工具。
+## Prerequisites
 
-## 步骤
+- **Software**: fastp (conda or pre-compiled binary)
+- **Input**: raw Illumina FASTQ files (single-end or paired-end, .fastq or .fastq.gz)
 
-1. 检查与安装：先 `command -v fastp`，已在 pixi/conda 环境则跳过安装；pixi 项目里用 `pixi run fastp`。
-2. 准备输入：单端或双端原始 FASTQ（`.fastq` / `.fastq.gz`）。
-3. 单端：自动识别接头跑修剪（见示例）。
-4. 双端：加 `--detect_adapter_for_pe` 启用重叠自动识别 + `--correction` 校正重叠区错配。
-5. 调质量/长度阈值：按场景设 `--qualified_quality_phred` 与 `--length_required`（变异检测从严，普通流程从宽）。
-6. RNA-seq 3′ 富集协议：加 `--trim_poly_x --poly_x_min_len 10` 去 polyA 尾。
-7. 解析 JSON 做自动质量门禁（quality gate），批量时再用 MultiQC 汇总所有报告。
-
-## 指令
-
-关键参数（默认值 → 效果）：
-
-| 参数 | 默认 | 作用 |
-|---|---|---|
-| `-i / -I` | 必填 | 输入 FASTQ（双端 R1 / R2） |
-| `-o / -O` | 必填 | 输出修剪后 FASTQ（R1 / R2） |
-| `-h / -j` | — | HTML / JSON 报告输出路径 |
-| `--thread` | 3 | 线程数，8 较均衡 |
-| `--qualified_quality_phred` | 15 | 最低碱基质量（Phred），20=1% 错误率 |
-| `--length_required` | 15 | 修剪后最短读长，更短的丢弃 |
-| `--correction` | 关 | 校正双端重叠区错配 |
-| `--detect_adapter_for_pe` | 关 | 双端重叠法自动识别接头 |
-| `--adapter_sequence` | 自动 | 显式指定 R1 接头，覆盖自动识别 |
-| `--trim_poly_x` | 关 | 去 polyX 尾（polyA/polyT），用于 3′ 富集 RNA-seq |
-| `--low_complexity_filter` | 关 | 过滤低复杂度读（默认 <30%） |
-| `--split` | 关 | 每方向拆成 N 个文件，便于并行 |
-
-安装与校验：
+> **Check before installing**: The tool may already be available in the current environment (e.g., inside a `pixi` / `conda` env). Run `command -v fastp` first and skip the install commands below if it returns a path. When running inside a pixi project, invoke the tool via `pixi run fastp` rather than bare `fastp`.
 
 ```bash
-command -v fastp || conda install -c bioconda fastp   # 已有则跳过
-# 或预编译二进制（Linux）
+# Install with conda
+conda install -c bioconda fastp
+
+# Or download pre-compiled binary (Linux)
 wget https://github.com/OpenGene/fastp/releases/download/v0.24.0/fastp
 chmod +x fastp
-fastp --version    # fastp 0.24.0
+./fastp --version
+# fastp 0.24.0
+
+# Verify
+fastp --version
 ```
 
-接头自动识别失败时显式指定（Illumina TruSeq）：
+## Quick Start
 
 ```bash
-fastp -i R1.fq.gz -I R2.fq.gz \
-  --adapter_sequence AGATCGGAAGAGCACACGTCTGAACTCCAGTCA \
-  --adapter_sequence_r2 AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT \
-  -o R1.out.fq.gz -O R2.out.fq.gz
-```
-
-## 示例
-
-双端：重叠法自动识别接头 + 校正（推荐默认）：
-
-```bash
+# Paired-end adapter trimming with QC report
 fastp \
-    -i sample_R1.fastq.gz -I sample_R2.fastq.gz \
-    -o sample_R1.trimmed.fastq.gz -O sample_R2.trimmed.fastq.gz \
-    -h sample_qc.html -j sample_qc.json \
+    -i sample_R1.fastq.gz \
+    -I sample_R2.fastq.gz \
+    -o sample_R1.trimmed.fastq.gz \
+    -O sample_R2.trimmed.fastq.gz \
+    -h sample_qc.html \
+    -j sample_qc.json \
+    --thread 8
+
+echo "Trimmed reads in: sample_R1.trimmed.fastq.gz"
+```
+
+## Workflow
+
+### Step 1: Single-End Adapter Trimming
+
+Run fastp on single-end FASTQ with automatic adapter detection.
+
+```bash
+# Single-end with auto adapter detection
+fastp \
+    -i sample.fastq.gz \
+    -o sample.trimmed.fastq.gz \
+    -h sample_qc.html \
+    -j sample_qc.json \
     --thread 8 \
-    --correction --detect_adapter_for_pe \
-    --qualified_quality_phred 20 --length_required 36
+    --qualified_quality_phred 20 \
+    --length_required 36
+
+echo "Input reads:   $(zcat sample.fastq.gz | wc -l | awk '{print $1/4}')"
+echo "Output reads:  $(zcat sample.trimmed.fastq.gz | wc -l | awk '{print $1/4}')"
 ```
 
-单端（自动识别接头）：
+### Step 2: Paired-End Adapter Trimming
+
+Process paired-end FASTQ files with overlap-based adapter detection and correction.
 
 ```bash
-fastp -i sample.fastq.gz -o sample.trimmed.fastq.gz \
-    -h sample_qc.html -j sample_qc.json \
-    --thread 8 --qualified_quality_phred 20 --length_required 36
+# Paired-end with overlap-based adapter auto-detection
+fastp \
+    -i sample_R1.fastq.gz \
+    -I sample_R2.fastq.gz \
+    -o sample_R1.trimmed.fastq.gz \
+    -O sample_R2.trimmed.fastq.gz \
+    -h sample_qc.html \
+    -j sample_qc.json \
+    --thread 8 \
+    --correction \
+    --detect_adapter_for_pe \
+    --qualified_quality_phred 20 \
+    --length_required 36
+
+# Specify adapters explicitly (if auto-detection fails)
+# fastp -i R1.fq.gz -I R2.fq.gz \
+#   --adapter_sequence AGATCGGAAGAGCACACGTCTGAACTCCAGTCA \
+#   --adapter_sequence_r2 AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT \
+#   -o R1.out.fq.gz -O R2.out.fq.gz
 ```
 
-变异检测的从严过滤：
+### Step 3: Quality Filtering and Read Length Trimming
+
+Configure quality and length thresholds for stricter or more lenient filtering.
 
 ```bash
-fastp -i R1.fastq.gz -I R2.fastq.gz \
-    -o R1.filtered.fastq.gz -O R2.filtered.fastq.gz \
-    -h qc.html -j qc.json --thread 8 \
-    --qualified_quality_phred 25 --unqualified_percent_limit 20 \
-    --length_required 50 --max_len1 150 --max_len2 150 \
-    --low_complexity_filter --complexity_threshold 30
+# Strict quality filtering (e.g., for variant calling)
+fastp \
+    -i sample_R1.fastq.gz \
+    -I sample_R2.fastq.gz \
+    -o sample_R1.filtered.fastq.gz \
+    -O sample_R2.filtered.fastq.gz \
+    -h sample_qc.html \
+    -j sample_qc.json \
+    --thread 8 \
+    --qualified_quality_phred 25 \
+    --unqualified_percent_limit 20 \
+    --length_required 50 \
+    --max_len1 150 \
+    --max_len2 150 \
+    --low_complexity_filter \
+    --complexity_threshold 30
+
+echo "Filtering complete. Check sample_qc.html for pass/fail rates."
 ```
 
-RNA-seq 去 polyA 尾（QuantSeq 3′ mRNA-seq）：
+### Step 4: RNA-seq polyA Tail Removal
+
+Remove polyA tails from 3′-enriched RNA-seq protocols before alignment.
 
 ```bash
-fastp -i quantseq_R1.fastq.gz -o quantseq_R1.trimmed.fastq.gz \
-    -h quantseq_qc.html -j quantseq_qc.json --thread 8 \
+# Remove polyA tails (QuantSeq 3′ mRNA-seq)
+fastp \
+    -i quantseq_R1.fastq.gz \
+    -o quantseq_R1.trimmed.fastq.gz \
+    -h quantseq_qc.html \
+    -j quantseq_qc.json \
+    --thread 8 \
+    --trim_poly_x \
+    --poly_x_min_len 10 \
+    --qualified_quality_phred 20 \
+    --length_required 25
+
+# For Smart-seq2 paired-end with polyA
+fastp \
+    -i smartseq_R1.fastq.gz \
+    -I smartseq_R2.fastq.gz \
+    -o smartseq_R1.trimmed.fastq.gz \
+    -O smartseq_R2.trimmed.fastq.gz \
     --trim_poly_x --poly_x_min_len 10 \
-    --qualified_quality_phred 20 --length_required 25
+    --thread 8 \
+    -h smartseq_qc.html -j smartseq_qc.json
 ```
 
-解析 JSON 做质量门禁（自动卡通过率）：
+### Step 5: Parse QC Report JSON for Pipeline Monitoring
+
+Extract key QC metrics from fastp's JSON output for automated quality gates.
 
 ```python
 import json
+from pathlib import Path
 
-def parse_fastp_json(path: str) -> dict:
-    with open(path) as f:
-        d = json.load(f)
-    before, after = d["summary"]["before_filtering"], d["summary"]["after_filtering"]
+def parse_fastp_json(json_path: str) -> dict:
+    with open(json_path) as f:
+        data = json.load(f)
+    
+    before = data["summary"]["before_filtering"]
+    after = data["summary"]["after_filtering"]
+    
     return {
-        "reads_in":   before["total_reads"],
-        "reads_out":  after["total_reads"],
-        "pct_passed": after["total_reads"] / before["total_reads"] * 100,
-        "q30_after":  after["q30_rate"] * 100,
-        "adapter_trimmed": d["filtering_result"]["adapter_trimmed"],
+        "total_reads_in":  before["total_reads"],
+        "total_reads_out": after["total_reads"],
+        "pct_passed":      after["total_reads"] / before["total_reads"] * 100,
+        "q30_rate_before": before["q30_rate"] * 100,
+        "q30_rate_after":  after["q30_rate"] * 100,
+        "mean_len_before": before["read1_mean_length"],
+        "mean_len_after":  after["read1_mean_length"],
+        "adapter_trimmed": data["filtering_result"]["adapter_trimmed"],
     }
 
-m = parse_fastp_json("sample_qc.json")
-if m["pct_passed"] < 70:        # 通过率 <70% 报警
-    print("WARNING: 通过率偏低，检查原始数据质量")
+metrics = parse_fastp_json("sample_qc.json")
+for key, val in metrics.items():
+    print(f"{key:25s}: {val:.1f}" if isinstance(val, float) else f"{key:25s}: {val:,}")
+
+# Quality gate: fail if < 70% reads pass filter
+if metrics["pct_passed"] < 70:
+    print("WARNING: Low pass rate — check raw data quality")
 ```
 
-批量预处理 + 汇总（多样本循环 → MultiQC）：
+### Step 6: Batch Preprocessing Pipeline
+
+Process multiple samples sequentially with per-sample QC summaries.
 
 ```bash
-SAMPLES=(ctrl_1 ctrl_2 treat_1 treat_2); DATA=data; OUT=trimmed; QC=qc/fastp
+#!/bin/bash
+# Batch paired-end preprocessing for multiple samples
+SAMPLES=(ctrl_1 ctrl_2 treat_1 treat_2)
+DATA="data"
+OUT="trimmed"
+QC="qc/fastp"
+THREADS=8
+
 mkdir -p "$OUT" "$QC"
-for s in "${SAMPLES[@]}"; do
-  fastp -i "$DATA/${s}_R1.fastq.gz" -I "$DATA/${s}_R2.fastq.gz" \
-        -o "$OUT/${s}_R1.fastq.gz" -O "$OUT/${s}_R2.fastq.gz" \
-        -h "$QC/${s}.html" -j "$QC/${s}.json" --thread 8 \
-        --correction --detect_adapter_for_pe \
-        --qualified_quality_phred 20 --length_required 36
+
+for sample in "${SAMPLES[@]}"; do
+    echo "=== Processing $sample ==="
+    fastp \
+        -i "$DATA/${sample}_R1.fastq.gz" \
+        -I "$DATA/${sample}_R2.fastq.gz" \
+        -o "$OUT/${sample}_R1.fastq.gz" \
+        -O "$OUT/${sample}_R2.fastq.gz" \
+        -h "$QC/${sample}.html" \
+        -j "$QC/${sample}.json" \
+        --thread $THREADS \
+        --correction \
+        --detect_adapter_for_pe \
+        --qualified_quality_phred 20 \
+        --length_required 36 \
+        2>&1 | grep -E "Read[12]|Filtering|Adapter|passed"
 done
-multiqc qc/fastp/ -o qc/ -n fastp_multiqc_report   # 汇总所有 JSON
+
+# Aggregate QC metrics
+python3 - << 'EOF'
+import json, pandas as pd
+from pathlib import Path
+
+rows = []
+for jf in sorted(Path("qc/fastp").glob("*.json")):
+    with open(jf) as f: data = json.load(f)
+    after = data["summary"]["after_filtering"]
+    before = data["summary"]["before_filtering"]
+    rows.append({
+        "sample": jf.stem,
+        "reads_in": before["total_reads"],
+        "reads_out": after["total_reads"],
+        "pct_passed": round(after["total_reads"]/before["total_reads"]*100, 1),
+        "q30_after": round(after["q30_rate"]*100, 1),
+    })
+df = pd.DataFrame(rows)
+print(df.to_string(index=False))
+df.to_csv("fastp_summary.tsv", sep="\t", index=False)
+EOF
+
+# Run MultiQC to aggregate all fastp JSON reports
+multiqc qc/fastp/ -o qc/ -n fastp_multiqc_report
 ```
 
-Snakemake 规则（嵌入流程）：
+## Key Parameters
+
+| Parameter | Default | Range/Options | Effect |
+|-----------|---------|---------------|--------|
+| `-i / -I` | required | file path | Input FASTQ (R1 and R2 for paired-end) |
+| `-o / -O` | required | file path | Output trimmed FASTQ (R1 and R2) |
+| `-h / -j` | — | file path | HTML and JSON QC report output paths |
+| `--thread` | `3` | 1–16 | CPU threads; 8 is a good balance |
+| `--qualified_quality_phred` | `15` | 0–40 | Minimum base quality (Phred); 20 = 1% error |
+| `--length_required` | `15` | 1–1000 | Minimum read length after trimming; discard shorter reads |
+| `--correction` | off | flag | Correct mismatches in PE overlap region |
+| `--detect_adapter_for_pe` | off | flag | Enable overlap-based adapter auto-detection for PE data |
+| `--adapter_sequence` | auto | string | Explicit R1 adapter; overrides auto-detection |
+| `--trim_poly_x` | off | flag | Trim polyX (polyA/polyT) tails; use for 3′-enriched RNA-seq |
+| `--low_complexity_filter` | off | flag | Filter reads with low complexity (< 30% complexity by default) |
+| `--split` | off | integer | Split output into N files per direction (for parallelism) |
+
+## Common Recipes
+
+### Recipe 1: Integrate fastp into a Snakemake Pipeline
 
 ```python
+# Snakefile — fastp trimming rule
+configfile: "config.yaml"
+SAMPLES = config["samples"]
+
 rule fastp_pe:
-    input:  r1="data/{sample}_R1.fastq.gz", r2="data/{sample}_R2.fastq.gz"
-    output: r1="trimmed/{sample}_R1.fastq.gz", r2="trimmed/{sample}_R2.fastq.gz",
-            html="qc/{sample}_fastp.html", json="qc/{sample}_fastp.json"
+    input:
+        r1 = "data/{sample}_R1.fastq.gz",
+        r2 = "data/{sample}_R2.fastq.gz"
+    output:
+        r1 = "trimmed/{sample}_R1.fastq.gz",
+        r2 = "trimmed/{sample}_R2.fastq.gz",
+        html = "qc/{sample}_fastp.html",
+        json = "qc/{sample}_fastp.json"
     threads: 8
     shell:
-        "fastp -i {input.r1} -I {input.r2} -o {output.r1} -O {output.r2} "
-        "-h {output.html} -j {output.json} --thread {threads} "
-        "--correction --detect_adapter_for_pe "
-        "--qualified_quality_phred 20 --length_required 36"
+        """
+        fastp -i {input.r1} -I {input.r2} \
+              -o {output.r1} -O {output.r2} \
+              -h {output.html} -j {output.json} \
+              --thread {threads} \
+              --correction --detect_adapter_for_pe \
+              --qualified_quality_phred 20 \
+              --length_required 36
+        """
 ```
 
-## 注意事项
+### Recipe 2: Aggregate fastp JSON Reports with Python
 
-- **单端不要用 `--detect_adapter_for_pe`**：它依赖双端重叠，单端识别不到接头时改为显式 `--adapter_sequence AGATCGGAAGAGC`。
-- **接头含量异常高（>50%）**：多为短插入文库（small RNA / miRNA）或建库差，核对文库协议，可用 `--overlap_len_require 10` 调重叠灵敏度。
-- **过滤掉太多读（通过率 <60%）**：阈值过严或测序质量差，放宽 `--qualified_quality_phred` 到 15、`--length_required` 降到 25。
-- **JSON 缺字段 / MultiQC 解析不到**：旧版 fastp 升级（`conda update fastp`）；MultiQC 要 `multiqc qc/` 而非 `multiqc .`，确认 `qc/*.json` 存在。
-- **输出 FASTQ 为空**：阈值过极端或输入有误，先 `zcat sample.fq.gz | head -8` 验证输入，去掉 `--low_complexity_filter` 重试。
-- **polyA 没去掉**：必须显式加 `--trim_poly_x --poly_x_min_len 10`，仅 3′ 富集协议需要。
-- **大文件慢**：提高 `--thread` 到 8–12，输入放 SSD 等快速存储。
-- 关键产物：`*.trimmed.fastq.gz`（修剪后读）、`*.html`（交互质控报告）、`*.json`（机读指标，供自动化/MultiQC）、stderr 日志（过滤统计）。
+```python
+import json
+import pandas as pd
+from pathlib import Path
 
-## 互见
+qc_dir = Path("qc/fastp")
+records = []
 
-- genomic-file-toolkit：fastp 产出的 fastq.gz 比对成 BAM 后，做区域抓取/覆盖度/变异解析时。
-- nextflow-pipeline-builder / single-cell-rnaseq-analysis：把 fastp 作为预处理步嵌入 Nextflow 流程或上游接 scRNA-seq 分析时。
-- gene-set-enrichment-analysis：下游 RNA-seq 定量后做富集分析时。
+for jf in sorted(qc_dir.glob("*.json")):
+    with open(jf) as f:
+        d = json.load(f)
+    b = d["summary"]["before_filtering"]
+    a = d["summary"]["after_filtering"]
+    records.append({
+        "sample": jf.stem.replace("_fastp", ""),
+        "reads_in_M": b["total_reads"] / 1e6,
+        "reads_out_M": a["total_reads"] / 1e6,
+        "pct_passed": a["total_reads"] / b["total_reads"] * 100,
+        "q30_pct": a["q30_rate"] * 100,
+        "mean_len_bp": a["read1_mean_length"],
+        "adapter_pct": d["filtering_result"]["adapter_trimmed"] / b["total_reads"] * 100,
+    })
 
----
+df = pd.DataFrame(records).round(2)
+print(df.to_string(index=False))
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+# Flag low-quality samples
+low_q = df[df["pct_passed"] < 80]
+if not low_q.empty:
+    print(f"\nSamples with < 80% reads passing: {list(low_q['sample'])}")
+```
+
+## Expected Outputs
+
+| Output | Format | Description |
+|--------|--------|-------------|
+| `*_R1.trimmed.fastq.gz` | FASTQ.gz | Trimmed R1 reads (adapters and low-quality bases removed) |
+| `*_R2.trimmed.fastq.gz` | FASTQ.gz | Trimmed R2 reads (paired-end only) |
+| `*.html` | HTML | Interactive QC report with per-base quality, GC content, adapter plots |
+| `*.json` | JSON | Machine-readable QC metrics for automation and MultiQC parsing |
+| `fastp.log` | Text | stderr summary with pass/fail read counts and filtering statistics |
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| Adapter not detected in SE mode | SE reads require explicit adapter or `--adapter_sequence` | Use `--detect_adapter_for_pe` only for PE; specify adapter for SE: `--adapter_sequence AGATCGGAAGAGC` |
+| Very high adapter content (> 50%) | Short inserts (small RNA, miRNA) or poor library prep | Check library protocol; use `--overlap_len_require 10` to adjust overlap sensitivity |
+| Too many reads filtered (< 60% pass) | Over-strict quality thresholds or low-quality sequencing run | Relax `--qualified_quality_phred` to 15; lower `--length_required` to 25 |
+| JSON output missing fields | Old fastp version | Upgrade: `conda update fastp` or download latest binary from GitHub |
+| MultiQC not parsing fastp JSON | JSON file not in the scanned directory | Run `multiqc qc/` not `multiqc .`; verify JSON files exist with `ls qc/*.json` |
+| Output FASTQ is empty | All reads filtered (wrong input or extreme thresholds) | Verify input FASTQ with `zcat sample.fq.gz \| head -8`; run without `--low_complexity_filter` first |
+| Slow performance on large files | Low thread count | Increase `--thread` to 8–12; ensure input is on fast storage (SSD) |
+| polyA not removed | `--trim_poly_x` not set | Add `--trim_poly_x --poly_x_min_len 10` for 3′-enriched protocols |
+
+## References
+
+- [fastp GitHub: OpenGene/fastp](https://github.com/OpenGene/fastp) — source code, changelog, and usage guide
+- Chen S et al. (2018) "fastp: an ultra-fast all-in-one FASTQ preprocessor" — *Bioinformatics* 34(17):i884-i890. [DOI:10.1093/bioinformatics/bty560](https://doi.org/10.1093/bioinformatics/bty560)
+- [fastp documentation](https://github.com/OpenGene/fastp#readme) — full parameter reference and recipes
+- [MultiQC fastp module](https://multiqc.info/modules/fastp/) — aggregating fastp JSON reports across samples

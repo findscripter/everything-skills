@@ -1,14 +1,14 @@
 ---
 name: defi-protocol-templates
-title: DeFi 协议合约模板
-description: 当用 Solidity 搭建质押/AMM/治理/借贷/闪电贷等 DeFi 协议时使用；基于 OpenZeppelin 提供可直接套用的合约骨架并给出安全与上线检查清单；不适用于纯前端 DApp、链下数据分析或非 EVM 链。触发词：DeFi、Solidity、质押、AMM、治理代币、闪电贷
+title: DeFi Protocol Templates
+description: Implement DeFi protocols with production-ready templates for staking, AMMs, governance, and lending systems. Use when building decentralized finance applications or smart contract protocols.
 domain: 领域/fintech
-triggers: [DeFi 协议, 智能合约模板, Solidity 质押合约, AMM 自动做市商, 治理代币, 闪电贷, 流动性挖矿, 借贷协议, StakingRewards, ERC20Votes]
-tags: [defi, solidity, 智能合约, 区块链, openzeppelin, amm, 质押, 治理, 闪电贷, misc]
-level: 进阶
+triggers: [StakingRewards, ERC20Votes]
+tags: [defi, solidity, openzeppelin, amm, misc]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Solidity, OpenZeppelin, Foundry, Hardhat]
+tools: []
 requires: []
 related: [blockchain-web3-developer, solidity-security-auditor]
 combines_with: [solidity-security-auditor, blockchain-web3-developer]
@@ -16,38 +16,32 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# DeFi Protocol Templates
 
-适用：
-- 搭建带奖励分发的质押平台（StakingRewards 模式）。
-- 实现 AMM 自动做市商（恒定乘积、流动性 LP、swap）。
-- 创建治理代币与提案投票系统（ERC20Votes + Governor）。
-- 开发借贷/借出协议、集成闪电贷、上线流动性挖矿。
+Production-ready templates for common DeFi protocols including staking, AMMs, governance, lending, and flash loans.
 
-不该用（负边界）：
-- 任务与 DeFi 合约无关，或纯前端 DApp、链下脚本、数据分析。
-- 目标链非 EVM（如 Solana/Move 系），本模板基于 Solidity + OpenZeppelin。
-- 把这些模板当作可直接主网部署的成品——它们是骨架，缺少审计、测试与场景化校验。
+## Do not use this skill when
 
-## 步骤
+- The task is unrelated to defi protocol templates
+- You need a different domain or tool outside this scope
 
-1. 明确目标、约束与必需输入：协议类型、代币标准、费率、奖励曲线、权限模型。
-2. 选定对应模板（质押 / AMM / 治理 / 闪电贷）作为起点，按需裁剪。
-3. 复用成熟库：OpenZeppelin（ReentrancyGuard、Ownable、ERC20Votes）或 Solmate，避免手写底层。
-4. 编写测试：单元测试 + 集成测试 + 模糊测试（fuzzing），覆盖边界与攻击面。
-5. 上线前做专业安全审计；先发 MVP，再逐步增量加功能。
-6. 部署后持续监控合约健康度与用户活动，并准备应急暂停（pause）机制。
+## Instructions
 
-## 指令
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-- 先澄清目标、约束与所需输入，再动手。
-- 套用对应最佳实践并验证产出，给出可执行步骤与验证方法。
-- 需要更完整示例时打开 `resources/implementation-playbook.md`。
-- 不得把输出当作环境化验证、测试或专家评审的替代品；缺少必需输入、权限、安全边界或成功标准时，停下来询问。
+## Use this skill when
 
-## 示例
+- Building staking platforms with reward distribution
+- Implementing AMM (Automated Market Maker) protocols
+- Creating governance token systems
+- Developing lending/borrowing protocols
+- Integrating flash loan functionality
+- Launching yield farming platforms
 
-质押合约核心（StakingRewards，含奖励累计与重入防护）：
+## Staking Contract
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -60,17 +54,30 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract StakingRewards is ReentrancyGuard, Ownable {
     IERC20 public stakingToken;
     IERC20 public rewardsToken;
-    uint256 public rewardRate = 100; // 每秒奖励
+
+    uint256 public rewardRate = 100; // Rewards per second
     uint256 public lastUpdateTime;
     uint256 public rewardPerTokenStored;
+
     mapping(address => uint256) public userRewardPerTokenPaid;
     mapping(address => uint256) public rewards;
     mapping(address => uint256) public balances;
+
     uint256 private _totalSupply;
+
+    event Staked(address indexed user, uint256 amount);
+    event Withdrawn(address indexed user, uint256 amount);
+    event RewardPaid(address indexed user, uint256 reward);
+
+    constructor(address _stakingToken, address _rewardsToken) {
+        stakingToken = IERC20(_stakingToken);
+        rewardsToken = IERC20(_rewardsToken);
+    }
 
     modifier updateReward(address account) {
         rewardPerTokenStored = rewardPerToken();
         lastUpdateTime = block.timestamp;
+
         if (account != address(0)) {
             rewards[account] = earned(account);
             userRewardPerTokenPaid[account] = rewardPerTokenStored;
@@ -79,14 +86,17 @@ contract StakingRewards is ReentrancyGuard, Ownable {
     }
 
     function rewardPerToken() public view returns (uint256) {
-        if (_totalSupply == 0) return rewardPerTokenStored;
+        if (_totalSupply == 0) {
+            return rewardPerTokenStored;
+        }
         return rewardPerTokenStored +
             ((block.timestamp - lastUpdateTime) * rewardRate * 1e18) / _totalSupply;
     }
 
     function earned(address account) public view returns (uint256) {
         return (balances[account] *
-            (rewardPerToken() - userRewardPerTokenPaid[account])) / 1e18 + rewards[account];
+            (rewardPerToken() - userRewardPerTokenPaid[account])) / 1e18 +
+            rewards[account];
     }
 
     function stake(uint256 amount) external nonReentrant updateReward(msg.sender) {
@@ -94,47 +104,381 @@ contract StakingRewards is ReentrancyGuard, Ownable {
         _totalSupply += amount;
         balances[msg.sender] += amount;
         stakingToken.transferFrom(msg.sender, address(this), amount);
+        emit Staked(msg.sender, amount);
     }
-    // withdraw / getReward / exit 同理，均带 nonReentrant + updateReward
+
+    function withdraw(uint256 amount) public nonReentrant updateReward(msg.sender) {
+        require(amount > 0, "Cannot withdraw 0");
+        _totalSupply -= amount;
+        balances[msg.sender] -= amount;
+        stakingToken.transfer(msg.sender, amount);
+        emit Withdrawn(msg.sender, amount);
+    }
+
+    function getReward() public nonReentrant updateReward(msg.sender) {
+        uint256 reward = rewards[msg.sender];
+        if (reward > 0) {
+            rewards[msg.sender] = 0;
+            rewardsToken.transfer(msg.sender, reward);
+            emit RewardPaid(msg.sender, reward);
+        }
+    }
+
+    function exit() external {
+        withdraw(balances[msg.sender]);
+        getReward();
+    }
 }
 ```
 
-AMM 核心：恒定乘积定价 + 0.3% 手续费的 swap：
+## AMM (Automated Market Maker)
 
 ```solidity
-// 0.3% fee；amountOut = resOut * amountInWithFee / (resIn + amountInWithFee)
-uint256 amountInWithFee = (amountIn * 997) / 1000;
-amountOut = (resOut * amountInWithFee) / (resIn + amountInWithFee);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
+contract SimpleAMM {
+    IERC20 public token0;
+    IERC20 public token1;
+
+    uint256 public reserve0;
+    uint256 public reserve1;
+
+    uint256 public totalSupply;
+    mapping(address => uint256) public balanceOf;
+
+    event Mint(address indexed to, uint256 amount);
+    event Burn(address indexed from, uint256 amount);
+    event Swap(address indexed trader, uint256 amount0In, uint256 amount1In, uint256 amount0Out, uint256 amount1Out);
+
+    constructor(address _token0, address _token1) {
+        token0 = IERC20(_token0);
+        token1 = IERC20(_token1);
+    }
+
+    function addLiquidity(uint256 amount0, uint256 amount1) external returns (uint256 shares) {
+        token0.transferFrom(msg.sender, address(this), amount0);
+        token1.transferFrom(msg.sender, address(this), amount1);
+
+        if (totalSupply == 0) {
+            shares = sqrt(amount0 * amount1);
+        } else {
+            shares = min(
+                (amount0 * totalSupply) / reserve0,
+                (amount1 * totalSupply) / reserve1
+            );
+        }
+
+        require(shares > 0, "Shares = 0");
+        _mint(msg.sender, shares);
+        _update(
+            token0.balanceOf(address(this)),
+            token1.balanceOf(address(this))
+        );
+
+        emit Mint(msg.sender, shares);
+    }
+
+    function removeLiquidity(uint256 shares) external returns (uint256 amount0, uint256 amount1) {
+        uint256 bal0 = token0.balanceOf(address(this));
+        uint256 bal1 = token1.balanceOf(address(this));
+
+        amount0 = (shares * bal0) / totalSupply;
+        amount1 = (shares * bal1) / totalSupply;
+
+        require(amount0 > 0 && amount1 > 0, "Amount0 or amount1 = 0");
+
+        _burn(msg.sender, shares);
+        _update(bal0 - amount0, bal1 - amount1);
+
+        token0.transfer(msg.sender, amount0);
+        token1.transfer(msg.sender, amount1);
+
+        emit Burn(msg.sender, shares);
+    }
+
+    function swap(address tokenIn, uint256 amountIn) external returns (uint256 amountOut) {
+        require(tokenIn == address(token0) || tokenIn == address(token1), "Invalid token");
+
+        bool isToken0 = tokenIn == address(token0);
+        (IERC20 tokenIn_, IERC20 tokenOut, uint256 resIn, uint256 resOut) = isToken0
+            ? (token0, token1, reserve0, reserve1)
+            : (token1, token0, reserve1, reserve0);
+
+        tokenIn_.transferFrom(msg.sender, address(this), amountIn);
+
+        // 0.3% fee
+        uint256 amountInWithFee = (amountIn * 997) / 1000;
+        amountOut = (resOut * amountInWithFee) / (resIn + amountInWithFee);
+
+        tokenOut.transfer(msg.sender, amountOut);
+
+        _update(
+            token0.balanceOf(address(this)),
+            token1.balanceOf(address(this))
+        );
+
+        emit Swap(msg.sender, isToken0 ? amountIn : 0, isToken0 ? 0 : amountIn, isToken0 ? 0 : amountOut, isToken0 ? amountOut : 0);
+    }
+
+    function _mint(address to, uint256 amount) private {
+        balanceOf[to] += amount;
+        totalSupply += amount;
+    }
+
+    function _burn(address from, uint256 amount) private {
+        balanceOf[from] -= amount;
+        totalSupply -= amount;
+    }
+
+    function _update(uint256 res0, uint256 res1) private {
+        reserve0 = res0;
+        reserve1 = res1;
+    }
+
+    function sqrt(uint256 y) private pure returns (uint256 z) {
+        if (y > 3) {
+            z = y;
+            uint256 x = y / 2 + 1;
+            while (x < z) {
+                z = x;
+                x = (y / x + x) / 2;
+            }
+        } else if (y != 0) {
+            z = 1;
+        }
+    }
+
+    function min(uint256 x, uint256 y) private pure returns (uint256) {
+        return x <= y ? x : y;
+    }
+}
 ```
 
-治理：用 `ERC20Votes` 做投票快照，提案校验 `getPastVotes(msg.sender, block.number - 1) >= proposalThreshold`，投票按 `getPastVotes` 在 `startBlock` 的权重计票，`forVotes > againstVotes` 且过 `endBlock` 后方可 `execute`。
+## Governance Token
 
-闪电贷：先 `transfer` 借出，回调 `executeOperation`，再校验 `balanceAfter >= balanceBefore + fee` 验证还款，否则 revert（费率示例 `feePercentage = 9` 即 0.09%，`fee = amount * feePercentage / 10000`）。
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-## 注意事项
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-最佳实践：
-1. 复用成熟库：OpenZeppelin、Solmate。
-2. 充分测试：单元 / 集成 / 模糊测试。
-3. 上线前做专业安全审计。
-4. 从简起步，MVP 优先，增量加功能。
-5. 监控合约健康度与用户活动。
-6. 可升级性：评估代理（proxy）模式。
-7. 紧急控制：为关键问题预留暂停机制。
+contract GovernanceToken is ERC20Votes, Ownable {
+    constructor() ERC20("Governance Token", "GOV") ERC20Permit("Governance Token") {
+        _mint(msg.sender, 1000000 * 10**decimals());
+    }
 
-常见 DeFi 模式：TWAP（抗预言机操纵的时间加权均价）、流动性挖矿、Vesting 线性释放、多签（Multisig）、时间锁（Timelock）。
+    function _afterTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal override(ERC20Votes) {
+        super._afterTokenTransfer(from, to, amount);
+    }
 
-约束与局限：仅在任务明确落在上述范围内时使用；不要将输出当作环境化校验、测试或专家评审的替代；缺少必需输入、权限、安全边界或成功标准时应停止并询问。
+    function _mint(address to, uint256 amount) internal override(ERC20Votes) {
+        super._mint(to, amount);
+    }
 
-## 互见
+    function _burn(address account, uint256 amount) internal override(ERC20Votes) {
+        super._burn(account, amount);
+    }
+}
 
-源仓库附带的深入参考（如需可对照查阅）：
-- `references/staking.md`：质押机制与奖励分发
-- `references/liquidity-pools.md`：AMM 数学与定价
-- `references/governance-tokens.md`：治理与投票系统
-- `references/lending-protocols.md`：借贷实现
-- `references/flash-loans.md`：闪电贷安全与用例
-- `assets/*.sol`：质押 / AMM / 治理 / 借贷的完整合约模板
+contract Governor is Ownable {
+    GovernanceToken public governanceToken;
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+    struct Proposal {
+        uint256 id;
+        address proposer;
+        string description;
+        uint256 forVotes;
+        uint256 againstVotes;
+        uint256 startBlock;
+        uint256 endBlock;
+        bool executed;
+        mapping(address => bool) hasVoted;
+    }
+
+    uint256 public proposalCount;
+    mapping(uint256 => Proposal) public proposals;
+
+    uint256 public votingPeriod = 17280; // ~3 days in blocks
+    uint256 public proposalThreshold = 100000 * 10**18;
+
+    event ProposalCreated(uint256 indexed proposalId, address proposer, string description);
+    event VoteCast(address indexed voter, uint256 indexed proposalId, bool support, uint256 weight);
+    event ProposalExecuted(uint256 indexed proposalId);
+
+    constructor(address _governanceToken) {
+        governanceToken = GovernanceToken(_governanceToken);
+    }
+
+    function propose(string memory description) external returns (uint256) {
+        require(
+            governanceToken.getPastVotes(msg.sender, block.number - 1) >= proposalThreshold,
+            "Proposer votes below threshold"
+        );
+
+        proposalCount++;
+        Proposal storage newProposal = proposals[proposalCount];
+        newProposal.id = proposalCount;
+        newProposal.proposer = msg.sender;
+        newProposal.description = description;
+        newProposal.startBlock = block.number;
+        newProposal.endBlock = block.number + votingPeriod;
+
+        emit ProposalCreated(proposalCount, msg.sender, description);
+        return proposalCount;
+    }
+
+    function vote(uint256 proposalId, bool support) external {
+        Proposal storage proposal = proposals[proposalId];
+        require(block.number >= proposal.startBlock, "Voting not started");
+        require(block.number <= proposal.endBlock, "Voting ended");
+        require(!proposal.hasVoted[msg.sender], "Already voted");
+
+        uint256 weight = governanceToken.getPastVotes(msg.sender, proposal.startBlock);
+        require(weight > 0, "No voting power");
+
+        proposal.hasVoted[msg.sender] = true;
+
+        if (support) {
+            proposal.forVotes += weight;
+        } else {
+            proposal.againstVotes += weight;
+        }
+
+        emit VoteCast(msg.sender, proposalId, support, weight);
+    }
+
+    function execute(uint256 proposalId) external {
+        Proposal storage proposal = proposals[proposalId];
+        require(block.number > proposal.endBlock, "Voting not ended");
+        require(!proposal.executed, "Already executed");
+        require(proposal.forVotes > proposal.againstVotes, "Proposal failed");
+
+        proposal.executed = true;
+
+        // Execute proposal logic here
+
+        emit ProposalExecuted(proposalId);
+    }
+}
+```
+
+## Flash Loan
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
+interface IFlashLoanReceiver {
+    function executeOperation(
+        address asset,
+        uint256 amount,
+        uint256 fee,
+        bytes calldata params
+    ) external returns (bool);
+}
+
+contract FlashLoanProvider {
+    IERC20 public token;
+    uint256 public feePercentage = 9; // 0.09% fee
+
+    event FlashLoan(address indexed borrower, uint256 amount, uint256 fee);
+
+    constructor(address _token) {
+        token = IERC20(_token);
+    }
+
+    function flashLoan(
+        address receiver,
+        uint256 amount,
+        bytes calldata params
+    ) external {
+        uint256 balanceBefore = token.balanceOf(address(this));
+        require(balanceBefore >= amount, "Insufficient liquidity");
+
+        uint256 fee = (amount * feePercentage) / 10000;
+
+        // Send tokens to receiver
+        token.transfer(receiver, amount);
+
+        // Execute callback
+        require(
+            IFlashLoanReceiver(receiver).executeOperation(
+                address(token),
+                amount,
+                fee,
+                params
+            ),
+            "Flash loan failed"
+        );
+
+        // Verify repayment
+        uint256 balanceAfter = token.balanceOf(address(this));
+        require(balanceAfter >= balanceBefore + fee, "Flash loan not repaid");
+
+        emit FlashLoan(receiver, amount, fee);
+    }
+}
+
+// Example flash loan receiver
+contract FlashLoanReceiver is IFlashLoanReceiver {
+    function executeOperation(
+        address asset,
+        uint256 amount,
+        uint256 fee,
+        bytes calldata params
+    ) external override returns (bool) {
+        // Decode params and execute arbitrage, liquidation, etc.
+        // ...
+
+        // Approve repayment
+        IERC20(asset).approve(msg.sender, amount + fee);
+
+        return true;
+    }
+}
+```
+
+## Resources
+
+- **references/staking.md**: Staking mechanics and reward distribution
+- **references/liquidity-pools.md**: AMM mathematics and pricing
+- **references/governance-tokens.md**: Governance and voting systems
+- **references/lending-protocols.md**: Lending/borrowing implementation
+- **references/flash-loans.md**: Flash loan security and use cases
+- **assets/staking-contract.sol**: Production staking template
+- **assets/amm-contract.sol**: Full AMM implementation
+- **assets/governance-token.sol**: Governance system
+- **assets/lending-protocol.sol**: Lending platform template
+
+## Best Practices
+
+1. **Use Established Libraries**: OpenZeppelin, Solmate
+2. **Test Thoroughly**: Unit tests, integration tests, fuzzing
+3. **Audit Before Launch**: Professional security audits
+4. **Start Simple**: MVP first, add features incrementally
+5. **Monitor**: Track contract health and user activity
+6. **Upgradability**: Consider proxy patterns for upgrades
+7. **Emergency Controls**: Pause mechanisms for critical issues
+
+## Common DeFi Patterns
+
+- **Time-Weighted Average Price (TWAP)**: Price oracle resistance
+- **Liquidity Mining**: Incentivize liquidity provision
+- **Vesting**: Lock tokens with gradual release
+- **Multisig**: Require multiple signatures for critical operations
+- **Timelocks**: Delay execution of governance decisions
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

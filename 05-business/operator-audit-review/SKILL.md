@@ -1,14 +1,14 @@
 ---
 name: operator-audit-review
-title: Kubernetes Operator 审计复盘
-description: 当需要审计 Kubernetes Operator 仓库（CRD 设计、Go reconcile 循环、OperatorHub 能力等级）或上线前做合规复盘时使用；做 CRD 校验、reconcile 反模式 lint、能力等级评分，产出按检查项分级（FAIL/WARN/PASS）的 Markdown 报告与进阶步骤；不适用于纯 Helm 打包、普通 kubectl 运维、通用 k8s 安全或非 Operator 工作负载；触发词：operator 审计、CRD 校验、reconcile lint、能力等级、operator-audit、kubebuilder
+title: Kubernetes Operator
+description: Use when building a Kubernetes Operator — custom controllers that reconcile CRD state. Triggers on "build an operator", "CRD design", "reconcile loop", "controller-runtime", "kubebuilder", "operator-sdk", "metacontroller", "KOPF", "operator capability levels", or "custom resource". Ships CRD validator, reconcile-loop linter, and OperatorHub capability auditor (all stdlib Python), 4 references on the operator pattern + CRD design + reconcile patterns + tooling landscape, and a /operator-audit slash command. NOT a generic k8s skill — specifically the Operator pattern.
 domain: 商业/finance
-triggers: [operator 审计, CRD 校验, reconcile lint, 能力等级, operator-audit, kubebuilder, controller-runtime, OperatorHub]
+triggers: [reconcile lint, operator-audit, kubebuilder, controller-runtime, OperatorHub]
 tags: [kubernetes, operator, crd, reconcile, controller-runtime, kubebuilder, audit, devops]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, crd_validator.py, reconcile_lint.py, operator_capability_audit.py, kubebuilder, operator-sdk]
+tools: []
 requires: []
 related: [kubernetes-architect, golang-pro, k8s-security-policies, helm-chart-scaffolding]
 combines_with: [kubernetes-architect, golang-pro]
@@ -16,90 +16,234 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Kubernetes Operator
 
-- 对一个 Kubernetes Operator 仓库做整体审计：一次性跑 CRD 校验 + reconcile lint + 能力等级评分，产出 Markdown 报告。
-- 上线/发布前的合规复盘：确认每个 CRD、每个 controller 的 reconcile 函数无阻断级问题，并明确当前 OperatorHub 能力等级。
-- 评审存量 Operator 的能力等级缺口，规划「每季度晋升一个等级」的路线。
+Build operators that reconcile correctly. Most operator bugs are not Kubernetes bugs — they are reconcile-loop bugs: missing finalizers, blocking calls, no requeue on transient errors, status drift, RBAC over-grants. This skill catches them deterministically before they reach a cluster.
 
-不该用（负边界）：
-- 纯 Helm chart 打包 -> 用 helm-chart-builder。
-- 普通 kubectl 运维、蓝绿/滚动发布 -> 用 senior-devops。
-- 通用 k8s 安全态势评估 -> 用 cloud-security。
-- 只是想跑个工作负载（那是 Deployment/Job，不是 Operator）。
+## When to use
 
-> 命名说明：此处的 operator 指 Kubernetes Operator（自定义控制器），不是「经营者/运营」。本条采编自源技能 operator-audit（即 /operator-audit 命令），其实质是 Kubernetes Operator 的三合一审计。
+- Building a new Kubernetes Operator (controller for a CRD)
+- Reviewing an existing operator for capability-level gaps
+- Auditing a CRD spec for status/conditions/finalizer correctness
+- Choosing a framework (controller-runtime / kubebuilder / operator-sdk / metacontroller / KOPF)
+- Designing the API surface of a Custom Resource
+- Hardening RBAC, leader election, or webhook validation
 
-## 步骤
+## When NOT to use
 
-1. 定位目录：默认从仓库根目录运行；Go controller 期望在 `controllers/` 或 `internal/controller/`，CRD 期望在 `config/crd/`（kubebuilder 布局）。
-2. CRD 校验：对每个 CRD YAML 跑 `crd_validator.py`，核对 status 子资源、scope、版本 served/storage、conditions、printer columns 等。
-3. Reconcile lint：对每个 controller 跑 `reconcile_lint.py`，定位行级反模式（阻塞调用、改 spec、缺 requeue 等）。
-4. 能力等级评分：跑 `operator_capability_audit.py --operator-dir .`，得出当前 L1-L5 等级与晋升下一级的具体动作。
-5. 分级处置：FAIL 阻断发布、必须修复；WARN 建一个 issue、30 天内修复；汇总成 Markdown 报告，全 PASS 则退出码 0，任一 FAIL 退出码 1。
+- Plain Helm chart packaging → use `helm-chart-builder`
+- Standard kubectl operations / blue-green deploys → use `senior-devops`
+- General k8s security posture → use `cloud-security`
+- "I want to run a workload" — that's a Deployment / Job, not an operator
 
-## 指令
+## Core principle: an operator is a reconcile loop, not a script
 
-一键全量审计（源 /operator-audit 命令实现，保留原始约束）：
-```bash
-SKILL=engineering/kubernetes-operator/skills/kubernetes-operator
-DIR="${OPERATOR_DIR:-.}"
-
-echo "## CRD validation"
-python "$SKILL/scripts/crd_validator.py" --crd "$DIR/config/crd" || true
-
-echo ""
-echo "## Reconcile lint"
-python "$SKILL/scripts/reconcile_lint.py" --controller "$DIR/controllers" \
-  || python "$SKILL/scripts/reconcile_lint.py" --controller "$DIR/internal/controller" || true
-
-echo ""
-echo "## Capability audit"
-python "$SKILL/scripts/operator_capability_audit.py" --operator-dir "$DIR"
+```
+observe(actual) → desired = read(spec) → diff(actual, desired) → act → update(status)
+                                                                          ↓
+                                                                   requeue / done
 ```
 
-单项运行：
+Operators that fail are the ones that:
+1. Treat reconcile as imperative (do this, then this, then this) instead of declarative (make actual=desired, idempotently)
+2. Don't requeue transient failures
+3. Don't use finalizers, leaving orphan resources
+4. Mutate spec instead of status
+5. Don't use the status subresource (status updates trigger spec reconciles → loop)
+6. Block in reconcile (long HTTP calls, locks)
+7. Forget leader election → split-brain on multi-replica deploys
+
+The 3 tools below catch each of these.
+
+## Quick start
+
 ```bash
-python scripts/crd_validator.py --crd config/crd/myapp.yaml      # 可加 --format json
+SKILL=engineering/kubernetes-operator/skills/kubernetes-operator
+
+# Validate a CRD design
+python "$SKILL/scripts/crd_validator.py" --crd config/crd/myapp.yaml
+
+# Lint a Go reconcile function
+python "$SKILL/scripts/reconcile_lint.py" --controller controllers/myapp_controller.go
+
+# Score against OperatorHub Capability Levels (1-5)
+python "$SKILL/scripts/operator_capability_audit.py" --operator-dir .
+```
+
+## The 3 Python tools
+
+All stdlib-only. Run with `--help`.
+
+### `crd_validator.py`
+
+Validates a CRD YAML against operator-pattern best practices.
+
+```bash
+python scripts/crd_validator.py --crd config/crd/myapp.yaml
+python scripts/crd_validator.py --crd config/crd/ --format json
+```
+
+**Checks:**
+- `spec.versions[*].subresources.status` is set (status subresource)
+- `spec.scope` is `Namespaced` (not `Cluster`) unless explicitly justified
+- Singular and listKind defined
+- `spec.versions[*].schema.openAPIV3Schema` has type definitions (no `x-kubernetes-preserve-unknown-fields: true` at top level)
+- A version is marked `served: true` AND `storage: true`
+- Conditions array is in the schema (allows `metav1.Conditions`)
+- Printer columns include `Age` and `Status`/`Phase`
+
+### `reconcile_lint.py`
+
+Lints a Go controller reconcile function for anti-patterns.
+
+```bash
 python scripts/reconcile_lint.py --controller controllers/myapp_controller.go
+```
+
+**Checks (regex-based heuristics):**
+- Returns are `(ctrl.Result, error)` shape
+- Errors trigger a non-zero requeue (`return ctrl.Result{Requeue: true}, err`)
+- `client.Update()` on the spec object is flagged (controllers should update only status)
+- `time.Sleep` inside reconcile is flagged (use `RequeueAfter`)
+- HTTP calls without context cancellation are flagged
+- Missing `defer` after a finalizer add
+- No `IsConditionTrue` / `SetCondition` calls when conditions present in CRD
+- Reconcile function exceeds 80 lines (extract subroutines)
+
+### `operator_capability_audit.py`
+
+Scores an operator against OperatorHub's 5 Capability Levels.
+
+```bash
 python scripts/operator_capability_audit.py --operator-dir .
 ```
 
-三项检查的硬约束（逐条核对）：
+**Levels:**
+- **L1 — Basic Install:** CRD defined, controller deploys it
+- **L2 — Seamless Upgrades:** PDBs, conversion webhooks, version skew strategy
+- **L3 — Full Lifecycle:** backups, restores, failure recovery
+- **L4 — Deep Insights:** metrics endpoint, Prometheus rules, alerts
+- **L5 — Auto Pilot:** auto-scaling, auto-tuning, anomaly detection
 
-CRD 校验关键项：必须开启 status 子资源（否则 status 更新会回触发 spec reconcile，死循环）；scope 默认 `Namespaced`；至少一个版本 `served: true` 且 `storage: true`；schema 含 conditions 数组；printer columns 含 Age 与 Status/Phase；禁止在 spec 根用 `x-kubernetes-preserve-unknown-fields: true`。
+Reports current level + concrete next steps to advance one level.
 
-Reconcile lint 关键项：返回须为 `(ctrl.Result, error)`；错误要触发 requeue（`ctrl.Result{Requeue: true}` 或 `RequeueAfter`）；只更新 status，不要 `client.Update()` 改 spec；禁止 reconcile 内 `time.Sleep`；HTTP 调用须带 context；finalizer 添加后须 defer；CRD 有 conditions 却无 `SetCondition` 调用要标记；reconcile 超 80 行应拆子函数。
+## Tooling landscape
 
-OperatorHub 能力等级：L1 基础安装 / L2 无缝升级（PDB、转换 webhook、版本偏斜策略）/ L3 全生命周期（备份、恢复、故障自愈）/ L4 深度洞察（metrics、Prometheus rules、告警）/ L5 自动驾驶（自动扩缩、自动调优、异常检测）。公开发布前建议达到 L3。
+Pick a framework based on language and complexity. See `references/tooling_landscape.md`.
 
-## 示例
+| Framework | Language | Best for | Maintenance |
+|---|---|---|---|
+| **controller-runtime** | Go | Production-grade, low-level control | Active (sig-api-machinery) |
+| **kubebuilder** | Go | Standard scaffolding, opinionated | Active (Kubernetes SIGs) |
+| **operator-sdk** | Go / Helm / Ansible | OpenShift / mixed-paradigm teams | Active (Red Hat) |
+| **metacontroller** | Any (webhook-based) | Polyglot teams, avoiding Go | Less active |
+| **KOPF** | Python | Python shops, async-first | Active (community) |
+| **java-operator-sdk** | Java | JVM shops | Active (Red Hat / Java SIG) |
 
-审计存量 Operator 的标准流程：
+Decision rules:
+- New operator + Go shop → kubebuilder
+- New operator + Python shop → KOPF
+- New operator + can't pick a language → metacontroller
+- OpenShift target → operator-sdk
+
+## CRD design principles
+
+See `references/crd_design.md` for full detail. Quick rules:
+
+1. **status is the source of truth for the controller's view of the world.** Spec is what the user wants; status is what the controller observed.
+2. **Use the status subresource.** Without it, status updates re-trigger reconcile (loop).
+3. **Use Conditions.** `Ready`, `Reconciling`, `Degraded`. Each carries a reason and message.
+4. **Add finalizers.** Without finalizers, deletion races the controller and orphans external resources.
+5. **Version your CRD from day 1.** `v1alpha1` → `v1beta1` → `v1`. Plan a conversion webhook.
+6. **Validate via OpenAPI v3 schema.** Don't rely on the controller for validation that should fail at admission.
+7. **Use `additionalPrinterColumns` for `kubectl get`.** Show `Age`, `Phase`, `Ready` at minimum.
+8. **Namespace your CRDs unless they manage cluster-scoped resources.**
+
+## Reconcile loop principles
+
+See `references/reconcile_loop.md` for full detail. Quick rules:
+
+1. **Idempotent.** Reconciling the same state twice → same result, zero side effects.
+2. **Read once, decide, act.** Don't observe the world repeatedly during reconcile.
+3. **Update status, not spec.** Spec belongs to the user.
+4. **Return errors that requeue.** Use `ctrl.Result{RequeueAfter: ...}` for known transient cases.
+5. **Never block.** No `time.Sleep`. No long HTTP calls without context.
+6. **Use the cache.** Read via the controller's cached client; only escape the cache for a specific reason.
+7. **Leader-elect when running >1 replica.** Otherwise enable single-replica mode.
+8. **Set OwnerReferences.** Cascading deletion is the operator pattern's free gift.
+
+## Workflows
+
+### Workflow 1: Bootstrap a new operator (Go + kubebuilder)
+
 ```
-1. operator_capability_audit.py --operator-dir <path>   # 先看当前等级
-2. crd_validator.py --crd config/crd/
-3. reconcile_lint.py --controller controllers/
-4. 分级：FAIL 阻断发布并立即修；WARN 建 issue，30 天内修
-5. 在 README 写明当前能力等级并提交
-6. 规划：每季度晋升一个能力等级
+1. Pick a Group/Version/Kind: e.g., apps.example.com/v1alpha1, kind=MyApp
+2. kubebuilder init --domain example.com --repo github.com/org/myapp-operator
+3. kubebuilder create api --group apps --version v1alpha1 --kind MyApp
+4. Run crd_validator.py on config/crd/bases/apps.example.com_myapps.yaml
+   → Fix every WARN before writing controller code
+5. Implement the reconcile function (Karpathy principle 2: simplest correct version first)
+6. Run reconcile_lint.py on controllers/myapp_controller.go
+7. Run operator_capability_audit.py --operator-dir . — confirm L1
+8. Test in a kind cluster: kubectl apply -f config/samples/
+9. Add status conditions; aim for L2 in the same PR
 ```
 
-报告产出包含：每个 CRD 文件按检查项给 FAIL/WARN/PASS；reconcile 反模式带行号；当前能力等级 + 晋升下一级的具体动作。
+### Workflow 2: Audit an existing operator
 
-## 注意事项
+```
+1. Run operator_capability_audit.py --operator-dir <path>
+2. Run crd_validator.py --crd config/crd/
+3. Run reconcile_lint.py --controller controllers/
+4. Triage findings:
+   - FAIL → block release; fix before next deploy
+   - WARN → file an issue; fix in next 30 days
+5. Document current capability level in README; commit
+6. Plan one capability level advancement per quarter
+```
 
-- 核心范式：Operator 是「reconcile 循环」而非脚本 —— `observe(actual) -> desired=read(spec) -> diff -> act -> update(status) -> requeue/done`，幂等且声明式（让 actual=desired），别写成「创建做 A、更新做 B、删除做 C」的命令式分支。
-- 高频致命反模式：reconcile 内 `time.Sleep`（改用 `RequeueAfter`）；用 `r.Client.Update` 设 status（应 `r.Status().Update`）；多副本无 leader election（脑裂）；无 finalizer（外部资源在删除时成孤儿）；CRD 无 status 子资源（死循环）。
-- 工具均为 stdlib-only Python，可直接接入 CI/预提交；新 CRD 合入前应全部 PASS，reconcile 函数应通过 strict 模式。
-- 框架选型速记：Go 团队新建 -> kubebuilder；Python 团队 -> KOPF；选不定语言 -> metacontroller；OpenShift 目标 -> operator-sdk。提交前先做 1 周 PoC。
-- 重要偏差提示：本条所属 domain 被预设为「商业/finance」，但源技能实质是 Kubernetes Operator 审计（研发/DevOps 域）。建议人工将 domain 改为「研发/devops」或「研发/review」，否则会与实际内容错配。
+### Workflow 3: Choose a framework
 
-## 互见
+```
+1. Identify primary language constraint (team skill)
+2. Identify deployment target (vanilla k8s vs OpenShift)
+3. Identify operator complexity (single CRD vs multi-CRD vs cluster-wide)
+4. Cross-reference with references/tooling_landscape.md
+5. Build a 1-week proof-of-concept before committing
+```
 
-- senior-devops：普通 k8s 运维与发布，本条聚焦 Operator 模式审计。
-- cloud-security：集群安全态势，可与 Operator 的 RBAC/webhook 加固配合。
-- dependency-auditor / api-design-reviewer：同源审计类技能，方法论可借鉴。
+## References
 
----
-本条采编自 alirezarezvani/claude-skills（MIT）。
+- `references/operator_pattern.md` — what an operator IS, when to use vs alternatives
+- `references/crd_design.md` — CRD design principles, versioning, conversion webhooks
+- `references/reconcile_loop.md` — reconcile patterns, error handling, idempotency
+- `references/tooling_landscape.md` — framework comparison + decision tree
+
+## Slash command
+
+`/operator-audit` — Run all 3 tools on an operator repo and produce a markdown report.
+
+## Asset templates
+
+- `assets/crd_template.yaml` — CRD with status subresource, conditions, finalizer hint, printer columns
+- `assets/reconcile_skeleton.go` — Go controller reconcile function with idempotency, conditions, finalizers, requeue patterns
+
+## Anti-patterns
+
+- **`time.Sleep(30 * time.Second)` inside reconcile** — block other reconciles. Use `RequeueAfter`.
+- **`r.Client.Update(ctx, obj)` to set status** — use `r.Status().Update(ctx, obj)` instead.
+- **No leader election + 2+ replicas** — split-brain.
+- **No finalizer** — external resources orphan on deletion.
+- **CRD without status subresource** — status updates trigger spec reconciles (infinite loop).
+- **Reconcile function > 200 lines** — extract reconcileXxx subroutines per condition.
+- **`x-kubernetes-preserve-unknown-fields: true` on spec root** — defeats validation.
+- **Imperative reconcile** — "if creating, do A; if updating, do B; if deleting, do C". Wrong shape. Reconcile = make actual=desired, regardless of how we got here.
+
+## Verifiable success
+
+A team using this skill should achieve:
+
+- 100% of new CRDs pass `crd_validator.py` before merge
+- All reconcile functions pass `reconcile_lint.py` strict mode
+- Operators reach OperatorHub Capability Level 3 (Full Lifecycle) before public release
+- Mean time to fix a reconcile bug: <1 day (no infinite loops in production)

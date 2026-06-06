@@ -1,14 +1,14 @@
 ---
 name: molfeat-molecular-featurization
-title: molfeat 分子特征化
-description: 当把 SMILES 批量转成数值特征喂给 ML 模型时使用 molfeat；用 Calculator+Transformer 算指纹（ECFP/MACCS/MAP4）、描述符（RDKit2D/Mordred）、预训练嵌入（ChemBERTa/GIN），产出 (N,D) 特征矩阵与可复现配置；不适用于分子清洗标准化（用 datamol）、子结构/反应等底层操作（用 rdkit）、训练模型本身（用 deepchem/sklearn）；触发词：molfeat、分子特征化、指纹、ECFP、ChemBERTa、QSAR、虚拟筛选
+title: Molfeat — Molecular Featurization Hub
+description: Molecular featurization hub (100+ featurizers) for ML. SMILES to fingerprints (ECFP, MACCS, MAP4), descriptors (RDKit 2D, Mordred), pretrained embeddings (ChemBERTa, GIN, Graphormer), pharmacophores. Scikit-learn compatible with parallelization/caching. For QSAR, virtual screening, similarity, and molecular DL.
 domain: 领域/science
-triggers: [molfeat, 分子特征化, molecular featurization, 指纹, ECFP, MACCS, MAP4, Mordred, ChemBERTa, 预训练嵌入, QSAR, 虚拟筛选, FPCalculator, MoleculeTransformer]
+triggers: [molfeat, molecular featurization, ECFP, MACCS, MAP4, Mordred, ChemBERTa, QSAR, FPCalculator, MoleculeTransformer]
 tags: [molfeat, molecular-featurization, fingerprints, ecfp, descriptors, pretrained-embeddings, chemberta, qsar, virtual-screening, cheminformatics, drug-discovery, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, molfeat, molfeat.calc, molfeat.trans, FPCalculator, MoleculeTransformer, rdkit, scikit-learn]
+tools: []
 requires: []
 related: [rdkit-cheminformatics, datamol-cheminformatics, deepchem-drug-discovery, cheminformatics-toolkit]
 combines_with: [scikit-learn-ml, pubchem-compound-search, chembl-bioactivity-database]
@@ -16,100 +16,229 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# Molfeat — Molecular Featurization Hub
 
-需要把分子（SMILES）统一转成**数值特征向量**供机器学习/深度学习使用时，用 molfeat：它在 scikit-learn 兼容 API 下汇集 100+ 指纹、描述符与预训练嵌入。
+## Overview
 
-- 构建 QSAR/QSPR 模型，需要分子特征作为输入 X。
-- 虚拟筛选：批量特征化化合物库，按预测活性排序选 hit。
-- 相似度检索、化学空间聚类/可视化/降维。
-- 用预训练嵌入（ChemBERTa、GIN）做分子迁移学习/深度学习。
-- 把特征化步骤嵌入 scikit-learn Pipeline 或 PyTorch 训练流程。
-- 基准对比：同一数据上横评多种分子表征（ECFP vs 描述符 vs 嵌入）。
+Molfeat is a comprehensive Python library for molecular featurization that unifies 100+ pre-trained embeddings and hand-crafted featurizers under a scikit-learn compatible API. Convert SMILES strings into numerical representations (fingerprints, descriptors, deep learning embeddings) for QSAR modeling, virtual screening, similarity searching, and chemical space analysis.
 
-**不该用本条的情形**：
-- 分子清洗、标准化、I/O、构象等常规处理 —— 用 `datamol`。
-- 子结构/SMARTS、反应、底层原子操作 —— 用 `rdkit`（见 `cheminformatics-toolkit`）。
-- 训练模型本身或跑 MoleculeNet 基准 —— 用 `deepchem` / `scikit-learn`，molfeat 只负责产特征。
+## When to Use
 
-## 步骤
+- Building QSAR/QSPR models requiring molecular features as input
+- Virtual screening — ranking compound libraries by predicted activity
+- Similarity searching against molecular databases
+- Chemical space analysis — clustering, visualization, dimensionality reduction
+- Deep learning on molecules using pretrained embeddings (ChemBERTa, GIN)
+- Featurization pipelines integrating with scikit-learn or PyTorch
+- Comparing multiple molecular representations for benchmarking
+- For molecular manipulation and filtering use datamol instead; for substructure-based molecular operations use rdkit-cheminformatics
 
-molfeat 分三层：**Calculator（单分子→向量）→ Transformer（批量+并行+缓存）→ Store（发现/加载预训练模型）**。
+## Prerequisites
 
-1. **装依赖**：`uv pip install molfeat`；预训练类需额外 extras（`molfeat[transformer]` 装 ChemBERTa/MolT5，`molfeat[dgl]` 装 GIN，`molfeat[map4]` 装 MAP4）。
-2. **选特征器**：见下表按任务选型；不确定时**先用 ECFP（radius=3）做基线**。
-3. **建 Calculator**：如 `FPCalculator("ecfp", radius=3, fpSize=2048)`，可直接 `calc("CCO")` 返回 numpy 向量。
-4. **包成 Transformer**：`MoleculeTransformer(calc, n_jobs=-1)`，`transformer(smiles_list)` 返回 (N, D) 二维数组；大库开 `ignore_errors=True` 容错。
-5. **喂给 ML**：把特征矩阵交给 RandomForest / sklearn Pipeline / PyTorch；可用 `FeatConcat` 拼接多种特征。
-6. **存配置**：`transformer.to_state_yaml_file("config.yml")` 保存确切配置，`from_state_yaml_file` 还原，保证可复现。
+```bash
+uv pip install molfeat
 
-**特征器选型**（任务 → 推荐 / 维度 / 速度）：
+# Optional extras for specific featurizer types
+uv pip install "molfeat[transformer]"   # ChemBERTa, ChemGPT, MolT5
+uv pip install "molfeat[dgl]"           # GIN graph neural networks
+uv pip install "molfeat[graphormer]"    # Graphormer models
+uv pip install "molfeat[fcd]"           # FCD descriptors
+uv pip install "molfeat[map4]"          # MAP4 fingerprints
+uv pip install "molfeat[all]"           # All dependencies
+```
 
-| 任务 | 推荐 | 维度 | 速度 |
-|------|------|------|------|
-| 通用 QSAR | `ecfp`(radius=3) | 2048 | 快 |
-| 骨架相似度 | `maccs` | 167 | 极快 |
-| 大规模筛选 | `map4` | 1024 | 快 |
-| 可解释模型 | `desc2D`(RDKit2D) | 200+ | 快 |
-| 全量描述符 | `mordred` | 1800+ | 中 |
-| 迁移学习 | `ChemBERTa-77M-MLM` | 768 | 慢* |
-| 图深度学习 | `gin-supervised-masking` | 变长 | 慢* |
-| 药效团 | `fcfp` / `cats2D` | 2048 / 21 | 快 |
-| 3D 形状 | `usr` / `usrcat` | 12 / 60 | 快 |
-
-*首跑慢（下载权重/推理），后续走缓存。
-
-## 指令
-
-指纹（FPCalculator 支持 `ecfp/fcfp/maccs/rdkit/avalon/atompair/map4/secfp/erg/estate` 等，加 `-count` 后缀为计数型）：
+## Quick Start
 
 ```python
 from molfeat.calc import FPCalculator
-ecfp = FPCalculator("ecfp", radius=3, fpSize=2048)
-fp = ecfp("CCO")            # (2048,)
-maccs = FPCalculator("maccs")               # (167,) 极快做骨架相似度
-map4 = FPCalculator("map4")                 # (1024,) 适合大库
+from molfeat.trans import MoleculeTransformer
+
+smiles = ["CCO", "CC(=O)O", "c1ccccc1", "CC(C)O"]
+
+# Create fingerprint calculator + transformer
+calc = FPCalculator("ecfp", radius=3, fpSize=2048)
+transformer = MoleculeTransformer(calc, n_jobs=-1)
+
+# Featurize batch in parallel
+features = transformer(smiles)
+print(f"Shape: {features.shape}")  # (4, 2048)
+
+# Save configuration for reproducibility
+transformer.to_state_yaml_file("featurizer_config.yml")
 ```
 
-描述符与药效团/形状：
+## Key Concepts
+
+### Architecture: Calculator → Transformer → Store
+
+Molfeat organizes featurization into three layers:
+
+| Layer | Class | Purpose | Use When |
+|-------|-------|---------|----------|
+| **Calculator** | `molfeat.calc.*` | Single molecule → feature vector | Custom loops, single molecules |
+| **Transformer** | `molfeat.trans.MoleculeTransformer` | Batch processing with parallelization | Datasets, scikit-learn pipelines |
+| **Store** | `molfeat.store.ModelStore` | Discovery and loading of pretrained models | Finding available featurizers |
+
+**Calculators** are callable: `calc("CCO")` returns a numpy array. **Transformers** wrap calculators for batch processing: `transformer(smiles_list)` returns a 2D array. **Pretrained** transformers (`PretrainedMolTransformer`) add batched GPU inference and caching.
+
+### Featurizer Selection Guide
+
+| Task | Recommended | Dimensions | Speed |
+|------|-------------|------------|-------|
+| General QSAR | `ecfp` (radius=3) | 2048 | Fast |
+| Scaffold similarity | `maccs` | 167 | Very fast |
+| Large-scale screening | `map4` | 1024 | Fast |
+| Interpretable models | `desc2D` (RDKitDescriptors2D) | 200+ | Fast |
+| Comprehensive descriptors | `mordred` | 1800+ | Medium |
+| Transfer learning | `ChemBERTa-77M-MLM` | 768 | Slow* |
+| Graph-based DL | `gin-supervised-masking` | Variable | Slow* |
+| Pharmacophore | `fcfp` or `cats2D` | 2048 / 21 | Fast |
+| 3D shape | `usr` / `usrcat` | 12 / 60 | Fast |
+
+*First run slow; subsequent runs cached.
+
+### State Persistence
+
+Save and reload exact featurizer configuration for reproducibility:
 
 ```python
-from molfeat.calc import RDKitDescriptors2D, MordredDescriptors, CATSCalculator, USRDescriptors
-desc2d = RDKitDescriptors2D()               # 200+ 具名属性(MW/logP/TPSA...)
-print(desc2d.columns[:5])                   # 特征名，便于可解释
-mordred = MordredDescriptors()              # 1800+ 全量描述符
-cats = CATSCalculator(mode="2D", scale="raw")   # 药效团点对分布 (21,)
-usr  = USRDescriptors()                     # 超快形状识别 (12,)
+# Save
+transformer.to_state_yaml_file("config.yml")
+transformer.to_state_json_file("config.json")
+
+# Reload
+loaded = MoleculeTransformer.from_state_yaml_file("config.yml")
 ```
 
-批量并行 + 拼接 + 容错：
+## Core API
+
+### 1. Fingerprint Calculators
+
+```python
+from molfeat.calc import FPCalculator
+
+# ECFP — most popular, general-purpose
+ecfp = FPCalculator("ecfp", radius=3, fpSize=2048)
+fp = ecfp("CCO")
+print(f"ECFP shape: {fp.shape}")  # (2048,)
+
+# MACCS keys — 167-bit structural keys, fast scaffold similarity
+maccs = FPCalculator("maccs")
+fp = maccs("c1ccccc1")
+print(f"MACCS shape: {fp.shape}")  # (167,)
+
+# Count-based fingerprints (non-binary)
+ecfp_count = FPCalculator("ecfp-count", radius=3, fpSize=2048)
+
+# MAP4 — MinHashed atom-pair, efficient for large databases
+map4 = FPCalculator("map4")
+print(f"MAP4 shape: {map4('CCO').shape}")  # (1024,)
+```
+
+**Available fingerprint types**: `ecfp`, `fcfp`, `maccs`, `rdkit`, `avalon`, `pattern`, `layered`, `atompair`, `topological`, `map4`, `secfp`, `erg`, `estate` (and count variants with `-count` suffix).
+
+### 2. Descriptor Calculators
+
+```python
+from molfeat.calc import RDKitDescriptors2D, MordredDescriptors
+
+# RDKit 2D — 200+ named properties (MW, logP, TPSA, etc.)
+desc2d = RDKitDescriptors2D()
+descriptors = desc2d("CCO")
+print(f"2D descriptors: {len(descriptors)}")  # 200+
+print(f"Feature names: {desc2d.columns[:5]}")
+
+# Mordred — 1800+ comprehensive descriptors
+mordred = MordredDescriptors()
+descriptors = mordred("c1ccccc1O")
+print(f"Mordred descriptors: {len(descriptors)}")  # 1800+
+```
+
+### 3. Pharmacophore & Shape Calculators
+
+```python
+from molfeat.calc import CATSCalculator, USRDescriptors
+
+# CATS — pharmacophore point pair distributions
+cats = CATSCalculator(mode="2D", scale="raw")
+descriptors = cats("CC(C)Cc1ccc(C)cc1C")
+print(f"CATS shape: {descriptors.shape}")  # (21,)
+
+# USR — ultrafast shape recognition
+usr = USRDescriptors()
+shape = usr("CC(=O)Oc1ccccc1C(=O)O")
+print(f"USR shape: {shape.shape}")  # (12,)
+```
+
+### 4. Batch Processing with Transformers
 
 ```python
 from molfeat.trans import MoleculeTransformer, FeatConcat
-tr = MoleculeTransformer(FPCalculator("ecfp"), n_jobs=-1)
-X = tr(["CCO", "CC(=O)O", "c1ccccc1"])      # (3, 2048)
-combo = MoleculeTransformer(FeatConcat([FPCalculator("maccs"), FPCalculator("ecfp")]), n_jobs=-1)
-Xc = combo(smiles)                          # (N, 167+2048)=2215，互补信息
-safe = MoleculeTransformer(FPCalculator("ecfp"), n_jobs=-1, ignore_errors=True)
-Xs = safe(["CCO", "invalid", "c1ccccc1"])   # 非法 SMILES 返回 None，不崩
+from molfeat.calc import FPCalculator
+
+smiles = ["CCO", "CC(=O)O", "c1ccccc1", "CC(C)O", "CCCC"]
+
+# Parallel batch processing
+transformer = MoleculeTransformer(FPCalculator("ecfp"), n_jobs=-1)
+features = transformer(smiles)
+print(f"Batch shape: {features.shape}")  # (5, 2048)
+
+# Concatenate multiple featurizers
+concat = FeatConcat([
+    FPCalculator("maccs"),      # 167 dims
+    FPCalculator("ecfp")        # 2048 dims
+])
+combo_transformer = MoleculeTransformer(concat, n_jobs=-1)
+combo_features = combo_transformer(smiles)
+print(f"Combined shape: {combo_features.shape}")  # (5, 2215)
+
+# Error-tolerant processing
+safe_transformer = MoleculeTransformer(
+    FPCalculator("ecfp"), n_jobs=-1,
+    ignore_errors=True, verbose=True
+)
+features = safe_transformer(["CCO", "invalid", "c1ccccc1"])
+# Returns None for failed molecules
 ```
 
-预训练嵌入与 Store 发现：
+### 5. Pretrained Model Embeddings
 
 ```python
 from molfeat.trans.pretrained import PretrainedMolTransformer
-from molfeat.store.modelstore import ModelStore
+
+# ChemBERTa — RoBERTa trained on 77M PubChem compounds
 chemberta = PretrainedMolTransformer("ChemBERTa-77M-MLM", n_jobs=-1)
-emb = chemberta(["CCO", "CC(=O)O"])         # (2, 768)，首跑下载权重后缓存
-store = ModelStore()
-print(len(store.available_models))
-for m in store.search(name="ChemBERTa"):
-    print(m.name, m.description)
+embeddings = chemberta(["CCO", "CC(=O)O", "c1ccccc1"])
+print(f"ChemBERTa shape: {embeddings.shape}")  # (3, 768)
+
+# GIN — graph neural network pretrained on ChEMBL
+gin = PretrainedMolTransformer("gin-supervised-masking", n_jobs=-1)
+graph_emb = gin(["CCO", "CC(=O)O"])
+print(f"GIN shape: {graph_emb.shape}")
 ```
 
-## 示例
+### 6. ModelStore — Discovering Featurizers
 
-QSAR 建模（特征化→交叉验证→存配置部署）：
+```python
+from molfeat.store.modelstore import ModelStore
+
+store = ModelStore()
+print(f"Total available: {len(store.available_models)}")
+
+# Search for specific model
+results = store.search(name="ChemBERTa")
+for model in results:
+    print(f"  {model.name}: {model.description}")
+
+# View usage and load
+card = store.search(name="ChemBERTa-77M-MLM")[0]
+card.usage()
+transformer = store.load("ChemBERTa-77M-MLM")
+```
+
+## Common Workflows
+
+### Workflow 1: QSAR Model Building
 
 ```python
 from molfeat.calc import FPCalculator
@@ -117,66 +246,176 @@ from molfeat.trans import MoleculeTransformer
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import cross_val_score
 
-tr = MoleculeTransformer(FPCalculator("ecfp", radius=3), n_jobs=-1)
-X = tr(smiles_train)
-scores = cross_val_score(RandomForestRegressor(n_estimators=100), X, y_train, cv=5, scoring="r2")
-print(f"R2 = {scores.mean():.3f} ± {scores.std():.3f}")
-tr.to_state_yaml_file("production_featurizer.yml")   # 部署时按此还原同一特征器
+# Featurize molecules
+transformer = MoleculeTransformer(FPCalculator("ecfp", radius=3), n_jobs=-1)
+X = transformer(smiles_train)
+print(f"Features shape: {X.shape}")
+
+# Train and evaluate
+model = RandomForestRegressor(n_estimators=100)
+scores = cross_val_score(model, X, y_train, cv=5, scoring='r2')
+print(f"R² = {scores.mean():.3f} ± {scores.std():.3f}")
+
+# Save for deployment
+transformer.to_state_yaml_file("production_featurizer.yml")
 ```
 
-特征器横评（同数据对比 ECFP / MACCS / 描述符的 AUC）：
+### Workflow 2: Virtual Screening Pipeline
+
+```python
+from sklearn.ensemble import RandomForestClassifier
+
+# Step 1: Featurize known actives/inactives
+transformer = MoleculeTransformer(FPCalculator("ecfp"), n_jobs=-1)
+X_train = transformer(train_smiles)
+
+# Step 2: Train classifier
+clf = RandomForestClassifier(n_estimators=500, n_jobs=-1)
+clf.fit(X_train, train_labels)
+
+# Step 3: Screen library (e.g., 1M compounds)
+X_screen = transformer(screening_smiles)
+predictions = clf.predict_proba(X_screen)[:, 1]
+
+# Step 4: Rank and select top hits
+top_indices = predictions.argsort()[::-1][:1000]
+top_hits = [screening_smiles[i] for i in top_indices]
+print(f"Top 1000 hits selected from {len(screening_smiles)} compounds")
+```
+
+### Workflow 3: Featurizer Benchmarking
 
 ```python
 from molfeat.calc import FPCalculator, RDKitDescriptors2D
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_auc_score
 
-feats = {"ECFP": FPCalculator("ecfp"), "MACCS": FPCalculator("maccs"), "Desc": RDKitDescriptors2D()}
-for name, calc in feats.items():
-    tr = MoleculeTransformer(calc, n_jobs=-1)
-    clf = RandomForestClassifier(n_estimators=100).fit(tr(smiles_train), y_train)
-    auc = roc_auc_score(y_test, clf.predict_proba(tr(smiles_test))[:, 1])
+featurizers = {
+    'ECFP': FPCalculator("ecfp"),
+    'MACCS': FPCalculator("maccs"),
+    'Descriptors': RDKitDescriptors2D(),
+}
+
+for name, calc in featurizers.items():
+    transformer = MoleculeTransformer(calc, n_jobs=-1)
+    X_train = transformer(smiles_train)
+    X_test = transformer(smiles_test)
+    clf = RandomForestClassifier(n_estimators=100)
+    clf.fit(X_train, y_train)
+    auc = roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1])
     print(f"{name}: AUC = {auc:.3f}")
 ```
 
-嵌入 sklearn Pipeline（直接以 SMILES 训练/预测）：
+## Common Recipes
+
+### Recipe: Scikit-learn Pipeline Integration
 
 ```python
 from sklearn.pipeline import Pipeline
-pipe = Pipeline([("feat", MoleculeTransformer(FPCalculator("ecfp"), n_jobs=-1)),
-                 ("clf", RandomForestClassifier(n_estimators=100))])
-pipe.fit(smiles_train, y_train)
-pred = pipe.predict(smiles_test)
+from sklearn.ensemble import RandomForestClassifier
+
+pipeline = Pipeline([
+    ('featurizer', MoleculeTransformer(FPCalculator("ecfp"), n_jobs=-1)),
+    ('classifier', RandomForestClassifier(n_estimators=100))
+])
+pipeline.fit(smiles_train, y_train)
+predictions = pipeline.predict(smiles_test)
 ```
 
-大库分块特征化（>100K 防内存爆）：
+### Recipe: Similarity Search
+
+```python
+from sklearn.metrics.pairwise import cosine_similarity
+
+calc = FPCalculator("ecfp")
+query_fp = calc("CC(=O)Oc1ccccc1C(=O)O").reshape(1, -1)  # Aspirin
+
+transformer = MoleculeTransformer(calc, n_jobs=-1)
+db_fps = transformer(database_smiles)
+
+similarities = cosine_similarity(query_fp, db_fps)[0]
+top_k = similarities.argsort()[-10:][::-1]
+for i in top_k:
+    print(f"  {database_smiles[i]}: {similarities[i]:.3f}")
+```
+
+### Recipe: Chunk Processing for Large Datasets
 
 ```python
 import numpy as np
-def featurize_chunks(smiles, transformer, chunk=10000):
-    out = []
-    for i in range(0, len(smiles), chunk):
-        out.append(transformer(smiles[i:i+chunk]))
-    return np.vstack(out)
+
+def featurize_chunks(smiles_list, transformer, chunk_size=10000):
+    all_features = []
+    for i in range(0, len(smiles_list), chunk_size):
+        chunk = smiles_list[i:i+chunk_size]
+        features = transformer(chunk)
+        all_features.append(features)
+        print(f"Processed {min(i+chunk_size, len(smiles_list))}/{len(smiles_list)}")
+    return np.vstack(all_features)
 ```
 
-## 注意事项
+## Key Parameters
 
-- **并行加速**：批量特征化一律 `n_jobs=-1` 跑满 CPU 核，提速显著。
-- **先 ECFP 基线**：上深度学习前先用 ECFP 建 baseline，最通用且快。
-- **容错**：大库设 `ignore_errors=True`，非法 SMILES 返回 `None` 不会中断；下游进 ML 前过滤 `[f for f in X if f is not None]`，否则形状不匹配报错。
-- **省内存**：`MoleculeTransformer(calc, dtype=np.float32)`；数据 >100K 用分块（见示例）。
-- **可复现**：用 `to_state_yaml_file()` 存配置并 pin 住 molfeat 版本，不同版本可能特征不一致。
-- **预训练缓存**：ChemBERTa/GIN 首跑慢（下载权重+推理），属正常，后续走缓存。
-- **拼接互补**：`FeatConcat` 组合多种特征（如 MACCS+ECFP）可捕获互补分子信息。
-- **常见报错**：`unsupported featurizer` → 方法名拼错或不支持，查 FPCalculator 支持类型或用 `ModelStore.search()`；预训练 `ImportError` → 缺 extras，装 `molfeat[transformer]` / `molfeat[dgl]`；内存溢出 → 分块 10K~50K。
+| Parameter | Module | Default | Description |
+|-----------|--------|---------|-------------|
+| `method` | FPCalculator | — | Fingerprint type: `ecfp`, `maccs`, `map4`, etc. |
+| `radius` | FPCalculator | 3 | Circular fingerprint radius |
+| `fpSize` | FPCalculator | 2048 | Fingerprint bit length |
+| `counting` | FPCalculator | False | Count vector instead of binary |
+| `n_jobs` | MoleculeTransformer | 1 | Parallel workers (-1 = all cores) |
+| `ignore_errors` | MoleculeTransformer | False | Skip invalid molecules (returns None) |
+| `verbose` | MoleculeTransformer | False | Log processing details |
+| `dtype` | MoleculeTransformer | float64 | Output type (float32 for memory) |
+| `mode` | CATSCalculator | "2D" | Distance calculation mode |
+| `scale` | CATSCalculator | "raw" | Scaling: `raw`, `num`, `count` |
 
-## 互见
+## Best Practices
 
-- related：`cheminformatics-toolkit` —— 上游用 RDKit 解析/清洗/标准化 SMILES，再交给 molfeat 算特征。
-- related：`deepchem-drug-discovery` —— molfeat 产的特征可直接喂 DeepChem 训练分子性质模型，二者同属分子 ML 流水线。
-- related：`scientific-database-lookup` —— 从 PubChem/ChEMBL 取来的化合物库，先特征化再筛选。
-- combines_with：`scikit-learn-ml` —— molfeat 特征是 sklearn 模型/Pipeline 的标准输入 X，做 QSAR、虚拟筛选、横评。
+- **Use `n_jobs=-1`** for parallel processing on all CPU cores — significant speedup for batch featurization
+- **Start with ECFP** for initial baselines — best general-purpose fingerprint before trying deep learning
+- **Use `ignore_errors=True`** for large datasets — invalid SMILES won't crash the pipeline
+- **Save configurations** with `to_state_yaml_file()` for reproducibility — recreate exact featurizer later
+- **Use float32** when memory matters: `MoleculeTransformer(calc, dtype=np.float32)`
+- **Cache pretrained embeddings** — first ChemBERTa/GIN inference is slow, subsequent runs use cache
+- **Process in chunks** for datasets >100K — prevents memory exhaustion (see Recipes)
+- **Combine fingerprints** with `FeatConcat` to capture complementary molecular information
 
----
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `ValueError: unsupported featurizer` | Unknown method name | Check `FPCalculator` supported types or use `ModelStore.search()` |
+| `ImportError` for pretrained model | Missing optional dependency | Install extras: `pip install "molfeat[transformer]"` or `"molfeat[dgl]"` |
+| `None` in output array | Invalid SMILES with `ignore_errors=True` | Filter results: `[f for f in features if f is not None]` |
+| Memory error on large dataset | Too many molecules at once | Process in chunks of 10K-50K (see Recipes) |
+| Slow pretrained model inference | First run downloads model weights | Normal — subsequent runs use cache |
+| Shape mismatch in pipeline | Mixed valid/invalid molecules | Ensure `ignore_errors=True` and filter None before ML model |
+| Reproducibility issues | Different molfeat versions | Pin version and save config: `transformer.to_state_yaml_file()` |
+
+## Related Skills
+
+- `datamol-cheminformatics` — High-level molecular manipulation (standardization, I/O, conformers)
+- `rdkit-cheminformatics` — Low-level cheminformatics (substructure, reactions, 3D)
+- `scikit-learn` — ML models consuming molfeat features
+
+## References
+
+- Official documentation: https://molfeat-docs.datamol.io/
+- GitHub repository: https://github.com/datamol-io/molfeat
+- PyPI package: https://pypi.org/project/molfeat/
+- Tutorial: https://portal.valencelabs.com/datamol/post/types-of-featurizers-b1e8HHrbFMkbun6
+
+## Bundled Resources
+
+**Main SKILL.md** + 2 reference files. Original total: 1,273 lines (SKILL.md 510 + api_reference.md 429 + available_featurizers.md 334). Scripts: none. Examples: 724 lines (examples.md).
+
+**references/available_featurizers.md**: Complete catalog of all 100+ featurizers organized by category — transformer models, GNNs, descriptors, fingerprints, pharmacophore, shape, scaffold, graph featurizers. Includes dimensions, dependencies, and selection guidance per category. Purely lookup-oriented content preserved as reference.
+
+**references/api_reference.md**: Detailed API reference for `molfeat.calc`, `molfeat.trans`, and `molfeat.store` modules. Covers SerializableCalculator base class, all calculator subclasses with parameters, MoleculeTransformer methods, PretrainedMolTransformer, FeatConcat, ModelStore/ModelCard API, data type control, and PyTorch integration patterns.
+
+**Original file disposition**:
+- `SKILL.md` (510 lines) → Core API modules 1-6, Key Concepts (architecture, selection guide), Quick Start, Workflows 1-3. "Choosing the Right Featurizer" → Key Concepts selection guide table. "Advanced Features" (custom preprocessing, batch processing, caching) → Recipes + Best Practices. "Common Featurizers Reference" table → Key Concepts selection guide. "Performance Tips" → Best Practices. Per-use-case disposition: QSAR Modeling → Workflow 1, Virtual Screening → Workflow 2, Similarity Search → Recipe, Chemical Space → When to Use bullet, scikit-learn Pipeline → Recipe, Featurizer Comparison → Workflow 3
+- `references/api_reference.md` (429 lines) → Migrated to new `references/api_reference.md`. Core patterns (FPCalculator, MoleculeTransformer, basic ModelStore) relocated to SKILL.md Core API modules 1-6. Detailed class methods, SerializableCalculator base class, PrecomputedMolTransformer, and PyTorch integration retained in reference
+- `references/available_featurizers.md` (334 lines) → Migrated to new `references/available_featurizers.md`. Top-level summary → Key Concepts selection guide table. Full categorized catalog retained in reference
+- `references/examples.md` (724 lines) → Fully consolidated inline: installation → Prerequisites; calculator examples → Core API 1-3; transformer examples → Core API 4; pretrained examples → Core API 5; ML integration → Workflows 1-3 + Recipes; advanced patterns (custom preprocessing, caching, chunk processing) → Recipes + Best Practices; troubleshooting → Troubleshooting table. No separate reference file needed — all content absorbed into SKILL.md sections
+
+**Retention**: ~490 lines (SKILL.md) + ~170 lines (available_featurizers) + ~190 lines (api_reference) = ~850 / 1,273 original (excl. examples.md treated as consolidated) = ~67%. Including examples.md in denominator: ~850 / 1,997 = ~43%.

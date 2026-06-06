@@ -1,14 +1,14 @@
 ---
 name: jq-json-processing
-title: jq JSON 查询与转换
-description: 当处理 API/CLI/日志输出的 JSON 时使用；用 jq 过滤、转换、聚合并产出结构化结果或 CSV/TSV/原始文本；不适用于写文件或非 JSON 数据。触发词：jq、JSON 解析、JSON 转换
+title: jq JSON Querying and Transformation
+description: Use jq to query, filter, transform, and aggregate JSON from APIs/CLIs/logs and pipe structured results (CSV/TSV/raw) into shell workflows; not for writing files or non-JSON data. Triggers: jq, JSON parsing, JSON transformation.
 domain: 数据/wrangling
-triggers: [jq, JSON 解析, JSON 过滤, JSON 转换, 提取 JSON 字段, JSON 转 CSV, 解析接口返回的 JSON, kubectl/aws/gh JSON 输出]
-tags: [jq, json, shell, cli, 数据转换, bash, 数据/misc]
-level: 进阶
+triggers: [jq, JSON parsing, JSON filtering, JSON transformation, extract JSON fields, JSON to CSV, parse API JSON response, kubectl/aws/gh JSON output]
+tags: [jq, json, shell, cli, data-transformation, bash]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [jq, bash, shell]
+tools: []
 requires: []
 related: [polars-dataframe, csv-data-cleaner, sql-query-builder]
 combines_with: [csv-data-cleaner, polars-dataframe, matplotlib-visualization]
@@ -16,93 +16,117 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适用场景：
+`jq` is the standard CLI tool for querying and reshaping JSON. It takes a filter expression and applies it to JSON input; filters compose with pipes (`|`), and `jq` handles arrays, objects, strings, numbers, booleans, and `null` natively. Use this skill when:
 
-- 解析 API、CLI 工具（AWS、GitHub、kubectl、docker）或日志文件输出的 JSON。
-- 转换 JSON 结构：重命名键、扁平化数组、按字段分组、构造新对象。
-- 在 bash 脚本或一行命令里嵌入 jq。
-- 需要解释一段复杂 jq 表达式的含义。
+- Parsing JSON output from APIs, CLI tools (AWS, GitHub, kubectl, docker), or log files.
+- Transforming JSON structure: renaming keys, flattening arrays, grouping records, or building new objects.
+- Embedding `jq` inside a bash script or one-liner.
+- Explaining what a complex `jq` expression does.
 
-不该用的边界：
+Boundaries — do not use when:
 
-- jq 只读，无法写文件或执行命令；需要落盘/改文件请用其他工具。
-- 输入不是 JSON（如纯文本、CSV、YAML）时不适用，先转换或改用 awk/yq 等。
-- 不能替代环境相关的校验、测试或专家复核；缺少输入、权限或成功标准时先澄清。
+- You need to write files or run commands — `jq` is read-only by design.
+- The input is not JSON (plain text, CSV, YAML) — convert first, or use `awk`/`yq` instead.
+- It is a substitute for environment-specific validation, testing, or expert review. Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
 
-## 步骤
+## Steps
 
-1. 先用 `jq 'keys'` 或 `jq '.'` 探查实际结构与字段名（JSON 大小写敏感）。
-2. 用 `.field`、`.[]`、`.[i]` 定位数据，用管道 `|` 逐级组合过滤器。
-3. 用 `select(...)` 过滤、`map(...)`/`{...}` 转换、`add`/`group_by` 聚合。
-4. 输出给 shell 变量或下游命令时加 `-r` 去引号；NDJSON 管道用 `-c`。
-5. 注入外部变量一律用 `--arg`（字符串）/`--argjson`（数字、布尔、JSON），切勿把 shell 变量直接拼进过滤器字符串。
+1. Probe the actual structure and field names first with `jq 'keys'` or `jq '.'` (JSON is case-sensitive).
+2. Locate data with `.field`, `.[]`, `.[i]`, and compose filters stage by stage with the pipe `|`.
+3. Filter with `select(...)`, transform with `map(...)` / `{...}`, aggregate with `add` / `group_by`.
+4. Add `-r` to strip quotes when feeding shell variables or downstream commands; use `-c` for NDJSON pipelines.
+5. Inject external variables only with `--arg` (strings) / `--argjson` (numbers, booleans, JSON) — never splice shell variables directly into the filter string.
 
-## 指令
+### Filter reference
 
-- 取字段 / 嵌套：`jq '.name'`、`jq '.user.email'`
-- 数组：索引 `jq '.[1]'`、切片 `jq '.[2:4]'`、遍历 `jq '.[]'`
-- 过滤：`jq '[.[] | select(.role == "admin")]'`，多条件 `select(.active == true and .score >= 80)`
-- 转换：`jq 'map(.name)'`、构对象 `jq '[.[] | {user: .name, years: .age}]'`、加字段 `jq '[.[] | . + {senior: (.age > 28)}]'`
-- 聚合：`jq 'add'`、`jq '[.[].price] | add'`、`jq 'length'`、`jq 'max_by(.score)'`、`jq 'group_by(.status) | map({status: .[0].status, count: length})'`
-- reduce：`jq 'reduce .[] as $x (0; . + $x)'`
-- 格式化（配 `-r`）：插值 `"\(.name) is \(.age)"`、`@csv`、`@tsv`、`@uri`、`@base64`
-- 键与路径：`jq 'keys'`、`jq 'has("email")'`、`jq 'del(.password)'`、递归取值 `jq '.. | .id? // empty'`
-- 条件与容错：`if .score >= 90 then "A" elif .score >= 80 then "B" else "C" end`、默认值 `.nickname // .name`、容错 `try .nested.value catch null`
-- 多文件/多行：`jq -s '.' records.ndjson`、`jq -s 'add' a.json b.json`
-- 进阶：`unique_by(.email)`、`flatten(1)`、`transpose`、`walk(if type=="string" then ascii_downcase else . end)`、`jq -n 'env.API_KEY'`
+- **Selection / nesting:** `jq '.name'`, `jq '.user.email'`
+- **Arrays:** index `jq '.[1]'`, slice `jq '.[2:4]'`, iterate `jq '.[]'`
+- **Filtering:** `jq '[.[] | select(.role == "admin")]'`; multi-condition `select(.active == true and .score >= 80)`; non-null `select(.email != null)`
+- **Mapping / transform:** `jq 'map(.name)'`, build object `jq '[.[] | {user: .name, years: .age}]'`, add field `jq '[.[] | . + {senior: (.age > 28)}]'`, rename keys `jq '[.[] | {username: .name, email_address: .email}]'`
+- **Aggregation:** `jq 'add'`, `jq '[.[].price] | add'`, `jq 'length'`, `jq 'max_by(.score)'`, `jq 'min_by(.created_at)'`, `jq 'group_by(.status) | map({status: .[0].status, count: length})'`
+- **reduce:** `jq 'reduce .[] as $x (0; . + $x)'`
+- **Formatting (with `-r`):** interpolation `"\(.name) is \(.age)"`, `@csv`, `@tsv`, `@uri`, `@base64`
+- **Keys & paths:** `jq 'keys'`, `jq 'has("email")'`, `jq 'del(.password)'`, recursive `jq '.. | .id? // empty'`, leaf paths `jq '[paths(scalars)]'`
+- **Conditionals & error handling:** `if .score >= 90 then "A" elif .score >= 80 then "B" else "C" end`, fallback `.nickname // .name`, tolerant `try .nested.value catch null`
+- **Multi-file / multi-line:** `jq -s '.' records.ndjson`, `jq -s 'add' file1.json file2.json`
+- **Advanced:** `unique_by(.email)`, `flatten(1)`, `transpose`, `walk(if type == "string" then ascii_downcase else . end)`, `jq -n 'env.API_KEY'`
 
-## 示例
+## Example
 
 ```bash
-# 提取字段
+# Extract a field
 echo '{"name":"alice","age":30}' | jq '.name'        # "alice"
 
-# 过滤管理员并收回数组
+# Nested access
+echo '{"user":{"email":"a@b.com"}}' | jq '.user.email'
+
+# Keep only matching elements
 echo '[{"role":"admin"},{"role":"user"},{"role":"admin"}]' \
   | jq '[.[] | select(.role == "admin")]'
 
-# 求和一个字段
+# Build a new object per element / add a computed field
+jq '[.[] | {user: .name, years: .age}]'
+jq '[.[] | . + {senior: (.age > 28)}]'
+
+# Sum a field across objects
 jq '[.[].price] | add'
 
-# 安全注入 shell 变量（字符串用 --arg，数字用 --argjson）
+# reduce: custom accumulator
+echo '[1,2,3,4,5]' | jq 'reduce .[] as $x (0; . + $x)'   # 15
+
+# Count per group
+jq 'group_by(.status) | map({status: .[0].status, count: length})'
+
+# Inject shell variables safely (string with --arg, number with --argjson)
 STATUS="active"
 jq --arg s "$STATUS" '[.[] | select(.status == $s)]'
 jq --argjson threshold 42 '[.[] | select(.value > $threshold)]'
 
-# 转 CSV（-r 去引号）
+# Format as CSV (strip quotes with -r)
 jq -r '.[] | [.name, .age, .email] | @csv'
 
-# 对象的数组 -> 数组的对象
-# 输入: {"names":["a","b"],"scores":[10,20]}
+# Compact output for NDJSON pipelines
+jq -c '.[]' records.json | while IFS= read -r record; do
+  echo "Processing: $record"
+done
+
+# Object of arrays -> array of objects
+# Input: {"names":["a","b"],"scores":[10,20]}
 jq '[.names, .scores] | transpose | map({name: .[0], score: .[1]})'
 
-# 与外部 CLI 串联
+# Chaining with external CLIs
 kubectl get pods -o json | jq '.items[] | {name: .metadata.name, status: .status.phase}'
 gh pr list --json number,title | jq -r '.[] | "\(.number)\t\(.title)"'
 aws ec2 describe-instances \
   | jq -r '.Reservations[].Instances[] | select(.State.Name=="running") | .InstanceId'
+docker inspect $(docker ps -q) | jq -r '.[] | "\(.Name)\t\(.Config.Image)"'
 ```
 
-## 注意事项
+## Notes
 
-- 传给 shell 变量或下游命令时务必加 `-r`，去掉 JSON 字符串引号。
-- 注入变量只用 `--arg`/`--argjson`，绝不把 shell 变量直接拼进过滤器字符串（既防注入又防引号问题）。
-- 过滤器在脚本中用单引号 `jq '.field'`，避免 shell 提前展开；用双引号易出错。
-- `map(f)` 比 `[.[] | f]` 更易读；用 `empty` 丢弃元素而非过滤成 `null`。
-- 常见坑：
-  - 输出 `null` 而非预期值：多半是键名拼错，先 `jq 'keys'` 查实际字段名。
-  - 数字被当成字符串：注入数值用 `--argjson` 而非 `--arg`。
-  - 空数组 `add` 返回 `null`：用 `add // 0` 或 `add // ""` 兜底。
-  - 大文件处理慢：试 `jq --stream`，或改用 `jstream` / `gron`。
-- 安全：jq 设计上只读，不能写文件或执行命令；勿把不可信的 JSON 字段值直接拼进 shell 命令，始终加引号或用 `--arg`。
+Best practices:
 
-## 互见
+- Always use `-r` (raw output) when passing `jq` results to shell variables or other commands, to strip JSON string quotes.
+- Use `--arg` / `--argjson` to inject shell variables safely — never interpolate shell variables directly into the filter string (prevents both injection and quoting bugs).
+- Quote filters with single quotes in scripts (`jq '.field'`, not `jq ".field"`) so the shell does not expand them early.
+- Prefer `map(f)` over `[.[] | f]` for readability; use `empty` to drop unwanted elements rather than filtering to `null`.
+- Test filters interactively with `jq -n` and literal input before embedding in scripts.
 
-- `bash-pro` / `bash-linux`：把 jq 调用封装进健壮的 shell 脚本与管道。
-- `github-automation`：结合 GitHub CLI 的 JSON 输出使用 jq。
+Common pitfalls:
 
----
+- Outputs `null` instead of the expected value: usually a typo in a key name — run `jq 'keys'` to inspect actual field names (JSON is case-sensitive).
+- Numbers quoted as strings: use `--argjson` instead of `--arg` for numeric values.
+- `add` returns `null` on an empty array: use `add // 0` or `add // ""` as a fallback.
+- Streaming large files is slow: try `jq --stream`, or switch to `jstream` / `gron`.
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+Security & safety:
+
+- `jq` is read-only by design — it cannot write files or execute commands.
+- Avoid embedding untrusted JSON field values directly into shell commands; always quote or use `--arg`.
+
+## See also
+
+- `bash-pro` / `bash-linux` — wrapping jq calls in robust shell scripts and pipelines.
+- `github-automation` — using jq with GitHub CLI JSON output.

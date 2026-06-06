@@ -1,14 +1,14 @@
 ---
 name: pydeseq2-differential-expression
-title: PyDESeq2 批量 RNA-seq 差异表达分析
-description: 当你有批量 RNA-seq 原始整数计数矩阵 + 样本元数据，要做两组或多因子差异表达（DE）检验时使用；用纯 Python 的 PyDESeq2 拟合负二项 GLM、跑 Wald 检验（BH-FDR）、apeGLM LFC 收缩，产出 DE 结果表与火山图/MA 图；不适用于上游比对定量、单细胞每细胞 DE（先 pseudobulk）、通路富集（下游交富集技能）；触发词：差异表达、DESeq2、pydeseq2、RNA-seq、火山图、负二项、批次校正、Wald 检验、padj、log2FoldChange
+title: PyDESeq2 Differential Expression Analysis
+description: Bulk RNA-seq DE with PyDESeq2: load counts, normalize, fit negative binomial models, Wald test (BH-FDR), LFC shrinkage, volcano/MA plots. Use for two-group comparisons, multi-factor designs with batch correction, multiple contrasts.
 domain: 领域/science
-triggers: [差异表达, DESeq2, pydeseq2, RNA-seq, 火山图, 负二项, 批次校正, Wald 检验, padj, log2FoldChange]
+triggers: [DESeq2, pydeseq2, RNA-seq, padj, log2FoldChange]
 tags: [rnaseq, differential-expression, pydeseq2, deseq2, bioinformatics, negative-binomial, wald-test, volcano-plot, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [pydeseq2, python, pandas, numpy, scipy, scikit-learn, anndata, matplotlib, seaborn]
+tools: []
 requires: []
 related: [star-rnaseq-aligner, gene-set-enrichment-analysis, single-cell-rnaseq-analysis, snakemake-workflow-engine]
 combines_with: [star-rnaseq-aligner, gene-set-enrichment-analysis, matplotlib-visualization]
@@ -16,141 +16,353 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# PyDESeq2 Differential Expression Analysis
 
-当你有**批量 RNA-seq 的原始（未归一化）整数计数矩阵**和对应样本元数据，想找出条件间差异表达基因时使用本条。典型场景：
+## Overview
 
-- 两组比较（如 treated vs control），需要正经的统计检验而非简单 fold change。
-- 多因子设计、校正批次/协变量（如 `~batch + condition`）。
-- 对一个模型跑多个 contrast（多个处理组 vs 共享对照）。
-- 应用 apeGLM log2 fold change 收缩，用于排序与可视化。
-- 产出火山图、MA 图、p 值分布/离散度 QC 图。
-- 把 R 版 DESeq2 流程迁到纯 Python，或嵌入 scanpy/pandas 的 Python 生信管线。
+PyDESeq2 is a Python reimplementation of the R DESeq2 package for differential gene expression analysis from bulk RNA-seq count data. It fits negative binomial generalized linear models per gene, estimates dispersion with empirical Bayes shrinkage, and performs Wald tests with Benjamini-Hochberg FDR correction. This skill covers the full pipeline from raw counts to publication-ready result tables and visualizations.
 
-**不该用的边界：**
+## When to Use
 
-- 上游比对/定量（FASTQ→counts）—— 用比对定量管线（如 nextflow-pipeline-builder）。
-- 单细胞「每细胞」DE：细胞非独立观测会膨胀 p 值，**先 pseudobulk 聚合**（scanpy `sc.get.aggregate`）再喂本条。
-- 通路/基因集富集 —— 属下游，交 gene-set-enrichment-analysis（用本条输出的 `stat` 列做预排序 GSEA）。
-- 需要最广方法覆盖与社区验证的参考实现 —— 用 R/Bioconductor 的 **DESeq2** 或 **edgeR**。
+- Identifying differentially expressed genes between two or more experimental conditions from bulk RNA-seq
+- Performing two-group comparisons (e.g., treated vs control) with proper statistical testing
+- Running multi-factor designs that account for batch effects or covariates (e.g., `~batch + condition`)
+- Applying log2 fold change shrinkage (apeGLM) for ranking and visualization
+- Generating volcano plots, MA plots, and heatmaps from differential expression results
+- Converting R-based DESeq2 workflows to a pure Python environment
+- Integrating DE analysis into larger Python bioinformatics pipelines (e.g., with scanpy, pandas)
+- Use **DESeq2** (R/Bioconductor) or **edgeR** instead for the reference R implementations with the broadest method support and community validation
 
-## 步骤
+## Prerequisites
 
-PyDESeq2 期望 counts 为 **samples × genes** 的非负整数 DataFrame，metadata 为 **samples × variables** 且索引对齐。
-
-1. **载入与校验**：读 counts/metadata；CSV 常为 genes × samples，需转置；按索引交集对齐两表。
-2. **基因过滤**：去掉低表达基因（提统计功效、减多重检验负担）。
-3. **建 `DeseqDataSet` 并拟合**：指定 Wilkinson 设计公式，`dds.deseq2()` 一次跑完 size factor → 离散度 → 趋势 → MAP 收缩 → LFC 拟合。
-4. **Wald 检验**：`DeseqStats` 指定 `contrast=[变量, 检验水平, 参考水平]`，`ds.summary()` 出结果。
-5. **（可选）LFC 收缩**：`ds.summary()` 之后再 `ds.lfc_shrink()`；收缩值用于可视化/排序，**不用于显著性判定**。
-6. **过滤与导出**：按 `padj` + `|log2FoldChange|` 筛选，拆上调/下调，导 CSV。
-7. **可视化 + QC**：火山图、MA 图、p 值分布 + 离散度图。
-
-## 指令
+- **Python packages**: `pydeseq2>=0.4`, `pandas>=1.4`, `numpy>=1.23`, `scipy>=1.11`, `scikit-learn>=1.1`, `anndata>=0.8`
+- **Data requirements**: Raw (unnormalized) integer count matrix (samples x genes) + sample metadata DataFrame
+- **Environment**: Python 3.10+; optional `matplotlib`, `seaborn` for visualization
 
 ```bash
 pip install pydeseq2 matplotlib seaborn
-# 依赖：pydeseq2>=0.4, pandas>=1.4, numpy>=1.23, scipy>=1.11, scikit-learn>=1.1, anndata>=0.8；Python 3.10+
 ```
 
-关键参数（建模时把协变量放在关注变量**之前**）：
+## Workflow
 
-| 参数 | 默认 | 作用 |
-|---|---|---|
-| `design` | 必填 | Wilkinson 公式，如 `~batch + condition` |
-| `contrast` | `None` | `[var, test, ref]`；`None` 用最后一个系数 |
-| `alpha` | `0.05` | 显著性 FDR 阈值 |
-| `refit_cooks` | `True` | 去 Cook's 距离离群后重拟合 |
-| `cooks_filter` / `independent_filter` | `True` | 检验时 Cook's 过滤 / 独立过滤提功效 |
-| `n_cpus` | `1` | 离散度拟合并行线程 |
-| `lfc_shrink()` | 关 | `summary()` 后调用；apeGLM 收缩噪声 LFC |
+### Step 1: Data Loading and Validation
 
-## 示例
-
-载入、对齐与过滤：
+Load the count matrix and metadata. PyDESeq2 expects counts as a samples x genes DataFrame with non-negative integers, and metadata as a samples x variables DataFrame with matching indices.
 
 ```python
 import pandas as pd
+
+# Load data — typical CSV has genes as rows, samples as columns
 counts_raw = pd.read_csv("counts.csv", index_col=0)
 metadata = pd.read_csv("metadata.csv", index_col=0)
-counts_df = counts_raw.T if counts_raw.shape[0] > counts_raw.shape[1] else counts_raw  # → samples×genes
-common = counts_df.index.intersection(metadata.index)        # 对齐索引，避免 Index mismatch
-counts_df, metadata = counts_df.loc[common], metadata.loc[common]
-counts_df = counts_df.loc[:, counts_df.sum(axis=0) >= 10]    # 过滤总计数<10 的基因
+
+# Transpose if needed: PyDESeq2 requires samples x genes
+if counts_raw.shape[0] > counts_raw.shape[1]:
+    counts_df = counts_raw.T  # genes x samples → samples x genes
+else:
+    counts_df = counts_raw
+
+# Validate alignment
+common_samples = counts_df.index.intersection(metadata.index)
+counts_df = counts_df.loc[common_samples]
+metadata = metadata.loc[common_samples]
+
+print(f"Samples: {counts_df.shape[0]}, Genes: {counts_df.shape[1]}")
+print(f"Metadata columns: {list(metadata.columns)}")
+print(f"Condition counts:\n{metadata['condition'].value_counts()}")
 ```
 
-拟合 → 检验 →（可选）收缩 → 导出：
+### Step 2: Gene Filtering
+
+Remove lowly expressed genes to improve statistical power and reduce multiple testing burden.
+
+```python
+# Filter genes with total counts below threshold
+min_total_counts = 10
+gene_counts = counts_df.sum(axis=0)
+genes_to_keep = gene_counts[gene_counts >= min_total_counts].index
+counts_df = counts_df[genes_to_keep]
+
+# Optional: require minimum counts in a minimum number of samples
+min_count_per_sample = 5
+min_samples = 3
+genes_expressed = (counts_df >= min_count_per_sample).sum(axis=0) >= min_samples
+counts_df = counts_df.loc[:, genes_expressed]
+
+print(f"Genes after filtering: {counts_df.shape[1]}")
+```
+
+### Step 3: DeseqDataSet Initialization and Fitting
+
+Create the DESeq dataset object, specify the design formula, and run the full pipeline (size factor estimation, dispersion estimation, model fitting).
 
 ```python
 from pydeseq2.dds import DeseqDataSet
+
+dds = DeseqDataSet(
+    counts=counts_df,
+    metadata=metadata,
+    design="~condition",   # Wilkinson-style formula
+    refit_cooks=True,      # Refit after Cook's outlier removal
+    n_cpus=4               # Parallel threads
+)
+
+# Run: size factors → dispersions → trend → MAP shrinkage → LFC fitting
+dds.deseq2()
+
+# Inspect normalization
+print(f"Size factors (first 5): {dds.obsm['size_factors'][:5]}")
+print(f"Size factor range: {dds.obsm['size_factors'].min():.2f} - {dds.obsm['size_factors'].max():.2f}")
+```
+
+### Step 4: Statistical Testing (Wald Test)
+
+Perform Wald tests to identify differentially expressed genes. Specify the contrast as `[variable, test_level, reference_level]`.
+
+```python
 from pydeseq2.ds import DeseqStats
 
-dds = DeseqDataSet(counts=counts_df, metadata=metadata,
-                   design="~condition", refit_cooks=True, n_cpus=4)
-dds.deseq2()   # size factors → dispersions → trend → MAP → LFC
+ds = DeseqStats(
+    dds,
+    contrast=["condition", "treated", "control"],
+    alpha=0.05,              # FDR threshold
+    cooks_filter=True,       # Filter Cook's outliers
+    independent_filter=True  # Independent filtering for power
+)
 
-ds = DeseqStats(dds, contrast=["condition", "treated", "control"],
-                alpha=0.05, cooks_filter=True, independent_filter=True)
 ds.summary()
-results = ds.results_df
-ds.lfc_shrink()   # 必须在 summary() 之后；只改 log2FoldChange，供可视化/排序
 
-sig = results[(results.padj < 0.05) & (results.log2FoldChange.abs() > 1.0)].copy()
-sig[sig.log2FoldChange > 0].sort_values("padj").to_csv("deseq2_upregulated.csv")
-sig[sig.log2FoldChange < 0].sort_values("padj").to_csv("deseq2_downregulated.csv")
-results.to_csv("deseq2_all_results.csv")
+# Access full results
+results = ds.results_df
+print(f"Total genes tested: {len(results)}")
+print(f"Significant (padj < 0.05): {(results.padj < 0.05).sum()}")
 ```
 
-火山图（MA 图把横轴换成 `log10(baseMean+1)`、纵轴 `log2FoldChange`）：
+### Step 5: LFC Shrinkage (Optional)
+
+Apply apeGLM shrinkage to reduce noise in log2 fold change estimates. Use shrunk values for visualization and ranking, not for significance calls.
 
 ```python
-import matplotlib.pyplot as plt, numpy as np
+# Apply shrinkage — modifies results_df.log2FoldChange in place
+ds.lfc_shrink()
+
+# Compare pre/post shrinkage effect
+print(f"Max |LFC| after shrinkage: {results.log2FoldChange.abs().max():.2f}")
+print(f"Genes with |LFC| > 2: {(results.log2FoldChange.abs() > 2).sum()}")
+```
+
+### Step 6: Result Filtering and Export
+
+Filter significant genes and export results for downstream analysis.
+
+```python
+import numpy as np
+
+# Significance + effect size filter
+significant = results[
+    (results.padj < 0.05) &
+    (results.log2FoldChange.abs() > 1.0)
+].copy()
+
+# Separate up/down-regulated
+up = significant[significant.log2FoldChange > 0].sort_values("padj")
+down = significant[significant.log2FoldChange < 0].sort_values("padj")
+
+print(f"Upregulated: {len(up)}, Downregulated: {len(down)}")
+
+# Export
+results.to_csv("deseq2_all_results.csv")
+significant.to_csv("deseq2_significant.csv")
+up.to_csv("deseq2_upregulated.csv")
+down.to_csv("deseq2_downregulated.csv")
+print("Results exported to CSV files")
+```
+
+### Step 7: Visualization — Volcano Plot
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig, ax = plt.subplots(figsize=(10, 7))
 res = results.dropna(subset=["padj"]).copy()
 res["-log10_padj"] = -np.log10(res.padj)
+
+# Color categories
 is_sig = (res.padj < 0.05) & (res.log2FoldChange.abs() > 1.0)
-fig, ax = plt.subplots(figsize=(10, 7))
-ax.scatter(res.loc[~is_sig,"log2FoldChange"], res.loc[~is_sig,"-log10_padj"], c="grey", s=8, alpha=.3)
-ax.scatter(res.loc[is_sig & (res.log2FoldChange>0),"log2FoldChange"],
-           res.loc[is_sig & (res.log2FoldChange>0),"-log10_padj"], c="firebrick", s=12, alpha=.6)
-ax.scatter(res.loc[is_sig & (res.log2FoldChange<0),"log2FoldChange"],
-           res.loc[is_sig & (res.log2FoldChange<0),"-log10_padj"], c="steelblue", s=12, alpha=.6)
-ax.axhline(-np.log10(0.05), ls="--", c="k", alpha=.4); ax.axvline(-1, ls="--", c="k", alpha=.4); ax.axvline(1, ls="--", c="k", alpha=.4)
-plt.tight_layout(); plt.savefig("volcano_plot.png", dpi=300)
+is_up = is_sig & (res.log2FoldChange > 0)
+is_down = is_sig & (res.log2FoldChange < 0)
+
+ax.scatter(res.loc[~is_sig, "log2FoldChange"], res.loc[~is_sig, "-log10_padj"],
+           c="grey", alpha=0.3, s=8, label="Not significant")
+ax.scatter(res.loc[is_up, "log2FoldChange"], res.loc[is_up, "-log10_padj"],
+           c="firebrick", alpha=0.6, s=12, label=f"Up ({is_up.sum()})")
+ax.scatter(res.loc[is_down, "log2FoldChange"], res.loc[is_down, "-log10_padj"],
+           c="steelblue", alpha=0.6, s=12, label=f"Down ({is_down.sum()})")
+
+ax.axhline(-np.log10(0.05), ls="--", c="black", alpha=0.4)
+ax.axvline(-1, ls="--", c="black", alpha=0.4)
+ax.axvline(1, ls="--", c="black", alpha=0.4)
+ax.set_xlabel("Log2 Fold Change")
+ax.set_ylabel("-Log10(Adjusted P-value)")
+ax.set_title("Volcano Plot — Treated vs Control")
+ax.legend()
+plt.tight_layout()
+plt.savefig("volcano_plot.png", dpi=300)
+print("Saved volcano_plot.png")
 ```
 
-多 contrast / 批次校正：
+### Step 8: Visualization — MA Plot
 
 ```python
-dds = DeseqDataSet(counts=counts_df, metadata=metadata, design="~condition"); dds.deseq2()
-for name, c in {"A_vs_ctrl":["condition","treatment_A","control"],
-                "B_vs_ctrl":["condition","treatment_B","control"]}.items():
-    s = DeseqStats(dds, contrast=c, alpha=0.05); s.summary()
-    s.results_df.to_csv(f"results_{name}.csv")
+fig, ax = plt.subplots(figsize=(10, 7))
 
-# 批次校正：协变量放公式最前；先查是否与条件混杂
-print(pd.crosstab(metadata["batch"], metadata["condition"]))
-dds = DeseqDataSet(counts=counts_df, metadata=metadata, design="~batch + condition"); dds.deseq2()
+ax.scatter(np.log10(res.loc[~is_sig, "baseMean"] + 1),
+           res.loc[~is_sig, "log2FoldChange"],
+           c="grey", alpha=0.3, s=8)
+ax.scatter(np.log10(res.loc[is_sig, "baseMean"] + 1),
+           res.loc[is_sig, "log2FoldChange"],
+           c="firebrick", alpha=0.6, s=12)
+
+ax.axhline(0, ls="--", c="black", alpha=0.5)
+ax.set_xlabel("Log10(Mean Normalized Count + 1)")
+ax.set_ylabel("Log2 Fold Change")
+ax.set_title("MA Plot")
+plt.tight_layout()
+plt.savefig("ma_plot.png", dpi=300)
+print("Saved ma_plot.png")
 ```
 
-## 注意事项
+## Key Parameters
 
-- **counts 必须是原始未归一化整数**；size factor >5 多半是误传了已归一化数据或文库异常。
-- **样本名要对齐**：`Index mismatch` 用 `counts_df.index.intersection(metadata.index)` 解决。
-- **设计矩阵满秩**：`Design matrix is not full rank` 说明变量混杂（如某批次全是 treated），用 `pd.crosstab()` 查，简化设计或剔除混杂变量。
-- **`padj` 全 NaN**：基因零方差/全零计数 —— 加严过滤（提高 `min_total_counts`）。
-- **没有显著基因**：先看 p 值分布（健康分布应近似平坦 + 0 附近有峰）；可放宽 `alpha` 或 `|LFC|` 阈值。
-- **收缩顺序**：永远先 `ds.summary()` 再 `ds.lfc_shrink()`；收缩值仅供排序/作图，显著性看未收缩的 `padj`。
-- **下游富集**：用 `results["stat"]`（带方向与证据强度）构造预排序 GSEA，比按 `log2FoldChange` 更稳。
-- **内存不足**：先更激进地预过滤基因、减小 `n_cpus`。
-- 断点续跑：`pickle.dump(dds.to_picklable_anndata(), f)` 存拟合结果，免重跑昂贵步骤。
+| Parameter | Default | Range / Options | Effect |
+|-----------|---------|-----------------|--------|
+| `design` | (required) | Wilkinson formula | Model formula; put covariates before variable of interest |
+| `contrast` | `None` | `[var, test, ref]` | Which comparison to test; `None` uses last coefficient |
+| `alpha` | `0.05` | `0.01`–`0.10` | FDR threshold for significance calling |
+| `refit_cooks` | `True` | `True`/`False` | Refit model after removing Cook's distance outliers |
+| `cooks_filter` | `True` | `True`/`False` | Apply Cook's distance filtering during testing |
+| `independent_filter` | `True` | `True`/`False` | Independent filtering to optimize detection power |
+| `n_cpus` | `1` | `1`–`N` | Number of parallel threads for dispersion fitting |
+| `min_total_counts` (user) | `10` | `5`–`50` | Gene filtering: minimum total reads across all samples |
+| `lfc_shrink()` | off | call after `summary()` | apeGLM shrinkage; reduces noisy LFC estimates |
 
-## 互见
+## Common Recipes
 
-- combines_with：`gene-set-enrichment-analysis` —— 把 DE 基因 / `stat` 排序表交给富集分析做通路解读（标准下游）。
-- combines_with：`single-cell-rnaseq-analysis` —— 单细胞跨条件严谨 DE 需先 pseudobulk 聚合再用本条。
-- related：`genomic-file-toolkit` —— 处理上游基因组文件与计数表 I/O。
-- related：`nextflow-pipeline-builder` —— 用管线产出 counts 矩阵作为本条输入。
+### Recipe: Multiple Contrasts from One Model
 
----
+When comparing multiple treatment groups against a shared control.
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+```python
+dds = DeseqDataSet(counts=counts_df, metadata=metadata, design="~condition")
+dds.deseq2()
+
+contrasts = {
+    "A_vs_ctrl": ["condition", "treatment_A", "control"],
+    "B_vs_ctrl": ["condition", "treatment_B", "control"],
+    "C_vs_ctrl": ["condition", "treatment_C", "control"],
+}
+
+for name, contrast in contrasts.items():
+    ds = DeseqStats(dds, contrast=contrast, alpha=0.05)
+    ds.summary()
+    n_sig = (ds.results_df.padj < 0.05).sum()
+    ds.results_df.to_csv(f"results_{name}.csv")
+    print(f"{name}: {n_sig} significant genes")
+```
+
+### Recipe: Batch-Corrected Analysis
+
+When samples come from multiple batches or sequencing runs.
+
+```python
+# Verify batch is not confounded with condition
+print(pd.crosstab(metadata["batch"], metadata["condition"]))
+
+dds = DeseqDataSet(
+    counts=counts_df, metadata=metadata,
+    design="~batch + condition"  # batch first, then variable of interest
+)
+dds.deseq2()
+
+ds = DeseqStats(dds, contrast=["condition", "treated", "control"])
+ds.summary()
+print(f"Significant genes (batch-corrected): {(ds.results_df.padj < 0.05).sum()}")
+```
+
+### Recipe: P-value Distribution QC
+
+Diagnostic check — a healthy analysis shows a flat histogram with a spike near 0.
+
+```python
+import matplotlib.pyplot as plt
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# P-value histogram
+axes[0].hist(ds.results_df.pvalue.dropna(), bins=50, edgecolor="black")
+axes[0].set_xlabel("P-value")
+axes[0].set_ylabel("Frequency")
+axes[0].set_title("P-value Distribution")
+
+# Dispersion plot
+axes[1].scatter(
+    np.log10(dds.varm["_normed_means"] + 1),
+    np.log10(dds.varm["dispersions"]),
+    alpha=0.3, s=5
+)
+axes[1].set_xlabel("Log10(Mean Expression + 1)")
+axes[1].set_ylabel("Log10(Dispersion)")
+axes[1].set_title("Dispersion vs Mean")
+
+plt.tight_layout()
+plt.savefig("qc_diagnostics.png", dpi=300)
+print("Saved qc_diagnostics.png")
+```
+
+### Recipe: Save and Reload DESeq Dataset
+
+For resuming analysis without re-running the expensive fitting step.
+
+```python
+import pickle
+
+# Save
+with open("dds_fitted.pkl", "wb") as f:
+    pickle.dump(dds.to_picklable_anndata(), f)
+print("Saved fitted DESeqDataSet")
+
+# Reload
+with open("dds_fitted.pkl", "rb") as f:
+    adata = pickle.load(f)
+# Note: reload requires re-constructing DeseqDataSet from the AnnData
+```
+
+## Expected Outputs
+
+- `deseq2_all_results.csv` — Full results table (baseMean, log2FoldChange, lfcSE, stat, pvalue, padj) for all tested genes
+- `deseq2_significant.csv` — Filtered results (padj < 0.05 and |LFC| > 1)
+- `deseq2_upregulated.csv` — Significant upregulated genes sorted by padj
+- `deseq2_downregulated.csv` — Significant downregulated genes sorted by padj
+- `volcano_plot.png` — Volcano plot with significance and fold change thresholds
+- `ma_plot.png` — MA plot showing fold change vs mean expression
+- `qc_diagnostics.png` — P-value distribution and dispersion plot
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `ValueError: Index mismatch` | Sample names differ between counts and metadata | Use `counts_df.index.intersection(metadata.index)` to align |
+| All genes have `padj = NaN` | Genes have zero variance or all zero counts | Apply stricter gene filtering (increase `min_total_counts`) |
+| `Design matrix is not full rank` | Confounded variables (e.g., all treated in one batch) | Check with `pd.crosstab()`; simplify design or remove confounded variable |
+| No significant genes found | Small effect size, high variability, or low sample size | Check p-value distribution; relax alpha or |LFC| threshold; inspect QC plots |
+| `MemoryError` during fitting | Too many genes or very large dataset | Pre-filter more aggressively; reduce `n_cpus`; use machine with more RAM |
+| Very large size factors (>5) | Extreme library size differences | Verify raw counts are unnormalized; check for contamination or failed libraries |
+| Shrinkage produces unexpected LFCs | Calling `lfc_shrink()` before `summary()` | Always call `ds.summary()` first, then `ds.lfc_shrink()` |
+
+## References
+
+- [PyDESeq2 Documentation](https://pydeseq2.readthedocs.io/) — Official API reference and tutorials
+- [Muzellec et al. (2023)](https://doi.org/10.1093/bioinformatics/btad547) — PyDESeq2: a Python package for bulk differential expression analysis with DESeq2. Bioinformatics.
+- [Love et al. (2014)](https://doi.org/10.1186/s13059-014-0550-8) — Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biology.
+- [DESeq2 Vignette (Bioconductor)](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) — Comprehensive R DESeq2 guide with design formula examples

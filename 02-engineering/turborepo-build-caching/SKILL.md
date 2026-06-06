@@ -1,14 +1,14 @@
 ---
 name: turborepo-build-caching
-title: Turborepo 缓存：Monorepo 本地与远程构建加速
-description: 当在 monorepo 中配置 Turborepo、优化构建流水线或排查缓存未命中时使用；做产出 turbo.json 流水线/远程缓存接入/过滤构建命令与 CI 配置；不适用于非 Turborepo 的构建工具或与缓存无关的任务；触发词：turborepo、turbo.json、remote cache
+title: Turborepo Caching
+description: Configure Turborepo for efficient monorepo builds with local and remote caching. Use when setting up Turborepo, optimizing build pipelines, or implementing distributed caching.
 domain: 研发/devops
-triggers: [配置 Turborepo, 优化 monorepo 构建, turbo.json 流水线, Turborepo 远程缓存, 排查缓存未命中, CI 只构建变更包, Vercel remote cache, 自建缓存服务器, turbo --filter]
-tags: [turborepo, monorepo, 构建缓存, remote-cache, ci/cd, pipeline, 研发, misc]
-level: 进阶
+triggers: [Vercel remote cache, turbo --filter]
+tags: [turborepo, monorepo, remote-cache, ci/cd, pipeline, misc]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [turbo, npx turbo, GitHub Actions, Vercel]
+tools: []
 requires: []
 related: [turborepo-caching, monorepo-navigator, bazel-build-optimization, ci-cd-pipeline-builder]
 combines_with: [ci-cd-pipeline-builder, monorepo-navigator, git-worktrees-workflow]
@@ -16,163 +16,422 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Turborepo Caching
 
-适用：
-- 新建或改造 Turborepo 项目（apps/* + packages/* + 根 turbo.json）。
-- 编写/调优构建流水线（dependsOn、outputs、inputs、cache、persistent）。
-- 接入远程缓存（Vercel 托管或自建），让 CI 与本地共享产物。
-- 用 `--filter` 只构建受影响的包，加速 CI。
-- 排查缓存未命中、缓存被错误命中或失效问题。
+Production patterns for Turborepo build optimization.
 
-不该用（负边界）：
-- 任务与 Turborepo 缓存无关，或使用 Nx/Bazel/Lerna 等其他工具。
-- 仅需通用 CI 配置、与缓存键无关的纯业务改动。
-- 缺少必要输入（仓库结构、包名、CI 平台、token）时，先澄清再动手，不要凭空假设。
+## Do not use this skill when
 
-## 步骤
+- The task is unrelated to turborepo caching
+- You need a different domain or tool outside this scope
 
-1. 厘清目标与约束：仓库结构、包管理器、CI 平台、是否需要远程缓存。
-2. 配置根 `turbo.json` 流水线：声明任务依赖、缓存产物与输入。
-3. 如需跨包覆盖，用包级 `turbo.json` 的 `extends: ["//"]`。
-4. 接入远程缓存（Vercel 或自建），在 CI 注入 `TURBO_TOKEN`/`TURBO_TEAM`。
-5. 在 CI 用 `--filter` 只构建变更包及其依赖关系。
-6. 校验：`--dry-run` 看任务图，`--summarize` 看命中情况，确认缓存按预期命中/失效。
+## Instructions
 
-## 指令
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-流水线核心字段：
+## Use this skill when
 
-| 字段 | 含义 |
-|------|------|
-| dependsOn | 必须先完成的任务（`^build` 指上游包的 build） |
-| outputs | 要缓存的产物文件 |
-| inputs | 影响缓存键的输入文件 |
-| cache | 是否缓存（dev/部署类设 false） |
-| persistent | 长驻任务，如 dev server |
+- Setting up new Turborepo projects
+- Configuring build pipelines
+- Implementing remote caching
+- Optimizing CI/CD performance
+- Migrating from other monorepo tools
+- Debugging cache misses
 
-调试缓存：
+## Core Concepts
 
-```bash
-turbo build --dry-run          # 预演将要执行的任务
-turbo build --summarize        # 输出缓存命中摘要
-turbo build --graph            # 任务依赖图
-turbo build --force            # 强制忽略缓存
-TURBO_LOG_VERBOSITY=debug turbo build --filter=@myorg/web
+### 1. Turborepo Architecture
+
+```
+Workspace Root/
+├── apps/
+│   ├── web/
+│   │   └── package.json
+│   └── docs/
+│       └── package.json
+├── packages/
+│   ├── ui/
+│   │   └── package.json
+│   └── config/
+│       └── package.json
+├── turbo.json
+└── package.json
 ```
 
-过滤与范围（CI 提速关键）：
+### 2. Pipeline Concepts
 
-```bash
-turbo build --filter=@myorg/web          # 单个包
-turbo build --filter=@myorg/web...       # 包 + 其依赖
-turbo build --filter=...@myorg/ui        # 包 + 依赖它的包
-turbo build --filter='...[origin/main]'  # 相对 main 的变更包
-turbo build --filter='./apps/*'          # 目录下的包
-turbo build --filter='!@myorg/docs'      # 排除某包
-```
+| Concept | Description |
+|---------|-------------|
+| **dependsOn** | Tasks that must complete first |
+| **cache** | Whether to cache outputs |
+| **outputs** | Files to cache |
+| **inputs** | Files that affect cache key |
+| **persistent** | Long-running tasks (dev servers) |
 
-## 示例
+## Templates
 
-根 turbo.json（保留源关键约束，如排除 `.next/cache`）：
+### Template 1: turbo.json Configuration
 
 ```json
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [".env", ".env.local"],
-  "globalEnv": ["NODE_ENV", "VERCEL_URL"],
+  "globalDependencies": [
+    ".env",
+    ".env.local"
+  ],
+  "globalEnv": [
+    "NODE_ENV",
+    "VERCEL_URL"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
-      "env": ["API_URL", "NEXT_PUBLIC_*"]
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**"
+      ],
+      "env": [
+        "API_URL",
+        "NEXT_PUBLIC_*"
+      ]
     },
     "test": {
       "dependsOn": ["build"],
       "outputs": ["coverage/**"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts"]
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "test/**/*.ts"
+      ]
     },
-    "lint": { "outputs": [], "cache": true },
-    "typecheck": { "dependsOn": ["^build"], "outputs": [] },
-    "dev": { "cache": false, "persistent": true },
-    "clean": { "cache": false }
+    "lint": {
+      "outputs": [],
+      "cache": true
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    }
   }
 }
 ```
 
-包级覆盖（apps/web/turbo.json）：
+### Template 2: Package-Specific Pipeline
 
 ```json
+// apps/web/turbo.json
 {
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "pipeline": {
     "build": {
       "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["NEXT_PUBLIC_API_URL", "NEXT_PUBLIC_ANALYTICS_ID"]
+      "env": [
+        "NEXT_PUBLIC_API_URL",
+        "NEXT_PUBLIC_ANALYTICS_ID"
+      ]
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "inputs": [
+        "src/**",
+        "tests/**",
+        "jest.config.js"
+      ]
     }
   }
 }
 ```
 
-Vercel 远程缓存接入：
+### Template 3: Remote Caching with Vercel
 
 ```bash
+# Login to Vercel
 npx turbo login
+
+# Link to Vercel project
 npx turbo link
+
+# Run with remote cache
 turbo build --remote-only
-# CI 注入：TURBO_TOKEN=...  TURBO_TEAM=...
+
+# CI environment variables
+TURBO_TOKEN=your-token
+TURBO_TEAM=your-team
 ```
 
-GitHub Actions CI（只构建变更包）：
-
 ```yaml
+# .github/workflows/ci.yml
 name: CI
+
 on:
-  push: { branches: [main] }
+  push:
+    branches: [main]
   pull_request:
+
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: 'npm' }
-      - run: npm ci
-      - run: npx turbo build --filter='...[origin/main]'
-      - run: npx turbo test  --filter='...[origin/main]'
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npx turbo build --filter='...[origin/main]'
+
+      - name: Test
+        run: npx turbo test --filter='...[origin/main]'
 ```
 
-自建缓存：实现符合协议的 HTTP 端点 `GET/PUT/HEAD /v8/artifacts/:hash`（按 `teamId` 分目录读写产物文件），并在 turbo.json 设 `{"remoteCache": {"signature": false}}`，运行时指定：
+### Template 4: Self-Hosted Remote Cache
+
+```typescript
+// Custom remote cache server (Express)
+import express from 'express';
+import { createReadStream, createWriteStream } from 'fs';
+import { mkdir } from 'fs/promises';
+import { join } from 'path';
+
+const app = express();
+const CACHE_DIR = './cache';
+
+// Get artifact
+app.get('/v8/artifacts/:hash', async (req, res) => {
+  const { hash } = req.params;
+  const team = req.query.teamId || 'default';
+  const filePath = join(CACHE_DIR, team, hash);
+
+  try {
+    const stream = createReadStream(filePath);
+    stream.pipe(res);
+  } catch {
+    res.status(404).send('Not found');
+  }
+});
+
+// Put artifact
+app.put('/v8/artifacts/:hash', async (req, res) => {
+  const { hash } = req.params;
+  const team = req.query.teamId || 'default';
+  const dir = join(CACHE_DIR, team);
+  const filePath = join(dir, hash);
+
+  await mkdir(dir, { recursive: true });
+
+  const stream = createWriteStream(filePath);
+  req.pipe(stream);
+
+  stream.on('finish', () => {
+    res.json({ urls: [`${req.protocol}://${req.get('host')}/v8/artifacts/${hash}`] });
+  });
+});
+
+// Check artifact exists
+app.head('/v8/artifacts/:hash', async (req, res) => {
+  const { hash } = req.params;
+  const team = req.query.teamId || 'default';
+  const filePath = join(CACHE_DIR, team, hash);
+
+  try {
+    await fs.access(filePath);
+    res.status(200).end();
+  } catch {
+    res.status(404).end();
+  }
+});
+
+app.listen(3000);
+```
+
+```json
+// turbo.json for self-hosted cache
+{
+  "remoteCache": {
+    "signature": false
+  }
+}
+```
 
 ```bash
+# Use self-hosted cache
 turbo build --api="http://localhost:3000" --token="my-token" --team="my-team"
 ```
 
-## 注意事项
+### Template 5: Filtering and Scoping
 
-应做：
-- 显式声明 inputs，避免无关文件触发缓存失效。
-- 用 workspace 协议引用内部包：`"@myorg/ui": "workspace:*"`。
-- 开启远程缓存，让 CI 与本地共享产物。
-- CI 中用 `--filter` 只构建受影响的包。
-- 只缓存构建产物，不缓存源文件。
+```bash
+# Build specific package
+turbo build --filter=@myorg/web
 
-不应做：
-- 不要缓存 dev server，应设 `persistent: true`、`cache: false`。
-- 不要把密钥写进 env 字段，用运行时环境变量。
-- 不要漏写 dependsOn，否则任务竞态、缓存键错乱。
-- 不要过度过滤，可能漏掉依赖导致构建不完整。
-- 输出不能替代环境特定的验证与测试；缺少必要输入、权限或成功标准时先停下来澄清。
+# Build package and its dependencies
+turbo build --filter=@myorg/web...
 
-## 互见
+# Build package and its dependents
+turbo build --filter=...@myorg/ui
 
-- Turborepo 官方文档：https://turbo.build/repo/docs
-- 缓存指南：https://turbo.build/repo/docs/core-concepts/caching
-- 远程缓存：https://turbo.build/repo/docs/core-concepts/remote-caching
+# Build changed packages since main
+turbo build --filter='...[origin/main]'
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+# Build packages in directory
+turbo build --filter='./apps/*'
+
+# Combine filters
+turbo build --filter=@myorg/web --filter=@myorg/docs
+
+# Exclude package
+turbo build --filter='!@myorg/docs'
+
+# Include dependencies of changed
+turbo build --filter='...[HEAD^1]...'
+```
+
+### Template 6: Advanced Pipeline Configuration
+
+```json
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!**/*.md",
+        "!**/*.test.*"
+      ]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"],
+      "inputs": [
+        "src/**",
+        "tests/**",
+        "*.config.*"
+      ],
+      "env": ["CI", "NODE_ENV"]
+    },
+    "test:e2e": {
+      "dependsOn": ["build"],
+      "outputs": [],
+      "cache": false
+    },
+    "deploy": {
+      "dependsOn": ["build", "test", "lint"],
+      "outputs": [],
+      "cache": false
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false,
+      "dependsOn": ["db:generate"]
+    },
+    "@myorg/web#build": {
+      "dependsOn": ["^build", "@myorg/db#db:generate"],
+      "outputs": [".next/**"],
+      "env": ["NEXT_PUBLIC_*"]
+    }
+  }
+}
+```
+
+### Template 7: Root package.json Setup
+
+```json
+{
+  "name": "my-turborepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "clean": "turbo clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo build --filter=./packages/* && changeset publish"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.0",
+    "prettier": "^3.0.0",
+    "@changesets/cli": "^2.26.0"
+  },
+  "packageManager": "npm@10.0.0"
+}
+```
+
+## Debugging Cache
+
+```bash
+# Dry run to see what would run
+turbo build --dry-run
+
+# Verbose output with hashes
+turbo build --verbosity=2
+
+# Show task graph
+turbo build --graph
+
+# Force no cache
+turbo build --force
+
+# Show cache status
+turbo build --summarize
+
+# Debug specific task
+TURBO_LOG_VERBOSITY=debug turbo build --filter=@myorg/web
+```
+
+## Best Practices
+
+### Do's
+- **Define explicit inputs** - Avoid cache invalidation
+- **Use workspace protocol** - `"@myorg/ui": "workspace:*"`
+- **Enable remote caching** - Share across CI and local
+- **Filter in CI** - Build only affected packages
+- **Cache build outputs** - Not source files
+
+### Don'ts
+- **Don't cache dev servers** - Use `persistent: true`
+- **Don't include secrets in env** - Use runtime env vars
+- **Don't ignore dependsOn** - Causes race conditions
+- **Don't over-filter** - May miss dependencies
+
+## Resources
+
+- [Turborepo Documentation](https://turbo.build/repo/docs)
+- [Caching Guide](https://turbo.build/repo/docs/core-concepts/caching)
+- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

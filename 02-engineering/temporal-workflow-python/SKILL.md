@@ -1,14 +1,14 @@
 ---
 name: temporal-workflow-python
-title: Temporal 持久工作流编排（Python）
-description: 当用 Temporal Python SDK 编排长时运行/分布式事务/Saga 补偿/人审介入/多步管道时使用；做出确定性工作流、幂等 Activity、重试与超时策略、信号查询、时间跳跃测试与 Worker 部署的可执行方案与代码；不适用于无状态请求-响应、简单定时任务（cron 即可）、单机短脚本或纯前端。触发词：Temporal、工作流编排、durable workflow、Saga、Activity、Worker、信号查询、确定性、时间跳跃测试
+title: Temporal Go SDK (temporal-golang-pro)
+description: Use when building durable distributed systems with Temporal Go SDK. Covers deterministic workflow rules, mTLS worker configs, and advanced patterns.
 domain: 研发/backend
-triggers: [Temporal, 工作流编排, durable workflow, 持久工作流, Saga 补偿, 分布式事务, Activity, Worker, task queue, workflow.defn, activity.defn, 信号 signal, 查询 query, 确定性 determinism, workflow.now, RetryPolicy, 时间跳跃测试, WorkflowEnvironment, replay 测试, 幂等 Activity, child workflow, 人审介入]
+triggers: [Temporal, durable workflow, Activity, Worker, task queue, workflow.defn, activity.defn, workflow.now, RetryPolicy, WorkflowEnvironment, child workflow]
 tags: [temporal, workflow-orchestration, durable-execution, saga, distributed-transaction, python, backend, engineering, retry, idempotency]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, temporalio, docker]
+tools: []
 requires: []
 related: [saga-orchestration, async-python-patterns, fastapi-async-api, bullmq-job-queue]
 combines_with: [microservices-patterns, event-sourcing-cqrs, distributed-tracing]
@@ -16,185 +16,211 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# Temporal 持久工作流编排（Python）
+# Temporal Go SDK (temporal-golang-pro)
 
-## 何时使用
+## Overview
 
-适用（长时运行 + 需崩溃恢复/精确一次语义的编排）：
-- 跨微服务的分布式事务、Saga 模式（带补偿回滚）。
-- 长周期业务流程（小时到数年）：订单履约、支付处理、SLA 升级。
-- 人审介入（human-in-the-loop）审批流；实体工作流（购物车/账户/库存）。
-- 多步数据处理管道、基础设施自动化编排。
-- 触发词：Temporal、工作流编排、durable workflow、Saga、Activity、Worker、信号查询、确定性。
+Expert-level guide for building resilient, scalable, and deterministic distributed systems using the Temporal Go SDK. This skill transforms vague orchestration requirements into production-grade Go implementations, focusing on durable execution, strict determinism, and enterprise-scale worker configuration.
 
-不该用（负边界）：
-- 无状态的请求-响应、普通 CRUD —— 直接写 service 即可，别引入 Worker/集群。
-- 简单定时任务 —— 用 cron / 调度器，不必上 Temporal。
-- 单机短脚本、一次性批处理 —— 编排开销不划算。
-- 纯前端，或不需要持久状态/重试/恢复的场景。
+## When to Use This Skill
 
-核心心智模型：**Workflow = 编排（确定性、可重放）；Activity = 与外部世界交互（可重试、需幂等）**。工作流代码靠事件历史重放恢复，因此必须确定性；副作用一律放进 Activity。
+- **Designing Distributed Systems**: When building microservices that require durable state and reliable orchestration.
+- **Implementing Complex Workflows**: Using the Go SDK to handle long-running processes (days/months) or complex Saga patterns.
+- **Optimizing Performance**: When workers need fine-tuned concurrency, mTLS security, or custom interceptors.
+- **Ensuring Reliability**: Implementing idempotent activities, graceful error handling, and sophisticated retry policies.
+- **Maintenance & Evolution**: Versioning running workflows or performing zero-downtime worker updates.
 
-## 步骤 / 指令
+## Do not use this skill when
 
-```
-1. 建模：识别编排逻辑（→ Workflow）与外部副作用（→ Activity）。
-   - Workflow 用 @workflow.defn，入口方法 @workflow.run（async def）。
-   - Activity 用 @activity.defn，从 workflow 内只能用 workflow.execute_activity 调用。
-2. 选 Activity 执行模型（关键反模式：阻塞异步事件循环 → 串行化）：
-   - 异步 I/O（API/异步 DB）→ async Activity（asyncio）。
-   - 阻塞 I/O（同步 DB 客户端/文件/旧库）→ 同步 Activity + ThreadPoolExecutor。
-   - CPU 密集（数据处理/ML 推理）→ 同步 Activity + ProcessPoolExecutor。
-3. 配超时与重试（超时是必填项，不是可选）：
-   - start_to_close_timeout（单次尝试上限，几乎总要设）。
-   - schedule_to_close_timeout（含重试的总时长上限）。
-   - heartbeat_timeout（长 Activity 检测卡死，配合 activity.heartbeat()）。
-   - RetryPolicy(initial_interval, backoff_coefficient, maximum_interval,
-     maximum_attempts, non_retryable_error_types)。
-4. 保证确定性（见“注意事项”清单），保证 Activity 幂等（重试可能重复执行）。
-5. Saga：为每步登记补偿动作；任一步失败按逆序执行补偿。
-6. 信号/查询：@workflow.signal 收外部事件改状态；@workflow.query 只读快照。
-7. 启动 Worker：注册全部 workflows + activities，绑定 task_queue（须与 client 一致）。
-8. 测试：用 time-skipping 的 WorkflowEnvironment（sleep 瞬时跳过）+ mock Activity；
-   CI 跑 replay 测试校验确定性。
-9. 部署：容器化 Worker，水平扩容，优雅停机，监控队列深度/成功率，做 workflow 版本治理。
-```
+- Using Temporal with other SDKs (Python, Java, TypeScript) - refer to their specific `-pro` skills.
+- The task is a simple request/response without durability or coordination needs.
+- High-level design without implementation (use `workflow-orchestration-patterns`).
 
-硬规则：
-- 工作流内**禁止** `datetime.now()` / `random.random()` / 线程锁 / 全局可变状态 / 直接外部调用 —— 否则重放破裂。
-- 改工作流逻辑用 `workflow.get_version()` 做版本门，保证旧历史可重放。
-- 单参数 payload ≤ 2MB；超限改传引用（如对象存储 key）。
-- 区分瞬时失败（让重试）与永久失败（`ApplicationError(non_retryable=True)`）。
+## Step-by-Step Guide
 
-## 示例
+1.  **Gather Context**: Proactively ask for:
+    - Target **Temporal Cluster** (Cloud vs. Self-hosted) and **Namespace**.
+    - **Task Queue** names and expected throughput.
+    - **Security requirements** (mTLS paths, authentication).
+    - **Failure modes** and desired retry/timeout policies.
+2.  **Verify Determinism**: Before suggesting workflow code, verify against these **5 Rules**:
+    - No native Go concurrency (goroutines).
+    - No native time (`time.Now`, `time.Sleep`).
+    - No non-deterministic map iteration (must sort keys).
+    - No direct external I/O or network calls.
+    - No non-deterministic random numbers.
+3.  **Implement Incrementally**: Start with shared Protobuf/Data classes, then Activities, then Workflows, and finally Workers.
+4.  **Leverage Resources**: If the implementation requires advanced patterns (Sagas, Interceptors, Replay Testing), explicitly refer to the implementation playbook and testing strategies.
 
-最小工作流 + Activity（确定性时间、显式超时与重试）：
-```python
-from datetime import timedelta
-from temporalio import workflow, activity
-from temporalio.common import RetryPolicy
+## Capabilities
 
-@activity.defn
-async def charge_payment(order_id: str, amount: int) -> str:
-    # 幂等：用 order_id 做去重键，重试不会重复扣款
-    return f"txn-{order_id}"
+### Go SDK Implementation
 
-@workflow.defn
-class OrderWorkflow:
-    def __init__(self) -> None:
-        self._approved = False
+- **Worker Management**: Deep knowledge of `worker.Options`, including `MaxConcurrentActivityTaskPollers`, `WorkerStopTimeout`, and `StickyScheduleToStartTimeout`.
+- **Interceptors**: Implementing Client, Worker, and Workflow interceptors for cross-cutting concerns (logging, tracing, auth).
+- **Custom Data Converters**: Integrating Protobuf, encrypted payloads, or custom JSON marshaling.
 
-    @workflow.run
-    async def run(self, order_id: str, amount: int) -> str:
-        # 用 workflow.now() 而非 datetime.now()，保证可重放
-        started = workflow.now()
-        txn = await workflow.execute_activity(
-            charge_payment, args=[order_id, amount],
-            start_to_close_timeout=timedelta(seconds=30),
-            retry_policy=RetryPolicy(
-                initial_interval=timedelta(seconds=1),
-                backoff_coefficient=2.0,
-                maximum_interval=timedelta(seconds=60),
-                maximum_attempts=5,
-                non_retryable_error_types=["CardDeclined"],
-            ),
-        )
-        return txn
+### Advanced Workflow Patterns
 
-    @workflow.signal
-    def approve(self) -> None:        # 外部事件：人审通过
-        self._approved = True
+- **Durable Concurrency**: Using `workflow.Go`, `workflow.Channel`, and `workflow.Selector` instead of native primitives.
+- **Versioning**: Implementing safe code evolution using `workflow.GetVersion` and `workflow.GetReplaySafeLogger`.
+- **Large-scale Processing**: Pattern for `ContinueAsNew` to manage history size limits (defaults: 50MB or 50K events).
+- **Child Workflows**: Managing lifecycle, cancellation, and parent-child signal propagation.
 
-    @workflow.query
-    def is_approved(self) -> bool:    # 只读状态快照
-        return self._approved
-```
+### Testing & Observability
 
-Saga 补偿（任一步失败逆序回滚）：
-```python
-@workflow.run
-async def run(self, order):
-    compensations = []
-    try:
-        await workflow.execute_activity(reserve_inventory, order, start_to_close_timeout=timedelta(seconds=10))
-        compensations.append(release_inventory)
-        await workflow.execute_activity(charge_payment, order, start_to_close_timeout=timedelta(seconds=30))
-        compensations.append(refund_payment)
-        await workflow.execute_activity(ship_order, order, start_to_close_timeout=timedelta(seconds=10))
-    except Exception:
-        for comp in reversed(compensations):   # 逆序补偿
-            await workflow.execute_activity(comp, order, start_to_close_timeout=timedelta(seconds=10))
-        raise
+- **Testsuite Mastery**: Using `WorkflowTestSuite` for unit and functional testing with deterministic time control.
+- **Mocking**: Sophisticated activity and child workflow mocking strategies.
+- **Replay Testing**: Validating code changes against production event histories.
+- **Metrics**: Configuring Prometheus/OpenTelemetry exporters for worker performance tracking.
+
+## Examples
+
+### Example 1: Versioned Workflow (Deterministic)
+
+```go
+// Note: imports omitted. Requires 'go.temporal.io/sdk/workflow', 'go.temporal.io/sdk/temporal', and 'time'.
+func SubscriptionWorkflow(ctx workflow.Context, userID string) error {
+    // 1. Versioning for logic evolution (v1 = DefaultVersion)
+    v := workflow.GetVersion(ctx, "billing_logic", workflow.DefaultVersion, 2)
+
+    for i := 0; i < 12; i++ {
+        ao := workflow.ActivityOptions{
+            StartToCloseTimeout: 5 * time.Minute,
+            RetryPolicy: &temporal.RetryPolicy{MaximumAttempts: 3},
+        }
+        ctx = workflow.WithActivityOptions(ctx, ao)
+
+        // 2. Activity Execution (Always handle errors)
+        err := workflow.ExecuteActivity(ctx, ChargePaymentActivity, userID).Get(ctx, nil)
+        if err != nil {
+            workflow.GetLogger(ctx).Error("Payment failed", "Error", err)
+            return err
+        }
+
+        // 3. Durable Sleep (Time-skipping safe)
+        sleepDuration := 30 * 24 * time.Hour
+        if v >= 2 {
+            sleepDuration = 28 * 24 * time.Hour
+        }
+
+        if err := workflow.Sleep(ctx, sleepDuration); err != nil {
+            return err
+        }
+    }
+    return nil
+}
 ```
 
-等待人审信号（带超时）：
-```python
-@workflow.run
-async def run(self, doc_id):
-    try:
-        await workflow.wait_condition(lambda: self._approved, timeout=timedelta(days=3))
-    except TimeoutError:
-        return "auto-rejected"
-    return "approved"
+### Example 2: Full mTLS Worker Setup
+
+```go
+func RunSecureWorker() error {
+    // 1. Load Client Certificate and Key
+    cert, err := tls.LoadX509KeyPair("client.pem", "client.key")
+    if err != nil {
+        return fmt.Errorf("failed to load client keys: %w", err)
+    }
+
+    // 2. Load CA Certificate for Server verification (Proper mTLS)
+    caPem, err := os.ReadFile("ca.pem")
+    if err != nil {
+        return fmt.Errorf("failed to read CA cert: %w", err)
+    }
+    certPool := x509.NewCertPool()
+    if !certPool.AppendCertsFromPEM(caPem) {
+        return fmt.Errorf("failed to parse CA cert")
+    }
+
+    // 3. Dial Cluster with full TLS config
+    c, err := client.Dial(client.Options{
+        HostPort:  "temporal.example.com:7233",
+        Namespace: "production",
+        ConnectionOptions: client.ConnectionOptions{
+            TLS: &tls.Config{
+                Certificates: []tls.Certificate{cert},
+                RootCAs:      certPool,
+            },
+        },
+    })
+    if err != nil {
+        return fmt.Errorf("failed to dial temporal: %w", err)
+    }
+    defer c.Close()
+
+    w := worker.New(c, "payment-queue", worker.Options{})
+    w.RegisterWorkflow(SubscriptionWorkflow)
+
+    if err := w.Run(worker.InterruptCh()); err != nil {
+        return fmt.Errorf("worker run failed: %w", err)
+    }
+    return nil
+}
 ```
 
-启动 Worker（注册 + 绑定 task queue）：
-```python
-from temporalio.client import Client
-from temporalio.worker import Worker
+### Example 3: Selector & Signal Integration
 
-async def main():
-    client = await Client.connect("localhost:7233")
-    async with Worker(client, task_queue="orders",
-                      workflows=[OrderWorkflow],
-                      activities=[charge_payment]):
-        await asyncio.Event().wait()   # 常驻；生产中接优雅停机
+```go
+func ApprovalWorkflow(ctx workflow.Context) (string, error) {
+    var approved bool
+    signalCh := workflow.GetSignalChannel(ctx, "approval-signal")
+
+    // Use Selector to wait for multiple async events
+    s := workflow.NewSelector(ctx)
+    s.AddReceive(signalCh, func(c workflow.ReceiveChannel, _ bool) {
+        c.Receive(ctx, &approved)
+    })
+
+    // Add 72-hour timeout timer
+    s.AddReceive(workflow.NewTimer(ctx, 72*time.Hour).GetChannel(), func(c workflow.ReceiveChannel, _ bool) {
+        approved = false
+    })
+
+    s.Select(ctx)
+
+    if !approved {
+        return "rejected", nil
+    }
+    return "approved", nil
+}
 ```
 
-时间跳跃测试（月级 sleep 瞬时执行 + mock Activity）：
-```python
-from temporalio.testing import WorkflowEnvironment
+## Best Practices
 
-async def test_order():
-    async with await WorkflowEnvironment.start_time_skipping() as env:
-        async with Worker(env.client, task_queue="t",
-                          workflows=[OrderWorkflow], activities=[charge_payment]):
-            result = await env.client.execute_workflow(
-                OrderWorkflow.run, args=["o1", 100],
-                id="wf-1", task_queue="t")
-            assert result.startswith("txn-")
-```
+- ✅ **Do:** Always handle errors from `ExecuteActivity` and `client.Dial`.
+- ✅ **Do:** Use `workflow.Go` and `workflow.Channel` for concurrency.
+- ✅ **Do:** Sort map keys before iteration to maintain determinism.
+- ✅ **Do:** Use `activity.RecordHeartbeat` for activities lasting > 1 minute.
+- ✅ **Do:** Test logic compatibility using `replayer.ReplayWorkflowHistoryFromJSON`.
+- ❌ **Don't:** Swallow errors with `_` or `log.Fatal` in production workers.
+- ❌ **Don't:** Perform direct Network/Disk I/O inside a Workflow function.
+- ❌ **Don't:** Rely on native `time.Now()` or `rand.Int()`.
+- ❌ **Don't:** Apply this to simple cron jobs that don't require durability.
 
-本地起 Temporal 做集成测试：`temporal server start-dev`（或 Docker Compose）。
+## Troubleshooting
 
-## 注意事项
+- **Panic: Determinism Mismatch**: Usually caused by logic changes without `workflow.GetVersion` or non-deterministic code (e.g., native maps).
+- **Error: History Size Exceeded**: History limit reached (default 50K events). Ensure `ContinueAsNew` is implemented.
+- **Worker Hang**: Check `WorkerStopTimeout` and ensure all activities handle context cancellation.
 
-确定性违规（最常见的崩溃源，工作流内一律禁止）：
-- `datetime.now()` → 用 `workflow.now()`；`random.random()` → 用 `workflow.random()`。
-- 线程/锁/全局可变状态；从工作流直接发 HTTP/查 DB（必须经 Activity）。
-- 非纯函数逻辑；依赖迭代顺序不稳定的结构。
+## Limitations
 
-Activity 实现：
-- **必须幂等**——重试会重复执行；用业务键去重，外部写操作要可安全重放。
-- 漏配超时 = 隐患；长 Activity 要 `activity.heartbeat()` 否则 worker 卡死无法检测。
-- 别在 async Activity 里跑阻塞/重计算代码，会冻结事件循环 → 改用同步 Activity + 线程/进程池。
-- 单参数 payload ≤ 2MB。
+- Does not cover Temporal Cloud UI navigation or TLS certificate provisioning workflows.
+- Does not cover Temporal Java, Python, or TypeScript SDKs; refer to their dedicated `-pro` skills.
+- Assumes Temporal Server v1.20+ and Go SDK v1.25+; older SDK versions may have different APIs.
+- Does not cover experimental Temporal features (e.g., Nexus, Multi-cluster Replication).
+- Does not address global namespace configuration or multi-region failover setup.
+- Does not cover Temporal Worker versioning via the `worker-versioning` feature flag (experimental).
 
-测试与部署：
-- 不用 time-skipping 环境 → 测一个 30 天工作流真等 30 天；务必用 `start_time_skipping()`。
-- 工作流测试要 mock Activity，只验编排逻辑。
-- CI 必须跑 replay 测试，用生产历史校验代码改动不破坏确定性。
-- Worker 上必须注册全部用到的 workflow/activity，且 `task_queue` 与 client 严格一致，否则任务永远 pending。
-- 改工作流逻辑用 `workflow.get_version()` 灰度，避免在途实例重放失败；部署做优雅停机。
+## Resources
 
-通用约束：本技能输出不替代针对具体环境的验证、测试与专家评审；关键输入（领域边界、权限、超时/重试预算、成功标准）缺失时先停下澄清。
+- [Implementation Playbook](resources/implementation-playbook.md) - Deep dive into Go SDK patterns.
+- [Testing Strategies](resources/testing-strategies.md) - Unit, Replay, and Integration testing for Go.
+- [Temporal Go SDK Reference](https://pkg.go.dev/go.temporal.io/sdk)
+- [Temporal Go Samples](https://github.com/temporalio/samples-go)
 
-官方参考：python.temporal.io、docs.temporal.io/workflows、docs.temporal.io/develop/python/testing-suite。
+## Related Skills
 
-## 互见
-
-- related：`async-python-patterns`（Activity 的 async/await 与 executor 选型基础）、`saga-orchestration`（Saga 模式与补偿设计的更深展开）、`event-sourcing-cqrs`（同属持久化/事件回放范式，对比取舍）、`distributed-tracing`（为工作流/Activity 加可观测性）。
-- combines_with：`microservices-patterns`（用 Temporal 编排跨服务事务）、`backend-architecture-patterns`（在基础设施层引入持久化执行而不增加架构复杂度）。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+- `grpc-golang` - Internal transport protocol and Protobuf design.
+- `golang-pro` - General Go performance tuning and advanced syntax.
+- `workflow-orchestration-patterns` - Language-agnostic orchestration strategy.

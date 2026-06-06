@@ -1,11 +1,11 @@
 ---
 name: premortem-plan-challenger
-title: 事前验尸式计划挑战
-description: 当投入重大资源、向董事会/投资人汇报、或反馈一边倒乐观而想快速上马前，需要系统性挑战一份计划时使用；做法是假设计划在12个月后惨败、反向倒推暴露假设/依赖/执行风险，产出含假设评级、脆弱点地图、依赖链、止损阀与加固动作的挑战报告；不适用于无明确计划文本、纯执行落地或追求情绪鼓舞的场景。触发词：事前验尸、计划复盘挑战、风险倒推
+title: Pre-Mortem Plan Challenger
+description: Stress-test a plan before committing irreversible resources by imagining it failed 12 months out and working backwards to surface risky assumptions, dependency chains, and reversibility — producing a vulnerability map with assumption ratings, kill switches, and hardening actions.
 domain: 通用/thinking
-triggers: [事前验尸, premortem, pre-mortem, 计划挑战, 风险倒推, 假设审查, 脆弱点地图, 止损阀, 投前评审, 上董事会前, bear case, 反向倒推]
-tags: [思维方法, 风险评估, 决策支持, 战略规划, 批判性思考, 通用]
-level: 进阶
+triggers: [premortem, pre-mortem, plan challenge, bear case, assumption review, vulnerability map, kill switch, reversibility test, before the board, before investor review, stress test the plan, challenge report]
+tags: [thinking, risk-assessment, decision-support, strategy, critical-thinking, general]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,121 +16,124 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适合在**计划尚未投入不可逆资源前**用它给计划「找茬」，目的不是否决计划，而是让它经得起现实检验。
+Use this **before a plan absorbs irreversible resources** to find its weaknesses before reality does. The goal is not to kill the plan — it is to make it survive contact with reality.
 
-典型触发场景：
-- 即将为某计划投入重大资源（钱、人、时间）之前
-- 上董事会、见投资人或做重大评审之前
-- 你发现收到的反馈一边倒地正面，听不到反对声
-- 计划依赖多个外部条件**同时**成立
-- 有「先快速上、细节边走边补」的压力
-- 你对计划感到兴奋时（兴奋本身就是要更严格审视的信号）
+Run a challenge:
+- Before committing significant resources to a plan
+- Before presenting to the board or investors
+- When you notice you're only hearing positive feedback about the plan
+- When the plan requires multiple external dependencies to align
+- When there's pressure to move fast and "figure it out later"
+- When you feel excited about the plan (excitement is a signal to scrutinize harder)
 
-**不该用的边界：**
-- 没有具体可读的计划文本/方案，只有模糊想法 → 先把计划写清楚再挑战
-- 任务已进入纯执行落地阶段、不再有调整空间
-- 当前需要的是鼓劲、对齐情绪或团队动员，而非泼冷水找风险
-- 把它当成「否决工具」来杀死计划——它只产出脆弱点地图，决策权仍在人手里
+**Boundaries — don't use it when:**
+- There is no concrete, readable plan yet, only a vague idea → write the plan down first, then challenge it
+- The work has moved into pure execution with no room left to adjust
+- What's actually needed is encouragement, emotional alignment, or team mobilization rather than risk-hunting
+- You want to treat it as a "veto tool" to kill plans — it only produces a vulnerability map; the decision still belongs to people
 
-## 步骤
+## Steps
 
-核心思路：**设想现在是 12 个月后，这个计划已经惨败。然后反向倒推：为什么会失败？** 多数计划败于可预测的坏假设（高估需求、低估复杂度、没人质疑的依赖、只在表格里成立的时机），而非运气。
+The core idea: most plans fail for predictable reasons — not bad luck, but bad assumptions (overestimated demand, underestimated complexity, dependencies nobody questioned, timing that made sense in a spreadsheet but not in the real world). The pre-mortem technique: **imagine it's 12 months from now and this plan failed spectacularly. Now work backwards. Why?** That's not pessimism — it's how you build something that doesn't collapse.
 
-### 第 1 步：提取核心假设
-对计划每一部分追问：要让它成立，什么必须为真？对客户行为、竞品反应、自身执行力分别假设了什么？依赖哪些外部因素？
+### Step 1: Extract core assumptions
+Before you can test a plan, surface everything it assumes to be true. For each section, ask: What has to be true for this to work? What are we assuming about customer behavior, competitor response, and our own execution capability? What external factors does this depend on?
 
-常见假设类别：
-- **市场假设**——市场规模、增速、付费意愿、采购周期
-- **执行假设**——团队产能、交付速度、是否需大量新招人
-- **客户假设**——客户确有此问题、知道自己有、愿意付费解决
-- **竞争假设**——在位者不反击、无新进入者、护城河稳固
-- **财务假设**——烧钱率、收入时点、CAC、LTV 比
-- **依赖假设**——合作方按时交付、API 不变、监管不变
+Common assumption categories:
+- **Market assumptions** — size, growth rate, customer willingness to pay, buying cycle
+- **Execution assumptions** — team capacity, velocity, no major hires needed
+- **Customer assumptions** — they have the problem, they know they have it, they'll pay to solve it
+- **Competitive assumptions** — incumbents won't respond, no new entrant, moat holds
+- **Financial assumptions** — burn rate, revenue timing, CAC, LTV ratios
+- **Dependency assumptions** — partner will deliver, API won't change, regulations won't shift
 
-### 第 2 步：为每条假设评级
-两个维度：
+### Step 2: Rate each assumption
+Rate every assumption on two dimensions.
 
-**信心（你多确定它为真）：** 高（有数据/客户访谈/调研验证）｜中（方向对但未验证）｜低（合理但未测试）｜未知（根本不知道）
+**Confidence level (how sure you are it's true):** High (verified with data, customer conversations, market research) | Medium (directionally right but not validated) | Low (plausible but untested) | Unknown (we simply don't know)
 
-**错了的影响（若假设失败会怎样）：** 致命（计划彻底失败）｜高（重大延期或成本超支）｜中（需大量返工）｜低（可控调整）
+**Impact if wrong (what happens if the assumption fails):** Critical (plan fails entirely) | High (major delay or cost overrun) | Medium (significant rework required) | Low (manageable adjustment)
 
-### 第 3 步：绘制脆弱点地图
-**脆弱点 = 低信心 × 高/致命影响**。这些不是要忽略的问题，而是你正在下的赌注——关键是你是否**自觉地**在下注。
+### Step 3: Map vulnerabilities
+**Vulnerability = Low/Unknown confidence × Critical/High impact.** These are not problems to ignore — they're the bets you're making. The question is whether you are making them **consciously**.
 
-### 第 4 步：梳理依赖链
-很多计划失败不是因为单条假设错，而是多条假设必须**同时**为真。绘制链路：B 是否依赖 A 先成立？第一环出错会连带打断多少下游？关键路径在哪？哪一环零余量（zero slack）？
+### Step 4: Find the dependency chain
+Many plans fail not because any single assumption is wrong, but because multiple assumptions have to be right **simultaneously**. Map the chain: Does assumption B depend on assumption A being true first? If the first thing goes wrong, how many downstream things break? What's the critical path? What has zero slack?
 
-### 第 5 步：测试可逆性
-对每个致命脆弱点：如果它在第 3 个月被证明是错的，你能怎么办？能否转向（pivot）？能否砍范围？钱是否已花出去？承诺是否已做出？**越不可逆，越要在投入前严格验证。**
+### Step 5: Test the reversibility
+For each critical vulnerability: if this assumption turns out wrong at month 3, what do you do? Can you pivot? Can you cut scope? Is money already spent? Are commitments already made? **The less reversible, the more rigorously you need to validate before committing.**
 
-## 指令
+## Example
 
-按以下结构输出**挑战报告：[计划名]**
+Produce a **Challenge Report: [Plan Name]** in this structure:
 
 ```
-核心假设（已提取）
-1. [假设] — 信心: [高/中/低/?] — 错误影响: [致命/高/中/低]
+CORE ASSUMPTIONS (extracted)
+1. [Assumption] — Confidence: [H/M/L/?] — Impact if wrong: [Critical/High/Medium/Low]
 2. ...
 
-脆弱点地图
-致命风险（推进前必须处理）：
-• [#N] [假设] — 为何可能错 — 错了会打断什么
+VULNERABILITY MAP
+Critical risks (act before proceeding):
+• [#N] [Assumption] — WHY it might be wrong — WHAT breaks if it is
 
-高风险（规模化前须验证）：
+High risks (validate before scaling):
 • ...
 
-依赖链
-[假设A] → 依赖 → [假设B] → 进而支撑 → [假设C]
-最薄弱环节：[X] — 若此处断裂，[Y] 与 [Z] 也连带失败
+DEPENDENCY CHAIN
+[Assumption A] → depends on → [Assumption B] → which enables → [Assumption C]
+Weakest link: [X] — if this breaks, [Y] and [Z] also fail
 
-可逆性评估
-• 可逆的赌注：[列表]
-• 不可逆的承诺：[列表 — 极度谨慎对待]
+REVERSIBILITY ASSESSMENT
+• Reversible bets: [list]
+• Irreversible commitments: [list — treat with extreme care]
 
-止损阀（Kill Switches）
-在 [30/60/90 天] 满足什么条件才继续 vs. 砍掉/转向？
-• 继续，如果：...
-• 砍掉/转向，如果：...
+KILL SWITCHES
+What would have to be true at [30/60/90 days] to continue vs. kill/pivot?
+• Continue if: ...
+• Kill/pivot if: ...
 
-加固动作
-1. [推进前要做的具体验证]
-2. [可考虑的替代方案]
-3. [应纳入计划的应急预案]
+HARDENING ACTIONS
+1. [Specific validation to do before proceeding]
+2. [Alternative approach to consider]
+3. [Contingency to build into the plan]
 ```
 
-**按计划类型的挑战要点（择需选用）：**
-- **产品路线图**：是在做客户愿意付费的，还是客户嘴上说要的？速度估算用了真实产能还是理论产能？锚点功能若慢 3 倍怎么办？需求冲突时谁拍板？
-- **市场进入（GTM）**：真实 ICP 转化率而非期望值是多少？成单需几次触达、销售产能够吗？前 10 单若耗 3 个月而非 1 个月？「land and expand」是真打法还是一厢情愿？
-- **招聘计划**：关键岗位若 4 个月才招到（而非 6 周）怎么办？是否依赖可能离职的特定人？是否计入 3–6 个月的爬坡期？人头领先收入 6 个月对烧钱的冲击？
-- **融资计划**：领投放鸽子的备选方案？按 6 个月（而非 3 个月）建模过时间线吗？以低端估值 close 时跑道还剩多少？只融到目标额 50% 时哪些假设崩掉？
+**Worked example.** Input: a plan to "hire 5 engineers in 6 months and ship a new product line in Q3," with broadly optimistic feedback.
 
-**最难、最常被跳过的提问：** 「熊市情景（bear case）而非基准情景是什么？」「如果这套计划交给一个我们不信任的团队来跑，还成立吗？」「有什么因为不舒服而没说出口？」「谁有动机把计划说得比实际更好？」「计划的敌人会先攻击哪里？」
+- Core assumption #3 "key engineers onboard within 6 weeks" — Confidence: Low — Impact: Critical
+- Vulnerability: the hiring-cycle assumption is too optimistic and ignores a 3–6 month ramp; if a key role takes 4 months to fill, the Q3 dependency chain (hire → capacity → launch) shifts as a whole.
+- Weakest link in the dependency chain: time-to-onboard → once it breaks, capacity and launch timing fail together.
+- Kill switch: at day 30, if < 2 onboarded, cut launch scope; at day 60, if < 4, push launch to Q4.
+- Hardening actions: start hiring early and lock 2 offers; prepare a "cut-scope MVP launch" alternative path.
 
-## 示例
+**Challenge patterns by plan type (pick what's relevant):**
+- **Product roadmap** — Are we building what customers will pay for, or what they said they wanted? Does the velocity estimate use real team capacity, not theoretical? What if the anchor feature takes 3× longer? Who owns decisions when requirements conflict?
+- **Go-to-market** — What's the actual ICP conversion rate, not the hoped-for one? How many touches to close, and do you have the sales capacity? What if the first 10 deals take 3 months instead of 1? Is "land and expand" a real motion or a hope?
+- **Hiring plan** — What if the key hire takes 4 months, not 6 weeks? Is the plan dependent on retaining specific people who might leave? Does it account for 3–6 months of ramp? What's the burn impact if headcount leads revenue by 6 months?
+- **Fundraising plan** — What's your fallback if the lead investor passes? Have you modeled the timeline at 6 months, not 3? What's your runway at current burn if the round closes at the low end? What assumptions break if you raise 50% of the target?
 
-输入：一份「6 个月内招 5 名工程师、Q3 发布新产品线」的计划，反馈普遍乐观。
+**The hardest questions — the ones people skip:**
+- "What's the bear case, not the base case?"
+- "If this exact plan was run by a team we don't trust, would it work?"
+- "What are we not saying out loud because it's uncomfortable?"
+- "Who has incentives to make this plan sound better than it is?"
+- "What would an enemy of this plan attack first?"
 
-挑战节选：
-- 核心假设 #3「关键工程师 6 周内到岗」— 信心: 低 — 影响: 致命
-- 脆弱点：招聘周期假设过于乐观，且未计入 3–6 个月爬坡期；若关键岗位 4 个月才到岗，Q3 发布的依赖链（招人 → 产能 → 发布）整体后移。
-- 依赖链最薄弱环节：到岗时间 → 一旦断裂，产能与发布时点同时失败。
-- 止损阀：第 30 天若到岗 < 2 人则砍发布范围；第 60 天若 < 4 人则将发布推至 Q4。
-- 加固动作：提前启动招聘并锁定 2 名 offer；准备「砍范围发布 MVP」的替代路径。
+## Notes
 
-## 注意事项
+- The output is **not permission to stop** — it's a vulnerability map. Now you can make conscious decisions: validate the risky assumptions, hedge the critical ones, or accept the bets you're making knowingly.
+- Core stance: **unknown risks are dangerous; known risks are manageable.**
+- Don't let it degrade into a line-by-line restatement of the plan or nitpicking complaints. Every vulnerability must land on "why it might be wrong + what breaks if it is + how to harden it."
+- Prioritize the "Low confidence × High impact" quadrant and the zero-slack critical path; don't get distracted by a pile of low-impact minor issues.
 
-- 它的产出**不是停手的许可**，而是一张脆弱点地图——之后你可以验证高风险假设、对冲致命假设，或自觉地接受你在下的赌注。
-- 核心立场：**未知的风险才危险；已知的风险是可管理的。**
-- 不要把它退化成逐条翻译计划或挑刺式吐槽；每条脆弱点都要落到「为何可能错 + 错了打断什么 + 怎么加固」。
-- 优先排查「低信心 × 高影响」象限和「零余量的关键路径」，不要被一堆低影响小问题分散注意力。
+## See also
 
-## 互见
-
-- 与「假设验证 / 实验设计」类技能配合：把脆弱点地图里的高风险假设转成可验证的实验。
-- 与「决策评审 / 投前评审」类技能配合：将止损阀与加固动作纳入正式决策门禁。
+- Pair with **assumption-validation / experiment-design** skills: turn the high-risk assumptions from the vulnerability map into testable experiments.
+- Pair with **decision-review / investment-review** skills: fold the kill switches and hardening actions into a formal decision gate.
+- Related: `executive-adversarial-mentor`, `boardroom-deliberation`, `business-assumption-stress-test`, `first-principles-assumption-auditor`.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+Adapted from alirezarezvani/claude-skills (MIT license).

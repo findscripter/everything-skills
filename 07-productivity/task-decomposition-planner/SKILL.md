@@ -1,14 +1,14 @@
 ---
 name: task-decomposition-planner
-title: 任务拆解与依赖编排
-description: 当需要把复杂任务拆给多 Agent 并行执行、设计任务依赖图、编写可验收任务描述或监控团队负载时使用；做任务分解、依赖图(blockedBy/blocks)设计、关键路径识别与负载再平衡，产出可分配的子任务与依赖关系；不适用于单 Agent 顺序执行的简单任务、纯代码实现或具体业务逻辑编写。触发词：任务拆解、任务分解、依赖编排、依赖图、关键路径、多 Agent 协作、负载均衡、task decomposition、dependency graph、critical path、blockedBy、workload balancing
+title: Task Coordination Strategies
+description: Decompose complex tasks, design dependency graphs, and coordinate multi-agent work with proper task descriptions and workload balancing. Use this skill when breaking down work for agent teams, managing task dependencies, or monitoring team progress.
 domain: 协作/pm
-triggers: [任务拆解, 任务分解, 依赖编排, 依赖图, 关键路径, 多 Agent 协作, 负载均衡, task decomposition, dependency graph, critical path, blockedBy, workload balancing]
+triggers: [task decomposition, dependency graph, critical path, blockedBy, workload balancing]
 tags: [task-coordination, multi-agent, dependency-graph, critical-path, workload-balancing, planning, pm]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [TaskCreate, TaskUpdate, TaskList, SendMessage]
+tools: []
 requires: []
 related: [multi-agent-orchestrator, agent-workflow-builder, agile-product-owner, enterprise-project-manager]
 combines_with: [multi-agent-orchestrator, agent-workflow-builder, agile-product-owner]
@@ -16,50 +16,95 @@ license: MIT
 source: wshobson/agents
 source_license: MIT
 ---
-## 何时使用
+# Task Coordination Strategies
 
-- 把一个复杂任务拆成可并行的多个子任务，分配给 Agent 团队执行。
-- 设计任务之间的依赖关系（blockedBy / blocks），并识别关键路径（最长依赖链）。
-- 为每个子任务编写带明确验收标准、文件归属和接口约定的任务描述。
-- 监控团队成员负载，发现不均衡并做再平衡。
+Strategies for decomposing complex tasks into parallelizable units, designing dependency graphs, writing effective task descriptions, and monitoring workload across agent teams.
 
-不该用的边界：
+## When to Use This Skill
 
-- 单 Agent 即可顺序完成、无需并行的简单任务，拆解只会增加协调开销。
-- 需要的是具体代码实现、业务逻辑或调试，而非任务编排本身。
-- 团队规模为 1 或任务间不存在可并行性时，直接顺序执行即可。
+- Breaking down a complex task for parallel execution
+- Designing task dependency relationships (blockedBy/blocks)
+- Writing task descriptions with clear acceptance criteria
+- Monitoring and rebalancing workload across teammates
+- Identifying the critical path in a multi-task workflow
 
-## 步骤
+## Task Decomposition Strategies
 
-1. 选定拆解维度（见下方四种策略），将大任务切成职责清晰、文件不重叠的子任务。
-2. 为每个子任务写描述：目标、归属文件、需求、接口契约、验收标准、范围外事项。
-3. 用 TaskCreate 建任务，用 TaskUpdate 的 addBlockedBy 声明依赖，构造尽量宽而浅的依赖图。
-4. 找出关键路径（最长依赖链），它决定最短完成时间，优先保障其上的任务。
-5. 执行中用 TaskList 评估状态，按负载信号再平衡，并用 SendMessage 通知受影响成员。
+### By Layer
 
-## 指令
+Split work by architectural layer:
 
-四种拆解维度（按场景选）：
+- Frontend components
+- Backend API endpoints
+- Database migrations/models
+- Test suites
 
-- 按层（By Layer）：前端组件 / 后端 API / 数据库迁移与模型 / 测试。适合全栈特性、纵向切片。
-- 按组件（By Component）：认证模块 / 用户资料模块 / 通知模块。适合微服务、模块化架构。
-- 按关注点（By Concern）：安全评审 / 性能评审 / 架构评审。适合代码审查、审计。
-- 按文件归属（By File Ownership）：`src/components/` 归实现者 1、`src/api/` 归实现者 2、`src/utils/` 归实现者 3。适合并行实现、规避冲突。
+**Best for**: Full-stack features, vertical slices
 
-依赖图四原则：
+### By Component
 
-1. 最小化链深：宽而浅优于深链。
-2. 识别关键路径：最长链决定最短完成时间。
-3. 节制使用 blockedBy：只加真正必需的依赖。
-4. 杜绝循环依赖：A 阻塞 B、B 又阻塞 A 即死锁。
+Split work by functional component:
 
-常见拓扑：独立型（A/B/C 并行 → 汇总，并行度最佳）、顺序型（A → B → C，必要依赖）、菱形型（A 分叉到 B、C，再汇合到 D，混合）。
+- Authentication module
+- User profile module
+- Notification module
 
-任务描述必含六要素：目标（Objective，1-2 句）、归属文件（Owned Files，可改的文件/目录显式列出）、需求（Requirements，具体交付物或行为）、接口契约（Interface Contract，与他人工作的衔接方式）、验收标准（Acceptance Criteria，如何验证完成）、范围外（Out of Scope，明确不做什么）。
+**Best for**: Microservices, modular architectures
 
-## 示例
+### By Concern
 
-声明依赖（#3 等待 #1 和 #2 都完成）：
+Split work by cross-cutting concern:
+
+- Security review
+- Performance review
+- Architecture review
+
+**Best for**: Code reviews, audits
+
+### By File Ownership
+
+Split work by file/directory boundaries:
+
+- `src/components/` — Implementer 1
+- `src/api/` — Implementer 2
+- `src/utils/` — Implementer 3
+
+**Best for**: Parallel implementation, conflict avoidance
+
+## Dependency Graph Design
+
+### Principles
+
+1. **Minimize chain depth** — Prefer wide, shallow graphs over deep chains
+2. **Identify the critical path** — The longest chain determines minimum completion time
+3. **Use blockedBy sparingly** — Only add dependencies that are truly required
+4. **Avoid circular dependencies** — Task A blocks B blocks A is a deadlock
+
+### Patterns
+
+**Independent (Best parallelism)**:
+
+```
+Task A ─┐
+Task B ─┼─→ Integration
+Task C ─┘
+```
+
+**Sequential (Necessary dependencies)**:
+
+```
+Task A → Task B → Task C
+```
+
+**Diamond (Mixed)**:
+
+```
+        ┌→ Task B ─┐
+Task A ─┤          ├→ Task D
+        └→ Task C ─┘
+```
+
+### Using blockedBy/blocks
 
 ```
 TaskCreate: { subject: "Build API endpoints" }         → Task #1
@@ -68,7 +113,18 @@ TaskCreate: { subject: "Integration testing" }          → Task #3
 TaskUpdate: { taskId: "3", addBlockedBy: ["1", "2"] }  → #3 waits for #1 and #2
 ```
 
-任务描述模板：
+## Task Description Best Practices
+
+Every task should include:
+
+1. **Objective** — What needs to be accomplished (1-2 sentences)
+2. **Owned Files** — Explicit list of files/directories this teammate may modify
+3. **Requirements** — Specific deliverables or behaviors expected
+4. **Interface Contracts** — How this work connects to other teammates' work
+5. **Acceptance Criteria** — How to verify the task is done correctly
+6. **Scope Boundaries** — What is explicitly out of scope
+
+### Template
 
 ```
 ## Objective
@@ -99,15 +155,21 @@ Build the user authentication API endpoints.
 - Rate limiting
 ```
 
-## 注意事项
+## Workload Monitoring
 
-- 归属文件不重叠是规避并行冲突的核心；共享类型文件应标注「只读，勿改」。
-- 负载失衡信号与应对：成员空闲而他人繁忙 → 重新分配待办；成员卡在单个任务 → 检查阻塞、提供帮助；全部任务被阻塞 → 优先解关键路径；某成员任务量是他人 3 倍 → 拆分或转派。
-- 再平衡流程：TaskList 评估当前状态 → 识别空闲/过载成员 → TaskUpdate 转派任务 → SendMessage 通知受影响成员 → 持续观察吞吐是否改善。
-- 加依赖前先确认其「真必需」，过度 blockedBy 会人为拉长关键路径、降低并行度。
+### Indicators of Imbalance
 
-## 互见
+| Signal                     | Meaning             | Action                      |
+| -------------------------- | ------------------- | --------------------------- |
+| Teammate idle, others busy | Uneven distribution | Reassign pending tasks      |
+| Teammate stuck on one task | Possible blocker    | Check in, offer help        |
+| All tasks blocked          | Dependency issue    | Resolve critical path first |
+| One teammate has 3x others | Overloaded          | Split tasks or reassign     |
 
-- skill-creator：编写与组织技能条目的方法。
+### Rebalancing Steps
 
-本条采编自 wshobson/agents（MIT）。
+1. Call `TaskList` to assess current state
+2. Identify idle or overloaded teammates
+3. Use `TaskUpdate` to reassign tasks
+4. Use `SendMessage` to notify affected teammates
+5. Monitor for improved throughput

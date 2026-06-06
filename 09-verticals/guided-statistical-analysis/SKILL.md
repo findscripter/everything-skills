@@ -1,14 +1,14 @@
 ---
 name: guided-statistical-analysis
-title: 统计分析与检验选择
-description: 当为研究/实验数据选择统计检验、核查假设前提、计算效应量与功效、并按 APA 规范报告结果时使用；做检验选型、前提诊断、t检验/方差分析/卡方/回归/相关/贝叶斯分析及成稿报告；不适用于纯描述性可视化、机器学习建模或具体模型 API 编程（改用 statsmodels/pymc）。触发词：统计检验、假设检验、选择检验、t检验、方差分析、ANOVA、卡方检验、回归分析、相关分析、效应量、功效分析、power analysis、p值、APA报告、贝叶斯检验、前提假设检查、正态性检验、hypothesis test、effect size。
+title: Statistical Analysis
+description: Guided statistical analysis with test selection and reporting. Use when you need help choosing appropriate tests for your data, assumption checking, power analysis, and APA-formatted results. Best for academic research reporting, test selection guidance. For implementing specific models programmatically use statsmodels.
 domain: 领域/science
-triggers: [统计检验, 假设检验, 选择检验, t检验, 方差分析, ANOVA, 卡方检验, 回归分析, 相关分析, 效应量, 功效分析, power analysis, p值, APA报告, 贝叶斯检验, 前提假设检查, 正态性检验, hypothesis test, effect size]
+triggers: [ANOVA, power analysis, hypothesis test, effect size]
 tags: [statistics, hypothesis-testing, anova, regression, effect-size, power-analysis, bayesian, apa-reporting, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [pingouin, scipy.stats, statsmodels, pymc, arviz, pandas, matplotlib, seaborn]
+tools: []
 requires: []
 related: [statsmodels-statistical-modeling, scientific-manuscript-writing, research-experiment-designer]
 combines_with: [research-experiment-designer, statsmodels-statistical-modeling, scientific-manuscript-writing]
@@ -16,135 +16,646 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# Statistical Analysis
 
-适用于面向科研/实验或观测数据的统计推断全流程：
+## Overview
 
-- 需要根据研究问题和数据特征**选对检验**（两组/多组比较、相关、回归、贝叶斯替代）。
-- 运行检验前需**系统核查前提假设**（正态性、方差齐性、线性、离群点）并在被违背时给出补救方案。
-- 需要计算并解释**效应量与置信区间**、做先验功效分析确定样本量。
-- 需要把结果整理成 **APA 规范报告**（含描述统计、检验量、df、精确 p 值、效应量）。
+Statistical analysis is a systematic process for testing hypotheses and quantifying relationships. Conduct hypothesis tests (t-test, ANOVA, chi-square), regression, correlation, and Bayesian analyses with assumption checks and APA reporting. Apply this skill for academic research.
 
-不该用的边界：
+## When to Use This Skill
 
-- 只需画图做探索性可视化、或做机器学习/预测建模——本条专注推断而非预测。
-- 已经确定模型、只想调用具体 API（OLS、GLM、ARIMA 的参数化建模）——改用 statsmodels；复杂贝叶斯层级模型工作流——改用 pymc。
-- 事后功效分析（post-hoc power）——不推荐，改用敏感性分析。
+This skill should be used when:
+- Conducting statistical hypothesis tests (t-tests, ANOVA, chi-square)
+- Performing regression or correlation analyses
+- Running Bayesian statistical analyses
+- Checking statistical assumptions and diagnostics
+- Calculating effect sizes and conducting power analyses
+- Reporting statistical results in APA format
+- Analyzing experimental or observational data for research
 
-## 步骤
+---
 
-1. 明确研究问题与假设，据数据特征用「检验选型速查」选定检验。
-2. 做先验功效分析估算所需样本量。
-3. 载入数据，核查缺失值与离群点。
-4. **运行检验前**用 `assumption_checks` 核查前提假设；被违背则切换稳健/非参方法。
-5. 运行主分析，计算效应量及其置信区间；显著时做带校正的事后比较。
-6. 出图（Q-Q、残差图、箱线图），按 APA 模板撰写报告，含所有计划内分析（包括不显著结果）。
+## Installation
 
-## 指令
-
-**安装（uv，Python 3.10+，贝叶斯部分建议 3.12+）：**
+Use **uv** to install the libraries used in this skill. Pin versions in production; unpinned installs are fine for exploration.
 
 ```bash
+# Core frequentist stack (Python 3.10+; 3.12+ recommended for latest SciPy/ArviZ)
 uv pip install "pingouin>=0.6" "scipy>=1.11" "statsmodels>=0.14.6" pandas matplotlib seaborn
-uv pip install "pymc>=5.0" "arviz>=0.17"   # 贝叶斯
+
+# Bayesian modeling (PyMC 5 + ArviZ; ArviZ 0.23+ requires Python 3.12+)
+uv pip install "pymc>=5.0" "arviz>=0.17"
 ```
 
-**检验选型速查：**
+**Compatibility notes (2025–2026):**
 
-- 两组·连续·正态：独立样本 t 检验；非正态：Mann-Whitney U。
-- 两组·配对·正态：配对 t 检验；非正态：Wilcoxon 符号秩。
-- 二分类结局：卡方检验或 Fisher 精确检验。
-- 3+ 组·独立·正态：单因素 ANOVA；非正态：Kruskal-Wallis。
-- 3+ 组·配对·正态：重复测量 ANOVA；非正态：Friedman。
-- 关系：两连续变量 → Pearson（正态）/ Spearman（非正态）；连续结局+预测变量 → 线性回归；二分类结局 → 逻辑回归。
-- 以上均有贝叶斯版本，可给出假设的直接概率、Bayes Factor、并能支持原假设。
+- **Pingouin 0.5+** renamed output columns (`p_val`, `cohen_d`, `CI95`, `p_unc`) — examples below use the current names.
+- **statsmodels + SciPy**: use `statsmodels>=0.14.6` with `scipy>=1.11` to avoid `_lazywhere` import errors on SciPy 1.16+.
+- **Pingouin Bayes Factors**: one-sided BF for t-tests was removed in 0.5+; use dedicated packages (e.g. JASP, BayesFactor via R) or PyMC for hypothesis testing.
 
-**前提假设核查（始终在解释结果前执行）：** 在 skill 的 `scripts/` 目录运行 Python 或将其加入 `sys.path`。
+For model-specific APIs (OLS, GLM, ARIMA), see the **statsmodels** skill. For PyMC workflows, see the **pymc** skill.
+
+---
+
+## Core Capabilities
+
+### 1. Test Selection and Planning
+- Choose appropriate statistical tests based on research questions and data characteristics
+- Conduct a priori power analyses to determine required sample sizes
+- Plan analysis strategies including multiple comparison corrections
+
+### 2. Assumption Checking
+- Automatically verify all relevant assumptions before running tests
+- Provide diagnostic visualizations (Q-Q plots, residual plots, box plots)
+- Recommend remedial actions when assumptions are violated
+
+### 3. Statistical Testing
+- Hypothesis testing: t-tests, ANOVA, chi-square, non-parametric alternatives
+- Regression: linear, multiple, logistic, with diagnostics
+- Correlations: Pearson, Spearman, with confidence intervals
+- Bayesian alternatives: Bayesian t-tests, ANOVA, regression with Bayes Factors
+
+### 4. Effect Sizes and Interpretation
+- Calculate and interpret appropriate effect sizes for all analyses
+- Provide confidence intervals for effect estimates
+- Distinguish statistical from practical significance
+
+### 5. Professional Reporting
+- Generate APA-style statistical reports
+- Create publication-ready figures and tables
+- Provide complete interpretation with all required statistics
+
+---
+
+## Workflow Decision Tree
+
+Use this decision tree to determine your analysis path:
+
+```
+START
+│
+├─ Need to SELECT a statistical test?
+│  └─ YES → See "Test Selection Guide"
+│  └─ NO → Continue
+│
+├─ Ready to check ASSUMPTIONS?
+│  └─ YES → See "Assumption Checking"
+│  └─ NO → Continue
+│
+├─ Ready to run ANALYSIS?
+│  └─ YES → See "Running Statistical Tests"
+│  └─ NO → Continue
+│
+└─ Need to REPORT results?
+   └─ YES → See "Reporting Results"
+```
+
+---
+
+## Test Selection Guide
+
+### Quick Reference: Choosing the Right Test
+
+Use `references/test_selection_guide.md` for comprehensive guidance. Quick reference:
+
+**Comparing Two Groups:**
+- Independent, continuous, normal → Independent t-test
+- Independent, continuous, non-normal → Mann-Whitney U test
+- Paired, continuous, normal → Paired t-test
+- Paired, continuous, non-normal → Wilcoxon signed-rank test
+- Binary outcome → Chi-square or Fisher's exact test
+
+**Comparing 3+ Groups:**
+- Independent, continuous, normal → One-way ANOVA
+- Independent, continuous, non-normal → Kruskal-Wallis test
+- Paired, continuous, normal → Repeated measures ANOVA
+- Paired, continuous, non-normal → Friedman test
+
+**Relationships:**
+- Two continuous variables → Pearson (normal) or Spearman correlation (non-normal)
+- Continuous outcome with predictor(s) → Linear regression
+- Binary outcome with predictor(s) → Logistic regression
+
+**Bayesian Alternatives:**
+All tests have Bayesian versions that provide:
+- Direct probability statements about hypotheses
+- Bayes Factors quantifying evidence
+- Ability to support null hypothesis
+- See `references/bayesian_statistics.md`
+
+---
+
+## Assumption Checking
+
+### Systematic Assumption Verification
+
+**ALWAYS check assumptions before interpreting test results.**
+
+Use the bundled `scripts/assumption_checks.py` module for automated checking. Run Python from the skill directory (`skills/statistical-analysis/`) or add `scripts/` to `sys.path`:
 
 ```python
 from assumption_checks import comprehensive_assumption_check
-results = comprehensive_assumption_check(data=df, value_col='score', group_col='group', alpha=0.05)
+
+# Comprehensive check with visualizations
+results = comprehensive_assumption_check(
+    data=df,
+    value_col='score',
+    group_col='group',  # Optional: for group comparisons
+    alpha=0.05
+)
 ```
 
-执行：离群点检测（IQR + z 分数）、正态性（Shapiro-Wilk + Q-Q）、方差齐性（Levene + 箱线图）、解释与建议。
+This performs:
+1. **Outlier detection** (IQR and z-score methods)
+2. **Normality testing** (Shapiro-Wilk test + Q-Q plots)
+3. **Homogeneity of variance** (Levene's test + box plots)
+4. **Interpretation and recommendations**
 
-**违背时的处理：**
+### Individual Assumption Checks
 
-- 正态性：轻度违背且每组 n>30 → 仍可用参数检验；中度 → 改非参；重度 → 变换或非参。
-- 方差齐性：t 检验 → Welch t；ANOVA → Welch/Brown-Forsythe；回归 → 稳健标准误或加权最小二乘。
-- 线性（回归）：加多项式项、变换变量，或用非线性模型/GAM。
+For targeted checks, use individual functions:
 
-**效应量基准（仅参考，需结合情境）：** Cohen's d（0.2/0.5/0.8）、η²_p（0.01/0.06/0.14）、r（0.1/0.3/0.5）、R²（0.02/0.13/0.26）、Cramér's V（0.07/0.21/0.35）。
+```python
+from assumption_checks import (
+    check_normality,
+    check_normality_per_group,
+    check_homogeneity_of_variance,
+    check_linearity,
+    detect_outliers
+)
 
-## 示例
+# Example: Check normality with visualization
+result = check_normality(
+    data=df['score'],
+    name='Test Score',
+    alpha=0.05,
+    plot=True
+)
+print(result['interpretation'])
+print(result['recommendation'])
+```
 
-**独立样本 t 检验（含报告）：**
+### What to Do When Assumptions Are Violated
+
+**Normality violated:**
+- Mild violation + n > 30 per group → Proceed with parametric test (robust)
+- Moderate violation → Use non-parametric alternative
+- Severe violation → Transform data or use non-parametric test
+
+**Homogeneity of variance violated:**
+- For t-test → Use Welch's t-test
+- For ANOVA → Use Welch's ANOVA or Brown-Forsythe ANOVA
+- For regression → Use robust standard errors or weighted least squares
+
+**Linearity violated (regression):**
+- Add polynomial terms
+- Transform variables
+- Use non-linear models or GAM
+
+See `references/assumptions_and_diagnostics.md` for comprehensive guidance.
+
+---
+
+## Running Statistical Tests
+
+### Python Libraries
+
+Primary libraries for statistical analysis:
+- **scipy.stats**: Core statistical tests
+- **statsmodels**: Advanced regression and diagnostics
+- **pingouin**: User-friendly statistical testing with effect sizes
+- **pymc**: Bayesian statistical modeling
+- **arviz**: Bayesian visualization and diagnostics
+
+### Example Analyses
+
+#### T-Test with Complete Reporting
 
 ```python
 import pingouin as pg
-result = pg.ttest(group_a, group_b, correction='auto')  # Pingouin 0.5+ 列名
-t_stat = result['T'].values[0]; df = result['dof'].values[0]
-p_value = result['p_val'].values[0]; cohens_d = result['cohen_d'].values[0]
-ci_lower, ci_upper = result['CI95'].values[0]
+import numpy as np
+
+# Run independent t-test
+result = pg.ttest(group_a, group_b, correction='auto')
+
+# Extract results (Pingouin 0.5+ column names)
+t_stat = result['T'].values[0]
+df = result['dof'].values[0]
+p_value = result['p_val'].values[0]
+cohens_d = result['cohen_d'].values[0]
+ci = result['CI95'].values[0]
+ci_lower, ci_upper = ci[0], ci[1]
+
+# Report
 print(f"t({df:.0f}) = {t_stat:.2f}, p = {p_value:.3f}")
 print(f"Cohen's d = {cohens_d:.2f}, 95% CI [{ci_lower:.2f}, {ci_upper:.2f}]")
 ```
 
-**单因素 ANOVA + 事后检验：**
+#### ANOVA with Post-Hoc Tests
 
 ```python
+import pingouin as pg
+
+# One-way ANOVA
 aov = pg.anova(dv='score', between='group', data=df, detailed=True)
+print(aov)
+
+# If significant, conduct post-hoc tests
 if aov['p_unc'].values[0] < 0.05:
     posthoc = pg.pairwise_tukey(dv='score', between='group', data=df)
-eta_squared = aov['np2'].values[0]   # 偏 eta 平方
+    print(posthoc)
+
+# Effect size
+eta_squared = aov['np2'].values[0]  # Partial eta-squared
+print(f"Partial η² = {eta_squared:.3f}")
 ```
 
-**线性回归诊断（多重共线性 VIF + 残差图）：**
+#### Linear Regression with Diagnostics
 
 ```python
 import statsmodels.api as sm
 from statsmodels.stats.outliers_influence import variance_inflation_factor
-X = sm.add_constant(X_predictors)
+
+# Fit model
+X = sm.add_constant(X_predictors)  # Add intercept
 model = sm.OLS(y, X).fit()
+
+# Summary
 print(model.summary())
-vif = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
-# 残差: model.resid 对 model.fittedvalues 作散点 + Q-Q + Scale-Location + 直方图
+
+# Check multicollinearity (VIF)
+vif_data = pd.DataFrame()
+vif_data["Variable"] = X.columns
+vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+print(vif_data)
+
+# Check assumptions
+residuals = model.resid
+fitted = model.fittedvalues
+
+# Residual plots
+import matplotlib.pyplot as plt
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# Residuals vs fitted
+axes[0, 0].scatter(fitted, residuals, alpha=0.6)
+axes[0, 0].axhline(y=0, color='r', linestyle='--')
+axes[0, 0].set_xlabel('Fitted values')
+axes[0, 0].set_ylabel('Residuals')
+axes[0, 0].set_title('Residuals vs Fitted')
+
+# Q-Q plot
+from scipy import stats
+stats.probplot(residuals, dist="norm", plot=axes[0, 1])
+axes[0, 1].set_title('Normal Q-Q')
+
+# Scale-Location
+axes[1, 0].scatter(fitted, np.sqrt(np.abs(residuals / residuals.std())), alpha=0.6)
+axes[1, 0].set_xlabel('Fitted values')
+axes[1, 0].set_ylabel('√|Standardized residuals|')
+axes[1, 0].set_title('Scale-Location')
+
+# Residuals histogram
+axes[1, 1].hist(residuals, bins=20, edgecolor='black', alpha=0.7)
+axes[1, 1].set_xlabel('Residuals')
+axes[1, 1].set_ylabel('Frequency')
+axes[1, 1].set_title('Histogram of Residuals')
+
+plt.tight_layout()
+plt.show()
 ```
 
-**先验功效分析（定样本量）：**
+#### Bayesian T-Test
 
 ```python
-from statsmodels.stats.power import tt_ind_solve_power, FTestAnovaPower
-n = tt_ind_solve_power(effect_size=0.5, alpha=0.05, power=0.80, ratio=1.0, alternative='two-sided')
-# 敏感性分析: effect_size=None, nobs1=50 反解可检测的最小 d
+import pymc as pm
+import arviz as az
+import numpy as np
+
+with pm.Model() as model:
+    # Priors
+    mu1 = pm.Normal('mu_group1', mu=0, sigma=10)
+    mu2 = pm.Normal('mu_group2', mu=0, sigma=10)
+    sigma = pm.HalfNormal('sigma', sigma=10)
+
+    # Likelihood
+    y1 = pm.Normal('y1', mu=mu1, sigma=sigma, observed=group_a)
+    y2 = pm.Normal('y2', mu=mu2, sigma=sigma, observed=group_b)
+
+    # Derived quantity
+    diff = pm.Deterministic('difference', mu1 - mu2)
+
+    # Sample
+    trace = pm.sample(2000, tune=1000, return_inferencedata=True)
+
+# Summarize
+print(az.summary(trace, var_names=['difference']))
+
+# Probability that group1 > group2
+prob_greater = np.mean(trace.posterior['difference'].values > 0)
+print(f"P(μ₁ > μ₂ | data) = {prob_greater:.3f}")
+
+# Plot posterior
+az.plot_posterior(trace, var_names=['difference'], ref_val=0)
 ```
-
-**贝叶斯 t 检验（PyMC）：** 设 `mu1, mu2 ~ Normal(0,10)`、`sigma ~ HalfNormal(10)`，似然为正态，`pm.sample(2000, tune=1000)`；用 `np.mean(diff>0)` 给出 P(μ₁>μ₂|data)，并查 R̂<1.01、ESS>1000。
-
-**APA 报告片段（独立 t 检验）：**
-
-```
-A 组 (n=48, M=75.2, SD=8.5) 显著高于 B 组 (n=52, M=68.3, SD=9.2),
-t(98)=3.82, p<.001, d=0.77, 95% CI [0.36, 1.18], 双侧。正态性
-(Shapiro-Wilk) 与方差齐性 (Levene F(1,98)=1.23, p=.27) 均满足。
-```
-
-## 注意事项
-
-- **始终先查前提假设再解释结果**；报告效应量与置信区间，并区分统计显著与实际意义。
-- 报告**所有计划内分析**（含不显著结果），多重比较时做族系误差校正。
-- 避免 p-hacking 与 HARKing；p<.05 不等于效应有意义；p 值不是「假设为真的概率」。
-- Pingouin 0.5+ 改了输出列名（`p_val`、`cohen_d`、`CI95`、`p_unc`），示例已用新名。
-- `statsmodels>=0.14.6` 搭 `scipy>=1.11`，避免 SciPy 1.16+ 的 `_lazywhere` 导入错误。
-- Pingouin 0.5+ 移除了 t 检验单侧 BF；贝叶斯假设检验改用 PyMC 或 JASP/R 的 BayesFactor。
-- 缺失值需先判明机制（MCAR/MAR/MNAR）；不要过度解读不显著结果（无证据 ≠ 反证）。
-
-## 互见
-
-- `first-principles-thinking`：在选检验前从研究问题与数据生成机制出发界定假设。
-- `fact-checking`：核验统计结论与数值报告的可信度。
-- `csv-data-cleaner`：分析前清洗数据、处理缺失值与离群点。
 
 ---
 
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT）。
+## Effect Sizes
+
+### Always Calculate Effect Sizes
+
+**Effect sizes quantify magnitude, while p-values only indicate existence of an effect.**
+
+See `references/effect_sizes_and_power.md` for comprehensive guidance.
+
+### Quick Reference: Common Effect Sizes
+
+| Test | Effect Size | Small | Medium | Large |
+|------|-------------|-------|--------|-------|
+| T-test | Cohen's d | 0.20 | 0.50 | 0.80 |
+| ANOVA | η²_p | 0.01 | 0.06 | 0.14 |
+| Correlation | r | 0.10 | 0.30 | 0.50 |
+| Regression | R² | 0.02 | 0.13 | 0.26 |
+| Chi-square | Cramér's V | 0.07 | 0.21 | 0.35 |
+
+**Important**: Benchmarks are guidelines. Context matters!
+
+### Calculating Effect Sizes
+
+Most effect sizes are automatically calculated by pingouin:
+
+```python
+# T-test returns Cohen's d
+result = pg.ttest(x, y)
+d = result['cohen_d'].values[0]
+
+# ANOVA returns partial eta-squared
+aov = pg.anova(dv='score', between='group', data=df)
+eta_p2 = aov['np2'].values[0]
+
+# Correlation: r is already an effect size
+corr = pg.corr(x, y)
+r = corr['r'].values[0]
+```
+
+### Confidence Intervals for Effect Sizes
+
+Always report CIs to show precision:
+
+```python
+from pingouin import compute_effsize_from_t
+
+# For t-test
+d, ci = compute_effsize_from_t(
+    t_statistic,
+    nx=len(group1),
+    ny=len(group2),
+    eftype='cohen'
+)
+print(f"d = {d:.2f}, 95% CI [{ci[0]:.2f}, {ci[1]:.2f}]")
+```
+
+---
+
+## Power Analysis
+
+### A Priori Power Analysis (Study Planning)
+
+Determine required sample size before data collection:
+
+```python
+from statsmodels.stats.power import (
+    tt_ind_solve_power,
+    FTestAnovaPower
+)
+
+# T-test: What n is needed to detect d = 0.5?
+n_required = tt_ind_solve_power(
+    effect_size=0.5,
+    alpha=0.05,
+    power=0.80,
+    ratio=1.0,
+    alternative='two-sided'
+)
+print(f"Required n per group: {n_required:.0f}")
+
+# ANOVA: What n is needed to detect f = 0.25?
+anova_power = FTestAnovaPower()
+n_per_group = anova_power.solve_power(
+    effect_size=0.25,
+    ngroups=3,
+    alpha=0.05,
+    power=0.80
+)
+print(f"Required n per group: {n_per_group:.0f}")
+```
+
+### Sensitivity Analysis (Post-Study)
+
+Determine what effect size you could detect:
+
+```python
+# With n=50 per group, what effect could we detect?
+detectable_d = tt_ind_solve_power(
+    effect_size=None,  # Solve for this
+    nobs1=50,
+    alpha=0.05,
+    power=0.80,
+    ratio=1.0,
+    alternative='two-sided'
+)
+print(f"Study could detect d ≥ {detectable_d:.2f}")
+```
+
+**Note**: Post-hoc power analysis (calculating power after study) is generally not recommended. Use sensitivity analysis instead.
+
+See `references/effect_sizes_and_power.md` for detailed guidance.
+
+---
+
+## Reporting Results
+
+### APA Style Statistical Reporting
+
+Follow guidelines in `references/reporting_standards.md`.
+
+### Essential Reporting Elements
+
+1. **Descriptive statistics**: M, SD, n for all groups/variables
+2. **Test statistics**: Test name, statistic, df, exact p-value
+3. **Effect sizes**: With confidence intervals
+4. **Assumption checks**: Which tests were done, results, actions taken
+5. **All planned analyses**: Including non-significant findings
+
+### Example Report Templates
+
+#### Independent T-Test
+
+```
+Group A (n = 48, M = 75.2, SD = 8.5) scored significantly higher than
+Group B (n = 52, M = 68.3, SD = 9.2), t(98) = 3.82, p < .001, d = 0.77,
+95% CI [0.36, 1.18], two-tailed. Assumptions of normality (Shapiro-Wilk:
+Group A W = 0.97, p = .18; Group B W = 0.96, p = .12) and homogeneity
+of variance (Levene's F(1, 98) = 1.23, p = .27) were satisfied.
+```
+
+#### One-Way ANOVA
+
+```
+A one-way ANOVA revealed a significant main effect of treatment condition
+on test scores, F(2, 147) = 8.45, p < .001, η²_p = .10. Post hoc
+comparisons using Tukey's HSD indicated that Condition A (M = 78.2,
+SD = 7.3) scored significantly higher than Condition B (M = 71.5,
+SD = 8.1, p = .002, d = 0.87) and Condition C (M = 70.1, SD = 7.9,
+p < .001, d = 1.07). Conditions B and C did not differ significantly
+(p = .52, d = 0.18).
+```
+
+#### Multiple Regression
+
+```
+Multiple linear regression was conducted to predict exam scores from
+study hours, prior GPA, and attendance. The overall model was significant,
+F(3, 146) = 45.2, p < .001, R² = .48, adjusted R² = .47. Study hours
+(B = 1.80, SE = 0.31, β = .35, t = 5.78, p < .001, 95% CI [1.18, 2.42])
+and prior GPA (B = 8.52, SE = 1.95, β = .28, t = 4.37, p < .001,
+95% CI [4.66, 12.38]) were significant predictors, while attendance was
+not (B = 0.15, SE = 0.12, β = .08, t = 1.25, p = .21, 95% CI [-0.09, 0.39]).
+Multicollinearity was not a concern (all VIF < 1.5).
+```
+
+#### Bayesian Analysis
+
+```
+A Bayesian independent samples t-test was conducted using weakly
+informative priors (Normal(0, 1) for mean difference). The posterior
+distribution indicated that Group A scored higher than Group B
+(M_diff = 6.8, 95% credible interval [3.2, 10.4]). The Bayes Factor
+BF₁₀ = 45.3 provided very strong evidence for a difference between
+groups, with a 99.8% posterior probability that Group A's mean exceeded
+Group B's mean. Convergence diagnostics were satisfactory (all R̂ < 1.01,
+ESS > 1000).
+```
+
+---
+
+## Bayesian Statistics
+
+### When to Use Bayesian Methods
+
+Consider Bayesian approaches when:
+- You have prior information to incorporate
+- You want direct probability statements about hypotheses
+- Sample size is small or planning sequential data collection
+- You need to quantify evidence for the null hypothesis
+- The model is complex (hierarchical, missing data)
+
+See `references/bayesian_statistics.md` for comprehensive guidance on:
+- Bayes' theorem and interpretation
+- Prior specification (informative, weakly informative, non-informative)
+- Bayesian hypothesis testing with Bayes Factors
+- Credible intervals vs. confidence intervals
+- Bayesian t-tests, ANOVA, regression, and hierarchical models
+- Model convergence checking and posterior predictive checks
+
+### Key Advantages
+
+1. **Intuitive interpretation**: "Given the data, there is a 95% probability the parameter is in this interval"
+2. **Evidence for null**: Can quantify support for no effect
+3. **Flexible**: No p-hacking concerns; can analyze data as it arrives
+4. **Uncertainty quantification**: Full posterior distribution
+
+---
+
+## Resources
+
+This skill includes comprehensive reference materials:
+
+### References Directory
+
+- **test_selection_guide.md**: Decision tree for choosing appropriate statistical tests
+- **assumptions_and_diagnostics.md**: Detailed guidance on checking and handling assumption violations
+- **effect_sizes_and_power.md**: Calculating, interpreting, and reporting effect sizes; conducting power analyses
+- **bayesian_statistics.md**: Complete guide to Bayesian analysis methods
+- **reporting_standards.md**: APA-style reporting guidelines with examples
+
+### Scripts Directory
+
+- **assumption_checks.py**: Automated assumption checking with visualizations
+  - `comprehensive_assumption_check()`: Complete workflow
+  - `check_normality()`: Normality testing with Q-Q plots
+  - `check_homogeneity_of_variance()`: Levene's test with box plots
+  - `check_linearity()`: Regression linearity checks
+  - `detect_outliers()`: IQR and z-score outlier detection
+
+---
+
+## Best Practices
+
+1. **Pre-register analyses** when possible to distinguish confirmatory from exploratory
+2. **Always check assumptions** before interpreting results
+3. **Report effect sizes** with confidence intervals
+4. **Report all planned analyses** including non-significant results
+5. **Distinguish statistical from practical significance**
+6. **Visualize data** before and after analysis
+7. **Check diagnostics** for regression/ANOVA (residual plots, VIF, etc.)
+8. **Conduct sensitivity analyses** to assess robustness
+9. **Share data and code** for reproducibility
+10. **Be transparent** about violations, transformations, and decisions
+
+---
+
+## Common Pitfalls to Avoid
+
+1. **P-hacking**: Don't test multiple ways until something is significant
+2. **HARKing**: Don't present exploratory findings as confirmatory
+3. **Ignoring assumptions**: Check them and report violations
+4. **Confusing significance with importance**: p < .05 ≠ meaningful effect
+5. **Not reporting effect sizes**: Essential for interpretation
+6. **Cherry-picking results**: Report all planned analyses
+7. **Misinterpreting p-values**: They're NOT probability that hypothesis is true
+8. **Multiple comparisons**: Correct for family-wise error when appropriate
+9. **Ignoring missing data**: Understand mechanism (MCAR, MAR, MNAR)
+10. **Overinterpreting non-significant results**: Absence of evidence ≠ evidence of absence
+
+---
+
+## Getting Started Checklist
+
+When beginning a statistical analysis:
+
+- [ ] Define research question and hypotheses
+- [ ] Determine appropriate statistical test (use test_selection_guide.md)
+- [ ] Conduct power analysis to determine sample size
+- [ ] Load and inspect data
+- [ ] Check for missing data and outliers
+- [ ] Verify assumptions using assumption_checks.py
+- [ ] Run primary analysis
+- [ ] Calculate effect sizes with confidence intervals
+- [ ] Conduct post-hoc tests if needed (with corrections)
+- [ ] Create visualizations
+- [ ] Write results following reporting_standards.md
+- [ ] Conduct sensitivity analyses
+- [ ] Share data and code
+
+---
+
+## Support and Further Reading
+
+For questions about:
+- **Test selection**: See references/test_selection_guide.md
+- **Assumptions**: See references/assumptions_and_diagnostics.md
+- **Effect sizes**: See references/effect_sizes_and_power.md
+- **Bayesian methods**: See references/bayesian_statistics.md
+- **Reporting**: See references/reporting_standards.md
+
+**Key textbooks**:
+- Cohen, J. (1988). *Statistical Power Analysis for the Behavioral Sciences*
+- Field, A. (2013). *Discovering Statistics Using IBM SPSS Statistics*
+- Gelman, A., & Hill, J. (2006). *Data Analysis Using Regression and Multilevel/Hierarchical Models*
+- Kruschke, J. K. (2014). *Doing Bayesian Data Analysis*
+
+**Online resources**:
+- APA Style Guide: https://apastyle.apa.org/
+- Statistical Consulting: Cross Validated (stats.stackexchange.com)

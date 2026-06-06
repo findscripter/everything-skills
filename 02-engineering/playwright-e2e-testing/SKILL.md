@@ -1,14 +1,14 @@
 ---
 name: playwright-e2e-testing
-title: Playwright 端到端测试
-description: 当需要为 Web 应用搭建或扩展端到端（E2E）自动化测试时使用；用 Playwright 完成安装配置、编写测试脚本、视觉回归、跨浏览器与移动端模拟、并接入 CI/CD，产出可运行的测试套件与流水线；不适用于单元/接口测试、纯手工探索测试或非浏览器场景；触发词：Playwright、E2E、端到端测试、跨浏览器、视觉回归、浏览器自动化、CI 测试
+title: E2E Testing Workflow
+description: End-to-end testing workflow with Playwright for browser automation, visual regression, cross-browser testing, and CI/CD integration.
 domain: 研发/testing
-triggers: [Playwright, E2E 测试, 端到端测试, 跨浏览器测试, 视觉回归, 浏览器自动化, playwright test, CI 中跑前端测试, page object, trace 追踪]
-tags: [测试, e2e, playwright, 浏览器自动化, 视觉回归, ci/cd, 前端, qa]
-level: 进阶
+triggers: [Playwright, playwright test, page object]
+tags: [e2e, playwright, ci/cd, qa]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [@playwright/test, playwright CLI, Node.js / npm, GitHub Actions, Chromium / Firefox / WebKit]
+tools: []
 requires: []
 related: [webapp-testing, browserstack-cross-browser-test, javascript-testing-patterns, android-ui-verification]
 combines_with: [ci-cd-pipeline-builder, accessibility-wcag-audit, test-coverage-gap-finder]
@@ -16,139 +16,164 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# E2E Testing Workflow
 
-当你要为 Web 应用建立或扩展浏览器端到端（E2E）自动化测试时使用，典型场景：
+## Overview
 
-- 从零搭建 Playwright 测试框架，配置测试目录与浏览器
-- 为关键业务流（登录、下单、表单提交）编写自动化脚本与断言
-- 做视觉回归（截图基线比对）
-- 在 Chromium / Firefox / WebKit 及移动端模拟下做跨浏览器测试
-- 把 E2E 测试接入 CI/CD，并行执行、产出报告与失败追踪产物
+Specialized workflow for end-to-end testing using Playwright including browser automation, visual regression testing, cross-browser testing, and CI/CD integration.
 
-**不该用的边界：**
+## When to Use This Workflow
 
-- 纯单元测试或函数级逻辑 → 用 Vitest/Jest，不要用 Playwright
-- 后端 HTTP 接口契约测试 → 用接口测试工具（虽 Playwright 也能发请求，但非首选）
-- 一次性手工探索 / 无回归价值的临时点击 → 不值得固化为脚本
-- 缺少可访问的目标 URL、测试账号、成功判定标准时：先停下来问清楚，别盲目生成脚本
+Use this workflow when:
+- Setting up E2E testing
+- Automating browser tests
+- Implementing visual regression
+- Testing across browsers
+- Integrating tests with CI/CD
 
-## 步骤
+## Workflow Phases
 
-1. **环境搭建**：安装 Playwright，初始化配置，建立 `tests/` 目录，安装浏览器内核。
-2. **测试设计**：梳理关键流程，规划测试数据与 fixtures，按页面建立 Page Object，避免选择器散落。
-3. **编写实现**：写测试脚本与断言，用自动等待（web-first assertions）代替硬编码 sleep，处理动态内容与异常。
-4. **浏览器能力**：按需开启 headless、截图、录像、trace 追踪、移动端模拟。
-5. **视觉回归**：生成基线图，加 `toHaveScreenshot` 断言，设置容差阈值，审查差异。
-6. **跨浏览器**：在 config 的 `projects` 中配置多内核与移动设备，对比结果。
-7. **接入 CI/CD**：编写流水线，分片并行，上传 report/trace 产物，配置失败通知。
+### Phase 1: Test Setup
 
-## 指令
+#### Skills to Invoke
+- `playwright-skill` - Playwright setup
+- `e2e-testing-patterns` - E2E patterns
 
-```bash
-# 1. 初始化（自动生成 config、示例用例、CI 模板）
-npm init playwright@latest
+#### Actions
+1. Install Playwright
+2. Configure test framework
+3. Set up test directory
+4. Configure browsers
+5. Create base test setup
 
-# 2. 仅安装浏览器内核（已有项目）
-npx playwright install --with-deps
-
-# 3. 运行 / 调试
-npx playwright test                 # 全量
-npx playwright test --project=chromium
-npx playwright test --ui            # UI 模式交互调试
-npx playwright test --debug         # Inspector 单步
-npx playwright codegen <url>        # 录制生成脚本
-
-# 4. 报告与追踪
-npx playwright show-report
-npx playwright show-trace trace.zip
-
-# 5. 视觉回归基线（首次或刻意更新）
-npx playwright test --update-snapshots
+#### Copy-Paste Prompts
+```
+Use @playwright-skill to set up Playwright testing
 ```
 
-## 示例
+### Phase 2: Test Design
 
-**playwright.config.ts —— 跨浏览器 + 失败追踪：**
+#### Skills to Invoke
+- `e2e-testing-patterns` - Test patterns
+- `test-automator` - Test automation
 
-```ts
-import { defineConfig, devices } from '@playwright/test';
+#### Actions
+1. Identify critical flows
+2. Design test scenarios
+3. Plan test data
+4. Create page objects
+5. Set up fixtures
 
-export default defineConfig({
-  testDir: './tests',
-  fullyParallel: true,
-  retries: process.env.CI ? 2 : 0,
-  reporter: 'html',
-  use: {
-    baseURL: 'http://localhost:3000',
-    trace: 'on-first-retry',     // 仅重试时收集 trace，降低开销
-    screenshot: 'only-on-failure',
-  },
-  projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox',  use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit',   use: { ...devices['Desktop Safari'] } },
-    { name: 'mobile',   use: { ...devices['Pixel 5'] } },
-  ],
-});
+#### Copy-Paste Prompts
+```
+Use @e2e-testing-patterns to design E2E test strategy
 ```
 
-**测试脚本 —— 自动等待 + 视觉回归：**
+### Phase 3: Test Implementation
 
-```ts
-import { test, expect } from '@playwright/test';
+#### Skills to Invoke
+- `playwright-skill` - Playwright tests
+- `webapp-testing` - Web app testing
 
-test('登录后跳转到仪表盘', async ({ page }) => {
-  await page.goto('/login');
-  await page.getByLabel('用户名').fill('demo');
-  await page.getByLabel('密码').fill('secret');
-  await page.getByRole('button', { name: '登录' }).click();
+#### Actions
+1. Write test scripts
+2. Add assertions
+3. Implement waits
+4. Handle dynamic content
+5. Add error handling
 
-  // web-first 断言，自动重试等待，无需手写 sleep
-  await expect(page.getByRole('heading', { name: '仪表盘' })).toBeVisible();
-  await expect(page).toHaveScreenshot('dashboard.png', { maxDiffPixelRatio: 0.01 });
-});
+#### Copy-Paste Prompts
+```
+Use @playwright-skill to write E2E test scripts
 ```
 
-**CI/CD（GitHub Actions）：**
+### Phase 4: Browser Automation
 
-```yaml
-name: e2e
-on: [push, pull_request]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-      - run: npm ci
-      - run: npx playwright install --with-deps
-      - run: npx playwright test
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
+#### Skills to Invoke
+- `browser-automation` - Browser automation
+- `playwright-skill` - Playwright features
+
+#### Actions
+1. Configure headless mode
+2. Set up screenshots
+3. Implement video recording
+4. Add trace collection
+5. Configure mobile emulation
+
+#### Copy-Paste Prompts
+```
+Use @browser-automation to automate browser interactions
 ```
 
-## 注意事项
+### Phase 5: Visual Regression
 
-- **选择器优先级**：优先用 `getByRole` / `getByLabel` / `getByText` 等面向用户的定位器，少用脆弱的 CSS/XPath。
-- **不要硬等待**：禁用 `waitForTimeout(固定毫秒)`，依赖 web-first 断言的自动重试，否则测试既慢又 flaky。
-- **视觉回归基线**：基线截图应在 CI 同款环境（同 OS/字体/渲染）生成，本地与 CI 渲染差异会导致大量假阳性；用 `maxDiffPixelRatio` 设容差。
-- **trace 是排障利器**：CI 失败时务必上传 trace.zip，用 `show-trace` 回看每一步 DOM/网络/截图。
-- **隔离与数据**：每个测试自带独立状态，借助 fixtures 准备/清理数据，避免用例间互相污染。
-- **质量门禁**：合并前确认——用例全绿、关键流覆盖充分、视觉测试稳定、跨浏览器通过、CI 集成正常。
-- 输出不能替代针对具体环境的人工验证与专家评审；输入、权限、成功标准缺失时先澄清再动手。
+#### Skills to Invoke
+- `playwright-skill` - Visual testing
+- `ui-visual-validator` - Visual validation
 
-## 互见
+#### Actions
+1. Set up visual testing
+2. Create baseline images
+3. Add visual assertions
+4. Configure thresholds
+5. Review differences
 
-- 测试与 QA 整体工作流（单元 / 接口 / E2E 分层）
-- 前端开发与 Web 性能优化技能
-- CI/CD 自动化与 GitHub Actions 模板
+#### Copy-Paste Prompts
+```
+Use @playwright-skill to implement visual regression testing
+```
 
----
+### Phase 6: Cross-Browser Testing
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可证），已按「技能大典」规范适配重写并补充可执行命令与代码示例。
+#### Skills to Invoke
+- `playwright-skill` - Multi-browser
+- `webapp-testing` - Browser testing
+
+#### Actions
+1. Configure Chromium
+2. Add Firefox tests
+3. Add WebKit tests
+4. Test mobile browsers
+5. Compare results
+
+#### Copy-Paste Prompts
+```
+Use @playwright-skill to run cross-browser tests
+```
+
+### Phase 7: CI/CD Integration
+
+#### Skills to Invoke
+- `github-actions-templates` - GitHub Actions
+- `cicd-automation-workflow-automate` - CI/CD
+
+#### Actions
+1. Create CI workflow
+2. Configure parallel execution
+3. Set up artifacts
+4. Add reporting
+5. Configure notifications
+
+#### Copy-Paste Prompts
+```
+Use @github-actions-templates to integrate E2E tests with CI
+```
+
+## Quality Gates
+
+- [ ] Tests passing
+- [ ] Coverage adequate
+- [ ] Visual tests stable
+- [ ] Cross-browser verified
+- [ ] CI integration working
+
+## Related Workflow Bundles
+
+- `testing-qa` - Testing workflow
+- `development` - Development
+- `web-performance-optimization` - Performance
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: cellxgene-census
-title: CELLxGENE Census 海量单细胞查询
-description: 当需要从 CZ CELLxGENE Census（6100 万+ 标准化人/鼠单细胞观测）按细胞类型/组织/疾病/物种检索表达数据时使用；用 cellxgene_census Python API 做元数据查询、取 AnnData、out-of-core 流式处理或 PyTorch 训练，产出可下游分析的矩阵；不适用于分析自有 scRNA-seq 数据（用 scanpy）或操作 AnnData 对象（用 anndata）。触发词：cellxgene census、单细胞图谱查询、get_anndata
+title: CZ CELLxGENE Census
+description: Query CELLxGENE Census (61M+ cells). Search by cell type/tissue/disease/organism; get AnnData, stream out-of-core, train PyTorch models. For your own data use scanpy; for annotated data use anndata.
 domain: 领域/science
-triggers: [cellxgene census, CELLxGENE Census 查询, 单细胞图谱表达检索, get_anndata 取细胞, open_soma 连接 census, 按细胞类型/组织/疾病查单细胞, out-of-core 流式单细胞, Census PyTorch 训练]
+triggers: [cellxgene census]
 tags: [science, genomics, single-cell, scrna-seq, cellxgene, census, tiledb-soma, anndata, pytorch]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [cellxgene_census, tiledbsoma, scanpy, anndata, pytorch]
+tools: []
 requires: []
 related: [single-cell-rnaseq-analysis, anndata-data-structure, celltypist-cell-annotation, scvi-tools-single-cell]
 combines_with: [single-cell-rnaseq-analysis, anndata-data-structure, gget-genomic-databases]
@@ -16,48 +16,353 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# CZ CELLxGENE Census
 
-CZ CELLxGENE Census 通过编程方式提供 6100 万+ 条标准化的人类与小鼠 scRNA-seq 观测，支持按细胞类型、组织、疾病、供体等元数据做群体规模查询，返回 AnnData 或 PyTorch DataLoader。
+## Overview
 
-适用：
-- 跨组织/疾病/细胞类型从策展图谱检索单细胞表达数据
-- 构建细胞类型分类、marker 基因发现的参考数据集
-- 在大规模单细胞数据上训练 ML 模型（PyTorch 集成）
-- 群体规模比较条件间表达（如 COVID-19 vs 健康）
-- 探查某组织/疾病有哪些可用单细胞数据集
+CZ CELLxGENE Census provides programmatic access to 61+ million standardized single-cell RNA-seq observations from human and mouse. It enables population-scale queries by cell type, tissue, disease, and donor metadata, returning expression data as AnnData objects or PyTorch dataloaders for ML workflows.
 
-不该用（负边界）：
-- 分析**自己的 scRNA-seq 数据** → 用 scanpy
-- 操作 AnnData 对象（取子集、拼接）→ 用 anndata
+## When to Use
 
-## 步骤
+- Querying single-cell expression data across tissues, diseases, or cell types from a curated atlas
+- Building reference datasets for cell type classification or marker gene discovery
+- Training ML models on large-scale single-cell data (PyTorch integration)
+- Comparing gene expression across conditions (e.g., COVID-19 vs healthy) at population scale
+- Exploring what single-cell datasets are available for a tissue or disease of interest
+- For **analyzing your own scRNA-seq data**, use scanpy instead
+- For **manipulating AnnData objects** (subsetting, concatenation), use anndata instead
 
-1. **装包**：`pip install cellxgene-census`（注意是连字符）；ML 工作流加装 `pip install cellxgene-census[experimental]`。
-2. **连接**：始终用上下文管理器 `with cellxgene_census.open_soma() as census:`；生产环境用 `census_version="YYYY-MM-DD"` 锁版本保证可复现。
-3. **先估规模**：用 `get_obs(..., column_names=["soma_joinid"])` 数清细胞数，再决定取数方式。
-4. **取数**：<100k 细胞用 `get_anndata` 直接拿 AnnData；>100k 用 `axis_query` 做 out-of-core 流式分块。
-5. **过滤约束**：所有 `obs_value_filter` 务必带 `is_primary_data == True`，否则跨数据集重复细胞会膨胀计数、偏置分析。
-6. **下游**：交给 scanpy 归一化、聚类、差异表达、可视化，或 `adata.write_h5ad()` 导出。
+## Prerequisites
 
-## 指令
+```bash
+pip install cellxgene-census
+# For ML workflows
+pip install cellxgene-census[experimental]
+```
 
-- 连接探查：`open_soma()` 后读 `census["census_info"]["summary"]` / `["datasets"]`。
-- 仅元数据查询（不下表达）：`get_obs(census, "homo_sapiens", value_filter=..., column_names=[...])`；基因元数据用 `get_var`。
-- 取表达矩阵：`get_anndata(census=, organism=, obs_value_filter=, var_value_filter=, obs_column_names=)`。
-- 流式：`census["census_data"][organism].axis_query(measurement_name="RNA", obs_query=soma.AxisQuery(...), var_query=...)`，遍历 `query.X("raw").tables()`。
-- 检查基因覆盖：`get_presence_matrix(census, organism, var_value_filter=...)` →（n_datasets, n_genes）。
-- PyTorch：`from cellxgene_census.experimental.ml import experiment_dataloader`。
+**API Rate Limits**: Census uses TileDB-SOMA cloud backend. No explicit rate limit, but large queries (>1M cells) should use out-of-core processing (Module 4) to avoid memory exhaustion. Always use context managers for proper resource cleanup.
 
-**filter 语法**：`and`/`or` 组合；`feature_name in ['CD4','CD8A']` 多值；`cell_count > 1000` 比较。
+## Quick Start
 
-**关键参数**：`organism`（"Homo sapiens"/"Mus musculus"）、`census_version`（锁版本）、`obs_value_filter`/`var_value_filter`、`obs_column_names`（只取需要的列减少传输）、`batch_size`(默认128)、`shuffle`。
+```python
+import cellxgene_census
 
-**关键元数据字段**：`cell_type`(Cell Ontology 标签)、`tissue_general`(粗粒度，约30类，适合跨组织对比)、`tissue`(具体组织，数百值)、`disease`、`assay`、`is_primary_data`(永远过滤 True)、`donor_id`(批次效应)。
+with cellxgene_census.open_soma() as census:
+    # Get B cells from lung
+    adata = cellxgene_census.get_anndata(
+        census=census,
+        organism="Homo sapiens",
+        obs_value_filter="cell_type == 'B cell' and tissue_general == 'lung' and is_primary_data == True",
+        obs_column_names=["cell_type", "disease", "donor_id"],
+    )
+    print(f"Retrieved {adata.n_obs} cells × {adata.n_vars} genes")
+    # Retrieved ~15000 cells × 60664 genes
+```
 
-## 示例
+## Core API
 
-取肺部 B 细胞（Quick Start）：
+### 1. Opening and Exploring the Census
+
+Connect to Census and discover available data.
+
+```python
+import cellxgene_census
+
+# Open latest stable version (always use context manager)
+with cellxgene_census.open_soma() as census:
+    # Summary statistics
+    summary = census["census_info"]["summary"].read().concat().to_pandas()
+    print(f"Total cells: {summary['total_cell_count'][0]:,}")
+
+    # List all datasets
+    datasets = census["census_info"]["datasets"].read().concat().to_pandas()
+    print(f"Total datasets: {len(datasets)}")
+    print(datasets[["dataset_title", "cell_count"]].head())
+```
+
+```python
+# Open specific version for reproducibility
+with cellxgene_census.open_soma(census_version="2023-07-25") as census:
+    # Reproducible analysis code here
+    pass
+```
+
+### 2. Cell Metadata Queries
+
+Query cell-level metadata without downloading expression data.
+
+```python
+import cellxgene_census
+
+with cellxgene_census.open_soma() as census:
+    # Get unique cell types in brain
+    cell_metadata = cellxgene_census.get_obs(
+        census,
+        "homo_sapiens",
+        value_filter="tissue_general == 'brain' and is_primary_data == True",
+        column_names=["cell_type", "disease", "assay"]
+    )
+    print(f"Total brain cells: {len(cell_metadata):,}")
+    print(cell_metadata["cell_type"].value_counts().head(10))
+```
+
+```python
+    # Gene metadata query
+    gene_metadata = cellxgene_census.get_var(
+        census,
+        "homo_sapiens",
+        value_filter="feature_name in ['CD4', 'CD8A', 'FOXP3']",
+        column_names=["feature_id", "feature_name", "feature_length"]
+    )
+    print(gene_metadata)
+    # Returns DataFrame with Ensembl IDs, gene symbols, and lengths
+```
+
+### 3. Expression Data Queries (Small-Medium Scale)
+
+Retrieve expression matrices as AnnData objects for queries returning <100k cells.
+
+```python
+import cellxgene_census
+
+with cellxgene_census.open_soma() as census:
+    # Query by cell type + tissue + disease
+    adata = cellxgene_census.get_anndata(
+        census=census,
+        organism="Homo sapiens",
+        obs_value_filter="cell_type == 'T cell' and disease == 'COVID-19' and is_primary_data == True",
+        var_value_filter="feature_name in ['CD4', 'CD8A', 'CD19', 'FOXP3']",
+        obs_column_names=["cell_type", "tissue_general", "donor_id"],
+    )
+    print(f"Shape: {adata.shape}")  # (n_cells, 4)
+    print(f"Metadata columns: {list(adata.obs.columns)}")
+```
+
+**Filter syntax reference**:
+- Combine conditions: `and`, `or`
+- Multiple values: `feature_name in ['CD4', 'CD8A']`
+- Comparison: `cell_count > 1000`
+- Always include `is_primary_data == True` to avoid duplicate cells
+
+### 4. Large-Scale Out-of-Core Queries
+
+Stream expression data in chunks for queries exceeding available RAM.
+
+```python
+import cellxgene_census
+import tiledbsoma as soma
+
+with cellxgene_census.open_soma() as census:
+    # Estimate query size first
+    metadata = cellxgene_census.get_obs(
+        census, "homo_sapiens",
+        value_filter="tissue_general == 'brain' and is_primary_data == True",
+        column_names=["soma_joinid"]
+    )
+    n_cells = len(metadata)
+    print(f"Query will return {n_cells:,} cells")
+
+    # If >100k cells, use streaming
+    query = census["census_data"]["homo_sapiens"].axis_query(
+        measurement_name="RNA",
+        obs_query=soma.AxisQuery(
+            value_filter="tissue_general == 'brain' and is_primary_data == True"
+        ),
+        var_query=soma.AxisQuery(
+            value_filter="feature_name in ['FOXP2', 'TBR1', 'SATB2']"
+        )
+    )
+
+    # Incremental statistics
+    n_obs, total = 0, 0.0
+    for batch in query.X("raw").tables():
+        values = batch["soma_data"].to_numpy()
+        n_obs += len(values)
+        total += values.sum()
+
+    print(f"Processed {n_obs:,} non-zero entries, mean={total/n_obs:.4f}")
+```
+
+### 5. Dataset Presence Matrix
+
+Check which datasets measured specific genes (not all genes are in all datasets).
+
+```python
+import cellxgene_census
+
+with cellxgene_census.open_soma() as census:
+    presence = cellxgene_census.get_presence_matrix(
+        census,
+        "homo_sapiens",
+        var_value_filter="feature_name in ['CD4', 'CD8A', 'PTPRC']"
+    )
+    print(f"Presence matrix shape: {presence.shape}")
+    # (n_datasets, n_genes) — True if gene measured in dataset
+```
+
+### 6. PyTorch ML Integration
+
+Train models directly on Census data using the experimental dataloader.
+
+```python
+from cellxgene_census.experimental.ml import experiment_dataloader
+import cellxgene_census
+
+with cellxgene_census.open_soma() as census:
+    dataloader = experiment_dataloader(
+        census["census_data"]["homo_sapiens"],
+        measurement_name="RNA",
+        X_name="raw",
+        obs_value_filter="tissue_general == 'liver' and is_primary_data == True",
+        obs_column_names=["cell_type"],
+        batch_size=128,
+        shuffle=True,
+    )
+
+    for batch in dataloader:
+        X = batch["X"]           # Gene expression tensor
+        labels = batch["obs"]    # Cell metadata
+        print(f"Batch X shape: {X.shape}, labels: {list(labels.columns)}")
+        break  # Show first batch only
+```
+
+## Key Concepts
+
+### Census Data Model
+
+The Census is organized as a SOMA (Stack of Matrices, Annotated) collection:
+
+```
+census/
+├── census_info/
+│   ├── summary          # Total cell counts
+│   └── datasets         # Dataset metadata
+└── census_data/
+    ├── homo_sapiens/
+    │   └── ms_RNA/
+    │       ├── obs      # Cell metadata (61M+ rows)
+    │       ├── var      # Gene metadata (~60k rows)
+    │       └── X/raw    # Expression matrix (sparse)
+    └── mus_musculus/
+        └── ...
+```
+
+### Key Metadata Fields
+
+| Field | Type | Description | Example Values |
+|-------|------|-------------|----------------|
+| `cell_type` | str | Cell Ontology label | "B cell", "neuron", "macrophage" |
+| `tissue_general` | str | Coarse tissue grouping | "brain", "lung", "blood" |
+| `tissue` | str | Specific tissue | "prefrontal cortex", "alveolar tissue" |
+| `disease` | str | Disease state | "normal", "COVID-19", "lung adenocarcinoma" |
+| `assay` | str | Sequencing assay | "10x 3' v3", "Smart-seq2" |
+| `is_primary_data` | bool | True = unique cell | Always filter `True` |
+| `donor_id` | str | Donor identifier | Used for batch effects |
+
+### `tissue_general` vs `tissue`
+
+Use `tissue_general` for broad cross-tissue analyses and `tissue` for specific tissue queries:
+```python
+# Broad: all immune system cells
+obs_value_filter = "tissue_general == 'immune system'"
+# Specific: only PBMCs
+obs_value_filter = "tissue == 'peripheral blood mononuclear cell'"
+```
+
+## Common Workflows
+
+### Workflow 1: Cross-Tissue Cell Type Comparison
+
+**Goal**: Compare macrophage gene expression across tissues.
+
+```python
+import cellxgene_census
+import scanpy as sc
+
+with cellxgene_census.open_soma() as census:
+    adata = cellxgene_census.get_anndata(
+        census=census,
+        organism="Homo sapiens",
+        obs_value_filter=(
+            "cell_type == 'macrophage' and "
+            "tissue_general in ['lung', 'liver', 'brain'] and "
+            "is_primary_data == True"
+        ),
+        obs_column_names=["cell_type", "tissue_general", "donor_id", "disease"],
+    )
+    print(f"Macrophages: {adata.n_obs} cells from {adata.obs['tissue_general'].nunique()} tissues")
+
+    # Standard scanpy analysis
+    sc.pp.normalize_total(adata, target_sum=1e4)
+    sc.pp.log1p(adata)
+    sc.pp.highly_variable_genes(adata, n_top_genes=2000)
+    sc.pp.pca(adata, n_comps=50)
+    sc.pp.neighbors(adata)
+    sc.tl.umap(adata)
+
+    # Differential expression across tissues
+    sc.tl.rank_genes_groups(adata, groupby="tissue_general")
+    sc.pl.umap(adata, color=["tissue_general", "disease"])
+```
+
+### Workflow 2: Disease-Associated Gene Expression
+
+**Goal**: Compare marker gene expression between COVID-19 and healthy controls.
+
+1. Query metadata to identify available cell types in COVID-19 data (Core API module 2)
+2. Retrieve expression data for selected cell types and marker genes (Core API module 3)
+3. Compute mean expression per cell type per condition
+4. Visualize with scanpy `dotplot` or `matrixplot`
+
+## Key Parameters
+
+| Parameter | Function/Endpoint | Default | Range / Options | Effect |
+|-----------|-------------------|---------|-----------------|--------|
+| `organism` | `get_anndata`, `get_obs` | — | `"Homo sapiens"`, `"Mus musculus"` | Species selection |
+| `census_version` | `open_soma` | latest stable | Date string `"YYYY-MM-DD"` | Pin to specific data release |
+| `obs_value_filter` | `get_anndata`, `get_obs` | None | SOMA filter expression | Cell-level filtering |
+| `var_value_filter` | `get_anndata`, `get_var` | None | SOMA filter expression | Gene-level filtering |
+| `obs_column_names` | `get_anndata`, `get_obs` | all columns | list of field names | Reduces data transfer |
+| `batch_size` | `experiment_dataloader` | 128 | 32–512 | PyTorch batch size |
+| `shuffle` | `experiment_dataloader` | False | True/False | Randomize training order |
+
+## Best Practices
+
+1. **Always filter `is_primary_data == True`**: Without this filter, duplicate cells across datasets inflate counts and bias analyses.
+
+2. **Estimate query size before loading**: Call `get_obs()` with `column_names=["soma_joinid"]` to count cells before downloading expression data. Use out-of-core processing for >100k cells.
+
+3. **Pin `census_version` for reproducibility**: The default "latest stable" changes periodically. Always specify the version for published analyses.
+
+4. **Select only needed metadata columns**: Passing `obs_column_names` reduces data transfer and memory usage significantly for large queries.
+
+5. **Use `tissue_general` for cross-tissue analyses**: The `tissue` field has hundreds of specific values; `tissue_general` provides ~30 coarse groupings suitable for comparative analyses.
+
+6. **Anti-pattern — querying all genes when you need a few**: Specify `var_value_filter` to retrieve only genes of interest. Downloading the full ~60k gene matrix for 3 marker genes wastes bandwidth and memory.
+
+## Common Recipes
+
+### Recipe: Multi-Tissue Dataset Summary
+
+```python
+import cellxgene_census
+import pandas as pd
+
+with cellxgene_census.open_soma() as census:
+    metadata = cellxgene_census.get_obs(
+        census, "homo_sapiens",
+        value_filter="is_primary_data == True",
+        column_names=["tissue_general", "cell_type", "disease"]
+    )
+    summary = metadata.groupby("tissue_general").agg(
+        n_cells=("cell_type", "size"),
+        n_cell_types=("cell_type", "nunique"),
+        n_diseases=("disease", "nunique"),
+    ).sort_values("n_cells", ascending=False)
+    print(summary.head(10))
+```
+
+### Recipe: Export Census Subset to h5ad
 
 ```python
 import cellxgene_census
@@ -66,60 +371,34 @@ with cellxgene_census.open_soma() as census:
     adata = cellxgene_census.get_anndata(
         census=census,
         organism="Homo sapiens",
-        obs_value_filter="cell_type == 'B cell' and tissue_general == 'lung' and is_primary_data == True",
-        obs_column_names=["cell_type", "disease", "donor_id"],
+        obs_value_filter="tissue_general == 'heart' and is_primary_data == True",
+        obs_column_names=["cell_type", "disease", "donor_id", "assay"],
     )
-    print(f"Retrieved {adata.n_obs} cells × {adata.n_vars} genes")
-    # 约 15000 cells × 60664 genes
+    adata.write_h5ad("heart_cells.h5ad")
+    print(f"Saved {adata.n_obs} cells to heart_cells.h5ad")
 ```
 
-大规模 out-of-core 流式统计：
+## Troubleshooting
 
-```python
-import cellxgene_census, tiledbsoma as soma
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `MemoryError` on `get_anndata()` | Query returns too many cells | Check count with `get_obs()` first; use out-of-core `axis_query()` for >100k cells |
+| Duplicate cells in results | Missing `is_primary_data == True` filter | Add `is_primary_data == True` to all `obs_value_filter` queries |
+| Gene not found | Wrong gene name or gene not in Census | Check spelling (case-sensitive); try Ensembl ID via `feature_id`; verify with `get_presence_matrix()` |
+| `ConnectionError` / timeout | Census backend temporarily unavailable | Retry after 1-2 minutes; pin a specific `census_version` for reliability |
+| Version inconsistencies | Using default "latest" across sessions | Always specify `census_version` in production code |
+| Slow query performance | Downloading all metadata columns | Specify only needed columns via `obs_column_names` |
+| `ImportError: cellxgene_census` | Package not installed | `pip install cellxgene-census` (note the hyphen) |
 
-with cellxgene_census.open_soma() as census:
-    query = census["census_data"]["homo_sapiens"].axis_query(
-        measurement_name="RNA",
-        obs_query=soma.AxisQuery(
-            value_filter="tissue_general == 'brain' and is_primary_data == True"),
-        var_query=soma.AxisQuery(
-            value_filter="feature_name in ['FOXP2', 'TBR1', 'SATB2']"),
-    )
-    n_obs, total = 0, 0.0
-    for batch in query.X("raw").tables():
-        values = batch["soma_data"].to_numpy()
-        n_obs += len(values); total += values.sum()
-    print(f"Processed {n_obs:,} non-zero entries, mean={total/n_obs:.4f}")
-```
+## Related Skills
 
-导出心脏细胞子集为 h5ad：
+- **scanpy-scrna-seq** — downstream analysis of Census data (clustering, DEG, visualization)
+- **anndata-data-structure** — manipulating AnnData objects returned by Census queries
+- **esm-protein-language-model** — protein embeddings from sequences; complementary to Census gene expression data
 
-```python
-adata = cellxgene_census.get_anndata(
-    census=census, organism="Homo sapiens",
-    obs_value_filter="tissue_general == 'heart' and is_primary_data == True",
-    obs_column_names=["cell_type", "disease", "donor_id", "assay"])
-adata.write_h5ad("heart_cells.h5ad")
-```
+## References
 
-## 注意事项
-
-- **务必 `is_primary_data == True`**：缺失会导致跨数据集重复细胞，膨胀计数并偏置结果。
-- **先估规模再下数据**：`get_obs` 只取 `soma_joinid` 数细胞；>100k 改用 `axis_query` 流式，避免 `MemoryError`。
-- **锁 `census_version`**：默认 "latest stable" 会周期变动，已发表分析必须 pin 版本。
-- **只取所需列/基因**：传 `obs_column_names`、`var_value_filter`，避免为 3 个 marker 下载约 6 万基因全矩阵浪费带宽内存。
-- **跨组织用 `tissue_general`**，具体组织用 `tissue`。
-- **基因找不到**：注意大小写；可改用 Ensembl `feature_id`；用 `get_presence_matrix` 确认是否被测。
-- **ConnectionError/超时**：1-2 分钟后重试，pin 具体版本更稳。
-- 后端为 TileDB-SOMA 云端，无显式限速，但大查询请走 out-of-core；始终用上下文管理器释放资源。
-
-## 互见
-
-- **scanpy-scrna-seq** — Census 数据的下游分析（聚类、差异表达、可视化）
-- **anndata-data-structure** — 操作 Census 查询返回的 AnnData 对象
-- 官方文档：https://chanzuckerberg.github.io/cellxgene-census/ ；Web 浏览器：https://cellxgene.cziscience.com/
-
----
-
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+- [CELLxGENE Census documentation](https://chanzuckerberg.github.io/cellxgene-census/) — official API reference
+- [CELLxGENE Discover](https://cellxgene.cziscience.com/) — web browser for Census data
+- [TileDB-SOMA](https://github.com/single-cell-data/TileDB-SOMA) — underlying data access layer
+- CZI (2023) "CZ CELLxGENE Discover: A single-cell data platform for scalable exploration, analysis and modeling of aggregated data" — [bioRxiv](https://doi.org/10.1101/2023.10.30.563174)

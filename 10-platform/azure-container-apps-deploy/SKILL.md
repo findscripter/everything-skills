@@ -1,14 +1,14 @@
 ---
 name: azure-container-apps-deploy
-title: Azure Container Apps 容器化部署（azd）
-description: 当用 Azure Developer CLI（azd）把前后端容器应用部署到 Azure Container Apps 时使用；产出 azure.yaml 服务定义、Bicep 基础设施、远程构建/托管身份/RBAC 配置与幂等 azd up 部署流程；不适用于 AWS/GCP 无服务器、AKS 原生 K8s 编排或纯应用代码开发。触发词：azd、azd up、Azure Container Apps、azure.yaml、remoteBuild、Bicep、Managed Identity、containerapp
+title: Azure Developer CLI (azd) Container Apps Deployment
+description: Deploy containerized frontend + backend applications to Azure Container Apps with remote builds, managed identity, and idempotent infrastructure.
 domain: 平台/cloud
-triggers: [azd up, azd init, azd env set, Azure Container Apps, azure.yaml, remoteBuild, containerapp host, Bicep main.parameters.json, Managed Identity principalId, postprovision RBAC hook, Container Apps 服务发现, azd deploy --service, az containerapp logs, 幂等部署, azd auth login]
-tags: [azure, container apps, azd, bicep, iac, 远程构建, managed identity, rbac, devops, 容器部署]
-level: 进阶
+triggers: [azd up, azd init, azd env set, Azure Container Apps, azure.yaml, remoteBuild, containerapp host, Bicep main.parameters.json, Managed Identity principalId, postprovision RBAC hook, azd deploy --service, az containerapp logs, azd auth login]
+tags: [azure, container apps, azd, bicep, iac, managed identity, rbac, devops]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [azd, az, Bicep, docker, Azure Container Registry]
+tools: []
 requires: []
 related: [azure-cloud-architect, azure-functions-serverless, aws-serverless-builder, docker-container-optimizer]
 combines_with: [terraform-specialist, ci-cd-pipeline-builder, gcp-cloud-run]
@@ -16,128 +16,242 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Azure Developer CLI (azd) Container Apps Deployment
 
-适用于用 **Azure Developer CLI（azd）** 把容器化的「前端 + 后端」应用部署到 **Azure Container Apps（ACA）**，并满足以下任一诉求时：
+Deploy containerized frontend + backend applications to Azure Container Apps with remote builds, managed identity, and idempotent infrastructure.
 
-- 一条 `azd up` 完成「基础设施供给 + 镜像构建 + 部署」，且可反复执行（幂等）。
-- 用 Bicep 声明式管理 ACA 环境、容器应用、ACR，并把 Bicep 输出回灌环境变量。
-- 在 ACR 远程构建镜像（`remoteBuild: true`），避免本地架构差异。
-- 启用系统分配托管身份（Managed Identity），并在 provision 后自动配 RBAC（如访问 Azure OpenAI / AI Search）。
-- 配置同环境内 Container Apps 之间的内部服务发现（internal DNS）。
+## Quick Start
 
-**不该用边界**：
-- AWS 无服务器（Lambda/API Gateway/SAM）→ 用 `aws-serverless-builder`；GCP 无服务器 → 用 `gcp-cloud-run`。
-- 需要 Kubernetes 原生编排（AKS、Helm、节点池）而非托管 ACA → 不在范围。
-- 仅做 Azure 整体架构选型 / 成本与安全评审（不落到 azd 部署）→ 用 `azure-cloud-architect`。
-- 纯应用代码开发、纯 Dockerfile 优化（不涉及 azd/ACA 部署链路）→ 用 `docker-container-optimizer`。
-- 不替代环境内的实际验证、测试与专家评审；缺少所需输入、权限、安全边界或成功标准时先停下澄清。
+```bash
+# Initialize and deploy
+azd auth login
+azd init                    # Creates azure.yaml and .azure/ folder
+azd env new <env-name>      # Create environment (dev, staging, prod)
+azd up                      # Provision infra + build + deploy
+```
 
-核心原则：镜像走 ACR 远程构建；基础设施用 Bicep 保持声明式与幂等；密钥用 `azd env set` 注入而非写进 `main.parameters.json` 默认值；Bicep 输出自动回灌 `.azure/<env>/.env`，勿手改。
-
-## 步骤 / 指令
-
-1. **登录与初始化**：`azd auth login` → `azd init`（生成 `azure.yaml` 与 `.azure/`）→ `azd env new <env>`（dev/staging/prod）。
-2. **定义服务**：在 `azure.yaml` 为每个服务声明 `host: containerapp` 与 `docker.remoteBuild: true`，指定 `project`/`language`/`docker.path`/`context`。
-3. **写基础设施**：`infra/main.bicep`（根模块）+ `infra/modules/`（ACA 环境、容器应用），`infra/main.parameters.json` 把环境变量映射到 Bicep 参数。
-4. **注入配置/密钥**：`azd env set KEY value` 设当前环境变量；Bicep `output` 自动回灌 `.azure/<env>/.env`（如服务 URI、principalId）。
-5. **托管身份与 RBAC**：容器应用启用 `SystemAssigned` 身份并 `output principalId`；在 `postprovision` 钩子里用 `az role assignment create`（末尾 `|| true` 防「已存在」报错）授角色。
-6. **部署**：`azd up` 一次完成 provision + build + deploy；增量时 `azd deploy --service <name>` 只部署单服务。
-7. **校验与排障**：`azd show` 看状态，`az containerapp logs show -n <app> -g <rg> --follow` 流式查日志。
-
-文件结构骨架：
+## Core File Structure
 
 ```
 project/
-├── azure.yaml                 # azd 服务定义 + hooks
+├── azure.yaml              # azd service definitions + hooks
 ├── infra/
-│   ├── main.bicep             # 根基础设施模块
-│   ├── main.parameters.json   # 环境变量 → Bicep 参数注入
+│   ├── main.bicep          # Root infrastructure module
+│   ├── main.parameters.json # Parameter injection from env vars
 │   └── modules/
 │       ├── container-apps-environment.bicep
 │       └── container-app.bicep
 ├── .azure/
-│   ├── config.json            # 默认环境指针
-│   └── <env-name>/.env        # azd 托管，自动回灌（勿手改）
-└── src/{frontend,backend}/Dockerfile
+│   ├── config.json         # Default environment pointer
+│   └── <env-name>/
+│       ├── .env            # Environment-specific values (azd-managed)
+│       └── config.json     # Environment metadata
+└── src/
+    ├── frontend/Dockerfile
+    └── backend/Dockerfile
 ```
 
-常用命令：
+## azure.yaml Configuration
 
-```bash
-# 环境管理
-azd env list                 # 列出环境
-azd env select <name>        # 切换环境
-azd env get-values           # 查看全部环境变量
-azd env set KEY value        # 设置变量（推荐用于密钥）
-
-# 部署
-azd up                       # 全量 provision + build + deploy
-azd provision                # 仅基础设施
-azd deploy                   # 仅代码部署
-azd deploy --service backend # 仅部署单个服务
-
-# 排障
-azd show
-az containerapp logs show -n <app> -g <rg> --follow
-```
-
-## 示例
-
-`azure.yaml`（前后端 + 钩子，均启用远程构建）：
+### Minimal Configuration
 
 ```yaml
-name: azure-container-apps-deploy
+name: azd-deployment
+services:
+  backend:
+    project: ./src/backend
+    language: python
+    host: containerapp
+    docker:
+      path: ./Dockerfile
+      remoteBuild: true
+```
+
+### Full Configuration with Hooks
+
+```yaml
+name: azd-deployment
+metadata:
+  template: my-project@1.0.0
+
 infra:
   provider: bicep
   path: ./infra
+
 azure:
   location: eastus2
+
 services:
   frontend:
     project: ./src/frontend
     language: ts
     host: containerapp
-    docker: { path: ./Dockerfile, context: ., remoteBuild: true }
+    docker:
+      path: ./Dockerfile
+      context: .
+      remoteBuild: true
+
   backend:
     project: ./src/backend
     language: python
     host: containerapp
-    docker: { path: ./Dockerfile, context: ., remoteBuild: true }
+    docker:
+      path: ./Dockerfile
+      context: .
+      remoteBuild: true
+
 hooks:
+  preprovision:
+    shell: sh
+    run: |
+      echo "Before provisioning..."
+      
+  postprovision:
+    shell: sh
+    run: |
+      echo "After provisioning - set up RBAC, etc."
+      
   postdeploy:
     shell: sh
     run: |
       echo "Frontend: ${SERVICE_FRONTEND_URI}"
-      echo "Backend:  ${SERVICE_BACKEND_URI}"
+      echo "Backend: ${SERVICE_BACKEND_URI}"
 ```
 
-参数注入与 Bicep 输出回灌：
+### Key azure.yaml Options
+
+| Option | Description |
+|--------|-------------|
+| `remoteBuild: true` | Build images in Azure Container Registry (recommended) |
+| `context: .` | Docker build context relative to project path |
+| `host: containerapp` | Deploy to Azure Container Apps |
+| `infra.provider: bicep` | Use Bicep for infrastructure |
+
+## Environment Variables Flow
+
+### Three-Level Configuration
+
+1. **Local `.env`** - For local development only
+2. **`.azure/<env>/.env`** - azd-managed, auto-populated from Bicep outputs
+3. **`main.parameters.json`** - Maps env vars to Bicep parameters
+
+### Parameter Injection Pattern
 
 ```json
-// infra/main.parameters.json  — 语法 ${VAR} 或 ${VAR=default}
-{ "parameters": {
-  "environmentName": { "value": "${AZURE_ENV_NAME}" },
-  "location":        { "value": "${AZURE_LOCATION=eastus2}" },
-  "azureOpenAiEndpoint": { "value": "${AZURE_OPENAI_ENDPOINT}" }
-}}
+// infra/main.parameters.json
+{
+  "parameters": {
+    "environmentName": { "value": "${AZURE_ENV_NAME}" },
+    "location": { "value": "${AZURE_LOCATION=eastus2}" },
+    "azureOpenAiEndpoint": { "value": "${AZURE_OPENAI_ENDPOINT}" }
+  }
+}
 ```
 
+Syntax: `${VAR_NAME}` or `${VAR_NAME=default_value}`
+
+### Setting Environment Variables
+
+```bash
+# Set for current environment
+azd env set AZURE_OPENAI_ENDPOINT "https://my-openai.openai.azure.com"
+azd env set AZURE_SEARCH_ENDPOINT "https://my-search.search.windows.net"
+
+# Set during init
+azd env new prod
+azd env set AZURE_OPENAI_ENDPOINT "..." 
+```
+
+### Bicep Output → Environment Variable
+
 ```bicep
-// main.bicep —— output 自动回灌 .azure/<env>/.env
+// In main.bicep - outputs auto-populate .azure/<env>/.env
 output SERVICE_FRONTEND_URI string = frontend.outputs.uri
-output SERVICE_BACKEND_URI  string = backend.outputs.uri
+output SERVICE_BACKEND_URI string = backend.outputs.uri
 output BACKEND_PRINCIPAL_ID string = backend.outputs.principalId
 ```
 
-托管身份 + postprovision RBAC（`|| true` 防重复授权失败）：
+## Idempotent Deployments
+
+### Why azd up is Idempotent
+
+1. **Bicep is declarative** - Resources reconcile to desired state
+2. **Remote builds tag uniquely** - Image tags include deployment timestamp
+3. **ACR reuses layers** - Only changed layers upload
+
+### Preserving Manual Changes
+
+Custom domains added via Portal can be lost on redeploy. Preserve with hooks:
+
+```yaml
+hooks:
+  preprovision:
+    shell: sh
+    run: |
+      # Save custom domains before provision
+      if az containerapp show --name "$FRONTEND_NAME" -g "$RG" &>/dev/null; then
+        az containerapp show --name "$FRONTEND_NAME" -g "$RG" \
+          --query "properties.configuration.ingress.customDomains" \
+          -o json > /tmp/domains.json
+      fi
+
+  postprovision:
+    shell: sh
+    run: |
+      # Verify/restore custom domains
+      if [ -f /tmp/domains.json ]; then
+        echo "Saved domains: $(cat /tmp/domains.json)"
+      fi
+```
+
+### Handling Existing Resources
+
+```bicep
+// Reference existing ACR (don't recreate)
+resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-07-01' existing = {
+  name: containerRegistryName
+}
+
+// Set customDomains to null to preserve Portal-added domains
+customDomains: empty(customDomainsParam) ? null : customDomainsParam
+```
+
+## Container App Service Discovery
+
+Internal HTTP routing between Container Apps in same environment:
+
+```bicep
+// Backend reference in frontend env vars
+env: [
+  {
+    name: 'BACKEND_URL'
+    value: 'http://ca-backend-${resourceToken}'  // Internal DNS
+  }
+]
+```
+
+Frontend nginx proxies to internal URL:
+```nginx
+location /api {
+    proxy_pass $BACKEND_URL;
+}
+```
+
+## Managed Identity & RBAC
+
+### Enable System-Assigned Identity
 
 ```bicep
 resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
-  identity: { type: 'SystemAssigned' }
+  identity: {
+    type: 'SystemAssigned'
+  }
 }
+
 output principalId string = containerApp.identity.principalId
 ```
+
+### Post-Provision RBAC Assignment
 
 ```yaml
 hooks:
@@ -145,45 +259,59 @@ hooks:
     shell: sh
     run: |
       PRINCIPAL_ID="${BACKEND_PRINCIPAL_ID}"
+      
+      # Azure OpenAI access
       az role assignment create \
         --assignee-object-id "$PRINCIPAL_ID" \
         --assignee-principal-type ServicePrincipal \
         --role "Cognitive Services OpenAI User" \
         --scope "$OPENAI_RESOURCE_ID" 2>/dev/null || true
+      
+      # Azure AI Search access
+      az role assignment create \
+        --assignee-object-id "$PRINCIPAL_ID" \
+        --role "Search Index Data Reader" \
+        --scope "$SEARCH_RESOURCE_ID" 2>/dev/null || true
 ```
 
-服务发现（同环境内部 DNS 路由）+ 复用既有 ACR：
+## Common Commands
 
-```bicep
-// 前端环境变量引用后端内部地址
-env: [ { name: 'BACKEND_URL', value: 'http://ca-backend-${resourceToken}' } ]
+```bash
+# Environment management
+azd env list                        # List environments
+azd env select <name>               # Switch environment
+azd env get-values                  # Show all env vars
+azd env set KEY value               # Set variable
 
-// 引用已存在的 ACR，不重建
-resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-07-01' existing = {
-  name: containerRegistryName
-}
-// 保留 Portal 手动添加的自定义域名：为空则置 null
-customDomains: empty(customDomainsParam) ? null : customDomainsParam
+# Deployment
+azd up                              # Full provision + deploy
+azd provision                       # Infrastructure only
+azd deploy                          # Code deployment only
+azd deploy --service backend        # Deploy single service
+
+# Debugging
+azd show                            # Show project status
+az containerapp logs show -n <app> -g <rg> --follow  # Stream logs
 ```
 
-## 注意事项
+## Reference Files
 
-- **始终用 `remoteBuild: true`（HIGH）**：本地在 M1/ARM Mac 上构建会因目标 AMD64 架构而失败；在 ACR 远程构建可避免架构错配，并按层复用、只上传变更层。
-- **Bicep 输出自动回灌 `.azure/<env>/.env`，勿手改**：手动编辑会被下次 `azd up` 覆盖；要改值用 `azd env set`。
-- **密钥用 `azd env set` 而非参数默认值**：不要把 secret 写进 `main.parameters.json` 默认值或提交进仓库。
-- **服务标签 `azd-service-name` 必需**：缺失则 azd 找不到对应的 Container App，部署/更新会失配。
-- **钩子里 RBAC 加 `|| true`**：角色「已存在」会让 `az role assignment create` 非零退出，进而中断部署；幂等容错很关键。
-- **保护 Portal 手动改动**：经 Portal 添加的自定义域名可能在重部署时丢失。用 `preprovision` 钩子先 `az containerapp show ... --query customDomains` 导出备份，`postprovision` 校验/恢复；Bicep 里把 `customDomains` 在无入参时置 `null` 以保留既有域名。
-- **幂等来自三处**：Bicep 声明式（资源收敛到目标态）+ 远程构建唯一标签（含部署时间戳）+ ACR 层复用。
+- **Bicep patterns**: See references/bicep-patterns.md for Container Apps modules
+- **Troubleshooting**: See references/troubleshooting.md for common issues
+- **azure.yaml schema**: See references/azure-yaml-schema.md for full options
 
-## 互见
+## Critical Reminders
 
-- related：`azure-cloud-architect` —— 先做 Azure 架构选型/Bicep 设计/成本安全评审，再落到 azd 部署
-- related：`gcp-cloud-run` —— GCP 侧等价的容器化无服务器部署
-- related：`aws-serverless-builder` —— AWS 侧无服务器部署对照
-- combines_with：`docker-container-optimizer` —— 优化 Dockerfile 与镜像层，配合远程构建
-- combines_with：`terraform-specialist` —— 用 Terraform 替代/补充 Bicep 管理周边基础设施
-- combines_with：`github-actions-author` —— 在 CI/CD 流水线中编排 `azd provision` / `azd deploy`
+1. **Always use `remoteBuild: true`** - Local builds fail on M1/ARM Macs deploying to AMD64
+2. **Bicep outputs auto-populate .azure/<env>/.env** - Don't manually edit
+3. **Use `azd env set` for secrets** - Not main.parameters.json defaults
+4. **Service tags (`azd-service-name`)** - Required for azd to find Container Apps
+5. **`|| true` in hooks** - Prevent RBAC "already exists" errors from failing deploy
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

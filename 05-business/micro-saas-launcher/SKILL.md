@@ -1,14 +1,14 @@
 ---
 name: micro-saas-launcher
-title: 微型 SaaS 快速上线
-description: 当你以独立开发者/小团队身份要把一个聚焦的 SaaS 产品在数周内验证并上线赚钱时使用；做点子验证→MVP→定价→上线→止血留存的可执行打法与产物；不适用于追求融资/独角兽规模、需大规模网络效应或重前端设计的项目；触发词：micro saas、indie hacker、saas mvp、快速上线、定价、独立开发
+title: Micro-SaaS Launcher
+description: Expert in launching small, focused SaaS products fast - the indie
 domain: 商业/growth
-triggers: [micro saas, indie hacker, small saas, side project, saas mvp, ship fast, 微型 saas, 独立开发, 快速上线, saas 定价, Product Hunt 上线, 止血留存]
-tags: [商业, growth, saas, indie-hacker, mvp, 定价, 上线, 留存]
-level: 进阶
+triggers: [micro saas, indie hacker, small saas, side project, saas mvp, ship fast]
+tags: [growth, saas, indie-hacker, mvp]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Stripe, Supabase, Next.js, Vercel, Clerk, Resend, PostHog, Product Hunt]
+tools: []
 requires: []
 related: [digital-product-monetization, pricing-strategy, product-launch-strategy, saas-marketing-ideas]
 combines_with: [fullstack-project-scaffolder, user-onboarding-optimizer]
@@ -16,109 +16,512 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Micro-SaaS Launcher
 
-当你要把一个**聚焦、单一痛点**的 SaaS 产品在数周内（而非数年）验证、上线并跑到可持续收入时使用。典型场景：独立开发者/小团队的副业项目、SaaS MVP、想"先上线收钱再迭代"。核心立场：做能盈利的小生意，不是猎杀独角兽；分发优先于产品。
+Expert in launching small, focused SaaS products fast - the indie hacker approach
+to building profitable software. Covers idea validation, MVP development, pricing,
+launch strategies, and growing to sustainable revenue. Ship in weeks, not months.
 
-**不该用（负边界）：**
-- 追求融资、独角兽规模、需要海量用户才成立的模式
-- 依赖双边市场/网络效应才有价值的产品
-- 重前端视觉打磨、需大设计团队的项目
-- 目标客群没预算（学生、无融资创业公司、大众消费者、有免费替代品的市场）
+**Role**: Micro-SaaS Launch Architect
 
-## 步骤 / 指令
+You ship fast and iterate. You know the difference between a side project
+and a business. You've seen what works in the indie hacker community. You
+help people go from idea to paying customers in weeks, not years. You
+focus on sustainable, profitable businesses - not unicorn hunting.
 
-### 1. 点子验证（动手前先验证）
-四问框架，每问都要有答案：
-| 问题 | 怎么验证 |
-|------|---------|
-| 问题真实存在？ | 找 5+ 潜在用户聊 |
-| 有人会付费？ | 预售，或找到正在付费的竞品 |
-| 你能造出来？ | MVP 能否 2 周内上线 |
-| 你能触达他们？ | 是否已有分发渠道 |
+### Expertise
 
-快速验证三法：**落地页测试**（建页→投流/社区导流→量注册）、**预售**（"加入候补名单享 5 折"，没人买就转向）、**查竞品**（有竞品=有市场，无竞品=可能没市场，找能填的缺口）。
+- MVP development
+- Pricing psychology
+- Launch strategies
+- Solo founder stacks
+- SaaS metrics
+- Early growth
 
-- 红旗：「人人都需要」（太宽）、没有明确买单人、需要市场撮合、需巨量规模才成立。
-- 绿旗：清晰具体的痛点、用户已在为替代方案付费、你有领域专长、有分发渠道。
+## Capabilities
 
-### 2. MVP 两周冲刺（只做一个核心功能）
-单人优化技术栈（**别自己造轮子**）：
-| 组件 | 选型 | 理由 |
-|------|------|------|
-| 前端 | Next.js | 全栈、Vercel 部署 |
-| 后端 | Next.js API / Supabase | 快、可扩展 |
-| 数据库 | Supabase Postgres | 免费额度，自带 auth |
-| 认证 | Supabase / Clerk | 别自己造 auth |
-| 支付 | Stripe | 行业标准 |
-| 邮件 | Resend / Loops | 事务+营销 |
-| 托管 | Vercel | 免费额度够用 |
+- Micro-SaaS strategy
+- MVP scoping
+- Pricing strategies
+- Launch playbooks
+- Indie hacker patterns
+- Solo founder tech stack
+- Early traction
+- SaaS metrics
+
+## Patterns
+
+### Idea Validation
+
+Validating before building
+
+**When to use**: When starting a micro-SaaS
+
+## Idea Validation
+
+### The Validation Framework
+| Question | How to Answer |
+|----------|---------------|
+| Problem exists? | Talk to 5+ potential users |
+| People pay? | Pre-sell or find competitors |
+| You can build? | Can MVP ship in 2 weeks? |
+| You can reach them? | Distribution channel exists? |
+
+### Quick Validation Methods
+1. **Landing page test**
+   - Build landing page
+   - Drive traffic (ads, community)
+   - Measure signups/interest
+
+2. **Pre-sale**
+   - Sell before building
+   - "Join waitlist for 50% off"
+   - If no sales, pivot
+
+3. **Competitor check**
+   - Competitors = validation
+   - No competitors = maybe no market
+   - Find gap you can fill
+
+### Red Flags
+- "Everyone needs this" (too broad)
+- No clear buyer (who pays?)
+- Requires marketplace dynamics
+- Needs massive scale to work
+
+### Green Flags
+- Clear, specific pain point
+- People already paying for alternatives
+- You have domain expertise
+- Distribution channel access
+
+### MVP Speed Run
+
+Ship MVP in 2 weeks
+
+**When to use**: When building first version
+
+## MVP Speed Run
+
+### The Stack (Solo-Founder Optimized)
+| Component | Choice | Why |
+|-----------|--------|-----|
+| Frontend | Next.js | Full-stack, Vercel deploy |
+| Backend | Next.js API / Supabase | Fast, scalable |
+| Database | Supabase Postgres | Free tier, auth included |
+| Auth | Supabase / Clerk | Don't build auth |
+| Payments | Stripe | Industry standard |
+| Email | Resend / Loops | Transactional + marketing |
+| Hosting | Vercel | Free tier generous |
+
+### Week 1: Core
+```
+Day 1-2: Auth + basic UI
+Day 3-4: Core feature (one thing)
+Day 5-6: Stripe integration
+Day 7: Polish and bug fixes
+```
+
+### Week 2: Launch Ready
+```
+Day 1-2: Landing page
+Day 3: Email flows (welcome, etc.)
+Day 4: Legal (privacy, terms)
+Day 5: Final testing
+Day 6-7: Soft launch
+```
+
+### What to Skip in MVP
+- Perfect design (good enough is fine)
+- All features (one core feature only)
+- Scale optimization (worry later)
+- Custom auth (use a service)
+- Multiple pricing tiers (start simple)
+
+### Pricing Strategy
+
+Pricing your micro-SaaS
+
+**When to use**: When setting prices
+
+## Pricing Strategy
+
+### Pricing Tiers for Micro-SaaS
+| Strategy | Best For |
+|----------|----------|
+| Single price | Simple tools, clear value |
+| Two tiers | Free/paid or Basic/Pro |
+| Three tiers | Most SaaS (Good/Better/Best) |
+| Usage-based | API products, variable use |
+
+### Starting Price Framework
+```
+What's the alternative cost? (Competitor or manual work)
+Your price = 20-50% of alternative cost
+
+Example:
+- Manual work takes 10 hours/month
+- 10 hours × $50/hour = $500 value
+- Price: $49-99/month
+```
+
+### Common Micro-SaaS Prices
+| Type | Price Range |
+|------|-------------|
+| Simple tool | $9-29/month |
+| Pro tool | $29-99/month |
+| B2B tool | $49-299/month |
+| Lifetime deal | 3-5x monthly |
+
+### Pricing Mistakes
+- Too cheap (undervalues, attracts bad customers)
+- Too complex (confuses buyers)
+- No free tier AND no trial (no way to try)
+- Charging too late (validate with money early)
+
+### Launch Playbook
+
+Launch strategies that work
+
+**When to use**: When ready to launch
+
+## Launch Playbook
+
+### Pre-Launch (2 weeks before)
+1. Build email list (landing page)
+2. Engage in communities (give value first)
+3. Create launch assets (demo, screenshots)
+4. Line up beta testers
+
+### Launch Day Channels
+| Channel | Effort | Impact |
+|---------|--------|--------|
+| Product Hunt | Medium | High |
+| Hacker News | Low | Variable |
+| Reddit | Medium | Medium |
+| Twitter/X | Low | Medium |
+| Indie Hackers | Low | Medium |
+| Email list | Low | High |
+
+### Product Hunt Launch
+```
+- Launch 12:01 AM PST Tuesday-Thursday
+- Have maker comment ready
+- Activate your network to upvote/comment
+- Respond to every comment
+- Don't ask for upvotes directly
+```
+
+### Post-Launch
+- Follow up with every signup
+- Ask for feedback constantly
+- Fix critical bugs immediately
+- Start SEO/content for long-term
+- Don't stop marketing after launch day
+
+## Sharp Edges
+
+### Great product, no way to reach customers
+
+Severity: HIGH
+
+Situation: Built product, can't get users
+
+Symptoms:
+- Zero organic traffic
+- Relying only on launches
+- No email list
+- No content strategy
+
+Why this breaks:
+Built first, marketing second.
+No existing audience.
+No SEO, no ads, no community.
+"If you build it, they will come" is false.
+
+Recommended fix:
+
+## Distribution First
+
+### Before Building, Answer:
+- Where do my customers hang out?
+- Can I reach them for free?
+- Do I have an existing audience?
+- Is SEO viable for this?
+
+### Distribution Channels
+| Channel | Time to Results | Cost |
+|---------|-----------------|------|
+| SEO | 6-12 months | Low |
+| Content marketing | 3-6 months | Low |
+| Paid ads | Immediate | High |
+| Community | 1-3 months | Low |
+| Product Hunt | One day | Free |
+| Partnerships | 1-2 months | Free |
+
+### Build Distribution Into Product
+```
+- "Powered by [Your Product]" badge
+- Invite/referral features
+- Public profiles/pages (SEO)
+- Shareable results/reports
+- Integration marketplace listings
+```
+
+### If Stuck
+1. Start content marketing NOW
+2. Be active in communities (give value)
+3. Partner with complementary products
+4. Consider paid acquisition
+
+### Building for market that can't/won't pay
+
+Severity: HIGH
+
+Situation: Lots of interest, no conversions
+
+Symptoms:
+- Lots of signups, no upgrades
+- Love it, but can't afford
+- Only works with freemium
+- Comparisons to free alternatives
+
+Why this breaks:
+Targeting consumers vs business.
+Targeting broke demographics.
+Free alternatives are good enough.
+Not solving urgent problem.
+
+Recommended fix:
+
+## Market Selection
+
+### B2B vs B2C
+| Factor | B2B | B2C |
+|--------|-----|-----|
+| Price tolerance | $50-500+/mo | $5-20/mo |
+| Acquisition cost | Higher | Lower |
+| Churn | Lower | Higher |
+| Support needs | Higher | Lower |
+| Solo-founder friendly | Yes | Harder |
+
+### Good Markets for Micro-SaaS
+- Small businesses
+- Freelancers/agencies
+- Developers
+- Creators with revenue
+- Professionals (lawyers, doctors, etc.)
+
+### Red Flag Markets
+- Students
+- Startups with no funding
+- Mass consumers
+- Markets with free alternatives
+
+### Pivot Signals
+- High interest, zero payments
+- Users love it but won't pay
+- Competition is all free
+- Target market has no budget
+
+### New signups leaving as fast as they come
+
+Severity: HIGH
+
+Situation: MRR plateaued despite new customers
+
+Symptoms:
+- MRR not growing despite signups
+- Users cancel after first month
+- Low feature usage
+- High trial abandonment
+
+Why this breaks:
+Product doesn't deliver value.
+Onboarding is broken.
+Wrong customers signing up.
+Missing key features.
+
+Recommended fix:
+
+## Fixing Churn
+
+### Understand Why
+```
+1. Email churned users (personal, not automated)
+2. Look at last active date
+3. Check onboarding completion
+4. Survey at cancellation
+```
+
+### Churn Benchmarks
+| Churn Rate | Assessment |
+|------------|------------|
+| < 3% monthly | Excellent |
+| 3-5% monthly | Good |
+| 5-7% monthly | Needs work |
+| > 7% monthly | Critical |
+
+### Quick Fixes
+- Improve onboarding (first 7 days critical)
+- Add "aha moment" trigger emails
+- Check if right users signing up
+- Add missing must-have features
+- Increase prices (filters serious users)
+
+### Onboarding Checklist
+```
+[ ] Clear first action after signup
+[ ] Value delivered in first session
+[ ] Email sequence for first 7 days
+[ ] Check-in at day 3 if inactive
+[ ] Success metric defined and tracked
+```
+
+### Pricing page confuses potential customers
+
+Severity: MEDIUM
+
+Situation: Visitors leave pricing page without action
+
+Symptoms:
+- High pricing page bounce
+- Which plan should I choose?
+- Feature comparison requests
+- Long time to purchase decision
+
+Why this breaks:
+Too many tiers.
+Unclear what's included.
+Feature matrix confusing.
+No clear recommendation.
+
+Recommended fix:
+
+## Simple Pricing
+
+### Ideal Structure
+```
+Free tier (optional): Limited but useful
+Paid tier: Everything most need ($X/mo)
+Enterprise (optional): Custom pricing
+```
+
+### If Multiple Tiers
+- Maximum 3 tiers
+- Clear differentiation
+- Highlight recommended tier
+- Annual discount (20-30%)
+
+### Good Pricing Page
+| Element | Purpose |
+|---------|---------|
+| Clear prices | No calculator needed |
+| Feature list | What's included |
+| Recommended badge | Guide decision |
+| FAQ | Handle objections |
+| Guarantee | Reduce risk |
+
+### Testing
+- A/B test prices
+- Try removing a tier
+- Ask customers what's confusing
+- Check pricing page bounce rate
+
+## Validation Checks
+
+### No Payment Integration
+
+Severity: HIGH
+
+Message: No payment integration - can't collect revenue.
+
+Fix action: Integrate Stripe or Lemon Squeezy for payments
+
+### No User Authentication
+
+Severity: HIGH
+
+Message: No proper authentication system.
+
+Fix action: Use Supabase Auth, Clerk, or Auth0 - don't build auth yourself
+
+### No User Onboarding
+
+Severity: MEDIUM
+
+Message: No user onboarding - will hurt activation.
+
+Fix action: Add welcome flow, first-action prompt, and onboarding emails
+
+### No Product Analytics
+
+Severity: MEDIUM
+
+Message: No product analytics - flying blind.
+
+Fix action: Add Posthog, Mixpanel, or simple event tracking
+
+### Missing Legal Pages
+
+Severity: MEDIUM
+
+Message: Missing legal pages - required for payments.
+
+Fix action: Add privacy policy and terms of service (use templates)
+
+## Collaboration
+
+### Delegation Triggers
+
+- landing page|conversion|pricing page -> landing-page-design (SaaS landing page)
+- stripe|payments|subscription -> stripe (Payment integration)
+- SEO|content|organic -> seo (Organic growth)
+- backend|API|database -> backend (Backend development)
+- email|newsletter|drip -> email (Email marketing)
+
+### Weekend SaaS Launch
+
+Skills: micro-saas-launcher, supabase-backend, nextjs-app-router, stripe
+
+Workflow:
 
 ```
-第 1 周（核心）
-Day 1-2: 认证 + 基础 UI
-Day 3-4: 核心功能（只做一件事）
-Day 5-6: Stripe 接入
-Day 7: 打磨 + 修 bug
-
-第 2 周（可上线）
-Day 1-2: 落地页
-Day 3: 邮件流（欢迎等）
-Day 4: 法务页（隐私、条款）
-Day 5: 终测
-Day 6-7: 软启动
-```
-MVP 要砍掉：完美设计、全部功能、扩展性优化、自建认证、多档定价。
-
-### 3. 定价策略（早点用钱验证）
-起价框架：`你的价格 = 替代成本的 20–50%`。例：手工每月 10 小时 × ¥350/时 = ¥3500 价值 → 定价 ¥350–700/月。
-
-常见区间：简单工具 $9–29、Pro 工具 $29–99、B2B $49–299、买断 = 3–5 倍月费。
-定价错误：太便宜（贬低价值、招来差客户）、太复杂（劝退买家）、既无免费档又无试用、收费太晚没用钱验证。
-
-### 4. 上线打法（Launch Playbook）
-- **预热（提前 2 周）**：用落地页攒邮件列表、在社区先给价值、备好演示/截图素材、约好内测用户。
-- **上线日渠道**：Product Hunt（中等投入/高回报）、Email 列表（低/高）、Reddit、Twitter/X、Hacker News、Indie Hackers。
-- **Product Hunt**：周二到周四 12:01 AM PST 发布；备好 maker 评论；动员人脉点赞评论；回复每条评论；**不要直接索要 upvote**。
-- **上线后**：跟进每个注册者、持续要反馈、关键 bug 立即修、开始做 SEO/内容（长期）、上线后别停止营销。
-
-## 示例
-
-**周末速launch工作流**（micro-saas-launcher + Supabase + Next.js + Stripe）：
-```
-1. 验证点子（1 天）
-2. 搭 Supabase + Next.js
-3. 做核心功能
-4. 接 Stripe
-5. 做落地页
-6. 向社区上线
+1. Validate idea (1 day)
+2. Set up Supabase + Next.js
+3. Build core feature
+4. Add Stripe payments
+5. Create landing page
+6. Launch to communities
 ```
 
-**内容驱动型 SaaS**（+ SEO + 内容策略 + 落地页）：研究关键词 → 带 SEO 思维做 MVP → 围绕问题做内容 → 上线 → 自然增长。
+### Content-Led SaaS
 
-## 注意事项
+Skills: micro-saas-launcher, seo, content-strategy, landing-page-design
 
-**上线前自检（HIGH 优先级缺一不可）：**
-- 无支付集成 → 收不到钱，接 Stripe 或 Lemon Squeezy
-- 无认证系统 → 用 Supabase Auth / Clerk / Auth0，别自建
-- 无用户引导（MEDIUM）→ 加欢迎流、首动作提示、引导邮件
-- 无产品分析（MEDIUM）→ 加 PostHog / Mixpanel 或简单埋点
-- 缺法务页（MEDIUM）→ 收款必备隐私政策 + 服务条款（用模板）
+Workflow:
 
-**四类高频翻车（Sharp Edges）：**
-1. **产品好却触达不到客户（HIGH）**——"建好就有人来"是假的。动手前先答：客户在哪出没？能否免费触达？是否已有受众？SEO 是否可行？把分发做进产品（"Powered by"角标、邀请/裂变、公开页做 SEO、可分享结果）。渠道见效：SEO 6–12 月、内容营销 3–6 月、社区 1–3 月、付费广告即时但贵、Product Hunt 一天。
-2. **目标市场不愿/付不起钱（HIGH）**——优先 B2B（价格容忍 $50–500+/月、churn 更低、更适合单人）而非 B2C。好市场：小企业、自由职业/代理、开发者、有收入的创作者、专业人士。红旗市场：学生、无融资创业公司、大众消费者、有免费替代品。信号：高兴趣零付费 → 转向。
-3. **新客来得快走得也快 / churn 高（HIGH）**——基准：<3% 月 churn 优秀，3–5% 良好，5–7% 需改进，>7% 危急。先搞清原因（亲自邮件流失用户、看最后活跃日、查引导完成度、退订时调研）。快修：改进引导（前 7 天最关键）、加"aha 时刻"触发邮件、确认是否对的客户、补必备功能、涨价过滤。引导清单：注册后清晰首动作 / 首会话交付价值 / 前 7 天邮件序列 / Day 3 不活跃则触达 / 定义并追踪成功指标。
-4. **定价页把人劝退（MEDIUM）**——最多 3 档、清晰差异、高亮推荐档、年付折扣 20–30%；要素：清晰价格、功能清单、推荐角标、FAQ、退款保证。可 A/B 测价、尝试删一档、问客户哪里看不懂。
+```
+1. Research keywords
+2. Build MVP with SEO in mind
+3. Create content around problem
+4. Launch product
+5. Grow organically
+```
 
-## 互见
+## Related Skills
 
-- **landing-page-design**：落地页 / 转化 / 定价页设计
-- **stripe**：支付与订阅集成
-- **seo**：自然增长、内容、organic
-- **backend / supabase-backend**：后端、API、数据库
-- **email**：邮件营销、newsletter、drip
-- **nextjs-app-router**：Next.js 前端
+Works well with: `landing-page-design`, `backend`, `stripe`, `seo`
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。原始 SKILL.md 标注上游来源为 vibeship-spawner-skills（Apache 2.0）。
+## When to Use
+- User mentions or implies: micro saas
+- User mentions or implies: indie hacker
+- User mentions or implies: small saas
+- User mentions or implies: side project
+- User mentions or implies: saas mvp
+- User mentions or implies: ship fast
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

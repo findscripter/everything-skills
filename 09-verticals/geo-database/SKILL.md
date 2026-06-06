@@ -1,14 +1,14 @@
 ---
 name: geo-database
-title: NCBI GEO 表达数据访问
-description: 当需按物种/平台检索 GEO 表达数据集、下载解析 GSE 系列矩阵、抽样本元数据或加载表达矩阵到 pandas 时使用；用 GEOparse+E-utilities 产出 GSE/GPL/GSM 记录与基因注释表达矩阵；不适用于大规模单细胞（用 cellxgene-census）、原始 reads（去 ENA/SRA）。触发词：GEO、GSE、GEOparse、表达矩阵、series matrix
+title: GEO Gene Expression Omnibus Database
+description: NCBI GEO access via GEOparse and E-utilities. Search by keyword/organism/platform, download GSE series matrices, parse GPL annotations, extract GSM metadata, load expression matrices into pandas. For single-cell use cellxgene-census; for multi-DB access use gget-genomic-databases.
 domain: 领域/science
-triggers: [GEO, GSE 下载, GEOparse, series matrix, GPL 平台注释, GSM 样本元数据, 表达矩阵 pandas, E-utilities gds, GEO 数据集检索, SuperSeries SubSeries]
-tags: [science, genomics, bioinformatics, geo, ncbi, e-utilities, geoparse, 表达数据, 微阵列, rna-seq, 数据库查询]
-level: 进阶
+triggers: [GEO, GEOparse, series matrix, E-utilities gds, SuperSeries SubSeries]
+tags: [science, genomics, bioinformatics, geo, ncbi, e-utilities, geoparse, rna-seq]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [GEOparse, requests, pandas, NCBI E-utilities]
+tools: []
 requires: []
 related: [cellxgene-census, gget-genomic-databases, clinvar-database, gnomad-population-database]
 combines_with: [pydeseq2-differential-expression, gene-set-enrichment-analysis, cellxgene-census]
@@ -16,87 +16,278 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# GEO Gene Expression Omnibus Database
 
-适用：
-- 按物种/组织/疾病/实验条件检索公开基因表达数据集（GSE）。
-- 下载并解析某个具体 GSE 系列：表达矩阵 + 样本元数据。
-- 抽取样本注释表（处理分组、临床协变量）做 meta 分析。
-- 把微阵列探针表达（GPL 平台注释）加载成整洁的 DataFrame。
-- 写自动化管线批量下载、处理 GEO 数据集供下游分析。
+## Overview
 
-不该用（负边界）：
-- 大规模单细胞 RNA-seq → 用 `cellxgene-census`（GEO 逐条解析 scRNA 慢且零散）。
-- 需要原始比对 reads / FASTQ → 去 ENA/SRA 下载（GEO 存的是处理后矩阵）。
-- 跨多个基因组数据库的一次性联合查询 → 用 `gget-genomic-databases`。
+GEO (Gene Expression Omnibus) is NCBI's public repository for high-throughput functional genomics data, containing 200,000+ datasets (series) from microarrays, RNA-seq, ChIP-seq, methylation, and proteomics experiments. GEOparse provides a Python interface for downloading and parsing GEO records (GSE series, GPL platforms, GSM samples) while NCBI E-utilities enables programmatic search across GEO's metadata.
 
-## 步骤 / 指令
+## When to Use
 
-GEO 是 NCBI 高通量功能基因组数据公共库（20 万+ 系列：微阵列、RNA-seq、ChIP-seq、甲基化、蛋白组）。两条访问通道：**GEOparse**（下载/解析 SOFT 记录）+ **E-utilities `gds` 库**（检索元数据）。
+- Searching for publicly available gene expression datasets by organism, tissue, disease, or experimental condition
+- Downloading and parsing a specific GEO series (GSE) with its expression matrix and sample metadata
+- Extracting sample annotation tables (e.g., treatment groups, clinical covariates) for meta-analysis
+- Loading microarray expression data (GPL platform-annotated probes) into a tidy DataFrame
+- Retrieving all GEO experiments associated with a gene or pathway of interest
+- Building automated pipelines that download and process GEO datasets for downstream analysis
+- For single-cell RNA-seq data at scale, use `cellxgene-census`; for aligned reads, download FASTQ from ENA/SRA instead
 
-依赖：`pip install GEOparse requests pandas`。所有 E-utilities 调用须带 `email`（NCBI 政策）。**限速**：E-utilities 未认证 3 req/s，带 API key 10 req/s；GEO FTP 无限速。
+## Prerequisites
 
-记录类型：**GSE**=完整实验系列 / **GPL**=平台（探针↔基因映射）/ **GSM**=单样本 / **GDS**=策展归一子集。
+- **Python packages**: `GEOparse`, `requests`, `pandas`
+- **Data requirements**: GSE/GPL/GSM accession numbers, or search terms
+- **Environment**: internet connection; write access to local directory for downloads
+- **Rate limits**: E-utilities: 3 req/s unauthenticated, 10 req/s with API key; GEO FTP is unlimited
 
-1. **检索**：`esearch.fcgi` 查 `db=gds`，term 用字段标签组合，如 `breast cancer[title] AND Homo sapiens[organism] AND gse[entry type]`；`entry type` 取 `gse`/`gds`/`gpl`/`gsm` 过滤记录类型。
-2. **摘要**：`esummary.fcgi` 按 UID 拿 accession、title、taxon、n_samples、gdstype。
-3. **下载解析**：`GEOparse.get_GEO("GSE2553", destdir, silent=True)` 取 GSE，`.metadata` 拿系列信息，`.phenotype_data` 拿样本元数据，`.gsms`/`.gpls` 拿样本与平台。
-4. **表达矩阵**：`gse.pivot_samples("VALUE", gpl_id)` 得探针×样本矩阵；用 `gpl.table` 的基因符号列做注释 join，多探针映同基因用 `groupby(gene).mean()` 取均值。
-5. **大系列**（100+ 样本）：别逐条解析 GSM，直接从 FTP 拉 `_series_matrix.txt.gz`，快若干个数量级。
-6. **SuperSeries**：多组学/多批次投稿是 SuperSeries 引用若干 SubSeries，**SuperSeries 自身无样本**。下载前先查 `gse.metadata.get("relation", [])` 里的 `SuperSeries of: ...`，对每个 SubSeries 逐一下载，否则静默丢数据。
+```bash
+pip install GEOparse requests pandas
+```
 
-## 示例
-
-E-utilities 检索 + 摘要：
+## Quick Start
 
 ```python
-import requests, time
-EMAIL = "your@email.com"  # NCBI 政策必填
+import GEOparse
+
+# Download a GEO series (caches in current directory)
+gse = GEOparse.get_GEO("GSE2553", destdir="./geo_data/")
+print(f"Title: {gse.metadata['title'][0]}")
+print(f"Samples: {len(gse.gsms)}")
+print(f"Platform: {list(gse.gpls.keys())}")
+
+# Sample metadata
+meta = gse.phenotype_data
+print(meta.head())
+```
+
+## Core API
+
+### Query 1: Search GEO Datasets via E-utilities
+
+Find GEO series (GSE) by keyword, organism, or dataset type.
+
+```python
+import requests
+
+EMAIL = "your@email.com"
 BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
 def geo_search(query, retmax=20):
     r = requests.get(f"{BASE}/esearch.fcgi",
-        params={"db": "gds", "term": query, "retmax": retmax,
-                "retmode": "json", "email": EMAIL})
+                     params={"db": "gds", "term": query,
+                             "retmax": retmax, "retmode": "json", "email": EMAIL})
     r.raise_for_status()
     return r.json()["esearchresult"]
 
-res = geo_search("breast cancer[title] AND Homo sapiens[organism] AND gse[entry type]", retmax=10)
-print("命中", res["count"], "个；UID:", res["idlist"])
-# 指定平台： "Illumina HumanHT-12[platform] AND Homo sapiens[organism] AND gse[entry type]"
+# Search for human breast cancer RNA-seq datasets
+result = geo_search(
+    "breast cancer[title] AND Homo sapiens[organism] AND gse[entry type]",
+    retmax=10
+)
+print(f"Found {result['count']} matching GEO datasets")
+print(f"First accessions (UIDs): {result['idlist']}")
+```
+
+```python
+# Search for specific platform (e.g., Illumina HumanHT-12)
+result = geo_search(
+    "Illumina HumanHT-12[platform] AND Homo sapiens[organism] AND gse[entry type]",
+    retmax=5
+)
+print(f"Illumina HumanHT-12 human datasets: {result['count']}")
+```
+
+### Query 2: Fetch Dataset Summary Metadata
+
+Retrieve title, accession, and organism for search results.
+
+```python
+import requests
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
 def geo_summary(uids):
     r = requests.post(f"{BASE}/esummary.fcgi",
-        data={"db": "gds", "id": ",".join(uids), "retmode": "json", "email": EMAIL})
+                      data={"db": "gds", "id": ",".join(uids),
+                            "retmode": "json", "email": EMAIL})
     r.raise_for_status()
     return r.json()["result"]
 
-summ = geo_summary(res["idlist"][:3])
-for uid in summ.get("uids", []):
-    s = summ[uid]
-    print(s.get("accession"), "|", s.get("title"), "|", s.get("taxon"),
-          "| n=", s.get("n_samples"), "|", s.get("gdstype"))
-    time.sleep(0.4)
+# Get metadata for search results
+result = geo_search_func = lambda q: requests.get(
+    f"{BASE}/esearch.fcgi",
+    params={"db": "gds", "term": q, "retmax": 3, "retmode": "json", "email": EMAIL}
+).json()["esearchresult"]["idlist"]
+
+uids = requests.get(
+    f"{BASE}/esearch.fcgi",
+    params={"db": "gds", "term": "lung cancer[title] AND gse[entry type]",
+            "retmax": 3, "retmode": "json", "email": EMAIL}
+).json()["esearchresult"]["idlist"]
+
+summaries = geo_summary(uids)
+for uid in summaries.get("uids", []):
+    s = summaries[uid]
+    print(f"\nAccession: {s.get('accession')} | {s.get('title')}")
+    print(f"  Organism: {s.get('taxon')}")
+    print(f"  Samples: {s.get('n_samples')}")
+    print(f"  Type: {s.get('gdstype')}")
 ```
 
-下载 GSE，抽表达矩阵 + 基因注释（DE 分析就绪）：
+### Query 3: Download and Parse a GEO Series
+
+Use GEOparse to download a full GSE record with expression matrix and sample metadata.
+
+```python
+import GEOparse
+
+# Download GSE (auto-caches; skip download if already present)
+gse = GEOparse.get_GEO("GSE2553", destdir="./geo_data/", silent=True)
+
+# Series metadata
+print(f"Title   : {gse.metadata['title'][0]}")
+print(f"Summary : {gse.metadata['summary'][0][:200]}...")
+print(f"Samples : {len(gse.gsms)} GSMs")
+print(f"Platforms: {list(gse.gpls.keys())}")
+```
+
+```python
+# Sample metadata table (phenotype data)
+meta = gse.phenotype_data
+print(f"Metadata columns: {list(meta.columns)}")
+print(meta.head())
+```
+
+### Query 4: Extract Expression Matrix
+
+Parse probe-level expression data and optionally merge with platform gene annotations.
 
 ```python
 import GEOparse, pandas as pd
 
-gse = GEOparse.get_GEO("GSE2553", destdir="./geo_data/", silent=True)  # 自动缓存，已存则跳过下载
-print("标题:", gse.metadata["title"][0], "| 样本:", len(gse.gsms),
-      "| 平台:", list(gse.gpls.keys()))
+gse = GEOparse.get_GEO("GSE2553", destdir="./geo_data/", silent=True)
 
-# 1. 表达矩阵（探针×样本）
+# Pivot to gene expression matrix (probes × samples)
+gpl_id = list(gse.gpls.keys())[0]
+pivot = gse.pivot_samples("VALUE", gpl_id)
+print(f"Expression matrix shape: {pivot.shape}")  # (probes, samples)
+print(pivot.iloc[:5, :3])
+```
+
+```python
+# Annotate probes with gene symbols from the GPL platform
+gpl = gse.gpls[gpl_id]
+annot = gpl.table[["ID", "Gene Symbol", "Gene Title"]].copy()
+annot.columns = ["ID", "gene_symbol", "gene_title"]
+annot = annot.dropna(subset=["gene_symbol"])
+annot = annot[annot["gene_symbol"] != ""]
+
+expr_annotated = pivot.join(annot.set_index("ID"), how="inner")
+print(f"Annotated expression matrix: {expr_annotated.shape}")
+print(expr_annotated[["gene_symbol", "gene_title"]].head())
+```
+
+### Query 5: Download Individual Sample (GSM)
+
+Retrieve expression values and metadata for a single sample.
+
+```python
+import GEOparse
+
+gsm = GEOparse.get_GEO("GSM45553", destdir="./geo_data/", silent=True)
+
+print(f"Title   : {gsm.metadata['title'][0]}")
+print(f"Source  : {gsm.metadata.get('source_name_ch1', ['n/a'])[0]}")
+print(f"Organism: {gsm.metadata.get('organism_ch1', ['n/a'])[0]}")
+print(f"Data rows: {len(gsm.table)}")
+print(gsm.table.head())
+```
+
+### Query 6: Direct FTP Download for Large Series
+
+For large datasets, download the series matrix file directly from GEO FTP.
+
+```python
+import urllib.request, gzip, io, pandas as pd
+
+# GEO series matrix file URL pattern
+accession = "GSE2553"
+series_num = accession[3:]  # strip "GSE"
+folder = f"GSE{series_num[:-3]}nnn" if len(series_num) > 3 else f"GSE{series_num[:-2]}nn"
+
+url = f"https://ftp.ncbi.nlm.nih.gov/geo/series/{folder}/{accession}/matrix/{accession}_series_matrix.txt.gz"
+
+with urllib.request.urlopen(url) as resp:
+    with gzip.open(resp, "rt", encoding="utf-8") as f:
+        lines = f.readlines()
+
+# Find metadata lines (start with !) and data table
+meta_lines = [l for l in lines if l.startswith("!")]
+data_start = next(i for i, l in enumerate(lines) if l.startswith('"ID_REF"'))
+df = pd.read_csv(
+    io.StringIO("".join(lines[data_start:])),
+    sep="\t", index_col=0
+)
+print(f"Matrix shape: {df.shape}")
+print(df.iloc[:3, :3])
+```
+
+## Key Concepts
+
+### GEO Record Types
+
+- **GSE** (Series): A complete experiment with all samples and metadata
+- **GPL** (Platform): The microarray or sequencing platform definition (probe/gene mapping)
+- **GSM** (Sample): A single hybridization or sequencing run
+- **GDS** (Dataset): Curated, normalized subset of a series (fewer than GSE records)
+
+### SuperSeries and SubSeries
+
+Multi-assay or multi-batch submissions (e.g., RNA-seq + ATAC-seq) are organized as a **SuperSeries** GSE that references one or more **SubSeries** GSEs. Each SubSeries holds its own samples, platform, and matrix; the SuperSeries itself has no samples of its own. Both are tagged in `gse.metadata`:
+
+- SuperSeries: `gse.metadata["relation"]` contains entries like `"SuperSeries of: GSExxxx"`
+- SubSeries: `gse.metadata["relation"]` contains `"SubSeries of: GSEyyyy"`
+
+Always resolve SubSeries before pulling an expression matrix — downloading the SuperSeries alone yields metadata but no data.
+
+```python
+import GEOparse
+
+gse = GEOparse.get_GEO("GSE47966", destdir="./geo_data/", silent=True)  # a SuperSeries
+relations = gse.metadata.get("relation", [])
+subseries = [r.split(": ")[1] for r in relations if r.startswith("SuperSeries of")]
+print(f"SubSeries to download: {subseries}")
+
+for acc in subseries:
+    sub = GEOparse.get_GEO(acc, destdir="./geo_data/", silent=True)
+    print(f"  {acc}: {len(sub.gsms)} samples, platforms={list(sub.gpls.keys())}")
+```
+
+### Soft vs. MiniML Format
+
+GEOparse downloads SOFT-format files (plain text). For XML-based access, use MiniML format via E-utilities. Series Matrix files (tab-delimited) are the most compact format for expression data.
+
+## Common Workflows
+
+### Workflow 1: Download and Prepare Expression Data for DE Analysis
+
+**Goal**: Download a GEO dataset, extract the expression matrix and group labels, and save for downstream differential expression analysis.
+
+```python
+import GEOparse, pandas as pd
+
+# Download series
+gse = GEOparse.get_GEO("GSE2553", destdir="./geo_data/", silent=True)
+
+# 1. Extract expression matrix
 gpl_id = list(gse.gpls.keys())[0]
 expr = gse.pivot_samples("VALUE", gpl_id)
 
-# 2. 样本元数据
+# 2. Extract sample groups from characteristics
 meta = gse.phenotype_data
-print("元数据列:", list(meta.columns))
+print("Available metadata columns:", list(meta.columns))
 
-# 3. 探针→基因符号注释（列名随平台而异，先看 gpl.table.columns）
+# 3. Annotate probes with gene symbols
 gpl = gse.gpls[gpl_id]
 gene_col = "Gene Symbol" if "Gene Symbol" in gpl.table.columns else gpl.table.columns[1]
 annot = gpl.table[["ID", gene_col]].dropna()
@@ -104,57 +295,147 @@ annot.columns = ["probe_id", "gene_symbol"]
 annot = annot[annot["gene_symbol"].str.strip() != ""]
 
 expr_genes = expr.join(annot.set_index("probe_id")[["gene_symbol"]], how="inner")
-expr_genes = expr_genes.groupby("gene_symbol").mean()  # 多探针映同基因取均值
-print("基因×样本:", expr_genes.shape)
-expr_genes.to_csv("expression_matrix.csv"); meta.to_csv("sample_metadata.csv")
+expr_genes = expr_genes.groupby("gene_symbol").mean()  # average duplicate probes
+
+print(f"Genes × Samples: {expr_genes.shape}")
+expr_genes.to_csv("expression_matrix.csv")
+meta.to_csv("sample_metadata.csv")
+print("Saved: expression_matrix.csv, sample_metadata.csv")
 ```
 
-大系列：直接从 FTP 拉 series matrix（比 GEOparse 快若干数量级）：
+### Workflow 2: Search and Build a Dataset Inventory
+
+**Goal**: Search GEO for studies matching a topic and build a curated inventory CSV.
 
 ```python
-import urllib.request, gzip, io, pandas as pd
+import requests, time, pandas as pd
 
-acc = "GSE2553"; n = acc[3:]
-folder = f"GSE{n[:-3]}nnn" if len(n) > 3 else f"GSE{n[:-2]}nn"
-url = f"https://ftp.ncbi.nlm.nih.gov/geo/series/{folder}/{acc}/matrix/{acc}_series_matrix.txt.gz"
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
-with urllib.request.urlopen(url) as resp, gzip.open(resp, "rt", encoding="utf-8") as f:
-    lines = f.readlines()
-data_start = next(i for i, l in enumerate(lines) if l.startswith('"ID_REF"'))  # ! 开头为元数据
-df = pd.read_csv(io.StringIO("".join(lines[data_start:])), sep="\t", index_col=0)
-print("矩阵形状:", df.shape)
+topic = "Alzheimer disease"
+r = requests.get(f"{BASE}/esearch.fcgi",
+                 params={"db": "gds", "email": EMAIL, "retmode": "json", "retmax": 50,
+                         "term": f"{topic}[title] AND Homo sapiens[organism] AND gse[entry type]"})
+uids = r.json()["esearchresult"]["idlist"]
+print(f"Found {len(uids)} GSE datasets for '{topic}'")
+
+rows = []
+for i in range(0, len(uids), 20):
+    batch = uids[i:i+20]
+    r2 = requests.post(f"{BASE}/esummary.fcgi",
+                       data={"db": "gds", "id": ",".join(batch),
+                             "retmode": "json", "email": EMAIL})
+    result = r2.json()["result"]
+    for uid in result.get("uids", []):
+        s = result[uid]
+        rows.append({
+            "accession": s.get("accession"),
+            "title": s.get("title"),
+            "n_samples": s.get("n_samples"),
+            "organism": s.get("taxon"),
+            "gds_type": s.get("gdstype"),
+            "pub_date": s.get("pdat"),
+        })
+    time.sleep(0.4)
+
+df = pd.DataFrame(rows).sort_values("n_samples", ascending=False)
+df.to_csv(f"{topic.replace(' ', '_')}_geo_datasets.csv", index=False)
+print(df[["accession", "title", "n_samples"]].head(10).to_string(index=False))
 ```
 
-解析 SuperSeries 下的 SubSeries：
+## Key Parameters
+
+| Parameter | Module | Default | Range / Options | Effect |
+|-----------|--------|---------|-----------------|--------|
+| `destdir` | GEOparse.get_GEO | `"./"` | any directory path | Where to save downloaded files |
+| `silent` | GEOparse.get_GEO | `False` | `True`/`False` | Suppress download progress output |
+| `retmax` | ESearch | `20` | `1`–`10000` | Max dataset records returned |
+| `entry type` query | ESearch | — | `"gse"`, `"gds"`, `"gpl"`, `"gsm"` | Filter by GEO record type |
+| `VALUE` column | pivot_samples | — | column name in GSM table | Expression value column to pivot |
+| `email` | E-utilities | required | valid email | NCBI rate-limit attribution |
+
+## Best Practices
+
+1. **Use `silent=True` in GEOparse**: Suppresses verbose download progress; add your own print statement to confirm download.
+
+2. **Cache downloads**: GEOparse skips re-downloading if the `.soft.gz` file already exists in `destdir`. Set a shared `destdir` across sessions to avoid redundant downloads.
+
+3. **Prefer Series Matrix for large datasets**: For series with 100+ samples, download the `_series_matrix.txt.gz` directly from FTP rather than parsing individual GSM soft files—it's orders of magnitude faster.
+
+4. **Handle probe-to-gene mapping carefully**: Many probes map to multiple genes or no gene. Decide how to handle multi-gene probes (drop, split, or keep) before analysis. Use `gene_symbol.str.split(" /// ")` for Affymetrix arrays.
+
+5. **Check platform column names**: GPL annotation table column names vary by platform (e.g., `"Gene Symbol"` vs `"GENE_SYMBOL"` vs `"gene_id"`). Always inspect `gpl.table.columns` before assuming field names.
+
+6. **Always resolve SubSeries before analysis**: After loading any GSE, inspect `gse.metadata.get("relation", [])` for `"SuperSeries of: ..."` entries. If present, iterate every referenced SubSeries accession and download each one — the SuperSeries record itself carries no samples or expression matrices. Skipping this step silently drops the actual data.
+
+## Common Recipes
+
+### Recipe: Quick GSE Metadata Peek
+
+When to use: Get series title, sample count, and platform for any GSE accession.
 
 ```python
-gse = GEOparse.get_GEO("GSE47966", destdir="./geo_data/", silent=True)  # 某 SuperSeries
-subs = [r.split(": ")[1] for r in gse.metadata.get("relation", []) if r.startswith("SuperSeries of")]
-print("需下载的 SubSeries:", subs)
-for acc in subs:
-    sub = GEOparse.get_GEO(acc, destdir="./geo_data/", silent=True)
-    print(f"  {acc}: {len(sub.gsms)} 样本, 平台={list(sub.gpls.keys())}")
+import GEOparse
+
+gse = GEOparse.get_GEO("GSE2553", destdir="./geo_data/", silent=True)
+print(f"Title : {gse.metadata['title'][0]}")
+print(f"Samples: {len(gse.gsms)}")
+print(f"Platform: {list(gse.gpls.keys())}")
+print(f"Summary: {gse.metadata['summary'][0][:300]}")
 ```
 
-## 注意事项
+### Recipe: Extract Sample Characteristics
 
-- **email 必填**：所有 E-utility 调用都带 `email`，否则可能被封；生产环境注册免费 API key 把限速 3→10 req/s（https://www.ncbi.nlm.nih.gov/account/）。
-- **SuperSeries 无样本**：`gse.gsms` 为空多半是 SuperSeries → 解析 `gse.metadata["relation"]` 的 `SuperSeries of:` 逐个下 SubSeries，跳过此步会静默丢掉真实数据。
-- **平台列名不固定**：GPL 注释表的基因列因平台而异（`Gene Symbol` / `GENE_SYMBOL` / `gene_id`），动手前先 `print(gpl.table.columns)`，别硬编码。
-- **多探针/多基因映射**：Affymetrix 一个探针常映多基因（`gene_symbol.str.split(" /// ")`）；分析前决定丢/拆/留，多探针同基因建议 `groupby().mean()` 去重。
-- **缓存复用**：GEOparse 在 `destdir` 有 `.soft.gz` 则跳过重下；跨会话共用同一 `destdir` 避免重复下载。`silent=True` 关进度噪声，自己补 print 确认。
-- **大系列别用 GEOparse 逐条解析**：100+ 样本的 SOFT 文件可达 GB 级会卡住，改 FTP 拉 series matrix。
-- **检索 0 结果**：多半是 `entry type` 或字段标签写错；`gse[entry type]` 换 `gds[entry type]`，核对 term 语法。
-- **缺失表达值**：样本列出现 `null` → `df.fillna(0)` 或丢高缺失列再分析。
-- **格式**：GEOparse 下 SOFT（纯文本）；series matrix（制表符）是表达数据最紧凑格式；需 XML 走 MiniML（经 E-utilities）。
+When to use: Parse GEO sample characteristics into a tidy DataFrame for grouping.
 
-## 互见
+```python
+import GEOparse, pandas as pd, re
 
-- `cellxgene-census` — 大规模单细胞 RNA-seq 的替代入口（6000 万+ 细胞），scRNA 别走 GEO。
-- `gget-genomic-databases` — 跨多基因组数据库的一次性联合查询。
-- `pydeseq2-differential-expression` — 拿到 GEO count 矩阵后做差异表达分析。
-- `gene-set-enrichment-analysis` — 对 GEO 表达数据下游做基因集富集。
-- `clinvar-database` / `gnomad-population-database` — 同为 NCBI/群体数据库，变异侧互补。
+gse = GEOparse.get_GEO("GSE2553", destdir="./geo_data/", silent=True)
+meta = gse.phenotype_data
 
----
-采编自 jaechang-hits/SciAgent-Skills（原 license CC-BY-4.0），按本仓库规范适配重写；本条目以 CC-BY-4.0 发布。
+# Parse "characteristics_ch1" columns
+ch_cols = [c for c in meta.columns if "characteristics" in c.lower()]
+print(f"Characteristic columns: {ch_cols}")
+print(meta[ch_cols].head())
+```
+
+### Recipe: List All GSMs in a Series
+
+When to use: Enumerate sample accessions for download or metadata collection.
+
+```python
+import GEOparse
+
+gse = GEOparse.get_GEO("GSE2553", destdir="./geo_data/", silent=True)
+gsm_ids = list(gse.gsms.keys())
+print(f"Total samples: {len(gsm_ids)}")
+print("First 5:", gsm_ids[:5])
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `FileNotFoundError` during download | Incorrect `destdir` | Create directory first: `os.makedirs("geo_data/", exist_ok=True)` |
+| `pivot_samples` returns empty DataFrame | GPL annotation table missing `ID` | Check `gpl.table.columns`; use correct probe ID column name |
+| `KeyError` for `"Gene Symbol"` | Platform uses different column name | Inspect `gpl.table.columns` and use the correct annotation column |
+| Download hangs for large series | Large SOFT file (GB range) | Use FTP Series Matrix download instead of GEOparse for large series |
+| ESearch returns 0 results | Wrong `entry type` or field tag | Switch `gse[entry type]` to `gds[entry type]`; verify query syntax |
+| Numeric sample columns contain `null` | Missing/absent expression values | Fill with `df.fillna(0)` or drop columns with high missingness |
+| GSE has no samples / empty `gse.gsms` | Accession is a SuperSeries | Parse `gse.metadata["relation"]` for `SuperSeries of:` entries and download each SubSeries |
+
+## Related Skills
+
+- `cellxgene-census` — Single-cell RNA-seq data at scale (61M+ cells) as an alternative to GEO for scRNA-seq
+- `gene-database` — NCBI Gene records with curated annotations for genes found in GEO studies
+- `pubmed-database` — Retrieve publications linked to GEO datasets via NCBI ELink
+- `pydeseq2-differential-expression` — Downstream differential expression analysis after loading GEO count data
+
+## References
+
+- [GEO database home](https://www.ncbi.nlm.nih.gov/geo/) — Browse and search GEO datasets
+- [GEOparse GitHub](https://github.com/guma44/GEOparse) — Python library documentation and examples
+- [GEO FTP server](https://ftp.ncbi.nlm.nih.gov/geo/) — Direct file access for series, samples, and platforms
+- [NCBI E-utilities for GEO](https://www.ncbi.nlm.nih.gov/books/NBK25499/) — ESearch/ESummary API reference for the `gds` database

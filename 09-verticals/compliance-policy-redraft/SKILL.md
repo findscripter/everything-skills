@@ -1,14 +1,14 @@
 ---
 name: compliance-policy-redraft
-title: 合规政策缺口改写
-description: 当差距分析已指出某内部制度与新规存在缺口、需要起草一份带修订标记的制度改写草案时使用；做的是对受影响章节做最小化红线改写并输出「制度改写备忘录」（写入带 proposed-redraft 日期戳的新文件）；不适用于直接改源制度文件、关闭缺口跟踪、整篇重写或对模糊条款做权威定性；触发词：改写制度、起草制度修订、制度改写、redraft policy、policy fix、mark up policy、制度红线、缺口改写
+title: /policy-redraft
+description: Produce a proposed marked-up policy redraft that closes a gap found by /regulatory-legal:gaps or /regulatory-legal:policy-diff. A first draft for internal review — not for direct application to approved policy documents. Use when the user says "redraft the policy", "draft the policy fix", "mark up the policy", or when gap-surfacer hands off a gap for drafting.
 domain: 领域/legal
-triggers: [改写制度, 起草制度修订, 制度改写, redraft policy, policy fix, mark up policy, 制度红线, 缺口改写]
+triggers: [redraft policy, policy fix, mark up policy]
 tags: [legal, regulatory, compliance, policy-redraft, redline, gap-remediation]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [web-search, research-mcp]
+tools: []
 requires: []
 related: [regulatory-policy-diff, employee-handbook-update-diff, compliance-readiness-review, marketing-claims-reviewer]
 combines_with: [legal-briefing-generator]
@@ -16,135 +16,196 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-＜本条 frontmatter 见条目元数据；domain: 领域/legal；name: compliance-policy-redraft；status: stable；agents: [claude-code, codex, cursor, gemini-cli]；requires: [regulatory-policy-diff]；related: [general-counsel-advisor, contract-playbook-review, legal-hold-manager]；combines_with: [regulatory-policy-diff]；license: Apache-2.0；source: anthropics/claude-for-legal；source_license: Apache-2.0＞
+# /policy-redraft
 
-# 合规政策缺口改写
+1. Load `~/.claude/plugins/config/claude-for-legal/regulatory-legal/CLAUDE.md` → policy library index + practice profile.
+2. Use the workflow below.
+3. Gather inputs: the gap (from `/regulatory-legal:gaps` output or described directly), the current approved policy text, the rule text.
+4. Verify the rule is current (per the policy-diff rule-status check). If you can't verify, emit the `⚠️ RULE STATUS UNVERIFIED` banner.
+5. Produce a marked-up redraft of the affected policy section(s) — smallest-possible edit, `[verify]` tags carried through, inline comments explaining WHY each change was made.
+6. Output a Policy Redraft Memo. Write it to a new file named `[policy-name]-proposed-redraft-[YYYY-MM-DD].md` — never write to the source policy document.
+7. Do NOT close the gap in the tracker. The gap closes when the redraft is applied AND approved, which is the policy owner's action.
 
-## 何时使用
+---
 
-当上游差距分析（`regulatory-policy-diff`）已指出某内部制度与新规之间存在缺口、需要把「该改什么」推进到「带修订标记的草案」时使用。典型触发：用户说「把这条制度改写一下」「起草制度修订」「给制度打红线」，或差距环节把一个缺口交来起草。
+> This skill produces a **proposal**, not an edit. It writes to a new file with a clearly-marked draft filename. It never writes over a source policy document, and it never closes a gap in the tracker — the gap closes when the redraft is applied AND approved by the policy owner.
 
-**这是「提案」，不是「修改」。** 产出是一份制度改写备忘录，写入一个新文件，文件名带 `proposed-redraft` 与日期戳；绝不覆盖源制度文件，绝不在跟踪器里关闭缺口。
+## Matter context
 
-不该用的边界：
-- **不替你改源制度**：用户说「直接帮我应用到正式制度」时拒绝——应用与审批是制度责任人的动作。
-- **不关闭缺口**：缺口在改写被「应用且审批」后才关闭，那是制度 Owner 的动作，不是你的。
-- **不整篇重写**：只动缺口涉及的章节，最小化编辑，不重排版式。
-- **不对模糊条款做权威定性**、不做多制度批量改写（一个缺口、一份制度、一份备忘录）。
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/regulatory-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/regulatory-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
 
-## 步骤
+---
 
-1. **收集三项输入**（缺一即问，不臆测）：缺口、现行制度全文、规则原文。
-2. **核验规则是否生效**（先核验后改写）。
-3. **产出红线改写**（受影响章节，最小化编辑，`[verify]` 标签贯穿）。
-4. **输出制度改写备忘录**，写入新文件 `[制度名]-proposed-redraft-[YYYY-MM-DD].md`。
-5. **不关闭缺口**，不改跟踪器状态。
+## Purpose
 
-## 指令
+Gap-surfacer finds the gap. Policy-diff names what needs to change. This skill takes the next step and produces a marked-up redraft of the affected policy section — small, specific, flagged — as a first draft for the policy owner's review.
 
-### 硬性护栏（先读）
+## Hard guardrails — read these first
 
-任何一条将被违反时，停下来发问：
-1. **提案非修改**——输出去新文件 `[制度名]-proposed-redraft-[YYYY-MM-DD].md`，不是 `[制度名].md`、不是 `-v2.md`。"proposed-redraft" 与日期是承重字样，防止草案被误当成现行版本。
-2. **绝不关闭缺口**——用户说「都改完了帮我关掉缺口」时回应：「我只产出提案；缺口在你审阅、应用并审批后关闭。完成后告诉我，我再更新跟踪器。」
-3. **「帮我应用」不在范围**——回应：「我不应用制度变更，那是制度责任人审阅审批后的动作。我产出提案；批准后告诉我，我更新缺口跟踪器。」
-4. **改写前确认制度版本**——给的是文件就问：「这是制度的已批准版且为最新吗？对着过时制度改写会制造分叉。」是粘贴的文本就信任但在评审note里标注。
-5. **最小化编辑**——能划一个词就别划一句，能划一句就别划一段，能划一段就别划一节；只动缺口涉及的章节。
-6. **`[verify]` 标签贯穿**——任何来自模型知识或未核实来源的生效日、阈值、引文、要求，在改写正文里就打标，不只在备忘录里。
+These are the load-bearing rules. If any of them would be violated, stop and ask.
 
-### 第 1 步：收集输入
+1. **This is a PROPOSAL, not an edit.** Never write directly to a source policy document. The output goes to a new file at `[policy-name]-proposed-redraft-[YYYY-MM-DD].md`, or into the matter workspace. Not `[policy-name].md`.
+2. **Never close the gap in the tracker.** Gaps close when the redraft is APPLIED AND APPROVED — that is the policy owner's action, not yours. If the user says "close the gap now that you've redrafted it," decline: "I produce the proposal. The gap closes when you've reviewed, applied, and approved the change. When that's done, tell me and I'll update the tracker."
+3. **"Apply this for me" is not in scope.** If the user asks you to apply the redraft to the source policy: "I don't apply policy changes — that's the policy owner's action after review and approval. I produce the proposal. When it's been reviewed and approved, tell me and I'll update the gap tracker."
+4. **Confirm the policy version before redrafting.** If the user gives you a file, ask: "Is this the approved version of the policy, and is it the latest? A redraft against an outdated policy creates divergence." If they paste text, trust but flag in the reviewer note.
+5. **Smallest-possible edit.** Strike a word before a sentence, a sentence before a paragraph, a paragraph before a section. Only touch sections affected by the gap. Don't restyle the policy.
+6. **Carry `[verify]` tags through.** Any effective date, threshold, citation, or requirement that came from model knowledge or an unverified source gets tagged in the redraft itself, not just in the memo.
 
-- **缺口**：来自跟踪器的 `GAP-ID` / 用户描述的缺口（捕获要求、法规、受影响制度）/ 从 `regulatory-policy-diff` 粘来的差距摘要。
-- **现行制度全文**：文件路径（读后问是否为已批准最新版，答案记入评审note）/ 粘贴文本（信任但标注「假定为当前批准版，应用前确认」）/ 都没有则索要，不从跟踪器或网络猜制度原文。
-- **规则原文**：差距输出（已含提取并打标的规则）/ 抓取的法规（标注来源 provenance）/ 用户粘贴（标 `[用户提供]`）。规则文本残缺含糊时套「不静默补全」：给选项（粘全文 / 指原文 / 检索打标 / 停止）并等待。
+## Step 1: Gather inputs
 
-### 第 2 步：核验规则是否生效
+Three inputs are required. If any is missing, ask — don't infer.
 
-沿用 policy-diff 的规则状态核验。红旗信号：适用/合规日已过 30 天以上且无法确认未延期；规则发布超 12 个月；属政治争议较大的终局规则（大型立法常被诉讼）。遇红旗时查：延期、暂缓、禁制令、撤销提案、判决撤销、修订。能核实在施行则继续；无法核实则在工作成果标题上方置顶横幅：
+### 1a. The gap
 
-> ⚠️ 规则状态未核实——无法确认该规则当前是否生效。终局规则发布后常被暂缓、禁止、延期或撤销。在你于官方登记册或外部律师处确认状态之前，不要应用本改写。
+One of:
+- A `GAP-ID` from the gap tracker — load the entry from `~/.claude/plugins/config/claude-for-legal/regulatory-legal/gap-tracker.yaml` (or the matter-level equivalent).
+- A gap described in the user's message — capture the requirement, the regulation, and the affected policy.
+- A diff summary pasted from `/regulatory-legal:policy-diff` output.
 
-并把改写里每个生效/合规日打标 `[按已发布规则—状态未核实]`。
+### 1b. The current policy text
 
-### 第 3 步：产出红线改写
+One of:
+- A file path — read it, then ask: "Is this the approved version of the policy, and is it the latest? A redraft against an outdated policy creates divergence." Note the answer in the reviewer note.
+- Pasted text — trust but flag in the reviewer note: "Policy text was pasted directly; I assumed it was the current approved version. Confirm before applying."
+- Neither — ask for one. Do not guess at the policy text from the gap tracker or from web search.
 
-红线粒度——最小化编辑（词＜句＜段＜节，只动受影响章节，不重排整篇）。约定：
-- 删除文字：`~~删除文字~~`
-- 新增文字：**新增文字**
-- 每处改动随附行内说明「为什么」——规则、引文、所闭缺口：
+### 1c. The rule text
 
-  > `[改动：依 COPPA 2025 修订（16 CFR 312.2，2026-04-22 生效）将生物识别标识纳入 PII 定义 [verify]]`
+One of:
+- The diff output (already has the rule extracted and tagged).
+- A fetched regulation — note the source with a provenance tag.
+- Pasted rule text from the user — tag `[user provided]`.
 
-- 任何来自模型知识/未核实来源的生效日、阈值、引文、要求，行内打 `[verify]`，不只在改动摘要里。
-- 从差距带过来的来源标签（`[Federal Register]`、`[网络检索—待核实]`、`[模型知识—待核实]`、`[用户提供]`）一律保留，不在转写时剥掉。
+If the rule text is partial or ambiguous, apply the **no silent supplement** rule from CLAUDE.md: offer the user the options (paste full text, point at primary source, web-search-with-verify-tag, or stop), and wait.
 
-**范围纪律**：缺口未涉及的章节不动——触及范围外章节会让人误以为 AI 自作主张评点，并加重审阅。改写时若发现第二个缺口（明显与规则脱节但不在原缺口内），不静默修复，写进评审note：「为 [GAP-ID] 改写时，发现 [其他条款] 在 [要求] 上疑似相关问题，未纳入本次改写，建议立后续缺口。」
+## Step 2: Verify the rule is current
 
-### 第 4 步：输出制度改写备忘录
+Use the same rule-status check pattern as `policy-diff`. Red flags that the rule may not be in force:
 
-套工作成果抬头 + 评审note（一块），主体含：标题/缺口/法规/制度/状态（PROPOSAL—未经审阅或批准）/核心结论（缺口一句、改写做什么一句、需审阅什么一句）/带行内 `[改动:…]` 的红线章节/改动摘要表/应用前清单。
+- The applicability/compliance date has passed by more than 30 days with no confirmation it wasn't delayed.
+- The rule is more than 12 months old.
+- The rule is a politically contentious final rule (major rulemakings are frequently challenged).
 
-## 示例
+When you see a red flag, check (via research MCP, web search if enabled, or the Federal Register docket) for: delays, stays, injunctions, rescission proposals, vacatur, or amendments. If you can verify the rule is in force, proceed. If you cannot verify:
 
-输出骨架：
+> `⚠️ RULE STATUS UNVERIFIED — I could not confirm this rule is currently in force. Final rules are frequently stayed, enjoined, delayed, or rescinded after publication. Do not apply this redraft until you confirm the rule's status at the Federal Register docket or with outside counsel.`
+
+Emit that banner above the work-product header. Tag every effective/compliance date in the redraft as `[effective date per published rule — status unverified]`.
+
+## Step 3: Produce the redraft
+
+A marked-up version of the affected policy section.
+
+### Redline granularity — smallest possible edit
+
+- Strike a word before a sentence.
+- Strike a sentence before a paragraph.
+- Strike a paragraph before a section.
+- Only touch sections affected by the gap. Don't restyle the whole policy.
+
+### Conventions
+
+- Struck text: `~~struck text~~`
+- Inserted text: **inserted text**
+- Each change carries an inline comment explaining WHY — the rule, the cite, the gap being closed:
+
+  > `[Change: added biometric identifiers to the PII definition per COPPA 2025 amendments, 16 CFR 312.2 (effective Apr 22 2026) [verify]]`
+
+- Any effective date, threshold, citation, or requirement that came from model knowledge or an unverified source gets a `[verify]` tag inline — not just in the change summary.
+- Carry source tags through from the diff: `[Federal Register]`, `[web search — verify]`, `[model knowledge — verify]`, `[user provided]`. Don't strip them when moving from the diff to the redraft.
+
+### Scope discipline
+
+If a section of the policy isn't affected by the gap, leave it alone. A redraft that touches sections outside the gap looks like the AI opined on things it wasn't asked to opine on, and makes the review harder.
+
+If you see a second gap while redrafting — a provision that's clearly out of step with the rule but wasn't in the original gap — don't silently fix it. Flag it in the reviewer note: "While redrafting for [GAP-ID], I noticed [other provision] appears to have a related issue with [requirement]. Not included in this redraft. Consider a follow-on gap."
+
+## Step 4: Output — Policy Redraft Memo
 
 ```markdown
-[工作成果抬头—按角色，见实务档案 ## Outputs]
+[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
 
-> ⚠️ 评审note
-> - 来源：[研究连接器 ✓ 已核 | 未连接—引文出自训练知识，依赖前核实]
-> - 已读：[审阅了制度哪些章节；哪些未读]
-> - 需你判断：[N 项行内标 `[review]` | 无]
-> - 时效：[规则状态已对照 [来源]、[日期] 核实 | 未核实—见上方横幅]
-> - 依赖前：确认这是制度的当前批准版；核实规则状态与生效日；取得制度责任人审阅；走你的制度变更审批流程；仅在应用且批准后更新缺口跟踪器。
+> **⚠️ Reviewer note**
+> - **Sources:** [Research connector: CourtListener ✓ verified | not connected — cites from training knowledge, verify before relying]
+> - **Read:** [sections of the policy reviewed; what wasn't read]
+> - **Flagged for your judgment:** [N items marked `[review]` inline | none]
+> - **Currency:** [rule status verified against [source], [date] | unverified — see banner above]
+> - **Before relying:** confirm this is the current approved version of the policy; verify rule status and effective date; get the policy owner's review; follow your policy-change approval process; update the gap tracker only when applied and approved.
 
-## 制度改写：[制度名]
-**缺口：** [GAP-ID 或简述]
-**法规：** [名称、引文、生效日]
-**制度：** [名称、最近更新日]
-**状态：** PROPOSAL — 尚未审阅或批准
+## Policy Redraft: [Policy name]
 
-### 核心结论
-[缺口是什么一句。改写做了什么一句。需审阅什么一句。]
+**Gap:** [GAP-ID or short description]
+**Regulation:** [name, citation, effective date]
+**Policy:** [name, last-updated date]
+**Status:** PROPOSAL — not yet reviewed or approved
 
-### 红线章节
-[带行内 `[改动:…]` 的红线文本，仅受影响章节。]
+### Bottom line
 
-### 改动摘要
-| # | 条款 | 现行 | 拟改 | 为什么 | 核实 |
-|---|------|------|------|--------|------|
-| 1 | §2.1 PII 定义 | "…姓名、地址、SSN…" | "…姓名、地址、SSN、生物识别标识…" | COPPA 2025 修订将 PII 扩及生物识别 | [Federal Register] |
-| 2 | §4.3 留存期 | "30 天" | "14 天" | 新规设 14 天上限 | `[verify—模型知识]` |
+[One sentence: what the gap is. One sentence: what the redraft does. One sentence: what needs review.]
 
-### 应用前清单
-- [ ] 确认这是被改写制度的当前批准版。
-- [ ] 核实规则状态与生效日（官方登记册或外部律师）。
-- [ ] 取得制度责任人审阅。
-- [ ] 走你的制度变更审批流程。
-- [ ] 应用且批准后再更新缺口跟踪器——不要提前。
+### Marked-up policy section(s)
+
+[The redlined text, with inline `[Change: ...]` comments. Only the affected sections.]
+
+### Change summary
+
+| # | Provision | Current | Proposed | Why | Verify |
+|---|---|---|---|---|---|
+| 1 | §2.1 PII definition | "…names, addresses, SSNs…" | "…names, addresses, SSNs, biometric identifiers…" | COPPA 2025 amendments expand PII to cover biometrics | [Federal Register] |
+| 2 | §4.3 Retention period | "30 days" | "14 days" | New rule imposes 14-day cap | `[verify — model knowledge]` |
+
+### Before applying — checklist
+
+- [ ] Confirm this is the current approved version of the policy being redrafted.
+- [ ] Verify the rule status and effective date (Federal Register docket, or outside counsel).
+- [ ] Get the policy owner's review.
+- [ ] Follow your policy-change approval process.
+- [ ] Update the gap tracker when applied and approved — not before.
 
 ---
-**下一步？选一个，我帮你展开：**
-1. 应用并签批——你审阅、转交责任人、走审批；批准后告诉我，我标记缺口关闭。
-2. 补充某项依据——某改动需更扎实（核引文、查阈值、定管辖），告诉我哪项。
-3. 上报 [Owner / GC]——超出责任人权限时，我起草含事实、拟改、所需决策的简短上报。
-4. 观望——规则状态不明或责任人不在时，我给缺口加一条复查note。
-5. 其他。
+
+**What next? Pick one and I'll help you build it out:**
+
+1. **Apply and get sign-off** — you review, circulate to the policy owner, walk it through your approval process. When approved, tell me and I'll mark the gap closed.
+2. **Get more info on [X]** — if a specific change needs more grounding (a cite verified, a threshold checked, a jurisdiction question resolved), tell me which one and I'll dig in.
+3. **Escalate to [owner / GC]** — if the redraft raises something above the policy-owner's authority, I'll draft a short escalation with the facts, the proposed change, and what decision is needed.
+4. **Watch and wait** — if the rule's status is uncertain or the policy owner is unavailable, I'll add a revisit note to the gap tracker.
+5. **Something else** — tell me what you'd do with it.
 ```
 
-## 注意事项
+## Filename
 
-- **文件名承重**：用 `[制度名]-proposed-redraft-[YYYY-MM-DD].md`，不要 `[制度名].md` 或 `-v2.md`。有活动 matter 工作区则写入该工作区，否则写当前目录或用户指定位置；绝不写入制度库源目录。
-- **配置降级**：制度库里缺责任人——照样产出改写，评审note注明「[制度] 未设责任人，请补以便审批路径可路由」；制度库为空且缺口未点名具体制度——停下索要制度全文，不靠网络猜。值已填全时，输出里不提配置的事。
-- **严重度地板**：上游缺口为 🔴 或 🟠 时，备忘录核心结论须承接该严重度，禁止静默降级。
-- **不静默补全**：规则残缺时停下给选项，不用网络/模型记忆偷偷补齐；保留所有来源标签与 `[verify]`/`[review]`。
-- **目的地核查**：`PRIVILEGED & CONFIDENTIAL` 抬头是标签不是控制，外发到特权圈外（全员频道、对方律师、供应商）会破坏保护——发问并给「特权版/脱敏版/两份都要」选项。
+The output file name makes clear it's a draft. Use:
 
-## 互见
+`[policy-name]-proposed-redraft-[YYYY-MM-DD].md`
 
-- requires：`regulatory-policy-diff` —— 本技能消费其差距输出（缺口、受影响制度、待修改项），是改写的直接上游。
-- related：`general-counsel-advisor` —— 改写引出超出责任人权限的判断时上报路由；`contract-playbook-review`、`legal-hold-manager` —— 同属内部合规文本治理。
-- combines_with：`regulatory-policy-diff` —— 「识别缺口 → 起草改写」连成制度修订流水线。
+Not `[policy-name].md`. Not `[policy-name]-v2.md`. The word "proposed-redraft" and the date are load-bearing — they prevent the draft from being mistaken for the current version.
 
----
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+Write to the matter workspace if one is active; otherwise to the current working directory or a location the user names. Do not write to the policy library source directory.
+
+## Config-dependent fallbacks
+
+This skill reads the policy library index and owners from `~/.claude/plugins/config/claude-for-legal/regulatory-legal/CLAUDE.md`. When a value it needs is empty or still `[PLACEHOLDER]`:
+
+- **Policy owner missing:** still produce the redraft. Note in the reviewer note: "No policy owner is set for [policy] in `## Policy library`. Assign one with `/regulatory-legal:cold-start-interview --redo` so the approval path is routable."
+- **Policy library empty and the gap doesn't name a specific policy:** stop and ask: "I need the current policy text to redraft. Paste the text of the affected policy, or point me at the file."
+
+Say nothing about config when the values are populated.
+
+## Interactions with other skills
+
+- **Upstream inputs** come from `policy-diff` (per-requirement gap analysis) and `gap-surfacer` (the tracker). Carry their source tags and `[verify]` flags through.
+- **Gap tracker state:** this skill does NOT change the tracker. It doesn't mark the gap closed, doesn't mark it in-progress, doesn't touch `notified`. If you want a paper trail that a redraft exists, the policy owner or the user can update the gap entry with a resolution note when the redraft is applied and approved — see `/regulatory-legal:gaps --close`.
+- **Severity floor:** if the upstream gap is 🔴 or 🟠, the memo's Bottom line carries that severity. Silent demotion is a contradiction a reviewing lawyer cannot see. See CLAUDE.md `## Cross-skill severity floor`.
+
+## Close with the next-steps decision tree
+
+Included in the output template above. Customize the options to what the redraft actually produced — if the rule status is unverified, option 2 (get more info) moves up; if the policy owner isn't set, option 3 (escalate) gets specific.
+
+## What this skill does not do
+
+- Apply the redraft to the source policy. That's the policy owner's action.
+- Close the gap in the tracker. Gaps close when the redraft is applied and approved.
+- Rewrite the whole policy. Smallest-possible edit to close the gap.
+- Produce multi-policy redrafts. One gap, one policy, one memo. A `:package` command for multi-policy fan-out is a future skill.
+- Produce the "apply" workflow. An `:apply` command with an approval gate is a future skill.

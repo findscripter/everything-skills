@@ -1,14 +1,14 @@
 ---
 name: file-organizer
-title: 本地文件智能整理
-description: 当 Downloads/文档等目录杂乱、文件散落难找、存在重复文件或缺乏合理结构时使用；先扫描分析现状并产出按类型/用途/日期分组的整理方案，经确认后批量建目录、移动、重命名、去重并给出维护建议；不适用于云盘/在线网盘整理、跨机器同步或无确认的自动删除。触发词：整理文件、下载文件夹太乱、查重去重
+title: File Organizer
+description: 6. Reduces Clutter: Identifies old files you probably don't need anymore
 domain: 协作/automation
-triggers: [整理文件, 下载文件夹太乱, 文件查重去重, 文件夹结构混乱, 归档老文件, 批量重命名文件]
-tags: [文件整理, 去重, 归档, 目录结构, 批量重命名, 本地文件]
-level: 入门
+triggers: []
+tags: []
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, Glob, Read]
+tools: []
 requires: []
 related: [pdf-processing-toolkit, csv-data-cleaner, busybox-on-windows, jq-json-processing]
 combines_with: [pdf-processing-toolkit, audio-to-markdown-transcriber, markdown-to-docx]
@@ -16,139 +16,253 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# File Organizer
 
-适用：
+## When to Use This Skill
 
-- Downloads / 文档 / home 目录杂乱，文件散落、难以查找。
-- 存在重复文件占用空间，需要识别并清理。
-- 目录结构不合理，或新项目开始时需要规划结构。
-- 归档旧项目前的清理，或希望建立长期整理习惯。
+- Your Downloads folder is a chaotic mess
+- You can't find files because they're scattered everywhere
+- You have duplicate files taking up space
+- Your folder structure doesn't make sense anymore
+- You want to establish better organization habits
+- You're starting a new project and need a good structure
+- You're cleaning up before archiving old projects
 
-不该用（负边界）：
+## What This Skill Does
 
-- 整理对象在云盘 / 在线网盘 / 远端同步盘，本技能只处理本地文件系统。
-- 跨机器同步、版本控制迁移等场景，应交给专门工具。
-- 任何未经用户确认的自动删除。删除一律先确认。
+1. **Analyzes Current Structure**: Reviews your folders and files to understand what you have
+2. **Finds Duplicates**: Identifies duplicate files across your system
+3. **Suggests Organization**: Proposes logical folder structures based on your content
+4. **Automates Cleanup**: Moves, renames, and organizes files with your approval
+5. **Maintains Context**: Makes smart decisions based on file types, dates, and content
+6. **Reduces Clutter**: Identifies old files you probably don't need anymore
 
-## 步骤
+## Instructions
 
-1. 明确范围。先问清楚：整理哪个目录？主要痛点是什么（找不到/重复/太乱/无结构）？哪些文件夹要避开（在用项目、敏感数据）？整理力度（保守 vs 彻底）？
+When a user requests file organization help:
 
-2. 分析现状。扫描目标目录，统计文件/文件夹总数、类型分布、大小分布、日期范围与明显问题。
+1. **Understand the Scope**
 
-3. 识别分组逻辑。常见三种维度：
-   - 按类型：文档 / 图片 / 视频 / 压缩包 / 代码项目 / 表格 / 演示。
-   - 按用途：工作 vs 个人、活跃 vs 归档、项目专属、参考资料、临时草稿。
-   - 按日期：本年本月 / 往年 / 很旧（归档候选）。
+   Ask clarifying questions:
 
-4. 查找重复文件。按哈希找精确重复，按文件名/大小找疑似重复；对每组重复展示全部路径、大小、修改时间，推荐保留项（通常取最新或命名最规范者），删除前务必确认。
+   - Which directory needs organization? (Downloads, Documents, entire home folder?)
+   - What's the main problem? (Can't find things, duplicates, too messy, no structure?)
+   - Any files or folders to avoid? (Current projects, sensitive data?)
+   - How aggressively to organize? (Conservative vs. comprehensive cleanup)
 
-5. 提出整理方案。在动手前用清晰的计划呈现：现状摘要、目标目录树、将执行的变更（新建目录 / 移动 / 重命名 / 删除）、以及需用户拍板的文件清单，等待 yes/no/modify。
+2. **Analyze Current State**
 
-6. 执行整理。批准后按计划系统执行；记录每一步移动以便回退，保留原始修改时间，妥善处理重名冲突，遇到意外情况停下来询问。
+   Review the target directory:
 
-7. 总结与维护建议。汇报变更（新建目录数、整理文件数、去重释放空间、归档数量），展示新目录树，并给出每周/每月/每季/每年的维护节奏与常用查询命令。
+   ```bash
+   # Get overview of current structure
+   ls -la [target_directory]
 
-## 指令
+   # Check file types and sizes
+   find [target_directory] -type f -exec file {} \; | head -20
 
-分析现状（Windows 下可用 Bash 工具调用，或换用等价 PowerShell）：
+   # Identify largest files
+   du -sh [target_directory]/* | sort -rh | head -20
 
-```bash
-# 总览结构
-ls -la [target_directory]
+   # Count file types
+   find [target_directory] -type f | sed 's/.*\.//' | sort | uniq -c | sort -rn
+   ```
 
-# 查看文件类型
-find [target_directory] -type f -exec file {} \; | head -20
+   Summarize findings:
 
-# 找出最大文件
-du -sh [target_directory]/* | sort -rh | head -20
+   - Total files and folders
+   - File type breakdown
+   - Size distribution
+   - Date ranges
+   - Obvious organization issues
 
-# 按扩展名统计数量
-find [target_directory] -type f | sed 's/.*\.//' | sort | uniq -c | sort -rn
-```
+3. **Identify Organization Patterns**
 
-查找重复：
+   Based on the files, determine logical groupings:
 
-```bash
-# 按哈希找精确重复
-find [directory] -type f -exec md5 {} \; | sort | uniq -d
+   **By Type**:
 
-# 按文件名找疑似重复
-find [directory] -type f -printf '%f\n' | sort | uniq -d
+   - Documents (PDFs, DOCX, TXT)
+   - Images (JPG, PNG, SVG)
+   - Videos (MP4, MOV)
+   - Archives (ZIP, TAR, DMG)
+   - Code/Projects (directories with code)
+   - Spreadsheets (XLSX, CSV)
+   - Presentations (PPTX, KEY)
 
-# 按大小排序便于人工比对
-find [directory] -type f -printf '%s %p\n' | sort -n
-```
+   **By Purpose**:
 
-执行整理：
+   - Work vs. Personal
+   - Active vs. Archive
+   - Project-specific
+   - Reference materials
+   - Temporary/scratch files
 
-```bash
-# 建立目录结构
-mkdir -p "path/to/new/folders"
+   **By Date**:
 
-# 移动文件（保留清晰日志）
-mv "old/path/file.pdf" "new/path/file.pdf"
+   - Current year/month
+   - Previous years
+   - Very old (archive candidates)
 
-# 统一命名，如 "YYYY-MM-DD - 描述.ext"
-```
+4. **Find Duplicates**
 
-关键约束：删除前必须确认；记录所有移动以便撤销；保留原始修改时间；优雅处理重名冲突；遇到意外停下询问。
+   When requested, search for duplicates:
 
-## 示例
+   ```bash
+   # Find exact duplicates by hash
+   find [directory] -type f -exec md5 {} \; | sort | uniq -d
 
-整理方案（动手前呈现）：
+   # Find files with similar names
+   find [directory] -type f -printf '%f\n' | sort | uniq -d
 
-```markdown
-# [目录] 整理方案
+   # Find similar-sized files
+   find [directory] -type f -printf '%s %p\n' | sort -n
+   ```
 
-## 现状
-- X 个文件，分布在 Y 个文件夹，共 [大小]
-- 类型分布：[breakdown]
-- 问题：[列出问题]
+   For each set of duplicates:
 
-## 目标结构
-[Directory]/
-├── Work/
-│   ├── Projects/
-│   ├── Documents/
-│   └── Archive/
-├── Personal/
-│   ├── Photos/
-│   ├── Documents/
-│   └── Media/
-└── Downloads/
-    ├── To-Sort/
-    └── Archive/
+   - Show all file paths
+   - Display sizes and modification dates
+   - Recommend which to keep (usually newest or best-named)
+   - **Important**: Always ask for confirmation before deleting
 
-## 将执行的变更
-1. 新建目录：[list]
-2. 移动文件：X 个 PDF → Work/Documents/，Y 张图片 → Personal/Photos/，Z 个旧文件 → Archive/
-3. 重命名：[命名规则]
-4. 删除：[重复或垃圾文件]
+5. **Propose Organization Plan**
 
-## 需你决定的文件
-- [拿不准的文件清单]
+   Present a clear plan before making changes:
 
-是否继续？(yes/no/modify)
-```
+   ```markdown
+   # Organization Plan for [Directory]
 
-## 注意事项
+   ## Current State
 
-命名规范：
+   - X files across Y folders
+   - [Size] total
+   - File types: [breakdown]
+   - Issues: [list problems]
 
-- 文件夹用清晰描述名，避免空格（用连字符/下划线），具体化（client-proposals 而非 docs），可用序号前缀排序（01-current、02-archive）。
-- 文件名带日期（2024-10-17-meeting-notes.md），描述清晰，不在名字里堆版本号（交给版本控制），清理下载产物（document-final-v2 (1).pdf → document.pdf）。
+   ## Proposed Structure
 
-何时归档：6 个月以上未动的项目；可能日后引用的已完成工作；迁移后的旧版本；不舍得删的文件（先归档）。
+   [Directory]/
+   ├── Work/
+   │ ├── Projects/
+   │ ├── Documents/
+   │ └── Archive/
+   ├── Personal/
+   │ ├── Photos/
+   │ ├── Documents/
+   │ └── Media/
+   └── Downloads/
+   ├── To-Sort/
+   └── Archive/
 
-通用约束：仅在任务明确落入上述范围时使用；输出不替代针对具体环境的验证、测试或专家审查；缺少必要输入、权限、安全边界或成功标准时，停下来澄清。
+   ## Changes I'll Make
 
-## 互见
+   1. **Create new folders**: [list]
+   2. **Move files**:
+      - X PDFs → Work/Documents/
+      - Y images → Personal/Photos/
+      - Z old files → Archive/
+   3. **Rename files**: [any renaming patterns]
+   4. **Delete**: [duplicates or trash files]
 
-- 大批量文件检索可配合 Glob 工具按模式定位。
-- 若目标是云端文档/网盘整理，改用对应的云文档或云空间技能。
+   ## Files Needing Your Decision
 
----
+   - [List any files you're unsure about]
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+   Ready to proceed? (yes/no/modify)
+   ```
+
+6. **Execute Organization**
+
+   After approval, organize systematically:
+
+   ```bash
+   # Create folder structure
+   mkdir -p "path/to/new/folders"
+
+   # Move files with clear logging
+   mv "old/path/file.pdf" "new/path/file.pdf"
+
+   # Rename files with consistent patterns
+   # Example: "YYYY-MM-DD - Description.ext"
+   ```
+
+   **Important Rules**:
+
+   - Always confirm before deleting anything
+   - Log all moves for potential undo
+   - Preserve original modification dates
+   - Handle filename conflicts gracefully
+   - Stop and ask if you encounter unexpected situations
+
+7. **Provide Summary and Maintenance Tips**
+
+   After organizing:
+
+   ```markdown
+   # Organization Complete! ✨
+
+   ## What Changed
+
+   - Created [X] new folders
+   - Organized [Y] files
+   - Freed [Z] GB by removing duplicates
+   - Archived [W] old files
+
+   ## New Structure
+
+   [Show the new folder tree]
+
+   ## Maintenance Tips
+
+   To keep this organized:
+
+   1. **Weekly**: Sort new downloads
+   2. **Monthly**: Review and archive completed projects
+   3. **Quarterly**: Check for new duplicates
+   4. **Yearly**: Archive old files
+
+   ## Quick Commands for You
+
+   # Find files modified this week
+
+   find . -type f -mtime -7
+
+   # Sort downloads by type
+
+   [custom command for their setup]
+
+   # Find duplicates
+
+   [custom command]
+   ```
+
+   Want to organize another folder?
+
+## Best Practices
+
+### Folder Naming
+
+- Use clear, descriptive names
+- Avoid spaces (use hyphens or underscores)
+- Be specific: "client-proposals" not "docs"
+- Use prefixes for ordering: "01-current", "02-archive"
+
+### File Naming
+
+- Include dates: "2024-10-17-meeting-notes.md"
+- Be descriptive: "q3-financial-report.xlsx"
+- Avoid version numbers in names (use version control instead)
+- Remove download artifacts: "document-final-v2 (1).pdf" → "document.pdf"
+
+### When to Archive
+
+- Projects not touched in 6+ months
+- Completed work that might be referenced later
+- Old versions after migration to new systems
+- Files you're hesitant to delete (archive first)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

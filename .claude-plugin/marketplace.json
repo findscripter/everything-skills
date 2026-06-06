@@ -1,16 +1,16 @@
 {
-  "name": "everything-skills",
+  "name": "everything-skills-en",
   "owner": {
     "name": "findscripter"
   },
   "metadata": {
-    "description": "技能大典 · Everything Skills — 类书式 AI Agent 技能库",
+    "description": "Everything Skills — encyclopedic AI-agent skill library (English)",
     "version": "1.0.0"
   },
   "plugins": [
     {
-      "name": "00-meta",
-      "description": "卷〇 · 通用 —— 43 个技能",
+      "name": "00-meta-en",
+      "description": "Vol 0 · Meta & Thinking — 43 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -60,8 +60,8 @@
       ]
     },
     {
-      "name": "01-documents",
-      "description": "卷一 · 文书 —— 28 个技能",
+      "name": "01-documents-en",
+      "description": "Vol 1 · Documents — 28 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -96,8 +96,8 @@
       ]
     },
     {
-      "name": "02-engineering",
-      "description": "卷二 · 研发 —— 193 个技能",
+      "name": "02-engineering-en",
+      "description": "Vol 2 · Engineering — 193 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -297,8 +297,8 @@
       ]
     },
     {
-      "name": "03-data",
-      "description": "卷三 · 数据 —— 44 个技能",
+      "name": "03-data-en",
+      "description": "Vol 3 · Data — 44 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -349,8 +349,8 @@
       ]
     },
     {
-      "name": "04-ai",
-      "description": "卷四 · 智能 —— 72 个技能",
+      "name": "04-ai-en",
+      "description": "Vol 4 · AI — 72 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -429,8 +429,8 @@
       ]
     },
     {
-      "name": "05-business",
-      "description": "卷五 · 商业 —— 161 个技能",
+      "name": "05-business-en",
+      "description": "Vol 5 · Business — 161 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -598,8 +598,8 @@
       ]
     },
     {
-      "name": "06-creative",
-      "description": "卷六 · 创意 —— 40 个技能",
+      "name": "06-creative-en",
+      "description": "Vol 6 · Creative — 40 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -646,8 +646,8 @@
       ]
     },
     {
-      "name": "07-productivity",
-      "description": "卷七 · 协作 —— 58 个技能",
+      "name": "07-productivity-en",
+      "description": "Vol 7 · Productivity — 58 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -712,8 +712,8 @@
       ]
     },
     {
-      "name": "08-security",
-      "description": "卷八 · 安全 —— 74 个技能",
+      "name": "08-security-en",
+      "description": "Vol 8 · Security — 74 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -794,8 +794,8 @@
       ]
     },
     {
-      "name": "09-verticals",
-      "description": "卷九 · 领域专精 —— 326 个技能",
+      "name": "09-verticals-en",
+      "description": "Vol 9 · Verticals — 326 skills",
       "source": "./",
       "strict": false,
       "skills": [
@@ -1128,8 +1128,8 @@
       ]
     },
     {
-      "name": "10-platform",
-      "description": "卷十 · 平台集成 —— 69 个技能",
+      "name": "10-platform-en",
+      "description": "Vol 10 · Platform — 69 skills",
       "source": "./",
       "strict": false,
       "skills": [

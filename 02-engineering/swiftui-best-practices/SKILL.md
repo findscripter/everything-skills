@@ -1,14 +1,14 @@
 ---
 name: swiftui-best-practices
-title: SwiftUI 状态管理与最佳实践
-description: 当编写、审查或重构 SwiftUI 代码，需要状态管理、视图组合、性能、无障碍及 iOS 26+ Liquid Glass 的现行最佳实践时使用；产出基于事实、不绑定特定架构的整改建议与对照清单；不适用于完整 App 工程搭建/上架、跨平台（Flutter/RN）或纯后端。触发词：SwiftUI、状态管理、@State、property wrapper、视图重构、SwiftUI 性能、Liquid Glass
+title: SwiftUI Expert Skill
+description: Write, review, or improve SwiftUI code following best practices for state management, view composition, performance, and iOS 26+ Liquid Glass adoption. Use when building new SwiftUI features, refactoring existing views, reviewing code quality, or adopting modern SwiftUI patterns.
 domain: 研发/mobile
-triggers: [SwiftUI, 状态管理, @State, @Binding, @Observable, property wrapper, 视图组合, SwiftUI 性能, ForEach 性能, 动画 animation, 无障碍 accessibility, Liquid Glass, glassEffect, SwiftUI code review, SwiftUI 重构]
-tags: [swiftui, 状态管理, 性能, 无障碍, liquid glass, 代码审查, ios, 研发]
-level: 进阶
+triggers: [SwiftUI, @State, @Binding, @Observable, property wrapper, Liquid Glass, glassEffect, SwiftUI code review]
+tags: [swiftui, liquid glass, ios]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [SwiftUI, Xcode, Instruments]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,64 +16,130 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# SwiftUI Expert Skill
 
-- 编写、审查或重构 SwiftUI 代码，需要现行（非弃用）最佳实践：状态管理、视图组合、性能、动画、无障碍、iOS 26+ Liquid Glass。
-- 想要一层**基于事实、不强加架构**（不规定 MVVM/VIPER）的 SwiftUI 指导与对照清单。
-- 触发词：SwiftUI、状态管理、property wrapper、视图重构、SwiftUI 性能、Liquid Glass。
+## When to Use
+- You are building, reviewing, or refactoring SwiftUI code and need current best practices.
+- The task involves state management, view composition, performance, accessibility, or iOS 26+ Liquid Glass adoption.
+- You need a fact-based SwiftUI guidance layer without locking into a specific application architecture.
 
-不该用的边界：
-- 完整 iOS App 从 0 搭工程 / 数据持久化 / 网络 / 上架发布 → 用 `ios-swiftui-developer`。
-- 跨平台框架（Flutter、React Native、KMP）、纯 Web/H5、纯后端任务。
-- 需要真机/模拟器运行、性能压测、自动化测试等执行类验证（本技能只做静态建议）。
-- 默认不主动引入 Liquid Glass，**仅当用户明确要求**才采用。
+## Overview
+Use this skill to build, review, or improve SwiftUI features with correct state management, optimal view composition, and iOS 26+ Liquid Glass styling. Prioritize native APIs, Apple design guidance, and performance-conscious patterns. This skill focuses on facts and best practices without enforcing specific architectural patterns.
 
-## 步骤
+## Workflow Decision Tree
 
-按任务类型选流程（三类共用同一套核对维度）：
+### 1) Review existing SwiftUI code
+- **First, consult `references/latest-apis.md`** to ensure only current, non-deprecated APIs are used
+- Check property wrapper usage against the selection guide (see `references/state-management.md`)
+- Verify view composition follows extraction rules (see `references/view-structure.md`)
+- Check performance patterns are applied (see `references/performance-patterns.md`)
+- Verify list patterns use stable identity (see `references/list-patterns.md`)
+- Check animation patterns for correctness (see `references/animation-basics.md`, `references/animation-transitions.md`)
+- Review accessibility: proper grouping, traits, Dynamic Type support (see `references/accessibility-patterns.md`)
+- Inspect Liquid Glass usage for correctness and consistency (see `references/liquid-glass.md`)
+- Validate iOS 26+ availability handling with sensible fallbacks
 
-1. **审查现有代码**：先排查弃用 API（按部署目标替换为现代等价物）→ 核对 property wrapper 选型 → 视图抽取 → 性能模式 → ForEach 稳定标识 → 动画正确性 → 无障碍 → Liquid Glass 一致性 → `#available` 降级。
-2. **改进现有代码**：替换弃用 API → 审计状态选型 → 抽取复杂视图为子视图 → 重构热路径减少冗余状态更新 → ForEach 用稳定身份 → 用 `.animation(_:value:)` → 用 `Button` 替代点击手势、加 `@ScaledMetric`。
-3. **实现新功能**：先设计数据流（区分**自有**状态 vs **注入**状态）→ 早抽子视图利于 diff → 业务逻辑放 service/model 便于测试 → 选对动画（隐式/显式/转场）→ 可点元素用 `Button` 并加无障碍分组 → iOS 26+ 特性用 `#available` 门控并给回退。
+### 2) Improve existing SwiftUI code
+- **First, consult `references/latest-apis.md`** to replace any deprecated APIs with their modern equivalents
+- Audit state management for correct wrapper selection (see `references/state-management.md`)
+- Extract complex views into separate subviews (see `references/view-structure.md`)
+- Refactor hot paths to minimize redundant state updates (see `references/performance-patterns.md`)
+- Ensure ForEach uses stable identity (see `references/list-patterns.md`)
+- Improve animation patterns (use value parameter, proper transitions, see `references/animation-basics.md`, `references/animation-transitions.md`)
+- Improve accessibility: use `Button` over tap gestures, add `@ScaledMetric` for Dynamic Type (see `references/accessibility-patterns.md`)
+- Suggest image downsampling when `UIImage(data:)` is used (as optional optimization, see `references/image-optimization.md`)
+- Adopt Liquid Glass only when explicitly requested by the user
 
-## 指令
+### 3) Implement new SwiftUI feature
+- **First, consult `references/latest-apis.md`** to use only current, non-deprecated APIs for the target deployment version
+- Design data flow first: identify owned vs injected state (see `references/state-management.md`)
+- Structure views for optimal diffing (extract subviews early, see `references/view-structure.md`)
+- Keep business logic in services and models for testability (see `references/layout-best-practices.md`)
+- Use correct animation patterns (implicit vs explicit, transitions, see `references/animation-basics.md`, `references/animation-transitions.md`, `references/animation-advanced.md`)
+- Use `Button` for tappable elements, add accessibility grouping and labels (see `references/accessibility-patterns.md`)
+- Apply glass effects after layout/appearance modifiers (see `references/liquid-glass.md`)
+- Gate iOS 26+ features with `#available` and provide fallbacks
 
-**状态管理（property wrapper 选型表）：**
+## Core Guidelines
 
-| Wrapper | 何时用 |
-|---|---|
-| `@State` | 视图内部状态（**必须 `private`**） |
-| `@Binding` | 子视图需**修改**父状态 |
-| `@StateObject` | 视图**创建**该 `ObservableObject` |
-| `@ObservedObject` | 视图**接收**注入的 `ObservableObject` |
-| `@Bindable` | iOS 17+：注入的 `@Observable` 需要绑定 |
-| `let` | 父传入的只读值 |
-| `var` | 只读值，用 `.onChange()` 响应 |
+### State Management
+- `@State` must be `private`; use for internal view state
+- `@Binding` only when a child needs to **modify** parent state
+- `@StateObject` when view **creates** the object; `@ObservedObject` when **injected**
+- iOS 17+: Use `@State` with `@Observable` classes; use `@Bindable` for injected observables needing bindings
+- Use `let` for read-only values; `var` + `.onChange()` for reactive reads
+- Never pass values into `@State` or `@StateObject` — they only accept initial values
+- Nested `ObservableObject` doesn't propagate changes — pass nested objects directly; `@Observable` handles nesting fine
 
-- 绝不把外部值传入 `@State` / `@StateObject`（它们只接受初始值）。
-- 嵌套 `ObservableObject` 不传播变更 → 把嵌套对象直接传给子视图；`@Observable` 天然支持嵌套。
+### View Composition
+- Extract complex views into separate subviews for better readability and performance
+- Prefer modifiers over conditional views for state changes (maintains view identity)
+- Keep view `body` simple and pure (no side effects or complex logic)
+- Use `@ViewBuilder` functions only for small, simple sections
+- Prefer `@ViewBuilder let content: Content` over closure-based content properties
+- Keep business logic in services and models; views should orchestrate UI flow
+- Action handlers should reference methods, not contain inline logic
+- Views should work in any context (don't assume screen size or presentation style)
 
-**视图组合：** 抽取复杂视图为子视图；状态变化优先用修饰符而非条件视图（保持视图标识）；`body` 保持纯净无副作用；容器优先 `@ViewBuilder let content: Content`；动作处理器引用方法而非内联逻辑；视图须上下文无关（不假设屏幕尺寸）。
+### Performance
+- Pass only needed values to views (avoid large "config" or "context" objects)
+- Eliminate unnecessary dependencies to reduce update fan-out
+- Check for value changes before assigning state in hot paths
+- Avoid redundant state updates in `onReceive`, `onChange`, scroll handlers
+- Minimize work in frequently executed code paths
+- Use `LazyVStack`/`LazyHStack` for large lists
+- Use stable identity for `ForEach` (never `.indices` for dynamic content)
+- Ensure constant number of views per `ForEach` element
+- Avoid inline filtering in `ForEach` (prefilter and cache)
+- Avoid `AnyView` in list rows
+- Consider POD views for fast diffing (or wrap expensive views in POD parents)
+- Suggest image downsampling when `UIImage(data:)` is encountered (as optional optimization)
+- Avoid layout thrash (deep hierarchies, excessive `GeometryReader`)
+- Gate frequent geometry updates by thresholds
+- Use `Self._logChanges()` or `Self._printChanges()` to debug unexpected view updates
 
-**性能：** 只传所需值（别传大 config/context 对象）；删冗余依赖降扇出；热路径赋值前先判值变化；大列表用 `LazyVStack/LazyHStack`；`ForEach` 用稳定身份（动态内容**禁用 `.indices`**）、每元素视图数恒定、避免内联过滤（预过滤缓存）、行内禁用 `AnyView`；`body` 内禁建对象/重计算；用 `Self._printChanges()` 调试意外刷新。
+### Animations
+- Use `.animation(_:value:)` with value parameter (deprecated version without value is too broad)
+- Use `withAnimation` for event-driven animations (button taps, gestures)
+- Prefer transforms (`offset`, `scale`, `rotation`) over layout changes (`frame`) for performance
+- Transitions require animations outside the conditional structure
+- Custom `Animatable` implementations must have explicit `animatableData`
+- Use `.phaseAnimator` for multi-step sequences (iOS 17+)
+- Use `.keyframeAnimator` for precise timing control (iOS 17+)
+- Animation completion handlers need `.transaction(value:)` for reexecution
+- Implicit animations override explicit animations (later in view tree wins)
 
-**动画：** 用 `.animation(_:value:)` 带 value 参数（无 value 的版本太广已弃用）；事件驱动用 `withAnimation`；优先 transform（`offset`/`scale`/`rotation`）而非布局变更（`frame`）；转场的 `.transition` 须配在条件结构**外层**的动画；自定义 `Animatable` 须显式 `animatableData`；iOS 17+ 多步序列用 `.phaseAnimator`、精确时序用 `.keyframeAnimator`；隐式动画会覆盖显式（视图树靠后者胜）。
+### Accessibility
+- Prefer `Button` over `onTapGesture` for tappable elements (free VoiceOver support)
+- Use `@ScaledMetric` for custom numeric values that should scale with Dynamic Type
+- Group related elements with `accessibilityElement(children: .combine)` for joined labels
+- Provide `accessibilityLabel` when default labels are unclear or missing
+- Use `accessibilityRepresentation` for custom controls that should behave like native ones
 
-**无障碍：** 可点元素用 `Button` 而非 `onTapGesture`（白送 VoiceOver）；自定义数值用 `@ScaledMetric` 适配 Dynamic Type；用 `accessibilityElement(children: .combine)` 合并相关元素；默认标签不清时补 `accessibilityLabel`；自定义控件用 `accessibilityRepresentation`。
+### Liquid Glass (iOS 26+)
+**Only adopt when explicitly requested by the user.**
+- Use native `glassEffect`, `GlassEffectContainer`, and glass button styles
+- Wrap multiple glass elements in `GlassEffectContainer`
+- Apply `.glassEffect()` after layout and visual modifiers
+- Use `.interactive()` only for tappable/focusable elements
+- Use `glassEffectID` with `@Namespace` for morphing transitions
 
-**Liquid Glass（iOS 26+，仅按需）：** 用原生 `glassEffect` / `GlassEffectContainer` / glass 按钮样式；多个玻璃元素包进 `GlassEffectContainer`；`.glassEffect()` 在布局与外观修饰符**之后**；`.interactive()` 仅用于可交互元素；变形转场用 `glassEffectID` + `@Namespace`。
+## Quick Reference
 
-## 示例
+### Property Wrapper Selection
+| Wrapper | Use When |
+|---------|----------|
+| `@State` | Internal view state (must be `private`) |
+| `@Binding` | Child modifies parent's state |
+| `@StateObject` | View owns an `ObservableObject` |
+| `@ObservedObject` | View receives an `ObservableObject` |
+| `@Bindable` | iOS 17+: Injected `@Observable` needing bindings |
+| `let` | Read-only value from parent |
+| `var` | Read-only value watched via `.onChange()` |
 
-最小审查提示词：
-```
-按 现行API / 状态管理 / 视图组合 / 性能 / 动画 / 无障碍 / Liquid Glass 七维审查以下 SwiftUI 代码。
-每条：[严重度] 文件:行号 — 问题；原因；可执行修改（给替换代码）。无问题请明说，勿编造。
-<贴入代码>
-```
-
-Liquid Glass 带回退（iOS 26+）：
+### Liquid Glass Patterns
 ```swift
+// Basic glass effect with fallback
 if #available(iOS 26, *) {
     content
         .padding()
@@ -84,28 +150,116 @@ if #available(iOS 26, *) {
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
 }
 
-// 分组玻璃元素
+// Grouped glass elements
 GlassEffectContainer(spacing: 24) {
-    HStack(spacing: 24) { GlassButton1(); GlassButton2() }
+    HStack(spacing: 24) {
+        GlassButton1()
+        GlassButton2()
+    }
 }
 
-// 玻璃按钮
-Button("Confirm") { }.buttonStyle(.glassProminent)
+// Glass buttons
+Button("Confirm") { }
+    .buttonStyle(.glassProminent)
 ```
 
-## 注意事项
+## Review Checklist
 
-- 紧跟弃用：任何工作流开始前先核对现行 API，按项目**最低部署目标**选择 API，弃用项替换为现代等价物。
-- `@State` 必须 `private`；区分 `@StateObject`（自有）与 `@ObservedObject`（注入），别把传入值声明成状态。
-- 不强加架构，但鼓励把业务逻辑外移到 service/model 以便测试；遵循 Apple HIG 与 API 设计惯例。
-- 本技能只给基于事实的最佳实践，**不替代**环境内的真机验证、测试与专家评审；缺少必要输入或成功标准时先停下澄清。
+### Latest APIs (see `references/latest-apis.md`)
+- [ ] No deprecated modifiers used (check against the quick lookup table)
+- [ ] API choices match the project's minimum deployment target
 
-## 互见
+### State Management
+- [ ] `@State` properties are `private`
+- [ ] `@Binding` only where child modifies parent state
+- [ ] `@StateObject` for owned, `@ObservedObject` for injected
+- [ ] iOS 17+: `@State` with `@Observable`, `@Bindable` for injected
+- [ ] Passed values NOT declared as `@State` or `@StateObject`
+- [ ] Nested `ObservableObject` avoided (or passed directly to child views)
 
-- requires：无。
-- related：`ios-swiftui-developer`（完整 iOS App 工程搭建、数据持久化、网络与上架；本技能是其上的**最佳实践/审查指导层**，聚焦状态、组合、性能、无障碍与 Liquid Glass 的正确性）。
-- combines_with：`code-reviewer`（通用代码审查；与本技能的 SwiftUI 专项维度叠加，先用本技能扫 SwiftUI 特有坏味道，再用它兜正确性 bug）。
+### Sheets & Navigation (see `references/sheet-navigation-patterns.md`)
+- [ ] Using `.sheet(item:)` for model-based sheets
+- [ ] Sheets own their actions and dismiss internally
 
----
+### ScrollView (see `references/scroll-patterns.md`)
+- [ ] Using `ScrollViewReader` with stable IDs for programmatic scrolling
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+### View Structure (see `references/view-structure.md`)
+- [ ] Using modifiers instead of conditionals for state changes
+- [ ] Complex views extracted to separate subviews
+- [ ] Container views use `@ViewBuilder let content: Content`
+
+### Performance (see `references/performance-patterns.md`)
+- [ ] View `body` kept simple and pure (no side effects)
+- [ ] Passing only needed values (not large config objects)
+- [ ] Eliminating unnecessary dependencies
+- [ ] State updates check for value changes before assigning
+- [ ] Hot paths minimize state updates
+- [ ] No object creation in `body`
+- [ ] Heavy computation moved out of `body`
+
+### List Patterns (see `references/list-patterns.md`)
+- [ ] ForEach uses stable identity (not `.indices`)
+- [ ] Constant number of views per ForEach element
+- [ ] No inline filtering in ForEach
+- [ ] No `AnyView` in list rows
+
+### Layout (see `references/layout-best-practices.md`)
+- [ ] Avoiding layout thrash (deep hierarchies, excessive GeometryReader)
+- [ ] Gating frequent geometry updates by thresholds
+- [ ] Business logic kept in services and models (not in views)
+- [ ] Action handlers reference methods (not inline logic)
+- [ ] Using relative layout (not hard-coded constants)
+- [ ] Views work in any context (context-agnostic)
+
+### Animations (see `references/animation-basics.md`, `references/animation-transitions.md`, `references/animation-advanced.md`)
+- [ ] Using `.animation(_:value:)` with value parameter
+- [ ] Using `withAnimation` for event-driven animations
+- [ ] Transitions paired with animations outside conditional structure
+- [ ] Custom `Animatable` has explicit `animatableData` implementation
+- [ ] Preferring transforms over layout changes for animation performance
+- [ ] Phase animations for multi-step sequences (iOS 17+)
+- [ ] Keyframe animations for precise timing (iOS 17+)
+- [ ] Completion handlers use `.transaction(value:)` for reexecution
+
+### Accessibility (see `references/accessibility-patterns.md`)
+- [ ] `Button` used instead of `onTapGesture` for tappable elements
+- [ ] `@ScaledMetric` used for custom values that should scale with Dynamic Type
+- [ ] Related elements grouped with `accessibilityElement(children:)`
+- [ ] Custom controls use `accessibilityRepresentation` when appropriate
+
+### Liquid Glass (iOS 26+)
+- [ ] `#available(iOS 26, *)` with fallback for Liquid Glass
+- [ ] Multiple glass views wrapped in `GlassEffectContainer`
+- [ ] `.glassEffect()` applied after layout/appearance modifiers
+- [ ] `.interactive()` only on user-interactable elements
+- [ ] Shapes and tints consistent across related elements
+
+## References
+- `references/latest-apis.md` - **Required reading for all workflows.** Version-segmented guide of deprecated-to-modern API transitions (iOS 15+ through iOS 26+)
+- `references/state-management.md` - Property wrappers and data flow
+- `references/view-structure.md` - View composition, extraction, and container patterns
+- `references/performance-patterns.md` - Performance optimization techniques and anti-patterns
+- `references/list-patterns.md` - ForEach identity, stability, and list best practices
+- `references/layout-best-practices.md` - Layout patterns, context-agnostic views, and testability
+- `references/accessibility-patterns.md` - Accessibility traits, grouping, Dynamic Type, and VoiceOver
+- `references/animation-basics.md` - Core animation concepts, implicit/explicit animations, timing, performance
+- `references/animation-transitions.md` - Transitions, custom transitions, Animatable protocol
+- `references/animation-advanced.md` - Transactions, phase/keyframe animations (iOS 17+), completion handlers (iOS 17+)
+- `references/sheet-navigation-patterns.md` - Sheet presentation and navigation patterns
+- `references/scroll-patterns.md` - ScrollView patterns and programmatic scrolling
+- `references/image-optimization.md` - AsyncImage, image downsampling, and optimization
+- `references/liquid-glass.md` - iOS 26+ Liquid Glass API
+
+## Philosophy
+
+This skill focuses on **facts and best practices**, not architectural opinions:
+- We don't enforce specific architectures (e.g., MVVM, VIPER)
+- We do encourage separating business logic for testability
+- We optimize for performance and maintainability
+- We follow Apple's Human Interface Guidelines and API design patterns
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

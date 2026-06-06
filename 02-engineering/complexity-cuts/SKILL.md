@@ -1,14 +1,14 @@
 ---
 name: complexity-cuts
-title: 降低算法时空复杂度优化
-description: 当现有代码已能跑通但时间/空间复杂度偏高（慢、超时、OOM、N+1）需重构时使用；按"验证-回滚-停止"循环每次只做一处变换，产出降复杂度的 diff 加 before→after 实测；不适用于写新代码、纯 I/O/网络瓶颈、n<100 的启动期代码。触发词：O(n²)、超时、N+1。
+title: complexity-cuts — Lower Big-O on Existing Code
+description: Lower Big-O on existing code via a one-transformation-at-a-time playbook with verify-revert-stop. For new code use lemmaly; for math-level wins escalate to mathguard.
 domain: 研发/review
-triggers: [这段在大输入下很慢, 超时 timeout, 内存爆了 OOM, 降低复杂度 / 优化这个算法, 嵌套循环 O(n²), ORM N+1 查询, for 循环里 await 串行]
-tags: [算法, big-o, 重构, 性能优化, n-plus-one, 研发]
-level: 进阶
+triggers: []
+tags: [big-o, n-plus-one]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude-code, antigravity, cursor, gemini-cli, codex-cli]
+tools: []
 requires: []
 related: [python-performance-optimization, code-simplifier, clean-code-principles, performance-profiler]
 combines_with: [systematic-debugger, code-reviewer, test-coverage-gap-finder]
@@ -16,181 +16,242 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# complexity-cuts — Lower Big-O on Existing Code
 
-当**已存在且能跑通**的代码，时间或空间复杂度高于必要值时使用本技能重构：
+`lemmaly` prevents bad complexity before code is written. **complexity-cuts** fixes it after the fact: code already exists, it works, but its time or space complexity is worse than necessary.
 
-- 嵌套循环、`O(n²)` 或更差的扫描、重复计算、冗余分配、内存膨胀。
-- 症状描述："大输入下很慢"、"超时"、"OOM/内存太多"、"降低复杂度"、"优化这个算法"。
-- ORM 的 N+1 查询（Prisma、Drizzle、SQLAlchemy、Django、ActiveRecord）。
-- 对独立项的 `for` 循环里写 `await`，导致串行延迟。
+**Violating the letter of these rules is violating the spirit of the skill.** Adapting "just a little" is how a faster-but-wrong rewrite ships.
 
-**不该用的边界：**
+## When to Use This Skill
 
-- 写**新代码**时的复杂度预防 —— 不是本技能职责（源技能体系交给 `lemmaly`）。
-- 数学级优化（Bloom、HLL、FFT、JL 投影）—— 升级到 `mathguard`。
-- 瓶颈是 **I/O / 网络 / 外部服务延迟**而非 CPU/内存 —— 去修 I/O 模式，本 playbook 无效。
-- 启动期只跑一次、n 很小（n < ~100 且不在热路径）的代码 —— 过度优化只增风险无收益。
+Use **complexity-cuts** when refactoring existing code that has poor Big-O:
 
-## 铁律
+- Nested loops, `O(n²)` or worse scans, repeated work, redundant allocations, blown memory.
+- Stated symptoms: "this is slow on large inputs", "times out", "OOM", "too much memory", "reduce complexity", "optimize this algorithm".
+- N+1 query patterns in ORMs (Prisma, Drizzle, SQLAlchemy, Django, ActiveRecord).
+- `await` inside `for` over independent items causing serial latency.
 
-```text
-变换前后，现有测试必须都为绿；没有测试不准动手
-```
+For *preventing* bad complexity before code is written, use **`lemmaly`**. For math-level optimizations (Bloom, HLL, FFT, JL projection), escalate to **`mathguard`**.
 
-若代码无测试，**先写一个特征化测试**（golden 输入 → 当前输出），再变换，再验证测试仍通过。跳过这步，优化可能悄悄改坏调用方 ——「更快但更错」远比「慢但对」更糟。
-
-## 步骤
-
-对每一处要优化的代码，按顺序执行：
-
-1. **写下当前与目标 Big-O**（动手前）。一行：当前 `time=O(?) / space=O(?)`；目标 `time=O(?) / space=O(?)`；主导输入维度（n 是什么、实际多大）。说不出当前 Big-O，说明还没读懂代码，继续读。
-2. **定位瓶颈行，不要猜。** 指向负责主导项的确切行：嵌套循环？重复线性扫描？重算？热循环里的分配？修复就在那一行，不在别处。
-3. **每次只做一处变换，跑"验证-回滚-停止"循环：**
-   1. 从 playbook 里取**恰好一个**变换应用。
-   2. 跑现有测试套件（或铁律要求你写的特征化测试）。
-   3. 任一测试挂掉 → **立即回滚**。不准改测试，不准绕过失败。
-   4. 统计这块代码的连续回滚次数。**连续 3 次回滚 → 停止优化**：瓶颈错了、变换错了、或代码有你没建模的不变量。升级到 `invariant-guard` 补写缺失契约，不准试第四次。
-   5. 变换落地为绿后，才挑下一个。
-4. **精确保持语义。** 降复杂度不得改变输出、顺序保证、稳定性或错误行为。若优化必须改语义（如输出无序），显式声明并确认可接受。
-5. **不准编造数字。** 没测过不准写"快 10 倍""省 200MB"。写 `<measured: TBD>` 或真去测。
-6. **变换落地后必须报告实测加速比。** 绿了之后跑代表性基准（同输入、同机器、热缓存），一行附在 diff 上：
+## The Iron Law
 
 ```text
-p50:  186 ms → 1.1 ms   (169× faster, n=20,000, 200 samples)
+NO TRANSFORMATION WITHOUT EXISTING TESTS GREEN BEFORE AND AFTER
 ```
 
-   无法测量（纯渐近、手头没有对应输入）就显式写：`asymptotic only, no measurement — O(n²) → O(n)`。绝不静默跳过。
+If the code has no tests, you write a characterization test first (golden input → current output). Then transform. Then verify the test still passes. If you skip this, the optimization can silently break callers — and faster-but-wrong is worse than slow-and-right.
 
-## 指令
+## Non-negotiable rules
 
-### 时间复杂度变换 playbook（按此顺序尝试）
+1. **State current and target Big-O before touching code.** In one line:
+   - Current: `time = O(?)`, `space = O(?)`
+   - Target: `time = O(?)`, `space = O(?)`
+   - Dominant input dimension (n = what, how large in practice)
 
-| 坏味道 | 修复 | 典型收益 |
+   If you cannot state current Big-O, you do not yet understand the code. Read more.
+
+2. **Identify the bottleneck, do not guess.** Point to the exact line(s) responsible for the dominant term. Nested loop? Repeated linear scan? Recomputation? Allocation inside a hot loop? The fix lives there, not elsewhere.
+
+3. **One transformation at a time, with a verify-revert-stop loop.** The loop is:
+
+   1. Apply exactly one transformation from the playbook.
+   2. Run the existing test suite (or the characterization test you wrote per the Iron Law).
+   3. If any test breaks: **revert immediately.** Do not patch the test. Do not patch around the failure. Revert.
+   4. Count reverts on this piece of code. If **3 reverts in a row**, STOP optimizing. The bottleneck is wrong, the transformation is wrong, or the code has invariants you have not modeled. Escalate to `invariant-guard` and write the missing contract — do not try a fourth transformation.
+   5. Only after a transformation lands green: pick the next one.
+
+   Stacked changes hide regressions. Patched tests hide regressions louder.
+
+4. **Preserve semantics exactly.** Lower complexity must not change outputs, ordering guarantees, stability, or error behavior. If the optimization requires a semantic change (e.g. unordered output), call it out explicitly and confirm it is acceptable.
+
+5. **No invented numbers.** Never write "10x faster" or "saves 200MB" without measuring. Write `<measured: TBD>` and move on, or actually measure with a representative input.
+
+6. **Always report the measured speedup ratio after a transformation lands.** Once the new code is green, run a representative benchmark (same input, same machine, warm cache) and report `before → after` plus the ratio as `N× faster` (or `N× less memory`). One line, attached to the diff:
+
+   ```text
+   p50:  186 ms → 1.1 ms   (169× faster, n=20,000, 200 samples)
+   ```
+
+   If you cannot measure (e.g. the win is purely asymptotic on inputs you don't have), say so explicitly: `asymptotic only, no measurement — O(n²) → O(n)`. Never silently skip this step.
+
+## The transformation playbook
+
+The vast majority of real-world Big-O wins come from a small set of moves. Try them in this order:
+
+### Time-complexity reductions
+
+| Smell | Fix | Typical win |
 |---|---|---|
-| `for x in A: if x in B`，B 是 list/array | B 一次性转 `Set`/`Map` | O(n·m) → O(n+m) |
-| 嵌套循环算配对/连接 | 按 key 做 hash-join，按查找字段建索引 | O(n·m) → O(n+m) |
-| 循环内反复 `.find`/`.indexOf`/`.includes` | 循环外预建索引 `Map<key,item>` | O(n²) → O(n) |
-| 重复重算同一值 | 按输入 key memoize/缓存 | O(n·f(n)) → O(n+f(n)) |
-| 循环内排序 | 循环外排一次 | O(n² log n) → O(n log n) |
-| 反复线性扫 min/max/中位数 | 堆 / 有序结构 | O(n·k) → O(n log k) |
-| 递归重算（朴素 Fibonacci 形状） | memoize 或改迭代 DP | 指数级 → O(n) |
-| 循环内字符串拼接（部分语言） | builder / `join` / `push` 后 join | O(n²) → O(n) |
-| 循环内重复编译正则 | 循环外编译一次 | 常数因子，但很大 |
-| 嵌套循环计数/分组 | 单遍 `Counter`/`Map<k,count>` | O(n²) → O(n) |
-| 滑动窗口写成嵌套循环 | 双指针 / 窗口和 | O(n²) → O(n) |
-| 重复前缀和 | 预算前缀数组，O(1) 区间查询 | O(n·q) → O(n+q) |
-| 区间两两距离/包含检查 | 排序 + 扫描线 | O(n²) → O(n log n) |
-| 全排序取 Top-K | 大小为 K 的堆 | O(n log n) → O(n log k) |
-| `await` in `for`（独立项） | `Promise.all` / 批量并发 | 墙钟 O(n·延迟) → O(延迟) |
-| 循环内 ORM 查询（N+1） | `IN (...)` / `select_related` / 批量取 | O(n) 往返 → O(1) |
+| `for x in A: if x in B` where B is list/array | Convert B to `Set`/`Map` once | O(n·m) → O(n+m) |
+| Nested loop computing pairs/joins | Hash-join on the key; index by lookup field | O(n·m) → O(n+m) |
+| Repeated `.find` / `.indexOf` / `.includes` inside a loop | Precompute index `Map<key, item>` outside loop | O(n^2) → O(n) |
+| Repeated recomputation of same value | Memoize / cache by input key | O(n·f(n)) → O(n + f(n)) |
+| Sort inside a loop | Sort once outside | O(n^2 log n) → O(n log n) |
+| Linear scan for min/max/median repeatedly | Heap / sorted structure | O(n·k) → O(n log k) |
+| Recursive recomputation (naive Fibonacci shape) | Memoize, or convert to iterative DP | exponential → O(n) |
+| String concatenation in a loop (some langs) | Use builder / `join` / `array.push` then join | O(n^2) → O(n) |
+| Repeated regex compile in loop | Compile once outside | constant-factor, large |
+| Counting / grouping via nested loop | Single pass with `Counter` / `Map<k, count>` | O(n^2) → O(n) |
+| Sliding-window written as nested loop | Two-pointer / windowed sum | O(n^2) → O(n) |
+| Repeated prefix sums | Precompute prefix array, O(1) range queries | O(n·q) → O(n+q) |
+| Pairwise distance / containment checks on intervals | Sort + sweep line | O(n^2) → O(n log n) |
+| Top-K via full sort | Heap of size K | O(n log n) → O(n log k) |
+| Repeated set membership in loop body | `Set` once, reuse | O(n·m) → O(n) |
+| `await` inside a `for` over independent items | `Promise.all` / batched concurrency | wall-clock O(n·latency) → O(latency) |
+| ORM query inside a loop (N+1) | `IN (...)` / `select_related` / bulk fetch | O(n) round-trips → O(1) |
 
-### 空间复杂度变换
+### Space-complexity reductions
 
-| 坏味道 | 修复 | 典型收益 |
+| Smell | Fix | Typical win |
 |---|---|---|
-| 仅为遍历而物化整个 list | 生成器 / 迭代器 / 流 | O(n) → O(1) |
-| 大数据上链式 `.map().filter().map()` 建中间数组 | 单遍循环 / 惰性管道 | k·O(n) → O(n) |
-| 缓存递归每个中间结果 | 滚动窗口（只留最近 k 个状态） | O(n) → O(k) |
-| 只需计数却存 parents/visited | 仅 bitset / 计数器 | O(n) → O(1) |
-| 复制输入以便修改 | 调用方允许时原地修改 | O(n) → O(1) |
-| 处理前读入整个文件 | 按行 / 分块流式 | O(file) → O(chunk) |
-| 循环内深拷贝保安全 | 拷一次 / 结构共享 / 不可变 | O(n·m) → O(n+m) |
-| 闭包/监听器/缓存阻止 GC | 限界缓存(LRU)、移除监听、收紧闭包 | 无界 → 有界 |
-| 从 DB 加载全量结果集 | 游标 / 分页 / 流式查询 | O(rows) → O(page) |
-| `JSON.parse(JSON.stringify(x))` 克隆 | `structuredClone` 或定向拷贝 | 去除 O(n) 开销与分配 |
+| Materializing whole list/array just to iterate | Generator / iterator / stream | O(n) → O(1) |
+| Building intermediate arrays via chained `.map().filter().map()` on huge data | Single-pass loop or lazy pipeline | k·O(n) → O(n) (often O(1) extra) |
+| Caching every intermediate result of a recursion | Rolling window (keep last k states) | O(n) → O(k) |
+| Storing parents/visited for graph traversal when only count needed | Bitset / counter only | O(n) → O(1) |
+| Copying input to mutate | In-place mutation when caller allows | O(n) → O(1) |
+| Reading entire file before processing | Stream line-by-line / chunked | O(file) → O(chunk) |
+| Deep-clone for safety in a loop | Clone once, or use structural sharing / immutables | O(n·m) → O(n+m) |
+| Holding references that prevent GC (closures, listeners, caches) | Bound the cache (LRU), remove listeners, scope closures tightly | unbounded → bounded |
+| Loading full result set from DB | Cursor / pagination / streaming query | O(rows) → O(page) |
+| `JSON.parse(JSON.stringify(x))` for cloning | `structuredClone` or targeted copy | O(n) work and allocation removed |
 
-### 当无法降低渐近 Big-O 时
+### When you cannot lower asymptotic Big-O
 
-有时 O(n log n) 就是下界。此时转常数因子优化，并显式声明「渐近下界已是 O(n log n)，仅做常数因子优化」：
+Sometimes O(n log n) really is the floor. Then move to constant-factor wins:
 
-- 指针追逐结构换连续数组（缓存局部性）。
-- 循环不变量外提。
-- 热循环内避免分配（复用 buffer）。
-- 数值计算用 typed array / 原生容器替代装箱对象。
-- 批量化 syscall / I/O。
+- Replace pointer-chasing structures with contiguous arrays (cache locality).
+- Hoist invariants out of loops.
+- Avoid allocation in the hot loop (reuse buffers).
+- Prefer typed arrays / native containers over boxed objects for numeric work.
+- Batch syscalls / I/O.
 
-### 输出纪律（提议或应用优化时，按此顺序）
+State explicitly: "Asymptotic floor is O(n log n); applying constant-factor optimizations only."
 
-1. **瓶颈** —— file:line + 一句原因。
-2. **当前复杂度** —— `time=O(?) / space=O(?)`。
-3. **变换** —— playbook 里的名字（或描述新变换）。
-4. **新复杂度** —— `time=O(?) / space=O(?)`。
-5. **语义风险** —— 调用方可能察觉的（顺序、稳定性、错误时机）。属实时 "None" 是合法答案，但要写出来。
-6. **实测加速** —— `before → after` + `N× faster`（或 `asymptotic only`）。
-7. **diff。**
+## Required workflow
 
-1–6 缺任一项，优化就不可应用。
+For each piece of code you optimize:
 
-## 示例
+1. **Measure or estimate current Big-O.** Write it down.
+2. **Identify the bottleneck line(s).** Point at them.
+3. **Pick one transformation from the playbook.** Name it.
+4. **Apply it.** One change.
+5. **Verify behavior.** Tests pass, or outputs match on a representative input.
+6. **State new Big-O.** Time and space.
+7. **Repeat if more wins exist and are worth the complexity cost.**
 
-**瓶颈：** `getOrdersWithUsers()` 在 1 万订单上跑 10 秒。原因：map 内 `users.find(u => u.id === o.userId)` → O(n·m)。
+## Canonical example — workflow vs no-workflow
 
-**反例（改了语义还改了测试）：**
+The same optimization with and without the verify-revert-stop loop.
+
+**Bottleneck.** `getOrdersWithUsers()` runs 10s on 10k orders. Cause: `users.find(u => u.id === o.userId)` inside the map → O(n·m).
+
+### Without the workflow — changes semantics AND patches the test
 
 ```ts
+// No workflow: change semantics + the optimization in one go
 export function getOrdersWithUsers(orders, users) {
   const userById = Object.fromEntries(users.map(u => [u.id, u]));
   return orders
     .map(o => ({ ...o, user: userById[o.userId] }))
-    .filter(o => o.user); // 悄悄丢弃了 user 已删除的订单
+    .filter(o => o.user); // silently drops orders whose user was deleted
 }
 ```
 
-更快，但结果集变了。顺手"修"掉了校验旧行为的断言，绿着上线，两周后账单报表崩了。
+Faster, *and* changes the result set. Existing tests catch it — but the diff also "fixes" a flaky test by removing the assertion that checked the old behavior. Ships green. Breaks the billing report two weeks later.
 
-**正解（一处变换，语义不变）：**
+### With the workflow — one transformation, semantics preserved
 
 ```ts
-// Bottleneck: orders.map → users.find (line 14)
-// Current: time=O(n·m), space=O(1)  →  Target: time=O(n+m), space=O(m)
-// Transformation: 循环外预建索引 Map<userId, User>
-// Semantic risk: None —— 缺失 user 的订单仍输出 user: undefined，与原行为一致
-// Reverts so far: 0
+// Workflow applied:
+//   Bottleneck: orders.map → users.find  (line 14)
+//   Current: time = O(n·m), space = O(1)
+//   Target:  time = O(n+m), space = O(m)
+//   Transformation: precompute index Map<userId, User> outside the loop
+//   Semantic risk: None — orders with missing users still emit `user: undefined` exactly as before
+//   Reverts so far: 0
+
 export function getOrdersWithUsers(orders, users) {
   const userById = new Map(users.map(u => [u.id, u]));
   return orders.map(o => ({ ...o, user: userById.get(o.userId) }));
 }
 ```
 
-一处变换，测试不动，跑测试：绿则发，红则回滚（不准改测试）。连续 3 次回滚后停手，加载 `invariant-guard`。
+One transformation. Existing tests stay untouched. Run them. If green, ship. If red, revert (don't patch). After 3 reverts, stop and load `invariant-guard` — the bottleneck is wrong, or the function has a contract no one wrote down.
 
-## 注意事项
+## Output discipline
 
-**红旗 —— 立即停：**
+When proposing or applying an optimization, your message must contain — in this order:
 
-- 没写当前 Big-O 就优化；只说"应该更快"却指不出具体瓶颈行。
-- 验证任何一处前就叠加多个变换。
-- 没测量也没渐近论证就声称加速。
-- 靠悄悄改输出语义来降复杂度。
-- 去改写启动时只跑一次、n=12 的代码。
+1. **Bottleneck** — file:line and one-sentence reason.
+2. **Current complexity** — `time = O(?)`, `space = O(?)`.
+3. **Transformation** — name from the playbook (or describe it if novel).
+4. **New complexity** — `time = O(?)`, `space = O(?)`.
+5. **Semantic risk** — anything callers might notice (ordering, stability, error timing). "None" is a valid answer if true.
+6. **Measured speedup** — `before → after` with the ratio as `N× faster` (or `asymptotic only` if not measured). One line, honest numbers.
+7. **The diff.**
 
-**常见借口 vs 现实：**
+If any of 1–6 is missing, the optimization is not ready to apply.
 
-- "我脑子里已经想好了，先贴 diff 再补标签" → 事后补的标签会撒谎，按 瓶颈→复杂度→变换→diff 顺序写。
-- "语义风险是 None，跳过这步" → "None" 合法，但必须写出来，读者不知道你考虑过哪些保证。
-- "三个变换一个 diff 搞定" → 叠加变换会藏回归，一次一个。
-- "晚点再测" → "晚点"就是永远的 `<measured: TBD>`，要么现在测，要么只接受渐近论证。
+## Stop conditions — do not optimize further when
 
-**完成前的核对清单：**
+- Asymptotic Big-O already matches a known lower bound for the problem.
+- The input is provably small and bounded (n < ~100 and not on a hot path).
+- The optimization would obscure correctness or harm readability without a measured win.
+- The bottleneck is I/O or external service latency, not CPU/memory — go fix that instead.
 
-- [ ] 变换前现有测试（或已写的特征化测试）为绿。
-- [ ] 恰好应用了一处变换；变换后测试为绿。
-- [ ] 没有为了通过而修改/弱化/跳过任何测试。
-- [ ] diff/PR 里写明了当前与目标 Big-O、语义风险。
-- [ ] 报告了实测加速比（或显式标 `asymptotic only`）；有测量声明时附上测量命令。
-- [ ] 本代码回滚次数 < 3。
+Premature optimization past these points adds risk without payoff.
 
-任一框没勾 = 没做完，要么回滚要么补齐，不准上半验证的加速。
+## Rationalizations to watch for
 
-**停止条件 / 局限：** 渐近 Big-O 已达问题已知下界、输入可证明小且有界、优化会损害正确性/可读性而无实测收益时，停手。本技能仅处理单进程、渐近优化（常数因子是另一独立模式）；分布式瓶颈（共识延迟、复制滞后、队列背压）与 I/O 密集型代码不在范围内；基准需作者自备代表性输入，本技能不替你跑。
+| Excuse | Reality |
+| --- | --- |
+| "I already solved this in my head — just paste the diff and add labels after." | Retrofitted labels lie about the reasoning order. Write bottleneck → complexity → transformation → diff in that order, or you are writing fiction. |
+| "Stating the current Big-O is busywork — everyone can see the nested loop." | If everyone can see it, writing one line costs nothing. If only you can see it, you just saved the reviewer's time. |
+| "Semantic risk is None, skip that step." | "None" is a valid answer — but write it. The next reader does not know which guarantees you considered. |
+| "I'll do all three transformations in one diff." | Stacked transformations hide regressions. One transformation, verify, repeat. |
+| "It's just a small refactor, the workflow is overkill." | Then it takes 30 seconds. The cases where you skip the workflow are the ones where you miss the optimization next to the obvious one. |
+| "I'll measure later." | Later is `<measured: TBD>` forever. Either measure now or accept the asymptotic argument as the only claim. |
 
-## 互见
+## Red flags — STOP
 
-- `lemmaly` —— 写新代码时的复杂度预防网关（重构既有代码用本技能，不用它）。
-- `invariant-guard` —— 连续 3 次变换都让测试挂掉时的升级目标：缺的是契约而非优化。
-- `mathguard` —— 触及经典下界、需近似或数学结构（Bloom/HLL/FFT/JL）才能再赢时升级。
+- Optimizing without stating current Big-O.
+- "This should be faster" without identifying a specific bottleneck line.
+- Stacking multiple transformations before verifying any one of them.
+- Claiming a speedup without measuring or without an asymptotic argument.
+- Lowering complexity by silently changing output semantics.
+- Rewriting code that runs once at startup with n = 12.
 
----
+## Verification checklist
 
-采编自 sickn33/antigravity-awesome-skills（原作者 morsechimwai，Apache-2.0），MIT 收录。
+Before claiming an optimization is complete:
+
+- [ ] Existing tests (or a written characterization test) were green BEFORE the transformation.
+- [ ] Exactly one transformation was applied.
+- [ ] Tests are green AFTER the transformation.
+- [ ] No test was modified, weakened, or skipped to make it pass.
+- [ ] Current Big-O and target Big-O are stated in the diff or PR description.
+- [ ] Semantic risk is written down ("None" is valid if true).
+- [ ] Measured speedup ratio is reported as `before → after · N× faster` (or explicitly marked `asymptotic only` if no measurement was possible).
+- [ ] If a measured claim was made (e.g. "3x faster"), the measurement command is included.
+- [ ] Revert count on this code is < 3.
+
+Cannot check every box? The optimization is not done. Either revert or finish the gap — do not ship a half-verified speedup.
+
+## Limitations
+
+- **Requires existing tests or a written characterization test.** Without one, you cannot detect silent semantic regressions; the Iron Law refuses to skip this.
+- **Asymptotic wins only; constant-factor work is a separate mode** (clearly labeled). The playbook will not improve cache locality or SIMD utilization on its own.
+- **Single-process scope.** Distributed-system bottlenecks (consensus latency, replication lag, queue backpressure) are out of scope.
+- **3-revert rule is firm.** If three transformations failed, the skill explicitly forces escalation to `invariant-guard`; it does not let you try a fourth.
+- **Measurement is on the author.** complexity-cuts requires the ratio to be reported but does not run the benchmark for you — you must produce a representative input.
+- **Won't help I/O-bound code.** If the dominant term is network latency or disk, the playbook will not move the needle — fix the I/O pattern instead.
+
+## The thesis, in one line
+
+> **Existing code earned its slowness one shortcut at a time. complexity-cuts removes them one transformation at a time — and refuses to ship the optimization without a green test.**
+
+## Related Skills
+
+- `lemmaly` — prevention gateway; use when writing new code instead of refactoring existing.
+- `invariant-guard` — escalation target when 3+ transformations have failed tests — the missing piece is a contract, not an optimization.
+- `mathguard` — escalation when the classical floor is reached and an approximate or math-heavy structure could win.

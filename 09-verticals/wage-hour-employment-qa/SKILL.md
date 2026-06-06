@@ -1,14 +1,14 @@
 ---
 name: wage-hour-employment-qa
-title: 工时薪酬与雇佣法问答
-description: 当问工时薪酬/雇佣法问题（豁免、加班、餐休、休假、离职结薪、欠薪回算）需按特定州/国别给出经核查引证的现行规则时使用；做辖区识别+规则核查+引证+close-call标记，必要时跑FLSA常规工资率回算脚手架，产出对话式答案。不适用于凭记忆陈述法条、替律师对疑难拍板、未核查给回算金额、做50州普查。触发词：这岗位算豁免吗、要付加班费吗、餐休、离职结薪、未休年假、欠薪怎么算、is this exempt、overtime、final pay、back pay、regular rate
+title: /wage-hour-qa
+description: Jurisdiction-aware wage/hour and employment Q&A — classification, overtime, meal/rest breaks, leave, final pay — answered for the specific state/country with the controlling rule researched and cited rather than stated from memory. Use when the user asks any employment law question, or says "what's 
 domain: 领域/legal
-triggers: [这个岗位算豁免吗, 是否要付加班费, 必须给餐休吗, 离职工资什么时候发, 要付未休年假吗, 欠薪怎么算, X 州的规则, is this exempt, do we have to pay overtime, meal/rest breaks, when is final pay due, pay out accrued PTO, back pay, FLSA regular rate, what's the rule in this state]
+triggers: [is this exempt, do we have to pay overtime, meal/rest breaks, when is final pay due, pay out accrued PTO, back pay, FLSA regular rate, what's the rule in this state]
 tags: [legal, employment, wage-hour, flsa, overtime, exemption, final-pay, back-pay, labor-law]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [legal-research-connector, westlaw, courtlistener, web-search]
+tools: []
 requires: []
 related: [worker-classification-analyzer, general-counsel-advisor, employment-contract-drafter, fact-checking]
 combines_with: [worker-classification-analyzer]
@@ -16,108 +16,205 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /wage-hour-qa
 
-回答任意工时薪酬 / 雇佣法问题时使用，核心是**先识别辖区、再核查现行规则、引证后才作答**，而不是凭记忆陈述「It depends」式空话。典型问题：
-
-- 「这个岗位算豁免（exempt）吗？」——核查联邦与州的薪资门槛（含按雇主规模分档）+ 适用的职责测试（duties test）。
-- 「这种情况要付加班费吗？」——核查 FLSA 联邦加班 + 州专属规则（日加班、双倍工资、替代工作周）。
-- 「必须给餐休 / 工间休息吗？」——核查适用州规则及漏休的罚金后果。
-- 「离职工资何时发？」——核查州规则，区分**被解雇 vs 主动离职**的时限差异及滞付罚金（waiting-time penalty）。
-- 「要付清已累计未休年假（PTO）吗？」——核查州规则及累计上限 / use-it-or-lose-it 的例外。
-- 「能否把这人分类为承包人？」——若事实未明，路由到 `worker-classification-analyzer`。
-
-**不该用 / 边界（硬性）：**
-- **绝不凭记忆陈述规则**：工资工时门槛、豁免要件、离职结薪时限**频繁变动且各州差异巨大**，每个答案都必须来自针对适用辖区的当前核查。无法核实当前法律状态时，明说并标记交律师核验，**不要编**。
-- 不替疑难分类拍板：只陈述规则并标出 close call，由人决定。
-- 不做 50 州普查（除非明确要求）；只答相关辖区。
-- 不追踪答案过期：门槛随年度指数化或法律变动后答案即失效，需重新核查。
-- 不替代持牌律师出具正式意见。
-
-## 步骤
-
-### Step 1 · 识别辖区
-问题涉及哪个州 / 国家？未指明则：
-- 针对具体员工的问题 → 问其工作地。
-- 政策类问题 → 在辖区足迹中找**对该问题最严苛**的辖区，研究那些。
-- 仍无信息 → 按员工最多的州作答，并注明这一假设。
-
-### Step 2 · 先核查规则、再陈述
-针对「辖区 × 问题」，确定当前**生效**的规则：引用控制性一手来源（法条 / 法规 / wage order / 判例）并给**精确引证（pinpoint cite）**，注明生效日期、是否近期修订 / 指数化 / 正在诉讼中。不确定或无法核实 → 明说并交律师核验。用一段话陈述规则并系到引证上。
-
-### Step 2a · FLSA 常规工资率与回算脚手架（涉及 regular rate / 欠薪回算时强制走）
-**绝不能用「时薪 × 加班小时」裸算**——这是本技能要拦截的两大高频错误。
-
-1. **常规工资率 ≠ 时薪**。依 29 U.S.C. §207(e)，regular rate 是**全部报酬**，仅排除 §207(e)(1)–(8) 八项法定除外（真正的酌情奖金、礼物、加班加成、费用报销、合规的利润分享 / 股票期权 / 退休保险缴款等）；不在八项之内的一律计入。
-2. **非酌情奖金计入**：生产 / 出勤奖金、佣金、班次差额、竞赛奖等（§207(e)(3)、29 C.F.R. §778.211）。把奖金 ÷ 奖金周期内总工时 = 每小时增量加进 regular rate。真正酌情奖金须「发不发」与「发多少」均由雇主在期末单方决定——极窄类别。
-3. **未付加班加成是 0.5×，不是 1.5×——当所有小时已按直时支付**：若每小时（含加班小时）都已付直时但无加成，欠的是**半时加成** `unpaid OT = 0.5 × regular rate × OT hours`（29 C.F.R. §778.110(b)）；若加班小时**完全未付**，则欠 `1.5 × regular rate × OT hours`。**算之前先声明假设的是哪种支付姿态**，这决定 0.5× 还是 1.5×，是最常见错误。
-4. **显式展示算式**（无算式的数字律师无法使用）：
-   ```
-   Regular rate    = (直时工资 + 非酌情奖金 + 其他未除外报酬) ÷ 总工时
-   OT premium owed = 0.5 × regular rate × OT hours    [若加班小时已付直时]
-                   = 1.5 × regular rate × OT hours    [若加班小时未付]
-   ```
-5. **惩罚性赔偿（liquidated damages）使回算翻倍**：29 U.S.C. §216(b)，金额 = 未付回算额，除非雇主向法院证明出于善意且有合理理由（§260）。默认假设适用，举证责任在雇主。
-6. **诉讼时效 2 年；恶意（willful）3 年**：29 U.S.C. §255(a)。显式说明回溯期，恶意姿态未定时**两端都算**。
-7. **州法叠加**：很多州时效更长、加班倍数更高（日加班、双倍）、regular rate 规则不同。对照 Step 1 辖区闸门，标出州法是加码（更高上限）还是替换（不同费率）。加州、纽约、马萨诸塞、华盛顿最常命中。
-8. **给数字打 verify 标签**：本技能产出的任何回算金额，在该行附 `[verify — 主张或支付前咨询工资工时律师]`。计算是专家工作，本技能只是脚手架，不是意见。
-
-> 若回算所需输入缺失（奖金构成、加班小时是否已付直时、恶意姿态、州辖区）→ **算之前先问**。一个自信的错误数字是本技能能产出的最坏结果。
-
-### Step 3 · 标记（诚实）
-- 答案在已核查规则下清晰 → 明说（「豁免——满足适用职责测试各要件 + 当前薪资门槛」）。
-- close call → 明说（「职责测试处于边界，两可；建议从严按非豁免，或取正式意见」）。
-- 法律在变 → 明说（「该规则近期修订，新版 [日期] 生效，依赖前确认生效日」）。
-- 无法核实当前性 → 明说，不要猜。
-
-## 指令
-
-- **来源标注（不可省略 / 合并）**：每条引用打标签——`[Westlaw]` / `[CourtListener]` / 法律研究连接器的 MCP 工具名；`[web search — verify]`（网搜）；`[model knowledge — verify]`（训练知识回忆，**默认**）；`[user provided]`（用户提供）。带 `verify` 的造假风险高，优先核验，**绝不剥离或合并标签**。
-- **禁止静默补全**：若对「辖区 × 问题」的研究查询返回很少 / 无结果，**报告所得并停止**，不得用网搜 / 模型知识私自填补。给出四个选项（拓宽查询 / 换工具 / 网搜并打 verify 标签 / 标为未核实并停止），由律师决定是否接受低置信来源。
-- **currency 触发**：凡涉及近期判例 / 立法、生效日或「已颁布 vs 待生效」、执法姿态、年度指数化门槛——依赖模型知识前**先跑网搜**。判据：行所所发布的该主题 alert 是否会有「近期动态」一节？是则必须核查。
-- **辖区假设**：答案仅适用于已识别辖区；规则各州 / 各国差异巨大且常年变。若员工在别处工作或问题是按默认辖区作答的，答案可能不照搬适用——在输出中点明。
-- **核验用户陈述的法律事实**：用户给出法条 / 判例名 / 日期 / 门槛 / 时效时，先核验再据以推理。例：「你提到恶意 FLSA 违规时效是 4 年——我理解是 3 年（非恶意 2 年），确认下你指哪个？`[premise flagged — verify]`」
-
-## 示例
-
-输入：
-```
-我们在加州有个营销经理年薪 6.2 万，算豁免吗？
-```
-→ 必须核查：加州行政 / 专业 / 行政管理豁免的**当前薪资门槛**（加州 = 州最低工资 ×2 全职年化，按雇主规模 / 年度指数化变动）+ 适用职责测试。不要凭记忆给数字；核查后若该薪资低于当前门槛 → 仅凭薪资即不豁免，无需再做职责分析。
-
-输出格式（对话式，非备忘录）：
-```
-**[辖区]：** [核查所得规则，一段话，含精确引证与 currency 注记。]
-
-[若 close call 或法律在变：标记。]
-
-[若其他辖区答案不同：一行注明差异及是否重大。]
-```
-
-回算输入示例：
-```
-员工时薪 $20，某两周做了 90 小时（含 10 小时加班），每小时都按 $20 付了直时但没付加班加成；
-本季度还发了 $400 出勤奖金。这两周欠多少？
-```
-→ 奖金计入：regular rate = (90×$20 + 该期分摊奖金) ÷ 总工时；加班小时已付直时 → 用 **0.5×** 半时加成；附 liquidated damages 翻倍与 2/3 年时效两端；末行打 `[verify — 主张或支付前咨询工资工时律师]`。
-
-## 注意事项
-
-- **It depends 是真话但无用**：本技能的价值是给出**辖区专属、有引证、经核查**的答案，并在足够接近时标记需人工判断。
-- **薪资门槛是高频陷阱**：多州按年度指数化、按雇主规模分档，凭记忆几乎必错——一律核查当前数额。
-- **离职结薪时限区分解雇 vs 离职**：很多州两者不同，且有滞付罚金，别合并作答。
-- **餐休 / 工间休息漏休常带罚金工资（penalty pay）**，把后果一并核查。
-- **州法常叠加联邦**：日加班、双倍工资、更长时效、不同 regular rate 规则——CA/NY/MA/WA 最常命中。
-- **回算金额属专家工作**：本技能是脚手架不是意见，缺输入先问，给数字必打 verify 标签。
-- 非律师用户出终稿前须经律师复核；若需找律师，引导其联系所在辖区执业监管机构（美国州律协、英格兰及威尔士 SRA/BSB 等）转介。
-
-## 互见
-
-- requires：（无）
-- related：`worker-classification-analyzer` —— 「能否分类为承包人」类问题路由至此；`general-counsel-advisor` —— 合同 / 监管层面的雇佣问题；`employment-contract-drafter` —— 把结论落到雇佣 / 承包协议条款；`fact-checking` —— 每条法条 / 判例的多源核查与 verify 标签机制一脉相承。
-- combines_with：`worker-classification-analyzer` —— 工时薪酬问答常与用工分类联动（误分类直接放大欠薪敞口），两者搭配覆盖「先定性、再算账」。
+1. Load `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → jurisdictional footprint.
+2. Use the workflow below.
+3. Identify jurisdiction the question is about. If not specified, ask.
+4. Answer per that jurisdiction's rule. Cite. Flag if it's a close call or law is shifting.
 
 ---
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。本技能不构成法律意见，凭记忆的规则一律须经针对适用辖区的当前核查；有约束力的决定请始终咨询合格律师。
+## Matter context
+
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/employment-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/employment-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+
+---
+
+## Purpose
+
+"It depends" is true but unhelpful. This skill produces a jurisdiction-specific
+answer grounded in researched, cited primary sources — and flags when the
+question is close enough to need human judgment. It does not state rules from
+memory: wage-and-hour thresholds, exemption criteria, and final-pay timing
+change frequently and vary meaningfully by state.
+
+## Load context
+
+`~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → jurisdictional footprint. If the question doesn't specify a
+jurisdiction, ask — or answer for the state with the most employees and note
+that.
+
+## The answer
+
+### Step 1: Jurisdiction
+
+Which state/country is this about? If not stated:
+- If it's about a specific employee: where do they work?
+- If it's a policy question: identify the jurisdictions in the footprint that
+  are most likely to be the most restrictive on the question at hand, then
+  research those.
+
+### Step 2: Research the rule, then state it
+
+> **Research before answering.** For the jurisdiction and question, identify
+> the currently operative rule. Cite the controlling primary source (statute,
+> regulation, wage order, or case) with a pinpoint cite. Note the effective
+> date and whether the rule has been recently amended, indexed, or is in
+> litigation. If you are uncertain or cannot verify the current state of the
+> law, say so and flag for attorney verification — do not state a rule you
+> haven't confirmed.
+
+State the rule in one paragraph, tied to the cite. Use your tools (web search,
+legal research integrations, team reference materials) to verify currency —
+especially for:
+
+> **No silent supplement.** If a research query to the configured legal research tool (Westlaw, CourtListener, or firm platform) returns few or no results for the jurisdiction-and-question, report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [jurisdiction / question]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag the question as unverified and stop here. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
+>
+> **Source attribution.** Tag every citation in the answer with where it came from: `[Westlaw]`, `[CourtListener]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations the user supplied. Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags.
+
+
+- Salary thresholds for any exemption (federal and state — several states
+  index annually and several have tiered thresholds by employer size).
+- Final-pay timing on termination vs. resignation (many states differ).
+- PTO payout requirements (jurisdiction-specific; some require, some leave
+  it to policy, some depend on accrual-plan design).
+- Meal and rest break rules and any penalty-pay consequence.
+- Daily or weekly overtime rules (some states have daily overtime and
+  double-time rules that federal law does not).
+- Classification tests — see the worker-classification skill; the applicable
+  test depends on jurisdiction and purpose.
+
+Common question types you may be asked — for each, the answer is
+jurisdiction-specific and time-sensitive. Do not state the rule here; route
+to research:
+
+- "Is this role exempt?" — Research the applicable federal and state salary
+  thresholds (verify current amounts and any employer-size tiers) and the
+  applicable duties test(s).
+- "Do we have to pay overtime for X?" — Research federal FLSA overtime plus
+  any state-specific overtime rules (daily OT, double-time, alternative
+  workweeks).
+- "Do we have to provide meal/rest breaks?" — Research the applicable
+  state rule and any penalty-pay consequence for missed breaks.
+- "When is final pay due?" — Research the applicable state rule, including
+  whether timing differs for termination vs. resignation and whether
+  waiting-time or late-pay penalties apply.
+- "Do we have to pay out accrued PTO?" — Research the applicable state rule
+  and any carve-out for accrual-cap or use-it-or-lose-it policies.
+- "Can we classify this person as a contractor?" — Route to
+  `/employment-legal:worker-classification` if the facts are not already clear.
+
+### Step 2a: FLSA regular-rate and back-pay calculations
+
+When the question is a back-pay computation, unpaid-OT computation, or any
+question that turns on the FLSA "regular rate," use this scaffold. Do not
+answer from bare hourly wage × OT hours; that's the two most common errors
+this skill exists to catch.
+
+**The regular rate is NOT just the hourly wage.** Under 29 U.S.C. §207(e),
+the regular rate is **all remuneration** for employment EXCEPT the eight
+statutory exclusions in §207(e)(1)–(8) (e.g., discretionary bonuses, gifts,
+premium pay, expense reimbursements, profit-sharing plans meeting the DOL
+regs, stock options meeting §207(e)(8), retirement/insurance contributions).
+Anything NOT within those eight exclusions is IN.
+
+1. **Non-discretionary bonuses are IN the regular rate.** Productivity
+   bonuses, attendance bonuses, commissions, shift differentials, contest
+   awards, and most "bonuses" a reasonable employee would expect as a matter
+   of course are non-discretionary under §207(e)(3) and 29 C.F.R. §778.211.
+   Divide the bonus by the total hours worked in the bonus period to get
+   the per-hour increase to the regular rate. True discretionary bonuses
+   (§207(e)(3)) require both the fact of payment AND the amount to be
+   within the employer's sole discretion, determined at or near the end of
+   the period — narrow category.
+2. **The unpaid OT premium is 0.5×, not 1.5× — when straight time was
+   already paid for all hours.** If the employee was paid straight time for
+   every hour (including the OT hours) but no premium, they are owed the
+   **half-time premium** on OT hours, not time-and-a-half: `unpaid OT =
+   0.5 × regular rate × OT hours`. 29 C.F.R. §778.110(b). If the employee
+   was NOT paid for the OT hours at all, the owed amount is 1.5× the
+   regular rate on those hours. **State which pay posture you're assuming
+   before you compute** — it determines 0.5× vs. 1.5× and is the most
+   common error in this computation.
+3. **Show your math.** Print the formula and the inputs explicitly:
+   ```
+   Regular rate    = (straight-time wages + non-discretionary bonuses + other non-excluded comp) ÷ total hours worked
+   OT premium owed = 0.5 × regular rate × OT hours    [if straight time already paid for OT hours]
+                   = 1.5 × regular rate × OT hours    [if OT hours were unpaid]
+   ```
+   A number without the formula is not usable by a wage-and-hour lawyer.
+4. **Liquidated damages double the back-pay.** 29 U.S.C. §216(b). Liquidated
+   damages equal the unpaid back-pay amount unless the employer proves, to
+   the court's satisfaction, that the violation was in good faith and based
+   on reasonable grounds to believe it was not a violation. 29 U.S.C.
+   §260. Default assumption is liquidated damages apply; the employer bears
+   the burden to avoid them.
+5. **Statute of limitations is 2 years; 3 for willful.** 29 U.S.C. §255(a).
+   State the lookback explicitly and compute both bookends unless the
+   willfulness posture is already established by the user.
+6. **State overlay.** Many states have longer lookback, higher overtime
+   multipliers (daily OT, double-time), and different regular-rate rules.
+   Check state wage-and-hour law against the jurisdiction gate from Step 1
+   and flag where state law compounds (higher cap) or replaces (different
+   rate) federal. California, New York, Massachusetts, and Washington are
+   the most frequent overlay hits.
+7. **Attach the verify tag to the number.** Any back-pay amount produced by
+   this skill carries `[verify — consult wage-and-hour counsel before
+   asserting or paying]` on the line the number appears. The computation is
+   specialist work; the skill is scaffolding, not opinion.
+
+If the question is a back-pay calculation and any of these inputs are
+missing (bonus breakdown, whether straight time was paid for OT hours,
+willfulness posture, state jurisdiction), **ask before computing**. A
+confident wrong number is the worst output this skill can produce.
+
+### Step 3: The flag
+
+Is this a close call? Be honest.
+
+- If the answer is clear on the researched rule: say so. "Exempt — meets
+  each element of the applicable duties test and the current salary
+  threshold."
+- If it's close: say so. "The duties test is borderline — this role could
+  go either way. Recommend classifying as non-exempt to be safe, or getting
+  a formal opinion."
+- If the law is in flux: say so. "This rule has been amended recently — the
+  current version takes effect [date]. Confirm effective date before relying
+  on this answer."
+- If you could not verify currency: say so. Do not guess.
+
+## Output format
+
+Conversational. This is a Q&A, not a memo.
+
+> **Research-connector pre-flight.** Before emitting the answer, check whether a legal research connector is reachable for this session — Westlaw, CourtListener, or any firm-configured research MCP. Collect this into the reviewer note per CLAUDE.md `## Outputs`: if no connector returns results in Step 2 (or none is configured at run time), record it in the **Sources:** line of the reviewer note — e.g., `not connected — cites from training knowledge; pinpoint cites (volume/page/subsection) carry the highest fabrication risk, spot-check those first`. Per-citation `[model knowledge — verify]` tags remain inline. Do not emit a standalone banner above the output.
+
+> **Jurisdiction assumption.** Answers apply only to the jurisdiction identified. Wage-hour rules, exemption thresholds, and final-pay timing vary materially by state and country, and many rules index or change year over year. If the employee works in another jurisdiction, or the question is answered for the default-footprint state, this answer may not apply as written.
+
+```
+**[Jurisdiction]:** [The researched rule, one paragraph, with pinpoint cite
+and currency note.]
+
+[If close call or shifting law: the flag.]
+
+[If the answer differs in other footprint jurisdictions: one line noting that,
+and whether the differences are material.]
+```
+
+> **Verify citations.** Any case, statute, regulation, or wage-order cite above was generated with AI assistance. Before relying on a cite, check it against Westlaw, CourtListener, the relevant state agency's site, or your firm's research tool for accuracy, currency, and subsequent history. Fabricated or misquoted citations in filings or formal advice have resulted in sanctions.
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+## What this skill does not do
+
+- State the rule from memory — every answer is grounded in a researched,
+  cited primary source verified for currency.
+- Make classification decisions for borderline cases. It states the rule and
+  flags the close call. Human decides.
+- Give a 50-state survey unless asked. Answers for the relevant
+  jurisdiction(s).
+- Track when the answer changes. If thresholds index or law shifts, the
+  answer goes stale. Re-ask for current.

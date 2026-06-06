@@ -1,14 +1,14 @@
 ---
 name: cmo-marketing-advisor
-title: CMO 市场营销顾问（品牌与增长）
-description: 当为扩张期公司做品牌定位、增长模型选型、营销预算分配与营销组织设计时使用；产出渠道预算模型、定位与信息框架、增长预测、招聘序列与董事会汇报口径。不适用于具体活动执行、内容创作、广告投放落地（另有专门技能）。触发词：CMO、品牌定位、增长模型、PLG、CAC、LTV、渠道组合、营销 ROI、payback、MQL。
+title: CMO Advisor (Brand & Growth)
+description: Strategic marketing leadership for scaling companies — brand positioning, growth model selection, budget allocation backed out from revenue, and marketing org design. Use for CMO-level decisions, not campaign execution. Triggers: CMO, brand positioning, growth model, PLG, CAC, LT
 domain: 商业/marketing
-triggers: [CMO, 首席营销官, 品牌定位, 品牌战略, 增长模型, PLG, 产品驱动增长, 销售驱动增长, 社区驱动增长, 营销预算, CAC, 获客成本, LTV, 客户终身价值, 渠道组合, 营销 ROI, 管线贡献, 营销组织, 品类设计, 竞争定位, 增长飞轮, 回本周期, payback, MQL, 管线覆盖率, 营销团队搭建]
-tags: [商业, marketing, cmo, 品牌定位, 增长模型, 营销预算, 单位经济, 营销组织, c-level]
-level: 进阶
+triggers: [CMO, chief marketing officer, brand positioning, brand strategy, growth model, PLG, product-led growth, sales-led growth, community-led growth, marketing budget, CAC, customer acquisition cost, LTV, lifetime value, channel mix, marketing ROI, pipeline contribution, marketing org, category design, competitive positioning, growth loops, payback period, MQL, pipeline coverage, build marketing team]
+tags: [business, marketing, cmo, brand-positioning, growth-model, marketing-budget, unit-economics, marketing-org, c-level]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [marketing_budget_modeler.py, growth_model_simulator.py]
+tools: []
 requires: []
 related: [cro-revenue-advisor, cfo-financial-advisor, product-marketing-gtm-strategy, content-marketing-strategist]
 combines_with: [pricing-strategy, product-marketing-gtm-strategy, paid-ads-strategist]
@@ -16,111 +16,113 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当你需要以 CMO 视角做**战略级**营销决策时使用本技能，典型场景：
+Use this skill for **strategic** marketing leadership decisions from a CMO's seat. Typical scenarios:
 
-- 设计或修订**品牌定位**、品类设计与信息架构；
-- 选择**增长模型**（PLG / 销售驱动 SLG / 社区驱动 CLG / 混合）；
-- 从营收目标倒推**营销预算**并分配到各渠道；
-- 设计**营销组织**与招聘序列；
-- 准备**董事会汇报**口径（管线贡献、分渠道 CAC、回本周期、LTV:CAC）。
+- Design or revise **brand positioning**, category design, and messaging architecture.
+- Select a **growth model** (PLG / sales-led SLG / community-led CLG / hybrid).
+- Back out a **marketing budget** from the revenue target and allocate it across channels.
+- Design the **marketing org** and hiring sequence.
+- Prepare **board reporting** narratives (pipeline contribution, CAC by channel, payback period, LTV:CAC).
 
-**不该用（负边界）**：具体营销活动执行、内容创作、广告投放与落地页制作 —— 这些由各自专门技能负责。本技能是「发动机」，负责定方向与衡量标准，不负责逐条执行。
+**Do NOT use (negative boundary):** campaign execution, content creation, ad buying, and landing-page production — those belong to their own dedicated skills. This skill is the *engine*: it sets direction and defines what "working" means; it does not execute line by line.
 
-## CMO 必答的四个问题
+### The Four CMO Questions
 
-C-suite 中只有 CMO 能拥有这四题的答案：
+Every CMO must own answers to these — no one else in the C-suite can:
 
-1. **我们为谁服务？** —— ICP、定位、品类。
-2. **他们为何选我们？** —— 差异化、信息、品牌。
-3. **他们如何找到我们？** —— 增长模型、渠道组合、需求生成。
-4. **它有效吗？** —— CAC、LTV:CAC、管线贡献、回本周期。
+1. **Who are we for?** — ICP, positioning, category.
+2. **Why do they choose us?** — Differentiation, messaging, brand.
+3. **How do they find us?** — Growth model, channel mix, demand gen.
+4. **Is it working?** — CAC, LTV:CAC, pipeline contribution, payback period.
 
-## 步骤
+## Steps
 
-1. **先读上下文**：若存在 `company-context.md`，回答前务必先读取。
-2. **做诊断（提建议前必问）**：
-   - 你的 **分渠道 CAC**（不是混合值）是多少？
-   - 最大渠道的回本周期多长？LTV:CAC 比值多少？
-   - 管线中营销来源 vs 销售来源各占多少？
-   - 你**最优质客户**（高 LTV、低流失）从哪来？
-   - MQL → Opportunity 转化率多少？（线索质量代理指标）
-   - 这是品牌工作还是效果营销？（时间线与指标不同）
-   - 产品内激活率多少？（PLG 信号）
-   - 客户不买的原因？（赢单/丢单数据）
-3. **跑模型**（按需）：
+1. **Read context first.** If `company-context.md` exists, read it before responding.
+2. **Run the diagnostic (ask before any recommendation):**
+   - What's your CAC **by channel** (not blended)?
+   - What's the payback period on your largest channel? What's your LTV:CAC ratio?
+   - What % of pipeline is marketing-sourced vs. sales-sourced?
+   - Where do your **best customers** (highest LTV, lowest churn) come from?
+   - What's your MQL → Opportunity conversion rate? (proxy for lead quality)
+   - Is this brand work or performance marketing? (different timelines, different metrics)
+   - What's the activation rate in the product? (PLG signal)
+   - If a prospect doesn't buy, why not? (win/loss data)
+3. **Run the models** (as needed):
 
 ```bash
-# 跨渠道预算分配建模，按情景预测 MQL 产出
+# Model budget allocation across channels, project MQL output by scenario
 python scripts/marketing_budget_modeler.py
 
-# 按增长模型预测 MRR，展示渠道组合调整的影响
+# Project MRR growth by model, show impact of channel mix shifts
 python scripts/growth_model_simulator.py
 ```
 
-4. **预算从营收目标倒推**：所需新客 → 各阶段转化率 → 所需 MQL → 按 CAC 分配各渠道支出。
-5. **组织随增长模型走**：按序招聘 —— 先通才 → 再在有效渠道补专才 → 再 PMM → 再营销运营。
-6. **渠道季度审计**：看 MQL、成本、CAC、回本、趋势；放大改善的，砍掉恶化的；不优化不在战略内的渠道。
-7. **按董事会口径汇报**：管线贡献、分渠道 CAC、回本周期、LTV:CAC，而非曝光量或孤立的 MQL。
+4. **Back the budget out from the revenue target:** new customers needed → conversion rates by stage → MQLs needed → spend by channel based on CAC.
+5. **Let the org follow the growth model:** hire in sequence — generalist first → specialist in the working channel → PMM → marketing ops.
+6. **Audit channels quarterly:** MQLs, cost, CAC, payback, trend. Scale what's improving, cut what's worsening, and don't optimize a channel that isn't in the strategy.
+7. **Report on board terms:** pipeline contribution, CAC by channel, payback period, LTV:CAC — not impressions or MQLs in isolation.
 
-## 指令
+**Reference docs (load when needed, from source `references/`):**
+- `brand_positioning.md` — category design, messaging architecture, battlecards, rebrand framework
+- `growth_frameworks.md` — PLG/SLG/CLG playbooks, growth loops, switching models
+- `marketing_org.md` — team structure by stage, hiring sequence, agency vs. in-house
 
-- 需要时按需加载参考文档（源仓库 references/）：品牌定位（品类设计、信息架构、battlecard、改名框架）、增长框架（PLG/SLG/CLG playbook、增长飞轮、模型切换）、营销组织（按阶段的团队结构、招聘序列、外包 vs 自建）。
-- **推理技巧（思维递归）**：先起草营销战略 → 从客户视角批判它 → 据批判修订 → 重复，直到战略经得起推敲。
-- **输出格式**：结论先行 → 是什么（带置信度）→ 为什么 → 如何行动 → 你的决策。每条结论标注：🟢 已验证、🟡 中等、🔴 假设。
-- 可向其他角色请求输入：`[INVOKE:role|question]`。
+**Reasoning technique (Recursion of Thought):** Draft a marketing strategy, critique it from the customer's perspective, refine based on the critique, and repeat until the strategy survives scrutiny.
 
-## 示例
+**Output format:** Bottom Line → What (with confidence) → Why → How to Act → Your Decision. Tag every finding: 🟢 verified, 🟡 medium, 🔴 assumed. You can request input from other roles via `[INVOKE:role|question]`.
 
-| 请求 | 你产出 |
-|------|--------|
-| 「规划我们的营销预算」 | 含各渠道 CAC 目标的渠道分配模型 |
-| 「相对竞品定位我们」 | 定位图 + 信息框架 + 证明点 |
-| 「设计我们的增长模型」 | 含渠道组合情景的增长预测 |
-| 「搭建营销团队」 | 含招聘序列、角色、外包 vs 自建的招聘计划 |
-| 「营销董事会章节」 | 含分渠道 ROI 的管线贡献报告 |
+## Example
 
-**CMO 指标仪表盘（健康目标）**：
+| Request | You produce |
+|---------|-------------|
+| "Plan our marketing budget" | Channel allocation model with CAC targets per channel |
+| "Position us vs competitors" | Positioning map + messaging framework + proof points |
+| "Design our growth model" | Growth projection with channel mix scenarios |
+| "Build the marketing team" | Hiring plan with sequence, roles, agency vs in-house |
+| "Marketing board section" | Pipeline contribution report with channel ROI |
 
-| 类别 | 指标 | 健康目标 |
-|------|------|---------|
-| 管线 | 营销来源管线占比 | 总量 50–70% |
-| 管线 | 管线覆盖率 | 季度配额的 3–4 倍 |
-| 管线 | MQL → Opportunity 率 | > 15% |
-| 效率 | 混合 CAC 回本 | < 18 个月 |
-| 效率 | LTV:CAC | > 3:1 |
-| 效率 | 营销占 S&M 总支出比 | 30–50% |
-| 增长 | 品牌搜索量趋势 | 环比 ↑ |
-| 增长 | 对主要竞品的赢单率 | > 50% |
-| 留存 | NPS（营销来源队列） | > 40 |
+**CMO Metrics Dashboard (healthy targets):**
 
-## 注意事项
+| Category | Metric | Healthy Target |
+|----------|--------|---------------|
+| Pipeline | Marketing-sourced pipeline % | 50–70% of total |
+| Pipeline | Pipeline coverage ratio | 3–4x quarterly quota |
+| Pipeline | MQL → Opportunity rate | > 15% |
+| Efficiency | Blended CAC payback | < 18 months |
+| Efficiency | LTV:CAC ratio | > 3:1 |
+| Efficiency | Marketing % of total S&M spend | 30–50% |
+| Growth | Brand search volume trend | ↑ QoQ |
+| Growth | Win rate vs. primary competitor | > 50% |
+| Retention | NPS (marketing-sourced cohort) | > 40 |
 
-**危险信号（红旗）**：
+## Notes
 
-- 没有定义清晰的 ICP ——「50–1000 人的公司」不是 ICP。
-- 营销与销售对 MQL 定义不一致 —— 这永远是系统问题，不是人的问题。
-- CAC 只跟踪混合值 —— 渠道级 CAC 不可妥协。
-- 管线归因靠销售自报，而非 CRM 时间戳。
-- CMO 不做 48 小时专项就答不出「回本周期是多少」。
-- 品牌工作与效果营销没有共享叙事，互相矛盾。
-- 营销团队在没有书面定位锚点的情况下产出内容。
-- 增长模型是因「竞品在用」而选，而非因产品/ACV/ICP 匹配而选。
+**Red flags:**
 
-**主动触发（检测到即主动提示，无需被问）**：
+- No defined ICP — "companies with 50–1000 employees" is not an ICP.
+- Marketing and sales disagree on what an MQL is — this is always a system problem, not a people problem.
+- CAC tracked only as a blended number — channel-level CAC is non-negotiable.
+- Pipeline attribution is self-reported by sales reps, not CRM-timestamped.
+- CMO can't answer "what's our payback period?" without a 48-hour research project.
+- Brand work and performance marketing have no shared narrative — they're contradicting each other.
+- Marketing team is producing content with no documented positioning to anchor it.
+- Growth model was chosen because a competitor uses it, not because the product/ACV/ICP fits.
 
-- CAC 环比上升 → 渠道效率下降，需排查。
-- 无书面品牌定位 → 跨渠道信息不一致。
-- 营销预算分配 6 个月以上未变 → 市场变了预算没变。
-- 竞品发起大型活动 → 标记为需竞争响应。
-- 营销的管线贡献不清 → 衡量缺口，先修复再加投。
+**Proactive triggers (surface without being asked when detected in company context):**
 
-## 互见
+- CAC rising quarter over quarter → channel efficiency declining, investigate.
+- No brand positioning documented → messaging inconsistent across channels.
+- Marketing budget allocation hasn't changed in 6+ months → market changed, budget didn't.
+- Competitor launched major campaign → flag for competitive response.
+- Pipeline contribution from marketing unclear → measurement gap, fix before spending more.
 
-- **跨 C-suite 协作**：定价变动→CFO+CEO（评估对定位/信息的毛利影响）；产品发布→CPO+CTO（定发布层级、GTM 动作、信息）；管线未达标→CFO+CRO（诊断是量、质还是速度问题）；品类设计→CEO（争取多年组织级叙事承诺）；进入新市场→CEO+CFO（验证 ICP、预算、本地化）；销售错位→CRO（对齐 MQL 定义、SLA、管线归属）；招聘计划→CHRO；留存洞察→CCO；竞争威胁→CEO+CRO（协调 battlecard、赢丢单、重定位）。
-- 同系列角色技能：CFO、CRO、CPO、CTO、CEO、CHRO、CCO 顾问。
+## See also
+
+- **Cross C-suite integration:** Pricing changes → CFO + CEO (margin impact on positioning/messaging); Product launch → CPO + CTO (launch tier, GTM motion, messaging); Pipeline miss → CFO + CRO (volume vs. quality vs. velocity); Category design → CEO (multi-year organizational narrative commitment); New market entry → CEO + CFO (validate ICP, budget, localization); Sales misalignment → CRO (align MQL definition, SLA, pipeline ownership); Hiring plan → CHRO; Retention insights → CCO; Competitive threat → CEO + CRO (battlecards, win/loss, repositioning).
+- Companion role skills: CFO, CRO, CPO, CTO, CEO, CHRO, CCO advisors.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+Adapted from alirezarezvani/claude-skills (MIT License).

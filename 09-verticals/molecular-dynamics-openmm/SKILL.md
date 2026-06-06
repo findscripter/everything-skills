@@ -1,14 +1,14 @@
 ---
 name: molecular-dynamics-openmm
-title: 分子动力学模拟（OpenMM/MDAnalysis）
-description: 当需要对蛋白质/小分子体系跑经典分子动力学（MD）模拟并做轨迹分析时使用；用 OpenMM 搭体系、跑能量最小化与 NVT/NPT 平衡及产能模拟，再用 MDAnalysis 算 RMSD/RMSF/接触/自由能并出图；不适用于量子化学/电子结构（DFT）、分子对接打分（docking）或纯实验数据统计制图；触发词：分子动力学、MD模拟、OpenMM、MDAnalysis、RMSD、RMSF、力场、PDBFixer、molecular dynamics、trajectory analysis
+title: Molecular Dynamics
+description: Run and analyze molecular dynamics simulations with OpenMM and MDAnalysis. Set up protein/small molecule systems, define force fields, run energy minimization and production MD, analyze trajectories (RMSD, RMSF, contact maps, free energy surfaces). For structural biology, drug binding, and biophysics.
 domain: 领域/science
-triggers: [分子动力学, MD模拟, OpenMM, MDAnalysis, RMSD, RMSF, 力场, 蛋白质动力学, PDBFixer, molecular dynamics, trajectory analysis, NVT, NPT, 能量最小化]
+triggers: [OpenMM, MDAnalysis, RMSD, RMSF, PDBFixer, molecular dynamics, trajectory analysis, NVT, NPT]
 tags: [molecular-dynamics, openmm, mdanalysis, simulation, structural-biology, biophysics, python, misc]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [OpenMM, MDAnalysis, PDBFixer, OpenFF Toolkit, NumPy, Matplotlib, conda/pip]
+tools: []
 requires: []
 related: [molecular-dynamics-simulation, autodock-vina-docking, diffdock-blind-docking, rcsb-pdb-database]
 combines_with: [rdkit-cheminformatics, protein-language-models]
@@ -16,144 +16,452 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# Molecular Dynamics
 
-当任务需要在原子尺度上积分牛顿运动方程、模拟分子体系随时间的演化并分析其动力学时使用。典型场景：
+## Overview
 
-- 蛋白质稳定性 / 突变效应、构象采样与柔性分析
-- 药物结合模式、停留时间（residence time）、蛋白-配体接触
-- 蛋白-蛋白界面动力学、膜蛋白、内在无序蛋白（IDP/IDR）系综
-- 从参考结构量化结构涨落（RMSD / RMSF）、估计结合或构象自由能
+Molecular dynamics (MD) simulation computationally models the time evolution of molecular systems by integrating Newton's equations of motion. This skill covers two complementary tools:
 
-**不该用的边界：**
-- 需要电子结构 / 量子化学（DFT、能级、反应过渡态）——MD 用经典力场，不算电子。
-- 仅做分子对接打分（docking / virtual screening）选苗头化合物——用 `autodock-vina-docking`。
-- 只有实验数据要做统计/制图，没有要跑模拟轨迹。
-- 无 GPU 且体系很大（数十万原子、ns 级）时 CPU 上耗时不可接受，先评估算力再开跑。
+- **OpenMM** (https://openmm.org/): High-performance MD simulation engine with GPU support, Python API, and flexible force field support
+- **MDAnalysis** (https://mdanalysis.org/): Python library for reading, writing, and analyzing MD trajectories from all major simulation packages
 
-## 步骤
-
-1. **装环境**：`conda install -c conda-forge openmm mdanalysis nglview` 或 `pip install openmm mdanalysis`。
-2. **修结构**：原始 PDB 用 PDBFixer 补缺失残基/原子、去杂原子、按 pH 加氢。
-3. **建体系**：加载力场 → Modeller 加氢 → addSolvent 加水盒（10 Å padding、0.15 M NaCl）→ createSystem（PME + HBonds 约束）。
-4. **能量最小化**：消除空间冲突，输出 minimized.pdb。
-5. **平衡**：NVT（50–100 ps，setVelocitiesToTemperature 到目标温度）→ NPT（加 MonteCarloBarostat 控压，100–500 ps）。
-6. **产能模拟**：NPT 长程跑（如 1 ns+），DCDReporter 存轨迹、StateDataReporter 记日志、CheckpointReporter 存断点。
-7. **分析**：MDAnalysis 加载拓扑+轨迹，对齐后算 RMSD/RMSF/接触并出图，丢弃前 20–50% 平衡段。
-
-## 指令
-
-**力场选择（关键约束）：**
-
-| 体系 | 推荐力场 | 水模型 |
-|------|---------|-------|
-| 标准蛋白 | AMBER14 (`amber14-all.xml`) | TIP3P-FB |
-| 蛋白+小分子 | AMBER14 + GAFF2/OpenFF | TIP3P-FB |
-| 膜蛋白 | CHARMM36m | TIP3P |
-| 核酸 | AMBER99-bsc1 或 AMBER14 | TIP3P |
-| 无序蛋白 | ff19SB 或 CHARMM36m | TIP3P |
-
-**最佳实践（务必遵守）：**
-- 跑 MD 前必先最小化——原始 PDB 有空间冲突。
-- 顺序：最小化 → NVT → NPT → 产能；只分析平衡后轨迹。
-- 优先 GPU（CUDA/OpenCL），比 CPU 快 10–100×；代码里 try CUDA → OpenCL → CPU 逐级回退。
-- 2 fs 步长配 `constraints=HBonds`；用氢质量重分配（HMR）可放到 4 fs。
-- 溶剂化体系必须用周期性边界（PBC）；长程静电用 PME 而非简单截断。
-- 存断点，MD 易中断、便于重启。
-
-## 示例
-
-**修结构（PDBFixer）：**
-```python
-from pdbfixer import PDBFixer
-from openmm.app import PDBFile
-
-fixer = PDBFixer(filename="raw.pdb")
-fixer.findMissingResidues(); fixer.findNonstandardResidues()
-fixer.replaceNonstandardResidues(); fixer.removeHeterogens(True)  # 删水/配体
-fixer.findMissingAtoms(); fixer.addMissingAtoms()
-fixer.addMissingHydrogens(7.0)
-PDBFile.writeFile(fixer.topology, fixer.positions, open("fixed.pdb", "w"))
+**Installation:**
+```bash
+conda install -c conda-forge openmm mdanalysis nglview
+# or
+pip install openmm mdanalysis
 ```
 
-**体系准备（OpenMM）：**
+## When to Use This Skill
+
+Use molecular dynamics when:
+
+- **Protein stability analysis**: How does a mutation affect protein dynamics?
+- **Drug binding simulations**: Characterize binding mode and residence time of a ligand
+- **Conformational sampling**: Explore protein flexibility and conformational changes
+- **Protein-protein interaction**: Model interface dynamics and binding energetics
+- **RMSD/RMSF analysis**: Quantify structural fluctuations from a reference structure
+- **Free energy estimation**: Compute binding free energy or conformational free energy
+- **Membrane simulations**: Model proteins in lipid bilayers
+- **Intrinsically disordered proteins**: Study IDR conformational ensembles
+
+## Core Workflow: OpenMM Simulation
+
+### 1. System Preparation
+
+```python
+from openmm.app import *
+from openmm import *
+from openmm.unit import *
+import sys
+
+def prepare_system_from_pdb(pdb_file, forcefield_name="amber14-all.xml",
+                              water_model="amber14/tip3pfb.xml"):
+    """
+    Prepare an OpenMM system from a PDB file.
+
+    Args:
+        pdb_file: Path to cleaned PDB file (use PDBFixer for raw PDB files)
+        forcefield_name: Force field XML file
+        water_model: Water model XML file
+
+    Returns:
+        pdb, forcefield, system, topology
+    """
+    # Load PDB
+    pdb = PDBFile(pdb_file)
+
+    # Load force field
+    forcefield = ForceField(forcefield_name, water_model)
+
+    # Add hydrogens and solvate
+    modeller = Modeller(pdb.topology, pdb.positions)
+    modeller.addHydrogens(forcefield)
+
+    # Add solvent box (10 Å padding, 150 mM NaCl)
+    modeller.addSolvent(
+        forcefield,
+        model='tip3p',
+        padding=10*angstroms,
+        ionicStrength=0.15*molar
+    )
+
+    print(f"System: {modeller.topology.getNumAtoms()} atoms, "
+          f"{modeller.topology.getNumResidues()} residues")
+
+    # Create system
+    system = forcefield.createSystem(
+        modeller.topology,
+        nonbondedMethod=PME,         # Particle Mesh Ewald for long-range electrostatics
+        nonbondedCutoff=1.0*nanometer,
+        constraints=HBonds,           # Constrain hydrogen bonds (allows 2 fs timestep)
+        rigidWater=True,
+        ewaldErrorTolerance=0.0005
+    )
+
+    return modeller, system
+```
+
+### 2. Energy Minimization
+
 ```python
 from openmm.app import *
 from openmm import *
 from openmm.unit import *
 
-pdb = PDBFile("fixed.pdb")
-forcefield = ForceField("amber14-all.xml", "amber14/tip3pfb.xml")
-modeller = Modeller(pdb.topology, pdb.positions)
-modeller.addHydrogens(forcefield)
-modeller.addSolvent(forcefield, model='tip3p',
-                    padding=10*angstroms, ionicStrength=0.15*molar)
-system = forcefield.createSystem(
-    modeller.topology,
-    nonbondedMethod=PME, nonbondedCutoff=1.0*nanometer,
-    constraints=HBonds, rigidWater=True, ewaldErrorTolerance=0.0005)
+def minimize_energy(modeller, system, output_pdb="minimized.pdb",
+                     max_iterations=1000, tolerance=10.0):
+    """
+    Energy minimize the system to remove steric clashes.
+
+    Args:
+        modeller: Modeller object with topology and positions
+        system: OpenMM System
+        output_pdb: Path to save minimized structure
+        max_iterations: Maximum minimization steps
+        tolerance: Convergence criterion in kJ/mol/nm
+
+    Returns:
+        simulation object with minimized positions
+    """
+    # Set up integrator (doesn't matter for minimization)
+    integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.004*picoseconds)
+
+    # Create simulation
+    # Use GPU if available (CUDA or OpenCL), fall back to CPU
+    try:
+        platform = Platform.getPlatformByName('CUDA')
+        properties = {'DeviceIndex': '0', 'Precision': 'mixed'}
+    except Exception:
+        try:
+            platform = Platform.getPlatformByName('OpenCL')
+            properties = {}
+        except Exception:
+            platform = Platform.getPlatformByName('CPU')
+            properties = {}
+
+    simulation = Simulation(
+        modeller.topology, system, integrator,
+        platform, properties
+    )
+    simulation.context.setPositions(modeller.positions)
+
+    # Check initial energy
+    state = simulation.context.getState(getEnergy=True)
+    print(f"Initial energy: {state.getPotentialEnergy()}")
+
+    # Minimize
+    simulation.minimizeEnergy(
+        tolerance=tolerance*kilojoules_per_mole/nanometer,
+        maxIterations=max_iterations
+    )
+
+    state = simulation.context.getState(getEnergy=True, getPositions=True)
+    print(f"Minimized energy: {state.getPotentialEnergy()}")
+
+    # Save minimized structure
+    with open(output_pdb, 'w') as f:
+        PDBFile.writeFile(simulation.topology, state.getPositions(), f)
+
+    return simulation
 ```
 
-**最小化 + 平台回退：**
+### 3. NVT Equilibration
+
 ```python
-integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.004*picoseconds)
-try:
-    platform = Platform.getPlatformByName('CUDA'); props = {'DeviceIndex': '0', 'Precision': 'mixed'}
-except Exception:
-    try: platform = Platform.getPlatformByName('OpenCL'); props = {}
-    except Exception: platform = Platform.getPlatformByName('CPU'); props = {}
-sim = Simulation(modeller.topology, system, integrator, platform, props)
-sim.context.setPositions(modeller.positions)
-sim.minimizeEnergy(tolerance=10*kilojoules_per_mole/nanometer, maxIterations=1000)
+from openmm.app import *
+from openmm import *
+from openmm.unit import *
+
+def run_nvt_equilibration(simulation, n_steps=50000, temperature=300,
+                            report_interval=1000, output_prefix="nvt"):
+    """
+    NVT equilibration: constant N, V, T.
+    Equilibrate velocities to target temperature.
+
+    Args:
+        simulation: OpenMM Simulation (after minimization)
+        n_steps: Number of MD steps (50000 × 2fs = 100 ps)
+        temperature: Temperature in Kelvin
+        report_interval: Steps between data reports
+        output_prefix: File prefix for trajectory and log
+    """
+    # Add position restraints for backbone during NVT
+    # (Optional: restraint heavy atoms)
+
+    # Set temperature
+    simulation.context.setVelocitiesToTemperature(temperature*kelvin)
+
+    # Add reporters
+    simulation.reporters = []
+
+    # Log file
+    simulation.reporters.append(
+        StateDataReporter(
+            f"{output_prefix}_log.txt",
+            report_interval,
+            step=True,
+            potentialEnergy=True,
+            kineticEnergy=True,
+            temperature=True,
+            volume=True,
+            speed=True
+        )
+    )
+
+    # DCD trajectory (compact binary format)
+    simulation.reporters.append(
+        DCDReporter(f"{output_prefix}_traj.dcd", report_interval)
+    )
+
+    print(f"Running NVT equilibration: {n_steps} steps ({n_steps*2/1000:.1f} ps)")
+    simulation.step(n_steps)
+    print("NVT equilibration complete")
+
+    return simulation
 ```
 
-**NPT 产能（加恒压器 + 报告器）：**
+### 4. NPT Equilibration and Production
+
 ```python
-system.addForce(MonteCarloBarostat(1.0*bar, 300*kelvin, 25))
-sim.context.reinitialize(preserveState=True)
-sim.reporters = [
-    StateDataReporter("npt_log.txt", 5000, step=True, potentialEnergy=True,
-                      temperature=True, density=True, speed=True),
-    DCDReporter("npt_traj.dcd", 5000),
-    CheckpointReporter("npt.chk", 50000)]
-sim.step(500000)   # 500000 × 2 fs = 1 ns
+def run_npt_production(simulation, n_steps=500000, temperature=300, pressure=1.0,
+                        report_interval=5000, output_prefix="npt"):
+    """
+    NPT production run: constant N, P, T.
+
+    Args:
+        n_steps: Production steps (500000 × 2fs = 1 ns)
+        temperature: Temperature in Kelvin
+        pressure: Pressure in bar
+        report_interval: Steps between reports
+    """
+    # Add Monte Carlo barostat for pressure control
+    system = simulation.context.getSystem()
+    system.addForce(MonteCarloBarostat(pressure*bar, temperature*kelvin, 25))
+    simulation.context.reinitialize(preserveState=True)
+
+    # Update reporters
+    simulation.reporters = []
+    simulation.reporters.append(
+        StateDataReporter(
+            f"{output_prefix}_log.txt",
+            report_interval,
+            step=True,
+            potentialEnergy=True,
+            temperature=True,
+            density=True,
+            speed=True
+        )
+    )
+    simulation.reporters.append(
+        DCDReporter(f"{output_prefix}_traj.dcd", report_interval)
+    )
+
+    # Save checkpoints
+    simulation.reporters.append(
+        CheckpointReporter(f"{output_prefix}_checkpoint.chk", 50000)
+    )
+
+    print(f"Running NPT production: {n_steps} steps ({n_steps*2/1000000:.2f} ns)")
+    simulation.step(n_steps)
+    print("Production MD complete")
+    return simulation
 ```
 
-**RMSD 分析（MDAnalysis）：**
+## Trajectory Analysis with MDAnalysis
+
+### 1. Load Trajectory
+
 ```python
 import MDAnalysis as mda
-from MDAnalysis.analysis import rms, align
+from MDAnalysis.analysis import rms, align, contacts
+import numpy as np
+import matplotlib.pyplot as plt
 
-u = mda.Universe("npt.pdb", "npt_traj.dcd")
-align.AlignTraj(u, u, select="backbone", in_memory=True).run()
-R = rms.RMSD(u, select="backbone", ref_frame=0); R.run()
-rmsd = R.results.rmsd            # 列：frame, time(ps), RMSD(Å)
+def load_trajectory(topology_file, trajectory_file):
+    """
+    Load an MD trajectory with MDAnalysis.
+
+    Args:
+        topology_file: PDB, PSF, or other topology file
+        trajectory_file: DCD, XTC, TRR, or other trajectory
+    """
+    u = mda.Universe(topology_file, trajectory_file)
+    print(f"Universe: {u.atoms.n_atoms} atoms, {u.trajectory.n_frames} frames")
+    print(f"Time range: 0 to {u.trajectory.totaltime:.0f} ps")
+    return u
 ```
 
-**RMSF（逐残基柔性）** 用 `rms.RMSF(u.select_atoms("backbone"))` 后按残基取均值；**蛋白-配体接触** 用 `contacts.contact_matrix(protein.positions, ligand.positions, radius=4.5)` 逐帧统计接触残基。
+### 2. RMSD Analysis
 
-**小分子参数化（OpenFF/GAFF2，保留配体时用）：**
 ```python
-from openff.toolkit import Molecule, ForceField as OFFForceField
-mol = Molecule.from_smiles(smiles); mol.generate_conformers(n_conformers=1)
-ic = OFFForceField("openff-2.0.0.offxml").create_interchange(mol.to_topology())
+def compute_rmsd(u, selection="backbone", reference_frame=0):
+    """
+    Compute RMSD of selected atoms relative to reference frame.
+
+    Args:
+        u: MDAnalysis Universe
+        selection: Atom selection string (MDAnalysis syntax)
+        reference_frame: Frame index for reference structure
+
+    Returns:
+        numpy array of (time, rmsd) values
+    """
+    # Align trajectory to minimize RMSD
+    aligner = align.AlignTraj(u, u, select=selection, in_memory=True)
+    aligner.run()
+
+    # Compute RMSD
+    R = rms.RMSD(u, select=selection, ref_frame=reference_frame)
+    R.run()
+
+    rmsd_data = R.results.rmsd  # columns: frame, time, RMSD
+    return rmsd_data
+
+def plot_rmsd(rmsd_data, title="RMSD over time", output_file="rmsd.png"):
+    """Plot RMSD over simulation time."""
+    fig, ax = plt.subplots(figsize=(10, 4))
+    ax.plot(rmsd_data[:, 1] / 1000, rmsd_data[:, 2], 'b-', linewidth=0.5)
+    ax.set_xlabel("Time (ns)")
+    ax.set_ylabel("RMSD (Å)")
+    ax.set_title(title)
+    ax.axhline(rmsd_data[:, 2].mean(), color='r', linestyle='--',
+               label=f'Mean: {rmsd_data[:, 2].mean():.2f} Å')
+    ax.legend()
+    plt.tight_layout()
+    plt.savefig(output_file, dpi=150)
+    return fig
 ```
 
-## 注意事项
+### 3. RMSF Analysis (Per-Residue Flexibility)
 
-- **修结构别遗漏**：PDBFixer 的 `removeHeterogens(True)` 会删掉水和配体；若要保留配体，需单独参数化（OpenFF/GAFF2 或 ACPYPE）再合并。
-- **时间单位换算**：步数 × 步长才是物理时间；DCD 里时间多为 ps，画图常换算成 ns（`time/1000`）。
-- **分析窗口**：前 20–50% 视为平衡段应丢弃，否则 RMSD/自由能被未收敛部分污染。
-- **平台精度**：GPU 上用 mixed 精度兼顾速度与稳定性；结果跨平台可能有微小数值差异，固定随机性需谨慎。
-- **替代引擎/工具**：GROMACS、NAMD 是常见替代 MD 引擎；CHARMM-GUI、AmberTools 可做体系搭建/参数化。
-- 关键文献：OpenMM (Eastman et al. 2017, PMID 28278240)；MDAnalysis (Michaud-Agrawal et al. 2011, PMID 21500218)。
+```python
+def compute_rmsf(u, selection="backbone", start_frame=0):
+    """
+    Compute per-residue RMSF (flexibility).
 
-## 互见
+    Returns:
+        resids, rmsf_values arrays
+    """
+    # Select atoms
+    atoms = u.select_atoms(selection)
 
-- related：`autodock-vina-docking` —— 对接预测起始构象，再交给 MD 做结合稳定性与构象细化。
-- related：`cheminformatics-toolkit` —— 配体库 SMILES 清洗、性质过滤作为体系搭建前处理。
-- related：`protein-language-models`、`deepchem-drug-discovery` —— 靶点序列/结构获取与下游药物发现建模。
-- combines_with：`autodock-vina-docking` —— 对接 + MD 构成「预测构象 → 动力学验证」的结构药物发现流水线。
+    # Compute RMSF
+    R = rms.RMSF(atoms)
+    R.run(start=start_frame)
 
----
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT 许可证），在原 molecular-dynamics 技能基础上适配重写为中文可执行版。
+    # Average by residue
+    resids = []
+    rmsf_per_res = []
+    for res in u.select_atoms(selection).residues:
+        res_atoms = res.atoms.intersection(atoms)
+        if len(res_atoms) > 0:
+            resids.append(res.resid)
+            rmsf_per_res.append(R.results.rmsf[res_atoms.indices].mean())
+
+    return np.array(resids), np.array(rmsf_per_res)
+```
+
+### 4. Protein-Ligand Contacts
+
+```python
+def analyze_contacts(u, protein_sel="protein", ligand_sel="resname LIG",
+                      radius=4.5, start_frame=0):
+    """
+    Track protein-ligand contacts over trajectory.
+
+    Args:
+        radius: Contact distance cutoff in Angstroms
+    """
+    protein = u.select_atoms(protein_sel)
+    ligand = u.select_atoms(ligand_sel)
+
+    contact_frames = []
+    for ts in u.trajectory[start_frame:]:
+        # Find protein atoms within radius of ligand
+        distances = contacts.contact_matrix(
+            protein.positions, ligand.positions, radius
+        )
+        contact_residues = set()
+        for i in range(distances.shape[0]):
+            if distances[i].any():
+                contact_residues.add(protein.atoms[i].resid)
+        contact_frames.append(contact_residues)
+
+    return contact_frames
+```
+
+## Force Field Selection Guide
+
+| System | Recommended Force Field | Water Model |
+|--------|------------------------|-------------|
+| Standard proteins | AMBER14 (`amber14-all.xml`) | TIP3P-FB |
+| Proteins + small molecules | AMBER14 + GAFF2 | TIP3P-FB |
+| Membrane proteins | CHARMM36m | TIP3P |
+| Nucleic acids | AMBER99-bsc1 or AMBER14 | TIP3P |
+| Disordered proteins | ff19SB or CHARMM36m | TIP3P |
+
+## System Preparation Tools
+
+### PDBFixer (for raw PDB files)
+
+```python
+from pdbfixer import PDBFixer
+from openmm.app import PDBFile
+
+def fix_pdb(input_pdb, output_pdb, ph=7.0):
+    """Fix common PDB issues: missing residues, atoms, add H, standardize."""
+    fixer = PDBFixer(filename=input_pdb)
+    fixer.findMissingResidues()
+    fixer.findNonstandardResidues()
+    fixer.replaceNonstandardResidues()
+    fixer.removeHeterogens(True)    # Remove water/ligands
+    fixer.findMissingAtoms()
+    fixer.addMissingAtoms()
+    fixer.addMissingHydrogens(ph)
+
+    with open(output_pdb, 'w') as f:
+        PDBFile.writeFile(fixer.topology, fixer.positions, f)
+
+    return output_pdb
+```
+
+### GAFF2 for Small Molecules (via OpenFF Toolkit)
+
+```python
+# For ligand parameterization, use OpenFF toolkit or ACPYPE
+# pip install openff-toolkit
+from openff.toolkit import Molecule, ForceField as OFFForceField
+from openff.interchange import Interchange
+
+def parameterize_ligand(smiles, ff_name="openff-2.0.0.offxml"):
+    """Generate GAFF2/OpenFF parameters for a small molecule."""
+    mol = Molecule.from_smiles(smiles)
+    mol.generate_conformers(n_conformers=1)
+
+    off_ff = OFFForceField(ff_name)
+    interchange = off_ff.create_interchange(mol.to_topology())
+    return interchange
+```
+
+## Best Practices
+
+- **Always minimize before MD**: Raw PDB structures have steric clashes
+- **Equilibrate before production**: NVT (50–100 ps) → NPT (100–500 ps) → Production
+- **Use GPU**: Simulations are 10–100× faster on GPU (CUDA/OpenCL)
+- **2 fs timestep with HBonds constraints**: Standard; use 4 fs with HMR (hydrogen mass repartitioning)
+- **Analyze only equilibrated trajectory**: Discard first 20–50% as equilibration
+- **Save checkpoints**: MD runs can fail; checkpoints allow restart
+- **Periodic boundary conditions**: Required for solvated systems
+- **PME for electrostatics**: More accurate than cutoff methods for charged systems
+
+## Additional Resources
+
+- **OpenMM documentation**: https://openmm.org/documentation.html
+- **MDAnalysis user guide**: https://docs.mdanalysis.org/
+- **GROMACS** (alternative MD engine): https://manual.gromacs.org/
+- **NAMD** (alternative): https://www.ks.uiuc.edu/Research/namd/
+- **CHARMM-GUI** (web-based system builder): https://charmm-gui.org/
+- **AmberTools** (free Amber tools): https://ambermd.org/AmberTools.php
+- **OpenMM paper**: Eastman P et al. (2017) PLOS Computational Biology. PMID: 28278240
+- **MDAnalysis paper**: Michaud-Agrawal N et al. (2011) J Computational Chemistry. PMID: 21500218

@@ -1,14 +1,14 @@
 ---
 name: decision-cooldown-freeze
-title: 决策冷静期锁定
-description: 当一个高代价/不可逆决策已敲定、你担心因决策疲劳或情绪反复而冲动翻案时使用；做法是给该决策加一段冷静期锁（写入 freeze_until 日期 + 解锁条件 + 早退留痕），冷静期内拒绝重新争论该议题，仅当预设「终止判据」触发或显式 unfreeze 时才解锁；不适用于尚未拍板的决策、可逆小决策、或现实已变需重审的情形。触发词：冷静期、决策锁定、防止冲动翻案、freeze、unfreeze
+title: Decision Cooldown Freeze
+description: Lock an already-approved high-cost or irreversible decision for a cooldown period so decision fatigue or emotional second-guessing can't impulsively reverse it; release only when a preset kill criterion fires or on an explicit, logged unfreeze. Triggers: freeze decision, cooldown
 domain: 通用/thinking
-triggers: [冷静期锁定, 决策冻结, 防止冲动翻案, 防决策疲劳反复, 不可逆决策保护, freeze 决策, unfreeze 早退留痕, 终止判据自动解锁]
-tags: [决策, 思维, 纪律, 冷静期, 不可逆决策, 防冲动, 通用]
-level: 进阶
+triggers: [freeze a decision, decision cooldown lock, prevent impulse reversal, guard against decision fatigue, protect a split-vote boardroom call, unfreeze with stated reason, kill criterion auto-release, lock strategy during transition]
+tags: [decision, thinking, discipline, cooldown, irreversible, governance, general]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [文件读写（决策记录 + 锁定索引归档）, 日期计算（freeze_until）]
+tools: []
 requires: []
 related: [hard-call-advisor, structured-decision-framework, decision-navigator, premortem-plan-challenger]
 combines_with: [decision-log-recorder, four-voice-decision-council]
@@ -16,106 +16,100 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适用：
+Founders and leaders are pattern-matchers; pattern-matching right after a tough decision often produces a "reversal" that is really just decision fatigue. A cooldown freeze enforces a discipline. Use it:
 
-- 刚敲定一个**不可逆或翻案成本极高**的决策（如融资、裁员、进/退市、定价、转型、并购意向），怕事后因决策疲劳/情绪波动而冲动反悔。
-- 经历过一场**分歧很大、勉强多数通过**的评审，想保护这个「险胜」的结论，防止反复被翻出来再议。
-- 你**力排众议、凭直觉**否决了一致意见——给这个直觉一段「让它跑起来」的运行期，而非次日就推翻。
-- 处于**交接/换人**期，想锁住既定策略让接手者执行而非重新辩论。
+- After any **irreversible** or **high-cost-to-reverse** decision (fundraise, layoff/RIF, market entry or exit, pricing, strategic pivot, M&A LOI), when you fear later regret driven by fatigue or mood swings rather than new facts.
+- After a **split-vote boardroom** (e.g. a 3:1 squeaker) — preserve the call against constant second-guessing.
+- After a **founder gut-feel override** of unanimous advisor consensus — let the intuition actually run instead of overturning it the next morning.
+- During a **personnel transition / handoff** — lock the strategy so the incoming exec executes rather than re-debates it.
 
-不该用（负边界）：
+Do **not** use it (negative boundary):
 
-- 决策**尚未拍板**——冷静期锁的是「已批准」的决策，不是用来回避做决定。
-- **可逆、低成本的小决策**——加锁是重纪律，得不偿失。
-- **现实已变、出现新证据需要重审**——锁防的是冲动翻案，不是防现实；此时应触发终止判据走重审，而非死守。
+- When the decision is **not yet approved** — a freeze locks an *approved* decision; it is not a way to avoid deciding.
+- For **reversible, low-cost** decisions — a lock is heavy discipline and not worth the overhead.
+- When **reality has changed and new evidence demands review** — the freeze protects against impulse, not against reality. Here you should trigger a kill criterion and re-review, not cling to the lock.
 
-核心理念：决策者有权力，但没有「显式的锁 + 留痕」时，每一次动摇都会变成「我们再讨论一次吧」——既消耗评审方，也侵蚀已做决策的价值。**冷静期锁是一道流程，不是一条铁律**：它允许早退，但每次早退都留痕，复盘时可审计决策纪律。
+Core idea: leaders have authority, but without an explicit lock + log, every wobble turns into "let's discuss this again" — exhausting for advisors and eroding the value of decisions already made. **The freeze is a process, not an iron rule:** it permits early release, but every early release is logged so discipline can be audited at the post-mortem.
 
-## 步骤
+## Steps
 
-1. **读取决策记录**，确认其状态为「已批准 / APPROVED」——未批准的决策不加锁。
-2. **确定冷静期天数**：按决策类型取默认值，或在命令中显式指定（见下方默认表）。
-3. **写锁**：在决策记录里写入 `freeze_until: YYYY-MM-DD`，把状态改为 `FROZEN`，并记录冻结原因与解锁条件。
-4. **登记到锁定索引**（如 `~/.claude/freezes/active.md`），便于统一查看所有在锁决策。
-5. **冷静期内拒绝重议**：路由层 / 你自己拒绝把该议题重新拉回评审，直到——
-   - 冷静期到期，**或**
-   - 某条**终止判据（kill criterion）**显式触发，**或**
-   - 显式执行 `unfreeze` 并写明理由（留痕）。
+1. **Read the decision record** and validate it has **APPROVED** status — never freeze an unapproved decision.
+2. **Choose the cooldown length** — take the default by decision type, or specify it explicitly in the command (see table below).
+3. **Apply the freeze:** write `freeze_until: YYYY-MM-DD` into the decision record, set status to `FROZEN`, and record the reason and override condition.
+4. **Add it to the active-freezes index** at `~/.claude/freezes/active.md` so all in-force freezes are viewable in one place.
+5. **Refuse re-litigation during the freeze:** the router (or you) declines to route this topic back to review until —
+   - the freeze period expires, **OR**
+   - a **kill criterion** explicitly triggers, **OR**
+   - an explicit `/cs:unfreeze` is issued with a stated reason (logged).
 
-### 默认冷静期参考表
+### Default freeze periods
 
-| 决策类型 | 默认冷静期 |
+| Decision type | Default freeze |
 |---|---|
-| 融资轮规模 / 领投选择 | 30 天 |
-| 定价调整 | 60 天 |
-| 进入 / 退出市场 | 90 天 |
-| 裁员 / 缩编 | 30 天 |
-| 战略转型 | 90 天 |
-| 高管入职 / 离职 | 60 天 |
-| 并购意向书（LOI） | 30 天 |
-| 自定义 | 命令中显式指定 |
+| Fundraise round size / lead choice | 30 days |
+| Pricing change | 60 days |
+| Market entry / exit | 90 days |
+| Layoff / RIF | 30 days |
+| Strategic pivot | 90 days |
+| Personnel (exec hire / fire) | 60 days |
+| M&A LOI | 30 days |
+| Custom | specify in command |
 
-## 指令
-
-锁定 / 解锁命令：
+### Commands
 
 ```
-/cs:freeze   <decision-path> <days>   # 加冷静期锁
-/cs:unfreeze <decision> <reason>      # 冷静期内早退，必须写明理由
+/cs:freeze   <decision-path> <days>   # apply a cooldown lock
+/cs:unfreeze <decision> <reason>      # early release; reason is mandatory
 ```
 
-加锁后，决策记录就地更新：
+The decision record is updated in place:
 
 ```markdown
-# 决策：<标题>
+# Decision: <title>
 ...
-**状态：** FROZEN
-**冻结至：** YYYY-MM-DD
-**冻结原因：** <文字>
-**解锁条件：** 终止判据 <名称> 触发 或 执行 `/cs:unfreeze` 并写明理由
+**Status:** FROZEN
+**Frozen until:** YYYY-MM-DD
+**Reason for freeze:** <text>
+**Override condition:** Kill criterion <name> triggers OR founder issues `/cs:unfreeze` with stated reason
 ```
 
-锁定索引同步更新：
+The active-freezes index is updated:
 
 ```markdown
-# 活跃冷静期（Active Freezes）
-**更新于：** YYYY-MM-DD
+# Active Freezes
+**Updated:** YYYY-MM-DD
 
-| 决策 | 冻结至 | 解锁条件 |
+| Decision | Frozen until | Override condition |
 |---|---|---|
-| <决策标题> | YYYY-MM-DD | <终止判据 或 /cs:unfreeze> |
+| <decision title> | YYYY-MM-DD | <kill criterion or /cs:unfreeze> |
 ```
 
-两条解锁路径，区别要分清：
+Two distinct release paths:
 
-- **显式早退（unfreeze）**：人主动决定提前解锁，**必须写理由**，记入决策历史并永久保留。强制早退留下的纸面痕迹，会在复盘时浮现，用于审计纪律。
-- **自动解锁（auto-override）**：决策里预设的某条**终止判据触发**（如关键指标跌破阈值），锁自动释放，并立即路由到复盘（`/cs:post-mortem`）。**冷静期防的是冲动，不是现实**——现实一旦证伪，锁就该让路。
+- **Explicit early release (`/cs:unfreeze`):** a person decides to release early and **must state a reason**, which is written into the decision history and preserved permanently. Forced overrides leave a paper trail that surfaces at the post-mortem and is used to audit discipline.
+- **Auto-override:** a preset **kill criterion in the decision triggers** (e.g. a key metric breaches its threshold); the freeze auto-releases and the router goes immediately to `/cs:post-mortem`. The freeze protects against impulse, not against reality — once reality falsifies the call, the lock gives way.
 
-## 示例
+## Example
 
-议题：B 轮按 800 万还是 1200 万规模融资，董事会 3:1 勉强通过「800 万」。
+Topic: raise the Series B at $8M or $12M round size; the board approves "$8M" by a 3:1 squeaker.
 
-- 加锁：`/cs:freeze decisions/2026-06-round-size.md 30`，因属「融资轮规模」取默认 30 天。
-- 决策记录改为 `FROZEN`，`冻结至: 2026-07-03`，原因「分歧大、防勉强多数被反复翻案」，解锁条件「终止判据『两家以上领投撤出』触发 或 显式 unfreeze」。
-- 第 8 天创始人想改回 1200 万——路由层拒绝重议，提示该议题在冷静期内。若仍要改：`/cs:unfreeze 2026-06-round-size "市场窗口收紧，需更大缓冲"`，理由入历史永久留痕。
-- 若第 15 天领投方真的撤出（命中终止判据）——锁自动解除，直接路由 `/cs:post-mortem` 复盘。
+- Apply the lock: `/cs:freeze decisions/2026-06-round-size.md 30` — "fundraise round size" takes the 30-day default.
+- The decision record becomes `FROZEN`, `Frozen until: 2026-07-03`, reason "split vote — protect the slim majority from repeated re-litigation," override condition "kill criterion 'two or more leads withdraw' triggers OR explicit `/cs:unfreeze`."
+- On day 8 the founder wants to flip back to $12M — the router refuses to re-open the topic, noting it is within the cooldown. To change it anyway: `/cs:unfreeze 2026-06-round-size "market window tightening, need a bigger buffer"` — the reason goes into history and is preserved permanently.
+- If on day 15 the lead investor actually withdraws (kill criterion hit) — the lock auto-releases and the router goes straight to `/cs:post-mortem`.
 
-## 注意事项
+## Notes
 
-- **只锁已批准的决策**：加锁前先校验状态为 APPROVED，否则等于用流程回避「做决定」。
-- **早退必须留痕**：`unfreeze` 没有理由就不该放行；理由要进决策历史并永久保留，复盘据此审计纪律。空理由的早退等于没锁。
-- **锁防冲动、不防现实**：预设好终止判据，让现实证伪时能自动解锁并转复盘；不要把冷静期当成「无论如何都不许碰」的死规。
-- **冷静期是流程不是铁律**：它的价值在「锁 + 日志」的可审计性，而非绝对禁止重议；每次早退都记账，比「就是别再决一次」这种口头约束更可执行。
-- 默认天数只是起点，按决策可逆性和翻案成本调整；翻案成本越高、越不可逆，冷静期应越长。
+- **Only freeze approved decisions:** validate APPROVED status first, or you are using process to dodge deciding.
+- **Early release must leave a trail:** an `/cs:unfreeze` with no reason should not pass; the reason enters decision history permanently and is the basis for auditing discipline at post-mortem. An empty-reason override is as good as no lock.
+- **The lock guards against impulse, not reality:** define kill criteria up front so reality can auto-release the freeze and route to post-mortem; don't treat the cooldown as an absolute "never touch this."
+- **Cooldown is a process, not an iron rule:** its value is the auditability of "lock + log," not absolute prohibition of re-discussion; logging every override is more enforceable than a verbal "just don't re-decide."
+- Default day counts are only a starting point — tune them to reversibility and cost-to-reverse; the higher the reversal cost and the more irreversible the decision, the longer the cooldown should be.
 
-## 互见
+## See also
 
-- 上游：`boardroom-deliberation`（多角色董事会审议）/ `hard-call-advisor` 产出已批准决策后，用本技能加锁保护其结论。
-- related：`decision-navigator`、`structured-decision-framework`、`premortem-plan-challenger`（预设终止判据，正是本技能「自动解锁」所依赖的判据来源）。
-- combines_with：`boardroom-deliberation` —— 审议（`/cs:boardroom`）→ 决策登记（`/cs:decide`）→ 本技能冷静期锁定（`/cs:freeze`），构成一条「审议—落锁—复盘」的决策纪律链。
-
----
-
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+- Upstream: `boardroom-deliberation` (multi-role board deliberation) / `hard-call-advisor` produce an approved decision; use this skill to lock and protect that conclusion.
+- Related: `decision-navigator`, `structured-decision-framework`, `premortem-plan-challenger` (premortems define the kill criteria that this skill's auto-override depends on).
+- Combines with: `boardroom-deliberation` — deliberate (`/cs:boardroom`) → record the decision (`/cs:decide`) → cooldown lock (`/cs:freeze`), forming a "deliberate–lock–post-mortem" decision-discipline chain. Also `decision-log-recorder` / `decision-logger`, which the freeze updates in place. The `cs-chief-of-staff` router enforces freezes during routing.

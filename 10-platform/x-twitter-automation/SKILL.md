@@ -1,14 +1,14 @@
 ---
 name: x-twitter-automation
-title: X/Twitter 抓取与自动化（Xquik）
-description: 当需要在 X/Twitter 上做推文搜索、用户/推文查询、粉丝及关注关系批量导出、媒体下载、账号监控与 Webhook、抽奖抽取，或发推/回复/点赞/转推/关注/私信等自动化时使用；通过 Xquik 平台 REST/MCP 及 SDK，按工作流配置并调用接口产出数据或写操作（写操作须经显式审批），可选 Hermes Tweet 或 TweetClaw 插件；不适用于无 XQUIK_API_KEY、未获授权操作他人账号、绕过 X 反爬自建爬虫、或非 X/Twitter 平台。触发词：推特抓取、X搜索、粉丝导出、发推、私信DM、账号监控、webhook、抽奖、xquik、twitter scraper
+title: Twitter/X Automation via Rube MCP
+description: Automate Twitter/X tasks via Rube MCP (Composio): posts, search, users, bookmarks, lists, media. Always search tools first for current schemas.
 domain: 平台/integration
-triggers: [推特抓取 / twitter scraper, X 推文搜索 / tweet search, 高级搜索 from:user, 用户查询 / user lookup, 推文互动数据 / likes retweets views, 粉丝导出 / follower export, 关注关系检查 / follow check, 趋势话题 / trending, 账号监控 / account monitoring, webhook 事件推送, 抽奖抽取 / giveaway draw, 发推 / post tweet, 回复 / reply, 私信 / DM, 批量抽取 / bulk extraction, xquik, MCP, Hermes Tweet, TweetClaw]
+triggers: [xquik, MCP, Hermes Tweet, TweetClaw]
 tags: [twitter, x-api, tweet-search, follower-export, automation, webhooks, mcp, sdk, xquik, platform-integration]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Xquik REST API (https://xquik.com/api/v1), Xquik MCP (https://xquik.com/mcp, StreamableHTTP), 官方 SDK: TypeScript/Python/Ruby/Go/Kotlin/Java/PHP/C#/CLI/Terraform, Hermes Tweet 插件 (hermes-tweet), TweetClaw 插件 (@xquik/tweetclaw)]
+tools: []
 requires: []
 related: [apify-ecommerce-scraper, social-media-multi-publisher, browser-automation-builder]
 combines_with: [social-media-multi-publisher, social-media-content-creator, social-media-performance-analyzer]
@@ -16,97 +16,235 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Twitter/X Automation via Rube MCP
 
-当需要让 Agent 拿到 X/Twitter 数据或执行 X 平台自动化时使用，典型场景：
+Automate Twitter/X operations through Composio's Twitter toolkit via Rube MCP.
 
-- 按关键词、话题标签、`from:user` 或"精确短语"及高级运算符搜索推文；取用户资料/某条推文完整互动指标（赞、转、回复、引用、浏览、收藏）。
-- 检查 A 是否关注 B（双向）；查区域趋势话题（免费、不计配额）。
-- 批量抽取粉丝、关注、已验证粉丝、提及、帖子、回复、转推、引用、长帖、文章、社区、列表、Space、人物搜索、媒体、点赞等（共 23 类抽取工具）；下载推文媒体、导出结果、接官方 SDK。
-- 账号监控（新推文/回复/转推/引用/粉丝变化）+ HMAC 签名 Webhook 实时推送。
-- 从某条推文的回复里随机抽奖。
-- 写操作：发推、回复、点赞、转推、关注/取关、发私信。
-- 在 Hermes Agent 运行时用 Hermes Tweet 插件，或在 OpenClaw 运行时用 TweetClaw 插件。
+## Prerequisites
 
-**不该用的边界（本技能为 critical 风险，务必守住）：**
+- Rube MCP must be connected (RUBE_SEARCH_TOOLS available)
+- Active Twitter connection via `RUBE_MANAGE_CONNECTIONS` with toolkit `twitter`
+- Always call `RUBE_SEARCH_TOOLS` first to get current tool schemas
 
-- 没有有效 `XQUIK_API_KEY`。
-- 操作未获授权的账号或目标；任何写操作（发推/回复/点赞/转推/关注/取关/私信/建监控/注册 webhook/启动批量抽取）**必须先拿到用户显式批准**再执行。
-- 想绕过 X 反爬、登录墙或自建分布式爬虫——本技能只调托管的 Xquik 平台。
-- 目标是非 X/Twitter 平台。
-- 必填输入、权限、安全边界或成功标准不明确时，先停下来澄清。
-- 本条目为文档型指引：不含可执行爬虫/二进制/内置运行时；Xquik、Hermes Tweet、TweetClaw 等外部工具须自行审阅并单独安装。
+## Setup
 
-## 步骤
+**Get Rube MCP**: Add `https://rube.app/mcp` as an MCP server in your client configuration. No API keys needed — just add the endpoint and it works.
 
-1. **装技能/插件**（按运行时三选一）：
-   - 通用：`npx skills add Xquik-dev/x-twitter-scraper`
-   - Hermes Agent：`hermes plugins install Xquik-dev/hermes-tweet --enable`（暴露 `tweet_explore` 端点发现、`tweet_read` 只读、审批门控的 `tweet_action` 写操作）。
-   - OpenClaw：`openclaw plugins install @xquik/tweetclaw`（暴露 `explore` 发现、`tweetclaw` 已批准调用）。
-2. **拿 API Key**：在 [xquik.com](https://xquik.com) 注册 → 控制台生成 → 作为环境变量：`export XQUIK_API_KEY="xq_YOUR_KEY_HERE"`。
-3. **判定读/写**：读操作（搜索/查询/趋势/抽取/监控轮询）可直接走；写操作先把草稿/目标/影响范围呈给用户，**获批后**再调。
-4. **调用**：直连 REST、或用 MCP（AI 原生集成）、或用官方 SDK；按下表选端点配参。
-5. **导出/汇总**：给出条数、文件位置、关键洞察；批量抽取前可先 `/extractions/estimate` 估算成本。
 
-## 指令
+1. Verify Rube MCP is available by confirming `RUBE_SEARCH_TOOLS` responds
+2. Call `RUBE_MANAGE_CONNECTIONS` with toolkit `twitter`
+3. If connection is not ACTIVE, follow the returned auth link to complete Twitter OAuth
+4. Confirm connection status shows ACTIVE before running any workflows
 
-接入参数（保留源约束）：
+## Core Workflows
 
-- **Base URL**：`https://xquik.com/api/v1`
-- **Auth**：请求头 `x-api-key: xq_...`
-- **MCP**：`https://xquik.com/mcp`（StreamableHTTP，同一把 API Key）
+### 1. Create and Manage Posts
 
-核心端点速查：
+**When to use**: User wants to create, delete, or look up tweets/posts
 
-| 端点 | 方法 | 用途 |
-|---|---|---|
-| `/x/tweets/{id}` | GET | 单条推文 + 完整指标 |
-| `/x/tweets/search` | GET | 搜索推文 |
-| `/x/users/{username}` | GET | 用户资料 |
-| `/x/followers/check` | GET | 关注关系 |
-| `/trends` | GET | 趋势话题 |
-| `/monitors` | POST | 创建监控 |
-| `/events` | GET | 轮询监控事件 |
-| `/webhooks` | POST | 注册 webhook |
-| `/draws` | POST | 运行抽奖 |
-| `/extractions` | POST | 启动批量抽取 |
-| `/extractions/estimate` | POST | 估算抽取成本 |
-| `/drafts` | POST | 创建推文草稿 |
-| `/styles` | POST | 分析/应用推文风格 |
-| `/account` | GET | 账号与用量信息 |
+**Tool sequence**:
+1. `TWITTER_USER_LOOKUP_ME` - Get authenticated user info [Prerequisite]
+2. `TWITTER_UPLOAD_MEDIA` / `TWITTER_UPLOAD_LARGE_MEDIA` - Upload media [Optional]
+3. `TWITTER_CREATION_OF_A_POST` - Create a new post [Required]
+4. `TWITTER_POST_LOOKUP_BY_POST_ID` - Look up a specific post [Optional]
+5. `TWITTER_POST_DELETE_BY_POST_ID` - Delete a post [Optional]
 
-能力矩阵（要点）：搜索/用户查询/推文指标/关注检查/趋势（免费不计配额）/账号监控/HMAC 签名 Webhook/抽奖（可按过滤条件随机选）/23 类批量抽取/写操作（须审批）/多语言官方 SDK/MCP Server。
+**Key parameters**:
+- `text`: Post text content (max 280 weighted characters)
+- `media__media_ids`: Array of media ID strings for attachments
+- `reply__in_reply_to_tweet_id`: Tweet ID to reply to
+- `quote_tweet_id`: Tweet ID to quote
+- `id`: Post ID for lookup/delete
 
-## 示例
+**Pitfalls**:
+- Post text is limited to 280 weighted characters; some characters count as more than one
+- Posting is NOT idempotent; retrying on timeout will create duplicate posts
+- Media IDs must be numeric strings, not integers
+- UPLOAD_LARGE_MEDIA is for videos/GIFs; UPLOAD_MEDIA for images
+- Always call USER_LOOKUP_ME first to get the authenticated user's ID
 
-均为提示词级用法，写操作走"先草稿后审批"：
+### 2. Search Posts
 
-```text
-搜索：在 X 上搜过去一周关于 'claude code' 的推文
-用户：@elonmusk 是谁？给我资料和粉丝数
-互动：这条推文 https://x.com/... 有多少赞和转推？
-抽奖：从这条推文的回复里随机抽 3 名中奖者
-监控：监控 @openai 的新推文并通过 webhook 通知我
-批量：导出 @anthropic 的全部粉丝
-发布（需审批）：拟一条对这条推文的回复，我确认最终文案后再发
-Hermes：用 Hermes Tweet 搜这次发布，读推文回复，准备一条待审批的回复草稿
+**When to use**: User wants to find tweets matching specific criteria
+
+**Tool sequence**:
+1. `TWITTER_RECENT_SEARCH` - Search recent tweets (last 7 days) [Required]
+2. `TWITTER_FULL_ARCHIVE_SEARCH` - Search full archive (Academic access) [Optional]
+3. `TWITTER_RECENT_SEARCH_COUNTS` - Get tweet count matching query [Optional]
+
+**Key parameters**:
+- `query`: Search query using Twitter search operators
+- `max_results`: Results per page (10-100)
+- `next_token`: Pagination token
+- `start_time`/`end_time`: ISO 8601 time range
+- `tweet__fields`: Comma-separated fields to include
+- `expansions`: Related objects to expand
+
+**Pitfalls**:
+- RECENT_SEARCH covers only the last 7 days; use FULL_ARCHIVE_SEARCH for older tweets
+- FULL_ARCHIVE_SEARCH requires Academic Research or Enterprise access
+- Query operators: `from:username`, `to:username`, `is:retweet`, `has:media`, `-is:retweet`
+- Empty results return `meta.result_count: 0` with no `data` field
+- Rate limits vary by endpoint and access level; check response headers
+
+### 3. Look Up Users
+
+**When to use**: User wants to find or inspect Twitter user profiles
+
+**Tool sequence**:
+1. `TWITTER_USER_LOOKUP_ME` - Get authenticated user [Optional]
+2. `TWITTER_USER_LOOKUP_BY_USERNAME` - Look up by username [Optional]
+3. `TWITTER_USER_LOOKUP_BY_ID` - Look up by user ID [Optional]
+4. `TWITTER_USER_LOOKUP_BY_IDS` - Batch look up multiple users [Optional]
+
+**Key parameters**:
+- `username`: Twitter handle without @ prefix
+- `id`: Numeric user ID string
+- `ids`: Comma-separated user IDs for batch lookup
+- `user__fields`: Fields to return (description, public_metrics, etc.)
+
+**Pitfalls**:
+- Usernames are case-insensitive but must not include the @ prefix
+- User IDs are numeric strings, not integers
+- Suspended or deleted accounts return errors, not empty results
+- LOOKUP_BY_IDS accepts max 100 IDs per request
+
+### 4. Manage Bookmarks
+
+**When to use**: User wants to save, view, or remove bookmarked tweets
+
+**Tool sequence**:
+1. `TWITTER_USER_LOOKUP_ME` - Get authenticated user ID [Prerequisite]
+2. `TWITTER_BOOKMARKS_BY_USER` - List bookmarked posts [Required]
+3. `TWITTER_ADD_POST_TO_BOOKMARKS` - Bookmark a post [Optional]
+4. `TWITTER_REMOVE_A_BOOKMARKED_POST` - Remove bookmark [Optional]
+
+**Key parameters**:
+- `id`: User ID (from USER_LOOKUP_ME) for listing bookmarks
+- `tweet_id`: Tweet ID to bookmark or unbookmark
+- `max_results`: Results per page
+- `pagination_token`: Token for next page
+
+**Pitfalls**:
+- Bookmarks require the authenticated user's ID, not username
+- Bookmarks are private; only the authenticated user can see their own
+- Pagination uses `pagination_token`, not `next_token`
+
+### 5. Manage Lists
+
+**When to use**: User wants to view or manage Twitter lists
+
+**Tool sequence**:
+1. `TWITTER_USER_LOOKUP_ME` - Get authenticated user ID [Prerequisite]
+2. `TWITTER_GET_A_USER_S_OWNED_LISTS` - List owned lists [Optional]
+3. `TWITTER_GET_A_USER_S_LIST_MEMBERSHIPS` - List memberships [Optional]
+4. `TWITTER_GET_A_USER_S_PINNED_LISTS` - Get pinned lists [Optional]
+5. `TWITTER_GET_USER_S_FOLLOWED_LISTS` - Get followed lists [Optional]
+6. `TWITTER_LIST_LOOKUP_BY_LIST_ID` - Get list details [Optional]
+
+**Key parameters**:
+- `id`: User ID for listing owned/member/followed lists
+- `list_id`: List ID for specific list lookup
+- `max_results`: Results per page (1-100)
+
+**Pitfalls**:
+- List IDs and User IDs are numeric strings
+- Lists endpoints require the user's numeric ID, not username
+
+### 6. Interact with Posts
+
+**When to use**: User wants to like, unlike, or view liked posts
+
+**Tool sequence**:
+1. `TWITTER_USER_LOOKUP_ME` - Get authenticated user ID [Prerequisite]
+2. `TWITTER_RETURNS_POST_OBJECTS_LIKED_BY_THE_PROVIDED_USER_ID` - Get liked posts [Optional]
+3. `TWITTER_UNLIKE_POST` - Unlike a post [Optional]
+
+**Key parameters**:
+- `id`: User ID for listing liked posts
+- `tweet_id`: Tweet ID to unlike
+
+**Pitfalls**:
+- Like/unlike endpoints require user ID from USER_LOOKUP_ME
+- Liked posts pagination may be slow for users with many likes
+
+## Common Patterns
+
+### Search Query Syntax
+
+**Operators**:
+- `from:username` - Posts by user
+- `to:username` - Replies to user
+- `@username` - Mentions user
+- `#hashtag` - Contains hashtag
+- `"exact phrase"` - Exact match
+- `has:media` - Contains media
+- `has:links` - Contains links
+- `is:retweet` / `-is:retweet` - Include/exclude retweets
+- `is:reply` / `-is:reply` - Include/exclude replies
+- `lang:en` - Language filter
+
+**Combinators**:
+- Space for AND
+- `OR` for either condition
+- `-` prefix for NOT
+- Parentheses for grouping
+
+### Media Upload Flow
+
+```
+1. Upload media with TWITTER_UPLOAD_MEDIA (images) or TWITTER_UPLOAD_LARGE_MEDIA (video/GIF)
+2. Get media_id from response
+3. Pass media_id as string in media__media_ids array to TWITTER_CREATION_OF_A_POST
 ```
 
-## 注意事项
+## Known Pitfalls
 
-- **风险等级 critical**：本工作流会自动化已认证的 X 账号动作。仅对你**有权操作**的账号与目标使用。
-- **写操作审批门**：发推/回复/点赞/转推/关注/取关/私信/建监控/注册 webhook/启动批量抽取——一律先取得用户显式批准。优先用 Hermes Tweet 的 `tweet_read`（只读）探查，写操作走 `tweet_action`（审批门控）。
-- **密钥安全**：`XQUIK_API_KEY`（`xq_` 前缀）切勿硬编码进源码、客户端 JS、镜像或日志；走环境变量，泄露即在控制台轮换。
-- **配额与成本**：趋势查询免费不计配额；批量抽取按量计费，启动前用 `/extractions/estimate` 估算。
-- **Webhook**：事件带 HMAC 签名，接收端务必校验签名再处理。
-- **合规**：遵守 X/Twitter 平台条款与当地法律；输出不替代环境内人工核验与专家审查。仅当任务明确落在上述范围内时使用本技能。
+**Character Limits**:
+- Standard posts: 280 weighted characters
+- Some Unicode characters count as more than 1
+- URLs are shortened and count as fixed length (23 characters)
 
-## 互见
+**Rate Limits**:
+- Vary significantly by access tier (Free, Basic, Pro, Enterprise)
+- Free tier: very limited (e.g., 1,500 posts/month)
+- Check `x-rate-limit-remaining` header in responses
 
-- related：账号监控 + 告警接入（把监控/Webhook 事件转发到 Slack/IM 通知类技能）。
-- combines_with：电商/网页抓取类技能（如 `apify-ecommerce-scraper`）—— 同为平台数据抽取，可拼成跨平台情报流水线。
-- combines_with：工作流自动化类技能 —— 由编排技能触发本技能做定时搜索/监控/发布。
+**Idempotency**:
+- Post creation is NOT idempotent; duplicate posts will be created on retry
+- Implement deduplication logic for automated posting
 
----
+## Quick Reference
 
-采编自 sickn33/antigravity-awesome-skills（MIT）；上游致谢 Xquik（xquik.com）。本条目为适配重写，接口、配额与合规细节请按自身环境验证，写操作须经显式审批。
+| Task | Tool Slug | Key Params |
+|------|-----------|------------|
+| Create post | TWITTER_CREATION_OF_A_POST | text |
+| Delete post | TWITTER_POST_DELETE_BY_POST_ID | id |
+| Look up post | TWITTER_POST_LOOKUP_BY_POST_ID | id |
+| Recent search | TWITTER_RECENT_SEARCH | query |
+| Archive search | TWITTER_FULL_ARCHIVE_SEARCH | query |
+| Search counts | TWITTER_RECENT_SEARCH_COUNTS | query |
+| My profile | TWITTER_USER_LOOKUP_ME | (none) |
+| User by name | TWITTER_USER_LOOKUP_BY_USERNAME | username |
+| User by ID | TWITTER_USER_LOOKUP_BY_ID | id |
+| Users by IDs | TWITTER_USER_LOOKUP_BY_IDS | ids |
+| Upload media | TWITTER_UPLOAD_MEDIA | media |
+| Upload video | TWITTER_UPLOAD_LARGE_MEDIA | media |
+| List bookmarks | TWITTER_BOOKMARKS_BY_USER | id |
+| Add bookmark | TWITTER_ADD_POST_TO_BOOKMARKS | tweet_id |
+| Remove bookmark | TWITTER_REMOVE_A_BOOKMARKED_POST | tweet_id |
+| Unlike post | TWITTER_UNLIKE_POST | tweet_id |
+| Liked posts | TWITTER_RETURNS_POST_OBJECTS_LIKED_BY_THE_PROVIDED_USER_ID | id |
+| Owned lists | TWITTER_GET_A_USER_S_OWNED_LISTS | id |
+| List memberships | TWITTER_GET_A_USER_S_LIST_MEMBERSHIPS | id |
+| Pinned lists | TWITTER_GET_A_USER_S_PINNED_LISTS | id |
+| Followed lists | TWITTER_GET_USER_S_FOLLOWED_LISTS | id |
+| List details | TWITTER_LIST_LOOKUP_BY_LIST_ID | list_id |
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

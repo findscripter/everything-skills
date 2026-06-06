@@ -1,14 +1,14 @@
 ---
 name: privacy-impact-assessor
-title: 隐私影响评估生成
-description: 当为新功能/产品/数据处理活动撰写隐私影响评估（PIA）或判断是否需要做 PIA 时使用；按公司模板做触发判定、需求访谈、合法性基础与隐私政策一致性核查，产出含风险缓解表、条件清单与签批路由的 PIA 文档；不适用于向监管机构正式提交的法定 DPIA、不替代律师签批与工程缓解方案设计；触发词：写一份PIA、隐私影响评估、privacy impact assessment、隐私评审、这个需要做PIA吗、PIA generation、数据处理活动评估
+title: /pia-generation
+description: Generate a Privacy Impact Assessment in house format for a new feature, product, or processing activity, using the structure learned from your seed PIA. Use when the user says "write a PIA", "privacy impact assessment for", "do we need a PIA for this", "privacy review this feature", or describes a n
 domain: 领域/legal
-triggers: [写一份PIA, 隐私影响评估, privacy impact assessment, 隐私评审, 这个需要做PIA吗, PIA generation, 数据处理活动评估, privacy review this feature]
+triggers: [privacy impact assessment, PIA generation, privacy review this feature]
 tags: [legal, privacy, pia, dpia, gdpr, ccpa, compliance, data-protection, risk-assessment]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [markdown, legal-research-mcp, web-search]
+tools: []
 requires: []
 related: [gdpr-data-handler, dpa-clause-reviewer, dsar-response-builder, regulatory-policy-diff]
 combines_with: [gdpr-data-handler, dpa-clause-reviewer]
@@ -16,110 +16,274 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /pia-generation
 
-当要为一个**新功能、产品或数据处理活动**撰写隐私影响评估（PIA），或需要判断「这个到底要不要做 PIA」时使用。本技能把一次「与产品团队的对话」结构化并按公司既定模板落成文档：收集了哪些数据、为什么、留多久、谁能看、可能出什么事。
-
-**不该用的边界：**
-- 不做审批决策——PIA 必须由人签字，本技能只输出草稿与建议。
-- 不撰写向监管机构正式提交的**法定 DPIA**（那是更正式、有特定监管要求的文档），本技能只产出**内部评估**。
-- 不设计缓解方案本身——它只说明「需要缓解什么」，具体修复由工程团队设计。
-- 跨司法辖区时需谨慎：本评估默认配置中指定的辖区范围；GDPR、美国各州消费者隐私法、行业专法（HIPAA/GLBA/COPPA/FERPA 等）的评估触发条件与合法性基础差异巨大，若控制者、处理活动或数据主体落在不同辖区，结论可能不再适用。
-
-## 步骤
-
-1. **加载公司 PIA 风格**：从团队配置（house style）读取——本地触发条件、从样板 PIA 提炼的结构模板、惯常深度、由谁签批。目标是让产出**看起来像本团队其他 PIA，而非通用模板**。
-2. **判断是否真的需要 PIA**（Step 0）：先看公司触发条件；再**研究各适用法域当前生效的强制评估触发门槛**（GDPR/UK GDPR 的 DPIA 触发、CCPA/CPRA 的风险评估触发、其他州法及行业专法），引用控制性法条/法规/监管指引并核验时效。若都未触发，输出一段「不需要 PIA」的归档说明备查。
-3. **加载本议题既有上下文**：扫描输出目录中同一活动的既往 `use-case-triage`、`pia-generation`、`dpa-review` 产物。若有，在 PIA 中引用并对账（沿用了什么、改了什么、为什么）；**上游严重度作为下限继承**——上游评为高风险的活动不能在 PIA 里无理由降为低风险。若无，明确写「冷启动，输出目录无既往记录」。
-4. **需求访谈**：按下方四组问题向产品团队取数，对话式即可，不是发表单。可从 PRD 提取。
-5. **撰写 PIA**：用样板结构（无则用默认模板），加上工作产物抬头，含隐私政策一致性核查。
-6. **输出**：给出条件清单 + 具名责任人，路由至签批流程，并以下一步决策树收尾。
-
-## 指令
-
-**访谈四组问题（取数后才动笔）：**
-
-- **是什么、为什么**：功能/变更是什么？解决用户什么问题？触及哪些个人数据——「用户数据」不是答案，要具体到字段；是新采集还是复用已有数据；处理方式是存储/分析/共享/自动化决策？
-- **合法性基础 / 法域专项**：对每个适用法域**研究当前生效框架**并引用一手来源。需识别合法性基础的法域（GDPR/UK GDPR），为每个目的指明基础（合同/合法利益/同意/法律义务/重大利益/公共任务）；规制披露的法域（CCPA/CPRA 等），核查是否构成「出售/共享」等受规制披露——第三方广告是高频陷阱；行业专法的专项基础或披露规则。核验时效，不确定即标记。
-- **谁、在哪**：公司内部谁能看（工程/客服/分析）？是否有第三方/供应商/分析商？存储在哪个区域、新基建还是现有？保留多久、有无删除排期？
-- **可能出什么事**：泄露后对个人的伤害？是否可能（哪怕无意）被用于歧视？用户会不会觉得意外（"creepy test"，非法律标准但有用）？有无退出（opt-out），应不应该有？
-
-**来源不得静默补全**：若对配置的法律检索工具查询某法域的 DPIA / 风险评估触发或合法性基础返回结果很少，**报告所得并停止**，向用户给出选项（拓宽检索 / 换工具 / 改用网络检索并标注 `[web search — verify]` / 标为未核实并停止），由律师决定是否接受低置信来源。
-
-**来源标注**：PIA 中每条引用都打标——`[Westlaw]`、`[regulator site]` 或检索连接器的 MCP 工具名、`[web search — verify]`、`[model knowledge — verify]`、`[user provided]`。带 `verify` 的引用伪造风险高，应优先核查，**切勿剥除或合并标签**。
-
-**风险质量标准**：风险必须**具体且绑定到设计**，不要泛泛。控制在 2–5 条真实风险，而非 15 条注水。
-
-| 坏风险 | 为何坏 | 更好 |
-|---|---|---|
-| "数据泄露" | 放之四海皆适用，等于没说 | "客服可经管理后台访问位置历史且无审计日志——恶意内部人可不被察觉地追踪用户" |
-| "不合规 GDPR" | 循环论证——PIA 本就是来评估合规的 | 点名具体条款与缺口 |
-| "用户可能不喜欢" | 含糊 | "已退订营销的用户在此流程仍会收到，因为该流程未校验退订标志位" |
-
-**隐私政策 diff（每份 PIA 必做）**：对照配置中的隐私政策承诺，标出每处漂移，例如政策称「不出售数据」而新功能与广告商共享（可能构成 CCPA 出售）、政策称「账户存续期内保留」而新功能在账户删除后仍留存。**每处不匹配都要标记，且其中之一必须在上线前更改。**
-
-**监管提交闸门**：产出内部 PIA 属研究与文档化；**向监管/监督机构提交 DPIA**（或在问询中自愿披露）才是有后果的行为。提交前若使用者角色为非律师，必须提示其已与律师审阅，并生成一页摘要（法域与监管者、提交理由、识别的风险、缓解后剩余风险、标记的不确定项、提交前要问律师的三个问题）。**未获明确同意，不得越过此闸门。**
-
-## 示例
+1. Load `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → PIA house style (trigger, structure, depth, sign-off).
+2. Run the workflow below.
+3. Check: is a PIA actually needed? (House trigger + research the mandatory-assessment triggers for each applicable regime — cite primary sources, verify currency.)
+4. Intake: ask the product-team questions. Can pull from PRD if provided.
+5. Write PIA in house format. Include privacy policy consistency check.
+6. Output with conditions list and named owners. Route for sign-off.
 
 ```
-为「位置共享功能」写一份 PIA
+/privacy-legal:pia-generation "Location sharing feature"
 ```
 
 ```
-为这个新功能做隐私评审，PRD：[文档链接]
+/privacy-legal:pia-generation
+PRD: [Drive link]
 ```
-
-输出文档默认结构（无样板时）：
-
-```markdown
-[工作产物抬头]
-
-# 隐私影响评估：[功能/产品名]
-
-**编制人：** [姓名] | **日期：** [日期] | **状态：** 草稿 / 已批准
-**产品负责人：** [姓名] | **隐私评审人：** [姓名]
-
-## 执行摘要
-[两句话：这是什么、是否可行] **总体风险：** 🟢低 / 🟡中 / 🟠高 / 🔴很高
-
-## 1. 处理描述
-What / 数据类别（具体字段）/ 数据主体 / 目的 / 是否新采集
-
-## 2. 合法性基础
-| 目的 | 基础 | 备注（LI 附平衡测试摘要；同意附取得方式）|
-
-## 3. 数据流
-采集 / 存储（系统、区域、加密）/ 访问（谁、经何控制）/ 共享（第三方、目的、受哪份 DPA 管辖）/ 保留
-
-## 4. 隐私政策一致性
-| 政策承诺 | 是否一致 🟢/🟡 | 备注 |
-
-## 5. 风险与缓解
-| # | 风险 | 可能性 L/M/H | 影响 L/M/H | 缓解 | 状态 Done/Planned/Gap | 责任人 |
-**缓解后剩余风险：**[评估]
-
-## 6. 数据主体权利
-| 权利（访问/删除/更正/可携/反对）| 能否行使 | 如何行使 |
-
-## 7. 建议
-[已批准 / 附条件批准 / 需变更 / 不批准]
-**条件：** - [ ] [上线前必须发生的具体事项]
-**签批：** [姓名、日期]
-```
-
-## 注意事项
-
-- **就近交付检查**：输出前确认去向。若用户点名了一个分发对象（频道、分发列表、对手方、"所有人"），询问是否在保密特权圈内；公开频道、全公司列表、对手方/对方律师、供应商、客户（针对工作产物）会丧失保护。圈外时应标记，并提供 (a) 仅供法务的特权版、(b) 面向更广渠道的脱敏版、(c) 两者，切勿静默加上特权抬头再帮其粘贴到抬头无法保护之处。
-- **交接清单要可执行**：给产品团队的条件不是"提升安全性"，而是"为管理后台位置查询加审计日志，责任人：[工程负责人]，上线前完成"；若发现政策不一致，移交给政策缺口分析流程跟踪。
-- 不确定一律标记交律师核验；法定定义与合法性基础常被修订，务必核验时效。
-- 以**下一步决策树**收尾（起草 X / 上报 / 补充事实 / 观望 / 其他），由律师选择，决策树本身即产出。
-
-## 互见
-
-- **first-principles-thinking**：拆解新颖处理活动的风险本质、跳出模板思考时配合使用。
-- **fact-checking**：核验所引法条、监管指引的时效与真伪，配合「来源不得静默补全」纪律。
 
 ---
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+# PIA Generation
+
+## Matter context
+
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/privacy-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/privacy-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+
+---
+
+## Destination check
+
+Before producing output, check where it's going. If the user has named a destination (a channel, a distribution list, a counterparty, "everyone"), ask whether it's inside the privilege circle. Public channels, company-wide lists, counterparty/opposing counsel, vendors, and clients (for work product) waive the protection. When the destination looks outside the circle, flag it and offer (a) the privileged version for legal only, (b) a sanitized version for the broader channel, or (c) both — don't silently apply a privileged header and then help paste it somewhere the header won't protect it. See the canonical `## Shared guardrails → Destination check` in this plugin's CLAUDE.md.
+
+## Purpose
+
+A PIA is a conversation with the product team, captured. It asks: what data, why, how long, who sees it, what could go wrong. This skill structures that conversation and writes the output in this team's format — the one learned from the seed PIA during cold-start.
+
+## Jurisdiction assumption
+
+This assessment assumes the jurisdictional scope specified in your configuration. Privacy rules, assessment triggers, and lawful bases vary materially by jurisdiction (GDPR vs. state consumer privacy laws vs. sectoral). If the processing activity, controller, or affected data subjects fall under a different jurisdiction, this analysis may not apply as written.
+
+## Load prior context on this feature / activity
+
+Before writing a new PIA, check the outputs folder for prior work on the same feature, processing activity, or counterparty. Read `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → `## Outputs` for the path. Scan for:
+
+- **Prior `use-case-triage` results** covering this activity — the triage's risk rating, mandatory conditions, and called-out concerns are the entry point for the PIA.
+- **Prior `pia-generation` outputs** for the same or an overlapping activity — a superseding PIA should reconcile (what changed, what carried over). A PIA that silently produces different conclusions than a prior PIA on the same activity is a contradiction a reviewing attorney cannot see.
+- **Prior `dpa-review` outputs** for vendors in scope — the DPA review's findings inform the PIA's analysis of subprocessor / cross-border / retention risk.
+
+If a prior output is found, cite it in the PIA:
+
+> "Prior triage ([date]) rated this [risk level] and required [conditions]. This PIA builds on that finding — [which conditions are satisfied, which remain, which are re-scoped]."
+
+If a prior PIA exists:
+> "This PIA supersedes the [date] PIA because [reason — scope change, new data category, vendor change, regulatory change]. Conclusions carried over: [X]. Conclusions revised: [Y, because Z]."
+
+**Carry severity from upstream as a floor** per the cross-skill severity floor rule in `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → `## Shared guardrails`. A use-case-triage that rated the activity high-risk cannot become a PIA that concludes low-risk without stating why and what changed.
+
+If no prior output is found, say so explicitly — "No prior triage or PIA on this activity in outputs folder; this is a cold start" — so the reviewing attorney knows the check ran and didn't find anything to reconcile.
+
+## Load house style
+
+Read `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → `## PIA house style`. That has:
+- What triggers a PIA here (may not match regulatory DPIA triggers — some teams PIA everything, some only high-risk)
+- The structure template extracted from the seed PIA
+- Typical depth
+- Who signs off
+
+If the seed PIA structure is in the config CLAUDE.md, **use it**. The point is that this PIA looks like the other PIAs this team produces, not like a generic one.
+
+## Step 0: Is a PIA needed?
+
+Check the trigger criteria in `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md`. That is the team's house answer.
+
+In addition, **research the currently operative mandatory-assessment triggers** for each regime in the regulatory footprint (GDPR/UK GDPR DPIA triggers, CCPA/CPRA risk-assessment triggers, other US state data-protection assessment triggers, sectoral regimes). Cite the controlling statute, regulation, or regulator guidance with pinpoint references. Verify currency — assessment thresholds and definitions shift through new state laws, rulemaking, and enforcement guidance. Flag uncertainty rather than guess.
+
+> **No silent supplement.** If a research query to the configured legal research tool returns few or no results for a regime's DPIA / risk-assessment triggers or lawful-basis rules, report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [regime / question]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag as unverified and stop. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
+>
+> **Source attribution.** Tag every citation in the PIA with where it came from: `[Westlaw]`, `[regulator site]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations the user supplied. Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags.
+
+Beyond statutory mandates, treat these as **strong indicators** that a PIA is worth doing even if not strictly mandatory (research whether any of them independently triggers a mandatory assessment under the applicable regime):
+
+- New technology or novel use of existing tech
+- Children's data
+- Combining datasets that weren't collected together
+- Data that could enable discrimination
+- Processing that users wouldn't expect
+
+If no statutory trigger applies and the house trigger also isn't met → "Doesn't look like this needs a PIA. Here's a one-paragraph note for the file explaining why, in case anyone asks."
+
+## The intake
+
+Before writing anything, get answers to these from the product team. Conversational is fine — this isn't a form to send them.
+
+### What and why
+
+- What's the feature/product/change?
+- What problem does it solve for users?
+- What personal data does it touch? Be specific — "user data" is not an answer. Which fields?
+- Is any of it new collection, or is it all data you already have?
+- What's the processing — storage, analysis, sharing, automated decisions?
+
+### Legal basis / regime-specific checks
+
+For each applicable regime, **research the currently operative framework** for the question below and cite primary sources:
+
+- Under regimes that require an identified lawful basis for processing (e.g., GDPR, UK GDPR), identify the basis for each purpose (contract / legitimate interest / consent / legal obligation / vital interests / public task / other). Research the specific requirements and any balancing-test or consent-standard expectations; cite controlling authority.
+- Under regimes that regulate disclosures (e.g., CCPA/CPRA and other US state privacy laws), check whether any flow looks like a "sale," "share," or other regulated disclosure under the currently operative statutory definitions. Third-party advertising is a recurring trap — research whether it falls within the regulated category for the applicable regime.
+- Under sectoral regimes (HIPAA, GLBA, COPPA, FERPA, etc.), research any regime-specific basis or disclosure rules.
+
+Verify currency; statutory definitions and bases are amended often. Flag uncertainty for attorney verification.
+
+### Who and where
+
+- Who inside the company can see this data? Engineers? Support? Analysts?
+- Any third parties? Vendors, partners, analytics?
+- Where is it stored? Which region? New infrastructure or existing?
+- How long is it kept? Is there a deletion schedule or does it live forever?
+
+### What could go wrong
+
+- If this data leaked, what's the harm to the person?
+- Could this data be used to discriminate, even accidentally?
+- Would users be surprised this is happening? (The "creepy test" — not a legal standard but a useful one.)
+- Is there an opt-out? Should there be?
+
+## Writing the PIA
+
+**Use the seed PIA structure from the config CLAUDE.md.** If none was captured, use this default. Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` `## Outputs` (it differs by user role — see `## Who's using this`).
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs]
+
+# Privacy Impact Assessment: [Feature/Product Name]
+
+**Prepared by:** [name] | **Date:** [date] | **Status:** DRAFT / APPROVED
+**Product owner:** [name] | **Privacy reviewer:** [name]
+
+---
+
+## Executive summary
+
+[Two sentences: what this is, whether it's okay. E.g., "Feature X collects
+location data to provide Y. Processing is consistent with existing privacy
+policy commitments and uses consent as lawful basis. Two mitigations
+recommended below; no blockers identified."]
+
+**Overall risk:** [Reviewer to set: 🟢 Low / 🟡 Medium / 🟠 High / 🔴 Very high]
+
+---
+
+## 1. Description of processing
+
+**What:** [the feature, in plain English]
+**Data categories:** [specific fields — not "user data"]
+**Data subjects:** [customers / end users / employees / etc.]
+**Purpose:** [why — tie to user benefit]
+**New collection?** [yes — these fields are new / no — reusing existing data]
+
+---
+
+## 2. Lawful basis
+
+| Purpose | Basis | Notes |
+|---|---|---|
+| [purpose 1] | [Contract / LI / Consent / etc.] | [if LI: balancing test summary; if consent: how obtained] |
+
+---
+
+## 3. Data flow
+
+**Collection:** [how/where data enters]
+**Storage:** [system, region, encryption]
+**Access:** [who, via what controls]
+**Sharing:** [third parties, purpose, governed by which DPA]
+**Retention:** [how long, deletion mechanism]
+
+---
+
+## 4. Privacy policy consistency
+
+| Policy commitment | Consistent? | Notes |
+|---|---|---|
+| [commitment from config CLAUDE.md privacy policy section] | 🟢 / 🟡 | |
+
+[If any 🟡: policy update needed before launch, or processing needs to change]
+
+---
+
+## 5. Risks and mitigations
+
+| # | Risk | Likelihood | Impact | Mitigation | Status | Owner |
+|---|---|---|---|---|---|---|
+| 1 | [specific risk, tied to the design — not "data breach" generically] | L/M/H | L/M/H | [specific control] | Done / Planned / Gap | [name] |
+
+**Residual risk after mitigations:** [assessment]
+
+---
+
+## 6. Data subject rights
+
+| Right | Can be exercised? | How |
+|---|---|---|
+| Access | | |
+| Deletion | | |
+| Correction | | |
+| Portability | | |
+| Objection | | |
+
+---
+
+## 7. Recommendation
+
+[APPROVED / APPROVED WITH CONDITIONS / CHANGES REQUIRED / NOT APPROVED]
+
+**Conditions (if any):**
+- [ ] [specific thing that has to happen before launch]
+
+**Sign-off:** [name, date]
+```
+
+## Risk quality standards
+
+Risks in a PIA should be **specific and tied to the design**, not generic. Bad risks pad the document and train readers to skim.
+
+| Bad risk | Why bad | Better |
+|---|---|---|
+| "Data breach" | Applies to everything; says nothing | "Location history accessible by support staff via the admin panel without audit logging — a malicious insider could track a user undetected" |
+| "Non-compliance with GDPR" | Circular — the PIA is supposed to *assess* compliance | Name the specific article and the gap |
+| "Users might not like it" | Vague | "Users who opted out of marketing may still receive this because the opt-out flag isn't checked in this flow" |
+
+Aim for 2-5 real risks, not 15 padded ones.
+
+## Privacy policy diff
+
+Every PIA should cross-check against the privacy policy commitments in `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md`. The common drift:
+
+- Policy says "we collect X, Y, Z" — new feature collects W. Policy needs updating, or stop collecting W.
+- Policy says "we don't sell data" — new feature shares with an ad partner. That might be a CCPA sale.
+- Policy says retention is "as long as your account is active" — new feature keeps data post-deletion.
+
+Flag every mismatch. One of them has to change before launch.
+
+## Handoff
+
+- **To product team:** Conditions list with owners and deadlines. Not "improve security" — "add audit logging to the admin panel's location lookup, owner: [eng lead], before launch."
+- **To reg-gap-analysis skill:** If the PIA uncovered a policy inconsistency, that skill tracks the policy update.
+- **To the sign-off process:** Per `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → who approves PIAs.
+
+## Gate: submitting a DPIA to a regulator
+
+Producing an internal PIA is research and documentation. *Submitting a DPIA to a supervisory authority* — or voluntarily disclosing one to a regulator in response to an inquiry — is the consequential act.
+
+**Before proceeding to submit a DPIA (or any equivalent impact assessment) to a regulator, supervisory authority, or enforcement body:** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md`. If the Role is Non-lawyer:
+
+> Submitting to a regulator has legal consequences — the document becomes part of the supervisory record and any material omission or error becomes enforcement exposure. Have you reviewed this with an attorney? If yes, proceed. If no, here's a brief to bring to them:
+>
+> [Generate a 1-page summary: regime and regulator, why a submission is being made (mandatory trigger or voluntary), the risks identified, residual risk after mitigations, any flagged uncertainty, and the three things to ask the attorney before filing.]
+>
+> If you need to find a licensed attorney, solicitor, barrister, or other authorised legal professional in your jurisdiction: your professional regulator's referral service is the fastest starting point (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent).
+
+Do not proceed past this gate without an explicit yes.
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+## What this skill does not do
+
+- It doesn't approve the processing. A human signs the PIA.
+- It doesn't write a DPIA for a supervisory authority — that's a more formal document with specific regulatory requirements. This is the internal assessment.
+- It doesn't design the mitigation. It describes what needs mitigating; engineering designs the fix.

@@ -1,14 +1,14 @@
 ---
 name: signup-flow-cro
-title: 注册流程转化优化
-description: 当需要审计或重设计注册/登录流程以降低流失、提升完成率时使用；做注册转化诊断并产出按优先级排序的改进清单、表单重设计（字段集/顺序/文案）与 A/B 实验假设；不适用于落地页优化、注册后引导（onboarding）或非注册类表单（如线索捕获）。触发词：注册转化、signup CRO、注册流程优化、表单字段精简、conversion rate optimization、registration flow、提升注册完成率、social auth、A/B 实验设计
+title: Signup Flow CRO
+description: You are an expert in optimizing signup and registration flows. Your goal is to reduce friction, increase completion rates, and set users up for successful activation.
 domain: 商业/growth
-triggers: [注册转化, signup CRO, 注册流程优化, 表单字段精简, conversion rate optimization, registration flow, 提升注册完成率, social auth, A/B 实验设计]
+triggers: [signup CRO, conversion rate optimization, registration flow, social auth]
 tags: [growth, cro, signup, conversion, ux, ab-testing, form-optimization]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [A/B 测试工具, 前端表单/输入校验, OAuth/SSO（Google、Apple、Microsoft）, 漏斗与字段级埋点分析]
+tools: []
 requires: []
 related: [lead-form-cro, conversion-rate-optimizer, user-onboarding-optimizer, paywall-upgrade-cro]
 combines_with: [user-onboarding-optimizer, conversion-rate-optimizer, ab-test-designer]
@@ -16,89 +16,361 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Signup Flow CRO
 
-- 需要审计现有注册/登录流程，找出导致流失的摩擦点并给出可执行修复。
-- 需要重设计注册表单：决定字段集、字段顺序、单步 vs 多步、社交登录布局、文案与错误提示。
-- 需要为注册流程产出一批可上线的 A/B 实验假设。
+You are an expert in optimizing signup and registration flows. Your goal is to reduce friction, increase completion rates, and set users up for successful activation.
 
-不该用：
-- 落地页/着陆页本身的转化优化（属于 page-cro 范畴）。
-- 注册成功之后的激活与引导流程（属于 onboarding 范畴）。
-- 非注册类表单，如线索捕获、联系表单（属于 form-cro 范畴）。
-- 缺少必填输入、权限边界或成功标准未知时，先停下来澄清，不要凭空给方案。
+## Initial Assessment
 
-## 步骤
+Before providing recommendations, understand:
 
-1. 先评估上下文，不要急着给建议。明确三件事：
-   - 流程类型：免费试用 / Freemium / 付费 / 候补名单（waitlist）；B2B 还是 B2C。
-   - 当前状态：几步几屏？必填哪些字段？当前完成率多少？用户在哪一步流失？
-   - 业务约束：注册时真正必需哪些数据？是否有合规要求？注册成功后立刻发生什么？
-2. 用四条核心原则诊断：精简必填字段、先展示价值再要求承诺、降低感知成本、消除不确定性。
-3. 逐字段优化（见下方指令）。
-4. 判断单步还是多步：≤3 字段、简单 B2C、高意向流量用单步；>3-4 字段、复杂 B2B 需要分层时用多步。
-5. 加入信任与降摩擦元素，处理好错误态与微文案。
-6. 单独检查移动端体验与提交后体验。
-7. 按既定输出格式交付：审计发现 + 分级改进 + 实验假设（+ 可选表单重设计）。
+1. **Flow Type**
+   - Free trial signup
+   - Freemium account creation
+   - Paid account creation
+   - Waitlist/early access signup
+   - B2B vs B2C
 
-## 指令
+2. **Current State**
+   - How many steps/screens?
+   - What fields are required?
+   - What's the current completion rate?
+   - Where do users drop off?
 
-核心原则：每多一个字段都会降低转化。对每个字段都问：使用产品前是否绝对必需？能否事后渐进式收集（progressive profiling）？能否从其它数据推断？
-
-字段优先级：
-- 必需：邮箱（或手机号）、密码
-- 常需：姓名
-- 通常可延后：公司、职位、团队规模、电话、地址
-
-逐字段要点：
-- 邮箱：单字段（不要二次确认框）；格式内联校验；纠正常见拼写错误（gmial.com → gmail.com）；错误信息清晰。
-- 密码：提供显示/隐藏切换（眼睛图标）；要求项一开始就展示而非失败后才提示；实时更新强度指示；允许粘贴（不要禁用）；用强度条代替死板规则；考虑无密码（passwordless）方案。
-- 姓名：单一「全名」字段 vs 拆分姓/名（建议做测试）；仅在立即用于个性化时才必填；可考虑设为可选。
-- 社交登录：醒目放置（常比邮箱注册转化更高）；按受众选项（B2C：Google/Apple/Facebook；B2B：Google/Microsoft/SSO）；与邮箱注册做清晰视觉分隔；可将「用 Google 注册」作为主路径。
-- 电话：非必要则延后；必填时说明原因；用正确输入类型并处理国家码；边输入边格式化。
-- 公司：尽量延后；输入时自动联想；尽量从邮箱域名推断。
-- 用例/角色问题：尽量延后到引导阶段；必须在注册时则只问一个；用渐进式披露。
-
-多步表单最佳实践：展示进度条；先易后难（先姓名邮箱，难题放心理承诺之后）；每步几秒内可完成；允许返回；保存进度防刷新丢失。渐进承诺模式：① 仅邮箱 → ② 密码+姓名 → ③ 可选定制问题。
-
-信任与错误处理：表单旁注明「无需信用卡」「永久免费」或「14 天免费试用」「我们绝不分享你的邮箱」；内联校验而非仅提交时校验；错误信息具体（如「邮箱已注册」并给恢复路径）；出错不要清空表单，聚焦到问题字段。
-
-移动端：触控目标 ≥44px；匹配键盘类型（email、tel）；支持自动填充；单列布局；CTA 按钮吸底；用真机测试。
-
-提交后：清晰确认 + 即时下一步；若需邮箱验证则说明操作、提供便捷重发、提醒查看垃圾箱、允许改邮箱；考虑用 magic link 替代密码；允许用户在等待验证时先探索产品。
-
-衡量指标：表单开始率、完成率、字段级流失、完成耗时、各字段错误率、移动 vs 桌面完成率；追踪每个字段交互（focus/blur/error）、多步进展、社交 vs 邮箱注册占比。
-
-## 示例
-
-输出格式（审计发现，每条）：
-- Issue（问题）：哪里有问题
-- Impact（影响）：为何重要，尽量给量化估计
-- Fix（修复）：具体建议
-- Priority（优先级）：高/中/低
-
-改进建议按三档组织：① 快速见效（当天可改）② 高影响改动（周级工作量）③ 实验假设（待 A/B）。
-
-常见注册流程模式：
-- B2B SaaS 试用：① 邮箱+密码（或 Google）② 姓名+公司（职位可选）③ → 引导流程
-- B2C App：① Google/Apple 或邮箱 ② → 直接体验产品 ③ 资料稍后补全
-- 候补名单：① 仅邮箱 ② 可选角色/用例 ③ → 候补确认
-- 电商账户：① 默认游客结账 ② 购买后可选创建账户 ③ 或一键社交登录
-
-实验假设举例：单步 vs 多步；最小字段（仅邮箱+密码）；单「姓名」字段 vs 姓/名拆分；SSO 醒目 vs 邮箱醒目；CTA 文案「Create Account」vs「Start Free Trial」vs「Get Started」；试用是否需信用卡；试用时长 7/14/30 天；邮箱验证 必需 vs 延后 vs 移除；CAPTCHA 对完成率的影响。
-
-## 注意事项
-
-- 给方案前务必先做初始评估，缺少完成率、字段级埋点、必需数据、合规要求、注册后动作等关键信息时主动追问。
-- 本技能输出是优化建议，不能替代针对具体环境的验证、测试与专家评审。
-- 建议尽量配合数据与 A/B 实验落地，避免凭直觉直接改动高流量注册流程。
-
-## 互见
-
-- frontend-design：实现表单与输入控件的前端设计与交互。
-- webapp-testing：对改版后的注册流程做端到端验证与测试。
-- prompt-template-designer：若需把审计/重设计流程沉淀为可复用的提示模板。
+3. **Business Constraints**
+   - What data is genuinely needed at signup?
+   - Are there compliance requirements?
+   - What happens immediately after signup?
 
 ---
 
-本条采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Core Principles
+
+### 1. Minimize Required Fields
+Every field reduces conversion. For each field, ask:
+- Do we absolutely need this before they can use the product?
+- Can we collect this later through progressive profiling?
+- Can we infer this from other data?
+
+**Typical field priority:**
+- Essential: Email (or phone), Password
+- Often needed: Name
+- Usually deferrable: Company, Role, Team size, Phone, Address
+
+### 2. Show Value Before Asking for Commitment
+- What can you show/give before requiring signup?
+- Can they experience the product before creating an account?
+- Reverse the order: value first, signup second
+
+### 3. Reduce Perceived Effort
+- Show progress if multi-step
+- Group related fields
+- Use smart defaults
+- Pre-fill when possible
+
+### 4. Remove Uncertainty
+- Clear expectations ("Takes 30 seconds")
+- Show what happens after signup
+- No surprises (hidden requirements, unexpected steps)
+
+---
+
+## Field-by-Field Optimization
+
+### Email Field
+- Single field (no email confirmation field)
+- Inline validation for format
+- Check for common typos (gmial.com → gmail.com)
+- Clear error messages
+
+### Password Field
+- Show password toggle (eye icon)
+- Show requirements upfront, not after failure
+- Consider passphrase hints for strength
+- Update requirement indicators in real-time
+
+**Better password UX:**
+- Allow paste (don't disable)
+- Show strength meter instead of rigid rules
+- Consider passwordless options
+
+### Name Field
+- Single "Full name" field vs. First/Last split (test this)
+- Only require if immediately used (personalization)
+- Consider making optional
+
+### Social Auth Options
+- Place prominently (often higher conversion than email)
+- Show most relevant options for your audience
+  - B2C: Google, Apple, Facebook
+  - B2B: Google, Microsoft, SSO
+- Clear visual separation from email signup
+- Consider "Sign up with Google" as primary
+
+### Phone Number
+- Defer unless essential (SMS verification, calling leads)
+- If required, explain why
+- Use proper input type with country code handling
+- Format as they type
+
+### Company/Organization
+- Defer if possible
+- Auto-suggest as they type
+- Infer from email domain when possible
+
+### Use Case / Role Questions
+- Defer to onboarding if possible
+- If needed at signup, keep to one question
+- Use progressive disclosure (don't show all options at once)
+
+---
+
+## Single-Step vs. Multi-Step
+
+### Single-Step Works When:
+- 3 or fewer fields
+- Simple B2C products
+- High-intent visitors (from ads, waitlist)
+
+### Multi-Step Works When:
+- More than 3-4 fields needed
+- Complex B2B products needing segmentation
+- You need to collect different types of info
+
+### Multi-Step Best Practices
+- Show progress indicator
+- Lead with easy questions (name, email)
+- Put harder questions later (after psychological commitment)
+- Each step should feel completable in seconds
+- Allow back navigation
+- Save progress (don't lose data on refresh)
+
+**Progressive commitment pattern:**
+1. Email only (lowest barrier)
+2. Password + name
+3. Customization questions (optional)
+
+---
+
+## Trust and Friction Reduction
+
+### At the Form Level
+- "No credit card required" (if true)
+- "Free forever" or "14-day free trial"
+- Privacy note: "We'll never share your email"
+- Security badges if relevant
+- Testimonial near signup form
+
+### Error Handling
+- Inline validation (not just on submit)
+- Specific error messages ("Email already registered" + recovery path)
+- Don't clear the form on error
+- Focus on the problem field
+
+### Microcopy
+- Placeholder text: Use for examples, not labels
+- Labels: Always visible (not just placeholders)
+- Help text: Only when needed, placed close to field
+
+---
+
+## Mobile Signup Optimization
+
+- Larger touch targets (44px+ height)
+- Appropriate keyboard types (email, tel, etc.)
+- Autofill support
+- Reduce typing (social auth, pre-fill)
+- Single column layout
+- Sticky CTA button
+- Test with actual devices
+
+---
+
+## Post-Submit Experience
+
+### Success State
+- Clear confirmation
+- Immediate next step
+- If email verification required:
+  - Explain what to do
+  - Easy resend option
+  - Check spam reminder
+  - Option to change email if wrong
+
+### Verification Flows
+- Consider delaying verification until necessary
+- Magic link as alternative to password
+- Let users explore while awaiting verification
+- Clear re-engagement if verification stalls
+
+---
+
+## Measurement
+
+### Key Metrics
+- Form start rate (landed → started filling)
+- Form completion rate (started → submitted)
+- Field-level drop-off (which fields lose people)
+- Time to complete
+- Error rate by field
+- Mobile vs. desktop completion
+
+### What to Track
+- Each field interaction (focus, blur, error)
+- Step progression in multi-step
+- Social auth vs. email signup ratio
+- Time between steps
+
+---
+
+## Output Format
+
+### Audit Findings
+For each issue found:
+- **Issue**: What's wrong
+- **Impact**: Why it matters (with estimated impact if possible)
+- **Fix**: Specific recommendation
+- **Priority**: High/Medium/Low
+
+### Recommended Changes
+Organized by:
+1. Quick wins (same-day fixes)
+2. High-impact changes (week-level effort)
+3. Test hypotheses (things to A/B test)
+
+### Form Redesign (if requested)
+- Recommended field set with rationale
+- Field order
+- Copy for labels, placeholders, buttons, errors
+- Visual layout suggestions
+
+---
+
+## Common Signup Flow Patterns
+
+### B2B SaaS Trial
+1. Email + Password (or Google auth)
+2. Name + Company (optional: role)
+3. → Onboarding flow
+
+### B2C App
+1. Google/Apple auth OR Email
+2. → Product experience
+3. Profile completion later
+
+### Waitlist/Early Access
+1. Email only
+2. Optional: Role/use case question
+3. → Waitlist confirmation
+
+### E-commerce Account
+1. Guest checkout as default
+2. Account creation optional post-purchase
+3. OR Social auth with single click
+
+---
+
+## Experiment Ideas
+
+### Form Design Experiments
+
+**Layout & Structure**
+- Single-step vs. multi-step signup flow
+- Multi-step with progress bar vs. without
+- 1-column vs. 2-column field layout
+- Form embedded on page vs. separate signup page
+- Horizontal vs. vertical field alignment
+
+**Field Optimization**
+- Reduce to minimum fields (email + password only)
+- Add or remove phone number field
+- Single "Name" field vs. "First/Last" split
+- Add or remove company/organization field
+- Test required vs. optional field balance
+
+**Authentication Options**
+- Add SSO options (Google, Microsoft, GitHub, LinkedIn)
+- SSO prominent vs. email form prominent
+- Test which SSO options resonate (varies by audience)
+- SSO-only vs. SSO + email option
+
+**Visual Design**
+- Test button colors and sizes for CTA prominence
+- Plain background vs. product-related visuals
+- Test form container styling (card vs. minimal)
+- Mobile-optimized layout testing
+
+---
+
+### Copy & Messaging Experiments
+
+**Headlines & CTAs**
+- Test headline variations above signup form
+- CTA button text: "Create Account" vs. "Start Free Trial" vs. "Get Started"
+- Add clarity around trial length in CTA
+- Test value proposition emphasis in form header
+
+**Microcopy**
+- Field labels: minimal vs. descriptive
+- Placeholder text optimization
+- Error message clarity and tone
+- Password requirement display (upfront vs. on error)
+
+**Trust Elements**
+- Add social proof next to signup form
+- Test trust badges near form (security, compliance)
+- Add "No credit card required" messaging
+- Include privacy assurance copy
+
+---
+
+### Trial & Commitment Experiments
+
+**Free Trial Variations**
+- Credit card required vs. not required for trial
+- Test trial length impact (7 vs. 14 vs. 30 days)
+- Freemium vs. free trial model
+- Trial with limited features vs. full access
+
+**Friction Points**
+- Email verification required vs. delayed vs. removed
+- Test CAPTCHA impact on completion
+- Terms acceptance checkbox vs. implicit acceptance
+- Phone verification for high-value accounts
+
+---
+
+### Post-Submit Experiments
+
+- Clear next steps messaging after signup
+- Instant product access vs. email confirmation first
+- Personalized welcome message based on signup data
+- Auto-login after signup vs. require login
+
+---
+
+## Questions to Ask
+
+If you need more context:
+1. What's your current signup completion rate?
+2. Do you have field-level analytics on drop-off?
+3. What data is absolutely required before they can use the product?
+4. Are there compliance or verification requirements?
+5. What happens immediately after signup?
+
+---
+
+## Related Skills
+
+- **onboarding-cro**: For optimizing what happens after signup
+- **form-cro**: For non-signup forms (lead capture, contact)
+- **page-cro**: For the landing page leading to signup
+- **ab-test-setup**: For testing signup flow changes
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

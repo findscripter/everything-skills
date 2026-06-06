@@ -1,14 +1,14 @@
 ---
 name: vibe-code-production-cleanup
-title: Vibe 代码清理：全栈应用上线前安全加固
-description: 当 AI 速成/vibe-coded 的全栈应用（Next.js、React、Node.js）能跑但有断裂导入、死代码、重复逻辑、环境变量混乱、需上线或交接前加固时使用；做小步可回滚的安全清理，产出无断链、含共享 helper、env 齐备且构建通过的可维护基线；不适用于重命名路由/API 契约、改 DB schema/鉴权/计费、大重写或删除未验证文件。触发词：vibe代码清理、上线前加固、死代码清理
+title: Vibe-Code Cleanup — Production Refactor Skill
+description: Safe production cleanup and hardening for vibe-coded fullstack apps (Next.js, React, Node.js, etc.). Removes dead imports, unused files, broken references, and standardizes helpers without breaking routes or APIs.
 domain: 研发/frontend
-triggers: [vibe 代码清理, 上线前加固, 全栈应用清理, 死代码清理, 断裂导入修复, Next.js 重构, 生产就绪, 代码交接整理]
-tags: [cleanup, refactor, nextjs, fullstack, nodejs, production, vibe-code, 重构, 上线加固]
-level: 进阶
+triggers: []
+tags: [cleanup, refactor, nextjs, fullstack, nodejs, production, vibe-code]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude, claude-code, cursor, gemini]
+tools: []
 requires: []
 related: [ai-generated-code-auditor, clean-code-principles, code-simplifier, legacy-codebase-modernizer]
 combines_with: [pre-deploy-checklist, env-secrets-hygiene, web-mock-data-hunter]
@@ -16,121 +16,220 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Vibe-Code Cleanup — Production Refactor Skill
 
-适用：
-- 快速搭起来的应用「能跑」，但存在断裂导入、重复逻辑、死代码、环境变量含义不清、发布卫生脆弱等问题。
-- 上线或交接前，需要把探索性代码转成可维护的生产基线。
-- 清理必须**保持现有行为不变**，禁止对路由、API、鉴权、数据模型、第三方集成做大范围重写。
+A safe, incremental cleanup workflow for AI-generated / vibe-coded fullstack apps.
+The goal is to make the codebase production-ready **without** breaking anything that already works.
 
-不该用（边界）：
-- 不要为了「好看」重写能正常工作的系统。
-- 不要重命名可能被搜索引擎索引或被缓存的路由、slug、API 端点。
-- 不要改动工具入参/出参、API 契约、DB schema、鉴权流程。
-- 不要删除尚未确认「全仓库无引用」的文件。
-- 不要在单个 commit 里塞进大范围扫荡式改动。
+## When to Use
 
-核心原则：**做手术，不做爆破。** 只删可证明已死的代码，其余一律保留；改动要小、定向、可回滚；每批改动后立即验证；优先抽共享 helper 而非复制粘贴；保持向后兼容。
+- Use when a rapidly built app works but has broken imports, duplicated logic, dead code, unclear environment variables, or fragile release hygiene.
+- Use before launch or handoff to convert exploratory code into a maintainable production baseline.
+- Use when cleanup must preserve existing behavior and avoid broad rewrites of routes, APIs, auth, data models, or integrations.
 
-## 步骤
+## Core Philosophy
 
-1. **侦察（先读后动）**：先把代码版图摸清，此阶段**只记录、不改动**。
-2. **优先修断裂导入**：断裂导入会直接挂掉构建，最先修。修引用本身，不要删被引用的文件——除非确认它全仓库无引用。
-3. **识别死代码（删前验证）**：一个文件/导出仅当满足全部条件才可删——(a) grep 确认无其他文件 import；(b) 不被 config、sitemap、路由清单引用；(c) 不是对外 URL（page.js / route.js）。
-4. **重复逻辑收敛为 helper**：把出现在 **3 处及以上**的模式（SEO metadata、fetch 包装、错误处理、slugify/formatDate/truncate 等工具函数）抽成共享 helper。一次性业务逻辑、契约不同的路由处理器、触碰 DB/鉴权的代码**不要动**。
-5. **环境变量审计**：列出代码中用到的全部 env，与 `.env.example` 比对，标记缺失项。绝不把密钥提交进版本库。
-6. **每批改完即验证**：typecheck / lint / build / test 全过；任一项挂掉立刻**回滚上一批**再继续。
-7. **提交策略**：每个 commit 是单一逻辑单元，UI、逻辑、删文件分开提；commit 越小越易回滚。
+> **Surgery, not demolition.** Remove only what is provably dead. Preserve everything else.
 
-## 指令
+Never:
+- Rewrite working systems for cosmetic reasons
+- Rename routes, slugs, or API endpoints that may be indexed or cached
+- Change tool inputs/outputs, API contracts, DB schema, or auth flow
+- Delete files you haven't verified are unused
+- Make broad sweeping changes in a single commit
 
-侦察（Step 1）：
+Always:
+- Make small, targeted, reversible changes
+- Validate after every meaningful batch of changes
+- Prefer shared helpers over copy-pasted blocks
+- Keep backward compatibility
+
+---
+
+## Step 1 — Reconnaissance (read before touching)
+
+Before changing anything, map the codebase:
+
 ```bash
-# 列出所有页面/路由
+# List all pages/routes
 find . -path "*/app/**/page.{js,jsx,ts,tsx}" | sort
 find . -path "*/pages/**/*.{js,jsx,ts,tsx}" | grep -v "_" | sort
-# 断裂导入（TS 项目）
+
+# Find broken imports (TS projects)
 npx tsc --noEmit 2>&1 | head -80
-# 未使用导出（大项目可选）
+
+# Find unused exports (optional, for larger projects)
 npx ts-prune 2>/dev/null | head -40
-# 调试残留
+
+# Check for console.log / debug leftovers
 grep -r "console\.log\|debugger\|TODO\|FIXME\|HACK" --include="*.{js,ts,jsx,tsx}" -l
 ```
 
-死代码验证（Step 3）：
+Document what you find. Do NOT change yet.
+
+---
+
+## Step 2 — Fix Broken Imports First
+
+Broken imports cause build failures and should be fixed before anything else.
+
 ```bash
-# 文件是否被任何地方 import
+# TypeScript: list all errors
+npx tsc --noEmit 2>&1
+
+# Common patterns to fix:
+# - Missing file (file was deleted or renamed)
+# - Wrong relative path (../lib vs ../../lib)
+# - Named export that doesn't exist
+```
+
+**Fix rule:** Fix the import reference. Do NOT delete the referenced file unless you've confirmed it's unused everywhere.
+
+---
+
+## Step 3 — Identify Dead Code (verify before removing)
+
+A file/export is safe to remove **only if**:
+1. No other file imports it (grep-confirmed)
+2. It's not referenced in config, sitemap, or route manifest
+3. It's not a public-facing URL (page.js, route.js)
+
+```bash
+# Check if a file is imported anywhere
 grep -r "from.*my-file\|require.*my-file" --include="*.{js,ts,jsx,tsx}" .
-# 组件是否被使用
+
+# Check if a component is used anywhere  
 grep -r "MyComponent" --include="*.{js,ts,jsx,tsx}" .
 ```
 
-环境变量审计（Step 5）：
-```bash
-grep -r "process\.env\." --include="*.{js,ts,jsx,tsx}" . | grep -oP 'process\.env\.\w+' | sort -u
-cat .env.example 2>/dev/null || cat .env.local 2>/dev/null
-```
+---
 
-每批验证（Step 6）：
-```bash
-npx tsc --noEmit
-npx eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0
-npm run build   # 抓 TS 抓不到的运行时问题
-npm test -- --runInBand --passWithNoTests
-```
-构建或 typecheck 挂掉 → **回滚上一批**再继续。
+## Step 4 — Consolidate Repeated Logic into Helpers
 
-## 示例
+Look for repeated patterns (metadata blocks, API fetch wrappers, error handlers) that appear in 3+ places.
 
-**共享 metadata helper（Next.js，Step 4 收敛示范）**：把散落在各 page 的 Open Graph / Twitter / canonical 抽成一处。
+**Good consolidation targets:**
+- Page-level SEO metadata (Open Graph, Twitter cards, canonical)
+- Fetch wrappers with error handling
+- Repeated utility functions (slugify, formatDate, truncate)
+
+**Bad consolidation targets (leave alone):**
+- One-off business logic
+- Route handlers with different contracts
+- Anything touching DB schema or auth
+
+**Pattern for shared metadata helper (Next.js):**
 ```js
 // lib/socialMetadata.js
 export function buildPageMetadata({ title, description, path, image }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourdomain.com';
   const imageUrl = image?.startsWith('http') ? image : `${baseUrl}${image}`;
+  
   return {
     title,
     description,
     openGraph: {
-      title, description,
+      title,
+      description,
       url: `${baseUrl}${path}`,
       images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
     },
-    twitter: { card: 'summary_large_image', title, description, images: [imageUrl] },
-    alternates: { canonical: `${baseUrl}${path}` },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
+    alternates: {
+      canonical: `${baseUrl}${path}`,
+    },
   };
 }
 ```
 
-**提交信息范式（Step 7）**——每条一个逻辑单元：
+---
+
+## Step 5 — Environment Variable Audit
+
+```bash
+# List all env vars used in code
+grep -r "process\.env\." --include="*.{js,ts,jsx,tsx}" . | grep -oP 'process\.env\.\w+' | sort -u
+
+# Compare against .env.example or .env.local
+cat .env.example 2>/dev/null || cat .env.local 2>/dev/null
+```
+
+Flag any env vars used in code but missing from `.env.example`. Never add secrets to version control.
+
+---
+
+## Step 6 — Validate After Every Batch
+
+Run this after every meaningful batch of cleanup changes:
+
+```bash
+# TypeScript check
+npx tsc --noEmit
+
+# Lint
+npx eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0
+
+# Build (catches runtime issues TypeScript misses)
+npm run build
+
+# Tests (if present)
+npm test -- --runInBand --passWithNoTests
+```
+
+If build or typecheck breaks → **revert the last batch** before continuing.
+
+---
+
+## Step 7 — Commit Strategy
+
+Each commit should be a single logical unit:
+
 ```
 fix: remove broken import in app/blog/page.js
-refactor: consolidate social metadata into lib/socialMetadata.js
+refactor: consolidate social metadata into lib/socialMetadata.js  
 chore: remove verified-unused utils/oldHelper.js
 fix: standardize env var references to NEXT_PUBLIC_BASE_URL
 ```
 
-## 注意事项
-
-**禁区清单**（除非有已验证的 bug，否则一律不碰）：
-
-| 区域 | 原因 |
-|------|------|
-| 路由 slug / 页面路径 | 可能已被 Google 索引 |
-| API 路由契约 | 调用方依赖确切结构 |
-| DB schema / Prisma 模型 | 改动需要迁移 |
-| 鉴权流程逻辑 | 安全敏感 |
-| 第三方集成配置 | key/webhook 与环境绑定 |
-| 可用的功能页面 | 直接面向用户 |
-
-**收尾检查清单**：TS 错误清零 / 无断裂导入 / 死代码已删（grep 验证）/ 重复模式（≥3 处）已抽 helper / 无硬编码密钥或本地专用 URL / 所有 env 在 `.env.example` 中有记录 / build 通过 / test 通过（或无测试）/ lint 通过 / 每个 commit 范围清晰可解释。
-
-**局限**：无法仅凭代码推断产品意图——删路由、组件、API 契约、数据模型前必须确认行为；务必小批量评审式推进，大重构会掩盖回归；未经明确需求与测试，不要改动鉴权、计费、持久化或第三方集成行为。
-
-## 互见
-
-- 同域研发/misc 下的「死代码识别」「依赖审计」类技能。
-- 上线前可串联安全审查（security-review）与构建/测试验证流程。
+Never bundle UI changes + logic changes + file deletions in one commit. Smaller commits = easier rollback.
 
 ---
-*采编自 sickn33/antigravity-awesome-skills（MIT）。*
+
+## What NOT to Clean Up
+
+Treat these as off-limits unless there's a verified bug:
+
+| Area | Why |
+|------|-----|
+| Route slugs / page paths | May be indexed by Google |
+| API route contracts | Callers depend on exact shape |
+| DB schema / Prisma models | Migration required |
+| Auth flow logic | Security-sensitive |
+| Third-party integration configs | Keys/webhooks are environment-specific |
+| Working tool pages | User-facing functionality |
+
+---
+
+## Cleanup Checklist
+
+- [ ] TypeScript errors fixed
+- [ ] No broken imports
+- [ ] Dead code removed (grep-verified)
+- [ ] Shared helpers created for repeated patterns (3+ uses)
+- [ ] No hardcoded secrets or local-only URLs
+- [ ] All env vars documented in `.env.example`
+- [ ] Build passes
+- [ ] Tests pass (or no tests exist)
+- [ ] Lint passes
+- [ ] Each commit is scoped and explainable
+
+## Limitations
+
+- Does not infer product intent from code alone; confirm behavior before deleting routes, components, API contracts, or data models.
+- Cleanup should be applied in small reviewed batches because broad refactors can hide regressions.
+- Avoid changing auth, billing, persistence, or third-party integration behavior without explicit requirements and tests.

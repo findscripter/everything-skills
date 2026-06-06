@@ -1,11 +1,11 @@
 ---
 name: board-meeting-prep
-title: 董事会对抗式备会演练
-description: 当筹备董事会、投资人更新、融资路演等高风险对抗式审查时使用；做对抗式备会演练，产出脱稿数字清单、对抗问题库、坦诚叙事框架与会前48h检查表；不适用于内部团队周会、友好型进度同步、纯财务模型搭建；触发词：董事会、投资人更新、融资路演
+title: Board Meeting Prep (Adversarial)
+description: Use when prepping for a board meeting, investor update, or fundraise pitch — run an adversarial rehearsal that forces numbers-cold mastery, a hard-question bank, an honest narrative, and a 48h pre-meeting checklist; triggers: board meeting, investor update, fundraising.
 domain: 商业/finance
-triggers: [董事会备会, 投资人更新, 融资路演, board meeting, 对抗式问答演练, 高风险汇报, 董事提问准备]
-tags: [商业, finance, 董事会, 投资人关系, 高管沟通, 对抗式演练, 叙事框架]
-level: 进阶
+triggers: [board meeting, board prep, investor update, fundraising presentation, adversarial Q&A rehearsal, high-stakes review, director questions]
+tags: [business, finance, board, investor-relations, executive-communication, adversarial-rehearsal, narrative]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,114 +16,116 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-筹备**对抗式**而非友好型的董事会时使用：董事会、投资人季度更新、融资路演，或任何「每个数字都必须装在脑子里、而不只在 PPT 上」的高风险审查。董事们看过 50+ 家公司，能立刻识别你是否在回避现实——本技能帮你提前把硬问题问完。
+Use when preparing for the **adversarial** version of your board, not the friendly one: board meetings, quarterly investor updates, fundraising presentations, or any high-stakes review where **every number must live in your head, not just on a slide**.
 
-**不该用边界：**
-- 内部团队周会、友好型进度同步——无需对抗式演练，强行套用反而显得防御过度。
-- 纯财务模型搭建/三表预测——那是数据准备工作，本技能聚焦的是「如何在压力下当众讲清楚」。
-- 已板上钉钉的纯 FYI 通报、无人会质询的场合。
+Your board members have seen 50+ companies. They've watched founders flinch at their own numbers, spin bad news as "learning opportunities," and present sanitized decks that hide what's actually happening. They know when you're not being straight with them. This skill helps you ask the hard questions before they do.
 
-## 步骤
+**When NOT to use:**
+- Internal team weeklies or friendly progress syncs — no adversarial rehearsal needed; forcing it just reads as over-defensive.
+- Pure financial modeling / three-statement forecasting — that's data prep. This skill is about explaining it clearly under pressure.
+- Settled, pure-FYI announcements that no one will challenge.
 
-按五个阶段推进，缺一不可：
+## Steps
 
-**阶段 1 · 数字脱稿（Numbers Cold）**
-PPT 里每个数字都要装进脑子。必须不看资料就能脱口而出的：
-- 当前 MRR / ARR 及环比增长率
-- 月度净烧钱（burn）与跑道月数（runway）
-- 各部门人头数（headcount）
-- 分渠道/分客群的 CAC 与 LTV
-- 净收入留存（NRR）
-- 销售管线：金额、转化率、平均成交周期
-- 流失：流失率、Top 原因、Top 流失客户
-- 毛利率（产品）、净利率（公司）
-- 关键在招岗位及平均填补周期
+Drive all five phases — none is optional.
 
-> 压力自测：被问「你的 burn 是多少？」「分客群流失率？」时若有迟疑，就等于不知道。
+**Phase 1 · Numbers Cold**
+Every number in your deck should live in your head, not just the slide. Know without looking:
+- Current MRR / ARR and month-over-month growth rate
+- Burn rate (monthly) and runway (months at current burn)
+- Headcount by department
+- CAC and LTV by channel / segment
+- Net Revenue Retention
+- Pipeline: value, conversion rate, average sales cycle
+- Churn: rate, top reasons, top churned accounts
+- Gross margin (product), net margin (company)
+- Key hiring positions open and time-to-fill
 
-**阶段 2 · 预演硬问题**
-为议程每一项生成「对抗版」问题。标准对抗问题（见下方「示例」）覆盖收入、跑道、产品、团队、竞争五类。
+> Stress test: Can you answer "what's your burn?" without hesitation? "Churn rate by segment?" If you pause, you don't know it.
 
-**阶段 3 · 搭建叙事（不是状态汇报，是领导力展示）**
-固定五段结构：
-1. **我们现在在哪**——真实数字，不是抹平的数字
-2. **我们学到了什么**——90 天前不知道、数据现在告诉你的事
-3. **我们做错了什么**——主动点名，别等他们问
-4. **我们正在怎么做**——具体、有期限、有 owner 的行动
-5. **我们需要这个房间给什么**——具体诉求：不是「支持」，而是某个介绍、某个决策、某项资源
+**Phase 2 · Anticipate the Hard Questions**
+For every agenda item, generate the adversarial version of the question. Cover revenue, runway, product, team, and competition (see Example).
 
-**阶段 4 · 对抗式模拟**
-找人扮演最难缠的那位董事，做一次 mock board：照常讲 deck → 对方问尽所有不舒服的问题 → 你**不看 deck** 作答 → 事后记下每个让你卡壳或防御的问题。**让你防御的问题 = 你最需要准备的问题。**
+**Phase 3 · Build the Narrative (a leadership demonstration, not a status update)**
+A fixed five-part structure:
+1. **Where we are (honest)** — the real number, not the smoothed one
+2. **What we learned** — what the data tells you now that you didn't know 90 days ago
+3. **What we got wrong** — name it directly; don't make them ask
+4. **What we're doing about it** — specific, dated, owned actions
+5. **What we need from this room** — a concrete ask: not "support" but a specific introduction, decision, or resource
 
-**阶段 5 · 逐董事预案**
-为每位董事掌握：当下最关心的点（多与其投资逻辑挂钩）、最盯的指标、什么会让他对你失去信心、上次会上说过而你这次该回应的话。
+**Phase 4 · Adversarial Simulation**
+Run a mock board. Have someone play the hardest director you have:
+- Present your deck as you would
+- The mock director asks every uncomfortable question
+- You answer **without referring to the deck**
+- After: note every question that made you pause or feel defensive
 
-## 指令
+**The questions that made you defensive = the questions you need to prepare for.**
 
-源命令：`/em:board-prep <agenda>`（传入本次议程）。
+**Phase 5 · Director-by-Director Prep**
+For each director, know: their primary concern right now (usually tied to their investment thesis), the metric they watch most closely, what would make them lose confidence in you, and what they said last meeting that you should address.
 
-**坏消息铁律：永远别让董事会被「惊到」。** 季度差，会前 3 天发一封 5 句话邮件：
-> 「收入 $X，目标 $Y。原因是……我正在做……需要你做……」
+## Example
 
-**会前检查表（48 小时前）：**
-- 所有数字对照源系统核验（不是上周的导出）
-- deck 内部一致性复查
-- 预读材料已发（deck + 1 页关键议题简报）
-- 已与任何可能有顾虑的董事单聊（1:1）
-- 预期最难的 3 个问题——已出声排练
+Source command: `/em:board-prep <agenda>` (pass in this meeting's agenda).
 
-**会议当天：**
-- 分发带时间分配的议程
-- 每个议程项的诉求类型已明确（需决策 / 要意见 / 仅 FYI）
-- 备好留存材料与跟进行动模板
+Sample adversarial questions by topic:
 
-**会中董事在看什么：**坏消息你是 own 还是 deflect？是在捍卫叙事还是分享现实？数字是脱口而出还是现查？被挑战时是防御还是 engage？你是否知道自己不知道什么？最佳动作——**抢在他们之前点出难题**：「我想直接讲收入未达标。事情是这样，我本该更早发现的是……，要改的是……」
+*Revenue performance:*
+- "You missed revenue by 20% this quarter. What specifically failed?"
+- "Is this a pipeline problem, a conversion problem, or a capacity problem?"
+- "If you missed because of one big deal, how dependent is your model on individual deals?"
+- "When do you project recovery and what are the leading indicators you're right?"
 
-**会后 24 小时内：**发出带 owner 和日期的行动项；补上承诺却没给的数据；记下没准备到的问题；约谈任何看起来不满意的董事。
+*Runway / burn:*
+- "At current burn you have N months. What's your plan if the next round takes 9 months?"
+- "What would you cut first if you had to extend runway by 6 months today?"
+- "Is there a scenario where you don't raise another round?"
 
-## 示例
+*Product / roadmap:*
+- "You shipped X. What did customers actually do with it?"
+- "What did you kill this quarter and why?"
+- "Where are you behind on roadmap? What's slipping?"
 
-按议题准备的对抗问题样例：
+*Team:*
+- "Who's at risk of leaving? How would that affect execution?"
+- "You've had 3 VP-level hires not work out. What pattern do you see?"
 
-*收入表现：*
-- 「本季度收入差了 20%，具体是什么失败了？」
-- 「这是管线问题、转化问题，还是产能问题？」
-- 「如果是因为一个大单没成，你的模型对单一大单依赖有多重？」
+*Competition:*
+- "Competitor Y just raised $50M. How does that change your position?"
+- "If they copy your best feature in 90 days, what's your moat?"
 
-*跑道 / 烧钱：*
-- 「按当前 burn 你还有 N 个月。如果下一轮融资要拖 9 个月，方案是什么？」
-- 「今天就要把跑道延长 6 个月，你第一个砍什么？」
-- 「有没有一种你根本不再融资的情景？」
+**Common director types** (which set the angle of follow-up): **operator** (what's breaking, who owns fixing it) / **financial investor** (path to profitability or next raise) / **strategic investor** (competitive position and moat) / **independent** (governance, team dynamics, your judgment).
 
-*产品 / 路线图：*
-- 「你发布了 X。客户实际拿它干了什么？」
-- 「这季度你砍掉了什么、为什么？」
+## Notes
 
-*团队：*
-- 「谁有离职风险？会怎样影响执行？」
-- 「3 个 VP 级招聘都没成，你看到了什么模式？」
+- **Numbers before narrative.** Any story, however polished, collapses the moment one number you can't answer breaks it. Don't move to Phase 3 if Phase 1 isn't solid.
+- **Never let the board be surprised by bad news.** If a quarter went badly, they should know *before* the deck. A 5-sentence email 3 days before: "Revenue came in at $X vs $Y target. Here's what happened, here's what I'm doing, here's what I need from you." Revealing it live ambushes them in front of peers.
+- The mock board must be **real, out loud, no deck** — silently rehearsing in your head has no stress-test value.
+- "What we need from this room" must be concrete down to a person / decision / resource. "Please support us" says nothing.
+- The best board meetings aren't where everything looks good — they're where the CEO demonstrates they see reality clearly, have a plan, and can execute under pressure.
 
-*竞争：*
-- 「对手 Y 刚融了 5000 万。这如何改变你的位置？」
-- 「如果他们 90 天内抄走你最好的功能，你的护城河是什么？」
+**Pre-meeting checklist (48 hours before):**
+- [ ] All numbers verified against source systems (not last week's export)
+- [ ] Deck reviewed for internal consistency
+- [ ] Pre-read sent to board (deck + 1-page brief on key topics)
+- [ ] One-on-ones done with any director likely to have concerns
+- [ ] 3 hardest questions you expect — rehearsed out loud
 
-**常见董事类型**（决定追问角度）：operator（什么在坏、谁负责修）/ financial investor（盈利路径或下一轮）/ strategic investor（竞争位置与护城河）/ independent（治理、团队动态、你的判断力）。
+**Day of meeting:**
+- [ ] Agenda with time allocations distributed
+- [ ] Know the ask for each agenda item (decision needed / input wanted / FYI)
+- [ ] Leave-behind materials and a follow-up action template ready
 
-## 注意事项
+**During the meeting** — what the board is watching: Do you own the bad news or deflect it? Defending a narrative or sharing reality? Do you know your numbers or look them up? When challenged, defensive or engaged? Do you know what you don't know? The single best move: **name the hard thing before they do** — "I want to address the revenue miss directly. Here's what happened, here's what I should have caught earlier, here's what changes."
 
-- **数字优先于叙事**：再漂亮的故事，被一个答不上的数字击穿就全盘崩塌。阶段 1 不达标，别进阶段 3。
-- **最好的董事会不是一切看起来都好，而是 CEO 证明自己看清了现实、有方案、能在压力下执行。**
-- 坏消息走「会前邮件」而非「会上揭晓」——会上揭晓等于让董事当众措手不及。
-- mock board 必须真做、出声、不看 deck，纸面默想没有压力测试效果。
-- 「需要这个房间给什么」必须具体到人/决策/资源，写「请支持」等于没说。
+**After the meeting (within 24 hours):** send action items with owners and dates; send any data you promised but didn't have; note the questions you weren't ready for; schedule follow-up with any director who seemed unsatisfied. The next board prep starts now.
 
-## 互见
+## See also
 
-- 同源「executive-mentor」下的高管沟通、融资准备类技能（c-level-advisor）。
-- 商业/finance 域内的财务指标体系、投资人关系与季度复盘相关条目。
-
----
-
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+- Companion skills under the same source: `board-deck-builder`, `cfo-financial-advisor`, `startup-financial-modeler`, `cro-revenue-advisor` (combine for deck + numbers + narrative).
+- Executive-communication and fundraising-prep skills under `executive-mentor` / `c-level-advisor`.
+- Financial-metrics, investor-relations, and quarterly-retrospective entries in the business/finance domain.

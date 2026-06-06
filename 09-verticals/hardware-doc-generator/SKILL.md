@@ -1,14 +1,14 @@
 ---
 name: hardware-doc-generator
-title: 硬件工程文档生成
-description: 当需要从 KiCad 工程自动生成硬件设计文档（HDD/CE技术文件/ICD/设计评审/制造移交包等）时使用；做的事：自动跑原理图/PCB/EMC/热分析，渲染原理图与 PCB SVG、生成框图，产出 Markdown 脚手架并导出 PDF/HTML/DOCX/ODT；不适用于非 KiCad6+ 工程、纯电路仿真本身或叙述性工程文字代写（需 Agent/人工撰写）。触发词：硬件文档生成、生成报告、HDD、CE技术文件、ICD、设计评审包、制造移交包、渲染原理图、渲染PCB、框图、generate documentation、HDD、CE technical file、ICD、design review、render schematic、block diagram。
+title: kidoc — Engineering Documentation Skill
+description: Generate professional engineering documentation from KiCad projects — Hardware Design Descriptions (HDD), CE Technical Files, Interface Control Documents (ICD), Design Review Packages, and Manufacturing Transfer Packages. Auto-runs schematic, PCB, EMC, and thermal analyses; renders schematic and PCB
 domain: 领域/hardware
-triggers: [硬件文档生成, 生成报告, HDD, CE技术文件, ICD, 设计评审包, 制造移交包, 渲染原理图, 渲染PCB, 框图, generate documentation, CE technical file, design review package, render schematic, block diagram]
+triggers: [HDD, ICD, generate documentation, CE technical file, design review package, render schematic, block diagram]
 tags: [hardware, kicad, documentation, pcb, schematic, pdf, emc, report-generation]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python3, kicad, svglib, python3-venv]
+tools: []
 requires: []
 related: [kicad-design-reviewer, emc-precompliance-analyzer, pcb-bom-manager, spice-circuit-simulator]
 combines_with: [kicad-design-reviewer, emc-precompliance-analyzer, markdown-to-docx]
@@ -16,30 +16,13 @@ license: MIT
 source: aklofas/kicad-happy
 source_license: MIT
 ---
-## 何时使用
+# kidoc — Engineering Documentation Skill
 
-当你有一个 **KiCad 6+ 工程**（`.kicad_sch` / `.kicad_pcb`），需要产出专业硬件工程文档时使用：
+Generate professional engineering documentation from KiCad project files.
 
-- **HDD**（硬件设计说明）、**CE 技术文件**、**ICD**（接口控制文档）、**设计评审包**、**制造移交包**，以及原理图评审报告、电源分析报告、EMC 预兼容报告。
-- 需要渲染原理图/PCB 的 SVG（含子系统裁剪、聚焦淡化、网络高亮、引脚级网络标注）。
-- 需要生成电源树、总线拓扑、架构框图。
-- 需要把 Markdown 文档源导出为带封面、目录、矢量图的 PDF（或 HTML/DOCX/ODT）。
+## Quick Start
 
-**不该用的边界：**
-- 渲染器仅支持 KiCad 6+ 格式（`.kicad_sch` / `.kicad_pcb`），更早版本不支持。
-- 不负责跑 SPICE 仿真本身——仿真需手动搭建，本工具只在结果可用时引用。
-- 叙述性工程正文（每个 `<!-- NARRATIVE -->` 占位）需 Agent 或人工撰写，脚手架只给结构和数据，不代写文字。
-
-## 步骤
-
-1. **生成脚手架**：`kidoc_scaffold.py` 自动探测源文件、跑全部可用分析、渲染原理图、生成框图，写出带预填数据表和叙述占位符的 Markdown。
-2. **填写叙述**：Agent 读取脚手架，为每个 `<!-- NARRATIVE: 段名 -->` 占位写工程正文；工程师复核修订。
-3. **重新生成**：再次运行时，`<!-- GENERATED: 段id -->` 之间的数据段会用最新分析刷新，用户写的叙述内容被保留。
-4. **导出**：`kidoc_generate.py` 产出 PDF / HTML / DOCX / ODT。
-
-## 指令
-
-一条命令生成完整脚手架（分析、框图、渲染、Markdown 全自动）：
+One command generates the full scaffold — analyses, diagrams, renders, and markdown are all produced automatically:
 
 ```bash
 python3 skills/kidoc/scripts/kidoc_scaffold.py \
@@ -48,7 +31,9 @@ python3 skills/kidoc/scripts/kidoc_scaffold.py \
   --output reports/HDD.md
 ```
 
-导出 PDF（首次运行自动创建 `reports/.venv/`，仅 PDF/DOCX/ODT 需要 venv，HTML 零依赖）：
+This auto-detects `.kicad_sch` and `.kicad_pcb` files, runs schematic/PCB/EMC/thermal analyses, generates block diagrams and schematic SVG renders, and produces a structured markdown scaffold with pre-filled data tables and narrative placeholders.
+
+To produce a PDF:
 
 ```bash
 python3 skills/kidoc/scripts/kidoc_generate.py \
@@ -57,71 +42,213 @@ python3 skills/kidoc/scripts/kidoc_generate.py \
   --format pdf
 ```
 
-**自定义报告**——用 `--spec` 指定任意段顺序（JSON 中 `type` 必须匹配已知段类型，`id` 为该段实例唯一键）：
+Creates `reports/.venv/` automatically on first run (PDF/DOCX/ODT only — HTML is zero-dep).
+
+## Workflow
+
+1. **Generate scaffold** — `kidoc_scaffold.py` auto-runs all available analyses, renders schematics, generates diagrams, and writes the markdown scaffold.
+2. **Fill narratives** — The agent reads the scaffold and writes engineering prose for each `<!-- NARRATIVE: section_name -->` placeholder. The engineer reviews and edits.
+3. **Regenerate** — On re-run, data sections between `<!-- GENERATED: section_id -->` markers update from fresh analysis; user-written narrative content is preserved.
+4. **Render output** — `kidoc_generate.py` produces PDF, HTML, DOCX, or ODT.
+
+## Document Types
+
+| Type | Name | Key Sections |
+|------|------|-------------|
+| `hdd` | Hardware Design Description | System overview, power, signals, analog, thermal, EMC, PCB, mechanical, BOM, test, compliance |
+| `ce_technical_file` | CE Technical File | Product ID, essential requirements, harmonized standards, risk assessment, Declaration of Conformity |
+| `design_review` | Design Review Package | Review summary (cross-analyzer scores), findings, action items |
+| `icd` | Interface Control Document | Interface list, per-connector pinout details, electrical characteristics |
+| `manufacturing` | Manufacturing Transfer Package | Assembly overview, PCB fab notes, assembly instructions, test procedures |
+| `schematic_review` | Schematic Review Report | System overview, power, signals, analog, BOM, schematic appendix |
+| `power_analysis` | Power Analysis Report | Power design, thermal, EMC, BOM |
+| `emc_report` | EMC Pre-Compliance Report | EMC analysis, compliance, schematic appendix |
+
+## Custom Reports
+
+Use `--spec` to generate reports with arbitrary section ordering:
 
 ```bash
 python3 skills/kidoc/scripts/kidoc_scaffold.py \
   --project-dir . --spec my-report.json --output reports/custom.md
-# 查看内置类型的默认 spec / 列出全部类型
+```
+
+Spec format (JSON):
+
+```json
+{
+  "type": "custom",
+  "title": "USB Interface Analysis",
+  "sections": [
+    {"id": "front_matter", "type": "front_matter"},
+    {"id": "signal_interfaces", "type": "signal_interfaces"},
+    {"id": "bom", "type": "bom_summary"}
+  ]
+}
+```
+
+Each section's `type` must match a known section type (same names used in the document types table above). The `id` field is a unique key for that section instance.
+
+To see the full default spec for any built-in type:
+
+```bash
 python3 skills/kidoc/scripts/kidoc_spec.py --expand hdd
 python3 skills/kidoc/scripts/kidoc_spec.py --list
 ```
 
-**框图与渲染**（集成在图形引擎里，脚手架会自动调用）：
+The `--spec` flag also works with `kidoc_generate.py` (uses the spec title as fallback project name).
+
+## Schematic and PCB Rendering
+
+Rendering is integrated into the figure generation engine. The orchestrator and scaffold automatically render schematics and PCB views as part of document generation:
 
 ```bash
-# 从分析 JSON 生成全部图（框图 + 原理图/PCB 渲染）
+# Generate all figures (diagrams + schematic/PCB renders) from analysis JSON
 python3 skills/kidoc/scripts/kidoc_diagrams.py --analysis schematic.json --output reports/figures/
-# 仅电源树 / 总线拓扑 / 架构图
-python3 skills/kidoc/scripts/kidoc_diagrams.py --analysis schematic.json --power-tree --output diagrams/
+
+# Full orchestration with spec, analysis, and project files
+python3 skills/kidoc/scripts/kidoc_orchestrator.py --analysis schematic.json \
+    --project-dir . --output reports/figures/
 ```
 
-PCB 层预设：`assembly-front/back`、`routing-front/back/all`、`power`。附加选项：`--highlight-nets`、`--crop-refs`、`--crop x,y,w,h`、`--mirror`、`--overlay annotations.json`。
+The figure generators support: full-sheet rendering (root + all sub-sheets), subsystem cropping (`focus_refs` in spec sections), net highlighting, pin-level net annotation, and all PCB layer presets. These options are configured in the document spec or passed through the analysis dict.
 
-直接编程访问：
+Rendering features available through the generator framework:
+- **Crop**: Focus on a subsystem bounding box around specific component refs
+- **Focus/dim**: Show focused components at full opacity, dim the rest to 15%
+- **Highlight nets**: Color-trace specific nets via BFS
+- **Pin nets**: Annotate pin-level net names at pin tips
 
+For direct programmatic access, use `figures.renderers`:
 ```python
 from figures.renderers import render_schematic, render_pcb
 render_schematic('design.kicad_sch', 'output/', crop_refs=['R1', 'R2'], highlight_nets=['VCC'])
 render_pcb('board.kicad_pcb', 'output/', preset_name='assembly-front')
 ```
 
-## 示例
+Layer presets:
 
-为一块电源板生成 HDD 并导出 PDF + DOCX：
+| Preset | Shows |
+|--------|-------|
+| `assembly-front` | Front silk, fab, pads, outline |
+| `assembly-back` | Back silk, fab, pads, outline (mirrored) |
+| `routing-front` | Front copper, pads, vias, outline |
+| `routing-back` | Back copper, pads, vias, outline |
+| `routing-all` | All copper layers, pads, vias, zones |
+| `power` | Power planes, vias, zone outlines |
 
-1. 配置 `.kicad-happy.json`（`reports` 键下声明文档与品牌信息，用户级 `~/.kicad-happy.json` 与项目级级联合并）：
+Additional options: `--highlight-nets`, `--crop-refs`, `--crop x,y,w,h`, `--mirror`, `--overlay annotations.json` (callout boxes with leader lines).
+
+## Block Diagrams
+
+```bash
+python3 skills/kidoc/scripts/kidoc_diagrams.py --analysis schematic.json --all --output diagrams/
+python3 skills/kidoc/scripts/kidoc_diagrams.py --analysis schematic.json --power-tree --output diagrams/
+python3 skills/kidoc/scripts/kidoc_diagrams.py --analysis schematic.json --bus-topology --output diagrams/
+python3 skills/kidoc/scripts/kidoc_diagrams.py --analysis schematic.json --architecture --output diagrams/
+```
+
+Generated from schematic analysis JSON. Power trees show regulator topology with inductor values, capacitor summaries, and output voltages.
+
+## Output Formats
+
+| Format | SVG Handling | Dependencies |
+|--------|-------------|------|
+| **Markdown** | Image references | Zero-dep |
+| **HTML** | Inlined as vector | Zero-dep |
+| **PDF** | Vector via svglib, custom converter fallback, raster fallback | Venv (`reports/.venv/`) |
+| **DOCX** | Rasterized to 300 DPI PNG | Venv |
+| **ODT** | Rasterized to 300 DPI PNG | Venv |
+
+PDF output includes a styled cover page, table of contents, formatted tables with alternating rows, and vector SVG diagrams.
+
+## Configuration
+
+Report settings live in `.kicad-happy.json` under the `"reports"` key. Config files cascade: `~/.kicad-happy.json` (user-level defaults, e.g. company branding) merges with project-level config.
 
 ```jsonc
 {
-  "project": {"name": "Widget Board", "number": "HW-2024-042", "revision": "1.2", "company": "Acme Electronics", "market": "eu"},
+  "project": {
+    "name": "Widget Board",
+    "number": "HW-2024-042",
+    "revision": "1.2",
+    "company": "Acme Electronics",
+    "author": "Jane Smith",
+    "market": "eu"
+  },
   "reports": {
     "classification": "Company Confidential",
-    "documents": [{"type": "hdd", "output": "HDD-{project}-{rev}", "formats": ["pdf", "docx"]}]
+    "documents": [
+      {"type": "hdd", "output": "HDD-{project}-{rev}", "formats": ["pdf", "docx"]}
+    ],
+    "branding": {
+      "logo": "templates/logo.png",
+      "header_left": "{company}",
+      "header_right": "{number} Rev {rev}"
+    }
   }
 }
 ```
 
-2. 跑脚手架 → 读 `reports/HDD.md`，为每个 `*[...]*` 占位写正文（用上下文构建器取分段数据）：
+## Writing Narratives
 
-```bash
-python3 skills/kidoc/scripts/kidoc_narrative.py --analysis analysis/schematic.json --section power_design
-```
+After generating a scaffold, fill the narrative placeholder sections with engineering prose.
 
-3. 导出：`kidoc_generate.py --format pdf`，得到带封面、目录、矢量 SVG 的 PDF。
+### Workflow
 
-## 注意事项
+1. Run the context builder to get focused data for each section:
+   ```bash
+   python3 skills/kidoc/scripts/kidoc_narrative.py \
+     --analysis analysis/schematic.json \
+     --section power_design
+   ```
+   Or build contexts for all narrative sections at once:
+   ```bash
+   python3 skills/kidoc/scripts/kidoc_narrative.py \
+     --analysis analysis/schematic.json \
+     --report reports/HDD.md
+   ```
 
-- **环境**：Python 3.9+ 且需 `python3-venv`（PDF/DOCX/ODT）。原理图 SVG 渲染需 `.kicad_sch`（KiCad 6+）。
-- **分析 JSON** 从源文件自动生成；若 `analysis/`（或配置路径）下已有预生成 JSON 则优先使用。生成的图放在 `reports/figures/` 便于 git 跟踪。
-- **写叙述要讲“为什么”而非“是什么”**：交代工程权衡，引用具体元件值/料号，用定量语言（如“2.3ms 维持时间”而非“电容足够”），标注偏离 datasheet 之处，有 SPICE 结果时引用。文风按资深 EE 对同行讲解：先抛关键结论，再用分析数据支撑，段落 3-5 句，不重复表里已有数据。
-- **SVG 嵌入 PDF**：优先用 svglib 矢量嵌入；个别 SVG 解析失败时回退到栅格。DOCX/ODT 一律栅格化到 300 DPI PNG。
-- **先跑上游分析**：先运行 `kicad` 分析器，再视情况跑 `emc`/`spice`。脚手架在源文件存在时自动跑 `kicad` 和 `emc`，故通常只需手动预跑 SPICE。
+2. For each section, read the context and write prose that:
+   - Explains **why**, not just **what** — engineering rationale, tradeoffs
+   - References specific component values and part numbers
+   - Uses quantitative language ("2.3ms hold-up time" not "adequate capacitance")
+   - Flags deviations from datasheet recommendations
+   - References SPICE validation results when available
 
-## 互见
+3. Replace the italic placeholder `*[...]*` in the markdown with real prose.
 
-- 上游 `kicad` 分析产出原理图/PCB/热分析 JSON，被本技能脚手架消费；`emc` 产出 EMC 段 JSON；`spice` 仿真结果进入模拟设计段；`bom` 数据进入 BOM 汇总段。
+4. On regeneration, data tables update automatically. Review narratives for consistency with any changed data.
 
----
+### Style Guide
 
-本条采编自 aklofas/kicad-happy（MIT）。
+Write as a senior EE explaining to a peer:
+- Lead with the key finding or decision
+- Support with specific numbers from the analysis
+- Note any risks or deviations
+- Keep paragraphs to 3-5 sentences
+- Don't repeat data that's already in tables
+
+## Requirements
+
+- **Python 3.9+** with `python3-venv` (for PDF/DOCX/ODT generation)
+- **KiCad schematic file** (`.kicad_sch`, KiCad 6+) — for SVG rendering
+- **Optional:** Analysis JSONs are auto-generated from `.kicad_sch`/`.kicad_pcb`; pre-generated JSONs in `analysis/` (or the path configured in `.kicad-happy.json`) are used if present. Generated figures (diagrams, schematic SVGs) are placed in `reports/figures/` for git tracking
+
+## Limitations
+
+- Schematic and PCB renderers support KiCad 6+ formats only (`.kicad_sch`, `.kicad_pcb`)
+- Narrative sections require the agent or manual authoring — the scaffold provides structure and data, not prose
+- SPICE simulation results require manual simulation setup (not auto-run by scaffold)
+- PDF vector SVG embedding uses svglib when available; falls back to raster if svglib cannot parse a particular SVG
+
+## Related Skills
+
+| Skill | Relationship |
+|-------|-------------|
+| `kicad` | Produces schematic/PCB/thermal analysis JSON consumed by scaffolds |
+| `emc` | Produces EMC analysis JSON for EMC sections |
+| `spice` | SPICE simulation results appear in analog design sections |
+| `bom` | BOM data appears in BOM summary sections |
+
+Run the `kicad` skill's analyzers first, then `emc` and `spice` if available. The scaffold auto-runs `kicad` and `emc` analyses when source files are present, so manual pre-analysis is only needed for SPICE.

@@ -1,14 +1,14 @@
 ---
 name: python-testing-pytest
-title: Python pytest 测试模式
-description: 当为 Python 项目搭建 pytest 测试体系、写单元/集成测试或 mock 外部依赖时使用；用 fixture/参数化/mock/monkeypatch 按 AAA 模式产出可执行测试、conftest 与覆盖率配置；不适用于非 Python 语言或拿测试替代环境验证与专家评审。触发词：pytest、fixture、参数化、mock、覆盖率
+title: Python Testing with pytest
+description: Implement comprehensive testing strategies with pytest, fixtures, mocking, and TDD. Use when writing Python unit/integration tests, setting up test suites, mocking external dependencies, or measuring coverage. Triggers: pytest, fixture, parametrize, mock, monkeypatch, conftest, p
 domain: 研发/testing
-triggers: [写单元测试, 搭建 pytest 测试, fixture 夹具, 参数化测试, mock 依赖, monkeypatch, 测试覆盖率, pytest-cov, 测试异常, 异步测试 asyncio, 属性测试 hypothesis, conftest, tmp_path 临时文件, 测试数据库, TDD]
-tags: [测试, python, pytest, fixture, mock, 参数化, 覆盖率, tdd, 单元测试, 集成测试]
-level: 进阶
+triggers: [write unit tests, set up pytest suite, fixture setup teardown, parametrize tests, mock dependencies, monkeypatch, test coverage, pytest-cov, test exceptions, async test asyncio, property-based testing hypothesis, conftest, tmp_path temp files, test database, TDD]
+tags: [testing, python, pytest, fixture, mock, parametrize, coverage, tdd, unit-testing, integration-testing]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, pytest, pytest-cov, pytest-asyncio, pytest-mock, hypothesis]
+tools: []
 requires: []
 related: [javascript-testing-patterns, test-coverage-gap-finder, api-test-suite-builder, async-python-patterns]
 combines_with: [fastapi-async-api, django-async-pro, test-coverage-gap-finder]
@@ -16,104 +16,161 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-- 为 Python 函数/类写单元测试，或搭建测试套件与测试基础设施。
-- 实践 TDD（先写测试再实现），或为 API/服务写集成测试。
-- 需要 mock 外部依赖（HTTP、环境变量、对象属性），测试异步代码、数据库操作。
-- 引入参数化降低重复，或用属性测试（hypothesis）覆盖更大输入空间。
-- 配置 CI/CD 持续测试与覆盖率门槛，排查失败用例。
+Use this skill when:
 
-不该用：
+- Writing unit tests for Python code, or setting up test suites and test infrastructure.
+- Implementing test-driven development (TDD), or creating integration tests for APIs and services.
+- Mocking external dependencies and services (HTTP, SDKs, environment variables, object attributes).
+- Testing async code and concurrent operations, or testing database operations.
+- Implementing property-based testing (hypothesis) to cover a larger input space.
+- Setting up continuous testing in CI/CD with coverage gates, or debugging failing tests.
 
-- 任务与 Python 测试无关，或目标语言是 JS/TS（改用 `javascript-testing-patterns`）等其他栈。
-- 把通过测试当成环境特定验证、上线验收或专家评审的替代品——测试只覆盖你断言到的路径。
-- 缺少明确的被测目标、成功判据或所需输入时，先澄清再动手。
+Do **not** use this skill when:
 
-## 步骤 / 指令
+- The task is unrelated to Python testing, or the target language is JS/TS (use `javascript-testing-patterns`) or another stack.
+- You would be treating passing tests as a substitute for environment-specific validation, release acceptance, or expert review — tests only cover the paths you assert on.
+- Required inputs, the target under test, success criteria, permissions, or safety boundaries are missing — stop and ask for clarification first.
 
-1. 选测试类型：单元（隔离测函数/类）/ 集成（测组件交互）/ 端到端 / 性能。优先单元，金字塔下宽上窄。
-2. 单测按 **AAA** 写：Arrange 准备数据与前置 → Act 执行被测代码 → Assert 验证结果。命名描述「行为」：`test_login_fails_with_invalid_password`，别用 `test_1`。
-3. 重复的 setup/teardown 抽成 `@pytest.fixture`（用 `yield` 分隔 setup/teardown），按需设 `scope`（function/module/session）；跨文件共享放 `conftest.py`。
-4. 同逻辑多输入用 `@pytest.mark.parametrize`，特殊用例用 `pytest.param(..., id=...)` 命名。
-5. 隔离外部副作用：HTTP/SDK 用 `unittest.mock`（`patch`/`Mock`/`side_effect`）；环境变量与对象属性用内置 `monkeypatch`（`setenv`/`delenv`/`setattr`）；临时文件用 `tmp_path`。
-6. 异常路径用 `pytest.raises(Exc, match="...")`，需要细节时 `as exc_info` 取 `exc_info.value`。
-7. 异步代码用 `pytest-asyncio`：测试与 fixture 加 `@pytest.mark.asyncio`，并发用 `asyncio.gather`。
-8. 用 `marks`（slow/integration/...）分类，`pytest.ini` 里 `--strict-markers` 防拼错；跑 `pytest -m "not slow"` 等筛选。
-9. 接 `pytest-cov` 量覆盖率，CI 上 `--cov-fail-under=80` 卡门槛，关注质量而非纯百分比。
-10. 保持测试**独立**：无共享状态、各自清理；测试先行或与代码同步写。
+## Steps
 
-## 示例
+1. **Pick the test type:** Unit (test individual functions/classes in isolation), Integration (test interaction between components), Functional/E2E (complete features), Performance. Favor unit tests — the pyramid is wide at the bottom, narrow at the top.
+2. **Structure each unit test with the AAA pattern:** **Arrange** (set up test data and preconditions) → **Act** (execute the code under test) → **Assert** (verify the results). Name tests after behavior: `test_login_fails_with_invalid_password`, not `test_1`.
+3. **Extract repeated setup/teardown into `@pytest.fixture`** (use `yield` to split setup/teardown), choosing `scope` as needed (`function`/`module`/`session`). Share fixtures across files via `conftest.py`. Use `autouse=True` for fixtures that must run before every test, and parametrized fixtures (`params=[...]`, `request.param`) to run a test across backends.
+4. **Use `@pytest.mark.parametrize`** for the same logic across many inputs; name special cases with `pytest.param(..., id=...)`.
+5. **Isolate external side effects:** HTTP/SDKs with `unittest.mock` (`patch`/`Mock`/`MagicMock`/`side_effect`); environment variables and object attributes with the built-in `monkeypatch` (`setenv`/`delenv`/`setattr`); temporary files with `tmp_path`.
+6. **Test exception paths** with `pytest.raises(Exc, match="...")`; capture `as exc_info` and inspect `exc_info.value` when you need details.
+7. **Test async code with `pytest-asyncio`:** mark tests and fixtures with `@pytest.mark.asyncio`; run concurrent ops with `asyncio.gather`.
+8. **Classify tests with markers** (`slow`/`integration`/`unit`/`e2e`). Register them in config and use `--strict-markers` to catch typos. Filter runs with `pytest -m "not slow"`, etc. Use `skip`/`skipif`/`xfail` for conditional or known-failing cases.
+9. **Measure coverage with `pytest-cov`;** gate CI with `--cov-fail-under=80` and focus on quality (untested branches and error paths) rather than the raw percentage.
+10. **Keep tests independent and isolated:** no shared mutable state, each test cleans up after itself; write tests first (TDD) or alongside the code.
 
-最小用例 + fixture + 参数化 + mock + 异常：
+## Example
+
+Basic tests, fixtures, parametrization, mocking, and exceptions:
 
 ```python
-# test_demo.py
+# test_calculator.py
 import pytest
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 import requests
 
 class Calculator:
-    def add(self, a, b): return a + b
-    def divide(self, a, b):
-        if b == 0: raise ValueError("Cannot divide by zero")
+    def add(self, a: float, b: float) -> float:
+        return a + b
+    def divide(self, a: float, b: float) -> float:
+        if b == 0:
+            raise ValueError("Cannot divide by zero")
         return a / b
 
 @pytest.fixture
-def calc():            # setup → yield → teardown
+def calc():                      # setup -> yield -> teardown
     c = Calculator()
     yield c
 
-@pytest.mark.parametrize("a,b,expected", [(2, 3, 5), (-1, 1, 0), (0, 0, 0)])
-def test_add(calc, a, b, expected):       # AAA + 参数化
+@pytest.mark.parametrize("a,b,expected", [
+    (2, 3, 5), (-1, 1, 0), (0, 0, 0),
+])
+def test_add(calc, a, b, expected):           # AAA + parametrize
     assert calc.add(a, b) == expected
 
-def test_divide_by_zero(calc):            # 测异常
+def test_divide_by_zero(calc):                # exception path
     with pytest.raises(ValueError, match="Cannot divide by zero"):
         calc.divide(5, 0)
 
-def test_http_mock():                     # mock 外部依赖
-    resp = Mock()
-    resp.json.return_value = {"id": 1}
-    resp.raise_for_status.return_value = None
-    with patch("requests.get", return_value=resp) as m:
-        assert requests.get("http://x/users/1").json()["id"] == 1
-        m.assert_called_once_with("http://x/users/1")
+def test_get_user_success():                  # mock external dependency
+    mock_response = Mock()
+    mock_response.json.return_value = {"id": 1, "name": "John Doe"}
+    mock_response.raise_for_status.return_value = None
+    with patch("requests.get", return_value=mock_response) as mock_get:
+        assert requests.get("https://api.x/users/1").json()["id"] == 1
+        mock_get.assert_called_once_with("https://api.x/users/1")
+
+# Custom test IDs for clarity
+@pytest.mark.parametrize("value,expected", [
+    pytest.param(1, True, id="positive"),
+    pytest.param(0, False, id="zero"),
+    pytest.param(-1, False, id="negative"),
+])
+def test_is_positive(value, expected):
+    assert (value > 0) == expected
 ```
 
-环境变量 / 临时文件 / 异步：
+Environment variables, temporary files, and async:
 
 ```python
-def test_env(monkeypatch):
-    monkeypatch.setenv("DATABASE_URL", "postgresql://localhost/test")
-    monkeypatch.delenv("CACHE", raising=False)
+import os, asyncio, pytest
 
-def test_file(tmp_path):
-    f = tmp_path / "a.txt"; f.write_text("hi")
-    assert f.read_text() == "hi"
+def get_database_url() -> str:
+    return os.environ.get("DATABASE_URL", "sqlite:///:memory:")
+
+def test_env_custom(monkeypatch):
+    monkeypatch.setenv("DATABASE_URL", "postgresql://localhost/test")
+    assert get_database_url() == "postgresql://localhost/test"
+
+def test_env_not_set(monkeypatch):
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    assert get_database_url() == "sqlite:///:memory:"
+
+def test_file_operations(tmp_path):           # tmp_path is a pathlib.Path
+    f = tmp_path / "data.txt"
+    f.write_text("Hello, World!")
+    assert f.exists()
+    assert f.read_text() == "Hello, World!"
 
 @pytest.mark.asyncio
-async def test_async():
-    import asyncio
-    results = await asyncio.gather(*(asyncio.sleep(0, r) for r in (1, 2, 3)))
-    assert results == [1, 2, 3]
+async def test_concurrent_fetches():
+    async def fetch(url): 
+        await asyncio.sleep(0)
+        return {"url": url}
+    results = await asyncio.gather(*(fetch(u) for u in ("u1", "u2", "u3")))
+    assert len(results) == 3
 ```
 
-属性测试（hypothesis）：
+Shared fixtures in `conftest.py`:
+
+```python
+# conftest.py — shared fixtures for all tests
+import pytest
+
+@pytest.fixture(scope="session")
+def database_url():
+    return "postgresql://localhost/test_db"
+
+@pytest.fixture(autouse=True)
+def reset_database(database_url):             # runs before each test
+    # setup: clear database
+    yield
+    # teardown: clean up
+
+@pytest.fixture(params=["sqlite", "postgresql", "mysql"])
+def db_backend(request):                      # runs each test 3x
+    return request.param
+```
+
+Property-based testing with hypothesis:
 
 ```python
 from hypothesis import given, strategies as st
 
 @given(st.text())
-def test_reverse_twice(s):
+def test_reverse_twice_is_original(s):
     assert s[::-1][::-1] == s
+
+@given(st.integers(), st.integers())
+def test_addition_commutative(a, b):
+    assert a + b == b + a
 ```
 
-覆盖率与配置：
+Coverage and configuration:
 
 ```bash
 pip install pytest-cov
-pytest --cov=myapp --cov-report=term-missing --cov-fail-under=80 tests/
+pytest --cov=myapp tests/                              # run with coverage
+pytest --cov=myapp --cov-report=html tests/            # HTML report
+pytest --cov=myapp --cov-report=term-missing tests/    # show missing lines
+pytest --cov=myapp --cov-fail-under=80 tests/          # fail under threshold
 ```
 
 ```ini
@@ -121,29 +178,55 @@ pytest --cov=myapp --cov-report=term-missing --cov-fail-under=80 tests/
 [pytest]
 testpaths = tests
 python_files = test_*.py
+python_classes = Test*
+python_functions = test_*
 addopts = -v --strict-markers --tb=short --cov=myapp --cov-report=term-missing
 markers =
     slow: marks tests as slow
     integration: marks integration tests
+    unit: marks unit tests
+    e2e: marks end-to-end tests
 ```
 
-## 注意事项
+```yaml
+# .github/workflows/test.yml — CI matrix
+name: Tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]" && pip install pytest pytest-cov
+      - run: pytest --cov=myapp --cov-report=xml
+      - uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+```
 
-- **隔离优先**：测试间不共享可变状态，每个用例自清理；fixture 用 `yield` 而非 setup/teardown 函数，确保异常时也能清理。
-- **mock 打在使用处**：`patch` 的目标是「被测模块引用该符号的路径」，不是定义处（例如被测代码 `import requests` 后用 `requests.get`，则 patch `requests.get`）。
-- 断言尽量**一个用例一个行为**；多断言时确保它们描述同一行为，否则拆开。
-- `--strict-markers` 防止 marker 拼写错误被静默忽略；新 marker 要在配置里登记。
-- 覆盖率是手段不是目的：80% 绿了不代表逻辑对，重点补「未测的分支与错误路径」。
-- 异步测试需装 `pytest-asyncio` 且函数/fixture 都打 `@pytest.mark.asyncio`，否则协程不会被 await。
-- 测试不能替代环境特定验证；缺前置条件、权限或成功判据时停下来澄清。
+## Notes
 
-## 互见
+- **Isolation first:** no shared mutable state between tests; each test cleans up after itself. Use `yield` fixtures rather than separate setup/teardown functions so teardown still runs on exceptions.
+- **Mock where it is used, not where it is defined:** `patch` the symbol path as referenced by the module under test (e.g. if the code does `import requests` then calls `requests.get`, patch `requests.get`).
+- **Prefer one behavior per test.** When you have multiple assertions, make sure they all describe the same behavior — otherwise split them out.
+- **`--strict-markers`** prevents misspelled markers from being silently ignored; register every new marker in config.
+- **Coverage is a means, not an end:** 80% green does not prove the logic is correct — focus on the untested branches and error paths.
+- **Async tests require `pytest-asyncio`** and `@pytest.mark.asyncio` on both functions and fixtures, or coroutines will never be awaited.
+- Tests are not a substitute for environment-specific validation; when preconditions, permissions, or success criteria are missing, stop and clarify.
 
-- related：`async-python-patterns` —— 异步代码的测试常配合此栈的 asyncio 写法。
-- related：`javascript-testing-patterns` —— 同源姊妹篇，JS/TS 侧的等价测试模式。
-- combines_with：`test-coverage-gap-finder` —— 找出未覆盖路径后回到本技能补齐用例。
-- combines_with：`ci-cd-pipeline-builder` —— 把 pytest + 覆盖率门槛接入 CI/CD 持续运行。
-- combines_with：`systematic-debugger` —— 用例失败时用系统化排错定位根因。
+## See also
+
+- related: `async-python-patterns` — testing async code pairs with this stack's asyncio patterns.
+- related: `javascript-testing-patterns` — sister skill for the equivalent JS/TS testing patterns.
+- combines_with: `test-coverage-gap-finder` — find uncovered paths, then return here to add the missing tests.
+- combines_with: `ci-cd-pipeline-builder` — wire pytest + coverage gates into a continuous-testing pipeline.
+- combines_with: `systematic-debugger` — diagnose root causes when test cases fail.
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+Adapted from sickn33/antigravity-awesome-skills (MIT).

@@ -1,14 +1,14 @@
 ---
 name: pymc-bayesian-modeling
-title: PyMC 贝叶斯建模与 MCMC
-description: 当用 Python 做贝叶斯建模、需要带不确定性的后验推断（分层/多层模型、回归、时间序列、缺失数据）并按完整贝叶斯工作流拟合验证时使用；用 PyMC 5.x 建模、跑 MCMC(NUTS)/变分推断、做先验/后验预测检查与收敛诊断、用 LOO/WAIC 比较模型；不适用于纯频率派推断(用 statsmodels)、只求预测精度的机器学习(用 scikit-learn)、深度学习 GPU 训练或仅做清洗画图；触发词：PyMC、贝叶斯、MCMC、NUTS、后验、先验、分层模型、LOO、WAIC、ArviZ
+title: PyMC Bayesian Modeling
+description: Bayesian modeling with PyMC. Build hierarchical models, MCMC (NUTS), variational inference, LOO/WAIC comparison, posterior checks, for probabilistic programming and inference.
 domain: 数据/analysis
-triggers: [PyMC, 贝叶斯, Bayesian, MCMC, NUTS, 后验 posterior, 先验 prior, 分层模型 hierarchical, 变分推断 ADVI, LOO, WAIC, ArviZ, 概率编程, 不确定性量化, R-hat, 散度 divergence]
-tags: [pymc, bayesian, mcmc, nuts, probabilistic-programming, arviz, hierarchical-model, model-comparison, python, 数据/分析]
-level: 精通
+triggers: [PyMC, Bayesian, MCMC, NUTS, LOO, WAIC, ArviZ, R-hat]
+tags: [pymc, bayesian, mcmc, nuts, probabilistic-programming, arviz, hierarchical-model, model-comparison, python]
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, pymc, arviz, numpy]
+tools: []
 requires: []
 related: [statsmodels-statistical-modeling, scikit-learn-ml, guided-statistical-analysis, scientific-exploratory-data-analysis]
 combines_with: [data-question-analyzer, seaborn-statistical-charts, matplotlib-visualization]
@@ -16,100 +16,564 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# PyMC Bayesian Modeling
 
-适用场景：
+## Overview
 
-- 要做**贝叶斯推断**：拿到的是参数的完整后验分布与不确定性（HDI 区间），而非单点估计或 p 值。
-- 建分层/多层模型处理分组数据，或要在模型里显式处理缺失数据、测量误差。
-- 各类似然模型：线性/logistic/Poisson 回归、时间序列（AR）、自定义概率模型。
-- 需要先验/后验预测检查、收敛诊断（R-hat、ESS、散度），或用 LOO/WAIC 比较多个模型。
+PyMC is a Python library for Bayesian modeling and probabilistic programming. Build, fit, validate, and compare Bayesian models using PyMC's modern API (version 5.x+), including hierarchical models, MCMC sampling (NUTS), variational inference, and model comparison (LOO, WAIC).
 
-不该用的边界：
+## When to Use This Skill
 
-- 只要频率派结果（系数、标准误、p 值、可发表结果表）→ 用 `statsmodels-statistical-modeling`，更快更直接。
-- 只追求预测精度、不需要后验分布 → 用 `scikit-learn-ml`。
-- 深度学习、大模型、GPU 训练 → 用 PyTorch/TensorFlow。
-- 仅做数据清洗 → 先 `csv-data-cleaner`；仅做图表 → 用 `seaborn-statistical-charts`/`matplotlib-visualization`。
-- 不能替代专家复核；样本太小、目标不明、先验无依据时先澄清再建模。
+This skill should be used when:
+- Building Bayesian models (linear/logistic regression, hierarchical models, time series, etc.)
+- Performing MCMC sampling or variational inference
+- Conducting prior/posterior predictive checks
+- Diagnosing sampling issues (divergences, convergence, ESS)
+- Comparing multiple models using information criteria (LOO, WAIC)
+- Implementing uncertainty quantification through Bayesian methods
+- Working with hierarchical/multilevel data structures
+- Handling missing data or measurement error in a principled way
 
-## 步骤 / 指令
+## Standard Bayesian Workflow
 
-固定按这条**贝叶斯工作流**推进，逐步加复杂度，每步都验证：
+Follow this workflow for building and validating Bayesian models:
 
-1. **备数据**：标准化连续预测变量 `X_scaled = (X - X.mean(0)) / X.std(0)`（显著改善采样）；缺失数据当参数显式处理；用 `coords` 命名维度。
-2. **建模**：在 `with pm.Model(coords=...) as model:` 内写先验 + 似然。用**弱信息先验**（别用 flat 先验）；尺度参数用 `HalfNormal`/`Exponential`；优先用 `dims` 而非 `shape`；要更新做预测的值用 `pm.Data()` 包住。
-3. **先验预测检查**（拟合前必做）：`pm.sample_prior_predictive(...)` + `az.plot_ppc(..., group='prior')`，看先验生成的数据是否落在合理范围，不合理就改先验重查。
-4. **拟合**：`pm.sample(draws=2000, tune=1000, chains=4, target_accept=0.9, random_seed=42, idata_kwargs={'log_likelihood': True})`。要做模型比较必须带 `log_likelihood=True`。
-5. **诊断**（解读前必做）：看 **R-hat < 1.01**（收敛）、**ESS > 400**（有效样本足）、**散度=0**、trace 图混合良好（毛毛虫状）。
-6. **后验预测检查**：`pm.sample_posterior_predictive(idata, extend_inferencedata=True)` + `az.plot_ppc(idata)`，看是否复现观测数据的模式，系统性偏差提示模型设定有误。
-7. **看结果**：`az.summary()` 看后验摘要；`az.plot_posterior` / `az.plot_forest` 看分布与系数。
-8. **做预测**：`pm.set_data({...})` 换入新数据 → `pm.sample_posterior_predictive(idata.posterior, var_names=['y_obs'])`，用 `az.hdi()` 取预测区间。
-
-**诊断出问题的对策**：散度 → 提高 `target_accept=0.95/0.99`、分层模型改**非中心化参数化**、加强先验；低 ESS → 加 `draws`、重参数化降相关、回归用 QR 分解；高 R-hat → 跑更长、查多峰、用 ADVI 初始化；采样慢 → ADVI 初始化、降复杂度、`cores=8, chains=8`。
-
-**安装**：`uv pip install pymc arviz`（PyMC 与 ArviZ 配套做可视化与诊断）。
-
-## 示例
-
-按结果类型选似然，最常见的模型骨架：
+### 1. Data Preparation
 
 ```python
-import pymc as pm, arviz as az, numpy as np
+import pymc as pm
+import arviz as az
+import numpy as np
 
-coords = {'predictors': ['v1','v2','v3'], 'obs_id': np.arange(len(y))}
+# Load and prepare data
+X = ...  # Predictors
+y = ...  # Outcomes
+
+# Standardize predictors for better sampling
+X_mean = X.mean(axis=0)
+X_std = X.std(axis=0)
+X_scaled = (X - X_mean) / X_std
+```
+
+**Key practices:**
+- Standardize continuous predictors (improves sampling efficiency)
+- Center outcomes when possible
+- Handle missing data explicitly (treat as parameters)
+- Use named dimensions with `coords` for clarity
+
+### 2. Model Building
+
+```python
+coords = {
+    'predictors': ['var1', 'var2', 'var3'],
+    'obs_id': np.arange(len(y))
+}
+
 with pm.Model(coords=coords) as model:
+    # Priors
     alpha = pm.Normal('alpha', mu=0, sigma=1)
-    beta  = pm.Normal('beta',  mu=0, sigma=1, dims='predictors')
+    beta = pm.Normal('beta', mu=0, sigma=1, dims='predictors')
     sigma = pm.HalfNormal('sigma', sigma=1)
+
+    # Linear predictor
     mu = alpha + pm.math.dot(X_scaled, beta)
+
+    # Likelihood
     y_obs = pm.Normal('y_obs', mu=mu, sigma=sigma, observed=y, dims='obs_id')
+```
+
+**Key practices:**
+- Use weakly informative priors (not flat priors)
+- Use `HalfNormal` or `Exponential` for scale parameters
+- Use named dimensions (`dims`) instead of `shape` when possible
+- Use `pm.Data()` for values that will be updated for predictions
+
+### 3. Prior Predictive Check
+
+**Always validate priors before fitting:**
+
+```python
+with model:
+    prior_pred = pm.sample_prior_predictive(samples=1000, random_seed=42)
+
+# Visualize
+az.plot_ppc(prior_pred, group='prior')
+```
+
+**Check:**
+- Do prior predictions span reasonable values?
+- Are extreme values plausible given domain knowledge?
+- If priors generate implausible data, adjust and re-check
+
+### 4. Fit Model
+
+```python
+with model:
+    # Optional: Quick exploration with ADVI
+    # approx = pm.fit(n=20000)
+
+    # Full MCMC inference
+    idata = pm.sample(
+        draws=2000,
+        tune=1000,
+        chains=4,
+        target_accept=0.9,
+        random_seed=42,
+        idata_kwargs={'log_likelihood': True}  # For model comparison
+    )
+```
+
+**Key parameters:**
+- `draws=2000`: Number of samples per chain
+- `tune=1000`: Warmup samples (discarded)
+- `chains=4`: Run 4 chains for convergence checking
+- `target_accept=0.9`: Higher for difficult posteriors (0.95-0.99)
+- Include `log_likelihood=True` for model comparison
+
+### 5. Check Diagnostics
+
+**Use the diagnostic script:**
+
+```python
+from scripts.model_diagnostics import check_diagnostics
+
+results = check_diagnostics(idata, var_names=['alpha', 'beta', 'sigma'])
+```
+
+**Check:**
+- **R-hat < 1.01**: Chains have converged
+- **ESS > 400**: Sufficient effective samples
+- **No divergences**: NUTS sampled successfully
+- **Trace plots**: Chains should mix well (fuzzy caterpillar)
+
+**If issues arise:**
+- Divergences → Increase `target_accept=0.95`, use non-centered parameterization
+- Low ESS → Sample more draws, reparameterize to reduce correlation
+- High R-hat → Run longer, check for multimodality
+
+### 6. Posterior Predictive Check
+
+**Validate model fit:**
+
+```python
+with model:
+    pm.sample_posterior_predictive(idata, extend_inferencedata=True, random_seed=42)
+
+# Visualize
+az.plot_ppc(idata)
+```
+
+**Check:**
+- Do posterior predictions capture observed data patterns?
+- Are systematic deviations evident (model misspecification)?
+- Consider alternative models if fit is poor
+
+### 7. Analyze Results
+
+```python
+# Summary statistics
+print(az.summary(idata, var_names=['alpha', 'beta', 'sigma']))
+
+# Posterior distributions
+az.plot_posterior(idata, var_names=['alpha', 'beta', 'sigma'])
+
+# Coefficient estimates
+az.plot_forest(idata, var_names=['beta'], combined=True)
+```
+
+### 8. Make Predictions
+
+```python
+X_new = ...  # New predictor values
+X_new_scaled = (X_new - X_mean) / X_std
 
 with model:
-    idata = pm.sample(draws=2000, tune=1000, chains=4, target_accept=0.9,
-                      random_seed=42, idata_kwargs={'log_likelihood': True})
-print(az.summary(idata, var_names=['alpha','beta','sigma']))
+    pm.set_data({'X_scaled': X_new_scaled})
+    post_pred = pm.sample_posterior_predictive(
+        idata.posterior,
+        var_names=['y_obs'],
+        random_seed=42
+    )
+
+# Extract prediction intervals
+y_pred_mean = post_pred.posterior_predictive['y_obs'].mean(dim=['chain', 'draw'])
+y_pred_hdi = az.hdi(post_pred.posterior_predictive, var_names=['y_obs'])
 ```
 
-按结果类型替换似然：二元 `pm.Bernoulli('y', logit_p=alpha + pm.math.dot(X,beta))`；计数 `pm.Poisson('y', mu=pm.math.exp(log_lambda))`（过离散改 `NegativeBinomial`）；时间序列 `pm.AR('y', rho=rho, sigma=sigma, init_dist=...)`。
+## Common Model Patterns
 
-**分层模型（务必非中心化，否则散度爆炸）**：
+### Linear Regression
+
+For continuous outcomes with linear relationships:
 
 ```python
-with pm.Model(coords={'groups': group_names}) as hm:
-    mu_a = pm.Normal('mu_a', 0, 10); sd_a = pm.HalfNormal('sd_a', 1)
-    a_off = pm.Normal('a_off', 0, 1, dims='groups')          # 标准正态偏移
-    alpha = pm.Deterministic('alpha', mu_a + sd_a * a_off, dims='groups')  # 非中心化
-    sigma = pm.HalfNormal('sigma', 1)
-    y = pm.Normal('y', mu=alpha[group_idx], sigma=sigma, observed=y_obs)
+with pm.Model() as linear_model:
+    alpha = pm.Normal('alpha', mu=0, sigma=10)
+    beta = pm.Normal('beta', mu=0, sigma=10, shape=n_predictors)
+    sigma = pm.HalfNormal('sigma', sigma=1)
+
+    mu = alpha + pm.math.dot(X, beta)
+    y = pm.Normal('y', mu=mu, sigma=sigma, observed=y_obs)
 ```
 
-**模型比较（LOO/WAIC）**：
+**Use template:** `assets/linear_regression_template.py`
+
+### Logistic Regression
+
+For binary outcomes:
 
 ```python
-cmp = az.compare({'m1': idata1, 'm2': idata2}, ic='loo')  # 各模型需带 log_likelihood
-# Δloo<2 选更简单；2~4 弱证据；4~10 中等；>10 强证据。
-# 看 Pareto-k：k<0.7 LOO 可靠，k>0.7 改用 WAIC 或 k 折 CV。
+with pm.Model() as logistic_model:
+    alpha = pm.Normal('alpha', mu=0, sigma=10)
+    beta = pm.Normal('beta', mu=0, sigma=10, shape=n_predictors)
+
+    logit_p = alpha + pm.math.dot(X, beta)
+    y = pm.Bernoulli('y', logit_p=logit_p, observed=y_obs)
 ```
 
-## 注意事项
+### Hierarchical Models
 
-- **分层模型必须非中心化参数化**（`参数 = 超均值 + 超标准差 × 标准正态偏移`），中心化几乎必然产生散度。
-- **散度不可忽视**：`idata.sample_stats.diverging.sum() > 0` 即后验有偏，先提 `target_accept` 再重参数化，别直接解读。
-- **先验预测检查不能省**：先验若生成离谱数据，后验再漂亮也不可信。
-- **模型比较前置条件**：拟合时必须 `log_likelihood=True`，否则 `az.compare` 无法计算。
-- **选对似然**：连续→Normal/StudentT(抗离群)，二元→Bernoulli，计数→Poisson/NegativeBinomial，别一律高斯。
-- 用弱信息先验，慎用 flat/Uniform 先验；尺度参数用 `HalfNormal`/`Exponential`。
-- 报告用 HDI 区间表达不确定性，而非只给后验均值。
-- 实用工具：`pm.model_to_graphviz(model)` 可视化结构；`idata.to_netcdf('r.nc')` 存、`az.from_netcdf` 读；超大模型用 minibatch ADVI 或数据子采样。
-- 不能替代环境相关验证与专家复核；输出仅供参考。
+For grouped data (use non-centered parameterization):
 
-## 互见
+```python
+with pm.Model(coords={'groups': group_names}) as hierarchical_model:
+    # Hyperpriors
+    mu_alpha = pm.Normal('mu_alpha', mu=0, sigma=10)
+    sigma_alpha = pm.HalfNormal('sigma_alpha', sigma=1)
 
-- requires：无。
-- related：`statsmodels-statistical-modeling`（频率派统计推断，与本技能的贝叶斯推断互补）；`scikit-learn-ml`（侧重预测的机器学习）；`seaborn-statistical-charts`、`matplotlib-visualization`（诊断图与后验可视化，ArviZ 之外的补充画图）。
-- combines_with：`csv-data-cleaner`（建模前清洗脏数据，清洗完再进本技能）；`matplotlib-visualization`（定制后验/预测区间图）。
+    # Group-level (non-centered)
+    alpha_offset = pm.Normal('alpha_offset', mu=0, sigma=1, dims='groups')
+    alpha = pm.Deterministic('alpha', mu_alpha + sigma_alpha * alpha_offset, dims='groups')
 
----
+    # Observation-level
+    mu = alpha[group_idx]
+    sigma = pm.HalfNormal('sigma', sigma=1)
+    y = pm.Normal('y', mu=mu, sigma=sigma, observed=y_obs)
+```
 
-采编自 K-Dense-AI/scientific-agent-skills 的 `pymc` 技能（原署 K-Dense Inc.）。注：源 SKILL.md 实际声明为 Apache License 2.0（非 MIT），二者均允许再分发；本条按 Apache-2.0 署源。
+**Use template:** `assets/hierarchical_model_template.py`
+
+**Critical:** Always use non-centered parameterization for hierarchical models to avoid divergences.
+
+### Poisson Regression
+
+For count data:
+
+```python
+with pm.Model() as poisson_model:
+    alpha = pm.Normal('alpha', mu=0, sigma=10)
+    beta = pm.Normal('beta', mu=0, sigma=10, shape=n_predictors)
+
+    log_lambda = alpha + pm.math.dot(X, beta)
+    y = pm.Poisson('y', mu=pm.math.exp(log_lambda), observed=y_obs)
+```
+
+For overdispersed counts, use `NegativeBinomial` instead.
+
+### Time Series
+
+For autoregressive processes:
+
+```python
+with pm.Model() as ar_model:
+    sigma = pm.HalfNormal('sigma', sigma=1)
+    rho = pm.Normal('rho', mu=0, sigma=0.5, shape=ar_order)
+    init_dist = pm.Normal.dist(mu=0, sigma=sigma)
+
+    y = pm.AR('y', rho=rho, sigma=sigma, init_dist=init_dist, observed=y_obs)
+```
+
+## Model Comparison
+
+### Comparing Models
+
+Use LOO or WAIC for model comparison:
+
+```python
+from scripts.model_comparison import compare_models, check_loo_reliability
+
+# Fit models with log_likelihood
+models = {
+    'Model1': idata1,
+    'Model2': idata2,
+    'Model3': idata3
+}
+
+# Compare using LOO
+comparison = compare_models(models, ic='loo')
+
+# Check reliability
+check_loo_reliability(models)
+```
+
+**Interpretation:**
+- **Δloo < 2**: Models are similar, choose simpler model
+- **2 < Δloo < 4**: Weak evidence for better model
+- **4 < Δloo < 10**: Moderate evidence
+- **Δloo > 10**: Strong evidence for better model
+
+**Check Pareto-k values:**
+- k < 0.7: LOO reliable
+- k > 0.7: Consider WAIC or k-fold CV
+
+### Model Averaging
+
+When models are similar, average predictions:
+
+```python
+from scripts.model_comparison import model_averaging
+
+averaged_pred, weights = model_averaging(models, var_name='y_obs')
+```
+
+## Distribution Selection Guide
+
+### For Priors
+
+**Scale parameters** (σ, τ):
+- `pm.HalfNormal('sigma', sigma=1)` - Default choice
+- `pm.Exponential('sigma', lam=1)` - Alternative
+- `pm.Gamma('sigma', alpha=2, beta=1)` - More informative
+
+**Unbounded parameters**:
+- `pm.Normal('theta', mu=0, sigma=1)` - For standardized data
+- `pm.StudentT('theta', nu=3, mu=0, sigma=1)` - Robust to outliers
+
+**Positive parameters**:
+- `pm.LogNormal('theta', mu=0, sigma=1)`
+- `pm.Gamma('theta', alpha=2, beta=1)`
+
+**Probabilities**:
+- `pm.Beta('p', alpha=2, beta=2)` - Weakly informative
+- `pm.Uniform('p', lower=0, upper=1)` - Non-informative (use sparingly)
+
+**Correlation matrices**:
+- `pm.LKJCorr('corr', n=n_vars, eta=2)` - eta=1 uniform, eta>1 prefers identity
+
+### For Likelihoods
+
+**Continuous outcomes**:
+- `pm.Normal('y', mu=mu, sigma=sigma)` - Default for continuous data
+- `pm.StudentT('y', nu=nu, mu=mu, sigma=sigma)` - Robust to outliers
+
+**Count data**:
+- `pm.Poisson('y', mu=lambda)` - Equidispersed counts
+- `pm.NegativeBinomial('y', mu=mu, alpha=alpha)` - Overdispersed counts
+- `pm.ZeroInflatedPoisson('y', psi=psi, mu=mu)` - Excess zeros
+
+**Binary outcomes**:
+- `pm.Bernoulli('y', p=p)` or `pm.Bernoulli('y', logit_p=logit_p)`
+
+**Categorical outcomes**:
+- `pm.Categorical('y', p=probs)`
+
+**See:** `references/distributions.md` for comprehensive distribution reference
+
+## Sampling and Inference
+
+### MCMC with NUTS
+
+Default and recommended for most models:
+
+```python
+idata = pm.sample(
+    draws=2000,
+    tune=1000,
+    chains=4,
+    target_accept=0.9,
+    random_seed=42
+)
+```
+
+**Adjust when needed:**
+- Divergences → `target_accept=0.95` or higher
+- Slow sampling → Use ADVI for initialization
+- Discrete parameters → Use `pm.Metropolis()` for discrete vars
+
+### Variational Inference
+
+Fast approximation for exploration or initialization:
+
+```python
+with model:
+    approx = pm.fit(n=20000, method='advi')
+
+    # Use for initialization
+    start = approx.sample(return_inferencedata=False)[0]
+    idata = pm.sample(start=start)
+```
+
+**Trade-offs:**
+- Much faster than MCMC
+- Approximate (may underestimate uncertainty)
+- Good for large models or quick exploration
+
+**See:** `references/sampling_inference.md` for detailed sampling guide
+
+## Diagnostic Scripts
+
+### Comprehensive Diagnostics
+
+```python
+from scripts.model_diagnostics import create_diagnostic_report
+
+create_diagnostic_report(
+    idata,
+    var_names=['alpha', 'beta', 'sigma'],
+    output_dir='diagnostics/'
+)
+```
+
+Creates:
+- Trace plots
+- Rank plots (mixing check)
+- Autocorrelation plots
+- Energy plots
+- ESS evolution
+- Summary statistics CSV
+
+### Quick Diagnostic Check
+
+```python
+from scripts.model_diagnostics import check_diagnostics
+
+results = check_diagnostics(idata)
+```
+
+Checks R-hat, ESS, divergences, and tree depth.
+
+## Common Issues and Solutions
+
+### Divergences
+
+**Symptom:** `idata.sample_stats.diverging.sum() > 0`
+
+**Solutions:**
+1. Increase `target_accept=0.95` or `0.99`
+2. Use non-centered parameterization (hierarchical models)
+3. Add stronger priors to constrain parameters
+4. Check for model misspecification
+
+### Low Effective Sample Size
+
+**Symptom:** `ESS < 400`
+
+**Solutions:**
+1. Sample more draws: `draws=5000`
+2. Reparameterize to reduce posterior correlation
+3. Use QR decomposition for regression with correlated predictors
+
+### High R-hat
+
+**Symptom:** `R-hat > 1.01`
+
+**Solutions:**
+1. Run longer chains: `tune=2000, draws=5000`
+2. Check for multimodality
+3. Improve initialization with ADVI
+
+### Slow Sampling
+
+**Solutions:**
+1. Use ADVI initialization
+2. Reduce model complexity
+3. Increase parallelization: `cores=8, chains=8`
+4. Use variational inference if appropriate
+
+## Best Practices
+
+### Model Building
+
+1. **Always standardize predictors** for better sampling
+2. **Use weakly informative priors** (not flat)
+3. **Use named dimensions** (`dims`) for clarity
+4. **Non-centered parameterization** for hierarchical models
+5. **Check prior predictive** before fitting
+
+### Sampling
+
+1. **Run multiple chains** (at least 4) for convergence
+2. **Use `target_accept=0.9`** as baseline (higher if needed)
+3. **Include `log_likelihood=True`** for model comparison
+4. **Set random seed** for reproducibility
+
+### Validation
+
+1. **Check diagnostics** before interpretation (R-hat, ESS, divergences)
+2. **Posterior predictive check** for model validation
+3. **Compare multiple models** when appropriate
+4. **Report uncertainty** (HDI intervals, not just point estimates)
+
+### Workflow
+
+1. Start simple, add complexity gradually
+2. Prior predictive check → Fit → Diagnostics → Posterior predictive check
+3. Iterate on model specification based on checks
+4. Document assumptions and prior choices
+
+## Resources
+
+This skill includes:
+
+### References (`references/`)
+
+- **`distributions.md`**: Comprehensive catalog of PyMC distributions organized by category (continuous, discrete, multivariate, mixture, time series). Use when selecting priors or likelihoods.
+
+- **`sampling_inference.md`**: Detailed guide to sampling algorithms (NUTS, Metropolis, SMC), variational inference (ADVI, SVGD), and handling sampling issues. Use when encountering convergence problems or choosing inference methods.
+
+- **`workflows.md`**: Complete workflow examples and code patterns for common model types, data preparation, prior selection, and model validation. Use as a cookbook for standard Bayesian analyses.
+
+### Scripts (`scripts/`)
+
+- **`model_diagnostics.py`**: Automated diagnostic checking and report generation. Functions: `check_diagnostics()` for quick checks, `create_diagnostic_report()` for comprehensive analysis with plots.
+
+- **`model_comparison.py`**: Model comparison utilities using LOO/WAIC. Functions: `compare_models()`, `check_loo_reliability()`, `model_averaging()`.
+
+### Templates (`assets/`)
+
+- **`linear_regression_template.py`**: Complete template for Bayesian linear regression with full workflow (data prep, prior checks, fitting, diagnostics, predictions).
+
+- **`hierarchical_model_template.py`**: Complete template for hierarchical/multilevel models with non-centered parameterization and group-level analysis.
+
+## Quick Reference
+
+### Model Building
+```python
+with pm.Model(coords={'var': names}) as model:
+    # Priors
+    param = pm.Normal('param', mu=0, sigma=1, dims='var')
+    # Likelihood
+    y = pm.Normal('y', mu=..., sigma=..., observed=data)
+```
+
+### Sampling
+```python
+idata = pm.sample(draws=2000, tune=1000, chains=4, target_accept=0.9)
+```
+
+### Diagnostics
+```python
+from scripts.model_diagnostics import check_diagnostics
+check_diagnostics(idata)
+```
+
+### Model Comparison
+```python
+from scripts.model_comparison import compare_models
+compare_models({'m1': idata1, 'm2': idata2}, ic='loo')
+```
+
+### Predictions
+```python
+with model:
+    pm.set_data({'X': X_new})
+    pred = pm.sample_posterior_predictive(idata.posterior)
+```
+
+## Additional Notes
+
+- PyMC integrates with ArviZ for visualization and diagnostics
+- Use `pm.model_to_graphviz(model)` to visualize model structure
+- Save results with `idata.to_netcdf('results.nc')`
+- Load with `az.from_netcdf('results.nc')`
+- For very large models, consider minibatch ADVI or data subsampling

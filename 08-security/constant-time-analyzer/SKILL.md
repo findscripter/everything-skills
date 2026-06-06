@@ -1,14 +1,14 @@
 ---
 name: constant-time-analyzer
-title: 密码学常量时间侧信道分析
-description: 当编写或审计密码学代码（签名/加解密/密钥派生）、对秘密值做除法或秘密相关分支、或排查常量时间/时序侧信道问题时使用；用 ct_analyzer 反汇编分析多语言源码并定位泄密指令（DIV/分支/早退比较），产出问题清单与修复建议；不适用于非密码学/纯公开数据/不涉密的业务代码。触发词：常量时间、时序攻击、侧信道、constant-time、timing attack、side-channel、KyberSlash
+title: Constant-Time Analysis
+description: Detects timing side-channel vulnerabilities in cryptographic code. Use when implementing or reviewing crypto code, encountering division on secrets, secret-dependent branches, or constant-time programming questions in C, C++, Go, Rust, Swift, Java, Kotlin, C#, PHP, JavaScript, TypeScript, Python, or Ruby.
 domain: 安全/audit
-triggers: [常量时间, 时序攻击, 侧信道, constant-time, timing attack, side-channel, KyberSlash, 秘密相关分支, 签名验证审计, 密钥派生]
+triggers: [constant-time, timing attack, side-channel, KyberSlash]
 tags: [security, audit, cryptography, constant-time, side-channel, timing-attack, static-analysis]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [ct_analyzer/analyzer.py, uv, gcc/clang, go, rustc, swiftc, javac/javap, kotlinc, ilspycmd, node, python, ruby]
+tools: []
 requires: []
 related: [zeroize-audit, c-cpp-security-review, binary-analysis-patterns, vulnerability-variant-analysis]
 combines_with: [zeroize-audit, c-cpp-security-review, false-positive-check]
@@ -16,72 +16,163 @@ license: CC-BY-SA-4.0
 source: trailofbits/skills
 source_license: CC-BY-SA-4.0
 ---
-## 何时使用
+# Constant-Time Analysis
 
-实现或审计密码学代码、且执行时间可能依赖秘密数据时使用。典型信号：
+Analyze cryptographic code to detect operations that leak secret data through execution timing variations.
 
-- 实现/审查 `sign`、`verify`、`encrypt`、`decrypt`、`derive_key` 等函数。
-- 代码对私钥/明文/口令等秘密派生值使用 `/` 或 `%`（除法/取模有早退优化，时间随操作数变化）。
-- 对秘密做分支判断、按秘密索引查表、用早退式 `memcmp` 比较秘密。
-- 用户提到「常量时间 / 时序攻击 / 侧信道 / KyberSlash」。
+## When to Use
 
-**不该用边界（满足任一即跳过）：**
+```text
+User writing crypto code? ──yes──> Use this skill
+         │
+         no
+         │
+         v
+User asking about timing attacks? ──yes──> Use this skill
+         │
+         no
+         │
+         v
+Code handles secret keys/tokens? ──yes──> Use this skill
+         │
+         no
+         │
+         v
+Skip this skill
+```
 
-- 非密码学代码（业务逻辑、UI 等）。
-- 处理纯公开数据，时序泄漏无意义。
-- 不涉及秘密、密钥、认证令牌。
-- 高层 API 调用，常量时间由底层库保证。
+**Concrete triggers:**
 
-支持语言：C、C++、Go、Rust、Swift、Java、Kotlin、C#、PHP、JavaScript、TypeScript、Python、Ruby（按文件扩展名自动选择分析后端）。
+- User implements signature, encryption, or key derivation
+- Code contains `/` or `%` operators on secret-derived values
+- User mentions "constant-time", "timing attack", "side-channel", "KyberSlash"
+- Reviewing functions named `sign`, `verify`, `encrypt`, `decrypt`, `derive_key`
 
-## 步骤
+## When NOT to Use
 
-1. 按源文件类型直接运行分析器，它会编译/反汇编到汇编或字节码并扫描危险指令。
-2. 对原生编译语言（C/C++/Go/Rust/Swift）做跨架构与多优化级别测试，因为编译器可能在某档优化下才引入变量时间指令。
-3. 逐条核对告警：**该指令的输入是否依赖秘密数据**——这是区分真/假阳性的唯一标准（工具无数据流分析，会标记一切潜在危险操作）。
-4. 对每条真阳性按「快速参考」表选择修复手段，并记录你的判定理由。
+- Non-cryptographic code (business logic, UI, etc.)
+- Public data processing where timing leaks don't matter
+- Code that doesn't handle secrets, keys, or authentication tokens
+- High-level API usage where timing is handled by the library
 
-## 指令
+## Language Selection
+
+Based on the file extension or language context, refer to the appropriate guide:
+
+| Language   | File Extensions                   | Guide                                                    |
+| ---------- | --------------------------------- | -------------------------------------------------------- |
+| C, C++     | `.c`, `.h`, `.cpp`, `.cc`, `.hpp` | [references/compiled.md](references/compiled.md)         |
+| Go         | `.go`                             | [references/compiled.md](references/compiled.md)         |
+| Rust       | `.rs`                             | [references/compiled.md](references/compiled.md)         |
+| Swift      | `.swift`                          | [references/swift.md](references/swift.md)               |
+| Java       | `.java`                           | [references/vm-compiled.md](references/vm-compiled.md)   |
+| Kotlin     | `.kt`, `.kts`                     | [references/kotlin.md](references/kotlin.md)             |
+| C#         | `.cs`                             | [references/vm-compiled.md](references/vm-compiled.md)   |
+| PHP        | `.php`                            | [references/php.md](references/php.md)                   |
+| JavaScript | `.js`, `.mjs`, `.cjs`             | [references/javascript.md](references/javascript.md)     |
+| TypeScript | `.ts`, `.tsx`                     | [references/javascript.md](references/javascript.md)     |
+| Python     | `.py`                             | [references/python.md](references/python.md)             |
+| Ruby       | `.rb`                             | [references/ruby.md](references/ruby.md)                 |
+
+## Quick Start
 
 ```bash
-# 分析任意受支持文件类型
+# Analyze any supported file type
 uv run {baseDir}/ct_analyzer/analyzer.py <source_file>
 
-# 包含条件分支告警
+# Include conditional branch warnings
 uv run {baseDir}/ct_analyzer/analyzer.py --warnings <source_file>
 
-# 仅过滤特定函数
+# Filter to specific functions
 uv run {baseDir}/ct_analyzer/analyzer.py --func 'sign|verify' <source_file>
 
-# CI 用 JSON 输出
+# JSON output for CI
 uv run {baseDir}/ct_analyzer/analyzer.py --json <source_file>
+```
 
-# 原生编译语言（C/C++/Go/Rust/Swift）：跨架构（推荐）
+### Native Compiled Languages Only (C, C++, Go, Rust)
+
+```bash
+# Cross-architecture testing (RECOMMENDED)
 uv run {baseDir}/ct_analyzer/analyzer.py --arch x86_64 crypto.c
 uv run {baseDir}/ct_analyzer/analyzer.py --arch arm64 crypto.c
 
-# 多优化级别
+# Multiple optimization levels
 uv run {baseDir}/ct_analyzer/analyzer.py --opt-level O0 crypto.c
 uv run {baseDir}/ct_analyzer/analyzer.py --opt-level O3 crypto.c
 ```
 
-VM 字节码语言（Java/Kotlin/C#）直接传源文件即可，分析的是 JVM/CIL 字节码而非 JIT 后的本机码，`--arch`、`--opt-level` 对其无效。Swift 编译为本机码，走汇编级分析并支持架构/优化级别开关。
+### VM-Compiled Languages (Java, Kotlin, C#)
 
-**前置依赖（需在 PATH）：** C/C++/Go/Rust 需对应编译器；Swift 需 `swiftc`；Java 需 `javac`+`javap`；Kotlin 需 `kotlinc`+`javap`；C# 需 .NET SDK + `ilspycmd`（`dotnet tool install -g ilspycmd`）；PHP 需 VLD 扩展或 OPcache；JS/TS 需 Node.js；Python 需 Python 3.x；Ruby 需支持 `--dump=insns`。macOS 上 Homebrew 的 Java/.NET 为 keg-only，需手动加入 PATH。
+```bash
+# Analyze Java bytecode
+uv run {baseDir}/ct_analyzer/analyzer.py CryptoUtils.java
 
-**快速参考（问题→检测→修复）：**
+# Analyze Kotlin bytecode (Android/JVM)
+uv run {baseDir}/ct_analyzer/analyzer.py CryptoUtils.kt
 
-| 问题 | 检测到的指令 | 修复 |
-| --- | --- | --- |
-| 对秘密做除法 | DIV、IDIV、SDIV、UDIV | Barrett 约简或乘以逆元 |
-| 对秘密分支 | JE、JNE、BEQ、BNE | 常量时间选择（cmov、位掩码） |
-| 秘密比较 | 早退式 memcmp | 用 `crypto/subtle` 或常量时间比较 |
-| 弱随机数 | rand()、mt_rand、Math.random | 改用密码学安全 RNG |
-| 按秘密索引查表 | 秘密索引的数组下标 | 位切片（bit-sliced）查表 |
+# Analyze C# IL
+uv run {baseDir}/ct_analyzer/analyzer.py CryptoUtils.cs
+```
 
-## 示例
+Note: Java, Kotlin, and C# compile to bytecode (JVM/CIL) that runs on a virtual machine with JIT compilation. The analyzer examines the bytecode directly, not the JIT-compiled native code. The `--arch` and `--opt-level` flags do not apply to these languages.
 
-结果解读：`PASSED` 表示未检出变量时间操作；`FAILED` 给出危险指令，例如：
+### Swift (iOS/macOS)
+
+```bash
+# Analyze Swift for native architecture
+uv run {baseDir}/ct_analyzer/analyzer.py crypto.swift
+
+# Analyze for specific architecture (iOS devices)
+uv run {baseDir}/ct_analyzer/analyzer.py --arch arm64 crypto.swift
+
+# Analyze with different optimization levels
+uv run {baseDir}/ct_analyzer/analyzer.py --opt-level O0 crypto.swift
+```
+
+Note: Swift compiles to native code like C/C++/Go/Rust, so it uses assembly-level analysis and supports `--arch` and `--opt-level` flags.
+
+### Prerequisites
+
+| Language               | Requirements                                              |
+| ---------------------- | --------------------------------------------------------- |
+| C, C++, Go, Rust       | Compiler in PATH (`gcc`/`clang`, `go`, `rustc`)           |
+| Swift                  | Xcode or Swift toolchain (`swiftc` in PATH)               |
+| Java                   | JDK with `javac` and `javap` in PATH                      |
+| Kotlin                 | Kotlin compiler (`kotlinc`) + JDK (`javap`) in PATH       |
+| C#                     | .NET SDK + `ilspycmd` (`dotnet tool install -g ilspycmd`) |
+| PHP                    | PHP with VLD extension or OPcache                         |
+| JavaScript/TypeScript  | Node.js in PATH                                           |
+| Python                 | Python 3.x in PATH                                        |
+| Ruby                   | Ruby with `--dump=insns` support                          |
+
+**macOS users**: Homebrew installs Java and .NET as "keg-only". You must add them to your PATH:
+
+```bash
+# For Java (add to ~/.zshrc)
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+
+# For .NET tools (add to ~/.zshrc)
+export PATH="$HOME/.dotnet/tools:$PATH"
+```
+
+See [references/vm-compiled.md](references/vm-compiled.md) for detailed setup instructions and troubleshooting.
+
+## Quick Reference
+
+| Problem                | Detection                       | Fix                                          |
+| ---------------------- | ------------------------------- | -------------------------------------------- |
+| Division on secrets    | DIV, IDIV, SDIV, UDIV           | Barrett reduction or multiply-by-inverse     |
+| Branch on secrets      | JE, JNE, BEQ, BNE               | Constant-time selection (cmov, bit masking)  |
+| Secret comparison      | Early-exit memcmp               | Use `crypto/subtle` or constant-time compare |
+| Weak RNG               | rand(), mt_rand, Math.random    | Use crypto-secure RNG                        |
+| Table lookup by secret | Array subscript on secret index | Bit-sliced lookups                           |
+
+## Interpreting Results
+
+**PASSED** - No variable-time operations detected.
+
+**FAILED** - Dangerous instructions found. Example:
 
 ```text
 [ERROR] SDIV
@@ -89,29 +180,53 @@ VM 字节码语言（Java/Kotlin/C#）直接传源文件即可，分析的是 JV
   Reason: SDIV has early termination optimization; execution time depends on operand values
 ```
 
-假阳性 vs 真阳性判定：
+## Verifying Results (Avoiding False Positives)
 
-```c
-// 假阳性：除数是公开常量，非秘密
-int num_blocks = data_len / 16;     // data_len 是长度而非内容
+**CRITICAL**: Not every flagged operation is a vulnerability. The tool has no data flow analysis - it flags ALL potentially dangerous operations regardless of whether they involve secrets.
 
-// 真阳性：除法涉及秘密派生值
-int32_t q = secret_coef / GAMMA2;   // secret_coef 来自私钥
-```
+For each flagged violation, ask: **Does this operation's input depend on secret data?**
 
-快速分诊表：操作数是编译期常量？→很可能假阳性。是公开参数（长度/计数）？→很可能假阳性。来自密钥/明文/秘密，或攻击者可影响其值？→**真阳性**。
+1. **Identify the secret inputs** to the function (private keys, plaintext, signatures, tokens)
 
-## 注意事项
+2. **Trace data flow** from the flagged instruction back to inputs
 
-- **仅静态分析**：分析汇编/字节码，不观察运行时；无法检测缓存时序或微架构侧信道。
-- **无数据流分析**：会标记所有危险操作而不论是否处理秘密，**必须人工复核**，否则误报率高。
-- **编译器/运行时差异**：不同编译器、优化级别、运行时版本输出可能不同，故建议跨架构、跨优化级别多跑。
-- 真实危害佐证：KyberSlash（2023，ML-KEM 除法指令导致密钥恢复）、Lucky Thirteen（2013，CBC 填充校验时序差异恢复明文）、RSA 早期实现因除法时序泄漏私钥比特。
+3. **Common false positive patterns**:
 
-## 互见
+   ```c
+   // FALSE POSITIVE: Division uses public constant, not secret
+   int num_blocks = data_len / 16;  // data_len is length, not content
 
-- 参考资料：Cryptocoding Guidelines（github.com/veorq/cryptocoding）、KyberSlash（kyberslash.cr.yp.to）、BearSSL Constant-Time（bearssl.org/constanttime.html）。
-- 相关技能：code-reviewer（代码审计联动）、dependency-auditor（依赖侧安全审计）。
+   // TRUE POSITIVE: Division involves secret-derived value
+   int32_t q = secret_coef / GAMMA2;  // secret_coef from private key
+   ```
 
----
-本条采编自 trailofbits/skills（CC-BY-SA-4.0）。
+4. **Document your analysis** for each flagged item
+
+### Quick Triage Questions
+
+| Question                                          | If Yes                | If No                 |
+| ------------------------------------------------- | --------------------- | --------------------- |
+| Is the operand a compile-time constant?           | Likely false positive | Continue              |
+| Is the operand a public parameter (length, count)?| Likely false positive | Continue              |
+| Is the operand derived from key/plaintext/secret? | **TRUE POSITIVE**     | Likely false positive |
+| Can an attacker influence the operand value?      | **TRUE POSITIVE**     | Likely false positive |
+
+## Limitations
+
+1. **Static Analysis Only**: Analyzes assembly/bytecode, not runtime behavior. Cannot detect cache timing or microarchitectural side-channels.
+
+2. **No Data Flow Analysis**: Flags all dangerous operations regardless of whether they process secrets. Manual review required.
+
+3. **Compiler/Runtime Variations**: Different compilers, optimization levels, and runtime versions may produce different output.
+
+## Real-World Impact
+
+- **KyberSlash (2023)**: Division instructions in post-quantum ML-KEM implementations allowed key recovery
+- **Lucky Thirteen (2013)**: Timing differences in CBC padding validation enabled plaintext recovery
+- **RSA Timing Attacks**: Early implementations leaked private key bits through division timing
+
+## References
+
+- [Cryptocoding Guidelines](https://github.com/veorq/cryptocoding) - Defensive coding for crypto
+- [KyberSlash](https://kyberslash.cr.yp.to/) - Division timing in post-quantum crypto
+- [BearSSL Constant-Time](https://www.bearssl.org/constanttime.html) - Practical constant-time techniques

@@ -1,67 +1,73 @@
 ---
 name: sql-query-builder
-title: SQL 查询构建
-description: 当需要把自然语言需求转成正确高效的 SQL、做联表/聚合/窗口查询或排错时使用；触发词：写 SQL、查询、联表、聚合、窗口函数、慢查询。
+title: SQL Query Builder
+description: Use when turning a natural-language requirement into correct, efficient SQL — joins, aggregation, window functions, CTEs, or debugging wrong results and slow queries. Triggers: write SQL, query, join, aggregate, window function, slow query.
 domain: 数据/sql
+triggers: [write SQL, query, join, aggregate, window function, slow query, CTE, GROUP BY, natural language to SQL, EXPLAIN]
 tags: [sql, database, query]
-level: 进阶
+level: intermediate
 status: stable
-version: 0.1.0
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [sql]
+tools: []
 requires: []
 related: [erd-schema-designer, postgresql-optimization, dbt-transformation-modeler, snowflake-development]
 combines_with: [postgresql-optimization, kpi-dashboard-design, dbt-transformation-modeler]
 license: CC-BY-SA-4.0
+source: 
+source_license: 
 ---
-## 何时使用
+## When to use
 
-- 把自然语言需求翻译成可执行 SQL：筛选、联表、聚合、分组、排序、分页。
-- 编写多表 JOIN、窗口函数（排名/累计/同环比/去重取最新）、子查询/CTE。
-- 排查错误 SQL 或慢查询：定位结果不对、性能瓶颈、索引未命中。
+- Translate a natural-language requirement into executable SQL: filtering, joins, aggregation, grouping, sorting, pagination.
+- Write multi-table JOINs, window functions (ranking / running totals / period-over-period / dedup-to-latest), subqueries / CTEs.
+- Debug wrong or slow SQL: incorrect results, performance bottlenecks, missed indexes.
 
-不该用的边界：
-- 数据已在本地 CSV/脏数据、需清洗去重而非查库 → 用 csv-data-cleaner。
-- 表结构未知且无法查到 schema → 先要 DDL 或 `information_schema`，不要凭空猜列名。
-- 涉及写操作（INSERT/UPDATE/DELETE/DDL）批量改库 → 本技能只产出，执行前须用户确认，不自动跑。
+When NOT to use:
 
-## 步骤 / 指令
+- Data is already a local CSV / dirty data that needs cleaning and dedup rather than a database query -> use `csv-data-cleaner`.
+- Table structure is unknown and the schema cannot be looked up -> ask for the DDL or `information_schema` first; never invent column names.
+- Bulk write operations (INSERT/UPDATE/DELETE/DDL) -> this skill only produces SQL; require explicit user confirmation before running, never auto-execute.
+
+## Steps
 
 ```
-1. 确认方言与 schema
-   - 方言：postgres | mysql | sqlite | sqlserver | bigquery（默认 postgres）
-   - 表/列：要到 DDL 或读 information_schema.columns；缺失则停下追问，不臆造列名
-2. 拆解需求 → 映射子句
-   - 输出哪些列/指标         → SELECT
-   - 涉及哪些表、连接键、连接类型 → FROM / JOIN（默认 INNER；要保留左表全集用 LEFT）
-   - 过滤条件（行级，聚合前）  → WHERE
-   - 分组维度               → GROUP BY
-   - 过滤条件（聚合后）      → HAVING
-   - 排序、Top-N / 分页      → ORDER BY / LIMIT OFFSET
-3. 需要"组内排名/累计/取最新一条"→ 用窗口函数，不要相关子查询
+1. Confirm dialect and schema
+   - Dialect: postgres | mysql | sqlite | sqlserver | bigquery (default postgres)
+   - Tables/columns: get the DDL or read information_schema.columns; if missing,
+     stop and ask — do not fabricate column names
+2. Decompose the requirement -> map to clauses
+   - Which columns/metrics to output       -> SELECT
+   - Which tables, join keys, join type     -> FROM / JOIN (default INNER; LEFT to keep all left rows)
+   - Row-level filters (before aggregation) -> WHERE
+   - Grouping dimensions                    -> GROUP BY
+   - Filters after aggregation              -> HAVING
+   - Sorting, Top-N / pagination            -> ORDER BY / LIMIT OFFSET
+3. Need "rank within group / running total / take latest row" -> use window functions,
+   not correlated subqueries
    - ROW_NUMBER()/RANK()/SUM() OVER (PARTITION BY ... ORDER BY ...)
-   - 去重取最新：子查询里打 ROW_NUMBER 后外层 WHERE rn=1
-4. 嵌套逻辑 → 用 CTE（WITH）拆分，每个 CTE 单一职责，自顶向下可读
-5. 自检（产出前逐条过）
-   - JOIN 是否漏写 ON / 笛卡尔积？多对多是否导致计数翻倍？
-   - SELECT 非聚合列是否都在 GROUP BY？
-   - NULL：外连接后的 NULL、NOT IN 含 NULL 陷阱、COUNT(col) 忽略 NULL
-   - 聚合条件错放 WHERE（应 HAVING）或反之？
-   - 分页有 ORDER BY 保证稳定顺序？
-6. 慢查询排查
-   - 跑 EXPLAIN / EXPLAIN ANALYZE，看是否 Seq Scan / 全表扫描、行数估算偏差
-   - 检查 WHERE/JOIN 列是否有索引；避免在索引列上套函数（如 DATE(col)）导致失效
-   - SELECT * → 改为只取所需列；用 EXISTS 替代低效 IN 子查询
+   - Dedup-to-latest: ROW_NUMBER in a subquery, then outer WHERE rn = 1
+4. Nested logic -> split with CTEs (WITH); each CTE single-purpose, readable top-down
+5. Self-check (run through each point before delivering)
+   - Did any JOIN miss its ON / produce a cartesian product? Does many-to-many double counts?
+   - Are all non-aggregated SELECT columns in GROUP BY?
+   - NULLs: NULLs after outer joins, the NOT IN + NULL trap, COUNT(col) ignores NULL
+   - Aggregate condition placed in WHERE (should be HAVING) or vice versa?
+   - Does pagination have an ORDER BY for stable ordering?
+6. Slow-query triage
+   - Run EXPLAIN / EXPLAIN ANALYZE; look for Seq Scan / full table scans, row-estimate skew
+   - Check that WHERE/JOIN columns are indexed; avoid wrapping indexed columns in functions
+     (e.g. DATE(col)) which defeats the index
+   - SELECT * -> select only the needed columns; use EXISTS instead of inefficient IN subqueries
 ```
 
-## 示例
+## Example
 
-需求："按部门统计 2024 年在职员工平均薪资，只看人数≥5 的部门，从高到低排。"
+Requirement: "For 2024, show the average salary of active employees per department, only departments with headcount >= 5, sorted high to low."
 
 ```sql
 -- postgres
 SELECT d.name AS dept,
-       COUNT(*)            AS headcount,
+       COUNT(*)             AS headcount,
        ROUND(AVG(e.salary)) AS avg_salary
 FROM employees e
 JOIN departments d ON d.id = e.dept_id
@@ -72,7 +78,7 @@ HAVING COUNT(*) >= 5
 ORDER BY avg_salary DESC;
 ```
 
-窗口函数 —— 每个客户的最近一笔订单：
+Window function — the most recent order per customer:
 
 ```sql
 WITH ranked AS (
@@ -86,26 +92,26 @@ FROM ranked
 WHERE rn = 1;
 ```
 
-给 Agent 的提示词模板：
+Prompt template for the agent:
 
 ```
-方言=postgres。表 orders(id,customer_id,amount,created_at,status)。
-需求：<自然语言>。
-要求：用 CTE 拆分；只取必要列；产出后附 EXPLAIN 关注点。
+dialect=postgres. Table orders(id, customer_id, amount, created_at, status).
+Requirement: <natural language>.
+Requirements: split with CTEs; select only necessary columns; append EXPLAIN focus points after the query.
 ```
 
-## 注意事项
+## Notes
 
-- 先确认方言：LIMIT/OFFSET vs TOP、字符串拼接、日期函数、布尔类型各方言不同。
-- 列名/表名不确定就追问，绝不编造；带保留字或大小写敏感时加引号。
-- 多对多 JOIN 会放大聚合值，必要时先在子查询里去重再聚合。
-- `NOT IN (子查询)` 当子查询含 NULL 时整体返回空集，改用 `NOT EXISTS`。
-- 浮点除法注意整数除零与精度，按需 CAST；金额避免用 FLOAT。
-- 大表分页用 keyset 分页（WHERE id > last_id）替代大 OFFSET。
-- 仅产出 SELECT 查询；写操作必须用户显式确认且给出影响行数估计后才执行。
+- Confirm the dialect first: LIMIT/OFFSET vs TOP, string concatenation, date functions, and boolean types all differ per dialect.
+- If a column/table name is uncertain, ask — never invent it; quote names that are reserved words or case-sensitive.
+- Many-to-many JOINs inflate aggregated values; when needed, dedup in a subquery before aggregating.
+- `NOT IN (subquery)` returns an empty set whenever the subquery contains NULL — use `NOT EXISTS` instead.
+- Watch floating-point division: integer divide-by-zero and precision; CAST as needed; never use FLOAT for money.
+- For large-table pagination use keyset pagination (`WHERE id > last_id`) instead of a large OFFSET.
+- Only produce SELECT queries; any write operation must be explicitly confirmed by the user and accompanied by an estimated affected-row count before execution.
 
-## 互见
+## See also
 
-- requires：无。
-- related：无。
-- combines_with：csv-data-cleaner —— 查询结果导出后或需先清洗本地数据时衔接。
+- requires: none.
+- related: erd-schema-designer, postgresql-optimization, dbt-transformation-modeler, snowflake-development.
+- combines_with: postgresql-optimization, kpi-dashboard-design, dbt-transformation-modeler; csv-data-cleaner — connect when exporting query results or when local data must be cleaned first.

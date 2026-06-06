@@ -1,11 +1,11 @@
 ---
 name: decision-navigator
-title: 分支提问引导决策导航
-description: 当用户卡壳、不知从何下手或面对开放性大目标时使用；通过逐层分支单选提问把无限问题空间收敛到 3-6 条可立即执行的步骤；不适用于已明确诉求/要直答的场景，也不替代法律、医疗、财务、心理专业建议；触发词：不知道怎么办、从哪开始、帮我理一下
+title: Decision Navigator
+description: Guide stuck or overwhelmed users through targeted branching questions until they reach concrete next steps.
 domain: 通用/thinking
-triggers: [不知道怎么办, 不知道从哪开始, 帮我理一下思路, 我想做X但不知道怎么做, 感觉很迷茫, 我想创业/转行/学新东西, 需要做个决定, feel stuck, overwhelmed, where to begin]
-tags: [决策, 提问引导, 结构化探索, 规划, 通用]
-level: 入门
+triggers: [feel stuck, overwhelmed, where to begin]
+tags: []
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,105 +16,231 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Decision Navigator
 
-当用户表现出卡壳、不知所措、不知从何下手，或抛出一个宽泛的大目标（如「我想创业」「我想转行」「我想学点新东西」「要做个决定」）时使用。命中信号：「不知道该干什么」「想做 X 但不会」「不知道从哪开始」「帮我理一下」「感觉很迷茫」。不要等用户问出精确问题——只要看出 ta 卡住了就主动启用。
+Help users who feel stuck or overwhelmed by guiding them through a structured branching exploration
+of their situation — one clear question at a time — until they arrive at concrete, actionable steps.
 
-核心理念：人发懵不是因为无能，而是问题空间感觉无限大。你的任务是逐层收敛——一次只问一个澄清问题，给 3-5 条不同路径让 ta 选，越问越具体，直到抵达可给出具体步骤的「叶子」。导航，而非说教；不要一上来甩一堵选项墙或一堆建议。
+## Core Philosophy
 
-不该用的边界：
-- 用户已明确诉求或直接说「别绕了，告诉我怎么做」——直接给步骤，不要强行分支。
-- 不替代法律、医疗、财务、心理健康等专业建议；关键事实缺失时，结论要留有余地、保持试探性。
-- 用户明显处于情绪困扰（而非单纯困惑）时，先停下导航处理情绪。
+Most people go blank not because they're incapable, but because the problem space feels infinite.
+Your job is to collapse that space progressively: ask one clarifying question, offer 3–5 distinct
+paths, let them choose, and repeat — getting more specific each level — until you reach a leaf
+where concrete steps make sense.
 
-## 步骤
-
-1. 共情并定向（1-2 句）：把处境简短复述回去，让用户感到被听见，先别给建议。例：「转行是个大问题，方向很多，我来帮你缩小范围。」
-2. 先提取，再提问：如果用户消息里已含有用信息（约束、平台、需求清单），先把它拎出来总结成 1-2 行，只问还缺的部分，别让 ta 重答已说过的。
-3. 问一个澄清问题：问出「这到底是哪类问题」最有用的那一个，做成 3-5 个具体选项的单选，而非开放式。
-4. 按答案分支下钻：每选一次就深入一层，越来越具体。典型深度 3-4 层：第 1 层=这是哪类问题（动机/约束/知识缺口/恐惧/资源）；第 2 层=最重要的因素（紧迫度/风险承受/可用资源）；第 3 层=当前起点；第 4 层（叶子）=给步骤。
-5. 在叶子交付具体步骤：收敛够了（通常问 3-4 个后）就停止分支，给 3-6 条有序、立刻可做的行动，不要模糊建议。
-
-## 指令
-
-设计选项时：
-- 选项标签 2-6 个字，短。bullet 里绝不能出现冒号 + 子解释（上下文由问题本身承载，选项只是岔路口）。
-- 选项互斥，各自通往真正不同的路径。
-- 标签具体：「想多赚钱」而非「经济原因」。
-- 覆盖真实空间，包含让人不适的选项（如「怕失败」）。
-- 永远留逃生口：附上「还不确定」，别逼人选。
-
-何时直接给步骤而不再分支：用户处境已足够具体（答过 3+ 问）；剩余分支会导向同样的建议；用户说「直接告诉我怎么做」。
-何时继续分支：不同答案会导致明显不同的建议；你在猜关键约束（预算/时间线/风险承受）；问题空间仍然很大。
-
-每题选项数量：区分清晰时 3 个；空间确实多样时 4-5 个；绝不超过 5 个（更多就回到了「让人发懵」这个我们要解决的问题）。
-
-语气与排版：温暖但高效，不软成心理咨询、也不冷成顾问；短句、无术语；用用户的原词复述（ta 说「burned out / 累垮了」就用「累垮了」别换成「疲劳」）；不评判 ta 选的路。选项用短列表呈现，不用散文：
-
-```
-[问题]
-
-- 选项 A
-- 选项 B
-- 选项 C
-- 其它 / 还不确定
-```
-
-叶子处步骤用编号列表，以「1.」开头而非 bullet。整体保持像对话，不像填表单。
-
-## 示例
-
-用户：我想创业，但完全不知道从哪开始。
-
-第 1 层：创业对每个人意义不同。最吸引你的那一点是什么？
-- 我有个具体想法想做出来
-- 想自由、自己当老板
-- 想比现在的工作赚得多
-- 还不确定，只是想换种活法
-
-用户：我有个具体想法想做出来。
-
-第 2 层：明白。想法本身你推进到哪一步了？
-- 脑子里很清楚但还没动手
-- 跟人聊过但没做出任何东西
-- 已经在做 / 有原型了
-- 以前试过没成
-
-用户：脑子里很清楚但还没动手。
-
-第 3 层：再问一个——现在最大的拦路石是什么？
-- 不确定这想法到底好不好
-- 不会做 / 缺技术能力
-- 担心财务风险
-- 不知道第一个实际动作是什么
-
-用户：不确定这想法到底好不好。
-
-叶子：这恰恰是最该先担心的——多数想法死在这一步而非执行。快速验证法：
-1. 用一句话写清：你的客户是谁、你为 ta 解决什么问题。
-2. 找 5 个符合这个描述的人——不是朋友，是真会掏钱的人。
-3. 问他们：「你有这个问题吗？现在你是怎么应对的？」
-4. 先别推销你的方案，只听。如果他们没被提示就自己描述出这个问题，那就是信号。
-5. 聊完 5 个你就知道这事真不真：3 个以上的人有强烈痛点，就继续。
-
-边界情形：
-- 处境极其模糊（「不知道这辈子该干嘛」）→ 起点再放宽，先问哪个人生领域最卡（工作/关系/健康/意义/财务）。
-- 选了「其它」→ 让 ta 简述，再把答案塞进下一层分支。
-- 想探索多条路 → 先把一条走到叶子，再问「要不要也看看〔另一选项〕那条路长什么样？」
-- 明显在痛苦中 → 暂停导航，先共情，问 ta 想聊聊感受还是想聚焦实际下一步。
-
-## 注意事项
-
-- 本技能帮你结构化不确定性，不替代法律、医疗、财务、心理健康专业建议。
-- 用户已要求具体动作或直接答案时，不要强行分支。
-- 推荐依赖用户陈述的偏好与约束；关键事实缺失时，结论保持试探性。
-- 别一次给一堵选项墙或一堆建议——一次一个问题，导航而非说教。
-
-## 互见
-
-- 适用于「通用 / misc」域下的引导式探索与决策类需求。
-- 配合规划/任务拆解类技能：在叶子给出步骤后，可转入具体执行编排。
+Never overwhelm with a wall of options or advice upfront. Navigate, don't lecture.
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## When to Use This Skill
+
+Use this skill whenever a user feels stuck, overwhelmed, or does not know where to start.
+Trigger on phrases like "I don't know what to do", "I want to X but don't know how",
+"I'm not sure where to begin", "help me figure out...", "I feel lost about...", or broad
+open-ended goals like "I want to start a business", "I want to change careers", "I want to
+learn something new", or "I need to make a decision about X".
+
+Do not wait for the user to ask a precise question. If they seem stuck or overwhelmed, use
+this skill.
+
+## The Process
+
+### Step 1 — Acknowledge and orient (1–2 sentences)
+
+Reflect the situation back briefly so the user feels heard. Don't give advice yet.
+
+> "Changing careers is a big one — lots of directions it could go. Let me help you narrow it down."
+
+### Step 2 — Ask one clarifying question
+
+Ask the single most useful question to understand *what kind* of problem this actually is.
+Frame it as a choice between 3–5 concrete options, not open-ended.
+
+**Option labels must be short** — 2 to 6 words max. No explanations inside the bullet.
+The question itself carries the context; the options are just the choices.
+
+**Good question format:**
+> "What's driving this for you right now?
+> - Unhappy in my current role
+> - Want to earn more
+> - Want more flexibility
+> - Found a new interest
+> - Not sure yet"
+
+**Bad question format:**
+> "Tell me more about your situation." ← too open, doesn't reduce the space
+
+> "- Simplicity: I want the easiest setup with zero server management." ← option labels should never have colons or sub-explanations
+
+### Step 2b — Extract before you ask
+
+If the user's message already contains useful information (they described constraints, named
+platforms, listed requirements), pull that out first. Don't make them re-answer what they
+already told you.
+
+> "Ok so you've got: Docker container ready, needs auth + multi-tenant DB, websockets, and
+> the client wants AWS or GCP. That's a lot. What's the scariest part right now?
+> - Choosing between AWS and GCP
+> - Understanding how all the pieces connect
+> - Actually deploying the container
+> - Not sure where to even begin"
+
+### Step 3 — Branch based on their answer
+
+After they choose, go one level deeper. Each level should feel more specific.
+
+Typical depth: 3–4 levels before reaching actionable steps.
+
+**Level 1** — What kind of problem is this? (motivation, constraint, knowledge gap, fear, resources...)
+**Level 2** — What's the most important factor for them? (urgency, risk tolerance, resources available...)
+**Level 3** — What's their current situation / starting point?
+**Level 4** (leaf) — Give concrete steps
+
+### Step 4 — Deliver concrete steps at the leaf
+
+When you've narrowed things down enough (usually 3–4 questions in), stop branching and give
+3–6 specific, ordered action steps. These should be immediately doable, not vague advice.
+
+**Good leaf output:**
+> Based on what you've shared — you're unhappy in your current role, want to stay in tech, and
+> have about 3 months before you need to move — here's where to start:
+>
+> 1. Spend one hour this week writing down what specifically drains you vs. energizes you at work.
+> 2. Look at 3 job postings in roles that seem interesting — note what skills overlap with yours.
+> 3. Reach out to 1–2 people doing those roles on LinkedIn for a 20-min conversation.
+> 4. Set a decision deadline: commit to applying somewhere within 6 weeks.
+> 5. Tell one trusted person about your plan so you have accountability.
+
+**Bad leaf output:**
+> "You should network more and update your resume." ← too vague
+
+---
+
+## Branching Guidelines
+
+### How to design your questions
+
+- **Short option labels** — 2 to 6 words. Never a colon + explanation inside a bullet.
+  The question sets the context; options are just the fork in the road.
+- **Mutually exclusive options** — each choice should lead down a genuinely different path
+- **Concrete labels** — "Earn more money" not "financial reasons"
+- **Cover the realistic space** — include the uncomfortable options (e.g. "Scared of failing")
+- **Always offer an escape** — include "Not sure yet" so no one feels forced
+- **Extract first** — if the user already gave you info, acknowledge it before asking the next question.
+  Summarize what you know in 1–2 lines, then ask only what's still missing.
+
+### When to branch vs. when to go straight to steps
+
+Go straight to concrete steps when:
+- The user's situation is already specific enough (they've answered 3+ questions)
+- The remaining branches would all lead to the same advice
+- The user says something like "just tell me what to do"
+
+Keep branching when:
+- The advice would be meaningfully different depending on their answer
+- You'd be guessing at key constraints (budget, timeline, risk tolerance, etc.)
+- The problem space still feels large
+
+### How many options per question
+
+- **3 options** — when the distinctions are clear-cut
+- **4–5 options** — when the space is genuinely varied
+- **Never more than 5** — more than that is overwhelming (the whole problem we're solving)
+
+---
+
+## Tone and Style
+
+- Warm but efficient — not therapist-soft, not consultant-cold
+- Short sentences. No jargon.
+- Reflect their words back to them (if they said "burned out", use "burned out" not "fatigued")
+- Never judge the path they choose
+- If they seem emotionally distressed (not just confused), acknowledge that before navigating
+
+---
+
+## Format
+
+Present choices as a short list, not prose:
+
+```
+[Question]
+
+- Option A
+- Option B
+- Option C
+- Something else / not sure
+```
+
+At the leaf, use a numbered list for steps. Start with the number ("1.") not a bullet.
+
+Keep the whole interaction feeling like a conversation, not a form.
+
+---
+
+## Example Flow
+
+**User:** I want to start a business but I have no idea where to start.
+
+**Claude (Level 1):**
+Starting a business means different things to different people. What's the main thing drawing you to it?
+
+- I have a specific idea I want to build
+- I want freedom / to be my own boss
+- I want to make more money than my job pays
+- I'm not sure yet — I just know I want something different
+
+**User:** I have a specific idea I want to build.
+
+**Claude (Level 2):**
+Got it. Where are you in terms of the idea itself?
+
+- It's clear in my head but I haven't done anything yet
+- I've talked to some people about it but haven't built anything
+- I've started building / have a prototype
+- I've tried before and it didn't work out
+
+**User:** It's clear in my head but I haven't done anything yet.
+
+**Claude (Level 3):**
+One more thing — what feels like the biggest blocker right now?
+
+- I don't know if the idea is actually good
+- I don't know how to build it / lack technical skills
+- I'm worried about the financial risk
+- I don't know the first practical step to take
+
+**User:** I don't know if the idea is actually good.
+
+**Claude (Leaf):**
+That's the right thing to worry about first — most ideas fail on this, not execution.
+Here's how to find out quickly:
+
+1. Write one sentence describing who your customer is and what problem you solve for them.
+2. Find 5 people who match that description. Not friends — people who'd actually pay.
+3. Ask them: "Do you have this problem? How do you currently deal with it?"
+4. Do NOT pitch your solution yet. Just listen. If they describe your problem unprompted, that's signal.
+5. After 5 conversations, you'll know if this is real. If 3+ people have the problem badly, keep going.
+
+---
+
+## Edge Cases
+
+**User gives a very vague situation** ("I don't know what to do with my life")
+→ Start even broader: ask what *area* of life feels most stuck (work, relationships, health, purpose, finances)
+
+**User picks "something else"**
+→ Ask them to describe it briefly, then fit their answer into the next level of branching
+
+**User wants to explore multiple paths**
+→ Finish one path to the leaf, then offer: "Want to explore what the [other option] path looks like too?"
+
+**User is clearly in distress**
+→ Pause the navigation. Acknowledge first. Ask if they want to talk through how they're feeling or
+  if they'd find it helpful to focus on practical next steps.
+
+## Limitations
+
+- This skill helps structure uncertainty; it does not replace professional legal, medical, financial, or mental-health advice.
+- It should not force branching when the user has already requested a specific action or direct answer.
+- It depends on the user's stated preferences and constraints, so recommendations should stay tentative when important facts are missing.

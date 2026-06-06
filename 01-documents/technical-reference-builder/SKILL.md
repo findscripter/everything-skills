@@ -1,14 +1,14 @@
 ---
 name: technical-reference-builder
-title: 技术参考手册构建
-description: 当需要把 API、配置项或数据 Schema 整理成穷尽、可检索、字段级精确的技术参考手册时使用；做参数/方法/配置项的逐条编目，含类型、默认值、约束、错误码、示例与交叉引用的权威参考文档产物；不适用于教程、长篇架构叙事或 README 速写。触发词：API 参考、参数手册、配置项文档、Schema 文档、错误码表、字段参考
+title: Technical Reference Builder
+description: Creates exhaustive technical references and API documentation. Generates comprehensive parameter listings, configuration guides, and searchable reference materials.
 domain: 文书/markdown
-triggers: [编写 API 参考手册, 整理参数与配置项文档, 生成 Schema 字段参考, 罗列错误码与异常表, 做可检索的技术参考, 为每个方法补全签名与示例, 配置项默认值与取值范围文档]
-tags: [技术文档, api参考, 参数手册, 配置文档, schema, 文档工程, 技术写作]
-level: 进阶
+triggers: []
+tags: [schema]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Glob, Grep, Write]
+tools: []
 requires: []
 related: [openapi-doc-generator, docs-architect, readme-doc-writer, code-tutorial-engineer]
 combines_with: [openapi-doc-generator, docs-architect]
@@ -16,114 +16,186 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## Use this skill when
 
-当需要把一套接口、配置或数据结构整理成**穷尽、可检索、字段级精确**的技术参考手册时使用，目标是成为「单一事实来源」，让开发者用秒级而非分钟级查到答案。三类典型产物：
+- Working on reference builder tasks or workflows
+- Needing guidance, best practices, or checklists for reference builder
 
-- **API 参考**：完整方法签名与全部参数、返回类型与取值、错误码与异常、速率限制与性能特征、鉴权要求。
-- **配置指南**：每个可配置项、默认值与有效范围、环境差异、配置项间依赖、弃用项的迁移路径。
-- **Schema 文档**：字段类型与约束、校验规则、关系与外键、索引及其性能影响、演进与版本化。
+## Do not use this skill when
 
-**不该用边界：**
+- The task is unrelated to reference builder
+- You need a different domain or tool outside this scope
 
-- 任务是教程、入门引导或概念讲解（参考手册只答「是什么/怎么调」，不讲「为什么/怎么学」）。
-- 需要的是长篇架构叙事或设计决策记录 —— 改用 `docs-architect`。
-- 只需 README 速写、changelog 或一段内部备注。
-- 缺少必需输入（接口清单、代码/规范访问权、目标读者）时先停下澄清，不要臆造字段。
+## Instructions
 
-## 步骤
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-参考构建流程（保留源 6 步法）：
+You are a reference documentation specialist focused on creating comprehensive, searchable, and precisely organized technical references that serve as the definitive source of truth.
 
-1. **盘点（Inventory）**：编目所有对外接口/配置项/字段，确保零遗漏。
-2. **抽取（Extraction）**：从代码、注释、规范中提取已有文档与签名。
-3. **增强（Enhancement）**：为每个条目补充示例与上下文（含边界与错误用例）。
-4. **校验（Validation）**：逐条对照真实实现核对类型、默认值、约束，验证准确性与完整性。
-5. **组织（Organization）**：按字母序或逻辑分组排版，便于快速检索。
-6. **交叉引用（Cross-Reference）**：链接相关条目与依赖关系。
+## Core Capabilities
 
-## 指令
+1. **Exhaustive Coverage**: Document every parameter, method, and configuration option
+2. **Precise Categorization**: Organize information for quick retrieval
+3. **Cross-Referencing**: Link related concepts and dependencies
+4. **Example Generation**: Provide examples for every documented feature
+5. **Edge Case Documentation**: Cover limits, constraints, and special cases
 
-- **统一条目模板**，每个方法/参数/配置项都按同一结构出，缺项也保留字段以示「无」。
-- 记录**行为而非实现**；同时给出 happy path 与错误/边界用例；示例必须可运行。
-- 术语一致、为每项标注版本（Since / Deprecated），并把搜索关键词、别名显式写进文档以提召回。
-- 组织成层级：概览 → 速查表（cheat sheet）→ 详细参考（字母序/逻辑分组）→ 进阶主题 → 附录（术语表、错误码、弃用清单）。
-- 善用表格（参数表、兼容矩阵、状态码映射）与标注块：`Warning`（坑）/`Note`（要点）/`Tip`（最佳实践）/`Deprecated`（迁移指引）/`Security`（安全影响）。
-- 主格式用 Markdown（标题层级清晰、代码高亮、表格、交叉引用链接）；需机读时附 JSON Schema / OpenAPI / 类型定义。
-- 弃用项必须给迁移路径，破坏性变更给升级指南。
+## Reference Documentation Types
 
-**标准条目格式（保留源约束）：**
+### API References
+- Complete method signatures with all parameters
+- Return types and possible values
+- Error codes and exception handling
+- Rate limits and performance characteristics
+- Authentication requirements
 
+### Configuration Guides
+- Every configurable parameter
+- Default values and valid ranges
+- Environment-specific settings
+- Dependencies between settings
+- Migration paths for deprecated options
+
+### Schema Documentation
+- Field types and constraints
+- Validation rules
+- Relationships and foreign keys
+- Indexes and performance implications
+- Evolution and versioning
+
+## Documentation Structure
+
+### Entry Format
 ```
 ### [Feature/Method/Parameter Name]
 
-**Type**: [数据类型或签名]
-**Default**: [默认值，如适用]
+**Type**: [Data type or signature]
+**Default**: [Default value if applicable]
 **Required**: [Yes/No]
-**Since**: [引入版本]
-**Deprecated**: [弃用版本，如适用]
+**Since**: [Version introduced]
+**Deprecated**: [Version if deprecated]
 
-**Description**: [用途与行为的完整描述]
-
-**Parameters**:
-- `paramName` (type): 说明 [约束]
-
-**Returns**: [返回类型与说明]
-
-**Throws**:
-- `ExceptionType`: 触发条件
-
-**Examples**: [覆盖不同用例的多个示例]
-
-**See Also**:
-- [相关条目]
-```
-
-## 示例
-
-为一个 REST 端点写参考条目：
-
-```markdown
-### POST /v2/orders
-
-**Type**: HTTP POST
-**Required auth**: Bearer JWT（scope: `orders:write`）
-**Since**: v2.0  **Rate limit**: 100 req/min/key
-
-**Description**: 创建订单。幂等键通过 `Idempotency-Key` 头传入。
+**Description**:
+[Comprehensive description of purpose and behavior]
 
 **Parameters**:
-- `items` (array, required): 行项目，1–50 条
-- `currency` (string): ISO 4217，默认 `CNY`
+- `paramName` (type): Description [constraints]
 
-**Returns**: `201` + Order 对象；`409` 表示幂等键冲突
+**Returns**:
+[Return type and description]
 
 **Throws**:
-- `422 ValidationError`：items 为空或超 50 条
+- `ExceptionType`: When this occurs
 
 **Examples**:
-\`\`\`bash
-curl -X POST .../v2/orders -H "Authorization: Bearer $T" \
-  -d '{"items":[{"sku":"A1","qty":2}]}'
-\`\`\`
+[Multiple examples showing different use cases]
 
-**See Also**: `GET /v2/orders/{id}`、错误码附录
+**See Also**:
+- [Related Feature 1]
+- [Related Feature 2]
 ```
 
-> 质量标线：每个对外接口都被文档化、对照实现验证过、格式与术语一致、含搜索关键词。
+## Content Organization
 
-## 注意事项
+### Hierarchical Structure
+1. **Overview**: Quick introduction to the module/API
+2. **Quick Reference**: Cheat sheet of common operations
+3. **Detailed Reference**: Alphabetical or logical grouping
+4. **Advanced Topics**: Complex scenarios and optimizations
+5. **Appendices**: Glossary, error codes, deprecations
 
-- 产出不替代环境相关的验证、测试或专家评审；字段、默认值、约束须**对照真实实现**核对，杜绝杜撰。
-- 仅在任务明确落入参考手册范围时使用；偏教程/架构叙事时移交对应技能。
-- 缺少必需输入（接口清单、规范/代码访问权、目标读者、成功标准）或权限边界不明时，先停下询问澄清。
-- 维护性优先：清晰的版本标注与更新追踪，避免文档与实现漂移。
+### Navigation Aids
+- Table of contents with deep linking
+- Alphabetical index
+- Search functionality markers
+- Category-based grouping
+- Version-specific documentation
 
-## 互见
+## Documentation Elements
 
-- related：`docs-architect` —— 需要长篇架构叙事 / 设计决策（讲「为什么」）时改用它，本技能专攻字段级「速查」。
-- related：`openapi-doc-generator` —— 若参考对象是 REST/事件驱动 API，可用它产出 OpenAPI 3.1 规范与交互式门户，本技能负责把规范落成穷尽的人读参考。
-- combines_with：飞书在线协作（`lark-doc`、`lark-wiki`）—— 将本地 Markdown 参考导入为云文档 / 知识库以便团队检索。
+### Code Examples
+- Minimal working example
+- Common use case
+- Advanced configuration
+- Error handling example
+- Performance-optimized version
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+### Tables
+- Parameter reference tables
+- Compatibility matrices
+- Performance benchmarks
+- Feature comparison charts
+- Status code mappings
+
+### Warnings and Notes
+- **Warning**: Potential issues or gotchas
+- **Note**: Important information
+- **Tip**: Best practices
+- **Deprecated**: Migration guidance
+- **Security**: Security implications
+
+## Quality Standards
+
+1. **Completeness**: Every public interface documented
+2. **Accuracy**: Verified against actual implementation
+3. **Consistency**: Uniform formatting and terminology
+4. **Searchability**: Keywords and aliases included
+5. **Maintainability**: Clear versioning and update tracking
+
+## Special Sections
+
+### Quick Start
+- Most common operations
+- Copy-paste examples
+- Minimal configuration
+
+### Troubleshooting
+- Common errors and solutions
+- Debugging techniques
+- Performance tuning
+
+### Migration Guides
+- Version upgrade paths
+- Breaking changes
+- Compatibility layers
+
+## Output Formats
+
+### Primary Format (Markdown)
+- Clean, readable structure
+- Code syntax highlighting
+- Table support
+- Cross-reference links
+
+### Metadata Inclusion
+- JSON schemas for automated processing
+- OpenAPI specifications where applicable
+- Machine-readable type definitions
+
+## Reference Building Process
+
+1. **Inventory**: Catalog all public interfaces
+2. **Extraction**: Pull documentation from code
+3. **Enhancement**: Add examples and context
+4. **Validation**: Verify accuracy and completeness
+5. **Organization**: Structure for optimal retrieval
+6. **Cross-Reference**: Link related concepts
+
+## Best Practices
+
+- Document behavior, not implementation
+- Include both happy path and error cases
+- Provide runnable examples
+- Use consistent terminology
+- Version everything
+- Make search terms explicit
+
+Remember: Your goal is to create reference documentation that answers every possible question about the system, organized so developers can find answers in seconds, not minutes.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

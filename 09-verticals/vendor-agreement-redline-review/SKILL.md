@@ -1,14 +1,14 @@
 ---
 name: vendor-agreement-redline-review
-title: 供应商协议审查与红线
-description: 当收到对方发来的供应商协议（MSA/SaaS订阅/服务协议/采购合同）需在签署前依据团队 playbook 做条款审查时使用；做的是：定位合同类型与本方立场、先查致命条款、逐条比对 playbook 偏离并按双轴严重度分级、给出外科手术式红线语言与升级路由、产出一次可执行的审查备忘录；不适用于起草合同、谈判让步决策、DPA 深审（转 dpa-clause-reviewer）、并购数据室批量尽调；触发词：供应商协议、MSA、服务协议、SaaS、合同审查、红线、vendor agreement、redline、采购合同、责任上限
+title: Vendor Agreement Review
+description: Reference: review of an inbound vendor agreement against the team playbook in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. Flags deviations, assesses risk, generates specific redline language, and routes to the right approver. Loaded by /commercial-legal:review when a vend
 domain: 领域/legal
-triggers: [供应商协议, MSA, 服务协议, SaaS, 合同审查, 红线, vendor agreement, redline, 采购合同, 责任上限]
+triggers: [MSA, SaaS, vendor agreement, redline]
 tags: [legal, contract-review, vendor-agreement, msa, redline, risk-assessment, playbook]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [dpa-clause-reviewer, markdown-to-docx, CLM MCP (Ironclad/Agiloft), DocuSign MCP]
+tools: []
 requires: []
 related: [contract-playbook-review, saas-subscription-agreement-review, vendor-agreement-status-checker, dpa-playbook-review]
 combines_with: [contract-playbook-review, contract-escalation-router]
@@ -16,90 +16,335 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# Vendor Agreement Review
 
-- 收到对方（通常是对方范本）发来的供应商协议——主服务协议（MSA）、SaaS 订阅、专业服务协议、许可协议或采购合同——需在送签或拨电话给法务之前，依据团队 playbook 逐条审查，把每处偏离标准立场的条款找出来、定严重度、给可直接粘贴的红线语言并路由到正确审批人。
-- 产物是一份律师一遍即可行动的审查备忘录：每个问题都带严重度、业务影响、修改建议、（必要时）升级判断。本条典型用于采购侧（对方供货给你），但仍须先判方向。
+## Matter context
 
-**不该用边界（命中即停或转专条）：**
-- 不起草合同、不替团队做谈判让步决策——本条只做审查（review），不做 draft / negotiate。
-- DPA（数据处理协议）的实质审查不在本条：本条只在闸口标记 DPA 缺失/未读，转 `dpa-clause-reviewer`。
-- 并购数据室批量尽调转 `diligence-issue-extractor`；NDA 分流转 `nda-triage-reviewer`。
-- 缺少经律师审定的 playbook 立场时，**不得判绿、不得直接送签**——一切严重度都相对 playbook 度量，立场缺失时问用户该条归入哪档并记录。
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/commercial-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/commercial-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
 
-## 步骤
+---
 
-1. **前置：读 playbook**。审合同前先读团队配置（练习档案 CLAUDE.md）。若缺失或仍是占位符，提示用户跑冷启动访谈，或说「provisional」按通用默认（美国辖区、中风险偏好、律师角色、无 playbook——按第一性原理标注常见供应商侧风险）运行，并给每个产出块打 `[PROVISIONAL]` 标签。
-2. **判方向（Which side）**。对方是供货方 → 采购侧（读 `Purchasing-side playbook`）；对方在买你产品 → 销售侧（读 `Sales-side playbook`）。经销/合伙/分成不明确就问。在产出注明所用 playbook 一侧；该侧若 `[Not configured]` 则停，要求先配置。
-3. **第 1 步 定位（Orient）**。快读全文一遍，填表：协议类型 / 本方角色 / 对手方（巨头不谈 vs 创业公司可谈）/ 合同金额（年值或总值）/ 期限与续约机制 / 有无 DPA（附带/URL 引用/缺失）/ 有无订单表。
-   - **金额缺失**：若 MSA 不载明金额（价格在订单表，常见），**停下来问**——别擅自假设金额再据此驱动路由。给三选项：贴订单表金额（首选）/ 告知高于或低于阈值 / 保守路由到更高审批人。
-   - **DPA 以 URL 引用**：DPA 是合同一部分但不在眼前——在定位表与备忘录明确标注，数据保护分析仅为部分；提议把 DPA 转 `dpa-clause-reviewer`。「缺失 DPA」与「未读 DPA」是不同缺口，分别标注。
-4. **第 2 步 致命条款检查（Deal-breaker）**。先查 playbook 里「那一条」（the one thing）。若命中，在备忘录顶部用 `## ⛔ DEAL-BREAKER PRESENT` 标注并停止详细审查——没必要在「供应商可拿客户数据训练模型」的协议上花 30 分钟抠责任上限。
-5. **第 3 步 逐条比对（Term-by-term）**。对 playbook 每个门类找到对应合同条款比对，每处偏离产出一个发现块（见「指令」）。其中责任上限与管辖差异两项有专门程序，必须展开。
-6. **第 4 步 有利条款与缺口**。两张短清单——「优于我方标准」（谈判筹码）与「完全缺失」（如转让限制、审计权、不可抗力、保险要求）。
-7. **第 5 步 升级路由**。对照配置的升级矩阵，按合同金额 / 是否有 🔴 / 自动升级触发器（无限责任、IP 转让等）明确「谁需审批」。**非律师角色发红线给对方前**：发红线是法律行为，须确认是否已与律师审过，否则生成一页 brief，未得明确 yes 不得越过此闸。
-8. **第 6 步 组装备忘录**。顶部加配置 `## Outputs` 的工作成果抬头（随角色不同；非美辖区调整「work product」措辞，别虚假保证保护）。备忘录与底层协议可能受特权保护，仅在特权圈内分发；外发前剥离抬头。结尾给下一步决策树，由律师选。
+## Destination check
 
-## 指令
+Before producing output, check where it's going. If the user has named a destination (a channel, a distribution list, a counterparty, "everyone"), ask whether it's inside the privilege circle. Public channels, company-wide lists, counterparty/opposing counsel, vendors, and clients (for work product) waive the protection. When the destination looks outside the circle, flag it and offer (a) the privileged version for legal only, (b) a sanitized version for the broader channel, or (c) both — don't silently apply a privileged header and then help paste it somewhere the header won't protect it. See the canonical `## Shared guardrails → Destination check` in this plugin's CLAUDE.md.
 
-**每处偏离的发现块（固定格式）：**
+## Purpose
+
+Read a vendor agreement against the playbook this team actually uses (in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`), find every term that deviates, and tell the lawyer what to do about each one — with specific redline language, not vague "consider revising."
+
+The output is a review memo the lawyer can act on in one pass. Every issue has a severity, a business-impact explanation, a proposed fix, and an escalation call if one is needed.
+
+## Precondition: load the playbook
+
+**Before reading the contract, read `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`.** If it's missing or still has placeholders, surface this bounce:
+
+> I notice you haven't configured your practice profile yet — that's how I tailor playbook positions, escalation, and house style to your practice.
+>
+> **Two choices:**
+> - Run `/commercial-legal:cold-start-interview` (2 minutes) to configure your profile, then I'll review tailored to YOUR playbook.
+> - Say **"provisional"** and I'll review against generic defaults — US jurisdiction, middle risk appetite, lawyer role, no playbook (flag all common vendor-contract risks from first principles) — and tag every output `[PROVISIONAL — configure your profile for tailored output]` so you can see what I do before committing.
+
+### Provisional mode
+
+If the user says "provisional," run the review normally using these generic defaults: middle risk appetite, lawyer role, US jurisdiction, no playbook (flag the common vendor-side risks from first principles — unlimited liability, no data-breach carveout, uncapped indemnity, auto-renewal without notice, etc. — rather than matching to configured positions). Tag the reviewer note and every finding block with `[PROVISIONAL]`. At the end of the output, append:
+
+> "That was a generic run against default assumptions. Run `/commercial-legal:cold-start-interview` to get output calibrated to YOUR practice — your playbook, your jurisdiction, your risk appetite. 2 minutes."
+
+**Which side?** Before applying the playbook, determine which side the company is on for this contract. Usually obvious: if the counterparty is a vendor/supplier providing goods or services, you're purchasing-side. If the counterparty is a customer buying your product/service, you're sales-side. If it's not obvious (a reseller agreement, a partnership, a revenue share), ask: "Which side is [company] on for this agreement — vendor or customer?" Read the matching playbook section (`### Sales-side playbook` or `### Purchasing-side playbook`) from the config. Note which side in the output so the reviewer knows which playbook was applied. If the matching side is `[Not configured]`, stop and tell the user to run `/commercial-legal:cold-start-interview --side <side>` before this review can proceed.
+
+This skill is typically used for purchasing-side contracts (vendors supplying you), but the side check still applies — a "vendor agreement" could be your own template sent to a vendor as part of a reseller arrangement (sales-side).
+
+The playbook in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` is the source of truth. It tells you:
+- What this team's standard positions are (not market standard — *their* standard)
+- What fallbacks they've accepted before
+- What they never accept
+- Who approves what
+- The one deal-breaker to check first
+
+If the contract has the deal-breaker, flag it at the top of the memo and stop the detailed review. There's no point spending 30 minutes on liability caps if the agreement gives the vendor rights to use customer data for training.
+
+## Workflow
+
+### Step 1: Orient
+
+Read the whole agreement once, fast. Answer:
+
+| Question | Answer |
+|---|---|
+| What kind of agreement is this? | MSA / SaaS subscription / Professional services / License / Other |
+| Who are we? | Customer / Vendor (this plugin assumes customer — flag if not) |
+| Counterparty | Name, and are they a BigCo (won't negotiate) or a startup (will)? |
+| Dollar value | Annual / total contract value if stated |
+| Term | Length, renewal mechanics |
+| Is there a DPA? | Attached / referenced by URL / missing |
+| Is there an order form? | Separate doc or integrated |
+
+**Dollar-value handling.** If the main agreement does not state a dollar value (the MSA sets terms but the Order Form carries price, which is typical), **stop and ask** before running escalation math or applying dollar thresholds:
+
+> The MSA itself doesn't state an annual contract value. The Order Form carries the price. Your escalation threshold is $[X from the matrix]. Before I route this, I need the ACV. Options:
+> 1. Paste the Order Form value (preferred — I'll use it for routing and the memo).
+> 2. Tell me if this is above or below $[threshold] and I'll route accordingly; the memo will flag that the routing assumed [above/below threshold] without an ACV in hand.
+> 3. Route conservatively to the higher approver regardless — safer for a review you haven't priced.
+
+Do NOT silently assume a value and then use the assumed value to drive routing. The assumption propagates into the approval call, which is a place the review shouldn't be guessing.
+
+**DPA-by-reference handling.** If the main agreement incorporates a DPA "available at [URL]" or "as set forth at [URL]" or similar by reference, the DPA is part of the contract but is not in front of you. Note it explicitly in the Orient table and in the review memo:
+
+> This agreement incorporates a DPA by URL reference at `[URL]`. The DPA carries the real data terms — subprocessor rights, breach-notification timing, data-return mechanics, standard contractual clauses, audit rights. Without reading it, the data-protection analysis below is partial. Offer to route the DPA to `/privacy-legal:dpa-review` (if installed) for a separate review, or fetch and read it inline before completing Step 3's data-protection analysis.
+
+If the user is installed with `privacy-legal`, explicitly offer:
+
+> Want me to hand the DPA URL to `/privacy-legal:dpa-review` once you're ready? That skill is built for the DPA work and will catch subprocessor / SCC / breach-notification issues that this skill only flags at the gate.
+
+Do not silently proceed as if the DPA were absent when it is incorporated by reference. A missing DPA and an unread DPA are different gaps — label them differently.
+
+### Step 2: Deal-breaker check
+
+Check the "one thing" from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` first. If present:
 
 ```markdown
-### [Section X.X]: [问题名]
-**Playbook says:** [我方标准立场，引自配置]
-**Contract says:**
-> "[合同原文精确引用]"
-**Gap:** [缺失 | 弱于标准 | 弱于 fallback | 非标结构 | 不可接受]
-**Legal risk:** 🔴 Critical | 🟠 High | 🟡 Medium | 🟢 Low
-**Business friction:** 🔴 Blocks deals | 🟠 Slows deals | 🟡 Confuses customers | 🟢 Invisible
-**Why it matters:** [一两句平实英文——若保留原样业务会出什么错]
-**Proposed redline:**
-> "[可直接粘贴进 markup 的具体替换语言]"
-**If they won't move:** [配置里的 fallback，或「escalate to [人]」]
+## ⛔ DEAL-BREAKER PRESENT
+
+**Section [X.X]** contains [the deal-breaker]. Per the team playbook, this is a
+hard no. Recommend:
+
+- [ ] Push back — propose [specific alternative language]
+- [ ] Walk — if counterparty won't move, we don't sign
+
+Detailed review below is provided for completeness but is moot unless this is
+resolved.
 ```
 
-**严重度校准（始终相对 playbook）：** 🔴 Critical=不修不签（命中「绝不接受」清单或致命条款）；🟠 High=强推、不让则升级（在 fallback 区间之外）；🟡 Medium=首轮推、若为最后开放项则接受（在 fallback 区间内但未达标准）；🟢 Low=记一笔、不耗资本（playbook 明确容忍或纯风格差异）。条款无法干净映射到某立场时，问用户归入哪档并提议记入配置。
+### Step 3: Term-by-term comparison
 
-**责任上限四维程序（关键约束，不要只写一行「核对上限」）：** ①直接 vs 间接/后果性损害——上限只管直接还是全部？「12 个月上限管直接损害但后果性不封顶」与「12 个月总额上限」是完全不同的立场，两者都要明说。②上限基数逐字引用——「12 个月」可指索赔前 12 个月已付费 / 当期应付费 / 最近 12 个月用量费 / 当前订单表费 / 历史总付费，相差可达一个数量级；含糊就标记「Cap base is ambiguous — `[引用]` — 可能 [X] 或 [Y]，签前确认」。③上限与 carveout 互动——列出哪些在上限之上（carveout：数据泄露/IP/保密），哪些在之下，评估被封住的面是「meaningful」还是「nominal」。④逐维核对 playbook 立场——直接上限 / 间接损害 / carveout 清单 / 基数定义各有一条；若 playbook 只有单一「standard position」字段，提示拆分。
+For each playbook category in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`, find the corresponding contract section and compare.
 
-**管辖差异检查（playbook 用一个全局法律选择，可执行性差异巨大）：** 对照合同实际管辖法核查顶级分歧并标 `[jurisdiction — verify]`：禁挖角/竞业（加州 Bus. & Prof. Code §16600 不可执行，欧盟多辖区受限）；自动续约（CA GBL §17600-17606、NY GBL §527-a、IL 815 ILCS 601 有特定通知要求）；责任排除（欧盟/英国 UCTA 1977、Consumer Rights Act 2015 约束消费者排除，部分美国州限制排除重大过失/故意）；赔偿（部分州使「为受补偿方自身过失而赔偿」无效）；保密期限（部分辖区把「永久」限缩为合理期）。playbook 立场与管辖可执行性冲突时明确标出。
+**For each deviation, produce:**
 
-**红线粒度（最小改动优先）：** 红线是谈判产物不是重写。改词优先于改短语，改短语优先于改句，重构子句优先于换句，换句优先于整条替换；仅当对方版本离立场太远、外科手术式改动反更难读时才整条替换，并在转交说明里讲明原因。例：`twelve (12)` → `twenty-four (24)`；`paid by the Buyer` → `paid and payable by the Buyer`。
+```markdown
+### [Section X.X]: [Issue name]
 
-## 示例
+**Playbook says:** [our standard position, quoted from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`]
 
-升级路由块（第 5 步）：
+**Contract says:**
+> "[exact quote from the contract]"
+
+**Gap:** [Missing term | Weaker than standard | Weaker than fallback | Non-standard structure | Unacceptable]
+
+**Legal risk:** 🔴 Critical | 🟠 High | 🟡 Medium | 🟢 Low
+**Business friction:** 🔴 Blocks deals | 🟠 Slows deals | 🟡 Confuses customers | 🟢 Invisible
+
+**Why it matters:** [one or two sentences in plain English — what goes wrong
+for the business if this term stays as-is]
+
+**Proposed redline:**
+> "[the specific replacement language — ready to paste into a markup]"
+
+**If they won't move:** [the fallback from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`, or "escalate to [person]"
+if no fallback exists]
+```
+
+**Severity calibration:**
+
+| Level | Means |
+|---|---|
+| 🔴 Critical | Don't sign without fixing. A term on the team's "never accept" list in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`, or a deal-breaker. |
+| 🟠 High | Strongly push; escalate if they won't move. A term outside the playbook's stated fallback range. |
+| 🟡 Medium | Push in first round; accept if it's the last open item. A term inside the fallback range but short of the standard position. |
+| 🟢 Low | Note it, don't spend capital. A term the playbook explicitly tolerates, or a purely stylistic deviation. |
+
+Severity is always applied *against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`*. If a term doesn't map cleanly to a playbook position, ask the user which bucket it belongs in and offer to record the answer in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`.
+
+#### Liability cap decision procedure
+
+**The cap amount is the least important part of the cap.** When reviewing the limitation-of-liability clause, do not produce a single "check liability cap against playbook" line item. Work through the four dimensions below and state each one explicitly in the finding:
+
+1. **Direct vs. indirect/consequential damages.** Does the cap apply to ALL liability, or only direct damages? A 12-month cap on direct damages with uncapped consequential damages is a completely different position than a 12-month aggregate cap. State both treatments explicitly.
+
+2. **The cap base — quote it verbatim.** "12-month cap" could mean: (a) fees paid in the 12 months preceding the claim, (b) fees payable in the current 12-month period, (c) fees over the last 12 months of usage, (d) fees under the current order form, (e) total fees ever paid. These can differ by an order of magnitude. Quote the exact language. If ambiguous, flag it: "Cap base is ambiguous — `[the quoted language]` — could mean [X] or [Y]. Confirm before signing."
+
+3. **Cap-carveout interaction.** A $100K cap with uncapped indemnity for data breach, IP, and confidentiality is functionally uncapped for the claims that actually arise in SaaS disputes. Enumerate what sits ABOVE the cap (the carveouts), what sits BELOW (what's actually capped), and assess whether the capped surface is meaningful: "The cap covers [general contract breach]. Data breach, IP indemnity, and confidentiality are carved out and uncapped. For this vendor's risk profile, the capped surface is [meaningful / nominal]."
+
+4. **Your playbook position per dimension.** The practice profile should have positions for: direct cap (multiple of fees), indirect damages (excluded / capped / uncapped), carveout list (what's acceptable above the cap), and cap base (which definition you'll accept). If the playbook has one "standard position" field, note: "Your playbook has a single cap position — consider splitting into direct/indirect/carveouts/base for more precise review."
+
+#### Jurisdiction delta check
+
+**The playbook applies one governing-law preference globally. Enforceability varies materially.** Check the contract's actual governing law against the top divergences before accepting playbook positions at face value:
+
+- **Non-solicits/non-competes:** Unenforceable in CA (Bus. & Prof. Code §16600). Restricted in many EU jurisdictions. Enforceable with limitations elsewhere. `[jurisdiction — verify]`
+- **Auto-renewal:** CA GBL §17600-17606, NY GBL §527-a, IL 815 ILCS 601 have specific consumer/B2B notice requirements. Other states vary. `[jurisdiction — verify]`
+- **Liability exclusions:** EU and UK unfair contract terms rules (UCTA 1977, Consumer Rights Act 2015) constrain consumer exclusions. Some US states limit exclusion of gross negligence or willful misconduct. `[jurisdiction — verify]`
+- **Indemnification:** Some states void indemnification for the indemnitee's own negligence. `[jurisdiction — verify]`
+- **Confidentiality term:** Some jurisdictions limit "perpetual" confidentiality to a reasonable period. `[jurisdiction — verify]`
+
+When the playbook position conflicts with the contract's governing-law enforceability, flag: "Your playbook prefers [X], but this contract is governed by [Y] law where [X] is [unenforceable / restricted / subject to statutory override]. `[jurisdiction — verify]`"
+
+### Step 4: Favorable terms and gaps
+
+Two short lists:
+
+**Better than our standard:** Terms where the vendor gave us more than we'd ask for. Note these — they're trade bait if you need to give something up elsewhere.
+
+**Missing entirely:** Standard provisions that just aren't there. Most common: assignment restrictions, audit rights (if we want them), force majeure, insurance requirements.
+
+### Step 5: Escalation routing
+
+Check the escalation matrix in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` against:
+- Contract dollar value
+- Presence of any 🔴 critical issues
+- Any automatic-escalation triggers (unlimited liability, IP assignment, etc.)
+
+State clearly who needs to approve this:
 
 ```markdown
 ## Approval routing
-Based on [金额 / 问题严重度], this agreement requires:
-- [ ] **[姓名/角色]** approval — [原因]
-- [ ] **Business owner sign-off** on [具体需业务定夺的商业条款]
-**Recommended next step:** [Send redlines to counterparty | Escalate to GC before responding | Get business input on commercial term X first]
+
+Based on [dollar value / issue severity], this agreement requires:
+
+- [ ] **[Name/role]** approval — [reason]
+- [ ] **Business owner sign-off** on [specific commercial term they should weigh in on]
+
+**Recommended next step:** [Send redlines to counterparty | Escalate to GC before
+responding | Get business input on commercial term X before legal responds]
 ```
 
-Slack 一行摘要（频道里有人问「这个能签吗」时用）：
+**Before proceeding to send redlines to the counterparty:** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. If the Role is Non-lawyer:
 
-```
-[对手方] [类型] — NEEDS WORK. 1🔴 (uncapped liability §8.2), 2🟠. Full review: [link]. Needs [GC] approval.
-```
+> Sending redlines is a legal act — the counterparty will treat every edit as our negotiating position. Have you reviewed this with an attorney? If yes, proceed. If no, here's a brief to bring to them:
+>
+> [Generate a 1-page summary: counterparty, agreement type, the specific redlines proposed, the playbook positions behind each, the fallbacks, and what to ask the attorney before the package leaves.]
+>
+> If you need to find an attorney, solicitor, barrister, or other authorised legal professional: contact your professional regulator (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent) for a referral service.
 
-备忘录骨架（第 6 步）：抬头 → `# Vendor Agreement Review: [对手方] [类型]` → `## Bottom line`（两句：能否签？先改什么？+ 双轴问题计数 + 审批人）→ `## Deal-breaker check`（✅ Clear / ⛔ Present）→ `## Issues by severity`（第 3 步发现块按 Critical→Low 分组）→ `## Favorable terms` / `## Missing provisions` → `## Approval routing` → `## Redline package`（如需，汇总可直接 markup 的语言）。
+Do not proceed past this gate without an explicit yes.
 
-## 注意事项
+## Redline granularity
 
-- **去向检查（Destination check）**：产出前确认接收方是否在特权圈内。公开频道、全员列表、对手方/对方律师、供应商、客户会使工作成果保护失效；去向在圈外时提供 (a) 仅法务的特权版 / (b) 脱敏版 / (c) 两者，别默默加特权抬头又帮粘到抬头保护不了的地方。
-- **双轴严重度**：法律风险与业务摩擦是两条轴。一条「法律风险🟢、业务摩擦🔴」的条款（如合法但读起来像肯定性授权、阻塞注册的保密条款）在发现登记里按 🔴 浮现——法律列告诉律师不是责任问题，业务列告诉业务为何仍值得改。上游严重度对下游是下限，不得静默降级。
-- **质量自检**：playbook 已加载并被引用（非泛泛市场立场）；致命条款最先查；每个问题都有具体替换语言；严重度有校准（不是全 Critical）；审批人是具名的（不是「升级给法务」）；考虑了对手方语境（巨头 vs 创业公司决定哪些值得争）。
-- **来源标注**：备忘录引用法条/法规/判例时打来源标签（`[Westlaw]`、`[statute / regulator site]`、研究 MCP 名、`[web search — verify]`、`[model knowledge — verify]`、`[user provided]`）；带 `verify` 的伪造风险更高、应先核。研究工具返回结果稀少时报告所得并停，不要用网搜或模型知识静默补洞。
-- **集成**：CLM MCP 接入时，审后可查该对手方既往协议（影响谈判姿态）、拉匹配工作流模板、建附备忘录与预路由审批人的记录；DocuSign 接入且协议就绪（全绿或问题已接受）时可生成签署信封并按矩阵顺序路由——但「就绪」是律师的判断，未经明确指令不得送签，非律师角色越过签署闸前同样需 brief + 明确 yes。
-- 最终红线交付件若需转 Word（跟踪修订），用 `markdown-to-docx`，每处改动注释引用对应 playbook 立场。
+**Edit at the smallest possible granularity.** A redline is a negotiation artifact, not a rewrite. Wholesale clause replacement signals "we threw out your drafting" — it's aggressive, it forces the counterparty to re-read the whole clause, and it discards the parts of their drafting that were fine. Surgical redlines — strike a word, insert a phrase, restructure a subclause — signal "we have specific asks" and are faster to read, understand, and accept.
 
-## 互见
+Default to the smallest edit that achieves the playbook position:
+- Replace a **word** before a phrase. ("twelve (12)" → "twenty-four (24)")
+- Replace a **phrase** before a sentence. ("paid by the Buyer" → "paid and payable by the Buyer")
+- Restructure a **subclause** before replacing the sentence. (Add "(a)" and "(b)" to split a compound condition.)
+- Replace a **sentence** before replacing the clause.
+- Only replace a **whole clause** when the counterparty's version is so far from your position that surgical edits would be harder to read than a fresh draft — and when you do, say so in the transmittal: "We've replaced §8.2 rather than marking it up because the changes were extensive. Happy to walk you through the delta."
 
-- requires：无（建议先有团队 playbook 配置，否则只能跑 provisional 模式）。
-- related：`nda-triage-reviewer`（NDA 分流，本条的轻量同源近亲）、`dpa-clause-reviewer`（DPA 实质审查，本条在闸口移交它）、`general-counsel-advisor`（升级与总法律顾问视角）。
-- combines_with：`diligence-issue-extractor`（并购语境下供应商合同审查与数据室尽调互补）、`markdown-to-docx`（把红线备忘录转成 Word 交付件）。
+When in doubt, smaller. A client who receives a surgical redline trusts that you read carefully. A client who receives a wholesale replacement wonders whether you read at all.
+
+### Step 6: Assemble the memo
+
+Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` `## Outputs` (it differs by user role — see `## Who's using this`).
+
+This memo and the underlying agreement may be privileged, confidential, or both. The output inherits that status from the source. Distribute only within the privilege circle; mark and store it where privileged materials live; strip the work-product header before any external delivery (e.g., counterparty redlines, stakeholder summaries).
+
+The playbook positions applied below reflect the jurisdiction recorded in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` → `Governing law and venue`. Legal rules and enforceability vary materially by jurisdiction. If this deal implicates a different governing law or a choice-of-law question, flag it in the memo — the analysis may not transfer as written.
+
+> **No silent supplement.** If a research query to the configured legal research tool returns few or no results for a rule the memo needs (enforceability of a limitation clause, indemnity scope, governing-law choice), report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [rule / jurisdiction]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag as unverified and stop. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
+>
+> **Source attribution.** Where the memo cites a statute, regulation, or case, tag the citation: `[Westlaw]`, `[statute / regulator site]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations from the counterparty draft or house files. Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags.
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs]
+
+# Vendor Agreement Review: [Counterparty] [Agreement Type]
+
+**Reviewed:** [date]
+**Contract value:** $[amount] / [term]
+**Our role:** Customer
 
 ---
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+
+## Bottom line
+
+[Two sentences. Can we sign this? What has to change first?]
+
+**Issues (legal risk):** [N]🔴 [N]🟠 [N]🟡 [N]🟢
+**Issues (business friction):** [N]🔴 [N]🟠 [N]🟡 [N]🟢
+
+**Approval needed from:** [name]
+
+---
+
+## Deal-breaker check
+
+[✅ Clear | ⛔ Present — see above]
+
+---
+
+## Issues by severity
+
+[All the deviation blocks from Step 3, grouped Critical → Low]
+
+---
+
+## Favorable terms
+
+[list]
+
+## Missing provisions
+
+[list]
+
+---
+
+## Approval routing
+
+[from Step 5]
+
+---
+
+## Redline package
+
+[If requested: consolidated markup-ready language for all proposed changes]
+```
+
+## Integration: [CLM]
+
+If a [CLM] MCP is connected, after the review:
+
+- Check if this counterparty already has agreements with us (may inform negotiating posture — "we already gave them 24-month cap on the last deal")
+- Pull the workflow template that matches this agreement type
+- Offer to create the [CLM] record with the review memo attached and approvers pre-routed
+
+## Integration: DocuSign
+
+If DocuSign MCP is connected and the agreement is ready to sign (all greens or all issues accepted), offer to:
+- Generate the envelope
+- Route to signers in the right order per the escalation matrix
+
+Do **not** send anything for signature without explicit instruction. "Ready to sign" is the lawyer's call, not yours.
+
+**Before generating a signature envelope or routing for countersignature:** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. If the Role is Non-lawyer:
+
+> This step has legal consequences (signing binds the company to the whole agreement). Have you reviewed this with an attorney? If yes, proceed. If no, here's a brief to bring to them:
+>
+> [Generate a 1-page summary: counterparty, contract value, the issues found and how they resolved, any risk the lawyer accepted, and what to ask the attorney before envelope goes out.]
+>
+> If you need to find an attorney, solicitor, barrister, or other authorised legal professional: contact your professional regulator (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent) for a referral service.
+
+Do not proceed past this gate without an explicit yes.
+
+## Output formats
+
+**Full memo (default):** As above. Goes in the [CLM] record or the Drive folder from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` house-style section.
+
+**Slack-sized summary:** Two lines and a link. For when someone asks "is this okay?" in a channel.
+
+```
+[Counterparty] [type] — NEEDS WORK. 1🔴 (uncapped liability §8.2), 2🟠. Full review: [link]. Needs [GC] approval.
+```
+
+**Redline doc:** If the user asks for it, output a .docx with tracked changes. Use the docx skill. Comments on each change cite the playbook position.
+
+## Quality checks before delivering
+
+- [ ] `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` was loaded and quoted — not generic market positions
+- [ ] Deal-breaker checked first
+- [ ] Every issue has specific replacement language
+- [ ] Risk levels are calibrated (not everything is Critical)
+- [ ] Approver is named, not "escalate to legal"
+- [ ] Counterparty context considered (BigCo vs. startup — affects what's worth fighting over)
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.

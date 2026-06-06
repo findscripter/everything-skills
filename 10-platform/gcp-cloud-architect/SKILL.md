@@ -1,14 +1,14 @@
 ---
 name: gcp-cloud-architect
-title: GCP 云架构设计
-description: 当需要为创业公司或企业设计 Google Cloud 架构、上线 Cloud Run/GKE、搭建 BigQuery 数据管道或优化 GCP 成本时使用；按需求选型架构模式并产出 Terraform/gcloud/Cloud Build 的 IaC 与成本优化清单；不适用于 AWS/Azure 或非云端本地部署。触发词：GCP、Cloud Run、GKE、BigQuery、成本优化
+title: GCP Cloud Architect
+description: Design GCP architectures for startups and enterprises. Use when asked to design Google Cloud infrastructure, deploy to GKE or Cloud Run, configure BigQuery pipelines, optimize GCP costs, or migrate to GCP. Covers Cloud Run, GKE, Cloud Functions, Cloud SQL, BigQuery, and cost optimization.
 domain: 平台/cloud
-triggers: [设计 GCP 架构, 部署到 Cloud Run 或 GKE, 搭建 BigQuery 数据管道, 优化 GCP 成本, 迁移到 Google Cloud, Google Cloud 基础设施选型, GCP Terraform/IaC 模板]
-tags: [gcp, google cloud, 云架构, cloud run, gke, bigquery, 成本优化, terraform, iac, cloud build, 平台]
-level: 进阶
+triggers: []
+tags: [gcp, google cloud, cloud run, gke, bigquery, terraform, iac, cloud build]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [gcloud, terraform, Cloud Build, BigQuery, scripts/architecture_designer.py, scripts/cost_optimizer.py, scripts/deployment_manager.py]
+tools: []
 requires: []
 related: [aws-serverless-architect, azure-cloud-architect, gcp-cloud-run, multi-cloud-architecture]
 combines_with: [terraform-specialist, cloud-cost-optimization, github-actions-author]
@@ -16,85 +16,146 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# GCP Cloud Architect
 
-需要为创业公司或企业设计可扩展、成本可控的 Google Cloud 架构，并产出基础设施即代码（IaC）时使用。典型场景：
+Design scalable, cost-effective Google Cloud architectures for startups and enterprises with infrastructure-as-code templates.
 
-- 设计 Google Cloud 基础设施并选型服务栈
-- 部署到 Cloud Run / GKE，或配置 Cloud Functions、Cloud SQL、BigQuery
-- 搭建实时数据管道（Pub/Sub + Dataflow + BigQuery）或 ML 平台（Vertex AI）
-- 优化现有 GCP 账单、迁移上云
+---
 
-**不该用边界：**
-- 目标云是 AWS 或 Azure（改用对应的 aws-solution-architect / azure-cloud-architect）
-- 纯本地/裸金属部署，不涉及 GCP 托管服务
-- 仅需广义 DevOps 流水线/监控/容器化（用 senior-devops）
+## Workflow
 
-## 步骤
+### Step 1: Gather Requirements
 
-1. **收集需求**：应用类型（Web 应用/移动后端/数据管道/SaaS）、预期用户数与 RPS、月度预算、团队规模与 GCP 经验、合规要求（GDPR/HIPAA/SOC 2）、可用性 SLA 与 RPO/RTO。
-2. **设计架构**：跑设计器获取模式推荐，再对照运维成熟度与合规要求确认后进入下一步。
-3. **估算成本**：分析当前账单的右调（right-sizing）、承诺使用折扣、存储分层等节省机会。
-4. **生成 IaC**：为所选模式产出 Terraform HCL 与 gcloud CLI 脚本。
-5. **配置 CI/CD**：用 Cloud Build 或 GitHub Actions 实现自动构建与部署。
-6. **安全评审**：核对 IAM 最小权限、Workload Identity、Secret Manager、审计日志等清单；部署失败时按排错流程定位。
+Collect application specifications:
 
-**四种核心架构模式：**
-- **Serverless Web**：Cloud Storage + Cloud CDN + Cloud Run + Firestore（约 $15–40/月）
-- **GKE 微服务**：GKE Autopilot + Cloud SQL + Memorystore + Pub/Sub（约 $500–2000/月）
-- **Serverless 数据管道**：Pub/Sub + Dataflow + BigQuery + Looker
-- **ML 平台**：Vertex AI + Cloud Storage + BigQuery + Cloud Functions
-
-## 指令
-
-**步骤 2 架构设计：**
-```bash
-python scripts/architecture_designer.py --input requirements.json --output design.json
 ```
-输出含 `recommended_pattern`、`service_stack`、`estimated_monthly_cost_usd`、`pros/cons`。
+- Application type (web app, mobile backend, data pipeline, SaaS)
+- Expected users and requests per second
+- Budget constraints (monthly spend limit)
+- Team size and GCP experience level
+- Compliance requirements (GDPR, HIPAA, SOC 2)
+- Availability requirements (SLA, RPO/RTO)
+```
 
-**步骤 3 成本优化：**
+### Step 2: Design Architecture
+
+Run the architecture designer to get pattern recommendations:
+
+```bash
+python scripts/architecture_designer.py --input requirements.json
+```
+
+**Example output:**
+
+```json
+{
+  "recommended_pattern": "serverless_web",
+  "service_stack": ["Cloud Storage", "Cloud CDN", "Cloud Run", "Firestore", "Identity Platform"],
+  "estimated_monthly_cost_usd": 30,
+  "pros": ["Low ops overhead", "Pay-per-use", "Auto-scaling", "No cold starts on Cloud Run min instances"],
+  "cons": ["Vendor lock-in", "Regional limitations", "Eventual consistency with Firestore"]
+}
+```
+
+Select from recommended patterns:
+- **Serverless Web**: Cloud Storage + Cloud CDN + Cloud Run + Firestore
+- **Microservices on GKE**: GKE Autopilot + Cloud SQL + Memorystore + Cloud Pub/Sub
+- **Serverless Data Pipeline**: Pub/Sub + Dataflow + BigQuery + Looker
+- **ML Platform**: Vertex AI + Cloud Storage + BigQuery + Cloud Functions
+
+See `references/architecture_patterns.md` for detailed pattern specifications.
+
+**Validation checkpoint:** Confirm the recommended pattern matches the team's operational maturity and compliance requirements before proceeding to Step 3.
+
+### Step 3: Estimate Cost
+
+Analyze estimated costs and optimization opportunities:
+
 ```bash
 python scripts/cost_optimizer.py --resources current_setup.json --monthly-spend 2000
 ```
-输出含按服务的成本拆分、右调建议、承诺使用折扣（CUD）、持续使用折扣（SUD）分析、潜在月度节省。详细估算用 [GCP 定价计算器](https://cloud.google.com/products/calculator)。
 
-**步骤 4 生成 IaC：**
+**Example output:**
+
+```json
+{
+  "current_monthly_usd": 2000,
+  "recommendations": [
+    { "action": "Right-size Cloud SQL db-custom-4-16384 to db-custom-2-8192", "savings_usd": 380, "priority": "high" },
+    { "action": "Purchase 1-yr committed use discount for GKE nodes", "savings_usd": 290, "priority": "high" },
+    { "action": "Move Cloud Storage objects >90 days to Nearline", "savings_usd": 75, "priority": "medium" }
+  ],
+  "total_potential_savings_usd": 745
+}
+```
+
+Output includes:
+- Monthly cost breakdown by service
+- Right-sizing recommendations
+- Committed use discount opportunities
+- Sustained use discount analysis
+- Potential monthly savings
+
+Use the [GCP Pricing Calculator](https://cloud.google.com/products/calculator) for detailed estimates.
+
+### Step 4: Generate IaC
+
+Create infrastructure-as-code for the selected pattern:
+
 ```bash
 python scripts/deployment_manager.py --app-name my-app --pattern serverless_web --region us-central1
 ```
 
-**步骤 6 安全核查：**
-```bash
-gcloud projects get-iam-policy $PROJECT_ID --format=json
-gcloud iam service-accounts list --project=$PROJECT_ID
-gcloud access-context-manager perimeters list --policy=$POLICY_ID
-```
+**Example Terraform HCL output (Cloud Run + Firestore):**
 
-安全清单：IAM 遵循最小权限（优先预定义角色而非基础角色）；GKE 用 Workload Identity；敏感 API 配 VPC Service Controls；客户管理密钥用 Cloud KMS；为所有管理活动开启 Cloud Audit Logs；用组织策略限制公开访问；所有凭据走 Secret Manager。
-
-**部署失败排错：**
-```bash
-gcloud run services describe my-app-api --region us-central1
-gcloud logging read "resource.type=cloud_run_revision" --limit=20
-gcloud run deploy my-app-api --image gcr.io/$PROJECT_ID/my-app:latest --region us-central1
-```
-常见原因：IAM 权限错误（核对服务账号角色与 `--allow-unauthenticated`）；配额超限（IAM & Admin > Quotas 申请提升）；容器启动失败（查容器日志与健康检查）；区域/API 未启用（`gcloud services enable`）。
-
-## 示例
-
-**Cloud Run + Firestore 的 Terraform（节选）：**
 ```hcl
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "google" {
+  project = var.project_id
+  region  = var.region
+}
+
+variable "project_id" {
+  description = "GCP project ID"
+  type        = string
+}
+
+variable "region" {
+  description = "GCP region"
+  type        = string
+  default     = "us-central1"
+}
+
 resource "google_cloud_run_v2_service" "api" {
   name     = "${var.environment}-${var.app_name}-api"
   location = var.region
+
   template {
     containers {
       image = "gcr.io/${var.project_id}/${var.app_name}:latest"
-      resources { limits = { cpu = "1000m", memory = "512Mi" } }
-      env { name = "FIRESTORE_PROJECT", value = var.project_id }
+      resources {
+        limits = {
+          cpu    = "1000m"
+          memory = "512Mi"
+        }
+      }
+      env {
+        name  = "FIRESTORE_PROJECT"
+        value = var.project_id
+      }
     }
-    scaling { min_instance_count = 0, max_instance_count = 10 }
+    scaling {
+      min_instance_count = 0
+      max_instance_count = 10
+    }
   }
 }
 
@@ -106,47 +167,291 @@ resource "google_firestore_database" "default" {
 }
 ```
 
-**gcloud CLI 部署：**
+**Example gcloud CLI deployment:**
+
 ```bash
+# Deploy Cloud Run service
 gcloud run deploy my-app-api \
   --image gcr.io/$PROJECT_ID/my-app:latest \
-  --region us-central1 --platform managed --allow-unauthenticated \
-  --memory 512Mi --cpu 1 --min-instances 0 --max-instances 10
+  --region us-central1 \
+  --platform managed \
+  --allow-unauthenticated \
+  --memory 512Mi \
+  --cpu 1 \
+  --min-instances 0 \
+  --max-instances 10
 
+# Create Firestore database
 gcloud firestore databases create --location=us-central1
 ```
 
-**Cloud Build CI/CD（cloudbuild.yaml 节选）：** 用 `gcr.io/cloud-builders/docker` 构建并推送 `gcr.io/$PROJECT_ID/my-app:$COMMIT_SHA`，再用 cloud-sdk 执行 `gcloud run deploy`。创建触发器：
-```bash
-gcloud builds triggers create github \
-  --repo-name=my-app --repo-owner=my-org \
-  --branch-pattern="^main$" --build-config=cloudbuild.yaml
+> Full templates including Cloud CDN, Identity Platform, IAM, and Cloud Monitoring are generated by `deployment_manager.py` and also available in `references/architecture_patterns.md`.
+
+### Step 5: Configure CI/CD
+
+Set up automated deployment with Cloud Build or GitHub Actions:
+
+```yaml
+# cloudbuild.yaml
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/my-app:$COMMIT_SHA', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/my-app:$COMMIT_SHA']
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'my-app-api'
+      - '--image=gcr.io/$PROJECT_ID/my-app:$COMMIT_SHA'
+      - '--region=us-central1'
+      - '--platform=managed'
+
+images:
+  - 'gcr.io/$PROJECT_ID/my-app:$COMMIT_SHA'
 ```
 
-## 注意事项
+```bash
+# Connect repo and create trigger
+gcloud builds triggers create github \
+  --repo-name=my-app \
+  --repo-owner=my-org \
+  --branch-pattern="^main$" \
+  --build-config=cloudbuild.yaml
+```
 
-避免以下反模式：
+### Step 6: Security Review
 
-| 反模式 | 为何失败 | 更优做法 |
-|---|---|---|
-| 生产用默认 VPC | 无隔离、共享防火墙规则 | 自建带私有子网的 VPC |
-| 过度预置 GKE 节点池 | 闲置容量浪费成本 | 用 GKE Autopilot 或集群自动扩缩 |
-| 密钥存环境变量 | Console/日志可见 | Secret Manager + Workload Identity |
-| 忽略持续使用折扣 | 漏掉 20–30% 自动节省 | 按稳定基线右调 VM |
-| SaaS 单区域部署 | 单区故障即全停 | 多区域 + Cloud Load Balancing |
-| 重负载用 BigQuery 按需计费 | 规模化成本不可控 | 用 BigQuery slots（统一费率） |
-| 用 Cloud Functions 跑长任务 | 9 分钟超时、冷启动 | >60s 任务改用 Cloud Run |
+Verify security configuration:
 
-完整模式与最佳实践见 `references/architecture_patterns.md`、`references/service_selection.md`、`references/best_practices.md`。
+```bash
+# Review IAM bindings
+gcloud projects get-iam-policy $PROJECT_ID --format=json
 
-## 互见
+# Check service account permissions
+gcloud iam service-accounts list --project=$PROJECT_ID
 
-- **aws-solution-architect**：AWS 对应版，同样的 6 步流程、不同服务。
-- **azure-cloud-architect**：Azure 对应版，凑齐三大云。
-- **senior-devops**：更广的 DevOps 范畴（流水线、监控、容器化）。
-- **terraform-patterns**：面向 GCP 的 Terraform 模块实现。
-- **ci-cd-pipeline-builder**：自动化 Cloud Build 与部署流水线。
+# Verify VPC Service Controls (if applicable)
+gcloud access-context-manager perimeters list --policy=$POLICY_ID
+```
+
+**Security checklist:**
+- IAM roles follow least privilege (prefer predefined roles over basic roles)
+- Service accounts use Workload Identity for GKE
+- VPC Service Controls configured for sensitive APIs
+- Cloud KMS encryption keys for customer-managed encryption
+- Cloud Audit Logs enabled for all admin activity
+- Organization policies restrict public access
+- Secret Manager used for all credentials
+
+**If deployment fails:**
+
+1. Check the failure reason:
+   ```bash
+   gcloud run services describe my-app-api --region us-central1
+   gcloud logging read "resource.type=cloud_run_revision" --limit=20
+   ```
+2. Review Cloud Logging for application errors.
+3. Fix the configuration or container image.
+4. Redeploy:
+   ```bash
+   gcloud run deploy my-app-api --image gcr.io/$PROJECT_ID/my-app:latest --region us-central1
+   ```
+
+**Common failure causes:**
+- IAM permission errors -- verify service account roles and `--allow-unauthenticated` flag
+- Quota exceeded -- request quota increase via IAM & Admin > Quotas
+- Container startup failure -- check container logs and health check configuration
+- Region not enabled -- enable the required APIs with `gcloud services enable`
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+## Tools
+
+### architecture_designer.py
+
+Recommends GCP services based on workload requirements.
+
+```bash
+python scripts/architecture_designer.py --input requirements.json --output design.json
+```
+
+**Input:** JSON with app type, scale, budget, compliance needs
+**Output:** Recommended pattern, service stack, cost estimate, pros/cons
+
+### cost_optimizer.py
+
+Analyzes GCP resources for cost savings.
+
+```bash
+python scripts/cost_optimizer.py --resources inventory.json --monthly-spend 5000
+```
+
+**Output:** Recommendations for:
+- Idle resource removal
+- Machine type right-sizing
+- Committed use discounts
+- Storage class transitions
+- Network egress optimization
+
+### deployment_manager.py
+
+Generates gcloud CLI deployment scripts and Terraform configurations.
+
+```bash
+python scripts/deployment_manager.py --app-name my-app --pattern serverless_web --region us-central1
+```
+
+**Output:** Production-ready deployment scripts with:
+- Cloud Run or GKE deployment
+- Firestore or Cloud SQL setup
+- Identity Platform configuration
+- IAM roles with least privilege
+- Cloud Monitoring and Logging
+
+---
+
+## Quick Start
+
+### Web App on Cloud Run (< $100/month)
+
+```
+Ask: "Design a serverless web backend for a mobile app with 1000 users"
+
+Result:
+- Cloud Run for API (auto-scaling, no cold start with min instances)
+- Firestore for data (pay-per-operation)
+- Identity Platform for authentication
+- Cloud Storage + Cloud CDN for static assets
+- Estimated: $15-40/month
+```
+
+### Microservices on GKE ($500-2000/month)
+
+```
+Ask: "Design a scalable architecture for a SaaS platform with 50k users"
+
+Result:
+- GKE Autopilot for containerized workloads
+- Cloud SQL (PostgreSQL) with read replicas
+- Memorystore (Redis) for session caching
+- Cloud CDN for global delivery
+- Cloud Build for CI/CD
+- Multi-zone deployment
+```
+
+### Serverless Data Pipeline
+
+```
+Ask: "Design a real-time analytics pipeline for event data"
+
+Result:
+- Pub/Sub for event ingestion
+- Dataflow (Apache Beam) for stream processing
+- BigQuery for analytics and warehousing
+- Looker for dashboards
+- Cloud Functions for lightweight transforms
+```
+
+### ML Platform
+
+```
+Ask: "Design a machine learning platform for model training and serving"
+
+Result:
+- Vertex AI for training and prediction
+- Cloud Storage for datasets and model artifacts
+- BigQuery for feature store
+- Cloud Functions for preprocessing triggers
+- Cloud Monitoring for model drift detection
+```
+
+---
+
+## Input Requirements
+
+Provide these details for architecture design:
+
+| Requirement | Description | Example |
+|-------------|-------------|---------|
+| Application type | What you're building | SaaS platform, mobile backend |
+| Expected scale | Users, requests/sec | 10k users, 100 RPS |
+| Budget | Monthly GCP limit | $500/month max |
+| Team context | Size, GCP experience | 3 devs, intermediate |
+| Compliance | Regulatory needs | HIPAA, GDPR, SOC 2 |
+| Availability | Uptime requirements | 99.9% SLA, 1hr RPO |
+
+**JSON Format:**
+
+```json
+{
+  "application_type": "saas_platform",
+  "expected_users": 10000,
+  "requests_per_second": 100,
+  "budget_monthly_usd": 500,
+  "team_size": 3,
+  "gcp_experience": "intermediate",
+  "compliance": ["SOC2"],
+  "availability_sla": "99.9%"
+}
+```
+
+---
+
+## Output Formats
+
+### Architecture Design
+
+- Pattern recommendation with rationale
+- Service stack diagram (ASCII)
+- Monthly cost estimate and trade-offs
+
+### IaC Templates
+
+- **Terraform HCL**: Production-ready Google provider configs
+- **gcloud CLI**: Scripted deployment commands
+- **Cloud Build YAML**: CI/CD pipeline definitions
+
+### Cost Analysis
+
+- Current spend breakdown with optimization recommendations
+- Priority action list (high/medium/low) and implementation checklist
+
+---
+
+## Anti-Patterns
+
+| Anti-Pattern | Why It Fails | Better Approach |
+|---|---|---|
+| Using default VPC for production | No isolation, shared firewall rules | Create custom VPC with private subnets |
+| Over-provisioning GKE node pools | Wasted cost on idle capacity | Use GKE Autopilot or cluster autoscaler |
+| Storing secrets in environment variables | Visible in Cloud Console, logs | Use Secret Manager with Workload Identity |
+| Ignoring sustained use discounts | Missing 20-30% automatic savings | Right-size VMs for consistent baseline usage |
+| Single-region deployment for SaaS | One region outage = full downtime | Multi-region with Cloud Load Balancing |
+| BigQuery on-demand for heavy workloads | Unpredictable costs at scale | Use BigQuery slots (flat-rate) for consistent workloads |
+| Running Cloud Functions for long tasks | 9-minute timeout, cold starts | Use Cloud Run for tasks > 60 seconds |
+
+---
+
+## Cross-References
+
+| Skill | Relationship |
+|-------|-------------|
+| `engineering-team/aws-solution-architect` | AWS equivalent — same 6-step workflow, different services |
+| `engineering-team/azure-cloud-architect` | Azure equivalent — completes the cloud trifecta |
+| `engineering-team/senior-devops` | Broader DevOps scope — pipelines, monitoring, containerization |
+| `engineering/terraform-patterns` | IaC implementation — use for Terraform modules targeting GCP |
+| `engineering/ci-cd-pipeline-builder` | Pipeline construction — automates Cloud Build and deployment |
+
+---
+
+## Reference Documentation
+
+| Document | Contents |
+|----------|----------|
+| `references/architecture_patterns.md` | 6 patterns: serverless, GKE microservices, three-tier, data pipeline, ML platform, multi-region |
+| `references/service_selection.md` | Decision matrices for compute, database, storage, messaging |
+| `references/best_practices.md` | Naming, labels, IAM, networking, monitoring, disaster recovery |

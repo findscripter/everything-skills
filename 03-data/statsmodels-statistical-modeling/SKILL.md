@@ -1,14 +1,14 @@
 ---
 name: statsmodels-statistical-modeling
-title: Statsmodels 统计建模
-description: 当用 Python 做严谨统计建模与推断（线性/广义线性回归、离散选择、时间序列预测、假设检验与诊断）时使用；用 statsmodels 拟合模型并产出含系数/置信区间/p 值的可发表结果与残差诊断；不适用于纯预测机器学习（用 scikit-learn）、深度学习/GPU 训练、仅做数据清洗或画图。触发词：statsmodels、OLS、回归、logistic、GLM、ARIMA、时间序列、假设检验、置信区间、p值
+title: Statsmodels: Statistical Modeling and Econometrics
+description: Statsmodels is Python's premier library for statistical modeling, providing tools for estimation, inference, and diagnostics across a wide range of statistical methods.
 domain: 数据/analysis
-triggers: [statsmodels, OLS, 线性回归, logistic回归, GLM, 泊松回归, ARIMA, SARIMAX, 时间序列, 假设检验, 异方差, 置信区间, p值, AIC, BIC]
-tags: [statsmodels, statistics, regression, econometrics, time-series, hypothesis-testing, python, 数据/分析]
-level: 进阶
+triggers: [statsmodels, OLS, GLM, ARIMA, SARIMAX, AIC, BIC]
+tags: [statsmodels, statistics, regression, econometrics, time-series, hypothesis-testing, python]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, statsmodels, pandas, numpy, scipy, matplotlib]
+tools: []
 requires: []
 related: [scikit-learn-ml, seaborn-statistical-charts, guided-statistical-analysis]
 combines_with: [polars-dataframe, seaborn-statistical-charts, matplotlib-visualization]
@@ -16,131 +16,611 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Statsmodels: Statistical Modeling and Econometrics
 
-适用场景：
+## Overview
 
-- 需要**推断**而非纯预测：要看系数、标准误、置信区间、p 值，并出可发表的统计结果表（`results.summary()`）。
-- 线性回归（OLS/WLS/GLS/分位数回归）、广义线性模型（logistic/Poisson/Gamma 等）、离散/计数结果（二元/多元/有序/计数）。
-- 时间序列建模与预测（AR/ARIMA/SARIMAX/VAR/指数平滑）。
-- 假设检验与模型诊断：异方差、自相关、正态性、共线性、异常值/强影响点，模型比较（AIC/BIC、似然比检验）。
+Statsmodels is Python's premier library for statistical modeling, providing tools for estimation, inference, and diagnostics across a wide range of statistical methods. Apply this skill for rigorous statistical analysis, from simple linear regression to complex time series models and econometric analyses.
 
-不该用的边界：
+## When to Use This Skill
 
-- 只追求预测精度、不需要统计推断 → 用 `scikit-learn-ml`（交叉验证 + Pipeline + 调参）。
-- 深度学习、大模型、GPU 训练 → 用 PyTorch / TensorFlow。
-- 仅做数据清洗（缺失/去重/类型）→ 先用 `csv-data-cleaner`，清洗后再建模。
-- 仅做统计图表 → 用 `seaborn-statistical-charts` / `matplotlib-visualization`。
-- 不能替代环境相关的验证、测试或专家复核；缺目标列、样本太小或成功标准不明时先澄清。
+This skill should be used when:
+- Fitting regression models (OLS, WLS, GLS, quantile regression)
+- Performing generalized linear modeling (logistic, Poisson, Gamma, etc.)
+- Analyzing discrete outcomes (binary, multinomial, count, ordinal)
+- Conducting time series analysis (ARIMA, SARIMAX, VAR, forecasting)
+- Running statistical tests and diagnostics
+- Testing model assumptions (heteroskedasticity, autocorrelation, normality)
+- Detecting outliers and influential observations
+- Comparing models (AIC/BIC, likelihood ratio tests)
+- Estimating causal effects
+- Producing publication-ready statistical tables and inference
 
-## 步骤 / 指令
+## Quick Start Guide
 
-**先按结果类型选模型**（最常见的错是用错模型）：
+### Linear Regression (OLS)
 
-| 结果变量 | 模型 |
-|---|---|
-| 连续 | OLS（异方差→WLS 或稳健 SE） |
-| 二元 0/1 | `Logit` / `Probit` |
-| 计数 | `GLM(family=Poisson)`；过离散→`NegativeBinomial` |
-| 正偏态连续 | `GLM(family=Gamma)` |
-| 多分类/有序 | `MNLogit` / `OrderedModel` |
-| 时间序列 | `ARIMA` / `SARIMAX` / `VAR` |
-
-**通用流程**：
-
-1. **探查数据**：缺失值先处理；区分数值/类别列。
-2. **加常数项**：`X = sm.add_constant(X_data)`——除非刻意去截距，否则**必须加**（用 formula API 自动含截距）。
-3. **拟合**：`model.fit()`，注意优化是否收敛（看 warning）。
-4. **读结果**：`print(results.summary())`，关注系数、p 值、置信区间、R²/伪 R²、AIC/BIC。
-5. **诊断**：残差 vs 拟合值散点、Q-Q 图；按需做异方差/自相关/正态性检验。
-6. **稳健推断**：有异方差或聚类时用稳健标准误（`cov_type='HC3'` 或 `HAC`/`cluster`）。
-7. **比较模型**：嵌套用似然比检验（LR），非嵌套用 AIC/BIC（越小越好）。
-8. **预测**：`results.get_prediction(X_new).summary_frame()`，含均值、置信区间与预测区间。
-
-**Formula API（R 风格，推荐用 DataFrame 时）**：`smf.ols('y ~ x1 + x2 + x1:x2', data=df).fit()`；类别列 `C(group)`；交互 `x1*x2`；多项式 `I(x**2)`；对应有 `smf.logit` / `smf.poisson`。
-
-**安装**：`uv pip install statsmodels`（可选 `pandas numpy scipy matplotlib`）。
-
-## 示例
-
-OLS 线性回归 + 异方差诊断：
 ```python
 import statsmodels.api as sm
-from statsmodels.stats.diagnostic import het_breuschpagan
+import numpy as np
+import pandas as pd
 
-X = sm.add_constant(X_data)            # 务必加截距
-results = sm.OLS(y, X).fit()
-print(results.summary())               # 系数/p值/置信区间/R²
+# Prepare data - ALWAYS add constant for intercept
+X = sm.add_constant(X_data)
+
+# Fit OLS model
+model = sm.OLS(y, X)
+results = model.fit()
+
+# View comprehensive results
+print(results.summary())
+
+# Key results
 print(f"R-squared: {results.rsquared:.4f}")
+print(f"Coefficients:\\n{results.params}")
+print(f"P-values:\\n{results.pvalues}")
 
-# Breusch-Pagan 异方差检验；p<0.05 提示异方差
-bp = het_breuschpagan(results.resid, X)
-print(f"Breusch-Pagan p: {bp[1]:.4f}")
-if bp[1] < 0.05:                       # 有异方差→改用稳健标准误
-    results = sm.OLS(y, X).fit(cov_type="HC3")
+# Predictions with confidence intervals
+predictions = results.get_prediction(X_new)
+pred_summary = predictions.summary_frame()
+print(pred_summary)  # includes mean, CI, prediction intervals
+
+# Diagnostics
+from statsmodels.stats.diagnostic import het_breuschpagan
+bp_test = het_breuschpagan(results.resid, X)
+print(f"Breusch-Pagan p-value: {bp_test[1]:.4f}")
+
+# Visualize residuals
+import matplotlib.pyplot as plt
+plt.scatter(results.fittedvalues, results.resid)
+plt.axhline(y=0, color='r', linestyle='--')
+plt.xlabel('Fitted values')
+plt.ylabel('Residuals')
+plt.show()
 ```
 
-Logistic 回归（二元结果）+ 优势比 + 边际效应：
+### Logistic Regression (Binary Outcomes)
+
 ```python
 from statsmodels.discrete.discrete_model import Logit
-res = Logit(y_binary, sm.add_constant(X_data)).fit()
-print(res.summary())
-print("Odds ratios:\n", np.exp(res.params))   # log-odds→优势比
-print(res.get_margeff().summary())            # 平均边际效应
-probs = res.predict()                          # 预测概率
+
+# Add constant
+X = sm.add_constant(X_data)
+
+# Fit logit model
+model = Logit(y_binary, X)
+results = model.fit()
+
+print(results.summary())
+
+# Odds ratios
+odds_ratios = np.exp(results.params)
+print("Odds ratios:\\n", odds_ratios)
+
+# Predicted probabilities
+probs = results.predict(X)
+
+# Binary predictions (0.5 threshold)
+predictions = (probs > 0.5).astype(int)
+
+# Model evaluation
+from sklearn.metrics import classification_report, roc_auc_score
+
+print(classification_report(y_binary, predictions))
+print(f"AUC: {roc_auc_score(y_binary, probs):.4f}")
+
+# Marginal effects
+marginal = results.get_margeff()
+print(marginal.summary())
 ```
 
-ARIMA 时间序列预测（先验平稳，再定阶）：
+### Time Series (ARIMA)
+
 ```python
-from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 
-if adfuller(y_series)[1] > 0.05:        # ADF p>0.05→非平稳，需差分
-    pass                                 # 由 ARIMA 的 d 阶处理，或 .diff().dropna()
-res = ARIMA(y_series, order=(1, 1, 1)).fit()
-print(res.summary())
-fc = res.get_forecast(steps=10).summary_frame()  # 含均值与置信区间
-res.plot_diagnostics(figsize=(12, 8))            # 残差诊断（Ljung-Box 等）
+# Check stationarity
+from statsmodels.tsa.stattools import adfuller
+
+adf_result = adfuller(y_series)
+print(f"ADF p-value: {adf_result[1]:.4f}")
+
+if adf_result[1] > 0.05:
+    # Series is non-stationary, difference it
+    y_diff = y_series.diff().dropna()
+
+# Plot ACF/PACF to identify p, q
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
+plot_acf(y_diff, lags=40, ax=ax1)
+plot_pacf(y_diff, lags=40, ax=ax2)
+plt.show()
+
+# Fit ARIMA(p,d,q)
+model = ARIMA(y_series, order=(1, 1, 1))
+results = model.fit()
+
+print(results.summary())
+
+# Forecast
+forecast = results.forecast(steps=10)
+forecast_obj = results.get_forecast(steps=10)
+forecast_df = forecast_obj.summary_frame()
+
+print(forecast_df)  # includes mean and confidence intervals
+
+# Residual diagnostics
+results.plot_diagnostics(figsize=(12, 8))
+plt.show()
 ```
 
-Poisson GLM + 过离散检查（过离散则换负二项）：
+### Generalized Linear Models (GLM)
+
 ```python
-res = sm.GLM(y_counts, sm.add_constant(X_data),
-             family=sm.families.Poisson()).fit()
-od = res.pearson_chi2 / res.df_resid    # >1.5 视为过离散
-if od > 1.5:
+import statsmodels.api as sm
+
+# Poisson regression for count data
+X = sm.add_constant(X_data)
+model = sm.GLM(y_counts, X, family=sm.families.Poisson())
+results = model.fit()
+
+print(results.summary())
+
+# Rate ratios (for Poisson with log link)
+rate_ratios = np.exp(results.params)
+print("Rate ratios:\\n", rate_ratios)
+
+# Check overdispersion
+overdispersion = results.pearson_chi2 / results.df_resid
+print(f"Overdispersion: {overdispersion:.2f}")
+
+if overdispersion > 1.5:
+    # Use Negative Binomial instead
     from statsmodels.discrete.count_model import NegativeBinomial
-    res = NegativeBinomial(y_counts, sm.add_constant(X_data)).fit()
+    nb_model = NegativeBinomial(y_counts, X)
+    nb_results = nb_model.fit()
+    print(nb_results.summary())
 ```
 
-模型比较：
+## Core Statistical Modeling Capabilities
+
+### 1. Linear Regression Models
+
+Comprehensive suite of linear models for continuous outcomes with various error structures.
+
+**Available models:**
+- **OLS**: Standard linear regression with i.i.d. errors
+- **WLS**: Weighted least squares for heteroskedastic errors
+- **GLS**: Generalized least squares for arbitrary covariance structure
+- **GLSAR**: GLS with autoregressive errors for time series
+- **Quantile Regression**: Conditional quantiles (robust to outliers)
+- **Mixed Effects**: Hierarchical/multilevel models with random effects
+- **Recursive/Rolling**: Time-varying parameter estimation
+
+**Key features:**
+- Comprehensive diagnostic tests
+- Robust standard errors (HC, HAC, cluster-robust)
+- Influence statistics (Cook's distance, leverage, DFFITS)
+- Hypothesis testing (F-tests, Wald tests)
+- Model comparison (AIC, BIC, likelihood ratio tests)
+- Prediction with confidence and prediction intervals
+
+**When to use:** Continuous outcome variable, want inference on coefficients, need diagnostics
+
+**Reference:** See `references/linear_models.md` for detailed guidance on model selection, diagnostics, and best practices.
+
+### 2. Generalized Linear Models (GLM)
+
+Flexible framework extending linear models to non-normal distributions.
+
+**Distribution families:**
+- **Binomial**: Binary outcomes or proportions (logistic regression)
+- **Poisson**: Count data
+- **Negative Binomial**: Overdispersed counts
+- **Gamma**: Positive continuous, right-skewed data
+- **Inverse Gaussian**: Positive continuous with specific variance structure
+- **Gaussian**: Equivalent to OLS
+- **Tweedie**: Flexible family for semi-continuous data
+
+**Link functions:**
+- Logit, Probit, Log, Identity, Inverse, Sqrt, CLogLog, Power
+- Choose based on interpretation needs and model fit
+
+**Key features:**
+- Maximum likelihood estimation via IRLS
+- Deviance and Pearson residuals
+- Goodness-of-fit statistics
+- Pseudo R-squared measures
+- Robust standard errors
+
+**When to use:** Non-normal outcomes, need flexible variance and link specifications
+
+**Reference:** See `references/glm.md` for family selection, link functions, interpretation, and diagnostics.
+
+### 3. Discrete Choice Models
+
+Models for categorical and count outcomes.
+
+**Binary models:**
+- **Logit**: Logistic regression (odds ratios)
+- **Probit**: Probit regression (normal distribution)
+
+**Multinomial models:**
+- **MNLogit**: Unordered categories (3+ levels)
+- **Conditional Logit**: Choice models with alternative-specific variables
+- **Ordered Model**: Ordinal outcomes (ordered categories)
+
+**Count models:**
+- **Poisson**: Standard count model
+- **Negative Binomial**: Overdispersed counts
+- **Zero-Inflated**: Excess zeros (ZIP, ZINB)
+- **Hurdle Models**: Two-stage models for zero-heavy data
+
+**Key features:**
+- Maximum likelihood estimation
+- Marginal effects at means or average marginal effects
+- Model comparison via AIC/BIC
+- Predicted probabilities and classification
+- Goodness-of-fit tests
+
+**When to use:** Binary, categorical, or count outcomes
+
+**Reference:** See `references/discrete_choice.md` for model selection, interpretation, and evaluation.
+
+### 4. Time Series Analysis
+
+Comprehensive time series modeling and forecasting capabilities.
+
+**Univariate models:**
+- **AutoReg (AR)**: Autoregressive models
+- **ARIMA**: Autoregressive integrated moving average
+- **SARIMAX**: Seasonal ARIMA with exogenous variables
+- **Exponential Smoothing**: Simple, Holt, Holt-Winters
+- **ETS**: Innovations state space models
+
+**Multivariate models:**
+- **VAR**: Vector autoregression
+- **VARMAX**: VAR with MA and exogenous variables
+- **Dynamic Factor Models**: Extract common factors
+- **VECM**: Vector error correction models (cointegration)
+
+**Advanced models:**
+- **State Space**: Kalman filtering, custom specifications
+- **Regime Switching**: Markov switching models
+- **ARDL**: Autoregressive distributed lag
+
+**Key features:**
+- ACF/PACF analysis for model identification
+- Stationarity tests (ADF, KPSS)
+- Forecasting with prediction intervals
+- Residual diagnostics (Ljung-Box, heteroskedasticity)
+- Granger causality testing
+- Impulse response functions (IRF)
+- Forecast error variance decomposition (FEVD)
+
+**When to use:** Time-ordered data, forecasting, understanding temporal dynamics
+
+**Reference:** See `references/time_series.md` for model selection, diagnostics, and forecasting methods.
+
+### 5. Statistical Tests and Diagnostics
+
+Extensive testing and diagnostic capabilities for model validation.
+
+**Residual diagnostics:**
+- Autocorrelation tests (Ljung-Box, Durbin-Watson, Breusch-Godfrey)
+- Heteroskedasticity tests (Breusch-Pagan, White, ARCH)
+- Normality tests (Jarque-Bera, Omnibus, Anderson-Darling, Lilliefors)
+- Specification tests (RESET, Harvey-Collier)
+
+**Influence and outliers:**
+- Leverage (hat values)
+- Cook's distance
+- DFFITS and DFBETAs
+- Studentized residuals
+- Influence plots
+
+**Hypothesis testing:**
+- t-tests (one-sample, two-sample, paired)
+- Proportion tests
+- Chi-square tests
+- Non-parametric tests (Mann-Whitney, Wilcoxon, Kruskal-Wallis)
+- ANOVA (one-way, two-way, repeated measures)
+
+**Multiple comparisons:**
+- Tukey's HSD
+- Bonferroni correction
+- False Discovery Rate (FDR)
+
+**Effect sizes and power:**
+- Cohen's d, eta-squared
+- Power analysis for t-tests, proportions
+- Sample size calculations
+
+**Robust inference:**
+- Heteroskedasticity-consistent SEs (HC0-HC3)
+- HAC standard errors (Newey-West)
+- Cluster-robust standard errors
+
+**When to use:** Validating assumptions, detecting problems, ensuring robust inference
+
+**Reference:** See `references/stats_diagnostics.md` for comprehensive testing and diagnostic procedures.
+
+## Formula API (R-style)
+
+Statsmodels supports R-style formulas for intuitive model specification:
+
 ```python
-# 非嵌套：比 AIC/BIC（越小越好）
-# 嵌套：似然比检验
-from scipy import stats
-lr = 2 * (full.llf - reduced.llf)
-p = 1 - stats.chi2.cdf(lr, full.df_model - reduced.df_model)
+import statsmodels.formula.api as smf
+
+# OLS with formula
+results = smf.ols('y ~ x1 + x2 + x1:x2', data=df).fit()
+
+# Categorical variables (automatic dummy coding)
+results = smf.ols('y ~ x1 + C(category)', data=df).fit()
+
+# Interactions
+results = smf.ols('y ~ x1 * x2', data=df).fit()  # x1 + x2 + x1:x2
+
+# Polynomial terms
+results = smf.ols('y ~ x + I(x**2)', data=df).fit()
+
+# Logit
+results = smf.logit('y ~ x1 + x2 + C(group)', data=df).fit()
+
+# Poisson
+results = smf.poisson('count ~ x1 + x2', data=df).fit()
+
+# ARIMA (not available via formula, use regular API)
 ```
 
-## 注意事项
+## Model Selection and Comparison
 
-- **忘加常数项**：`sm.OLS` 等不会自动加截距，须 `sm.add_constant()`；formula API 才自动含截距。
-- **用错模型**：二元→Logit/Probit，计数→Poisson/NB，别一律 OLS。
-- **解释系数要还原链接函数**：log 链接看 `exp(β)`（率比/优势比），不要直接读 logit/log 尺度系数。
-- **Poisson 过离散**：先查 `pearson_chi2/df_resid`，>1.5 改负二项；零过多考虑 ZIP/ZINB/Hurdle。
-- **时间序列须先平稳**：ADF/KPSS 检验，非平稳先差分，否则 ARIMA 结果失真。
-- **检查收敛**：留意优化 warning；离散/计数模型不收敛常因完全分离或共线。
-- **预测区间 ≠ 置信区间**：预测区间更宽（含个体噪声），别混用。
-- **多重检验要校正**（Bonferroni/FDR）；有异方差/聚类用稳健 SE（HC0–HC3、Newey-West、cluster）。
-- 报告时同时给效应量与置信区间，而非只给 p 值；标注变换与剔除的观测。
-- 不能替代环境相关验证与专家复核；输出仅供参考。
+### Information Criteria
 
-## 互见
+```python
+# Compare models using AIC/BIC
+models = {
+    'Model 1': model1_results,
+    'Model 2': model2_results,
+    'Model 3': model3_results
+}
 
-- requires：无。
-- related：`scikit-learn-ml`（侧重预测的机器学习，与本技能侧重推断互补）；`seaborn-statistical-charts`、`matplotlib-visualization`（残差/诊断图与结果可视化）。
-- combines_with：`csv-data-cleaner`（建模前清洗脏数据，清洗完再进本技能）。
+comparison = pd.DataFrame({
+    'AIC': {name: res.aic for name, res in models.items()},
+    'BIC': {name: res.bic for name, res in models.items()},
+    'Log-Likelihood': {name: res.llf for name, res in models.items()}
+})
 
----
+print(comparison.sort_values('AIC'))
+# Lower AIC/BIC indicates better model
+```
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）；该技能内容原署 K-Dense Inc.，原始声明为 BSD-3-Clause，均可再分发。
+### Likelihood Ratio Test (Nested Models)
+
+```python
+# For nested models (one is subset of the other)
+from scipy import stats
+
+lr_stat = 2 * (full_model.llf - reduced_model.llf)
+df = full_model.df_model - reduced_model.df_model
+p_value = 1 - stats.chi2.cdf(lr_stat, df)
+
+print(f"LR statistic: {lr_stat:.4f}")
+print(f"p-value: {p_value:.4f}")
+
+if p_value < 0.05:
+    print("Full model significantly better")
+else:
+    print("Reduced model preferred (parsimony)")
+```
+
+### Cross-Validation
+
+```python
+from sklearn.model_selection import KFold
+from sklearn.metrics import mean_squared_error
+
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
+cv_scores = []
+
+for train_idx, val_idx in kf.split(X):
+    X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
+    y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
+
+    # Fit model
+    model = sm.OLS(y_train, X_train).fit()
+
+    # Predict
+    y_pred = model.predict(X_val)
+
+    # Score
+    rmse = np.sqrt(mean_squared_error(y_val, y_pred))
+    cv_scores.append(rmse)
+
+print(f"CV RMSE: {np.mean(cv_scores):.4f} ± {np.std(cv_scores):.4f}")
+```
+
+## Best Practices
+
+### Data Preparation
+
+1. **Always add constant**: Use `sm.add_constant()` unless excluding intercept
+2. **Check for missing values**: Handle or impute before fitting
+3. **Scale if needed**: Improves convergence, interpretation (but not required for tree models)
+4. **Encode categoricals**: Use formula API or manual dummy coding
+
+### Model Building
+
+1. **Start simple**: Begin with basic model, add complexity as needed
+2. **Check assumptions**: Test residuals, heteroskedasticity, autocorrelation
+3. **Use appropriate model**: Match model to outcome type (binary→Logit, count→Poisson)
+4. **Consider alternatives**: If assumptions violated, use robust methods or different model
+
+### Inference
+
+1. **Report effect sizes**: Not just p-values
+2. **Use robust SEs**: When heteroskedasticity or clustering present
+3. **Multiple comparisons**: Correct when testing many hypotheses
+4. **Confidence intervals**: Always report alongside point estimates
+
+### Model Evaluation
+
+1. **Check residuals**: Plot residuals vs fitted, Q-Q plot
+2. **Influence diagnostics**: Identify and investigate influential observations
+3. **Out-of-sample validation**: Test on holdout set or cross-validate
+4. **Compare models**: Use AIC/BIC for non-nested, LR test for nested
+
+### Reporting
+
+1. **Comprehensive summary**: Use `.summary()` for detailed output
+2. **Document decisions**: Note transformations, excluded observations
+3. **Interpret carefully**: Account for link functions (e.g., exp(β) for log link)
+4. **Visualize**: Plot predictions, confidence intervals, diagnostics
+
+## Common Workflows
+
+### Workflow 1: Linear Regression Analysis
+
+1. Explore data (plots, descriptives)
+2. Fit initial OLS model
+3. Check residual diagnostics
+4. Test for heteroskedasticity, autocorrelation
+5. Check for multicollinearity (VIF)
+6. Identify influential observations
+7. Refit with robust SEs if needed
+8. Interpret coefficients and inference
+9. Validate on holdout or via CV
+
+### Workflow 2: Binary Classification
+
+1. Fit logistic regression (Logit)
+2. Check for convergence issues
+3. Interpret odds ratios
+4. Calculate marginal effects
+5. Evaluate classification performance (AUC, confusion matrix)
+6. Check for influential observations
+7. Compare with alternative models (Probit)
+8. Validate predictions on test set
+
+### Workflow 3: Count Data Analysis
+
+1. Fit Poisson regression
+2. Check for overdispersion
+3. If overdispersed, fit Negative Binomial
+4. Check for excess zeros (consider ZIP/ZINB)
+5. Interpret rate ratios
+6. Assess goodness of fit
+7. Compare models via AIC
+8. Validate predictions
+
+### Workflow 4: Time Series Forecasting
+
+1. Plot series, check for trend/seasonality
+2. Test for stationarity (ADF, KPSS)
+3. Difference if non-stationary
+4. Identify p, q from ACF/PACF
+5. Fit ARIMA or SARIMAX
+6. Check residual diagnostics (Ljung-Box)
+7. Generate forecasts with confidence intervals
+8. Evaluate forecast accuracy on test set
+
+## Reference Documentation
+
+This skill includes comprehensive reference files for detailed guidance:
+
+### references/linear_models.md
+Detailed coverage of linear regression models including:
+- OLS, WLS, GLS, GLSAR, Quantile Regression
+- Mixed effects models
+- Recursive and rolling regression
+- Comprehensive diagnostics (heteroskedasticity, autocorrelation, multicollinearity)
+- Influence statistics and outlier detection
+- Robust standard errors (HC, HAC, cluster)
+- Hypothesis testing and model comparison
+
+### references/glm.md
+Complete guide to generalized linear models:
+- All distribution families (Binomial, Poisson, Gamma, etc.)
+- Link functions and when to use each
+- Model fitting and interpretation
+- Pseudo R-squared and goodness of fit
+- Diagnostics and residual analysis
+- Applications (logistic, Poisson, Gamma regression)
+
+### references/discrete_choice.md
+Comprehensive guide to discrete outcome models:
+- Binary models (Logit, Probit)
+- Multinomial models (MNLogit, Conditional Logit)
+- Count models (Poisson, Negative Binomial, Zero-Inflated, Hurdle)
+- Ordinal models
+- Marginal effects and interpretation
+- Model diagnostics and comparison
+
+### references/time_series.md
+In-depth time series analysis guidance:
+- Univariate models (AR, ARIMA, SARIMAX, Exponential Smoothing)
+- Multivariate models (VAR, VARMAX, Dynamic Factor)
+- State space models
+- Stationarity testing and diagnostics
+- Forecasting methods and evaluation
+- Granger causality, IRF, FEVD
+
+### references/stats_diagnostics.md
+Comprehensive statistical testing and diagnostics:
+- Residual diagnostics (autocorrelation, heteroskedasticity, normality)
+- Influence and outlier detection
+- Hypothesis tests (parametric and non-parametric)
+- ANOVA and post-hoc tests
+- Multiple comparisons correction
+- Robust covariance matrices
+- Power analysis and effect sizes
+
+**When to reference:**
+- Need detailed parameter explanations
+- Choosing between similar models
+- Troubleshooting convergence or diagnostic issues
+- Understanding specific test statistics
+- Looking for code examples for advanced features
+
+**Search patterns:**
+```bash
+# Find information about specific models
+grep -r "Quantile Regression" references/
+
+# Find diagnostic tests
+grep -r "Breusch-Pagan" references/stats_diagnostics.md
+
+# Find time series guidance
+grep -r "SARIMAX" references/time_series.md
+```
+
+## Common Pitfalls to Avoid
+
+1. **Forgetting constant term**: Always use `sm.add_constant()` unless no intercept desired
+2. **Ignoring assumptions**: Check residuals, heteroskedasticity, autocorrelation
+3. **Wrong model for outcome type**: Binary→Logit/Probit, Count→Poisson/NB, not OLS
+4. **Not checking convergence**: Look for optimization warnings
+5. **Misinterpreting coefficients**: Remember link functions (log, logit, etc.)
+6. **Using Poisson with overdispersion**: Check dispersion, use Negative Binomial if needed
+7. **Not using robust SEs**: When heteroskedasticity or clustering present
+8. **Overfitting**: Too many parameters relative to sample size
+9. **Data leakage**: Fitting on test data or using future information
+10. **Not validating predictions**: Always check out-of-sample performance
+11. **Comparing non-nested models**: Use AIC/BIC, not LR test
+12. **Ignoring influential observations**: Check Cook's distance and leverage
+13. **Multiple testing**: Correct p-values when testing many hypotheses
+14. **Not differencing time series**: Fit ARIMA on non-stationary data
+15. **Confusing prediction vs confidence intervals**: Prediction intervals are wider
+
+## Getting Help
+
+For detailed documentation and examples:
+- Official docs: https://www.statsmodels.org/stable/
+- User guide: https://www.statsmodels.org/stable/user-guide.html
+- Examples: https://www.statsmodels.org/stable/examples/index.html
+- API reference: https://www.statsmodels.org/stable/api.html
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

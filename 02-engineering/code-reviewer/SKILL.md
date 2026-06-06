@@ -1,114 +1,121 @@
 ---
 name: code-reviewer
-title: 代码审查
-description: 当需要审查代码改动找正确性 bug、复用/简化机会与可读性问题、给出可执行修改建议时使用；触发词：代码审查、review、找 bug、重构建议、code review。
+title: Code Reviewer
+description: Use when you have a concrete code change (diff, PR, patch, or pasted snippet) to review for correctness bugs, reuse/simplification opportunities, and readability, and you want structured, actionable fixes; triggers: code review, review, find bugs, refactor suggestions.
 domain: 研发/review
+triggers: [code review, review this diff, find bugs, refactor suggestions, review my PR, review this code]
 tags: [review, code-quality, engineering]
-level: 进阶
+level: intermediate
 status: stable
-version: 0.1.0
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
 related: [dependency-auditor]
 combines_with: []
 license: CC-BY-SA-4.0
+source: 
+source_license: 
 ---
-## 何时使用
+## When to use
 
-- 有明确代码改动（diff、PR、补丁、粘贴的代码片段）需要审查时使用。
-- 目标是找：正确性 bug（逻辑、边界、并发、错误处理、空值）、复用/简化机会、可读性问题，并给出可落地的修改建议。
-- 触发词：代码审查、review、找 bug、重构建议、code review。
+- Use when there is a concrete code change to review: a diff, a PR, a patch, or a pasted snippet.
+- The goal is to find: correctness bugs (logic, boundaries, concurrency, error handling, null values), reuse/simplification opportunities, and readability problems — and to give fixes you can apply directly.
+- Triggers: code review, review, find bugs, refactor suggestions, code review.
 
-不该用的边界：
-- 纯依赖/许可证/CVE 体检 → 用 `dependency-auditor`。
-- 没有具体改动、只是问"怎么写"或要从零生成代码 → 不属于审查，直接写代码。
-- 跑测试、构建、性能压测、部署验证 → 本技能只做静态审阅，不执行代码。
-- 大段无关旧代码：只审查改动及其直接影响面，不重写整个文件。
+Out of scope:
+- Pure dependency / license / CVE audits -> use `dependency-auditor`.
+- No concrete change, just "how should I write this" or generate code from scratch -> that is not review; write the code directly.
+- Running tests, builds, performance benchmarks, or deployment validation -> this skill is static review only; it does not execute code.
+- Large blocks of unrelated legacy code: review only the change and its direct blast radius; do not rewrite whole files.
 
-## 步骤 / 指令
+## Steps
 
 ```
-1. 取改动范围
-   - 优先 git diff（未提交：`git diff`；已提交：`git diff <base>...<head>` 或 `git show <sha>`）。
-   - 无 git 时，仅审查用户提供的片段，并读其上下文（被改函数、调用方、相关类型定义）。
+1. Get the change set
+   - Prefer git diff (uncommitted: `git diff`; committed: `git diff <base>...<head>` or `git show <sha>`).
+   - With no git, review only the snippet the user provided, and read its context
+     (the changed function, callers, relevant type definitions).
 
-2. 建立上下文（仅读必要文件）
-   - 读被改函数/方法的完整体，而非只看 diff 行。
-   - 读改动涉及的接口/类型、关键调用方，确认契约未被破坏。
+2. Build context (read only what is necessary)
+   - Read the full body of the changed function/method, not just the diff lines.
+   - Read the interfaces/types the change touches and key callers; confirm the
+     contract is not broken.
 
-3. 按维度逐项扫描（按优先级）
-   a. 正确性：逻辑错误、off-by-one、边界/空集合、null/undefined、类型不符、
-      错误的运算符/比较、异常未处理或吞掉、资源未释放、并发/竞态、
-      用户输入未校验、回退分支缺失、注释与实现不一致。
-   b. 复用/简化：重复逻辑可抽取、已有工具函数未用、可删的死代码、
-      过度抽象或可内联、复杂条件可化简。
-   c. 可读性：命名、魔法值、函数过长/嵌套过深、缺失关键注释（仅 why 类）。
+3. Scan dimension by dimension (in priority order)
+   a. Correctness: logic errors, off-by-one, boundaries/empty collections,
+      null/undefined, type mismatches, wrong operators/comparisons, unhandled or
+      swallowed exceptions, leaked resources, concurrency/races, unvalidated user
+      input, missing fallback branches, comments that contradict the implementation.
+   b. Reuse/simplification: duplicated logic that can be extracted, existing
+      helpers not used, dead code to delete, over-abstraction or inlinable code,
+      complex conditions that can be simplified.
+   c. Readability: naming, magic values, over-long functions / deep nesting,
+      missing key comments (only the "why" kind).
 
-4. 每条发现给出结构化条目：
-   - [严重度] 文件:行号 — 问题一句话
-   - 原因：为什么是问题（触发条件/后果）
-   - 建议：可直接采用的修改（给出替换代码或精确改法）
+4. Produce a structured entry per finding:
+   - [Severity] file:line — one-line problem statement
+   - Why: why it is a problem (trigger condition / consequence)
+   - Fix: a change you can apply directly (give replacement code or the exact edit)
 
-5. 严重度分级
-   - Blocker：会导致错误结果/崩溃/数据损坏/安全问题，必须改。
-   - Major：边界/隐患/明显坏味道，建议改。
-   - Minor：可读性/风格，可选。
+5. Severity levels
+   - Blocker: causes wrong results / crash / data corruption / security issue; must fix.
+   - Major: boundary risk, latent hazard, clear code smell; should fix.
+   - Minor: readability/style; optional.
 
-6. 汇总输出
-   - 先列 Blocker 与 Major，再列 Minor。
-   - 无问题则明确说"未发现正确性问题"，不要编造。
-   - 不确定的发现标注"待确认"并说明假设，不冒充事实。
+6. Summarize the output
+   - List Blocker and Major first, then Minor.
+   - If there are no issues, say so explicitly ("no correctness issues found"); do not invent any.
+   - Mark uncertain findings as "needs confirmation" and state the assumption; do not pass them off as fact.
 ```
 
-规则：
-- 单一职责：只审查，不顺手提交、不擅自改文件（除非用户要求 `--fix` 类操作）。
-- 每条发现必须可定位（文件:行号）且可执行（带具体改法）。
-- 优先 Blocker/Major；Minor 适度，避免噪声淹没要点。
-- 不评论用户未改动的代码，除非改动直接破坏了它。
+Rules:
+- Single responsibility: review only. Do not commit on the side and do not modify files unsupervised (unless the user asks for a `--fix`-style operation).
+- Every finding must be locatable (file:line) and actionable (with a concrete fix).
+- Prioritize Blocker/Major; keep Minor moderate so noise does not drown the important points.
+- Do not comment on code the user did not change, unless the change directly breaks it.
 
-## 示例
+## Example
 
-最小审查提示词：
+Minimal review prompt:
 ```
-审查以下 diff，按 正确性 / 复用简化 / 可读性 三类输出。
-每条：[严重度] 文件:行号 — 问题；原因；可执行建议（给替换代码）。
-先 Blocker/Major 后 Minor；无正确性问题请明说，勿编造。
-<贴入 git diff 内容>
+Review the following diff, output in three buckets: correctness / reuse-simplification / readability.
+Per item: [Severity] file:line — problem; why; actionable fix (give replacement code).
+Blocker/Major first, then Minor; if there are no correctness issues say so, do not invent any.
+<paste git diff here>
 ```
 
-取改动：
+Get the change:
 ```bash
-git diff                      # 未提交改动
-git diff main...HEAD          # 分支相对 main 的改动
-git show <sha>                # 某次提交
+git diff                      # uncommitted changes
+git diff main...HEAD          # changes on the branch relative to main
+git show <sha>                # a specific commit
 ```
 
-输出条目样例：
+Sample finding entries:
 ```
-[Blocker] src/auth.py:42 — `if token == None` 用 == 比较 None
-原因：自定义对象可能重载 __eq__，导致误判；空 token 会绕过校验。
-建议：改为 `if token is None:`
+[Blocker] src/auth.py:42 — `if token == None` compares None with ==
+Why: a custom object may override __eq__, causing a false match; an empty token would bypass the check.
+Fix: change to `if token is None:`
 
-[Major] src/list.js:88 — 循环内重复调用 fetchUser(id)，N+1 请求
-原因：每次迭代发一次网络请求，列表大时显著变慢。
-建议：循环前批量 `fetchUsers(ids)`，再用 Map 取值。
+[Major] src/list.js:88 — fetchUser(id) called repeatedly inside the loop, an N+1 request pattern
+Why: each iteration fires a network request; noticeably slow for large lists.
+Fix: batch `fetchUsers(ids)` before the loop, then read values from a Map.
 
-[Minor] src/list.js:12 — 变量 `d` 含义不明
-建议：重命名为 `deadline`。
+[Minor] src/list.js:12 — variable `d` has an unclear meaning
+Fix: rename to `deadline`.
 ```
 
-## 注意事项
+## Notes
 
-- 不执行/不测试代码：只做静态推理；需要跑起来验证行为时，交给执行类技能或提示用户。
-- 不臆造行号与文件名；定位以实际 diff/文件为准。
-- 区分"确定 bug"与"风格偏好"，别把主观风格标成 Blocker。
-- 安全相关（注入、鉴权、密钥硬编码、反序列化）一律按 Blocker 处理并显式指出。
-- 改动很大时分批审，先核心逻辑文件，避免一次性产出过长且失焦。
-- 给建议要可直接采用：提供替换代码或精确改法，不要只说"建议优化"。
+- Do not execute or test code: reason statically only; when behavior must be verified by running it, hand off to an execution-type skill or prompt the user.
+- Do not fabricate line numbers or file names; locate against the actual diff/file.
+- Distinguish a "confirmed bug" from a "style preference"; do not label subjective style as Blocker.
+- Security-related findings (injection, authentication, hardcoded secrets, deserialization) are always treated as Blocker and pointed out explicitly.
+- For very large changes, review in batches, core logic files first, to avoid producing an overly long, unfocused report.
+- Make suggestions directly applicable: provide replacement code or an exact edit; do not just say "consider optimizing".
 
-## 互见
+## See also
 
-- requires：无。
-- related：`dependency-auditor`（依赖/许可证/已知漏洞专项体检；本技能聚焦改动代码本身的正确性与质量，依赖层面的风险转交它）。
-- combines_with：无。
+- requires: none.
+- related: `dependency-auditor` (dedicated audit of dependencies / licenses / known vulnerabilities; this skill focuses on the correctness and quality of the changed code itself, and hands dependency-layer risk off to it).
+- combines_with: none.

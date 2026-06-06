@@ -1,14 +1,14 @@
 ---
 name: strategic-alignment-cascader
-title: 战略对齐自上而下级联
-description: 当团队各自为政、OKR 互不衔接、部门局部最优损害公司目标时使用；做战略级联映射与失配诊断（孤儿目标/冲突/覆盖缺口/筒仓）并产出对齐评分与重对齐方案；不适用于个人绩效考核或战略本身的制定。触发词：战略对齐、OKR级联、孤儿OKR、部门筒仓
+title: Strategic Alignment Cascader
+description: Cascade strategy from boardroom to IC and detect/fix misalignment (orphan goals, conflicting OKRs, coverage gaps, silos); produce an alignment score and realignment plan. Use when teams pull in different directions, OKRs don't connect, or departments optimize locally at company e
 domain: 协作/pm
-triggers: [战略对齐, OKR级联, 孤儿OKR, 冲突目标, 部门筒仓, 覆盖缺口, 战略传达失真, 对齐评分, 跨职能OKR, 重对齐]
-tags: [协作, pm, 战略对齐, okr, 组织诊断]
-level: 进阶
+triggers: [strategic alignment, strategy cascade, OKR alignment, orphan OKRs, conflicting goals, silos, coverage gap, communication gap, cross-functional OKR, realignment, alignment score, department alignment]
+tags: [pm, okr, strategic-alignment, collaboration, org-diagnostic]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [alignment_checker.py, python]
+tools: []
 requires: []
 related: [company-operating-system, coo-operations-advisor, org-health-diagnostic, cpo-product-advisor]
 combines_with: [company-operating-system, coo-operations-advisor, org-change-management]
@@ -16,84 +16,87 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当出现以下任一信号时使用：团队朝不同方向用力、OKR 之间无法衔接、部门只顾本地指标却拖累公司目标、战略喊了却没人改变行为。典型触发：CEO/COO 设定新战略需要往下级联、OKR 周期开始前的跨团队冲突排查、某团队持续达标但公司却 miss、并购后两套战略并存。
+Use when any of these signals appear: teams pulling in different directions, OKRs that don't connect to each other, a department hitting local metrics while dragging down company goals, or strategy being announced without changing anyone's behavior. Typical triggers: a CEO/COO sets a new strategy that needs to cascade down, pre-OKR-cycle cross-team conflict checks, a team consistently hitting targets while the company misses, or two strategies coexisting after an M&A.
 
-核心命题：**目标离创造它的战略越远，就越偏离原始意图**——这是组织版的「传话游戏」，每一层都在衰减。本技能的工作是在失配演变成失能之前把它检测出来并修复。
+Core premise: **The further a goal gets from the strategy that created it, the less likely it reflects the original intent.** This is the organizational telephone game — it degrades at every layer. This skill detects misalignment before it becomes dysfunction and builds systems that keep strategy connected from CEO to individual contributor.
 
-**不该用的边界：**
-- 不做个人绩效考核或打分排名（本技能针对目标结构而非人）。
-- 不负责制定战略本身——若战略源头都不清晰（见步骤 1 不及格），先把战略讲清楚，再谈级联。
-- 不是「能力诊断」：团队持续 miss 既可能是对齐问题也可能是能力问题，需先区分（对齐缺口找 COO，能力缺口找 HR）。
+**Do NOT use for:**
+- Individual performance scoring or stack ranking (this targets goal *structure*, not people).
+- Crafting the strategy itself — if the source strategy isn't clear (fails Step 1), clarify the strategy first, then cascade.
+- Capability diagnosis: a team missing consistently may be an alignment problem *or* a capability problem. Distinguish first (alignment gap → COO; capability gap → CHRO).
 
-## 步骤
+## Steps
 
-**步骤 1：战略表达力测试（先查源头）**
-向 5 个不同团队的 5 个人各问一句：「公司当前最重要的战略优先级是什么？」
-- 5 人答案一致 → 表达清晰；3–4 人接近 → 松散对齐，需澄清；少于 3 人一致 → 战略本身不够清晰，无法级联，先修这一步。
-- 格式测试：战略必须一句话讲完。反例「我们既做产品驱动增长又维护企业客户还拓展国际并投资平台能力」；正例「在 Series B 前拿下 DACH 中端医疗市场」。
+**Step 1: Strategy Articulation Test (check the source first).**
+Ask five people from five different teams: *"What is the company's most important strategic priority right now?"*
+- All five give the same answer → articulation is clear.
+- 3–4 give similar answers → loose alignment; clarify and communicate.
+- < 3 agree → strategy isn't clear enough to cascade. Fix this before fixing cascade.
 
-**步骤 2：级联映射**
-画出 公司战略 → 部门 → 团队 → 个人 的目标流。对每一层每个目标问三件事：它支撑哪个公司级目标？该目标 100% 达成能推动公司目标多少？连接是直接的还是理论上的？
+Format test: the strategy must be statable in one sentence.
+- Bad: "We focus on product-led growth while maintaining enterprise relationships and expanding internationally and investing in platform capabilities."
+- Good: "Win the mid-market healthcare segment in DACH before Series B."
 
-**步骤 3：失配检测（三类失败）**
-- **孤儿目标**：不挂任何公司目标的团队/个人目标。修法：要么连上父目标，要么砍掉——每个目标都要有父亲。
-- **冲突目标**：两团队都成功反而让结果更差（经典：销售冲签约量带进劣质客户 → CS 满意度崩盘）。修法：季度前跨职能 OKR 评审 + 交界处设共享指标。
-- **覆盖缺口**：公司有 3 个 OKR，5 个团队支撑 C1、2 个支撑 C2、0 个支撑 C3 → C3 无人负责必然落空。修法：显式指派负责团队。
+**Step 2: Cascade Mapping.**
+Map the flow `Company strategy → Department → Team → Individual`. For each goal at every level, ask: Which company-level goal does this support? If this goal is 100% achieved, how much does it move the company goal? Is the connection direct or theoretical?
 
-**步骤 4：筒仓识别**
-信号：部门稳达标而公司 miss；团队不知道彼此在做什么；「这不是我们的事」成口头禅；只向上升级、不横向协调；依赖彼此的团队不共享数据。根因：激励错配 / 无共享目标 / 无共享语言 / 地理时区隔离。
+**Step 3: Alignment Detection (three failure patterns).**
+- **Orphan goals** — team/individual goals that connect to no company goal. Symptom: "We've worked on this a quarter and nobody above us cares." Fix: connect or cut. Every goal needs a parent.
+- **Conflicting goals** — two teams' goals that, when both succeed, create a worse outcome (classic: Sales commits to volume contracts and closes bad-fit customers; CS satisfaction scores tank). Fix: cross-functional OKR review before the quarter begins, plus shared metrics where teams interact.
+- **Coverage gaps** — company has 3 OKRs; 5 teams support OKR-1, 2 support OKR-2, 0 support OKR-3 → OKR-3 is unowned and will be missed. Fix: explicit ownership assignment.
 
-**步骤 5：传达鸿沟分析**
-CEO 说的 ≠ 团队听到的，公司越大鸿沟越大。鸿沟来源：表述太高层（「做大业务」让各团队自行填空）、频率不足（一季度一次全员会不足以改变行为，需 7+ 次曝光）、媒介错配、信任赤字。检测：跨层级重跑步骤 1 的表达力测试，对比「领导以为传达的」与「团队实际听到的」。
+**Step 4: Silo Identification.**
+Signals: a department consistently hits goals while the company misses; teams don't know what other teams are doing; "that's not our problem"; escalations flow up but coordination never flows sideways; dependent teams don't share data. Root causes: incentive misalignment / no shared goals / no shared language / geography or time-zone separation.
 
-**步骤 6：重对齐协议**
-- 6a 不要从「哪里错了」开场（引发防御），改说「这是我们要去的方向，我想确认大家是连上的」。
-- 6b 用工作坊而非备忘录重新级联：把公司 OKR owner 和部门负责人拉进一个房间，一起画连接、找缺口。
-- 6c 先修激励再修目标：若部门头被本地指标激励且与公司目标冲突，再多目标设定也没用。
-- 6d 装一个季度对齐检查防复发。
+**Step 5: Communication Gap Analysis.**
+What the CEO says ≠ what teams hear, and the gap grows with company size. Decay model: CEO communicates → managers filter through their lens → teams receive a modified version → individuals interpret further. Gap sources: ambiguity ("grow the business" lets each team fill in its own meaning), insufficient frequency (one all-hands per quarter won't change behavior — needs 7+ exposures), medium mismatch, trust deficit. Detection: re-run the Step 1 articulation test across all levels and compare what leadership *thinks* it communicated vs. what teams say they heard.
 
-## 指令
+**Step 6: Realignment Protocol.**
+- 6a: Don't start with "here's our misalignment" (creates defensiveness). Start with "here's where we're heading and I want to make sure we're connected."
+- 6b: Re-cascade in a workshop, not a memo — get company-level OKR owners and department leads in a room; map connections and find gaps together.
+- 6c: Fix incentives before fixing goals — if department heads are rewarded for local metrics that conflict with company goals, no amount of goal-setting helps.
+- 6d: Install a quarterly alignment check to prevent recurrence.
 
-源技能提供 Python 检测脚本 `alignment_checker.py`，针对 JSON 格式的 OKR 自动检出孤儿、冲突、覆盖缺口并给出 0–100 对齐评分。常用命令：
+## Example
+
+The source skill ships a Python checker, `alignment_checker.py`, that detects orphans, conflicts, and coverage gaps in JSON-formatted OKRs and returns a 0–100 alignment score:
 
 ```bash
-python alignment_checker.py                       # 用内置样例数据跑一遍
-python alignment_checker.py --file my_okrs.json   # 用你自己的 OKR 数据
-python alignment_checker.py --sample              # 打印期望的 JSON 格式
+python alignment_checker.py                       # Run with built-in sample data
+python alignment_checker.py --file my_okrs.json   # Run against your own OKR data
+python alignment_checker.py --sample              # Print the expected JSON format
 ```
 
-**JSON 输入结构（关键约束）：** 顶层含 `quarter`、`company.okrs[]`（每项有 `id`、`objective`、`key_results[]`）、`teams[]`（每团队 `okrs[]`，每个团队 OKR 必须带 `parent_company_okr_id`、可选 `potential_conflicts[]`）、以及可选 `known_conflicts[]`。
+**JSON input structure (key constraints):** top level has `quarter`, `company.okrs[]` (each with `id`, `objective`, `key_results[]`), `teams[]` (each team has `okrs[]`; every team OKR carries `parent_company_okr_id` and an optional `potential_conflicts[]`), plus an optional top-level `known_conflicts[]`.
 
-**判定规则：**
-- `parent_company_okr_id` 为 `null` 或指向不存在的公司 OKR → 判为孤儿。
-- 某公司 OKR 被 0 个团队支撑 → 覆盖缺口（必然落空）；被 ≥4 个团队支撑 → 过度集中（检查是否冷落了其他 OKR）。
-- 评分扣分：孤儿占比 ×30 + 缺口占比 ×30 + 冲突数×10（上限 30）。分档：≥85 优秀、≥70 中度失配、≥50 显著失配、<50 危急。
+**Detection rules:**
+- `parent_company_okr_id` is `null` or points to a non-existent company OKR → flagged as an **orphan**.
+- A company OKR supported by 0 teams → **coverage gap** (it will be missed); supported by ≥ 4 teams → **over-indexed** (check that other OKRs aren't being neglected).
+- Score penalties: `orphan_ratio × 30 + gap_ratio × 30 + min(conflicts × 10, 30)`, subtracted from 100. Bands: ≥ 85 Excellent, ≥ 70 Moderate misalignment, ≥ 50 Significant misalignment, < 50 Critical.
 
-## 示例
+Sample company "Acme Corp", Q2, has three company OKRs: C1 win the mid-market DACH healthcare segment; C2 ship the platform API for partner integrations; C3 build a capital-efficient growth engine. The checker surfaces:
+- Sales S2 "Expand into Austria market" has `parent_company_okr_id: null` → **orphan**; connect it to C1 or cut it.
+- Sales S1 (volume close) and CS's CS2 (reduce ticket volume) are listed in `known_conflicts` → **conflict**: volume closing brings bad-fit customers that raise CS tickets.
 
-样例公司「Acme Corp」Q2 三个公司目标：C1 拿下 DACH 中端医疗、C2 交付平台 API、C3 建立资本高效增长引擎。检测会暴露：
-- 销售的 S2「拓展奥地利市场」`parent_company_okr_id: null` → **孤儿**，需连到 C1 或砍掉。
-- 销售 S1（冲签约量）与 CS 的 CS2（降工单量）在 `known_conflicts` 中声明 → **冲突**：冲量带进劣质客户会推高 CS 工单。修法见下方护栏指标。
+**Cross-functional guardrail metric (to break conflicts):** with a Sales goal of 15 new logos and a CS goal of churn < 2%, add a shared guardrail "new-customer 90-day churn < 5%" — Sales can't close unqualified customers and CS can't blame Sales for churn.
 
-**跨职能护栏指标（破解冲突）：** 销售目标 15 个新 logo + CS 目标 churn<2% 时，加一条共享护栏「新客 90 天 churn<5%」——销售不能签不合格客户，CS 也不能甩锅给销售。
+**One-page strategy template (compress before cascading):** 6-word vision + this quarter's Top 3 priorities (each with an owner) + "What we're NOT doing" + 3 success metrics. The "What we're NOT doing" section matters as much as the priorities; without it, every team adds its own.
 
-**一页纸战略模板（级联前压缩）：** 6 词愿景 + 本季 Top 3 优先级（各带 owner）+「我们不做什么」+ 3 个衡量指标。「不做什么」和优先级同样重要，否则每个团队都会塞进自己的私货。
+## Notes
 
-## 注意事项
+- **Cascade the WHY, not just the WHAT.** "Achieve €800K ARR in DACH" with no context produces different behavior than "Achieve €800K ARR in DACH to demonstrate product-market fit before our Series B in Q4."
+- **Repetition is the solution, not the problem.** One all-hands isn't enough; research suggests 7+ exposures before a message changes behavior. Repeat the same message across formats: written, verbal, visual, story, and example.
+- **Test comprehension, not communication.** Ask random team members "What are our top 3 priorities right now?" — their answer tells you whether the cascade worked.
+- **Reserve 20–30% bottom-up.** Not every goal should be handed down; leave room for team-defined goals that still connect to company direction.
+- **Red flags:** teams consistently hit goals while the company misses; cross-functional projects take 3x longer (coordination failure); strategy updates quarterly but team priorities don't change; "that's a leadership problem, not ours"; new initiatives announced without connecting to existing OKRs; department heads optimizing for headcount or budget rather than company outcomes.
+- **Apply patterns by company stage:** seed (< 20) — start documenting strategy at 10–12 people; early growth (20–60) — introduce shared quarterly planning; scaling (60–200) — cross-functional OKRs + run `alignment_checker.py` in quarterly planning; large (200+) — annual alignment summit and a dedicated alignment role (COO/Chief of Staff).
 
-- **级联 WHY 而非只给 WHAT。**「DACH 做到 €800K ARR」无上下文，和「为在 Q4 Series B 前证明 PMF 而做到 €800K ARR」会产生完全不同的行为。
-- **重复是解药不是问题。** 一次全员会不够，研究表明信息改变行为需 7+ 次曝光；同一信息用文字/口头/视觉/故事/案例多格式重复。
-- **测的是理解度不是传达度。** 随机问团队成员「我们现在 Top 3 优先级是什么」，答案才告诉你级联有没有成功。
-- **保留 20–30% 自下而上目标。** 不是所有目标都该自上而下下发，给团队留出可与公司方向连接的自定义空间。
-- 红旗清单：团队稳达标而公司 miss；跨职能项目耗时 3 倍（协调失败）；战略季度更新但团队优先级纹丝不动;「那是领导的问题不是我们的」;新项目宣布时不连到现有 OKR;部门头优化的是编制/预算而非公司产出。
-- 按公司阶段套用模式：种子期(<20)在 10–12 人就开始记录战略；早期增长(20–60)引入共享季度规划;扩张期(60–200)上跨职能 OKR + 在季度规划里跑 `alignment_checker.py`;大型(200+)设年度对齐峰会与专职对齐角色（COO/Chief of Staff）。
+## See also
 
-## 互见
-
-- 飞书侧落地：用 **lark-okr** 管理目标与关键结果、查看对齐关系；用 **lark-base** 把 OKR 结构化成多维表格并做跨表派生指标；季度对齐工作坊的日程与会议室用 **lark-calendar**，纪要回顾用 **lark-vc** / **lark-minutes**。
-- 角色协作：新战略设定→联合 CEO+COO 在宣布前级联成季度 rocks；OKR 周期开始→COO 跑跨团队冲突检查；团队持续 miss→联合 HR 区分能力缺口与对齐缺口。
+- Lark execution: use **lark-okr** to manage objectives/key results and view alignment relationships; **lark-base** to structure OKRs into a multi-dimensional table with cross-table derived metrics; **lark-calendar** for the quarterly alignment-workshop schedule and rooms; **lark-vc** / **lark-minutes** for the meeting recap.
+- Role collaboration: new strategy set → partner with CEO + COO to cascade into quarterly rocks *before* announcing; OKR cycle starts → COO runs the cross-team conflict check; a team missing consistently → partner with CHRO to separate a capability gap from an alignment gap.
 
 ---
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+Adapted from alirezarezvani/claude-skills (MIT license).

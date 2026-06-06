@@ -1,14 +1,14 @@
 ---
 name: obsidian-bases-builder
-title: Obsidian Bases 数据库视图
-description: 当在 Obsidian 中需要把笔记按属性聚合成表格/卡片/列表视图时使用；编写并校验 .base（YAML）文件，定义过滤器、公式、汇总与多视图，产出可直接渲染的数据库视图；不适用于非 Obsidian 数据库或 Dataview 插件查询。触发词：.base、Bases、表格视图、卡片视图、过滤器、公式。
+title: Obsidian Bases Skill
+description: Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.
 domain: 协作/knowledge
-triggers: [创建 .base 文件, Obsidian Bases, 笔记表格视图, 卡片视图/画廊视图, 按 tag/文件夹/属性过滤笔记, 为笔记定义公式/汇总列, 嵌入 base 视图到笔记, .base YAML 报错排查]
-tags: [obsidian, bases, 知识管理, yaml, 数据库视图, 笔记自动化]
-level: 进阶
+triggers: [Obsidian Bases]
+tags: [obsidian, bases, yaml]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [文本编辑器, Obsidian]
+tools: []
 requires: []
 related: [obsidian-clipper-templates, confluence-space-architect, notion-template-business, company-policy-lookup]
 combines_with: [bullet-point-structurer, multi-source-knowledge-synthesis]
@@ -16,160 +16,505 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Obsidian Bases Skill
 
-- 在 Obsidian 中创建或编辑 `.base` 文件，把笔记聚合成类数据库视图（表格 / 卡片 / 列表 / 地图）。
-- 需要按 tag、文件夹、frontmatter 属性或日期过滤笔记，并叠加公式列、汇总统计或分组。
-- 用户明确提到 Obsidian Bases、`.base`、表格/卡片视图、过滤器或公式。
+## When to Use
+- Use when creating or editing `.base` files in Obsidian.
+- Use for database-like note views with filters, formulas, summaries, or cards/tables.
+- Use when the user asks about Obsidian Bases specifically.
 
-不该用的边界：
-- 不要用于 Dataview / DataviewJS 查询（语法不同）、非 Obsidian 的数据库或电子表格。
-- `.base` 仅是「视图」，不修改笔记本身的 frontmatter；要批量改属性请用其他手段。
-- 地图视图依赖 latitude/longitude 属性与社区 Maps 插件，缺失时不可用。
+## Workflow
 
-## 步骤
+1. **Create the file**: Create a `.base` file in the vault with valid YAML content
+2. **Define scope**: Add `filters` to select which notes appear (by tag, folder, property, or date)
+3. **Add formulas** (optional): Define computed properties in the `formulas` section
+4. **Configure views**: Add one or more views (`table`, `cards`, `list`, or `map`) with `order` specifying which properties to display
+5. **Validate**: Verify the file is valid YAML with no syntax errors. Check that all referenced properties and formulas exist. Common issues: unquoted strings containing special YAML characters, mismatched quotes in formula expressions, referencing `formula.X` without defining `X` in `formulas`
+6. **Test in Obsidian**: Open the `.base` file in Obsidian to confirm the view renders correctly. If it shows a YAML error, check quoting rules below
 
-1. 建文件：在 vault 中创建 `.base` 文件，内容为合法 YAML。
-2. 定范围：用 `filters` 选定哪些笔记入表（按 tag / 文件夹 / 属性 / 日期）。
-3. 加公式（可选）：在 `formulas` 段定义计算列。
-4. 配视图：在 `views` 下添加一个或多个视图，用 `order` 指定显示哪些列及顺序。
-5. 校验：确认 YAML 无语法错误；所有引用的属性与 `formula.X` 都已定义。常见坑：含特殊字符的字符串未加引号、公式内引号嵌套不匹配、`order` 引用了未在 `formulas` 中定义的公式。
-6. 在 Obsidian 中打开 `.base` 验证渲染。若报 YAML 错误，回到引号规则排查。
+## Schema
 
-## 指令
-
-整体骨架（顶层 `filters` 作用于全部视图）：
+Base files use the `.base` extension and contain valid YAML.
 
 ```yaml
-filters:                      # 全局过滤：单条字符串，或 and/or/not 递归对象
+# Global filters apply to ALL views in the base
+filters:
+  # Can be a single filter string
+  # OR a recursive filter object with and/or/not
   and: []
-formulas:                     # 计算属性，跨视图可用
+  or: []
+  not: []
+
+# Define formula properties that can be used across all views
+formulas:
   formula_name: 'expression'
-properties:                   # 配置列显示名
-  property_name: { displayName: "显示名" }
-  formula.formula_name: { displayName: "公式列名" }
-summaries:                    # 自定义汇总公式
-  custom_name: 'values.mean().round(3)'
+
+# Configure display names and settings for properties
+properties:
+  property_name:
+    displayName: "Display Name"
+  formula.formula_name:
+    displayName: "Formula Display Name"
+  file.ext:
+    displayName: "Extension"
+
+# Define custom summary formulas
+summaries:
+  custom_summary_name: 'values.mean().round(3)'
+
+# Define one or more views
 views:
   - type: table | cards | list | map
-    name: "视图名"
-    limit: 10                 # 可选：限制条数
-    groupBy: { property: status, direction: ASC }   # 可选：分组
-    filters: { and: [] }      # 视图级过滤
-    order: [file.name, property_name, formula.formula_name]
-    summaries: { property_name: Average }
+    name: "View Name"
+    limit: 10                    # Optional: limit results
+    groupBy:                     # Optional: group results
+      property: property_name
+      direction: ASC | DESC
+    filters:                     # View-specific filters
+      and: []
+    order:                       # Properties to display in order
+      - file.name
+      - property_name
+      - formula.formula_name
+    summaries:                   # Map properties to summary formulas
+      property_name: Average
 ```
 
-过滤器（可全局或按视图）：
+## Filter Syntax
+
+Filters narrow down results. They can be applied globally or per-view.
+
+### Filter Structure
 
 ```yaml
-filters: 'status == "done"'           # 单条
-filters: { and: ['status == "done"', 'priority > 3'] }   # 全部满足
-filters: { or: ['file.hasTag("book")', 'file.hasTag("article")'] }  # 任一满足
-filters: { not: ['file.hasTag("archived")'] }            # 排除
-# 可嵌套：or 下可再写 and / not 子对象
+# Single filter
+filters: 'status == "done"'
+
+# AND - all conditions must be true
+filters:
+  and:
+    - 'status == "done"'
+    - 'priority > 3'
+
+# OR - any condition can be true
+filters:
+  or:
+    - 'file.hasTag("book")'
+    - 'file.hasTag("article")'
+
+# NOT - exclude matching items
+filters:
+  not:
+    - 'file.hasTag("archived")'
+
+# Nested filters
+filters:
+  or:
+    - file.hasTag("tag")
+    - and:
+        - file.hasTag("book")
+        - file.hasLink("Textbook")
+    - not:
+        - file.hasTag("book")
+        - file.inFolder("Required Reading")
 ```
 
-运算符：`==` `!=` `>` `<` `>=` `<=`，逻辑 `&&` `||` `!`。
+### Filter Operators
 
-三类属性：
-- 笔记属性（frontmatter）：`note.author` 或直接 `author`。
-- 文件属性：`file.name`、`file.basename`、`file.path`、`file.folder`、`file.ext`、`file.size`、`file.ctime`、`file.mtime`、`file.tags`、`file.links`、`file.backlinks`、`file.embeds`、`file.properties`。
-- 公式属性：`formula.my_formula`。
-- `this` 关键字：正文区指 base 文件本身；被嵌入时指嵌入它的文件；侧栏中指主区活动文件。
+| Operator | Description |
+|----------|-------------|
+| `==` | equals |
+| `!=` | not equal |
+| `>` | greater than |
+| `<` | less than |
+| `>=` | greater than or equal |
+| `<=` | less than or equal |
+| `&&` | logical and |
+| `\|\|` | logical or |
+| <code>!</code> | logical not |
 
-公式与常用函数：
+## Properties
+
+### Three Types of Properties
+
+1. **Note properties** - From frontmatter: `note.author` or just `author`
+2. **File properties** - File metadata: `file.name`, `file.mtime`, etc.
+3. **Formula properties** - Computed values: `formula.my_formula`
+
+### File Properties Reference
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `file.name` | String | File name |
+| `file.basename` | String | File name without extension |
+| `file.path` | String | Full path to file |
+| `file.folder` | String | Parent folder path |
+| `file.ext` | String | File extension |
+| `file.size` | Number | File size in bytes |
+| `file.ctime` | Date | Created time |
+| `file.mtime` | Date | Modified time |
+| `file.tags` | List | All tags in file |
+| `file.links` | List | Internal links in file |
+| `file.backlinks` | List | Files linking to this file |
+| `file.embeds` | List | Embeds in the note |
+| `file.properties` | Object | All frontmatter properties |
+
+### The `this` Keyword
+
+- In main content area: refers to the base file itself
+- When embedded: refers to the embedding file
+- In sidebar: refers to the active file in main content
+
+## Formula Syntax
+
+Formulas compute values from properties. Defined in the `formulas` section.
 
 ```yaml
 formulas:
-  total: "price * quantity"                                  # 算术
-  status_icon: 'if(done, "✅", "⏳")'                          # 条件
-  created: 'file.ctime.format("YYYY-MM-DD")'                 # 日期格式化
-  days_old: '(now() - file.ctime).days'                      # 距今天数
-  days_until_due: 'if(due, (date(due) - today()).days, "")'  # 距截止天数（带空值守卫）
+  # Simple arithmetic
+  total: "price * quantity"
+
+  # Conditional logic
+  status_icon: 'if(done, "✅", "⏳")'
+
+  # String formatting
+  formatted_price: 'if(price, price.toFixed(2) + " dollars")'
+
+  # Date formatting
+  created: 'file.ctime.format("YYYY-MM-DD")'
+
+  # Calculate days since created (use .days for Duration)
+  days_old: '(now() - file.ctime).days'
+
+  # Calculate days until due date
+  days_until_due: 'if(due_date, (date(due_date) - today()).days, "")'
 ```
 
-核心函数：`date(string)` 解析日期（`YYYY-MM-DD HH:mm:ss`）、`now()` 当前时刻、`today()` 今日零点、`if(cond, a, b?)`、`duration(string)`、`file(path)`、`link(path, display?)`。完整函数表见源仓库 `references/FUNCTIONS_REFERENCE.md`。
+## Key Functions
 
-Duration 约束（关键）：两日期相减得到的是 Duration 而非数字，不支持直接 `.round()/.floor()/.ceil()`。必须先取数值字段（`.days/.hours/.minutes/.seconds/.milliseconds`）再做数字运算：
+Most commonly used functions. For the complete reference of all types (Date, String, Number, List, File, Link, Object, RegExp), see [FUNCTIONS_REFERENCE.md](references/FUNCTIONS_REFERENCE.md).
+
+| Function | Signature | Description |
+|----------|-----------|-------------|
+| `date()` | `date(string): date` | Parse string to date (`YYYY-MM-DD HH:mm:ss`) |
+| `now()` | `now(): date` | Current date and time |
+| `today()` | `today(): date` | Current date (time = 00:00:00) |
+| `if()` | `if(condition, trueResult, falseResult?)` | Conditional |
+| `duration()` | `duration(string): duration` | Parse duration string |
+| `file()` | `file(path): file` | Get file object |
+| `link()` | `link(path, display?): Link` | Create a link |
+
+### Duration Type
+
+When subtracting two dates, the result is a **Duration** type (not a number).
+
+**Duration Fields:** `duration.days`, `duration.hours`, `duration.minutes`, `duration.seconds`, `duration.milliseconds`
+
+**IMPORTANT:** Duration does NOT support `.round()`, `.floor()`, `.ceil()` directly. Access a numeric field first (like `.days`), then apply number functions.
 
 ```yaml
-"(date(due_date) - today()).days.round(0)"   # 正确
-# "((date(due) - today()) / 86400000).round(0)"  # 错误：Duration 不支持先除后取整
+# CORRECT: Calculate days between dates
+"(date(due_date) - today()).days"                    # Returns number of days
+"(now() - file.ctime).days"                          # Days since created
+"(date(due_date) - today()).days.round(0)"           # Rounded days
+
+# WRONG - will cause error:
+# "((date(due) - today()) / 86400000).round(0)"      # Duration doesn't support division then round
 ```
 
-日期加减的时长单位：`y/year`、`M/month`、`d/day`、`w/week`、`h/hour`、`m/minute`、`s/second`，如 `'now() + "1 day"'`、`'today() + "7d"'`。
+### Date Arithmetic
 
-默认汇总公式（用于 `summaries`）：数值类 `Average/Min/Max/Sum/Range/Median/Stddev`；日期类 `Earliest/Latest/Range`；布尔类 `Checked/Unchecked`；通用 `Empty/Filled/Unique`。
+```yaml
+# Duration units: y/year/years, M/month/months, d/day/days,
+#                 w/week/weeks, h/hour/hours, m/minute/minutes, s/second/seconds
+"now() + \"1 day\""       # Tomorrow
+"today() + \"7d\""        # A week from today
+"now() - file.ctime"      # Returns Duration
+"(now() - file.ctime).days"  # Get days as number
+```
 
-嵌入到 Markdown：`![[MyBase.base]]`，指定视图 `![[MyBase.base#View Name]]`。
+## View Types
 
-## 示例
+### Table View
 
-任务追踪 Base（过滤 + 公式 + 分组 + 汇总 + 多视图）：
+```yaml
+views:
+  - type: table
+    name: "My Table"
+    order:
+      - file.name
+      - status
+      - due_date
+    summaries:
+      price: Sum
+      count: Average
+```
+
+### Cards View
+
+```yaml
+views:
+  - type: cards
+    name: "Gallery"
+    order:
+      - file.name
+      - cover_image
+      - description
+```
+
+### List View
+
+```yaml
+views:
+  - type: list
+    name: "Simple List"
+    order:
+      - file.name
+      - status
+```
+
+### Map View
+
+Requires latitude/longitude properties and the Maps community plugin.
+
+```yaml
+views:
+  - type: map
+    name: "Locations"
+    # Map-specific settings for lat/lng properties
+```
+
+## Default Summary Formulas
+
+| Name | Input Type | Description |
+|------|------------|-------------|
+| `Average` | Number | Mathematical mean |
+| `Min` | Number | Smallest number |
+| `Max` | Number | Largest number |
+| `Sum` | Number | Sum of all numbers |
+| `Range` | Number | Max - Min |
+| `Median` | Number | Mathematical median |
+| `Stddev` | Number | Standard deviation |
+| `Earliest` | Date | Earliest date |
+| `Latest` | Date | Latest date |
+| `Range` | Date | Latest - Earliest |
+| `Checked` | Boolean | Count of true values |
+| `Unchecked` | Boolean | Count of false values |
+| `Empty` | Any | Count of empty values |
+| `Filled` | Any | Count of non-empty values |
+| `Unique` | Any | Count of unique values |
+
+## Complete Examples
+
+### Task Tracker Base
 
 ```yaml
 filters:
   and:
     - file.hasTag("task")
     - 'file.ext == "md"'
+
 formulas:
   days_until_due: 'if(due, (date(due) - today()).days, "")'
+  is_overdue: 'if(due, date(due) < today() && status != "done", false)'
   priority_label: 'if(priority == 1, "🔴 High", if(priority == 2, "🟡 Medium", "🟢 Low"))'
+
 properties:
-  formula.days_until_due: { displayName: "Days Until Due" }
-  formula.priority_label: { displayName: Priority }
+  status:
+    displayName: Status
+  formula.days_until_due:
+    displayName: "Days Until Due"
+  formula.priority_label:
+    displayName: Priority
+
 views:
   - type: table
     name: "Active Tasks"
-    filters: { and: ['status != "done"'] }
-    order: [file.name, status, formula.priority_label, due, formula.days_until_due]
-    groupBy: { property: status, direction: ASC }
-    summaries: { formula.days_until_due: Average }
+    filters:
+      and:
+        - 'status != "done"'
+    order:
+      - file.name
+      - status
+      - formula.priority_label
+      - due
+      - formula.days_until_due
+    groupBy:
+      property: status
+      direction: ASC
+    summaries:
+      formula.days_until_due: Average
+
   - type: table
     name: "Completed"
-    filters: { and: ['status == "done"'] }
-    order: [file.name, completed_date]
+    filters:
+      and:
+        - 'status == "done"'
+    order:
+      - file.name
+      - completed_date
 ```
 
-每日笔记索引（正则匹配文件名 + 派生列 + limit）：
+### Reading List Base
+
+```yaml
+filters:
+  or:
+    - file.hasTag("book")
+    - file.hasTag("article")
+
+formulas:
+  reading_time: 'if(pages, (pages * 2).toString() + " min", "")'
+  status_icon: 'if(status == "reading", "📖", if(status == "done", "✅", "📚"))'
+  year_read: 'if(finished_date, date(finished_date).year, "")'
+
+properties:
+  author:
+    displayName: Author
+  formula.status_icon:
+    displayName: ""
+  formula.reading_time:
+    displayName: "Est. Time"
+
+views:
+  - type: cards
+    name: "Library"
+    order:
+      - cover
+      - file.name
+      - author
+      - formula.status_icon
+    filters:
+      not:
+        - 'status == "dropped"'
+
+  - type: table
+    name: "Reading List"
+    filters:
+      and:
+        - 'status == "to-read"'
+    order:
+      - file.name
+      - author
+      - pages
+      - formula.reading_time
+```
+
+### Daily Notes Index
 
 ```yaml
 filters:
   and:
     - file.inFolder("Daily Notes")
     - '/^\d{4}-\d{2}-\d{2}$/.matches(file.basename)'
+
 formulas:
   word_estimate: '(file.size / 5).round(0)'
   day_of_week: 'date(file.basename).format("dddd")'
+
+properties:
+  formula.day_of_week:
+    displayName: "Day"
+  formula.word_estimate:
+    displayName: "~Words"
+
 views:
   - type: table
     name: "Recent Notes"
     limit: 30
-    order: [file.name, formula.day_of_week, formula.word_estimate, file.mtime]
+    order:
+      - file.name
+      - formula.day_of_week
+      - formula.word_estimate
+      - file.mtime
 ```
 
-阅读清单可用卡片视图（`type: cards`，`order` 首项放封面图属性如 `cover`）；纯标题列表用 `type: list`。
+## Embedding Bases
 
-## 注意事项
+Embed in Markdown files:
 
-YAML 引号规则：
-- 含双引号的公式整体用单引号包裹：`'if(done, "Yes", "No")'`。
-- 普通字符串用双引号：`"My View Name"`。
-- 含 `: { } [ ] , & * # ? | - < > = ! % @ \`` 等特殊字符的字符串必须加引号，例如 `displayName: "Status: Active"`（不可写裸的 `Status: Active`）。
+```markdown
+![[MyBase.base]]
 
-常见公式错误：
-- Duration 未取字段就调用数字函数 —— 先 `.days` 再 `.round()`。
-- 缺空值守卫：属性可能在部分笔记不存在，用 `if(prop, ..., "")` 兜底，否则空值会报错。
-- 引用未定义公式：`order` / `properties` 中每个 `formula.X` 都要在 `formulas` 中有对应定义，否则静默失效。
+<!-- Specific view -->
+![[MyBase.base#View Name]]
+```
 
-通用边界：仅在任务明确落在上述范围内时使用；输出不能替代在真实 Obsidian 环境中的验证；若缺少必要属性、权限或成功标准，先停下来澄清。
+## YAML Quoting Rules
 
-## 互见
+- Use single quotes for formulas containing double quotes: `'if(done, "Yes", "No")'`
+- Use double quotes for simple strings: `"My View Name"`
+- Escape nested quotes properly in complex expressions
 
-- Obsidian 官方文档：Bases Syntax / Functions / Views / Formulas（help.obsidian.md/bases）。
-- 完整函数参考：源仓库 `references/FUNCTIONS_REFERENCE.md`。
+## Troubleshooting
 
----
+### YAML Syntax Errors
 
-采编自 sickn33/antigravity-awesome-skills（MIT），原 skill `obsidian-bases`，源 https://github.com/kepano/obsidian-skills。
+**Unquoted special characters**: Strings containing `:`, `{`, `}`, `[`, `]`, `,`, `&`, `*`, `#`, `?`, `|`, `-`, `<`, `>`, `=`, `!`, `%`, `@`, `` ` `` must be quoted.
+
+```yaml
+# WRONG - colon in unquoted string
+displayName: Status: Active
+
+# CORRECT
+displayName: "Status: Active"
+```
+
+**Mismatched quotes in formulas**: When a formula contains double quotes, wrap the entire formula in single quotes.
+
+```yaml
+# WRONG - double quotes inside double quotes
+formulas:
+  label: "if(done, "Yes", "No")"
+
+# CORRECT - single quotes wrapping double quotes
+formulas:
+  label: 'if(done, "Yes", "No")'
+```
+
+### Common Formula Errors
+
+**Duration math without field access**: Subtracting dates returns a Duration, not a number. Always access `.days`, `.hours`, etc.
+
+```yaml
+# WRONG - Duration is not a number
+"(now() - file.ctime).round(0)"
+
+# CORRECT - access .days first, then round
+"(now() - file.ctime).days.round(0)"
+```
+
+**Missing null checks**: Properties may not exist on all notes. Use `if()` to guard.
+
+```yaml
+# WRONG - crashes if due_date is empty
+"(date(due_date) - today()).days"
+
+# CORRECT - guard with if()
+'if(due_date, (date(due_date) - today()).days, "")'
+```
+
+**Referencing undefined formulas**: Ensure every `formula.X` in `order` or `properties` has a matching entry in `formulas`.
+
+```yaml
+# This will fail silently if 'total' is not defined in formulas
+order:
+  - formula.total
+
+# Fix: define it
+formulas:
+  total: "price * quantity"
+```
+
+## References
+
+- [Bases Syntax](https://help.obsidian.md/bases/syntax)
+- [Functions](https://help.obsidian.md/bases/functions)
+- [Views](https://help.obsidian.md/bases/views)
+- [Formulas](https://help.obsidian.md/formulas)
+- [Complete Functions Reference](references/FUNCTIONS_REFERENCE.md)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

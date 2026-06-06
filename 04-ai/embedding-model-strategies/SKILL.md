@@ -1,14 +1,14 @@
 ---
 name: embedding-model-strategies
-title: 嵌入模型选型与优化
-description: 当为 RAG/向量检索选嵌入模型、调分块或评估检索质量时使用；做模型选型对照、分块/预处理/归一化/降维方案与 P@k、Recall、MRR、nDCG 评估并产出可落地管线代码；不适用于非向量检索的通用 NLP 或向量库部署运维。触发词：embedding、向量检索、RAG、分块、降维、多语言、检索评估
+title: Embedding Strategies
+description: Guide to selecting and optimizing embedding models for vector search applications.
 domain: 智能/rag
-triggers: [选嵌入模型, embedding 选型, RAG 检索效果差, chunking 分块策略, 向量维度降维, 多语言嵌入, 检索质量评估, voyage/bge/e5 对比, Matryoshka 降维, text-embedding-3]
-tags: [embedding, 向量检索, rag, 分块, 检索评估, 智能]
-level: 进阶
+triggers: [text-embedding-3]
+tags: [embedding, rag]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [OpenAI Embeddings API, sentence-transformers, tiktoken, nltk, numpy]
+tools: []
 requires: []
 related: [hybrid-search-retrieval, vector-index-tuning, rag-pipeline-builder, transformers-js]
 combines_with: [rag-implementation-workflow, production-llm-app-builder, agent-memory-systems]
@@ -16,137 +16,494 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Embedding Strategies
 
-适用：为 RAG/向量检索选嵌入模型、对比模型表现、设计分块策略、降低向量维度、处理多语言内容、针对代码/法律等领域微调或定制管线、用指标量化检索质量。
+Guide to selecting and optimizing embedding models for vector search applications.
 
-不该用（负边界）：
-- 任务与嵌入/向量检索无关（如纯生成、分类不依赖检索）。
-- 需要向量数据库（Pinecone/Milvus/pgvector 等）的部署、索引调参或运维——本条目只覆盖到生成向量为止。
-- 把建议当成跳过环境实测的替代品；缺少输入/权限/成功标准时先停下来澄清。
+## Do not use this skill when
 
-## 步骤
+- The task is unrelated to embedding strategies
+- You need a different domain or tool outside this scope
 
-1. 明确目标与约束：语料类型（散文/代码/多语言）、精度 vs 成本、本地 vs API、Token 上限、目标维度。
-2. 按场景选模型（见对照表）。
-3. 设计分块：选 Token/句子/语义分块/递归分块之一，保留语义边界，设置合理 overlap。
-4. 预处理：清洗空白与特殊字符；按模型要求加前缀（BGE 查询前缀、E5 的 `query:`/`passage:`）。
-5. 生成向量：批量调用、按需归一化（cosine 必做）、按需降维。
-6. 评估：用 P@k、Recall@k、MRR、nDCG@k 量化检索质量并迭代。
+## Instructions
 
-### 模型选型对照
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-| 模型 | 维度 | 最大 Token | 适用 |
-|------|------|-----------|------|
-| text-embedding-3-large | 3072 | 8191 | 高精度 |
-| text-embedding-3-small | 1536 | 8191 | 性价比 |
-| voyage-2 | 1024 | 4000 | 代码、法律 |
-| bge-large-en-v1.5 | 1024 | 512 | 开源 |
-| all-MiniLM-L6-v2 | 384 | 256 | 快速轻量 |
-| multilingual-e5-large | 1024 | 512 | 多语言 |
+## Use this skill when
 
-管线流向：`文档 → 分块(overlap/size) → 预处理(清洗/归一化) → 嵌入模型(API/本地) → 向量`
+- Choosing embedding models for RAG
+- Optimizing chunking strategies
+- Fine-tuning embeddings for domains
+- Comparing embedding model performance
+- Reducing embedding dimensions
+- Handling multilingual content
 
-## 指令
+## Core Concepts
 
-- 先澄清目标、约束与必需输入，再给方案。
-- 套用对应最佳实践并验证结果；给出可执行步骤与验证手段。
-- 选型遵循「模型匹配场景」：代码/散文/多语言分开选，切勿混用不同模型（向量空间不兼容）。
-- 需要更详尽的实现示例时，对应源仓库的 `resources/implementation-playbook.md`。
+### 1. Embedding Model Comparison
 
-## 示例
+| Model | Dimensions | Max Tokens | Best For |
+|-------|------------|------------|----------|
+| **text-embedding-3-large** | 3072 | 8191 | High accuracy |
+| **text-embedding-3-small** | 1536 | 8191 | Cost-effective |
+| **voyage-2** | 1024 | 4000 | Code, legal |
+| **bge-large-en-v1.5** | 1024 | 512 | Open source |
+| **all-MiniLM-L6-v2** | 384 | 256 | Fast, lightweight |
+| **multilingual-e5-large** | 1024 | 512 | Multi-language |
 
-OpenAI 批量嵌入 + Matryoshka 降维：
+### 2. Embedding Pipeline
+
+```
+Document → Chunking → Preprocessing → Embedding Model → Vector
+                ↓
+        [Overlap, Size]  [Clean, Normalize]  [API/Local]
+```
+
+## Templates
+
+### Template 1: OpenAI Embeddings
 
 ```python
 from openai import OpenAI
+from typing import List
+import numpy as np
+
 client = OpenAI()
 
-def get_embeddings(texts, model="text-embedding-3-small", dimensions=None):
-    batch_size, out = 100, []
-    for i in range(0, len(texts), batch_size):
-        kwargs = {"input": texts[i:i+batch_size], "model": model}
-        if dimensions: kwargs["dimensions"] = dimensions
-        resp = client.embeddings.create(**kwargs)
-        out.extend(item.embedding for item in resp.data)
-    return out
+def get_embeddings(
+    texts: List[str],
+    model: str = "text-embedding-3-small",
+    dimensions: int = None
+) -> List[List[float]]:
+    """Get embeddings from OpenAI."""
+    # Handle batching for large lists
+    batch_size = 100
+    all_embeddings = []
 
-# 降维（Matryoshka）：text-embedding-3 支持直接指定 dimensions
-reduced = get_embeddings(["..."], dimensions=512)
+    for i in range(0, len(texts), batch_size):
+        batch = texts[i:i + batch_size]
+
+        kwargs = {"input": batch, "model": model}
+        if dimensions:
+            kwargs["dimensions"] = dimensions
+
+        response = client.embeddings.create(**kwargs)
+        embeddings = [item.embedding for item in response.data]
+        all_embeddings.extend(embeddings)
+
+    return all_embeddings
+
+
+def get_embedding(text: str, **kwargs) -> List[float]:
+    """Get single embedding."""
+    return get_embeddings([text], **kwargs)[0]
+
+
+# Dimension reduction with OpenAI
+def get_reduced_embedding(text: str, dimensions: int = 512) -> List[float]:
+    """Get embedding with reduced dimensions (Matryoshka)."""
+    return get_embedding(
+        text,
+        model="text-embedding-3-small",
+        dimensions=dimensions
+    )
 ```
 
-本地嵌入（带模型专属前缀）：
+### Template 2: Local Embeddings with Sentence Transformers
 
 ```python
 from sentence_transformers import SentenceTransformer
-m = SentenceTransformer("BAAI/bge-large-en-v1.5", device="cuda")
-# BGE 查询需加前缀
-q = "Represent this sentence for searching relevant passages: 你的查询"
-emb = m.encode([q], normalize_embeddings=True, convert_to_numpy=True)
+from typing import List, Optional
+import numpy as np
 
-# E5：查询用 query:，文档用 passage:
-e5 = SentenceTransformer("intfloat/multilingual-e5-large")
-qv = e5.encode("query: 你的查询")
-dv = e5.encode("passage: 你的文档")
+class LocalEmbedder:
+    """Local embedding with sentence-transformers."""
+
+    def __init__(
+        self,
+        model_name: str = "BAAI/bge-large-en-v1.5",
+        device: str = "cuda"
+    ):
+        self.model = SentenceTransformer(model_name, device=device)
+
+    def embed(
+        self,
+        texts: List[str],
+        normalize: bool = True,
+        show_progress: bool = False
+    ) -> np.ndarray:
+        """Embed texts with optional normalization."""
+        embeddings = self.model.encode(
+            texts,
+            normalize_embeddings=normalize,
+            show_progress_bar=show_progress,
+            convert_to_numpy=True
+        )
+        return embeddings
+
+    def embed_query(self, query: str) -> np.ndarray:
+        """Embed a query with BGE-style prefix."""
+        # BGE models benefit from query prefix
+        if "bge" in self.model.get_sentence_embedding_dimension():
+            query = f"Represent this sentence for searching relevant passages: {query}"
+        return self.embed([query])[0]
+
+    def embed_documents(self, documents: List[str]) -> np.ndarray:
+        """Embed documents for indexing."""
+        return self.embed(documents)
+
+
+# E5 model with instructions
+class E5Embedder:
+    def __init__(self, model_name: str = "intfloat/multilingual-e5-large"):
+        self.model = SentenceTransformer(model_name)
+
+    def embed_query(self, query: str) -> np.ndarray:
+        return self.model.encode(f"query: {query}")
+
+    def embed_document(self, document: str) -> np.ndarray:
+        return self.model.encode(f"passage: {document}")
 ```
 
-Token 分块（含 overlap）：
+### Template 3: Chunking Strategies
 
 ```python
-import tiktoken
-def chunk_by_tokens(text, chunk_size=512, chunk_overlap=50):
-    tok = tiktoken.get_encoding("cl100k_base")
-    ids, chunks, start = tok.encode(text), [], 0
-    while start < len(ids):
+from typing import List, Tuple
+import re
+
+def chunk_by_tokens(
+    text: str,
+    chunk_size: int = 512,
+    chunk_overlap: int = 50,
+    tokenizer=None
+) -> List[str]:
+    """Chunk text by token count."""
+    import tiktoken
+    tokenizer = tokenizer or tiktoken.get_encoding("cl100k_base")
+
+    tokens = tokenizer.encode(text)
+    chunks = []
+
+    start = 0
+    while start < len(tokens):
         end = start + chunk_size
-        chunks.append(tok.decode(ids[start:end]))
+        chunk_tokens = tokens[start:end]
+        chunk_text = tokenizer.decode(chunk_tokens)
+        chunks.append(chunk_text)
         start = end - chunk_overlap
+
     return chunks
+
+
+def chunk_by_sentences(
+    text: str,
+    max_chunk_size: int = 1000,
+    min_chunk_size: int = 100
+) -> List[str]:
+    """Chunk text by sentences, respecting size limits."""
+    import nltk
+    sentences = nltk.sent_tokenize(text)
+
+    chunks = []
+    current_chunk = []
+    current_size = 0
+
+    for sentence in sentences:
+        sentence_size = len(sentence)
+
+        if current_size + sentence_size > max_chunk_size and current_chunk:
+            chunks.append(" ".join(current_chunk))
+            current_chunk = []
+            current_size = 0
+
+        current_chunk.append(sentence)
+        current_size += sentence_size
+
+    if current_chunk:
+        chunks.append(" ".join(current_chunk))
+
+    return chunks
+
+
+def chunk_by_semantic_sections(
+    text: str,
+    headers_pattern: str = r'^#{1,3}\s+.+$'
+) -> List[Tuple[str, str]]:
+    """Chunk markdown by headers, preserving hierarchy."""
+    lines = text.split('\n')
+    chunks = []
+    current_header = ""
+    current_content = []
+
+    for line in lines:
+        if re.match(headers_pattern, line, re.MULTILINE):
+            if current_content:
+                chunks.append((current_header, '\n'.join(current_content)))
+            current_header = line
+            current_content = []
+        else:
+            current_content.append(line)
+
+    if current_content:
+        chunks.append((current_header, '\n'.join(current_content)))
+
+    return chunks
+
+
+def recursive_character_splitter(
+    text: str,
+    chunk_size: int = 1000,
+    chunk_overlap: int = 200,
+    separators: List[str] = None
+) -> List[str]:
+    """LangChain-style recursive splitter."""
+    separators = separators or ["\n\n", "\n", ". ", " ", ""]
+
+    def split_text(text: str, separators: List[str]) -> List[str]:
+        if not text:
+            return []
+
+        separator = separators[0]
+        remaining_separators = separators[1:]
+
+        if separator == "":
+            # Character-level split
+            return [text[i:i+chunk_size] for i in range(0, len(text), chunk_size - chunk_overlap)]
+
+        splits = text.split(separator)
+        chunks = []
+        current_chunk = []
+        current_length = 0
+
+        for split in splits:
+            split_length = len(split) + len(separator)
+
+            if current_length + split_length > chunk_size and current_chunk:
+                chunk_text = separator.join(current_chunk)
+
+                # Recursively split if still too large
+                if len(chunk_text) > chunk_size and remaining_separators:
+                    chunks.extend(split_text(chunk_text, remaining_separators))
+                else:
+                    chunks.append(chunk_text)
+
+                # Start new chunk with overlap
+                overlap_splits = []
+                overlap_length = 0
+                for s in reversed(current_chunk):
+                    if overlap_length + len(s) <= chunk_overlap:
+                        overlap_splits.insert(0, s)
+                        overlap_length += len(s)
+                    else:
+                        break
+                current_chunk = overlap_splits
+                current_length = overlap_length
+
+            current_chunk.append(split)
+            current_length += split_length
+
+        if current_chunk:
+            chunks.append(separator.join(current_chunk))
+
+        return chunks
+
+    return split_text(text, separators)
 ```
 
-检索质量评估（P@k / Recall@k / MRR / nDCG@k）：
+### Template 4: Domain-Specific Embedding Pipeline
+
+```python
+class DomainEmbeddingPipeline:
+    """Pipeline for domain-specific embeddings."""
+
+    def __init__(
+        self,
+        embedding_model: str = "text-embedding-3-small",
+        chunk_size: int = 512,
+        chunk_overlap: int = 50,
+        preprocessing_fn=None
+    ):
+        self.embedding_model = embedding_model
+        self.chunk_size = chunk_size
+        self.chunk_overlap = chunk_overlap
+        self.preprocess = preprocessing_fn or self._default_preprocess
+
+    def _default_preprocess(self, text: str) -> str:
+        """Default preprocessing."""
+        # Remove excessive whitespace
+        text = re.sub(r'\s+', ' ', text)
+        # Remove special characters
+        text = re.sub(r'[^\w\s.,!?-]', '', text)
+        return text.strip()
+
+    async def process_documents(
+        self,
+        documents: List[dict],
+        id_field: str = "id",
+        content_field: str = "content",
+        metadata_fields: List[str] = None
+    ) -> List[dict]:
+        """Process documents for vector storage."""
+        processed = []
+
+        for doc in documents:
+            content = doc[content_field]
+            doc_id = doc[id_field]
+
+            # Preprocess
+            cleaned = self.preprocess(content)
+
+            # Chunk
+            chunks = chunk_by_tokens(
+                cleaned,
+                self.chunk_size,
+                self.chunk_overlap
+            )
+
+            # Create embeddings
+            embeddings = get_embeddings(chunks, self.embedding_model)
+
+            # Create records
+            for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
+                record = {
+                    "id": f"{doc_id}_chunk_{i}",
+                    "document_id": doc_id,
+                    "chunk_index": i,
+                    "text": chunk,
+                    "embedding": embedding
+                }
+
+                # Add metadata
+                if metadata_fields:
+                    for field in metadata_fields:
+                        if field in doc:
+                            record[field] = doc[field]
+
+                processed.append(record)
+
+        return processed
+
+
+# Code-specific pipeline
+class CodeEmbeddingPipeline:
+    """Specialized pipeline for code embeddings."""
+
+    def __init__(self, model: str = "voyage-code-2"):
+        self.model = model
+
+    def chunk_code(self, code: str, language: str) -> List[dict]:
+        """Chunk code by functions/classes."""
+        import tree_sitter
+
+        # Parse with tree-sitter
+        # Extract functions, classes, methods
+        # Return chunks with context
+        pass
+
+    def embed_with_context(self, chunk: str, context: str) -> List[float]:
+        """Embed code with surrounding context."""
+        combined = f"Context: {context}\n\nCode:\n{chunk}"
+        return get_embedding(combined, model=self.model)
+```
+
+### Template 5: Embedding Quality Evaluation
 
 ```python
 import numpy as np
-def evaluate_retrieval_quality(relevant_docs, retrieved_docs, k=10):
-    def p_at_k(rel, ret): return len(set(ret[:k]) & rel) / k
-    def r_at_k(rel, ret): return len(set(ret[:k]) & rel) / len(rel) if rel else 0
-    def mrr(rel, ret):
-        for i, d in enumerate(ret):
-            if d in rel: return 1/(i+1)
+from typing import List, Tuple
+
+def evaluate_retrieval_quality(
+    queries: List[str],
+    relevant_docs: List[List[str]],  # List of relevant doc IDs per query
+    retrieved_docs: List[List[str]],  # List of retrieved doc IDs per query
+    k: int = 10
+) -> dict:
+    """Evaluate embedding quality for retrieval."""
+
+    def precision_at_k(relevant: set, retrieved: List[str], k: int) -> float:
+        retrieved_k = retrieved[:k]
+        relevant_retrieved = len(set(retrieved_k) & relevant)
+        return relevant_retrieved / k
+
+    def recall_at_k(relevant: set, retrieved: List[str], k: int) -> float:
+        retrieved_k = retrieved[:k]
+        relevant_retrieved = len(set(retrieved_k) & relevant)
+        return relevant_retrieved / len(relevant) if relevant else 0
+
+    def mrr(relevant: set, retrieved: List[str]) -> float:
+        for i, doc in enumerate(retrieved):
+            if doc in relevant:
+                return 1 / (i + 1)
         return 0
-    def ndcg(rel, ret):
-        dcg = sum(1/np.log2(i+2) for i, d in enumerate(ret[:k]) if d in rel)
-        idcg = sum(1/np.log2(i+2) for i in range(min(len(rel), k)))
-        return dcg/idcg if idcg else 0
-    rows = [(set(rel), ret) for rel, ret in zip(relevant_docs, retrieved_docs)]
-    return {
-        f"precision@{k}": np.mean([p_at_k(r, x) for r, x in rows]),
-        f"recall@{k}":    np.mean([r_at_k(r, x) for r, x in rows]),
-        "mrr":            np.mean([mrr(r, x) for r, x in rows]),
-        f"ndcg@{k}":      np.mean([ndcg(r, x) for r, x in rows]),
+
+    def ndcg_at_k(relevant: set, retrieved: List[str], k: int) -> float:
+        dcg = sum(
+            1 / np.log2(i + 2) if doc in relevant else 0
+            for i, doc in enumerate(retrieved[:k])
+        )
+        ideal_dcg = sum(1 / np.log2(i + 2) for i in range(min(len(relevant), k)))
+        return dcg / ideal_dcg if ideal_dcg > 0 else 0
+
+    metrics = {
+        f"precision@{k}": [],
+        f"recall@{k}": [],
+        "mrr": [],
+        f"ndcg@{k}": []
     }
+
+    for relevant, retrieved in zip(relevant_docs, retrieved_docs):
+        relevant_set = set(relevant)
+        metrics[f"precision@{k}"].append(precision_at_k(relevant_set, retrieved, k))
+        metrics[f"recall@{k}"].append(recall_at_k(relevant_set, retrieved, k))
+        metrics["mrr"].append(mrr(relevant_set, retrieved))
+        metrics[f"ndcg@{k}"].append(ndcg_at_k(relevant_set, retrieved, k))
+
+    return {name: np.mean(values) for name, values in metrics.items()}
+
+
+def compute_embedding_similarity(
+    embeddings1: np.ndarray,
+    embeddings2: np.ndarray,
+    metric: str = "cosine"
+) -> np.ndarray:
+    """Compute similarity matrix between embedding sets."""
+    if metric == "cosine":
+        # Normalize
+        norm1 = embeddings1 / np.linalg.norm(embeddings1, axis=1, keepdims=True)
+        norm2 = embeddings2 / np.linalg.norm(embeddings2, axis=1, keepdims=True)
+        return norm1 @ norm2.T
+    elif metric == "euclidean":
+        from scipy.spatial.distance import cdist
+        return -cdist(embeddings1, embeddings2, metric='euclidean')
+    elif metric == "dot":
+        return embeddings1 @ embeddings2.T
 ```
 
-## 注意事项
+## Best Practices
 
-应做：
-- 模型匹配场景（代码/散文/多语言各选其优）。
-- 分块保留语义边界；按句子/标题/递归切分而非硬截断。
-- cosine 相似度前归一化向量。
-- 批量请求而非逐条；缓存已算向量，避免重复计算。
+### Do's
+- **Match model to use case** - Code vs prose vs multilingual
+- **Chunk thoughtfully** - Preserve semantic boundaries
+- **Normalize embeddings** - For cosine similarity
+- **Batch requests** - More efficient than one-by-one
+- **Cache embeddings** - Avoid recomputing
 
-不应做：
-- 忽略 Token 上限——截断会丢信息。
-- 混用不同嵌入模型——向量空间不兼容，无法直接比较。
-- 跳过预处理——garbage in, garbage out。
-- 过度分块——丢失上下文。
+### Don'ts
+- **Don't ignore token limits** - Truncation loses info
+- **Don't mix embedding models** - Incompatible spaces
+- **Don't skip preprocessing** - Garbage in, garbage out
+- **Don't over-chunk** - Lose context
 
-## 互见
+## Resources
 
-- 参考基准：MTEB Leaderboard（huggingface.co/spaces/mteb/leaderboard）。
-- 官方文档：OpenAI Embeddings、Sentence-Transformers（sbert.net）。
-- 下游：向量数据库索引/检索（属本条目负边界，另见相关检索/RAG 条目）。
+- [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings)
+- [Sentence Transformers](https://www.sbert.net/)
+- [MTEB Benchmark](https://huggingface.co/spaces/mteb/leaderboard)
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

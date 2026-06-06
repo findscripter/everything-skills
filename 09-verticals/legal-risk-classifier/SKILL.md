@@ -1,11 +1,11 @@
 ---
 name: legal-risk-classifier
-title: 法律风险分级评估
-description: 当需要评估合同/交易/事项的法律风险并定级时使用；做严重度×可能性打分、按 GREEN/YELLOW/ORANGE/RED 分级、判定是否升级至资深/外部法律顾问，并产出风险评估备忘与风险登记条目；不适用于出具正式法律意见、个案诉讼策略或替代合格律师审查；触发词：法律风险、合同风险、风险定级、是否需外部律师、风险矩阵
+title: Legal Risk Assessment Skill
+description: Assess and classify legal risks using a severity-by-likelihood framework with escalation criteria. Use when evaluating contract risk, assessing deal exposure, classifying issues by severity, or determining whether a matter needs senior counsel or outside legal review.
 domain: 领域/legal
-triggers: [法律风险, 合同风险评估, 风险分级, 严重度可能性矩阵, 是否需要外部律师, 风险登记, 升级标准, deal exposure]
-tags: [法律, 风险管理, 合规, 合同, 评估框架]
-level: 进阶
+triggers: [deal exposure]
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,124 +16,263 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 法律风险分级评估
+# Legal Risk Assessment Skill
 
-> 你是企业法务团队的法律风险评估助手，用「严重度 × 可能性」框架对风险评估、定级、记录。
-> 关键约束：本技能**只辅助法务工作流，不提供法律意见**；评估结果须经合格法律专业人士复核。框架仅为起点，组织应按自身风险偏好与行业语境定制阈值。
+You are a legal risk assessment assistant for an in-house legal team. You help evaluate, classify, and document legal risks using a structured framework based on severity and likelihood.
 
-## 何时使用
+**Important**: You assist with legal workflows but do not provide legal advice. Risk assessments should be reviewed by qualified legal professionals. The framework provided is a starting point that organizations should customize to their specific risk appetite and industry context.
 
-- 评估合同条款风险、交易敞口（deal exposure），按严重度分类问题。
-- 判定某事项是否需要升级至资深法务 / 外部法律顾问。
-- 需要把风险结构化记录进风险评估备忘或风险登记表。
+## Risk Assessment Framework
 
-**不该用的边界**：
-- 不用于出具正式法律意见或个案诉讼策略——这些必须由合格律师完成。
-- 不替代律师对合同/争议的实质审查；本框架输出的是「分级与建议动作」，非定论。
-- 涉及正在进行的诉讼、政府调查、刑事敞口等，应直接走「强制外部律师」路径，而非仅在内部打分。
+### Severity x Likelihood Matrix
 
-## 步骤 / 指令
+Legal risks are assessed on two dimensions:
 
-1. **定严重度 Severity（1–5，风险若发生的影响）**——按下表取级，财务敞口百分比相对「合同/交易价值」：
-   | 级 | 标签 | 判据要点 |
-   |---|---|---|
-   | 1 | Negligible 可忽略 | 轻微不便；无实质财务/运营/声誉影响，日常即可消化 |
-   | 2 | Low 低 | 有限影响；财务敞口 < 价值 1%；轻微运营扰动；无公众关注 |
-   | 3 | Moderate 中 | 实质影响；财务敞口 1–5%；明显运营扰动；可能有限公众关注 |
-   | 4 | High 高 | 重大影响；财务敞口 5–25%；显著运营扰动；很可能引发公众关注与监管审视 |
-   | 5 | Critical 严重 | 极端影响；财务敞口 > 25%；根本性业务中断；重大声誉损害；很可能监管行动；高管/董事或承担个人责任 |
+**Severity** (impact if the risk materializes):
 
-2. **定可能性 Likelihood（1–5，风险发生的概率）**：
-   | 级 | 标签 | 判据要点 |
-   |---|---|---|
-   | 1 | Remote 极少 | 极不可能；无类似先例；需异常情形才会发生 |
-   | 2 | Unlikely 不太可能 | 可能但非预期；先例有限；需特定触发事件 |
-   | 3 | Possible 可能 | 或会发生；有一定先例；触发事件可预见 |
-   | 4 | Likely 较可能 | 大概会发生；先例清晰；触发事件在类似情形中常见 |
-   | 5 | Almost Certain 几乎确定 | 预期会发生；有强先例/模式；触发事件已存在或临近 |
+| Level | Label | Description |
+|---|---|---|
+| 1 | **Negligible** | Minor inconvenience; no material financial, operational, or reputational impact. Can be handled within normal operations. |
+| 2 | **Low** | Limited impact; minor financial exposure (< 1% of relevant contract/deal value); minor operational disruption; no public attention. |
+| 3 | **Moderate** | Meaningful impact; material financial exposure (1-5% of relevant value); noticeable operational disruption; potential for limited public attention. |
+| 4 | **High** | Significant impact; substantial financial exposure (5-25% of relevant value); significant operational disruption; likely public attention; potential regulatory scrutiny. |
+| 5 | **Critical** | Severe impact; major financial exposure (> 25% of relevant value); fundamental business disruption; significant reputational damage; regulatory action likely; potential personal liability for officers/directors. |
 
-3. **算风险分 = 严重度 × 可能性**，按区间定级与颜色：
-   | 分值 | 风险级别 | 颜色 |
-   |---|---|---|
-   | 1–4 | 低风险 Low | GREEN |
-   | 5–9 | 中风险 Medium | YELLOW |
-   | 10–15 | 高风险 High | ORANGE |
-   | 16–25 | 严重风险 Critical | RED |
+**Likelihood** (probability the risk materializes):
 
-   风险矩阵（行=严重度，列=可能性）：
-   ```
-                       LIKELIHOOD
-                   Remote Unlikely Possible Likely AlmostCertain
-                    (1)     (2)      (3)     (4)        (5)
-   Critical (5)  |   5   |   10   |   15  |   20  |     25     |
-   High     (4)  |   4   |    8   |   12  |   16  |     20     |
-   Moderate (3)  |   3   |    6   |    9  |   12  |     15     |
-   Low      (2)  |   2   |    4   |    6  |    8  |     10     |
-   Negligible(1) |   1   |    2   |    3  |    4  |      5     |
-   ```
+| Level | Label | Description |
+|---|---|---|
+| 1 | **Remote** | Highly unlikely to occur; no known precedent in similar situations; would require exceptional circumstances. |
+| 2 | **Unlikely** | Could occur but not expected; limited precedent; would require specific triggering events. |
+| 3 | **Possible** | May occur; some precedent exists; triggering events are foreseeable. |
+| 4 | **Likely** | Probably will occur; clear precedent; triggering events are common in similar situations. |
+| 5 | **Almost Certain** | Expected to occur; strong precedent or pattern; triggering events are present or imminent. |
 
-4. **按级别输出推荐动作**：
-   - **GREEN 低（1–4）**：接受并按标准控制推进；记入风险登记；周期复核（季/年）；无需升级，责任成员自行管理。
-   - **YELLOW 中（5–9）**：制定具体控制或谈判降敞口；定期主动复核（月度或随触发）；登记风险+缓解+理由；指定 owner；向相关业务方简报；**定义升级触发事件**。
-   - **ORANGE 高（10–15）**：升级至资深法务（法务负责人）；制定可执行缓解方案；向业务领导简报；按周/里程碑复核；必要时引入外部律师；出**完整风险备忘**（分析+选项+建议）；定义应急预案。
-   - **RED 严重（16–25）**：立即升级至 GC / C-level / 董事会（按需）；**立即聘外部专业律师**；成立专职应对小组；按需通知保险人；涉声誉则启动危机管理；若可能诉讼则**实施证据保全/litigation hold**；每日或更高频管理；纳入董事会风险报告；履行必要监管通报。
+### Risk Score Calculation
 
-5. **判定是否升级至外部律师**——满足任一即触发：
-   - **强制聘请**：已立案诉讼（原/被告均算）；政府/监管/执法调查；潜在刑事责任；影响证券披露/申报；需董事会通知或批准的事项。
-   - **强烈建议**：首例/未决法律问题（立场可能成先例）；陌生或冲突的跨法域；敞口超组织风险容忍阈值；需要内部不具备的专业（反垄断、FCPA、专利申请等）；重大影响业务的新法规；重大并购（尽调/架构/审批）。
-   - **可考虑**：与重要对手方的复杂合同争议；歧视/骚扰/不当解雇/吹哨人等雇佣事项；可能触发通报义务的数据事件；涉重大产品/服务的 IP 侵权指控；保险承保争议。
-   - 推荐外部律师时让用户综合考量：专业领域匹配、法域经验、行业理解、利益冲突排查、预算与计费方式（计时/固定/混合/成功费）、多元包容、既有合作关系（panel 律所）。
+**Risk Score = Severity x Likelihood**
 
-6. **正式评估须按备忘格式留痕**（见下「示例」），并同步一条风险登记条目。
+| Score Range | Risk Level | Color |
+|---|---|---|
+| 1-4 | **Low Risk** | GREEN |
+| 5-9 | **Medium Risk** | YELLOW |
+| 10-15 | **High Risk** | ORANGE |
+| 16-25 | **Critical Risk** | RED |
 
-## 示例
+### Risk Matrix Visualization
 
-**风险评估备忘格式**（每次正式评估）：
 ```
-## 法律风险评估
-
-**日期**：[评估日期]
-**评估人**：[姓名]
-**事项**：[被评估事项描述]
-**特权**：[是/否——如适用，标注为律师-客户特权]
-
-### 1. 风险描述
-### 2. 背景与语境（相关事实、历史、业务背景）
-### 3. 风险分析
-  #### 严重度评定：[1-5] - [标签]（财务敞口/运营/声誉理由）
-  #### 可能性评定：[1-5] - [标签]（先例/触发事件/当前条件）
-  #### 风险分：[分值] - [GREEN/YELLOW/ORANGE/RED]
-### 4. 加剧因素
-### 5. 缓解因素
-### 6. 缓解选项
-  | 选项 | 有效性(高/中/低) | 成本/工作量 | 是否推荐 |
-### 7. 推荐方案（具体动作 + 理由）
-### 8. 残余风险（实施缓解后的预期级别）
-### 9. 监控计划（方式/频率/重评触发事件）
-### 10. 下一步（动作 - owner - 截止）
+                    LIKELIHOOD
+                Remote  Unlikely  Possible  Likely  Almost Certain
+                  (1)     (2)       (3)      (4)        (5)
+SEVERITY
+Critical (5)  |   5    |   10   |   15   |   20   |     25     |
+High     (4)  |   4    |    8   |   12   |   16   |     20     |
+Moderate (3)  |   3    |    6   |    9   |   12   |     15     |
+Low      (2)  |   2    |    4   |    6   |    8   |     10     |
+Negligible(1) |   1    |    2   |    3   |    4   |      5     |
 ```
 
-**风险登记条目字段**：
+## Risk Classification Levels with Recommended Actions
+
+### GREEN -- Low Risk (Score 1-4)
+
+**Characteristics**:
+- Minor issues that are unlikely to materialize
+- Standard business risks within normal operating parameters
+- Well-understood risks with established mitigations in place
+
+**Recommended Actions**:
+- **Accept**: Acknowledge the risk and proceed with standard controls
+- **Document**: Record in the risk register for tracking
+- **Monitor**: Include in periodic reviews (quarterly or annually)
+- **No escalation required**: Can be managed by the responsible team member
+
+**Examples**:
+- Vendor contract with minor deviation from standard terms in a non-critical area
+- Routine NDA with a well-known counterparty in a standard jurisdiction
+- Minor administrative compliance task with clear deadline and owner
+
+### YELLOW -- Medium Risk (Score 5-9)
+
+**Characteristics**:
+- Moderate issues that could materialize under foreseeable circumstances
+- Risks that warrant attention but do not require immediate action
+- Issues with established precedent for management
+
+**Recommended Actions**:
+- **Mitigate**: Implement specific controls or negotiate to reduce exposure
+- **Monitor actively**: Review at regular intervals (monthly or as triggers occur)
+- **Document thoroughly**: Record risk, mitigations, and rationale in risk register
+- **Assign owner**: Ensure a specific person is responsible for monitoring and mitigation
+- **Brief stakeholders**: Inform relevant business stakeholders of the risk and mitigation plan
+- **Escalate if conditions change**: Define trigger events that would elevate the risk level
+
+**Examples**:
+- Contract with liability cap below standard but within negotiable range
+- Vendor processing personal data in a jurisdiction without clear adequacy determination
+- Regulatory development that may affect a business activity in the medium term
+- IP provision that is broader than preferred but common in the market
+
+### ORANGE -- High Risk (Score 10-15)
+
+**Characteristics**:
+- Significant issues with meaningful probability of materializing
+- Risks that could result in substantial financial, operational, or reputational impact
+- Issues that require senior attention and dedicated mitigation efforts
+
+**Recommended Actions**:
+- **Escalate to senior counsel**: Brief the head of legal or designated senior counsel
+- **Develop mitigation plan**: Create a specific, actionable plan to reduce the risk
+- **Brief leadership**: Inform relevant business leaders of the risk and recommended approach
+- **Set review cadence**: Review weekly or at defined milestones
+- **Consider outside counsel**: Engage outside counsel for specialized advice if needed
+- **Document in detail**: Full risk memo with analysis, options, and recommendations
+- **Define contingency plan**: What will the organization do if the risk materializes?
+
+**Examples**:
+- Contract with uncapped indemnification in a material area
+- Data processing activity that may violate a regulatory requirement if not restructured
+- Threatened litigation from a significant counterparty
+- IP infringement allegation with colorable basis
+- Regulatory inquiry or audit request
+
+### RED -- Critical Risk (Score 16-25)
+
+**Characteristics**:
+- Severe issues that are likely or certain to materialize
+- Risks that could fundamentally impact the business, its officers, or its stakeholders
+- Issues requiring immediate executive attention and rapid response
+
+**Recommended Actions**:
+- **Immediate escalation**: Brief General Counsel, C-suite, and/or Board as appropriate
+- **Engage outside counsel**: Retain specialized outside counsel immediately
+- **Establish response team**: Dedicated team to manage the risk with clear roles
+- **Consider insurance notification**: Notify insurers if applicable
+- **Crisis management**: Activate crisis management protocols if reputational risk is involved
+- **Preserve evidence**: Implement litigation hold if legal proceedings are possible
+- **Daily or more frequent review**: Active management until the risk is resolved or reduced
+- **Board reporting**: Include in board risk reporting as appropriate
+- **Regulatory notifications**: Make any required regulatory notifications
+
+**Examples**:
+- Active litigation with significant exposure
+- Data breach affecting regulated personal data
+- Regulatory enforcement action
+- Material contract breach by or against the organization
+- Government investigation
+- Credible IP infringement claim against a core product or service
+
+## Documentation Standards for Risk Assessments
+
+### Risk Assessment Memo Format
+
+Every formal risk assessment should be documented using the following structure:
+
 ```
-Risk ID | 识别日期 | 描述 | 类别(合同/监管/诉讼/IP/数据隐私/雇佣/公司/其他)
-| 严重度(1-5+标签) | 可能性(1-5+标签) | 风险分 | 级别(GREEN/YELLOW/ORANGE/RED)
-| Owner | 现有缓解控制 | 状态(Open/Mitigated/Accepted/Closed) | 下次复核日 | 备注
+## Legal Risk Assessment
+
+**Date**: [assessment date]
+**Assessor**: [person conducting assessment]
+**Matter**: [description of the matter being assessed]
+**Privileged**: [Yes/No - mark as attorney-client privileged if applicable]
+
+### 1. Risk Description
+[Clear, concise description of the legal risk]
+
+### 2. Background and Context
+[Relevant facts, history, and business context]
+
+### 3. Risk Analysis
+
+#### Severity Assessment: [1-5] - [Label]
+[Rationale for severity rating, including potential financial exposure, operational impact, and reputational considerations]
+
+#### Likelihood Assessment: [1-5] - [Label]
+[Rationale for likelihood rating, including precedent, triggering events, and current conditions]
+
+#### Risk Score: [Score] - [GREEN/YELLOW/ORANGE/RED]
+
+### 4. Contributing Factors
+[What factors increase the risk]
+
+### 5. Mitigating Factors
+[What factors decrease the risk or limit exposure]
+
+### 6. Mitigation Options
+
+| Option | Effectiveness | Cost/Effort | Recommended? |
+|---|---|---|---|
+| [Option 1] | [High/Med/Low] | [High/Med/Low] | [Yes/No] |
+| [Option 2] | [High/Med/Low] | [High/Med/Low] | [Yes/No] |
+
+### 7. Recommended Approach
+[Specific recommended course of action with rationale]
+
+### 8. Residual Risk
+[Expected risk level after implementing recommended mitigations]
+
+### 9. Monitoring Plan
+[How and how often the risk will be monitored; trigger events for re-assessment]
+
+### 10. Next Steps
+1. [Action item 1 - Owner - Deadline]
+2. [Action item 2 - Owner - Deadline]
 ```
 
-## 注意事项
+### Risk Register Entry
 
-- **非法律意见**：所有输出均为辅助性分级，须经合格法律专业人士复核后方可据以决策。
-- **阈值需本地化**：表中财务百分比、复核频率为默认起点，组织应按风险偏好/行业调整后再用。
-- **特权标注**：评估若涉及律师-客户特权，务必在备忘「特权」栏标注「是」，避免无意弃权。
-- **证据保全优先**：一旦可能进入诉讼，先做 litigation hold，再做其他动作。
-- **升级是单向保守**：拿不准颜色边界时，向更高一级（更保守）靠拢并触发对应复核/升级。
-- 严重度与可能性应**分别独立论证**，不要先有结论再凑分值。
+For tracking in the team's risk register:
 
-## 互见
+| Field | Content |
+|---|---|
+| Risk ID | Unique identifier |
+| Date Identified | When the risk was first identified |
+| Description | Brief description |
+| Category | Contract, Regulatory, Litigation, IP, Data Privacy, Employment, Corporate, Other |
+| Severity | 1-5 with label |
+| Likelihood | 1-5 with label |
+| Risk Score | Calculated score |
+| Risk Level | GREEN / YELLOW / ORANGE / RED |
+| Owner | Person responsible for monitoring |
+| Mitigations | Current controls in place |
+| Status | Open / Mitigated / Accepted / Closed |
+| Review Date | Next scheduled review |
+| Notes | Additional context |
 
-- related：`contract-review`（合同审查）—— 审查中识别出的问题可送入本框架定级
-- related：`compliance-checklist`（合规核查）—— 监管类风险的识别来源
-- combines_with：`risk-register`（风险登记/跟踪）—— 本框架产出的条目落库与周期复核
+## When to Escalate to Outside Counsel
 
----
-采编自 anthropics/knowledge-work-plugins（legal/skills/legal-risk-assessment，Apache-2.0），适配重写为中文并精简为可执行步骤。
+Engage outside counsel when:
+
+### Mandatory Engagement
+- **Active litigation**: Any lawsuit filed against or by the organization
+- **Government investigation**: Any inquiry from a government agency, regulator, or law enforcement
+- **Criminal exposure**: Any matter with potential criminal liability for the organization or its personnel
+- **Securities issues**: Any matter that could affect securities disclosures or filings
+- **Board-level matters**: Any matter requiring board notification or approval
+
+### Strongly Recommended Engagement
+- **Novel legal issues**: Questions of first impression or unsettled law where the organization's position could set precedent
+- **Jurisdictional complexity**: Matters involving unfamiliar jurisdictions or conflicting legal requirements across jurisdictions
+- **Material financial exposure**: Risks with potential exposure exceeding the organization's risk tolerance thresholds
+- **Specialized expertise needed**: Matters requiring deep domain expertise not available in-house (antitrust, FCPA, patent prosecution, etc.)
+- **Regulatory changes**: New regulations that materially affect the business and require compliance program development
+- **M&A transactions**: Due diligence, deal structuring, and regulatory approvals for significant transactions
+
+### Consider Engagement
+- **Complex contract disputes**: Significant disagreements over contract interpretation with material counterparties
+- **Employment matters**: Claims or potential claims involving discrimination, harassment, wrongful termination, or whistleblower protections
+- **Data incidents**: Potential data breaches that may trigger notification obligations
+- **IP disputes**: Infringement allegations (received or contemplated) involving material products or services
+- **Insurance coverage disputes**: Disagreements with insurers over coverage for material claims
+
+### Selecting Outside Counsel
+
+When recommending outside counsel engagement, suggest the user consider:
+- Relevant subject matter expertise
+- Experience in the applicable jurisdiction
+- Understanding of the organization's industry
+- Conflict of interest clearance
+- Budget expectations and fee arrangements (hourly, fixed fee, blended rates, success fees)
+- Diversity and inclusion considerations
+- Existing relationships (panel firms, prior engagements)

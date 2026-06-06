@@ -1,14 +1,14 @@
 ---
 name: skill-optimizer
-title: Agent 技能诊断与优化（Skill Optimizer）
-description: 当某条 Agent 技能（SKILL.md）不触发、误触发、烧 token 或想审计整个技能库质量时使用；做基于真实会话记录 + 静态质检的 8 维诊断，按 5 分制打分并输出 P0/P1/P2 修复清单（只读、不改源文件）；不适用于从零创建技能、改写技能内容或微调单句提示词；触发词：技能不触发、优化 skill、审计技能库、误触发、欠触发、description 触发率、token 浪费
+title: Skill Optimization Report
+description: Diagnose and optimize Agent Skills (SKILL.md) with real session data and research-backed static analysis. Works with Claude Code, Codex, and any Agent Skills-compatible agent.
 domain: 智能/agents
-triggers: [技能不触发, 优化 skill, skill optimizer, 审计技能库, 误触发, 欠触发, undertrigger, overtrigger, description 触发率, token 浪费, 技能评分, 诊断技能]
-tags: [skill, audit, diagnostics, cso, description, agents, meta, token优化, 智能]
-level: 进阶
+triggers: [skill optimizer, undertrigger, overtrigger]
+tags: [skill, audit, diagnostics, cso, description, agents, meta]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, ripgrep]
+tools: []
 requires: []
 related: [skill-creator, llm-prompt-optimizer, agent-tool-design, llm-agent-benchmarking]
 combines_with: [llm-judge-evaluation, self-improving-memory-agent, langfuse-llm-observability]
@@ -16,133 +16,266 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# Agent 技能诊断与优化（Skill Optimizer）
+## When to Use This Skill
 
-## 何时使用
+- Use when skills are not triggering as expected or seem broken
+- Use when you want to audit and improve your skill library's quality
+- Use when you want to understand which skills are underperforming or wasting context tokens
 
-适用：
-- 某条技能「该触发却没触发」或像是坏了，需要定位原因。
-- 想审计、体检整个技能库的质量，找出哪些技能表现差、在白白吃 token。
-- 想用**真实会话记录 + 静态质检**给技能量化打分，拿到带优先级的修复清单。
+## Rules
 
-不该用（负边界）：
-- 想**从零创建**新技能、改写技能正文内容 —— 用 `skill-creator`。
-- 只想微调单句提示词 —— 用 `llm-prompt-optimizer`。
-- 缺少会话记录（全新环境、刚装的技能）：触发/反应/完成率类维度无数据可分析，此时只能跑静态质检（4.4）和环境一致性（4.7），其余维度如实标 `N/A — 会话数据不足`，不要硬编故事。
+- **Read-only**: never modify skill files. Only output report.
+- **All 8 dimensions**: do not skip any. If data is insufficient, report "N/A — insufficient session data" rather than omitting.
+- **Quantify**: "you had 12 research tasks last week but the skill never triggered" beats "you often do research".
+- **Suggest, don't prescribe**: give specific wording suggestions for description improvements, but frame as suggestions.
+- **Show evidence**: for undertrigger claims, quote the actual user message that should have triggered the skill.
+- **Evidence-based suggestions**: when suggesting description rewrites, cite the specific research finding that motivates the change (e.g., "front-load trigger keywords — MCP study shows 3.6x selection rate improvement").
 
-**硬规则**：
-- **只读**：绝不修改任何技能文件，只输出诊断报告。
-- **8 维全做**：不得跳过任一维度；数据不足就写 `N/A`，不要省略。下文 4.2/4.3/4.5b/4.8 是最易被偷懒跳过、却最有价值的四维。
-- **量化优于形容**：「上周有 12 次研究任务但该技能 0 触发」远胜「你经常做研究」。
-- **建议而非命令**：给具体的 description 改写措辞，但措辞框成「建议」。
-- **亮证据**：声称「欠触发」时，**原文引用**那条本该触发技能的用户消息。
-- **改写要援引依据**：建议改 description 时，点明背后的研究结论（如「触发关键词前置 —— MCP 研究显示选择率提升 3.6 倍」）。
+## Overview
 
-## 步骤
+Analyze skills using **historical session data + static quality checks**, output a diagnostic report with P0/P1/P2 prioritized fixes. Scores each skill on a 5-point composite scale across 8 dimensions.
+
+CSO (Claude/Agent Search Optimization) = writing skill descriptions so agents select the right skill at the right time. This skill checks for CSO violations.
+
+## Usage
+
+- `/optimize-skill` → scan all skills
+- `/optimize-skill my-skill` → single skill
+- `/optimize-skill skill-a skill-b` → multiple specified skills
+
+## Data Sources
+
+Auto-detect the current agent platform and scan the corresponding paths:
+
+| Source | Claude Code | Codex | Shared |
+|--------|------------|-------|--------|
+| Session transcripts | `~/.claude/projects/**/*.jsonl` | `~/.codex/sessions/**/*.jsonl` | — |
+| Skill files | `~/.claude/skills/*/SKILL.md` | `~/.codex/skills/*/SKILL.md` | `~/.agents/skills/*/SKILL.md` |
+
+**Platform detection:** Check which directories exist. Scan all available sources — a user may have both Claude Code and Codex installed.
+
+## Workflow
 
 ```
-锁定目标技能 → 采集会话数据(python 扫 JSONL) → 跑 8 维分析 → 算综合分 → 输出 P0/P1/P2 报告
+Identify target skills
+        ↓
+Collect session data (python3 scripts scan JSONL transcripts)
+        ↓
+Run 8 analysis dimensions
+        ↓
+Compute composite scores
+        ↓
+Output report with P0/P1/P2
 ```
 
-### 步骤 1 · 锁定目标技能
-按序扫描技能目录：`~/.claude/skills/`、`~/.codex/skills/`、`~/.agents/skills/`，按技能名去重（多处同名 = 同一技能）。逐个读 `SKILL.md`，抽取：name、description（取自 YAML frontmatter）、触发关键词（取自 description）、定义的工作流步骤（Step 1/2/3… 或 Workflow 下的 ### 小节）、字数。用户若指定了技能名，只留这些。
+### Step 1: Identify Target Skills
 
-### 步骤 2 · 采集会话数据
-用 python 脚本经 Bash 扫会话 JSONL。**自动探测平台**：检查哪些目录存在，全部可用源都扫（用户可能同时装了 Claude Code 和 Codex）。
+Scan skill directories in order: `~/.claude/skills/`, `~/.codex/skills/`, `~/.agents/skills/`. Deduplicate by skill name (same name in multiple locations = same skill). For each, read `SKILL.md` and extract:
+- name, description (from YAML frontmatter)
+- trigger keywords (from description field)
+- defined workflow steps (Step 1/2/3... or ### sections under Workflow)
+- word count
 
-| 来源 | Claude Code | Codex |
-|---|---|---|
-| 会话记录 | `~/.claude/projects/**/*.jsonl` | `~/.codex/sessions/**/*.jsonl` |
-| 技能文件 | `~/.claude/skills/*/SKILL.md` | `~/.codex/skills/*/SKILL.md`（共享：`~/.agents/skills/*/SKILL.md`） |
+If user specified skill names, filter to only those.
 
-- Claude Code：数 `Skill` 工具调用、用户消息全文、技能调用后的助手消息（追工作流）与用户消息（追反应）。
-- Codex：技能靠**上下文注入**而非显式 `Skill` 调用。`base_instructions` 里出现 ≠ 真正被用。真用的判据是：在该会话的 `response_item` 里检索到技能特有的工作流标记（步骤标题、输出格式）—— 只有产出遵循了技能定义的工作流，才算「调用」。
+### Step 2: Collect Session Data
 
-### 步骤 3 · 跑 8 维分析（必须全做）
+Use python3 scripts via Bash to scan session JSONL files. Extract:
 
-- **4.1 触发率**：实际调用次数 vs 触发词在用户消息中出现的次数。0 触发 → 可能没用或触发词写错；关键词远多于调用 → 欠触发，description 要改；高频 → 核心技能，值得优化。
-- **4.2 调用后用户反应**（易跳，别跳）：读调用后用户的接下来 3 条消息，分类为 负面 / 纠正 / 正面 / 静默转移（换话题 = 很可能误触发），算每技能满意率。
-- **4.3 工作流完成率**（易跳，别跳）：从 SKILL.md 抽步骤，在该会话助手消息里找步骤标记，算执行走到第几步。报 `{技能} (N 步)：平均走到 Step X/N (Y%)`，并标出常卡住的那一步。
-- **4.4 静态质检**：逐条 SKILL.md 过 14 条规则（见下表）。
-- **4.5a 误触发（Overtrigger）**：被调用了但用户立刻拒绝/无视。报计数 + 例子。
-- **4.5b 欠触发（Undertrigger，最高价值维度）**：抽技能的**能力关键词**（不只触发词，而是它**能做什么**），扫用户消息里匹配该能力却**没**调用技能的任务，原文引用并给改写建议。**复利风险**：若某技能在 5+ 个相关任务出现的会话里**长期 0 触发**，标为「复利风险」—— 欠触发的技能拿不到使用反馈、无法自我改进，缺口会越拉越大，建议立刻改写 description 列为 P0。
-- **4.6 跨技能冲突**：两两比对，找触发词重叠 / 工作流重叠 / 指引矛盾。报冲突对。
-- **4.7 环境一致性**：抽技能引用的文件路径（`test -e`）、CLI 工具（`which`）、目录是否存在，标出失效引用。报每条引用 通过/失败。
-- **4.8 Token 经济性**（易跳，别跳）：性价比 = 触发次数 / 字数；标出「体量大 + 从未触发」的技能为删除/压缩候选。**渐进式加载三层体检**：第 1 层 frontmatter（description ≤ 1024 字符？）/ 第 2 层 SKILL.md 正文（< 500 行？）/ 第 3 层 references（细节是否拆进按需加载的引用文件，还是全塞进 SKILL.md）。500+ 字塞进 SKILL.md 且不用 references 的，标「渐进式加载差」。
+**Claude Code sessions** (`~/.claude/projects/**/*.jsonl`):
+- `Skill` tool_use calls (which skills were invoked)
+- User messages (full text)
+- Assistant messages after skill invocation (for workflow tracking)
+- User messages after skill invocation (for reaction analysis)
 
-### 步骤 4 · 综合分（5 分制）
-5 健康 / 4 良好（1-2 维小问题）/ 3 需关注（1 维明显缺陷或 3+ 维小缺陷）/ 2 有问题（从未触发 / 负面反应 / 重大静态问题）/ 1 损坏（不工作 / 引用缺失 / 根本性错位）。
+**Codex sessions** (`~/.codex/sessions/**/*.jsonl`):
+- `session_meta` events → extract `base_instructions` for skill loading evidence
+- `response_item` events → assistant outputs (workflow tracking)
+- `event_msg` events → tool execution and skill-related events
+- User messages from `turn_context` events (for reaction analysis)
 
-加权计分维度：触发率 25% · 用户反应 20% · 工作流完成 15% · 静态质量 15% · 欠触发 15% · token 经济 10%。
-仅报告不计分：4.5a 误触发（计数+例子）· 4.6 冲突（冲突对）· 4.7 环境（逐条通过/失败）。
+**Note:** Codex injects skills via context rather than explicit `Skill` tool calls. Skill loading (present in `base_instructions`) does NOT equal active invocation. To detect actual use, search for skill-specific workflow markers (step headers, output formats) in `response_item` content within that session. A skill is "invoked" only if the agent produced output following the skill's defined workflow.
 
-## 指令
+**Aggregated:**
+- Per-skill: invocation count, trigger keyword match count
+- Per-skill: user reaction sentiment after invocation
+- Per-skill: workflow step completion markers
 
-**4.4 静态质检 14 规则（通过判据）**：
+### Step 3: Run 8 Analysis Dimensions
 
-| 检查项 | 通过判据 |
-|---|---|
-| frontmatter 格式 | 仅 `name`+`description`，合计 < 1024 字符 |
-| name 格式 | 仅字母、数字、连字符 |
-| description 触发条件 | 以「Use when…」开头或写明显式触发条件 |
-| description 工作流泄漏 | description **不**复述工作流步骤（CSO 违规） |
-| description 强势度 | 主动声明「该在何时用」，而非被动描述 |
-| Overview 小节 | 存在 |
-| Rules 小节 | 存在 |
-| MUST/NEVER 密度 | 数全大写指令词，每 100 词 > 5 个 → 标记 |
-| 字数 | < 500 词（超则标记） |
-| 叙事反模式 | 无「In session X, we found…」式讲故事 |
-| YAML 引号安全 | description 含 `: ` 必须用双引号包裹 |
-| 关键信息位置 | 核心触发条件与主要动作须在 SKILL.md 前 20% |
-| description 250 字符 | 主触发关键词须出现在 description 前 250 字符内 |
-| 触发条件数 | description 内 ≤ 2 个触发条件为佳 |
+**You MUST run ALL 8 dimensions.** The baseline behavior without this skill is to skip dimensions 4.2, 4.3, 4.5b, and 4.8. These are the most valuable dimensions — do not skip them.
 
-**报告格式骨架**：
+#### 4.1 Trigger Rate
+
+Count how many times each skill was actually invoked vs how many times its trigger keywords appeared in user messages.
+
+**Claude Code:** count `Skill` tool_use calls in transcripts.
+**Codex:** count sessions where the agent produced output following the skill's workflow markers (not merely loaded in context).
+
+**Diagnose:**
+- Never triggered → skill may be useless or trigger words wrong
+- Keywords match >> actual invocations → undertrigger problem, description needs work
+- High frequency → core skill, worth optimizing
+
+#### 4.2 Post-Invocation User Reaction
+
+**This dimension is critical and easy to skip. Do not skip it.**
+
+After a skill is invoked in a session, read the user's next 3 messages. Classify:
+- **Negative**: "no", "wrong", "never mind", "not what I wanted", user interrupts
+- **Correction**: user re-describes their intent, manually overrides skill output
+- **Positive**: "good", "ok", "continue", "nice", user follows the workflow
+- **Silent switch**: user changes topic entirely (likely false positive trigger)
+
+Report per-skill satisfaction rate.
+
+#### 4.3 Workflow Completion Rate
+
+**This dimension is critical and easy to skip. Do not skip it.**
+
+For each skill invocation found in session data:
+1. Extract the skill's defined steps from SKILL.md
+2. Search the assistant messages in that session for step markers (Step N, specific output formats defined in the skill)
+3. Calculate: how far did execution get?
+
+Report: `{skill-name} (N steps): avg completed Step X/N (Y%)`
+
+If a specific step is frequently where execution stops, flag it.
+
+#### 4.4 Static Quality Analysis
+
+Check each SKILL.md against these 14 rules:
+
+| Check | Pass Criteria |
+|-------|--------------|
+| Frontmatter format | Only `name` + `description`, total < 1024 chars |
+| Name format | Letters, numbers, hyphens only |
+| Description trigger | Starts with "Use when..." or has explicit trigger conditions |
+| Description workflow leak | Description does NOT summarize the skill's workflow steps (CSO violation) |
+| Description pushiness | Description actively claims scenarios where it should be used, not just passive |
+| Overview section | Present |
+| Rules section | Present |
+| MUST/NEVER density | Count ALL-CAPS directive words; >5 per 100 words = flag |
+| Word count | < 500 words (flag if over) |
+| Narrative anti-pattern | No "In session X, we found..." storytelling |
+| YAML quoting safety | description containing `: ` must be wrapped in double quotes |
+| Critical info position | Core trigger conditions and primary actions must be in the first 20% of SKILL.md |
+| Description 250-char check | Primary trigger keywords must appear within the first 250 characters of description |
+| Trigger condition count | ≤ 2 trigger conditions in description is ideal |
+
+#### 4.5a False Positive Rate (Overtrigger)
+
+Skill was invoked but user immediately rejected or ignored it.
+
+#### 4.5b Undertrigger Detection
+
+**This is the highest-value dimension.** For each skill, extract its **capability keywords** (not just trigger keywords — what the skill CAN do). Then scan user messages for tasks that match those capabilities but where the skill was NOT invoked.
+
+Report: which user messages SHOULD have triggered the skill but didn't, and suggest description improvements.
+
+**Compounding Risk Assessment:**
+For skills with chronic undertriggering (0 triggers across 5+ sessions where relevant tasks appeared), flag as "compounding risk" — undertriggered skills cannot self-improve through usage feedback, causing the gap to widen over time. Recommend immediate description rewrite as P0.
+
+#### 4.6 Cross-Skill Conflicts
+
+Compare all skill pairs:
+- Trigger keyword overlap (same keywords in two descriptions)
+- Workflow overlap (two skills teach similar processes)
+- Contradictory guidance
+
+#### 4.7 Environment Consistency
+
+For each skill, extract referenced:
+- File paths → check if they exist (`test -e`)
+- CLI tools → check if installed (`which`)
+- Directories → check if they exist
+
+Flag any broken references.
+
+#### 4.8 Token Economics
+
+**This dimension is critical and easy to skip. Do not skip it.**
+
+For each skill:
+- Word count (from Step 1)
+- Trigger frequency (from 4.1)
+- Cost-effectiveness = trigger count / word count
+- Flag: large + never-triggered skills as candidates for removal or compression
+
+**Progressive Disclosure Tier Check:**
+Evaluate each skill against the 3-tier loading model:
+- Tier 1 (frontmatter): ~100 tokens. Check: is description ≤ 1024 chars?
+- Tier 2 (SKILL.md body): <500 lines recommended. Check: word count.
+- Tier 3 (reference files): loaded on demand. Check: does skill use reference files for detailed content, or cram everything into SKILL.md?
+
+Flag skills that put 500+ words in SKILL.md without using reference files as "poor progressive disclosure".
+
+### Step 4: Composite Score
+
+Rate each skill on a 5-point scale:
+
+| Score | Meaning |
+|-------|---------|
+| 5 | Healthy: high trigger rate, positive reactions, complete workflows, clean static |
+| 4 | Good: minor issues in 1-2 dimensions |
+| 3 | Needs attention: significant gap in 1 dimension or minor gaps in 3+ |
+| 2 | Problematic: never triggered, or negative user reactions, or major static issues |
+| 1 | Broken: doesn't work, references missing, or fundamentally misaligned |
+
+**Scored dimensions** (weighted average):
+- Trigger rate: 25%
+- User reaction: 20%
+- Workflow completion: 15%
+- Static quality: 15%
+- Undertrigger: 15%
+- Token economics: 10%
+
+**Qualitative dimensions** (reported but not scored):
+- 4.5a Overtrigger: reported as count + examples
+- 4.6 Cross-Skill Conflicts: reported as conflict pairs
+- 4.7 Environment Consistency: reported as pass/fail per reference
+
+## Report Format
 
 ```markdown
-# 技能优化报告
-**日期**: {date}  **范围**: {全部/指定技能}  **会话数据**: {N} 会话, {时间范围}
+# Skill Optimization Report
+**Date**: {date}
+**Scope**: {all / specified skills}
+**Session data**: {N} sessions, {date range}
 
-## 总览
-| 技能 | 触发 | 反应 | 完成 | 静态 | 欠触发 | Token | 评分 |
-|------|------|------|------|------|--------|-------|------|
-| example-skill | 2 | 100% | 86% | B+ | 1 漏 | 486w | 4/5 |
+## Overview
+| Skill | Triggers | Reaction | Completion | Static | Undertrigger | Token | Score |
+|-------|----------|----------|------------|--------|--------------|-------|-------|
+| example-skill | 2 | 100% | 86% | B+ | 1 miss | 486w | 4/5 |
 
-## P0 修复（阻断使用） … ## P1 改进（体验） … ## P2 可选优化 …
+## P0 Fixes (blocking usage)
+1. ...
 
-## 逐技能诊断
-### {技能名}
-#### 4.1 触发率 … (全 8 维)
+## P1 Improvements (better experience)
+1. ...
+
+## P2 Optional Optimizations
+1. ...
+
+## Per-Skill Diagnostics
+### {skill-name}
+#### 4.1 Trigger Rate
+...
+#### 4.2 User Reaction
+...
+(all 8 dimensions)
 ```
 
-## 示例
+## Research Background
 
-`/optimize-skill` 扫全部技能；`/optimize-skill my-skill` 单条；`/optimize-skill skill-a skill-b` 指定多条。
+The analysis dimensions in this report are grounded in the following research:
+- **Undertrigger detection**: Memento-Skills (arXiv:2603.18743) — skills as structured files require accurate routing; unrouted skills cannot self-improve via the read-write learning loop
+- **Description quality**: MCP Description Quality (arXiv:2602.18914) — well-written descriptions achieve 72% tool selection rate vs. 20% random baseline (3.6x improvement)
+- **Information position**: Lost in the Middle (Liu et al., TACL 2024) — U-shaped LLM attention curve
+- **Format impact**: He et al. (arXiv:2411.10541) — format changes alone can cause 9-40% performance variance
+- **Instruction compliance**: IFEval (arXiv:2311.07911) — LLMs struggle with multi-constraint prompts
 
-欠触发证据写法（援引研究 + 原文引用）：
-
-```
-技能 deep-research：能力关键词 = 多源调研/事实核查/引用报告
-  本周相关任务 12 次，触发 0 次 → 复利风险，建议 P0 改写 description
-  证据（应触发却没触发的原话）：
-    用户: "帮我把这三家供应商的 SOC2 合规情况都查一遍并给出处"
-  建议：description 前置触发关键词「多源调研/带引用」
-    —— 依据 MCP 描述质量研究：好描述选择率 72% vs 随机 20%（3.6 倍）
-```
-
-## 注意事项
-
-- **CSO（Claude/Agent Search Optimization）= 把 description 写到让 Agent 在对的时机选对技能**。本技能本质就是查 CSO 违规并量化其代价。
-- **Codex 的「加载」不等于「调用」**：`base_instructions` 里有技能 ≠ 被用，务必靠工作流标记二次确认，否则触发率会虚高。
-- **静态质检的「关键信息位置」源自 Lost in the Middle**（LLM 注意力呈 U 形）：触发条件埋在 SKILL.md 中段会显著掉召回，故要求前置。
-- **格式本身就影响表现**：He et al. 显示仅格式变化即可造成 9–40% 性能波动 —— 改 description 时连同结构、措辞一起评估，别只换词。
-- **欠触发技能无法自愈**：它拿不到使用反馈，问题会随时间复利放大，遇到才优先级降级是错的，应升 P0。
-- **本工具不替代人工**：报告是诊断，不替代针对你环境的验证、测试与专家评审；缺输入/权限/安全边界/成功判据时先停下澄清。
-- 上游原作 hqhq1025/skill-optimizer（MIT）；本条经 sickn33/antigravity-awesome-skills 收录，已按本仓库 SCHEMA 适配重写而非逐字翻译。
-
-## 互见
-- related：`skill-creator` —— 它负责**创建/改写**技能，本条负责**诊断**已有技能；诊断出问题后交给它落地修复。
-- related：`llm-prompt-optimizer` —— 同源 MIT 条目；当问题落到「单条提示词措辞」而非「技能触发与库治理」层面时用它。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT），上游原作 hqhq1025/skill-optimizer（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

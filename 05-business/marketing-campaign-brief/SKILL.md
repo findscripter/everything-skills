@@ -1,14 +1,14 @@
 ---
 name: marketing-campaign-brief
-title: 营销活动方案策划
-description: 当需要把营销目标（产品发布/线索获取/品牌造势/留存召回）转化为一份完整、可执行的活动方案 brief 时使用；做：按「目标·受众·讯息·渠道·度量」五要素框架，产出含活动概述、受众画像、核心讯息、渠道策略、逐周内容日历（含依赖）、内容物料清单、KPI、预算分配、风险与下一步的结构化 brief；不适用于撰写单篇文案/广告创意、纯渠道执行投放或定价方案设计；触发词：营销活动、campaign、活动方案、内容日历、渠道策略、GTM、线索获取
+title: Campaign Plan
+description: Generate a full campaign brief with objectives, audience, messaging, channel strategy, content calendar, and success metrics. Use when planning a product launch, lead-gen push, or awareness campaign, when you need a week-by-week content calendar with dependencies, or when translating a marketing goal into a structured, executable plan.
 domain: 商业/copy
-triggers: [营销活动方案, campaign plan, 活动 brief, 内容日历, content calendar, 渠道策略, 线索获取活动, 品牌造势活动, 把营销目标变成可执行计划, 活动 KPI 与预算分配]
-tags: [marketing, 商业, 营销活动, campaign, 内容日历, 渠道策略, gtm, kpi, 预算分配]
-level: 进阶
+triggers: [campaign plan, content calendar]
+tags: [marketing, campaign, gtm, kpi]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write]
+tools: []
 requires: []
 related: [product-launch-strategy, content-marketing-strategist, content-strategy-planner]
 combines_with: [product-launch-strategy, marketing-performance-report, email-drip-sequence]
@@ -16,86 +16,305 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# Campaign Plan
 
-- 需要把一个营销目标（提升品牌认知、获取线索、发布产品、召回流失用户）转化为一份**完整、结构化、可执行**的活动方案（campaign brief）时使用。
-- 需要逐周（短活动逐日）的内容日历，且各物料之间有先后依赖（如「落地页上线后才能投付费广告」）时使用。
-- 需要在动手前先对齐目标、受众、讯息、渠道、度量五要素，避免「先做后想」时使用。
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-不该用的边界：
-- 只需撰写单篇文案 / 广告创意 / 邮件正文 → 交给文案类技能，本技能负责策略与编排。
-- 只需在某一渠道做单次投放执行、不需要跨渠道与日历规划 → 无需本技能。
-- 只涉及定价方案本身的设计 → 用定价策略技能。
-- 关键输入（目标、受众、时间线）缺失时，**先发问再动手**，不要凭空假设。
+Generate a comprehensive marketing campaign brief with objectives, audience, messaging, channel strategy, content calendar, and success metrics.
 
-## 步骤
+## Trigger
 
-1. 收集输入（缺失即追问，不要假设）：
-   - **活动目标**：首要目标（注册、认知、产品发布、获客、召回流失）。
-   - **目标受众**：人群/角色/行业、痛点、所处购买阶段。
-   - **时间线**：活动周期与固定节点（发布日、活动日、季节性截止）。
-   - **预算区间**（可选）：无预算则产出渠道无关方案，并标注哪些环节需要预算分配。
-   - **补充上下文**（可选）：推广的产品/服务、差异化卖点、过往活动表现、品牌约束、地域聚焦。
-2. 用「目标·受众·讯息·渠道·度量」五要素框架搭建（见「指令」）。
-3. 选渠道：按受众在哪里、目标处于哪个购买阶段、预算、已有物料、历史数据来选，分自有/赢得/付费三类。
-4. 排内容日历：从里程碑倒推，映射漏斗各阶段，按主题成批，平衡渠道，预留约 20% 灵活档期接应应景内容。
-5. 定 KPI 与预算分配，列风险与缓解，给下一步行动项。
-6. 输出完整 brief，结尾询问是否需要下钻某节、起草具体物料或调整预算/时间线。
+User runs `/campaign-plan` or asks to plan, design, or build a marketing campaign.
 
-## 指令
+## Inputs
 
-**五要素框架**
+Gather the following from the user. If not provided, ask before proceeding:
 
-- **目标（Objective）**：先定义成功长什么样，再规划其余。目标须 SMART。按类型对齐度量：
-  - 认知 → 触达、曝光、声量份额；考虑 → 内容互动、邮件订阅、研讨会出席；转化 → 注册、Demo、购买、商机管道；留存 → 流失率下降、增购、NPS；倡导 → 推荐、评价、UGC。
-  - 范例：「活动启动后 6 周内，从北美中端市场 SaaS 公司获取 200 个 MQL。」
-- **受众（Audience）**：用一句话画像而非完整 persona：「在〔公司类型〕担任〔角色〕、正被〔痛点〕困扰、想要〔期望结果〕的人；他们通常通过〔渠道〕发现方案，最在意〔优先级〕。」涵盖人口/心理/行为/购买阶段四维。
-- **讯息（Message）**：核心讯息一句话；3-4 条支撑讯息对齐痛点并附证据（数据/案例/证言）。讯息层级：①我为何在意 → ②方案是什么 → ③为何选你 → ④我该做什么（CTA）。
-- **渠道（Channel）**：按受众在哪里选，而非按自己习惯。每个渠道说明：为何契合受众与目标、内容格式建议、投入强度（低/中/高）、预算占比（若有预算）。
-- **度量（Measure）**：定 KPI 与追踪方式。
+1. **Campaign goal** — the primary objective (e.g., drive signups, increase awareness, launch a product, generate leads, re-engage churned users)
 
-**渠道三分类（择要参考）**
+2. **Target audience** — who the campaign is aimed at (demographics, roles, industries, pain points, buying stage)
 
-| 类别 | 渠道 | 适合 | 投入 |
-|---|---|---|---|
-| 自有 | 博客/官网、邮件、自然社媒、研讨会、播客 | SEO/培育/品牌/线索 | 低-高 |
-| 赢得 | PR/媒体、客座内容、达人/伙伴、社群、评价 | 认知/信誉/扩量 | 中-高 |
-| 付费 | 搜索广告、社媒广告、展示/程序化、赞助内容、活动赞助 | 高意图获客/再营销/认知 | 中-高 |
+3. **Timeline** — campaign duration and any fixed dates (launch date, event date, seasonal deadline)
 
-**内容日历表头**（逐周，短活动逐日）：
+4. **Budget range** — approximate budget or budget tier (optional; if not provided, generate a channel-agnostic plan and note where budget allocation would matter)
 
-```
+5. **Additional context** (optional):
+   - Product or service being promoted
+   - Key differentiators or value propositions
+   - Previous campaign performance or learnings
+   - Brand guidelines or constraints
+   - Geographic focus
+
+## Campaign Brief Structure
+
+Generate a campaign brief with the following sections:
+
+### 1. Campaign Overview
+- Campaign name suggestion
+- One-sentence campaign summary
+- Primary objective with a specific, measurable goal
+- Secondary objectives (if applicable)
+
+### 2. Target Audience
+- Primary audience segment with description
+- Secondary audience segment (if applicable)
+- Audience pain points and motivations
+- Where they spend time (channels, communities, publications)
+- Buying stage alignment (awareness, consideration, decision)
+
+### 3. Key Messages
+- Core campaign message (one sentence)
+- 3-4 supporting messages tailored to audience pain points
+- Message variations by channel (if different tones are needed)
+- Proof points or evidence to support each message
+
+### 4. Channel Strategy
+Recommend channels based on audience and goal. For each channel, include:
+- Why this channel fits the audience and objective
+- Content format recommendations
+- Estimated effort level (low, medium, high)
+- Budget allocation suggestion (if budget was provided)
+
+Consider channels from:
+- Owned: blog, email, website, social media profiles
+- Earned: PR, influencer partnerships, guest posts, community engagement
+- Paid: search ads, social ads, display, sponsored content, events
+
+### 5. Content Calendar
+Create a week-by-week (or day-by-day for short campaigns) content calendar:
+- What content to produce each week
+- Which channel each piece targets
+- Key milestones and deadlines
+- Dependencies between pieces (e.g., "landing page must be live before paid ads launch")
+
+Format as a table:
+
 | Week | Content Piece | Channel | Owner/Notes | Status |
-```
-依赖示例：landing page must be live before paid ads launch。生产周期基准：博客 3-5 工作日；邮件 2-3 工作日；社媒帖 1-2 工作日；落地页 5-7 工作日；视频 2-4 周；电子书/白皮书 2-4 周。
+|------|--------------|---------|-------------|--------|
 
-**预算分配起始框架**（按目标与历史数据调整）：付费获客 30-40%、内容生产 20-30%、活动赞助 10-20%、工具技术 10-15%、测试实验 5-10%；最高把握渠道吃 60-70% 付费预算，留 15-20% 测新；含 10-15% 应急储备。
+### 6. Content Pieces Needed
+List every content asset required for the campaign:
+- Asset name and type (blog post, email, social post, ad creative, landing page, etc.)
+- Brief description of what it should contain
+- Priority (must-have vs. nice-to-have)
+- Suggested timeline for creation
 
-## 示例
+### 7. Success Metrics
+Define KPIs aligned to the campaign objective:
+- Primary KPI with target number
+- Secondary KPIs (3-5)
+- How each metric will be tracked
+- Reporting cadence recommendation
 
-完整 brief 固定十节：①活动概述（命名+一句话总结+主/次目标）②目标受众（主/次画像+痛点+在哪+购买阶段）③核心讯息（核心句+3-4 支撑+证据点+按渠道变体）④渠道策略（每渠道：契合理由+格式+投入强度+预算占比）⑤内容日历（上表）⑥所需物料清单（名称类型+描述+优先级 must/nice-to-have+排期）⑦成功指标（主 KPI 带目标值+3-5 次 KPI+追踪方式+复盘节奏）⑧预算分配（按渠道+生产 vs 分发+应急）⑨风险与缓解（2-3 条）⑩下一步（即时行动项+所需审批+关键决策点）。
+If ~~product analytics is connected, reference any available historical performance benchmarks to inform targets.
 
-按活动类型选 KPI（节选）：
-- 认知类：触达/曝光、品牌提及量、声量份额、直接流量、粉丝增长。
-- 线索类：总线索、MQL、CPL、线索→MQL 转化率、影响管道。
-- 产品发布类：注册/试用、激活率、媒体覆盖、社交热度、功能采用。
+### 8. Budget Allocation (if budget provided)
+- Breakdown by channel or activity
+- Production costs vs. distribution costs
+- Contingency recommendation (typically 10-15%)
 
-输出末尾追问：「需要我：下钻某一节？从日历起草具体物料？做竞品分析支撑讯息？为不同预算或时间线调整方案？」
+### 9. Risks and Mitigations
+- 2-3 potential risks (timeline, audience mismatch, channel underperformance)
+- Mitigation strategy for each
 
-## 注意事项
+### 10. Next Steps
+- Immediate action items to kick off the campaign
+- Stakeholder approvals needed
+- Key decision points
 
-- 每个目标都写成 SMART，带具体可量化的数字；KPI 必须对齐活动目标，不要堆砌无关指标。
-- 内容日历每一项都落到具体渠道、负责人与时间节点，并显式标出物料间依赖；禁止「发个社媒」这类含糊建议。
-- 渠道按受众所在选择，不要按团队习惯；自有/赢得靠时间，付费靠预算，三类要均衡触点。
-- 预留约 20% 日历档期给应景/反应式内容；按月依数据调整预算，不要「设完即忘」。
-- 若接入产品分析数据，引用历史表现基准来校准目标值。
-- 产出是方案而非执行物料，不替代针对具体环境的测试与专家评审。
+## Planning Reference
 
-## 互见
+### Campaign Framework: Objective, Audience, Message, Channel, Measure
 
-- requires：无
-- related：`product-launch-strategy`（产品/版本发布的专项分阶段编排）、`product-marketing-gtm-strategy`、`content-strategy-planner`（内容选题与编辑路线图）、`cmo-marketing-advisor`、`competitive-analysis`
-- combines_with：`social-media-content-creator`（从日历起草具体社媒帖文）、`paid-ads-strategist`（活动含付费放大时）、`campaign-attribution-analytics`（活动上线后做归因与效果度量）、`pricing-strategy`（活动涉及定价变更时）
+Every campaign should be built on this five-part framework:
 
----
-采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+#### Objective
+Define what success looks like before planning anything else.
+
+- **Awareness**: increase brand or product visibility (measured by reach, impressions, share of voice)
+- **Consideration**: drive engagement and education (measured by content engagement, email signups, webinar attendance)
+- **Conversion**: generate leads or sales (measured by signups, demos, purchases, pipeline)
+- **Retention**: re-engage existing customers (measured by churn reduction, upsell, NPS)
+- **Advocacy**: turn customers into promoters (measured by referrals, reviews, UGC)
+
+Good objectives are SMART: Specific, Measurable, Achievable, Relevant, Time-bound.
+
+Example: "Generate 200 marketing qualified leads from mid-market SaaS companies in North America within 6 weeks of campaign launch."
+
+#### Audience
+Define who you are trying to reach with enough specificity to guide messaging and channel decisions.
+
+- **Demographics**: role/title, seniority, company size, industry
+- **Psychographics**: motivations, pain points, goals, objections
+- **Behavioral**: where they consume content, how they buy, what they have engaged with before
+- **Buying stage**: are they unaware of the problem, researching solutions, or ready to buy?
+
+Create a brief audience profile (not a full persona) for campaign planning:
+> "[Role] at [company type] who is struggling with [pain point] and looking for [desired outcome]. They typically discover solutions through [channels] and care most about [priorities]."
+
+#### Message
+Craft the core message and supporting points that will resonate with the audience.
+
+- **Core message**: one sentence that captures what you want the audience to think, feel, or do
+- **Supporting messages**: 3-4 points that provide evidence, address objections, or elaborate on benefits
+- **Proof points**: data, case studies, testimonials, or third-party validation for each supporting message
+- **Differentiation**: what makes your offering different from alternatives (including doing nothing)
+
+Message hierarchy:
+1. Why should I care? (addresses the pain point or opportunity)
+2. What is the solution? (positions your offering)
+3. Why you? (differentiates from alternatives)
+4. What should I do? (call to action)
+
+#### Channel
+Select channels based on where your audience is, not where you are most comfortable. See the Channel Selection Guide below.
+
+#### Measure
+Define how you will know the campaign worked. See Success Metrics by Campaign Type below.
+
+### Channel Selection Guide
+
+#### Owned Channels
+
+| Channel | Best For | Typical Metrics | Effort |
+|---------|----------|----------------|--------|
+| Blog/Website | SEO, thought leadership, education | Traffic, time on page, conversions | Medium |
+| Email | Nurture, retention, announcements | Open rate, CTR, conversions | Low-Medium |
+| Social (organic) | Awareness, community, brand building | Engagement, reach, follower growth | Medium |
+| Webinars | Education, lead gen, product demos | Registrations, attendance, pipeline | High |
+| Podcast | Thought leadership, brand awareness | Downloads, subscriber growth | High |
+
+#### Earned Channels
+
+| Channel | Best For | Typical Metrics | Effort |
+|---------|----------|----------------|--------|
+| PR/Media | Awareness, credibility, launches | Coverage, share of voice, referral traffic | High |
+| Guest content | Audience expansion, SEO, credibility | Referral traffic, backlinks | Medium |
+| Influencer/Partner | Audience expansion, trust | Reach, engagement, referral conversions | Medium-High |
+| Community | Awareness, trust, feedback | Mentions, engagement, referral traffic | Medium |
+| Reviews/Ratings | Credibility, SEO, consideration | Review volume, rating, conversion lift | Low-Medium |
+
+#### Paid Channels
+
+| Channel | Best For | Typical Metrics | Effort |
+|---------|----------|----------------|--------|
+| Search ads (SEM) | High-intent lead capture | CPC, CTR, conversion rate, CPA | Medium |
+| Social ads | Awareness, retargeting, lead gen | CPM, CPC, CTR, CPA, ROAS | Medium |
+| Display/Programmatic | Awareness, retargeting | Impressions, CPM, view-through conversions | Low-Medium |
+| Sponsored content | Thought leadership, lead gen | Engagement, leads, cost per lead | Medium |
+| Events/Sponsorships | Relationship building, brand | Leads, meetings, pipeline influenced | High |
+
+#### Channel Selection Criteria
+When choosing channels, consider:
+- Where does your target audience spend time?
+- What is the buying stage you are targeting? (awareness channels vs. conversion channels)
+- What is your budget? (paid channels require spend; owned/earned require time)
+- What content assets do you already have or can you produce?
+- What has worked in the past? (reference historical data if available)
+
+### Content Calendar Creation
+
+#### Calendar Planning Process
+1. **Start with milestones**: campaign launch, event dates, product releases, seasonal moments
+2. **Work backward**: what needs to be live and when? What is the production lead time?
+3. **Map content to funnel stages**: ensure coverage across awareness, consideration, and conversion
+4. **Batch by theme**: group related content pieces into weekly or bi-weekly themes
+5. **Balance channels**: do not over-index on one channel; ensure the audience sees the campaign across touchpoints
+6. **Build in flexibility**: leave 20% of calendar slots open for reactive or opportunistic content
+
+#### Content Cadence Guidelines
+- **Blog**: 1-4 posts per week depending on team size and goals
+- **Email newsletter**: weekly or bi-weekly for most audiences
+- **Social media**: 3-7 posts per week per platform (varies by platform)
+- **Paid campaigns**: continuous during campaign window with creative refreshes every 2-4 weeks
+- **Webinars**: monthly or quarterly depending on resources
+
+#### Production Timeline Benchmarks
+- Blog post: 3-5 business days (research, draft, review, publish)
+- Email campaign: 2-3 business days (copy, design, test, send)
+- Social media posts: 1-2 business days (draft, design, schedule)
+- Landing page: 5-7 business days (copy, design, development, QA)
+- Video content: 2-4 weeks (script, production, editing)
+- Ebook/whitepaper: 2-4 weeks (outline, draft, design, review)
+
+### Budget Allocation Approaches
+
+#### Percentage of Revenue Method
+- Industry benchmark: 5-15% of revenue for marketing, with B2B typically at 5-10% and B2C at 10-15%
+- Startups and growth-stage companies often invest 15-25% of revenue in marketing
+- Within the marketing budget, allocate across brand (long-term) and performance (short-term)
+
+#### Channel Allocation Framework
+A common starting framework (adjust based on goals and historical data):
+
+| Category | Percentage of Budget | Examples |
+|----------|---------------------|----------|
+| Paid acquisition | 30-40% | Search ads, social ads, display |
+| Content production | 20-30% | Blog, video, design, ebooks |
+| Events and sponsorships | 10-20% | Conferences, webinars, meetups |
+| Tools and technology | 10-15% | Analytics, automation, CRM |
+| Testing and experimentation | 5-10% | New channels, A/B tests, pilots |
+
+#### Budget Optimization Principles
+- Start with your highest-confidence channel and allocate 60-70% of paid budget there
+- Reserve 15-20% for testing new channels or tactics
+- Shift budget monthly based on performance data (do not set and forget)
+- Account for production costs, not just media spend
+- Include a 10-15% contingency for unexpected opportunities or overruns
+
+### Success Metrics by Campaign Type
+
+#### Awareness Campaign
+| Metric | What It Measures |
+|--------|-----------------|
+| Reach/Impressions | How many people saw the campaign |
+| Brand mention volume | Increase in brand conversations |
+| Share of voice | Your mentions vs. competitors |
+| Direct traffic | People coming to your site unprompted |
+| Social follower growth | Audience building |
+
+#### Lead Generation Campaign
+| Metric | What It Measures |
+|--------|-----------------|
+| Total leads | Volume of new contacts |
+| Marketing qualified leads (MQLs) | Leads meeting quality threshold |
+| Cost per lead (CPL) | Efficiency of spend |
+| Lead-to-MQL conversion rate | Quality of leads generated |
+| Pipeline influenced | Revenue opportunity created |
+
+#### Product Launch Campaign
+| Metric | What It Measures |
+|--------|-----------------|
+| Signups or trials | Adoption of new product |
+| Activation rate | Users who complete key first action |
+| Media coverage | Earned media hits |
+| Social buzz | Mentions, shares, engagement spike |
+| Feature adoption | Usage of specific launched features |
+
+#### Retention/Engagement Campaign
+| Metric | What It Measures |
+|--------|-----------------|
+| Churn rate change | Customer retention improvement |
+| Engagement rate | Interactions with campaign content |
+| NPS or CSAT change | Satisfaction improvement |
+| Upsell/cross-sell revenue | Expansion revenue |
+| Feature adoption | Usage of promoted features |
+
+#### Event/Webinar Campaign
+| Metric | What It Measures |
+|--------|-----------------|
+| Registrations | Interest generated |
+| Attendance rate | Conversion from registration |
+| Engagement during event | Questions, polls, chat activity |
+| Post-event conversions | Leads or pipeline from attendees |
+| Content repurposing reach | Downstream audience from recordings |
+
+## Output
+
+Present the full campaign brief with clear headings and formatting. After the brief, ask:
+
+"Would you like me to:
+- Dive deeper into any section?
+- Draft specific content pieces from the calendar?
+- Create a competitive analysis to inform the messaging?
+- Adjust the plan for a different budget or timeline?"

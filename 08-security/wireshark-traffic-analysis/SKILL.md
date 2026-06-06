@@ -1,14 +1,14 @@
 ---
 name: wireshark-traffic-analysis
-title: Wireshark 流量分析
-description: 当需要捕获、过滤并分析网络数据包以排障、做安全调查或性能优化时使用；用 Wireshark/tshark 抓包、写显示过滤器、追踪 TCP/HTTP 流、跑统计与专家信息、导出对象与证据；不适用于无授权抓取他人流量、无密钥还原 TLS 明文、纯应用层日志分析；触发词：Wireshark、tshark、抓包、PCAP、显示过滤器、display filter、follow stream、流量分析、packet capture、网络排障
+title: Wireshark Network Traffic Analysis
+description: Execute comprehensive network traffic analysis using Wireshark to capture, filter, and examine network packets for security investigations, performance optimization, and troubleshooting.
 domain: 安全/ops
-triggers: [Wireshark, tshark, 抓包, PCAP, 显示过滤器, display filter, follow stream, 流量分析, packet capture, 网络排障]
+triggers: [Wireshark, tshark, PCAP, display filter, follow stream, packet capture]
 tags: [wireshark, tshark, pcap, network-analysis, packet-capture, security, troubleshooting, ops]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Wireshark, tshark, dumpcap, editcap]
+tools: []
 requires: []
 related: [threat-detection-hunting, security-incident-response, shodan-reconnaissance, firmware-reverse-analyst]
 combines_with: [threat-detection-hunting, security-incident-response, penetration-testing-methodology]
@@ -16,132 +16,495 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Wireshark Network Traffic Analysis
 
-- 网络排障：连接超时、丢包、重传、慢应用，需要从数据包层面定位。
-- 安全调查：可疑流量、端口扫描、ARP 欺骗、恶意软件 C2 信标、明文凭据外泄取证。
-- 协议分析：还原 TCP/HTTP/DNS 会话，提取传输的文件与内容。
-- 性能分析：协议分布、会话/端点排行、随时间的吞吐曲线。
+## Purpose
 
-**不该用边界**：
-- 未获授权抓取他人网络流量（违法/违规），必须先确认授权与隐私合规。
-- 想看 TLS/HTTPS 明文但无服务端私钥或浏览器 `SSLKEYLOGFILE`：现代 ECDHE 密码套件无法被动解密，本技能不覆盖。
-- 纯应用层日志/指标分析（用 APM、日志系统），不需要包级抓取。
+Execute comprehensive network traffic analysis using Wireshark to capture, filter, and examine network packets for security investigations, performance optimization, and troubleshooting. This skill enables systematic analysis of network protocols, detection of anomalies, and reconstruction of network conversations from PCAP files.
 
-Agent 优先用命令行 `tshark`/`dumpcap` 实现自动化与可复现；GUI Wireshark 用于交互式深挖与可视化。
+## Inputs / Prerequisites
 
-## 步骤
+### Required Tools
+- Wireshark installed (Windows, macOS, or Linux)
+- Network interface with capture permissions
+- PCAP/PCAPNG files for offline analysis
+- Administrator/root privileges for live capture
 
-1. **抓包**：实时抓包用 `dumpcap`/`tshark`（需管理员/root 权限），离线分析直接读 PCAP/PCAPNG。抓包阶段用**捕获过滤器**（BPF 语法）限制数据量。
-2. **过滤**：用**显示过滤器**（Wireshark 语法，与捕获过滤器不同）按 IP、端口、协议、TCP 标志、内容、分析标记逐步收窄。
-3. **追踪流**：对可疑包 Follow TCP/UDP/HTTP/TLS Stream，还原完整会话与请求/响应配对。
-4. **统计**：看协议分层（Protocol Hierarchy）、会话（Conversations）、端点（Endpoints）、流图、I/O 图，定位异常通信对与时间规律。
-5. **安全研判**：检测端口扫描、ARP 欺骗、异常 DNS、大流量外传；用专家信息（Expert Information）看自动诊断。
-6. **导出证据**：导出过滤子集、HTTP 对象（文件）、文本/CSV 分析结果，记录方法与发现。
+### Technical Requirements
+- Understanding of network protocols (TCP, UDP, HTTP, DNS)
+- Familiarity with IP addressing and ports
+- Knowledge of OSI model layers
+- Understanding of common attack patterns
 
-## 指令
+### Use Cases
+- Network troubleshooting and connectivity issues
+- Security incident investigation
+- Malware traffic analysis
+- Performance monitoring and optimization
+- Protocol learning and education
 
-捕获过滤器（BPF，抓包前生效，限制采集）：
+## Outputs / Deliverables
+
+### Primary Outputs
+- Filtered packet captures for specific traffic
+- Reconstructed communication streams
+- Traffic statistics and visualizations
+- Evidence documentation for incidents
+
+## Core Workflow
+
+### Phase 1: Capturing Network Traffic
+
+#### Start Live Capture
+Begin capturing packets on network interface:
+
 ```
-host 192.168.1.100              # 仅某主机
-port 80                          # 仅某端口
-net 192.168.1.0/24               # 仅某网段
-not arp                          # 排除 ARP
-host 192.168.1.100 and port 443  # 组合
+1. Launch Wireshark
+2. Select network interface from main screen
+3. Click shark fin icon or double-click interface
+4. Capture begins immediately
 ```
 
-显示过滤器（抓后分析，语法不同于上）：
+#### Capture Controls
+| Action | Shortcut | Description |
+|--------|----------|-------------|
+| Start/Stop Capture | Ctrl+E | Toggle capture on/off |
+| Restart Capture | Ctrl+R | Stop and start new capture |
+| Open PCAP File | Ctrl+O | Load existing capture file |
+| Save Capture | Ctrl+S | Save current capture |
+
+#### Capture Filters
+Apply filters before capture to limit data collection:
+
 ```
-# 地址 / 端口
-ip.addr == 192.168.1.1     ip.src == ...     ip.dst == ...
-tcp.port == 80    udp.port == 53    tcp.dstport == 443    tcp.srcport == 22
+# Capture only specific host
+host 192.168.1.100
 
-# 协议
-http      dns      ftp      ssh      icmp      arp      dhcp      smb || smb2
-tls || ssl                                   # 加密 web
+# Capture specific port
+port 80
 
-# TCP 标志
-tcp.flags.syn == 1                           # 连接尝试
-tcp.flags.reset == 1                          # RST 复位
-tcp.flags.syn == 1 && tcp.flags.ack == 0      # 仅 SYN（初始/扫描特征）
+# Capture specific network
+net 192.168.1.0/24
 
-# 内容
-frame contains "password"     http.request.uri contains "login"
+# Exclude specific traffic
+not arp
 
-# 分析标记（排障关键）
-tcp.analysis.retransmission   tcp.analysis.duplicate_ack
-tcp.analysis.zero_window      dns.flags.rcode != 0
+# Combine filters
+host 192.168.1.100 and port 443
+```
 
-# 逻辑组合：&&  ||  !  ()
+### Phase 2: Display Filters
+
+#### Basic Filter Syntax
+Filter captured packets for analysis:
+
+```
+# IP address filters
+ip.addr == 192.168.1.1              # All traffic to/from IP
+ip.src == 192.168.1.1               # Source IP only
+ip.dst == 192.168.1.1               # Destination IP only
+
+# Port filters
+tcp.port == 80                       # TCP port 80
+udp.port == 53                       # UDP port 53
+tcp.dstport == 443                   # Destination port 443
+tcp.srcport == 22                    # Source port 22
+```
+
+#### Protocol Filters
+Filter by specific protocols:
+
+```
+# Common protocols
+http                                  # HTTP traffic
+https or ssl or tls                   # Encrypted web traffic
+dns                                   # DNS queries and responses
+ftp                                   # FTP traffic
+ssh                                   # SSH traffic
+icmp                                  # Ping/ICMP traffic
+arp                                   # ARP requests/responses
+dhcp                                  # DHCP traffic
+smb or smb2                          # SMB file sharing
+```
+
+#### TCP Flag Filters
+Identify specific connection states:
+
+```
+tcp.flags.syn == 1                   # SYN packets (connection attempts)
+tcp.flags.ack == 1                   # ACK packets
+tcp.flags.fin == 1                   # FIN packets (connection close)
+tcp.flags.reset == 1                 # RST packets (connection reset)
+tcp.flags.syn == 1 && tcp.flags.ack == 0  # SYN-only (initial connection)
+```
+
+#### Content Filters
+Search for specific content:
+
+```
+frame contains "password"            # Packets containing string
+http.request.uri contains "login"    # HTTP URIs with string
+tcp contains "GET"                   # TCP packets with string
+```
+
+#### Analysis Filters
+Identify potential issues:
+
+```
+tcp.analysis.retransmission          # TCP retransmissions
+tcp.analysis.duplicate_ack           # Duplicate ACKs
+tcp.analysis.zero_window             # Zero window (flow control)
+tcp.analysis.flags                   # Packets with issues
+dns.flags.rcode != 0                 # DNS errors
+```
+
+#### Combining Filters
+Use logical operators for complex queries:
+
+```
+# AND operator
+ip.addr == 192.168.1.1 && tcp.port == 80
+
+# OR operator
+dns || http
+
+# NOT operator
+!(arp || icmp)
+
+# Complex combinations
 (ip.src == 192.168.1.1 || ip.src == 192.168.1.2) && tcp.port == 443
 ```
 
-命令行（Agent 自动化首选）：
-```bash
-# 抓包到文件（-i 接口, -c 包数, -a 时长秒, -f 捕获过滤器）
-tshark -i eth0 -f "port 443" -a duration:60 -w out.pcapng
+### Phase 3: Following Streams
 
-# 读 PCAP 并应用显示过滤器(-Y)，自定义字段输出(-T fields)
-tshark -r out.pcapng -Y "http.request" -T fields -e ip.src -e http.host -e http.request.uri
+#### TCP Stream Reconstruction
+View complete TCP conversation:
 
-# 统计：协议分层 / 会话
-tshark -r out.pcapng -q -z io,phs
-tshark -r out.pcapng -q -z conv,tcp
-
-# 追踪某条 TCP 流(stream 编号从 0 起)
-tshark -r out.pcapng -q -z follow,tcp,ascii,0
-
-# 切分大文件 / 提取时间段
-editcap -c 100000 big.pcapng split.pcapng
+```
+1. Right-click on any TCP packet
+2. Select Follow > TCP Stream
+3. View reconstructed conversation
+4. Toggle between ASCII, Hex, Raw views
+5. Filter to show only this stream
 ```
 
-GUI 关键动作：Follow > TCP/HTTP Stream；Statistics > Protocol Hierarchy / Conversations / Endpoints / I/O Graph；Analyze > Expert Information；File > Export Objects > HTTP（提取文件）；File > Export Specified Packets（存过滤子集）。常用快捷键：Ctrl+E 起停抓包、Ctrl+O 打开、Ctrl+F 查找、Ctrl+Shift+X 清除过滤器。
+#### Stream Types
+| Stream | Access | Use Case |
+|--------|--------|----------|
+| TCP Stream | Follow > TCP Stream | Web, file transfers, any TCP |
+| UDP Stream | Follow > UDP Stream | DNS, VoIP, streaming |
+| HTTP Stream | Follow > HTTP Stream | Web content, headers |
+| TLS Stream | Follow > TLS Stream | Encrypted traffic (if keys available) |
 
-## 示例
+#### Stream Analysis Tips
+- Review request/response pairs
+- Identify transmitted files or data
+- Look for credentials in plaintext
+- Note unusual patterns or commands
 
-**示例 1 · HTTP 明文凭据取证**
-```
-显示过滤器: http.request.method == "POST"
-→ 定位登录表单包 → Follow HTTP Stream → 搜 username/password 参数
-结论: 凭据以明文 form-data 传输（高危）。
-```
+### Phase 4: Statistical Analysis
 
-**示例 2 · 恶意软件 C2 信标识别**
-```
-1. 过滤 dns，找随机域名、异常查询模式
-2. 检查高频固定间隔的 beaconing
-3. 锁定可疑 IP: ip.dst == 可疑IP，分析流量规律
-指标: 规律时间间隔 + 编码/加密载荷 + 异常端口/协议。
-```
+#### Protocol Hierarchy
+View protocol distribution:
 
-**示例 3 · Web 应用变慢排障**
 ```
-1. ip.addr == WEB_SERVER 锁定目标
-2. Statistics > Service Response Time 看响应时延
-3. tcp.analysis.retransmission 看重传
-4. I/O Graph 看吞吐随时间形态
-结论: 大量 TCP 重传 → 网络拥塞/丢包。
-```
+Statistics > Protocol Hierarchy
 
-**端口扫描检测**
-```
-ip.src == 可疑IP && tcp.flags.syn == 1   # 单源 SYN 打很多目标端口
-→ 配合 Statistics > Conversations 看单源命中大量目的端口。
+Shows:
+- Percentage of each protocol
+- Packet counts
+- Bytes transferred
+- Protocol breakdown tree
 ```
 
-## 注意事项
+#### Conversations
+Analyze communication pairs:
 
-- **合规第一**：仅抓授权流量；含敏感数据的 PCAP 要妥善加密保存，按隐私政策处理，避免不必要地采集凭据。
-- **捕获过滤器 ≠ 显示过滤器**：前者是 BPF（`host`/`port`/`net`），抓包时生效；后者是 Wireshark 语法（`ip.addr`/`tcp.port`），抓后分析。二者语法不可混用。
-- **性能**：大流量抓包用捕获过滤器限流；长会话定期保存；抓包时关闭名称解析（`tshark -n`）；用 `editcap` 切分大文件，别靠删包来"过滤"，改用显示过滤器。
-- **加密**：无密钥看不到 TLS 明文。需解密时配 Edit > Preferences > Protocols > TLS 导入私钥，或浏览器导出 pre-master secret（`SSLKEYLOGFILE`）；部分现代密码套件无法被动解密。
-- **过滤器报错**：输入框变红即语法错；逐步增量构建，用 Expression 按钮选合法字段名。
-- **抓不到包**：确认选对接口、有管理员权限、网卡激活；必要时关闭混杂模式。
-- **专家信息速查**：重传=丢包，重复 ACK=可能丢失，Zero Window=接收方缓冲满，RST=连接被复位/拦截，Out-of-Order=重排（少量正常，过多有问题）。
+```
+Statistics > Conversations
 
-## 互见
+Tabs:
+- Ethernet: MAC address pairs
+- IPv4/IPv6: IP address pairs
+- TCP: Connection details (ports, bytes, packets)
+- UDP: Datagram exchanges
+```
 
-- code-reviewer：审计涉及网络协议/安全的代码时，可结合本技能的抓包证据交叉验证实际通信行为。
+#### Endpoints
+View active network participants:
 
----
-本条采编自 sickn33/antigravity-awesome-skills（MIT），适配重写为中文 Agent 消费版。
+```
+Statistics > Endpoints
+
+Shows:
+- All source/destination addresses
+- Packet and byte counts
+- Geographic information (if enabled)
+```
+
+#### Flow Graph
+Visualize packet sequence:
+
+```
+Statistics > Flow Graph
+
+Options:
+- All packets or displayed only
+- Standard or TCP flow
+- Shows packet timing and direction
+```
+
+#### I/O Graphs
+Plot traffic over time:
+
+```
+Statistics > I/O Graph
+
+Features:
+- Packets per second
+- Bytes per second
+- Custom filter graphs
+- Multiple graph overlays
+```
+
+### Phase 5: Security Analysis
+
+#### Detect Port Scanning
+Identify reconnaissance activity:
+
+```
+# SYN scan detection (many ports, same source)
+ip.src == SUSPECT_IP && tcp.flags.syn == 1
+
+# Review Statistics > Conversations for anomalies
+# Look for single source hitting many destination ports
+```
+
+#### Identify Suspicious Traffic
+Filter for anomalies:
+
+```
+# Traffic to unusual ports
+tcp.dstport > 1024 && tcp.dstport < 49152
+
+# Traffic outside trusted network
+!(ip.addr == 192.168.1.0/24)
+
+# Unusual DNS queries
+dns.qry.name contains "suspicious-domain"
+
+# Large data transfers
+frame.len > 1400
+```
+
+#### ARP Spoofing Detection
+Identify ARP attacks:
+
+```
+# Duplicate ARP responses
+arp.duplicate-address-frame
+
+# ARP traffic analysis
+arp
+
+# Look for:
+# - Multiple MACs for same IP
+# - Gratuitous ARP floods
+# - Unusual ARP patterns
+```
+
+#### Examine Downloads
+Analyze file transfers:
+
+```
+# HTTP file downloads
+http.request.method == "GET" && http contains "Content-Disposition"
+
+# Follow HTTP Stream to view file content
+# Use File > Export Objects > HTTP to extract files
+```
+
+#### DNS Analysis
+Investigate DNS activity:
+
+```
+# All DNS traffic
+dns
+
+# DNS queries only
+dns.flags.response == 0
+
+# DNS responses only
+dns.flags.response == 1
+
+# Failed DNS lookups
+dns.flags.rcode != 0
+
+# Specific domain queries
+dns.qry.name contains "domain.com"
+```
+
+### Phase 6: Expert Information
+
+#### Access Expert Analysis
+View Wireshark's automated findings:
+
+```
+Analyze > Expert Information
+
+Categories:
+- Errors: Critical issues
+- Warnings: Potential problems
+- Notes: Informational items
+- Chats: Normal conversation events
+```
+
+#### Common Expert Findings
+| Finding | Meaning | Action |
+|---------|---------|--------|
+| TCP Retransmission | Packet resent | Check for packet loss |
+| Duplicate ACK | Possible loss | Investigate network path |
+| Zero Window | Buffer full | Check receiver performance |
+| RST | Connection reset | Check for blocks/errors |
+| Out-of-Order | Packets reordered | Usually normal, excessive is issue |
+
+## Quick Reference
+
+### Keyboard Shortcuts
+| Action | Shortcut |
+|--------|----------|
+| Open file | Ctrl+O |
+| Save file | Ctrl+S |
+| Start/Stop capture | Ctrl+E |
+| Find packet | Ctrl+F |
+| Go to packet | Ctrl+G |
+| Next packet | ↓ |
+| Previous packet | ↑ |
+| First packet | Ctrl+Home |
+| Last packet | Ctrl+End |
+| Apply filter | Enter |
+| Clear filter | Ctrl+Shift+X |
+
+### Common Filter Reference
+```
+# Web traffic
+http || https
+
+# Email
+smtp || pop || imap
+
+# File sharing  
+smb || smb2 || ftp
+
+# Authentication
+ldap || kerberos
+
+# Network management
+snmp || icmp
+
+# Encrypted
+tls || ssl
+```
+
+### Export Options
+```
+File > Export Specified Packets    # Save filtered subset
+File > Export Objects > HTTP       # Extract HTTP files
+File > Export Packet Dissections   # Export as text/CSV
+```
+
+## Constraints and Guardrails
+
+### Operational Boundaries
+- Capture only authorized network traffic
+- Handle captured data according to privacy policies
+- Avoid capturing sensitive credentials unnecessarily
+- Properly secure PCAP files containing sensitive data
+
+### Technical Limitations
+- Large captures consume significant memory
+- Encrypted traffic content not visible without keys
+- High-speed networks may drop packets
+- Some protocols require plugins for full decoding
+
+### Best Practices
+- Use capture filters to limit data collection
+- Save captures regularly during long sessions
+- Use display filters rather than deleting packets
+- Document analysis findings and methodology
+
+## Examples
+
+### Example 1: HTTP Credential Analysis
+
+**Scenario**: Investigate potential plaintext credential transmission
+
+```
+1. Filter: http.request.method == "POST"
+2. Look for login forms
+3. Follow HTTP Stream
+4. Search for username/password parameters
+```
+
+**Finding**: Credentials transmitted in cleartext form data.
+
+### Example 2: Malware C2 Detection
+
+**Scenario**: Identify command and control traffic
+
+```
+1. Filter: dns
+2. Look for unusual query patterns
+3. Check for high-frequency beaconing
+4. Identify domains with random-looking names
+5. Filter: ip.dst == SUSPICIOUS_IP
+6. Analyze traffic patterns
+```
+
+**Indicators**:
+- Regular timing intervals
+- Encoded/encrypted payloads
+- Unusual ports or protocols
+
+### Example 3: Network Troubleshooting
+
+**Scenario**: Diagnose slow web application
+
+```
+1. Filter: ip.addr == WEB_SERVER
+2. Check Statistics > Service Response Time
+3. Filter: tcp.analysis.retransmission
+4. Review I/O Graph for patterns
+5. Check for high latency or packet loss
+```
+
+**Finding**: TCP retransmissions indicating network congestion.
+
+## Troubleshooting
+
+### No Packets Captured
+- Verify correct interface selected
+- Check for admin/root permissions
+- Confirm network adapter is active
+- Disable promiscuous mode if issues persist
+
+### Filter Not Working
+- Verify filter syntax (red = error)
+- Check for typos in field names
+- Use Expression button for valid fields
+- Clear filter and rebuild incrementally
+
+### Performance Issues
+- Use capture filters to limit traffic
+- Split large captures into smaller files
+- Disable name resolution during capture
+- Close unnecessary protocol dissectors
+
+### Cannot Decrypt TLS/SSL
+- Obtain server private key
+- Configure at Edit > Preferences > Protocols > TLS
+- For ephemeral keys, capture pre-master secret from browser
+- Some modern ciphers cannot be decrypted passively
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.

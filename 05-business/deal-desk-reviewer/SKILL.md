@@ -1,14 +1,14 @@
 ---
 name: deal-desk-reviewer
-title: 交易台合同与折扣评审
-description: 当成交前需评审单笔交易、折扣超出 AE 权限、客户红线修改 MSA、或要把折扣审批路由给具名审批人时使用；做交易毛利与风险打分、折扣审批链路由、条款雷区扫描，产出"评分卡＋具名审批人路由"建议包；不适用于撰写提案、设计折扣矩阵、或对全文合同做深度法务红线（转交对应技能）。触发词：折扣审批、MSA红线、毛利评分
+title: commercial-policy
+description: Use when designing or revising a company's commercial policy — the rules of engagement governing discounts off list price, approver thresholds, exception flows, and the deal framework that Deal Desk and AEs operate under. Covers discount matrix design (ARR band x term length x payment terms x strategic value), commercial policy design, exception policy, discount governance, approval thresholds, deal framework structure, and policy linting (contradictions, gaps, cliff edges, gaming surfaces). For Head of Commercial, Head of Deal Desk, VP Sales, or RevOps at the policy-design moment — NOT per-deal application (that is deal-desk) and NOT pricing model selection (that is pricing-strategist).
 domain: 商业/sales
-triggers: [折扣审批, 折扣超AE权限, MSA红线, 交易毛利评分, 交易台评审, 审批链路由, 条款雷区扫描, 无上限赔偿, CFO签字, deal desk, discount approval]
-tags: [商业, sales, 交易台, 折扣审批, 毛利评分, 合同红线, msa, 条款风险, 审批路由, revops]
-level: 进阶
+triggers: [deal desk, discount approval]
+tags: [sales, msa, revops]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [deal_scorer.py, discount_approval_router.py, terms_redliner.py]
+tools: []
 requires: []
 related: [contract-proposal-writer, cro-revenue-advisor, pricing-strategy, sales-enablement]
 combines_with: [contract-proposal-writer, pricing-strategy, cro-revenue-advisor]
@@ -16,83 +16,143 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# commercial-policy
 
-在「销售已提出折扣」与「CFO/CRO/法务签字」之间的那一刻使用本技能，把诉求量化并路由给具体的人。典型触发：
+## Purpose
 
-- 销售提出的折扣超出 AE 审批权限。
-- 客户返回了带红线修改的 MSA，需在转法务前做分诊。
-- 交易需要 CFO 签字，你要一份可辩护的毛利拆解。
-- RFP 需多年期条款，需对交易结构（付款、续约形态）打分。
-- 续约扩容捆绑了折扣，需核验是否符合商业政策。
-- 在搭建交易台审批队列，需要一致的路由规则。
+Design the **rules of engagement** that govern discounting off list price — the artifact that Deal Desk and AEs operate under. Three deterministic tools:
 
-**不该用于**：撰写提案/SOW/MSA（用合同与提案撰写类技能）；重新设计折扣矩阵与审批阈值（用 commercial-policy 类政策设计技能）；对整篇合同正文做深度法务红线（用 general-counsel-advisor 类技能，本技能只吃结构化条款 JSON）。
+1. `discount_matrix_builder.py` — builds a 4-dimensional matrix (ARR band × term length × payment terms × strategic value tier), each cell carrying an approved discount band backed by current win-rate + NRR data, plus an approver tier (AE / Manager / Director / VP / CFO).
+2. `exception_router.py` — when an asks-for-discount lands outside the matrix, routes it through the named approver chain, attaches required compensating commitments (multi-year prepay + named expansion path + reference commitment + MSA tightening), produces machine-readable audit-trail metadata, and flags precedent risk if 3+ similar exceptions have landed in the trailing quarter.
+3. `policy_linter.py` — lints the matrix for governance defects: approver inversion, band inversion, margin-floor violation, coverage gaps, cliff edges, undefined strategic tiers, inconsistent margin floors, thin data backing.
 
-**核心红线：本技能从不自动批准。** 每个产出都是「数字评分卡 ＋ 路由给具名人类审批人」的建议，即便结论是 APPROVE，也必须点名谁来签。
+The output is the **policy itself** (matrix + exception flow + lint report), not a per-deal application of it.
 
-## 步骤
+## When to use
 
-1. **录入交易** —— 让销售/AE 填写 `assets/deal_intake_template.md`，含 ARR、期限、折扣、付款条件、客户分层、战略标记，以及客户标注的条款红线（约 20 分钟）。
-2. **打分毛利＋风险** —— 跑 `deal_scorer.py`，按 5 个维度（毛利、风险、战略价值、商业契合、结构形态）给 0-100 综合分，输出四档结论之一：**APPROVE / REVIEW / ESCALATE / DECLINE**，每档绑定具名审批链。
-3. **路由折扣** —— 跑 `discount_approval_router.py`，把「折扣百分比＋交易规模＋分层」映射到具名审批链（AE → 经理 → 总监 → VP → CFO/CRO）并给出预估周期天数。企业地板价、SMB 快车道等修正项会显式标出。
-4. **扫描红线** —— 跑 `terms_redliner.py`，得到按 CRITICAL/HIGH/MEDIUM/LOW 排序的发现，每条附标准反提条款（counter）和必须签字的法务/商务审批人。
-5. **组装评审包** —— 把三项产出合成一份交易台评审包，务必包含具名审批链。该包是**建议**，不是批准。
+- A new Head of Commercial or Head of Deal Desk is writing the company's first formal commercial policy
+- The existing matrix is older than 6 months and discount drift is showing in margin reviews
+- Reps are citing "Maria approved 28% on Acme last quarter" as precedent and you need to break the precedent loop
+- Q-over-Q exception count is rising and you suspect the matrix bands are mispriced
+- CFO has tightened the margin floor and the matrix needs to be rebuilt against the new constraint
+- A board / exec is asking "why do we discount this much?" and you need a data-backed defensible policy
 
-## 指令
+**Do NOT use this skill to:**
+- Approve a specific deal — that's `commercial/skills/deal-desk`
+- Set the pricing model + list price — that's `commercial/skills/pricing-strategist`
+- Author a proposal / SOW / MSA prose — that's `business-growth/contract-and-proposal-writer`
+- Make the strategic "when do we hire a VP Sales" call — that's `c-level-advisor/cro-advisor`
 
-三个确定性脚本，均为纯标准库实现，统一支持 `--help`、`--sample`、`--input <json>`、`--output {human,json}`：
+## Workflow
+
+1. **Audit current discount distribution.** Pull the last 4 quarters of closed-won + closed-lost deals from CRM. Fill `assets/policy_design_template.md` (~20 minutes). Capture: `arr`, `discount_pct`, `term_months`, `payment_terms_days`, `strategic_value`, `win_lost`, `nrr_12mo` per deal.
+
+2. **Design the data-backed matrix.** Run `scripts/discount_matrix_builder.py --input policy_intake.json --profile {saas|enterprise-software|api|marketplace|services}`. Output is a 4-dimensional matrix with approved discount band + approver tier + margin floor + observed win-rate + observed NRR per cell. Cells with `n < 5` observed deals are flagged `THIN`.
+
+3. **Design the exception flow.** Run `scripts/exception_router.py --sample` to see the structure. For each severity band of exception (0-5 pts over, 5-10, 10-20, 20+), the router enforces required compensating commitments. Codify the flow in your policy doc; the router becomes the operational implementation.
+
+4. **Lint the matrix.** Run `scripts/policy_linter.py --input matrix.json`. Get a ranked findings report — BLOCKER / MAJOR / MINOR — across 10 lint rules. Resolve every BLOCKER before publishing the matrix to AEs.
+
+5. **Publish + quarterly review.** Publish the matrix as a versioned artifact. Re-run the builder and the linter every quarter against the new 4-quarter rolling deal corpus. Cells where observed NRR < `target_nrr` are flagged for review.
+
+## Scripts
+
+| Script | Purpose | Industry profiles |
+|---|---|---|
+| `scripts/discount_matrix_builder.py` | 4-dim data-backed matrix with approver tiers + margin floors | saas, enterprise-software, api, marketplace, services |
+| `scripts/exception_router.py` | Routes exception requests with compensating commitments + audit trail | n/a (matrix-driven) |
+| `scripts/policy_linter.py` | 10-rule lint pass over the matrix | n/a (deterministic across profiles) |
+
+All three: stdlib-only, `--help`, `--sample`, `--input <json>`, `--output {markdown,json}`.
+
+## References
+
+- `references/discount_governance_canon.md` — Discount governance evidence base: OpenView Partners benchmarks, David Skok (For Entrepreneurs) discount math, Tomasz Tunguz on discount distribution, Bessemer State of the Cloud, KeyBanc Capital Markets SaaS Survey, Bridge Group AE-compensation research, RevOps Co-op playbooks, Forrester deal-desk research. 8 sources.
+- `references/policy_design_canon.md` — Policy-as-artifact design: SaaStr (Jason Lemkin), Winning by Design (Jacco van der Kooij) on commercial discipline, Forrester deal-desk maturity research, MIT Sloan on incentive-system gaming, McKinsey on commercial-policy effectiveness, Bain *Pricing Power*, Salesforce CPQ implementation guides. 7 sources.
+- `references/policy_anti_patterns.md` — 8 named anti-patterns with sourced studies + countermeasures + lint-rule mapping: precedent-sets-policy, no-data-backing, no-compensating-commitments, approver/margin misalignment, no audit trail, cliff edges, undefined "strategic value", no quarterly review. 8 sources.
+
+## Assumptions
+
+- The skill assumes the **pricing model and list price already exist** (set via `commercial/skills/pricing-strategist`). Commercial-policy governs **discounts off list** — it does not set list.
+- The CFO owns the `min_margin_pct` constraint (margin floor). The CRO / Head of Deal Desk owns the `max_discount_pct_without_exception` constraint (band cap). The skill keeps these inputs separate by design (per Bain *Pricing Power* — mixing accountability is the most common cause of policy drift).
+- Industry profiles bake in *customary* band widths. Companies with idiosyncratic economics should pass overrides via the input JSON.
+- The matrix is data-backed but **not data-driven**: the band is set by the constraints + profile; observed data is annotation that tells you whether the cell is performing. If observed NRR < target, that's a signal to **review the band**, not to keep discounting deeper.
+- "Strategic value" tiers (`logo`, `expansion`, `lighthouse`) are useful only if defined with concrete tests. The lint rule L06 enforces this.
+- This is a policy-design skill, not a deal-approval skill. It never says "approve" — it produces the matrix + exception flow that **deal-desk** then applies.
+
+## Anti-patterns
+
+- **Setting discount bands without data backing.** "VP Sales argued for it in a Slack thread" is not data backing. If you can't show win-rate and NRR for the band, the band is rhetoric. (Caught by `data_backing` per cell + lint L08.)
+- **Letting precedent set policy.** "Maria approved 28% on Acme last quarter" is not a band — it's an exception that didn't break the policy. `exception_router.py` flags 3+ similar exceptions as a signal that **the matrix is wrong**, not the deal. (Anti-pattern AP-1.)
+- **Approving exceptions without compensating commitments.** Discount-for-nothing is a leak (Winning by Design). Every exception severity band requires non-negotiable commitments. (`exception_router.COMPENSATING_LIBRARY`.)
+- **Cliff edges at round-number ARR thresholds.** A hard $100K threshold produces deal-size gaming within 2 quarters (MIT Sloan agency theory). Smooth the gradient. (Lint L05.)
+- **"Strategic value" as an undefined catch-all.** If "strategic" is undefined, within a quarter 60% of deals will be flagged strategic and the matrix is dead. Define with concrete tests. (Lint L06.)
+- **No quarterly review.** Markets shift; matrices unchanged for 12 months are mispriced. Re-run the builder and linter every quarter. (Anti-pattern AP-8.)
+- **Mixing CFO and CRO accountabilities.** CFO owns the margin floor; CRO owns the band cap. Same accountable owner = predictable drift toward whatever they're compensated on (Bain *Pricing Power*).
+- **Skipping the lint pass before publishing.** BLOCKER findings (approver inversion, margin-floor violation, inverted bands) make the policy unsignable. Lint is the gate, not the after-action review.
+
+## Distinct from
+
+| Sibling | Scope | Difference |
+|---|---|---|
+| `commercial/skills/deal-desk` | **Applies** the policy to one deal at a time | Commercial-policy **designs the policy itself**. Deal-desk consumes the matrix; commercial-policy produces it. |
+| `commercial/skills/pricing-strategist` | Sets pricing **model** (per-seat / usage / value / tiered) + **list price** | Commercial-policy governs **discounts off list**. Pricing-strategist sets the menu; commercial-policy governs the menu's discount discipline. |
+| `c-level-advisor/cro-advisor` | Strategic CRO judgment ("when do we hire VP Sales?", "is our motion product-led or sales-led?") | Strategic, not operational. Commercial-policy is the artifact CRO commissions; it isn't CRO judgment itself. |
+| `c-level-advisor/cfo-advisor` | Margin floor + unit-economics judgment | The CFO supplies `min_margin_pct` to commercial-policy as an input. Commercial-policy **operationalizes** the CFO's constraint as per-cell margin floors. |
+| `business-growth/contract-and-proposal-writer` | Authors proposal/SOW/MSA **prose** | Commercial-policy emits structured matrix + audit-trail JSON, not customer-facing prose. |
+
+## Forcing-question library (Matt Pocock grill discipline)
+
+Walked one at a time by `/cs:grill-commercial` or the Commercial orchestrator before the skill runs. Recommended answer + canon citation per question. Never bundled.
+
+1. **"What's your observed discount distribution across the last 4 quarters — and is the median inside or outside your current matrix?"**
+   Recommended: pull the corpus before designing any band. If the observed median is outside the matrix, the matrix is rhetoric.
+   Canon: OpenView SaaS Benchmarks; RevOps Co-op playbooks. Anti-pattern AP-2.
+
+2. **"What's the win-rate AND the 12-month NRR for deals at your current 'max discount' band?"**
+   Recommended: both, not one. A band with high win-rate but low NRR is buying logos with leaky-bucket retention. Tunguz benchmarks: top-NRR-quartile companies discount 6 pts less than bottom quartile.
+   Canon: Tomasz Tunguz; Bessemer State of the Cloud.
+
+3. **"Who at the company owns the margin floor, AND who owns the discount-band cap — are those the same person?"**
+   Recommended: CFO owns floor; CRO/Head of Deal Desk owns cap. Same owner = drift toward what they're compensated on.
+   Canon: Bain *Pricing Power* — separation of accountability is the structural fix. Anti-pattern AP-4.
+
+4. **"How is 'strategic value' defined in your current policy — with concrete tests, or with adjectives?"**
+   Recommended: concrete tests. "Top-20 named account in 2026 target list" is a test; "important customer" is not.
+   Canon: SaaStr (Lemkin); Forrester deal-desk research. Lint rule L06. Anti-pattern AP-7.
+
+5. **"For exceptions above your matrix max, what compensating commitments are required — and are they in writing before the approver signs?"**
+   Recommended: minimum multi-year prepay + named expansion path; deeper exceptions require reference commitment + MSA tightening + executive sponsor.
+   Canon: Winning by Design (van der Kooij); McKinsey B2B pricing studies. Anti-pattern AP-3.
+
+6. **"Has the same kind of exception been approved 3+ times in the trailing quarter — and if so, is the matrix wrong?"**
+   Recommended: 3+ similar exceptions means the band is mispriced. Rebuild the matrix; don't keep approving exceptions.
+   Canon: OpenView discount drift studies; `exception_router._precedent_risk`. Anti-pattern AP-1.
+
+7. **"When was the last time you re-ran the matrix against the previous 4 quarters of data?"**
+   Recommended: quarterly. Annual review is too slow; the disciplined cohort revises quarterly.
+   Canon: OpenView benchmarks; RevOps Co-op. Anti-pattern AP-8.
+
+8. **"For every exception in the last quarter, is there a machine-readable audit-trail record — or is the approval in Slack and email?"**
+   Recommended: structured record in CPQ or equivalent. Slack/email approvals don't survive year-2 renewal negotiations.
+   Canon: Salesforce CPQ best practices; Forrester deal-desk maturity research. Anti-pattern AP-5.
+
+Walk depth-first. Lock 1-4 before opening 5-8. After all 8 are answered, invoke `discount_matrix_builder.py` → `policy_linter.py` → `exception_router.py --sample` in sequence to produce the policy artifact.
+
+## Quick examples
 
 ```bash
-# 1. 交易打分（profile: saas | enterprise-software | services | marketplace）
-python3 scripts/deal_scorer.py --sample
-python3 scripts/deal_scorer.py --input my_deal.json --profile enterprise-software
+# Design the matrix
+python3 scripts/discount_matrix_builder.py --sample
+python3 scripts/discount_matrix_builder.py --input policy_intake.json --profile saas --output json > matrix.json
 
-# 2. 折扣审批路由
-python3 scripts/discount_approval_router.py --sample
-python3 scripts/discount_approval_router.py --input my_deal.json --profile saas
+# Lint the matrix
+python3 scripts/policy_linter.py --sample
+python3 scripts/policy_linter.py --input matrix.json
 
-# 3. 条款红线扫描（侦测 10 类雷区：无上限赔偿、MFN、永久回授许可、缺 DPA、NET-60+、宽泛禁挖角等）
-python3 scripts/terms_redliner.py --sample
-python3 scripts/terms_redliner.py --input my_deal_terms.json --output json
+# Walk the exception flow
+python3 scripts/exception_router.py --sample
+python3 scripts/exception_router.py --input request.json --output json
 ```
 
-打分权重（毛利 30%、风险 20%、战略 15%、商业 20%、结构 15%）偏 CFO 视角，是 `score_deal()` 顶部常量，可按需调权。若公司已有成文折扣矩阵，通过输入 JSON 的 `policy_thresholds` 字段覆盖默认行业阈值。
-
-**逼问清单（成交前必须先答完再跑脚本）**，深度优先、逐题问、不打包：
-
-1. 满折扣下的毛利是多少？同等条件下下季 pipeline 长什么样？（一个 40% 先例会重塑 3 个季度的 pipeline）
-2. 此折扣在标准折扣矩阵内还是外？若在外，显式标出政策例外并路由给具名例外审批人。
-3. 除 ARR 外的战略价值（logo、参考客户、扩容路径）？须有书面、可核验的承诺。
-4. 客户是否签了赔偿上限、责任上限、DPA（涉欧盟数据）？**无上限赔偿是关键信号否决项，无论毛利多高都阻断 APPROVE。**
-5. 付款条件 NET-30/45/60+？优先 NET-30；每多 15 天约损失 2% 有效交易价值。
-6. 多年期年度预付，还是年度自动续约？多年预付 > 年度预付 > 年度自动续约；无 60 天通知的自动续约是红线。
-7. 折扣链每一跳的具名审批人是谁？「VP Sales」不是审批人，「Maria Singh，VP Sales」才是。
-
-锁定第 1-4 题后再开 5-7 题；7 题答完后按 `deal_scorer.py` → `discount_approval_router.py` → `terms_redliner.py` 顺序执行。
-
-## 示例
-
-样例交易（28% 折扣的企业级 SaaS，带无上限赔偿＋MFN）：综合分 **55.4 / 100，正确判为 DECLINE**，并路由到 **AE → Deal Desk → VP Sales → CFO → CRO → General Counsel**。这印证了关键信号（无上限赔偿）覆盖综合分的设计——高分不等于可批。
-
-## 注意事项
-
-- **绝不自动批准。** 任何结论（含 APPROVE）都点名必须签字的人，产出始终是建议。
-- **不要因分数高就跳过红线扫描。** 高综合分＋`UNCAPPED_INDEMNITY` 仍是 DECLINE，关键信号覆盖综合分。
-- **别拿它做任意合同正文的法务审查。** 本技能只吃结构化条款 JSON；散文红线请用 general-counsel-advisor 的合同风险扫描脚本。
-- **别把折扣路由器当折扣计算器。** 它路由的是 AE/客户已提出的折扣，不计算"正确"折扣；定价逻辑在 pricing-strategist。
-- **别把每笔交易都路由到 CFO。** 路由器停在能签该交易的最低权限层；过度升级拖慢漏斗、纵容 AE 过度打折。
-- **别手改审批链以跳过某一跳。** 修正项（企业地板价、SMB 快车道）是显式的；隐藏跳跃会破坏审计轨迹。
-- 本技能假设**商业政策已存在**（折扣区间、付款条件规范、赔偿上限），它只应用政策、不设计政策；政策设计见 commercial-policy。红线器只覆盖 10 类最常见雷区，**不替代**对完整合同的法务总顾问审查。
-
-## 互见
-
-- **pricing-strategist**：设定定价模型（按席位/用量/分层、标价、打包），在策略层而非单笔交易。
-- **contract-and-proposal-writer**：撰写提案/SOW/MSA，产出是文档；交易台是签字**前**的闸门。
-- **commercial-policy**：设计折扣矩阵与审批阈值；交易台逐笔**应用**该政策。
-- **general-counsel-advisor**：对完整合同正文做深度法务红线与条款书分析；交易台用结构化条款 JSON。
-- **cfo-advisor**：烧钱率、单位经济、融资模型等战略财务；交易台是单笔交易粒度。
-
----
-
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+The sample matrix lints to **FAIL** with 4 BLOCKERs + 6 MAJORs + 2 MINORs — by design, to exercise every rule path. A real policy intake should lint to PASS or PASS_WITH_WARNINGS. The sample exception (42% on a $320K logo deal) routes to AE → Sales Manager → Director → VP Sales with 3 required compensating commitments (multi-year 36mo, prepay, named expansion path).

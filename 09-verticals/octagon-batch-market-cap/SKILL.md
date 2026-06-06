@@ -1,14 +1,14 @@
 ---
 name: octagon-batch-market-cap
-title: 多公司市值批量对比
-description: 当需要在一次查询里批量获取并对比多家上市公司市值（同业估值排名、按市值筛选、组合按规模分布）时使用；通过 Octagon MCP 的 octagon-agent 工具传入一组 ticker，返回市值结构化表格并按规模分类与相对估值给出对比观察；不适用于单家公司深挖、实时报价/下单、或未配置 Octagon MCP 的环境；触发词：市值对比、批量市值、market cap、按市值筛选、规模分类
+title: Batch Market Cap
+description: Retrieve market capitalization data for multiple companies at once using Octagon MCP. Use when comparing valuations across peers, screening by market cap, or analyzing a portfolio's composition by company size.
 domain: 领域/fintech
-triggers: [市值对比, 批量市值, market cap, 多公司估值排名, 按市值筛选, 规模分类 mega/large/mid-cap, Octagon MCP, octagon-agent]
-tags: [fintech, 市值, 估值对比, 同业对比, 组合分析, 筛选, octagon, mcp]
-level: 入门
+triggers: [market cap, Octagon MCP, octagon-agent]
+tags: [fintech, octagon, mcp]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Octagon MCP, octagon-agent]
+tools: []
 requires: []
 related: [octagon-company-market-cap, octagon-historical-market-cap, octagon-industry-pe-ratios, octagon-sector-pe-ratios]
 combines_with: [octagon-equity-research-analyst, octagon-financial-health-scores, company-tear-sheet]
@@ -16,36 +16,29 @@ license: MIT
 source: OctagonAI/skills
 source_license: MIT
 ---
-# 多公司市值批量对比
+# Batch Market Cap
 
-## 何时使用
+Retrieve market capitalization data for multiple companies in a single query using the Octagon MCP server.
 
-当用户要**一次性获取多家公司的市值并做横向对比**时使用：同业估值排名、按市值（mega/large/mid-cap 等）筛选标的、分析组合按公司规模的分布与集中度。通过 Octagon MCP 的 `octagon-agent` 工具传入一组 ticker，返回市值结构化表格。
+## Prerequisites
 
-**不该用的边界：**
-- 只关心**单家公司**的市值或财务细节 —— 改用 `octagon-ratings-snapshot` / `octagon-stock-quote` 等单标的技能，本技能价值在「批量 + 对比」。
-- 需要**实时报价、下单、券商撮合** —— 本技能返回的是分析参考值，非可直接交易的实时数据。
-- 运行环境**未配置 Octagon MCP**（需装好 `octagon-mcp` 并设置 `OCTAGON_API_KEY`），否则 `octagon-agent` 工具不可见。
-- 需要利润表/资产负债表/增长率等报表明细时 —— 改用同源对应技能（见互见）。
+Ensure Octagon MCP is configured in your AI agent (Cursor, Claude Desktop, Windsurf, etc.). See [references/mcp-setup.md](references/mcp-setup.md) for installation instructions.
 
-## 步骤
+## Workflow
 
-1. **确认前置**：环境已配置 Octagon MCP（Cursor / Claude Desktop / Windsurf 等均可），`octagon-agent` 工具可见。配置核心：`OCTAGON_API_KEY=<key> npx -y octagon-mcp`（Windows 用 `cmd /c "set OCTAGON_API_KEY=<key> && npx -y octagon-mcp"`）。
-2. **整理 ticker 清单**：把要对比的公司代码列齐（如 AAPL、MSFT、GOOGL）。可按板块、组合持仓或行业自然分组。
-3. **构造自然语言 prompt**：用一句话把整组 ticker 喂给 `octagon-agent`。
-4. **调用 `octagon-agent` 工具**，由 octagon-companies-agent / octagon-financials-agent / octagon-web-search-agent 返回市值表格。
-5. **生成对比观察**：按绝对规模排名 → 规模分类归档 → 相对大小（与榜首/中位/板块合计之比）→ 估值含义（市值 vs 营收/盈利）四步总结。
-6. **按需下钻**：基于结果追问规模变化、集中度或与同业的差距。
+### 1. Prepare Company List
 
-## 指令
+Compile the list of ticker symbols you want to analyze (e.g., AAPL, MSFT, GOOGL).
 
-查询格式（自然语言模板）：
+### 2. Execute Query via Octagon MCP
+
+Use the `octagon-agent` tool with a natural language prompt:
 
 ```
 Retrieve market capitalization data for the following companies: <TICKER1>, <TICKER2>, <TICKER3>.
 ```
 
-MCP 调用：
+**MCP Call Format:**
 
 ```json
 {
@@ -57,22 +50,9 @@ MCP 调用：
 }
 ```
 
-**市值规模分类（用于把结果归档）：**
+### 3. Expected Output
 
-| 类别 | 市值区间 | 典型特征 |
-|------|----------|----------|
-| Mega-cap 巨型 | >$200B | 市场领导者、全球化、稳定 |
-| Large-cap 大型 | $10B–$200B | 成熟、多元化、增长温和 |
-| Mid-cap 中型 | $2B–$10B | 有增长潜力、覆盖较少 |
-| Small-cap 小型 | $300M–$2B | 高增长、高波动 |
-| Micro-cap 微型 | $50M–$300M | 投机性、流动性有限 |
-| Nano-cap 纳型 | <$50M | —— |
-
-市值口径：`Market Cap = 股价 × 流通股数`。注意区分基本股数与全面摊薄（含期权/认股权证/可转换证券）。
-
-## 示例
-
-输出形如：
+The agent returns a structured table with market cap data:
 
 | Company | Ticker | Market Cap (USD) | Source |
 |---------|--------|------------------|--------|
@@ -80,49 +60,189 @@ MCP 调用：
 | Microsoft | MSFT | $3.143 trillion | Companies Market Cap |
 | Alphabet | GOOGL | $2.00018 trillion | Octagon Companies Agent |
 
-数据来源：octagon-companies-agent、octagon-financials-agent、octagon-web-search-agent。
+**Data Sources**: octagon-companies-agent, octagon-financials-agent, octagon-web-search-agent
 
-**多场景 prompt 示例：**
+### 4. Interpret Results
 
+See [references/interpreting-results.md](references/interpreting-results.md) for guidance on:
+- Comparing market caps across companies
+- Understanding size categories
+- Analyzing relative valuations
+- Tracking market cap changes
+
+## Example Queries
+
+**Basic Batch Query:**
 ```
-# 板块对比（科技巨头）
+Retrieve market capitalization data for the following companies: AAPL, MSFT, GOOG.
+```
+
+**Sector Comparison:**
+```
 Get market caps for tech giants: AAPL, MSFT, GOOGL, AMZN, META, NVDA.
+```
 
-# 组合/同业分析（车企）
+**Portfolio Analysis:**
+```
 What are the market capitalizations of TSLA, F, GM, and RIVN?
+```
 
-# 行业对比（大型银行）
+**Industry Comparison:**
+```
 Compare market caps of major banks: JPM, BAC, WFC, C, GS.
+```
 
-# 指数成分
+**Index Components:**
+```
 Get market caps for the top 10 S&P 500 companies by weight.
+```
 
-# 跨市场对比（注意非美股用本地后缀，如 .IL）
+**International Comparison:**
+```
 Compare market caps of AAPL, SMSN.IL (Samsung), TSM, and ASML.
 ```
 
-**对比框架（拿到表格后怎么读）：**
-- 绝对规模：直接按市值排名。
-- 相对规模：与榜首/行业中位/板块合计求比值（板块合计比可近似市场份额）。
-- 估值含义：市值高而营收低=溢价；市值低而营收高=折价；市值相近而盈利不同=P/E 差异，结合基本面（P/E、P/S）才有意义。
+## Market Cap Categories
 
-## 注意事项
+### Size Classifications
 
-- **前置依赖**：未配置 Octagon MCP 或缺少 `OCTAGON_API_KEY` 时 `octagon-agent` 不可用。
-- **数据一致性**：跨公司对比务必用**同一来源、同一日期**；不同源/不同日的市值不可直接比，需标注差异。
-- **币种与口径**：跨市场公司先统一换算为单一币种（默认 USD）；确认股数口径（基本 vs 摊薄）一致。
-- **缺失与异常**：缺数据要显式标注「不可用」；遇异常规模（过大/过小）先排查再下结论。
-- **时效**：市值随股价实时变动，本技能返回值为参考快照，非实时报价；结论需自行复核，不能替代交易决策。
-- 缺少 ticker 等必要输入时先停下确认，不要臆造代码。
+| Category | Market Cap Range |
+|----------|------------------|
+| Mega-cap | >$200 billion |
+| Large-cap | $10B - $200B |
+| Mid-cap | $2B - $10B |
+| Small-cap | $300M - $2B |
+| Micro-cap | $50M - $300M |
+| Nano-cap | <$50M |
 
-## 互见
+### Category Characteristics
 
-- related：`octagon-stock-quote` —— 市值 + 当前价，组合看单标的快照。
-- related：`octagon-ratings-snapshot` —— 单家公司评级与关键指标快照（与本技能的多家批量互补）。
-- related：`octagon-income-statement-data` —— 市值对照营收/盈利，判断溢价或折价。
-- combines_with：`octagon-financial-growth-metrics` —— 市值变化 + 增长指标，做规模与成长的联合分析。
-- combines_with：`octagon-price-target-consensus` —— 市值 vs 分析师目标价，评估上行/下行空间。
-- combines_with：`octagon-equity-research-analyst` —— 批量市值作为同业筛选的入口，再交编排技能深挖。
+| Category | Typical Traits |
+|----------|----------------|
+| Mega-cap | Market leaders, global reach, stable |
+| Large-cap | Established, diversified, moderate growth |
+| Mid-cap | Growth potential, less coverage |
+| Small-cap | Higher growth, higher volatility |
+| Micro-cap | Speculative, limited liquidity |
 
----
-采编自 OctagonAI/skills（MIT 许可），已做中文适配重写。
+## Comparative Analysis Framework
+
+### Peer Comparison
+
+| Analysis | Purpose |
+|----------|---------|
+| Absolute Size | Rank by market cap |
+| Relative Size | Ratio to peers |
+| Size Distribution | Concentration analysis |
+| Historical Rank | Position changes |
+
+### Industry Context
+
+| Comparison | What It Shows |
+|------------|---------------|
+| vs. Industry Leader | Distance from top |
+| vs. Industry Median | Above/below average |
+| vs. Sector Total | Market share proxy |
+
+### Valuation Implications
+
+| Scenario | Interpretation |
+|----------|----------------|
+| Higher market cap, lower revenue | Premium valuation |
+| Lower market cap, higher revenue | Discount valuation |
+| Similar market cap, different earnings | P/E differential |
+
+## Use Cases
+
+### Portfolio Allocation
+
+| Use | Description |
+|-----|-------------|
+| Concentration Analysis | Largest holdings by cap |
+| Diversification Check | Size mix across holdings |
+| Rebalancing | Adjust for cap changes |
+
+### Competitive Analysis
+
+| Use | Description |
+|-----|-------------|
+| Market Leadership | Largest in industry |
+| Relative Positioning | Size vs. competitors |
+| Growth Comparison | Cap changes over time |
+
+### Screening
+
+| Use | Description |
+|-----|-------------|
+| Size Filter | Include/exclude by cap |
+| Category Selection | Target specific sizes |
+| Index Eligibility | Meets cap requirements |
+
+## Market Cap Calculations
+
+### Basic Formula
+
+```
+Market Cap = Share Price × Shares Outstanding
+```
+
+### Factors Affecting Market Cap
+
+| Factor | Impact |
+|--------|--------|
+| Price Change | Direct proportional effect |
+| Share Buybacks | Reduces shares, concentrates value |
+| New Issuance | Dilutes if price doesn't rise |
+| Stock Splits | No effect (price adjusts) |
+
+### Fully Diluted Market Cap
+
+| Component | Description |
+|-----------|-------------|
+| Basic Shares | Currently outstanding |
+| Options | Employee stock options |
+| Warrants | Convertible instruments |
+| Convertibles | Convertible debt/preferred |
+
+## Data Considerations
+
+### Source Variations
+
+| Factor | Consideration |
+|--------|---------------|
+| Timing | Real-time vs. delayed data |
+| Currency | USD conversion rates |
+| Share Count | Basic vs. diluted |
+| Updates | Frequency of refresh |
+
+### Handling Discrepancies
+
+| Issue | Approach |
+|-------|----------|
+| Different sources | Note the variance |
+| Different dates | Use consistent timing |
+| Currency mix | Convert to single currency |
+| Missing data | Flag unavailable items |
+
+## Analysis Tips
+
+1. **Use consistent data**: Same source/date for fair comparison.
+
+2. **Consider context**: Industry norms for market cap.
+
+3. **Track changes**: Market cap shifts over time.
+
+4. **Combine with fundamentals**: P/E, P/S for valuation context.
+
+5. **Watch for outliers**: Investigate unusual sizes.
+
+6. **Global perspective**: Different markets, different scales.
+
+## Integration with Other Skills
+
+| Skill | Combined Use |
+|-------|--------------|
+| stock-quote | Market cap + current price |
+| income-statement | Market cap vs. revenue/earnings |
+| financial-metrics-analysis | Valuation multiples |
+| analyst-estimates | Market cap vs. price targets |

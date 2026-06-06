@@ -1,14 +1,14 @@
 ---
 name: app-store-optimization
-title: 应用商店优化ASO
-description: 当为 iOS/Android App 提升商店搜索排名与下载转化时使用；做关键词研究打分、元数据优化、竞品差距分析、A/B 测试与上线清单，产出可落地的标题/副标题/描述/关键词域改写及测试方案；不适用于 Web 应用（用网页 SEO）、企业内部应用、TestFlight 测试版或纯付费投放策略。触发词：ASO、应用商店优化、应用排名、关键词、元数据
+title: App Store Optimization (ASO)
+description: Use when improving an iOS/Android app's store search ranking and download conversion: keyword research and scoring, metadata optimization, competitor gap analysis, A/B testing, and launch checklists — producing actionable title/subtitle/description/keyword-field rewrites and test
 domain: 商业/growth
-triggers: [ASO, 应用商店优化, App Store优化, 应用商店排名, App关键词, 应用元数据, Play商店优化, 商店详情页, 提升应用排名, 应用曝光, 应用商店SEO, App转化率, 应用上架]
-tags: [aso, 商业, growth, 增长, 应用商店, 关键词研究, 元数据优化, 竞品分析, a/b测试, 移动营销, ios, android]
-level: 进阶
+triggers: [ASO, app store optimization, app store ranking, app keywords, app metadata, play store optimization, app store listing, improve app rankings, app visibility, app store SEO, mobile app marketing, app conversion rate]
+tags: [aso, growth, ios, android, keyword-research, metadata, competitor-analysis, a/b-testing, mobile-marketing, business]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [keyword_analyzer.py, metadata_optimizer.py, competitor_analyzer.py, aso_scorer.py, ab_test_planner.py, review_analyzer.py, launch_checklist.py, localization_helper.py]
+tools: []
 requires: []
 related: [seo-audit, seo-content-writer, conversion-rate-optimizer, product-launch-strategy]
 combines_with: [product-launch-strategy, conversion-rate-optimizer, paid-ads-strategist]
@@ -16,118 +16,189 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-为 Apple App Store / Google Play 上的移动 App 提升「搜索可见度」与「下载转化率」时使用。典型场景：做关键词研究与打分、优化商店详情页元数据、分析竞品 ASO 策略、规划上线、跑 A/B 测试改进转化、追踪排名变化。
+Use this skill to improve **search visibility** and **download conversion** for a mobile app on the Apple App Store or Google Play. Typical jobs: research and score keywords, optimize store-listing metadata, analyze competitor ASO strategy, plan a launch, run A/B tests to lift conversion, and track ranking changes.
 
-不该用的边界：
-- Web 应用 -> 用网页 SEO，而非 ASO。
-- 企业 / 内部分发应用、TestFlight 仅测试版 -> 不进公开商店搜索，ASO 收益极低。
-- 纯付费投放（ASA / UAC 等广告竞价策略）-> 属于买量范畴，不在本技能内。
+When **not** to use:
+- **Web apps** -> use web SEO, not ASO.
+- **Enterprise / internal-distribution apps, TestFlight-only betas** -> they do not surface in public store search, so ASO has minimal return.
+- **Pure paid acquisition** (ASA / UAC ad-bidding strategy) -> that is media buying, out of scope here.
 
-## 步骤
+## Steps
 
-ASO 包含五条可独立运行的工作流，按需取用。
+ASO comprises five workflows that can each run independently. Pull in whichever you need.
 
-### 1. 关键词研究
-1. 明确目标人群与核心功能：主要使用场景（解决什么问题）、用户画像、竞争品类。
-2. 产出种子词：来自功能/收益、用户口语（非开发者术语）、商店自动补全建议。
-3. 扩展词表：修饰词（free/best/simple）+ 动作词（create/track/organize）+ 人群词（for students/for teams）。
-4. 逐词评估：搜索量、竞争度、相关性。
-5. 打分并分级放置：核心词进标题与关键词域（iOS）；次级词进副标题/简短描述；长尾词仅进完整描述。
-6. 把关键词映射到对应元数据位置，并归档成可追踪的策略文档。
-7. 校验：已打分；位置已映射；不含竞品品牌词；iOS 关键词域不放复数。
+### 1. Keyword Research
 
-打分权重：相关性 35%（描述核心功能）、搜索量 25%（月搜 1 万+）、竞争度 25%（Top10 均分 <4.5）、转化意图 15%（"best X app" 类交易意图词）。
-放置权重从高到低：App 标题 > iOS 副标题 / iOS 关键词域 / 安卓简短描述 > 完整描述。
+1. Define target audience and core app functions: primary use case (what problem the app solves), target demographics, competitive category.
+2. Generate seed keywords from: app features and benefits, user language (not developer terminology), app store autocomplete suggestions.
+3. Expand the list with modifiers (free, best, simple), actions (create, track, organize), and audiences (for students, for teams, for business).
+4. Evaluate each keyword: search volume (estimated monthly searches), competition (number and quality of ranking apps), relevance (alignment with app function).
+5. Score and prioritize placement — Primary: title and keyword field (iOS); Secondary: subtitle and short description; Tertiary: full description only.
+6. Map keywords to metadata locations and document the strategy for tracking.
+7. **Validation:** keywords scored; placement mapped; no competitor brand names included; no plurals in the iOS keyword field.
 
-### 2. 元数据优化
-1. 按平台字符上限审计现状（标题字数与含词、副标题/简短描述利用率、iOS 关键词域效率、描述关键词密度）。
-2. 标题套用公式：`[品牌名] - [核心关键词] [次级关键词]`。
-3. 写副标题（iOS）/简短描述（安卓）：突出首要收益 + 含次级词 + 用动作动词。
-4. 优化 iOS 关键词域：去除标题里已有的词、去复数（Apple 两种形式都索引）、逗号后不加空格、按分值排序。
-5. 重写完整描述：钩子段（价值主张）-> 功能要点（含词）-> 社会证明 -> 行动号召。
-6. 校验各字段字符数；核心词密度目标 2-3%。
-7. 校验：均在字符上限内；核心词在标题里；无堆砌（>5%）；保留自然语言。
+**Evaluation criteria (weights):**
 
-### 3. 竞品分析
-锁定 Top10 竞品（直接/间接/品类头部）-> 从标题副标题、描述前 100 词提取关键词 -> 建竞品关键词矩阵算每词覆盖率 -> 找缺口（竞品覆盖 <40%、高量被漏、长尾机会）-> 审视图标/截图/视频等视觉资产 -> 对比评分与好评差评主题 -> 归档定位机会。校验：分析 10+ 竞品、矩阵完整、缺口带量级估计、视觉审计成文。
+| Factor | Weight | High Score Indicators |
+|--------|--------|----------------------|
+| Relevance | 35% | Describes core app function |
+| Volume | 25% | 10,000+ monthly searches |
+| Competition | 25% | Top 10 apps have <4.5 avg rating |
+| Conversion | 15% | Transactional intent ("best X app") |
 
-### 4. 上线
-提前 4 周定稿元数据与视觉资产、接好分析（Firebase/Mixpanel）、备好媒体物料 -> 提前 2 周提审与合规检查 -> 配好评价监控与回复模板 -> 上线日确认双商店上架并全渠道宣发 -> 1-7 天按小时追下载速度、24 小时内回复评价 -> 7 天复盘并安排上线后 2 周的首次更新。
+**Placement priority:** App Title (highest) > Subtitle (iOS) / Keyword Field (iOS) / Short Description (Android) (high) > Full Description (medium).
 
-### 5. A/B 测试
-按影响力选测试元素（图标 > 截图1 > 标题 > 简短描述）-> 写假设 -> 控制组 vs 单变量实验组 -> 算样本量（基线转化、最小可检出效应通常 5%、显著性 95%）-> iOS 用 Product Page Optimization，安卓用 Store Listing Experiments -> 至少跑 7 天到统计显著 -> 分析并落地胜出版本。
+### 2. Metadata Optimization
 
-## 指令
+1. Audit current metadata against platform limits: title character count and keyword presence, subtitle/short-description usage, keyword-field efficiency (iOS), description keyword density.
+2. Optimize the title with the formula: `[Brand Name] - [Primary Keyword] [Secondary Keyword]`.
+3. Write the subtitle (iOS) or short description (Android): focus on primary benefit, include a secondary keyword, use action verbs.
+4. Optimize the keyword field (iOS only): remove duplicates already in the title, remove plurals (Apple indexes both forms), no spaces after commas, prioritize by score.
+5. Rewrite the full description: hook paragraph (value proposition) -> feature bullets with keywords -> social proof -> call to action.
+6. Validate character counts per field; target 2-3% primary keyword density.
+7. **Validation:** all fields within character limits; primary keyword in title; no keyword stuffing (>5%); natural language preserved.
 
-辅助脚本（均为 Python，按需调用）：
+**Description structure:**
+```
+PARAGRAPH 1: Hook (50-100 words)
+├── Address user pain point
+├── State main value proposition
+└── Include primary keyword
 
-| 脚本 | 用途 | 用法 |
-|------|------|------|
-| keyword_analyzer.py | 分析关键词的量与竞争 | `python keyword_analyzer.py --keywords "todo,task,planner"` |
-| metadata_optimizer.py | 校验字符上限与密度 | `python metadata_optimizer.py --platform ios --title "App Title"` |
-| competitor_analyzer.py | 提取对比竞品关键词 | `python competitor_analyzer.py --competitors "App1,App2,App3"` |
-| aso_scorer.py | 计算 ASO 健康总分 | `python aso_scorer.py --app-id com.example.app` |
-| ab_test_planner.py | 规划测试与样本量 | `python ab_test_planner.py --cvr 0.05 --lift 0.10` |
-| review_analyzer.py | 评价情感与主题分析 | `python review_analyzer.py --app-id com.example.app` |
-| launch_checklist.py | 生成平台上线清单 | `python launch_checklist.py --platform ios` |
-| localization_helper.py | 管理多语言元数据 | `python localization_helper.py --locales "en,es,de,ja"` |
+PARAGRAPH 2-3: Features (100-150 words)
+├── Top 5 features with benefits
+├── Bullet points for scanability
+└── Secondary keywords naturally integrated
 
-平台字符上限（核心约束，务必遵守）：
+PARAGRAPH 4: Social Proof (50-75 words)
+├── Download count or rating
+├── Press mentions or awards
+└── Summary of user testimonials
 
-| 字段 | Apple App Store | Google Play |
-|------|-----------------|-------------|
-| 标题 Title | 30 | 50 |
-| 副标题 Subtitle | 30 | 无 |
-| 简短描述 | 无 | 80 |
-| 关键词域 Keywords | 100 | 无 |
-| 推广文本 Promotional Text | 170 | 无 |
-| 完整描述 | 4000 | 4000 |
-| 更新说明 What's New | 4000 | 500 |
+PARAGRAPH 5: Call to Action (25-50 words)
+├── Clear next step
+└── Reassurance (free trial, no signup)
+```
 
-A/B 样本量速查（每个变体所需曝光）：基线转化 1% 需 31000；2% 需 15500；5% 需 6200；10% 需 3100。
+### 3. Competitor Analysis
 
-## 示例
+1. Identify the top 10 competitors: direct (same core function), indirect (overlapping audience), category leaders (top downloads).
+2. Extract competitor keywords from titles/subtitles and the first 100 words of descriptions.
+3. Build a competitor keyword matrix and calculate coverage percentage per keyword.
+4. Identify gaps: keywords with <40% competitor coverage, high-volume terms competitors miss, long-tail opportunities.
+5. Audit visual assets (icon, screenshots, video) and compare ratings plus common praise/complaint themes.
+6. Document positioning opportunities.
+7. **Validation:** 10+ competitors analyzed; keyword matrix complete; gaps identified with volume estimates; visual audit documented.
 
-iOS 关键词域优化（核心改写手法）：
+**Gap analysis template:**
 
-优化前（低效，89 字符，8 词）：
+| Opportunity Type | Example | Action |
+|------------------|---------|--------|
+| Keyword gap | "habit tracker" (40% coverage) | Add to keyword field |
+| Feature gap | Competitor lacks widget | Highlight in screenshots |
+| Visual gap | No videos in top 5 | Create app preview |
+| Messaging gap | None mention "free" | Test free positioning |
+
+### 4. App Launch
+
+Finalize metadata and visual assets, set up analytics (Firebase/Mixpanel), and build the press kit **4 weeks before**. Submit for review and run a compliance check **2 weeks before**. Configure review monitoring and response templates. On launch day, verify the app is live in both stores and announce across all channels. **Days 1-7:** track download velocity hourly, respond to reviews within 24h. Run a **7-day retrospective** and schedule the first metadata update for 2 weeks post-launch.
+
+**Launch timing:** ship Tuesday-Wednesday (avoid weekends), in the morning of the target-market timezone, aligned with relevant seasons, and away from major competitor launch dates.
+
+### 5. A/B Testing
+
+1. Select the test element by impact: Icon (highest) > Screenshot 1 > Title > Short Description.
+2. Form a hypothesis: `If we [change], then [metric] will [improve] by [amount] because [rationale].`
+3. Create variants: Control (current) vs. Treatment (single-variable change).
+4. Calculate required sample size from baseline conversion rate, minimum detectable effect (usually 5%), and 95% significance.
+5. Launch: Apple -> Product Page Optimization; Android -> Store Listing Experiments.
+6. Run at least 7 days until statistical significance is reached.
+7. **Validation:** single variable tested; sample size sufficient; significance reached (95%); results documented; winner implemented.
+
+## Example
+
+**iOS keyword field (core rewrite technique):**
+
+Before (inefficient — 89 chars, 8 keywords):
 ```
 task manager, todo list, productivity app, daily planner, reminder app
 ```
-优化后（高效，97 字符，14 词）：
+After (optimized — 97 chars, 14 keywords):
 ```
 task,todo,checklist,reminder,organize,daily,planner,schedule,deadline,goals,habit,widget,sync,team
 ```
-改进点：逗号后去空格（+8 字符）、去重（task manager -> task）、去复数（reminders -> reminder）、移除标题已有词、补充更多相关词。
+Improvements: removed spaces after commas (+8 chars), removed duplicates (task manager -> task), removed plurals (reminders -> reminder), removed words already in the title, added more relevant keywords.
 
-标题优化：`MyTasks`（仅品牌，8 字符）-> `MyTasks - Todo List & Planner`（核心+次级词，29 字符）。
+**Title:** `MyTasks` (brand only, 8 chars) -> `MyTasks - Todo List & Planner` (primary + secondary keywords, 29 chars).
 
-描述开头：把「MyTasks is a comprehensive task management solution...」这类自夸式开场，改成「Forget missed deadlines. MyTasks keeps every task, reminder, and project in one place—Trusted by 500,000+ professionals.」——先点用户痛点、给具体收益、带社会证明、关键词自然不堆砌。
+**Description opening:**
 
-截图文案演进：`Task List Feature`（功能、被动）-> `Create Task Lists`（动作动词）-> `Never Miss a Deadline`（收益导向、有情绪）= 最佳。
+Before:
+```
+MyTasks is a comprehensive task management solution designed
+to help busy professionals organize their daily activities
+and boost productivity.
+```
+After:
+```
+Forget missed deadlines. MyTasks keeps every task, reminder,
+and project in one place—so you focus on doing, not remembering.
+Trusted by 500,000+ professionals.
+```
+Improvements: leads with the user pain point, gives a specific benefit (not generic "boost productivity"), includes social proof, keeps keywords natural rather than stuffed.
 
-## 注意事项
+**Screenshot caption evolution:** `Task List Feature` (feature-focused, passive) -> `Create Task Lists` (action verb) -> `Never Miss a Deadline` (benefit-focused, emotional = best).
 
-平台行为差异：
-- iOS 关键词变更需重新提审；但 iOS 推广文本可不更新 App 直接改。
-- 安卓元数据变更 1-2 小时内重建索引；安卓无独立关键词域，靠描述承载关键词。
-- 搜索量数据均为估算，无官方来源；竞品数据仅取自公开详情页。
+## Notes
 
-主动提醒（发现即纠正）：
-- 标题未含关键词 -> 标题是第一排名因子，必须放最核心词。
-- 截图只展示 UI -> 截图要讲价值故事，而非堆界面。
-- 无评分策略 -> 低于 4.0 星严重压制转化，接入应用内评分弹窗。
-- 描述关键词堆砌 -> 自然语言含词胜过堆砌（密度别超 5%）。
+**Helper scripts** (all Python, invoke as needed):
 
-输出要求：每条结论标注置信度（🟢 已验证 / 🟡 中等 / 🔴 假设），按「结论 -> 是什么（带置信度）-> 为什么 -> 如何执行」组织。
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| keyword_analyzer.py | Analyze keywords for volume and competition | `python keyword_analyzer.py --keywords "todo,task,planner"` |
+| metadata_optimizer.py | Validate character limits and density | `python metadata_optimizer.py --platform ios --title "App Title"` |
+| competitor_analyzer.py | Extract and compare competitor keywords | `python competitor_analyzer.py --competitors "App1,App2,App3"` |
+| aso_scorer.py | Calculate overall ASO health score | `python aso_scorer.py --app-id com.example.app` |
+| ab_test_planner.py | Plan tests and calculate sample sizes | `python ab_test_planner.py --cvr 0.05 --lift 0.10` |
+| review_analyzer.py | Analyze review sentiment and themes | `python review_analyzer.py --app-id com.example.app` |
+| launch_checklist.py | Generate platform-specific launch checklists | `python launch_checklist.py --platform ios` |
+| localization_helper.py | Manage multi-language metadata | `python localization_helper.py --locales "en,es,de,ja"` |
 
-## 互见
+**Platform character limits (hard constraints — always respect):**
 
-- content-creator：App 描述文案撰写。
-- marketing-demand-acquisition：上线推广与买量活动。
-- marketing-strategy-pmm：GTM / 上市策略规划。
+| Field | Apple App Store | Google Play |
+|-------|-----------------|-------------|
+| Title | 30 | 50 |
+| Subtitle | 30 | N/A |
+| Short Description | N/A | 80 |
+| Keywords | 100 | N/A |
+| Promotional Text | 170 | N/A |
+| Full Description | 4,000 | 4,000 |
+| What's New | 4,000 | 500 |
+
+**A/B sample-size quick reference** (impressions needed per variant): 1% baseline CVR -> 31,000; 2% -> 15,500; 5% -> 6,200; 10% -> 3,100.
+
+**Platform behavior differences:**
+- iOS keyword changes require an app re-submission; iOS promotional text can be edited without an app update.
+- Android metadata changes re-index within 1-2 hours; Android has no separate keyword field, so the description carries keywords.
+- Search-volume data is estimated only (no official source); competitor data comes from public listings only.
+
+**Proactive triggers (fix on sight):**
+- No keyword in the title -> the title is the #1 ranking factor; place the top keyword there.
+- Screenshots only show UI -> screenshots should tell a value story, not stack interfaces.
+- No ratings strategy -> below 4.0 stars severely suppresses conversion; add in-app rating prompts.
+- Keyword-stuffed description -> natural language with keywords beats stuffing (keep density under 5%).
+
+**Output requirement:** tag every finding with a confidence level (🟢 verified / 🟡 medium / 🔴 assumed) and organize as Bottom Line -> What (with confidence) -> Why -> How to Act.
+
+## See also
+
+- **content-creator** — app description copywriting.
+- **marketing-demand-acquisition** — launch promotion and media-buying campaigns.
+- **marketing-strategy-pmm** — go-to-market / GTM planning.
+- Related: seo-audit, seo-content-writer, conversion-rate-optimizer, product-launch-strategy. Combines with: product-launch-strategy, conversion-rate-optimizer, paid-ads-strategist.
 
 ---
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+Adapted from alirezarezvani/claude-skills (MIT License).

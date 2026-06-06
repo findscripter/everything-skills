@@ -1,14 +1,14 @@
 ---
 name: boardroom-deliberation
-title: C 级多角色董事会六阶段审议
-description: 当需要对一个高风险决策做多视角对抗式评审、避免一言堂时使用；做法是按六阶段（简报→隔离独立判断→交叉质询→魔鬼代言人→综合→交付）组织多个 C 级角色审议并产出含投票与异议的董事会备忘录；不适用于低风险或单视角即可拍板的小决策、纯执行排期。触发词：董事会审议、多角色评审、决策异议
+title: Multi-Role Boardroom Deliberation (6-Phase C-Suite)
+description: Run a high-stakes decision through 6-phase adversarial C-suite deliberation (brief - isolated independent positions - cross-examination - devil's advocate - synthesis - hand-off) to surface dissent and avoid groupthink, producing a board memo with a vote tally. Triggers: boardroo
 domain: 通用/thinking
-triggers: [董事会审议, 多角色决策评审, C 级角色对抗, 避免一言堂/群体思维, 决策投票与异议, 魔鬼代言人质询, 策略简报评审, boardroom deliberation]
-tags: [决策, 思维, 多角色, 对抗式评审, 群体决策, 风险评估, 通用]
-level: 进阶
+triggers: [boardroom deliberation, multi-role decision review, C-suite adversarial review, avoid groupthink, decision vote and dissent, devil's advocate challenge, strategy brief review, board memo]
+tags: [decision, thinking, multi-role, adversarial-review, group-decision, risk-assessment, general]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [独立角色提示（多次隔离调用 LLM）, 文件读写（简报与备忘录归档）]
+tools: []
 requires: []
 related: [executive-adversarial-mentor, premortem-plan-challenger, business-assumption-stress-test, board-meeting-prep]
 combines_with: [premortem-plan-challenger, board-deck-builder, entity-research-dossier]
@@ -16,114 +16,123 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适用：
+Use this when:
 
-- 面对一个**高风险、不可逆或有重大分歧**的决策，需要从财务、风险、产品、增长、技术等多个专业视角同时审议。
-- 你担心评审会沦为**一言堂或群体思维（groupthink）**，希望主动暴露被「附和」压抑掉的异议。
-- 需要一份可归档、含**投票统计与未决异议**的决策备忘录，而不只是一份「看过了」的计划。
+- You face a **high-stakes, irreversible, or high-disagreement** decision that needs simultaneous review from multiple expert lenses — finance, risk, product, growth, engineering, etc.
+- You worry the review will collapse into **sycophancy or groupthink**, and you want to deliberately surface the dissent that "going along to get along" would have suppressed.
+- You need an archivable decision memo with a **vote tally and unresolved dissent** — not just a plan someone "looked at."
 
-不该用（负边界）：
+Do not use (negative boundary):
 
-- 低风险、可逆、单视角即可拍板的小决策——六阶段是重流程，会拖慢节奏。
-- 纯执行排期、任务拆解类工作（那是「决策之后」的事）。
-- 角色之间无真实分歧、信息高度对称的场景，隔离独立判断带不来增量。
+- Low-stakes, reversible, single-lens calls — the 6-phase protocol is heavy and will slow you down.
+- Pure execution scheduling or task breakdown (that is the "after the decision" work).
+- Situations with no real disagreement between roles and highly symmetric information — isolated independent thinking adds nothing.
 
-核心理念：**第 2 阶段「隔离」是整套协议杠杆最高的一环**。如果各角色在形成自己观点前先看到别人的观点，就会被锚定；隔离才能逼出本会被掩盖的分歧。
+Core idea: **Phase 2 isolation is the single highest-leverage practice in the protocol.** If advisors see each other's positions before forming their own, they anchor. Only isolation forces out the dissents that would otherwise stay hidden.
 
-## 步骤
+## Steps
 
-六个阶段（由一名「参谋长 / Chief of Staff」角色统筹）：
+The six phases (orchestrated by a **Chief of Staff** role), from the underlying `board-meeting` skill:
 
-1. **第 1 阶段 — 简报（Briefing）**：参谋长把策略简报分发给所有「受影响角色」。每个角色阅读「公司背景（company-context）+ 简报」。此阶段**不讨论**。
-2. **第 2 阶段 — 独立判断（隔离 / ISOLATION）**：每个角色**互不可见地、独立地**产出立场。各自写出：本角色的开场陈述、推荐选项、Top 3 顾虑、Top 3 支持理由。这是防群体思维的关键。
-3. **第 3 阶段 — 交叉质询（Cross-Examination）**：立场**同时揭晓**。每个角色就**自己负责的维度**批判他人立场：CFO 角色查财务测算、CISO 角色查风险、CPO 角色查 JTBD（用户待办任务）、CMO 角色查市场定位、CRO 角色查营收测算，依此类推。
-4. **第 4 阶段 — 魔鬼代言人（Devil's Advocate）**：对**领先选项**跑一轮 `/em:challenge`（魔鬼代言人质询），产出 3 条带严重度评级（CRITICAL / HIGH / MEDIUM）的顾虑。
-5. **第 5 阶段 — 综合（Synthesis）**：参谋长综合：哪个选项取得多数、哪些异议仍未解决，产出**董事会备忘录**（推荐 + 异议）。
-6. **第 6 阶段 — 决策交付（Hand-off）**：备忘录交给决策者（创始人）。决策者**接受 / 修改 / 否决**。通过的备忘录路由到决策日志（`/cs:decide`）登记。
+1. **Phase 1 — Briefing.** The Chief of Staff distributes the strategy brief to all advisors marked in **Affected Roles**. Each advisor reads `company-context.md` + the brief. No discussion yet.
+2. **Phase 2 — Independent Thinking (ISOLATION).** Each advisor produces their position **independently, without seeing others' positions**. This is the key anti-groupthink step. Each writes: their voice's opening, recommendation, top 3 concerns, top 3 supports.
+3. **Phase 3 — Cross-Examination.** Positions are revealed simultaneously. Each advisor critiques the others **on the dimension they own**:
+   - cs-cfo-advisor critiques the math
+   - cs-ciso-advisor critiques the risk
+   - cs-cpo-advisor critiques the JTBD
+   - cs-cmo-advisor critiques the positioning
+   - cs-cro-advisor critiques the revenue math
+   - etc.
+4. **Phase 4 — Devil's Advocate Pass.** The `executive-mentor/devils-advocate` agent runs `/em:challenge` on the **leading option**, surfacing three concerns with severity ratings (CRITICAL / HIGH / MEDIUM).
+5. **Phase 5 — Synthesis.** The Chief of Staff synthesizes: which option commands a majority, and which dissents remain unresolved. Produces the **board memo** with recommendation + dissent.
+6. **Phase 6 — Decision Hand-off.** The memo is presented to the founder, who **accepts, modifies, or rejects**. An approved memo routes to `/cs:decide` for logging.
 
-执行清单（落到实操）：
+Operational workflow:
 
-1. 从简报目录读取简报（如 `~/.claude/briefs/<file>`）。
-2. 识别受影响角色。
-3. **逐个、隔离地**调用各 C 级角色（第 2 阶段）——务必每个角色单独一次提示，不带其他角色的输出。
-4. 收齐立场后统一揭晓，跑交叉质询（第 3 阶段）。
-5. 对领先选项跑魔鬼代言人质询（第 4 阶段）。
-6. 综合成备忘录（第 5 阶段）。
-7. 交决策者裁决（第 6 阶段）。
+1. Read the brief from `~/.claude/briefs/<file>`.
+2. Identify affected roles.
+3. Invoke each `cs-*` advisor **independently** (Phase 2) — each role must get its own single prompt, with no other role's output included.
+4. Collect positions, then reveal simultaneously and run the cross-examination round (Phase 3).
+5. Run `/em:challenge` on the leading option (Phase 4).
+6. Synthesize the memo (Phase 5).
+7. Hand off to the founder for decision (Phase 6).
 
-## 指令
+## Example
 
-- 备忘录归档路径：`~/.claude/boardroom/YYYY-MM-DD-<slug>.md`。
-- 魔鬼代言人质询命令：`/em:challenge`（作用于领先选项）。
-- 后续路由命令：`/cs:decide`（登记已批准备忘录）、`/cs:cross-eval`（高风险时第二意见/多模型校验）、`/cs:freeze N`（冷静期锁定，不可逆，可选）。
+Topic: should we migrate the core product from our own data center to the cloud?
 
-董事会备忘录模板：
+- **Phase 1:** The Chief of Staff sends the migration brief to four affected roles — cs-ceo-advisor, cs-cfo-advisor, cs-cto-advisor, cs-ciso-advisor.
+- **Phase 2 (isolation):** All four write positions without seeing each other. The CFO independently computes a *higher* 3-year TCO and recommends "do not migrate"; the CTO independently recommends "migrate" for elastic scaling. **Because of isolation, the CFO's objection is not anchored by the CTO's optimism.**
+- **Phase 3:** Positions revealed simultaneously. The CFO challenges the CTO for omitting egress traffic costs; the CISO challenges the compliance risk during the migration window.
+- **Phase 4:** Run `/em:challenge` on the leading option "phased migration." Surfaces a CRITICAL: no rollback plan for dual-write inconsistency during the cutover window.
+- **Phase 5:** The Chief of Staff synthesizes — "phased migration" wins a 3:1 majority; the CFO's cost dissent is logged as unresolved.
+- **Phase 6:** Memo archived to `~/.claude/boardroom/2026-06-02-cloud-migration.md` with status AWAITING FOUNDER DECISION, handed to the founder.
+
+Board memo template (saved to `~/.claude/boardroom/YYYY-MM-DD-<slug>.md`):
 
 ```markdown
-# 董事会备忘录：<议题>
-**日期：** YYYY-MM-DD
-**简报：** <简报文件链接>
-**状态：** 待决策者裁决 | 已批准 | 已否决
+# Board Memo: <topic>
+**Date:** YYYY-MM-DD
+**Brief:** <link to /cs:brief file>
+**Status:** AWAITING FOUNDER DECISION | APPROVED | REJECTED
 
-## 问题
-[简报中的一句话问题陈述]
+## Question
+[One sentence from the brief]
 
-## 推荐选项
-**<选项名>** — 选它因为 <综合理由>
+## Recommended Option
+**<Option name>** — chosen because <synthesis reasoning>
 
-## 投票统计
-| 角色 | 投票 | 一句话理由 |
+## Vote Tally
+| Advisor | Vote | One-Sentence Reason |
 |---|---|---|
-| CEO 角色 | A | <理由> |
-| CFO 角色 | A | <理由> |
-| CTO 角色 | B | <理由> |
+| cs-ceo-advisor | A | <reason> |
+| cs-cfo-advisor | A | <reason> |
+| cs-cto-advisor | B | <reason> |
 | ... | | |
 
-## 异议（未决）
-- **<异议方>：** <未解决的顾虑>
+## Dissent
+- **<dissenter>:** <unresolved concern>
 
-## 魔鬼代言人顾虑
-1. **CRITICAL** — <顾虑> — 缓解：<方案>
-2. **HIGH** — <顾虑> — 缓解：<方案>
-3. **MEDIUM** — <顾虑> — 缓解：<方案>
+## Devil's Advocate Concerns
+1. **CRITICAL** — <concern> — Mitigation: <plan>
+2. **HIGH** — <concern> — Mitigation: <plan>
+3. **MEDIUM** — <concern> — Mitigation: <plan>
 
-## 成功与终止标准
-[从简报复制，由小组细化]
+## Success & Kill Criteria
+[Copied from brief, refined by the panel]
 
-## 推荐决策路径
-- `/cs:decide` → 登记决策
-- `/cs:execute` → 90 天计划
-- `/cs:cross-eval` → 多模型校验（可选，高风险）
-- `/cs:freeze N` → 冷静期锁定（可选，不可逆）
+## Recommended Decision Path
+- `/cs:decide` → log the decision
+- `/cs:execute` → 90-day plan
+- `/cs:cross-eval` → multi-model sanity check (optional, high-stakes)
+- `/cs:freeze N` → cooldown lock (optional, irreversible)
 ```
 
-## 示例
+## Notes
 
-议题：是否把核心产品从自建机房迁移到云。
+- **Isolation is non-negotiable:** Phase 2 must prompt each advisor separately and never let them see one another. Otherwise the protocol degrades into an ordinary serial review and loses its value of exposing dissent.
+- **Make dissent explicit and traceable:** even when the majority option is adopted, list every unresolved dissent in the memo's Dissent column — do not paper over it.
+- During cross-examination, have each advisor critique **only the dimension they own**, to avoid out-of-lane hand-waving and keep the scrutiny sharp.
+- Run the devil's advocate pass **only on the leading option** — do not spread effort evenly across all options.
+- **Why this beats a simple serial review chain (e.g. CEO → design → eng):**
 
-- 第 1 阶段：参谋长把迁移简报发给 CEO、CFO、CTO、CISO 四个受影响角色。
-- 第 2 阶段（隔离）：四个角色互不可见地各自写立场。CFO 独立算出三年 TCO 反而上升、推荐「不迁」；CTO 独立推荐「迁」以换取弹性扩容。**因为隔离，CFO 的反对没有被 CTO 的乐观锚定。**
-- 第 3 阶段：立场同时揭晓。CFO 质疑 CTO 漏算了出口流量费；CISO 质疑迁移期的合规风险。
-- 第 4 阶段：对领先选项「分阶段迁移」跑 `/em:challenge`，得出 CRITICAL：迁移窗口期数据双写不一致的回滚预案缺失。
-- 第 5 阶段：参谋长综合——「分阶段迁移」取得 3:1 多数，CFO 异议（成本）记入未决。
-- 第 6 阶段：备忘录归档到 `~/.claude/boardroom/2026-06-02-cloud-migration.md`，状态「待决策者裁决」，交创始人。
+  | | serial `/autoplan` | `/cs:boardroom` |
+  |---|---|---|
+  | Roles | CEO → design → eng (3) | Up to 10 C-roles |
+  | Order | Sequential | Phase 2 isolation, then simultaneous |
+  | Dissent capture | Implicit | Explicit dissent column |
+  | Adversarial pass | No | Phase 4 devil's advocate |
+  | Output | Reviewed plan | Voted memo with dissent + kill criteria |
 
-## 注意事项
+## See also
 
-- **隔离不可省**：第 2 阶段必须每个角色单独提示、绝不互相可见，否则整套协议退化成普通串行评审，失去暴露异议的价值。
-- **异议要显式留痕**：哪怕最终采纳多数选项，未解决的异议也要单列入备忘录「异议」栏，不要抹平。
-- 交叉质询时，让每个角色**只批判自己负责的维度**，避免越界空谈、保证质询质量。
-- 魔鬼代言人只针对**领先选项**做，不要对所有选项平均用力。
-- 相比简单的「CEO → 设计 → 工程」三级串行评审链，本协议的优势在于：角色更多（最多约 10 个 C 级角色）、隔离后同时揭晓、异议显式成列、有第 4 阶段对抗、产出是带终止标准的「投票备忘录」。
-
-## 互见
-
-- 上游：策略简报生成（`/cs:brief`）→ 本审议（`/cs:boardroom`）。
-- 下游：`/cs:decide`（登记）、`/cs:execute`（90 天计划）、`/cs:cross-eval`（高风险二次意见）、`/cs:freeze`（冷静期锁定）。
-- 关联角色 / 技能：参谋长（cs-chief-of-staff）、底层 `board-meeting` 协议、`executive-mentor`（提供魔鬼代言人 `/em:challenge`）。
+- Pipeline position: `/cs:office-hours` → `/cs:brief` → **`/cs:boardroom`** → `/cs:decide` → `/cs:execute` → `/cs:post-mortem`.
+- Downstream routing: `/cs:decide` (log approved memo), `/cs:cross-eval` (high-stakes second opinion / multi-model check), `/cs:freeze N` (cooldown lock, irreversible, optional).
+- Related agent / skills: Chief of Staff (`cs-chief-of-staff`), the underlying `board-meeting` protocol, and `executive-mentor` (provides the devil's advocate `/em:challenge`).
+- Related skills in this library: `executive-adversarial-mentor`, `premortem-plan-challenger`, `business-assumption-stress-test`, `board-meeting-prep`. Combines with: `premortem-plan-challenger`, `board-deck-builder`, `entity-research-dossier`.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+Adapted from alirezarezvani/claude-skills (MIT License).

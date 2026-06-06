@@ -1,106 +1,116 @@
 ---
 name: first-principles-thinking
-title: 第一性原理思考
-description: 当需要剥离类比与惯例、从最基本事实重新推导方案，或拆解复杂/陌生问题时使用；触发词：第一性原理、从头推导、本质、拆解假设。
+title: First-Principles Thinking
+description: Strip away analogy and convention to re-derive a solution from basic facts; use when breaking down complex or unfamiliar problems. Triggers: first principles, derive from scratch, fundamentals, challenge assumptions.
 domain: 通用/thinking
+triggers: [first principles, derive from scratch, fundamentals, challenge assumptions, from the ground up, question the premises, break down the problem, reason from basics]
 tags: [thinking, reasoning, problem-solving]
-level: 进阶
+level: intermediate
 status: stable
-version: 0.1.0
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
 related: [first-principles-assumption-auditor, decision-navigator, design-brainstorming]
 combines_with: [business-assumption-stress-test, design-brainstorming]
 license: CC-BY-SA-4.0
+source: 
+source_license: 
 ---
-## 何时使用
+## When to use
 
-- 现有方案沿用类比、惯例或「业界都这么做」，但需要质疑其是否成立时。
-- 面对复杂或陌生问题，缺乏现成模板，需自行拆解并重建推导链时。
-- 多个方案陷入路径依赖或局部最优，需要回到约束本身重新设计时。
-- 触发词：第一性原理、从头推导、本质、拆解假设。
+- The current approach inherits an analogy, a convention, or "everyone does it this way," and you need to question whether that premise actually holds.
+- You face a complex or unfamiliar problem with no ready-made template and must break it down and rebuild the chain of reasoning yourself.
+- Several candidate solutions are stuck in path dependence or a local optimum, and you need to return to the constraints themselves and redesign.
+- Triggers: first principles, derive from scratch, fundamentals, challenge assumptions.
 
-**不该用**：
+**When NOT to use:**
 
-- 问题已有可靠成熟解、只需直接执行时（直接做，不要过度拆解）。
-- 时间/信息严重不足、需快速决策时（用类比或经验更划算）。
-- 争议焦点是「事实是否为真」而非「推导是否成立」时（改用 fact-checking 核验事实）。
+- The problem already has a reliable, mature solution and you only need to execute it — just do it, don't over-decompose.
+- Time or information is severely limited and you need a fast decision — analogy or experience is cheaper here.
+- The real dispute is "is this fact true?" rather than "does this derivation hold?" — use fact-checking to verify the fact instead.
 
-## 步骤 / 指令
-
-```
-1. 明确目标
-   - 用一句话写出要解决的问题和成功判据（可度量）。
-
-2. 列出当前方案的所有假设
-   - 逐条写下「之所以这样做，是因为我假设 ___」。
-   - 标注每条假设的来源类型：[事实] / [惯例] / [类比] / [推测]。
-
-3. 拆到基本事实（地基）
-   - 对每条假设追问「这一定为真吗？凭什么？」直到只剩：
-     a) 物理/数学/逻辑约束（不可违反）；
-     b) 已验证的硬事实（数据、规格、合同条款）。
-   - [惯例][类比][推测] 类假设一律标记为「可挑战」，不得作为地基。
-   - 关键硬事实存疑时，调用 fact-checking 核实后再纳入地基。
-
-4. 从地基重新推导
-   - 只用第 3 步的基本事实，重建解决方案，不引用任何原方案的结构。
-   - 推导每一步注明依赖了哪条地基事实。
-
-5. 对照与取舍
-   - 将新推导方案与原方案并列，标出差异点及各自被放宽的假设。
-   - 给出推荐方案 + 触发回退的条件。
-
-6. 验证地基有效性
-   - 若任一地基事实被推翻，回到第 3 步重做。
-```
-
-执行约束：
-
-- 区分「不可违反约束」与「当前选择」——前者是地基，后者可挑战。
-- 禁止在推导中偷偷引入原方案的隐含结构（如沿用其数据模型、流程顺序）。
-- 每条结论必须可追溯到某条基本事实，否则标记为「未证成」。
-
-## 示例
-
-最小提示词模板：
+## Steps
 
 ```
-对【目标：X】做第一性原理分析：
-1) 列出现方案的全部假设，逐条标注 [事实/惯例/类比/推测]；
-2) 把每条追问到不可再分的物理/逻辑约束或硬事实，得到「地基清单」；
-3) 仅用地基清单重新推导方案，每步注明依赖的地基项；
-4) 与原方案对比差异，给推荐方案和回退条件。
-对存疑的硬事实，先核实再使用。
+1. Define the goal
+   - Write the problem in one sentence, with a measurable success criterion.
+
+2. List every assumption behind the current approach
+   - Write each one as "We do it this way because we assume ___."
+   - Tag the source of each assumption: [fact] / [convention] / [analogy] / [guess].
+
+3. Reduce to basic facts (the foundation)
+   - For each assumption, keep asking "Must this be true? On what grounds?"
+     until only these remain:
+     a) Physical / mathematical / logical constraints (cannot be violated);
+     b) Verified hard facts (data, specs, contract terms).
+   - All [convention] / [analogy] / [guess] assumptions are marked "challengeable"
+     and may NOT serve as foundation.
+   - If a key hard fact is in doubt, run fact-checking before admitting it to the
+     foundation.
+
+4. Re-derive from the foundation
+   - Rebuild the solution using ONLY the basic facts from step 3, referencing none
+     of the original approach's structure.
+   - For each derivation step, note which foundation fact it depends on.
+
+5. Compare and trade off
+   - Place the newly derived solution next to the original; mark the differences and
+     which assumptions each one relaxes.
+   - Give a recommended solution + the conditions that would trigger a fallback.
+
+6. Validate the foundation
+   - If any foundation fact is overturned, return to step 3 and redo.
 ```
 
-拆解示例（目标：降低服务响应延迟）：
+Execution constraints:
+
+- Distinguish "cannot-be-violated constraint" from "current choice" — the former is foundation, the latter is challengeable.
+- Do not smuggle the original approach's implicit structure into the derivation (e.g., reusing its data model or process ordering).
+- Every conclusion must trace back to a basic fact; otherwise mark it "unproven."
+
+## Example
+
+Minimal prompt template:
 
 ```
-假设清单：
-- [惯例] 必须用现有的三层架构        → 可挑战
-- [类比] 别家加缓存就快了，我们也加  → 可挑战
-- [事实] 单次 DB 查询 P99 = 80ms     → 地基
-- [事实] SLA 要求 P99 < 120ms        → 地基
-- [推测] 瓶颈在数据库                → 需先用埋点核实，否则不作地基
-
-地基清单：DB 查询 80ms；SLA 120ms；请求串行执行 4 次 DB（实测）。
-重新推导：4×80=320ms 已超标 → 根因是串行调用次数，而非单次速度
-         → 合并/并行化查询即可达标，缓存非必需。
-对比：原「加缓存」方案绕过了真正约束（调用次数）。
+Do a first-principles analysis of [Goal: X]:
+1) List all assumptions of the current approach, tagging each [fact/convention/analogy/guess];
+2) Drill each one down to an irreducible physical/logical constraint or hard fact,
+   producing a "foundation list";
+3) Re-derive a solution using ONLY the foundation list, noting the dependency at each step;
+4) Compare with the original, then give a recommended solution and fallback conditions.
+For any doubtful hard fact, verify it before use.
 ```
 
-## 注意事项
+Worked decomposition (Goal: reduce service response latency):
 
-- 拆解有成本：只对高价值、高不确定性的问题用，不要事事从头推导。
-- 警惕「伪地基」：把惯例或行业标准误当成不可违反约束，是最常见错误。
-- 地基依赖事实质量：错误的「硬事实」会污染整条推导链，存疑即核验。
-- 第一性原理负责「推导是否成立」，不替代「事实是否为真」——二者分工。
-- 重建方案需经实证检验，逻辑自洽不等于现实可行。
+```
+Assumption list:
+- [convention] Must keep the existing three-tier architecture   -> challengeable
+- [analogy]    A competitor got faster by adding cache, so will we -> challengeable
+- [fact]       Single DB query P99 = 80ms                        -> foundation
+- [fact]       SLA requires P99 < 120ms                          -> foundation
+- [guess]      The bottleneck is the database                    -> verify with tracing first,
+                                                                    otherwise not foundation
 
-## 互见
+Foundation list: DB query 80ms; SLA 120ms; request runs 4 serial DB calls (measured).
+Re-derivation: 4 x 80 = 320ms already over budget -> root cause is the number of serial
+               calls, not single-query speed
+            -> merging/parallelizing queries meets the target; cache is not required.
+Comparison: the original "add cache" approach bypassed the real constraint (call count).
+```
 
-- requires：无。
-- related：`fact-checking`（拆解出的硬事实存疑时，先核验再作为地基）。
-- combines_with：无。
+## Notes
+
+- Decomposition has a cost: apply it only to high-value, high-uncertainty problems; don't re-derive everything from scratch.
+- Beware "false foundations": mistaking a convention or industry standard for an inviolable constraint is the most common error.
+- The foundation is only as good as its facts: a wrong "hard fact" pollutes the entire derivation chain — if in doubt, verify.
+- First-principles thinking governs "does the derivation hold," not "is the fact true" — the two have a division of labor.
+- A rebuilt solution must still pass empirical testing; logical self-consistency does not equal real-world feasibility.
+
+## See also
+
+- requires: none.
+- related: `fact-checking` (when a hard fact extracted during decomposition is in doubt, verify it before treating it as foundation); `first-principles-assumption-auditor`, `decision-navigator`, `design-brainstorming`.
+- combines_with: `business-assumption-stress-test`, `design-brainstorming`.

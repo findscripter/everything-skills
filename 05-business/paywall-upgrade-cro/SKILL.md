@@ -1,11 +1,11 @@
 ---
 name: paywall-upgrade-cro
-title: 应用内付费墙与升级转化优化
-description: 当需要设计或优化应用内付费墙、升级页、追售弹窗、功能门禁，把免费/试用用户转为付费或升级到更高档位时使用；产出触发点地图、整屏文案（标题/价值证明/对比/CTA/退出口）、升级流程图、暗黑模式审计与 A/B 实验清单；不适用于公开定价页（见 page-cro）或用户尚未到 aha 时刻的过早拦截（先修 onboarding-cro）。触发词：付费墙、升级页、追售/upsell、功能门禁、freemium 转化、试用到期
+title: Paywall and Upgrade Screen CRO
+description: When the user wants to create or optimize in-app paywalls, upgrade screens, upsell modals, or feature gates. Also use when the user mentions "paywall," "upgrade screen," "upgrade modal," "upsell," "feature gate," "convert free to paid," "freemium conversion," "trial expiration screen," "limit reached screen," "plan upgrade prompt," or "in-app pricing." Distinct from public pricing pages (see page-cro) — this skill focuses on in-product upgrade moments where the user has already experienced value.
 domain: 商业/growth
-triggers: [付费墙, 升级页, 升级弹窗, 追售, upsell, 功能门禁, feature gate, freemium 转化, 免费转付费, 试用到期页, 用量上限页, 套餐升级提示, 应用内定价, paywall]
-tags: [growth, 转化优化, cro, 付费墙, freemium, 增长, 商业化, 追售, a/b测试]
-level: 进阶
+triggers: [upsell, feature gate, paywall]
+tags: [growth, cro, freemium]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,117 +16,250 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Paywall and Upgrade Screen CRO
 
-- 设计或优化**应用内**的付费墙、升级页、追售弹窗、功能门禁，把免费/试用用户转为付费或升级到更高档位。
-- 触发场景：用户提到「付费墙 / 升级页 / 追售 / 功能门禁 / freemium 转化 / 试用到期 / 用量上限 / 套餐升级提示 / 应用内定价」。
-- 核心定位：发生在**用户已经体验到产品价值**的产品内时刻，与公开定价页（用户尚未进入产品）有本质区别。
+You are an expert in in-app paywalls and upgrade flows. Your goal is to convert free users to paid, or upgrade users to higher tiers, at moments when they've experienced enough value to justify the commitment.
 
-**不该用（负边界）：**
-- 公开定价页/落地页优化 → 用 `page-cro`。
-- 用户还没到激活/aha 时刻就撞上付费墙（拦得太早）→ 先修 `onboarding-cro`，而不是改付费墙。
-- 仅做付费墙触发时机/文案/价格展示的受控实验 → 交给 `ab-test-setup`（本技能负责初版设计）。
-- 用邮件序列替代应用内提示 → 邮件用 `email-sequence` 做补充，不能替代应用内付费墙。
+## Initial Assessment
 
-## 步骤
+**Check for product marketing context first:**
+If `.claude/product-marketing-context.md` exists, read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
 
-1. **读上下文**：若存在 `.claude/product-marketing-context.md`，先读，只问其中未覆盖的信息。
-2. **澄清三件事**：
-   - 升级场景：免费→付费？试用→付费？档位升级？功能追售？用量超限？
-   - 产品模型：什么免费、什么在付费墙后、什么触发提示、当前转化率？
-   - 用户旅程：这屏何时出现、用户已体验了什么、当下想完成什么？
-3. **确认 aha 时刻是否已到达**——这是布置升级提示的前置条件，没到就回到 onboarding。
-4. **定触发点**（见下「触发点」），为每类配时机规则、冷却期、频次上限。
-5. **写整屏文案**：标题、价值证明、功能对比、定价、社会证明、CTA、退出口（逐条交付，不留占位）。
-6. **优化升级流程**：从点击付费墙到支付到开通，尽量在原上下文内、预填已知信息、减少步骤。
-7. **审计暗黑模式**，主动标红并给出合规替代。
-8. **产出 A/B 实验清单**并按优先级排序。
+Before providing recommendations, understand:
 
-## 指令
+1. **Upgrade Context** - Freemium → Paid? Trial → Paid? Tier upgrade? Feature upsell? Usage limit?
 
-**四条核心原则：**
-- **先有价值再开口**：升级是自然的下一步，出现在 aha 之后而非之前。
-- **展示而非空谈**：预览付费功能、做 before/after、让升级可感知。
-- **路径无摩擦**：想升级时一键可达，别让用户找定价。
-- **尊重拒绝**：不困住、不施压，让用户能轻松继续免费，保住未来转化的信任。
+2. **Product Model** - What's free? What's behind paywall? What triggers prompts? Current conversion rate?
 
-**触发点（Trigger Points）：**
-- 功能门禁：点到付费功能时，说清为何收费 + 展示功能作用 + 快速解锁路径 + 可不解锁继续。
-- 用量上限：到达上限时，清晰提示已达上限 + 升级能得到什么，**不要骤然阻断**。
-- 试用到期：提前预警（7/3/1 天）+ 说清到期后「会失去什么」+ 汇总「已获得的价值」。
-- 时间型提示：免费用了 X 天后，温和提醒 + 高亮未用的付费功能 + 易于关闭。
-
-**整屏组件：**标题（聚焦所得：「解锁 X 以获得 Y」）/ 价值证明 / 功能对比（标出当前套餐）/ 定价（年付 vs 月付）/ 社会证明 / CTA（价值导向：「开始获得 Y」）/ 退出口（「暂不」「继续免费」）。
-
-**展示时机：**
-- 该展示：价值时刻之后、产生挫败之前；激活/aha 之后；撞到真实上限时。
-- 不该展示：onboarding 期间（太早）、用户正处于心流中、被关闭后反复弹。
-- 频次规则：每会话限次；关闭后冷却以**天**计（不是小时）；追踪用户烦躁信号。
-
-## 示例
-
-**功能锁定型付费墙：**
-```
-[锁图标]
-此功能为 Pro 专享
-
-[功能预览/截图]
-
-[功能名] 帮你 [收益]：
-• [能力]
-• [能力]
-
-[升级到 Pro — ¥X/月]
-[稍后再说]
-```
-
-**用量上限型付费墙：**
-```
-你已用完免费额度
-
-[进度条 100%]
-
-免费：3 个项目 | Pro：不限量
-
-[升级到 Pro]  [删除一个项目]
-```
-
-**试用到期型付费墙：**
-```
-试用将在 3 天后结束
-
-到期后你会失去：
-• [已用功能]
-• [已创建数据]
-
-你已经完成：
-• 创建了 X 个项目
-
-[继续使用 Pro]
-[稍后提醒我]  [降级]
-```
-
-## 注意事项
-
-**坚决避免的反模式：**
-- 暗黑模式：隐藏关闭按钮、套餐选择故意绕晕、内疚式文案。
-- 转化杀手：价值未交付就开口要钱、提示过频、阻断关键流程、升级流程复杂。
-
-**A/B 该测什么**：触发时机、标题/文案、价格呈现、试用时长、功能侧重、设计版式。
-**该追踪的指标**：付费墙曝光率、点击升级率、完成率、单用户营收（RPU）、升级后流失率。
-
-**移动端**：涉及 App Store IAP 规则、Google Play 计费要求等平台特定约束，需单独提示。
-
-**产出物清单**：付费墙触发点地图 / 各类型整屏文案 / 升级流程图（含降摩擦标注）/ 反模式审计 / A/B 实验待办（已排优先级）。
-
-## 互见
-
-- `page-cro`：公开定价页（用户进入产品前）优化。
-- `onboarding-cro`：用户未到激活时刻却过早撞墙时，先修 onboarding。
-- `ab-test-setup`：对触发时机、文案、价格展示、版式做受控实验。
-- `email-sequence`：试用到期/升级提醒邮件序列，补充应用内提示。
-- `marketing-context`：ICP、定价模型、价值主张基础上下文，写文案前先加载。
+3. **User Journey** - When does this appear? What have they experienced? What are they trying to do?
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+## Core Principles
+
+### 1. Value Before Ask
+- User should have experienced real value first
+- Upgrade should feel like natural next step
+- Timing: After "aha moment," not before
+
+### 2. Show, Don't Just Tell
+- Demonstrate the value of paid features
+- Preview what they're missing
+- Make the upgrade feel tangible
+
+### 3. Friction-Free Path
+- Easy to upgrade when ready
+- Don't make them hunt for pricing
+
+### 4. Respect the No
+- Don't trap or pressure
+- Make it easy to continue free
+- Maintain trust for future conversion
+
+---
+
+## Paywall Trigger Points
+
+### Feature Gates
+When user clicks a paid-only feature:
+- Clear explanation of why it's paid
+- Show what the feature does
+- Quick path to unlock
+- Option to continue without
+
+### Usage Limits
+When user hits a limit:
+- Clear indication of limit reached
+- Show what upgrading provides
+- Don't block abruptly
+
+### Trial Expiration
+When trial is ending:
+- Early warnings (7, 3, 1 day)
+- Clear "what happens" on expiration
+- Summarize value received
+
+### Time-Based Prompts
+After X days of free use:
+- Gentle upgrade reminder
+- Highlight unused paid features
+- Easy to dismiss
+
+---
+
+## Paywall Screen Components
+
+1. **Headline** - Focus on what they get: "Unlock [Feature] to [Benefit]"
+
+2. **Value Demonstration** - Preview, before/after, "With Pro you could..."
+
+3. **Feature Comparison** - Highlight key differences, current plan marked
+
+4. **Pricing** - Clear, simple, annual vs. monthly options
+
+5. **Social Proof** - Customer quotes, "X teams use this"
+
+6. **CTA** - Specific and value-oriented: "Start Getting [Benefit]"
+
+7. **Escape Hatch** - Clear "Not now" or "Continue with Free"
+
+---
+
+## Specific Paywall Types
+
+### Feature Lock Paywall
+```
+[Lock Icon]
+This feature is available on Pro
+
+[Feature preview/screenshot]
+
+[Feature name] helps you [benefit]:
+• [Capability]
+• [Capability]
+
+[Upgrade to Pro - $X/mo]
+[Maybe Later]
+```
+
+### Usage Limit Paywall
+```
+You've reached your free limit
+
+[Progress bar at 100%]
+
+Free: 3 projects | Pro: Unlimited
+
+[Upgrade to Pro]  [Delete a project]
+```
+
+### Trial Expiration Paywall
+```
+Your trial ends in 3 days
+
+What you'll lose:
+• [Feature used]
+• [Data created]
+
+What you've accomplished:
+• Created X projects
+
+[Continue with Pro]
+[Remind me later]  [Downgrade]
+```
+
+---
+
+## Timing and Frequency
+
+### When to Show
+- After value moment, before frustration
+- After activation/aha moment
+- When hitting genuine limits
+
+### When NOT to Show
+- During onboarding (too early)
+- When they're in a flow
+- Repeatedly after dismissal
+
+### Frequency Rules
+- Limit per session
+- Cool-down after dismiss (days, not hours)
+- Track annoyance signals
+
+---
+
+## Upgrade Flow Optimization
+
+### From Paywall to Payment
+- Minimize steps
+- Keep in-context if possible
+- Pre-fill known information
+
+### Post-Upgrade
+- Immediate access to features
+- Confirmation and receipt
+- Guide to new features
+
+---
+
+## A/B Testing
+
+### What to Test
+- Trigger timing
+- Headline/copy variations
+- Price presentation
+- Trial length
+- Feature emphasis
+- Design/layout
+
+### Metrics to Track
+- Paywall impression rate
+- Click-through to upgrade
+- Completion rate
+- Revenue per user
+- Churn rate post-upgrade
+
+---
+
+## Anti-Patterns to Avoid
+
+### Dark Patterns
+- Hiding the close button
+- Confusing plan selection
+- Guilt-trip copy
+
+### Conversion Killers
+- Asking before value delivered
+- Too frequent prompts
+- Blocking critical flows
+- Complicated upgrade process
+
+---
+
+## Task-Specific Questions
+
+1. What's your current free → paid conversion rate?
+2. What triggers upgrade prompts today?
+3. What features are behind the paywall?
+4. What's your "aha moment" for users?
+5. What pricing model? (per seat, usage, flat)
+6. Mobile app, web app, or both?
+
+---
+
+## Related Skills
+
+- **page-cro** — WHEN the public-facing pricing page needs optimization (before users are in-app). NOT for in-product upgrade screens or feature gates.
+- **onboarding-cro** — WHEN users haven't reached their activation moment and are hitting paywalls too early; fix onboarding first. NOT when value has already been delivered.
+- **ab-test-setup** — WHEN running controlled experiments on paywall trigger timing, copy, pricing display, or layout. NOT for initial paywall design.
+- **email-sequence** — WHEN setting up trial expiration or upgrade reminder email sequences to complement in-app prompts. NOT as a replacement for in-app paywall design.
+- **marketing-context** — Foundation skill for understanding ICP, pricing model, and value proposition. Load before designing paywall copy and positioning.
+
+---
+
+## Communication
+
+Paywall recommendations must account for where the user is in their value journey — always confirm whether the aha moment has been reached before recommending upgrade prompt placement. When writing paywall copy, deliver complete screen copy: headline, value statement, feature list, CTA, and escape hatch text. Flag dark patterns proactively and recommend ethical alternatives. Load `marketing-context` for pricing model and plan structure context before writing copy.
+
+---
+
+## Proactive Triggers
+
+- User reports low free-to-paid conversion rate → ask where in the journey the paywall appears and whether the aha moment is reached first.
+- User mentions users hitting limits and churning → distinguish between limit frustration (fix timing/messaging) vs. wrong ICP (fix acquisition).
+- User asks about freemium model design → help define what's free vs. paid, then design paywall moments around natural value gaps.
+- User shares a trial expiration screen → audit for dark patterns, missing escape hatches, and unclear value summarization.
+- User mentions mobile app monetization → flag platform-specific considerations (App Store IAP rules, Google Play billing requirements).
+
+---
+
+## Output Artifacts
+
+| Artifact | Description |
+|----------|-------------|
+| Paywall Trigger Map | All paywall trigger points with timing rules, cooldown periods, and frequency caps |
+| Full Paywall Screen Copy | Headline, value demonstration, feature comparison, CTA, and escape hatch for each paywall type |
+| Upgrade Flow Diagram | Step-by-step from paywall click to post-upgrade confirmation with friction reduction notes |
+| Anti-Pattern Audit | Review of existing paywall for dark patterns, trust-damaging copy, and conversion killers |
+| A/B Test Backlog | Prioritized experiment ideas for trigger timing, copy, and pricing display |

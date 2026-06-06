@@ -1,14 +1,14 @@
 ---
 name: hmdb-metabolome-database
-title: HMDB 人类代谢组数据库
-description: 当需查代谢物理化性质/通路/体液/疾病关联/谱图，或做质谱鉴定、HMDB↔KEGG/PubChem/ChEBI 转 ID 时使用；ElementTree 解析本地 ~6GB hmdb_metabolites.xml（无 REST API）产出结构化字段与候选表。不适用于在线化合物查询（用 pubchem-compound-search）。触发词：HMDB、代谢物、代谢组、生物标志物、质谱鉴定、谱图
+title: HMDB Database — Local XML Access
+description: Parse HMDB (Human Metabolome Database) local XML for metabolite info, chemical properties, biological context, disease links, spectra, and cross-DB mapping. No REST API — uses ~6 GB XML download. Use drugbank-database-access for drugs; pubchem-compound-search for live lookups.
 domain: 领域/science
-triggers: [HMDB, 代谢物, 代谢组, metabolite, metabolome, 生物标志物, biomarker, 质谱鉴定, m/z 匹配, 单同位素质量, SMILES, InChI, 通路, 生物体液, biofluid, 浓度参考范围, NMR, MS/MS, 谱图, ID 转换, ClassyFire]
-tags: [science, 代谢组学, metabolomics, hmdb, 本地xml, 质谱, 生物标志物, id转换]
-level: 进阶
+triggers: [HMDB, metabolite, metabolome, biomarker, SMILES, InChI, biofluid, NMR, MS/MS, ClassyFire]
+tags: [science, metabolomics, hmdb]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, xml.etree.ElementTree, lxml, pandas]
+tools: []
 requires: []
 related: [pubchem-compound-search, kegg-database, chembl-bioactivity-database, uniprot-protein-database, pyopenms-mass-spectrometry, opentargets-database]
 combines_with: [pyopenms-mass-spectrometry, kegg-database, gene-set-enrichment-analysis]
@@ -16,199 +16,551 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# HMDB Database — Local XML Access
 
-在 HMDB（人类代谢组数据库，22 万+ 代谢物条目）中查询信息时使用。HMDB **无编程用 REST API**，全部访问靠解析本地下载的 XML。典型场景：
+## Overview
 
-- 按 HMDB ID 或名称查代谢物（描述、化学分类、细胞定位）。
-- 取理化性质：分子式、平均/单同位素分子量、SMILES、InChI、InChIKey、状态。
-- 找代谢物的通路关联与关联酶/蛋白（含 UniProt ID）。
-- 定位代谢物的生物体液/组织（血、尿、脑脊液 CSF、唾液）。
-- 查疾病关联与正常/异常浓度参考范围，用于生物标志物发现。
-- 提取 NMR（¹H/¹³C 化学位移）或 MS/MS 峰列表做代谢物鉴定。
-- 把 HMDB ID 转到 KEGG、PubChem、ChEBI、DrugBank、CAS 等。
+Query the Human Metabolome Database (HMDB, 220,000+ metabolite entries) by parsing locally downloaded XML with Python's ElementTree. Covers metabolite lookup, chemical properties, biological context (pathways, enzymes, biofluids), disease/biomarker associations, spectral data for metabolite identification, and cross-database ID mapping to KEGG, PubChem, ChEBI, and DrugBank.
 
-**不该用本技能的边界：**
-- **免下载的在线化合物理化查询** → 用 `pubchem-compound-search`（PubChemPy REST）。
-- **药物专属数据**（相互作用、靶点、药理）→ 用 DrugBank 本地 XML（同类解析模式）。
-- **完整 LC-MS/MS 处理管线**（特征检测、去卷积）→ 用 `pyopenms-mass-spectrometry`，HMDB 只做鉴定这一步。
-- **谱库相似度打分** → 交 matchms 等，HMDB 仅提供参考谱图。
+## When to Use
 
-## 步骤 / 指令
+- Looking up metabolite information (description, chemical class, cellular location) by HMDB ID or name
+- Retrieving chemical properties (molecular weight, formula, SMILES, InChI, logP, PSA) for metabolomics analysis
+- Finding pathway associations and enzyme links for a set of metabolites
+- Identifying biofluid/tissue locations of metabolites (blood, urine, CSF, saliva)
+- Querying disease associations and normal/abnormal concentration ranges for biomarker discovery
+- Extracting NMR or MS spectral peak lists for metabolite identification
+- Mapping HMDB IDs to KEGG, PubChem, ChEBI, DrugBank, or other databases
+- For drug-specific data (interactions, targets, pharmacology) use `drugbank-database-access` instead
+- For live compound property queries without downloading use `pubchem-compound-search` instead
 
-1. **拿数据**：在 https://hmdb.ca/downloads 注册后下载 `hmdb_metabolites.xml.zip`（解压 ~6 GB）。另有 `structures.sdf`(~200 MB，仅结构)、`hmdb_proteins.fasta`(~50 MB)。
-2. **装依赖**：`pip install lxml pandas`（`lxml` XPath 更快；标准库 `xml.etree.ElementTree` 也可）。本地解析无速率限制。
-3. **命名空间是头号坑**：每个 `find()`/`findall()` 都要传 `NS = {'hmdb': 'http://www.hmdb.ca'}`，漏了一律返回空。
-4. **一次解析建索引，绝不在循环里重解析**：全量解析需 60–120s、占 ~8–12 GB 内存。解析一次后建 `dict`（HMDB ID + 小写名 → 元素）。
-5. **内存吃紧用 `iterparse`**：流式遍历，提完字段后 `elem.clear()` 释放，避免 `MemoryError`。**只在取完该条目全部字段后再 clear**。
-6. **守空值**：很多可选字段缺失，访问前判 `el is not None and el.text`。
-7. **质谱匹配用单同位素质量**：`monisotopic_molecular_weight` 才对；`average_molecular_weight` 留给其他计算。常用加合物：`[M+H]+ = +1.00728`、`[M+Na]+ = +22.9892`、`[M-H]- = -1.00728`。
-8. **大规模搜索先按化学类预筛**：用 `taxonomy`（ClassyFire 本体）的 `super_class` 收窄，再遍历 22 万+ 条目。
-9. **认准主登录号**：去重时用 `accession`（主键），不用 `secondary_accessions`。
+## Prerequisites
 
-**条目结构速查（XPath，均带 `hmdb:` 前缀）：**
+- **HMDB XML download**: Register at https://hmdb.ca/downloads — download `hmdb_metabolites.xml.zip` (~6 GB uncompressed)
+- **Python packages**: `lxml` (faster XPath) or standard `xml.etree.ElementTree`, `pandas`
+- **No public REST API**: HMDB has no programmatic REST API. All access is via local XML parsing or the web interface
+- **R package** (optional): `hmdbQuery` on CRAN provides some query wrappers but is limited and outdated
+- **Rate limits**: N/A for local XML parsing. The web interface has no documented rate limits but is not intended for scraping
 
-| 区块 | 关键路径 | 内容 |
-|---|---|---|
-| 身份 | `accession` / `name` / `iupac_name` | 主标识符 |
-| 化学结构 | `chemical_formula` / `smiles` / `inchi` / `inchikey` | 结构描述符 |
-| 物性 | `average_molecular_weight` / `monisotopic_molecular_weight` / `state` | 分子量、状态 |
-| 分类 | `taxonomy/{kingdom,super_class,class,sub_class,direct_parent}` | ClassyFire 化学本体 |
-| 生物 | `biological_properties/biospecimen_locations/biospecimen`（及 `tissue_locations`、`cellular_locations`） | 体液/组织/细胞定位 |
-| 通路 | `pathways/pathway/{name,smpdb_id,kegg_map_id}` | SMPDB + KEGG 通路 |
-| 酶/蛋白 | `protein_associations/protein/{name,uniprot_id,gene_name}` | 关联蛋白 |
-| 疾病 | `diseases/disease/{name,omim_id,references/reference/pubmed_id}` | 疾病关联 |
-| 浓度 | `normal_concentrations` / `abnormal_concentrations` 下 `concentration/{biospecimen,concentration_value,concentration_units,subject_condition}` | 生物标志物参考范围 |
-| 谱图 | `spectra/spectrum/{type,nucleus,ms_ms_peaks,nmr_one_d_peaks}` | NMR / MS/MS 峰 |
-| 外部 ID | `kegg_id` / `pubchem_compound_id` / `chebi_id` / `drugbank_id` / `cas_registry_number` 等 | 跨库标识符 |
+```bash
+pip install lxml pandas
+```
 
-**字段覆盖率**（不是每条都全）：ID/名/式 ~100%；SMILES/InChI/MW ~90%；分类 ~85%；体液 ~60%；通路 ~40%；蛋白关联 ~35%；疾病 ~25%；正常浓度 ~20%；MS/MS ~15%；NMR ~10%。
-
-## 示例
-
-**建索引 + 按 ID/名查（一次解析，全程复用 `root`/`NS`）：**
+## Quick Start
 
 ```python
 import xml.etree.ElementTree as ET
+
 NS = {'hmdb': 'http://www.hmdb.ca'}
-tree = ET.parse('hmdb_metabolites.xml')        # 60–120s
+
+tree = ET.parse('hmdb_metabolites.xml')  # 60-120s for full XML
 root = tree.getroot()
 
+# Build lookup index (HMDB ID + lowercase name -> element)
 metabolite_index = {}
 for met in root.findall('hmdb:metabolite', NS):
-    acc = met.find('hmdb:accession', NS); nm = met.find('hmdb:name', NS)
-    if acc is not None and acc.text: metabolite_index[acc.text] = met
-    if nm is not None and nm.text:  metabolite_index[nm.text.lower()] = met
+    accession = met.find('hmdb:accession', NS)
+    name = met.find('hmdb:name', NS)
+    if accession is not None and accession.text:
+        metabolite_index[accession.text] = met
+    if name is not None and name.text:
+        metabolite_index[name.text.lower()] = met
 
-def find_metabolite(q):                          # 按 HMDB ID 或名（不分大小写）
-    return metabolite_index.get(q) or metabolite_index.get(q.lower())
+def find_metabolite(query):
+    """Find metabolite by HMDB ID or name (case-insensitive)."""
+    return metabolite_index.get(query) or metabolite_index.get(query.lower())
 
-met = find_metabolite('HMDB0000122')             # 葡萄糖
-print(met.find('hmdb:name', NS).text, met.find('hmdb:chemical_formula', NS).text)
-# Glucose C6H12O6
+met = find_metabolite('HMDB0000122')  # Glucose
+name = met.find('hmdb:name', NS).text
+formula = met.find('hmdb:chemical_formula', NS).text
+print(f"{name}: {formula}")
+# Glucose: C6H12O6
 ```
 
-**内存受限 — `iterparse` 流式提取：**
+## Core API
+
+### 1. XML Setup and Metabolite Lookup
+
+```python
+import xml.etree.ElementTree as ET
+
+NS = {'hmdb': 'http://www.hmdb.ca'}
+tree = ET.parse('hmdb_metabolites.xml')
+root = tree.getroot()
+print(f"Total metabolite entries: {len(root.findall('hmdb:metabolite', NS))}")
+# Total metabolite entries: ~220000+
+```
+
+For memory-constrained environments, use iterparse:
 
 ```python
 met_names = {}
 for event, elem in ET.iterparse('hmdb_metabolites.xml', events=('end',)):
     if elem.tag == '{http://www.hmdb.ca}metabolite':
         acc = elem.find('{http://www.hmdb.ca}accession')
-        nm  = elem.find('{http://www.hmdb.ca}name')
-        if acc is not None and nm is not None and acc.text and nm.text:
-            met_names[acc.text] = nm.text
-        elem.clear()                             # 取完字段后再释放
+        name = elem.find('{http://www.hmdb.ca}name')
+        if acc is not None and name is not None and acc.text and name.text:
+            met_names[acc.text] = name.text
+        elem.clear()
+print(f"Parsed {len(met_names)} metabolites via iterparse")
 ```
 
-**理化性质 / 分类 / 通路 / 体液 / 酶（统一守空 + 命名空间）：**
+### 2. Chemical Properties
 
 ```python
-def txt(el, path):
-    x = el.find(path, NS); return x.text if x is not None and x.text else None
+def get_chemical_properties(met_element):
+    """Extract chemical properties from a metabolite entry."""
+    def txt(path):
+        el = met_element.find(path, NS)
+        return el.text if el is not None and el.text else None
+    # Fields: accession, name, chemical_formula, average_molecular_weight,
+    # monisotopic_molecular_weight, smiles, inchi, inchikey, state, iupac_name
+    return {tag: txt(f'hmdb:{tag}') for tag in [
+        'accession', 'name', 'chemical_formula', 'average_molecular_weight',
+        'monisotopic_molecular_weight', 'smiles', 'inchi', 'inchikey', 'state']}
 
-def get_props(m):
-    return {t: txt(m, f'hmdb:{t}') for t in
-            ['accession','name','chemical_formula','average_molecular_weight',
-             'monisotopic_molecular_weight','smiles','inchi','inchikey','state']}
+props = get_chemical_properties(find_metabolite('HMDB0000158'))  # L-Tyrosine
+print(f"{props['name']}: MW={props['average_molecular_weight']}, SMILES={props['smiles']}")
+```
 
-def get_pathways(m):
-    return [{'name': txt(pw,'hmdb:name'), 'smpdb_id': txt(pw,'hmdb:smpdb_id'),
-             'kegg_map_id': txt(pw,'hmdb:kegg_map_id')}
-            for pw in m.findall('hmdb:pathways/hmdb:pathway', NS)]
+```python
+# Extract taxonomy / chemical classification (ClassyFire ontology)
+def get_classification(met_element):
+    tax = met_element.find('hmdb:taxonomy', NS)
+    if tax is None:
+        return {}
+    def txt(tag):
+        el = tax.find(f'hmdb:{tag}', NS)
+        return el.text if el is not None and el.text else None
+    return {'kingdom': txt('kingdom'), 'super_class': txt('super_class'),
+            'class': txt('class'), 'sub_class': txt('sub_class'),
+            'direct_parent': txt('direct_parent')}
 
-def get_biofluids(m):
+print(get_classification(find_metabolite('HMDB0000122')))
+# {'kingdom': 'Organic compounds', 'super_class': 'Organooxygen compounds', ...}
+```
+
+### 3. Biological Context
+
+```python
+def get_pathways(met_element):
+    """Extract metabolic pathway associations."""
+    pathways = []
+    for pw in met_element.findall('hmdb:pathways/hmdb:pathway', NS):
+        name = pw.find('hmdb:name', NS)
+        smpdb_id = pw.find('hmdb:smpdb_id', NS)
+        kegg_id = pw.find('hmdb:kegg_map_id', NS)
+        pathways.append({
+            'name': name.text if name is not None else None,
+            'smpdb_id': smpdb_id.text if smpdb_id is not None else None,
+            'kegg_map_id': kegg_id.text if kegg_id is not None else None,
+        })
+    return pathways
+
+for pw in get_pathways(find_metabolite('HMDB0000122'))[:5]:
+    print(f"  {pw['smpdb_id']}: {pw['name']}")
+```
+
+```python
+def get_biolocations(met_element):
+    """Extract biofluid, tissue, and cellular locations."""
     bp = 'hmdb:biological_properties/hmdb:'
-    return [e.text for e in m.findall(f'{bp}biospecimen_locations/hmdb:biospecimen', NS) if e.text]
+    def texts(path):
+        return [el.text for el in met_element.findall(path, NS) if el.text]
+    return {'biofluids': texts(f'{bp}biospecimen_locations/hmdb:biospecimen'),
+            'tissues': texts(f'{bp}tissue_locations/hmdb:tissue'),
+            'cellular': texts(f'{bp}cellular_locations/hmdb:cellular')}
 
-def get_enzymes(m):
-    return [{'gene': txt(p,'hmdb:gene_name'), 'uniprot': txt(p,'hmdb:uniprot_id'),
-             'name': txt(p,'hmdb:name')}
-            for p in m.findall('hmdb:protein_associations/hmdb:protein', NS)]
-
-g = find_metabolite('HMDB0000122')
-print(get_props(g)['average_molecular_weight'], get_biofluids(g))
+locs = get_biolocations(find_metabolite('HMDB0000122'))
+print(f"Glucose biofluids: {locs['biofluids']}")
 ```
 
-**跨库 ID 映射：**
+```python
+def get_enzymes(met_element):
+    """Extract associated enzymes/proteins with UniProt IDs."""
+    return [{'name': (p.find('hmdb:name', NS).text
+                      if p.find('hmdb:name', NS) is not None else None),
+             'uniprot_id': (p.find('hmdb:uniprot_id', NS).text
+                            if p.find('hmdb:uniprot_id', NS) is not None else None),
+             'gene_name': (p.find('hmdb:gene_name', NS).text
+                           if p.find('hmdb:gene_name', NS) is not None else None)}
+            for p in met_element.findall('hmdb:protein_associations/hmdb:protein', NS)]
+
+enz = get_enzymes(find_metabolite('HMDB0000122'))
+print(f"Glucose-associated proteins: {len(enz)}")
+for e in enz[:3]:
+    print(f"  {e['gene_name']} ({e['uniprot_id']}): {e['name']}")
+```
+
+### 4. Disease and Biomarker Queries
 
 ```python
-def get_external_ids(m):
-    fields = {'kegg_id':'KEGG','pubchem_compound_id':'PubChem','chebi_id':'ChEBI',
-              'drugbank_id':'DrugBank','cas_registry_number':'CAS','foodb_id':'FooDB','metlin_id':'METLIN'}
-    return {lab: txt(m, f'hmdb:{tag}') for tag, lab in fields.items() if txt(m, f'hmdb:{tag}')}
+def get_diseases(met_element):
+    """Extract disease associations with OMIM IDs and PubMed references."""
+    diseases = []
+    for d in met_element.findall('hmdb:diseases/hmdb:disease', NS):
+        name = d.find('hmdb:name', NS)
+        omim = d.find('hmdb:omim_id', NS)
+        pmids = [r.find('hmdb:pubmed_id', NS).text
+                 for r in d.findall('hmdb:references/hmdb:reference', NS)
+                 if r.find('hmdb:pubmed_id', NS) is not None and r.find('hmdb:pubmed_id', NS).text]
+        diseases.append({'name': name.text if name is not None else None,
+                         'omim_id': omim.text if omim is not None else None,
+                         'pubmed_ids': pmids})
+    return diseases
 
-print(get_external_ids(find_metabolite('HMDB0000122')))
+diseases = get_diseases(find_metabolite('HMDB0000122'))
+print(f"Glucose disease associations: {len(diseases)}")
+for d in diseases[:3]:
+    print(f"  {d['name']} (OMIM: {d['omim_id']})")
+```
+
+```python
+def get_concentrations(met_element, biospecimen='Blood'):
+    """Extract normal/abnormal concentration data filtered by biospecimen."""
+    result = {'normal': [], 'abnormal': []}
+    for ctype, key in [('normal_concentrations', 'normal'),
+                       ('abnormal_concentrations', 'abnormal')]:
+        for c in met_element.findall(f'hmdb:{ctype}/hmdb:concentration', NS):
+            bio = c.find('hmdb:biospecimen', NS)
+            if bio is None or bio.text != biospecimen:
+                continue
+            def txt(tag):
+                el = c.find(f'hmdb:{tag}', NS)
+                return el.text if el is not None else None
+            result[key].append({'value': txt('concentration_value'),
+                                'units': txt('concentration_units'),
+                                'condition': txt('subject_condition')})
+    return result
+
+conc = get_concentrations(find_metabolite('HMDB0000122'), 'Blood')
+print(f"Glucose blood: {len(conc['normal'])} normal, {len(conc['abnormal'])} abnormal")
+```
+
+### 5. Spectral Data
+
+```python
+def get_ms_spectra(met_element):
+    """Extract MS/MS spectral peak lists (m/z + intensity)."""
+    spectra = []
+    for spec in met_element.findall('hmdb:spectra/hmdb:spectrum', NS):
+        stype = spec.find('hmdb:type', NS)
+        if stype is None or 'MS' not in (stype.text or ''):
+            continue
+        peaks = [{'mz': float(p.find('hmdb:mass_charge', NS).text),
+                  'intensity': float(p.find('hmdb:intensity', NS).text or 0)}
+                 for p in spec.findall('hmdb:ms_ms_peaks/hmdb:ms_ms_peak', NS)
+                 if p.find('hmdb:mass_charge', NS) is not None
+                 and p.find('hmdb:mass_charge', NS).text]
+        spectra.append({'type': stype.text, 'num_peaks': len(peaks), 'peaks': peaks})
+    return spectra
+
+spectra = get_ms_spectra(find_metabolite('HMDB0000122'))
+print(f"Glucose MS spectra: {len(spectra)}")
+```
+
+```python
+def get_nmr_spectra(met_element):
+    """Extract NMR spectral peak lists (1H, 13C). Same pattern as MS above."""
+    spectra = []
+    for spec in met_element.findall('hmdb:spectra/hmdb:spectrum', NS):
+        stype = spec.find('hmdb:type', NS)
+        if stype is None or 'NMR' not in (stype.text or ''):
+            continue
+        nucleus = spec.find('hmdb:nucleus', NS)
+        shifts = [float(p.find('hmdb:chemical_shift', NS).text)
+                  for p in spec.findall('hmdb:nmr_one_d_peaks/hmdb:nmr_one_d_peak', NS)
+                  if p.find('hmdb:chemical_shift', NS) is not None
+                  and p.find('hmdb:chemical_shift', NS).text]
+        spectra.append({'type': stype.text,
+                        'nucleus': nucleus.text if nucleus is not None else None,
+                        'num_peaks': len(shifts), 'chemical_shifts': shifts})
+    return spectra
+
+nmr = get_nmr_spectra(find_metabolite('HMDB0000122'))
+print(f"Glucose NMR spectra: {len(nmr)}")
+```
+
+### 6. Cross-Database Mapping
+
+```python
+def get_external_ids(met_element):
+    """Extract cross-database identifiers (KEGG, PubChem, ChEBI, DrugBank, CAS, etc.)."""
+    fields = {'kegg_id': 'KEGG', 'pubchem_compound_id': 'PubChem', 'chebi_id': 'ChEBI',
+              'drugbank_id': 'DrugBank', 'chemspider_id': 'ChemSpider',
+              'cas_registry_number': 'CAS', 'biocyc_id': 'BioCyc', 'pdb_id': 'PDB',
+              'foodb_id': 'FooDB', 'metlin_id': 'METLIN'}
+    ids = {}
+    for tag, label in fields.items():
+        el = met_element.find(f'hmdb:{tag}', NS)
+        if el is not None and el.text:
+            ids[label] = el.text
+    return ids
+
+ids = get_external_ids(find_metabolite('HMDB0000122'))
+print(f"Glucose cross-refs: {ids}")
 # {'KEGG': 'C00031', 'PubChem': '5793', 'ChEBI': '17234', ...}
 ```
 
-**工作流 1 — 质谱代谢物鉴定（实测 m/z → 候选）：**
+```python
+# Build cross-reference table for a metabolite list
+import pandas as pd
+
+queries = ['HMDB0000122', 'HMDB0000158', 'HMDB0000167', 'HMDB0000148']
+rows = []
+for q in queries:
+    m = find_metabolite(q)
+    if m is None: continue
+    ids = get_external_ids(m)
+    rows.append({'name': m.find('hmdb:name', NS).text, 'hmdb_id': q,
+                 'kegg': ids.get('KEGG'), 'pubchem': ids.get('PubChem'),
+                 'chebi': ids.get('ChEBI')})
+print(pd.DataFrame(rows).to_string(index=False))
+```
+
+## Key Concepts
+
+### HMDB XML Entry Structure
+
+| Section | XPath | Content |
+|---------|-------|---------|
+| Identity | `hmdb:accession`, `hmdb:name`, `hmdb:iupac_name` | Primary identifiers |
+| Chemical | `hmdb:chemical_formula`, `hmdb:smiles`, `hmdb:inchi` | Structure descriptors |
+| Properties | `hmdb:average_molecular_weight`, `hmdb:state` | Physical properties |
+| Taxonomy | `hmdb:taxonomy/hmdb:kingdom`, `class`, etc. | Chemical classification |
+| Biological | `hmdb:biological_properties` | Biofluids, tissues, cellular locations |
+| Pathways | `hmdb:pathways/hmdb:pathway` | SMPDB + KEGG pathway links |
+| Enzymes | `hmdb:protein_associations/hmdb:protein` | Associated proteins/enzymes |
+| Diseases | `hmdb:diseases/hmdb:disease` | Disease associations + OMIM IDs |
+| Concentrations | `hmdb:normal_concentrations`, `hmdb:abnormal_concentrations` | Biomarker reference ranges |
+| Spectra | `hmdb:spectra/hmdb:spectrum` | NMR, MS/MS peak lists |
+| External IDs | `hmdb:kegg_id`, `hmdb:pubchem_compound_id`, etc. | Cross-database identifiers |
+| Ontology | `hmdb:ontology` | Physiological/disposition/process roles |
+
+### Data Field Completeness
+
+Not all entries have all fields populated. Coverage varies by metabolite class:
+
+| Field Category | Approximate Coverage | Notes |
+|---------------|---------------------|-------|
+| Accession, name, formula | ~100% | Always present |
+| SMILES, InChI, MW | ~90% | Missing for some lipids and complex metabolites |
+| Taxonomy/classification | ~85% | Chemical ontology from ClassyFire |
+| Biofluid locations | ~60% | Best for common human metabolites |
+| Pathways | ~40% | Curated SMPDB + KEGG links |
+| Protein associations | ~35% | Enzyme-metabolite relationships |
+| Disease associations | ~25% | Primarily for biomarker metabolites |
+| Normal concentrations | ~20% | Reference ranges for clinical metabolites |
+| MS/MS spectra | ~15% | Experimental spectral libraries |
+| NMR spectra | ~10% | 1H and 13C chemical shift data |
+
+### File Format Comparison
+
+| Format | File | Size | Best For |
+|--------|------|------|----------|
+| Full XML | `hmdb_metabolites.xml` | ~6 GB | Complete data access (all fields) |
+| SDF | `structures.sdf` | ~200 MB | Chemical structures + basic properties |
+| CSV | Various exports | ~50-500 MB | Tabular data (properties, concentrations) |
+| FASTA | `hmdb_proteins.fasta` | ~50 MB | Protein sequence lookups |
+
+## Common Workflows
+
+### Workflow 1: Metabolite Identification from Mass Spec
+
+**Goal**: Match an observed m/z value to candidate metabolites using molecular weight. Assumes `root`, `NS` from Quick Start.
 
 ```python
 import pandas as pd
-observed_mz, adduct, tol = 180.063, 1.00728, 0.01     # [M+H]+，葡萄糖
-target = observed_mz - adduct
-rows = []
+
+observed_mz = 180.063  # [M+H]+ for glucose
+adduct_mass = 1.00728  # H+ adduct
+target_mw = observed_mz - adduct_mass
+tolerance_da = 0.01
+
+candidates = []
 for met in root.findall('hmdb:metabolite', NS):
-    mw = txt(met, 'hmdb:monisotopic_molecular_weight')   # 用单同位素质量
-    if not mw: continue
-    d = abs(float(mw) - target)
-    if d <= tol:
-        rows.append({'hmdb_id': txt(met,'hmdb:accession'), 'name': txt(met,'hmdb:name'),
-                     'mw': float(mw), 'delta': d, 'formula': txt(met,'hmdb:chemical_formula')})
-print(pd.DataFrame(rows).sort_values('delta').head(10).to_string(index=False))
+    mw_el = met.find('hmdb:monisotopic_molecular_weight', NS)
+    if mw_el is None or not mw_el.text:
+        continue
+    mw = float(mw_el.text)
+    if abs(mw - target_mw) <= tolerance_da:
+        candidates.append({
+            'hmdb_id': met.find('hmdb:accession', NS).text,
+            'name': met.find('hmdb:name', NS).text,
+            'mw': mw, 'delta_da': abs(mw - target_mw),
+            'formula': (met.find('hmdb:chemical_formula', NS).text
+                        if met.find('hmdb:chemical_formula', NS) is not None else None),
+        })
+
+df = pd.DataFrame(candidates).sort_values('delta_da')
+print(f"Candidates within {tolerance_da} Da of {target_mw:.3f}: {len(df)}")
+print(df.head(10).to_string(index=False))
 ```
 
-**工作流 2 — 某疾病的生物标志物（遍历找疾病关联 + 异常浓度计数）：**
+### Workflow 2: Biomarker Discovery for a Disease
+
+**Goal**: Find all metabolites associated with a disease and their concentration changes. Assumes `root`, `NS` from Quick Start.
 
 ```python
-q = 'diabetes'; biomarkers = []
+import pandas as pd
+
+disease_query = 'diabetes'
+biomarkers = []
 for met in root.findall('hmdb:metabolite', NS):
     for d in met.findall('hmdb:diseases/hmdb:disease', NS):
-        dn = txt(d, 'hmdb:name')
-        if not dn or q.lower() not in dn.lower(): continue
-        ab = sum(1 for c in met.findall('hmdb:abnormal_concentrations/hmdb:concentration', NS)
-                 if (txt(c,'hmdb:subject_condition') or '').lower().find(q) >= 0)
-        biomarkers.append({'hmdb_id': txt(met,'hmdb:accession'),
-                           'metabolite': txt(met,'hmdb:name'), 'abnormal': ab})
-print(pd.DataFrame(biomarkers).drop_duplicates('hmdb_id')
-        .sort_values('abnormal', ascending=False).head(15).to_string(index=False))
+        dname = d.find('hmdb:name', NS)
+        if dname is None or not dname.text:
+            continue
+        if disease_query.lower() not in dname.text.lower():
+            continue
+        abnormal = [c for c in met.findall(
+            'hmdb:abnormal_concentrations/hmdb:concentration', NS)
+            if c.find('hmdb:subject_condition', NS) is not None
+            and disease_query.lower() in
+            (c.find('hmdb:subject_condition', NS).text or '').lower()]
+        biomarkers.append({
+            'hmdb_id': met.find('hmdb:accession', NS).text,
+            'metabolite': met.find('hmdb:name', NS).text,
+            'disease': dname.text,
+            'abnormal_measurements': len(abnormal),
+        })
+
+df = pd.DataFrame(biomarkers).drop_duplicates(['hmdb_id', 'disease'])
+print(f"Metabolites linked to '{disease_query}': {len(df)}")
+print(df.sort_values('abnormal_measurements', ascending=False).head(15).to_string(index=False))
 ```
 
-**谱图提取（MS/MS 峰、NMR 位移）：**
+### Workflow 3: Pathway Enrichment from Metabolite List
+
+**Goal**: Given a list of identified metabolites, find over-represented pathways. Assumes `metabolite_index` from Quick Start.
 
 ```python
-def get_ms_peaks(m):
-    out = []
-    for s in m.findall('hmdb:spectra/hmdb:spectrum', NS):
-        if 'MS' not in (txt(s,'hmdb:type') or ''): continue
-        peaks = [{'mz': float(txt(p,'hmdb:mass_charge')), 'intensity': float(txt(p,'hmdb:intensity') or 0)}
-                 for p in s.findall('hmdb:ms_ms_peaks/hmdb:ms_ms_peak', NS) if txt(p,'hmdb:mass_charge')]
-        out.append({'type': txt(s,'hmdb:type'), 'num_peaks': len(peaks), 'peaks': peaks})
-    return out
+from collections import Counter
+import pandas as pd
+
+hit_ids = ['HMDB0000122', 'HMDB0000158', 'HMDB0000167',
+           'HMDB0000148', 'HMDB0000064', 'HMDB0000161']
+
+hit_pathways = Counter()
+for hid in hit_ids:
+    met = metabolite_index.get(hid)
+    if met is None:
+        continue
+    for pw in met.findall('hmdb:pathways/hmdb:pathway', NS):
+        pw_name = pw.find('hmdb:name', NS)
+        if pw_name is not None and pw_name.text:
+            hit_pathways[pw_name.text] += 1
+
+enriched = [(pw, count) for pw, count in hit_pathways.most_common() if count >= 2]
+df = pd.DataFrame(enriched, columns=['Pathway', 'Hit_Count'])
+print(f"Pathways with 2+ hits from {len(hit_ids)} metabolites:")
+print(df.to_string(index=False))
 ```
 
-## 注意事项
+## Key Parameters
 
-- **漏命名空间 → `find()` 恒返回 `None`**：每次调用都带 `NS = {'hmdb': 'http://www.hmdb.ca'}`。
-- **`MemoryError`**：全量入内存需 ~8–12 GB；改用 `ET.iterparse()` + `elem.clear()` 增量处理。
-- **启动慢（>120s）**：只解析一次、建索引字典，循环里禁止重解析。
-- **按名查不到**：大小写或同义词问题——统一转小写，或直接用 HMDB ID。
-- **谱图为空属正常**：MS/MS ~15%、NMR ~10% 覆盖；缺谱时找 METLIN/MassBank 补。
-- **浓度数据稀疏**：仅 ~20% 临床代谢物有参考范围；可交叉 MetaboAnalyst 或文献。
-- **重复条目**：同化合物可能有次级登录号（`HMDB00XXXXX` vs `HMDB0000XXXX`）——用主 `accession` 去重。
-- **`iterparse` 丢数据**：`elem.clear()` 调早了——务必在提完该元素全部字段之后再清。
-- **MS 匹配别用平均分子量**：必须用 `monisotopic_molecular_weight`。
-- **格式选型**：全字段访问用全量 XML；只要结构+基本属性可用 `structures.sdf`（~200 MB），更省内存。
+| Parameter | Function/Endpoint | Default | Description |
+|-----------|-------------------|---------|-------------|
+| `NS` (namespace dict) | All XPath queries | `{'hmdb': 'http://www.hmdb.ca'}` | Required for all `find`/`findall` calls |
+| `tolerance_da` | MW matching | `0.01` | Mass tolerance in Daltons for metabolite ID |
+| `biospecimen` | `get_concentrations()` | `'Blood'` | Filter: `Blood`, `Urine`, `Cerebrospinal Fluid (CSF)`, `Saliva`, etc. |
+| `events` | `ET.iterparse()` | `('end',)` | Parse events; use `('end',)` to fire on closing tags |
+| adduct mass | MS identification | varies | `1.00728` [M+H]+, `22.9892` [M+Na]+, `-1.00728` [M-H]- |
+| `target_type` | Spectral queries | `'MS'` or `'NMR'` | Filter spectra by type string |
 
-## 互见
+## Best Practices
 
-- requires：无。
-- related：`pubchem-compound-search` —— 免下载的在线化合物理化查询；`kegg-database`、`uniprot-protein-database` —— 用 HMDB 外部 ID（`kegg_id`/`uniprot_id`）下钻通路与蛋白；`chembl-bioactivity-database`、`opentargets-database` —— 经 ID 桥接生物活性与疾病-靶点证据。
-- combines_with：`pyopenms-mass-spectrometry` —— LC-MS/MS 全管线在前，HMDB 做代谢物鉴定步；`kegg-database` —— 用 `kegg_id` 接 KEGG 取通路背景；`gene-set-enrichment-analysis` —— 命中代谢物的通路集供富集分析。
+1. **Build an in-memory index on startup**: Parse once (60-120s), build dict by HMDB ID + lowercase name. Never re-parse inside a loop
+2. **Always pass the namespace dict**: Every `find()`/`findall()` needs `NS = {'hmdb': 'http://www.hmdb.ca'}`. Omitting it returns empty results
+3. **Use iterparse for memory constraints**: Full XML requires ~8-12 GB RAM. Use `elem.clear()` in iterparse to process incrementally
+4. **Guard against None and empty text**: Many optional fields are absent. Always check `el is not None and el.text` before accessing
+5. **Use monoisotopic weight for MS matching**: `monisotopic_molecular_weight` is correct for mass spec; `average_molecular_weight` for other calculations
+6. **Pre-filter by chemical class for large searches**: Use taxonomy/classification to narrow searches before iterating all 220K+ entries
 
-参考：HMDB 主站 https://hmdb.ca/ ｜ 下载页 https://hmdb.ca/downloads ｜ Wishart DS et al. (2022) HMDB 5.0, *Nucleic Acids Res.* 50(D1):D801-D816, https://doi.org/10.1093/nar/gkab1062 ｜ MetaboAnalyst（互补工具）https://www.metaboanalyst.ca/
+## Common Recipes
 
----
+### Recipe: Export All Metabolite Properties to CSV
 
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+When to use: Create a flat table of all metabolites with key properties.
+
+```python
+import pandas as pd
+records = []
+for met in root.findall('hmdb:metabolite', NS):
+    def txt(p):
+        el = met.find(p, NS)
+        return el.text if el is not None and el.text else None
+    records.append({'hmdb_id': txt('hmdb:accession'), 'name': txt('hmdb:name'),
+                    'formula': txt('hmdb:chemical_formula'),
+                    'avg_mw': txt('hmdb:average_molecular_weight'),
+                    'smiles': txt('hmdb:smiles')})
+pd.DataFrame(records).to_csv('hmdb_properties.csv', index=False)
+print(f"Exported {len(records)} metabolites")
+```
+
+### Recipe: Find Metabolites by Biofluid
+
+When to use: Get all metabolites detected in a specific biofluid (e.g., urine for clinical screening).
+
+```python
+biofluid = 'Urine'
+urine_mets = []
+for met in root.findall('hmdb:metabolite', NS):
+    for bf in met.findall(
+            'hmdb:biological_properties/hmdb:biospecimen_locations/hmdb:biospecimen', NS):
+        if bf.text and bf.text == biofluid:
+            urine_mets.append({
+                'hmdb_id': met.find('hmdb:accession', NS).text,
+                'name': met.find('hmdb:name', NS).text,
+            })
+            break
+print(f"Metabolites in {biofluid}: {len(urine_mets)}")
+```
+
+### Recipe: Chemical Class Distribution
+
+When to use: Summarize metabolite chemical classes for a hit list or the full database.
+
+```python
+from collections import Counter
+class_counts = Counter()
+for met in root.findall('hmdb:metabolite', NS):
+    tax = met.find('hmdb:taxonomy', NS)
+    if tax is not None:
+        sc = tax.find('hmdb:super_class', NS)
+        if sc is not None and sc.text:
+            class_counts[sc.text] += 1
+print(dict(class_counts.most_common(10)))
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `find()` returns `None` for known elements | Missing XML namespace | Always pass `NS = {'hmdb': 'http://www.hmdb.ca'}` |
+| `MemoryError` parsing full XML | ~8-12 GB needed in memory | Use `ET.iterparse()` with `elem.clear()` |
+| Slow startup (>120s) | Parsing 6 GB XML | Parse once, build index dict; avoid re-parsing |
+| Metabolite not found by name | Case sensitivity or synonym | Normalize to lowercase; try HMDB ID directly |
+| Empty spectra for a metabolite | Not all entries have spectra (~10-15% coverage) | Check coverage table; use METLIN or MassBank for more spectra |
+| Missing concentration data | Limited to well-studied clinical metabolites (~20%) | Cross-reference with MetaboAnalyst or literature |
+| Duplicate entries for same compound | Secondary accessions (HMDB00XXXXX vs HMDB0000XXXX) | Use `accession` (primary), not `secondary_accessions` |
+| `ET.iterparse` missing data | Premature `elem.clear()` | Only clear after extracting all needed fields from the element |
+
+## Bundled Resources
+
+Self-contained entry. The original reference file `hmdb_data_fields.md` (268 lines, field catalog with XML element names and descriptions) is consolidated into the Key Concepts "HMDB XML Entry Structure" table and the "Data Field Completeness" table above. The field catalog's per-element XML tag names are demonstrated in Core API code blocks. Omitted from original: web interface descriptions (not programmatic).
+
+## Related Skills
+
+- **drugbank-database-access** -- Drug-specific data (interactions, targets, pharmacology) with similar local XML parsing pattern
+- **pubchem-compound-search** -- Live compound property lookups without downloading; PubChemPy REST API
+- **kegg-database** -- Pathway and compound database with REST API for cross-referencing HMDB pathway hits
+- **matchms-spectral-matching** -- Spectral similarity matching against reference libraries; complementary to HMDB spectral data
+- **pyopenms-mass-spectrometry** -- Full LC-MS/MS processing pipeline; use HMDB for metabolite identification step
+
+## References
+
+- HMDB website and downloads: https://hmdb.ca/
+- Wishart DS et al. (2022). HMDB 5.0: the Human Metabolome Database for 2022. *Nucleic Acids Res.* 50(D1):D801-D816. https://doi.org/10.1093/nar/gkab1062
+- HMDB data download page: https://hmdb.ca/downloads
+- MetaboAnalyst (complementary tool): https://www.metaboanalyst.ca/

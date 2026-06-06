@@ -1,14 +1,14 @@
 ---
 name: value-dividend-screener
-title: 价值红利股筛选
-description: 当用户要筛选高质量分红股、构建收息组合、寻找估值合理又持续增长的红利标的时使用；做两段式量化筛选（FINVIZ Elite 预筛 + FMP 基本面细分析），按价值/成长/质量复合评分排名并产出 JSON 结果与 Markdown 报告；不适用于实盘下单、行情tick采集或非美股市场；触发词：红利股筛选、股息率、分红增长、价值股、收息组合、dividend screener
+title: Value Dividend Screener
+description: Screen US stocks for high-quality dividend opportunities combining value characteristics (P/E ratio under 20, P/B ratio under 2), attractive yields (3% or higher), and consistent growth (dividend/revenue/EPS trending up over 3 years). Supports two-stage screening using FINVIZ Elite API for efficient pre-filtering followed by FMP API for detailed analysis. Use when user requests dividend stock screening, income portfolio ideas, or quality value stocks with strong fundamentals.
 domain: 领域/fintech
-triggers: [红利股筛选, 股息率 3%, 分红增长 CAGR, 价值股 低PE PB, 收息组合 income portfolio, dividend screener, FINVIZ FMP, 派息可持续性 payout ratio]
-tags: [fintech, 选股, 分红, 价值投资, 股息率, 基本面筛选, fmp, finviz, python]
-level: 进阶
+triggers: [dividend screener, FINVIZ FMP]
+tags: [fintech, fmp, finviz, python]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, requests, FMP API, FINVIZ Elite API]
+tools: []
 requires: []
 related: [canslim-growth-screener, finviz-screener-builder, vcp-screener, dcf-valuation-model]
 combines_with: [portfolio-rebalancer, portfolio-risk-metrics]
@@ -16,139 +16,560 @@ license: MIT
 source: tradermonty/claude-trading-skills
 source_license: MIT
 ---
-# 价值红利股筛选
+# Value Dividend Screener
 
-## 何时使用
+## Overview
 
-当用户要在**美股**中寻找「价值 + 高股息 + 持续增长」三位一体的高质量分红股时使用，典型诉求：
+This skill identifies high-quality dividend stocks that combine value characteristics, attractive income generation, and consistent growth using a **two-stage screening approach**:
 
-- 「找高质量分红股 / 可持续高股息标的」
-- 「筛选估值合理的价值红利机会」
-- 「给我分红增长强劲的收息组合候选」
-- 任何同时涉及股息率、估值倍数与基本面质量的选股请求。
+1. **FINVIZ Elite API (Optional but Recommended)**: Pre-screen stocks with basic criteria (fast, cost-effective)
+2. **Financial Modeling Prep (FMP) API**: Detailed fundamental analysis of candidates
 
-核心做法：**两段式筛选**——先用 FINVIZ Elite 做廉价快速预筛，再用 FMP 对入围标的做基本面细分析，按复合评分排名。
+Screen US equities based on quantitative criteria including valuation ratios, dividend metrics, financial health, and profitability. Generate comprehensive reports ranking stocks by composite quality scores with detailed fundamental analysis.
 
-**不该用的边界：**
-- 实盘下单、券商撮合、持仓/订单管理 —— 本技能只做选股分析，不做交易执行。
-- 行情 tick / 日内实时数据采集与清洗 —— 先用数据管道准备，再进本技能。
-- 非美股市场（A 股、港股等）—— 筛选条件与数据源按美股设计。
-- REITs 与金融股派息特征不同（高 payout、口径不同），默认应排除或单独处理。
-- 高成长科技股**按设计不会入选**（受 P/E≤20、P/B≤2 过滤）。
-- 输出仅供分析参考，不构成投资建议；阈值与口径需自行复核，必要时回查 SEC 文件。
+**Efficiency Advantage**: Using FINVIZ pre-screening can reduce FMP API calls by 90%, making this approach ideal for free-tier API users.
 
-## 步骤
+## When to Use
 
-1. **校验 API Key**。两段式需 `FMP_API_KEY` + `FINVIZ_API_KEY`；仅 FMP 模式只需前者。缺失则提示用户配置环境变量。
-2. **执行筛选脚本**（见「指令」）。推荐两段式：FINVIZ 预筛把候选从数百压到 ~30，再交 FMP 细算，FMP 调用量可降 60–94%。
-3. **解析结果 JSON**：读 `metadata` 与 `stocks`，关注估值、3Y 成长 CAGR、派息可持续性、财务健康、质量分与复合评分。
-4. **生成 Markdown 报告**：含筛选条件、Top N 排名表、逐只详析、组合构建与监控建议。
-5. **解释方法论**：说明阈值由来、复合评分如何平衡价值/成长/质量、如何区分「真红利」与「红利陷阱/价值陷阱」。
-6. **答疑**：某股为何落选（卡在哪条）、如何调阈值/按行业筛、多久重跑、买几只。
+Invoke this skill when the user requests:
+- "Find high-quality dividend stocks"
+- "Screen for value dividend opportunities"
+- "Show me stocks with strong dividend growth"
+- "Find income stocks trading at reasonable valuations"
+- "Screen for sustainable high-yield stocks"
+- Any request combining dividend yield, valuation metrics, and fundamental analysis
 
-## 指令
+## Workflow
 
-**校验 Key（Python）：**
+### Step 1: Verify API Key Availability
+
+**For Two-Stage Screening (Recommended):**
+
+Check if both API keys are available:
 
 ```python
 import os
 fmp_api_key = os.environ.get('FMP_API_KEY')
-finviz_api_key = os.environ.get('FINVIZ_API_KEY')  # 两段式必需
+finviz_api_key = os.environ.get('FINVIZ_API_KEY')
 ```
 
+If not available, ask user to provide API keys or set environment variables:
 ```bash
 export FMP_API_KEY=your_fmp_key_here
 export FINVIZ_API_KEY=your_finviz_key_here
 ```
 
-> FINVIZ Elite 需订阅（约 $39.5/月或 $299.5/年），提供 CSV 导出预筛结果。FMP 免费档 250 次/天，配合两段式足够。
+**For FMP-Only Screening:**
 
-**两段式筛选（推荐）：**
+Check if FMP API key is available:
 
+```python
+import os
+api_key = os.environ.get('FMP_API_KEY')
+```
+
+If not available, ask user to provide API key or set environment variable:
 ```bash
-# 默认取 Top 20
-python3 scripts/screen_dividend_stocks.py --use-finviz
+export FMP_API_KEY=your_key_here
+```
 
-# 显式传 Key / 自定义数量 / 自定义输出
+**FINVIZ Elite API Key:**
+- Requires FINVIZ Elite subscription (~$40/month or ~$330/year)
+- Provides access to CSV export of pre-screened results
+- Highly recommended for reducing FMP API usage
+
+Provide instructions from `references/fmp_api_guide.md` if needed.
+
+### Step 2: Execute Screening Script
+
+Run the screening script with appropriate parameters:
+
+#### **Two-Stage Screening (RECOMMENDED)**
+
+Uses FINVIZ for pre-screening, then FMP for detailed analysis:
+
+**Default execution (Top 20 stocks):**
+```bash
+python3 scripts/screen_dividend_stocks.py --use-finviz
+```
+
+**With explicit API keys:**
+```bash
 python3 scripts/screen_dividend_stocks.py --use-finviz \
-  --fmp-api-key $FMP_API_KEY --finviz-api-key $FINVIZ_API_KEY
+  --fmp-api-key $FMP_API_KEY \
+  --finviz-api-key $FINVIZ_API_KEY
+```
+
+**Custom top N:**
+```bash
 python3 scripts/screen_dividend_stocks.py --use-finviz --top 50
+```
+
+**Custom output location:**
+```bash
 python3 scripts/screen_dividend_stocks.py --use-finviz --output /path/to/results.json
 ```
 
-FINVIZ 预筛条件：中盘及以上、股息率 3%+、3Y 分红增长 5%+、3Y EPS 增长为正、P/B<2、P/E<20、3Y 营收增长为正、美国。运行约 2–3 分钟（30–50 候选）。
+**Script behavior (Two-Stage):**
+1. FINVIZ Elite pre-screening:
+   - Market cap: Mid-cap or higher
+   - Dividend yield: 3%+
+   - Dividend growth (3Y): 5%+
+   - EPS growth (3Y): Positive
+   - P/B: Under 2
+   - P/E: Under 20
+   - Sales growth (3Y): Positive
+   - Geography: USA
+2. FMP detailed analysis of FINVIZ results (typically 20-50 stocks):
+   - Dividend growth rate calculation (3-year CAGR)
+   - Revenue and EPS trend analysis
+   - Dividend sustainability assessment (payout ratios, FCF coverage)
+   - Financial health metrics (debt-to-equity, current ratio)
+   - Quality scoring (ROE, profit margins)
+3. Composite scoring and ranking
+4. Output top N stocks to JSON file
 
-**仅 FMP 模式（API 用量更高，5–15 分钟）：**
+**Expected runtime (Two-Stage):** 2-3 minutes for 30-50 FINVIZ candidates (much faster than FMP-only)
 
+#### **FMP-Only Screening (Original Method)**
+
+Uses only FMP Stock Screener API (higher API usage):
+
+**Default execution:**
 ```bash
 python3 scripts/screen_dividend_stocks.py
+```
+
+**With explicit API key:**
+```bash
 python3 scripts/screen_dividend_stocks.py --fmp-api-key $FMP_API_KEY
 ```
 
-**筛选阈值（三阶段，核心约束）：**
+**Script behavior (FMP-Only):**
+1. Initial screening using FMP Stock Screener API (dividend yield >=3.0%, P/E <=20, P/B <=2)
+2. Detailed analysis of candidates (typically 100-300 stocks):
+   - Same detailed analysis as two-stage approach
+3. Composite scoring and ranking
+4. Output top N stocks to JSON file
 
-| 阶段 | 指标 | 阈值 |
-|---|---|---|
-| 一·价值与收益 | 股息率 | ≥ 3.5%（>8% 常不可持续） |
-| | P/E (TTM) | ≤ 20 |
-| | P/B | ≤ 2.0 |
-| 二·成长质量 | 分红 3Y CAGR | ≥ 5%，期内无削减（允许一年持平） |
-| | 营收 3Y 趋势 | 为正（允许一年回落） |
-| | EPS 3Y 趋势 | 为正（允许一年回落） |
-| 三·可持续与健康 | 派息率 | < 80% 健康（30–70% 最佳） |
-| | FCF 派息率 | < 100%（真现金覆盖） |
-| | 负债权益比 D/E | < 2.0 |
-| | 流动比率 | > 1.0（>1.5 更佳） |
+**Expected runtime (FMP-Only):** 5-15 minutes for 100-300 candidates (rate limiting applies)
 
-可持续标记 ✅ = 派息率<80% 且 FCF 派息率<100%；健康标记 ✅ = D/E<2 且 流动比率>1。
+**API Usage Comparison:**
+- Two-Stage: ~50-100 FMP API calls (FINVIZ pre-filters to ~30 stocks)
+- FMP-Only: ~500-1500 FMP API calls (analyzes all screener results)
 
-**复合评分（满分 100，越高越优）：** 分红增长 20（10%+ CAGR=20，线性）+ 营收增长 15（10%+=15）+ EPS 增长 15（15%+=15）+ 派息可持续 10（通过即满分）+ 财务健康 10 + 质量分×0.3（满 30）。质量分 = ROE（满 20% 得 50）+ 净利率（满 15% 得 50）。评分 80–100 卓越 / 60–79 强 / 40–59 良。
+### Step 3: Parse and Analyze Results
 
-## 示例
-
-**解析结果并取关键字段：**
+Read the generated JSON file:
 
 ```python
 import json
 
-with open('dividend_screener_results.json') as f:
+with open('dividend_screener_results.json', 'r') as f:
     data = json.load(f)
-stocks = data['stocks']  # 每只含 dividend_yield, pe_ratio, pb_ratio,
-                         # dividend_cagr_3y, payout_ratio, fcf_payout_ratio,
-                         # debt_to_equity, roe, profit_margin, composite_score 等
+
+metadata = data['metadata']
+stocks = data['stocks']
 ```
 
-**按行业定制（在初筛后追加）：**
+**Key data points per stock:**
+- Basic info: `symbol`, `company_name`, `sector`, `market_cap`, `price`
+- Valuation: `dividend_yield`, `pe_ratio`, `pb_ratio`
+- Growth metrics: `dividend_cagr_3y`, `revenue_cagr_3y`, `eps_cagr_3y`
+- Sustainability: `payout_ratio`, `fcf_payout_ratio`, `dividend_sustainable`
+- Financial health: `debt_to_equity`, `current_ratio`, `financially_healthy`
+- Quality: `roe`, `profit_margin`, `quality_score`
+- Overall ranking: `composite_score`
 
-```python
-# 只看防御性行业
-target = ['Consumer Defensive', 'Utilities', 'Healthcare']
-candidates = [s for s in candidates if s.get('sector') in target]
+### Step 4: Generate Markdown Report
 
-# 排除 REITs 与金融（派息口径不同）
-exclude = ['Real Estate', 'Financial Services']
-candidates = [s for s in candidates if s.get('sector') not in exclude]
-```
+Create structured markdown report for user with following sections:
 
-**报告骨架（给用户）：** 顶部列筛选条件与命中数 → Top N 排名表（Rank/代码/公司/股息率/PE/分红增长/评分）→ 逐只详析（估值、3Y 成长、派息可持续性、财务健康、质量分、投资要点与风险）→ 组合构建（行业分散、集中度警示、季度监控指标、调仓触发）。
+#### Report Structure
 
-## 注意事项
+```markdown
+# Value Dividend Stock Screening Report
 
-- **股息率口径差异**：FINVIZ 预筛用 3%+ 入口，最终方法论与报告阈值为 **3.5%**；务必以 3.5% 为准、保持口径一致。
-- **速率限制**：FMP 免费档 250 次/天，脚本内置每次调用约 0.3s 延时；超限自动 60s 后重试。两段式约 180–300 次 FMP 调用，仅 FMP 模式可达 500–5000 次。
-- **依赖**：`pip install requests`；缺 Key 报「FMP/FINVIZ API key required」，按提示配置环境变量或 `--fmp-api-key/--finviz-api-key` 传参。
-- **无结果时放宽条件**：调高 P/E、调低股息率或分红增长门槛；熊市本就命中更少。FINVIZ 失败可回退仅 FMP 模式。
-- **重跑频率**：建议季度（对齐财报周期），长期持有者半年亦可。
-- **结构性偏差**：结果偏大/中盘、偏公用事业与必需消费，且按设计排除高成长股；过往增长不保证未来。
-- **卖出红线**：分红削减、营收/EPS 连续多季下滑、派息率>100%、杠杆无故飙升、估值极端（如 P/E>30）。
-- **不要硬编码 Key**，始终走环境变量。
+**Generated:** [Timestamp]
+**Screening Criteria:**
+- Dividend Yield: >= 3.5%
+- P/E Ratio: <= 20
+- P/B Ratio: <= 2
+- Dividend Growth (3Y CAGR): >= 5%
+- Revenue Trend: Positive over 3 years
+- EPS Trend: Positive over 3 years
 
-## 互见
-
-- related：`alpha-vantage-market-data` —— 取行情/基本面原始数据作上游。
-- related：`dcf-valuation-model`、`three-statement-model` —— 对入围标的做内在价值与建模深挖。
-- related：`portfolio-risk-metrics`、`portfolio-rebalancer` —— 把筛选结果落到组合的风险度量与再平衡。
-- combines_with：`trading-strategy-backtester` —— 将红利策略历史化回测验证。
+**Total Results:** [N] stocks
 
 ---
-采编自 tradermonty/claude-trading-skills（MIT 许可），已做中文适配重写。
+
+## Top 20 Stocks Ranked by Composite Score
+
+| Rank | Symbol | Company | Yield | P/E | Div Growth | Score |
+|------|--------|---------|-------|-----|------------|-------|
+| 1 | [TICKER] | [Name] | [%] | [X.X] | [%] | [XX.X] |
+| ... |
+
+---
+
+## Detailed Analysis
+
+### 1. [SYMBOL] - [Company Name] (Score: XX.X)
+
+**Sector:** [Sector Name]
+**Market Cap:** $[X.XX]B
+**Current Price:** $[XX.XX]
+
+**Valuation Metrics:**
+- Dividend Yield: [X.X]%
+- P/E Ratio: [XX.X]
+- P/B Ratio: [X.X]
+
+**Growth Profile (3-Year):**
+- Dividend CAGR: [X.X]% [✓ Consistent / ⚠ One cut]
+- Revenue CAGR: [X.X]%
+- EPS CAGR: [X.X]%
+
+**Dividend Sustainability:**
+- Payout Ratio: [XX]%
+- FCF Payout Ratio: [XX]%
+- Status: [✓ Sustainable / ⚠ Monitor / ❌ Risk]
+
+**Financial Health:**
+- Debt-to-Equity: [X.XX]
+- Current Ratio: [X.XX]
+- Status: [✓ Healthy / ⚠ Caution]
+
+**Quality Metrics:**
+- ROE: [XX]%
+- Net Profit Margin: [XX]%
+- Quality Score: [XX]/100
+
+**Investment Considerations:**
+- [Key strength 1]
+- [Key strength 2]
+- [Risk factor or consideration]
+
+---
+
+[Repeat for other top stocks]
+
+---
+
+## Portfolio Construction Guidance
+
+**Diversification Recommendations:**
+- Sector breakdown of top 20 results
+- Suggested allocation strategy
+- Concentration risk warnings
+
+**Monitoring Recommendations:**
+- Key metrics to track quarterly
+- Warning signs for each position
+- Rebalancing triggers
+
+**Risk Considerations:**
+- Market cap concentration
+- Sector biases in results
+- Economic sensitivity warnings
+```
+
+### Step 5: Provide Context and Methodology
+
+Reference screening methodology when explaining results:
+
+**Key concepts to explain:**
+- Why these specific thresholds (3.5% yield, P/E 20, P/B 2)
+- Importance of dividend growth vs. static high yield
+- How composite score balances value, growth, and quality
+- Dividend sustainability vs. dividend trap distinction
+- Financial health metrics significance
+
+Load `references/screening_methodology.md` to provide detailed explanations of:
+- Phase 1: Initial quantitative filters
+- Phase 2: Growth quality filters
+- Phase 3: Sustainability and quality analysis
+- Composite scoring system
+- Investment philosophy and limitations
+
+### Step 6: Answer Follow-up Questions
+
+Anticipate common user questions:
+
+**"Why did [stock] not make the list?"**
+- Check which criteria it failed (yield, valuation, growth, sustainability)
+- Explain the specific filter that excluded it
+
+**"Can I screen for specific sectors?"**
+- Filtering capability exists in script (modify line 383-388)
+- Suggest re-running with sector parameter additions
+
+**"What if I want higher/lower yield threshold?"**
+- Script parameters are adjustable
+- Trade-offs between yield and growth
+- Recommend re-screening with new parameters
+
+**"How often should I re-run this screen?"**
+- Quarterly recommended (aligns with earnings cycles)
+- Semi-annually sufficient for long-term holders
+- Market conditions may warrant more frequent checks
+
+**"How many stocks should I buy?"**
+- Diversification guidance: minimum 10-15 for dividend portfolio
+- Sector balance considerations
+- Position sizing based on risk tolerance
+
+## Resources
+
+### scripts/screen_dividend_stocks.py
+
+Comprehensive screening script that:
+- Interfaces with FMP API for data retrieval
+- Implements multi-phase filtering logic
+- Calculates growth rates (CAGR) over 3-year periods
+- Evaluates dividend sustainability via payout ratios and FCF coverage
+- Assesses financial health (debt-to-equity, current ratio)
+- Computes quality scores (ROE, profit margins)
+- Ranks stocks by composite scoring system
+- Outputs structured JSON results
+
+**Dependencies:** `requests` library (install via `pip install requests`)
+
+**Rate limiting:** Built-in delays to respect FMP API limits (250 requests/day free tier)
+
+**Error handling:** Graceful degradation for missing data, rate limit retries, API errors
+
+### references/screening_methodology.md
+
+Comprehensive documentation of screening approach:
+
+**Phase 1: Initial Quantitative Filters**
+- Dividend yield >= 3.5% rationale and calculation
+- P/E ratio <= 20 threshold justification
+- P/B ratio <= 2 valuation logic
+
+**Phase 2: Growth Quality Filters**
+- Dividend growth (3-year CAGR >= 5%)
+- Revenue positive trend analysis
+- EPS positive trend analysis
+
+**Phase 3: Quality & Sustainability Analysis**
+- Dividend sustainability metrics (payout ratios, FCF coverage)
+- Financial health indicators (D/E, current ratio)
+- Quality scoring methodology (ROE, profit margins)
+
+**Composite Scoring System (0-100 points)**
+- Score component breakdown and weighting
+- Interpretation guidelines
+
+**Investment Philosophy**
+- Why this approach works
+- What this strategy avoids (dividend traps, value traps)
+- Ideal candidate profile
+
+**Usage Notes & Limitations**
+- Best practices for portfolio construction
+- When to sell criteria
+- Historical context for threshold selection
+
+### references/fmp_api_guide.md
+
+Complete guide for Financial Modeling Prep API:
+
+**API Key Setup**
+- Obtaining free API key
+- Setting environment variables
+- Free tier limits (250 requests/day)
+
+**Key Endpoints Used**
+- Stock Screener API
+- Income Statement API
+- Balance Sheet API
+- Cash Flow Statement API
+- Key Metrics API
+- Historical Dividend API
+
+**Rate Limiting Strategy**
+- Built-in protection in script
+- Request budget management
+- Best practices for free tier
+
+**Error Handling**
+- Common errors and solutions
+- Debugging techniques
+
+**Data Quality Considerations**
+- Data freshness and gaps
+- Data accuracy caveats
+- When to verify with SEC filings
+
+## Advanced Usage
+
+### Customizing Screening Criteria
+
+Modify thresholds in `scripts/screen_dividend_stocks.py`:
+
+**Line 383-388** - Initial screening parameters:
+```python
+candidates = client.screen_stocks(
+    dividend_yield_min=3.5,  # Adjust yield threshold
+    pe_max=20,               # Adjust P/E threshold
+    pb_max=2,                # Adjust P/B threshold
+    market_cap_min=2_000_000_000  # Minimum $2B market cap
+)
+```
+
+**Line 423** - Dividend CAGR threshold:
+```python
+if not div_cagr or div_cagr < 5.0:  # Adjust growth threshold
+```
+
+### Sector-Specific Screening
+
+Add sector filtering after initial screening:
+
+```python
+# Filter for specific sectors
+target_sectors = ['Consumer Defensive', 'Utilities', 'Healthcare']
+candidates = [s for s in candidates if s.get('sector') in target_sectors]
+```
+
+### Excluding REITs and Financials
+
+REITs and financial stocks have different dividend characteristics (higher payouts, different metrics):
+
+```python
+# Exclude REITs and Financials
+exclude_sectors = ['Real Estate', 'Financial Services']
+candidates = [s for s in candidates if s.get('sector') not in exclude_sectors]
+```
+
+### Exporting to CSV
+
+Convert JSON results to CSV for Excel analysis:
+
+```python
+import json
+import csv
+
+with open('dividend_screener_results.json', 'r') as f:
+    data = json.load(f)
+
+stocks = data['stocks']
+
+with open('screening_results.csv', 'w', newline='') as csvfile:
+    if stocks:
+        fieldnames = stocks[0].keys()
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(stocks)
+```
+
+## Troubleshooting
+
+### "ERROR: requests library not found"
+**Solution:** Install requests library
+```bash
+pip install requests
+```
+
+### "ERROR: FMP API key required"
+**Solution:** Set environment variable or provide via command-line
+```bash
+export FMP_API_KEY=your_key_here
+# OR
+python3 scripts/screen_dividend_stocks.py --fmp-api-key your_key_here
+```
+
+### "ERROR: FINVIZ API key required when using --use-finviz"
+**Solution:** Set environment variable or provide via command-line
+```bash
+export FINVIZ_API_KEY=your_key_here
+# OR
+python3 scripts/screen_dividend_stocks.py --use-finviz --finviz-api-key your_key_here
+```
+
+**Note:** FINVIZ Elite subscription required (~$40/month or ~$330/year)
+
+### "ERROR: FINVIZ API authentication failed"
+**Possible causes:**
+1. Invalid FINVIZ API key
+2. FINVIZ Elite subscription expired
+3. API key format incorrect
+
+**Solution:**
+- Verify FINVIZ Elite subscription is active
+- Check API key for typos (should be alphanumeric string)
+- Log into FINVIZ Elite account and verify API key in settings
+- Try accessing FINVIZ Elite screener manually to confirm subscription
+
+### "ERROR: FINVIZ pre-screening failed or returned no results"
+**Possible causes:**
+1. FINVIZ API connection issue
+2. Screening criteria too restrictive (no stocks match)
+3. Market conditions (bear market may yield fewer results)
+
+**Solution:**
+- Check internet connection
+- Verify FINVIZ Elite website is accessible
+- Try FMP-only method as fallback:
+  ```bash
+  python3 scripts/screen_dividend_stocks.py
+  ```
+
+### "WARNING: Rate limit exceeded"
+**Solution:** Script automatically retries after 60 seconds. If persistent:
+- Wait until next day (free tier resets daily)
+- Reduce number of stocks analyzed (modify line 394 limit)
+- Consider upgrading to paid FMP tier
+
+### "No stocks found matching all criteria"
+**Solution:** Criteria may be too restrictive
+- Relax P/E threshold (increase from 20)
+- Lower dividend yield requirement (decrease from 3.5%)
+- Reduce dividend growth requirement (decrease from 5%)
+- Check market conditions (bear markets may have fewer qualifiers)
+
+### Script runs slowly
+**Expected behavior:** Script includes 0.3s delay between API calls for rate limiting
+- 100 stocks analyzed = ~8-10 minutes
+- First 20-30 qualifying stocks usually found within first 50-70 analyzed
+
+## Performance & Cost Optimization
+
+### API Call Comparison
+
+**Two-Stage Screening (FINVIZ + FMP):**
+- FINVIZ: 1 API call
+- FMP Quote API: ~30-50 calls (one per pre-screened symbol)
+- FMP Financial Data: ~150-250 calls (5 endpoints × 30-50 symbols)
+- **Total FMP calls: ~180-300**
+
+**FMP-Only Screening:**
+- FMP Stock Screener: 1 call (returns 100-1000 stocks)
+- FMP Financial Data: ~500-5000 calls (5 endpoints × 100-1000 symbols)
+- **Total FMP calls: ~500-5000**
+
+**Savings: 60-94% reduction in FMP API usage**
+
+### Cost Analysis
+
+**FINVIZ Elite:**
+- Monthly: $39.50
+- Annual: $299.50 (~$24.96/month)
+
+**FMP API:**
+- Free tier: 250 calls/day (sufficient for two-stage screening)
+- Starter tier: $29.99/month for 750 calls/day
+- Professional tier: $79.99/month for 2000 calls/day
+
+**Recommendation:**
+- **For free FMP tier users**: Use two-stage screening (FINVIZ + FMP free tier)
+- **For paid FMP tier users**: Either approach works; two-stage is faster
+- **Budget option**: FMP-only with free tier (run screening every few days)
+- **Optimal option**: FINVIZ Elite ($330/year) + FMP free tier = Complete solution
+
+## Version History
+
+- **v1.1** (November 2025): Added FINVIZ Elite integration for two-stage screening
+- **v1.0** (November 2025): Initial release with comprehensive multi-phase screening

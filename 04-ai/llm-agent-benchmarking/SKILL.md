@@ -1,14 +1,14 @@
 ---
 name: llm-agent-benchmarking
-title: LLM 智能体测试与基准评测
-description: 当需要测试、基准评测 LLM 智能体（行为测试、能力评估、可靠性指标、回归与生产监控）时使用；做统计化多次运行评估、行为契约/对抗测试、回归门禁与数据泄漏检测，产出含通过率、置信区间、违规项与上线建议的评测报告；不适用于模型训练评估（loss/perplexity）、公平性偏见测试或纯 UX 测试。触发词：智能体评测、benchmark、对抗测试、回归测试、数据泄漏
+title: LLM Agent Benchmarking & Evaluation
+description: Use when testing and benchmarking LLM agents (behavioral testing, capability assessment, reliability metrics, regression, and production monitoring); run statistical multi-run evaluation, behavioral-contract and adversarial tests, regression gates, and data-leakage detection, pro
 domain: 智能/eval
-triggers: [智能体评测, agent evaluation, agent benchmark, 智能体基准测试, 行为契约测试, 对抗测试, prompt injection 测试, 回归测试, flaky 测试, 数据泄漏检测, 智能体可靠性, 通过率置信区间, tau-bench, AgentBench, 生产就绪评估]
-tags: [智能, eval, agent, benchmark, 可靠性, 回归测试, 对抗测试, 数据泄漏, 统计评估, 质量保障]
-level: 进阶
+triggers: [agent evaluation, agent benchmark, behavioral contract testing, adversarial testing, prompt injection testing, regression testing, flaky test, data leakage detection, agent reliability, pass rate confidence interval, tau-bench, AgentBench, production readiness evaluation]
+tags: [ai, eval, agent, benchmark, reliability, regression-testing, adversarial-testing, data-leakage, statistical-evaluation, qa]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [AgentBench, tau-bench, ToolEmu, LangSmith, Braintrust, PromptFoo]
+tools: []
 requires: []
 related: [llm-judge-evaluation, ai-engineering-toolkit, langfuse-llm-observability, skill-optimizer]
 combines_with: [multi-agent-system-designer, langgraph-agent-framework, production-llm-app-builder]
@@ -16,59 +16,81 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当你需要系统化地评估 LLM 智能体的能力与可靠性时使用本技能，典型场景：
+Use this skill to systematically evaluate the capability and reliability of LLM agents — including behavioral testing, capability assessment, reliability metrics, and production monitoring, where even top agents achieve less than 50% on real-world benchmarks. Typical scenarios:
 
-- 设计基准评测套件，量化智能体在真实任务上的表现（注意：即使顶尖智能体在真实世界 benchmark 上通常也低于 50% 通过率，不要被高分误导）。
-- 智能体输出是随机的，需要用「多次运行 + 统计分析」替代单次断言。
-- 上线前做行为契约校验、对抗测试、回归门禁、数据泄漏排查。
-- 在生产中持续监控能力退化并告警。
+- Design a benchmark suite that quantifies agent performance on real tasks (don't be misled by high scores — top agents usually score below 50% on real-world benchmarks).
+- Agent output is stochastic, so replace single-shot assertions with multi-run + statistical analysis.
+- Run behavioral-contract validation, adversarial testing, regression gates, and data-leakage checks before deploy.
+- Continuously monitor for capability degradation in production and alert on regression.
 
-不该用的边界（直接转其他技能或方法）：
+Boundaries (route elsewhere):
 
-- 模型训练层评估（loss、perplexity、收敛性）——属于训练评估，不在本技能范围。
-- 公平性 / 偏见测试、纯用户体验（UX）测试——需专门方法论。
-- 实现或修复智能体本身的缺陷——转 `自主智能体` / `多智能体编排` 技能。
-- 缺少输入、权限、安全边界或成功标准时，先停下来澄清，不要凭空评测。
+- Model training evaluation (loss, perplexity, convergence) — out of scope.
+- Fairness/bias testing and pure user-experience (UX) testing — need dedicated methodologies.
+- Implementing or fixing the agent itself — route to `autonomous-agents` / `multi-agent-orchestration`.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing — do not evaluate against assumptions.
 
-## 步骤
+## Steps
 
-1. 先定义可测性与成功标准：在设计智能体阶段就规划评测套件，明确每个测试的预期行为（mustBehaviors）与禁止行为（mustNotBehaviors）。
-2. 统计化评估：每个用例至少跑 10 次（最少 5 次），统计通过率、95% 置信区间、均值/标准差得分、p95 延迟、行为一致性。
-3. 行为契约测试：为智能体定义「必须做 / 必须不做 / 上下文条件」三类断言，逐输入校验，任一 critical 违规即判定不通过。
-4. 对抗测试：覆盖 prompt 注入、角色混淆、边界输入、资源耗尽、输出操纵、工具滥用六类攻击，主动寻找失败模式。
-5. 回归门禁：先建立基线（baseline），新版本用卡方检验对比通过率，退化超 5% 容差且 p<0.05 判定显著退化 → 阻止上线。
-6. 数据泄漏检测：排查测试样本是否进入训练集 / 系统提示 / RAG 检索，做记忆化探测。
-7. 多维评测防刷分：correctness/helpfulness/safety/efficiency/user_preference 加权评分，得分方差过高即疑似 gaming 单一指标。
-8. 生产就绪评估：用真实生产样本、对抗变体、边界用例和并发负载验证，弥合 benchmark 与生产的差距。
+1. **Design for testability and success criteria.** Plan the evaluation suite during agent design; define expected behavior per test as `mustBehaviors` and `mustNotBehaviors`.
+2. **Statistical evaluation.** Run each test case at least 10 times (minimum 5), and compute pass rate, 95% confidence interval, mean/stdDev score, p95 latency, and behavior consistency.
+3. **Behavioral contract testing.** Define `must` / `must not` / contextual assertions per agent; check every input; any critical violation fails the contract.
+4. **Adversarial testing.** Cover prompt injection, role confusion, boundary testing, resource exhaustion, output manipulation, and tool abuse — actively hunt for failure modes.
+5. **Regression gate.** Establish a baseline, then compare a new version's pass rate with a chi-squared test; degradation beyond 5% tolerance with p<0.05 is a significant regression → block deploy.
+6. **Data-leakage detection.** Check whether test samples leaked into training data / system prompt / RAG retrieval; run memorization probes.
+7. **Multi-dimensional scoring to prevent gaming.** Weighted scoring across correctness/helpfulness/safety/efficiency/user_preference; high score variance signals gaming a single metric.
+8. **Production-readiness evaluation.** Validate with real (anonymized) production samples, adversarial variants, edge cases, and concurrent load to bridge the benchmark-to-production gap.
 
-## 指令
+## Instructions
 
-- 随机性优先：任何「单次 pass/fail 断言」对 LLM 智能体都不可靠，必须改为多次运行 + 阈值（通过率 ≥ 0.8、CI 整体 ≥ 0.9）。
-- flaky 处理：跑 N 次统计通过率与 flakiness = 不同结果出现的概率；flakiness > 0.2 标记为 flaky 并调查，不要简单重跑掩盖。
-- 关键统计量（TypeScript 接口，保留源约束）：
+- **Stochasticity first.** Any single pass/fail assertion is unreliable for LLM agents — replace with multi-run + thresholds (pass rate ≥ 0.8, overall CI ≥ 0.9).
+- **Flaky handling.** Run N times; compute pass rate and `flakiness` = probability of getting a different result on rerun. Flakiness > 0.2 → mark flaky and investigate; do not mask it by re-running.
+- **Key statistics** (TypeScript interface, source constraints preserved):
 
 ```typescript
 interface StatisticalAnalysis {
-  passRate: number;
-  confidence95: [number, number];   // z=1.96，se=sqrt(p(1-p)/n)
-  meanScore: number;
-  stdDevScore: number;
-  meanLatency: number;
-  p95Latency: number;
-  behaviorConsistency: number;      // 多次运行行为集合的 Jaccard 平均
+    passRate: number;
+    confidence95: [number, number];   // z=1.96, se=sqrt(p(1-p)/n)
+    meanScore: number;
+    stdDevScore: number;
+    meanLatency: number;
+    p95Latency: number;
+    behaviorConsistency: number;      // mean Jaccard across runs' behavior sets
 }
 ```
 
-- 关注阈值（识别风险）：passRate<0.8 告警、<0.5 critical；behaviorConsistency<0.7 表示智能体不稳定；stdDevScore>0.3 表示质量不可预测。
-- 回归判据：`significantDegradation = (currentPassRate < baselinePassRate*0.95) && (chiSquaredP < 0.05)`，命中即输出 `DO NOT DEPLOY`。
-- 数据泄漏判据：训练集输入相似度 >0.95、系统提示包含测试输入前缀、记忆化补全相似度 >0.8、RAG 检索文档与期望输出相似度 >0.7，任一命中即 CRITICAL，必须替换泄漏用例。
-- 生态工具按场景选型：AgentBench（多环境基准，ICLR 2024）、τ-bench（Sierra 真实世界基准）、ToolEmu（工具使用风险行为检测）、LangSmith（链路追踪与评估）；需生产监控集成用 Braintrust，仅做提示级评测用 PromptFoo。避免「只靠人工测试」这种已淘汰方式。
+- **Concern thresholds:** passRate < 0.8 → alert, < 0.5 → critical; behaviorConsistency < 0.7 → unstable agent; stdDevScore > 0.3 → unpredictable quality.
+- **Regression criterion:** `significantDegradation = (currentPassRate < baselinePassRate*0.95) && (chiSquaredP < 0.05)`; on hit, output `DO NOT DEPLOY`.
+- **Leakage criteria (any → CRITICAL, replace the test):** training-input similarity > 0.95; system prompt contains a test-input prefix; memorization completion similarity > 0.8; RAG-retrieved doc vs. expected output similarity > 0.7.
+- **Ecosystem tools by scenario:** AgentBench (multi-environment benchmark, ICLR 2024), τ-bench / Tau-bench (Sierra's real-world agent benchmark), ToolEmu (risky-behavior detection for tool use), LangSmith (tracing + evaluation). Use Braintrust when you need production-monitoring integration; PromptFoo for prompt-level evaluation only. Avoid the deprecated "manual testing only" approach.
 
-## 示例
+## Example
 
-对抗测试中的 prompt 注入用例（保留源关键检测器）：
+Statistical evaluator — run every test multiple times and analyze the distribution:
+
+```typescript
+class StatisticalEvaluator {
+    private readonly minRuns = 10;
+    private readonly confidenceLevel = 0.95;
+
+    private analyzeResults(results: TestResult[]): StatisticalAnalysis {
+        const passes = results.filter(r => r.passed);
+        const passRate = passes.length / results.length;
+
+        const z = 1.96;  // 95% confidence
+        const se = Math.sqrt((passRate * (1 - passRate)) / results.length);
+        const confidence95: [number, number] = [
+            Math.max(0, passRate - z * se),
+            Math.min(1, passRate + z * se)
+        ];
+        // ...meanScore, stdDevScore, p95Latency, behaviorConsistency
+    }
+}
+```
+
+Adversarial prompt-injection test cases (key detectors preserved):
 
 ```typescript
 {
@@ -80,7 +102,7 @@ interface StatisticalAnalysis {
 }
 ```
 
-边界测试（极长输入、Unicode 边界、递归任务防死循环）：
+Boundary tests (extreme length, Unicode edge cases, recursion without infinite loop):
 
 ```typescript
 { name: 'extreme_length_input', input: 'a'.repeat(100000),
@@ -90,21 +112,18 @@ interface StatisticalAnalysis {
   detector: (o) => o.completedWithin(30000) }
 ```
 
-回归报告产物：`{ hasRegressions, regressions[], recommendation: 'DO NOT DEPLOY: Regressions detected' | 'OK to deploy' }`。
+Regression report artifact: `{ hasRegressions, regressions[], recommendation: 'DO NOT DEPLOY: Regressions detected' | 'OK to deploy' }`.
 
-## 注意事项
+## Notes
 
-- benchmark 高分 ≠ 生产可用：benchmark 有已知答案模式，生产是长尾、脏输入。务必用真实生产样本（脱敏）+ 对抗变体（错别字、改写、加噪、换格式）+ 并发负载（如 50 并发、60s）验证，生产准确率低于 benchmark 的 80% 即判定 benchmark 不具代表性。
-- 指标是质量的代理，会被刷分：单一指标高、其余低（得分方差 >0.15）即疑似 gaming，对可被刷分的维度（如 user_preference）引入人工或独立 LLM 评审。
-- 测试数据泄漏是 CRITICAL 级问题：表现为特定测试满分、换新版本骤降、智能体「知道」不该知道的答案；一旦发现立即移除泄漏用例并新建。
-- 不要把评测结果当作环境特定验证、测试或专家评审的替代品。
+- **Benchmark score ≠ production-ready.** Benchmarks have known answer patterns; production is long-tail and messy. Validate with real (anonymized) production samples + adversarial variants (typos, rephrasing, noise, format changes) + concurrent load (e.g. 50 concurrent, 60s). If production accuracy < 80% of benchmark accuracy, the benchmark is not representative.
+- **Metrics are proxies and can be gamed.** One dimension high, the rest low (score variance > 0.15) signals gaming. For gameable dimensions (e.g. `user_preference`), add human or independent-LLM review.
+- **Test-data leakage is CRITICAL.** Symptoms: perfect scores on specific tests, score drops on a new test version, the agent "knows" answers it shouldn't. On detection, remove leaked tests and create new ones immediately.
+- Do not treat evaluation output as a substitute for environment-specific validation, testing, or expert review.
 
-## 互见
+## See also
 
-- `自主智能体`：修复评测中发现的缺陷（implement|fix|improve）。
-- `多智能体编排`：评测编排模式、协调可靠性（orchestration|coordination）。
-- `智能体通信`：评测智能体间通信可靠性（communication|message）。
-- `LLM 安全审计`：与本技能配合做生产监控与基线告警。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT），原条目 agent-evaluation 源自 vibeship-spawner-skills（Apache 2.0）。
+- `autonomous-agents` — fix issues found in evaluation (implement|fix|improve).
+- `multi-agent-orchestration` — evaluate orchestration patterns and coordination reliability (orchestration|coordination).
+- `agent-communication` — evaluate inter-agent communication reliability (communication|message).
+- `llm-security-audit` — pair with this skill for production monitoring and baseline alerting.

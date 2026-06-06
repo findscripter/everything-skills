@@ -1,14 +1,14 @@
 ---
 name: nih-grant-finder
-title: NIH 科研基金匹配与申报
-description: 当临床/科研人员要为一个明确的研究想法匹配 NIH 资助、定位科研立项策略并产出可编辑申报概览时使用；做 6 问拷问式收集→5 维 Consensus 定位→RePORTER 检索研究所/study section/NOSI→按职业阶段×范围×预实验数据匹配机制→生成 9 节 .docx；不适用于非 NIH 资助方（PCORI、DOD CDMRP、VA、基金会）。触发词：nih grant、find grants for my research、为研究找基金、NIH 资助匹配、科研基金申报、grant finder、研究所匹配
+title: Grants — NIH Funding Intelligence
+description: NIH grant research skill for clinical researchers. Grill-me intake (research idea + career stage + preliminary data + environment + submission posture + known institute targets) locks down the funding strategy before any search runs. Runs a 5-facet Consensus positioning analysis (with draft Significance/Innovation language), maps the research to the right NIH institutes and study sections via RePORTER, finds NOSIs and funded overlap, and produces an editable Word document (.docx) with budget/scope-aware mechanism recommendations, submission timelines, and a mandatory program officer recommendation. Triggers: 'grants for [topic]', 'find grants for my research idea', 'what grants match my research', 'help me find NIH funding', 'grant opportunities for my research', or any grant-related request. NIH-only scope — non-NIH funders (PCORI, DOD CDMRP, VA, foundations) are out of scope and flagged at intake.
 domain: 领域/science
-triggers: [nih grant, find grants for my research, 为研究找基金, NIH 资助匹配, 科研基金申报, grant finder, 研究所匹配, what grants match my research, NOSI 检索, 机制匹配 R01 K F]
+triggers: [nih grant, find grants for my research, grant finder, what grants match my research]
 tags: [nih, grants, research-funding, reporter, consensus, docx, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bash_tool, curl, python, node, docx, Consensus MCP, NIH RePORTER API]
+tools: []
 requires: []
 related: [advisor-fit-analyzer, research-experiment-designer, scientific-database-lookup, academic-paper-writer]
 combines_with: [research-experiment-designer, scientific-database-lookup]
@@ -16,36 +16,121 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Grants — NIH Funding Intelligence
 
-- 临床/科研人员有一个**具体**研究想法，需要把它定位到正确的 NIH 研究所与 study section，并产出可编辑、可分享给导师的申报策略概览（.docx）。
-- 需要发现匹配的资助机会（NOSI）、查找已资助的重叠项目、并根据职业阶段给出可申报的机制建议（F/K/R/U 系列）与提交时间线。
+> **Portability:** Requires `bash_tool` (for RePORTER POST via curl), Node.js with `docx` package, and a Consensus MCP connection. Works in Claude Code CLI natively. In Claude.ai with Code Execution + Consensus MCP, the workflow is supported but slower.
 
-**不该用的边界：**
-- 仅限 NIH。非 NIH 资助方（PCORI、DOD CDMRP、VA、基金会）超出范围，须在收集阶段直接标注并退出。
-- 想法过于笼统（如"AI for healthcare""biomarkers for disease X"）时不要直接跑检索，先要求细化。
-- 不要用训练知识填充工具未返回的内容；不要把"找到/展示/引用"三类计数混为一谈。
+> **Scope: NIH-only.** Non-NIH funders (PCORI, DOD CDMRP, VA, foundations) are out of scope and flagged at intake.
 
-## 步骤
+For a clinical researcher with a research idea, produce a strategic NIH funding overview as an editable `.docx`. Output covers research positioning analysis, institute mapping, targeted grant discovery, and strategic recommendations the researcher can edit, copy from, and share with their mentor.
 
-1. **拷问式收集（Phase 1，6 问，一次一问）**：Q1 研究想法（2-3 句，含问题/新颖性/临床意义，拒绝含糊）→ Q2 职业阶段（预博/博后/早期/独立 PI/资深 PI）→ Q3 预实验数据（无/试点/强/已验证）→ Q4 研究环境（R01 资格/中等/资源受限/产学协作）→ Q5 提交姿态（新申/重申 A1/探索中）→ Q6 已考虑的研究所（或"无偏好—帮我找"）。Q6 后锁定，不再重开收集。
-2. **研究定位（Phase 2A，5 次 Consensus 检索）**：顺序执行、每次间隔 ≥1 秒，对应 5 个维度——established（已知）/stakes（重要性，mortality OR burden OR cost OR prevalence）/current approaches（现状）/adjacent methods（邻接方法）/gaps（局限与空白）。每维提取 2-3 条可引用发现，用"the field has established X (refs), but Y remains unanswered (refs)"句式起草 Significance/Innovation。
-3. **研究所映射与机会发现（Phase 2B，RePORTER POST）**：先用 `fiscal_year_calculator.py` 算财年窗口（当前 FY + 前 3 年），再跑窄检索（AND，找直接重叠）和宽检索（OR，找邻接工作）。对 `agency_ic_admin` 计数取 Top-3 研究所，对 `study_section` 计数取 Top-2。解析响应中的 `NOT-*` 编号发现 NOSI。
-4. **机制匹配（范围感知）**：用职业阶段 **+** 项目范围 **+** 预实验数据三者共同决定，而非仅凭职业阶段。
-5. **生成 DOCX（Phase 3）**：Node.js + `docx` 库产出 9 节文档。
-6. **交付（Phase 4）**：保存→给出文件路径、审计计数、plan tier、研究所判断→校验。
+## Agent Integrity Rules (Research-Pack Convention)
 
-## 指令
+Inherited; locked verbatim per PR #657 audit.
 
-RePORTER 仅支持 **POST**，必须用 `bash_tool` + `curl`，**禁用 web_fetch**（web_fetch 是 GET）。
+- **Execution discipline.** A step isn't complete until result is confirmed received. Consensus calls **sequential with 1+ sec pause**. RePORTER calls sequential.
+- **Data sourcing.** Count only what tool calls returned this session. Never supplement with training knowledge. Training knowledge labeled `[Not from Consensus/RePORTER — reference information]` and excluded from counts.
+- **Counts & attribution.** Queries sent / results shown / results cited — three separate numbers, never conflate. Every cited paper has retrievable URL from this session.
+- **Error handling.** On failure → wait 3s → retry once → log. After 3 consecutive failures across tools: stop, alert researcher, explain what's missing. Never silently skip.
+- **Transparency.** Audit Log section in the DOCX. Same standards in chat summary as in document.
 
-财年窗口（绝不硬编码）：
+See [`references/reporter_post_patterns.md`](references/reporter_post_patterns.md) for the RePORTER POST canon + plan-tier detection.
+
+## Phase 1: Grill-Me Intake (6 forcing questions, one at a time)
+
+### Q1 (root) — Research idea
+
+> **Describe the research idea in 2–3 sentences. What's the question, what's new, and what's the clinical relevance? Vague answers ("AI for healthcare", "biomarkers for disease X") will be rejected — push for specificity.**
+>
+> *Why I'm asking:* Five Consensus searches (established / stakes / current approaches / adjacent methods / gaps) depend on a precise research idea. Vague ideas produce vague gap quotes and useless positioning narrative.
+
+Refuse mush. Re-ask once with examples if user is too broad.
+
+### Q2 (depends on Q1) — Career stage
+
+> **Career stage — pick one:**
+>
+> 1. Pre-doctoral (PhD student, T32 trainee)
+> 2. Postdoctoral fellow (F32, K99 candidate)
+> 3. Early career (K-award candidate, first R01)
+> 4. Independent investigator (multiple R01s, established lab)
+> 5. Senior PI (R35, P-series, U01 leadership)
+>
+> *Why I'm asking:* Career stage filters mechanism recommendations. F-series for trainees, K-series for early career, R-series for independent. Picking the wrong stage produces unfundable mechanism suggestions.
+
+Forcing choice.
+
+### Q3 (depends on Q2) — Preliminary data status
+
+> **Preliminary data — pick one:**
+>
+> 1. None (de novo project, no pilot data yet)
+> 2. Pilot data (early findings, single-site)
+> 3. Strong preliminary (multi-experiment, ready for R01-scale)
+> 4. Validated and ready (multi-site, publication-ready)
+>
+> *Why I'm asking:* Prelim data status drives mechanism budget. No data → R03 / R21 pilot scope. Strong prelim → R01 / U01 multi-site scale. Mismatch produces uncompetitive applications.
+
+### Q4 (depends on Q2) — Environment
+
+> **Research environment — pick one:**
+>
+> 1. R01-eligible (research-intensive institution with NIH base funding)
+> 2. Mid-tier (regional academic medical center, modest NIH portfolio)
+> 3. Resource-constrained (smaller institution, minimal NIH base)
+> 4. Industry-collaborative (academic + industry partnership)
+>
+> *Why I'm asking:* Environment affects scope realism (multi-site U01 requires R01-eligible) and which mechanism categories are competitive (R15 specifically targets resource-constrained).
+
+### Q5 (depends on Q1) — Submission posture
+
+> **Submission posture — pick one:**
+>
+> 1. New application (first submission, no prior reviews)
+> 2. Resubmission (A1 with reviewer responses needed)
+> 3. Exploring (haven't decided yet whether to submit)
+>
+> *Why I'm asking:* Resubmissions need reviewer-response guidance in the DOCX (Section 7). New applications skip that. Exploring shifts emphasis to landscape over strategy.
+
+### Q6 (depends on Q1) — Known institute targets
+
+> **Are you already considering specific NIH institutes? List names (NCI / NHLBI / NIMH / NINDS / NIDDK / etc.) or say "no preference — find the right ones".**
+>
+> *Why I'm asking:* If you have an institute hypothesis, I'll validate it against RePORTER data. If not, I'll surface the top-3 institutes funding adjacent work from the institute-tally.
+
+Accept "no preference" as the common case.
+
+**Stop condition:** After Q6, commit and start Phase 2A. Never re-open intake after Phase 2A begins.
+
+## Phase 2A: Research Positioning (5 Consensus searches)
+
+Run sequentially at 1 q/sec. Each search corresponds to one positioning facet:
+
+1. **Established** — `"<research idea>" established evidence` — what's known
+2. **Stakes** — `"<topic>" mortality OR burden OR cost OR prevalence` — why it matters
+3. **Current Approaches** — `"<topic>" current treatment OR standard of care OR approach` — state of the art
+4. **Adjacent Methods** — `"<related technique>" applied to <topic>` — methodological possibilities
+5. **Gaps** — `"<topic>" limitations OR unanswered OR future directions OR challenge` — gap signals
+
+Use `scripts/citation_tracker.py --action record_consensus_search` for each. Plan-tier detected from first response.
+
+**Synthesis:** for each facet, extract 2-3 quotable findings (becomes Section 2 gap quotes). Draft Significance/Innovation language using "the field has established X (refs), but Y remains unanswered (refs)" pattern.
+
+## Phase 2B: Institute Mapping + Grant Discovery (RePORTER POST)
+
+RePORTER is **POST-only**. Use `bash_tool` + `curl` — never `web_fetch`.
+
+### Dynamic fiscal year window
+
+Compute at runtime via `scripts/fiscal_year_calculator.py`. Default: current FY + 3 prior. Federal FY starts Oct 1, so:
+
 ```bash
 python ../scripts/fiscal_year_calculator.py --output json
-# 返回: {"current_fy": 2026, "window": [2023, 2024, 2025, 2026]}
+# Returns: {"current_fy": 2026, "window": [2023, 2024, 2025, 2026]}
 ```
 
-窄检索（AND，找直接重叠）：
+### Narrow (AND) search — finds direct overlap
+
 ```bash
 curl -X POST 'https://api.reporter.nih.gov/v2/projects/search' \
   -H 'Content-Type: application/json' \
@@ -63,46 +148,146 @@ curl -X POST 'https://api.reporter.nih.gov/v2/projects/search' \
     "include_fields": ["project_num", "project_title", "agency_ic_admin", "study_section", "fiscal_year", "principal_investigators", "abstract_text"]
   }'
 ```
-宽检索把 `operator` 改为 `OR`、`search_text` 填同义词/相关概念。
 
-NOSI 位于可预测 URL，逐个抓取；失败则记 `[NOSI {number} — fetch failed, not included]` 并继续：
-```
-https://grants.nih.gov/grants/guide/notice-files/NOT-<INSTITUTE>-<YEAR>-<NUMBER>.html
+### Broad (OR) search — finds adjacent work
+
+```bash
+curl -X POST 'https://api.reporter.nih.gov/v2/projects/search' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "criteria": {
+      "fiscal_years": [2023, 2024, 2025, 2026],
+      "advanced_text_search": {
+        "operator": "OR",
+        "search_field": "all",
+        "search_text": "<term> <synonym> <related concept>"
+      }
+    },
+    "limit": 50
+  }'
 ```
 
-机制匹配：
+### Institute tally + study section ranking
+
+After RePORTER responses:
+- Tally `agency_ic_admin` (institute code: NCI, NHLBI, NIMH, etc.) → top-3 funding institutes
+- Tally `study_section` → top-2 study sections (where applications go for review)
+
+### NOSI discovery
+
+Parse RePORTER responses for `NOT-*` opportunity numbers. For each:
+
+```bash
+# NOSIs live at predictable URLs:
+# https://grants.nih.gov/grants/guide/notice-files/NOT-<INSTITUTE>-<YEAR>-<NUMBER>.html
+web_fetch <url>
+```
+
+If fetch fails: log `[NOSI {number} — fetch failed, not included]`, continue.
+
+## Mechanism Matching (Scope-Aware)
+
+NOT career stage alone. Career stage **+** project scope **+** prelim data drive recommendation.
+
+Use `scripts/mechanism_matcher.py`:
+
 ```bash
 python ../scripts/mechanism_matcher.py \
-  --career-stage "early_career" --prelim-data "pilot" \
-  --environment "r01_eligible" --scope "single_site" --output json
+  --career-stage "early_career" \
+  --prelim-data "pilot" \
+  --environment "r01_eligible" \
+  --scope "single_site" \
+  --output json
+# Returns mechanism shortlist with rationale
 ```
 
-三计数审计：`scripts/citation_tracker.py`（Consensus 发送/展示/引用 + RePORTER 项目/引用，落盘 `~/.grants_sessions/<session>.json`）。
+See [`references/nih_mechanism_matching.md`](references/nih_mechanism_matching.md) for the full matrix.
 
-DOCX 校验：`python scripts/office/validate.py <docx>`，输出名 `grants_<topic-slug>_<YYYY-MM-DD>.docx`。
+## Phase 3: DOCX Generation
 
-## 示例
+9 sections via Node.js + `docx` library. See [`references/docx_9_sections.md`](references/docx_9_sections.md) for full spec.
 
-- 输入："find grants for my research idea：用单细胞转录组识别儿童哮喘的内型标志物" → 走 6 问收集（若用户只说"biomarkers for asthma"则要求细化）→ 5 维 Consensus 定位 → RePORTER 窄/宽检索得 Top-3 研究所（如 NHLBI/NIAID/NICHD）与 Top-2 study section → 解析 NOSI → 按"早期+试点数据+单中心"匹配 R21/R01 → 产出 9 节 .docx。
-- 输入：含"NIH funding for my K-award"且 Q2=早期、Q5=重申 → 机制偏 K 系列，DOCX 第 7 节补充 reviewer-response 指引。
+1. **Executive Summary** — title + career stage + environment + 3-4 key findings bullets
+2. **Research Positioning** — 3-5 gap quotes (italicized, inline Consensus citations) + 2-3 paragraph positioning narrative + supporting evidence table
+3. **Target Institutes** — ranking table (institute, project count in window, % match to your idea) + 2-3 sentence interpretation
+4. **Grant Opportunities** — bold NOSI callout if any. Top-3 grants table with hyperlinked FOAs + per-grant scope/budget fit paragraph
+5. **Funded Overlap** — top-5 projects table (PI, project_num, IC, year, hyperlinked to RePORTER) + differentiation paragraph
+6. **Study Sections** — ranking table + best-match interpretation
+7. **Strategic Recommendations & Next Steps** — 3-4 numbered recs + **mandatory program officer rec** + submission timeline note + (if resubmission Q5=2) reviewer-response guidance + closing paragraph
+8. **References** — numbered bibliography, hyperlinked to Consensus
+9. **Audit Log** — Consensus searches table, plan-tier note, RePORTER searches table, NOSI fetches table, summary stats, tool constraints note, failed steps
 
-## 注意事项
+### Styling
 
-- **执行纪律**：一步未确认收到结果即未完成。Consensus 顺序调用、间隔 ≥1 秒；并行会触发限流。
-- **数据来源**：只统计本次会话工具返回的内容；训练知识须标 `[Not from Consensus/RePORTER — reference information]` 且不计入计数。
-- **计数与归属**：发送数/展示数/引用数是三个独立数字，绝不混淆；每条引用论文都要有本会话可检索的 URL。
-- **错误处理**：失败 → 等 3 秒 → 重试一次 → 记录；连续 3 次跨工具失败则停止并告知缺失项，绝不静默跳过。DOCX 生成失败时把原始数据存为 JSON 兜底。
-- **强制项**：DOCX 第 7 节必须含**联系项目官（program officer）建议**（附 NIH 研究所列表页路径、准备 1 页 specific aims + CV + 3 个针对性问题、邮件主题"Pre-application inquiry: <topic>"）；必须含 Audit Log 节。两者都不可省。
-- **机制时间线**（嵌入 DOCX 第 7 节）：R01/R21/R03 → Feb 5 / Jun 5 / Oct 5；K（K01/K08/K23/K99）→ Feb 12 / Jun 12 / Oct 12；R34、R61/R33 → Feb 16 / Jun 16 / Oct 16；F31/F32 → Apr 8 / Aug 8 / Dec 8。
-- **样式**：正文 Arial 12pt、深蓝标题 #1a3a5c、浅蓝表头 #e8f0f8、琥珀色 NOSI 提示；超链接分别指向 consensus.app/papers、grants.nih.gov/grants/guide、reporter.nih.gov/project-details。
-- **须拒绝的反模式**：并行 Consensus 调用、用 web_fetch 抓 RePORTER、硬编码财年、仅凭职业阶段定机制、用训练知识填薄结果、跳过审计日志或项目官建议、混淆"找到/展示/引用"、抓取失败时编造 NOSI 详情。
+Arial 12pt body, navy headings (#1a3a5c), light blue table headers (#e8f0f8), amber NOSI callout. `ExternalHyperlink` patterns:
+- Paper citations: `https://consensus.app/papers/...`
+- FOA links: `https://grants.nih.gov/grants/guide/...`
+- RePORTER projects: `https://reporter.nih.gov/project-details/<id>`
 
-## 互见
+## Mandatory Program Officer Recommendation
 
-- fact-checking：在引用 Consensus 论文与 RePORTER 项目时核验来源与可检索性，呼应本条"每条引用须有会话内 URL"的约束。
-- pdf-form-filler：若后续需要填写 NIH 申报表单（如 PHS 398/SF424 衍生表）可衔接使用。
-- markdown-to-docx：当不依赖 Node `docx` 库、改从 Markdown 草稿生成 .docx 时的替代产出路径。
+Always include in Section 7:
+
+> **Recommended next step: contact program officer at {top institute}.** Find their staff page at https://www.nih.gov/institutes-nih/list-nih-institutes-centers-offices → {institute} → Program Officers. Prepare: 1-page specific aims + your CV + 3 specific questions about fit. Email subject: "Pre-application inquiry: <topic>".
+
+This is the single most valuable advice for any applicant. Never skip.
+
+## Submission Timeline (Embedded in DOCX Section 7)
+
+| Mechanism | Standard receipt dates |
+|---|---|
+| R01, R21, R03 | Feb 5, Jun 5, Oct 5 |
+| K awards (K01, K08, K23, K99) | Feb 12, Jun 12, Oct 12 |
+| R34, R61/R33 | Feb 16, Jun 16, Oct 16 |
+| F31, F32 | Apr 8, Aug 8, Dec 8 |
+
+## Phase 4: Deliver
+
+- Save DOCX to `<output-dir>/grants_<topic-slug>_<YYYY-MM-DD>.docx`
+- Chat summary: file path + audit counts + plan tier + verdict on institute targets
+- Validate: `python scripts/office/validate.py <docx>`
+
+## Tooling
+
+| Script | Role |
+|---|---|
+| `scripts/citation_tracker.py` | Three-count audit (Consensus sent/shown/cited + RePORTER projects/cited) at `~/.grants_sessions/<session>.json` |
+| `scripts/fiscal_year_calculator.py` | Current FY + 3-prior window. Computed at runtime, never hardcoded. |
+| `scripts/mechanism_matcher.py` | Career stage × scope × prelim → mechanism recommendation shortlist |
+
+## References
+
+- [`references/nih_mechanism_matching.md`](references/nih_mechanism_matching.md) — career stage × scope × prelim → mechanism canon (7+ sources)
+- [`references/reporter_post_patterns.md`](references/reporter_post_patterns.md) — RePORTER curl POST templates + plan-tier detection (7+ sources)
+- [`references/docx_9_sections.md`](references/docx_9_sections.md) — 9-section .docx spec + technical requirements (7+ sources)
+
+## Error Handling
+
+| Failure | Behavior |
+|---|---|
+| Consensus rate-limit hit | Wait 3s, retry once, log; if still failing, alert researcher |
+| Consensus returns 0 for a facet | Surface explicitly; never fill with training knowledge |
+| Consensus plan-tier cap detected | Log tier, note in audit, surface to researcher |
+| RePORTER POST returns error | Retry once after 3s; if still failing, log and continue |
+| RePORTER returns <5 on narrow | Document; broad OR should compensate; surface low count |
+| NOSI fetch fails | Log `[NOSI {n} — fetch failed]`, continue |
+| 3 consecutive tool failures | Stop, alert researcher with what's missing |
+| DOCX generation fails | Save raw data as JSON fallback so researcher doesn't lose work |
+
+## Anti-Patterns To Reject
+
+- Parallelizing Consensus calls (will hit rate limit)
+- Using `web_fetch` for RePORTER (POST-only — `web_fetch` is GET)
+- Hardcoded fiscal year values
+- Mechanism recommendations based on career stage alone (must consider scope too)
+- Silently filling thin facet results with training knowledge
+- Skipping the audit log
+- Skipping the program officer recommendation
+- Conflating "papers found" with "papers shown" with "papers cited"
+- Fabricating NOSI details when fetch fails
 
 ---
 
-本条采编自 alirezarezvani/claude-skills（MIT）。
+**Version:** 1.0.0
+**Source spec:** [`megaprompts/08-grants-megaprompt.md`](../../../../megaprompts/08-grants-megaprompt.md)
+**Build pattern:** Path B (direct conversion). Research-pack sibling of pulse + litreview.

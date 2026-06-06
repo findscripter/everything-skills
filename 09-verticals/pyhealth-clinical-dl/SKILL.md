@@ -1,14 +1,14 @@
 ---
 name: pyhealth-clinical-dl
-title: PyHealth 临床健康深度学习流水线
-description: 当用 PyHealth 在 EHR/生理信号/医学影像上做临床预测（死亡率、再入院、住院时长、用药推荐、睡眠分期、ICD 编码）时使用；按数据集→任务→模型→Trainer→指标五段式搭建可训练流水线并产出模型与临床指标，含医疗编码 ICD/ATC/NDC/RxNorm 查询互映；不适用于纯表格数据的通用 PyTorch 建模；触发词：PyHealth、MIMIC、eICU、OMOP、EHR、用药推荐、ICD 编码
+title: PyHealth
+description: Build clinical/healthcare deep-learning pipelines with PyHealth — loading EHR/signal/imaging datasets (MIMIC-III/IV, eICU, OMOP, SleepEDF, ChestXray14, EHRShot), defining tasks (mortality, readmission, length-of-stay, drug recommendation, sleep staging, ICD coding, EEG events), instantiating models (Transformer, RETAIN, GAMENet, SafeDrug, MICRON, StageNet, AdaCare, CNN/RNN/MLP), training with the PyHealth Trainer, computing clinical metrics, and using medical code utilities (ICD/ATC/NDC/RxNorm lookup and cross-mapping). Use this skill whenever the user mentions PyHealth, MIMIC, eICU, OMOP, EHR modeling, clinical prediction, drug recommendation, sleep staging, medical code mapping, ICD/ATC codes, or any healthcare ML pipeline that fits the dataset → task → model → trainer → metrics pattern, even if "PyHealth" isn't named explicitly.
 domain: 领域/medical
-triggers: [PyHealth, MIMIC, eICU, OMOP, EHR 建模, 临床预测, 用药推荐, 睡眠分期, ICD 编码, 医疗编码映射]
+triggers: [PyHealth, MIMIC, eICU, OMOP]
 tags: [pyhealth, healthcare, clinical, ehr, mimic, deep-learning, medcode, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [pyhealth, python, pytorch, uv]
+tools: []
 requires: []
 related: [neurokit2-biosignal-processing, dicom-medical-imaging, pytdc-therapeutics-datasets, scikit-learn-ml]
 combines_with: [mlops-model-productionizer, shap-model-explainability, guided-statistical-analysis]
@@ -16,51 +16,45 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# PyHealth
 
-当临床/健康 ML 任务符合 PyHealth 的**五段式流水线**（`Dataset → Task → Model → Trainer → Metrics`）时使用本条，典型场景：
+PyHealth (https://pyhealth.dev/) is a Python toolkit for clinical deep learning. It provides a unified, modular pipeline across electronic health records (EHR), physiological signals, and medical imaging.
 
-- 提到 PyHealth、MIMIC-III/IV、eICU、OMOP-CDM、EHRShot、SleepEDF、SHHS、ISRUC、ChestX-ray14、TUEV/TUAB 等临床数据集。
-- 要预测死亡率、再入院、住院时长（LOS）、用药推荐、睡眠分期、ICD 编码、EEG 事件、去标识化。
-- 要查询或跨映射医疗编码（ICD-9-CM、ICD-10-CM、ATC、NDC、RxNorm、CCS）。
-- 手上有 EHR 形态数据，想直接训练临床模型而不手写数据管道。
+The library is built around a **5-stage pipeline** — `Dataset → Task → Model → Trainer → Metrics` — where each stage is replaceable and the interfaces between stages are stable. Code that follows this pipeline shape composes well; code that bypasses it usually fights the library.
 
-**不该用本条的边界：**
+## When to use this skill
 
-- 只是想在通用表格数据上跑原生 PyTorch → 不需要 PyHealth。
-- 工作流不符合「数据集→任务→模型→Trainer」五段式，硬套通常是在和库对着干。
+Use this skill whenever the user is doing clinical/healthcare ML and any of the following are true:
 
-## 步骤
+- They mention PyHealth, MIMIC-III/IV, eICU, OMOP-CDM, EHRShot, SleepEDF, SHHS, ISRUC, COVID19-CXR, ChestX-ray14, TUEV/TUAB.
+- They want to predict mortality, readmission, length of stay, drug recommendations, sleep stages, ICD codes, EEG events, or de-identification.
+- They need to look up or cross-map medical codes (ICD-9-CM, ICD-10-CM, ATC, NDC, RxNorm, CCS).
+- They have EHR-shaped data and want to train a clinical model without writing the plumbing themselves.
 
-1. 装环境：PyHealth 2.0 需 Python ≥3.12 且 <3.14，用 `uv` 管理。
-2. **Dataset**：实例化数据集类（如 `MIMIC3Dataset`），得到可查询的患者注册表 `BaseDataset`。
-3. **Task**：`base.set_task(task)` 把患者转成有监督样本，得到 `SampleDataset`（模型/切分/DataLoader 都吃这个）。
-4. **切分 + DataLoader**：`split_by_patient`（默认）按患者切分防泄漏，`get_dataloader` 构建 loader。
-5. **Model**：把 `SampleDataset` 传给模型（Transformer/RETAIN/GAMENet/SafeDrug/MICRON/StageNet/AdaCare/CNN/RNN/MLP）。
-6. **Trainer + Metrics**：用 `Trainer.train(...)` 训练并按 `monitor` 选最佳 checkpoint，`inference` 后用对应指标函数评估。
+PyHealth is the right tool when the workflow fits its 5 stages. If the user just wants generic PyTorch on tabular data, this skill is not necessary.
 
-## 指令
+## Installation (uv)
 
-安装（uv）：
+PyHealth 2.0 requires Python ≥ 3.12, < 3.14. Use `uv` for environment management — it's faster and reproducible.
 
 ```bash
-uv init my-pyhealth-project && cd my-pyhealth-project
+# Create a project with the right Python
+uv init my-pyhealth-project
+cd my-pyhealth-project
 uv python pin 3.12
-uv add pyhealth            # 会一并拉入 PyTorch
+
+# Add PyHealth (this also pulls in PyTorch and friends)
+uv add pyhealth
+
+# Run scripts inside the env
 uv run python train.py
-# 一次性脚本：uv run --with pyhealth python script.py
-# 旧 1.x 线（Python 3.9+）：uv add pyhealth==1.16
 ```
 
-选型决策：
+For a one-off script without a project, use `uv run --with pyhealth python script.py`. For the legacy 1.x line (Python 3.9+), `uv add pyhealth==1.16`. Detailed install notes, MIMIC access, and GPU/CPU device tips are in `references/installation.md`.
 
-- **任务要匹配数据集**：任务类与数据集绑定。`MortalityPredictionMIMIC3` 不能用于 MIMIC-IV，后者用 `MortalityPredictionMIMIC4` / `InHospitalMortalityMIMIC4`。
-- **`monitor` 要匹配任务类型**：二分类用 `"pr_auc"`/`"roc_auc"`；多标签（用药推荐）用 `"pr_auc_samples"`/`"jaccard_samples"`；多分类用 `"accuracy"`/`"f1_macro"`。选错会保存错误 epoch 的 checkpoint。
-- 写最小、地道的 PyHealth，别在原生 PyTorch 里重造训练循环——`Trainer` 自带 checkpoint、日志、最佳模型选择。
+## The 5-stage pipeline
 
-## 示例
-
-完整流水线通常 <20 行，这是规范形态，从此出发改造：
+A complete pipeline is typically <20 lines. This is the canonical shape — start here and modify pieces:
 
 ```python
 from pyhealth.datasets import MIMIC3Dataset, split_by_patient, get_dataloader
@@ -69,51 +63,72 @@ from pyhealth.models import Transformer
 from pyhealth.trainer import Trainer
 from pyhealth.metrics.binary import binary_metrics_fn
 
-# 1. Dataset —— 原始患者注册表（BaseDataset）
+# 1. Dataset — raw patient registry
 base = MIMIC3Dataset(
     root="https://storage.googleapis.com/pyhealth/Synthetic_MIMIC-III/",
     tables=["DIAGNOSES_ICD", "PROCEDURES_ICD", "PRESCRIPTIONS"],
-    # cache_dir="./cache",   # 可复现：缓存解析结果，避免每次重解析
 )
 
-# 2. Task —— 把患者转成有监督样本（SampleDataset）
+# 2. Task — converts patients into supervised samples
 samples = base.set_task(MortalityPredictionMIMIC3())
 
-# 3. 切分 + DataLoader（按患者切分防泄漏）
+# 3. Split + DataLoaders (split by patient to avoid leakage)
 train_ds, val_ds, test_ds = split_by_patient(samples, [0.8, 0.1, 0.1])
 train_loader = get_dataloader(train_ds, batch_size=32, shuffle=True)
 val_loader   = get_dataloader(val_ds,   batch_size=32, shuffle=False)
 test_loader  = get_dataloader(test_ds,  batch_size=32, shuffle=False)
 
-# 4. Model —— 必须传 SampleDataset（samples），不是 BaseDataset（base）
+# 4. Model — must be passed the SampleDataset, not the BaseDataset
 model = Transformer(dataset=samples)
 
-# 5. 训练 + 评估
+# 5. Train + evaluate
 trainer = Trainer(model=model)
-trainer.train(train_dataloader=train_loader, val_dataloader=val_loader,
-              epochs=50, monitor="pr_auc")
+trainer.train(
+    train_dataloader=train_loader,
+    val_dataloader=val_loader,
+    epochs=50,
+    monitor="pr_auc",
+)
 
 y_true, y_prob, _ = trainer.inference(test_loader)
 print(binary_metrics_fn(y_true, y_prob, metrics=["pr_auc", "roc_auc"]))
 ```
 
-演示/学习无需凭证，可直接用合成 MIMIC-III 桶 `https://storage.googleapis.com/pyhealth/Synthetic_MIMIC-III/`；有私有 MIMIC 访问权时把 `root` 指向本地 CSV 目录。
+A copy-pasteable starter is in `assets/starter_pipeline.py`.
 
-## 注意事项
+## Critical things to get right
 
-1. **模型吃 `SampleDataset`，不是 `BaseDataset`**：`MIMIC3Dataset(...)` 返回的是可查询注册表，只有 `.set_task(task)` 之后才得到模型/切分/DataLoader 所需的 `SampleDataset`。误传 `base` 会报错或行为异常。
-2. **始终按患者（或就诊）切分，别按样本**：随机样本级切分会让同一患者跨训练/测试，造成信息泄漏。患者级用 `split_by_patient`；仅当各次就诊独立时才用 `split_by_visit`。
-3. **任务要匹配数据集**：任务类是数据集专属的（见上文 MIMIC-III vs MIMIC-IV）。
-4. **`monitor` 要匹配任务类型**：见「指令」，选错保存错误 epoch。
-5. **MIMIC-IV 用 `ehr_root=` 而非 `root=`**：这是数据集构造器里唯一的不一致点。
-6. **要可复现就设 `cache_dir=` 到持久目录**：PyHealth 会缓存解析后的数据集，不设则每次重新解析。
+These are the mistakes that PyHealth code most commonly trips on. Internalize them before writing pipelines:
 
-## 互见
+1. **Models take a `SampleDataset`, not a `BaseDataset`.** `MIMIC3Dataset(...)` returns a `BaseDataset` (a queryable patient registry). Only after `.set_task(task)` do you get a `SampleDataset`, which is what models, splitters, and DataLoaders expect. If you pass `base` to a model, it will fail or behave wrong.
 
-- related：`dicom-medical-imaging` —— PyHealth 也覆盖影像数据集（ChestX-ray14），影像 I/O 与预处理可参此
-- related：`guided-statistical-analysis` —— 临床指标解读与统计检验
-- combines_with：`scientific-database-lookup` —— 查询医疗编码/本体（ICD/ATC/RxNorm）背景信息时
+2. **Always split by patient (or visit), not by sample.** Random sample-level splits leak information across train/test because the same patient can appear in both. Use `split_by_patient` for patient-level prediction, `split_by_visit` only when visits are independent.
 
----
+3. **Match the task to the dataset.** Tasks are dataset-specific: `MortalityPredictionMIMIC3` won't work on MIMIC-IV — use `MortalityPredictionMIMIC4` or `InHospitalMortalityMIMIC4`. The full mapping is in `references/tasks.md`.
 
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT），适配重写而非逐字翻译。
+4. **Pick `monitor` to match the task type.** For binary classification use `"pr_auc"` or `"roc_auc"`. For multilabel (drug rec) use `"pr_auc_samples"` or `"jaccard_samples"`. For multiclass use `"accuracy"` or `"f1_macro"`. Wrong monitor → checkpoint selection saves the wrong epoch.
+
+5. **MIMIC-IV uses `ehr_root=`, not `root=`.** This is the one inconsistency in the dataset constructors.
+
+6. **For reproducible work, point `cache_dir=` somewhere persistent.** PyHealth caches the parsed dataset; without `cache_dir`, you re-parse every run.
+
+## How to use this skill
+
+PyHealth has a large API surface — there's no point loading it all at once. Read the reference file that matches the user's task:
+
+| If the user is asking about… | Read |
+|---|---|
+| Installing, env setup, MIMIC access, GPU | `references/installation.md` |
+| Which dataset class to use, loading patterns, splitting | `references/datasets.md` |
+| What prediction task to choose (mortality, readmission, drug rec, sleep…) | `references/tasks.md` |
+| Picking a model architecture, model-specific arguments | `references/models.md` |
+| Looking up or cross-mapping ICD/ATC/NDC/RxNorm/CCS codes, tokenizers | `references/medcode.md` |
+| End-to-end recipes for common scenarios | `references/examples.md` |
+
+For multi-step tasks (e.g., "build a drug recommendation pipeline on MIMIC-IV"), read `tasks.md` + `models.md` + `examples.md` together — they cross-reference each other.
+
+## A note on style
+
+Write minimal, idiomatic PyHealth. The library is opinionated; lean into its abstractions instead of reimplementing them in raw PyTorch. If you find yourself writing a custom training loop, ask whether `Trainer` would do the job — it almost always will, and it handles checkpointing, logging, and best-model selection for free.
+
+When the user has private MIMIC access, point them at the local CSV root; for demos and learning, the synthetic MIMIC-III bucket (`https://storage.googleapis.com/pyhealth/Synthetic_MIMIC-III/`) is fine and works without credentialing.

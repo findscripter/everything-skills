@@ -1,14 +1,14 @@
 ---
 name: dbsnp-database
-title: dbSNP SNP 数据库查询
-description: 当按 rsID/基因/区间查 dbSNP 的等位基因/MAF/变异类型/坐标或批量解析 rsID 时使用；经 NCBI E-utilities 与 Variation Services API 产出 snp_class、global_mafs、chrpos 及 ClinVar/gnomAD 交叉引用；不适用于临床致病性策展（用 clinvar-database）或按祖源分层频率（用 gnomad-population-database）。触发词：dbSNP、rsID、SNP 频率、MAF、变异坐标、批量注释 rsID
+title: dbSNP Database
+description: Query NCBI dbSNP for SNP records by rsID, gene, or region via E-utilities and Variation Services REST API. Retrieve alleles, MAF, variant class (SNV/indel/MNV), clinical links, cross-DB IDs (ClinVar, dbVar, 1000G). Free; 3 req/sec (10 with key). For clinical pathogenicity use clinvar-database; for population frequencies use gnomad-database.
 domain: 领域/science
-triggers: [dbSNP, rsID 查询, SNP 频率, MAF, 变异类型 snv indel, 变异坐标 GRCh38, 批量注释 rsID, Variation Services API, esearch snp, global_mafs]
-tags: [science, genomics, bioinformatics, dbsnp, ncbi, e-utilities, snp, 变异注释, 数据库查询]
-level: 进阶
+triggers: [dbSNP, MAF, Variation Services API, esearch snp, global_mafs]
+tags: [science, genomics, bioinformatics, dbsnp, ncbi, e-utilities, snp]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [requests, xml.etree.ElementTree, pandas, NCBI E-utilities, Variation Services API]
+tools: []
 requires: []
 related: [clinvar-database, gnomad-population-database, snpeff-variant-annotation, opentargets-database]
 combines_with: [gatk-variant-calling, snpeff-variant-annotation, clinvar-database]
@@ -16,156 +16,640 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC0-1.0
 ---
-## 何时使用
+# dbSNP Database
 
-适用：
-- 已知 rsID，查等位基因频率（MAF）、变异类型（snv/indel/mnv/ins/del）。
-- 按基因名或染色体坐标，搜某基因/区间内全部 dbSNP 变异，列出 rsID。
-- 把 rsID 解析为基因组坐标（GRCh38/GRCh37）与 HGVS 表示。
-- 检查变异是否有指向 ClinVar 的临床意义链接（dbSNP 只给链接，不给策展结论）。
-- 用 EPost+EFetch 历史服务器**批量**取数百条 rsID（避免逐条限速）。
-- 把一批变异位置反查为 rsID，供下游注释。
+## Overview
 
-不该用（负边界）：
-- 临床致病性分类（Pathogenic/VUS/Benign 的策展记录）→ 用 `clinvar-database`；dbSNP 只提供 ID 与频率。
-- 按祖源分层的群体频率 → 用 `gnomad-population-database`；dbSNP 的 MAF 是单一聚合值。
+NCBI dbSNP is the primary public repository for short human genetic variants, cataloguing over 1 billion SNPs, indels, and MNVs with allele frequencies, functional annotations, and cross-references to ClinVar, gnomAD, and 1000 Genomes. Variants are identified by stable rsIDs (reference SNP cluster IDs). Access is free via two APIs: the legacy NCBI E-utilities and the newer NCBI Variation Services REST API, which returns structured JSON.
 
-## 步骤 / 指令
+## When to Use
 
-dbSNP 是 NCBI 的短变异公共库（SNP/indel/MNV，>10 亿条），免费、免认证。两条访问路径：① 旧版 **E-utilities**（XML/JSON）；② 新版 **Variation Services REST API**（结构化 JSON，含 SPDI/placements/频率表，编程首选）。
+- Looking up allele frequencies and variant class for a known rsID
+- Searching all dbSNP variants in a gene or chromosomal region by name or coordinates
+- Resolving rsIDs to genomic coordinates (GRCh38/GRCh37) and HGVS notation
+- Checking whether a variant of interest has clinical significance links to ClinVar entries
+- Batch-fetching hundreds of rsIDs efficiently using epost+efetch history server
+- Cross-referencing a list of variant positions to dbSNP rsIDs for downstream annotation
+- For clinical pathogenicity classifications use `clinvar-database`; dbSNP provides IDs and frequency but not curated clinical significance
+- For population frequency stratified by ancestry use `gnomad-database`; dbSNP MAF is a single aggregate frequency
 
-约束：
-- **E-utilities 须带 `email`**（NCBI 政策）。**限速：未认证 3 req/s，带 API key 10 req/s**（key 免费注册 https://www.ncbi.nlm.nih.gov/account/，给所有请求加 `&api_key=YOUR_KEY`）。
-- 依赖：`pip install requests pandas matplotlib`（`xml.etree` 属标准库）。
-- 数据库选择子 `db="snp"`；`id` 用去掉 `rs` 前缀的数字。
+## Prerequisites
 
-主路径：
-1. **单条**：Variation Services `GET /variation/v0/refsnp/{rs_num}` 拿结构化 JSON；或 E-utilities `efetch.fcgi`（`rettype="docsum"`，无命名空间，比 `rettype="xml"` 的命名空间 ExchangeSet 好解析）。
-2. **搜索**：`esearch.fcgi` 按 `term` 查 rsID 列表。字段标签：`基因[gene]`、`染色体[CHR]`、`位置[CHRPOS]`（GRCh37 用 `[CHRPOS37]`）、`rsID[rs]`、`clinsig[filter]`（只要有临床链接的）。搜基因务必加 `AND human[orgn]`。
-3. **摘要**：`esummary.fcgi`（`retmode="json"`）拿 snp_class、global_mafs、chrpos、clinical_significance、fxn_class。
-4. **批量（>10 条）**：先 `epost.fcgi` 把全部 rsID 一次上传历史服务器拿 `WebEnv`+`query_key`，再分批 `esummary` 取回（每批可达 500）。
+- **Python packages**: `requests`, `pandas`, `matplotlib`, `xml.etree.ElementTree` (stdlib)
+- **Data requirements**: rsIDs (`rs80357906`), gene symbols, or chromosomal coordinates
+- **Environment**: internet connection; NCBI Entrez email required for E-utilities (set `email` parameter)
+- **Rate limits**: 3 requests/second without API key; 10 requests/second with free NCBI API key. Register at https://www.ncbi.nlm.nih.gov/account/ — add `&api_key=YOUR_KEY` to all requests
 
-**2024 schema 改版**：ESummary 已删除 `maf`/`mafallele`，改用 `global_mafs`（`[{study, freq}]` 列表）。挑一个 study（如 `GnomAD_genomes`/`TOPMED`/`ALFA`）解析其 `freq` 字符串（形如 `G=0.42/1000`）。
+```bash
+pip install requests pandas matplotlib
+# xml.etree.ElementTree is part of Python stdlib — no additional install needed
+```
 
-## 示例
-
-单条查询（两种路径）：
+## Quick Start
 
 ```python
 import requests
-EMAIL = "your@email.com"  # NCBI 政策必填
-BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
-VAR = "https://api.ncbi.nlm.nih.gov/variation/v0"
+import json
 
-# 路径 A：Variation Services（结构化 JSON，首选）
-def fetch_refsnp(rsid):
-    rs = str(rsid).lstrip("rs")
-    r = requests.get(f"{VAR}/refsnp/{rs}", timeout=15); r.raise_for_status()
+EMAIL = "your@email.com"      # required by NCBI policy
+BASE_EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+BASE_VARIATION = "https://api.ncbi.nlm.nih.gov/variation/v0"
+
+def fetch_snp_by_rsid(rsid: str) -> dict:
+    """Fetch a dbSNP record by rsID using the NCBI Variation Services API (structured JSON)."""
+    rs_num = str(rsid).lstrip("rs")
+    r = requests.get(f"{BASE_VARIATION}/refsnp/{rs_num}", timeout=15)
+    r.raise_for_status()
     return r.json()
 
-rec = fetch_refsnp("rs1800497")  # DRD2 Taq1A
-print("rs" + str(rec["refsnp_id"]),
-      rec["primary_snapshot_data"].get("variant_type"))  # -> snv
-# 顶层键：refsnp_id, primary_snapshot_data, citations, dbsnp1_merges ...（无 organism）
-
-# 路径 B：ESummary（2024 schema，用 global_mafs）
-def esummary_snp(rsid):
-    rs = str(rsid).lstrip("rs")
-    r = requests.get(f"{BASE}/esummary.fcgi",
-        params={"db": "snp", "id": rs, "retmode": "json", "email": EMAIL})
-    r.raise_for_status()
-    return r.json()["result"].get(rs, {})
-
-s = esummary_snp("rs80357906")
-print(s.get("snp_class"), s.get("chrpos"), s.get("clinical_significance"))
-# delins  17:43057062  pathogenic,risk-factor,uncertain-significance
-for m in s.get("global_mafs", [])[:3]:
-    print(m["study"], m["freq"])   # 删除的 maf/mafallele 改这里取
+record = fetch_snp_by_rsid("rs1800497")  # DRD2 Taq1A
+print(f"rsID: rs{record['refsnp_id']}")
+print(f"Variant type: {record['primary_snapshot_data'].get('variant_type')}")
+# Top-level keys: citations, create_date, dbsnp1_merges, last_update_build_id,
+# last_update_date, lost_obs_movements, mane_select_ids, present_obs_movements,
+# primary_snapshot_data, refsnp_id. (No top-level `organism` field.)
+# rsID: rs1800497
+# Variant type: snv
 ```
 
-按基因/区间搜，并解析等位基因频率：
+## Core API
+
+### Query 1: rsID Lookup via E-utilities
+
+Fetch the full SNP record for a single rsID using efetch with `db=snp`. Returns an XML document with alleles, placements, and frequency data.
 
 ```python
-def esearch_snp(term, retmax=100):
-    r = requests.get(f"{BASE}/esearch.fcgi",
-        params={"db": "snp", "term": term, "retmax": retmax,
-                "retmode": "json", "email": EMAIL})
+import requests
+import xml.etree.ElementTree as ET
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+def efetch_snp_xml(rsid: str) -> ET.Element:
+    """Fetch dbSNP XML record for a single rsID via the docsum rettype.
+    Note: rettype="xml" returns a namespaced ExchangeSet; rettype="docsum"
+    returns the simpler eSummaryResult/DocumentSummary tree without namespaces."""
+    rs_num = str(rsid).lstrip("rs")
+    r = requests.get(f"{BASE}/efetch.fcgi",
+                     params={"db": "snp", "id": rs_num,
+                             "rettype": "docsum", "retmode": "xml",
+                             "email": EMAIL},
+                     timeout=20)
     r.raise_for_status()
-    res = r.json()["esearchresult"]
-    return res["idlist"], int(res["count"])
+    return ET.fromstring(r.text)
 
-ids, total = esearch_snp("BRCA1[gene] AND human[orgn]", retmax=20)          # 基因
-# 只要有临床链接： esearch_snp("BRCA1[gene] AND human[orgn] AND clinsig[filter]")
-# 染色体区间(GRCh38)： esearch_snp("1[CHR] AND 55039700:55040200[CHRPOS]")
+root = efetch_snp_xml("rs80357906")
 
-# Variation Services 的频率表：observation.inserted_sequence 才是等位基因
-def parse_freqs(record):
-    out = []
-    snap = record.get("primary_snapshot_data", {})
-    for ann in snap.get("allele_annotations", []):
+# Parse the DocumentSummary record (MAF/MAFALLELE were removed in 2024;
+# GLOBAL_MAFS is a sub-tree — use ESummary JSON below for easier access)
+for docsum in root.iter("DocumentSummary"):
+    rs_id = docsum.get("uid")
+    snp_class = docsum.findtext("SNP_CLASS", "Unknown")
+    chr_pos = docsum.findtext("CHRPOS", "N/A")
+    clin_sig = docsum.findtext("CLINICAL_SIGNIFICANCE", "N/A")
+    print(f"rs{rs_id} | Class: {snp_class} | Position: {chr_pos}")
+    print(f"  ClinSig: {clin_sig}")
+# rs80357906 | Class: delins | Position: 17:43057062
+#   ClinSig: pathogenic,risk-factor,uncertain-significance
+```
+
+```python
+# Fetch using ESummary for structured JSON (preferred for batch)
+def esummary_snp(rsid: str) -> dict:
+    rs_num = str(rsid).lstrip("rs")
+    r = requests.get(f"{BASE}/esummary.fcgi",
+                     params={"db": "snp", "id": rs_num,
+                             "retmode": "json", "email": EMAIL},
+                     timeout=15)
+    r.raise_for_status()
+    result = r.json()["result"]
+    return result.get(rs_num, {})
+
+rec = esummary_snp("rs80357906")
+print(f"rs{rec.get('snp_id')}:")
+print(f"  Class       : {rec.get('snp_class')}")            # e.g., 'delins'
+# `maf`/`mafallele` were removed from ESummary in 2024 — use `global_mafs`
+# (list of {study, freq}) and pick a study (e.g., 'GnomAD_genomes') or the
+# global aggregate ('TOPMED'/'1000Genomes').
+for m in rec.get('global_mafs', [])[:4]:
+    print(f"  MAF[{m['study']:18s}]: {m['freq']}")
+print(f"  ChrPos      : {rec.get('chrpos')}")               # 17:43057062
+print(f"  ClinSig     : {rec.get('clinical_significance')}")
+print(f"  FxnClass    : {rec.get('fxn_class')}")
+```
+
+### Query 2: Gene Variant Search
+
+Search dbSNP for all variants in a gene using esearch. Returns a list of rsIDs matching the gene.
+
+```python
+import requests
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+def esearch_snp(query: str, retmax: int = 100) -> tuple[list, int]:
+    """Search dbSNP using a query string. Returns (id_list, total_count)."""
+    r = requests.get(f"{BASE}/esearch.fcgi",
+                     params={"db": "snp", "term": query,
+                             "retmax": retmax, "retmode": "json",
+                             "email": EMAIL},
+                     timeout=15)
+    r.raise_for_status()
+    result = r.json()["esearchresult"]
+    return result["idlist"], int(result["count"])
+
+# All variants in BRCA1
+ids, total = esearch_snp("BRCA1[gene] AND human[orgn]", retmax=20)
+print(f"BRCA1 variants in dbSNP: {total:,} total")
+print(f"First 5 rsIDs: {['rs' + i for i in ids[:5]]}")
+
+# Only clinical variants (linked to ClinVar)
+ids_clin, total_clin = esearch_snp(
+    "BRCA1[gene] AND human[orgn] AND clinsig[filter]", retmax=50)
+print(f"BRCA1 variants with clinical significance: {total_clin:,}")
+```
+
+### Query 3: Chromosomal Region Search
+
+Search for all variants in a genomic region using chromosome coordinates.
+
+```python
+import requests
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+def search_region(chrom: str, start: int, stop: int,
+                  assembly: str = "GRCh38", retmax: int = 200) -> tuple[list, int]:
+    """Find all dbSNP variants in a chromosomal region."""
+    query = f"{chrom}[CHR] AND {start}:{stop}[CHRPOS37]" if assembly == "GRCh37" else \
+            f"{chrom}[CHR] AND {start}:{stop}[CHRPOS]"
+    r = requests.get(f"{BASE}/esearch.fcgi",
+                     params={"db": "snp", "term": query,
+                             "retmax": retmax, "retmode": "json",
+                             "email": EMAIL},
+                     timeout=20)
+    r.raise_for_status()
+    result = r.json()["esearchresult"]
+    return result["idlist"], int(result["count"])
+
+# PCSK9 exon 4 region (GRCh38)
+ids, total = search_region("1", 55039700, 55040200)
+print(f"Variants in chr1:55039700-55040200: {total:,} total")
+print(f"Retrieved {len(ids)} rsIDs: {['rs' + i for i in ids[:5]]}")
+```
+
+### Query 4: Variant Summary — MAF, Alleles, Clinical Significance
+
+Retrieve structured summary data for variant records using ESummary, extracting MAF, alleles, and database cross-links.
+
+```python
+import requests, json
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+def fetch_snp_summaries(rsids: list) -> dict:
+    """Fetch ESummary records for a list of rsIDs. Returns dict keyed by rs number."""
+    ids_str = ",".join(str(r).lstrip("rs") for r in rsids)
+    r = requests.post(f"{BASE}/esummary.fcgi",
+                      data={"db": "snp", "id": ids_str,
+                            "retmode": "json", "email": EMAIL},
+                      timeout=20)
+    r.raise_for_status()
+    return r.json()["result"]
+
+rsids = ["rs80357906", "rs80357220", "rs28897672", "rs1801133"]
+result = fetch_snp_summaries(rsids)
+
+for rs_num in rsids:
+    uid = str(rs_num).lstrip("rs")
+    rec = result.get(uid, {})
+    # `global_mafs` is a list of {study, freq}; pick the first or filter by study
+    gmafs = rec.get("global_mafs", [])
+    maf_str = gmafs[0]["freq"] if gmafs else "N/A"
+    maf_study = gmafs[0]["study"] if gmafs else ""
+    print(f"\n{rs_num}:")
+    print(f"  Class        : {rec.get('snp_class', 'N/A')}")
+    print(f"  MAF          : {maf_str} (from {maf_study})")
+    print(f"  Location     : {rec.get('chrpos', 'N/A')}")
+    print(f"  ClinSig      : {rec.get('clinical_significance', 'N/A')}")
+    print(f"  Function     : {rec.get('fxn_class', 'N/A')}")
+```
+
+### Query 5: Batch rsID Query with EPost+EFetch
+
+Efficiently upload hundreds of rsIDs to the NCBI history server using EPost, then retrieve them in batches with EFetch.
+
+```python
+import requests, time, pandas as pd
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+def epost_ids(id_list: list) -> tuple[str, str]:
+    """Upload rsIDs to NCBI history server. Returns (WebEnv, query_key)."""
+    ids_str = ",".join(str(i).lstrip("rs") for i in id_list)
+    r = requests.post(f"{BASE}/epost.fcgi",
+                      data={"db": "snp", "id": ids_str, "email": EMAIL},
+                      timeout=30)
+    r.raise_for_status()
+    import xml.etree.ElementTree as ET
+    root = ET.fromstring(r.text)
+    webenv = root.findtext("WebEnv")
+    query_key = root.findtext("QueryKey")
+    return webenv, query_key
+
+def efetch_history(webenv: str, query_key: str,
+                   retstart: int = 0, retmax: int = 100) -> dict:
+    """Retrieve records from NCBI history server using ESummary."""
+    r = requests.get(f"{BASE}/esummary.fcgi",
+                     params={"db": "snp", "WebEnv": webenv,
+                             "query_key": query_key, "retstart": retstart,
+                             "retmax": retmax, "retmode": "json",
+                             "email": EMAIL},
+                     timeout=30)
+    r.raise_for_status()
+    return r.json()["result"]
+
+rsid_batch = ["rs80357906", "rs80357220", "rs28897672", "rs1801133",
+              "rs429358", "rs7412", "rs1800497"]
+
+webenv, query_key = epost_ids(rsid_batch)
+print(f"Posted {len(rsid_batch)} IDs | WebEnv: {webenv[:40]}...")
+
+records = []
+for start in range(0, len(rsid_batch), 100):
+    result = efetch_history(webenv, query_key, retstart=start, retmax=100)
+    for uid in result.get("uids", []):
+        rec = result[uid]
+        # global_mafs replaced maf/mafallele in 2024 — flatten the first entry
+        gmafs = rec.get("global_mafs", [])
+        records.append({
+            "rsid": f"rs{uid}",
+            "snp_class": rec.get("snp_class"),
+            "maf": gmafs[0]["freq"] if gmafs else None,
+            "maf_study": gmafs[0]["study"] if gmafs else None,
+            "chrpos": rec.get("chrpos"),
+            "clinical_sig": rec.get("clinical_significance"),
+        })
+    time.sleep(0.5)
+
+df = pd.DataFrame(records)
+print(f"\nRetrieved {len(df)} records:")
+print(df.to_string(index=False))
+```
+
+### Query 6: NCBI Variation Services API
+
+The newer REST API returns structured JSON with detailed allele placements, frequencies, and variant type annotations. Preferred for programmatic rsID resolution.
+
+```python
+import requests
+import pandas as pd
+
+BASE_VARIATION = "https://api.ncbi.nlm.nih.gov/variation/v0"
+
+def fetch_refsnp(rsid: str) -> dict:
+    """Fetch structured JSON from NCBI Variation Services API."""
+    rs_num = str(rsid).lstrip("rs")
+    r = requests.get(f"{BASE_VARIATION}/refsnp/{rs_num}", timeout=15)
+    r.raise_for_status()
+    return r.json()
+
+def parse_allele_frequencies(record: dict) -> list:
+    """Extract allele frequencies from a Variation Services record.
+    freq[i] keys: study_name, study_version, local_row_id, observation, allele_count, total_count.
+    The asserted allele identifier lives in freq.observation.inserted_sequence (NOT at ann.allele)."""
+    freqs = []
+    snapshot = record.get("primary_snapshot_data", {})
+    for ann in snapshot.get("allele_annotations", []):
         for f in ann.get("frequency", []):
             obs = f.get("observation", {})
-            tot = f.get("total_count")
-            out.append({"allele": obs.get("inserted_sequence"),
-                        "study": f.get("study_name"),
-                        "freq": f["allele_count"]/tot if tot else None})
-    return out
+            freqs.append({
+                "allele": obs.get("inserted_sequence"),
+                "study": f.get("study_name"),
+                "allele_count": f.get("allele_count"),
+                "total_count": f.get("total_count"),
+                "freq": (f["allele_count"] / f["total_count"]
+                         if f.get("total_count") else None),
+            })
+    return freqs
+
+record = fetch_refsnp("rs1800497")   # DRD2 Taq1A variant
+print(f"rsID: rs{record['refsnp_id']}")
+print(f"Variant type: {record['primary_snapshot_data'].get('variant_type')}")  # 'snv'
+
+placements = record["primary_snapshot_data"].get("placements_with_allele", [])
+for placement in placements[:2]:
+    seq_id = placement.get("seq_id")
+    for allele in placement.get("alleles", []):
+        spdi = allele.get("allele", {}).get("spdi", {})
+        print(f"  Placement: {seq_id} | SPDI: {spdi.get('inserted_sequence')}")
+
+freqs = parse_allele_frequencies(record)
+if freqs:
+    df_freq = pd.DataFrame(freqs[:5])
+    print(f"\nAllele frequencies ({len(freqs)} entries):")
+    print(df_freq.to_string(index=False))
 ```
 
-批量注释（EPost+ESummary 历史服务器）：
+## Key Concepts
+
+### rsID vs. ss ID (Submitted SNP)
+
+dbSNP uses two IDs: **rs IDs** (Reference SNP cluster IDs) are stable public identifiers assigned after clustering submitted variants. **ss IDs** (Submitted SNP IDs) are assigned to individual laboratory submissions before clustering. Use rs IDs for all queries — ss IDs are internal and submission-specific. A single rs ID may cluster multiple ss IDs from different submissions.
+
+### MAF vs. Clinical Significance
+
+- **MAF (Minor Allele Frequency)**: The aggregate frequency of the minor allele across all dbSNP submissions. This is a population-level statistic aggregated from 1000 Genomes, gnomAD, TOPMED, and other studies. It does not indicate whether the variant is pathogenic.
+- **Clinical significance**: A link field pointing to ClinVar classifications (Pathogenic, VUS, Benign, etc.). A variant can have a very low MAF (rare) yet be classified as Benign, or a moderate MAF yet be Pathogenic in a specific context (e.g., founder variants). Use `clinvar-database` for the full pathogenicity record.
+
+### Variant Classes in dbSNP
+
+| Class | Description | Example |
+|-------|-------------|---------|
+| `snv` | Single nucleotide variant (A>T) | rs80357906 |
+| `indel` | Insertion or deletion | rs786201005 |
+| `mnv` | Multi-nucleotide variant | rs1057519737 |
+| `ins` | Pure insertion | rs113993960 |
+| `del` | Pure deletion | rs66767301 |
+| `microsatellite` | STR (short tandem repeat) | rs5030655 |
+
+## Common Workflows
+
+### Workflow 1: Batch rsID Annotation from a Variant List
+
+**Goal**: Given a list of rsIDs from a variant call pipeline, retrieve MAF, position, and clinical significance for all variants in one run.
 
 ```python
-import xml.etree.ElementTree as ET, time, pandas as pd
+import requests, time, pandas as pd
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
 def epost_snp(rsids):
     ids = ",".join(str(r).lstrip("rs") for r in rsids)
     r = requests.post(f"{BASE}/epost.fcgi",
-        data={"db": "snp", "id": ids, "email": EMAIL}, timeout=30)
+                      data={"db": "snp", "id": ids, "email": EMAIL}, timeout=30)
     r.raise_for_status()
+    import xml.etree.ElementTree as ET
     root = ET.fromstring(r.text)
     return root.findtext("WebEnv"), root.findtext("QueryKey")
 
-def esummary_hist(webenv, qk, start, retmax=100):
+def esummary_history(webenv, query_key, start, retmax=100):
     r = requests.get(f"{BASE}/esummary.fcgi",
-        params={"db": "snp", "WebEnv": webenv, "query_key": qk,
-                "retstart": start, "retmax": retmax,
-                "retmode": "json", "email": EMAIL}, timeout=30)
+                     params={"db": "snp", "WebEnv": webenv,
+                             "query_key": query_key, "retstart": start,
+                             "retmax": retmax, "retmode": "json", "email": EMAIL},
+                     timeout=30)
     r.raise_for_status()
     return r.json()["result"]
 
-rsids = ["rs80357906", "rs429358", "rs7412", "rs1800497", "rs1801133"]
-webenv, qk = epost_snp(rsids)
-rows = []
-for start in range(0, len(rsids), 100):
-    res = esummary_hist(webenv, qk, start)
-    for uid in res.get("uids", []):
-        rec = res[uid]
-        g = rec.get("global_mafs", [])
-        rows.append({"rsid": f"rs{uid}", "snp_class": rec.get("snp_class"),
-                     "maf": g[0]["freq"] if g else None,
-                     "chrpos": rec.get("chrpos"),
-                     "clinsig": rec.get("clinical_significance")})
+# Example: VCF post-processing — annotate a list of called variants
+variant_rsids = [
+    "rs80357906", "rs80357220", "rs28897672", "rs1801133",
+    "rs429358", "rs7412", "rs1800497", "rs2230199",
+]
+
+print(f"Posting {len(variant_rsids)} rsIDs to NCBI history server...")
+webenv, query_key = epost_snp(variant_rsids)
+
+records = []
+for start in range(0, len(variant_rsids), 100):
+    result = esummary_history(webenv, query_key, start=start, retmax=100)
+    for uid in result.get("uids", []):
+        rec = result[uid]
+        gmafs = rec.get("global_mafs", [])  # 2024 schema (replaced maf/mafallele)
+        records.append({
+            "rsid": f"rs{uid}",
+            "snp_class": rec.get("snp_class"),
+            "maf": gmafs[0]["freq"] if gmafs else None,
+            "maf_study": gmafs[0]["study"] if gmafs else None,
+            "chrpos_grch38": rec.get("chrpos"),
+            "gene": rec.get("genes", [{}])[0].get("name") if rec.get("genes") else None,
+            "clinical_significance": rec.get("clinical_significance"),
+            "fxn_class": rec.get("fxn_class"),
+        })
     time.sleep(0.5)
-pd.DataFrame(rows).to_csv("variant_annotations.csv", index=False)
+
+df = pd.DataFrame(records)
+df.to_csv("variant_annotations.csv", index=False)
+print(f"Annotated {len(df)} variants → variant_annotations.csv")
+print(df[["rsid", "snp_class", "maf", "chrpos_grch38", "clinical_significance"]].to_string(index=False))
 ```
 
-## 注意事项
+### Workflow 2: Gene Variant Class Distribution Visualization
 
-- **email 必填**：所有 E-utility 调用都要带，否则可能被封；生产注册 API key 把限速 3→10 req/s。
-- **2024 schema 改版**：`KeyError: 'maf'`/`'mafallele'` → 改用 `rec["global_mafs"]`（`[{study, freq}]`），挑 study 解析 `freq` 串；`global_mafs` 为空说明 dbSNP 无聚合频率，改用 `gnomad-population-database`。
-- **MAF ≠ 致病性**：`clinical_significance` 只是指向 ClinVar 的字符串链接，不含提交者/审阅状态/HGVS 细节；临床解读用 `clinvar-database`。MAF 是跨研究聚合的单一群体统计，低 MAF 未必致病、中等 MAF 也可能在特定背景（创始者变异）致病。
-- **解析等位基因频率**：Variation Services 中断言等位基因在 `freq.observation.inserted_sequence`，**不在** `ann.allele`。
-- **XML 命名空间**：`root.iter("DocumentSummary")` 返回 0 多因用了 `rettype="xml"`（根是带命名空间的 `ExchangeSet`）；改 `rettype="docsum"` 或传全命名空间标签。
-- **rs ID vs ss ID**：查询一律用稳定的 rs ID（聚类后公共 ID）；ss ID 是提交内部 ID，一个 rs 可聚多个 ss。先看 `snp_class` 再解读 MAF——indel/MNV 与 SNV 计数约定不同，多等位位点的 MAF 可能只指其中一个等位。
-- **限速/不存在/合并**：HTTP 429 → 加 `time.sleep(0.35)`；`{"error":"Invalid uid"}` 说明 rsID 不存在或为未入库的新位点；批量取回数少于上传数多因 rsID 被合并/退役（退役 rs 会重定向到当前活跃 rs）；Variation Services 404 → 确认 `/refsnp/{rs_num}` 用纯数字（无 `rs` 前缀）。
+**Goal**: Search all dbSNP variants in a gene and plot their variant class distribution.
 
-## 互见
+```python
+import requests, time
+import pandas as pd
+import matplotlib.pyplot as plt
 
-- `clinvar-database` — ClinVar 临床致病性策展（dbSNP 给 rsID/频率，临床结论来这里）。
-- `gnomad-population-database` — 按祖源分层的群体频率（比 dbSNP 单一 MAF 更细）。
-- `snpeff-variant-annotation` — 用 SnpEff/SnpSift 注释 VCF，可回填 dbSNP rsID 与功能预测。
-- `gatk-variant-calling` — VCF 变异检出后，用本技能批量回填 rsID/MAF/坐标。
-- `opentargets-database` — SNP-性状关联与靶点-疾病证据整合。
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
----
-采编自 jaechang-hits/SciAgent-Skills（原 license CC0-1.0），按本仓库规范适配重写；本条目以 CC-BY-4.0 发布。
+def search_gene_variants(gene: str, retmax: int = 500) -> list:
+    r = requests.get(f"{BASE}/esearch.fcgi",
+                     params={"db": "snp", "term": f"{gene}[gene] AND human[orgn]",
+                             "retmax": retmax, "retmode": "json", "email": EMAIL},
+                     timeout=20)
+    r.raise_for_status()
+    return r.json()["esearchresult"]["idlist"]
+
+def fetch_summaries_batch(ids: list, batch_size: int = 100) -> list:
+    records = []
+    for i in range(0, len(ids), batch_size):
+        batch = ids[i:i+batch_size]
+        ids_str = ",".join(batch)
+        r = requests.post(f"{BASE}/esummary.fcgi",
+                          data={"db": "snp", "id": ids_str,
+                                "retmode": "json", "email": EMAIL},
+                          timeout=30)
+        r.raise_for_status()
+        result = r.json()["result"]
+        for uid in result.get("uids", []):
+            rec = result[uid]
+            records.append({"rsid": f"rs{uid}", "snp_class": rec.get("snp_class", "unknown")})
+        time.sleep(0.5)
+    return records
+
+gene = "CFTR"
+print(f"Searching dbSNP for {gene} variants...")
+ids = search_gene_variants(gene, retmax=300)
+print(f"Found {len(ids)} IDs; fetching summaries...")
+
+records = fetch_summaries_batch(ids)
+df = pd.DataFrame(records)
+class_counts = df["snp_class"].value_counts()
+
+# Plot variant class distribution
+fig, ax = plt.subplots(figsize=(8, 5))
+colors = ["#4472C4", "#ED7D31", "#A9D18E", "#FF0000", "#FFC000", "#7030A0"]
+bars = ax.bar(class_counts.index, class_counts.values,
+              color=colors[:len(class_counts)], edgecolor="white")
+ax.bar_label(bars, padding=3, fontsize=9)
+ax.set_xlabel("Variant Class")
+ax.set_ylabel("Count")
+ax.set_title(f"dbSNP Variant Classes in {gene} (n={len(df)})")
+plt.tight_layout()
+plt.savefig(f"{gene}_variant_classes.png", dpi=150, bbox_inches="tight")
+print(f"Saved {gene}_variant_classes.png")
+print(class_counts.to_string())
+# snv                 241
+# indel                38
+# mnv                  12
+# del                   7
+# ins                   2
+```
+
+## Key Parameters
+
+| Parameter | Function/Endpoint | Default | Range / Options | Effect |
+|-----------|-------------------|---------|-----------------|--------|
+| `db` | All E-utilities | required | `"snp"` | Database selector; must be `"snp"` for dbSNP queries |
+| `id` | efetch, esummary, epost | required | rsID number(s) without `rs` prefix | Variant identifier(s) to fetch |
+| `term` | esearch | required | dbSNP query string | Search expression with field tags: `[gene]`, `[CHR]`, `[CHRPOS]`, `[rs]`, `clinsig[filter]` |
+| `retmax` | esearch | `20` | `1`–`10000` | Maximum records returned per search |
+| `retmode` | esearch, esummary | `"xml"` | `"json"`, `"xml"` | Response format; use `"json"` for easy parsing |
+| `rettype` | efetch | `"docsum"` | `"docsum"`, `"xml"` | Record type for efetch responses |
+| `WebEnv` + `query_key` | esummary, efetch | — | from epost response | History server tokens for batch retrieval |
+| `email` | All E-utilities | required | valid email string | NCBI policy; used for rate attribution |
+| `api_key` | All E-utilities | optional | NCBI API key string | Raises rate limit from 3 to 10 req/sec |
+
+## Best Practices
+
+1. **Register for a free NCBI API key**: Adds `api_key=YOUR_KEY` to requests and triples your rate limit (3 → 10 req/sec) with no other changes. Register at https://www.ncbi.nlm.nih.gov/account/.
+
+2. **Use epost+esummary for batches of more than 10 rsIDs**: Avoid looping individual efetch calls. EPost uploads all IDs in one request to the history server; subsequent ESummary calls retrieve them in configurable batches of up to 500.
+
+3. **Prefer NCBI Variation Services API for structured JSON**: The `/variation/v0/refsnp/{rs_num}` endpoint returns a fully structured JSON with SPDI allele representations, placements, and frequency tables. Easier to parse than E-utilities XML for modern applications.
+
+4. **Check `snp_class` before interpreting MAF**: Indels and MNVs use different allele counting conventions than SNVs. Treat multi-allelic sites carefully — the reported MAF may refer to one allele among several.
+
+5. **Combine dbSNP with ClinVar lookups**: dbSNP records the `clinical_significance` field as a string (e.g., `"pathogenic"`) but does not contain submitter details, review status, or HGVS details. Use `clinvar-database` for the full pathogenicity record when clinical interpretation is required.
+
+## Common Recipes
+
+### Recipe: Quick rsID Existence and Class Check
+
+When to use: Check whether a variant is registered in dbSNP before downstream annotation.
+
+```python
+import requests
+
+EMAIL = "your@email.com"
+
+def check_rsid(rsid: str) -> dict:
+    """Check if an rsID exists in dbSNP and return basic info."""
+    rs_num = str(rsid).lstrip("rs")
+    r = requests.get(
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi",
+        params={"db": "snp", "id": rs_num, "retmode": "json", "email": EMAIL},
+        timeout=10
+    )
+    result = r.json().get("result", {})
+    rec = result.get(rs_num, {})
+    if not rec or "error" in rec:
+        return {"rsid": rsid, "found": False}
+    gmafs = rec.get("global_mafs", [])
+    return {
+        "rsid": rsid,
+        "found": True,
+        "snp_class": rec.get("snp_class"),
+        "chrpos": rec.get("chrpos"),
+        "maf": gmafs[0]["freq"] if gmafs else None,
+        "maf_study": gmafs[0]["study"] if gmafs else None,
+        "clinical_significance": rec.get("clinical_significance"),
+    }
+
+for rsid in ["rs80357906", "rs9999999999", "rs1800497"]:
+    info = check_rsid(rsid)
+    if info["found"]:
+        print(f"{rsid}: {info['snp_class']} | pos={info['chrpos']} | MAF={info['maf']} ({info['maf_study']})")
+    else:
+        print(f"{rsid}: NOT FOUND in dbSNP")
+# rs80357906: delins | pos=17:43057062 | MAF=G=0.0008929/4 (Estonian)
+# rs9999999999: NOT FOUND in dbSNP
+# rs1800497: snv | pos=11:113400106 | MAF=G=0.42... (study varies)
+```
+
+### Recipe: Resolve Gene Variants to rsIDs and Coordinates
+
+When to use: Convert a gene name to a list of rsIDs for use in downstream tools (PLINK, ANNOVAR, etc.).
+
+```python
+import requests, time, pandas as pd
+
+EMAIL = "your@email.com"
+BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+def gene_to_rsids(gene: str, max_variants: int = 200) -> pd.DataFrame:
+    """Search dbSNP for a gene and return rsIDs with GRCh38 coordinates."""
+    # Step 1: search
+    r = requests.get(f"{BASE}/esearch.fcgi",
+                     params={"db": "snp", "term": f"{gene}[gene] AND human[orgn]",
+                             "retmax": max_variants, "retmode": "json", "email": EMAIL},
+                     timeout=15)
+    r.raise_for_status()
+    ids = r.json()["esearchresult"]["idlist"]
+    if not ids:
+        return pd.DataFrame()
+    time.sleep(0.4)
+
+    # Step 2: fetch summaries
+    r2 = requests.post(f"{BASE}/esummary.fcgi",
+                       data={"db": "snp", "id": ",".join(ids),
+                             "retmode": "json", "email": EMAIL},
+                       timeout=30)
+    r2.raise_for_status()
+    result = r2.json()["result"]
+    rows = []
+    for uid in result.get("uids", []):
+        rec = result[uid]
+        gmafs = rec.get("global_mafs", [])
+        rows.append({
+            "rsid": f"rs{uid}",
+            "chrpos_grch38": rec.get("chrpos"),
+            "snp_class": rec.get("snp_class"),
+            "maf": gmafs[0]["freq"] if gmafs else None,
+        })
+    return pd.DataFrame(rows)
+
+df = gene_to_rsids("APOE", max_variants=50)
+print(f"APOE variants retrieved: {len(df)}")
+print(df.head(8).to_string(index=False))
+df.to_csv("APOE_rsids.csv", index=False)
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `HTTP 429` or connection refused | Rate limit exceeded (3 req/sec) | Add `time.sleep(0.35)` between requests; register for API key to get 10 req/sec |
+| ESummary returns `{"error": "Invalid uid"}` | rsID does not exist in dbSNP | Check rsID spelling; verify with NCBI browser; variant may be a novel call not yet in dbSNP |
+| `esearch` returns 0 results for a gene | Gene symbol mismatch or missing `human[orgn]` filter | Try adding `AND human[orgn]`; check NCBI gene symbol at https://www.ncbi.nlm.nih.gov/gene |
+| `KeyError: 'maf'` / `'mafallele'` in ESummary parsing | Fields removed in the 2024 dbSNP ESummary schema | Use `rec["global_mafs"]` — list of `{"study": ..., "freq": "<allele>=<value>/<count>"}`; pick a study (`GnomAD_genomes`, `TOPMED`, `ALFA`) and parse the `freq` string |
+| `global_mafs` empty | Variant has no aggregated population frequency in dbSNP | Use gnomAD via `gnomad-database` directly for population frequencies |
+| `root.iter("DocumentSummary")` returns 0 with `rettype="xml"` | EFetch XML root is namespaced (`{https://www.ncbi.nlm.nih.gov/SNP/docsum}ExchangeSet`) | Use `rettype="docsum"` (no namespace) or pass the full namespaced tag to `iter()` |
+| Variation Services API returns 404 | rsID not found or wrong URL format | Confirm integer rs number (no `rs` prefix) in `/refsnp/{rs_num}` endpoint |
+| EPost XML parsing fails | Non-XML response (rate limit HTML error page) | Check response status code first; add retry logic with `time.sleep(1)` |
+| Batch efetch returns fewer records than posted | Some rsIDs were merged or retired | Cross-check against NCBI merge history; retired rsIDs redirect to current active rs |
+
+## Related Skills
+
+- `clinvar-database` — ClinVar pathogenicity classifications for variants identified by rsID (complement to dbSNP)
+- `gnomad-database` — Population allele frequencies by ancestry group (more detailed than dbSNP MAF)
+- `gwas-database` — GWAS Catalog for SNP-trait associations from published GWAS studies
+- `ensembl-database` — Ensembl REST API for variant consequences and gene annotations
+- `snpeff-variant-annotation` — Annotate VCF files with SnpEff and SnpSift, which adds dbSNP rsIDs and functional predictions
+
+## References
+
+- [NCBI E-utilities for dbSNP](https://www.ncbi.nlm.nih.gov/snp/docs/entrez_help/) — E-utilities field tags and query syntax specific to dbSNP
+- [NCBI Variation Services API](https://api.ncbi.nlm.nih.gov/variation/v0/) — REST API documentation and interactive Swagger UI
+- [Sherry et al., Nucleic Acids Research 2001](https://doi.org/10.1093/nar/29.1.308) — dbSNP original description paper
+- [NCBI E-utilities Reference](https://www.ncbi.nlm.nih.gov/books/NBK25499/) — Full E-utilities API reference (applies to all NCBI databases)

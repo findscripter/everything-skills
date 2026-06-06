@@ -1,14 +1,14 @@
 ---
 name: llm-conversation-memory
-title: LLM 对话持久记忆系统
-description: 当为对话式 AI 设计跨会话记忆（短期/长期/实体记忆）时使用；做分层记忆的存储、检索、巩固与按用户隔离的方案落地；不适用于知识图谱构建、语义搜索/向量库底层实现或数据库运维。触发词：对话记忆、记住用户、长期记忆、chat history、memory persistence
+title: Conversation Memory
+description: Persistent memory systems for LLM conversations including
 domain: 智能/agents
-triggers: [对话记忆, 记住用户偏好, 长期记忆, 跨会话记忆, 记忆持久化, 实体记忆, chat history, conversation memory, memory persistence, Mem0, LangChain Memory, 记忆巩固]
-tags: [llm, 记忆系统, 对话式ai, 短期记忆, 长期记忆, 实体记忆, 记忆检索, 记忆巩固, 用户隔离, mem0, redis, 智能]
-level: 进阶
+triggers: [chat history, conversation memory, memory persistence, Mem0, LangChain Memory]
+tags: [llm, mem0, redis]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Mem0, LangChain Memory, Redis]
+tools: []
 requires: []
 related: [agent-memory-systems, agent-memory-architecture, self-improving-memory-agent, context-compression]
 combines_with: [rag-pipeline-builder, embedding-model-strategies, production-llm-app-builder]
@@ -16,138 +16,493 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Conversation Memory
 
-当你在构建对话式 AI、需要让模型在多轮乃至跨会话之间「记住」用户偏好、决策与事实时使用本技能。它覆盖四层记忆的设计、存储、检索、巩固与清理，以及按用户隔离的隐私保护。
+Persistent memory systems for LLM conversations including short-term, long-term, and entity-based memory
 
-适用场景：
-- 用户提到/暗示：对话记忆、记住、记忆持久化、长期记忆、聊天历史。
-- 需要记住关于人/地点/事物的具体事实（实体记忆）。
-- 做带记忆上下文的 LLM 调用。
+## Capabilities
 
-不该用（负边界）：
-- 知识图谱构建。
-- 语义搜索 / 向量检索的底层实现（属 rag-implementation）。
-- 数据库管理 / 运维。
+- short-term-memory
+- long-term-memory
+- entity-memory
+- memory-persistence
+- memory-retrieval
+- memory-consolidation
 
-前置知识：LLM 对话模式、数据库基础、键值存储。推荐配合：context-window-management、rag-implementation。
+## Prerequisites
 
-## 步骤
+- Knowledge: LLM conversation patterns, Database basics, Key-value stores
+- Skills_recommended: context-window-management, rag-implementation
 
-1. 设计记忆分层（Buffer / 短期 / 长期 / 实体）。
-2. 实现存储与检索（含语义搜索 + 相关性打分）。
-3. 与上下文管理集成，把相关记忆注入提示词。
-4. 增加巩固与清理（按时效/重要度），并强制用户隔离。
+## Scope
 
-四层记忆职责：
-- **Buffer**：当前会话，直接在上下文窗口内。
-- **短期（shortTerm）**：近期交互，会话级。
-- **长期（longTerm）**：跨会话持久化。
-- **实体（entity）**：关于人、地点、事物、概念的事实。
+- Does_not_cover: Knowledge graph construction, Semantic search implementation, Database administration
+- Boundaries: Focus is memory patterns for LLMs, Covers storage and retrieval strategies
 
-## 指令
+## Ecosystem
 
-**分层记忆系统**（适用：构建任意对话式 AI）。每条消息：先入 Buffer，再抽取实体 upsert，最后判断是否「值得记忆」并打分入短期：
+### Primary_tools
 
-```ts
+- Mem0 - Memory layer for AI applications
+- LangChain Memory - Memory utilities in LangChain
+- Redis - In-memory data store for session memory
+
+## Patterns
+
+### Tiered Memory System
+
+Different memory tiers for different purposes
+
+**When to use**: Building any conversational AI
+
+interface MemorySystem {
+    // Buffer: Current conversation (in context)
+    buffer: ConversationBuffer;
+
+    // Short-term: Recent interactions (session)
+    shortTerm: ShortTermMemory;
+
+    // Long-term: Persistent across sessions
+    longTerm: LongTermMemory;
+
+    // Entity: Facts about people, places, things
+    entity: EntityMemory;
+}
+
 class TieredMemory implements MemorySystem {
-  async addMessage(message: Message): Promise<void> {
-    this.buffer.add(message);
-    const entities = await extractEntities(message);
-    for (const entity of entities) await this.entity.upsert(entity);
-    if (await isMemoryWorthy(message)) {
-      await this.shortTerm.add({
-        content: message.content,
-        timestamp: Date.now(),
-        importance: await scoreImportance(message),
-      });
-    }
-  }
+    async addMessage(message: Message): Promise<void> {
+        // Always add to buffer
+        this.buffer.add(message);
 
-  async consolidate(): Promise<void> {
-    // 巩固：把重要的短期记忆迁入长期，其余清除
-    const memories = await this.shortTerm.getOld(24 * 60 * 60 * 1000);
-    for (const memory of memories) {
-      if (memory.importance > 0.7 || memory.referenced > 2) {
-        await this.longTerm.add(memory);
-      }
-      await this.shortTerm.remove(memory.id);
-    }
-  }
+        // Extract entities
+        const entities = await extractEntities(message);
+        for (const entity of entities) {
+            await this.entity.upsert(entity);
+        }
 
-  async buildContext(query: string): Promise<string> {
-    const parts: string[] = [];
-    const lt = await this.longTerm.search(query, 3);
-    if (lt.length) parts.push('## Relevant Memories\n' + lt.map(m => `- ${m.content}`).join('\n'));
-    const es = await this.entity.getRelevant(query);
-    if (es.length) parts.push('## Known Entities\n' + es.map(e => `- ${e.name}: ${e.facts.join(', ')}`).join('\n'));
-    parts.push('## Recent Conversation\n' + formatMessages(this.buffer.getRecent(10)));
-    return parts.join('\n\n');
-  }
+        // Check for memorable content
+        if (await isMemoryWorthy(message)) {
+            await this.shortTerm.add({
+                content: message.content,
+                timestamp: Date.now(),
+                importance: await scoreImportance(message)
+            });
+        }
+    }
+
+    async consolidate(): Promise<void> {
+        // Move important short-term to long-term
+        const memories = await this.shortTerm.getOld(24 * 60 * 60 * 1000);
+        for (const memory of memories) {
+            if (memory.importance > 0.7 || memory.referenced > 2) {
+                await this.longTerm.add(memory);
+            }
+            await this.shortTerm.remove(memory.id);
+        }
+    }
+
+    async buildContext(query: string): Promise<string> {
+        const parts: string[] = [];
+
+        // Relevant long-term memories
+        const longTermRelevant = await this.longTerm.search(query, 3);
+        if (longTermRelevant.length) {
+            parts.push('## Relevant Memories\n' +
+                longTermRelevant.map(m => `- ${m.content}`).join('\n'));
+        }
+
+        // Relevant entities
+        const entities = await this.entity.getRelevant(query);
+        if (entities.length) {
+            parts.push('## Known Entities\n' +
+                entities.map(e => `- ${e.name}: ${e.facts.join(', ')}`).join('\n'));
+        }
+
+        // Recent conversation
+        const recent = this.buffer.getRecent(10);
+        parts.push('## Recent Conversation\n' + formatMessages(recent));
+
+        return parts.join('\n\n');
+    }
 }
+
+### Entity Memory
+
+Store and update facts about entities
+
+**When to use**: Need to remember details about people, places, things
+
+interface Entity {
+    id: string;
+    name: string;
+    type: 'person' | 'place' | 'thing' | 'concept';
+    facts: Fact[];
+    lastMentioned: number;
+    mentionCount: number;
+}
+
+interface Fact {
+    content: string;
+    confidence: number;
+    source: string;  // Which message this came from
+    timestamp: number;
+}
+
+class EntityMemory {
+    async extractAndStore(message: Message): Promise<void> {
+        // Use LLM to extract entities and facts
+        const extraction = await llm.complete(`
+            Extract entities and facts from this message.
+            Return JSON: { "entities": [
+                { "name": "...", "type": "...", "facts": ["..."] }
+            ]}
+
+            Message: "${message.content}"
+        `);
+
+        const { entities } = JSON.parse(extraction);
+        for (const entity of entities) {
+            await this.upsert(entity, message.id);
+        }
+    }
+
+    async upsert(entity: ExtractedEntity, sourceId: string): Promise<void> {
+        const existing = await this.store.get(entity.name.toLowerCase());
+
+        if (existing) {
+            // Merge facts, avoiding duplicates
+            for (const fact of entity.facts) {
+                if (!this.hasSimilarFact(existing.facts, fact)) {
+                    existing.facts.push({
+                        content: fact,
+                        confidence: 0.9,
+                        source: sourceId,
+                        timestamp: Date.now()
+                    });
+                }
+            }
+            existing.lastMentioned = Date.now();
+            existing.mentionCount++;
+            await this.store.set(existing.id, existing);
+        } else {
+            // Create new entity
+            await this.store.set(entity.name.toLowerCase(), {
+                id: generateId(),
+                name: entity.name,
+                type: entity.type,
+                facts: entity.facts.map(f => ({
+                    content: f,
+                    confidence: 0.9,
+                    source: sourceId,
+                    timestamp: Date.now()
+                })),
+                lastMentioned: Date.now(),
+                mentionCount: 1
+            });
+        }
+    }
+}
+
+### Memory-Aware Prompting
+
+Include relevant memories in prompts
+
+**When to use**: Making LLM calls with memory context
+
+async function promptWithMemory(
+    query: string,
+    memory: MemorySystem,
+    systemPrompt: string
+): Promise<string> {
+    // Retrieve relevant memories
+    const relevantMemories = await memory.longTerm.search(query, 5);
+    const entities = await memory.entity.getRelevant(query);
+    const recentContext = memory.buffer.getRecent(5);
+
+    // Build memory-augmented prompt
+    const prompt = `
+${systemPrompt}
+
+## User Context
+${entities.length ? `Known about user:\n${entities.map(e =>
+    `- ${e.name}: ${e.facts.map(f => f.content).join('; ')}`
+).join('\n')}` : ''}
+
+${relevantMemories.length ? `Relevant past interactions:\n${relevantMemories.map(m =>
+    `- [${formatDate(m.timestamp)}] ${m.content}`
+).join('\n')}` : ''}
+
+## Recent Conversation
+${formatMessages(recentContext)}
+
+## Current Query
+${query}
+    `.trim();
+
+    const response = await llm.complete(prompt);
+
+    // Extract any new memories from response
+    await memory.addMessage({ role: 'assistant', content: response });
+
+    return response;
+}
+
+## Sharp Edges
+
+### Memory store grows unbounded, system slows
+
+Severity: HIGH
+
+Situation: System slows over time, costs increase
+
+Symptoms:
+- Slow memory retrieval
+- High storage costs
+- Increasing latency over time
+
+Why this breaks:
+Every message stored as memory.
+No cleanup or consolidation.
+Retrieval over millions of items.
+
+Recommended fix:
+
+// Implement memory lifecycle management
+
+class ManagedMemory {
+    // Limits
+    private readonly SHORT_TERM_MAX = 100;
+    private readonly LONG_TERM_MAX = 10000;
+    private readonly CONSOLIDATION_INTERVAL = 24 * 60 * 60 * 1000;
+
+    async add(memory: Memory): Promise<void> {
+        // Score importance before storing
+        const score = await this.scoreImportance(memory);
+        if (score < 0.3) return;  // Don't store low-importance
+
+        memory.importance = score;
+        await this.shortTerm.add(memory);
+
+        // Check limits
+        await this.enforceShortTermLimit();
+    }
+
+    async enforceShortTermLimit(): Promise<void> {
+        const count = await this.shortTerm.count();
+        if (count > this.SHORT_TERM_MAX) {
+            // Consolidate: move important to long-term, delete rest
+            const memories = await this.shortTerm.getAll();
+            memories.sort((a, b) => b.importance - a.importance);
+
+            const toKeep = memories.slice(0, this.SHORT_TERM_MAX * 0.7);
+            const toConsolidate = memories.slice(this.SHORT_TERM_MAX * 0.7);
+
+            for (const m of toConsolidate) {
+                if (m.importance > 0.7) {
+                    await this.longTerm.add(m);
+                }
+                await this.shortTerm.remove(m.id);
+            }
+        }
+    }
+
+    async scoreImportance(memory: Memory): Promise<number> {
+        const factors = {
+            hasUserPreference: /prefer|like|don't like|hate|love/i.test(memory.content) ? 0.3 : 0,
+            hasDecision: /decided|chose|will do|won't do/i.test(memory.content) ? 0.3 : 0,
+            hasFactAboutUser: /my|I am|I have|I work/i.test(memory.content) ? 0.2 : 0,
+            length: memory.content.length > 100 ? 0.1 : 0,
+            userMessage: memory.role === 'user' ? 0.1 : 0,
+        };
+
+        return Object.values(factors).reduce((a, b) => a + b, 0);
+    }
+}
+
+### Retrieved memories not relevant to current query
+
+Severity: HIGH
+
+Situation: Memories included in context but don't help
+
+Symptoms:
+- Memories in context seem random
+- User asks about things already in memory
+- Confusion from irrelevant context
+
+Why this breaks:
+Simple keyword matching.
+No relevance scoring.
+Including all retrieved memories.
+
+Recommended fix:
+
+// Intelligent memory retrieval
+
+async function retrieveRelevant(
+    query: string,
+    memories: MemoryStore,
+    maxResults: number = 5
+): Promise<Memory[]> {
+    // 1. Semantic search
+    const candidates = await memories.semanticSearch(query, maxResults * 3);
+
+    // 2. Score relevance with context
+    const scored = await Promise.all(candidates.map(async (m) => {
+        const relevanceScore = await llm.complete(`
+            Rate 0-1 how relevant this memory is to the query.
+            Query: "${query}"
+            Memory: "${m.content}"
+            Return just the number.
+        `);
+        return { ...m, relevance: parseFloat(relevanceScore) };
+    }));
+
+    // 3. Filter low relevance
+    const relevant = scored.filter(m => m.relevance > 0.5);
+
+    // 4. Sort and limit
+    return relevant
+        .sort((a, b) => b.relevance - a.relevance)
+        .slice(0, maxResults);
+}
+
+### Memories from one user accessible to another
+
+Severity: CRITICAL
+
+Situation: User sees information from another user's sessions
+
+Symptoms:
+- User sees other user's information
+- Privacy complaints
+- Compliance violations
+
+Why this breaks:
+No user isolation in memory store.
+Shared memory namespace.
+Cross-user retrieval.
+
+Recommended fix:
+
+// Strict user isolation in memory
+
+class IsolatedMemory {
+    private getKey(userId: string, memoryId: string): string {
+        // Namespace all keys by user
+        return `user:${userId}:memory:${memoryId}`;
+    }
+
+    async add(userId: string, memory: Memory): Promise<void> {
+        // Validate userId is authenticated
+        if (!isValidUserId(userId)) {
+            throw new Error('Invalid user ID');
+        }
+
+        const key = this.getKey(userId, memory.id);
+        memory.userId = userId;  // Tag with user
+        await this.store.set(key, memory);
+    }
+
+    async search(userId: string, query: string): Promise<Memory[]> {
+        // CRITICAL: Filter by user in query
+        return await this.store.search({
+            query,
+            filter: { userId: userId },  // Mandatory filter
+            limit: 10
+        });
+    }
+
+    async delete(userId: string, memoryId: string): Promise<void> {
+        const memory = await this.get(userId, memoryId);
+        // Verify ownership before delete
+        if (memory.userId !== userId) {
+            throw new Error('Access denied');
+        }
+        await this.store.delete(this.getKey(userId, memoryId));
+    }
+
+    // User data export (GDPR compliance)
+    async exportUserData(userId: string): Promise<Memory[]> {
+        return await this.store.getAll({ userId });
+    }
+
+    // User data deletion (GDPR compliance)
+    async deleteUserData(userId: string): Promise<void> {
+        const memories = await this.exportUserData(userId);
+        for (const m of memories) {
+            await this.store.delete(this.getKey(userId, m.id));
+        }
+    }
+}
+
+## Validation Checks
+
+### No User Isolation in Memory
+
+Severity: CRITICAL
+
+Message: Memory operations without user isolation. Privacy vulnerability.
+
+Fix action: Add userId to all memory operations, filter by user on retrieval
+
+### No Importance Filtering
+
+Severity: WARNING
+
+Message: Storing memories without importance filtering. May cause memory explosion.
+
+Fix action: Score importance before storing, filter low-importance content
+
+### Memory Storage Without Retrieval
+
+Severity: WARNING
+
+Message: Storing memories but no retrieval logic. Memories won't be used.
+
+Fix action: Implement memory retrieval and include in prompts
+
+### No Memory Cleanup
+
+Severity: INFO
+
+Message: No memory cleanup mechanism. Storage will grow unbounded.
+
+Fix action: Implement consolidation and cleanup based on age/importance
+
+## Collaboration
+
+### Delegation Triggers
+
+- context window|token -> context-window-management (Need context optimization)
+- rag|retrieval|vector -> rag-implementation (Need retrieval system)
+- cache|caching -> prompt-caching (Need caching strategies)
+
+### Complete Memory System
+
+Skills: conversation-memory, context-window-management, rag-implementation
+
+Workflow:
+
+```
+1. Design memory tiers
+2. Implement storage and retrieval
+3. Integrate with context management
+4. Add consolidation and cleanup
 ```
 
-**实体记忆**（适用：需记住人/地点/事物的细节）。用 LLM 抽取实体与事实，upsert 时合并去重、累计提及次数：
+## Related Skills
 
-```ts
-async upsert(entity: ExtractedEntity, sourceId: string): Promise<void> {
-  const existing = await this.store.get(entity.name.toLowerCase());
-  if (existing) {
-    for (const fact of entity.facts) {
-      if (!this.hasSimilarFact(existing.facts, fact)) {
-        existing.facts.push({ content: fact, confidence: 0.9, source: sourceId, timestamp: Date.now() });
-      }
-    }
-    existing.lastMentioned = Date.now();
-    existing.mentionCount++;
-    await this.store.set(existing.id, existing);
-  } else {
-    await this.store.set(entity.name.toLowerCase(), {
-      id: generateId(), name: entity.name, type: entity.type,
-      facts: entity.facts.map(f => ({ content: f, confidence: 0.9, source: sourceId, timestamp: Date.now() })),
-      lastMentioned: Date.now(), mentionCount: 1,
-    });
-  }
-}
-```
+Works well with: `context-window-management`, `rag-implementation`, `prompt-caching`, `llm-npc-dialogue`
 
-**记忆感知提示**（适用：带记忆上下文的 LLM 调用）：检索相关长期记忆 + 实体 + 近期上下文，拼成增强提示；响应后再把新记忆写回。
+## When to Use
+- User mentions or implies: conversation memory
+- User mentions or implies: remember
+- User mentions or implies: memory persistence
+- User mentions or implies: long-term memory
+- User mentions or implies: chat history
 
-## 示例
-
-智能检索（避免「检索到的记忆与当前 query 无关」）：先语义召回多倍候选，再用 LLM 给每条打 0-1 相关分，过滤后排序截断：
-
-```ts
-async function retrieveRelevant(query, memories, maxResults = 5) {
-  const candidates = await memories.semanticSearch(query, maxResults * 3);
-  const scored = await Promise.all(candidates.map(async (m) => {
-    const score = await llm.complete(
-      `Rate 0-1 how relevant this memory is to the query.\nQuery: "${query}"\nMemory: "${m.content}"\nReturn just the number.`);
-    return { ...m, relevance: parseFloat(score) };
-  }));
-  return scored.filter(m => m.relevance > 0.5)
-    .sort((a, b) => b.relevance - a.relevance).slice(0, maxResults);
-}
-```
-
-重要度打分（存储前过滤，<0.3 不存）：偏好/决策/关于用户的事实/长度/用户消息分别加权求和。
-
-## 注意事项
-
-- **用户隔离（CRITICAL）**：绝不能让一个用户读到另一个用户的记忆。所有 key 用 `user:${userId}:memory:${memoryId}` 命名空间化；写入校验 userId、打标 userId；检索时强制 `filter: { userId }`；删除前校验归属；并提供 GDPR 导出/删除接口。缺失用户隔离即隐私漏洞，必须修复。
-- **存储无界增长（HIGH）**：每条消息都存、无清理无巩固会导致检索变慢、成本飙升、延迟递增。设上限（短期 100 / 长期 10000）、存储前按重要度过滤、超限时巩固（保留高分 70%，importance>0.7 迁长期，其余删除）。
-- **检索结果不相关（HIGH）**：简单关键词匹配、无相关性打分、全量注入会污染上下文。改用语义搜索 + LLM 相关性打分 + 阈值过滤。
-- 校验清单：无用户隔离（CRITICAL）；无重要度过滤（WARNING，易记忆爆炸）；只存不取（WARNING，记忆白存）；无清理机制（INFO，按时效/重要度巩固清理）。
-
-委派触发：context window / token → context-window-management；rag / retrieval / vector → rag-implementation；cache / caching → prompt-caching。
-
-## 互见
-
-- context-window-management：上下文窗口优化。
-- rag-implementation：检索/向量系统底层实现。
-- prompt-caching：缓存策略。
-- llm-npc-dialogue：可配合使用。
-
----
-
-采编自 sickn33/antigravity-awesome-skills（MIT）。原条目上游来源 vibeship-spawner-skills（Apache 2.0）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

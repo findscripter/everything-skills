@@ -1,14 +1,14 @@
 ---
 name: wechat-official-account-growth
-title: 微信公众号内容增长策略
-description: 当为微信公众号策划增长型内容（标题/选题/结构/转化路径）时使用；产出标题公式、文章五段结构、首屏钩子、分发与私域/小程序转化方案；不适用于平面设计排版、投放代运营或非微信平台（小红书等）。触发词：公众号、微信文章、首屏、私域流量、打开率
+title: WeChat Official Account Strategist
+description: Grow WeChat Official Accounts (微信公众号) with high-conversion content strategy, title formulas, article architecture, and Mini-Program integration.
 domain: 商业/growth
-triggers: [写公众号文章, 策划微信公众号选题, 优化文章打开率/转发率, 设计公众号销售漏斗, 把读者引流到小程序或私域, 微信公众号标题怎么取, 首屏钩子怎么写]
-tags: [微信公众号, 内容增长, 商业增长, 标题工程, 私域流量, 小程序转化, 内容营销]
-level: 进阶
+triggers: []
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude, cursor, gemini]
+tools: []
 requires: []
 related: [xiaohongshu-content-strategy, social-media-content-creator, content-strategy-planner, content-marketing-strategist]
 combines_with: [xiaohongshu-content-strategy, social-media-content-creator, content-strategy-planner]
@@ -16,115 +16,113 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# WeChat Official Account Strategist
 
-适用于在微信封闭生态内做内容增长与转化设计：
+## Overview
 
-- 为公众号撰写或重写文章（尤其需要高打开率、高转发率）。
-- 规划公众号内容策略或编辑日历（选题排期）。
-- 优化文章打开率、完读率、转发率。
-- 设计以公众号为入口的销售漏斗。
-- 把读者转化为小程序用户或私域流量（加微信/进群）。
+Expert strategist for WeChat Official Accounts (微信公众号), China's most powerful content marketing channel with 1.3 billion WeChat users. Creates high-conversion article strategies with proven title formulas, reading-flow optimization, and Mini-Program integration paths.
 
-不该用的边界：
+This skill understands the unique WeChat ecosystem: closed-garden distribution, Moments sharing mechanics, the differences between subscription and service accounts, and the critical role of the first fold (首屏) in reader retention.
 
-- 不做平面设计、配图制作和正式排版，本技能只产出文字策略与文案。
-- 不接入微信 API、不直接操作账号或发文，也不替代代投放/代运营。
-- 不覆盖小红书等非微信平台（视觉短内容见「互见」）。
-- 金融、医疗、教育等强监管行业，文案需另行合规审查后再用。
+## When to Use This Skill
 
-## 步骤
+- Use when creating articles for WeChat Official Accounts
+- Use when planning WeChat content strategy or an editorial calendar
+- Use when optimizing article open rates and sharing rates
+- Use when designing WeChat-driven sales funnels
+- Use when converting readers to Mini-Program users or private traffic (私域流量)
 
-### 1. 账号类型与约束分析
+## How It Works
 
-先确认账号类型，它决定推送频率与曝光位：
+### Step 1: Account Type Analysis
 
-- 订阅号：每天 1 次群发，折叠在「订阅号」文件夹内。
-- 服务号：每月 4 次群发，直接出现在主聊天列表（曝光更强、机会更稀缺）。
-- 企业号：用于内部沟通与 CRM，不做对外增长。
+Identify the account type and its constraints:
+- **Subscription Account (订阅号)**: 1 push per day, collapsed in the subscription folder
+- **Service Account (服务号)**: 4 pushes per month, appears directly in the main chat list
+- **Enterprise Account**: Internal communication and CRM
 
-### 2. 标题工程（六大公式）
+### Step 2: Title Engineering
 
-针对微信场景套用经验证的标题结构：
+Apply proven title formulas for WeChat:
 
-1. 好奇缺口：「为什么 XXX 却 YYY？」
-2. 反直觉：「一直以为 XXX，原来 YYY」
-3. 社会认同：「XXX 万人都在用的……」
-4. 紧迫感：「再不看就晚了！」
-5. 价值承诺：「看完这篇，你就懂了……」
-6. 身份标签：「XXX 的人，都有一个共性」
+1. **Curiosity Gap**: "为什么XXX却YYY？" (Why X but Y?)
+2. **Counter-intuitive**: "一直以为XXX，原来YYY" (Always thought X, turns out Y)
+3. **Social Proof**: "XXX万人都在用的..." (X million people use this)
+4. **Urgency**: "再不看就晚了！" (Read before it's too late)
+5. **Value Promise**: "看完这篇，你就懂了..." (After reading this, you'll understand)
+6. **Identity**: "XXX的人，都有一个共性" (People who X share one common trait)
 
-### 3. 文章五段结构
+### Step 3: Article Architecture
 
-按微信读者的阅读行为搭骨架：
+Structure the article around WeChat's reading behavior:
+1. **First Fold (首屏)** - Hook + value promise (visible without scrolling)
+2. **Ramp (铺垫)** - Build context and establish credibility
+3. **Core Content (核心)** - Deliver the promised value
+4. **Emotional Peak (情感高潮)** - Create the motivation to share
+5. **CTA (行动呼唤)** - Clear next step (follow, share, click into the Mini-Program)
 
-1. 首屏（钩子 + 价值承诺，无需下滑即可看到）。
-2. 铺垫（建立背景，确立可信度）。
-3. 核心（兑现首屏承诺的价值）。
-4. 情感高潮（制造转发动机）。
-5. 行动呼唤 CTA（明确下一步：关注 / 转发 / 点小程序）。
+### Step 4: Distribution Optimization
 
-### 4. 分发优化
+Optimize for WeChat's sharing mechanics:
+- **Moments (朋友圈)**: Craft share-worthy pull quotes
+- **Direct Share (转发)**: Provide suggested forwarding copy
+- **In-article search**: Place keywords for WeChat's article search index
 
-围绕微信的传播机制设计：
+## Examples
 
-- 朋友圈：打磨可截图、可摘录的金句。
-- 转发：附上建议的转发语，降低读者二次创作成本。
-- 文内搜索：埋入关键词，命中微信文章搜索索引。
-
-## 指令
-
-- 写首屏时，把它当成读者唯一会看到的内容来写（很多人到此即停）。
-- 用短段落（2-3 句），适配移动端阅读。
-- 每 300-500 字插 1 张图，打断长文本。
-- 结尾给一个具体、低门槛的 CTA。
-- 全账号保持统一语气，建立品牌辨识度。
-- 在峰值时段发布（中国时间）：7-9 点、12-13 点、20-22 点。
-
-## 示例
-
-### 示例 1：科技公司思想领导力
+### Example 1: Tech Company Thought Leadership
 
 ```
-标题：程序员35岁危机？我和10个技术总监聊了聊，发现一个规律
-结构：
-  首屏：35岁真的会失业吗？数据说话……
-  铺垫：调研背景，10位总监的行业分布
-  核心：3个关键发现，打破刻板印象
-  高潮：「真正淘汰你的不是年龄，是……」
-  CTA：关注公众号，回复"职场"获取完整报告
+Title: 程序员35岁危机？我和10个技术总监聊了聊，发现一个规律
+Structure:
+  首屏: 35岁真的会失业吗？数据说话...
+  铺垫: 调研背景，10位总监的行业分布
+  核心: 3个关键发现，打破刻板印象
+  高潮: "真正淘汰你的不是年龄，是..."
+  CTA: 关注公众号，回复"职场"获取完整报告
 ```
 
-### 示例 2：电商产品上新
+### Example 2: E-commerce Product Launch
 
 ```
-标题：用了这款面霜一个月，同事问我是不是做了医美
-结构：
-  首屏：真实使用对比图描述
-  铺垫：皮肤困扰和选品过程
-  核心：成分分析 + 使用感受 + 效果时间线
-  高潮：「最让我惊喜的是第三周……」
-  CTA：点击小程序链接，限时优惠
+Title: 用了这款面霜一个月，同事问我是不是做了医美
+Structure:
+  首屏: 真实使用对比图描述
+  铺垫: 皮肤困扰和选品过程
+  核心: 成分分析+使用感受+效果时间线
+  高潮: "最让我惊喜的是第三周..."
+  CTA: 点击小程序链接，限时优惠
 ```
 
-## 注意事项
+## Best Practices
 
-常见问题与对策：
+- Write the first fold as if it is the only thing readers will ever see (many stop there)
+- Use short paragraphs (2-3 sentences) for mobile readability
+- Include 1 image every 300-500 words to break up the text
+- End with a specific, low-friction CTA
+- Maintain a consistent voice across articles to build brand recognition
+- Post at peak hours: 7-9am, 12-1pm, and 8-10pm (China time)
 
-- 打开率高但完读率低：强化首屏钩子并缩短篇幅。微信读者的注意力窗口约 3-5 分钟。
-- 转发率低：在 CTA 前补一个情感高潮。人们转发能让自己显得「聪明」或「有爱」的内容，而非推销内容。
+## Limitations
 
-合规与安全：
+- This skill generates text strategy; actual graphic design and layout require additional tools
+- WeChat algorithm updates may change which strategies are optimal
+- Industry-specific regulations (finance, health, education) may require a compliance review
 
-- 本技能只产出内容策略与文案，不访问微信 API 或账号。
-- 所有内容须符合中国广告法、微信平台规则及行业专项监管。
-- 微信算法会更新，最优策略可能随之变化，需定期复盘。
+## Security and Safety Notes
 
-## 互见
+- This skill generates content strategy and copy. It does not access WeChat APIs or accounts.
+- All content should comply with Chinese advertising law, WeChat platform rules, and industry-specific regulations.
 
-- 小红书内容策略（`xiaohongshu-content-strategist`）：短图文视觉内容。
-- 中文多平台内容工程（`chinese-market-content-engineer`）：跨平台中文内容策略。
+## Common Pitfalls
 
----
+- **Problem:** High open rate but low completion rate
+  **Solution:** Strengthen the first-fold hook and shorten the article. WeChat readers have a 3-5 minute attention window.
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+- **Problem:** Low sharing rate
+  **Solution:** Add an emotional peak before the CTA. People share content that makes them look smart or caring, not content that sells.
+
+## Related Skills
+
+- `xiaohongshu-content-strategist` - For short-form visual content on Xiaohongshu
+- `chinese-market-content-engineer` - For multi-platform Chinese content strategy

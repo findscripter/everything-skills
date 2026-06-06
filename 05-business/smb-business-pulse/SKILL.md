@@ -1,14 +1,14 @@
 ---
 name: smb-business-pulse
-title: 小微企业经营脉搏速览
-description: 当小微企业主想一页纸看清经营全貌（现金/销售/管道/本周事项/风险）或问"生意怎么样、给我做个周一速览、我漏了啥"时使用；并行拉取所有已连接工具（QuickBooks/PayPal/Square/HubSpot/Calendar/Gmail/Slack），算红黄绿状态并产出含"今日第一要务"的一页简报；不适用于深度财务建模、多月趋势分析或单一系统的明细报表。触发词：经营脉搏、生意怎么样、周一速览、catch me up、我漏了什么、business pulse
+title: Business Pulse
+description: Produces a one-page cross-functional business snapshot for SMB owners — cash position (QuickBooks), sales trend (PayPal/Square), pipeline movement (HubSpot), this week's commitments (Calendar), urgent watch-list items (Gmail/Slack), and the single most important thing needing attention today. Proact
 domain: 商业/growth
-triggers: [经营脉搏, 生意怎么样, 周一速览, 本周经营简报, catch me up, 我漏了什么, business pulse, 现金检查, 管道检查]
-tags: [商业, growth, 小微企业, smb, 经营简报, 现金流, 销售管道, mcp连接器]
-level: 进阶
+triggers: [catch me up, business pulse]
+tags: [growth, smb]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [mcp-quickbooks, mcp-paypal, mcp-square, mcp-hubspot, mcp-google-calendar, mcp-gmail, mcp-slack]
+tools: []
 requires: []
 related: [smb-quarterly-business-review, smb-cash-flow-forecast, smb-payroll-cash-planner, customer-health-scorer]
 combines_with: [product-margin-pricing-scenarios, kpi-dashboard-design]
@@ -16,115 +16,89 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 小微企业经营脉搏速览
+# Business Pulse
 
-一句提示，一页结论。并行拉取所有已连接工具的实时数据，综合成一页可扫读的简报，并点出今天唯一最该处理的事。自己动手把数据找全，别让用户帮你找。
+One prompt, one page. Pull live data from every connected tool, synthesize it into a single scannable brief, and surface the single most important thing to act on today. Do the work — don't ask the user to help find the data.
 
-## 何时使用
+## Step 1 — Pull data in parallel
 
-- **适用**：企业主想快速了解整体经营状况——现金、销售、管道、本周承诺、风险预警；或说"生意怎么样""给我做个周一速览""我漏了什么""catch me up"。也支持窄口径：只看现金 / 只看管道 / 只看待办风险 / 通话前快速一瞥。
-- **不该用**：深度财务建模、跨多月趋势分析、单一系统的明细报表导出（那是各工具自己的报表）；需要写操作且未经确认时（如发 Slack）；连一个连接器都没接通时只能给"部分脉搏"，无连接则无法运行。
+**Dispatch all connector calls in a single parallel batch** — see `reference/data_sources.md` for the exact tool-to-metric mapping. Do not pull serially; latency turns a 30-second skill into a painful wait.
 
-## 步骤 / 指令
+Connectors to attempt simultaneously:
 
-**核心原则：被调用即执行，不要先问"我能查 QuickBooks 吗"——问就失去了意义。**
+- **QuickBooks** — cash balance, MTD revenue, outstanding receivables, overdue invoices
+- **PayPal / Square** — 7-day settlements, sales trend, failed/pending transactions
+- **HubSpot** — pipeline by stage, deals moved/closed, deals gone cold, new leads
+- **Google Calendar** — key meetings, deadlines, events this week and next 7 days
+- **Gmail** — threads flagged urgent, customer complaints, time-sensitive requests
+- **Slack / Teams** — urgent internal signals, threads needing owner attention
+- **Intercom / Zendesk** — open tickets, escalations (if connected)
+- **Shopify / Square** — fulfillment issues (if connected)
 
-### 第 1 步 · 并行拉数据
-**所有连接器调用在同一批并行批次里发出**，禁止串行（串行会把 30 秒变成痛苦等待）。一次完整脉搏通常是 8–15 个并行调用。同时尝试：
+If a connector errors or returns no data, record it internally and move on. Never block the pulse on a single bad integration.
 
-- **QuickBooks** — 现金余额、本月至今(MTD)收入、未收应收、逾期发票
-- **PayPal / Square** — 近 7 日结算、销售趋势、失败/挂起交易
-- **HubSpot** — 各阶段管道、本周成交/推进、转冷的 deal、新线索
-- **Google Calendar** — 本周及未来 7 天的关键会议、截止、外部事项
-- **Gmail** — 标记紧急的会话；含 escalation/complaint/cancel/refund 的邮件
-- **Slack / Teams** — 内部紧急信号、@提及、需跟进的事项
-- **Intercom / Zendesk · Shopify**（若已连）— 工单/升级、履约问题
+**QuickBooks fallback**: if QBO returns an unexpected state (account not connected, sync pending, empty response), mark the Cash section "n/a — QuickBooks unavailable" and proceed. Do not retry or ask the user to reconnect.
 
-容错铁律：某连接器报错或无数据，**内部记录后继续**，绝不因单个集成卡住整份脉搏。
-- **QuickBooks 兜底**：返回未连接/同步中/空响应时，现金区标注"n/a — QuickBooks 不可用"并继续，不重试、不让用户重连。
-- **Gmail 兜底**：Gmail 鉴权时好时坏；报错则**静默跳过**待办区，仅在附录注"Gmail 不可用"，不在正文中段抛错。
+**Gmail fallback**: Gmail auth is intermittently flaky. If the call errors, skip the Watch List section silently and note "Gmail unavailable" in the appendix — do not surface an error mid-pulse.
 
-### 第 2 步 · 算指标 + 红黄绿
-- **应收账龄**：未付发票按逾期天数分桶 0–30 / 31–60 / 61+
-- **管道覆盖率**：加权管道 ÷ 月营收目标
-- **营收趋势**：本月 MTD vs 上月（或近 7 日 PayPal/Square vs 前 7 日）
+## Step 2 — Compute metrics
 
-每区赋 🟢/🟡/🔴。无数据则标 "n/a" 并写入附录。**整体状态取各区最差**；例外：若有具体客户+金额+7 天内截止的风险，无论各区颜色一律上滚为 🔴。
+Read `reference/thresholds.md` for red/yellow/green cutoffs. Compute:
 
-阈值（SMB 默认，可按企业实际目标调；标 `# TODO 待确认` 的阈值需在首份脉搏顶部提示企业主调校）：
+- **AR aging** — open QuickBooks invoices grouped by days since due date (0–30, 31–60, 61+)
+- **Pipeline coverage** — HubSpot weighted pipeline ÷ monthly revenue target
+- **Revenue trend** — this month's QBO revenue vs. prior month (or 7-day PayPal/Square vs. prior 7 days)
 
-| 指标 | 🟢 | 🟡 | 🔴 |
-|---|---|---|---|
-| 现金跑道 | ≥6 月 | 3–6 月 | <3 月 |
-| 营收趋势(MoM) | ≥0% | -5%~0% | <-5% |
-| 7 日销售趋势 | ≥0% | -10%~0% | <-10% |
-| 管道覆盖 | ≥2x | 1–2x | <1x |
-| 应收账龄 | 无超 31 天 | 有 31–60 天 | 有 61+ 天，或 61+ 桶 >总 AR 10% |
+Assign a 🟢/🟡/🔴 status to each section. If a source returned nothing, mark the metric "n/a" and note it in the appendix.
 
-失败交易：>$200 黄；>$1000 或一周 3+ 笔 红。任一单笔逾期 >30 天的发票**点名列出**，不只计数。
+## Step 3 — Flag risks proactively
 
-### 第 3 步 · 主动标风险（每条都要可执行）
-每条风险必须**点名具体记录 + 下一步**。"有些逾期发票"无用；"Acme 的 $3,400，逾期 47 天，自 3/12 起无回应"才可执行。扫描：
-- QuickBooks 逾期 >30 天发票（客户、金额、逾期天数）
-- HubSpot 7+ 天无活动的 deal，或关闭日已过但仍 open（slipped）
-- Gmail 标紧急或含 escalation/complaint/cancel/refund 的会话
-- PayPal/Square 失败或挂起 >$200（>$500 重点）
+Scan for actionable items. Every risk entry must name a specific record and a next step — "some overdue invoices" is useless; "$3,400 from Acme Corp, 47 days overdue, no response since Mar 12" is actionable.
 
-### 第 4 步 · 成稿
-按固定模板组织，**只保留有真实数据的区**——连接器不可用就不留空标题。跨连接器综合是本技能的价值所在：若一条 Slack 消息关联到一个停滞的 HubSpot deal，在"第一要务"里点出这条关联——这比逐个开工具看更有用。
+- QuickBooks invoices past due > 30 days — name customer, amount, days overdue
+- HubSpot deals with no activity in 7+ days, or close date in past but still open
+- Gmail threads marked urgent or containing "escalation," "complaint," "cancel," "refund"
+- Failed or pending PayPal/Square transactions > $500
 
-写作规则：
-- 数字在前、文字在后。别写"营收健康"，写 "$43k 本月，▲ 8% MoM"，让企业主自己判断。
-- 每个数字尽量带与上期的 delta；绝对快照（现金余额）也给 WoW 变化。无基线则写"(无上期基线)"，不要省略。
-- 给名字和金额，不给形容词。
-- 无料则写"无重大变化"并跳过，不填充。
-- 箭头约定：▲ 升 / ▼ 降 / ▬ 平(<1%)；箭头后留空格 `▲ $2k`。金额 `$43k`/`$1.2m`，趋势百分比一位小数。目标一页、最多两页。
+## Step 4 — Compose the output
 
-### 第 5 步 · 导出/分享（只问一次）
-出稿后只问一次："要存成文件吗？" / "要发到 Slack 吗？（哪个频道？）"。**Slack 等写操作必须企业主明确"是 + 频道名"才执行**，绝不自动发。说不或不回应就过，别再问。
+Use the exact template in `reference/output_template.md`. Include only sections where real data exists — omit headers for connectors that weren't available. Adapt depth to context: a casual "how are we doing" gets a fuller report; "quick snapshot before a call" gets a tighter one.
 
-## 示例
+Cross-connector synthesis is where this skill earns its keep. If a Slack message connects to a stalled HubSpot deal, surface that link in the #1 Priority section. Synthesis is what makes the pulse more useful than checking each tool separately.
 
-```
-# 经营脉搏 — 2026 年 6 月 2 日
+Writing rules:
+- Numbers lead, words follow. Never write "revenue is healthy" — write "$43k this month, ▲ 8% MoM" and let the owner judge.
+- Every number carries a delta vs. the prior period where available. Absolute snapshots (cash balance) still show WoW delta.
+- Names and dollars, not adjectives. "$4,200 from Acme, 23 days overdue" beats "some concerning receivables."
+- No filler. If a section has nothing worth reporting, write "No material changes" and move on.
 
-**整体：🟡 现金健康，一笔逾期发票需处理。**
+## Step 5 — Export and share (once)
 
-## TL;DR
-- 现金余额 $84k，WoW ▼ $6k —— 两笔大额供应商付款已清。
-- Acme 的 $3,400 逾期 47 天 —— 自 3/12 起无回应。
-- 加权管道 $128k；本周两个 deal 转冷。
+After presenting the pulse, offer once:
+- "Want me to save this as a file?" (use Files connector if available)
+- "Should I post this to your Slack?" (only if Slack is connected and the user confirms — Slack write requires explicit approval)
 
-## 💰 现金与财务 — 🟡
-- 现金余额：$84k（▼ $6k WoW）
-- MTD 收入：$43k vs 上月 $40k（▲ 8.3%）
-- 未收应收：$12k / 5 张未付
-  应收账龄：0–30 $8k｜31–60 $1k 🟡｜61+ $3.4k 🔴
-  逾期>30 天：Acme — $3,400（47 天）
+If they say yes, do it. If they say no or don't respond, move on — don't ask again.
 
-## ⚠️ 第一要务
-今天给 Acme 的 Sarah 打电话（415-555-0192），追 $3,400、逾期 47 天的发票。
+## Scope variants
 
-## 附录
-窗口：2026-05-26 ~ 06-02
-已拉取：QuickBooks、HubSpot、Calendar
-不可用：Gmail — 鉴权错误；Zendesk — 未连接
-```
+The owner may ask for a narrower cut:
 
-窄口径变体：只问"现金/财务"→ 只出现金区 + 应收风险；"只看管道"→ 只出管道 + 停滞 deal；"通话前一瞥"→ 只出 TL;DR + 第一要务。
+- **"Just cash" / "financial check"** → only Cash & Finance + AR-related risks
+- **"Pipeline only" / "deals check"** → only Pipeline section + stalled-deal risks
+- **"Watch list" / "anything urgent"** → only Watch List + all risks, no metric sections
+- **"Quick snapshot before a call"** → TL;DR + #1 Priority only, no full sections
 
-## 注意事项
+## What not to do
 
-- **不要先问就拉数据**。被调用即视为已授权；问"要查 QuickBooks 吗"只会多几轮往返、损害信任。
-- **不要编造或估算数字**。无数据就明确写 "n/a"，绝不用猜测填空。
-- **不要漏 delta**。无对比的数字是错失的洞察；无基线就写"(无上期基线)"。
-- **不要在脉搏中段抛连接器错误**。记到附录，正文以"已交付的内容"开场。QuickBooks 空响应别当"无数据"静默跳过——要显式标注，否则企业主会误以为没接通而白白花 10 分钟重连。
-- 阈值用满 4 周后回看调校；默认偏保守，健康业务会一直显 🟢，按企业主真正想行动的临界点收紧。
+- **Do not ask permission before pulling data.** If the skill was invoked, run it. Asking "should I check QuickBooks?" defeats the whole point.
+- **Do not invent or estimate numbers.** If a source returned nothing, say "n/a" explicitly. Never fill a gap with guesswork.
+- **Do not skip the delta.** A number without a comparison is a missed insight. If there's no prior-period baseline, say "(no prior baseline)" rather than omitting the field.
+- **Do not surface connector errors mid-pulse.** Log them to the appendix. The pulse leads with what was delivered.
 
-## 互见
+## Reference files
 
-- related：商业/growth 卷下的销售管道分析、现金流预测、客户健康度类技能
-- combines_with：文件导出 / Slack 发送类技能 —— 用于第 5 步的存档与分享
-
----
-采编自 [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) 的 `small-business/business-pulse`（Apache-2.0）。
+- `reference/data_sources.md` — exact connector tool → metric mapping with fallbacks
+- `reference/thresholds.md` — 🟢/🟡/🔴 cutoffs, tunable per owner
+- `reference/output_template.md` — exact markdown structure; do not deviate
+- `reference/gotchas.md` — known failure modes (QB states, Gmail auth, Slack write)

@@ -1,14 +1,14 @@
 ---
 name: chief-of-staff-ops
-title: 幕僚长运营协调
-description: 当面对跨职能、需多角色决策的创始人/管理者问题时使用；做问题分诊、复杂度评分、按路由矩阵派给单角色或召开"董事会"并综合产出+记录决策；不适用于单一领域有明确答案的小问题（直接答即可）、纯执行落地、无角色协调诉求；触发词：幕僚长、分诊路由、董事会评议
+title: Chief of Staff Ops
+description: Use for cross-functional, multi-role founder/leader decisions: triage the question, score complexity, route to a single advisor role or convene a board meeting, synthesize outputs, and log the decision; not for single-domain questions with a clear answer, pure execution, or when 
 domain: 协作/pm
-triggers: [幕僚长, 分诊, 路由矩阵, 董事会评议, 多角色协调, 复杂度评分, 决策日志, 综合产出, 该问谁, 跨职能决策, chief of staff, orchestrator]
-tags: [协作, pm, 编排, 决策, c-suite, 路由, 多角色]
-level: 进阶
+triggers: [chief of staff, orchestrator, routing matrix, board meeting, multi-role coordination, complexity scoring, decision log, who should I ask, cross-functional decision, c-suite coordinator, advisor coordination, synthesis]
+tags: [productivity, pm, orchestration, decision, c-suite, routing, multi-agent]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [决策日志(~/.claude/decision-log.md)]
+tools: []
 requires: []
 related: [chief-of-staff-orchestrator, boardroom-deliberation, multi-agent-orchestrator, office-hours-facilitator]
 combines_with: [decision-log-recorder, task-decomposition-planner]
@@ -16,145 +16,144 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-采编自 alirezarezvani/claude-skills（MIT）。本条目为适配重写，name=chief-of-staff-ops，domain=协作/pm。
+## When to use
 
-# 幕僚长运营协调
+The orchestration layer between a founder/leader and a set of expert "roles" (CFO, CTO, CPO, etc.). It reads the question, scores complexity, routes to the right role(s) or convenes a board meeting, synthesizes the inputs, and tracks decisions. Load company context for every interaction so you never give generic advice.
 
-创始人/管理者与一组"专家角色"（CFO、CTO、CPO 等）之间的编排层。读懂问题 → 评估复杂度 → 路由到正确角色或召开"董事会" → 综合多方意见 → 记录决策。每次交互前先加载公司上下文，避免给出泛泛建议。
+Use it when:
+- It's unclear "who should answer" — you need to triage before delegating.
+- A decision spans 2+ functions, carries major trade-offs or is irreversible, and needs multiple roles to weigh in before a roll-up.
+- Roles may conflict and you need the disagreement surfaced explicitly so a human can decide.
+- A reached decision must be logged and proactively re-flagged when its review date arrives.
 
-## 何时使用
+Do NOT use it (negative boundaries):
+- Single-domain questions with a clear answer — answer directly; don't run the orchestration flow.
+- Pure execution / hands-on work (writing code, building a model) — that's what a routed-to role does, not this layer.
+- No multi-role coordination needed, you just want deep advice from one specialty — invoke that role's skill directly.
 
-适用：
-- 一个问题"该问谁"不清楚，需要先分诊再派活。
-- 跨 2 个以上职能、有重大取舍或不可逆，需要多角色各表态再汇总。
-- 多个角色意见可能冲突，需要把分歧摊开、交给人来拍板。
-- 需要把已达成的决策落档、并在复盘日到期时主动提醒。
+## Steps
 
-不该用（负边界）：
-- 单一领域、答案明确的小问题——直接回答，别走编排流程。
-- 纯执行/落地动手（写代码、做表）——这是被路由到的角色干的事，不是本层。
-- 没有多角色协调诉求、只想要某一专业的深度建议——直接用对应角色技能。
+Session protocol (fixed flow for every interaction):
 
-## 步骤（每次交互的固定流程）
+1. Load company context (no generic advice).
+2. Score decision complexity.
+3. Route to role(s), or trigger a board meeting.
+4. Synthesize the outputs.
+5. Log the decision if one was reached.
 
-1. 加载公司上下文（不要给通用建议）。
-2. 对决策复杂度评分。
-3. 路由到角色，或触发董事会评议。
-4. 综合各方产出。
-5. 若已形成决策，写入决策日志。
-
-## 指令
-
-调用语法：
+**Invocation syntax:**
 ```
 [INVOKE:role|question]
 ```
-示例：
+Examples:
 ```
-[INVOKE:cfo|按当前增速，合理的现金跑道目标是多少？]
-[INVOKE:board|该融过桥贷还是收缩到盈利？]
+[INVOKE:cfo|What's the right runway target given our growth rate?]
+[INVOKE:board|Should we raise a bridge or cut to profitability?]
 ```
 
-防循环规则（关键，必须遵守）：
-1. 幕僚长不能调用自己。
-2. 最大深度 = 2：幕僚长 → 角色 → 停。
-3. 阻断环路：A→B→A 被禁止，并记录。
-4. 董事会视为深度 1：会上各角色互不调用。
-- 若检测到死锁，回到创始人并说明："顾问们僵住了，分歧在这里：[摘要]。"
+**Loop Prevention Rules (CRITICAL):**
+1. Chief of Staff cannot invoke itself.
+2. Maximum depth: 2. Chief of Staff → Role → stop.
+3. Circular blocking. A→B→A is blocked. Log it.
+4. Board = depth 1. Roles at a board meeting do not invoke each other.
+- If a loop is detected: return to the founder with "The advisors are deadlocked. Here's where they disagree: [summary]."
 
-复杂度评分：
-| 分值 | 信号 | 动作 |
-|------|------|------|
-| 1–2 | 单领域、答案清晰 | 1 个角色 |
-| 3 | 2 个领域交叉 | 2 个角色，综合 |
-| 4–5 | 3+ 领域、重大取舍、不可逆 | 召开董事会 |
+**Decision complexity scoring:**
 
-每满足一项 +1：影响 2+ 职能、不可逆、角色间预期有分歧、直接影响团队、含合规维度。
+| Score | Signal | Action |
+|-------|--------|--------|
+| 1–2 | Single domain, clear answer | 1 role |
+| 3 | 2 domains intersect | 2 roles, synthesize |
+| 4–5 | 3+ domains, major trade-offs, irreversible | Board meeting |
 
-路由矩阵（摘要，完整规则见源 references/routing-matrix.md）：
-| 主题 | 主理 | 协同 |
-|------|------|------|
-| 融资、烧钱、财务模型 | CFO | CEO |
-| 招聘、解雇、文化、绩效 | CHRO | COO |
-| 产品路线图、优先级 | CPO | CTO |
-| 架构、技术债 | CTO | CPO |
-| 收入、销售、GTM、定价 | CRO | CFO |
-| 流程、OKR、执行 | COO | CFO |
-| 安全、合规、风险 | CISO | COO |
-| 公司方向、投资人关系 | CEO | Board |
-| 市场策略、定位 | CMO | CRO |
-| 并购、转型 | CEO | Board |
++1 for each: affects 2+ functions, irreversible, expected disagreement between roles, direct team impact, compliance dimension.
 
-董事会评议协议：
-- 触发：评分 ≥ 4，或跨职能的不可逆决策。
-- 规则：最多 5 个角色；每角色仅一轮发言，无来回辩论；幕僚长负责综合；冲突只摊开、不替人解决——由创始人拍板。
+**Routing Matrix (summary — full rules in source `references/routing-matrix.md`):**
 
-综合（快速参考，完整流程见源 references/synthesis-framework.md）：
-1. 提炼主题——2+ 角色独立达成的共识。
-2. 摊开冲突——明确点名分歧，不和稀泥。
-3. 行动项——具体、有归属、有时限（最多 5 条）。
-4. 一个决策点——唯一需要创始人判断的事。
+| Topic | Primary | Secondary |
+|-------|---------|-----------|
+| Fundraising, burn, financial model | CFO | CEO |
+| Hiring, firing, culture, performance | CHRO | COO |
+| Product roadmap, prioritization | CPO | CTO |
+| Architecture, tech debt | CTO | CPO |
+| Revenue, sales, GTM, pricing | CRO | CFO |
+| Process, OKRs, execution | COO | CFO |
+| Security, compliance, risk | CISO | COO |
+| Company direction, investor relations | CEO | Board |
+| Market strategy, positioning | CMO | CRO |
+| M&A, pivots | CEO | Board |
 
-决策日志：写入 `~/.claude/decision-log.md`。
+**Board Meeting Protocol:**
+- Trigger: Score ≥ 4, or a multi-function irreversible decision.
+- Rules: Max 5 roles. Each role gets one turn, no back-and-forth. Chief of Staff synthesizes. Conflicts are surfaced, not resolved — the founder decides.
+
+**Synthesis (quick reference — full framework in source `references/synthesis-framework.md`):**
+1. Extract themes — what 2+ roles agree on independently.
+2. Surface conflicts — name disagreements explicitly; don't smooth them over.
+3. Action items — specific, owned, time-bound (max 5).
+4. One decision point — the single thing needing founder judgment.
+
+**Decision log** — write to `~/.claude/decision-log.md`:
 ```
-## 决策：[名称]
-日期：[YYYY-MM-DD]
-问题：[原始问题]
-结论：[决定了什么]
-负责人：[谁执行]
-复盘：[何时回检]
+## Decision: [Name]
+Date: [YYYY-MM-DD]
+Question: [Original question]
+Decided: [What was decided]
+Owner: [Who executes]
+Review: [When to check back]
 ```
-会话开始时若复盘日已过，主动提示："你在 [日期] 决定了 [X]，要不要回检一下？"
+At session start: if a review date has passed, flag it: "You decided [X] on [date]. Worth a check-in?"
 
-## 示例
+## Example
 
-**输入**："增速放缓，我们该融过桥贷还是收缩到盈利？"
+**Input:** "Growth is slowing — should we raise a bridge or cut to profitability?"
 
-1. 加载上下文：当前现金、烧钱率、增速。
-2. 评分：涉及财务+战略+团队、不可逆、角色预期分歧 → 4–5 分。
-3. 触发董事会：
+1. Load context: current cash, burn rate, growth rate.
+2. Score: spans finance + strategy + team, irreversible, expected role disagreement → 4–5.
+3. Trigger a board meeting:
 ```
-董事会评议：过桥贷 vs 收缩到盈利
-出席：CFO、CEO、COO
-议程：现金跑道还剩几个月？过桥贷条款的稀释/风险？收缩到盈利需裁撤哪些？
+BOARD MEETING: Bridge vs. cut to profitability
+Attendees: CFO, CEO, COO
+Agenda: How many months of runway remain? Dilution/risk of bridge terms? What does cut-to-profitability require?
 
-[INVOKE:cfo|当前烧钱率下跑道还剩几月？两条路各自的现金影响？]
-[INVOKE:ceo|从投资人关系与公司方向看，哪条路代价更小？]
-[INVOKE:coo|若收缩到盈利，需要砍掉哪些职能、节省多少？]
+[INVOKE:cfo|At current burn, how many months of runway remain? Cash impact of each path?]
+[INVOKE:ceo|From an investor-relations and direction standpoint, which path costs less?]
+[INVOKE:coo|If we cut to profitability, which functions get cut and how much is saved?]
 ```
-4. 综合产出：
+4. Synthesized output:
 ```
-## 我们达成的共识
-跑道不足 6 个月；两条路都需立即动作。
+## What We Agree On
+Less than 6 months of runway; both paths require immediate action.
 
-## 分歧所在
-CFO 倾向收缩（确定性高）；CEO 倾向过桥贷（保住增速叙事）。本质是"确定性 vs 期权价值"之争。
+## The Disagreement
+CFO leans toward cutting (high certainty); CEO leans toward a bridge (preserve the growth narrative). At its core it's "certainty vs. optionality."
 
-## 建议行动
-1. 本周内出两版财务模型——CFO——3 天
-2. 摸底现有投资人过桥意愿——CEO——本周
+## Recommended Actions
+1. Produce two financial models this week — CFO — 3 days
+2. Sound out existing investors on bridge appetite — CEO — this week
 ...
 
-## 你的决策点
-要确定性还是要期权？过桥贷=保增速但稀释+风险；收缩=活下来但叙事受损。不替你推荐，只给清晰取舍。
+## Your Decision Point
+Certainty or optionality? Bridge = preserve growth but dilution + risk; cut = survive but the narrative takes a hit. No recommendation — just clear trade-offs.
 ```
-5. 拍板后写入决策日志，设定复盘日。
+5. Once decided, write to the decision log and set a review date.
 
-## 注意事项
+## Notes
 
-交付给创始人前的质量清单（关键项）：
-- 结论先行——无开场白、不复述过程。
-- 已加载公司上下文，不是通用建议。
-- 每条发现都含 是什么 + 为什么 + 怎么做。
-- 行动项有负责人和截止日（杜绝"我们应该考虑…"）。
-- 决策以"选项 + 取舍 + 建议"呈现；冲突点名、不和稀泥。
-- 风险要具体（若 X 则 Y，代价 $Z）。
-- 未发生循环；每节最多 5 条要点，溢出转入引用文档。
+Quality checklist before delivering ANY output to the founder:
+- Bottom line first — no preamble, no process narration.
+- Company context loaded (not generic advice).
+- Every finding has WHAT + WHY + HOW.
+- Actions have owners and deadlines (no "we should consider").
+- Decisions framed as options with trade-offs and a recommendation; conflicts named, not smoothed.
+- Risks are concrete (if X → Y happens, costs $Z).
+- No loops occurred; max 5 bullets per section — overflow goes to a reference doc.
 
-生态意识：源技能定位为对 28 个技能（10 个 C-suite 角色 + 编排/跨职能/文化协作各 6 个）的路由层。本条目落地时，把"角色"对应到你自己团队的职能或子技能即可，无需照搬具体角色清单。
+Ecosystem awareness: the source skill positions itself as a routing layer over 28 skills (10 C-suite roles + 6 orchestration + 6 cross-cutting + 6 culture & collaboration). When you adopt this, map "roles" to your own team's functions or sub-skills — you don't need to copy the specific role roster.
 
-## 互见
+## See also
 
-- 源参考：`references/routing-matrix.md`（逐主题路由规则、互补技能触发、何时召开董事会）。
-- 源参考：`references/synthesis-framework.md`（完整综合流程、冲突类型、输出格式）。
-- 配套上游能力：cs-onboard（创始人访谈→公司上下文）、board-meeting（六阶段多角色评议）、decision-logger（双层记忆）、agent-protocol（跨角色调用与防循环）。
+- Source reference: `references/routing-matrix.md` — per-topic routing rules, complementary skill triggers, when to trigger a board.
+- Source reference: `references/synthesis-framework.md` — full synthesis process, conflict types, output format.
+- Companion upstream capabilities: cs-onboard (founder interview → company context), context-engine, board-meeting (multi-role deliberation), decision-logger (two-tier memory), agent-protocol (cross-role invocation and loop prevention).
+- Related skills: chief-of-staff-orchestrator, boardroom-deliberation, multi-agent-orchestrator, office-hours-facilitator. Combines with: decision-log-recorder, task-decomposition-planner.

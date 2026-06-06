@@ -1,14 +1,14 @@
 ---
 name: codetour-authoring
-title: CodeTour 代码导览编写
-description: 当用户要为代码库做入职引导、架构走读、PR/RCA/安全审查导览，或提出结构化「解释 X 如何工作」并想要可复用引导产物时使用；做按角色定深度、锚定真实文件与行号、按叙事弧写步骤，产出 .tours/ 下的 CodeTour .tour（JSON）文件；不适用于一次性口头解释、要散文式文档而非 .tour 产物、实现/重构任务，或无产物的宽泛代码库入职。触发词：代码导览、code tour、onboarding 导览、架构走读、PR 导览、解释这块怎么工作
+title: CodeTour Authoring
+description: Create persona-targeted CodeTour `.tour` files with real file/line anchors for onboarding, architecture walkthroughs, PR/RCA/security-review tours. Triggers: code tour, onboarding tour, architecture walkthrough, PR tour, "explain how X works" as a reusable artifact.
 domain: 文书/writing
-triggers: [给代码库做代码导览/code tour, 为新人做 onboarding 引导走读, 做架构走读/架构导览, 为某个 PR 生成审查导览, RCA/故障路径走读, 安全审查（信任边界）导览, 把「解释 X 如何工作」做成可复用引导产物]
-tags: [代码导览, codetour, onboarding, 架构走读, pr 审查, 技术文档, 代码讲解]
-level: 进阶
+triggers: [author a code tour / CodeTour for a codebase, build an onboarding walkthrough for a new engineer, create an architecture walkthrough/tour, generate a review tour anchored to a PR, RCA/failure-path walkthrough, security-review tour of trust boundaries, turn "explain how X works" into a reusable guided artifact]
+tags: [codetour, code-tour, onboarding, architecture-walkthrough, pr-review, technical-docs, code-explanation]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Glob, Grep, Write]
+tools: []
 requires: []
 related: [codetour-walkthrough-builder, code-tutorial-engineer, codebase-onboarding-doc, docs-architect]
 combines_with: [codebase-onboarding-doc, docs-architect]
@@ -16,127 +16,150 @@ license: MIT
 source: affaan-m/everything-claude-code
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当一段走读用「带锚点的引导序列」比「平铺摘要」更有价值时使用。产物是 `.tours/` 下的 **CodeTour** `.tour`（JSON）文件——能在 VS Code CodeTour 插件里直接打开到真实文件和行范围，而不是临时的 Markdown 笔记。
+Create **CodeTour** `.tour` (JSON) files for codebase walkthroughs that open directly to real files and line ranges. Tours live in `.tours/` and target the CodeTour VS Code format, not ad hoc Markdown notes.
 
-一份好导览是为**特定读者**讲的故事：他们在看什么、为什么重要、接下来该走哪条路。
+A good tour is a narrative for a **specific reader**:
+- what they are looking at
+- why it matters
+- what path they should follow next
 
-典型场景：
+Use this skill when:
+- the user asks for a code tour, onboarding tour, architecture walkthrough, or PR tour
+- the user says "explain how X works" and wants a reusable guided artifact
+- the user wants a ramp-up path for a new engineer or reviewer
+- the task is better served by a guided sequence than a flat summary
 
-- 新维护者/新工程师入职引导；
-- 单个服务或包的架构走读；
-- 锚定到变更文件的 PR 审查导览；
-- 展示故障路径的 RCA（根因分析）导览；
-- 围绕信任边界与关键检查的安全审查导览。
+Examples: onboarding a new maintainer; architecture tour for one service or package; PR-review walkthrough anchored to changed files; RCA tour showing the failure path; security-review tour of trust boundaries and key checks.
 
-**不该用边界：**
+**When NOT to use:**
 
-| 与其用代码导览 | 不如 |
+| Instead of a code tour | Use |
 | --- | --- |
-| 聊天里一次性解释就够 | 直接回答 |
-| 用户要散文式文档而非 `.tour` 产物 | 交给 `docs-architect` / 仓库文档编辑 |
-| 任务是实现或重构 | 直接做实现工作 |
-| 宽泛的代码库入职、不需要 `.tour` 产物 | 交给 `codebase-onboarding-doc` |
+| A one-off explanation in chat is enough | answer directly |
+| The user wants prose docs, not a `.tour` artifact | `docs-architect` / repo docs editing |
+| The task is implementation or refactoring | do the implementation work |
+| Broad codebase onboarding without a tour artifact | `codebase-onboarding-doc` |
 
-**硬约束：只创建 `.tour` JSON 文件，本技能范围内不修改任何源代码。**
+**Hard constraint: only create `.tour` JSON files. Do not modify source code as part of this skill.**
 
-## 步骤
+## Steps
 
-### 1. 探索（动笔前必做）
+### 1. Discover (do this before writing anything)
 
-写任何步骤前先摸清代码形状：README 与包/应用入口、目录结构、相关配置文件；若导览聚焦 PR，则先看变更文件。**没理解代码结构前不要开始写步骤。**
+Explore the repo before writing any step:
+- README and package/app entry points
+- folder structure
+- relevant config files
+- the changed files if the tour is PR-focused
 
-### 2. 推断读者（定角色与深度）
+Do not start writing steps before you understand the shape of the code.
 
-由请求形态决定 persona 和步数：
+### 2. Infer the reader
 
-| 请求形态 | 角色 persona | 建议深度 |
+Decide the persona and depth from the request shape:
+
+| Request shape | Persona | Suggested depth |
 | --- | --- | --- |
-| 「入职」「新成员」 | `new-joiner` | 9–13 步 |
-| 「快速导览」「快速了解」 | `vibecoder` | 5–8 步 |
-| 「架构」 | `architect` | 14–18 步 |
-| 「导览这个 PR」 | `pr-reviewer` | 7–11 步 |
-| 「为什么挂了」 | `rca-investigator` | 7–11 步 |
-| 「安全审查」 | `security-reviewer` | 7–11 步 |
-| 「解释这个功能怎么工作」 | `feature-explainer` | 7–11 步 |
-| 「调试这条路径」 | `bug-fixer` | 7–11 步 |
+| "onboarding", "new joiner" | `new-joiner` | 9-13 steps |
+| "quick tour", "vibe check" | `vibecoder` | 5-8 steps |
+| "architecture" | `architect` | 14-18 steps |
+| "tour this PR" | `pr-reviewer` | 7-11 steps |
+| "why did this break" | `rca-investigator` | 7-11 steps |
+| "security review" | `security-reviewer` | 7-11 steps |
+| "explain how this feature works" | `feature-explainer` | 7-11 steps |
+| "debug this path" | `bug-fixer` | 7-11 steps |
 
-### 3. 读取并验证锚点
+### 3. Read and verify anchors
 
-每个文件路径和行锚点都必须真实：确认文件存在、确认行号在范围内、用 selection 时核对确切代码块；文件易变时优先用 `pattern` 锚点。**绝不猜测行号。**
+Every file path and line anchor must be real:
+- confirm the file exists
+- confirm the line numbers are in range
+- if using a selection, verify the exact block
+- if the file is volatile, prefer a pattern-based anchor
 
-### 4. 写 `.tour`
+**Never guess line numbers.**
 
-路径保持确定、可读：
+### 4. Write the `.tour`
+
+Write to a deterministic, readable path:
 
 ```text
 .tours/<persona>-<focus>.tour
 ```
 
-### 5. 验证（收尾前）
+### 5. Validate (before finishing)
 
-- 每个引用路径都存在；
-- 每个行号/选区都有效；
-- 第一步锚定到真实文件或目录（**不能是纯内容步骤**）；
-- 导览讲的是一条连贯路径，而非文件清单。
+- every referenced path exists
+- every line or selection is valid
+- the first step is anchored to a real file or directory (not content-only)
+- the tour tells a coherent story rather than listing files
 
-## 指令
+## Step types (`steps[]`)
 
-### 步骤类型（`steps[]`）
+**Content** — use sparingly, usually only for a closing step. Do not make the first step content-only:
 
-- **内容（content）**——谨慎使用，通常只用于收尾步。第一步不可为纯内容。
-  ```json
-  { "title": "Next Steps", "description": "You can now trace the request path end to end." }
-  ```
-- **目录（directory）**——给读者定位某个模块：
-  ```json
-  { "directory": "src/services", "title": "Service Layer", "description": "The core orchestration logic lives here." }
-  ```
-- **文件 + 行（file + line）**——默认步骤类型：
-  ```json
-  { "file": "src/auth/middleware.ts", "line": 42, "title": "Auth Gate", "description": "Every protected request passes here first." }
-  ```
-- **选区（selection）**——当某代码块比整文件更关键：
-  ```json
-  { "file": "src/core/pipeline.ts", "selection": { "start": { "line": 15, "character": 0 }, "end": { "line": 34, "character": 0 } }, "title": "Request Pipeline" }
-  ```
-- **模式（pattern）**——当精确行号可能漂移：
-  ```json
-  { "file": "src/app.ts", "pattern": "export default class App", "title": "Application Entry" }
-  ```
-- **URI**——指向 PR / issue / 文档：
-  ```json
-  { "uri": "https://github.com/org/repo/pull/456", "title": "The PR" }
-  ```
+```json
+{ "title": "Next Steps", "description": "You can now trace the request path end to end." }
+```
 
-### 写描述的规则：SMIG
+**Directory** — orient the reader to a module:
 
-每条 `description` 应回答四点，并保持简洁、具体、贴合真实代码：
+```json
+{ "directory": "src/services", "title": "Service Layer", "description": "The core orchestration logic lives here." }
+```
 
-- **Situation 情境**：读者在看什么；
-- **Mechanism 机制**：它如何工作；
-- **Implication 影响**：为什么对这个角色重要；
-- **Gotcha 陷阱**：聪明的读者可能会忽略什么。
+**File + line** — the default step type:
 
-### 叙事弧（除非任务另有需要）
+```json
+{ "file": "src/auth/middleware.ts", "line": 42, "title": "Auth Gate", "description": "Every protected request passes here first." }
+```
 
-1. 定位 → 2. 模块地图 → 3. 核心执行路径 → 4. 边缘情况/陷阱 → 5. 收尾/下一步。导览应像一条路径，而非一份清单。
+**Selection** — when one code block matters more than the whole file:
 
-### 反模式与修复
+```json
+{
+  "file": "src/core/pipeline.ts",
+  "selection": {
+    "start": { "line": 15, "character": 0 },
+    "end": { "line": 34, "character": 0 }
+  },
+  "title": "Request Pipeline",
+  "description": "This block wires validation, auth, and downstream execution."
+}
+```
 
-| 反模式 | 修复 |
-| --- | --- |
-| 平铺的文件列表 | 让步骤间有依赖、讲成故事 |
-| 通用空泛描述 | 指明具体代码路径或模式 |
-| 猜测的锚点 | 先逐个验证文件与行 |
-| 快速导览步骤过多 | 果断精简 |
-| 第一步是纯内容 | 第一步锚定到真实文件/目录 |
-| 角色错配 | 为真实读者而非「通用工程师」写 |
+**Pattern** — when exact lines may drift:
 
-## 示例
+```json
+{ "file": "src/app.ts", "pattern": "export default class App", "title": "Application Entry" }
+```
 
-一份最小可用的 `.tour`（payments 服务请求路径走读）：
+**URI** — for PRs, issues, or docs when helpful:
+
+```json
+{ "uri": "https://github.com/org/repo/pull/456", "title": "The PR" }
+```
+
+## Writing rule: SMIG
+
+Each `description` should answer four things, kept compact, specific, and grounded in the actual code:
+- **Situation** — what the reader is looking at
+- **Mechanism** — how it works
+- **Implication** — why it matters for this persona
+- **Gotcha** — what a smart reader might miss
+
+## Narrative shape
+
+Use this arc unless the task clearly needs something different:
+1. orientation → 2. module map → 3. core execution path → 4. edge case or gotcha → 5. closing / next move.
+
+The tour should feel like a path, not an inventory.
+
+## Example
+
+A minimal `.tour` walking the request path of a payments service:
 
 ```json
 {
@@ -145,29 +168,56 @@ source_license: MIT
   "description": "Walkthrough of the request path for the payments service.",
   "ref": "main",
   "steps": [
-    { "directory": "src", "title": "Source Root", "description": "All runtime code for the service starts here." },
-    { "file": "src/server.ts", "line": 12, "title": "Entry Point", "description": "The server boots here and wires middleware before any route is reached." },
-    { "file": "src/routes/payments.ts", "line": 8, "title": "Payment Routes", "description": "Every payments request enters through this router before hitting service logic." },
-    { "title": "Next Steps", "description": "You can now follow any payment request end to end with the main anchors in place." }
+    {
+      "directory": "src",
+      "title": "Source Root",
+      "description": "All runtime code for the service starts here."
+    },
+    {
+      "file": "src/server.ts",
+      "line": 12,
+      "title": "Entry Point",
+      "description": "The server boots here and wires middleware before any route is reached."
+    },
+    {
+      "file": "src/routes/payments.ts",
+      "line": 8,
+      "title": "Payment Routes",
+      "description": "Every payments request enters through this router before hitting service logic."
+    },
+    {
+      "title": "Next Steps",
+      "description": "You can now follow any payment request end to end with the main anchors in place."
+    }
   ]
 }
 ```
 
-## 注意事项
+## Notes
 
-- **只产出 `.tour`，不碰源码**——本技能不实现、不重构、不改业务文件。
-- **步数与规模匹配**：步数随仓库大小与角色深度成比例；用 directory 步做定位、file 步做实质内容。
-- **PR 导览先覆盖变更文件**；**单体仓库（monorepo）只圈相关包**，不要导览全部。
-- **收尾讲「读者现在能做什么」**，而不是复述刚才看了啥。
-- 行号易漂移的文件优先用 `pattern`；用 `line`/`selection` 时务必先核对，绝不臆造行号。
-- 缺关键输入（导览主题/焦点、目标读者、是否锚定某 PR）时先停下澄清。
+**Anti-patterns and fixes:**
 
-## 互见
+| Anti-pattern | Fix |
+| --- | --- |
+| Flat file listing | Tell a story with dependency between steps |
+| Generic descriptions | Name the concrete code path or pattern |
+| Guessed anchors | Verify every file and line first |
+| Too many steps for a quick tour | Cut aggressively |
+| First step is content-only | Anchor the first step to a real file or directory |
+| Persona mismatch | Write for the actual reader, not a generic engineer |
 
-- related：`docs-architect` —— 需要散文式架构叙事/设计决策（讲「为什么」）而非可点击导览产物时改用它。
-- related：`readme-doc-writer` —— 项目级 README/快速上手与导览的「定位」步骤互补。
-- related：`code-tutorial-engineer` —— 要「教人动手做」的循序渐进教程，而非「带读已有代码」时改用它。
-- combines_with：`codebase-onboarding-doc` —— 宽泛入职文档 + 一份引导式 `.tour`，覆盖「读文档」与「跟着走读」两种上手方式。
+**Best practices:**
+- Only produce `.tour` files — do not implement, refactor, or edit business files.
+- Keep step count proportional to repo size and persona depth; use directory steps for orientation, file steps for substance.
+- For PR tours, cover changed files first; for monorepos, scope to the relevant packages instead of touring everything.
+- Close with what the reader can now do, not a recap of what they just saw.
+- Prefer `pattern` for files whose line numbers drift; when using `line`/`selection`, verify first and never invent line numbers.
+- If a key input is missing (tour topic/focus, target reader, whether it anchors a specific PR), stop and clarify before writing.
 
----
-采编自 affaan-m/everything-claude-code（MIT），适配重写，非逐字翻译。
+## See also
+
+- `docs-architect` — for prose architecture narrative / design decisions (the "why") instead of a clickable tour artifact.
+- `readme-doc-writer` — project-level README/quickstart that complements the orientation step of a tour.
+- `code-tutorial-engineer` — for hands-on, step-by-step tutorials that teach building, rather than reading existing code.
+- `codebase-onboarding-doc` (combines_with) — broad onboarding doc plus a guided `.tour`, covering both "read the docs" and "follow the walkthrough" ramp-up styles.
+- Upstream format reference: `microsoft/codetour`.

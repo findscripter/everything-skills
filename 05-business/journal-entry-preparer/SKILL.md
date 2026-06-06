@@ -1,14 +1,14 @@
 ---
 name: journal-entry-preparer
-title: 会计分录编制
-description: 当月结需编制 AP/薪酬/预付摊销/折旧摊销/收入确认等会计分录、并为审计留痕时使用；做出借贷平衡、带支撑明细与复核清单的标准分录表加过账/上传说明；不适用于出具财务意见或审计/合规结论、也不替代专业人员复核。触发词：会计分录、journal entry、月结、应计、折旧摊销、收入确认
+title: Journal Entry Preparation
+description: Prepare journal entries with proper debits, credits, and supporting detail. Use when booking month-end accruals (AP, payroll, prepaid), recording depreciation or amortization, posting revenue recognition or deferred revenue adjustments, or documenting an entry for audit review.
 domain: 商业/copy
-triggers: [会计分录, journal entry, 记账分录, 月结, month-end close, 应计 accrual, 预付摊销, 折旧摊销, 收入确认, deferred revenue, 借贷平衡]
+triggers: [journal entry, month-end close, deferred revenue]
 tags: [finance, accounting, journal-entry, month-end-close, accrual, audit]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [sql, spreadsheet, erp]
+tools: []
 requires: []
 related: [month-end-close-manager, account-reconciliation, gl-subledger-reconciler, financial-statements-generator]
 combines_with: [financial-statements-generator, account-reconciliation, variance-flux-commentary]
@@ -16,120 +16,128 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# Journal Entry Preparation
 
-- 月末/期末结账，需把某类业务编成借贷分录并留下可审计的支撑明细。支持五类：
-  - `ap-accrual` 应付暂估：已收货/已受服务但尚未收到发票。
-  - `fixed-assets` 固定资产/无形资产折旧与摊销。
-  - `prepaid` 预付费用摊销（保险、软件、租金等）。
-  - `payroll` 薪酬应计（工资、福利、雇主社保税、奖金）。
-  - `revenue` 收入确认与递延收入（deferred revenue）调整。
-- 输入是受影响科目的试算平衡/总账余额 + 子账/支撑底稿（如折旧表、摊销表、PO 收货）。产出一张借贷平衡的标准分录表 + 支撑明细 + 复核清单 + 过账说明。
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-不该用的边界：
-- 需要出具财务意见、审计结论或合规判断 → 超出本技能。**本技能只辅助编分录，所有分录过账前须由合格财务人员复核。**
-- 取不到科目背后的底稿/余额就硬编金额 → 不要臆造，向用户索取试算平衡、子账明细或上传表格。
-- 不是结账类标准分录的临时手工调整、纯做账记流水 → 用常规记账，不必走本流程。
+**Important**: This command assists with journal entry workflows but does not provide financial advice. All entries should be reviewed by qualified financial professionals before posting.
 
-## 步骤 / 指令
+Prepare journal entries with proper debits, credits, supporting detail, and review documentation.
+
+## Usage
 
 ```
-1. 取源数据（按期间 period，如 2024-12 / 2024-Q4）
-   - 接了 ERP/数仓：拉该期试算平衡、相关科目子账明细、同类型上期分录作参照、受影响科目的当前总账余额。
-   - 没接数据源：让用户提供 受影响科目的试算平衡/总账余额、子账或支撑底稿、（可选）上期同类分录。
-
-2. 按类型计算分录（借=Dr，贷=Cr）
-   - ap-accrual：从 PO 收货/合同/估算算暂估额。Dr 费用（可资本化的计资产）；Cr 应计负债。
-   - fixed-assets：取资产台账/折旧表，按资产类别与方法（直线/余额递减/工作量）算当期折旧。Dr 折旧费用（按部门/成本中心）；Cr 累计折旧。
-   - prepaid：取预付摊销表，逐项算当期摊销。Dr 费用（按类型）；Cr 预付费用。
-   - payroll：算已工作未发工资、福利（医疗/退休/带薪假）、雇主薪酬税、奖金（按计划条款）。Dr 工资/福利/薪酬税费用；Cr 应计工资/应计福利/应计薪酬税。
-   - revenue：审合同与履约义务，按交付/履约算应确认收入，调递延收入余额。Dr 递延收入（或应收账款）；Cr 收入（按收入流/类别）。
-
-3. 出标准分录表（见下方格式）。
-
-4. 过复核清单（全部勾选才算完成）。
-
-5. 输出：分录表 + 支撑计算 + 与上期同类分录对比（若有）+ 待复核/跟进项 + 过账说明（手工录入或本企业 ERP 的上传格式）。
+/je <type> <period>
 ```
 
-标准分录格式：
+### Arguments
+
+- `type` — The journal entry type. One of:
+  - `ap-accrual` — Accounts payable accruals for goods/services received but not yet invoiced
+  - `fixed-assets` — Depreciation and amortization entries for fixed assets and intangibles
+  - `prepaid` — Amortization of prepaid expenses (insurance, software, rent, etc.)
+  - `payroll` — Payroll accruals including salaries, benefits, taxes, and bonus accruals
+  - `revenue` — Revenue recognition entries including deferred revenue adjustments
+- `period` — The accounting period (e.g., `2024-12`, `2024-Q4`, `2024`)
+
+## Workflow
+
+### 1. Gather Source Data
+
+If ~~erp or ~~data warehouse is connected:
+- Pull the trial balance for the specified period
+- Pull subledger detail for the relevant accounts
+- Pull prior period entries of the same type for reference
+- Identify the current GL balances for affected accounts
+
+If no data source is connected:
+> Connect ~~erp or ~~data warehouse to pull GL data automatically. You can also paste trial balance data or upload a spreadsheet.
+
+Prompt the user to provide:
+- Trial balance or GL balances for affected accounts
+- Subledger detail or supporting schedules
+- Prior period entries for reference (optional)
+
+### 2. Calculate the Entry
+
+Based on the JE type:
+
+**AP Accrual:**
+- Identify goods/services received but not invoiced by period end
+- Calculate accrual amounts from PO receipts, contracts, or estimates
+- Debit: Expense accounts (or asset accounts for capitalizable items)
+- Credit: Accrued liabilities
+
+**Fixed Assets:**
+- Pull the fixed asset register or depreciation schedule
+- Calculate period depreciation by asset class and method (straight-line, declining balance, units of production)
+- Debit: Depreciation expense (by department/cost center)
+- Credit: Accumulated depreciation
+
+**Prepaid:**
+- Pull the prepaid amortization schedule
+- Calculate the period amortization for each prepaid item
+- Debit: Expense accounts (by type — insurance, software, rent, etc.)
+- Credit: Prepaid expense accounts
+
+**Payroll:**
+- Calculate accrued salaries for days worked but not yet paid
+- Calculate accrued benefits (health, retirement contributions, PTO)
+- Calculate employer payroll tax accruals
+- Calculate bonus accruals (if applicable, based on plan terms)
+- Debit: Salary expense, benefits expense, payroll tax expense
+- Credit: Accrued payroll, accrued benefits, accrued payroll taxes
+
+**Revenue:**
+- Review contracts and performance obligations
+- Calculate revenue to recognize based on delivery/performance
+- Adjust deferred revenue balances
+- Debit: Deferred revenue (or accounts receivable)
+- Credit: Revenue accounts (by stream/category)
+
+### 3. Generate the Journal Entry
+
+Present the entry in standard format:
 
 ```
-分录：[类型] — [期间]
-编制人：[用户]    日期：[期末日]
+Journal Entry: [Type] — [Period]
+Prepared by: [User]
+Date: [Period end date]
 
-| 行 | 科目代码 | 科目名称 | 借方 | 贷方 | 部门 | 摘要 |
-|----|---------|---------|------|------|------|------|
-| 1  | XXXX    | [名称]   | X,XXX|      | [部门]| [明细] |
-| 2  | XXXX    | [名称]   |      | X,XXX| [部门]| [明细] |
-|    |         | 合计     | X,XXX| X,XXX|      |      |
+| Line | Account Code | Account Name | Debit | Credit | Department | Memo |
+|------|-------------|--------------|-------|--------|------------|------|
+| 1    | XXXX        | [Name]       | X,XXX |        | [Dept]     | [Detail] |
+| 2    | XXXX        | [Name]       |       | X,XXX  | [Dept]     | [Detail] |
+|      |             | **Total**    | X,XXX | X,XXX  |            |      |
 
-支撑明细：
-- [计算依据与假设]
-- [对应底稿/文档引用]
+Supporting Detail:
+- [Calculation basis and assumptions]
+- [Reference to supporting schedule or documentation]
 
-冲回（Reversal）：[是/否 —— 是则注明冲回日期]
+Reversal: [Yes/No — if yes, specify reversal date]
 ```
 
-复核清单（过账前逐项核对）：
+### 4. Review Checklist
 
-```
-[ ] 借方合计 = 贷方合计
-[ ] 会计期间正确
-[ ] 科目代码有效、映射到正确总账科目
-[ ] 金额计算正确且有支撑明细
-[ ] 摘要清晰、足以应对审计
-[ ] 部门/成本中心编码正确
-[ ] 与上期处理口径一致
-[ ] 冲回标志设置正确（应计类应自动冲回）
-[ ] 已引用或附上支撑文档
-[ ] 金额在该用户的审批权限内
-[ ] 无需要核查的异常/偏离常态的金额
-```
+Before finalizing, verify:
 
-## 示例
+- [ ] Debits equal credits
+- [ ] Correct accounting period
+- [ ] Account codes are valid and map to the right GL accounts
+- [ ] Amounts are calculated correctly with supporting detail
+- [ ] Memo/description is clear and specific enough for audit
+- [ ] Department/cost center coding is correct
+- [ ] Entry is consistent with prior period treatment
+- [ ] Reversal flag is set appropriately (accruals should auto-reverse)
+- [ ] Supporting documentation is referenced or attached
+- [ ] Entry is within the user's approval authority
+- [ ] No unusual or out-of-pattern amounts that need investigation
 
-输入：编制 2024-12 的 ap-accrual。月末已收货但未到票：云服务 12 万元、咨询服务 8 万元（已确认 PO 收货，估算口径）。
+### 5. Output
 
-产出分录：
-
-```
-分录：AP 应付暂估 — 2024-12
-编制人：分析师    日期：2024-12-31
-
-| 行 | 科目代码 | 科目名称   | 借方     | 贷方     | 部门 | 摘要 |
-|----|---------|-----------|----------|----------|------|------|
-| 1  | 6602    | 云服务费   | 120,000  |          | 研发 | 12月已用未开票，按PO收货估算 |
-| 2  | 6601    | 咨询服务费 | 80,000   |          | 管理 | 12月咨询合同已履约未开票 |
-| 3  | 2202    | 应计负债   |          | 200,000  |      | 应付暂估，次月到票冲回 |
-|    |         | 合计       | 200,000  | 200,000  |      |      |
-
-支撑明细：
-- 云服务按 12 月 PO 收货量×单价估算；咨询按合同月度里程碑。
-- 引用：12月PO收货报表、咨询合同附件。
-
-冲回：是 —— 2025-01-01 自动冲回。
-```
-
-复核要点：借贷各 200,000 平衡；属应计类，冲回标志=是；估算口径已在摘要注明，金额无异常。
-
-委托提示词（给 Agent 调用时）：
-> 给定分录类型与期间，先取该期受影响科目的试算平衡/总账余额与支撑底稿（缺则向我索取，不要臆造金额）。按类型算出借贷分录，输出借贷平衡的标准分录表 + 支撑明细 + 与上期对比 + 复核清单结果 + 过账说明。提醒所有分录过账前需合格财务人员复核。
-
-## 注意事项
-
-- 本技能辅助分录编制，不提供财务建议、审计意见或合规结论；**所有分录过账前须经合格财务人员复核**。
-- 借方必须等于贷方；不平衡禁止输出为"完成"。
-- 取不到底稿/余额时不得臆造金额，向用户索取试算平衡、子账明细或上传表格。
-- 应计类（AP、薪酬等）通常应设自动冲回，并注明冲回日期，避免重复计提。
-- 处理口径需与上期一致；科目代码须映射到正确总账科目，部门/成本中心编码正确。
-- 金额须落在编制人审批权限内；出现偏离常态的异常金额要标记待核查，不要直接放行。
-- 摘要要具体到足以应对审计，并引用或附上支撑文档。
-
-## 互见
-
-- related：`variance-flux-commentary`（月结打包中，分录过账后还需对超阈值科目逐条写差异说明）；`startup-financial-modeler`、`cfo-financial-advisor`（分录汇总进财务模型/管理报表的上游）；`data-storyteller`（把结账结果讲给非财务受众）。
-- combines_with：`variance-flux-commentary`（先记账→再解释波动，构成完整月结流程）；`board-deck-builder`（结账数据进董事会财务页）。
-
----
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+Provide:
+1. The formatted journal entry
+2. Supporting calculations
+3. Comparison to prior period entry of the same type (if available)
+4. Any items flagged for review or follow-up
+5. Instructions for posting (manual entry or upload format for the user's ERP)

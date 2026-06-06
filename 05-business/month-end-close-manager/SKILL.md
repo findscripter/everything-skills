@@ -1,11 +1,11 @@
 ---
 name: month-end-close-manager
-title: 月末结账流程管理
-description: 当规划月结日历、跟踪结账进度、排查阻塞或按天编排结账活动时使用；产出按 T+N 排程的结账清单、依赖/关键路径与状态看板，加速软关账到硬关账；不适用于提供财务/会计判断或代替合资格财务人员复核。触发词：月末结账、close calendar、硬关账
+title: Month-End Close Manager
+description: Use when planning the month-end close calendar, tracking close progress, identifying blockers, or sequencing close activities by day (T+N) — produces a sequenced checklist, dependency/critical-path map, and status dashboard; not for financial/accounting judgment or replacing qual
 domain: 商业/copy
-triggers: [月末结账, 月结流程, 结账日历, close calendar, month-end close, 硬关账, 软关账, 关账进度, 结账阻塞, 对账排程, T+1 结账]
-tags: [财务, 会计, 月末结账, 流程管理, 对账, 状态跟踪, 关键路径]
-level: 进阶
+triggers: [month-end close, close calendar, hard close, soft close, close progress tracking, close blockers, reconciliation scheduling, T+1 close, close critical path]
+tags: [finance, accounting, month-end-close, process-management, reconciliation, status-tracking, critical-path]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,68 +16,224 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-**重要免责**：本技能仅辅助月结流程管理，不提供财务/会计建议。所有结账活动必须由合资格的财务专业人员复核。
+**Important:** This skill assists with close management workflows but does not provide financial advice. All close activities should be reviewed by qualified financial professionals.
 
-## 何时使用
+Month-end close checklist, task sequencing and dependencies, status tracking, and common close activities organized by day.
 
-适用场景：
-- 规划本月结账日历，向各贡献者下发截止时间提醒。
-- 跟踪结账进度，识别落后任务与阻塞点（blocker）。
-- 按天（T+1…T+5）编排结账活动、梳理任务依赖与关键路径。
-- 推动从软关账（soft close）到硬关账（hard close）并锁定会计期间。
-- 复盘结账，沉淀可自动化/可提速的改进项。
+## When to use
 
-不该用（负边界）：
-- 不替代专业财务判断，不就具体分录、税务、收入确认口径给出会计结论。
-- 不处理实际记账/过账动作本身（应在 ERP/GL 系统内执行），本技能只做编排与状态管理。
-- 单实体、无子账（subledger）的极简账务，按本清单排程往往过重。
+Use this skill to:
+- Plan the close calendar and send deadline reminders to all contributors.
+- Track close progress and identify tasks that are behind or blocked.
+- Sequence close activities by day (T+1…T+5), mapping task dependencies and the critical path.
+- Drive from soft close to hard close and lock the accounting period.
+- Run a close retrospective and capture automation/acceleration improvements.
 
-## 步骤
+Do NOT use it to:
+- Replace professional financial judgment — it gives no accounting conclusions on specific journal entries, tax, or revenue recognition.
+- Perform the actual booking/posting itself (do that in the ERP/GL system); this skill only orchestrates and tracks status.
+- Over-engineer a trivial single-entity ledger with no subledgers — this checklist is usually too heavy for that.
 
-按 T+N（T = 月末当日，T+1 = 月末后首个工作日）推进：
+## Steps
 
-1. **预关账（月末前 2-3 个工作日）**：下发结账日历与截止提醒；与 AP/AR/薪酬/资金确认截止（cut-off）程序；核对各子系统（ERP、薪酬、银行）运行正常；完成初步银行对账（仅留末日活动）；复核未结采购订单评估应计需求；确认薪酬处理排期；收集已知异常交易信息。
-2. **T+1（Level 1，无依赖可立即并行）**：确认各子账模块完成期末处理；计提 AP（已收货/服务未开票）；过账薪酬及跨月薪酬应计；登记截至月末的现金收付；过账并与对手方确认公司间往来；用最终银行对账单完成银行对账；运行固定资产折旧；摊销预付费用。
-3. **T+2（Level 2，依赖 L1）**：完成收入确认与递延收入调整；过账剩余应计分录；完成 AR/AP 子账对账；登记存货调整（如适用）；过账外币余额的汇兑重估（FX revaluation）；开始资产负债表科目对账。
-4. **T+3（Level 3，依赖 L2）**：完成全部资产负债表对账；过账对账中发现的调整分录；完成公司间对账与抵销分录；出初步试算平衡表与利润表；做初步波动分析（flux）；调查并解决重大差异。
-5. **T+4（Level 4，依赖 L3）**：过账税金计提（所得税、销售税、财产税）；完成权益滚动表（股份支付、库存股）；定稿全部分录 → 软关账；生成财报草稿（P&L、BS、CF）；做详细波动分析并准备差异说明；管理层复核。
-6. **T+5（Level 5，依赖 L4）**：过账管理层复核后的最终调整；定稿财报 → 硬关账；在 ERP/GL 中锁定期间；向干系人分发财报包；据实际结果更新预测；做结账复盘。
+Drive the close by T+N (T = last day of the month, T+1 = first business day after month-end).
 
-依赖与关键路径——下一级须等上一级完成方可开始：
+### Pre-Close (Last 2-3 Business Days of the Month)
+- [ ] Send close calendar and deadline reminders to all contributors
+- [ ] Confirm cut-off procedures with AP, AR, payroll, and treasury
+- [ ] Verify all sub-systems are processing normally (ERP, payroll, banking)
+- [ ] Complete preliminary bank reconciliation (all but last-day activity)
+- [ ] Review open purchase orders for potential accrual needs
+- [ ] Confirm payroll processing schedule aligns with close timeline
+- [ ] Collect information for any known unusual transactions
+
+### Close Day 1 (T+1: First Business Day After Month-End)
+- [ ] Confirm all sub-ledger modules have completed period-end processing
+- [ ] Run AP accruals for goods/services received but not invoiced
+- [ ] Post payroll entries and payroll accrual (if pay period straddles month-end)
+- [ ] Record cash receipts and disbursements through month-end
+- [ ] Post intercompany transactions and confirm with counterparties
+- [ ] Complete bank reconciliation with final bank statement
+- [ ] Run fixed asset depreciation
+- [ ] Post prepaid expense amortization
+
+### Close Day 2 (T+2)
+- [ ] Complete revenue recognition entries and deferred revenue adjustments
+- [ ] Post all remaining accrual journal entries
+- [ ] Complete AR subledger reconciliation
+- [ ] Complete AP subledger reconciliation
+- [ ] Record inventory adjustments (if applicable)
+- [ ] Post FX revaluation entries for foreign currency balances
+- [ ] Begin balance sheet account reconciliations
+
+### Close Day 3 (T+3)
+- [ ] Complete all balance sheet reconciliations
+- [ ] Post any adjusting journal entries identified during reconciliation
+- [ ] Complete intercompany reconciliation and elimination entries
+- [ ] Run preliminary trial balance and income statement
+- [ ] Perform preliminary flux analysis on income statement
+- [ ] Investigate and resolve material variances
+
+### Close Day 4 (T+4)
+- [ ] Post tax provision entries (income tax, sales tax, property tax)
+- [ ] Complete equity roll-forward (stock compensation, treasury stock)
+- [ ] Finalize all journal entries — soft close
+- [ ] Generate draft financial statements (P&L, BS, CF)
+- [ ] Perform detailed flux analysis and prepare variance explanations
+- [ ] Management review of financial statements and key metrics
+
+### Close Day 5 (T+5)
+- [ ] Post any final adjustments from management review
+- [ ] Finalize financial statements — hard close
+- [ ] Lock the period in the ERP/GL system
+- [ ] Distribute financial reporting package to stakeholders
+- [ ] Update forecasts/projections based on actual results
+- [ ] Conduct close retrospective — identify process improvements
+
+### Dependency Map
+
+Tasks are organized by what must complete before the next task can begin:
+
 ```
-现金/AP/AR 录入 → 子账对账 → 资产负债表对账 →
-  税金计提 → 财报草稿 → 管理层复核 → 硬关账
+LEVEL 1 (No dependencies — can start immediately at T+1):
+├── Cash receipts/disbursements recording
+├── Bank statement retrieval
+├── Payroll processing/accrual
+├── Fixed asset depreciation run
+├── Prepaid amortization
+├── AP accrual preparation
+└── Intercompany transaction posting
+
+LEVEL 2 (Depends on Level 1 completion):
+├── Bank reconciliation (needs: cash entries + bank statement)
+├── Revenue recognition (needs: billing/delivery data finalized)
+├── AR subledger reconciliation (needs: all revenue/cash entries)
+├── AP subledger reconciliation (needs: all AP entries/accruals)
+├── FX revaluation (needs: all foreign currency entries posted)
+└── Remaining accrual JEs (needs: review of all source data)
+
+LEVEL 3 (Depends on Level 2 completion):
+├── All balance sheet reconciliations (needs: all JEs posted)
+├── Intercompany reconciliation (needs: both sides posted)
+├── Adjusting entries from reconciliations
+└── Preliminary trial balance
+
+LEVEL 4 (Depends on Level 3 completion):
+├── Tax provision (needs: pre-tax income finalized)
+├── Equity roll-forward
+├── Consolidation and eliminations
+├── Draft financial statements
+└── Preliminary flux analysis
+
+LEVEL 5 (Depends on Level 4 completion):
+├── Management review
+├── Final adjustments
+├── Hard close / period lock
+├── Financial reporting package
+└── Forecast updates
 ```
-提速手段：自动化 Level 1 分录（折旧、预付摊销、标准应计）；月中持续对账（continuous reconciliation）；并行处理相互独立的对账；设置明确截止与延误后果；用标准化模板缩短对账准备。
 
-## 指令
+### Critical Path
 
-- **状态看板**：逐任务跟踪 `任务 | 负责人 | 截止(T+N) | 状态 | 阻塞 | 备注`。
-- **状态定义**：未开始（可能在等依赖）/ 进行中 / 已完成（已复核批准）/ 阻塞（依赖、缺数据或问题）/ 风险中（在做但可能误期）。
-- **每日站会（建议 15 分钟）**：①过看板，标记落后；②识别阻塞；③重新分派或升级；④若有任务风险，评估对整体时间线的影响。
-- **长期度量指标**：结账周期（期末到硬关账的工作日，目标逐步缩短）；软关账后调整分录数（最小化）；延误任务数（目标 0）；对账例外项数（逐步减少）；重述/更正数（目标 0）。
+The critical path determines the minimum close duration. Typical critical path:
 
-## 示例
+```
+Cash/AP/AR entries → Subledger reconciliations → Balance sheet recs →
+  Tax provision → Draft financials → Management review → Hard close
+```
 
-加速结账（3 天目标，需具备前置条件）：
+To shorten the close:
+- Automate Level 1 entries (depreciation, prepaid amortization, standard accruals)
+- Pre-reconcile accounts during the month (continuous reconciliation)
+- Parallel-process independent reconciliations
+- Set clear deadlines with consequences for late submissions
+- Use standardized templates to reduce reconciliation prep time
 
-| 日 | 关键活动 |
-|----|----------|
-| **T+1** | 全部分录过账（自动+手工）、全部子账对账、银行对账、公司间对账、初步试算平衡 |
-| **T+2** | 全部资产负债表对账、税金计提、合并、财报草稿、波动分析、管理层复核 |
-| **T+3** | 最终调整、硬关账、财报包、更新预测 |
+### Status Tracking and Reporting
 
-3 天关账前置条件：经常性分录自动化（折旧/摊销/标准应计）；月中持续对账；公司间抵销自动化；预关账活动在月末前完成（cut-off、应计估算）；团队授权清晰、交接最少；子系统近实时集成。
+Track each close task with the following attributes:
 
-## 注意事项
+| Task | Owner | Deadline | Status | Blocker | Notes |
+|------|-------|----------|--------|---------|-------|
+| [Task name] | [Person/role] | [Day T+N] | Not Started / In Progress / Complete / Blocked | [If blocked, what's blocking] | [Any notes] |
 
-- 常见瓶颈 → 解法：AP 应计滞后 →持续应计估算 + 设截止；手工分录多 →在 ERP 自动化经常性分录；对账慢 →持续/滚动对账；公司间延误 →自动匹配 + 更严截止；复核大调整 →加强初步复核、让团队更早发现；缺支撑文档 →月中持续留档。
-- 复盘五问：①哪些做得好应延续？②哪些超时、为何？③遇到哪些阻塞、如何预防？④财务结果有无本应更早发现的意外？⑤下月可自动化/精简什么？
-- Level 1 任务相互无依赖，应尽量并行启动以压缩关键路径；切勿串行排队。
+Status definitions:
+- **Not Started:** Task has not yet begun (may be waiting on dependencies)
+- **In Progress:** Task is actively being worked on
+- **Complete:** Task is finished and has been reviewed/approved
+- **Blocked:** Task cannot proceed due to a dependency, missing data, or issue
+- **At Risk:** Task is in progress but may not meet its deadline
 
-## 互见
+Daily close status meeting (recommended 15-minute standup during the close period):
+1. **Review status board:** Walk through open tasks, flag any that are behind
+2. **Identify blockers:** Surface any issues preventing task completion
+3. **Reassign or escalate:** Adjust ownership or escalate blockers to resolve quickly
+4. **Update timeline:** If any tasks are at risk, assess impact on overall close timeline
 
-- 财务/会计域内的对账、收入确认、税务相关技能（按本仓 domain=商业/misc 检索）。
+Close metrics to track over time:
+
+| Metric | Definition | Target |
+|--------|-----------|--------|
+| Close duration | Business days from period end to hard close | Reduce over time |
+| # of adjusting entries after soft close | Entries posted during management review | Minimize |
+| # of late tasks | Tasks completed after their deadline | Zero |
+| # of reconciliation exceptions | Reconciling items requiring investigation | Reduce over time |
+| # of restatements / corrections | Errors found after close | Zero |
+
+## Example
+
+### Typical 5-Day Close Calendar
+
+| Day | Key Activities | Responsible |
+|-----|---------------|-------------|
+| **T+1** | Cash entries, payroll, AP accruals, depreciation, prepaid amortization, intercompany posting | Staff accountants, payroll |
+| **T+2** | Revenue recognition, remaining accruals, subledger reconciliations (AR, AP, FA), FX revaluation | Revenue accountant, AP/AR, treasury |
+| **T+3** | Balance sheet reconciliations, intercompany reconciliation, eliminations, preliminary trial balance, preliminary flux | Accounting team, consolidation |
+| **T+4** | Tax provision, equity roll-forward, draft financial statements, detailed flux analysis, management review | Tax, controller, FP&A |
+| **T+5** | Final adjustments, hard close, period lock, reporting package distribution, forecast update, retrospective | Controller, FP&A, finance leadership |
+
+### Accelerated Close (3-Day Target)
+
+| Day | Key Activities |
+|-----|---------------|
+| **T+1** | All JEs posted (automated + manual), all subledger reconciliations, bank reconciliation, intercompany reconciliation, preliminary trial balance |
+| **T+2** | All balance sheet reconciliations, tax provision, consolidation, draft financial statements, flux analysis, management review |
+| **T+3** | Final adjustments, hard close, reporting package, forecast update |
+
+Prerequisites for a 3-day close:
+- Automated recurring journal entries (depreciation, amortization, standard accruals)
+- Continuous reconciliation during the month (not all at month-end)
+- Automated intercompany elimination
+- Pre-close activities completed before month-end (cut-off, accrual estimates)
+- Empowered team with clear ownership and minimal handoffs
+- Real-time or near-real-time sub-system integration
+
+## Notes
+
+Common bottlenecks and solutions:
+
+| Bottleneck | Root Cause | Solution |
+|-----------|-----------|---------|
+| Late AP accruals | Waiting for department spend confirmation | Implement continuous accrual estimation; set cut-off deadlines |
+| Manual journal entries | Recurring entries prepared manually each month | Automate standard recurring entries in the ERP |
+| Slow reconciliations | Starting from scratch each month | Implement continuous/rolling reconciliation |
+| Intercompany delays | Waiting for counterparty confirmation | Automate intercompany matching; set stricter deadlines |
+| Management review changes | Large adjustments found during review | Improve preliminary review process; empower team to catch issues earlier |
+| Missing supporting documents | Scrambling for documentation at close | Maintain documentation throughout the month |
+
+Close retrospective questions — after each close, ask:
+1. What went well this close that we should continue?
+2. What took longer than expected and why?
+3. What blockers did we encounter and how can we prevent them?
+4. Were there any surprises in the financial results we should have caught earlier?
+5. What can we automate or streamline for next month?
+
+Level 1 tasks have no inter-dependencies — start them in parallel to compress the critical path; never queue them serially.
+
+## See also
+
+- account-reconciliation, journal-entry-preparer, gl-subledger-reconciler, financial-statements-generator (reconciliation, journal entries, and statement generation within the finance/accounting domain).
+- Combines with variance-flux-commentary and financial-statements-generator for flux analysis and draft statement output during T+3…T+5.
 
 ---
-采编自 anthropics/knowledge-work-plugins（Apache-2.0），原技能 `close-management`。
+Adapted from anthropics/knowledge-work-plugins (Apache-2.0); original skill `close-management`.

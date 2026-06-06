@@ -1,14 +1,14 @@
 ---
 name: workplace-internal-investigation
-title: 职场内部调查框架
-description: 当要从立案到结案管理内部调查（HR/财务/高管/吹哨人）时使用；建特权调查日志 log.yaml、按类型生成来源清单、对文档批量「捞针」抽取并全量留痕、按日志做覆盖/冲突 Q&A、出 HR/董事会/外部律师分众摘要；不适用于替律师作处分决定、保证特权、做访谈或给 Upjohn 警告。触发词：内部调查, 开案调查, 调查日志, 捞针, 证据缺口, Upjohn, investigation log
+title: Internal Investigation Skill
+description: Reference: shared framework for managing internal investigations from intake through final memo — privileged investigation log, document processing with needle-finding, source coverage tracking, Q&A against the log, memo drafting, and audience summaries. Loaded by /investigation-open, /investigation
 domain: 领域/legal
-triggers: [内部调查, 开案调查, 启动调查, 调查日志, 捞针, 证据缺口, 来源清单, 分众摘要, Upjohn, Weingarten, Garrity, internal investigation, investigation log, sources checklist, needle-finding]
+triggers: [Upjohn, Weingarten, Garrity, internal investigation, investigation log, sources checklist, needle-finding]
 tags: [legal, employment, investigation, work-product, privilege, hr, whistleblower, intake]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [yaml, markdown]
+tools: []
 requires: []
 related: [investigation-memo-drafter, legal-hold-manager, litigation-chronology-builder, privilege-log-reviewer, general-counsel-advisor, deposition-outline-prep]
 combines_with: [investigation-memo-drafter, legal-hold-manager, general-counsel-advisor]
@@ -16,155 +16,755 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
+# Internal Investigation Skill
 
-# 职场内部调查框架
+## Matter context
 
-## 何时使用
-
-- 需要从**立案到结案**端到端管理一项内部调查：HR（骚扰/歧视/报复）、财务舞弊、高管不当行为、吹哨人报复。
-- 要建立并维护一份**特权调查日志**（log.yaml），对文档转储做「捞针」式抽取、跟踪来源覆盖、随时能回答「我们还缺什么 / 哪里账述冲突」。
-- 用户说「开一个调查」「启动对……的调查」「把这批文档/访谈记录加进调查」「给我出个 HR 摘要」。
-
-内部调查有两种失败：**覆盖缺口**（该采的来源没采）与**综合缺口**（采了的证据没被串起来）。本框架两头都管。
-
-不该用的边界：
-- **不替律师/HR 作纪律处分决定**——它支撑律师的事实认定，不替 HR 拍板处分。
-- **不保证特权**——特权取决于调查是否律师主导、文档制作目的及后续使用/披露，**不取决于文件怎么标注**。
-- **不进行访谈、不给 Upjohn 警告**——它只把访谈记录与「是否给过 Upjohn」记进日志。
-- **不处理无法解析的文件**——读不了的格式标记为「人工复核」。
-- **写/更新备忘录走 `investigation-memo-drafter`**（本框架的 Mode 4 已拆为独立技能）。
-
-## 步骤
-
-⚠️ **开案前先确认：调查是否律师主导？** 若由 HR 主导、法务仅顾问角色，或非为获取法律意见而由律师发起——特权分析实质不同，默认标注可能误导。先把这个问题抛给律师，再建任何日志或文件。**标注不创设特权。**
-
-本框架四种工作模式（Mode 1–3、5；Mode 4=写备忘录见互见）：
-
-### Mode 1 — 开案（"开一个调查"）
-
-**Step 1 立案问询**，一次性问全：指控白话、投诉人/触发源（投诉/举报/审计/经理观察）、被调查人、行为大致时间、**是否律师主导**；调查类型（HR/财务/高管/吹哨人/其他，决定来源清单模板）；以及两道并行法框旗标——
-- 被调查人/投诉人/证人是否有工会代表或受集体谈判协议覆盖？→ **Weingarten 旗标**（调查性访谈中的代表权可能改变访谈流程）。
-- 公司是否为公共雇主（政府机构、公立大学、州/市机构）或以州权力行事？→ **Garrity 旗标**（公共部门被迫陈述有特殊的免用特权后果，改变访谈如何进行与记录）。
-
-任一旗标触发：先研判适用规则（Weingarten 查 NLRA/各州公共部门劳动法；Garrity 查第五修正案及 Garrity 系列判例与州类比），引一手法源、验时效，**调整流程前不得访谈**。
-
-**Step 2 建案件目录与文件**：在案件目录下创建——
-- `log.yaml`：含工作成果抬头、案件元数据、`attorney_directed: true/false`、`issues:`（从指控派生）、`entries: []`、`evidentiary_gaps: []`。
-- `documents-reviewed.yaml`：`total_reviewed: 0` / `total_surfaced: 0` / `documents: []`。
-- `sources-checklist.yaml`：由调查类型生成（见「指令」四套模板）。
-
-**Step 3 来源清单**：按类型生成清单，呈给律师问「是否贴合？哪些标 N/A？还有无本案特有来源？」，确认后写入 `sources-checklist.yaml`。
-
-### Mode 2 — 加数据（"把这批文档/访谈加进调查"）
-
-1. **认案件**：多个调查目录则问归属，单个则继续。
-2. **认数据类型**：访谈记录（谁的）/ 文档批 / 律师批注 / Upjohn 确认。
-3. **文档捞针**（见「指令」7 条 pull 标准，**宁可误报勿漏**），每份文档定性：`surfaced`（命中→写日志条目）或 `reviewed-nothing-significant`（仅一行描述入 `documents-reviewed.yaml`）。**批后报告**捞针统计（这就是对「漏没漏针」的回答——标准已记录、捞出比例可见、全量可查）。
-4. **写日志条目**：每条 surfaced 项 append 到 `log.yaml`（字段见示例），含 `contradicts_entry`/`corroborates_entry` 关联、`significance`、`pull_criterion`、`privilege`。证据缺口写入 `evidentiary_gaps`。
-5. **更新来源清单**：对应清单项问律师标 complete/in-progress，**不自动标完成**——由律师判断来源是否已充分覆盖。
-
-### Mode 3 — 查日志（任何对调查的提问）
-
-**答前先读全量日志。** 五类查询：
-- **事实查询**（"X 关于 Y 说了什么"）：据日志条目作答并引 entry_id；若日志无此项→「我在本调查日志（N 条）中未见关于〔主题〕的任何信息，可能值得标为缺口。」
-- **冲突查询**：列出全部 `contradicts_entry` 关联，逐条说明冲突是什么、哪些条目相抵、有无文档证据涉及。
-- **覆盖查询**（"还缺什么"）：读 `sources-checklist.yaml` + `evidentiary_gaps`，报开放清单项、已记缺口、账述提到但尚未采集的来源。
-- **强度查询**（"各争点最强证据"）：逐争点列最高 significance 条目、文档印证、未决冲突。
-- **Upjohn 查询**：核清单项与标为 Upjohn 的日志条目，未完成则旗标。
-
-### Mode 5 — 分众摘要（"给〔受众〕出个摘要"）
-
-先问受众与所支撑的决策。三套（密级/内容/抬头各异）：
-- **HR 摘要**（处分决策）：发生了什么（事实，无法律分析）+ 各指控认定 + 建议措施；**不含**特权分析/可信度方法/敞口评估/律师心证；**不含 entry_id 与文档引用**；抬头 `Confidential — HR Use Only — Do Not Distribute`。
-- **领导/董事会摘要**（治理决策）：一段指控与范围 + 关键认定 + 高层次业务敞口（无具体法律分析）+ 公司应对；带工作成果抬头。
-- **外部律师交接**（转诉讼/深审）：含敞口分析、未决证据线索、仍争议的可信度问题、诉讼中最关键文档；带工作成果抬头。
-
-⚠️ **对外响应闸门**：若摘要/内容意在**对外回应**（EEOC/州机构指控回函、对方律师索赔函回应、监管回函），且角色为非律师——先经律师；此处立场可能成日后程序中的自认、可能无意弃失抗辩、可能丧失对调查的特权。给一页交律师的简报（指控/法域/期限 → 调查所得 → 未决线索 → 拟议响应隐含让步 → 可能出错点 → 要问律师什么），**未得明确「是」不得越过此闸门出对外稿**。
-
-## 指令
-
-**捞针 pull 标准（命中任一即 surface，刻意略偏激进）：**
-1. 含调查任一当事人姓名（投诉人、被调查人、日志已记证人）。
-2. 由当事人在关键行为期间撰写或收受。
-3. 含指控类型相关关键词（立案与既有日志识别，**随账述涌现的新词持续更新关键词表**）。
-4. 含显式/隐式自认（"I shouldn't have," "I know how this looks," "don't put this in writing," "delete this"）。
-5. 含与日志中既有账述矛盾的语言——**标出具体矛盾及所抵触的日志条目**。
-6. 含诉讼中敏感语言：歧视性措辞、威胁、对受保护特征/活动的讨论、匹配指控模式的财务异常。
-7. 是先前账述提到、但文档集尚未出现的文档类型（如访谈提及某会议但未见日历邀请）→ **记为证据缺口，不算 surfaced 文档**。
-
-**四套来源清单模板**（按调查类型生成，每项 `id/source/status: open/notes`），共性首项与末项要点：
-- **HR**：投诉人/被调查人/证人访谈、邮件消息复核、HR 记录（被调查人绩效史/历史投诉/历史处分）、历史投诉、对照组数据、相关政策（**行为发生时生效版本**）、组织架构、日历记录、**Upjohn 警告文档**。
-- **财务舞弊**：费用报告、审批记录、供应商/承包商记录、财务系统记录(AP/GL)、邮件消息、对象/审批人/对手方访谈、审计日志（系统访问）、既往审计、**Upjohn 文档**。
-- **高管不当**：对象访谈、董事会/薪酬委员会记录、雇佣协议及修订、股权记录、费用与审批、邮件消息、利益冲突披露（或缺失）、外部业务活动、证人访谈（直属/同级/董事）、既往投诉、**Upjohn 文档**。
-- **吹哨人**：投诉人访谈、原始投诉/举报、底层指控相关记录、受保护活动后对投诉人不利行动的记录、决策者访谈、对照组数据（未从事受保护活动的可比员工待遇）、邮件消息、**时序分析（受保护活动与不利行动的时间接近度）**、被调查人/决策者访谈、**Upjohn 文档**。
-
-**工作成果抬头与传播纪律**：本框架所有产物继承底层调查的特权与密级状态。抬头按角色取自插件配置（律师：`PRIVILEGED & CONFIDENTIAL — ATTORNEY WORK PRODUCT — PREPARED AT THE DIRECTION OF COUNSEL`；非律师：`RESEARCH NOTES — NOT LEGAL ADVICE`）。向特权圈外分发（转给调查组外非律师、未限缩抄送 HR、交业务侧）可能对整项调查弃权。
-
-**来源归属标签**：引用规则/判例标 `[CourtListener]`/`[statute / regulator site]`/`[user provided]`/`[model knowledge — verify]`，标签描述出处而非把握度。涉及时效的法源（Weingarten/Garrity）须验当前有效性。
-
-## 示例
-
-`log.yaml` 中一条 surfaced 文档条目：
-
-```yaml
-- entry_id: 12
-  entry_type: document        # interview / document / attorney-note / gap
-  date_of_event: "2025-03-14" # 事件发生日，非入库日
-  date_logged: "2026-06-02T10:30:00"
-  source: "email_thread_subject-reimbursement.eml"
-  source_type: document       # complainant / respondent / witness / document / attorney-note
-  issues: ["alleged expense fraud"]
-  significance: high          # high / medium / background
-  summary: "被调查人对审批人写道 'don't put the dinner on the report'，2-5 句。"
-  quote: "don't put the dinner on the report"
-  contradicts_entry: 7        # 与 entry 7 的账述矛盾；否则 null
-  corroborates_entry: null
-  credibility_note: ""
-  pull_criterion: "4 (隐式自认) + 5 (与 entry 7 矛盾)"
-  privilege: attorney-work-product
-```
-
-证据缺口：
-
-```yaml
-- gap_id: 3
-  description: "投诉人提到 3/14 的会议，但未见任何日历邀请被复核"
-  identified_from: "entry 9（投诉人访谈）"
-  source_to_obtain: "Outlook 日历导出，被调查人 2025-03"
-  priority: high
-  status: open
-```
-
-文档批处理后的报告：
-
-```
-Document review complete.
-Reviewed: 142 documents
-Surfaced: 9 as potentially significant
-Logged as reviewed / nothing significant: 133
-New evidentiary gaps identified: 2
-
-Surfaced items:
-[逐条：一行描述 + 触发的 pull 标准号]
-```
-
-> 「我在已复核的 142 份文档中未见关于〔某主题〕的任何文档」——只有当**每份复核过的文档都已留痕**时，这句话才是有意义的陈述。
-
-## 注意事项
-
-- **标注不创设特权**：抬头反映意图但本身不成立特权。**开案前先确认是否律师主导**，否则默认标注可能误导，先把问题抛给律师。
-- **宁可误报勿漏**：捞针标准刻意偏激进——surface 一个假阳性，好过漏掉一个重要项。
-- **不自动标来源完成**：是否充分覆盖由律师判断。
-- **关键词表是活的**：随访谈与文档涌现的新术语持续更新 pull 标准 3 的关键词。
-- **不静默补漏**：法律检索工具返回稀少时，报所得并停下选项交律师，不替其接受低可信来源；涉及效力/时效的旗标即使不用来改分析，也作 `[model knowledge — verify]` 旁注让律师知晓。
-- **结尾给「下一步决策树」**：定制到本次产出（如开案后→加首批数据/排来源/写备忘录；选项由律师选，非替其定）。
-
-## 互见
-
-- requires：无强制前置。
-- related：`investigation-memo-drafter`（**本框架 Mode 4**：从此日志生成/更新调查备忘录）、`legal-hold-manager`（调查并行常需签发证据保全）、`litigation-chronology-builder`（日志时序接诉讼时间线）、`privilege-log-reviewer`（产物特权状态判定）、`general-counsel-advisor`（升级与法律意见）、`deposition-outline-prep`（可信度与询问提纲互通）。
-- combines_with：`investigation-memo-drafter` —— 日志攒够后写出按争点组织的备忘录；`legal-hold-manager` —— 同步保全相关保管人的证据；`general-counsel-advisor` —— 就结论与敞口给 GC 级判断与升级。
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/employment-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/employment-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
 
 ---
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+## Output header
+
+Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → `## Outputs` (it differs by user role — see `## Who's using this`). Every file, log, memo, and summary produced by this skill opens with that header.
+
+> **Distribution discipline.** Every file this skill creates — log entries, memo drafts, audience summaries, document notes — inherits the privilege and confidentiality status of the underlying investigation. Distribution beyond the privilege circle (forwarding to non-attorneys outside the investigation team, cc'ing HR without scoping, handing to the business side) can waive privilege over the entire investigation. Store these files where privileged materials live, label per the work-product header, and make every distribution decision deliberately.
+
+## ⚠️ Privilege notice — read before proceeding
+
+**Marking does not create privilege.** The header above reflects the intended
+protection and is important to include — but it does not itself establish
+privilege. Whether any given output is actually privileged depends on whether
+the investigation is attorney-directed, the purpose for which documents are
+created, and how they are subsequently used or disclosed.
+
+**Before opening a matter, confirm:** Is this investigation attorney-directed?
+If it is not — if HR is running it with legal in an advisory role, or if it was
+not initiated at the direction of counsel for the purpose of obtaining legal advice —
+the privilege analysis changes materially and this skill's default labeling may
+be misleading. Flag that question to the attorney before creating any log or file.
+
+If there is any doubt about privilege applicability, the attorney should resolve it
+before investigation files are created. Improperly labeled materials can create
+problems in discovery if privilege is later challenged.
+
+---
+
+## Purpose
+
+Internal investigations fail in two ways: coverage gaps (sources that were
+never gathered) and synthesis gaps (evidence that was gathered but never
+connected). This skill handles both — it tracks what has and hasn't been
+gathered, processes document dumps to surface what matters without burying
+the attorney, and maintains a structured log that can be turned into a
+privileged memo at any point.
+
+## Privilege note
+
+All files created by this skill carry the privilege marking above.
+See the notice at the top of this skill for the full caveat on what that
+marking does and does not do.
+
+## Load context
+
+Read `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → escalation table, any investigation protocols noted.
+
+---
+
+## Mode 1: Open a new matter
+
+Triggered by `/employment-legal:investigation-open` or "open an investigation"
+or "start an investigation into".
+
+### Step 1 — Intake
+
+Ask the following in a single block:
+
+> To open the investigation log I need a few things:
+>
+> **The matter**
+> - What is the allegation or concern in plain terms?
+> - Who is the complainant (or what triggered this — complaint, tip, audit,
+>   manager observation)?
+> - Who is the respondent or subject?
+> - What is the approximate timeframe the alleged conduct occurred?
+> - Is this attorney-directed? (If yes: work product protection applies.
+>   If no: flag privilege risk before proceeding.)
+>
+> **Investigation type** (helps me suggest the right sources checklist)
+> - HR: harassment / discrimination / retaliation
+> - Financial misconduct: expense fraud / procurement irregularities / embezzlement
+> - Executive misconduct: COI / undisclosed relationships / governance failures
+> - Whistleblower: retaliation for protected activity
+> - Other: describe briefly
+>
+> **Representation and employer status** (surfaces parallel legal frameworks
+> that change interview procedure)
+> - Is the respondent, the complainant, or any anticipated witness represented
+>   by a union or covered by a collective bargaining agreement? (If yes, flag
+>   for Weingarten research — representational rights at investigatory
+>   interviews may apply and change the interview protocol.)
+> - Is the company a public employer (government entity, public university,
+>   state or municipal agency) or otherwise acting under color of state law?
+>   (If yes, flag for Garrity research — compelled statements in public-sector
+>   investigations have special use-immunity consequences and change how
+>   interviews must be conducted and documented.)
+
+If either flag fires, research the applicable rules (NLRA / state
+public-sector labor statutes for Weingarten; 5th Amendment and the Garrity
+line of cases, plus any state analogs) before conducting interviews. Cite
+primary sources. Verify currency. Do not interview until the protocol is
+adjusted.
+
+### Step 2 — Create the matter directory and files
+
+Create the following files:
+
+`~/.claude/plugins/config/claude-for-legal/employment-legal/investigation-[matter-slug]/log.yaml`:
+
+```yaml
+# [WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
+matter: "[matter name]"
+matter_slug: "[slug]"
+opened: "[ISO date]"
+attorney_directed: [true/false]
+allegation: "[plain-language summary]"
+complainant: "[name/role or anonymous]"
+respondent: "[name/role]"
+conduct_timeframe: "[approximate dates]"
+investigation_type: "[HR/financial/executive/whistleblower/other]"
+status: open
+last_updated: "[ISO date]"
+
+issues:
+  - "[Issue 1 — derived from allegation, e.g. 'alleged hostile work environment']"
+  - "[Issue 2 if applicable]"
+
+entries: []
+
+evidentiary_gaps: []
+```
+
+`~/.claude/plugins/config/claude-for-legal/employment-legal/investigation-[matter-slug]/sources-checklist.yaml`:
+
+Generated from the investigation type. See sources checklist templates below.
+
+`~/.claude/plugins/config/claude-for-legal/employment-legal/investigation-[matter-slug]/documents-reviewed.yaml`:
+
+```yaml
+# [WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
+matter: "[matter name]"
+total_reviewed: 0
+total_surfaced: 0
+last_updated: "[ISO date]"
+documents: []
+```
+
+### Step 3 — Sources checklist
+
+Generate the appropriate checklist based on investigation type. Present it
+to the attorney and ask: "Does this fit your matter? Let me know if any items
+are not applicable (I'll mark them N/A) or if there are additional sources
+specific to this situation."
+
+**HR investigation sources (harassment/discrimination/retaliation):**
+```yaml
+sources:
+  - id: 1
+    source: "Complainant interview"
+    status: open
+    notes: ""
+  - id: 2
+    source: "Respondent interview"
+    status: open
+    notes: ""
+  - id: 3
+    source: "Witness interviews — identify from complainant and respondent accounts"
+    status: open
+    notes: ""
+  - id: 4
+    source: "Email/messaging review — parties, relevant date range"
+    status: open
+    notes: ""
+  - id: 5
+    source: "HR records — respondent's performance history, prior complaints,
+             prior discipline"
+    status: open
+    notes: ""
+  - id: 6
+    source: "Prior complaints — any prior complaints against respondent in
+             HR system"
+    status: open
+    notes: ""
+  - id: 7
+    source: "Comparator data — how were similar situations handled"
+    status: open
+    notes: ""
+  - id: 8
+    source: "Relevant policies — harassment, code of conduct, reporting
+             procedures (version in effect at time of alleged conduct)"
+    status: open
+    notes: ""
+  - id: 9
+    source: "Org chart and reporting relationships at time of alleged conduct"
+    status: open
+    notes: ""
+  - id: 10
+    source: "Calendar records — any meetings or events mentioned in accounts"
+    status: open
+    notes: ""
+  - id: 11
+    source: "Upjohn warning documentation — confirm interviews were preceded
+             by Upjohn warnings and documented"
+    status: open
+    notes: ""
+```
+
+**Financial misconduct sources:**
+```yaml
+sources:
+  - id: 1
+    source: "Expense reports — subject, relevant period"
+    status: open
+    notes: ""
+  - id: 2
+    source: "Approval records — who approved the expenses or transactions"
+    status: open
+    notes: ""
+  - id: 3
+    source: "Vendor/contractor records — contracts, invoices, payment records"
+    status: open
+    notes: ""
+  - id: 4
+    source: "Financial system records — AP, GL entries for relevant accounts"
+    status: open
+    notes: ""
+  - id: 5
+    source: "Email/messaging review — subject, approvers, counterparties"
+    status: open
+    notes: ""
+  - id: 6
+    source: "Subject interview"
+    status: open
+    notes: ""
+  - id: 7
+    source: "Approver interviews"
+    status: open
+    notes: ""
+  - id: 8
+    source: "Counterparty/vendor interviews (if accessible)"
+    status: open
+    notes: ""
+  - id: 9
+    source: "Audit logs — system access logs for relevant accounts/systems"
+    status: open
+    notes: ""
+  - id: 10
+    source: "Prior audits or reviews covering the relevant period"
+    status: open
+    notes: ""
+  - id: 11
+    source: "Upjohn warning documentation"
+    status: open
+    notes: ""
+```
+
+**Executive misconduct sources:**
+```yaml
+sources:
+  - id: 1
+    source: "Subject interview"
+    status: open
+    notes: ""
+  - id: 2
+    source: "Board/compensation committee records — relevant resolutions,
+             minutes, approvals"
+    status: open
+    notes: ""
+  - id: 3
+    source: "Employment agreement and any amendments"
+    status: open
+    notes: ""
+  - id: 4
+    source: "Equity records — grants, exercises, vesting"
+    status: open
+    notes: ""
+  - id: 5
+    source: "Expense reports and approval records"
+    status: open
+    notes: ""
+  - id: 6
+    source: "Email/messaging review — subject, relevant counterparties"
+    status: open
+    notes: ""
+  - id: 7
+    source: "Conflict of interest disclosures (or absence thereof)"
+    status: open
+    notes: ""
+  - id: 8
+    source: "Outside business activity records"
+    status: open
+    notes: ""
+  - id: 9
+    source: "Witness interviews — direct reports, peers, board members"
+    status: open
+    notes: ""
+  - id: 10
+    source: "Prior complaints or concerns raised about subject"
+    status: open
+    notes: ""
+  - id: 11
+    source: "Upjohn warning documentation"
+    status: open
+    notes: ""
+```
+
+**Whistleblower sources:**
+```yaml
+sources:
+  - id: 1
+    source: "Complainant interview"
+    status: open
+    notes: ""
+  - id: 2
+    source: "Original complaint or tip — written form if exists"
+    status: open
+    notes: ""
+  - id: 3
+    source: "Records related to the underlying allegation (the thing
+             complainant blew the whistle on)"
+    status: open
+    notes: ""
+  - id: 4
+    source: "Records related to any adverse action taken against complainant
+             after the protected activity"
+    status: open
+    notes: ""
+  - id: 5
+    source: "Decision-maker interviews — who made the adverse action decision"
+    status: open
+    notes: ""
+  - id: 6
+    source: "Comparator data — treatment of similarly situated employees
+             who did not engage in protected activity"
+    status: open
+    notes: ""
+  - id: 7
+    source: "Email/messaging review — decision-makers, relevant timeframe"
+    status: open
+    notes: ""
+  - id: 8
+    source: "Timing analysis — proximity of protected activity to adverse
+             action"
+    status: open
+    notes: ""
+  - id: 9
+    source: "Respondent/decision-maker interviews"
+    status: open
+    notes: ""
+  - id: 10
+    source: "Upjohn warning documentation"
+    status: open
+    notes: ""
+```
+
+After presenting the checklist, write it to
+`~/.claude/plugins/config/claude-for-legal/employment-legal/investigation-[slug]/sources-checklist.yaml`.
+
+---
+
+## Mode 2: Add data
+
+Triggered by `/employment-legal:investigation-add` or "add to the [matter]
+investigation" or when the attorney pastes documents or interview notes.
+
+### Step 1 — Identify the matter
+
+If multiple investigation folders exist in `~/.claude/plugins/config/claude-for-legal/employment-legal/`, ask which matter this
+data belongs to. If only one, proceed.
+
+### Step 2 — Identify the data type
+
+Ask (if not clear from context):
+- Interview notes (whose interview?)
+- Document batch (emails, records, files)
+- Attorney notes or observations
+- Upjohn warning confirmation
+
+### Step 3 — Document pull criteria
+
+For any document batch, apply the following pull criteria. A document is
+surfaced if it meets ANY of the following. The criteria are intentionally
+set to pull slightly aggressively — it is better to surface a false positive
+than to miss a significant item.
+
+**Pull criteria:**
+1. Contains the name of any party to the investigation (complainant,
+   respondent, witnesses named in prior log entries)
+2. Was authored or received by a party during the key conduct timeframe
+3. Contains keywords related to the allegation type (identified at intake
+   and from prior log entries — update the keyword list as new terms emerge
+   from accounts)
+4. Contains explicit or implicit admissions ("I shouldn't have," "I know
+   how this looks," "don't put this in writing," "delete this")
+5. Contains language contradicting any account already in the log — flag
+   the specific contradiction and the log entry it conflicts with
+6. Contains language that would be sensitive in litigation: discriminatory
+   terms, threats, discussions of protected characteristics or activities,
+   financial irregularities matching the allegation pattern
+7. Is a document type that has been mentioned in prior accounts but has
+   not yet appeared in the document set (e.g., a meeting was mentioned in
+   an interview but no calendar invite has been reviewed) → log as
+   evidentiary gap, not a surfaced document
+
+**Disposition for every document reviewed:**
+- `surfaced`: meets one or more pull criteria — added to log as a log entry
+- `reviewed-nothing-significant`: reviewed, does not meet pull criteria —
+  logged in documents-reviewed.yaml with one-line description only
+
+**After processing a document batch, report:**
+
+```
+Document review complete.
+Reviewed: [N] documents
+Surfaced: [N] as potentially significant
+Logged as reviewed / nothing significant: [N]
+New evidentiary gaps identified: [N]
+
+Surfaced items:
+[list with one-line description and which pull criterion triggered]
+```
+
+This report is the answer to "what about missed needles." The pull criteria
+are documented, the surface ratio is visible, and the attorney can review
+the full document log at any time. In Q&A mode, "I have not seen any document
+on [topic] in the [N] documents reviewed" is a meaningful statement only
+because every document reviewed is logged.
+
+### Step 4 — Write log entries
+
+For each surfaced item, append to `log.yaml`:
+
+```yaml
+- entry_id: [auto-increment]
+  entry_type: [interview / document / attorney-note / gap]
+  date_of_event: "[date the event occurred — not when logged]"
+  date_logged: "[ISO datetime]"
+  source: "[witness name/role, or document filename/description]"
+  source_type: [complainant / respondent / witness / document / attorney-note]
+  issues: ["[which investigation issue(s) this entry relates to]"]
+  significance: [high / medium / background]
+  summary: "[what this entry adds to the record — 2-5 sentences]"
+  quote: "[verbatim quote if significant — otherwise empty]"
+  contradicts_entry: [entry_id or null]
+  corroborates_entry: [entry_id or null]
+  credibility_note: ""
+  pull_criterion: "[which criterion triggered — for documents]"
+  privilege: attorney-work-product
+```
+
+For evidentiary gaps:
+
+```yaml
+- gap_id: [auto-increment]
+  description: "[what document/source should exist but hasn't been found]"
+  identified_from: "[which log entry or account raised this]"
+  source_to_obtain: "[where to get it]"
+  priority: [high / medium / low]
+  status: open
+```
+
+### Step 5 — Update sources checklist
+
+If the data added corresponds to a checklist item, ask the attorney if it
+should be marked complete or in-progress. Do not auto-mark complete —
+the attorney decides when a source is adequately covered.
+
+---
+
+## Mode 3: Query the log
+
+Triggered by `/employment-legal:investigation-query` or any question
+phrased against the investigation (e.g., "what did [witness] say about",
+"what documents corroborate", "what do we still need", "what's the
+strongest evidence on each side").
+
+Read the full log before answering. Answer types:
+
+**Factual query** ("what did X say about Y"):
+Answer from the log entries, citing entry IDs. If the log contains nothing
+on the topic: "I have not seen any information on [topic] in this
+investigation log ([N] entries reviewed). This may be worth flagging as
+a gap."
+
+**Conflict query** ("where do accounts conflict"):
+Surface all contradicts_entry links. For each conflict: state what the
+conflict is, which entries are in tension, and what (if any) documentary
+evidence bears on the conflict.
+
+**Coverage query** ("what do we still need" / "what are our gaps"):
+Read sources-checklist.yaml and evidentiary_gaps in log.yaml. Report:
+- Checklist items still open
+- Evidentiary gaps logged
+- Any accounts that reference sources not yet gathered
+
+**Strength query** ("what's the strongest evidence on each issue"):
+For each issue in the log, identify: the highest-significance log entries,
+any documentary corroboration, and any unresolved conflicts. Present
+issue by issue.
+
+**Upjohn query** ("have we documented Upjohn warnings"):
+Check checklist item and any log entries tagged as Upjohn documentation.
+Flag if not yet completed.
+
+---
+
+## Mode 4: Draft or update the memo
+
+Triggered by `/employment-legal:investigation-memo` or "draft the memo"
+or "update the memo".
+
+### If no memo exists — first draft
+
+Read the full log. Do not draft until the following are complete (warn if
+not):
+- At least one entry for each open issue
+- Complainant and respondent entries present
+- Sources checklist reviewed (flag any high-priority open items)
+
+Draft the memo in the following structure, following standard internal
+investigation memorandum practice:
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
+
+---
+
+**MEMORANDUM**
+
+To: [Attorney to fill in]
+From: [Attorney to fill in]
+Date: [Date]
+Re: Internal Investigation — [Matter name]
+Status: PRELIMINARY DRAFT
+
+---
+
+## Executive Summary
+
+[2-3 paragraphs: allegation in plain terms, investigation scope and
+methodology summary, key findings in bullet form (Sustained / Not
+Sustained / Inconclusive), recommended actions. Written last but
+appears first.]
+
+---
+
+## Background and Scope
+
+**Triggering event:** [What initiated the investigation]
+
+**Allegations investigated:**
+[Each issue from the log as a numbered allegation]
+
+**Out of scope:** [Anything explicitly not investigated and why]
+
+**Investigation period:** [Dates of conduct alleged]
+**Investigation conducted:** [Date opened] to [present or close date]
+
+---
+
+## Methodology
+
+**Interviews conducted:**
+| Witness | Role | Date | Notes |
+|---|---|---|---|
+[Populated from log entries with source_type = interview]
+
+**Documents reviewed:**
+[Summary of document categories reviewed, volume, date range.
+Full document log is maintained separately.]
+
+**Other sources:**
+[Any other sources from checklist — policies, HR records, etc.]
+
+**Limitations:** [Any sources requested but not obtained, any constraints]
+
+---
+
+## Factual Findings
+
+*[Organized by issue — one section per allegation. Not by witness,
+not purely chronological.]*
+
+### Issue 1: [Allegation]
+
+[Narrative of what the evidence shows on this issue. Cite log entry IDs
+inline in brackets. Where accounts conflict, present the conflict directly
+— do not smooth it over. Documentary evidence presented with quotes where
+significant.]
+
+### Issue 2: [Allegation]
+
+[Same structure]
+
+[Continue for each issue]
+
+---
+
+## Credibility Assessment
+
+*[Standalone section. Address only witnesses whose credibility is
+determinative — i.e., where the finding on an issue depends on which
+account is credited.]*
+
+### [Witness name/role]
+
+**Internal consistency:** [Consistent / Inconsistent — note specifics]
+**Corroboration:** [What documentary or other evidence corroborates
+or undermines the account]
+**Motive:** [Any reason to credit or discount the account]
+**Demeanor:** [Attorney's observations if interviews were in person —
+leave blank if not applicable or not observed]
+**Assessment:** [Credit / Do not credit / Partially credit — with basis]
+
+---
+
+## Relevant Policies
+
+[Policies in effect at the time of alleged conduct that bear on the issues.
+Cite the version. Do not cite policies that were adopted after the conduct.]
+
+---
+
+## Conclusions
+
+| Issue | Finding | Basis |
+|---|---|---|
+| [Issue 1] | Sustained / Not Sustained / Inconclusive | [One sentence] |
+| [Issue 2] | ... | ... |
+
+*Findings are based on a preponderance of the evidence standard.*
+
+---
+
+## Recommendations
+
+[Organized by action type:]
+
+**Disciplinary action:** [If any — state the basis, not just the outcome]
+**Policy or process changes:** [If any gap in policies contributed]
+**Training:** [If indicated]
+**Further investigation:** [Any threads not fully resolved]
+**Monitoring:** [Any follow-up needed]
+
+---
+
+## Appendix A: Chronology of Events
+
+[Auto-generated from log entries sorted by date_of_event, not date_logged.
+Format: Date | Summary | Source (Entry ID)]
+
+## Appendix B: Documents Reviewed
+
+[Summary table from documents-reviewed.yaml]
+```
+
+Write the draft to `~/.claude/plugins/config/claude-for-legal/employment-legal/investigation-[slug]/memo.md`.
+
+### If memo already exists — update
+
+Read the memo and the log. Identify log entries added since the memo was
+last drafted (compare date_logged against memo's last-updated date).
+
+Report what has changed:
+
+```
+Since the last memo draft ([date]), the following has been added to the log:
+
+[N] new entries
+New issues: [any]
+New conflicts: [any]
+Resolved gaps: [any]
+
+Sections that need updating:
+  Factual findings: [which issues are affected]
+  Credibility: [any new credibility-relevant entries]
+  Conclusions: [any findings that should be revisited]
+  Appendix A: [N] new chronology entries
+```
+
+Ask: "Want me to update the full memo, or just the affected sections?"
+
+Apply updates. Preserve prior drafting. Mark changed sections with
+`[UPDATED: date]` until the attorney reviews.
+
+---
+
+## Mode 5: Draft audience summary
+
+Triggered by `/employment-legal:investigation-summary` or "draft a
+summary for [audience]".
+
+Ask: who is the audience and what decision or action does this summary
+support?
+
+**HR summary** (for HR decision on disciplinary action):
+- What happened (factual summary, no legal analysis)
+- Finding on each allegation (Sustained/Not Sustained/Inconclusive)
+- Recommended action
+- What is NOT in this summary: privilege analysis, credibility methodology,
+  legal exposure assessment, attorney mental impressions
+- Header: "Confidential — HR Use Only — Do Not Distribute"
+- Do not include entry IDs or document citations — those stay in the memo
+
+**Leadership/Board summary** (for governance decision):
+- The allegation and scope in one paragraph
+- Key findings
+- Business impact / exposure (high level — no specific legal analysis)
+- What the company is doing about it
+- Header: "[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]"
+
+**Outside counsel briefing** (handing off for litigation or deeper review):
+- Full context including legal exposure analysis
+- Open evidentiary threads
+- Credibility issues that remain contested
+- Documents that would be most significant in litigation
+- Header: "[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]"
+
+---
+
+## Consequential-action gate (respond to a demand or complaint)
+
+**Before producing a summary, memo, or content intended for an external response (EEOC/DFEH/state agency charge response, plaintiff's-counsel demand letter response, regulator response, or any formal complaint reply):** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md`. If the Role is **Non-lawyer**:
+
+> Responding to a demand, charge, or complaint has legal consequences — positions taken here are admissions in later proceedings, waivers of defenses can be inadvertent, and privilege over the underlying investigation can be lost. Have you reviewed this response with an attorney? If yes, proceed. If no, here's a brief to bring to them:
+>
+> - The allegation, the forum, and the deadline
+> - What the investigation surfaced (findings by allegation; documents reviewed; witnesses interviewed; Upjohn warnings given or not)
+> - Any unresolved evidentiary threads or credibility contests
+> - What the proposed response says and what it implicitly concedes
+> - Open questions and what's unresolved
+> - What could go wrong (privilege waiver, inconsistent factual statements, missed affirmative defense)
+> - What to ask the attorney (is this the right theory; are we preserving defenses; should an outside firm take this over; what needs redaction or a privilege log)
+>
+> If you need to find an attorney, solicitor, barrister, or other authorised legal professional: contact your professional regulator (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent) for a referral service. Agency and demand-letter responses are a place where untrained replies regularly create more exposure than the underlying allegation did.
+
+Do not produce an external-response draft past this gate without an explicit yes. Internal memos, HR summaries, and leadership briefings used only within the organization do not trip this gate (but the privilege-formation caveat at the top of this skill still applies).
+
+---
+
+## What this skill does NOT do
+
+- Make disciplinary decisions — it supports the attorney's findings,
+  not HR's action
+- Guarantee privilege — privilege depends on how the investigation is
+  structured, not on how the memo is labeled
+- Process documents it cannot read — if files are in formats that cannot
+  be parsed, flag them for manual review
+- Conduct interviews — it logs interview notes, it does not interview witnesses
+- Replace Upjohn warnings — it tracks whether they were given, it does not
+  give them
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.

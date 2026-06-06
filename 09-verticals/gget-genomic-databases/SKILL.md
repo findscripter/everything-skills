@@ -1,14 +1,14 @@
 ---
 name: gget-genomic-databases
-title: gget 统一基因组数据库接口
-description: 当需要用一个统一的 Python/CLI 接口（gget）跨 Ensembl、UniProt、NCBI、BLAST/BLAT、AlphaFold、Enrichr、OpenTargets、CELLxGENE、cBioPortal/COSMIC、ARCHS4 等 20+ 基因组数据库做基因查询、取序列、比对、结构预测、富集与疾病/药物关联时使用；做选模块、调 gget 取数并产出 DataFrame/JSON/FASTA/PDB 结果；不适用于大批量或高级 BLAST 参数（用 biopython）与带限速的多库 SDK 编排（用 bioservices）；触发词：gget、Ensembl 查基因、gget search/info/seq、BLAST、AlphaFold、Enrichr、OpenTargets、CELLxGENE、cBioPortal
+title: gget — Unified Genomic Database Access
+description: Unified CLI/Python interface to 20+ genomic databases. Gene lookups (Ensembl search/info/seq), BLAST/BLAT, AlphaFold, Enrichr enrichment, OpenTargets disease/drug, CELLxGENE single-cell, cBioPortal/COSMIC cancer, ARCHS4 expression. Spans genomics, proteomics, disease. For batch/advanced BLAST use biopython; for multi-DB Python SDK use bioservices.
 domain: 领域/science
-triggers: [gget, Ensembl 查基因, gget search, gget info, gget seq, BLAST, BLAT, AlphaFold, Enrichr 富集, OpenTargets, CELLxGENE, cBioPortal, ARCHS4, 参考基因组下载]
+triggers: [gget, gget search, gget info, gget seq, BLAST, BLAT, AlphaFold, OpenTargets, CELLxGENE, cBioPortal, ARCHS4]
 tags: [bioinformatics, genomics, gget, ensembl, blast, alphafold, enrichr, opentargets, cellxgene, cbioportal, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [gget, python, pandas]
+tools: []
 requires: []
 related: [uniprot-protein-database, scientific-database-lookup, opentargets-database, clinvar-database]
 combines_with: [uniprot-protein-database, gene-set-enrichment-analysis, single-cell-rnaseq-analysis]
@@ -16,118 +16,545 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# gget — Unified Genomic Database Access
 
-需要用**一个统一接口**（`gget`，CLI 与 Python 同构）跨 20+ 基因组数据库取数与做轻量分析时使用，典型场景：
+## Overview
 
-- 跨物种从 Ensembl 按关键词搜基因、查基因元数据（名称/ID/描述，融合 Ensembl+UniProt+NCBI）。
-- 取 Ensembl 基因/转录本的核酸或蛋白序列；下载某物种参考基因组与注释（GTF/cDNA/DNA/CDS/PEP）。
-- 对参考库跑 BLAST/BLAT 远程检索，或做多序列比对（Muscle5）与本地快速比对（DIAMOND）。
-- 用 AlphaFold2 从氨基酸序列预测 3D 结构；下载 PDB 结构；找线性基序（ELM）。
-- 用 Enrichr 做基因集富集（GO/KEGG/疾病等）；用 OpenTargets 查靶点的疾病/药物/成药性关联。
-- 查 CELLxGENE 单细胞数据、ARCHS4 组织表达与共表达基因、Bgee 直系同源。
-- 经 cBioPortal/COSMIC 查癌症突变与拷贝数变异。
+gget is a command-line and Python package providing unified access to 20+ genomic databases and analysis methods. Query gene information, sequences, protein structures, expression data, and disease associations through a consistent interface. All modules work as both CLI tools and Python functions, returning DataFrames (Python) or JSON/CSV (CLI).
 
-**不该用的边界：**
-- **大批量处理或高级 BLAST 参数** → 用 `biopython`（本技能的 BLAST 是远程便捷封装）。
-- **带内建限速的多数据库 SDK 编排**（UniProt/KEGG/ChEMBL 等程序化工作流）→ 用 `bioservices`。
-- 只需对单个公开库发 REST 请求取原始 JSON、不想装 gget → 用 `scientific-database-lookup`。
-- 深度富集/自定义基因集库分析、上游差异表达计算不在此 → 见 `gene-set-enrichment-analysis`。
-- gget 查的是远程库，不做大规模本地数据集统计建模。
+## When to Use
 
-## 步骤 / 指令
+- Looking up gene information (names, IDs, descriptions) across species from Ensembl
+- Retrieving nucleotide or protein sequences for Ensembl gene/transcript IDs
+- Running BLAST or BLAT searches against standard reference databases
+- Predicting protein 3D structures with AlphaFold2 from amino acid sequences
+- Performing gene set enrichment analysis (GO, KEGG, disease terms) via Enrichr
+- Querying single-cell RNA-seq datasets from CELLxGENE Census
+- Finding disease and drug associations for a gene target via OpenTargets
+- Downloading Ensembl reference genomes and annotations for a species
+- Finding cancer mutations and genomic alterations via cBioPortal or COSMIC
+- Getting tissue expression and correlated genes from ARCHS4
+- For batch processing or advanced BLAST parameters, use `biopython` instead
+- For programmatic multi-database workflows with rate limiting, use `bioservices` instead
 
-1. **装包**：`pip install gget`（建议干净虚拟环境）。部分模块首次用前需 `gget setup <module>`：`alphafold`（约 4GB 参数 + OpenMM）、`cellxgene`、`elm`。
-2. **按域选模块**（Python 调 `gget.<module>()`，CLI 调 `gget <module>`）：
+## Prerequisites
 
-| 域 | 模块 | 主要数据库 |
-|---|---|---|
-| 基因参考/检索 | `ref` `search` `info` `seq` | Ensembl, UniProt, NCBI |
-| 序列比对 | `blast` `blat` `muscle` `diamond` | NCBI BLAST, UCSC, 本地 |
-| 蛋白结构 | `pdb` `alphafold` `elm` | RCSB PDB, AlphaFold2, ELM |
-| 表达 | `archs4` `cellxgene` `bgee` | ARCHS4, CZ CELLxGENE, Bgee |
-| 疾病/药物 | `opentargets` `enrichr` | OpenTargets, Enrichr |
-| 癌症 | `cbio` `cosmic` | cBioPortal, COSMIC |
-| 工具 | `mutate` `setup` | 本地 |
-
-3. **校正标识符**：基因检索用 `gget.search(...)` 得 Ensembl ID（`ENSG...`），下游 `info`/`seq`/`opentargets` 复用之。**注意物种**：默认 `homo_sapiens`，可用 `species="mouse"` 等简写。
-4. **调用取数**：Python 返回 DataFrame/dict（加 `json=True` 出 JSON、`save=True` 落盘）；CLI 默认 JSON（`-csv` 出 CSV、`-o file` 存盘）。序列出 FASTA，结构出 PDB，单细胞出 AnnData。
-5. **限速**：远程库（BLAST/BLAT/info）批量调用要在循环里 `time.sleep(2)`；`gget.info()` 单次 ≤ 约 1000 个 Ensembl ID。
-6. **钉版本保证可复现**：`gget.ref(..., release=112)`、`gget.cellxgene(..., census_version="2023-07-25")`，并记录 `gget.__version__`。
-
-**Enrichr 库简写**：`'pathway'`=KEGG_2021_Human、`'transcription'`=ChEA_2016、`'ontology'`=GO_Biological_Process_2021、`'diseases_drugs'`=GWAS_Catalog_2019、`'celltypes'`=PanglaoDB_Augmented_2021；也可直接传任意 Enrichr 库名（如 `"Jensen_TISSUES"`）。
-
-**OpenTargets resource**：`diseases` / `drugs` / `tractability` / `pharmacogenetics` / `expression` / `depmap` / `interactions`。
-
-## 示例
-
-基因检索 → 信息 → 序列 → 富集（Python）：
-
-```python
-import gget
-
-# 1. 按关键词搜基因
-results = gget.search(["BRCA1", "tumor suppressor"], species="homo_sapiens")
-gene_ids = results["ensembl_id"].tolist()[:10]
-
-# 2. 取详细信息（Ensembl + UniProt + NCBI），单次 ≤ ~1000 ID
-info = gget.info(gene_ids)
-
-# 3. 取蛋白序列
-seqs = gget.seq(gene_ids, translate=True)
-
-# 4. 富集分析（GO 生物学过程）
-enr = gget.enrichr(["ACE2", "AGT", "AGTR1", "TMPRSS2", "DPP4"], database="ontology")
-print(enr[["Term", "Adjusted P-value"]].head())
-```
-
-远程比对加限速、靶点验证（Python）：
-
-```python
-import gget, time
-
-# BLAST 对 SwissProt（远程，批量循环里要 sleep）
-hits = gget.blast("MKWMFKEDHSLEHRCV...", database="swissprot", limit=10)
-time.sleep(2)
-
-# 靶点的疾病/药物/成药性关联
-g = "ENSG00000169194"
-diseases = gget.opentargets(g, resource="diseases", limit=20)
-drugs    = gget.opentargets(g, resource="drugs")
-```
-
-下载 RNA-seq 参考文件（CLI，钉 release）：
+- **Python packages**: `gget`
+- **Optional setup**: Some modules require `gget setup <module>` before first use (alphafold, cellxgene, elm, gpt)
+- **Environment**: Clean virtual environment recommended to avoid dependency conflicts
+- **API notes**: gget queries remote databases — rate-limit large batch queries with `time.sleep()`. Databases update biweekly; keep gget updated. Max ~1000 Ensembl IDs per `gget.info()` call
 
 ```bash
-gget ref -w gtf -w cdna -d -r 112 homo_sapiens   # GTF + cDNA
-gget ref -w dna -d homo_sapiens                   # 基因组 DNA
+pip install gget
+
+# Optional: setup modules that need additional dependencies
+gget setup alphafold   # ~4GB model parameters, requires OpenMM
+gget setup cellxgene   # cellxgene-census package
+gget setup elm         # local ELM database
 ```
 
-结构预测前先查 PDB（`gget.pdb()` 秒级，AlphaFold 需数分钟到数小时）：
+## Quick Start
 
 ```python
 import gget
-pdb = gget.pdb("7S7U", save=True)  # 已有就别白跑 AlphaFold
-structure = gget.alphafold("MKWMFK...", plot=True, show_sidechains=True, relax=True)
+
+# Search for genes by keyword
+results = gget.search(["BRCA1", "tumor suppressor"], species="homo_sapiens")
+print(f"Found {len(results)} genes")
+
+# Get detailed gene information (Ensembl + UniProt + NCBI)
+info = gget.info(["ENSG00000012048"])
+print(f"Gene: {info.iloc[0]['primary_gene_name']}")
+
+# Enrichment analysis on a gene list
+enrichment = gget.enrichr(["ACE2", "AGT", "AGTR1"], database="ontology")
+print(f"Enriched terms: {len(enrichment)}")
 ```
 
-## 注意事项
+## Core API
 
-- **先查 PDB 再跑 AlphaFold**：`pdb()` 即时，AlphaFold 耗时极长；蛋白过长会 GPU OOM，拆结构域或缩短序列。`gget setup alphafold` 需 Python 3.8–3.10。
-- **限速与上限**：远程库批量调用要 `time.sleep()`；`gget.info()` 超量会超时，单次 ≤ 约 1000 ID 并分批。
-- **保持更新**：数据库约每两周变结构，定期 `pip install --upgrade gget` 防 schema 变更导致报错；同一查询不同时间结果可能不同——**钉版本**（`release=112` / `census_version`）。
-- **CELLxGENE 基因符号大小写敏感**：人用 `'ACE2'`、鼠用 `'Ace2'`，须精确匹配。
-- **COSMIC 需账号 + 本地库**：首次 `gget.cosmic(..., download_cosmic=True, email=..., password=...)`；认证报错时重填凭据并查账号状态。
-- **BLAST 空结果**：序列太短或无匹配——换更长序列、换库或 `megablast_off=True`。
-- **接口选择**：流水线用 Python（返回可链式处理的 DataFrame），快速探查用 CLI（`-csv`）。
-- **cBioPortal 缓存**：重复分析用 `data_dir="./cache"` 避免重复下载大数据集。
+### Module 1: Reference & Gene Search (ref, search, info, seq)
 
-## 互见
+Query Ensembl for gene references, search by keywords, retrieve gene metadata, and fetch sequences.
 
-- related：`scientific-database-lookup` —— 不想装 gget、只需对公开库发 REST 请求取原始 JSON 时。
-- related：`single-cell-rnaseq-analysis`、`genomic-file-toolkit`、`protein-language-models`
-- combines_with：`gene-set-enrichment-analysis` —— gget 取基因列表/共表达基因后做深度通路富集。
-- combines_with：`nextflow-pipeline-builder` —— 用 `gget ref` 下载参考文件喂入 RNA-seq 比对流水线。
+```python
+import gget
 
----
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+# Search for genes by keyword
+results = gget.search(["BRCA1", "tumor suppressor"], species="homo_sapiens")
+print(f"Found {len(results)} genes")
+print(results[["ensembl_id", "gene_name", "biotype"]].head())
+
+# Get detailed gene information (Ensembl + UniProt + NCBI)
+info = gget.info(["ENSG00000012048", "ENSG00000139618"])
+print(f"Gene info columns: {list(info.columns)}")
+```
+
+```python
+import gget
+
+# Retrieve sequences
+nucleotide_seqs = gget.seq(["ENSG00000012048"])
+protein_seqs = gget.seq(["ENSG00000012048"], translate=True, isoforms=True)
+print(f"Retrieved {len(protein_seqs)} isoform sequences")
+
+# Download reference genome files (specify release for reproducibility)
+ref_links = gget.ref("homo_sapiens", which="gtf", release=112)
+print(f"GTF download link: {ref_links}")
+```
+
+### Module 2: Sequence Alignment (blast, blat, muscle, diamond)
+
+BLAST/BLAT remote searches, multiple sequence alignment, and fast local alignment.
+
+```python
+import gget
+import time
+
+# BLAST against SwissProt (remote API — add delay for batch queries)
+blast_results = gget.blast(
+    "MKWMFKEDHSLEHRCVESAKIRAKYPDRVPVIVEKVSGSQIVDIDKRKYLVPSDITVAQFMWIIRKRIQLPSEKAIFLFVDKTVPQSR",
+    database="swissprot", limit=10
+)
+print(f"Top hit: {blast_results.iloc[0]['Description']}, E-value: {blast_results.iloc[0]['e-value']}")
+time.sleep(2)  # Rate-limit between BLAST queries
+
+# BLAT — find genomic position (UCSC)
+blat_results = gget.blat("ATCGATCGATCGATCGATCG", assembly="human")
+print(f"Genomic location: chr{blat_results.iloc[0]['chromosome']}:{blat_results.iloc[0]['start']}")
+```
+
+```python
+import gget
+
+# Multiple sequence alignment with Muscle5
+aligned = gget.muscle("sequences.fasta", save=True)
+
+# Fast local alignment with DIAMOND (local, no rate limit needed)
+diamond_results = gget.diamond(
+    "GGETISAWESQME",
+    reference="reference.fasta",
+    sensitivity="very-sensitive",
+    threads=4
+)
+print(f"Alignments found: {len(diamond_results)}")
+```
+
+### Module 3: Protein Structure (pdb, alphafold, elm)
+
+Download PDB structures, predict structures with AlphaFold2, find linear motifs.
+
+```python
+import gget
+
+# Download PDB structure
+pdb_data = gget.pdb("7S7U", save=True)
+
+# Predict structure with AlphaFold2 (requires gget setup alphafold)
+structure = gget.alphafold(
+    "MKWMFKEDHSLEHRCVESAKIRAKYPDRVPVIVEKVSGSQIVDIDKRKYLVPSDITVAQFMWIIRKRIQLPSEKAIFLFVDKTVPQSR",
+    plot=True, show_sidechains=True
+)
+print("Structure prediction complete, PDB file saved")
+```
+
+```python
+import gget
+
+# Find Eukaryotic Linear Motifs (requires gget setup elm)
+ortholog_df, regex_df = gget.elm("LIAQSIGQASFV")
+print(f"Ortholog motifs: {len(ortholog_df)}, Regex motifs: {len(regex_df)}")
+```
+
+### Module 4: Expression & Correlation (archs4, cellxgene, bgee)
+
+Gene expression, tissue expression, correlated genes, single-cell data.
+
+```python
+import gget
+
+# Tissue expression from ARCHS4
+tissue_expr = gget.archs4("ACE2", which="tissue")
+print(f"Expression across {len(tissue_expr)} tissues")
+
+# Correlated genes from ARCHS4
+correlated = gget.archs4("ACE2", which="correlation")
+print(f"Top correlated gene: {correlated.iloc[0]['gene_symbol']}")
+```
+
+```python
+import gget
+
+# Single-cell data from CELLxGENE (requires gget setup cellxgene)
+adata = gget.cellxgene(
+    gene=["ACE2", "TMPRSS2"],
+    tissue="lung",
+    cell_type="epithelial cell",
+    census_version="2023-07-25"  # pin version for reproducibility
+)
+print(f"Cells: {adata.n_obs}, Genes: {adata.n_vars}")
+
+# Orthologs and expression from Bgee
+orthologs = gget.bgee("ENSG00000169194", type="orthologs")
+print(f"Orthologs in {len(orthologs)} species")
+```
+
+### Module 5: Disease & Drug Associations (opentargets, enrichr)
+
+Disease associations, drug targets, enrichment analysis.
+
+```python
+import gget
+
+# Disease associations from OpenTargets
+diseases = gget.opentargets("ENSG00000169194", resource="diseases", limit=10)
+print(f"Associated diseases: {len(diseases)}")
+
+# Drug associations
+drugs = gget.opentargets("ENSG00000169194", resource="drugs", limit=10)
+print(f"Associated drugs: {len(drugs)}")
+
+# OpenTargets resources: diseases, drugs, tractability, pharmacogenetics,
+#   expression, depmap, interactions
+```
+
+```python
+import gget
+
+# Enrichment analysis via Enrichr
+# Database shortcuts: 'pathway' (KEGG), 'transcription' (ChEA),
+#   'ontology' (GO_BP), 'diseases_drugs' (GWAS), 'celltypes' (PanglaoDB)
+enrichment = gget.enrichr(
+    ["ACE2", "AGT", "AGTR1", "TMPRSS2", "DPP4"],
+    database="ontology"
+)
+print(f"Enriched terms: {len(enrichment)}")
+print(enrichment[["Term", "Adjusted P-value"]].head())
+```
+
+### Module 6: Cancer Genomics (cbio, cosmic)
+
+Cancer mutations, copy number alterations, and somatic mutation databases.
+
+```python
+import gget
+
+# Search cBioPortal studies
+studies = gget.cbio_search(["breast", "lung"])
+print(f"Studies found: {len(studies)}")
+
+# Plot cancer genomics heatmap
+gget.cbio_plot(
+    ["msk_impact_2017"],
+    ["AKT1", "ALK", "BRAF"],
+    stratification="tissue",
+    variation_type="mutation_occurrences"
+)
+```
+
+```python
+import gget
+
+# COSMIC: requires account + local database download
+# First-time: gget.cosmic(searchterm="", download_cosmic=True,
+#   email="user@example.com", password="xxx", cosmic_project="cancer")
+cosmic_results = gget.cosmic("EGFR", cosmic_tsv_path="cosmic_data.tsv", limit=10)
+print(f"COSMIC mutations: {len(cosmic_results)}")
+```
+
+### Module 7: Mutation Generation & Utilities (mutate, setup)
+
+Generate mutated sequences and manage module dependencies.
+
+```python
+import gget
+import pandas as pd
+
+# Generate mutated sequences from mutation annotations
+mutations_df = pd.DataFrame({
+    "seq_ID": ["seq1", "seq1"],
+    "mutation": ["c.4G>T", "c.10del"]
+})
+mutated = gget.mutate(["ATCGCTAAGCTGATCG"], mutations=mutations_df)
+print(f"Generated {len(mutated)} mutated sequences")
+```
+
+## Key Concepts
+
+### Module Overview
+
+gget organizes 20+ modules by domain. Python interface uses `gget.<module>()`:
+
+| Domain | Modules | Primary Database |
+|--------|---------|-----------------|
+| Gene reference | `ref`, `search`, `info`, `seq` | Ensembl, UniProt, NCBI |
+| Sequence alignment | `blast`, `blat`, `muscle`, `diamond` | NCBI BLAST, UCSC, local |
+| Protein structure | `pdb`, `alphafold`, `elm` | RCSB PDB, AlphaFold2, ELM |
+| Expression | `archs4`, `cellxgene`, `bgee` | ARCHS4, CZ CELLxGENE, Bgee |
+| Disease/drugs | `opentargets`, `enrichr` | OpenTargets, Enrichr |
+| Cancer | `cbio`, `cosmic` | cBioPortal, COSMIC |
+| Utilities | `mutate`, `setup`, `gpt` | local / OpenAI |
+
+### Output Formats
+
+| Context | Default Format | Alternatives |
+|---------|---------------|-------------|
+| Python | DataFrame or dict | `json=True` for JSON; `save=True` to file |
+| CLI | JSON | `-csv` for CSV; `-o file` to save |
+| Sequences | FASTA (seq, mutate) | -- |
+| Structures | PDB file (pdb, alphafold) | JSON alignment error data |
+| Single-cell | AnnData object (cellxgene) | `meta_only=True` for metadata only |
+| Visualization | PNG (cbio plot) | `show=True` for interactive display |
+
+### Enrichr Database Shortcuts
+
+| Shortcut | Full Database Name |
+|----------|-------------------|
+| `'pathway'` | KEGG_2021_Human |
+| `'transcription'` | ChEA_2016 |
+| `'ontology'` | GO_Biological_Process_2021 |
+| `'diseases_drugs'` | GWAS_Catalog_2019 |
+| `'celltypes'` | PanglaoDB_Augmented_2021 |
+
+Custom libraries: pass any Enrichr library name directly (e.g., `"Jensen_TISSUES"`).
+
+### OpenTargets Resources
+
+| Resource | Description |
+|----------|------------|
+| `diseases` | Disease associations with evidence scores |
+| `drugs` | Drug associations and clinical trial data |
+| `tractability` | Target tractability assessment |
+| `pharmacogenetics` | Pharmacogenetic variants |
+| `expression` | Baseline tissue expression |
+| `depmap` | DepMap gene-disease effects |
+| `interactions` | Protein-protein interactions |
+
+### Reproducibility
+
+Pin database versions for consistent results across analyses:
+
+```python
+import gget
+# Pin Ensembl release
+ref = gget.ref("homo_sapiens", release=112)
+
+# Pin CELLxGENE Census version
+adata = gget.cellxgene(gene=["ACE2"], census_version="2023-07-25")
+
+# Always record gget version
+print(f"gget version: {gget.__version__}")
+```
+
+## Common Workflows
+
+### Workflow 1: Gene Discovery to Functional Analysis
+
+**Goal**: Find genes of interest, get their sequences, and perform enrichment analysis.
+
+```python
+import gget
+
+# 1. Search for genes
+results = gget.search(["GABA", "receptor"], species="homo_sapiens")
+gene_ids = results["ensembl_id"].tolist()[:10]
+
+# 2. Get detailed information
+info = gget.info(gene_ids)
+print(f"Retrieved info for {len(info)} genes")
+
+# 3. Get protein sequences
+sequences = gget.seq(gene_ids, translate=True)
+
+# 4. Find correlated genes
+correlated = gget.archs4(info.index[0], which="correlation")
+
+# 5. Enrichment analysis on correlated genes
+gene_list = correlated["gene_symbol"].tolist()[:50]
+enrichment = gget.enrichr(gene_list, database="ontology")
+print(f"Top enriched term: {enrichment.iloc[0]['Term']}")
+```
+
+### Workflow 2: Target Validation for Drug Discovery
+
+**Goal**: Investigate a gene's disease associations, druggability, and cancer mutations.
+
+```python
+import gget
+
+gene_id = "ENSG00000169194"  # ZBTB16
+
+# 1. Disease associations
+diseases = gget.opentargets(gene_id, resource="diseases", limit=20)
+
+# 2. Drug associations
+drugs = gget.opentargets(gene_id, resource="drugs")
+
+# 3. Tractability assessment
+tractability = gget.opentargets(gene_id, resource="tractability")
+
+# 4. Protein interactions
+interactions = gget.opentargets(gene_id, resource="interactions")
+print(f"Diseases: {len(diseases)}, Drugs: {len(drugs)}, Interactions: {len(interactions)}")
+
+# 5. Cancer genomics
+gget.cbio_plot(["msk_impact_2017"], ["ZBTB16"], stratification="cancer_type")
+```
+
+### Workflow 3: Comparative Genomics
+
+**Goal**: Compare a gene across species using orthologs and sequence alignment.
+
+```python
+import gget
+
+# 1. Find orthologs
+orthologs = gget.bgee("ENSG00000169194", type="orthologs")
+
+# 2. Get sequences for human and mouse
+human_seq = gget.seq("ENSG00000169194", translate=True)
+mouse_seq = gget.seq("ENSMUSG00000026091", translate=True)
+
+# 3. Align sequences
+alignment = gget.muscle([human_seq, mouse_seq])
+
+# 4. Get human protein structure from PDB
+pdb_structure = gget.pdb("7S7U")
+print("Comparative analysis complete")
+```
+
+## Key Parameters
+
+| Parameter | Module(s) | Default | Range / Options | Effect |
+|-----------|-----------|---------|-----------------|--------|
+| `species` | search, archs4, cellxgene, enrichr | `"homo_sapiens"` | Any Ensembl species; shortcuts: 'human', 'mouse' | Target organism |
+| `limit` | blast, opentargets, cosmic | `50` / `100` | `1`-`1000` | Maximum results returned |
+| `database` | blast, enrichr | varies | blast: nt/nr/swissprot/pdbaa; enrichr: shortcuts or library names | Target database for query |
+| `which` | ref, archs4 | varies | ref: `gtf`,`cdna`,`dna`,`cds`,`pep`; archs4: `correlation`,`tissue` | Data type to retrieve |
+| `translate` | seq | `False` | `True`/`False` | Return amino acid instead of nucleotide sequences |
+| `resource` | opentargets | `"diseases"` | diseases, drugs, tractability, pharmacogenetics, expression, depmap, interactions | OpenTargets data type |
+| `release` | ref, search | latest | Integer Ensembl release number | Pin database version for reproducibility |
+| `census_version` | cellxgene | `"stable"` | `"stable"`, `"latest"`, date string | Pin CELLxGENE Census version |
+| `sensitivity` | diamond, elm | `"very-sensitive"` | `fast` to `ultra-sensitive` | Alignment sensitivity vs speed |
+| `threads` | diamond, elm | `1` | `1`-`N` | CPU threads for alignment |
+| `multimer_recycles` | alphafold | `3` | `3`-`20` | Higher = more accurate multimer prediction |
+
+## Best Practices
+
+1. **Pin database versions for reproducibility**: Use `release=112` for Ensembl and `census_version="2023-07-25"` for CELLxGENE to ensure consistent results across analyses.
+
+2. **Rate-limit batch queries**: gget queries remote APIs. Add `time.sleep(2)` between BLAST/BLAT queries in loops. For `gget.info()`, limit to ~1000 IDs per call.
+
+3. **Keep gget updated**: Databases change their structure biweekly. Run `pip install --upgrade gget` regularly to avoid breakage from schema changes.
+
+4. **Use Python interface for pipelines, CLI for exploration**: Python functions return DataFrames suitable for chaining. CLI with `-csv` is better for quick one-off lookups.
+
+5. **Check PDB before running AlphaFold**: `gget.pdb()` is instant; AlphaFold prediction takes minutes to hours. Always check if the structure already exists in PDB.
+
+6. **Use database shortcuts in enrichr**: The shortcuts (`'pathway'`, `'ontology'`, etc.) map to curated Enrichr libraries. For custom analyses, pass any Enrichr library name directly.
+
+7. **Cache cBioPortal data for repeated analyses**: Use `data_dir="./cache"` parameter to avoid re-downloading large cancer genomics datasets.
+
+## Common Recipes
+
+### Recipe: Batch Gene Information Retrieval
+
+When to use: Need information for many genes at once (up to ~1000 IDs per call).
+
+```python
+import gget
+import time
+
+gene_ids = ["ENSG00000012048", "ENSG00000139618", "ENSG00000141510"]
+info = gget.info(gene_ids)
+info.to_csv("gene_info_batch.csv")
+print(f"Saved info for {len(info)} genes")
+
+# For >1000 genes, batch with rate limiting
+all_ids = [f"ENSG{i:011d}" for i in range(2000)]
+results = []
+for i in range(0, len(all_ids), 500):
+    batch = all_ids[i:i+500]
+    results.append(gget.info(batch))
+    time.sleep(1)
+```
+
+### Recipe: Custom Enrichment with Background
+
+When to use: Running enrichment against a custom background gene set.
+
+```python
+import gget
+
+# Use specific Enrichr library with background genes
+enrichment = gget.enrichr(
+    ["ACE2", "AGT", "AGTR1"],
+    database="Jensen_TISSUES",
+    background_list=["ACE2", "AGT", "AGTR1", "TP53", "BRCA1", "MYC"]
+)
+print(enrichment[["Term", "Adjusted P-value"]].head())
+```
+
+### Recipe: AlphaFold Structure Prediction with Visualization
+
+When to use: Predicting and visualizing protein structures with confidence coloring.
+
+```python
+import gget
+
+# Predict with visualization (PAE + 3D structure)
+result = gget.alphafold(
+    "MKWMFKEDHSLEHRCVESAKIRAKYPDRVPVIVEKVSGSQIVDIDKRKYLVPSDITVAQFMWIIRKRIQLPSEKAIFLFVDKTVPQSR",
+    plot=True,
+    show_sidechains=True,
+    relax=True  # AMBER relaxation for final structure
+)
+# Output: PDB file + predicted aligned error (PAE) JSON
+# PAE heatmap auto-generated with plot=True
+```
+
+### Recipe: Download Reference Genome for RNA-seq Pipeline
+
+When to use: Setting up reference files for RNA-seq alignment pipelines.
+
+```bash
+# Download GTF and cDNA for human (specific release)
+gget ref -w gtf -w cdna -d -r 112 homo_sapiens
+
+# Download genome DNA
+gget ref -w dna -d homo_sapiens
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `ModuleNotFoundError: gget` | Package not installed | `pip install gget` in clean virtual environment |
+| `gget setup alphafold` fails | Python version incompatibility | Use Python 3.8-3.10; check `gget --version` |
+| Empty BLAST results | Sequence too short or no matches | Try longer sequence, different database, or `megablast_off=True` |
+| `cellxgene` gene not found | Case-sensitive gene symbols | Use `'ACE2'` for human, `'Ace2'` for mouse (exact capitalization required) |
+| `gget info` timeout | Too many IDs at once | Limit to ~1000 Ensembl IDs per call; batch with `time.sleep()` |
+| Database structure changed | gget databases update biweekly | `pip install --upgrade gget` |
+| COSMIC authentication error | Missing or expired credentials | Re-enter email/password; check COSMIC account status |
+| AlphaFold out of memory | Protein too long for GPU memory | Use shorter sequences or split into domains |
+| Different results on re-run | Database updated between runs | Pin versions: `release=112` for Ensembl, `census_version` for CELLxGENE |
+
+## Bundled Resources
+
+2 reference files provide extended coverage of capabilities from the original 3 reference files and 3 script files:
+
+1. **`references/module_parameters.md`** — Consolidates module_reference.md (468 lines). Covers: detailed parameter tables for all 15+ modules with types, defaults, and return value descriptions; CLI vs Python interface differences; setup requirements per module. Relocated inline: most-used module parameters (Core API code blocks), output format summary (Key Concepts table). Omitted: gget gpt module details — trivial OpenAI wrapper, not genomics-specific.
+
+2. **`references/databases_workflows.md`** — Consolidates database_info.md (301 lines) and workflows.md (815 lines). Covers: complete database directory with update frequencies and citation info, extended workflow examples (building reference indices, disease-drug pipeline, multi-species comparative analysis), data consistency and reproducibility guidance. Relocated inline: core database overview (Key Concepts table), top 3 workflows (Common Workflows), reproducibility patterns (Key Concepts). Omitted: scripts/ content (3 files, 590 lines total) — thin wrappers around gget API calls for CLI automation; core patterns absorbed into Core API and Common Workflows. 
+## Related Skills
+
+- **biopython** — advanced BLAST parameters, batch sequence processing, GenBank record parsing
+- **bioservices** — programmatic multi-database queries with built-in rate limiting (UniProt, KEGG, ChEMBL)
+- **anndata-data-structure** — working with AnnData objects returned by `gget.cellxgene()`
+- **enrichr** — deeper enrichment analysis with custom gene set libraries
+
+## References
+
+- [gget documentation](https://pachterlab.github.io/gget/) — official docs and tutorials
+- [gget GitHub](https://github.com/pachterlab/gget) — source code, issues
+- Luebbert, L. & Pachter, L. (2023). Efficient querying of genomic reference databases with gget. *Bioinformatics*. https://doi.org/10.1093/bioinformatics/btac836

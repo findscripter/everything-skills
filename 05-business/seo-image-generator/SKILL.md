@@ -1,14 +1,14 @@
 ---
 name: seo-image-generator
-title: SEO 图像生成：OG 卡片、信息图与产品视觉
-description: 当为 SEO/内容发布生成 OG 卡片、博客头图、产品图、信息图、Schema 配图等成品视觉时使用；做按用例映射宽高比/分辨率/领域模式并经创意总监管线产出图片+SEO 清单（alt/命名/WebP/ImageObject/og:image）；不适用于未安装图像生成扩展、纯图像分析审计或非 SEO 场景；触发词：OG 图、信息图、产品图、hero 图、社交预览、SEO 配图。
+title: SEO Image Generator: OG Cards, Infographics & Product Visuals
+description: Generate production-ready SEO assets (OG cards, hero images, schema visuals, product photos, infographics) by mapping use case to aspect ratio/resolution/domain mode and running a Creative Director pipeline with a post-generation SEO checklist; use inside an SEO or content-publis
 domain: 商业/seo
-triggers: [OG 图, 信息图, 产品图, hero 图, 社交预览, SEO 配图, schema 配图, 图像生成]
-tags: [seo, 图像生成, og, 信息图, 内容发布]
-level: 进阶
+triggers: [OG image, infographic, product photo, hero image, social preview, SEO visual, schema image, image generation]
+tags: [seo, image-generation, og, infographic, content-publishing]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [banana-mcp, gemini, imagemagick, python3]
+tools: []
 requires: []
 related: [seo-meta-tags-optimizer, unsplash-photo-integration, social-share-card-hardener, seo-content-writer]
 combines_with: [seo-meta-tags-optimizer, seo-content-writer, social-share-card-hardener]
@@ -16,127 +16,182 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+Generate production-ready images for SEO use cases using Gemini's image generation via the banana Creative Director pipeline. Maps SEO needs to optimized domain modes, aspect ratios, and resolution defaults.
 
-- 当 SEO / 内容发布流程中需要**生成**成品视觉时：OG/社交预览卡、博客头图、产品图、信息图、Schema 配图、社交方图、Pinterest 长图、favicon 等。
-- 当上游审计（如 seo-images）已识别出缺失或低质图片，需据此驱动生成时。
+## When to use
 
-**不该用：**
-- 图像生成扩展（banana MCP）未安装/未连接时——先安装再用。
-- 只做图片**分析/审计打分**而不生成时（那是 seo-images 或审计 agent 的职责，本技能不自动生成）。
-- 非 SEO、与发布无关的随手出图场景。
+- When generating OG images, hero images, schema visuals, infographics, or similar SEO assets as part of a broader SEO or content-publishing workflow: OG/social preview cards, blog heroes, product shots, infographics, schema images, social squares, Pinterest pins, favicons, etc.
+- When an upstream audit (e.g. `seo-images`) has identified missing or low-quality images and you need to drive generation from those findings.
 
-## 前置检查
+**Do NOT use when:**
+- The required image-generation extension (banana MCP) is not installed or not connected — install it first.
+- You only need to **analyze/audit/score** images rather than generate them (that is the job of `seo-images` or the audit agent; this skill never auto-generates from an audit).
+- The request is a casual, non-SEO, non-publishing image task.
 
-需要 banana 扩展提供 MCP 工具。使用前先确认 `gemini_generate_image`、`set_aspect_ratio` 等工具可用；不可用则提示用户安装：
+### Architecture note
+
+This skill has two components with distinct roles:
+- **SKILL.md** (this file): handles interactive `/seo image-gen` commands for generating images.
+- **Agent** (`agents/seo-image-gen.md`): an audit-only analyst spawned during `/seo audit` to assess existing OG/social images and produce a generation plan — it never auto-generates.
+
+## Steps
+
+### Prerequisites
+
+This skill requires the banana extension. Before using any image-generation tool, verify the MCP server is connected by checking that `gemini_generate_image` or `set_aspect_ratio` tools are available. If they are not, inform the user and provide install instructions:
 
 ```bash
 ./extensions/banana/install.sh
 ```
 
-## 步骤 / 指令
+### Generation pipeline
 
-1. **识别用例**：从命令或上下文判定（og / hero / product / infographic / custom / batch）。
-2. **套用 SEO 默认参数**：按下表映射宽高比、分辨率、领域模式。
-3. **设置宽高比**：调用 `set_aspect_ratio` MCP 工具。
-4. **构建推理简报**（创意总监 6 要素管线，按需加载 `references/prompt-engineering.md`）：领域模式加权（Subject 30% / Style 25% / Context 15% …），描述要**具体且有画面感**——写"镜头看到了什么"。
-5. **生成**：调用 `gemini_generate_image`。
-6. **跑生成后 SEO 清单**（见下）。
+For every generation request:
 
-### 用例 → 参数映射
+1. **Identify use case** from the command or context (og, hero, product, infographic, custom, batch).
+2. **Apply SEO defaults** from the use-case table below (aspect ratio, resolution, domain mode).
+3. **Set aspect ratio** via the `set_aspect_ratio` MCP tool.
+4. **Construct a Reasoning Brief** using the banana Creative Director pipeline:
+   - Load `references/prompt-engineering.md` for the 6-component system.
+   - Apply domain-mode emphasis (Subject 30%, Style 25%, Context 15%, etc.).
+   - Be SPECIFIC and VISCERAL: describe what the camera sees.
+5. **Generate** via the `gemini_generate_image` MCP tool.
+6. **Run the post-generation SEO checklist** (below).
 
-| 用例 | 宽高比 | 分辨率 | 领域模式 | 说明 |
-|---|---|---|---|---|
-| OG/社交预览 | `16:9` | `1K` | Product / UI-Web | 干净专业、留白利于叠字 |
-| 博客 Hero | `16:9` | `2K` | Cinema / Editorial | 戏剧性、氛围感、编辑级质感 |
-| Schema 配图 | `4:3` | `1K` | Product | 描述性、对应 ImageObject |
-| 社交方图 | `1:1` | `1K` | UI-Web | 平台优化方图 |
-| 产品图 | `4:3` | `2K` | Product | 白底、影棚布光 |
-| 信息图 | `2:3` | `4K` | Infographic | 数据密集、竖版 |
-| Favicon/图标 | `1:1` | `512` | Logo | 极简、可缩放、易识别 |
-| Pinterest Pin | `2:3` | `2K` | Editorial | 高竖版卡 |
+### Quick reference (commands)
 
-### 模型路由
+| Command | What it does |
+|---------|-------------|
+| `/seo image-gen og <description>` | Generate OG/social preview image (1200x630 feel) |
+| `/seo image-gen hero <description>` | Blog hero image (widescreen, dramatic) |
+| `/seo image-gen product <description>` | Product photography (clean, white BG) |
+| `/seo image-gen infographic <description>` | Infographic visual (vertical, data-heavy) |
+| `/seo image-gen custom <description>` | Custom image with full Creative Director pipeline |
+| `/seo image-gen batch <description> [N]` | Generate N variations (default: 3) |
 
-| 场景 | 模型 | 理由 |
-|---|---|---|
-| OG/社交预览 | `gemini-3.1-flash-image-preview` @1K | 快、省 |
-| Hero/产品图 | `gemini-3.1-flash-image-preview` @2K | 质量+细节 |
-| 含文字信息图 | `gemini-3.1-flash-image-preview` @2K, thinking: high | 文字渲染更好 |
-| 快速草稿 | `gemini-2.5-flash-image` @512 | 快速迭代 |
+### Use case → parameter mapping
 
-### 预设（可选）
+Each use case maps to pre-configured banana parameters:
 
-用户提到品牌或已配置 SEO 预设时，先列出并套用为默认：
+| Use Case | Aspect Ratio | Resolution | Domain Mode | Notes |
+|----------|-------------|------------|-------------|-------|
+| **OG/Social Preview** | `16:9` | `1K` | Product or UI/Web | Clean, professional, text-friendly |
+| **Blog Hero** | `16:9` | `2K` | Cinema or Editorial | Dramatic, atmospheric, editorial quality |
+| **Schema Image** | `4:3` | `1K` | Product | Clean, descriptive, schema ImageObject |
+| **Social Square** | `1:1` | `1K` | UI/Web | Platform-optimized square |
+| **Product Photo** | `4:3` | `2K` | Product | White background, studio lighting |
+| **Infographic** | `2:3` | `4K` | Infographic | Data-heavy, vertical layout |
+| **Favicon/Icon** | `1:1` | `512` | Logo | Minimal, scalable, recognizable |
+| **Pinterest Pin** | `2:3` | `2K` | Editorial | Tall vertical card |
+
+### Model routing
+
+| Scenario | Model | Why |
+|----------|-------|-----|
+| OG images, social previews | `gemini-3.1-flash-image-preview` @ 1K | Fast, cost-effective |
+| Hero images, product photos | `gemini-3.1-flash-image-preview` @ 2K | Quality + detail |
+| Infographics with text | `gemini-3.1-flash-image-preview` @ 2K, thinking: high | Better text rendering |
+| Quick drafts | `gemini-2.5-flash-image` @ 512 | Rapid iteration |
+
+### Check for presets
+
+If the user mentions a brand or has SEO presets configured, list and apply matching presets as defaults:
 
 ```bash
-python3 ~/.claude/skills/seo-image-generator/scripts/presets.py list
+python3 ~/.claude/skills/seo-image-gen/scripts/presets.py list
 ```
 
-也可参考 `references/seo-image-presets.md` 中的 SEO 预设模板。
+Also check `references/seo-image-presets.md` for SEO-specific preset templates.
 
-## 生成后 SEO 清单
+### Post-generation SEO checklist
 
-每次成功生成后，引导用户完成：
+After every successful generation, guide the user on:
 
-1. **Alt 文本**：写描述性、含目标关键词的 alt。
-2. **文件命名**：`关键词-描述-宽x高.webp`。
-3. **WebP 转换**（提速）：
+1. **Alt text**: write descriptive, keyword-rich alt text for the generated image.
+2. **File naming**: rename to SEO-friendly format `keyword-description-widthxheight.webp`.
+3. **WebP conversion** (page speed):
    ```bash
    magick output.png -quality 85 output.webp
    ```
-4. **体积**：Hero 图 <200KB，缩略图 <100KB。
-5. **Schema 标记**（ImageObject）：
+4. **File size**: target under 200KB for hero images, under 100KB for thumbnails.
+5. **Schema markup** (`ImageObject`):
    ```json
    {
      "@type": "ImageObject",
      "url": "https://example.com/images/keyword-description.webp",
      "width": 1200,
      "height": 630,
-     "caption": "含目标关键词的描述性说明"
+     "caption": "Descriptive caption with target keyword"
    }
    ```
-6. **OG meta 标签**（社交预览图）：
+6. **OG meta tags** (for social preview images):
    ```html
    <meta property="og:image" content="https://example.com/images/og-image.webp" />
    <meta property="og:image:width" content="1200" />
    <meta property="og:image:height" content="630" />
-   <meta property="og:image:alt" content="描述性 alt 文本" />
+   <meta property="og:image:alt" content="Descriptive alt text" />
    ```
 
-## 示例
+### Response format
+
+After generating, always provide:
+1. **Image path**: where it was saved.
+2. **Crafted prompt**: show what was sent to the API (educational).
+3. **Settings**: model, aspect ratio, resolution.
+4. **SEO checklist**: alt-text suggestion, file naming, WebP conversion.
+5. **Schema snippet**: `ImageObject` or `og:image` markup if applicable.
+
+## Example
 
 ```text
-/seo image-gen og  "SaaS 仪表盘上线公告，深色科技风，左侧留白叠标题"
-/seo image-gen hero "AI 数据中心夜景，冷蓝光，电影级氛围"
-/seo image-gen infographic "2026 内容营销趋势，竖版，5 段数据，品牌主色"
-/seo image-gen batch "极简咖啡品牌产品图" 3   # 生成 3 个变体（默认 3）
+/seo image-gen og  "SaaS dashboard launch announcement, dark tech style, left negative space for headline overlay"
+/seo image-gen hero "AI data center at night, cool blue light, cinematic atmosphere"
+/seo image-gen infographic "2026 content marketing trends, vertical, 5 data sections, brand primary color"
+/seo image-gen batch "minimal coffee brand product shot" 3   # 3 variations (default: 3)
 ```
 
-返回时务必给出：图片保存路径、实际发送的提示词（教学用）、设置（模型/宽高比/分辨率）、SEO 清单、可用的 ImageObject 或 og:image 片段。
+## Notes
 
-## 注意事项
+### Cost awareness
 
-- **成本透明**：出图花钱。批量前先报估价；每次生成记账，需要时出汇总：
-  ```bash
-  python3 ~/.claude/skills/seo-image-generator/scripts/cost_tracker.py log --model MODEL --resolution RES --prompt "brief"
-  python3 ~/.claude/skills/seo-image-generator/scripts/cost_tracker.py summary
-  ```
-  参考价（gemini-3.1-flash）：512 ≈ $0.02、1K ≈ $0.04、2K ≈ $0.08、4K ≈ $0.16 /张。
-- **错误处理**：
-  - MCP 未配置 / 扩展未装 → `./extensions/banana/install.sh`。
-  - API key 失效 → 在 https://aistudio.google.com/apikey 重新申请。
-  - 限流 429 → 等 60s 重试（免费档约 10 RPM / 500 RPD）。
-  - `IMAGE_SAFETY` → 改写提示词（见 `references/prompt-engineering.md` 安全节）。
-  - MCP 不可用兜底：`python3 ~/.claude/skills/seo-image-generator/scripts/generate.py --prompt "..." --aspect-ratio "16:9"`。
-- **按需加载参考**：勿启动即全量加载 `references/` 下文档（prompt-engineering / gemini-models / mcp-tools / post-processing / cost-tracking / presets …）。
-- 生成结果不替代环境内的验证、测试或专家审核；输入、权限、安全边界或成功标准缺失时，先停下来问清。
+Image generation costs money. Be transparent: show an estimated cost before generating (especially for batch), and log every generation.
 
-## 互见
+```bash
+python3 ~/.claude/skills/seo-image-gen/scripts/cost_tracker.py log --model MODEL --resolution RES --prompt "brief"
+python3 ~/.claude/skills/seo-image-gen/scripts/cost_tracker.py summary
+```
 
-- related：`seo-images` —— 图片分析/审计，识别缺失或低质图，其结论可驱动本技能生成。
-- combines_with：`seo-schema` —— 生成后产出 `ImageObject` Schema 指向新资源。
-- related：`seo-audit` —— 站点审计会派生（audit-only）分析 agent，产出生成计划（计划由它出、图由本技能生）。
+Approximate costs (gemini-3.1-flash): 512 ≈ $0.02 · 1K ≈ $0.04 · 2K ≈ $0.08 · 4K ≈ $0.16 per image.
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+### Error handling
+
+| Error | Resolution |
+|-------|-----------|
+| MCP not configured / extension not installed | Run `./extensions/banana/install.sh` |
+| API key invalid | New key at https://aistudio.google.com/apikey |
+| Rate limited (429) | Wait 60s, retry. Free tier: ~10 RPM / ~500 RPD |
+| `IMAGE_SAFETY` | Rephrase the prompt — see `references/prompt-engineering.md` Safety section |
+| MCP unavailable | Fall back: `python3 ~/.claude/skills/seo-image-gen/scripts/generate.py --prompt "..." --aspect-ratio "16:9"` |
+
+### Reference documentation (load on demand)
+
+Do NOT load all references at startup:
+- `references/prompt-engineering.md`: 6-component system, domain modes, templates.
+- `references/gemini-models.md`: model specs, rate limits, capabilities.
+- `references/mcp-tools.md`: MCP tool parameters and responses.
+- `references/post-processing.md`: ImageMagick/FFmpeg pipeline recipes.
+- `references/cost-tracking.md`: pricing, usage tracking.
+- `references/presets.md` and `references/seo-image-presets.md`: preset management and SEO templates.
+
+### Limitations
+
+- Use this skill only when the task clearly matches the scope above.
+- The output is not a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+
+## See also
+
+- **seo-images** (related): image analysis/audit that identifies missing or low-quality images; its findings drive generation here.
+- **seo-schema** (combines_with): after generation, produce `ImageObject` schema markup pointing to the new assets.
+- **seo-audit** (related): a site audit spawns the audit-only seo-image-gen agent to produce a prioritized generation plan (the agent plans, this skill generates).
+- **seo-meta-tags-optimizer**, **seo-content-writer**, **social-share-card-hardener**: combine for an end-to-end SEO publishing workflow.

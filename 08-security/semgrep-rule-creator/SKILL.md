@@ -1,14 +1,14 @@
 ---
 name: semgrep-rule-creator
-title: Semgrep 自定义规则编写
-description: 当需要为特定漏洞或代码模式编写并测试 Semgrep 自定义规则时使用；产出含规则 YAML 与测试用例（ruleid/ok 注解）的成对文件并跑通 semgrep --test；不适用于运行现成规则集或无需自定义规则的通用静态分析；触发词：semgrep、自定义规则、taint mode、污点分析、静态分析规则、SAST、custom semgrep rule
+title: Semgrep Rule Creator
+description: Creates custom Semgrep rules for detecting security vulnerabilities, bug patterns, and code patterns. Use when writing Semgrep rules or building custom static analysis detections.
 domain: 安全/appsec
-triggers: [semgrep, 自定义规则, taint mode, 污点分析, 静态分析规则, SAST, custom semgrep rule, semgrep rule]
+triggers: [semgrep, taint mode, SAST, custom semgrep rule, semgrep rule]
 tags: [security, appsec, semgrep, sast, static-analysis, taint-analysis, code-pattern]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [semgrep, WebFetch, Bash, Read, Write, Edit, Glob, Grep]
+tools: []
 requires: []
 related: [sast-configurator, codeql-scanner, vulnerability-variant-analysis, security-antipattern-hook]
 combines_with: [sast-configurator, vulnerability-variant-analysis, false-positive-check]
@@ -16,83 +16,110 @@ license: CC-BY-SA-4.0
 source: trailofbits/skills
 source_license: CC-BY-SA-4.0
 ---
-## 何时使用
+# Semgrep Rule Creator
 
-适合：为具体 bug 模式编写 Semgrep 规则；检测代码库中的安全漏洞；为数据流类漏洞（注入、XSS、命令执行等）编写污点（taint）规则；用规则强制编码规范。
+Create production-quality Semgrep rules with proper testing and validation.
 
-不该用（负边界）：
-- 只是运行现成的 Semgrep 规则集 —— 不需要本技能。
-- 不写自定义规则的通用静态分析 —— 改用通用静态分析工具/技能。
+## When to Use
 
-本工作流是「严格」流程，不可跳步：先读文档、测试先行、必须 100% 测试通过、最后才做优化。
+**Ideal scenarios:**
+- Writing Semgrep rules for specific bug patterns
+- Writing rules to detect security vulnerabilities in your codebase
+- Writing taint mode rules for data flow vulnerabilities
+- Writing rules to enforce coding standards
 
-## 步骤
+## When NOT to Use
 
-固定 7 步，逐步推进并勾选：
+Do NOT use this skill for:
+- Running existing Semgrep rulesets
+- General static analysis without custom rules (use `static-analysis` skill)
 
-1. 分析问题：先用 WebFetch 读完下方「指令」中的 7 份官方文档；用「讲给初级开发」的方式说清要检测的漏洞/模式；确定目标语言；选定方法。
-2. 先写测试：在以 rule-id 命名的目录下创建测试文件，只用 `# ruleid:`（必须命中）和 `# ok:`（必须不命中）两种注解。
-3. 分析 AST：`semgrep --dump-ast --lang <language> <rule-id>.<ext>`，看清 Semgrep 实际如何解析代码，避免因树结构差异导致模式失效。
-4. 编写规则：选择合适的 pattern 算子写规则；先 `semgrep --validate --config <rule-id>.yaml` 校验 YAML。
-5. 迭代到全绿：每次改动后跑 `semgrep --test --config <rule-id>.yaml <rule-id>.<ext>`，直到输出 "All tests passed"，既无漏报也无误报。污点规则用 `--dataflow-traces` 调试。
-6. 优化规则：测试全通过后再去冗余（引号变体、被 `...` 覆盖的子集、可用 metavariable-regex 合并的重复项），每次优化后必须重跑测试，失败就回退该优化。
-7. 最终运行：`semgrep --config <rule-id>.yaml <rule-id>.<ext>`，确认 message 简洁达意、不残留未插值的元变量（如 $VAR）。
+## Rationalizations to Reject
 
-方法选择：
-- 优先污点模式（mode: taint）：不可信输入流向危险 sink 的数据流问题。它跟踪数据流而非仅匹配语法，能显著降低注入类误报。
-- 模式匹配（pattern）：无数据流需求的简单语法模式。
+When writing Semgrep rules, reject these common shortcuts:
 
-二者可互相切换试验：taint 不传播/误报多就退回 pattern；pattern 在安全用例上误报多就改试 taint。目标是规则可用，而非死守一种方法。
+- **"The pattern looks complete"** → Still run `semgrep --test --config <rule-id>.yaml <rule-id>.<ext>` to verify. Untested rules have hidden false positives/negatives.
+- **"It matches the vulnerable case"** → Matching vulnerabilities is half the job. Verify safe cases don't match (false positives break trust).
+- **"Taint mode is overkill for this"** → If data flows from user input to a dangerous sink, taint mode gives better precision than pattern matching.
+- **"One test is enough"** → Include edge cases: different coding styles, sanitized inputs, safe alternatives, and boundary conditions.
+- **"I'll optimize the patterns first"** → Write correct patterns first, optimize after all tests pass. Premature optimization causes regressions.
+- **"The AST dump is too complex"** → The AST reveals exactly how Semgrep sees code. Skipping it leads to patterns that miss syntactic variations.
 
-输出结构 —— 目录以 rule-id 命名，恰好两个文件：
-```
-<rule-id>/
-├── <rule-id>.yaml     # Semgrep 规则
-└── <rule-id>.<ext>    # 带 ruleid/ok 注解的测试文件
-```
+## Anti-Patterns
 
-## 指令
-
-编写前必须用 WebFetch 读完以下 7 份文档（raw 链接）：
-1. Rule Syntax：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/rule-syntax.md
-2. Pattern Syntax：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/pattern-syntax.mdx
-3. Testing Rules：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/testing-rules.md
-4. Taint analysis：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/data-flow/taint-mode/overview.md
-5. Advanced taint：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/data-flow/taint-mode/advanced.md
-6. Constant propagation：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/data-flow/constant-propagation.md
-7. Trail of Bits Testing Handbook（Semgrep 章）：https://raw.githubusercontent.com/trailofbits/testing-handbook/refs/heads/main/content/docs/static-analysis/semgrep/10-advanced.md
-
-常用命令：
-```bash
-semgrep --test --config <rule-id>.yaml <rule-id>.<ext>            # 跑测试
-semgrep --validate --config <rule-id>.yaml                        # 校验 YAML
-semgrep --dataflow-traces --config <rule-id>.yaml <rule-id>.<ext> # 污点数据流追踪
-semgrep --dump-ast --lang <language> <rule-id>.<ext>             # 查看 AST
-semgrep --lang <language> --pattern <pattern> <rule-id>.<ext>     # 单模式试跑
-```
-
-关键约束（必须遵守）：
-- 测试先行，绝不写无测试的规则；"大部分通过" 不可接受，必须 100% 通过。
-- 模式要具体，避免 `pattern: $X` 之类过宽匹配；禁止用 `languages: generic` 做语言专属规则。
-- 一个 YAML 只放一条规则，不要合并多条。
-- 测试注解只允许 `ruleid:` 和 `ok:`，且必须独占一行、紧贴目标代码的上一行，行内不得有其他文字；禁止用多行注释（如 `/* ruleid: ... */`）承载注解；禁止 `todook`/`todoruleid`。
-- 元变量必须大写（`$X`、`$FUNC`），`$_` 匿名、`$...VAR` 匹配零或多个参数。
-- severity 用 LOW/MEDIUM/HIGH/CRITICAL（ERROR/WARNING/INFO 为旧式）。
-- 优化放最后，先正确后简化，避免过早优化引入回归。
-
-要拒绝的常见借口：「模式看起来完整了」仍要 `--test`；「命中了漏洞用例」还要确认安全用例不命中；「taint 太重」——只要输入流到危险 sink，taint 精度更高；「一个测试够了」——要覆盖不同写法、已净化输入、安全替代与边界；「AST 太复杂」——AST 正揭示 Semgrep 如何看代码，跳过会漏掉语法变体。
-
-## 示例
-
-反例 vs 正例（模式过宽）：
+**Too broad** - matches everything, useless for detection:
 ```yaml
-# BAD: 匹配任意函数调用
+# BAD: Matches any function call
 pattern: $FUNC(...)
-# GOOD: 指向危险函数
+
+# GOOD: Specific dangerous function
 pattern: eval(...)
 ```
 
-污点模式规则 + 测试：
+**Missing safe cases in tests** - leads to undetected false positives:
+```python
+# BAD: Only tests vulnerable case
+# ruleid: my-rule
+dangerous(user_input)
+
+# GOOD: Include safe cases to verify no false positives
+# ruleid: my-rule
+dangerous(user_input)
+
+# ok: my-rule
+dangerous(sanitize(user_input))
+
+# ok: my-rule
+dangerous("hardcoded_safe_value")
+```
+
+**Overly specific patterns** - misses variations:
+```yaml
+# BAD: Only matches exact format
+pattern: os.system("rm " + $VAR)
+
+# GOOD: Matches all os.system calls with taint tracking
+mode: taint
+pattern-sources:
+  - pattern: input(...)
+pattern-sinks:
+  - pattern: os.system(...)
+```
+
+## Strictness Level
+
+This workflow is **strict** - do not skip steps:
+- **Read documentation first**: See [Documentation](#documentation) before writing Semgrep rules
+- **Test-first is mandatory**: Never write a rule without tests
+- **100% test pass is required**: "Most tests pass" is not acceptable
+- **Optimization comes last**: Only simplify patterns after all tests pass
+- **Avoid generic patterns**: Rules must be specific, not match broad patterns
+- **Prioritize taint mode**: For data flow vulnerabilities
+- **One YAML file - one Semgrep rule**: Each YAML file must contain only one Semgrep rule; don't combine multiple rules in a single file
+- **No generic rules**: When targeting a specific language for Semgrep rules - avoid generic pattern matching (`languages: generic`)
+- **Forbidden `todook` and `todoruleid` test annotations**: `todoruleid: <rule-id>` and `todook: <rule-id>` annotations in tests files for future rule improvements are forbidden
+
+## Overview
+
+This skill guides creation of Semgrep rules that detect security vulnerabilities and code patterns. Rules are created iteratively: analyze the problem, write tests first, analyze AST structure, write the rule, iterate until all tests pass, optimize the rule.
+
+**Approach selection:**
+- **Taint mode** (prioritize): Data flow issues where untrusted input reaches dangerous sinks
+- **Pattern matching**: Simple syntactic patterns without data flow requirements
+
+**Why prioritize taint mode?** Pattern matching finds syntax but misses context. A pattern `eval($X)` matches both `eval(user_input)` (vulnerable) and `eval("safe_literal")` (safe). Taint mode tracks data flow, so it only alerts when untrusted data actually reaches the sink—dramatically reducing false positives for injection vulnerabilities.
+
+**Iterating between approaches:** It's okay to experiment. If you start with taint mode and it's not working well (e.g., taint doesn't propagate as expected, too many false positives/negatives), switch to pattern matching. Conversely, if pattern matching produces too many false positives on safe cases, try taint mode instead. The goal is a working rule—not rigid adherence to one approach.
+
+**Output structure** - exactly 2 files in a directory named after the rule-id:
+```
+<rule-id>/
+├── <rule-id>.yaml     # Semgrep rule
+└── <rule-id>.<ext>    # Test file with ruleid/ok annotations
+```
+
+## Quick Start
+
 ```yaml
 rules:
   - id: insecure-eval
@@ -104,42 +131,47 @@ rules:
       - pattern: request.args.get(...)
     pattern-sinks:
       - pattern: eval(...)
-    pattern-sanitizers:        # 可选
-      - pattern: sanitize(...)
 ```
-测试文件 `insecure-eval.py`（注解须紧贴下一行代码）：
+
+Test file (`insecure-eval.py`):
 ```python
 # ruleid: insecure-eval
 eval(request.args.get('code'))
 
 # ok: insecure-eval
 eval("print('safe')")
-
-# ok: insecure-eval
-eval(sanitize(request.args.get('code')))
-```
-跑测试（在规则目录内）：`semgrep --test --config insecure-eval.yaml insecure-eval.py`，期望输出 `1/1: ✓ All tests passed`。
-
-优化示例（用 metavariable-regex 合并）：
-```yaml
-patterns:
-  - pattern: $FUNC($X)
-  - metavariable-regex:
-      metavariable: $FUNC
-      regex: ^(md5|sha1|sha256)$
 ```
 
-## 注意事项
+Run tests (from rule directory): `semgrep --test --config <rule-id>.yaml <rule-id>.<ext>`
 
-- 排错思路：漏命中多半模式过细或缺变体，加 `pattern-either`；误命中多半模式过宽，加 `pattern-not`/`pattern-inside` 收窄；命中行不对调 `focus-metavariable`；taint 不传播查 sanitizer 是否过宽并用 `--dataflow-traces` 看路径；taint 误报补 sanitizer。
-- 用类型化元变量收紧匹配（如 C/C++ `(int $X)`、Go `($R : *zip.Reader).Open(...)`、TS `($X: DomSanitizer).sanitize(...)`）可显著降误报。
-- Semgrep 视若等价：引号风格归一、`func(...)` 覆盖零或多参、尾部 `...` 可省 —— 优化去冗余时据此判断，但去掉后务必重跑测试，某些看似冗余的模式因 AST 差异实为必需。
-- 最终 message 要简洁说明命中模式，且不能残留未被模式捕获、无法插值的元变量。
+## Quick Reference
 
-## 互见
+- For commands, pattern operators, and taint mode syntax, see [quick-reference.md]({baseDir}/references/quick-reference.md).
+- For detailed workflow and examples, you MUST see [workflow.md]({baseDir}/references/workflow.md)
 
-- code-reviewer：自定义 Semgrep 规则可作为代码评审中安全检查的自动化补充。
-- dependency-auditor：与依赖安全审计配合，覆盖源码层与依赖层两类风险。
+## Workflow
 
----
-本条采编自 trailofbits/skills（CC-BY-SA-4.0）。
+Copy this checklist and track progress:
+
+```
+Semgrep Rule Progress:
+- [ ] Step 1: Analyze the Problem
+- [ ] Step 2: Write Tests First
+- [ ] Step 3: Analyze AST structure
+- [ ] Step 4: Write the rule
+- [ ] Step 5: Iterate until all tests pass (semgrep --test)
+- [ ] Step 6: Optimize the rule (remove redundancies, re-test)
+- [ ] Step 7: Final Run
+```
+
+## Documentation
+
+**REQUIRED**: Before writing any rule, use WebFetch to read **all** of these 7 links with Semgrep documentation:
+
+1. [Rule Syntax](https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/rule-syntax.md)
+2. [Pattern Syntax](https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/pattern-syntax.mdx)
+3. [Testing Rules](https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/testing-rules.md)
+4. [Taint analysis](https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/data-flow/taint-mode/overview.md)
+5. [Advanced techniques for taint analysis](https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/data-flow/taint-mode/advanced.md)
+6. [Constant propagation](https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/data-flow/constant-propagation.md)
+7. [Trail of Bits Testing Handbook - Semgrep chapter](https://raw.githubusercontent.com/trailofbits/testing-handbook/refs/heads/main/content/docs/static-analysis/semgrep/10-advanced.md)

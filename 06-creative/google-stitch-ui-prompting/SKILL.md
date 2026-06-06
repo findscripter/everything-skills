@@ -1,14 +1,14 @@
 ---
 name: google-stitch-ui-prompting
-title: Google Stitch UI 设计：AI 界面提示词工程
-description: 当用 Google Stitch（Gemini 驱动的 Labs UI 生成器）由文字/草图生成 Web 或移动端界面时使用；做提示词工程，产出具体、含视觉风格与功能要求的可执行提示词及迭代/导出方案；不适用于手写生产代码、做交互动效实现或替代真人评审。触发词：Stitch、UI 提示词、文字转界面、界面生成、导出 Figma/HTML。
+title: Google Stitch UI Prompting
+description: Use when generating web or mobile UI from text/sketches with Google Stitch (Gemini-powered Labs UI generator); covers prompt engineering for specific, visually-directed, actionable prompts plus iteration and export — not for hand-writing production code or replacing human review.
 domain: 创意/design
-triggers: [用 Google Stitch 生成 UI, 写界面/UI 提示词, 文字或草图转界面设计, 把 Stitch 设计导出到 Figma 或 HTML, 多屏 App 流程原型, AI 界面提示词工程]
-tags: [google-stitch, ui设计, 提示词工程, ai生成界面, 原型设计, figma, 前端, 创意]
-level: 进阶
+triggers: [generate UI with Google Stitch, write a UI/interface prompt, turn text or a sketch into an interface design, export a Stitch design to Figma or HTML, prototype a multi-screen app flow, AI interface prompt engineering]
+tags: [google-stitch, ui-design, prompt-engineering, ai-ui-generation, prototyping, figma, frontend, creative]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Google Stitch, Figma, HTML/CSS]
+tools: []
 requires: []
 related: [stitch-design-system-taste, stitch-iterative-build-loop, magic-ui-component-generator, high-end-visual-design]
 combines_with: [design-dev-handoff, web-artifacts-builder]
@@ -16,65 +16,73 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-- 用 **Google Stitch**（Google Labs 出品、Gemini 2.5 Flash 驱动的实验性 UI 生成器）把文字描述或草图/截图转成 Web、移动端界面时。
-- 需要规划多屏 App 流程、响应式布局，并导出到 HTML/CSS、Figma 或代码片段时。
-- 现有界面要做定向迭代（注释微调、生成变体、渐进细化）时。
+Use this skill for expert prompt engineering with **Google Stitch** — the experimental, Gemini 2.5 Flash-powered AI UI generator by Google Labs that turns text prompts and visual references into functional UI designs. Reach for it when you need to:
 
-**不该用的边界：**
-- 不要把 Stitch 产出当成可直接上线的成品——它是起点，需人工重构、补无障碍属性、优化资源后才能生产。
-- 不负责手写/实现交互动效与框架代码，也不替代环境内的测试与专家评审。
-- 输入、权限、安全边界或验收标准缺失时，先停下来问清，不要硬编。
+- Convert natural-language descriptions or sketches/wireframes/screenshots into web or mobile interfaces.
+- Plan multi-screen app flows and responsive layouts, then export to HTML/CSS, Figma, or code.
+- Run targeted iteration on an existing design (annotate-to-edit, variant generation, progressive refinement).
 
-## 步骤
+What Stitch supports:
 
-1. **定位与上下文**：一句话写清「为谁、做什么屏/组件」，如「SaaS 分析平台的仪表盘」。
-2. **列关键功能**：用要点列出组件与具体细节（指标卡、折线图、活动流、快捷按钮）。
-3. **定视觉风格**：色板（主色+点缀色）、设计调性（极简/现代/玻璃拟态/活泼）、排版、留白密度。
-4. **指定平台与响应式**：移动/平板/桌面/响应式，必要时给断点（如 320px→1440px）。
-5. **补功能要求**：按钮动作、表单校验、导航模式、加载态、空态、错误处理。
-6. **生成并确认**：多屏时 Stitch 会在生成前请你确认，核对后再产出。
-7. **迭代**：注释微调 →（按需）生成变体 → 渐进细化。
-8. **导出与收尾**：核对断点、对比度、交互态、命名后导出，再做生产级重构。
+- Text-to-UI generation from natural language prompts
+- Image-to-UI conversion from sketches, wireframes, or screenshots
+- Multi-screen app flows and responsive layouts
+- Export to HTML/CSS, Figma, and code
+- Iterative refinement with variants and annotations
 
-## 指令
+**Out of scope / boundaries:**
 
-**提示词模板：**
+- Do not treat Stitch output as a production-ready product — it is a starting point, not a final product. It needs human refactoring, accessibility attributes, and asset optimization before shipping.
+- This skill does not hand-write or implement interaction/animation logic or framework code, and it does not substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing — do not hard-code around them.
+
+## Steps
+
+1. **Set context.** State in one line who and what screen/component the design is for (e.g., "Dashboard for SaaS analytics platform").
+2. **List key features.** Use bullet points naming components with specific details (metric cards, line chart, activity feed, quick-action buttons).
+3. **Define visual style.** Color palette (primary + accent), design aesthetic (minimalist / modern / glassmorphic / playful), typography, spacing and density (compact / spacious / balanced).
+4. **Specify platform and responsive behavior.** Mobile / tablet / desktop / responsive; give breakpoints when relevant (e.g., 320px → 1440px).
+5. **Add functional requirements.** Button actions and CTAs, form fields and validation, navigation patterns, loading states, empty states, error handling.
+6. **Generate and confirm.** For multi-screen flows, Stitch asks for confirmation before generating — review it to ensure alignment with your vision.
+7. **Iterate.** Annotate to edit → generate variants (as needed) → progressively refine.
+8. **Export and finish.** Verify breakpoints, color contrast, interactive states, and naming, then export and refactor to production standards.
+
+### Core prompting principles
+
+1. **Be specific and detailed** — generic prompts yield generic results; specific prompts with clear requirements produce tailored, professional designs.
+2. **Always define visual style and theme** — color palette + aesthetic + layout, to avoid generic "AI-flavored" outputs.
+3. **Structure multi-screen flows clearly** — list each screen as bullet points before generation.
+4. **Use design terminology** — terms like "hero section," "card layout," "glassmorphic," "bento grid," "kanban" help Stitch understand your intent.
+5. **Specify interactions** — describe hover states, click actions, and transitions for more complete designs.
+6. **Think in components** — break complex screens into reusable components (header, card, form, etc.).
+7. **Iterate incrementally** — make small, focused changes rather than complete redesigns.
+8. **Test responsiveness** — verify at multiple breakpoints (mobile, tablet, desktop).
+9. **Consider accessibility** — mention color contrast, font sizes, and touch-target sizes in prompts.
+
+## Example
+
+**Prompt structure template:**
+
 ```
-[屏/组件类型] for [用户/场景]
+[Screen/Component Type] for [User/Context]
 
 Key Features:
-- [功能1，含具体细节]
-- [功能2，含具体细节]
-- [功能3，含具体细节]
+- [Feature 1 with specific details]
+- [Feature 2 with specific details]
+- [Feature 3 with specific details]
 
 Visual Style:
-- [色彩方案]
-- [设计调性]
-- [布局方式]
+- [Color scheme]
+- [Design aesthetic]
+- [Layout approach]
 
 Platform: [Mobile/Web/Responsive]
 ```
 
-**核心原则（务必遵守）：**
-- 越具体越好：泛泛的提示得到泛泛的结果。
-- 永远带视觉方向：色板 + 调性 + 布局，避免「AI 味」通用输出。
-- 多屏用要点逐屏列清。
-- 善用设计术语：hero section、card layout、glassmorphic、bento grid、kanban，帮 Stitch 准确理解意图。
-- 描述交互态（hover、点击、过渡）让设计更完整。
-- 拆成可复用组件思考（header、card、form）。
+**Filled-in example:**
 
-## 示例
-
-**有效 vs 无效（对照）：**
-```
-✗ Create a dashboard
-✓ Member dashboard with course modules grid, progress tracking bar,
-  and community feed sidebar using purple theme and card-based layout
-```
-
-**完整模板示例：**
 ```
 Dashboard for SaaS analytics platform
 
@@ -92,7 +100,18 @@ Visual Style:
 Platform: Responsive web (desktop-first)
 ```
 
-**多屏流程：**
+**Specific vs. vague (the key contrast):**
+
+```
+✗ Create a dashboard
+✓ Member dashboard with course modules grid, progress tracking bar,
+  and community feed sidebar using purple theme and card-based layout
+```
+
+Why it works: it specifies components (modules, progress, feed), layout structure (grid, sidebar), visual style (purple theme, cards), and context (member dashboard).
+
+**Multi-screen flow** (Stitch will ask for confirmation before generating multiple screens):
+
 ```
 Fitness tracking app with:
 - Onboarding screen with goal selection
@@ -101,32 +120,52 @@ Fitness tracking app with:
 - Profile screen with achievements and settings
 ```
 
-**迭代三招：**
-- 注释微调（annotate to edit）：「Make this button larger and use primary color」「Add more spacing between these cards」——只改注释区域，无需重写整条提示。
-- 生成变体：「Generate 3 variants of this hero section: 1. Image-focused 2. Text-heavy 3. Video background」。
-- 渐进细化：先 `E-commerce homepage`，再 `Add featured products section with 4-column grid and hover effects`，再调色板与 banner。
+**Functional flow with states:**
 
-**反模式 → 改法：**
+```
+Checkout flow with:
+- Cart summary with quantity adjusters
+- Shipping address form with validation
+- Payment method selection (cards, PayPal, Apple Pay)
+- Order confirmation with tracking number
+```
+
+**Three iteration strategies:**
+
+- *Annotate to edit* — make targeted changes without rewriting the whole prompt: "Make this button larger and use primary color", "Add more spacing between these cards", "Change this to a horizontal layout". Stitch updates only the annotated areas.
+- *Generate variants* — explore directions: `Generate 3 variants of this hero section: 1. Image-focused with minimal text 2. Text-heavy with supporting graphics 3. Video background with overlay content`.
+- *Progressive refinement* — start broad, then add specificity: `E-commerce homepage` → `Add featured products section with 4-column grid and hover effects` → `Update color scheme to earth tones (terracotta, sage, cream) and add promotional banner at top`.
+
+**Anti-patterns → fixes:**
+
 ```
 ✗ Make a nice website
 ✓ Portfolio website for photographer with full-screen image gallery,
   project case studies, and contact form. Minimalist black and white
   aesthetic with serif typography.
+
+✗ Create a login page
+✓ Login page for healthcare portal with email/password fields,
+  "Remember me" checkbox, "Forgot password" link, and SSO options
+  (Google, Microsoft). Professional, trustworthy design with blue medical theme.
+
+✗ Design an app for task management
+✓ Task management app with kanban board layout, drag-and-drop cards,
+  priority labels, and due date indicators. Modern, productivity-focused
+  design with purple/teal gradient accents and dark mode support.
 ```
 
-## 注意事项
+## Notes
 
-- **导出前**：核对响应式断点、色彩对比度（无障碍）、交互态是否定义、组件命名与结构。
-- **导出后**：按生产标准重构代码、补语义化 HTML 与 ARIA/alt、优化图片资源、补动效与微交互。
-- 导出格式：HTML/CSS（语义化标记）、Figma（Paste to Figma 接入设计系统）、组件级代码片段。
-- 典型工作流：Stitch → Figma → 代码（设计系统交付）；Stitch → HTML → React/Vue/Svelte 组件。
-- 多断点（移动/平板/桌面）都要验证；在提示里就提及对比度、字号、触控目标尺寸等无障碍要求。
-- 记住：Stitch 加速探索与确定视觉方向，最终仍需人的判断与生产标准把关。
+- **Before exporting:** verify responsive breakpoints, check color contrast for accessibility, ensure interactive states are defined, and review component naming and structure.
+- **After exporting:** refactor generated code for production standards, add proper semantic HTML tags, implement accessibility attributes (ARIA labels, alt text), optimize images and assets, and add animations and micro-interactions.
+- **Export formats:** HTML/CSS (clean, semantic markup), Figma ("Paste to Figma" for design-system integration), and component-level code snippets for frameworks.
+- **Typical workflows:** Stitch → Figma → Code (design-system handoff); Stitch → HTML/CSS → React/Vue/Svelte components; rapid prototyping (create variations → test with users/stakeholders → iterate → finalize).
+- Always validate across multiple breakpoints (mobile/tablet/desktop), and bake accessibility requirements (contrast, font sizes, touch-target sizes) into the prompt itself.
+- **Remember:** Stitch accelerates exploration and establishes visual direction, but the final result still depends on human judgment and production standards.
 
-## 互见
+## See also
 
-- 创意/misc 域内的视觉与原型类技能。
-- Figma、前端框架（React/Vue/Svelte）相关组件落地技能。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT License）。
+- Related Stitch and visual/prototyping skills: stitch-design-system-taste, stitch-iterative-build-loop, magic-ui-component-generator, high-end-visual-design.
+- Combines with: design-dev-handoff, web-artifacts-builder.
+- Figma and frontend-framework (React/Vue/Svelte) component-implementation skills.

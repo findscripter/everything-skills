@@ -1,14 +1,14 @@
 ---
 name: rag-clarity-gate
-title: RAG 入库前文档清晰度校验
-description: 当文档要入 RAG 知识库 / 交给别的 LLM 前，需检查「假设/预测被当成事实」的幻觉风险时使用；做按 9 点逐项审查、强制补不确定性标记、走两轮 HITL 人工确认，产出带状态字段与校验记录的清晰度门禁文档（CGD）；不适用于核查事实真伪（只校验表述形式不验真值）、文档结构分类、改写润色排版；触发词：清晰度门禁、入库前校验、幻觉风险、能否被 LLM 安全读取、CGD、HITL 核验
+title: Clarity Gate v2.1
+description: Pre-ingestion verification for epistemic quality in RAG systems. Ensures documents are properly qualified before entering knowledge bases. Produces CGD (Clarity-Gated Documents) and validates SOT (Source of Truth) files.
 domain: 智能/rag
-triggers: [清晰度门禁, RAG 入库前校验, 幻觉风险检查, 能否被 LLM 安全读取, 不确定性标记, 假设当事实, HITL 核验, CGD 文档, clarity gate, pre-ingestion check]
+triggers: [clarity gate, pre-ingestion check]
 tags: [rag, epistemic-quality, hallucination, hitl, document-verification, llm]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python]
+tools: []
 requires: []
 related: [rag-implementation-workflow, rag-pipeline-builder, production-llm-app-builder, embedding-model-strategies]
 combines_with: [rag-pipeline-builder, fact-checking, ai-model-knowledge-distill]
@@ -16,95 +16,379 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# RAG 入库前文档清晰度校验
+# Clarity Gate v2.1
 
-## 何时使用
+**Purpose:** Pre-ingestion verification system that enforces epistemic quality before documents enter RAG knowledge bases. Produces Clarity-Gated Documents (CGD) compliant with the Clarity Gate Format Specification v2.1.
 
-当一份文档**即将进入 RAG 知识库、或要交给另一个 LLM 读取**，你担心里面的假设、预测、估算会被下游模型当成既定事实，进而放大成「自信的幻觉」时使用本技能。
+**Core Question:** "If another LLM reads this document, will it mistake assumptions for facts?"
 
-核心拷问：**「如果另一个 LLM 读这份文档，它会把假设误当成事实吗？」**
+**Core Principle:** *"Detection finds what is; enforcement ensures what should be. In practice: find the missing uncertainty markers before they become confident hallucinations."*
 
-定位差异——市面工具（UnScientify / HedgeHunter）做的是**检测**「文中是否已有不确定性措辞」；本技能做的是**强制**「在该有不确定性标记的地方补上」（"Revenue will be \$50M" 这类该 hedge 却没 hedge 的句子要被揪出）。
+---
 
-**该用**：文档含预测/估算/假设；写完规格、状态文档、方法论描述后；跨 LLM 会话交接文档；发布未经验证的论断前。
+## What's New in v2.1
 
-**不该用（边界）**：
-- **不核查事实真伪**——本技能只校验「表述形式」(FORM) 不验「真值」(TRUTH)。LLM 完全可以先编造事实、再给假事实补上来源标记从而「骗过」门禁；故 **HITL 人工核验是声明 PASS 前的强制环节**。
-- 不做文档类型分类、不重构文档、不加深链/引用、不评判文笔。
-- 小语料能整体塞进上下文、无需建知识库时，不必走门禁。
+| Feature | Description |
+|---------|-------------|
+| **Claim Completion Status** | PENDING/VERIFIED determined by field presence (no explicit status field) |
+| **Source Field Semantics** | Actionable source (PENDING) vs. what-was-found (VERIFIED) |
+| **Claim ID Format Guidance** | Hash-based IDs preferred, collision analysis for scale |
+| **Body Structure Requirements** | HITL Verification Record section mandatory when claims exist |
+| **New Validation Codes** | E-ST10, W-ST11, W-HC01, W-HC02, E-SC06 (FORMAT_SPEC); E-TB01-07 (SOT validation) |
+| **Bundled Scripts** | `claim_id.py` and `document_hash.py` for deterministic computations |
 
-## 步骤 / 指令
+---
 
-按「9 点语义审查 → 状态字段落盘 → 两轮 HITL → 产出 CGD」推进。9 点决定「有哪些问题」，结构字段（C7-C10 规则）保证状态自洽（如发现冲突即标 `clarity-status: UNCLEAR`，未解决不得声明 `REVIEWED`）。
+## Specifications
 
-**9 个核验点：**
+This skill implements and references:
 
-认知核验（核心 1-4）：
-1. **假设 vs 事实标注**：每条论断须明确「已验证 / 假设」。改法：加 `PROJECTED:`、`HYPOTHESIS:`、`UNTESTED:`、`(estimated)`、`~`、`?`，或附证据「[benchmark data in Table 3]」。
-2. **不确定性标记**：前瞻性陈述须带限定词。"Revenue will be \$50M" → "Revenue is **projected** to be \$50M"。补 projected/estimated/expected/designed to/intended to。
-3. **假设可见性**：影响解读的隐含前提要显式化。"scales linearly" → "scales linearly [assuming <1000 concurrent users]"。
-4. **权威外观的未验证数据**：带具体百分比、对勾的表格看着像实测。红旗：89%/95%/100% 无来源。改法：数字加 (guess)/(est.)/?，表头加 "PROJECTED VALUES - NOT MEASURED"。
+| Specification | Version | Location |
+|---------------|---------|----------|
+| Clarity Gate Format (Unified) | v2.1 | docs/CLARITY_GATE_FORMAT_SPEC.md |
 
-数据质量（补充 5-7）：
-5. **数据一致性**：扫描全文冲突数字/日期（一处 "500 users" 另一处 "750 users"）→ 调和或显式注明差异。
-6. **隐含因果**：未证因果（"短提示词提升回答质量"）→ 改写为「MAY…（hypothesis, not validated）」。
-7. **未来态当现在态**："The system processes 10,000 rps"（尚未建成）→ "is DESIGNED TO process…" 或 "TARGET: 10,000 rps"。
+**Note:** v2.0 unifies CGD and SOT into a single `.cgd.md` format. SOT is now a CGD with an optional `tier:` block.
 
-核验路由（8-9）：
-8. **时间一致性**：文档日期、版本时序须内部自洽且合理（当前 2026 却写 "Last Updated: December 2024"、v1.1.0 早于 v1.0.0 都要标）。改法：更新日期、加 "as of [date]"。
-9. **可外部核查的论断**：定价、统计、比率、竞品能力等具体数字 → 加带日期来源 / 加不确定标记 / 路由到 HITL 或外部检索 / 泛化（"low cost" 替 "\$0.005"）。
+---
 
-**核验层级与两轮 HITL：**
-```
-论断抽取 → 是否存在 Source of Truth？
-   存在 → Tier1 自动核验（图/文、表/文、数值一致性）→ PASS / BLOCK
-   不存在 → Tier2 两轮 HITL（强制）
-       Round A 派生数据确认：来自本次会话已见来源的论断，人确认「解读」无误
-       Round B 真实人工核验：无来源/人自有数据/外推 → APPROVE / REJECT
-```
+## Validation Codes
 
-**确定性状态由字段「存在与否」决定**（无显式 status 字段，防止漏填 who/when）：`confirmed-by` 与 `confirmed-date` 都缺 = PENDING；都在 = VERIFIED；只填其一 = W-HC01 告警。`source` 字段语义随状态变：PENDING 时填「去哪核验」(actionable)，VERIFIED 时填「查到了什么」(evidence)；模糊来源如 "industry reports"/"TBD" 触发 W-HC02。
+Clarity Gate defines validation codes for structural and semantic checks per FORMAT_SPEC v2.1:
 
-**附带脚本（确定性计算）：**
+### HITL Claim Validation (§1.3.2-1.3.3)
+| Code | Check | Severity |
+|------|-------|----------|
+| **W-HC01** | Partial `confirmed-by`/`confirmed-date` fields | WARNING |
+| **W-HC02** | Vague source (e.g., "industry reports", "TBD") | WARNING |
+| **E-SC06** | Schema error in `hitl-claims` structure | ERROR |
+
+### Body Structure (§1.2.1)
+| Code | Check | Severity |
+|------|-------|----------|
+| **E-ST10** | Missing `## HITL Verification Record` when claims exist | ERROR |
+| **W-ST11** | Table rows don't match `hitl-claims` count | WARNING |
+
+### SOT Table Validation (§3.1)
+| Code | Check | Severity |
+|------|-------|----------|
+| **E-TB01** | No `## Verified Claims` section | ERROR |
+| **E-TB02** | Table has no data rows | ERROR |
+| **E-TB03** | Required columns missing | ERROR |
+| **E-TB04** | Column order wrong | ERROR |
+| **E-TB05** | Empty cell in required column | ERROR |
+| **E-TB06** | Invalid date format in Verified column | ERROR |
+| **E-TB07** | Verified date in future (beyond 24h grace) | ERROR |
+
+**Note:** Additional validation codes may be defined in RFC-001 (clarification document) but are not part of the normative FORMAT_SPEC.
+
+---
+
+## Bundled Scripts
+
+This skill includes Python scripts for deterministic computations per FORMAT_SPEC.
+
+### scripts/claim_id.py
+
+Computes stable, hash-based claim IDs for HITL tracking (per §1.3.4).
+
 ```bash
-# 稳定哈希式 claim ID
-python scripts/claim_id.py "Base price is $99/mo" "api-pricing/1"   # → claim-75fb137a
+# Generate claim ID
+python scripts/claim_id.py "Base price is $99/mo" "api-pricing/1"
+# Output: claim-75fb137a
+
+# Run test vectors
 python scripts/claim_id.py --test
-# 文档 SHA-256（按 FORMAT_SPEC §2.2-2.4 规范化：剥 frontmatter 的 document-sha256 行、去尾空白、3+ 换行折叠为 2、NFC、CRLF→LF）
-python scripts/document_hash.py my-doc.cgd.md
-python scripts/document_hash.py --verify my-doc.cgd.md
 ```
-Claim ID 推荐哈希式 `claim-[a-f0-9]{8,}`（1000 条碰撞率 ~0.012%，超 1000 用 12+ 位）。
 
-## 示例
+**Algorithm:**
+1. Normalize text (strip + collapse whitespace)
+2. Concatenate with location using pipe delimiter
+3. SHA-256 hash, take first 8 hex chars
+4. Prefix with "claim-"
 
-通过审查后产出的 CGD（`.cgd.md`，YAML + 正文 + 结束标记）：
+**Test vectors:**
+- `claim_id("Base price is $99/mo", "api-pricing/1")` → `claim-75fb137a`
+- `claim_id("The API supports GraphQL", "features/1")` → `claim-eb357742`
+
+### scripts/document_hash.py
+
+Computes document SHA-256 hash per FORMAT_SPEC §2.2-2.4 with full canonicalization.
+
+```bash
+# Compute hash
+python scripts/document_hash.py my-doc.cgd.md
+# Output: 7d865e959b2466918c9863afca942d0fb89d7c9ac0c99bafc3749504ded97730
+
+# Verify existing hash
+python scripts/document_hash.py --verify my-doc.cgd.md
+# Output: PASS: Hash verified: 7d865e...
+
+# Run normalization tests
+python scripts/document_hash.py --test
+```
+
+**Algorithm (per §2.2-2.4):**
+1. Extract content between opening `---\n` and `<!-- CLARITY_GATE_END -->`
+2. Remove `document-sha256` line from YAML frontmatter ONLY (with multiline continuation support)
+3. Canonicalize:
+   - Strip trailing whitespace per line
+   - Collapse 3+ consecutive newlines to 2
+   - Normalize final newline (exactly 1 LF)
+   - UTF-8 NFC normalization
+4. Compute SHA-256
+
+**Cross-platform normalization:**
+- BOM removed if present
+- CRLF to LF (Windows)
+- CR to LF (old Mac)
+- Boundary detection (prevents hash computation on content outside CGD structure)
+- Whitespace variations produce identical hashes (deterministic across platforms)
+
+---
+
+## The Key Distinction
+
+Existing tools like UnScientify and HedgeHunter (CoNLL-2010) **detect** uncertainty markers already present in text ("Is uncertainty expressed?").
+
+Clarity Gate **enforces** their presence where epistemically required ("Should uncertainty be expressed but isn't?").
+
+| Tool Type | Question | Example |
+|-----------|----------|---------|
+| **Detection** | "Does this text contain hedges?" | UnScientify/HedgeHunter find "may", "possibly" |
+| **Enforcement** | "Should this claim be hedged but isn't?" | Clarity Gate flags "Revenue will be $50M" |
+
+---
+
+## Critical Limitation
+
+> **Clarity Gate verifies FORM, not TRUTH.**
+>
+> This skill checks whether claims are properly marked as uncertain—it cannot verify if claims are actually true. 
+>
+> **Risk:** An LLM can hallucinate facts INTO a document, then "pass" Clarity Gate by adding source markers to false claims.
+>
+> **Solution:** HITL (Human-In-The-Loop) verification is **MANDATORY** before declaring PASS.
+
+---
+
+## When to Use
+- Before ingesting documents into RAG systems
+- Before sharing documents with other AI systems
+- After writing specifications, state docs, or methodology descriptions
+- When a document contains projections, estimates, or hypotheses
+- Before publishing claims that haven't been validated
+- When handing off documentation between LLM sessions
+
+---
+
+## The 9 Verification Points
+
+### Relationship to Spec Suite
+
+The 9 Verification Points guide **semantic review** — content quality checks that require judgment (human or AI). They answer questions like "Should this claim be hedged?" and "Are these numbers consistent?"
+
+When review completes, output a CGD file conforming to CLARITY_GATE_FORMAT_SPEC.md. The C/S rules in CLARITY_GATE_FORMAT_SPEC.md validate **file structure**, not semantic content.
+
+**The connection:**
+1. Semantic findings (9 points) determine what issues exist
+2. Issues are recorded in CGD state fields (`clarity-status`, `hitl-status`, `hitl-pending-count`)
+3. State consistency is enforced by structural rules (C7-C10)
+
+*Example: If Point 5 (Data Consistency) finds conflicting numbers, you'd mark `clarity-status: UNCLEAR` until resolved. Rule C7 then ensures you can't claim `REVIEWED` while still `UNCLEAR`.*
+
+---
+
+### Epistemic Checks (Core Focus: Points 1-4)
+
+**1. HYPOTHESIS vs FACT LABELING**
+Every claim must be clearly marked as validated or hypothetical.
+
+| Fails | Passes |
+|-------|--------|
+| "Our architecture outperforms competitors" | "Our architecture outperforms competitors [benchmark data in Table 3]" |
+| "The model achieves 40% improvement" | "The model achieves 40% improvement [measured on dataset X]" |
+
+**Fix:** Add markers: "PROJECTED:", "HYPOTHESIS:", "UNTESTED:", "(estimated)", "~", "?"
+
+---
+
+**2. UNCERTAINTY MARKER ENFORCEMENT**
+Forward-looking statements require qualifiers.
+
+| Fails | Passes |
+|-------|--------|
+| "Revenue will be $50M by Q4" | "Revenue is **projected** to be $50M by Q4" |
+| "The feature will reduce churn" | "The feature is **expected** to reduce churn" |
+
+**Fix:** Add "projected", "estimated", "expected", "designed to", "intended to"
+
+---
+
+**3. ASSUMPTION VISIBILITY**
+Implicit assumptions that affect interpretation must be explicit.
+
+| Fails | Passes |
+|-------|--------|
+| "The system scales linearly" | "The system scales linearly [assuming <1000 concurrent users]" |
+| "Response time is 50ms" | "Response time is 50ms [under standard load conditions]" |
+
+**Fix:** Add bracketed conditions: "[assuming X]", "[under conditions Y]", "[when Z]"
+
+---
+
+**4. AUTHORITATIVE-LOOKING UNVALIDATED DATA**
+Tables with specific percentages and checkmarks look like measured data.
+
+**Red flag:** Tables with specific numbers (89%, 95%, 100%) without sources
+
+**Fix:** Add "(guess)", "(est.)", "?" to numbers. Add explicit warning: "PROJECTED VALUES - NOT MEASURED"
+
+---
+
+### Data Quality Checks (Complementary: Points 5-7)
+
+**5. DATA CONSISTENCY**
+Scan for conflicting numbers, dates, or facts within the document.
+
+**Red flag:** "500 users" in one section, "750 users" in another
+
+**Fix:** Reconcile conflicts or explicitly note the discrepancy with explanation.
+
+---
+
+**6. IMPLICIT CAUSATION**
+Claims that imply causation without evidence.
+
+**Red flag:** "Shorter prompts improve response quality" (plausible but unproven)
+
+**Fix:** Reframe as hypothesis: "Shorter prompts MAY improve response quality (hypothesis, not validated)"
+
+---
+
+**7. FUTURE STATE AS PRESENT**
+Describing planned/hoped outcomes as if already achieved.
+
+**Red flag:** "The system processes 10,000 requests per second" (when it hasn't been built)
+
+**Fix:** Use future/conditional: "The system is DESIGNED TO process..." or "TARGET: 10,000 rps"
+
+---
+
+### Verification Routing (Points 8-9)
+
+**8. TEMPORAL COHERENCE**
+Document dates and timestamps must be internally consistent and plausible.
+
+| Fails | Passes |
+|-------|--------|
+| "Last Updated: December 2024" (when current is 2026) | "Last Updated: January 2026" |
+| v1.0.0 dated 2024-12-23, v1.1.0 dated 2024-12-20 | Versions in chronological order |
+
+**Sub-checks:**
+1. Document date vs current date
+2. Internal chronology (versions, events in order)
+3. Reference freshness ("current", "now", "today" claims)
+
+**Fix:** Update dates, add "as of [date]" qualifiers, flag stale claims
+
+---
+
+**9. EXTERNALLY VERIFIABLE CLAIMS**
+Specific numbers that could be fact-checked should be flagged for verification.
+
+| Type | Example | Risk |
+|------|---------|------|
+| Pricing | "Costs ~$0.005 per call" | API pricing changes |
+| Statistics | "Papers average 15-30 equations" | May be wildly off |
+| Rates/ratios | "40% of researchers use X" | Needs citation |
+| Competitor claims | "No competitor offers Y" | May be outdated |
+
+**Fix options:**
+1. Add source with date
+2. Add uncertainty marker
+3. Route to HITL or external search
+4. Generalize ("low cost" instead of "$0.005")
+
+---
+
+## The Verification Hierarchy
+
+```
+Claim Extracted --> Does Source of Truth Exist?
+                           |
+           +---------------+---------------+
+           YES                             NO
+           |                               |
+   Tier 1: Automated              Tier 2: HITL
+   Consistency & Verification     Two-Round Verification
+           |                               |
+   PASS / BLOCK                   Round A → Round B → APPROVE / REJECT
+```
+
+### Tier 1: Automated Verification
+
+**A. Internal Consistency**
+- Figure vs. Text contradictions
+- Abstract vs. Body mismatches
+- Table vs. Prose conflicts
+- Numerical consistency
+
+**B. External Verification (Extension Interface)**
+- User-provided connectors to structured sources
+- Financial systems, Git commits, CRM, etc.
+
+### Tier 2: Two-Round HITL Verification — MANDATORY
+
+**Round A: Derived Data Confirmation**
+- Claims from sources found in session
+- Human confirms interpretation, not truth
+
+**Round B: True HITL Verification**
+- Claims needing actual verification
+- No source found, human's own data, extrapolations
+
+---
+
+## CGD Output Format
+
+When producing a Clarity-Gated Document, use this format per CLARITY_GATE_FORMAT_SPEC.md v2.1:
+
 ```yaml
 ---
 clarity-gate-version: 2.1
 processed-date: 2026-01-12
 processed-by: Claude + Human Review
-clarity-status: CLEAR          # CLEAR | UNCLEAR
-hitl-status: REVIEWED          # PENDING | REVIEWED | REVIEWED_WITH_EXCEPTIONS
+clarity-status: CLEAR
+hitl-status: REVIEWED
 hitl-pending-count: 0
 points-passed: 1-9
-rag-ingestable: true           # 校验器计算，勿手填
+rag-ingestable: true          # computed by validator - do not set manually
 document-sha256: 7d865e959b2466918c9863afca942d0fb89d7c9ac0c99bafc3749504ded97730
 hitl-claims:
   - id: claim-75fb137a
     text: "Revenue projection is $50M"
     value: "$50M"
-    source: "Q3 planning doc, page 12"
+    source: "Q3 planning doc"
     location: "revenue-projections/1"
     round: B
     confirmed-by: Francesco
     confirmed-date: 2026-01-12
 ---
 
-# 文档标题
-正文应用认知标记后："Revenue will be $50M" → "Revenue is **projected** to be $50M *(unverified projection)*"
+# Document Title
 
-## HITL Verification Record   # 存在 claim 时此节强制（否则 E-ST10）
+[Document body with epistemic markers applied]
+
+Claims like "Revenue will be $50M" become "Revenue is **projected** to be $50M *(unverified projection)*"
+
+---
+
+## HITL Verification Record
+
+### Round A: Derived Data Confirmation
+- Claim 1 (source) ✓
+- Claim 2 (source) ✓
+
 ### Round B: True HITL Verification
 | # | Claim | Status | Verified By | Date |
 |---|-------|--------|-------------|------|
@@ -114,43 +398,299 @@ hitl-claims:
 Clarity Gate: CLEAR | REVIEWED
 ```
 
-审查报告骨架（结论先行）：
+**Required CGD Elements (per spec):**
+- YAML frontmatter with all required fields:
+  - `clarity-gate-version` — Tool version (no "v" prefix)
+  - `processed-date` — YYYY-MM-DD format
+  - `processed-by` — Processor name
+  - `clarity-status` — CLEAR or UNCLEAR
+  - `hitl-status` — PENDING, REVIEWED, or REVIEWED_WITH_EXCEPTIONS
+  - `hitl-pending-count` — Integer ≥ 0
+  - `points-passed` — e.g., `1-9` or `1-4,7,9`
+  - `hitl-claims` — List of verified claims (may be empty `[]`)
+- End marker (HTML comment + status line):
+  ```
+  <!-- CLARITY_GATE_END -->
+  Clarity Gate: <clarity-status> | <hitl-status>
+  ```
+- HITL verification record (if status is REVIEWED)
+
+**Optional/Computed Fields:**
+- `rag-ingestable` — **Computed by validators**, not manually set. Shows `true` only when `CLEAR | REVIEWED` with no exclusion blocks.
+- `document-sha256` — Required. 64-char lowercase hex hash for integrity verification. See spec §2 for computation rules.
+- `exclusions-coverage` — Optional. Fraction of body inside exclusion blocks (0.0–1.0).
+
+**Escape Mechanism:** To write about markers like `*(estimated)*` without triggering parsing, wrap in backticks: `` `*(estimated)*` ``
+
+### Claim Completion Status (v2.1)
+
+Claim verification status is determined by field **presence**, not an explicit status field:
+
+| State | `confirmed-by` | `confirmed-date` | Meaning |
+|-------|----------------|------------------|----------|
+| **PENDING** | absent | absent | Awaiting human verification |
+| **VERIFIED** | present | present | Human has confirmed |
+| *(invalid)* | present | absent | W-HC01: partial fields |
+| *(invalid)* | absent | present | W-HC01: partial fields |
+
+**Why no explicit status field?** Field presence is self-enforcing—you can't accidentally set status without providing who/when.
+
+### Source Field Semantics (v2.1)
+
+The `source` field meaning changes based on claim state:
+
+| State | `source` Contains | Example |
+|-------|-------------------|----------|
+| **PENDING** | Where to verify (actionable) | `"Check Q3 planning doc"` |
+| **VERIFIED** | What was found (evidence) | `"Q3 planning doc, page 12"` |
+
+**Vague source detection (W-HC02):** Sources like `"industry reports"`, `"research"`, `"TBD"` trigger warnings.
+
+### Claim ID Format (v2.1)
+
+**General pattern:** `claim-[a-z0-9._-]{1,64}` (alphanumeric, dots, underscores, hyphens)
+
+| Approach | Pattern | Example | Use Case |
+|----------|---------|---------|----------|
+| **Hash-based** (preferred) | `claim-[a-f0-9]{8,}` | `claim-75fb137a` | Deterministic, collision-resistant |
+| **Sequential** | `claim-[0-9]+` | `claim-1`, `claim-2` | Simple documents |
+| **Semantic** | `claim-[a-z0-9-]+` | `claim-revenue-q3` | Human-friendly |
+
+**Collision probability:** At 1,000 claims with 8-char hex IDs: ~0.012%. For >1,000 claims, use 12+ hex characters.
+
+**Recommendation:** Use hash-based IDs generated by `scripts/claim_id.py` for consistency and collision resistance.
+
+---
+
+## Exclusion Blocks
+
+When content cannot be resolved (no SME available, legacy prose, etc.), mark it as excluded rather than leaving it ambiguous:
+
+```markdown
+<!-- CG-EXCLUSION:BEGIN id=auth-legacy-1 -->
+Legacy authentication details that require SME review...
+<!-- CG-EXCLUSION:END id=auth-legacy-1 -->
+```
+
+**Rules:**
+- IDs must match: `[A-Za-z0-9][A-Za-z0-9._-]{0,63}`
+- No nesting or overlapping blocks
+- Each ID used only once
+- Requires `hitl-status: REVIEWED_WITH_EXCEPTIONS`
+- Must document `exceptions-reason` and `exceptions-ids` in frontmatter
+
+**Important:** Documents with exclusion blocks are **not RAG-ingestable**. They're rejected entirely (no partial ingestion).
+
+See CLARITY_GATE_FORMAT_SPEC.md §4 for complete rules.
+
+---
+
+## SOT Validation
+
+When validating a Source of Truth file, the skill checks both **format compliance** (per CLARITY_GATE_FORMAT_SPEC.md) and **content quality** (the 9 points).
+
+### Format Compliance (Structural Rules)
+
+SOT documents are CGDs with a `tier:` block. They require a `## Verified Claims` section with a valid table.
+
+| Code | Check | Severity |
+|------|-------|----------|
+| E-TB01 | No `## Verified Claims` section | ERROR |
+| E-TB02 | Table has no data rows | ERROR |
+| E-TB03 | Required columns missing (Claim, Value, Source, Verified) | ERROR |
+| E-TB04 | Column order wrong (Claim not first or Verified not last) | ERROR |
+| E-TB05 | Empty cell in required column | ERROR |
+| E-TB06 | Invalid date format in Verified column | ERROR |
+| E-TB07 | Verified date in future (beyond 24h grace) | ERROR |
+
+### Content Quality (9 Points)
+
+The 9 Verification Points apply to SOT content:
+
+| Point | SOT Application |
+|-------|-----------------|
+| 1-4 | Check claims in `## Verified Claims` are actually verified |
+| 5 | Check for conflicting values across tables |
+| 6 | Check claims don't imply unsupported causation |
+| 7 | Check table doesn't state futures as present |
+| 8 | Check dates are chronologically consistent |
+| 9 | Flag specific numbers for external check |
+
+### SOT-Specific Requirements
+
+- **Tier block required:** SOT is a CGD with `tier:` block containing `level`, `owner`, `version`, `promoted-date`, `promoted-by`
+- **Structured claims table:** `## Verified Claims` section with columns: Claim, Value, Source, Verified
+- **Table outside exclusions:** The verified claims table must NOT be inside an exclusion block
+- **Staleness markers:** Use `[STABLE]`, `[CHECK]`, `[VOLATILE]`, `[SNAPSHOT]` in content
+  - `[STABLE]` — Safe to cite without rechecking
+  - `[CHECK]` — Verify before citing
+  - `[VOLATILE]` — Changes frequently; always verify
+  - `[SNAPSHOT]` — Point-in-time data; include date when citing
+
+---
+
+## Output Format
+
+After running Clarity Gate, report:
+
 ```
 ## Clarity Gate Results
-**Document:** [file]   **Issues Found:** [n]
-### Critical（会致幻觉）  - [问题 + 位置 + 修法]
-### Warning（可能误读）   - …
-### Temporal（时间问题）  - …
-### Externally Verifiable Claims  | # | Claim | Type | 建议核验方式 |
+
+**Document:** [filename]
+**Issues Found:** [number]
+
+### Critical (will cause hallucination)
+- [issue + location + fix]
+
+### Warning (could cause equivocation)  
+- [issue + location + fix]
+
+### Temporal (date/time issues)
+- [issue + location + fix]
+
+### Externally Verifiable Claims
+| # | Claim | Type | Suggested Verification |
+|---|-------|------|------------------------|
+| 1 | [claim] | Pricing | [where to verify] |
+
 ---
-## Round A: 回复 "confirmed" 或指出我误读处
-## Round B: | # | Claim | 为何需 HITL | [ ]True / [ ]False |
+
+## Round A: Derived Data Confirmation
+
+- [claim] ([source])
+
+Reply "confirmed" or flag any I misread.
+
+---
+
+## Round B: HITL Verification Required
+
+| # | Claim | Why HITL Needed | Human Confirms |
+|---|-------|-----------------|----------------|
+| 1 | [claim] | [reason] | [ ] True / [ ] False |
+
+---
+
+**Would you like me to produce an annotated CGD version?**
+
+---
+
 **Verdict:** PENDING CONFIRMATION
 ```
 
-无法解决的内容用排除块（不可部分入库，整篇被拒）：
-```markdown
-<!-- CG-EXCLUSION:BEGIN id=auth-legacy-1 -->
-需 SME 评审的遗留鉴权细节…
-<!-- CG-EXCLUSION:END id=auth-legacy-1 -->
-```
-排除块 ID 须匹配 `[A-Za-z0-9][A-Za-z0-9._-]{0,63}`、不可嵌套/重叠、每 ID 仅用一次，并要求 `hitl-status: REVIEWED_WITH_EXCEPTIONS` + `exceptions-reason`/`exceptions-ids`。
+---
 
-## 注意事项
+## Severity Levels
 
-- **只校验形式不验真值**：通过门禁≠内容为真。`rag-ingestable: true` 只在 `CLEAR | REVIEWED` 且无排除块时由校验器置位，**永远以 HITL 确认为准，不可手填**。
-- **存在 claim 时 `## HITL Verification Record` 节强制**（缺失 = E-ST10 ERROR）；表行数须与 `hitl-claims` 数一致（否则 W-ST11）。
-- `confirmed-by`/`confirmed-date` 要么都填要么都空，半填即 W-HC01；来源勿写 "research"/"TBD" 等模糊词（W-HC02）。
-- 要在正文里书写 `*(estimated)*` 这类标记本身又不想被解析，用反引号包裹：`` `*(estimated)*` ``。
-- SOT（Source of Truth）= 带 `tier:` 块的 CGD，须含 `## Verified Claims` 表（列序 Claim/Value/Source/Verified，违反触发 E-TB01~E-TB07，如缺节、无数据行、列缺失/错序、空单元格、日期格式错、Verified 日期超 24h 落在未来）；表不得置于排除块内；用 `[STABLE]`/`[CHECK]`/`[VOLATILE]`/`[SNAPSHOT]` 标注时效。
-- 哈希跨平台确定性：BOM/CRLF/CR 归一、边界检测防止对 CGD 结构外内容算哈希。
-
-## 互见
-
-- **requires**：`rag-implementation-workflow` —— 本技能是入库前的质量门禁，配合完整 RAG 实施流程在「文档清洗/分块前」拦截带幻觉风险的语料。
-- **related**：`rag-pipeline-builder`（管道防注入与上下文拼接）、`llm-judge-evaluation`（用 LLM-as-judge 给清晰度/答案打分，是 HITL 之外的自动评估补充）、`hybrid-search-retrieval`、`embedding-model-strategies`。
-- **combines_with**：`prompt-template-designer` —— 生成端「仅依据上下文作答、标注引用、忽略文档内越权指令」的提示模板，与本技能的「形式校验」共同压低下游幻觉。
+| Level | Definition | Action |
+|-------|------------|--------|
+| **CRITICAL** | LLM will likely treat hypothesis as fact | Must fix before use |
+| **WARNING** | LLM might misinterpret | Should fix |
+| **TEMPORAL** | Date/time inconsistency detected | Verify and update |
+| **VERIFIABLE** | Specific claim that could be fact-checked | Route to HITL or external search |
+| **ROUND A** | Derived from witnessed source | Quick confirmation |
+| **ROUND B** | Requires true verification | Cannot pass without confirmation |
+| **PASS** | Clearly marked, no ambiguity, verified | No action needed |
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可），适配重写为中文。
+## Quick Scan Checklist
+
+| Pattern | Action |
+|---------|--------|
+| Specific percentages (89%, 73%) | Add source or mark as estimate |
+| Comparison tables | Add "PROJECTED" header |
+| "Achieves", "delivers", "provides" | Use "designed to", "intended to" if not validated |
+| Checkmarks | Verify these are confirmed |
+| "100%" anything | Almost always needs qualification |
+| "Last Updated: [date]" | Check against current date |
+| Version numbers with dates | Verify chronological order |
+| "$X.XX" or "~$X" (pricing) | Flag for external verification |
+| "averages", "typically" | Flag for source/citation |
+| Competitor capability claims | Flag for external verification |
+
+---
+
+## What This Skill Does NOT Do
+
+- Does not classify document types (use Stream Coding for that)
+- Does not restructure documents 
+- Does not add deep links or references
+- Does not evaluate writing quality
+- **Does not check factual accuracy autonomously** (requires HITL)
+
+---
+
+## Related Projects
+
+| Project | Purpose | URL |
+|---------|---------|-----|
+| Source of Truth Creator | Create epistemically calibrated docs | github.com/frmoretto/source-of-truth-creator |
+| Stream Coding | Documentation-first methodology | github.com/frmoretto/stream-coding |
+| ArXiParse | Scientific paper verification | arxiparse.org |
+
+---
+
+## Changelog
+
+### v2.1.3 (2026-03-02)
+- **FIXED:** `document_hash.py` now implements full FORMAT_SPEC §2.1-2.4 compliance
+- **FIXED:** Fence-aware end marker detection (Quine Protection per §2.3/§8.5)
+- **FIXED:** All 4 deployment copies converged to single canonical implementation
+- **ADDED:** `canonicalize()` function: trailing whitespace stripping, newline collapsing, NFC normalization
+- **ADDED:** YAML-aware `document-sha256` removal with multiline continuation support (§2.2)
+- **ADDED:** Fence-tracking test vectors (7 new tests, 15 total)
+
+### v2.1.0 (2026-01-27)
+- **ADDED:** Claim Completion Status semantics (PENDING/VERIFIED by field presence)
+- **ADDED:** Source Field Semantics (actionable vs. what-was-found)
+- **ADDED:** Claim ID Format guidance with collision analysis
+- **ADDED:** Body Structure Requirements (HITL Verification Record mandatory when claims exist)
+- **ADDED:** New validation codes: E-ST10, W-ST11, W-HC01, W-HC02, E-SC06 (FORMAT_SPEC §1.2-1.3)
+- **ADDED:** Bundled scripts: `claim_id.py`, `document_hash.py`
+- **UPDATED:** References to FORMAT_SPEC v2.1
+- **UPDATED:** CGD output example to version 2.1
+
+### v2.0.0 (2026-01-13)
+- **ADDED:** agentskills.io compliant YAML frontmatter
+- **ADDED:** Clarity Gate Format Specification v2.0 compliance (unified CGD/SOT)
+- **ADDED:** SOT validation support with E-TB* error codes
+- **ADDED:** Validation rules mapping (9 points → rule codes)
+- **ADDED:** CGD output format template with `<!-- CLARITY_GATE_END -->` markers
+- **ADDED:** Quine Protection note (§2.3 fence-aware marker detection)
+- **ADDED:** Redacted Export feature (§8.11)
+- **UPDATED:** `hitl-claims` format to v2.0 schema (id, text, value, source, location, round)
+- **UPDATED:** End marker format to HTML comment style
+- **UPDATED:** Unified format spec v2.0 (single `.cgd.md` extension)
+- **RESTRUCTURED:** For multi-platform skill discovery
+
+### v1.6 (2025-12-31)
+- Added Two-Round HITL verification system
+- Round A: Derived Data Confirmation
+- Round B: True HITL Verification
+
+### v1.5 (2025-12-28)
+- Added Point 8: Temporal Coherence
+- Added Point 9: Externally Verifiable Claims
+
+### v1.4 (2025-12-23)
+- Added CGD annotation output mode
+
+### v1.3 (2025-12-21)
+- Restructured points into Epistemic (1-4) and Data Quality (5-7)
+
+### v1.2 (2025-12-21)
+- Added Source of Truth request step
+
+### v1.1 (2025-12-21)
+- Added HITL Fact Verification (mandatory)
+
+### v1.0 (2025-11)
+- Initial release with 6-point verification
+
+---
+
+**Version:** 2.1.3
+**Spec Version:** 2.1
+**Author:** Francesco Marinoni Moretto
+**License:** CC-BY-4.0

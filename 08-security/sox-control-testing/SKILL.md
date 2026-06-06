@@ -1,11 +1,11 @@
 ---
 name: sox-control-testing
-title: SOX 404 内控测试支持
-description: 当需要执行 SOX 404 财报内控（ICFR）测试、准备内外部审计时使用；做范围界定、样本抽取、测试底稿编制、证据评估与缺陷分级（缺陷/重大缺陷/重大弱点），产出控制矩阵/测试底稿/抽样方案/缺陷评估与整改计划；不适用于出具正式审计或法律意见、其他合规框架主审（SOC 2/ISO 27001 见互见）。触发词：SOX 404、内控测试、控制测试、样本抽取、控制缺陷
+title: SOX Compliance Testing
+description: Generate SOX sample selections, testing workpapers, and control assessments. Use when planning quarterly or annual SOX 404 testing, pulling a sample for a control (revenue, P2P, ITGC, close), building a testing workpaper template, or evaluating and classifying a control deficiency.
 domain: 安全/audit
-triggers: [SOX 404, 内控测试, 控制测试, ICFR, 财报内控, 样本抽取, 抽样方案, 测试底稿, 工作底稿, 控制缺陷, 重大弱点, 重大缺陷, 穿行测试, 设计有效性, 运行有效性, ITGC, 关键控制, 审计准备, 整改计划]
-tags: [安全, compliance, sox, 内控, 审计, icfr, 控制测试, 缺陷分级]
-level: 进阶
+triggers: [SOX 404, ICFR, ITGC]
+tags: [compliance, sox, icfr]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,107 +16,215 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# SOX Compliance Testing
 
-当组织需要按 **SOX 第 404 条**评估财务报告内部控制（ICFR）有效性，或为内/外部审计准备控制测试时使用。典型场景：
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-- 范围界定：识别重大账户与相关认定，做风险评估。
-- 抽样：为交易级/期间级控制选样并写明依据。
-- 编制测试底稿：从控制识别、测试设计、执行到结论与复核签字。
-- 缺陷分级：把测试例外评估为「缺陷 / 重大缺陷 / 重大弱点」，并做汇总与整改。
-- 区分四类控制（手工、自动、IT 依赖手工、ITGC、实体层）的测试方法。
+**Important**: This command assists with SOX compliance workflows but does not provide audit or legal advice. All testing workpapers and assessments should be reviewed by qualified financial professionals before use in audit documentation.
 
-**不该用的边界：**
-- 本技能**不提供审计或法律意见**。所有底稿与评估须由具资质的财务专业人士复核；「重要性 / 重大性」最终由审计师判定。
-- 主审 SOC 2、ISO 27001、GDPR 等其他框架——另有专门技能（见互见），本技能聚焦 SOX/ICFR。
-- 替代注册审计师出具正式 404 意见——本技能服务于「管理层/被审方准备」。
+Generate sample selections, create testing workpapers, document control assessments, and provide testing templates for SOX 404 internal controls over financial reporting.
 
-**SOX 404 六步法：** 范围界定 → 风险评估 → 控制识别 → 测试（设计 + 运行有效性）→ 评估（缺陷及严重程度）→ 报告（含重大弱点）。
+## Usage
 
-## 步骤
-
-1. **范围界定重大账户**：当账户存在「非微小可能性」会发生单独或汇总达重大的错报，即为重大账户。
-   - 定量：余额超重要性阈值（通常为关键基准的 3–5%）、交易量大、含重大估计/判断。
-   - 定性：复杂会计（收入确认、衍生品、养老金）、易舞弊（现金、收入、关联方）、既往错报、重大管理层判断、新增/重大变更流程。
-   - 按账户类型匹配关键认定（示例）：收入→发生/完整/准确/截止；应收→存在/估值（坏账）/权利；存货→存在/估值/完整；固定资产→存在/估值/完整/权利；应付→完整/准确/存在；财务结账报告→列报/准确/完整。
-
-2. **测试设计有效性 vs 运行有效性**：
-   - **设计有效性**：控制是否设计得当、置于流程正确节点、对应已识别风险。通过**穿行测试**（端到端追踪一笔交易）验证，至少年度一次或流程变更时执行。
-   - **运行有效性**：控制在整个依赖期内是否按设计实际运行。通过检查、观察、再执行、询问验证，需足够样本量并覆盖全期。
-
-3. **选择抽样方法**（见下方「指令」选样矩阵）。
-
-4. **编制测试底稿**（五要素，见「指令」）。
-
-5. **评估证据充分性**：保留充分证据，剔除不充分证据（见「注意事项」）。
-
-6. **缺陷分级与整改**：按严重度三级判定 → 做缺陷汇总（个体不显著但合并可能显著）→ 对每项缺陷做根因分析、整改计划、时间表、责任人、再测试验证。
-
-## 指令
-
-**抽样方法选择（保留源约束）：**
-
-| 方法 | 何时用 | 要点 |
-|------|--------|------|
-| 随机 | 大总体交易级控制的默认法 | 总体编号→随机数发生器选样，等概率无偏，统计上可辩护 |
-| 定向（判断） | 风险导向补充；小/高度异质总体的主法 | 选高金额、异常、期末（截止风险）、关联方、手工/超控、新供应商客户；逐项记理由 |
-| 随意（haphazard） | 无顺序清单且总体同质 | 无模式选样、跨全期分散、避免无意识偏好（顶部项、整数） |
-| 系统 | 总体有序、要均匀覆盖 | 区间=总体÷样本量，区间内随机起点后每隔 N 取一 |
-
-> 系统抽样示例：总体 1000、样本 25 → 区间 40，随机起点第 17 项 → 取 17、57、97、137…
-
-**样本量参考（控制频率 × 风险）：** 年度=1；季度=2/2/3；月度=2/3/4；周=5/8/15；日(~250)=20/30/40；逐笔小总体(<250)=20/30/40；逐笔大总体(250+)=25/40/60（列为低/中/高风险）。增大样本量的因素：固有风险高、唯一关键控制无冗余、上期发现缺陷、新控制、外审依赖管理层测试。
-
-**测试底稿五要素：**
-1. 控制识别：编号、描述（谁做、怎么做、多久）、类型（手工/自动/IT 依赖手工）、频率、对应风险与认定。
-2. 测试设计：测试目标、测试程序（分步）、预期证据、抽样方法与依据。
-3. 测试执行：总体描述与规模、选样明细、逐项结果（通过/失败 + 具体证据）、例外完整描述。
-4. 结论：总体评估（有效/缺陷/重大缺陷/重大弱点）、依据、例外影响、补偿控制。
-5. 签字：测试人 + 日期、复核人 + 日期。
-
-**缺陷三级判据：**
-- **缺陷**：控制设计或运行无法在正常履职中及时防止或发现错报。
-- **重大缺陷**：轻于重大弱点但足以引起治理层关注（错报超非微小但未达重大；关键控制且补偿控制未完全缓释；多个个体轻微缺陷合并）。
-- **重大弱点**：存在合理可能导致重大错报无法被及时防止/发现。强指标：高管舞弊（任何金额）、财报重述、审计师发现本应被公司控制发现的重大错报、审计委员会监督失效、贯穿性控制（实体层/ITGC）缺陷。
-
-**底稿目录组织（保留源结构）：**
 ```
-SOX Testing/
-└── [Year]/
-    ├── Scoping and Risk Assessment/
-    ├── Revenue Cycle/  (Control Matrix / Walkthrough / Test Workpapers / Supporting Evidence)
-    ├── Procure to Pay/  ├── Payroll/  ├── Financial Close/
-    ├── Treasury/  ├── Fixed Assets/  ├── IT General Controls/
-    ├── Entity Level Controls/
-    └── Summary and Conclusions/  (Deficiency Evaluation / Management Assessment)
+/sox <control-area> <period>
 ```
 
-## 示例
+### Arguments
 
-为某 SaaS 公司测试「收入循环」关键控制：
+- `control-area` — The control area to test:
+  - `revenue-recognition` — Revenue cycle controls (order-to-cash)
+  - `procure-to-pay` or `p2p` — Procurement and AP controls (purchase-to-pay)
+  - `payroll` — Payroll processing and compensation controls
+  - `financial-close` — Period-end close and reporting controls
+  - `treasury` — Cash management and treasury controls
+  - `fixed-assets` — Capital asset lifecycle controls
+  - `inventory` — Inventory valuation and management controls
+  - `itgc` — IT general controls (access, change management, operations)
+  - `entity-level` — Entity-level and monitoring controls
+  - `journal-entries` — Journal entry processing controls
+  - Any specific control ID or name
+- `period` — The testing period (e.g., `2024-Q4`, `2024`, `2024-H2`)
 
-1. 范围：收入为重大账户（高交易量 + 收入确认复杂），关键认定取发生、完整、准确、截止。
-2. 设计有效性：对一笔订单做穿行测试，确认系统三单匹配控制置于开票前节点、对应「未发生交易被确认」风险。
-3. 抽样：发票审批为日频自动控制 → 总体 250+ 大总体，中风险取 40。若系统配置一年未变，自动控制原则上一次测试即可覆盖全期，但须同时验证变更管理 ITGC 有效。
-4. 执行底稿：逐项记录每张选中发票的 PO/收货/发票匹配截图与系统日志，1 项例外（手工绕过匹配）完整描述。
-5. 评估：该例外为关键控制失效但有「主管事后复核」补偿控制 → 初判为「缺陷」非重大缺陷；做根因分析（培训缺口）+ 整改（关闭手工绕过权限）+ 约定再测试。
+## Workflow
 
-## 注意事项
+### 1. Identify Controls to Test
 
-- **不提供审计/法律意见**：底稿与缺陷评估须经合资质财务专业人士复核；重要性由审计师判定。
-- **证据要充分、可追溯**：充分证据=系统强制控制截图、签字/盖章审批、可识别审批人与日期的邮件、含时间戳的系统审计日志、再执行计算、带日期地点的观察记录。**不充分**=仅口头确认、未注日期文件、无可识别执行人/审批人、无时间戳的通用报表、「与某人讨论」而无佐证。
-- **IT 依赖手工控制（IPE）**：除测试手工复核动作外，**必须同时测试**所依赖系统报表/数据的完整性与准确性（IPE），否则结论不成立。
-- **自动控制依赖 ITGC**：自动控制「一次测试覆盖全期」的前提是变更管理等 ITGC 有效；系统配置变更则须重测。
-- **实体层控制不可替代流程级控制**：审计委员会监督与「基调」失效是重大弱点的强指标；实体层有效可减少流程级测试范围，但通常不能替代。
-- **缺陷汇总不可漏**：同一流程/认定下的个体小缺陷须合并评估是否构成重大错报，并记录汇总分析与结论。
-- **整改五要素齐全**：根因分析、整改计划、时间表、责任人、再测试验证缺一不可。
+Based on the control area, identify the key controls. Present the control matrix:
 
-## 互见
+| Control # | Control Description | Type | Frequency | Key/Non-Key | Risk | Assertion |
+|-----------|-------------------|------|-----------|-------------|------|-----------|
+| [ID]      | [Description]     | Manual/Automated/IT-Dependent | Daily/Weekly/Monthly/Quarterly/Annual | Key | High/Medium/Low | [CEAVOP] |
 
-- **compliance-readiness-review**：通用合规就绪评估方法论可迁移到 SOX 范围界定与差距分析。
-- **soc2-compliance-preparer**：SOC 2 与 SOX 在 ITGC（访问、变更管理）控制上高度重叠，可共享证据。
-- **iso27001-isms-implementer**：ISO 27001 附录 A 控制与 SOX ITGC 对应，双框架可复用测试底稿。
-- **security-audit-toolkit**：执行 ITGC 技术层测试（访问复核、权限分离）时配合使用。
+**Control types:**
+- **Automated:** System-enforced controls with no manual intervention
+- **Manual:** Controls performed by personnel with judgment
+- **IT-dependent manual:** Manual controls that rely on system-generated data
 
----
-*采编自 anthropics/knowledge-work-plugins（Apache-2.0 License）。*
+**Assertions (CEAVOP):**
+- **C**ompleteness — All transactions are recorded
+- **E**xistence/Occurrence — Transactions actually occurred
+- **A**ccuracy — Amounts are correctly recorded
+- **V**aluation — Assets/liabilities are properly valued
+- **O**bligations/Rights — Entity has rights to assets, obligations for liabilities
+- **P**resentation/Disclosure — Properly classified and disclosed
+
+### 2. Determine Sample Size
+
+Calculate sample sizes based on control frequency and risk:
+
+| Control Frequency | Population Size (approx.) | Recommended Sample |
+|------------------|--------------------------|-------------------|
+| Annual           | 1                        | 1 (test the instance) |
+| Quarterly        | 4                        | 2 |
+| Monthly          | 12                       | 2-4 (based on risk) |
+| Weekly           | 52                       | 5-15 (based on risk) |
+| Daily            | ~250                     | 20-40 (based on risk) |
+| Per-transaction  | Varies                   | 25-60 (based on risk and volume) |
+
+Adjust for:
+- **Risk level:** Higher risk controls require larger samples
+- **Prior year results:** Controls with prior deficiencies need larger samples
+- **Reliance:** Controls relied upon by external auditors may need larger samples
+
+### 3. Generate Sample Selection
+
+Select samples from the population using the appropriate method:
+
+**Random selection** (default for transaction-level controls):
+- Generate random numbers to select specific items from the population
+- Ensure coverage across the full period
+
+**Systematic selection** (for periodic controls):
+- Select items at fixed intervals with a random start point
+- Ensure representation across all sub-periods
+
+**Targeted selection** (supplement to random, for risk-based testing):
+- Select items with specific risk characteristics (high dollar, unusual, period-end)
+- Document rationale for targeted selections
+
+Present the sample:
+
+```
+SAMPLE SELECTION
+Control: [Control ID] — [Description]
+Period: [Testing period]
+Population: [Count] items, $[Total value]
+Sample size: [N] items
+Selection method: [Random/Systematic/Targeted]
+
+| Sample # | Transaction Date | Reference/ID | Amount | Selection Basis |
+|----------|-----------------|--------------|--------|-----------------|
+| 1        | [Date]          | [Ref]        | $X,XXX | Random          |
+| 2        | [Date]          | [Ref]        | $X,XXX | Random          |
+| ...      | ...             | ...          | ...    | ...             |
+```
+
+### 4. Create Testing Workpaper
+
+Generate a testing template for each control:
+
+```
+SOX CONTROL TESTING WORKPAPER
+==============================
+Control #: [ID]
+Control Description: [Full description of the control activity]
+Control Owner: [Role/title — to be filled by tester]
+Control Type: [Manual/Automated/IT-Dependent Manual]
+Frequency: [How often the control operates]
+Key Control: [Yes/No]
+Relevant Assertion(s): [CEAVOP]
+Testing Period: [Period]
+
+TEST OBJECTIVE:
+To determine whether [control description] operated effectively throughout the testing period.
+
+TEST PROCEDURES:
+1. [Step 1 — What to inspect, examine, or re-perform]
+2. [Step 2 — What evidence to obtain]
+3. [Step 3 — What to compare or verify]
+4. [Step 4 — How to evaluate completeness of performance]
+5. [Step 5 — How to assess timeliness of performance]
+
+EXPECTED EVIDENCE:
+- [Document type 1 — e.g., signed approval form]
+- [Document type 2 — e.g., system screenshot showing review]
+- [Document type 3 — e.g., reconciliation with preparer sign-off]
+
+TEST RESULTS:
+
+| Sample # | Ref | Procedure 1 | Procedure 2 | Procedure 3 | Result | Exception? | Notes |
+|----------|-----|-------------|-------------|-------------|--------|------------|-------|
+| 1        |     | Pass/Fail   | Pass/Fail   | Pass/Fail   | Pass/Fail | Y/N    |       |
+| 2        |     | Pass/Fail   | Pass/Fail   | Pass/Fail   | Pass/Fail | Y/N    |       |
+
+EXCEPTIONS NOTED:
+| Sample # | Exception Description | Root Cause | Compensating Control | Impact |
+|----------|----------------------|------------|---------------------|--------|
+|          |                      |            |                     |        |
+
+CONCLUSION:
+[ ] Effective — Control operated effectively with no exceptions
+[ ] Effective with exceptions — Control operated effectively; exceptions are isolated
+[ ] Deficiency — Control did not operate effectively
+[ ] Significant Deficiency — Deficiency is more than inconsequential
+[ ] Material Weakness — Reasonable possibility of material misstatement not prevented/detected
+
+Tested by: ________________  Date: ________
+Reviewed by: _______________  Date: ________
+```
+
+### 5. Provide Common Control Templates
+
+Based on the control area, provide pre-built test step templates:
+
+**Revenue Recognition:**
+- Verify sales order approval and authorization
+- Confirm delivery/performance evidence
+- Test revenue recognition timing against contract terms
+- Verify pricing accuracy to contract/price list
+- Test credit memo approval and validity
+
+**Procure to Pay:**
+- Verify purchase order approval and authorization limits
+- Confirm three-way match (PO, receipt, invoice)
+- Test vendor master data change controls
+- Verify payment approval and segregation of duties
+- Test duplicate payment prevention controls
+
+**Financial Close:**
+- Verify account reconciliation completeness and timeliness
+- Test journal entry approval and segregation of duties
+- Verify management review of financial statements
+- Test consolidation and elimination entries
+- Verify disclosure checklist completion
+
+**ITGC:**
+- Test user access provisioning and de-provisioning
+- Verify privileged access reviews
+- Test change management approval and testing
+- Verify batch job monitoring and exception handling
+- Test backup and recovery procedures
+
+### 6. Document Control Assessment
+
+Classify any identified deficiencies:
+
+**Deficiency:** A control does not allow management or employees to prevent or detect misstatements on a timely basis. Consider:
+- Likelihood of misstatement
+- Magnitude of potential misstatement
+- Whether compensating controls exist
+
+**Significant Deficiency:** A deficiency (or combination) that is less severe than a material weakness but important enough to merit attention by those responsible for oversight.
+
+**Material Weakness:** A deficiency (or combination) such that there is a reasonable possibility that a material misstatement will not be prevented or detected on a timely basis.
+
+### 7. Output
+
+Provide:
+1. Control matrix for the selected area
+2. Sample selections with methodology documentation
+3. Testing workpaper templates with pre-populated test steps
+4. Results documentation template
+5. Deficiency evaluation framework (if exceptions are identified)
+6. Suggested remediation actions for any noted deficiencies

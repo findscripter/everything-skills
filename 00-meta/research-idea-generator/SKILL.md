@@ -1,14 +1,14 @@
 ---
 name: research-idea-generator
-title: 研究构想生成
-description: 当用户想头脑风暴研究方向、寻找新 research idea、问"接下来做什么研究/有什么可做/怎么找 gap"时使用；按"发散→文献验证→收敛"三阶段产出候选清单、文献表、评分矩阵与一页提案；不适用于已定题后的具体实验执行或论文写作。触发词：brainstorm、想idea、研究方向、下一步做什么、找gap、research proposal、研究构想、选题
+title: Academic Research Skills Suite
+description: Complete academic research skill suite covering the full pipeline: paper reading (read/explain papers with storytelling), idea generation (brainstorm research directions), experiment design (plan experiments, ablation, baselines), proof writing (mathematical proofs, LaTeX theorems), paper writing (draft to camera-ready for top venues like NeurIPS/ICLR/ACL), paper review (structured 4-step review with scoring), and professor fit analysis (evaluate advisors, cold emails, interview strategy). Trigger keywords: read paper, brainstorm, experiment design, prove, write paper, review, professor fit, advisor, cold email, LaTeX, research, NeurIPS, ICLR, ACL, arXiv, 讀論文, 寫論文, 審稿, 實驗設計, 數學證明, 研究方向, 教授分析, 選指導教授.
 domain: 通用/research
-triggers: [brainstorm, 想idea, 研究方向, 下一步做什么, 找gap, research proposal, 研究构想, 选题, 有什么可以研究的, novelty]
+triggers: [brainstorm, research proposal, novelty]
 tags: [research, ideation, brainstorm, literature-review, academic, proposal]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [semantic-scholar, google-scholar, arxiv, dblp, acl-anthology]
+tools: []
 requires: []
 related: [design-brainstorming, academic-paper-writer, scientific-database-lookup]
 combines_with: [academic-paper-writer, nih-grant-finder, fact-checking]
@@ -16,103 +16,87 @@ license: MIT
 source: voidful/academic-skills
 source_license: MIT
 ---
-## 何时使用
+# Academic Research Skills Suite
 
-- 用户想头脑风暴研究方向、寻找论文选题、开拓新研究领域，或问"接下来可以做什么研究/有什么 gap"。
-- 跨领域合作或团队定期激荡构想时，需要一套可复用的系统化流程。
-- 需要在动手前验证一个 idea 的**新颖性**（是否已被做过）。
-
-不该用：
-- 题目已确定，进入具体实验设计、代码实现或论文写作阶段（这是执行而非选题）。
-- 只需单条事实核查或文献检索，无需完整发散-收敛流程。
-- 非研究类的产品/商业点子（框架可借鉴，但本条针对学术研究构想）。
-
-## 步骤
-
-三阶段：**发散 → 文献搜索验证 → 收敛**，最终产出一页提案。
-
-阶段一 · 发散（产出 10-20 个候选）：原则是"量先于质"，先广后深。先界定研究大方向、回顾近期读过的论文/观察，每个框架限时 15-30 分钟。从下列 10 框架中**至少选 3-5 个**生成候选。
-
-阶段二 · 文献搜索验证（确认新颖性）：为每个候选设计 3-5 组关键词（含同义词、上下位词、中英文），多平台检索 + 滚雪球法，对每个 idea 做新颖性判定，建立文献表，通常淘汰到剩 5-10 个。
-
-阶段三 · 收敛（筛到 1 个）：淘汰 → 合并 → 精炼 → 评分矩阵 → 最终决策，并警惕认知偏误。
-
-## 指令
-
-10 种发想框架（任选 3-5 个）：
-1. Problem-First：从痛点/瓶颈/benchmark 失败案例出发找未解问题。
-2. Solution-First：从一个新方法出发，问它还能解决什么、能迁移到哪。
-3. 抽象阶梯：向上抽象问本质，再向下具体化为新应用。
-4. 矛盾猎寻：找未被质疑的预设、缺证据的"常识"、互相矛盾的结论。
-5. 跨领域嫁接：把别的领域（生物、社会科学等）的机制引入本领域。
-6. What Changed：盯最近的技术/环境变化（更大模型、新数据源、新社会需求如隐私/公平/可解释）开启了什么可能。
-7. 失败分析：从失败尝试、被拒论文、表现差的方法里找机会与更根本的问题。
-8. 简单性测试：用更简单的 baseline 挑战复杂方法，问哪些组件真的必要。
-9. 利害关系人旋转：从终端用户/开发者/决策者不同视角重想问题。
-10. 组合/分解：A+B 组合，或拆出值得独立研究的子模块。
-
-发散输出表（每个候选）：`编号 | 标题(一句话) | 使用框架 | 简述(2-3句) | 直觉评分(1-5)`。
-
-文献检索平台与策略：
-- Semantic Scholar（语义搜索/探索）、Google Scholar（覆盖广/确认）、arXiv（前沿预印本）、DBLP（CS 索引）、ACL Anthology（NLP 专用）。
-- 滚雪球：前向（谁引用了关键论文）、后向（关键论文引用了谁）、作者追踪。
-
-新颖性判定与行动：
-
-| 判定 | 说明 | 行动 |
-|------|------|------|
-| 全新 | 找不到直接相关工作 | 保留，但需验可行性 |
-| 部分重叠 | 有相关但不相同 | 找差异点，精炼 idea |
-| 已被做过 | 找到几乎相同工作 | 淘汰或大幅修改 |
-
-收敛评分矩阵（加权总分排序）：
-
-| 维度 | 权重 | 说明 |
-|------|------|------|
-| 新颖性 | 25% | 与现有工作的差异度 |
-| 可行性 | 25% | 现有资源下完成的可能 |
-| 影响力 | 20% | 对领域的潜在贡献 |
-| 时效性 | 15% | 是否契合当前趋势 |
-| 个人兴趣 | 15% | 热情与动机 |
-
-最终决策：选加权最高者，但同时核对直觉是否认同、热情是否足够；理性与直觉冲突时先厘清原因。
-
-警惕认知偏误：确认偏误、沉没成本、新奇偏误、从众效应、完美主义。
-
-最终一页提案固定段落：
-```
-# [研究标题]
-## 问题陈述：解决什么问题？为何重要？
-## 现有方法与不足（Related Work & Gap）
-## 提议方法（Proposed Approach）：核心想法
-## 预期贡献（Expected Contributions）
-## 初步实验计画：数据集 / 指标 / baseline
-## 风险与备案（Risks & Mitigation）
-## 时间表（里程碑）
-```
-
-## 示例
-
-输入：用户大方向为"大语言模型推理"，问"我接下来能做什么研究？"
-
-执行：
-1. 发散——选用框架 6（What Changed：长上下文窗口变大了）、框架 8（简单性测试：CoT 真的需要那么多步吗）、框架 4（矛盾猎寻：两篇论文对 self-consistency 收益的结论冲突），各产出若干候选，凑满 12 个，填入候选表并打直觉分。
-2. 文献验证——对评分最高的 3 个候选各设计关键词，在 Semantic Scholar + arXiv 检索并滚雪球，判定：其中 1 个"已被做过"淘汰，2 个"部分重叠"，记录差异点，建文献表（每 idea 5-10 篇）。
-3. 收敛——剩余候选填评分矩阵，"长上下文下的步级 CoT 剪枝"以新颖性+可行性领先胜出，产出一页提案，列出 baseline、数据集与风险备案。
-
-## 注意事项
-
-- 发散阶段**不要过早筛选**，否则扼杀广度；评分只用直觉粗筛。
-- 关键词务必含中英文与上下位词，否则会漏掉同主题不同命名的工作而误判"全新"。
-- 至少用 2 个检索平台并做滚雪球，单平台容易遗漏。
-- 时间分配参考：发散 2-4h、文献验证 4-8h（每 idea 30-60min）、收敛 2-3h、写提案 1-2h，合计约 9-17h / 1-2 周。
-- 允许迭代：拿到新信息可回到发散重做，好 idea 多是多轮迭代的结果。
-- 平时维护 Idea Bank（按领域/方法/问题类型打标签），并向不同领域的人讲述 idea 收集反馈。
-
-## 互见
-
-- `first-principles-thinking`：框架 3（抽象阶梯）与框架 4（矛盾猎寻）的底层思维，用于追问问题本质与挑战预设。
-- `fact-checking`：阶段二新颖性验证可借其核查方法，确认"是否已被做过"的判断有据可依。
+A complete suite of academic research Skills covering the full research workflow, from reading papers to writing them and reviewing submissions. Supports Claude Code, ChatGPT/Codex CLI, and Gemini CLI.
 
 ---
-本条采编自 voidful/academic-skills（MIT）。
+
+## Skill Routing Table
+
+Based on the user's intent, load the corresponding sub-skill:
+
+| Trigger condition | Sub-skill | Path | Description |
+|----------|---------|------|------|
+| Read a paper, explain a paper, paper reading, "I can't understand this paper" | Paper Reading | [paper-reading/SKILL.md](paper-reading/SKILL.md) | Guided paper walkthrough in a storytelling "grandma" persona (Traditional Chinese) |
+| Come up with an idea, brainstorm, research direction, what to do next | Idea Generation | [idea-generation/SKILL.md](idea-generation/SKILL.md) | Three-stage ideation: diverge → search → converge |
+| Experiment design, ablation, baseline, which experiments to run | Experiment Design | [experiment-design/SKILL.md](experiment-design/SKILL.md) | Experiment design and planning |
+| Mathematical proof, prove, theorem, derivation | Proof Writer | [proof-writer/SKILL.md](proof-writer/SKILL.md) | Theoretical derivation and mathematical proofs |
+| Write a paper, paper writing, improve my paper, LaTeX | Paper Writing | [paper-writing/SKILL.md](paper-writing/SKILL.md) | Paper writing (top-venue standards) |
+| Review, refereeing, "what would a reviewer say", "can this paper get in" | Paper Review | [paper-review/SKILL.md](paper-review/SKILL.md) | 4-step academic review |
+| Professor analysis, professor fit, choosing an advisor, cold email, application strategy | Professor Fit Analyser | [professor-fit-analyser/SKILL.md](professor-fit-analyser/SKILL.md) | Advisor fit analysis and application strategy |
+
+**Guidance**: When the user's request matches one of the trigger conditions above, read the `SKILL.md` at the corresponding path and follow its instructions. If the user's needs span multiple skills, handle them in the order of the Pipeline below.
+
+---
+
+## Skill Pipeline
+
+```
+professor-fit-analyser ─┐
+                        ↓
+paper-reading ──→ idea-generation ──→ experiment-design
+      │                                       │
+      ↓                                       ↓
+paper-review ←── paper-writing ←──── proof-writer
+      │                 ↑
+      └─────────────────┘  (revision cycle)
+```
+
+---
+
+## Language Conventions
+
+- **Default language**: Traditional Chinese (analysis, explanation, discussion)
+- **English contexts**: LaTeX generation, formal review output, mathematical notation, and theorem names
+- **Academic terminology**: Refer to [shared/chinese-academic-glossary.md](shared/chinese-academic-glossary.md) to ensure consistency
+
+---
+
+## Shared Resources
+
+- [shared/chinese-academic-glossary.md](shared/chinese-academic-glossary.md) — Chinese–English academic terminology mapping
+- [shared/conference-standards.md](shared/conference-standards.md) — Format standards for the major venues
+- [shared/researcher-philosophies.md](shared/researcher-philosophies.md) — Researcher philosophies and writing styles
+
+---
+
+## Cross-Platform Installation
+
+This suite conforms to the [Agent Skills open standard](https://agentskills.io/specification) and can be used on the following platforms:
+
+### Claude Code
+```bash
+# Option 1: Clone into the skills directory
+git clone <repo-url> ~/.claude/skills/academic-research
+
+# Option 2: Use within a project
+git clone <repo-url> .claude/skills/academic-research
+```
+
+### ChatGPT / Codex CLI
+```bash
+git clone <repo-url> ~/.codex/skills/academic-research
+# Or within a project
+git clone <repo-url> .codex/skills/academic-research
+```
+
+### Gemini CLI
+```bash
+git clone <repo-url> ~/.gemini/skills/academic-research
+# Or within a project
+git clone <repo-url> .gemini/skills/academic-research
+```
+
+### Generic approach
+Simply copy this repository's directory into your AI agent's skills directory. The root `SKILL.md` serves as the entry point, and the agent will automatically discover all sub-skills via the `*/SKILL.md` pattern.

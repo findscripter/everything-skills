@@ -1,14 +1,14 @@
 ---
 name: pcb-fab-assembly
-title: PCB 制造与贴片下单（JLCPCB）
-description: 当用 KiCad 设计完 PCB、要把工程发到 JLCPCB 打样裸板/钢网或下单 SMT 贴片时使用；做出可上传的 BOM/CPL（含 LCSC 编号、贴片旋转校正）并据制造规则与 Basic/Extended 选件约束完成下单流程；不适用于原理图设计、Gerber/钢网导出细节（见 bom）与元件选型搜索（见 lcsc）。触发词：JLCPCB、PCB 打样、PCB 制造、SMT 贴片、PCBA、BOM、CPL、贴片下单、LCSC、basic/extended parts、design rules、嘉立创
+title: JLCPCB — PCB Fabrication & Assembly
+description: JLCPCB PCB fabrication and assembly — BOM/CPL generation, basic vs extended parts, assembly constraints, design rules, ordering workflow. Use with KiCad for JLCPCB manufacturing. Use this skill when the user mentions JLCPCB, wants to order PCBs or assembled boards, needs prototype bare PCBs and stencils, wants to know JLCPCB design rules and capabilities, or is asking about PCB manufacturing costs or turnaround times. For gerber/CPL export, stencil ordering, and BOM management, see the `bom` skill.
 domain: 领域/hardware
-triggers: [JLCPCB, PCB 打样, PCB 制造, SMT 贴片, PCBA, BOM, CPL, 贴片下单, LCSC, basic parts, extended parts, design rules, 嘉立创, 钢网, stencil]
+triggers: [JLCPCB, PCBA, BOM, CPL, LCSC, basic parts, extended parts, design rules, stencil]
 tags: [pcb, jlcpcb, kicad, pcba, smt, bom, cpl, lcsc, hardware, manufacturing]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [KiCad, JLCPCB, LCSC, CSV/XLSX BOM, CPL placement file, JLCPCB API]
+tools: []
 requires: []
 related: [pcb-bom-manager, component-sourcing-search, kicad-design-reviewer, emc-precompliance-analyzer]
 combines_with: [pcb-bom-manager, component-sourcing-search, kicad-design-reviewer]
@@ -16,108 +16,175 @@ license: MIT
 source: aklofas/kicad-happy
 source_license: MIT
 ---
-## 何时使用
+# JLCPCB — PCB Fabrication & Assembly
 
-- KiCad 工程已完成布局布线，需要把它送到 JLCPCB（嘉立创国际站）打样或量产。
-- 打样阶段：下单裸板 + 带框钢网（元件另从 DigiKey/Mouser 采购，手工焊接）。
-- 量产阶段（百片量级）：下单整板 SMT 贴片，元件用 LCSC 库（JLCPCB 与 LCSC 同属一家，共用元件库）。
-- 需要查 JLCPCB 的制造能力（design rules）、Basic/Extended 选件费用、贴片约束、交期/成本。
+JLCPCB is a PCB fabrication and assembly service based in Shenzhen, China. It is a sister company to LCSC Electronics (common ownership) — they share the same parts library.
 
-不该用边界：
-- 原理图/PCB 本身的设计、布线、DFM 评分 -> 用 KiCad 工具本身（源技能体系中的 `kicad`）。
-- Gerber 导出设置、CPL 格式细节、钢网导出 -> 属于 BOM/导出环节（源技能 `bom`）。
-- 元件选型与库存搜索 -> `lcsc`（量产）/ DigiKey、Mouser（打样）。
-- 替代厂商 PCBWay 的下单流程不在本条覆盖。
+**Typical usage**: Order bare prototype PCBs + framed stencil from JLCPCB during prototyping (parts sourced separately from DigiKey/Mouser, hand-assembled in lab). For production runs (100s qty), order fully assembled boards from JLCPCB using LCSC parts. PCBWay is an alternative assembler. For component searching, see the `lcsc` skill. For BOM management, gerber/CPL export, and stencil ordering, see the `bom` skill.
 
-## 步骤
+## Related Skills
 
-裸板 + 钢网打样：
-1. 从 KiCad 导出 Gerber。
-2. 上传到 `https://cart.jlcpcb.com/quote`，配置层数、板厚、颜色、数量。
-3. 购物车里加一块带框钢网（复用 Gerber 中的 paste 层）。
-4. 下单，板 + 钢网通常约 1 周到货。
+| Skill | Purpose |
+|-------|---------|
+| `kicad` | Read/analyze KiCad project files, DFM scoring against JLCPCB capabilities |
+| `bom` | BOM management, gerber/CPL export, stencil ordering |
+| `digikey` | Search DigiKey (prototype sourcing, primary — also preferred for datasheet downloads via API) |
+| `mouser` | Search Mouser (prototype sourcing, secondary) |
+| `lcsc` | Search LCSC (production sourcing — JLCPCB uses LCSC parts library) |
+| `pcbway` | Alternative PCB fabrication & assembly |
+| `emc` | EMC pre-compliance risk analysis — run before fab to catch EMC issues |
+| `spice` | SPICE simulation — verify analog subcircuits before committing to fab |
 
-量产整板贴片：
-1. 导出 Gerber。
-2. 导出 BOM（CSV，含 LCSC 编号，格式见下）。
-3. 导出 CPL 贴装坐标文件（CSV）。
-4. 上传 Gerber 到 `https://cart.jlcpcb.com/quote`，配置层数/板厚/颜色/数量。
-5. 勾选 "PCB Assembly"，选 Economic 或 Standard。
-6. 上传 BOM 与 CPL。
-7. 核对选件匹配（part matching），用 LCSC 编号修正未匹配项。
-8. 确认下单。最小起订 5 片。
+## Assembly Parts Library
 
-## 指令
+### Part Categories
 
-BOM 列要求（接受 CSV/XLS/XLSX）：
+| Category | Description | Assembly Fee |
+|----------|-------------|--------------|
+| **Basic** | ~698 common parts (resistors, caps, diodes, etc.) pre-loaded on pick-and-place machines | No extra fee |
+| **Preferred Extended** | Frequently used extended parts | No feeder loading fee (Economic assembly) |
+| **Extended** | 300k+ less common parts loaded on demand | $3 per unique extended part |
 
-| 列 | 必填 | 说明 |
-|----|------|------|
-| `Comment` / `Value` | 是 | 元件值，如 100nF、10k |
-| `Designator` | 是 | 位号，逗号分隔，如 C1,C2,C5 |
-| `Footprint` | 是 | 封装名 |
-| `LCSC Part #` | 建议 | LCSC 编号（Cxxxxx），保证精确匹配 |
+### LCSC Part Numbers
 
-LCSC 列表头必须严格写成 `LCSC Part #` 或 `LCSC Part Number`，写错会导致上传失败。
+Every assembly component is identified by an **LCSC Part Number** (`Cxxxxx`, e.g., `C14663`). This is the definitive identifier for BOM matching. See the `lcsc` skill for searching parts.
 
-KiCad 导 BOM 给 JLCPCB：
-1. 在原理图给每个符号加 `LCSC` 字段填入编号（Cxxxxx，如 C14663，这是 BOM 匹配的唯一权威标识）。
-2. 导出 CSV，列为 Reference、Value、Footprint、LCSC。
-3. 重命名列以匹配 JLCPCB：`Reference`->`Designator`，`Value`->`Comment`，`Footprint` 不变，`LCSC`->`LCSC Part #`。
+### Parts Search (JLCPCB-Specific)
 
-选件分类与费用：
-- Basic（约 698 种常用件）：贴片机预装，无额外费用。
-- Preferred Extended：常用扩展件，Economic 贴片下无供料器装载费。
-- Extended（30 万+ 不常用件）：按需装料，每种唯一扩展件 +$3。
+- Parts library: `https://jlcpcb.com/parts/componentSearch?searchTxt=<query>`
+- Basic parts only: `https://jlcpcb.com/parts/basic_parts`
 
-参数查询入口：
-- 元件库搜索：`https://jlcpcb.com/parts/componentSearch?searchTxt=<query>`
-- 仅 Basic：`https://jlcpcb.com/parts/basic_parts`
-- 官方 API（需申请审核）：`https://api.jlcpcb.com`，含 Components / PCB / Stencil / 3D Printing 四类 API。
+## BOM Format for Assembly
 
-## 示例
+JLCPCB accepts CSV, XLS, or XLSX BOMs with these columns:
 
-旋转校正（CPL）：JLCPCB 贴片机对部分封装的旋转约定与 KiCad 不同，上传前需在 CPL 的 Rotation 列加偏移：
+| Column | Required | Description |
+|--------|----------|-------------|
+| `Comment` / `Value` | Yes | Component value (e.g., 100nF, 10k) |
+| `Designator` | Yes | Reference designators, comma-separated (e.g., C1,C2,C5) |
+| `Footprint` | Yes | Package/footprint name |
+| `LCSC Part #` | Recommended | LCSC part number (Cxxxxx) — guarantees exact match |
 
-| 封装族 | 典型偏移 |
-|--------|----------|
-| SOT-23 / -5 / -6 | +180° |
+The column header for LCSC numbers must be exactly **"LCSC Part #"** or **"LCSC Part Number"** — typos cause upload failures.
+
+### KiCad BOM Export for JLCPCB
+
+1. In KiCad schematic editor, add an `LCSC` field to each symbol with the LCSC part number
+2. Export BOM as CSV with columns: Reference, Value, Footprint, LCSC
+3. Rename columns to match JLCPCB's expected format:
+   - `Reference` -> `Designator`
+   - `Value` -> `Comment`
+   - `Footprint` -> `Footprint`
+   - `LCSC` -> `LCSC Part #`
+
+For gerber export settings, CPL format, and stencil ordering, see the `bom` skill.
+
+## JLCPCB Official API (Approval Required)
+
+Apply at `https://api.jlcpcb.com`. Access is gated — requires review based on order history and business profile.
+
+Available APIs (once approved):
+- **Components API** — real-time pricing, inventory, component specs
+- **PCB API** — upload gerbers, get quotes, place orders, track status
+- **Stencil API** — stencil quoting and ordering
+- **3D Printing API** — SLA/MJF/SLM/FDM ordering
+
+## PCB Design Rules (JLCPCB Capabilities)
+
+### Standard PCB (1-2 layers)
+
+| Parameter | Minimum |
+|-----------|---------|
+| Trace width | 0.127mm (5mil) |
+| Trace spacing | 0.127mm (5mil) |
+| Via diameter | 0.45mm |
+| Via drill | 0.2mm |
+| Annular ring | 0.125mm |
+| Min hole size | 0.2mm |
+| Board thickness | 0.4-2.4mm (default 1.6mm) |
+| Min board size | 6x6mm |
+| Max board size | 500x400mm (2-layer) |
+
+### Multi-layer (4+ layers)
+
+| Parameter | Minimum |
+|-----------|---------|
+| Trace width | 0.09mm (3.5mil) |
+| Trace spacing | 0.09mm (3.5mil) |
+| Via diameter | 0.25mm |
+| Via drill | 0.15mm |
+| Board thickness | 0.6-2.4mm |
+
+### Importing DRU into KiCad
+
+If you have a JLCPCB `.kicad_dru` design rules file, import it in KiCad Board Editor > Board Setup > Design Rules > Import Settings.
+
+## Assembly Constraints
+
+### Economic vs Standard Assembly
+
+| Feature | Economic | Standard |
+|---------|----------|----------|
+| Sides | Top only | Top + Bottom |
+| Component types | SMD only | SMD + through-hole |
+| Min component size | 0201 | 01005 |
+| Fine-pitch BGA/QFP | Down to 0.5mm pitch | Down to 0.4mm pitch |
+| Turnaround | ~3-5 days | ~3-5 days |
+| Extended part fee | $3 per unique part | $3 per unique part |
+
+### General Constraints
+
+- **Minimum order**: 5 PCBs for assembly
+- **Unique parts limit**: No hard limit, but each extended part adds $3
+- **Basic parts**: No extra fee, pre-loaded on machines
+
+## Rotation Offsets
+
+JLCPCB's pick-and-place uses different rotation conventions than KiCad for some footprints. Common offsets:
+
+| Footprint Family | Typical Offset |
+|-----------------|----------------|
+| SOT-23, SOT-23-5, SOT-23-6 | +180° |
 | SOT-223 | +180° |
-| SOIC-8 / SOIC-16 | +90° 或 +270° |
-| QFN（所有尺寸） | +90° |
-| SMA/SMB/SMC 二极管 | +180° |
-| USB-C 连接器 | 视 datasheet 而定 |
+| SOIC-8, SOIC-16 | +90° or +270° |
+| QFN (all sizes) | +90° |
+| SMA/SMB/SMC diodes | +180° |
+| USB-C connectors | Varies — check datasheet |
 
-排查做法：直接改 CPL 的 Rotation 列；自定义封装核对 pin 1 朝向是否符合 JLCPCB 预期；JLCPCB 评审能拦大错，但对称件（电容、电阻）上细微 180° 旋转可能漏过；首单后记录所需校正，沉淀到后续 CPL 导出。
+To fix rotation issues:
+1. Add rotation corrections directly in the CPL file before uploading (adjust the Rotation column)
+2. For custom footprints, verify pin 1 orientation matches JLCPCB expectations
+3. JLCPCB's review step catches major errors, but subtle 180° rotations on symmetric parts (caps, resistors) may slip through
+4. After first assembly order, note any rotation corrections needed and apply them to future CPL exports
 
-经济版 vs 标准版贴片：
+## Ordering Workflow
 
-| 特性 | Economic | Standard |
-|------|----------|----------|
-| 面 | 仅顶面 | 顶 + 底 |
-| 元件类型 | 仅 SMD | SMD + 通孔 |
-| 最小元件 | 0201 | 01005 |
-| 细间距 BGA/QFP | 至 0.5mm | 至 0.4mm |
-| 扩展件费 | $3/唯一件 | $3/唯一件 |
+### Prototype Order (Bare PCB + Stencil)
 
-## 注意事项
+1. **Export gerbers** from KiCad (see `bom` skill for export settings)
+2. Upload gerbers to `https://cart.jlcpcb.com/quote` — configure layers, thickness, color, qty
+3. Add a **framed stencil** to the cart (uses paste layers from your gerbers)
+4. Order — PCBs and stencil typically arrive in ~1 week
 
-- 制造规则（标准板 1-2 层）最小值：线宽/间距 0.127mm(5mil)，过孔径 0.45mm、钻孔 0.2mm，环宽 0.125mm，最小孔 0.2mm；板厚 0.4-2.4mm（默认 1.6）；最小板 6x6mm，最大 500x400mm。
-- 多层板（4+ 层）：线宽/间距 0.09mm(3.5mil)，过孔径 0.25mm、钻孔 0.15mm，板厚 0.6-2.4mm。
-- 有 JLCPCB 的 `.kicad_dru` 文件时，在 KiCad Board Editor > Board Setup > Design Rules > Import Settings 导入。
-- 最小起订量：贴片 5 片；唯一选件无硬上限，但每个扩展件 +$3。
-- 优先用 Basic 件：无额外费、常备库存、贴片更快；下单前查库存（扩展件可能缺货）。
-- 小板让 JLCPCB 拼板（Panel by JLCPCB）通常比自定义拼板便宜。
-- 焊料默认有铅 HASL，需要时选无铅 HASL 或 ENIG；阻抗控制仅多层可用，需在订单备注里写明叠层。
-- 支持金属化半孔（castellated）、V-cut、邮票孔；丝印最小字高 0.8mm、线宽 0.15mm；铜到板边 >=0.3mm（建议 0.5mm）。
+### Production Order (Assembled Boards)
 
-## 互见
+1. **Export gerbers** from KiCad (see `bom` skill for export settings)
+2. **Export BOM** as CSV with LCSC part numbers (format above)
+3. **Export CPL** (placement file) as CSV (see `bom` skill for format)
+4. Upload gerbers to `https://cart.jlcpcb.com/quote` — configure layers, thickness, color, qty
+5. Enable "PCB Assembly", select Economic or Standard
+6. Upload BOM and CPL files
+7. Review part matching — fix any unmatched parts by searching LCSC numbers
+8. Confirm and order
 
-- 元件搜索与库存（量产）：`lcsc`；打样采购：`digikey`、`mouser`。
-- Gerber/CPL 导出、钢网下单、BOM 管理：`bom`。
-- KiCad 工程读取与 DFM 评分：`kicad`。
-- 量产前风险检查：`emc`（EMC 预合规）、`spice`（模拟子电路仿真）；替代厂商：`pcbway`。
+## Tips
 
----
-
-本条采编自 aklofas/kicad-happy（MIT）。
+- **Prefer Basic parts** — no extra fee, always in stock, faster assembly
+- **Check stock before ordering** — extended parts can go out of stock; use the `lcsc` skill to search
+- **Panel by JLCPCB** — for small boards, let JLCPCB panelize (cheaper) vs custom panels
+- **Lead-free solder** — default is leaded (HASL); select lead-free HASL or ENIG if needed
+- **Impedance control** — available for multi-layer boards, specify stackup in order notes
+- **Castellated holes** — supported, enable in order options
+- **V-cuts and mouse bites** — supported for panel separation
+- **Silkscreen minimum** — 0.8mm height, 0.15mm line width for readable text
+- **Edge clearance** — keep copper >=0.3mm from board edge (0.5mm recommended)

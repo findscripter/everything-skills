@@ -1,14 +1,14 @@
 ---
 name: grafana-dashboards
-title: Grafana 可观测看板
-description: 当需要为 Prometheus 指标搭建生产级监控看板（API/基础设施/数据库/SLO/业务 KPI）时使用；做按 RED/USE 方法设计面板并产出可版本化的 Dashboard JSON、模板变量、告警与 Provisioning/IaC 配置；不适用于指标采集本身或非 Grafana 可视化场景；触发词：Grafana、看板、可观测、Prometheus、SLO
+title: Grafana Dashboards
+description: Create and manage production-ready Grafana dashboards for comprehensive system observability.
 domain: 研发/observability
-triggers: [Grafana 看板, 可观测大盘, Prometheus 可视化, SLO 仪表盘, 监控面板设计, dashboard JSON, RED 方法, USE 方法, 面板告警, dashboard as code]
-tags: [grafana, prometheus, observability, dashboard, monitoring, slo, iac, 研发]
-level: 进阶
+triggers: [dashboard JSON, dashboard as code]
+tags: [grafana, prometheus, observability, dashboard, monitoring, slo, iac]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash]
+tools: []
 requires: []
 related: [prometheus-configuration, observability-strategy-designer, distributed-tracing, slo-sli-implementation]
 combines_with: [performance-profiler, devops-troubleshooter, kubernetes-architect]
@@ -16,107 +16,282 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Grafana Dashboards
 
-当你要为系统、服务或业务搭建生产可用的 Grafana 监控看板时使用，典型场景：
+Create and manage production-ready Grafana dashboards for comprehensive system observability.
 
-- 把 Prometheus 指标可视化为大盘（请求量、错误率、延迟等）。
-- 设计 API / 基础设施 / 数据库 / 应用 / 业务 KPI 看板。
-- 落地 SLO 看板与面板内告警。
-- 用模板变量做多环境/多服务复用，或用 Terraform/Ansible 做「看板即代码」。
+## Do not use this skill when
 
-**不该用的边界：**
+- The task is unrelated to grafana dashboards
+- You need a different domain or tool outside this scope
 
-- 任务与 Grafana 看板无关。
-- 需求其实是「指标采集/抓取配置」（属 Prometheus 配置范畴）或非 Grafana 的可视化工具。
-- 需要的是脱离具体环境的最终结论——本技能产出仍需在真实环境验证。
+## Instructions
 
-## 步骤
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-1. 明确目标：监控对象是服务还是资源、关键问题是什么、谁来看（值班/管理层）。
-2. 选方法论：服务用 **RED**（Rate 请求率 / Errors 错误率 / Duration 延迟），资源用 **USE**（Utilization 利用率 / Saturation 饱和度 / Errors 错误数）。
-3. 排信息层级：顶部放关键大数字（Stat），中部放趋势（Time Series），底部放明细（Table/Heatmap）。
-4. 写 PromQL 与面板：逐个确定 `expr`、`legendFormat`、单位、阈值与配色。
-5. 加模板变量（namespace/service 等）实现复用，并在查询中引用 `$var`。
-6. 配告警与 Provisioning，必要时落到 Terraform/Ansible 实现看板即代码。
-7. 用不同时间范围验证，补面板描述与一致命名。
+## Purpose
 
-## 指令
+Design effective Grafana dashboards for monitoring applications, infrastructure, and business metrics.
 
-- 信息层级（从上到下）：关键大数字 → 关键趋势 → 详细指标。
-- 服务三件套 RED；资源三件套 USE。
-- 最佳实践：优先复用社区模板；命名一致；相关指标分组成 row；默认时间范围合理（如 Last 6 hours）；正确配置单位；阈值/配色有意义且跨看板一致；为面板加描述；多时间范围测试。
+## Use this skill when
 
-## 示例
+- Visualize Prometheus metrics
+- Create custom dashboards
+- Implement SLO dashboards
+- Monitor infrastructure
+- Track business KPIs
 
-**API 看板核心三面板（RED 的 PromQL）：**
+## Dashboard Design Principles
 
-请求率：
+### 1. Hierarchy of Information
 ```
-sum(rate(http_requests_total[5m])) by (service)
-```
-
-错误率（%）：
-```
-(sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m]))) * 100
+┌─────────────────────────────────────┐
+│  Critical Metrics (Big Numbers)     │
+├─────────────────────────────────────┤
+│  Key Trends (Time Series)           │
+├─────────────────────────────────────┤
+│  Detailed Metrics (Tables/Heatmaps) │
+└─────────────────────────────────────┘
 ```
 
-P95 延迟：
-```
-histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service))
-```
+### 2. RED Method (Services)
+- **Rate** - Requests per second
+- **Errors** - Error rate
+- **Duration** - Latency/response time
 
-资源类 PromQL 示例——CPU 使用率：
-```
-100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
-```
+### 3. USE Method (Resources)
+- **Utilization** - % time resource is busy
+- **Saturation** - Queue length/wait time
+- **Errors** - Error count
 
-**面板片段（Time Series，含 12x8 网格位）：**
+## Dashboard Structure
+
+### API Monitoring Dashboard
+
 ```json
 {
-  "title": "Request Rate",
-  "type": "graph",
-  "targets": [
-    { "expr": "sum(rate(http_requests_total[5m])) by (service)", "legendFormat": "{{service}}" }
-  ],
-  "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8}
-}
-```
-
-**模板变量（级联）：**
-```json
-{
-  "templating": { "list": [
-    { "name": "namespace", "type": "query", "datasource": "Prometheus",
-      "query": "label_values(kube_pod_info, namespace)", "refresh": 1, "multi": false },
-    { "name": "service", "type": "query", "datasource": "Prometheus",
-      "query": "label_values(kube_service_info{namespace=\"$namespace\"}, service)", "refresh": 1, "multi": true }
-  ] }
-}
-```
-在查询中引用：`sum(rate(http_requests_total{namespace="$namespace", service=~"$service"}[5m]))`
-
-**面板告警（错误率 > 5%）：**
-```json
-{
-  "alert": {
-    "name": "High Error Rate", "for": "5m", "frequency": "1m",
-    "conditions": [{
-      "evaluator": {"params": [5], "type": "gt"},
-      "operator": {"type": "and"},
-      "query": {"params": ["A", "5m", "now"]},
-      "reducer": {"type": "avg"}, "type": "query"
-    }],
-    "executionErrorState": "alerting", "noDataState": "no_data",
-    "message": "Error rate is above 5%",
-    "notifications": [{"uid": "slack-channel"}]
+  "dashboard": {
+    "title": "API Monitoring",
+    "tags": ["api", "production"],
+    "timezone": "browser",
+    "refresh": "30s",
+    "panels": [
+      {
+        "title": "Request Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total[5m])) by (service)",
+            "legendFormat": "{{service}}"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8}
+      },
+      {
+        "title": "Error Rate %",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "(sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m]))) * 100",
+            "legendFormat": "Error Rate"
+          }
+        ],
+        "alert": {
+          "conditions": [
+            {
+              "evaluator": {"params": [5], "type": "gt"},
+              "operator": {"type": "and"},
+              "query": {"params": ["A", "5m", "now"]},
+              "type": "query"
+            }
+          ]
+        },
+        "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8}
+      },
+      {
+        "title": "P95 Latency",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service))",
+            "legendFormat": "{{service}}"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 8, "w": 24, "h": 8}
+      }
+    ]
   }
 }
 ```
 
-**Provisioning（dashboards.yml）：**
+**Reference:** See `assets/api-dashboard.json`
+
+## Panel Types
+
+### 1. Stat Panel (Single Value)
+```json
+{
+  "type": "stat",
+  "title": "Total Requests",
+  "targets": [{
+    "expr": "sum(http_requests_total)"
+  }],
+  "options": {
+    "reduceOptions": {
+      "values": false,
+      "calcs": ["lastNotNull"]
+    },
+    "orientation": "auto",
+    "textMode": "auto",
+    "colorMode": "value"
+  },
+  "fieldConfig": {
+    "defaults": {
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {"value": 0, "color": "green"},
+          {"value": 80, "color": "yellow"},
+          {"value": 90, "color": "red"}
+        ]
+      }
+    }
+  }
+}
+```
+
+### 2. Time Series Graph
+```json
+{
+  "type": "graph",
+  "title": "CPU Usage",
+  "targets": [{
+    "expr": "100 - (avg by (instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)"
+  }],
+  "yaxes": [
+    {"format": "percent", "max": 100, "min": 0},
+    {"format": "short"}
+  ]
+}
+```
+
+### 3. Table Panel
+```json
+{
+  "type": "table",
+  "title": "Service Status",
+  "targets": [{
+    "expr": "up",
+    "format": "table",
+    "instant": true
+  }],
+  "transformations": [
+    {
+      "id": "organize",
+      "options": {
+        "excludeByName": {"Time": true},
+        "indexByName": {},
+        "renameByName": {
+          "instance": "Instance",
+          "job": "Service",
+          "Value": "Status"
+        }
+      }
+    }
+  ]
+}
+```
+
+### 4. Heatmap
+```json
+{
+  "type": "heatmap",
+  "title": "Latency Heatmap",
+  "targets": [{
+    "expr": "sum(rate(http_request_duration_seconds_bucket[5m])) by (le)",
+    "format": "heatmap"
+  }],
+  "dataFormat": "tsbuckets",
+  "yAxis": {
+    "format": "s"
+  }
+}
+```
+
+## Variables
+
+### Query Variables
+```json
+{
+  "templating": {
+    "list": [
+      {
+        "name": "namespace",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(kube_pod_info, namespace)",
+        "refresh": 1,
+        "multi": false
+      },
+      {
+        "name": "service",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(kube_service_info{namespace=\"$namespace\"}, service)",
+        "refresh": 1,
+        "multi": true
+      }
+    ]
+  }
+}
+```
+
+### Use Variables in Queries
+```
+sum(rate(http_requests_total{namespace="$namespace", service=~"$service"}[5m]))
+```
+
+## Alerts in Dashboards
+
+```json
+{
+  "alert": {
+    "name": "High Error Rate",
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [5],
+          "type": "gt"
+        },
+        "operator": {"type": "and"},
+        "query": {
+          "params": ["A", "5m", "now"]
+        },
+        "reducer": {"type": "avg"},
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "5m",
+    "frequency": "1m",
+    "message": "Error rate is above 5%",
+    "noDataState": "no_data",
+    "notifications": [
+      {"uid": "slack-channel"}
+    ]
+  }
+}
+```
+
+## Dashboard Provisioning
+
+**dashboards.yml:**
 ```yaml
 apiVersion: 1
+
 providers:
   - name: 'default'
     orgId: 1
@@ -129,34 +304,96 @@ providers:
       path: /etc/grafana/dashboards
 ```
 
-**看板即代码（Terraform）：**
+## Common Dashboard Patterns
+
+### Infrastructure Dashboard
+
+**Key Panels:**
+- CPU utilization per node
+- Memory usage per node
+- Disk I/O
+- Network traffic
+- Pod count by namespace
+- Node status
+
+**Reference:** See `assets/infrastructure-dashboard.json`
+
+### Database Dashboard
+
+**Key Panels:**
+- Queries per second
+- Connection pool usage
+- Query latency (P50, P95, P99)
+- Active connections
+- Database size
+- Replication lag
+- Slow queries
+
+**Reference:** See `assets/database-dashboard.json`
+
+### Application Dashboard
+
+**Key Panels:**
+- Request rate
+- Error rate
+- Response time (percentiles)
+- Active users/sessions
+- Cache hit rate
+- Queue length
+
+## Best Practices
+
+1. **Start with templates** (Grafana community dashboards)
+2. **Use consistent naming** for panels and variables
+3. **Group related metrics** in rows
+4. **Set appropriate time ranges** (default: Last 6 hours)
+5. **Use variables** for flexibility
+6. **Add panel descriptions** for context
+7. **Configure units** correctly
+8. **Set meaningful thresholds** for colors
+9. **Use consistent colors** across dashboards
+10. **Test with different time ranges**
+
+## Dashboard as Code
+
+### Terraform Provisioning
+
 ```hcl
-resource "grafana_folder" "monitoring" {
-  title = "Production Monitoring"
-}
 resource "grafana_dashboard" "api_monitoring" {
   config_json = file("${path.module}/dashboards/api-monitoring.json")
   folder      = grafana_folder.monitoring.id
 }
+
+resource "grafana_folder" "monitoring" {
+  title = "Production Monitoring"
+}
 ```
 
-**常见看板的关键面板清单：**
+### Ansible Provisioning
 
-- 基础设施：各节点 CPU/内存、磁盘 I/O、网络流量、各命名空间 Pod 数、节点状态。
-- 数据库：QPS、连接池占用、查询延迟（P50/P95/P99）、活跃连接、库大小、复制延迟、慢查询。
-- 应用：请求率、错误率、响应时间分位、活跃用户/会话、缓存命中率、队列长度。
+```yaml
+- name: Deploy Grafana dashboards
+  copy:
+    src: "{{ item }}"
+    dest: /etc/grafana/dashboards/
+  with_fileglob:
+    - "dashboards/*.json"
+  notify: restart grafana
+```
 
-## 注意事项
+## Reference Files
 
-- 面板类型按用途选：单值用 `stat`（配 thresholds 三档配色），趋势用 time series 并设好 `format`/`max`/`min`，明细用 `table`（instant + organize transformation 重命名列），延迟分布用 `heatmap`（`dataFormat: tsbuckets`）。
-- 告警配置要点：`for` 控制持续时间、`noDataState`/`executionErrorState` 决定无数据与执行异常时的行为，避免抖动误报。
-- 看板 JSON 应纳入版本管理；改动通过 Provisioning 或 IaC 下发而非仅手工编辑 UI。
-- 产出不能替代针对具体环境的验证、测试与专家评审；若缺少必要输入、权限或成功标准，先停下来澄清。
+- `assets/api-dashboard.json` - API monitoring dashboard
+- `assets/infrastructure-dashboard.json` - Infrastructure dashboard
+- `assets/database-dashboard.json` - Database monitoring dashboard
+- `references/dashboard-design.md` - Dashboard design guide
 
-## 互见
+## Related Skills
 
-- Prometheus 配置（指标采集）——本技能聚焦可视化，采集与抓取规则在此之外。
-- SLO 实施——SLO 看板的目标定义与错误预算计算。
+- `prometheus-configuration` - For metric collection
+- `slo-implementation` - For SLO dashboards
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

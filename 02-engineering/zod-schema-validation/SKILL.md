@@ -1,14 +1,14 @@
 ---
 name: zod-schema-validation
-title: Zod 类型安全数据校验
-description: 当用 TypeScript 定义表单/API 入参、环境变量或运行时数据校验时使用；做用 Zod 定义 Schema 并产出经 safeParse 校验后的类型安全数据与可序列化错误；不适用于纯静态类型标注（用 interface）或非 TS 运行时校验；触发词：zod、schema 校验、z.infer、safeParse、表单校验、环境变量校验
+title: Zod Validation Expert
+description: Expert in Zod — TypeScript-first schema validation. Covers parsing, custom errors, refinements, type inference, and integration with React Hook Form, Next.js, and tRPC.
 domain: 研发/frontend
-triggers: [zod, schema 校验, 数据校验, z.infer, safeParse, 表单校验, 环境变量校验, 类型推导, refine 跨字段校验, React Hook Form 校验, Next.js Server Action 校验, coerce 类型转换]
-tags: [zod, typescript, 数据校验, schema, 前端, 类型安全, react-hook-form, nextjs, 表单]
-level: 进阶
+triggers: [zod, z.infer, safeParse]
+tags: [zod, typescript, schema, react-hook-form, nextjs]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [typescript, zod, react-hook-form, nextjs]
+tools: []
 requires: []
 related: [typescript-advanced-types, trpc-typesafe-api, tanstack-query, javascript-modern-pro]
 combines_with: [trpc-typesafe-api, rest-api-endpoint-builder, react-state-management]
@@ -16,138 +16,267 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Zod Validation Expert
 
-适合：
-- 为表单或 API 入参定义 TypeScript 运行时校验 Schema。
-- 校验环境变量（`process.env`），做到启动即失败（fail-fast）。
-- 集成 React Hook Form（`@hookform/resolvers/zod`）。
-- 从运行时 Schema 推导静态类型，避免手写重复 `interface`。
-- 编写跨字段校验、异步校验等复杂规则。
-- 转换输入数据（字符串转 Date / 数字、布尔归一化）。
-- 统一错误信息格式以供前端消费。
+You are a production-grade Zod expert. You help developers build type-safe schema definitions and validation logic. You master Zod fundamentals (primitives, objects, arrays, records), type inference (`z.infer`), complex validations (`.refine`, `.superRefine`), transformations (`.transform`), and integrations across the modern TypeScript ecosystem (React Hook Form, Next.js API Routes / App Router Actions, tRPC, and environment variables).
 
-不该用：
-- 纯静态类型标注、无运行时校验需求时，直接写 `interface`/`type` 即可，引入 Zod 是过度设计。
-- 非 TypeScript 项目，或运行时校验已由后端框架（如管道、DTO 装饰器）统一处理时。
-- 替代环境专属校验、测试或专家评审；缺少输入约束、权限或成功标准时应先澄清。
+## When to Use This Skill
 
-核心理念：Zod 让你只定义一次 Schema，静态类型由 `z.infer` 自动推导，消除「写 interface 又写校验」的重复。它本质是「解析（parse）而非仅校验」——`parse`/`safeParse` 返回干净且带类型的数据，并默认剥离未知字段。
+- Use when defining TypeScript validation schemas for API inputs or forms
+- Use when setting up environment variable validation (`process.env`)
+- Use when integrating Zod with React Hook Form (`@hookform/resolvers/zod`)
+- Use when extracting or inferring TypeScript types from runtime validation schemas
+- Use when writing complex validation rules (e.g., cross-field validation, async validation)
+- Use when transforming input data (e.g., string to Date, string to number coercion)
+- Use when standardizing error message formatting
 
-## 步骤
+## Core Concepts
 
-1. 定义 Schema：用 `z.object` 组合 `z.string()`/`z.number()` 等原语；入参来自 `FormData`/`URLSearchParams` 时用 `z.coerce.*` 自动转型。
-2. 推导类型：`export type T = z.infer<typeof Schema>`，全程复用，不再手写 interface。
-3. 校验数据：优先 `safeParse`，靠 TS 控制流收窄分支处理成功/失败，避免散落的 try/catch。
-4. 定制规则：单字段约束用 `.min/.max/.regex` 带 message；跨字段或自定义逻辑用 `.refine`/`.superRefine`，并务必传 `path` 把错误挂到正确字段。
-5. 输出错误：对 `ZodError` 用 `.flatten()` 或 `.format()` 得到可序列化、人类可读的错误，交给前端。
+### Why Zod?
 
-## 指令
+Zod eliminates the duplication of writing a TypeScript interface *and* a runtime validation schema. You define the schema once, and Zod infers the static TypeScript type. Note that Zod is for **parsing, not just validation**. `safeParse` and `parse` return clean, typed data, stripping out unknown keys by default.
 
-- 取数据后立即在边界处校验（API 入口、Server Action、表单 resolver），不要让未校验数据流入业务逻辑。
-- `safeParse` 优先于 `parse`；只有在「失败即应崩溃」的场景（如环境变量加载）才用 `parse`。
-- 创建与更新需求不同时定义独立 Schema，不要只靠 `.partial()` 复用。
-- 递归结构用 `z.lazy(() => NodeSchema)`，并显式声明基础类型，避免「类型实例化过深」报错。
+## Schema Definition & Inference
 
-## 示例
-
-原语与类型推导：
+### Primitives & Coercion
 
 ```typescript
 import { z } from "zod";
 
+// Basic primitives
+const stringSchema = z.string().min(3).max(255);
+const numberSchema = z.number().int().positive();
+const dateSchema = z.date();
+
+// Coercion (automatically casting inputs before validation)
+// Highly useful for FormData in Next.js Server Actions or URL queries
+const ageSchema = z.coerce.number().min(18); // "18" -> 18
+const activeSchema = z.coerce.boolean(); // "true" -> true
+const dobSchema = z.coerce.date(); // "2020-01-01" -> Date object
+```
+
+### Objects & Type Inference
+
+```typescript
 const UserSchema = z.object({
   id: z.string().uuid(),
   username: z.string().min(3).max(20),
   email: z.string().email(),
   role: z.enum(["ADMIN", "USER", "GUEST"]).default("USER"),
-  age: z.number().min(18).optional(),
-  website: z.string().url().nullable(),
-  tags: z.array(z.string()).min(1),
+  age: z.number().min(18).optional(), // Can be omitted
+  website: z.string().url().nullable(), // Can be null
+  tags: z.array(z.string()).min(1), // Array with at least 1 item
 });
 
-// 直接从 Schema 推导类型，无需另写 interface User
+// Infer the TypeScript type directly from the schema
+// No need to write a separate `interface User { ... }`
 export type User = z.infer<typeof UserSchema>;
 ```
 
-safeParse 优于 parse（无需 try/catch，TS 自动收窄）：
+### Advanced Types
+
+```typescript
+// Records (Objects with dynamic keys but specific value types)
+const envSchema = z.record(z.string(), z.string()); // Record<string, string>
+
+// Unions (OR)
+const idSchema = z.union([z.string(), z.number()]); // string | number
+// Or simpler:
+const idSchema2 = z.string().or(z.number());
+
+// Discriminated Unions (Type-safe switch cases)
+const ActionSchema = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("create"), id: z.string() }),
+  z.object({ type: z.literal("update"), id: z.string(), data: z.any() }),
+  z.object({ type: z.literal("delete"), id: z.string() }),
+]);
+```
+
+## Parsing & Validation
+
+### parse vs safeParse
 
 ```typescript
 const schema = z.string().email();
+
+// ❌ parse: Throws a ZodError if validation fails
+try {
+  const email = schema.parse("invalid-email");
+} catch (err) {
+  if (err instanceof z.ZodError) {
+    console.error(err.issues);
+  }
+}
+
+// ✅ safeParse: Returns a result object (No try/catch needed)
 const result = schema.safeParse("user@example.com");
 
 if (!result.success) {
-  console.log(result.error.format()); // 失败分支
+  // TypeScript narrows result to SafeParseError
+  console.log(result.error.format()); 
+  // Early return or throw domain error
 } else {
-  const validEmail = result.data; // 类型为 string
+  // TypeScript narrows result to SafeParseSuccess
+  const validEmail = result.data; // Type is `string`
 }
 ```
 
-跨字段校验（注意 `path`）：
+## Customizing Validation
+
+### Custom Error Messages
 
 ```typescript
-const formSchema = z.object({
-  password: z.string().min(8),
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "两次密码不一致",
-  path: ["confirmPassword"], // 把错误挂到具体字段
+const passwordSchema = z.string()
+  .min(8, { message: "Password must be at least 8 characters long" })
+  .max(100, { message: "Password is too long" })
+  .regex(/[A-Z]/, { message: "Password must contain at least one uppercase letter" })
+  .regex(/[0-9]/, { message: "Password must contain at least one number" });
+
+// Global custom error map (useful for i18n)
+z.setErrorMap((issue, ctx) => {
+  if (issue.code === z.ZodIssueCode.invalid_type) {
+    if (issue.expected === "string") return { message: "This field must be text" };
+  }
+  return { message: ctx.defaultError };
 });
 ```
 
-Next.js Server Action（FormData 必须 coerce）：
+### Refinements (Custom Logic)
+
+```typescript
+// Basic refinement
+const passwordCheck = z.string().refine((val) => val !== "password123", {
+  message: "Password is too weak",
+});
+
+// Cross-field validation (e.g., password matching)
+const formSchema = z.object({
+  password: z.string().min(8),
+  confirmPassword: z.string()
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"], // Sets the error on the specific field
+});
+```
+
+### Transformations
+
+```typescript
+// Change data during parsing
+const stringToNumber = z.string()
+  .transform((val) => parseInt(val, 10))
+  .refine((val) => !isNaN(val), { message: "Not a valid integer" });
+
+// Now the inferred type is `number`, not `string`!
+type TransformedResult = z.infer<typeof stringToNumber>; // number
+```
+
+## Integration Patterns
+
+### React Hook Form
+
+```typescript
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be 6+ characters"),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
+export function LoginForm() {
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema)
+  });
+
+  const onSubmit = (data: LoginFormValues) => {
+    // data is fully typed and validated
+    console.log(data.email, data.password);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register("email")} />
+      {errors.email && <span>{errors.email.message}</span>}
+      {/* ... */}
+    </form>
+  );
+}
+```
+
+### Next.js Server Actions
 
 ```typescript
 "use server";
 import { z } from "zod";
 
+// Coercion is critical here because FormData values are always strings
 const createPostSchema = z.object({
   title: z.string().min(3),
   content: z.string().optional(),
-  published: z.coerce.boolean().default(false), // checkbox "on" -> true
+  published: z.coerce.boolean().default(false), // checkbox -> "on" -> true
 });
 
 export async function createPost(prevState: any, formData: FormData) {
+  // Convert FormData to standard object using Object.fromEntries
   const rawData = Object.fromEntries(formData.entries());
-  const validated = createPostSchema.safeParse(rawData);
-  if (!validated.success) {
-    return { errors: validated.error.flatten().fieldErrors };
+  
+  const validatedFields = createPostSchema.safeParse(rawData);
+  
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
   }
-  const { title, content, published } = validated.data;
+  
+  // Proceed with validated database operation
+  const { title, content, published } = validatedFields.data;
+  // ...
   return { success: true };
 }
 ```
 
-环境变量 fail-fast：
+### Environment Variables
 
 ```typescript
+// Make environment variables strictly typed and fail-fast
+import { z } from "zod";
+
 const envSchema = z.object({
   DATABASE_URL: z.string().url(),
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   PORT: z.coerce.number().default(3000),
   API_KEY: z.string().min(10),
 });
-const env = envSchema.parse(process.env); // 缺失或非法立即报错
+
+// Fails the build immediately if env vars are missing or invalid
+const env = envSchema.parse(process.env);
+
 export default env;
 ```
 
-React Hook Form：用 `zodResolver(loginSchema)` 接入 `useForm`，表单值类型用 `z.infer<typeof loginSchema>`，错误从 `formState.errors` 读取。
+## Best Practices
 
-## 注意事项
+- ✅ **Do:** Co-locate schemas alongside the components or API routes that use them to maintain separation of concerns.
+- ✅ **Do:** Use `z.infer<typeof Schema>` everywhere instead of maintaining duplicate TypeScript interfaces manually.
+- ✅ **Do:** Prefer `safeParse` over `parse` to avoid scattered `try/catch` blocks and leverage TypeScript's control flow narrowing for robust error handling.
+- ✅ **Do:** Use `z.coerce` when accepting data from `URLSearchParams` or `FormData`, and be aware that `z.coerce.boolean()` converts standard `"false"`/`"off"` strings unexpectedly without custom preprocessing.
+- ✅ **Do:** Use `.flatten()` or `.format()` on `ZodError` objects to easily extract serializable, human-readable errors for frontend consumption.
+- ❌ **Don't:** Rely exclusively on `.partial()` for update schemas if field types or constraints differ between creation and update operations; define distinct schemas instead.
+- ❌ **Don't:** Forget to pass the `path` option in `.refine()` or `.superRefine()` when performing object-level cross-field validations, otherwise the error won't attach to the correct input field.
 
-- `z.coerce.boolean()` 的坑：它会把 `"false"`/`"off"` 等非空字符串转成 `true`，需要时用自定义 preprocess 处理。
-- Schema 就近放在使用它的组件或 API 路由旁，保持关注点分离。
-- `.optional()` 只允许 `undefined`，不放过空字符串。若空串代表「无值」，用 `.or(z.literal(""))` 或 `z.string().transform(v => v === "" ? undefined : v).optional()`。
-- `.transform()` 会改变推导出的类型（如 `string -> number`），先 transform 再 refine 校验结果。
-- i18n 可用 `z.setErrorMap` 设置全局自定义错误映射。
-- 本技能仅适用于明确匹配上述范围的任务，不替代环境专属测试与专家评审。
+## Troubleshooting
 
-## 互见
+**Problem:** `Type instantiation is excessively deep and possibly infinite.`
+**Solution:** This occurs with extreme schema recursion (e.g. deeply nested self-referential schemas). Use `z.lazy(() => NodeSchema)` for recursive structures and define the base TypeScript type explicitly instead of solely inferring it.
 
-- React Hook Form 表单管理与提交流程。
-- Next.js Server Actions / App Router 数据流。
-- TypeScript 类型推导与控制流收窄实践。
+**Problem:** Empty strings pass validation when using `.optional()`.
+**Solution:** `.optional()` permits `undefined`, not empty strings. If an empty string means "no value," use `.or(z.literal(""))` or preprocess it: `z.string().transform(v => v === "" ? undefined : v).optional()`.
 
----
-
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

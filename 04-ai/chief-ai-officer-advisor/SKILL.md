@@ -1,14 +1,14 @@
 ---
 name: chief-ai-officer-advisor
-title: 首席 AI 官顾问（自研对外采决策）
-description: 当创业团队需做 AI 战略决策时使用；做模型自研/微调/调 API 选型、监管风险分级、自托管成本拐点测算与 AI 团队招聘排序，产出含三年 TCO 与所需管控清单的可执行建议；不适用于 RAG、Agent、提示工程、评测设施等战术工程实现。触发词：CAIO、模型选型、EU AI Act、微调、自托管拐点
+title: Chief AI Officer Advisor
+description: Chief AI Officer advisory for startups: model build-vs-buy decisions (API vs fine-tune vs in-house), AI risk classification under EU AI Act + US state patchwork, AI cost economics (API-to-self-hosted breakeven), and AI team org evolution. Use when deciding whether to call an API or fine-tune, classifying AI use cases for regulatory risk, calculating when self-hosting pays off, sequencing AI hires, or when user mentions CAIO, AI strategy, model selection, foundation model, fine-tuning, EU AI Act, NIST AI RMF, AI governance, model risk, or AI economics. Strategic only — does not duplicate engineering AI/ML skills.
 domain: 智能/model-ops
-triggers: [要不要调 API 还是自己微调模型, 这个 AI 用例属于高风险吗, 什么时候自托管比调 API 划算, 下一个该招什么 AI 岗位, CAIO/首席 AI 官, EU AI Act 风险分级, 微调还是买现成模型 build vs buy, AI 治理与模型风险, API 转自托管的成本拐点, NIST AI RMF / 模型卡 / 评测集]
-tags: [智能, model-ops, ai战略, build-vs-buy, eu-ai-act, ai治理, 成本经济学, 团队组织, caio, c-level]
-level: 进阶
+triggers: []
+tags: [model-ops, build-vs-buy, eu-ai-act, caio, c-level]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [model_buildvsbuy_calculator.py, ai_risk_classifier.py, ai_cost_economics.py]
+tools: []
 requires: []
 related: [mlops-model-productionizer, llm-model-router, claude-api, chief-data-officer-advisor]
 combines_with: [production-llm-app-builder, ai-engineering-toolkit, local-llm-inference]
@@ -16,87 +16,225 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-采编自 alirezarezvani/claude-skills（MIT）。本条聚焦战略层四决策，不堆 AI 噱头。
+# Chief AI Officer Advisor
 
-## 何时使用
+Strategic AI leadership for startup CAIOs and founders without one. **Four decisions, no AI hype:**
 
-面向创业公司的 CAIO，或没有 CAIO、需亲自拍板 AI 方向的创始人。当你要回答以下任一问题时使用：
+1. **Should we use an API, fine-tune, or build our own?** — model build-vs-buy with 3-year TCO
+2. **Is this AI use case high-risk under regulation, and how do we govern it?** — EU AI Act + NIST AI RMF + US state patchwork
+3. **When do we switch from API to self-hosted, and at what cost?** — token economics with breakeven analysis
+4. **What AI role do we hire next?** — stage-to-role map (AI engineer ≠ ML engineer ≠ research scientist)
 
-1. 某用例该用 API、微调小模型，还是自研预训练？（带三年 TCO 的 build-vs-buy）
-2. 这个 AI 用例在 EU AI Act / 美国州法下是否触发高风险义务，如何治理？
-3. 何时从 API 切换到自托管推理，代价多少？（按 token 算盈亏平衡）
-4. 下一个该招哪个 AI 岗位？（AI 工程师 ≠ ML 工程师 ≠ 研究科学家）
+This skill does **not** cover tactical AI/ML engineering. For RAG implementation, agent design, prompt engineering, eval infrastructure, model deployment, or cost optimization, see `engineering/rag-architect/`, `engineering/agent-designer/`, `engineering/prompt-governance/`, `engineering/self-eval/`, `engineering/llm-cost-optimizer/`.
 
-不该用的边界：本条只管战略选择，不覆盖战术工程实现。RAG 落地、Agent 设计、提示工程、评测设施、模型部署、推理成本调优，请转对应工程类技能（rag-architect / agent-designer / prompt-governance / self-eval / llm-cost-optimizer），不要在此重复。
+## Keywords
 
-## 步骤
+CAIO, chief AI officer, AI strategy, model selection, foundation model, fine-tuning, RLHF, DPO, LoRA, QLoRA, build vs buy, AI build-vs-buy, model risk tier, EU AI Act, AI Act Article 6, Article 9, Article 10, Annex III, prohibited AI, high-risk AI, NIST AI RMF, AI risk management framework, NYC Local Law 144, Colorado SB 21-169, Illinois HB 53, model card, eval set, eval harness, hallucination rate, jailbreak risk, prompt injection, AI red team, AI safety, alignment, model lifecycle, model registry, API-to-self-hosted breakeven, GPU economics, A100, H100, inference cost, fine-tuning cost, AI team, AI engineer, ML engineer, research scientist, MLOps, AI platform
 
-四类决策各有脚本与编排，按需选用。
-
-决策 A 模型自研对外采（约 1 小时）：定义 use_case.json（量级、延迟、准确率、团队规模、预算）→ 跑 calculator → 复核三年 TCO 与盈亏平衡 → 与 CFO 顾问对预算承诺、与 CTO 顾问对工程产能（微调尤甚）→ 用 /cs:decide 记录，多年厂商承诺考虑 /cs:freeze 60。
-
-决策 B 监管风险分级（约 2–4 小时）：定义 use_case.json（影响的决策、用户、地域、行业）→ 跑 classifier → 高风险则预算合规评估与登记，有限风险则落地透明度义务 → 与法务顾问对合同影响、与 CISO 顾问对技术防护 → /cs:decide 记录。
-
-决策 C API 转自托管拐点（约 1 天）：构建 workload.json（每日 token、模型规模、延迟、质量容忍度）→ 跑 economics → 跑低/中/高 GPU 单价敏感性 → 估迁移成本（工程工时＋风险）→ 与 CFO 对资本开支、与 CTO 对平台就绪度 → /cs:decide，签 GPU 承诺时配 /cs:freeze。
-
-决策 D AI 团队路线图（约 1 周）：列出 12 个月内产品需要的前 5 项 AI 能力 → 每项映射到能交付它的岗位 → 一次招一个角色、磨合到位再招下一个 → 与 CHRO 对薪酬与职级 → 找出「集中 vs 嵌入」的切换触发点。
-
-## 指令
+## Quick Start
 
 ```bash
-# 决策 A：API vs 微调 vs 自研
-python scripts/model_buildvsbuy_calculator.py                 # 内置客服样例
+# Decision A: API vs fine-tune vs build
+python scripts/model_buildvsbuy_calculator.py                          # embedded customer-support sample
 python scripts/model_buildvsbuy_calculator.py path/to/use_case.json
 
-# 决策 B：EU AI Act ＋ 美国州法风险分级
-python scripts/ai_risk_classifier.py                          # 内置招聘 AI 样例
+# Decision B: Risk classification under EU AI Act + US state laws
+python scripts/ai_risk_classifier.py                                   # embedded hiring-AI sample
 python scripts/ai_risk_classifier.py path/to/use_case.json
 
-# 决策 C：API vs 自托管经济性
-python scripts/ai_cost_economics.py                           # 内置 5M tokens/天样例
+# Decision C: API vs self-hosted economics
+python scripts/ai_cost_economics.py                                    # embedded 5M tokens/day sample
 python scripts/ai_cost_economics.py path/to/workload.json
 ```
 
-先问这几个关键问题（缺答案别动手）：这个 AI 要擅长什么、怎么度量？（没有评测集就别上线。）幻觉/错误率的 SLO 是多少？（没有 SLO，「AI 质量」只是感觉。）模型出错会怎样？（兜底行为、人工介入、爆炸半径。）EU AI Act 下属哪一档、是否需合规评估？（决定上市时间线。）月 token 量到多少自托管才赢 API？（前沿质量下，几乎不可能低于 1 亿 token/月。）招的是 AI 工程师还是 ML 研究科学家？（两码事，创始人常混。）
+## Key Questions (ask these first)
 
-四档要点。
-- 模型选型：默认走前沿模型 API（前沿被良好覆盖、QPS<100、延迟预算>1s、成本<5 万美元/月）；当 API 提示不进去的领域行为、高量降本、延迟<500ms、严格风格一致时微调小模型（LoRA/QLoRA 常用，对齐重要用 RLHF/DPO）；自研预训练几乎用不上（除非你是基础模型公司，或有独特语料、5000 万美元以上资金与 18 个月以上耐心）。微调模型通常 6–12 个月内落后前沿，且持续重训成本。
-- 风险分级（EU AI Act，2026 年生效）：禁止类（社会评分、实时生物识别监控、操纵性 AI）不得在欧盟部署；高风险类（就业筛选、信用评分、教育准入、关键基础设施、执法、生物识别 ID）需合规评估、登记、上市后监测、透明度、人工监督；有限风险类（聊天机器人、深度伪造、情绪识别）需告知用户在与 AI 交互；最小风险类（推荐系统、垃圾过滤、多数 B2B SaaS 内部）无特定义务。美国州法拼图：NYC LL 144（AEDT 年度偏见审计＋告知）、Colorado SB 21-169、Illinois HB 53、California SB 1001、Texas TCPA、联邦 NIST AI RMF（自愿，合同中渐被引用）。行业叠加：医疗（FDA AI/ML 指南、MDR、510(k)）、金融（NYDFS Reg 23、FTC Section 5、ECOA）、保险（NAIC、各州保险委规则）。
-- 成本经济学：API 成本按 token 变动（2026 前沿：Claude Sonnet 4.6 约 \$3/\$15、GPT-4o 约 \$2.5/\$10、Gemini 2.5 约 \$1.25/\$5 每百万 token 输入/输出）；自托管为固定 GPU 承诺＋电费（H100 现货约 \$2–5/小时、A100 约 \$1–3/小时；Llama 3.1 70B / Qwen 2.5 72B 在 70% 利用率下约 \$0.5–2.0 每百万输出 token）。隐性成本：自托管有 on-call、监控、模型更新、扩缩容、空转损耗；API 有限流、厂商锁定、版本能力漂移、数据驻留。典型盈亏平衡（前沿质量）：1 亿–5 亿 token/月，以下 API 赢，以上跑计算器。
-- 团队演进（按阶段）：Pre-PMF 创始人＋1 名玩提示的 ML 好奇工程师；A 轮先招 AI 工程师（应用全栈，管提示/评测/部署）再招第二位做评测质量；B 轮招 AI/ML 平台工程师，第三位 AI 工程师做生产可靠性，模型是核心 IP 才招数据科学家；C 轮设 AI 经理，模型即产品才招 ML 研究科学家，面向客户的 AI 配安全/红队；后期 Head of AI → CAIO。关键区分：AI 工程师（全栈＋提示＋评测＋部署，多数创业公司只需这个）≠ ML 工程师（生产部署、监控、重训设施，在数据工程师之后招）≠ 研究科学家（模型发明、新架构，C 轮以上且模型是核心 IP 才招）。AI 默认集中（一支团队），比数据团队集中更久，仅当部署到 4 个以上产品面才嵌入。
+- **What does this AI need to be good at, and how would you measure it?** (If no eval set, no ship.)
+- **What's the SLO on hallucination / error rate?** (Without one, "AI quality" is a vibe.)
+- **What happens when the model is wrong?** (Fallback behavior, human-in-the-loop, blast radius.)
+- **What's the risk tier under EU AI Act, and is conformity assessment required?** (Determines product launch timeline.)
+- **At what monthly token volume does self-hosting beat API?** (Almost never below 100M tokens/month at frontier quality.)
+- **Are we hiring an AI engineer or an ML research scientist?** (Different jobs; founders confuse them.)
 
-## 示例
+## Core Responsibilities
 
-输出统一格式：
+### 1. Model Build-vs-Buy
+
+The decision is not "use AI or not" — it's **API vs fine-tune vs in-house** for each use case. Each path has a different TCO curve, latency profile, and capability ceiling.
+
+**Default path: API (frontier model)**
+- Use when: well-served by frontier (Claude, GPT, Gemini), QPS < 100, latency budget > 1s, cost < $50K/month
+- Why: frontier APIs are 10-100x more capable than what most teams can fine-tune in-house
+- Failure mode: API rate limits at scale, vendor lock-in, capability drift between model versions
+
+**Fine-tune a smaller model**
+- Use when: domain-specific behavior the API can't be prompted into (medical coding, legal redlining), high volume reducing API cost, latency budget < 500ms, specific style/format consistency required
+- Approaches: full fine-tune (rare), LoRA/QLoRA (common), RLHF/DPO (when alignment matters)
+- Failure mode: fine-tuned model lags frontier capability within 6-12 months; ongoing retraining cost
+
+**Build from scratch / pre-train**
+- Use when: almost never. You're a foundation-model company, OR you have a unique data corpus, $50M+ funding, and 18+ month patience.
+- Failure mode: by the time you ship, frontier models have caught up and your sunk cost is unrecoverable
+
+**Run** `model_buildvsbuy_calculator.py` for a use-case-specific recommendation with 3-year TCO. See `references/model_buildvsbuy_strategy.md` for full decision tree.
+
+### 2. AI Risk Classification & Governance
+
+The 2026 question every founder is facing: **does this AI use case trigger high-risk regulatory obligations?**
+
+**EU AI Act (in force 2026) tiers:**
+
+| Tier | Examples | Obligations |
+|---|---|---|
+| **Prohibited** | Social scoring, real-time biometric surveillance, manipulative AI | Cannot deploy in EU |
+| **High-risk** | Employment screening, credit scoring, education access, critical infrastructure, law enforcement, biometric ID | Conformity assessment, registration, post-market monitoring, transparency, human oversight |
+| **Limited-risk** | Chatbots, deepfakes, emotion recognition | Transparency: user must know they're interacting with AI |
+| **Minimal-risk** | Recommendation systems, spam filters, most B2B SaaS internals | No specific obligations |
+
+**Run** `ai_risk_classifier.py` to classify a use case and get the required-controls list.
+
+**US state patchwork (non-exhaustive):**
+
+- NYC LL 144 — Automated Employment Decision Tools (AEDTs) require annual bias audit + candidate notice
+- Colorado AI Act / SB 21-169 — AI in consumer decisions (credit, insurance, employment, housing)
+- Illinois HB 53 — AI in interview/hiring
+- California SB 1001 — Bot disclosure
+- Texas TCPA — Biometric identifier capture
+- Federal NIST AI RMF — voluntary; increasingly referenced in contracts
+
+**Industry-specific overlays:**
+
+- Healthcare: FDA AI/ML guidance (2023), MDR (EU) for medical-device AI, 510(k) pathway for AI/ML-enabled medical devices
+- Financial: NYDFS Reg 23, FTC Section 5, ECOA for credit decisions
+- Insurance: NAIC model bulletin, state insurance commissioner rules
+
+See `references/ai_risk_governance.md` for the full regulatory landscape + governance program checklist.
+
+### 3. AI Cost Economics
+
+**The breakeven question:** at what monthly token volume does self-hosted inference beat API costs?
+
+**Key components:**
+
+- **API cost** — variable, per-token. Frontier models 2026: Claude Sonnet 4.6 ~$3/$15 per M tokens (input/output), GPT-4o ~$2.50/$10, Gemini 2.5 ~$1.25/$5
+- **Self-hosted cost** — fixed (GPU commitment) + variable (electricity). H100 spot ~$2-5/hour, A100 spot ~$1-3/hour. Llama 3.1 70B / Qwen 2.5 72B: ~$0.50-2.00 per million output tokens at 70% utilization
+- **Hidden costs of self-hosting** — ops on-call, monitoring, model updates, scaling overhead, idle time penalty
+- **Hidden costs of API** — rate limits requiring multi-vendor failover, vendor lock-in, capability drift between versions, data residency
+
+**Typical breakeven (frontier-quality):** 100M–500M tokens/month, depending on model size and acceptable quality tradeoff. Below this, API wins. Above this, run the calculator.
+
+**Run** `ai_cost_economics.py` with workload characteristics for a breakeven point + sensitivity to GPU rates and model size.
+
+See `references/ai_cost_economics.md` for the full economics model and operational considerations.
+
+### 4. AI Team Org Evolution
+
+**The wrong question:** "Should we hire an ML engineer or a research scientist?"
+**The right question:** "What's the next AI capability we need to ship, and what role unblocks that?"
+
+Stage-to-role map:
+
+| Stage | First AI hire | Then | Then |
+|---|---|---|---|
+| Pre-PMF | Founder + 1 ML-curious engineer playing with prompts | — | — |
+| Series A | **AI engineer** (applied, full-stack; owns prompts/evals/deployment) | Second AI engineer for evals/quality | — |
+| Series B | AI/ML platform engineer (inference, evals, observability) | Third AI engineer for production reliability | Data scientist if model is core IP |
+| Series C | Manager of AI | ML research scientist (only if model IS the product) | AI safety / red team (if customer-facing AI) |
+| Late-stage | Head of AI → CAIO | Multiple research scientists, platform team, safety/red team | Federated AI leads per business unit |
+
+**Critical distinctions:**
+
+- **AI engineer** ≠ **ML engineer** ≠ **research scientist**
+  - AI engineer: full-stack + prompts + evals + deployment. Most startups need this, not the others.
+  - ML engineer: production deployment, monitoring, retraining infrastructure. Hire after data engineer.
+  - Research scientist: model invention, novel architectures. Only at Series C+ if model is core IP.
+
+**Centralize-vs-embed for AI:** AI starts centralized (one team) and stays there longer than data team, because the surface area is smaller. Embed only when AI is being deployed in 4+ product surfaces.
+
+See `references/ai_team_org_evolution.md`.
+
+## Workflows
+
+### Workflow 1: Model Selection Decision (1 hour)
+**Goal:** Decide whether a specific use case should use API, fine-tune, or build.
+
+```bash
+# 1. Define use_case.json (volume, latency, accuracy, team size, budget)
+python scripts/model_buildvsbuy_calculator.py use_case.json
+# 2. Review 3-year TCO + breakeven
+# 3. Cross-check with cs-cfo-advisor on budget commitment
+# 4. Cross-check with cs-cto-advisor on engineering capacity (esp. for fine-tune)
+# 5. Log via /cs:decide; consider /cs:freeze 60 on multi-year vendor commitment
+```
+
+### Workflow 2: AI Risk Classification (2-4 hours)
+**Goal:** Classify a use case under EU AI Act + US state laws, identify required controls.
+
+```bash
+# 1. Define use_case.json (decisions affected, users, geography, sector)
+python scripts/ai_risk_classifier.py use_case.json
+# 2. For HIGH-RISK: budget conformity assessment + registration
+# 3. For LIMITED-RISK: implement transparency requirements
+# 4. Cross-check with cs-general-counsel-advisor on contractual implications
+# 5. Cross-check with cs-ciso-advisor on technical safeguards
+# 6. Log via /cs:decide
+```
+
+### Workflow 3: API-to-Self-Hosted Breakeven (1 day)
+**Goal:** Decide when (and whether) to migrate from API to self-hosted inference.
+
+```bash
+# 1. Build workload.json (tokens/day, model size, latency, quality tolerance)
+python scripts/ai_cost_economics.py workload.json
+# 2. Run sensitivity scenarios (low/mid/high GPU rates)
+# 3. Estimate migration cost (engineering time + risk)
+# 4. Cross-check with cs-cfo-advisor on capex commitment
+# 5. Cross-check with cs-cto-advisor on platform readiness
+# 6. Log via /cs:decide; pair with /cs:freeze if signing GPU commitment
+```
+
+### Workflow 4: AI Team Roadmap (1 week)
+**Goal:** Sequence next 18 months of AI hires aligned to capabilities to ship.
+
+1. List top 5 AI capabilities the product needs in 12 months
+2. Map each capability to the role that ships it (see `ai_team_org_evolution.md`)
+3. Sequence hires (one role at a time, ramp before next)
+4. Cross-check with cs-chro-advisor on comp + leveling
+5. Identify the centralize-vs-embed trigger
+
+## Output Standards
 
 ```
-结论一句话：[决策与理由]
-本次决策：[模型选型 | 风险分级 | 经济性 | 下一个招聘]
-依据：[来自工具的数字，而非形容词]
-如何行动：[3 个具体下一步]
-你来拍板：[只有创始人能下的判断]
+**Bottom Line:** [one sentence — decision and rationale]
+**The Decision:** [one of: model selection | risk classification | economics | next hire]
+**The Evidence:** [numbers from the tool, not adjectives]
+**How to Act:** [3 concrete next steps]
+**Your Decision:** [the call only the founder can make]
 ```
 
-例：客服用例月 8000 万 token、延迟预算 1.2s、无领域特殊行为。跑 model_buildvsbuy_calculator.py 得三年 TCO 显示 API 仍最优 → 结论「继续用前沿 API，量级未到微调盈亏平衡」；依据「8000 万 < 1 亿 token/月拐点，微调三年 TCO 高 40%」；如何行动「锁定主用前沿 API＋多厂商兜底、建评测集与幻觉 SLO、季度复跑拐点」；你来拍板「是否接受版本能力漂移换取免运维」。
+## Adjacent Skills
 
-## 注意事项
+- `../chief-data-officer-advisor/` — Training data rights, data product strategy (chains directly to model decisions)
+- `../cto-advisor/` — Architecture capacity, scaling cliffs (esp. for self-hosted inference)
+- `../ciso-advisor/` — Threat modeling for AI (prompt injection, jailbreak, training data poisoning)
+- `../general-counsel-advisor/` — AI contracts (vendor liability, output ownership, training-data licensing)
+- `../cfo-advisor/` — Build-vs-buy TCO math, multi-year vendor commitments
+- `../chro-advisor/` — AI team hiring + comp
+- `../../../engineering/rag-architect/` — Tactical RAG implementation
+- `../../../engineering/agent-designer/` — Tactical agent architecture
+- `../../../engineering/prompt-governance/` — Tactical prompt management
+- `../../../engineering/self-eval/` — Tactical eval infrastructure
+- `../../../engineering/llm-cost-optimizer/` — Tactical inference cost optimization
 
-- 没有评测集和幻觉/错误率 SLO 之前，不要上线，也无法谈「AI 质量」。
-- build-vs-buy 不是「用不用 AI」，而是逐用例的「API vs 微调 vs 自研」，三条路 TCO 曲线、延迟画像、能力上限各异。
-- 自托管盈亏平衡几乎不会低于 1 亿 token/月（前沿质量下）；低于此 API 几乎总赢，别被「自托管更便宜」直觉误导。
-- EU AI Act 风险档位直接决定上市时间线，高风险用例须把合规评估与登记排进预算与日程。
-- AI 监管 2026 年仍在快速演变；本条呈现的是当下的决策与权衡，不能替代合格的 AI 法律顾问做有约束力的合规判断（尤其 EU AI Act 合规评估）。
+## References
 
-## 互见
+- [model_buildvsbuy_strategy.md](references/model_buildvsbuy_strategy.md) — Full decision tree + 3-year TCO components + when each path fails
+- [ai_risk_governance.md](references/ai_risk_governance.md) — EU AI Act + NIST AI RMF + US state patchwork + industry overlays + governance program
+- [ai_cost_economics.md](references/ai_cost_economics.md) — API pricing 2026 + GPU rental economics + utilization realities + migration cost
+- [ai_team_org_evolution.md](references/ai_team_org_evolution.md) — Stage-to-role map + role definitions (AI engineer ≠ ML engineer ≠ scientist) + anti-patterns
 
-- 首席数据官顾问 — 训练数据权利、数据产品策略，直接衔接模型决策
-- CTO 顾问 — 架构产能、扩容悬崖（自托管推理尤甚）
-- CISO 顾问 — AI 威胁建模（提示注入、越狱、训练数据投毒）
-- 法务总顾问 — AI 合同（厂商责任、输出归属、训练数据授权）
-- CFO 顾问 — build-vs-buy 的 TCO 数学、多年厂商承诺
-- CHRO 顾问 — AI 团队招聘与薪酬
-- 工程类（战术，本条不覆盖）：rag-architect、agent-designer、prompt-governance、self-eval、llm-cost-optimizer
+---
 
-参考文档（源技能 references/）：model_buildvsbuy_strategy.md（完整决策树＋三年 TCO 构成＋各路径失败条件）、ai_risk_governance.md（EU AI Act＋NIST AI RMF＋美国州法＋行业叠加＋治理方案清单）、ai_cost_economics.md（2026 API 定价＋GPU 租用经济学＋利用率现实＋迁移成本）、ai_team_org_evolution.md（阶段-岗位映射＋角色定义＋反模式）。
-
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+**Version:** 1.0.0
+**Status:** Production Ready
+**Disclaimer:** AI regulation is evolving rapidly. This skill surfaces decisions and tradeoffs as of 2026 but cannot replace qualified AI counsel for binding compliance decisions, especially under EU AI Act conformity assessments.

@@ -1,14 +1,14 @@
 ---
 name: octagon-forex-list
-title: 全球外汇货币对清单查询
-description: 当需要梳理全球外汇活跃交易货币对、区分主要/交叉/异国货币对并了解其流动性、点差、波动与驱动因素时使用；通过 Octagon MCP 的 octagon-agent 用自然语言拉取分类货币对清单并解读类别特征；不适用于实时报价、实盘下单或离线无 MCP。触发词：外汇货币对、major minor exotic、交叉盘、点差流动性、交易时段、octagon-agent
+title: Forex List
+description: Retrieve a full listing of actively traded currency pairs in the global forex market using Octagon MCP. Use when researching forex markets, understanding currency pair categories, analyzing major/minor/exotic pairs, and identifying trading opportunities.
 domain: 领域/fintech
-triggers: [外汇货币对清单, major minor exotic, 交叉盘 cross pair, 异国货币对, 点差与流动性, 外汇交易时段, 货币对驱动因素, octagon-agent]
-tags: [fintech, 外汇, forex, 货币对, 流动性, mcp, octagon]
-level: 入门
+triggers: [major minor exotic, octagon-agent]
+tags: [fintech, forex, mcp, octagon]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Octagon MCP, octagon-agent, npx, Node.js]
+tools: []
 requires: []
 related: [octagon-commodities-quote, octagon-stock-quote, fx-carry-trade-eval, octagon-stock-price-change]
 combines_with: [octagon-commodities-quote, fx-carry-trade-eval]
@@ -16,46 +16,32 @@ license: MIT
 source: OctagonAI/skills
 source_license: MIT
 ---
-## 何时使用
+# Forex List
 
-当需要一份**全球外汇市场活跃交易货币对的分类清单**及配套背景时使用，覆盖：主要货币对（Majors，含 USD）、交叉货币对（Crosses，不含 USD）、异国货币对（Exotics，新兴市场），以及各类别的流动性、点差、波动性、交易时段与核心驱动因素。适合外汇市场入门梳理、选品（挑流动性/点差合适的货币对）、按时段排程、按驱动因素（如油价、避险情绪）筛选标的。
+Retrieve comprehensive information about actively traded currency pairs in the global forex market using the Octagon MCP server.
 
-**不该用的边界：**
+## Prerequisites
 
-- 需要某货币对的**实时汇率/报价**（bid/ask、实时点位）——本条只给清单与结构，转 `octagon-stock-quote` 同类报价技能或 `alpha-vantage-market-data` 的外汇接口。
-- 需要实盘下单、券商撮合、持仓与保证金管理——本条只读资料，不做交易。
-- 需要历史 K 线/OHLCV 回测——属历史时间序列任务，转 `alpha-vantage-market-data`。
-- **离线 / 未配置 Octagon MCP** 的环境——依赖 `octagon-agent` 工具，无 MCP 无法取数（可仅用下方静态分类表作离线参考）。
-- 结果供研究参考，不构成投资建议，不能替代风控与人工复核。
+Ensure Octagon MCP is configured in your AI agent (Cursor, Claude Desktop, Windsurf, etc.). See [references/mcp-setup.md](references/mcp-setup.md) for installation instructions.
 
-## 步骤
+## Workflow
 
-1. **确认 MCP 就绪**：环境已配置 Octagon MCP，`octagon-agent` 工具可见（Windows 需先装 Node.js / npx；配置见「指令」）。
-2. **界定范围**：先想清要看哪类——Majors（USD 主流盘）/ Crosses（非 USD 交叉盘）/ Exotics（新兴市场），还是按驱动因素（油价、避险）或交易时段筛。
-3. **发起查询**：调用 `octagon-agent`，用自然语言点名要货币对清单（模板见「指令」）。
-4. **读取分类结果**：返回为「货币对 + 活跃原因」表，按类别归并。
-5. **解读类别特征**：对照下方流动性/点差/波动表，理解每类货币对的交易属性。
-6. （可选）追加按时段或驱动因素的细分查询。
+### 1. Define Scope
 
-## 指令
+Determine which currency pair categories you want to explore:
+- **Majors**: USD paired with major currencies
+- **Crosses**: Major currencies without USD
+- **Exotics**: Emerging market currencies
 
-**Octagon MCP 配置（Claude Desktop / Windsurf，`claude_desktop_config.json`）：**
+### 2. Execute Query via Octagon MCP
 
-```json
-{
-  "mcpServers": {
-    "octagon-mcp-server": {
-      "command": "npx",
-      "args": ["-y", "octagon-mcp@latest"],
-      "env": { "OCTAGON_API_KEY": "YOUR_API_KEY_HERE" }
-    }
-  }
-}
+Use the `octagon-agent` tool with a natural language prompt:
+
+```
+Retrieve a full listing of actively traded currency pairs in the global forex market.
 ```
 
-API Key 在 https://app.octagonai.co 注册后于 API Keys 菜单生成。**Windows** 需先装 Node.js（含 npx）。
-
-**MCP 调用：**
+**MCP Call Format:**
 
 ```json
 {
@@ -67,79 +53,254 @@ API Key 在 https://app.octagonai.co 注册后于 API Keys 菜单生成。**Wind
 }
 ```
 
-数据源：`octagon-crypto-agent`、`octagon-web-search-agent`。
+### 3. Expected Output
 
-**常用查询模板（英文 prompt 命中率更高）：**
+The agent returns categorized currency pair information:
 
+| Currency Pair | Description/Reason for Activity |
+|---------------|--------------------------------|
+| EUR/USD | Most liquid pair, Eurozone and U.S. economic interdependence |
+| GBP/USD | High liquidity, sensitive to U.K./U.S. macroeconomic data |
+| USD/JPY | Japanese Yen safe-haven status, U.S. interest rates |
+| AUD/USD | Commodity price trends, Australian/U.S. economic cycles |
+| USD/CHF | Swiss Franc safe-haven, U.S. monetary policy |
+| CAD/USD | Oil prices, North American economic indicators |
+| EUR/CHF | Range-bound markets, Euro-Swiss Franc correlations |
+| AUD/NZD | Cross-Pacific trade, commodity-linked volatility |
+
+**Data Sources**: octagon-crypto-agent, octagon-web-search-agent
+
+### 4. Interpret Results
+
+See [references/interpreting-results.md](references/interpreting-results.md) for guidance on:
+- Understanding currency pair categories
+- Analyzing liquidity and volatility
+- Identifying key drivers
+- Selecting pairs for trading
+
+## Example Queries
+
+**Full Listing:**
 ```
-# 全量清单
 Retrieve a full listing of actively traded currency pairs in the global forex market.
-
-# 主要货币对
-List the major currency pairs with USD.
-
-# 交叉盘
-What are the most liquid cross currency pairs?
-
-# 异国货币对
-List emerging market currency pairs.
-
-# 按驱动因素筛选
-Which currency pairs are most sensitive to oil prices?
-
-# 按时段筛选
-What pairs are most active during the Asian session?
 ```
 
-**货币对分类（离线静态参考）：**
+**Major Pairs:**
+```
+List the major currency pairs with USD.
+```
 
-| 类别 | 代表货币对 | 别名/区域 |
-|---|---|---|
-| 主要（含 USD） | EUR/USD、GBP/USD、USD/JPY、USD/CHF、AUD/USD、USD/CAD、NZD/USD | Fiber / Cable / Gopher / Swissie / Aussie / Loonie / Kiwi |
-| 交叉（非 USD） | EUR/GBP、EUR/JPY、EUR/CHF、GBP/JPY、AUD/JPY、AUD/NZD | 欧元交叉 / 日元交叉 / 商品交叉 |
-| 异国（新兴市场） | USD/MXN、USD/ZAR、USD/TRY、USD/SGD、EUR/PLN、USD/HKD | 美洲 / 非洲 / 欧亚 / 亚洲 |
+**Cross Pairs:**
+```
+What are the most liquid cross currency pairs?
+```
 
-**基础概念：** 货币对写作 `基础货币/计价货币`，如 `EUR/USD = 1.10` 表示 1 EUR = 1.10 USD；汇率上涨=基础货币走强。点差 = Ask − Bid，即交易成本。
+**Exotic Pairs:**
+```
+List emerging market currency pairs.
+```
 
-## 示例
+**Specific Focus:**
+```
+Which currency pairs are most sensitive to oil prices?
+```
 
-查询「全量活跃货币对」的典型返回（节选）：
+## Currency Pair Categories
 
-| 货币对 | 活跃原因 |
-|---|---|
-| EUR/USD | 流动性最强，欧元区与美国经济高度互联 |
-| GBP/USD | 高流动性，对英美宏观数据敏感 |
-| USD/JPY | 日元避险属性，受美国利率影响 |
-| AUD/USD | 商品价格趋势，澳美经济周期 |
-| USD/CHF | 瑞郎避险，美国货币政策 |
-| AUD/NZD | 跨太平洋贸易，商品联动波动 |
+### Major Pairs (USD Based)
 
-**流动性 / 点差 / 波动速查：**
+| Pair | Base/Quote | Nickname |
+|------|------------|----------|
+| EUR/USD | Euro / US Dollar | Fiber |
+| GBP/USD | British Pound / US Dollar | Cable |
+| USD/JPY | US Dollar / Japanese Yen | Gopher |
+| USD/CHF | US Dollar / Swiss Franc | Swissie |
+| AUD/USD | Australian Dollar / US Dollar | Aussie |
+| USD/CAD | US Dollar / Canadian Dollar | Loonie |
+| NZD/USD | New Zealand Dollar / US Dollar | Kiwi |
 
-| 类别 | 流动性 | 典型点差 | 波动/可预测性 | 日均波幅参考 |
-|---|---|---|---|---|
-| 主要 | 很高（EUR/USD 最高） | 0.5–2 pips | 中等 / 较高 | EUR/USD 50–100 pips |
-| 交叉 | 中等 | 2–5 pips | 不一 / 中等 | GBP/JPY 100–200 pips |
-| 异国 | 较低 | 5–50+ pips | 高 / 较低 | 100–500+ pips |
+### Cross Pairs (Non-USD)
 
-**交易时段（UTC）与重叠期：** Sydney 21:00–06:00（AUD/NZD）、Tokyo 00:00–09:00（日元盘）、London 07:00–16:00（EUR/GBP）、New York 12:00–21:00（USD 盘）。**伦敦/纽约重叠**（EUR/USD、GBP/USD 波动最大），东京/伦敦重叠（EUR/JPY、GBP/JPY）。
+| Pair | Base/Quote | Category |
+|------|------------|----------|
+| EUR/GBP | Euro / British Pound | Euro Cross |
+| EUR/JPY | Euro / Japanese Yen | Euro Cross |
+| EUR/CHF | Euro / Swiss Franc | Euro Cross |
+| GBP/JPY | British Pound / Japanese Yen | Pound Cross |
+| AUD/JPY | Australian Dollar / Japanese Yen | Yen Cross |
+| AUD/NZD | Australian Dollar / New Zealand Dollar | Commodity Cross |
 
-## 注意事项
+### Exotic Pairs
 
-- **从主要货币对入手**：流动性最好、点差最窄，最适合新手与基准对比。
-- **关注相关性**：EUR/USD 与 USD/CHF 常呈负相关，组合交易别重复押同一风险。
-- **时段匹配货币对**：在货币对的活跃时段交易，流动性与点差更优。
-- **算清成本**：异国货币对点差可达数十 pips，交易成本显著高于主流盘。
-- **盯紧驱动因素**：央行政策（ECB/Fed/BoJ）、经济数据、地缘与避险情绪是主线；商品货币（AUD 看铁矿/黄金、CAD 看油价、NZD 看乳制品）受大宗联动。
-- **API Key 安全**：Key 通过 `OCTAGON_API_KEY` 环境变量注入，勿硬编码；遇限流降低查询频率。
-- **结果定位**：清单为研究参考，非实时报价、非投资建议，决策前须自行核验并做风控。
+| Pair | Base/Quote | Region |
+|------|------------|--------|
+| USD/MXN | US Dollar / Mexican Peso | Americas |
+| USD/ZAR | US Dollar / South African Rand | Africa |
+| USD/TRY | US Dollar / Turkish Lira | Europe/Asia |
+| USD/SGD | US Dollar / Singapore Dollar | Asia |
+| EUR/PLN | Euro / Polish Zloty | Europe |
+| USD/HKD | US Dollar / Hong Kong Dollar | Asia |
 
-## 互见
+## Understanding Currency Pairs
 
-- requires：（无）
-- related：`octagon-stock-quote`（同源 octagon-agent 实时报价，含风险/避险情绪上下文）、`alpha-vantage-market-data`（程序化拉取外汇实时/历史汇率与 OHLCV）。
-- combines_with：`alpha-vantage-market-data`（先用本条选定货币对，再用它拉实时/历史汇率做回测）、`octagon-stock-quote`（货币对清单 + 股指报价拼出全球宏观风险全景）。
+### Base vs. Quote Currency
 
----
+```
+EUR/USD = 1.10
+```
 
-本条采编自 OctagonAI/skills（MIT 许可），已做中文适配重写。
+| Component | In Example |
+|-----------|------------|
+| Base Currency | EUR (first) |
+| Quote Currency | USD (second) |
+| Meaning | 1 EUR = 1.10 USD |
+| If pair rises | Base strengthens |
+| If pair falls | Base weakens |
+
+### Bid/Ask Spread
+
+| Concept | Description |
+|---------|-------------|
+| Bid | Price to sell base |
+| Ask | Price to buy base |
+| Spread | Ask - Bid (cost to trade) |
+
+## Liquidity and Volume
+
+### By Daily Volume
+
+| Tier | Pairs | Typical Volume |
+|------|-------|----------------|
+| Tier 1 | EUR/USD | Highest |
+| Tier 2 | USD/JPY, GBP/USD | Very High |
+| Tier 3 | AUD/USD, USD/CAD, USD/CHF | High |
+| Tier 4 | Cross Pairs | Moderate |
+| Tier 5 | Exotic Pairs | Lower |
+
+### Spread Implications
+
+| Liquidity | Typical Spread |
+|-----------|----------------|
+| Very High (EUR/USD) | 0.5-1 pips |
+| High (USD/JPY) | 1-2 pips |
+| Moderate (Crosses) | 2-5 pips |
+| Low (Exotics) | 5-50+ pips |
+
+## Key Drivers by Pair
+
+### EUR/USD Drivers
+
+| Factor | Impact |
+|--------|--------|
+| ECB Policy | Euro direction |
+| Fed Policy | USD direction |
+| EU Economic Data | Growth, inflation |
+| US Economic Data | Employment, GDP |
+| Risk Sentiment | Dollar haven flows |
+
+### USD/JPY Drivers
+
+| Factor | Impact |
+|--------|--------|
+| BoJ Policy | Yen direction |
+| Fed Policy | USD direction |
+| Risk Appetite | Yen weakens on risk-on |
+| Yield Differentials | Carry trade flows |
+| Intervention Risk | BoJ action |
+
+### Commodity Currency Drivers
+
+| Pair | Key Commodity Link |
+|------|-------------------|
+| AUD/USD | Iron ore, gold |
+| USD/CAD | Oil prices |
+| NZD/USD | Dairy, agriculture |
+
+## Trading Sessions
+
+### Session Times (UTC)
+
+| Session | Hours | Key Pairs |
+|---------|-------|-----------|
+| Sydney | 21:00-06:00 | AUD, NZD |
+| Tokyo | 00:00-09:00 | JPY pairs |
+| London | 07:00-16:00 | EUR, GBP |
+| New York | 12:00-21:00 | USD pairs |
+
+### Overlap Periods
+
+| Overlap | Highest Volatility Pairs |
+|---------|-------------------------|
+| London/New York | EUR/USD, GBP/USD |
+| Tokyo/London | EUR/JPY, GBP/JPY |
+| Sydney/Tokyo | AUD/JPY, NZD/JPY |
+
+## Volatility Characteristics
+
+### By Pair Type
+
+| Type | Volatility | Predictability |
+|------|------------|----------------|
+| Majors | Moderate | Higher |
+| Crosses | Variable | Moderate |
+| Exotics | High | Lower |
+
+### Typical Daily Ranges
+
+| Pair | Avg Daily Range |
+|------|-----------------|
+| EUR/USD | 50-100 pips |
+| GBP/USD | 80-150 pips |
+| USD/JPY | 50-100 pips |
+| GBP/JPY | 100-200 pips |
+| Exotics | 100-500+ pips |
+
+## Common Use Cases
+
+### Market Overview
+```
+What are the most actively traded forex pairs?
+```
+
+### Trading Selection
+```
+Which pairs have the tightest spreads?
+```
+
+### Risk Analysis
+```
+Which currency pairs are most volatile?
+```
+
+### Correlation Study
+```
+What pairs move together with oil prices?
+```
+
+### Session Planning
+```
+What pairs are most active during Asian session?
+```
+
+## Analysis Tips
+
+1. **Start with majors**: Most liquid, tightest spreads.
+
+2. **Understand correlations**: EUR/USD and USD/CHF often inverse.
+
+3. **Match session to pair**: Trade pairs during their active hours.
+
+4. **Consider spreads**: Exotics cost more to trade.
+
+5. **Know the drivers**: Central banks, data releases, geopolitics.
+
+6. **Monitor risk sentiment**: Affects safe-haven flows.
+
+## Integration with Other Skills
+
+| Skill | Combined Use |
+|-------|--------------|
+| forex-quote | Real-time pair prices |
+| commodities-quote | Commodity currency context |
+| stock-historical-index | Risk sentiment context |
+| sector-performance-snapshot | Global macro view |

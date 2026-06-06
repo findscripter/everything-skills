@@ -1,14 +1,14 @@
 ---
 name: grpc-golang-services
-title: Go gRPC 服务构建
-description: 当用 Go 设计/实现生产级 gRPC 微服务（Protobuf 契约、流式、mTLS、可观测）时使用；产出基于 Buf 的契约定义、版本化 proto、mTLS 与拦截器接入方案及生成代码；不适用于纯 REST/HTTP 公网 API、gRPC-Web/浏览器集成、服务网格（Istio/Linkerd）流量路由与 L7 负载均衡配置。触发词：gRPC、Protobuf、Buf、mTLS、Go 微服务、proto 契约
+title: gRPC Golang (gRPC-Go)
+description: Build production-ready gRPC services in Go with mTLS, streaming, and observability. Use when designing Protobuf contracts with Buf or implementing secure service-to-service transport.
 domain: 研发/backend
-triggers: [gRPC, Protobuf, Buf, mTLS, proto 契约, Go 微服务, buf lint, gRPC 流式, OpenTelemetry 拦截器, grpc.NewClient]
+triggers: [gRPC, Protobuf, Buf, mTLS, buf lint, grpc.NewClient]
 tags: [golang, grpc, protobuf, buf, mtls, microservices, observability, streaming, api-design]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [buf, protoc, go, grpc-go, opentelemetry]
+tools: []
 requires: []
 related: [golang-pro, go-concurrency-patterns, microservices-patterns, trpc-typesafe-api]
 combines_with: [golang-pro, microservices-patterns, service-mesh-architect]
@@ -16,42 +16,40 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# gRPC Golang (gRPC-Go)
 
-适用：
-- 用 gRPC 设计 Go 微服务间通信，构建基于 Protobuf 的高性能内部 API。
-- 实现流式负载（单向 server/client streaming 或双向 bidi streaming）。
-- 用 Protobuf + Buf 标准化 API 契约与 lint/兼容性校验。
-- 为服务间认证配置 mTLS。
+## Overview
 
-不该用（负边界）：
-- 构建纯 REST/HTTP 公网 API，无 gRPC 需求时。
-- 改动遗留 `.proto` 却无法引入新 API 版本（如 `api.v2`）或保证向后兼容时——应先做版本化设计。
-- 服务网格（Istio/Linkerd）流量路由、L7 gRPC 感知负载均衡（Envoy/NGINX）、gRPC-Web/浏览器集成、Protobuf schema registry 等应用代码之外的治理——本技能不覆盖。
+Comprehensive guide for designing and implementing production-grade gRPC services in Go. Covers contract standardization with Buf, transport layer security via mTLS, and deep observability with OpenTelemetry interceptors.
 
-环境假设：Go 1.21+、gRPC-Go v1.60+（旧版本 API 有差异，如 `grpc.Dial` 与 `grpc.NewClient`）。
+## Use this skill when
 
-## 步骤
+- Designing microservices communication with gRPC in Go.
+- Building high-performance internal APIs using Protobuf.
+- Implementing streaming workloads (unidirectional or bidirectional).
+- Standardizing API contracts using Protobuf and Buf.
+- Configuring mTLS for service-to-service authentication.
 
-1. 确认技术上下文：Go 版本、gRPC-Go 版本，项目用 Buf 还是裸 protoc。
-2. 确认需求：mTLS 需求、负载形态（unary/streaming）、SLO、消息体大小上限。
-3. 规划 schema：包版本（如 `api.v1`）、资源类型、错误码映射。
-4. 安全设计：为服务间认证落地 mTLS，双方都把 CA 证书加入 `x509.CertPool`。
-5. 可观测性：通过拦截器（interceptor）接入 tracing、metrics 与结构化日志（OpenTelemetry）。
-6. 验证：定稿生成代码前，必须运行 `buf lint` 与破坏性变更检查。
+## Do not use this skill when
 
-## 指令
+- Building pure REST/HTTP public APIs without gRPC requirements.
+- Modifying legacy `.proto` files without the ability to introduce a new API version (e.g., `api.v2`) or ensure backward compatibility.
+- Managing service mesh traffic routing (e.g., Istio/Linkerd), which is outside the application code scope.
 
-```bash
-# 用 Buf 标准化工具链：定义 buf.yaml / buf.gen.yaml
-buf lint                 # 契约风格与规则检查
-buf breaking --against '.git#branch=main'   # 破坏性变更检查
-buf generate             # 生成 Go 代码（核对 go_package 选项）
-```
+## Step-by-Step Guide
 
-## 示例
+1. **Confirm Technical Context**: Identify Go version, gRPC-Go version, and whether the project uses Buf or raw protoc.
+2. **Confirm Requirements**: Identify mTLS needs, load patterns (unary/streaming), SLOs, and message size limits.
+3. **Plan Schema**: Define package versioning (e.g., `api.v1`), resource types, and error mapping.
+4. **Security Design**: Implement mTLS for service-to-service authentication.
+5. **Observability**: Configure interceptors for tracing, metrics, and structured logging.
+6. **Verification**: Always run `buf lint` and breaking change checks before finalizing code generation.
 
-定义服务与消息（v1 API），注意包版本与 `go_package`：
+Refer to `resources/implementation-playbook.md` for detailed patterns, code examples, and anti-patterns.
+
+## Examples
+
+### Example 1: Defining a Service & Message (v1 API)
 
 ```proto
 syntax = "proto3";
@@ -76,31 +74,41 @@ message GetUserResponse {
 }
 ```
 
-## 注意事项
+## Best Practices
 
-最佳实践（Do）：
-- 用 Buf（`buf.yaml` + `buf.gen.yaml`）统一工具链与 lint。
-- 包路径始终语义化版本（如 `package api.v1`）。
-- 所有内部服务间通信强制 mTLS。
-- 所有流式 handler 都处理 `ctx.Done()`，防止资源泄漏。
-- 把领域错误映射为标准 gRPC 状态码（如 `codes.NotFound`）。
+- ✅ **Do:** Use Buf to standardize your toolchain and linting with `buf.yaml` and `buf.gen.yaml`.
+- ✅ **Do:** Always use semantic versioning in package paths (e.g., `package api.v1`).
+- ✅ **Do:** Enforce mTLS for all internal service-to-service communication.
+- ✅ **Do:** Handle `ctx.Done()` in all streaming handlers to prevent resource leaks.
+- ✅ **Do:** Map domain errors to standard gRPC status codes (e.g., `codes.NotFound`).
+- ❌ **Don't:** Return raw internal error strings or stack traces to gRPC clients.
+- ❌ **Don't:** Create a new `grpc.ClientConn` per request; always reuse connections.
 
-反模式（Don't）：
-- 不要把原始内部错误字符串或堆栈直接返回给 gRPC 客户端。
-- 不要每个请求新建 `grpc.ClientConn`，连接必须复用。
+## Troubleshooting
 
-排错：
-- 生成代码不一致：重跑 `buf generate`，核对 `go_package`。
-- Context Deadline：检查客户端超时，确认 server 在流式 handler 中没有无限阻塞。
-- mTLS 握手失败：确认 CA 证书已正确加入客户端与服务端两侧的 `x509.CertPool`。
+- **Error: Inconsistent Gen**: If the generated code does not match the schema, run `buf generate` and verify the `go_package` option.
+- **Error: Context Deadline**: Check client timeouts and ensure the server is not blocking infinitely in streaming handlers.
+- **Error: mTLS Handshake**: Ensure the CA certificate is correctly added to the `x509.CertPool` on both client and server sides.
 
-## 互见
+## Limitations
 
-- `golang-pro`：gRPC 层之外的通用 Go 模式与性能优化。
-- `go-concurrency-patterns`：流式 handler 的 goroutine 生命周期管理。
-- `api-design-principles`：写 `.proto` 前的资源命名与版本化策略。
-- `docker-expert`：容器化 gRPC 服务，经 Docker secrets 注入 TLS 证书。
-- 参考：Google API Design Guide、Buf Docs、gRPC-Go Docs、OpenTelemetry Go Instrumentation。
+- Does not cover service mesh traffic routing (Istio/Linkerd configuration).
+- Does not cover gRPC-Web or browser-based gRPC integration.
+- Assumes Go 1.21+ and gRPC-Go v1.60+; older versions may have different APIs (e.g., `grpc.Dial` vs `grpc.NewClient`).
+- Does not cover L7 gRPC-aware load balancer configuration (e.g., Envoy, NGINX).
+- Does not address Protobuf schema registry or large-scale schema governance beyond Buf lint.
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+## Resources
+
+- `resources/implementation-playbook.md` for detailed patterns, code examples, and anti-patterns.
+- [Google API Design Guide](https://cloud.google.com/apis/design)
+- [Buf Docs](https://buf.build/docs)
+- [gRPC-Go Docs](https://grpc.io/docs/languages/go/)
+- [OpenTelemetry Go Instrumentation](https://opentelemetry.io/docs/instrumentation/go/)
+
+## Related Skills
+
+- @golang-pro - General Go patterns and performance optimization outside the gRPC layer.
+- @go-concurrency-patterns - Advanced goroutine lifecycle management for streaming handlers.
+- @api-design-principles - Resource naming and versioning strategy before writing `.proto` files.
+- @docker-expert - Containerizing gRPC services and configuring TLS cert injection via Docker secrets.

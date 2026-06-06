@@ -1,14 +1,14 @@
 ---
 name: bun-runtime-development
-title: Bun 运行时现代 JS/TS 开发
-description: 当用 Bun 启动新 JS/TS 项目、从 Node.js 迁移、或用其内置打包/测试/SQLite/HTTP 等能力提速开发时使用；产出可运行的 Bun 项目脚手架、依赖与脚本配置、Bun 原生 API 代码及打包/编译产物；不适用于必须依赖 Node 专有 API（如 setImmediate、process.hrtime）或纯前端框架内部细节的场景。触发词：bun、bun.serve、bun:sqlite、bunx、bun test、bun build、@types/bun、从 Node 迁移
+title: ⚡ Bun Development
+description: Fast, modern JavaScript/TypeScript development with the Bun runtime, inspired by [oven-sh/bun](https://github.com/oven-sh/bun).
 domain: 研发/backend
-triggers: [bun, bunx, bun init, bun install, bun add, bun run, bun test, bun build, bun.serve, bun:sqlite, bun:test, Bun.file, Bun.password, @types/bun, 从 Node 迁移到 Bun, Elysia, bun --watch, bun --hot, bun --compile]
-tags: [bun, javascript, typescript, 运行时, 包管理, 测试, 打包, sqlite, http-server, node-migration, 研发, misc]
-level: 进阶
+triggers: [bun, bunx, bun init, bun install, bun add, bun run, bun test, bun build, bun.serve, bun:sqlite, bun:test, Bun.file, Bun.password, @types/bun, Elysia, bun --watch, bun --hot, bun --compile]
+tags: [bun, javascript, typescript, sqlite, http-server, node-migration, misc]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bun, bunx, Bash, PowerShell]
+tools: []
 requires: []
 related: [javascript-modern-pro, typescript-advanced-types, hono-edge-api, uv-python-package-manager]
 combines_with: [trpc-typesafe-api, turborepo-caching, javascript-testing-patterns]
@@ -16,160 +16,701 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# ⚡ Bun Development
 
-适用：
-- 用 Bun 起新 JS/TS 项目，或把现有 Node.js 项目迁移到 Bun。
-- 想用 Bun 内置工具链（包管理、测试 `bun:test`、打包 `bun build`、单文件编译）替代 Node + npm + Jest + Webpack 组合。
-- 直接用 Bun 原生 API：`Bun.serve`（HTTP/WebSocket）、`Bun.file`、`bun:sqlite`、`Bun.password`。
-- 排查 Bun 特有问题。
+> Fast, modern JavaScript/TypeScript development with the Bun runtime, inspired by [oven-sh/bun](https://github.com/oven-sh/bun).
 
-不该用（负边界）：
-- 任务依赖 Node 专有且 Bun 不兼容的 API（如 `setImmediate`、`process.hrtime`、`__non_webpack_require__`）——需改写为 Bun 等价物，不能照搬。
-- 纯属某前端框架（React/Next）内部实现问题，Bun 只是运行环境，应转对应框架技能。
-- 需要环境专属的安全/性能验证时，本技能不替代实测与专家评审。
+## When to Use This Skill
 
-为什么用 Bun：启动约 25ms（Node 100ms+）、装包快 10–100 倍、原生支持 TS/JSX、内置测试与打包。
+Use this skill when:
 
-## 步骤
+- Starting new JS/TS projects with Bun
+- Migrating from Node.js to Bun
+- Optimizing development speed
+- Using Bun's built-in tools (bundler, test runner)
+- Troubleshooting Bun-specific issues
 
-1. 安装/升级 Bun（见下方指令）。
-2. `bun init` 起项目，或 `bun create <模板> <名字>` 用模板（react/next/vite/elysia）。
-3. 配置 `package.json` 脚本与 `@types/bun`，按需写 Bun 优化版 `tsconfig.json`。
-4. `bun install` 装依赖；`bun add` / `bun remove` / `bun update` 增删更。
-5. 直接 `bun run xxx.ts` 跑 TS（无需编译）；开发用 `--watch`，需保留状态用 `--hot`。
-6. 写测试用 `bun:test`，`bun test` 运行（支持 `--coverage`、`--watch`）。
-7. 生产用 `bun build` 打包/压缩，或 `--compile` 编译成单文件可执行程序。
+---
 
-## 指令
+## 1. Getting Started
+
+### 1.1 Installation
 
 ```bash
-# 安装（macOS/Linux）
-curl -fsSL https://bun.sh/install | bash
+# macOS / Linux
+brew install oven-sh/bun/bun
+
+# Alternative: download the official installer, inspect it, then execute it
+tmpdir="$(mktemp -d)"
+trap 'rm -rf "$tmpdir"' EXIT
+curl -fsSLo "$tmpdir/bun-install.sh" https://bun.sh/install
+sed -n '1,160p' "$tmpdir/bun-install.sh"
+bash "$tmpdir/bun-install.sh"
+
 # Windows
-powershell -c "irm bun.sh/install.ps1 | iex"
-bun upgrade                       # 升级
+powershell -NoProfile -Command "Invoke-WebRequest https://bun.sh/install.ps1 -OutFile $env:TEMP\\bun-install.ps1; Get-Content $env:TEMP\\bun-install.ps1 -TotalCount 120; powershell -ExecutionPolicy Bypass -File $env:TEMP\\bun-install.ps1"
 
-# 项目
-bun init                          # 生成 package.json/tsconfig.json/index.ts
-bun create react my-app           # 用模板
+# Homebrew
+brew tap oven-sh/bun
+brew install bun
 
-# 依赖
-bun install                       # 按 package.json 安装（别名 bun i）
-bun add express                   # 生产依赖
-bun add -d @types/bun             # 开发依赖
-bun add react@18.2.0              # 指定版本；也支持 github:user/repo
-bun remove lodash
-bun update --latest               # 忽略 range 升到最新
-bun outdated
-bun install --frozen-lockfile     # CI 锁定 lockfile（bun.lockb 为二进制）
+# npm (if needed)
+npm install -g bun
 
-# 运行
-bun run index.ts                  # 直接跑 TS，无 build 步骤
-bun --watch run index.ts          # 改动自动重启
-bun --hot run server.ts           # 热重载（保留状态）
-bun --env-file=.env.production run index.ts
-
-# bunx（npx 等价）
-bunx prettier --write .
-bunx -p typescript@4.9 tsc --version
-
-# 测试
-bun test
-bun test math.test.ts
-bun test --coverage --watch
-
-# 打包 / 编译
-bun build ./src/index.ts --outdir ./dist --target browser --minify --sourcemap
-bun build ./src/cli.ts --compile --outfile myapp                  # 单文件可执行
-bun build ./src/cli.ts --compile --target=bun-linux-x64 --outfile myapp-linux
+# Upgrade
+bun upgrade
 ```
 
-`package.json` 脚本约定：
+### 1.2 Why Bun?
+
+| Feature         | Bun            | Node.js                     |
+| :-------------- | :------------- | :-------------------------- |
+| Startup time    | ~25ms          | ~100ms+                     |
+| Package install | 10-100x faster | Baseline                    |
+| TypeScript      | Native         | Requires transpiler         |
+| JSX             | Native         | Requires transpiler         |
+| Test runner     | Built-in       | External (Jest, Vitest)     |
+| Bundler         | Built-in       | External (Webpack, esbuild) |
+
+---
+
+## 2. Project Setup
+
+### 2.1 Create New Project
+
+```bash
+# Initialize project
+bun init
+
+# Creates:
+# ├── package.json
+# ├── tsconfig.json
+# ├── index.ts
+# └── README.md
+
+# With specific template
+bun create <template> <project-name>
+
+# Examples
+bun create react my-app        # React app
+bun create next my-app         # Next.js app
+bun create vite my-app         # Vite app
+bun create elysia my-api       # Elysia API
+```
+
+### 2.2 package.json
 
 ```json
 {
+  "name": "my-bun-project",
+  "version": "1.0.0",
+  "module": "index.ts",
   "type": "module",
   "scripts": {
     "dev": "bun run --watch index.ts",
     "start": "bun run index.ts",
     "test": "bun test",
-    "build": "bun build ./index.ts --outdir ./dist"
+    "build": "bun build ./index.ts --outdir ./dist",
+    "lint": "bunx eslint ."
   },
-  "devDependencies": { "@types/bun": "latest" }
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
 }
 ```
 
-## 示例
+### 2.3 tsconfig.json (Bun-optimized)
 
-HTTP 服务（`Bun.serve`，比 Express 快 4–10 倍）：
+```json
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "composite": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "types": ["bun-types"]
+  }
+}
+```
+
+---
+
+## 3. Package Management
+
+### 3.1 Installing Packages
+
+```bash
+# Install from package.json
+bun install              # or 'bun i'
+
+# Add dependencies
+bun add express          # Regular dependency
+bun add -d typescript    # Dev dependency
+bun add -D @types/node   # Dev dependency (alias)
+bun add --optional pkg   # Optional dependency
+
+# From specific registry
+bun add lodash --registry https://registry.npmmirror.com
+
+# Install specific version
+bun add react@18.2.0
+bun add react@latest
+bun add react@next
+
+# From git
+bun add github:user/repo
+bun add git+https://github.com/user/repo.git
+```
+
+### 3.2 Removing & Updating
+
+```bash
+# Remove package
+bun remove lodash
+
+# Update packages
+bun update              # Update all
+bun update lodash       # Update specific
+bun update --latest     # Update to latest (ignore ranges)
+
+# Check outdated
+bun outdated
+```
+
+### 3.3 bunx (npx equivalent)
+
+```bash
+# Execute package binaries
+bunx prettier --write .
+bunx tsc --init
+bunx create-react-app my-app
+
+# With specific version
+bunx -p typescript@4.9 tsc --version
+
+# Run without installing
+bunx cowsay "Hello from Bun!"
+```
+
+### 3.4 Lockfile
+
+```bash
+# bun.lockb is a binary lockfile (faster parsing)
+# To generate text lockfile for debugging:
+bun install --yarn    # Creates yarn.lock
+
+# Trust existing lockfile
+bun install --frozen-lockfile
+```
+
+---
+
+## 4. Running Code
+
+### 4.1 Basic Execution
+
+```bash
+# Run TypeScript directly (no build step!)
+bun run index.ts
+
+# Run JavaScript
+bun run index.js
+
+# Run with arguments
+bun run server.ts --port 3000
+
+# Run package.json script
+bun run dev
+bun run build
+
+# Short form (for scripts)
+bun dev
+bun build
+```
+
+### 4.2 Watch Mode
+
+```bash
+# Auto-restart on file changes
+bun --watch run index.ts
+
+# With hot reloading
+bun --hot run server.ts
+```
+
+### 4.3 Environment Variables
+
+```typescript
+// .env file is loaded automatically!
+
+// Access environment variables
+const apiKey = Bun.env.API_KEY;
+const port = Bun.env.PORT ?? "3000";
+
+// Or use process.env (Node.js compatible)
+const dbUrl = process.env.DATABASE_URL;
+```
+
+```bash
+# Run with specific env file
+bun --env-file=.env.production run index.ts
+```
+
+---
+
+## 5. Built-in APIs
+
+### 5.1 File System (Bun.file)
+
+```typescript
+// Read file
+const file = Bun.file("./data.json");
+const text = await file.text();
+const json = await file.json();
+const buffer = await file.arrayBuffer();
+
+// File info
+console.log(file.size); // bytes
+console.log(file.type); // MIME type
+
+// Write file
+await Bun.write("./output.txt", "Hello, Bun!");
+await Bun.write("./data.json", JSON.stringify({ foo: "bar" }));
+
+// Stream large files
+const reader = file.stream();
+for await (const chunk of reader) {
+  console.log(chunk);
+}
+```
+
+### 5.2 HTTP Server (Bun.serve)
 
 ```typescript
 const server = Bun.serve({
   port: 3000,
-  fetch(req) {
-    const url = new URL(req.url);
-    if (url.pathname === "/") return new Response("Hello World!");
-    if (url.pathname === "/api/users")
-      return Response.json([{ id: 1, name: "Alice" }]);
+
+  fetch(request) {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/") {
+      return new Response("Hello World!");
+    }
+
+    if (url.pathname === "/api/users") {
+      return Response.json([
+        { id: 1, name: "Alice" },
+        { id: 2, name: "Bob" },
+      ]);
+    }
+
     return new Response("Not Found", { status: 404 });
   },
-  error(e) { return new Response(`Error: ${e.message}`, { status: 500 }); },
+
+  error(error) {
+    return new Response(`Error: ${error.message}`, { status: 500 });
+  },
 });
-console.log(`http://localhost:${server.port}`);
+
+console.log(`Server running at http://localhost:${server.port}`);
 ```
 
-文件读写（`Bun.file`，比 `fs/promises` 快）：
+### 5.3 WebSocket Server
 
 ```typescript
-const file = Bun.file("./data.json");
-const json = await file.json();              // 也有 .text() / .arrayBuffer()
-await Bun.write("./output.txt", "Hello, Bun!");
+const server = Bun.serve({
+  port: 3000,
+
+  fetch(req, server) {
+    // Upgrade to WebSocket
+    if (server.upgrade(req)) {
+      return; // Upgraded
+    }
+    return new Response("Upgrade failed", { status: 500 });
+  },
+
+  websocket: {
+    open(ws) {
+      console.log("Client connected");
+      ws.send("Welcome!");
+    },
+
+    message(ws, message) {
+      console.log(`Received: ${message}`);
+      ws.send(`Echo: ${message}`);
+    },
+
+    close(ws) {
+      console.log("Client disconnected");
+    },
+  },
+});
 ```
 
-内置 SQLite（`bun:sqlite`）：
+### 5.4 SQLite (Bun.sql)
 
 ```typescript
 import { Database } from "bun:sqlite";
+
 const db = new Database("mydb.sqlite");
-db.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)`);
-db.prepare("INSERT INTO users (name) VALUES (?)").run("Alice");
-const user = db.prepare("SELECT * FROM users WHERE name = ?").get("Alice");
+
+// Create table
+db.run(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE
+  )
+`);
+
+// Insert
+const insert = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+insert.run("Alice", "alice@example.com");
+
+// Query
+const query = db.prepare("SELECT * FROM users WHERE name = ?");
+const user = query.get("Alice");
+console.log(user); // { id: 1, name: "Alice", email: "alice@example.com" }
+
+// Query all
+const allUsers = db.query("SELECT * FROM users").all();
 ```
 
-密码哈希（`Bun.password`）：
+### 5.5 Password Hashing
 
 ```typescript
-const hash = await Bun.password.hash("super-secret");      // 默认 argon2
-const ok = await Bun.password.verify("super-secret", hash); // true
-```
+// Hash password
+const password = "super-secret";
+const hash = await Bun.password.hash(password);
 
-测试（`bun:test`，API 兼容 Jest）：
+// Verify password
+const isValid = await Bun.password.verify(password, hash);
+console.log(isValid); // true
 
-```typescript
-import { describe, it, expect, mock, spyOn } from "bun:test";
-describe("math", () => {
-  it("adds", () => expect(1 + 1).toBe(2));
+// With algorithm options
+const bcryptHash = await Bun.password.hash(password, {
+  algorithm: "bcrypt",
+  cost: 12,
 });
-const fn = mock((x: number) => x * 2);
-fn(5);
-expect(fn).toHaveBeenCalledWith(5);
 ```
-
-## 注意事项
-
-- 多数 Node API 开箱可用：`fs`/`path`/`crypto`、全局 `process`/`Buffer`、`__dirname`/`__filename` 均正常。
-- 不兼容项需替换：`require()`→`import`；`require.resolve`→`import.meta.resolve`；`process.hrtime()`→`Bun.nanoseconds()`；`setImmediate()`→`queueMicrotask()`；`__non_webpack_require__` 不支持。
-- 迁移步骤：删 `node_modules` 与 `package-lock.json` → `bun install` → 把脚本里的 `node`/`jest` 换成 `bun run`/`bun test` → `bun add -d @types/bun`。
-- 性能优先用 Bun 原生 API：能用 `Bun.file`/`Bun.serve` 就别用 `fs/promises`/Express；Bun 优化框架可选 Elysia。
-- 生产务必打包压缩后再跑（`bun build ... --minify --target node` → `bun run ./dist/index.js`）。
-- 缺少必要输入、权限或成功标准时应先澄清，不要将输出当作免测结论。
-
-## 互见
-
-- 官方文档：https://bun.sh/docs ｜ GitHub：https://github.com/oven-sh/bun
-- Elysia 框架：https://elysiajs.com/
-- 同类研发技能：Node.js / TypeScript 工程化、前端打包工具链相关条目。
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT 许可），灵感源自 oven-sh/bun。
+
+## 6. Testing
+
+### 6.1 Basic Tests
+
+```typescript
+// math.test.ts
+import { describe, it, expect, beforeAll, afterAll } from "bun:test";
+
+describe("Math operations", () => {
+  it("adds two numbers", () => {
+    expect(1 + 1).toBe(2);
+  });
+
+  it("subtracts two numbers", () => {
+    expect(5 - 3).toBe(2);
+  });
+});
+```
+
+### 6.2 Running Tests
+
+```bash
+# Run all tests
+bun test
+
+# Run specific file
+bun test math.test.ts
+
+# Run matching pattern
+bun test --grep "adds"
+
+# Watch mode
+bun test --watch
+
+# With coverage
+bun test --coverage
+
+# Timeout
+bun test --timeout 5000
+```
+
+### 6.3 Matchers
+
+```typescript
+import { expect, test } from "bun:test";
+
+test("matchers", () => {
+  // Equality
+  expect(1).toBe(1);
+  expect({ a: 1 }).toEqual({ a: 1 });
+  expect([1, 2]).toContain(1);
+
+  // Comparisons
+  expect(10).toBeGreaterThan(5);
+  expect(5).toBeLessThanOrEqual(5);
+
+  // Truthiness
+  expect(true).toBeTruthy();
+  expect(null).toBeNull();
+  expect(undefined).toBeUndefined();
+
+  // Strings
+  expect("hello").toMatch(/ell/);
+  expect("hello").toContain("ell");
+
+  // Arrays
+  expect([1, 2, 3]).toHaveLength(3);
+
+  // Exceptions
+  expect(() => {
+    throw new Error("fail");
+  }).toThrow("fail");
+
+  // Async
+  await expect(Promise.resolve(1)).resolves.toBe(1);
+  await expect(Promise.reject("err")).rejects.toBe("err");
+});
+```
+
+### 6.4 Mocking
+
+```typescript
+import { mock, spyOn } from "bun:test";
+
+// Mock function
+const mockFn = mock((x: number) => x * 2);
+mockFn(5);
+expect(mockFn).toHaveBeenCalled();
+expect(mockFn).toHaveBeenCalledWith(5);
+expect(mockFn.mock.results[0].value).toBe(10);
+
+// Spy on method
+const obj = {
+  method: () => "original",
+};
+const spy = spyOn(obj, "method").mockReturnValue("mocked");
+expect(obj.method()).toBe("mocked");
+expect(spy).toHaveBeenCalled();
+```
+
+---
+
+## 7. Bundling
+
+### 7.1 Basic Build
+
+```bash
+# Bundle for production
+bun build ./src/index.ts --outdir ./dist
+
+# With options
+bun build ./src/index.ts \
+  --outdir ./dist \
+  --target browser \
+  --minify \
+  --sourcemap
+```
+
+### 7.2 Build API
+
+```typescript
+const result = await Bun.build({
+  entrypoints: ["./src/index.ts"],
+  outdir: "./dist",
+  target: "browser", // or "bun", "node"
+  minify: true,
+  sourcemap: "external",
+  splitting: true,
+  format: "esm",
+
+  // External packages (not bundled)
+  external: ["react", "react-dom"],
+
+  // Define globals
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  },
+
+  // Naming
+  naming: {
+    entry: "[name].[hash].js",
+    chunk: "chunks/[name].[hash].js",
+    asset: "assets/[name].[hash][ext]",
+  },
+});
+
+if (!result.success) {
+  console.error(result.logs);
+}
+```
+
+### 7.3 Compile to Executable
+
+```bash
+# Create standalone executable
+bun build ./src/cli.ts --compile --outfile myapp
+
+# Cross-compile
+bun build ./src/cli.ts --compile --target=bun-linux-x64 --outfile myapp-linux
+bun build ./src/cli.ts --compile --target=bun-darwin-arm64 --outfile myapp-mac
+
+# With embedded assets
+bun build ./src/cli.ts --compile --outfile myapp --embed ./assets
+```
+
+---
+
+## 8. Migration from Node.js
+
+### 8.1 Compatibility
+
+```typescript
+// Most Node.js APIs work out of the box
+import fs from "fs";
+import path from "path";
+import crypto from "crypto";
+
+// process is global
+console.log(process.cwd());
+console.log(process.env.HOME);
+
+// Buffer is global
+const buf = Buffer.from("hello");
+
+// __dirname and __filename work
+console.log(__dirname);
+console.log(__filename);
+```
+
+### 8.2 Common Migration Steps
+
+```bash
+# 1. Install Bun
+brew install oven-sh/bun/bun
+
+# 2. Replace package manager
+rm -rf node_modules package-lock.json
+bun install
+
+# 3. Update scripts in package.json
+# "start": "node index.js" → "start": "bun run index.ts"
+# "test": "jest" → "test": "bun test"
+
+# 4. Add Bun types
+bun add -d @types/bun
+```
+
+### 8.3 Differences from Node.js
+
+```typescript
+// ❌ Node.js specific (may not work)
+require("module")             // Use import instead
+require.resolve("pkg")        // Use import.meta.resolve
+__non_webpack_require__       // Not supported
+
+// ✅ Bun equivalents
+import pkg from "pkg";
+const resolved = import.meta.resolve("pkg");
+Bun.resolveSync("pkg", process.cwd());
+
+// ❌ These globals differ
+process.hrtime()              // Use Bun.nanoseconds()
+setImmediate()                // Use queueMicrotask()
+
+// ✅ Bun-specific features
+const file = Bun.file("./data.txt");  // Fast file API
+Bun.serve({ port: 3000, fetch: ... }); // Fast HTTP server
+Bun.password.hash(password);           // Built-in hashing
+```
+
+---
+
+## 9. Performance Tips
+
+### 9.1 Use Bun-native APIs
+
+```typescript
+// Slow (Node.js compat)
+import fs from "fs/promises";
+const content = await fs.readFile("./data.txt", "utf-8");
+
+// Fast (Bun-native)
+const file = Bun.file("./data.txt");
+const content = await file.text();
+```
+
+### 9.2 Use Bun.serve for HTTP
+
+```typescript
+// Don't: Express/Fastify (overhead)
+import express from "express";
+const app = express();
+
+// Do: Bun.serve (native, 4-10x faster)
+Bun.serve({
+  fetch(req) {
+    return new Response("Hello!");
+  },
+});
+
+// Or use Elysia (Bun-optimized framework)
+import { Elysia } from "elysia";
+new Elysia().get("/", () => "Hello!").listen(3000);
+```
+
+### 9.3 Bundle for Production
+
+```bash
+# Always bundle and minify for production
+bun build ./src/index.ts --outdir ./dist --minify --target node
+
+# Then run the bundle
+bun run ./dist/index.js
+```
+
+---
+
+## Quick Reference
+
+| Task         | Command                                    |
+| :----------- | :----------------------------------------- |
+| Init project | `bun init`                                 |
+| Install deps | `bun install`                              |
+| Add package  | `bun add <pkg>`                            |
+| Run script   | `bun run <script>`                         |
+| Run file     | `bun run file.ts`                          |
+| Watch mode   | `bun --watch run file.ts`                  |
+| Run tests    | `bun test`                                 |
+| Build        | `bun build ./src/index.ts --outdir ./dist` |
+| Execute pkg  | `bunx <pkg>`                               |
+
+---
+
+## Resources
+
+- [Bun Documentation](https://bun.sh/docs)
+- [Bun GitHub](https://github.com/oven-sh/bun)
+- [Elysia Framework](https://elysiajs.com/)
+- [Bun Discord](https://bun.sh/discord)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: pydantic-ai-agents
-title: PydanticAI 智能体开发
-description: 当用 Python 构建类型安全、可测试的生产级 LLM 智能体（结构化输出、工具调用、依赖注入、多模型切换）时使用；做出经 Pydantic 校验的 Agent 代码与单测；不适用于一次性裸提问、纯提示词设计或非 Python 栈；触发词：PydanticAI、Agent、result_type、@agent.tool、RunContext、ModelRetry、结构化输出。
+title: PydanticAI — Typed AI Agents in Python
+description: Build production-ready AI agents with PydanticAI — type-safe tool use, structured outputs, dependency injection, and multi-model support.
 domain: 智能/agents
-triggers: [PydanticAI, Agent, result_type, @agent.tool, RunContext, ModelRetry, 结构化输出, TestModel, 依赖注入, 类型安全智能体]
+triggers: [PydanticAI, Agent, result_type, @agent.tool, RunContext, ModelRetry, TestModel]
 tags: [pydantic-ai, ai-agents, llm, tool-use, structured-output, python]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, pydantic-ai]
+tools: []
 requires: []
 related: [langgraph-agent-framework, crewai-multi-agent, vercel-ai-sdk, agent-tool-builder]
 combines_with: [claude-api, langfuse-llm-observability, multi-agent-system-designer]
@@ -16,45 +16,52 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# PydanticAI — Typed AI Agents in Python
 
-用 Python 构建**类型安全、可测试**的 LLM 智能体时使用。PydanticAI 出自 Pydantic 团队，把 Pydantic 的校验保证带到 LLM 应用：结构化输出（Pydantic 模型校验）、工具调用、依赖注入、流式响应、多轮对话，统一覆盖 OpenAI / Anthropic / Gemini / Groq / Mistral / Ollama。
+## Overview
 
-**该用**：
-- 需要模型返回**校验过的强类型结构**而非裸字符串。
-- 智能体要调用工具（查 DB、调 API）并产出结构化结果。
-- 想**不打真实 LLM** 就为智能体逻辑写单测。
-- 想在不重写业务代码的前提下切换模型供应商。
-- 用户提到 `Agent`、`@agent.tool`、`RunContext`、`ModelRetry`、`result_type`。
+PydanticAI is a Python agent framework from the Pydantic team that brings the same type-safety and validation guarantees as Pydantic to LLM-based applications. It supports structured outputs (validated with Pydantic models), dependency injection for testability, streamed responses, multi-turn conversations, and tool use — across OpenAI, Anthropic, Google Gemini, Groq, Mistral, and Ollama. Use this skill when building production AI agents, chatbots, or LLM pipelines where correctness and testability matter.
 
-**不该用（边界）**：
-- 一次性裸提问、demo 脚本 → 直接调 SDK，别套框架。
-- 任务只是设计/迭代提示词 → 用 `prompt-template-designer`。
-- 需要文档/知识库检索增强 → 用 `rag-pipeline-builder`，再用本技能包装为 Agent。
-- 非 Python 技术栈 → 本技能不适用。
+## When to Use This Skill
 
-## 步骤 / 指令
+- Use when building Python AI agents that call tools and return structured data
+- Use when you need validated, typed LLM outputs (not raw strings)
+- Use when you want to write unit tests for agent logic without hitting a real LLM
+- Use when switching between LLM providers without rewriting agent code
+- Use when the user asks about `Agent`, `@agent.tool`, `RunContext`, `ModelRetry`, or `result_type`
 
-1. **安装**：按供应商装 extras。
-   ```bash
-   pip install pydantic-ai
-   pip install 'pydantic-ai[openai]'      # OpenAI / Azure
-   pip install 'pydantic-ai[anthropic]'   # Anthropic
-   pip install 'pydantic-ai[gemini]'      # Gemini
-   ```
-2. **定输出契约**：用 `BaseModel` 定义 `result_type`，生产环境**不要返回裸字符串**。字段尽量用 `Optional`/`default`，过严 schema 会反复 `ValidationError`。
-3. **建 Agent**：`Agent('供应商:模型', result_type=..., system_prompt=...)`；API Key 走环境变量，**勿写进 `Agent()` 参数**。
-4. **挂工具**：`@agent.tool` 装饰函数，**docstring 必填**（会作为工具描述发给 LLM，缺了模型不会调）；需上下文时签名用 `RunContext[Deps]`。
-5. **依赖注入**：用 `@dataclass` 定义 `Deps`，建 Agent 时传 `deps_type=Deps`；调用时 `agent.run(msg, deps=...)` **按次传入**，依赖不是全局的。
-6. **业务校验/重试**：`@agent.result_validator` 里抛 `ModelRetry(...)` 触发模型重答；`Agent(..., retries=N)` 限制重试上限防死循环。
-7. **测试**：单测用 `agent.override(model=TestModel())`，断言**结构**而非措辞；需确定性输出用 `FunctionModel`。
-8. **流式 / 多轮**：长输出用 `run_stream`；多轮对话用 `result.all_messages()` 取历史，下一轮传 `message_history=`。
+## How It Works
 
-调用形式：同步 `agent.run_sync(...)`；异步 `await agent.run(...)`（FastAPI 路由里**直接 await，勿包 `asyncio.run()`**）；取结果用 `result.data`，取用量用 `result.usage()`。
+### Step 1: Installation
 
-## 示例
+```bash
+pip install pydantic-ai
 
-最小结构化输出 Agent：
+# Install extras for specific providers
+pip install 'pydantic-ai[openai]'       # OpenAI / Azure OpenAI
+pip install 'pydantic-ai[anthropic]'    # Anthropic Claude
+pip install 'pydantic-ai[gemini]'       # Google Gemini
+pip install 'pydantic-ai[groq]'         # Groq
+pip install 'pydantic-ai[vertexai]'     # Google Vertex AI
+```
+
+### Step 2: A Minimal Agent
+
+```python
+from pydantic_ai import Agent
+
+# Simple agent — returns a plain string
+agent = Agent(
+    'anthropic:claude-sonnet-4-6',
+    system_prompt='You are a helpful assistant. Be concise.',
+)
+
+result = agent.run_sync('What is the capital of Japan?')
+print(result.data)  # "Tokyo"
+print(result.usage())  # Usage(requests=1, request_tokens=..., response_tokens=...)
+```
+
+### Step 3: Structured Output with Pydantic Models
 
 ```python
 from pydantic import BaseModel
@@ -63,17 +70,61 @@ from pydantic_ai import Agent
 class MovieReview(BaseModel):
     title: str
     year: int
-    rating: float        # 0.0~10.0
+    rating: float  # 0.0 to 10.0
+    summary: str
     recommended: bool
 
-agent = Agent('openai:gpt-4o', result_type=MovieReview,
-              system_prompt='You are a film critic. Return structured reviews.')
+agent = Agent(
+    'openai:gpt-4o',
+    result_type=MovieReview,
+    system_prompt='You are a film critic. Return structured reviews.',
+)
 
-review = agent.run_sync('Review Inception (2010)').data  # 强类型实例
+result = agent.run_sync('Review Inception (2010)')
+review = result.data  # Fully typed MovieReview instance
 print(f"{review.title} ({review.year}): {review.rating}/10")
+print(f"Recommended: {review.recommended}")
 ```
 
-工具 + 依赖注入（客服场景，节选）：
+### Step 4: Tool Use
+
+Register tools with `@agent.tool` — the LLM can call them during a run:
+
+```python
+from pydantic_ai import Agent, RunContext
+from pydantic import BaseModel
+import httpx
+
+class WeatherReport(BaseModel):
+    city: str
+    temperature_c: float
+    condition: str
+
+weather_agent = Agent(
+    'anthropic:claude-sonnet-4-6',
+    result_type=WeatherReport,
+    system_prompt='Get current weather for the requested city.',
+)
+
+@weather_agent.tool
+async def get_temperature(ctx: RunContext, city: str) -> dict:
+    """Fetch the current temperature for a city from the weather API."""
+    async with httpx.AsyncClient() as client:
+        r = await client.get(f'https://wttr.in/{city}?format=j1')
+        data = r.json()
+        return {
+            'temp_c': float(data['current_condition'][0]['temp_C']),
+            'description': data['current_condition'][0]['weatherDesc'][0]['value'],
+        }
+
+import asyncio
+result = asyncio.run(weather_agent.run('What is the weather in Tokyo?'))
+print(result.data)
+```
+
+### Step 5: Dependency Injection
+
+Inject services (database, HTTP clients, config) into agents for testability:
 
 ```python
 from dataclasses import dataclass
@@ -89,62 +140,222 @@ class SupportResponse(BaseModel):
     message: str
     escalate: bool
 
-support_agent = Agent('openai:gpt-4o-mini', deps_type=Deps,
-                      result_type=SupportResponse,
-                      system_prompt='You are a support agent. Use the tools to help customers.')
+support_agent = Agent(
+    'openai:gpt-4o-mini',
+    deps_type=Deps,
+    result_type=SupportResponse,
+    system_prompt='You are a support agent. Use the tools to help customers.',
+)
 
 @support_agent.tool
 async def get_order_history(ctx: RunContext[Deps]) -> list[dict]:
-    """Fetch recent orders for the current user."""   # docstring 即工具描述
+    """Fetch recent orders for the current user."""
     return await ctx.deps.db.get_orders(ctx.deps.user_id, limit=5)
 
-async def handle(user_id: str, msg: str):
+@support_agent.tool
+async def create_refund(ctx: RunContext[Deps], order_id: str, reason: str) -> dict:
+    """Initiate a refund for a specific order."""
+    return await ctx.deps.db.create_refund(order_id, reason, ctx.deps.user_id)
+
+# Usage
+async def handle_support(user_id: str, message: str):
     deps = Deps(db=get_db(), user_id=user_id)
-    return (await support_agent.run(msg, deps=deps)).data
+    result = await support_agent.run(message, deps=deps)
+    return result.data
 ```
 
-业务校验触发重试：
+### Step 6: Testing with TestModel
+
+Write unit tests without real LLM calls:
 
 ```python
-from pydantic_ai import ModelRetry
+from pydantic_ai.models.test import TestModel
+
+def test_support_agent_escalates():
+    with support_agent.override(model=TestModel()):
+        # TestModel returns a minimal valid response matching result_type
+        result = support_agent.run_sync(
+            'I want to cancel my account',
+            deps=Deps(db=FakeDb(), user_id='user-123'),
+        )
+    # Test the structure, not the LLM's exact words
+    assert isinstance(result.data, SupportResponse)
+    assert isinstance(result.data.escalate, bool)
+```
+
+**FunctionModel** for deterministic test responses:
+
+```python
+from pydantic_ai.models.function import FunctionModel, ModelContext
+
+def my_model(messages, info):
+    return ModelResponse(parts=[TextPart('Always this response')])
+
+with agent.override(model=FunctionModel(my_model)):
+    result = agent.run_sync('anything')
+```
+
+### Step 7: Streaming Responses
+
+```python
+import asyncio
+from pydantic_ai import Agent
+
+agent = Agent('anthropic:claude-sonnet-4-6')
+
+async def stream_response():
+    async with agent.run_stream('Write a haiku about Python') as result:
+        async for chunk in result.stream_text():
+            print(chunk, end='', flush=True)
+    print()  # newline
+    print(f"Total tokens: {result.usage()}")
+
+asyncio.run(stream_response())
+```
+
+### Step 8: Multi-Turn Conversations
+
+```python
+from pydantic_ai import Agent
+from pydantic_ai.messages import ModelMessagesTypeAdapter
+
+agent = Agent('openai:gpt-4o', system_prompt='You are a helpful assistant.')
+
+# First turn
+result1 = agent.run_sync('My name is Alice.')
+history = result1.all_messages()
+
+# Second turn — passes conversation history
+result2 = agent.run_sync('What is my name?', message_history=history)
+print(result2.data)  # "Your name is Alice."
+```
+
+## Examples
+
+### Example 1: Code Review Agent
+
+```python
+from pydantic import BaseModel, Field
+from pydantic_ai import Agent
+from typing import Literal
+
+class CodeReview(BaseModel):
+    quality: Literal['excellent', 'good', 'needs_work', 'poor']
+    issues: list[str] = Field(default_factory=list)
+    suggestions: list[str] = Field(default_factory=list)
+    approved: bool
+
+code_review_agent = Agent(
+    'anthropic:claude-sonnet-4-6',
+    result_type=CodeReview,
+    system_prompt="""
+    You are a senior engineer performing code review.
+    Evaluate code quality, identify issues, and provide actionable suggestions.
+    Set approved=True only for good or excellent quality code with no security issues.
+    """,
+)
+
+def review_code(diff: str) -> CodeReview:
+    result = code_review_agent.run_sync(f"Review this code:\n\n{diff}")
+    return result.data
+```
+
+### Example 2: Agent with Retry Logic
+
+```python
+from pydantic_ai import Agent, ModelRetry
+from pydantic import BaseModel, field_validator
+
+class StrictJson(BaseModel):
+    value: int
+
+    @field_validator('value')
+    def must_be_positive(cls, v):
+        if v <= 0:
+            raise ValueError('value must be positive')
+        return v
+
+agent = Agent('openai:gpt-4o-mini', result_type=StrictJson)
 
 @agent.result_validator
-async def validate(ctx, result: StrictJson) -> StrictJson:
+async def validate_result(ctx, result: StrictJson) -> StrictJson:
     if result.value > 1000:
         raise ModelRetry('Value must be under 1000. Try again with a smaller number.')
     return result
 ```
 
-不打真实 LLM 的单测：
+### Example 3: Multi-Agent Pipeline
 
 ```python
-from pydantic_ai.models.test import TestModel
+from pydantic_ai import Agent
+from pydantic import BaseModel
 
-def test_escalates():
-    with support_agent.override(model=TestModel()):
-        r = support_agent.run_sync('I want to cancel',
-                                   deps=Deps(db=FakeDb(), user_id='u-123'))
-    assert isinstance(r.data, SupportResponse)
-    assert isinstance(r.data.escalate, bool)   # 测结构，不测措辞
+class ResearchSummary(BaseModel):
+    key_points: list[str]
+    conclusion: str
+
+class BlogPost(BaseModel):
+    title: str
+    body: str
+    meta_description: str
+
+researcher = Agent('openai:gpt-4o', result_type=ResearchSummary)
+writer = Agent('anthropic:claude-sonnet-4-6', result_type=BlogPost)
+
+async def research_and_write(topic: str) -> BlogPost:
+    # Stage 1: research
+    research = await researcher.run(f'Research the topic: {topic}')
+
+    # Stage 2: write based on research
+    post = await writer.run(
+        f'Write a blog post about: {topic}\n\nResearch:\n' +
+        '\n'.join(f'- {p}' for p in research.data.key_points) +
+        f'\n\nConclusion: {research.data.conclusion}'
+    )
+    return post.data
 ```
 
-## 注意事项
+## Best Practices
 
-- **API Key 走环境变量**（`OPENAI_API_KEY`/`ANTHROPIC_API_KEY`…），绝不硬编码、绝不写进 `Agent()` 参数。
-- **工具 docstring 必写且具体**：它是发给 LLM 的工具描述，写空了模型不会调用。
-- **依赖按次传 `deps=`**：`RunContext` 里 `deps` 为 `None`，多半是 `run()` 时漏传；依赖非全局。
-- **结构化输出老是校验失败**：放宽 `result_type`，加 `Optional`/`default`，别堆过严字段。
-- **`result_type` 优先于裸字符串**；用 `result_validator` 补 Pydantic 之外的业务规则；`retries=` 设上限防死循环。
-- **会变更数据的工具**（写库、发邮件、调支付）生产环境应要求显式确认后再让 Agent 调用；对有后果的动作记录 `result.all_messages()` 做审计。
-- **别广捕 `ValidationError`**：交给 `ModelRetry` 让框架重试可恢复的输出错误。
-- **跨 async 任务勿共享单一 Agent 实例**（若 deps 不同）：按请求建实例或按次传 deps。
-- **FastAPI 中直接 `await agent.run()`**，不要包 `asyncio.run()`。
+- ✅ Always define `result_type` with a Pydantic model — avoid returning raw strings in production
+- ✅ Use `deps_type` with a dataclass for dependency injection — makes agents testable
+- ✅ Use `TestModel` in unit tests — never hit a real LLM in CI
+- ✅ Add `@agent.result_validator` for business-logic checks beyond Pydantic validation
+- ✅ Use `run_stream` for long outputs in user-facing applications to show progressive results
+- ❌ Don't put secrets (API keys) in `Agent()` arguments — use environment variables
+- ❌ Don't share a single `Agent` instance across async tasks if deps differ — create per-request instances or use `agent.run()` with per-call `deps`
+- ❌ Don't catch `ValidationError` broadly — let PydanticAI retry with `ModelRetry` for recoverable LLM output errors
 
-## 互见
+## Security & Safety Notes
 
-- related：`prompt-template-designer` —— 智能体的 `system_prompt` 与工具描述可由其产出更稳定的模板。
-- combines_with：`rag-pipeline-builder` —— 把检索管道封装成工具挂到 Agent 上，得到带引用的检索增强智能体。
+- Set API keys via environment variables (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.) — never hardcode them.
+- Validate all tool inputs before passing to external systems — use Pydantic models or manual checks.
+- Tools that mutate data (write to DB, send emails, call payment APIs) should require explicit user confirmation before the agent invokes them in production.
+- Log `result.all_messages()` for audit trails when agents perform consequential actions.
+- Set `retries=` limits on `Agent()` to prevent runaway loops on persistent validation failures.
 
----
+## Common Pitfalls
 
-采编自 sickn33/antigravity-awesome-skills（MIT），适配重写。
+- **Problem:** `ValidationError` on every LLM response — structured output never validates
+  **Solution:** Simplify `result_type` fields. Use `Optional` and `default` where appropriate. The model may struggle with overly strict schemas.
+
+- **Problem:** Tool is never called by the LLM
+  **Solution:** Write a clear, specific docstring for the tool function — PydanticAI sends the docstring as the tool description to the LLM.
+
+- **Problem:** `RunContext` dependency is `None` inside a tool
+  **Solution:** Pass `deps=` when calling `agent.run()` or `agent.run_sync()`. Dependencies are not set globally.
+
+- **Problem:** `asyncio.run()` error when calling `agent.run()` inside FastAPI
+  **Solution:** Use `await agent.run()` directly in async FastAPI route handlers — don't wrap in `asyncio.run()`.
+
+## Related Skills
+
+- `@langchain-architecture` — Alternative Python AI framework (more flexible, less type-safe)
+- `@llm-application-dev-ai-assistant` — General LLM application development patterns
+- `@fastapi-templates` — Serving PydanticAI agents via FastAPI endpoints
+- `@agent-orchestration-multi-agent-optimize` — Orchestrating multiple PydanticAI agents
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: daily-news-report
-title: 每日技术资讯抓取与简报生成
-description: 当需要按预设来源列表抓取技术资讯并产出每日简报时使用；做主 Agent 编排 + 子 Agent 并行抓取，筛选高质量条目并生成 Markdown 日报到 NewsReport/；不适用于单篇网页总结、无来源配置的开放式搜索、实时舆情监控；触发词：每日资讯、技术简报、daily news、抓取来源、日报生成
+title: Daily News Report v3.0
+description: Scrapes content based on a preset URL list, filters high-quality technical information, and generates daily Markdown reports.
 domain: 协作/automation
-triggers: [每日资讯, 技术简报, daily news report, 抓取新闻来源, 生成日报, 资讯聚合, Hacker News 简报, 技术情报]
-tags: [资讯聚合, 网页抓取, agent编排, markdown报告, 并行子agent, 缓存去重]
-level: 进阶
+triggers: [daily news report]
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Task, WebFetch, mcp__chrome-devtools__new_page, mcp__chrome-devtools__wait_for, mcp__chrome-devtools__take_snapshot, mcp__chrome-devtools__close_page, Read, Write]
+tools: []
 requires: []
 related: [news-sentiment-briefing, competitive-intel-tracker, multi-agent-orchestrator, entity-research-dossier]
 combines_with: [news-sentiment-briefing, competitive-intel-tracker, multi-agent-orchestrator]
@@ -16,93 +16,304 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Daily News Report v3.0
 
-适用于：基于一份预设来源列表（`sources.json`）定期抓取技术资讯，过滤出高质量条目，并产出标准 Markdown 日报。典型来源包括 Hacker News、HuggingFace Papers、各类技术博客（OneUsefulThing、Paul Graham、FS Blog 等），以及需要 JS 渲染的页面（ProductHunt、Latent Space）。
+> **Architecture Upgrade**: Main Agent Orchestration + SubAgent Execution + Browser Scraping + Smart Caching
 
-不该用于：
-- 仅总结某一篇指定网页或文章（直接 WebFetch 即可，无需本工作流）。
-- 没有来源配置、纯开放式主题检索（应使用通用网络搜索 / deep-research）。
-- 实时舆情 / 监控告警类需求（本技能是一次性批量产出，非流式监听）。
+## Core Architecture
 
-## 步骤
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                        Main Agent (Orchestrator)                    │
+│  Role: Scheduling, Monitoring, Evaluation, Decision, Aggregation    │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│   ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
+│   │ 1. Init     │ → │ 2. Dispatch │ → │ 3. Monitor  │ → │ 4. Evaluate │     │
+│   │ Read Config │    │ Assign Tasks│    │ Collect Res │    │ Filter/Sort │     │
+│   └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘     │
+│         │                  │                  │                  │           │
+│         ▼                  ▼                  ▼                  ▼           │
+│   ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
+│   │ 5. Decision │ ← │ Enough 20?  │    │ 6. Generate │ → │ 7. Update   │     │
+│   │ Cont/Stop   │    │ Y/N         │    │ Report File │    │ Cache Stats │     │
+│   └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘     │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+         ↓ Dispatch                          ↑ Return Results
+┌─────────────────────────────────────────────────────────────────────┐
+│                        SubAgent Execution Layer                      │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│   ┌─────────────┐   ┌─────────────┐   ┌─────────────┐              │
+│   │ Worker A    │   │ Worker B    │   │ Browser     │              │
+│   │ (WebFetch)  │   │ (WebFetch)  │   │ (Headless)  │              │
+│   │ Tier1 Batch │   │ Tier2 Batch │   │ JS Render   │              │
+│   └─────────────┘   └─────────────┘   └─────────────┘              │
+│         ↓                 ↓                 ↓                        │
+│   ┌─────────────────────────────────────────────────────────────┐   │
+│   │                    Structured Result Return                 │   │
+│   │  { status, data: [...], errors: [...], metadata: {...} }    │   │
+│   └─────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+```
 
-整体为「主 Agent 编排 + 子 Agent 执行 + 浏览器兜底 + 缓存去重」。主 Agent 负责调度、监控、评估、决策、聚合；子 Agent 是无状态执行单元，只抓取并返回结构化 JSON。
+## Configuration Files
 
-1. 初始化：确定日期（用户参数或当前日期）；读取 `sources.json`（来源、优先级、抓取方式）与 `cache.json`（历史数据、去重指纹）；创建输出目录 `NewsReport/`；检查今日是否已有半成品报告（决定是否追加模式）。
-2. 分波派发（并行 + 早停）：
-   - Wave 1：Worker A 抓 Tier1 批次 A（HN、HuggingFace Papers），Worker B 抓 Tier1 批次 B（OneUsefulThing、Paul Graham），并行执行。
-   - 汇总后评估数量；若高质量条目 < 15，再派 Wave 2（Tier2：James Clear、FS Blog、HackerNoon、Scott Young）。
-   - 若仍 < 20，启动 Wave 3 浏览器抓取（ProductHunt、Latent Space 等需 JS 渲染的页面）。
-3. 监控与反馈：检查每个子 Agent 状态（success/partial/failed），统计条目数与各来源成功率；失败来源决定重试或跳过，持续失败则标记禁用并回写 `sources.json`，动态调整后续批次的来源选择。
-4. 评估与过滤：去重（精确 URL 匹配、标题相似度 >80% 视为重复、比对 `cache.json` 历史）；统一各子 Agent 的打分标准并按来源可信度调权，人工精选源加分；按 `quality_score` 降序、同分按来源优先级排序，取 Top 20。
-5. 浏览器兜底（MCP Chrome DevTools）：`new_page` 打开 → `wait_for` 等内容加载 → `take_snapshot` 取页面结构 → 解析提取 → `close_page` 关闭。
-6. 生成报告：写入 `NewsReport/YYYY-MM-DD-news-report.md`，标准 Markdown，含标题+日期、统计摘要、20 条高质量条目、生成信息。
-7. 更新缓存：写回 `cache.json` 的 `last_run`、`source_stats`、`url_cache`、`content_hashes`、`article_history`。
+This skill uses the following configuration files:
 
-## 指令
+| File | Purpose |
+|------|---------|
+| `sources.json` | Source configuration, priorities, scrape methods |
+| `cache.json` | Cached data, historical stats, deduplication fingerprints |
 
-停止条件（主 Agent 决策）：
+## Execution Process Details
+
+### Phase 1: Initialization
+
 ```yaml
+Steps:
+  1. Determine date (user argument or current date)
+  2. Read sources.json for source configurations
+  3. Read cache.json for historical data
+  4. Create output directory NewsReport/
+  5. Check if a partial report exists for today (append mode)
+```
+
+### Phase 2: Dispatch SubAgents
+
+**Strategy**: Parallel dispatch, batch execution, early stopping mechanism
+
+```yaml
+Wave 1 (Parallel):
+  - Worker A: Tier1 Batch A (HN, HuggingFace Papers)
+  - Worker B: Tier1 Batch B (OneUsefulThing, Paul Graham)
+
+Wait for results → Evaluate count
+
+If < 15 high-quality items:
+  Wave 2 (Parallel):
+    - Worker C: Tier2 Batch A (James Clear, FS Blog)
+    - Worker D: Tier2 Batch B (HackerNoon, Scott Young)
+
+If still < 20 items:
+  Wave 3 (Browser):
+    - Browser Worker: ProductHunt, Latent Space (Require JS rendering)
+```
+
+### Phase 3: SubAgent Task Format
+
+Task format received by each SubAgent:
+
+```yaml
+task: fetch_and_extract
+sources:
+  - id: hn
+    url: https://news.ycombinator.com
+    extract: top_10
+  - id: hf_papers
+    url: https://huggingface.co/papers
+    extract: top_voted
+
+output_schema:
+  items:
+    - source_id: string      # Source Identifier
+      title: string          # Title
+      summary: string        # 2-4 sentence summary
+      key_points: string[]   # Max 3 key points
+      url: string            # Original URL
+      keywords: string[]     # Keywords
+      quality_score: 1-5     # Quality Score
+
+constraints:
+  filter: "Cutting-edge Tech/Deep Tech/Productivity/Practical Info"
+  exclude: "General Science/Marketing Puff/Overly Academic/Job Posts"
+  max_items_per_source: 10
+  skip_on_error: true
+
+return_format: JSON
+```
+
+### Phase 4: Main Agent Monitoring & Feedback
+
+Main Agent Responsibilities:
+
+```yaml
+Monitoring:
+  - Check SubAgent return status (success/partial/failed)
+  - Count collected items
+  - Record success rate per source
+
+Feedback Loop:
+  - If a SubAgent fails, decide whether to retry or skip
+  - If a source fails persistently, mark as disabled
+  - Dynamically adjust source selection for subsequent batches
+
 Decision:
-  - 条目 >= 25 且 高质量 >= 20 → 停止抓取
-  - 条目 < 15 → 继续下一批次
-  - 所有批次跑完仍 < 20 → 用现有内容生成（质量优先于数量）
+  - Items >= 25 AND HighQuality >= 20 → Stop scraping
+  - Items < 15 → Continue to next batch
+  - All batches done but < 20 → Generate with available content (Quality over Quantity)
 ```
 
-子 Agent 调用（用 general-purpose 注入 worker 提示，免去重启会话；模型可选 haiku 降本）：
-```
-subagent_type: general-purpose
-model: haiku
-prompt: |
-  你是无状态执行单元，只完成分配任务并返回结构化 JSON。
-  任务：抓取以下 URL 并提取内容
-  URLs:
-    - https://news.ycombinator.com (Top 10)
-    - https://huggingface.co/papers (按投票数取高票)
-  输出格式：
-  {
-    "status": "success" | "partial" | "failed",
-    "data": [{
-      "source_id": "hn", "title": "...", "summary": "...",
-      "key_points": ["...","...","..."], "url": "...",
-      "keywords": ["...","..."], "quality_score": 4
-    }],
-    "errors": [], "metadata": { "processed": 2, "failed": 0 }
-  }
-  过滤：保留 前沿技术/深度技术/生产力/实用信息；
-        剔除 泛科普/营销软文/过度学术/招聘帖。
-  直接返回 JSON，不要解释。
+### Phase 5: Evaluation & Filtering
+
+```yaml
+Deduplication:
+  - Exact URL match
+  - Title similarity (>80% considered duplicate)
+  - Check cache.json to avoid history duplicates
+
+Score Calibration:
+  - Unify scoring standards across SubAgents
+  - Adjust weights based on source credibility
+  - Bonus points for manually curated high-quality sources
+
+Sorting:
+  - Descending order by quality_score
+  - Sort by source priority if scores are equal
+  - Take Top 20
 ```
 
-单条目输出 Schema：`source_id` / `title` / `summary`（2-4 句）/ `key_points`（≤3）/ `url` / `keywords` / `quality_score`（1-5）。约束：`max_items_per_source: 10`、`skip_on_error: true`、`return_format: JSON`。
+### Phase 6: Browser Scraping (MCP Chrome DevTools)
 
-兼容性兜底（必须执行）：
-- 初始化阶段探测 `worker` 子 Agent 是否存在；不存在则自动切换串行执行模式（主 Agent 逐个来源抓取，较慢但保证基础功能）。
-- 降级运行时，必须在报告头部加入明确警告，提示当前为降级（串行）模式。
+For pages requiring JS rendering, use a headless browser:
 
-## 示例
+```yaml
+Process:
+  1. Call mcp__chrome-devtools__new_page to open page
+  2. Call mcp__chrome-devtools__wait_for to wait for content load
+  3. Call mcp__chrome-devtools__take_snapshot to get page structure
+  4. Parse snapshot to extract required content
+  5. Call mcp__chrome-devtools__close_page to close page
 
-报告输出模板：
+Applicable Scenarios:
+  - ProductHunt (403 on WebFetch)
+  - Latent Space (Substack JS rendering)
+  - Other SPA applications
+```
+
+### Phase 7: Generate Report
+
+```yaml
+Output:
+  - Directory: NewsReport/
+  - Filename: YYYY-MM-DD-news-report.md
+  - Format: Standard Markdown
+
+Content Structure:
+  - Title + Date
+  - Statistical Summary (Source count, items collected)
+  - 20 High-Quality Items (Template based)
+  - Generation Info (Version, Timestamps)
+```
+
+### Phase 8: Update Cache
+
+```yaml
+Update cache.json:
+  - last_run: Record this run info
+  - source_stats: Update stats per source
+  - url_cache: Add processed URLs
+  - content_hashes: Add content fingerprints
+  - article_history: Record included articles
+```
+
+## SubAgent Call Examples
+
+### Using general-purpose Agent
+
+Since custom agents require session restart to be discovered, use general-purpose and inject worker prompts:
+
+```
+Task Call:
+  subagent_type: general-purpose
+  model: haiku
+  prompt: |
+    You are a stateless execution unit. Only do the assigned task and return structured JSON.
+
+    Task: Scrape the following URLs and extract content
+
+    URLs:
+    - https://news.ycombinator.com (Extract Top 10)
+    - https://huggingface.co/papers (Extract top voted papers)
+
+    Output Format:
+    {
+      "status": "success" | "partial" | "failed",
+      "data": [
+        {
+          "source_id": "hn",
+          "title": "...",
+          "summary": "...",
+          "key_points": ["...", "...", "..."],
+          "url": "...",
+          "keywords": ["...", "..."],
+          "quality_score": 4
+        }
+      ],
+      "errors": [],
+      "metadata": { "processed": 2, "failed": 0 }
+    }
+
+    Filter Criteria:
+    - Keep: Cutting-edge Tech/Deep Tech/Productivity/Practical Info
+    - Exclude: General Science/Marketing Puff/Overly Academic/Job Posts
+
+    Return JSON directly, no explanation.
+```
+
+### Using worker Agent (Requires session restart)
+
+```
+Task Call:
+  subagent_type: worker
+  prompt: |
+    task: fetch_and_extract
+    input:
+      urls:
+        - https://news.ycombinator.com
+        - https://huggingface.co/papers
+    output_schema:
+      - source_id: string
+      - title: string
+      - summary: string
+      - key_points: string[]
+      - url: string
+      - keywords: string[]
+      - quality_score: 1-5
+    constraints:
+      filter: Cutting-edge Tech/Deep Tech/Productivity/Practical Info
+      exclude: General Science/Marketing Puff/Overly Academic
+```
+
+## Output Template
+
 ```markdown
-# 每日技术资讯日报 (YYYY-MM-DD)
+# Daily News Report (YYYY-MM-DD)
 
-> 今日精选自 N 个来源，共 20 条高质量条目
-> 生成耗时: X 分钟 | 版本: v3.0
-> **警告**: 未检测到 worker 子 Agent，已降级为串行模式，性能可能下降。
+> Curated from N sources today, containing 20 high-quality items
+> Generation Time: X min | Version: v3.0
+>
+> **Warning**: Sub-agent 'worker' not detected. Running in generic mode (Serial Execution). Performance might be degraded.
 
 ---
 
-## 1. 标题
+## 1. Title
 
-- **摘要**: 2-4 行概述
-- **要点**:
-  1. 要点一
-  2. 要点二
-  3. 要点三
-- **来源**: 链接
-- **关键词**: `keyword1` `keyword2` `keyword3`
-- **评分**: ⭐⭐⭐⭐⭐ (5/5)
+- **Summary**: 2-4 lines overview
+- **Key Points**:
+  1. Point one
+  2. Point two
+  3. Point three
+- **Source**: Link
+- **Keywords**: `keyword1` `keyword2` `keyword3`
+- **Score**: ⭐⭐⭐⭐⭐ (5/5)
+
+---
+
+## 2. Title
+...
 
 ---
 
@@ -110,26 +321,48 @@ prompt: |
 *Sources: HN, HuggingFace, OneUsefulThing, ...*
 ```
 
-预期耗时：理想 ~2 分钟（Tier1 足量，无需浏览器）；常规 ~3-4 分钟（需 Tier2 补充）；含 JS 渲染页 ~5-6 分钟。
+## Constraints & Principles
 
-## 注意事项
+1.  **Quality over Quantity**: Low-quality content does not enter the report.
+2.  **Early Stop**: Stop scraping once 20 high-quality items are reached.
+3.  **Parallel First**: SubAgents in the same batch execute in parallel.
+4.  **Fault Tolerance**: Failure of a single source does not affect the whole process.
+5.  **Cache Reuse**: Avoid re-scraping the same content.
+6.  **Main Agent Control**: All decisions are made by the Main Agent.
+7.  **Fallback Awareness**: Detect sub-agent availability, gracefully degrade if unavailable.
 
-核心原则：
-1. 质量优先于数量：低质内容不入报告。
-2. 早停：凑齐 20 条高质量即停止抓取。
-3. 并行优先：同批次子 Agent 并行执行。
-4. 容错：单一来源失败不影响整体流程。
-5. 缓存复用：避免重复抓取相同内容。
-6. 主 Agent 控制：所有决策由主 Agent 做出。
-7. 降级感知：检测子 Agent 可用性，不可用时优雅降级并告警。
+## Expected Performance
 
-错误处理：子 Agent 超时 → 记录并继续下一个；来源 403/404 → 标记禁用并更新 `sources.json`；提取失败 → 返回原始内容交主 Agent 决策；浏览器崩溃 → 跳过该来源并记录。注意 ProductHunt 对 WebFetch 常返回 403、Latent Space（Substack）需 JS 渲染，这两类应直接走浏览器兜底。
+| Scenario | Expected Time | Note |
+|---|---|---|
+| Optimal | ~2 mins | Tier1 sufficient, no browser needed |
+| Normal | ~3-4 mins | Requires Tier2 supplement |
+| Browser Needed | ~5-6 mins | Includes JS rendered pages |
 
-## 互见
+## Error Handling
 
-- `deep-research`：开放式、多源、需事实核查的深度研究报告（无固定来源列表时优先）。
-- `lark-markdown` / `lark-doc`：把生成的 Markdown 日报上传或转为飞书云文档分发。
-- `schedule` / `loop`：将本工作流设为每日定时自动运行。
+| Error Type | Handling |
+|---|---|
+| SubAgent Timeout | Log error, continue to next |
+| Source 403/404 | Mark disabled, update sources.json |
+| Extraction Failed | Return raw content, Main Agent decides |
+| Browser Crash | Skip source, log entry |
 
----
-*采编自 sickn33/antigravity-awesome-skills（MIT 许可）。*
+## Compatibility & Fallback
+
+To ensure usability across different Agent environments, the following checks must be performed:
+
+1.  **Environment Check**:
+    -   In Phase 1 initialization, attempt to detect if `worker` sub-agent exists.
+    -   If not exists (or plugin not installed), automatically switch to **Serial Execution Mode**.
+
+2.  **Serial Execution Mode**:
+    -   Do not use parallel block.
+    -   Main Agent executes scraping tasks for each source sequentially.
+    -   Slower, but guarantees basic functionality.
+
+3.  **User Alert**:
+    -   MUST include a clear warning in the generated report header indicating the current degraded mode.
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.

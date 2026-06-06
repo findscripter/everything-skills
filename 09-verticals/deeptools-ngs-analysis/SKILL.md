@@ -1,14 +1,14 @@
 ---
 name: deeptools-ngs-analysis
-title: deepTools NGS 覆盖度与信号可视化
-description: 当处理 ChIP/ATAC/RNA-seq 等 NGS 比对数据、需要把 BAM 转成归一化覆盖度轨道、做样本质控或绘制特征区信号图时使用；做 BAM→bigWig（RPGC/CPM/RPKM）归一化、相关性/PCA/指纹质控、TSS/peak 附近热图与谱图等产物；不适用于读段比对（用 STAR/BWA/bowtie2）、peak calling（用 MACS2/HOMER）、BAM/VCF 编程操作（用 pysam）；触发词：bigWig、bamCoverage、computeMatrix、plotHeatmap、ChIP-seq、ATAC-seq
+title: deepTools — NGS Data Analysis Toolkit
+description: NGS CLI for ChIP/RNA/ATAC-seq. BAM→bigWig with RPGC/CPM/RPKM, sample correlation/PCA, heatmaps/profiles around features, fingerprints. For alignment use STAR/BWA; for peak calling use MACS2.
 domain: 领域/science
-triggers: [把 BAM 转成 bigWig 覆盖度轨道, ChIP-seq / ATAC-seq / RNA-seq 信号可视化, TSS 或 peak 附近画热图/谱图, 样本相关性、PCA、指纹质控, treatment vs input 的 log2 比值轨道, ATAC-seq Tn5 偏移校正, deeptools / bamCoverage / computeMatrix / plotHeatmap]
+triggers: [deeptools / bamCoverage / computeMatrix / plotHeatmap]
 tags: [bioinformatics, ngs, deeptools, chip-seq, atac-seq, rna-seq, bigwig, coverage, visualization, qc]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bamCoverage, bamCompare, computeMatrix, plotHeatmap, plotProfile, multiBamSummary, plotCorrelation, plotPCA, plotFingerprint, alignmentSieve, samtools]
+tools: []
 requires: []
 related: [macs3-peak-calling, star-rnaseq-aligner, genomic-file-toolkit, snakemake-workflow-engine]
 combines_with: [star-rnaseq-aligner, macs3-peak-calling]
@@ -16,156 +16,353 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-deepTools 是处理与可视化高通量测序数据的命令行工具集：把 BAM 比对转成归一化覆盖度轨道（bigWig），做质控（相关性、PCA、指纹），并在基因组特征（TSS、peak、基因体）周围生成热图与谱图。支持 ChIP-seq、RNA-seq、ATAC-seq、MNase-seq。
+# deepTools — NGS Data Analysis Toolkit
 
-## 何时使用
+## Overview
 
-适用：
-- 把 BAM 转成归一化 bigWig 覆盖度轨道。
-- 对比 ChIP treatment 与 input，生成 log2 比值轨道。
-- 评估样本质量：重复间相关性、PCA、覆盖深度、ChIP 富集强度（指纹图）。
-- 在 TSS、peak 或其它区间周围绘制热图与谱图。
-- ATAC-seq 的 Tn5 偏移校正；RNA-seq 链特异性覆盖。
+deepTools is a command-line toolkit for processing and visualizing high-throughput sequencing data. It converts BAM alignments to normalized coverage tracks (bigWig), performs quality control (correlation, PCA, fingerprint), and generates publication-quality heatmaps and profile plots around genomic features. Supports ChIP-seq, RNA-seq, ATAC-seq, and MNase-seq.
 
-不该用（负边界）：
-- 读段比对 → 用 STAR / BWA / bowtie2。
-- peak calling → 用 MACS2 / HOMER。
-- BAM/VCF 编程级操作（自定义过滤等）→ 用 pysam。
+## When to Use
 
-## 步骤
+- Converting BAM files to normalized bigWig coverage tracks
+- Comparing ChIP-seq treatment vs input control (log2 ratio tracks)
+- Assessing sample quality: replicate correlation, PCA, coverage depth
+- Evaluating ChIP enrichment strength (fingerprint plots)
+- Creating heatmaps and profile plots around TSS, peaks, or other genomic regions
+- Analyzing ATAC-seq data with Tn5 offset correction
+- Generating strand-specific RNA-seq coverage tracks
+- For **read alignment**, use STAR, BWA, or bowtie2 instead
+- For **peak calling**, use MACS2 or HOMER instead
+- For **BAM/VCF file manipulation**, use pysam instead
 
-1. 安装并校验：`pip install deeptools`，`bamCoverage --version`。
-2. 准备输入：BAM 必须已排序且建索引（存在 `.bai`，缺失则 `samtools index input.bam`）；区间用标准 3+ 列 BED。
-3. 先做质控（相关性 + 指纹），富集差则别浪费时间往下走。
-4. BAM→归一化 bigWig；必要时 `bamCompare` 生成比值轨道。
-5. `computeMatrix` 计算特征区信号矩阵，再 `plotHeatmap` / `plotProfile` 出图。
+## Prerequisites
 
-## 指令
-
-BAM→覆盖度（bamCoverage）：
 ```bash
-# RPGC 归一化（ChIP/ATAC 推荐，需基因组有效大小）
+pip install deeptools
+# Verify installation
+bamCoverage --version
+```
+
+**Input requirements**: BAM files must be sorted and indexed (`.bai` file present). Generate index with `samtools index input.bam`. BED files for genomic regions (genes, peaks) in standard 3+ column format.
+
+## Quick Start
+
+```bash
+# Convert BAM to normalized bigWig
+bamCoverage --bam sample.bam --outFileName sample.bw \
+    --normalizeUsing RPGC --effectiveGenomeSize 2913022398 \
+    --binSize 10 --numberOfProcessors 8
+
+# Create heatmap around TSS
+computeMatrix reference-point -S sample.bw -R genes.bed \
+    -b 3000 -a 3000 --referencePoint TSS -o matrix.gz
+plotHeatmap -m matrix.gz -o heatmap.png --colorMap RdBu
+```
+
+## Core API
+
+### 1. BAM to Coverage Conversion
+
+Convert BAM alignments to normalized coverage tracks (bigWig or bedGraph).
+
+```bash
+# Basic conversion with RPGC normalization
 bamCoverage --bam input.bam --outFileName output.bw \
     --normalizeUsing RPGC --effectiveGenomeSize 2913022398 \
     --binSize 10 --numberOfProcessors 8 \
     --extendReads 200 --ignoreDuplicates
 
-# CPM 归一化（无需基因组大小，适合快速比较）
+# CPM normalization (simpler, no genome size needed)
 bamCoverage --bam input.bam --outFileName output.bw \
     --normalizeUsing CPM --binSize 10 -p 8
 
-# RNA-seq 链特异性覆盖（切勿用 --extendReads，会跨剪接位点）
+# RNA-seq: strand-specific coverage
 bamCoverage --bam rnaseq.bam --outFileName forward.bw \
     --filterRNAstrand forward --normalizeUsing CPM -p 8
+# IMPORTANT: Never use --extendReads for RNA-seq (spans splice junctions)
 ```
 
-样本比较（bamCompare）：
+### 2. Sample Comparison
+
+Compare treatment vs control or generate ratio tracks.
+
 ```bash
-# log2 比值 treatment/control
+# Log2 ratio: treatment / control
 bamCompare -b1 treatment.bam -b2 control.bam -o log2ratio.bw \
-    --operation log2 --scaleFactorsMethod readCount --extendReads 200 -p 8
+    --operation log2 --scaleFactorsMethod readCount \
+    --extendReads 200 -p 8
+
+# Subtract control from treatment
+bamCompare -b1 treatment.bam -b2 control.bam -o subtract.bw \
+    --operation subtract --scaleFactorsMethod readCount
 ```
 
-质控：
+### 3. Quality Control
+
+Assess sample quality, replicate concordance, and enrichment strength.
+
 ```bash
-# 相关性热图（重复应聚类，r>0.9 为佳）
+# Sample correlation heatmap
 multiBamSummary bins --bamfiles rep1.bam rep2.bam rep3.bam \
     -o counts.npz --binSize 10000 -p 8
-plotCorrelation -in counts.npz --corMethod pearson --whatToShow heatmap -o correlation.png
-plotPCA -in counts.npz -o pca.png
+plotCorrelation -in counts.npz --corMethod pearson \
+    --whatToShow heatmap -o correlation.png
+# Good: replicates cluster with r > 0.9
 
-# ChIP 富集指纹（曲线陡升=好；接近对角线=富集差）
-plotFingerprint -b input.bam chip.bam -o fingerprint.png --extendReads 200 --ignoreDuplicates
+# PCA of samples
+plotPCA -in counts.npz -o pca.png --plotTitle "Sample PCA"
+
+# ChIP enrichment fingerprint
+plotFingerprint -b input.bam chip.bam -o fingerprint.png \
+    --extendReads 200 --ignoreDuplicates
+# Good ChIP: steep rise curve; flat diagonal = poor enrichment
+
+# Coverage depth assessment
+plotCoverage -b sample.bam -o coverage.png --ignoreDuplicates -p 8
+
+# Fragment size distribution (paired-end)
+bamPEFragmentSize -b sample.bam -o fragsize.png
 ```
 
-热图与谱图：
+### 4. Heatmaps and Profile Plots
+
+Visualize signal around genomic features (TSS, peaks, gene bodies).
+
 ```bash
-# reference-point：TSS 周围信号
+# Reference-point mode: signal around TSS
 computeMatrix reference-point -S chip.bw -R genes.bed \
     -b 3000 -a 3000 --referencePoint TSS -o matrix.gz -p 8
-# scale-regions：跨基因体信号
+
+# Scale-regions mode: signal across gene bodies
 computeMatrix scale-regions -S chip.bw -R genes.bed \
     -b 1000 -a 1000 --regionBodyLength 5000 -o matrix.gz -p 8
 
-plotHeatmap -m matrix.gz -o heatmap.png --colorMap RdBu --kmeans 3 --sortUsing mean
-plotProfile -m matrix.gz -o profile.png --plotType lines --perGroup
+# Generate heatmap
+plotHeatmap -m matrix.gz -o heatmap.png \
+    --colorMap RdBu --kmeans 3 --sortUsing mean
+
+# Generate profile plot
+plotProfile -m matrix.gz -o profile.png \
+    --plotType lines --colors blue red
+
+# Multiple signal files: compare marks
+computeMatrix reference-point -S h3k4me3.bw h3k27me3.bw -R genes.bed \
+    -b 3000 -a 3000 --referencePoint TSS -o multi_matrix.gz
+plotHeatmap -m multi_matrix.gz -o multi_heatmap.png
 ```
 
-读段过滤 / ATAC 校正（alignmentSieve）：
+### 5. Read Filtering and Processing
+
+Filter reads before analysis or correct for assay-specific biases.
+
 ```bash
-# 按比对质量与片段长度过滤
+# Filter by mapping quality and fragment size
 alignmentSieve --bam input.bam --outFile filtered.bam \
-    --minMappingQuality 10 --minFragmentLength 150 --maxFragmentLength 700
+    --minMappingQuality 10 --minFragmentLength 150 \
+    --maxFragmentLength 700
 
-# ATAC-seq Tn5 偏移校正（+4/-5 bp），随后必须重新索引
+# ATAC-seq: apply Tn5 offset correction (+4/-5 bp shift)
 alignmentSieve --bam atac.bam --outFile shifted.bam --ATACshift
-samtools index shifted.bam
+# Then index: samtools index shifted.bam
+
+# GC bias correction (only if significant bias detected)
+computeGCBias -b input.bam --effectiveGenomeSize 2913022398 \
+    -g genome.2bit --GCbiasFrequenciesFile gc_freq.txt -p 8
+correctGCBias -b input.bam --effectiveGenomeSize 2913022398 \
+    --GCbiasFrequenciesFile gc_freq.txt -o corrected.bam
 ```
 
-关键概念——归一化方法：
-| 方法 | 含义 | 何时用 | 依赖 |
-|------|------|--------|------|
-| RPGC | 1× 全基因组覆盖 | ChIP-seq、ATAC-seq | `--effectiveGenomeSize` |
-| CPM | 每百万计数 | 任意、快速比较 | 无 |
-| RPKM | 每 kb 每百万 | RNA-seq 基因水平 | 无 |
-| BPM | 每百万 bins | 类似 CPM | 无 |
+### 6. Enrichment Analysis
 
-常用基因组有效大小：人 GRCh38=2,913,022,398；小鼠 GRCm38=2,652,783,500；斑马鱼 GRCz11=1,368,780,147；果蝇 dm6=142,573,017；线虫 ce11=100,286,401。
+Quantify signal enrichment at specific regions.
 
-computeMatrix 两种模式：`reference-point`（围绕固定点 TSS/peak summit，参数 `-b`/`-a`/`--referencePoint`）；`scale-regions`（跨变长特征如基因体，参数 `-b`/`-a`/`--regionBodyLength`）。
+```bash
+# Signal enrichment at peak regions
+plotEnrichment -b chip.bam input.bam --BED peaks.bed \
+    -o enrichment.png --ignoreDuplicates -p 8
+```
 
-## 示例
+## Key Concepts
 
-ChIP-seq 质控 + 可视化完整流程：
+### Normalization Methods
+
+| Method | Formula | When to Use | Requires |
+|--------|---------|-------------|----------|
+| **RPGC** | 1× genome coverage | ChIP-seq, ATAC-seq | `--effectiveGenomeSize` |
+| **CPM** | Counts per million | Any assay, quick comparison | Nothing |
+| **RPKM** | Per kb per million | RNA-seq gene-level | Nothing |
+| **BPM** | Bins per million | Similar to CPM | Nothing |
+| **None** | Raw counts | Not recommended for comparison | Nothing |
+
+**Rule**: Use RPGC for ChIP-seq/ATAC-seq (accounts for genome size). Use CPM for quick comparisons. Use RPKM for RNA-seq gene-level analysis.
+
+### Effective Genome Sizes
+
+| Organism | Assembly | Effective Size |
+|----------|----------|---------------|
+| Human | GRCh38/hg38 | 2,913,022,398 |
+| Mouse | GRCm38/mm10 | 2,652,783,500 |
+| Zebrafish | GRCz11 | 1,368,780,147 |
+| *Drosophila* | dm6 | 142,573,017 |
+| *C. elegans* | ce10/ce11 | 100,286,401 |
+
+### computeMatrix Modes
+
+| Mode | Use When | Key Params |
+|------|----------|------------|
+| `reference-point` | Signal around a fixed point (TSS, peak summit) | `-b`, `-a`, `--referencePoint` |
+| `scale-regions` | Signal across variable-length features (gene bodies) | `-b`, `-a`, `--regionBodyLength` |
+
+## Common Workflows
+
+### Workflow: ChIP-seq QC and Visualization
+
 ```bash
 #!/bin/bash
-CHIP="chip.bam"; INPUT="input.bam"; GENES="genes.bed"; PEAKS="peaks.bed"
-GSIZE=2913022398; THREADS=8
+# Complete ChIP-seq QC + visualization pipeline
+CHIP="chip.bam"
+INPUT="input.bam"
+GENES="genes.bed"
+PEAKS="peaks.bed"
+GSIZE=2913022398
+THREADS=8
 
-# 1. 质控：相关性
+# 1. QC: sample correlation
 multiBamSummary bins --bamfiles $INPUT $CHIP -o summary.npz -p $THREADS
 plotCorrelation -in summary.npz --corMethod pearson --whatToShow heatmap -o correlation.png
-# 2. 质控：富集指纹
+
+# 2. QC: enrichment fingerprint
 plotFingerprint -b $INPUT $CHIP -o fingerprint.png --extendReads 200 --ignoreDuplicates
-# 3. 归一化 bigWig
+
+# 3. Convert to normalized bigWig
 bamCoverage --bam $CHIP --outFileName chip.bw --normalizeUsing RPGC \
     --effectiveGenomeSize $GSIZE --extendReads 200 --ignoreDuplicates -p $THREADS
-# 4. log2 比值轨道
+
+# 4. Log2 ratio track
 bamCompare -b1 $CHIP -b2 $INPUT -o log2ratio.bw --operation log2 \
     --scaleFactorsMethod readCount --extendReads 200 -p $THREADS
-# 5. TSS 热图
+
+# 5. Heatmap at TSS
 computeMatrix reference-point -S chip.bw log2ratio.bw -R $GENES \
     -b 3000 -a 3000 --referencePoint TSS -o tss_matrix.gz -p $THREADS
 plotHeatmap -m tss_matrix.gz -o tss_heatmap.png --colorMap RdBu --kmeans 3
+
+# 6. Profile at peaks
+computeMatrix reference-point -S chip.bw -R $PEAKS \
+    -b 2000 -a 2000 -o peak_matrix.gz -p $THREADS
+plotProfile -m peak_matrix.gz -o peak_profile.png
 ```
 
-ATAC-seq 流程关键步骤：
+### Workflow: ATAC-seq Analysis
+
 ```bash
-# 1. Tn5 校正并索引
-alignmentSieve --bam atac.bam --outFile shifted.bam --ATACshift -p 8
+#!/bin/bash
+ATAC="atac.bam"
+PEAKS="atac_peaks.bed"
+GSIZE=2913022398
+THREADS=8
+
+# 1. Apply Tn5 offset correction (+4/-5 bp)
+alignmentSieve --bam $ATAC --outFile shifted.bam --ATACshift -p $THREADS
 samtools index shifted.bam
-# 2. RPGC 覆盖（小 binSize）
+
+# 2. Generate RPGC-normalized coverage
 bamCoverage --bam shifted.bam --outFileName atac.bw \
-    --normalizeUsing RPGC --effectiveGenomeSize 2913022398 --binSize 5 --extendReads -p 8
-# 3. 核小体周期性（应见 ~200/400bp 峰）
-bamPEFragmentSize -b shifted.bam -o fragsize.png --maxFragmentLength 1000 --binSize 1
+    --normalizeUsing RPGC --effectiveGenomeSize $GSIZE \
+    --binSize 5 --extendReads -p $THREADS
+
+# 3. Check nucleosome periodicity (expect 200bp/400bp peaks)
+bamPEFragmentSize -b shifted.bam -o fragsize.png \
+    --maxFragmentLength 1000 --binSize 1
+
+# 4. Heatmap at ATAC peaks
+computeMatrix reference-point -S atac.bw -R $PEAKS \
+    -b 2000 -a 2000 -o atac_matrix.gz -p $THREADS
+plotHeatmap -m atac_matrix.gz -o atac_heatmap.png --colorMap Blues --kmeans 2
 ```
 
-## 注意事项
+## Key Parameters
 
-- ChIP-seq 务必扩展读段：`--extendReads 200`（或实际片段长度），ChIP 片段比读段长。
-- RNA-seq 绝不扩展读段：`--extendReads` 会跨剪接位点产生伪影；若 exon 边界出现伪影，移除该参数。
-- 同一比较内所有样本必须用相同归一化方法，反例混用会得到错误结论。
-- 用 RPGC 必须给 `--effectiveGenomeSize`，否则静默产生错误结果。
-- 调参先用 `--region chr1:1-10000000` 在单染色体上试跑，省下数小时。
-- 几乎所有工具都支持 `-p / --numberOfProcessors`，用满可用核。
-- 常见报错：`BAM index not found` → `samtools index`；内存溢出 → 增大 `--binSize` 或限定 `--region`；bigWig 过大 → 增大 binSize；指纹平坦 → ChIP 富集差（生物学问题，考虑重做实验）；BAM 与 BED 基因组版本不一致（hg38 vs hg19）会导致错误。
+| Parameter | Tool(s) | Default | Range | Effect |
+|-----------|---------|---------|-------|--------|
+| `--normalizeUsing` | bamCoverage, bamCompare | None | RPGC, CPM, RPKM, BPM, None | Coverage normalization method |
+| `--effectiveGenomeSize` | bamCoverage, bamCompare | — | See table above | Required for RPGC normalization |
+| `--binSize` | bamCoverage, multiBamSummary | 50 | 1–10000 | Resolution in bp; smaller = larger files |
+| `--extendReads` | bamCoverage, bamCompare | False | integer (bp) | Extend to fragment length (ChIP: YES, RNA: NO) |
+| `--ignoreDuplicates` | Most tools | False | True/False | Remove PCR duplicates |
+| `--numberOfProcessors` | Most tools | 1 | 1–N cores | Parallel processing |
+| `--operation` | bamCompare | log2 | log2, ratio, subtract, add, mean, reciprocal_ratio | Sample comparison operation |
+| `--referencePoint` | computeMatrix | TSS | TSS, TES, center | Anchor point for reference-point mode |
+| `-b` / `-a` | computeMatrix | 500 | 100–10000 bp | Upstream/downstream distance from reference |
+| `--kmeans` | plotHeatmap | None | 1–20 | Number of clusters for heatmap rows |
+| `--minMappingQuality` | Most tools | None | 0–60 | Minimum alignment quality filter |
 
-## 互见
+## Best Practices
 
-- pysam-genomic-files — deepTools 之前用代码自定义过滤 BAM/VCF。
-- matplotlib-scientific-plotting — 对 deepTools 出图做超出内置选项的定制。
-- 官方文档：https://deeptools.readthedocs.io/ ；参考文献 Ramirez et al. (2016) deepTools2, NAR, https://doi.org/10.1093/nar/gkw257 。
+1. **Always extend reads for ChIP-seq**: Use `--extendReads 200` (or actual fragment length) — ChIP fragments are longer than reads.
 
----
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+2. **Never extend reads for RNA-seq**: `--extendReads` would span splice junctions, creating artifacts.
+
+3. **Anti-pattern — comparing with different normalizations**: Always use the same normalization method across all samples in a comparison.
+
+4. **Use `--region` for parameter testing**: Test on a single chromosome (`--region chr1:1-10000000`) before running on the full genome — saves hours.
+
+5. **Always use `--numberOfProcessors`**: Most tools parallelize well — use all available cores.
+
+6. **Anti-pattern — using RPGC without `--effectiveGenomeSize`**: Will silently produce wrong results. Always specify the correct genome size.
+
+7. **Run QC before analysis**: Check fingerprint and correlation before investing time in heatmaps/profiles. Poor enrichment means downstream visualizations will be noise.
+
+## Common Recipes
+
+### Recipe: Multi-Sample Correlation Matrix
+
+```bash
+# Compare 6 samples across the genome
+multiBamSummary bins --bamfiles sample{1..6}.bam \
+    -o all_samples.npz --binSize 10000 -p 8 \
+    --labels S1 S2 S3 S4 S5 S6
+
+# Pearson correlation heatmap
+plotCorrelation -in all_samples.npz --corMethod pearson \
+    --whatToShow heatmap -o pearson_corr.png --plotNumbers
+
+# Spearman correlation + PCA
+plotCorrelation -in all_samples.npz --corMethod spearman \
+    --whatToShow heatmap -o spearman_corr.png
+plotPCA -in all_samples.npz -o pca.png
+```
+
+### Recipe: Gene Body Coverage Profile
+
+```bash
+# Scale-regions mode for gene body analysis
+computeMatrix scale-regions -S sample.bw -R genes.bed \
+    -b 1000 -a 1000 --regionBodyLength 5000 -o gene_body.gz -p 8
+plotProfile -m gene_body.gz -o gene_body_profile.png \
+    --plotType lines --perGroup
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `BAM index not found` | Missing `.bai` file | Run `samtools index input.bam` |
+| Out of memory | Large genome, small bin size | Increase `--binSize`; process with `--region chr1` |
+| Very slow processing | Single-threaded execution | Add `-p 8` (or available cores) |
+| bigWig files very large | Bin size too small | Increase `--binSize 50` or larger |
+| Flat ChIP fingerprint | Poor ChIP enrichment | Biological issue — consider repeating ChIP experiment |
+| RNA-seq artifacts at exon boundaries | `--extendReads` used with RNA-seq | Remove `--extendReads` for RNA-seq data |
+| ATAC-seq signal offset | Missing Tn5 correction | Apply `alignmentSieve --ATACshift` before analysis |
+| Mismatched genome assemblies | BAM and BED use different assemblies | Verify both use same genome build (hg38 vs hg19) |
+
+## Related Skills
+
+- **pysam-genomic-files** — programmatic BAM/VCF manipulation for custom filtering before deepTools
+- **matplotlib-scientific-plotting** — customize deepTools output figures beyond built-in options
+
+## References
+
+- [deepTools documentation](https://deeptools.readthedocs.io/) — official user guide and tool reference
+- [deepTools Galaxy](https://deeptools.ie-freiburg.mpg.de/) — web-based interface
+- Ramirez et al. (2016) "deepTools2: a next generation web server for deep-sequencing data analysis" — [Nucleic Acids Research](https://doi.org/10.1093/nar/gkw257)

@@ -1,14 +1,14 @@
 ---
 name: agile-product-owner
-title: 敏捷产品负责人与待办管理
-description: 当用 Scrum 写用户故事、定验收标准、拆 Epic、排 Sprint 或排序待办时使用；做出 INVEST 合规故事/GWT 验收标准/容量内的 Sprint 计划/加权优先级排序；不适用于纯看板、瀑布、通用任务管理及未适配的 SAFe/LeSS。触发词：用户故事、验收标准、Sprint 规划、故事点估算、拆 Epic、待办排序
+title: Agile Product Owner
+description: Agile product ownership for backlog management and sprint execution. Covers user story writing, acceptance criteria, sprint planning, and velocity tracking. Use for writing user stories, creating acceptance criteria, planning sprints, estimating story points, breaking down epics, or prioritizing backlog.
 domain: 协作/pm
-triggers: [写用户故事, 创建验收标准, Sprint 规划, 故事点估算, 拆分 Epic, 待办排序, backlog grooming, definition of done, INVEST 校验, Given-When-Then, 团队容量, 速率跟踪]
-tags: [敏捷, scrum, 产品负责人, 用户故事, sprint规划, 待办管理, 验收标准, 协作, pm]
-level: 进阶
+triggers: [backlog grooming, definition of done, Given-When-Then]
+tags: [scrum, pm]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash]
+tools: []
 requires: []
 related: [product-manager-toolkit, github-issue-writer, jira-expert, task-decomposition-planner]
 combines_with: [product-manager-toolkit, jira-expert, enterprise-project-manager]
@@ -16,102 +16,390 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Agile Product Owner
 
-在 Scrum 框架下做产品待办管理与 Sprint 执行时使用，典型场景：
-
-- 把需求写成 INVEST 合规的用户故事；用 Given-When-Then 写可测试验收标准。
-- 拆分 Epic 为可在一个 Sprint 内交付的故事；估算故事点（Fibonacci）。
-- 计算团队容量、规划 Sprint、按价值/影响/风险/成本加权排序待办。
-
-不该用的边界（直接转其他方法，勿强套本技能）：
-
-- 纯看板（Kanban-only）流，不分 Sprint 不估点。
-- 瀑布式项目计划、通用任务管理（用 todo/工单即可）。
-- 未做适配的非 Scrum 框架（SAFe、LeSS）。
-
-## 步骤
-
-围绕四条核心工作流，每条以「校验」收尾，不通过则回退重做。
-
-1. 用户故事生成：确定 persona → 定义动作/能力 → 阐明价值 → 写 GWT 验收标准 → Fibonacci 估点 → INVEST 校验 → 入待办并定优先级。校验：通过全部 INVEST 且验收标准可测。
-2. Epic 拆分：定义 Epic 范围与成功标准 → 列出受影响 persona 及各自能力 → 按逻辑归组为故事 → 确保每个故事 ≤8 点 → 标依赖 → 排增量交付顺序。校验：每个故事独立交付价值，合计覆盖 Epic 全范围。
-3. Sprint 规划：算容量（速率×可用因子）→ 评审 Sprint 目标 → 从已排序待办选故事 → 装载至容量 80-85%（承诺）→ 加 10-15% 拉伸目标 → 标依赖与风险 → 复杂故事拆任务。校验：承诺点 ≤85% 容量，且所有故事都有验收标准。
-4. 待办排序：按优先级级别（Critical/High/Medium/Low）与加权因子打分排序，入 Sprint 前逐条过 INVEST。
-
-## 指令
-
-容量与装载公式（务必照此计算，勿凭感觉）：
-
-```
-Sprint 容量 = 平均速率 × 可用因子
-示例：平均速率 30，可用因子 0.9 → 调整后容量 27
-承诺 = 23（容量的 85%）；拉伸 = 4（容量的 15%）
-```
-
-可用因子参照：满负荷无请假 1.0；一人半休 0.9；Sprint 内有节假日 0.8；多人缺勤 0.7。
-
-加权优先级（权重固定，保持取舍透明）：业务价值 40% / 用户影响 30% / 风险与依赖 15% / 成本 15%。
-
-按故事点的最少验收标准数：1-2 点→3-4 条；3-5 点→4-6 条；8 点→5-8 条；13+ 点→直接拆故事。
-
-脚本工具（源仓库自带，按需调用）：
-
-```bash
-# 从样例 Epic 生成故事
-python scripts/user_story_generator.py
-# 带容量做 Sprint 规划
-python scripts/user_story_generator.py sprint 30
-```
-
-可参考 `references/user-story-templates.md`（模板库、反模式）与 `references/sprint-planning-guide.md`（WSJF 排序、燃尽、DoD）。
-
-## 示例
-
-用户故事模板与 GWT 验收标准：
-
-```
-作为 [persona]，
-我想要 [动作/能力]，
-以便 [价值/收益]。
-
-示例：作为市场经理，我想要把活动报告导出为 PDF，以便与无系统权限的干系人分享结果。
-```
-
-```
-Given [前置条件/上下文]，
-When [动作/触发]，
-Then [预期结果]。
-
-Given 用户已用有效凭证登录，When 点击「导出」按钮，Then 2 秒内开始 PDF 下载。
-```
-
-Epic 拆分（每条 ≤8 点，标注 persona）：
-
-```
-Epic: 用户仪表盘（共 34 点）
-├── US-001 查看关键指标（5 点）- 终端用户
-├── US-002 自定义布局（5 点）- 高级用户
-├── US-003 导出 CSV（3 点）- 终端用户
-└── US-008 启用缓存（3 点）- Enabler
-```
-
-五种拆分技法：按工作流步骤（结账→加购+支付+确认）、按 persona（仪表盘→管理员+用户）、按数据类型（导入→CSV+Excel）、按操作（管理用户→增+改+删）、Happy path 优先（基础流→错误处理→边界）。
-
-## 注意事项
-
-- INVEST 是硬校验而非建议：每个故事入 Sprint 前逐项过 I/N/V/E/S/T，S 要求 ≤8 点、T 要求验收标准清晰可验证。
-- 容量装载只到 85%，留出缓冲；超 85% 视为过载，回退取舍。
-- 验收标准要覆盖五类：Happy Path、校验、错误处理、性能（如 2 秒内）、可访问性（如纯键盘可达）。
-- 速率求 3-5 个 Sprint 平均，波动控制在 ±10%；规划时按平均略保守承诺。
-- Definition of Done 全勾才算完成：代码完成并评审、单测通过、验收标准已验证、文档更新、部署到 staging、PO 验收、无遗留严重 bug。
-- 关键指标目标：承诺可靠性 >85%，中途范围变更 <10%，结转 <15%。
-
-## 互见
-
-- Scrum Master（`project-management/scrum-master/`）：速率数据与 Sprint 仪式，与待办管理互补。
-- Product Manager Toolkit（`product-team/product-manager-toolkit/`）：RICE 排序可作为待办排序输入。
+Backlog management and sprint execution toolkit for product owners, including user story generation, acceptance criteria patterns, sprint planning, and velocity tracking.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可证），已按中文技能大典 SCHEMA 适配重写。
+## Table of Contents
+
+- [What Makes This Skill Different](#what-makes-this-skill-different)
+- [User Story Generation Workflow](#user-story-generation-workflow)
+- [Acceptance Criteria Patterns](#acceptance-criteria-patterns)
+- [Epic Breakdown Workflow](#epic-breakdown-workflow)
+- [Sprint Planning Workflow](#sprint-planning-workflow)
+- [Backlog Prioritization](#backlog-prioritization)
+- [Reference Documentation](#reference-documentation)
+- [Tools](#tools)
+
+---
+
+## What Makes This Skill Different
+
+- **Capacity math that aligns with reality:** sprint capacity is based on velocity × availability factor, not hope.
+- **Acceptance criteria scaled by story size:** minimum AC counts map to story points to avoid under-spec'ing large items.
+- **Weighted prioritization that stays consistent:** value 40%, impact 30%, risk 15%, effort 15% keeps tradeoffs explicit.
+- **Systematic epic splitting techniques:** five concrete split patterns prevent oversized stories.
+- **INVEST validation baked into workflows:** every story includes a validation step, not just guidance.
+
+## User Story Generation Workflow
+
+Create INVEST-compliant user stories from requirements:
+
+1. Identify the persona (who benefits from this feature)
+2. Define the action or capability needed
+3. Articulate the benefit or value delivered
+4. Write acceptance criteria using Given-When-Then
+5. Estimate story points using Fibonacci scale
+6. Validate against INVEST criteria
+7. Add to backlog with priority
+8. **Validation:** Story passes all INVEST criteria; acceptance criteria are testable
+
+### User Story Template
+
+```
+As a [persona],
+I want to [action/capability],
+So that [benefit/value].
+```
+
+**Example:**
+```
+As a marketing manager,
+I want to export campaign reports to PDF,
+So that I can share results with stakeholders who don't have system access.
+```
+
+### Story Types
+
+| Type | Template | Example |
+|------|----------|---------|
+| Feature | As a [persona], I want to [action] so that [benefit] | As a user, I want to filter search results so that I find items faster |
+| Improvement | As a [persona], I need [capability] to [goal] | As a user, I need faster page loads to complete tasks without frustration |
+| Bug Fix | As a [persona], I expect [behavior] when [condition] | As a user, I expect my cart to persist when I refresh the page |
+| Enabler | As a developer, I need to [technical task] to enable [capability] | As a developer, I need to implement caching to enable instant search |
+
+### Persona Reference
+
+| Persona | Typical Needs | Context |
+|---------|--------------|---------|
+| End User | Efficiency, simplicity, reliability | Daily feature usage |
+| Administrator | Control, visibility, security | System management |
+| Power User | Automation, customization, shortcuts | Expert workflows |
+| New User | Guidance, learning, safety | Onboarding |
+
+---
+
+## Acceptance Criteria Patterns
+
+Write testable acceptance criteria using Given-When-Then format.
+
+### Given-When-Then Template
+
+```
+Given [precondition/context],
+When [action/trigger],
+Then [expected outcome].
+```
+
+**Examples:**
+```
+Given the user is logged in with valid credentials,
+When they click the "Export" button,
+Then a PDF download starts within 2 seconds.
+
+Given the user has entered an invalid email format,
+When they submit the registration form,
+Then an inline error message displays "Please enter a valid email address."
+
+Given the shopping cart contains items,
+When the user refreshes the browser,
+Then the cart contents remain unchanged.
+```
+
+### Acceptance Criteria Checklist
+
+Each story should include criteria for:
+
+| Category | Example |
+|----------|---------|
+| Happy Path | Given valid input, When submitted, Then success message displayed |
+| Validation | Should reject input when required field is empty |
+| Error Handling | Must show user-friendly message when API fails |
+| Performance | Should complete operation within 2 seconds |
+| Accessibility | Must be navigable via keyboard only |
+
+### Minimum Criteria by Story Size
+
+| Story Points | Minimum AC Count |
+|--------------|------------------|
+| 1-2 | 3-4 criteria |
+| 3-5 | 4-6 criteria |
+| 8 | 5-8 criteria |
+| 13+ | Split the story |
+
+See `references/user-story-templates.md` for complete template library.
+
+---
+
+## Epic Breakdown Workflow
+
+Break epics into deliverable sprint-sized stories:
+
+1. Define epic scope and success criteria
+2. Identify all personas affected by the epic
+3. List all capabilities needed for each persona
+4. Group capabilities into logical stories
+5. Validate each story is ≤8 points
+6. Identify dependencies between stories
+7. Sequence stories for incremental delivery
+8. **Validation:** Each story delivers standalone value; total stories cover epic scope
+
+### Splitting Techniques
+
+| Technique | When to Use | Example |
+|-----------|-------------|---------|
+| By workflow step | Linear process | "Checkout" → "Add to cart" + "Enter payment" + "Confirm order" |
+| By persona | Multiple user types | "Dashboard" → "Admin dashboard" + "User dashboard" |
+| By data type | Multiple inputs | "Import" → "Import CSV" + "Import Excel" |
+| By operation | CRUD functionality | "Manage users" → "Create" + "Edit" + "Delete" |
+| Happy path first | Risk reduction | "Feature" → "Basic flow" + "Error handling" + "Edge cases" |
+
+### Epic Example
+
+**Epic:** User Dashboard
+
+**Breakdown:**
+```
+Epic: User Dashboard (34 points total)
+├── US-001: View key metrics (5 pts) - End User
+├── US-002: Customize layout (5 pts) - Power User
+├── US-003: Export data to CSV (3 pts) - End User
+├── US-004: Share with team (5 pts) - End User
+├── US-005: Set up alerts (5 pts) - Power User
+├── US-006: Filter by date range (3 pts) - End User
+├── US-007: Admin overview (5 pts) - Admin
+└── US-008: Enable caching (3 pts) - Enabler
+```
+
+---
+
+## Sprint Planning Workflow
+
+Plan sprint capacity and select stories:
+
+1. Calculate team capacity (velocity × availability)
+2. Review sprint goal with stakeholders
+3. Select stories from prioritized backlog
+4. Fill to 80-85% of capacity (committed)
+5. Add stretch goals (10-15% additional)
+6. Identify dependencies and risks
+7. Break complex stories into tasks
+8. **Validation:** Committed points ≤85% capacity; all stories have acceptance criteria
+
+### Capacity Calculation
+
+```
+Sprint Capacity = Average Velocity × Availability Factor
+
+Example:
+Average Velocity: 30 points
+Team availability: 90% (one member partially out)
+Adjusted Capacity: 27 points
+
+Committed: 23 points (85% of 27)
+Stretch: 4 points (15% of 27)
+```
+
+### Availability Factors
+
+| Scenario | Factor |
+|----------|--------|
+| Full sprint, no PTO | 1.0 |
+| One team member out 50% | 0.9 |
+| Holiday during sprint | 0.8 |
+| Multiple members out | 0.7 |
+
+### Sprint Loading Template
+
+```
+Sprint Capacity: 27 points
+Sprint Goal: [Clear, measurable objective]
+
+COMMITTED (23 points):
+[H] US-001: User dashboard (5 pts)
+[H] US-002: Export feature (3 pts)
+[H] US-003: Search filter (5 pts)
+[M] US-004: Settings page (5 pts)
+[M] US-005: Help tooltips (3 pts)
+[L] US-006: Theme options (2 pts)
+
+STRETCH (4 points):
+[L] US-007: Sort options (2 pts)
+[L] US-008: Print view (2 pts)
+```
+
+See `references/sprint-planning-guide.md` for complete planning procedures.
+
+---
+
+## Backlog Prioritization
+
+Prioritize backlog using value and effort assessment.
+
+### Priority Levels
+
+| Priority | Definition | Sprint Target |
+|----------|------------|---------------|
+| Critical | Blocking users, security, data loss | Immediate |
+| High | Core functionality, key user needs | This sprint |
+| Medium | Improvements, enhancements | Next 2-3 sprints |
+| Low | Nice-to-have, minor improvements | Backlog |
+
+### Prioritization Factors
+
+| Factor | Weight | Questions |
+|--------|--------|-----------|
+| Business Value | 40% | Revenue impact? User demand? Strategic alignment? |
+| User Impact | 30% | How many users? How frequently used? |
+| Risk/Dependencies | 15% | Technical risk? External dependencies? |
+| Effort | 15% | Size? Complexity? Uncertainty? |
+
+### INVEST Criteria Validation
+
+Before adding to sprint, validate each story:
+
+| Criterion | Question | Pass If... |
+|-----------|----------|------------|
+| **I**ndependent | Can this be developed without other uncommitted stories? | No blocking dependencies |
+| **N**egotiable | Is the implementation flexible? | Multiple approaches possible |
+| **V**aluable | Does this deliver user or business value? | Clear benefit in "so that" |
+| **E**stimable | Can the team estimate this? | Understood well enough to size |
+| **S**mall | Can this complete in one sprint? | ≤8 story points |
+| **T**estable | Can we verify this is done? | Clear acceptance criteria |
+
+---
+
+## Reference Documentation
+
+### User Story Templates
+
+`references/user-story-templates.md` contains:
+
+- Standard story formats by type (feature, improvement, bug fix, enabler)
+- Acceptance criteria patterns (Given-When-Then, Should/Must/Can)
+- INVEST criteria validation checklist
+- Story point estimation guide (Fibonacci scale)
+- Common story antipatterns and fixes
+- Story splitting techniques
+
+### Sprint Planning Guide
+
+`references/sprint-planning-guide.md` contains:
+
+- Sprint planning meeting agenda
+- Capacity calculation formulas
+- Backlog prioritization framework (WSJF)
+- Sprint ceremony guides (standup, review, retro)
+- Velocity tracking and burndown patterns
+- Definition of Done checklist
+- Sprint metrics and targets
+
+---
+
+## Tools
+
+### User Story Generator
+
+```bash
+# Generate stories from sample epic
+python scripts/user_story_generator.py
+
+# Plan sprint with capacity
+python scripts/user_story_generator.py sprint 30
+```
+
+Generates:
+- INVEST-compliant user stories
+- Given-When-Then acceptance criteria
+- Story point estimates (Fibonacci scale)
+- Priority assignments
+- Sprint loading with committed and stretch items
+
+### Sample Output
+
+```
+USER STORY: USR-001
+========================================
+Title: View Key Metrics
+Type: story
+Priority: HIGH
+Points: 5
+
+Story:
+As a End User, I want to view key metrics and KPIs
+so that I can save time and work more efficiently
+
+Acceptance Criteria:
+  1. Given user has access, When they view key metrics, Then the result is displayed
+  2. Should validate input before processing
+  3. Must show clear error message when action fails
+  4. Should complete within 2 seconds
+  5. Must be accessible via keyboard navigation
+
+INVEST Checklist:
+  ✓ Independent
+  ✓ Negotiable
+  ✓ Valuable
+  ✓ Estimable
+  ✓ Small
+  ✓ Testable
+```
+
+---
+
+## Sprint Metrics
+
+Track sprint health and team performance.
+
+### Key Metrics
+
+| Metric | Formula | Target |
+|--------|---------|--------|
+| Velocity | Points completed / sprint | Stable ±10% |
+| Commitment Reliability | Completed / Committed | >85% |
+| Scope Change | Points added or removed mid-sprint | <10% |
+| Carryover | Points not completed | <15% |
+
+### Velocity Tracking
+
+```
+Sprint 1: 25 points
+Sprint 2: 28 points
+Sprint 3: 30 points
+Sprint 4: 32 points
+Sprint 5: 29 points
+------------------------
+Average Velocity: 28.8 points
+Trend: Stable
+
+Planning: Commit to 24-26 points
+```
+
+### Definition of Done
+
+Story is complete when:
+
+- [ ] Code complete and peer reviewed
+- [ ] Unit tests written and passing
+- [ ] Acceptance criteria verified
+- [ ] Documentation updated
+- [ ] Deployed to staging environment
+- [ ] Product Owner accepted
+- [ ] No critical bugs remaining
+
+## Related Skills
+
+- **Scrum Master** (`project-management/scrum-master/`) — Velocity data and sprint ceremonies complement backlog management
+- **Product Manager Toolkit** (`product-team/product-manager-toolkit/`) — RICE prioritization feeds backlog ordering

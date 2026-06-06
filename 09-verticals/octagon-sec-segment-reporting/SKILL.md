@@ -1,14 +1,14 @@
 ---
 name: octagon-sec-segment-reporting
-title: SEC分部业绩报告分析
-description: 当需要从美股公司 10-K/10-Q 文件中研究业务分部（segment）的营收、营业利润、利润率、地区拆分与分部重组时使用；通过 Octagon MCP 的 octagon-agent 工具做分部业绩分析并产出结构化对比表与趋势解读；不适用于无 Octagon MCP 环境、非上市公司或整体财报（非分部维度）分析。触发词：分部业绩、segment revenue、10-K分部
+title: SEC Segment Reporting
+description: Analyze business segment performance and reporting from SEC filings using Octagon MCP. Use when researching segment revenue, operating income, margins, geographic breakdown, and segment restructuring from 10-K and 10-Q filings.
 domain: 领域/fintech
-triggers: [分部业绩, segment reporting, 分部营收, 营业利润率分析, 地区营收拆分, 分部重组, 10-K 分部, 10-Q 分部, sum-of-parts, ASC 280]
-tags: [fintech, sec, 财报分析, 分部报告, octagon-mcp, 美股, asc280]
-level: 进阶
+triggers: [segment reporting, sum-of-parts, ASC 280]
+tags: [fintech, sec, octagon-mcp, asc280]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [octagon-agent (Octagon MCP), octagon-sec-agent, octagon-financials-agent]
+tools: []
 requires: []
 related: [octagon-sec-10k-analysis, octagon-revenue-product-segmentation, octagon-revenue-geographic-segmentation, octagon-sec-mda-analysis]
 combines_with: [octagon-sec-filing-analyst, octagon-sec-10k-analysis]
@@ -16,44 +16,32 @@ license: MIT
 source: OctagonAI/skills
 source_license: MIT
 ---
-## 何时使用
+# SEC Segment Reporting
 
-当你需要拆解一家**美股上市公司**的业务分部表现时使用，典型问题：
+Analyze business segment performance and reporting from SEC filings for public companies using the Octagon MCP server.
 
-- 各业务分部（segment）的营收、同比增速、营业利润、利润率分别是多少？
-- 公司按地区（Americas/EMEA/APAC）的营收如何分布？
-- 公司近期是否调整/重组了分部口径，怎么调的？
-- 对标两家公司（如 META vs GOOGL）的分部结构与盈利能力。
-- 为估值做 sum-of-parts（分部加总）分析。
+## Prerequisites
 
-**不该用的边界：**
-- 未在 AI 客户端（Cursor / Claude Desktop / Windsurf 等）配置 **Octagon MCP** 时——本技能依赖该 MCP，先去配置。
-- 非上市公司、无 SEC 申报的主体——数据源取不到。
-- 只关注公司整体财报（合并口径），不涉及分部维度——直接查财报即可，无需本技能。
-- 需要原始 XBRL 逐行核对或非美股市场——超出范围。
+Ensure Octagon MCP is configured in your AI agent (Cursor, Claude Desktop, Windsurf, etc.). See [references/mcp-setup.md](references/mcp-setup.md) for installation instructions.
 
-## 步骤
+## Workflow
 
-1. **确定分析参数**
-   - Ticker：股票代码（如 AAPL、MSFT、IBM）。
-   - 申报类型（可选）：10-K（年报）或 10-Q（季报）。
-   - 关注点（可选）：营收 / 盈利能力 / 地区 / 趋势。
+### 1. Identify Analysis Parameters
 
-2. **通过 Octagon MCP 发起查询**：调用 `octagon-agent` 工具，传入自然语言 prompt。
+Determine the following before querying:
+- **Ticker**: Stock symbol (e.g., AAPL, MSFT, GOOGL)
+- **Filing Type** (optional): 10-K (annual) or 10-Q (quarterly)
+- **Focus Area** (optional): Revenue, profitability, geographic, trends
 
-3. **读取结构化输出**：分部对比表 + 关键趋势 + 数据源说明。
+### 2. Execute Query via Octagon MCP
 
-4. **解读结果**：理解分部构成、评估盈利能力、追踪重组、分析地区分部（详见下方"注意事项"中的框架）。
-
-## 指令
-
-确认 Octagon MCP 已配置后，使用 `octagon-agent` 工具，prompt 模板：
+Use the `octagon-agent` tool with a natural language prompt:
 
 ```
 Analyze business segment performance and reporting from <TICKER>'s latest quarterly filing.
 ```
 
-MCP 调用格式：
+**MCP Call Format:**
 
 ```json
 {
@@ -65,41 +53,9 @@ MCP 调用格式：
 }
 ```
 
-返回为结构化分部分析，含分部表、关键趋势，数据源标注为 `octagon-financials-agent`、`octagon-sec-agent`。
+### 3. Expected Output
 
-## 示例
-
-**完整分部分析：**
-```
-Analyze business segment performance and reporting from IBM's latest quarterly filing.
-```
-
-**分部盈利能力对比：**
-```
-Compare operating margins across MSFT's business segments in the latest 10-K.
-```
-
-**地区分部：**
-```
-Analyze AAPL's revenue breakdown by geographic region from the latest 10-K.
-```
-
-**分部增长趋势：**
-```
-Track revenue growth trends by segment for GOOGL over the last 4 quarters.
-```
-
-**分部重组：**
-```
-Has AMZN restructured its segment reporting in recent filings and how?
-```
-
-**跨公司对标：**
-```
-Compare segment performance between META and GOOGL in their latest annual filings.
-```
-
-返回示例（IBM 季报）：
+The agent returns structured segment analysis including:
 
 | Segment | Revenue | YoY Growth | Operating Income | Margin |
 |---------|---------|------------|------------------|--------|
@@ -108,41 +64,235 @@ Compare segment performance between META and GOOGL in their latest annual filing
 | Infrastructure | $3,559M | 17.0% | $644M | 18.1% |
 | Financing | $200M | 10.4% | $123M | 61.6% |
 
-## 注意事项
+**Key Trends:**
+- Infrastructure fastest-growing at 17.0%
+- Software maintains highest margin at 32.9%
+- Consulting stable revenue driver
 
-**分部报告框架（ASC 280）**：营业分部披露营收（含分部间内部销售）、营业利润、分部资产、CapEx、折旧摊销；地区分部披露分地区营收、长期资产、重大国别拆分。
+**Data Sources**: octagon-financials-agent, octagon-sec-agent
 
-**关键指标速算：**
-- 营收占比 = 分部营收 / 总营收（看业务构成）。
-- 增速 =（本期 − 上期）/ 上期。
-- 营业利润率 = 营业利润 / 营收（看效率）。
-- ROA = 营业利润 / 分部资产。
+### 4. Interpret Results
 
-**分部健康度矩阵：**
+See [references/interpreting-results.md](references/interpreting-results.md) for guidance on:
+- Understanding segment composition
+- Evaluating segment profitability
+- Tracking segment restructuring
+- Analyzing geographic segments
 
-| | 高利润率 | 低利润率 |
-|---|---|---|
-| **高增长** | 明星分部 | 需投入 |
-| **低增长** | 现金牛 | 待转型/退出 |
+## Example Queries
 
-经验阈值：增速 >20% 高增长投入期、10-20% 稳健、0-5% 成熟、负值警戒；利润率 >30% 高端、20-30% 强、10-20% 中等、<5% 单薄需规模。
+**Full Segment Analysis:**
+```
+Analyze business segment performance and reporting from IBM's latest quarterly filing.
+```
 
-**重组红旗（警惕）：**
-1. 频繁变更口径——可能掩盖真实表现。
-2. 合并衰退分部——藏弱点。
-3. 变更时点恰逢经营问题——蹊跷。
-4. 披露减少——透明度下降。
-5. 更换上报 KPI——口径不可比。
+**Segment Profitability:**
+```
+Compare operating margins across MSFT's business segments in the latest 10-K.
+```
 
-**对标的可比性调整：** 分部定义、成本分摊方法、转移定价、合并抵销口径各家不同，做跨公司对比前需对齐。
+**Geographic Segments:**
+```
+Analyze AAPL's revenue breakdown by geographic region from the latest 10-K.
+```
 
-**分析技巧：** 细读分部脚注（政策与变更都在此）；自己复算利润率核对官方数字；关注营收构成迁移（反映战略优先级）；季度数据注意季节性；与管理层分部指引对照。
+**Segment Growth Trends:**
+```
+Track revenue growth trends by segment for GOOGL over the last 4 quarters.
+```
 
-## 互见
+**Segment Restructuring:**
+```
+Has AMZN restructured its segment reporting in recent filings and how?
+```
 
-- Octagon MCP 配置：参见源仓库 `references/mcp-setup.md`。
-- 结果解读细则：参见源仓库 `references/interpreting-results.md`（分部构成、盈利能力评估、重组追踪、地区分部）。
-- 同领域可关联：SEC 财报/盈利分析类技能、估值（sum-of-parts）类技能。
+**Inter-Segment Comparison:**
+```
+Compare segment performance between META and GOOGL in their latest annual filings.
+```
 
----
-*采编自 OctagonAI/skills（MIT 许可），适配重写为中文技能大典条目。*
+## Segment Reporting Framework
+
+### Operating Segments (ASC 280)
+
+| Element | Description |
+|---------|-------------|
+| Revenue | Segment sales, external and intersegment |
+| Operating Income | Segment profit/loss |
+| Assets | Segment assets allocated |
+| CapEx | Capital expenditures by segment |
+| Depreciation | D&A by segment |
+
+### Geographic Segments
+
+| Element | Description |
+|---------|-------------|
+| Revenue by Region | Sales by geography |
+| Long-Lived Assets | Property, equipment by location |
+| Country Disclosure | Material country breakouts |
+
+### Common Segment Structures
+
+| Industry | Typical Segments |
+|----------|------------------|
+| Technology | Products, Services, Cloud, Licensing |
+| Retail | Stores, Online, Wholesale |
+| Financial | Banking, Wealth, Insurance |
+| Healthcare | Pharmaceuticals, Devices, Services |
+| Industrial | Products, Services, Financing |
+
+## Key Metrics by Segment
+
+### Revenue Metrics
+
+| Metric | Calculation | What It Shows |
+|--------|-------------|---------------|
+| Segment Revenue | Reported amount | Size of segment |
+| Revenue Mix | Segment / Total | Business composition |
+| Growth Rate | (Current - Prior) / Prior | Momentum |
+| Intersegment | Internal sales | Vertical integration |
+
+### Profitability Metrics
+
+| Metric | Calculation | What It Shows |
+|--------|-------------|---------------|
+| Operating Income | Segment profit | Profitability |
+| Operating Margin | Op Income / Revenue | Efficiency |
+| Contribution | Segment / Total Op Income | Profit mix |
+| Margin Trend | Current vs. Prior | Direction |
+
+### Asset Metrics
+
+| Metric | Calculation | What It Shows |
+|--------|-------------|---------------|
+| Segment Assets | Reported amount | Capital deployed |
+| Asset Turnover | Revenue / Assets | Efficiency |
+| CapEx Intensity | CapEx / Revenue | Investment level |
+| ROA | Op Income / Assets | Return on assets |
+
+## Segment Performance Analysis
+
+### Growth Assessment
+
+| Growth Rate | Assessment |
+|-------------|------------|
+| >20% | High growth, investment phase |
+| 10-20% | Solid growth |
+| 5-10% | Moderate growth |
+| 0-5% | Mature, stable |
+| Negative | Declining, concern |
+
+### Margin Assessment
+
+| Margin Level | Assessment |
+|--------------|------------|
+| >30% | High margin, premium |
+| 20-30% | Strong margin |
+| 10-20% | Moderate margin |
+| 5-10% | Low margin |
+| <5% | Thin margin, scale needed |
+
+### Segment Health Matrix
+
+| | High Margin | Low Margin |
+|---|-------------|------------|
+| **High Growth** | Star segment | Investment needed |
+| **Low Growth** | Cash cow | Turnaround/exit |
+
+## Geographic Segment Analysis
+
+### Revenue Distribution
+
+| Region | Typical Disclosure |
+|--------|-------------------|
+| Americas | US, Canada, Latin America |
+| EMEA | Europe, Middle East, Africa |
+| APAC | Asia Pacific, Japan |
+| Other | Emerging markets |
+
+### Geographic Considerations
+
+| Factor | What to Assess |
+|--------|----------------|
+| Concentration | Over-reliance on one region |
+| Growth Rates | Regional momentum |
+| Currency | FX exposure |
+| Regulatory | Region-specific risks |
+
+## Segment Restructuring
+
+### Types of Changes
+
+| Change | What It Means |
+|--------|---------------|
+| Segment Added | New business, acquisition |
+| Segment Removed | Divestiture, consolidation |
+| Segments Combined | Simplified reporting |
+| Segments Split | More granular disclosure |
+| Renamed | Strategic repositioning |
+
+### Restructuring Red Flags
+
+1. **Frequent changes** - May obscure performance
+2. **Combining declining segments** - Hiding weakness
+3. **Timing around issues** - Coincides with problems
+4. **Reduced disclosure** - Less transparency
+5. **Changed metrics** - Different KPIs reported
+
+## Tracking Segment Trends
+
+### Quarterly Progression
+
+| Metric | Q1 | Q2 | Q3 | Q4 | Trend |
+|--------|----|----|----|----|-------|
+| Revenue | | | | | |
+| Growth | | | | | |
+| Margin | | | | | |
+
+### Year-over-Year Comparison
+
+| Segment | Prior Year | Current | Change |
+|---------|------------|---------|--------|
+| Segment A | $X | $Y | Z% |
+| Segment B | $X | $Y | Z% |
+
+## Inter-Company Comparison
+
+### Peer Benchmarking
+
+Compare across competitors:
+- Segment mix composition
+- Relative growth rates
+- Margin comparison
+- Asset efficiency
+
+### Apples-to-Apples Considerations
+
+| Factor | Adjustment Needed |
+|--------|-------------------|
+| Segment Definition | May differ by company |
+| Cost Allocation | Different methodologies |
+| Transfer Pricing | Intersegment policies |
+| Consolidation | Elimination methods |
+
+## Analysis Tips
+
+1. **Read segment footnotes**: Detailed policies and changes disclosed.
+
+2. **Track restructuring**: Segment changes may signal strategy shifts.
+
+3. **Calculate margins yourself**: Verify reported figures.
+
+4. **Watch mix shifts**: Revenue composition reveals priorities.
+
+5. **Consider seasonality**: Quarterly patterns affect segments differently.
+
+6. **Compare to guidance**: Management targets by segment.
+
+## Use Cases
+
+- **Investment analysis**: Understand business composition
+- **Valuation**: Sum-of-parts analysis
+- **Due diligence**: Segment-level performance
+- **Competitive intelligence**: Compare segment positions
+- **Strategic analysis**: Identify growth drivers

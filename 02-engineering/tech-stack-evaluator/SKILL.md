@@ -1,14 +1,14 @@
 ---
 name: tech-stack-evaluator
-title: 技术栈评估与 TCO 对比
-description: 当为新项目选型、对比框架/云厂商或评估迁移路径时使用；做加权打分、5 年 TCO、生态健康、安全合规与迁移成本的数据化评估并产出带置信度的对比报告与建议；不适用于同类工具的琐碎二选一、已拍板的强制选型或紧急生产故障排查；触发词：技术栈对比、TCO、迁移评估
+title: Technology Stack Evaluator (TCO & Comparison)
+description: Use when comparing frameworks/cloud providers or evaluating migration paths; runs weighted scoring, 5-year TCO, ecosystem health, security/compliance, and migration-cost analysis to produce a data-driven comparison with confidence levels; not for trivial similar-tool picks, alrea
 domain: 研发/architecture
-triggers: [技术栈评估, 框架对比, TCO, 总拥有成本, 迁移评估, 选型, 云厂商对比, 生态健康, 技术选型, build vs buy]
-tags: [架构, 技术选型, tco, 迁移, 云厂商, 评估决策]
-level: 进阶
+triggers: [tech stack evaluation, framework comparison, TCO, total cost of ownership, migration assessment, technology selection, cloud provider comparison, ecosystem health, build vs buy]
+tags: [architecture, technology-selection, tco, migration, cloud-provider, decision-evaluation]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [stack_comparator.py, tco_calculator.py, ecosystem_analyzer.py, security_assessor.py, migration_analyzer.py]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,79 +16,93 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-用数据驱动的方式评估并对比技术、框架与云厂商，输出可落地的选型/迁移建议。
+Evaluate and compare technologies, frameworks, and cloud providers with data-driven analysis and actionable selection/migration recommendations.
 
-## 何时使用
+## When to use
 
-适用：
-- 为新项目对比前端/后端框架（如 React vs Vue、PostgreSQL vs MongoDB）。
-- 针对特定工作负载对比云厂商（AWS / Azure / GCP）。
-- 规划技术迁移并做风险与成本评估（如 Angular.js → React）。
-- 做 build vs buy 决策，需要 5 年 TCO（含隐性成本）支撑。
-- 评估开源库的长期可用性（生态健康、社区活跃度、安全态势）。
+Use it when:
+- Comparing frontend/backend frameworks for new projects (e.g. React vs Vue, PostgreSQL vs MongoDB).
+- Evaluating cloud providers (AWS / Azure / GCP) for specific workloads.
+- Planning technology migrations with risk and cost assessment (e.g. Angular.js → React).
+- Making build vs. buy decisions backed by a 5-year TCO (including hidden costs).
+- Assessing the long-term viability of open-source libraries (ecosystem health, community strength, security posture).
 
-不该用（负边界）：
-- 同类工具间的琐碎二选一，直接按团队偏好定即可。
-- 已被强制/拍板的选型，决策已定无需再评。
-- 紧急生产故障，应使用监控/排障工具而非选型评估。
+Do NOT use it for (negative boundaries):
+- Trivial decisions between similar tools — just go with team preference.
+- Mandated technology choices where the decision is already made.
+- Emergency production issues — use monitoring/troubleshooting tools, not a selection evaluation.
 
-## 步骤
+### Capabilities
 
-1. 明确对比对象、使用场景与加权维度（权重之和=100）。常见维度：生态、性能、开发者体验、TCO、安全合规。
-2. 选择分析深度：
-   - 快速对比（200-300 tokens）：加权分 + 推荐 + Top 3 决策因子 + 置信度。
-   - 标准分析（500-800 tokens）：对比矩阵 + TCO 概览 + 安全摘要。
-   - 完整报告（1200-1500 tokens）：全部指标与计算 + 迁移分析 + 详细建议。
-3. 准备输入（三种格式任选）：自然语言文本、YAML（适合自动化）、JSON（适合程序集成）。
-4. 调用对应脚本完成加权打分、TCO 测算、生态/安全/迁移分析。
-5. 汇总为对比矩阵，标注置信度，给出推荐与关键权衡。
+| Capability | Description |
+|------------|-------------|
+| Technology Comparison | Compare frameworks and libraries with weighted scoring |
+| TCO Analysis | Calculate 5-year total cost including hidden costs |
+| Ecosystem Health | Assess GitHub metrics, npm adoption, community strength |
+| Security Assessment | Evaluate vulnerabilities and compliance readiness |
+| Migration Analysis | Estimate effort, risks, and timeline for migrations |
+| Cloud Comparison | Compare AWS, Azure, GCP for specific workloads |
 
-置信度判定：高（80-100%，明确赢家、数据充分）/ 中（50-79%，存在权衡、不确定性中等）/ 低（<50%，胜负接近、数据有限）。
+## Steps
 
-## 指令
-
-脚本位于 `scripts/`，按需调用：
+1. Define what is being compared, the use case, and the weighted dimensions (weights must sum to 100). Common dimensions: ecosystem, performance, developer experience, TCO, security/compliance.
+2. Choose the analysis depth:
+   - **Quick Comparison (200-300 tokens):** weighted scores + recommendation + top 3 decision factors + confidence level.
+   - **Standard Analysis (500-800 tokens):** comparison matrix + TCO overview + security summary.
+   - **Full Report (1200-1500 tokens):** all metrics and calculations + migration analysis + detailed recommendations.
+3. Prepare input in one of three formats: natural-language **Text**, **YAML** (good for automation), or **JSON** (good for programmatic integration).
+4. Run the relevant scripts to do weighted scoring, TCO projection, and ecosystem/security/migration analysis:
 
 ```bash
-# 加权多准则技术对比
+# Weighted multi-criteria technology comparison
 python scripts/stack_comparator.py --help
 
-# 多年 TCO 测算
+# Multi-year total cost of ownership projection
 python scripts/tco_calculator.py --input assets/sample_input_tco.json
 
-# 生态健康分析（GitHub / npm / 社区）
+# Ecosystem health (GitHub / npm / community)
 python scripts/ecosystem_analyzer.py --technology react
 
-# 安全态势与合规就绪度评估
+# Security posture and compliance readiness
 python scripts/security_assessor.py --technology express --compliance soc2,gdpr
 
-# 迁移复杂度、工作量与风险估算
+# Migration complexity, effort, and risk estimation
 python scripts/migration_analyzer.py --from angular-1.x --to react
 ```
 
-参考文档（`references/`）：`metrics.md`（打分算法与计算公式）、`examples.md`（各分析类型的输入/输出示例）、`workflows.md`（分步评估流程）。
+5. Consolidate into a comparison matrix, annotate the confidence level, and give the recommendation plus key trade-offs.
 
-## 示例
+**Confidence levels:**
 
-文本输入（自然语言）：
-```
-对比 React vs Vue 用于 SaaS 仪表盘。
-权重：开发者生产力 40%、生态 30%、性能 30%。
-```
+| Level | Score | Interpretation |
+|-------|-------|----------------|
+| High | 80-100% | Clear winner, strong data |
+| Medium | 50-79% | Trade-offs present, moderate uncertainty |
+| Low | < 50% | Close call, limited data |
 
-TCO 测算：
-```
-计算 Next.js 部署在 Vercel 的 5 年 TCO。
-团队：8 名开发。托管：$2500/月。增长：40%/年。
-```
+References (`references/`): `metrics.md` (scoring algorithms and calculation formulas), `examples.md` (input/output examples per analysis type), `workflows.md` (step-by-step evaluation workflows).
 
-迁移评估：
+## Example
+
+Text input (natural language):
 ```
-评估从 Angular.js 迁移到 React。
-代码库：50,000 行、200 个组件。团队：6 名开发。
+Compare React vs Vue for a SaaS dashboard.
+Priorities: developer productivity (40%), ecosystem (30%), performance (30%).
 ```
 
-YAML 结构化输入（适合自动化）：
+TCO calculation:
+```
+Calculate 5-year TCO for Next.js on Vercel.
+Team: 8 developers. Hosting: $2500/month. Growth: 40%/year.
+```
+
+Migration assessment:
+```
+Evaluate migrating from Angular.js to React.
+Codebase: 50,000 lines, 200 components. Team: 6 developers.
+```
+
+YAML structured input (good for automation):
 ```yaml
 comparison:
   technologies: ["React", "Vue"]
@@ -99,19 +113,19 @@ comparison:
     developer_experience: 45
 ```
 
-## 注意事项
+## Notes
 
-- 权重必须显式给出且合计为 100，否则打分不可比。
-- TCO 要把隐性成本（招聘/培训、迁移、锁定、运维）一并计入，而非只算托管费。
-- 置信度低（<50%）时不要强行给单一推荐，应呈现权衡并建议补充数据或做 PoC。
-- 选择与场景匹配的分析深度：早期快速筛选用快速对比，正式决策用完整报告。
-- 安全评估需结合具体合规要求（如 soc2、gdpr）传参，结论才有意义。
+- Weights must be stated explicitly and sum to 100, otherwise scores are not comparable.
+- TCO must fold in hidden costs (hiring/training, migration, lock-in, operations), not just hosting fees.
+- When confidence is low (< 50%), do not force a single recommendation — present the trade-offs and suggest gathering more data or running a PoC.
+- Match the analysis depth to the situation: use Quick Comparison for early screening and the Full Report for formal decisions.
+- Security assessment needs concrete compliance requirements passed in (e.g. `soc2`, `gdpr`) for the conclusions to be meaningful.
 
-## 互见
+## See also
 
-- 研发/architecture 域下的迁移规划、build vs buy 决策类技能。
-- 云厂商工作负载对比与成本优化相关技能。
+- Migration-planning and build-vs-buy decision skills under the engineering/architecture domain.
+- Cloud-provider workload comparison and cost-optimization skills.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+Adapted from alirezarezvani/claude-skills (MIT License).

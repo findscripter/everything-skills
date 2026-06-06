@@ -1,14 +1,14 @@
 ---
 name: adr-writer
-title: 架构决策记录（ADR）撰写
-description: 当需要记录重大技术/架构决策（框架选型、数据库选型、API 模式、安全架构）并沉淀其上下文与权衡时使用；产出符合 MADR/轻量/Y-Statement 等模板的 ADR 文档与索引；不适用于 bug 修复、小版本升级、配置变更等琐碎改动；触发词：ADR、架构决策记录、architecture decision record、决策文档、技术选型记录、MADR
+title: Architecture Decision Records (ADR) Writing
+description: Write and maintain Architecture Decision Records (ADRs) — capture the context, options, decision, and consequences of significant technical choices (framework, database, API patterns, security architecture). Use when documenting major decisions, reviewing past architectural choic
 domain: 协作/knowledge
-triggers: [ADR, 架构决策记录, architecture decision record, 决策文档, 技术选型记录, MADR]
+triggers: [ADR, architecture decision record, MADR, decision record, technology choice documentation, design trade-off]
 tags: [adr, architecture, documentation, decision-record, madr, knowledge]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [adr-tools, markdown]
+tools: []
 requires: []
 related: [adr-management-patterns, codebase-onboarding-doc, tech-stack-evaluator, database-design-advisor]
 combines_with: [tech-stack-evaluator, backend-architecture-patterns, codebase-onboarding-doc]
@@ -16,105 +16,347 @@ license: MIT
 source: wshobson/agents
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-为重大且不易逆转的技术决策留痕，让未来的人（含新成员）能读懂「当时为什么这么定」。
+Use this skill to capture the context and rationale behind significant, hard-to-reverse technical decisions so future readers (including new team members) understand *why* a choice was made.
 
-适用：框架/库选型、数据库选型、API 设计模式、安全架构、集成模式、决策流程建立、回顾历史决策。
+Good fits:
 
-不该用（写了反而是噪音）：bug 修复、小版本升级、纯实现细节、日常维护、配置变更。判断口径：决策是否影响系统结构、是否难以回退、是否需要团队达成共识——三者有其一才值得写 ADR。
+- Making significant architectural decisions
+- Documenting technology choices (framework, library, database)
+- Recording design trade-offs and integration/API patterns
+- Security architecture decisions
+- Onboarding new team members
+- Reviewing historical decisions and establishing decision-making processes
 
-一条 ADR 的核心永远是三段：**Context（为何要决策）→ Decision（决定了什么）→ Consequences（带来什么后果，含负面）**。
+Skip an ADR (it would just be noise) for: minor version upgrades, bug fixes, pure implementation details, routine maintenance, and configuration changes. Rule of thumb: write an ADR only if the decision affects system structure, is hard to reverse, or needs team consensus — any one of the three is enough.
 
-## 步骤
+| Write ADR                  | Skip ADR               |
+| -------------------------- | ---------------------- |
+| New framework adoption     | Minor version upgrades |
+| Database technology choice | Bug fixes              |
+| API design patterns        | Implementation details |
+| Security architecture      | Routine maintenance    |
+| Integration patterns       | Configuration changes  |
 
-1. 确认该决策达到「值得记录」门槛（见上）。
-2. 选模板：正式选型用 MADR；小决策用轻量版；一句话权衡用 Y-Statement；废弃/替换旧决策用 Deprecation 模板（标注 Supersedes）；提案讨论用 RFC 风格。
-3. 在 `docs/adr/` 下按 `NNNN-title-with-dashes.md` 命名（四位递增编号）。
-4. 填写：Context 讲清问题与约束 → Decision Drivers 列决策驱动力 → Considered Options 给每个候选写真实的 Pros/Cons → Decision + Rationale → Consequences（正面/负面/风险与缓解）→ Implementation Notes → Related Decisions → References。
-5. 设置 Status（生命周期：Proposed → Accepted → Deprecated → Superseded，分支可 Rejected）。
-6. 走评审：至少 2 名资深工程师 + 受影响团队，覆盖安全、成本、可逆性。
-7. 接受后更新 `docs/adr/README.md` 索引表、通知团队、创建实施工单。
-8. 决策改变时**不要改旧 ADR**，新写一条并标注 Supersedes ADR-XXXX。
+Every ADR is anchored by three parts: **Context** (why we needed to decide) → **Decision** (what we decided) → **Consequences** (what happens as a result, including the negatives).
 
-## 指令
+## Steps
 
-可选用 `adr-tools` 自动化编号、索引与关联：
+1. Confirm the decision clears the "worth recording" bar (see above).
+2. Pick a template: MADR for formal technology selection; the lightweight format for small decisions; Y-Statement for one-sentence trade-offs; the deprecation template (mark *Supersedes*) when replacing an old decision; RFC style for proposals under discussion.
+3. Create the file under `docs/adr/` named `NNNN-title-with-dashes.md` (four-digit incrementing number).
+4. Fill it in: **Context** (problem + constraints) → **Decision Drivers** → **Considered Options** (honest Pros/Cons for each candidate) → **Decision + Rationale** → **Consequences** (Positive / Negative / Risks + mitigations) → **Implementation Notes** → **Related Decisions** → **References**.
+5. Set the **Status** along the lifecycle: `Proposed → Accepted → Deprecated → Superseded` (with `Rejected` as a branch).
+
+```
+Proposed → Accepted → Deprecated → Superseded
+              ↓
+           Rejected
+```
+
+6. Run the review: at least 2 senior engineers plus affected teams, covering security, cost, and reversibility.
+7. After acceptance, update the `docs/adr/README.md` index table, notify the team, and create implementation tickets.
+8. When a decision changes, **do not edit the old ADR** — write a new one and mark `Supersedes ADR-XXXX`.
+
+### Automation (adr-tools)
+
+Optionally use `adr-tools` to automate numbering, the index, and links:
 
 ```bash
+# Install adr-tools
 brew install adr-tools
-adr init docs/adr                                  # 初始化目录
-adr new "Use PostgreSQL as Primary Database"       # 新建 ADR（自动编号）
-adr new -s 3 "Deprecate MongoDB in Favor of PostgreSQL"  # 新建并废弃 ADR-0003
-adr generate toc > docs/adr/README.md              # 生成目录索引
-adr link 2 "Complements" 1 "Is complemented by"    # 关联两条 ADR
+
+# Initialize ADR directory
+adr init docs/adr
+
+# Create new ADR (auto-numbered)
+adr new "Use PostgreSQL as Primary Database"
+
+# Supersede an ADR (deprecates ADR-0003)
+adr new -s 3 "Deprecate MongoDB in Favor of PostgreSQL"
+
+# Generate table of contents
+adr generate toc > docs/adr/README.md
+
+# Link related ADRs
+adr link 2 "Complements" 1 "Is complemented by"
 ```
 
-目录结构约定：
+### Directory structure
 
 ```
-docs/adr/
-├── README.md                 # 索引 + 规范
-├── template.md               # 团队模板
-├── 0001-use-postgresql.md
-├── 0003-mongodb-user-profiles.md   # [DEPRECATED]
-└── 0020-deprecate-mongodb.md       # Supersedes 0003
+docs/
+├── adr/
+│   ├── README.md           # Index and guidelines
+│   ├── template.md         # Team's ADR template
+│   ├── 0001-use-postgresql.md
+│   ├── 0002-caching-strategy.md
+│   ├── 0003-mongodb-user-profiles.md  # [DEPRECATED]
+│   └── 0020-deprecate-mongodb.md      # Supersedes 0003
 ```
 
-## 示例
+## Example
 
-MADR 正式模板（节选骨架）：
+### Template 1: Standard ADR (MADR format)
 
 ```markdown
 # ADR-0001: Use PostgreSQL as Primary Database
 
 ## Status
+
 Accepted
 
 ## Context
-为新电商平台选主库：约 1 万并发、复杂分类目录、订单支付事务、
-商品全文检索、门店地理位置查询；支付需 ACID。
+
+We need to select a primary database for our new e-commerce platform. The system
+will handle:
+
+- ~10,000 concurrent users
+- Complex product catalog with hierarchical categories
+- Transaction processing for orders and payments
+- Full-text search for products
+- Geospatial queries for store locator
+
+The team has experience with MySQL, PostgreSQL, and MongoDB. We need ACID
+compliance for financial transactions.
 
 ## Decision Drivers
-- 必须 ACID（支付）  - 必须支持复杂查询（报表）
-- 应支持全文检索与 JSON  - 团队熟悉度
+
+- **Must have ACID compliance** for payment processing
+- **Must support complex queries** for reporting
+- **Should support full-text search** to reduce infrastructure complexity
+- **Should have good JSON support** for flexible product attributes
+- **Team familiarity** reduces onboarding time
 
 ## Considered Options
-### Option 1: PostgreSQL — Pros: ACID、JSONB、内置全文检索、PostGIS；Cons: 复制配置略复杂
-### Option 2: MySQL — Pros: 团队熟、复制简单；Cons: JSON 弱、需外接 Elasticsearch
-### Option 3: MongoDB — Pros: 灵活 schema；Cons: 多文档事务弱、团队经验少
+
+### Option 1: PostgreSQL
+
+- **Pros**: ACID compliant, excellent JSON support (JSONB), built-in full-text
+  search, PostGIS for geospatial, team has experience
+- **Cons**: Slightly more complex replication setup than MySQL
+
+### Option 2: MySQL
+
+- **Pros**: Very familiar to team, simple replication, large community
+- **Cons**: Weaker JSON support, no built-in full-text search (need
+  Elasticsearch), no geospatial without extensions
+
+### Option 3: MongoDB
+
+- **Pros**: Flexible schema, native JSON, horizontal scaling
+- **Cons**: No ACID for multi-document transactions (at decision time),
+  team has limited experience, requires schema design discipline
 
 ## Decision
-采用 **PostgreSQL 15** 作为主库。
+
+We will use **PostgreSQL 15** as our primary database.
+
+## Rationale
+
+PostgreSQL provides the best balance of ACID compliance, built-in capabilities
+(full-text search, JSONB, PostGIS), team familiarity, and a mature ecosystem.
+The slight complexity in replication is outweighed by the reduction in
+additional services (no separate Elasticsearch needed).
 
 ## Consequences
-### Positive: 单库覆盖事务/检索/地理查询，运维更简单
-### Negative: 需学 JSONB/全文检索语法；纵向扩展受限需尽早上读副本
-### Risks: 全文检索扩展性不如专用引擎 → 缓解：预留接入 Elasticsearch 的设计
+
+### Positive
+
+- Single database handles transactions, search, and geospatial queries
+- Reduced operational complexity (fewer services to manage)
+- Strong consistency guarantees for financial data
+
+### Negative
+
+- Need to learn PostgreSQL-specific features (JSONB, full-text search syntax)
+- Vertical scaling limits may require read replicas sooner
+
+### Risks
+
+- Full-text search may not scale as well as dedicated search engines
+- Mitigation: Design for potential Elasticsearch addition if needed
+
+## Implementation Notes
+
+- Use JSONB for flexible product attributes
+- Implement connection pooling with PgBouncer
+- Set up streaming replication for read replicas
+- Use pg_trgm extension for fuzzy search
+
+## Related Decisions
+
+- ADR-0002: Caching Strategy (Redis) - complements database choice
+- ADR-0005: Search Architecture - may supersede if Elasticsearch needed
+
+## References
+
+- [PostgreSQL JSON Documentation](https://www.postgresql.org/docs/current/datatype-json.html)
+- [PostgreSQL Full Text Search](https://www.postgresql.org/docs/current/textsearch.html)
 ```
 
-Y-Statement 一句话格式（适合小决策）：
+### Template 2: Lightweight ADR
 
 ```markdown
-In the context of 构建微服务架构,
-facing 需要集中式 API 管理、鉴权与限流,
-we decided for Kong Gateway
-and against AWS API Gateway 与自建 Nginx 方案,
-to achieve 厂商无关、插件可扩展、团队熟悉 Lua,
-accepting that 需自行运维 Kong 基础设施。
+# ADR-0012: Adopt TypeScript for Frontend Development
+
+**Status**: Accepted
+**Date**: 2024-01-15
+**Deciders**: @alice, @bob, @charlie
+
+## Context
+
+Our React codebase has grown to 50+ components with increasing bug reports
+related to prop type mismatches and undefined errors. PropTypes provide
+runtime-only checking.
+
+## Decision
+
+Adopt TypeScript for all new frontend code. Migrate existing code incrementally.
+
+## Consequences
+
+**Good**: Catch type errors at compile time, better IDE support, self-documenting code.
+
+**Bad**: Learning curve for team, initial slowdown, build complexity increase.
+
+**Mitigations**: TypeScript training sessions, allow gradual adoption with `allowJs: true`.
 ```
 
-## 注意事项
+### Template 3: Y-Statement (one-sentence trade-off)
 
-- 尽早写——在动手实现前，而非事后补。
-- 写短——1~2 页足够，超长没人读。
-- 诚实列权衡——写真实的 Cons 和被否决方案，Rejected 决策本身有价值。
-- 已 Accepted 的 ADR 不改动，用新 ADR 替换（Supersedes）。
-- 别省 Context，别含糊（具体的决策对应具体的后果），别漏 Implementation——只有结论没有行动的 ADR 是浪费。
-- 评审清单可固化为 README：提交前查 Context/选项/利弊/后果/关联；评审中查双人评审/受影响团队/安全/成本/可逆性；接受后查索引/通知/工单。
+```markdown
+# ADR-0015: API Gateway Selection
 
-## 互见
+In the context of **building a microservices architecture**,
+facing **the need for centralized API management, authentication, and rate limiting**,
+we decided for **Kong Gateway**
+and against **AWS API Gateway and custom Nginx solution**,
+to achieve **vendor independence, plugin extensibility, and team familiarity with Lua**,
+accepting that **we need to manage Kong infrastructure ourselves**.
+```
 
-- first-principles-thinking：在 ADR 的 Decision Drivers 与候选评估阶段，用第一性原理拆解约束、识别真正的取舍。
+### Template 4: ADR for deprecation
 
-本条采编自 wshobson/agents（MIT）。
+```markdown
+# ADR-0020: Deprecate MongoDB in Favor of PostgreSQL
+
+## Status
+
+Accepted (Supersedes ADR-0003)
+
+## Context
+
+ADR-0003 (2021) chose MongoDB for user profile storage due to schema flexibility
+needs. Since then: multi-document transactions remain problematic, our schema has
+stabilized, we now have PostgreSQL expertise, and maintaining two databases
+increases operational burden.
+
+## Decision
+
+Deprecate MongoDB and migrate user profiles to PostgreSQL.
+
+## Migration Plan
+
+1. **Phase 1** (Week 1-2): Create PostgreSQL schema, dual-write enabled
+2. **Phase 2** (Week 3-4): Backfill historical data, validate consistency
+3. **Phase 3** (Week 5): Switch reads to PostgreSQL, monitor
+4. **Phase 4** (Week 6): Remove MongoDB writes, decommission
+
+## Lessons Learned
+
+- Schema flexibility benefits were overestimated
+- Operational cost of multiple databases was underestimated
+- Consider long-term maintenance in technology decisions
+```
+
+### Template 5: RFC style (proposal)
+
+```markdown
+# RFC-0025: Adopt Event Sourcing for Order Management
+
+## Summary
+
+Propose adopting the event sourcing pattern for the order management domain to
+improve auditability, enable temporal queries, and support business analytics.
+
+## Motivation
+
+1. Audit requirements need complete order history
+2. "What was the order state at time X?" queries are impossible today
+3. Analytics team needs an event stream for real-time dashboards
+
+## Drawbacks
+
+- Learning curve, increased complexity vs. CRUD, careful event design needed,
+  storage growth (events never deleted)
+
+## Alternatives
+
+1. **Audit tables**: simpler but no temporal queries
+2. **CDC from existing DB**: complex, doesn't change data model
+3. **Hybrid**: event-source only order state changes
+
+## Unresolved Questions
+
+- [ ] Event schema versioning strategy
+- [ ] Retention policy for events
+- [ ] Snapshot frequency for performance
+```
+
+## Notes
+
+Best practices:
+
+**Do's**
+
+- **Write ADRs early** — before implementation starts, not after the fact.
+- **Keep them short** — 1-2 pages maximum; no one reads a wall of text.
+- **Be honest about trade-offs** — include real cons and rejected options; a Rejected decision is itself valuable.
+- **Link related decisions** — build a decision graph.
+- **Update status** — deprecate when superseded.
+
+**Don'ts**
+
+- **Don't change accepted ADRs** — write new ones to supersede (Supersedes).
+- **Don't skip context** — future readers need the background.
+- **Don't hide failures** — rejected decisions carry information.
+- **Don't be vague** — specific decisions yield specific consequences.
+- **Don't forget implementation** — an ADR with a conclusion but no action is waste.
+
+Codify the review checklist into the index README so it is enforced consistently:
+
+```markdown
+## ADR Review Checklist
+
+### Before Submission
+- [ ] Context clearly explains the problem
+- [ ] All viable options considered
+- [ ] Pros/cons balanced and honest
+- [ ] Consequences (positive and negative) documented
+- [ ] Related ADRs linked
+
+### During Review
+- [ ] At least 2 senior engineers reviewed
+- [ ] Affected teams consulted
+- [ ] Security implications considered
+- [ ] Cost implications documented
+- [ ] Reversibility assessed
+
+### After Acceptance
+- [ ] ADR index updated
+- [ ] Team notified
+- [ ] Implementation tickets created
+- [ ] Related documentation updated
+```
+
+## See also
+
+- **adr-management-patterns** — maintaining the ADR index, lifecycle, and linking at scale.
+- **tech-stack-evaluator** — feeds the Considered Options / Decision Drivers of a selection ADR.
+- **codebase-onboarding-doc** — ADRs are a primary onboarding artifact for new team members.
+- **database-design-advisor** / **backend-architecture-patterns** — common subjects of significant ADRs.
+- **first-principles-thinking** — decompose constraints and surface the real trade-offs when filling Decision Drivers and evaluating options.
+
+Adapted from wshobson/agents (MIT).

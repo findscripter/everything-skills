@@ -1,14 +1,14 @@
 ---
 name: web-artifacts-builder
-title: Web 制品构建器（React/Tailwind/shadcn 单文件产物）
-description: 当需要为 claude.ai 构建含状态管理/路由/shadcn 组件的复杂多组件 HTML 制品（artifact）时使用；用脚手架初始化 React+TS+Vite 工程并打包为单文件 bundle.html 产物；不适用于简单的单文件 HTML/JSX 制品；触发词：web artifact、artifacts、复杂制品、shadcn、单文件HTML、bundle.html、React制品
+title: Web Artifacts Builder
+description: Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
 domain: 研发/frontend
-triggers: [web artifact, artifacts, 复杂制品, shadcn, 单文件HTML, bundle.html, React制品]
+triggers: [web artifact, artifacts, shadcn, bundle.html]
 tags: [frontend, react, typescript, vite, tailwind, shadcn-ui, parcel, artifact, bundle]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bash, pnpm, vite, parcel, tailwindcss, shadcn/ui, html-inline, react, typescript]
+tools: []
 requires: []
 related: [frontend-design, canvas-design, webapp-testing]
 combines_with: [frontend-design, webapp-testing]
@@ -16,90 +16,71 @@ license: Apache-2.0
 source: anthropics/skills
 source_license: Apache-2.0
 ---
-## 何时使用
+# Web Artifacts Builder
 
-用于为 claude.ai 构建**复杂、多组件**的 HTML 制品（artifact），尤其当制品需要：状态管理、客户端路由，或大量 shadcn/ui 组件时。技术栈固定为 React 18 + TypeScript + Vite + Tailwind CSS 3.4.1 + shadcn/ui，最终用 Parcel 打包并内联成单个自包含的 `bundle.html`，可直接作为 artifact 分享给用户。
+To build powerful frontend claude.ai artifacts, follow these steps:
+1. Initialize the frontend repo using `scripts/init-artifact.sh`
+2. Develop your artifact by editing the generated code
+3. Bundle all code into a single HTML file using `scripts/bundle-artifact.sh`
+4. Display artifact to user
+5. (Optional) Test the artifact
 
-**不该用的边界：**
-- 简单的单文件 HTML/JSX 制品——直接手写即可，引入这套工程链反而增加成本。
-- 非 claude.ai artifact 场景的常规 Web 工程（不需要内联成单文件）。
-- 仅做静态视觉/设计稿，无组件交互逻辑——优先看「互见」中的设计类技能。
+**Stack**: React 18 + TypeScript + Vite + Parcel (bundling) + Tailwind CSS + shadcn/ui
 
-环境要求：Node.js ≥ 18（脚本会自动检测；Node 18 会把 Vite 固定到 5.4.11，Node 20+ 用 latest）；需要 `bash` 执行脚本，未装 `pnpm` 时脚本会自动 `npm install -g pnpm`。脚本目录需包含 `shadcn-components.tar.gz`（预置 40+ 组件）。
+## Design & Style Guidelines
 
-## 步骤
+VERY IMPORTANT: To avoid what is often referred to as "AI slop", avoid using excessive centered layouts, purple gradients, uniform rounded corners, and Inter font.
 
-1. **初始化工程**——运行脚手架，生成已配好的 React 工程。
-2. **开发制品**——编辑生成的源码（`src/`），用 `@/` 路径别名导入 shadcn 组件。
-3. **打包为单文件**——运行打包脚本，产出 `bundle.html`。
-4. **分享产物**——把 `bundle.html` 作为 artifact 发给用户查看。
-5. **（可选）测试/可视化**——仅在必要或用户要求时进行。
+## Quick Start
 
-> 重要：通常**不要**前置测试，这会拖慢「请求 → 看到成品」的链路。先呈现制品，待用户要求或出现问题时再测。
+### Step 1: Initialize Project
 
-指令：
-
+Run the initialization script to create a new React project:
 ```bash
-# 步骤 1：初始化（在 skill 的 scripts/ 上下文中执行）
 bash scripts/init-artifact.sh <project-name>
 cd <project-name>
+```
 
-# 该脚本完成：React+TS（Vite）、Tailwind 3.4.1 + shadcn 主题、
-#   @/ 路径别名、预置 40+ shadcn 组件、Radix UI 全量依赖、
-#   .parcelrc 打包配置、Node 18+ 兼容（自动锁定 Vite 版本）
+This creates a fully configured project with:
+- ✅ React + TypeScript (via Vite)
+- ✅ Tailwind CSS 3.4.1 with shadcn/ui theming system
+- ✅ Path aliases (`@/`) configured
+- ✅ 40+ shadcn/ui components pre-installed
+- ✅ All Radix UI dependencies included
+- ✅ Parcel configured for bundling (via .parcelrc)
+- ✅ Node 18+ compatibility (auto-detects and pins Vite version)
 
-# 步骤 2：本地开发预览
-pnpm dev
+### Step 2: Develop Your Artifact
 
-# 步骤 3：打包为单文件 artifact（在项目根目录执行）
+To build the artifact, edit the generated files. See **Common Development Tasks** below for guidance.
+
+### Step 3: Bundle to Single HTML File
+
+To bundle the React app into a single HTML artifact:
+```bash
 bash scripts/bundle-artifact.sh
-# 产出 bundle.html —— 所有 JS/CSS/依赖均已内联
 ```
 
-`bundle-artifact.sh` 内部：安装 `parcel @parcel/config-default parcel-resolver-tspaths html-inline` → 生成带路径别名解析的 `.parcelrc` → `parcel build index.html --no-source-maps` → 用 `html-inline` 把 `dist/index.html` 内联为 `bundle.html`。前提：项目根目录必须有 `index.html` 入口。
+This creates `bundle.html` - a self-contained artifact with all JavaScript, CSS, and dependencies inlined. This file can be directly shared in Claude conversations as an artifact.
 
-## 设计与风格指令（务必遵守）
+**Requirements**: Your project must have an `index.html` in the root directory.
 
-为避免所谓「AI slop」（廉价 AI 既视感），**避免**：过度居中布局、紫色渐变、千篇一律的统一圆角、Inter 字体。追求有层次、有差异化的版式。
+**What the script does**:
+- Installs bundling dependencies (parcel, @parcel/config-default, parcel-resolver-tspaths, html-inline)
+- Creates `.parcelrc` config with path alias support
+- Builds with Parcel (no source maps)
+- Inlines all assets into single HTML using html-inline
 
-## 示例
+### Step 4: Share Artifact with User
 
-```tsx
-// 用 @/ 别名导入预置 shadcn 组件
-import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+Finally, share the bundled HTML file in conversation with the user so they can view it as an artifact.
 
-export default function App() {
-  return (
-    <Card>
-      <CardHeader><CardTitle>仪表盘</CardTitle></CardHeader>
-      <CardContent>
-        <Dialog>
-          <DialogTrigger asChild><Button>打开</Button></DialogTrigger>
-          <DialogContent>内容</DialogContent>
-        </Dialog>
-      </CardContent>
-    </Card>
-  )
-}
-```
+### Step 5: Testing/Visualizing the Artifact (Optional)
 
-预置组件（40+）涵盖：accordion、alert、avatar、badge、button、calendar、card、carousel、checkbox、command、context-menu、dialog、drawer、dropdown-menu、form、hover-card、input、label、menubar、navigation-menu、popover、progress、radio-group、resizable、scroll-area、select、separator、sheet、skeleton、slider、sonner、switch、table、tabs、textarea、toast、toggle、toggle-group、tooltip 等。
+Note: This is a completely optional step. Only perform if necessary or requested.
 
-## 注意事项
+To test/visualize the artifact, use available tools (including other Skills or built-in tools like Playwright or Puppeteer). In general, avoid testing the artifact upfront as it adds latency between the request and when the finished artifact can be seen. Test later, after presenting the artifact, if requested or if issues arise.
 
-- **入口约束**：打包脚本要求项目根目录存在 `index.html`，否则报错退出。
-- **Node 版本**：< 18 直接报错退出；18 ≤ 版本 < 20 时 Vite 锁定 5.4.11，20+ 用 latest。
-- **包管理器**：统一用 `pnpm`；缺失时脚本自动全局安装。
-- **路径别名**：`@/*` → `./src/*`，已在 `tsconfig.json`、`tsconfig.app.json`、`vite.config.ts` 三处配好；打包阶段由 `parcel-resolver-tspaths` 负责解析，勿擅自改动。
-- **主题系统**：基于 CSS 变量 + `darkMode: ["class"]`，含完整 light/dark 配色与 `--radius` 等令牌，新增样式应复用这些变量而非硬编码颜色。
-- **不要前置测试**：优先交付，按需再测，降低交付延迟。
-- 组件文档参考：https://ui.shadcn.com/docs/components
-- 许可：源技能为 Apache-2.0，本条目为忠实转写的中文适配版。
+## Reference
 
-## 互见
-
-- frontend-design：先确定视觉/交互设计方向，再用本技能落地为可交互制品。
-- canvas-design：偏静态/平面设计稿场景的替代选择。
-- webapp-testing：步骤 5 可选测试阶段，用其在浏览器中验证 `bundle.html` 行为。
+- **shadcn/ui components**: https://ui.shadcn.com/docs/components

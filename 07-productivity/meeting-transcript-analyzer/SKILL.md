@@ -1,14 +1,14 @@
 ---
 name: meeting-transcript-analyzer
-title: 会议记录沟通模式分析
-description: 当用户提供会议记录/转录文本（txt/md/vtt/srt/docx/json）并想复盘自己的沟通表现时使用；解析转录、计算发言占比、识别模糊措辞/填充词/打断/提问质量，输出带引用和改写建议的沟通模式诊断报告；不适用于会议安排、纪要摘要或无说话人标签时的逐人指标。触发词：会议记录分析、沟通模式、发言占比、填充词、口头禅、打断分析、提问质量、meeting transcript、speaking ratio、filler words、Otter、Fireflies、Granola、Zoom transcript
+title: Meeting Insights Analyzer
+description: Analyzes meeting transcripts and recordings to surface behavioral patterns, communication anti-patterns, and actionable coaching feedback. Use this skill whenever the user uploads or points to meeting transcripts (.txt, .md, .vtt, .srt, .docx), asks about their communication habits, wants feedback on how they run meetings, requests speaking ratio analysis, mentions filler words or conflict avoidance, or wants to compare their communication across time periods. Also trigger when users mention tools like Granola, Otter, Fireflies, or Zoom transcripts. Even if the user just says "look at my meetings" or "how do I come across in meetings" — use this skill.
 domain: 协作/knowledge
-triggers: [会议记录分析, 沟通模式, 发言占比, 填充词, 口头禅, 打断分析, 提问质量, meeting transcript, speaking ratio, filler words, Otter, Fireflies, Granola, Zoom transcript]
+triggers: [meeting transcript, speaking ratio, filler words, Otter, Fireflies, Granola, Zoom transcript]
 tags: [meeting, transcript, communication, analysis, coaching, collaboration, knowledge]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [vtt, srt, docx, json, markdown]
+tools: []
 requires: []
 related: [audio-to-markdown-transcriber, human-like-response-mirror, caveman-compressed-mode, oncall-handoff-writer]
 combines_with: [audio-to-markdown-transcriber, company-culture-builder, org-health-diagnostic]
@@ -16,93 +16,253 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Meeting Insights Analyzer
 
-当用户上传或指向会议转录文件（`.txt`/`.md`/`.vtt`/`.srt`/`.docx`/`.json`），并希望复盘自己在会议中的沟通表现时使用。典型请求包括：「看看我的会议」「我在会上表现如何」「分析发言占比」「我是不是口头禅太多/总在回避冲突」「对比我这段时间的沟通变化」。提到 Granola、Otter、Fireflies、Zoom、Teams 等转录工具也应触发。
+> Originally contributed by [maximcoding](https://github.com/maximcoding) — enhanced and integrated by the claude-skills team.
 
-**不该用的边界：**
-- 仅需安排会议、整理纪要/待办摘要 → 用日程/纪要类技能，本技能聚焦「人的沟通行为诊断」。
-- 转录无说话人标签时，无法做逐人指标（发言占比、打断），只能跑全文级分析（填充词、提问类型），需提前向用户说明。
-- 单场 5 分钟以内站会不适合跑全部模块；冲突/填充词分析需 20 分钟以上、3 场以上会议才有趋势意义。
+Transform meeting transcripts into concrete, evidence-backed feedback on communication patterns, leadership behaviors, and interpersonal dynamics.
 
-## 步骤
+## Core Workflow
 
-1. **盘点（Ingest & Inventory）**：扫描目标目录的转录文件。逐个文件提取会议日期（文件名 `YYYY-MM-DD` 前缀或内嵌时间戳）、识别说话人标签（`Speaker 1:`、`[John]:`、`John Smith 00:14:32`、VTT/SRT cue 格式）、确定「用户本人」是哪位发言人（含糊就发问，否则按最高频发言人或文件名推断）。打印盘点表（文件名、日期、时长、参会人数、字数）让用户确认范围。
-2. **归一化（Normalize）**：把各工具的不同格式统一为内部结构后再分析：
-   ```
-   { speaker: string, timestamp_sec: number | null, text: string }[]
-   ```
-   - VTT/SRT：解析 cue 时间戳与文本，说话人可能内联（`<v Speaker>`）或前缀。
-   - 纯文本：按行找 `Name:` 或 `[Name]` 前缀；无标签则警告逐人分析受限。
-   - Markdown：剥离格式后当纯文本。DOCX：抽取正文后当纯文本。JSON：期望含 `speaker`/`text` 字段的对象数组（Otter/Fireflies 常见导出）。
-   - 缺时间戳时优雅降级：跳过依赖时间的指标（语速、停顿），仍跑文本类分析。
-3. **分析（Analyze）**：按需运行下列独立模块，不适用的直接跳过。
-4. **出报告（Report）**：按下方骨架汇总为一份连贯报告，数据不足的小节省略。
-5. **跟进（Follow-Up）**：报告后提供选项——深挖某场会/某模式、生成 1 页「沟通速查卡」（top 3 待改习惯）、把当前指标存为基线供未来对比、导出 markdown/JSON 用于绩效复盘。
+### 1. Ingest & Inventory
 
-## 指令
+Scan the target directory for transcript files (`.txt`, `.md`, `.vtt`, `.srt`, `.docx`, `.json`).
 
-**模块 · 发言动态（Speaking Dynamics）** 逐人计算：字数与占总会议字数百分比、发言轮次、平均每轮字数、最长独白（>60 秒或 >200 字标记）、打断检测（某轮在上一发言人末时间戳 2 秒内开始，或句中切断）。红旗：用户在一对多会议发言 >60%（垄断）；主持会议却 <15%（脱离/过度放权）；某参会人全程零发言（被排除）；打断比 >2:1。
+For each file:
+- Extract meeting date from filename or content (expect `YYYY-MM-DD` prefix or embedded timestamps)
+- Identify speaker labels — look for patterns like `Speaker 1:`, `[John]:`, `John Smith  00:14:32`, VTT/SRT cue formatting
+- Detect the user's identity: ask if ambiguous, otherwise infer from the most frequent speaker or filename hints
+- Log: filename, date, duration (from timestamps), participant count, word count
 
-**模块 · 冲突与直接度（Conflict & Directness）** 扫描用户话语中的模糊与回避标记：
-- 限定词：「可能」「有点」「算是」「我猜」「也许」「某种程度上」/ maybe、kind of、I guess。
-- 求许可：「如果可以的话」「我这么说行不行」。回避：「都行」「看你的」「我很灵活」。
-- 异议前的软化：「我不想反驳，但…」「这可能是个蠢问题」。
-- 冲突回避模式（需更多上下文，标注置信度）：紧张后立刻转移话题；口头同意却无后续行动；把他人顾虑说得比实际小（「应该没那么严重」）；该给绩效反馈的 1:1 里缺反馈。
-- 每条命中提取：完整引文（前后各 2 轮上下文）+ 严重度（`low` 单个模糊词 / `medium` 一段对话内成串模糊 / `high` 明显回避了必要对话）+ 改写建议（更直接的版本怎么说）。
+Print a brief inventory table so the user confirms scope before heavy analysis begins.
 
-**模块 · 填充词与口头禅（Filler Words）** 统计：「um/uh」「like（非比较义）」「you know」「actually」「basically」「literally」「right?（反问尾）」「so yeah」「I mean」。报告每场总数、每 100 词出现率（跨会归一）、按类型拆分、情境高峰（面对高层、给负面反馈、被突然提问时是否飙升）。**仅当率 >3/100 词才视为问题**，以下属正常。
+### 2. Normalize Transcripts
 
-**模块 · 提问质量与倾听（Question Quality & Listening）** 给用户的提问分类：封闭（是非）、引导（答案已嵌入）、开放真诚、澄清（引用前一发言人）、建设（延展他人想法）。好倾听信号：澄清/建设型提问、复述（「我听到的是…」）、引用早前发言、邀请安静者发言。差倾听信号：重复问已答问题、不回应对方就重申己见、答非所问。报告「开放/澄清/建设 vs 封闭/引导」的比例。
+Different tools produce wildly different formats. Normalize everything into a common internal structure before analysis:
 
-**模块 · 主持与决策（Facilitation）** 仅当用户是组织者/主持人时运行：议程遵守度、时间管理、是否主动拉入安静者、决策是否明确陈述（「就选方案 B，Sarah 周五前跟进」）、行动项是否带责任人和截止日、跑题项是否被记录延后还是带偏全场。
-
-**模块 · 情绪与能量（Sentiment & Energy）** 追踪用户语言的情绪弧线：积极（热情赞同、鼓励、幽默、表扬）、消极（沮丧、轻视、讽刺、敷衍短答）、中性/平淡（低能量、单音节）。标记能量骤降点（变短、变虚的回应），常对应不适、无聊或回避。
-
-## 示例
-
-最终报告骨架（数据不足的小节省略）：
-
-```markdown
-# 会议沟通洞察报告
-
-**时间范围**：[最早日期] – [最晚日期]
-**分析会议数**：[count]
-**转录总字数**：[count]
-**你的平均发言占比**：[X%]
-
----
-
-## 三大发现（Top 3）
-[按影响排序。每条 2-3 句 + 一个含直接引文与时间戳的具体例子。]
-
-## 详细分析
-### 发言动态        [统计表 + 解读 + 红旗]
-### 直接度与冲突模式 [按模式分组的命中实例 + 引文 + 改写]
-### 口头习惯        [填充词统计、情境高峰，仅当率 >3/100 词]
-### 倾听与提问      [提问类型分布、倾听信号、具体例子]
-### 主持           [仅当适用——议程、决策、行动项]
-### 能量与情绪      [弧线总结、骤降点]
-
-## 优势  [3 件做得好的事，带证据]
-## 成长机会 [3 条按影响排序，每条含：改什么、为何重要、下次具体怎么做]
-## 与上期对比 [仅当有历史分析——关键指标的 delta]
+```
+{ speaker: string, timestamp_sec: number | null, text: string }[]
 ```
 
-## 注意事项
+Handling per format:
+- **VTT/SRT**: Parse cue timestamps + text. Speaker labels may be inline (`<v Speaker>`) or prefixed.
+- **Plain text**: Look for `Name:` or `[Name]` prefixes per line. If no speaker labels exist, warn the user that per-speaker analysis is limited.
+- **Markdown**: Strip formatting, then treat as plain text.
+- **DOCX**: Extract text content, then treat as plain text.
+- **JSON**: Expect an array of objects with `speaker`/`text` fields (common Otter/Fireflies export).
 
-- **无说话人标签**：提前警告。只跑文本级分析，跳过逐人指标，建议用户开启说话人分离（diarization）重新导出。
-- **极短会议**（<5 分钟或 <500 词）：可分析但注明短会模式不代表常态。
-- **非英文转录**：填充词与模糊词词典以英文为主；其他语言需说明局限，聚焦结构性分析（发言比、轮次、提问数）。需要时按目标语言补充本地化词表。
-- **单场 vs 语料**：仅一场时不要用趋势/对比措辞，结论限于该场；趋势型辅导建议 ≥3 场。
-- **无法确定用户身份**：扫描后仍无法判断本人是谁，先问再做，不要瞎猜。
-- **反模式**：把发言时间均等当目标（主持人本就该少说、演讲者本就该多说，应按会议类型与角色加权）；把每个模糊词都判负（头脑风暴里「我觉得」「也许」是恰当的，决策会才是问题）；只甩原始数字无基准（「你说了 47 次 um」缺对比令人沮丧，应对照常模与时间趋势）。
-- **转录获取提示**（仅当用户不确定如何拿到转录时输出）：Zoom 在 设置→录制 开启 Audio transcript，下载云录制 `.vtt`；Google Meet 自动转录存到日历事件 Drive 的 Google Docs；Granola 导出 markdown（消费级工具中说话人标签质量最佳）；Otter.ai 导出 `.txt`/`.json`；Fireflies.ai 导出 `.docx`/`.json`；Teams 转录在会议聊天里下载 `.vtt`。推荐命名 `YYYY-MM-DD - 会议名.ext` 便于按时间分析。
+If timestamps are missing, degrade gracefully — skip timing-dependent metrics (speaking pace, pause analysis) but still run text-based analysis.
 
-## 互见
+### 3. Analyze
 
-- 事实核查类技能：当报告引用需核对外部事实时配合使用。
+Run all applicable analysis modules below. Each module is independent — skip any that don't apply (e.g., skip speaking ratios if there are no speaker labels).
 
 ---
 
-本条采编自 alirezarezvani/claude-skills（MIT）。
+#### Module: Speaking Dynamics
+
+Calculate per-speaker:
+- **Word count & percentage** of total meeting words
+- **Turn count** — how many times each person spoke
+- **Average turn length** — words per uninterrupted speaking turn
+- **Longest monologue** — flag turns exceeding 60 seconds or 200 words
+- **Interruption detection** — a turn that starts within 2 seconds of the previous speaker's last timestamp, or mid-sentence breaks
+
+Produce a per-meeting summary and a cross-meeting average if multiple transcripts exist.
+
+Red flags to surface:
+- User speaks > 60% in a 1:many meeting (dominating)
+- User speaks < 15% in a meeting they're facilitating (disengaged or over-delegating)
+- One participant never speaks (excluded voice)
+- Interruption ratio > 2:1 (user interrupts others twice as often as they're interrupted)
+
+---
+
+#### Module: Conflict & Directness
+
+Scan the user's speech for hedging and avoidance markers:
+
+**Hedging language** (score per-instance, aggregate per meeting):
+- Qualifiers: "maybe", "kind of", "sort of", "I guess", "potentially", "arguably"
+- Permission-seeking: "if that's okay", "would it be alright if", "I don't know if this is right but"
+- Deflection: "whatever you think", "up to you", "I'm flexible"
+- Softeners before disagreement: "I don't want to push back but", "this might be a dumb question"
+
+**Conflict avoidance patterns** (requires more context, flag with confidence level):
+- Topic changes after tension (speaker A raises problem → user pivots to logistics)
+- Agreement-without-commitment: "yeah totally" followed by no action or follow-up
+- Reframing others' concerns as smaller than stated: "it's probably not that big a deal"
+- Absent feedback in 1:1s where performance topics would be expected
+
+For each flagged instance, extract:
+- The full quote (with surrounding context — 2 turns before and after)
+- A severity tag: `low` (single hedge word), `medium` (pattern of hedging in one exchange), `high` (clearly avoided a necessary conversation)
+- A rewrite suggestion: what a more direct version would sound like
+
+---
+
+#### Module: Filler Words & Verbal Habits
+
+Count occurrences of: "um", "uh", "like" (non-comparative), "you know", "actually", "basically", "literally", "right?" (tag question), "so yeah", "I mean"
+
+Report:
+- Total count per meeting
+- Rate per 100 words spoken (normalizes across meeting lengths)
+- Breakdown by filler type
+- Contextual spikes — do fillers increase in specific situations? (e.g., when responding to a senior stakeholder, when giving negative feedback, when asked a question cold)
+
+Only flag this as an issue if the rate exceeds ~3 per 100 words. Below that, it's normal speech.
+
+---
+
+#### Module: Question Quality & Listening
+
+Classify the user's questions:
+- **Closed** (yes/no): "Did you finish the report?"
+- **Leading** (answer embedded): "Don't you think we should ship sooner?"
+- **Open genuine**: "What's blocking you on this?"
+- **Clarifying** (references prior speaker): "When you said X, did you mean Y?"
+- **Building** (extends another's idea): "That's interesting — what if we also Z?"
+
+Good listening indicators:
+- Clarifying and building questions (shows active processing)
+- Paraphrasing: "So what I'm hearing is..."
+- Referencing a point someone made earlier in the meeting
+- Asking quieter participants for input
+
+Poor listening indicators:
+- Asking a question that was already answered
+- Restating own point without acknowledging the response
+- Responding to a question with an unrelated topic
+
+Report the ratio of open/clarifying/building vs. closed/leading questions.
+
+---
+
+#### Module: Facilitation & Decision-Making
+
+Only apply when the user is the meeting organizer or facilitator.
+
+Evaluate:
+- **Agenda adherence**: Did the meeting follow a structure or drift?
+- **Time management**: How long did each topic take vs. expected?
+- **Inclusion**: Did the facilitator actively draw in quiet participants?
+- **Decision clarity**: Were decisions explicitly stated? ("So we're going with option B — Sarah owns the follow-up by Friday.")
+- **Action items**: Were they assigned with owners and deadlines, or left vague?
+- **Parking lot discipline**: Were off-topic items acknowledged and deferred, or did they derail?
+
+---
+
+#### Module: Sentiment & Energy
+
+Track the emotional arc of the user's language across the meeting:
+- **Positive markers**: enthusiastic agreement, encouragement, humor, praise
+- **Negative markers**: frustration, dismissiveness, sarcasm, curt responses
+- **Neutral/flat**: low-energy responses, monosyllabic answers
+
+Flag energy drops — moments where the user's engagement visibly decreases (shorter turns, less substantive responses). These often correlate with discomfort, boredom, or avoidance.
+
+---
+
+### 4. Output the Report
+
+Structure the final output as a single cohesive report. Use this skeleton — omit any section where data was insufficient:
+
+```markdown
+# Meeting Insights Report
+
+**Period**: [earliest date] – [latest date]
+**Meetings analyzed**: [count]
+**Total transcript words**: [count]
+**Your speaking share (avg)**: [X%]
+
+---
+
+## Top 3 Findings
+
+[Rank by impact. Each finding gets 2-3 sentences + one concrete example with a direct quote and timestamp.]
+
+## Detailed Analysis
+
+### Speaking Dynamics
+[Stats table + narrative interpretation + flagged red flags]
+
+### Directness & Conflict Patterns
+[Flagged instances grouped by pattern type, with quotes and rewrites]
+
+### Verbal Habits
+[Filler word stats, contextual spikes, only if rate > 3/100 words]
+
+### Listening & Questions
+[Question type breakdown, listening indicators, specific examples]
+
+### Facilitation
+[Only if applicable — agenda, decisions, action items]
+
+### Energy & Sentiment
+[Arc summary, flagged drops]
+
+## Strengths
+[3 specific things the user does well, with evidence]
+
+## Growth Opportunities
+[3 ranked by impact, each with: what to change, why it matters, a concrete "try this next time" action]
+
+## Comparison to Previous Period
+[Only if prior analysis exists — delta on key metrics]
+```
+
+### 5. Follow-Up Options
+
+After delivering the report, offer:
+- Deep dive into any specific meeting or pattern
+- A 1-page "communication cheat sheet" with the user's top 3 habits to change
+- Tracking setup — save current metrics as a baseline for future comparison
+- Export as markdown or structured JSON for use in performance reviews
+
+---
+
+## Edge Cases
+
+- **No speaker labels**: Warn the user upfront. Run text-level analysis (filler words, question types on the full transcript) but skip per-speaker metrics. Suggest re-exporting with speaker diarization enabled.
+- **Very short meetings** (< 5 minutes or < 500 words): Analyze but caveat that patterns from short meetings may not be representative.
+- **Non-English transcripts**: The filler word and hedging dictionaries are English-centric. For other languages, note the limitation and focus on structural analysis (speaking ratios, turn-taking, question counts).
+- **Single meeting vs. corpus**: If only one transcript, skip trend/comparison language. Focus findings on that meeting alone.
+- **User not identified**: If you can't determine which speaker is the user after scanning, ask before proceeding. Don't guess.
+
+## Transcript Source Tips
+
+Include this section in output only if the user seems unsure about how to get transcripts:
+
+- **Zoom**: Settings → Recording → enable "Audio transcript". Download `.vtt` from cloud recordings.
+- **Google Meet**: Auto-transcription saves to Google Docs in the calendar event's Drive folder.
+- **Granola**: Exports to markdown. Best speaker label quality of consumer tools.
+- **Otter.ai**: Export as `.txt` or `.json` from the web dashboard.
+- **Fireflies.ai**: Export as `.docx` or `.json` — both work.
+- **Microsoft Teams**: Transcripts appear in the meeting chat. Download as `.vtt`.
+
+Recommend `YYYY-MM-DD - Meeting Name.ext` naming convention for easy chronological analysis.
+
+---
+
+## Anti-Patterns
+
+| Anti-Pattern | Why It Fails | Better Approach |
+|---|---|---|
+| Analyzing without speaker labels | Per-person metrics impossible — results are generic word clouds | Ask user to re-export with speaker identification enabled |
+| Running all modules on a 5-minute standup | Overkill — filler word and conflict analysis need 20+ min meetings | Auto-detect meeting length and skip irrelevant modules |
+| Presenting raw metrics without context | "You said 'um' 47 times" is demoralizing without benchmarks | Always compare to norms and show trajectory over time |
+| Analyzing a single meeting in isolation | One meeting is a snapshot, not a pattern — conclusions are unreliable | Require 3+ meetings minimum for trend-based coaching |
+| Treating speaking time equality as the goal | A facilitator SHOULD talk less; a presenter SHOULD talk more | Weight speaking ratios by meeting type and role |
+| Flagging every hedge word as negative | "I think" and "maybe" are appropriate in brainstorming | Distinguish between decision meetings (hedges are bad) and ideation (hedges are fine) |
+
+---
+
+## Related Skills
+
+| Skill | Relationship |
+|-------|-------------|
+| `project-management/senior-pm` | Broader PM scope — use for project planning, risk, stakeholders |
+| `project-management/scrum-master` | Agile ceremonies — pairs with meeting-analyzer for retro quality |
+| `project-management/confluence-expert` | Store meeting analysis outputs as Confluence pages |
+| `c-level-advisor/executive-mentor` | Executive communication coaching — complementary perspective |

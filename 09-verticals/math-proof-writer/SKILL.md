@@ -1,14 +1,14 @@
 ---
 name: math-proof-writer
-title: 数学证明撰写
-description: 当需要为定理/引理/命题撰写、修复或形式化严谨的数学证明并产出可编译 LaTeX 时使用；做主张提取→文献定理匹配→策略选择→逐步推导→LaTeX 排版的端到端证明，产出可直接插入论文的证明代码；不适用于纯数值计算、绘图或非形式化的直觉说明。触发词：数学证明、formal proof、prove、theorem、lemma、proposition、推导、理论分析、LaTeX 数学、证明策略
+title: proof-writer：數學證明撰寫技能
+description: 數學證明撰寫技能 — 從主張提取到 LaTeX 排版的完整證明工作流。當使用者需要撰寫或驗證數學定理、引理、命題的形式證明，或需要推導公式、整理理論分析時，一定要使用此技能。觸發詞包括：數學證明、prove、theorem、lemma、proposition、推導、理論分析、寫 proof、LaTeX 數學、formal proof。適用於機器學習理論、統計學習理論、最佳化等需要嚴謹數學推導的場景。
 domain: 领域/science
-triggers: [数学证明, formal proof, prove, theorem, lemma, proposition, 推导, 理论分析, LaTeX 数学, 证明策略]
+triggers: [formal proof, prove, theorem, lemma, proposition]
 tags: [math, proof, latex, theorem, academic, formal-methods]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [LaTeX, amsthm, amsmath]
+tools: []
 requires: []
 related: [sympy-symbolic-math, academic-paper-writer, scientific-manuscript-writing]
 combines_with: [sympy-symbolic-math, academic-paper-writer]
@@ -16,39 +16,356 @@ license: MIT
 source: voidful/academic-skills
 source_license: MIT
 ---
-## 何时使用
+# proof-writer: Mathematical Proof Writing Skill
 
-- 需要为定理(Theorem)、引理(Lemma)、推论(Corollary)、命题(Proposition)撰写严谨形式证明，或把非形式化的直觉论证转换为可发表的证明。
-- 需要诊断并修复已有证明的逻辑跳步、量词错误、边界未处理、引用定理前提不满足等问题。
-- 需要为机器学习理论、统计学习理论、最优化等场景做严谨推导，并产出可直接编译插入论文的 LaTeX。
-- 仅需策略咨询（给出证明思路而不写完整证明）时也适用。
+## Overview
 
-不该用的边界：纯数值计算/仿真、画图绘表、不要求严谨性的科普或直觉性说明、以及无明确前提与结论的开放性问题，均不适用本条。
+This skill focuses on writing the mathematical proofs found in academic papers. It covers the end-to-end workflow from claim extraction and strategy selection through to fully typeset LaTeX. All explanations are written in English, and mathematical expressions and LaTeX code are written in English as well.
 
-约定：解释用中文，数学表达式与 LaTeX 代码用英文。
+---
 
-## 步骤
+## Workflow Overview
 
-按五个阶段顺序执行，每阶段都有输入、输出与质检点：
+Proof writing is divided into five stages, executed in order:
 
-1. 主张提取：判定主张类型；列全前提条件与适用范围；写出形式化结论；确认所有符号定义。质检——主张是否可判定、符号是否全部已定义、前提是否足以推出结论。
-2. 文献/定理扫描：提取数学关键词（convergence、bound、concentration inequality 等），匹配可复用的已知结果（前文引理、参考文献、经典不等式如 Cauchy-Schwarz、Jensen、Hoeffding），区分「可直接引用 / 需修改后用 / 证明缺口」。质检——引用定理的前提是否满足、版本是否正确。
-3. 策略选择：基于结构选定主策略（可复合）。质检——策略是否匹配主张结构、是否给出选择理由。
-4. 逐步推导：每步含「陈述+推导+依据」，不跳过非显然步骤，量词作用域明确，复杂部分拆为独立引理。质检——每步是否有明确依据、是否有未声明假设、证明是否以 QED/$\square$ 收尾。
-5. LaTeX 排版：用 amsthm/amsmath 环境输出可编译代码，所有定理加 `\label` 并用 `\ref`/`\eqref` 交叉引用。质检——能否编译、符号呈现、编号引用是否正确。
+```
+Claim extraction → Literature scan → Strategy selection → Step-by-step derivation → LaTeX typesetting
+```
 
-## 指令
+Each stage has clearly defined inputs, outputs, and quality checkpoints. The following sections describe them one by one.
 
-- 八种证明策略及典型场景：直接证明（等式/不等式/集合包含）、反证法（唯一性/不可能性）、数学归纳法（递归/序列，含强归纳与结构归纳）、构造性证明（存在性/算法正确性）、归约法（NP-hardness/下界/等价性）、概率法（组合/图论/随机化算法）、凸性论证（最优化/Jensen 应用）、信息论方法（学习理论下界/隐私分析）。复杂证明常需复合，如「归纳+直接」「反证+构造」「归约+信息论」。
-- 过渡语句规范使用学术英文：`By assumption, ...`、`It follows from Theorem X that ...`、`Combining (1) and (2), we obtain ...`、`Without loss of generality, ...`。
-- 禁止用 clearly / obviously / trivially 掩盖跳步；单步推导超过三行就提取为独立引理；所有变量先定义后使用。
-- 所有非本文证明的结果必须给出引用；符号须与论文其余部分一致，有冲突在证明开头声明。
+---
 
-## 示例
+## Stage 1: Claim Extraction
 
-证明：对所有 $x > 0$，$e^x \geq 1 + x$。
+### Purpose
 
-主张类型 Proposition；策略选直接证明（分析 $f(x)=e^x-1-x$）。LaTeX 输出：
+Precisely extract the mathematical claim that needs to be proven from the paper draft or the user's input. A claim must be a formal proposition with clearly stated hypotheses and a conclusion.
+
+### Steps
+
+1. **Identify the claim type**: Determine whether it is a Theorem, Lemma, Corollary, Proposition, or Claim.
+2. **Extract the hypotheses**: List all assumptions, constraints, and the scope of applicability.
+3. **Extract the conclusion**: Write out explicitly the equality, inequality, or property to be proven.
+4. **Confirm notation**: Confirm the definition and scope of every symbol, referring to
+   [Notation Conventions](references/notation-conventions.md).
+5. **State the claim formally**: Write the claim in standard mathematical statement form.
+
+### Output Format
+
+```
+Claim type: [Theorem | Lemma | Corollary | Proposition | Claim]
+Hypotheses:
+  - Condition 1
+  - Condition 2
+  - ...
+Conclusion: [formal mathematical statement]
+Relevant symbols: [list of symbols and their definitions]
+```
+
+### Common Issues
+
+- Incomplete hypotheses: go back and check the assumptions section of the paper.
+- Undefined symbols: consult the paper's notation section or confirm with the user.
+- Overly vague claim: ask the user to provide a more precise formal statement.
+
+### Quality Check
+
+- [ ] Is the claim a decidable mathematical proposition?
+- [ ] Are all symbols defined?
+- [ ] Are the hypotheses sufficient to derive the conclusion?
+- [ ] Is the claim type classified correctly?
+
+---
+
+## Stage 2: Literature Scan
+
+### Purpose
+
+Find known theorems, lemmas, and results related to the claim in order to build a foundation for the proof. This step determines which "giants' shoulders we can stand on."
+
+### Steps
+
+1. **Keyword extraction**: Extract mathematical keywords from the claim (such as convergence, bound,
+   concentration inequality, etc.).
+2. **Theorem matching**: Search a body of known theorems for related results, referring to
+   [Theorem Connection Methods](references/theorem-connection.md).
+3. **Relevance assessment**: Assess how relevant each theorem found is to the current claim.
+4. **Establish dependencies**: Determine which theorems can be used directly and which need to be adapted.
+5. **Gap analysis**: Identify the gaps between the known results and the target claim.
+
+### Common Theorem Sources
+
+- Lemmas already proven earlier in the paper itself
+- References cited by the paper
+- Classic results in the field (such as Cauchy-Schwarz, Jensen's inequality, etc.)
+- Foundational theorems from standard textbooks
+
+### Output Format
+
+```
+Related theorems:
+  1. [theorem name] — [brief description] — relevance: [high | medium | low]
+  2. ...
+Directly citable: [list of theorems]
+Requires adaptation: [list of theorems and the needed adaptations]
+Proof gaps: [the parts that must be derived from scratch]
+```
+
+### Quality Check
+
+- [ ] Have any important known results been missed?
+- [ ] Are the hypotheses of the cited theorems satisfied?
+- [ ] Is the version of each theorem correct (some theorems have multiple variants)?
+
+---
+
+## Stage 3: Strategy Selection
+
+### Purpose
+
+Based on the structure of the claim and the available known results, select the most suitable proof strategy. The choice of strategy directly affects the clarity and length of the proof.
+
+### Available Strategies
+
+This skill supports the following eight proof strategies. A detailed description of each is given in
+[Proof Strategies Reference](references/proof-strategies.md).
+
+#### 1. Direct Proof
+
+Start from the hypotheses and reach the conclusion directly through a sequence of logical derivations. Suitable for claims with a clear structure and an explicit derivation path.
+
+**Applicable to**: equality proofs, inequality derivations, set inclusion relations.
+
+#### 2. Proof by Contradiction
+
+Assume the conclusion is false and derive a contradiction. Suitable for claims that are hard to prove directly or whose conclusion is in negated form.
+
+**Applicable to**: negation of existence, uniqueness proofs, impossibility results.
+
+#### 3. Mathematical Induction
+
+Perform induction over the natural numbers or any well-orderable structure. Includes weak induction, strong induction, and structural induction.
+
+**Applicable to**: recursive structures, properties of sequences, propositions in discrete mathematics.
+
+#### 4. Constructive Proof
+
+Explicitly construct an object satisfying the conditions, thereby proving existence. Provides more information than a purely existential proof.
+
+**Applicable to**: existence propositions, algorithm correctness, establishing concrete bounds.
+
+#### 5. Proof by Reduction
+
+Reduce the problem to be proven to a known problem. Commonly used in computational complexity and decision problems.
+
+**Applicable to**: NP-hardness proofs, lower-bound proofs, equivalence proofs.
+
+#### 6. Probabilistic Method
+
+Prove that the probability of a random choice satisfying the conditions is greater than zero, thereby proving that an object satisfying the conditions exists.
+
+**Applicable to**: combinatorics, graph theory, analysis of randomized algorithms.
+
+#### 7. Convexity Arguments
+
+Derive results using properties of convex functions or convex sets. Especially common in optimization and machine learning theory.
+
+**Applicable to**: optimization problems, applications of Jensen's inequality, convex relaxations.
+
+#### 8. Information-theoretic Methods
+
+Derive results using information-theoretic tools such as entropy, mutual information, and KL divergence.
+
+**Applicable to**: communication theory, learning-theory lower bounds, privacy analysis.
+
+### Strategy Selection Decision Tree
+
+```
+Analyze the structure of the claim
+├─ Equality or inequality?
+│  ├─ Yes → consider direct proof, convexity arguments
+│  └─ No → continue
+├─ Existence proposition?
+│  ├─ Yes → consider constructive proof, probabilistic method
+│  └─ No → continue
+├─ Involves recursion or sequences?
+│  ├─ Yes → consider mathematical induction
+│  └─ No → continue
+├─ Reducible to a known problem?
+│  ├─ Yes → consider proof by reduction
+│  └─ No → continue
+├─ Involves information measures?
+│  ├─ Yes → consider information-theoretic methods
+│  └─ No → continue
+└─ Direct proof difficult?
+   ├─ Yes → consider proof by contradiction
+   └─ No → use direct proof
+```
+
+### Composite Strategies
+
+Many complex proofs require combining several strategies. Common combinations include:
+
+- **Induction + Direct**: use a direct proof within the inductive step
+- **Contradiction + Construction**: assume nonexistence, then construct a contradictory object
+- **Reduction + Information theory**: reduce to an information-theoretic problem, then apply information-theoretic tools
+
+### Output Format
+
+```
+Selected strategy: [name of the primary strategy]
+Auxiliary strategy: [if any]
+Rationale: [why this strategy is the best fit]
+Expected proof structure: [outline]
+Expected difficulty: [low | medium | high]
+```
+
+---
+
+## Stage 4: Step-by-Step Derivation
+
+### Purpose
+
+Following the selected strategy, write out the complete and rigorous proof. Every step must have an explicit logical justification.
+
+### Principles
+
+1. **Completeness**: Do not skip any step that is not obvious.
+2. **Rigor**: Every derivation step must have an explicit mathematical justification.
+3. **Readability**: Use clear language to guide the reader.
+4. **Modularity**: Complex proofs should be broken down into multiple lemmas.
+
+### Writing Conventions
+
+#### Derivation Step Format
+
+Each derivation step should include:
+
+- **Statement**: the intermediate conclusion this step establishes
+- **Derivation**: the concrete mathematical derivation
+- **Justification**: the cited theorem, lemma, or previous step
+
+#### Transition Sentences
+
+Use appropriate transition sentences between steps to guide the reader through the logical flow of the proof:
+
+- "By assumption, ..."
+- "It follows from Theorem X that ..."
+- "Combining (1) and (2), we obtain ..."
+- "Without loss of generality, ..."
+- "By the definition of ..., we have ..."
+
+#### Common Warnings
+
+- Avoid using "clearly," "obviously," or "trivially" to skip steps.
+- If a step requires more than three lines of derivation, consider extracting it as a separate lemma.
+- Ensure every variable is defined before it is used.
+- Ensure the scope of quantifiers (for all, there exists) is unambiguous.
+
+### Quality Check
+
+- [ ] Does every derivation step have an explicit logical justification?
+- [ ] Are there any unstated assumptions?
+- [ ] Are the quantifiers used correctly?
+- [ ] Is the notation consistent with the rest of the paper?
+- [ ] Is the proof complete (ending with QED or $\square$)?
+
+---
+
+## Stage 5: LaTeX Typesetting
+
+### Purpose
+
+Convert the proof into LaTeX code that can be inserted directly into the paper. The typesetting should follow standard academic-paper formatting.
+
+### Typesetting Conventions
+
+Detailed LaTeX typesetting patterns are given in [LaTeX Math Typesetting Reference](references/latex-math-patterns.md).
+
+#### Basic Environments
+
+```latex
+\begin{theorem}[Theorem Name]
+\label{thm:theorem-label}
+  Statement of the theorem.
+\end{theorem}
+
+\begin{proof}
+  Proof content here. \qed
+\end{proof}
+```
+
+#### Numbering and Referencing
+
+- Every theorem, lemma, and corollary must have a `\label`.
+- Use `\ref` or `\eqref` for cross-references.
+- Number equations using the `equation` or `align` environment.
+
+#### Typesetting Style
+
+- Use `$...$` for inline formulas.
+- Use `\[...\]` or a numbered environment for displayed formulas.
+- Use the `align` environment for multi-line alignment.
+- Use the `cases` environment for case-by-case discussions.
+
+### Output Format
+
+The final output should include:
+
+1. A complete LaTeX code snippet (ready to copy and paste)
+2. A list of the additional packages required (such as `amsthm`, `amsmath`, etc.)
+3. If custom commands are needed, the accompanying `\newcommand` definitions
+
+### Quality Check
+
+- [ ] Does the LaTeX code compile successfully?
+- [ ] Are the mathematical symbols rendered correctly?
+- [ ] Are the numbering and references correct?
+- [ ] Is the typesetting clean (alignment, spacing, etc.)?
+- [ ] Does it conform to the target journal's formatting requirements?
+
+---
+
+## Notation and Typesetting References
+
+- [Detailed Proof Strategies](references/proof-strategies.md)
+- [Theorem Connection Methods](references/theorem-connection.md)
+- [Notation Conventions](references/notation-conventions.md)
+- [LaTeX Math Typesetting Patterns](references/latex-math-patterns.md)
+
+---
+
+## Worked Examples
+
+### Example 1: A Simple Inequality Proof
+
+**Input**: Prove that for all $x > 0$, $e^x \geq 1 + x$.
+
+**Stage 1 output**:
+
+```
+Claim type: Proposition
+Hypotheses:
+  - x > 0, x ∈ ℝ
+Conclusion: e^x ≥ 1 + x
+Relevant symbols: e is the base of the natural logarithm
+```
+
+**Stage 3 output**:
+
+```
+Selected strategy: Direct proof
+Rationale: can be derived directly by analyzing the properties of f(x) = e^x - 1 - x
+Expected proof structure:
+  1. Define f(x) = e^x - 1 - x
+  2. Compute f'(x) = e^x - 1
+  3. Analyze the monotonicity of f
+  4. Conclude using f(0) = 0
+Expected difficulty: low
+```
+
+**Stage 5 output**:
 
 ```latex
 \begin{proposition}
@@ -65,20 +382,67 @@ source_license: MIT
 \end{proof}
 ```
 
-进阶示例（PAC 学习有限假设类样本复杂度上界）：主张类型 Theorem，前提 $|H|<\infty$、$m$ 个 i.i.d. 样本、$\varepsilon,\delta>0$；策略为「直接证明 + 概率法」，归约到 Hoeffding's inequality；结构为：对单个 $h$ 用 Hoeffding，对全体 $h$ 取 union bound，解出 $m \geq (1/\varepsilon)(\ln|H| + \ln(1/\delta))$。
+### Example 2: A Generalization Bound in Machine Learning
 
-## 注意事项
+**Input**: Prove an upper bound on the sample complexity of a finite hypothesis class under the PAC learning framework.
 
-- 严谨性优先：宁可冗长也不跳步——读者可略过显然步骤，但无法填补缺失步骤。
-- 可编译性：输出 LaTeX 必须无语法错误、可直接编译；列出所需宏包（amsthm、amsmath 等）及自定义 `\newcommand`。
-- 学术语调：数学部分用正式学术英文，避免口语化。
-- 一致性：符号、定理版本、量词作用域三者全程一致。
+**Stage 1 output**:
 
-## 互见
+```
+Claim type: Theorem
+Hypotheses:
+  - H is a finite hypothesis class, |H| < ∞
+  - The sample S consists of m i.i.d. samples from distribution D
+  - ε > 0, δ > 0
+Conclusion: If m ≥ (1/ε)(ln|H| + ln(1/δ)), then with probability at least 1-δ,
+            |R(h) - R̂(h)| ≤ ε for all h ∈ H
+Relevant symbols: R(h) is the true risk, R̂(h) is the empirical risk
+```
 
-- first-principles-thinking：从公理与定义出发拆解问题，辅助策略选择与逐步推导。
-- fact-checking：核验所引用定理的前提是否满足、版本是否正确、引用是否到位。
+**Stage 3 output**:
+
+```
+Selected strategy: Direct proof + probabilistic method
+Auxiliary strategy: reduction to Hoeffding's inequality
+Rationale: the classic combination of union bound + concentration inequality
+Expected proof structure:
+  1. Apply Hoeffding's inequality to a single hypothesis h
+  2. Take a union bound over all hypotheses
+  3. Solve for the lower bound on m
+Expected difficulty: medium
+```
 
 ---
 
-本条采编自 voidful/academic-skills（MIT）。
+## Common Working Modes
+
+### Mode 1: Full Proof Writing
+
+The user provides a claim, and the system runs the complete five-stage workflow, outputting ready-to-use LaTeX code.
+
+### Mode 2: Proof Repair
+
+The user provides a flawed proof, and the system diagnoses the issues and fixes them. Common issues include:
+
+- Logical leaps (missing intermediate steps)
+- Quantifier errors
+- Unhandled edge cases
+- Cited theorems whose hypotheses are not satisfied
+
+### Mode 3: Proof Translation
+
+Convert an informal, intuitive argument into a rigorous mathematical proof.
+
+### Mode 4: Strategy Consultation
+
+The user describes the goal they want to prove, and the system suggests possible proof strategies and approaches without writing a complete proof.
+
+---
+
+## Notes
+
+1. **Rigor first**: prefer being verbose over skipping steps. Readers can skip over obvious steps, but they cannot fill in missing ones.
+2. **Notation consistency**: all symbols must be consistent with the rest of the paper. If there is a conflict, state it explicitly at the beginning of the proof. Refer to [Notation Conventions](references/notation-conventions.md).
+3. **Compilability**: the output LaTeX must compile directly, with no syntax errors.
+4. **Academic tone**: write the mathematical parts in formal academic English, avoiding colloquial expressions.
+5. **Citation conventions**: every result used that is not proven in this text must be accompanied by a citation.

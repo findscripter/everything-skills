@@ -1,14 +1,14 @@
 ---
 name: octagon-earnings-call-sentiment
-title: 财报会管理层情绪分析
-description: 当需要评估上市公司财报电话会上管理层语气、信心与前瞻措辞时使用；经 Octagon MCP 对最新一期电话会做情绪/语气分析，产出乐观度、信心等级、风险表态、季度环比情绪变化及带页码引用的结构化结论；不适用于无法获取转写文本的非公开会，也不直接给出买卖/下单建议；触发词：财报电话会情绪、管理层语气、前瞻信心
+title: Earnings Conference Call Sentiment
+description: Analyze the overall sentiment and tone of management during earnings conference calls, including confidence levels, optimism indicators, and forward-looking language.
 domain: 领域/fintech
-triggers: [财报电话会情绪, 管理层语气分析, CEO 信心水平, 前瞻性表态 forward-looking, 风险表态/挑战回应, 季度环比情绪变化, Octagon MCP, earnings call sentiment]
-tags: [fintech, 财报电话会, 情绪分析, 管理层语气, 前瞻指引, mcp, 投研]
-level: 入门
+triggers: [Octagon MCP, earnings call sentiment]
+tags: [fintech, mcp]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Octagon MCP, octagon-mcp, Node.js, npx]
+tools: []
 requires: []
 related: [octagon-earnings-call-analysis, octagon-equity-research-analyst, octagon-sec-mda-analysis, octagon-price-target-consensus]
 combines_with: [octagon-equity-research-analyst, octagon-earnings-call-analysis, earnings-trade-analyzer]
@@ -16,115 +16,219 @@ license: MIT
 source: OctagonAI/skills
 source_license: MIT
 ---
-## 何时使用
+# Earnings Conference Call Sentiment
 
-当需要判断某上市公司**最新一期财报电话会**上管理层的整体情绪与语气，以衡量其信心、乐观度与战略前瞻时使用。典型问题：本季管理层是乐观还是谨慎？CEO 信心如何？前瞻表态偏积极还是回避风险？情绪相比上季是升是降？
+Analyze the overall sentiment and tone of management during earnings conference calls to gauge confidence, optimism, and strategic outlook.
 
-**不该用的边界：**
-- 未配置 Octagon MCP，或目标公司电话会无可用转写文本（非公开会/未覆盖标的）—— 无数据源可分析。
-- 想要直接的买入/卖出/下单决策 —— 本技能只产出情绪与语气解读，不给交易指令；结论须经独立风控与投研复核。
-- 需要逐字稿全文、财务数字逐项核对或分析师问答细节 —— 那是 `earnings-call-analysis` / `earnings-qa-analysis` 的职责，本技能聚焦「情绪/语气」一层。
-- 不要把单次情绪标签当作行情预测的充分依据；语气与股价反应常背离。
+## Prerequisites
 
-## 步骤
+Ensure Octagon MCP is configured. See [references/mcp-setup.md](references/mcp-setup.md) for installation instructions.
 
-1. **配置 Octagon MCP**（首次）：注册取 `OCTAGON_API_KEY`，把 octagon-mcp 注册为 MCP server（见下「指令」）。
-2. **整体情绪分析**：对 `<TICKER>` 最新一期电话会发起总体情绪/语气查询。
-3. **定向细分**（按需）：CEO 语气与信心、前瞻情绪、风险/挑战回应方式、信心指标、季度环比情绪变化。
-4. **对照框架解读**：用「情绪分级 / 信心指标 / 语气分类 / 措辞模式」四张表把自然语言结论落到可比标签。
-5. **留存引用**：记录返回的转写来源与页码（如 `NVDA_Q32026, Pages: 3-9`），便于复核。
+## Workflow
 
-## 指令
+### Step 1: Analyze Call Sentiment
 
-注册 MCP server（Claude Code，需先装 Node.js / npx）：
+Use the Octagon MCP to analyze management sentiment:
 
-```bash
-# 通用（mcpServers 配置）
-{
-  "mcpServers": {
-    "octagon-mcp-server": {
-      "command": "npx",
-      "args": ["-y", "octagon-mcp@latest"],
-      "env": { "OCTAGON_API_KEY": "YOUR_API_KEY_HERE" }
-    }
-  }
-}
 ```
-
-```text
-# Windows 命令行格式
-cmd /c "set OCTAGON_API_KEY=<your-api-key> && npx -y octagon-mcp"
-```
-
-向 MCP 发起的查询（自然语言，把 `<TICKER>` 换成代码如 NVDA）：
-
-```text
-# 整体情绪与语气
 Analyze the overall sentiment and tone of management during <TICKER>'s latest earnings conference call.
+```
 
-# CEO 语气与信心
+### Step 2: Targeted Sentiment Analysis
+
+Focus on specific aspects of sentiment:
+
+```
+# CEO Tone
 Analyze the CEO's tone and confidence level in <TICKER>'s latest earnings call.
 
-# 前瞻情绪
+# Forward-Looking Sentiment
 What is the forward-looking sentiment in <TICKER>'s earnings call?
 
-# 风险/挑战回应
+# Risk Acknowledgment
 How did management address challenges and risks in <TICKER>'s earnings call?
 
-# 信心指标
+# Confidence Indicators
 Identify confidence indicators in <TICKER>'s management commentary.
 
-# 季度环比情绪变化
+# Sentiment Shift
 Has management's sentiment changed from the prior quarter in <TICKER>'s call?
 ```
 
-**返回结构（结构化情绪结论）：** 整体情绪（乐观/中性/谨慎）、信心等级（高/中/低）、关键主题、风险表态方式、前瞻聚焦、来源页码引用。
+## Expected Output
 
-**情绪分级量表：**
+The skill returns structured sentiment analysis including:
 
-| 情绪 | 典型信号 | 隐含倾向 |
-|------|----------|----------|
-| 非常乐观 | 最高级措辞、兴奋、上调指引 | 强多 |
-| 乐观 | 自信措辞、积极展望 | 偏多 |
-| 中性 | 平衡、克制、陈述事实 | 平稳 |
-| 谨慎 | 模糊、加保留、给区间 | 存隐忧 |
-| 悲观 | 强调挑战、下调指引 | 偏空 |
+| Component | Description |
+|-----------|-------------|
+| Overall Sentiment | Optimistic, neutral, or cautious |
+| Confidence Level | High, moderate, or low |
+| Key Themes | Major topics and tone |
+| Challenges Addressed | How risks were discussed |
+| Forward-Looking Focus | Future outlook emphasis |
+| Source Citations | Transcript page references |
 
-**信心指标对照（高信心 vs 低信心措辞）：**
+## Example Query
 
-| 高信心 | 低信心 |
-|--------|--------|
+```
+Analyze the overall sentiment and tone of management during NVDA's latest earnings conference call.
+```
+
+## Example Response
+
+The overall sentiment and tone of NVIDIA's management during their Q3 2026 earnings call was **optimistic and confident**, with a strong focus on growth and strategic execution.
+
+**Key Observations**
+
+- **Strong Financial Performance**: Management highlighted record sequential revenue increases and significant year-over-year revenue growth
+
+- **Confidence in Future Opportunities**: Executives expressed confidence in their ability to capitalize on emerging markets and technological advancements
+
+- **Architectural Success**: Emphasis was placed on the success of their latest architecture, which is positioned to drive future innovation and market leadership
+
+- **Strategic Partnerships**: Discussions around expanding partnerships and ecosystem collaborations underscored a proactive approach to market expansion
+
+- **Challenges Addressed Positively**: While acknowledging input cost pressures, management remained optimistic about maintaining healthy gross margins through operational efficiency
+
+- **Forward-Looking Focus**: The tone emphasized long-term growth, innovation, and maintaining industry leadership
+
+**Source Context**: NVDA_Q32026, Pages: 3-9
+
+## Sentiment Classification
+
+### Overall Sentiment Scale
+
+| Sentiment | Indicators | Signal |
+|-----------|------------|--------|
+| Very Optimistic | Superlatives, excitement, raised guidance | Strongly bullish |
+| Optimistic | Confident language, positive outlook | Bullish |
+| Neutral | Balanced, measured, factual | Steady |
+| Cautious | Hedging, caveats, ranges | Concerns present |
+| Pessimistic | Challenges emphasized, lowered guidance | Bearish |
+
+### Confidence Indicators
+
+| High Confidence | Low Confidence |
+|-----------------|----------------|
 | "We will..." | "We hope to..." |
 | "Strong momentum" | "Challenging environment" |
 | "Clear visibility" | "Uncertain conditions" |
 | "Exceeding expectations" | "Working through issues" |
-| 给具体数字 | 给宽区间 |
+| Specific numbers | Wide ranges |
 
-**语气分类：** 自信（We're well-positioned）/ 热情（Tremendous opportunity）/ 克制（We're monitoring）/ 防御（Let me clarify）/ 谨慎（Subject to）。
+## Tone Analysis Framework
 
-**分段对照（同一场会，不同段语气往往不同）：** 准备好的讲稿打磨且积极，CEO 开场看战略信心，CFO 段看指引信心，**Q&A 最易暴露真实情绪**。
+### Executive Tone Categories
 
-## 示例
+| Tone | Description | Example Language |
+|------|-------------|------------------|
+| Confident | Assured, direct | "We're well-positioned" |
+| Enthusiastic | Excited, positive | "Tremendous opportunity" |
+| Measured | Balanced, careful | "We're monitoring" |
+| Defensive | Explaining, justifying | "Let me clarify" |
+| Cautious | Hedging, uncertain | "Subject to" |
 
-```text
-Analyze the overall sentiment and tone of management during NVDA's latest earnings conference call.
-```
+### Prepared Remarks vs. Q&A Tone
 
-返回（节选）：NVDA 管理层在 Q3 2026 电话会上整体「乐观且自信」，聚焦增长与战略执行——强调创纪录环比营收与显著同比增长；对把握新兴市场与技术机会有信心；突出最新架构的成功；扩大合作与生态布局；虽承认投入成本压力，但对靠运营效率维持健康毛利保持乐观；语气整体偏长期增长与行业领先。来源：`NVDA_Q32026, Pages: 3-9`。
+| Section | Typical Tone | What to Watch |
+|---------|--------------|---------------|
+| Prepared Remarks | Polished, positive | Standard messaging |
+| CEO Opening | Vision, highlights | Strategic confidence |
+| CFO Section | Factual, detailed | Guidance confidence |
+| Q&A | More candid | True sentiment emerges |
 
-## 注意事项
+## Key Sentiment Themes
 
-- **依赖 MCP 配置**：先确保 octagon-mcp 已注册且 `OCTAGON_API_KEY` 无多余空格，否则查询报错。
-- **结论可比性**：把自然语言结论落到上面四张表的标签，才能做季度环比与同行横比；建议记录每季「整体情绪/信心等级/挑战聚焦度」追踪拐点。
-- **关注矛盾与分段差异**：语气与信息不一致、讲稿乐观而 Q&A 闪躲、CEO 与 CFO 信号不同步，都是值得追问的信号。
-- **不是交易信号**：情绪解读仅供投研参考，需结合财务、指引、价格反应与风控独立复核；缺数据或边界不清时先停下确认。
-- **来源核验**：始终保留返回的 ticker_季度_页码引用，便于回溯原文。
+### Financial Confidence
+| Theme | Positive Signal | Negative Signal |
+|-------|-----------------|-----------------|
+| Revenue | "Record results" | "Softer demand" |
+| Margins | "Strong profitability" | "Pressured margins" |
+| Guidance | "Raising outlook" | "Widening range" |
+| Cash Flow | "Robust generation" | "Investing heavily" |
 
-## 互见
+### Strategic Confidence
+| Theme | Positive Signal | Negative Signal |
+|-------|-----------------|-----------------|
+| Market Position | "Industry leader" | "Competitive" |
+| Innovation | "Breakthrough" | "Catching up" |
+| Execution | "Delivering results" | "Working through" |
+| Partnerships | "Strategic wins" | "Exploring options" |
 
-- requires：先配置 Octagon MCP（见 `references/mcp-setup.md` 思路），否则无数据源。
-- related：`alpha-vantage-market-data`（行情/新闻情绪数据接入）、其他 Octagon 财报系技能（`earnings-financial-guidance` 指引信心、`price-target-consensus` 目标价共识）。
-- combines_with：`earnings-call-analysis`（全场分析叠加情绪层）、`earnings-qa-analysis`（分析师关切 vs 管理层语气）、`earnings-financial-guidance`（指引 + 信心等级）—— 组合可从「说了什么 + 怎么说」两面交叉验证一份财报会。
+### Challenge Acknowledgment
+| Approach | Interpretation |
+|----------|----------------|
+| Direct acknowledgment + solution | Confident, in control |
+| Acknowledge + context | Transparent, realistic |
+| Minimize + redirect | Possible concern |
+| Avoid or dismiss | Red flag |
 
----
-采编自 OctagonAI/skills（MIT 许可），已做中文适配重写。
+## Sentiment Change Tracking
+
+### Quarter-over-Quarter Comparison
+
+| Metric | Q1 | Q2 | Q3 | Q4 | Trend |
+|--------|----|----|----|----|-------|
+| Overall Sentiment | Optimistic | Very Optimistic | Optimistic | Cautious | Declining |
+| Confidence Level | High | High | Moderate | Low | Declining |
+| Challenge Focus | Low | Low | Medium | High | Rising |
+
+### Inflection Point Indicators
+
+| Signal | Meaning |
+|--------|---------|
+| Sentiment upgrade | Momentum building |
+| Sentiment stable | Steady execution |
+| Sentiment downgrade | Challenges emerging |
+| Tone contradiction | Internal concerns |
+
+## Language Pattern Analysis
+
+### Positive Language Patterns
+- Superlatives: "best," "record," "outstanding"
+- Action verbs: "accelerating," "driving," "expanding"
+- Future focus: "positioned for," "investing in," "building toward"
+- Confidence markers: "confident," "clear," "strong"
+
+### Cautionary Language Patterns
+- Hedging: "may," "could," "potentially"
+- Conditions: "if," "assuming," "subject to"
+- Uncertainty: "evaluating," "monitoring," "watching"
+- Timeframe push: "over time," "longer term," "eventually"
+
+## Use Cases
+
+1. **Sentiment Trading**: Gauge management mood for trading signals
+2. **Earnings Reaction**: Predict stock reaction based on tone
+3. **Management Assessment**: Evaluate leadership confidence
+4. **Trend Tracking**: Monitor sentiment changes over quarters
+5. **Peer Comparison**: Compare tone across competitors
+6. **Risk Assessment**: Identify concerns through language
+
+## Combining with Other Skills
+
+| Skill | Combined Analysis |
+|-------|-------------------|
+| earnings-call-analysis | Full call + sentiment overlay |
+| earnings-analyst-questions | Analyst concerns vs. management tone |
+| stock-price-change | Sentiment vs. price reaction |
+| stock-grades | Sentiment aligned with ratings |
+| earnings-financial-guidance | Guidance + confidence level |
+
+## Analysis Tips
+
+1. **Compare Sections**: Note tone differences between prepared remarks and Q&A
+
+2. **Track Word Frequency**: Count positive vs. negative language
+
+3. **Watch for Shifts**: Compare to prior quarter's tone
+
+4. **Note Contradictions**: When tone doesn't match message
+
+5. **CEO vs. CFO**: Different executives may signal differently
+
+6. **Body Language Equivalent**: Hesitation, deflection = concern
+
+## Interpreting Results
+
+See [references/interpreting-results.md](references/interpreting-results.md) for detailed guidance on analyzing earnings call sentiment.

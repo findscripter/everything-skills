@@ -1,14 +1,14 @@
 ---
 name: interpro-domain-database
-title: InterPro 蛋白结构域数据库
-description: 当需要查蛋白结构域架构、家族归类、跨成员库整合或结构域物种分布时使用；用 requests 直连 EBI InterPro REST API，产出某 UniProt 蛋白的全部 InterPro 条目、家族成员蛋白列表、物种分布与关联 PDB 结构。不适用于取蛋白序列/功能注释（用 uniprot-protein-database）或下载实验三维结构（用结构数据库技能）。触发词：InterPro、IPR、Pfam、结构域架构、蛋白家族
+title: InterPro Database
+description: Query InterPro REST API for protein domain architecture, family classification, and member-DB integration. Search entries, retrieve a protein's domains, list family members, get taxonomic distribution, link to PDB. Unifies Pfam, PANTHER, PIRSF, PRINTS, PROSITE, SMART, CDD, NCBIfam. Use uniprot-protein-database for sequences; pdb-database for 3D structures.
 domain: 领域/science
-triggers: [InterPro, IPR, Pfam, PANTHER, 结构域架构, 蛋白家族, domain architecture, 成员数据库, GO 注释, 物种分布, 结构域, SMART, PROSITE, EBI, UniProt 结构域]
-tags: [science, 蛋白质组学, 结构域, interpro, rest-api, 蛋白家族, 结构生物学]
-level: 进阶
+triggers: [InterPro, IPR, Pfam, PANTHER, domain architecture, SMART, PROSITE, EBI]
+tags: [science, interpro, rest-api]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, requests, pandas, matplotlib]
+tools: []
 requires: []
 related: [uniprot-protein-database, rcsb-pdb-database, string-ppi-database, quickgo-go-database]
 combines_with: [gget-genomic-databases, scientific-database-lookup]
@@ -16,165 +16,700 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# InterPro Database
 
-适用：
+## Overview
 
-- 按 UniProt accession（如 `P04637`）列出某蛋白的全部 InterPro 条目，得到结构域架构（domain/family/site 及位置）。
-- 反查含某结构域/家族的蛋白列表（如 IPR000719 蛋白激酶域），可限 Swiss-Prot reviewed。
-- 查某 InterPro 条目的物种分布（taxonomy），看哪些类群编码该结构域。
-- 把结构域关联到 PDB 实验三维结构（cross-link）。
-- 看某条目由哪些成员库覆盖（Pfam、PANTHER、SMART、CDD、PROSITE…）及其 GO 注释。
-- 不知 accession 时按关键词（如 "serine kinase"）发现 InterPro 条目。
+InterPro is the EBI's integrated protein family, domain, and functional site database. It consolidates signatures from 13 member databases (Pfam, PANTHER, PIRSF, PRINTS, PROSITE, SMART, CDD, NCBIfam, and others) into unified InterPro entries, each describing a homologous superfamily, domain, family, repeat, or conserved site. The REST API at `https://www.ebi.ac.uk/interpro/api/` is free and requires no authentication.
 
-不该用（负边界）：
+## When to Use
 
-- 取蛋白序列、Swiss-Prot 功能注释（活性位点、PTM、疾病关联）、ID 映射——用 `uniprot-protein-database`。
-- 下载实验三维结构文件——InterPro 只给关联的 PDB ID，下结构走结构数据库技能。
-- 生成蛋白语言模型嵌入——用 `protein-language-models`。
-- 下载结构域比对序列 / 建 HMM——直接用 Pfam；InterPro 是元层（meta-layer）。
+- Identifying all domains and families present in a protein by UniProt accession (domain architecture)
+- Searching for proteins that contain a specific domain or belong to a specific family
+- Finding the taxonomic distribution of organisms that encode a given domain or family
+- Cross-linking a domain to experimental 3D structures in the PDB
+- Checking which source databases (Pfam, PANTHER, SMART, etc.) cover an InterPro entry
+- Discovering InterPro entries by keyword (e.g., "kinase domain") when you do not yet know the accession
+- For protein sequence retrieval, functional annotations (GO, pathways, active sites), and ID mapping use `uniprot-protein-database`
+- For downloading domain-aligned sequences or building HMM profiles use `Pfam` directly; InterPro is the meta-layer
 
-InterPro 是 EBI 的整合库，把 13 个成员库（Pfam、PANTHER、PIRSF、PRINTS、PROSITE、SMART、CDD、NCBIfam…）的签名归并为统一 InterPro 条目。REST API：`https://www.ebi.ac.uk/interpro/api/`，**免费、无需鉴权**。
+## Prerequisites
 
-## 步骤 / 指令
+- **Python packages**: `requests`, `pandas`, `matplotlib`
+- **Data requirements**: UniProt accessions (e.g., `P04637`) or InterPro accessions (e.g., `IPR011009`)
+- **Environment**: internet connection; no API key required
+- **Rate limits**: no published hard limit; use `time.sleep(1.0)` between requests for batch queries; paginate with `?cursor=` or `?page_size=`
 
-1. 环境：仅需 `requests`、`pandas`、`matplotlib`。在 pixi/conda 环境用 `pixi run python ...`。
-   ```bash
-   pip install requests pandas matplotlib
-   ```
-2. 统一用 `Accept: application/json` 头与一个薄封装函数（见示例 `interpro_get`），base = `https://www.ebi.ac.uk/interpro/api`。
-3. **取蛋白结构域用专门端点**：`protein/uniprot/{acc}/` 只返回 `{metadata}`（蛋白本身）；条目匹配在 `entry/interpro/protein/uniprot/{acc}/`，键为 `results`，每项含 `metadata` + 嵌套 `proteins[0].entry_protein_locations`（按蛋白的匹配位置）。
-4. **路径反转避免 408**：凡是「条目→蛋白/物种/结构」的列表查询，把 `entry/...` 放后面，否则慢 join 会超时（HTTP 408）：
-   - 条目的蛋白列表：`protein/{db}/entry/interpro/{IPR}/`（**不要** `entry/interpro/{IPR}/protein/{db}/`）
-   - 条目的物种分布：`taxonomy/uniprot/entry/interpro/{IPR}/`
-   - 条目的 PDB 结构：`structure/pdb/entry/interpro/{IPR}/`（**不要** `structure/pdb/?entry_interpro=...`）
-5. **reviewed vs uniprot**：`db` 取 `reviewed`（仅 Swiss-Prot，做家族分析/训练集首选，去噪）或 `uniprot`（全 UniProtKB，含 TrEMBL，量大 5–10×）。
-6. **分页**：列表响应含 `count` 与 `next`（耗尽为 `null`）。大家族（激酶 10000+ 蛋白）必须循环跟 `next` 游标，`page_size` 设 200，落盘中间结果。
-7. **限流自律**：EBI 共享基建无硬限流，批量翻页每页间 `time.sleep(1.0)`。
-8. **优先用 InterPro accession 而非成员库号**：PF00069（Pfam）与 PTHR24340（PANTHER）都建模激酶域但覆盖不同；用父级 `IPR000719` 一次拿到各成员库匹配的并集。
-9. **判读位置看 type**：只有 `domain`/`repeat`/`site` 的 `entry_protein_locations` 有意义；`family`/`homologous_superfamily` 通常跨全长，坐标信息有限。
+```bash
+pip install requests pandas matplotlib
+```
 
-## 示例
-
-薄封装 + 取 TP53 结构域架构（核心范式）：
+## Quick Start
 
 ```python
 import requests
+
 INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
 
-def interpro_get(path, params=None):
-    r = requests.get(f"{INTERPRO_BASE}/{path}", params=params,
-                     headers={"Accept": "application/json"}, timeout=60)
+def interpro_get(path: str, params: dict = None) -> dict:
+    """Send a GET request to the InterPro API and return parsed JSON."""
+    r = requests.get(
+        f"{INTERPRO_BASE}/{path}",
+        params=params,
+        headers={"Accept": "application/json"},
+        timeout=30
+    )
     r.raise_for_status()
     return r.json()
 
-# entry/interpro/protein/uniprot/{acc}/ 返回 {count,next,previous,results}
-data = interpro_get("entry/interpro/protein/uniprot/P04637/")   # TP53
-print(f"InterPro 条目数: {data.get('count')}")
-for e in data["results"][:6]:
+# Get domain architecture for TP53 (P04637)
+# Note: `protein/uniprot/{acc}/` returns only {metadata}; the entries-per-protein
+# data lives at `entry/interpro/protein/uniprot/{acc}/` and is keyed `results`.
+data = interpro_get("entry/interpro/protein/uniprot/P04637/")
+entries = data.get("results", [])
+print(f"InterPro entries for TP53: {data.get('count')}  (this page: {len(entries)})")
+for e in entries[:4]:
     m = e["metadata"]
-    locs = e["proteins"][0].get("entry_protein_locations", []) if e.get("proteins") else []
-    loc = ", ".join(f"{f['start']}-{f['end']}" for L in locs for f in L.get("fragments", []))
-    print(f"  {m['accession']}  {m['type']:<22}  {m['name'][:32]:<32}  [{loc}]")
+    print(f"  {m['accession']}  {m['type']:<25}  {m['name']}")
+# InterPro entries for TP53: 9
+#   IPR002117  family                     p53 tumour suppressor family
+#   IPR036674  homologous_superfamily     p53-like tetramerisation domain superfamily
 ```
 
-关键词搜索条目 + 按 accession 取详情（成员库、GO）：
+## Core API
+
+### Query 1: Entry Search
+
+Search for InterPro entries by name keyword or fetch a specific entry by accession.
 
 ```python
-hits = interpro_get("entry/interpro/",
-                    {"search": "serine kinase", "type": "domain", "page_size": 20})["results"]
-meta = interpro_get("entry/interpro/IPR000719/")["metadata"]
-print(meta["accession"], meta["name"], meta["type"])
-print("成员库:", list(meta.get("member_databases", {}).keys()))   # ['pfam','smart','cdd','ncbifam','panther']
-print("GO:", [g["identifier"] for g in meta.get("go_terms", [])[:3]])
+import requests
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+def search_entries(query: str, entry_type: str = None,
+                   page_size: int = 20) -> list:
+    """Search InterPro entries by keyword; optionally filter by type."""
+    params = {"search": query, "page_size": page_size}
+    if entry_type:
+        params["type"] = entry_type   # family, domain, homologous_superfamily, repeat, site
+    r = requests.get(
+        f"{INTERPRO_BASE}/entry/interpro/",
+        params=params,
+        headers={"Accept": "application/json"},
+        timeout=30
+    )
+    r.raise_for_status()
+    return r.json().get("results", [])
+
+hits = search_entries("serine kinase", entry_type="domain")
+print(f"InterPro domain entries matching 'serine kinase': {len(hits)}")
+for h in hits[:5]:
+    m = h["metadata"]
+    print(f"  {m['accession']}  {m['type']:<10}  {m['name']}")
+# InterPro domain entries matching 'serine kinase': 8
+#   IPR000719  domain    Protein kinase domain
+#   IPR008271  domain    Serine/threonine/tyrosine kinase, active site
 ```
 
-反查家族成员蛋白（路径反转 + 游标分页）：
-
 ```python
-import time
-def get_all_entry_proteins(ipr, reviewed=True):
-    db = "reviewed" if reviewed else "uniprot"
-    url = f"{INTERPRO_BASE}/protein/{db}/entry/interpro/{ipr}/"
-    out, params = [], {"page_size": 200}
-    while url:
-        d = requests.get(url, params=params, headers={"Accept": "application/json"},
-                         timeout=60); d.raise_for_status(); d = d.json()
-        out.extend(d.get("results", []))
-        url, params = d.get("next"), None      # next 已编码好参数
-        if url: time.sleep(1.0)
-    return out
-
-proteins = get_all_entry_proteins("IPR000719")   # 蛋白激酶域，reviewed
+# Fetch a specific InterPro entry by accession
+r = requests.get(
+    f"{INTERPRO_BASE}/entry/interpro/IPR000719/",
+    headers={"Accept": "application/json"},
+    timeout=30
+)
+r.raise_for_status()
+meta = r.json()["metadata"]
+print(f"Accession    : {meta['accession']}")
+print(f"Name         : {meta['name']}")
+print(f"Type         : {meta['type']}")
+print(f"Member DBs   : {list(meta.get('member_databases', {}).keys())}")
+go_terms = meta.get("go_terms", [])
+print(f"GO terms     : {[g['identifier'] for g in go_terms[:3]]}")
+# Accession    : IPR000719
+# Name         : Protein kinase domain
+# Type         : domain
+# Member DBs   : ['pfam', 'smart', 'cdd', 'ncbifam', 'panther']
+# GO terms     : ['GO:0004672', 'GO:0005524', 'GO:0006468']
 ```
 
-物种分布（小条目；激酶 IPR000719 太大会 408，回退到子家族）：
+### Query 2: Protein Domain Architecture
+
+Retrieve all InterPro entries (domains, families, sites) matched in a protein by UniProt accession.
 
 ```python
-taxa = interpro_get("taxonomy/uniprot/entry/interpro/IPR011615/",   # p53 DNA 结合域
-                    {"page_size": 50})["results"]
-for t in taxa[:8]:
-    m = t["metadata"]   # accession=taxId, name, rank
-    print(f"  taxId={m['accession']:>8}  {m.get('name',''):<28}  rank={m.get('rank') or 'n/a'}")
+import requests
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+def get_protein_domain_architecture(uniprot_acc: str) -> dict:
+    """Return all InterPro entry matches for a protein. Uses the
+    `entry/interpro/protein/uniprot/{acc}/` endpoint, which returns
+    {count, next, previous, results}. Each result has metadata + a
+    nested `proteins[0].entry_protein_locations` for the per-protein match."""
+    r = requests.get(
+        f"{INTERPRO_BASE}/entry/interpro/protein/uniprot/{uniprot_acc}/",
+        headers={"Accept": "application/json"},
+        timeout=60
+    )
+    r.raise_for_status()
+    return r.json()
+
+data = get_protein_domain_architecture("P04637")   # TP53
+results = data.get("results", [])
+# Pull length/source from the first match's nested protein record
+prot0 = results[0]["proteins"][0] if results and results[0].get("proteins") else {}
+print(f"Protein length : {prot0.get('protein_length')}")
+print(f"Source DB      : {prot0.get('source_database')}")
+print(f"InterPro entries: {data.get('count')}")
+for entry in results[:6]:
+    m = entry["metadata"]
+    # Locations are nested under proteins[0].entry_protein_locations
+    locs = entry["proteins"][0].get("entry_protein_locations", []) if entry.get("proteins") else []
+    loc_str = ", ".join(
+        f"{frag['start']}-{frag['end']}"
+        for loc in locs for frag in loc.get("fragments", [])
+    )
+    print(f"  {m['accession']}  {m['type']:<25}  {m['name'][:35]:<35}  [{loc_str}]")
 ```
 
-关联 PDB 结构（按分辨率排序）：
-
 ```python
+# Compare domain architectures of two proteins side-by-side
 import pandas as pd
-structs = interpro_get("structure/pdb/entry/interpro/IPR011009/",   # 激酶样超家族
-                       {"page_size": 200})["results"]
-df = pd.DataFrame({"pdb": s["metadata"]["accession"].upper(),
-                   "resolution": s["metadata"].get("resolution"),
-                   "exp": s["metadata"].get("experiment_type","")} for s in structs)
-df = df.dropna(subset=["resolution"]).sort_values("resolution")
-print(df.head(10).to_string(index=False))
+
+def domain_set(uniprot_acc: str) -> set:
+    data = get_protein_domain_architecture(uniprot_acc)
+    return {e["metadata"]["accession"] for e in data.get("results", [])}
+
+brca1_domains = domain_set("P38398")   # BRCA1
+tp53_domains   = domain_set("P04637")  # TP53
+
+shared = brca1_domains & tp53_domains
+unique_brca1 = brca1_domains - tp53_domains
+unique_tp53  = tp53_domains - brca1_domains
+print(f"Shared InterPro entries: {len(shared)}")
+print(f"BRCA1-unique           : {len(unique_brca1)}")
+print(f"TP53-unique            : {len(unique_tp53)}")
 ```
 
-工作流：多蛋白结构域矩阵：
+### Query 3: Entry Proteins
+
+List proteins that contain a specific InterPro entry (family or domain).
 
 ```python
-rows = []
-for acc in ["P04637", "P38398", "Q00987", "P10415"]:   # TP53,BRCA1,MDM2,BCL2
-    d = interpro_get(f"entry/interpro/protein/uniprot/{acc}/")
-    for e in d.get("results", []):
-        m = e["metadata"]
-        rows.append({"protein": acc, "accession": m["accession"], "type": m["type"]})
-    time.sleep(1.0)
-df = pd.DataFrame(rows)
-pivot = df[df.type=="domain"].pivot_table(index="protein", columns="accession",
-                                          aggfunc="size", fill_value=0)
-pivot.to_csv("domain_architecture_matrix.csv")
+import requests, time
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+def get_entry_proteins(interpro_acc: str, reviewed_only: bool = True,
+                       page_size: int = 50) -> list:
+    """Return proteins (UniProt) containing a given InterPro entry.
+    Path order is `/protein/{db}/entry/interpro/{IPR}/` — the inverse
+    `entry/interpro/{IPR}/protein/{db}/` times out (408) on large families."""
+    db = "reviewed" if reviewed_only else "uniprot"
+    r = requests.get(
+        f"{INTERPRO_BASE}/protein/{db}/entry/interpro/{interpro_acc}/",
+        params={"page_size": page_size},
+        headers={"Accept": "application/json"},
+        timeout=60
+    )
+    r.raise_for_status()
+    return r.json().get("results", [])
+
+proteins = get_entry_proteins("IPR011009")   # Protein kinase-like domain SF
+print(f"Reviewed proteins with IPR011009 (page 1): {len(proteins)}")
+for p in proteins[:4]:
+    m = p["metadata"]
+    # metadata fields: accession, gene, length, name, source_database, source_organism
+    print(f"  {m['accession']}  {(m.get('gene') or ''):<8}  "
+          f"len={m.get('length', '?')}  "
+          f"org={(m.get('source_organism') or {}).get('scientificName', '')[:30]}")
 ```
 
-## 注意事项
+```python
+# Paginate all proteins for a family using cursor
+def get_all_entry_proteins(interpro_acc: str,
+                            reviewed_only: bool = True) -> list:
+    INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+    db = "reviewed" if reviewed_only else "uniprot"
+    # Path-inverted: /protein/{db}/entry/interpro/{IPR}/ is the working order
+    url = f"{INTERPRO_BASE}/protein/{db}/entry/interpro/{interpro_acc}/"
+    all_proteins = []
+    params = {"page_size": 200}
+    while url:
+        r = requests.get(url, params=params,
+                         headers={"Accept": "application/json"}, timeout=60)
+        r.raise_for_status()
+        data = r.json()
+        all_proteins.extend(data.get("results", []))
+        url = data.get("next")
+        params = None   # next URL already has params encoded
+        if url:
+            time.sleep(1.0)
+    return all_proteins
 
-InterPro 五种条目类型（type 决定匹配的生物学含义）：`family`（共同祖先+功能的同源蛋白组，如 IPR000719 蛋白激酶）、`domain`（可在多蛋白语境出现的结构功能单元，如 IPR011009 激酶样超家族）、`homologous_superfamily`（结构相似但序列已分化）、`repeat`（蛋白内多次重复的短单元，如 IPR001440 TPR）、`site`（活性/结合/PTM 短保守 motif，如 IPR008271）。
+proteins = get_all_entry_proteins("IPR000719")   # Protein kinase domain
+print(f"Total reviewed proteins with protein kinase domain: {len(proteins)}")
+```
 
-成员库前缀：Pfam=PF（profile HMM）、PANTHER=PTHR、PIRSF=PIRSF、PRINTS=PR、PROSITE=PS（pattern/profile）、SMART=SM、CDD=cd（PSSM）、NCBIfam=NF。InterPro 号（IPR…）是统一元条目。
+### Query 4: Entry Taxonomy
 
-关键参数：`search`（关键词，仅 `entry/interpro/`）、`type`（`family`/`domain`/`homologous_superfamily`/`repeat`/`site`）、`page_size`（1–200，默认 20）、`source_database`（`reviewed`/`uniprot`/`trembl`）、`next`（游标，用响应里的完整 URL）、`relations`（`contains`/`contained_by`/`child_of`/`parent_of`，遍历层级）。
+Get the taxonomic distribution of proteins annotated with a given InterPro entry.
 
-常见排错：
+```python
+import requests
 
-- 蛋白查询 HTTP 404：accession 在 InterPro 不存在；isoform（P12345-2）可能未单独索引。
-- 蛋白条目列表为空：该蛋白无 InterPro 匹配（如内在无序蛋白），属正常，去 UniProt 核对。
-- `protein/uniprot/{acc}/` 只返回 `metadata` 没条目：用错端点——改 `entry/interpro/protein/uniprot/{acc}/` 读 `results`。
-- `entry/interpro/{IPR}/protein/...` 或 `structure/pdb/?entry_interpro=...` 408/卡死：join 顺序问题——反转为 `protein/{db}/entry/interpro/{IPR}/`、`structure/pdb/entry/interpro/{IPR}/`。
-- 物种端点对超大家族（IPR000719 激酶 ~270k taxa）仍 408：回退到更具体的子家族条目（如 IPR011615）。
-- 条目搜索 HTTP 400：`type` 值非法——只能用上述五种。
-- 分页提前停（`next` 早于预期为 `null`）：正常，结果已取完。
-- `ConnectionError`/`Timeout`：EBI 偶有短暂宕机——指数退避重试。
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
 
-参考：[InterPro REST API 文档](https://interpro-documentation.readthedocs.io/en/latest/api.html)、[InterPro 门户](https://www.ebi.ac.uk/interpro/)、[Blum et al., NAR 2021](https://doi.org/10.1093/nar/gkaa977)、[Paysan-Lafosse et al., NAR 2023](https://doi.org/10.1093/nar/gkac993)。
+def get_entry_taxonomy(interpro_acc: str,
+                        page_size: int = 50) -> list:
+    """Return taxonomic summary for proteins in a given InterPro entry.
+    Path-inverted: `/taxonomy/uniprot/entry/interpro/{IPR}/`. Each result
+    has `metadata` (taxon: accession=taxId, name, parent, children, rank)
+    and `entries[]` (representative protein-match locations for that taxon)."""
+    r = requests.get(
+        f"{INTERPRO_BASE}/taxonomy/uniprot/entry/interpro/{interpro_acc}/",
+        params={"page_size": page_size},
+        headers={"Accept": "application/json"},
+        timeout=90
+    )
+    r.raise_for_status()
+    return r.json().get("results", [])
 
-## 互见
+# Use a smaller entry (p53 DBD); IPR000719 (kinase) has ~270k taxa and times out.
+taxa = get_entry_taxonomy("IPR011615")
+print(f"Top taxa for IPR011615 (p53 DNA-binding domain):")
+for t in taxa[:8]:
+    m = t["metadata"]
+    print(f"  taxId={m['accession']:>10}  {m.get('name', ''):<30}  "
+          f"rank={m.get('rank') or 'n/a'}")
+```
 
-- `uniprot-protein-database` — 蛋白序列、Swiss-Prot 功能注释、ID 映射；与本技能互为输入输出。
-- `protein-language-models` — 用 InterPro 锁定蛋白家族后，生成序列嵌入做下游分析。
-- `alphafold-database-access` — InterPro 给的 UniProt accession 可直接拉 AlphaFold 预测结构。
-- `scientific-database-lookup` — 通用科学数据库检索入口，不确定查哪个库时先走它。
+### Query 5: Structure Integration
 
----
+Retrieve PDB structures associated with an InterPro entry.
 
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+```python
+import requests
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+def get_entry_structures(interpro_acc: str, page_size: int = 25) -> list:
+    """Return PDB structures that include a match to a given InterPro entry.
+    Path-inverted: `/structure/pdb/entry/interpro/{IPR}/`. The flat form with
+    `?entry_interpro=...` is silently slow / 408s on this resource."""
+    r = requests.get(
+        f"{INTERPRO_BASE}/structure/pdb/entry/interpro/{interpro_acc}/",
+        params={"page_size": page_size},
+        headers={"Accept": "application/json"},
+        timeout=60
+    )
+    r.raise_for_status()
+    return r.json().get("results", [])
+
+structures = get_entry_structures("IPR011009")   # Protein kinase-like SF
+print(f"PDB structures linked to IPR011009 (page 1): {len(structures)}")
+for s in structures[:5]:
+    m = s["metadata"]
+    print(f"  {m['accession'].upper()}  resolution={m.get('resolution', 'N/A')} Å  "
+          f"experiment={m.get('experiment_type', 'N/A')}")
+# PDB structures linked to IPR011009: ~8,000+
+#   1A06  resolution=2.5 Å  experiment=x-ray
+#   ...
+```
+
+### Query 6: Domain Sequence Retrieval
+
+Download the FASTA sequences of proteins in an InterPro family for alignment or phylogenetics.
+
+```python
+import requests, time
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+def get_family_fasta(interpro_acc: str,
+                      reviewed_only: bool = True,
+                      max_sequences: int = 100) -> str:
+    """Retrieve FASTA sequences for proteins in an InterPro entry."""
+    db = "reviewed" if reviewed_only else "uniprot"
+    proteins = []
+    # Path-inverted: protein-list-for-entry is /protein/{db}/entry/interpro/{IPR}/
+    url = f"{INTERPRO_BASE}/protein/{db}/entry/interpro/{interpro_acc}/"
+    params = {"page_size": min(max_sequences, 200)}
+    while url and len(proteins) < max_sequences:
+        r = requests.get(url, params=params,
+                         headers={"Accept": "application/json"}, timeout=60)
+        r.raise_for_status()
+        data = r.json()
+        proteins.extend(data.get("results", []))
+        url = data.get("next") if len(proteins) < max_sequences else None
+        params = None
+        if url:
+            time.sleep(1.0)
+
+    # Fetch FASTA from UniProt for each accession
+    accessions = [p["metadata"]["accession"] for p in proteins[:max_sequences]]
+    fasta_url = "https://rest.uniprot.org/uniprotkb/stream"
+    query = " OR ".join(f"accession:{acc}" for acc in accessions)
+    r = requests.get(fasta_url,
+                     params={"query": query, "format": "fasta"},
+                     timeout=120)
+    r.raise_for_status()
+    return r.text
+
+fasta = get_family_fasta("IPR000719", reviewed_only=True, max_sequences=20)
+seq_count = fasta.count(">")
+print(f"FASTA sequences retrieved: {seq_count}")
+print(fasta[:300])   # preview first sequence header + start
+```
+
+## Key Concepts
+
+### InterPro Entry Types
+
+InterPro classifies entries into five types. The type determines what biological relationship the match implies:
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `family` | Homologous group of proteins sharing common ancestry and function | IPR000719 (Protein kinase) |
+| `domain` | Discrete structural and functional unit that can occur in multiple protein contexts | IPR011009 (Protein kinase-like SF) |
+| `homologous_superfamily` | Structurally similar domains that may have diverged in sequence | IPR011993 (Pleckstrin-like) |
+| `repeat` | Short, repeated sequence unit that occurs multiple times within a protein | IPR001440 (TPR repeat) |
+| `site` | Short conserved motif: active site, binding site, or post-translational modification site | IPR008271 (Ser/Thr kinase active site) |
+
+### Member Database Hierarchy
+
+Each InterPro entry integrates signatures from one or more member databases. The InterPro accession (`IPR...`) is the unified meta-entry; member database accessions point to the underlying models:
+
+| Member DB | Accession prefix | Modeling approach |
+|-----------|-----------------|-------------------|
+| Pfam | PF | Hidden Markov Models (profile HMMs) |
+| PANTHER | PTHR | Phylogenetic trees + HMMs |
+| PIRSF | PIRSF | Full-length HMMs |
+| PRINTS | PR | Fingerprint motif groups |
+| PROSITE | PS | Patterns and profiles |
+| SMART | SM | HMMs with database integration |
+| CDD | cd | Position-specific scoring matrices (PSSMs) |
+| NCBIfam | NF | NCBI-curated HMMs |
+
+### Pagination
+
+The InterPro API paginates results at the collection level. Each response includes a `next` URL (or `null` when exhausted) and a `count` field. For large families (e.g., kinases: 10,000+ proteins) always iterate using the `next` cursor.
+
+```python
+import requests, time
+
+def iterate_interpro(url: str, page_size: int = 200) -> list:
+    """Generic paginator for any InterPro list endpoint."""
+    results = []
+    params = {"page_size": page_size}
+    while url:
+        r = requests.get(url, params=params,
+                         headers={"Accept": "application/json"}, timeout=60)
+        r.raise_for_status()
+        data = r.json()
+        results.extend(data.get("results", []))
+        url = data.get("next")
+        params = None
+        if url:
+            time.sleep(1.0)
+    return results
+```
+
+## Common Workflows
+
+### Workflow 1: Domain Architecture Report for a Protein Set
+
+**Goal**: Retrieve all InterPro domains for a list of proteins and produce a summary table showing which domains each protein carries.
+
+```python
+import requests, time, pandas as pd
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+def get_domains(uniprot_acc: str) -> list:
+    """List InterPro entries for a protein. Uses the
+    `entry/interpro/protein/uniprot/{acc}/` endpoint (keyed `results`)."""
+    r = requests.get(
+        f"{INTERPRO_BASE}/entry/interpro/protein/uniprot/{uniprot_acc}/",
+        headers={"Accept": "application/json"}, timeout=60
+    )
+    if r.status_code == 404:
+        return []
+    r.raise_for_status()
+    data = r.json()
+    return [
+        {
+            "protein": uniprot_acc,
+            "accession": e["metadata"]["accession"],
+            "name": e["metadata"]["name"],
+            "type": e["metadata"]["type"],
+            "source_db": list(e["metadata"].get("member_databases", {}).keys()),
+        }
+        for e in data.get("results", [])
+    ]
+
+proteins = ["P04637", "P38398", "Q00987", "P10415"]  # TP53, BRCA1, MDM2, BCL2
+rows = []
+for acc in proteins:
+    rows.extend(get_domains(acc))
+    time.sleep(1.0)
+
+df = pd.DataFrame(rows)
+print(f"Total domain matches: {len(df)}")
+print(df.groupby(["protein", "type"])["accession"].count().unstack(fill_value=0))
+
+# Pivot: proteins × domain accessions
+pivot = df[df["type"] == "domain"].pivot_table(
+    index="protein", columns="accession", aggfunc="size", fill_value=0
+)
+pivot.to_csv("domain_architecture_matrix.csv")
+print(f"\nDomain × protein matrix: {pivot.shape}")
+```
+
+### Workflow 2: Find Kinase Family Members with PDB Structures
+
+**Goal**: Retrieve proteins in a kinase domain family that have experimental structures in the PDB, ranked by resolution.
+
+```python
+import requests, time, pandas as pd
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+# Step 1: Get PDB structures linked to the protein kinase-like SF entry.
+# Use the path-inverted form; the flat `?entry_interpro=` filter 408s.
+r = requests.get(
+    f"{INTERPRO_BASE}/structure/pdb/entry/interpro/IPR011009/",
+    params={"page_size": 200},
+    headers={"Accept": "application/json"}, timeout=60
+)
+r.raise_for_status()
+structures = r.json().get("results", [])
+print(f"PDB structures with IPR011009 (kinase-like SF, page 1): {len(structures)}")
+
+rows = []
+for s in structures:
+    m = s["metadata"]
+    rows.append({
+        "pdb_id": m["accession"],
+        "resolution": m.get("resolution"),
+        "experiment": m.get("experiment_type", ""),
+        "name": m.get("name", ""),
+    })
+
+df = pd.DataFrame(rows)
+df = df.dropna(subset=["resolution"]).sort_values("resolution")
+print(f"\nTop 10 highest-resolution kinase structures:")
+print(df[["pdb_id", "resolution", "experiment", "name"]].head(10).to_string(index=False))
+df.to_csv("kinase_structures.csv", index=False)
+print(f"\nSaved kinase_structures.csv ({len(df)} X-ray / cryo-EM structures)")
+```
+
+### Workflow 3: Taxonomic Coverage Bar Chart for a Domain
+
+**Goal**: Visualize how many reviewed proteins in each major kingdom carry a given InterPro domain.
+
+```python
+import requests, time
+import pandas as pd
+import matplotlib.pyplot as plt
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+def get_taxonomy_counts(interpro_acc: str, page_size: int = 100,
+                        max_pages: int = 5) -> pd.DataFrame:
+    """Walk the taxonomy results for an InterPro entry. The API does not
+    expose a per-taxon protein count at this endpoint — instead each
+    paged record is one (taxon × representative protein-match) row.
+    Aggregate client-side by taxon name to approximate frequency."""
+    rows, url = [], f"{INTERPRO_BASE}/taxonomy/uniprot/entry/interpro/{interpro_acc}/"
+    params = {"page_size": page_size}
+    for _ in range(max_pages):
+        if not url:
+            break
+        r = requests.get(url, params=params,
+                         headers={"Accept": "application/json"}, timeout=90)
+        r.raise_for_status()
+        data = r.json()
+        for t in data.get("results", []):
+            m = t["metadata"]
+            rows.append({
+                "taxon_id": m["accession"],
+                "name": m.get("name", ""),
+                "rank": m.get("rank") or "",
+            })
+        url = data.get("next")
+        params = None
+        if url:
+            time.sleep(1.0)
+    return pd.DataFrame(rows)
+
+IPR_ACC = "IPR011615"   # p53 DNA-binding domain (smaller; kinase 408s)
+df = get_taxonomy_counts(IPR_ACC, max_pages=3)
+print(f"Tax entries pulled for {IPR_ACC}: {len(df)}")
+
+# Aggregate by name and take top 15 (each row = one rep. protein-match)
+top = (df.groupby("name").size().sort_values(ascending=False).head(15)
+       .reset_index(name="rep_matches"))
+fig, ax = plt.subplots(figsize=(10, 5))
+bars = ax.barh(top["name"], top["rep_matches"], color="#2171B5")
+ax.bar_label(bars, fmt="%d", padding=3, fontsize=8)
+ax.set_xlabel("Representative protein-matches")
+ax.set_title(f"Taxonomic distribution of {IPR_ACC} (p53 DNA-binding domain)")
+ax.invert_yaxis()
+plt.tight_layout()
+plt.savefig(f"{IPR_ACC}_taxonomy.png", dpi=150, bbox_inches="tight")
+print(f"Saved {IPR_ACC}_taxonomy.png")
+```
+
+## Key Parameters
+
+| Parameter | Endpoint | Default | Range / Options | Effect |
+|-----------|----------|---------|-----------------|--------|
+| `search` | `entry/interpro/` | — | free-text string | Keyword filter on entry name and short name |
+| `type` | `entry/interpro/` | all types | `family`, `domain`, `homologous_superfamily`, `repeat`, `site` | Filter entries by InterPro type |
+| `page_size` | all list endpoints | `20` | `1`–`200` | Results returned per page |
+| `entry_interpro` | `structure/pdb/` | — | `IPR######` | Filter structures by linked InterPro entry |
+| `source_database` | `protein/` | — | `reviewed`, `uniprot`, `trembl` | Filter proteins by UniProt curation level |
+| `reviewed` (URL path) | `entry/{ipr}/{acc}/protein/` | uniprot | `reviewed`, `uniprot` | Swiss-Prot reviewed only vs all UniProtKB |
+| `relations` | `entry/interpro/{acc}/` | — | `contains`, `contained_by`, `child_of`, `parent_of` | Navigate the InterPro hierarchy |
+| `next` | all list endpoints | — | URL from response | Cursor-based pagination; use the full URL from the `next` field |
+
+## Best Practices
+
+1. **Use `reviewed` proteins for curated domain lists**: The unreviewed TrEMBL set is 5–10× larger and contains automated predictions. For benchmarking, family analysis, or training sets, restrict to `reviewed` (Swiss-Prot) entries to avoid noise from unreviewed predictions.
+
+2. **Chunk large taxonomy or protein lists**: Retrieving all 10,000+ proteins for a broad family like the protein kinase superfamily can take minutes and produce large payloads. Limit queries with `page_size=200` and the `next` cursor; store intermediate results to disk.
+
+3. **Add `time.sleep(1.0)` between paginated calls**: The InterPro API is shared EBI infrastructure with no published rate limit. A 1-second pause per page is a safe minimum for batch scripts.
+
+4. **Prefer InterPro accessions over member DB accessions for cross-database queries**: A Pfam PF00069 and PANTHER PTHR24340 both model kinase domains but with different protein coverage. Using the parent InterPro `IPR000719` gives the union of all member DB matches in one query.
+
+5. **Check `type` before interpreting `entry_protein_locations`**: Only `domain`, `repeat`, and `site` entries carry meaningful position information. `family` and `homologous_superfamily` entries typically span the full protein and their coordinates are less informative.
+
+## Common Recipes
+
+### Recipe: Quick Domain Check for a Protein
+
+When to use: Given a UniProt accession, rapidly list which InterPro domains it contains.
+
+```python
+import requests
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+def list_protein_domains(uniprot_acc: str) -> list:
+    """Return list of (accession, type, name) tuples for a protein."""
+    r = requests.get(
+        f"{INTERPRO_BASE}/entry/interpro/protein/uniprot/{uniprot_acc}/",
+        headers={"Accept": "application/json"}, timeout=60
+    )
+    r.raise_for_status()
+    return [
+        (e["metadata"]["accession"], e["metadata"]["type"], e["metadata"]["name"])
+        for e in r.json().get("results", [])
+    ]
+
+domains = list_protein_domains("P00533")   # EGFR
+print(f"InterPro entries in EGFR (P00533): {len(domains)}")
+for acc, etype, name in domains:
+    print(f"  {acc}  {etype:<25}  {name}")
+# InterPro entries in EGFR (P00533): 10
+#   IPR009030  homologous_superfamily   Growth factor receptor, cysteine-rich
+#   IPR000719  domain                   Protein kinase domain
+```
+
+### Recipe: Find All Proteins in a Family with Source DB Coverage
+
+When to use: Map how many proteins in a domain family are covered by each member database (Pfam vs PANTHER vs SMART, etc.).
+
+```python
+import requests, time
+import pandas as pd
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+interpro_acc = "IPR000719"   # Protein kinase domain
+r = requests.get(
+    f"{INTERPRO_BASE}/entry/interpro/{interpro_acc}/",
+    headers={"Accept": "application/json"}, timeout=30
+)
+r.raise_for_status()
+member_dbs = r.json()["metadata"].get("member_databases", {})
+print(f"Member databases for {interpro_acc}:")
+for db, details in member_dbs.items():
+    print(f"  {db}: {details}")
+
+# Visualize member database source breakdown
+labels = list(member_dbs.keys())
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.bar(labels, [1] * len(labels), color="#4472C4")   # presence/absence per DB
+ax.set_ylabel("Integrated (1=yes)")
+ax.set_title(f"Member databases in {interpro_acc}")
+plt.tight_layout()
+plt.savefig(f"{interpro_acc}_member_dbs.png", dpi=150, bbox_inches="tight")
+```
+
+### Recipe: Get GO Terms for an InterPro Entry
+
+When to use: Bridge from structural domain to functional GO annotation.
+
+```python
+import requests
+
+INTERPRO_BASE = "https://www.ebi.ac.uk/interpro/api"
+
+def get_go_terms_for_entry(interpro_acc: str) -> list:
+    """Return GO terms associated with an InterPro entry."""
+    r = requests.get(
+        f"{INTERPRO_BASE}/entry/interpro/{interpro_acc}/",
+        headers={"Accept": "application/json"}, timeout=30
+    )
+    r.raise_for_status()
+    go_terms = r.json()["metadata"].get("go_terms", [])
+    return [
+        {"id": g["identifier"], "name": g["name"],
+         "category": g.get("category", {}).get("name", "")}
+        for g in go_terms
+    ]
+
+go_terms = get_go_terms_for_entry("IPR000719")
+print(f"GO terms for IPR000719 (protein kinase domain): {len(go_terms)}")
+for g in go_terms:
+    print(f"  {g['id']}  [{g['category'][:2].upper()}]  {g['name']}")
+# GO terms for IPR000719 (protein kinase domain): 3
+#   GO:0004672  [MO]  protein kinase activity
+#   GO:0005524  [MO]  ATP binding
+#   GO:0006468  [BI]  protein phosphorylation
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `HTTP 404` on protein lookup | Accession not found in InterPro | Verify the UniProt accession exists; isoform accessions (P12345-2) may not be indexed separately |
+| Empty entries list for a protein | Protein has no InterPro matches (e.g., intrinsically disordered) | Check UniProt directly; not all proteins have classified domains |
+| `protein/uniprot/{acc}/` returns only `metadata` (no entries) | That endpoint is *protein-only*; entry matches live elsewhere | Use `entry/interpro/protein/uniprot/{acc}/` and read the `results[]` key |
+| `entry/interpro/{IPR}/protein/{db}/` returns 408 / hangs | The path with `entry/...` first does a slow join | Invert the path: `protein/{db}/entry/interpro/{IPR}/` |
+| `structure/pdb/?entry_interpro={IPR}` times out (408) | Same join order issue | Use `structure/pdb/entry/interpro/{IPR}/` |
+| `entry/interpro/{IPR}/taxonomy/uniprot/` 408s for large families | Same | Use `taxonomy/uniprot/entry/interpro/{IPR}/`; for very large entries (e.g. IPR000719 kinase) the inverted form may still 408 — fall back to a more specific sub-family entry |
+| `HTTP 400` on entry search | Invalid query parameters or unsupported `type` value | Use one of: `family`, `domain`, `homologous_superfamily`, `repeat`, `site` |
+| Pagination stops early | `next` is `null` before expected count | This is correct; all results have been returned |
+| Very slow response for large families | Protein set has thousands of members | Increase `page_size` to `200`; persist results after each page |
+| `ConnectionError` or `Timeout` | Transient network or server issue | Retry with exponential backoff; EBI services occasionally have brief downtimes |
+| Member DB accessions missing | Entry is new and member DB integration is pending | Use the InterPro accession for queries; member DB-level details update with each release |
+
+## Related Skills
+
+- `uniprot-protein-database` — UniProt REST API for protein sequences, Swiss-Prot functional annotations (active sites, PTMs, disease associations), and ID mapping
+- `esm-protein-language-model` — Generate protein language model embeddings for sequences; useful after identifying a protein family with InterPro
+- `pdb-database` — Retrieve and download experimental 3D structures by PDB ID; cross-reference structure IDs discovered via InterPro structure queries
+
+## References
+
+- [InterPro REST API documentation](https://interpro-documentation.readthedocs.io/en/latest/api.html) — Endpoint reference, filters, and example queries
+- [Blum et al., Nucleic Acids Research 2021](https://doi.org/10.1093/nar/gkaa977) — InterPro flagship paper describing member database integration
+- [InterPro web portal](https://www.ebi.ac.uk/interpro/) — Interactive protein domain browser
+- [Paysan-Lafosse et al., Nucleic Acids Research 2023](https://doi.org/10.1093/nar/gkac993) — InterPro 2023 update describing new entry types and member databases

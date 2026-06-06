@@ -1,14 +1,14 @@
 ---
 name: ffuf-web-fuzzing
-title: ffuf Web 模糊测试
-description: 当在授权渗透测试中用 ffuf 做 Web 模糊测试（目录/文件发现、子域枚举、参数/POST/请求头模糊、带认证原始请求 IDOR）时使用；做命令构造、自动校准降噪、过滤匹配与结果分析，产出可执行命令与 JSON/HTML/CSV 结果。不适用于未授权目标或非 Web/二进制模糊。触发词：ffuf、Web 模糊测试、目录爆破
+title: FFUF (Fuzz Faster U Fool) Skill
+description: Expert guidance for ffuf web fuzzing during penetration testing, including authenticated fuzzing with raw requests, auto-calibration, and result analysis
 domain: 安全/appsec
-triggers: [ffuf, Web 模糊测试, 目录爆破, 内容发现, 子域枚举, 参数 fuzzing, 认证模糊测试, IDOR 测试, FUZZ 关键字, 自动校准 -ac]
-tags: [安全, misc, 渗透测试, ffuf, web 模糊测试, 内容发现, 子域枚举, idor]
-level: 进阶
+triggers: [ffuf]
+tags: [misc, ffuf, idor]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [ffuf, Bash, SecLists, Burp Suite]
+tools: []
 requires: []
 related: [burp-suite-testing, api-fuzzing-bug-bounty, red-team-recon, path-traversal-testing]
 combines_with: [red-team-recon, burp-suite-testing, penetration-testing-methodology]
@@ -16,110 +16,506 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# FFUF (Fuzz Faster U Fool) Skill
 
-- 在**已获授权**的渗透测试 / 安全评估中，用 `ffuf` 对 Web 目标做模糊测试。
-- 任务涉及：目录与文件发现、子域（虚拟主机）枚举、参数名/参数值模糊、POST/JSON 数据模糊、请求头模糊、带认证的原始请求模糊（典型如 IDOR：遍历用户/文档 ID）。
-- 需要词表选型、过滤/匹配、自动校准降噪与结果解读的指导。
+## When to Use
+- You are fuzzing web targets with `ffuf` during authorized security testing or penetration testing.
+- The task involves content discovery, subdomain enumeration, parameter fuzzing, or authenticated request fuzzing.
+- You need guidance on wordlists, filtering, calibration, and interpreting ffuf results efficiently.
 
-**不该用边界：**
-- 未获书面授权的目标——不要扫描，先停下确认授权与范围。
-- 非 Web 场景（二进制/协议 fuzzing、源码审计）不适用。
-- 不要把 ffuf 输出当作漏洞确认的最终结论，需结合人工与环境验证。
-- 缺少目标 URL、词表、授权范围或成功标准时，先问清再动手。
+## Overview
+FFUF is a fast web fuzzer written in Go, designed for discovering hidden content, directories, files, subdomains, and testing for vulnerabilities during penetration testing. It's significantly faster than traditional tools like dirb or dirbuster.
 
-## 步骤
-
-1. 确认授权范围，准备 SecLists 词表（见「指令」）。
-2. 先发一次基线请求，观察默认响应的状态码/大小/行数，作为过滤依据。
-3. 把 `FUZZ`（区分大小写）放到要模糊的位置：URL 路径、请求头、POST body 或子域。
-4. **默认加 `-ac` 自动校准**降噪；按基线用 `-fs`/`-fc`/`-fr` 进一步过滤。
-5. 生产目标加限速隐身：`-rate`、`-t`、`-p`。
-6. 输出存盘（`-o results.json`）便于后续分析；关注异常项（不同状态码/大小/耗时、admin/api/backup/.git 等敏感端点）。
-7. 带认证场景改用原始请求文件 `--request req.txt`（见示例）。
-
-## 指令
-
-**安装：**
+## Installation
 ```bash
-go install github.com/ffuf/ffuf/v2@latest   # Go
-brew install ffuf                            # macOS
-# 或下载 https://github.com/ffuf/ffuf/releases/latest
+# Using Go
+go install github.com/ffuf/ffuf/v2@latest
+
+# Using Homebrew (macOS)
+brew install ffuf
+
+# Binary download
+# Download from: https://github.com/ffuf/ffuf/releases/latest
 ```
 
-**FUZZ 关键字**可放任意位置；多词表用 `-w 表.txt:关键字` 自定义关键字。多词表模式：`clusterbomb`（笛卡尔积，默认）/`pitchfork`（并行 1:1）/`sniper`（单点逐位）。
+## Core Concepts
 
-**匹配（保留）：** `-mc` 状态码 `-ms` 大小 `-ml` 行数 `-mw` 词数 `-mr` 正则 `-mt` 耗时
-**过滤（剔除）：** `-fc` 状态码 `-fs` 大小 `-fl` 行数 `-fw` 词数 `-fr` 正则 `-ft` 耗时
+### The FUZZ Keyword
+The `FUZZ` keyword is used as a placeholder that gets replaced with entries from your wordlist. You can place it anywhere:
+- URLs: `https://target.com/FUZZ`
+- Headers: `-H "Host: FUZZ"`
+- POST data: `-d "username=admin&password=FUZZ"`
+- Multiple locations with custom keywords: `-w wordlist.txt:CUSTOM` then use `CUSTOM` instead of `FUZZ`
 
-**自动校准（默认必加）：** `-ac` 自动识别并过滤重复假阳性；多主机用 `-ach`；自定义模式 `-acc "404NotFound"`。无 `-ac` 时结果会被成千上万的 404/403 噪声淹没，分析极困难。
+### Multi-wordlist Modes
+- **clusterbomb**: Tests all combinations (default) - cartesian product
+- **pitchfork**: Iterates through wordlists in parallel (1-to-1 matching)
+- **sniper**: Tests one position at a time (for multiple FUZZ positions)
 
-**限速与时限：** `-rate 2`（每秒请求数）`-t 10`（线程，默认 40）`-p 0.1-2.0`（随机延迟）`-maxtime 60` `-maxtime-job 60`（配合递归）。
+## Common Use Cases
 
-**输出：** `-o results.json`；`-of html|csv|all`；`-s` 静默；`-c -v` 彩色详细。
-
-**代理/认证/编码：** `-x http://127.0.0.1:8080`（Burp）`-replay-proxy`；`-b "sessionid=abc"` Cookie；`-cc client.crt -ck client.key` 客户端证书；`-enc 'FUZZ:urlencode'`。
-
-**推荐词表（SecLists，https://github.com/danielmiessler/SecLists）：**
-- 目录：`raft-large-directories.txt`、`directory-list-2.3-medium.txt`
-- 子域：`subdomains-top1million-5000.txt`
-- 参数：`burp-parameter-names.txt`
-- 用户名/密码：SecLists Usernames / Passwords
-
-## 示例
-
+### 1. Directory and File Discovery
 ```bash
-# 目录与文件发现（带扩展名 + 自动校准）
-ffuf -w wordlist.txt -u https://target.com/FUZZ -e .php,.html,.txt,.bak -ac -c -v -o results.json
+# Basic directory fuzzing
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ
 
-# 子域 / 虚拟主机枚举（先看默认大小再用 -fs 过滤）
-ffuf -w subdomains.txt -u https://target.com -H "Host: FUZZ.target.com" -fs 4242 -ac
+# With file extensions
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -e .php,.html,.txt,.pdf
 
-# 参数名 / 参数值模糊
-ffuf -w params.txt -u "https://target.com/script.php?FUZZ=test" -fs 4242
-ffuf -w values.txt -u "https://target.com/script.php?id=FUZZ" -fc 401
+# Colored and verbose output
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -c -v
 
-# POST 登录爆破（限速隐身）
-ffuf -w passwords.txt -X POST -d "username=admin&password=FUZZ" -u https://target.com/login -fc 401 -rate 5 -ac
-
-# 递归发现嵌套目录
-ffuf -w wordlist.txt -u https://target.com/FUZZ -recursion -recursion-depth 2 -maxtime-job 120 -ac
+# With recursion (finds nested directories)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -recursion -recursion-depth 2
 ```
 
-**带认证原始请求（IDOR 利器）：** 从 Burp/DevTools 抓完整请求存 `req.txt`，把要模糊的值替换为 `FUZZ`：
+### 2. Subdomain Enumeration
+```bash
+# Virtual host discovery
+ffuf -w /path/to/subdomains.txt -u https://target.com -H "Host: FUZZ.target.com" -fs 4242
+
+# Note: -fs 4242 filters out responses of size 4242 (adjust based on default response size)
+```
+
+### 3. Parameter Fuzzing
+```bash
+# GET parameter names
+ffuf -w /path/to/params.txt -u https://target.com/script.php?FUZZ=test_value -fs 4242
+
+# GET parameter values
+ffuf -w /path/to/values.txt -u https://target.com/script.php?id=FUZZ -fc 401
+
+# Multiple parameters
+ffuf -w params.txt:PARAM -w values.txt:VAL -u https://target.com/?PARAM=VAL -mode clusterbomb
+```
+
+### 4. POST Data Fuzzing
+```bash
+# Basic POST fuzzing
+ffuf -w /path/to/passwords.txt -X POST -d "username=admin&password=FUZZ" -u https://target.com/login.php -fc 401
+
+# JSON POST data
+ffuf -w entries.txt -u https://target.com/api -X POST -H "Content-Type: application/json" -d '{"name": "FUZZ", "key": "value"}' -fr "error"
+
+# Fuzzing multiple POST fields
+ffuf -w users.txt:USER -w passes.txt:PASS -X POST -d "username=USER&password=PASS" -u https://target.com/login -mode pitchfork
+```
+
+### 5. Header Fuzzing
+```bash
+# Custom headers
+ffuf -w /path/to/wordlist.txt -u https://target.com -H "X-Custom-Header: FUZZ"
+
+# Multiple headers
+ffuf -w /path/to/wordlist.txt -u https://target.com -H "User-Agent: FUZZ" -H "X-Forwarded-For: 127.0.0.1"
+```
+
+## Filtering and Matching
+
+### Matchers (Include Results)
+- `-mc`: Match status codes (default: 200-299,301,302,307,401,403,405,500)
+- `-ml`: Match line count
+- `-mr`: Match regex
+- `-ms`: Match response size
+- `-mt`: Match response time (e.g., `>100` or `<100` milliseconds)
+- `-mw`: Match word count
+
+### Filters (Exclude Results)
+- `-fc`: Filter status codes (e.g., `-fc 404,403,401`)
+- `-fl`: Filter line count
+- `-fr`: Filter regex (e.g., `-fr "error"`)
+- `-fs`: Filter response size (e.g., `-fs 42,4242`)
+- `-ft`: Filter response time
+- `-fw`: Filter word count
+
+### Auto-Calibration (USE BY DEFAULT!)
+**CRITICAL:** Always use `-ac` unless you have a specific reason not to. This is especially important when having Claude analyze results, as it dramatically reduces noise and false positives.
+
+```bash
+# Auto-calibration - ALWAYS USE THIS
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -ac
+
+# Per-host auto-calibration (useful for multiple hosts)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -ach
+
+# Custom auto-calibration string (for specific patterns)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -acc "404NotFound"
+```
+
+**Why `-ac` is essential:**
+- Automatically detects and filters repetitive false positive responses
+- Removes noise from dynamic websites with random content
+- Makes results analysis much easier for both humans and Claude
+- Prevents thousands of identical 404/403 responses from cluttering output
+- Adapts to the target's specific behavior
+
+**When Claude analyzes your ffuf results, `-ac` is MANDATORY** - without it, Claude will waste time sifting through thousands of false positives instead of finding the interesting anomalies.
+
+## Rate Limiting and Timing
+
+### Rate Control
+```bash
+# Limit to 2 requests per second (stealth mode)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -rate 2
+
+# Add delay between requests (0.1 to 2 seconds random)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -p 0.1-2.0
+
+# Set number of concurrent threads (default: 40)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -t 10
+```
+
+### Time Limits
+```bash
+# Maximum total execution time (60 seconds)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -maxtime 60
+
+# Maximum time per job (useful with recursion)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -maxtime-job 60 -recursion
+```
+
+## Output Options
+
+### Output Formats
+```bash
+# JSON output
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -o results.json
+
+# HTML output
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -of html -o results.html
+
+# CSV output
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -of csv -o results.csv
+
+# All formats
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -of all -o results
+
+# Silent mode (no progress, only results)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -s
+
+# Pipe to file with tee
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -s | tee results.txt
+```
+
+## Advanced Techniques
+
+### Using Raw HTTP Requests (Critical for Authenticated Fuzzing)
+This is one of the most powerful features of ffuf, especially for authenticated requests with complex headers, cookies, or tokens.
+
+**Workflow:**
+1. Capture a full authenticated request (from Burp Suite, browser DevTools, etc.)
+2. Save it to a file (e.g., `req.txt`)
+3. Replace the value you want to fuzz with the `FUZZ` keyword
+4. Use the `--request` flag
+
+```bash
+# From a file containing raw HTTP request
+ffuf --request req.txt -w /path/to/wordlist.txt -ac
+```
+
+**Example req.txt file:**
 ```http
 POST /api/v1/users/FUZZ HTTP/1.1
 Host: target.com
+User-Agent: Mozilla/5.0
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 Cookie: session=abc123xyz; csrftoken=def456
 Content-Type: application/json
+Content-Length: 27
 
 {"action":"view","id":"1"}
 ```
+
+**Use Cases:**
+- Fuzzing authenticated endpoints with complex auth headers
+- Testing API endpoints with JWT tokens
+- Fuzzing with CSRF tokens, session cookies, and custom headers
+- Testing endpoints that require specific User-Agents or Accept headers
+- POST/PUT/DELETE requests with authentication
+
+**Pro Tips:**
+- You can place FUZZ in multiple locations: URL path, headers, body
+- Use `-request-proto https` if needed (default is https)
+- Always use `-ac` to filter out authenticated "not found" or error responses
+- Great for IDOR testing: fuzz user IDs, document IDs, etc. in authenticated contexts
+
 ```bash
-# 遍历 ID 测 IDOR；FUZZ 可同时出现在 路径/头/body
+# Common authenticated fuzzing patterns
 ffuf --request req.txt -w user_ids.txt -ac -mc 200 -o results.json
-# 多 FUZZ 位置 + pitchfork 并行
+
+# With multiple FUZZ positions using custom keywords
 ffuf --request req.txt -w endpoints.txt:ENDPOINT -w ids.txt:ID -mode pitchfork -ac
 ```
 
-## 注意事项
+### Proxy Usage
+```bash
+# HTTP proxy (useful for Burp Suite)
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -x http://127.0.0.1:8080
 
-- **`-ac` 几乎是强制项**：每次扫描默认带上，尤其要把结果交给 AI 分析时，否则假阳性会淹没真正的异常。
-- 带复杂认证（JWT/CSRF/Cookie/自定义头）时，**别硬拼命令行参数**，直接用 `--request req.txt` 最稳。
-- 过滤前先看基线响应；组合过滤如 `-fc 403,404 -fs 1234` 更精准；漏结果时用 `-mc all` 或临时关掉 `-ac` 排查。
-- 隐身/避免触发 WAF/IDS：`-rate 2 -t 10 -p 0.5-1.5`、随机 UA、代理轮换。
-- 太慢：加线程 `-t 100`、缩小词表、`-ignore-body`。
-- 执行中按 ENTER 进入交互模式，可动态调过滤、存结果、重启或管理队列。
-- 可在 `~/.config/ffuf/ffufrc` 设默认头、线程、超时、匹配状态码。
-- 给客户出报告时用 `-of html`/`-of csv`。
-- 分析结果时聚焦异常：不同状态码/大小/耗时，留意 admin、api、backup、config、.git；标记报错堆栈、版本信息等潜在风险，并对有价值发现做二次模糊。
+# SOCKS5 proxy
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -x socks5://127.0.0.1:1080
 
-## 互见
+# Replay matched requests through proxy
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -replay-proxy http://127.0.0.1:8080
+```
 
-- 练习靶场：http://ffuf.me ｜ 官方 Wiki：https://github.com/ffuf/ffuf/wiki ｜ Codingo 指南：https://codingo.io/tools/ffuf/bounty/
-- 配合 Burp Suite 抓包构造 `req.txt`；词表来源 SecLists。
-- 同域（安全/misc）下的其他内容发现、子域枚举与认证测试类技能。
+### Cookie and Authentication
+```bash
+# Using cookies
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -b "sessionid=abc123; token=xyz789"
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+# Client certificate authentication
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -cc client.crt -ck client.key
+```
+
+### Encoding
+```bash
+# URL encoding
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -enc 'FUZZ:urlencode'
+
+# Multiple encodings
+ffuf -w /path/to/wordlist.txt -u https://target.com/FUZZ -enc 'FUZZ:urlencode b64encode'
+```
+
+### Testing for Vulnerabilities
+```bash
+# SQL injection testing
+ffuf -w sqli_payloads.txt -u https://target.com/page.php?id=FUZZ -fs 1234
+
+# XSS testing
+ffuf -w xss_payloads.txt -u https://target.com/search?q=FUZZ -mr "<script>"
+
+# Command injection
+ffuf -w cmdi_payloads.txt -u https://target.com/execute?cmd=FUZZ -fr "error"
+```
+
+### Batch Processing Multiple Targets
+```bash
+# Process multiple URLs
+cat targets.txt | xargs -I@ sh -c 'ffuf -w wordlist.txt -u @/FUZZ -ac'
+
+# Loop through multiple targets with results
+for url in $(cat targets.txt); do 
+    ffuf -w wordlist.txt -u $url/FUZZ -ac -o "results_$(echo $url | md5sum | cut -d' ' -f1).json"
+done
+```
+
+## Best Practices
+
+### 1. ALWAYS Use Auto-Calibration
+Use `-ac` by default for every scan. This is non-negotiable for productive pentesting:
+```bash
+ffuf -w wordlist.txt -u https://target.com/FUZZ -ac
+```
+
+### 2. Use Raw Requests for Authentication
+Don't struggle with command-line flags for complex auth. Capture the full request and use `--request`:
+```bash
+# 1. Capture authenticated request from Burp/DevTools
+# 2. Save to req.txt with FUZZ keyword in place
+# 3. Run with -ac
+ffuf --request req.txt -w wordlist.txt -ac -o results.json
+```
+
+### 3. Use Appropriate Wordlists
+- **Directory discovery**: SecLists Discovery/Web-Content (raft-large-directories.txt, directory-list-2.3-medium.txt)
+- **Subdomains**: SecLists Discovery/DNS (subdomains-top1million-5000.txt)
+- **Parameters**: SecLists Discovery/Web-Content (burp-parameter-names.txt)
+- **Usernames**: SecLists Usernames
+- **Passwords**: SecLists Passwords
+- Source: https://github.com/danielmiessler/SecLists
+
+### 3. Rate Limiting for Stealth
+Use `-rate` to avoid triggering WAF/IDS or overwhelming the server:
+```bash
+ffuf -w wordlist.txt -u https://target.com/FUZZ -rate 2 -t 10
+```
+
+### 4. Filter Strategically
+- Check the default response first to identify common response sizes, status codes, or patterns
+- Use `-fs` to filter by size or `-fc` to filter by status code
+- Combine filters: `-fc 403,404 -fs 1234`
+
+### 5. Save Results Appropriately
+Always save results to a file for later analysis:
+```bash
+ffuf -w wordlist.txt -u https://target.com/FUZZ -o results.json -of json
+```
+
+### 6. Use Interactive Mode
+Press ENTER during execution to drop into interactive mode where you can:
+- Adjust filters on the fly
+- Save current results
+- Restart the scan
+- Manage the queue
+
+### 7. Recursion Depth
+Be careful with recursion depth to avoid getting stuck in infinite loops or overwhelming the server:
+```bash
+ffuf -w wordlist.txt -u https://target.com/FUZZ -recursion -recursion-depth 2 -maxtime-job 120
+```
+
+## Common Patterns and One-Liners
+
+### Quick Directory Scan
+```bash
+ffuf -w ~/wordlists/common.txt -u https://target.com/FUZZ -mc 200,301,302,403 -ac -c -v
+```
+
+### Comprehensive Scan with Extensions
+```bash
+ffuf -w ~/wordlists/raft-large-directories.txt -u https://target.com/FUZZ -e .php,.html,.txt,.bak,.old -ac -c -v -o results.json
+```
+
+### Authenticated Fuzzing (Raw Request)
+```bash
+# 1. Save your authenticated request to req.txt with FUZZ keyword
+# 2. Run:
+ffuf --request req.txt -w ~/wordlists/api-endpoints.txt -ac -o results.json -of json
+```
+
+### API Endpoint Discovery
+```bash
+ffuf -w ~/wordlists/api-endpoints.txt -u https://api.target.com/v1/FUZZ -H "Authorization: Bearer TOKEN" -mc 200,201 -ac -c
+```
+
+### Subdomain Discovery with Auto-Calibration
+```bash
+ffuf -w ~/wordlists/subdomains-top5000.txt -u https://FUZZ.target.com -ac -c -v
+```
+
+### POST Login Brute Force
+```bash
+ffuf -w ~/wordlists/passwords.txt -X POST -d "username=admin&password=FUZZ" -u https://target.com/login -fc 401 -rate 5 -ac
+```
+
+### IDOR Testing with Auth
+```bash
+# Use req.txt with authenticated headers and FUZZ in the ID parameter
+ffuf --request req.txt -w numbers.txt -ac -mc 200 -fw 100-200
+```
+
+## Configuration File
+Create `~/.config/ffuf/ffufrc` for default settings:
+```
+[http]
+headers = ["User-Agent: Mozilla/5.0"]
+timeout = 10
+
+[general]
+colors = true
+threads = 40
+
+[matcher]
+status = "200-299,301,302,307,401,403,405,500"
+```
+
+## Troubleshooting
+
+### Too Many False Positives
+- Use `-ac` for auto-calibration
+- Check default response and filter by size with `-fs`
+- Use regex filtering with `-fr`
+
+### Too Slow
+- Increase threads: `-t 100`
+- Reduce wordlist size
+- Use `-ignore-body` if you don't need response content
+
+### Getting Blocked
+- Reduce rate: `-rate 2`
+- Add delays: `-p 0.5-1.5`
+- Reduce threads: `-t 10`
+- Randomize User-Agent
+- Use proxy rotation
+
+### Missing Results
+- Check if you're filtering too aggressively
+- Use `-mc all` to see all responses
+- Disable auto-calibration temporarily
+- Use verbose mode `-v` to see what's happening
+
+## Resources
+- Official GitHub: https://github.com/ffuf/ffuf
+- Wiki: https://github.com/ffuf/ffuf/wiki
+- Codingo's Guide: https://codingo.io/tools/ffuf/bounty/2020/09/17/everything-you-need-to-know-about-ffuf.html
+- Practice Lab: http://ffuf.me
+- SecLists Wordlists: https://github.com/danielmiessler/SecLists
+
+## Quick Reference Card
+
+| Task | Command Template |
+|------|------------------|
+| Directory Discovery | `ffuf -w wordlist.txt -u https://target.com/FUZZ -ac` |
+| Subdomain Discovery | `ffuf -w subdomains.txt -u https://FUZZ.target.com -ac` |
+| Parameter Fuzzing | `ffuf -w params.txt -u https://target.com/page?FUZZ=value -ac` |
+| POST Data Fuzzing | `ffuf -w wordlist.txt -X POST -d "param=FUZZ" -u https://target.com/endpoint` |
+| With Extensions | Add `-e .php,.html,.txt` |
+| Filter Status | Add `-fc 404,403` |
+| Filter Size | Add `-fs 1234` |
+| Rate Limit | Add `-rate 2` |
+| Save Output | Add `-o results.json` |
+| Verbose | Add `-c -v` |
+| Recursion | Add `-recursion -recursion-depth 2` |
+| Through Proxy | Add `-x http://127.0.0.1:8080` |
+
+## Additional Resources
+
+This skill includes supplementary materials in the `resources/` directory:
+
+### Resource Files
+- **WORDLISTS.md**: Comprehensive guide to SecLists wordlists, recommended lists for different scenarios, file extensions, and quick reference patterns
+- **REQUEST_TEMPLATES.md**: Pre-built req.txt templates for common authentication scenarios (JWT, OAuth, session cookies, API keys, etc.) with usage examples
+
+### Helper Script
+- **ffuf_helper.py**: Python script to assist with:
+  - Analyzing ffuf JSON results for anomalies and interesting findings
+  - Creating req.txt template files from command-line arguments
+  - Generating number-based wordlists for IDOR testing
+
+**Helper Script Usage:**
+```bash
+# Analyze results to find interesting anomalies
+python3 ffuf_helper.py analyze results.json
+
+# Create authenticated request template
+python3 ffuf_helper.py create-req -o req.txt -m POST -u "https://api.target.com/users" \
+    -H "Authorization: Bearer TOKEN" -d '{"action":"FUZZ"}'
+
+# Generate IDOR testing wordlist
+python3 ffuf_helper.py wordlist -o ids.txt -t numbers -s 1 -e 10000
+```
+
+**When to use resources:**
+- Users need wordlist recommendations → Reference WORDLISTS.md
+- Users need help with authenticated requests → Reference REQUEST_TEMPLATES.md
+- Users want to analyze results → Use ffuf_helper.py analyze
+- Users need to generate req.txt → Use ffuf_helper.py create-req
+- Users need number ranges for IDOR → Use ffuf_helper.py wordlist
+
+## Notes for Claude
+When helping users with ffuf:
+1. **ALWAYS include `-ac` in every command** - This is mandatory for productive pentesting and result analysis
+2. When users mention authenticated fuzzing or provide auth tokens/cookies:
+   - Suggest creating a `req.txt` file with the full HTTP request
+   - Show them how to insert FUZZ where they want to fuzz
+   - Use `ffuf --request req.txt -w wordlist.txt -ac`
+3. Always recommend starting with `-ac` for auto-calibration
+4. Suggest appropriate wordlists from SecLists based on the task
+5. Remind users to use rate limiting (`-rate`) for production targets
+6. Encourage saving output to files for documentation: `-o results.json`
+7. Suggest filtering strategies based on initial reconnaissance
+8. Always use the FUZZ keyword (case-sensitive)
+9. Consider stealth: lower threads, rate limiting, and delays for sensitive targets
+10. For pentesting reports, use `-of html` or `-of csv` for client-friendly formats
+11. **When analyzing ffuf results for users:**
+    - Assume they used `-ac` (if not, results will be too noisy)
+    - Focus on anomalies: different status codes, response sizes, timing
+    - Look for interesting endpoints: admin, api, backup, config, .git, etc.
+    - Flag potential vulnerabilities: error messages, stack traces, version info
+    - Suggest follow-up fuzzing on interesting findings
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

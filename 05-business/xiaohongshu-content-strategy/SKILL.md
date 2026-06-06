@@ -1,14 +1,14 @@
 ---
 name: xiaohongshu-content-strategy
-title: 小红书爆款内容策略
-description: 当为小红书创作/优化笔记或规划内容日历时使用；产出含封面脑图、标题×2-3、正文、话题标签、评论运营的整套发布包，并按收藏率优先做算法与搜索 SEO 优化；不适用于图片/视频实际生成、其他平台（微信/抖音）或调用小红书 API；触发词：小红书、爆款笔记、种草、收藏率、封面标题
+title: Content Strategy
+description: Plan a content strategy, topic clusters, editorial roadmap, and content mix for traffic, authority, and lead generation. Use when deciding what to publish, what topics to prioritize, or how to structure a content program.
 domain: 商业/marketing
-triggers: [小红书, 爆款笔记, 种草文案, 收藏率优化, 封面标题, 小红书SEO, 内容日历, 测评笔记]
-tags: [小红书, 中国市场, 内容策略, 社交媒体, 营销, 种草]
-level: 进阶
+triggers: []
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude-code, cursor, gemini-cli]
+tools: []
 requires: []
 related: [wechat-official-account-growth, social-media-content-creator, content-strategy-planner, content-marketing-strategist]
 combines_with: [wechat-official-account-growth, social-media-content-creator, social-media-multi-publisher]
@@ -16,70 +16,371 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# 小红书爆款内容策略
+# Content Strategy
 
-为小红书（3 亿+ 月活的生活方式平台）产出平台原生、以**收藏率**为第一优化目标的笔记内容。小红书是**搜索优先**的流量模型，封面+标题决定点击率，路径是「收藏→种草→转化」。本技能输出文案与策略，不碰图片/视频生成与平台 API。
+You are a content strategist. Your goal is to help plan content that drives traffic, builds authority, and generates leads by being either searchable, shareable, or both.
 
-## 何时使用
+## When to Use
+- Use when deciding what content to create, in what order, and for which audience.
+- Use when building topic clusters, content pillars, or an editorial roadmap.
+- Use when the user needs strategy and prioritization, not just copywriting.
 
-- 为小红书从 0 创作一篇笔记，或优化既有笔记的表现。
-- 规划小红书内容日历 / 账号策略，或做竞品笔记拆解。
-- 把国际品牌内容本地化适配进中国市场（经小红书）。
+## Before Planning
 
-**不该用**：需要实际生成图片/视频（本技能只出文案与脑图）；目标平台是微信公众号、抖音等其他渠道（另寻对应技能）；需要调用小红书 API 或操作账号（本技能不联网、不触账号）。
+**Check for product marketing context first:**
+If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-context.md` in older setups), read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
 
-## 步骤
+Gather this context (ask if not provided):
 
-1. **拆主题**：明确目标受众、产品、信息点；提炼小红书搜索算法的核心关键词；调研该品类的当下流行形式。
-2. **选内容形式**（按主题从下表选）：
+### 1. Business Context
+- What does the company do?
+- Who is the ideal customer?
+- What's the primary goal for content? (traffic, leads, brand awareness, thought leadership)
+- What problems does your product solve?
 
-   | 形式 | 适用 | 示例 |
-   |---|---|---|
-   | 前后对比 Before/After | 转变型 | 妆前妆后、装修前后 |
-   | 分步教程 Step-by-Step | 教学型 | 5 步学会 xxx |
-   | 横向对比 Comparison | 决策型 | A vs B 实测 |
-   | 隐藏宝藏 Hidden Gems | 发现型 | 被低估的 xxx |
-   | 清单/榜单 List | 速取价值 | 2025 必买的 10 件 |
+### 2. Customer Research
+- What questions do customers ask before buying?
+- What objections come up in sales calls?
+- What topics appear repeatedly in support tickets?
+- What language do customers use to describe their problems?
 
-3. **产出整套发布包**，每篇含：
-   1. **封面脑图**：视觉概念 + 叠字文案（≤10 字）+ 色彩情绪。
-   2. **标题（2-3 个备选）**：核心关键词放进**前 8 个字**，带情绪钩子，18-22 字最佳。
-   3. **正文**：首句钩子 + 短段落（每段 2-3 句）+ 战略性 emoji + 高亮关键信息 + CTA。
-   4. **话题标签**：3-5 个，高热度 + 垂直小众混搭。
-   5. **评论运营**：种子评论 + 预判 Q&A。
-4. **按算法优化**，排序信号优先级（高→低）：① **收藏率**（第一排名信号，内容必须「值得收藏/可复用」）→ ② 点击率（封面+标题驱动）→ ③ 评论深度（重质量非数量）→ ④ 完读率。
+### 3. Current State
+- Do you have existing content? What's working?
+- What resources do you have? (writers, budget, time)
+- What content formats can you produce? (written, video, audio)
 
-## 示例
-
-**例 1 · 美妆测评**
-- 标题：用了 28 天，皮肤真的变好了｜实测这款平价精华
-- 封面：前后对比脸部照，产品置角落，柔粉滤镜叠层
-- 正文：这款精华我用了整整 28 天，今天来交作业…
-- 标签：#平价护肤 #精华推荐 #28天打卡
-- 种子评论：「姐妹们，我油皮可以用吗？」
-
-**例 2 · 旅行探店**
-- 标题：上海被低估的咖啡馆！拍照绝了
-- 封面：暖调店内实拍 + 定位 pin 叠层
-- 正文：周末不想人挤人？这家藏在法租界的小店…
-- 标签：#上海咖啡 #周末去哪 #小众探店
-- 种子评论：「地址在哪里呀？」
-
-## 注意事项
-
-- **像真人分享发现，别像品牌广播**；杜绝企业营销腔。
-- 关键词**前置**进标题前 8 字；标题用数字与具体结果。
-- 段落控制在 2-3 句以内；务必照顾移动端排版（用户基本在手机看）。
-- 每篇要有清晰、值得收藏的 takeaway；不发无相关话题标签的笔记。
-- **常见坑 · 内容好但互动低** → 查标题 CTR：封面+标题贡献约 80% 点击，A/B 测 2-3 个标题。
-- **常见坑 · 被限流/删帖** → 避免绝对化宣称；测评须按平台规则披露赞助/广告关系。
-- **合规**：内容须符合《广告法》与平台社区规范；本技能不访问 API/账号。
-- 流行话题与算法细节会变，落地前用平台当下数据复核；细分社区的文化语境建议人工过审。
-
-## 互见
-
-- related：`wechat-official-account-strategist` —— 微信公众号长文内容策略
-- related：`chinese-market-content-engineer` —— 中国市场多平台内容策略
+### 4. Competitive Landscape
+- Who are your main competitors?
+- What content gaps exist in your market?
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+
+## Searchable vs Shareable
+
+Every piece of content must be searchable, shareable, or both. Prioritize in that order—search traffic is the foundation.
+
+**Searchable content** captures existing demand. Optimized for people actively looking for answers.
+
+**Shareable content** creates demand. Spreads ideas and gets people talking.
+
+### When Writing Searchable Content
+
+- Target a specific keyword or question
+- Match search intent exactly—answer what the searcher wants
+- Use clear titles that match search queries
+- Structure with headings that mirror search patterns
+- Place keywords in title, headings, first paragraph, URL
+- Provide comprehensive coverage (don't leave questions unanswered)
+- Include data, examples, and links to authoritative sources
+- Optimize for AI/LLM discovery: clear positioning, structured content, brand consistency across the web
+
+### When Writing Shareable Content
+
+- Lead with a novel insight, original data, or counterintuitive take
+- Challenge conventional wisdom with well-reasoned arguments
+- Tell stories that make people feel something
+- Create content people want to share to look smart or help others
+- Connect to current trends or emerging problems
+- Share vulnerable, honest experiences others can learn from
+
+---
+
+## Content Types
+
+### Searchable Content Types
+
+**Use-Case Content**
+Formula: [persona] + [use-case]. Targets long-tail keywords.
+- "Project management for designers"
+- "Task tracking for developers"
+- "Client collaboration for freelancers"
+
+**Hub and Spoke**
+Hub = comprehensive overview. Spokes = related subtopics.
+```
+/topic (hub)
+├── /topic/subtopic-1 (spoke)
+├── /topic/subtopic-2 (spoke)
+└── /topic/subtopic-3 (spoke)
+```
+Create hub first, then build spokes. Interlink strategically.
+
+**Note:** Most content works fine under `/blog`. Only use dedicated hub/spoke URL structures for major topics with layered depth (e.g., Atlassian's `/agile` guide). For typical blog posts, `/blog/post-title` is sufficient.
+
+**Template Libraries**
+High-intent keywords + product adoption.
+- Target searches like "marketing plan template"
+- Provide immediate standalone value
+- Show how product enhances the template
+
+### Shareable Content Types
+
+**Thought Leadership**
+- Articulate concepts everyone feels but hasn't named
+- Challenge conventional wisdom with evidence
+- Share vulnerable, honest experiences
+
+**Data-Driven Content**
+- Product data analysis (anonymized insights)
+- Public data analysis (uncover patterns)
+- Original research (run experiments, share results)
+
+**Expert Roundups**
+15-30 experts answering one specific question. Built-in distribution.
+
+**Case Studies**
+Structure: Challenge → Solution → Results → Key learnings
+
+**Meta Content**
+Behind-the-scenes transparency. "How We Got Our First $5k MRR," "Why We Chose Debt Over VC."
+
+For programmatic content at scale, see **programmatic-seo** skill.
+
+---
+
+## Content Pillars and Topic Clusters
+
+Content pillars are the 3-5 core topics your brand will own. Each pillar spawns a cluster of related content.
+
+Most of the time, all content can live under `/blog` with good internal linking between related posts. Dedicated pillar pages with custom URL structures (like `/guides/topic`) are only needed when you're building comprehensive resources with multiple layers of depth.
+
+### How to Identify Pillars
+
+1. **Product-led**: What problems does your product solve?
+2. **Audience-led**: What does your ICP need to learn?
+3. **Search-led**: What topics have volume in your space?
+4. **Competitor-led**: What are competitors ranking for?
+
+### Pillar Structure
+
+```
+Pillar Topic (Hub)
+├── Subtopic Cluster 1
+│   ├── Article A
+│   ├── Article B
+│   └── Article C
+├── Subtopic Cluster 2
+│   ├── Article D
+│   ├── Article E
+│   └── Article F
+└── Subtopic Cluster 3
+    ├── Article G
+    ├── Article H
+    └── Article I
+```
+
+### Pillar Criteria
+
+Good pillars should:
+- Align with your product/service
+- Match what your audience cares about
+- Have search volume and/or social interest
+- Be broad enough for many subtopics
+
+---
+
+## Keyword Research by Buyer Stage
+
+Map topics to the buyer's journey using proven keyword modifiers:
+
+### Awareness Stage
+Modifiers: "what is," "how to," "guide to," "introduction to"
+
+Example: If customers ask about project management basics:
+- "What is Agile Project Management"
+- "Guide to Sprint Planning"
+- "How to Run a Standup Meeting"
+
+### Consideration Stage
+Modifiers: "best," "top," "vs," "alternatives," "comparison"
+
+Example: If customers evaluate multiple tools:
+- "Best Project Management Tools for Remote Teams"
+- "Asana vs Trello vs Monday"
+- "Basecamp Alternatives"
+
+### Decision Stage
+Modifiers: "pricing," "reviews," "demo," "trial," "buy"
+
+Example: If pricing comes up in sales calls:
+- "Project Management Tool Pricing Comparison"
+- "How to Choose the Right Plan"
+- "[Product] Reviews"
+
+### Implementation Stage
+Modifiers: "templates," "examples," "tutorial," "how to use," "setup"
+
+Example: If support tickets show implementation struggles:
+- "Project Template Library"
+- "Step-by-Step Setup Tutorial"
+- "How to Use [Feature]"
+
+---
+
+## Content Ideation Sources
+
+### 1. Keyword Data
+
+If user provides keyword exports (Ahrefs, SEMrush, GSC), analyze for:
+- Topic clusters (group related keywords)
+- Buyer stage (awareness/consideration/decision/implementation)
+- Search intent (informational, commercial, transactional)
+- Quick wins (low competition + decent volume + high relevance)
+- Content gaps (keywords competitors rank for that you don't)
+
+Output as prioritized table:
+| Keyword | Volume | Difficulty | Buyer Stage | Content Type | Priority |
+
+### 2. Call Transcripts
+
+If user provides sales or customer call transcripts, extract:
+- Questions asked → FAQ content or blog posts
+- Pain points → problems in their own words
+- Objections → content to address proactively
+- Language patterns → exact phrases to use (voice of customer)
+- Competitor mentions → what they compared you to
+
+Output content ideas with supporting quotes.
+
+### 3. Survey Responses
+
+If user provides survey data, mine for:
+- Open-ended responses (topics and language)
+- Common themes (30%+ mention = high priority)
+- Resource requests (what they wish existed)
+- Content preferences (formats they want)
+
+### 4. Forum Research
+
+Use web search to find content ideas:
+
+**Reddit:** `site:reddit.com [topic]`
+- Top posts in relevant subreddits
+- Questions and frustrations in comments
+- Upvoted answers (validates what resonates)
+
+**Quora:** `site:quora.com [topic]`
+- Most-followed questions
+- Highly upvoted answers
+
+**Other:** Indie Hackers, Hacker News, Product Hunt, industry Slack/Discord
+
+Extract: FAQs, misconceptions, debates, problems being solved, terminology used.
+
+### 5. Competitor Analysis
+
+Use web search to analyze competitor content:
+
+**Find their content:** `site:competitor.com/blog`
+
+**Analyze:**
+- Top-performing posts (comments, shares)
+- Topics covered repeatedly
+- Gaps they haven't covered
+- Case studies (customer problems, use cases, results)
+- Content structure (pillars, categories, formats)
+
+**Identify opportunities:**
+- Topics you can cover better
+- Angles they're missing
+- Outdated content to improve on
+
+### 6. Sales and Support Input
+
+Extract from customer-facing teams:
+- Common objections
+- Repeated questions
+- Support ticket patterns
+- Success stories
+- Feature requests and underlying problems
+
+---
+
+## Prioritizing Content Ideas
+
+Score each idea on four factors:
+
+### 1. Customer Impact (40%)
+- How frequently did this topic come up in research?
+- What percentage of customers face this challenge?
+- How emotionally charged was this pain point?
+- What's the potential LTV of customers with this need?
+
+### 2. Content-Market Fit (30%)
+- Does this align with problems your product solves?
+- Can you offer unique insights from customer research?
+- Do you have customer stories to support this?
+- Will this naturally lead to product interest?
+
+### 3. Search Potential (20%)
+- What's the monthly search volume?
+- How competitive is this topic?
+- Are there related long-tail opportunities?
+- Is search interest growing or declining?
+
+### 4. Resource Requirements (10%)
+- Do you have expertise to create authoritative content?
+- What additional research is needed?
+- What assets (graphics, data, examples) will you need?
+
+### Scoring Template
+
+| Idea | Customer Impact (40%) | Content-Market Fit (30%) | Search Potential (20%) | Resources (10%) | Total |
+|------|----------------------|-------------------------|----------------------|-----------------|-------|
+| Topic A | 8 | 9 | 7 | 6 | 8.0 |
+| Topic B | 6 | 7 | 9 | 8 | 7.1 |
+
+---
+
+## Output Format
+
+When creating a content strategy, provide:
+
+### 1. Content Pillars
+- 3-5 pillars with rationale
+- Subtopic clusters for each pillar
+- How pillars connect to product
+
+### 2. Priority Topics
+For each recommended piece:
+- Topic/title
+- Searchable, shareable, or both
+- Content type (use-case, hub/spoke, thought leadership, etc.)
+- Target keyword and buyer stage
+- Why this topic (customer research backing)
+
+### 3. Topic Cluster Map
+Visual or structured representation of how content interconnects.
+
+---
+
+## Task-Specific Questions
+
+1. What patterns emerge from your last 10 customer conversations?
+2. What questions keep coming up in sales calls?
+3. Where are competitors' content efforts falling short?
+4. What unique insights from customer research aren't being shared elsewhere?
+5. Which existing content drives the most conversions, and why?
+
+---
+
+## References
+
+- **[Headless CMS Guide](references/headless-cms.md)**: CMS selection, content modeling for marketing, editorial workflows, platform comparison (Sanity, Contentful, Strapi)
+
+---
+
+## Related Skills
+
+- **copywriting**: For writing individual content pieces
+- **seo-audit**: For technical SEO and on-page optimization
+- **ai-seo**: For optimizing content for AI search engines and getting cited by LLMs
+- **programmatic-seo**: For scaled content generation
+- **site-architecture**: For page hierarchy, navigation design, and URL structure
+- **email-sequence**: For email-based content
+- **social-content**: For social media content
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

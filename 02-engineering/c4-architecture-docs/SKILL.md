@@ -1,14 +1,14 @@
 ---
 name: c4-architecture-docs
-title: C4 模型架构文档自动生成
-description: 当需要为已有代码仓库生成 C4（Context/Container/Component/Code）架构文档时使用；用自底向上分析产出分层 Markdown 文档与 OpenAPI 规格到 C4-Documentation/；不适用于全新设计、单纯画一张图或非软件系统建模；触发词：C4 模型、架构文档、Context/Container/Component/Code、系统上下文图、容器图、Mermaid C4
+title: C4 Architecture Documentation Workflow
+description: Generate comprehensive C4 architecture documentation for an existing repository/codebase using a bottom-up analysis approach.
 domain: 研发/architecture
-triggers: [C4 模型, C4 架构文档, 架构文档生成, 系统上下文图, 容器图, Context Container Component Code, Mermaid C4 diagram, 为仓库生成架构图]
-tags: [架构, 文档, c4-model, 代码分析, mermaid, openapi, 逆向工程]
-level: 进阶
+triggers: [Context Container Component Code, Mermaid C4 diagram]
+tags: [c4-model, mermaid, openapi]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [代码检索（codebase search / Glob / Grep）, Read, Write, Task（子代理编排，可选）, Mermaid, OpenAPI 3.1]
+tools: []
 requires: []
 related: [docs-architect, adr-management-patterns, codetour-walkthrough-builder, backend-architecture-patterns]
 combines_with: [adr-auto-capture, docs-architect]
@@ -16,97 +16,392 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# C4 Architecture Documentation Workflow
 
-为一个**已存在的代码仓库**反向生成完整的 C4 架构文档（自底向上）。C4 模型四层：Code（代码）→ Component（组件）→ Container（容器）→ Context（系统上下文）。
+Generate comprehensive C4 architecture documentation for an existing repository/codebase using a bottom-up analysis approach.
 
-适用：
-- 接手陌生代码库，需要系统化梳理结构、依赖、对外接口与部署形态。
-- 给技术与非技术干系人同时提供可读的架构资料（上下文层面向人，容器层展示技术选型）。
+[Extended thinking: This workflow implements a complete C4 architecture documentation process following the C4 model (Context, Container, Component, Code). It uses a bottom-up approach, starting from the deepest code directories and working upward, ensuring every code element is documented before synthesizing into higher-level abstractions. The workflow coordinates four specialized C4 agents (Code, Component, Container, Context) to create a complete architectural documentation set that serves both technical and non-technical stakeholders.]
 
-**不该用（负边界）：**
-- 全新系统的**正向设计**——本技能是从代码逆向生成文档，不替代设计决策。
-- 只想画**一张图**或一次性示意——杀鸡用牛刀，直接写 Mermaid 即可。
-- 非软件系统、纯业务流程或与架构无关的任务。
+## Use this skill when
 
-提示：按官方 C4 模型，多数团队只需 Context + Container 两层即可；本流程为完整性生成全部四层，可按需取舍。
+- Working on c4 architecture documentation workflow tasks or workflows
+- Needing guidance, best practices, or checklists for c4 architecture documentation workflow
 
-## 步骤
+## Do not use this skill when
 
-自底向上、逐层合成，每层基于上一层产物。所有输出写入仓库根目录的 `C4-Documentation/`。
+- The task is unrelated to c4 architecture documentation workflow
+- You need a different domain or tool outside this scope
 
-**Phase 1 · Code 层（自底向上）**
-1. 检索全部子目录，按深度排序（最深优先），过滤 `node_modules / .git / build / dist` 等非代码目录。
-2. 从最深目录开始，逐个分析并产出 `c4-code-<目录名>.md`（文件名做 sanitize：`/`→`-`、去特殊字符）。每个目录文档含四节：Overview（名称/描述/位置/语言/用途）、Code Elements（函数完整签名+参数类型+返回值+位置+依赖；类/模块同理）、Dependencies（内部/外部）、Relationships（关系复杂时附 Mermaid）。
-3. 重复直到**每个子目录**都有对应 `c4-code-*.md`。
+## Instructions
 
-**Phase 2 · Component 层（合成）**
-1. 汇总所有 `c4-code-*.md`，按领域/技术/团队边界识别逻辑组件。
-2. 每个组件产出 `c4-component-<名>.md`：Overview / Purpose / Software Features / Code Elements（链接所含 code 文档）/ Interfaces（名称+协议 REST·GraphQL·gRPC·Events+操作签名）/ Dependencies / Component Diagram（Mermaid）。
-3. 生成主索引 `c4-component.md`：列出全部组件 + 组件关系 Mermaid 图。
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-**Phase 3 · Container 层（合成）**
-1. 搜索部署定义：Dockerfile、K8s manifest、docker-compose、Terraform/CloudFormation、Serverless、CI/CD。
-2. 将组件映射到容器，产出 `c4-container.md`，每个容器含：Name/Description/Type/Technology/Deployment、Purpose、Components、Interfaces、Dependencies、Infrastructure（部署配置链接+伸缩策略+资源需求）、Container Diagram（Mermaid）。
-3. 为每个容器 API 生成 **OpenAPI 3.1+** 规格，存到 `C4-Documentation/apis/<容器名>-api.yaml`（含端点+方法、请求/响应 schema、鉴权、错误响应）。
+## Overview
 
-**Phase 4 · Context 层**
-1. 收集 README、架构文档、需求/设计文档、测试文件、API 文档。
-2. 产出 `c4-context.md`：System Overview（一句话+详述）、Personas（人类用户/程序化用户/外部系统：类型+目标+所用特性）、System Features、User Journeys（每个关键特性×角色的分步旅程，含集成旅程）、External Systems and Dependencies、System Context Diagram（用 Mermaid `C4Context` 记法）、Related Documentation。
-3. 上下文文档须对**非技术干系人可读**，聚焦系统用途、用户与外部关系。
+This workflow creates comprehensive C4 architecture documentation following the [official C4 model](https://c4model.com/diagrams) by:
 
-## 指令
+1. **Code Level**: Analyzing every subdirectory bottom-up to create code-level documentation
+2. **Component Level**: Synthesizing code documentation into logical components within containers
+3. **Container Level**: Mapping components to deployment containers with API documentation (shows high-level technology choices)
+4. **Context Level**: Creating high-level system context with personas and user journeys (focuses on people and software systems, not technologies)
 
-可调配置（默认值）：
-- `target_directory`：分析根目录（默认当前仓库根）
-- `exclude_patterns`：排除模式（默认 node_modules、.git、build、dist 等）
-- `output_directory`：输出目录（默认 `C4-Documentation/`）
-- `include_tests`：是否分析测试文件辅助理解上下文（默认 true）
-- `api_format`：API 规格格式（默认 openapi）
+**Note**: According to the [C4 model](https://c4model.com/diagrams), you don't need to use all 4 levels of diagram - the system context and container diagrams are sufficient for most software development teams. This workflow generates all levels for completeness, but teams can choose which levels to use.
 
-子代理编排（可选，按上述四层对应）：
-```
-Task subagent_type="c4-architecture::c4-code"      # Phase 1
-Task subagent_type="c4-architecture::c4-component" # Phase 2
-Task subagent_type="c4-architecture::c4-container" # Phase 3
-Task subagent_type="c4-architecture::c4-context"   # Phase 4
-```
-无子代理环境时，由主代理顺序执行各层即可，产物结构不变。
+All documentation is written to a new `C4-Documentation/` directory in the repository root.
 
-最终目录结构：
+## Phase 1: Code-Level Documentation (Bottom-Up Analysis)
+
+### 1.1 Discover All Subdirectories
+
+- Use codebase search to identify all subdirectories in the repository
+- Sort directories by depth (deepest first) for bottom-up processing
+- Filter out common non-code directories (node_modules, .git, build, dist, etc.)
+- Create list of directories to process
+
+### 1.2 Process Each Directory (Bottom-Up)
+
+For each directory, starting from the deepest:
+
+- Use Task tool with subagent_type="c4-architecture::c4-code"
+- Prompt: |
+  Analyze the code in directory: [directory_path]
+
+  Create comprehensive C4 Code-level documentation following this structure:
+  1. **Overview Section**:
+     - Name: [Descriptive name for this code directory]
+     - Description: [Short description of what this code does]
+     - Location: [Link to actual directory path relative to repo root]
+     - Language: [Primary programming language(s) used]
+     - Purpose: [What this code accomplishes]
+  2. **Code Elements Section**:
+     - Document all functions/methods with complete signatures:
+       - Function name, parameters (with types), return type
+       - Description of what each function does
+       - Location (file path and line numbers)
+       - Dependencies (what this function depends on)
+     - Document all classes/modules:
+       - Class name, description, location
+       - Methods and their signatures
+       - Dependencies
+  3. **Dependencies Section**:
+     - Internal dependencies (other code in this repo)
+     - External dependencies (libraries, frameworks, services)
+  4. **Relationships Section**:
+     - Optional Mermaid diagram if relationships are complex
+
+  Save the output as: C4-Documentation/c4-code-[directory-name].md
+  Use a sanitized directory name (replace / with -, remove special chars) for the filename.
+
+  Ensure the documentation includes:
+  - Complete function signatures with all parameters and types
+  - Links to actual source code locations
+  - All dependencies (internal and external)
+  - Clear, descriptive names and descriptions
+
+- Expected output: c4-code-<directory-name>.md file in C4-Documentation/
+- Context: All files in the directory and its subdirectories
+
+**Repeat for every subdirectory** until all directories have corresponding c4-code-\*.md files.
+
+## Phase 2: Component-Level Synthesis
+
+### 2.1 Analyze All Code-Level Documentation
+
+- Collect all c4-code-\*.md files created in Phase 1
+- Analyze code structure, dependencies, and relationships
+- Identify logical component boundaries based on:
+  - Domain boundaries (related business functionality)
+  - Technical boundaries (shared frameworks, libraries)
+  - Organizational boundaries (team ownership, if evident)
+
+### 2.2 Create Component Documentation
+
+For each identified component:
+
+- Use Task tool with subagent_type="c4-architecture::c4-component"
+- Prompt: |
+  Synthesize the following C4 Code-level documentation files into a logical component:
+
+  Code files to analyze:
+  [List of c4-code-*.md file paths]
+
+  Create comprehensive C4 Component-level documentation following this structure:
+  1. **Overview Section**:
+     - Name: [Component name - descriptive and meaningful]
+     - Description: [Short description of component purpose]
+     - Type: [Application, Service, Library, etc.]
+     - Technology: [Primary technologies used]
+  2. **Purpose Section**:
+     - Detailed description of what this component does
+     - What problems it solves
+     - Its role in the system
+  3. **Software Features Section**:
+     - List all software features provided by this component
+     - Each feature with a brief description
+  4. **Code Elements Section**:
+     - List all c4-code-\*.md files contained in this component
+     - Link to each file with a brief description
+  5. **Interfaces Section**:
+     - Document all component interfaces:
+       - Interface name
+       - Protocol (REST, GraphQL, gRPC, Events, etc.)
+       - Description
+       - Operations (function signatures, endpoints, etc.)
+  6. **Dependencies Section**:
+     - Components used (other components this depends on)
+     - External systems (databases, APIs, services)
+  7. **Component Diagram**:
+     - Mermaid diagram showing this component and its relationships
+
+  Save the output as: C4-Documentation/c4-component-[component-name].md
+  Use a sanitized component name for the filename.
+
+- Expected output: c4-component-<name>.md file for each component
+- Context: All relevant c4-code-\*.md files for this component
+
+### 2.3 Create Master Component Index
+
+- Use Task tool with subagent_type="c4-architecture::c4-component"
+- Prompt: |
+  Create a master component index that lists all components in the system.
+
+  Based on all c4-component-\*.md files created, generate:
+  1. **System Components Section**:
+     - List all components with:
+       - Component name
+       - Short description
+       - Link to component documentation
+  2. **Component Relationships Diagram**:
+     - Mermaid diagram showing all components and their relationships
+     - Show dependencies between components
+     - Show external system dependencies
+
+  Save the output as: C4-Documentation/c4-component.md
+
+- Expected output: Master c4-component.md file
+- Context: All c4-component-\*.md files
+
+## Phase 3: Container-Level Synthesis
+
+### 3.1 Analyze Components and Deployment Definitions
+
+- Review all c4-component-\*.md files
+- Search for deployment/infrastructure definitions:
+  - Dockerfiles
+  - Kubernetes manifests (deployments, services, etc.)
+  - Docker Compose files
+  - Terraform/CloudFormation configs
+  - Cloud service definitions (AWS Lambda, Azure Functions, etc.)
+  - CI/CD pipeline definitions
+
+### 3.2 Map Components to Containers
+
+- Use Task tool with subagent_type="c4-architecture::c4-container"
+- Prompt: |
+  Synthesize components into containers based on deployment definitions.
+
+  Component documentation:
+  [List of all c4-component-*.md file paths]
+
+  Deployment definitions found:
+  [List of deployment config files: Dockerfiles, K8s manifests, etc.]
+
+  Create comprehensive C4 Container-level documentation following this structure:
+  1. **Containers Section** (for each container):
+     - Name: [Container name]
+     - Description: [Short description of container purpose and deployment]
+     - Type: [Web Application, API, Database, Message Queue, etc.]
+     - Technology: [Primary technologies: Node.js, Python, PostgreSQL, etc.]
+     - Deployment: [Docker, Kubernetes, Cloud Service, etc.]
+  2. **Purpose Section** (for each container):
+     - Detailed description of what this container does
+     - How it's deployed
+     - Its role in the system
+  3. **Components Section** (for each container):
+     - List all components deployed in this container
+     - Link to component documentation
+  4. **Interfaces Section** (for each container):
+     - Document all container APIs and interfaces:
+       - API/Interface name
+       - Protocol (REST, GraphQL, gRPC, Events, etc.)
+       - Description
+       - Link to OpenAPI/Swagger/API Spec file
+       - List of endpoints/operations
+  5. **API Specifications**:
+     - For each container API, create an OpenAPI 3.1+ specification
+     - Save as: C4-Documentation/apis/[container-name]-api.yaml
+     - Include:
+       - All endpoints with methods (GET, POST, etc.)
+       - Request/response schemas
+       - Authentication requirements
+       - Error responses
+  6. **Dependencies Section** (for each container):
+     - Containers used (other containers this depends on)
+     - External systems (databases, third-party APIs, etc.)
+     - Communication protocols
+  7. **Infrastructure Section** (for each container):
+     - Link to deployment config (Dockerfile, K8s manifest, etc.)
+     - Scaling strategy
+     - Resource requirements (CPU, memory, storage)
+  8. **Container Diagram**:
+     - Mermaid diagram showing all containers and their relationships
+     - Show communication protocols
+     - Show external system dependencies
+
+  Save the output as: C4-Documentation/c4-container.md
+
+- Expected output: c4-container.md with all containers and API specifications
+- Context: All component documentation and deployment definitions
+
+## Phase 4: Context-Level Documentation
+
+### 4.1 Analyze System Documentation
+
+- Review container and component documentation
+- Search for system documentation:
+  - README files
+  - Architecture documentation
+  - Requirements documents
+  - Design documents
+  - Test files (to understand system behavior)
+  - API documentation
+  - User documentation
+
+### 4.2 Create Context Documentation
+
+- Use Task tool with subagent_type="c4-architecture::c4-context"
+- Prompt: |
+  Create comprehensive C4 Context-level documentation for the system.
+
+  Container documentation: C4-Documentation/c4-container.md
+  Component documentation: C4-Documentation/c4-component.md
+  System documentation: [List of README, architecture docs, requirements, etc.]
+  Test files: [List of test files that show system behavior]
+
+  Create comprehensive C4 Context-level documentation following this structure:
+  1. **System Overview Section**:
+     - Short Description: [One-sentence description of what the system does]
+     - Long Description: [Detailed description of system purpose, capabilities, problems solved]
+  2. **Personas Section**:
+     - For each persona (human users and programmatic "users"):
+       - Persona name
+       - Type (Human User / Programmatic User / External System)
+       - Description (who they are, what they need)
+       - Goals (what they want to achieve)
+       - Key features used
+  3. **System Features Section**:
+     - For each high-level feature:
+       - Feature name
+       - Description (what this feature does)
+       - Users (which personas use this feature)
+       - Link to user journey map
+  4. **User Journeys Section**:
+     - For each key feature and persona:
+       - Journey name: [Feature Name] - [Persona Name] Journey
+       - Step-by-step journey:
+         1. [Step 1]: [Description]
+         2. [Step 2]: [Description]
+            ...
+       - Include all system touchpoints
+     - For programmatic users (external systems, APIs):
+       - Integration journey with step-by-step process
+  5. **External Systems and Dependencies Section**:
+     - For each external system:
+       - System name
+       - Type (Database, API, Service, Message Queue, etc.)
+       - Description (what it provides)
+       - Integration type (API, Events, File Transfer, etc.)
+       - Purpose (why the system depends on this)
+  6. **System Context Diagram**:
+     - Mermaid C4Context diagram showing:
+       - The system (as a box in the center)
+       - All personas (users) around it
+       - All external systems around it
+       - Relationships and data flows
+       - Use C4Context notation for proper C4 diagram
+  7. **Related Documentation Section**:
+     - Links to container documentation
+     - Links to component documentation
+
+  Save the output as: C4-Documentation/c4-context.md
+
+  Ensure the documentation is:
+  - Understandable by non-technical stakeholders
+  - Focuses on system purpose, users, and external relationships
+  - Includes comprehensive user journey maps
+  - Identifies all external systems and dependencies
+
+- Expected output: c4-context.md with complete system context
+- Context: All container, component, and system documentation
+
+## Configuration Options
+
+- `target_directory`: Root directory to analyze (default: current repository root)
+- `exclude_patterns`: Patterns to exclude (default: node_modules, .git, build, dist, etc.)
+- `output_directory`: Where to write C4 documentation (default: C4-Documentation/)
+- `include_tests`: Whether to analyze test files for context (default: true)
+- `api_format`: Format for API specs (default: openapi)
+
+## Success Criteria
+
+- ✅ Every subdirectory has a corresponding c4-code-\*.md file
+- ✅ All code-level documentation includes complete function signatures
+- ✅ Components are logically grouped with clear boundaries
+- ✅ All components have interface documentation
+- ✅ Master component index created with relationship diagram
+- ✅ Containers map to actual deployment units
+- ✅ All container APIs documented with OpenAPI/Swagger specs
+- ✅ Container diagram shows deployment architecture
+- ✅ System context includes all personas (human and programmatic)
+- ✅ User journeys documented for all key features
+- ✅ All external systems and dependencies identified
+- ✅ Context diagram shows system, users, and external systems
+- ✅ Documentation is organized in C4-Documentation/ directory
+
+## Output Structure
+
 ```
 C4-Documentation/
-├── c4-code-*.md         # Code 层（每目录一份）
-├── c4-component-*.md    # Component 层（每组件一份）
-├── c4-component.md      # 组件主索引
-├── c4-container.md      # Container 层
-├── c4-context.md        # Context 层
-└── apis/
-    └── <容器>-api.yaml  # 每容器 OpenAPI 规格
+├── c4-code-*.md              # Code-level docs (one per directory)
+├── c4-component-*.md          # Component-level docs (one per component)
+├── c4-component.md            # Master component index
+├── c4-container.md            # Container-level docs
+├── c4-context.md              # Context-level docs
+└── apis/                      # API specifications
+    ├── [container]-api.yaml   # OpenAPI specs for each container
+    └── ...
 ```
 
-## 示例
+## Coordination Notes
 
-调用：
+- **Bottom-up processing**: Process directories from deepest to shallowest
+- **Incremental synthesis**: Each level builds on the previous level's documentation
+- **Complete coverage**: Every directory must have code-level documentation before synthesis
+- **Link consistency**: All documentation files link to each other appropriately
+- **API documentation**: Container APIs must have OpenAPI/Swagger specifications
+- **Stakeholder-friendly**: Context documentation should be understandable by non-technical stakeholders
+- **Mermaid diagrams**: Use proper C4 Mermaid notation for all diagrams
+
+## Example Usage
+
 ```bash
 /c4-architecture:c4-architecture
 ```
-执行效果：自底向上遍历所有子目录 → 为每目录生成 `c4-code-*.md` → 合成组件 → 映射容器并附 API 文档 → 生成含角色与用户旅程的系统上下文。全部写入 `C4-Documentation/`。
 
-## 注意事项
+This will:
 
-- **自底向上**：先把最深目录的 code 文档做全，再向上合成；任一目录缺 code 文档就不进入合成。
-- **增量合成**：每层严格基于下一层产物，不跳层臆造。
-- **链接一致**：各文档相互正确链接，便于导航。
-- **图用规范记法**：所有图用合规 Mermaid C4 记法；Context 用 `C4Context`。
-- **API 必带规格**：容器对外 API 必须有 OpenAPI/Swagger 规格。
-- 完成自检（部分）：每子目录有 code 文档且函数签名完整；组件边界清晰且都有接口文档；容器对应真实部署单元且 API 有规格；上下文覆盖全部人类与程序化角色、关键特性旅程、全部外部系统。
-- 仅在任务确属"为已有代码库逆向生成 C4 文档"时使用；产物不替代环境内的验证、测试与专家评审；缺少必要输入、权限或成功标准时先停下来澄清。
+1. Walk through all subdirectories bottom-up
+2. Create c4-code-\*.md for each directory
+3. Synthesize into components
+4. Map to containers with API docs
+5. Create system context with personas and journeys
 
-## 互见
+All documentation written to: C4-Documentation/
 
-- C4 官方模型与图示：https://c4model.com/diagrams
-- 可与"Mermaid 图表绘制""OpenAPI/接口文档"类技能配合，用于细化单图或单接口规格。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

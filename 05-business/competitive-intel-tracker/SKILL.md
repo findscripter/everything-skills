@@ -1,14 +1,14 @@
 ---
 name: competitive-intel-tracker
-title: 竞争情报系统化追踪
-description: 当需要持续追踪竞品动向、制作销售对抗卡(battlecard)、做赢单/输单复盘或针对替代方案做定位时使用；用五层情报系统(识别→追踪维度→分析→输出→节奏)产出威胁矩阵、对抗卡、功能差距表与1页竞争简报；不适用于一次性竞品定位分析(见 competitive-analysis)或纯加权打分矩阵(见 competitive-matrix-builder)。触发词：竞争情报、competitive intelligence、battlecard、对抗卡、赢单输单、win/loss、竞品追踪、市场动向
+title: Competitive Intelligence
+description: Systematic competitor tracking that feeds CMO positioning, CRO battlecards, and CPO roadmap decisions. Use when analyzing competitors, building sales battlecards, tracking market moves, positioning against alternatives, or when user mentions competitive intelligence, competitive analysis, competitor research, battlecards, win/loss, or market positioning.
 domain: 商业/marketing
-triggers: [竞争情报, competitive intelligence, competitive intel, battlecard, 对抗卡, 销售对抗卡, 赢单输单, win/loss, win loss analysis, 竞品追踪, competitor tracking, 市场动向, 市场情报, market intelligence, 竞争简报, 功能差距, feature gap, 威胁矩阵]
-tags: [marketing, 商业, 竞争情报, 竞品追踪, battlecard, 赢单输单, win-loss, 市场情报, 销售赋能, 产品策略]
-level: 进阶
+triggers: [competitive intelligence, competitive intel, battlecard, win/loss, win loss analysis, competitor tracking, market intelligence, feature gap]
+tags: [marketing, battlecard, win-loss]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Crunchbase, G2, Capterra, LinkedIn, Facebook Ad Library, Google Ad Library, Notion, Salesforce]
+tools: []
 requires: []
 related: [competitive-analysis, competitive-matrix-builder, sales-enablement, product-marketing-gtm-strategy]
 combines_with: [competitive-matrix-builder, sales-enablement, product-marketing-gtm-strategy]
@@ -16,160 +16,193 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-# 竞争情报系统化追踪
+# Competitive Intelligence
 
-把竞品追踪做成驱动真实决策的「情报系统」，而非焦虑式围观。情报要喂给三类决策：CMO 的定位、销售的对抗卡(battlecard)、CPO 的路线图。
+Systematic competitor tracking. Not obsession — intelligence that drives real decisions.
 
-## 何时使用
-- 需要**持续**追踪竞品动向（发版、定价、融资、招聘、客户赢失），并定期产出可执行结论时。
-- 要为某个竞品做**销售对抗卡**，供 AE 售前 5 分钟备战。
-- 做**赢单/输单(win/loss)复盘**，定位为什么赢、为什么输。
-- 针对替代方案（含「不做」「自研」）做反向定位。
+## Keywords
+competitive intelligence, competitor analysis, battlecard, win/loss analysis, competitive positioning, competitive tracking, market intelligence, competitor research, SWOT, competitive map, feature gap analysis, competitive strategy
 
-**不该用的边界：**
-- 只想做一次性竞品定位/SWOT/护城河分析 → 用 `competitive-analysis`（波特五力、蓝海四步法）。
-- 已有结构化打分数据、只要量化加权排名矩阵 → 用 `competitive-matrix-builder`。
-- 找可触达销售线索名单 → 用 `sales-prospecting`。
-- 纯市场规模(TAM/SAM/SOM)测算 → 用 `market-sizing-analyst`。
+## Quick Start
 
-## 步骤 / 指令
-
-按「五层情报系统」推进，对应内置指令：
 ```
-/ci:landscape         — 绘制竞争空间（直接 / 间接 / 未来对手）
-/ci:battlecard [名称] — 为某竞品生成销售对抗卡
-/ci:winloss           — 按原因复盘近期赢单与输单
-/ci:update [名称]     — 记录某竞品近期动作
-/ci:map               — 构建竞争定位图
+/ci:landscape         — Map your competitive space (direct, indirect, future)
+/ci:battlecard [name] — Build a sales battlecard for a specific competitor
+/ci:winloss           — Analyze recent wins and losses by reason
+/ci:update [name]     — Track what a competitor did recently
+/ci:map               — Build competitive positioning map
 ```
 
-### Layer 1 · 识别对手
-- **直接对手**：同 ICP、同问题、可比方案、相近价位。
-- **间接对手**：抢同一预算、不同方案（含「不做」「自研」）。
-- **未来对手**：邻近赛道高融资创业公司；路线图已宣告重叠的大厂。
+## Framework: 5-Layer Intelligence System
 
-**2×2 威胁矩阵（每季度更新，看谁换了象限）：**
+### Layer 1: Competitor Identification
 
-| | 同 ICP | 不同 ICP |
+**Direct competitors:** Same ICP, same problem, comparable solution, similar price point.
+**Indirect competitors:** Same budget, different solution (including "do nothing" and "build in-house").
+**Future competitors:** Well-funded startups in adjacent space; large incumbents with stated roadmap overlap.
+
+**The 2x2 Threat Matrix:**
+
+| | Same ICP | Different ICP |
 |---|---|---|
-| **同问题** | 直接威胁 | 邻近（观察） |
-| **不同问题** | 替代风险 | 暂时忽略 |
+| **Same problem** | Direct threat | Adjacent (watch) |
+| **Different problem** | Displacement risk | Ignore for now |
 
-### Layer 2 · 8 个追踪维度
+Update this quarterly. Who's moved quadrants?
 
-| 维度 | 信息源 | 节奏 |
-|---|---|---|
-| 产品动作 | Changelog、G2/Capterra 评价、Twitter/LinkedIn | 月 |
-| 定价变动 | 定价页、销售情报、客户反馈 | 触发 |
-| 融资 | Crunchbase、TechCrunch、LinkedIn | 触发 |
-| 招聘信号 | LinkedIn/Indeed 职位 | 月 |
-| 合作 | 新闻稿、联合营销 | 触发 |
-| 赢得客户 | 案例、评价站、LinkedIn | 月 |
-| 流失客户 | 赢失访谈、流失账户 | 持续 |
-| 信息/口径变化 | 首页、Facebook/Google Ad Library 广告 | 季 |
+### Layer 2: Tracking Dimensions
 
-### Layer 3 · 分析框架
-- **逐竞品 SWOT**：优势（哪里赢）/ 劣势（客户抱怨什么）/ 机会（他们做什么会威胁你）/ 威胁（他们的生存风险）。
-- **定位图（2 轴）**：选对买家有意义、且能清晰凸显**你方差异化**的两轴（如 价格×功能深度、易实施×可配置）。
-- **功能差距表**（✅ 有 / ❌ 无）：
+Track these 8 dimensions per competitor:
 
-| 功能 | 我方 | 竞品A | 竞品B | 差距状态 |
-|---|---|---|---|---|
-| [功能] | ✅ | ✅ | ❌ | 我方优势 |
-| [功能] | ❌ | ✅ | ✅ | 差距—进路线图? |
-| [功能] | ✅ | ❌ | ❌ | 护城河 |
+| Dimension | Sources | Cadence |
+|-----------|---------|---------|
+| **Product moves** | Changelog, G2/Capterra reviews, Twitter/LinkedIn | Monthly |
+| **Pricing changes** | Pricing page, sales call intel, customer feedback | Triggered |
+| **Funding** | Crunchbase, TechCrunch, LinkedIn | Triggered |
+| **Hiring signals** | LinkedIn job postings, Indeed | Monthly |
+| **Partnerships** | Press releases, co-marketing | Triggered |
+| **Customer wins** | Case studies, review sites, LinkedIn | Monthly |
+| **Customer losses** | Win/loss interviews, churned accounts | Ongoing |
+| **Messaging shifts** | Homepage, ads (Facebook/Google Ad Library) | Quarterly |
 
-### Layer 4 · 输出格式（看对象给料）
-- **销售(CRO)**：对抗卡，一页一个竞品，售前备战用（见下方模板）。
-- **营销(CMO)**：定位更新——口径变化、新差异点、该停/该开始的主张。
-- **产品(CPO)**：功能差距摘要——客户要而我们没有、对手已发、该如何重排优先级。
-- **CEO/董事会**：每月 1 页竞争简报——谁动了、意味着什么、建议怎么应对。
+### Layer 3: Analysis Frameworks
 
-### Layer 5 · 情报节奏
-- **每月（排期）**：复盘全部一线对手（直接威胁，前 3）；更新对抗卡；向高层发布 1 页简报。
-- **触发（SLA 硬约束）**：
-  - 对手融资 → 48 小时内评估影响。
-  - 对手发布重大功能 → 1 周内给出产品+销售应对。
-  - 对手挖走关键客户 → 2 周内做赢失访谈。
-  - 对手调价 → 1 周内分析并应对。
-- **每季度**：全量竞争格局复盘；更新定位图；刷新 ICP 威胁评估；增删追踪名单。
+**SWOT per Competitor:**
+- Strengths: What do they do well? Where do they win?
+- Weaknesses: Where do they lose? What do customers complain about?
+- Opportunities: What could they do that would threaten you?
+- Threats: What's their existential risk?
 
-## 示例
+**Competitive Positioning Map (2 axis):**
+Choose axes that matter for your buyers:
+- Common: Price vs Feature Depth; Enterprise-ready vs SMB-ready; Easy to implement vs Configurable
+- Pick axes that show YOUR differentiation clearly
 
-### 销售对抗卡模板（一页一竞品，>90 天即归档）
-```markdown
-**竞品：** [名称]   最后更新：[YYYY-MM-DD] | 负责人：[姓名]
-**对该竞品胜率：** [X]% | 追踪交易数：[N]
+**Feature Gap Analysis:**
+| Feature | You | Competitor A | Competitor B | Gap status |
+|---------|-----|-------------|-------------|------------|
+| [Feature] | ✅ | ✅ | ❌ | Your advantage |
+| [Feature] | ❌ | ✅ | ✅ | Gap — roadmap? |
+| [Feature] | ✅ | ❌ | ❌ | Moat |
+| [Feature] | ❌ | ❌ | ✅ | Competitor B only |
 
-## 30 秒速览
-[他们是谁、打谁、为何赢、以什么著称。3-4 句封顶。]
+### Layer 4: Output Formats
 
-## 他们的优势（别轻视，潜客已听过其话术）
-- [优势]：[客户真心认可的点，附来源]
+**For Sales (CRO):** Battlecards — one page per competitor, designed for pre-call prep.
+See `templates/battlecard-template.md`
 
-## 他们的真实弱点（只来自赢失数据，不靠臆想）
-- [弱点]：「[客户原话]」——见于 [N] 单
+**For Marketing (CMO):** Positioning update — message shifts, new differentiators, claims to stop or start making.
 
-## 我方差异化优势（每条须有可验证证据）
-- [优势]：[证明：指标 / 客户原话 / 案例]
+**For Product (CPO):** Feature gap summary — what customers ask for that we don't have, what competitors ship, what to reprioritize.
 
-## 常见异议 + 应对
-**「他们有 X 功能，你们没有。」**
-> 承认→重构到我方强项→引向结果：「确实他们有 X。我们发现最看重 X 的客户往往也看重 Y，而我们在 Y 上明显更强，给您看个例子？」
-**「他们更便宜。」**
-> 不在价格上对打，重构为 TCO/ROI：「初始成本是低些，但把实施、支持、集成成本算进 12 个月总成本，多数客户发现其实相当。」
+**For CEO/Board:** Monthly competitive summary — 1-page: who moved, what it means, recommended responses.
 
-## 设套式提问（discovery 早期问，把对我方有利的标准立起来）
-- 「[我方关键差异点]对你们工作流多重要？」
-- 「[对手已知短板]发生时怎么办？以前出过问题吗？」
+### Layer 5: Intelligence Cadence
 
-## 我们何时赢 / 何时输（诚实）
-- 赢：[我方稳定胜出的场景/客群]
-- 输：[他们确实更优、别硬打的场景]
+**Monthly (scheduled):**
+- Review all tier-1 competitors (direct threats, top 3)
+- Update battlecards with new intel
+- Publish 1-page summary to leadership
 
-## 不要说（NOT）
-- ❌ 别声称不实的 X，他们会去核对
-- ❌ 别攻击 Y，会反噬显得不自信
+**Triggered (event-based):**
+- Competitor raises funding → assess implications within 48 hours
+- Competitor launches major feature → product + sales response within 1 week
+- Competitor poaches key customer → win/loss interview within 2 weeks
+- Competitor changes pricing → analyze and respond within 1 week
 
-## 近期情报（仅近 90 天，更早归档）
-- [日期]：[融资 / 发版 / 调价 / 关键招聘]
-```
-
-### 赢失访谈结构（最高信号的竞争数据）
-- **何时访谈**：每个 ACV >$50K 的输单；每个 tenure >6 个月的流失；每个竞争性赢单（赢的原因常出乎意料）。
-- **谁来做**：**不是**经手该单的 AE（太近、潜客不会坦白）；由 CS、产品或外部研究员做。
-- **问题脚本**：
-  1. 「带我走一遍你们的评估流程。」
-  2. 「还在考虑哪些方案？」
-  3. 「决策的前 3 大标准是什么？」
-  4. 「[我们的产品]在哪里不够？」
-  5. 「决定性因素是什么？」
-  6. 「什么会改变你的决定？」
-- **每月聚合**：赢因（按频次排序）/ 输因（按频次排序）/ 各竞品分客群胜率 / 时间趋势。
-
-## 注意事项
-
-**情报分发（单一事实源）：** 所有竞争情报集中在一处（Notion / Confluence / Salesforce），**别只发 Slack**——会消失。AE/SDR 拿 CRM 内对抗卡（月+触发）；产品拿功能差距表（季）；营销拿定位简报（季）；高层拿 1 页简报（月）；董事会拿格局幻灯片（季）。
-
-**别失衡：情报而非沉迷。**
-- 过度追踪的信号：路线图主要由「他们刚发了 X」驱动；对手融资时团队士气下滑；为对齐对手清单而做你不信的功能；定价讨论总以「他们收 X」开头。
-- 追踪不足的信号：AE 在通话中被打个措手不及；潜客比你团队更懂竞品；重大发版要等客户告诉你才知道；市场已动而你定位 12+ 个月未变。
-- 正确姿态：足够了解对手以战胜他们，但别让他们定你的议程——路线图由客户问题主导、由竞争差距佐证。
-
-**危险信号速查：**
-| 信号 | 含义 |
-|---|---|
-| 对手在你核心客群胜率 >50% | 是根本定位问题，不是销售问题 |
-| 5+ 单出现同一异议「对手有 X」 | 真实功能差距，不只是观感 |
-| 对手在你领域招了 10 名工程师 | 重大产品投入将至 |
-| 对手融资 >$20M 且打你的 ICP | 他们有 12 个月跑道来硬拼 |
-| 潜客拿你去给「选竞品」背书 | 你成了「陪标项」——修感知或重选客群 |
-
-## 互见
-- related：`competitive-analysis` —— 一次性竞品定位/SWOT/护城河（波特五力、蓝海四步法）
-- related：`sales-prospecting` —— 把情报落到可触达线索清单
-- combines_with：`competitive-matrix-builder` —— 把功能差距表升级为加权量化打分矩阵
-- combines_with：`pricing-strategy` —— 对手调价情报触发定价应对
+**Quarterly:**
+- Full competitive landscape review
+- Update positioning map
+- Refresh ICP competitive threat assessment
+- Add/remove companies from tracking list
 
 ---
-采编自 alirezarezvani/claude-skills（MIT）。
+
+## Win/Loss Analysis
+
+This is the highest-signal competitive data you have. Most companies do it too rarely.
+
+**When to interview:**
+- Every lost deal >$50K ACV
+- Every churn >6 months tenure
+- Every competitive win (learn why — it may not be what you think)
+
+**Who conducts it:**
+- NOT the AE who worked the deal (too close, prospect won't be candid)
+- Customer success, product team, or external researcher
+
+**Question structure:**
+1. "Walk me through your evaluation process"
+2. "Who else were you considering?"
+3. "What were the top 3 criteria in your decision?"
+4. "Where did [our product] fall short?"
+5. "What was the deciding factor?"
+6. "What would have changed your decision?"
+
+**Aggregate findings monthly:**
+- Win reasons (rank by frequency)
+- Loss reasons (rank by frequency)
+- Competitor win rates (by competitor, by segment)
+- Patterns over time
+
+---
+
+## The Balance: Intelligence Without Obsession
+
+**Signs you're over-tracking competitors:**
+- Roadmap decisions are primarily driven by "they just shipped X"
+- Team morale drops when competitors fundraise
+- You're shipping features you don't believe in to match their checklist
+- Pricing discussions always start with "well, they charge X"
+
+**Signs you're under-tracking:**
+- Your AEs get blindsided on calls
+- Prospects know more about competitors than your team does
+- You missed a major product launch until customers told you
+- Your positioning hasn't changed in 12+ months despite market moves
+
+**The right posture:**
+- Know competitors well enough to win against them
+- Don't let them set your agenda
+- Your roadmap is led by customer problems, informed by competitive gaps
+
+---
+
+## Distributing Intelligence
+
+| Audience | Format | Cadence | Owner |
+|----------|--------|---------|-------|
+| AEs + SDRs | Updated battlecards in CRM | Monthly + triggered | CRO |
+| Product | Feature gap analysis | Quarterly | CPO |
+| Marketing | Positioning brief | Quarterly | CMO |
+| Leadership | 1-page competitive summary | Monthly | CEO/COO |
+| Board | Competitive landscape slide | Quarterly | CEO |
+
+**One source of truth:** All competitive intel lives in one place (Notion, Confluence, Salesforce). Avoid Slack-only distribution — it disappears.
+
+---
+
+## Red Flags in Competitive Intelligence
+
+| Signal | What it means |
+|--------|---------------|
+| Competitor's win rate >50% in your core segment | Fundamental positioning problem, not sales problem |
+| Same objection from 5+ deals: "competitor has X" | Feature gap that's real, not just optics |
+| Competitor hired 10 engineers in your domain | Major product investment incoming |
+| Competitor raised >$20M and targets your ICP | 12-month runway for them to compete hard |
+| Prospects evaluate you to justify competitor decision | You're the "check box" — fix perception or segment |
+
+## Integration with C-Suite Roles
+
+| Intelligence Type | Feeds To | Output Format |
+|------------------|----------|---------------|
+| Product moves | CPO | Roadmap input, feature gap analysis |
+| Pricing changes | CRO, CFO | Pricing response recommendations |
+| Funding rounds | CEO, CFO | Strategic positioning update |
+| Hiring signals | CHRO, CTO | Talent market intelligence |
+| Customer wins/losses | CRO, CMO | Battlecard updates, positioning shifts |
+| Marketing campaigns | CMO | Counter-positioning, channel intelligence |
+
+## References
+- `references/ci-playbook.md` — OSINT sources, win/loss framework, positioning map construction
+- `templates/battlecard-template.md` — sales battlecard template

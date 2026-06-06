@@ -1,14 +1,14 @@
 ---
 name: financial-analysis-toolkit
-title: 财务比率与 DCF 估值分析
-description: 当需要从财务报表做比率分析、DCF 估值、预算差异或滚动预测时使用；用四个仅依赖 Python 标准库的脚本（ratio_calculator/dcf_valuation/budget_variance_analyzer/forecast_builder）算出比率、企业/股权价值、差异与情景预测并生成报告；不适用于实时行情抓取、会计记账、税务申报或证券投资建议；触发词：财务分析、财务比率、ratio、DCF、估值 valuation、WACC、预算差异 budget variance、滚动预测 forecast、现金流 cash flow
+title: Financial Analyst Skill
+description: Performs financial ratio analysis, DCF valuation, budget variance analysis, and rolling forecast construction for strategic decision-making. Use when analyzing financial statements, building valuation models, assessing budget variances, or constructing financial projections and forecasts. Also applicable when users mention financial modeling, cash flow analysis, company valuation, financial projections, or spreadsheet analysis.
 domain: 数据/analysis
-triggers: [财务分析, 财务比率, ratio, DCF, 估值 valuation, WACC, 预算差异 budget variance, 滚动预测 forecast, 现金流 cash flow]
+triggers: [ratio, DCF, WACC]
 tags: [finance, financial-analysis, dcf, valuation, budgeting, forecast]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, ratio_calculator.py, dcf_valuation.py, budget_variance_analyzer.py, forecast_builder.py]
+tools: []
 requires: []
 related: [dcf-valuation-model, three-statement-model, spreadsheet-formula-auditor, startup-financial-modeler]
 combines_with: [spreadsheet-formula-auditor, kpi-dashboard-design, matplotlib-visualization]
@@ -16,73 +16,146 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Financial Analyst Skill
 
-当用户提供财务报表（利润表、资产负债表、现金流量表）或财务假设，需要做以下任一分析时使用：
+## Overview
 
-- 计算并解读财务比率（盈利、流动、杠杆、效率、估值五大类）。
-- 用 DCF（贴现现金流）做企业价值与股权价值估值，含 WACC 与终值。
-- 做预算差异分析（实际 vs 预算 vs 上年），按重要性筛选并判别有利/不利。
-- 用驱动因素法做收入预测、13 周滚动现金流与基准/乐观/悲观情景。
+Production-ready financial analysis toolkit providing ratio analysis, DCF valuation, budget variance analysis, and rolling forecast construction. Designed for financial modeling, forecasting & budgeting, management reporting, business performance analysis, and investment analysis.
 
-不该用：实时行情/财报抓取（无联网，需用户提供数据）；记账、税务申报、合规审计；个性化证券投资建议或荐股；非结构化数据的纯文字解读（先转成下方 JSON 结构）。
+## 5-Phase Workflow
 
-## 步骤
+### Phase 1: Scoping
+- Define analysis objectives and stakeholder requirements
+- Identify data sources and time periods
+- Establish materiality thresholds and accuracy targets
+- Select appropriate analytical frameworks
 
-1. 定边界：明确分析目标、数据来源、时间区间、重要性阈值与精度目标，选定分析框架。
-2. 备数据：把财务数据整理为 JSON 输入文件（四个工具共用一套 schema，参见 `assets/sample_financial_data.json`）。**运行前先校验输入完整性**：检查缺失字段、空值、明显不合理的数值。
-3. 跑工具：按需求调用对应脚本（均为 Python 标准库，零第三方依赖）。
-4. 校验输出：比率对照行业基准；**DCF 结果对照合理边界**（如隐含倍数 vs 可比公司），异常即回查假设。
-5. 出报告：用 `assets/` 下模板生成高管摘要、差异报告、DCF 报告（含敏感性表）、预测报告。
-6. 跟踪复盘：用实际值更新模型，跟踪预测精度（收入 ±5%、费用 ±3%），据差异迭代假设。
+### Phase 2: Data Analysis & Modeling
+- Collect and validate financial data (income statement, balance sheet, cash flow)
+- **Validate input data completeness** before running ratio calculations (check for missing fields, nulls, or implausible values)
+- Calculate financial ratios across 5 categories (profitability, liquidity, leverage, efficiency, valuation)
+- Build DCF models with WACC and terminal value calculations; **cross-check DCF outputs against sanity bounds** (e.g., implied multiples vs. comparables)
+- Construct budget variance analyses with favorable/unfavorable classification
+- Develop driver-based forecasts with scenario modeling
 
-## 指令
+### Phase 3: Insight Generation
+- Interpret ratio trends and benchmark against industry standards
+- Identify material variances and root causes
+- Assess valuation ranges through sensitivity analysis
+- Evaluate forecast scenarios (base/bull/bear) for decision support
 
-四个脚本都接受一个 JSON 输入文件，并支持 `--format text|json`（默认 text）：
+### Phase 4: Reporting
+- Generate executive summaries with key findings
+- Produce detailed variance reports by department and category
+- Deliver DCF valuation reports with sensitivity tables
+- Present rolling forecasts with trend analysis
+
+### Phase 5: Follow-up
+- Track forecast accuracy (target: +/-5% revenue, +/-3% expenses)
+- Monitor report delivery timeliness (target: 100% on time)
+- Update models with actuals as they become available
+- Refine assumptions based on variance analysis
+
+## Tools
+
+### 1. Ratio Calculator (`scripts/ratio_calculator.py`)
+
+Calculate and interpret financial ratios from financial statement data.
+
+**Ratio Categories:**
+- **Profitability:** ROE, ROA, Gross Margin, Operating Margin, Net Margin
+- **Liquidity:** Current Ratio, Quick Ratio, Cash Ratio
+- **Leverage:** Debt-to-Equity, Interest Coverage, DSCR
+- **Efficiency:** Asset Turnover, Inventory Turnover, Receivables Turnover, DSO
+- **Valuation:** P/E, P/B, P/S, EV/EBITDA, PEG Ratio
 
 ```bash
-# 1. 比率计算：--category 可限定 profitability/liquidity/leverage/efficiency/valuation
-python scripts/ratio_calculator.py financial_data.json
-python scripts/ratio_calculator.py financial_data.json --category profitability --format json
+python scripts/ratio_calculator.py sample_financial_data.json
+python scripts/ratio_calculator.py sample_financial_data.json --format json
+python scripts/ratio_calculator.py sample_financial_data.json --category profitability
+```
 
-# 2. DCF 估值：WACC(CAPM)、5 年默认预测、双终值法、贴现率×增长率两维敏感性
+### 2. DCF Valuation (`scripts/dcf_valuation.py`)
+
+Discounted Cash Flow enterprise and equity valuation with sensitivity analysis.
+
+**Features:**
+- WACC calculation via CAPM
+- Revenue and free cash flow projections (5-year default)
+- Terminal value via perpetuity growth and exit multiple methods
+- Enterprise value and equity value derivation
+- Two-way sensitivity analysis (discount rate vs growth rate)
+
+```bash
 python scripts/dcf_valuation.py valuation_data.json
+python scripts/dcf_valuation.py valuation_data.json --format json
 python scripts/dcf_valuation.py valuation_data.json --projection-years 7
+```
 
-# 3. 预算差异：默认重要性阈值 10% 或 5 万，可覆盖
+### 3. Budget Variance Analyzer (`scripts/budget_variance_analyzer.py`)
+
+Analyze actual vs budget vs prior year performance with materiality filtering.
+
+**Features:**
+- Dollar and percentage variance calculation
+- Materiality threshold filtering (default: 10% or $50K)
+- Favorable/unfavorable classification with revenue/expense logic
+- Department and category breakdown
+- Executive summary generation
+
+```bash
+python scripts/budget_variance_analyzer.py budget_data.json
+python scripts/budget_variance_analyzer.py budget_data.json --format json
 python scripts/budget_variance_analyzer.py budget_data.json --threshold-pct 5 --threshold-amt 25000
+```
 
-# 4. 滚动预测：驱动法收入 + 13 周现金流 + 情景；线性回归用标准库
+### 4. Forecast Builder (`scripts/forecast_builder.py`)
+
+Driver-based revenue forecasting with rolling cash flow projection and scenario modeling.
+
+**Features:**
+- Driver-based revenue forecast model
+- 13-week rolling cash flow projection
+- Scenario modeling (base/bull/bear cases)
+- Trend analysis using simple linear regression (standard library)
+
+```bash
+python scripts/forecast_builder.py forecast_data.json
+python scripts/forecast_builder.py forecast_data.json --format json
 python scripts/forecast_builder.py forecast_data.json --scenarios base,bull,bear
 ```
 
-关键比率：盈利（ROE/ROA/毛利率/营业利润率/净利率）、流动（流动比率/速动比率/现金比率）、杠杆（资产负债率/利息保障倍数/DSCR）、效率（总资产周转/存货周转/应收周转/DSO）、估值（P/E、P/B、P/S、EV/EBITDA、PEG）。
+## Knowledge Bases
 
-DCF 终值用两种方法并行：永续增长法与退出倍数法（默认 EV/EBITDA=12，终值 EBITDA 利润率 0.20，终值增长 0.025）。
+| Reference | Purpose |
+|-----------|---------|
+| `references/financial-ratios-guide.md` | Ratio formulas, interpretation, industry benchmarks |
+| `references/valuation-methodology.md` | DCF methodology, WACC, terminal value, comps |
+| `references/forecasting-best-practices.md` | Driver-based forecasting, rolling forecasts, accuracy |
+| `references/industry-adaptations.md` | Sector-specific metrics and considerations (SaaS, Retail, Manufacturing, Financial Services, Healthcare) |
 
-## 示例
+## Templates
 
-任务：给定某公司财报 JSON，先看盈利能力，再做 7 年 DCF。
+| Template | Purpose |
+|----------|---------|
+| `assets/variance_report_template.md` | Budget variance report template |
+| `assets/dcf_analysis_template.md` | DCF valuation analysis template |
+| `assets/forecast_report_template.md` | Revenue forecast report template |
 
-```bash
-python scripts/ratio_calculator.py acme.json --category profitability
-python scripts/dcf_valuation.py acme_dcf.json --projection-years 7 --format json
-```
+## Key Metrics & Targets
 
-读出净利率与 ROE 判断盈利质量，DCF 输出对比永续增长法与退出倍数法的每股价值区间，并用敏感性表说明对贴现率/增长率的弹性。
+| Metric | Target |
+|--------|--------|
+| Forecast accuracy (revenue) | +/-5% |
+| Forecast accuracy (expenses) | +/-3% |
+| Report delivery | 100% on time |
+| Model documentation | Complete for all assumptions |
+| Variance explanation | 100% of material variances |
 
-## 注意事项
+## Input Data Format
 
-- **约束：WACC 必须大于终值增长率**，否则永续增长终值会被置为 0（公式分母为 `WACC − g`）。
-- 重要性阈值默认 10% 或 5 万美元，低于阈值的差异会被过滤；按场景调 `--threshold-pct/--threshold-amt`。
-- 收入/费用变量的有利-不利判别方向相反，看报告时注意符号语义。
-- 输出务必回校源数据；模型所有假设需完整留痕，100% 解释重大差异。
-- 依赖：仅 Python 标准库（`math`/`statistics`/`json`/`argparse`/`datetime`），无需 numpy/pandas/scipy。
+All scripts accept JSON input files. See `assets/sample_financial_data.json` for the complete input schema covering all four tools.
 
-## 互见
+## Dependencies
 
-- csv-data-cleaner：财务原始数据落地为 CSV 时，先清洗再转 JSON 输入。
-- sql-query-builder：从数据库取数构造分析输入时配合使用。
-- markdown-to-docx：把生成的 Markdown 报告转成 Word 交付。
-
-本条采编自 alirezarezvani/claude-skills（MIT）。
+**None** - All scripts use Python standard library only (`math`, `statistics`, `json`, `argparse`, `datetime`). No numpy, pandas, or scipy required.

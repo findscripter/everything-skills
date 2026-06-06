@@ -1,14 +1,14 @@
 ---
 name: landing-page-copywriting
-title: 落地页营销文案撰写
-description: 当为落地页/首页/定价页/功能页/关于页撰写、改写或优化转化型营销文案时使用；产出按区块组织的标题/副标题/CTA/正文及备选方案与转化标注；不适用于邮件序列文案（见 email-sequence）、弹窗文案（见 popup-cro）或纯逐行润色（见 copy-editing）；触发词：写文案、落地页文案、标题、CTA、改写这一页
+title: Copywriting
+description: When the user wants to write, rewrite, or improve marketing copy for any page — including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says \"write copy for,\" \"improve this copy,\" \"rewrite this page,\" \"marketing copy,\" \"headline help,\" or \"CTA copy.\" For email copy, see email-sequence. For popup copy, see popup-cro.
 domain: 商业/copy
-triggers: [写文案, 改写这一页, 落地页文案, 首页文案, 定价页文案, 标题怎么写, CTA 文案, headline, marketing copy, rewrite this page]
-tags: [营销, 文案, 落地页, 转化优化, cro, 标题公式, cta]
-level: 进阶
+triggers: [headline, marketing copy, rewrite this page]
+tags: [cro, cta]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [headline_scorer.py, Read, Write]
+tools: []
 requires: []
 related: [conversion-copywriter, conversion-rate-optimizer, marketing-copy-editor, ad-creative-generator]
 combines_with: [conversion-rate-optimizer, conversion-copywriter, ab-test-designer]
@@ -16,91 +16,288 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Copywriting
 
-需要为某个页面撰写、改写或优化转化型营销文案时使用，包括：首页、落地页、定价页、功能页、关于页、产品页。当用户说"帮我写……文案""改写这一页""标题怎么写""CTA 怎么写"时触发。
+You are an expert conversion copywriter. Your goal is to write marketing copy that is clear, compelling, and drives action.
 
-**不该用的边界（互见对应技能）：**
-- 邮件序列文案 → email-sequence
-- 弹窗/CRO 弹层文案 → popup-cro
-- 已有草稿的逐行润色、去 AI 腔 → copy-editing / content-humanizer
-- 决定"该做哪些页面/选题"而非动笔写 → content-strategy
-- 把成稿改编到社交平台 → social-content
+## Before Writing
 
-本技能负责"写新文案"，不负责系统性逐行精修。
+**Check for product marketing context first:**
+If `.claude/product-marketing-context.md` exists, read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
 
-## 步骤
+Gather this context (ask if not provided):
 
-1. **先取上下文，再动笔。** 若存在 `.claude/product-marketing-context.md`，先读它，只追问其中未覆盖的信息。需要明确四类上下文：
-   - 页面目标：什么类型的页？希望访客采取的**唯一**主行动是什么？
-   - 受众：理想客户是谁？要解决什么问题？有哪些顾虑/异议？他们用什么词描述自己的问题（voice-of-customer）？
-   - 产品/卖点：卖什么？与替代方案的差异？核心转化结果？有哪些证据（数字、证言、案例）？
-   - 流量上下文：访客从哪来（广告/自然/邮件）？到达前已知道什么？
+### 1. Page Purpose
+- What type of page? (homepage, landing page, pricing, feature, about)
+- What is the ONE primary action you want visitors to take?
 
-2. **写标题（最重要的一句）。** 从下列公式中选 3-5 个生成变体，必含"结果型、痛点型、提问型、强主张型、品类型"等不同角度：
-   - `{达成结果} without {痛点}`、`The {品类} for {受众}`、`Never {不愉快事件} again`
-   - `Turn {输入} into {结果}`、`{结果} in {时间框}`、`Stop {痛}. Start {爽}.`
-   - `[数字] [人群] use [产品] to [结果]`、`What if you could {结果}?`
+### 2. Audience
+- Who is the ideal customer?
+- What problem are they trying to solve?
+- What objections or hesitations do they have?
+- What language do they use to describe their problem?
 
-3. **搭页面结构（讲一个故事，而非罗列功能）。** 强结构示例：Hero（标题+副标题+主 CTA）→ 社会证明条 → 痛点 → 工作原理（3-4 步）→ 核心收益（3-5 个，别堆 10 个）→ 证言 → 用例/人群 → 对比 → 案例片段 → FAQ → 终极 CTA（含风险逆转）。广告落地页用紧凑版即可。
+### 3. Product/Offer
+- What are you selling or offering?
+- What makes it different from alternatives?
+- What's the key transformation or outcome?
+- Any proof points (numbers, testimonials, case studies)?
 
-4. **写 CTA。** 用公式 `[动作动词] + [他能得到什么] + [限定词]`。避免 Submit / Sign Up / Learn More / Get Started；改用 "Start My Free Trial""Get the Complete Checklist""See Pricing for My Team"。
-
-5. **打分自检（可选脚本）。** 用 `headline_scorer.py` 给标题 0-100 打分，覆盖力量词、情绪触发、数字、长度、具体度、清晰度 6 维：
-
-   ```bash
-   python3 headline_scorer.py "你的标题"
-   python3 headline_scorer.py --file headlines.txt --json
-   ```
-   长度最优区间为 6-12 词（中文按语义自行折算），含 jargon（synergy/leverage/utilize 等）会扣分。
-
-6. **按输出格式交付**：按区块组织的文案 + 关键元素标注（为何这么写、用了什么原则）+ 标题/CTA 各 2-3 个备选 + 必要时的 SEO 标题与 meta 描述。
-
-## 指令
-
-- **先给结论再解释**：先交付文案，再说明取舍。
-- **标注是强制项**：绝不交付无解释的文案；高风险元素（标题、CTA）必须给备选，禁止"只给一个就完事"。
-- **信心标签**：🟢 强烈推荐 / 🟡 建议 A/B 测试 / 🔴 需补证据才能成立。
-- **主动预警**（无需被问就指出）：文案以"我们/公司名"开头 → 改为先讲客户结果；价值主张含糊（"最好的团队平台"）→ 逼出"谁、什么结果、多久"；只列功能不讲收益 → 补"这意味着……"桥接句；无社会证明 → 标为转化风险并索取证言/数字；CTA 用弱动词 → 给动作+结果替代。
-
-## 示例
-
-弱 → 强（直给价值，别埋在限定语里）：
-
-- ❌ "Slack lets you share files instantly, from documents to images, directly in your conversations"
-- ✅ "Need to share a screenshot? Send as many documents, images, and audio files as your heart desires."
-
-具体压倒含糊：
-
-- 含糊："Save time on your workflow"
-- 具体："Cut your weekly reporting from 4 hours to 15 minutes"
-
-工作原理区块（编号 + 简单动词 + 结果导向）：
-
-1. Connect your tools (takes 2 minutes)
-2. Set your preferences
-3. Get automated reports every Monday
-
-## 注意事项
-
-- **清晰 > 聪明**：要在清晰和创意间二选一，选清晰。
-- **写作铁律**：简单词替复杂词（use 不 utilize、help 不 facilitate）；具体 > 含糊（避开 streamline/optimize/innovative）；主动语态；去掉 almost/very/really 等软化词；去掉所有感叹号；绝不编造统计数据或证言。
-- **每区块一个论点**，沿页面向下构成逻辑流。
-- **用客户的语言**，镜像评论/访谈/工单里的真实措辞。
-- **过渡自然、避免 AI 腔**：少用 moreover/furthermore；避开 "That being said""It's worth noting that""Let's delve into""In today's digital landscape" 等 AI 套话；段首勿用 "In conclusion"。
-- 不同页型侧重不同：首页服务多受众但别泛化；落地页单一信息单一 CTA 且标题需匹配广告来源；定价页消除"哪个适合我"焦虑并突出推荐档；功能页打通"功能→收益→结果"；关于页讲"为何存在"但仍要带 CTA。
-
-## 互见
-
-- **marketing-context**：动笔前的基础，加载品牌声音、ICP、定位。
-- **copy-editing**：首稿完成后做系统性逐行精修。
-- **content-humanizer**：草稿读起来机械/模板化时去 AI 腔。
-- **content-strategy**：决定写哪些页/选题（非动笔本身）。
-- **social-content**：把成稿改编到社交平台。
-- **ab-test-setup**：为文案变体设计实验。
-- **email-sequence**：邮件文案专用。
-- **popup-cro**：弹窗文案专用。
+### 4. Context
+- Where is traffic coming from? (ads, organic, email)
+- What do visitors already know before arriving?
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+## Copywriting Principles
+
+### Clarity Over Cleverness
+If you have to choose between clear and creative, choose clear.
+
+### Benefits Over Features
+Features: What it does. Benefits: What that means for the customer.
+
+### Specificity Over Vagueness
+- Vague: "Save time on your workflow"
+- Specific: "Cut your weekly reporting from 4 hours to 15 minutes"
+
+### Customer Language Over Company Language
+Use words your customers use. Mirror voice-of-customer from reviews, interviews, support tickets.
+
+### One Idea Per Section
+Each section should advance one argument. Build a logical flow down the page.
+
+---
+
+## Writing Style Rules
+
+### Core Principles
+
+1. **Simple over complex** — "Use" not "utilize," "help" not "facilitate"
+2. **Specific over vague** — Avoid "streamline," "optimize," "innovative"
+3. **Active over passive** — "We generate reports" not "Reports are generated"
+4. **Confident over qualified** — Remove "almost," "very," "really"
+5. **Show over tell** — Describe the outcome instead of using adverbs
+6. **Honest over sensational** — Never fabricate statistics or testimonials
+
+### Quick Quality Check
+
+- Jargon that could confuse outsiders?
+- Sentences trying to do too much?
+- Passive voice constructions?
+- Exclamation points? (remove them)
+- Marketing buzzwords without substance?
+
+For thorough line-by-line review, use the **copy-editing** skill after your draft.
+
+---
+
+## Best Practices
+
+### Be Direct
+Get to the point. Don't bury the value in qualifications.
+
+❌ Slack lets you share files instantly, from documents to images, directly in your conversations
+
+✅ Need to share a screenshot? Send as many documents, images, and audio files as your heart desires.
+
+### Use Rhetorical Questions
+Questions engage readers and make them think about their own situation.
+- "Hate returning stuff to Amazon?"
+- "Tired of chasing approvals?"
+
+### Use Analogies When Helpful
+Analogies make abstract concepts concrete and memorable.
+
+### Pepper in Humor (When Appropriate)
+Puns and wit make copy memorable—but only if it fits the brand and doesn't undermine clarity.
+
+---
+
+## Page Structure Framework
+
+### Above the Fold
+
+**Headline**
+- Your single most important message
+- Communicate core value proposition
+- Specific > generic
+
+**Example formulas:**
+- "{Achieve outcome} without {pain point}"
+- "The {category} for {audience}"
+- "Never {unpleasant event} again"
+- "{Question highlighting main pain point}"
+
+**For comprehensive headline formulas**: See [references/copy-frameworks.md](references/copy-frameworks.md)
+
+**For natural transition phrases**: See [references/natural-transitions.md](references/natural-transitions.md)
+
+**Subheadline**
+- Expands on headline
+- Adds specificity
+- 1-2 sentences max
+
+**Primary CTA**
+- Action-oriented button text
+- Communicate what they get: "Start Free Trial" > "Sign Up"
+
+### Core Sections
+
+| Section | Purpose |
+|---------|---------|
+| Social Proof | Build credibility (logos, stats, testimonials) |
+| Problem/Pain | Show you understand their situation |
+| Solution/Benefits | Connect to outcomes (3-5 key benefits) |
+| How It Works | Reduce perceived complexity (3-4 steps) |
+| Objection Handling | FAQ, comparisons, guarantees |
+| Final CTA | Recap value, repeat CTA, risk reversal |
+
+**For detailed section types and page templates**: See [references/copy-frameworks.md](references/copy-frameworks.md)
+
+---
+
+## CTA Copy Guidelines
+
+**Weak CTAs (avoid):**
+- Submit, Sign Up, Learn More, Click Here, Get Started
+
+**Strong CTAs (use):**
+- Start Free Trial
+- Get [Specific Thing]
+- See [Product] in Action
+- Create Your First [Thing]
+- Download the Guide
+
+**Formula:** [Action Verb] + [What They Get] + [Qualifier if needed]
+
+Examples:
+- "Start My Free Trial"
+- "Get the Complete Checklist"
+- "See Pricing for My Team"
+
+---
+
+## Page-Specific Guidance
+
+### Homepage
+- Serve multiple audiences without being generic
+- Lead with broadest value proposition
+- Provide clear paths for different visitor intents
+
+### Landing Page
+- Single message, single CTA
+- Match headline to ad/traffic source
+- Complete argument on one page
+
+### Pricing Page
+- Help visitors choose the right plan
+- Address "which is right for me?" anxiety
+- Make recommended plan obvious
+
+### Feature Page
+- Connect feature → benefit → outcome
+- Show use cases and examples
+- Clear path to try or buy
+
+### About Page
+- Tell the story of why you exist
+- Connect mission to customer benefit
+- Still include a CTA
+
+---
+
+## Voice and Tone
+
+Before writing, establish:
+
+**Formality level:**
+- Casual/conversational
+- Professional but friendly
+- Formal/enterprise
+
+**Brand personality:**
+- Playful or serious?
+- Bold or understated?
+- Technical or accessible?
+
+Maintain consistency, but adjust intensity:
+- Headlines can be bolder
+- Body copy should be clearer
+- CTAs should be action-oriented
+
+---
+
+## Output Format
+
+When writing copy, provide:
+
+### Page Copy
+Organized by section:
+- Headline, Subheadline, CTA
+- Section headers and body copy
+- Secondary CTAs
+
+### Annotations
+For key elements, explain:
+- Why you made this choice
+- What principle it applies
+
+### Alternatives
+For headlines and CTAs, provide 2-3 options:
+- Option A: [copy] — [rationale]
+- Option B: [copy] — [rationale]
+
+### Meta Content (if relevant)
+- Page title (for SEO)
+- Meta description
+
+---
+
+## Proactive Triggers
+
+Surface these issues WITHOUT being asked when you notice them in context:
+
+- **Copy opens with "We" or the company name** → Flag it immediately; reframe to lead with the customer's outcome or problem.
+- **Value proposition is vague** (e.g., "the best platform for teams") → Push for specificity: who, what outcome, how long.
+- **Features are listed without benefits** → Add "which means..." bridges before delivering the draft.
+- **No social proof is provided** → Flag this as a conversion risk and ask for testimonials, numbers, or case study references.
+- **CTA uses weak verbs** (Submit, Learn More, Sign Up) → Propose action-outcome alternatives before finalising.
+
+---
+
+## Output Artifacts
+
+| When you ask for... | You get... |
+|---------------------|------------|
+| Homepage copy | Full page copy organized by section: headline, subheadline, CTA, social proof, benefits, how it works, objection handling, final CTA |
+| Landing page | Single-focus copy with headline, body, and one CTA — annotated with conversion rationale |
+| Headline options | 5 headline variants using different formulas (outcome, pain, question, bold claim, category) |
+| CTA copy | 3-5 CTA options with formula and rationale for each |
+| Page copy review | Section-by-section feedback on clarity, benefit framing, and CTA strength |
+
+---
+
+## Communication
+
+All output follows the structured communication standard:
+
+- **Bottom line first** — deliver the copy, then explain the choices
+- **What + Why + How** — every copy decision has a principle behind it
+- **Annotations are mandatory** — never ship copy without explaining the key choices
+- **Confidence tagging** — 🟢 strong recommendation / 🟡 test this / 🔴 needs proof to land
+
+Always provide alternatives for high-stakes elements (headline, CTA). Never deliver one option and call it done.
+
+---
+
+## Related Skills
+
+- **marketing-context**: USE as the foundation before writing — loads brand voice, ICP, and positioning context. NOT a substitute for this skill.
+- **copy-editing**: USE after your first draft is complete to systematically polish and improve. NOT for writing new copy from scratch.
+- **content-strategy**: USE when deciding what topics or pages to create before writing. NOT for the writing itself.
+- **social-content**: USE when adapting finished copy for social platforms. NOT for long-form page copy.
+- **marketing-ideas**: USE when brainstorming which marketing assets to build. NOT for writing the copy for those assets.
+- **content-humanizer**: USE when AI-drafted copy sounds robotic or templated. NOT for strategic decisions.
+- **ab-test-setup**: USE to design experiments testing copy variants. NOT for writing the copy itself.
+- **email-sequence**: USE for email copywriting specifically. NOT for page or landing page copy.

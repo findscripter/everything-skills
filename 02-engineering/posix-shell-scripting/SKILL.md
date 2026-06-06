@@ -1,14 +1,14 @@
 ---
 name: posix-shell-scripting
-title: POSIX Shell 可移植脚本
-description: 当需要编写在 dash/ash/BusyBox/bash --posix 等任意 POSIX shell 上可移植运行的脚本时使用；做严格 POSIX sh 脚本的编写、bashism 排查与跨平台校验，产出 #!/bin/sh 脚本与 shellcheck -s sh 通过项；不适用于依赖 bash 专属特性（数组、[[、local、pipefail）或仅单机一次性命令；触发词：POSIX、dash、bashism、可移植脚本
+title: Posix Shell Scripting
+description: Expert in strict POSIX sh scripting for maximum portability across Unix-like systems. Specializes in shell scripts that run on any POSIX-compliant shell (dash, ash, sh, bash --posix).
 domain: 研发/devops
-triggers: [写 POSIX 脚本, dash/ash 兼容, 去 bashism, checkbashisms, 可移植 shell, BusyBox/Alpine 脚本, bash 转 POSIX sh, shellcheck -s sh, init 启动脚本, 嵌入式 shell]
-tags: [shell, posix, 可移植性, dash, ash, busybox, shellcheck, 脚本工程, 研发]
-level: 进阶
+triggers: [checkbashisms, shellcheck -s sh]
+tags: [shell, posix, dash, ash, busybox, shellcheck]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [shellcheck, shfmt, checkbashisms, dash, ash, bash --posix, mktemp, printf]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,95 +16,303 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## Use this skill when
 
-- **该用**：脚本要在多种 Unix 类系统/shell 上运行（Linux dash、Alpine/BusyBox ash、macOS、BSD、Solaris）；写 init/启动脚本、容器入口、嵌入式脚本；把 bash 脚本迁移成可移植的 `#!/bin/sh`；需要过 `shellcheck -s sh`、`checkbashisms`、`shfmt -ln posix`。
-- **不该用（负边界）**：明确只在 bash 上跑且要用数组、`[[`、`local`、`pipefail`、`${var//}` 等专属特性时——那应写 bash 脚本并用 `#!/bin/bash`；纯一次性、不复用的交互命令也无需为可移植性付出代价。
+- Working on posix shell pro tasks or workflows
+- Needing guidance, best practices, or checklists for posix shell pro
 
-## 步骤
+## Do not use this skill when
 
-1. **定目标与约束**：确认目标 shell（至少含 dash + BusyBox ash）、目标平台、必需输入与退出码语义。
-2. **写脚本骨架**：`#!/bin/sh` + `set -eu`（POSIX 无 `pipefail`）+ 用法函数 + `-h` 帮助。
-3. **遵守 POSIX 约束**（见下「指令」），全程引用变量、`[ ]` 测试、`printf` 输出、`$()` 替换。
-4. **加安全/清理**：`trap` 清理临时文件、`umask 077`、`--` 终止选项、输入校验。
-5. **静态校验**：`shellcheck -s sh script.sh && shfmt -ln posix -d script.sh && checkbashisms script.sh && sh -n script.sh`。
-6. **多 shell 实跑**：在 dash、BusyBox ash、`bash --posix`（必要时 yash）上各跑一遍，容器化复现（`alpine:latest`=ash、`debian:stable`=dash）。
+- The task is unrelated to posix shell pro
+- You need a different domain or tool outside this scope
 
-## 指令
+## Instructions
 
-**核心约束（POSIX sh 没有的东西，碰到即改）**
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-- 无数组 → 用位置参数或分隔字符串；无 `[[` → 只用 `[ ]`；无进程替换 `<()`/`>()`；无花括号展开 `{1..10}`。
-- 无 `local`/`declare`/`typeset`/`readonly`；无 `+=` 拼接；无 `${var//pat/rep}`；无关联数组；无 `$RANDOM`、`read -a`、`set -o pipefail`、`&>`、`function` 关键字、`echo -e/-n`、`==`。
-- 用 `.` 而非 `source`；用 `command -v` 而非 `which`/`type`。
+## Focus Areas
 
-**做法清单**
+- Strict POSIX compliance for maximum portability
+- Shell-agnostic scripting that works on any Unix-like system
+- Defensive programming with portable error handling
+- Safe argument parsing without bash-specific features
+- Portable file operations and resource management
+- Cross-platform compatibility (Linux, BSD, Solaris, AIX, macOS)
+- Testing with dash, ash, and POSIX mode validation
+- Static analysis with ShellCheck in POSIX mode
+- Minimalist approach using only POSIX-specified features
+- Compatibility with legacy systems and embedded environments
 
-- 引用所有展开：`"$var"`，绝不裸 `$var`。
-- 输出一律 `printf`（`echo` 各实现行为不一）。
-- 算术用 `$(( ))`；字符串复杂处理交给 `sed`/`awk`/参数展开。
-- 选项解析用 `while` + `case`（POSIX `getopts` 不支持长选项）。
-- 命令存在性：`command -v cmd >/dev/null 2>&1 || exit 1`；OS 判别 `uname -s`。
-- 显式查错：`cmd || { printf 'failed\n' >&2; exit 1; }`；数值校验 `case $n in *[!0-9]*) exit 1 ;; esac`。
-- 绝不对不可信输入 `eval`；安全场景用全路径命令（`/bin/rm`）。
-- `IFS` 改动后及时还原；`-h` 显示 synopsis，文档化退出码（0 成功、1 错误、特定码对应特定失败）。
+## POSIX Constraints
 
-## 示例
+- No arrays (use positional parameters or delimited strings)
+- No `[[` conditionals (use `[` test command only)
+- No process substitution `<()` or `>()`
+- No brace expansion `{1..10}`
+- No `local` keyword (use function-scoped variables carefully)
+- No `declare`, `typeset`, or `readonly` for variable attributes
+- No `+=` operator for string concatenation
+- No `${var//pattern/replacement}` substitution
+- No associative arrays or hash tables
+- No `source` command (use `.` for sourcing files)
 
-安全临时文件 + 清理 trap：
+## Approach
 
-```sh
-#!/bin/sh
-set -eu
-tmpfile=$(mktemp) || exit 1
-trap 'rm -f "$tmpfile"' EXIT INT TERM
-```
+- Always use `#!/bin/sh` shebang for POSIX shell
+- Use `set -eu` for error handling (no `pipefail` in POSIX)
+- Quote all variable expansions: `"$var"` never `$var`
+- Use `[ ]` for all conditional tests, never `[[`
+- Implement argument parsing with `while` and `case` (no `getopts` for long options)
+- Create temporary files safely with `mktemp` and cleanup traps
+- Use `printf` instead of `echo` for all output (echo behavior varies)
+- Use `. script.sh` instead of `source script.sh` for sourcing
+- Implement error handling with explicit `|| exit 1` checks
+- Design scripts to be idempotent and support dry-run modes
+- Use `IFS` manipulation carefully and restore original value
+- Validate inputs with `[ -n "$var" ]` and `[ -z "$var" ]` tests
+- End option parsing with `--` and use `rm -rf -- "$dir"` for safety
+- Use command substitution `$()` instead of backticks for readability
+- Implement structured logging with timestamps using `date`
+- Test scripts with dash/ash to verify POSIX compliance
 
-无数组——位置参数模拟数组：
+## Compatibility & Portability
 
-```sh
-set -- item1 item2 item3
-for arg; do process "$arg"; done
-```
+- Use `#!/bin/sh` to invoke the system's POSIX shell
+- Test on multiple shells: dash (Debian/Ubuntu default), ash (Alpine/BusyBox), bash --posix
+- Avoid GNU-specific options; use POSIX-specified flags only
+- Handle platform differences: `uname -s` for OS detection
+- Use `command -v` instead of `which` (more portable)
+- Check for command availability: `command -v cmd >/dev/null 2>&1 || exit 1`
+- Provide portable implementations for missing utilities
+- Use `[ -e "$file" ]` for existence checks (works on all systems)
+- Avoid `/dev/stdin`, `/dev/stdout` (not universally available)
+- Use explicit redirection instead of `&>` (bash-specific)
 
-分隔字符串拆分（用完还原 IFS）：
+## Readability & Maintainability
 
-```sh
-items="a:b:c"
-IFS=:; set -- $items; IFS=' '
-```
+- Use descriptive variable names in UPPER_CASE for exports, lower_case for locals
+- Add section headers with comment blocks for organization
+- Keep functions under 50 lines; extract complex logic
+- Use consistent indentation (spaces only, typically 2 or 4)
+- Document function purpose and parameters in comments
+- Use meaningful names: `validate_input` not `check`
+- Add comments for non-obvious POSIX workarounds
+- Group related functions with descriptive headers
+- Extract repeated code into functions
+- Use blank lines to separate logical sections
 
-逐行读文件（避免 `for i in $(cat)` 的子shell与分词陷阱）：
+## Safety & Security Patterns
 
-```sh
-while IFS=: read -r user pass uid gid; do
-  printf '%s\n' "$user"
-done < /etc/passwd
-```
+- Quote all variable expansions to prevent word splitting
+- Validate file permissions before operations: `[ -r "$file" ] || exit 1`
+- Sanitize user input before using in commands
+- Validate numeric input: `case $num in *[!0-9]*) exit 1 ;; esac`
+- Never use `eval` on untrusted input
+- Use `--` to separate options from arguments: `rm -- "$file"`
+- Validate required variables: `[ -n "$VAR" ] || { echo "VAR required" >&2; exit 1; }`
+- Check exit codes explicitly: `cmd || { echo "failed" >&2; exit 1; }`
+- Use `trap` for cleanup: `trap 'rm -f "$tmpfile"' EXIT INT TERM`
+- Set restrictive umask for sensitive files: `umask 077`
+- Log security-relevant operations to syslog or file
+- Validate file paths don't contain unexpected characters
+- Use full paths for commands in security-critical scripts: `/bin/rm` not `rm`
 
-可移植条件与默认值：
+## Performance Optimization
 
-```sh
-[ -e "$file" ] || exit 1          # 存在性，全平台可用
-value=${var:-default}             # var 未设/为空时取默认
-```
+- Use shell built-ins over external commands when possible
+- Avoid spawning subshells in loops: use `while read` not `for i in $(cat)`
+- Cache command results in variables instead of repeated execution
+- Use `case` for multiple string comparisons (faster than repeated `if`)
+- Process files line-by-line for large files
+- Use `expr` or `$(( ))` for arithmetic (POSIX supports `$(( ))`)
+- Minimize external command calls in tight loops
+- Use `grep -q` when you only need true/false (faster than capturing output)
+- Batch similar operations together
+- Use here-documents for multi-line strings instead of multiple echo calls
 
-引号 here-doc 阻止变量展开：`cat <<'EOF' ... EOF`。
+## Documentation Standards
 
-## 注意事项
+- Implement `-h` flag for help (avoid `--help` without proper parsing)
+- Include usage message showing synopsis and options
+- Document required vs optional arguments clearly
+- List exit codes: 0=success, 1=error, specific codes for specific failures
+- Document prerequisites and required commands
+- Add header comment with script purpose and author
+- Include examples of common usage patterns
+- Document environment variables used by script
+- Provide troubleshooting guidance for common issues
+- Note POSIX compliance in documentation
 
-- **常见踩坑**：`[[` 写成 `[`、用数组/`local`、`echo` 代 `printf`、`source` 代 `.`、`&>` 代 `>file 2>&1`、`==` 代 `=`。
-- **错误处理**：`set -eu` 后仍需对关键命令显式 `|| exit 1`；成功路径上想取消 EXIT trap 用 `trap - EXIT`。
-- **嵌入式/受限环境**：Alpine 默认 ash 非 bash；`mktemp`、`seq`、`timeout` 可能缺失，提供回退（如 `command -v mktemp >/dev/null 2>&1 || mktemp() { ... }`）；`/tmp` 可能只读；信号支持有限。
-- **避免 GNU 扩展**：只用 POSIX 指定的标志；`/dev/stdin`、`/dev/stdout` 并非处处可用。
-- **质量门槛**：所有展开已引用、无 bashism、临时资源由 EXIT trap 清理、输入校验防注入、在 dash/ash/bash --posix 上均通过。
-- **CI**：pre-commit 配 `checkbashisms` + `shellcheck -s sh` + `shfmt -ln posix`；矩阵测试跨 dash/ash/yash 与 Linux/macOS/Alpine。
+## Working Without Arrays
 
-## 互见
+Since POSIX sh lacks arrays, use these patterns:
 
-- 测试框架：bats-core / shellspec / shunit2 / sharness（均兼容 POSIX sh）。
-- 参考：POSIX.1 Shell Command Language 规范、GNU Autoconf 可移植 shell 指南、Rich's sh tricks（etalabs.net）、checkbashisms 手册。
-- 相关条目：bash 高级脚本、shellcheck 静态分析、容器入口脚本编写。
+- **Positional Parameters**: `set -- item1 item2 item3; for arg; do echo "$arg"; done`
+- **Delimited Strings**: `items="a:b:c"; IFS=:; set -- $items; IFS=' '`
+- **Newline-Separated**: `items="a\nb\nc"; while IFS= read -r item; do echo "$item"; done <<EOF`
+- **Counters**: `i=0; while [ $i -lt 10 ]; do i=$((i+1)); done`
+- **Field Splitting**: Use `cut`, `awk`, or parameter expansion for string splitting
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+## Portable Conditionals
+
+Use `[ ]` test command with POSIX operators:
+
+- **File Tests**: `[ -e file ]` exists, `[ -f file ]` regular file, `[ -d dir ]` directory
+- **String Tests**: `[ -z "$str" ]` empty, `[ -n "$str" ]` not empty, `[ "$a" = "$b" ]` equal
+- **Numeric Tests**: `[ "$a" -eq "$b" ]` equal, `[ "$a" -lt "$b" ]` less than
+- **Logical**: `[ cond1 ] && [ cond2 ]` AND, `[ cond1 ] || [ cond2 ]` OR
+- **Negation**: `[ ! -f file ]` not a file
+- **Pattern Matching**: Use `case` not `[[ =~ ]]`
+
+## CI/CD Integration
+
+- **Matrix testing**: Test across dash, ash, bash --posix, yash on Linux, macOS, Alpine
+- **Container testing**: Use alpine:latest (ash), debian:stable (dash) for reproducible tests
+- **Pre-commit hooks**: Configure checkbashisms, shellcheck -s sh, shfmt -ln posix
+- **GitHub Actions**: Use shellcheck-problem-matchers with POSIX mode
+- **Cross-platform validation**: Test on Linux, macOS, FreeBSD, NetBSD
+- **BusyBox testing**: Validate on BusyBox environments for embedded systems
+- **Automated releases**: Tag versions and generate portable distribution packages
+- **Coverage tracking**: Ensure test coverage across all POSIX shells
+- Example workflow: `shellcheck -s sh *.sh && shfmt -ln posix -d *.sh && checkbashisms *.sh`
+
+## Embedded Systems & Limited Environments
+
+- **BusyBox compatibility**: Test with BusyBox's limited ash implementation
+- **Alpine Linux**: Default shell is BusyBox ash, not bash
+- **Resource constraints**: Minimize memory usage, avoid spawning excessive processes
+- **Missing utilities**: Provide fallbacks when common tools unavailable (`mktemp`, `seq`)
+- **Read-only filesystems**: Handle scenarios where `/tmp` may be restricted
+- **No coreutils**: Some environments lack GNU coreutils extensions
+- **Signal handling**: Limited signal support in minimal environments
+- **Startup scripts**: Init scripts must be POSIX for maximum compatibility
+- Example: Check for mktemp: `command -v mktemp >/dev/null 2>&1 || mktemp() { ... }`
+
+## Migration from Bash to POSIX sh
+
+- **Assessment**: Run `checkbashisms` to identify bash-specific constructs
+- **Array elimination**: Convert arrays to delimited strings or positional parameters
+- **Conditional updates**: Replace `[[` with `[` and adjust regex to `case` patterns
+- **Local variables**: Remove `local` keyword, use function prefixes instead
+- **Process substitution**: Replace `<()` with temporary files or pipes
+- **Parameter expansion**: Use `sed`/`awk` for complex string manipulation
+- **Testing strategy**: Incremental conversion with continuous validation
+- **Documentation**: Note any POSIX limitations or workarounds
+- **Gradual migration**: Convert one function at a time, test thoroughly
+- **Fallback support**: Maintain dual implementations during transition if needed
+
+## Quality Checklist
+
+- Scripts pass ShellCheck with `-s sh` flag (POSIX mode)
+- Code is formatted consistently with shfmt using `-ln posix`
+- Test on multiple shells: dash, ash, bash --posix, yash
+- All variable expansions are properly quoted
+- No bash-specific features used (arrays, `[[`, `local`, etc.)
+- Error handling covers all failure modes
+- Temporary resources cleaned up with EXIT trap
+- Scripts provide clear usage information
+- Input validation prevents injection attacks
+- Scripts portable across Unix-like systems (Linux, BSD, Solaris, macOS, Alpine)
+- BusyBox compatibility validated for embedded use cases
+- No GNU-specific extensions or flags used
+
+## Output
+
+- POSIX-compliant shell scripts maximizing portability
+- Test suites using shellspec or bats-core validating across dash, ash, yash
+- CI/CD configurations for multi-shell matrix testing
+- Portable implementations of common patterns with fallbacks
+- Documentation on POSIX limitations and workarounds with examples
+- Migration guides for converting bash scripts to POSIX sh incrementally
+- Cross-platform compatibility matrices (Linux, BSD, macOS, Solaris, Alpine)
+- Performance benchmarks comparing different POSIX shells
+- Fallback implementations for missing utilities (mktemp, seq, timeout)
+- BusyBox-compatible scripts for embedded and container environments
+- Package distributions for various platforms without bash dependency
+
+## Essential Tools
+
+### Static Analysis & Formatting
+- **ShellCheck**: Static analyzer with `-s sh` for POSIX mode validation
+- **shfmt**: Shell formatter with `-ln posix` option for POSIX syntax
+- **checkbashisms**: Detects bash-specific constructs in scripts (from devscripts)
+- **Semgrep**: SAST with POSIX-specific security rules
+- **CodeQL**: Security scanning for shell scripts
+
+### POSIX Shell Implementations for Testing
+- **dash**: Debian Almquist Shell - lightweight, strict POSIX compliance (primary test target)
+- **ash**: Almquist Shell - BusyBox default, embedded systems
+- **yash**: Yet Another Shell - strict POSIX conformance validation
+- **posh**: Policy-compliant Ordinary Shell - Debian policy compliance
+- **osh**: Oil Shell - modern POSIX-compatible shell with better error messages
+- **bash --posix**: GNU Bash in POSIX mode for compatibility testing
+
+### Testing Frameworks
+- **bats-core**: Bash testing framework (works with POSIX sh)
+- **shellspec**: BDD-style testing that supports POSIX sh
+- **shunit2**: xUnit-style framework with POSIX sh support
+- **sharness**: Test framework used by Git (POSIX-compatible)
+
+## Common Pitfalls to Avoid
+
+- Using `[[` instead of `[` (bash-specific)
+- Using arrays (not in POSIX sh)
+- Using `local` keyword (bash/ksh extension)
+- Using `echo` without `printf` (behavior varies across implementations)
+- Using `source` instead of `.` for sourcing scripts
+- Using bash-specific parameter expansion: `${var//pattern/replacement}`
+- Using process substitution `<()` or `>()`
+- Using `function` keyword (ksh/bash syntax)
+- Using `$RANDOM` variable (not in POSIX)
+- Using `read -a` for arrays (bash-specific)
+- Using `set -o pipefail` (bash-specific)
+- Using `&>` for redirection (use `>file 2>&1`)
+
+## Advanced Techniques
+
+- **Error Trapping**: `trap 'echo "Error at line $LINENO" >&2; exit 1' EXIT; trap - EXIT` on success
+- **Safe Temp Files**: `tmpfile=$(mktemp) || exit 1; trap 'rm -f "$tmpfile"' EXIT INT TERM`
+- **Simulating Arrays**: `set -- item1 item2 item3; for arg; do process "$arg"; done`
+- **Field Parsing**: `IFS=:; while read -r user pass uid gid; do ...; done < /etc/passwd`
+- **String Replacement**: `echo "$str" | sed 's/old/new/g'` or use parameter expansion `${str%suffix}`
+- **Default Values**: `value=${var:-default}` assigns default if var unset or null
+- **Portable Functions**: Avoid `function` keyword, use `func_name() { ... }`
+- **Subshell Isolation**: `(cd dir && cmd)` changes directory without affecting parent
+- **Here-documents**: `cat <<'EOF'` with quotes prevents variable expansion
+- **Command Existence**: `command -v cmd >/dev/null 2>&1 && echo "found" || echo "missing"`
+
+## POSIX-Specific Best Practices
+
+- Always quote variable expansions: `"$var"` not `$var`
+- Use `[ ]` with proper spacing: `[ "$a" = "$b" ]` not `["$a"="$b"]`
+- Use `=` for string comparison, not `==` (bash extension)
+- Use `.` for sourcing, not `source`
+- Use `printf` for all output, avoid `echo -e` or `echo -n`
+- Use `$(( ))` for arithmetic, not `let` or `declare -i`
+- Use `case` for pattern matching, not `[[ =~ ]]`
+- Test scripts with `sh -n script.sh` to check syntax
+- Use `command -v` not `type` or `which` for portability
+- Explicitly handle all error conditions with `|| exit 1`
+
+## References & Further Reading
+
+### POSIX Standards & Specifications
+- [POSIX Shell Command Language](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html) - Official POSIX.1-2024 specification
+- [POSIX Utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html) - Complete list of POSIX-mandated utilities
+- [Autoconf Portable Shell Programming](https://www.gnu.org/software/autoconf/manual/autoconf.html#Portable-Shell) - Comprehensive portability guide from GNU
+
+### Portability & Best Practices
+- [Rich's sh (POSIX shell) tricks](http://www.etalabs.net/sh_tricks.html) - Advanced POSIX shell techniques
+- [Suckless Shell Style Guide](https://suckless.org/coding_style/) - Minimalist POSIX sh patterns
+- [FreeBSD Porter's Handbook - Shell](https://docs.freebsd.org/en/books/porters-handbook/makefiles/#porting-shlibs) - BSD portability considerations
+
+### Tools & Testing
+- [checkbashisms](https://manpages.debian.org/testing/devscripts/checkbashisms.1.en.html) - Detect bash-specific constructs
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

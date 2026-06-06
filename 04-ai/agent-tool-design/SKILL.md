@@ -1,11 +1,11 @@
 ---
 name: agent-tool-design
-title: 面向 Agent 的工具设计
-description: 当为 Agent 系统设计/重构工具、排查工具被误用或漏选、精简工具集时使用；做出无歧义的工具契约（描述-触发-参数-返回-错误）、按合并原则整合工具、必要时做架构精简，产出可被模型可靠调用的工具集；不适用于给人类调用的普通 API 设计、单纯写提示词或业务代码实现；触发词：工具设计、tool design、function calling、工具描述、MCP、合并原则、工具太多。
+title: Tool Design for Agents
+description: Build tools that agents can use effectively, including architectural reduction patterns. Use when creating new tools for agent systems, debugging tool-related failures or misuse, or optimizing existing tool sets for better agent performance.
 domain: 智能/agents
-triggers: [工具设计, tool design, function calling, 工具描述, MCP 工具命名, 合并原则, 工具太多, agent 工具, 工具被误用, 架构精简]
+triggers: [tool design, function calling]
 tags: [agent, tool-design, function-calling, mcp, llm]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,134 +16,318 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to Use This Skill
 
-为 **Agent（语言模型）** 而非人类开发者设计工具时使用。工具是 Agent 与世界交互的主要接口，是确定性系统与非确定性 Agent 之间的**契约**：模型靠工具描述推断契约、推断参数、从自然语言生成调用。设计不当造成的失败，靠堆提示词修不好。
+Build tools that agents can use effectively, including architectural reduction patterns
 
-**该用**：新建 Agent 工具/函数调用；排查工具被漏选、错选、参数填错；优化已有工具集（合并/精简/统一命名）；从零设计工具 API；评估第三方/MCP 工具能否接入；跨代码库统一工具约定。
+Use this skill when working with build tools that agents can use effectively, including architectural reduction patterns.
+# Tool Design for Agents
 
-**不该用（边界）**：
-- 设计**给人类调用**的普通 REST/SDK API（人类能读文档、理解契约，约束不同）。
-- 只是**写提示词模板** → 用 `prompt-template-designer`；只是**实现业务逻辑代码** → 这是工程问题不是工具契约问题。
-- 任务该用检索而非工具（取文档片段）→ 用 `rag-pipeline-builder`。
+Tools are the primary mechanism through which agents interact with the world. They define the contract between deterministic systems and non-deterministic agents. Unlike traditional software APIs designed for developers, tool APIs must be designed for language models that reason about intent, infer parameter values, and generate calls from natural language requests. Poor tool design creates failure modes that no amount of prompt engineering can fix. Effective tool design follows specific principles that account for how agents perceive and use tools.
 
-## 步骤 / 指令
+## When to Use
+Activate this skill when:
+- Creating new tools for agent systems
+- Debugging tool-related failures or misuse
+- Optimizing existing tool sets for better agent performance
+- Designing tool APIs from scratch
+- Evaluating third-party tools for agent integration
+- Standardizing tool conventions across a codebase
 
-```
-1. 划分工作流，决定工具粒度（合并原则优先）
-   - 列出 Agent 必须完成的「独立工作流」
-   - 合并原则：若一个人类工程师都说不清某情境该调哪个工具，Agent 更不可能选对
-     → 倾向「单个综合工具」覆盖整条工作流，而非多个窄工具让 Agent 自己串
-     反例: list_users + list_events + create_event
-     正例: schedule_event（内部找空闲并排期，一次调用完成）
-   - 不该合并的情形: 行为根本不同 / 使用语境不同 / 会被独立调用的工具，保持分开
-   - 经验规模: 多数应用 10~20 个工具；更多则用命名空间(namespace)分组
+## Core Concepts
 
-2. 评估是否做「架构精简」(把专用工具换成通用原语)
-   - 适合: 数据层文档良好且结构一致 / 模型推理力足够 / 现有专用工具在「束缚」而非「赋能」模型 / 维护脚手架的时间多于改进结果
-   - 不适合: 底层数据脏乱/无文档 / 领域需模型不具备的专门知识 / 有安全约束须限制能力 / 操作确实复杂需结构化工作流
-   - 典型模式: 与其为数据探索/查 schema/校验各建专用工具，不如给一个命令执行工具，让 Agent 用 grep/cat/find/ls 等标准 Unix 原语自由组合
-   - 反模式: 为「保护」模型而预过滤上下文、限制选项、层层包校验——这些护栏随模型变强会变成负债
-   - 拷问每个工具: 它是在「赋能新能力」还是在「束缚模型本可自理的推理」？为「未来更强的模型」留最小架构
+Tools are contracts between deterministic systems and non-deterministic agents. The consolidation principle states that if a human engineer cannot definitively say which tool should be used in a given situation, an agent cannot be expected to do better. Effective tool descriptions are prompt engineering that shapes agent behavior.
 
-3. 写工具描述（描述即提示词，会被载入 Agent 上下文共同引导行为）
-   每个描述回答 4 问:
-   - What  做什么: 具体、可证伪；禁用「helps with / can be used for」这类空话
-   - When  何时用: 直接触发(「用户问定价」)+ 间接信号(「需要当前市场价」)
-   - Input 收什么: 每个参数的类型/约束/默认值，说明它控制什么
-   - Return 返回什么: 输出结构 + 成功示例 + 错误情形
+Key principles include: clear descriptions that answer what, when, and what returns; response formats that balance completeness and token efficiency; error messages that enable recovery; and consistent conventions that reduce cognitive load.
 
-4. 设默认值 + 选响应格式
-   - 默认值反映最常见用法，减少 Agent 必填项、防漏参出错
-   - 提供 format 选项: concise(仅关键字段, 省 token) / detailed(完整对象, 决策需要时)
-     并在描述里告诉 Agent 何时选哪种
+## Detailed Topics
 
-5. 设计可恢复的错误信息（面向两类读者: 调试的人 + 自我恢复的 Agent）
-   - 可重试错误 → 给重试指引
-   - 入参错误   → 给正确格式
-   - 缺数据     → 说明缺什么
-   错误必须告诉 Agent「哪错了 + 怎么改」，而非一句通用报错
+### The Tool-Agent Interface
 
-6. 统一 schema 与命名
-   - 工具名用 动词-名词 (verb-noun)
-   - 跨工具参数名一致、返回字段名一致 (别一处 id 一处 identifier 一处 customer_id)
+**Tools as Contracts**
+Tools are contracts between deterministic systems and non-deterministic agents. When humans call APIs, they understand the contract and make appropriate requests. Agents must infer the contract from descriptions and generate calls that match expected formats.
 
-7. 用测试集评估并迭代
-   - 判据: 无歧义 / 完整 / 可恢复 / 高效 / 一致
-   - 拿代表性的 Agent 请求跑，看生成的调用对不对；按观察到的失败模式迭代
-```
+This fundamental difference requires rethinking API design. The contract must be unambiguous, examples must illustrate expected patterns, and error messages must guide correction. Every ambiguity in tool definitions becomes a potential failure mode.
 
-**MCP 工具命名（硬约束）**：引用 MCP 工具一律用**全限定名** `ServerName:tool_name`，否则多服务器时会「tool not found」。
+**Tool Description as Prompt**
+Tool descriptions are loaded into agent context and collectively steer behavior. The descriptions are not just documentation—they are prompt engineering that shapes how agents reason about tool use.
+
+Poor descriptions like "Search the database" with cryptic parameter names force agents to guess. Optimized descriptions include usage context, examples, and defaults. The description answers: what the tool does, when to use it, and what it produces.
+
+**Namespacing and Organization**
+As tool collections grow, organization becomes critical. Namespacing groups related tools under common prefixes, helping agents select appropriate tools at the right time.
+
+Namespacing creates clear boundaries between functionality. When an agent needs database information, it routes to the database namespace. When it needs web search, it routes to web namespace.
+
+### The Consolidation Principle
+
+**Single Comprehensive Tools**
+The consolidation principle states that if a human engineer cannot definitively say which tool should be used in a given situation, an agent cannot be expected to do better. This leads to a preference for single comprehensive tools over multiple narrow tools.
+
+Instead of implementing list_users, list_events, and create_event, implement schedule_event that finds availability and schedules. The comprehensive tool handles the full workflow internally rather than requiring agents to chain multiple calls.
+
+**Why Consolidation Works**
+Agents have limited context and attention. Each tool in the collection competes for attention in the tool selection phase. Each tool adds description tokens that consume context budget. Overlapping functionality creates ambiguity about which tool to use.
+
+Consolidation reduces token consumption by eliminating redundant descriptions. It eliminates ambiguity by having one tool cover each workflow. It reduces tool selection complexity by shrinking the effective tool set.
+
+**When Not to Consolidate**
+Consolidation is not universally correct. Tools with fundamentally different behaviors should remain separate. Tools used in different contexts benefit from separation. Tools that might be called independently should not be artificially bundled.
+
+### Architectural Reduction
+
+The consolidation principle, taken to its logical extreme, leads to architectural reduction: removing most specialized tools in favor of primitive, general-purpose capabilities. Production evidence shows this approach can outperform sophisticated multi-tool architectures.
+
+**The File System Agent Pattern**
+Instead of building custom tools for data exploration, schema lookup, and query validation, provide direct file system access through a single command execution tool. The agent uses standard Unix utilities (grep, cat, find, ls) to explore, understand, and operate on your system.
+
+This works because:
+1. File systems are a proven abstraction that models understand deeply
+2. Standard tools have predictable, well-documented behavior
+3. The agent can chain primitives flexibly rather than being constrained to predefined workflows
+4. Good documentation in files replaces the need for summarization tools
+
+**When Reduction Outperforms Complexity**
+Reduction works when:
+- Your data layer is well-documented and consistently structured
+- The model has sufficient reasoning capability to navigate complexity
+- Your specialized tools were constraining rather than enabling the model
+- You're spending more time maintaining scaffolding than improving outcomes
+
+Reduction fails when:
+- Your underlying data is messy, inconsistent, or poorly documented
+- The domain requires specialized knowledge the model lacks
+- Safety constraints require limiting what the agent can do
+- Operations are truly complex and benefit from structured workflows
+
+**Stop Constraining Reasoning**
+A common anti-pattern is building tools to "protect" the model from complexity. Pre-filtering context, constraining options, wrapping interactions in validation logic. These guardrails often become liabilities as models improve.
+
+The question to ask: are your tools enabling new capabilities, or are they constraining reasoning the model could handle on its own?
+
+**Build for Future Models**
+Models improve faster than tooling can keep up. An architecture optimized for today's model may be over-constrained for tomorrow's. Build minimal architectures that can benefit from model improvements rather than sophisticated architectures that lock in current limitations.
+
+See Architectural Reduction Case Study for production evidence.
+
+### Tool Description Engineering
+
+**Description Structure**
+Effective tool descriptions answer four questions:
+
+What does the tool do? Clear, specific description of functionality. Avoid vague language like "helps with" or "can be used for." State exactly what the tool accomplishes.
+
+When should it be used? Specific triggers and contexts. Include both direct triggers ("User asks about pricing") and indirect signals ("Need current market rates").
+
+What inputs does it accept? Parameter descriptions with types, constraints, and defaults. Explain what each parameter controls.
+
+What does it return? Output format and structure. Include examples of successful responses and error conditions.
+
+**Default Parameter Selection**
+Defaults should reflect common use cases. They reduce agent burden by eliminating unnecessary parameter specification. They prevent errors from omitted parameters.
+
+### Response Format Optimization
+
+Tool response size significantly impacts context usage. Implementing response format options gives agents control over verbosity.
+
+Concise format returns essential fields only, appropriate for confirmation or basic information. Detailed format returns complete objects with all fields, appropriate when full context is needed for decisions.
+
+Include guidance in tool descriptions about when to use each format. Agents learn to select appropriate formats based on task requirements.
+
+### Error Message Design
+
+Error messages serve two audiences: developers debugging issues and agents recovering from failures. For agents, error messages must be actionable. They must tell the agent what went wrong and how to correct it.
+
+Design error messages that enable recovery. For retryable errors, include retry guidance. For input errors, include corrected format. For missing data, include what's needed.
+
+### Tool Definition Schema
+
+Use a consistent schema across all tools. Establish naming conventions: verb-noun pattern for tool names, consistent parameter names across tools, consistent return field names.
+
+### Tool Collection Design
+
+Research shows tool description overlap causes model confusion. More tools do not always lead to better outcomes. A reasonable guideline is 10-20 tools for most applications. If more are needed, use namespacing to create logical groupings.
+
+Implement mechanisms to help agents select the right tool: tool grouping, example-based selection, and hierarchy with umbrella tools that route to specialized sub-tools.
+
+### MCP Tool Naming Requirements
+
+When using MCP (Model Context Protocol) tools, always use fully qualified tool names to avoid "tool not found" errors.
+
+Format: `ServerName:tool_name`
 
 ```python
-# 正确
+# Correct: Fully qualified names
 "Use the BigQuery:bigquery_schema tool to retrieve table schemas."
 "Use the GitHub:create_issue tool to create issues."
-# 错误（多服务器时可能失败）
-"Use the bigquery_schema tool..."
+
+# Incorrect: Unqualified names
+"Use the bigquery_schema tool..."  # May fail with multiple servers
 ```
 
-**用 Agent 优化工具（反馈闭环）**：把工具规格 + 观察到的失败喂给模型，让它诊断并改进描述。生产实测可把任务完成时间降约 40%。
+Without the server prefix, agents may fail to locate tools, especially when multiple MCP servers are available. Establish naming conventions that include server context in all tool references.
+
+### Using Agents to Optimize Tools
+
+Claude can optimize its own tools. When given a tool and observed failure modes, it diagnoses issues and suggests improvements. Production testing shows this approach achieves 40% reduction in task completion time by helping future agents avoid mistakes.
+
+**The Tool-Testing Agent Pattern**:
 
 ```python
 def optimize_tool_description(tool_spec, failure_examples):
-    """1. Agent 跨多任务试用工具  2. 收集失败模式与摩擦点
-       3. Agent 分析失败、提改进  4. 用同任务回测新描述"""
-    prompt = f"""分析以下工具规格与观察到的失败。
+    """
+    Use an agent to analyze tool failures and improve descriptions.
+    
+    Process:
+    1. Agent attempts to use tool across diverse tasks
+    2. Collect failure modes and friction points
+    3. Agent analyzes failures and proposes improvements
+    4. Test improved descriptions against same tasks
+    """
+    prompt = f"""
+    Analyze this tool specification and the observed failures.
+    
     Tool: {tool_spec}
-    Failures observed: {failure_examples}
-    识别: 1) 为何失败 2) 描述缺什么信息 3) 哪些歧义导致误用
-    给出修复这些问题的改进版工具描述。"""
+    
+    Failures observed:
+    {failure_examples}
+    
+    Identify:
+    1. Why agents are failing with this tool
+    2. What information is missing from the description
+    3. What ambiguities cause incorrect usage
+    
+    Propose an improved tool description that addresses these issues.
+    """
+    
     return get_agent_response(prompt)
 ```
 
-## 示例
+This creates a feedback loop: agents using tools generate failure data, which agents then use to improve tool descriptions, which reduces future failures.
 
-**好工具**（描述回答 what/when/input/return/errors，参数带格式，错误可恢复）：
+### Testing Tool Design
 
+Evaluate tool designs against criteria: unambiguity, completeness, recoverability, efficiency, and consistency. Test tools by presenting representative agent requests and evaluating the resulting tool calls.
+
+## Practical Guidance
+
+### Anti-Patterns to Avoid
+
+Vague descriptions: "Search the database for customer information" leaves too many questions unanswered.
+
+Cryptic parameter names: Parameters named x, val, or param1 force agents to guess meaning.
+
+Missing error handling: Tools that fail with generic errors provide no recovery guidance.
+
+Inconsistent naming: Using id in some tools, identifier in others, and customer_id in some creates confusion.
+
+### Tool Selection Framework
+
+When designing tool collections:
+1. Identify distinct workflows agents must accomplish
+2. Group related actions into comprehensive tools
+3. Ensure each tool has a clear, unambiguous purpose
+4. Document error cases and recovery paths
+5. Test with actual agent interactions
+
+## Examples
+
+**Example 1: Well-Designed Tool**
 ```python
 def get_customer(customer_id: str, format: str = "concise"):
     """
     Retrieve customer information by ID.
+    
     Use when:
     - User asks about specific customer details
     - Need customer context for decision-making
     - Verifying customer identity
+    
     Args:
         customer_id: Format "CUST-######" (e.g., "CUST-000001")
         format: "concise" for key fields, "detailed" for complete record
-    Returns: Customer object with requested fields
+    
+    Returns:
+        Customer object with requested fields
+    
     Errors:
         NOT_FOUND: Customer ID not found
         INVALID_FORMAT: ID must match CUST-###### pattern
     """
 ```
 
-**坏工具**（集多个反模式）：
+**Example 2: Poor Tool Design**
+
+This example demonstrates several tool design anti-patterns:
 
 ```python
 def search(query):
     """Search the database."""
     pass
 ```
-问题：名字含糊（搜什么、为何搜）；缺参数（哪个库、query 何格式）；无返回说明；无使用语境（何时用它而非别的工具）；无错误处理。
-失败模式：该用更专的工具时也调它；猜不出 query 格式；解读不了结果；失败无法恢复。
 
-## 注意事项
+**Problems with this design:**
 
-- **描述即提示词**：所有工具描述共同占用上下文预算、共同引导选择。每多一个重叠工具 = 多一份描述 token + 多一处「该选哪个」的歧义。
-- **合并 ≠ 万能**：行为根本不同、语境不同、会被独立调用的工具别硬绑。
-- **别用工具去「束缚」模型**：预过滤/限制选项/层层校验这类护栏，随模型变强会变成负债；反复问「赋能还是束缚」。
-- **架构精简有前提**：数据脏乱、领域需专门知识、有安全约束、操作确实复杂时，精简会失败，仍需结构化工作流。
-- **命名一致性**是降低认知负荷的关键；MCP 引用必须全限定。
-- **错误面向 Agent 恢复**，不是只给人看的 stack trace。
-- 投资**文档质量**优先于工具复杂度；研究表明工具描述重叠会让模型混乱，「工具更多」不等于「结果更好」。
+1. **Vague name**: "search" is ambiguous - search what, for what purpose?
+2. **Missing parameters**: What database? What format should query take?
+3. **No return description**: What does this function return? A list? A string? Error handling?
+4. **No usage context**: When should an agent use this versus other tools?
+5. **No error handling**: What happens if the database is unavailable?
 
-## 互见
+**Failure modes:**
+- Agents may call this tool when they should use a more specific tool
+- Agents cannot determine correct query format
+- Agents cannot interpret results
+- Agents cannot recover from failures
 
-- requires：`first-principles-thinking` —— 划分工作流、判定工具粒度前，先用它把「Agent 到底要完成哪些独立任务」拆清楚，否则会把错误的边界固化进工具集。
-- related：`prompt-template-designer` —— 工具描述本质是提示工程，模板设计的「角色/约束/示例/格式」思路同样适用于写工具描述。
-- combines_with：`rag-pipeline-builder` —— 当 Agent 需要外部知识时，检索管道与工具集协同：检索取上下文、工具执行动作。
+## Guidelines
+
+1. Write descriptions that answer what, when, and what returns
+2. Use consolidation to reduce ambiguity
+3. Implement response format options for token efficiency
+4. Design error messages for agent recovery
+5. Establish and follow consistent naming conventions
+6. Limit tool count and use namespacing for organization
+7. Test tool designs with actual agent interactions
+8. Iterate based on observed failure modes
+9. Question whether each tool enables or constrains the model
+10. Prefer primitive, general-purpose tools over specialized wrappers
+11. Invest in documentation quality over tooling sophistication
+12. Build minimal architectures that benefit from model improvements
+
+## Integration
+
+This skill connects to:
+- context-fundamentals - How tools interact with context
+- multi-agent-patterns - Specialized tools per agent
+- evaluation - Evaluating tool effectiveness
+
+## References
+
+Internal references:
+- Best Practices Reference - Detailed tool design guidelines
+- Architectural Reduction Case Study - Production evidence for tool minimalism
+
+Related skills in this collection:
+- context-fundamentals - Tool context interactions
+- evaluation - Tool testing patterns
+
+External resources:
+- MCP (Model Context Protocol) documentation
+- Framework tool conventions
+- API design best practices for agents
+- Vercel d0 agent architecture case study
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+
+## Skill Metadata
+
+**Created**: 2025-12-20
+**Last Updated**: 2025-12-23
+**Author**: Agent Skills for Context Engineering Contributors
+**Version**: 1.1.0
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

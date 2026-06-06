@@ -1,11 +1,11 @@
 ---
 name: multi-agent-system-designer
-title: 多智能体系统架构设计
-description: 当需要设计多智能体系统、选择编排架构、定义智能体角色/通信/护栏与评估时使用；做架构选型并产出角色规约、通信协议、安全护栏与评估指标的设计方案；不适用于单次提示词调优、单 Agent 实现细节或具体框架代码落地；触发词：多智能体、agent 架构、编排、supervisor/swarm
+title: Agent Designer - Multi-Agent System Architecture
+description: Use when the user asks to design multi-agent systems, create agent architectures, define agent communication patterns, or build autonomous agent workflows.
 domain: 智能/agents
-triggers: [多智能体系统, 智能体架构设计, agent 编排, supervisor 模式, swarm 模式, 智能体角色定义, 智能体通信, agent 护栏, 多 Agent 工作流, 智能体系统评估]
-tags: [智能体, agents, 架构设计, 编排, 多智能体系统, 系统设计]
-level: 进阶
+triggers: []
+tags: [agents]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,113 +16,277 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Agent Designer - Multi-Agent System Architecture
 
-当你需要从 0 到 1 设计一套**多智能体系统**，并要在「用什么架构、每个智能体干什么、彼此怎么通信、如何兜底与评估」上做出结构化决策时使用本技能。典型场景：
+**Tier:** POWERFUL  
+**Category:** Engineering  
+**Tags:** AI agents, architecture, system design, orchestration, multi-agent systems
 
-- 把一个复杂任务拆给多个专长智能体协作（如研究 + 编码 + 审校）。
-- 需要在 supervisor（中心调度）、swarm（对等协作）、pipeline（流水线）等模式间选型。
-- 要为智能体定义角色规约、工具 schema、通信协议、安全护栏和评估指标。
+## Overview
 
-**不该用的边界：**
+Agent Designer is a comprehensive toolkit for designing, architecting, and evaluating multi-agent systems. It provides structured approaches to agent architecture patterns, tool design principles, communication strategies, and performance evaluation frameworks for building robust, scalable AI agent systems.
 
-- 只是单条提示词/单 Agent 的措辞调优 —— 直接改 prompt 即可，无需系统设计。
-- 已经选定框架、只差具体落地代码 —— 这是实现细节，本技能给的是架构决策而非框架 API。
-- 任务简单、单个 Agent 加全套工具就能稳定完成 —— 多智能体只会增加协调成本，优先用单 Agent 模式。
+## Core Capabilities
 
-## 步骤
+### 1. Agent Architecture Patterns
 
-按以下顺序推进架构决策，每步产出一项可评审的设计产物：
+#### Single Agent Pattern
+- **Use Case:** Simple, focused tasks with clear boundaries
+- **Pros:** Minimal complexity, easy debugging, predictable behavior
+- **Cons:** Limited scalability, single point of failure
+- **Implementation:** Direct user-agent interaction with comprehensive tool access
 
-1. **需求分析**：明确系统目标、约束、规模与可靠性要求。
-2. **模式选型**：从下列架构模式中选择匹配项。
-3. **智能体设计**：用「角色规约框架」定义每个智能体的身份、职责、能力、接口、约束。
-4. **工具架构**：设计工具的输入校验、输出格式、错误处理与幂等性。
-5. **通信设计**：选择消息传递 / 共享状态 / 事件驱动等模式与投递语义。
-6. **安全护栏**：加入输入校验、输出过滤、人在回路（human-in-the-loop）。
-7. **评估规划**：定义成功率、质量、成本、延迟等指标与监控。
-8. **部署策略**：规划水平/垂直扩展、重试、降级与熔断。
+#### Supervisor Pattern
+- **Use Case:** Hierarchical task decomposition with centralized control
+- **Architecture:** One supervisor agent coordinating multiple specialist agents
+- **Pros:** Clear command structure, centralized decision making
+- **Cons:** Supervisor bottleneck, complex coordination logic
+- **Implementation:** Supervisor receives tasks, delegates to specialists, aggregates results
 
-## 指令
+#### Swarm Pattern
+- **Use Case:** Distributed problem solving with peer-to-peer collaboration
+- **Architecture:** Multiple autonomous agents with shared objectives
+- **Pros:** High parallelism, fault tolerance, emergent intelligence
+- **Cons:** Complex coordination, potential conflicts, harder to predict
+- **Implementation:** Agent discovery, consensus mechanisms, distributed task allocation
 
-### 架构模式（按复杂度递增选型）
+#### Hierarchical Pattern
+- **Use Case:** Complex systems with multiple organizational layers
+- **Architecture:** Tree structure with managers and workers at different levels
+- **Pros:** Natural organizational mapping, clear responsibilities
+- **Cons:** Communication overhead, potential bottlenecks at each level
+- **Implementation:** Multi-level delegation with feedback loops
 
-| 模式 | 适用 | 优点 | 代价 |
-|---|---|---|---|
-| Single 单体 | 任务简单、边界清晰 | 复杂度最低、易调试、行为可预测 | 扩展性差、单点故障 |
-| Supervisor 监督者 | 层级化任务分解、中心化控制 | 指挥链清晰、决策集中 | 监督者成为瓶颈、协调逻辑复杂 |
-| Swarm 蜂群 | 分布式问题求解、对等协作 | 高并行、容错、涌现智能 | 协调复杂、易冲突、难预测 |
-| Hierarchical 分层 | 多组织层级的复杂系统 | 自然映射组织、职责清晰 | 通信开销大、每层都可能瓶颈 |
-| Pipeline 流水线 | 顺序处理、阶段专精 | 数据流清晰、各阶段可单独优化 | 顺序瓶颈、处理顺序僵化 |
+#### Pipeline Pattern
+- **Use Case:** Sequential processing with specialized stages
+- **Architecture:** Agents arranged in processing pipeline
+- **Pros:** Clear data flow, specialized optimization per stage
+- **Cons:** Sequential bottlenecks, rigid processing order
+- **Implementation:** Message queues between stages, state handoffs
 
-经验法则：能用单体就别上多体；需要中心管控选 Supervisor；强调容错与并行选 Swarm；阶段分明的流式处理选 Pipeline。
+### 2. Agent Role Definition
 
-### 角色规约框架（每个智能体都要写全）
+#### Role Specification Framework
+- **Identity:** Name, purpose statement, core competencies
+- **Responsibilities:** Primary tasks, decision boundaries, success criteria
+- **Capabilities:** Required tools, knowledge domains, processing limits
+- **Interfaces:** Input/output formats, communication protocols
+- **Constraints:** Security boundaries, resource limits, operational guidelines
 
-- **身份 Identity**：名称、目的陈述、核心能力。
-- **职责 Responsibilities**：主要任务、决策边界、成功标准。
-- **能力 Capabilities**：所需工具、知识域、处理上限。
-- **接口 Interfaces**：输入/输出格式、通信协议。
-- **约束 Constraints**：安全边界、资源限额、运行准则。
+#### Common Agent Archetypes
 
-常见原型：Coordinator（编排+资源分配+健康监控+冲突处理）、Specialist（窄域深度专精+清晰交接协议）、Interface（对外交互+协议转换+鉴权）、Monitor（健康监控+指标采集+异常检测+审计）。
+**Coordinator Agent**
+- Orchestrates multi-agent workflows
+- Makes high-level decisions and resource allocation
+- Monitors system health and performance
+- Handles escalations and conflict resolution
 
-### 工具设计三原则（保留源约束）
+**Specialist Agent**
+- Deep expertise in specific domain (code, data, research)
+- Optimized tools and knowledge for specialized tasks
+- High-quality output within narrow scope
+- Clear handoff protocols for out-of-scope requests
 
-- **Schema 设计**：强类型输入校验、区分必填/可选；标准化输出与错误；写清描述、示例、边界情况；做好版本兼容。
-- **错误处理**：优雅降级、重试逻辑（指数退避 exponential backoff + 熔断 circuit breaker + 最大尝试次数）、结构化错误传播、回退恢复策略。
-- **幂等性**：读操作无副作用；写操作可安全重复；版本追踪 + 冲突解决；操作原子化（全有或全无）。
+**Interface Agent**
+- Handles external interactions (users, APIs, systems)
+- Protocol translation and format conversion
+- Authentication and authorization management
+- User experience optimization
 
-### 通信模式
+**Monitor Agent**
+- System health monitoring and alerting
+- Performance metrics collection and analysis
+- Anomaly detection and reporting
+- Compliance and audit trail maintenance
 
-- **消息传递**：异步消息队列解耦；结构化负载带元数据；投递保证选 at-least-once 或 exactly-once；路由支持直发 / 发布订阅 / 广播。
-- **共享状态**：中心化数据仓库；一致性模型选强/最终/弱；冲突解决用 last-writer-wins 或 merge 策略。
-- **事件驱动**：事件溯源（不可变事件日志可重建状态）；区分领域/系统/集成事件；版本化事件 schema 保证兼容。
+### 3. Tool Design Principles
 
-### 安全护栏
+#### Schema Design
+- **Input Validation:** Strong typing, required vs optional parameters
+- **Output Consistency:** Standardized response formats, error handling
+- **Documentation:** Clear descriptions, usage examples, edge cases
+- **Versioning:** Backward compatibility, migration paths
 
-- **输入校验**：schema 强制、有害内容过滤与 PII 清洗、限流配额、身份鉴权。
-- **输出过滤**：内容审核、逻辑/约束一致性校验、标准化格式、审计日志。
-- **人在回路**：关键决策审批检查点；置信度阈值触发升级；人工判断优先于自动决策；人工纠正反哺系统。
+#### Error Handling Patterns
+- **Graceful Degradation:** Partial functionality when dependencies fail
+- **Retry Logic:** Exponential backoff, circuit breakers, max attempts
+- **Error Propagation:** Structured error responses, error classification
+- **Recovery Strategies:** Fallback methods, alternative approaches
 
-### 评估指标（四维）
+#### Idempotency Requirements
+- **Safe Operations:** Read operations with no side effects
+- **Idempotent Writes:** Same operation can be safely repeated
+- **State Management:** Version tracking, conflict resolution
+- **Atomicity:** All-or-nothing operation completion
 
-- **任务完成**：成功率、部分完成度、按任务类型分类的成功标准、失败根因分析。
-- **质量**：准确性/相关性/完整性、跨相似输入的一致性、逻辑连贯性、用户满意度。
-- **成本**：token 用量、API 费用、算力占用、单次成功任务成本（time-to-value）。
-- **延迟**：端到端响应时间、各阶段瓶颈、队列等待、并发资源争用。
+### 4. Communication Patterns
 
-### 失败处理与扩展
+#### Message Passing
+- **Asynchronous Messaging:** Decoupled agents, message queues
+- **Message Format:** Structured payloads with metadata
+- **Delivery Guarantees:** At-least-once, exactly-once semantics
+- **Routing:** Direct messaging, publish-subscribe, broadcast
 
-- **重试**：指数退避 + 抖动 jitter（防惊群）+ 最大尝试上限 + 区分瞬时/永久故障。
-- **降级回退**：优雅降级、替代方案、安全默认响应、向用户清晰报错。
-- **熔断**：监控失败率/响应时间；管理 open/closed/half-open 三态；渐进式恢复；防级联故障。
-- **扩展**：水平扩展（同类型 Agent 多实例 + 负载分发 + 资源池 + 多区域）；垂直扩展（增强单 Agent 能力/工具/上下文/吞吐）。
+#### Shared State
+- **State Stores:** Centralized data repositories
+- **Consistency Models:** Strong, eventual, weak consistency
+- **Access Patterns:** Read-heavy, write-heavy, mixed workloads
+- **Conflict Resolution:** Last-writer-wins, merge strategies
 
-## 示例
+#### Event-Driven Architecture
+- **Event Sourcing:** Immutable event logs, state reconstruction
+- **Event Types:** Domain events, system events, integration events
+- **Event Processing:** Real-time, batch, stream processing
+- **Event Schema:** Versioned event formats, backward compatibility
 
-为一个「自动化技术调研」系统选型：
+### 5. Guardrails and Safety
 
-1. 需求：输入一个主题，输出带引用的调研报告；要求容错、可并行抓取多源。
-2. 选型：检索阶段用 Swarm（多个 Specialist 并行抓取不同来源，高并行+容错），汇总阶段用 Supervisor（一个 Coordinator 聚合去重并裁决冲突）—— 即「域内集中、跨域联邦」的混合编排。
-3. 角色：`Retriever`（Specialist，工具=web 搜索/抓取，约束=单源超时降级）、`Verifier`（Specialist，对抗性核验声明）、`Synthesizer`（Coordinator，聚合+引用）。
-4. 通信：检索结果走异步消息队列（at-least-once），共享状态存中间证据（last-writer-wins）。
-5. 护栏：输出过滤做引用一致性校验；低置信度结论触发人在回路复核。
-6. 评估：成功率（是否产出可引用报告）、质量（引用准确性）、成本（token+API）、延迟（端到端+抓取阶段瓶颈）。
+#### Input Validation
+- **Schema Enforcement:** Required fields, type checking, format validation
+- **Content Filtering:** Harmful content detection, PII scrubbing
+- **Rate Limiting:** Request throttling, resource quotas
+- **Authentication:** Identity verification, authorization checks
 
-## 注意事项
+#### Output Filtering
+- **Content Moderation:** Harmful content removal, quality checks
+- **Consistency Validation:** Logic checks, constraint verification
+- **Formatting:** Standardized output formats, clean presentation
+- **Audit Logging:** Decision trails, compliance records
 
-- **先证明需要多智能体**：每增加一个智能体都引入协调成本与新的故障点，没有明确并行/专精/隔离收益时优先单体。
-- **避免监督者瓶颈**：Supervisor 模式下，调度者既是单点故障也是性能瓶颈，必要时为其加副本或下沉部分决策。
-- **幂等优先**：跨智能体重试在分布式下不可避免，写操作不幂等会导致状态污染。
-- **护栏不是事后补丁**：在第 6 步而非上线后再加输入校验/人在回路，关键决策检查点要在设计阶段就埋好。
-- **评估指标要可量化**：成功率、成本、延迟必须能采集，否则无法做 A/B 与持续改进。
+#### Human-in-the-Loop
+- **Approval Workflows:** Critical decision checkpoints
+- **Escalation Triggers:** Confidence thresholds, risk assessment
+- **Override Mechanisms:** Human judgment precedence
+- **Feedback Loops:** Human corrections improve system behavior
 
-## 互见
+### 6. Evaluation Frameworks
 
-- 单 Agent 的提示词与工具配置优化，属实现细节，不在本技能范围。
-- 评估与对抗性核验的具体落地，可参考调研类工作流（如 deep-research）。
+#### Task Completion Metrics
+- **Success Rate:** Percentage of tasks completed successfully
+- **Partial Completion:** Progress measurement for complex tasks
+- **Task Classification:** Success criteria by task type
+- **Failure Analysis:** Root cause identification and categorization
 
----
+#### Quality Assessment
+- **Output Quality:** Accuracy, relevance, completeness measures
+- **Consistency:** Response variability across similar inputs
+- **Coherence:** Logical flow and internal consistency
+- **User Satisfaction:** Feedback scores, usage patterns
 
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+#### Cost Analysis
+- **Token Usage:** Input/output token consumption per task
+- **API Costs:** External service usage and charges
+- **Compute Resources:** CPU, memory, storage utilization
+- **Time-to-Value:** Cost per successful task completion
+
+#### Latency Distribution
+- **Response Time:** End-to-end task completion time
+- **Processing Stages:** Bottleneck identification per stage
+- **Queue Times:** Wait times in processing pipelines
+- **Resource Contention:** Impact of concurrent operations
+
+### 7. Orchestration Strategies
+
+#### Centralized Orchestration
+- **Workflow Engine:** Central coordinator manages all agents
+- **State Management:** Centralized workflow state tracking
+- **Decision Logic:** Complex routing and branching rules
+- **Monitoring:** Comprehensive visibility into all operations
+
+#### Decentralized Orchestration
+- **Peer-to-Peer:** Agents coordinate directly with each other
+- **Service Discovery:** Dynamic agent registration and lookup
+- **Consensus Protocols:** Distributed decision making
+- **Fault Tolerance:** No single point of failure
+
+#### Hybrid Approaches
+- **Domain Boundaries:** Centralized within domains, federated across
+- **Hierarchical Coordination:** Multiple orchestration levels
+- **Context-Dependent:** Strategy selection based on task type
+- **Load Balancing:** Distribute coordination responsibility
+
+### 8. Memory Patterns
+
+#### Short-Term Memory
+- **Context Windows:** Working memory for current tasks
+- **Session State:** Temporary data for ongoing interactions
+- **Cache Management:** Performance optimization strategies
+- **Memory Pressure:** Handling capacity constraints
+
+#### Long-Term Memory
+- **Persistent Storage:** Durable data across sessions
+- **Knowledge Base:** Accumulated domain knowledge
+- **Experience Replay:** Learning from past interactions
+- **Memory Consolidation:** Transferring from short to long-term
+
+#### Shared Memory
+- **Collaborative Knowledge:** Shared learning across agents
+- **Synchronization:** Consistency maintenance strategies
+- **Access Control:** Permission-based memory access
+- **Memory Partitioning:** Isolation between agent groups
+
+### 9. Scaling Considerations
+
+#### Horizontal Scaling
+- **Agent Replication:** Multiple instances of same agent type
+- **Load Distribution:** Request routing across agent instances
+- **Resource Pooling:** Shared compute and storage resources
+- **Geographic Distribution:** Multi-region deployments
+
+#### Vertical Scaling
+- **Capability Enhancement:** More powerful individual agents
+- **Tool Expansion:** Broader tool access per agent
+- **Context Expansion:** Larger working memory capacity
+- **Processing Power:** Higher throughput per agent
+
+#### Performance Optimization
+- **Caching Strategies:** Response caching, tool result caching
+- **Parallel Processing:** Concurrent task execution
+- **Resource Optimization:** Efficient resource utilization
+- **Bottleneck Elimination:** Systematic performance tuning
+
+### 10. Failure Handling
+
+#### Retry Mechanisms
+- **Exponential Backoff:** Increasing delays between retries
+- **Jitter:** Random delay variation to prevent thundering herd
+- **Maximum Attempts:** Bounded retry behavior
+- **Retry Conditions:** Transient vs permanent failure classification
+
+#### Fallback Strategies
+- **Graceful Degradation:** Reduced functionality when systems fail
+- **Alternative Approaches:** Different methods for same goals
+- **Default Responses:** Safe fallback behaviors
+- **User Communication:** Clear failure messaging
+
+#### Circuit Breakers
+- **Failure Detection:** Monitoring failure rates and response times
+- **State Management:** Open, closed, half-open circuit states
+- **Recovery Testing:** Gradual return to normal operation
+- **Cascading Failure Prevention:** Protecting upstream systems
+
+## Implementation Guidelines
+
+### Architecture Decision Process
+1. **Requirements Analysis:** Understand system goals, constraints, scale
+2. **Pattern Selection:** Choose appropriate architecture pattern
+3. **Agent Design:** Define roles, responsibilities, interfaces
+4. **Tool Architecture:** Design tool schemas and error handling
+5. **Communication Design:** Select message patterns and protocols
+6. **Safety Implementation:** Build guardrails and validation
+7. **Evaluation Planning:** Define success metrics and monitoring
+8. **Deployment Strategy:** Plan scaling and failure handling
+
+### Quality Assurance
+- **Testing Strategy:** Unit, integration, and system testing approaches
+- **Monitoring:** Real-time system health and performance tracking
+- **Documentation:** Architecture documentation and runbooks
+- **Security Review:** Threat modeling and security assessments
+
+### Continuous Improvement
+- **Performance Monitoring:** Ongoing system performance analysis
+- **User Feedback:** Incorporating user experience improvements
+- **A/B Testing:** Controlled experiments for system improvements
+- **Knowledge Base Updates:** Continuous learning and adaptation
+
+This skill provides the foundation for designing robust, scalable multi-agent systems that can handle complex tasks while maintaining safety, reliability, and performance at scale.

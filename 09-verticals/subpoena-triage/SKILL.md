@@ -1,14 +1,14 @@
 ---
 name: subpoena-triage
-title: 传票分级与异议框架
-description: 当公司/当事人收到传票、民事调查令（CID）或第三方文件调取请求需要快速分级处置时使用；做分类（第三方文件/第三方取证/当事人/CID/大陪审团）、研究适用程序规则、分析范围-负担-特权、与事项组合交叉核对，产出异议框架+合规生产计划+截止日历；不适用于起草最终异议函、提撤销动议、代律师作管辖法/特权终局判断或处理大陪审团传票（一律升级）。触发词：收到传票、传票分级、subpoena、CID、第三方文件调取、撤销传票、motion to quash
+title: /subpoena-triage
+description: Triage a subpoena served on the company — classify it, analyze scope/burden/privilege, cross-check the portfolio, and produce an objections framework, compliance plan, and deadline calendar. Use when the user says "we got a subpoena", "served with a subpoena", or shares a subpoena, CID, or third-party document request to evaluate.
 domain: 领域/legal
-triggers: [收到传票, 传票分级, subpoena, CID, 第三方文件调取, 撤销传票, motion to quash]
+triggers: [subpoena, CID, motion to quash]
 tags: [legal, litigation, subpoena, cid, discovery, objections, deadlines, privilege]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [法律检索工具 (Westlaw/CourtListener/Trellis/Descrybe), markdown]
+tools: []
 requires: []
 related: [legal-hold-manager, inbound-demand-letter-triage, quick-legal-problem-triage, investigation-memo-drafter]
 combines_with: [legal-hold-manager, litigation-chronology-builder, privilege-log-reviewer]
@@ -16,106 +16,275 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /subpoena-triage
 
-公司或当事人被送达传票（subpoena）、民事调查令（CID）或第三方文件调取请求，需要在截止日内快速分级、判断异议空间、排定合规计划时使用。传票的四种失败模式正是本技能要堵住的：**误期**、**过度生产**（弃特权、本可异议的负担）、**生产不足**（藐视法庭风险）、**错过撤销动议窗口**。
-
-**不该用（负边界）：**
-- **不起草最终异议函**——只产出异议框架（哪些异议成立、为什么、强度几何），定稿由用户+外部律师完成。
-- **不提撤销动议（motion to quash）**——只浮现该选项与时机，动议是需管辖法分析的律师工作。
-- **不跨法域校验规则时效/地方变体**——Step 0 研究只给出本传票的「起点」规则，须交律师确认现行有效与本地变体后再援引。
-- **不处理大陪审团传票（grand jury）**——属刑事，**立即停下、升级至刑事律师**，不走标准分级。
-
-## 步骤
-
-1. **Step 0 — 先研究适用规则。** 查清本法域与传票类型（庭审/取证/文件生产）的民事程序规则：联邦走 **FRCP 45**，否则查州对应规则及地方变体、法官常设令。识别：履行地点限制（place of compliance）、异议截止（**常以「履行日」与「送达后固定天数」二者中的较早者起算**——切勿默认单一天数）、特权清单要求、费用承担方。引用一手来源并加精确 pinpoint，核验时效。**大陪审团传票一经识别即升级**。
-2. **Step 1 — 分类（五类，规则各异）：**
-   - **第三方文件传票（民事）**——我方非当事人，他人要我方文件。常见异议：关联性、负担、特权、履行地点/地理可及。
-   - **第三方取证传票**——要我方员工作证。范围、关联性、负担；可能撤销动议；需证人准备。
-   - **当事人传票**——我方**是**当事人，属在跟踪诉讼中的证据开示，按 discovery 处理、映射到既有事项，本分级仅作信息性。
-   - **监管 CID**（FTC/SEC/DOJ/州 AG）——规则与姿态不同，常更具配合性但后果更重；建议外部监管律师。
-   - **大陪审团传票**——刑事，立即升级（出本技能范围）。
-3. **Step 2 — 提取关键字段：** 签发机关（法院/机构）、请求方、案件 caption、文件类别（编号清单）、作证主题（取证则含 30(b)(6) 指定）、**应诉/异议截止**（送达日 + 按规则计算窗口）、**生产日**、地理范围（保管人/系统/地点）、记录保管人/签字人。
-4. **Step 3 — 事项组合交叉核对：** 当事人传票→核对 caption 是否匹配既有事项日志（`_log.yaml`），匹配则路由该事项工作流；第三方且 caption 不识别→登记为独立 inbound；同一案多份传票→标记协同签发，可统一应对策略。
-5. **Step 4 — 范围/负担/特权分析：**
-   - **范围/关联性**：类别是否对应我方实际持有的文件？是否「钓鱼式」过宽、与本案诉辩脱钩？履行地点按所研究规则判（庭审/文件/取证限制不同）。
-   - **负担**：涉及保管人、检索系统、时间段；体量粗估（小/中/大/极端）；费用——第三方应诉方常有 cost-shifting，查规则。
-   - **特权**：律师-客户/工作成果几乎必然涉及（任何法务相关、涉内外律师沟通）；其他特权（商业秘密、HIPAA、州特权、共同利益）；特权清单格式按事项规约。
-   - **其他异议基础**：保密性（需保护令？）、重复（对方已从他处取得？）、未持有（具体说明）、送达瑕疵。
-6. **Step 5 — 异议框架。** 列结构化异议提纲（非定稿函）。每条异议含：**法律基础**（Step 0 规则的 pinpoint）、**具体适用**（哪些类别/哪些保管人）、**强度**（强/合理/弱）。
-7. **Step 6 — 合规生产计划。** 即便异议也常生产部分：异议后的拟生产范围、待检索保管人/系统、日期范围、复核协议（谁审特权：我方/外部律师/合同复核员）、生产格式（TIFF+load file/native/PDF）、特权清单格式与字段。
-8. **Step 7 — 截止日历（立即行动项）：** 应诉截止、异议截止（联邦/州规则 + 地方变体）、生产日、撤销动议窗口——**全部入日历**。异议截止按 Step 0 的「较早者」规则算，勿默认单一天数。
-9. **Step 8 — 写分级报告**（见示例骨架），并将传票原件链接/复制到 inbound 目录。
-10. **Step 9 — 移交：** 非律师角色在**对签发方/法院作任何实质应对前**（送异议、生产文件、出庭取证、提撤销动议）须先经「非律师门」，生成一页摘要供其带去咨询律师，未得明确「是」不得越门——分级、范围评估、内部排期不触发此门。法律保全（legal hold）未就位则立即移交 `legal-hold-manager` 以传票范围发起；事项足够重大则建事项；当事人传票属既有事项则做事项简报。
-
-## 指令
-
-- **管辖法假设。** Step 0 援引的规则即本传票在本法庭的操作规则。传票实务差异巨大（联邦 FRCP 45 vs. 各州对应、州际变体、地方规则、法官常设令、传票类型）——每条规则输出都是**起点启发式**，书面援引前确认现行有效与本地变体。
-- **防御姿态。** 本技能本质是防御性（已被送达，姿态是应/异/合规）。即便默认是原告方，收到传票同样常见，框架始终是「传票送达我方，如何应对」；事项姿态与默认不同时，先请用户确认立场再继续。
-- **不静默补料（三值规则）。** 若法律检索工具对某规则/变体/pinpoint 返回结果稀少，**报告所得并停下**，给出选项（拓宽检索/换工具/网搜并打 `[web search — verify]` 标后须对一手源核验/留 `[UNCERTAIN]` 停在此处）交律师决定，技能不替其接受低可信来源。
-- **来源标注，永不剥除。** 每条规则/判例/法条/法规标注出处：`[Westlaw]`/`[CourtListener]`/`[Trellis]`/`[Descrybe]` 或 MCP 工具名；网搜 `[web search — verify]`；凭训练记忆 `[model knowledge — verify]`；用户提供 `[user provided]`。带 `verify` 编造风险更高，援引/提交前先核。
-- **特权与目的地核查。** 分级报告属工作成果（按角色加相应标头），继承特权保护；外发去向若在特权圈外（公开频道、全员列表、对方律师、供应商、客户）会弃权，输出前确认或追问。
-- **引用保真。** pinpoint 须支撑整个命题；只支撑部分则拆分引用或收窄命题（误据引用失败模式）。源文不可得时只说「无法核对」，绝不说「已确认」。
-
-## 示例
-
-分级报告骨架（开头按角色加工作成果标头；含不可剥除的免责与引用核验段）：
-
-```markdown
-[工作成果标头 — 按插件配置，因角色而异]
-
-# 传票分级（Subpoena Triage）
-
-> **不替代外部律师。** 这是支持就截止、保全、聘请律师快速决策的结构化分类与范围解读；每条规则引用都是起点启发式，管辖法分析、异议定稿、动议实务与特权终局判断需熟悉该法庭的执业律师。任何超出常规第三方文件范围的传票请聘外部律师。
-
-**Slug：** [slug]　**送达日：** [YYYY-MM-DD]　**被送达：** [实体/注册代理]
-**分类：** [第三方文件 / 第三方取证 / 当事人 / CID / 大陪审团]
-
-## 关键字段
-- 签发机关 / 请求方 / 案件 caption / 应诉截止 / 生产日 / 撤销动议窗口
-
-## 范围与负担
-**范围：** [按类别的关联性评估]　**负担：** [小/中/大/极端 + 理由]　**地理可及问题：** [若有]
-
-## 特权分析（首遍解读，终局归律师）
-**律师-客户/工作成果涉及：** [是/否 + 哪些类别] `[SME VERIFY]`
-**其他特权：** [商业秘密/HIPAA/州/共同利益] `[SME VERIFY]`
-
-## 异议框架（每行书面援引前须 [SME VERIFY]：法域、规则时效、弃权风险）
-| 异议 | 法律基础 | 适用于 | 强度 | SME 已核? |
-|---|---|---|---|---|
-| 关联性 | [规则] | [类别] | [强/合理/弱] | [ ] |
-| 负担 | [规则] | [类别] | | [ ] |
-| 特权 | A/C、WP | [全部待生产文件] | 强（始终） | [ ] |
-
-## 合规计划（如应对）
-- 拟生产范围 / 保管人系统 / 日期范围 / 复核协议 / 生产格式 / 特权清单
-
-## 截止（入日历，均来自 Step 0 研究）
-- 应诉截止 [date] `[SME VERIFY]`　- 异议截止 [date]（引用：规则+pinpoint）`[SME VERIFY]`
-- meet-and-confer by [date] `[SME VERIFY]`　- 生产日 [date]
-
-## 立即行动
-- [ ] 法律保全已发起（否→以传票范围跑 legal-hold）
-- [ ] 外部律师已聘 / meet-and-confer 已排 / 事项已建 / 保险与 cost-shifting 分析 / 内部升级
-
-## 引用核验
-本分级中每条规则/判例/法条/法规均为 AI 生成且未经核验。援引于异议、撤销动议或对签发方往来函件前，须对法律检索工具核验准确性、good-law 状态与本地变体——已有判例因伪造/误引引证被制裁。带 `verify` 标的优先核。
-```
-
-## 注意事项
-
-- **大陪审团传票一经识别即停、升级刑事律师**，不跑标准分级；CID 标注监管机构特定规范并建议外部监管律师。
-- **冲突/事项闸门**：当事人传票须核对 caption 匹配既有事项；新 inbound 通常需建事项跟踪（传票几乎总是足够重大）。
-- **异议截止勿默认单一天数**——常按「履行日」与「送达后固定天数」较早者起算，须查现行规则与地方变体。
-- **过度生产弃特权、生产不足招制裁、误期招藐视**——这三道是非律师门存在的理由；任何实质应对前先经门。
-- 结尾给「下一步决策树」（起草 X / 升级 / 补事实 / 观望 / 其他），定制到本次产出，由律师选择；数据密集（如多份传票/大异议表）时可提供仪表盘视图。
-
-## 互见
-
-- requires：无（独立分诊技能；但应对前依赖事项已完成 intake/冲突检查）。
-- related：`general-counsel-advisor`、`privilege-log-reviewer`、`litigation-chronology-builder` —— 横向的诉讼分诊、特权与事实组织方法相通。
-- combines_with：`legal-hold-manager` —— 传票一到即以其范围发起法律保全；`litigation-chronology-builder` —— 当事人传票映射既有事项时，分级结论喂入案件时间线。
+1. Read the subpoena from provided path.
+2. Classify (third-party-docs / third-party-depo / party / CID / grand-jury).
+3. If grand jury → stop, escalate per `~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md`. Otherwise continue.
+4. Load `~/.claude/plugins/config/claude-for-legal/litigation-legal/matters/_log.yaml` for cross-check. Load `~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md` → landscape, privilege conventions, escalation norms.
+5. Follow the workflow and reference below.
+6. Extract key fields, analyze scope/burden/privilege, produce objections framework + compliance plan + deadline calendar.
+7. Write `~/.claude/plugins/config/claude-for-legal/litigation-legal/inbound/[slug]/triage.md`. Copy or link subpoena to `~/.claude/plugins/config/claude-for-legal/litigation-legal/inbound/[slug]/incoming.[ext]`.
+8. Hand off: `/legal-hold --issue` if hold not in place; `/matter-intake` if materiality warrants; `/matter-briefing [slug]` if party subpoena in existing matter.
 
 ---
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+
+# Subpoena Triage
+
+## Purpose
+
+Subpoenas arrive with deadlines. The failure modes: missing the deadline, over-producing (privilege waiver, burden we should have objected to), under-producing (contempt exposure), or missing a motion-to-quash window. This skill classifies, analyzes, and produces a compliance plan with objections framework.
+
+## Jurisdiction assumption
+
+The rule cited in Step 0 is the operative one for this subpoena in this forum. Subpoena practice varies materially: federal (FRCP 45) vs. state equivalents, state-to-state variants, local rules, court-specific standing orders, and the subpoena type (trial, deposition, document production) all change objection deadlines, place-of-compliance limits, privilege-log requirements, and cost-shifting. Every rule output here is a starting-point heuristic — confirm currency and the local variant before asserting in writing.
+
+## Side context
+
+This skill is inherently defensive — a subpoena has been served on the recipient and the posture is respond/object/comply. Read `## Side` in the practice profile. If the user's default side is **plaintiff**, note that receiving a subpoena is common for plaintiffs too (witness subpoenas, third-party requests directed at the plaintiff's own records) but the framing here is always "subpoena served on us, how do we respond." If the user is **defense** (typical), the framing aligns with the default. If the matter has a different posture than the default (e.g., defense practitioner receiving a subpoena in a matter where they're pro se for a family member), prompt the user to confirm posture before proceeding.
+
+## Load context
+
+- The subpoena document (user provides path or drops it in-session)
+- `~/.claude/plugins/config/claude-for-legal/litigation-legal/matters/_log.yaml` — for related matter lookup and legal hold status
+- `~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md` → landscape (regulators we deal with), house privilege conventions, escalation norms
+
+## Workflow
+
+### Step 0: Research the applicable rule
+
+**Before analyzing this subpoena, research the applicable rule of civil procedure for the forum (FRCP 45 for federal, the state equivalent otherwise) and the subpoena type (trial, deposition, document production). Identify: place-of-compliance limits, objection deadlines (these often run from the EARLIER of the compliance date or a fixed number of days after service), privilege-log requirements, and who bears costs. Cite with pinpoint references. Verify currency — rules and local variants change. Flag grand-jury subpoenas for immediate criminal-counsel escalation.**
+
+**No silent supplement.** If a research query to the configured legal research tool (Westlaw, CourtListener, Trellis, Descrybe, or firm platform) returns few or no results for the forum's rule, variant, or pinpoint, report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [rule / forum / variant]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) stop here. Which would you like?" A lawyer decides whether to accept lower-confidence sources; the skill does not decide for them.
+
+**Source attribution.** Tag every rule reference, case, statute, and regulation in the triage output with where it came from: `[Westlaw]`, `[CourtListener]`, `[Trellis]`, `[Descrybe]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for citations from web search; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations the user supplied (e.g., from the subpoena or prior matter work). Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags — they are counsel's fastest signal about which citations to verify before asserting in objections or filings.
+
+### Step 1: Classify
+
+Subpoenas come in flavors with different rules; confirm the specifics against the rule you just researched:
+
+- **Third-party document subpoena (civil)** — we're not a party to the litigation; someone wants our documents. Usual objection categories: relevance, burden, privilege, place-of-compliance / geographic reach.
+- **Third-party deposition subpoena** — someone wants an employee to testify. Scope, relevance, burden; possible motion to quash; witness prep required.
+- **Party subpoena** — we ARE a party; this is discovery in a litigation we're tracking. Treat as discovery, not inbound — it should map to an existing matter.
+- **Regulatory civil investigative demand (CID)** — FTC, SEC, DOJ, state AG. Different rules, different posture; often more deferential but also more consequential.
+- **Grand jury subpoena** — criminal. Escalate immediately to criminal counsel; different skill path (outside this skill's scope — flag for escalation).
+
+### Step 2: Extract key fields
+
+- **Issuing authority** — court (which), agency (which), counsel (if civil)
+- **Issuing party** — who requested (if civil)
+- **Case / matter caption** — the litigation we're being asked about
+- **Document categories sought** — numbered list
+- **Testimony topics** (if depo) — Rule 30(b)(6) designations
+- **Deadline for response/objection** — date served + computing the response window per applicable rule
+- **Production date** — date by which documents must be produced
+- **Geographic scope** — custodians, locations, systems implicated
+- **Custodian of record designation** — who at the company is the witness/signatory
+
+### Step 3: Portfolio cross-check
+
+- **Party subpoena → related to existing matter:** verify the caption matches a matter in `_log.yaml`. If yes, route to that matter's workflow; this triage is informational.
+- **Third-party subpoena → caption we don't recognize:** capture the parties; log as standalone inbound.
+- **Multiple subpoenas from same case:** flag coordinated issuance; a single response strategy may apply.
+
+### Step 4: Analyze scope, burden, privilege
+
+**Scope / relevance**
+- Do the categories map to actual documents we plausibly have?
+- Is any category a fishing expedition (overbroad, untethered to claims/defenses of the underlying case)?
+- Place of compliance / geographic reach — apply the researched rule; limits differ by subpoena type (trial vs. document vs. deposition).
+
+**Burden**
+- Custodians implicated, systems searched, time period
+- Estimated volume (rough: small / medium / large / extreme)
+- Cost — third-party responders may have cost-shifting available; check the researched rule.
+
+**Privilege**
+- Attorney-client or work product likely implicated? (Almost always yes for anything legal-related; often yes for communications involving in-house or outside counsel.)
+- Other privileges — trade secret, HIPAA (if applicable), state privilege, common interest
+- Privilege log will be required — flag the format per `~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md`
+
+**Other objection grounds**
+- Confidentiality — protective order needed?
+- Duplicative — do they already have this from another party?
+- Not possessed — we don't have what they're asking for (document with specificity)
+- Improperly served — check the researched rule's service requirements
+
+### Step 5: Objections framework
+
+Draft a structured objections outline — not the final objections letter, but the outline of what objections apply and why. The user (often with outside counsel) finalizes.
+
+Each objection:
+- Legal basis — cite the pinpoint from the rule researched in Step 0
+- Specific application to this subpoena (which categories, which custodians)
+- Strength (strong / reasonable / weak)
+
+### Step 6: Compliance plan
+
+Even when objecting, we often produce some of what's requested. Plan:
+
+- **Scope of likely production** — after objections, what we'd produce
+- **Custodians to search** — names and systems
+- **Date range**
+- **Review protocol** — who reviews for privilege (us, outside counsel, contract reviewers)
+- **Production format** — per the subpoena or per negotiated protocol (TIFF+load file, native, PDF)
+- **Privilege log requirements** — format, fields
+
+### Step 7: Deadlines
+
+Use the deadlines identified in the Step 0 research. Note that objection deadlines often run from the EARLIER of the compliance date or a fixed number of days after service — do not default to a single number without checking the applicable rule and local variant.
+
+- **Response deadline** — per researched rule; note if user needs more time (meet-and-confer to extend is standard)
+- **Objection deadline** — per researched rule (federal / state rule + any local variant)
+- **Production date** — if no objections succeed
+- **Motion to quash window** — if pursuing that path, timing is critical
+
+Calendar all of them. Immediate action item.
+
+### Step 8: Write triage
+
+Output: `~/.claude/plugins/config/claude-for-legal/litigation-legal/inbound/[slug]/triage.md`.
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
+
+# Subpoena Triage
+
+> **NOT A SUBSTITUTE FOR OUTSIDE COUNSEL.** This is a structured classification and scoping read to support fast decisions on deadlines, holds, and engagement. Every rule reference is a starting-point heuristic; jurisdiction-specific analysis, objections finalization, motions practice, and merit calls on privilege require licensed counsel familiar with the forum. Engage outside counsel for any subpoena above routine third-party document scope.
+
+**Slug:** [slug]
+**Served:** [YYYY-MM-DD]
+**Served on:** [entity / registered agent]
+**Incoming file:** [path]
+**Classification:** [third-party-docs / third-party-depo / party / CID / grand-jury]
+
+---
+
+## Key fields
+
+- **Issuing authority:** [court/agency]
+- **Issuing party:** [name]
+- **Case caption:** [caption]
+- **Response deadline:** [date]
+- **Production date:** [date]
+- **Motion-to-quash window:** [date range]
+
+## Categories sought (summary)
+
+[numbered list, concise]
+
+## Custodians / systems likely implicated
+
+[list]
+
+---
+
+## Portfolio cross-check
+
+**Related matter:** [slug or "none"]
+**If party subpoena:** [routed to existing matter or new matter?]
+**If third-party:** [standalone inbound]
+
+---
+
+## Scope & burden analysis
+
+**Scope:** [relevance assessment by category]
+**Burden estimate:** [small / medium / large / extreme — with reasoning]
+**Geographic reach issues:** [any]
+
+## Privilege analysis
+
+*Privilege scoping is a first-pass read; final call is counsel's, not this skill's.*
+
+**Attorney-client / work product likely implicated:** [yes/no + which categories] `[SME VERIFY]`
+**Other privileges:** [trade secret, HIPAA, state, common interest] `[SME VERIFY]`
+**Privilege log format required:** [per `~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md`]
+
+---
+
+## Objections framework
+
+*Every row below requires `[SME VERIFY]` before asserting in writing — jurisdiction, rule currency, waiver risk.*
+
+| Objection | Legal basis | Applies to | Strength | SME verified? |
+|---|---|---|---|---|
+| Relevance | [rule] | [categories] | [strong/reasonable/weak] | [ ] |
+| Burden | [rule] | [categories] | | [ ] |
+| Privilege | A/C, WP | [all producing docs] | strong (always) | [ ] |
+| Duplicative | [rule/doctrine] | [if applicable] | | [ ] |
+| [other] | | | | [ ] |
+
+---
+
+## Compliance plan (if responding)
+
+- **Scope of likely production:** [after objections]
+- **Custodians / systems:** [list]
+- **Date range:** [range]
+- **Review protocol:** [who, how]
+- **Production format:** [format]
+- **Privilege log:** [format, est. entries]
+
+---
+
+## Deadlines (calendar these)
+
+*All deadlines below come from the Step 0 rule research. `[SME VERIFY]` confirms the rule, variant, and computation for this forum and this subpoena type — state variants and local rules differ.*
+
+- **Response deadline:** [date] `[SME VERIFY]`
+- **Objection deadline:** [date] — cite: [rule + pinpoint] `[SME VERIFY]`
+- **Meet-and-confer by:** [date] (typically before objection deadline) `[SME VERIFY]`
+- **Production date:** [date]
+
+---
+
+## Immediate actions
+
+- [ ] Legal hold issued — [yes/no] — if no, run `/legal-hold [slug] --issue` with subpoena scope
+- [ ] Outside counsel engaged — [yes/who/TBD]
+- [ ] Meet-and-confer scheduled — [date]
+- [ ] Matter created in log — [yes/no/TBD — usually yes for anything above the smallest third-party docs subpoena]
+- [ ] Insurance / cost-shifting analysis — [if burden is large]
+- [ ] Internal escalation — [who]
+
+---
+
+## Recommendation
+
+[Two paragraphs: what to do. Objection posture. Production posture. Whether outside counsel handles objections or we do. Whether to move to quash.]
+
+---
+
+## Citation verification
+
+Every rule reference, case, statute, and regulation in this triage — including the Step 0 research citations, objection bases, and the privilege-log format pointer — is AI-generated and unverified. Before relying on any cite (especially in objections, a motion to quash, or correspondence with the issuing party), run a verification pass against a legal research tool (Westlaw, CourtListener, Trellis, Descrybe, or your firm's platform) for accuracy, good law status, and local variants. Fabricated or misquoted citations in filed documents have resulted in sanctions. Source tags on each citation (e.g., `[Westlaw]`, `[web search — verify]`) show where it came from; `verify` tags carry higher fabrication risk and should be checked first.
+```
+
+### Step 9: Hand off
+
+**Before responding to the subpoena (serving objections, producing documents, appearing for deposition, or filing a motion to quash — any substantive response to the issuing party or court):** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md`. If the Role is Non-lawyer:
+
+> Responding to a subpoena has legal consequences — missing a deadline risks contempt, over-producing waives privilege, under-producing risks sanctions. Have you reviewed this with an attorney? If yes, proceed. If no, here's a brief to bring to them:
+>
+> [Generate a 1-page summary: the subpoena type, issuing authority, deadlines, scope of what's sought, objections framework and strength, privilege and burden issues, proposed response posture, what could go wrong, what to ask the attorney.]
+>
+> If you need to find a licensed attorney, solicitor, barrister, or other authorised legal professional in your jurisdiction: your professional regulator's referral service is the fastest starting point (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent).
+
+Do not proceed past this gate without an explicit yes. Triage, scoping, and internal calendaring do not require the gate — the response to the issuing authority does.
+
+- If classified as **grand jury subpoena** → stop, flag for escalation per `~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md`, do not proceed with standard triage.
+- If classified as **CID**: flag that regulator-specific norms apply; recommend outside regulatory counsel.
+- Otherwise: offer to create a matter (usually yes — subpoenas are almost always material enough to track).
+- If a legal hold isn't issued with subpoena scope, hand off to `/legal-hold --issue` immediately.
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+## What this skill does not do
+
+- **Draft the final objections letter.** Produces the framework; the letter is drafted by user + outside counsel (future: a dedicated objections-draft skill).
+- **Move to quash.** Surfaces the option; the motion is legal work that requires jurisdiction-specific analysis.
+- **Validate rules across jurisdictions.** The Step 0 research produces the operative rule for this subpoena; the skill doesn't independently confirm currency or local variants. Flag for counsel verification before acting.
+- **Handle grand jury subpoenas.** Escalates. This is outside the triage scope.

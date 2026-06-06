@@ -1,14 +1,14 @@
 ---
 name: fluidsim-cfd-simulation
-title: FluidSim 计算流体力学仿真
-description: 当需要用 Python 在周期域上跑计算流体力学（CFD）仿真——二维/三维 Navier-Stokes、浅水方程、分层流——并分析湍流、涡动力学或地球物理流时使用；用 FluidSim 伪谱（FFT）求解器配参→建模→start()跑仿真→出涡量/能谱/空间均值图；不适用于有边界/复杂几何的有限元/有限体积流（FluidSim 只做周期域谱方法）、多相流、燃烧或结构静力学；触发词：FluidSim、CFD、流体仿真、Navier-Stokes、湍流、涡动力学、伪谱、浅水方程、分层流、能谱、ns2d、ns3d
+title: FluidSim
+description: Framework for computational fluid dynamics simulations using Python. Use when running fluid dynamics simulations including Navier-Stokes equations (2D/3D), shallow water equations, stratified flows, or when analyzing turbulence, vortex dynamics, or geophysical flows. Provides pseudospectral methods with FFT, HPC support, and comprehensive output analysis.
 domain: 领域/science
-triggers: [FluidSim, CFD, 流体仿真, Navier-Stokes, 湍流, 涡动力学, 伪谱方法, 浅水方程, 分层流, 能谱, ns2d, ns3d, computational fluid dynamics, pseudospectral, turbulence]
+triggers: [FluidSim, CFD, Navier-Stokes, ns2d, ns3d, computational fluid dynamics, pseudospectral, turbulence]
 tags: [fluidsim, cfd, navier-stokes, turbulence, pseudospectral, fft, simulation, geophysical-flow, python, hpc, science]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [FluidSim, FluidFFT, Pythran/Transonic, mpi4py, NumPy, Matplotlib, HDF5/h5py, uv/pip]
+tools: []
 requires: []
 related: [pymoo-multiobjective-optimization, materials-science-toolkit, sympy-symbolic-math, astropy-astronomy-toolkit]
 combines_with: [matplotlib-visualization, scientific-exploratory-data-analysis]
@@ -16,136 +16,341 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# FluidSim
 
-当任务需要在**周期域**上对不可压缩流体做数值仿真，并对结果做湍流/涡/谱分析时使用。FluidSim 是面向对象的 Python CFD 框架，用伪谱方法（FFT）求解，配 Pythran/Transonic 编译与 MPI 并行，性能接近 Fortran/C++。典型场景：
+## Overview
 
-- 二维/三维湍流研究：能量与拟涡能级联、涡量动力学、高分辨率 DNS。
-- 地球物理流：浅水方程（旋转系、地转平衡）、海洋/大气分层流（Boussinesq、浮力）。
-- 经典验证算例：Taylor-Green 涡、双极涡（dipole）能量衰减对比解析解。
-- 参数扫描：批量改黏性/分辨率跑系列仿真，分析依赖关系。
+FluidSim is an object-oriented Python framework for high-performance computational fluid dynamics (CFD) simulations. It provides solvers for periodic-domain equations using pseudospectral methods with FFT, delivering performance comparable to Fortran/C++ while maintaining Python's ease of use.
 
-**不该用的边界：**
-- 需要复杂几何 / 物理边界（机翼、管道、绕流障碍物）——FluidSim 只做**周期边界 + 谱方法**，没有贴体网格，这类问题用有限元/有限体积（OpenFOAM、SU2、FEniCS）。
-- 多相流、自由表面、燃烧、可压缩激波——超出本框架求解器范围。
-- 结构静力学 / 应力分析（FvK 弹性板求解器是耦合动力学，不是静力 FEA）。
-- 体系很大（如 512³ 三维 DNS）却无多核/集群与 FFT 支持时，单机算力不可接受，应先评估 HPC 资源。
+**Key strengths**:
+- Multiple solvers: 2D/3D Navier-Stokes, shallow water, stratified flows
+- High performance: Pythran/Transonic compilation, MPI parallelization
+- Complete workflow: Parameter configuration, simulation execution, output analysis
+- Interactive analysis: Python-based post-processing and visualization
 
-## 步骤
+## Core Capabilities
 
-1. **装环境**：`uv pip install "fluidsim[fft]"`（多数求解器需 FFT 支持）；并行再加 `[fft,mpi]`。无需 API key。
-2. **导入求解器**：按物理问题选 `Simul` 类（见下表）。
-3. **建默认参数**：`params = Simul.create_default_params()`，再用点号逐项配置（拼错属性会抛 `AttributeError`，防静默错配）。
-4. **配域与分辨率**：`params.oper.nx = params.oper.ny = 256`、`params.oper.Lx = params.oper.Ly = 2*pi`。
-5. **配物理与时间步**：黏性 `params.nu_2`、超黏 `params.nu_4`（可选）；`params.time_stepping.t_end`、`USE_CFL=True` 配 `CFL=0.5` 用自适应步长。
-6. **配初值与输出**：`params.init_fields.type`（noise/dipole/vortex/from_file/in_script）；`params.output.periods_save.*` 设各类输出的保存周期。
-7. **实例化并跑**：`sim = Simul(params); sim.time_stepping.start()`。
-8. **分析**：物理场/能谱/空间均值出图，或 `load_sim_for_plot` 载入历史仿真复盘。
+### 1. Installation and Setup
 
-## 指令
+Install fluidsim using uv with appropriate feature flags:
 
-**求解器选择（关键约束，按物理问题选）：**
+```bash
+# Basic installation
+uv pip install fluidsim
 
-| 问题类型 | 求解器 key | 导入 | 特征参数 |
-|---|---|---|---|
-| 二维湍流、涡动力学、快速测试 | `ns2d` | `from fluidsim.solvers.ns2d.solver import Simul` | — |
-| 三维湍流、真实流、高分辨 DNS | `ns3d` | `...ns3d.solver import Simul` | 需 MPI |
-| 分层流（海洋/大气） | `ns2d.strat` / `ns3d.strat` | `...ns2d.strat.solver import Simul` | `params.N`（Brunt-Väisälä 频率） |
-| 浅水 / 地球物理 / 旋转系 | `sw1l` | `...sw1l.solver import Simul` | `params.f`（科氏参数） |
-| 弹性板（Föppl-von Kármán） | `fvk` | `...fvk.solver import Simul` | 流固耦合 |
+# With FFT support (required for most solvers)
+uv pip install "fluidsim[fft]"
 
-**最佳实践（务必遵守）：**
-- 谱方法只适用周期域；域尺寸 `Lx/Ly` 一般取 `2*pi` 配对应分辨率。
-- 长程/高分辨仿真开 `USE_CFL=True` 让步长随流场自适应，比固定步长稳。
-- 三维或大算例用 MPI 并行：`mpirun -np 8 python script.py`，进程数与 FFT 分解相匹配。
-- 自定义初值用 `init_fields.type = "in_script"`，实例化后取物理场数组写入，再调 `statephys_from_statespect()` 同步谱空间。
-- 分析能谱级联时限定准稳态时间窗（`tmin/tmax`），别把初始暂态算进去。
-- 输出为 HDF5（`.h5`），三维可视化交给 ParaView / VisIt。
+# With MPI for parallel computing
+uv pip install "fluidsim[fft,mpi]"
+```
 
-**环境变量（可选）：** `FLUIDSIM_PATH`（输出目录）、`FLUIDDYN_PATH_SCRATCH`（工作目录）。
+Set environment variables for output directories (optional):
 
-## 示例
+```bash
+export FLUIDSIM_PATH=/path/to/simulation/outputs
+export FLUIDDYN_PATH_SCRATCH=/path/to/working/directory
+```
 
-**最小工作流（二维 Navier-Stokes）：**
+No API keys or authentication required.
+
+See `references/installation.md` for complete installation instructions and environment configuration.
+
+### 2. Running Simulations
+
+Standard workflow consists of five steps:
+
+**Step 1**: Import solver
 ```python
 from fluidsim.solvers.ns2d.solver import Simul
-from math import pi
+```
 
+**Step 2**: Create and configure parameters
+```python
 params = Simul.create_default_params()
 params.oper.nx = params.oper.ny = 256
-params.oper.Lx = params.oper.Ly = 2 * pi
+params.oper.Lx = params.oper.Ly = 2 * 3.14159
 params.nu_2 = 1e-3
 params.time_stepping.t_end = 10.0
-params.time_stepping.USE_CFL = True
 params.init_fields.type = "noise"
-params.output.periods_save.phys_fields = 1.0
+```
+
+**Step 3**: Instantiate simulation
+```python
+sim = Simul(params)
+```
+
+**Step 4**: Execute
+```python
+sim.time_stepping.start()
+```
+
+**Step 5**: Analyze results
+```python
+sim.output.phys_fields.plot("vorticity")
+sim.output.spatial_means.plot()
+```
+
+See `references/simulation_workflow.md` for complete examples, restarting simulations, and cluster deployment.
+
+### 3. Available Solvers
+
+Choose solver based on physical problem:
+
+**2D Navier-Stokes** (`ns2d`): 2D turbulence, vortex dynamics
+```python
+from fluidsim.solvers.ns2d.solver import Simul
+```
+
+**3D Navier-Stokes** (`ns3d`): 3D turbulence, realistic flows
+```python
+from fluidsim.solvers.ns3d.solver import Simul
+```
+
+**Stratified flows** (`ns2d.strat`, `ns3d.strat`): Oceanic/atmospheric flows
+```python
+from fluidsim.solvers.ns2d.strat.solver import Simul
+params.N = 1.0  # Brunt-Väisälä frequency
+```
+
+**Shallow water** (`sw1l`): Geophysical flows, rotating systems
+```python
+from fluidsim.solvers.sw1l.solver import Simul
+params.f = 1.0  # Coriolis parameter
+```
+
+See `references/solvers.md` for complete solver list and selection guidance.
+
+### 4. Parameter Configuration
+
+Parameters are organized hierarchically and accessed via dot notation:
+
+**Domain and resolution**:
+```python
+params.oper.nx = 256  # grid points
+params.oper.Lx = 2 * pi  # domain size
+```
+
+**Physical parameters**:
+```python
+params.nu_2 = 1e-3  # viscosity
+params.nu_4 = 0     # hyperviscosity (optional)
+```
+
+**Time stepping**:
+```python
+params.time_stepping.t_end = 10.0
+params.time_stepping.USE_CFL = True  # adaptive time step
+params.time_stepping.CFL = 0.5
+```
+
+**Initial conditions**:
+```python
+params.init_fields.type = "noise"  # or "dipole", "vortex", "from_file", "in_script"
+```
+
+**Output settings**:
+```python
+params.output.periods_save.phys_fields = 1.0  # save every 1.0 time units
 params.output.periods_save.spectra = 0.5
 params.output.periods_save.spatial_means = 0.1
-
-sim = Simul(params)
-sim.time_stepping.start()
-
-sim.output.phys_fields.plot("vorticity")   # 涡量场
-sim.output.spectra.plot1d(tmin=30.0, tmax=50.0)  # 能量级联
-sim.output.spatial_means.plot()             # 体积均值时间序列
 ```
 
-**自定义初值 · Taylor-Green 涡验证：**
+The Parameters object raises `AttributeError` for typos, preventing silent configuration errors.
+
+See `references/parameters.md` for comprehensive parameter documentation.
+
+### 5. Output and Analysis
+
+FluidSim produces multiple output types automatically saved during simulation:
+
+**Physical fields**: Velocity, vorticity in HDF5 format
 ```python
-import numpy as np
-sim = Simul(params)                          # params.init_fields.type = "in_script"
-X, Y = sim.oper.get_XY_loc()
-vx = sim.state.state_phys.get_var("vx")
-vy = sim.state.state_phys.get_var("vy")
-vx[:] =  np.sin(X) * np.cos(Y)
-vy[:] = -np.cos(X) * np.sin(Y)
-sim.state.statephys_from_statespect()        # 谱空间同步，关键
-sim.time_stepping.start()
-df = sim.output.spatial_means.load()         # 与解析能量衰减对比
+sim.output.phys_fields.plot("vorticity")
+sim.output.phys_fields.plot("vx")
 ```
 
-**分层流：** `from fluidsim.solvers.ns2d.strat.solver import Simul`，设 `params.N = 2.0`，初值里写浮力场 `b = sim.state.state_phys.get_var("b")`。
-
-**带强迫维持湍流：**
+**Spatial means**: Time series of volume-averaged quantities
 ```python
-params.forcing.enable = True
-params.forcing.type = "tcrandom"   # 时间相关随机强迫
-params.forcing.forcing_rate = 1.0
+sim.output.spatial_means.plot()
 ```
 
-**三维 + MPI：** `params.oper.nx = ny = nz = 512` 后 `mpirun -np 64 python script.py`。
-
-**参数扫描：**
+**Spectra**: Energy and enstrophy spectra
 ```python
-for nu in [1e-3, 5e-4, 1e-4]:
-    params = Simul.create_default_params()
-    params.nu_2 = nu
-    params.output.sub_directory = f"nu{nu}"
-    Simul(params).time_stepping.start()
+sim.output.spectra.plot1d()
+sim.output.spectra.plot2d()
 ```
 
-**复盘历史仿真：**
+**Load previous simulations**:
 ```python
 from fluidsim import load_sim_for_plot
 sim = load_sim_for_plot("simulation_dir")
 sim.output.phys_fields.plot()
 ```
 
-## 注意事项
+**Advanced visualization**: Open `.h5` files in ParaView or VisIt for 3D visualization.
 
-- **许可双层**：本采编源（K-Dense scientific-agent-skills 仓库）为 MIT，可再分发；但 FluidSim **库本身**遵循 CeCILL（GPL 兼容的法国自由软件许可），使用/再分发该库代码时受 CeCILL 约束，与本条目文本许可无关。
-- **拼错即报错**：`Parameters` 对未知属性抛 `AttributeError`，是特性不是 bug——靠它发现参数名笔误。
-- **域必须周期**：非周期/有边界几何会得到无意义结果，谱方法的硬约束。
-- **统计窗口**：能谱、级联、均值分析要丢弃初始暂态，只取准稳态段（`tmin/tmax`）。
-- **断点重启**：长仿真可中断重启；先看 `references/simulation_workflow.md` 的 restart 与集群提交流程。
-- **性能依赖编译与 FFT**：装 `[fft]` 才有 FluidFFT 后端；Pythran/Transonic 编译热点函数；并行靠 mpi4py，进程数需与 FFT 分解协调。
-- **替代/参考**：复杂几何转 OpenFOAM/SU2/FEniCS；谱方法同类有 Dedalus、SpectralDNS。官方文档 https://fluidsim.readthedocs.io/ ；源技能含 `references/` 六个细化文档（installation/solvers/simulation_workflow/parameters/output_analysis/advanced_features）。
+See `references/output_analysis.md` for detailed analysis workflows, parametric study analysis, and data export.
 
-## 互见
+### 6. Advanced Features
 
-- related：`molecular-dynamics-simulation` —— 同为原子/连续介质数值模拟，方法论（建模→平衡→产能→分析）相通。
-- related：`materials-science-toolkit`、`guided-statistical-analysis` —— 仿真结果的物性提取与统计分析。
-- combines_with：`matplotlib-visualization` —— 涡量场、能谱、时间序列出版级出图。
+**Custom forcing**: Maintain turbulence or drive specific dynamics
+```python
+params.forcing.enable = True
+params.forcing.type = "tcrandom"  # time-correlated random forcing
+params.forcing.forcing_rate = 1.0
+```
 
----
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT 许可证）。FluidSim 库本身遵循 CeCILL 许可证。
+**Custom initial conditions**: Define fields in script
+```python
+params.init_fields.type = "in_script"
+sim = Simul(params)
+X, Y = sim.oper.get_XY_loc()
+vx = sim.state.state_phys.get_var("vx")
+vx[:] = sin(X) * cos(Y)
+sim.time_stepping.start()
+```
+
+**MPI parallelization**: Run on multiple processors
+```bash
+mpirun -np 8 python simulation_script.py
+```
+
+**Parametric studies**: Run multiple simulations with different parameters
+```python
+for nu in [1e-3, 5e-4, 1e-4]:
+    params = Simul.create_default_params()
+    params.nu_2 = nu
+    params.output.sub_directory = f"nu{nu}"
+    sim = Simul(params)
+    sim.time_stepping.start()
+```
+
+See `references/advanced_features.md` for forcing types, custom solvers, cluster submission, and performance optimization.
+
+## Common Use Cases
+
+### 2D Turbulence Study
+
+```python
+from fluidsim.solvers.ns2d.solver import Simul
+from math import pi
+
+params = Simul.create_default_params()
+params.oper.nx = params.oper.ny = 512
+params.oper.Lx = params.oper.Ly = 2 * pi
+params.nu_2 = 1e-4
+params.time_stepping.t_end = 50.0
+params.time_stepping.USE_CFL = True
+params.init_fields.type = "noise"
+params.output.periods_save.phys_fields = 5.0
+params.output.periods_save.spectra = 1.0
+
+sim = Simul(params)
+sim.time_stepping.start()
+
+# Analyze energy cascade
+sim.output.spectra.plot1d(tmin=30.0, tmax=50.0)
+```
+
+### Stratified Flow Simulation
+
+```python
+from fluidsim.solvers.ns2d.strat.solver import Simul
+
+params = Simul.create_default_params()
+params.oper.nx = params.oper.ny = 256
+params.N = 2.0  # stratification strength
+params.nu_2 = 5e-4
+params.time_stepping.t_end = 20.0
+
+# Initialize with dense layer
+params.init_fields.type = "in_script"
+sim = Simul(params)
+X, Y = sim.oper.get_XY_loc()
+b = sim.state.state_phys.get_var("b")
+b[:] = exp(-((X - 3.14)**2 + (Y - 3.14)**2) / 0.5)
+sim.state.statephys_from_statespect()
+
+sim.time_stepping.start()
+sim.output.phys_fields.plot("b")
+```
+
+### High-Resolution 3D Simulation with MPI
+
+```python
+from fluidsim.solvers.ns3d.solver import Simul
+
+params = Simul.create_default_params()
+params.oper.nx = params.oper.ny = params.oper.nz = 512
+params.nu_2 = 1e-5
+params.time_stepping.t_end = 10.0
+params.init_fields.type = "noise"
+
+sim = Simul(params)
+sim.time_stepping.start()
+```
+
+Run with:
+```bash
+mpirun -np 64 python script.py
+```
+
+### Taylor-Green Vortex Validation
+
+```python
+from fluidsim.solvers.ns2d.solver import Simul
+import numpy as np
+from math import pi
+
+params = Simul.create_default_params()
+params.oper.nx = params.oper.ny = 128
+params.oper.Lx = params.oper.Ly = 2 * pi
+params.nu_2 = 1e-3
+params.time_stepping.t_end = 10.0
+params.init_fields.type = "in_script"
+
+sim = Simul(params)
+X, Y = sim.oper.get_XY_loc()
+vx = sim.state.state_phys.get_var("vx")
+vy = sim.state.state_phys.get_var("vy")
+vx[:] = np.sin(X) * np.cos(Y)
+vy[:] = -np.cos(X) * np.sin(Y)
+sim.state.statephys_from_statespect()
+
+sim.time_stepping.start()
+
+# Validate energy decay
+df = sim.output.spatial_means.load()
+# Compare with analytical solution
+```
+
+## Quick Reference
+
+**Import solver**: `from fluidsim.solvers.ns2d.solver import Simul`
+
+**Create parameters**: `params = Simul.create_default_params()`
+
+**Set resolution**: `params.oper.nx = params.oper.ny = 256`
+
+**Set viscosity**: `params.nu_2 = 1e-3`
+
+**Set end time**: `params.time_stepping.t_end = 10.0`
+
+**Run simulation**: `sim = Simul(params); sim.time_stepping.start()`
+
+**Plot results**: `sim.output.phys_fields.plot("vorticity")`
+
+**Load simulation**: `sim = load_sim_for_plot("path/to/sim")`
+
+## Resources
+
+**Documentation**: https://fluidsim.readthedocs.io/
+
+**Reference files**:
+- `references/installation.md`: Complete installation instructions
+- `references/solvers.md`: Available solvers and selection guide
+- `references/simulation_workflow.md`: Detailed workflow examples
+- `references/parameters.md`: Comprehensive parameter documentation
+- `references/output_analysis.md`: Output types and analysis methods
+- `references/advanced_features.md`: Forcing, MPI, parametric studies, custom solvers

@@ -1,14 +1,14 @@
 ---
 name: vercel-ai-sdk
-title: Vercel AI SDK 应用开发
-description: 当用 React/Next.js 给应用加 AI 对话、流式文本、工具调用或结构化输出时使用；做基于 Vercel AI SDK 的 generateText/streamText/generateObject 服务端与 useChat 前端落地，产出可流式的 AI 功能；不适用于纯后端无 JS 栈、直接裸调 OpenAI/Anthropic 不要统一抽象、或非生成式的常规 Web 开发；触发词：Vercel AI SDK、streamText、useChat、generateObject、工具调用、流式响应。
+title: Vercel AI SDK Expert
+description: Expert in the Vercel AI SDK. Covers Core API (generateText, streamText), UI hooks (useChat, useCompletion), tool calling, and streaming UI components with React and Next.js.
 domain: 智能/agents
-triggers: [Vercel AI SDK, streamText, useChat, generateObject, 工具调用, 流式响应, ai sdk, generateText, toDataStreamResponse]
+triggers: [Vercel AI SDK, streamText, useChat, generateObject, ai sdk, generateText, toDataStreamResponse]
 tags: [vercel, ai-sdk, nextjs, react, llm, streaming]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [typescript, ai, @ai-sdk/react, zod]
+tools: []
 requires: []
 related: [claude-api, github-copilot-sdk, pydantic-ai-agents, transformers-js]
 combines_with: [agent-tool-builder, llm-prompt-caching, langfuse-llm-observability]
@@ -16,133 +16,222 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Vercel AI SDK Expert
 
-用 React / Next.js 构建 AI 功能，且想用 **Vercel AI SDK** 这套统一抽象屏蔽 OpenAI/Anthropic/Gemini 等 provider 差异时使用。SDK 分两层：服务端 `ai`（`generateText` / `streamText` / `generateObject`）+ 前端 `@ai-sdk/react`（`useChat` / `useCompletion`）。
+You are a production-grade Vercel AI SDK expert. You help developers build AI-powered applications, chatbots, and generative UI experiences primarily using Next.js and React. You are an expert in both the `ai` (AI SDK Core) and `@ai-sdk/react` (AI SDK UI) packages. You understand streaming, language model integration, system prompts, tool calling (function calling), and structured data generation.
 
-**该用**：给 React/Next.js 应用加 AI 对话或文本生成；把 LLM 响应流式推到前端 UI；实现工具调用（function calling）；用 `generateObject` 让 LLM 返回受 Zod 约束的结构化 JSON；构建生成式 UI（流式 React 组件）；从裸调 OpenAI/Anthropic 迁移到统一 SDK；排查 `useChat`/`streamText` 的流式问题。
+## When to Use This Skill
 
-**不该用（边界）：**
-- 纯后端、非 JS/TS 技术栈 → 该 SDK 是 TS/JS 生态，换用对应语言的 provider SDK。
-- 只调用一个 provider 且不需要统一抽象、流式或前端 hook → 直接用 `claude-api` 等原生 SDK 更轻。
-- 非生成式的常规 Web 功能（CRUD、鉴权、路由）→ 与本技能无关。
-- 复杂多 Agent 编排/状态机 → 用 `langgraph-agent-framework`、`crewai-multi-agent`，本技能聚焦单次/对话式生成。
+- Use when adding AI chat or text generation features to a React or Next.js app
+- Use when streaming LLM responses to a frontend UI
+- Use when implementing tool calling / function calling with an LLM
+- Use when returning structured data (JSON) from an LLM using `generateObject`
+- Use when building AI-powered generative UIs (streaming React components)
+- Use when migrating from direct OpenAI/Anthropic API calls to the unified AI SDK
+- Use when troubleshooting streaming issues with `useChat` or `streamText`
 
-## 步骤 / 指令
+## Core Concepts
 
-1. **装包**：`npm i ai @ai-sdk/react @ai-sdk/openai zod`（按 provider 换 `@ai-sdk/anthropic` 等）。用 `openai('gpt-4o')` / `anthropic('claude-3-5-sonnet-...')` 这种新版 provider 工厂，别用旧的 edge runtime 包装器。
-2. **选 API**：一次性结果用 `generateText`；要流式推前端用 `streamText`；要结构化 JSON 用 `generateObject`（配 Zod schema）。
-3. **建服务端路由**（Next.js App Router，`app/api/chat/route.ts`）：用 `streamText`，**必须** `return result.toDataStreamResponse()`，否则普通 JSON 响应会破坏分块流。
-4. **设超时**：流式路由顶部加 `export const maxDuration = 30;`（Pro 可更高）。Vercel serverless 默认 10~15s，LLM 流式常超时被截断。
-5. **接前端**：客户端组件 `useChat({ api: '/api/chat' })`，渲染 `messages`，用 `handleSubmit`/`handleInputChange`/`isLoading` 绑表单。
-6. **加工具调用**（可选）：`streamText` 传 `tools: { name: tool({ description, parameters: z.object(...), execute }) }`，并设 `maxSteps: 5`，否则 LLM 拿到工具结果后无法继续生成最终回复。
-7. **结构化输出**（可选）：`generateObject` 传清晰 `system` + 严格 Zod `schema`，`object` 自动按 schema 完整类型推断；仍要 `try/catch` 兜失败。
-8. **验证**：本地跑通流式不中断、工具能被调用并回填、结构化输出符合 schema。
+### Why Vercel AI SDK?
 
-## 示例
+The Vercel AI SDK is a unified framework that abstracts away provider-specific APIs (OpenAI, Anthropic, Google Gemini, Mistral). It provides two main layers:
+1. **AI SDK Core (`ai`)**: Server-side functions to interact with LLMs (`generateText`, `streamText`, `generateObject`).
+2. **AI SDK UI (`@ai-sdk/react`)**: Frontend hooks to manage chat state and streaming (`useChat`, `useCompletion`).
 
-服务端流式路由（`app/api/chat/route.ts`）：
+## Server-Side Generation (Core API)
+
+### Basic Text Generation
 
 ```typescript
+import { generateText } from "ai";
+import { openai } from "@ai-sdk/openai";
+
+// Returns the full string once completion is done (no streaming)
+const { text, usage } = await generateText({
+  model: openai("gpt-4o"),
+  system: "You are a helpful assistant evaluating code.",
+  prompt: "Review the following python code...",
+});
+
+console.log(text);
+console.log(`Tokens used: ${usage.totalTokens}`);
+```
+
+### Streaming Text
+
+```typescript
+// app/api/chat/route.ts (Next.js App Router API Route)
 import { streamText } from 'ai';
 import { openai } from '@ai-sdk/openai';
 
-export const maxDuration = 30; // 防 serverless 超时截断
+// Allow streaming responses up to 30 seconds
+export const maxDuration = 30;
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
+
   const result = streamText({
     model: openai('gpt-4o'),
     system: 'You are a friendly customer support bot.',
     messages,
   });
-  return result.toDataStreamResponse(); // 必须，否则流式会断
+
+  // Automatically converts the stream to a readable web stream
+  return result.toDataStreamResponse();
 }
 ```
 
-前端对话组件（客户端，`app/page.tsx`）：
+### Structured Data (JSON) Generation
+
+```typescript
+import { generateObject } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { z } from 'zod';
+
+const { object } = await generateObject({
+  model: openai('gpt-4o-2024-08-06'), // Use models good at structured output
+  system: 'Extract information from the receipt text.',
+  prompt: receiptText,
+  // Pass a Zod schema to enforce output structure
+  schema: z.object({
+    storeName: z.string(),
+    totalAmount: z.number(),
+    items: z.array(z.object({
+      name: z.string(),
+      price: z.number(),
+    })),
+    date: z.string().describe("ISO 8601 date format"),
+  }),
+});
+
+// `object` is automatically fully typed according to the Zod schema!
+console.log(object.totalAmount); 
+```
+
+## Frontend UI Hooks
+
+### `useChat` (Conversational UI)
 
 ```tsx
-'use client';
-import { useChat } from 'ai/react';
+// app/page.tsx (Next.js Client Component)
+"use client";
+
+import { useChat } from "ai/react";
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({ api: '/api/chat' });
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    api: "/api/chat", // Points to the streamText route created above
+    // Optional callbacks
+    onFinish: (message) => console.log("Done streaming:", message),
+    onError: (error) => console.error(error)
+  });
+
   return (
-    <form onSubmit={handleSubmit}>
-      {messages.map((m) => (
-        <div key={m.id}>{m.role}: {m.content}</div>
-      ))}
-      <input value={input} onChange={handleInputChange} disabled={isLoading} />
-    </form>
+    <div className="flex flex-col h-screen max-w-md mx-auto p-4">
+      <div className="flex-1 overflow-y-auto mb-4">
+        {messages.map((m) => (
+          <div key={m.id} className={`mb-4 ${m.role === 'user' ? 'text-right' : 'text-left'}`}>
+            <span className={`p-2 rounded-lg inline-block ${m.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
+              {m.target || m.content}
+            </span>
+          </div>
+        ))}
+      </div>
+      
+      <form onSubmit={handleSubmit} className="flex gap-2">
+        <input
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Say something..."
+          className="flex-1 p-2 border rounded"
+          disabled={isLoading}
+        />
+        <button type="submit" disabled={isLoading} className="bg-black text-white p-2 rounded">
+          Send
+        </button>
+      </form>
+    </div>
   );
 }
 ```
 
-工具调用（服务端，需 `maxSteps`）：
+## Tool Calling (Function Calling)
+
+Tools allow the LLM to interact with your code, fetching external data or performing actions before responding to the user.
+
+### Server-Side Tool Definition
 
 ```typescript
+// app/api/chat/route.ts
 import { streamText, tool } from 'ai';
+import { openai } from '@ai-sdk/openai';
 import { z } from 'zod';
 
-const result = streamText({
-  model: openai('gpt-4o'),
-  messages,
-  tools: {
-    getWeather: tool({
-      description: 'Get the current weather in a given location',
-      parameters: z.object({
-        location: z.string().describe('e.g. San Francisco, CA'),
-        unit: z.enum(['celsius', 'fahrenheit']).optional(),
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+
+  const result = streamText({
+    model: openai('gpt-4o'),
+    messages,
+    tools: {
+      getWeather: tool({
+        description: 'Get the current weather in a given location',
+        parameters: z.object({
+          location: z.string().describe('The city and state, e.g. San Francisco, CA'),
+          unit: z.enum(['celsius', 'fahrenheit']).optional(),
+        }),
+        // Execute runs when the LLM decides to call this tool
+        execute: async ({ location, unit = 'celsius' }) => {
+          // Fetch from your actual weather API or database
+          const temp = location.includes("San Francisco") ? 15 : 22;
+          return `The weather in ${location} is ${temp}° ${unit}.`;
+        },
       }),
-      execute: async ({ location, unit = 'celsius' }) => {
-        const temp = location.includes('San Francisco') ? 15 : 22;
-        return `The weather in ${location} is ${temp}° ${unit}.`;
-      },
-    }),
-  },
-  maxSteps: 5, // 让 LLM 看到工具结果后继续生成回复
-});
+    },
+    // Allows the LLM to call tools automatically in a loop until it has the answer
+    maxSteps: 5, 
+  });
+
+  return result.toDataStreamResponse();
+}
 ```
 
-结构化 JSON（`generateObject` + Zod）：
+### UI for Multi-Step Tool Calls
 
-```typescript
-import { generateObject } from 'ai';
-import { z } from 'zod';
+When using `maxSteps`, the `useChat` hook will display intermediate tool calls if you handle them in the UI.
 
-const { object } = await generateObject({
-  model: openai('gpt-4o-2024-08-06'),
-  system: 'Extract information from the receipt text.',
-  prompt: receiptText,
-  schema: z.object({
-    storeName: z.string(),
-    totalAmount: z.number(),
-    items: z.array(z.object({ name: z.string(), price: z.number() })),
-    date: z.string().describe('ISO 8601 date format'),
-  }),
-});
-console.log(object.totalAmount); // 按 schema 完整类型推断
+```tsx
+// Inside the `useChat` messages.map loop
+{m.role === 'assistant' && m.toolInvocations?.map((toolInvocation) => (
+  <div key={toolInvocation.toolCallId} className="text-sm text-gray-500">
+    {toolInvocation.state === 'result' ? (
+      <p>✅ Fetched weather for {toolInvocation.args.location}</p>
+    ) : (
+      <p>⏳ Fetching weather for {toolInvocation.args.location}...</p>
+    )}
+  </div>
+))}
 ```
 
-## 注意事项
+## Best Practices
 
-- **流式路由必须 `return result.toDataStreamResponse()`**；返普通 JSON 会破坏分块。
-- **`streamText` 配 `maxDuration = 30`**（或套餐上限）。聊天突然在 10~15s 截断 = serverless 超时，加这行即可。
-- **有工具就设 `maxSteps`**（如 5）：`streamText` 在工具调用完成后会立即停止，不设它 LLM 拿到结果也无法回复用户。常见报错「Tool execution failed / 工具后无回复」即此因。
-- **工具的 `description` 和 Zod 参数 `.describe()` 是 LLM 唯一依据**：写全、写准，否则模型不知道何时/如何调用。
-- **`generateObject` 不可盲信**：Zod 只保证形状，仍用 `try/catch` 处理生成失败；配清晰 `system`。
-- 用新版 provider 工厂（`@ai-sdk/openai` 等），别用旧 edge runtime 包装器。
-- 选模型注意能力匹配：结构化输出选擅长此项的模型（如 `gpt-4o-2024-08-06`）。
-- 本技能不替代环境特定的验证与测试；缺关键输入/权限/成功标准时先澄清。
+- ✅ **Do:** Use `openai('gpt-4o')` or `anthropic('claude-3-5-sonnet-20240620')` format (from specific provider packages like `@ai-sdk/openai`) instead of the older edge runtime wrappers.
+- ✅ **Do:** Provide a strict Zod `schema` and a clear `system` prompt when using `generateObject()`.
+- ✅ **Do:** Set `maxDuration = 30` (or higher if on Pro) in Next.js API routes that use `streamText`, as LLMs take time to stream responses and Vercel's default is 10-15s.
+- ✅ **Do:** Use `tool()` with comprehensive `description` tags on Zod parameters, as the LLM relies entirely on those strings to understand when and how to call the tool.
+- ✅ **Do:** Enable `maxSteps: 5` (or similar) when providing tools, otherwise the LLM won't be able to reply to the user *after* seeing the tool result!
+- ❌ **Don't:** Forget to return `result.toDataStreamResponse()` in Next.js App Router API routes when using `streamText`; standard JSON responses will break chunking.
+- ❌ **Don't:** Blindly trust the output of `generateObject` without validation, even though Zod forces the shape — always handle failure states using `try/catch`.
 
-## 互见
+## Troubleshooting
 
-- related：`prompt-template-designer` —— `system` 提示词的设计与迭代由其产出，喂给 `generateText`/`streamText`/`generateObject` 更稳定。
-- related：`frontend-design`、`react-state-management` —— `useChat` 之外的页面布局与客户端状态由它们承接。
-- combines_with：`agent-tool-builder` —— 设计 `tool()` 的接口契约与执行体，配合本技能的工具调用编排。
-- combines_with：`claude-api` —— 接 Anthropic provider 时，模型选型、prompt caching、token 用量等底层细节参考它。
+**Problem:** The streaming chat cuts off abruptly after 10-15 seconds.
+**Solution:** The serverless function timed out. Add `export const maxDuration = 30;` (or whatever your plan limit is) to the Next.js API route file.
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+**Problem:** "Tool execution failed" or the LLM didn't return an answer after using a tool.
+**Solution:** `streamText` stops immediately after a tool call completes unless you provide `maxSteps`. Set `maxSteps: 2` (or higher) to let the LLM see the tool result and construct a final text response.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: weekly-external-call-brief
-title: 本周外部会议综合预备简报
-description: 当需要为未来 7 天内全部外部客户/潜客会议一次性生成统一预备简报时使用；做拉取日历外部会议、逐会账户与参会人调研、近期动态核查并产出按时间排序、可晨读的结构化简报；不适用于会后纪要（见 sales-call-summary）或单账户深度竞品研究。触发词：weekly prep brief、本周会议预备、prepare my week、这周有哪些客户会议、周一备会、外部会议简报、备会简报、what calls do I have this week。
+title: Weekly Prep Brief
+description: Generate a comprehensive weekly briefing for all external calls in the next 7 days. Triggers on 'weekly prep brief', 'prepare my week', 'what calls do I have this week', 'Monday prep', or any weekly planning request.
 domain: 商业/sales
-triggers: [weekly prep brief, 本周会议预备, prepare my week, 这周有哪些客户会议, 周一备会, 外部会议简报, 备会简报, what calls do I have this week, Monday prep]
+triggers: [weekly prep brief, prepare my week, what calls do I have this week, Monday prep]
 tags: [sales, meeting-prep, briefing, account-research, crm, weekly-planning, customer-call]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Calendar, CRM, Common Room, Web Search]
+tools: []
 requires: []
 related: [signal-based-call-prep, sales-prospecting, sales-call-summary, deal-pipeline-tracker]
 combines_with: [competitive-intel-tracker, entity-research-dossier]
@@ -16,137 +16,124 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 本周外部会议综合预备简报
+# Weekly Prep Brief
 
-## 何时使用
+Generate a single comprehensive weekly briefing that covers every external customer or prospect call in the next 7 days, with per-meeting account and contact research from Common Room.
 
-当销售/客户成功需要在周初一次性看清未来 7 天（或用户指定区间）**全部外部会议**，并对每场会议拿到账户快照 + 参会人画像 + 近期动态时使用。产物是一份按日期/时间升序、可在 10–15 分钟晨读完成的结构化简报。
+## Briefing Process
 
-**不该用的边界**：
-- 单场会议的**会后**纪要/行动项提炼 → 用 `sales-call-summary`。
-- 对单个账户做**深度竞品/实体调研** → 用 `entity-research-dossier` 或竞品研究类技能，本条只做面向备会的轻量聚合。
-- 准备销售物料（一页纸、Battlecard、Deck） → 用 `sales-enablement`。
-- **纯内部会议**（同事一对一、内部例会、招聘面试）不在范围内，过滤掉。
+### Step 1: Get the Week's External Meetings
 
-## 步骤
+**Option A — Calendar connected:**
+Use the `~~calendar` connector to fetch all meetings scheduled in the next 7 days (or a user-specified range). Filter to keep only external meetings — those with attendees from outside your organization. Discard internal-only meetings, one-on-ones with colleagues, and recurring internal syncs.
 
-固定四步，按顺序执行：
+Identify for each external meeting:
+- Company name
+- Meeting date and time
+- External attendee names and email addresses
 
-**第 1 步 · 取本周外部会议**
-- 若已接日历连接器（如 `~~calendar`）：拉取未来 7 天全部会议，**只保留外部会议**——参会人含本组织以外域名的。丢弃纯内部会、同事一对一、内部周会。每场抽取：公司名、日期时间、外部参会人姓名 + 邮箱。
-- 若无日历连接：请用户提供——「为生成本周备会简报，请列出近期外部会议：公司名、日期时间、参会人。」接受自由文本，先解析成结构化清单再继续。
+**Option B — No calendar connected:**
+Ask the user: "To build your weekly prep brief, I'll need your upcoming external calls. Please list them: company name, date/time, and attendee names."
 
-**第 2 步 · 确认会议清单（防止白做功）**
-研究前先把识别到的会议回给用户确认：
+Accept freeform input and parse it into a structured list before proceeding.
 
-> 「本周找到这些外部会议，有遗漏或要排除的请告诉我：
-> - [公司] — [周几]，[时间] — [参会人]
-> - …」
+### Step 2: Confirm the Meeting List
 
-**例外**：当天就要开的会议**跳过确认**，直接出压缩版（账户快照 + Top 信号 + 1–2 个谈话要点），标注「[快速备会]」。
+Present the identified meetings to the user for confirmation before beginning research:
 
-**第 3 步 · 逐会调研（尽量并行）**
-对每场确认的会议，并行跑：
-1. **账户调研** — 用 CRM / 客户情报系统（如 Common Room）拉完整账户快照（账户状态、Top 信号、近期活动）。
-2. **参会人调研** — 对每位外部参会人拉画像（角色、persona、切入角度）。
+> "Here are the external calls I found for this week. Let me know if anything's missing or should be excluded:
+> - [Company] — [Day], [Time] — [Attendees]
+> - ..."
 
-CRM/客户情报是**主数据源**。其后对每家公司做一次**近期动态核查（补充，非主线）**：
-- 搜「"[公司名]" news」并限定近 7 天；
-- 高管参会人则搜其姓名找近期公开发言/访谈；
-- **只收录真正值得说的**（融资、人事变动、重大报道），不要用通用新闻凑数。
+This prevents wasted research on cancelled or incorrect meetings.
 
-**深度校准**（按账户类型调研力度）：
+### Step 3: Research Each Meeting
 
-| 账户类型 | 深度 |
-|---|---|
-| 战略大客户（高 ARR） | 完整：账户 + 全部参会人 |
-| 活跃商机（开放交易） | 完整，侧重交易信号 |
-| 90 天内续约 | 完整，侧重风险/健康度信号 |
-| 中端常规拜访 | 标准：账户精简 + 关键参会人 |
-| 小客户快速 check-in | 最小：3–4 条要点 + 单参会人 |
-| 全新潜客（首次会议） | 完整：账户 + 参会人（第一印象关键） |
+For each confirmed external meeting, run in parallel where possible:
+1. **Account research** — full account snapshot using the account-research skill
+2. **Contact research** — profile for each external attendee using the contact-research skill
 
-**第 4 步 · 综合成周简报**
-把逐会研究汇编为单一文档，按日期/时间升序。开头写一段**周级概览**，置顶高亮：
-- 紧急信号账户（流失风险、试用将到期、扩展机会）；
-- 需特别准备或高管出席的会议；
-- 外部会议总数与预估投入时间。
+Common Room data is the primary source. After CR research, run a quick **recency check** for each company — this is supplementary, not primary:
+- Search `"[company name]" news` scoped to the last 7 days
+- For executive attendees, search their name for recent public posts or interviews
+- Only include findings that are genuinely noteworthy (funding, leadership changes, major press). Don't pad the brief with generic news.
 
-## 指令
+Depth calibration:
+- For high-priority accounts (large accounts, open opportunities, renewal risk), produce full depth research
+- For lower-priority or short meetings, produce abbreviated snapshots (3–4 bullets each)
 
-**标准会议模板**（数据充足时）：
+### Step 4: Synthesize the Weekly Brief
+
+Compile all per-meeting research into a single structured document, sorted by meeting date/time.
+
+Open with a brief week-level overview that flags:
+- Any accounts with urgent signals (at-risk, trial expiring, expansion opportunity)
+- Any meetings that need special preparation or executive involvement
+- Total external call count and estimated time commitment
+
+## Output Format
 
 ```
-# 本周备会简报 — [日期]当周
+# Weekly Prep Brief — Week of [Date]
 
-## 周概览
-[2–4 条：关键主题、置顶优先项、会议总数]
+## Week Overview
+[2–4 bullets: key themes, flagged priorities, call count]
 
 ---
 
-## [周一 / 周二 / …]
+## [Monday / Tuesday / etc.]
 
-### [公司名] — [时间]
-**参会人：** [姓名 + 职务]
-**会议类型：** [Discovery / QBR / 续约 / 扩展 …，可推断则推断]
+### [Company Name] — [Time]
+**Attendees:** [Names and titles]
+**Meeting type:** [Discovery / QBR / Renewal / Expansion / etc. — inferred if possible]
 
-**公司快照**
-[4–5 条：账户状态、Top 信号、近期活动]
+**Company Snapshot**
+[4–5 bullets: account status, top signals, recent activity]
 
-**参会人画像**
-- **[姓名]**（[职务]）：[2–3 条信号、persona、谈话角度]
+**Attendee Profiles**
+- **[Name]** ([Title]): [2–3 bullets on their signals, persona, conversation angle]
+- [Repeat per attendee]
 
-**本周 Top 信号**
-[本场最相关的 2–3 个信号]
+**Top Signals This Week**
+[2–3 most relevant signals for this specific call]
 
-**本周动态**（若有值得说的）
-[只放真正 noteworthy 的：融资、人事、重大报道]
+**This Week's News** [If notable news found]
+[Only genuinely noteworthy findings — funding, leadership changes, major press]
 
-**建议目标**
-[1–2 句：这场会要达成什么]
-
----
-[逐会重复，按日期/时间排序]
-```
-
-**稀疏数据模板**（CRM 返回数据有限时改用，不要用完整模板硬填）：
-
-```
-### [公司名] — [时间] ⚠️ 数据有限
-**参会人：** [已知姓名/职务]
-**可得数据：** [CRM 实际返回了什么]
-
-**网络搜索结果**
-[公司新闻、参会人 LinkedIn 等]
-
-**说明：** 本账户在 CRM 中数据有限，开会前建议销售直接查 CRM 或向同事补背景。
-```
-
-## 示例
-
-用户：「帮我准备一下这周的客户会议（周一备会）。」
-1. 拉日历未来 7 天 → 过滤出 5 场外部会议，提取公司/时间/参会人。
-2. 回清单给用户确认，剔除一场已取消的。
-3. 逐会并行调研：战略客户 A（开放商机）出完整版并侧重交易信号；小客户 E 出 3–4 条最小快照；每家做近 7 天新闻核查，A 公司本周宣布 B 轮融资 → 收进「本周动态」作为开场。
-4. 汇编：周概览置顶「A 有扩展机会 + 本周融资；C 续约 30 天内、健康度偏低需重点准备」，正文按周一→周五排序，每场 scannable。
-
-## 注意事项
-
-- **每个事实都必须来自一次工具调用**——不得编造交易背景、活动或信号。
-- 数据稀疏时**用稀疏模板诚实标注**，绝不用猜测填满完整模板；短而诚实 > 假装完整。
-- 始终按日期/时间**升序**排序；紧急情况（风险、试用到期、开放商机）**置顶高亮**，别埋在正文里。
-- 每场保持可扫读——销售常在早晨用手机看；4–6 场会议的简报总长应能 10–15 分钟读完。
-- **同一公司多场会议**：账户只研究一次，跨会复用，靠参会人和目标区分。
-- **一周 7 场以上**：先问是否对特定账户做完整、其余做精简；默认战略账户给完整。
-- **已取消会议**静默排除；状态不明则纳入并标「[状态待确认]」。
-
-## 互见
-
-- related：`sales-call-summary` —— 本条管会前；它管会后纪要与行动项。
-- related：`entity-research-dossier` —— 需要对某账户做超出备会粒度的深度调研时下钻。
-- related：`customer-health-scorer` —— 判定续约风险/扩展机会、校准调研深度时参考。
-- combines_with：`sales-enablement` —— 备会简报识别出谈话重点后，据此生成 Battlecard / 一页纸物料。
-- combines_with：`customer-research-synthesizer` —— 参会人/账户调研的洞察综合方法可复用。
+**Recommended Objectives**
+[1–2 sentences: what to accomplish in this meeting]
 
 ---
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+
+[Repeat per meeting, sorted by date/time]
+```
+
+## When a Meeting Has Sparse Data
+
+If Common Room returns limited data for a particular meeting's account or attendees, use a compressed format for that meeting instead of the full template:
+
+```
+### [Company Name] — [Time] ⚠️ Limited Data
+**Attendees:** [Names and titles if known]
+**Data available:** [What Common Room actually returned]
+
+**Web Search Results**
+[Findings from web search — company news, attendee LinkedIn profiles]
+
+**Note:** Common Room has limited data on this account. The rep may want to check directly in CR or gather context from colleagues before this call.
+```
+
+Do not generate a full meeting prep section (company snapshot, signal highlights, talking points, recommended objectives) from sparse data. A short honest section is more useful than a fabricated full one.
+
+## Quality Standards
+
+- Keep each meeting section scannable — reps read these in the morning, often on mobile
+- Always sort by date/time ascending
+- Flag urgent situations prominently (risk, trial expiration, open opps) — don't bury them
+- If a meeting has very thin Common Room data, use the sparse-data format above — never fill the full template with guesses
+- Total brief should be readable in 10–15 minutes for a week with 4–6 meetings
+- **Every fact must come from a tool call** — no invented deal context, activity, or signals
+
+## Reference Files
+
+- **`references/briefing-guide.md`** — guidelines for structuring briefings, prioritization logic, and how to handle edge cases (cancelled meetings, new accounts with no data, etc.)

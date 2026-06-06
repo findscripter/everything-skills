@@ -1,11 +1,11 @@
 ---
 name: ux-microcopy-writer
-title: UX 微文案撰写
-description: 当需要为界面元素（按钮/CTA、报错、空状态、确认弹窗、提示气泡、加载态、引导文案）撰写或评审 UX 微文案，并产出推荐文案+备选方案+理由+本地化提示时使用；不适用于长篇营销文案、品牌口号、纯视觉设计或后端文案逻辑实现；触发词：UX 文案、微文案、按钮该写什么、报错文案、空状态、确认弹窗措辞、CTA 命名、引导文案
+title: UX Microcopy Writer
+description: Write or review UX microcopy — CTAs/buttons, error messages, empty states, confirmation dialogs, tooltips, loading states, onboarding — and ship a recommended line plus tone-tagged alternatives, rationale, and localization notes; not for long-form marketing copy, brand slogans, p
 domain: 创意/design
-triggers: [UX 文案, 微文案, 按钮该写什么, 报错文案, 空状态文案, 确认弹窗措辞, CTA 命名, 引导文案, 提示气泡, 评审报错信息, microcopy]
-tags: [创意, design, ux文案, 微文案, 报错信息, 空状态, cta, 本地化]
-level: 进阶
+triggers: [UX copy, microcopy, what should this button say, error message wording, review this error message, empty state copy, confirmation dialog wording, CTA naming, onboarding text, tooltip copy]
+tags: [creative, design, ux-copy, microcopy, error-messages, empty-states, cta, localization]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,92 +16,101 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+## When to use
 
-- 要为具体界面元素写或评审简短文案：CTA/按钮、报错信息、空状态、确认弹窗、提示气泡（tooltip）、加载态、引导/onboarding 文案。
-- 目标产物是：推荐文案 + 2-3 个带语气标签的备选 + 选用理由 + 本地化提示。
-- 已能描述上下文（哪个界面/流程、用户在做什么、想要什么语气、有无字数/平台约束），或愿意被追问补齐。
+- You need to write or review short copy for a specific interface element: CTA/button, error message, empty state, confirmation dialog, tooltip, loading state, or onboarding text.
+- The deliverable is: one recommended line + 2-3 tone-tagged alternatives + a rationale for the choice + localization notes.
+- You can describe the context (which screen/flow, what the user is doing, the tone you want, any character/platform constraints) — or are willing to be asked for it.
 
-不该用的边界：
-- 长篇营销文案、落地页正文、品牌 slogan、SEO 文章 → 那是内容创作，不是界面微文案。
-- 纯视觉/排版设计、组件实现、把文案接进代码的逻辑 → 本技能只给文案，不画稿不写码。
-- 没有任何界面上下文、只让"随便写点文案" → 先索要上下文（界面+用户状态+语气+约束）再开工。
-- 整体界面/可用性体检、反模式审计 → 用 `ux-ui-principles-audit`。
+Out of scope:
+- Long-form marketing copy, landing-page body, brand slogans, SEO articles — that's content creation, not interface microcopy.
+- Pure visual/layout design, component implementation, or the logic that wires copy into code — this skill produces copy only; it does not mock up screens or write code.
+- "Just write some copy" with no interface context — ask for context first (screen + user state + tone + constraints) before writing.
+- Whole-screen usability/anti-pattern audits — use an interface principles/anti-pattern audit skill instead.
 
-## 步骤 / 指令
+## Steps
 
 ```
-1. 先固定上下文（缺则向用户索要，不要凭空写）
-   - 界面/流程：哪个屏幕、哪一步、什么功能？
-   - 用户状态：用户在做什么？此刻的情绪（着急/困惑/期待）？
-   - 语气：正式 / 友好 / 俏皮 / 安抚？
-   - 约束：字数上限、平台规范、术语表/品牌声音？
+1. Lock down context first (ask the user if missing — don't invent it):
+   - Context: What screen, flow, or feature?
+   - User state: What is the user trying to do? How are they feeling (rushed / confused / hopeful)?
+   - Tone: Formal, friendly, playful, reassuring?
+   - Constraints: Character limits, platform guidelines, glossary / brand voice?
 
-2. 按元素类型套用文案结构（见下「指令」）。
+2. Apply the copy pattern for the element type (see Patterns below).
 
-3. 逐元素产出：1 条推荐 + 2-3 条备选（各标语气与适用场景）+ 选用理由。
+3. For each element, produce: 1 recommended line + 2-3 alternatives (each tagged with tone and best-for) + a rationale.
 
-4. 补本地化提示：避免的双关/俚语、字符膨胀（中→英可能变长）、文化差异。
+4. Add localization notes: idioms/puns to avoid, character expansion (text can grow in translation), cultural context.
 ```
 
-指令（核心约束，逐条照用）：
+Five principles (apply every one):
 
-五条原则：① 清晰——说人话，零行话零歧义；② 精简——用最少的词说全；③ 一致——同一事物全程用同一术语；④ 有用——每个词都帮用户达成目标；⑤ 像人——像乐于助人的人，不像机器人。
+1. **Clear** — Say exactly what you mean. No jargon, no ambiguity.
+2. **Concise** — Use the fewest words that convey the full meaning.
+3. **Consistent** — Same terms for the same things everywhere.
+4. **Useful** — Every word should help the user accomplish their goal.
+5. **Human** — Write like a helpful person, not a robot.
 
-各元素文案模式：
-- CTA/按钮：动词开头、具体。"开始免费试用""保存更改""下载报告"，而非"提交""确定"；标签要与实际结果一致。
-- 报错信息：结构=发生了什么 + 为什么 + 怎么解决。例："支付未成功。银行拒绝了这张卡。请换一张卡或联系发卡行。"
-- 空状态：结构=这是什么 + 为什么空 + 如何开始。例："还没有项目。创建第一个项目，开始和团队协作。"
-- 确认弹窗：把动作写清楚（"删除 3 个文件？"而非"确定吗？"）；说明后果（"此操作无法撤销"）；按钮用动作命名（"删除文件"/"保留文件"，而非"确定"/"取消"）。
-- 提示气泡：精简、有用，不说显而易见的废话。
-- 加载态：设定预期、降低焦虑。
-- 引导文案：渐进披露，一次只讲一个概念。
+Copy patterns by element:
 
-语气随场景调整：成功→克制庆祝；报错→共情且给出办法；警告→清晰可执行；中性→信息准确简洁。
+- **CTAs / buttons** — Start with a verb, be specific: "Start free trial", "Save changes", "Download report" — not "Submit" or "OK". Match the label to the actual outcome. "Create account" not "Submit".
+- **Error messages** — Structure: What happened + Why + How to fix. Example: "Payment declined. Your card was declined by your bank. Try a different card or contact your bank."
+- **Empty states** — Structure: What this is + Why it's empty + How to start. Example: "No projects yet. Create your first project to start collaborating with your team."
+- **Confirmation dialogs** — Make the action clear ("Delete 3 files?" not "Are you sure?"); describe consequences ("This can't be undone"); label buttons with the action ("Delete files" / "Keep files" not "OK" / "Cancel").
+- **Tooltips** — Concise, helpful, never state the obvious.
+- **Loading states** — Set expectations, reduce anxiety.
+- **Onboarding** — Progressive disclosure, one concept at a time.
 
-## 示例
+Voice and tone — adapt to context:
+- **Success** — Celebratory but not over the top.
+- **Error** — Empathetic and helpful.
+- **Warning** — Clear and actionable.
+- **Neutral** — Informative and concise.
 
-输出模板：
+## Example
+
+Output template:
 
 ```markdown
-## UX 文案：[上下文]
+## UX Copy: [Context]
 
-### 推荐文案
-**[元素]**：[文案]
+### Recommended Copy
+**[Element]**: [Copy]
 
-### 备选
-| 选项 | 文案 | 语气 | 适用场景 |
-|------|------|------|----------|
-| A | [文案] | [语气] | [何时用] |
-| B | [文案] | [语气] | [何时用] |
-| C | [文案] | [语气] | [何时用] |
+### Alternatives
+| Option | Copy | Tone | Best For |
+|--------|------|------|----------|
+| A | [Copy] | [Tone] | [When to use] |
+| B | [Copy] | [Tone] | [When to use] |
+| C | [Copy] | [Tone] | [When to use] |
 
-### 理由
-[为何这条更好——用户处境、清晰度、动作导向]
+### Rationale
+[Why this copy works — user context, clarity, action-orientation]
 
-### 本地化提示
-[译者需知：避免的习语、字符膨胀、文化背景]
+### Localization Notes
+[Anything translators should know — idioms to avoid, character expansion, cultural context]
 ```
 
-报错文案最小示例（结构=发生什么+为什么+怎么办）：
+Minimal error-message example (structure = what happened + why + how to fix):
 
 ```
-支付未成功。银行拒绝了这张卡。请换一张卡，或联系发卡行后重试。
+Payment declined. Your card was declined by your bank. Try a different card or contact your bank.
 ```
 
-## 注意事项
+## Notes
 
-- 上下文不全就别硬写：界面、用户状态、语气、约束四项缺哪问哪，模糊文案不如不写。
-- 上下文要具体——"支付失败时的报错"远胜"一条报错"。
-- 顾及情绪：报错要共情，成功可适度庆祝，别一律冷冰冰或一律卖萌。
-- 有品牌声音/术语表就先对齐它，保证全局术语一致；接入设计稿时核对字数与布局约束（本技能不抓取页面，需用户提供截图或文字稿）。
-- 备选要真有差异（不同语气/场景），不要换几个同义词凑数；理由要落到用户后果，不要写"更优雅"这种空话。
+- Don't force copy with incomplete context — if any of screen, user state, tone, or constraints is missing, ask for it. Vague copy is worse than none.
+- Be specific about context — "Error message when payment fails" beats "an error message."
+- Honor the emotional state — error messages need empathy, success messages can celebrate; don't make everything cold or everything cute.
+- If a brand voice / glossary exists, align to it first so terminology stays consistent everywhere. When wiring into a design, check character limits and layout constraints (this skill does not scrape pages — the user must provide a screenshot or text).
+- Alternatives must be genuinely different (distinct tone or scenario), not synonym swaps; the rationale must land on user outcomes, not empty praise like "more elegant."
 
-## 互见
+## See also
 
-- requires：无。
-- related：`ux-ui-principles-audit`（界面原则与反模式审计，会涉及文案类反模式如 confirmshaming，本技能专注产出文案）；`ux-research-design-toolkit`（用户研究转设计决策，为文案语气提供依据）。
-- combines_with：`brand-guidelines`（拉取品牌声音与内容风格指南，约束文案语气与术语）；`ui-design-system-builder`（文案与组件/设计令牌一并落到设计体系）。
+- requires: none.
+- related: `ux-ui-principles-audit` (interface principles and anti-pattern audit, including copy anti-patterns like confirmshaming — this skill focuses on producing the copy), `ux-research-design-toolkit` (turns user research into design decisions, grounds copy tone).
+- combines_with: `brand-guidelines` (pulls brand voice and content style guide to constrain tone and terminology), `ui-design-system-builder` (lands copy alongside components/design tokens in the system).
 
 ---
-采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+Adapted from anthropics/knowledge-work-plugins (Apache-2.0).

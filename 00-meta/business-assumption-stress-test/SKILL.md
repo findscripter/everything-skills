@@ -1,11 +1,11 @@
 ---
 name: business-assumption-stress-test
-title: 商业假设压力测试
-description: 当需要在市场或资本验证前自检某条关键商业假设（市场规模、营收预测、护城河、招聘节奏、留存等）时使用；做对单条假设的反向证据搜集、下行建模、敏感度分析与对冲方案，产出结构化压力测试报告；不适用于已有充分数据的常规复盘或无明确假设的泛泛战略讨论。触发词：假设验证、压力测试、下行/熊市情景、敏感度分析
+title: /em:stress-test — Business Assumption Stress Testing
+description: /em -stress-test — Business Assumption Stress Testing
 domain: 通用/thinking
-triggers: [压力测试, 假设验证, 市场规模/TAM 是否靠谱, 营收预测过于乐观, 护城河成立吗, 熊市/下行情景, 敏感度分析, 招聘计划能否兑现, 竞品如果反击怎么办, 投资人会怎么质疑]
-tags: [通用, 思维, 商业决策, 假设检验, 风险评估, 情景分析, 创业]
-level: 进阶
+triggers: []
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,99 +16,202 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# /em:stress-test — Business Assumption Stress Testing
 
-把任何一条商业假设拿来「在市场打碎它之前先自己打碎它」。适用于营收预测、市场规模（TAM/SAM/SOM）、竞争护城河、招聘速度、客户留存、竞品反击等关键判断。
+**Command:** `/em:stress-test <assumption>`
 
-核心信念：**最危险的假设，是全员一致同意、没人质疑的那一条**。创始人天生乐观——这是从零起步的必需品，但同样的乐观会让商业模型里的数字被持续灌水。压力测试不是悲观，而是校准（calibration）。
-
-不该用的边界：
-- 假设不明确、只是泛泛战略发散时——先逼出一条可证伪的具体假设再用本法。
-- 已有充分历史数据、属于常规复盘/归因时——直接用数据分析即可，无需走情景建模。
-- 「我们市场很大」这类含糊、不可证伪的陈述——先具体化，否则压力测试无从下手。
-
-## 步骤
-
-**第 1 步：隔离假设。** 明确写出来。不是「我们市场很大」，而是「德国中小企业 B2B 支出管理软件的 TAM 为 €2.3B」。越具体越可测试；含糊的假设不可证伪，因而无用。常见假设类型：市场规模、客户行为（付费意愿/流失/扩张/转介）、营收模型（转化率/客单/销售周期/CAC）、竞争位势（护城河耐久性/竞品反应速度/切换成本）、执行（团队速度/招聘与产品时间线）、宏观（监管/经济/技术）。
-
-**第 2 步：寻找反向证据。** 主动找「它是错的」的证据，而非找支持它的理由。问：谁试过并失败了？什么数据与此矛盾？熊市情景长什么样？一个聪明的怀疑者会指向哪里？这类假设的基础概率（base rate）是多少？证据来源：相邻市场失败的可比公司、同类业务的流失数据、同类预测的历史准确率、口径冲突的行业报告、竞品试过后的真实发现。目标不是找理由停下，而是暴露「你不知道的东西」。
-
-**第 3 步：为下行建模。** 多数计划只建基准情景和上行，压力测试要求显式建模下行。
-
-定量假设（营收/增长/转化）用情景表：
-
-| 情景 | 假设取值 | 概率 | 影响 |
-|------|---------|------|------|
-| 基准情景 | [原始值] | ? | |
-| 熊市情景 | -30% | ? | |
-| 压力情景 | -50% | ? | |
-| 灾难情景 | -80% | ? | |
-
-每一档的关键问题：**业务还能存活吗？计划还成立吗？**
-
-定性假设（护城河/PMF/团队能力）问：这个假设出错的最早信号是什么？你要多久才会察觉？从它崩坏到你发现，中间会发生什么？
-
-**第 4 步：算敏感度。** 有些假设比另一些重要得多。敏感度分析回答：**若这一条假设变化，结果会变多少？** 例：CAC 翻倍，现金跑道（runway）如何变？流失率从 5% 升到 10%，24 个月后的 NRR 如何变？销售周期从 3 个月变 6 个月，Q3 营收受多大影响？高敏感度 = 关键杠杆，错了就是大问题。
-
-**第 5 步：提出对冲。** 每条高风险假设都应配一个对冲：验证型对冲（下注前先小范围测试：试点、客户访谈、小实验）、应急型对冲（错了的话 Plan B 是什么）、预警型对冲（什么先行指标能在为时已晚之前告诉你它正在崩，并设定触发阈值）。
-
-## 指令
-
-`/em:stress-test <assumption>`
-
-按假设类型套用「常见失误 + 压力问题 + 测试方法」：
-
-- **营收预测**——失误：管道按 100% 转化、不计延误/流失/季节性。压力问：你管道的真实历史赢单率是多少？前 3 大单子滑到下季度，数字怎么变？新销售要 4 个月而非 2 个月爬坡呢？测试：**用历史赢单率而非期望赢单率搭营收模型。**
-- **市场规模**——失误：自上而下从行业报告算 TAM、混淆总市场与可服务市场、假设 100% SAM 可触达。压力问：你 ICP 里到底有多少家公司、你能点名吗？测试：**列出目标客户名单，数出来，乘以 ACV，那才是你的 SAM。**
-- **竞争护城河**——失误：护城河是 6 个月就能复制的技术、尚未成型的网络效应、需要你还没有的规模的数据优势。压力问：资金充裕的竞品 90 天抄走你的王牌功能，客户会怎么做？测试：**问流失客户为什么离开、竞品本可如何留住他们。**
-- **招聘计划**——失误：到岗时间按常规招聘周期估、不建模爬坡期（3-6 个月才满产）、关键岗位单点依赖。压力问：销售 VP 要 5 个月而非 2 个月到岗会怎样？测试：**按 0 净新增招聘建模——还剩什么能跑通？**
-- **竞品反击**——失误：假设在位者不会反击（你赢了它们就会）、低估反击速度、不建模资源不对称。压力问：市场领导者 6 个月内复制你的产品，定价如何变？竞品融资 $30M 攻打你的赛道，你怎么回应？
-
-## 示例
-
-输出模板（保留源结构）：
-
-```
-ASSUMPTION: [精确陈述]
-SOURCE: [来源——模型 / 投资人 pitch / 团队直觉]
-
-COUNTER-EVIDENCE 反向证据
-• [挑战该假设的具体证据]
-• [可比的失败案例]
-• [与假设矛盾的数据点]
-
-DOWNSIDE MODEL 下行建模
-• 熊市 (-30%): [对计划的影响]
-• 压力 (-50%): [对计划的影响]
-• 灾难 (-80%): [对计划的影响——业务能否存活？]
-
-SENSITIVITY 敏感度
-该假设敏感度为 [高 / 中 / 低]。
-变动 10% → 结果变动 [X]。
-
-HEDGE 对冲
-• 验证: [下注前如何测试]
-• 应急: [错了的 Plan B]
-• 预警: [盯什么先行指标——以及在什么阈值上行动]
-```
-
-填法示意——假设「12 月 ARR 达 $2M」：SOURCE 为财务模型自下而上；COUNTER-EVIDENCE 列出同阶段同类公司预测命中率约 40%；DOWNSIDE 中熊市 -30% → 现金跑道少 4 个月；SENSITIVITY 标记销售爬坡周期为高敏感杠杆；HEDGE 用「前 5 个新销售爬坡时长」作预警指标，超 3.5 个月即触发降速招聘。
-
-## 注意事项
-
-- 隔离假设这一步决定成败：含糊、不可证伪的假设不要进入后续四步，先逼出一条带具体数字/口径的陈述。
-- 区分定量与定性假设走不同路径：定量走情景表 + 敏感度；定性走「最早信号—察觉时延—崩坏到发现之间发生什么」。
-- 找反向证据时刻意切换到「聪明怀疑者 / 投资人尽调」视角，并优先用基础概率（base rate）锚定，避免被个案乐观带偏。
-- 灾难情景 (-80%) 的关键判据只有一个：**业务是否存活**；若不存活，该假设必须配强对冲或暂缓下注。
-- 高敏感度假设 = 关键杠杆，应优先投入验证资源；低敏感度假设即便错了影响也有限，不必过度建模。
-- 每条对冲都要落到可观测的先行指标和触发阈值上，否则预警形同虚设。
-
-## 互见
-
-- 与「情景规划 / 决策树」类思维方法配合：压力测试聚焦单条假设的证伪，情景规划组合多条假设成整体走势。
-- 与财务建模 / 单位经济（CAC、LTV、NRR、runway）方法配合：本法提供「该把哪条假设拉去做敏感度」的入口。
-- 与投资人尽调 / 风险登记表配合：压力测试输出可直接转为风险清单与对冲行动项。
+Take any business assumption and break it before the market does. Revenue projections. Market size. Competitive moat. Hiring velocity. Customer retention.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+## Why Most Assumptions Are Wrong
+
+Founders are optimists by nature. That's a feature — you need optimism to start something from nothing. But it becomes a liability when assumptions in business models get inflated by the same optimism that got you started.
+
+**The most dangerous assumptions are the ones everyone agrees on.**
+
+When the whole team believes the $50M market is real, when every investor call goes well so you assume the round will close, when your model shows $2M ARR by December and nobody questions it — that's when you're most exposed.
+
+Stress testing isn't pessimism. It's calibration.
+
+---
+
+## The Stress-Test Methodology
+
+### Step 1: Isolate the Assumption
+
+State it explicitly. Not "our market is large" but "the total addressable market for B2B spend management software in German SMEs is €2.3B."
+
+The more specific the assumption, the more testable it is. Vague assumptions are unfalsifiable — and therefore useless.
+
+**Common assumption types:**
+- **Market size** — TAM, SAM, SOM; growth rate; customer segments
+- **Customer behavior** — willingness to pay, churn, expansion, referrals
+- **Revenue model** — conversion rates, deal size, sales cycle, CAC
+- **Competitive position** — moat durability, competitor response speed, switching cost
+- **Execution** — team velocity, hire timeline, product timeline, operational scaling
+- **Macro** — regulatory environment, economic conditions, technology availability
+
+### Step 2: Find the Counter-Evidence
+
+For every assumption, actively search for evidence that it's wrong.
+
+Ask:
+- Who has tried this and failed?
+- What data contradicts this assumption?
+- What does the bear case look like?
+- If a smart skeptic was looking at this, what would they point to?
+- What's the base rate for assumptions like this?
+
+**Sources of counter-evidence:**
+- Comparable companies that failed in adjacent markets
+- Customer churn data from similar businesses
+- Historical accuracy of similar forecasts
+- Industry reports with conflicting data
+- What competitors who tried this found
+
+The goal isn't to find a reason to stop — it's to surface what you don't know.
+
+### Step 3: Model the Downside
+
+Most plans model the base case and the upside. Stress testing means modeling the downside explicitly.
+
+**For quantitative assumptions (revenue, growth, conversion):**
+
+| Scenario | Assumption Value | Probability | Impact |
+|----------|-----------------|-------------|--------|
+| Base case | [Original value] | ? | |
+| Bear case | -30% | ? | |
+| Stress case | -50% | ? | |
+| Catastrophic | -80% | ? | |
+
+Key question at each level: **Does the business survive? Does the plan make sense?**
+
+**For qualitative assumptions (moat, product-market fit, team capability):**
+
+- What's the earliest signal this assumption is wrong?
+- How long would it take you to notice?
+- What happens between when it breaks and when you detect it?
+
+### Step 4: Calculate Sensitivity
+
+Some assumptions matter more than others. Sensitivity analysis answers: **if this one assumption changes, how much does the outcome change?**
+
+Example: 
+- If CAC doubles, how does that change runway?
+- If churn goes from 5% to 10%, how does that change NRR in 24 months?
+- If the deal cycle is 6 months instead of 3, how does that affect Q3 revenue?
+
+High sensitivity = the assumption is a key lever. Wrong = big problem.
+
+### Step 5: Propose the Hedge
+
+For every high-risk assumption, there should be a hedge:
+
+- **Validation hedge** — test it before betting on it (pilot, customer conversation, small experiment)
+- **Contingency hedge** — if it's wrong, what's plan B?
+- **Early warning hedge** — what's the leading indicator that would tell you it's breaking before it's too late to act?
+
+---
+
+## Stress Test Patterns by Assumption Type
+
+### Revenue Projections
+
+**Common failures:**
+- Bottom-up model assumes 100% of pipeline converts
+- Doesn't account for deal slippage, churn, seasonality
+- New channel assumed to work before tested at scale
+
+**Stress questions:**
+- What's your actual historical win rate on pipeline?
+- If your top 3 deals slip to next quarter, what happens to the number?
+- What's the model look like if your new sales rep takes 4 months to ramp, not 2?
+- If expansion revenue doesn't materialize, what's the growth rate?
+
+**Test:** Build the revenue model from historical win rates, not hoped-for ones.
+
+### Market Size
+
+**Common failures:**
+- TAM calculated top-down from industry reports without bottoms-up validation
+- Conflating total market with serviceable market
+- Assuming 100% of SAM is reachable
+
+**Stress questions:**
+- How many companies in your ICP actually exist and can you name them?
+- What's your serviceable obtainable market in year 1-3?
+- What percentage of your ICP is currently spending on any solution to this problem?
+- What does "winning" look like and what market share does that require?
+
+**Test:** Build a list of target accounts. Count them. Multiply by ACV. That's your SAM.
+
+### Competitive Moat
+
+**Common failures:**
+- Moat is technology advantage that can be built in 6 months
+- Network effects that haven't yet materialized
+- Data advantage that requires scale you don't have
+
+**Stress questions:**
+- If a well-funded competitor copied your best feature in 90 days, what do customers do?
+- What's your retention rate among customers who have tried alternatives?
+- Is the moat real today or theoretical at scale?
+- What would it cost a competitor to reach feature parity?
+
+**Test:** Ask churned customers why they left and whether a competitor could have kept them.
+
+### Hiring Plan
+
+**Common failures:**
+- Time-to-hire assumes standard recruiting cycle, not current market
+- Ramp time not modeled (3-6 months before full productivity)
+- Key hire dependency: plan only works if specific person is hired
+
+**Stress questions:**
+- What happens if the VP Sales hire takes 5 months, not 2?
+- What does execution look like if you only hire 70% of planned headcount?
+- Which single person, if they left tomorrow, would most damage the plan?
+- Is the plan achievable with current team if hiring freezes?
+
+**Test:** Model the plan with 0 net new hires. What still works?
+
+### Competitive Response
+
+**Common failures:**
+- Assumes incumbents won't respond (they will if you're winning)
+- Underestimates speed of response
+- Doesn't model resource asymmetry
+
+**Stress questions:**
+- If the market leader copies your product in 6 months, how does pricing change?
+- What's your response if a competitor raises $30M to attack your space?
+- Which of your customers have vendor relationships with your competitors?
+
+---
+
+## The Stress Test Output
+
+```
+ASSUMPTION: [Exact statement]
+SOURCE: [Where this came from — model, investor pitch, team gut feel]
+
+COUNTER-EVIDENCE
+• [Specific evidence that challenges this assumption]
+• [Comparable failure case]
+• [Data point that contradicts the assumption]
+
+DOWNSIDE MODEL
+• Bear case (-30%): [Impact on plan]
+• Stress case (-50%): [Impact on plan]
+• Catastrophic (-80%): [Impact on plan — does the business survive?]
+
+SENSITIVITY
+This assumption has [HIGH / MEDIUM / LOW] sensitivity.
+A 10% change → [X] change in outcome.
+
+HEDGE
+• Validation: [How to test this before betting on it]
+• Contingency: [Plan B if it's wrong]
+• Early warning: [Leading indicator to watch — and at what threshold to act]
+```

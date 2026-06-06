@@ -1,14 +1,14 @@
 ---
 name: contract-playbook-review
-title: 合同对照评审红线
-description: 当需对照团队谈判 playbook 评审供应商/客户合同、做逐条偏离标记并准备谈判红线时使用；产出含执行摘要、绿/黄/红逐条标记、可直接插入的红线建议、业务影响与谈判优先级的评审报告；不适用于起草合同、出具正式法律意见、单纯 NDA 速审（用 nda-triage-reviewer）；触发词：合同评审、红线、playbook、条款评审、redline、谈判策略、limitation of liability、indemnification、review contract
+title: /review-contract -- Contract Review Against Playbook
+description: Review a contract against your organization's negotiation playbook — flag deviations, generate redlines, provide business impact analysis. Use when reviewing vendor or customer agreements, when you need clause-by-clause analysis against standard positions, or when preparing a negotiation strategy with prioritized redlines and fallback positions.
 domain: 领域/legal
-triggers: [合同评审, 红线, playbook, 条款评审, redline, 谈判策略, review contract, limitation of liability, indemnification]
+triggers: [playbook, redline, review contract, limitation of liability, indemnification]
 tags: [legal, contract-review, redline, playbook, negotiation, risk-assessment]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [pdf-form-filler, markdown-to-docx]
+tools: []
 requires: []
 related: [nda-triage-reviewer, legal-risk-classifier, dpa-clause-reviewer, general-counsel-advisor]
 combines_with: [legal-risk-classifier, esignature-routing, deal-desk-reviewer]
@@ -16,104 +16,355 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# /review-contract -- Contract Review Against Playbook
 
-- 收到供应商或客户范本合同（SaaS、专业服务、许可、采购、合作等），需在送签或谈判前，对照团队谈判 playbook 做逐条偏离标记、产出红线建议与业务影响分析。
-- 准备谈判策略：把问题按优先级排序，给出主张语言、退让底线（fallback）与升级路径。
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-**不该用边界（命中即停，转人工/法务）：**
-- 不起草合同，不出具正式法律意见。本条只做对照评审与红线建议；所有结论须经合格法律专业人士复核后方可依据。
-- 单纯 NDA/保密协议送签前速审 → 用 `nda-triage-reviewer`（更轻的三级分流）。
-- 雇佣合同起草 → `employment-contract-drafter`；DPA 专项 → `dpa-clause-reviewer`；尽调批量抽取问题 → `diligence-issue-extractor`。
-- 缺少经律师审定的 playbook 立场时，**不得判绿、不得直接送签**，应判黄并上交人工，或明确声明本次仅按通用商业标准评审。
+Review a contract against your organization's negotiation playbook. Analyze each clause, flag deviations, generate redline suggestions, and provide business impact analysis.
 
-## 步骤
+**Important**: You assist with legal workflows but do not provide legal advice. All analysis should be reviewed by qualified legal professionals before being relied upon.
 
-1. **接收合同**：支持文件（PDF/DOCX）、CLM/云存储 URL、或直接粘贴文本。无合同则要求提供。
-2. **收集上下文**（先问再审，部分信息也可开工并注明假设）：①本方立场（供应商/买方/许可方/被许可方/合作方）；②截止时间（影响优先级）；③重点关切（如「数据保护是关键」「IP 归属是核心」）；④交易背景（金额、战略重要性、既有关系）。
-3. **加载 playbook**：在团队本地配置（如 `legal.local.md`）查找标准立场、可接受区间、升级触发条件。**未找到 playbook 时**：告知用户，给两个选项——(a) 协助搭建 playbook；(b) 按通用商业标准做通用评审，并明确标注「非团队特定立场」。
-4. **逐条分析**：先识别合同类型与本方立场（决定哪些条款最关键）；**通读全文再标记**（条款相互作用，如未设上限的赔偿可被宽泛责任上限部分对冲）；对照 playbook 逐条评估；最后整体看风险分配是否平衡。
-5. **三级标记**：每处偏离判为 GREEN/YELLOW/RED（见「指令」）。
-6. **生成红线**：对每个 YELLOW/RED 产出红线建议（格式见「示例」）。
-7. **业务影响小结**：整体风险画像、Top 3 问题、谈判策略、时间因素。
-8. **CLM 路由（若接入）**：按合同类型与风险等级推荐审批工作流与路由路径；未接入则跳过。
-
-## 指令
-
-**至少覆盖的条款类别与审查要点：**
-
-| 条款类别 | 关键审查点 |
-|---|---|
-| 责任限制 LoL | 上限金额、carveout、互相 vs 单边、是否排除间接/后果性损害、上限按单次/按年/累计 |
-| 赔偿 Indemnification | 范围、互相性、是否设上限、IP 侵权与数据泄露、防御控制权与和解权 |
-| IP 归属 | 既有 IP / 新生 IP、work-for-hire 范围、许可授予、反馈条款 |
-| 数据保护 | 是否需 DPA、控制者/处理者、子处理者、泄露通知时限（GDPR 72 小时）、跨境传输机制（SCC/充分性）、删除/返还 |
-| 保密 | 范围、期限、carveout、返还/销毁义务 |
-| 陈述与保证 | 范围、免责、存续期 |
-| 期限与终止 | 初始期限、自动续约与通知窗口、便利终止/有因终止与补救期、过渡协助、存续条款 |
-| 管辖与争议 | 法律选择、诉讼/仲裁、地点、陪审团/集体诉讼豁免、胜诉方律师费 |
-| 保险/转让/不可抗力/付款 | 最低保额；同意/控制权变更；范围与通知；账期、滞纳金、税、涨价 |
-
-**三档定义（稳定；判定阈值来自 playbook 或通用标准）：**
-- **GREEN — 可接受**：对齐或优于标准立场，仅商业上合理的小幅变动。动作：备注知会，无需谈判。**立场缺失时不得判绿。**
-- **YELLOW — 谈判**：偏离标准但在可谈区间（市场常见但非首选）。动作：给出①把条款拉回标准的具体红线语言；②退让底线 fallback；③接受 vs 谈判的业务影响。
-- **RED — 升级**：超出可接受范围、触发升级条件或构成实质风险（如未设责任上限、宽泛单边无上限赔偿、转让既有 IP、处理个人数据却无 DPA、不合理排他/竞业、问题辖区＋强制仲裁）。动作：①为何是红旗（具体风险）；②市场标准立场长啥样；③业务影响与潜在敞口；④建议升级路径（资深/外部律师/业务决策人）。
-
-**红线最佳实践**：语言具体可直接插入；firm 于关键点但商业上合理（过激红线拖慢谈判）；附可外发给对方律师的简短 rationale；YELLOW 必带 fallback；标注 must-have / nice-to-have；按关系（新供应商/战略伙伴/大宗供应商）调整口吻。
-
-**谈判优先级框架**：Tier 1 必得（deal-breaker，如未设/严重不足的责任保护、受监管数据缺数据保护、危及核心 IP、与监管义务冲突）；Tier 2 强偏好（上限调整、赔偿范围与互相性、终止灵活性、审计权）；Tier 3 可让（首选管辖法、通知期、定义微调、保险证明）。策略：以 Tier 1 开场，用 Tier 3 让步换取 Tier 2，Tier 1 未升级不得让步。
-
-## 示例
-
-单条红线格式：
+## Invocation
 
 ```
-**Clause**: [Section 引用与条款名]
-**Current language**: "[合同原文精确引用]"
-**Proposed redline**: "[具体替换语言；新增加粗，删除概念性划除]"
-**Rationale**: [1-2 句，可外发给对方律师]
+/review-contract <contract file or URL>
+```
+
+Review the contract: @$1
+
+## Workflow
+
+### Step 1: Accept the Contract
+
+Accept the contract in any of these formats:
+- **File upload**: PDF, DOCX, or other document format
+- **URL**: Link to a contract in your CLM, cloud storage (e.g., Box, Egnyte, SharePoint), or other document system
+- **Pasted text**: Contract text pasted directly into the conversation
+
+If no contract is provided, prompt the user to supply one.
+
+### Step 2: Gather Context
+
+Ask the user for context before beginning the review:
+
+1. **Which side are you on?** (vendor/supplier, customer/buyer, licensor, licensee, partner -- or other)
+2. **Deadline**: When does this need to be finalized? (Affects prioritization of issues)
+3. **Focus areas**: Any specific concerns? (e.g., "data protection is critical", "we need flexibility on term", "IP ownership is the key issue")
+4. **Deal context**: Any relevant business context? (e.g., deal size, strategic importance, existing relationship)
+
+If the user provides partial context, proceed with what you have and note assumptions.
+
+### Step 3: Load the Playbook
+
+Look for the organization's contract review playbook in local settings (e.g., `legal.local.md` or similar configuration files).
+
+The playbook should define:
+- **Standard positions**: The organization's preferred terms for each major clause type
+- **Acceptable ranges**: Terms that can be agreed to without escalation
+- **Escalation triggers**: Terms that require senior counsel review or outside counsel involvement
+
+**If no playbook is configured:**
+- Inform the user that no playbook was found
+- Offer two options:
+  1. Help the user set up their playbook (walk through defining positions for key clauses)
+  2. Proceed with a generic review using widely-accepted commercial standards as the baseline
+- If proceeding generically, clearly note that the review is based on general commercial standards, not the organization's specific positions
+
+### Step 4: Clause-by-Clause Analysis
+
+Apply the following review process:
+
+1. **Identify the contract type**: SaaS agreement, professional services, license, partnership, procurement, etc. The contract type affects which clauses are most material.
+2. **Determine the user's side**: Vendor, customer, licensor, licensee, partner. This fundamentally changes the analysis (e.g., limitation of liability protections favor different parties).
+3. **Read the entire contract** before flagging issues. Clauses interact with each other (e.g., an uncapped indemnity may be partially mitigated by a broad limitation of liability).
+4. **Analyze each material clause** against the playbook position.
+5. **Consider the contract holistically**: Are the overall risk allocation and commercial terms balanced?
+
+Analyze the contract systematically, covering at minimum:
+
+| Clause Category | Key Review Points |
+|----------------|-------------------|
+| **Limitation of Liability** | Cap amount, carveouts, mutual vs. unilateral, consequential damages |
+| **Indemnification** | Scope, mutual vs. unilateral, cap, IP infringement, data breach |
+| **IP Ownership** | Pre-existing IP, developed IP, work-for-hire, license grants, assignment |
+| **Data Protection** | DPA requirement, processing terms, sub-processors, breach notification, cross-border transfers |
+| **Confidentiality** | Scope, term, carveouts, return/destruction obligations |
+| **Representations & Warranties** | Scope, disclaimers, survival period |
+| **Term & Termination** | Duration, renewal, termination for convenience, termination for cause, wind-down |
+| **Governing Law & Dispute Resolution** | Jurisdiction, venue, arbitration vs. litigation |
+| **Insurance** | Coverage requirements, minimums, evidence of coverage |
+| **Assignment** | Consent requirements, change of control, exceptions |
+| **Force Majeure** | Scope, notification, termination rights |
+| **Payment Terms** | Net terms, late fees, taxes, price escalation |
+
+For each clause, assess against the playbook (or generic standards) and note whether it is present, absent, or unusual.
+
+#### Detailed Clause Guidance
+
+##### Limitation of Liability
+
+**Key elements to review:**
+- Cap amount (fixed dollar amount, multiple of fees, or uncapped)
+- Whether the cap is mutual or applies differently to each party
+- Carveouts from the cap (what liabilities are uncapped)
+- Whether consequential, indirect, special, or punitive damages are excluded
+- Whether the exclusion is mutual
+- Carveouts from the consequential damages exclusion
+- Whether the cap applies per-claim, per-year, or aggregate
+
+**Common issues:**
+- Cap set at a fraction of fees paid (e.g., "fees paid in the prior 3 months" on a low-value contract)
+- Asymmetric carveouts favoring the drafter
+- Broad carveouts that effectively eliminate the cap (e.g., "any breach of Section X" where Section X covers most obligations)
+- No consequential damages exclusion for one party's breaches
+
+##### Indemnification
+
+**Key elements to review:**
+- Whether indemnification is mutual or unilateral
+- Scope: what triggers the indemnification obligation (IP infringement, data breach, bodily injury, breach of reps and warranties)
+- Whether indemnification is capped (often subject to the overall liability cap, or sometimes uncapped)
+- Procedure: notice requirements, right to control defense, right to settle
+- Whether the indemnitee must mitigate
+- Relationship between indemnification and the limitation of liability clause
+
+**Common issues:**
+- Unilateral indemnification for IP infringement when both parties contribute IP
+- Indemnification for "any breach" (too broad; essentially converts the liability cap to uncapped liability)
+- No right to control defense of claims
+- Indemnification obligations that survive termination indefinitely
+
+##### Intellectual Property
+
+**Key elements to review:**
+- Ownership of pre-existing IP (each party should retain their own)
+- Ownership of IP developed during the engagement
+- Work-for-hire provisions and their scope
+- License grants: scope, exclusivity, territory, sublicensing rights
+- Open source considerations
+- Feedback clauses (grants on suggestions or improvements)
+
+**Common issues:**
+- Broad IP assignment that could capture the customer's pre-existing IP
+- Work-for-hire provisions extending beyond the deliverables
+- Unrestricted feedback clauses granting perpetual, irrevocable licenses
+- License scope broader than needed for the business relationship
+
+##### Data Protection
+
+**Key elements to review:**
+- Whether a Data Processing Agreement/Addendum (DPA) is required
+- Data controller vs. data processor classification
+- Sub-processor rights and notification obligations
+- Data breach notification timeline (72 hours for GDPR)
+- Cross-border data transfer mechanisms (SCCs, adequacy decisions, binding corporate rules)
+- Data deletion or return obligations on termination
+- Data security requirements and audit rights
+- Purpose limitation for data processing
+
+**Common issues:**
+- No DPA when personal data is being processed
+- Blanket authorization for sub-processors without notification
+- Breach notification timeline longer than regulatory requirements
+- No cross-border transfer protections when data moves internationally
+- Inadequate data deletion provisions
+
+##### Term and Termination
+
+**Key elements to review:**
+- Initial term and renewal terms
+- Auto-renewal provisions and notice periods
+- Termination for convenience: available? notice period? early termination fees?
+- Termination for cause: cure period? what constitutes cause?
+- Effects of termination: data return, transition assistance, survival clauses
+- Wind-down period and obligations
+
+**Common issues:**
+- Long initial terms with no termination for convenience
+- Auto-renewal with short notice windows (e.g., 30-day notice for annual renewal)
+- No cure period for termination for cause
+- Inadequate transition assistance provisions
+- Survival clauses that effectively extend the agreement indefinitely
+
+##### Governing Law and Dispute Resolution
+
+**Key elements to review:**
+- Choice of law (governing jurisdiction)
+- Dispute resolution mechanism (litigation, arbitration, mediation first)
+- Venue and jurisdiction for litigation
+- Arbitration rules and seat (if arbitration)
+- Jury waiver
+- Class action waiver
+- Prevailing party attorney's fees
+
+**Common issues:**
+- Unfavorable jurisdiction (unusual or remote venue)
+- Mandatory arbitration with rules favorable to the drafter
+- Waiver of jury trial without corresponding protections
+- No escalation process before formal dispute resolution
+
+### Step 5: Flag Deviations
+
+Classify each deviation from the playbook using a three-tier system:
+
+#### GREEN -- Acceptable
+
+The clause aligns with or is better than the organization's standard position. Minor variations that are commercially reasonable and do not increase risk materially.
+
+**Examples:**
+- Liability cap at 18 months of fees when standard is 12 months (better for the customer)
+- Mutual NDA term of 2 years when standard is 3 years (shorter but reasonable)
+- Governing law in a well-established commercial jurisdiction close to the preferred one
+
+**Action**: Note for awareness. No negotiation needed.
+
+#### YELLOW -- Negotiate
+
+The clause falls outside the standard position but within a negotiable range. The term is common in the market but not the organization's preference. Requires attention and likely negotiation, but not escalation.
+
+**Examples:**
+- Liability cap at 6 months of fees when standard is 12 months (below standard but negotiable)
+- Unilateral indemnification for IP infringement when standard is mutual (common market position but not preferred)
+- Auto-renewal with 60-day notice when standard is 90 days
+- Governing law in an acceptable but not preferred jurisdiction
+
+**Action**: Generate specific redline language. Provide fallback position. Estimate business impact of accepting vs. negotiating.
+- **Include**: Specific redline language to bring the term back to standard position
+- **Include**: Fallback position if the counterparty pushes back
+- **Include**: Business impact of accepting as-is vs. negotiating
+
+#### RED -- Escalate
+
+The clause falls outside acceptable range, triggers a defined escalation criterion, or poses material risk. Requires senior counsel review, outside counsel involvement, or business decision-maker sign-off.
+
+**Examples:**
+- Uncapped liability or no limitation of liability clause
+- Unilateral broad indemnification with no cap
+- IP assignment of pre-existing IP
+- No DPA offered when personal data is processed
+- Unreasonable non-compete or exclusivity provisions
+- Governing law in a problematic jurisdiction with mandatory arbitration
+
+**Action**: Explain the specific risk. Provide market-standard alternative language. Estimate exposure. Recommend escalation path.
+- **Include**: Why this is a RED flag (specific risk)
+- **Include**: What the standard market position looks like
+- **Include**: Business impact and potential exposure
+- **Include**: Recommended escalation path
+
+### Step 6: Generate Redline Suggestions
+
+For each YELLOW and RED deviation, provide:
+- **Current language**: Quote the relevant contract text
+- **Suggested redline**: Specific alternative language
+- **Rationale**: Brief explanation suitable for sharing with the counterparty
+- **Priority**: Whether this is a must-have or nice-to-have in negotiation
+
+#### Redline Generation Best Practices
+
+When generating redline suggestions:
+
+1. **Be specific**: Provide exact language, not vague guidance. The redline should be ready to insert.
+2. **Be balanced**: Propose language that is firm on critical points but commercially reasonable. Overly aggressive redlines slow negotiations.
+3. **Explain the rationale**: Include a brief, professional rationale suitable for sharing with the counterparty's counsel.
+4. **Provide fallback positions**: For YELLOW items, include a fallback position if the primary ask is rejected.
+5. **Prioritize**: Not all redlines are equal. Indicate which are must-haves and which are nice-to-haves.
+6. **Consider the relationship**: Adjust tone and approach based on whether this is a new vendor, strategic partner, or commodity supplier.
+
+#### Redline Format
+
+For each redline:
+```
+**Clause**: [Section reference and clause name]
+**Current language**: "[exact quote from the contract]"
+**Proposed redline**: "[specific alternative language with additions in bold and deletions struck through conceptually]"
+**Rationale**: [1-2 sentences explaining why, suitable for external sharing]
 **Priority**: [Must-have / Should-have / Nice-to-have]
-**Fallback**: [主张被拒时的替代立场]
+**Fallback**: [Alternative position if primary redline is rejected]
 ```
 
-报告骨架：
+### Step 7: Business Impact Summary
 
-```markdown
-## 合同评审摘要
-**Document**: [合同名] | **Parties**: [各方与角色] | **Your Side**: [供应商/买方/…]
-**Deadline**: [若有] | **Review Basis**: [Playbook / 通用标准]
+Provide a summary section covering:
+- **Overall risk assessment**: High-level view of the contract's risk profile
+- **Top 3 issues**: The most important items to address
+- **Negotiation strategy**: Recommended approach (which issues to lead with, what to concede)
+- **Timeline considerations**: Any urgency factors affecting the negotiation approach
 
-## 关键发现
-[Top 3-5 问题，带严重度旗标]
+#### Negotiation Priority Framework
 
-## 逐条分析
-### [条款类别] — [GREEN/YELLOW/RED]
-**Contract says**: … | **Playbook position**: … | **Deviation**: …
-**Business impact**: … | **Redline**: [YELLOW/RED 时给具体语言]
+When presenting redlines, organize by negotiation priority:
 
-## 谈判策略
-[开场顺序、优先级、可让候选]
+**Tier 1 -- Must-Haves (Deal Breakers)**
+Issues where the organization cannot proceed without resolution:
+- Uncapped or materially insufficient liability protections
+- Missing data protection requirements for regulated data
+- IP provisions that could jeopardize core assets
+- Terms that conflict with regulatory obligations
 
-## 下一步
-[具体动作]
+**Tier 2 -- Should-Haves (Strong Preferences)**
+Issues that materially affect risk but have negotiation room:
+- Liability cap adjustments within range
+- Indemnification scope and mutuality
+- Termination flexibility
+- Audit and compliance rights
+
+**Tier 3 -- Nice-to-Haves (Concession Candidates)**
+Issues that improve the position but can be conceded strategically:
+- Preferred governing law (if alternative is acceptable)
+- Notice period preferences
+- Minor definitional improvements
+- Insurance certificate requirements
+
+**Negotiation strategy**: Lead with Tier 1 items. Trade Tier 3 concessions to secure Tier 2 wins. Never concede on Tier 1 without escalation.
+
+### Step 8: CLM Routing (If Connected)
+
+If a Contract Lifecycle Management system is connected via MCP:
+- Recommend the appropriate approval workflow based on contract type and risk level
+- Suggest the correct routing path (e.g., standard approval, senior counsel, outside counsel)
+- Note any required approvals based on contract value or risk flags
+
+If no CLM is connected, skip this step.
+
+## Output Format
+
+Structure the output as:
+
+```
+## Contract Review Summary
+
+**Document**: [contract name/identifier]
+**Parties**: [party names and roles]
+**Your Side**: [vendor/customer/etc.]
+**Deadline**: [if provided]
+**Review Basis**: [Playbook / Generic Standards]
+
+## Key Findings
+
+[Top 3-5 issues with severity flags]
+
+## Clause-by-Clause Analysis
+
+### [Clause Category] -- [GREEN/YELLOW/RED]
+**Contract says**: [summary of the provision]
+**Playbook position**: [your standard]
+**Deviation**: [description of gap]
+**Business impact**: [what this means practically]
+**Redline suggestion**: [specific language, if YELLOW or RED]
+
+[Repeat for each major clause]
+
+## Negotiation Strategy
+
+[Recommended approach, priorities, concession candidates]
+
+## Next Steps
+
+[Specific actions to take]
 ```
 
-## 注意事项
+## Notes
 
-- **不提供法律意见**：始终提醒用户，本分析须经合格法律顾问复核后方可作为法律决策依据。
-- **非英文合同**：标注语言，询问是否需翻译或按原文评审。
-- **超长合同（50+ 页）**：先聚焦最关键章节，再做完整评审。
-- **playbook 缺失**：明确声明评审基于通用商业标准而非团队特定立场；对缺失或默认立场不得判绿。
-- **条款交互**：未设上限的赔偿/「any breach」措辞会把责任上限实质架空；宽泛 carveout 可能让上限名存实亡——务必整体评估而非孤立看条款。
-- 合同以 PDF/扫描件发来时，可先用 `pdf-form-filler` 处理表单/提取；最终报告需转 Word 交付时用 `markdown-to-docx`。
-
-## 互见
-
-- related：`general-counsel-advisor` —— 升级与整体法务判断
-- related：`nda-triage-reviewer` —— 更轻量的 NDA 三级速审
-- related：`dpa-clause-reviewer`、`employment-contract-drafter` —— 数据保护 / 雇佣专项
-- combines_with：`deal-desk-reviewer` —— 交易台审批与商务条款联审
-- combines_with：`diligence-issue-extractor` —— 把评审标记汇入尽调问题清单
-
----
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+- If the contract is in a language other than English, note this and ask if the user wants a translation or review in the original language
+- For very long contracts (50+ pages), offer to focus on the most material sections first and then do a complete review
+- Always remind the user that this analysis should be reviewed by qualified legal counsel before being relied upon for legal decisions

@@ -1,14 +1,14 @@
 ---
 name: x-post-to-json-fetcher
-title: X 帖子转 JSON：推文抓取为 LLM 友好结构
-description: 当用户分享 X/Twitter 链接、需读取或分析推文时使用；用 ADHX 免认证 API 把 x.com/twitter.com/adhx.com 链接抓成含正文、作者、互动数据的结构化 JSON 供 LLM 消费；不适用于需登录态、私密/受限帖子或直接爬取 x.com。触发词：X 帖子、推文转 JSON、ADHX、抓取推文、X Article、推文摘要
+title: ADHX - X/Twitter Post Reader
+description: Fetch any X/Twitter post as clean LLM-friendly JSON. Converts x.com, twitter.com, or adhx.com links into structured data with full article content, author info, and engagement metrics. No scraping or browser required.
 domain: 平台/browser
-triggers: [用户分享了 x.com/twitter.com 链接, 把推文抓成结构化 JSON, 总结/分析某条 X 帖子, 提取 X Article 长文正文, 查推文点赞/转发/浏览量]
-tags: [x, twitter, 推文抓取, json, adhx, llm, 社交平台]
-level: 入门
+triggers: []
+tags: [x, twitter, json, adhx, llm]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [curl]
+tools: []
 requires: []
 related: [x-twitter-scraper-toolkit, x-twitter-automation, firecrawl-web-scraper, defuddle-web-extract]
 combines_with: [news-sentiment-briefing, browser-automation-builder]
@@ -16,51 +16,60 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# ADHX - X/Twitter Post Reader
 
-适用：
-- 用户分享了 X/Twitter 链接，想读取、总结或分析该帖。
-- 需要从推文中拿到结构化字段（作者、互动数据、正文）。
-- 处理 X Article 长文，需要完整正文（非仅推文短文本）。
+Fetch any X/Twitter post as structured JSON for analysis using the ADHX API.
 
-不该用（负边界）：
-- 需要登录态、私密账号、受限/已删除的帖子（API 无认证，取不到）。
-- 想直接爬取 x.com 页面——本技能用 ADHX API 替代爬取，不要再开浏览器抓 DOM。
-- 非帖子级资源（用户主页、列表、搜索结果页等）。
+## Overview
 
-## 步骤
+ADHX provides a free API that returns clean JSON for any X post, including full long-form article content. This is far superior to scraping or browser-based approaches for LLM consumption. Works with regular tweets and full X Articles.
 
-1. 解析链接，从路径段中提取 `username` 与 `statusId`。支持的格式：
+## When to Use This Skill
 
-| 格式 | 示例 |
-|------|------|
+- Use when a user shares an X/Twitter link and wants to read, analyze, or summarize the post
+- Use when you need structured data from an X/Twitter post (author, engagement, content)
+- Use when working with long-form X Articles that need full content extraction
+
+## API Endpoint
+
+```
+https://adhx.com/api/share/tweet/{username}/{statusId}
+```
+
+## URL Patterns
+
+Extract `username` and `statusId` from any of these URL formats:
+
+| Format | Example |
+|--------|---------|
 | `x.com/{user}/status/{id}` | `https://x.com/dgt10011/status/2020167690560647464` |
 | `twitter.com/{user}/status/{id}` | `https://twitter.com/dgt10011/status/2020167690560647464` |
 | `adhx.com/{user}/status/{id}` | `https://adhx.com/dgt10011/status/2020167690560647464` |
 
-2. 调用 API（无需认证）：
+## Workflow
 
+When a user shares an X/Twitter link:
+
+1. **Parse the URL** to extract `username` and `statusId` from the path segments
+2. **Fetch the JSON** using curl:
 ```bash
 curl -s "https://adhx.com/api/share/tweet/{username}/{statusId}"
 ```
+3. **Use the structured response** to answer the user's question (summarize, analyze, extract key points, etc.)
 
-端点固定为 `https://adhx.com/api/share/tweet/{username}/{statusId}`。
-
-3. 用返回的结构化 JSON 回答用户（摘要、提取要点、读互动数据等）。需要长文时读 `article.content`；查互动时读 `engagement`。
-
-### 响应结构
+## Response Schema
 
 ```json
 {
   "id": "statusId",
-  "url": "原始 x.com URL",
-  "text": "短推文文本（文章帖时为空）",
+  "url": "original x.com URL",
+  "text": "short-form tweet text (empty if article post)",
   "author": {
-    "name": "显示名",
+    "name": "Display Name",
     "username": "handle",
-    "avatarUrl": "头像 URL"
+    "avatarUrl": "profile image URL"
   },
-  "createdAt": "时间戳",
+  "createdAt": "timestamp",
   "engagement": {
     "replies": 0,
     "retweets": 0,
@@ -68,43 +77,66 @@ curl -s "https://adhx.com/api/share/tweet/{username}/{statusId}"
     "views": 0
   },
   "article": {
-    "title": "文章标题（长文帖）",
-    "previewText": "前约 200 字",
-    "coverImageUrl": "封面图 URL",
-    "content": "含图片的完整 Markdown 正文"
+    "title": "Article title (for long-form posts)",
+    "previewText": "First ~200 chars",
+    "coverImageUrl": "hero image URL",
+    "content": "Full markdown content with images"
   }
 }
 ```
 
-## 示例
+## Installation
 
-示例 1：总结一条推文
-用户：「总结这条 https://x.com/dgt10011/status/2020167690560647464」
+### Option A: Claude Code plugin marketplace (recommended)
+```
+/plugin marketplace add itsmemeworks/adhx
+```
+
+### Option B: Manual install
+```bash
+curl -sL https://raw.githubusercontent.com/itsmemeworks/adhx/main/skills/adhx/SKILL.md -o ~/.claude/skills/adhx/SKILL.md
+```
+
+## Examples
+
+### Example 1: Summarize a tweet
+
+User: "Summarize this post https://x.com/dgt10011/status/2020167690560647464"
 
 ```bash
 curl -s "https://adhx.com/api/share/tweet/dgt10011/2020167690560647464"
 ```
 
-再用返回 JSON 给出摘要。
+Then use the returned JSON to provide the summary.
 
-示例 2：分析互动数据
-用户：「这条推文多少赞？ https://x.com/handle/status/123」
-1. 解析：username=`handle`，statusId=`123`
-2. 抓取：`curl -s "https://adhx.com/api/share/tweet/handle/123"`
-3. 返回响应中的 `engagement.likes`
+### Example 2: Analyze engagement
 
-## 注意事项
+User: "How many likes did this tweet get? https://x.com/handle/status/123"
 
-- 调 API 前务必完整解析 URL，拿全 `username` 与 `statusId`。
-- 用户要完整长文时检查 `article` 字段（短推文该字段可能为空）；问点赞/转发/浏览量时用 `engagement`。
-- 无需鉴权，短推文和 X Article 长文都支持。
-- 不要直接爬 x.com，统一走本 API。
-- 若 API 返回错误或空响应，告知用户该帖可能不可用（私密、已删、或 ID 错误）。
+1. Parse URL: username = `handle`, statusId = `123`
+2. Fetch: `curl -s "https://adhx.com/api/share/tweet/handle/123"`
+3. Return the `engagement.likes` value from the response
 
-## 互见
+## Best Practices
 
-- ADHX 仓库：https://github.com/itsmemeworks/adhx ；官网：https://adhx.com
-- 平台/misc 域下其他链接解析、内容抓取类技能。
+- Always parse the full URL to extract username and statusId before calling the API
+- Check for the `article` field when the user wants full content (not just tweet text)
+- Use the `engagement` field when users ask about likes, retweets, or views
+- Don't attempt to scrape x.com directly - use this API instead
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Notes
+
+- No authentication required
+- Works with both short tweets and long-form X articles
+- Always prefer this over browser-based scraping for X content
+- If the API returns an error or empty response, inform the user the post may not be available
+
+## Additional Resources
+
+- [ADHX GitHub Repository](https://github.com/itsmemeworks/adhx)
+- [ADHX Website](https://adhx.com)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

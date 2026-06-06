@@ -1,14 +1,14 @@
 ---
 name: scvi-tools-single-cell
-title: scvi-tools 单细胞深度生成模型
-description: 当需用深度生成模型（VAE）对单细胞组学做概率批次校正、半监督细胞注释、CITE-seq RNA+蛋白联合建模、参考→查询迁移学习或带不确定性的差异表达时使用；在 AnnData 原始计数上走 setup_anndata→train→get_* 统一 API，产出批次校正潜空间/去噪表达/细胞类型预测/概率 DE；不适用于无批次效应的常规聚类可视化（用 scanpy）或秒级线性批次校正（用 harmony）；触发词：scvi-tools、scVI、scANVI、totalVI、批次校正、CITE-seq、迁移学习、概率差异表达
+title: scvi-tools — Single-Cell Deep Generative Models
+description: Deep generative models for single-cell omics: probabilistic batch correction (scVI), semi-supervised annotation (scANVI), CITE-seq RNA+protein (totalVI), transfer learning (scARCHES), and DE with uncertainty. Unified setup→train→extract API on AnnData. Use harmony-batch-correction for fast linear correction without deep learning; muon for multi-modal MuData workflows.
 domain: 领域/science
-triggers: [scvi-tools, scVI, scANVI, totalVI, 批次校正, CITE-seq, 迁移学习, 概率差异表达, scARCHES, DestVI, doublet 检测]
+triggers: [scvi-tools, scVI, scANVI, totalVI, CITE-seq, scARCHES, DestVI]
 tags: [single-cell, scvi-tools, deep-learning, vae, batch-correction, cite-seq, anndata, bioinformatics, science]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [scvi-tools, scanpy, anndata, python, pytorch]
+tools: []
 requires: []
 related: [single-cell-rnaseq-analysis, harmony-batch-correction, celltypist-cell-annotation, muon-multiomics-singlecell]
 combines_with: [single-cell-rnaseq-analysis, anndata-data-structure, celltypist-cell-annotation]
@@ -16,161 +16,587 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# scvi-tools — Single-Cell Deep Generative Models
 
-当需要用**深度生成模型（基于 PyTorch 的变分自编码器 VAE）** 对单细胞组学做概率建模时使用本条。所有模型共享统一 API：`setup_anndata()` 注册数据 → 实例化模型 → `train()` → `get_*()` 提取结果。典型场景：
+## Overview
 
-- 多批次/多研究 scRNA-seq 概率批次校正，同时保留生物变异（scVI）
-- 带不确定性量化与复合假设（非单纯 fold-change 阈值）的差异表达
-- 从部分标注的参考集做半监督细胞类型注释（scANVI）
-- CITE-seq RNA+蛋白联合建模，得去噪蛋白估计与联合嵌入（totalVI）
-- 预训练模型适配到新查询集而无需全量重训（scARCHES 迁移学习）
-- 空间转录组 spot 按 scRNA-seq 参考反卷积成细胞类型比例（DestVI）
-- doublet 检测作为 QC 预处理步骤（Solo）
+scvi-tools is a probabilistic modeling framework for single-cell genomics built on PyTorch. It implements variational autoencoders (VAEs) that learn low-dimensional latent representations of cells while explicitly modeling batch effects, count noise distributions, and multi-modal data. All models share a unified API: `setup_anndata()` to register data, instantiate the model, `train()`, then extract latent representations, normalized expression, or differential expression results. Models operate on raw count data in AnnData format and return statistically grounded outputs with uncertainty estimates.
 
-**不该用本条的边界：**
+## When to Use
 
-- 无批次效应、只做常规聚类/可视化/marker → 用 scanpy（`single-cell-rnaseq-analysis`），可把 scVI 潜空间作为 `sc.pp.neighbors(use_rep="X_scVI")` 输入
-- 只需快速线性批次校正（秒级 vs 分钟级、无深度学习开销）→ 用 harmony
-- 多模态 MuData 工作流（RNA+ATAC Multiome 联合对象）→ 用 muon
-- 仅 AnnData 数据结构/IO 问题 → 用 anndata 相关资料
+- Integrating multiple scRNA-seq batches or studies with probabilistic batch correction that preserves biological variation
+- Performing differential expression with uncertainty quantification and composite hypotheses (not just fold-change thresholding)
+- Annotating cell types via semi-supervised transfer learning from a partially-labeled reference (scANVI)
+- Jointly modeling CITE-seq protein and RNA data to obtain denoised protein estimates and joint embeddings (totalVI)
+- Adapting a pretrained model to a new query dataset without full retraining (scARCHES transfer learning)
+- Deconvolving spatial transcriptomics spots into cell type proportions using a matched scRNA-seq reference (DestVI)
+- Detecting doublets in scRNA-seq data as a QC preprocessing step (Solo)
+- Use **harmony-batch-correction** instead when you need fast linear batch correction (seconds vs minutes) without deep learning overhead
+- For **multi-modal MuData workflows** (joint RNA+ATAC Multiome, combined modality objects), use **muon** instead
+- For **standard clustering and visualization** without batch effects or probabilistic DE, use **scanpy-scrna-seq**
 
-## 步骤
+## Prerequisites
 
-统一 4 步工作流（所有模型一致）：
-
-1. **注册数据**：`ModelClass.setup_anndata(adata, layer="counts", batch_key=..., ...)` 告诉 scvi-tools 计数、批次、协变量在哪。
-2. **实例化模型**：`model = ModelClass(adata, n_latent=..., ...)` 设架构超参。
-3. **训练**：`model.train(max_epochs=..., early_stopping=True)`（自动检测 GPU）。
-4. **提取结果**：`model.get_latent_representation()` / `get_normalized_expression()` / `differential_expression()` / `predict()`。
-
-模型选型：
-
-| 数据 | 模型 | 核心能力 | 何时用 |
-|---|---|---|---|
-| scRNA-seq | **scVI** | 批次校正+去噪 | 任何多批次 scRNA-seq 的默认起点 |
-| scRNA-seq（部分标注） | **scANVI** | 细胞类型迁移 | 有参考标签、要注释查询集 |
-| CITE-seq（RNA+蛋白） | **totalVI** | 联合 RNA+蛋白 | 10x CITE-seq、REAP-seq |
-| 参考→查询 | **scARCHES** | 迁移学习 | 把新数据映射到已有图谱 |
-| 空间 | **DestVI** | spot 反卷积 | 10x Visium、Slide-seq |
-| scRNA-seq QC | **Solo** | doublet 检测 | 分析前 QC |
-
-## 指令
-
-环境（要求 `scvi-tools>=1.1`）：
+- **Python packages**: `scvi-tools>=1.1`, `scanpy`, `anndata`
+- **Data requirements**: AnnData (`.h5ad`) with **raw counts** — not log-normalized. Store counts in `adata.layers["counts"]` if `adata.X` has been normalized.
+- **Hardware**: CPU works for <50k cells; GPU (8GB+ VRAM) recommended for larger datasets. Training time: 5–30 minutes on GPU for 100k cells.
 
 ```bash
 pip install scvi-tools scanpy
-pip install "scvi-tools[cuda12]"   # GPU 加速，>50k 细胞推荐；或 [cuda11]
+# GPU acceleration (recommended for >50k cells)
+pip install "scvi-tools[cuda12]"   # or scvi-tools[cuda11]
 ```
 
-**硬约束 — 必须用原始计数**：模型直接从原始数据学习计数分布，传入 log-归一化数据会**静默产出错误潜空间**。预处理前先备份原始计数：
+## Quick Start
+
+Minimal scVI batch integration on a built-in example dataset:
 
 ```python
-adata.layers["counts"] = adata.X.copy()   # 任何变换前先存原始计数
-sc.pp.normalize_total(adata, target_sum=1e4); sc.pp.log1p(adata)
-# 之后：setup_anndata(..., layer="counts")
+import scvi
+import scanpy as sc
+
+# Load example data with batch labels
+adata = scvi.data.heart_cell_atlas_subsampled()
+
+# Preprocessing: filter genes, select HVGs (subset to save training time)
+sc.pp.filter_genes(adata, min_counts=3)
+adata.layers["counts"] = adata.X.copy()  # preserve raw counts
+sc.pp.normalize_total(adata, target_sum=1e4)
+sc.pp.log1p(adata)
+sc.pp.highly_variable_genes(adata, n_top_genes=2000, batch_key="cell_source", subset=True)
+
+# Register data, train, extract
+scvi.model.SCVI.setup_anndata(adata, layer="counts", batch_key="cell_source")
+model = scvi.model.SCVI(adata, n_latent=30)
+model.train(max_epochs=200, early_stopping=True)
+
+adata.obsm["X_scVI"] = model.get_latent_representation()
+sc.pp.neighbors(adata, use_rep="X_scVI")
+sc.tl.umap(adata)
+sc.tl.leiden(adata, resolution=0.5)
+sc.pl.umap(adata, color=["cell_source", "leiden"])
+print(f"Latent shape: {adata.obsm['X_scVI'].shape}")
+# Latent shape: (14000, 30)
 ```
 
-`setup_anndata` 可额外注册协变量：`categorical_covariate_keys=["donor","protocol"]`、`continuous_covariate_keys=["percent_mito"]`。注册的批次/技术来源越全，潜空间与下游 DE 越干净。
+## Core API
 
-## 示例
+### 1. Data Registration (setup_anndata)
 
-**scVI 多批次整合（最小流程）：**
+All models share the same registration pattern. Call `setup_anndata()` on the model class before instantiation to tell scvi-tools where to find counts, batch labels, and covariates.
 
 ```python
-import scvi, scanpy as sc
+import scvi
 
+# Minimal: counts in a layer, batch column in obs
+scvi.model.SCVI.setup_anndata(
+    adata,
+    layer="counts",        # Key in adata.layers with raw counts; None = adata.X
+    batch_key="batch",     # Column in adata.obs for technical batch
+)
+
+# Extended: additional categorical and continuous covariates
+scvi.model.SCVI.setup_anndata(
+    adata,
+    layer="counts",
+    batch_key="batch",
+    categorical_covariate_keys=["donor", "protocol"],   # Discrete biological/technical vars
+    continuous_covariate_keys=["percent_mito", "log_n_counts"],  # Continuous covariates
+)
+
+# Inspect registered summary
+print(adata.uns["_scvi"]["summary_stats"])
+# {'n_vars': 2000, 'n_cells': 45000, 'n_batch': 6, 'n_extra_categorical_covs': 2, ...}
+```
+
+### 2. scVI — Batch Correction and Integration
+
+The core unsupervised model. Learns a batch-corrected latent space and a denoised expression layer. Starting point for any multi-batch scRNA-seq analysis.
+
+```python
+import scvi
+
+model = scvi.model.SCVI(
+    adata,
+    n_latent=30,              # Latent space dimensions; 10–50 typical
+    n_layers=2,               # Hidden layers in encoder/decoder; 1–3
+    n_hidden=128,             # Neurons per hidden layer; 64–256
+    gene_likelihood="zinb",   # "zinb" (zero-inflated NB), "nb", or "poisson"
+    dispersion="gene",        # "gene" or "gene-batch" for batch-specific dispersion
+)
+model.train(max_epochs=200, early_stopping=True)
+
+# Extract results
+latent = model.get_latent_representation()        # ndarray (n_cells, n_latent)
+normalized = model.get_normalized_expression(
+    library_size=1e4, n_samples=25, return_mean=True
+)
+print(f"Latent: {latent.shape}")
+print(f"Denoised expression: {normalized.shape}")
+# Latent: (45000, 30)
+# Denoised expression: (45000, 2000)
+
+adata.obsm["X_scVI"] = latent
+adata.layers["scvi_normalized"] = normalized
+```
+
+### 3. scANVI — Semi-Supervised Cell Annotation
+
+Extends scVI with label supervision for cell type transfer learning. Accepts partially labeled data (unannotated cells labeled `"Unknown"`) and predicts cell types for unlabeled cells.
+
+```python
+import scvi
+
+# Register with cell type labels; mark unannotated cells as "Unknown"
+scvi.model.SCANVI.setup_anndata(
+    adata,
+    layer="counts",
+    batch_key="batch",
+    labels_key="cell_type",           # Column in adata.obs with known labels
+    unlabeled_category="Unknown",     # Sentinel value for unannotated cells
+)
+
+# Recommended: initialize from a pretrained scVI model
+scvi_model = scvi.model.SCVI(adata, n_latent=30)
+scvi_model.train(max_epochs=200, early_stopping=True)
+
+model = scvi.model.SCANVI.from_scvi_model(scvi_model, unlabeled_category="Unknown")
+model.train(max_epochs=20)  # Short fine-tuning on top of scVI
+
+# Predict cell types
+labels_pred = model.predict()              # Hard labels (str per cell)
+probs = model.predict(soft=True)           # DataFrame: probability per cell type
+confidence = probs.max(axis=1)
+
+adata.obs["scANVI_pred"] = labels_pred
+adata.obs["scANVI_confidence"] = confidence
+print(f"Median confidence: {confidence.median():.3f}")
+print(f"High-confidence cells (>0.7): {(confidence > 0.7).sum()}")
+```
+
+### 4. totalVI — CITE-seq RNA + Protein
+
+Joint probabilistic model for CITE-seq data. Denoises both RNA and protein counts and estimates protein foreground probability (signal vs background).
+
+```python
+import scvi
+
+# Protein counts must be in adata.obsm (not adata.X or layers)
+# adata.obsm["protein_expression"] shape: (n_cells, n_proteins)
+scvi.model.TOTALVI.setup_anndata(
+    adata,
+    layer="counts",
+    batch_key="batch",
+    protein_expression_obsm_key="protein_expression",
+)
+
+model = scvi.model.TOTALVI(adata, latent_distribution="normal")
+model.train(max_epochs=200, early_stopping=True)
+
+# Extract joint latent space (RNA + protein)
+latent = model.get_latent_representation()
+
+# Denoised RNA and protein separately
+rna_norm, protein_norm = model.get_normalized_expression(
+    n_samples=25, return_mean=True
+)
+
+# Protein foreground probability (probability that signal > background)
+foreground_prob = model.get_protein_foreground_probability(n_samples=25, return_mean=True)
+print(f"RNA normalized: {rna_norm.shape}")
+print(f"Protein normalized: {protein_norm.shape}")
+print(f"Foreground prob: {foreground_prob.shape}")  # (n_cells, n_proteins)
+
+adata.obsm["X_totalVI"] = latent
+```
+
+### 5. Differential Expression
+
+Probabilistic DE using the generative model rather than raw counts. Supports composite hypotheses testing whether effect size exceeds a biologically meaningful threshold (`delta`).
+
+```python
+# DE between two cell type groups
+de_df = model.differential_expression(
+    groupby="cell_type",
+    group1="CD4 T",         # Numerator group
+    group2="CD8 T",         # Denominator group; None = rest of cells
+    mode="change",          # "change": composite |LFC| > delta; "vanilla": any LFC
+    delta=0.25,             # Minimum |LFC| to be considered DE
+    fdr_target=0.05,        # FDR level for calling significance
+    all_stats=True,         # Include mean expression per group
+)
+
+# Filter significant DE genes
+sig = de_df[de_df["is_de_fdr_0.05"] & (de_df["lfc_mean"].abs() > 0.5)]
+sig_sorted = sig.sort_values("lfc_mean", ascending=False)
+print(f"Total DE genes (FDR<5%, |LFC|>0.5): {len(sig)}")
+print(sig_sorted[["lfc_mean", "bayes_factor", "proba_de"]].head(10))
+```
+
+```python
+# One-vs-rest DE across all clusters (generates a dict of DataFrames)
+de_all = {}
+for ct in adata.obs["cell_type"].unique():
+    de_all[ct] = model.differential_expression(
+        idx1=[adata.obs["cell_type"] == ct],   # Boolean index
+        mode="change",
+        delta=0.25,
+    )
+    sig_n = de_all[ct]["is_de_fdr_0.05"].sum()
+    print(f"  {ct}: {sig_n} DE genes vs rest")
+```
+
+### 6. scARCHES — Query-to-Reference Transfer Learning
+
+Adapts a pretrained reference model to a new query dataset without re-training from scratch. Preserves the reference embedding structure and maps query cells into the same latent space.
+
+```python
+import scvi
+
+# --- Reference training (done once, save the model) ---
+scvi.model.SCVI.setup_anndata(ref_adata, layer="counts", batch_key="batch")
+ref_model = scvi.model.SCVI(ref_adata, n_latent=30)
+ref_model.train(max_epochs=200, early_stopping=True)
+ref_model.save("./reference_model/", overwrite=True)
+
+# Reference annotation (use scANVI for label transfer)
+scvi.model.SCANVI.setup_anndata(
+    ref_adata, layer="counts", batch_key="batch",
+    labels_key="cell_type", unlabeled_category="Unknown",
+)
+ref_scanvi = scvi.model.SCANVI.from_scvi_model(ref_model, unlabeled_category="Unknown")
+ref_scanvi.train(max_epochs=20)
+ref_scanvi.save("./reference_scanvi/", overwrite=True)
+
+# --- Query mapping (new dataset, minimal training) ---
+ref_scanvi = scvi.model.SCANVI.load("./reference_scanvi/", adata=ref_adata)
+
+# Prepare query: must share gene set with reference
+query_adata.obs["cell_type"] = "Unknown"   # All query cells are unlabeled
+query_model = scvi.model.SCANVI.load_query_data(query_adata, ref_scanvi)
+query_model.train(
+    max_epochs=100,
+    plan_kwargs={"weight_decay": 0.0},  # Critical: prevents catastrophic forgetting
+)
+
+# Map query into reference latent space
+query_latent = query_model.get_latent_representation(query_adata)
+query_labels = query_model.predict(query_adata)
+print(f"Query latent: {query_latent.shape}")
+print(f"Query label predictions: {query_labels[:5]}")
+```
+
+### 7. Downstream Analysis on Latent Space
+
+After extracting the latent representation, use scanpy for UMAP, clustering, and marker genes — with the batch-corrected embedding as input.
+
+```python
+import scanpy as sc
+
+# UMAP and clustering on scVI latent representation
+adata.obsm["X_scVI"] = model.get_latent_representation()
+
+sc.pp.neighbors(
+    adata,
+    use_rep="X_scVI",   # Use scVI latent (not PCA)
+    n_neighbors=30,
+    n_pcs=None,         # n_pcs ignored when use_rep is set
+)
+sc.tl.umap(adata)
+sc.tl.leiden(adata, resolution=0.5)
+
+# Marker genes using raw counts or normalized expression
+# Option A: scanpy Wilcoxon on log-normalized expression
+sc.tl.rank_genes_groups(adata, groupby="leiden", method="wilcoxon", n_genes=25)
+
+# Option B: scVI probabilistic DE per cluster (more accurate)
+markers = {}
+for cluster in adata.obs["leiden"].unique():
+    de = model.differential_expression(
+        idx1=[adata.obs["leiden"] == cluster],
+        mode="change", delta=0.25,
+    )
+    markers[cluster] = de[de["is_de_fdr_0.05"]].sort_values("lfc_mean", ascending=False)
+
+# Visualization
+sc.pl.umap(adata, color=["leiden", "batch", "cell_type"], ncols=3)
+sc.pl.rank_genes_groups_dotplot(adata, n_genes=5, groupby="leiden")
+```
+
+## Key Concepts
+
+### Unified API Pattern
+
+All scvi-tools models follow the same 4-step workflow:
+
+```
+1. ModelClass.setup_anndata(adata, ...)   →  Register layers, batch keys, covariates
+2. model = ModelClass(adata, ...)         →  Set architecture hyperparameters
+3. model.train(max_epochs=..., ...)       →  Fit model (GPU auto-detected)
+4. model.get_*()                          →  Extract results: latent, normalized, DE
+```
+
+### Model Selection Guide
+
+| Data | Model | Core Feature | When to Use |
+|------|-------|--------------|-------------|
+| scRNA-seq | **scVI** | Batch correction, denoising | Default for any multi-batch scRNA-seq |
+| scRNA-seq (partial labels) | **scANVI** | Cell type transfer | Have reference labels; want to annotate query |
+| CITE-seq (RNA+protein) | **totalVI** | Joint RNA+protein | 10x CITE-seq, REAP-seq |
+| Reference → query | **scARCHES** | Transfer learning | Map new data to existing atlas |
+| Spatial | **DestVI** | Spot deconvolution | 10x Visium, Slide-seq |
+| scRNA-seq QC | **Solo** | Doublet detection | Pre-analysis QC step |
+
+### Raw Counts Requirement
+
+scvi-tools models learn count distributions directly from raw data. Log-normalized input produces incorrect results. Always preserve raw counts before normalization:
+
+```python
+# Correct workflow: save counts, then normalize for scanpy steps
+adata.layers["counts"] = adata.X.copy()   # Save raw before any transformation
+sc.pp.normalize_total(adata, target_sum=1e4)
+sc.pp.log1p(adata)
+# Then: scvi.model.SCVI.setup_anndata(adata, layer="counts", ...)
+```
+
+## Common Workflows
+
+### Workflow 1: Multi-Batch scRNA-seq Integration
+
+**Goal**: Integrate multiple scRNA-seq datasets, remove batch effects, identify cell clusters, and find marker genes.
+
+```python
+import scvi
+import scanpy as sc
+
+# Load and concatenate datasets
+adata1 = sc.read_h5ad("dataset1.h5ad")
+adata2 = sc.read_h5ad("dataset2.h5ad")
+adata3 = sc.read_h5ad("dataset3.h5ad")
+adata = sc.concat(
+    [adata1, adata2, adata3],
+    label="batch",
+    keys=["dataset1", "dataset2", "dataset3"],
+)
+
+# Preprocessing: preserve raw counts, select HVGs per batch
 adata.layers["counts"] = adata.X.copy()
-sc.pp.normalize_total(adata, target_sum=1e4); sc.pp.log1p(adata)
-sc.pp.highly_variable_genes(adata, n_top_genes=2000, batch_key="batch", subset=True)
+sc.pp.normalize_total(adata, target_sum=1e4)
+sc.pp.log1p(adata)
+sc.pp.highly_variable_genes(
+    adata,
+    n_top_genes=4000,
+    batch_key="batch",       # Select HVGs consistently across batches
+    subset=True,
+)
+print(f"HVGs selected: {adata.n_vars}")
 
+# scVI integration
 scvi.model.SCVI.setup_anndata(adata, layer="counts", batch_key="batch")
 model = scvi.model.SCVI(adata, n_latent=30, n_layers=2)
 model.train(max_epochs=300, early_stopping=True, early_stopping_patience=15)
+print(f"Training history: {model.history['elbo_train'].tail()}")
 
+# Batch-corrected analysis
 adata.obsm["X_scVI"] = model.get_latent_representation()
-sc.pp.neighbors(adata, use_rep="X_scVI", n_neighbors=30)  # 用 scVI 潜空间而非 PCA
-sc.tl.umap(adata); sc.tl.leiden(adata, resolution=0.5)
+adata.layers["scvi_norm"] = model.get_normalized_expression(n_samples=25, return_mean=True)
+
+sc.pp.neighbors(adata, use_rep="X_scVI", n_neighbors=30)
+sc.tl.umap(adata)
+sc.tl.leiden(adata, resolution=0.5)
+
+# Verify batch mixing (batches should overlap on UMAP)
+sc.pl.umap(adata, color=["batch", "leiden"], save="_batch_integration.png")
 model.save("./scvi_model/", overwrite=True)
+print(f"Clusters: {adata.obs['leiden'].nunique()}")
 ```
 
-**scANVI 半监督注释（推荐 scVI→scANVI 两步）：**
+### Workflow 2: CITE-seq totalVI Pipeline
+
+**Goal**: Model CITE-seq RNA + protein data jointly, obtain denoised protein estimates, and generate a joint embedding for annotation.
 
 ```python
-scvi.model.SCANVI.setup_anndata(adata, layer="counts", batch_key="batch",
-    labels_key="cell_type", unlabeled_category="Unknown")  # 未标注细胞标 "Unknown"
-scvi_model = scvi.model.SCVI(adata, n_latent=30); scvi_model.train(max_epochs=200, early_stopping=True)
-model = scvi.model.SCANVI.from_scvi_model(scvi_model, unlabeled_category="Unknown")
-model.train(max_epochs=20)                  # scVI 之上短微调
+import scvi
+import scanpy as sc
+import pandas as pd
 
-adata.obs["scANVI_pred"] = model.predict()
-conf = model.predict(soft=True).max(axis=1)  # 每细胞置信度
-adata.obs.loc[conf < 0.7, "scANVI_pred"] = "Unknown"  # 低置信度别硬取 argmax
-```
+# Load CITE-seq AnnData (RNA in X, protein counts in obsm)
+adata = sc.read_h5ad("citeseq_data.h5ad")
+# Expected structure:
+#   adata.X or adata.layers["counts"] : RNA raw counts (n_cells, n_genes)
+#   adata.obsm["protein_expression"]   : Protein raw counts (n_cells, n_proteins)
 
-**概率差异表达（复合假设：|LFC|>delta）：**
+# Preprocessing
+adata.layers["counts"] = adata.X.copy()
+sc.pp.normalize_total(adata, target_sum=1e4)
+sc.pp.log1p(adata)
+sc.pp.highly_variable_genes(adata, n_top_genes=4000, batch_key="batch", subset=True)
 
-```python
-de = model.differential_expression(groupby="cell_type", group1="CD4 T", group2="CD8 T",
-    mode="change", delta=0.25, fdr_target=0.05, all_stats=True)
-sig = de[de["is_de_fdr_0.05"] & (de["lfc_mean"].abs() > 0.5)]
-# 关键列：lfc_mean、bayes_factor、proba_de
-```
+# totalVI setup and training
+scvi.model.TOTALVI.setup_anndata(
+    adata,
+    layer="counts",
+    batch_key="batch",
+    protein_expression_obsm_key="protein_expression",
+)
 
-**totalVI（CITE-seq）：** 蛋白计数须放 `adata.obsm["protein_expression"]`（不是 X/layers）。
+model = scvi.model.TOTALVI(adata, latent_distribution="normal")
+model.train(max_epochs=200, early_stopping=True)
 
-```python
-scvi.model.TOTALVI.setup_anndata(adata, layer="counts", batch_key="batch",
-    protein_expression_obsm_key="protein_expression")
-model = scvi.model.TOTALVI(adata, latent_distribution="normal"); model.train(max_epochs=200, early_stopping=True)
+# Extract joint embedding and denoised values
 adata.obsm["X_totalVI"] = model.get_latent_representation()
 rna_norm, protein_norm = model.get_normalized_expression(n_samples=25, return_mean=True)
-fg = model.get_protein_foreground_probability(n_samples=25, return_mean=True)  # 前景概率(信号>背景)
+foreground = model.get_protein_foreground_probability(n_samples=25, return_mean=True)
+
+adata.layers["rna_denoised"] = rna_norm
+protein_df = pd.DataFrame(
+    protein_norm,
+    index=adata.obs_names,
+    columns=adata.uns["protein_names"],
+)
+protein_df.to_csv("denoised_protein_expression.csv")
+print(f"Protein foreground: min={foreground.min():.3f}, max={foreground.max():.3f}")
+
+# Joint clustering on RNA + protein latent
+sc.pp.neighbors(adata, use_rep="X_totalVI", n_neighbors=30)
+sc.tl.umap(adata)
+sc.tl.leiden(adata, resolution=0.8)
+
+# Protein-guided annotation (use denoised protein for clean signal)
+protein_markers = {"B cell": "CD19", "T cell": "CD3E", "Monocyte": "CD14"}
+for cell_type, marker in protein_markers.items():
+    if marker in protein_df.columns:
+        adata.obs[f"denoised_{marker}"] = protein_df[marker].values
+sc.pl.umap(adata, color=["leiden"] + [f"denoised_{m}" for m in protein_markers.values()])
 ```
 
-**scARCHES 参考→查询迁移：** 查询集基因须与参考完全一致。
+## Key Parameters
+
+| Parameter | Model / Function | Default | Range / Options | Effect |
+|-----------|-----------------|---------|-----------------|--------|
+| `n_latent` | All models | `10` | `10`–`50` | Latent space dimensionality; 20–30 typical for most datasets |
+| `n_layers` | All models | `1` | `1`–`3` | Depth of encoder/decoder networks |
+| `n_hidden` | All models | `128` | `64`–`256` | Width of each hidden layer |
+| `gene_likelihood` | scVI, scANVI | `"zinb"` | `"zinb"`, `"nb"`, `"poisson"` | Count noise distribution; "nb" faster if sparsity is low |
+| `max_epochs` | `train()` | `400` | `50`–`1000` | Training iterations (ELBO steps) |
+| `early_stopping` | `train()` | `False` | `True`/`False` | Halt when validation ELBO plateaus |
+| `early_stopping_patience` | `train()` | `45` | `5`–`100` | Epochs to wait before stopping |
+| `batch_size` | `train()` | `128` | `64`–`512` | Mini-batch size; reduce if OOM |
+| `lr` | `train()` | `1e-3` | `1e-4`–`1e-2` | Initial learning rate |
+| `delta` | `differential_expression()` | `0.25` | `0.1`–`1.0` | Min |LFC| threshold for composite DE |
+| `n_samples` | `get_normalized_expression()` | `1` | `1`–`100` | Posterior samples; ≥25 for stable estimates |
+
+## Best Practices
+
+1. **Always store raw counts before normalization**: Run `adata.layers["counts"] = adata.X.copy()` immediately after loading data, before any `normalize_total` or `log1p` call. Passing log-normalized data silently produces incorrect latent spaces.
+
+2. **Select highly variable genes before training**: Use `sc.pp.highly_variable_genes(n_top_genes=2000–4000, batch_key="batch")` to reduce training time and model noise. Including all genes rarely improves results and significantly slows training.
+
+3. **Register all known batch variables**: If data has multiple technical sources (sequencing plate, donor, protocol), include them as `batch_key` or `categorical_covariate_keys`. Unregistered batch effects contaminate the latent space and downstream DE.
+
+4. **Use the scVI → scANVI two-step pipeline**: Initializing scANVI with `from_scvi_model()` after training scVI is faster, more stable, and produces better embeddings than training scANVI from scratch. Always train scVI first when using scANVI.
+
+5. **Save trained models immediately**: `model.save("./model_dir/")` persists the full model. Reloading with `SCVI.load()` is seconds vs. minutes of retraining. Models are typically 10–50 MB.
+
+6. **Use `n_latent=20–30` as starting point**: Values below 10 lose resolution; above 50 tend to overfit without added biological insight. Increase to 50 only for very heterogeneous atlases (>500k cells, many cell types).
+
+7. **Filter low-confidence scANVI predictions**: Cells where `predict(soft=True).max(axis=1) < 0.7` are ambiguous; treat them as `"Unknown"` rather than accepting the argmax label.
+
+## Common Recipes
+
+### Recipe: Doublet Detection with Solo
+
+When to use: Remove doublets before integration or DE to avoid spurious clusters.
 
 ```python
-ref_scanvi = scvi.model.SCANVI.load("./reference_scanvi/", adata=ref_adata)
-query_adata = query_adata[:, ref_adata.var_names]   # 对齐基因，训练后勿再 subset
-query_adata.obs["cell_type"] = "Unknown"
-qm = scvi.model.SCANVI.load_query_data(query_adata, ref_scanvi)
-qm.train(max_epochs=100, plan_kwargs={"weight_decay": 0.0})  # 关键：防灾难性遗忘
-q_latent, q_labels = qm.get_latent_representation(query_adata), qm.predict(query_adata)
+import scvi
+
+scvi.model.SCVI.setup_anndata(adata, layer="counts")
+vae = scvi.model.SCVI(adata, n_latent=20)
+vae.train(max_epochs=100)
+
+solo = scvi.external.SOLO.from_scvi_model(vae)
+solo.train(max_epochs=200)
+doublet_preds = solo.predict()   # DataFrame: {"singlet": prob, "doublet": prob}
+adata.obs["doublet_score"] = doublet_preds["doublet"].values
+adata.obs["is_doublet"] = doublet_preds["prediction"].values
+
+n_doublets = (adata.obs["is_doublet"] == "doublet").sum()
+print(f"Detected {n_doublets} doublets ({n_doublets / adata.n_obs:.1%})")
+adata = adata[adata.obs["is_doublet"] == "singlet"].copy()
+print(f"Cells after doublet removal: {adata.n_obs}")
 ```
 
-**Solo doublet 检测（QC）：**
+### Recipe: Spatial Deconvolution with DestVI
+
+When to use: Estimate cell type proportions in spatial transcriptomics spots using a matched scRNA-seq reference.
 
 ```python
-solo = scvi.external.SOLO.from_scvi_model(vae); solo.train(max_epochs=200)
-pred = solo.predict()  # {"singlet","doublet"} 概率 + prediction
-adata = adata[solo.predict()["prediction"].values == "singlet"].copy()
+import scvi
+
+# Step 1: Train CondSCVI on reference single-cell data
+scvi.model.CondSCVI.setup_anndata(sc_adata, layer="counts", labels_key="cell_type")
+sc_model = scvi.model.CondSCVI(sc_adata, weight_obs=False)
+sc_model.train(max_epochs=200)
+
+# Step 2: Deconvolve spatial spots
+scvi.model.DestVI.setup_anndata(st_adata, layer="counts")
+st_model = scvi.model.DestVI.from_rna_model(st_adata, sc_model)
+st_model.train(max_epochs=2500)
+
+proportions = st_model.get_proportions()  # DataFrame (n_spots, n_cell_types)
+st_adata.obsm["cell_type_proportions"] = proportions.values
+print(f"Proportions per spot: {proportions.shape}")
+print(proportions.head())
 ```
 
-**关键超参**：`n_latent`（默认 10，建议 20–30；>500k 大图谱可到 50）、`n_layers`(1–3)、`n_hidden`(64–256)、`gene_likelihood`("zinb"/"nb"/"poisson"，稀疏度低时 "nb" 更快)、`delta`(DE 最小 |LFC|，默认 0.25)、`n_samples`(后验采样，≥25 才稳定)。
+### Recipe: Extract Denoised Expression for Imputation
 
-## 注意事项
+When to use: Obtain smooth, denoised expression values for visualization or downstream machine learning when raw sparse counts are too noisy.
 
-- **必存原始计数**：加载后立即 `adata.layers["counts"] = adata.X.copy()`，再做任何 `normalize_total`/`log1p`。`ValueError: adata must contain raw counts` 即此因。
-- **训练前选 HVG**：`highly_variable_genes(n_top_genes=2000~4000, batch_key="batch")`，全基因极少更好却显著拖慢。
-- **注册全部批次变量**：测序板、donor、protocol 等都进 `batch_key`/`categorical_covariate_keys`，未注册的批次效应会污染潜空间与 DE。
-- **scANVI 用两步法**：`from_scvi_model()` 比从零训更快更稳；每类需 ≥50 个标注细胞，否则可能全预测同一标签；`unlabeled_category` 须精确匹配。
-- **立即保存模型**：`model.save("./dir/")`，重载 `SCVI.load()` 是秒级 vs 重训分钟级（模型约 10–50MB）。
-- **CUDA OOM**：减 `batch_size=64`、`n_hidden=64`，或减少 HVG；小数据可用 CPU（<50k 细胞 CPU 可跑，更大用 8GB+ GPU）。
-- **训练 loss 震荡不降**：`lr=1e-4`；检查注册 layer 是否含负值/异常稀疏。
-- **批次分离（UMAP 上不混合）**：确认 `batch_key` 列存在、增 `max_epochs`、加 `early_stopping=True`。
-- **`load()` KeyError/shape mismatch**：查询集 `var_names` 须与训练数据完全一致，训练后勿再 subset 基因。
-- DE 用 scVI 概率 DE 比 scanpy Wilcoxon 更准；潜空间后续聚类/marker 交给 scanpy。
+```python
+import scvi
 
-## 互见
+scvi.model.SCVI.setup_anndata(adata, layer="counts", batch_key="batch")
+model = scvi.model.SCVI(adata, n_latent=30)
+model.train(max_epochs=200, early_stopping=True)
 
-- related：`single-cell-rnaseq-analysis` —— Scanpy 标准 scRNA-seq 流程；把 scVI 潜空间作 `use_rep="X_scVI"` 输入做 UMAP/聚类/marker
-- related：`genomic-file-toolkit` —— AnnData/.h5ad 等基因组文件的读写与转换
-- related：`protein-language-models` —— 另一类生物深度生成/表征模型
-- combines_with：`gene-set-enrichment-analysis` —— 对概率 DE 得到的显著基因做通路/富集分析
-- combines_with：`scientific-database-lookup` —— 拉取参考图谱供 scANVI 标签迁移与 scARCHES 查询映射
+# n_samples >= 25 gives stable posterior mean; increase to 100 for publication
+denoised = model.get_normalized_expression(
+    n_samples=50,
+    library_size="latent",  # "latent" uses learned library size; int for fixed normalization
+    return_mean=True,
+)
+adata.layers["denoised"] = denoised
+print(f"Denoised layer added: {denoised.shape}")
+# Use adata.layers["denoised"] for heatmaps, pseudotime, or ML features
+```
 
----
+## Troubleshooting
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。源技能原始 license 为 BSD-3-Clause（代码许可），文档内容按 CC-BY-4.0 署名采编。
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `ValueError: adata must contain raw counts` | Log-normalized data passed instead of raw counts | Save raw before normalizing: `adata.layers["counts"] = adata.X.copy()` then `setup_anndata(layer="counts")` |
+| Training loss oscillates without decreasing | Learning rate too high or very heterogeneous data | Try `lr=1e-4`; check that `adata.X` and the registered layer are not sparse with negatives |
+| CUDA out of memory | Dataset too large for GPU VRAM | Reduce `batch_size=64`, `n_hidden=64`; subset to fewer HVGs; use CPU for small datasets |
+| Poor batch integration (batches separate on UMAP) | Batch key not registered, or too few epochs | Verify `batch_key` column exists in `adata.obs`; increase `max_epochs`; add `early_stopping=True` |
+| scANVI predicts same label for all cells | Too few labeled cells per type or learning rate issue | Need ≥50 labeled cells per type; use `from_scvi_model()` workflow; check `unlabeled_category` matches exactly |
+| `load()` fails with `KeyError` or shape mismatch | AnnData `var_names` differ from training data | Ensure query `adata.var_names` exactly matches training data; do not subset genes after training |
+| Slow training on CPU for large datasets | Large dataset without GPU acceleration | Install `scvi-tools[cuda12]`; pass `accelerator="gpu"` to `train()`; or subsample to 50k cells for prototyping |
+| `scvi.model.SCANVI.load_query_data` shape error | Query and reference have different gene sets | Align genes: `query_adata = query_adata[:, ref_adata.var_names]` before calling `load_query_data` |
+
+## Related Skills
+
+- **scanpy-scrna-seq** — standard scRNA-seq QC, clustering, marker genes; use scVI latent as input to `sc.pp.neighbors(use_rep="X_scVI")`
+- **anndata-data-structure** — create, subset, concatenate, and persist AnnData objects required by scvi-tools
+- **harmony-batch-correction** — fast linear batch correction alternative; use when deep learning overhead is not justified
+- **cellxgene-census** — download reference atlases for scANVI transfer learning and scARCHES query-to-reference mapping
+- **muon-multiomics-singlecell** — multi-modal single-cell analysis with MuData; complement to totalVI for Multiome workflows
+
+## References
+
+- [scvi-tools documentation](https://docs.scvi-tools.org/) — official API reference, tutorials, and model guides
+- [scvi-tools GitHub](https://github.com/scverse/scvi-tools) — source code, issue tracker, and changelog
+- Lopez et al. (2018) "Deep generative modeling for single-cell transcriptomics" — [Nature Methods 15:1053–1058](https://doi.org/10.1038/s41592-018-0229-2) — original scVI paper
+- Xu et al. (2021) "Probabilistic harmonization and annotation of single-cell transcriptomics data with deep generative models" — [Molecular Systems Biology 17:e9620](https://doi.org/10.15252/msb.20209620) — scANVI paper
+- Gayoso et al. (2022) "A Python library for probabilistic analysis of single-cell omics data" — [Nature Biotechnology 40:163–166](https://doi.org/10.1038/s41587-021-01206-w) — scvi-tools library paper

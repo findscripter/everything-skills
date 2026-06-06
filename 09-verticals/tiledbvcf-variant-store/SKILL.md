@@ -1,14 +1,14 @@
 ---
 name: tiledbvcf-variant-store
-title: TileDB-VCF 大规模变异存储
-description: 当需要把多份单样本 VCF/BCF 增量入库、按基因组区间/样本高速查询变异数据时使用；用 TileDB 稀疏数组建库、入库、查询、导出 VCF/TSV 并算等位基因频率；不适用于多样本合并 VCF、>1000 样本生产规模（转 TileDB-Cloud）或一般 VCF 文本处理。触发词：TileDB-VCF、变异存储、群体基因组学
+title: TileDB-VCF Variant Store
+description: Use when ingesting many single-sample VCF/BCF files into a TileDB sparse-array store and querying variants by genomic region/sample at high speed; covers create, ingest, query, export to VCF/TSV, and allele-frequency computation. Not for multi-sample merged VCFs, >1000-sample pro
 domain: 领域/science
-triggers: [TileDB-VCF, tiledbvcf, 变异存储, VCF 入库, 群体基因组学, 变异数据库, 队列研究 VCF, 等位基因频率, GWAS 数据准备, 稀疏数组变异]
-tags: [生物信息, 基因组学, 变异数据, tiledb, vcf, 群体遗传, 数据存储, misc]
-level: 进阶
+triggers: [TileDB-VCF, tiledbvcf, variant store, VCF ingestion, population genomics, variant database, cohort VCF, allele frequency, GWAS data prep, sparse array variants]
+tags: [bioinformatics, genomics, variant-data, tiledb, vcf, population-genetics, data-storage, misc]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [tiledbvcf (Python), tiledbvcf (CLI), conda/mamba, bcftools/tabix, Docker]
+tools: []
 requires: []
 related: [bcftools-variant-manipulation, vcf-variant-filtering, gatk-variant-calling, genomic-file-toolkit]
 combines_with: [gatk-variant-calling, bcftools-variant-manipulation]
@@ -16,63 +16,83 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适用于将变异数据高效存储与检索的场景：
+TileDB-VCF is a high-performance C++ library with Python and CLI interfaces for efficient storage and retrieval of genomic variant-call data. Built on TileDB's sparse-array technology, it enables scalable ingestion of VCF/BCF files, incremental sample addition without expensive merging, and efficient parallel queries of variant data stored locally or in the cloud.
 
-- 用多份单样本 VCF/BCF 构建群体基因组/队列变异数据库
-- 需要增量添加新样本，且不想做昂贵的多样本合并
-- 跨大量样本对特定基因组区间做高性能查询
-- 处理云端（S3/Azure/GCS）变异数据，或导出大库的子集
-- GWAS 数据准备、罕见变异负荷检验、等位基因频率统计、群体质控
-- 原型验证、教学与方法开发，对变异操作性能有要求
+Use this skill when:
 
-**不该用（负边界）：**
+- Building a population-genomics / cohort variant database from many single-sample VCF/BCF files.
+- You need to add new samples incrementally without doing an expensive multi-sample merge.
+- You require high-performance queries of specific genomic regions across many samples.
+- You work with cloud-stored variant data (S3, Azure, GCS) or need to export subsets of large VCF datasets.
+- GWAS data preparation, rare-variant burden testing, allele-frequency calculation, or cross-cohort QC.
+- Prototyping, education, and method development where variant-data performance matters.
 
-- 多样本（合并）VCF —— 仅支持单样本 VCF，先用 `bcftools` 拆分
-- 输入未建索引 —— 必须有 `.csi`（bcftools）或 `.tbi`（tabix）索引
-- 生产级超大规模（>1000 样本 / >100GB / 需分布式 / 多人协作 / 合规）—— 应迁移到 TileDB-Cloud
-- 仅做轻量 VCF 文本过滤/格式转换 —— 直接用 `bcftools` 更简单
-- 多写入者并发写同一数据集 —— 易损坏，需加锁
+**Do NOT use (negative boundaries):**
 
-## 步骤 / 指令
+- **Multi-sample (merged) VCFs** — only single-sample VCFs are supported; split first with `bcftools`.
+- **Unindexed input** — VCF/BCF files must have a `.csi` (bcftools) or `.tbi` (tabix) index.
+- **Production / very large scale** (>1000 samples, >100GB, distributed compute, multi-user collaboration, or compliance) — migrate to TileDB-Cloud.
+- **Lightweight VCF text filtering / format conversion** — plain `bcftools` is simpler.
+- **Concurrent writers to the same dataset** — multiple writers can corrupt data; use locking.
 
-1. **安装**（推荐 conda/mamba）：
+## Steps
+
+1. **Install (preferred: conda/mamba).**
 
    ```bash
+   # On an M1 Mac, set the subdir to osx-64 first:
+   CONDA_SUBDIR=osx-64
+   conda config --env --set subdir osx-64
+
+   # Create and activate the environment
    conda create -n tiledb-vcf "python<3.10"
    conda activate tiledb-vcf
+
+   # Mamba is a faster, more reliable alternative to conda
    conda install -c conda-forge mamba
+
+   # Install TileDB-Py and TileDB-VCF plus useful libraries
    mamba install -y -c conda-forge -c bioconda -c tiledb \
      tiledb-py tiledbvcf-py pandas pyarrow numpy
-   # M1 Mac 先设 CONDA_SUBDIR=osx-64 并 conda config --env --set subdir osx-64
-   # 或直接用镜像：docker pull tiledb/tiledbvcf-py / tiledbvcf-cli
    ```
 
-2. **建库 + 入库**：确保 VCF 为单样本且已建索引，再 `ingest_samples`。
+   Alternative — Docker images:
 
-3. **查询**：以 `mode="r"` 打开，指定 `attrs / regions / samples` 读取为 DataFrame。
+   ```bash
+   docker pull tiledb/tiledbvcf-py     # Python interface
+   docker pull tiledb/tiledbvcf-cli    # Command-line interface
+   ```
 
-4. **导出**：用 `export` 输出 VCF/BCF 子集，或导出 TSV。
+2. **Create + ingest.** Ensure each VCF is single-sample and indexed (`.csi` or `.tbi`), then `ingest_samples`. Add new samples incrementally without re-processing existing data.
 
-5. **进阶**：算等位基因频率、样本质控、调内存预算与 tile 缓存。
+3. **Query.** Open the dataset with `mode="r"` and read into a DataFrame, specifying `attrs / regions / samples`.
 
-**坐标约定（关键）：** TileDB-VCF 沿用 VCF 的 **1-based、双端闭区间**坐标。`chr1:1000-2000` 含位置 1000–2000，共 1001 个碱基。
+4. **Export.** Use `export` to write a VCF/BCF subset, or generate TSV with selected fields.
 
-## 示例
+5. **Advanced.** Compute allele frequencies, run sample QC, and tune memory budget and tile cache.
 
-**建库并入库（单样本 + 索引）：**
+**Coordinate convention (critical):** TileDB-VCF uses **1-based, both-ends-inclusive** coordinates following the VCF standard. `chr1:1000-2000` includes positions 1000–2000 (1001 bases total).
+
+## Example
+
+**Create and populate a dataset (single-sample + index):**
 
 ```python
 import tiledbvcf
 
+# Create a new dataset
 ds = tiledbvcf.Dataset(uri="my_dataset", mode="w",
                        cfg=tiledbvcf.ReadConfig(memory_budget=1024))
-# 要求：单样本 VCF，且含 .csi 或 .tbi 索引
+
+# Ingest VCF files. Requirements:
+#  - single-sample VCFs only (not multi-sample)
+#  - must have indexes: .csi (bcftools) or .tbi (tabix)
 ds.ingest_samples(["sample1.vcf.gz", "sample2.vcf.gz"])
 ```
 
-**按区间/样本查询：**
+**Query variant data by region/sample:**
 
 ```python
 ds = tiledbvcf.Dataset(uri="my_dataset", mode="r")
@@ -84,10 +104,11 @@ df = ds.read(
 print(df.head())
 ```
 
-**导出 VCF 子集：**
+**Export a VCF subset:**
 
 ```python
 import os
+
 ds.export(
     regions=["chr21:8220186-8405573"],
     samples=["HG00101", "HG00097"],
@@ -96,7 +117,7 @@ ds.export(
 )
 ```
 
-**等位基因频率：**
+**Allele frequency:**
 
 ```python
 af_df = tiledbvcf.read_allele_frequency(
@@ -106,7 +127,21 @@ af_df = tiledbvcf.read_allele_frequency(
 )
 ```
 
-**CLI（子命令 create/store/export/list/stat/utils/version）：**
+**Sample QC and custom configuration:**
+
+```python
+qc_results = tiledbvcf.sample_qc(uri="my_dataset", samples=["sample1", "sample2"])
+
+config = tiledbvcf.ReadConfig(
+    memory_budget=4096,
+    tiledb_config={
+        "sm.tile_cache_size": "1000000000",
+        "vfs.s3.region": "us-east-1",
+    },
+)
+```
+
+**CLI (subcommands: create / store / export / list / stat / utils / version):**
 
 ```bash
 tiledbvcf create --uri my_dataset
@@ -117,24 +152,20 @@ tiledbvcf list --uri my_dataset
 tiledbvcf stat --uri my_dataset
 ```
 
-**云端数据集 URI：** `s3://bucket/dataset`、`azure://container/dataset`、`gcs://bucket/dataset`。
+**Cloud dataset URIs:** `s3://bucket/dataset`, `azure://container/dataset`, `gcs://bucket/dataset`.
 
-## 注意事项
+## Notes
 
-- **入库内存溢出**：设合理 `memory_budget`，大文件分批入库；可用 `ReadConfig` 的 `region_partition / sample_partition` 分区。
-- **查询低效**：合并相邻区间，避免大量零散小查询；为重复访问配置 tile 缓存（`sm.tile_cache_size`）。
-- **样本名不匹配**：VCF header 中的样本名要与查询 `samples` 一致。
-- **超大结果集**：返回数百万变异时用流式/分页，勿一次性载入。
-- **云端权限**：确保 S3/Azure/GCS 认证正确（如 `vfs.s3.region`）。
-- **并发**：多写入者写同库会损坏，务必加锁；增量加样本无需重处理已有数据。
-- **迁移信号**：>1000 样本、需分布式/多人协作/合规时迁移 TileDB-Cloud（`tiledb.cloud.vcf`、`TILEDB_REST_TOKEN`）。
+- **Memory exhaustion during ingestion:** set an appropriate `memory_budget` and batch large files; partition with `ReadConfig`'s `region_partition` / `sample_partition`.
+- **Inefficient region queries:** combine nearby regions instead of issuing many small separate queries; configure the tile cache (`sm.tile_cache_size`) for repeated region access.
+- **Missing / mismatched sample names:** sample names in VCF headers must match the `samples` you pass to queries.
+- **Large result sets:** use streaming or pagination for queries returning millions of variants rather than loading everything at once.
+- **Cloud permissions:** ensure correct authentication for S3/Azure/GCS access (e.g. `vfs.s3.region`).
+- **Concurrent access:** multiple writers to the same dataset can corrupt it — use locking; incremental sample addition does not re-process existing data.
+- **Migration signals:** move to TileDB-Cloud for >1000 samples, >100GB of VCF data, distributed compute, multi-user access, or compliance needs. Install `pip install tiledb-cloud[life-sciences]`, set `export TILEDB_REST_TOKEN="<api_token>"`, and use `tiledb.cloud.vcf` for distributed ingestion and queries.
 
-## 互见
+## See also
 
-- TileDB-VCF GitHub：https://github.com/TileDB-Inc/TileDB-VCF
-- TileDB Academy（群体基因组学指南）：https://cloud.tiledb.com/academy/structure/life-sciences/population-genomics/
-- 同领域可参考变异处理类技能（bcftools/VCF 预处理：拆分单样本、建索引）。
-
----
-
-采编自 K-Dense-AI/scientific-agent-skills（MIT 许可）。
+- TileDB-VCF GitHub: https://github.com/TileDB-Inc/TileDB-VCF
+- TileDB Academy — Population Genomics guide: https://cloud.tiledb.com/academy/structure/life-sciences/population-genomics/
+- Related variant-processing skills (bcftools/VCF preprocessing: split into single-sample VCFs, build indexes): `bcftools-variant-manipulation`, `vcf-variant-filtering`, `gatk-variant-calling`, `genomic-file-toolkit`.

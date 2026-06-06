@@ -1,14 +1,14 @@
 ---
 name: browser-automation-builder
-title: 浏览器自动化与抓取
-description: 当需要用 Playwright 抓取网页数据、自动填表登录、截图存档、提取结构化数据或搭建可重复浏览器工作流时使用；产出含选择器策略、分页/会话/反检测/重试模式的 Python 自动化脚本与 JSON/CSV/JSONL 数据；不适用于写 E2E 测试（用 playwright-pro）、纯 API 测试或性能压测；触发词：网页抓取、自动填表、截图存PDF、反爬反检测、SPA动态内容、会话复用
+title: Browser Automation - POWERFUL
+description: Use when the user asks to automate browser tasks, scrape websites, fill forms, capture screenshots, extract structured data from web pages, or build web automation workflows. NOT for testing — use playwright-pro for that.
 domain: 平台/browser
-triggers: [网页抓取, 爬虫, scrape, 自动填表, 表单自动化, Playwright, 浏览器自动化, 截图, 网页转PDF, 结构化数据提取, 分页抓取, 反检测, 反爬, 会话复用, cookie保存, SPA动态内容, 登录自动化, 下载报表]
-tags: [浏览器自动化, playwright, 网页抓取, 数据提取, 表单自动化, 反检测, 会话管理, python]
-level: 进阶
+triggers: [scrape, Playwright]
+tags: [playwright, python]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Playwright, Python async/await, scraping_toolkit.py, form_automation_builder.py, anti_detection_checker.py]
+tools: []
 requires: []
 related: [firecrawl-web-scraper, apify-ecommerce-scraper, full-page-screenshot, defuddle-web-extract]
 combines_with: [full-page-screenshot, csv-data-cleaner, computer-use-agents]
@@ -16,77 +16,150 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-基于 Playwright 构建生产级浏览器自动化：数据抓取、表单填写、截图/PDF、会话管理与反检测，可在规模化场景下稳定运行。
+# Browser Automation - POWERFUL
 
-## 何时使用
+## Overview
 
-适用：
-- 抓取网页中的结构化数据（表格、列表、搜索结果）。
-- 自动化多步浏览器流程（登录、填表、下载文件）。
-- 对网页截图或导出 PDF。
-- 从 SPA、重 JavaScript 站点提取数据。
-- 搭建可重复运行的浏览器数据管道。
+The Browser Automation skill provides comprehensive tools and knowledge for building production-grade web automation workflows using Playwright. This skill covers data extraction, form filling, screenshot capture, session management, and anti-detection patterns for reliable browser automation at scale.
 
-不该用（负边界）：
-- 写浏览器测试 / E2E 测试套件 —— 改用 **playwright-pro**。
-- 纯测 API 端点 —— 改用 **api-test-suite-builder**。
-- 负载 / 性能压测 —— 改用 **performance-profiler**。
-- 站点已有公开 API 时，直接打 API 比抓取渲染页更快、更稳、更不易被检测。
+**When to use this skill:**
+- Scraping structured data from websites (tables, listings, search results)
+- Automating multi-step browser workflows (login, fill forms, download files)
+- Capturing screenshots or PDFs of web pages
+- Extracting data from SPAs and JavaScript-heavy sites
+- Building repeatable browser-based data pipelines
 
-为什么选 Playwright（而非 Selenium/Puppeteer）：内置自动等待，多数操作无需手写 `sleep()`；单一 API 跨 Chromium/Firefox/WebKit；原生网络拦截；浏览器 context 提供隔离会话；`playwright codegen` 可录制动作生成脚本；async-first 适合高吞吐抓取。
+**When NOT to use this skill:**
+- Writing browser tests or E2E test suites — use **playwright-pro** instead
+- Testing API endpoints — use **api-test-suite-builder** instead
+- Load testing or performance benchmarking — use **performance-profiler** instead
 
-## 步骤
+**Why Playwright over Selenium or Puppeteer:**
+- **Auto-wait built in** — no explicit `sleep()` or `waitForElement()` needed for most actions
+- **Multi-browser from one API** — Chromium, Firefox, WebKit with zero config changes
+- **Network interception** — block ads, mock responses, capture API calls natively
+- **Browser contexts** — isolated sessions without spinning up new browser instances
+- **Codegen** — `playwright codegen` records your actions and generates scripts
+- **Async-first** — Python async/await for high-throughput scraping
 
-工作流一 · 单页数据提取（JS 渲染内容）：
-1. 开发期用有头模式（`headless=False`）调试，生产切换为 `headless=True`。
-2. 导航到 URL 并等待内容选择器（而非仅等 load 事件）。
-3. 用 `query_selector_all` + 字段映射提取数据。
-4. 校验结果（空值、类型）。
-5. 输出 JSON。
+## Core Competencies
 
-工作流二 · 分页多页抓取（50+ 页）：
-1. 带反检测配置启动浏览器。
-2. 打开首页并提取当前页数据。
-3. 判断「下一页」按钮是否存在且可用。
-4. 点击后等待新内容加载（不是只等导航）。
-5. 循环直到无下一页或达上限。
-6. 按唯一键去重。
-7. 增量写出，避免全量驻留内存。
+### 1. Web Scraping Patterns
 
-工作流三 · 带鉴权流程自动化（登录→多步表单→下载报表）：
-1. 检查是否已有会话状态文件。
-2. 无会话则登录并保存状态。
-3. 用已保存会话打开目标页。
-4. 按步填写多步表单。
-5. 等待下载触发。
-6. 把下载文件保存到目标目录。
+**Selector priority (most to least reliable):**
+1. `data-testid`, `data-id`, or custom data attributes — stable across redesigns
+2. `#id` selectors — unique but may change between deploys
+3. Semantic selectors: `article`, `nav`, `main`, `section` — resilient to CSS changes
+4. Class-based: `.product-card`, `.price` — brittle if classes are generated (e.g., CSS modules)
+5. Positional: `nth-child()`, `nth-of-type()` — last resort, breaks on layout changes
 
-## 指令
+Use XPath only when CSS cannot express the relationship (e.g., ancestor traversal, text-based selection).
 
-选择器优先级（从稳到脆）：① `data-testid`/`data-id` 等自定义 data 属性；② `#id`；③ 语义标签 `article`/`nav`/`main`/`section`；④ 类名 `.product-card`（生成式类名易碎）；⑤ 位置型 `nth-child()`（最后手段）。仅当 CSS 无法表达关系（祖先遍历、按文本选取）时才用 XPath。
+**Pagination strategies:** next-button, URL-based (`?page=N`), infinite scroll, load-more button. See [data_extraction_recipes.md](references/data_extraction_recipes.md) for complete pagination handlers and scroll patterns.
 
-截图 / PDF：
-- 整页：`await page.screenshot(path="full.png", full_page=True)`
-- 元素：`await page.locator("div.chart").screenshot(path="chart.png")`
-- PDF（仅 Chromium）：`await page.pdf(path="out.pdf", format="A4", print_background=True)`
-- 视觉回归：固定状态截图，命名 `{page}_{viewport}_{state}.png` 入库做基线。
+### 2. Form Filling & Multi-Step Workflows
 
-会话管理：`context.storage_state(path="state.json")` 保存 cookies+localStorage，`browser.new_context(storage_state="state.json")` 恢复。登录后存状态、跨任务复用；长任务前先用轻量请求访问受保护页验证未被重定向到登录页。
+Break multi-step forms into discrete functions per step. Each function fills fields, clicks "Next"/"Continue", and waits for the next step to load (URL change or DOM element).
 
-反检测（按优先级）：① 通过 init script 移除 `navigator.webdriver`（关键）；② 轮换真实 User-Agent，禁用默认 headless UA；③ 真实视口 1920x1080（默认 800x600 是红旗）；④ `random.uniform()` 随机延迟节流；⑤ 按浏览器/context 配置代理。
+Key patterns: login flows, multi-page forms, file uploads (including drag-and-drop zones), native and custom dropdown handling. See [playwright_browser_api.md](references/playwright_browser_api.md) for complete API reference on `fill()`, `select_option()`, `set_input_files()`, and `expect_file_chooser()`.
 
-动态内容：SPA 等内容选择器而非 load 事件；`page.expect_response("**/api/data*")` 等指定 AJAX；开放 Shadow DOM 用 `>>`（`page.locator("custom-element >> .inner-class")`）；懒加载图片用 `scroll_into_view_if_needed()` 触发。
+### 3. Screenshot & PDF Capture
 
-错误与重试：指数退避（1s/2s/4s）包裹页面交互；`TimeoutError` 时先尝试备用选择器；失败时 `page.screenshot(path="error-state.png")` 存证；检测 HTTP 429 并遵守 `Retry-After`。
+- **Full page:** `await page.screenshot(path="full.png", full_page=True)`
+- **Element:** `await page.locator("div.chart").screenshot(path="chart.png")`
+- **PDF (Chromium only):** `await page.pdf(path="out.pdf", format="A4", print_background=True)`
+- **Visual regression:** Take screenshots at known states, store baselines in version control with naming: `{page}_{viewport}_{state}.png`
 
-辅助脚本（纯标准库，`python3 <脚本> --help` 看用法）：
-- `scraping_toolkit.py` —— 生成抓取脚本骨架（`--url`/`--selectors`/`--paginate`/`--output`）。
-- `form_automation_builder.py` —— 据字段规格生成填表脚本（`--fields`/`--url`/`--output`）。
-- `anti_detection_checker.py` —— 审计脚本检测向量，输出风险评分（`--file`/`--verbose`）。
+See [playwright_browser_api.md](references/playwright_browser_api.md) for full screenshot/PDF options.
 
-## 示例
+### 4. Structured Data Extraction
 
-分页抓取（核心循环）：
+Core extraction patterns:
+- **Tables to JSON** — Extract `<thead>` headers and `<tbody>` rows into dictionaries
+- **Listings to arrays** — Map repeating card elements using a field-selector map (supports `::attr()` for attributes)
+- **Nested/threaded data** — Recursive extraction for comments with replies, category trees
+
+See [data_extraction_recipes.md](references/data_extraction_recipes.md) for complete extraction functions, price parsing, data cleaning utilities, and output format helpers (JSON, CSV, JSONL).
+
+### 5. Cookie & Session Management
+
+- **Save/restore cookies:** `context.cookies()` and `context.add_cookies()`
+- **Full storage state** (cookies + localStorage): `context.storage_state(path="state.json")` to save, `browser.new_context(storage_state="state.json")` to restore
+
+**Best practice:** Save state after login, reuse across scraping sessions. Check session validity before starting a long job — make a lightweight request to a protected page and verify you are not redirected to login. See [playwright_browser_api.md](references/playwright_browser_api.md) for cookie and storage state API details.
+
+### 6. Anti-Detection Patterns
+
+Modern websites detect automation through multiple vectors. Apply these in priority order:
+
+1. **WebDriver flag removal** — Remove `navigator.webdriver = true` via init script (critical)
+2. **Custom user agent** — Rotate through real browser UAs; never use the default headless UA
+3. **Realistic viewport** — Set 1920x1080 or similar real-world dimensions (default 800x600 is a red flag)
+4. **Request throttling** — Add `random.uniform()` delays between actions
+5. **Proxy support** — Per-browser or per-context proxy configuration
+
+See [anti_detection_patterns.md](references/anti_detection_patterns.md) for the complete stealth stack: navigator property hardening, WebGL/canvas fingerprint evasion, behavioral simulation (mouse movement, typing speed, scroll patterns), proxy rotation strategies, and detection self-test URLs.
+
+### 7. Dynamic Content Handling
+
+- **SPA rendering:** Wait for content selectors (`wait_for_selector`), not the page load event
+- **AJAX/Fetch waiting:** Use `page.expect_response("**/api/data*")` to intercept and wait for specific API calls
+- **Shadow DOM:** Playwright pierces open Shadow DOM with `>>` operator: `page.locator("custom-element >> .inner-class")`
+- **Lazy-loaded images:** Scroll elements into view with `scroll_into_view_if_needed()` to trigger loading
+
+See [playwright_browser_api.md](references/playwright_browser_api.md) for wait strategies, network interception, and Shadow DOM details.
+
+### 8. Error Handling & Retry Logic
+
+- **Retry with backoff:** Wrap page interactions in retry logic with exponential backoff (e.g., 1s, 2s, 4s)
+- **Fallback selectors:** On `TimeoutError`, try alternative selectors before failing
+- **Error-state screenshots:** Capture `page.screenshot(path="error-state.png")` on unexpected failures for debugging
+- **Rate limit detection:** Check for HTTP 429 responses and respect `Retry-After` headers
+
+See [anti_detection_patterns.md](references/anti_detection_patterns.md) for the complete exponential backoff implementation and rate limiter class.
+
+## Workflows
+
+### Workflow 1: Single-Page Data Extraction
+
+**Scenario:** Extract product data from a single page with JavaScript-rendered content.
+
+**Steps:**
+1. Launch browser in headed mode during development (`headless=False`), switch to headless for production
+2. Navigate to URL and wait for content selector
+3. Extract data using `query_selector_all` with field mapping
+4. Validate extracted data (check for nulls, expected types)
+5. Output as JSON
+
+```python
+async def extract_single_page(url, selectors):
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        context = await browser.new_context(
+            viewport={"width": 1920, "height": 1080},
+            user_agent="Mozilla/5.0 ..."
+        )
+        page = await context.new_page()
+        await page.goto(url, wait_until="networkidle")
+        data = await extract_listings(page, selectors["container"], selectors["fields"])
+        await browser.close()
+    return data
+```
+
+### Workflow 2: Multi-Page Scraping with Pagination
+
+**Scenario:** Scrape search results across 50+ pages.
+
+**Steps:**
+1. Launch browser with anti-detection settings
+2. Navigate to first page
+3. Extract data from current page
+4. Check if "Next" button exists and is enabled
+5. Click next, wait for new content to load (not just navigation)
+6. Repeat until no next page or max pages reached
+7. Deduplicate results by unique key
+8. Write output incrementally (don't hold everything in memory)
+
 ```python
 async def scrape_paginated(base_url, selectors, max_pages=100):
     all_data = []
@@ -94,25 +167,42 @@ async def scrape_paginated(base_url, selectors, max_pages=100):
         browser = await p.chromium.launch(headless=True)
         page = await (await browser.new_context()).new_page()
         await page.goto(base_url)
+
         for page_num in range(max_pages):
             items = await extract_listings(page, selectors["container"], selectors["fields"])
             all_data.extend(items)
+
             next_btn = page.locator(selectors["next_button"])
             if await next_btn.count() == 0 or await next_btn.is_disabled():
                 break
+
             await next_btn.click()
             await page.wait_for_selector(selectors["container"])
             await human_delay(800, 2000)
+
         await browser.close()
     return all_data
 ```
 
-带鉴权流程 + 下载：
+### Workflow 3: Authenticated Workflow Automation
+
+**Scenario:** Log into a portal, navigate a multi-step form, download a report.
+
+**Steps:**
+1. Check for existing session state file
+2. If no session, perform login and save state
+3. Navigate to target page using saved session
+4. Fill multi-step form with provided data
+5. Wait for download to trigger
+6. Save downloaded file to target directory
+
 ```python
 async def authenticated_workflow(credentials, form_data, download_dir):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         state_file = "session_state.json"
+
+        # Restore or create session
         if os.path.exists(state_file):
             context = await browser.new_context(storage_state=state_file)
         else:
@@ -120,37 +210,70 @@ async def authenticated_workflow(credentials, form_data, download_dir):
             page = await context.new_page()
             await login(page, credentials["url"], credentials["user"], credentials["pass"])
             await context.storage_state(path=state_file)
+
         page = await context.new_page()
         await page.goto(form_data["target_url"])
+
+        # Fill form steps
         for step_fn in [fill_step_1, fill_step_2]:
             await step_fn(page, form_data)
+
+        # Handle download
         async with page.expect_download() as dl_info:
             await page.click("button:has-text('Download Report')")
         download = await dl_info.value
         await download.save_as(os.path.join(download_dir, download.suggested_filename))
+
         await browser.close()
 ```
 
-## 注意事项
+## Tools Reference
 
-反模式与正解：
-- 硬编码等待：别 `wait_for_timeout(5000)`，改用 `wait_for_selector`/`wait_for_url`/`expect_response`/`wait_for_load_state`。
-- 无错误恢复：别写崩溃即停的线性脚本；每个交互 try/except + 错误截图 + 指数退避重试。
-- 无视 robots.txt：抓取前解析并遵守 `Crawl-delay`，跳过禁止路径，规模化时在 UA 注明 bot 名。
-- 脚本里硬编码账密：改用环境变量、.env（加 gitignore）或密钥管理，凭据经 CLI 传入。
-- 无限速：礼貌抓取加 1-3s 随机延迟，监测 429，指数退避。
-- 选择器脆弱：避开生成式类名（`.css-1a2b3c`）和深层嵌套；优先 data 属性、语义 HTML、文本定位，先在 DevTools 验证。
-- 不清理浏览器：始终用 `try/finally` 或 async context manager 确保 `browser.close()`，防资源泄漏。
-- 生产跑有头：用环境变量切换 `headless = os.environ.get("HEADLESS", "true") == "true"`。
+| Script | Purpose | Key Flags | Output |
+|--------|---------|-----------|--------|
+| `scraping_toolkit.py` | Generate Playwright scraping script skeleton | `--url`, `--selectors`, `--paginate`, `--output` | Python script or JSON config |
+| `form_automation_builder.py` | Generate form-fill automation script from field spec | `--fields`, `--url`, `--output` | Python automation script |
+| `anti_detection_checker.py` | Audit a Playwright script for detection vectors | `--file`, `--verbose` | Risk report with score |
 
-## 互见
+All scripts are stdlib-only. Run `python3 <script> --help` for full usage.
 
-- **playwright-pro** —— 浏览器测试；E2E、断言、fixture 归它，本技能只管数据提取与流程自动化。
-- **api-test-suite-builder** —— 站点有公开 API 时直接打 API，更快更稳更隐蔽。
-- **performance-profiler** —— 脚本慢时先定位瓶颈再上并发。
-- **env-secrets-manager** —— 鉴权流程中安全管理凭据。
+## Anti-Patterns
 
-参考文件（源仓库内）：`references/data_extraction_recipes.md`（分页/滚动/表格转 JSON/价格解析/清洗/JSON·CSV·JSONL 输出）、`references/playwright_browser_api.md`（fill/select_option/set_input_files/截图/等待/网络拦截/Shadow DOM 完整 API）、`references/anti_detection_patterns.md`（隐身栈、指纹规避、行为模拟、代理轮换、退避与限速类）。
+### Hardcoded Waits
+**Bad:** `await page.wait_for_timeout(5000)` before every action.
+**Good:** Use `wait_for_selector`, `wait_for_url`, `expect_response`, or `wait_for_load_state`. Hardcoded waits are flaky and slow.
 
----
-本条目采编自 alirezarezvani/claude-skills（MIT 许可），适配重写而非逐字翻译。
+### No Error Recovery
+**Bad:** Linear script that crashes on first failure.
+**Good:** Wrap each page interaction in try/except. Take error-state screenshots. Implement retry with exponential backoff.
+
+### Ignoring robots.txt
+**Bad:** Scraping without checking robots.txt directives.
+**Good:** Fetch and parse robots.txt before scraping. Respect `Crawl-delay`. Skip disallowed paths. Add your bot name to User-Agent if running at scale.
+
+### Storing Credentials in Scripts
+**Bad:** Hardcoding usernames and passwords in Python files.
+**Good:** Use environment variables, `.env` files (gitignored), or a secrets manager. Pass credentials via CLI arguments.
+
+### No Rate Limiting
+**Bad:** Hammering a site with 100 requests/second.
+**Good:** Add random delays between requests (1-3s for polite scraping). Monitor for 429 responses. Implement exponential backoff.
+
+### Selector Fragility
+**Bad:** Relying on auto-generated class names (`.css-1a2b3c`) or deep nesting (`div > div > div > span:nth-child(3)`).
+**Good:** Use data attributes, semantic HTML, or text-based locators. Test selectors in browser DevTools first.
+
+### Not Cleaning Up Browser Instances
+**Bad:** Launching browsers without closing them, leading to resource leaks.
+**Good:** Always use `try/finally` or async context managers to ensure `browser.close()` is called.
+
+### Running Headed in Production
+**Bad:** Using `headless=False` in production/CI.
+**Good:** Develop with headed mode for debugging, deploy with `headless=True`. Use environment variable to toggle: `headless = os.environ.get("HEADLESS", "true") == "true"`.
+
+## Cross-References
+
+- **playwright-pro** — Browser testing skill. Use for E2E tests, test assertions, test fixtures. Browser Automation is for data extraction and workflow automation, not testing.
+- **api-test-suite-builder** — When the website has a public API, hit the API directly instead of scraping the rendered page. Faster, more reliable, less detectable.
+- **performance-profiler** — If your automation scripts are slow, profile the bottlenecks before adding concurrency.
+- **env-secrets-manager** — For securely managing credentials used in authenticated automation workflows.

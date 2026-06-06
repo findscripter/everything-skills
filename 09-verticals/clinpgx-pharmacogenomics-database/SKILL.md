@@ -1,14 +1,14 @@
 ---
 name: clinpgx-pharmacogenomics-database
-title: ClinPGx 药物基因组数据库
-description: 当查询药物基因组临床注释、CPIC/DPWG 用药指南、基因-药物对、FDA/EMA 药物标签或基因型→用药建议时使用；做 ClinPGx REST API（api.clinpgx.org，注释）+ CPIC PostgREST API（api.cpicpgx.org，处方建议）双主机查询，产出证据分级注释表与基因型特异性用药建议；不适用于胚系致病性（用 clinvar）、体细胞肿瘤 PGx（用 cosmic/opentargets）、药物活性数据（用 chembl）。触发词：ClinPGx、PharmGKB、CPIC、药物基因组、CYP2C19、用药指南
+title: ClinPGx (PharmGKB) Pharmacogenomics Database
+description: Query the ClinPGx (formerly PharmGKB) REST API plus the CPIC PostgREST companion API for pharmacogenomic clinical annotations, CPIC/DPWG dosing guidelines, gene-drug pairs, variant-drug associations, FDA/EMA drug labels, and PGx pathways. Two-host architecture: api.clinpgx.org for annotation records, api.cpicpgx.org for genotype→recommendation lookups. No auth. For germline pathogenicity use clinvar-database; for somatic cancer PGx use cosmic-database or opentargets-database; for drug bioactivity use chembl-database-bioactivity.
 domain: 领域/science
-triggers: [ClinPGx, PharmGKB, CPIC, 药物基因组, pharmacogenomics, CYP2C19, clopidogrel 用药建议, 基因型 用药指南, DPWG, FDA 药物标签 PGx, rsID 临床注释, clinicalAnnotation, guidelineAnnotation]
+triggers: [ClinPGx, PharmGKB, CPIC, pharmacogenomics, CYP2C19, DPWG, clinicalAnnotation, guidelineAnnotation]
 tags: [databases, genomics-bioinformatics, pharmacogenomics, rest-api, clinical]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [requests, pandas, ClinPGx REST API, CPIC PostgREST API]
+tools: []
 requires: []
 related: [ddinter-drug-interactions, drugbank-database-access, clinvar-database, gtopdb-pharmacology-database]
 combines_with: [ddinter-drug-interactions, clinvar-database]
@@ -16,194 +16,523 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# ClinPGx (PharmGKB) Pharmacogenomics Database
 
-ClinPGx（原 PharmGKB，2024 年更名）是药物基因组学（PGx）权威库，配合 CPIC 处方规则库使用。核心心法：**ClinPGx 查「已知什么」（注释/证据），CPIC 查「如何开方」（基因型→建议）**。
+## Overview
 
-适用场景：
-- 查某基因-药物对的 CPIC 基因型特异性用药建议（如 CYP2C19 + 氯吡格雷）→ 用 CPIC。
-- 查某药物或某证据等级的全部临床注释 → 用 ClinPGx `data/clinicalAnnotation`。
-- 查某药物基因的 CPIC/DPWG 指南注释 → 用 ClinPGx `data/guidelineAnnotation`（基因驱动入口）。
-- 把基因符号 / 药名 / rsID 解析为 ClinPGx PA 标识符 → 用 `data/{gene,drug,variant}`。
-- 跨记录类型自由文本检索 → 用 `POST /site/search`。
-- 查 FDA/EMA 药物标签的 PGx 注释 → 用 ClinPGx `data/label`。
+PharmGKB rebranded as **ClinPGx** in 2024 and the API moved from `api.pharmgkb.org` to `api.clinpgx.org`. The old host now returns 404/405; every example here uses the new endpoints. Two complementary APIs are used together:
 
-不该用（负边界）：
-- 胚系疾病致病性 / 临床意义（非 PGx）→ 用 clinvar-database。
-- 体细胞肿瘤药物基因组 → 用 cosmic-database 或 opentargets-database。
-- 药物生物活性 / 结合数据 → 用 chembl-database-bioactivity。
+- **ClinPGx Data API** (`api.clinpgx.org/v1`) — record-style access to genes, drugs, variants, clinical annotations, guideline annotations, drug labels, and pathways. Responses wrap data as `{"data": [...], "status": "success"}`. Filters use dotted property paths (e.g. `relatedChemicals.name=clopidogrel`, `levelOfEvidence.term=1A`).
+- **CPIC PostgREST API** (`api.cpicpgx.org/v1`) — relational lookup of genotype → drug recommendation rows. PostgREST filter syntax (`column=eq.value`, JSON `cs.{...}` for jsonb containment). Returns flat JSON arrays.
 
-## 步骤
+Use ClinPGx for *what is known* about a gene/drug/variant; use CPIC for *how to prescribe* given a phenotype. The pattern is `ClinPGx for annotations, CPIC for recommendations`.
 
-两主机架构，无需鉴权：
-- **ClinPGx Data API** `https://api.clinpgx.org/v1` — 记录式访问。响应包 `{"data":[...], "status":"success"}`，过滤用点号属性路径（如 `relatedChemicals.name=clopidogrel`、`levelOfEvidence.term=1A`）。`view=base` 为摘要，`view=max` 为完整嵌套。
-- **CPIC PostgREST API** `https://api.cpicpgx.org/v1` — 关系型查询。过滤语法 `column=eq.value`，JSONB 包含用 `cs.{...}`，返回扁平 JSON 数组。
+## When to Use
 
-依赖：`requests`、`pandas`（标准环境通常已有；pixi/conda 环境内用 `pixi run python ...`，已装则跳过安装）。
+- Retrieving CPIC genotype-specific dosing recommendations for a gene-drug pair (e.g., CYP2C19 + clopidogrel) — use CPIC
+- Looking up all pharmacogenomic clinical annotations for a drug or evidence level — use ClinPGx `data/clinicalAnnotation`
+- Finding all CPIC/DPWG guideline annotations for a pharmacogene — use ClinPGx `data/guidelineAnnotation`
+- Resolving a gene symbol, drug name, or rsID to ClinPGx PA identifiers — use `data/{gene,drug,variant}`
+- Free-text search across all ClinPGx record types (genes, drugs, variants, annotations) — use `POST /site/search`
+- Retrieving FDA/EMA pharmacogenomic drug label annotations — use ClinPGx `data/label`
+- Building precision-medicine prescribing workflows that combine annotation evidence with phenotype-specific recommendations
+- For germline disease pathogenicity (not PGx) use `clinvar-database`
+- For somatic cancer pharmacogenomics use `cosmic-database` or `opentargets-database`
+
+## Prerequisites
+
+- **Python packages**: `requests`, `pandas` — both already in standard environments
+- **Data requirements**: HGNC gene symbols, drug names (lowercase generic), dbSNP rsIDs, or PA identifiers
+- **Environment**: internet connection; no authentication required for either host
+- **Rate limits**: the ClinPGx host occasionally returns HTTP 429; insert `time.sleep(0.3–0.5)` between sequential calls. CPIC is more permissive.
+
+If you are inside a pixi/conda environment that already provides `requests` and `pandas`, skip the install — invoke scripts with `pixi run python ...`.
 
 ```bash
 pip install requests pandas
 ```
 
-注意 ClinPGx 偶发 HTTP 429，循环中插入 `time.sleep(0.3~0.5)`；CPIC 较宽松。
-
-## 指令
-
-### 模块 1：自由文本检索（不知道 PA ID 时的入口）
-
-`POST /site/search`，body 为 `{"query":"<term>"}`，一次跨药物/基因/变异/注释/指南/标签检索。
+## Quick Start
 
 ```python
 import requests
+
 CLINPGX = "https://api.clinpgx.org/v1"
-r = requests.post(f"{CLINPGX}/site/search", json={"query": "rs4149056"}, timeout=15)
+CPIC    = "https://api.cpicpgx.org/v1"
+
+# CPIC genotype → recommendation: clopidogrel + CYP2C19 Poor Metabolizer
+drug = requests.get(f"{CPIC}/drug", params={"name": "eq.clopidogrel"}).json()[0]
+recs = requests.get(f"{CPIC}/recommendation",
+                    params={"drugid": f"eq.{drug['drugid']}",
+                            "phenotypes": 'cs.{"CYP2C19":"Poor Metabolizer"}'}).json()
+print(f"clopidogrel CYP2C19=PM: {len(recs)} recommendation(s)")
+for rec in recs[:2]:
+    print(f"  [{rec['classification']}] {rec['drugrecommendation'][:80]}…")
+
+# ClinPGx side: how many CPIC guideline annotations cover CYP2C19?
+glines = requests.get(f"{CLINPGX}/data/guidelineAnnotation",
+                      params={"relatedGenes.symbol": "CYP2C19",
+                              "source": "CPIC", "view": "base"}).json()["data"]
+print(f"CYP2C19 CPIC guidelines: {len(glines)}")
+```
+
+## Core API
+
+### Module 1: Free-text site search
+
+`POST /site/search` with a JSON body `{"query": "<term>"}` is the canonical entry point when you don't know the PA ID. It searches across drugs, genes, variants, clinical annotations, guideline annotations, and labels in one shot.
+
+```python
+import requests
+
+CLINPGX = "https://api.clinpgx.org/v1"
+
+r = requests.post(f"{CLINPGX}/site/search",
+                  json={"query": "rs4149056"}, timeout=15)
 r.raise_for_status()
-data = r.json()["data"]
-print(f"总命中: {data['total']}")
-for h in data["hits"][:5]:
-    print(f"  id={h.get('id')}  name={h.get('name','')[:80]}")
+hits = r.json()["data"]["hits"]
+print(f"Total hits: {r.json()['data']['total']}")
+for h in hits[:5]:
+    print(f"  id={h.get('id')}  name={h.get('name')[:80]}")
 ```
 
-### 模块 2：基因 / 药物 / 变异记录查询
+```python
+# Broader concept search
+r = requests.post(f"{CLINPGX}/site/search",
+                  json={"query": "TPMT azathioprine"}, timeout=15)
+hits = r.json()["data"]["hits"]
+print(f"TPMT+azathioprine hits: {len(hits)}")
+for h in hits[:5]:
+    print(f"  {h.get('id'):>15}  {h.get('name','')[:80]}")
+```
 
-`/data/{type}` 接受简单属性过滤，均返回 `{"data":[...], "status":"success"}`。
+### Module 2: Gene, drug, and variant record lookup
+
+The `/data/{type}` endpoints accept simple property filters. All return `{"data": [...], "status": "success"}` — use `view=base` for summary, `view=max` for full nested objects.
 
 ```python
+import requests
+
+CLINPGX = "https://api.clinpgx.org/v1"
+
+# Gene by HGNC symbol
 gene = requests.get(f"{CLINPGX}/data/gene",
-    params={"symbol": "CYP2D6", "view": "base"}).json()["data"][0]
+                    params={"symbol": "CYP2D6", "view": "base"}).json()["data"][0]
+print(f"{gene['symbol']}  id={gene['id']}  {gene['name']}")
+
+# Drug by name (lowercase generic preferred)
 drug = requests.get(f"{CLINPGX}/data/drug",
-    params={"name": "warfarin", "view": "base"}).json()["data"][0]   # 用小写通用名
+                    params={"name": "warfarin", "view": "base"}).json()["data"][0]
+print(f"{drug['name']}  id={drug['id']}")
+
+# Variant by rsID
 var = requests.get(f"{CLINPGX}/data/variant",
-    params={"name": "rs4149056", "view": "base"}).json()["data"][0]
-# 已知 PA ID 时直接取：
-rec = requests.get(f"{CLINPGX}/data/drug/PA449088", params={"view": "max"}).json()["data"]
+                   params={"name": "rs4149056", "view": "base"}).json()["data"][0]
+print(f"{var['name']}  id={var['id']}  significance={var.get('clinicalSignificance')}")
 ```
 
-### 模块 3：临床注释 `data/clinicalAnnotation`
+```python
+# Direct record fetch when you already have a PA ID
+r = requests.get(f"{CLINPGX}/data/drug/PA449088", params={"view": "max"}).json()
+d = r["data"]
+print(f"PA449088 → {d['name']}  (objCls={d['objCls']})")
+```
 
-关联变异（`location`）+ 药物（`relatedChemicals`）+ 证据等级（`levelOfEvidence.term`）。**仅支持两个过滤器**：`relatedChemicals.name=` 和 `levelOfEvidence.term=`。**此端点无可用的 `gene=` 过滤**（基因驱动见模块 4）。
+### Module 3: Clinical annotations
+
+`data/clinicalAnnotation` records associate a variant (`location`) with one or more drugs (`relatedChemicals`) and an evidence level (`levelOfEvidence.term`). The two supported filters are `relatedChemicals.name=` and `levelOfEvidence.term=`. There is **no working `gene=` filter on this endpoint** — see Module 4 for gene-driven access.
 
 ```python
-import pandas as pd
+import requests, pandas as pd
+
+CLINPGX = "https://api.clinpgx.org/v1"
+
+# All clinical annotations for clopidogrel
 data = requests.get(f"{CLINPGX}/data/clinicalAnnotation",
-    params={"levelOfEvidence.term": "1A", "view": "base"}).json()["data"]  # 最高证据
-print(f"Level 1A 注释: {len(data)}")
+                    params={"relatedChemicals.name": "clopidogrel",
+                            "view": "base"}).json()["data"]
+print(f"clopidogrel annotations: {len(data)}")
+
+rows = []
+for ann in data[:10]:
+    loc = ann.get("location") or {}
+    drugs = ", ".join(c.get("name", "") for c in ann.get("relatedChemicals", []))
+    rows.append({
+        "id": ann["id"],
+        "variant": loc.get("displayName"),
+        "gene": (loc.get("genes") or [{}])[0].get("symbol"),
+        "drug": drugs,
+        "level": (ann.get("levelOfEvidence") or {}).get("term"),
+        "score": ann.get("score"),
+    })
+print(pd.DataFrame(rows).to_string(index=False))
+```
+
+```python
+# All Level 1A clinical annotations (highest evidence)
+data = requests.get(f"{CLINPGX}/data/clinicalAnnotation",
+                    params={"levelOfEvidence.term": "1A",
+                            "view": "base"}).json()["data"]
+print(f"Level 1A annotations: {len(data)}")
+
+drug_to_count = {}
+for ann in data:
+    for c in ann.get("relatedChemicals") or []:
+        drug_to_count[c["name"]] = drug_to_count.get(c["name"], 0) + 1
+top = sorted(drug_to_count.items(), key=lambda x: -x[1])[:10]
+for d, n in top:
+    print(f"  {n:3}  {d}")
+```
+
+### Module 4: Guideline annotations (gene-driven access)
+
+`data/guidelineAnnotation` supports both `relatedGenes.symbol=` and `relatedChemicals.name=`, plus `source=` (`CPIC`, `DPWG`, `CPNDS`, `RNPGx`). This is the canonical way to get gene→guideline coverage.
+
+```python
+import requests
+
+CLINPGX = "https://api.clinpgx.org/v1"
+
+# All CPIC guidelines mentioning CYP2C19
+data = requests.get(f"{CLINPGX}/data/guidelineAnnotation",
+                    params={"relatedGenes.symbol": "CYP2C19",
+                            "source": "CPIC",
+                            "view": "base"}).json()["data"]
+print(f"CYP2C19 CPIC guidelines: {len(data)}")
+for g in data[:5]:
+    print(f"  PA{g['id']}: {g['name'][:80]}")
+```
+
+```python
+# Guidelines for a specific drug across all bodies (CPIC, DPWG, …)
+data = requests.get(f"{CLINPGX}/data/guidelineAnnotation",
+                    params={"relatedChemicals.name": "clopidogrel",
+                            "view": "base"}).json()["data"]
+by_source = {}
+for g in data:
+    for s in (g.get("crossReferences") or []):
+        by_source.setdefault(s.get("resource", "?"), 0)
+        by_source[s["resource"]] = by_source.get(s["resource"], 0) + 1
+print(f"clopidogrel guidelines: {len(data)} ({list({g.get('source') for g in data})})")
+```
+
+### Module 5: Regulatory drug labels (FDA / EMA)
+
+`data/label` records are PharmGKB-curated annotations of FDA/EMA pharmacogenomic labeling. Filter by `relatedChemicals.name=` and `source=` (`FDA`, `EMA`, `HCSC`, `PMDA`, `Swissmedic`).
+
+```python
+import requests, pandas as pd
+
+CLINPGX = "https://api.clinpgx.org/v1"
+
+data = requests.get(f"{CLINPGX}/data/label",
+                    params={"relatedChemicals.name": "warfarin",
+                            "source": "FDA",
+                            "view": "base"}).json()["data"]
+print(f"warfarin FDA labels: {len(data)}")
+
+rows = [{
+    "name": d["name"][:60],
+    "biomarker_status": d.get("biomarkerStatus"),
+    "testing_required": d.get("testingRequired"),
+    "alternate_drug": d.get("alternateDrugAvailable"),
+} for d in data]
+print(pd.DataFrame(rows).to_string(index=False))
+```
+
+### Module 6: CPIC genotype → recommendation chain
+
+CPIC's PostgREST API uses `column=eq.value` for equality and `column=cs.{...}` for JSONB containment. The standard lookup chain is `drug → drugid → recommendation`, optionally filtered by phenotype.
+
+```python
+import requests
+
+CPIC = "https://api.cpicpgx.org/v1"
+
+# Resolve drug name to drugid (RxNorm-prefixed)
+drug = requests.get(f"{CPIC}/drug",
+                    params={"name": "eq.clopidogrel"}).json()[0]
+print(f"clopidogrel drugid: {drug['drugid']}")
+
+# All phenotype-specific recommendations for clopidogrel
+recs = requests.get(f"{CPIC}/recommendation",
+                    params={"drugid": f"eq.{drug['drugid']}"}).json()
+print(f"Total recommendations: {len(recs)}")
+for rec in recs[:3]:
+    print(f"  {rec['phenotypes']}  [{rec['classification']}]")
+    print(f"    {rec['drugrecommendation'][:90]}…")
+```
+
+```python
+# Phenotype filter via jsonb containment (cs.{...})
+# The phenotypes column is a jsonb dict; cs. checks that the query is a subset.
+recs = requests.get(f"{CPIC}/recommendation",
+                    params={"drugid": f"eq.{drug['drugid']}",
+                            "phenotypes": 'cs.{"CYP2C19":"Poor Metabolizer"}'}
+                    ).json()
+for rec in recs:
+    print(f"  [{rec['classification']}] {rec['drugrecommendation'][:90]}…")
+
+# Gene-driven: list every drug with a CPIC pair for CYP2C19
+pairs = requests.get(f"{CPIC}/pair",
+                     params={"genesymbol": "eq.CYP2C19"}).json()
+print(f"\nCYP2C19 CPIC pairs: {len(pairs)}")
+drug_ids = sorted({p["drugid"] for p in pairs})
+print(f"Sample drug IDs: {drug_ids[:5]}")
+```
+
+## Key Concepts
+
+### Two-host architecture
+
+| Question                                        | Use                                 | Why                                                                              |
+| ----------------------------------------------- | ----------------------------------- | -------------------------------------------------------------------------------- |
+| What clinical annotations exist for this drug?  | ClinPGx `data/clinicalAnnotation`   | Annotation-level evidence with curated levelOfEvidence.term                      |
+| What CPIC guidelines cover this gene?           | ClinPGx `data/guidelineAnnotation`  | Filter by `relatedGenes.symbol`; no working `gene=` filter on clinicalAnnotation |
+| Given phenotype X, what should I prescribe?     | CPIC `recommendation` + `phenotypes`| Structured genotype→action rows; CPIC is the prescribing-rule oracle             |
+| What FDA labels mention this drug + gene?       | ClinPGx `data/label?source=FDA`     | Curated regulatory PGx labeling                                                  |
+| Free-text "anything about X"                    | ClinPGx `POST /site/search`         | Cross-record-type fan-out                                                        |
+
+### PharmGKB / ClinPGx evidence levels
+
+Levels 1A → 4 in decreasing evidence quality:
+- **1A** — Annotation of a variant–drug pair in a clinical guideline or FDA label (strongest)
+- **1B** — Significant association replicated in multiple studies
+- **2A** — Variant in a known PGx gene, significant association
+- **2B** — Moderate evidence, often single study
+- **3** — Limited evidence (single study or unreplicated)
+- **4** — Case reports / biological plausibility only
+
+Filter via `levelOfEvidence.term` on `data/clinicalAnnotation`. The term is a *string*, not an enum (`"1A"` not `1A`).
+
+### ClinPGx response envelope and view modes
+
+Every ClinPGx `/data/...` response is `{"data": [...] | {...}, "status": "success" | "fail"}`. On failure the body is `{"status": "fail", "data": {"errors": [{"message": "..."}]}}` — always read both keys.
+
+- `view=base` (default) — flat summary record; recommended for bulk filters
+- `view=max` — full nested objects (relatedDiseases, allelePhenotypes, scoreDetails, …). Larger payload, slower; use only for single-record details.
+
+## Common Workflows
+
+### Workflow 1: Pharmacogene panel CPIC coverage
+
+**Goal:** Given a patient's pharmacogene panel, count how many CPIC guideline annotations cover each gene.
+
+```python
+import requests, pandas as pd, time
+
+CLINPGX = "https://api.clinpgx.org/v1"
+pharmacogenes = ["CYP2D6", "CYP2C19", "CYP2C9", "DPYD", "TPMT", "SLCO1B1"]
+
+rows = []
+for g in pharmacogenes:
+    data = requests.get(f"{CLINPGX}/data/guidelineAnnotation",
+                        params={"relatedGenes.symbol": g,
+                                "source": "CPIC", "view": "base"},
+                        timeout=20).json()["data"]
+    drugs = sorted({c["name"] for guideline in data
+                                for c in (guideline.get("relatedChemicals") or [])})
+    rows.append({"gene": g, "cpic_guidelines": len(data),
+                 "n_drugs": len(drugs), "sample": ", ".join(drugs[:3])})
+    time.sleep(0.3)
+
+df = pd.DataFrame(rows).sort_values("cpic_guidelines", ascending=False)
+print(df.to_string(index=False))
+df.to_csv("pharmacogene_cpic_coverage.csv", index=False)
+```
+
+### Workflow 2: Drug panel — CPIC prescribing rule lookup
+
+**Goal:** Given a prescribed drug list, identify which have CPIC genotype-specific recommendations and surface the rule rows.
+
+```python
+import requests, pandas as pd, time
+
+CPIC = "https://api.cpicpgx.org/v1"
+drugs = ["warfarin", "clopidogrel", "codeine", "simvastatin",
+         "metoprolol", "omeprazole", "azathioprine", "tacrolimus"]
+
+rows = []
+for name in drugs:
+    drug = requests.get(f"{CPIC}/drug", params={"name": f"eq.{name}"}, timeout=15).json()
+    if not drug:
+        rows.append({"drug": name, "in_cpic": False, "n_recs": 0, "phenotypes": ""}); continue
+    did = drug[0]["drugid"]
+    recs = requests.get(f"{CPIC}/recommendation",
+                        params={"drugid": f"eq.{did}"}, timeout=15).json()
+    phens = sorted({f"{k}={v}" for rec in recs
+                                  for k, v in (rec.get("phenotypes") or {}).items()})
+    rows.append({"drug": name, "in_cpic": True, "n_recs": len(recs),
+                 "phenotypes": "; ".join(phens[:3])})
+    time.sleep(0.3)
+
+df = pd.DataFrame(rows).sort_values(["in_cpic", "n_recs"], ascending=[False, False])
+print(df.to_string(index=False))
+```
+
+### Workflow 3: Variant → drug interactions (rsID-driven)
+
+**Goal:** Starting from a single rsID (e.g., SLCO1B1 *5 = rs4149056), find every clinical annotation that involves it.
+
+The Data API does **not** accept rsID as a filter property. Use `POST /site/search` to discover related annotation IDs, then fetch each by ID.
+
+```python
+import requests
+
+CLINPGX = "https://api.clinpgx.org/v1"
+rsid = "rs4149056"
+
+hits = requests.post(f"{CLINPGX}/site/search",
+                     json={"query": rsid}, timeout=15).json()["data"]["hits"]
+print(f"{rsid}: {len(hits)} hits")
+
+# Filter hits that look like clinical annotations
+ann_hits = [h for h in hits if h.get("name", "").lower().startswith("clinical annotation")]
+print(f"Clinical-annotation hits: {len(ann_hits)}")
+for h in ann_hits[:5]:
+    print(f"  id={h['id']}  {h['name'][:90]}")
+
+# Dereference one annotation by ID for full detail
+if ann_hits:
+    ann = requests.get(f"{CLINPGX}/data/clinicalAnnotation/{ann_hits[0]['id']}",
+                       params={"view": "max"}, timeout=15).json()["data"]
+    drugs = ", ".join(c["name"] for c in (ann.get("relatedChemicals") or []))
+    print(f"\nFirst annotation:")
+    print(f"  drugs: {drugs}")
+    print(f"  level: {(ann.get('levelOfEvidence') or {}).get('term')}")
+```
+
+## Key Parameters
+
+| Parameter                   | Module / Endpoint                              | Default | Range / Options                                          | Effect                                                                  |
+| --------------------------- | ---------------------------------------------- | ------- | -------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `view`                      | all `/data/...`                                | `base`  | `base`, `min`, `max`                                     | Field detail level; `max` includes all nested arrays (slow but complete) |
+| `relatedChemicals.name`     | `clinicalAnnotation`, `variantAnnotation`, `guidelineAnnotation`, `label`, `pathway` | — | lowercase generic drug name                              | Filter records related to a drug                                        |
+| `relatedGenes.symbol`       | `guidelineAnnotation`, `pathway`               | —       | HGNC gene symbol                                         | Filter records related to a gene (not available on `clinicalAnnotation`) |
+| `levelOfEvidence.term`      | `clinicalAnnotation`                           | —       | `"1A"`, `"1B"`, `"2A"`, `"2B"`, `"3"`, `"4"`             | Minimum evidence level                                                  |
+| `source`                    | `guidelineAnnotation`, `label`                 | —       | `CPIC`, `DPWG`, `FDA`, `EMA`, `HCSC`, `PMDA`, `Swissmedic` | Issuing body                                                            |
+| `symbol`                    | `data/gene`                                    | —       | HGNC gene symbol                                         | Gene record lookup                                                      |
+| `name`                      | `data/drug`, `data/variant`                    | —       | drug name or rsID                                        | Record lookup by canonical name                                         |
+| CPIC `column=eq.value`      | all `api.cpicpgx.org/v1/...`                   | —       | PostgREST equality                                       | Filter by exact match                                                   |
+| CPIC `phenotypes=cs.{json}` | `recommendation`                               | —       | JSON-encoded jsonb subset                                | Filter by phenotype containment (must URL-encode if special chars)      |
+
+## Best Practices
+
+1. **Resolve PA identifiers once.** Never hand-construct ClinPGx PA IDs. Call `data/{type}?{symbol|name}=...` (or `site/search`) once and cache the returned `id` for reuse — `gene/PA128` for CYP2D6, `drug/PA449088` for clopidogrel, `variant/PA166154579` for rs4149056.
+
+2. **Pick the right host for the question.** Use ClinPGx for `what is annotated` and CPIC for `what to prescribe`. Trying to derive genotype-specific recommendations from ClinPGx alone misses the structured `recommendation.phenotypes` rows.
+
+3. **Filter by evidence level upfront** when building clinical workflows. `levelOfEvidence.term=1A` returns 312 actionable annotations across all of ClinPGx; Level 3/4 records are exploratory and shouldn't drive prescribing.
+
+4. **Don't filter `clinicalAnnotation` by gene — filter by `guidelineAnnotation`** with `relatedGenes.symbol`. The `clinicalAnnotation` endpoint has no working gene property and returns HTTP 400 for any attempt.
+
+5. **Use `view=base` for bulk filters, `view=max` for single-record drill-downs.** A list query with `view=max` can time out or hit 429; the difference is roughly 5–10× payload size.
+
+6. **Throttle the ClinPGx host.** Insert `time.sleep(0.3)` between sequential queries in loops; the API returns occasional HTTP 429s on tight loops. CPIC tolerates faster iteration.
+
+7. **URL-encode `cs.{...}` jsonb filters** when phenotype values contain spaces or special characters. `requests.get(..., params={"phenotypes": 'cs.{"CYP2C19":"Poor Metabolizer"}'})` works because `requests` does the encoding; a manual URL string needs `urllib.parse.quote`.
+
+## Common Recipes
+
+### Recipe 1 — Free-text discovery via site/search
+
+When to use: you have an arbitrary string (rsID, drug name, gene, allele) and want to find related ClinPGx records without knowing which endpoint to hit.
+
+```python
+import requests
+r = requests.post("https://api.clinpgx.org/v1/site/search",
+                  json={"query": "VKORC1 warfarin"}, timeout=15)
+hits = r.json()["data"]["hits"]
+for h in hits[:10]:
+    print(f"  {h.get('id'):>15}  {h.get('name','')[:80]}")
+```
+
+### Recipe 2 — Top drugs by Level 1A annotation count
+
+When to use: build a leaderboard of the most actionable PGx drugs.
+
+```python
+import requests, pandas as pd
+data = requests.get("https://api.clinpgx.org/v1/data/clinicalAnnotation",
+                    params={"levelOfEvidence.term": "1A", "view": "base"},
+                    timeout=30).json()["data"]
 counts = {}
 for ann in data:
     for c in ann.get("relatedChemicals") or []:
         counts[c["name"]] = counts.get(c["name"], 0) + 1
-print(pd.DataFrame(sorted(counts.items(), key=lambda x:-x[1])[:10],
-                   columns=["drug","n_1A"]).to_string(index=False))
+df = pd.DataFrame(sorted(counts.items(), key=lambda x: -x[1]),
+                  columns=["drug", "n_1A_annotations"]).head(15)
+print(df.to_string(index=False))
 ```
 
-### 模块 4：指南注释 `data/guidelineAnnotation`（基因驱动入口）
+### Recipe 3 — Patient genotype → drug recommendations
 
-同时支持 `relatedGenes.symbol=` 和 `relatedChemicals.name=`，加 `source=`（`CPIC`/`DPWG`/`CPNDS`/`RNPGx`）。这是获取「基因→指南覆盖」的规范方式。
-
-```python
-data = requests.get(f"{CLINPGX}/data/guidelineAnnotation",
-    params={"relatedGenes.symbol": "CYP2C19", "source": "CPIC", "view": "base"}
-    ).json()["data"]
-print(f"CYP2C19 CPIC 指南: {len(data)}")
-```
-
-### 模块 5：监管药物标签 `data/label`（FDA/EMA）
-
-PharmGKB 策展的 FDA/EMA PGx 标签注释。过滤 `relatedChemicals.name=` 与 `source=`（`FDA`/`EMA`/`HCSC`/`PMDA`/`Swissmedic`）。
+When to use: given a phenotype call from a PGx test, surface every CPIC recommendation row.
 
 ```python
-data = requests.get(f"{CLINPGX}/data/label",
-    params={"relatedChemicals.name": "warfarin", "source": "FDA", "view": "base"}
-    ).json()["data"]
-for d in data:
-    print(d["name"][:60], d.get("biomarkerStatus"), d.get("testingRequired"))
-```
-
-### 模块 6：CPIC 基因型→用药建议链
-
-PostgREST：等值 `column=eq.value`，JSONB 包含 `column=cs.{...}`。标准链 `drug → drugid → recommendation`，可按表型过滤。
-
-```python
-import json
+import requests
 CPIC = "https://api.cpicpgx.org/v1"
-drug = requests.get(f"{CPIC}/drug", params={"name": "eq.clopidogrel"}).json()[0]
+
 genotype = {"CYP2C19": "Poor Metabolizer"}
+drug = "clopidogrel"
+
+did = requests.get(f"{CPIC}/drug", params={"name": f"eq.{drug}"}).json()[0]["drugid"]
+import json
 recs = requests.get(f"{CPIC}/recommendation",
-    params={"drugid": f"eq.{drug['drugid']}",
-            "phenotypes": f"cs.{json.dumps(genotype)}"}).json()  # requests 自动 URL 编码
+                    params={"drugid": f"eq.{did}",
+                            "phenotypes": f"cs.{json.dumps(genotype)}"}).json()
 for rec in recs:
-    print(f"[{rec['classification']}] {rec['drugrecommendation'][:90]}")
-# 基因驱动：列出 CYP2C19 的全部 CPIC 配对
-pairs = requests.get(f"{CPIC}/pair", params={"genesymbol": "eq.CYP2C19"}).json()
+    print(f"[{rec['classification']}] {rec['drugrecommendation']}")
+    print(f"  implications: {rec['implications']}")
 ```
 
-## 示例
+### Recipe 4 — Robust session with retry
 
-### 工作流 A：药物基因 panel 的 CPIC 覆盖统计
-
-```python
-import requests, pandas as pd, time
-CLINPGX = "https://api.clinpgx.org/v1"
-genes = ["CYP2D6", "CYP2C19", "CYP2C9", "DPYD", "TPMT", "SLCO1B1"]
-rows = []
-for g in genes:
-    data = requests.get(f"{CLINPGX}/data/guidelineAnnotation",
-        params={"relatedGenes.symbol": g, "source": "CPIC", "view": "base"},
-        timeout=20).json()["data"]
-    drugs = sorted({c["name"] for gl in data for c in (gl.get("relatedChemicals") or [])})
-    rows.append({"gene": g, "cpic_guidelines": len(data), "n_drugs": len(drugs)})
-    time.sleep(0.3)
-print(pd.DataFrame(rows).sort_values("cpic_guidelines", ascending=False).to_string(index=False))
-```
-
-### 工作流 B：rsID → 临床注释（变异驱动）
-
-Data API **不接受 rsID 作为过滤属性**。先用 `site/search` 发现注释 ID，再逐个按 ID 取详情。
-
-```python
-rsid = "rs4149056"
-hits = requests.post(f"{CLINPGX}/site/search", json={"query": rsid}, timeout=15
-    ).json()["data"]["hits"]
-ann_hits = [h for h in hits if h.get("name","").lower().startswith("clinical annotation")]
-if ann_hits:
-    ann = requests.get(f"{CLINPGX}/data/clinicalAnnotation/{ann_hits[0]['id']}",
-        params={"view": "max"}, timeout=15).json()["data"]
-    print(", ".join(c["name"] for c in (ann.get("relatedChemicals") or [])))
-    print((ann.get("levelOfEvidence") or {}).get("term"))
-```
-
-### 健壮会话（长循环用重试）
+When to use: long-running loops over many genes / drugs / variants.
 
 ```python
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+
 s = requests.Session()
-s.mount("https://", HTTPAdapter(max_retries=Retry(total=4, backoff_factor=1.0,
-    status_forcelist=[429,500,502,503,504], allowed_methods=["GET","POST"])))
+s.headers.update({"Accept": "application/json"})
+s.mount("https://", HTTPAdapter(max_retries=Retry(
+    total=4, backoff_factor=1.0,
+    status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["GET", "POST"])))
+
+r = s.get("https://api.clinpgx.org/v1/data/gene",
+          params={"symbol": "CYP2D6", "view": "base"}, timeout=20)
+r.raise_for_status()
+print(r.json()["data"][0]["name"])
 ```
 
-## 注意事项
+## Troubleshooting
 
-- **PA 标识符解析一次即缓存**：勿手工拼造 PA ID。调用 `data/{type}?{symbol|name}=...` 或 `site/search` 取回 `id` 复用（CYP2D6=`gene/PA128`，氯吡格雷=`drug/PA449088`，rs4149056=`variant/PA166154579`）。
-- **选对主机**：注释问题用 ClinPGx，处方问题用 CPIC。单靠 ClinPGx 无法得到结构化的 `recommendation.phenotypes` 行。
-- **证据等级**：1A→4 递减。`levelOfEvidence.term` 是**字符串**（`"1A"` 非 `1A`）。1A=指南/FDA标签级（最强），3/4 为探索性、不应驱动处方。临床工作流应前置 `levelOfEvidence.term=1A`。
-- **别对 `clinicalAnnotation` 按基因过滤**：该端点无 `gene=`/`relatedGenes.symbol=`，任何尝试返回 HTTP 400（`No such property: 'gene'`）。基因驱动改用 `guidelineAnnotation`。
-- **`view` 取舍**：批量过滤用 `base`，单记录下钻用 `max`（payload 约大 5~10 倍，列表查询配 `max` 易超时/429）。
-- **响应信封**：每个 `/data/...` 返回 `{"data":..., "status":"success|fail"}`；失败时 body 为 `{"status":"fail","data":{"errors":[{"message":"..."}]}}`，两个键都要读。
-- **`site/search` 仅接受 POST**：`GET /site/search?query=...` 返回 405。
-- **`cs.{...}` 含空格/特殊字符需 URL 编码**：经 `requests` 的 `params=` 传入会自动编码；手拼 URL 用 `urllib.parse.quote`。
-- **旧主机已死**：`api.pharmgkb.org` 返回 404/405，全部迁移到 `api.clinpgx.org`。
-- **空结果排查**：药名不匹配（品牌名 vs 通用名 / 大小写）时，改用小写通用名，或退回 `site/search` 找规范 PA ID。
+| Problem                                                                                   | Cause                                                                                              | Solution                                                                                                                            |
+| ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| HTTP 404/405 on `https://api.pharmgkb.org/v1/...`                                         | Old PharmGKB host is dead; the service rebranded to ClinPGx in 2024                                | Migrate to `https://api.clinpgx.org/v1/...`. Old `/clinicalAnnotation?gene=X` is now `data/clinicalAnnotation` with different filters. |
+| `{"status":"fail","data":{"errors":[{"message":"No such property: 'gene'"}]}}`            | `data/clinicalAnnotation` does **not** accept `gene=` or `relatedGenes.symbol=`                    | Use `data/guidelineAnnotation?relatedGenes.symbol=X` for gene-driven access, or `?relatedChemicals.name=Y` for drug-driven.        |
+| `{"status":"fail","data":{"errors":[{"message":"Missing criteria."}]}}`                   | A `data/{type}` list query has no filter and no ID                                                 | Add at least one filter (`name=`, `symbol=`, `relatedChemicals.name=`, …) or fetch by ID via `data/{type}/{paId}`.                  |
+| HTTP 405 on `GET /site/search?query=...`                                                  | `site/search` only accepts POST with a JSON body                                                   | Use `requests.post(url, json={"query": "..."})`.                                                                                    |
+| HTTP 429 mid-loop                                                                         | Hit ClinPGx rate limit                                                                             | Insert `time.sleep(0.3–0.5)` between calls; use the Retry session in Recipe 4.                                                      |
+| HTTP 400 on `https://api.cpicpgx.org/v1/recommendation?phenotypes=cs.{...}`               | The `cs.` JSON wasn't URL-encoded                                                                  | Pass via `requests` `params={"phenotypes": 'cs.{"CYP2C19":"Poor Metabolizer"}'}` (auto-encoded) or `urllib.parse.quote` manually.    |
+| Empty `data` list for an obviously-real drug                                              | Drug name mismatch (brand vs. generic; capitalization)                                             | Try lowercase generic name; fall back to `POST /site/search` to fan out and find the canonical PA ID.                              |
+| `data/variant?name=rs...` returns 1 record but `data/clinicalAnnotation?location.name=rs...` returns 404 | rsID is stored under `location.displayName`/`location.rsid`, not exposed as a filterable property | Use `site/search` to discover annotation IDs by rsID, then dereference each with `data/clinicalAnnotation/{id}`. (Workflow 3.)      |
 
-## 互见
+## Related Skills
 
-- `clinvar-database` — 变异的胚系致病性 / 临床意义（疾病导向，与本库药物反应导向互补）。
-- `opentargets-database` — 药物-靶点关联与安全信号，与 ClinPGx 药物基因靶点重叠。
-- `chembl-database-bioactivity` — ClinPGx 所注释药物的生物活性 / 结合数据。
-- `cosmic-database` — 体细胞肿瘤突变与肿瘤特异 PGx（与本库胚系 PGx 正交）。
+- `clinvar-database` — germline pathogenicity / clinical significance for variants found in PharmGKB (complementary; ClinVar is disease-focused, ClinPGx is drug-response-focused)
+- `opentargets-database` — drug-target associations and safety signals overlapping ClinPGx pharmacogene targets
+- `chembl-database-bioactivity` — bioactivity and binding data for the drugs annotated in ClinPGx
+- `cosmic-database` — somatic cancer mutations and tumor-specific PGx (orthogonal to germline PGx covered here)
 
-参考：[ClinPGx 官网](https://www.clinpgx.org/) · [ClinPGx REST API 文档](https://www.clinpgx.org/page/webResources) · [CPIC API（Swagger）](https://api.cpicpgx.org/) · [CPIC 指南](https://cpicpgx.org/guidelines/) · Relling & Klein 2011 (doi:10.1038/nrd3499) · Whirl-Carrillo et al. 2021 (doi:10.1002/cpt.2350)
+## References
 
----
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+- [ClinPGx (formerly PharmGKB) website](https://www.clinpgx.org/) — Database front end; web links match the `data/{type}/{paId}` URL shape
+- [ClinPGx REST API documentation](https://www.clinpgx.org/page/webResources) — Official endpoint reference, `data/...` and `site/search` schemas
+- [CPIC API documentation](https://api.cpicpgx.org/) — Swagger UI for the PostgREST companion API
+- [CPIC guidelines](https://cpicpgx.org/guidelines/) — Source of `recommendation` rows; canonical genotype-prescribing oracle
+- [Relling & Klein (2011) Nature Reviews Drug Discovery — PharmGKB foundational paper](https://doi.org/10.1038/nrd3499)
+- [Whirl-Carrillo et al. (2021) Clin Pharmacol Ther — PharmGKB data architecture update](https://doi.org/10.1002/cpt.2350)

@@ -1,14 +1,14 @@
 ---
 name: kotlin-coroutines-flow
-title: Kotlin 协程与 Flow
-description: 当用 Kotlin 写异步、并发或响应式数据流时使用；用结构化并发、Flow 转换、异常处理与协程测试写出无泄漏可取消的代码；不适用于非 Kotlin 异步、Rx/Reactor 框架或纯阻塞同步逻辑。触发词：协程、Flow、结构化并发
+title: Kotlin Coroutines Expert
+description: Expert patterns for Kotlin Coroutines and Flow, covering structured concurrency, error handling, and testing.
 domain: 研发/backend
-triggers: [Kotlin 协程, coroutine, Flow, 结构化并发, StateFlow, SharedFlow, suspend, CoroutineScope, runTest, 协程异常处理, 协程测试, 并发请求]
-tags: [kotlin, coroutines, flow, 并发, 异步, 结构化并发, 响应式, android, 测试]
-level: 进阶
+triggers: [coroutine, Flow, StateFlow, SharedFlow, suspend, CoroutineScope, runTest]
+tags: [kotlin, coroutines, flow, android]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Edit, Bash]
+tools: []
 requires: []
 related: [jetpack-compose-expert, swift-concurrency, go-concurrency-patterns, async-python-patterns]
 combines_with: [java-modern-pro, react-native-architecture, error-handling-patterns]
@@ -16,36 +16,30 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Kotlin Coroutines Expert
 
-适用：
-- 在 Kotlin 中实现异步操作、并发请求聚合（如同时拉取多个接口）。
-- 用 `Flow` 设计响应式数据流（搜索去抖、状态管理、事件分发）。
-- 排查协程取消、泄漏或异常传播问题。
-- 为 `suspend` 函数或 `Flow` 编写单元测试。
+## Overview
 
-不该用（负边界）：
-- 非 Kotlin 语言的异步（用各自语言方案）。
-- 已采用 RxJava/Reactor 等其它响应式框架且无意迁移时。
-- 纯同步、无并发的阻塞逻辑——引入协程只增加复杂度。
+A guide to mastering asynchronous programming with Kotlin Coroutines. Covers advanced topics like structured concurrency, `Flow` transformations, exception handling, and testing strategies.
 
-## 步骤 / 指令
+## When to Use This Skill
 
-1. 结构化并发：永远在明确的 `CoroutineScope` 内启动协程。用 `coroutineScope`（任一子任务失败则全部取消）或 `supervisorScope`（子任务相互隔离）分组并发任务，靠 `async`/`await` 聚合结果。
-2. 异常处理：顶层作用域用 `CoroutineExceptionHandler` 兜底；在 `suspend` 函数内部用 `try-catch` 做细粒度控制。关键约束——除非随即重新抛出，否则**不要捕获 `CancellationException`**，否则会破坏取消机制。
-3. 响应式流：需要保留的状态用 `StateFlow`，一次性事件用 `SharedFlow`。冷流（如搜索）用 `debounce` + `flatMapLatest` 组合，并用 `flowOn(Dispatchers.IO)` 切换上游调度器。
-4. 调度器：阻塞 I/O 一律放到 `Dispatchers.IO`。
-5. 生命周期：作用域不再需要时主动取消（如 `ViewModel.onCleared`）；杜绝 `GlobalScope`。
-6. 测试：用 `TestScope` + `runTest`，并把 `TestDispatcher` 注入被测类以控制虚拟时间。
+- Use when implementing asynchronous operations in Kotlin.
+- Use when designing reactive data streams with `Flow`.
+- Use when debugging coroutine cancellations or exceptions.
+- Use when writing unit tests for suspending functions or Flows.
 
-## 示例
+## Step-by-Step Guide
 
-并发聚合（任一失败则整体取消）：
+### 1. Structured Concurrency
+
+Always launch coroutines within a defined `CoroutineScope`. Use `coroutineScope` or `supervisorScope` to group concurrent tasks.
 
 ```kotlin
 suspend fun loadDashboardData(): DashboardData = coroutineScope {
     val userDeferred = async { userRepo.getUser() }
     val settingsDeferred = async { settingsRepo.getSettings() }
+    
     DashboardData(
         user = userDeferred.await(),
         settings = settingsDeferred.await()
@@ -53,59 +47,70 @@ suspend fun loadDashboardData(): DashboardData = coroutineScope {
 }
 ```
 
-顶层兜底 + 局部捕获：
+### 2. Exception Handling
+
+Use `CoroutineExceptionHandler` for top-level scopes, but rely on `try-catch` within suspending functions for granular control.
 
 ```kotlin
 val handler = CoroutineExceptionHandler { _, exception ->
     println("Caught $exception")
 }
+
 viewModelScope.launch(handler) {
     try {
         riskyOperation()
     } catch (e: IOException) {
-        // 专门处理网络错误
+        // Handle network error specifically
     }
 }
 ```
 
-Flow：冷流去抖搜索 + 热流状态：
+### 3. Reactive Streams with Flow
+
+Use `StateFlow` for state that needs to be retained, and `SharedFlow` for events.
 
 ```kotlin
-// 冷流（惰性）
+// Cold Flow (Lazy)
 val searchResults: Flow<List<Item>> = searchQuery
     .debounce(300)
     .flatMapLatest { query -> searchRepo.search(query) }
     .flowOn(Dispatchers.IO)
 
-// 热流（状态）
+// Hot Flow (State)
 val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 ```
 
-并行执行 + 错误隔离（`supervisorScope` 下 task2 失败不取消 task1）：
+## Examples
+
+### Example 1: Parallel Execution with Error Handling
 
 ```kotlin
 suspend fun fetchDataWithErrorHandling() = supervisorScope {
-    val task1 = async {
-        try { api.fetchA() } catch (e: Exception) { null }
+    val task1 = async { 
+        try { api.fetchA() } catch (e: Exception) { null } 
     }
     val task2 = async { api.fetchB() }
+    
+    // If task2 fails, task1 is NOT cancelled because of supervisorScope
     val result1 = task1.await()
-    val result2 = task2.await() // 可能抛异常
+    val result2 = task2.await() // May throw
 }
 ```
 
-## 注意事项
+## Best Practices
 
-- 该做：阻塞 I/O 用 `Dispatchers.IO`；及时取消无用作用域；测试用 `runTest` + `TestScope`。
-- 别做：使用 `GlobalScope`（破坏结构化并发、易泄漏）；裸捕获 `CancellationException` 而不重抛。
-- 排错：协程测试卡死或结果不稳定，通常是没用 `runTest` 或没注入 `TestDispatcher` 导致无法控制虚拟时间。
-- 边界：本技能不替代针对具体环境的验证、测试与专家评审；若缺少必要输入、权限、安全边界或验收标准，先停下来澄清。
+- ✅ **Do:** Use `Dispatchers.IO` for blocking I/O operations.
+- ✅ **Do:** Cancel scopes when they are no longer needed (e.g., `ViewModel.onCleared`).
+- ✅ **Do:** Use `TestScope` and `runTest` for unit testing coroutines.
+- ❌ **Don't:** Use `GlobalScope`. It breaks structured concurrency and can lead to leaks.
+- ❌ **Don't:** Catch `CancellationException` unless you rethrow it.
 
-## 互见
+## Troubleshooting
 
-- 研发/misc 下其它 Kotlin/JVM 异步与测试相关技能。
-- 涉及 Android `ViewModel` 生命周期与 `viewModelScope` 的技能。
+**Problem:** Coroutine test hangs or fails unpredictably.
+**Solution:** Ensure you are using `runTest` and injecting `TestDispatcher` into your classes so you can control virtual time.
 
----
-
-采编自 sickn33/antigravity-awesome-skills（MIT 许可证）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

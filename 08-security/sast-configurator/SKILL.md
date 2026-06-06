@@ -1,14 +1,14 @@
 ---
 name: sast-configurator
-title: SAST静态扫描配置
-description: 当需要为应用代码搭建自动化漏洞静态扫描（SAST）、落地 DevSecOps 或在 CI/CD 中接入安全门禁时使用；产出 Semgrep/SonarQube/CodeQL 的配置、自定义规则与流水线集成方案；不适用于运行时动态测试（DAST）、依赖组件漏洞审计（用 dependency-auditor）或纯人工代码评审；触发词：SAST、静态应用安全测试、static analysis、Semgrep、SonarQube、CodeQL、代码漏洞扫描、安全门禁、DevSecOps
+title: SAST Configuration
+description: Configure Static Application Security Testing (SAST) tools for automated vulnerability detection in application code. Use when setting up security scanning, implementing DevSecOps practices, or automating code vulnerability detection.
 domain: 安全/appsec
-triggers: [SAST, 静态应用安全测试, static analysis, Semgrep, SonarQube, CodeQL, 代码漏洞扫描, 安全门禁, DevSecOps, 自定义安全规则]
+triggers: [SAST, static analysis, Semgrep, SonarQube, CodeQL, DevSecOps]
 tags: [security, appsec, sast, semgrep, sonarqube, codeql, devsecops, ci-cd, vulnerability-scanning]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Semgrep, SonarQube, CodeQL, GitHub Actions, GitLab CI, Jenkins, Docker, pre-commit, SARIF]
+tools: []
 requires: []
 related: [codeql-scanner, semgrep-rule-creator, dependency-auditor, security-antipattern-hook]
 combines_with: [semgrep-rule-creator, ci-cd-pipeline-builder, dependency-auditor]
@@ -16,66 +16,76 @@ license: MIT
 source: wshobson/agents
 source_license: MIT
 ---
-## 何时使用
+# SAST Configuration
 
-适用于：
+Static Application Security Testing (SAST) tool setup, configuration, and custom rule creation for comprehensive security scanning across multiple programming languages.
 
-- 为应用代码搭建自动化静态漏洞扫描（SAST），在 CI/CD 流水线中接入安全门禁。
-- 编写贴合自身代码库的自定义安全规则，治理误报。
-- 落地 DevSecOps、满足合规扫描（PCI-DSS、SOC 2 等）。
-- 组合多款 SAST 工具实现纵深防御。
+## Overview
 
-不该用于（负边界）：
+This skill provides comprehensive guidance for setting up and configuring SAST tools including Semgrep, SonarQube, and CodeQL. Use this skill when you need to:
 
-- 运行时/动态安全测试（DAST、渗透测试）——SAST 只看源码不跑程序。
-- 第三方依赖与组件的已知漏洞审计——改用 `dependency-auditor`。
-- 纯人工代码评审或逻辑缺陷复查——改用 `code-reviewer`。
+- Set up SAST scanning in CI/CD pipelines
+- Create custom security rules for your codebase
+- Configure quality gates and compliance policies
+- Optimize scan performance and reduce false positives
+- Integrate multiple SAST tools for defense-in-depth
 
-工具选型速查：
+## Core Capabilities
 
-| 工具 | 擅长 | 语言 | 成本 | 集成 |
-| --- | --- | --- | --- | --- |
-| Semgrep | 自定义规则、快速扫描 | 30+ | 免费/企业版 | 极佳 |
-| SonarQube | 代码质量+安全 | 25+ | 免费/商业版 | 良好 |
-| CodeQL | 深度分析、安全研究 | 10+ | 免费(OSS) | GitHub 原生 |
+### 1. Semgrep Configuration
 
-## 步骤
+- Custom rule creation with pattern matching
+- Language-specific security rules (Python, JavaScript, Go, Java, etc.)
+- CI/CD integration (GitHub Actions, GitLab CI, Jenkins)
+- False positive tuning and rule optimization
+- Organizational policy enforcement
 
-1. 盘点代码库主力语言，明确合规要求（PCI-DSS、SOC 2 等），据此选工具。
-2. 先跑一次基线扫描，摸清现状，优先处理 critical/high 级别。
-3. 安装并最小化接入工具（见下方指令）。
-4. 编写组织专属自定义规则，治理误报、建立白名单。
-5. 接入 CI/CD 与 pre-commit，仅对 critical 问题设为阻断（blocking）。
-6. 输出 SARIF 结果，沉淀整改路线图并培训团队。
+### 2. SonarQube Setup
 
-## 指令
+- Quality gate configuration
+- Security hotspot analysis
+- Code coverage and technical debt tracking
+- Custom quality profiles for languages
+- Enterprise integration with LDAP/SAML
 
-基础安装与启动：
+### 3. CodeQL Analysis
+
+- GitHub Advanced Security integration
+- Custom query development
+- Vulnerability variant analysis
+- Security research workflows
+- SARIF result processing
+
+## Quick Start
+
+### Initial Assessment
+
+1. Identify primary programming languages in your codebase
+2. Determine compliance requirements (PCI-DSS, SOC 2, etc.)
+3. Choose SAST tool based on language support and integration needs
+4. Review baseline scan to understand current security posture
+
+### Basic Setup
 
 ```bash
-# Semgrep
+# Semgrep quick start
 pip install semgrep
 semgrep --config=auto --error
 
-# SonarQube（Docker）
+# SonarQube with Docker
 docker run -d --name sonarqube -p 9000:9000 sonarqube:10.8-community
 
-# CodeQL CLI
+# CodeQL CLI setup
 gh extension install github/gh-codeql
 codeql database create mydb --language=python
 ```
 
-合规专项扫描并导出 JSON：
+## Integration Patterns
 
-```bash
-semgrep --config p/pci-dss --json -o pci-scan-results.json
-```
-
-## 示例
-
-GitHub Actions 集成 Semgrep（采用官方规则集）：
+### CI/CD Pipeline Integration
 
 ```yaml
+# GitHub Actions example
 - name: Run Semgrep
   uses: returntocorp/semgrep-action@v1
   with:
@@ -84,9 +94,10 @@ GitHub Actions 集成 Semgrep（采用官方规则集）：
       p/owasp-top-ten
 ```
 
-pre-commit 钩子（`.pre-commit-config.yaml`）：
+### Pre-commit Hook
 
-```yaml
+```bash
+# .pre-commit-config.yaml
 - repo: https://github.com/returntocorp/semgrep
   rev: v1.45.0
   hooks:
@@ -94,9 +105,45 @@ pre-commit 钩子（`.pre-commit-config.yaml`）：
       args: ['--config=auto', '--error']
 ```
 
-自定义规则示例（禁止硬编码 JWT 密钥）：
+## Best Practices
+
+1. **Start with Baseline**
+   - Run initial scan to establish security baseline
+   - Prioritize critical and high severity findings
+   - Create remediation roadmap
+
+2. **Incremental Adoption**
+   - Begin with security-focused rules
+   - Gradually add code quality rules
+   - Implement blocking only for critical issues
+
+3. **False Positive Management**
+   - Document legitimate suppressions
+   - Create allow lists for known safe patterns
+   - Regularly review suppressed findings
+
+4. **Performance Optimization**
+   - Exclude test files and generated code
+   - Use incremental scanning for large codebases
+   - Cache scan results in CI/CD
+
+5. **Team Enablement**
+   - Provide security training for developers
+   - Create internal documentation for common patterns
+   - Establish security champions program
+
+## Common Use Cases
+
+### New Project Setup
+
+```bash
+./scripts/run-sast.sh --setup --language python --tools semgrep,sonarqube
+```
+
+### Custom Rule Development
 
 ```yaml
+# See references/semgrep-rules.md for detailed examples
 rules:
   - id: hardcoded-jwt-secret
     pattern: jwt.encode($DATA, "...", ...)
@@ -104,18 +151,55 @@ rules:
     severity: ERROR
 ```
 
-## 注意事项
+### Compliance Scanning
 
-- 先建基线再设阻断：增量采纳，安全规则先行、质量规则后补，只对 critical 阻断。
-- 误报治理：用 path 过滤排除测试文件/生成代码，给已知安全模式建白名单，对噪声模式用 `nostmt` 元数据，所有抑制都要留文档并定期复审。
-- 性能优化：排除测试与生成代码、对大仓启用增量扫描、并行化各模块、在 CI 中缓存依赖与扫描结果。
-- 集成排障：校验 API token/凭据、检查代理与网络、确认 SARIF 输出格式兼容、核对 CI runner 权限。
+```bash
+# PCI-DSS focused scan
+semgrep --config p/pci-dss --json -o pci-scan-results.json
+```
 
-## 互见
+## Troubleshooting
 
-- `dependency-auditor`：第三方依赖与组件漏洞审计（SAST 之外的另一道防线）。
-- `code-reviewer`：人工逻辑与质量评审，与自动化 SAST 互补。
+### High False Positive Rate
 
----
+- Review and tune rule sensitivity
+- Add path filters to exclude test files
+- Use nostmt metadata for noisy patterns
+- Create organization-specific rule exceptions
 
-本条采编自 wshobson/agents（MIT 许可证）。
+### Performance Issues
+
+- Enable incremental scanning
+- Parallelize scans across modules
+- Optimize rule patterns for efficiency
+- Cache dependencies and scan results
+
+### Integration Failures
+
+- Verify API tokens and credentials
+- Check network connectivity and proxy settings
+- Review SARIF output format compatibility
+- Validate CI/CD runner permissions
+
+## Related Skills
+
+- [OWASP Top 10 Checklist](../owasp-top10-checklist/SKILL.md)
+- [Container Security](../container-security/SKILL.md)
+- [Dependency Scanning](../dependency-scanning/SKILL.md)
+
+## Tool Comparison
+
+| Tool      | Best For                 | Language Support | Cost            | Integration   |
+| --------- | ------------------------ | ---------------- | --------------- | ------------- |
+| Semgrep   | Custom rules, fast scans | 30+ languages    | Free/Enterprise | Excellent     |
+| SonarQube | Code quality + security  | 25+ languages    | Free/Commercial | Good          |
+| CodeQL    | Deep analysis, research  | 10+ languages    | Free (OSS)      | GitHub native |
+
+## Next Steps
+
+1. Complete initial SAST tool setup
+2. Run baseline security scan
+3. Create custom rules for organization-specific patterns
+4. Integrate into CI/CD pipeline
+5. Establish security gate policies
+6. Train development team on findings and remediation

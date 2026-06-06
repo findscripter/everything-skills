@@ -1,14 +1,14 @@
 ---
 name: sales-call-summary
-title: 销售通话纪要提炼
-description: 当处理销售通话的原始笔记或转录稿、需产出可执行纪要时使用；做提炼讨论要点、抽取带负责人与截止日的行动项、梳理异议与竞品情报，并产出内部纪要与客户跟进邮件草稿；不适用于非销售场景的纯会议记录、实时录音转写或 CRM 自动写入（仅作建议不直接执行）；触发词：通话纪要、跟进邮件、行动项
+title: /call-summary
+description: Process call notes or a transcript — extract action items, draft follow-up email, generate internal summary. Use when pasting rough notes or a transcript after a discovery, demo, or negotiation call, drafting a customer follow-up, logging the activity for your CRM, or capturing objections and next steps for your team.
 domain: 商业/copy
-triggers: [销售通话纪要, 通话纪要提炼, 整理通话笔记, 处理转录稿, 起草跟进邮件, 提取行动项, 客户跟进, 梳理异议与竞品, discovery 通话总结, demo/谈判复盘]
-tags: [商业, 销售, 纪要, 跟进邮件, crm, 行动项]
-level: 入门
+triggers: []
+tags: [crm]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [文本理解, 邮件草稿（可选连接器）, CRM（可选连接器）, 转录平台（可选连接器）]
+tools: []
 requires: []
 related: [meeting-transcript-analyzer, deal-desk-reviewer, sales-prospecting, customer-research-synthesizer]
 combines_with: [deal-pipeline-tracker, cold-email-writer, sales-enablement]
@@ -16,136 +16,165 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# /call-summary
 
-把一段销售通话的原始素材，转成结构化内部纪要 + 客户跟进邮件草稿。典型触发：
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-- 刚开完 discovery / demo / 谈判 / 例行 check-in 通话，手里有零散笔记、流水账或完整转录稿。
-- 需要给客户发跟进邮件，确认共识与下一步。
-- 需要为团队 / CRM 记录这次活动：异议、竞品情报、行动项、下一步。
+Process call notes or a transcript to extract action items, draft follow-up communications, and update records.
 
-输入可以是三种之一：
-1. 直接粘贴笔记（要点、碎片、意识流均可，由本技能负责结构化）。
-2. 粘贴来自视频会议（Zoom、Teams）或对话智能平台（Gong、Fireflies）的完整转录稿。
-3. 口述经过，例如「和 Acme 做了 discovery，对方是 VP Eng 和 CTO，正在我们与竞品 X 之间评估，主要顾虑是集成周期」。
-
-**不该用的边界：**
-- 非销售场景的纯会议记录 / 个人备忘——这只是泛会议纪要，本技能聚焦销售语境（异议、竞品、deal 影响）。
-- 实时音视频转写——本技能不做录音转文字，请先用转录工具拿到文本。
-- CRM / 邮件的自动写入——即使连接器可用，也只「建议并征得确认」，不擅自发送或改库。
-
-## 步骤
-
-1. **识别素材类型**：判断输入是笔记、转录稿还是口述描述；信息不足时主动追问参会人、通话类型、deal 阶段。
-2. **提炼要点**：抽取关键讨论点与已做决策、客户表达的优先级。
-3. **结构化抽取**：分别归类——异议/顾虑（及当时如何回应、状态）、竞品情报、行动项（带负责人与截止日）、下一步、对 deal 的影响（阶段变化/风险/加速）。
-4. **生成内部纪要**：按下方 Markdown 模板输出，供团队与 CRM 使用。
-5. **起草客户跟进邮件**：按「邮件风格指令」用纯文本撰写，聚焦共识、承诺事项、明确的下一步与时间点。
-6. **连接器处理（如可用）**：见下方「指令」，一律先建议后执行。
-
-## 指令
-
-**内部纪要模板：**
-
-```markdown
-## 通话纪要：[公司] — [日期]
-
-**参会人：** [姓名与职务]
-**通话类型：** [Discovery / Demo / 谈判 / Check-in]
-**时长：** [若已知]
-
-### 关键讨论点
-1. [主题] — [讨论内容、达成的决策]
-2. [主题] — [小结]
-
-### 客户优先级
-- [优先级 1]
-- [优先级 2]
-
-### 提出的异议 / 顾虑
-- [顾虑] — [如何回应 / 当前状态]
-
-### 竞品情报
-- [竞品提及，对方说了什么]
-
-### 行动项
-| 负责人 | 事项 | 截止 |
-|--------|------|------|
-| [我方] | [任务] | [日期] |
-| [客户] | [任务] | [日期] |
-
-### 下一步
-- [已约定的下一步及时间线]
-
-### Deal 影响
-- [这次通话对商机的影响——阶段变化 / 风险 / 加速]
-```
-
-**邮件风格指令（撰写客户邮件时严格遵守）：**
-
-1. 简洁但信息完整——客户很忙，开门见山。
-2. 不使用任何 Markdown 语法——禁用星号、加粗等。用在任意邮件客户端都自然的纯文本。
-3. 结构从简——短段落，段落间空行分隔；除非确定客户端能渲染，否则不用标题或项目符号格式。
-4. 易扫读——列举时用普通短横线或数字，不用花哨格式。
-
-**连接器（若已连接，先建议后执行）：**
-
-- 转录平台（Gong、Fireflies 等）：可自动检索该通话、拉取完整转录稿、提取平台标记的关键时刻。
-- CRM：可建议更新商机阶段、把通话记为一条活动、为行动项创建任务、更新「下一步」字段。
-- 邮件：可建议在邮箱中创建草稿，或在你批准后直接发送。
-
-## 示例
-
-客户跟进邮件草稿框架：
+## Usage
 
 ```
-主题：[会议回顾 + 下一步]
-
-你好 [姓名]，
-
-感谢今天抽时间与我们沟通……
-
-[讨论的关键点]
-
-[我方承诺事项]
-
-[明确的下一步与时间点]
-
-此致
-[我方]
+/call-summary <notes or transcript>
 ```
 
-邮件正文「好 vs 坏」对照——
+Process these call notes: $ARGUMENTS
 
-好（纯文本、可扫读）：
-```
-我们今天讨论的内容：
-- 20 个席位的报价，$480/席位/年
-- W9 与供应商入驻文件
-- 合同对接人
-```
-
-坏（混入 Markdown 标题/加粗）：
-```
-**你需要我们提供：**
-- 20 个席位的报价，$480/席位/年
-```
-
-## 注意事项
-
-- 细节越多，产出越好——「他们似乎担心 X」这类语境也有用。
-- 务必点名参会人——便于结构化纪要并分派行动项。
-- 标出重点——若某件事很关键，明说「最大的点是……」。
-- 告知 deal 阶段——用于校准跟进邮件的语气与下一步。
-- 行动项必须带负责人和截止日；缺失时追问，不要凭空编造日期。
-- 涉及不熟悉的占位符或不确定连接了哪些工具时，参考源插件的 CONNECTORS.md。
-
-## 互见
-
-- 泛用会议纪要整理：`lark-workflow-meeting-summary`
-- 跟进邮件落地发送：`lark-mail`
-- 行动项转任务：`lark-task`
+If a file is referenced: @$1
 
 ---
 
-采编自 anthropics/knowledge-work-plugins（sales/call-summary，Apache-2.0）。
+## How It Works
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      CALL SUMMARY                                │
+├─────────────────────────────────────────────────────────────────┤
+│  STANDALONE (always works)                                       │
+│  ✓ Paste call notes or transcript                               │
+│  ✓ Extract key discussion points and decisions                  │
+│  ✓ Identify action items with owners and due dates              │
+│  ✓ Surface objections, concerns, and open questions             │
+│  ✓ Draft customer-facing follow-up email                        │
+│  ✓ Generate internal summary for your team                      │
+├─────────────────────────────────────────────────────────────────┤
+│  SUPERCHARGED (when you connect your tools)                      │
+│  + Transcripts: Pull recording automatically (e.g. Gong, Fireflies) │
+│  + CRM: Update opportunity, log activity, create tasks          │
+│  + Email: Send follow-up directly from draft                    │
+│  + Calendar: Link to meeting, pull attendee context             │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## What I Need From You
+
+**Option 1: Paste your notes**
+Just paste whatever you have — bullet points, rough notes, stream of consciousness. I'll structure it.
+
+**Option 2: Paste a transcript**
+If you have a full transcript from your video conferencing tool (e.g. Zoom, Teams) or conversation intelligence tool (e.g. Gong, Fireflies), paste it. I'll extract the key moments.
+
+**Option 3: Describe the call**
+Tell me what happened: "Had a discovery call with Acme Corp. Met with their VP Eng and CTO. They're evaluating us vs Competitor X. Main concern is integration timeline."
+
+---
+
+## Output
+
+### Internal Summary
+```markdown
+## Call Summary: [Company] — [Date]
+
+**Attendees:** [Names and titles]
+**Call Type:** [Discovery / Demo / Negotiation / Check-in]
+**Duration:** [If known]
+
+### Key Discussion Points
+1. [Topic] — [What was discussed, decisions made]
+2. [Topic] — [Summary]
+
+### Customer Priorities
+- [Priority 1 they expressed]
+- [Priority 2]
+
+### Objections / Concerns Raised
+- [Concern] — [How you addressed it / status]
+
+### Competitive Intel
+- [Any competitor mentions, what was said]
+
+### Action Items
+| Owner | Action | Due |
+|-------|--------|-----|
+| [You] | [Task] | [Date] |
+| [Customer] | [Task] | [Date] |
+
+### Next Steps
+- [Agreed next step with timeline]
+
+### Deal Impact
+- [How this call affects the opportunity — stage change, risk, acceleration]
+```
+
+### Customer Follow-Up Email
+```
+Subject: [Meeting recap + next steps]
+
+Hi [Name],
+
+Thank you for taking the time to meet today...
+
+[Key points discussed]
+
+[Commitments you made]
+
+[Clear next step with timeline]
+
+Best,
+[You]
+```
+
+---
+
+## Email Style Guidelines
+
+When drafting customer-facing emails:
+
+1. **Be concise but informative** — Get to the point quickly. Customers are busy.
+2. **No markdown formatting** — Don't use asterisks, bold, or other markdown syntax. Write in plain text that looks natural in any email client.
+3. **Use simple structure** — Short paragraphs, line breaks between sections. No headers or bullet formatting unless the customer's email client will render it.
+4. **Keep it scannable** — If listing items, use plain dashes or numbers, not fancy formatting.
+
+**Good:**
+```
+Here's what we discussed:
+- Quote for 20 seats at $480/seat/year
+- W9 and supplier onboarding docs
+- Point of contact for the contract
+```
+
+**Bad:**
+```
+**What You Need from Us:**
+- Quote for 20 seats at $480/seat/year
+```
+
+---
+
+## If Connectors Available
+
+**Transcripts connected (e.g. Gong, Fireflies):**
+- I'll search for the call automatically
+- Pull the full transcript
+- Extract key moments flagged by the platform
+
+**CRM connected:**
+- I'll offer to update the opportunity stage
+- Log the call as an activity
+- Create tasks for action items
+- Update next steps field
+
+**Email connected:**
+- I'll offer to create a draft in ~~email
+- Or send directly if you approve
+
+---
+
+## Tips
+
+1. **More detail = better output** — Even rough notes help. "They seemed concerned about X" is useful context.
+2. **Name the attendees** — Helps me structure the summary and assign action items.
+3. **Flag what matters** — If something was important, tell me: "The big thing was..."
+4. **Tell me the deal stage** — Helps me tailor the follow-up tone and next steps.

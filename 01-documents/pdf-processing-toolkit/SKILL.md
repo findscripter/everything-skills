@@ -1,14 +1,14 @@
 ---
 name: pdf-processing-toolkit
-title: PDF 处理工具箱
-description: 当需要合并/拆分/旋转 PDF、提取文本与表格、生成新 PDF、加水印/加密、对扫描件 OCR 时使用；做用 pypdf/pdfplumber/reportlab 等库与 qpdf/pdftotext 等命令完成批量 PDF 处理并产出文件或结构化数据；不适用于填写 PDF 表单字段（用 pdf-form-filler）。触发词：PDF、合并PDF、提取表格、PDF转文本、OCR、加水印
+title: PDF Processing Toolkit
+description: Use to merge/split/rotate PDFs, extract text and tables, generate new PDFs, watermark/encrypt, and OCR scanned documents with pypdf/pdfplumber/reportlab plus qpdf/pdftotext; not for filling AcroForm/XFA form fields (use pdf-form-filler). Triggers: PDF, merge PDF, extract tables, 
 domain: 文书/office
-triggers: [合并PDF, 拆分PDF, PDF提取文本, PDF提取表格, 生成PDF, PDF加水印, PDF加密, 扫描件OCR, 旋转PDF页面, pdfplumber, qpdf, reportlab]
+triggers: [merge PDF, split PDF, extract text from PDF, extract tables from PDF, create PDF, watermark PDF, encrypt PDF, OCR scanned PDF, rotate PDF pages, pdfplumber, qpdf, reportlab]
 tags: [pdf, documents, pypdf, pdfplumber, reportlab, qpdf, ocr]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, pypdf, pdfplumber, reportlab, qpdf, poppler-utils, pytesseract]
+tools: []
 requires: []
 related: [pdf-form-filler, markdown-to-docx, pptx-document-processing, professional-proofreader]
 combines_with: [pdf-form-filler, citation-management]
@@ -16,46 +16,59 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适用：
+Use this skill for essential PDF processing with Python libraries and command-line tools:
 
-- 合并多份 PDF、拆分为单页、旋转页面、重排页。
-- 提取正文文本（含保留版面）、抽取表格导出为 DataFrame/Excel。
-- 从零生成 PDF（文本、表格、多页报告）。
-- 加水印、设密码加密、解密去密码、抽取内嵌图片。
-- 扫描件/纯图 PDF 走 OCR 转可检索文本。
+- Merge several PDFs, split into single pages, rotate pages, reorder pages.
+- Extract body text (optionally preserving layout) and extract tables into a DataFrame/Excel.
+- Create PDFs from scratch (text, tables, multi-page reports).
+- Add watermarks, password-protect (encrypt), remove passwords (decrypt), extract embedded images.
+- OCR scanned / image-only PDFs into searchable text.
 
-不该用的边界：
+Out of scope:
 
-- 填写已有 AcroForm/XFA 表单字段（勾选框、文本框、下拉）→ 用 `pdf-form-filler`，本技能不覆盖表单字段写入。
-- 需要像素级版式还原的复杂排版生成（杂志/手册）→ reportlab 适合结构化文档，重设计稿应改用专业排版工具。
-- 纯文本/Markdown 落地为 Word/PPT → 用 `markdown-to-docx` 等排版技能。
+- Filling existing AcroForm/XFA form fields (checkboxes, text fields, dropdowns) -> use `pdf-form-filler`. This skill does not write form-field values.
+- Pixel-perfect, design-heavy layout generation (magazines/brochures) -> reportlab suits structured documents; use a dedicated DTP tool for heavy design work.
+- Turning plain text/Markdown into Word/PPT -> use formatting skills such as `markdown-to-docx`.
 
-## 步骤 / 指令
+## Steps
 
-1. 先判类型：可选文本 PDF 还是扫描件？`pdftotext input.pdf -` 若几乎无文本则视为扫描件，转 OCR 流程。
-2. 选工具：拆分/合并/旋转/加密 → `pypdf` 或命令行 `qpdf`；提取文本/表格 → `pdfplumber`；生成 → `reportlab`；OCR → `pdf2image`+`pytesseract`。简单批处理优先命令行（更快、无需写脚本）。
-3. 执行操作（见示例），始终输出到新文件，不覆盖源 PDF。
-4. 校验：处理后复读页数/关键文本，表格抽取后检查行列对齐与表头。
-5. 加密/解密前确认有权限处理该文档。
+1. Classify the input: is it a selectable-text PDF or a scan? Run `pdftotext input.pdf -`; if almost no text comes back, treat it as a scan and go to the OCR flow.
+2. Pick the tool: split/merge/rotate/encrypt -> `pypdf` or CLI `qpdf`; extract text/tables -> `pdfplumber`; generate -> `reportlab`; OCR -> `pdf2image` + `pytesseract`. For simple batch jobs prefer the CLI (faster, no script needed).
+3. Run the operation (see Example). Always write to a new file; never overwrite the source PDF.
+4. Validate: re-read page count / key text after processing; after table extraction check row/column alignment and headers.
+5. Before encrypting/decrypting, confirm you are authorized to process the document.
 
-## 示例
+## Example
 
-合并 / 拆分（pypdf）：
+Quick start (pypdf):
 
 ```python
 from pypdf import PdfReader, PdfWriter
 
-# 合并
+reader = PdfReader("document.pdf")
+print(f"Pages: {len(reader.pages)}")
+
+text = ""
+for page in reader.pages:
+    text += page.extract_text()
+```
+
+Merge / split (pypdf):
+
+```python
+from pypdf import PdfReader, PdfWriter
+
+# Merge
 writer = PdfWriter()
-for f in ["doc1.pdf", "doc2.pdf"]:
+for f in ["doc1.pdf", "doc2.pdf", "doc3.pdf"]:
     for page in PdfReader(f).pages:
         writer.add_page(page)
 with open("merged.pdf", "wb") as out:
     writer.write(out)
 
-# 拆分为单页
+# Split into one file per page
 reader = PdfReader("input.pdf")
 for i, page in enumerate(reader.pages):
     w = PdfWriter(); w.add_page(page)
@@ -63,14 +76,17 @@ for i, page in enumerate(reader.pages):
         w.write(out)
 ```
 
-旋转 / 加密（pypdf）：
+Rotate / encrypt / metadata (pypdf):
 
 ```python
-page = reader.pages[0]; page.rotate(90)   # 顺时针 90°
-writer.encrypt("userpwd", "ownerpwd")     # 设密码
+page = reader.pages[0]; page.rotate(90)   # 90 degrees clockwise
+writer.encrypt("userpassword", "ownerpassword")  # password-protect
+
+meta = reader.metadata
+print(meta.title, meta.author, meta.subject, meta.creator)
 ```
 
-提取表格 → Excel（pdfplumber）：
+Extract tables -> Excel (pdfplumber):
 
 ```python
 import pdfplumber, pandas as pd
@@ -78,75 +94,94 @@ dfs = []
 with pdfplumber.open("document.pdf") as pdf:
     for page in pdf.pages:
         for t in page.extract_tables():
-            if t:
+            if t:  # skip empty tables
                 dfs.append(pd.DataFrame(t[1:], columns=t[0]))
 if dfs:
-    pd.concat(dfs, ignore_index=True).to_excel("tables.xlsx", index=False)
+    pd.concat(dfs, ignore_index=True).to_excel("extracted_tables.xlsx", index=False)
 ```
 
-提取文本（pdfplumber：`page.extract_text()`；命令行：`pdftotext -layout input.pdf out.txt`）。
+Extract text (pdfplumber: `page.extract_text()`; CLI: `pdftotext -layout input.pdf out.txt`).
 
-命令行批处理（qpdf / poppler）：
+Command-line batch (qpdf / poppler):
 
 ```bash
-qpdf --empty --pages a.pdf b.pdf -- merged.pdf        # 合并
-qpdf input.pdf --pages . 1-5 -- p1-5.pdf              # 取页
-qpdf input.pdf out.pdf --rotate=+90:1                 # 旋转第 1 页
-qpdf --password=PW --decrypt enc.pdf dec.pdf          # 去密码
-pdfimages -j input.pdf imgprefix                      # 抽图为 jpg
+qpdf --empty --pages file1.pdf file2.pdf -- merged.pdf   # merge
+qpdf input.pdf --pages . 1-5 -- pages1-5.pdf             # select pages
+qpdf input.pdf output.pdf --rotate=+90:1                 # rotate page 1
+qpdf --password=PW --decrypt encrypted.pdf decrypted.pdf # remove password
+pdftotext -layout input.pdf output.txt                   # text with layout
+pdfimages -j input.pdf output_prefix                     # extract images as jpg
 ```
 
-生成 PDF（reportlab，多页报告）：
+Create a multi-page PDF (reportlab, Platypus):
 
 ```python
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet
-s = getSampleStyleSheet()
+
+styles = getSampleStyleSheet()
 doc = SimpleDocTemplate("report.pdf", pagesize=letter)
-doc.build([Paragraph("标题", s['Title']),
-           Paragraph("正文…", s['Normal']), PageBreak(),
-           Paragraph("第 2 页", s['Heading1'])])
+doc.build([
+    Paragraph("Report Title", styles['Title']),
+    Spacer(1, 12),
+    Paragraph("This is the body of the report. " * 20, styles['Normal']),
+    PageBreak(),
+    Paragraph("Page 2", styles['Heading1']),
+    Paragraph("Content for page 2", styles['Normal']),
+])
 ```
 
-扫描件 OCR（pip install pytesseract pdf2image，需系统装 tesseract）：
+OCR scanned PDFs (`pip install pytesseract pdf2image`; needs system tesseract):
 
 ```python
 import pytesseract
 from pdf2image import convert_from_path
-text = "".join(pytesseract.image_to_string(img, lang="chi_sim+eng")
-               for img in convert_from_path("scanned.pdf"))
+
+text = "".join(
+    pytesseract.image_to_string(img)
+    for img in convert_from_path("scanned.pdf")
+)
 ```
 
-加水印（pypdf：对每页 `page.merge_page(watermark_page)`）。
+Add a watermark (pypdf: `page.merge_page(watermark_page)` for each page):
 
-## 速查表
+```python
+from pypdf import PdfReader, PdfWriter
 
-| 任务 | 首选 | 关键调用 |
-|---|---|---|
-| 合并 | pypdf / qpdf | `writer.add_page` / `qpdf --empty --pages` |
-| 拆分 | pypdf | 每页一文件 |
-| 提取文本 | pdfplumber | `page.extract_text()` |
-| 提取表格 | pdfplumber | `page.extract_tables()` |
-| 生成 | reportlab | Canvas / Platypus |
-| OCR 扫描件 | pytesseract | 先 `convert_from_path` 转图 |
-| 填表单 | pdf-form-filler | 见该技能 |
+watermark = PdfReader("watermark.pdf").pages[0]
+reader = PdfReader("document.pdf")
+writer = PdfWriter()
+for page in reader.pages:
+    page.merge_page(watermark)
+    writer.add_page(page)
+with open("watermarked.pdf", "wb") as out:
+    writer.write(out)
+```
 
-## 注意事项
+## Quick reference
 
-- 始终另存新文件，批量时文件名带唯一键，避免覆盖。
-- 中文文本：reportlab 需注册中文字体，OCR 须装中文语言包并传 `lang="chi_sim"`，否则乱码/丢字。
-- pdfplumber 抽表对有边框规整表格效果好；无线表/合并单元格易错位，需人工核对行列。
-- 扫描件直接 `extract_text()` 返回空属正常——必须走 OCR。
-- 加密/去密码涉及版权与授权，处理外部文档前确认有权操作。
-- 命令行工具非内置：qpdf/pdftotext/pdfimages 来自 poppler-utils 与 qpdf 包，pytesseract 依赖系统 tesseract，使用前确认已安装。
+| Task | Best tool | Key call |
+|------|-----------|----------|
+| Merge | pypdf / qpdf | `writer.add_page` / `qpdf --empty --pages` |
+| Split | pypdf | one file per page |
+| Extract text | pdfplumber | `page.extract_text()` |
+| Extract tables | pdfplumber | `page.extract_tables()` |
+| Create | reportlab | Canvas / Platypus |
+| OCR scanned PDF | pytesseract | `convert_from_path` to images first |
+| Fill PDF forms | pdf-form-filler | see that skill |
 
-## 互见
+## Notes
 
-- requires：无。
-- related：`audio-to-markdown-transcriber`（音视频转写，与 PDF 同属内容抽取场景）。
-- combines_with：`pdf-form-filler`（需要填写 PDF 表单字段时切到它，本技能负责合并/拆分/抽取/生成）；`csv-data-cleaner`（把抽取出的表格 CSV 喂给它做清洗规范化）。
+- Always save to a new file; in batch jobs add a unique key to filenames to avoid overwriting.
+- Non-Latin text: reportlab needs a registered font (e.g. CJK), and OCR needs the matching language pack passed via `lang=` (e.g. `lang="chi_sim+eng"`), otherwise you get garbled or dropped characters.
+- pdfplumber table extraction works well on ruled, regular tables; borderless tables and merged cells misalign easily, so verify rows/columns by hand.
+- Calling `extract_text()` on a scan correctly returns empty; you must run OCR.
+- Encryption/decryption touches copyright and authorization; confirm you have the right to process external documents before doing so.
+- CLI tools are not built in: qpdf/pdftotext/pdfimages come from the poppler-utils and qpdf packages; pytesseract depends on system tesseract. Confirm they are installed before use.
 
----
+## See also
 
-采编自 sickn33/antigravity-awesome-skills（MIT），原技能 `pdf-official`，已适配重写为中文版本。
+- requires: none.
+- related: `pdf-form-filler`, `markdown-to-docx`, `pptx-document-processing`, `professional-proofreader`.
+- combines_with: `pdf-form-filler` (switch to it when you need to fill PDF form fields; this skill handles merge/split/extract/generate); `citation-management` (feed extracted bibliographic data into reference workflows).

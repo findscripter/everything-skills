@@ -1,14 +1,14 @@
 ---
 name: aws-cost-optimizer
-title: AWS 成本分析与优化建议
-description: 当需要分析 AWS 账单、定位云上浪费或给出降本方案时使用；用 AWS CLI 与 Cost Explorer 拉取成本数据、识别闲置资源（空闲 EC2、未挂载 EBS、闲置 EIP、过期快照）并产出可执行的节省清单与预估金额；不适用于非 AWS 云、未授权 CLI 环境或要求直接执行删除/生产变更。触发词：AWS 成本、降本、Cost Explorer
+title: AWS Cost Optimizer
+description: Comprehensive AWS cost analysis and optimization recommendations using AWS CLI and Cost Explorer
 domain: 平台/cloud
-triggers: [AWS 成本分析, 云费用优化, Cost Explorer 账单, 闲置资源清理, EC2 rightsizing, 预留实例/Savings Plans, 未挂载 EBS 卷, 成本异常排查]
+triggers: [EC2 rightsizing]
 tags: [aws, cloud, cost-optimization, finops, ec2, cost-explorer]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [aws-cli, Bash]
+tools: []
 requires: []
 related: [cloud-cost-optimization, multi-cloud-architecture, aws-serverless-architect, terraform-specialist]
 combines_with: [aws-serverless-architect, terraform-specialist, cloud-cost-optimization]
@@ -16,112 +16,193 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# AWS Cost Optimizer
 
-- 需要分析 AWS 支出趋势、按服务/区域/标签拆解账单、定位环比上涨。
-- 需要发现云上浪费：空闲 EC2、未挂载 EBS 卷、闲置 Elastic IP、过期快照、低利用率 RDS、可上生命周期策略的旧 S3 对象。
-- 需要给出降本方案：预留实例/Savings Plans、按 CloudWatch 指标做 rightsizing、规避高价区域，并预估节省金额。
+Analyze AWS spending patterns, identify waste, and provide actionable cost reduction strategies.
 
-不该用的边界：
+## When to Use This Skill
 
-- 非 AWS 云（GCP/Azure/阿里云等）不适用。
-- 当前环境未配置或未授权 `aws` CLI、Cost Explorer 未启用时，先补齐凭证与权限再用。
-- 本技能产出分析与建议，不代替环境特定验证；缺少输入、权限、安全边界或成功标准时应停下来澄清，不要直接执行删除或生产变更。
+Use this skill when you need to analyze AWS spending, identify cost optimization opportunities, or reduce cloud waste.
 
-## 步骤
+## Core Capabilities
 
-1. 基线评估：拉取 3-6 个月成本数据，找出 Top 5 支出服务，计算增长率。
-2. 速赢清理（删除前务必确认资源确实闲置）：删除未挂载 EBS 卷、释放闲置 EIP、停止/终止空闲 EC2、删除过期快照。
-3. 战略优化：分析预留实例覆盖率、对照工作负载复核实例规格、配置 S3 生命周期策略、非关键负载考虑 Spot。
-4. 持续监控：配置 AWS Budgets 告警、开启 Cost Anomaly Detection、给资源打成本分摊标签、月度成本复盘。
+**Cost Analysis**
+- Parse AWS Cost Explorer data for trends and anomalies
+- Break down costs by service, region, and resource tags
+- Identify month-over-month spending increases
 
-降本检查清单：
+**Resource Optimization**
+- Detect idle EC2 instances (low CPU utilization)
+- Find unattached EBS volumes and old snapshots
+- Identify unused Elastic IPs
+- Locate underutilized RDS instances
+- Find old S3 objects eligible for lifecycle policies
 
-- [ ] 启用 Cost Explorer 与成本分摊标签
-- [ ] 创建带告警的 AWS Budget
-- [ ] 复核并清理未用资源
-- [ ] 评估预留实例机会，启用 S3 Intelligent-Tiering
-- [ ] 复核数据传输费用、优化 Lambda 内存、设置 CloudWatch Logs 保留策略
-- [ ] 比较多区域价差，参考 Trusted Advisor
+**Savings Recommendations**
+- Suggest Reserved Instance/Savings Plans opportunities
+- Recommend instance rightsizing based on CloudWatch metrics
+- Identify resources in expensive regions
+- Calculate potential savings with specific actions
 
-## 指令
+## AWS CLI Commands
 
-成本与用量（按服务拆解 / 当月每日）：
-
+### Get Cost and Usage
 ```bash
-# 近 30 天按服务的成本
+# Last 30 days cost by service
 aws ce get-cost-and-usage \
   --time-period Start=$(date -d '30 days ago' +%Y-%m-%d),End=$(date +%Y-%m-%d) \
   --granularity MONTHLY \
   --metrics BlendedCost \
   --group-by Type=DIMENSION,Key=SERVICE
 
-# 当月每日成本
+# Daily costs for current month
 aws ce get-cost-and-usage \
   --time-period Start=$(date +%Y-%m-01),End=$(date +%Y-%m-%d) \
   --granularity DAILY \
   --metrics UnblendedCost
 ```
 
-查找未用资源：
-
+### Find Unused Resources
 ```bash
-# 未挂载 EBS 卷
+# Unattached EBS volumes
 aws ec2 describe-volumes \
   --filters Name=status,Values=available \
-  --query 'Volumes[*].[VolumeId,Size,VolumeType,CreateTime]' --output table
+  --query 'Volumes[*].[VolumeId,Size,VolumeType,CreateTime]' \
+  --output table
 
-# 闲置 Elastic IP
+# Unused Elastic IPs
 aws ec2 describe-addresses \
-  --query 'Addresses[?AssociationId==null].[PublicIp,AllocationId]' --output table
+  --query 'Addresses[?AssociationId==null].[PublicIp,AllocationId]' \
+  --output table
 
-# 空闲 EC2（需 CloudWatch，替换 i-xxxxx）
+# Idle EC2 instances (requires CloudWatch)
 aws cloudwatch get-metric-statistics \
-  --namespace AWS/EC2 --metric-name CPUUtilization \
+  --namespace AWS/EC2 \
+  --metric-name CPUUtilization \
   --dimensions Name=InstanceId,Value=i-xxxxx \
   --start-time $(date -u -d '7 days ago' +%Y-%m-%dT%H:%M:%S) \
   --end-time $(date -u +%Y-%m-%dT%H:%M:%S) \
-  --period 86400 --statistics Average
+  --period 86400 \
+  --statistics Average
 
-# 90 天以上的旧快照
-aws ec2 describe-snapshots --owner-ids self \
-  --query 'Snapshots[?StartTime<=`'$(date -d '90 days ago' --iso-8601)'`].[SnapshotId,StartTime,VolumeSize]' --output table
+# Old EBS snapshots (>90 days)
+aws ec2 describe-snapshots \
+  --owner-ids self \
+  --query 'Snapshots[?StartTime<=`'$(date -d '90 days ago' --iso-8601)'`].[SnapshotId,StartTime,VolumeSize]' \
+  --output table
 ```
 
-Rightsizing 分析：
-
+### Rightsizing Analysis
 ```bash
-# 列出 EC2 实例及类型
+# List EC2 instances with their types
 aws ec2 describe-instances \
-  --query 'Reservations[*].Instances[*].[InstanceId,InstanceType,State.Name,Tags[?Key==`Name`].Value|[0]]' --output table
+  --query 'Reservations[*].Instances[*].[InstanceId,InstanceType,State.Name,Tags[?Key==`Name`].Value|[0]]' \
+  --output table
 
-# RDS 实例利用率（替换 mydb）
+# Get RDS instance utilization
 aws cloudwatch get-metric-statistics \
-  --namespace AWS/RDS --metric-name CPUUtilization \
+  --namespace AWS/RDS \
+  --metric-name CPUUtilization \
   --dimensions Name=DBInstanceIdentifier,Value=mydb \
   --start-time $(date -u -d '30 days ago' +%Y-%m-%dT%H:%M:%S) \
   --end-time $(date -u +%Y-%m-%dT%H:%M:%S) \
-  --period 86400 --statistics Average,Maximum
+  --period 86400 \
+  --statistics Average,Maximum
 ```
 
-## 示例
+## Optimization Workflow
 
-- 分析类：「展示近 3 个月 AWS 成本，按服务拆解」「对比本月与上月支出」「列出 Top 10 最贵资源」。
-- 优化类：「找出所有未挂载 EBS 卷并估算节省」「识别 CPU 利用率 <5% 的 EC2」「按用量推荐预留实例」「估算删除 90 天以上快照能省多少」。
-- 落地类：「生成删除未挂载卷的脚本」「设置 $1000/月 的预算告警」「为管理层生成成本优化报告」。
+1. **Baseline Assessment**
+   - Pull 3-6 months of cost data
+   - Identify top 5 spending services
+   - Calculate growth rate
 
-## 注意事项
+2. **Quick Wins**
+   - Delete unattached EBS volumes
+   - Release unused Elastic IPs
+   - Stop/terminate idle EC2 instances
+   - Delete old snapshots
 
-- 风险分级：只读分析为低风险；删除资源为中风险，需逐项确认；生产变更为高风险，rightsizing 先在 dev/staging 验证。
-- 删除前确认资源确实未用并保留备份；可用时加 `--dry-run`。
-- 记录所有降本动作并计算 ROI，把重复性优化自动化。
-- 本技能仅在任务明确匹配上述范围时使用，输出不替代环境特定验证、测试或专家复核。
+3. **Strategic Optimization**
+   - Analyze Reserved Instance coverage
+   - Review instance types vs. workload
+   - Implement S3 lifecycle policies
+   - Consider Spot instances for non-critical workloads
 
-## 互见
+4. **Ongoing Monitoring**
+   - Set up AWS Budgets with alerts
+   - Enable Cost Anomaly Detection
+   - Tag resources for cost allocation
+   - Monthly cost review meetings
 
-- 官方参考：AWS 成本优化最佳实践、Well-Architected 成本优化支柱、Cost Explorer API。
-- 可结合预算告警与 Cost Anomaly Detection 形成持续监控闭环。
+## Cost Optimization Checklist
 
----
+- [ ] Enable AWS Cost Explorer
+- [ ] Set up cost allocation tags
+- [ ] Create AWS Budget with alerts
+- [ ] Review and delete unused resources
+- [ ] Analyze Reserved Instance opportunities
+- [ ] Implement S3 Intelligent-Tiering
+- [ ] Review data transfer costs
+- [ ] Optimize Lambda memory allocation
+- [ ] Use CloudWatch Logs retention policies
+- [ ] Consider multi-region cost differences
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+## Example Prompts
+
+**Analysis**
+- "Show me AWS costs for the last 3 months broken down by service"
+- "What are my top 10 most expensive resources?"
+- "Compare this month's spending to last month"
+
+**Optimization**
+- "Find all unattached EBS volumes and calculate savings"
+- "Identify EC2 instances with <5% CPU utilization"
+- "Suggest Reserved Instance purchases based on usage"
+- "Calculate savings from deleting snapshots older than 90 days"
+
+**Implementation**
+- "Create a script to delete unattached volumes"
+- "Set up a budget alert for $1000/month"
+- "Generate a cost optimization report for leadership"
+
+## Best Practices
+
+- Always test in non-production first
+- Verify resources are truly unused before deletion
+- Document all cost optimization actions
+- Calculate ROI for optimization efforts
+- Automate recurring optimization tasks
+- Use AWS Trusted Advisor recommendations
+- Enable AWS Cost Anomaly Detection
+
+## Integration with Kiro CLI
+
+This skill works seamlessly with Kiro CLI's AWS integration:
+
+```bash
+# Use Kiro to analyze costs
+kiro-cli chat "Use aws-cost-optimizer to analyze my spending"
+
+# Generate optimization report
+kiro-cli chat "Create a cost optimization plan using aws-cost-optimizer"
+```
+
+## Safety Notes
+
+- **Risk Level: Low** - Read-only analysis is safe
+- **Deletion Actions: Medium Risk** - Always verify before deleting resources
+- **Production Changes: High Risk** - Test rightsizing in dev/staging first
+- Maintain backups before any deletion
+- Use `--dry-run` flag when available
+
+## Additional Resources
+
+- [AWS Cost Optimization Best Practices](https://aws.amazon.com/pricing/cost-optimization/)
+- [AWS Well-Architected Framework - Cost Optimization](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
+- [AWS Cost Explorer API](https://docs.aws.amazon.com/cost-management/latest/APIReference/Welcome.html)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

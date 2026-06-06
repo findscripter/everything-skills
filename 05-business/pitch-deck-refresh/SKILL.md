@@ -1,14 +1,14 @@
 ---
 name: pitch-deck-refresh
-title: 投行演示稿数据刷新
-description: 当需要把已有演示稿（deck）里的旧数字批量换成新数字——季度刷新、财报更新、可比公司滚动、市场数据再基准——而非重做版式时使用；做的事是定位每处旧值（含不同量级/精度/单位写法及图表底层数据）、出变更清单经审批后做最小化替换并产出回执；不适用于重写叙事/重建幻灯片、未经确认就改派生指标（增长率、份额）、或从零搭建 deck。触发词：用Q4数据更新deck、刷新comps、roll forward、换新财报数字、把485M全改成512M、季度数据刷新。
+title: Deck Refresh
+description: Updates a presentation with new numbers — quarterly refreshes, earnings updates, comp rolls, rebased market data. Use whenever the user asks to "update the deck with Q4 numbers", "refresh the comps", "roll this forward", "swap in the new earnings", "change all the $485M to $512M", or any request to swap figures across an existing deck without rebuilding it.
 domain: 商业/finance
-triggers: [用Q4数据更新deck, 刷新comps, 可比公司滚动, roll forward, 换新财报数字, 把485M全改成512M, 季度数据刷新, 市场数据再基准, comp roll, earnings update deck]
-tags: [商业, finance, 投行, 演示稿, 数据刷新, comps, 财报更新, powerpoint]
-level: 进阶
+triggers: [roll forward, comp roll, earnings update deck]
+tags: [finance, comps, powerpoint]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [演示文稿/PPT 工具, 电子表格, ask_user_question]
+tools: []
 requires: []
 related: [ib-deck-quality-check, ib-pitch-deck-builder, board-deck-builder, financial-model-updater]
 combines_with: [company-tear-sheet]
@@ -16,60 +16,58 @@ license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0
 ---
-## 何时使用
+# Deck Refresh
 
-已有一份成稿 deck，只需把里面的**数字**换成新的：季度刷新、财报更新、可比公司（comps）滚动、市场数据再基准。**deck 是格式的唯一真相来源**——你只改值，不动版式。
+Update numbers across the deck. The deck is the source of truth for formatting; you're only changing values.
 
-**不该用本技能的边界：**
-- **不重建幻灯片**：若换数后某页叙事不再成立（写着"利润率收缩"但实际上升），**标记出来**，不要替用户改写叙事。
-- **不擅自重算派生指标**：增长率、份额等是否随基数联动重算，是用户的判断（见步骤一的提问），默认不动。
-- **不动格式**：deck 用 `$MM` 而用户映射写 `$M`，以 **deck 为准**；值变、风格不变。
+## Environment check
 
-这是**四阶段**流程，第三阶段是**审批闸门**——用户看过计划前，一个字都不要改。
+This skill works in both the PowerPoint add-in and chat. Identify which you're in before starting — the edit mechanism differs, the intent doesn't:
 
-## 步骤 / 指令
+- **Add-in** — the deck is open live; edit text runs, table cells, and chart data directly.
+- **Chat** — the deck is an uploaded file; edit it by regenerating the affected slides with the new values and writing the result back.
 
-先判断运行环境（意图相同、改法不同）：
-- **Add-in（PPT 加载项）**：deck 实时打开，直接改文本 run、表格单元格、图表数据。
-- **Chat（上传文件）**：deck 是上传的文件，靠**重新生成受影响幻灯片**（带入新值、其余元素逐一原样保留）并写回文件来改。
-两种环境的统一标准：**改动尽可能小，既有格式完全不动。**
+Either way: smallest possible change, existing formatting stays intact.
 
-**阶段一 · 拿到数据（用 `ask_user_question` 确认新数怎么来）**
-- **粘贴映射**——用户给 `营收 $485M → $512M, EBITDA $120M → $135M`，最清晰。
-- **上传 Excel**——含新旧列或一张待取数的输出表；先读，**确认哪列是哪列**再信它。
-- **只给新值**——"Q4 营收 $512M，利润率 22%"；你来推断各替换谁，但**动手前先确认映射**——把本属毛利的 `$512M` 误映射到营收，是会闷声出大事的。
-- 必问**派生数**：营收一动，增长率、份额要不要联动重算？多数 deck 某处埋着已过期的 `+15% YoY`。改不改是用户的判断，不是你的。
+This is a four-phase process and the third phase is an approval gate. Don't edit until the user has seen the plan.
 
-**阶段二 · 通读全篇、找全每一处**
-逐页读。每个旧值，找出**全部**出现——包括长得不一样的：
+## Phase 1 — Get the data
 
-| 变体 | 例 |
+Use `ask_user_question` to find out how the new numbers are arriving:
+
+- **Pasted mapping** — user types or pastes "revenue $485M → $512M, EBITDA $120M → $135M." The clearest case.
+- **Uploaded Excel** — old/new columns, or a fresh output sheet the user wants pulled from. Read it, confirm which column is which before you trust it.
+- **Just the new values** — "Q4 revenue was $512M, margins were 22%." You figure out what each one replaces. Workable, but confirm the mapping before you touch anything — a "$512M" that you map to revenue but the user meant for gross profit is a quiet disaster.
+
+Also ask about **derived numbers**: if revenue moves, does the user want growth rates and share percentages recalculated, or left alone? Most decks have "+15% YoY" baked in somewhere that's now stale. Whether to touch those is a judgment call the user should make, not you.
+
+## Phase 2 — Read everything, find everything
+
+Read every slide. For each old value, find every instance — including the ones that don't look the same:
+
+| Variant | Example |
 |---|---|
-| 量级 | `$485M`、`$0.485B`、`$485,000,000` |
-| 精度 | `$485M`、`$485.0M`、`~$485M` |
-| 单位风格 | `$485M`、`$485MM`、`$485 million`、`485M` |
-| 嵌入式 | "revenue grew to $485M"、"a $485M business"、坐标轴标签 |
+| Scale | `$485M`, `$0.485B`, `$485,000,000` |
+| Precision | `$485M`, `$485.0M`, `~$485M` |
+| Unit style | `$485M`, `$485MM`, `$485 million`, `485M` |
+| Embedded | "revenue grew to $485M", "a $485M business", axis labels |
 
-一份在第 3 页写 `$485M`、第 8 页图表轴写 `485`、第 15 页脚注写 `$485.0 million` 的 deck，是**同一个数的三处**。Find-replace 会漏掉两处，你不能漏。
+A deck that says `$485M` on slide 3, `485` on slide 8's chart axis, and `$485.0 million` in a footnote on slide 15 has three instances of the same number. Find-replace misses two of them. You shouldn't.
 
-**数字藏在哪：** 文本框、表格单元格、图表数据标签与轴标签、**图表底层源数据（驱动柱/线的数，不只是上面的标签）**、脚注/来源行/小字、讲者备注（若用户在意）。
+**Where numbers hide:**
+- Text boxes (obvious)
+- Table cells
+- Chart data labels and axis labels
+- Chart source data — the numbers driving the bars, not just the labels on them
+- Footnotes, source lines, small print
+- Speaker notes, if the user cares about those
 
-为每个旧值列出：每处位置、原文确切样子、将变成什么。**这张清单就是计划。**
+Build a list: for each old value, every location it appears, the exact text it appears as, and what it'll become. This list is the plan.
 
-**阶段三 · 出示计划、取得审批（destructive 操作）**
-这是对别人花了心血的 deck 的破坏性操作。改任何东西前先给出**完整变更清单**，排版成可扫读的样子（格式见下方示例）。**FLAGGED（疑似派生、不在映射中）一节最关键**：你不只是执行 find-replace，而是替用户在深夜会漏掉的二阶效应兜底。映射写 `$485M → $512M`、旁边还有 `+15% YoY`，那增长率多半已错——**标记它，既别默默改、也别默默留。**
-用 `ask_user_question` 取审批：按清单执行 / 执行但跳过 flagged 项 / 让用户先改映射。
+## Phase 3 — Present the plan, get approval
 
-**阶段四 · 执行、保形、回执**
-逐项做**能完成目标的最小编辑**：
-- **形状内文本**：只改值，字体/字号/颜色/粗体完全照旧。`$485M` 若是句中 14pt 海军蓝加粗，`$512M` 仍是同句 14pt 海军蓝加粗。
-- **表格单元格**：只改该格，别动整张表。
-- **图表数据**：更新底层 series 值让柱/线**真的动**。只改标签不改数据，等于留下一张说谎的图。
-没碰到的东西一律不重排版——**你是外科医生，不是装修工。** 完事后给回执（格式见示例），并对每张改过的页跑**视觉核查**：变长的数（`$485M`→`$1,205M`）可能撑爆文本框或挤宽表格列，赶在用户之前发现。
+**This is a destructive operation on a deck someone spent time on.** Show the full change list before editing a single thing. Format it so it's scannable:
 
-## 示例
-
-阶段三 · 变更计划：
 ```
 $485M → $512M (Revenue)
   Slide 3  — Title box: "Revenue grew to $485M"
@@ -85,32 +83,42 @@ FLAGGED — possibly derived, not in your mapping:
   Slide 7  — "12% market share" (was this computed from $485M / market size?)
 ```
 
-阶段四 · 回执：
+The flagged section matters. You're not just executing a find-replace — you're catching the second-order effects the user would've missed at 11pm. If the mapping says `$485M → $512M` and slide 3 also has `+15% YoY` right next to it, that growth rate is probably wrong now. Flag it; don't silently fix it, don't silently leave it.
+
+Use `ask_user_question` for the approval: proceed as shown, proceed but skip the flagged items, or let them revise the mapping first.
+
+## Phase 4 — Execute, preserve, report
+
+For each change, make the smallest edit that accomplishes it. How that happens depends on your environment:
+
+- **Add-in** — edit the specific run, cell, or chart series directly in the live deck.
+- **Chat** — regenerate the affected slide with the new value in place, preserving every other element exactly as it was, and write it back to the file.
+
+Either way, the standard is the same:
+
+- **Text in a shape** — change the value, leave font/size/color/bold state exactly as they were. If `$485M` is 14pt navy bold inside a sentence, `$512M` is 14pt navy bold inside the same sentence.
+- **Table cell** — change the cell, leave the table alone.
+- **Chart data** — update the underlying series values so the bars/lines actually move. Editing just the label without the data leaves a chart that lies.
+
+Don't reformat anything you didn't need to touch. The deck's existing style is correct by definition; you're a surgeon, not a renovator.
+
+After the last edit, report what actually happened:
+
 ```
 Updated 11 values across 8 slides.
 
 Changed:
-  [阶段三清单，改为过去式]
+  [the list from Phase 3, now past-tense]
 
 Still flagged — did NOT change:
   Slide 3 — "+15% YoY" (derived; confirm separately)
   Slide 7 — "12% market share"
 ```
 
-## 注意事项
+Run standard visual verification checks on every edited slide. A number that got longer (`$485M` → `$1,205M`) might now overflow its text box or push a table column width. Catch it before the user does.
 
-- **审批闸门不可跳过**：阶段三未获批，禁止编辑任何一处。
-- **图表数据 vs 标签**：必须改驱动柱/线的**源数据**，否则图与数字脱节。
-- **格式以 deck 为准**：单位/精度风格冲突时服从 deck，不服从用户映射的写法。
-- **派生指标默认不动**：增长率、份额、利润率等仅在阶段一明确确认后才重算，其余只 flag 不改。
-- **叙事不重写**：换数后叙事失真只标记，交回用户。
-- **溢出核查**：数字变长可能撑爆文本框/挤宽列，逐页视觉验证。
+## What you're not doing
 
-## 互见
-- related：`board-deck-builder` —— 本技能刷新的 deck 往往由它产出
-- related：`equity-earnings-update-report` —— 同源财报驱动场景，出报告而非改 deck
-- combines_with：`pptx-document-processing` —— Chat 环境下拆解/重生成 .pptx 的执行底座
-- combines_with：`python-pptx-deck-generator` —— 用脚本重生成受影响幻灯片时搭配
-
----
-采编自 anthropics/financial-services（Apache-2.0）。
+- **Not rebuilding slides** — if a slide's narrative no longer makes sense with the new numbers ("margins compressed" but margins went up), flag it, don't rewrite it.
+- **Not recalculating unless asked** — derived numbers are the user's call. Your Phase 1 question covers this.
+- **Not touching formatting** — if the deck uses `$MM` and the user's mapping says `$M`, match the deck, not the mapping. Values change; style stays.

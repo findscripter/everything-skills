@@ -1,14 +1,14 @@
 ---
 name: apollo-sequence-loader
-title: Apollo 外联序列批量加载
-description: 当需要按目标画像（职位/行业/规模/地区）批量寻找潜客并加入指定 Apollo 外联序列（sequence/campaign）时使用；做检索匹配人选→富集创建联系人→入列序列并回执的端到端动作，产出入列清单与额度消耗汇总；不适用于序列内容编排、邮件正文撰写或非 Apollo 平台。触发词：apollo 序列、外联序列、批量加潜客
+title: Apollo Sequence Loader
+description: Find leads matching a target profile (title/seniority/industry/size/location) and bulk-add them to an existing Apollo outreach sequence — search, enrich, create contacts, dedupe, enroll. Use it for the end-to-end "load people into a sequence" action; not for sequence/step authori
 domain: 商业/sales
-triggers: [Apollo 序列批量加载, 把潜客加入外联序列, sequence load 外联, 批量加联系人到 campaign, VP Sales 加进序列, list sequences 列序列]
-tags: [商业, sales, apollo, 外联序列, 潜客获取, mcp]
-level: 进阶
+triggers: [Apollo sequence load, add leads to an outreach sequence, bulk-add contacts to a campaign, add VP Sales into sequence, list sequences, reload more leads into sequence]
+tags: [business, sales, apollo, outreach-sequence, prospecting, mcp]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [mcp__claude_ai_Apollo_MCP__apollo_emailer_campaigns_search, mcp__claude_ai_Apollo_MCP__apollo_email_accounts_index, mcp__claude_ai_Apollo_MCP__apollo_mixed_people_api_search, mcp__claude_ai_Apollo_MCP__apollo_people_bulk_match, mcp__claude_ai_Apollo_MCP__apollo_contacts_create, mcp__claude_ai_Apollo_MCP__apollo_emailer_campaigns_add_contact_ids, mcp__claude_ai_Apollo_MCP__apollo_emailer_campaigns_remove_or_stop_contact_ids]
+tools: []
 requires: []
 related: [apollo-lead-enrichment, sales-prospecting, cold-email-writer, email-sequence-designer]
 combines_with: [apollo-lead-enrichment, cold-email-writer, sales-prospecting]
@@ -16,91 +16,94 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+## When to use
 
-- 已有明确目标画像（职位、级别、行业、公司规模、地区），需要一次性把一批潜客找到并加入某个已存在的 Apollo 外联序列时。
-- 想往现有序列「再补一批」联系人（reload），或先 `list sequences` 查看有哪些序列时。
-- 端到端覆盖：检索人选 → 富集 → 创建联系人（去重） → 入列序列 → 回执汇总。
+- You have an explicit target profile (job titles, seniority, industry, company size, location) and want to find a batch of leads in one shot and add them to an existing Apollo outreach sequence.
+- You want to top up ("reload") an existing sequence with more contacts, or just run `list sequences` to see what sequences exist.
+- End-to-end coverage: search people → enrich → create contacts (deduped) → enroll into the sequence → confirm with a receipt.
 
-**不该用边界：**
-- 序列本身的编排（步骤、节奏、A/B、邮件正文撰写）不在此范围——本技能只负责「把人装进序列」，不负责「序列内容」。
-- 没有现成序列、需要先新建序列时，先在 Apollo 内建好再用本技能加载。
-- 非 Apollo 平台（如 Outreach、Salesloft、HubSpot Sequences）不适用。
-- 富集会消耗 Apollo 额度（credits），未经用户确认不要批量执行第 5 步。
+**Out of scope:**
+- Sequence authoring (steps, cadence, A/B, email body copy) is NOT covered — this skill only loads people into a sequence, it does not author the sequence content.
+- If no sequence exists yet, create it inside Apollo first, then use this skill to load it.
+- Non-Apollo platforms (Outreach, Salesloft, HubSpot Sequences) are not supported.
+- Enrichment consumes Apollo credits — do not run Step 5 in bulk without explicit user confirmation.
 
-## 步骤
+## Steps
 
-入参来自用户一句话需求（targeting criteria + sequence name），按序执行：
+Input comes from a one-line user request (targeting criteria + sequence name). Run in order:
 
-1. **解析输入** —— 拆出「目标画像」与「序列信息」（见下方指令）。若只说 "list sequences"，跳到第 2 步仅列出序列。
-2. **定位序列** —— `apollo_emailer_campaigns_search`，`q_name` 设为序列名。无匹配或多匹配则以表格 `| Name | ID | Status |` 列出请用户选择。
-3. **取发信邮箱** —— `apollo_email_accounts_index` 列出已绑定邮箱。唯一则自动用；多个则展示并询问从哪个发。
-4. **检索人选** —— `apollo_mixed_people_api_search` 套用画像，`per_page` = 请求数量（默认 10）。以预览表展示并请求确认（关键：会消耗额度）。
-5. **富集并创建联系人** —— 确认后：先 `apollo_people_bulk_match` 批量富集（每次最多 10 人，`reveal_personal_emails: true`）；再对每人 `apollo_contacts_create`（`run_dedupe: true`）。收集所有 contact_ids。
-6. **入列序列** —— `apollo_emailer_campaigns_add_contact_ids` 把联系人写入序列。
-7. **回执汇总** —— 输出序列、入列人数、发信邮箱、额度消耗及入列名单表。
-8. **下一步动作** —— 提供：再加一批 / 查看序列 / 移除联系人 / 暂停联系人。
+1. **Parse input** — Extract the targeting criteria and sequence info (mapping below). If the user just says "list sequences", skip to Step 2 and only show available sequences.
+2. **Find the sequence** — Use `mcp__claude_ai_Apollo_MCP__apollo_emailer_campaigns_search` with `q_name` set to the sequence name. If no match or multiple matches, show all sequences in a `| Name | ID | Status |` table and ask the user to pick one.
+3. **Get email account** — Use `mcp__claude_ai_Apollo_MCP__apollo_email_accounts_index` to list linked email accounts. If one → use it automatically; if multiple → show them and ask which to send from.
+4. **Find matching people** — Use `mcp__claude_ai_Apollo_MCP__apollo_mixed_people_api_search` with the targeting criteria; set `per_page` to the requested volume (default 10). Present candidates in a preview table and ask for confirmation (this consumes credits).
+5. **Enrich and create contacts** — After confirmation: first `mcp__claude_ai_Apollo_MCP__apollo_people_bulk_match` (batch up to 10 per call, `reveal_personal_emails: true`); then `mcp__claude_ai_Apollo_MCP__apollo_contacts_create` per person (`run_dedupe: true`). Collect all created contact IDs.
+6. **Add to sequence** — Use `mcp__claude_ai_Apollo_MCP__apollo_emailer_campaigns_add_contact_ids` to enroll the contacts.
+7. **Confirm enrollment** — Output the sequence, contacts added, sending email account, credits used, and the enrolled-contacts table.
+8. **Offer next actions** — Offer: load more / review sequence / remove a contact / pause a contact.
 
-## 指令
+### Step 1 field mapping (profile → API params)
+- Job titles → `person_titles`
+- Seniority levels → `person_seniorities`
+- Industry keywords → `q_organization_keyword_tags`
+- Company size → `organization_num_employees_ranges`
+- Locations → `person_locations` or `organization_locations`
+- Sequence name: text after "to", "into", or "→"; volume defaults to 10.
 
-**第 1 步字段映射（画像 → API 参数）：**
-- 职位（Job titles）→ `person_titles`
-- 级别（Seniority）→ `person_seniorities`
-- 行业关键词（Industry）→ `q_organization_keyword_tags`
-- 公司规模（Company size）→ `organization_num_employees_ranges`
-- 地区（Locations）→ `person_locations` 或 `organization_locations`
-- 序列名：取 "to" / "into" / "→" 之后的文本；数量缺省为 10。
+### Step 4 confirmation prompt (wait for confirmation before continuing)
+> "Add these [N] contacts to [Sequence Name]? This will consume [N] Apollo credits for enrichment."
 
-**第 4 步确认话术（必须等待确认再继续）：**
-> 「将这 [N] 个联系人加入 [序列名]？此操作会消耗 [N] 个 Apollo 富集额度。」
+### Step 5 parameters
+- `apollo_people_bulk_match`: pass `first_name`, `last_name`, `domain` for each person; `reveal_personal_emails: true`.
+- `apollo_contacts_create`: `first_name`, `last_name`, `email`, `title`, `organization_name`; include `direct_phone` or `mobile_phone` if available; `run_dedupe: true`.
 
-**第 5 步入参要点：**
-- `apollo_people_bulk_match`：每人传 `first_name`、`last_name`、`domain`；`reveal_personal_emails: true`。
-- `apollo_contacts_create`：`first_name`、`last_name`、`email`、`title`、`organization_name`；若有则带 `direct_phone` 或 `mobile_phone`；`run_dedupe: true`。
+### Step 6 `apollo_emailer_campaigns_add_contact_ids` parameters
+- `id`: the sequence ID
+- `emailer_campaign_id`: the same sequence ID
+- `contact_ids`: array of created contact IDs
+- `send_email_from_email_account_id`: the email account ID chosen in Step 3
+- `sequence_active_in_other_campaigns`: `false` (safe default)
 
-**第 6 步 `apollo_emailer_campaigns_add_contact_ids` 参数：**
-- `id`：序列 ID
-- `emailer_campaign_id`：同一序列 ID
-- `contact_ids`：已创建联系人 ID 数组
-- `send_email_from_email_account_id`：第 3 步选定的邮箱 ID
-- `sequence_active_in_other_campaigns`：`false`（安全默认）
-
-## 示例
+## Example
 
 - `add 20 VP Sales at SaaS companies to my "Q1 Outbound" sequence`
 - `SDR managers at fintech startups → Cold Outreach v2`
-- `list sequences`（仅列出所有可用序列）
+- `list sequences` (show all available sequences)
 - `directors of engineering, 500+ employees, US → Demo Follow-up`
-- `reload 15 more leads into "Enterprise Pipeline"`（向现有序列再补一批）
+- `reload 15 more leads into "Enterprise Pipeline"` (top up an existing sequence)
 
-**第 4 步预览表：**
+**Step 4 preview table:**
 
-| # | 姓名 | 职位 | 公司 | 地区 |
+| # | Name | Title | Company | Location |
 |---|---|---|---|---|
 
-**第 7 步回执：**
+**Step 7 receipt:**
 
-| 字段 | 值 |
+| Field | Value |
 |---|---|
-| 序列 | [名称] |
-| 已加入联系人 | [数量] |
-| 发信邮箱 | [地址] |
-| 消耗额度 | [数量] |
+| Sequence | [Name] |
+| Contacts added | [count] |
+| Sending from | [email address] |
+| Credits used | [count] |
 
-## 注意事项
+**Contacts enrolled:**
 
-- **额度消耗**：富集（第 5 步）按人消耗 Apollo credits，务必在第 4 步拿到用户明确确认后再执行，预览表里就把消耗量说清。
-- **去重**：创建联系人统一带 `run_dedupe: true`，避免重复联系人污染库。
-- **批量上限**：`apollo_people_bulk_match` 每次最多 10 人，人数多时分批调用。
-- **跨序列保护**：入列默认 `sequence_active_in_other_campaigns: false`，避免误把已在其他序列中的联系人重复激活；确需跨序列再显式改。
-- **暂停联系人**：第 8 步「暂停」= 用 `status: "paused"` 重新加入并带 `auto_unpause_at` 日期；「移除」用 `apollo_emailer_campaigns_remove_or_stop_contact_ids`。
-- 多匹配/多邮箱场景一律先让用户选择，不要替用户默认挑第一个。
+| Name | Title | Company | Email |
+|---|---|---|---|
 
-## 互见
+## Notes
 
-- 商业/sales 域其它 Apollo 潜客检索与富集类技能（人选搜索、联系人富集）。
-- 序列内容编排、邮件正文撰写类技能（本技能只负责装人，不负责写内容）。
+- **Credit consumption**: enrichment (Step 5) consumes Apollo credits per person — always get explicit user confirmation in Step 4 first, and state the consumption in the preview.
+- **Deduplication**: always create contacts with `run_dedupe: true` to avoid polluting the database with duplicate contacts.
+- **Batch limit**: `apollo_people_bulk_match` handles at most 10 people per call — split into batches for larger volumes.
+- **Cross-sequence protection**: enroll with `sequence_active_in_other_campaigns: false` by default so contacts already active in other sequences are not re-activated by mistake; only flip it explicitly when truly cross-sequence.
+- **Pause vs remove**: in Step 8, "pause" = re-add with `status: "paused"` plus an `auto_unpause_at` date; "remove" uses `apollo_emailer_campaigns_remove_or_stop_contact_ids`.
+- For multiple-match or multiple-email-account cases, always have the user choose — never silently default to the first option.
+
+## See also
+
+- Other Apollo prospecting/enrichment skills in the business/sales domain (people search, lead enrichment).
+- Sequence content authoring and email-copy skills (this skill only loads people, it does not write content).
 
 ---
 
-采编自 anthropics/knowledge-work-plugins（Apache-2.0），源技能 partner-built/apollo/skills/sequence-load。
+Adapted from anthropics/knowledge-work-plugins (Apache-2.0), source skill `partner-built/apollo/skills/sequence-load`.

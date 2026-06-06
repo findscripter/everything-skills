@@ -1,14 +1,14 @@
 ---
 name: longbridge-securities-toolkit
-title: 长桥证券工具集：实时行情、组合与期权分析
-description: 当需要查港股/美股/A股/新加坡市场实时行情、K线、基本面、自选组合、持仓盈亏、期权与板块资金流时使用；通过 longbridge CLI（无则回退 MCP）以 JSON 输出按子命令拉数并用用户语言解读；不适用于自动下单、加密非 .HAS 标的或无凭证/无 CLI/MCP 环境。触发词：港股美股行情、自选股、持仓盈亏、期权分析、板块资金流、longbridge、长桥
+title: Longbridge Securities Toolkit: real-time quotes, portfolios, and options analysis
+description: Query real-time HK/US/A-share/SG quotes, charts, fundamentals, watchlists, positions/P&L, options, and sector capital flow via the longbridge CLI (with MCP fallback), emitting JSON per subcommand. Use for HK/US stock quotes, watchlist, position P&L, options analysis, sector flow,
 domain: 领域/fintech
-triggers: [港股美股A股行情, 实时报价 K线, 自选股, 持仓盈亏 账户, 期权分析, 板块排行 资金流, longbridge auth, 长桥证券]
-tags: [fintech, 证券, 行情, 组合, 期权, 港股, 美股, a股, cli, mcp]
-level: 进阶
+triggers: [HK/US/A-share quotes, real-time quote K-line, watchlist, position P&L account, options analysis, sector ranking capital flow, longbridge auth, Longbridge Securities]
+tags: [fintech, securities, market-data, portfolio, options, hk-stocks, us-stocks, a-shares, cli, mcp]
+level: intermediate
 status: stable
-agents: [claude-code, cursor, gemini-cli, codex]
-tools: [longbridge CLI, Longbridge MCP, npx]
+agents: [claude-code, codex, cursor, gemini-cli]
+tools: []
 requires: []
 related: [octagon-stock-quote, alpha-vantage-market-data, portfolio-risk-metrics, portfolio-rebalancer, institutional-flow-tracker]
 combines_with: [portfolio-risk-metrics, portfolio-rebalancer, octagon-stock-quote]
@@ -16,96 +16,102 @@ license: CC-BY-4.0
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当用户围绕**长桥证券（Longbridge）**做行情/组合/期权查询时使用。它是长桥官方 125+ 子技能的统一入口，覆盖港股（HK）、美股（US）、A 股（沪 SH / 深 SZ）、新加坡（SG）四地市场，可取实时报价、K 线/图表、公司基本面与财报评级、自选组合、持仓与账户盈亏、期权分析、板块排行、资金流与新闻。简繁中英三语均可触发。
+Use this skill when the user works with **Longbridge Securities** for market-data, portfolio, or options queries. It is the unified entry point to Longbridge's official 125+ agent skills, covering real-time quotes, charts, company fundamentals, earnings and analyst ratings, watchlists, positions and account P&L, options analysis, sector rankings, capital flow, and news. It spans HK, US, A-share (SH/SZ), and SG markets, and is trilingual: Simplified Chinese, Traditional Chinese, and English.
 
-**不该用的边界：**
+Reach for it when:
 
-- **自动下单 / 撮合交易**——本工具默认只读，不下单；自选改动与下单类操作走「预览 + 确认」两步协议。
-- **加密货币标的命名差异**——长桥平台加密标的用 `.HAS` 后缀，非该后缀勿当成加密查询。
-- **无凭证 / 未登录**——基础行情需 `auth login`；组合与账户功能需 `--trade`（交易范围）授权，否则不可用。
-- **既无 CLI 又无 MCP 的环境**——取数依赖 `longbridge` CLI 或回退的 Longbridge MCP，两者皆无则无法工作。
-- 行情新鲜度受长桥数据订阅约束（无订阅为延迟数据）；结果供分析参考，不替代尽调与人工复核。
+- The user asks about stock prices, charts, or market data for HK / US / A-share / SG markets.
+- The user wants company fundamentals, earnings, or analyst ratings.
+- The user asks about their portfolio, positions, or account P&L via Longbridge.
+- The user wants options analysis, sector rankings, capital flow, or news.
+- The user asks in Chinese (Simplified or Traditional) or English about any securities topic.
 
-## 步骤
+**Out of scope / boundaries:**
 
-1. **认证**：基础行情 `longbridge auth login`；需要组合/账户时 `longbridge auth login --trade`。
-2. **发现子命令**：跑 `longbridge --help` 列出当前可用子命令。**不要硬编码子命令名**——CLI 会演进。
-3. **确认参数**：`longbridge <subcommand> --help` 查清旗标与输出格式再调用。
-4. **以 JSON 取数**：`longbridge <subcommand> --format json`，解析结构化输出。
-5. **按用户语言渲染**：从用户输入检测简体/繁体/英文，用对应语言解读并回报。
-6. **CLI 缺失则回退 MCP**：若 `longbridge` 二进制未安装，改用 Longbridge MCP 工具；运行时探测可用 MCP 工具名，**勿硬编码**（随服务端版本变化）。
+- **Auto-trading / order placement** — read-only by default; this skill does not place orders. Watchlist mutations and order-related features follow a **preview + confirm** two-step protocol.
+- **Crypto naming differences** — crypto symbols use the `.HAS` suffix on the Longbridge platform; do not treat non-`.HAS` symbols as crypto.
+- **No credentials / not logged in** — basic market data needs `auth login`; portfolio and account features need the **Trade scope** (`--trade`), otherwise they are unavailable.
+- **Environments with neither CLI nor MCP** — data retrieval depends on the `longbridge` CLI or the Longbridge MCP fallback; without either it cannot work.
+- Data freshness is bound by your Longbridge data subscription (delayed data without a subscription). Results are for analysis only and do not replace due diligence or human review.
 
-## 指令
+## Steps
 
-**认证：**
+1. **Authenticate** — basic market data: `longbridge auth login`; portfolio/account: `longbridge auth login --trade`.
+2. **Discover the right subcommand** — run `longbridge --help` to list available subcommands. **Never hard-code subcommand names** — the CLI evolves.
+3. **Check subcommand options** — run `longbridge <subcommand> --help` to confirm flags and output format before calling.
+4. **Call with JSON output** — `longbridge <subcommand> --format json`, then parse the structured output.
+5. **Render in the user's language** — detect Simplified / Traditional Chinese or English from the user's input and report back accordingly.
+6. **Fall back to MCP if the CLI is missing** — if the `longbridge` binary is not installed, use the Longbridge MCP tools; inspect available MCP tool names at runtime and **do not hard-code** them, as they change with server versions.
+
+## Example
+
+**Authentication:**
 
 ```bash
-longbridge auth login          # 基础行情（只读）
-longbridge auth login --trade  # 组合与账户功能
+longbridge auth login          # Basic market data (read-only)
+longbridge auth login --trade  # Portfolio and account features
 ```
 
-**三步取数范式：**
+**Three-step retrieval pattern:**
 
 ```bash
-longbridge --help                       # 1. 发现子命令（勿硬编码）
-longbridge <subcommand> --help          # 2. 确认旗标/输出格式
-longbridge <subcommand> --format json   # 3. JSON 输出，便于解析
+longbridge --help                       # 1. Discover subcommands (don't hard-code)
+longbridge <subcommand> --help          # 2. Confirm flags / output format
+longbridge <subcommand> --format json   # 3. JSON output, easy to parse
 ```
 
-**安装：**
+**Install:**
 
 ```bash
-# Claude Code 插件市场
+# Claude Code plugin marketplace
 /plugin marketplace add longbridge/skills
 
-# 或经 npx
+# Or via npx
 npx skills add https://github.com/longbridge/skills
 ```
 
-**MCP 回退**：CLI 不存在时使用 Longbridge MCP；运行时 inspect 可见 MCP 工具，按需调用。
-
-## 示例
+**Typical queries** (exact subcommand names must come from `--help`; the forms below are illustrative):
 
 ```bash
-# 港股实时报价（00700 腾讯）—— 子命令名以 --help 实际输出为准
+# HK real-time quote (00700 Tencent)
 longbridge quote --symbol 00700.HK --format json
 
-# 美股基本面 / 评级
+# US fundamentals / ratings
 longbridge fundamentals --symbol AAPL.US --format json
 
-# 自选组合（需先登录）
+# Watchlist (requires login)
 longbridge watchlist --format json
 
-# 持仓与账户盈亏（需 --trade 范围）
+# Positions and account P&L (requires --trade scope)
 longbridge positions --format json
 
-# 期权链分析
+# Options chain analysis
 longbridge options --symbol TSLA.US --format json
 
-# 板块排行 / 资金流
+# Sector ranking / capital flow
 longbridge sector --rank capital-flow --format json
 ```
 
-> 实际子命令名、旗标须以 `longbridge --help` 与 `longbridge <sub> --help` 为准；上为典型形态示意。检测到用户用繁体或英文提问时，用对应语言回报解读。
+**MCP fallback:** if the CLI is absent, use the Longbridge MCP; inspect the available MCP tools at runtime and call them as needed.
 
-## 注意事项
+## Notes
 
-- **只读优先**：所有行情查询无副作用；自选改动、下单相关功能严格走「预览 + 确认」两步，未确认不执行。
-- **范围分级**：组合/账户需 `--trade` 授权；基础行情只需普通登录。缺范围会报权限错误，先补认证。
-- **数据订阅**：实时与否取决于长桥数据订阅，无订阅得延迟数据；回报时标注数据时效，勿把延迟价当实时。
-- **市场后缀**：标的带市场后缀（`.HK` / `.US` / `.SH` / `.SZ` / `.SG`）；加密用 `.HAS`，勿混淆。
-- **不硬编码命名**：子命令名与 MCP 工具名都随版本演进，每次以 `--help` / 运行时探测为准。
-- **凭证安全**：凭证由长桥 auth 系统管理，本技能不存储、不传输 token。
-- 源仓库将本技能标为 critical 风险（涉账户/交易语境），涉及任何写操作务必二次确认。
+- **Read-only first** — all market-data queries have no side effects. Watchlist mutations and order-related features strictly follow the **preview + confirm** two-step protocol; do not execute without confirmation.
+- **Scope tiers** — portfolio/account features require the `--trade` scope; basic market data only needs an ordinary login. A missing scope yields a permission error — re-authenticate first.
+- **Data subscription** — whether data is real-time depends on your Longbridge data subscription; without one you get delayed data. Label data freshness when reporting and never present a delayed price as real-time.
+- **Market suffixes** — symbols carry a market suffix (`.HK` / `.US` / `.SH` / `.SZ` / `.SG`); crypto uses `.HAS` — do not confuse them.
+- **Never hard-code names** — both subcommand names and MCP tool names evolve across versions; always rely on `--help` / runtime inspection.
+- **Credential safety** — credentials are handled by the Longbridge auth system; this skill does not store or transmit tokens.
+- The source repository marks this skill as **critical** risk (account/trading context); always re-confirm before any write operation.
 
-## 互见
+## See also
 
-- requires：（无）
-- related：`octagon-stock-quote`（按 Ticker 取美股实时报价快照）、`alpha-vantage-market-data`（程序化拉全球行情/历史 OHLCV/基本面）、`portfolio-risk-metrics`（组合层风险度量）、`portfolio-rebalancer`（组合再平衡）、`institutional-flow-tracker`（13F 机构持仓流向）。
-- combines_with：`portfolio-risk-metrics`（长桥拉持仓 → 汇入风险指标）、`portfolio-rebalancer`（持仓快照 → 计算再平衡建议）、`octagon-stock-quote`（跨源交叉验证同一标的报价）。
+- **requires:** (none)
+- **related:** `octagon-stock-quote` (real-time US quote snapshot by ticker), `alpha-vantage-market-data` (programmatic global quotes / historical OHLCV / fundamentals), `portfolio-risk-metrics` (portfolio-level risk measures), `portfolio-rebalancer` (portfolio rebalancing), `institutional-flow-tracker` (13F institutional holding flows).
+- **combines_with:** `portfolio-risk-metrics` (pull positions from Longbridge → feed into risk metrics), `portfolio-rebalancer` (position snapshot → compute rebalancing suggestions), `octagon-stock-quote` (cross-source verification of the same symbol's quote).
 
 ---
 
-本条采编自 sickn33/antigravity-awesome-skills（MIT 许可），已做中文适配重写。
+Adapted from sickn33/antigravity-awesome-skills (MIT license); body reused from the upstream Longbridge skill (longbridge/skills, MIT).

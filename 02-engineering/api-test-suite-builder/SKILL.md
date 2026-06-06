@@ -1,14 +1,14 @@
 ---
 name: api-test-suite-builder
-title: API 集成测试套件生成
-description: 当需要为 REST API 批量补齐集成/契约测试时使用；扫描 Next.js/Express/FastAPI/Django REST 路由并生成覆盖鉴权、入参校验、错误码、分页、文件上传、限流的可运行测试套件（Vitest+Supertest 或 Pytest+httpx）；不适用于纯前端 UI、单元测试或 GraphQL/gRPC；触发词：生成 API 测试、集成测试套件、契约测试
+title: API Test Suite Builder
+description: Use when the user asks to generate API tests, create integration test suites, test REST endpoints, or build contract tests.
 domain: 研发/testing
-triggers: [生成 API 测试, 集成测试套件, 契约测试, 测试 REST 接口, 补齐接口测试, API 回归测试, 鉴权/入参/错误码测试矩阵]
-tags: [研发, testing, api测试, 集成测试, 契约测试, vitest, supertest, pytest, httpx, 回归测试]
-level: 进阶
+triggers: []
+tags: [testing, vitest, supertest, pytest, httpx]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Grep, Glob, Bash, Write, Edit]
+tools: []
 requires: []
 related: [javascript-testing-patterns, python-testing-pytest, webapp-testing, test-coverage-gap-finder]
 combines_with: [rest-api-endpoint-builder, api-design-reviewer, fastapi-async-api]
@@ -16,42 +16,57 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# API Test Suite Builder
 
-适用：
+**Tier:** POWERFUL
+**Category:** Engineering
+**Domain:** Testing / API Quality
 
-- 新增 API：实现前先生成测试脚手架，走 TDD。
-- 遗留无测试的 API：扫描路由，补齐基线覆盖。
-- 契约评审：核对现有测试是否与当前路由定义一致。
-- 发版前回归：确保每条路由至少有冒烟测试。
-- 安全审计准备：生成对抗性入参（注入、越权、超限）测试。
+---
 
-支持的框架：Next.js App Router、Express、FastAPI、Django REST Framework。
-产物形态：Node 端 Vitest + Supertest；Python 端 Pytest + httpx。
+## Overview
 
-不该用（负边界）：
+Scans API route definitions across frameworks (Next.js App Router, Express, FastAPI, Django REST) and
+auto-generates comprehensive test suites covering auth, input validation, error codes, pagination, file
+uploads, and rate limiting. Outputs ready-to-run test files for Vitest+Supertest (Node) or Pytest+httpx
+(Python).
 
-- 纯前端 UI / 组件渲染测试（用 E2E 或组件测试工具）。
-- 函数级单元测试（本技能聚焦端到端的接口行为）。
-- 非 REST 协议：GraphQL、gRPC、WebSocket 不在覆盖范围。
-- 性能/压测（限流测试只验证 429 行为，不做吞吐基准）。
+---
 
-## 步骤
+## Core Capabilities
 
-1. 扫描路由：用下方命令枚举全部端点及其 HTTP 方法，形成路由清单。
-2. 阅读每个 handler，明确：请求体 schema、鉴权要求（中间件/装饰器）、返回类型与状态码、业务规则（归属权、角色校验）。
-3. 按路由分组生成测试文件，套用「鉴权矩阵」「入参校验矩阵」。
-4. 测试命名描述化：`returns 401 when token is expired`，而非 `auth test 3`。
-5. 测试数据一律用工厂/fixture，绝不硬编码 ID。
-6. 断言响应结构（字段、形状），而不仅是状态码；并断言敏感字段（password、secret）不出现在响应中。
+- **Route detection** — scan source files to extract all API endpoints
+- **Auth coverage** — valid/invalid/expired tokens, missing auth header
+- **Input validation** — missing fields, wrong types, boundary values, injection attempts
+- **Error code matrix** — 400/401/403/404/422/500 for each route
+- **Pagination** — first/last/empty/oversized pages
+- **File uploads** — valid, oversized, wrong MIME type, empty
+- **Rate limiting** — burst detection, per-user vs global limits
 
-## 指令
+---
 
-路由探测（按框架选用）：
+## When to Use
 
-Next.js App Router：
+- New API added — generate test scaffold before writing implementation (TDD)
+- Legacy API with no tests — scan and generate baseline coverage
+- API contract review — verify existing tests match current route definitions
+- Pre-release regression check — ensure all routes have at least smoke tests
+- Security audit prep — generate adversarial input tests
 
+---
+
+## Route Detection
+
+### Next.js App Router
 ```bash
+# Find all route handlers
+find ./app/api -name "route.ts" -o -name "route.js" | sort
+
+# Extract HTTP methods from each route file
+grep -rn "export async function\|export function" app/api/**/route.ts | \
+  grep -oE "(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)" | sort -u
+
+# Full route map
 find ./app/api -name "route.ts" | while read f; do
   route=$(echo $f | sed 's|./app||' | sed 's|/route.ts||')
   methods=$(grep -oE "export (async )?function (GET|POST|PUT|PATCH|DELETE)" "$f" | \
@@ -60,127 +75,116 @@ find ./app/api -name "route.ts" | while read f; do
 done
 ```
 
-Express：
-
+### Express
 ```bash
+# Find all router files
+find ./src -name "*.ts" -o -name "*.js" | xargs grep -l "router\.\(get\|post\|put\|delete\|patch\)" 2>/dev/null
+
+# Extract routes with line numbers
+grep -rn "router\.\(get\|post\|put\|delete\|patch\)\|app\.\(get\|post\|put\|delete\|patch\)" \
+  src/ --include="*.ts" | grep -oE "(get|post|put|delete|patch)\(['\"][^'\"]*['\"]"
+
+# Generate route map
 grep -rn "router\.\|app\." src/ --include="*.ts" | \
   grep -oE "\.(get|post|put|delete|patch)\(['\"][^'\"]+['\"]" | \
   sed "s/\.\(.*\)('\(.*\)'/\U\1 \2/"
 ```
 
-FastAPI：
-
+### FastAPI
 ```bash
+# Find all route decorators
+grep -rn "@app\.\|@router\." . --include="*.py" | \
+  grep -E "@(app|router)\.(get|post|put|delete|patch)"
+
+# Extract with path and function name
 grep -rn "@\(app\|router\)\.\(get\|post\|put\|delete\|patch\)" . --include="*.py" | \
   grep -oE "@(app|router)\.(get|post|put|delete|patch)\(['\"][^'\"]*['\"]"
 ```
 
-Django REST：
-
+### Django REST Framework
 ```bash
+# urlpatterns extraction
 grep -rn "path\|re_path\|url(" . --include="*.py" | grep "urlpatterns" -A 50 | \
   grep -E "path\(['\"]" | grep -oE "['\"][^'\"]+['\"]" | head -40
+
+# ViewSet router registration
 grep -rn "router\.register\|DefaultRouter\|SimpleRouter" . --include="*.py"
 ```
 
-鉴权测试矩阵（每个受保护端点逐项生成）：
+---
 
-| 测试用例 | 期望状态 |
-|---------|---------|
-| 无 Authorization 头 | 401 |
-| token 格式非法 | 401 |
-| token 有效但角色不符 | 403 |
-| JWT 已过期 | 401 |
-| token 有效且角色正确 | 2xx |
-| token 来自已删除用户 | 401 |
+## Test Generation Patterns
 
-入参校验矩阵（每个带 body 的 POST/PUT/PATCH）：
+### Auth Test Matrix
 
-| 测试用例 | 期望状态 |
-|---------|---------|
-| 空 body `{}` | 400 / 422 |
-| 缺必填字段（逐个） | 400 / 422 |
-| 类型错误（应为 int 传 string） | 400 / 422 |
-| 边界 min-1 / max+1 | 400 / 422 |
-| 边界 min / max | 2xx |
-| SQL 注入 / XSS 串 | 400 或 200（已净化） |
-| 必填字段传 null | 400 / 422 |
+For every authenticated endpoint, generate:
 
-## 示例
+| Test Case | Expected Status |
+|-----------|----------------|
+| No Authorization header | 401 |
+| Invalid token format | 401 |
+| Valid token, wrong user role | 403 |
+| Expired JWT token | 401 |
+| Valid token, correct role | 2xx |
+| Token from deleted user | 401 |
 
-Node（Vitest + Supertest，节选鉴权与入参用例）：
+### Input Validation Matrix
 
-```typescript
-describe('GET /api/users/:id', () => {
-  it('returns 401 with expired token', async () => {
-    const expiredToken = generateExpiredJWT({ id: testUserId })
-    const res = await request(app)
-      .get(`/api/users/${testUserId}`)
-      .set('Authorization', `Bearer ${expiredToken}`)
-    expect(res.status).toBe(401)
-    expect(res.body.error).toMatch(/expired/i)
-  })
+For every POST/PUT/PATCH endpoint with a request body:
 
-  it('returns 200 with valid token for own profile', async () => {
-    const res = await request(app)
-      .get(`/api/users/${testUserId}`)
-      .set('Authorization', `Bearer ${validToken}`)
-    expect(res.status).toBe(200)
-    expect(res.body).toMatchObject({ id: testUserId })
-    expect(res.body).not.toHaveProperty('password')   // 敏感字段不外泄
-  })
-})
-```
-
-文件上传用例（覆盖未鉴权、缺文件、错误 MIME、超限、空文件、MIME 伪造）：
-
-```typescript
-it('returns 413 for oversized file (>10MB)', async () => {
-  const largeBuf = Buffer.alloc(11 * 1024 * 1024)
-  const res = await request(app)
-    .post('/api/upload')
-    .set('Authorization', `Bearer ${validToken}`)
-    .attach('file', largeBuf, { filename: 'large.pdf', contentType: 'application/pdf' })
-  expect(res.status).toBe(413)
-})
-```
-
-Python（Pytest + httpx，FastAPI）—token 工厂、分页与限流：
-
-```python
-def make_token(user_id: str, role: str = "user", expired: bool = False) -> str:
-    exp = datetime.utcnow() + (timedelta(hours=-1) if expired else timedelta(hours=1))
-    return jwt.encode({"sub": user_id, "role": role, "exp": exp}, JWT_SECRET, algorithm="HS256")
-
-class TestRateLimiting:
-    def test_rate_limit_after_burst(self, client, valid_token):
-        responses = []
-        for _ in range(60):  # 超过典型 50/min 限制
-            res = client.get("/api/items", headers={"Authorization": f"Bearer {valid_token}"})
-            responses.append(res.status_code)
-            if res.status_code == 429:
-                break
-        assert 429 in responses, "Rate limit was not triggered"
-```
-
-## 注意事项
-
-- 只测 happy path 是大忌：80% 的 bug 藏在错误分支，优先覆盖错误路径。
-- 测试数据用工厂/fixture，别硬编码 ID（跨环境会变）。
-- 测试间不共享状态，始终在 `afterEach`/`afterAll` 清理。
-- 测行为而非实现：断言 API 返回什么，而不是它怎么实现。
-- 别漏边界用例：分页和上限的 off-by-one 极其常见。
-- 区分「过期 token」与「非法 token」：两者行为不同，分别覆盖。
-- 校验 Content-Type：API 应拒绝错误类型（期望 json 却传 xml）。
-- 每个端点一个 describe 块，便于隔离失败。
-- 限流测试放最后跑：并行时会干扰其他套件。
-- 断言具体错误字段/消息，而非仅状态码；显式验证 password、secret 等绝不出现在响应里。
-- JWT 密钥用测试配置，绝不引入生产密钥。
-
-## 互见
-
-- 源参考含三份完整测试样例（Node 鉴权/入参/分页、文件上传、Python FastAPI 全套），可作为生成模板的蓝本。
+| Test Case | Expected Status |
+|-----------|----------------|
+| Empty body `{}` | 400 or 422 |
+| Missing required fields (one at a time) | 400 or 422 |
+| Wrong type (string where int expected) | 400 or 422 |
+| Boundary: value at min-1 | 400 or 422 |
+| Boundary: value at min | 2xx |
+| Boundary: value at max | 2xx |
+| Boundary: value at max+1 | 400 or 422 |
+| SQL injection in string field | 400 or 200 (sanitized) |
+| XSS payload in string field | 400 or 200 (sanitized) |
+| Null values for required fields | 400 or 422 |
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT）。
+## Example Test Files
+→ See references/example-test-files.md for details
+
+## Generating Tests from Route Scan
+
+When given a codebase, follow this process:
+
+1. **Scan routes** using the detection commands above
+2. **Read each route handler** to understand:
+   - Expected request body schema
+   - Auth requirements (middleware, decorators)
+   - Return types and status codes
+   - Business rules (ownership, role checks)
+3. **Generate test file** per route group using the patterns above
+4. **Name tests descriptively**: `"returns 401 when token is expired"` not `"auth test 3"`
+5. **Use factories/fixtures** for test data — never hardcode IDs
+6. **Assert response shape**, not just status code
+
+---
+
+## Common Pitfalls
+
+- **Testing only happy paths** — 80% of bugs live in error paths; test those first
+- **Hardcoded test data IDs** — use factories/fixtures; IDs change between environments
+- **Shared state between tests** — always clean up in afterEach/afterAll
+- **Testing implementation, not behavior** — test what the API returns, not how it does it
+- **Missing boundary tests** — off-by-one errors are extremely common in pagination and limits
+- **Not testing token expiry** — expired tokens behave differently from invalid ones
+- **Ignoring Content-Type** — test that API rejects wrong content types (xml when json expected)
+
+---
+
+## Best Practices
+
+1. One describe block per endpoint — keeps failures isolated and readable
+2. Seed minimal data — don't load the entire DB; create only what the test needs
+3. Use `beforeAll` for shared setup, `afterAll` for cleanup — not `beforeEach` for expensive ops
+4. Assert specific error messages/fields, not just status codes
+5. Test that sensitive fields (password, secret) are never in responses
+6. For auth tests, always test the "missing header" case separately from "invalid token"
+7. Add rate limit tests last — they can interfere with other test suites if run in parallel

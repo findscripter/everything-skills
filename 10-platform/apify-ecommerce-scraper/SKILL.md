@@ -1,14 +1,14 @@
 ---
 name: apify-ecommerce-scraper
-title: Apify 电商数据抓取
-description: 当需要从亚马逊、沃尔玛等电商平台批量抓取商品、价格、库存、评论或卖家数据（用于比价、MAP 监控、竞品分析、评论情感/质量分析、卖家发现）时使用；调用 Apify「e-commerce-scraping-tool」Actor，按三类工作流配置输入并导出 CSV/JSON 结果与洞察；不适用于无 APIFY_TOKEN、需自建爬虫绕过反爬、或抓取非电商页面。触发词：电商抓取、商品比价、价格监控、评论分析、卖家发现、apify、ecommerce scraping、product price、review scraping
+title: E-commerce Data Extraction
+description: Extract product data, prices, reviews, and seller information from any e-commerce platform using Apify's E-commerce Scraping Tool.
 domain: 平台/integration
-triggers: [电商抓取, 商品比价, 价格监控, 评论分析, 卖家发现, apify, ecommerce scraping, product price, review scraping, MAP监控]
+triggers: [apify, ecommerce scraping, product price, review scraping]
 tags: [apify, ecommerce, web-scraping, price-monitoring, review-analysis, integration, actor]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Apify Actor: apify/e-commerce-scraping-tool, Node.js 20.6+, run_actor.js]
+tools: []
 requires: []
 related: [firecrawl-web-scraper, browser-automation-builder, defuddle-web-extract, exa-semantic-search]
 combines_with: [browser-automation-builder, competitive-analysis, csv-data-cleaner]
@@ -16,62 +16,86 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# E-commerce Data Extraction
 
-- 需要从电商站点批量获取商品、价格、库存、评论或卖家数据。
-- 任务涉及比价/价格监控、竞品对比、MAP（最低广告价）合规、评论情感与质量分析、跨店卖家发现。
-- 需要一条可引导的工作流：选数据源 → 配 Actor 输入 → 导出 → 汇总洞察。
+Extract product data, prices, reviews, and seller information from any e-commerce platform using Apify's E-commerce Scraping Tool.
 
-不该用的边界：
-- 没有有效 `APIFY_TOKEN`（无可用配额/凭据）。
-- 想绕过站点反爬、登录墙或自建分布式爬虫——本技能仅调用托管 Actor。
-- 目标是非电商页面，或需要权威环境内的人工核验（输出不可替代专家审查与本地验证）。
-- 必填输入、权限或成功标准不明确时，先停下来向用户澄清。
+## When to Use
+- You need product, pricing, review, stock, or seller data from e-commerce sites.
+- The task involves price monitoring, competitor product comparison, MAP enforcement, or review analysis.
+- You need a guided workflow for extracting marketplace data and summarizing findings.
 
-## 步骤
+## Prerequisites
 
-1. 选工作流并确定数据源（商品/价格、评论、卖家）。
-2. 按工作流配置 Actor 输入（见下方 JSON）。
-3. 询问用户偏好：输出格式（聊天展示 / CSV / JSON）与文件名。
-4. 运行抽取脚本。
-5. 汇总结果（条数、文件位置、关键洞察）。
+- `.env` file with `APIFY_TOKEN` (at `~/.claude/.env`)
+- Node.js 20.6+ (for native `--env-file` support)
 
-工作流选型：
+## Workflow Selection
 
-| 需求 | 工作流 | 适用 |
-|------|--------|------|
-| 跟踪价格、对比商品 | 工作流 1：商品与价格 | 价格监控、MAP 合规、竞品分析；可加 AI 摘要 |
-| 分析评论（情感/质量） | 工作流 2：评论 | 品牌口碑、客户情感、质量与缺陷模式 |
-| 跨店找卖家 | 工作流 3：卖家 | 未授权经销商排查、供应商发现（走 Google Shopping）|
+| User Need | Workflow | Best For |
+|-----------|----------|----------|
+| Track prices, compare products | Workflow 1: Products & Pricing | Price monitoring, MAP compliance, competitor analysis. Add AI summary for insights. |
+| Analyze reviews (sentiment or quality) | Workflow 2: Reviews | Brand perception, customer sentiment, quality issues, defect patterns |
+| Find sellers across stores | Workflow 3: Sellers | Unauthorized resellers, vendor discovery via Google Shopping |
 
-## 指令
+## Progress Tracking
 
-前置条件：`~/.claude/.env` 内含 `APIFY_TOKEN`；Node.js 20.6+（原生支持 `--env-file`）。
-
-设定路径并运行（`JSON_INPUT` 替换为对应工作流的输入）：
-
-```bash
-SKILL_PATH=~/.claude/skills/apify-ecommerce
-
-# 直接在聊天展示
-node --env-file=~/.claude/.env $SKILL_PATH/reference/scripts/run_actor.js \
-  --actor "apify/e-commerce-scraping-tool" \
-  --input 'JSON_INPUT'
-
-# 导出 CSV（或把 csv/.csv 换成 json/.json）
-node --env-file=~/.claude/.env $SKILL_PATH/reference/scripts/run_actor.js \
-  --actor "apify/e-commerce-scraping-tool" \
-  --input 'JSON_INPUT' \
-  --output YYYY-MM-DD_filename.csv \
-  --format csv
+```
+Task Progress:
+- [ ] Step 1: Select workflow and determine data source
+- [ ] Step 2: Configure Actor input
+- [ ] Step 3: Ask user preferences (format, filename)
+- [ ] Step 4: Run the extraction script
+- [ ] Step 5: Summarize results
 ```
 
-Actor ID 固定为 `apify/e-commerce-scraping-tool`。
+---
 
-## 示例
+## Workflow 1: Products & Pricing
 
-工作流 1（关键词搜索 + AI 摘要）：
+**Use case:** Extract product data, prices, and stock status. Track competitor prices, detect MAP violations, benchmark products, or research markets.
 
+**Best for:** Pricing analysts, product managers, market researchers.
+
+### Input Options
+
+| Input Type | Field | Description |
+|------------|-------|-------------|
+| Product URLs | `detailsUrls` | Direct URLs to product pages (use object format) |
+| Category URLs | `listingUrls` | URLs to category/search result pages |
+| Keyword Search | `keyword` + `marketplaces` | Search term across selected marketplaces |
+
+### Example - Product URLs
+```json
+{
+  "detailsUrls": [
+    {"url": "https://www.amazon.com/dp/B09V3KXJPB"},
+    {"url": "https://www.walmart.com/ip/123456789"}
+  ],
+  "additionalProperties": true
+}
+```
+
+### Example - Keyword Search
+```json
+{
+  "keyword": "Samsung Galaxy S24",
+  "marketplaces": ["www.amazon.com", "www.walmart.com"],
+  "additionalProperties": true,
+  "maxProductResults": 50
+}
+```
+
+### Optional: AI Summary
+
+Add these fields to get AI-generated insights:
+
+| Field | Description |
+|-------|-------------|
+| `fieldsToAnalyze` | Data points to analyze: `["name", "offers", "brand", "description"]` |
+| `customPrompt` | Custom analysis instructions |
+
+**Example with AI summary:**
 ```json
 {
   "keyword": "robot vacuum",
@@ -83,23 +107,81 @@ Actor ID 固定为 `apify/e-commerce-scraping-tool`。
 }
 ```
 
-也可用 `detailsUrls`（商品页对象数组）或 `listingUrls`（类目/搜索页）作为输入。输出字段含 `name`、`url`、`offers.price`、`offers.priceCurrency`、`brand.slogan`（品牌名嵌套于此）、`image` 等。
+### Output Fields
+- `name` - Product name
+- `url` - Product URL
+- `offers.price` - Current price
+- `offers.priceCurrency` - Currency code (may vary by seller region)
+- `brand.slogan` - Brand name (nested in object)
+- `image` - Product image URL
+- Additional seller/stock info when `additionalProperties: true`
 
-工作流 2（评论）：
+> **Note:** Currency may vary in results even for US searches, as prices reflect different seller regions.
 
+---
+
+## Workflow 2: Customer Reviews
+
+**Use case:** Extract reviews for sentiment analysis, brand perception monitoring, or quality issue detection.
+
+**Best for:** Brand managers, customer experience teams, QA teams, product managers.
+
+### Input Options
+
+| Input Type | Field | Description |
+|------------|-------|-------------|
+| Product URLs | `reviewListingUrls` | Product pages to extract reviews from |
+| Keyword Search | `keywordReviews` + `marketplacesReviews` | Search for product reviews by keyword |
+
+### Example - Extract Reviews from Product
 ```json
 {
-  "reviewListingUrls": [{"url": "https://www.amazon.com/dp/B09V3KXJPB"}],
+  "reviewListingUrls": [
+    {"url": "https://www.amazon.com/dp/B09V3KXJPB"}
+  ],
   "sortReview": "Most recent",
   "additionalReviewProperties": true,
   "maxReviewResults": 500
 }
 ```
 
-排序可选 `Most recent`（推荐）/`Most relevant`/`Most helpful`/`Highest rated`/`Lowest rated`。也支持 `keywordReviews` + `marketplacesReviews` 按关键词搜评论。
+### Example - Keyword Search
+```json
+{
+  "keywordReviews": "wireless earbuds",
+  "marketplacesReviews": ["www.amazon.com"],
+  "sortReview": "Most recent",
+  "additionalReviewProperties": true,
+  "maxReviewResults": 200
+}
+```
 
-工作流 3（卖家，走 Google Shopping）：
+### Sort Options
+- `Most recent` - Latest reviews first (recommended)
+- `Most relevant` - Platform default relevance
+- `Most helpful` - Highest voted reviews
+- `Highest rated` - 5-star reviews first
+- `Lowest rated` - 1-star reviews first
 
+> **Note:** The `sortReview: "Lowest rated"` option may not work consistently across all marketplaces. For quality analysis, collect a large sample and filter by rating in post-processing.
+
+### Quality Analysis Tips
+- Set high `maxReviewResults` for statistical significance
+- Look for recurring keywords: "broke", "defect", "quality", "returned"
+- Filter results by rating if sorting doesn't work as expected
+- Cross-reference with competitor products for benchmarking
+
+---
+
+## Workflow 3: Seller Intelligence
+
+**Use case:** Find sellers across stores, discover unauthorized resellers, evaluate vendor options.
+
+**Best for:** Brand protection teams, procurement, supply chain managers.
+
+> **Note:** This workflow uses Google Shopping to find sellers across stores. Direct seller profile URLs are not reliably supported.
+
+### Input Configuration
 ```json
 {
   "googleShoppingSearchKeyword": "Nike Air Max 90",
@@ -110,19 +192,95 @@ Actor ID 固定为 `apify/e-commerce-scraping-tool`。
 }
 ```
 
-## 注意事项
-
-- 即使美国关键词搜索，结果币种也可能因卖家所在区域而不同（看 `offers.priceCurrency`）。
-- `sortReview: "Lowest rated"` 在部分平台不稳定；做质量分析时取大样本（高 `maxReviewResults`），再在后处理按评分过滤；关注 "broke"/"defect"/"quality"/"returned" 等复现关键词。
-- 卖家工作流依赖 Google Shopping，直接卖家主页 URL 不被可靠支持。
-- 支持平台：Amazon 20+ 区域站、Walmart/Costco/Home Depot、Allegro/Alza/Kaufland/Cdiscount 等欧洲零售商、IKEA 40+ 站点、Google Shopping。`marketplaces` 取值须与官方列表完全一致。
-- 常见报错处理：`APIFY_TOKEN not found` → 检查 `~/.claude/.env`；`Actor not found` → 核对 Actor ID；`Run FAILED` → 看错误里的 Apify 控制台链接；`Timeout` → 减小 `maxProductResults` 或增大 `--timeout`；`No results` → 核验 URL 可访问；`Invalid marketplace` → 比对支持列表。
-- 汇总时按工作流给洞察：商品（价格区间、异常值、MAP 违规）/评论（均分、情感趋势、质量问题）/卖家（卖家数、发现的未授权卖家）。
-
-## 互见
-
-无（暂无强相关的「技能大典」条目）。
+### Options
+| Field | Description |
+|-------|-------------|
+| `googleShoppingSearchKeyword` | Product name to search |
+| `scrapeSellersFromGoogleShopping` | Set to `true` to extract sellers |
+| `scrapeProductsFromGoogleShopping` | Set to `true` to also extract product details |
+| `countryCode` | Target country (e.g., `us`, `uk`, `de`) |
+| `maxGoogleShoppingSellersPerProduct` | Max sellers per product |
+| `maxGoogleShoppingResults` | Total result limit |
 
 ---
 
-本条采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Supported Marketplaces
+
+### Amazon (20+ regions)
+`www.amazon.com`, `www.amazon.co.uk`, `www.amazon.de`, `www.amazon.fr`, `www.amazon.it`, `www.amazon.es`, `www.amazon.ca`, `www.amazon.com.au`, `www.amazon.co.jp`, `www.amazon.in`, `www.amazon.com.br`, `www.amazon.com.mx`, `www.amazon.nl`, `www.amazon.pl`, `www.amazon.se`, `www.amazon.ae`, `www.amazon.sa`, `www.amazon.sg`, `www.amazon.com.tr`, `www.amazon.eg`
+
+### Major US Retailers
+`www.walmart.com`, `www.costco.com`, `www.costco.ca`, `www.homedepot.com`
+
+### European Retailers
+`allegro.pl`, `allegro.cz`, `allegro.sk`, `www.alza.cz`, `www.alza.sk`, `www.alza.de`, `www.alza.at`, `www.alza.hu`, `www.kaufland.de`, `www.kaufland.pl`, `www.kaufland.cz`, `www.kaufland.sk`, `www.kaufland.at`, `www.kaufland.fr`, `www.kaufland.it`, `www.cdiscount.com`
+
+### IKEA (40+ country/language combinations)
+Supports all major IKEA regional sites with multiple language options.
+
+### Google Shopping
+Use for seller discovery across multiple stores.
+
+---
+
+## Running the Extraction
+
+### Step 1: Set Skill Path
+```bash
+SKILL_PATH=~/.claude/skills/apify-ecommerce
+```
+
+### Step 2: Run Script
+
+**Quick answer (display in chat):**
+```bash
+node --env-file=~/.claude/.env $SKILL_PATH/reference/scripts/run_actor.js \
+  --actor "apify/e-commerce-scraping-tool" \
+  --input 'JSON_INPUT'
+```
+
+**CSV export:**
+```bash
+node --env-file=~/.claude/.env $SKILL_PATH/reference/scripts/run_actor.js \
+  --actor "apify/e-commerce-scraping-tool" \
+  --input 'JSON_INPUT' \
+  --output YYYY-MM-DD_filename.csv \
+  --format csv
+```
+
+**JSON export:**
+```bash
+node --env-file=~/.claude/.env $SKILL_PATH/reference/scripts/run_actor.js \
+  --actor "apify/e-commerce-scraping-tool" \
+  --input 'JSON_INPUT' \
+  --output YYYY-MM-DD_filename.json \
+  --format json
+```
+
+### Step 3: Summarize Results
+
+Report:
+- Number of items extracted
+- File location (if exported)
+- Key insights based on workflow:
+  - **Products:** Price range, outliers, MAP violations
+  - **Reviews:** Average rating, sentiment trends, quality issues
+  - **Sellers:** Seller count, unauthorized sellers found
+
+---
+
+## Error Handling
+
+| Error | Solution |
+|-------|----------|
+| `APIFY_TOKEN not found` | Ensure `~/.claude/.env` contains `APIFY_TOKEN=your_token` |
+| `Actor not found` | Verify Actor ID: `apify/e-commerce-scraping-tool` |
+| `Run FAILED` | Check Apify console link in error output |
+| `Timeout` | Reduce `maxProductResults` or increase `--timeout` |
+| `No results` | Verify URLs are valid and accessible |
+| `Invalid marketplace` | Check marketplace value matches supported list exactly |
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: kegg-database
-title: KEGG 通路与化合物数据库
-description: 当需查 KEGG 通路/基因/化合物/药物、在 KEGG↔NCBI/UniProt/PubChem 转 ID、查药物相互作用或取通路富集背景时使用；requests 直连 REST API（七操作）产出基因集与 FASTA/MOL/PNG。不适用于多库 Python 聚合（用 gget-genomic-databases）。触发词：KEGG、通路、pathway、ID 转换、富集
+title: KEGG Database — Biological Pathway & Molecular Network Queries
+description: KEGG REST API (academic only). Pathways, genes, compounds, enzymes, diseases, drugs via 7 ops (info/list/find/get/conv/link/ddi). ID conversion (NCBI/UniProt/PubChem). Use bioservices for multi-DB Python.
 domain: 领域/science
-triggers: [KEGG, pathway, 通路, 代谢通路, hsa, KO orthology, ID 转换, conv, link, ddi, 药物相互作用, 富集背景, gene-set, 化合物, reaction, enzyme, KGML]
-tags: [science, 生物信息学, 通路分析, kegg, rest-api, 基因, 化合物, id 转换]
-level: 进阶
+triggers: [KEGG, pathway, hsa, KO orthology, conv, link, ddi, gene-set, reaction, enzyme, KGML]
+tags: [science, kegg, rest-api]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, requests]
+tools: []
 requires: []
 related: [gget-genomic-databases, uniprot-protein-database, pubchem-compound-search, gene-set-enrichment-analysis, scientific-database-lookup, opentargets-database]
 combines_with: [gene-set-enrichment-analysis, gget-genomic-databases, pubchem-compound-search]
@@ -16,168 +16,535 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# KEGG Database — Biological Pathway & Molecular Network Queries
 
-适用：
+## Overview
 
-- 把基因映射到生物通路（如「TP53 参与哪些通路？」），或反查通路里的基因/化合物/酶。
-- 取代谢通路详情、基因清单、化合物结构、KGML/通路图。
-- 在 KEGG、NCBI Gene、UniProt、PubChem、ChEBI 之间转标识符。
-- 查 KEGG 药理库里的药物-药物相互作用（DDI）。
-- 构建通路富集背景（一物种全部通路 → 各通路基因集），供下游富集工具。
-- 跨表交叉引用化合物、反应、酶、通路、KO 直系同源组。
+KEGG (Kyoto Encyclopedia of Genes and Genomes) is a comprehensive bioinformatics resource for biological pathway analysis, molecular interaction networks, and cross-database ID conversion. Access is via a direct REST API with no authentication — all operations use simple HTTP GET requests returning tab-delimited text.
 
-不该用（负边界）：
+## When to Use
 
-- **纯 Python 多库聚合**（一脚本同时查 KEGG + UniProt + Ensembl）——用 `gget-genomic-databases` 或 `bioservices`。
-- **本地化学信息学**（指纹、描述符、子结构）——用 `cheminformatics-toolkit`。
-- **通路可视化/上色**——直接用 KEGG Mapper（https://www.kegg.jp/kegg/mapper/）。
-- **跑富集统计本身**（超几何/GSEA 打分）——本技能只供基因集背景，统计交 `gene-set-enrichment-analysis`。
+- Mapping genes to biological pathways (e.g., "which pathways involve TP53?")
+- Retrieving metabolic pathway details, gene lists, or compound structures
+- Converting identifiers between KEGG, NCBI Gene, UniProt, and PubChem
+- Checking drug-drug interactions from KEGG's pharmacological database
+- Building pathway enrichment context (all genes per pathway for an organism)
+- Cross-referencing compounds, reactions, enzymes, and pathways
+- For **Python-native multi-database queries** (KEGG + UniProt + Ensembl in one script), prefer `bioservices` instead
+- For **pathway visualization**, use KEGG Mapper (https://www.kegg.jp/kegg/mapper/) directly
 
-## 步骤 / 指令
+## Prerequisites
 
-1. 环境：仅需 `requests`，**无需鉴权**；pixi/conda 内用 `pixi run python ...`。
-   ```bash
-   pip install requests
-   ```
-2. 固定 URL 语法（所有响应都是制表符分隔文本，无 query 参数）：
-   ```
-   https://rest.kegg.jp/<operation>/<arg1>/<arg2>...
-   ```
-   七个 operation：`info`（库元信息）、`list`（列条目）、`find`（关键词/属性搜）、`get`（取完整条目）、`conv`（ID 转换）、`link`（交叉引用）、`ddi`（药物相互作用）。
-3. **先 list/find 再 get**：用 `list`/`find` 枚举 ID，再 `get` 取具体条目；不要整库下载。
-4. **批量用 `+` 拼接**：`get`/`list`/`conv`/`link`/`ddi` 单次最多 **10 个**条目（`hsa:10458+hsa:10459`）；`image`/`kgml`/`json` 格式**只接受 1 个**。
-5. **优先物种专属通路 ID**：分析已知物种时用 `hsa00010`（人糖酵解，含物种基因映射），别用 `map00010`（参考通路，泛化无基因）。
-6. **批量请求间加延时**：无硬性限流，但 `time.sleep(0.5)` 防服务端节流；遇 403 加到 1s 并降并发。
-7. **统一解析制表符**：响应一律 `\t` 分字段、`\n` 分记录；split 前先 `.strip()`。
-8. **学术用途专属**：商业使用需另购 KEGG 许可。
+```bash
+pip install requests
+```
 
-## 示例
+**API constraints**:
+- **Academic use only** — commercial use requires a separate KEGG license
+- **Max 10 entries** per `get`/`list`/`conv`/`link`/`ddi` call (image/kgml/json: 1 entry only)
+- **No explicit rate limit**, but add `time.sleep(0.5)` between batch requests to avoid server-side throttling
+- Base URL: `https://rest.kegg.jp/`
 
-快速上手（基因 → 通路 → 详情）：
+## Quick Start
 
 ```python
 import requests
+import time
+
 BASE = "https://rest.kegg.jp"
 
-def kegg(op, *args):
-    r = requests.get(f"{BASE}/{op}/{'/'.join(args)}")
-    r.raise_for_status()
-    return r.text
+def kegg_get(operation, *args):
+    """Generic KEGG REST API caller."""
+    url = f"{BASE}/{operation}/{'/'.join(args)}"
+    resp = requests.get(url)
+    resp.raise_for_status()
+    return resp.text
 
-# TP53(hsa:7157) 所在通路
-print(kegg("link", "pathway", "hsa:7157")[:200])
-# hsa:7157	path:hsa04010 ...
-# 取某通路完整条目
-print(kegg("get", "hsa04110")[:300])
+# Find pathways linked to human gene TP53
+pathways = kegg_get("link", "pathway", "hsa:7157")
+print(pathways[:200])
+# hsa:7157	path:hsa04010
+# hsa:7157	path:hsa04110
+# ...
+
+# Get pathway details
+detail = kegg_get("get", "hsa04110")
+print(detail[:300])
 ```
 
-列出与搜索（`list` / `find`）：
+## Core API
+
+### 1. Database Information — `kegg_info`
+
+Retrieve metadata and statistics about KEGG databases.
 
 ```python
-# 人类全部通路（path:hsaXXXXX \t 名称）
-for line in kegg("list", "pathway", "hsa").strip().split("\n")[:3]:
-    pid, name = line.split("\t"); print(pid, name)
+import requests
 
-# 关键词搜基因 / 分子式精确匹配 / 精确质量区间
-kegg("find", "genes", "p53")
-kegg("find", "compound", "C7H10N4O2", "formula")   # /formula 精确
-kegg("find", "drug", "300-310", "exact_mass")      # /exact_mass 区间；另有 /mol_weight
+BASE = "https://rest.kegg.jp"
+
+# Database-level info
+info = requests.get(f"{BASE}/info/pathway").text
+print(info[:200])
+# pathway          Pathway
+#                  Release 112.0, Dec 2025
+#                  Kanehisa Laboratories
+#                  ...
+
+# Organism-level info
+hsa_info = requests.get(f"{BASE}/info/hsa").text
+print(hsa_info[:200])
 ```
 
-取条目的多种格式（`get`）：
+**Common databases**: `kegg`, `pathway`, `module`, `brite`, `genes`, `genome`, `compound`, `glycan`, `reaction`, `enzyme`, `disease`, `drug`
+
+### 2. Listing Entries — `kegg_list`
+
+List entry identifiers and names from any KEGG database.
 
 ```python
-seq = kegg("get", "hsa:10458", "aaseq")            # 蛋白 FASTA；ntseq=核酸
-mol = kegg("get", "cpd:C00002", "mol")             # ATP 的 MOL 结构
-# 通路图 PNG（单条目，二进制）
-img = requests.get(f"{BASE}/get/hsa05130/image").content
-open("pathway.png", "wb").write(img)
-# 其余格式：kcf / kgml(XML) / json，均仅限 1 条目
+import requests
+
+BASE = "https://rest.kegg.jp"
+
+# All human pathways
+hsa_pathways = requests.get(f"{BASE}/list/pathway/hsa").text
+for line in hsa_pathways.strip().split("\n")[:5]:
+    pathway_id, name = line.split("\t")
+    print(f"{pathway_id}: {name}")
+# path:hsa00010: Glycolysis / Gluconeogenesis - Homo sapiens (human)
+# ...
+
+# Specific entries (max 10, joined with +)
+genes = requests.get(f"{BASE}/list/hsa:10458+hsa:10459").text
+print(genes)
 ```
 
-ID 转换（`conv`，支持 ncbi-geneid / ncbi-proteinid / uniprot / pubchem / chebi）：
+**Common organism codes**: `hsa` (human), `mmu` (mouse), `dme` (fruit fly), `sce` (yeast), `eco` (E. coli)
+
+### 3. Keyword Search — `kegg_find`
+
+Search databases by keywords or molecular properties.
 
 ```python
-print(kegg("conv", "uniprot", "hsa:10458").strip())          # KEGG → UniProt
-print(kegg("conv", "hsa", "ncbi-geneid:7157").strip())       # 反向：NCBI → KEGG(TP53)
-all_map = kegg("conv", "ncbi-geneid", "hsa")                 # 全物种批量（结果大，建议本地缓存）
-```
-
-交叉引用（`link`）+ 药物相互作用（`ddi`）：
-
-```python
-# 糖酵解通路里的基因 / 某基因映射到 KO
-genes = kegg("link", "genes", "hsa00010")
-ko    = kegg("link", "ko", "hsa:10458").strip()
-# 药物-药物相互作用：单药全部 / 两两组合（≤10，+ 拼接）
-ddi = kegg("ddi", "D00001+D00002+D00003")
-```
-
-富集背景（一物种全通路 → 基因集字典）：
-
-```python
+import requests
 import time
-pathways = {l.split("\t")[0].replace("path:", ""): l.split("\t",1)[1]
-            for l in kegg("list", "pathway", "hsa").strip().split("\n")}
-gene_sets = {}
-for pid in list(pathways)[:3]:        # 演示前 3 个；全量记得加缓存
-    txt = kegg("link", "genes", pid)
-    gene_sets[pid] = [x.split("\t")[1] for x in txt.strip().split("\n") if x]
+
+BASE = "https://rest.kegg.jp"
+
+# Keyword search in genes
+results = requests.get(f"{BASE}/find/genes/p53").text
+print(f"Found {len(results.strip().split(chr(10)))} entries")
+time.sleep(0.5)
+
+# Chemical formula search (exact match)
+compounds = requests.get(f"{BASE}/find/compound/C7H10N4O2/formula").text
+print(compounds[:200])
+time.sleep(0.5)
+
+# Molecular weight range search
+drugs = requests.get(f"{BASE}/find/drug/300-310/exact_mass").text
+print(drugs[:200])
+```
+
+**Search options**: append `/formula` (exact match), `/exact_mass` (range), `/mol_weight` (range) to compound/drug queries.
+
+### 4. Entry Retrieval — `kegg_get`
+
+Retrieve complete database entries or specific data formats.
+
+```python
+import requests
+import time
+
+BASE = "https://rest.kegg.jp"
+
+# Full pathway entry (text format)
+pathway = requests.get(f"{BASE}/get/hsa00010").text
+print(pathway[:500])
+time.sleep(0.5)
+
+# Multiple entries (max 10, joined with +)
+genes = requests.get(f"{BASE}/get/hsa:10458+hsa:10459").text
+
+# Protein sequence (FASTA)
+fasta = requests.get(f"{BASE}/get/hsa:10458/aaseq").text
+print(fasta[:200])
+time.sleep(0.5)
+
+# Compound structure (MOL format)
+mol = requests.get(f"{BASE}/get/cpd:C00002/mol").text  # ATP
+
+# Pathway image (PNG, single entry only)
+img_resp = requests.get(f"{BASE}/get/hsa05130/image")
+with open("pathway.png", "wb") as f:
+    f.write(img_resp.content)
+print(f"Saved pathway image: {len(img_resp.content)} bytes")
+```
+
+**Output formats**: `aaseq` (protein FASTA), `ntseq` (nucleotide FASTA), `mol` (MOL), `kcf` (KCF), `image` (PNG), `kgml` (XML), `json` (pathway JSON). Image/KGML/JSON accept **one entry only**.
+
+### 5. ID Conversion — `kegg_conv`
+
+Convert identifiers between KEGG and external databases.
+
+```python
+import requests
+import time
+
+BASE = "https://rest.kegg.jp"
+
+# KEGG gene → NCBI Gene ID (specific gene)
+ncbi = requests.get(f"{BASE}/conv/ncbi-geneid/hsa:10458").text
+print(ncbi.strip())
+# hsa:10458	ncbi-geneid:10458
+time.sleep(0.5)
+
+# KEGG gene → UniProt
+uniprot = requests.get(f"{BASE}/conv/uniprot/hsa:10458").text
+print(uniprot.strip())
+time.sleep(0.5)
+
+# Bulk conversion: all human genes → NCBI Gene IDs
+all_conv = requests.get(f"{BASE}/conv/ncbi-geneid/hsa").text
+lines = all_conv.strip().split("\n")
+print(f"Total conversions: {len(lines)}")
+
+# Reverse: NCBI Gene ID → KEGG
+reverse = requests.get(f"{BASE}/conv/hsa/ncbi-geneid:7157").text
+print(reverse.strip())  # TP53
+```
+
+**Supported external databases**: `ncbi-geneid`, `ncbi-proteinid`, `uniprot`, `pubchem`, `chebi`
+
+### 6. Cross-Referencing — `kegg_link`
+
+Find related entries within and between KEGG databases.
+
+```python
+import requests
+import time
+
+BASE = "https://rest.kegg.jp"
+
+# Genes in glycolysis pathway
+genes = requests.get(f"{BASE}/link/genes/hsa00010").text
+gene_list = [line.split("\t")[1] for line in genes.strip().split("\n") if line]
+print(f"Glycolysis genes: {len(gene_list)}")
+time.sleep(0.5)
+
+# Pathways containing a specific gene
+pathways = requests.get(f"{BASE}/link/pathway/hsa:7157").text  # TP53
+print(pathways[:300])
+time.sleep(0.5)
+
+# Compounds in a pathway
+compounds = requests.get(f"{BASE}/link/compound/hsa00010").text
+print(f"Compounds in glycolysis: {len(compounds.strip().split(chr(10)))}")
+
+# Map genes to KO (orthology) groups
+ko = requests.get(f"{BASE}/link/ko/hsa:10458").text
+print(ko.strip())
+```
+
+**Common links**: genes ↔ pathway, pathway ↔ compound, pathway ↔ enzyme, genes ↔ ko (orthology)
+
+### 7. Drug-Drug Interactions — `kegg_ddi`
+
+Check pharmacological interactions between drugs.
+
+```python
+import requests
+
+BASE = "https://rest.kegg.jp"
+
+# Single drug — all known interactions
+interactions = requests.get(f"{BASE}/ddi/D00001").text
+print(f"Interactions: {len(interactions.strip().split(chr(10)))}")
+
+# Pairwise check (max 10 drugs, joined with +)
+pair = requests.get(f"{BASE}/ddi/D00001+D00002+D00003").text
+print(pair[:300])
+```
+
+## Key Concepts
+
+### Identifier Formats
+
+| Type | Format | Example |
+|------|--------|---------|
+| Reference pathway | `map#####` | `map00010` (Glycolysis, generic) |
+| Organism pathway | `{org}#####` | `hsa00010` (Glycolysis, human) |
+| Gene | `{org}:{number}` | `hsa:7157` (TP53) |
+| Compound | `cpd:C#####` | `cpd:C00002` (ATP) |
+| Drug | `dr:D#####` | `dr:D00001` |
+| Enzyme | `ec:{EC_number}` | `ec:1.1.1.1` |
+| KO (orthology) | `ko:K#####` | `ko:K00001` |
+
+### Pathway Categories
+
+KEGG organizes pathways into seven major categories:
+
+1. **Metabolism** — `map001xx` (Glycolysis, TCA cycle, amino acid metabolism)
+2. **Genetic Information Processing** — `map030xx` (Ribosome, Spliceosome, DNA repair)
+3. **Environmental Information Processing** — `map040xx` (MAPK signaling, ABC transporters)
+4. **Cellular Processes** — `map041xx` (Autophagy, Apoptosis, Cell cycle)
+5. **Organismal Systems** — `map046xx` (Immune, Endocrine, Nervous)
+6. **Human Diseases** — `map052xx` (Cancer, Neurodegenerative, Infectious)
+7. **Drug Development** — Chronological and target-based classifications
+
+## Common Workflows
+
+### Workflow: Gene to Pathway Mapping
+
+Find all pathways associated with a gene of interest.
+
+```python
+import requests
+import time
+
+BASE = "https://rest.kegg.jp"
+
+# Step 1: Find gene by keyword
+results = requests.get(f"{BASE}/find/genes/BRCA1+homo+sapiens").text
+print("Gene search results:")
+for line in results.strip().split("\n")[:5]:
+    print(f"  {line}")
+time.sleep(0.5)
+
+# Step 2: Get pathways linked to BRCA1
+pathways = requests.get(f"{BASE}/link/pathway/hsa:672").text
+pathway_ids = [line.split("\t")[1].replace("path:", "") for line in pathways.strip().split("\n") if line]
+print(f"\nBRCA1 is in {len(pathway_ids)} pathways:")
+time.sleep(0.5)
+
+# Step 3: Get pathway names
+for pid in pathway_ids[:5]:
+    info = requests.get(f"{BASE}/get/{pid}").text
+    # Extract NAME field
+    for line in info.split("\n"):
+        if line.startswith("NAME"):
+            print(f"  {pid}: {line.replace('NAME', '').strip()}")
+            break
     time.sleep(0.5)
 ```
 
-解析 KEGG 平文件条目（NAME/DESCRIPTION 等字段在前 12 列）：
+### Workflow: Pathway Enrichment Context
+
+Build a gene-set collection for all pathways of an organism.
 
 ```python
-def parse_entry(text):
-    entry, key = {}, None
-    for line in text.split("\n"):
-        if line.startswith("///"): break
-        if line[:12].strip():            # 新字段
-            key = line[:12].strip(); entry[key] = line[12:].strip()
-        elif key:                         # 续行
-            entry[key] += "\n" + line[12:].strip()
-    return entry
-p = parse_entry(kegg("get", "hsa00010"))
-print(p.get("NAME"))
+import requests
+import time
+
+BASE = "https://rest.kegg.jp"
+
+# Step 1: List all human pathways
+pathways_text = requests.get(f"{BASE}/list/pathway/hsa").text
+pathways = {}
+for line in pathways_text.strip().split("\n"):
+    pid, name = line.split("\t", 1)
+    pathways[pid.replace("path:", "")] = name
+print(f"Total human pathways: {len(pathways)}")
+time.sleep(0.5)
+
+# Step 2: Get genes for each pathway (sample first 3 for demo)
+gene_sets = {}
+for pid in list(pathways.keys())[:3]:
+    genes_text = requests.get(f"{BASE}/link/genes/{pid}").text
+    gene_ids = [line.split("\t")[1] for line in genes_text.strip().split("\n") if line]
+    gene_sets[pid] = gene_ids
+    print(f"  {pid}: {len(gene_ids)} genes")
+    time.sleep(0.5)
+
+# Step 3: Convert to NCBI Gene IDs for enrichment tools
+# (use kegg_conv for bulk conversion)
 ```
 
-## 注意事项
+### Workflow: Compound-Pathway-Reaction Analysis
 
-标识符格式：
+Trace a compound through metabolic reactions and pathways.
 
-| 类型 | 格式 | 例 |
-|---|---|---|
-| 参考通路（泛化） | `map#####` | `map00010` 糖酵解 |
-| 物种通路 | `{org}#####` | `hsa00010` 人糖酵解 |
-| 基因 | `{org}:{number}` | `hsa:7157` TP53 |
-| 化合物 | `cpd:C#####` | `cpd:C00002` ATP |
-| 药物 | `dr:D#####` | `dr:D00001` |
-| 酶 | `ec:{EC}` | `ec:1.1.1.1` |
-| KO 直系同源 | `ko:K#####` | `ko:K00001` |
+```python
+import requests
+import time
 
-常用物种代码：`hsa`（人）、`mmu`（鼠）、`dme`（果蝇）、`sce`（酵母）、`eco`（大肠杆菌）。常用库：`pathway`/`module`/`brite`/`genes`/`compound`/`glycan`/`reaction`/`enzyme`/`disease`/`drug`/`ko`。`link` 常用方向：基因↔pathway、pathway↔compound、pathway↔enzyme、基因↔ko。
+BASE = "https://rest.kegg.jp"
 
-常见排错：
+# Step 1: Search for compound
+results = requests.get(f"{BASE}/find/compound/glucose").text
+print("Compound search:")
+for line in results.strip().split("\n")[:3]:
+    print(f"  {line}")
+time.sleep(0.5)
 
-- HTTP 404：ID 格式或物种代码错——先 `list` 核对有效 ID。
-- HTTP 400：URL 拼错——路径形如 `/{op}/{arg1}/{arg2}`，**不要带 query 参数**。
-- 空响应：搜索词过窄或物种代码不符——放宽关键词、试部分匹配。
-- image/kgml/json 报错：这些格式**只接受 1 条目**——去掉 `+` 拼接。
-- HTTP 403：服务端节流——`time.sleep(1)`、降批量频率。
-- 返回的基因 ID 不对：误用了参考通路 `map00010`——基因映射须用物种前缀 `hsa00010`。
-- conv 返回空：并非所有条目都有 UniProt/NCBI 映射，属正常；先 `list` 确认覆盖。
-- 中文/非 ASCII 乱码：用 `resp.text`（requests 自动判码）或显式 `resp.encoding='utf-8'`。
+# Step 2: Find reactions involving glucose (C00031)
+reactions = requests.get(f"{BASE}/link/reaction/cpd:C00031").text
+rxn_ids = [line.split("\t")[1] for line in reactions.strip().split("\n") if line]
+print(f"\nReactions involving glucose: {len(rxn_ids)}")
+time.sleep(0.5)
 
-参考：[KEGG REST API 文档](https://www.kegg.jp/kegg/rest/keggapi.html)、[KEGG 主站](https://www.kegg.jp/)、[物种代码表](https://www.kegg.jp/kegg/catalog/org_list.html)；Kanehisa M. et al. (2023) *Nucleic Acids Research* 51:D483-D489。
+# Step 3: Find pathways for a specific reaction
+pathways = requests.get(f"{BASE}/link/pathway/rn:R00299").text
+print(f"\nPathways for R00299:")
+print(pathways[:300])
+time.sleep(0.5)
 
-## 互见
+# Step 4: Get pathway detail
+detail = requests.get(f"{BASE}/get/map00010").text
+print(f"\nGlycolysis pathway detail (first 500 chars):")
+print(detail[:500])
+```
 
-- requires：无。
-- related：`gget-genomic-databases` —— Python 统一接口聚合 Ensembl/NCBI/UniProt，基因级查询无需 KEGG 通路背景时用它；`uniprot-protein-database`、`pubchem-compound-search`、`opentargets-database` —— 跨库 ID 衔接（`conv` 取 UniProt/PubChem CID 后下钻）。
-- combines_with：`gene-set-enrichment-analysis` —— 本技能供通路基因集背景，由它跑超几何/GSEA 统计；`pubchem-compound-search` —— 用 `conv pubchem cpd:Cxxxx` 把 KEGG 化合物桥接到 PubChem 取理化属性。
+### Workflow: Cross-Database ID Integration
 
----
+Map KEGG identifiers to UniProt, NCBI, and PubChem for multi-database workflows.
 
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+```python
+import requests
+import time
+
+BASE = "https://rest.kegg.jp"
+
+# Step 1: Convert gene to multiple external IDs
+gene = "hsa:7157"  # TP53
+
+uniprot = requests.get(f"{BASE}/conv/uniprot/{gene}").text.strip()
+print(f"UniProt: {uniprot}")
+time.sleep(0.5)
+
+ncbi = requests.get(f"{BASE}/conv/ncbi-geneid/{gene}").text.strip()
+print(f"NCBI Gene: {ncbi}")
+time.sleep(0.5)
+
+# Step 2: Get protein sequence from KEGG
+fasta = requests.get(f"{BASE}/get/{gene}/aaseq").text
+print(f"\nProtein sequence (first 200 chars):\n{fasta[:200]}")
+time.sleep(0.5)
+
+# Step 3: Convert compounds to PubChem CIDs
+cpd_conv = requests.get(f"{BASE}/conv/pubchem/cpd:C00002").text.strip()  # ATP
+print(f"\nATP PubChem: {cpd_conv}")
+```
+
+## Key Parameters
+
+| Parameter | Function/Endpoint | Default | Options | Effect |
+|-----------|-------------------|---------|---------|--------|
+| `organism` | `list`, `link`, `conv` | None | 3-4 letter code | Filter by organism (e.g., `hsa`, `mmu`) |
+| `option` | `find` | None | `formula`, `exact_mass`, `mol_weight` | Search mode for compounds/drugs |
+| `format` | `get` | text | `aaseq`, `ntseq`, `mol`, `kcf`, `image`, `kgml`, `json` | Output format |
+| `+` separator | `get`, `list`, `ddi` | — | Max 10 entries | Batch query (join IDs with `+`) |
+| `target_db` | `conv` | — | `ncbi-geneid`, `uniprot`, `pubchem`, `chebi` | External database for ID conversion |
+| `target_db` | `link` | — | `pathway`, `genes`, `compound`, `ko`, `enzyme` | Related KEGG database |
+
+## Best Practices
+
+1. **Add delays between batch requests**: No explicit rate limit, but `time.sleep(0.5)` between requests prevents throttling and is courteous to the shared academic resource.
+
+2. **Anti-pattern — fetching all entries without filtering**: Use `kegg_list` to enumerate IDs first, then `kegg_get` for specific entries. Avoid downloading entire databases when you need a subset.
+
+3. **Parse tab-delimited output consistently**: All KEGG responses use `\t` as field separator and `\n` as record separator. Always `.strip()` before splitting.
+
+4. **Respect the 10-entry batch limit**: `kegg_get`, `kegg_list`, `kegg_conv`, `kegg_link`, `kegg_ddi` accept max 10 entries (joined with `+`). Image/KGML/JSON formats accept only 1.
+
+5. **Use organism-specific pathway IDs**: `hsa00010` (human glycolysis) returns organism-specific gene mappings; `map00010` (reference) returns generic entries. Always prefer organism-specific when analyzing a known organism.
+
+6. **Cache frequently-used conversions**: Full organism ID conversions (`kegg_conv('ncbi-geneid', 'hsa')`) return large results. Cache locally rather than repeating.
+
+## Common Recipes
+
+### Recipe: Parse KEGG Flat-File Entry
+
+```python
+def parse_kegg_entry(text):
+    """Parse a KEGG flat-file entry into a dictionary."""
+    entry = {}
+    current_key = None
+    for line in text.split("\n"):
+        if line.startswith("///"):
+            break
+        if line[:12].strip():  # New field
+            current_key = line[:12].strip()
+            entry[current_key] = line[12:].strip()
+        elif current_key:  # Continuation
+            entry[current_key] += "\n" + line[12:].strip()
+    return entry
+
+import requests
+pathway = requests.get("https://rest.kegg.jp/get/hsa00010").text
+parsed = parse_kegg_entry(pathway)
+print(f"Name: {parsed.get('NAME', 'N/A')}")
+print(f"Description: {parsed.get('DESCRIPTION', 'N/A')[:200]}")
+```
+
+### Recipe: Organism Comparison
+
+```python
+import requests
+import time
+
+BASE = "https://rest.kegg.jp"
+
+organisms = {"hsa": "Human", "mmu": "Mouse", "sce": "Yeast"}
+pathway = "00010"  # Glycolysis
+
+for org, name in organisms.items():
+    genes = requests.get(f"{BASE}/link/genes/{org}{pathway}").text
+    count = len([l for l in genes.strip().split("\n") if l])
+    print(f"{name} ({org}): {count} genes in Glycolysis")
+    time.sleep(0.5)
+# Human (hsa): 68 genes in Glycolysis
+# Mouse (mmu): 67 genes in Glycolysis
+# Yeast (sce): 31 genes in Glycolysis
+```
+
+### Recipe: Build Gene-to-Pathway Mapping Table
+
+```python
+import requests
+import time
+
+BASE = "https://rest.kegg.jp"
+
+# Get all human gene-pathway links
+links = requests.get(f"{BASE}/link/pathway/hsa").text
+gene_pathways = {}
+for line in links.strip().split("\n"):
+    if not line:
+        continue
+    gene, pathway = line.split("\t")
+    gene_pathways.setdefault(gene, []).append(pathway.replace("path:", ""))
+
+print(f"Genes with pathway annotations: {len(gene_pathways)}")
+# Show top genes by pathway count
+top = sorted(gene_pathways.items(), key=lambda x: -len(x[1]))[:5]
+for gene, paths in top:
+    print(f"  {gene}: {len(paths)} pathways")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `404 Not Found` | Entry or database doesn't exist | Verify ID format and organism code; use `kegg_list` to check valid IDs |
+| `400 Bad Request` | Malformed API URL | Check URL path: `/{operation}/{arg1}/{arg2}`; no query params |
+| Empty response | Search term too specific or no matches | Broaden keywords; try partial matches; check organism code |
+| Image/KGML returns error | Batch query with image/kgml/json format | These formats accept **one entry only** — remove `+` joins |
+| `403 Forbidden` | Server-side rate limiting | Add `time.sleep(1)` between requests; reduce batch frequency |
+| Wrong gene IDs returned | Using reference pathway (`map`) instead of organism-specific | Use organism prefix: `hsa00010` not `map00010` for gene links |
+| ID conversion returns empty | External DB doesn't cover that entry | Not all KEGG entries have UniProt/NCBI mappings; check with `kegg_list` first |
+| Response encoding issues | Non-ASCII characters in compound names | Use `resp.encoding = 'utf-8'` or `resp.text` (requests auto-detects) |
+
+## Related Skills
+
+- **gget-genomic-databases** — unified Python interface to Ensembl, NCBI, UniProt; use for gene-level queries when KEGG pathway context isn't needed
+- **biopython-molecular-biology** — BioPython's `Bio.KEGG` module provides an alternative Python API for KEGG parsing
+- **pubchem-compound-search** — for compound property lookups beyond KEGG's structural data; use `kegg_conv('pubchem', ...)` to bridge IDs
+
+## References
+
+- [KEGG REST API documentation](https://www.kegg.jp/kegg/rest/keggapi.html) — official API specification
+- [KEGG website](https://www.kegg.jp/) — pathway browser, KEGG Mapper, BlastKOALA
+- [KEGG organism codes](https://www.kegg.jp/kegg/catalog/org_list.html) — full list of 3-4 letter organism codes
+- Kanehisa, M. et al. (2023) "KEGG for taxonomy-based analysis of pathways and genomes" *Nucleic Acids Research* 51:D483-D489

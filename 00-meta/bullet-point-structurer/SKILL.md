@@ -1,14 +1,14 @@
 ---
 name: bullet-point-structurer
-title: 层级化要点提炼与结构化笔记
-description: 当需要把密集文本、笔记、文章或讲解压缩为纯层级要点（仅 `-` 项目符号、父子缩进、无段落）用于速览、记忆与结构化思考时使用；做要点化重构并产出干净的层级要点树；不适用于需要叙事散文、原文逐字引用、故事/文案，或须用表格/代码/JSON 的场景；触发词：要点化、提纲、bullet
+title: Bulletmind: Hierarchical Bullet-Point Structurer
+description: Convert dense text, notes, articles, or explanations into clean hierarchical bullet points (only `-` bullets, parent-child indentation, no prose) for scanning, memorization, and structured thinking; not for narrative prose, exact quotation, creative writing, or table/code/JSON ou
 domain: 通用/learning
-triggers: [要点化, 层级提纲, 结构化笔记, 纯 bullet 摘要, 整理乱笔记, bullet points, 把段落转要点, 速记提纲, 复习提纲]
-tags: [写作, 摘要, 笔记, 格式化, 结构化输出, 通用]
-level: 入门
+triggers: [bullet points, bulletize, bullet-only summary, hierarchical outline, structured notes, clean up messy notes, convert paragraphs to bullets, study outline, revision outline, note-taking]
+tags: [writing, summarization, note-taking, formatting, structured-output, general]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude, cursor, gemini, codex]
+tools: []
 requires: []
 related: [caveman-compressed-mode, meeting-transcript-analyzer]
 combines_with: [audio-to-markdown-transcriber, doc-coauthoring]
@@ -16,92 +16,103 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当用户希望把内容压缩为纯层级要点、便于扫读、记忆与结构化思考时使用，典型请求：
+When active, responses remain in hierarchical bullet format with no paragraphs, no prose blocks, no drift, and only structured bullet output.
 
-- 对密集文本、笔记、讲解、文章或网页生成「仅要点」摘要
-- 整理乱笔记，理出清晰的父子层级关系
-- 生成易扫读、易背诵的复习/学习材料
-- 把混乱、深浅不一的旧要点列表统一规范化
+Transform input into a structured bullet hierarchy when the user asks for:
 
-激活后约束输出形态：禁止段落与长散文，只输出带干净缩进的项目符号。
+- Bullet-only summaries of dense text, notes, explanations, articles, or webpages
+- Cleaned-up note-taking output with clear parent-child relationships
+- Structured study material that is easier to scan and memorize
+- Consistent formatting for messy or mixed bullet lists
 
-不该用（负边界）：
+Use this skill to enforce:
 
-- 用户明确要求段落 / 散文叙述
-- 创意写作，如故事、随笔、文案
-- 项目符号会降低清晰度，或与指定输出格式冲突（如须用表格、代码块、JSON）
-- 要求忠实摘要时，不要臆造超出原文的层级结构
+- No paragraphs or long prose
+- Only bullets with clean indentation
 
-## 步骤
+This improves readability, memorization, and structured thinking for note-taking and review workflows.
 
-1. 选定强度级别（默认 full），见下「指令」。
-2. 拆主旨：段落 → 主要观点 → 顶层要点。
-3. 嵌套细节：从属信息 → 下一级子要点，相关观点归到同一父要点下。
-4. 切分与清洗：长句拆成更小要点，删除冗词，但保持原意，不过度概括。
-5. 规范层级：对已有要点重排并统一缩进深度；短输入也要转成要点树，不能压平成单层。
-6. 输出时只给结构化要点，不加说明或评论。
+When NOT to use (negative boundaries):
 
-## 指令
+- User requests paragraphs or prose narrative
+- Creative writing tasks such as stories, essays, or copywriting
+- Formats where bullets reduce clarity or violate the requested output format (e.g. tables, code blocks, JSON)
+- Do not invent structure beyond the source material when the user asks for faithful summarization
 
-模式切换：`/bulletmind lite|full|ultra`，默认 `full`。
+## Steps
 
-| 级别 | 行为 |
-| --- | --- |
-| lite | 干净层级要点，轻度重构，保留句子流畅性 |
-| full | 默认严格层级，平衡压缩，清晰分组+拆分 |
-| ultra | 深度层级分解，激进拆分，高粒度，最大化结构清晰度 |
+1. Pick an intensity level (default `full`) — see the mode command below.
+2. Extract main ideas: Paragraph -> main ideas -> top-level bullets.
+3. Nest details: subordinate information -> nested sub-bullets; group related ideas under the same parent.
+4. Split and clean: break long sentences into smaller bullets, remove filler words, keep meaning intact, do not over-summarize.
+5. Normalize hierarchy: restructure existing bullets and normalize indentation depth; short input is still converted into a bullet tree, never flattened to a single level.
+6. Output only the structured bullets — no commentary or explanation.
 
-硬性规则：
+### Mode command
 
-- 不要段落；只用 `-` 项目符号，不混用其它符号
-- 始终层级化，每级缩进 2 个空格
-- 相关观点归入父要点；长句拆成小要点
-- 保留关键事实与关系，删冗词，但不过度概括、不压平结构
-- 一行一个观点，要点保持简短，行间不要散文过渡句
+Switch with `/bulletmind lite|full|ultra`. Default mode: **full**.
 
-## 示例
+| Level | Behavior |
+| ----- | --------------------------------------------------------------------------------------------------- |
+| lite  | clean hierarchical bullets, light restructuring, preserve sentence flow |
+| full  | default strict hierarchy, balanced compression, clear grouping + splitting |
+| ultra | deep hierarchical decomposition, aggressive splitting, high granularity, maximal structural clarity |
 
-输入一段关于「气候变化」的文字，输出：
+### Hard rules
+
+- NO paragraphs
+- ONLY bullets `-` (no mixed symbols)
+- ALWAYS hierarchical structure; indent 2 spaces per level
+- GROUP related ideas under parent bullets
+- SPLIT long sentences into smaller bullets
+- KEEP meaning intact, no over-summarize
+- REMOVE filler words
+- Keep bullets short, one idea per line, no prose bridging lines
+
+## Example
+
+Input: a passage about "Climate Change". Output:
 
 ```
-- 气候变化
-  - 定义
-    - 全球气温与天气模式的长期改变
-  - 成因
-    - 人类活动
-      - 燃烧化石燃料
-      - 森林砍伐
-      - 工业排放
-    - 自然因素（影响较小）
-      - 火山活动
-      - 太阳活动变化
-  - 影响
-    - 全球气温上升
-    - 冰川与冰盖融化
-    - 海平面上升
-    - 极端天气事件
-  - 对策
-    - 减少碳排放
-    - 转向可再生能源
-    - 植树造林
+- Climate Change
+  - Definition
+    - Long-term shift in global temperatures and weather patterns
+  - Causes
+    - Human activities
+      - Burning fossil fuels
+      - Deforestation
+      - Industrial emissions
+    - Natural factors (less dominant)
+      - Volcanic activity
+      - Solar variations
+  - Effects
+    - Rising global temperatures
+    - Melting glaciers and ice caps
+    - Sea level rise
+    - Extreme weather events
+  - Solutions
+    - Reduce carbon emissions
+    - Transition to renewable energy
+    - Reforestation
+    - Sustainable practices
 ```
 
-更多输出模板见源仓库 `EXAMPLES.md`（含「操作系统」等示例）。
+See the source repo's `EXAMPLES.md` for more output templates (including an "Operating Systems" example).
 
-## 注意事项
+## Notes
 
-- 清晰优先于极限压缩，宁可少压也不丢逻辑。
-- 避免把一切压平成单层，务必维持合理的树状结构。
-- 当更高优先级指令要求表格、代码块、JSON 或段落时，放弃纯要点格式以服从该指令。
-- 忠实摘要场景下不要发明原文之外的结构。
-- 不要用于需散文叙事或精确原文引用的交付物。
+- Prefer clarity over strict compression — under-compress rather than lose logic.
+- Avoid flattening everything into one level; maintain a logical tree structure.
+- Do not preserve bullet-only formatting if a higher-priority instruction requires tables, code blocks, JSON, or paragraphs — defer to that instruction.
+- Do not invent structure beyond the source material when the user asks for faithful summarization.
+- Do not use for deliverables that require prose, narrative flow, or exact source quotation.
 
-## 互见
+## See also
 
-- 写作类、摘要类、结构化输出类技能可与本条配合：先用本条提炼层级骨架，再按需要转成段落、表格或幻灯片。
+- Writing, summarization, and structured-output skills pair well with this one: use this skill to extract the hierarchical skeleton first, then convert it into paragraphs, tables, or slides as needed.
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+Adapted from sickn33/antigravity-awesome-skills (MIT license).

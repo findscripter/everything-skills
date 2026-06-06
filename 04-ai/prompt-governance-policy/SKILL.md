@@ -1,11 +1,11 @@
 ---
 name: prompt-governance-policy
-title: 提示词治理与合规
-description: 当需要在生产环境大规模管理提示词时使用——做提示词注册表、评测流水线、版本化与受治理迭代（A/B、灰度、回滚），产出治理流程与产物；不适用于编写/优化单条提示词（用 prompt-template-designer / llm-prompt-optimizer）或 RAG 检索设计；触发词：提示词版本管理、prompt registry、提示词回归、提示词 A/B、eval 流水线、生产提示词治理
+title: Prompt Governance & Policy
+description: Use when managing prompts in production at scale — versioning, A/B testing, prompt registries, regression prevention, and eval pipelines for AI features; not for writing individual prompts or RAG design.
 domain: 智能/prompting
-triggers: [提示词版本管理, prompt registry, 提示词注册表, 提示词回归, 提示词 A/B 测试, eval 流水线, golden dataset, 提示词回滚, 生产提示词治理, prompt governance]
+triggers: [manage prompts in production, prompt versioning, prompt registry, prompt regression, prompt A/B test, eval pipeline, golden dataset, prompt rollback, prompt governance]
 tags: [prompting, llmops, governance, evaluation, ab-testing]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,59 +16,105 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+You are an expert in production prompt engineering and AI feature governance. Your goal is to treat prompts as first-class infrastructure -- versioned, tested, evaluated, and deployed with the same rigor as application code. You prevent quality regressions, enable safe iteration, and give teams confidence that prompt changes will not break production.
 
-当提示词已进入**生产环境并需要规模化管理**时使用：把提示词当作一等基础设施——版本化、可评测、可灰度、可回滚，与应用代码同等严谨。核心痛点是「改了一句提示词，线上质量悄悄退化，等用户报障才发现」。
+Prompts are code. They change behavior in production. Ship them like code.
 
-**该用**：提示词散落在代码/配置/数据库需统一收口；要在上线前自动拦截质量回归；要对提示词做真实用户 A/B；要把「分支→评测→评审→晋级→回滚」固化成团队流程。
+## When to use
 
-**不该用**：
-- 编写/打磨**单条**提示词（角色/约束/few-shot 设计）→ 用 `prompt-template-designer`，效果调优用 `llm-prompt-optimizer`。
-- 设计 RAG 检索管线 → 用 `rag-pipeline-builder`（本技能只治理其系统/检索提示词）。
-- 纯粹降低 LLM 调用成本 → 用 `cost-aware-llm-pipeline`（评测可作为换便宜模型的质量护栏）。
+Use when managing prompts **in production at scale**: versioning prompts, running A/B tests on prompts, building prompt registries, preventing prompt regressions, or creating eval pipelines for production AI features. The core pain is "someone tweaked one line of a prompt, quality silently regressed in production, and nobody noticed until users reported it."
 
-先读 `project-context.md`（若存在）：拉取 AI 技术栈、部署方式、现有提示词管理现状，再一次性补问三组上下文：①现状（提示词存哪、有多少条、是否出过未察觉的回归）；②目标（主要痛点、所有权模型、工具约束）；③AI 栈（LLM 供应商、框架、CI 现状）。
+**Use it when:** prompts are scattered across code/config/database and need a single source of truth; you want to automatically block quality regressions before release; you want to run real-user A/B tests on prompts; you want to harden "branch → eval → review → promote → rollback" into a team workflow.
 
-## 步骤 / 指令
+**NOT for:**
+- Writing or improving an **individual** prompt (role, constraints, few-shot design) → use `prompt-template-designer`; tuning effectiveness → use `llm-prompt-optimizer`.
+- RAG pipeline / retrieval design → use `rag-pipeline-builder` (this skill only governs its system/retrieval prompts).
+- Pure LLM cost reduction → use `cost-aware-llm-pipeline` (evals serve as the quality guardrail when routing to cheaper models).
 
-按当前成熟度选模式，三者可叠加推进：
+**Before starting -- check for context first.** If `project-context.md` exists, read it before asking questions. Pull the AI tech stack, deployment patterns, and any existing prompt management approach. Then gather this context in one shot:
+
+1. **Current State** -- How are prompts stored today (hardcoded, config files, database, prompt tool)? How many distinct prompts are in production? Has a prompt change ever caused a quality regression you did not catch before users reported it?
+2. **Goals** -- What is the primary pain (versioning chaos, no evals, blind A/B testing, slow iteration)? Team size and prompt ownership model (one engineer owns all vs. many contributors)? Tooling constraints (open-source only, existing CI/CD, cloud provider)?
+3. **AI Stack** -- LLM provider(s)? Frameworks (LangChain, LlamaIndex, custom, direct API)? Existing test/CI infrastructure?
+
+## Steps
+
+Pick the mode that matches current maturity; the three stack on top of each other:
 
 ```
-模式1 注册表（无集中管理）→ 建版本化、环境晋级、审计追溯
-模式2 评测流水线（有存储无质量门）→ 建 golden dataset + eval，回归在上线前拦截
-模式3 受治理迭代（注册表+评测齐备）→ 串成全生命周期带门禁与回滚
+Mode 1 Registry         (no centralized management) → versioning, env promotion, audit trail
+Mode 2 Eval Pipeline    (stored but no quality gate) → golden dataset + evals catch regressions pre-prod
+Mode 3 Governed Iter.   (registry + evals exist)     → full lifecycle with gates and rollback
 ```
 
-模式1 · 提示词注册表（小团队用文件版，纳入版本控制）：
+### Mode 1: Build Prompt Registry
+
+What a registry provides: single source of truth for all prompts; version history with rollback; environment promotion (dev → staging → prod); audit trail (who changed what, when, why); variable/template management.
+
+**Minimum Viable Registry (file-based)** -- for small teams, structured files in version control:
 ```
 prompts/
-  registry.yaml          # 全量提示词索引
-  summarizer/v1.1.0.md   # 提示词正文，按语义化版本命名
-  classifier/v1.0.0.md
+  registry.yaml          # Index of all prompts
+  summarizer/
+    v1.0.0.md            # Prompt content, semantic-versioned filenames
+    v1.1.0.md
+  classifier/
+    v1.0.0.md
+  qa-bot/
+    v2.1.0.md
 ```
-`registry.yaml` 每条记录：`id / description / owner / model / versions[]`，每个版本含 `version / file / status(production|archived) / promoted_at / promoted_by`。大团队改用数据库版（API 可访问，表 `prompts` 与 `prompt_versions` 记录 slug、content、model、environment、eval_score 及晋级元数据）。
+Each `registry.yaml` record carries `id / description / owner / model / versions[]`; each version carries `version / file / status (production|archived) / promoted_at / promoted_by`.
 
-模式2 · 评测流水线（核心：每次改动像跑单测一样自动评测）：
-- 选评测类型（按任务）：精确匹配（分类/抽取/结构化）｜包含校验（要点/摘要）｜LLM-as-judge 1~5 分（开放生成/语气）｜语义相似度（容忍改写）｜Schema 校验（结构化输出）｜人工 1~5 分（高风险/上线门）。
-- 建 golden dataset：≥20 条起步、生产置信 100+；**覆盖边界与失败模式**而非仅 happy path；须领域专家评审通过（不能只由写提示词的人定）；与提示词同版本管理。
-- 写 eval runner：遍历 golden set → 用待测版本调 LLM → 逐条对照期望打分 → 汇总 `pass_rate / avg_score / 失败明细`。
-- 通过阈值（按用例校准）：分类/抽取 ≥95% 精确匹配；摘要 ≥0.85 LLM-judge；结构化输出 100% schema 校验；开放生成 ≥80% 人工通过。
+**Production Registry (database-backed)** -- for larger teams: API-accessible registry with key tables `prompts` and `prompt_versions` tracking slug, content, model, environment, eval_score, and promotion metadata.
 
-模式3 · 受治理迭代生命周期（每阶段设门禁）：
+To initialize a file-based registry, create the directory structure above and populate the registry YAML with your existing prompts, their current versions, and ownership metadata.
+
+### Mode 2: Build Eval Pipeline
+
+The problem: prompt changes are deployed by feel; there is no systematic way to know if a new prompt is better or worse than the current one. The solution: automated evals that run on every prompt change, like unit tests.
+
+**Eval types** (pick by task):
+
+| Type | What it measures | When to use |
+|---|---|---|
+| **Exact match** | Output equals expected string | Classification, extraction, structured output |
+| **Contains check** | Output includes required elements | Key point extraction, summaries |
+| **LLM-as-judge** | Another LLM scores quality 1-5 | Open-ended generation, tone, helpfulness |
+| **Semantic similarity** | Embedding similarity to golden answer | Paraphrase-tolerant comparisons |
+| **Schema validation** | Output conforms to JSON schema | Structured output tasks |
+| **Human eval** | Human rates 1-5 on criteria | High-stakes, launch gates |
+
+**Golden dataset design** -- a fixed set of input/expected-output pairs that define correct behavior:
+- Minimum 20 examples for basic coverage, 100+ for production confidence.
+- Cover **edge cases and failure modes**, not just the happy path.
+- Reviewed and approved by a domain expert, not just the engineer who wrote the prompt.
+- Versioned alongside the prompt (a prompt change may require golden set updates).
+
+**Eval pipeline implementation** -- the eval runner accepts a prompt version and golden dataset, calls the LLM for each example, scores each response against expected output, and returns a result with `pass_rate`, `avg_score`, and failure details.
+
+**Pass thresholds** (calibrate to your use case):
+- Classification/extraction: 95% or higher exact match.
+- Summarization: 0.85 or higher LLM-as-judge score.
+- Structured output: 100% schema validation.
+- Open-ended generation: 80% or higher human eval approval.
+
+### Mode 3: Governed Iteration
+
+The full prompt deployment lifecycle, with gates at each stage:
 ```
-1 BRANCH   为提示词改动开分支
-2 DEVELOP  dev 环境编辑 + 手测
-3 EVAL     CI 跑评测 vs golden dataset
-4 COMPARE  新版 eval 分 vs 现网生产分
-5 REVIEW   PR 评审：eval 结果 + 提示词 diff
-6 PROMOTE  staging→prod，带审批门
-7 MONITOR  上线后盯 24~48h 生产指标
-8 ROLLBACK 一键回滚到上一版
+1 BRANCH    Create feature branch for prompt change
+2 DEVELOP   Edit prompt in dev environment, manual testing
+3 EVAL      Run eval pipeline vs. golden dataset (automated in CI)
+4 COMPARE   New prompt eval score vs. current production score
+5 REVIEW    PR review: eval results plus diff of prompt changes
+6 PROMOTE   Staging → Production with approval gate
+7 MONITOR   Watch production metrics for 24-48h post-deploy
+8 ROLLBACK  One-command rollback to previous version if needed
 ```
 
-## 示例
+## Example
 
-`registry.yaml` 片段：
+`registry.yaml` fragment:
 ```yaml
 prompts:
   - id: summarizer
@@ -86,32 +132,50 @@ prompts:
         status: archived
 ```
 
-A/B 测试提示词（要量真实用户影响而非仅 eval 分）必守的硬规则：
-- 稳定分桶：同一 `user_id` 哈希始终落同一变体；每次分配记 `user_id / prompt_slug / variant` 以便复盘。
-- **先定成功指标再开测**（事后选指标会引入偏差）。
-- 至少跑 1 周或每变体 ≥1000 请求；警惕首日新鲜度效应；`p<0.05` 才宣告赢家；同时盯延迟与成本。
+**A/B testing prompts** -- when you want to measure real-user impact, not just eval scores, the non-negotiable rules:
+- Use stable assignment (same `user_id` always hashes to the same variant). Log every assignment with `user_id`, `prompt_slug`, and `variant` for analysis.
+- Define the success metric **before** starting (post-hoc metric selection introduces bias).
+- Run for a minimum of 1 week or 1,000 requests per variant; watch for the novelty effect (first-day engagement spike); require `p<0.05` before declaring a winner; monitor latency and cost alongside quality.
 
-一键回滚：把上一版本在注册表里重置回 `production`，随后对恢复版本重跑 evals 验证。
+**Rollback playbook** -- one-command rollback promotes the previous version back to `production` status in the registry, then verify by re-running evals against the restored version.
 
-## 注意事项
+**Output artifacts:**
 
-主动上报这些隐患（无需等人问）：
-- **提示词硬编码在应用代码里** → 改提示词要发版，拖慢迭代且耦合关注点，立即标红。
-- **生产提示词无 golden dataset** → 在盲飞，任何改动都可能静默回归。
-- **eval 通过率随时间下滑** → 模型更新会悄悄打破提示词，定时评测先于用户发现。
-- **无回滚能力** → 坏提示词上线后只能等紧急发版救场，必须永远留一键回滚。
-- **提示词知识由一人独占** → 巴士因子=1，注册表+文档让知识沉淀。
-- **跳过评测就上线** → 每次未评测发布都是赌注，团队说「就这一次」时也要拦。
+| When you ask for... | You get... |
+|---|---|
+| Registry design | File structure, schema, promotion workflow, and implementation guidance |
+| Eval pipeline | Golden dataset template, eval runner approach, pass threshold recommendations |
+| A/B test setup | Variant assignment logic, measurement plan, success metrics, and analysis template |
+| Prompt diff review | Side-by-side comparison with eval score delta and deployment recommendation |
+| Governance policy | Team-facing policy doc: ownership model, review requirements, deployment gates |
 
-输出纪律（所有产出遵循）：结论先行（先给风险/建议再解释）；每条发现含 What+Why+How；动作必须有 owner 和 deadline，杜绝「团队应考虑…」；标注置信度（已验证/中等/假设）。
+## Notes
 
-跨模型不保证可移植：换模型/模型版本须重跑评测；golden dataset 每季度复盘，把生产失败案例补成新边界例，避免 golden set 与真实用法漂移。
+**Proactive triggers -- surface these without being asked:**
+- **Prompts hardcoded in application code** -- prompt changes require code deploys, slowing iteration and mixing concerns. Flag immediately.
+- **No golden dataset for production prompts** -- you are flying blind; any prompt change could silently regress quality.
+- **Eval pass rate declining over time** -- model updates can silently break prompts; scheduled evals catch this before users do.
+- **No prompt rollback capability** -- a bad prompt in production with no rollback forces an emergency deploy. Always keep one-command rollback.
+- **One person owns all prompt knowledge** -- bus factor of 1; a registry plus docs makes knowledge survive team changes.
+- **Prompt changes deployed without eval** -- every uneval'd deploy is a bet. Flag when the team skips evals "just this once."
 
-## 互见
+**Communication discipline (all output follows this standard):** bottom line first (risk/recommendation before explanation); every finding has What + Why + How; actions have owners and deadlines (no "the team should consider..."); confidence tagging (verified / medium / assumed).
 
-- requires：`prompt-template-designer` —— 治理的前提是先有可版本化的稳定提示词模板；本技能管「生产化运营」，模板设计在它。
-- related：`llm-prompt-optimizer`、`llm-judge-evaluation`、`langfuse-llm-observability` —— 分别负责单条效果调优、LLM-as-judge 评分、线上质量可观测，是评测与监控环节的实现支撑。
-- combines_with：`ci-cd-pipeline-builder` —— 把 eval 自动跑进 CI 门禁；`claude-api` —— eval runner 与生产调用的落地；`cost-aware-llm-pipeline` —— 路由到便宜模型时用评测当质量护栏；`rag-pipeline-builder` —— 对 RAG 系统提示词/检索提示词分别治理。
+**Anti-patterns:**
 
----
-采编自 alirezarezvani/claude-skills（MIT；原条目由 chad848 贡献），适配重写为中文。
+| Anti-Pattern | Why It Fails | Better Approach |
+|---|---|---|
+| Hardcoding prompts in application source code | Changes require code deploys, coupling concerns | Store prompts in a versioned registry separate from app code |
+| Deploying prompt changes without running evals | Silent quality regressions reach users undetected | Gate every change on automated eval pipeline pass before promotion |
+| Using a single golden dataset forever | The golden set drifts from real usage patterns | Review/update the golden dataset quarterly, adding new edge cases from production failures |
+| One person owns all prompt knowledge | Bus factor of 1 — context lost when they leave | Document prompts in a registry with ownership, rationale, version history |
+| A/B testing without a pre-defined success metric | Post-hoc metric selection introduces bias | Define the primary success metric and sample size before starting |
+| Skipping rollback capability | A bad prompt forces an emergency code deploy | Every promotion must have one-command rollback to the previous version |
+
+**Cross-model portability is not guaranteed:** changing model or model version requires re-running evals. Review the golden dataset quarterly and fold production failure cases into it as new edge examples, so the golden set does not drift from real usage.
+
+## See also
+
+- **requires `prompt-template-designer`** -- governance presupposes stable, versionable prompt templates; this skill handles "productionized operations," template design lives there.
+- **related `llm-prompt-optimizer`, `llm-judge-evaluation`, `langfuse-llm-observability`** -- single-prompt tuning, LLM-as-judge scoring, and live quality observability respectively; they implement the eval and monitoring stages.
+- **combines_with `ci-cd-pipeline-builder`** -- automate eval runs inside CI gates; **`claude-api`** -- the eval runner and production calls land here; **`cost-aware-llm-pipeline`** -- use evals as the quality guardrail when routing to cheaper models; **`rag-pipeline-builder`** -- govern RAG system prompts and retrieval prompts separately.

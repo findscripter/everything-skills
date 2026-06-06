@@ -1,14 +1,14 @@
 ---
 name: vendor-evaluation
-title: 供应商评估决策
-description: 当评估新供应商提案、决定续约/更换、或并排比选两家供应商时使用；产出结构化评估报告（TCO 成本拆解、风险矩阵、优劣势、采购建议与谈判筹码）；不适用于已定供应商的合同执行/付款/日常对账。触发词：供应商评估、续约决策、TCO、招投标比选、采购评审
+title: Vendor Evaluation
+description: Evaluate a vendor with structured cost, risk, performance, and fit analysis — use when reviewing a new vendor proposal, deciding whether to renew or replace a contract, comparing two vendors side-by-side, or building a TCO breakdown and negotiation points before procurement sign-
 domain: 协作/knowledge
-triggers: [供应商评估, 供应商比选, 续约还是更换, TCO 总拥有成本, 采购评审, 招投标比较, vendor review, 谈判筹码]
-tags: [采购, 供应商管理, 成本分析, 风险评估, 决策]
-level: 进阶
+triggers: [vendor review, vendor evaluation, vendor comparison, renew or replace, TCO total cost of ownership, procurement review, RFP comparison, negotiation leverage]
+tags: [procurement, vendor-management, cost-analysis, risk-assessment, decision]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [知识库检索, 采购/合同系统, 文档解析]
+tools: []
 requires: []
 related: [tech-stack-evaluator, competitive-analysis, ma-playbook, contract-playbook-review]
 combines_with: [contract-proposal-writer, contract-playbook-review]
@@ -16,95 +16,124 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+## When to use
 
-适用于在采购签批前对供应商做结构化评估并给出明确建议的场景：
+Use this skill to run a structured evaluation of a vendor and deliver a clear recommendation before procurement sign-off:
 
-- 评估一份新供应商提案，判断是否引入。
-- 现有合同到期，决定续约、重新议价还是更换。
-- 两家（或多家）供应商并排比选，需要 side-by-side 对比矩阵。
-- 需要先算清 TCO（总拥有成本）并梳理谈判筹码，再交采购签批。
+- Evaluating a new vendor proposal and deciding whether to onboard it.
+- A contract is up for renewal — decide whether to renew, renegotiate, or replace.
+- Comparing two (or more) vendors side-by-side and needing a comparison matrix.
+- Needing a clean TCO (total cost of ownership) breakdown plus negotiation leverage before sign-off.
 
-不该用的边界：
-- 已选定供应商后的合同执行、下单、付款、日常对账——那属于采购运营，不在本技能范围。
-- 纯法务条款审查、合规单点审计——本技能只做整体风险姿态评估，深度法审请转专门流程。
-- 仅询价/比价而无评估决策需求时，直接报价对比即可，无需走完整框架。
+When **not** to use:
 
-## 步骤
+- Contract execution, ordering, payment, or day-to-day reconciliation after a vendor is already chosen — that is procurement operations, out of scope here.
+- Pure legal clause review or single-point compliance audits — this skill assesses overall risk posture only; route deep legal review to the dedicated process.
+- Simple price quoting/comparison with no evaluation decision — just compare quotes directly, no full framework needed.
 
-1. 收集输入：①供应商名称；②场景（新引入 / 续约 / 比选）；③材料（合同条款、报价、提案文档、或现有履约数据）。续约场景务必带上当前付费金额，用于评估涨跌幅。
-2. 若有知识库/采购系统连接器，先检索：历史评估记录、现有合同、履约报告、采购政策与审批阈值、同类供应商的价格基线。
-3. 按四维框架逐项分析（见下）。可解析上传的提案文档，从中抽取价格、条款、SLA。
-4. 比选场景：额外产出对比矩阵，覆盖价格、功能、集成、安全、支持、合同条款、客户案例。
-5. 汇总输出报告：摘要建议 + 成本表 + 风险矩阵 + 优劣势 + 建议 + 谈判筹码。
+## Steps
 
-## 指令
+1. **Gather inputs**: (1) vendor name; (2) context — new vendor evaluation, renewal decision, or comparison; (3) details — contract terms, pricing, proposal document, or current performance data. For renewals, always include current spend so price changes can be evaluated.
+2. **Check connectors if available** (see below): search for existing vendor evaluations, contracts, performance reviews, procurement policies, approval thresholds, and price baselines for comparable vendors.
+3. **Analyze against the four-part framework** (below). You can parse an uploaded proposal document to extract pricing, terms, and SLAs.
+4. **For comparisons**: additionally produce a side-by-side matrix covering pricing, features, integrations, security, support, contract terms, and references.
+5. **Assemble the report**: summary recommendation + cost table + risk matrix + strengths/concerns + recommendation + negotiation points.
 
-四维评估框架，逐项落实：
+## Evaluation Framework
 
-- 成本分析（总拥有成本 TCO，不只是 license 费）：实施与迁移成本、培训与上手成本、持续支持与维护、退出成本（数据迁移、合同解除）。
-- 风险评估：供应商财务稳健性、安全与合规姿态、集中度风险（单一供应商依赖）、合同锁定与退出条款、业务连续性与灾备。
-- 履约指标：SLA 达成率、支持响应时间、可用性与可靠性、功能交付节奏、客户满意度。
-- 对比矩阵（仅比选时）：价格、功能、集成、安全、支持、合同条款、参考案例并排列出。
+### Cost Analysis (Total Cost of Ownership)
+- Total cost of ownership (not just license fees)
+- Implementation and migration costs
+- Training and onboarding costs
+- Ongoing support and maintenance
+- Exit costs (data migration, contract termination)
 
-输出模板：
+### Risk Assessment
+- Vendor financial stability
+- Security and compliance posture
+- Concentration risk (single vendor dependency)
+- Contract lock-in and exit terms
+- Business continuity and disaster recovery
+
+### Performance Metrics
+- SLA compliance
+- Support response times
+- Uptime and reliability
+- Feature delivery cadence
+- Customer satisfaction
+
+### Comparison Matrix
+When comparing vendors, produce a side-by-side matrix covering: pricing, features, integrations, security, support, contract terms, and references.
+
+## Output Template
 
 ```markdown
-## 供应商评估：[供应商名称]
-**日期：** [日期] ｜ **类型：** [新引入 / 续约 / 比选]
+## Vendor Review: [Vendor Name]
+**Date:** [Date] | **Type:** [New / Renewal / Comparison]
 
-### 摘要
-[2-3 句话的建议结论]
+### Summary
+[2-3 sentence recommendation]
 
-### 成本分析
-| 组成项 | 年度成本 | 备注 |
-|--------|---------|------|
-| License/订阅 | ¥[X] | [按席位/包年/按量] |
-| 实施 | ¥[X] | [一次性] |
-| 支持/维护 | ¥[X] | [含/加购] |
-| **第 1 年合计** | **¥[X]** | |
-| **3 年合计** | **¥[X]** | |
+### Cost Analysis
+| Component | Annual Cost | Notes |
+|-----------|-------------|-------|
+| License/subscription | $[X] | [Per seat, flat, usage-based] |
+| Implementation | $[X] | [One-time] |
+| Support/maintenance | $[X] | [Included or add-on] |
+| **Total Year 1** | **$[X]** | |
+| **Total 3-Year** | **$[X]** | |
 
-### 风险评估
-| 风险 | 可能性 | 影响 | 缓解措施 |
-|------|--------|------|---------|
-| [风险] | 高/中/低 | 高/中/低 | [缓解] |
+### Risk Assessment
+| Risk | Likelihood | Impact | Mitigation |
+|------|-----------|--------|------------|
+| [Risk] | High/Med/Low | High/Med/Low | [Mitigation] |
 
-### 优势
-- [优势 1]
-- [优势 2]
+### Strengths
+- [Strength 1]
+- [Strength 2]
 
-### 顾虑
-- [顾虑 1]
-- [顾虑 2]
+### Concerns
+- [Concern 1]
+- [Concern 2]
 
-### 建议
-[推进 / 议价 / 放弃] —— [理由]
+### Recommendation
+[Proceed / Negotiate / Pass] — [Reasoning]
 
-### 谈判筹码
-- [筹码 1]
-- [筹码 2]
+### Negotiation Points
+- [Leverage point 1]
+- [Leverage point 2]
 ```
 
-## 示例
+## Example
 
-输入：「比较 A 厂商 vs B 厂商的 CRM，A 报价 ¥80 万/年含实施，B 报价 ¥60 万/年实施另算 ¥25 万。」
+Input: "Compare Vendor A vs Vendor B for CRM. A quotes $800K/year including implementation; B quotes $600K/year with implementation billed separately at $250K."
 
-处理：抽取双方报价 → 补齐 B 的实施成本算出真实首年 TCO（A ¥80 万 vs B ¥85 万）→ 列对比矩阵 → 标注 B 首年更贵但次年起更省、A 锁定期 3 年退出成本高 → 风险矩阵给出集中度与锁定风险 → 建议「议价：以 B 报价为筹码压 A 的实施费，或要求 A 缩短锁定期」。
+Process: Extract both quotes → normalize B's implementation into a true first-year TCO (A $800K vs B $850K) → build the comparison matrix → note that B is more expensive in year 1 but cheaper from year 2 onward, while A has a 3-year lock-in with high exit costs → risk matrix flags concentration and lock-in risk → recommendation: "Negotiate — use B's quote as leverage to push down A's implementation fee, or require A to shorten the lock-in period."
 
-## 注意事项
+## Notes
 
-- TCO 优先：永远把实施、培训、支持、退出成本算进去，单看 license 费会严重低估。
-- 续约必带现状价：不知道现在付多少，就无法判断涨价是否合理。
-- 退出成本即谈判筹码：锁定期、数据迁移难度既是风险也是议价点，务必量化。
-- 比选输出必须 side-by-side，避免分别描述导致无法对齐决策维度。
-- 上传提案文档可自动抽取价格/条款/SLA，鼓励用户直接给原始材料而非二手转述。
+- **TCO first**: always fold in implementation, training, support, and exit costs. Looking at license fees alone badly understates the real cost.
+- **Renewals require current spend**: without knowing what you pay today, you cannot judge whether a price increase is reasonable.
+- **Exit cost is negotiation leverage**: lock-in periods and data-migration difficulty are both a risk and a bargaining point — quantify them.
+- **Comparisons must be side-by-side**: describing vendors separately makes it impossible to align on decision dimensions.
+- **Upload the proposal**: pricing, terms, and SLAs can be auto-extracted from vendor documents — encourage users to share original materials rather than second-hand summaries.
 
-## 互见
+### If Connectors Available
 
-- 采购运营 / 合同执行类技能（评估通过后的下单付款流程）。
-- 成本/预算分析类技能（TCO 进一步并入年度预算时）。
-- 风险与合规审查类技能（需要深度法审或安全审计时）。
+If a **knowledge base** is connected:
+- Search for existing vendor evaluations, contracts, and performance reviews.
+- Pull procurement policies and approval thresholds.
+
+If a **procurement** system is connected:
+- Pull current contract terms, spend history, and renewal dates.
+- Compare pricing against existing vendor agreements.
+
+## See also
+
+- Procurement operations / contract execution skills (ordering and payment flows once a vendor passes evaluation).
+- Cost/budget analysis skills (when rolling TCO into the annual budget).
+- Risk and compliance review skills (when deep legal review or a security audit is required).
+- Related: tech-stack-evaluator, competitive-analysis, contract-playbook-review, contract-proposal-writer.
 
 ---
-采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+Adapted from anthropics/knowledge-work-plugins (Apache-2.0).

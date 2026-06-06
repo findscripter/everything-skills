@@ -1,14 +1,14 @@
 ---
 name: shodan-reconnaissance
-title: Shodan 资产侦察方法论
-description: 当在授权范围内用 Shodan 做暴露资产/服务侦察、漏洞面测绘与 OSINT 时使用；用 CLI/REST API/搜索过滤器查主机、按 org/net/vuln/port 检索、统计、下载解析与按需扫描，产出资产清单、漏洞报告与导出数据；不适用于无书面授权的主动扫描、主机直连漏扫或对未授权目标取证。触发词：Shodan、暴露资产侦察、shodan search、vuln 过滤、IoT/工控发现。
+title: Shodan Reconnaissance and Pentesting
+description: Provide systematic methodologies for leveraging Shodan as a reconnaissance tool during penetration testing engagements.
 domain: 安全/appsec
-triggers: [Shodan, 暴露资产侦察, shodan search, shodan host, shodan count, shodan stats, shodan scan submit, honeyscore蜜罐, vuln过滤CVE, org网段侦察, net CIDR检索, ssl证书检索, IoT设备发现, 工控Modbus, 暴露数据库, REST API侦察, 攻击面测绘]
-tags: [安全, 侦察, osint, shodan, 攻击面测绘, 资产发现, 漏洞测绘, 红队]
-level: 进阶
+triggers: [Shodan, shodan search, shodan host, shodan count, shodan stats, shodan scan submit]
+tags: [osint, shodan]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [shodan-cli, Shopython, curl, jq, Python3]
+tools: []
 requires: []
 related: [red-team-recon, penetration-testing-methodology, wireshark-traffic-analysis, cloud-penetration-testing]
 combines_with: [red-team-recon, penetration-testing-methodology, firmware-reverse-analyst]
@@ -16,136 +16,501 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# Shodan 资产侦察方法论
+# Shodan Reconnaissance and Pentesting
 
-> 仅限授权使用：被动检索（search/host/count/stats/download）通常合法，但**按需扫描（scan submit）属主动行为，必须有书面授权**；任何针对未授权目标的操作均可能违法。
+## Purpose
 
-## 何时使用
+Provide systematic methodologies for leveraging Shodan as a reconnaissance tool during penetration testing engagements. This skill covers the Shodan web interface, command-line interface (CLI), REST API, search filters, on-demand scanning, and network monitoring capabilities for discovering exposed services, vulnerable systems, and IoT devices.
 
-- 已获书面授权，需要对目标组织/网段做**外部攻击面测绘**：发现暴露主机、开放端口、服务横幅与软件版本。
-- 需要按 `org`/`net`/`hostname`/`vuln`/`product`/`ssl` 等过滤器批量检索资产，统计分布并导出 JSON/CSV 供后续分析。
-- 做 IoT/工控/数据库暴露排查、SSL 证书测绘，或对单 IP 做蜜罐判定（honeyscore）。
+## Inputs / Prerequisites
 
-**不该用（负边界）：**
-- 无书面授权、或目标不在约定范围 —— 尤其 `scan submit`（主动扫描）一律先确认授权。
-- 直接对主机做漏洞利用/爆破/取证 —— 那属渗透/利用类技能，Shodan 只做被动测绘。
-- 实时端口扫描需求 —— Shodan 是历史爬取数据，可能滞后数天/数周，需现时数据请走 Nmap 等主动扫描。
+- **Shodan Account**: Free or paid account at shodan.io
+- **API Key**: Obtained from Shodan account dashboard
+- **Target Information**: IP addresses, domains, or network ranges to investigate
+- **Shodan CLI**: Python-based command-line tool installed
+- **Authorization**: Written permission for reconnaissance on target networks
 
-**前置**：shodan.io 账号 + API Key；`pip install shodan`；目标 IP/域名/网段清单；了解查询/扫描积分制。
+## Outputs / Deliverables
 
-## 步骤
+- **Asset Inventory**: List of discovered hosts, ports, and services
+- **Vulnerability Report**: Identified CVEs and exposed vulnerable services
+- **Banner Data**: Service banners revealing software versions
+- **Network Mapping**: Geographic and organizational distribution of assets
+- **Screenshot Gallery**: Visual reconnaissance of exposed interfaces
+- **Exported Data**: JSON/CSV files for further analysis
 
-1. **初始化**：装 CLI → `shodan init KEY` → `shodan info` 核对积分。
-2. **单点侦察**：`shodan host IP` 取端口/横幅；可选 `shodan honeyscore IP` 判蜜罐。
-3. **检索**：先 `shodan count`（不耗积分）估量，再 `shodan search`（含过滤器耗 1 积分/查询）按 org/net/vuln 定位。
-4. **统计**：`shodan stats --facets` 看端口/产品/地理分布，掌握资产画像。
-5. **批量导出**：`shodan download` 落盘 → `shodan parse --fields` 抽字段为 CSV。
-6. **（授权时）按需扫描**：`shodan scan submit IP`（1 积分/IP）取较新数据，`scan status` 跟踪。
-7. **持续监控/编程化**：Web Monitor 告警，或 REST API / Python 库自动化。
+## Core Workflow
 
-全程原则：能 count/被动则不主动，先小范围验证查询语法再放量下载。
+### 1. Setup and Configuration
 
-## 指令
-
-**配置与账户（不耗积分）**
+#### Install Shodan CLI
 ```bash
-pip install shodan          # 安装；Arch: sudo pacman -S python-shodan
-shodan init YOUR_API_KEY    # 写入 Key
-shodan info                 # 查询/扫描积分；shodan myip / shodan version
+# Using pip
+pip install shodan
+
+# Or easy_install
+easy_install shodan
+
+# On BlackArch/Arch Linux
+sudo pacman -S python-shodan
 ```
 
-**单主机与蜜罐**
+#### Initialize API Key
 ```bash
-shodan host 1.1.1.1         # 主机名/国家/组织/开放端口/横幅
-shodan honeyscore IP        # 蜜罐概率 0~1
+# Set your API key
+shodan init YOUR_API_KEY
+
+# Verify setup
+shodan info
+# Output: Query credits available: 100
+#         Scan credits available: 100
 ```
 
-**检索（count 不耗积分；带过滤器的 search 耗 1 积分/查询）**
+#### Check Account Status
 ```bash
-shodan count openssh                 # 仅计数，不耗积分
-shodan search apache                 # 无过滤器基础检索
+# View credits and plan info
+shodan info
+
+# Check your external IP
+shodan myip
+
+# Check CLI version
+shodan version
+```
+
+### 2. Basic Host Reconnaissance
+
+#### Query Single Host
+```bash
+# Get all information about an IP
+shodan host 1.1.1.1
+
+# Example output:
+# 1.1.1.1
+# Hostnames: one.one.one.one
+# Country: Australia
+# Organization: Mountain View Communications
+# Number of open ports: 3
+# Ports:
+#   53/udp
+#   80/tcp
+#   443/tcp
+```
+
+#### Check if Host is Honeypot
+```bash
+# Get honeypot probability score
+shodan honeyscore 192.168.1.100
+
+# Output: Not a honeypot
+#         Score: 0.3
+```
+
+### 3. Search Queries
+
+#### Basic Search (Free)
+```bash
+# Simple keyword search (no credits consumed)
+shodan search apache
+
+# Specify output fields
 shodan search --fields ip_str,port,os smb
+```
+
+#### Filtered Search (1 Credit)
+```bash
+# Product-specific search
+shodan search product:mongodb
+
+# Search with multiple filters
 shodan search product:nginx country:US city:"New York"
 ```
 
-**下载与解析**
+#### Count Results
 ```bash
-shodan download results.json.gz "apache country:US"   # 默认 1000 条，每 100 条 1 积分
-shodan download --limit -1 all.json.gz "query"        # 全量
+# Get result count without consuming credits
+shodan count openssh
+# Output: 23128
+
+shodan count openssh 7
+# Output: 219
+```
+
+#### Download Results
+```bash
+# Download 1000 results (default)
+shodan download results.json.gz "apache country:US"
+
+# Download specific number of results
+shodan download --limit 5000 results.json.gz "nginx"
+
+# Download all available results
+shodan download --limit -1 all_results.json.gz "query"
+```
+
+#### Parse Downloaded Data
+```bash
+# Extract specific fields from downloaded data
 shodan parse --fields ip_str,port,hostnames results.json.gz
-shodan parse --fields ip_str,port,org --separator , results.json.gz > out.csv
+
+# Filter by specific criteria
+shodan parse --fields location.country_code3,ip_str -f port:22 results.json.gz
+
+# Export to CSV format
+shodan parse --fields ip_str,port,org --separator , results.json.gz > results.csv
 ```
 
-**统计**
-```bash
-shodan stats nginx                                    # 默认 Top10 国家/组织
-shodan stats --facets port,product,country 'org:"Target"'
+### 4. Search Filters Reference
+
+#### Network Filters
+```
+ip:1.2.3.4                  # Specific IP address
+net:192.168.0.0/24          # Network range (CIDR)
+hostname:example.com        # Hostname contains
+port:22                     # Specific port
+asn:AS15169                 # Autonomous System Number
 ```
 
-**按需扫描（主动，须授权，1 积分/IP，24h 内同 IP 不可重扫）**
+#### Geographic Filters
+```
+country:US                  # Two-letter country code
+country:"United States"     # Full country name
+city:"San Francisco"        # City name
+state:CA                    # State/region
+postal:94102                # Postal/ZIP code
+geo:37.7,-122.4             # Lat/long coordinates
+```
+
+#### Organization Filters
+```
+org:"Google"                # Organization name
+isp:"Comcast"               # ISP name
+```
+
+#### Service/Product Filters
+```
+product:nginx               # Software product
+version:1.14.0              # Software version
+os:"Windows Server 2019"    # Operating system
+http.title:"Dashboard"      # HTTP page title
+http.html:"login"           # HTML content
+http.status:200             # HTTP status code
+ssl.cert.subject.cn:*.example.com  # SSL certificate
+ssl:true                    # Has SSL enabled
+```
+
+#### Vulnerability Filters
+```
+vuln:CVE-2019-0708          # Specific CVE
+has_vuln:true               # Has any vulnerability
+```
+
+#### Screenshot Filters
+```
+has_screenshot:true         # Has screenshot available
+screenshot.label:webcam     # Screenshot type
+```
+
+### 5. On-Demand Scanning
+
+#### Submit Scan
 ```bash
+# Scan single IP (1 credit per IP)
 shodan scan submit 192.168.1.100
-shodan scan list / shodan scan status SCAN_ID / shodan scan protocols
+
+# Scan with verbose output (shows scan ID)
+shodan scan submit --verbose 192.168.1.100
+
+# Scan and save results
+shodan scan submit --filename scan_results.json.gz 192.168.1.100
 ```
 
-**REST API / Python**
+#### Monitor Scan Status
 ```bash
-curl -s "https://api.shodan.io/shodan/host/search?key=KEY&query=apache" | jq
+# List recent scans
+shodan scan list
+
+# Check specific scan status
+shodan scan status SCAN_ID
+
+# Download scan results later
+shodan download --limit -1 results.json.gz scan:SCAN_ID
 ```
+
+#### Available Scan Protocols
+```bash
+# List available protocols/modules
+shodan scan protocols
+```
+
+### 6. Statistics and Analysis
+
+#### Get Search Statistics
+```bash
+# Default statistics (top 10 countries, orgs)
+shodan stats nginx
+
+# Custom facets
+shodan stats --facets domain,port,asn --limit 5 nginx
+
+# Save to CSV
+shodan stats --facets country,org -O stats.csv apache
+```
+
+### 7. Network Monitoring
+
+#### Setup Alerts (Web Interface)
+```
+1. Navigate to Monitor Dashboard
+2. Add IP, range, or domain to monitor
+3. Configure notification service (email, Slack, webhook)
+4. Select trigger events (new service, vulnerability, etc.)
+5. View dashboard for exposed services
+```
+
+### 8. REST API Usage
+
+#### Direct API Calls
+```bash
+# Get API info
+curl -s "https://api.shodan.io/api-info?key=YOUR_KEY" | jq
+
+# Host lookup
+curl -s "https://api.shodan.io/shodan/host/1.1.1.1?key=YOUR_KEY" | jq
+
+# Search query
+curl -s "https://api.shodan.io/shodan/host/search?key=YOUR_KEY&query=apache" | jq
+```
+
+#### Python Library
 ```python
 import shodan
+
 api = shodan.Shodan('YOUR_API_KEY')
-r = api.search('org:"Target"')           # 含 vuln 等过滤器耗 1 积分
-print(r['total'])
-for m in r['matches']:
-    print(m['ip_str'], m['port'], m.get('product','?'))
+
+# Search
+results = api.search('apache')
+print(f'Results found: {results["total"]}')
+for result in results['matches']:
+    print(f'IP: {result["ip_str"]}')
+
+# Host lookup
+host = api.host('1.1.1.1')
+print(f'IP: {host["ip_str"]}')
+print(f'Organization: {host.get("org", "n/a")}')
+for item in host['data']:
+    print(f'Port: {item["port"]}')
 ```
 
-**搜索过滤器速查**
+## Quick Reference
 
-| 类别 | 过滤器 |
-|------|--------|
-| 网络 | `ip:` `net:192.168.0.0/24` `hostname:` `port:` `asn:AS15169` |
-| 地理 | `country:US` `city:"San Francisco"` `geo:37.7,-122.4` |
-| 组织 | `org:"Google"` `isp:"Comcast"` |
-| 服务 | `product:` `version:` `os:` `http.title:` `http.status:200` `ssl.cert.subject.cn:*.example.com` `ssl:true` |
-| 漏洞 | `vuln:CVE-2019-0708` `has_vuln:true` |
-| 截图 | `has_screenshot:true` `screenshot.label:webcam` |
+### Essential CLI Commands
 
-## 示例
+| Command | Description | Credits |
+|---------|-------------|---------|
+| `shodan init KEY` | Initialize API key | 0 |
+| `shodan info` | Show account info | 0 |
+| `shodan myip` | Show your IP | 0 |
+| `shodan host IP` | Host details | 0 |
+| `shodan count QUERY` | Result count | 0 |
+| `shodan search QUERY` | Basic search | 0* |
+| `shodan download FILE QUERY` | Save results | 1/100 results |
+| `shodan parse FILE` | Extract data | 0 |
+| `shodan stats QUERY` | Statistics | 1 |
+| `shodan scan submit IP` | On-demand scan | 1/IP |
+| `shodan honeyscore IP` | Honeypot check | 0 |
 
-**组织侦察闭环（授权）**
+*Filters consume 1 credit per query
+
+### Common Search Queries
+
+| Purpose | Query |
+|---------|-------|
+| Find webcams | `webcam has_screenshot:true` |
+| MongoDB databases | `product:mongodb` |
+| Redis servers | `product:redis` |
+| Elasticsearch | `product:elastic port:9200` |
+| Default passwords | `"default password"` |
+| Vulnerable RDP | `port:3389 vuln:CVE-2019-0708` |
+| Industrial systems | `port:502 modbus` |
+| Cisco devices | `product:cisco` |
+| Open VNC | `port:5900 authentication disabled` |
+| Exposed FTP | `port:21 anonymous` |
+| WordPress sites | `http.component:wordpress` |
+| Printers | `"HP-ChaiSOE" port:80` |
+| Cameras (RTSP) | `port:554 has_screenshot:true` |
+| Jenkins servers | `X-Jenkins port:8080` |
+| Docker APIs | `port:2375 product:docker` |
+
+### Useful Filter Combinations
+
+| Scenario | Query |
+|---------|-------|
+| Target org recon | `org:"Company Name"` |
+| Domain enumeration | `hostname:example.com` |
+| Network range scan | `net:192.168.0.0/24` |
+| SSL cert search | `ssl.cert.subject.cn:*.target.com` |
+| Vulnerable servers | `vuln:CVE-2021-44228 country:US` |
+| Exposed admin panels | `http.title:"admin" port:443` |
+| Database exposure | `port:3306,5432,27017,6379` |
+
+### Credit System
+
+| Action | Credit Type | Cost |
+|--------|-------------|------|
+| Basic search | Query | 0 (no filters) |
+| Filtered search | Query | 1 |
+| Download 100 results | Query | 1 |
+| Generate report | Query | 1 |
+| Scan 1 IP | Scan | 1 |
+| Network monitoring | Monitored IPs | Depends on plan |
+
+## Constraints and Limitations
+
+### Operational Boundaries
+- Rate limited to 1 request per second
+- Scan results not immediate (asynchronous)
+- Cannot re-scan same IP within 24 hours (non-Enterprise)
+- Free accounts have limited credits
+- Some data requires paid subscription
+
+### Data Freshness
+- Shodan crawls continuously but data may be days/weeks old
+- On-demand scans provide current data but cost credits
+- Historical data available with paid plans
+
+### Legal Requirements
+- Only perform reconnaissance on authorized targets
+- Passive reconnaissance generally legal but verify jurisdiction
+- Active scanning (scan submit) requires authorization
+- Document all reconnaissance activities
+
+## Examples
+
+### Example 1: Organization Reconnaissance
 ```bash
-shodan count 'org:"Target Company"'                            # 先估量
-shodan search 'org:"Target Company"'                           # 资产列表
+# Find all hosts belonging to target organization
+shodan search 'org:"Target Company"'
+
+# Get statistics on their infrastructure
 shodan stats --facets port,product,country 'org:"Target Company"'
-shodan download target.json.gz 'org:"Target Company"'
-shodan parse --fields ip_str,port,product target.json.gz
+
+# Download detailed data
+shodan download target_data.json.gz 'org:"Target Company"'
+
+# Parse for specific info
+shodan parse --fields ip_str,port,product target_data.json.gz
 ```
 
-**漏洞面与暴露资产**
+### Example 2: Vulnerable Service Discovery
 ```bash
-shodan search 'vuln:CVE-2021-44228 country:US'                 # Log4j 暴露
-shodan search 'product:elastic port:9200 -authentication'      # 无认证 ES
-shodan search 'net:192.168.1.0/24 vuln:CVE-2019-0708'          # 网段内 BlueKeep
-shodan search 'webcam has_screenshot:true'                     # 暴露摄像头
-shodan search 'port:502 product:modbus'                        # 工控
+# Find hosts vulnerable to BlueKeep (RDP CVE)
+shodan search 'vuln:CVE-2019-0708 country:US'
+
+# Find exposed Elasticsearch with no auth
+shodan search 'product:elastic port:9200 -authentication'
+
+# Find Log4j vulnerable systems
+shodan search 'vuln:CVE-2021-44228'
 ```
-常用查询：`product:mongodb`、`product:redis`、`port:3389 vuln:CVE-2019-0708`、`http.component:wordpress`、`port:2375 product:docker`、`port:3306,5432,27017,6379`(数据库暴露)。
 
-## 注意事项
+### Example 3: IoT Device Discovery
+```bash
+# Find exposed webcams
+shodan search 'webcam has_screenshot:true country:US'
 
-- **授权与合规**：被动检索通常合法但视司法辖区而定；`scan submit` 等主动行为必须授权，全程记录侦察活动。
-- **积分制**：无过滤器 search 与 count/host/parse 免费；带过滤器 search、每 100 条 download、stats 各耗 1 查询积分；scan 耗扫描积分（1/IP）。
-- **限速**：约 1 请求/秒；编程化时在请求间 `time.sleep(1)`。
-- **数据时效**：爬取数据可能滞后数天/数周；非企业版 24h 内不可重扫同一 IP；历史数据需付费。
-- **排错**：未配 Key→`shodan init` 后 `shodan info` 验证；积分耗尽→改用免费查询或等重置；空结果→短语用引号 `'org:"Company Name"'` 并放宽条件；下载文件解析失败→`gunzip -t file.gz` 校验后用 `--limit` 重下。
+# Find industrial control systems
+shodan search 'port:502 product:modbus'
 
-## 互见
+# Find exposed printers
+shodan search '"HP-ChaiSOE" port:80'
 
-- requires：`penetration-testing-methodology` —— Shodan 是其「侦察」阶段的被动情报来源。
-- related：`aws-penetration-testing`、`cloud-penetration-testing` —— 云资产暴露面排查可与 Shodan 资产清单互证。
-- combines_with：`dependency-auditor` —— Shodan 定位暴露的软件版本后，可结合依赖/漏洞审计判定可利用性。
+# Find smart home devices
+shodan search 'product:nest'
+```
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT），原作者 zebbern。
+### Example 4: SSL/TLS Certificate Analysis
+```bash
+# Find hosts with specific SSL cert
+shodan search 'ssl.cert.subject.cn:*.example.com'
+
+# Find expired certificates
+shodan search 'ssl.cert.expired:true org:"Company"'
+
+# Find self-signed certificates
+shodan search 'ssl.cert.issuer.cn:self-signed'
+```
+
+### Example 5: Python Automation Script
+```python
+#!/usr/bin/env python3
+import shodan
+import json
+
+API_KEY = 'YOUR_API_KEY'
+api = shodan.Shodan(API_KEY)
+
+def recon_organization(org_name):
+    """Perform reconnaissance on an organization"""
+    try:
+        # Search for organization
+        query = f'org:"{org_name}"'
+        results = api.search(query)
+        
+        print(f"[*] Found {results['total']} hosts for {org_name}")
+        
+        # Collect unique IPs and ports
+        hosts = {}
+        for result in results['matches']:
+            ip = result['ip_str']
+            port = result['port']
+            product = result.get('product', 'unknown')
+            
+            if ip not in hosts:
+                hosts[ip] = []
+            hosts[ip].append({'port': port, 'product': product})
+        
+        # Output findings
+        for ip, services in hosts.items():
+            print(f"\n[+] {ip}")
+            for svc in services:
+                print(f"    - {svc['port']}/tcp ({svc['product']})")
+        
+        return hosts
+        
+    except shodan.APIError as e:
+        print(f"Error: {e}")
+        return None
+
+if __name__ == '__main__':
+    recon_organization("Target Company")
+```
+
+### Example 6: Network Range Assessment
+```bash
+# Scan a /24 network range
+shodan search 'net:192.168.1.0/24'
+
+# Get port distribution
+shodan stats --facets port 'net:192.168.1.0/24'
+
+# Find specific vulnerabilities in range
+shodan search 'net:192.168.1.0/24 vuln:CVE-2021-44228'
+
+# Export all data for range
+shodan download network_scan.json.gz 'net:192.168.1.0/24'
+```
+
+## Troubleshooting
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| No API Key Configured | Key not initialized | Run `shodan init YOUR_API_KEY` then verify with `shodan info` |
+| Query Credits Exhausted | Monthly credits consumed | Use credit-free queries (no filters), wait for reset, or upgrade |
+| Host Recently Crawled | Cannot re-scan IP within 24h | Use `shodan host IP` for existing data, or wait 24 hours |
+| Rate Limit Exceeded | >1 request/second | Add `time.sleep(1)` between API requests |
+| Empty Search Results | Too specific or syntax error | Use quotes for phrases: `'org:"Company Name"'`; broaden criteria |
+| Downloaded File Won't Parse | Corrupted or wrong format | Verify with `gunzip -t file.gz`, re-download with `--limit` |
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.

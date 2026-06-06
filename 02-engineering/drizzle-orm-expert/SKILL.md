@@ -1,14 +1,14 @@
 ---
 name: drizzle-orm-expert
-title: Drizzle ORM 模式设计
-description: 当用 TypeScript 搭建类型安全数据库层时使用；做 Drizzle 表结构/关系定义、关系查询、Drizzle Kit 迁移与 Serverless 客户端接入并产出可运行代码；不适用于 Prisma/TypeORM 等非 Drizzle 栈或纯运维调优；触发词：drizzle、schema、pgTable、drizzle-kit、relations、Neon/Turso
+title: Drizzle ORM Expert
+description: Expert in Drizzle ORM for TypeScript — schema design, relational queries, migrations, and serverless database integration. Use when building type-safe database layers with Drizzle.
 domain: 研发/backend
-triggers: [drizzle, drizzle-orm, drizzle-kit, pgTable, schema 设计, relations 关系, db.query, InferSelectModel, 迁移 migrate, Neon, Turso, PlanetScale, Serverless 数据库, 从 Prisma 迁移]
-tags: [drizzle, orm, typescript, 数据库, schema, 迁移, serverless, postgresql]
-level: 进阶
+triggers: [drizzle, drizzle-orm, drizzle-kit, pgTable, db.query, InferSelectModel, Neon, Turso, PlanetScale]
+tags: [drizzle, orm, typescript, schema, serverless, postgresql]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash]
+tools: []
 requires: []
 related: [prisma-orm-expert, database-migration-strategies, zod-schema-validation, neon-serverless-postgres]
 combines_with: [trpc-typesafe-api, typescript-advanced-types, rest-api-endpoint-builder]
@@ -16,171 +16,363 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Drizzle ORM Expert
 
-适用：
-- 在新项目或现有项目中引入并配置 Drizzle ORM。
-- 用 TypeScript 优先的方式设计数据库 schema（表、枚举、外键、索引）。
-- 编写复杂关系查询（join、子查询、聚合）或使用 `db.query.*` 嵌套查询。
-- 配置或排查 Drizzle Kit 迁移。
-- 接入 Next.js App Router、tRPC、Hono，或 Neon/Turso/PlanetScale/Supabase 等 Serverless 数据库。
-- 优化性能：预编译语句、批量、连接池。
-- 从 Prisma / TypeORM / Knex 迁移到 Drizzle。
+You are a production-grade Drizzle ORM expert. You help developers build type-safe, performant database layers using Drizzle ORM with TypeScript. You know schema design, the relational query API, Drizzle Kit migrations, and integrations with Next.js, tRPC, and serverless databases (Neon, PlanetScale, Turso, Supabase).
 
-不该用（负边界）：
-- 任务栈是 Prisma、TypeORM、Knex、Sequelize 等非 Drizzle ORM，或纯手写 SQL/原生驱动。
-- 纯数据库运维/容量/索引调优而不涉及 Drizzle 代码层。
-- 缺少 dialect、连接串、目标运行时等关键输入时，先停下来问清。
+## When to Use This Skill
 
-为什么用 Drizzle：TypeScript 优先、零运行时开销，直接编译成原生 SQL（不像 Prisma 依赖查询引擎二进制），适合边缘运行时与 Serverless；SQL 风格 API、全链路类型推断、类 Prisma 的关系查询 API 可避免 N+1。
+- Use when the user asks to set up Drizzle ORM in a new or existing project
+- Use when designing database schemas with Drizzle's TypeScript-first approach
+- Use when writing complex relational queries (joins, subqueries, aggregations)
+- Use when setting up or troubleshooting Drizzle Kit migrations
+- Use when integrating Drizzle with Next.js App Router, tRPC, or Hono
+- Use when optimizing database performance (prepared statements, batching, connection pooling)
+- Use when migrating from Prisma, TypeORM, or Knex to Drizzle
 
-## 步骤
+## Core Concepts
 
-1. 安装并选定 dialect（postgresql / mysql / sqlite），明确目标运行时与数据库。
-2. 定义 schema（表、枚举、外键、索引），用 `relations()` 声明表间关系。
-3. 用 `InferSelectModel` / `InferInsertModel` 从 schema 推断类型，避免手写 interface。
-4. 创建数据库客户端，务必把 `{ schema }` 传入 `drizzle()` 以启用 `db.query.*`。
-5. 写 `drizzle.config.ts`，开发期用 `push` 快速试错，生产用 `generate` + `migrate`。
-6. 查询：简单/聚合用 SQL 风格 `db.select()`，嵌套数据用关系 API `db.query.*` 配 `with`。
-7. 优化：高频查询用 `prepare()`，多条独立查询用 `db.batch()`，schema 内声明 `index()`。
+### Why Drizzle
 
-## 指令
+Drizzle ORM is a TypeScript-first ORM that generates zero runtime overhead. Unlike Prisma (which uses a query engine binary), Drizzle compiles to raw SQL — making it ideal for edge runtimes and serverless. Key advantages:
 
-```bash
-# 由 schema 变更生成迁移 SQL
-npx drizzle-kit generate
-# 直接推送 schema 到库（仅开发，跳过迁移文件，可能丢数据）
-npx drizzle-kit push
-# 执行待运行迁移（生产）
-npx drizzle-kit migrate
-# 打开 Drizzle Studio（GUI 浏览数据库）
-npx drizzle-kit studio
-```
+- **SQL-like API**: If you know SQL, you know Drizzle
+- **Zero dependencies**: Tiny bundle, works in Cloudflare Workers, Vercel Edge, Deno
+- **Full type inference**: Schema → types → queries are all connected at compile time
+- **Relational Query API**: Prisma-like nested includes without N+1 problems
 
-## 示例
+## Schema Design Patterns
 
-表与外键（pg-core）：
+### Table Definitions
 
 ```typescript
-import { pgTable, text, timestamp, boolean, uuid, pgEnum } from "drizzle-orm/pg-core";
+// db/schema.ts
+import { pgTable, text, integer, timestamp, boolean, uuid, pgEnum } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
+// Enums
 export const roleEnum = pgEnum("role", ["admin", "user", "moderator"]);
 
+// Users table
 export const users = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
   email: text("email").notNull().unique(),
   name: text("name").notNull(),
   role: roleEnum("role").default("user").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+// Posts table with foreign key
 export const posts = pgTable("posts", {
   id: uuid("id").defaultRandom().primaryKey(),
   title: text("title").notNull(),
+  content: text("content"),
   published: boolean("published").default(false).notNull(),
   authorId: uuid("author_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 ```
 
-关系 + 类型推断：
+### Relations
 
 ```typescript
-import type { InferSelectModel, InferInsertModel } from "drizzle-orm";
-
-export const usersRelations = relations(users, ({ many }) => ({ posts: many(posts) }));
-export const postsRelations = relations(posts, ({ one }) => ({
-  author: one(users, { fields: [posts.authorId], references: [users.id] }),
+// db/relations.ts
+export const usersRelations = relations(users, ({ many }) => ({
+  posts: many(posts),
 }));
+
+export const postsRelations = relations(posts, ({ one }) => ({
+  author: one(users, {
+    fields: [posts.authorId],
+    references: [users.id],
+  }),
+}));
+```
+
+### Type Inference
+
+```typescript
+// Infer types directly from your schema — no separate type files needed
+import type { InferSelectModel, InferInsertModel } from "drizzle-orm";
 
 export type User = InferSelectModel<typeof users>;
 export type NewUser = InferInsertModel<typeof users>;
+export type Post = InferSelectModel<typeof posts>;
+export type NewPost = InferInsertModel<typeof posts>;
 ```
 
-查询（SQL 风格 + 关系 API）：
+## Query Patterns
+
+### Select Queries (SQL-like API)
 
 ```typescript
-import { eq, desc, count } from "drizzle-orm";
+import { eq, and, like, desc, count, sql } from "drizzle-orm";
 
-// join + 过滤 + 排序
+// Basic select
+const allUsers = await db.select().from(users);
+
+// Filtered with conditions
+const admins = await db.select().from(users).where(eq(users.role, "admin"));
+
+// Partial select (only specific columns)
+const emails = await db.select({ email: users.email }).from(users);
+
+// Join query
 const postsWithAuthors = await db
-  .select({ title: posts.title, authorName: users.name })
+  .select({
+    title: posts.title,
+    authorName: users.name,
+  })
   .from(posts)
   .innerJoin(users, eq(posts.authorId, users.id))
   .where(eq(posts.published, true))
-  .orderBy(desc(posts.createdAt));
+  .orderBy(desc(posts.createdAt))
+  .limit(10);
 
-// 关系 API：单次查询解析嵌套数据，避免 N+1
+// Aggregation
+const postCounts = await db
+  .select({
+    authorId: posts.authorId,
+    postCount: count(posts.id),
+  })
+  .from(posts)
+  .groupBy(posts.authorId);
+```
+
+### Relational Queries (Prisma-like API)
+
+```typescript
+// Nested includes — Drizzle resolves in a single query
 const usersWithPosts = await db.query.users.findMany({
-  with: { posts: { where: eq(posts.published, true), limit: 5 } },
+  with: {
+    posts: {
+      where: eq(posts.published, true),
+      orderBy: [desc(posts.createdAt)],
+      limit: 5,
+    },
+  },
+});
+
+// Find one with nested data
+const user = await db.query.users.findFirst({
+  where: eq(users.id, userId),
+  with: { posts: true },
 });
 ```
 
-写入与事务：
+### Insert, Update, Delete
 
 ```typescript
-const [newUser] = await db.insert(users).values({ email, name }).returning();
+// Insert with returning
+const [newUser] = await db
+  .insert(users)
+  .values({ email: "dev@example.com", name: "Dev" })
+  .returning();
 
+// Batch insert
+await db.insert(posts).values([
+  { title: "Post 1", authorId: newUser.id },
+  { title: "Post 2", authorId: newUser.id },
+]);
+
+// Update
+await db.update(users).set({ name: "Updated" }).where(eq(users.id, userId));
+
+// Delete
+await db.delete(posts).where(eq(posts.authorId, userId));
+```
+
+### Transactions
+
+```typescript
 const result = await db.transaction(async (tx) => {
   const [user] = await tx.insert(users).values({ email, name }).returning();
-  await tx.insert(posts).values({ title: "Welcome", authorId: user.id });
+  await tx.insert(posts).values({ title: "Welcome Post", authorId: user.id });
   return user;
 });
 ```
 
-客户端接入（务必传 `{ schema }`）：
+## Migration Workflow (Drizzle Kit)
+
+### Configuration
 
 ```typescript
-// Neon Serverless (PostgreSQL)
+// drizzle.config.ts
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  schema: "./db/schema.ts",
+  out: "./drizzle",
+  dialect: "postgresql",
+  dbCredentials: {
+    url: process.env.DATABASE_URL!,
+  },
+});
+```
+
+### Commands
+
+```bash
+# Generate migration SQL from schema changes
+npx drizzle-kit generate
+
+# Push schema directly to database (development only — skips migration files)
+npx drizzle-kit push
+
+# Run pending migrations (production)
+npx drizzle-kit migrate
+
+# Open Drizzle Studio (GUI database browser)
+npx drizzle-kit studio
+```
+
+## Database Client Setup
+
+### PostgreSQL (Neon Serverless)
+
+```typescript
+// db/index.ts
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
 import * as schema from "./schema";
-export const db = drizzle(neon(process.env.DATABASE_URL!), { schema });
+
+const sql = neon(process.env.DATABASE_URL!);
+export const db = drizzle(sql, { schema });
 ```
 
-Turso/LibSQL 用 `drizzle-orm/libsql` + `createClient`；PlanetScale 用 `drizzle-orm/planetscale-serverless` + `Client`。
-
-性能：
+### SQLite (Turso/LibSQL)
 
 ```typescript
-// 预编译语句：编译一次，多次执行
-const getUserById = db.query.users
-  .findFirst({ where: eq(users.id, sql.placeholder("id")) })
-  .prepare("get_user_by_id");
-const user = await getUserById.execute({ id: "abc-123" });
+import { drizzle } from "drizzle-orm/libsql";
+import { createClient } from "@libsql/client";
+import * as schema from "./schema";
 
-// 批量：多条独立查询一次往返
+const client = createClient({
+  url: process.env.TURSO_DATABASE_URL!,
+  authToken: process.env.TURSO_AUTH_TOKEN,
+});
+export const db = drizzle(client, { schema });
+```
+
+### MySQL (PlanetScale)
+
+```typescript
+import { drizzle } from "drizzle-orm/planetscale-serverless";
+import { Client } from "@planetscale/database";
+import * as schema from "./schema";
+
+const client = new Client({ url: process.env.DATABASE_URL! });
+export const db = drizzle(client, { schema });
+```
+
+## Performance Optimization
+
+### Prepared Statements
+
+```typescript
+// Prepare once, execute many times
+const getUserById = db.query.users
+  .findFirst({
+    where: eq(users.id, sql.placeholder("id")),
+  })
+  .prepare("get_user_by_id");
+
+// Execute with parameters
+const user = await getUserById.execute({ id: "abc-123" });
+```
+
+### Batch Operations
+
+```typescript
+// Use db.batch() for multiple independent queries in one round-trip
 const [allUsers, recentPosts] = await db.batch([
   db.select().from(users),
   db.select().from(posts).orderBy(desc(posts.createdAt)).limit(10),
 ]);
 ```
 
-## 注意事项
+### Indexing in Schema
 
-约定（Do）：
-- schema 集中放 `db/schema.ts`，或按域拆分 `db/schema/users.ts` 等。
-- 用 `InferSelectModel` / `InferInsertModel` 而非手写类型。
-- 嵌套数据用 `db.query.*` 关系 API 避免 N+1；高频查询用预编译语句。
-- 生产用 `generate` + `migrate`；`drizzle()` 必须传 `{ schema }`。
+```typescript
+import { index, uniqueIndex } from "drizzle-orm/pg-core";
 
-禁忌（Don't）：
-- 生产环境别用 `drizzle-kit push`，可能造成数据丢失。
-- 别在 Drizzle 查询构建器已支持的场景手写原生 SQL。
-- 想用 `with` 就别忘了定义 `relations()`。
-- Serverless 中别每请求新建连接，要用连接池。
+export const posts = pgTable(
+  "posts",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    title: text("title").notNull(),
+    authorId: uuid("author_id").references(() => users.id).notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("posts_author_idx").on(table.authorId),
+    index("posts_created_idx").on(table.createdAt),
+  ]
+);
+```
 
-排错：
-- `db.query.tableName` 为 undefined：把所有 schema（含 relations）传入 `drizzle(client, { schema })`。
-- schema 改动后迁移冲突：先 `drizzle-kit generate` 再 `drizzle-kit migrate`。
-- MySQL 上 `.returning()` 报类型错：MySQL 不支持 `RETURNING`，改用 `.execute()` 并从结果读 `insertId`。
+## Next.js Integration
 
-边界提醒：输出不替代针对具体环境的校验、测试与专家评审；缺少必要输入、权限、安全边界或验收标准时应停下来确认。
+### Server Component Usage
 
-## 互见
+```typescript
+// app/users/page.tsx (React Server Component)
+import { db } from "@/db";
+import { users } from "@/db/schema";
 
-- 关联：TypeScript 类型推断、Next.js App Router 数据层、Serverless / 边缘运行时数据库接入。
-- 迁移来源对照：Prisma / TypeORM / Knex 迁移到 Drizzle。
+export default async function UsersPage() {
+  const allUsers = await db.select().from(users);
+  return (
+    <ul>
+      {allUsers.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+### Server Action
+
+```typescript
+// app/actions.ts
+"use server";
+import { db } from "@/db";
+import { users } from "@/db/schema";
+
+export async function createUser(formData: FormData) {
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  await db.insert(users).values({ name, email });
+}
+```
+
+## Best Practices
+
+- ✅ **Do:** Keep all schema definitions in a single `db/schema.ts` or split by domain (`db/schema/users.ts`, `db/schema/posts.ts`)
+- ✅ **Do:** Use `InferSelectModel` and `InferInsertModel` for type safety instead of manual interfaces
+- ✅ **Do:** Use the relational query API (`db.query.*`) for nested data to avoid N+1 problems
+- ✅ **Do:** Use prepared statements for frequently executed queries in production
+- ✅ **Do:** Use `drizzle-kit generate` + `migrate` in production (never `push`)
+- ✅ **Do:** Pass `{ schema }` to `drizzle()` to enable the relational query API
+- ❌ **Don't:** Use `drizzle-kit push` in production — it can cause data loss
+- ❌ **Don't:** Write raw SQL when the Drizzle query builder supports the operation
+- ❌ **Don't:** Forget to define `relations()` if you want to use `db.query.*` with `with`
+- ❌ **Don't:** Create a new database connection per request in serverless — use connection pooling
+
+## Troubleshooting
+
+**Problem:** `db.query.tableName` is undefined
+**Solution:** Pass all schema objects (including relations) to `drizzle()`: `drizzle(client, { schema })`
+
+**Problem:** Migration conflicts after schema changes
+**Solution:** Run `npx drizzle-kit generate` to create a new migration, then `npx drizzle-kit migrate`
+
+**Problem:** Type errors on `.returning()` with MySQL
+**Solution:** MySQL does not support `RETURNING`. Use `.execute()` and read `insertId` from the result instead.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,11 +1,11 @@
 ---
 name: company-operating-system
-title: 公司运营系统框架（EOS/OKR）
-description: 当搭建公司运营机制、选型管理框架、设计会议节奏、建立权责体系或落地 OKR 时使用；产出含责权图、记分卡、会议节奏、IDS 议题解决、90 天 Rocks 的运营系统设计与 30 天落地清单；不适用于具体业务执行或单个职能的深度方案。触发词：EOS、Scaling Up、OKR、L10 会议、Rocks、记分卡、责权图、IDS、季度规划。
+title: Company Operating System
+description: The meta-framework for how a company runs — the connective tissue between all C-suite roles. Covers operating system selection (EOS, Scaling Up, OKR-native, hybrid), accountability charts, scorecards, meeting pulse, issue resolution, and 90-day rocks. Use when setting up company operations, selecting a management framework, designing meeting rhythms, building accountability systems, implementing OKRs, or when user mentions EOS, Scaling Up, operating system, L10 meetings, rocks, scorecard, accountability chart, or quarterly planning.
 domain: 协作/knowledge
-triggers: [搭建公司运营系统, 选管理框架, EOS, Scaling Up, OKR 落地, L10 会议, Rocks 季度优先级, 记分卡 scorecard, 责权图 accountability chart, IDS 议题解决, 设计会议节奏, 季度规划]
-tags: [协作, knowledge, 运营管理, okr, eos, 管理框架, c-level]
-level: 进阶
+triggers: [EOS, Scaling Up]
+tags: [knowledge, okr, eos, c-level]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,170 +16,226 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Company Operating System
 
-当你需要把"公司如何运转"显性化、可改进时使用，典型场景：
+The operating system is the collection of tools, rhythms, and agreements that determine how the company functions. Every company has one — most just don't know what it is. Making it explicit makes it improvable.
 
-- 初创/成长期公司要搭建运营机制，从无到有建立协作节奏
-- 在 EOS（Traction）、Scaling Up（洛克菲勒习惯）、OKR-native、Holacracy、自定义混合之间做框架选型
-- 同一类问题每周复现、会议低效、权责不清、季度目标总是滑坡
-- 要落地 OKR、设计周例会与议题解决流程、建立 90 天 Rocks
+## Keywords
+operating system, EOS, Entrepreneurial Operating System, Scaling Up, Rockefeller Habits, OKR, Holacracy, L10 meeting, rocks, scorecard, accountability chart, issues list, IDS, meeting pulse, quarterly planning, weekly scorecard, management framework, company rhythm, traction, Gino Wickman, Verne Harnish
 
-核心判断：多数运营失调不是人的问题，是系统的问题。修好系统，人在系统里自然运转更好。
+## Why This Matters
 
-不该用的边界：
+Most operational dysfunction isn't a people problem — it's a system problem. When:
+- The same issues recur every week: no issue resolution system
+- Meetings feel pointless: no structured meeting pulse
+- Nobody knows who owns what: no accountability chart
+- Quarterly goals slip: rocks aren't real commitments
 
-- 不替代具体业务执行方案（如某次销售打法、某个功能设计）
-- 不替代单一职能的深度专业内容（财务建模、招聘流程细节等）
-- 已有成熟运营系统且运转良好时，不要为改而改
-- 不是组织架构图（org chart）工具——本框架关注"谁对结果负责"而非汇报线
+Fix the system. The people will operate better inside it.
 
-## 步骤
+## The Six Core Components
 
-分阶段落地，切忌一次性全上。
+Every effective operating system has these six, regardless of which framework you choose:
 
-第一步：建责权图（1 个 2 小时工作坊）
-1. 列出公司执行的所有职能
-2. 每个职能指派唯一负责人，无例外
-3. 找出空白（无人负责）与重叠（两人都以为自己负责）
-4. 公布，变化时更新
+### 1. Accountability Chart
 
-第二步：定记分卡（领导团队对齐，约 1 小时）
-- 先定 5～10 个每周指标，每个有负责人和单一周目标值
+Not an org chart. An accountability chart answers: "Who owns this outcome?"
 
-第三步：启动每周 L10 例会（无需准备，直接开始）
+**Key distinction:** One person owns each function. Multiple people may work in it. Ownership means the buck stops with one person.
 
-这三件事带来的协同提升，超过多数公司一年的努力。
+**Structure:**
+```
+CEO
+├── Sales (CRO/VP Sales)
+│   ├── Inbound pipeline
+│   └── Outbound pipeline
+├── Product & Engineering (CTO/CPO)
+│   ├── Product roadmap
+│   └── Engineering delivery
+├── Operations (COO)
+│   ├── Customer success
+│   └── Finance & Legal
+└── People (CHRO/VP People)
+    ├── Recruiting
+    └── People operations
+```
 
-后续按 references 的 90 天计划逐步补齐会议节奏、Rocks、沟通节拍。
+**Rules:**
+- No shared ownership. "Alice and Bob both own it" means nobody owns it.
+- One person can own multiple seats at early stages. That's fine. Just be explicit.
+- Revisit quarterly as you scale. Ownership shifts as the company grows.
 
-## 指令
+**Build it in a workshop:**
+1. List all functions the company performs
+2. Assign one owner per function — no exceptions
+3. Identify gaps (functions nobody owns) and overlaps (functions two people think they own)
+4. Publish it. Update it when something changes.
 
-六大核心组件（任何框架都需要这六项）：
+### 2. Scorecard
 
-1. 责权图（Accountability Chart）——回答"谁对这个结果负责"
-   - 每个职能仅一人负责（owns），可多人参与（works in）
-   - 禁止共享负责：「Alice 和 Bob 都负责」等于无人负责
-   - 早期一人可兼多席，但要写明；按季度复盘随规模调整
+Weekly metrics that tell you if the company is on track. Not monthly. Not quarterly. Weekly.
 
-   结构示例：
-   ```
-   CEO
-   ├── 销售 (CRO/VP Sales)
-   │   ├── 入站管道
-   │   └── 出站管道
-   ├── 产品与工程 (CTO/CPO)
-   │   ├── 产品路线图
-   │   └── 工程交付
-   ├── 运营 (COO)
-   │   ├── 客户成功
-   │   └── 财务与法务
-   └── 人力 (CHRO/VP People)
-       ├── 招聘
-       └── 人力运营
-   ```
+**Rules:**
+- 5–15 metrics maximum. More than 15 and nothing gets attention.
+- Each metric has an owner and a weekly target (not a range — a number).
+- Red/yellow/green status. Not paragraphs.
+- The scorecard is discussed at the leadership team weekly meeting. Only red metrics get discussion time.
 
-2. 记分卡（Scorecard）——每周指标，非月度非季度
-   - 5～15 个指标上限；每个有负责人 + 单一周目标值（一个数，不是区间）
-   - 红/黄/绿状态，不写段落；周会只讨论红色项
-   - 反模式：测一切。跟踪 40 个 KPI 是在"看"不是在"管"
+**Example scorecard structure:**
 
-   | 指标 | 负责人 | 目标 | 本周 | 状态 |
-   |------|--------|------|------|------|
-   | 新增 MRR | CRO | €50K | €43K | 🔴 |
-   | 流失率 | CS Lead | < 1% | 0.8% | 🟢 |
-   | 关键 bug | CTO | 0 | 2 | 🔴 |
-   | 现金跑道 | CFO | > 18mo | 16mo | 🟡 |
+| Metric | Owner | Target | This Week | Status |
+|--------|-------|--------|-----------|--------|
+| New MRR | CRO | €50K | €43K | 🔴 |
+| Churn | CS Lead | < 1% | 0.8% | 🟢 |
+| Active users | CPO | 2,000 | 2,150 | 🟢 |
+| Deployments | CTO | 3/week | 3 | 🟢 |
+| Open critical bugs | CTO | 0 | 2 | 🔴 |
+| Runway | CFO | > 18mo | 16mo | 🟡 |
 
-3. 会议节奏（Meeting Pulse）——维持公司"心跳"
+**Anti-pattern:** Measuring everything. If you track 40 KPIs, you're watching, not managing.
 
-   | 会议 | 频率 | 时长 | 参与 | 目的 |
-   |------|------|------|------|------|
-   | 每日站会 | 每日 | 15 分 | 各团队 | 只讲阻塞 |
-   | L10/领导同步 | 每周 | 90 分 | 领导团队 | 记分卡+议题 |
-   | 部门评审 | 每月 | 60 分 | 部门+领导 | OKR 进展 |
-   | 季度规划 | 每季 | 1～2 天 | 领导团队 | 定 Rocks、复盘战略 |
-   | 年度规划 | 每年 | 2～3 天 | 领导团队 | 1 年+3 年愿景 |
+### 3. Meeting Pulse
 
-   L10 固定议程（目标是每次开成 10 分满分）：
-   1. 好消息 (5 分)——个人+业务
-   2. 记分卡评审 (5 分)——只标红色
-   3. Rock 评审 (5 分)——逐项 on/off track
-   4. 客户/员工头条 (5 分)
-   5. 议题清单 (60 分)——走 IDS
-   6. 待办评审 (5 分)——上周承诺
-   7. 收尾 (5 分)——给会议打 1～10 分，下次如何到 10
+The meeting rhythm that drives the company. Not optional — the pulse is what keeps the company alive.
 
-4. 议题解决 IDS（Identify, Discuss, Solve）——每议题最多 15 分钟
-   - Identify：用一句话说清真问题（根因，非症状）
-   - Discuss：相关事实+视角，限时；讨论开始重复就停
-   - Solve：一个负责人、一个动作、一个截止日，写进待办
-   - 反模式："先线下聊"（多半永不解决）；只讨论不决策；重开已决议题（除非有新信息）
-   - 议题清单：领导团队持有，每周评审并修剪。一个议题挂满 3 次会还没讨论，要么不是真议题，要么太可怕没人敢碰——两者都值得关注
+**The full rhythm:**
 
-5. Rocks（90 天优先级）——每人/团队 3～7 件
-   - 为什么 90 天：足够取得有意义进展，又短到逼真
-   - 每人最多 3～7 个，超 7 个一个都做不成
-   - 二元判定：完成或未完成，没有"60% 完成"
-   - 季度规划时设定，每周评审 on/off track
-   - 坏 Rock："改进销售流程"
-   - 好 Rock："3 月 31 日前上线 Salesforce CRM，含完整管道阶段与周报"
-   - Rock vs 待办：待办一个动作搞定；Rock 需 90 天持续投入
+| Meeting | Frequency | Duration | Who | Purpose |
+|---------|-----------|----------|-----|---------|
+| Daily standup | Daily | 15 min | Each team | Blockers only |
+| L10 / Leadership sync | Weekly | 90 min | Leadership team | Scorecard + issues |
+| Department review | Monthly | 60 min | Dept + leadership | OKR progress |
+| Quarterly planning | Quarterly | 1–2 days | Leadership | Set rocks, review strategy |
+| Annual planning | Annual | 2–3 days | Leadership | 1-year + 3-year vision |
 
-6. 沟通节拍（Communication Cadence）——谁、何时、以何形式获得什么信息
-   - 全员：月度公司更新（书面+Q&A）；季度结果+下季优先级（全员大会）
-   - 领导团队：每周记分卡（仪表盘）
-   - 董事会：月度董事备忘
-   - 投资人：月/季关键指标+叙事
-   - 默认规则：内部信息犹豫要不要分享时——分享。沟通不足的代价永远高于过度沟通
+**The L10 meeting (Weekly Leadership Sync):**
+Named for the goal of each meeting being a 10/10. Fixed agenda:
+1. Good news (5 min) — personal + business
+2. Scorecard review (5 min) — flag red items only
+3. Rock review (5 min) — on/off track for each rock
+4. Customer/employee headlines (5 min)
+5. Issues list (60 min) — IDS (see below)
+6. To-dos review (5 min) — last week's commitments
+7. Conclude (5 min) — rate the meeting 1–10, what would make it a 10 next time
 
-框架选型速查（详见 references/os-comparison.md）：
+### 4. Issue Resolution (IDS)
 
-| 如果你是… | 考虑… |
-|-----------|-------|
-| 10～250 人、创始人主导、运营混乱 | EOS / Traction |
-| 雄心成长型、需严谨战略级联 | Scaling Up |
-| 技术公司、工程文化、假设驱动 | OKR-native |
-| 去中心化、扁平、高自治 | Holacracy（仅当你有耐心） |
-| 都不太合适 | 自定义混合 |
+The core problem-solving loop. Maximum 15 minutes per issue.
 
-## 示例
+**IDS: Identify, Discuss, Solve**
 
-输入：一家 60 人的 SaaS 公司，创始人反映"每周开会但同样的问题一直反复，季度目标总滑坡，没人清楚谁负责客户流失"。
+- **Identify:** What is the actual issue? (Not the symptom — the root cause) State it in one sentence.
+- **Discuss:** Relevant facts + perspectives. Time-boxed. When discussion starts repeating, stop.
+- **Solve:** One owner. One action. One due date. Written on the to-do list.
 
-适配输出（30 天快启）：
+**Anti-patterns:**
+- "Let's take this offline" — most things taken offline never get resolved
+- Discussing without deciding — a great discussion with no action item is wasted time
+- Revisiting decided issues — once solved, it leaves the list. Reopen only with new information.
 
-1. 选型：60 人、创始人主导、运营混乱 -> 推荐 EOS/Traction
-2. 责权图工作坊产出："客户流失"明确归 CS Lead 唯一负责，消除"销售和 CS 都管"的重叠
-3. 记分卡定 6 个周指标（新增 MRR / 流失率 / 活跃用户 / 部署次数 / 关键 bug / 现金跑道），各有数字目标
-4. 启动每周 L10，固定议程，60 分钟走 IDS 处理议题清单
-5. 季度规划上为领导团队设 3～7 个公司级 Rocks，每人 3～7 个，二元判定，周会 on/off track 复盘
+**The Issues List:** A running, prioritized list of all unresolved issues. Owned by the leadership team. Reviewed and pruned weekly. If an issue has been on the list for 3+ meetings and hasn't been discussed, it's either not a real issue or it's too scary to address — both deserve attention.
 
-关键自检问题：
-- "若问 5 位团队负责人本季度公司前三优先级，答案会一致吗？"
-- "谁负责客户流失？能毫不犹豫说出名字吗？"
-- "说一个能在周五就判断本周好坏的指标——我们在跟踪它吗？"
+### 5. Rocks (90-Day Priorities)
 
-## 注意事项
+Rocks are the 3–7 most important things each person must accomplish in the next 90 days. They're not the job description — they're the things that move the company forward.
 
-保留以下硬约束（来自源框架）：
+**Why 90 days?** Long enough for meaningful progress. Short enough to stay real.
 
-- 责权图禁止共享负责；记分卡 5～15 个指标、用单一数字目标；Rocks 每人硬上限 7 个、二元判定；IDS 每议题 15 分钟
-- 常见失败模式：
-  - 部分落地："做 OKR 但跳过每周检查"——半套系统比没有更糟，制造无问责的表演
-  - 会议疲劳：在现有会议上叠加全套节奏——应替换会议而非新增
-  - 指标过载：开局上 30 个 KPI——从 5 个起步，节奏稳了再加
-  - Rock 膨胀：每人 12 个 Rock——当一切都是优先级，就没有优先级
-  - 领导不遵守：领导团队跳过 L10 或不走 IDS——系统得到的尊重等于领导给它的尊重
-  - 只年度规划不季度复盘：季度是任何有意义目标的最低复盘周期
-- 与 C-suite 的连接：CEO 出愿景喂给 1 年计划和 Rocks；COO 拥有会议节奏与议题解决；CFO 拥有财务指标；CTO 拥有工程 Rocks 与技术指标；CHRO 拥有人力指标（流失、招聘速度）
+**Rock rules:**
+- Each person: 3–7 rocks maximum. More than 7 and none get done.
+- Company-level rocks (shared priorities): 3–7 for the leadership team
+- Each rock is binary: done or not done. No "60% complete."
+- Set at the quarterly planning session. Reviewed weekly (on/off track).
 
-## 互见
+**Bad rock:** "Improve our sales process"
+**Good rock:** "Implement Salesforce CRM with full pipeline stages and weekly reporting by March 31"
 
-- references/os-comparison.md —— EOS vs Scaling Up vs OKR vs Holacracy vs 混合 全面对比
-- references/implementation-guide.md —— 90 天落地计划
-- 关联技能：lark-okr（飞书 OKR 落地）、lark-task（Rocks/待办跟踪）、lark-calendar（会议节奏排期）
+**Rock vs. to-do:** A to-do takes one action. A rock takes 90 days of consistent work.
+
+### 6. Communication Cadence
+
+Who gets what information, when, and how.
+
+| Audience | What | When | Format |
+|----------|------|------|--------|
+| All employees | Company update | Monthly | Written + Q&A |
+| All employees | Quarterly results + next priorities | Quarterly | All-hands |
+| Leadership team | Scorecard | Weekly | Dashboard |
+| Board | Company performance | Monthly | Board memo |
+| Investors | Key metrics + narrative | Monthly or quarterly | Investor update |
+| Customers | Product updates | Per release | Release notes |
+
+**Default rule:** If you're deciding whether to share something internally, share it. The cost of under-communication always exceeds the cost of over-communication inside a company.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT）。
+## Operating System Selection
+
+See `references/os-comparison.md` for full comparison. Quick guide:
+
+| If you are... | Consider... |
+|---------------|-------------|
+| 10–250 person company, founder-led, operational chaos | EOS / Traction |
+| Ambitious growth company, need rigorous strategy cascade | Scaling Up |
+| Tech company, engineering culture, hypothesis-driven | OKR-native |
+| Decentralized, flat, high autonomy | Holacracy (only if you're patient) |
+| None of the above quite fit | Custom hybrid |
+
+---
+
+## Implementation Roadmap
+
+Don't implement everything at once. See `references/implementation-guide.md` for the full 90-day plan.
+
+**Quick start (first 30 days):**
+1. Build the accountability chart (1 workshop, 2 hours)
+2. Define 5–10 weekly scorecard metrics (leadership team alignment, 1 hour)
+3. Start the weekly L10 meeting (no prep — just start)
+
+These three alone will improve coordination more than most companies achieve in a year.
+
+---
+
+## Common Failure Modes
+
+**Partial implementation:** "We do OKRs but skip the weekly check-in." Half an operating system is worse than none — it creates theater without accountability.
+
+**Meeting fatigue:** Adding the full rhythm on top of existing meetings. Start by replacing meetings, not adding them.
+
+**Metric overload:** Starting with 30 KPIs because "they all matter." Start with 5. Add when the cadence is established.
+
+**Rock inflation:** Setting 12 rocks per person because "everything is a priority." When everything is a priority, nothing is. Hard limit: 7.
+
+**Leader non-compliance:** Leadership team skips the L10 or doesn't follow IDS. The operating system mirrors the respect leadership gives it. If leaders don't take it seriously, nobody will.
+
+**Annual planning without quarterly review:** Setting annual goals and checking in at year-end. Quarterly is the minimum review cycle for any meaningful goal.
+
+---
+
+## Integration with C-Suite
+
+The company OS is the connective tissue. Every other role depends on it:
+
+| C-Suite Role | OS Dependency |
+|-------------|---------------|
+| CEO | Sets vision that feeds into 1-year plan and rocks |
+| COO | Owns the meeting pulse and issue resolution cadence |
+| CFO | Owns the financial metrics in the scorecard |
+| CTO | Owns engineering rocks and tech scorecard metrics |
+| CHRO | Owns people metrics (attrition, hiring velocity) in scorecard |
+| Culture Architect | Culture rituals plug into the meeting pulse |
+| Strategic Alignment Engine | Validates that team rocks cascade from company rocks |
+
+---
+
+## Key Questions for the Operating System
+
+- "If I asked five different team leads what the company's top 3 priorities are this quarter, would they give the same answers?"
+- "What was the most important issue raised in last week's leadership meeting? Was it resolved or is it still open?"
+- "Name a metric that would tell us by Friday whether this week was a good week. Do we track it?"
+- "Who owns customer churn? Can you name that person without hesitation?"
+- "When was the last time we updated the accountability chart?"
+
+## Detailed References
+- `references/os-comparison.md` — EOS vs Scaling Up vs OKRs vs Holacracy vs hybrid
+- `references/implementation-guide.md` — 90-day implementation plan

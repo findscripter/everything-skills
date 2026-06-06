@@ -1,14 +1,14 @@
 ---
 name: busco-completeness-interpretation
-title: BUSCO 组装完整度解读
-description: 当需要解读 BUSCO 完整度结果（C/S/D/F/M/n）、跨基因组/转录组/蛋白组比较完整度、或撰写可发表的质控报告时使用；做谱系数据集选型、正确按 S+D 计完整度、解析 short_summary 与 full_table.tsv，产出可比的完整度统计与解读结论；不适用于跑变异检测（用 gatk-variant-calling）、读写 BAM/VCF（用 genomic-file-toolkit）、reads 级质控（用 fastp-fastq-preprocessing）。触发词：BUSCO、完整度、completeness、Duplicated、单拷贝、Fragmented、Missing、odb10、谱系数据集、组装质量、proteome
+title: BUSCO Status Interpretation Guide
+description: Guide to interpreting BUSCO completeness statuses: why Duplicated BUSCOs count as complete, parsing output files, computing/comparing completeness across proteomes/genomes, common counting mistakes. Use when running BUSCO QC, comparing assemblies, or reporting completeness. See also: prokka-genome-annotation for annotation workflows feeding BUSCO.
 domain: 领域/science
-triggers: [BUSCO, 完整度, completeness, Duplicated, 单拷贝, single-copy, Fragmented, Missing, odb10, 谱系数据集, lineage, 组装质量, proteome, transcriptome, short_summary, full_table]
+triggers: [BUSCO, completeness, Duplicated, single-copy, Fragmented, Missing, odb10, lineage, proteome, transcriptome, short_summary, full_table]
 tags: [busco, bioinformatics, genomics, qc, completeness, assembly, orthodb, proteome, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [BUSCO, Python, pandas]
+tools: []
 requires: []
 related: [nextflow-pipeline-builder, snakemake-workflow-engine, scikit-bio-sequence-toolkit, bulk-rnaseq-orchestrator]
 combines_with: [bulk-rnaseq-orchestrator, samtools-bam-processing]
@@ -16,143 +16,288 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-# BUSCO 组装完整度解读
+# BUSCO Status Interpretation Guide
 
-## 何时使用
+## Overview
 
-当需要正确理解并报告 BUSCO（Benchmarking Universal Single-Copy Orthologs）完整度结果时使用本条，典型场景：
+BUSCO (Benchmarking Universal Single-Copy Orthologs) is the standard tool for assessing genome, transcriptome, and proteome completeness by searching for conserved single-copy orthologs from the OrthoDB database. Correct interpretation of BUSCO output is essential for genome quality assessment, comparative genomics, and publication-ready reporting. The most common analytical error is excluding Duplicated BUSCOs from completeness counts, which artificially penalizes polyploid organisms and assemblies with legitimate gene duplications.
 
-- 解读 BUSCO 输出的 `C:..%[S:..%,D:..%],F:..%,M:..%,n:..` 记号，搞清各类别含义与计数口径。
-- 跨多个基因组/转录组/蛋白组比较完整度，做组装或注释质量基准。
-- 为论文「方法」与「结果」撰写可复现、可发表的完整度报告。
-- 排查异常结果：高 Duplicated、高 Fragmented、近零完整度的真实原因。
-- 解析 `short_summary.*.txt` 与 `full_table.tsv` 做按基因（per-ortholog）的细粒度分析。
+This guide covers BUSCO status categories, output file formats, parsing strategies, cross-proteome comparisons, lineage dataset selection, and common pitfalls in BUSCO interpretation.
 
-不该用本条的边界：
+---
 
-- 跑变异检测/联合分型 → 用 `gatk-variant-calling`，本条不做变异。
-- 仅读写 BAM/VCF、抓区域、统计覆盖度 → 用 `genomic-file-toolkit`。
-- reads 级质控（接头去除、质量过滤）→ 用 `fastp-fastq-preprocessing`；BUSCO 评估的是组装/注释产物，不是原始 reads。
-- 本条聚焦「解读与报告」，BUSCO 的具体安装与逐参数调用细节请查官方 user guide。
+## Key Concepts
 
-核心纠错点：**最常见的错误是把 Duplicated 排除在完整度之外**——这会人为压低多倍体物种与含合法基因重复的组装得分。完整度恒为 S + D。
+### BUSCO Status Categories
 
-## 步骤
+BUSCO assigns each searched ortholog one of four statuses:
 
-1. **选谱系数据集**：定位物种分类位置，选「能涵盖该物种的最具体」OrthoDB 数据集（越具体 BUSCO 标记越多、分辨率越高）；不确定时先 `busco --auto-lineage`（细菌用 `--auto-lineage-prok`）。
-2. **按输入类型选模式**：基因组组装 → genome 模式；de novo 转录组 → transcriptome 模式（D% 通常偏高，正常）；预测蛋白组 → protein 模式。模式选错会得到误导性结果。
-3. **跑 BUSCO 并记录元信息**：完整记录命令、BUSCO 版本、OrthoDB 数据集版本、非默认参数，供复现。
-4. **解析 short summary**：从 `short_summary.*.txt` 提取 C/S/D/F/M/n 六个值（见示例正则）。
-5. **正确计完整度**：完整 = Complete(single-copy) + Duplicated。务必 `Status.isin(['Complete','Duplicated'])`，不要只数 `== 'Complete'`。
-6. **必要时下钻 full_table.tsv**：按 Status 计数，排查 Fragmented 是否聚集在特定区域/功能类。
-7. **跨样本比较**：所有样本必须用**同一谱系数据集 + 同一 BUSCO 大版本**，否则结果不可比。
-8. **报告**：四类别（S/D/F/M）全报 + 总数 n；方法段写明版本、数据集、模式；用 `generate_plot.py` 生成标准堆叠柱图。
-
-**类别速查**（C% = S + D）：
-
-| 状态 | 缩写 | 含义 | 计入完整？ |
+| Status | Abbreviation | Meaning | Count as Complete? |
 |---|---|---|---|
-| Complete single-copy | S | 恰好命中一次 | 是 |
-| Duplicated | D | 命中多次（多拷贝，基因仍完整） | 是 |
-| Fragmented | F | 部分匹配，基因模型可能不完整 | 否 |
-| Missing | M | 完全未检出 | 否 |
+| **Complete (single-copy)** | S | Found exactly once in the genome/proteome | YES |
+| **Duplicated** | D | Found more than once (multiple copies) | YES |
+| **Fragmented** | F | Partial match, likely incomplete gene model | NO |
+| **Missing** | M | Not detected at all | NO |
 
-**谱系选型**（取最具体且涵盖该物种者）：
+The headline completeness percentage (C%) reported by BUSCO is always S + D combined. Individual category counts (S, D, F, M) are reported for transparency and should be included in publications.
 
-| 物种类型 | 推荐谱系 | 示例数据集 | 备注 |
-|---|---|---|---|
-| 广义真核初筛 | eukaryota | `eukaryota_odb10`（255 标记） | 分辨率低，仅初查 |
-| 脊椎动物 | 纲级 | `mammalia_odb10`（9226）、`actinopterygii_odb10` | 纲级分辨率更好 |
-| 昆虫 | 目级 | `diptera_odb10`、`hymenoptera_odb10` | 有目级优先用 |
-| 植物 | viridiplantae 或更具体 | `embryophyta_odb10`、`eudicots_odb10` | 多倍体常致高 D% |
-| 真菌 | 门/纲级 | `ascomycota_odb10`、`basidiomycota_odb10` | 匹配已知系统发育位置 |
-| 细菌 | 门级 | `proteobacteria_odb10` | 未知菌用 `--auto-lineage-prok` |
+### Why Duplicated Equals Complete
 
-## 示例
+A Duplicated BUSCO means the ortholog IS present and fully intact in the genome or proteome -- it simply exists in more than one copy. This can occur through:
 
-short summary 记号格式：
+- Whole-genome duplication (common in plants, fish, and amphibians)
+- Tandem or segmental duplication events
+- Recent polyploidy
+- Proteomes containing multiple isoforms per gene
+
+The gene is not incomplete or absent. Excluding Duplicated BUSCOs from completeness counts would incorrectly penalize polyploid organisms, recently duplicated genomes, or proteomes that include isoform-level annotations. The correct completeness formula is always:
+
+```
+Completeness (%) = (Complete_single_copy + Duplicated) / Total_BUSCOs * 100
+```
+
+A high Duplicated fraction is not inherently problematic -- it is biologically informative. For example, the zebrafish genome (a teleost with an ancient whole-genome duplication) routinely shows 15-25% Duplicated BUSCOs, and this is expected.
+
+### BUSCO Output Formats
+
+BUSCO produces two primary output formats relevant to downstream analysis:
+
+**Short summary format** -- a single-line notation found in `short_summary.*.txt`:
 
 ```
 C:95.0%[S:90.0%,D:5.0%],F:3.0%,M:2.0%,n:255
 ```
 
-解析 short summary（正则提取六个值）：
+Where C = Complete (S + D), S = Single-copy, D = Duplicated, F = Fragmented, M = Missing, and n = total BUSCO groups searched.
+
+**Full table format** -- a TSV file (`full_table.tsv`) with per-ortholog results containing columns for BUSCO ID, Status, Sequence, Score, and Length. This file enables detailed per-gene analysis, filtering, and cross-species comparisons.
+
+---
+
+## Decision Framework
+
+When deciding whether and how to use BUSCO for quality assessment:
+
+```
+Question: What are you assessing?
+├── Genome assembly completeness
+│   ├── Draft assembly → Run BUSCO in genome mode
+│   └── Polished/final assembly → Run BUSCO in genome mode, report in publication
+├── Transcriptome completeness
+│   └── De novo assembly → Run BUSCO in transcriptome mode (expect higher D%)
+├── Proteome / annotation completeness
+│   └── Predicted proteins → Run BUSCO in protein mode
+└── Comparing multiple assemblies
+    └── Same lineage dataset across all → Use compare_proteome_completeness pattern
+```
+
+### Lineage Dataset Selection
+
+| Organism type | Recommended lineage | Example dataset | Notes |
+|---|---|---|---|
+| Broad eukaryotic screen | eukaryota | `eukaryota_odb10` | Low resolution, useful for initial checks |
+| Vertebrate | vertebrata or class-level | `mammalia_odb10`, `actinopterygii_odb10` | Class-level gives better resolution |
+| Insect | insecta or order-level | `diptera_odb10`, `hymenoptera_odb10` | Order-level preferred when available |
+| Plant | viridiplantae or more specific | `embryophyta_odb10`, `eudicots_odb10` | Plants often show high D% due to polyploidy |
+| Fungus | fungi or division-level | `ascomycota_odb10`, `basidiomycota_odb10` | Match to known phylogenetic placement |
+| Bacterium | bacteria or phylum-level | `proteobacteria_odb10` | Use `--auto-lineage-prok` for unknown bacteria |
+
+**General rule**: Use the most specific lineage dataset that encompasses your organism. More specific datasets contain more BUSCOs and provide higher resolution, but using a dataset that does not include your organism will produce misleadingly low scores.
+
+---
+
+## Best Practices
+
+1. **Always report all four categories (S, D, F, M)**: Do not report only the headline C% value. Reviewers and readers need the breakdown to assess whether high completeness comes from single-copy genes (expected for haploid organisms) or duplicated genes (expected for polyploids). This is now a standard expectation in genome papers.
+
+2. **Use the same lineage dataset for all comparisons**: When comparing assemblies or proteomes, every run must use the identical lineage dataset and BUSCO version. Mixing lineage datasets (e.g., comparing one assembly run with `eukaryota_odb10` against another with `metazoa_odb10`) produces incomparable results.
+
+3. **Choose the most specific lineage available**: More specific lineage datasets provide more BUSCO markers and finer resolution. A vertebrate genome assessed with `eukaryota_odb10` (255 markers) gives a much coarser picture than one assessed with `mammalia_odb10` (9,226 markers).
+
+4. **Interpret Duplicated percentage in biological context**: High D% in plants, teleost fish, or salmonids is expected due to known whole-genome duplication events. High D% in a haploid bacterium, however, may indicate assembly artifacts (e.g., uncollapsed haplotypes or contamination).
+
+5. **Run BUSCO on the correct input type**: Use genome mode for assemblies (FASTA of contigs/scaffolds), transcriptome mode for de novo transcriptome assemblies, and protein mode for predicted proteomes. Using the wrong mode produces misleading results because BUSCO applies different search strategies for each.
+
+6. **Include BUSCO version and dataset in methods sections**: Reproducibility requires reporting the exact BUSCO version, OrthoDB dataset version, and any non-default parameters used. Example: "Completeness was assessed with BUSCO v5.4.7 using the mammalia_odb10 dataset."
+
+7. **Validate with BUSCO's built-in plotting**: Use `generate_plot.py` to create the standard BUSCO stacked bar chart for visual comparison across assemblies. This standardized visualization is widely recognized by reviewers.
+
+---
+
+## Common Pitfalls
+
+1. **Counting only single-copy BUSCOs as "complete"**: This is the most frequent error. Filtering for `Status == 'Complete'` alone misses all Duplicated entries, which are fully intact orthologs.
+   - *How to avoid*: Always filter for both statuses: `df['Status'].isin(['Complete', 'Duplicated'])`. Verify your total matches the C% in the short summary.
+
+2. **Comparing results across different lineage datasets**: BUSCO scores from `eukaryota_odb10` (255 groups) and `insecta_odb10` (1,367 groups) are not comparable because they search for different sets of orthologs with different expected counts.
+   - *How to avoid*: Standardize on a single lineage dataset for all assemblies in a comparison. Document the dataset in your methods.
+
+3. **Interpreting high Duplicated percentage as an assembly error**: For polyploid organisms (many plants, some fish, some amphibians), high D% is biologically correct. Flagging it as an error can lead to unnecessary reassembly or incorrect filtering.
+   - *How to avoid*: Check the organism's known ploidy level and duplication history before interpreting D%. Compare against published BUSCO results for closely related species.
+
+4. **Using a lineage dataset that does not encompass the organism**: Running a fungal genome through `insecta_odb10` will produce near-zero completeness, not because the assembly is poor but because the wrong orthologs are being searched.
+   - *How to avoid*: Use `--auto-lineage` for unknown organisms, or verify phylogenetic placement before selecting a dataset. Check the OrthoDB taxonomy browser.
+
+5. **Ignoring Fragmented BUSCOs during troubleshooting**: A high Fragmented percentage often indicates real problems -- truncated gene models, poor assembly in genic regions, or incomplete polishing -- that are actionable.
+   - *How to avoid*: Investigate the full_table.tsv for Fragmented entries. Check whether they cluster in specific genomic regions or functional categories. Consider additional polishing rounds if F% is above 5-10%.
+
+6. **Not accounting for BUSCO version differences**: BUSCO v3, v4, and v5 use different algorithms, datasets, and scoring thresholds. Results are not directly comparable across major versions.
+   - *How to avoid*: Re-run all samples with the same BUSCO version when performing comparisons. Note the version in all reports.
+
+7. **Reporting completeness without the total BUSCO count (n)**: Saying "95% complete" is ambiguous without knowing whether that is 95% of 255 BUSCOs (eukaryota) or 95% of 9,226 BUSCOs (mammalia).
+   - *How to avoid*: Always report n alongside percentages. Use the notation format: `C:95.0%[S:90.0%,D:5.0%],F:3.0%,M:2.0%,n:255`.
+
+---
+
+## Workflow
+
+1. **Select lineage dataset**
+   - Identify the organism's taxonomic placement
+   - Choose the most specific available OrthoDB lineage dataset
+   - If uncertain, run `busco --auto-lineage` first
+
+2. **Run BUSCO**
+   - Execute BUSCO in the appropriate mode (genome, transcriptome, or protein)
+   - Record the exact command, version, and dataset for reproducibility
+
+3. **Parse short summary**
+   - Extract the C/S/D/F/M/n values from the short summary file:
 
 ```python
 import re
 
 def parse_busco_summary(filepath):
-    """解析 BUSCO short_summary 文件，返回 C/S/D/F/M/n。"""
+    """Parse BUSCO short summary file."""
     with open(filepath) as f:
         text = f.read()
-    m = re.search(
+
+    # Extract the summary line
+    match = re.search(
         r'C:(\d+\.?\d*)%\[S:(\d+\.?\d*)%,D:(\d+\.?\d*)%\],'
-        r'F:(\d+\.?\d*)%,M:(\d+\.?\d*)%,n:(\d+)', text)
-    if not m:
-        return None
-    return {
-        'complete_pct':    float(m.group(1)),  # S + D
-        'single_copy_pct': float(m.group(2)),
-        'duplicated_pct':  float(m.group(3)),
-        'fragmented_pct':  float(m.group(4)),
-        'missing_pct':     float(m.group(5)),
-        'total':           int(m.group(6)),
-    }
+        r'F:(\d+\.?\d*)%,M:(\d+\.?\d*)%,n:(\d+)',
+        text
+    )
+
+    if match:
+        return {
+            'complete_pct': float(match.group(1)),  # S + D
+            'single_copy_pct': float(match.group(2)),
+            'duplicated_pct': float(match.group(3)),
+            'fragmented_pct': float(match.group(4)),
+            'missing_pct': float(match.group(5)),
+            'total': int(match.group(6))
+        }
+    return None
 ```
 
-正确计数 vs 错误计数（核心约束）：
+4. **Parse full table for detailed analysis**
+   - Load the full_table.tsv for per-ortholog investigation:
 
 ```python
 import pandas as pd
-df = pd.read_csv('full_table.tsv', sep='\t', comment='#',
-                 names=['Busco_id','Status','Sequence','Score','Length'])
 
-# 错误：只把单拷贝当完整，漏掉 Duplicated
-n_wrong = (df['Status'] == 'Complete').sum()
+def parse_busco_full_table(filepath):
+    """Parse BUSCO full_table.tsv output."""
+    df = pd.read_csv(filepath, sep='\t', comment='#',
+                     names=['Busco_id', 'Status', 'Sequence', 'Score', 'Length'])
 
-# 正确：单拷贝 + 多拷贝都算完整
-n_complete = df['Status'].isin(['Complete', 'Duplicated']).sum()
-print(f"complete (S+D) = {n_complete}")  # 应与 short summary 的 C% 对得上
+    # Count by status
+    counts = df['Status'].value_counts()
+    print(counts)
+
+    # Complete = Complete + Duplicated
+    n_complete = counts.get('Complete', 0) + counts.get('Duplicated', 0)
+    print(f"\nTotal complete (S+D): {n_complete}")
+
+    return df
 ```
 
-完整度公式：
-
-```
-Completeness(%) = (Complete_single_copy + Duplicated) / Total_BUSCOs * 100
-```
-
-跨蛋白组统一口径比较：
+5. **Count complete BUSCOs correctly**
+   - Include both Complete and Duplicated statuses:
 
 ```python
-def compare_completeness(results: dict):
-    """results: {名称: full_table 的 DataFrame}。返回按完整度降序的汇总表。"""
-    rows = []
-    for name, d in results.items():
-        n_complete = d['Status'].isin(['Complete', 'Duplicated']).sum()
-        n_total = len(d)
-        rows.append({'name': name, 'complete': n_complete,
-                     'total': n_total, 'pct': round(100*n_complete/n_total, 1)})
-    out = pd.DataFrame(rows).sort_values('pct', ascending=False)
-    print(out.to_string(index=False))
-    return out
+def count_complete_buscos(busco_results):
+    """Count complete BUSCOs (single-copy + duplicated).
+
+    Args:
+        busco_results: DataFrame with columns including 'Status'
+                       Status values: 'Complete', 'Duplicated', 'Fragmented', 'Missing'
+
+    Returns:
+        int: Count of complete orthologs
+    """
+    complete_statuses = ['Complete', 'Duplicated']
+    n_complete = busco_results['Status'].isin(complete_statuses).sum()
+
+    n_single = (busco_results['Status'] == 'Complete').sum()
+    n_duplicated = (busco_results['Status'] == 'Duplicated').sum()
+    n_fragmented = (busco_results['Status'] == 'Fragmented').sum()
+    n_missing = (busco_results['Status'] == 'Missing').sum()
+
+    print(f"Complete (single-copy): {n_single}")
+    print(f"Duplicated: {n_duplicated}")
+    print(f"Total complete: {n_complete} (single + duplicated)")
+    print(f"Fragmented: {n_fragmented}")
+    print(f"Missing: {n_missing}")
+
+    return n_complete
 ```
 
-## 注意事项
+   - Common mistake to avoid:
 
-- **Duplicated 必须计入完整**：D 代表直系同源基因「存在且完整、只是多拷贝」，可源于全基因组复制（植物、硬骨鱼、两栖类常见）、串联/片段复制、近期多倍化、蛋白组含多转录本异构体。斑马鱼（古多倍化硬骨鱼）常见 15–25% D，属预期。
-- **高 D% 不必然是错误**：先核对物种已知倍性与复制史，并对照近缘已发表 BUSCO 结果；但单倍体细菌出现高 D% 可能提示未折叠单倍型或污染等组装假象。
-- **谱系不可混用**：`eukaryota_odb10`（255）与 `insecta_odb10`（1367）搜索的直系同源集合不同，得分天然不可比；同一比较内所有样本统一数据集与版本。
-- **谱系必须涵盖物种**：把真菌基因组跑 `insecta_odb10` 会得近零完整度——是数据集选错，不是组装差。不确定先 `--auto-lineage` 或查 OrthoDB 分类。
-- **别忽略 Fragmented**：F% 高（如 >5–10%）常指向真实问题——基因模型截断、genic 区组装差、抛光不足，可考虑加抛光轮次。下钻 `full_table.tsv` 看 F 是否聚集。
-- **版本差异不可比**：BUSCO v3/v4/v5 算法、数据集、阈值不同；比较时全样本重跑同一版本。
-- **报告必带 n**：「95% 完整」脱离 n 是模糊的——95% of 255（eukaryota）与 95% of 9226（mammalia）含义迥异。统一用 `C:..%[S:..%,D:..%],F:..%,M:..%,n:..` 记号。
+```python
+# WRONG: Only counting single-copy as "complete"
+n_complete = (busco_results['Status'] == 'Complete').sum()  # Misses duplicated!
 
-## 互见
+# CORRECT: Count both single-copy and duplicated
+n_complete = busco_results['Status'].isin(['Complete', 'Duplicated']).sum()
+```
 
-- requires：`genomic-file-toolkit` —— 组装/注释的 FASTA、序列与索引处理是 BUSCO 的输入基础。
-- related：`fastp-fastq-preprocessing` —— reads 级质控（上游）与 BUSCO 的产物级完整度（下游）互补；`star-rnaseq-aligner` —— 转录组组装常用 BUSCO transcriptome 模式评估完整度；`gatk-variant-calling` —— 同属基因组学分析家族，组装质量影响变异检出。
-- combines_with：`nextflow-pipeline-builder`、`snakemake-workflow-engine` —— 把「选谱系→跑 BUSCO→解析汇总」各步包成可复现、可批量并行的工作流。
+6. **Compare across assemblies or proteomes**
+   - When benchmarking multiple assemblies, compute completeness uniformly:
+
+```python
+def compare_proteome_completeness(busco_results_dict):
+    """Compare BUSCO completeness across multiple proteomes.
+
+    Args:
+        busco_results_dict: {proteome_name: busco_dataframe}
+    """
+    summary = []
+    for name, df in busco_results_dict.items():
+        n_complete = df['Status'].isin(['Complete', 'Duplicated']).sum()
+        n_total = len(df)
+        pct = 100 * n_complete / n_total
+        summary.append({
+            'Proteome': name,
+            'Complete': n_complete,
+            'Total': n_total,
+            'Completeness_pct': round(pct, 1)
+        })
+
+    summary_df = pd.DataFrame(summary).sort_values('Completeness_pct', ascending=False)
+    print(summary_df.to_string(index=False))
+    return summary_df
+```
+
+7. **Report results**
+   - Include all four categories (S, D, F, M) and the total (n)
+   - Use BUSCO notation format in text and generate the standard bar plot for figures
+   - State the BUSCO version, lineage dataset, and mode in the methods section
 
 ---
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+## Further Reading
+
+- [BUSCO User Guide](https://busco.ezlab.org/busco_userguide.html) -- Official documentation covering installation, usage modes, lineage datasets, and interpretation guidelines
+- [Manni et al. (2021) "BUSCO Update"](https://doi.org/10.1093/molbev/msab199) -- The BUSCO v5 paper describing the current framework, metaeuk integration, and auto-lineage selection (Molecular Biology and Evolution)
+- [OrthoDB](https://www.orthodb.org/) -- The underlying database of orthologs that BUSCO uses; useful for understanding lineage dataset composition and ortholog definitions
+- [Simao et al. (2015) "BUSCO"](https://doi.org/10.1093/bioinformatics/btv351) -- The original BUSCO paper establishing the completeness assessment framework (Bioinformatics)
+
+---
+
+## Related Skills
+
+- `prokka-genome-annotation` -- Prokaryotic genome annotation pipeline; BUSCO is commonly run on Prokka-predicted proteomes to assess annotation completeness
+- `samtools-bam-processing` -- BAM file processing; alignment quality metrics complement BUSCO completeness for assembly QC
+- `multiqc-qc-reports` -- Aggregated QC reporting; MultiQC can incorporate BUSCO results into unified quality reports across samples

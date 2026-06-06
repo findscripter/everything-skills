@@ -1,14 +1,14 @@
 ---
 name: bcftools-variant-manipulation
-title: bcftools VCF/BCF 变异处理
-description: 当变异检测后需要对 VCF/BCF 做质控过滤、多样本合并、规范化、rsID/基因注释、基因型提取与统计时使用；用 bcftools 流式管线跑 norm→filter→annotate→query/stats/merge/concat，产出过滤注释后的 VCF.gz、基因型矩阵或 QC 报告；不适用于变异检测本身（种系用 gatk-variant-calling、bcftools call 仅做轻量调用）、群体遗传统计（Fst/LD/HWE 用 VCFtools）、效应注释（用 snpeff-variant-annotation）。触发词：bcftools、VCF、BCF、filter、merge、norm、query、annotate、stats、基因型、变异过滤、多样本合并、规范化
+title: bcftools — VCF/BCF Variant Manipulation Toolkit
+description: CLI for VCF/BCF: filter, merge, annotate, query, normalize, compute stats. Core post-variant-calling: quality filtering, multi-sample merging, rsID annotation, genotype extraction. Samtools companion in HTSlib. Use GATK for complex indel realignment during calling; use VCFtools for population genetics stats.
 domain: 领域/science
-triggers: [bcftools, VCF, BCF, filter, merge, concat, norm, query, annotate, stats, 基因型, GT, 变异过滤, 多样本合并, 规范化, rsID, Ts/Tv, isec]
+triggers: [bcftools, VCF, BCF, filter, merge, concat, norm, query, annotate, stats, GT, rsID, Ts/Tv, isec]
 tags: [bcftools, vcf, bcf, htslib, variant-manipulation, genomics, bioinformatics, filtering, annotation, genotype, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bcftools, samtools, tabix, htslib, bgzip]
+tools: []
 requires: []
 related: [vcf-variant-filtering, gatk-variant-calling, snpeff-variant-annotation, samtools-bam-processing]
 combines_with: [gatk-variant-calling, vcf-variant-filtering, snpeff-variant-annotation]
@@ -16,113 +16,440 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# bcftools — VCF/BCF Variant Manipulation Toolkit
 
-变异检测（calling）之后，对 VCF/BCF 做后处理与质控时用本条，典型场景：
+## Overview
 
-- 按质量阈值过滤变异（QUAL、DP、AF、MQ）保留高置信位点。
-- 把多个样本的 VCF 合并（merge）成联合调用集，或把按染色体/批次拆的 VCF 拼接（concat）。
-- 给变异加 rsID（dbSNP）或基因名（BED）等外部注释。
-- 把 VCF 字段抽成制表符文本（基因型、等位深度、基因型矩阵）供下游 plink/R/Python。
-- 规范化 indel 表示（左对齐）、拆分多等位位点、去重。
-- 跑 QC：变异计数、Ts/Tv 比、每样本统计；轻量调用 `mpileup | bcftools call`。
+bcftools is the standard command-line toolkit for processing VCF (Variant Call Format) and BCF (Binary Call Format) files in the HTSlib ecosystem. It covers the complete post-variant-calling workflow: format conversion, quality filtering, variant normalization, multi-sample merging, annotation with external databases, genotype extraction, and QC statistics. bcftools uses streaming by design — most commands read from stdin and write to stdout, making it ideal for memory-efficient pipelines on large cohorts.
 
-不该用本条的边界：
+## When to Use
 
-- 正经种系变异检测（需局部重组装/BQSR）→ 用 `gatk-variant-calling` 或 DeepVariant；`bcftools call` 只做轻量调用。
-- 群体遗传统计（Fst、连锁不平衡 LD、Hardy-Weinberg）→ 用 VCFtools。
-- 变异功能/效应注释（基因影响、氨基酸变化）→ 用 `snpeff-variant-annotation`，本条只做 ID/区间级标签注释。
-- 去重标记、文库指标 → 用 picard。
+- Filtering variants by quality (QUAL, DP, AF) after variant calling
+- Merging VCF files from multiple samples into a joint call set
+- Adding rsIDs or gene annotations to variant calls
+- Extracting specific fields (genotypes, allele depths) as tabular output
+- Normalizing indel representations and splitting multi-allelic records
+- Calling variants from pileup output (mpileup + call)
+- Computing per-sample and overall VCF QC statistics
+- Use `GATK HaplotypeCaller` instead when calling variants with local realignment in human samples
+- Use `VCFtools` instead for population genetics statistics (Fst, LD, Hardy-Weinberg)
+- Use `bcftools` in the HTSlib pipeline; use `picard` for duplicate-marking and library metrics
 
-前置条件：bcftools 1.17+（HTSlib 套件，随 samtools）；区域查询需 bgzip 压缩 + tabix 索引（`.vcf.gz + .tbi`）。安装前先 `command -v bcftools`，pixi 环境内用 `pixi run bcftools`。索引：`bcftools index -t x.vcf.gz`（建 `.tbi`），染色体 >512Mb 用 `-c`（建 `.csi`）。
+## Prerequisites
 
-## 步骤
+- **Installation**: bcftools 1.17+ (part of HTSlib suite with samtools)
+- **Input requirements**: VCF or BGzipped+tabix-indexed VCF (`.vcf.gz + .vcf.gz.tbi`) for region queries
+- **Companion tools**: `samtools` for BAM processing; `tabix` for VCF indexing
 
-1. **规范化**：`norm -m -any` 拆多等位 →`norm -d any -f ref.fa` 左对齐 indel + 去重。合并/注释前必做，避免重复记录。
-2. **过滤**：`filter -i '表达式'` 留（include）或 `-e` 去（exclude）；软过滤 `-s 标签 -e ...` 只打 FILTER 标签不删；`view -f PASS` 留 PASS；`--type snps/indels` 按类型；`--SnpGap 3` 去 indel 旁 3bp 内的 SNP。
-3. **注释**：`annotate -a 源 -c 列` 加 ID/INFO；`-x INFO/字段` 删字段；染色体名不一致用 `--rename-chrs`。
-4. **合并/拼接**：不同样本集同位点 → `merge`；同样本集不同染色体/批次 → `concat`（重叠区加 `-a`）。
-5. **提取/统计**：`query -f '格式串'` 转 TSV（`-H` 加表头，`[...]` 迭代每样本 FORMAT 字段）；`stats` 出 QC（`-s -` 加每样本）。
-
-输出格式 `-O`：`v` 文本 VCF / `z` bgzip VCF（归档、可 tabix）/ `b` 压缩 BCF（管道最快）/ `u` 非压缩 BCF（中间步最快，省压缩开销）。规则：管道中间步用 `-u`，落盘/索引用 `-z`。`view -W` 写完自动建索引。
-
-过滤表达式：INFO 字段每变异一值（`QUAL>20`、`DP>10`、`AF<0.05`、`MQ>40`）；FORMAT 字段每样本（`GT=="1/1"`、`AD[1]>5`、`GQ>20`）；可组合 `QUAL>20 && DP>10 && AF>0.01`。
-
-## 示例
-
-典型后处理管线（规范化→过滤→注释→落盘，全程流式无中间文件）：
+> **Check before installing**: The tool may already be available in the current environment (e.g., inside a `pixi` / `conda` env). Run `command -v bcftools` first and skip the install commands below if it returns a path. When running inside a pixi project, invoke the tool via `pixi run bcftools` rather than bare `bcftools`.
 
 ```bash
-bcftools norm -m -any variants.vcf.gz \
-  | bcftools norm -d any -f reference.fa \
+# Bioconda (recommended — installs HTSlib suite)
+conda install -c bioconda bcftools
+
+# Homebrew (macOS)
+brew install bcftools
+
+# Verify
+bcftools --version | head -1
+# bcftools 1.20
+
+# Index a VCF for region queries
+bcftools index -t variants.vcf.gz   # creates .tbi
+bcftools index -c variants.vcf.gz   # creates .csi (for chromosomes > 512 Mb)
+```
+
+## Quick Start
+
+```bash
+# Typical post-calling workflow: normalize → filter → annotate → extract
+bcftools norm -d any -f reference.fa variants.vcf.gz \
   | bcftools filter -i 'QUAL>20 && DP>10' \
   | bcftools annotate -a dbSNP.vcf.gz -c ID \
   | bcftools view -O z -o final.vcf.gz
+
+# Index the output
 bcftools index -t final.vcf.gz
-bcftools stats final.vcf.gz | grep "^SN"      # 各阶段变异计数
+
+# Count variants at each stage
+bcftools stats final.vcf.gz | grep "^SN"
 ```
 
-抽样本 / 按区域（区域需索引）：
+## Core API
+
+### Module 1: VCF/BCF I/O and Format Conversion
+
+Convert between text VCF and binary BCF; compress and index for random access.
 
 ```bash
+# VCF → compressed BCF (fastest format for piping)
+bcftools view -O b -o variants.bcf variants.vcf
+
+# BCF → VCF (for human-readable output)
+bcftools view -O v -o variants.vcf variants.bcf
+
+# VCF → bgzipped + indexed (standard archive format)
+bcftools view -O z -W -o variants.vcf.gz variants.vcf
+# -W automatically creates .tbi index after writing
+```
+
+```bash
+# Extract specific samples
 bcftools view -s sample1,sample2 -O z -o subset.vcf.gz variants.vcf.gz
-bcftools view -s ^outlier -O z -o cleaned.vcf.gz variants.vcf.gz   # ^ 排除
-bcftools view -r chr1:1000000-2000000 variants.vcf.gz -O v -o region.vcf
+
+# Exclude samples (prefix with ^)
+bcftools view -s ^outlier_sample -O z -o cleaned.vcf.gz variants.vcf.gz
+
+# Extract by region (fast; requires index)
+bcftools view -r chr1:1000000-2000000 variants.vcf.gz -O v -o chr1_region.vcf
+
+# Streaming pipeline: no intermediate files
+samtools mpileup -Ou input.bam | bcftools call -m -Oz -o calls.vcf.gz
 ```
 
-提取基因型 / 基因型矩阵：
+### Module 2: Variant Filtering
+
+Apply quality thresholds and FLAG-based filters to retain high-confidence calls.
 
 ```bash
-# 每样本基因型与等位深度（输出 sample  0/1  25,18）
+# Expression-based filter (include)
+bcftools filter -i 'QUAL>20 && DP>10' variants.vcf.gz -O z -o filtered.vcf.gz
+
+# Expression-based filter (exclude)
+bcftools filter -e 'QUAL<10 || DP<5' variants.vcf.gz -O v -o filtered.vcf
+
+# Soft filter: mark but keep (sets FILTER field to label)
+bcftools filter -s LowQual -e 'QUAL<20' variants.vcf.gz -O z -o soft_filtered.vcf.gz
+# Variants with QUAL<20 get FILTER="LowQual"; others get FILTER=PASS
+```
+
+```bash
+# Keep only PASS variants
+bcftools view -f PASS variants.vcf.gz -O z -o pass_only.vcf.gz
+
+# SNP-only output
+bcftools view --type snps variants.vcf.gz -O z -o snps.vcf.gz
+
+# Indel-only output
+bcftools view --type indels variants.vcf.gz -O z -o indels.vcf.gz
+
+# Filter by allele frequency and depth
+bcftools filter -i 'AF>0.1 && DP>20 && MQ>40' variants.vcf.gz -O z -o confident.vcf.gz
+
+# Remove SNPs within 3 bp of indels
+bcftools filter --SnpGap 3 variants.vcf.gz -O z -o gapfiltered.vcf.gz
+```
+
+### Module 3: VCF Query and Extraction
+
+Transform VCF content into tabular text for downstream analysis.
+
+```bash
+# Extract chrom, position, ref, alt, quality
+bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\n' variants.vcf.gz > variants.txt
+
+# With header row (-H adds #-prefixed column names)
+bcftools query -H -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\n' variants.vcf.gz > variants.tsv
+
+# Per-sample genotypes and allele depths
 bcftools query -f '[%SAMPLE\t%GT\t%AD\n]' variants.vcf.gz > genotypes.txt
-# 跨样本基因型矩阵（带表头，供 plink/R/Python）
-bcftools query -H -f '%CHROM\t%POS\t%REF\t%ALT\t[%GT\t]\n' cohort.vcf.gz > gt_matrix.tsv
-# 罕见变异（AF<1%）
-bcftools query -i 'AF<0.01' -f '%CHROM\t%POS\t%REF\t%ALT\t%AF\n' variants.vcf.gz > rare.txt
+# Output: sample1  0/1  25,18  (ref_depth,alt_depth)
 ```
 
-多样本合并 → 过滤 → 抽矩阵（合并前各 VCF 须已索引）：
+```bash
+# Rare variants (AF < 1%)
+bcftools query -i 'AF<0.01' -f '%CHROM\t%POS\t%REF\t%ALT\t%AF\n' \
+    variants.vcf.gz > rare_variants.txt
+
+# Count variants per chromosome
+bcftools query -f '%CHROM\n' variants.vcf.gz | sort | uniq -c | sort -rn
+
+# Extract genotype matrix across all samples
+bcftools query -f '%CHROM:%POS\t[%GT\t]\n' -H variants.vcf.gz > genotype_matrix.tsv
+```
+
+### Module 4: Multi-file Operations
+
+Combine VCF files from multiple samples (merge) or chromosomes (concat).
 
 ```bash
-for s in sample1 sample2 sample3; do bcftools index -t ${s}.vcf.gz; done
-bcftools merge sample1.vcf.gz sample2.vcf.gz sample3.vcf.gz -O z --threads 8 -o cohort.vcf.gz
+# Merge: join VCFs from DIFFERENT sample sets (same variants)
+bcftools merge sample1.vcf.gz sample2.vcf.gz sample3.vcf.gz \
+    -O z -o cohort.vcf.gz
+
+# Merge with auto-indexing and threading
+bcftools merge -O b -W --threads 4 sample*.vcf.gz > cohort.bcf
+
+# Concat: join VCFs from SAME sample set (different chromosomes or batches)
+bcftools concat chr1.vcf.gz chr2.vcf.gz chr3.vcf.gz -O z -o full.vcf.gz
+
+# Concat with overlap handling (from batched calling)
+bcftools concat -a --threads 4 batch*.vcf.gz -O z -o concat.vcf.gz
+```
+
+```bash
+# Pipeline: merge → filter → normalize
+bcftools merge sample1.vcf.gz sample2.vcf.gz \
+    | bcftools filter -i 'QUAL>20' \
+    | bcftools norm -d any -f genome.fa \
+    | bcftools view -O z -o merged_clean.vcf.gz
+bcftools index -t merged_clean.vcf.gz
+
+# Extract genotype matrix from merged cohort
+bcftools merge cohort*.vcf.gz | bcftools query -f '[%GT\t]\n' > gt_matrix.tsv
+```
+
+### Module 5: Variant Annotation
+
+Add identifiers, gene annotations, or external data to VCF records.
+
+```bash
+# Add rsIDs from dbSNP
+bcftools annotate -a dbSNP.vcf.gz -c ID variants.vcf.gz -O z -o rsid_annotated.vcf.gz
+
+# Annotate with BED file (adds gene names)
+bcftools annotate -a genes.bed.gz \
+    -h <(echo '##INFO=<ID=GENE,Number=1,Type=String,Description="Gene name">') \
+    -c CHROM,FROM,TO,GENE \
+    variants.vcf.gz -O z -o gene_annotated.vcf.gz
+
+# Remove unwanted INFO fields
+bcftools annotate -x INFO/AC,INFO/AN,INFO/MQ variants.vcf.gz -O v -o stripped.vcf
+```
+
+```bash
+# Normalize: left-align indels, split multi-allelic records
+bcftools norm -f reference.fa variants.vcf.gz -O v -o normalized.vcf
+
+# Split multi-allelic sites into separate records
+bcftools norm -m -any variants.vcf.gz -O v -o split.vcf
+
+# Deduplicate overlapping records
+bcftools norm -d any variants.vcf.gz -O z -o deduped.vcf.gz
+
+# Full normalize pipeline
+bcftools norm -m -any variants.vcf.gz | \
+    bcftools norm -d any -f reference.fa | \
+    bcftools view -O z -o normalized_split.vcf.gz
+```
+
+### Module 6: Statistics and QC
+
+Generate summary metrics and per-sample variant counts.
+
+```bash
+# Full VCF statistics report
+bcftools stats variants.vcf.gz > qc.stats.txt
+
+# Extract Summary Numbers section only
+grep "^SN" qc.stats.txt | cut -f3,4
+# number of records:    45231
+# number of SNPs:       38941
+# number of indels:     6290
+# ...
+
+# Per-sample stats (PSC = per-sample counts)
+bcftools stats -s - variants.vcf.gz | grep "^PSC" > per_sample.txt
+# cols: id  sample  hom_RR  het  hom_AA  ts  tv  indel  missing  singleton
+```
+
+```bash
+# Transition/transversion ratio (genome-wide QC)
+bcftools stats variants.vcf.gz | grep "Ts/Tv"
+# Ts/Tv ratio: 2.06 (healthy WGS; <1.8 or >2.2 suggests quality issues)
+
+# Check for sample contamination (F-statistic per sample)
+bcftools stats -s - variants.vcf.gz | grep "^PSC" | awk '{print $2, $9}'
+# sample  F_missing (high = poor sample quality)
+
+# Variant calling (mpileup → call pipeline)
+samtools mpileup -Ou -f genome.fa *.bam | bcftools call -m -v -Oz -o calls.vcf.gz
+bcftools stats calls.vcf.gz | grep "^SN"
+```
+
+## Key Concepts
+
+### Output Format Flags
+
+```
+-O v  → VCF text (uncompressed)       default for human inspection
+-O z  → bgzipped VCF (.vcf.gz)        standard for archiving
+-O b  → binary BCF (compressed)        fastest for piping
+-O u  → binary BCF (uncompressed)      fastest output (no compression)
+```
+
+**Rule**: Use `-O b` or `-O u` for intermediate pipeline steps (no I/O overhead). Use `-O z` for files you will store or index with tabix.
+
+### Filter Expression Syntax
+
+Expressions use INFO and FORMAT fields with comparison operators:
+
+```bash
+# INFO fields (one value per variant)
+QUAL>20          # quality score
+DP>10            # total depth
+AF<0.05          # allele frequency
+MQ>40            # mapping quality
+
+# FORMAT fields (per-sample; use [] to iterate)
+GT=="1/1"        # homozygous alternate
+AD[1]>5          # alt allele depth > 5
+GQ>20            # genotype quality
+
+# Combined
+QUAL>20 && DP>10 && AF>0.01
+(GT=="0/0" || GT=="1/1") && GQ>30
+```
+
+## Common Workflows
+
+### Workflow 1: Variant QC and Filtering Pipeline
+
+**Goal**: Normalize, filter, and annotate a raw variant call set for downstream analysis.
+
+```bash
+#!/bin/bash
+VCF="raw_calls.vcf.gz"
+REF="reference.fa"
+DBSNP="dbSNP_hg38.vcf.gz"
+FINAL="variants_filtered_annotated.vcf.gz"
+
+# 1. Normalize: left-align indels, split multi-allelic, deduplicate
+bcftools norm -m -any $VCF \
+    | bcftools norm -d any -f $REF \
+    | bcftools view -O z -o normalized.vcf.gz
+bcftools index -t normalized.vcf.gz
+
+# 2. Filter by quality and depth
+bcftools filter -i 'QUAL>20 && DP>10' normalized.vcf.gz \
+    | bcftools filter --SnpGap 3 \
+    | bcftools view -f PASS -O z -o filtered.vcf.gz
+bcftools index -t filtered.vcf.gz
+
+# 3. Annotate with rsIDs
+bcftools annotate -a $DBSNP -c ID filtered.vcf.gz -O z -o $FINAL
+bcftools index -t $FINAL
+
+# Report variant counts
+echo "Final variant count:"
+bcftools stats $FINAL | grep "number of records"
+```
+
+### Workflow 2: Multi-sample Cohort Merging and Genotype Extraction
+
+**Goal**: Merge per-sample VCFs into a cohort VCF; extract a genotype matrix for GWAS.
+
+```bash
+#!/bin/bash
+SAMPLES=(sample1 sample2 sample3 sample4 sample5)
+
+# 1. Ensure all VCFs are indexed
+for s in "${SAMPLES[@]}"; do
+    bcftools index -t ${s}.vcf.gz
+done
+
+# 2. Merge into cohort VCF (only sites present in ALL samples: -m none)
+bcftools merge -m none "${SAMPLES[@]/%/.vcf.gz}" \
+    -O z --threads 8 -o cohort.vcf.gz
 bcftools index -t cohort.vcf.gz
+
+# 3. Filter: PASS, SNPs only, MAF > 1%
 bcftools view -f PASS --type snps cohort.vcf.gz \
-  | bcftools filter -i 'AF>0.01 && AF<0.99' -O z -o cohort_snps.vcf.gz
+    | bcftools filter -i 'AF>0.01 && AF<0.99' \
+    | bcftools view -O z -o cohort_snps_filtered.vcf.gz
+
+# 4. Extract numeric genotype matrix (for plink/R/Python)
+bcftools query -H \
+    -f '%CHROM\t%POS\t%REF\t%ALT\t[%GT\t]\n' \
+    cohort_snps_filtered.vcf.gz > genotype_matrix.tsv
+echo "Genotype matrix: $(wc -l < genotype_matrix.tsv) variants x ${#SAMPLES[@]} samples"
 ```
 
-QC（Ts/Tv 比、每样本计数）：
+## Key Parameters
+
+| Parameter | Command | Default | Range/Options | Effect |
+|-----------|---------|---------|---------------|--------|
+| `-O` | Most | `v` | `v`,`z`,`b`,`u` | Output format: VCF, bgzip-VCF, BCF, uncompressed BCF |
+| `-r` | Most | — | `chr:pos-end` | Region filter (requires tabix index) |
+| `-s` | Most | All | sample names | Include specific samples (prefix `^` to exclude) |
+| `-i` | filter | — | expression | Include variants matching expression |
+| `-e` | filter | — | expression | Exclude variants matching expression |
+| `-f` | query | — | format string | Custom output format string |
+| `--threads` | Most | 1 | 1–N | Compression/decompression threads |
+| `-a` | annotate | — | file path | Annotation source (BED, VCF, TSV) |
+| `-m` | norm | none | `-any`, `+any` | Split (−) or join (+) multi-allelic records |
+| `-d` | norm | — | `all`,`any`,`snps` | Deduplication strategy |
+| `-W` | view | — | flag | Auto-create index after writing |
+| `-v` | call | — | flag | Output variant sites only (skip reference sites) |
+
+## Best Practices
+
+1. **Index before region queries**: `bcftools view -r chr1:...` requires a `.tbi` or `.csi` index. Always run `bcftools index -t output.vcf.gz` after creating any bgzipped VCF.
+
+2. **Normalize before merging or annotation**: Different callers represent the same indel differently. Run `bcftools norm -m -any | bcftools norm -d any -f ref.fa` before merging to prevent duplicate records.
+
+3. **Use `-O u` for pipeline intermediates**: Uncompressed BCF output (`-O u`) eliminates compression/decompression overhead in multi-step pipes — typically 2-3× faster than `-O z`.
+
+4. **Verify Ts/Tv ratio after calling**: `bcftools stats variants.vcf.gz | grep Ts/Tv`. For human WGS, expect 2.0–2.1; exome 2.5–3.0. Values outside these ranges indicate quality problems.
+
+5. **Filter before merge for large cohorts**: Filtering per-sample VCFs before merging reduces memory and I/O. Apply site-level QC (`QUAL>20 && DP>5`) to each sample before `bcftools merge`.
+
+6. **Check chromosome naming consistency**: bcftools fails silently if merging `chr1`-style with `1`-style VCFs. Verify with `bcftools view -h file.vcf.gz | grep "^##contig"`.
+
+## Common Recipes
+
+### Recipe: Count Variants Before and After Filtering
 
 ```bash
-bcftools stats variants.vcf.gz | grep "Ts/Tv"   # 人 WGS 约 2.0~2.1，外显子 2.5~3.0
-bcftools stats -s - variants.vcf.gz | grep "^PSC" > per_sample.txt   # 每样本 hom/het/ts/tv...
+echo "Before:" $(bcftools view -c 1 raw.vcf.gz | wc -l)
+echo "PASS only:" $(bcftools view -f PASS raw.vcf.gz | bcftools view -c 1 | wc -l)
+echo "SNPs PASS:" $(bcftools view -f PASS --type snps raw.vcf.gz | bcftools view -c 1 | wc -l)
 ```
 
-两文件一致性比对（isec 产私有/共享四份）：
+### Recipe: Extract Heterozygous Sites for One Sample
 
 ```bash
+bcftools view -s SAMPLE_A variants.vcf.gz \
+    | bcftools filter -i 'GT="0/1"' \
+    | bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\n' > het_sites.txt
+echo "$(wc -l < het_sites.txt) heterozygous sites"
+```
+
+### Recipe: Compare Two VCF Files for Concordance
+
+```bash
+# Find variants unique to each file and shared
 bcftools isec -p isec_dir file1.vcf.gz file2.vcf.gz
-# 0000=file1 私有  0001=file2 私有  0002/0003=共享
+ls isec_dir/
+# 0000.vcf: private to file1
+# 0001.vcf: private to file2
+# 0002.vcf: shared (from file1 perspective)
+# 0003.vcf: shared (from file2 perspective)
+echo "Shared: $(wc -l < isec_dir/0002.vcf) variants"
 ```
 
-## 注意事项
+## Troubleshooting
 
-- **缺索引**：`view -r 区域` 需 `.tbi`/`.csi`，落盘 bgzip VCF 后务必 `bcftools index -t out.vcf.gz`。
-- **合并/注释前先规范化**：不同调用器对同一 indel 表示不同，先 `norm -m -any | norm -d any -f ref.fa` 防重复记录。
-- **染色体命名要一致**：`chr1` 与 `1` 混用会静默失败/注释错位，`bcftools view -h x.vcf.gz | grep "^##contig"` 核对，必要时 `annotate --rename-chrs`。
-- **样本重名**：合并时输入 VCF 样本名重复会报错，先 `bcftools reheader -s new_names.txt x.vcf.gz` 改名。
-- **过滤输出为空**：表达式过严或字段缺失，先 `view -h x.vcf.gz | grep INFO` 确认字段存在。
-- **管道用 `-O u`**：多步管道中间产物用非压缩 BCF，比 `-O z` 通常快 2~3×；落盘才用 `-z`。
-- **Ts/Tv 异常**（<1.8 或 >2.2）提示质控问题，收紧过滤（`QUAL>30 && DP>15`）并查比对质量。
-- **concat 报重叠**：输入区域重叠时加 `-a`：`bcftools concat -a file1.vcf.gz file2.vcf.gz`。
-- 大队列**先过滤再合并**：对每样本 VCF 先做位点级 QC（`QUAL>20 && DP>5`）再 merge，省内存与 I/O。
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `Missing index` error | VCF not indexed (needed for `-r` region queries) | Run `bcftools index -t file.vcf.gz` |
+| `[E::vcf_parse_format]` parse error | Malformed VCF FORMAT or INFO field | Validate: `bcftools view file.vcf.gz 2>&1 \| head -5`; check source tool version |
+| Empty filter output | Expression too strict or field missing | Test expression: `bcftools view -h file.vcf.gz \| grep "##INFO=<ID=QUAL"` |
+| Merge: sample duplication | Duplicate sample names across input VCFs | Rename with `bcftools reheader -s new_names.txt sample.vcf.gz` before merging |
+| Wrong Ts/Tv ratio (<1.8) | Low-quality calls or poor coverage | Apply stricter quality filter (`QUAL>30 && DP>15`); check alignment quality |
+| `concat` fails with overlap | Overlapping regions in input VCFs | Use `-a` flag: `bcftools concat -a file1.vcf.gz file2.vcf.gz` |
+| Annotation mismatch | chr naming conflict (chr1 vs 1) | Check: `bcftools view -h file.vcf.gz \| grep contig`; rename with `bcftools annotate --rename-chrs` |
+| `query` returns empty fields | FORMAT field not populated for sample | Check VCF header: `bcftools view -h file.vcf.gz \| grep FORMAT` |
 
-## 互见
+## Related Skills
 
-- requires：`genomic-file-toolkit` —— VCF/BAM 的读写、bgzip 索引、区域抓取与覆盖度统计是本条的输入/输出基础。
-- related：`cnvkit-copy-number` —— 同属变异后处理家族（拷贝数）；`gene-set-enrichment-analysis` —— 变异/基因列表的下游富集解读；`single-cell-rnaseq-analysis` —— 同属基因组学分析。
-- combines_with：`gatk-variant-calling` —— 上游产出 VCF，本条接力做规范化/过滤/合并/注释；`snpeff-variant-annotation` —— 在本条 ID/区间注释之上叠加功能效应注释；`snakemake-workflow-engine`、`nextflow-pipeline-builder` —— 把 norm→filter→annotate 各步包成可复现、可并行的工作流。
+- **samtools-bam-processing** — BAM processing that feeds into bcftools variant calling pipeline
+- **bedtools-genomic-intervals** — intersecting VCF variants with genomic features (genes, regions)
+- **gget-genomic-databases** — Ensembl/NCBI queries to annotate variant gene context
 
----
+## References
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+- [bcftools documentation](https://samtools.github.io/bcftools/bcftools.html) — complete command reference
+- [GitHub: samtools/bcftools](https://github.com/samtools/bcftools) — source code, releases, issue tracker
+- Danecek et al. (2021) "Twelve years of SAMtools and BCFtools" — [GigaScience 10(2)](https://doi.org/10.1093/gigascience/giab008)
+- [VCF file format specification](https://samtools.github.io/hts-specs/VCFv4.3.pdf) — field definitions and encoding rules

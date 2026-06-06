@@ -1,14 +1,14 @@
 ---
 name: dpa-clause-reviewer
-title: 数据处理协议条款审查
-description: 当需要对照内部 DPA 立场清单逐条审查一份数据处理协议时使用；自动判定己方是处理者还是控制者并据此审查，产出含红线修改的审查备忘录；不适用于从零起草 DPA、独立的传输影响评估（TIA）或决定是否接受清单外条款（这些应升级转交律师）；触发词：审查DPA、数据处理协议、数据处理附录、DPA review、data processing agreement、子处理者、违约通知、跨境传输、SCC。
+title: /dpa-review
+description: Review a Data Processing Agreement against your DPA playbook — auto-detects whether you're processor or controller and applies the right half of the playbook. Use when the user says "review this DPA", "check this data processing addendum", "customer sent their DPA", "is this DPA okay", or attaches a
 domain: 领域/legal
-triggers: [审查DPA, 数据处理协议, 数据处理附录, DPA review, data processing agreement, 子处理者, 违约通知, 跨境传输, SCC]
+triggers: [DPA review, data processing agreement, SCC]
 tags: [legal, privacy, dpa, gdpr, data-protection, contract-review, compliance]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [DPA playbook (内部立场清单), 法律检索工具/MCP (Westlaw 等), primary-source 引用]
+tools: []
 requires: []
 related: [gdpr-data-handler, dsar-response-builder, privacy-impact-assessor, nda-triage-reviewer]
 combines_with: [gdpr-data-handler, privacy-impact-assessor]
@@ -16,109 +16,238 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /dpa-review
 
-- 用户说"审查这份 DPA / 数据处理协议 / 数据处理附录"，或"客户发来了他们的 DPA""这份 DPA 行不行"，或直接附上一份 DPA 文件/链接/文本时。
-- 核心前提：你有一份**内部 DPA 立场清单（playbook）**，记录了通知期、违约时限、可接受/不可接受底线等具体数值与立场。没有立场清单则先要求配置，不要凭空编造立场。
-
-**不该用的边界：**
-- 不从零起草 DPA。若结论是"用我们的模板"，去取模板而非生成。
-- 不亲自做传输影响评估（TIA）——只标注何时需要做。
-- 不替人决定是否接受立场清单之外的条款——这类按升级路径转交律师。
-
-## 步骤
-
-1. **加载立场清单**：读取内部 DPA playbook；同时读取隐私政策承诺（DPA 不能与隐私政策互相矛盾）。若是占位符未配置，停止并提示配置。
-2. **先定方向（最关键）**：判定己方角色——
-   - 我们是**处理者**（客户把他们的 DPA 发给我们）→ 用"作为处理者"那一栏，做**防御性审查**，守住运营灵活性。
-   - 我们是**控制者**（我们把 DPA 发给供应商，或审查供应商的）→ 用"作为控制者"那一栏，做**保护性审查**，守住数据。
-   - 不清楚就问。**搞错方向会让每一条建议反向。**
-3. **加载历史上下文**：检查输出文件夹中针对同一对手方/处理活动的既往产出（用例分流、PIA、过往 DPA 审查）。命中则在备忘录中引用，并**把上游严重级别作为下限**——分流评为🔴的活动不能在本次审查中被悄悄降为🟢，任何降级都要写明理由。无历史则明确写"输出文件夹中无此对手方的既往分流或 PIA"，让审阅律师知道这步跑过了。
-4. **联邦/行业叠加层（在逐条审查前先问）**：本协议流经的数据是否含受联邦/行业专门法监管的类别？GDPR 与各州消费者隐私法是一道底线，行业专门法往往是通用清单里没有的另一道。逐项确认（见下方指令）。无则明确写"未识别到受专门法监管的数据类别；行业叠加层 n/a"。
-5. **逐条审查**：对照立场清单逐条款走核心条款表。监管底线必须**检索当前生效的规则并引用一手来源**，不得凭模型知识填补。
-6. **隐私政策一致性检查**：DPA 承诺的处理目的、子处理者类别等是否与隐私政策一致；是否有条款在 CCPA 下构成"出售"而与"绝不出售数据"的政策冲突。标注不一致项。
-7. **出具产物**：含红线的审查备忘录，按内部文体保存到对应目录。
-
-## 指令
-
-**核心条款逐条走查表**（具体数值/底线来自立场清单，监管底线来自一手法律）：
-
-| 条款 | 关注点 | 常见争点 |
-|---|---|---|
-| 角色 | 控制者/处理者界定清晰且与事实相符 | 对手方标成"联合控制者"等不符实际 |
-| 处理范围 | 限于书面指示、目的明确 | 开放式扩张（"及相关目的"） |
-| 子处理者 | 现有清单已披露、变更机制明确 | 概括批准 vs 否决权 vs 仅通知 |
-| 安全措施 | 附件引用具体控制或标准 | "适当技术与组织措施"却无附件＝空头承诺 |
-| 违约通知 | 触发点（"发现"vs"确认"）与时限明确 | 时限松紧、计时起点、"不无故拖延"太模糊 |
-| 审计权 | 方式（报告 vs 现场）、频率、通知、费用分担 | 短通知期的现场审计 |
-| 跨境传输 | 传输机制已指明、补充措施、TIA 引用 | 机制过时或缺失 |
-| 删除/返还 | 终止后时限、证明、备份豁免 | "商业上合理"的删除＝？ |
-| 责任 | 在 MSA 上限内或单列、例外 | 数据泄露责任不封顶＝致命 |
-
-**作为处理者（防御）**：子处理者逐客户否决权→套用清单立场；短通知现场审计→不可行；激进违约通知窗口→检索各适用法域监管底线并引一手来源对比清单；硬性数据驻留→确认架构能承诺什么；处理者责任不封顶→赌上公司；客户可发约束性"指示"→定义为"协议中书面记载或书面另行约定"；删除时限过短→记录备份轮换豁免。
-
-**作为控制者（保护）**：无子处理者清单→要求公布现行清单＋提前通知；"行业标准安全"→要求附件列具体控制或指名标准（SOC 2、ISO 27001）；无违约通知时限→检索监管底线并要求清单立场；无审计权→至少要求独立审计报告；供应商可将数据用于"服务改进"→删除，处理仅限向我们提供服务（防止拿我们数据训练）；无跨境传输机制→**检索该走廊当前生效的传输机制**并引一手来源；无删除承诺→要求清单立场＋按需出具删除证明。
-
-**联邦/行业叠加层逐项问**：GLBA/Reg P（金融账户数据、消费者 NPI）；HIPAA（受保护健康信息 PHI，需 BAA 与 DPA 叠加并下沉至分包商）；FERPA（教育记录，"学校官员"框架、家长同意流转）；COPPA（13 岁以下儿童数据，需可验证家长同意流转、留存限制、按需删除）；其他（VPPA/CPNI/DPPA/TCPA 等）。**关键**：CCPA § 1798.145(e) 的"豁免"只是移动了治理框架而非消除义务——GLBA 覆盖的数据仍受 GLBA 约束。
-
-**两条硬规矩：**
-- **不得静默填补**：检索工具对某监管底线返回结果稀少时，报告所得并**停下来问**，不要用网络搜索或模型知识私自补全。
-- **来源分级标注**：每条引用打标签——`[settled]`（GDPR 第28条、第33条72小时通知等稳定引用，仍需核但优先级低）、`[verify]`（具体实施细则、监管指南、判例、充分性决定、SCC 模块版本、阈值、生效日期）、`[verify-pinpoint]`（具体小节字母、SCC 内条款号、段落号等精确定位，伪造风险最高，**必须**对照一手来源核验）。工具来源保留 `[Westlaw]`/`[监管机构站点]` 标签，网络搜索为 `[web search — verify]`，用户提供为 `[user provided]`。**绝不剥除或合并标签。**
-
-**红线粒度——以能达成立场的最小改动为默认。** 红线是谈判物，不是重写。整条替换显得"把你的起草全推翻"。优先级：改一个词（"twelve (12)"→"twenty-four (24)"）＞改短语＞重构子条款＞替换整句＞替换整条。只有当对手方版本离立场太远、外科式修改反而更难读时才整条替换，并在转送函中说明原因。
-
-**签署闸门**：审查 DPA 是研究，**签署**才是有后果的行为。在签署/会签/同意平台自动执行前，若使用者角色是非律师，须提示："签署 DPA 是法律行为，会让公司承担流向监管者和数据主体的特定数据保护义务。是否已与律师审过？"并生成一页摘要（对手方、方向、偏离清单的条款及其处理、未决回退决定、签前要问律师的三件事）。**未得到明确"是"不得越过此闸门。**
-
-## 示例
+1. Load `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → DPA playbook. If placeholders, stop and prompt setup.
+2. Get the DPA. Determine direction: are we processor (customer's DPA) or controller (vendor's)? Ask if ambiguous.
+3. Run the workflow below — term-by-term against the appropriate playbook row.
+4. Run privacy policy consistency check.
+5. Output: review memo with redlines. Save per house style.
 
 ```
-用户：客户发来了他们的 DPA，帮我看看能不能签。customer-dpa.pdf
+/privacy-legal:dpa-review customer-dpa.pdf
 ```
-
-处理路径：
-1. 加载立场清单与隐私政策承诺。
-2. 定方向：客户发来他们的 DPA → **我们是处理者** → 走防御性审查。
-3. 扫输出文件夹：找到该客户 3 个月前的用例分流，评级🟡——本次审查须不低于此下限。
-4. 联邦叠加层：数据含消费者金融账户信息 → 触发 GLBA/Reg P，DPA 需要安全保障规则对齐措施与 NPI 共享限制；标为缺陷。
-5. 逐条走查：违约通知要求"24 小时内"但立场清单底线是"发现后 72 小时" → 红线改回；子处理者逐客户否决权 → 推回至概括通知＋异议机制。
-6. 隐私政策一致性：DPA 列的子处理者类别与政策一致 → 🟢。
-7. 出具备忘录骨架：
-
-```markdown
-# DPA 审查：[对手方]
-**方向：** 我们是处理者
-**审查日：** [日期]    **附属于：** MSA
-
-## 结论
-[两句话：能签吗？必须改什么？]
-**问题：** [N]🟢 [N]🟡 [N]🟠 [N]🔴
-
-## 逐条
-[每个核心条款一块：对手方怎么写／我们清单怎么说／差距／风险／拟议红线]
-
-## 隐私政策一致性
-[🟢 一致 | 🟡 标记：列出]
-
-## 建议红线
-[已整合，可直接回传]
-
-## 若对方不让步
-[每个问题的回退立场，或无回退时的升级路由]
-```
-
-## 注意事项
-
-- **方向定错＝全盘反向**，这是第一优先级，模棱两可必须先问。
-- **法域假设**：本审查假定配置中指定的法域范围。GDPR、州消费者隐私法、行业法的规则、响应时限、合法性基础差异巨大；若控制者/处理者/数据主体在配置外的法域，审查可能不适用。
-- 跨境传输若**缺失传输机制**且确有国际传输 → 直接判 🔴（无合法传输机制）。SCC 版本、充分性决定、所需补充措施会因新决定/判例/监管指南而变，引一手来源并核验时效。
-- 严重级别只能升不能悄悄降；任何降级都写明并解释。
-- 检索稀少不要硬填——停下来问，由律师决定是否接受低置信来源。
-
-## 互见
-
-- fact-checking：核验一手来源引用（充分性决定、SCC 版本、判例时效）时配合使用。
-- first-principles-thinking：在方向判定或条款立场存在根本分歧时，回到"我们到底在保护什么"重新推演。
 
 ---
 
-*本条采编自 anthropics/claude-for-legal（Apache-2.0），适配重写为中文技能大典条目。*
+# DPA Review
+
+## Matter context
+
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/privacy-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/privacy-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+
+---
+
+## Purpose
+
+DPAs come in two flavors and the review is nearly opposite for each. When a customer sends their DPA, we're defending our operational flexibility. When we send one to a vendor, we're protecting our (and our customers') data. Both reviews read from the same `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` playbook but from opposite rows.
+
+## First: which direction?
+
+Before anything else, establish:
+
+- **We are the processor** → customer is sending us their DPA → read `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → "When we are the processor" table
+- **We are the controller** → we're sending a DPA to a vendor (or reviewing theirs) → read "When we are the controller" table
+
+If unclear, ask. Getting this wrong inverts every recommendation.
+
+## Jurisdiction assumption
+
+This review assumes the jurisdictional scope specified in your configuration. Privacy rules, response deadlines, and lawful bases vary materially by jurisdiction (GDPR vs. state consumer privacy laws vs. sectoral). If the controller, processor, or data subjects are in a different jurisdiction than configured, this review may not apply as written.
+
+## Load prior context on this counterparty / activity
+
+Before reviewing, check the outputs folder for prior work on this counterparty or processing activity. Read `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → `## Outputs` for the outputs folder path. Scan for:
+
+- **Prior `use-case-triage` results** for the same counterparty / processing activity — the triage produces a risk rating and conditions that this DPA review should honor or explicitly depart from.
+- **Prior `pia-generation` outputs** covering this counterparty / processing activity — the PIA may have flagged risk mitigations the DPA needs to implement.
+- **Prior `dpa-review` outputs** for the same counterparty — earlier DPA reviews set expectations about what was acceptable, what was flagged, and what was settled. A fresh review that silently contradicts the earlier one erodes trust in the work product.
+
+If a prior output is found, cite it in the review:
+
+> "Prior triage ([date]) rated this [risk level] and conditioned approval on [X]. This DPA review is consistent with that finding." — or —
+> "Prior triage ([date]) rated this [risk level]. This DPA review departs from that finding because [reason — new facts, different scope, contract term that changed the picture]."
+
+**Carry severity from the upstream output as a floor** per the cross-skill severity floor rule in `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → `## Shared guardrails`. A processing activity the triage rated 🔴 cannot be quietly downgraded to 🟢 in the DPA review; any demotion is stated and explained.
+
+If no prior output is found (new counterparty / new activity), say so explicitly in the review — "No prior triage or PIA on this counterparty in outputs folder" — so the reviewing attorney knows the check ran.
+
+## Load the playbook
+
+Read `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → `## DPA playbook`. Also read `## Privacy policy commitments` — the DPA can't contradict what the privacy policy promises.
+
+## Federal sectoral overlay (ask first, before the term-by-term walk)
+
+Before walking the term-by-term review, answer: **does the data flowing through this DPA include any federally-regulated category?** GDPR and state consumer-privacy law supply one floor; federal sectoral law often supplies another that does not appear in the generic DPA playbook. A DPA that is GDPR-complete can still be GLBA-blind, HIPAA-blind, or COPPA-blind, and a fintech / healthtech / edtech / kidtech counterparty will notice.
+
+> **Activity-based federal overlays — ask first:**
+>
+> Does this processing touch:
+> - **Financial account data or "nonpublic personal information" about consumers** (GLBA / Reg P)? If yes, the DPA needs: (a) an NPI-sharing restriction consistent with 15 U.S.C. § 6802(a)-(c) and Reg P (no sharing for marketing to non-affiliated third parties without opt-out / opt-in), (b) safeguards language aligned with the Safeguards Rule (16 C.F.R. Part 314), (c) incident notification that reaches FTC/OCC timing where applicable, (d) a clean carve-out so a CCPA § 1798.145(e) exemption doesn't accidentally waive GLBA-level obligations.
+> - **Protected health information held by a covered entity or business associate** (HIPAA Privacy / Security Rules)? If yes, the DPA needs: a Business Associate Agreement (BAA) layered with or integrated into the DPA per 45 C.F.R. § 164.504(e), breach notification timing aligned with HITECH (60 days to CE; CE 60 days to HHS; 500+ threshold for media), permitted-uses clause, subcontractor BAA flow-down. A commercial DPA without BAA flow-down for PHI is a defect.
+> - **Education records held by a school or a service provider acting for a school** (FERPA)? If yes, the DPA needs: a "school official" / directory-information framing consistent with 34 C.F.R. § 99.31, parental-consent flow-through, state student-privacy analog handling (NY Ed Law 2-d, CA SOPIPA, IL SOPPA).
+> - **Data from children under 13 collected by an operator of an online service directed to children or with actual knowledge** (COPPA)? If yes, the DPA needs: verifiable-parental-consent flow-through, retention limits, deletion-on-request machinery, prohibition on behavioral advertising absent VPC.
+> - **Another sectoral federal regime** (VPPA for video-viewing records, CPNI for carrier data, DPPA for DMV records, TCPA / Shaken-Stir for call/SMS, GLBA Reg S-P for broker-dealers, §5 FTC Act for unfair/deceptive practices around sensitive data)?
+>
+> If yes to any: the federal overlay usually supplies the controlling substantive restriction, not just an exemption from a state consumer privacy law. Research the currently-operative provision and cite it. A DPA that is "exempt" from CCPA under § 1798.145(e) because it is GLBA-covered is still subject to the GLBA restrictions — the CCPA exemption moves the governing framework, it doesn't eliminate it. Flag sectoral gaps in the deal-breakers list alongside GDPR / state-privacy gaps.
+
+If no sectoral overlay applies, note that explicitly — "no federally-regulated data categories identified; sectoral overlay n/a" — so the reviewing attorney sees that the check happened, rather than wondering whether it was skipped.
+
+## The term-by-term review
+
+### Core terms (check every DPA)
+
+Walk every DPA through these terms, clause by clause. The *specific* numeric and substantive positions (notice periods, breach timelines, acceptable/unacceptable floors) come from `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` → `## DPA playbook`. The regulatory floors that any DPA has to clear come from primary law — **research the currently operative rule** for each applicable regime and cite primary sources before stating a floor.
+
+> **No silent supplement.** If a research query to the configured legal research tool returns few or no results for a regime's breach window, transfer-mechanism requirement, subprocessor-change rule, or any other floor, report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [regime / topic]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag as unverified and stop. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
+>
+> **Source attribution tiering.** Tag every citation in the review — regulatory floors, SCC versions, adequacy decisions, regulator guidance, case law — with its source. For model-knowledge citations, use one of three tiers rather than a single blanket "verify" tag:
+>
+> - `[settled]` — stable, well-known statutory and regulatory references unlikely to have changed (e.g., GDPR Art. 28, Art. 33 72-hour breach notice, SCC Decision 2021/914 by number). Still verify before filing, but lower priority.
+> - `[verify]` — model-knowledge citations that are real but should be verified: specific implementing regulations, regulator guidance, case holdings, adequacy decisions, SCC modules and versions, UK Addendum / IDTA status, thresholds, effective dates.
+> - `[verify-pinpoint]` — pinpoint citations (specific subsection letters, clause numbers within SCCs, paragraph numbers, volume/page references) carry the highest fabrication risk and should ALWAYS be verified against a primary source.
+>
+> Tool-retrieved citations keep their source tag (`[Westlaw]`, `[Commission / regulator site]`, or the MCP tool name); web-search citations remain `[web search — verify]`; user-supplied citations remain `[user provided]`. The tiering surfaces the real verification work — a reader who verifies everything verifies nothing. Never strip or collapse the tags.
+
+| Term | Looking for | Playbook field | Common fights |
+|---|---|---|---|
+| **Roles** | Clear controller/processor designation; matches reality | — | Counterparty labels the relationship (e.g., "joint controller") in a way that doesn't match reality |
+| **Processing scope** | Limited to documented instructions; defined purposes | — | Open-ended scope expanders ("and related purposes") |
+| **Subprocessors** | Current list disclosed, change mechanism defined | Subprocessor changes | Blanket approval vs. veto vs. notice-only |
+| **Security measures** | Annex references specific controls or standards | Security standards | "appropriate technical and organizational measures" with no annex = empty promise |
+| **Breach notification** | Defined trigger ("discovery" vs "confirmation"), defined timeline | Breach notification | Timeline tightness; clock trigger; "without undue delay" is vague |
+| **Audit rights** | Method (report vs. on-site), frequency, notice, cost allocation | Audit rights | On-site audits on tight notice |
+| **International transfers** | Transfer mechanism identified, supplementary measures, transfer impact assessment reference | Transfers | Outdated or missing transfer mechanisms |
+| **Deletion/return** | Timeline post-termination, certification, backup carveout | Deletion on termination | "Commercially reasonable" deletion = ??? |
+| **Liability** | Within MSA cap or separate; carveouts | Liability for data | Uncapped data breach liability = existential |
+
+### When we're the processor: defensive review
+
+Customer DPAs try to push operational burden onto us. For each clause below, compare the customer's ask to the playbook. Where the customer's ask is outside the playbook, push back to the team's standard position (from the config CLAUDE.md) and be ready to fall back to the acceptable position.
+
+| Clause | Risk | Research / playbook lookup |
+|---|---|---|
+| Subprocessor approval right (veto) | Can't add infrastructure without customer-by-customer approval | Apply playbook position on subprocessor changes |
+| On-site audit on short notice | Unworkable at scale | Apply playbook position on audit rights |
+| Aggressive breach notification window | Often demands notice before we know what happened | Research the regulatory floor for each applicable regime (cite primary sources); compare to playbook position |
+| Hard data residency (single country/DC) | May not match architecture | Apply playbook position on data location; confirm what we can actually commit to |
+| Processor liability uncapped | Bet-the-company | Apply playbook position on liability for data |
+| Customer may issue binding "instructions" | Open-ended operational control | Define instructions as "documented in the Agreement or agreed in writing" |
+| Deletion on very short timeline | Backup and log retention makes this impossible | Apply playbook position on deletion on termination; document backup rotation carveout |
+
+### When we're the controller: protective review
+
+Vendor DPAs try to give us nothing. For each clause below, compare to the controller-side playbook.
+
+| Clause | Gap | Research / playbook lookup |
+|---|---|---|
+| No subprocessor list | Don't know who touches our data | Require published current list + advance notice per playbook |
+| "Industry standard security" | Means nothing | Require annex with specific controls, or reference to a named standard (e.g., SOC 2, ISO 27001) |
+| No breach notification timeline | They tell us whenever | Research applicable regulatory floor; require playbook position |
+| No audit rights at all | Can't verify anything | Require at minimum an independent audit report per playbook |
+| Vendor can use data for "service improvement" | Potential training on our data | Strike; processing limited to providing the service to us |
+| No international transfer mechanism | No lawful transfer mechanism | **Research the currently operative transfer mechanism** for the corridor in question (origin/destination jurisdictions, applicable regime, any adequacy decision, any supplementary measures). Cite primary sources and verify currency. |
+| No deletion commitment | Data lives forever | Require playbook position on deletion + certification on request |
+
+## Consistency check: privacy policy
+
+The DPA you sign can't promise something the privacy policy doesn't cover, and vice versa.
+
+- If the DPA commits to processing only for purposes X, Y, Z — does the privacy policy list those purposes?
+- If the privacy policy says "we never sell data" — does any DPA clause look like a sale under CCPA?
+- If the privacy policy names specific subprocessor categories — does the DPA subprocessor list match?
+
+Flag mismatches. They're usually the privacy policy being stale, not the DPA being wrong, but someone needs to fix one of them.
+
+## Redline granularity
+
+**Edit at the smallest possible granularity.** A redline is a negotiation artifact, not a rewrite. Wholesale clause replacement signals "we threw out your drafting" — it's aggressive, it forces the counterparty to re-read the whole clause, and it discards the parts of their drafting that were fine. Surgical redlines — strike a word, insert a phrase, restructure a subclause — signal "we have specific asks" and are faster to read, understand, and accept.
+
+Default to the smallest edit that achieves the playbook position:
+- Replace a **word** before a phrase. ("twelve (12)" → "twenty-four (24)")
+- Replace a **phrase** before a sentence. ("paid by the Buyer" → "paid and payable by the Buyer")
+- Restructure a **subclause** before replacing the sentence. (Add "(a)" and "(b)" to split a compound condition.)
+- Replace a **sentence** before replacing the clause.
+- Only replace a **whole clause** when the counterparty's version is so far from your position that surgical edits would be harder to read than a fresh draft — and when you do, say so in the transmittal: "We've replaced §8.2 rather than marking it up because the changes were extensive. Happy to walk you through the delta."
+
+When in doubt, smaller. A client who receives a surgical redline trusts that you read carefully. A client who receives a wholesale replacement wonders whether you read at all.
+
+## Output
+
+Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md` `## Outputs` (it differs by user role — see `## Who's using this`).
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs]
+
+# DPA Review: [Counterparty]
+
+**Direction:** [We are processor / We are controller]
+**Reviewed:** [date]
+**Attached to:** [MSA / standalone]
+
+---
+
+## Bottom line
+
+[Two sentences. Can we sign? What has to change?]
+
+**Issues:** [N]🟢 [N]🟡 [N]🟠 [N]🔴
+
+---
+
+## Term-by-term
+
+[For each core term, use a standard deviation-memo format: what the
+counterparty's DPA says, what our playbook says, the gap, the risk, and the
+proposed redline language. Keep each term to a short self-contained block so a
+reviewer can skim.]
+
+---
+
+## Privacy policy consistency
+
+[🟢 Consistent | 🟡 Flags: list]
+
+---
+
+## Recommended redlines
+
+[Consolidated — ready to send back]
+
+---
+
+## If they won't move
+
+[For each issue: the fallback from the config CLAUDE.md, or escalation routing if no
+fallback exists]
+```
+
+## International transfers note
+
+If the DPA contemplates cross-border data transfers, **research the currently operative transfer mechanism requirements** for the applicable corridor(s). For each origin/destination pair, identify: the applicable regime, whether any adequacy decision is in force, which transfer mechanism is required or available (e.g., Standard Contractual Clauses and their applicable version/module, UK Addendum or IDTA, BCRs, derogations), whether a transfer impact assessment or equivalent is required, and what supplementary measures may be needed. Cite primary sources (regulation, Commission decision, regulator guidance, controlling case law) with pinpoint cites and verify currency — adequacy decisions, SCC versions, and required supplementary measures change through new Commission decisions, court rulings, and regulator guidance. Flag uncertainty for attorney verification.
+
+If a transfer mechanism is missing and there is an international transfer, that is a 🔴 — there is no lawful transfer mechanism.
+
+## Gate: signing a DPA
+
+Reviewing a DPA is research. *Signing* it — or instructing someone to countersign on our behalf — is the consequential act.
+
+**Before proceeding to sign or countersign a DPA (including returning an executed version, consenting to automatic execution on a counterparty platform, or instructing a signatory to execute):** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/privacy-legal/CLAUDE.md`. If the Role is Non-lawyer:
+
+> Signing a DPA is a legal act — it binds the company to specific data-protection obligations that flow to regulators and data subjects. Have you reviewed this with an attorney? If yes, proceed. If no, here's a brief to bring to them:
+>
+> [Generate a 1-page summary: counterparty, direction (we are processor / controller), the terms that deviate from the playbook and how they were resolved, any open fallback decisions, and the three things to ask the attorney before executing.]
+>
+> If you need to find a licensed attorney, solicitor, barrister, or other authorised legal professional in your jurisdiction: your professional regulator's referral service is the fastest starting point (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent).
+
+Do not proceed past this gate without an explicit yes.
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+## What this skill does not do
+
+- It doesn't draft a DPA from scratch. If the answer is "use our template," pull the template from the seed docs path in the config CLAUDE.md.
+- It doesn't do the Transfer Impact Assessment itself — it flags when one is needed.
+- It doesn't decide whether to accept terms outside the fallbacks. It routes those per the escalation table.

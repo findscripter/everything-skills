@@ -1,14 +1,14 @@
 ---
 name: brenda-enzyme-database
-title: BRENDA 酶动力学数据库
-description: 当需要按 EC 号/底物/物种查询酶动力学参数（Km、kcat、Vmax、Ki）、底物-产物、抑制剂、辅因子、最适 pH/温度或交叉 UniProt 时使用；用 Python zeep 调 BRENDA SOAP 服务（SHA256 鉴权、需免费学术注册）检索并产出可用于动力学建模的参数表。不适用于代谢网络约束建模（用 cobrapy）或代谢物结构（用 hmdb）。触发词：BRENDA、酶动力学、Km、kcat、Vmax、Ki、EC 号、米氏常数、底物特异性、抑制剂、辅因子、最适pH温度
+title: BRENDA Enzyme Database
+description: BRENDA Enzyme DB SOAP/REST queries: kinetic parameters (Km, Vmax, kcat, Ki), EC classes, substrate specificity, inhibitors, cofactors, organism data. 80K+ enzymes, 7M+ values. Free academic registration. For metabolic modeling use cobrapy-metabolic-modeling; metabolites use hmdb-database.
 domain: 领域/science
-triggers: [BRENDA, 酶动力学, enzyme kinetics, Km, 米氏常数, kcat, turnover number, Vmax, Ki, EC号, EC number, 底物特异性, substrate, 抑制剂, inhibitor, 辅因子, cofactor, 最适pH, 最适温度, kcat/Km, 催化效率, zeep, SOAP]
+triggers: [BRENDA, enzyme kinetics, Km, kcat, turnover number, Vmax, Ki, EC number, substrate, inhibitor, cofactor, kcat/Km, zeep, SOAP]
 tags: [science, systems-biology, enzyme, kinetics, database, soap-api, metabolic-modeling, brenda]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, zeep, pandas, hashlib]
+tools: []
 requires: []
 related: [kegg-database, uniprot-protein-database, reactome-pathway-database, rdkit-cheminformatics]
 combines_with: [scientific-database-lookup, gget-genomic-databases]
@@ -16,143 +16,489 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# BRENDA Enzyme Database
 
-当你需要在 BRENDA（BRaunschweig ENzyme DAtabase：8 万+ 酶条目、覆盖全部 EC 号、700 万+ 实测动力学参数）中检索酶的动力学与功能数据时使用本技能。典型场景：
+## Overview
 
-- 取某酶+底物组合的 Km / kcat / Vmax / Ki（米氏常数、转换数、抑制常数）
-- 跨物种或跨突变体比较同一酶的动力学参数
-- 查某 EC 号的天然底物-产物、抑制剂、辅因子
-- 为代谢动力学模型提取米氏-门顿参数
-- 查酶的最适 pH / 最适温度
-- 把 EC 号交叉到 UniProt 登录号与物种分类
+BRENDA (BRaunschweig ENzyme DAtabase) is the world's most comprehensive enzyme information system, containing 80,000+ enzyme entries covering all classified enzymes (EC numbers). It holds 7M+ experimentally measured kinetic parameters (Km, Vmax, kcat, Ki, inhibition constants), substrate specificity data, cofactor requirements, tissue expression, and organism-specific enzyme variants from 200,000+ literature references. Programmatic access is via a SOAP-based web service (Python zeep library) with free academic registration.
 
-**不该用本技能的边界：**
-- 做约束式代谢网络（FBA）建模 → 用 `cobrapy-metabolic-modeling`
-- 查代谢物 / 底物的化学结构与生物背景 → 用 `hmdb-metabolome-database`
-- 仅按通路上下文关联 EC → 用 `kegg-database`
+## When to Use
 
-**注意 BRENDA 是 SOAP 而非 REST**：必须用 `zeep` 解析 WSDL，密码须传 SHA256 散列（非明文），且需在官网免费学术注册后才能调用。
+- Retrieving kinetic parameters (Km, kcat, Vmax, Ki) for a specific enzyme and substrate combination
+- Comparing kinetic parameters across organisms or mutant variants for an enzyme
+- Finding natural substrates, inhibitors, and cofactors for an EC number
+- Building kinetic models for metabolic simulations requiring Michaelis-Menten parameters
+- Identifying enzyme-specific structural data (recommended pH, temperature optima)
+- Cross-referencing EC numbers with UniProt accessions and organism taxonomy
+- For metabolic network simulation use `cobrapy-metabolic-modeling`; for metabolite structures use `hmdb-database`
 
-## 步骤 / 指令
+## Prerequisites
 
-1. **准备环境**：`pip install zeep pandas requests`；到 https://www.brenda-enzymes.org/register.php 免费注册（学术）获取账号。
+- **Python packages**: `zeep` (SOAP client), `pandas`, `requests`
+- **Data requirements**: EC numbers (e.g., `1.1.1.1`), enzyme names, or organism names
+- **Environment**: internet connection; free academic registration at https://www.brenda-enzymes.org/register.php
+- **Rate limits**: no explicit limit stated; avoid bulk automated queries; space requests with sleep
 
-2. **建客户端 + 算密码散列**（密码须 `hexdigest()`，不是 `digest()`）：
-   ```python
-   from zeep import Client
-   import hashlib
-   WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
-   client = Client(WSDL)
-   EMAIL = "your@email.com"
-   PWD = hashlib.sha256("your_password".encode()).hexdigest()
-   ```
-   生产中用环境变量 `os.environ["BRENDA_EMAIL"]` / `["BRENDA_PASSWORD"]`，勿硬编码。
+```bash
+pip install zeep pandas requests
+# Register at https://www.brenda-enzymes.org/register.php to obtain API credentials
+```
 
-3. **拼参数调方法**。每个服务方法签名固定为 9 个位置参数：`(EMAIL, PWD, 过滤1, 过滤2, …, "")`，过滤器是管道分隔的 `字段*值` 串，空位留 `""`。核心方法：
-
-   | 方法 | 返回 | 关键结果字段 |
-   |---|---|---|
-   | `getKmValue` | Km 记录 | `kmValue`、`kmValueMaximum`、`substrate`、`organism`、`literature`(PMID) |
-   | `getTurnoverNumber` | kcat 记录(1/s) | `turnoverNumber`、`substrate`、`organism` |
-   | `getSubstrates` | 底物-产物 | `substrate`、`organism` |
-   | `getInhibitors` | 抑制剂 | `inhibitor`、`organism`、`ic50Value` |
-   | `getPhOptimum` / `getTemperatureOptimum` | 最适 pH / 温度(°C) | `phOptimum` / `temperatureOptimum` |
-   | `getUniprotAccession` | UniProt 交叉 | `uniprotAccessionNumber`、`organism` |
-   | `getEcNumber` | 名称→EC 号 | `ecNumber`、`recommendedName` |
-
-4. **常用过滤字段**：`ecNumber*1.1.1.27`（必填，X.X.X.X 带点）、`substrate*pyruvate`、`organism*Homo sapiens`、`commentary*<文本>`、`recommendedName*lactate dehydrogenase`（配 getEcNumber 反查 EC）。
-
-5. **批量加节流**：SOAP 服务较慢，循环里加 `time.sleep(0.5~1)` 防超时；多结果聚合用中位数+IQR（同底物多文献常跨一个数量级），按物种过滤避免参数混杂。
-
-## 示例
-
-**快速上手 — 取 LDH+丙酮酸 的 Km：**
+## Quick Start
 
 ```python
-ec = "1.1.1.27"  # 乳酸脱氢酶
-params = (EMAIL, PWD, f"ecNumber*{ec}", "substrate*pyruvate", "", "", "", "", "")
+from zeep import Client
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = "your_sha256_hashed_password"  # Use hashlib.sha256
+
+# Get Km values for lactate dehydrogenase (EC 1.1.1.27) and pyruvate
+ec_number = "1.1.1.27"
+params = (EMAIL, PASSWORD_SHA256,
+          f"ecNumber*{ec_number}", "substrate*pyruvate", "", "", "", "", "")
 result = client.service.getKmValue(*params)
-print(f"Km 记录数: {len(result)}")
+print(f"Km values for LDH with pyruvate: {len(result)} records")
 for r in result[:3]:
-    print(f"  Km={r.kmValue} {r.kmValueMaximum or ''} mM | {r.organism} | PMID:{r.literature}")
+    print(f"  Km={r.kmValue} {r.kmValueMaximum or ''} mM | org: {r.organism} | PMID: {r.literature}")
 ```
 
-**按物种过滤 + kcat / 抑制剂 / 最适条件：**
+## Core API
+
+### Query 1: Km Values for Enzyme-Substrate Pair
+
+Retrieve Michaelis constant (Km) values for a specific enzyme and substrate.
 
 ```python
-# 人源 GAPDH 的 Km（物种过滤放第 5 位）
-hp = (EMAIL, PWD, "ecNumber*1.2.1.12", "", "organism*Homo sapiens", "", "", "", "")
-human_km = client.service.getKmValue(*hp)
+from zeep import Client
+import hashlib, pandas as pd
 
-# LDH 的 kcat（1/s）
-kc = client.service.getTurnoverNumber(EMAIL, PWD, "ecNumber*1.1.1.27", "", "", "", "", "", "")
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
 
-# 碳酸酐酶(4.2.1.1)的抑制剂
-inh = client.service.getInhibitors(EMAIL, PWD, "ecNumber*4.2.1.1", "", "", "", "", "", "")
-names = list({r.inhibitor for r in inh if r.inhibitor})
+EMAIL = "your@email.com"
+PASSWORD = "your_password"
+PASSWORD_SHA256 = hashlib.sha256(PASSWORD.encode()).hexdigest()
 
-# 胰蛋白酶(3.4.21.4)最适 pH / 温度
-ph = client.service.getPhOptimum(EMAIL, PWD, "ecNumber*3.4.21.4", "", "", "", "", "", "")
-tp = client.service.getTemperatureOptimum(EMAIL, PWD, "ecNumber*3.4.21.4", "", "", "", "", "", "")
+def get_km_values(ec_number, substrate=""):
+    """Retrieve Km values for an EC number, optionally filtered by substrate."""
+    substrate_param = f"substrate*{substrate}" if substrate else ""
+    params = (EMAIL, PASSWORD_SHA256,
+              f"ecNumber*{ec_number}", substrate_param, "", "", "", "", "")
+    return client.service.getKmValue(*params)
+
+# Km for glucokinase (EC 2.7.1.2) with glucose
+results = get_km_values("2.7.1.2", substrate="glucose")
+print(f"Km (glucose, glucokinase): {len(results)} measurements")
+
+rows = []
+for r in results[:10]:
+    rows.append({
+        "km_value": r.kmValue,
+        "km_max": r.kmValueMaximum,
+        "unit": "mM",
+        "organism": r.organism,
+        "commentary": r.commentary[:80] if r.commentary else "",
+        "pmid": r.literature,
+    })
+df = pd.DataFrame(rows)
+print(df.to_string(index=False))
 ```
 
-**工作流 — 为代谢建模批量提取 Km/kcat 中位数：**
+```python
+# Get ALL Km values (all substrates) for an EC number
+all_km = get_km_values("1.1.1.1")  # Alcohol dehydrogenase
+print(f"\nAlcohol dehydrogenase - total Km records: {len(all_km)}")
+substrate_counts = {}
+for r in all_km:
+    sub = r.substrate or "unknown"
+    substrate_counts[sub] = substrate_counts.get(sub, 0) + 1
+top_substrates = sorted(substrate_counts.items(), key=lambda x: -x[1])[:5]
+print("Top substrates by measurement count:")
+for sub, cnt in top_substrates:
+    print(f"  {sub}: {cnt} measurements")
+```
+
+### Query 2: kcat (Turnover Number) Values
+
+Retrieve catalytic rate constants (kcat) for an enzyme.
 
 ```python
-import pandas as pd, time
-enzymes = {"Hexokinase":"2.7.1.1", "PGI":"5.3.1.9",
-           "PFK":"2.7.1.11", "Aldolase":"4.1.2.13"}
+from zeep import Client
+import hashlib, pandas as pd
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = hashlib.sha256("your_password".encode()).hexdigest()
+
+def get_kcat_values(ec_number, substrate=""):
+    substrate_param = f"substrate*{substrate}" if substrate else ""
+    params = (EMAIL, PASSWORD_SHA256,
+              f"ecNumber*{ec_number}", substrate_param, "", "", "", "", "")
+    return client.service.getTurnoverNumber(*params)
+
+results = get_kcat_values("1.1.1.27")  # Lactate dehydrogenase
+print(f"kcat records for LDH: {len(results)}")
+
+rows = []
+for r in results[:10]:
+    rows.append({
+        "kcat": r.turnoverNumber,
+        "unit": "1/s",
+        "substrate": r.substrate,
+        "organism": r.organism,
+    })
+df = pd.DataFrame(rows)
+print(df.head())
+```
+
+### Query 3: Substrates and Products
+
+Retrieve natural substrates and products for an enzyme.
+
+```python
+from zeep import Client
+import hashlib, pandas as pd
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = hashlib.sha256("your_password".encode()).hexdigest()
+
+def get_substrates_products(ec_number):
+    params = (EMAIL, PASSWORD_SHA256,
+              f"ecNumber*{ec_number}", "", "", "", "", "", "")
+    return client.service.getSubstrates(*params)
+
+results = get_substrates_products("4.2.1.1")  # Carbonic anhydrase
+print(f"Substrates for carbonic anhydrase (EC 4.2.1.1):")
+substrates_seen = set()
+for r in results[:10]:
+    if r.substrate not in substrates_seen:
+        print(f"  {r.substrate} | organism: {r.organism}")
+        substrates_seen.add(r.substrate)
+```
+
+```python
+# Get inhibitors
+def get_inhibitors(ec_number):
+    params = (EMAIL, PASSWORD_SHA256,
+              f"ecNumber*{ec_number}", "", "", "", "", "", "")
+    return client.service.getInhibitors(*params)
+
+inhibitors = get_inhibitors("4.2.1.1")
+print(f"\nInhibitors of carbonic anhydrase: {len(inhibitors)} records")
+inhib_names = list(set(r.inhibitor for r in inhibitors if r.inhibitor))
+print("Sample inhibitors:", inhib_names[:8])
+```
+
+### Query 4: Organism-Specific Enzyme Data
+
+Query kinetic parameters filtered by organism.
+
+```python
+from zeep import Client
+import hashlib
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = hashlib.sha256("your_password".encode()).hexdigest()
+
+def get_km_by_organism(ec_number, organism):
+    params = (EMAIL, PASSWORD_SHA256,
+              f"ecNumber*{ec_number}", "", f"organism*{organism}", "", "", "", "")
+    return client.service.getKmValue(*params)
+
+# Human GAPDH Km values
+human_km = get_km_by_organism("1.2.1.12", "Homo sapiens")
+print(f"Human GAPDH (EC 1.2.1.12) Km values: {len(human_km)} records")
+for r in human_km[:5]:
+    print(f"  Substrate: {r.substrate:30s} Km={r.kmValue} mM")
+```
+
+### Query 5: pH and Temperature Optima
+
+Retrieve optimal pH and temperature data for an enzyme.
+
+```python
+from zeep import Client
+import hashlib
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = hashlib.sha256("your_password".encode()).hexdigest()
+
+def get_ph_optimum(ec_number):
+    params = (EMAIL, PASSWORD_SHA256,
+              f"ecNumber*{ec_number}", "", "", "", "", "", "")
+    return client.service.getPhOptimum(*params)
+
+def get_temp_optimum(ec_number):
+    params = (EMAIL, PASSWORD_SHA256,
+              f"ecNumber*{ec_number}", "", "", "", "", "", "")
+    return client.service.getTemperatureOptimum(*params)
+
+ec = "3.4.21.4"  # Trypsin
+ph_data = get_ph_optimum(ec)
+temp_data = get_temp_optimum(ec)
+
+print(f"Trypsin (EC {ec}):")
+ph_values = [r.phOptimum for r in ph_data[:10] if r.phOptimum]
+temp_values = [r.temperatureOptimum for r in temp_data[:10] if r.temperatureOptimum]
+if ph_values:
+    print(f"  pH optima: {sorted(ph_values)}")
+if temp_values:
+    print(f"  Temperature optima (°C): {sorted(temp_values)}")
+```
+
+### Query 6: EC Number to UniProt Cross-Reference
+
+Map EC numbers to UniProt accession numbers.
+
+```python
+from zeep import Client
+import hashlib
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = hashlib.sha256("your_password".encode()).hexdigest()
+
+def get_uniprot_accessions(ec_number):
+    params = (EMAIL, PASSWORD_SHA256,
+              f"ecNumber*{ec_number}", "", "", "", "", "", "")
+    return client.service.getUniprotAccession(*params)
+
+results = get_uniprot_accessions("1.1.1.27")  # LDH
+print(f"UniProt accessions for LDH (EC 1.1.1.27):")
+seen = set()
+for r in results[:10]:
+    acc = r.uniprotAccessionNumber
+    org = r.organism
+    if acc and acc not in seen:
+        print(f"  {acc:12s} ({org})")
+        seen.add(acc)
+```
+
+## Key Concepts
+
+### SOAP Interface and Authentication
+
+BRENDA uses SOAP (not REST) via a WSDL definition. The `zeep` Python library parses the WSDL and generates typed method calls. Authentication requires a SHA256-hashed password (not plain text). Each service method takes `(email, password_sha256, param1, param2, ..., "")` arguments with pipe-delimited field filters.
+
+### EC Number Classification
+
+Enzyme Commission (EC) numbers follow the format X.X.X.X where each level specifies the reaction class (oxidoreductases=1, transferases=2, hydrolases=3, lyases=4, isomerases=5, ligases=6, translocases=7). BRENDA organizes all data by EC number.
+
+## Common Workflows
+
+### Workflow 1: Kinetic Parameter Extraction for Metabolic Modeling
+
+**Goal**: For a set of enzymes in a metabolic pathway, extract Km and kcat values to parameterize a kinetic model.
+
+```python
+from zeep import Client
+import hashlib, pandas as pd, time
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = hashlib.sha256("your_password".encode()).hexdigest()
+
+# Glycolysis enzymes
+enzymes = {
+    "Hexokinase": "2.7.1.1",
+    "Phosphoglucose isomerase": "5.3.1.9",
+    "Phosphofructokinase": "2.7.1.11",
+    "Aldolase": "4.1.2.13",
+}
+
 rows = []
 for name, ec in enzymes.items():
-    p = (EMAIL, PWD, f"ecNumber*{ec}", "", "organism*Homo sapiens", "", "", "", "")
+    params = (EMAIL, PASSWORD_SHA256, f"ecNumber*{ec}", "", "organism*Homo sapiens", "", "", "", "")
     try:
-        km = [r.kmValue for r in client.service.getKmValue(*p) if r.kmValue]
-        kcat = [r.turnoverNumber for r in client.service.getTurnoverNumber(*p) if r.turnoverNumber]
-        rows.append({"enzyme":name, "ec":ec,
-            "km_median_mM": pd.Series(km).median() if km else None,
-            "kcat_median_1_s": pd.Series(kcat).median() if kcat else None})
+        km_results = client.service.getKmValue(*params)
+        kcat_results = client.service.getTurnoverNumber(*params)
+        km_vals = [r.kmValue for r in km_results if r.kmValue]
+        kcat_vals = [r.turnoverNumber for r in kcat_results if r.turnoverNumber]
+        rows.append({
+            "enzyme": name,
+            "ec": ec,
+            "n_km_records": len(km_vals),
+            "km_median_mM": pd.Series(km_vals).median() if km_vals else None,
+            "n_kcat_records": len(kcat_vals),
+            "kcat_median_1_s": pd.Series(kcat_vals).median() if kcat_vals else None,
+        })
     except Exception as e:
-        rows.append({"enzyme":name, "ec":ec, "error":str(e)})
+        rows.append({"enzyme": name, "ec": ec, "error": str(e)})
     time.sleep(0.5)
-pd.DataFrame(rows).to_csv("glycolysis_kinetics.csv", index=False)
+
+df = pd.DataFrame(rows)
+df.to_csv("glycolysis_kinetics.csv", index=False)
+print(df.to_string(index=False))
 ```
 
-**催化效率 kcat/Km（注意单位：Km 由 mM 换算到 M）：**
+### Workflow 2: Inhibitor Comparison Across Enzyme Family
+
+**Goal**: Compare inhibitor landscape across a set of related enzymes for drug discovery prioritization.
 
 ```python
-km_median, kcat_median = 0.1, 500          # mM, 1/s（示例）
-efficiency = kcat_median / (km_median * 1e-3)  # M^-1 s^-1
-print(f"kcat/Km = {efficiency:.2e} M^-1 s^-1")  # 扩散极限 ≈ 1e8–1e9
+from zeep import Client
+import hashlib, pandas as pd, time
+from collections import Counter
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = hashlib.sha256("your_password".encode()).hexdigest()
+
+# Carbonic anhydrase isoforms
+ca_ecs = ["4.2.1.1"]  # All carbonic anhydrases share this EC
+
+rows = []
+for ec in ca_ecs:
+    params = (EMAIL, PASSWORD_SHA256, f"ecNumber*{ec}", "", "", "", "", "", "")
+    try:
+        inhib_results = client.service.getInhibitors(*params)
+        for r in inhib_results[:30]:
+            rows.append({
+                "ec": ec,
+                "inhibitor": r.inhibitor,
+                "organism": r.organism,
+                "ic50": r.ic50Value if hasattr(r, "ic50Value") else None,
+            })
+    except Exception as e:
+        print(f"Error for {ec}: {e}")
+    time.sleep(0.5)
+
+df = pd.DataFrame(rows)
+print(f"Total inhibitor records: {len(df)}")
+top_inhib = Counter(df["inhibitor"]).most_common(10)
+print("\nMost reported inhibitors:")
+for inhib, count in top_inhib:
+    print(f"  {inhib}: {count} records")
 ```
 
-**名称反查 EC：**
+## Key Parameters
+
+| Parameter | Module | Default | Range / Options | Effect |
+|-----------|--------|---------|-----------------|--------|
+| `ecNumber*` | All queries | required | EC number string | Filter by enzyme class |
+| `substrate*` | Km, kcat | — | substrate name | Filter by substrate |
+| `organism*` | All queries | — | species name | Filter by organism (e.g., `"Homo sapiens"`) |
+| `commentary*` | All queries | — | text substring | Filter by comment text |
+| `ligandStructureId*` | Compound-based | — | BRENDA structure ID | Filter by ligand ID |
+| Password | Auth | required | SHA256 hash | Authentication (hashlib.sha256) |
+
+## Best Practices
+
+1. **Hash your password correctly**: BRENDA requires SHA256 hash of the plain-text password, not the password itself. Use `hashlib.sha256("your_password".encode()).hexdigest()`.
+
+2. **Store credentials in environment variables**: Never hard-code credentials. Use `os.environ["BRENDA_EMAIL"]` and `os.environ["BRENDA_PASSWORD"]` patterns.
+
+3. **Add `time.sleep()` between queries**: BRENDA's SOAP service may be slow; space large batch queries with 0.5–1 second sleeps to avoid timeouts.
+
+4. **Filter by organism for modeling**: Kinetic parameters vary dramatically between organisms; always filter by the organism relevant to your model (e.g., `organism*Homo sapiens`).
+
+5. **Use median/IQR for parameter aggregation**: Multiple literature measurements for the same substrate often span an order of magnitude; use median + IQR rather than mean to summarize distributions.
+
+## Common Recipes
+
+### Recipe: Get All Substrates for an EC Number
+
+When to use: Understand the substrate scope of an enzyme for pathway analysis.
 
 ```python
-p = (EMAIL, PWD, "recommendedName*lactate dehydrogenase", "", "", "", "", "", "")
-for r in client.service.getEcNumber(*p)[:5]:
-    print(f"EC {r.ecNumber}: {r.recommendedName}")
+from zeep import Client
+import hashlib
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = hashlib.sha256("your_password".encode()).hexdigest()
+
+ec = "1.1.1.1"  # Alcohol dehydrogenase
+params = (EMAIL, PASSWORD_SHA256, f"ecNumber*{ec}", "", "", "", "", "", "")
+results = client.service.getSubstrates(*params)
+substrates = list(set(r.substrate for r in results if r.substrate))
+print(f"Substrates of EC {ec} ({len(substrates)} unique): {substrates[:10]}")
 ```
 
-## 注意事项
+### Recipe: kcat/Km Efficiency Ratio
 
-- **密码必须 SHA256 散列且用 `hexdigest()`**：用 `hashlib.sha256(pwd.encode()).hexdigest()`；误用 `digest()` 或明文会触发 `zeep.exceptions.Fault: Authentication failed`。
-- **EC 号格式 X.X.X.X 带点**：返回空列表时先核对格式，并先去掉 `substrate*` 过滤试一次（底物名拼写常导致 0 结果）。
-- **参数是 9 元位置参数**：过滤器按 `字段*值` 拼，空位留 `""`；物种过滤通常占第 5 位（见示例），错位会查不到。
-- **结果字段可能缺失**：用 `getattr(r, "field", None)` 安全取值，避免 `AttributeError`。
-- **超时与慢响应**：热门酶（数据巨大）务必加 `organism*`/`substrate*` 过滤缩小结果集；可设 zeep transport timeout；`TransportError` 多为网络/VPN 问题，30 秒后重试。
-- **跨物种参数差异大**：建模时必须按目标物种过滤（如 `organism*Homo sapiens`）。
-- **多文献聚合用中位数+IQR**：同一底物的实测值常跨一个数量级，勿用均值。
-- **EC 一级分类**：1 氧化还原酶、2 转移酶、3 水解酶、4 裂合酶、5 异构酶、6 连接酶、7 转位酶。
+When to use: Compute catalytic efficiency (kcat/Km) from BRENDA data.
 
-## 互见
+```python
+import pandas as pd
 
-- requires：无（仅需 `zeep`/账号）
-- related：`kegg-database` —— 经 EC 号关联通路上下文；`uniprot-protein-database` —— 酶的序列/结构；`hmdb-metabolome-database` —— 底物/代谢物结构
-- combines_with：`cobrapy-metabolic-modeling` —— 把 BRENDA 的 Km/Vmax 作动力学约束做代谢建模
+# After fetching km_results and kcat_results for same ec + substrate
+# km_values = [r.kmValue for r in km_results if r.kmValue]  # mM
+# kcat_values = [r.turnoverNumber for r in kcat_results if r.turnoverNumber]  # 1/s
 
-参考：BRENDA 官网 https://www.brenda-enzymes.org/ ｜ SOAP API 文档 https://www.brenda-enzymes.org/soap.php ｜ zeep https://docs.python-zeep.org/ ｜ Chang et al. (2021) NAR https://doi.org/10.1093/nar/gkaa1025
+km_median = 0.1   # mM (example)
+kcat_median = 500  # s^-1 (example)
 
----
+efficiency = kcat_median / (km_median * 1e-3)  # Convert Km to M
+print(f"Catalytic efficiency (kcat/Km): {efficiency:.2e} M^-1 s^-1")
+# Diffusion limit ≈ 10^8-10^9 M^-1 s^-1
+```
 
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+### Recipe: Find EC Number from Enzyme Name
+
+When to use: Resolve enzyme common name to EC number for BRENDA queries.
+
+```python
+from zeep import Client
+import hashlib
+
+WSDL = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+client = Client(WSDL)
+
+EMAIL = "your@email.com"
+PASSWORD_SHA256 = hashlib.sha256("your_password".encode()).hexdigest()
+
+# Search enzymes by name
+params = (EMAIL, PASSWORD_SHA256, "recommendedName*lactate dehydrogenase", "", "", "", "", "", "")
+results = client.service.getEcNumber(*params)
+print(f"EC numbers for 'lactate dehydrogenase':")
+for r in results[:5]:
+    print(f"  EC {r.ecNumber}: {r.recommendedName}")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `zeep.exceptions.Fault: Authentication failed` | Wrong password or SHA256 format | Ensure `hashlib.sha256(password.encode()).hexdigest()` — hexdigest not digest |
+| Empty result list | EC number or substrate not found | Verify EC format (X.X.X.X with dots); try without substrate filter first |
+| SOAP timeout | Large query or slow connection | Use organism filter to reduce result set; set `zeep` transport timeout |
+| `AttributeError` on result field | Field not available for this query | Use `getattr(r, "field", None)` to safely access optional fields |
+| Slow response for popular enzymes | Large datasets (TP53 = 10K+ records) | Filter by organism and substrate to reduce data transfer |
+| `zeep.exceptions.TransportError` | Network connectivity issue | Check VPN, retry after 30 seconds |
+
+## Related Skills
+
+- `cobrapy-metabolic-modeling` — Constraint-based metabolic modeling using Km/Vmax from BRENDA as kinetic constraints
+- `hmdb-database` — Metabolite structure and biological context for BRENDA substrates
+- `kegg-database` — Pathway context for BRENDA enzymes via EC number cross-references
+- `uniprot-protein-database` — Protein sequence and structure data for enzymes found in BRENDA
+
+## References
+
+- [BRENDA database](https://www.brenda-enzymes.org/) — Main BRENDA portal and manual search
+- [BRENDA web service documentation](https://www.brenda-enzymes.org/soap.php) — SOAP API reference and parameter descriptions
+- [zeep Python SOAP client](https://docs.python-zeep.org/) — Python library for SOAP web services
+- [Chang et al. (2021) BRENDA update](https://doi.org/10.1093/nar/gkaa1025) — BRENDA 2021 database update paper

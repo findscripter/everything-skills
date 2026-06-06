@@ -1,14 +1,14 @@
 ---
 name: cloudformation-best-practices
-title: CloudFormation 模板与嵌套栈实践
-description: 当编写/审查 AWS CloudFormation 模板、设计嵌套或跨栈架构、排查栈创建更新失败与漂移时使用；产出可维护、可多环境复用的生产级模板与部署/校验命令；不适用于用户选用 CDK/Terraform 或纯应用代码的场景。触发词：CloudFormation、嵌套栈、漂移检测
+title: Cloudformation Best Practices
+description: CloudFormation template optimization, nested stacks, drift detection, and production-ready patterns. Use when writing or reviewing CF templates.
 domain: 研发/devops
-triggers: [CloudFormation, CFN 模板, 嵌套栈, 跨栈引用, 漂移检测, cfn-lint, DeletionPolicy, UPDATE_ROLLBACK_FAILED, 多环境模板]
-tags: [aws, cloudformation, iac, 基础设施即代码, 嵌套栈, devops, 研发]
-level: 进阶
+triggers: [CloudFormation, cfn-lint, DeletionPolicy, UPDATE_ROLLBACK_FAILED]
+tags: [aws, cloudformation, iac, devops]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [aws-cli, cfn-lint, cfn-nag]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,47 +16,32 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+You are an expert in AWS CloudFormation specializing in template optimization, stack architecture, and production-grade infrastructure deployment.
 
-- 编写或审查 CloudFormation 模板（YAML/JSON）。
-- 优化既有模板的可维护性与成本。
-- 设计嵌套栈或跨栈（cross-stack）架构。
-- 排查栈创建/更新失败与配置漂移（drift）。
+## Use this skill when
 
-不该用：
+- Writing or reviewing CloudFormation templates (YAML/JSON)
+- Optimizing existing templates for maintainability and cost
+- Designing nested or cross-stack architectures
+- Troubleshooting stack creation/update failures and drift
 
-- 团队已选用 CDK 或 Terraform，不写原生 CloudFormation。
-- 任务是应用代码而非基础设施。
-- 缺少必需输入、权限、安全边界或成功标准时，先停下来澄清，不要硬写。
+## Do not use this skill when
 
-## 步骤
+- The user prefers CDK or Terraform over raw CloudFormation
+- The task is application code, not infrastructure
 
-1. 优先用 YAML 而非 JSON，可读性更好。
-2. 把环境相关值参数化（`Parameters`）；静态查表用 `Mappings`。
-3. 有状态资源（RDS、S3、DynamoDB）加 `DeletionPolicy: Retain`，并配套 `UpdateReplacePolicy`。
-4. 用 `Conditions` 支撑多环境模板（dev/staging/prod）。
-5. 部署前用 `aws cloudformation validate-template` 校验。
-6. 字符串拼接优先 `!Sub` 而非 `!Join`。
-7. 跨栈引用用 `Outputs` + `Export`，被引用方再用 `Fn::ImportValue`。
-8. 模板拆分：避免单一巨型模板，按职责拆成嵌套栈或独立栈。
+## Instructions
 
-## 指令
+1. Use YAML over JSON for readability.
+2. Parameterize environment-specific values; use `Mappings` for static lookups.
+3. Apply `DeletionPolicy: Retain` on stateful resources (RDS, S3, DynamoDB).
+4. Use `Conditions` to support multi-environment templates.
+5. Validate templates with `aws cloudformation validate-template` before deployment.
+6. Prefer `!Sub` over `!Join` for string interpolation.
 
-```bash
-# 部署前校验模板语法
-aws cloudformation validate-template --template-body file://template.yaml
+## Examples
 
-# CI 中静态检查与安全扫描
-cfn-lint template.yaml
-cfn-nag_scan --input-path template.yaml
-
-# 检测已部署栈的配置漂移
-aws cloudformation detect-stack-drift --stack-name my-stack
-```
-
-## 示例
-
-参数化 VPC 模板（多环境 + 跨栈导出）：
+### Example 1: Parameterized VPC Template
 
 ```yaml
 AWSTemplateFormatVersion: "2010-09-09"
@@ -91,19 +76,20 @@ Outputs:
       Name: !Sub "${Environment}-VpcId"
 ```
 
-## 注意事项
+## Best Practices
 
-- 不要硬编码 ARN、账号 ID 或区域；用 `!Sub` 配合伪参数（`${AWS::AccountId}`、`${AWS::Region}`）。
-- 有状态资源务必同时设置 `DeletionPolicy` 与 `UpdateReplacePolicy`，避免误删/替换导致数据丢失。
-- 在 CI 流水线中固化 `cfn-lint` 与 `cfn-nag`，把规范与安全检查左移。
-- 栈卡在 `UPDATE_ROLLBACK_FAILED` 时：对失败资源用 `continue-update-rollback --resources-to-skip` 跳过，回滚成功后再修根因，不要直接重试。
-- 输出不能替代环境内的校验、测试与专家评审，生产变更前务必在目标环境实测。
+- ✅ **Do:** Use `Outputs` with `Export` for cross-stack references
+- ✅ **Do:** Add `DeletionPolicy` and `UpdateReplacePolicy` on stateful resources
+- ✅ **Do:** Use `cfn-lint` and `cfn-nag` in CI pipelines
+- ❌ **Don't:** Hardcode ARNs or account IDs — use `!Sub` with pseudo parameters
+- ❌ **Don't:** Put all resources in a single monolithic template
 
-## 互见
+## Troubleshooting
 
-- 跨栈/嵌套架构涉及的 IAM、网络分层等可与对应基础设施技能配合使用。
-- 偏好声明式高阶抽象时，可对比 CDK / Terraform 相关技能再选型。
+**Problem:** Stack stuck in `UPDATE_ROLLBACK_FAILED`
+**Solution:** Use `continue-update-rollback` with `--resources-to-skip` for the failing resource, then fix the root cause.
 
----
-
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

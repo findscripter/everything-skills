@@ -1,14 +1,14 @@
 ---
 name: git-advanced-workflows
-title: Git 高级工作流
-description: 当需要重写提交历史、跨分支搬运提交、定位引入 Bug 的提交或从 Git 误操作中恢复时使用；产出整洁的提交历史、可安全推送的分支与恢复方案；不适用于已推送共享分支的历史改写或普通 add/commit/push 基础操作；触发词：交互式 rebase、cherry-pick、bisect、worktree、reflog、squash、force-with-lease
+title: Git Advanced Workflows
+description: Master advanced Git techniques to maintain clean history, collaborate effectively, and recover from any situation with confidence.
 domain: 研发/devops
-triggers: [合并前清理提交历史, 把某个提交搬到其他分支, 定位引入 Bug 的提交, 同时在多个分支上开发, 误删提交或分支后恢复, 准备干净的 PR, 同步已分叉的分支, 把 fixup 提交自动压缩]
-tags: [git, 版本控制, rebase, cherry-pick, bisect, worktree, reflog, 研发]
-level: 进阶
+triggers: []
+tags: [git, rebase, cherry-pick, bisect, worktree, reflog]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [git rebase, git cherry-pick, git bisect, git worktree, git reflog]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,138 +16,415 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Git Advanced Workflows
 
-适用：合并前清理/重排/压缩提交、跨分支搬运补丁、二分定位引入 Bug 的提交、多分支并行开发、误操作后恢复丢失的提交或分支、同步已分叉的分支、准备干净可评审的 PR。
+Master advanced Git techniques to maintain clean history, collaborate effectively, and recover from any situation with confidence.
 
-不该用（边界）：
-- 与 Git 高级历史操作无关的任务。
-- 普通 `git add/commit/push` 等基础操作，无需高级技巧。
-- 改写已推送且被他人共享的公共分支历史（会给协作者制造冲突）——除非确认无人依赖。
+## Do not use this skill when
 
-## 步骤
+- The task is unrelated to git advanced workflows
+- You need a different domain or tool outside this scope
 
-1. 明确目标、约束与输入（要清理哪些提交？目标分支是什么？是否已推送？）。
-2. 风险操作前先建备份分支：`git branch backup-branch`。
-3. 选择匹配的技术（rebase / cherry-pick / bisect / worktree / reflog）执行。
-4. 校验结果（跑测试、`git log`/`git status` 检查），确认无破坏后再推送。
-5. 仅在历史改写后用 `git push --force-with-lease`，绝不裸用 `--force`。
+## Instructions
 
-## 指令
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-### 1. 交互式 rebase（编辑历史的瑞士军刀）
-操作动词：`pick` 保留 / `reword` 改信息 / `edit` 改内容 / `squash` 合并(保留信息) / `fixup` 合并(丢弃信息) / `drop` 删除。
+## Use this skill when
+
+- Cleaning up commit history before merging
+- Applying specific commits across branches
+- Finding commits that introduced bugs
+- Working on multiple features simultaneously
+- Recovering from Git mistakes or lost commits
+- Managing complex branch workflows
+- Preparing clean PRs for review
+- Synchronizing diverged branches
+
+## Core Concepts
+
+### 1. Interactive Rebase
+
+Interactive rebase is the Swiss Army knife of Git history editing.
+
+**Common Operations:**
+- `pick`: Keep commit as-is
+- `reword`: Change commit message
+- `edit`: Amend commit content
+- `squash`: Combine with previous commit
+- `fixup`: Like squash but discard message
+- `drop`: Remove commit entirely
+
+**Basic Usage:**
 ```bash
-git rebase -i HEAD~5                          # 最近 5 个提交
-git rebase -i $(git merge-base HEAD main)     # 本分支相对 main 的全部提交
-git rebase -i abc123                          # rebase 到指定提交
+# Rebase last 5 commits
+git rebase -i HEAD~5
+
+# Rebase all commits on current branch
+git rebase -i $(git merge-base HEAD main)
+
+# Rebase onto specific commit
+git rebase -i abc123
 ```
 
-### 2. Cherry-Pick（跨分支搬运指定提交）
+### 2. Cherry-Picking
+
+Apply specific commits from one branch to another without merging entire branches.
+
 ```bash
-git cherry-pick abc123            # 单个提交
-git cherry-pick abc123..def456    # 区间（不含起点）
-git cherry-pick -n abc123         # 只暂存改动，不自动提交
-git cherry-pick -e abc123         # 搬运并编辑提交信息
+# Cherry-pick single commit
+git cherry-pick abc123
+
+# Cherry-pick range of commits (exclusive start)
+git cherry-pick abc123..def456
+
+# Cherry-pick without committing (stage changes only)
+git cherry-pick -n abc123
+
+# Cherry-pick and edit commit message
+git cherry-pick -e abc123
 ```
 
-### 3. Bisect（二分查找引入 Bug 的提交）
+### 3. Git Bisect
+
+Binary search through commit history to find the commit that introduced a bug.
+
 ```bash
+# Start bisect
 git bisect start
-git bisect bad                    # 标记当前为坏
-git bisect good v1.0.0            # 标记已知好点
-# git 检出中间提交 → 测试后标记 git bisect good / bad，重复直到定位
-git bisect reset                  # 结束
-# 自动化：脚本 exit 0=good，1-127(125 除外)=bad
+
+# Mark current commit as bad
+git bisect bad
+
+# Mark known good commit
+git bisect good v1.0.0
+
+# Git will checkout middle commit - test it
+# Then mark as good or bad
+git bisect good  # or: git bisect bad
+
+# Continue until bug found
+# When done
+git bisect reset
+```
+
+**Automated Bisect:**
+```bash
+# Use script to test automatically
 git bisect start HEAD v1.0.0
 git bisect run ./test.sh
+
+# test.sh should exit 0 for good, 1-127 (except 125) for bad
 ```
 
-### 4. Worktree（多分支并行，免 stash/切换）
+### 4. Worktrees
+
+Work on multiple branches simultaneously without stashing or switching.
+
 ```bash
+# List existing worktrees
 git worktree list
+
+# Add new worktree for feature branch
 git worktree add ../project-feature feature/new-feature
+
+# Add worktree and create new branch
 git worktree add -b bugfix/urgent ../project-hotfix main
+
+# Remove worktree
 git worktree remove ../project-feature
+
+# Prune stale worktrees
 git worktree prune
 ```
 
-### 5. Reflog（安全网，记录所有 ref 移动，含已删提交，保留约 90 天）
+### 5. Reflog
+
+Your safety net - tracks all ref movements, even deleted commits.
+
 ```bash
-git reflog                        # 查看历史
+# View reflog
+git reflog
+
+# View reflog for specific branch
 git reflog show feature/branch
-git branch recovered-branch abc123   # 从丢失的提交恢复分支
+
+# Restore deleted commit
+git reflog
+# Find commit hash
+git checkout abc123
+git branch recovered-branch
+
+# Restore deleted branch
+git reflog
+git branch deleted-branch abc123
 ```
 
-### 自动 squash（autosquash）
-```bash
-git commit --fixup HEAD           # 或指定 hash
-git rebase -i --autosquash main   # 自动标记 fixup 提交
-```
+## Practical Workflows
 
-### 拆分提交
-```bash
-git rebase -i HEAD~3              # 把目标提交标 edit，git 停在该处
-git reset HEAD^                   # 撤销提交但保留改动
-git add file1.py && git commit -m "feat: add validation"
-git add file2.py && git commit -m "feat: add error handling"
-git rebase --continue
-```
+### Workflow 1: Clean Up Feature Branch Before PR
 
-### 部分 cherry-pick（只取某提交的指定文件）
 ```bash
-git show --name-only abc123
-git checkout abc123 -- path/to/file1.py path/to/file2.py
-git commit -m "cherry-pick: apply specific changes from abc123"
-```
-
-### 恢复命令
-```bash
-git rebase --abort / git merge --abort / git cherry-pick --abort / git bisect reset
-git restore --source=abc123 path/to/file   # 恢复单文件到某版本
-git reset --soft HEAD^                       # 撤销上次提交，保留改动
-git reset --hard HEAD^                        # 撤销上次提交，丢弃改动
-```
-
-## 示例
-
-合并前清理 feature 分支并安全推送：
-```bash
+# Start with feature branch
 git checkout feature/user-auth
-git branch backup-user-auth          # 先备份
-git rebase -i main                   # squash 修字 / reword / 重排 / drop
+
+# Interactive rebase to clean history
+git rebase -i main
+
+# Example rebase operations:
+# - Squash "fix typo" commits
+# - Reword commit messages for clarity
+# - Reorder commits logically
+# - Drop unnecessary commits
+
+# Force push cleaned branch (safe if no one else is using it)
 git push --force-with-lease origin feature/user-auth
 ```
 
-把热修复应用到多个 release 分支：
+### Workflow 2: Apply Hotfix to Multiple Releases
+
 ```bash
-git checkout main && git commit -m "fix: critical security patch"
-git checkout release/2.0 && git cherry-pick abc123
-git checkout release/1.9 && git cherry-pick abc123
-# 冲突时：git cherry-pick --continue / --abort
+# Create fix on main
+git checkout main
+git commit -m "fix: critical security patch"
+
+# Apply to release branches
+git checkout release/2.0
+git cherry-pick abc123
+
+git checkout release/1.9
+git cherry-pick abc123
+
+# Handle conflicts if they arise
+git cherry-pick --continue
+# or
+git cherry-pick --abort
 ```
 
-从误 reset 中恢复：
+### Workflow 3: Find Bug Introduction
+
 ```bash
-git reset --hard HEAD~5      # 误操作！
-git reflog                   # 找到 def456 HEAD@{1}: commit: my important changes
-git reset --hard def456      # 或 git branch recovery def456
+# Start bisect
+git bisect start
+git bisect bad HEAD
+git bisect good v2.1.0
+
+# Git checks out middle commit - run tests
+npm test
+
+# If tests fail
+git bisect bad
+
+# If tests pass
+git bisect good
+
+# Git will automatically checkout next commit to test
+# Repeat until bug found
+
+# Automated version
+git bisect start HEAD v2.1.0
+git bisect run npm test
 ```
 
-## 注意事项
+### Workflow 4: Multi-Branch Development
 
-- rebase vs merge：清理本地提交、让分支跟进 main、追求线性历史 → rebase；把完成的功能并入 main、保留协作真实历史、公共分支 → merge。
-- 始终用 `--force-with-lease` 而非 `--force`，避免覆盖他人工作。
-- 只 rebase 尚未推送共享的本地提交；公共分支 rebase 会给协作者制造冲突。
-- 复杂 rebase 前先建备份分支；出错可 `git reset --hard backup-branch`。
-- 原子提交 + 描述清晰的提交信息；改写后务必测试。
-- bisect 前先 commit 或 stash，工作区要干净。
-- 记得清理废弃 worktree（`git worktree prune`），否则占用磁盘。
-- reflog 是 90 天内的最后救命稻草，养成意识。
+```bash
+# Main project directory
+cd ~/projects/myapp
 
-## 互见
+# Create worktree for urgent bugfix
+git worktree add ../myapp-hotfix hotfix/critical-bug
 
-源技能还附带以下参考（如需深挖可查源仓库）：交互式 rebase 详解、冲突解决进阶策略、安全改写历史、PR 前清理清单、常用 Git 别名、清理已合并/陈旧分支脚本。
+# Work on hotfix in separate directory
+cd ../myapp-hotfix
+# Make changes, commit
+git commit -m "fix: resolve critical bug"
+git push origin hotfix/critical-bug
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+# Return to main work without interruption
+cd ~/projects/myapp
+git fetch origin
+git cherry-pick hotfix/critical-bug
+
+# Clean up when done
+git worktree remove ../myapp-hotfix
+```
+
+### Workflow 5: Recover from Mistakes
+
+```bash
+# Accidentally reset to wrong commit
+git reset --hard HEAD~5  # Oh no!
+
+# Use reflog to find lost commits
+git reflog
+# Output shows:
+# abc123 HEAD@{0}: reset: moving to HEAD~5
+# def456 HEAD@{1}: commit: my important changes
+
+# Recover lost commits
+git reset --hard def456
+
+# Or create branch from lost commit
+git branch recovery def456
+```
+
+## Advanced Techniques
+
+### Rebase vs Merge Strategy
+
+**When to Rebase:**
+- Cleaning up local commits before pushing
+- Keeping feature branch up-to-date with main
+- Creating linear history for easier review
+
+**When to Merge:**
+- Integrating completed features into main
+- Preserving exact history of collaboration
+- Public branches used by others
+
+```bash
+# Update feature branch with main changes (rebase)
+git checkout feature/my-feature
+git fetch origin
+git rebase origin/main
+
+# Handle conflicts
+git status
+# Fix conflicts in files
+git add .
+git rebase --continue
+
+# Or merge instead
+git merge origin/main
+```
+
+### Autosquash Workflow
+
+Automatically squash fixup commits during rebase.
+
+```bash
+# Make initial commit
+git commit -m "feat: add user authentication"
+
+# Later, fix something in that commit
+# Stage changes
+git commit --fixup HEAD  # or specify commit hash
+
+# Make more changes
+git commit --fixup abc123
+
+# Rebase with autosquash
+git rebase -i --autosquash main
+
+# Git automatically marks fixup commits
+```
+
+### Split Commit
+
+Break one commit into multiple logical commits.
+
+```bash
+# Start interactive rebase
+git rebase -i HEAD~3
+
+# Mark commit to split with 'edit'
+# Git will stop at that commit
+
+# Reset commit but keep changes
+git reset HEAD^
+
+# Stage and commit in logical chunks
+git add file1.py
+git commit -m "feat: add validation"
+
+git add file2.py
+git commit -m "feat: add error handling"
+
+# Continue rebase
+git rebase --continue
+```
+
+### Partial Cherry-Pick
+
+Cherry-pick only specific files from a commit.
+
+```bash
+# Show files in commit
+git show --name-only abc123
+
+# Checkout specific files from commit
+git checkout abc123 -- path/to/file1.py path/to/file2.py
+
+# Stage and commit
+git commit -m "cherry-pick: apply specific changes from abc123"
+```
+
+## Best Practices
+
+1. **Always Use --force-with-lease**: Safer than --force, prevents overwriting others' work
+2. **Rebase Only Local Commits**: Don't rebase commits that have been pushed and shared
+3. **Descriptive Commit Messages**: Future you will thank present you
+4. **Atomic Commits**: Each commit should be a single logical change
+5. **Test Before Force Push**: Ensure history rewrite didn't break anything
+6. **Keep Reflog Aware**: Remember reflog is your safety net for 90 days
+7. **Branch Before Risky Operations**: Create backup branch before complex rebases
+
+```bash
+# Safe force push
+git push --force-with-lease origin feature/branch
+
+# Create backup before risky operation
+git branch backup-branch
+git rebase -i main
+# If something goes wrong
+git reset --hard backup-branch
+```
+
+## Common Pitfalls
+
+- **Rebasing Public Branches**: Causes history conflicts for collaborators
+- **Force Pushing Without Lease**: Can overwrite teammate's work
+- **Losing Work in Rebase**: Resolve conflicts carefully, test after rebase
+- **Forgetting Worktree Cleanup**: Orphaned worktrees consume disk space
+- **Not Backing Up Before Experiment**: Always create safety branch
+- **Bisect on Dirty Working Directory**: Commit or stash before bisecting
+
+## Recovery Commands
+
+```bash
+# Abort operations in progress
+git rebase --abort
+git merge --abort
+git cherry-pick --abort
+git bisect reset
+
+# Restore file to version from specific commit
+git restore --source=abc123 path/to/file
+
+# Undo last commit but keep changes
+git reset --soft HEAD^
+
+# Undo last commit and discard changes
+git reset --hard HEAD^
+
+# Recover deleted branch (within 90 days)
+git reflog
+git branch recovered-branch abc123
+```
+
+## Resources
+
+- **references/git-rebase-guide.md**: Deep dive into interactive rebase
+- **references/git-conflict-resolution.md**: Advanced conflict resolution strategies
+- **references/git-history-rewriting.md**: Safely rewriting Git history
+- **assets/git-workflow-checklist.md**: Pre-PR cleanup checklist
+- **assets/git-aliases.md**: Useful Git aliases for advanced workflows
+- **scripts/git-clean-branches.sh**: Clean up merged and stale branches
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

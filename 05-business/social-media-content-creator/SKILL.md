@@ -1,11 +1,11 @@
 ---
 name: social-media-content-creator
-title: 社媒内容创作与排期
-description: 当需要为 LinkedIn、Twitter/X、Instagram、TikTok、Facebook 等平台创作、排期或优化社媒内容时使用；产出平台原生帖文、钩子、内容支柱、复用计划与周排期表；不适用于长文落地页文案、品牌策略立项或纯创意头脑风暴。触发词：社媒帖文、内容日历、Twitter thread、钩子、排期
+title: Social Media Content Creator
+description: Use when creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms — producing platform-native posts, hooks, content pillars, repurposing plans, and weekly calendars. Not for long-form landing-page copy, cont
 domain: 商业/marketing
-triggers: [写一条 LinkedIn / 领英帖子, 做一个 Twitter/X thread 推文串, 帮我排社媒内容日历, 把博客/长文复用成社媒内容, 给这个选题写几个钩子 hook, 怎么提升帖子互动 / 做病毒内容]
-tags: [社媒, 内容创作, 营销, 内容日历, 文案, 互动增长]
-level: 进阶
+triggers: [write a LinkedIn post, make a Twitter/X thread, plan my social media content calendar, repurpose a blog/long-form piece into social content, write a few hooks for this topic, how do I boost engagement / make viral content]
+tags: [social-media, content-creation, marketing, content-calendar, copywriting, engagement-growth]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,92 +16,86 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-需要为社交平台（LinkedIn/领英、Twitter/X、Instagram、TikTok、Facebook 等）创作单条帖文、规划内容支柱、把长内容复用成多平台帖子、编排周/月内容日历，或优化互动与触达时使用。你扮演资深社媒策略师，目标是产出能涨粉、促互动、服务业务目标的内容。
+Use this skill when the user wants to create individual posts, plan content pillars, repurpose long-form content into multi-platform posts, orchestrate a weekly/monthly content calendar, or optimize engagement and reach for social platforms (LinkedIn, Twitter/X, Instagram, TikTok, Facebook, and others). You act as an expert social media strategist whose goal is to create content that builds audience, drives engagement, and supports business goals.
 
-**不该用的边界：**
-- 长文页面 / 落地页文案 → 用 copywriting。
-- 决定「讲什么选题」的内容策略立项 → 用 content-strategy。
-- 单纯头脑风暴增长渠道 / 战术 → 用 marketing-ideas。
-- AI 初稿太机械需要去 AI 味 → 用 content-humanizer。
-- 围绕产品发布做协同 → 用 launch-strategy。
+**When NOT to use (boundaries):**
+- Long-form page or landing-page copy → use copywriting.
+- Deciding which topics to cover (content strategy kickoff) → use content-strategy.
+- Brainstorming which growth channels or tactics to pursue → use marketing-ideas.
+- AI-drafted posts sound robotic and need de-AI-ifying → use content-humanizer.
+- Coordinating social content around a product launch → use launch-strategy.
 
-## 步骤
+## Steps
 
-1. **先读上下文**：若存在 `.claude/product-marketing-context.md` 先读取，仅追问其中未覆盖的信息。
-2. **采集背景**（缺则问）：目标（品牌认知/获客/引流/社群、期望动作、个人或公司品牌）、受众（人群、活跃平台、爱看什么）、品牌调性（语气、禁忌话题、术语规范）、资源（投入时间、可复用素材、能否做视频）。
-3. **定内容支柱**：围绕 3-5 个支柱建库，例如 SaaS 创始人：行业洞察 30% / 幕后 25% / 教育 25% / 个人 15% / 推广 5%（推广建议 ≤20%）。
-4. **先写钩子**：第一行决定有没有人读下去，没有钩子先停下来写钩子。
-5. **平台原生适配**：同一内容按平台调整语气、长度、结构，绝不一稿多平台直接复制。
-6. **复用与排期**：把支柱内容（博客/视频/播客）提炼 3-5 条洞察 → 适配各平台格式 → 铺到一周分发 → 常青内容可改写复用。
-7. **互动 + 复盘**：执行每日互动例程，每周复盘 Top3/Bottom3 帖子与触达趋势，按数据迭代。
+1. **Read context first.** If `.claude/product-marketing-context.md` exists, read it before asking questions. Only ask for what's not already covered.
+2. **Gather context** (ask if not provided):
+   - **Goals** — primary objective (brand awareness, leads, traffic, community), desired action, personal vs. company brand.
+   - **Audience** — who you're reaching, which platforms they're active on, what content they engage with.
+   - **Brand voice** — tone (professional, casual, witty, authoritative), topics to avoid, terminology/style guidelines.
+   - **Resources** — time available, existing content to repurpose, ability to create video.
+3. **Define content pillars.** Build around 3-5 pillars. Example for a SaaS founder: Industry insights 30% / Behind-the-scenes 25% / Educational 25% / Personal 15% / Promotional 5% (keep promotional ≤20%).
+4. **Write the hook first.** The first line determines whether anyone reads the rest. No hook → stop and write the hook before anything else.
+5. **Adapt platform-native.** Adjust tone, length, and structure per platform. Never copy one draft across platforms.
+6. **Repurpose and schedule.** Take pillar content (blog/video/podcast) → extract 3-5 key insights → adapt to each platform's format → spread distribution across the week → reshare evergreen content.
+7. **Engage and review.** Run the daily engagement routine; weekly, review your Top 3 / Bottom 3 posts and follower/engagement trends, then iterate from the data.
 
-## 指令
+## Example
 
-**平台速查（最佳用途 / 频率 / 关键格式）：**
-- LinkedIn：B2B、思想领导力 / 3-5 次每周 / 图集、故事帖。
-- Twitter/X：科技、实时、社群 / 3-10 次每天 / 推文串、犀利观点。
-- Instagram：视觉品牌、生活方式 / 每天 1-2 帖 + Stories / Reels、图集。
-- TikTok：品牌认知、年轻受众 / 1-4 次每天 / 短视频。
-- Facebook：社群、本地生意 / 1-2 次每天 / 群组、原生视频。
+**Platform quick reference (best for / frequency / key format):**
 
-**钩子公式（首行模板）：**
-- 好奇型：「我以前在【常见认知】上想错了。」「【惊艳结果】——只花了【意外的短时间】。」
-- 故事型：「上周，【意外的事】发生了。」「3 年前我【过去状态】，今天【现在状态】。」
-- 价值型：「如何【想要的结果】（且不必【常见痛点】）：」「停止【常见错误】，改做这件事：」
-- 反共识型：「不受欢迎的观点：【大胆论断】」「【常见建议】是错的，原因如下：」
+| Platform | Best For | Frequency | Key Format |
+|----------|----------|-----------|------------|
+| LinkedIn | B2B, thought leadership | 3-5x/week | Carousels, stories |
+| Twitter/X | Tech, real-time, community | 3-10x/day | Threads, hot takes |
+| Instagram | Visual brands, lifestyle | 1-2 posts + Stories daily | Reels, carousels |
+| TikTok | Brand awareness, younger audiences | 1-4x/day | Short-form video |
+| Facebook | Communities, local businesses | 1-2x/day | Groups, native video |
 
-**复用映射（博客 → 社媒）：** LinkedIn 关键洞察+评论区放链接 / LinkedIn 要点图集 / X 要点推文串 / IG 视觉图集 / IG 总结性 Reel。
+**Hook formulas (first-line templates):**
+- *Curiosity:* "I was wrong about [common belief]." / "[Impressive result] — and it only took [surprisingly short time]."
+- *Story:* "Last week, [unexpected thing] happened." / "3 years ago, I [past state]. Today, [current state]."
+- *Value:* "How to [desirable outcome] (without [common pain]):" / "Stop [common mistake]. Do this instead:"
+- *Contrarian:* "Unpopular opinion: [bold statement]" / "[Common advice] is wrong. Here's why:"
 
-**互动例程（每日约 30 分钟）：** 回所有评论(5')→ 评论 5-10 条目标账号(15')→ 带观点转发(5')→ 给新连接发 2-3 条私信(5')。优质评论要补充新见解，而非「写得真好」。
+**Repurposing map (Blog → Social):** LinkedIn key insight + link in comments / LinkedIn carousel of main points / Twitter/X thread of takeaways / Instagram carousel with visuals / Instagram Reel summarizing the post.
 
-**优化动作：**
-- 互动低 → 换钩子、换发布时间、换格式、多去别人那互动。
-- 触达下滑 → 正文别放外链、提高频率、多在评论区互动、试视频/视觉内容。
+**Weekly calendar template:**
 
-**关键指标：** 认知（曝光、触达、涨粉率）；互动（互动率、评论>点赞、转发、收藏）；转化（链接点击、主页访问、收到私信、归因线索）。
+| Day | LinkedIn | Twitter/X | Instagram |
+|-----|----------|-----------|-----------|
+| Mon | Industry insight | Thread | Carousel |
+| Tue | Behind-scenes | Engagement | Story |
+| Wed | Educational | Tips tweet | Reel |
+| Thu | Story post | Thread | Educational |
+| Fri | Hot take | Engagement | Story |
 
-**排期 vs 实时：** 排期发——核心帖、推文串、图集、常青内容；实时发——热点评论、新闻回应、与他人互动。保持 1-2 周存量，留空隙给即兴帖。
+**Daily engagement routine (~30 min):** Respond to all comments on your posts (5 min) → comment on 5-10 posts from target accounts (15 min) → share/repost with added insight (5 min) → send 2-3 DMs to new connections (5 min). Quality comments add new insight, not "Great post!"
 
-**主动预警（发现即提示，无需等问）：**
-- 想一稿发全平台 → 立刻指出格式不匹配，先按平台改语气/长度/结构。
-- 没钩子 → 停下，先写钩子。
-- 频率不可持续（如 4 平台各 3 次每天）→ 提示倦怠风险，建议聚焦 1-2 平台 + 批量生产。
-- 推广内容超过日历 20% → 警告触达会下滑，向教育/故事支柱再平衡。
-- 没有互动策略 → 提醒只发不互动是广播不是建设，给出每日例程。
+**Reverse-engineering viral content (6 steps):** Find 10-20 high-engagement creators → collect 500+ posts → analyze hook/format/CTA patterns → codify a repeatable playbook → layer your own voice → bridge attention to business results.
 
-## 示例
+**Output artifacts:**
 
-**周排期模板：**
+| When you ask for... | You get... |
+|---------------------|------------|
+| A social post | Platform-native post with hook, body, CTA, and hashtag recommendations |
+| A content calendar | Weekly or monthly table with topic, platform, format, pillar, and posting day |
+| Hook options | 5 hook variants (curiosity, story, value, contrarian, data) for a given topic |
 
-| 日 | LinkedIn | Twitter/X | Instagram |
-|---|---|---|---|
-| 一 | 行业洞察 | 推文串 | 图集 |
-| 二 | 幕后 | 互动 | Story |
-| 三 | 教育 | 干货推 | Reel |
-| 四 | 故事帖 | 推文串 | 教育 |
-| 五 | 犀利观点 | 互动 | Story |
+## Notes
 
-**逆向拆解病毒内容（6 步）：** 找 10-20 个高互动账号 → 收集 500+ 帖样本 → 分析钩子/格式/CTA 规律 → 沉淀成可复用打法 → 叠加自己的声音 → 把注意力桥接到业务结果。
+- **Optimization actions.** If engagement is low → test new hooks, post at different times, try different formats, engage more with others. If reach is declining → avoid external links in the post body, increase frequency, engage more in comments, test video/visual content.
+- **Metrics that matter.** Awareness: impressions, reach, follower growth rate. Engagement: engagement rate, comments (higher value than likes), shares/reposts, saves. Conversion: link clicks, profile visits, DMs received, leads attributed.
+- **Schedule vs. post live.** Schedule core posts, threads, carousels, and evergreen content. Post live for real-time commentary, news/trend responses, and engagement with others. Maintain 1-2 weeks of queued content; leave gaps for spontaneous posts.
+- **Proactive triggers (surface without being asked).** Wants to post the same content on every platform → flag the format mismatch and adapt tone/length/structure per platform first. No hook → stop and write the hook first. Unsustainable frequency (e.g., 3x/day on 4 platforms) → flag burnout risk; recommend a focused 1-2 platform strategy with batching. Promotional content exceeds 20% of the calendar → warn that reach will decline; rebalance toward educational/story pillars. No engagement strategy → remind that posting without engaging is broadcasting, not building; offer the daily routine.
+- **Communication.** Bottom line first — deliver the post or calendar before explaining strategy choices; explain What + Why + How for every format/platform decision. Always lead with a hook; never deliver body copy without it. Confidence tagging: 🟢 proven format / 🟡 test this / 🔴 depends on your audience. Flag which calendar posts are evergreen vs. timely. Platform-native by default — never deliver generic copy.
 
-**产出物对照：** 要「一条帖子」给平台原生帖（钩子+正文+CTA+标签建议）；要「内容日历」给含选题/平台/格式/支柱/发布日的周或月表；要「钩子选项」给 5 个变体（好奇/故事/价值/反共识/数据）。
+## See also
 
-## 注意事项
-
-- 沟通遵循「结论先行」：先给帖子或日历，再解释策略取舍；每个格式/平台决策都讲清 What + Why + How。
-- 每条产出必须以钩子开头，绝不在没有钩子时交付正文。
-- 信心标注：🟢 已验证格式 / 🟡 建议测试 / 🔴 取决于你的受众。日历中标明哪些是常青、哪些是时效内容。
-- 默认平台原生，绝不交付通用泛文案。
-
-## 互见
-
-- **marketing-context**：创作前的基础，载入品牌声音、ICP、调性；但不能替代平台适配。
-- **copywriting**：长文/落地页文案用它，短社媒帖不用。
-- **content-strategy**：定选题用它，写帖不用。
-- **copy-editing**：高风险campaign打磨初稿用它。
-- **content-humanizer**：初稿太机械去 AI 味用它。
-- **launch-strategy**：围绕产品发布做社媒协同用它。
-
----
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+- **marketing-context** — foundation before creating any content; loads brand voice, ICP, and tone. Not a substitute for platform-specific adaptation.
+- **copywriting** — for long-form page or landing-page copy, not short-form social posts.
+- **content-strategy** — for deciding what topics to cover, not for writing the posts.
+- **copy-editing** — to polish drafts for high-stakes campaigns.
+- **content-humanizer** — when AI-drafted posts sound robotic or templated.
+- **launch-strategy** — when coordinating social content around a product launch.

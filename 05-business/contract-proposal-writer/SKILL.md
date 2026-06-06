@@ -1,14 +1,14 @@
 ---
 name: contract-proposal-writer
-title: 合同与商业提案撰写
-description: 当需要快速起草自由职业/开发合同、客户提案、SOW、NDA、MSA 等专业商务法律文档时使用；按司法辖区（美国-特拉华/EU-GDPR/英国/DACH-德国法）选模板、填占位符并用 pandoc 转 DOCX；不适用于替代律师审核高额或复杂交易、也不处理诉讼/出庭。触发词：合同, 提案, proposal, SOW, 工作说明书, NDA, 保密协议, MSA, 主服务协议, contract, GDPR/DPA, 自由职业合同
+title: Contract & Proposal Writer
+description: Generate professional, jurisdiction-aware business documents: freelance contracts, project proposals, SOWs, NDAs, and MSAs. Structured Markdown output with docx conversion instructions. Covers US (Delaware), EU (GDPR), UK, and DACH (German law) jurisdictions. Not a substitute for legal counsel — use as strong starting points. Use when drafting a freelance contract, preparing a client proposal, writing an SOW for a new engagement, or producing an NDA before sharing sensitive material.
 domain: 商业/sales
-triggers: [合同, 提案, proposal, SOW, 工作说明书, NDA, 保密协议, MSA, 主服务协议, contract, GDPR, DPA, 自由职业合同]
+triggers: [proposal, SOW, NDA, MSA, contract, GDPR, DPA]
 tags: [business, sales, legal, contract, proposal, nda, msa, sow, gdpr, pandoc, docx]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [pandoc, git, markdown]
+tools: []
 requires: []
 related: [sales-enablement, deal-desk-reviewer, cro-revenue-advisor, cold-email-writer]
 combines_with: [sales-enablement, deal-desk-reviewer, pricing-strategy]
@@ -16,131 +16,421 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Contract & Proposal Writer
 
-当用户要快速产出专业商务法律文档时使用，覆盖以下类型：
-- 自由职业/开发合同（固定价、计时、月度顾问）
-- 含时间线与预算拆分的客户提案
-- 工作说明书 SOW（交付物矩阵）
-- 保密协议 NDA（双向 / 单向）
-- 主服务协议 MSA、SaaS 合作协议
-- 按辖区定制条款（美国/EU/英国/DACH）及 GDPR 数据处理附录（DPA）
+**Tier:** POWERFUL  
+**Category:** Business Growth  
+**Domain:** Legal Documents, Business Development, Client Relations
 
-不该用的边界：
-- 不替代律师。高额或复杂交易、上市公司、并购、强监管行业必须由执业律师复核，本技能只产出强力起点稿。
-- 不处理诉讼、出庭、出具法律意见书。
-- 不涉及税务/合规审计。
+---
 
-## 步骤
+## Overview
 
-1. 收集要素（逐项追问，缺项标 `REQUIRED`）：
-   - 文档类型？contract / proposal / SOW / NDA / MSA
-   - 辖区？US-Delaware / EU / UK / DACH
-   - 计费类型？固定价 / 计时 / 月度顾问
-   - 当事方（名称、角色、营业地址）
-   - 范围摘要（1-3 句）
-   - 总金额或时薪
-   - 起止日期或周期
-   - 特殊要求（IP 转让、白标、分包）
-2. 选模板：固定价开发→模板 A；月度顾问→模板 B；SaaS 合作→模板 C；NDA 双向/单向→NDA-M / NDA-OW；通用 SOW→SOW base。
-3. 生成并填充：替换所有 `[方括号]` 占位符，缺数据标 `REQUIRED`。
-4. 转 DOCX（见下方指令）。
-5. EU/DACH 项目：只要处理个人数据，必须附 GDPR DPA 条款块（Art. 28）。
+Generate professional, jurisdiction-aware business documents: freelance contracts, project proposals, SOWs, NDAs, and MSAs. Outputs structured Markdown with docx conversion instructions. Covers US (Delaware), EU (GDPR), UK, and DACH (German law) jurisdictions.
 
-## 指令
+**Not a substitute for legal counsel.** Use these templates as strong starting points; review with an attorney for high-value or complex engagements.
 
-关键条款选项速查：
+---
 
-| 条款 | 可选项 |
-|------|--------|
-| 付款 | Net-30 / 里程碑分期 / 月度预付 |
-| IP 归属 | 雇佣作品 work-for-hire（US）/ 转让 assignment（EU/UK）/ 反向授权 license-back |
-| 责任上限 | 1x 合同额（标准）/ 3x（高风险） |
-| 终止 | 违约（14 天补救期）/ 任意终止（30/60/90 天通知） |
-| 保密 | 2-5 年 / 商业秘密永久 |
-| 质保 | "As-is" 免责 / 30/90 天限期修复 |
-| 争议解决 | 仲裁（AAA/ICC）/ 法院（按辖区） |
+## Core Capabilities
 
-辖区要点：
-- US（特拉华）：适用特拉华州法；work-for-hire 原则（版权法 §101）；仲裁 AAA Commercial Rules；竞业限制在合理范围内可执行。
-- EU（GDPR）：处理个人数据须附 DPA；部分成员国 IP 转让需单独书面契据；仲裁 ICC 或当地商会。
-- UK（脱欧后）：英格兰法；IP 依 Patents Act 1977 / CDPA 1988；仲裁 LCIA；数据用 UK GDPR。
-- DACH（德/奥/瑞）：BGB 管辖；某些条款须书面形式（§126 BGB）；作者保留人身权，须显式转让 Nutzungsrechte；竞业最长 2 年且需补偿（§74 HGB）；管辖 Landgericht 或 DIS 仲裁；个人数据强制适用 DSGVO；遵守法定通知期 Kuendigungsfristen。
+- Freelance development contracts (fixed-price & hourly)
+- Project proposals with timeline/budget breakdown
+- Statements of Work (SOW) with deliverables matrix
+- NDAs (mutual & one-way)
+- Master Service Agreements (MSA)
+- Jurisdiction-specific clauses (US/EU/UK/DACH)
+- GDPR Data Processing Addenda (EU/DACH)
 
-转 DOCX（pandoc）：
+---
+
+## Key Clauses Reference
+
+| Clause | Options |
+|--------|---------|
+| Payment terms | Net-30, milestone-based, monthly retainer |
+| IP ownership | Work-for-hire (US), assignment (EU/UK), license-back |
+| Liability cap | 1x contract value (standard), 3x (high-risk) |
+| Termination | For cause (14-day cure), convenience (30/60/90-day notice) |
+| Confidentiality | 2-5 year term, perpetual for trade secrets |
+| Warranty | "As-is" disclaimer, limited 30/90-day fix warranty |
+| Dispute resolution | Arbitration (AAA/ICC), courts (jurisdiction-specific) |
+
+---
+
+## When to Use
+
+- Starting a new client engagement and need a contract fast
+- Client asks for a proposal with pricing and timeline
+- Partnership or vendor relationship requiring an MSA
+- Protecting IP or confidential information with an NDA
+- EU/DACH project requiring GDPR-compliant data clauses
+
+---
+
+## Workflow
+
+### 1. Gather Requirements
+
+Ask the user:
+
+    1. Document type? (contract / proposal / SOW / NDA / MSA)
+    2. Jurisdiction? (US-Delaware / EU / UK / DACH)
+    3. Engagement type? (fixed-price / hourly / retainer)
+    4. Parties? (names, roles, business addresses)
+    5. Scope summary? (1-3 sentences)
+    6. Total value or hourly rate?
+    7. Start date / end date or duration?
+    8. Special requirements? (IP assignment, white-label, subcontractors)
+
+### 2. Select Template
+
+| Type | Jurisdiction | Template |
+|------|-------------|----------|
+| Dev contract fixed | Any | Template A |
+| Consulting retainer | Any | Template B |
+| SaaS partnership | Any | Template C |
+| NDA mutual | US/EU/UK/DACH | NDA-M |
+| NDA one-way | US/EU/UK/DACH | NDA-OW |
+| SOW | Any | SOW base |
+
+### 3. Generate & Fill
+
+Fill all [BRACKETED] placeholders. Flag missing data as "REQUIRED".
+
+### 4. Convert to DOCX
 
 ```bash
-# 安装 pandoc
+# Install pandoc
 brew install pandoc        # macOS
 apt install pandoc         # Ubuntu
 
-# 基础转换
+# Basic conversion
 pandoc contract.md -o contract.docx \
   --reference-doc=reference.docx \
   -V geometry:margin=1in
 
-# 法律风格自动编号
+# With numbered sections (legal style)
 pandoc contract.md -o contract.docx \
   --number-sections \
   -V documentclass=article \
   -V fontsize=11pt
 
-# 套用公司模板
+# With custom company template
 pandoc contract.md -o contract.docx \
   --reference-doc=company-template.docx
 ```
 
-## 示例
+---
 
-模板 A（固定价开发合同）核心结构与关键条款：
+## Jurisdiction Notes
+
+### US (Delaware)
+- Governing law: State of Delaware
+- Work-for-hire doctrine applies (Copyright Act 101)
+- Arbitration: AAA Commercial Rules
+- Non-compete: enforceable with reasonable scope/time
+
+### EU (GDPR)
+- Must include Data Processing Addendum if handling personal data
+- IP assignment requires separate written deed in some member states
+- Arbitration: ICC or local chamber
+
+### UK (post-Brexit)
+- Governed by English law
+- IP: Patents Act 1977 / CDPA 1988
+- Arbitration: LCIA Rules
+- Data: UK GDPR (post-Brexit equivalent)
+
+### DACH (Germany / Austria / Switzerland)
+- BGB (Buergerliches Gesetzbuch) governs contracts
+- Written form requirement for certain clauses (para 126 BGB)
+- IP: Author always retains moral rights; must explicitly transfer Nutzungsrechte
+- Non-competes: max 2 years, compensation required (para 74 HGB)
+- Jurisdiction: German courts (Landgericht) or DIS arbitration
+- DSGVO (GDPR implementation) mandatory for personal data processing
+- Kuendigungsfristen: statutory notice periods apply
+
+---
+
+## Template A: Web Dev Fixed-Price Contract
 
 ```markdown
 # SOFTWARE DEVELOPMENT AGREEMENT
+
 **Effective Date:** [DATE]
 **Client:** [CLIENT LEGAL NAME], [ADDRESS] ("Client")
 **Developer:** [YOUR LEGAL NAME / COMPANY], [ADDRESS] ("Developer")
 
-## 1. SERVICES — 项目/描述/交付物（逐条带 due [DATE]）
-## 2. PAYMENT — 里程碑分期 50%/25%/25%；逾期按 1.5%/月计息；
-     客户有 [10] 个工作日书面验收或拒收
-## 3. INTELLECTUAL PROPERTY — 全款到账后转让；US 按 work made for hire，
-     EU/UK 按 assignment of future copyright；预存 IP 仍归 Developer，
-     授予 Client 永久免版税许可
-## 4. CONFIDENTIALITY — 终止后存续 [3] 年
-## 5. WARRANTIES — 交付后 [90] 天实质符合规格，期内免费修缺陷；
-     否则 "AS IS"
-## 6. LIABILITY — 总责任不超过本协议已付费用；排除间接/附带/后果损失
-## 7. TERMINATION — 违约 [14] 天补救期；任意终止 [30] 天通知，
-     付已完成工作 + 剩余合同额 [10%]
-## 8. DISPUTE RESOLUTION — US:AAA/Delaware；EU/DACH:ICC/DIS；UK:LCIA/London
+---
+
+## 1. SERVICES
+
+Developer agrees to design, develop, and deliver:
+
+**Project:** [PROJECT NAME]
+**Description:** [1-3 sentence scope]
+
+**Deliverables:**
+- [Deliverable 1] due [DATE]
+- [Deliverable 2] due [DATE]
+- [Deliverable 3] due [DATE]
+
+## 2. PAYMENT
+
+**Total Fee:** [CURRENCY] [AMOUNT]
+
+| Milestone | Amount | Due |
+|-----------|--------|-----|
+| Contract signing | 50% | Upon execution |
+| Beta delivery | 25% | [DATE] |
+| Final acceptance | 25% | Within 5 days of acceptance |
+
+Late payments accrue interest at 1.5% per month.
+Client has [10] business days to accept or reject deliverables in writing.
+
+## 3. INTELLECTUAL PROPERTY
+
+Upon receipt of full payment, Developer assigns all right, title, and interest in the
+Work Product to Client as a work made for hire (US) / by assignment of future copyright (EU/UK).
+
+Developer retains the right to display Work Product in portfolio unless Client
+requests confidentiality in writing within [30] days of delivery.
+
+Pre-existing IP (tools, libraries, frameworks) remains Developer's property.
+Developer grants Client a perpetual, royalty-free license to use pre-existing IP
+as embedded in the Work Product.
+
+## 4. CONFIDENTIALITY
+
+Each party keeps confidential all non-public information received from the other.
+This obligation survives termination for [3] years.
+
+## 5. WARRANTIES
+
+Developer warrants Work Product will substantially conform to specifications for
+[90] days post-delivery. Developer will fix material defects at no charge during
+this period. EXCEPT AS STATED, WORK PRODUCT IS PROVIDED "AS IS."
+
+## 6. LIABILITY
+
+Developer's total liability shall not exceed total fees paid under this Agreement.
+Neither party liable for indirect, incidental, or consequential damages.
+
+## 7. TERMINATION
+
+For Cause: Either party may terminate if the other materially breaches and fails
+to cure within [14] days of written notice.
+
+For Convenience: Client may terminate with [30] days written notice and pay for
+all work completed plus [10%] of remaining contract value.
+
+## 8. DISPUTE RESOLUTION
+
+US: Binding arbitration under AAA Commercial Rules, [CITY], Delaware law.
+EU/DACH: ICC / DIS arbitration, [CITY]. German / English law.
+UK: LCIA Rules, London. English law.
+
+## 9. GENERAL
+
+- Entire Agreement: Supersedes all prior discussions.
+- Amendments: Must be in writing, signed by both parties.
+- Independent Contractor: Developer is not an employee of Client.
+
+---
+
+CLIENT: _________________________ Date: _________
+[CLIENT NAME], [TITLE]
+
+DEVELOPER: _________________________ Date: _________
+[YOUR NAME], [TITLE]
 ```
 
-月度顾问（模板 B）关键差异：月度小时上限与是否滚存、超额时薪 overflow rate、初始期 [3] 个月后按月自动续约（[30] 天通知退出）、责任上限按索赔前 3 个月费用的 [3x]。
+---
 
-GDPR DPA 条款块（EU/DACH 必备）应包含：主题事项、数据主体类别、个人数据类别、处理时长（终止后 [30] 天内删除）、处理者义务（仅按书面指示处理 / 保密承诺 / Art. 32 技术与组织措施 / 协助数据主体权利请求 / 未经书面同意不得使用次级处理者）、次级处理者清单、跨境传输依据（SCCs / 充分性决定 / BCRs）。
+## Template B: Monthly Consulting Retainer
 
-## 注意事项
+```markdown
+# CONSULTING RETAINER AGREEMENT
 
-常见陷阱：
-1. 缺 IP 转让措辞——EU 仅写 "work for hire" 不足，DACH 须显式转让 Nutzungsrechte。
-2. 验收标准含糊——必须定义"已验收"（书面签收、X 天内拒收）。
-3. 无变更单流程——范围蔓延会拖垮固定价项目，加超范围条款。
-4. 辖区错配——德国独占项目却选特拉华州法会造成执行困难。
-5. 缺责任上限——无上限时一个 bug 可能等于无限赔偿。
-6. 口头修改——务必要求书面修订（amendments in writing）。
+**Effective Date:** [DATE]
+**Client:** [CLIENT LEGAL NAME] ("Client")
+**Consultant:** [YOUR NAME / COMPANY] ("Consultant")
 
-最佳实践：
-- >$10K 项目用里程碑付款而非 Net-30，降现金流风险。
-- EU/DACH：只要有个人数据就需 DPA。
-- DACH：显式加书面形式条款 Schriftformklausel。
-- 超 3 个月的合同加不可抗力 force majeure 条款。
-- 顾问合同定义响应 SLA（如紧急 4h / 普通 24h）。
-- 模板纳入版本控制，用 `git diff` 跟踪改动；每年复审（法律尤其 GDPR 解释会变）。
-- NDA：务必约定终止时返还/销毁保密材料。
+---
 
-## 互见
+## 1. SERVICES
 
-- markdown-to-docx：将本技能生成的 Markdown 合同正式转为 DOCX 交付件。
-- pdf-form-filler：当客户提供需逐字段填写的 PDF 合同/表单时配合使用。
+Consultant provides [DOMAIN, e.g., "CTO advisory and technical architecture"] services.
 
-本条采编自 alirezarezvani/claude-skills（MIT）。
+**Monthly Hours:** Up to [X] hours/month
+**Rollover:** Unused hours [do / do not] roll over (max [X] hours banked)
+**Overflow Rate:** [CURRENCY] [RATE]/hr for hours exceeding retainer
+
+## 2. FEES
+
+**Monthly Retainer:** [CURRENCY] [AMOUNT], due on the 1st of each month.
+**Payment Method:** Bank transfer / Stripe / SEPA direct debit
+**Late Payment:** 2% monthly interest after [10]-day grace period.
+
+## 3. TERM AND TERMINATION
+
+**Initial Term:** [3] months starting [DATE]
+**Renewal:** Auto-renews monthly unless either party gives [30] days written notice.
+**Immediate termination:** For material breach uncured after [7] days notice.
+
+On termination, Consultant delivers all work in progress within [5] business days.
+
+## 4. INTELLECTUAL PROPERTY
+
+Work product created under this Agreement belongs to [Client / Consultant / jointly].
+Advisory output (recommendations, analyses) are Client property upon full payment.
+
+## 5. EXCLUSIVITY
+
+[OPTION A - Non-exclusive:]
+This Agreement is non-exclusive. Consultant may work with other clients.
+
+[OPTION B - Partial exclusivity:]
+Consultant will not work with direct competitors of Client during the term
+and [90] days thereafter.
+
+## 6. CONFIDENTIALITY AND DATA PROTECTION
+
+EU/DACH: If Consultant processes personal data on behalf of Client, the parties
+shall execute a Data Processing Agreement (DPA) per Art. 28 GDPR.
+
+## 7. LIABILITY
+
+Consultant's aggregate liability is capped at [3x] the fees paid in the [3] months
+preceding the claim.
+
+---
+
+Signatures as above.
+```
+
+---
+
+## Template C: SaaS Partnership Agreement
+
+```markdown
+# SAAS PARTNERSHIP AGREEMENT
+
+**Effective Date:** [DATE]
+**Provider:** [NAME], [ADDRESS]
+**Partner:** [NAME], [ADDRESS]
+
+---
+
+## 1. PURPOSE
+
+Provider grants Partner [reseller / referral / white-label / integration] rights to
+Provider's [PRODUCT NAME] ("Software") subject to this Agreement.
+
+## 2. PARTNERSHIP TYPE
+
+[ ] Referral: Partner refers customers; earns [X%] of first-year ARR per referral.
+[ ] Reseller: Partner resells licenses; earns [X%] discount off list price.
+[ ] White-label: Partner rebrands Software; pays [AMOUNT]/month platform fee.
+[ ] Integration: Partner integrates Software via API; terms in Exhibit A.
+
+## 3. REVENUE SHARE
+
+| Tier | Monthly ARR Referred | Commission |
+|------|---------------------|------------|
+| Bronze | < $10,000 | [X]% |
+| Silver | $10,000-$50,000 | [X]% |
+| Gold | > $50,000 | [X]% |
+
+Payout: Net-30 after month close, minimum $[500] threshold.
+
+## 4. INTELLECTUAL PROPERTY
+
+Each party retains all IP in its own products. No implied licenses.
+Partner may use Provider's marks per Provider's Brand Guidelines (Exhibit B).
+
+## 5. DATA AND PRIVACY
+
+Each party is an independent data controller for its own customers.
+Joint processing requires a separate DPA (Exhibit C - EU/DACH projects).
+
+## 6. TERM
+
+Initial: [12] months. Renews annually unless [90]-day written notice given.
+Termination for Cause: [30]-day cure period for material breach.
+
+## 7. LIMITATION OF LIABILITY
+
+Each party's liability capped at [1x] fees paid/received in prior [12] months.
+Mutual indemnification for IP infringement claims from own products.
+
+---
+
+Signatures, exhibits, and governing law per applicable jurisdiction.
+```
+
+---
+
+## GDPR Data Processing Addendum (EU/DACH Clause Block)
+
+```markdown
+## DATA PROCESSING ADDENDUM (Art. 28 GDPR)
+
+Controller: [CLIENT NAME]
+Processor: [CONTRACTOR NAME]
+
+### Subject Matter
+Processor processes personal data on behalf of Controller solely to perform services
+under the main Agreement.
+
+### Categories of Data Subjects
+[e.g., end users, employees, customers]
+
+### Categories of Personal Data
+[e.g., names, email addresses, usage data]
+
+### Processing Duration
+For the term of the main Agreement; deletion within [30] days of termination.
+
+### Processor Obligations
+- Process data only on Controller's documented instructions
+- Ensure persons authorized to process have committed to confidentiality
+- Implement technical and organizational measures per Art. 32 GDPR
+- Assist Controller with data subject rights requests
+- Not engage sub-processors without prior written consent
+- Delete or return all personal data upon termination
+
+### Sub-processors (current as of Effective Date)
+| Sub-processor | Location | Purpose |
+|--------------|----------|---------|
+| [AWS / GCP / Azure] | [Region] | Cloud hosting |
+| [Other] | [Location] | [Purpose] |
+
+### Cross-border Transfers
+Data transfers outside EEA covered by: [ ] SCCs  [ ] Adequacy Decision  [ ] BCRs
+```
+
+---
+
+## Common Pitfalls
+
+1. **Missing IP assignment language** - "work for hire" alone is insufficient in EU; need explicit assignment of Nutzungsrechte in DACH
+2. **Vague acceptance criteria** - Always define what "accepted" means (written sign-off, X days to reject)
+3. **No change order process** - Scope creep kills fixed-price projects; add a clause for out-of-scope work
+4. **Jurisdiction mismatch** - Choosing Delaware law for a German-only project creates enforcement problems
+5. **Missing limitation of liability** - Without a cap, one bug could mean unlimited damages
+6. **Oral amendments** - Contracts modified verbally are hard to enforce; always require written amendments
+
+---
+
+## Best Practices
+
+- Use **milestone payments** over net-30 for projects >$10K - reduces cash flow risk
+- For EU/DACH: always check if a DPA is needed (any personal data = yes)
+- For DACH: include a **Schriftformklausel** (written form clause) explicitly
+- Add a **force majeure** clause for anything over 3 months
+- For retainers: define response time SLAs (e.g., 4h urgent / 24h normal)
+- Keep templates in version control; track changes with `git diff`
+- Review annually - laws change, especially GDPR enforcement interpretations
+- For NDAs: always specify the return/destruction of confidential materials on termination

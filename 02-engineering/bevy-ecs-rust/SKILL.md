@@ -1,14 +1,14 @@
 ---
 name: bevy-ecs-rust
-title: Bevy 实体组件系统 Rust 游戏开发
-description: 当用 Rust + Bevy 引擎开发游戏、需要把面向对象逻辑重构为数据导向 ECS 并设计可并行系统时使用；做组件/系统/资源/查询的建模与调度产出可运行的 ECS 代码与性能优化方案；不适用于非 Bevy 引擎、非 Rust 或纯渲染/美术管线问题；触发词：Bevy、ECS、Query、System、Resource、并行调度
+title: Bevy ECS Rust Game Development
+description: Use when building games in Rust with the Bevy engine: model Components/Systems/Resources/Queries, refactor OO logic into data-oriented ECS, and exploit parallel scheduling; not for non-Bevy engines, non-Rust, or pure rendering/art pipelines. Triggers: Bevy, ECS, Query, System, Re
 domain: 研发/backend
-triggers: [Bevy, ECS, 实体组件系统, Rust 游戏开发, Query 查询, System 系统, Resource 资源, 并行调度, 数据导向, Component 组件]
-tags: [bevy, rust, ecs, 游戏开发, 并行调度, 性能优化, 数据导向设计]
-level: 进阶
+triggers: [Bevy, ECS, Entity Component System, Rust game development, Query, System, Resource, parallel scheduling, data-oriented design, Component]
+tags: [bevy, rust, ecs, game-development, parallel-scheduling, performance-optimization, data-oriented-design]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Edit, Write, Bash]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,23 +16,27 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-- 用 Rust + Bevy 引擎开发游戏，需要组织游戏逻辑（Systems / Queries / Resources）。
-- 设计需要并行执行的游戏系统，希望借助 Bevy 调度器自动并行。
-- 通过减少缓存未命中、缩小迭代集合来优化游戏性能。
-- 把面向对象（继承/方法挂载）逻辑重构为数据导向的 ECS 模式。
+A guide to building high-performance game logic using Bevy's data-oriented ECS architecture: how to structure systems, optimize queries, manage resources, and leverage parallel execution.
 
-不该用的边界：
-- 非 Bevy 引擎（如 Unity、Godot、Unreal）或非 Rust 项目，本技能的 API 不适用。
-- 纯渲染管线、Shader、美术资源/动画制作等不属于 ECS 数据建模的问题。
-- 输出代码不能替代针对具体 Bevy 版本的编译验证与测试（Bevy API 跨版本变动较大，注意 `time.delta_seconds()` 等在新版本可能改名）。
-- 缺少目标 Bevy 版本、构建环境或成功标准时，先澄清再动手。
+- Use when developing games with the Bevy engine in Rust and organizing game logic (Systems / Queries / Resources).
+- Use when designing game systems that need to run in parallel, letting the Bevy scheduler parallelize automatically.
+- Use when optimizing game performance by minimizing cache misses and shrinking iteration sets.
+- Use when refactoring object-oriented logic (inheritance / methods bolted onto data) into data-oriented ECS patterns.
 
-## 步骤
+Out of scope:
 
-### 1. 定义组件（Component）
-组件就是纯数据的简单 struct，派生 `Component`；需要编辑器/序列化反射时再加 `Reflect`。
+- Non-Bevy engines (Unity, Godot, Unreal) or non-Rust projects — these APIs do not apply.
+- Pure rendering pipelines, shaders, and art/animation assets are not ECS data-modeling problems.
+- Output is not a substitute for version-specific compilation and testing. Bevy APIs change a lot across versions (e.g. `time.delta_seconds()` may be renamed in newer releases).
+- Stop and ask for clarification if the target Bevy version, build environment, or success criteria are missing.
+
+## Steps
+
+### 1. Defining Components
+
+Use simple structs for data. Derive `Component`; add `Reflect` when you need editor/serialization reflection.
 
 ```rust
 #[derive(Component, Reflect, Default)]
@@ -43,11 +47,12 @@ struct Velocity {
 }
 
 #[derive(Component)]
-struct Player; // 标记组件（marker），无数据
+struct Player; // marker component, no data
 ```
 
-### 2. 编写系统（System）
-系统是普通 Rust 函数，通过参数声明要访问的数据：`Query` 取组件，`Res`/`ResMut` 取资源。
+### 2. Writing Systems
+
+Systems are regular Rust functions that declare the data they touch via parameters: `Query` for components, `Res`/`ResMut` for resources.
 
 ```rust
 fn movement_system(
@@ -61,8 +66,9 @@ fn movement_system(
 }
 ```
 
-### 3. 管理资源（Resource）
-全局唯一的数据（分数、游戏状态等）用 `Resource`，读写分别用 `Res` / `ResMut`。
+### 3. Managing Resources
+
+Use `Resource` for globally unique data (score, game state). Read with `Res`, write with `ResMut`.
 
 ```rust
 #[derive(Resource)]
@@ -75,8 +81,9 @@ fn score_system(mut game_state: ResMut<GameState>) {
 }
 ```
 
-### 4. 注册与调度系统
-在 `App` 构建器上注册系统；需要固定执行顺序时用 `.chain()`。
+### 4. Scheduling Systems
+
+Add systems to the `App` builder; use `.chain()` when a fixed execution order is required.
 
 ```rust
 fn main() {
@@ -88,18 +95,13 @@ fn main() {
 }
 ```
 
-## 指令
+When modeling, first ask: which things are **data** (Component), which are **global singletons** (Resource), and which are **behavior** (System)? Separate behavior out of data.
 
-- 建模时先问：哪些是「数据」（Component）、哪些是「全局单例」（Resource）、哪些是「行为」（System）。把行为从数据中剥离。
-- 查询尽量加过滤器 `With` / `Without` / `Changed` 缩小迭代集合，降低缓存未命中。
-- 只读访问优先用 `Res` 而非 `ResMut`、用 `&T` 而非 `&mut T`，让调度器能并行更多系统。
-- 生成实体用 `Bundle` 或 `#[require(...)]` 保证一组组件原子性地一起出现。
-- 遇到 "Conflict" panic：两个并行系统对同一组件做了可变访问，用 `.chain()` 排序或拆分逻辑。
+## Example
 
-## 示例
+### Example 1: Spawning Entities with Require Component
 
-### 示例 1：用 require 约束生成实体
-`#[require(...)]` 声明某组件必须伴随的其他组件，spawn 时自动补齐缺省值。
+`#[require(...)]` declares the other components a component must travel with; they are filled in with defaults on spawn.
 
 ```rust
 use bevy::prelude::*;
@@ -123,32 +125,41 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 }
 ```
 
-### 示例 2：用查询过滤器精确筛选
-`With` / `Without` 在不取出组件数据的前提下按「是否拥有某组件」过滤实体。
+### Example 2: Query Filters
+
+Use `With` and `Without` to filter entities by component presence without pulling out the component data.
 
 ```rust
 fn enemy_behavior(
     query: Query<&Transform, (With<Enemy>, Without<Dead>)>,
 ) {
     for transform in &query {
-        // 这里只会处理「活着的敌人」
+        // Only active enemies processed here
     }
 }
 ```
 
-## 注意事项
+## Notes
 
-- 组件保持纯数据：不要把重逻辑塞进 Component，也不要在组件里用 `RefCell` 等内部可变性，借用交给 ECS 管理。
-- 善用过滤器：`With` / `Without` / `Changed` 能显著减少每帧迭代量。
-- 并行优先：能用 `Res` 就别用 `ResMut`，给调度器更多并行空间。
-- 原子生成：复杂实体用 `Bundle` 一次性生成，避免半成品实体被其他系统看到。
-- 常见报错 —— 系统 panic 提示 "Conflict"：通常是两个并行系统可变访问了同一组件，用 `.chain()` 排序或拆分逻辑解决。
-- 版本兼容：Bevy 各大版本 API 改动频繁（系统调度、时间 API、Sprite 构造等），落地前以目标版本文档为准并 `cargo build` 验证。
+Best practices:
 
-## 互见
+- **Do:** Use `Query` filters (`With`, `Without`, `Changed`) to reduce per-frame iteration count and cache misses.
+- **Do:** Prefer `Res` over `ResMut`, and `&T` over `&mut T`, when read-only access is enough — this lets the scheduler run more systems in parallel.
+- **Do:** Use `Bundle` (or `#[require(...)]`) to spawn complex entities atomically, so half-built entities are never observed by other systems.
+- **Don't:** Store heavy logic inside Components; keep them as pure data.
+- **Don't:** Use `RefCell` or interior mutability inside components; let the ECS handle borrowing.
 
-- 研发/misc 下其他 Rust 工程与性能优化类技能。
-- 涉及数据导向设计（DoD）、缓存友好布局的通用优化方法。
+Troubleshooting:
+
+- **Problem:** System panic with a "Conflict" error.
+- **Solution:** Two parallel systems are accessing the same component mutably. Use `.chain()` to order them, or split the logic.
+
+Version compatibility: Bevy APIs (system scheduling, time API, `Sprite` construction, etc.) change frequently across major versions. Defer to the docs for your target version and verify with `cargo build` before shipping.
+
+## See also
+
+- Other Rust engineering and performance-optimization skills.
+- General data-oriented design (DoD) and cache-friendly layout optimization methods.
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+Adapted from sickn33/antigravity-awesome-skills (MIT).

@@ -1,14 +1,14 @@
 ---
 name: scientific-exploratory-data-analysis
-title: 科学数据探索性分析（200+ 格式）
-description: 当拿到科学数据文件（化学/生信/显微/光谱/蛋白代谢/通用）、动手分析前要先识别格式并摸清结构质量时使用；做扩展名自动识别→载入格式专属库→格式专属 EDA（维度/统计/质量/元数据），产出含发现与下游分析建议的 Markdown 报告；不适用于通用表/CSV 的纯画像（用 dataset-profiler）、深度质量修复（用 dataset-quality-auditor）、统计建模或可视化本身。触发词：FASTQ、PDB、mzML、显微图像、HDF5、科学数据格式、EDA 报告
+title: Exploratory Data Analysis
+description: Perform comprehensive exploratory data analysis on scientific data files across 200+ file formats. This skill should be used when analyzing any scientific data file to understand its structure, content, quality, and characteristics. Automatically detects file type and generates detailed markdown reports with format-specific analysis, quality metrics, and downstream analysis recommendations. Covers chemistry, bioinformatics, microscopy, spectroscopy, proteomics, metabolomics, and general scientific data formats.
 domain: 数据/analysis
-triggers: [科学数据探索性分析, EDA 报告 scientific data, FASTQ, PDB, mzML, ND2 显微图像, HDF5 NPY 数组, 200+ 文件格式识别, 生信 基因组 格式, 光谱 质谱 蛋白组 格式, 这个科学文件是什么 怎么读, 格式专属分析建议]
-tags: [数据, eda, 探索性分析, 科学数据, 生物信息, 化学, 显微成像, 光谱, 蛋白组学, 代谢组学, 文件格式识别]
-level: 进阶
+triggers: [FASTQ, PDB, mzML]
+tags: [eda]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python3, pandas, numpy, biopython, pysam, rdkit, mdanalysis, tifffile, nd2reader, pydicom, pymzml, pyteomics, nmrglue, h5py, scipy]
+tools: []
 requires: []
 related: [dataset-profiler, data-question-analyzer, guided-statistical-analysis, scientific-database-lookup]
 combines_with: [matplotlib-visualization, guided-statistical-analysis]
@@ -16,64 +16,346 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-# 科学数据探索性分析（200+ 格式）
+# Exploratory Data Analysis
 
-## 何时使用
+## Overview
 
-适用于：拿到一个**科学领域专用格式**的数据文件，在正式分析前先识别它是什么、能不能读、结构与质量如何、下游该怎么分析。覆盖六大类 200+ 扩展名：
+Perform comprehensive exploratory data analysis (EDA) on scientific data files across multiple domains. This skill provides automated file type detection, format-specific analysis, data quality assessment, and generates detailed markdown reports suitable for documentation and downstream analysis planning.
 
-- **化学/分子（60+）**：`.pdb` `.cif` `.mol` `.mol2` `.sdf` `.xyz` `.smi` `.gro` `.fchk` `.cube` `.dcd` `.xtc` `.trr` `.prmtop` `.psf`（结构、计算化学输出、MD 轨迹）。
-- **生信/基因组（50+）**：`.fasta` `.fastq` `.sam` `.bam` `.vcf` `.bed` `.gff` `.gtf` `.bigwig` `.h5ad` `.loom` `.mtx`（序列、比对、注释、变异、表达）。
-- **显微/成像（45+）**：`.tif` `.ome.tiff` `.nd2` `.lif` `.czi` `.ims` `.dcm` `.nii` `.mrc` `.dm3` `.svs`（光镜、医学影像、全片扫描、电镜）。
-- **光谱/分析化学（35+）**：`.fid` `.mzML` `.mzXML` `.raw` `.mgf` `.spc` `.jdx` `.xy` `.wdf`（NMR、质谱、IR/拉曼、UV-Vis、X 射线、色谱）。
-- **蛋白/代谢组（30+）**：`.mzML` `.pepXML` `.protXML` `.mzid` `.mzTab` `.sky` `.msp`（质谱蛋白组、代谢/脂质组、多组学）。
-- **通用科学（30+）**：`.npy` `.npz` `.hdf5` `.zarr` `.parquet` `.mat` `.fits` `.nc`（数组、层级数据、表）。
+**Key Capabilities:**
+- Automatic detection and analysis of 200+ scientific file formats
+- Comprehensive format-specific metadata extraction
+- Data quality and integrity assessment
+- Statistical summaries and distributions
+- Visualization recommendations
+- Downstream analysis suggestions
+- Markdown report generation
 
-典型请求："分析/探索/总结一下 reads.fastq / cells.nd2 / sample.mzML"、"这个科学文件是什么、用什么库读、适合做什么分析"、"出一份数据集 EDA 报告再决定下游"。
+## When to Use This Skill
 
-不该用（负边界）：
-- 只是**通用表/CSV/Excel/Parquet 的逐列画像**（空值率、基数、维度指标推荐）→ 用 `dataset-profiler`，更轻量贴合通用表。
-- 要**深度质量打分与清洗修复方案**（DQS、缺失机制）→ 用 `dataset-quality-auditor`。
-- 要做**统计建模/推断** → 用 `statsmodels-statistical-modeling`；只**画图** → 用 `matplotlib-visualization` / `seaborn-statistical-charts`。
+Use this skill when:
+- User provides a path to a scientific data file for analysis
+- User asks to "explore", "analyze", or "summarize" a data file
+- User wants to understand the structure and content of scientific data
+- User needs a comprehensive report of a dataset before analysis
+- User wants to assess data quality or completeness
+- User asks what type of analysis is appropriate for a file
 
-定位：本技能是"科学格式专属的先看一眼"，价值在**识别冷门格式 + 调对专用库 + 给领域化 EDA 与下游建议**，不替代后续的清洗、建模、可视化。
+## Supported File Categories
 
-## 步骤
+The skill has comprehensive coverage of scientific file formats organized into six major categories:
 
-**1. 识别文件类型**
-- 取扩展名（注意复合后缀如 `.ome.tiff`），映射到上面六大类之一。
-- 确定格式描述、典型内容、读取库、适配的 EDA 手段。冷门或厂商变体看不准时，先按文本/二进制做通用探查，并向用户确认。
+### 1. Chemistry and Molecular Formats (60+ extensions)
+Structure files, computational chemistry outputs, molecular dynamics trajectories, and chemical databases.
 
-**2. 调对专用库做格式专属 EDA**（核心，按类分流）
+**File types include:** `.pdb`, `.cif`, `.mol`, `.mol2`, `.sdf`, `.xyz`, `.smi`, `.gro`, `.log`, `.fchk`, `.cube`, `.dcd`, `.xtc`, `.trr`, `.prmtop`, `.psf`, and more.
 
-- **表格（CSV/TSV/Excel/Parquet）**：`pd.read_csv` → 维度、dtypes、空值、`describe()`、离群、重复。（若纯通用表建议转 `dataset-profiler`。）
-- **序列（FASTA/FASTQ）**：序列数、长度分布、GC 含量；FASTQ 另看质量值（Phred）分布。
-- **图像（TIFF/ND2/CZI/DICOM）**：维度（X/Y/Z/C/T）、位深与值域、通道/时间戳/空间标定等元数据、强度统计。
-- **数组（NPY/HDF5/Zarr）**：shape、dtype、统计摘要、NaN/Inf 检查；大文件用内存映射。
-- **质谱/光谱（mzML/mgf/fid）**：谱图数、m/z 与保留时间范围、强度分布、扫描级别（MS1/MS2）。
-- **结构（PDB/CIF/mol）**：原子/残基数、链、B 因子分布、缺失残基。
+**Reference file:** `references/chemistry_molecular_formats.md`
 
-**3. 评估质量**：格式合规性、元数据自洽（声明维度 vs 实际数据）、完整性、离群与异常、与预期范围/分布对比。
+### 2. Bioinformatics and Genomics Formats (50+ extensions)
+Sequence data, alignments, annotations, variants, and expression data.
 
-**4. 生成 Markdown 报告**，含固定小节：① 标题与元数据（文件名/时间/大小/位置）② 基本信息与格式识别 ③ 格式详情（描述/典型内容/读取库）④ 数据分析（结构/统计/质量）⑤ 关键发现（模式/隐患/质量指标）⑥ 建议（预处理/适配分析/工具/可视化）。
+**File types include:** `.fasta`, `.fastq`, `.sam`, `.bam`, `.vcf`, `.bed`, `.gff`, `.gtf`, `.bigwig`, `.h5ad`, `.loom`, `.counts`, `.mtx`, and more.
 
-**5. 保存报告**：命名 `{原文件名}_eda_report.md`（如 `reads.fastq` → `reads_eda_report.md`）。
+**Reference file:** `references/bioinformatics_genomics_formats.md`
 
-## 指令
+### 3. Microscopy and Imaging Formats (45+ extensions)
+Microscopy images, medical imaging, whole slide imaging, and electron microscopy.
 
-**高效查阅格式信息**：参考资料按扩展名小节组织（如 `### .pdb`），按需正则抽取对应段落，不要整文件灌入上下文；同类多文件复用一次查到的格式信息。
+**File types include:** `.tif`, `.nd2`, `.lif`, `.czi`, `.ims`, `.dcm`, `.nii`, `.mrc`, `.dm3`, `.vsi`, `.svs`, `.ome.tiff`, and more.
 
-**按类装库**（缺库时给清晰安装指引，统一用 `uv pip install <pkg>`）：
+**Reference file:** `references/microscopy_imaging_formats.md`
 
-| 类别 | 常用库 |
-|---|---|
-| 生信 | `biopython` `pysam` `pyBigWig` |
-| 化学 | `rdkit` `mdanalysis` `cclib` |
-| 显微/影像 | `tifffile` `nd2reader` `aicsimageio` `pydicom` |
-| 光谱/质谱 | `nmrglue` `pymzml` `pyteomics` |
-| 通用 | `pandas` `numpy` `h5py` `scipy` |
+### 4. Spectroscopy and Analytical Chemistry Formats (35+ extensions)
+NMR, mass spectrometry, IR/Raman, UV-Vis, X-ray, chromatography, and other analytical techniques.
 
-导入要容错并给出安装命令：
+**File types include:** `.fid`, `.mzML`, `.mzXML`, `.raw`, `.mgf`, `.spc`, `.jdx`, `.xy`, `.cif` (crystallography), `.wdf`, and more.
+
+**Reference file:** `references/spectroscopy_analytical_formats.md`
+
+### 5. Proteomics and Metabolomics Formats (30+ extensions)
+Mass spec proteomics, metabolomics, lipidomics, and multi-omics data.
+
+**File types include:** `.mzML`, `.pepXML`, `.protXML`, `.mzid`, `.mzTab`, `.sky`, `.mgf`, `.msp`, `.h5ad`, and more.
+
+**Reference file:** `references/proteomics_metabolomics_formats.md`
+
+### 6. General Scientific Data Formats (30+ extensions)
+Arrays, tables, hierarchical data, compressed archives, and common scientific formats.
+
+**File types include:** `.npy`, `.npz`, `.csv`, `.xlsx`, `.json`, `.hdf5`, `.zarr`, `.parquet`, `.mat`, `.fits`, `.nc`, `.xml`, and more.
+
+**Reference file:** `references/general_scientific_formats.md`
+
+## Workflow
+
+### Step 1: File Type Detection
+
+When a user provides a file path, first identify the file type:
+
+1. Extract the file extension
+2. Look up the extension in the appropriate reference file
+3. Identify the file category and format description
+4. Load format-specific information
+
+**Example:**
+```
+User: "Analyze data.fastq"
+→ Extension: .fastq
+→ Category: bioinformatics_genomics
+→ Format: FASTQ Format (sequence data with quality scores)
+→ Reference: references/bioinformatics_genomics_formats.md
+```
+
+### Step 2: Load Format-Specific Information
+
+Based on the file type, read the corresponding reference file to understand:
+- **Typical Data:** What kind of data this format contains
+- **Use Cases:** Common applications for this format
+- **Python Libraries:** How to read the file in Python
+- **EDA Approach:** What analyses are appropriate for this data type
+
+Search the reference file for the specific extension (e.g., search for "### .fastq" in `bioinformatics_genomics_formats.md`).
+
+### Step 3: Perform Data Analysis
+
+Use the `scripts/eda_analyzer.py` script OR implement custom analysis:
+
+**Option A: Use the analyzer script**
+```python
+# The script automatically:
+# 1. Detects file type
+# 2. Loads reference information
+# 3. Performs format-specific analysis
+# 4. Generates markdown report
+
+python scripts/eda_analyzer.py <filepath> [output.md]
+```
+
+**Option B: Custom analysis in the conversation**
+Based on the format information from the reference file, perform appropriate analysis:
+
+For tabular data (CSV, TSV, Excel):
+- Load with pandas
+- Check dimensions, data types
+- Analyze missing values
+- Calculate summary statistics
+- Identify outliers
+- Check for duplicates
+
+For sequence data (FASTA, FASTQ):
+- Count sequences
+- Analyze length distributions
+- Calculate GC content
+- Assess quality scores (FASTQ)
+
+For images (TIFF, ND2, CZI):
+- Check dimensions (X, Y, Z, C, T)
+- Analyze bit depth and value range
+- Extract metadata (channels, timestamps, spatial calibration)
+- Calculate intensity statistics
+
+For arrays (NPY, HDF5):
+- Check shape and dimensions
+- Analyze data type
+- Calculate statistical summaries
+- Check for missing/invalid values
+
+### Step 4: Generate Comprehensive Report
+
+Create a markdown report with the following sections:
+
+#### Required Sections:
+1. **Title and Metadata**
+   - Filename and timestamp
+   - File size and location
+
+2. **Basic Information**
+   - File properties
+   - Format identification
+
+3. **File Type Details**
+   - Format description from reference
+   - Typical data content
+   - Common use cases
+   - Python libraries for reading
+
+4. **Data Analysis**
+   - Structure and dimensions
+   - Statistical summaries
+   - Quality assessment
+   - Data characteristics
+
+5. **Key Findings**
+   - Notable patterns
+   - Potential issues
+   - Quality metrics
+
+6. **Recommendations**
+   - Preprocessing steps
+   - Appropriate analyses
+   - Tools and methods
+   - Visualization approaches
+
+#### Template Location
+Use `assets/report_template.md` as a guide for report structure.
+
+### Step 5: Save Report
+
+Save the markdown report with a descriptive filename:
+- Pattern: `{original_filename}_eda_report.md`
+- Example: `experiment_data.fastq` → `experiment_data_eda_report.md`
+
+## Detailed Format References
+
+Each reference file contains comprehensive information for dozens of file types. To find information about a specific format:
+
+1. Identify the category from the extension
+2. Read the appropriate reference file
+3. Search for the section heading matching the extension (e.g., "### .pdb")
+4. Extract the format information
+
+### Reference File Structure
+
+Each format entry includes:
+- **Description:** What the format is
+- **Typical Data:** What it contains
+- **Use Cases:** Common applications
+- **Python Libraries:** How to read it (with code examples)
+- **EDA Approach:** Specific analyses to perform
+
+**Example lookup:**
+```markdown
+### .pdb - Protein Data Bank
+**Description:** Standard format for 3D structures of biological macromolecules
+**Typical Data:** Atomic coordinates, residue information, secondary structure
+**Use Cases:** Protein structure analysis, molecular visualization, docking
+**Python Libraries:**
+- `Biopython`: `Bio.PDB`
+- `MDAnalysis`: `MDAnalysis.Universe('file.pdb')`
+**EDA Approach:**
+- Structure validation (bond lengths, angles)
+- B-factor distribution
+- Missing residues detection
+- Ramachandran plots
+```
+
+## Best Practices
+
+### Reading Reference Files
+
+Reference files are large (10,000+ words each). To efficiently use them:
+
+1. **Search by extension:** Use grep to find the specific format
+   ```python
+   import re
+   with open('references/chemistry_molecular_formats.md', 'r') as f:
+       content = f.read()
+       pattern = r'### \.pdb[^#]*?(?=###|\Z)'
+       match = re.search(pattern, content, re.IGNORECASE | re.DOTALL)
+   ```
+
+2. **Extract relevant sections:** Don't load entire reference files into context unnecessarily
+
+3. **Cache format info:** If analyzing multiple files of the same type, reuse the format information
+
+### Data Analysis
+
+1. **Sample large files:** For files with millions of records, analyze a representative sample
+2. **Handle errors gracefully:** Many scientific formats require specific libraries; provide clear installation instructions
+3. **Validate metadata:** Cross-check metadata consistency (e.g., stated dimensions vs actual data)
+4. **Consider data provenance:** Note instrument, software versions, processing steps
+
+### Report Generation
+
+1. **Be comprehensive:** Include all relevant information for downstream analysis
+2. **Be specific:** Provide concrete recommendations based on the file type
+3. **Be actionable:** Suggest specific next steps and tools
+4. **Include code examples:** Show how to load and work with the data
+
+## Examples
+
+### Example 1: Analyzing a FASTQ file
+
+```python
+# User provides: "Analyze reads.fastq"
+
+# 1. Detect file type
+extension = '.fastq'
+category = 'bioinformatics_genomics'
+
+# 2. Read reference info
+# Search references/bioinformatics_genomics_formats.md for "### .fastq"
+
+# 3. Perform analysis
+from Bio import SeqIO
+sequences = list(SeqIO.parse('reads.fastq', 'fastq'))
+# Calculate: read count, length distribution, quality scores, GC content
+
+# 4. Generate report
+# Include: format description, analysis results, QC recommendations
+
+# 5. Save as: reads_eda_report.md
+```
+
+### Example 2: Analyzing a CSV dataset
+
+```python
+# User provides: "Explore experiment_results.csv"
+
+# 1. Detect: .csv → general_scientific
+
+# 2. Load reference for CSV format
+
+# 3. Analyze
+import pandas as pd
+df = pd.read_csv('experiment_results.csv')
+# Dimensions, dtypes, missing values, statistics, correlations
+
+# 4. Generate report with:
+# - Data structure
+# - Missing value patterns
+# - Statistical summaries
+# - Correlation matrix
+# - Outlier detection results
+
+# 5. Save report
+```
+
+### Example 3: Analyzing microscopy data
+
+```python
+# User provides: "Analyze cells.nd2"
+
+# 1. Detect: .nd2 → microscopy_imaging (Nikon format)
+
+# 2. Read reference for ND2 format
+# Learn: multi-dimensional (XYZCT), requires nd2reader
+
+# 3. Analyze
+from nd2reader import ND2Reader
+with ND2Reader('cells.nd2') as images:
+    # Extract: dimensions, channels, timepoints, metadata
+    # Calculate: intensity statistics, frame info
+
+# 4. Generate report with:
+# - Image dimensions (XY, Z-stacks, time, channels)
+# - Channel wavelengths
+# - Pixel size and calibration
+# - Recommendations for image analysis
+
+# 5. Save report
+```
+
+## Troubleshooting
+
+### Missing Libraries
+
+Many scientific formats require specialized libraries:
+
+**Problem:** Import error when trying to read a file
+
+**Solution:** Provide clear installation instructions
 ```python
 try:
     from Bio import SeqIO
@@ -81,53 +363,91 @@ except ImportError:
     print("Install Biopython: uv pip install biopython")
 ```
 
-**大文件策略**：抽样（前 N 条）、内存映射（HDF5/NPY）、分块处理（CSV/FASTQ），并基于样本给出估计；声明这是抽样结果。
+Common requirements by category:
+- **Bioinformatics:** `biopython`, `pysam`, `pyBigWig`
+- **Chemistry:** `rdkit`, `mdanalysis`, `cclib`
+- **Microscopy:** `tifffile`, `nd2reader`, `aicsimageio`, `pydicom`
+- **Spectroscopy:** `nmrglue`, `pymzml`, `pyteomics`
+- **General:** `pandas`, `numpy`, `h5py`, `scipy`
 
-**多文件/QC/预处理**：多个相关文件先各自 EDA 再做对比汇总与整合建议；QC 关注合规、元数据一致、完整性、离群；按数据特征推荐归一化、缺失插补、离群处理、批次校正、格式转换。
+### Unknown File Types
 
-## 示例
+If a file extension is not in the references:
 
-FASTQ 序列文件：
-```python
-from Bio import SeqIO
-seqs = list(SeqIO.parse('reads.fastq', 'fastq'))
-# 计算：read 数、长度分布、Phred 质量值分布、GC 含量 → 出 QC 建议
-# 保存：reads_eda_report.md
+1. Ask the user about the file format
+2. Check if it's a vendor-specific variant
+3. Attempt generic analysis based on file structure (text vs binary)
+4. Provide general recommendations
+
+### Large Files
+
+For very large files:
+
+1. Use sampling strategies (first N records)
+2. Use memory-mapped access (for HDF5, NPY)
+3. Process in chunks (for CSV, FASTQ)
+4. Provide estimates based on samples
+
+## Script Usage
+
+The `scripts/eda_analyzer.py` can be used directly:
+
+```bash
+# Basic usage
+python scripts/eda_analyzer.py data.csv
+
+# Specify output file
+python scripts/eda_analyzer.py data.csv output_report.md
+
+# The script will:
+# 1. Auto-detect file type
+# 2. Load format references
+# 3. Perform appropriate analysis
+# 4. Generate markdown report
 ```
 
-ND2 显微图像（Nikon，多维 XYZCT）：
-```python
-from nd2reader import ND2Reader
-with ND2Reader('cells.nd2') as images:
-    # 提取：维度(XY/Z 栈/时间/通道)、通道波长、像素尺寸标定、强度统计
-    # 报告含：图像维度、通道波长、空间标定、图像分析建议
-```
+The script supports automatic analysis for many common formats, but custom analysis in the conversation provides more flexibility and domain-specific insights.
 
-CSV 数据集（属通用表，若仅做画像优先转 `dataset-profiler`）：
-```python
-import pandas as pd
-df = pd.read_csv('experiment_results.csv')
-# 维度、dtypes、空值模式、统计摘要、相关矩阵、离群检测
-```
+## Advanced Usage
 
-## 注意事项
+### Multi-File Analysis
 
-- **科学格式高度依赖专用库**：import 失败先给安装命令，别硬读二进制。
-- **校验元数据自洽**：交叉核对声明维度与实际数据（如 ND2 标称通道数 vs 实读）。
-- **大文件务必抽样/分块/内存映射**，并显式声明结果基于样本。
-- **复合扩展名与厂商变体**（`.ome.tiff`、各家 `.raw`）易误判；不确定就问用户或按文本/二进制兜底通用探查。
-- **关注数据来源**：记录仪器、软件版本、处理步骤，利于下游复现。
-- 本技能侧重"识别 + 格式专属探查 + 出报告"，发现脏数据/需建模/需作图请转交对应技能，不在此阶段越界处理。
-- 报告要可执行：给出具体下游分析、工具与代码示例，而非泛泛而谈。
+When analyzing multiple related files:
+1. Perform individual EDA on each file
+2. Create a summary comparison report
+3. Identify relationships and dependencies
+4. Suggest integration strategies
 
-## 互见
+### Quality Control
 
-- related：`dataset-profiler` —— 通用表/CSV 的轻量逐列画像与维度指标推荐；本技能则专攻科学专用格式。
-- related：`dataset-quality-auditor` —— EDA 发现质量隐患后转它做五维审计、DQS 评分与修复方案。
-- related：`statsmodels-statistical-modeling` —— 探查后需要严谨统计推断/建模时转它。
-- combines_with：`matplotlib-visualization` / `seaborn-statistical-charts` —— 把分布、强度、质量值等画成图。
-- combines_with：`csv-data-cleaner` —— 报告暴露脏数据后用它清洗整形。
+For data quality assessment:
+1. Check format compliance
+2. Validate metadata consistency
+3. Assess completeness
+4. Identify outliers and anomalies
+5. Compare to expected ranges/distributions
 
----
+### Preprocessing Recommendations
 
-采编自 K-Dense-AI/scientific-agent-skills（MIT 许可）。
+Based on data characteristics, recommend:
+1. Normalization strategies
+2. Missing value imputation
+3. Outlier handling
+4. Batch correction
+5. Format conversions
+
+## Resources
+
+### scripts/
+- `eda_analyzer.py`: Comprehensive analysis script that can be run directly or imported
+
+### references/
+- `chemistry_molecular_formats.md`: 60+ chemistry/molecular file formats
+- `bioinformatics_genomics_formats.md`: 50+ bioinformatics formats
+- `microscopy_imaging_formats.md`: 45+ imaging formats
+- `spectroscopy_analytical_formats.md`: 35+ spectroscopy formats
+- `proteomics_metabolomics_formats.md`: 30+ omics formats
+- `general_scientific_formats.md`: 30+ general formats
+
+### assets/
+- `report_template.md`: Comprehensive markdown template for EDA reports

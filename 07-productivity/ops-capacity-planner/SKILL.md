@@ -1,14 +1,14 @@
 ---
 name: ops-capacity-planner
-title: 运营产能与人力规划
-description: 当运营负责人（客服/CX/客户成功/BizOps/IT/财务运营）需要按排队工作量给团队定编、做人力预算、评估利用率风险或排布季度招聘时使用；用 Erlang-C 排队论、P90 需求、缩水率调整的 FTE 与管理跨度触发，产出产能定编、利用率体检与12个月季度招聘计划；不适用于工程产能（看 DORA/周期时间）或3-5年战略人力规划。触发词：产能规划、定编、利用率、招聘排期
+title: capacity-planner
+description: Use when an ops leader (Director of CX, Head of Support, VP Ops, Head of BizOps, Head of IT ops, Head of Finance ops) is sizing ops capacity, building a headcount plan, modeling utilization risk, planning Q3 capacity or annual support capacity, or designing CS coverage — and needs Erlang-C queueing math, P90 demand sizing, shrinkage-adjusted FTE, manager-trigger thresholds, and a quarterly hiring sequence with ramp + attrition. Apply when sustained team utilization is above 80% or when the team is growing >50% in 12 months. Run before committing the headcount budget. This is NOT engineering capacity (see vpe-advisor for DORA + cycle time) and NOT strategic 3-year workforce planning (see chro-advisor).
 domain: 协作/pm
-triggers: [运营产能规划, 团队定编/headcount 预算, 利用率超过80%或团队12个月内增长超50%, 客服/CX/客户成功/BizOps/IT/财务运营人力测算, 排队工作SLA未达标排查（定编/流程/瓶颈）, 季度招聘排期与管理岗触发, Erlang-C/P90 需求/缩水率 FTE 测算, M&A 或新业务线团队定编]
-tags: [bizops, 产能规划, headcount, 利用率, 排队论, erlang-c, little定律, 招聘排期]
-level: 进阶
+triggers: []
+tags: [bizops, headcount, erlang-c]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, Read, Write]
+tools: []
 requires: []
 related: [coo-operations-advisor, business-process-mapper, company-operating-system, enterprise-project-manager]
 combines_with: [coo-operations-advisor, business-process-mapper, startup-financial-modeler]
@@ -16,111 +16,245 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# capacity-planner
 
-面向**处理排队工作**（工单、案例、工作项）的运营团队定编：客服、CX、客户成功、BizOps、IT 运营、财务运营。基于 Erlang-C 排队论、Little 定律与运营管理经典（Fournier、Larson、Cleveland、Reinertsen）。纯确定性计算，仅用 Python 标准库，无 LLM 调用。
+Sizing tool for **ops teams that handle queued work** — Support, CX,
+Customer Success, BizOps, IT ops, Finance ops. Built on Erlang-C
+queueing theory, Little's Law, and the operational-leadership canon
+(Fournier, Larson, Cleveland, Reinertsen). Deterministic, stdlib-only,
+no LLM calls.
 
-典型触发：
-- **年度运营产能规划**（次财年的 10-11 月）。
-- **季度再定编**：需求变化超 15% 或流失率骤升。
-- **预算答辩**：用算术而非"感觉"向 CFO 论证 headcount。
-- **诊断**：团队持续未达 SLA，需判断是定编、流程还是瓶颈问题。
-- **M&A / 新业务线**：为新团队或合并组织定编。
-- 适用门槛：团队**持续利用率高于 80%**，或**12 个月内增长超 50%**。在确定 headcount 预算前运行。
+## Purpose
 
-**不该用边界**：
-- 工作不是排队制（项目型工作）→ 用错了技能。
-- **工程产能** → 用 DORA 四项指标 / 周期时间 / WIP 那套（不同工作单元、不同数学）。
-- **3-5 年战略人力规划**（能力组合、人才供给、继任）→ 属战略 HR，本技能只做 0-12 个月的运营定编。
-- 项目交付吞吐（Jira 速度、冲刺容量）→ 用项目管理工具。
-- 先**找瓶颈**再定编：若不知道瓶颈在哪，先做流程映射（process-mapper），再用本技能围绕已知瓶颈定编——绕着错误约束招人等于浪费。
+You are an ops leader sized 15 → 35 with no idea how the 35-person org
+will actually behave at peak load. Or you are at 88% utilization and
+SLA is starting to slip. Or you have a hiring budget approved and need
+to sequence it across four quarters without burning out the existing
+team. This skill answers those questions with arithmetic, not vibes.
 
-## 步骤
+It produces three artifacts:
 
-1. **取需求分布**。从工单系统（Zendesk、Intercom、JSM、ServiceNow、Salesforce）拉取每日工单/案例量的 P50/P90/P99。**只有均值时立刻停下去拉分布**——单点需求估计是运营中最昂贵的反模式。
-2. **建模吞吐**。用你的需求、AHT（平均处理时长）、SLA 目标、当前 FTE、缩水率运行 `capacity_modeler.py`，按职能加 `--profile`。**读 80% 利用率那一行——那是你的定编点**。
-3. **标利用率风险**。对团队真实利用率数据运行 `utilization_analyzer.py`。任何人**持续 >85%** 即吞吐崩溃风险（Reinertsen）；团队内差距 >30 个百分点为 UNBALANCED（失衡）——招人前先修。
-4. **排招聘**。用当前 FTE、年末目标、爬坡时长、流失率、增长率运行 `hiring_sequencer.py`。它会前置招聘（Q1 35%、Q4 15%）、套用爬坡曲线，并在管理跨度越过 **7 IC/经理**时触发管理岗招聘。
-5. **过逼问清单**（见下）。一次一题，不许跳。提交计划前答案必须写下来。
+1. **Capacity sizing** at 70/80/90% utilization against P50/P90/P99
+   demand, with P(SLA breach) at each point and a SAFE/WATCH/AT_RISK/CRITICAL
+   risk band.
+2. **Utilization health** at the per-member traffic-light level plus a
+   team verdict (HEALTHY/SQUEEZED/OVERLOADED/UNBALANCED).
+3. **12-month quarterly hiring plan** accounting for ramp curves,
+   attrition, QoQ demand growth, and span-of-control manager triggers.
 
-## 指令
+## When to use
 
-三个脚本均支持 `--input <path>`（JSON）、`--output {markdown,json}`、`--sample`（内置示例）、`--help`，纯标准库。
+- **Annual ops capacity planning** (October-November for the following
+  fiscal year).
+- **Quarterly re-sizing** if demand changed >15% or attrition spiked.
+- **Pre-budget defense** — the math that justifies the headcount ask
+  to your CFO.
+- **Diagnostic** when an ops team is missing SLA and you need to know
+  whether it's a sizing problem, a process problem, or a bottleneck
+  problem.
+- **M&A / new-segment launch** modeling — sizing a new team or
+  combined org.
 
-- `scripts/capacity_modeler.py` —— Erlang-C 定编，含缩水率调整与 P50/P90/P99 违约概率；`--profile` 取行业默认值。产出 70/80/90% 利用率下所需 FTE、各点 P(SLA 违约) 与 SAFE/WATCH/AT_RISK/CRITICAL 风险带。`--profile` 可选 `support / cx / bizops / finance-ops / it-ops`。
-- `scripts/utilization_analyzer.py` —— 逐人红绿灯 + 团队级健康判定（HEALTHY/SQUEEZED/OVERLOADED/UNBALANCED），含方差检测。
-- `scripts/hiring_sequencer.py` —— 12 个月季度计划，含爬坡、流失、增长、每季度最大招聘数约束与管理岗触发逻辑。
+## Workflow
 
-运行示例：
+1. **Intake demand**. Pull P50/P90/P99 daily ticket/case volume from
+   your work system (Zendesk, Intercom, JSM, ServiceNow, Salesforce).
+   If you only have averages, stop and pull the distribution. Single-
+   point demand estimates are the most expensive anti-pattern in ops.
+2. **Model throughput**. Run `capacity_modeler.py` with your demand,
+   AHT, SLA target, current FTE, and shrinkage. Use `--profile` for
+   your function (support / cx / bizops / finance-ops / it-ops). Read
+   the 80%-utilization row — that's your sizing point.
+3. **Flag utilization risk**. Run `utilization_analyzer.py` against
+   your current team's actual utilization data. Anyone >85% sustained
+   is a throughput-collapse risk per Reinertsen. Spread >30 percentage
+   points across team means UNBALANCED — fix that before hiring.
+4. **Sequence hiring**. Run `hiring_sequencer.py` with current FTE,
+   target EOY, ramp time, attrition, and growth. It will front-load
+   hires (Q1 35%, Q4 15%), apply ramp curves, and trigger a manager
+   hire when span of control crosses 7 ICs/manager.
+5. **Walk the Forcing-question library** (see below). One question at
+   a time. Do not skip ahead. Answers must be written down before
+   you commit the plan.
 
-```bash
-python scripts/capacity_modeler.py --profile support --sample
-python scripts/capacity_modeler.py --input demand.json --profile cx --output json
-python scripts/utilization_analyzer.py --input team_util.json
-python scripts/hiring_sequencer.py --input hiring.json --output markdown
-```
+## Scripts
 
-**关键约束（建模假设）**：
-- 工作必须**排队**（工单/案例/工作项），非项目型。
-- 一个季度内需求分布**足够平稳**；阶跃变化（新品发布、M&A、监管变动）需季中重跑。
-- 至少 **90 天历史需求数据**才能算 P50/P90/P99；不足则先从销售/用户量预测生成分布。
-- 队列内为**单一服务等级**；若有硬优先级分层（P1/P2/P3 各有 SLA），每层建一个独立队列再求和。
-- **多渠道需连贯建模**：用对应 `--profile`，内置缩水率溢价。
+- `scripts/capacity_modeler.py` — Erlang-C sizing with shrinkage
+  adjustment and P50/P90/P99 breach probabilities. `--profile`
+  for industry defaults.
+- `scripts/utilization_analyzer.py` — per-member traffic-light +
+  team-level health verdict with variance detection.
+- `scripts/hiring_sequencer.py` — 12-month quarterly plan with ramp,
+  attrition, growth, max-hires-per-quarter constraint, and
+  manager-trigger logic.
 
-## 示例
+All three accept `--input <path>` (JSON), `--output {markdown,json}`,
+`--sample` (built-in example), and `--help`. Stdlib only.
 
-`capacity_modeler.py` 的输入 JSON 骨架：
+## References
 
-```json
-{
-  "team_name": "Tier-1 Support",
-  "demand": {
-    "tickets_per_day_p50": 320,
-    "tickets_per_day_p90": 480,
-    "tickets_per_day_p99": 720
-  },
-  "sla_target_minutes": 60,
-  "current_fte": 12,
-  "avg_handle_time_minutes": 18,
-  "shrinkage_pct": 30,
-  "working_hours_per_day": 8
-}
-```
+- `references/queueing_theory_canon.md` — Erlang, Little, Hopp &
+  Spearman, Reinertsen, Kingman, Cleveland, ITIL, Armony et al. (8
+  sources). The math.
+- `references/ops_workforce_planning_canon.md` — Fournier, Larson,
+  Google SRE Workbook, Frei, Lawler, Bersin, Gartner, Grove (8
+  sources). The people factors.
+- `references/capacity_anti_patterns.md` — 11 named anti-patterns
+  with cited sources, tool guards, and the meta-discipline that
+  Lencioni + Goldratt + Christensen impose. (8+ named sources.)
 
-行业 `--profile` 默认（缩水率% / SLA 目标分钟）：support 30/60、cx 32/30、bizops 25/240、finance-ops 22/480、it-ops 28/120。缩水率 = 不可用于产出工单的带薪时间占比（培训、休息、同步、PTO、临时打断）。
+## Assets
 
-读结果时：先看 80% 利用率行定编；P(P90 违约)>10% 说明定编点欠员；P(P99 违约)>50% 说明没有峰值预案。
+- `assets/capacity_brief_template.md` — 20-minute fill-out template
+  with JSON skeletons for all three tools and an output checklist.
 
-## 注意事项
+## Assumptions
 
-**反模式（Top 8，详见来源清单）**：
-1. 按 100% 利用率规划（Reinertsen 原则 12）。
-2. 把爬坡当瞬时（Larson）。
-3. 12 个月计划忽略流失（Bersin）——30% 年流失下，20 人团队一年走约 6 人，"净增 5"实为"招 11"。
-4. 永远只招 IC、无管理岗触发（Fournier）——越过 7 IC/经理后 1:1 退化，越过 10 即覆盖危机，**在跨 10 之前**招经理。
-5. 只按 P50 需求定编（Cleveland）——会有一半时间错过 SLA；按 P99 又超配 30-50%，**P90 才是正确运营定编点**。
-6. 不做缩水率调整（Cleveland、SRE Workbook）。
-7. 多渠道工作用单渠道模型（Gartner、Kingman）。
-8. P99 事件无峰值预案（Hopp & Spearman、Reinertsen）——没有溢出层/外包/降级契约，P99 当天就是董事会可见的火情。
+This skill assumes:
 
-**逼问清单（一次一题、按序、写下答案）**：
-1. 你的瓶颈是什么，是否经验证实？（不是"感觉"，要带排队等待数据的具体阶段；Goldratt：系统同时只有一个绑定约束。）
-2. 你在接受何种服务权衡？（快 vs 共情 / 广 vs 深 / 低成本 vs 高质量——Frei：四者不可兼得。AHT/SLA/缩水率必须与该权衡一致。）
-3. 你的需求 P90 是多少，到 P99 差多大？（两个来自近 90 天的具体数字 + 日历背景。）
-4. 在计划利用率下，P90 与 P99 的 P(SLA 违约) 各是多少？（用 Erlang-C 算，不是猜。）
-5. 你为今年的流失预算了替补招聘吗？（具体数字。）
-6. 管理跨度何时触发管理岗招聘，候选人是谁？（来自 `hiring_sequencer.py` 的具体季度 + 至少一名候选人。）
-7. P99 当天的峰值预案是什么？（溢出层 / 外包合约 / on-call / 升级树，或书面降级契约。）
+- Work is **queued** (tickets, cases, work items) — not project-style.
+  If your team's work isn't queued, this is the wrong skill.
+- Demand has a **stationary-enough distribution** within a quarter.
+  Step-changes (new product launch, M&A, regulatory shift) require
+  re-running mid-quarter.
+- You have **at least 90 days of historical demand data** to compute
+  P50/P90/P99. If not, generate the distribution from your sales /
+  user-base forecast first.
+- Service is **single-class** within a queue. If you have hard
+  priority tiers (P1/P2/P3 with class-specific SLAs), model each as
+  a separate queue and sum.
+- **Channels are modeled coherently.** Multi-channel teams use the
+  appropriate `--profile` with built-in shrinkage premium.
 
-提交的计划，其可辩护程度只等于你对这七问的回答质量。
+## Anti-patterns
 
-## 互见
+See `references/capacity_anti_patterns.md` for the full taxonomy with
+sources. Top eight:
 
-- **工程产能**：用 DORA 四项指标、周期时间、WIP 衡量工程吞吐——不同工作单元与数学，不在本技能范围。
-- **战略人力规划**：1-5 年能力组合、人才供给、继任——本技能只做运营 0-12 月定编（Lawler：混淆二者会被招进错的岗位）。
-- **流程映射（process-mapper）**：先**找**瓶颈，本技能再**围绕**已知瓶颈定编。顺序：process-mapper → capacity-planner。
-- **CS 覆盖（cs-coverage）**：按 ARR/CSM 比与分层定编客户成功；本技能按排队工作量（工单、案例、升级）定编。同时承担关系工作与工单队列的 CS 团队，两者都跑。
+1. Plan-to-100%-utilization (Reinertsen Principle 12)
+2. Treat-ramp-as-instant (Larson)
+3. Ignore-attrition-in-12-month-plan (Bersin)
+4. Hire-ICs-forever-with-no-manager-trigger (Fournier)
+5. Size-to-P50-demand-only (Cleveland)
+6. No-shrinkage-adjustment (Cleveland, SRE Workbook)
+7. Single-channel-model-for-multi-channel-work (Gartner, Kingman)
+8. No-surge-plan-for-P99-events (Hopp & Spearman, Reinertsen)
+
+## Distinct from
+
+- **`c-level-advisor/vpe-advisor`** measures *engineering* throughput
+  via DORA 4 metrics, story points, deployment frequency, and cycle
+  time bottlenecks. It is for engineering teams shipping code. This
+  skill is for ops teams handling tickets/cases. Different unit of
+  work, different math (Erlang-C vs. DORA), different bottleneck
+  (queueing-blind staffing vs. WIP + lead time).
+- **`c-level-advisor/chro-advisor`** does *strategic* workforce
+  planning (1-5 year capability portfolios, talent supply, leadership
+  succession). This skill does *operational* 0-12 month capacity
+  sizing against demand. Per Lawler: conflating them gets you hired
+  into the wrong jobs.
+- **`project-management/*`** tracks delivery throughput on projects
+  (Jira velocity, sprint capacity). This skill sizes around steady-
+  state queued work.
+- **Sibling `process-mapper`** *finds* the bottleneck. This skill
+  *sizes the team around* a known bottleneck. Order of operations:
+  process-mapper first → capacity-planner second. Hiring around the
+  wrong constraint wastes the hires.
+- **`business-growth/cs-coverage`** (if it exists) sizes Customer
+  Success coverage by ARR/CSM ratio and segment. This skill sizes by
+  queued work volume (tickets, cases, escalations). For a CS team
+  that handles both relationship work AND a ticket queue, run both.
+
+## Forcing-question library (Matt Pocock grill discipline)
+
+**Discipline**: walk these one at a time. Do not skip ahead. Answers must
+be written down. If you can't answer one, that is your next investigation.
+
+### Q1 — "What is your bottleneck, and have you confirmed it empirically?"
+
+**Recommended answer**: a named, measured stage in the workflow with
+queue-time data showing where work waits. Not a vibe. Not "escalations
+take too long". An actual measured queue.
+
+**Why it's the first question**: Goldratt (*The Goal*, 1984) — every
+system has exactly one binding constraint at a time. Sizing around the
+wrong constraint wastes hires entirely. If you do not know your
+bottleneck, run `process-mapper` BEFORE this skill.
+
+**Canon**: Eli Goldratt, *The Goal* (1984); Reinertsen, *Principles of
+Product Development Flow* (2009).
+
+### Q2 — "What service trade-off are you accepting?"
+
+**Recommended answer**: a written, explicit choice — fast vs. empathetic,
+broad vs. deep, low-cost vs. high-quality. Frances Frei is unambiguous:
+you cannot win all four. The team that tries wins zero.
+
+**Why it matters**: AHT, SLA, and shrinkage inputs are the operational
+expression of this trade-off. If they don't agree (e.g., you set AHT for
+"empathy" but SLA for "speed"), the plan is internally inconsistent.
+
+**Canon**: Frances Frei & Anne Morriss, *Uncommon Service* (HBR Press,
+2012).
+
+### Q3 — "What's your demand P90, and what's the gap to your P99?"
+
+**Recommended answer**: two specific numbers from the last 90 days of
+data, with the calendar context of each (e.g., "P90 was 480 tickets/day
+on normal Tuesdays; P99 was 720 on the day after the November release").
+A team sized to P50 misses SLA half the time. A team sized to P99
+overstaffs by 30-50%. P90 is the right operating sizing point per
+Cleveland.
+
+**Canon**: Brad Cleveland, *Call Center Management on Fast Forward* (4th
+ed., 2019); A.K. Erlang, *The Theory of Probabilities and Telephone
+Conversations* (1909).
+
+### Q4 — "At your planned utilization, what is P(SLA breach) at P90 and at P99?"
+
+**Recommended answer**: two probabilities, computed (not guessed) from
+Erlang-C with your specific N, AHT, and SLA target. If P(breach at P90)
+> 10% you are understaffed at the sizing point. If P(breach at P99) >
+50% you have no surge plan and the next peak event will be visible to
+the CEO.
+
+**Canon**: Erlang (1909); Hopp & Spearman, *Factory Physics* (3rd ed.,
+2008), VUT equation.
+
+### Q5 — "Have you budgeted replacement hires for the attrition you'll see this year?"
+
+**Recommended answer**: yes, with a specific number. At 30% annual
+attrition (Bersin BPO midpoint), a 20-FTE team loses ~6 people this year.
+If your "add 5 net" plan is actually a "hire 11" plan, the recruiting
+volume changes drastically. Anti-pattern #3.
+
+**Canon**: Bersin/Deloitte talent benchmarks (2015-2023); Edward Lawler,
+*Strategic Workforce Planning* (USC CEO, 2008).
+
+### Q6 — "When does span of control trigger a manager hire, and who is the candidate?"
+
+**Recommended answer**: a specific quarter (from `hiring_sequencer.py`)
+and at least one identified candidate (internal lead or external hire).
+Past 7 ICs/manager, 1:1s degrade, feedback cycles slip, attrition
+climbs. Past 10 you have a coverage crisis. Hire the manager BEFORE
+crossing 10, not after.
+
+**Canon**: Camille Fournier, *The Manager's Path* (O'Reilly, 2017),
+ch. 5; Andy Grove, *High Output Management* (1983).
+
+### Q7 — "What is your surge plan for the P99 day?"
+
+**Recommended answer**: an explicit, documented plan — overflow tier,
+BPO contracted capacity, on-call rotation, executive escalation tree,
+OR a written degradation contract that says "on P99 days we extend SLA
+to X minutes and notify customers proactively". If the answer is "we'll
+figure it out", the P99 day is a fire visible to the board.
+
+**Canon**: Hopp & Spearman, *Factory Physics* (2008); Reinertsen (2009)
+on capacity-margin discipline.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+**Walk these seven in order. One at a time. Write the answers down. The
+plan you submit is only as defensible as your answers to these seven
+questions.**

@@ -1,14 +1,14 @@
 ---
 name: autoresearch-optimization-agent
-title: 自主实验优化智能体循环
-description: 当你有一个目标文件、一条会输出可量化指标的评估命令、且代码在 git 仓库中，想让智能体长时间自动优化（更快/更小/质量更高）时使用；做的事：单变量改文件→提交→跑固定评估→改进则保留、变差则 git reset 回退→循环累积并记录到 results.tsv；不适用于无法量化、缺评估命令或不在 git 下的任务，也不要边改评估器边比对。触发词：优化、实验循环、autoresearch
+title: Autoresearch Optimization Agent Loop
+description: Run an autonomous experiment loop that optimizes a single target file against a measurable metric — edit one variable, commit, run a fixed evaluation, keep improvements / git reset failures, and loop indefinitely. Triggers: optimize, benchmark, experiment loop, autoresearch.
 domain: 智能/agents
-triggers: [把这个文件优化得更快/更小/更好, 用可量化指标跑一个改进实验循环, 通宵/定时自动跑实验并保留更优结果, 优化提示词/标题/文案的 CTR 或质量分, 我要把某指标从 X 提升到 Y, autoresearch 自主实验优化]
-tags: [智能体, 实验优化, 自动化循环, git, 评估指标, 性能优化, 提示词优化, autoresearch]
-level: 进阶
+triggers: [make this file faster/smaller/better, run an improvement loop with a measurable metric, run experiments overnight / on a schedule and keep the best, optimize prompts/headlines/copy for CTR or quality, get a metric from X to Y, autoresearch autonomous experiment optimization]
+tags: [agent, experiment-optimization, automation-loop, git, eval-metrics, performance, prompt-optimization, autoresearch]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, Read, Edit, Write]
+tools: []
 requires: []
 related: [autonomous-coding-agent-patterns, parallel-agent-hub, self-improving-memory-agent, llm-model-router]
 combines_with: [llm-agent-benchmarking, git-worktrees-workflow, skill-optimizer]
@@ -16,45 +16,47 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-灵感来自 Karpathy 的 autoresearch：智能体反复「改一个文件 → 跑固定评估 → 改进则保留、变差则回退」，让微小提升不断复利累积。不是一次猜测，而是几十次有度量的尝试。
+> You sleep. The agent experiments. You wake up to results.
 
-适用场景（用户往往这样表述）：
-- 「把这个更快/更小/更好」「优化 [文件] 的 [指标]」
-- 「优化我的标题/文案/提示词」「通宵跑实验」「把 [指标] 从 X 提升到 Y」
-- 任何含 optimize / benchmark / improve / 实验循环 / autoresearch 的请求
+Autonomous experiment loop inspired by [Karpathy's autoresearch](https://github.com/karpathy/autoresearch): the agent edits **one** file, runs a fixed evaluation, keeps improvements, discards failures, and loops indefinitely — so tiny gains compound. Not one guess, but fifty measured attempts.
 
-判定标准：用户能给出**一个目标文件 + 一种衡量成败的方式** → 适用。
+Recognize these patterns from the user:
+- "Make this faster / smaller / better" · "Optimize [file] for [metric]"
+- "Improve my [headlines / copy / prompts]" · "Run experiments overnight" · "Get [metric] from X to Y"
+- Any request involving: optimize, benchmark, improve, experiment loop, autoresearch
 
-**不该用的边界：**
-- 成败无法量化（无法用一个数值衡量好坏）。
-- 没有可复现的评估命令，或评估命令跑不通。
-- 目标文件不在 git 仓库里（无法 commit / reset，循环失去回退基础）。
-- 需要同时改动多处、目标含糊的「大重构」——本循环要求每次只动一个变量。
-- 仅做架构/设计决策（属设计阶段，先定方案再用本循环优化）。
+Decision rule: if the user can give you **a target file + a way to measure success** → this skill applies.
 
-## 步骤
+**Do NOT use when:**
+- Success cannot be quantified (no single numeric metric tells good from bad).
+- There is no reproducible evaluation command, or the eval command does not run.
+- The target file is not in a git repo (no commit / reset → the loop loses its rollback floor).
+- The task is a vague "big refactor" touching many places at once — the loop requires exactly one variable per iteration.
+- It is purely an architecture/design decision — decide the design first, then optimize with this loop.
 
-**前置检查（开跑前必做，发现问题主动报警）：**
-1. 评估命令先单跑一次，确认能输出 `指标名: 数值`。
-2. 目标文件不在 git 中 → 先 `git init && git add . && git commit -m 'initial'`。
-3. 指标方向不明 → 先问清「越低越好还是越高越好」。
-4. 评估耗时是否超过时间预算——超了则每轮都会超时崩溃。
+## Steps
 
-**首次建实验（setup 脚本，scope 决定 `.autoresearch/` 落在哪）：**
-- `project`（默认）→ 仓库根目录，实验定义入 git、结果 gitignore。
-- `user` → `~/.autoresearch/`，全部私有。
+**Proactive pre-flight checks (do before looping; flag problems unasked):**
+1. Run the eval command once standalone — confirm it prints `metric_name: value`.
+2. Target file not in git → `git init && git add . && git commit -m 'initial'` first.
+3. Metric direction unclear → ask: is **lower** or **higher** better? Must know before starting.
+4. Time budget too short → if the eval takes longer than the budget, every run crashes.
+
+**First time — create the experiment** (the `--scope` flag decides where `.autoresearch/` lives):
+- `project` (default) → `.autoresearch/` in repo root; definitions are git-tracked, results gitignored.
+- `user` → `~/.autoresearch/` in the home directory; everything is personal.
 
 ```bash
-# 工程类·优化 API 速度（越低越好）
+# Engineering · optimize API speed (lower is better)
 python scripts/setup_experiment.py \
   --domain engineering --name api-speed \
   --target src/api/search.py \
   --eval "pytest bench.py --tb=no -q" \
   --metric p50_ms --direction lower --scope project
 
-# 内容类·优化 CTR（越高越好，用 LLM 评判）
+# Content · optimize CTR (higher is better, LLM-judged)
 python scripts/setup_experiment.py \
   --domain marketing --name medium-ctr \
   --target content/titles.md \
@@ -63,71 +65,76 @@ python scripts/setup_experiment.py \
   --evaluator llm_judge_content --scope user
 ```
 
-setup 产物：`config.yaml`、`.gitignore`，以及 `{domain}/{name}/` 下的 `program.md`（目标/约束/策略）、`config.cfg`（目标·评估命令·指标·方向）、`results.tsv`（实验日志，gitignore）、`evaluate.py`（用 `--evaluator` 时）。若 `program.md` 已存在则以它为准，只补缺失项。
+Setup creates: `config.yaml`, `.gitignore`, and under `{domain}/{name}/` → `program.md` (objectives/constraints/strategy), `config.cfg` (target · eval cmd · metric · direction), `results.tsv` (experiment log, gitignored), and `evaluate.py` (when `--evaluator` is used). If `program.md` already exists, it overrides the template — only ask for what's missing.
 
-**开始前读 4 样东西：** `config.cfg`（target / evaluate_cmd / metric / metric_direction / time_budget_minutes）、`program.md`（策略与可改/不可改约束）、`results.tsv`（历史，列：commit · metric · status · description）；然后 `git checkout autoresearch/{domain}/{name}`。
+**Before starting, read four things**, then checkout the branch:
+1. `config.cfg` → `target`, `evaluate_cmd`, `metric`, `metric_direction`, `time_budget_minutes`
+2. `program.md` → strategy, constraints, what you can / cannot change
+3. `results.tsv` → history (columns: `commit | metric | status | description`)
+4. `git checkout autoresearch/{domain}/{name}`
 
-**每一轮迭代（你就是这个循环）：**
-1. 复盘 results.tsv：什么有效？什么失败？还有什么没试过？
-2. 决定对目标文件做**唯一一处**改动（每次只动一个变量）。
-3. 编辑目标文件。
-4. 提交：`git add {target} && git commit -m "experiment: {描述}"`
-5. 评估：`python scripts/run_experiment.py --experiment {domain}/{name} --single`
-6. 读输出——脚本会打印 KEEP / DISCARD / CRASH 及指标值。
-7. 回到第 1 步。
+**Each iteration (you are the loop):**
+1. Review `results.tsv` — what worked? what failed? what hasn't been tried?
+2. Decide **ONE** change to the target file. One variable per experiment.
+3. Edit the target file.
+4. Commit: `git add {target} && git commit -m "experiment: {description}"`
+5. Evaluate: `python scripts/run_experiment.py --experiment {domain}/{name} --single`
+6. Read the output — it prints KEEP, DISCARD, or CRASH with the metric value.
+7. Go to step 1.
 
-**脚本负责（你不用管）：** 带超时跑评估命令、解析指标、与历史最优比较、失败时回退（`git reset --hard HEAD~1`）、写入 results.tsv。
+**What the script handles (you don't):** running the eval command with a timeout, parsing the metric, comparing to the previous best, reverting the commit on failure (`git reset --hard HEAD~1`), and logging the result to `results.tsv`.
 
-**看结果：**
+**Viewing results:**
 ```bash
-python scripts/log_results.py --experiment engineering/api-speed   # 单实验
-python scripts/log_results.py --domain engineering                 # 整个 domain
-python scripts/log_results.py --dashboard                          # 跨实验仪表盘
+python scripts/log_results.py --experiment engineering/api-speed   # single experiment
+python scripts/log_results.py --domain engineering                 # whole domain
+python scripts/log_results.py --dashboard                          # cross-experiment dashboard
 python scripts/log_results.py --dashboard --format markdown --output dashboard.md
 ```
 
-## 指令
+**Strategy escalation:** runs 1-5 = low-hanging fruit; 6-15 = systematic exploration (vary one parameter at a time); 16-30 = structural changes (algorithm/architecture swaps); 30+ = radical, completely different approaches; if no improvement in 20+ runs, update the Strategy section of `program.md`.
 
-- **策略升级**：第 1-5 轮摘低垂果实；6-15 轮系统性逐一调参；16-30 轮做结构性改动（换算法/换架构）；30+ 轮尝试根本不同的激进方案；连续 20+ 轮无改进就更新 `program.md` 的 Strategy 段。
-- **自我改进**：每 10 轮回看 results.tsv 找规律，把结论写进 `program.md`（如「加缓存稳定提升 5-10%」「纯重构从不动指标」），让后续迭代复用。
-- **停止条件**：跑到用户中断 / 上下文耗尽 / 达成 program.md 目标；停前确保 results.tsv 已更新。上下文耗尽也能续跑——results.tsv 与 git log 都持久化。
+**Self-improvement:** every 10 experiments, review `results.tsv` for patterns and write them into `program.md` (e.g. "caching changes consistently improve by 5-10%", "pure refactors never move the metric") so future iterations reuse the knowledge.
 
-## 示例
+**Stopping:** run until interrupted by the user, context limit reached, or the goal in `program.md` is met; ensure `results.tsv` is up to date before stopping. On context limit the next session can resume — `results.tsv` and the git log persist.
 
-自定义评估器：只要求向 stdout 打印 `指标名: 数值`。**实验开始后绝不可改它**（评估器是唯一基准，改了所有历史对比全作废）。
+## Example
+
+Custom evaluator — the only requirement is that it prints `metric_name: value` to stdout. **Never modify it after the experiment starts** (it is the single ground truth; changing it invalidates every historical comparison).
 
 ```python
 #!/usr/bin/env python3
-# 自定义评估器 —— 实验开始后请勿修改
+# My custom evaluator — DO NOT MODIFY after experiment starts
 import subprocess
 result = subprocess.run(["my-benchmark", "--json"], capture_output=True, text=True)
+# Parse and output
 print(f"my_metric: {parse_score(result.stdout)}")
 ```
 
-内置评估器：免费类 `benchmark_speed`(p50_ms↓)、`benchmark_size`(size_bytes↓)、`test_pass_rate`(pass_rate↑)、`build_speed`(build_seconds↓)、`memory_usage`(peak_mb↓)；LLM 评判类 `llm_judge_content`(ctr_score 0-10↑)、`llm_judge_prompt`(quality_score 0-100↑)、`llm_judge_copy`(engagement_score 0-10↑)。LLM 评判走你已订阅的 CLI（Claude/Codex/Gemini），评估提示锁死在 evaluate.py 内，智能体无法改，防止「自己给自己刷分」。
+Built-in evaluators — **Free** (no API cost): `benchmark_speed` (`p50_ms` ↓), `benchmark_size` (`size_bytes` ↓), `test_pass_rate` (`pass_rate` ↑), `build_speed` (`build_seconds` ↓), `memory_usage` (`peak_mb` ↓). **LLM-judge** (uses your subscription): `llm_judge_content` (`ctr_score` 0-10 ↑), `llm_judge_prompt` (`quality_score` 0-100 ↑), `llm_judge_copy` (`engagement_score` 0-10 ↑). LLM judges call the CLI you already run (Claude / Codex / Gemini); the evaluation prompt is locked inside `evaluate.py` so the agent cannot game its own evaluator.
 
-仪表盘示意：
+Dashboard output:
 ```
 DOMAIN       EXPERIMENT     RUNS  KEPT  BEST     Δ FROM START  STATUS
 engineering  api-speed       47    14   185ms    -76.9%        active
 marketing    medium-ctr      31    11   8.4/10   +68.0%        active
 ```
 
-## 注意事项
+## Notes
 
-- **每次只改一处**：一次改 5 样东西，你将无从知道是哪样起了作用。
-- **简洁优先**：靠丑陋复杂换来的小提升不值；同样性能下更简单的代码才是赢，能删代码且结果不变是最佳结局。
-- **绝不修改评估器**：`evaluate.py` 是地面真值，改它即作废所有对比——发现自己在改就立即硬停。
-- **超时即崩溃**：单轮超过时间预算的 2.5 倍就杀掉，按 crash 处理。
-- **崩溃处理**：拼写错/缺 import 就修好重跑；想法根本走不通则回退、记 crash、换下一个；**连续 5 次崩溃 → 暂停并提醒用户**，别再空耗。
-- **不引入新依赖**：只用项目里已有的东西。
-- **主动报警还包括**：连续 20+ 轮无改进 → 建议改 program.md 策略或换思路。
+- **One change per experiment.** Change 5 things and you won't know what worked.
+- **Simplicity criterion.** A small improvement that adds ugly complexity is not worth it. Equal performance with simpler code is a win; removing code while keeping the same result is the best outcome.
+- **Never modify the evaluator.** `evaluate.py` is the ground truth — modifying it invalidates all comparisons. Hard-stop if you catch yourself doing this.
+- **Timeout = crash.** If a run exceeds 2.5× the time budget, kill it and treat it as a crash.
+- **Crash handling.** Typo or missing import → fix and re-run. Fundamentally broken idea → revert, log "crash", move on. **5 consecutive crashes → pause and alert the user**; don't keep burning cycles.
+- **No new dependencies.** Only use what's already in the project.
+- **Also flag proactively:** no improvement in 20+ runs → suggest changing the `program.md` strategy or trying a different approach.
 
-## 互见
+## See also
 
-- **self-improving-agent**：优化智能体自身记忆/规则；不用于结构化实验循环。
-- **senior-ml-engineer**：ML 架构决策，互补——先定设计，再用本循环优化。
-- **tdd-guide**：测试驱动开发，互补——测试本身可作为评估函数。
+- **self-improving-agent** — improves an agent's own memory/rules over time. NOT for structured experiment loops.
+- **senior-ml-engineer** — ML architecture decisions. Complementary: use for initial design, then this loop to optimize.
+- **tdd-guide** — test-driven development. Complementary: the tests themselves can serve as the evaluation function.
 
 ---
-采编自 [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills)（MIT 许可）。
+Adapted from [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) (MIT license).

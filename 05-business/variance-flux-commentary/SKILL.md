@@ -1,14 +1,14 @@
 ---
 name: variance-flux-commentary
-title: 财务差异（Flux）说明撰写
-description: 当做月结/管理报表、需对超阈值的损益与资产负债表科目逐条解释波动时使用；做本期 vs 上期 vs 预算的差异表加 3-5 句波动小结，每条用一句话从底层业务活动说清"为什么变"；不适用于不看预算/上期的单纯算账、或数据查不到来源就编造动因；触发词：flux说明、差异说明、variance commentary、波动分析、月结、management reporting
+title: Variance commentary
+description: Write flux commentary for every P&L and balance-sheet line over threshold — current vs prior period and vs budget, with the driver explained from underlying activity. Use for the month-end close package and management reporting.
 domain: 商业/finance
-triggers: [flux说明, 差异说明, variance commentary, 波动分析, 月结, management reporting, 差异分析, flux analysis]
+triggers: [variance commentary, management reporting, flux analysis]
 tags: [finance, accounting, month-end-close, variance, reporting]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [sql, python, pandas]
+tools: []
 requires: []
 related: [cfo-financial-advisor, board-deck-builder, startup-financial-modeler, data-storyteller]
 combines_with: [board-deck-builder, cfo-financial-advisor, data-storyteller]
@@ -16,90 +16,32 @@ license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0
 ---
-## 何时使用
+# Variance commentary
 
-- 月结打包（month-end close package）或管理报表中，需对损益表（P&L）和资产负债表逐条科目解释波动。
-- 输入是同一口径下的三组数：本期实际、上期实际、本期预算；要产出一张"差异说明表"加一段简短小结。
-- 触发词：flux说明、差异说明、variance commentary、波动分析、月结、management reporting。
+Given current-period actuals, prior-period actuals, and budget for the same scope, produce a commentary table.
 
-不该用的边界：
-- 只算单期账、不对比上期/预算 → 这不是 flux 说明，只是出报表。
-- 取不到科目背后的业务活动数据（凭证来源、供应商构成、人头变动、量×价）→ 不要硬编动因，写"动因不清——转控制人核实"。
-- 需要给出审计意见、合规结论或预测 → 超出本技能，flux 说明只解释"已发生的波动为什么发生"。
+## Threshold
 
-## 步骤 / 指令
+Flag a line for commentary if **either** is true:
 
-```
-1. 对齐口径
-   - 三组数同一 scope、同一会计期、同一币种/汇率口径。
-   - 取数：从总账/ERP 拉本期、上期、预算（见互见 sql-query-builder）；导出脏表先清洗（见 csv-data-cleaner）。
+- Absolute variance ≥ the firm's materiality threshold (use the provided value; default 5% of the line or a fixed floor, whichever is greater)
+- The line is on the "always comment" list (revenue, headcount cost, cash)
 
-2. 判定哪些科目要写说明（满足任一即触发）
-   - 绝对差异 ≥ 公司重要性阈值（优先用业务给的值；缺省取"科目金额的 5%"与一个固定下限两者取大）。
-   - 在"必写清单"上：收入(revenue)、人力成本(headcount cost)、现金(cash)——无论是否过阈值都写。
+## For each flagged line
 
-3. 逐条算两组差异
-   - Δ vs 上期：金额 + 百分比
-   - Δ vs 预算：金额 + 百分比
-
-4. 写动因（每条一句话，解释"为什么"不是复述"是什么"）
-   - 从底层活动取证：凭证来源拆分、供应商/科目构成、人头净增减、量×价分解。
-   - 数据不支持就写"动因不清——转控制人核实"，禁止臆造。
-
-5. 出表 + 出小结
-   - 差异表列：科目 | 本期/上期/预算 | Δ vs上期(额、%) | Δ vs预算(额、%) | 动因。
-   - 小结：3-5 句话点出本期最大的几个波动方向（biggest movers）。
-```
-
-差异表列定义：
-
-| 列 | 内容 |
+| Column | Content |
 |---|---|
-| 科目（Line） | 账户或报表行名 |
-| 本期 / 上期 / 预算 | 三个数值 |
-| Δ vs 上期、Δ vs 预算 | 各自的金额与百分比 |
-| 动因（Driver） | 一句话，从底层业务活动解释波动——不是把数字换种说法 |
+| **Line** | Account or caption |
+| **Current / Prior / Budget** | The three values |
+| **Δ vs prior** and **Δ vs budget** | Amount and % |
+| **Driver** | One sentence explaining the movement from underlying activity — not a restatement of the number |
 
-动因的判定标准——讲"为什么"，不讲"是什么"：
-- 好："云支出增加 120 万，系五月发布新增 GPU 预留实例所致。"
-- 坏："云支出增加 120 万（+18%）。"——这只是把表里的数字复述一遍，不算动因。
+A driver explains *why*, not *what*: "Cloud spend up $1.2M on incremental GPU reservations for the May launch" — not "Cloud spend increased $1.2M (18%)."
 
-## 示例
+## Sourcing the driver
 
-输入（节选，单位：万元）：
+Look at the activity behind the line (journal-source breakdown, vendor mix, headcount delta, volume × rate) via the internal-gl MCP. If the driver isn't clear from the data, write "driver unclear — flag for controller" rather than inventing one.
 
-| 科目 | 本期 | 上期 | 预算 |
-|---|---|---|---|
-| 收入 | 5200 | 4800 | 5000 |
-| 云基础设施 | 780 | 660 | 700 |
-| 人力成本 | 1500 | 1480 | 1520 |
+## Output
 
-产出差异表：
-
-| 科目 | 本期/上期/预算 | Δ vs上期 | Δ vs预算 | 动因 |
-|---|---|---|---|---|
-| 收入 | 5200/4800/5000 | +400(+8.3%) | +200(+4.0%) | 必写项；企业版新签 12 单贡献 +260，余额来自续约扩容 |
-| 云基础设施 | 780/660/700 | +120(+18.2%) | +80(+11.4%) | 五月发布新增 GPU 预留实例；过阈值需说明 |
-| 人力成本 | 1500/1480/1520 | +20(+1.4%) | -20(-1.3%) | 必写项；净增 2 名工程师，部分被空缺岗位抵消 |
-
-小结（3-5 句）：本期最大正向波动是收入较预算高 200 万，主要由企业版新签拉动；成本端云基础设施超预算 80 万，源于发布期 GPU 预留，为本月最大的不利波动；人力成本基本贴预算，无异常。
-
-委托提示词（给 Agent 调用时）：
-> 输入三组数（本期实际/上期实际/预算，同一口径）。对绝对差异≥阈值或属收入/人力成本/现金的科目，逐条算 Δ vs上期、Δ vs预算（额+%），并从底层活动写一句话动因；动因数据不足就写"动因不清——转控制人核实"，不要编。最后给一张差异表加 3-5 句最大波动小结。
-
-## 注意事项
-
-- 动因必须可溯源：取自凭证来源、供应商构成、人头变动、量×价等真实活动数据；数据讲不清就标"动因不清——转控制人核实"，绝不杜撰。
-- 动因讲因果不复述数字——"增加 X 元（Y%）"不是动因。
-- 阈值优先用公司给定的重要性标准；缺省用"科目金额 5%"与固定下限取大，并注明所用阈值。
-- 收入、人力成本、现金是"必写项"，无论是否过阈值都要给说明。
-- 三组数务必同口径（scope/期间/币种汇率），口径不一致先对齐再比较，否则差异失真。
-- 百分比注意分母为零或接近零的科目（如新开科目上期为 0），改用绝对额表述或标注。
-- 本技能只解释已发生波动，不出审计意见、合规结论或预测。
-
-## 互见
-
-- related：`sql-query-builder`（从总账/ERP 拉取本期、上期、预算三组数及动因明细时用它取数）；`csv-data-cleaner`（导出的实际数/预算表有脏数据，比对前先清洗规整）；`fact-checking`（动因须以底层数据为证、不可臆造，与其"无证不写"的核查纪律相通）。
-
----
-本条采编自 anthropics/financial-services（Apache-2.0）。
+The commentary table plus a short narrative (3–5 sentences) summarizing the period's biggest movers.

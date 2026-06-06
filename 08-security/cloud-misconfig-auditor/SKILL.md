@@ -1,14 +1,14 @@
 ---
 name: cloud-misconfig-auditor
-title: 云基础设施安全审计
-description: 当需要在部署前/部署后系统性排查云配置错误（IAM 提权链、S3 公开暴露、安全组开放高危端口、IaC 安全缺口）时使用；做云安全态势评估（CSPM），产出按严重级别分类、附带 MITRE ATT&CK 映射与最小权限整改建议的发现清单；不适用于已发生的云入侵应急响应（见 incident-response）或应用层漏洞渗透（见 security-pen-testing）。触发词：云安全审计、IAM 提权、S3 公开桶、安全组、CSPM、配置错误
+title: cloud-misconfig-auditor
+description: Use when assessing cloud infrastructure for security misconfigurations pre- or post-deployment: IAM privilege-escalation paths, S3 public exposure, open security-group rules, and IaC security gaps. Cloud security posture assessment (CSPM) across AWS/Azure/GCP with severity-ranked
 domain: 安全/ops
-triggers: [云安全审计, 云配置错误, CSPM 云态势, IAM 提权链, iam:PassRole 提权, S3 公开暴露, S3 公开桶检查, 安全组开放端口, 0.0.0.0/0 入站, SSH/RDP 暴露, IaC 安全扫描, Terraform 安全检查, CloudFormation 安全, 最小权限审计, 云态势评估, AWS/Azure/GCP 安全基线]
-tags: [安全, ops, 云安全, cspm, iam, s3, 安全组, iac, terraform, aws, azure, gcp, mitre-attack, 合规]
-level: 进阶
+triggers: [cloud security audit, cloud misconfiguration, CSPM posture assessment, IAM privilege escalation, iam:PassRole escalation, S3 public exposure, public S3 bucket check, security group open ports, 0.0.0.0/0 inbound, SSH/RDP exposed, IaC security scan, Terraform security check, CloudFormation security, least-privilege audit, AWS/Azure/GCP security baseline]
+tags: [security, ops, cloud-security, cspm, iam, s3, security-group, iac, terraform, aws, azure, gcp, mitre-attack, compliance]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [cloud_posture_check.py, aws-cli, jq, terraform]
+tools: []
 requires: []
 related: [aws-penetration-testing, cloud-penetration-testing, k8s-security-policies, container-security-hardening]
 combines_with: [aws-penetration-testing, k8s-security-policies, terraform-specialist]
@@ -16,87 +16,101 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-名称：cloud-misconfig-auditor
-领域：安全 / ops
+Cloud security posture assessment (CSPM) skill for detecting IAM privilege escalation, public storage exposure, network configuration risks, and infrastructure-as-code misconfigurations. The core tool is `cloud_posture_check.py`, which runs `iam` / `s3` / `sg` checks and emits, for each finding, a severity level, a MITRE ATT&CK mapping, and a least-privilege remediation suggestion. This is NOT incident response for active cloud compromise (see incident-response) or application vulnerability scanning (see security-pen-testing) — it is systematic cloud configuration analysis to prevent exploitation.
 
-云安全态势管理（CSPM）技能：系统性检查云配置错误，覆盖 IAM 提权路径、存储公开暴露、网络过度放行和基础设施即代码（IaC）安全。核心工具为 `cloud_posture_check.py`，支持 `iam` / `s3` / `sg` 三类检查，并对每个发现给出严重级别、MITRE ATT&CK 映射与最小权限整改建议。
+## When to use
 
-## 何时使用
+Use it for:
+- Pre-deployment security review of newly provisioned resources before they go live.
+- Periodic posture checks of production IAM policies, S3 buckets, and security groups.
+- A deployment gate in CI/CD that blocks misconfigurations from reaching production.
+- Multi-cloud baseline checks (AWS full; Azure / GCP partial).
 
-适用：
-- 新建资源或上线前的预部署安全评审。
-- 对生产环境 IAM 策略、S3 桶、安全组做周期性态势体检。
-- 在 CI/CD 中作为部署门禁，拦截配置错误进入生产。
-- 多云（AWS 全量；Azure / GCP 部分）配置基线核查。
+Do NOT use it (negative boundaries):
+- Cloud environment is confirmed compromised and needs containment/forensics — use incident-response.
+- Hunting attacker behavior or anomaly detection in logs — use threat-detection.
+- Actively exploiting discovered weaknesses — use security-pen-testing / red-team.
 
-不该用（负边界）：
-- 云环境已被确认入侵、需要止血与取证 —— 用 incident-response。
-- 在日志中狩猎攻击者行为 / 行为异常检测 —— 用 threat-detection。
-- 主动利用已发现弱点做渗透 —— 用 security-pen-testing / red-team。
+How this skill differs from other security skills:
 
-前提：能以 JSON 读取 IAM 策略文档、S3 桶配置、安全组规则；持续监控需对接 AWS Config / Azure Policy / GCP Security Command Center。
+| Skill | Focus | Approach |
+|-------|-------|----------|
+| cloud-misconfig-auditor (this) | Cloud configuration risk | Preventive — assess before exploitation |
+| incident-response | Active cloud incidents | Reactive — triage confirmed compromise |
+| threat-detection | Behavioral anomalies | Proactive — hunt attacker activity in logs |
+| security-pen-testing | Application vulnerabilities | Offensive — actively exploit found weaknesses |
 
-## 步骤
+Prerequisites: read access to IAM policy documents, S3 bucket configurations, and security-group rules in JSON. For continuous monitoring, integrate with cloud provider APIs (AWS Config, Azure Policy, GCP Security Command Center).
 
-1. 采集配置：用云 CLI 导出待审资源（IAM 策略文档、S3 ACL+公开访问阻断、安全组规则）为 JSON。
-2. 跑检查：用 `cloud_posture_check.py` 对每份配置执行对应 `--check`，输出 `--json`。
-3. 按退出码决策：0=无高危，1=高危（24 小时内整改），2=严重（立即整改，若已被利用升级到应急响应）。
-4. 套用严重级别修饰：互联网直连资源加 `--severity-modifier internet-facing`；承载 PCI/HIPAA/GDPR 等受监管数据加 `--severity-modifier regulated-data`（均将发现升一级）。
-5. 整改：对每条高危/严重发现，按工具给出的 `least_privilege_suggestion` 收敛权限；先记录业务理由再删权限，避免被悄悄加回。
-6. 上线门禁：把检查接入 CI/CD，退出码 2 即阻断部署。
+## Steps
 
-## 指令
+1. **Collect configs.** Export the resources under review with the cloud CLI (IAM policy documents, S3 ACL + public access block, security-group rules) as JSON.
+2. **Run checks.** Run `cloud_posture_check.py` against each config with the matching `--check`, emitting `--json`. The tool auto-detects check type from the config structure or accepts explicit `--check` flags.
+3. **Decide by exit code.** 0 = no high/critical (no action); 1 = high (remediate within 24h); 2 = critical (remediate immediately, escalate to incident-response if actively exploited).
+4. **Apply severity modifiers.** Add `--severity-modifier internet-facing` for directly internet-accessible resources; add `--severity-modifier regulated-data` for workloads carrying PCI/HIPAA/GDPR data. Both bump each finding's severity by one level.
+5. **Remediate.** For each high/critical finding, tighten permissions per the tool's `least_privilege_suggestion`; record the business justification before removing a permission so it is not silently re-added.
+6. **Gate deploys.** Wire the check into CI/CD; block deployment on exit code 2.
 
-工具三类检查可自动识别配置结构，也可显式 `--check`：
+Exit codes:
+
+| Code | Meaning | Required Action |
+|------|---------|-----------------|
+| 0 | No high/critical findings | No action required |
+| 1 | High-severity findings | Remediate within 24 hours |
+| 2 | Critical findings | Remediate immediately — escalate to incident-response if active |
+
+**IAM privilege-escalation patterns** (a single action is not dangerous; the combination is the escalation, so analyze the full Statement, not individual actions):
+
+| Pattern | Severity | Key Action Combination | MITRE |
+|---------|----------|------------------------|-------|
+| Lambda PassRole escalation | Critical | iam:PassRole + lambda:CreateFunction | T1078.004 |
+| EC2 instance profile abuse | Critical | iam:PassRole + ec2:RunInstances | T1078.004 |
+| CloudFormation PassRole | Critical | iam:PassRole + cloudformation:CreateStack | T1078.004 |
+| Self-attach policy escalation | Critical | iam:AttachUserPolicy + sts:GetCallerIdentity | T1484.001 |
+| Inline policy self-escalation | Critical | iam:PutUserPolicy + sts:GetCallerIdentity | T1484.001 |
+| Policy version backdoor | Critical | iam:CreatePolicyVersion + iam:ListPolicies | T1484.001 |
+| Credential harvesting | High | iam:CreateAccessKey + iam:ListUsers | T1098.001 |
+| Group membership escalation | High | iam:AddUserToGroup + iam:ListGroups | T1098 |
+| Password reset attack | High | iam:UpdateLoginProfile + iam:ListUsers | T1098 |
+| Service-level wildcard | High | iam:* or s3:* or ec2:* | T1078.004 |
+
+IAM severity essentials: `Action=* and Resource=*` full-admin wildcard = Critical; `Principal: '*'` public principal = Critical; any two-action escalation combo = Critical; data-exfiltration actions (`s3:GetObject`, `secretsmanager:GetSecretValue` on `*`) = High; `service:*` wildcard = High.
+
+**S3 check matrix:** `public-read-write` ACL or bucket policy `"Principal":"*"` + Allow = Critical; `public-read`/`authenticated-read`, any of the four public-access-block flags missing/false, or no default encryption = High; non-standard SSEAlgorithm = Medium.
+
+**Security groups:** inbound open to internet CIDRs (`0.0.0.0/0`, `::/0`) — 22 (SSH) / 3389 (RDP) / all ports (0–65535) = Critical (restrict to VPN CIDR or use Session Manager / Fleet Manager; remove all-traffic rules); database ports 1433/3306/5432/27017/6379/9200 = High (allow only from the application-tier SG and move to a private subnet).
+
+**Cloud provider coverage:** AWS = Full for IAM escalation, storage public access, network exposure, and IaC (Terraform/CloudFormation). Azure = Partial (RBAC/service principals, Blob SAS/container access, NSG rules, ARM/Bicep). GCP = Partial (IAM bindings/workload identity, GCS bucket IAM/uniform access, VPC firewall, Deployment Manager).
+
+## Example
+
+Run the tool (auto-detects check type or set `--check` explicitly):
 
 ```bash
-# IAM 策略提权路径分析
+# Analyze an IAM policy for privilege escalation paths
 python3 scripts/cloud_posture_check.py policy.json --check iam --json
 
-# S3 桶公开访问评估
+# Assess S3 bucket configuration for public access
 python3 scripts/cloud_posture_check.py bucket_config.json --check s3 --json
 
-# 安全组开放高危端口检查
+# Check security group rules for open admin ports
 python3 scripts/cloud_posture_check.py sg.json --check sg --json
 
-# 全量检查 + 互联网直连升级
+# Run all checks with internet-facing severity bump
 python3 scripts/cloud_posture_check.py config.json --check all \
   --provider aws --severity-modifier internet-facing --json
 
-# 受监管数据上下文（所有发现升一级）
+# Regulated data context (bumps severity by one level for all findings)
 python3 scripts/cloud_posture_check.py config.json --check all \
   --severity-modifier regulated-data --json
 
-# 从 AWS CLI 管道传入 IAM 策略
+# Pipe IAM policy from AWS CLI
 aws iam get-policy-version --policy-arn arn:aws:iam::123456789012:policy/MyPolicy \
   --version-id v1 | jq '.PolicyVersion.Document' | \
   python3 scripts/cloud_posture_check.py - --check iam --json
 ```
 
-退出码语义：0=无高危/严重，无需动作；1=高危，24 小时内整改；2=严重，立即整改并视情升级应急响应。
-
-关键 IAM 提权组合（单个动作不危险，组合即提权，必须分析整条 Statement 而非单动作）：
-
-| 提权模式 | 严重级 | 关键动作组合 | MITRE |
-|---|---|---|---|
-| Lambda PassRole 提权 | 严重 | iam:PassRole + lambda:CreateFunction | T1078.004 |
-| EC2 实例 Profile 滥用 | 严重 | iam:PassRole + ec2:RunInstances | T1078.004 |
-| CloudFormation PassRole | 严重 | iam:PassRole + cloudformation:CreateStack | T1078.004 |
-| 自附加策略提权 | 严重 | iam:AttachUserPolicy + sts:GetCallerIdentity | T1484.001 |
-| 内联策略自提权 | 严重 | iam:PutUserPolicy + sts:GetCallerIdentity | T1484.001 |
-| 策略版本后门 | 严重 | iam:CreatePolicyVersion + iam:ListPolicies | T1484.001 |
-| 凭证窃取 | 高 | iam:CreateAccessKey + iam:ListUsers | T1098.001 |
-| 服务级通配符 | 高 | iam:* / s3:* / ec2:* | T1078.004 |
-
-IAM 严重级要点：`Action=* 且 Resource=*` 全管理员通配 = 严重；`Principal:'*'` 公开主体 = 严重；提权双动作组合 = 严重；数据外泄类（`s3:GetObject`、`secretsmanager:GetSecretValue` 作用于 `*`）= 高。
-
-S3 检查矩阵：`public-read-write` ACL 或桶策略 `"Principal":"*"`+Allow = 严重；`public-read`/`authenticated-read`、四项公开访问阻断任一缺失/为 false、无默认加密 = 高；非标准 SSE 算法 = 中。
-
-安全组：入站对互联网 CIDR（`0.0.0.0/0`、`::/0`）开放 —— 22(SSH)/3389(RDP)/全端口 = 严重；1433/3306/5432/27017/6379/9200 等数据库端口 = 高，应仅允许应用层 SG 并下沉私有子网。
-
-## 示例
-
-S3 推荐基线配置（账户级与桶级公开访问阻断四项必须同时启用，否则桶级可覆盖账户级）：
+Recommended S3 baseline (all four public-access-block flags must be enabled at BOTH bucket level and account level, or bucket-level settings can override account-level):
 
 ```json
 {
@@ -119,18 +133,22 @@ S3 推荐基线配置（账户级与桶级公开访问阻断四项必须同时�
 }
 ```
 
-Terraform IAM 策略 —— 触发严重发现 vs 合规：
+Terraform IAM policy — critical finding vs. clean:
 
 ```hcl
-# BAD：会触发严重发现
+# BAD: Will generate critical findings
 resource "aws_iam_policy" "bad_policy" {
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{ Effect = "Allow", Action = "*", Resource = "*" }]
+    Statement = [{
+      Effect   = "Allow"
+      Action   = "*"
+      Resource = "*"
+    }]
   })
 }
 
-# GOOD：最小权限
+# GOOD: Least privilege
 resource "aws_iam_policy" "good_policy" {
   policy = jsonencode({
     Version = "2012-10-17"
@@ -143,35 +161,32 @@ resource "aws_iam_policy" "good_policy" {
 }
 ```
 
-CI/CD 部署门禁（terraform apply 前校验，严重发现阻断）：
+CI/CD deployment gate (validate IaC before `terraform apply`; critical findings block):
 
 ```bash
 terraform show -json plan.json | \
   jq '[.resource_changes[].change.after | select(. != null)]' > resources.json
 python3 scripts/cloud_posture_check.py resources.json --check all --json
 if [ $? -eq 2 ]; then
-  echo "发现严重云安全问题 —— 阻断部署"
+  echo "Critical cloud security findings — blocking deployment"
   exit 1
 fi
 ```
 
-## 注意事项
+## Notes
 
-- 必须分析完整 Statement，不要只看单个动作：`iam:PassRole` 单独不算严重，配上 `lambda:CreateFunction` 即确证提权路径。
-- 公开访问阻断要账户级 + 桶级双管齐下：桶级设置可覆盖账户级，仅启账户级不够。
-- 公开/互联网直连资源（DMZ、负载均衡、API 网关）务必加 `--severity-modifier internet-facing`，其高危等同严重，不可省略。
-- 不要只查管理员策略：提权链常源自看似无害的非管理员策略组合，生产身份上挂的所有策略都要查。
-- 整改先做根因分析：不理解为何授权就删，会被重新加回；先记录业务理由再删。
-- 服务账号易在开发期过度授权且上线未收敛，需用 AWS Access Analyzer 等核对实际使用权限并裁剪。
-- 受监管数据工作负载（PHI、持卡人数据）务必加 `--severity-modifier regulated-data`。
-- 完整 CSPM 检查清单见 `references/cspm-checks.md`；检测脚本见 `scripts/cloud_posture_check.py`。
+- Analyze the full Statement, not individual actions: `iam:PassRole` alone is not critical, but with `lambda:CreateFunction` it is a confirmed escalation path.
+- Enforce public access block at both account level AND bucket level: a bucket-level setting can override an account-level one, so account-level alone is insufficient.
+- Always apply `--severity-modifier internet-facing` for public/internet-facing resources (DMZ, load balancers, API gateways) — high findings there should be treated as critical, never optional.
+- Do not check only administrator policies: escalation chains often originate from non-admin policies that combine innocuous-looking permissions. Check every policy attached to production identities.
+- Do root-cause analysis before remediating: removing a permission without understanding why it was granted leads to re-addition. Record the business justification first.
+- Service accounts are frequently over-provisioned during development and never trimmed for production — audit them against AWS Access Analyzer or equivalent to find and remove unused permissions.
+- Always use `--severity-modifier regulated-data` for workloads with PHI or cardholder data.
+- Full CSPM check reference: `references/cspm-checks.md`; detection script: `scripts/cloud_posture_check.py`.
 
-## 互见
+## See also
 
-- incident-response：严重发现（公开 S3、确认正在被利用的提权）可触发安全事件分级。
-- threat-detection：态势发现可作为狩猎目标，过度授权角色常是横向移动落点。
-- red-team：红队针对性验证态势评估中云配置错误的可利用性。
-- security-pen-testing：态势发现汇入渗透评估的基础设施安全章节。
-
----
-采编自 alirezarezvani/claude-skills（MIT 许可），原技能名 cloud-security。已适配重写为中文技能大典条目。
+- incident-response — critical findings (public S3, confirmed-active escalation) may trigger incident classification.
+- threat-detection — posture findings create hunting targets; over-permissioned roles are likely lateral-movement destinations.
+- red-team — red team exercises specifically test exploitability of the cloud misconfigurations found in posture assessment.
+- security-pen-testing — posture findings feed into the infrastructure security section of pen test assessments.

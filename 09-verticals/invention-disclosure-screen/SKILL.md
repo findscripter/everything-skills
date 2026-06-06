@@ -1,14 +1,14 @@
 ---
 name: invention-disclosure-screen
-title: 发明披露专利性初筛
-description: 当一份发明披露（invention disclosure / IDF）进来、需要分诊判断是否值得启动检索与专利律师评估时使用；做新颖性/显而易见性/§101 适格性/公开与时限/可检测性/战略价值六维初筛并产出含 PURSUE/INVESTIGATE/DECLINE 结论的筛查备忘录；不适用于做现有技术检索、出具专利性意见或代替注册专利代理人/律师的最终判断；触发词：发明披露、专利性初筛、invention disclosure、IDF、新颖性、§101、bar date、专利还是商业秘密
+title: /invention-intake
+description: Invention disclosure first-pass screen — novelty, obviousness, §101 eligibility, bar dates, detectability, and strategic value. Use when an invention disclosure comes in and needs triage on whether to pursue a prior-art search and patent counsel review, investigate further, or decline.
 domain: 领域/legal
-triggers: [发明披露, 专利性初筛, invention disclosure, IDF, 新颖性筛查, §101 适格性, 公开宽限期 bar date, 专利还是商业秘密]
+triggers: [invention disclosure, IDF]
 tags: [legal, patent, invention-disclosure, novelty, section-101, trade-secret, ip-strategy, triage]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [法律/专利检索工具 (Westlaw/CourtListener/USPTO/Solve Intelligence), IP 管理系统 (Anaqua/CPA Global/PatSnap), markdown]
+tools: []
 requires: []
 related: [freedom-to-operate-triage, ip-infringement-triage, trademark-clearance-knockout, claim-element-chart-builder]
 combines_with: [ip-portfolio-register, legal-risk-classifier, cease-and-desist-letter]
@@ -16,99 +16,465 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-# 发明披露专利性初筛
+# /invention-intake
 
-> **这是非专家做的首过初筛，不是专利性意见。** 初筛永远不下「可专利」结论——它只判断该披露是否**通过初筛、值得启动现有技术检索 + 注册执业者复核**，或需补充信息，或命中了硬伤。现有技术检索是独立的后续步骤，本技能**不做检索**。
+**This is a first-pass screen by a non-specialist, not a patentability
+opinion.** The screen never concludes that an invention is patentable — it
+concludes that it passes the initial screen and warrants a prior-art search
+and registered-practitioner review, that it needs more information, or that
+it hits a disqualifier. A prior-art search is a separate step; this skill
+does not do one.
 
-## 何时使用
+## Instructions
 
-一份发明披露（口述、IDF 表单或论文式描述）进来，需要在投入律师工时前快速分诊：值得追（PURSUE）、需补料（INVESTIGATE）、还是该回绝（DECLINE）。
+1. Read `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`. If it
+   contains `[PLACEHOLDER]`, stop and direct to `/ip-legal:cold-start-interview`. If the
+   practice profile shows trademark- or copyright-only (no patent practice),
+   say so and route the user elsewhere — this is the wrong tool.
+2. Follow the workflow below.
+3. Run intake. If the user pasted or uploaded a disclosure, read it. If not,
+   ask the seven intake questions (what / problem / differences / inventors /
+   public disclosure / status / technology area) in one batch and wait.
+4. Run the six screens: novelty signals, obviousness flags, § 101 eligibility,
+   public disclosure / bar dates, detectability, strategic value. Each screen
+   gets a ✓ / 🟡 / 🔴 verdict with one-line reasoning.
+5. Write the invention screen memo to the matter folder (if a matter is
+   active) or the practice outputs folder. Apply the work-product header per
+   role.
+6. Bottom-line verdict: **PURSUE** (schedule prior-art search and attorney
+   review) / **INVESTIGATE** (needs more info on a specific open item) /
+   **DECLINE** (state the concrete reason). Never say "patentable."
+7. Close with the decision tree (prior-art search / inventor follow-up /
+   specialist review / decline + thank-you / trade-secret route) and the
+   non-lawyer gate if the role is non-lawyer.
+8. If the screen hit a within-one-year US disclosure or any public disclosure
+   with foreign rights in scope, flag at the top: **time-sensitive**.
 
-**不该用（负边界）：**
-- **不做现有技术检索。** 对「这东西是不是已经存在」做一次 WebSearch 不是 prior-art search，只是可信度抽查；若做了，须显式声明「快速网查——非现有技术检索，仅供初筛背景」并打 `[web — verify]` 标。
-- **不出专利性意见、不下「可专利」结论。** 最接近的措辞是「通过初筛、值得进一步调查」。专利性是注册专利律师/代理人在检索 + 权利要求建构后才能得出的结论。
-- **§101 临界判断一律上交专家。** Alice/Mayo 临界点是执业者都常分歧的地方，非专家的自信判断老得快。
-- 实操前先读实务画像 `~/.claude/plugins/config/.../ip-legal/CLAUDE.md`：若仍是 `[PLACEHOLDER]`，停下并引导跑 `/ip-legal:cold-start-interview`；若画像显示只做商标/版权（无专利实务），明确告知此工具用错了并改道。
+This skill never concludes that an invention is patentable. If uncertain,
+flag — a registered patent attorney or agent decides.
 
-## 步骤
-
-1. **载入实务画像**：读专利申请策略（进攻/防御/混合/许可）、关注技术领域、预算姿态、审批/路由链——这些决定战略价值线，落在领域外往往直接 DECLINE。
-2. **采集披露（一次问全，别逐条挤牙膏）**：用户已贴/已传则直接读；否则一批问七项——① 发明是什么（关键点）② 解决什么问题 ③ 与既有方案有何不同 ④ 谁发明、大致构思日期 ⑤ 是否已公开（发表/销售/要约/演示/NDA下展示/公开仓库/论文/发布说明）及何时何地 ⑥ 是否在用或计划用 ⑦ 技术领域。等齐答案，**不在半截披露上初筛**（「一个帮用户的机器学习东西」筛了不如不筛）。若是 IDF 表单，先抽字段、只问缺的。
-3. **跑六维筛查，逐项给 ✓/🟡/🔴 + 一句理由**（见下「指令」六屏）。
-4. **组装筛查备忘录**（见示例模板），套角色对应的工作成果标头与审阅者注记。
-5. **给底线结论**：PURSUE / INVESTIGATE（点名具体待解项）/ DECLINE（给发明人能听懂的具体理由——「不可专利」不是合格理由，「被你 NeurIPS 2023 的论文挡死、美国一年宽限期已于 2024-12 届满」才是）。
-6. **收尾决策树**：现有技术检索 / 回问发明人补料 / 转专家做 §101 或专利-vs-商业秘密判断 / 回绝并发致谢 / 改走商业秘密。非律师角色追加「非律师闸门」。
-7. **时限敏感置顶**：若命中美国一年内公开，或任何在外国权利仍在意范围内的公开，备忘录顶端标 **Time-sensitive — 美国时限于 [日期] 届满，外国权利已处风险**。
-
-## 指令
-
-**六屏筛查（按序，每屏出 `✓ clear` / `🟡 待查` / `🔴 红旗`）：**
-
-- **屏1 新颖性信号**：只查披露自述中的自证新颖性问题，非完整新颖性分析。🔴=「把已知技术套到新领域」「像 X 但用于 Y」「竞品也做类似」「现有公开产品的微调」；✓=新**机制**、产生意外结果的新**组合**、解决了领域此前未解的难题（并解释为何前人失败）；模糊→🟡 交检索定夺。
-- **屏2 显而易见性旗标**：是筛查不是 §103 分析——只标旗，绝不下「显而易见/非显而易见」结论。🔴待查=已知元件可预测组合、常规优化（调参变好）、无功能优势的设计选择、obvious-to-try；✓=teaching away（现有技术预期相反/说此路不通）、意外结果、long-felt need。
-- **屏3 §101 适格性**：最难、最易诉、最该上交专家。🔴=纯商业方法无技术实现、裸数学算法（即便包装成伪代码）、组织人类活动（排程/配对/匹配/评审）无技术改进、「在计算机上做已知事」而不改进计算机本身、AI/ML 权利要求只写**功能**（推荐/分类/预测）而无改进性能的具体技术手段；✓=改进计算机本身（新架构/新训练技法/新软硬件接口/新安全机制）、具体技术手段而非仅结果、对技术领域（图像/压缩/密码/机器人）的技术改进。生物/诊断额外查：自然相关性、未经显著人工改造的天然物。**临界一律 🟡 + 「§101 — 转专家做 Alice/Mayo 分析」**。
-  > **§101 是美国标准。** EPO 的「技术效果」测试（Art. 52 EPC）对软件/AI 明显更宽松，JPO/CNIPA 各异。在 Alice 下筛 🔴 的发明，可能在 EPO/JPO/CNIPA 完全适格——**若有 EP/JP/CN 申请计划，勿仅凭美国 §101 回绝**。
-- **屏4 公开 / 时限（最时限敏感）**：🔴 likely barred=美国 12 个月前已公开/销售/要约（35 U.S.C. §102(b) 一年宽限期已过）；或申请前**任何**公开——欧盟/中国/日本/多数国家绝对新颖性硬伤，若在意外国权利则潜在致命。🟡 clock running=12 个月内已公开，美国时钟在走、外国权利可能已失，紧急、确认公开日并立即路由申请。✓ clear=无公开（NDA 下客户演示、内部使用、具名 NDA beta、未投稿草稿通常非 §102「公开」，但看事实，对外披露即便有 NDA 也标具体情形交申请团队）。**重点追问**：投稿（投稿≠发表，但查 preprint）、会议演讲、公开仓库/博客/社媒、限量 beta 发布、含 RFP 应答与要约的销售活动、对非 NDA 投资人/董事的披露。**on-sale bar 抓体现发明的产品的销售要约，不止完成的销售——一份描述发明的 RFP 应答即可触发。**
-- **屏5 可检测性（须排在战略价值之前）**：竞争对手若侵权，你能否察觉？🔴 低可检测=服务端算法无可观测输出、内部制造工艺（如半导体新刻蚀步骤）、跑在对手基础设施内的数据管道/分析方法、ML 训练数据构成或训练技法——这些转**专利-vs-商业秘密判断**，问题不是「能否专利」而是「即便能、该不该专利」。✓ 高可检测=消费品可见、公开 API/SDK/协议、分发产品中可逆向的物理机制、二进制特征码。**对不可检测发明，不在未讨论商业秘密替代方案前推荐 PURSUE。**
-- **屏6 战略价值**：对照画像策略——进攻（资产值得主张吗？窄而易绕的弱于宽机制权利要求）、防御（覆盖竞品在申的领域吗？没人申的领域是浪费）、许可（谁会付费）。再查：核心技术 vs 边缘、竞争格局（半导体/制药专利密集，早申或输；开源重的软件段有时整体跳过）、是否在画像的关注技术领域内（不在往往直接 DECLINE）。
-
-**通用护栏（来自实务画像，冲突时画像优先）：**
-- **来源标注，永不剥除**：规则/判例标 `[Westlaw]`/`[CourtListener]`/`[USPTO]`，网搜标 `[web search — verify]`，凭记忆标 `[model knowledge — verify]`，用户提供标 `[user provided]`。
-- **不擅自补料**：检索稀少则报告所得并停，给选项（拓宽/换工具/网搜打标/留 `[UNCERTAIN]` 停）交律师定。
-- **目的地与特权核查**：备忘录是工作成果、继承特权；输出前确认去向是否在特权圈内（公开频道/全员列表/对方律师/供应商/客户均可能弃权），看似圈外就先问。
-- **欠标比过标危险**：欠标一个本该申请的发明是单向门（一年时限走完、外国权利在首次公开即失、对手抢先申）；过标只是换来一次空手而归的检索。**站在双向门一侧。**
-
-## 示例
+## Examples
 
 ```
-/ip-legal:invention-intake "用学习模型替代 LRU 的缓存淘汰算法；本年 Q1 构思，尚未公开，工程原型在内部 staging"
+/ip-legal:invention-intake "a new cache-eviction algorithm that uses a learned model rather than LRU; conceived Q1 this year, not yet disclosed, engineering prototype in internal staging"
 ```
 
-筛查备忘录骨架（顶部加角色对应工作成果标头；时限敏感时第一行置顶警示）：
-
-```markdown
-**Invention screen memo — [发明标题]**
-
-**Bottom line: [PURSUE / INVESTIGATE / DECLINE]**
-*[一句话理由，平实语言]*
-
-### Screen results
-| 屏 | 结论 | 备注 |
-|---|---|---|
-| 新颖性信号 | [✓/🟡/🔴] | [一行理由] |
-| 显而易见性旗标 | [✓/🟡/🔴] | [一行理由] |
-| §101 适格性 | [✓/🟡/🔴] | [一行理由] |
-| 公开 / 时限 | [✓/🟡/🔴] | [一行理由 + 日期] |
-| 可检测性 | [✓/🟡/🔴] | [一行理由] |
-| 战略价值 | [✓/🟡/🔴] | [一行理由，挂接画像] |
-
-### Open questions
-*会改变结论、需发明人/申请团队/专家在转申请决策前回答的项。*
-- [问题]
-
-### Next steps（决策树，选一个我帮你展开）
-1. **委托现有技术检索** — 草拟检索请求（权利要求概念、发明人、技术分类、已知文献）。
-2. **回问发明人补料** — 草拟针对上述待解项的追问。
-3. **转外部律师做 §101 / 专利-vs-商业秘密判断** — 草拟转交函，说明初筛所见与所需专家判断。
-4. **回绝并发标准致谢** — 草拟发明人致谢、附回绝理由归档披露。
-5. **改标商业秘密** — 草拟给商业秘密分类负责人的说明，解释为何商业秘密更合适。
+```
+/ip-legal:invention-intake
 ```
 
-## 注意事项
-
-- **绝不说「可专利」**：底线三选一——PURSUE（够多屏 clear 或明确可修，值得检索 + 律师评估，**不等于「可专利」**）/ INVESTIGATE（某屏需补料/专家/回问，点名具体项）/ DECLINE（命中硬伤：超 12 个月公开且无外国权利顾虑、明显显而易见、Alice 下明显抽象、落在关注领域外、根本不可检测且无商业秘密路径——给具体理由）。
-- **§101 临界让专家定**：是执业者常分歧、非专家自信判断老得快的地方。
-- **可检测性先于战略价值**：不可检测却「高战略价值」的发明，作商业秘密往往价值更高；不可检测发明未讨论商业秘密替代前不推 PURSUE。
-- **尊重路由**：初筛是分诊步骤，决定申什么的是负责专利申请的律师/代理人——初筛喂给他、不替代他。
-- **非律师闸门**：非律师角色收尾须明示「这是筛查工具非专利性意见；若结论 PURSUE/INVESTIGATE，下一步不是申请/写权利要求，而是把本备忘录连同底层披露交专利律师；若尚无律师，[画像联系人 / 监管机构 IP 转介服务（美国州律协等）] 是起点」。
-
-## 互见
-
-- requires：`general-counsel-advisor` —— 制定 IP/发明归属策略、判断何时请外部律师的上游能力，初筛结论 PURSUE 后接它推进。
-- related：`oss-license-compliance` —— 同属 IP 资产处置；当发明涉及出站开源或开源依赖触发权利归属问题时配合。
-- related：`regulatory-policy-diff` —— 跨法域 §101 标准与时限规则的时效核查可借其做规则差异比对。
-- combines_with：`general-counsel-advisor` —— 初筛分诊 + 总法律顾问的 IP 策略评估，串成从披露到申请决策的完整链路。
+(And the skill will ask for the invention, the problem it solves, how it
+differs, inventors, public disclosure status, usage status, and technology
+area.)
 
 ---
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+## THIS IS A FIRST-PASS SCREEN, NOT A PATENTABILITY OPINION
+
+**Say this at the top of every output. Do not drop it, do not soften it.**
+
+> **This is a first-pass screen by a non-specialist, not a patentability
+> opinion.** A patentability opinion requires a prior-art search, full claim
+> construction, and the judgment of a registered patent attorney or agent. This
+> screen does not do a prior-art search, does not assess what is in the art, and
+> does not construct claims. It screens for the obvious disqualifiers (the
+> invention is already on the market, it was publicly disclosed two years ago,
+> it is plainly an abstract idea) and the obvious go-aheads (new mechanism,
+> technical advance, recent conception, in-use secretly). Everything in between
+> needs a prior-art search and a registered practitioner's review. This screen
+> never concludes that something is "patentable" — it concludes that it "passes
+> the initial screen, warrants investigation" or that it does not.
+
+Under-flagging an invention that should have been filed is a one-way door — the
+one-year US bar runs, foreign rights are lost at first public disclosure, the
+competitor files first. Over-flagging just means a prior-art search that comes
+back empty. Stay on the two-way door side.
+
+---
+
+## Matter context
+
+**Matter context.** Check `## Matter workspaces` in the practice-level
+CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest
+of this paragraph — skills use practice-level context and the matter machinery
+is invisible. If enabled and there is no active matter, ask: "Which matter is
+this for? Run `/ip-legal:matter-workspace switch <slug>` or say `practice-level`." Load
+the active matter's `matter.md` for matter-specific context and overrides.
+Write outputs to the matter folder at
+`~/.claude/plugins/config/claude-for-legal/ip-legal/matters/<matter-slug>/`.
+Never read another matter's files unless `Cross-matter context` is `on`.
+
+Invention disclosures are particularly common candidates for **clean-team** or
+**heightened** confidentiality at matter-open. Respect the matter's
+confidentiality marking from `matter.md`. Invention content is inherently
+sensitive — do not summarize, quote, or reference it outside privileged
+channels.
+
+---
+
+## Load the practice profile first
+
+**Before reading the disclosure, read
+`~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`.** If it is
+missing or still contains placeholders, stop and run `/ip-legal:cold-start-interview`. The
+practice profile tells you:
+
+- The company's **patent filing strategy** — offensive (building an assertion
+  portfolio), defensive (filing to protect freedom to operate), hybrid, or
+  licensing-revenue. This determines the strategic-value bar.
+- The **technology areas of interest** — where the company files and where it
+  does not. An invention that falls outside the areas of interest is often a
+  decline even if the technical screen is clean.
+- The **filing budget posture** — aggressive (file everything that passes the
+  screen), selective (file the best few), or minimal (only what the business
+  needs to protect). This shapes the output's recommendation.
+- The **approval chain** — who signs off on a filing decision, and who the
+  invention gets routed to if it passes the screen.
+
+If the practice profile shows trademark-only or copyright-only (no patent
+practice), this skill is the wrong tool — say so and route the user elsewhere.
+
+---
+
+## Workflow
+
+### Step 1: Intake the disclosure
+
+If the user pastes or uploads a disclosure, read it. If not, ask — in one
+batch, not one at a time:
+
+> To screen this, I need:
+>
+> 1. **What is the invention?** In plain language — what does it do, what makes
+>    it work, what is the key idea.
+> 2. **What problem does it solve?** What was broken or missing before.
+> 3. **How does it differ from what existed before?** What did people do
+>    previously? What does this do differently?
+> 4. **Who invented it, and when?** Names and rough conception date.
+> 5. **Has it been publicly disclosed?** Published, sold, offered for sale,
+>    demonstrated at a conference, shown to a customer under an NDA, posted to
+>    a public repo, written up in a paper, included in a product release note.
+>    If yes, when and where.
+> 6. **Is it in use or planned?** Shipping now? In a limited pilot? On the
+>    roadmap? Still on paper?
+> 7. **What technology area?** (Software, hardware, mechanical, biotech,
+>    method-of-doing-business, AI/ML, etc.)
+
+Wait for answers. Do not proceed on a half-disclosure — a screen of "a new
+machine learning thing that helps users" is worse than no screen.
+
+If the disclosure is a formal invention disclosure form (IDF) from an IPMS or
+a template, extract these fields from the form and only ask for what's missing.
+
+### Step 2: Screen against the checklist
+
+Walk the five screens in order. Each produces a per-screen verdict:
+`✓ clear`, `🟡 flagged — needs further look`, or `🔴 red flag`. Explain the
+reasoning briefly; do not pad.
+
+#### Screen 1: Novelty signals
+
+Does the disclosure describe something new? This is not a full novelty
+analysis — that requires a prior-art search. This screens the disclosure's own
+description for self-evident novelty problems.
+
+**Red flags (🔴):**
+- "We just applied [known technique] to [new domain]" — e.g., "we took
+  gradient boosting and applied it to predicting customer churn"
+- "It's like [existing product] but for [X]" — Uber-for-dog-walking framing
+- "Competitors do something similar" — if the disclosure itself says this,
+  novelty is in question
+- The disclosure describes a feature of an existing public product with minor
+  tuning
+
+**Green flags (✓):**
+- A new **mechanism** — a new way of doing the thing, not a new application
+- A new **combination** that produces an unexpected result (not just
+  additive — "faster," "smaller," "cheaper" are sometimes unexpected, sometimes
+  obvious)
+- Solving a problem the field **had not solved** — the disclosure explains why
+  the prior approaches failed and how this one doesn't
+
+**Flagged (🟡):** anything ambiguous. Prior-art search settles it.
+
+#### Screen 2: Obviousness flags
+
+Would a person of ordinary skill in the art (POSA) have arrived at this
+combination based on what's known? This is a screen, not a § 103 analysis —
+flag for further investigation, never conclude obviousness or non-obviousness.
+
+**Red flags (🔴) for further investigation:**
+- Combining **known elements in a predictable way** — putting a known sensor
+  on a known machine to measure a known thing
+- **Routine optimization** — "we tuned the existing parameter from X to Y and
+  got better results"
+- **Design choice without functional advantage** — aesthetic, ergonomic, or
+  stylistic changes that don't change how the thing works
+- **Obvious to try** — one of a small number of identified solutions with a
+  reasonable expectation of success
+
+**Green flags (✓):**
+- Teaching away — prior art expected the opposite result or said this approach
+  wouldn't work
+- Unexpected result — the combination produces something the POSA would not
+  have predicted
+- Long-felt need — the problem was known, and attempts to solve it had failed
+
+#### Screen 3: Subject-matter eligibility (§ 101)
+
+Is this an abstract idea, law of nature, or natural phenomenon? This is the
+hardest screen, the most litigated, and the one most likely to require a
+specialist read. Flag anything borderline for specialist review.
+
+**Red flags (🔴) for § 101:**
+- Pure **business method** without technical implementation — "a method of
+  pricing widgets more efficiently"
+- **Mathematical algorithm** on its own — even as dressed up in pseudocode
+- **Organizing human activity** — scheduling, pairing, matching, reviewing —
+  without a technical improvement
+- Claim that reads as "**do [known thing] on a computer**" with no
+  improvement to the computer itself
+- AI/ML invention where the claim is the **function** (recommend, classify,
+  predict) without the specific technical means that improves how the computer
+  performs the function
+
+**Green flags (✓) for software/AI inventions:**
+- Technical improvement to the **computer itself** — new architecture, new
+  training technique, new hardware/software interface, new security mechanism
+- Specific technical means, not just results
+- Improvement to a **technical field** (image processing, compression,
+  cryptography, robotics) with the technical means described
+
+**Anything borderline gets a 🟡 with "§ 101 — route to specialist for
+Alice/Mayo analysis."** A non-specialist should not call a close § 101
+question.
+
+For **biotech / diagnostic** inventions, also flag for § 101 if the claim
+recites:
+- A natural correlation ("if level of X is above Y, patient has Z")
+- A naturally occurring substance (isolated gene, natural product) without
+  significant human modification
+
+> **§101 is a US standard. Other patent offices are different.** The EPO's "technical effect" test (Art. 52 EPC) is materially more permissive for software and AI inventions than US §101 post-*Alice*. JPO and CNIPA also apply different standards. An invention that screens 🔴 under *Alice* may be perfectly eligible at EPO/JPO/CNIPA.
+>
+> When the practice profile includes non-US jurisdictions: "This §101 screen is US-only. If you file internationally, the eligibility posture may be different — particularly for software, AI/ML, and business methods, which EPO is more permissive on. Don't decline based on US §101 alone if you have EP/JP/CN filing plans."
+
+#### Screen 4: Public disclosure / bar dates
+
+Has the invention been disclosed, sold, offered for sale, or publicly used?
+This is the most time-sensitive screen — the answer can kill patentability
+absolutely, or start a clock that cannot be stopped.
+
+Categorize the disclosure status:
+
+**🔴 Likely barred:**
+- Publicly disclosed, sold, or offered for sale **more than 12 months ago**
+  in the US — 35 U.S.C. § 102(b) one-year grace period has run
+- **Any** public disclosure, anywhere, before filing — absolute novelty bar in
+  the EU, China, Japan, and most countries outside the US. If the business
+  cares about foreign rights, this is potentially fatal even if US is still
+  open.
+
+**🟡 Clock is running:**
+- Publicly disclosed within the last 12 months — US one-year clock is running,
+  foreign rights may already be lost. Urgent. Confirm the disclosure date and
+  route to filing immediately.
+
+**✓ Clear:**
+- No public disclosure. Confidential customer demonstrations under NDA, internal
+  use, beta releases to named parties under NDA, draft papers not yet submitted
+  — usually not "public" for § 102 purposes, but depends on the facts. When the
+  disclosure was to a customer or external party, even under NDA, flag the
+  specifics for the prosecution team to assess.
+
+**Ask specifically about:**
+- Papers submitted to journals or conferences (submission ≠ publication; but
+  check the journal's policy and whether preprints were posted)
+- Talks given at conferences, meetups, internal company events open to
+  non-employees
+- Posts to public repos, blogs, social media, or forums
+- Product releases, even in limited beta
+- Sales activity including quotes, RFP responses, and offers for sale
+- Disclosures to investors or board members who are not under NDA
+
+The **on-sale bar** catches offers for sale of a product embodying the
+invention, not just completed sales. An RFP response describing the invention
+can trigger it.
+
+#### Screen 5: Detectability
+
+If a competitor were to infringe this invention, could you tell? An invention
+that's practiced in secret — server-side processing, back-office operations,
+internal manufacturing techniques — may be better protected as a **trade
+secret** than as a patent. Publishing a patent on an undetectable invention is
+giving it to competitors in exchange for an asset you can never enforce.
+
+**🔴 Low detectability flags:**
+- Server-side algorithm with no observable output pattern
+- Internal manufacturing process (e.g., a novel etch step in a semiconductor
+  process)
+- Data-pipeline or analytics methodology that happens inside a competitor's
+  infrastructure
+- Training data composition or training technique for an ML model — visible
+  only through fine-grained probing, if at all
+
+For these, flag for the **patent-vs-trade-secret decision**. The question is
+not "is this patentable" but "should we patent it if we could." Route to
+whoever in the practice profile owns trade-secret classification decisions.
+
+**✓ High detectability:**
+- Consumer product — visible in the product
+- Published API, SDK, protocol — visible in network traffic or integration
+  docs
+- Physical mechanism in a distributed product — reverse-engineerable
+- Compiled code with distinctive signatures in a distributed binary
+
+#### Screen 6: Strategic value
+
+Does this align with the company's patent strategy from the practice profile?
+This is where the screen becomes company-specific rather than doctrinal.
+
+Check against the profile:
+
+- **Offensive strategy (build to assert):** is this asset assert-worthy? A
+  narrow, easily designed-around patent has lower offensive value than a broad
+  mechanism claim. Is the competitive landscape one where you would want to
+  sue?
+- **Defensive strategy (build to protect FTO):** does this cover a technology
+  area where competitors are filing? A defensive filing in an area nobody
+  files in is a wasted spend.
+- **Licensing / revenue strategy:** is this licensable? Who would pay for it,
+  and under what circumstances?
+
+Also check:
+
+- Is this **core** technology (part of the product's differentiation) or
+  **peripheral** (incidental to a side feature)? Core is worth more.
+- What is the **competitive landscape**? Patent-heavy (semiconductors,
+  pharmaceuticals) — file early or lose the race. Patent-light (many
+  open-source-heavy software segments) — sometimes skip entirely and spend
+  the money elsewhere.
+- Is the technology area on the company's list of **tech areas of interest**
+  from the practice profile? If not, it is often a decline regardless of
+  doctrine.
+
+### Step 3: Assemble the invention screen memo
+
+Format:
+
+> **Invention screen memo — [invention title]**
+>
+> **Bottom line: [PURSUE / INVESTIGATE / DECLINE]**
+>
+> *[One sentence — the reason in plain language.]*
+>
+> ---
+>
+> ### Screen results
+>
+> | Screen | Verdict | Notes |
+> |---|---|---|
+> | Novelty signals | [✓ / 🟡 / 🔴] | [one-line reasoning] |
+> | Obviousness flags | [✓ / 🟡 / 🔴] | [one-line reasoning] |
+> | § 101 eligibility | [✓ / 🟡 / 🔴] | [one-line reasoning] |
+> | Public disclosure / bar dates | [✓ / 🟡 / 🔴] | [one-line reasoning + dates] |
+> | Detectability | [✓ / 🟡 / 🔴] | [one-line reasoning] |
+> | Strategic value | [✓ / 🟡 / 🔴] | [one-line reasoning, referenced to profile] |
+>
+> ---
+>
+> ### Open questions
+>
+> *Things that would change the answer. The inventor, the prosecution team, or
+> a specialist would need to address these before this screen converts to a
+> filing decision.*
+>
+> - [question]
+> - [question]
+>
+> ### Next steps (decision tree)
+>
+> Pick one and I'll help you build it out:
+>
+> 1. **Commission the prior-art search** — I'll draft the search request for
+>    [outside counsel / search vendor] with the claim concepts, inventors,
+>    technology classification, and any known references.
+> 2. **Go back to the inventor for more facts** — I'll draft the follow-up
+>    questions on [specific open items above].
+> 3. **Route to outside counsel for § 101 / patent-vs-trade-secret judgment** —
+>    I'll draft a transmittal summarizing what the screen found and what
+>    specialist judgment is needed.
+> 4. **Decline and send the standard thank-you** — I'll draft the inventor
+>    thank-you and archive the disclosure with the declination reason.
+> 5. **Flag for trade secret instead** — I'll draft a note to whoever owns
+>    trade-secret classification explaining why a trade-secret approach is a
+>    better fit.
+
+Apply the work-product header per role. Apply the reviewer note. Keep the
+deliverable clean of internal narration ("I'm using the invention-intake
+skill..." etc.).
+
+### Step 4: Recommend the bottom-line verdict
+
+The bottom line is one of three:
+
+- **PURSUE** — enough screens are clear (or clearly fixable) to warrant a
+  prior-art search and attorney review. This is NOT "patentable" — it is
+  "passes the initial screen, investigation warranted."
+- **INVESTIGATE** — one or more screens flagged something that needs more
+  information, specialist review, or a clarifying question back to the
+  inventor before a pursue/decline decision can be made. Name the specific
+  open item.
+- **DECLINE** — a screen hit a fatal flag (barred by disclosure over 12
+  months old with no foreign rights concern, plainly obvious, plainly abstract
+  under Alice, outside the company's technology areas of interest, fundamentally
+  undetectable with no trade-secret path). State the reason clearly.
+
+A DECLINE should always be backed by a concrete reason the inventor can
+understand. "Not patentable" is not an acceptable decline reason; "barred by
+your paper at NeurIPS 2023 — the US one-year bar ran in December 2024" is.
+
+## Guardrails
+
+**Never say "patentable."** The closest you can come is "passes the initial
+screen, warrants further investigation." Patentability is a conclusion a
+registered practitioner reaches after a prior-art search and claim
+construction.
+
+**Never do a prior-art search in this skill.** A WebSearch for "does this
+already exist" is not a prior-art search — it's a credibility check the
+user can also run. If you want to sanity-check novelty, say so explicitly
+("quick web check — the technique was discussed in [X] — this is not a prior-
+art search, it's context for the screen") and flag it as `[web — verify]`.
+
+**Defer on § 101 calls.** For anything borderline under Alice/Mayo, flag for
+specialist review. § 101 is where practitioners routinely disagree and where
+a non-specialist's confident call ages badly.
+
+**Flag detectability before strategic value.** An undetectable invention that
+would be "high strategic value" as a patent is usually higher strategic value
+as a trade secret. Do not recommend PURSUE on an undetectable invention
+without addressing the trade-secret alternative.
+
+**Urgent cases get urgent flagging.** If the screen hits a within-one-year
+public disclosure in the US, or any public disclosure with foreign rights in
+scope, say so at the top of the memo. Bottom line, then: "**Time-sensitive —
+US bar runs [date], foreign rights already at risk.**" This is the kind of
+finding a lawyer needs to see in the first three seconds.
+
+**Respect the routing.** Per the practice profile, this screen is a triage
+step. The person who decides what to file is the attorney or agent responsible
+for patent prosecution. The screen feeds that person; it does not replace them.
+
+## Non-lawyer gate
+
+If the role is **non-lawyer** (with or without attorney access), close the
+memo with:
+
+> **This is a screening tool for your disclosure, not a patentability opinion.
+> The decision about whether to file — and how — belongs to a registered
+> patent attorney or agent. If this screen says PURSUE or INVESTIGATE, your
+> next step is not to file or draft claims; it is to share this memo (and the
+> underlying disclosure) with patent counsel. If there is no counsel engaged
+> yet, [contact from profile / "your professional regulator's IP referral service — state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent"] is the
+> starting point.**

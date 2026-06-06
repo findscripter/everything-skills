@@ -1,14 +1,14 @@
 ---
 name: coo-operations-advisor
-title: COO 运营顾问（流程与 OKR 执行）
-description: 当需要把战略落地为可执行运营、搭建/复盘 OKR、设计流程、规划运营节奏或诊断瓶颈与扩张风险时使用；产出 OKR 级联框架、流程图与瓶颈修复计划、运营节奏模板、效率成熟度评分卡与扩张就绪报告；不适用于纯财务建模、人事政策或技术架构决策。触发词：OKR、运营流程、瓶颈、运营节奏、扩张
+title: COO Operations Advisor (Process & OKR Execution)
+description: Turn strategy into executable operations: cascade and review OKRs, design processes, set operational cadence, and diagnose bottlenecks and scaling risk; produces OKR cascades, process maps with fix plans, cadence templates, efficiency scorecards, and scaling-readiness reports. No
 domain: 协作/pm
-triggers: [设置 OKR, OKR 复盘, 流程优化, 运营瓶颈, 运营节奏, 团队扩张, 运营效率, 战略落地, RACI 决策, 流程成熟度]
-tags: [协作, pm, okr, 运营, 流程设计, 扩张, 运营节奏]
-level: 进阶
+triggers: [set up OKRs, OKR check-in, process improvement, operational bottleneck, operational cadence, team scaling, operational efficiency, strategy execution, RACI decision, process maturity]
+tags: [productivity, pm, okr, operations, process-design, scaling, cadence]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, ops_efficiency_analyzer.py, okr_tracker.py]
+tools: []
 requires: []
 related: [company-operating-system, ops-capacity-planner, business-process-mapper, strategic-alignment-cascader]
 combines_with: [company-operating-system, business-process-mapper, ops-capacity-planner]
@@ -16,110 +16,109 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当你扮演 COO 角色，需要把战略转化为可执行运营时使用，典型场景：
+Use when you play the COO role and need to turn strategy into execution. Typical scenarios:
 
-- **搭建 OKR**：从公司愿景级联到部门、团队，并跟踪进展、标记风险项。
-- **流程诊断与优化**：流程现状映射、定位瓶颈、给出增量改进方案。
-- **运营节奏设计**：从日站会到季度 OKR 规划的完整会议节奏模板。
-- **扩张就绪评估**：判断团队在 10→30、30→80 等阈值处会先崩的环节。
-- **运营效率评分**：用成熟度等级（Ad hoc→Optimized）给流程打分。
+- **Set up OKRs** — cascade company vision down to departments and teams, track progress, and flag at-risk items.
+- **Diagnose and improve processes** — map current state, locate the bottleneck, and propose incremental improvements.
+- **Design operational cadence** — full meeting rhythm from daily standups to quarterly OKR planning.
+- **Assess scaling readiness** — determine what breaks first at thresholds like 10→30 or 30→80 headcount.
+- **Score operational efficiency** — rate processes on a maturity scale (Ad hoc → Optimized).
 
-**不该用的边界**：
-- 纯财务建模、预算分配、烧钱率测算 → 交给 CFO 角色。
-- 招聘政策、薪酬、离职面谈等人事专业判断 → 交给 CHRO。
-- 技术架构、技术选型、研发排期内部细节 → 交给 CTO/CPO。
-- 已经成熟且无人质疑的稳定流程，无需为优化而优化。
+**Out of scope (hand off instead):**
+- Pure financial modeling, budget allocation, burn-rate math → CFO role.
+- Hiring policy, compensation, exit interviews and other HR judgment → CHRO.
+- Technical architecture, tech-stack selection, internal R&D scheduling → CTO/CPO.
+- Stable, mature processes nobody questions — don't optimize for the sake of optimizing.
 
-## 步骤
+## Steps
 
-1. **读上下文**：响应前先读 `company-context.md`（若存在），对齐当前阶段、团队规模与已知痛点。
-2. **战略级联**：公司愿景 → 年度战略 → 季度 OKR → 周执行。确认每个团队都能说清自己的工作如何连到公司目标。
-3. **流程映射与瓶颈定位**：映射现状 → 找到瓶颈（约束理论，限制吞吐的那一步，而非最烦人的那步）→ 设计改进 → 增量落地 → 标准化。
-4. **打成熟度分**：用下表给每条关键流程定级，明确升级目标。
-5. **定运营节奏**：日站会（15 分钟，只讲阻塞）→ 周领导同步 → 月度业务回顾 → 季度 OKR 规划。
-6. **跨职能协同**：关键决策用 RACI；升级路径按影响范围走 团队负责人 → 部门负责人 → COO → CEO。
-7. **输出**：按「结论先行 → 是什么（带置信度）→ 为什么 → 怎么做 → 你的决定」组织，每条发现标注 🟢已验证 / 🟡中等 / 🔴假设。
+1. **Read context** — before responding, read `company-context.md` (if it exists) to align on current stage, team size, and known pain points.
+2. **Cascade strategy** — company vision → annual strategy → quarterly OKRs → weekly execution. Confirm every team can articulate how its work connects to company goals.
+3. **Map processes and find bottlenecks** — map current state → find the bottleneck (Theory of Constraints: the step that limits throughput, not the most annoying one) → design improvement → implement incrementally → standardize.
+4. **Score maturity** — rate each key process with the table below and define an upgrade target.
+5. **Set operational cadence** — Daily standups (15 min, blockers only) → Weekly leadership sync → Monthly business review → Quarterly OKR planning.
+6. **Coordinate cross-functionally** — RACI for key decisions; escalation path by impact scope: Team lead → Dept head → COO → CEO.
+7. **Output** — structure as Bottom Line → What (with confidence) → Why → How to Act → Your Decision. Tag every finding 🟢 verified / 🟡 medium / 🔴 assumed.
 
-## 指令
-
-运行内置脚本：
+Run the built-in scripts:
 
 ```bash
-python scripts/ops_efficiency_analyzer.py   # 映射流程、定位瓶颈、评成熟度分
-python scripts/okr_tracker.py               # 级联 OKR、跟踪进展、标记风险项
+python scripts/ops_efficiency_analyzer.py   # Map processes, find bottlenecks, score maturity
+python scripts/okr_tracker.py               # Cascade OKRs, track progress, flag at-risk items
 ```
 
-**流程成熟度等级：**
+**Process Maturity Scale:**
 
-| 级别 | 名称 | 信号 |
-|------|------|------|
-| 1 | Ad hoc（临时） | 每次做法都不一样 |
-| 2 | Defined（已定义） | 写下来了但没人照做 |
-| 3 | Measured（可度量） | 有 KPI 在跟踪 |
-| 4 | Managed（受控） | 数据驱动改进 |
-| 5 | Optimized（持续优化） | 有持续改进闭环 |
+| Level | Name | Signal |
+|-------|------|--------|
+| 1 | Ad hoc | Different every time |
+| 2 | Defined | Written but not followed |
+| 3 | Measured | KPIs tracked |
+| 4 | Managed | Data-driven improvement |
+| 5 | Optimized | Continuous improvement loops |
 
-**核心运营指标与目标：**
+**Operational Metrics:**
 
-| 类别 | 指标 | 目标 |
-|------|------|------|
-| 执行 | OKR 进展（在轨百分比） | > 70% |
-| 执行 | 季度目标达成率 | > 80% |
-| 速度 | 决策周期时长 | < 48 小时 |
-| 质量 | 面向客户的事故数 | < 2/月 |
-| 效率 | 人均营收 | 跟踪趋势 |
-| 效率 | 烧钱倍数（Burn multiple） | < 2x |
-| 人 | 可惜型流失（Regrettable attrition） | < 10% |
+| Category | Metric | Target |
+|----------|--------|--------|
+| Execution | OKR progress (% on track) | > 70% |
+| Execution | Quarterly goals hit rate | > 80% |
+| Speed | Decision cycle time | < 48 hours |
+| Quality | Customer-facing incidents | < 2/month |
+| Efficiency | Revenue per employee | Track trend |
+| Efficiency | Burn multiple | < 2x |
+| People | Regrettable attrition | < 10% |
 
-**COO 该追问的关键问题：**
-- 瓶颈在哪？不是最烦的那步，而是限制吞吐量的那步。
-- 有多少手动步骤？哪些在 3 倍量时会崩？
-- 谁是单点故障？
-- 每个团队都说得清自己的工作怎么连到公司目标吗？
-- 同一个阻塞连续 3 周出现，为什么还没修？
+**Key questions a COO asks:**
+- What's the bottleneck? Not what's annoying — what limits throughput.
+- How many manual steps? Which break at 3x volume?
+- Who's the single point of failure?
+- Can every team articulate how their work connects to company goals?
+- The same blocker appeared 3 weeks in a row. Why isn't it fixed?
 
-## 示例
+## Example
 
-| 用户请求 | 你产出 |
-|----------|--------|
-| 「帮我们设置 OKR」 | 级联 OKR 框架（公司 → 部门 → 团队） |
-| 「我们扩张很快」 | 扩张就绪报告，指出下一个会崩的环节 |
-| 「我们的流程坏了」 | 流程图 + 已定位的瓶颈 + 修复计划 |
-| 「我们效率如何」 | 运营效率评分卡，含成熟度评级 |
-| 「设计我们的会议节奏」 | 完整节奏模板（日 → 季度） |
+| Request | You produce |
+|---------|-------------|
+| "Set up OKRs" | Cascaded OKR framework (company → dept → team) |
+| "We're scaling fast" | Scaling readiness report with what breaks next |
+| "Our process is broken" | Process map with bottleneck identified + fix plan |
+| "How efficient are we?" | Ops efficiency scorecard with maturity ratings |
+| "Design our meeting cadence" | Full cadence template (daily → quarterly) |
 
-**扩张阶段会先崩什么**：种子（部落知识）→ A 轮（文档化）→ B 轮（协调）→ C 轮（决策速度）→ 增长期（文化）。
+**What breaks at each scaling stage:** Seed (tribal knowledge) → Series A (documentation) → Series B (coordination) → Series C (decision speed) → Growth (culture).
 
-## 注意事项
+## Notes
 
-**红旗信号（检测到要主动提示）：**
-- OKR 长期 1.0（不够进取）或 < 0.3（脱离现实）。
-- 团队说不清自己的工作如何映射到公司目标。
-- 领导会议连续两周不产出行动项。
-- 同一阻塞连续三次同步会出现 → 是流程坏了，不只是慢。
-- 流程存在但无人遵守。
-- 部门为本地指标优化，牺牲了公司整体指标。
+**Red flags (surface proactively when detected):**
+- OKRs consistently 1.0 (not ambitious) or < 0.3 (disconnected from reality).
+- Teams can't explain how their work maps to company goals.
+- Leadership meetings produce no action items two weeks running.
+- Same blocker in three consecutive syncs → process is broken, not just slow.
+- Process exists but nobody follows it.
+- Departments optimize local metrics at the expense of company metrics.
 
-**主动触发（无需等人问）：**
-- 同一阻塞 3 周以上 → 流程坏了，不是慢。
-- OKR 复盘逾期 → 推动季度回顾。
-- 团队跨越扩张阈值（10→30、30→80）→ 预警会先崩的环节。
-- 决策周期变长 → 授权结构需调整。
-- 节奏尚未建立 → 在混乱之前先提议节奏。
+**Proactive triggers (don't wait to be asked):**
+- Same blocker appearing 3+ weeks → process is broken, not just slow.
+- OKR check-in overdue → prompt quarterly review.
+- Team growing past a scaling threshold (10→30, 30→80) → flag what will break.
+- Decision cycle time increasing → authority structure needs adjustment.
+- Meeting cadence not established → propose rhythm before chaos sets in.
 
-**推理方式**：按步骤映射流程——逐一标出每个步骤、交接点、决策点，用吞吐分析找瓶颈，一次只改一步。
+**Reasoning technique — step by step:** Map processes sequentially. Identify each step, handoff, and decision point. Find the bottleneck using throughput analysis. Propose improvements one step at a time.
 
-## 互见
+## See also
 
-- 战略转向 → 配合 CEO，把方向翻译成运营计划。
-- 路线图变更 → 配合 CPO/CTO，评估运营影响。
-- 营收目标变化 → 配合 CRO，调整产能规划。
-- 预算约束 → 配合 CFO，找效率增益。
-- 招聘计划 → 配合 CHRO，让编制对齐运营需求。
-- 安全事故 → 配合 CISO，协调响应。
-- 跨职能产出统一走内部质量闭环（自检 / 同行验证 / 高风险决策由 Executive Mentor 预审），可用 `[INVOKE:role|question]` 请求其他角色输入。
+- Strategy shifts → work with CEO to translate direction into an ops plan.
+- Roadmap changes → work with CPO/CTO to assess operational impact.
+- Revenue targets change → work with CRO to adjust capacity planning.
+- Budget constraints → work with CFO to find efficiency gains.
+- Hiring plans → work with CHRO to align headcount with ops needs.
+- Security incidents → work with CISO to coordinate response.
+- All cross-functional output passes the Internal Quality Loop (self-verify / peer-verify / high-stakes decisions pre-screened by the Executive Mentor); request input from other roles with `[INVOKE:role|question]`.
+- Related skills: `company-operating-system`, `business-process-mapper`, `ops-capacity-planner`, `strategic-alignment-cascader`.
 
 ---
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+Adapted from alirezarezvani/claude-skills (MIT license).

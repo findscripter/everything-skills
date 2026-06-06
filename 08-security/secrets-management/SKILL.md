@@ -1,14 +1,14 @@
 ---
 name: secrets-management
-title: 密钥与凭据管理
-description: 当在 CI/CD 流水线或运行时需要安全存取 API 密钥、数据库口令、TLS 证书等敏感信息时使用；做法是选定密钥后端（Vault / AWS Secrets Manager / Azure Key Vault / GCP / GitHub-GitLab 内置变量）并以最小权限拉取、轮转与审计，产出可落地的存取与轮转配置；不适用于把明文密钥硬编码进源码或仅需本地不外发的开发值。触发词：密钥管理、凭据管理、secrets management、Vault、AWS Secrets Manager、密钥轮转、secret rotation、密钥扫描
+title: Secrets Management
+description: Secure secrets management practices for CI/CD pipelines using Vault, AWS Secrets Manager, and other tools.
 domain: 安全/ops
-triggers: [密钥管理, 凭据管理, secrets management, Vault, AWS Secrets Manager, 密钥轮转, secret rotation, 密钥扫描]
+triggers: [secrets management, Vault, AWS Secrets Manager, secret rotation]
 tags: [security, secrets, ci-cd, devops, vault, aws-secrets-manager, rotation, least-privilege]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, Google Secret Manager, GitHub Actions, GitLab CI, Terraform, External Secrets Operator, TruffleHog, GitGuardian]
+tools: []
 requires: []
 related: [secrets-manager, env-secrets-hygiene, auth-implementation-patterns, insecure-defaults-detector]
 combines_with: [env-secrets-hygiene, ci-cd-pipeline-builder, terraform-specialist]
@@ -16,110 +16,115 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Secrets Management
 
-适用于：在 CI/CD 流水线或运行时安全存取 API 密钥、数据库口令、TLS 证书；需要自动轮转密钥；实现最小权限访问与审计日志。
+Secure secrets management practices for CI/CD pipelines using Vault, AWS Secrets Manager, and other tools.
 
-不该用（负边界）：
-- 打算把密钥明文硬编码进源码或提交到版本库。
-- 无法保证密钥后端的访问安全（无法控制谁能读后端）。
-- 只需本地开发用、不外发也不共享的临时值——直接用本地 `.env`（加入 `.gitignore`）即可，无需引入后端。
+## Purpose
 
-## 步骤
+Implement secure secrets management in CI/CD pipelines without hardcoding sensitive information.
 
-1. 梳理密钥类型、归属人（owner）和轮转要求。
-2. 选定密钥后端与访问模型（见下方选型）。
-3. 在 CI/CD 或运行时以最小权限拉取密钥，避免落盘、避免进日志。
-4. 验证轮转流程与审计日志确实生效。
+## Use this skill when
 
-后端选型速查：
-- HashiCorp Vault：集中管理、动态密钥、轮转、审计、细粒度访问控制（跨云通用）。
-- AWS Secrets Manager：AWS 原生、自动轮转、与 RDS 集成。
-- Azure Key Vault：Azure 原生、HSM 支持、证书管理、RBAC。
-- Google Secret Manager：GCP 原生、版本化、IAM 集成。
+- Store API keys and credentials
+- Manage database passwords
+- Handle TLS certificates
+- Rotate secrets automatically
+- Implement least-privilege access
 
-## 指令
+## Do not use this skill when
 
-### Vault：初始化与写入
+- You plan to hardcode secrets in source control
+- You cannot secure access to the secrets backend
+- You only need local development values without sharing
+
+## Instructions
+
+1. Identify secret types, owners, and rotation requirements.
+2. Choose a secrets backend and access model.
+3. Integrate CI/CD or runtime retrieval with least privilege.
+4. Validate rotation and audit logging.
+
+## Safety
+
+- Never commit secrets to source control.
+- Limit access and log secret usage for auditing.
+
+## Secrets Management Tools
+
+### HashiCorp Vault
+- Centralized secrets management
+- Dynamic secrets generation
+- Secret rotation
+- Audit logging
+- Fine-grained access control
+
+### AWS Secrets Manager
+- AWS-native solution
+- Automatic rotation
+- Integration with RDS
+- CloudFormation support
+
+### Azure Key Vault
+- Azure-native solution
+- HSM-backed keys
+- Certificate management
+- RBAC integration
+
+### Google Secret Manager
+- GCP-native solution
+- Versioning
+- IAM integration
+
+## HashiCorp Vault Integration
+
+### Setup Vault
 
 ```bash
+# Start Vault dev server
 vault server -dev
+
+# Set environment
 export VAULT_ADDR='http://127.0.0.1:8200'
 export VAULT_TOKEN='root'
+
+# Enable secrets engine
 vault secrets enable -path=secret kv-v2
+
+# Store secret
 vault kv put secret/database/config username=admin password=secret
 ```
 
-### AWS Secrets Manager：写入
-
-```bash
-aws secretsmanager create-secret \
-  --name production/database/password \
-  --secret-string "super-secret-password"
-```
-
-### 密钥扫描（pre-commit 钩子，TruffleHog）
-
-```bash
-#!/bin/bash
-# .git/hooks/pre-commit
-docker run --rm -v "$(pwd):/repo" \
-  trufflesecurity/trufflehog:latest \
-  filesystem --directory=/repo
-if [ $? -ne 0 ]; then
-  echo "Secret detected! Commit blocked."
-  exit 1
-fi
-```
-
-### 自动轮转（AWS Lambda 骨架）
-
-```python
-import boto3, json
-
-def lambda_handler(event, context):
-    client = boto3.client('secretsmanager')
-    cur = json.loads(client.get_secret_value(SecretId='my-secret')['SecretString'])
-    new_password = generate_strong_password()
-    update_database_password(new_password)
-    client.put_secret_value(
-        SecretId='my-secret',
-        SecretString=json.dumps({'username': cur['username'], 'password': new_password})
-    )
-    return {'statusCode': 200}
-```
-
-手动轮转流程：生成新密钥 → 写入密钥库 → 应用切换到新密钥 → 验证功能 → 吊销旧密钥。
-
-## 示例
-
-### GitHub Actions + Vault
+### GitHub Actions with Vault
 
 ```yaml
-- name: Import Secrets from Vault
-  uses: hashicorp/vault-action@v2
-  with:
-    url: https://vault.example.com:8200
-    token: ${{ secrets.VAULT_TOKEN }}
-    secrets: |
-      secret/data/database username | DB_USERNAME ;
-      secret/data/database password | DB_PASSWORD ;
-      secret/data/api key | API_KEY
+name: Deploy with Vault Secrets
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Import Secrets from Vault
+      uses: hashicorp/vault-action@v2
+      with:
+        url: https://vault.example.com:8200
+        token: ${{ secrets.VAULT_TOKEN }}
+        secrets: |
+          secret/data/database username | DB_USERNAME ;
+          secret/data/database password | DB_PASSWORD ;
+          secret/data/api key | API_KEY
+
+    - name: Use secrets
+      run: |
+        echo "Connecting to database as $DB_USERNAME"
+        # Use $DB_PASSWORD, $API_KEY
 ```
 
-### GitHub Actions + AWS Secrets Manager（拉取并脱敏）
-
-```yaml
-- name: Get secret from AWS
-  run: |
-    SECRET=$(aws secretsmanager get-secret-value \
-      --secret-id production/database/password \
-      --query SecretString --output text)
-    echo "::add-mask::$SECRET"
-    echo "DB_PASSWORD=$SECRET" >> $GITHUB_ENV
-```
-
-### GitLab CI + Vault
+### GitLab CI with Vault
 
 ```yaml
 deploy:
@@ -132,9 +137,48 @@ deploy:
     - |
       DB_PASSWORD=$(vault kv get -field=password secret/database/config)
       API_KEY=$(vault kv get -field=key secret/api/credentials)
+      echo "Deploying with secrets..."
+      # Use $DB_PASSWORD, $API_KEY
 ```
 
-### Terraform 引用 AWS Secrets Manager
+**Reference:** See `references/vault-setup.md`
+
+## AWS Secrets Manager
+
+### Store Secret
+
+```bash
+aws secretsmanager create-secret \
+  --name production/database/password \
+  --secret-string "super-secret-password"
+```
+
+### Retrieve in GitHub Actions
+
+```yaml
+- name: Configure AWS credentials
+  uses: aws-actions/configure-aws-credentials@v4
+  with:
+    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    aws-region: us-west-2
+
+- name: Get secret from AWS
+  run: |
+    SECRET=$(aws secretsmanager get-secret-value \
+      --secret-id production/database/password \
+      --query SecretString \
+      --output text)
+    echo "::add-mask::$SECRET"
+    echo "DB_PASSWORD=$SECRET" >> $GITHUB_ENV
+
+- name: Use secret
+  run: |
+    # Use $DB_PASSWORD
+    ./deploy.sh
+```
+
+### Terraform with AWS Secrets Manager
 
 ```hcl
 data "aws_secretsmanager_secret_version" "db_password" {
@@ -142,14 +186,131 @@ data "aws_secretsmanager_secret_version" "db_password" {
 }
 
 resource "aws_db_instance" "main" {
-  username = "admin"
-  password = jsondecode(data.aws_secretsmanager_secret_version.db_password.secret_string)["password"]
+  allocated_storage    = 100
+  engine              = "postgres"
+  instance_class      = "db.t3.large"
+  username            = "admin"
+  password            = jsondecode(data.aws_secretsmanager_secret_version.db_password.secret_string)["password"]
 }
 ```
 
-### Kubernetes External Secrets Operator（从 Vault 同步到 K8s Secret）
+## GitHub Secrets
+
+### Organization/Repository Secrets
 
 ```yaml
+- name: Use GitHub secret
+  run: |
+    echo "API Key: ${{ secrets.API_KEY }}"
+    echo "Database URL: ${{ secrets.DATABASE_URL }}"
+```
+
+### Environment Secrets
+
+```yaml
+deploy:
+  runs-on: ubuntu-latest
+  environment: production
+  steps:
+  - name: Deploy
+    run: |
+      echo "Deploying with ${{ secrets.PROD_API_KEY }}"
+```
+
+**Reference:** See `references/github-secrets.md`
+
+## GitLab CI/CD Variables
+
+### Project Variables
+
+```yaml
+deploy:
+  script:
+    - echo "Deploying with $API_KEY"
+    - echo "Database: $DATABASE_URL"
+```
+
+### Protected and Masked Variables
+- Protected: Only available in protected branches
+- Masked: Hidden in job logs
+- File type: Stored as file
+
+## Best Practices
+
+1. **Never commit secrets** to Git
+2. **Use different secrets** per environment
+3. **Rotate secrets regularly**
+4. **Implement least-privilege access**
+5. **Enable audit logging**
+6. **Use secret scanning** (GitGuardian, TruffleHog)
+7. **Mask secrets in logs**
+8. **Encrypt secrets at rest**
+9. **Use short-lived tokens** when possible
+10. **Document secret requirements**
+
+## Secret Rotation
+
+### Automated Rotation with AWS
+
+```python
+import boto3
+import json
+
+def lambda_handler(event, context):
+    client = boto3.client('secretsmanager')
+
+    # Get current secret
+    response = client.get_secret_value(SecretId='my-secret')
+    current_secret = json.loads(response['SecretString'])
+
+    # Generate new password
+    new_password = generate_strong_password()
+
+    # Update database password
+    update_database_password(new_password)
+
+    # Update secret
+    client.put_secret_value(
+        SecretId='my-secret',
+        SecretString=json.dumps({
+            'username': current_secret['username'],
+            'password': new_password
+        })
+    )
+
+    return {'statusCode': 200}
+```
+
+### Manual Rotation Process
+
+1. Generate new secret
+2. Update secret in secret store
+3. Update applications to use new secret
+4. Verify functionality
+5. Revoke old secret
+
+## External Secrets Operator
+
+### Kubernetes Integration
+
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: SecretStore
+metadata:
+  name: vault-backend
+  namespace: production
+spec:
+  provider:
+    vault:
+      server: "https://vault.example.com:8200"
+      path: "secret"
+      version: "v2"
+      auth:
+        kubernetes:
+          mountPath: "kubernetes"
+          role: "production"
+
+---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
@@ -164,23 +325,58 @@ spec:
     name: database-credentials
     creationPolicy: Owner
   data:
-    - secretKey: password
-      remoteRef:
-        key: database/config
-        property: password
+  - secretKey: username
+    remoteRef:
+      key: database/config
+      property: username
+  - secretKey: password
+    remoteRef:
+      key: database/config
+      property: password
 ```
 
-## 注意事项
+## Secret Scanning
 
-- 绝不把密钥提交到 Git，绝不在日志里 echo 明文（CI 中用 `::add-mask::` 或 GitLab 的 Masked 变量）。
-- 各环境使用不同密钥；定期轮转；遵循最小权限。
-- 开启审计日志；尽量使用短期令牌（short-lived token）。
-- 静态加密（at rest）；在流水线接入密钥扫描（GitGuardian / TruffleHog）。
-- GitLab 变量善用 Protected（仅受保护分支可用）、Masked（日志中隐藏）、File 三种类型。
-- 本技能产出仅为模板，须结合具体环境做验证与专家评审；若密钥归属、权限边界或成功标准不明确，先停下确认。
+### Pre-commit Hook
 
-## 互见
+```bash
+#!/bin/bash
+# .git/hooks/pre-commit
 
-（无可关联的同库技能）
+# Check for secrets with TruffleHog
+docker run --rm -v "$(pwd):/repo" \
+  trufflesecurity/trufflehog:latest \
+  filesystem --directory=/repo
 
-—— 本条采编自 sickn33/antigravity-awesome-skills（MIT）。
+if [ $? -ne 0 ]; then
+  echo "❌ Secret detected! Commit blocked."
+  exit 1
+fi
+```
+
+### CI/CD Secret Scanning
+
+```yaml
+secret-scan:
+  stage: security
+  image: trufflesecurity/trufflehog:latest
+  script:
+    - trufflehog filesystem .
+  allow_failure: false
+```
+
+## Reference Files
+
+- `references/vault-setup.md` - HashiCorp Vault configuration
+- `references/github-secrets.md` - GitHub Secrets best practices
+
+## Related Skills
+
+- `github-actions-templates` - For GitHub Actions integration
+- `gitlab-ci-patterns` - For GitLab CI integration
+- `deployment-pipeline-design` - For pipeline architecture
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

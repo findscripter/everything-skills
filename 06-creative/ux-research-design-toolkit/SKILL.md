@@ -1,14 +1,14 @@
 ---
 name: ux-research-design-toolkit
-title: UX 研究与体验设计工具箱
-description: 当需要把用户研究数据转化为可落地的设计决策时使用；做用户画像生成、旅程地图绘制、可用性测试规划与研究综合（产出画像/旅程/测试方案/洞察）；不适用于视觉 UI 组件库设计、纯前端实现或无任何用户数据的拍脑袋假设。触发词：用户画像、旅程地图、可用性测试、研究综合、痛点分析。
+title: UX Research & Design Toolkit
+description: Use when turning user research data into actionable design decisions: data-driven persona generation, journey mapping, usability test planning, and research synthesis. Not for visual UI/design-system component building, pure front-end implementation, or fabricating personas with 
 domain: 创意/design
-triggers: [创建用户画像, 从数据生成画像, 绘制客户旅程地图, 映射用户旅程, 规划可用性测试, 设计可用性研究, 分析用户研究, 综合访谈发现, 识别用户痛点, 定义用户原型, 计算研究样本量, 创建同理心地图, 识别用户需求]
-tags: [ux研究, 用户画像, 旅程地图, 可用性测试, 研究综合, 设计验证, 创意/design]
-level: 进阶
+triggers: [create user persona, generate persona from data, build customer journey map, map user journey, plan usability test, design usability study, analyze user research, synthesize interview findings, identify user pain points, define user archetypes, calculate research sample size, create empathy map, identify user needs]
+tags: [ux-research, personas, journey-mapping, usability-testing, research-synthesis, design-validation, creative/design]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, persona_generator.py]
+tools: []
 requires: []
 related: [ux-ui-principles-audit, apple-hig-advisor, accessibility-wcag-audit, design-brainstorming]
 combines_with: [ux-ui-principles-audit, ui-design-system-builder]
@@ -16,26 +16,26 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-适用于资深 UX 设计师/研究员把"已有的用户数据"转化为可落地设计决策的四类场景：
+For a Senior UX Designer/Researcher turning *existing user data* into actionable design decisions across four scenarios:
 
-- **生成用户画像**：手上已有分析数据、问卷或访谈，需要产出有研究背书的 persona。
-- **绘制旅程地图**：为某个具体目标，可视化端到端的用户体验与情绪曲线。
-- **规划可用性测试**：用真实用户验证某个设计方案。
-- **综合研究发现**：把原始访谈/问卷/观察数据聚类成可执行洞察。
+- **Generate a persona** — you have analytics, surveys, or interviews and need a research-backed persona.
+- **Create a journey map** — visualize the end-to-end experience and emotion curve for a specific goal.
+- **Plan a usability test** — validate a design with real users.
+- **Synthesize research** — cluster raw interview/survey/observation data into actionable insights.
 
-**不该用的边界（负边界）：**
+**Out of scope (negative boundaries):**
 
-- 不用于视觉层 UI / 设计系统组件搭建——那属于「UI 设计系统」技能。
-- 不用于纯前端代码实现。
-- 不在"零用户数据"时强行造画像。样本不足时只能产出探索性结论，须标注低置信度，不可当作生产级依据。
+- Not for visual UI / design-system component building — that belongs to the "UI Design System" skill.
+- Not for pure front-end code implementation.
+- Do not fabricate personas when there is zero user data. With an insufficient sample you may only produce exploratory conclusions, which must be flagged low-confidence and never treated as production-grade evidence.
 
-## 步骤
+## Steps
 
-### 步骤 1 · 生成用户画像
+### Step 1 · Generate a user persona
 
-1. 准备用户数据，必须为如下 JSON 结构：
+1. Prepare user data in this JSON structure:
 
 ```json
 [
@@ -52,75 +52,90 @@ source_license: MIT
 ]
 ```
 
-2. 运行画像生成器：
+2. Run the persona generator:
 
 ```bash
-# 人类可读输出
+# Human-readable output
 python scripts/persona_generator.py
 
-# 用于系统集成的 JSON 输出
+# JSON output for integration
 python scripts/persona_generator.py json
 ```
 
-3. 逐项校验生成结果：原型是否匹配数据模式 / 人口属性是否源自真实数据 / 目标是否具体可执行 / 挫败点是否带频次计数 / 设计启示是否能让设计师直接落地。
-4. 验证画像：拿给 3-5 名真实用户问"这像你吗？"；与客服工单交叉核对；与分析数据复核。
+3. Review the generated components:
 
-工具会按信号自动判定原型：`power_user`（每日使用、10+ 功能 → 效率与定制）、`casual_user`（每周使用、3-5 功能 → 简洁与引导）、`business_user`（工作场景、团队使用 → 协作与报表）、`mobile_first`（移动优先 → 触控、离线、速度）。
+| Component | What to Check |
+|-----------|---------------|
+| Archetype | Does it match the data patterns? |
+| Demographics | Are they derived from actual data? |
+| Goals | Are they specific and actionable? |
+| Frustrations | Do they include frequency counts? |
+| Design implications | Can designers act on these? |
 
-### 步骤 2 · 绘制旅程地图
+4. Validate the persona: show it to 3-5 real users ("Does this sound like you?"); cross-check with support tickets; verify against analytics data.
 
-1. 定义范围：persona、目标、起点（触发事件）、终点（成功标准）、时间跨度。
-2. 采集旅程数据：用户访谈（问"带我走一遍……"）、会话录屏、分析漏斗/流失点、客服工单。
-3. 划分阶段，典型 B2B SaaS：`认知 → 评估 → 上手 → 采用 → 拥护`。
-4. 每个阶段填满分层：
+The tool auto-classifies archetypes by signals: `power_user` (daily use, 10+ features → efficiency, customization), `casual_user` (weekly use, 3-5 features → simplicity, guidance), `business_user` (work context, team use → collaboration, reporting), `mobile_first` (mobile primary → touch, offline, speed).
 
-```
-阶段：[名称]
-├── 行为：用户做了什么？
-├── 触点：在哪里交互？
-├── 情绪：感受如何？(1-5)
-├── 痛点：什么让他受挫？
-└── 机会：哪里能改进？
-```
+### Step 2 · Create a journey map
 
-5. 识别机会，按 **优先级分 = 频次 × 严重度 × 可解决性** 排序。
-
-### 步骤 3 · 规划可用性测试
-
-1. 把模糊目标改写成可测问题，例如"好用吗？"→"用户能否在 3 分钟内完成结账？"
-2. 选方法：有调节远程（5-8 人 / 45-60 分 / 深度洞察）、无调节远程（10-20 人 / 15-20 分 / 快速验证）、游击测试（3-5 人 / 5-10 分 / 即时反馈）。
-3. 设计任务，用场景而非指令：
+1. Define scope: persona, goal, start (trigger event), end (success criteria), timeframe.
+2. Gather journey data: user interviews ("walk me through..."), session recordings, analytics (funnel, drop-offs), support tickets.
+3. Map the stages. Typical B2B SaaS: `Awareness → Evaluation → Onboarding → Adoption → Advocacy`.
+4. Fill in layers for each stage:
 
 ```
-场景: "想象你正计划去巴黎旅行……"
-目标: "在预算内预订 3 晚酒店。"
-成功: "你看到了确认页面。"
+Stage: [Name]
+├── Actions: What does user do?
+├── Touchpoints: Where do they interact?
+├── Emotions: How do they feel? (1-5)
+├── Pain Points: What frustrates them?
+└── Opportunities: Where can we improve?
 ```
 
-任务推进顺序：热身 → 核心 → 次要 → 边界 → 自由探索。
+5. Identify opportunities, ranked by **Priority Score = Frequency × Severity × Solvability**.
 
-4. 定义成功指标：完成率 >80%、任务耗时 <2× 预期、错误率 <15%、满意度 >4/5。
-5. 准备主持人指南：出声思考说明、非诱导性追问、任务后提问。
+### Step 3 · Plan a usability test
 
-### 步骤 4 · 综合研究
+1. Transform vague goals into testable research questions, e.g. "Is it easy to use?" → "Can users complete checkout in <3 min?".
+2. Select a method:
 
-1. 为每个数据点打标签：`[GOAL]` 目标 / `[PAIN]` 痛点 / `[BEHAVIOR]` 行为 / `[CONTEXT]` 场景 / `[QUOTE]` 用户原话。
-2. 聚类相似模式（如把"每日使用 + 高级功能"的 A、B 归为 Power Users）。
-3. 计算各细分占比，判定主要/次要 persona 的可行性。
-4. 每个主题提炼：发现陈述 + 支撑证据（引语/数据）+ 频次（X/Y 受访者）+ 业务影响 + 建议。
-5. 按 频次 / 严重度 / 影响广度 / 可解决性（各 1-5 分）排优先级。
+| Method | Participants | Duration | Best For |
+|--------|--------------|----------|----------|
+| Moderated remote | 5-8 | 45-60 min | Deep insights |
+| Unmoderated remote | 10-20 | 15-20 min | Quick validation |
+| Guerrilla | 3-5 | 5-10 min | Rapid feedback |
 
-## 指令
+3. Design tasks as scenarios, not instructions:
 
-- 生成画像与旅程时，**只用真实数据，不要拍脑袋假设**；挫败点必须带频次计数（如"加载慢 14/20"）。
-- 画像置信度由样本量决定：5-10 人=低（探索性）、11-30 人=中（方向性）、31+ 人=高（生产级）；最低 20 人才可作为正式画像。
-- 至少需要 2 个数据源（定量 + 定性）。
-- 可用性问题严重度分级：4 严重（阻断完成→立即修）、3 重大（明显困难→发布前修）、2 轻微（造成迟疑→有空就修）、1 表面（不影响→低优先级）。
-- 研究方法按问题类型选：「用户做什么」用分析/观察（100+ 事件）、「为什么」用访谈（8-15 人）、「能做多好」用可用性测试（5-8 人）、「偏好什么」用问卷/AB（50+ 人）、「感受如何」用日记研究/访谈（10-15 人）。
+```
+SCENARIO: "Imagine you're planning a trip to Paris..."
+GOAL: "Book a hotel for 3 nights in your budget."
+SUCCESS: "You see the confirmation page."
+```
 
-## 示例
+Task progression: Warm-up → Core → Secondary → Edge case → Free exploration.
 
-`persona_generator.py` 的人类可读输出片段：
+4. Define success metrics: completion rate >80%, time on task <2× expected, error rate <15%, satisfaction >4/5.
+5. Prepare the moderator guide: think-aloud instructions, non-leading prompts, post-task questions.
+
+### Step 4 · Synthesize research
+
+1. Code each data point: `[GOAL]` (want to achieve), `[PAIN]` (frustration), `[BEHAVIOR]` (actual action), `[CONTEXT]` (when/where), `[QUOTE]` (direct words).
+2. Cluster similar patterns (e.g. group daily-use + advanced-feature users A and B as Power Users).
+3. Calculate segment sizes and assess primary/secondary persona viability:
+
+| Cluster | Users | % | Viability |
+|---------|-------|---|-----------|
+| Power Users | 18 | 36% | Primary persona |
+| Business Users | 15 | 30% | Primary persona |
+| Casual Users | 12 | 24% | Secondary persona |
+
+4. Extract, per theme: finding statement + supporting evidence (quotes/data) + frequency (X/Y participants) + business impact + recommendation.
+5. Prioritize by Frequency / Severity / Breadth / Solvability (each scored 1-5).
+
+## Example
+
+Human-readable output from `persona_generator.py`:
 
 ```
 ============================================================
@@ -134,36 +149,58 @@ Quote: "I need tools that can keep up with my workflow"
 
 Demographics:
   • Age Range: 25-34
+  • Location Type: Urban
   • Tech Proficiency: Advanced
 
 Goals & Needs:
   • Complete tasks efficiently
   • Automate workflows
+  • Access advanced features
 
 Frustrations:
   • Slow loading times (14/20 users)
   • No keyboard shortcuts
+  • Limited API access
 
 Design Implications:
   → Optimize for speed and efficiency
+  → Provide keyboard shortcuts and power features
   → Expose API and automation capabilities
 
-Data: Based on 45 users   Confidence: High
+Data: Based on 45 users
+    Confidence: High
 ```
 
-## 注意事项
+## Notes
 
-- **画像质量自检**：基于 20+ 用户、≥2 数据源、目标具体可执行、挫败点带频次、设计启示具体、置信度已标注。
-- **旅程地图自检**：范围（persona/目标/时间跨度）清晰、基于真实数据、各分层填满、每阶段标痛点、机会已排序。
-- **可用性测试自检**：研究问题可测、任务是真实场景而非指令、每方案 5+ 参与者、定义成功指标、发现带严重度评级。
-- **研究综合自检**：编码一致、模式基于 3+ 数据点、发现带证据、建议可执行、优先级有依据。
-- 访谈提问按类型设计：情境（"带我走一遍你的一天"）、行为（"演示你怎么做 X"）、目标（"你想达成什么"）、痛点（"最难的是哪部分"）、反思（"你会改什么"）。
+- For personas and journeys, **use real data only — no guessed assumptions**. Frustrations must carry frequency counts (e.g. "slow loading 14/20").
+- Persona confidence by sample size: 5-10 users = Low (exploratory), 11-30 = Medium (directional), 31+ = High (production). Minimum 20 users to serve as a formal persona.
+- Require at least 2 data sources (quantitative + qualitative).
+- Usability issue severity: 4 Critical (prevents completion → fix immediately), 3 Major (significant difficulty → fix before release), 2 Minor (causes hesitation → fix when possible), 1 Cosmetic (noticed but not problematic → low priority).
+- Pick the research method by question type:
 
-## 互见
+| Question Type | Best Method | Sample Size |
+|---------------|-------------|-------------|
+| "What do users do?" | Analytics, observation | 100+ events |
+| "Why do they do it?" | Interviews | 8-15 users |
+| "How well can they do it?" | Usability test | 5-8 users |
+| "What do they prefer?" | Survey, A/B test | 50+ users |
+| "What do they feel?" | Diary study, interviews | 10-15 users |
 
-- 「UI 设计系统」技能——研究发现反哺设计系统决策。
-- 「产品经理工具箱」技能——客户访谈分析与画像研究互补。
+- Design interview questions by type: Context ("walk me through your typical day"), Behavior ("show me how you do X"), Goals ("what are you trying to achieve?"), Pain ("what's the hardest part?"), Reflection ("what would you change?").
+
+**Validation checklists:**
+
+- *Persona quality*: based on 20+ users, ≥2 data sources, specific/actionable goals, frustrations with frequency counts, specific design implications, confidence level stated.
+- *Journey map quality*: scope clearly defined (persona/goal/timeframe), based on real data, all layers filled, pain points per stage, opportunities prioritized.
+- *Usability test quality*: research questions testable, tasks are realistic scenarios not instructions, 5+ participants per design, success metrics defined, findings include severity ratings.
+- *Research synthesis quality*: data coded consistently, patterns based on 3+ data points, findings include evidence, recommendations actionable, priorities justified.
+
+## See also
+
+- **UI Design System** — research findings inform design-system decisions.
+- **Product Manager Toolkit** — customer interview analysis complements persona research.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。原始技能为 product-team 下的 `ux-researcher-designer`，本条目为中文适配重写，保留其核心命令、数据结构与方法论约束。
+Adapted from alirezarezvani/claude-skills (MIT). Original skill: `ux-researcher-designer` under `product-team`; core commands, data structures, and methodological constraints preserved.

@@ -1,14 +1,14 @@
 ---
 name: pair-trade-screener
-title: 配对交易统计套利筛选
-description: 当需要在板块内筛选配对交易/统计套利机会、构建市场中性策略或分析价差均值回归时使用；做出协整检验(ADF)、相关性与对冲比、价差z-score及进出场/仓位建议并产出可执行筛选脚本与报告；不适用于实盘下单执行、单边择时选股、期权/衍生品定价与行情数据采集清洗；触发词：配对交易、pair trading、统计套利、协整、cointegration、市场中性、均值回归、z-score、价差
+title: Pair Trade Screener
+description: Statistical arbitrage tool for identifying and analyzing pair trading opportunities. Detects cointegrated stock pairs within sectors, analyzes spread behavior, calculates z-scores, and provides entry/exit recommendations for market-neutral strategies. Use when user requests pair trading opportunities, statistical arbitrage screening, mean-reversion strategies, or market-neutral portfolio construction. Supports correlation analysis, cointegration testing, and spread backtesting.
 domain: 领域/fintech
-triggers: [配对交易, pair trading, 统计套利, 协整, cointegration, 市场中性, 均值回归, z-score, 价差, ADF检验]
+triggers: [pair trading, cointegration, z-score]
 tags: [fintech, pair-trading, statistical-arbitrage, cointegration, market-neutral, mean-reversion, quant, python, statsmodels]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, pandas, numpy, scipy, statsmodels]
+tools: []
 requires: []
 related: [strategy-backtest-expert, trading-strategy-backtester, backtesting-frameworks, portfolio-risk-metrics]
 combines_with: [trade-position-sizer, trading-strategy-backtester]
@@ -16,70 +16,409 @@ license: MIT
 source: tradermonty/claude-trading-skills
 source_license: MIT
 ---
-## 何时使用
+# Pair Trade Screener
 
-适用：
-- 在某板块（科技/金融/医疗等）或自定义标的列表内，筛选高相关且协整的配对，构建市场中性（无方向 beta）策略。
-- 分析单个配对的价差行为：算相关性、对冲比 beta、协整 p 值、半衰期、当前 z-score，给进出场与仓位建议。
-- 寻找均值回归交易机会、相对价值套利、对冲板块敞口。
+## Overview
 
-不该用（负边界）：
-- 实盘下单、订单路由、券商/交易所 API 对接（本技能只出信号与筛选，不做执行）。
-- 单边择时/选股、趋势跟踪等带方向性的策略（配对交易刻意剥离市场方向）。
-- 期权希腊值、利率/信用久期等衍生品定价（本技能面向两只股票价差的统计关系）。
-- 行情/基本面数据的抓取与清洗（先用数据层技能拿到复权后的干净日收盘价再进入本技能）。
+This skill identifies and analyzes statistical arbitrage opportunities through pair trading. Pair trading is a market-neutral strategy that profits from the relative price movements of two correlated securities, regardless of overall market direction. The skill uses rigorous statistical methods including correlation analysis and cointegration testing to find robust trading pairs.
 
-## 步骤
+**Core Methodology:**
+- Identify pairs of stocks with high correlation and similar sector/industry exposure
+- Test for cointegration (long-term statistical relationship)
+- Calculate spread z-scores to identify mean-reversion opportunities
+- Generate entry/exit signals based on statistical thresholds
+- Provide position sizing for market-neutral exposure
 
-1. 定义配对全集：按板块筛选（推荐）、自定义 ticker 列表，或细分行业（如「Software」「Regional Banks」）。过滤条件：市值 ≥ $2B、日均量 ≥ 100 万股、活跃未退市、尽量同交易所。
-2. 取历史价格：2 年（≥ 252 交易日）日收盘价，复权（拆股/分红），剔除缺失 >10% 的标的，小缺口前向填充，对齐各标的日期范围。
-3. 算相关性与 beta：对每对算 Pearson 相关系数 ρ，保留 ρ ≥ 0.70；用 90 日滚动相关检查稳定性；对冲比 `beta = Cov(A,B) / Var(B)`。剔除近 6 个月相关性较历史下滑 >0.15 的对。
-4. 协整检验：构造价差 `Spread = Price_A − beta × Price_B`，对价差跑 ADF 检验；p < 0.05 即协整（拒绝单位根原假设），p < 0.01 为强协整。算半衰期 `Half-Life = −log(2) / log(mean_reversion_coef)`，<30 天快回归、30–60 中等、>60 慢。
-5. 价差与 z-score：`Z = (当前价差 − 均值) / 标准差`（均值/标准差用 90 日滚动窗）。价差也可用价比 `Price_A / Price_B`（价位差异大时更直观）。
-6. 进出场信号：保守阈值 |Z| ≥ 2.0、激进 |Z| ≥ 1.5。Z < −2.0 → 多 A 空 B（按对冲比 beta）；Z > +2.0 → 空 A 多 B。出场：Z 回到 0 平双腿（或 Z=±1.0 减半、Z=0 清剩余）。止损：|Z| > 3.0（疑似结构性破裂）或持有 90 天未回归则时间止损。
-7. 仓位与风控（市场中性）：等额美元敞口，`多 $X 的 A，空 $X × beta 的 B`（beta=1.2 → 多 $5000 A、空 $6000 B，组合 beta≈0）。单对占组合 10–20%，同时活跃 5–8 对且彼此低相关；单对最大亏损 2–3%，组合层风险 ≤ 10%。
-8. 出报告：执行摘要（分析对数/协整对数/Top5）+ 协整对表（相关、p 值、z-score、信号、半衰期）+ Top10 明细 + 文本价差图 + 风险预警。文件名 `pair_trade_analysis_[板块]_[YYYY-MM-DD].md`。
+**Key Advantages:**
+- Market-neutral: Profits in up, down, or sideways markets
+- Risk management: Limited exposure to broad market movements
+- Statistical foundation: Data-driven, not discretionary
+- Diversification: Uncorrelated to traditional long-only strategies
 
-## 指令
+## When to Use This Skill
 
-合格配对的最低门槛（全部满足才有效）：
-- ✓ 2 年期相关性 ρ ≥ 0.70
-- ✓ ADF 协整 p < 0.05，价差平稳性确认
-- ✓ 半衰期 < 90 天
-- ✓ 近 6 个月无结构性破裂
+Use this skill when:
+- User asks for "pair trading opportunities"
+- User wants "market-neutral strategies"
+- User requests "statistical arbitrage screening"
+- User asks "which stocks move together?"
+- User wants to hedge sector exposure
+- User requests mean-reversion trade ideas
+- User asks about relative value trading
 
-红旗（直接剔除）：近 6 个月相关性下滑 >0.20、p > 0.05、半衰期随时间变长（回归力减弱）、重大公司事件（并购/分拆/破产风险）、流动性不足（日均量 < 50 万股）。
+Example user requests:
+- "Find pair trading opportunities in the tech sector"
+- "Which stocks are cointegrated?"
+- "Screen for statistical arbitrage opportunities"
+- "Find mean-reversion pairs"
+- "What are good market-neutral trades right now?"
 
-交易成本约束：单腿往返按 0.1% 估，单对总成本 ≈ 0.4%（双腿进出），z-score 入场阈值产生的预期收益须覆盖成本。做空前确认可借券（非难借券）、计入借券费、防轧空。双腿务必同步进出（避免单腿暴露），用限价单控滑点。
+## Analysis Workflow
 
-## 示例
+### Step 1: Define Pair Universe
 
-ADF 协整检验核心（保留源实现）：
+**Objective:** Establish the pool of stocks to analyze for pair relationships.
 
+**Option A: Sector-Based Screening (Recommended)**
+
+Select a specific sector to screen:
+- Technology
+- Financials
+- Healthcare
+- Consumer Discretionary
+- Industrials
+- Energy
+- Materials
+- Consumer Staples
+- Utilities
+- Real Estate
+- Communication Services
+
+**Option B: Custom Stock List**
+
+User provides specific tickers to analyze:
+```
+Example: ["AAPL", "MSFT", "GOOGL", "META", "NVDA"]
+```
+
+**Option C: Industry-Specific**
+
+Narrow focus to specific industry within sector:
+- Example: "Software" within Technology sector
+- Example: "Regional Banks" within Financials
+
+**Filtering Criteria:**
+- Minimum market cap: $2B (mid-cap and above)
+- Minimum average volume: 1M shares/day (liquidity requirement)
+- Active trading: No delisted or inactive stocks
+- Same exchange preference: Avoid cross-exchange complications
+
+### Step 2: Retrieve Historical Price Data
+
+**Objective:** Fetch price history for correlation and cointegration analysis.
+
+**Data Requirements:**
+- Timeframe: 2 years (minimum 252 trading days)
+- Frequency: Daily closing prices
+- Adjustments: Adjusted for splits and dividends
+- Clean data: No gaps or missing values
+
+**FMP API Endpoint:**
+```
+GET /v3/historical-price-full/{symbol}?apikey=YOUR_API_KEY
+```
+
+**Data Validation:**
+- Verify consistent date ranges across all symbols
+- Remove stocks with >10% missing data
+- Fill minor gaps with forward-fill method
+- Log data quality issues
+
+**Script Execution:**
+```bash
+python scripts/fetch_price_data.py --sector Technology --lookback 730
+```
+
+### Step 3: Calculate Correlation and Beta
+
+**Objective:** Identify candidate pairs with strong linear relationships.
+
+**Correlation Analysis:**
+
+For each pair of stocks (i, j) in the universe:
+1. Calculate Pearson correlation coefficient (ρ)
+2. Calculate rolling correlation (90-day window) for stability check
+3. Filter pairs with ρ >= 0.70 (strong positive correlation)
+
+**Correlation Interpretation:**
+- ρ >= 0.90: Very strong correlation (best candidates)
+- ρ 0.70-0.90: Strong correlation (good candidates)
+- ρ 0.50-0.70: Moderate correlation (marginal)
+- ρ < 0.50: Weak correlation (exclude)
+
+**Beta Calculation:**
+
+For each candidate pair (Stock A, Stock B):
+```
+Beta = Covariance(A, B) / Variance(B)
+```
+
+Beta indicates the hedge ratio:
+- Beta = 1.0: Equal dollar amounts
+- Beta = 1.5: $1.50 of B for every $1.00 of A
+- Beta = 0.8: $0.80 of B for every $1.00 of A
+
+**Correlation Stability Check:**
+- Calculate correlation over multiple periods (6mo, 1yr, 2yr)
+- Require correlation to be stable (not deteriorating)
+- Flag pairs where recent correlation < historical correlation by >0.15
+
+### Step 4: Cointegration Testing
+
+**Objective:** Statistically validate long-term equilibrium relationship.
+
+**Why Cointegration Matters:**
+- Correlation measures short-term co-movement
+- Cointegration proves long-term equilibrium relationship
+- Cointegrated pairs mean-revert predictably
+- Non-cointegrated pairs may diverge permanently
+
+**Augmented Dickey-Fuller (ADF) Test:**
+
+For each correlated pair:
+1. Calculate spread: `Spread = Price_A - (Beta × Price_B)`
+2. Run ADF test on spread series
+3. Check p-value: p < 0.05 indicates cointegration (reject null hypothesis of unit root)
+4. Extract ADF statistic for strength ranking
+
+**Cointegration Interpretation:**
+- p-value < 0.01: Very strong cointegration (★★★)
+- p-value 0.01-0.05: Moderate cointegration (★★)
+- p-value > 0.05: No cointegration (exclude)
+
+**Half-Life Calculation:**
+
+Estimate mean-reversion speed:
+```
+Half-Life = -log(2) / log(mean_reversion_coefficient)
+```
+
+- Half-life < 30 days: Fast mean-reversion (good for short-term trading)
+- Half-life 30-60 days: Moderate speed (standard)
+- Half-life > 60 days: Slow mean-reversion (long holding periods)
+
+**Python Implementation:**
 ```python
 from statsmodels.tsa.stattools import adfuller
 
-# 构造价差（beta 为对冲比）
+# Calculate spread
 spread = price_a - (beta * price_b)
 
-# ADF 检验
+# ADF test
 result = adfuller(spread)
 adf_stat = result[0]
-p_value  = result[1]
+p_value = result[1]
 
+# Interpret
 is_cointegrated = p_value < 0.05
 ```
 
-筛选脚本（板块或自定义列表，需 FMP API key 或 FMP_API_KEY 环境变量）：
+### Step 5: Spread Analysis and Z-Score Calculation
 
+**Objective:** Quantify current spread deviation from equilibrium.
+
+**Spread Calculation:**
+
+Two common methods:
+
+**Method 1: Price Difference (Additive)**
+```
+Spread = Price_A - (Beta × Price_B)
+```
+Best for: Stocks with similar price levels
+
+**Method 2: Price Ratio (Multiplicative)**
+```
+Spread = Price_A / Price_B
+```
+Best for: Stocks with different price levels, easier interpretation
+
+**Z-Score Calculation:**
+
+Measures how many standard deviations spread is from its mean:
+```
+Z-Score = (Current_Spread - Mean_Spread) / Std_Dev_Spread
+```
+
+**Z-Score Interpretation:**
+- Z > +2.0: Stock A expensive relative to B (short A, long B)
+- Z > +1.5: Moderately expensive (watch for entry)
+- Z -1.5 to +1.5: Normal range (no trade)
+- Z < -1.5: Moderately cheap (watch for entry)
+- Z < -2.0: Stock A cheap relative to B (long A, short B)
+
+**Historical Spread Analysis:**
+- Calculate mean and std dev over 90-day rolling window
+- Plot historical z-score distribution
+- Identify maximum historical z-score deviations
+- Check for structural breaks (spread regime change)
+
+### Step 6: Generate Entry/Exit Recommendations
+
+**Objective:** Provide actionable trading signals with clear rules.
+
+**Entry Conditions:**
+
+**Conservative Approach (Z ≥ ±2.0):**
+```
+LONG Signal:
+- Z-score < -2.0 (spread 2+ std devs below mean)
+- Spread is mean-reverting (cointegration p < 0.05)
+- Half-life < 60 days
+→ Action: Buy Stock A, Short Stock B (hedge ratio = beta)
+
+SHORT Signal:
+- Z-score > +2.0 (spread 2+ std devs above mean)
+- Spread is mean-reverting (cointegration p < 0.05)
+- Half-life < 60 days
+→ Action: Short Stock A, Buy Stock B (hedge ratio = beta)
+```
+
+**Aggressive Approach (Z ≥ ±1.5):**
+- Lower threshold for more frequent trades
+- Higher win rate but smaller avg profit per trade
+- Requires tighter risk management
+
+**Exit Conditions:**
+
+**Primary Exit: Mean Reversion (Z = 0)**
+```
+Exit when spread returns to mean (z-score crosses 0)
+→ Close both legs simultaneously
+```
+
+**Secondary Exit: Partial Profit Take**
+```
+Exit 50% when z-score reaches ±1.0
+Exit remaining 50% at z-score = 0
+```
+
+**Stop Loss:**
+```
+Exit if z-score extends beyond ±3.0 (extreme divergence)
+Risk: Possible structural break in relationship
+```
+
+**Time-Based Exit:**
+```
+Exit after 90 days if no mean-reversion
+Prevents holding broken pairs indefinitely
+```
+
+### Step 7: Position Sizing and Risk Management
+
+**Objective:** Determine dollar amounts for market-neutral exposure.
+
+**Market Neutral Sizing:**
+
+For a pair (Stock A, Stock B) with beta = β:
+
+**Equal Dollar Exposure:**
+```
+If portfolio size = $10,000 allocated to this pair:
+- Long $5,000 of Stock A
+- Short $5,000 × β of Stock B
+
+Example (β = 1.2):
+- Long $5,000 Stock A
+- Short $6,000 Stock B
+→ Market neutral, beta = 0
+```
+
+**Position Sizing Considerations:**
+- Total pair allocation: 10-20% of portfolio per pair
+- Maximum pairs: 5-8 active pairs for diversification
+- Correlation across pairs: Avoid highly correlated pairs
+
+**Risk Metrics:**
+- Maximum loss per pair: 2-3% of total portfolio
+- Stop loss trigger: Z-score > ±3.0 or -5% loss on spread
+- Portfolio-level risk: Sum of all pair risks ≤ 10%
+
+### Step 8: Generate Pair Analysis Report
+
+**Objective:** Create structured markdown report with findings and recommendations.
+
+**Report Sections:**
+
+1. **Executive Summary**
+   - Total pairs analyzed
+   - Number of cointegrated pairs found
+   - Top 5 opportunities ranked by statistical strength
+
+2. **Cointegrated Pairs Table**
+   - Pair name (Stock A / Stock B)
+   - Correlation coefficient
+   - Cointegration p-value
+   - Current z-score
+   - Trade signal (Long/Short/None)
+   - Half-life
+
+3. **Detailed Analysis (Top 10 Pairs)**
+   - Pair description
+   - Statistical metrics
+   - Current spread position
+   - Entry/exit recommendations
+   - Position sizing
+   - Risk assessment
+
+4. **Spread Charts (Text-Based)**
+   - Historical z-score plot (ASCII art)
+   - Entry/exit levels marked
+   - Current position indicator
+
+5. **Risk Warnings**
+   - Pairs with deteriorating correlation
+   - Structural breaks detected
+   - Low liquidity warnings
+
+**File Naming Convention:**
+```
+pair_trade_analysis_[SECTOR]_[YYYY-MM-DD].md
+```
+
+Example: `pair_trade_analysis_Technology_2025-11-08.md`
+
+## Quality Standards
+
+### Statistical Rigor
+
+**Minimum Requirements for Valid Pair:**
+- ✓ Correlation ≥ 0.70 over 2-year period
+- ✓ Cointegration p-value < 0.05 (ADF test)
+- ✓ Spread stationarity confirmed
+- ✓ Half-life < 90 days
+- ✓ No structural breaks in recent 6 months
+
+**Red Flags (Exclude Pair):**
+- Correlation dropped >0.20 in recent 6 months
+- Cointegration p-value > 0.05
+- Half-life increasing over time (mean-reversion weakening)
+- Significant corporate events (merger, spin-off, bankruptcy risk)
+- Liquidity concerns (avg volume < 500K shares/day)
+
+### Practical Considerations
+
+**Transaction Costs:**
+- Assume 0.1% round-trip cost per leg
+- Total cost per pair = 0.4% (entry + exit, both legs)
+- Minimum z-score threshold should exceed transaction costs
+
+**Short Selling:**
+- Verify stock is shortable (not hard-to-borrow)
+- Factor in short interest costs (borrow fees)
+- Monitor short squeeze risk
+
+**Execution:**
+- Enter/exit both legs simultaneously (avoid leg risk)
+- Use limit orders to control slippage
+- Pre-locate shorts before entry
+
+## Available Scripts
+
+### scripts/find_pairs.py
+
+**Purpose:** Screen for cointegrated pairs within a sector or custom list.
+
+**Usage:**
 ```bash
-# 板块筛选
+# Sector-based screening
 python scripts/find_pairs.py --sector Technology --min-correlation 0.70
 
-# 自定义列表 + 更严相关门槛
+# Custom stock list
 python scripts/find_pairs.py --symbols AAPL,MSFT,GOOGL,META --min-correlation 0.75
 
-# 全参数
+# Full options
 python scripts/find_pairs.py \
   --sector Financials \
   --min-correlation 0.70 \
@@ -88,45 +427,209 @@ python scripts/find_pairs.py \
   --output pairs_analysis.json
 ```
 
-单对价差分析与信号：
+**Parameters:**
+- `--sector`: Sector name (Technology, Financials, etc.)
+- `--symbols`: Comma-separated list of tickers (alternative to sector)
+- `--min-correlation`: Minimum correlation threshold (default: 0.70)
+- `--min-market-cap`: Minimum market cap filter (default: $2B)
+- `--lookback-days`: Historical data period (default: 730 days)
+- `--output`: Output JSON file (default: stdout)
+- `--api-key`: FMP API key (or set FMP_API_KEY env var)
 
-```bash
-python scripts/analyze_spread.py --stock-a JPM --stock-b BAC \
-  --lookback-days 365 --entry-zscore 2.0 --exit-zscore 0.5
-```
-
-筛选输出（JSON，每对一项）：
-
+**Output:**
 ```json
-{
-  "pair": "AAPL/MSFT", "stock_a": "AAPL", "stock_b": "MSFT",
-  "correlation": 0.87, "beta": 1.15,
-  "cointegration_pvalue": 0.012, "adf_statistic": -3.45,
-  "half_life_days": 42, "current_zscore": -2.3,
-  "signal": "LONG", "strength": "Strong"
-}
+[
+  {
+    "pair": "AAPL/MSFT",
+    "stock_a": "AAPL",
+    "stock_b": "MSFT",
+    "correlation": 0.87,
+    "beta": 1.15,
+    "cointegration_pvalue": 0.012,
+    "adf_statistic": -3.45,
+    "half_life_days": 42,
+    "current_zscore": -2.3,
+    "signal": "LONG",
+    "strength": "Strong"
+  }
+]
 ```
 
-委托提示词（给 Agent 调用时）：
-> 在科技板块筛选市值 >$10B 的配对：算两两相关，保留 ρ≥0.75，跑 ADF 协整（p<0.05），找 |z|>2.0 的极值对，按协整强度排序输出 Top10，并对每对给对冲比、进出场阈值与等额市场中性仓位。
+### scripts/analyze_spread.py
 
-## 注意事项
+**Purpose:** Analyze a specific pair's spread behavior and generate trading signals.
 
-- 协整 ≠ 相关：相关只测短期同涨跌，协整证明长期均衡关系；只有协整对才可预期均值回归，非协整对可能永久背离。
-- 避免极端波动期：VIX > 30 时相关性常崩塌，配对交易更适合震荡/区间市；危机期相关性失稳。
-- 数据质量决定一切：必须复权、对齐、点对点真实可得；垃圾进垃圾出。
-- 多指标交叉确认：相关、协整 p 值、半衰期、z-score 须同时满足门槛，单一指标不足为据。
-- 排障：找不到协整对 → 降市值门槛 / 放宽 p 至 0.10 / 换板块（公用事业常协整好）/ 回看期延至 3 年；z-score 普遍接近 0 → 市场处均衡，降阈值至 ±1.5 或换池子；相关性突然破裂 → 查公司事件/并购，确认结构破裂则移出观察名单，观察 30 天再议。
-- 依赖 FMP API key（免费档约 250 请求/日，每标的 2 年史约 2 请求）；Python 依赖 pandas、numpy、scipy、statsmodels。
-- 注意常见偏差：幸存者偏差、前视偏差、过拟合（参考协整理论 Engle & Granger 1987）。
+**Usage:**
+```bash
+# Analyze specific pair
+python scripts/analyze_spread.py --stock-a AAPL --stock-b MSFT
 
-## 互见
+# Custom lookback period
+python scripts/analyze_spread.py \
+  --stock-a JPM \
+  --stock-b BAC \
+  --lookback-days 365 \
+  --entry-zscore 2.0 \
+  --exit-zscore 0.5
+```
 
-- related：`alpha-vantage-market-data` —— 上游取价格序列作为筛选输入。
-- related：`portfolio-risk-metrics` —— 对配对组合做 VaR/回撤/夏普等风险度量。
-- combines_with：`trading-strategy-backtester` —— 把筛出的配对与 z-score 进出场规则交回测引擎验证、做步进式参数优化。
-- combines_with：`backtesting-frameworks` —— 验证价差进出场阈值的历史稳健性。
-- related：`portfolio-rebalancer` —— 管理多个配对持仓与对冲比的周期再平衡。
+**Parameters:**
+- `--stock-a`: First stock ticker
+- `--stock-b`: Second stock ticker
+- `--lookback-days`: Analysis period (default: 365)
+- `--entry-zscore`: Z-score threshold for entry (default: 2.0)
+- `--exit-zscore`: Z-score threshold for exit (default: 0.0)
+- `--api-key`: FMP API key
+
+**Output:**
+- Current spread analysis
+- Z-score calculation
+- Entry/exit recommendations
+- Position sizing
+- Historical z-score chart (text)
+
+## Reference Documentation
+
+### references/methodology.md
+
+Comprehensive guide to statistical arbitrage and pair trading:
+- **Pair Selection Criteria**: How to identify good pair candidates
+- **Statistical Tests**: Correlation, cointegration, stationarity
+- **Spread Construction**: Price difference vs price ratio approaches
+- **Mean Reversion**: Half-life calculation and interpretation
+- **Risk Management**: Position sizing, stop losses, diversification
+- **Common Pitfalls**: Survivorship bias, look-ahead bias, overfitting
+
+### references/cointegration_guide.md
+
+Deep dive into cointegration testing:
+- **What is Cointegration?**: Intuitive explanation
+- **ADF Test**: Step-by-step procedure
+- **P-Value Interpretation**: Statistical significance thresholds
+- **Half-Life Estimation**: AR(1) model approach
+- **Structural Breaks**: Testing for regime changes
+- **Practical Examples**: Case studies with real pairs
+
+## Integration with Other Skills
+
+**Sector Analyst Integration:**
+- Use Sector Analyst to identify sectors in rotation
+- Screen for pairs within outperforming sectors
+- Pairs in leading sectors may have stronger trends
+
+**Technical Analyst Integration:**
+- Confirm pair entry/exit with individual stock technicals
+- Check support/resistance levels before entry
+- Validate trend direction aligns with spread signal
+
+**Backtest Expert Integration:**
+- Feed pair candidates to Backtest Expert for validation
+- Test historical z-score entry/exit rules
+- Optimize threshold parameters (entry z-score, stop loss)
+- Walk-forward analysis for robustness
+
+**Market Environment Analysis Integration:**
+- Avoid pair trading during extreme volatility (VIX > 30)
+- Correlations break down in crisis periods
+- Prefer pair trading in sideways/range-bound markets
+
+**Portfolio Manager Integration:**
+- Track multiple pair positions
+- Monitor overall market-neutral exposure
+- Calculate portfolio-level pair trading P/L
+- Rebalance hedge ratios periodically
+
+## Important Notes
+
+- **All analysis and output in English**
+- **Statistical foundation**: No discretionary interpretation
+- **Market neutral focus**: Minimize directional beta exposure
+- **Data quality critical**: Garbage in, garbage out
+- **Requires FMP API key**: Free tier sufficient for basic screening
+- **Python dependencies**: pandas, numpy, scipy, statsmodels
+
+## Common Use Cases
+
+**Use Case 1: Technology Sector Pairs**
+```
+User: "Find pair trading opportunities in tech stocks"
+
+Workflow:
+1. Screen Technology sector for stocks with market cap > $10B
+2. Calculate all pairwise correlations
+3. Filter pairs with correlation ≥ 0.75
+4. Run cointegration tests
+5. Identify current z-score extremes (|z| > 2.0)
+6. Generate top 10 pairs report
+```
+
+**Use Case 2: Specific Pair Analysis**
+```
+User: "Analyze AAPL and MSFT as a pair trade"
+
+Workflow:
+1. Fetch 2-year price history for AAPL and MSFT
+2. Calculate correlation and beta
+3. Test for cointegration
+4. Calculate current spread and z-score
+5. Generate entry/exit recommendation
+6. Provide position sizing guidance
+```
+
+**Use Case 3: Regional Bank Pairs**
+```
+User: "Screen for pairs among regional banks"
+
+Workflow:
+1. Filter Financials sector for industry = "Regional Banks"
+2. Exclude banks with <$5B market cap
+3. Calculate pairwise statistics
+4. Rank by cointegration strength
+5. Focus on pairs with half-life < 45 days
+6. Report top 5 mean-reverting pairs
+```
+
+## Troubleshooting
+
+**Problem: No cointegrated pairs found**
+
+Solutions:
+- Expand universe (lower market cap threshold)
+- Relax cointegration p-value to 0.10
+- Try different sectors (Utilities often cointegrate well)
+- Increase lookback period to 3 years
+
+**Problem: All z-scores near zero (no trade signals)**
+
+Solutions:
+- Normal market condition (pairs in equilibrium)
+- Check back later or expand universe
+- Lower entry threshold to ±1.5 instead of ±2.0
+
+**Problem: Pair correlation broke down**
+
+Solutions:
+- Check for corporate events (earnings, guidance changes)
+- Verify no M&A activity or restructuring
+- Remove pair from watchlist if structural break confirmed
+- Monitor for 30 days before re-entering
+
+## API Requirements
+
+- **Required**: FMP API key (free tier sufficient)
+- **Rate Limits**: ~250 requests/day on free tier
+- **Data Usage**: ~2 requests per symbol for 2-year history
+- **Upgrade**: Professional plan ($29/mo) recommended for frequent screening
+
+## Resources
+
+- **FMP Historical Price API**: https://site.financialmodelingprep.com/developer/docs/historical-price-full
+- **Stock Screener API**: https://site.financialmodelingprep.com/developer/docs/stock-screener-api
+- **Statsmodels Documentation**: https://www.statsmodels.org/stable/index.html
+- **Cointegration Paper**: Engle & Granger (1987) - "Co-Integration and Error Correction"
 
 ---
-本条采编自 tradermonty/claude-trading-skills（MIT 许可证）。
+
+**Version**: 1.0
+**Last Updated**: 2025-11-08
+**Dependencies**: Python 3.8+, pandas, numpy, scipy, statsmodels, requests

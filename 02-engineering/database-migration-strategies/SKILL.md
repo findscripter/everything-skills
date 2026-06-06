@@ -1,14 +1,14 @@
 ---
 name: database-migration-strategies
-title: 跨 ORM 数据库迁移与回滚策略
-description: 当需要在 Sequelize/TypeORM/Prisma 等 ORM 上做 schema 变更、跨库迁移或线上零停机发布时使用；产出可双向执行（up/down）的迁移脚本、回滚预案与零停机分阶段方案；不适用于纯查询调优、备份恢复运维或无 ORM 的手工 SQL 改库；触发词：数据库迁移、回滚、零停机
+title: Database Migration
+description: Master database schema and data migrations across ORMs (Sequelize, TypeORM, Prisma), including rollback strategies and zero-downtime deployments.
 domain: 研发/backend
-triggers: [数据库迁移, schema 变更, 回滚策略, 零停机部署, 跨库迁移, ORM 迁移, migration, rollback, Sequelize, TypeORM, Prisma, 加字段, 改字段类型, 重命名列, 数据迁移, 蓝绿部署]
-tags: [数据库, 迁移, orm, 回滚, 零停机, sequelize, typeorm, prisma, schema, 研发]
-level: 进阶
+triggers: [migration, rollback, Sequelize, TypeORM, Prisma]
+tags: [orm, sequelize, typeorm, prisma, schema]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Sequelize CLI, TypeORM CLI, Prisma CLI, PostgreSQL, MySQL, SQL]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,147 +16,439 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Database Migration
 
-适用场景：
-- 在不同 ORM（Sequelize / TypeORM / Prisma）间编写或转换迁移脚本。
-- 执行 schema 变换：加列、改类型、重命名列、拆分/合并字段。
-- 在数据库之间迁移数据，或处理 PostgreSQL ↔ MySQL 方言差异（如 JSONB vs JSON）。
-- 设计回滚预案、事务化迁移、检查点备份。
-- 线上零停机发布（蓝绿 / 多阶段灰度）与数据库版本升级。
+Master database schema and data migrations across ORMs (Sequelize, TypeORM, Prisma), including rollback strategies and zero-downtime deployments.
 
-不该用的边界：
-- 任务与「改库结构 / 迁移数据」无关（如纯查询性能调优、索引选型咨询、备份恢复运维）。
-- 没有 ORM、需要纯手工 SQL 直接改生产库——本技能聚焦 ORM 迁移工作流。
-- 缺少必要输入（目标 schema、数据量级、停机窗口、权限、成功判据）时，先停下来澄清，不要凭空生成。
+## Do not use this skill when
 
-## 步骤
+- The task is unrelated to database migration
+- You need a different domain or tool outside this scope
 
-1. 明确目标与约束：变更内容、表数据量、是否允许停机、回滚判据、目标方言。
-2. 选定 ORM 的迁移机制，生成成对的 `up()` / `down()`。
-3. 大表或破坏性变更拆成「加 → 回填 → 切流量 → 删旧」多个小步迁移。
-4. 先在 staging 跑通正向 + 回滚，再上生产；尽量用事务保证原子性。
-5. 上线前备份；上线中监控错误与锁/索引性能。
+## Instructions
 
-## 指令
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-- 每个 `up()` 必须配套可逆的 `down()`。
-- 迁移应幂等、可重跑；优先小步、增量。
-- 能用事务就用事务，失败即 `rollback()` 并抛错。
-- 注意 NULL 值、外键约束、索引性能；不要一次迁移过量数据。
-- 跨方言时用 `getDialect()` 分支处理类型差异。
+## Use this skill when
 
-各 ORM 执行/回滚命令：
-- Sequelize：`npx sequelize-cli db:migrate` / 回滚 `npx sequelize-cli db:migrate:undo`
-- TypeORM：`npm run typeorm migration:run` / 回滚 `npm run typeorm migration:revert`
-- Prisma：开发 `npx prisma migrate dev --name xxx`；生产 `npx prisma migrate deploy`
+- Migrating between different ORMs
+- Performing schema transformations
+- Moving data between databases
+- Implementing rollback procedures
+- Zero-downtime deployments
+- Database version upgrades
+- Data model refactoring
 
-## 示例
+## ORM Migrations
 
-Sequelize 建表（成对 up/down）：
+### Sequelize Migrations
 ```javascript
 // migrations/20231201-create-users.js
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('users', {
-      id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-      email: { type: Sequelize.STRING, unique: true, allowNull: false },
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      email: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+      },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE
     });
   },
-  down: async (queryInterface) => { await queryInterface.dropTable('users'); }
-};
-```
 
-TypeORM 等价写法（`up` 建表 / `down` 删表）：
-```typescript
-export class CreateUsers1701234567 implements MigrationInterface {
-  public async up(qr: QueryRunner): Promise<void> {
-    await qr.createTable(new Table({
-      name: 'users',
-      columns: [
-        { name: 'id', type: 'int', isPrimary: true, isGenerated: true, generationStrategy: 'increment' },
-        { name: 'email', type: 'varchar', isUnique: true },
-        { name: 'created_at', type: 'timestamp', default: 'CURRENT_TIMESTAMP' }
-      ]
-    }));
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('users');
   }
-  public async down(qr: QueryRunner): Promise<void> { await qr.dropTable('users'); }
-}
+};
+
+// Run: npx sequelize-cli db:migrate
+// Rollback: npx sequelize-cli db:migrate:undo
 ```
 
-Prisma schema：
+### TypeORM Migrations
+```typescript
+// migrations/1701234567-CreateUsers.ts
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+
+export class CreateUsers1701234567 implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.createTable(
+      new Table({
+        name: 'users',
+        columns: [
+          {
+            name: 'id',
+            type: 'int',
+            isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment'
+          },
+          {
+            name: 'email',
+            type: 'varchar',
+            isUnique: true
+          },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'CURRENT_TIMESTAMP'
+          }
+        ]
+      })
+    );
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropTable('users');
+  }
+}
+
+// Run: npm run typeorm migration:run
+// Rollback: npm run typeorm migration:revert
+```
+
+### Prisma Migrations
 ```prisma
+// schema.prisma
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   createdAt DateTime @default(now())
 }
+
+// Generate migration: npx prisma migrate dev --name create_users
+// Apply: npx prisma migrate deploy
 ```
 
-改列类型（大表多步：加新列 → 转数据 → 删旧 → 改名）：
+## Schema Transformations
+
+### Adding Columns with Defaults
 ```javascript
-up: async (queryInterface, Sequelize) => {
-  await queryInterface.addColumn('users', 'age_new', { type: Sequelize.INTEGER });
-  await queryInterface.sequelize.query(
-    `UPDATE users SET age_new = CAST(age AS INTEGER) WHERE age IS NOT NULL`);
-  await queryInterface.removeColumn('users', 'age');
-  await queryInterface.renameColumn('users', 'age_new', 'age');
-}
+// Safe migration: add column with default
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('users', 'status', {
+      type: Sequelize.STRING,
+      defaultValue: 'active',
+      allowNull: false
+    });
+  },
+
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'status');
+  }
+};
 ```
 
-事务化迁移（失败即整体回滚）：
+### Renaming Columns (Zero Downtime)
 ```javascript
-up: async (queryInterface, Sequelize) => {
-  const t = await queryInterface.sequelize.transaction();
-  try {
-    await queryInterface.addColumn('users', 'verified',
-      { type: Sequelize.BOOLEAN, defaultValue: false }, { transaction: t });
+// Step 1: Add new column
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('users', 'full_name', {
+      type: Sequelize.STRING
+    });
+
+    // Copy data from old column
     await queryInterface.sequelize.query(
-      'UPDATE users SET verified = true WHERE email_verified_at IS NOT NULL',
-      { transaction: t });
-    await t.commit();
-  } catch (e) { await t.rollback(); throw e; }
-}
+      'UPDATE users SET full_name = name'
+    );
+  },
+
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'full_name');
+  }
+};
+
+// Step 2: Update application to use new column
+
+// Step 3: Remove old column
+module.exports = {
+  up: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'name');
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('users', 'name', {
+      type: Sequelize.STRING
+    });
+  }
+};
 ```
 
-零停机重命名列（蓝绿，分 5 阶段）：
-1. 加新列 `email_new`（新旧代码都能跑）；
-2. 部署「双写」代码，同时写新旧列；
-3. 回填：`UPDATE users SET email_new = email WHERE email_new IS NULL`；
-4. 部署「读新列」代码；
-5. 删旧列 `removeColumn('users', 'email')`。
-
-跨方言（PostgreSQL JSONB vs MySQL JSON）：
+### Changing Column Types
 ```javascript
-const dialect = queryInterface.sequelize.getDialect();
-const dataType = dialect === 'postgres' ? Sequelize.JSONB : Sequelize.JSON;
-await queryInterface.createTable('users', {
-  id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-  data: { type: dataType }
-});
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // For large tables, use multi-step approach
+
+    // 1. Add new column
+    await queryInterface.addColumn('users', 'age_new', {
+      type: Sequelize.INTEGER
+    });
+
+    // 2. Copy and transform data
+    await queryInterface.sequelize.query(`
+      UPDATE users
+      SET age_new = CAST(age AS INTEGER)
+      WHERE age IS NOT NULL
+    `);
+
+    // 3. Drop old column
+    await queryInterface.removeColumn('users', 'age');
+
+    // 4. Rename new column
+    await queryInterface.renameColumn('users', 'age_new', 'age');
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.changeColumn('users', 'age', {
+      type: Sequelize.STRING
+    });
+  }
+};
 ```
 
-## 注意事项
+## Data Transformations
 
-最佳实践：
-- 每次迁移都要有回滚；先 staging 后生产；迁移前必备份。
-- 尽量原子（事务）、小步增量、可重跑（幂等）；上线全程监控。
-- 写清楚「为什么这么改、怎么改」的文档。
+### Complex Data Migration
+```javascript
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // Get all records
+    const [users] = await queryInterface.sequelize.query(
+      'SELECT id, address_string FROM users'
+    );
 
-常见坑：
-- 不测回滚流程；无停机策略就做破坏性变更。
-- 忘记处理 NULL；忽略索引性能与外键约束。
-- 一次迁移数据量过大导致长锁/超时。
+    // Transform each record
+    for (const user of users) {
+      const addressParts = user.address_string.split(',');
 
-底线：本技能输出不能替代环境特定的验证、测试与专家评审；缺少输入、权限、安全边界或成功判据时先澄清再动手。
+      await queryInterface.sequelize.query(
+        `UPDATE users
+         SET street = :street,
+             city = :city,
+             state = :state
+         WHERE id = :id`,
+        {
+          replacements: {
+            id: user.id,
+            street: addressParts[0]?.trim(),
+            city: addressParts[1]?.trim(),
+            state: addressParts[2]?.trim()
+          }
+        }
+      );
+    }
 
-## 互见
+    // Drop old column
+    await queryInterface.removeColumn('users', 'address_string');
+  },
 
-- 检查点回滚（建 `users_backup` 表，失败时从备份恢复）。
-- 复杂数据迁移（逐行解析 `address_string` 拆为 street/city/state）。
-- 配套资源（源仓库）：`references/orm-switching.md`、`references/schema-migration.md`、`references/data-transformation.md`、`references/rollback-strategies.md`、`assets/schema-migration-template.sql`、`assets/data-migration-script.py`、`scripts/test-migration.sh`。
+  down: async (queryInterface, Sequelize) => {
+    // Reconstruct original column
+    await queryInterface.addColumn('users', 'address_string', {
+      type: Sequelize.STRING
+    });
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+    await queryInterface.sequelize.query(`
+      UPDATE users
+      SET address_string = CONCAT(street, ', ', city, ', ', state)
+    `);
+
+    await queryInterface.removeColumn('users', 'street');
+    await queryInterface.removeColumn('users', 'city');
+    await queryInterface.removeColumn('users', 'state');
+  }
+};
+```
+
+## Rollback Strategies
+
+### Transaction-Based Migrations
+```javascript
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    const transaction = await queryInterface.sequelize.transaction();
+
+    try {
+      await queryInterface.addColumn(
+        'users',
+        'verified',
+        { type: Sequelize.BOOLEAN, defaultValue: false },
+        { transaction }
+      );
+
+      await queryInterface.sequelize.query(
+        'UPDATE users SET verified = true WHERE email_verified_at IS NOT NULL',
+        { transaction }
+      );
+
+      await transaction.commit();
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  },
+
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'verified');
+  }
+};
+```
+
+### Checkpoint-Based Rollback
+```javascript
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // Create backup table
+    await queryInterface.sequelize.query(
+      'CREATE TABLE users_backup AS SELECT * FROM users'
+    );
+
+    try {
+      // Perform migration
+      await queryInterface.addColumn('users', 'new_field', {
+        type: Sequelize.STRING
+      });
+
+      // Verify migration
+      const [result] = await queryInterface.sequelize.query(
+        "SELECT COUNT(*) as count FROM users WHERE new_field IS NULL"
+      );
+
+      if (result[0].count > 0) {
+        throw new Error('Migration verification failed');
+      }
+
+      // Drop backup
+      await queryInterface.dropTable('users_backup');
+    } catch (error) {
+      // Restore from backup
+      await queryInterface.sequelize.query('DROP TABLE users');
+      await queryInterface.sequelize.query(
+        'CREATE TABLE users AS SELECT * FROM users_backup'
+      );
+      await queryInterface.dropTable('users_backup');
+      throw error;
+    }
+  }
+};
+```
+
+## Zero-Downtime Migrations
+
+### Blue-Green Deployment Strategy
+```javascript
+// Phase 1: Make changes backward compatible
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // Add new column (both old and new code can work)
+    await queryInterface.addColumn('users', 'email_new', {
+      type: Sequelize.STRING
+    });
+  }
+};
+
+// Phase 2: Deploy code that writes to both columns
+
+// Phase 3: Backfill data
+module.exports = {
+  up: async (queryInterface) => {
+    await queryInterface.sequelize.query(`
+      UPDATE users
+      SET email_new = email
+      WHERE email_new IS NULL
+    `);
+  }
+};
+
+// Phase 4: Deploy code that reads from new column
+
+// Phase 5: Remove old column
+module.exports = {
+  up: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'email');
+  }
+};
+```
+
+## Cross-Database Migrations
+
+### PostgreSQL to MySQL
+```javascript
+// Handle differences
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    const dialectName = queryInterface.sequelize.getDialect();
+
+    if (dialectName === 'mysql') {
+      await queryInterface.createTable('users', {
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true
+        },
+        data: {
+          type: Sequelize.JSON  // MySQL JSON type
+        }
+      });
+    } else if (dialectName === 'postgres') {
+      await queryInterface.createTable('users', {
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true
+        },
+        data: {
+          type: Sequelize.JSONB  // PostgreSQL JSONB type
+        }
+      });
+    }
+  }
+};
+```
+
+## Resources
+
+- **references/orm-switching.md**: ORM migration guides
+- **references/schema-migration.md**: Schema transformation patterns
+- **references/data-transformation.md**: Data migration scripts
+- **references/rollback-strategies.md**: Rollback procedures
+- **assets/schema-migration-template.sql**: SQL migration templates
+- **assets/data-migration-script.py**: Data migration utilities
+- **scripts/test-migration.sh**: Migration testing script
+
+## Best Practices
+
+1. **Always Provide Rollback**: Every up() needs a down()
+2. **Test Migrations**: Test on staging first
+3. **Use Transactions**: Atomic migrations when possible
+4. **Backup First**: Always backup before migration
+5. **Small Changes**: Break into small, incremental steps
+6. **Monitor**: Watch for errors during deployment
+7. **Document**: Explain why and how
+8. **Idempotent**: Migrations should be rerunnable
+
+## Common Pitfalls
+
+- Not testing rollback procedures
+- Making breaking changes without downtime strategy
+- Forgetting to handle NULL values
+- Not considering index performance
+- Ignoring foreign key constraints
+- Migrating too much data at once
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

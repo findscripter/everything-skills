@@ -1,11 +1,11 @@
 ---
 name: beautiful-prose-stylist
-title: 凝练有力散文写作风格契约
-description: 当需要写出干净、精确、有力且无 AI 腔调的中文/英文散文或改写时使用；做的是把请求按风格契约改写成去模板化、动词驱动、节制留白的成稿；不适用于代码、表格、纯信息罗列或须保留官方话术的合规文本；触发词：散文、改写、文风、去AI腔、beautiful prose
+title: Beautiful Prose (Claude Skill)
+description: A hard-edged writing style contract for timeless, forceful English prose without modern AI tics. Use when users ask for prose or rewrites that must be clean, exact, concrete, and free of AI cadence, filler, or therapeutic tone.
 domain: 文书/writing
-triggers: [写一篇散文 / 随笔 / 评论, 把这段文字改写得更有力 / 去掉 AI 腔, 需要凝练、克制、动词驱动的文风, Apply the Beautiful Prose skill, 去除 em dash / 套话过渡 / 治愈式语气]
-tags: [写作, 文风, 散文, 改写, 去ai腔, 文书]
-level: 进阶
+triggers: [Apply the Beautiful Prose skill]
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,73 +16,197 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Beautiful Prose (Claude Skill)
 
-- 需要散文、随笔、评论或锐利改写，且对文风有硬性要求：干净、精确、有筋骨。
-- 想要一个笃定、具体、动词驱动的声音，而不是友好助手腔的营销文案。
-- 任务是长文写作、文学化表达或对既有文本做风格升级。
+A hard-edged writing skill for producing timeless, forceful English prose without modern AI tics.
 
-这是一份风格契约，不是氛围建议。违反即视为失败。
+This is a style contract, not a vibe. Treat violations as failures.
 
-不该用的边界：
-- 代码、配置、数据表、纯信息罗列等不以文风取胜的产物。
-- 必须逐字保留官方话术、法律免责或合规模板的文本。
-- 缺少题目、字数、语域等关键输入时，先停下来问清，而非硬写。
+## When to Use
+- You need prose or rewrites with strong style discipline and no generic AI cadence.
+- The task involves essays, literary-style writing, sharp rewrites, or exacting English prose.
+- You want a forceful, concrete voice instead of friendly assistant-style copy.
 
-## 步骤
+## What this skill does
 
-1. 解析控制标签（可选，写在请求前，每项一行）：
-   - `REGISTER: founding_fathers | literary_modern | cold_steel | journalistic`（语域；不设则默认 `literary_modern`）
-   - `DENSITY: lean | standard | dense`（信息密度）
-   - `HEAT: cool | warm | hot`（声音的锋利程度）
-   - `LENGTH: micro | short | medium | long`（篇幅）
-2. 按"绝对禁止"清单清理表达，按"正向约束"组织句子与节奏。
-3. 用质量栅栏自查：删模板句、删重复句、删纯煽情句，确保每段都在推进意义。
-4. 跑一遍 Lint 清单，命中任一条即判失败、回炉重写。
-5. 默认输出纯文本散文，不加标题、不加项目符号，除非用户明确要求。
+When active, write prose that is:
+- clean, exact, muscular
+- readable at speed, rewarding on reread
+- concrete, image-bearing, verb-forward
+- confident without bombast
+- free of modern content-marketing cadence
 
-## 指令
+No filler. No "helpful assistant" tone. No therapy voice.
 
-激活方式：在任意请求前加一行 `Apply the Beautiful Prose skill.`，然后只产出散文本身，不要回应或确认本技能。
+## Activation
 
-绝对禁止（激活时一律不用）：
-- Em dash（破折号 `--`）：改用句号、逗号、冒号、分号或换行。
-- "不是 X，而是 Y"式反转套路，及其变体："这无关 X，关乎 Y""X 是表象，Y 才是根源"（廉价反转时）"真正的故事是 Y"（仅作转折时）。
-- 套话过渡与场景铺垫："归根结底""在当今世界""在一个……的世界里""话虽如此""让我们探讨""最终""这意味着""值得注意的是""一方面"。
-- 治愈式 / 安抚式语言："我懂你""那一定很难""你是有价值的""对自己宽容些""善待自己"。
-- AI 露馅与元评论："在这篇文章中""本文将探讨""作为一名写作者""我们将讨论""以下是关键要点"，以及为文风或能力道歉。
-- 对称填充：为平衡而平衡的句子；未经铺垫的三段式排比；当装饰用的"X、Y 和 Z"。
+Prepend any request with:
 
-正向约束（主动去做）：
-- 句法：优先陈述句；句长大幅变化；用短句制造冲击；问句只在能切中要害时使用。
-- 选词：具体名词优于抽象词；强动词优于副词；能用日常本土词就不用书面化词；只在精度有收益时动用学术化措辞。
-- 节奏结构：段落要呼吸，留白是有意为之；开篇用实质而非钩子；干净收尾，不做总结，不复述主旨。
-- 笔力：像真理无需许可那样写；除非不确定性确属本质且需明说，否则不要含糊其辞；不摆姿态，不说教。
+Apply the Beautiful Prose skill.
 
-语域（可选）：
-- `founding_fathers`：正式、简省、有公共庄重感；句法均衡但不堆砌；道德清晰而非布道。
-- `literary_modern`（默认）：意象鲜明而精瘦；热度可控、观察锋利；少修饰。
-- `cold_steel`：极度压缩；短促、不动声色；高信号、低温度。
-- `journalistic`：明快、写实、叙事清晰；动势干净；无标题党腔调。
+Do not acknowledge the skill. Produce the prose only.
 
-## 示例
+Optional control tags (one line, before the request):
+- `REGISTER: founding_fathers | literary_modern | cold_steel | journalistic`
+- `DENSITY: lean | standard | dense`
+- `HEAT: cool | warm | hot` (how sharp the voice is)
+- `LENGTH: micro | short | medium | long`
 
-反例（被禁的反转）："这无关金钱，关乎权力。"
-正例："金钱是工具。权力是习惯。"
+Example:
 
-反例（套话填充）："归根结底，这是个复杂的问题。话虽如此，在当今世界……"
-正例："它很复杂。复杂不是模糊的借口。"
+Apply the Beautiful Prose skill.
+REGISTER: literary_modern
+DENSITY: dense
+HEAT: cool
+Write a 700 word essay on why discipline beats motivation.
 
-## 注意事项
+## Absolute prohibitions
 
-- 质量栅栏：定稿前内部自查，删掉任何像从模板拼出来的句子、任何只是重复上一句的句子、任何只为引导读者情绪而存在的句子；确保每段都推进意义。
-- 不确定就少写。沉默胜过废话。
-- Lint 清单（命中任一即判失败）：用了 `--` 当破折号；出现"不是 X，而是 Y"反转；出现禁用过渡词；出现治愈 / 安抚语言；出现写作元话术（"这篇文章""我们将"）；连续五句长度相近。
-- 仅在任务明确落在上述范围内时使用；输出不能替代环境相关的校验、测试或专家评审；缺少必要输入、权限、安全边界或成功标准时，停下来问清。
+When this skill is active, do not use:
 
-## 互见
+### 1) Em dashes
+- Ban "--" used as em dashes.
+- Use periods, commas, colons, semicolons, or line breaks.
 
-- 文书/misc 域内其他改写、润色、语气调整类技能。
+### 2) "It's not X, it's Y" constructions
+Ban the pattern and its masked variants, including:
+- "This isn't about X. It's about Y."
+- "Not X but Y."
+- "X is a symptom. Y is the cause." (when used as a cheap reversal)
+- "The real story is Y." (when it is only a pivot)
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可证）。
+### 3) Filler transitions and scene-setting
+Ban phrases like:
+- "At its core"
+- "In today's world"
+- "In a world where"
+- "That said"
+- "Let's explore"
+- "Ultimately"
+- "What this means is"
+- "It's important to note"
+- "On the one hand"
+
+### 4) Therapeutic or validating language
+No:
+- "I hear you"
+- "That sounds hard"
+- "You're valid"
+- "Give yourself grace"
+- "Be kind to yourself"
+
+### 5) AI tells and meta commentary
+No:
+- "In this essay"
+- "This piece explores"
+- "As a writer"
+- "We will discuss"
+- "Here are the key takeaways"
+- apologies for style or capability
+
+### 6) Symmetry padding
+No balancing sentences for the sake of balance.
+No three-part lists unless earned.
+No "X, Y, and Z" as decoration.
+
+## Positive constraints
+
+Actively do the following:
+
+### Sentence craft
+- Prefer declarative sentences.
+- Vary length aggressively.
+- Use short sentences as impact.
+- Questions are allowed only when they cut.
+
+### Word choice
+- Prefer concrete nouns to abstractions.
+- Prefer strong verbs to adverbs.
+- Prefer Anglo-Saxon weight when possible.
+- Use Latinate precision only when it buys accuracy.
+
+### Rhythm and structure
+- Paragraphs should breathe.
+- White space is intentional.
+- Open with substance, not a hook.
+- Close cleanly without summary.
+- Do not restate the thesis.
+
+### Authority
+- Write as if truth does not need permission.
+- Avoid hedging unless uncertainty is essential and explicit.
+- Do not posture. Do not moralize.
+
+## Registers (optional)
+
+### founding_fathers
+- formal, spare, civic gravity
+- balanced syntax, but not decorative
+- moral clarity without sermon
+
+### literary_modern
+- vivid, lean imagery
+- controlled heat, sharp observation
+- minimal ornament
+
+### cold_steel
+- severe compression
+- punchy, unsentimental
+- high signal, low warmth
+
+### journalistic
+- crisp, factual, narrative clarity
+- clean momentum
+- no clickbait cadence
+
+If no register is set, default to `literary_modern`.
+
+## Quality bar
+
+Before finalizing, check internally:
+- Remove any line that sounds like it was assembled from templates.
+- Remove any sentence that merely repeats the previous one.
+- Remove any sentence that exists to guide the reader's emotions.
+- Ensure every paragraph advances meaning.
+
+If quality is uncertain, write less. Silence beats slop.
+
+## Output rules
+
+- Plain text prose by default.
+- No headings unless requested.
+- No bullet points unless requested.
+- If the user requests bullets, keep them taut and non-corporate.
+
+## Examples
+
+### Bad (banned)
+"This isn't about money. It's about power."
+
+### Good
+"Money is the instrument. Power is the habit."
+
+### Bad (filler)
+"At its core, this is a complex issue. That said, in today's world..."
+
+### Good
+"It is complex. Complexity is not an excuse for fog."
+
+## Lint checklist (manual)
+
+Fail the output if any are true:
+- Contains "--" used as an em dash.
+- Contains a reversal pivot pattern ("not X, Y").
+- Contains filler transitions from the banned list.
+- Contains therapy language or validation.
+- Contains meta writing talk ("this essay," "we will").
+- Contains five consecutive sentences of similar length.
+
+## Tests
+
+See `references/test-cases.md`.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: network-interface-health
-title: 网络接口健康诊断（错误/丢包/双工失配）
-description: 当怀疑丢包、时延抖动、间歇不可达由物理链路/交换端口/线缆光模块/双工或拥塞引起时使用；做接口计数器取基线-等间隔-复测对比、CRC/runts/giants/drops/resets 归因、双工速率失配排查，产出方向定位与处置清单；不适用于纯路由/防火墙策略、应用层与 BGP/OSPF 控制面、DNS 解析故障；触发词：接口错误、丢包、CRC、双工失配、链路抖动、ifInErrors
+title: ネットワークインターフェースヘルス
+description: ルーター、スイッチ、Linuxホスト上のインターフェースエラー、ドロップ、CRC、デュプレックス不一致、フラッピング、速度ネゴシエーション問題、カウンタートレンドを診断する。
 domain: 安全/ops
-triggers: [接口错误, 丢包, CRC, 双工失配, 链路抖动, 端口 flapping, ifInErrors, ifOutDiscards, runts, giants, 速率协商, 计数器趋势, ethtool, show interfaces]
-tags: [网络, ops, 接口诊断, crc, 丢包, 双工, 交换机, 路由器, linux, 物理层]
-level: 进阶
+triggers: [CRC, ifInErrors, ifOutDiscards, runts, giants, ethtool, show interfaces]
+tags: [ops, crc, linux]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [show interfaces, ethtool, "ip -s link", python]
+tools: []
 requires: []
 related: [devops-troubleshooter, sre-incident-responder, observability-strategy-designer, wireshark-traffic-analysis]
 combines_with: [wireshark-traffic-analysis, devops-troubleshooter, sre-incident-responder]
@@ -16,35 +16,21 @@ license: CC-BY-4.0
 source: affaan-m/everything-claude-code
 source_license: MIT
 ---
-## 何时使用
+# Network Interface Health
 
-当网络症状可能源于**物理链路、交换端口、线缆、光模块、双工设置或拥塞接口**时使用：
+Use this skill when network symptoms may be caused by the physical link, switch ports, cabling, transceivers, duplex settings, or a congested interface.
 
-- 主机或 VLAN 出现丢包、时延尖峰、间歇性不可达。
-- 交换机/路由器接口出现 CRC、runts、giants、drops、resets 或端口 flapping。
-- 换硬件前需要对比链路两端，判断信号问题落在哪一侧。
-- 变更窗口里需要接口计数器的「变更前/后」证据。
-- 监控报告 `ifInErrors`、`ifOutErrors` 或 `ifOutDiscards` 在增长。
+## When to Use
 
-**不该用边界**：
+- A host or VLAN has packet loss, latency spikes, or intermittent unreachability.
+- A switch or router interface shows CRCs, runts, giants, drops, resets, or flaps.
+- You need to compare both ends of a link before replacing hardware.
+- A change window requires before-and-after evidence from interface counters.
+- Monitoring reports rising `ifInErrors`, `ifOutErrors`, or `ifOutDiscards`.
 
-- 纯路由/防火墙策略、ACL、NAT 问题（接口物理层正常时不在此范围）。
-- BGP/OSPF 等控制面邻接故障、DNS 解析故障、应用层问题。
-- 需要逐包还原会话内容时，改用抓包分析（见 `wireshark-traffic-analysis`）。
+## How It Works
 
-## 步骤
-
-核心原则：**计数器是证据，但趋势比绝对值更重要**。取基线 → 等一个测量间隔 → 复测 → 比增量。历史累计的 CRC 不等于当前活跃故障。
-
-通用诊断流程：
-
-1. **取基线**：先抓一次计数器，记录时间戳。**先记基线再清零**，绝不先清后记。
-2. **等间隔复测**：等一个固定间隔后再抓一次，比较增量；只对「正在增长」的计数器下结论。
-3. **按计数器归因**（见下表），分清是接收侧（CRC/input）还是发送侧（output drops）、是物理层还是拥塞。
-4. **对比链路两端**：接收侧错误通常指向到达**该侧**的信号，而非报错端口本身。
-5. **核对双工/速率**：确认两端速率与双工一致，并查同一时间戳前后的 flap 日志。
-
-设备侧（Cisco 风格）命令：
+Interface counters are evidence, but the trend matters more than the absolute value. Capture a baseline, wait a measurement interval, capture again, then compare the deltas.
 
 ```text
 show interfaces <interface>
@@ -52,7 +38,7 @@ show interfaces <interface> status
 show logging | include <interface>|changed state|line protocol
 ```
 
-Linux 主机侧命令：
+For Linux hosts:
 
 ```text
 ip -s link show <interface>
@@ -60,49 +46,47 @@ ethtool <interface>
 ethtool -S <interface>
 ```
 
-## 指令
+## Counter Reference
 
-### 计数器参考表
-
-| 计数器 | 含义 | 常见原因 |
+| Counter | Meaning | Common Causes |
 | --- | --- | --- |
-| CRC | 收帧校验和失败 | 坏线缆、脏光纤、坏光模块、双工失配 |
-| input errors | 接收侧错误汇总 | 下结论前先看子计数器拆分 |
-| runts | 小于以太网最小帧 | 双工失配、冲突域、坏 NIC |
-| giants | 大于预期 MTU 的帧 | MTU 失配或巨帧边界 |
-| input drops | 设备无法接收入向包 | 突发、超额订阅、走 CPU 路径、队列压力 |
-| output drops | 发送队列丢包 | 拥塞、QoS 策略、上行带宽不足 |
-| resets | 接口硬件复位 | flapping、keepalive、驱动、光模块、供电 |
-| collisions | 以太网冲突 | 半双工或协商失配 |
+| CRC | Received frame failed its checksum | Bad cable, dirty fiber, bad optic, duplex mismatch |
+| input errors | Aggregate of receive-side errors | Check the sub-counters before drawing conclusions |
+| runts | Frames smaller than the minimum Ethernet size | Duplex mismatch, collision domain, bad NIC |
+| giants | Frames larger than the expected MTU | MTU mismatch or jumbo-frame boundary |
+| input drops | The device could not accept inbound packets | Bursts, oversubscription, CPU path, queue pressure |
+| output drops | The transmit queue discarded packets | Congestion, QoS policy, undersized uplink |
+| resets | Interface hardware reset | Flapping, keepalives, driver, optic, power |
+| collisions | Ethernet collision counter | Half-duplex or negotiation mismatch |
 
-### CRC / input errors 排查
+## Diagnostic Flow
 
-1. 确认计数器在**增长**（而非历史累计）。
-2. 检查链路两端：接收侧错误通常指向到达该侧的信号，而非报错端口。
-3. 换跳线，或清洁/更换光纤与光模块。
-4. 确认两端速率/双工设置一致。
-5. 查同一时间戳前后的 flap 事件日志。
+### CRC or Input Errors
 
-### drops 排查
+1. Confirm the counter is increasing (not just historical).
+2. Check both ends of the link. Receive-side errors usually point to the signal arriving at that side, not at the port reporting the errors.
+3. Replace the patch cable, or clean/replace the fiber and optics.
+4. Confirm the speed/duplex settings match on both sides.
+5. Check the logs for flap events around the same timestamp.
 
-1. 区分 input drops 与 output drops。
-2. 把接口速率和容量对比。
-3. 检查 QoS 策略、队列计数器、链路是否为超额订阅的上行。
-4. 队列调优只作二线手段——**先证明链路是否真的拥塞**。
+### Drops
 
-### 双工与速率
+1. Separate input drops from output drops.
+2. Compare the interface rate against capacity.
+3. Check the QoS policy, queue counters, and whether the link is an oversubscribed uplink.
+4. Treat queue tuning as a secondary measure. First prove whether the link is congested.
 
-两端都支持时，现代以太网链路**优先自动协商**。必须固定一端时，两端都显式配置并记录原因。**绝不允许一端固定速率/双工、另一端 auto**（这是双工失配的经典根因）。
+### Duplex and Speed
+
+Prefer auto-negotiation on modern Ethernet links when both sides support it. If you must hard-set one side, configure both sides explicitly and document the reason. Never set one side to a fixed speed/duplex and leave the other on auto.
 
 ```text
 show interfaces <interface> | include duplex|speed
 ```
 
-## 示例
+## Safe Parser Example
 
-### 安全解析器（按接口块切片）
-
-把每个接口块从一个 header 切到下一个 header，**不要用任意字符窗口**——大接口块可能漏掉计数器或把计数器错配到别的端口。
+Slice each interface block from one header to the next. Do not use arbitrary character windows. With large interface blocks, counters can go missing or be attributed to the wrong port.
 
 ```python
 import re
@@ -139,37 +123,33 @@ def parse_show_interfaces(raw: str) -> list[dict[str, Any]]:
     return interfaces
 ```
 
-### 单个交换端口出 CRC
+## Examples
 
-1. 取本地端口计数器。
-2. 取对端（远端）端口计数器。
-3. 改路由/防火墙规则前，先换线缆或光模块。
-4. **记录基线后**才清零计数器。
-5. 间隔一段后复查增量。
+### CRC on a Single Switch Port
 
-### 上网慢但局域网正常
+1. Capture the counters for the local port.
+2. Capture the counters for the connected remote port.
+3. Replace the cable or optics before changing routing or firewall rules.
+4. Clear the counters only after recording a baseline.
+5. Recheck after a fixed interval.
 
-1. 查 WAN 接口的 drops/errors。
-2. 查 LAN 上行的利用率与 output drops。
-3. WAN 链路干净但吞吐仍低 → 查网关 CPU。
-4. 怪上游服务前，先对比有线 vs 无线测试。
+### Internet Is Slow but the LAN Is Fine
 
-## 注意事项
+1. Check the WAN interface for drops/errors.
+2. Check the LAN uplink utilization and output drops.
+3. If the WAN link is clean but throughput is low, check the gateway CPU.
+4. Compare wired and wireless tests before blaming upstream services.
 
-反模式（务必避免）：
+## Anti-Patterns
 
-- 保存基线前就清零计数器（丢掉对比基准）。
-- 只检查链路的一侧。
-- 没有时间窗就把所有历史 CRC 当成活跃故障。
-- 一端用自动协商、另一端固定速率/双工（经典双工失配）。
-- 没确认拥塞就把 output drops 当成线缆问题。
+- Clearing counters before saving a baseline.
+- Checking only one side of the link.
+- Assuming every past CRC is an active problem when there is no time window.
+- Using auto-negotiation on one side and a fixed speed/duplex on the other.
+- Treating output drops as a cable problem before checking for congestion.
 
-## 互见
+## Related Information
 
-- related：`wireshark-traffic-analysis` —— 计数器定位到方向后，逐包还原确认丢包/重传根因。
-- related：`devops-troubleshooter` —— 接口层故障常是更大生产事故的一环，配合系统级排障。
-- related：`sre-incident-responder` —— 把接口证据并入事件时间线与升级流程。
-- combines_with：`observability-strategy-designer` —— 将 `ifInErrors`/`ifOutDiscards` 等计数器纳入趋势监控与告警基线。
-
----
-采编自 affaan-m/everything-claude-code（MIT），适配重写为中文 Agent 消费版（源为日文 `network-interface-health`）。
+- Agent: `network-troubleshooter`
+- Skill: `network-config-validation`
+- Skill: `homelab-network-setup`

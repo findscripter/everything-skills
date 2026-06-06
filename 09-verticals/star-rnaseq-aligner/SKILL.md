@@ -1,14 +1,14 @@
 ---
 name: star-rnaseq-aligner
-title: STAR 剪接感知 RNA-seq 比对
-description: 当需要把 bulk RNA-seq reads 比对到参考基因组、产出排序 BAM 与剪接位点表，供变异检测/IGV/deeptools/ENCODE 流程使用时用本条；用 STAR 建基因组索引、做（双轮）剪接感知比对，并可同步出基因计数，产出 Aligned.sortedByCoord.out.bam、SJ.out.tab、Log.final.out 与 ReadsPerGene.out.tab；不适用于只要转录本/基因定量而不需 BAM（用更快的 Salmon 伪比对）、单细胞 RNA-seq（用 scanpy）。触发词：STAR、RNA-seq、比对、aligner、剪接位点、splice junction、BAM、基因计数、GeneCounts、二轮比对、twopass、genomeGenerate、sjdbOverhang
+title: STAR — Spliced RNA-seq Aligner
+description: Splice-aware RNA-seq aligner producing sorted BAM and splice junction tables. Builds genome index, runs two-pass alignment for better junctions. Outputs sorted BAM, junctions (SJ.out.tab), stats (Log.final.out), optional gene counts. Use Salmon for fast pseudoalignment; STAR when a BAM is needed for variant calling, IGV, or ENCODE pipelines.
 domain: 领域/science
-triggers: [STAR, RNA-seq, 比对, aligner, 剪接位点, splice junction, BAM, 基因计数, GeneCounts, 二轮比对, twopass, genomeGenerate, sjdbOverhang]
+triggers: [STAR, RNA-seq, aligner, splice junction, BAM, GeneCounts, twopass, genomeGenerate, sjdbOverhang]
 tags: [bioinformatics, genomics, rnaseq, star, alignment, splice-junction, bam, encode, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [STAR, samtools, python, pandas, pydeseq2]
+tools: []
 requires: []
 related: [fastp-fastq-preprocessing, deeptools-ngs-analysis, pydeseq2-differential-expression, genomic-file-toolkit]
 combines_with: [fastp-fastq-preprocessing, pydeseq2-differential-expression]
@@ -16,116 +16,343 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# STAR — Spliced RNA-seq Aligner
 
-当需要把 bulk RNA-seq reads 比对到参考基因组并产出可下游使用的 BAM 时用本条，典型场景：
+## Overview
 
-- 下游工具要求排序后 BAM（变异检测 GATK、IGV 可视化、deeptools 等）。
-- 运行强制要求基因组比对的 ENCODE 兼容 RNA-seq 流程。
-- 发现新的/注释内的剪接位点与可变剪接事件。
-- 用 `--quantMode GeneCounts` 在比对的同时一步产出基因级计数表。
-- 长读长或高错配率 reads（可调 `--outFilterMismatchNmax`）。
+STAR (Spliced Transcripts Alignment to a Reference) aligns RNA-seq reads to a genome in a splice-aware manner, identifying novel and annotated splice junctions in a single pass. It generates coordinate-sorted BAM files compatible with samtools, IGV, deeptools, and GATK. STAR's 2-pass mode re-aligns reads using junctions discovered in the first pass, improving sensitivity for novel splice sites. With `--quantMode GeneCounts`, STAR simultaneously produces gene-level read count tables without requiring a separate featureCounts or HTSeq step.
 
-不该用的边界：
+## When to Use
 
-- 只需转录本/基因定量、不需要 BAM → 用 **Salmon** 伪比对，快 20–50 倍（见 `combines_with`）。
-- 单细胞 RNA-seq → 用 `single-cell-rnaseq-analysis`（Scanpy）。
-- BAM/VCF 读写、区域抓取、覆盖度统计 → 用 `genomic-file-toolkit`（pysam）。
-- 跨条件严谨差异表达：STAR 只出计数矩阵，DE 交给 pydeseq2/DESeq2。
+- Aligning bulk RNA-seq reads to a reference genome when downstream tools require a BAM file (variant calling, visualization, deeptools)
+- Running ENCODE-compliant RNA-seq pipelines that mandate genome alignment
+- Discovering novel splice junctions and alternative splicing events in the dataset
+- Generating gene count tables alongside BAM alignment in a single step with `--quantMode GeneCounts`
+- Processing long reads or reads with high mismatch rates by tuning `--outFilterMismatchNmax`
+- Use **Salmon** instead when you only need transcript/gene quantification and do not need a BAM file — Salmon is 20-50× faster
 
-前置：STAR ≥ 2.7.0；基因组 FASTA + 同一 assembly 的 GTF 注释；人/鼠基因组建索引需约 30–32 GB RAM、约 25 GB 磁盘，每样本 BAM 约 5–10 GB。先 `command -v STAR` 探测，已在 pixi 环境则用 `pixi run STAR`。
+## Prerequisites
 
-## 步骤
+- **Software**: STAR ≥ 2.7.0 (conda or compiled binary)
+- **Reference files**: genome FASTA + GTF annotation (same assembly)
+- **RAM**: 30–32 GB for human/mouse genome index; 8–16 GB for smaller genomes
+- **Disk**: ~25 GB for human genome index, ~5–10 GB per sample BAM
 
-1. 备参考：下载基因组 FASTA + 匹配版本 GTF（assembly 必须一致），解压。
-2. 建索引（每「基因组 × 读长」一次）：`--runMode genomeGenerate`，`--sjdbOverhang = 读长 - 1`（默认 99 对应 100bp 读长）。小基因组降 `--genomeSAindexNbases`（约 `log2(基因组大小)/2 − 1`，如 E. coli 设 11）。
-3. 比对：单端/双端 FASTQ → `--outSAMtype BAM SortedByCoordinate`，gzip 输入须加 `--readFilesCommand zcat`。
-4. （可选，提灵敏度）二轮比对：`--twopassMode Basic`，用第一轮发现的剪接位点重比对，对新剪接位点更敏感。
-5. 查统计：解析 `Log.final.out`，关注唯一比对率（应 > 60%）、多重比对率、错配未比对率。
-6. （可选）计数：`--quantMode GeneCounts` 产出 `ReadsPerGene.out.tab`，按文库链特异性选列。
-7. 索引 BAM：`samtools index`。
-
-## 指令
-
-关键参数：
-
-| 参数 | 默认 | 说明 |
-|---|---|---|
-| `--runThreadN` | 1 | 线程数 |
-| `--sjdbOverhang` | 99 | 设为 读长−1 |
-| `--outSAMtype` | SAM | 用 `BAM SortedByCoordinate` |
-| `--outFilterMismatchNmax` | 10 | 每 read 最大错配，调低更严格 |
-| `--outFilterMultimapNmax` | 10 | 超过该位点数标为未比对 |
-| `--quantMode` | – | `GeneCounts` / `TranscriptomeSAM` |
-| `--twopassMode` | None | `Basic` 开二轮发现新剪接位点 |
-| `--alignIntronMax` | 1000000 | 最大内含子长，细菌基因组调小 |
-| `--genomeSAindexNbases` | 14 | 小基因组调小，否则建索引 OOM |
-
-`ReadsPerGene.out.tab` 四列：`gene_id  unstranded  stranded_fwd  stranded_rev`，按文库链特异性取列（无链选第 2 列）。
-
-## 示例
-
-建索引（人基因组，约 32 GB RAM）：
+> **Check before installing**: The tool may already be available in the current environment (e.g., inside a `pixi` / `conda` env). Run `command -v STAR` first and skip the install commands below if it returns a path. When running inside a pixi project, invoke the tool via `pixi run STAR` rather than bare `STAR`.
 
 ```bash
+# Install with conda (recommended)
+conda install -c bioconda star
+
+# Verify
+STAR --version
+# STAR_2.7.11a
+
+# Or compile from source
+git clone https://github.com/alexdobin/STAR
+cd STAR/source && make STAR
+```
+
+## Quick Start
+
+```bash
+# 1. Generate genome index (~30 min, run once)
+STAR --runMode genomeGenerate \
+     --runThreadN 8 \
+     --genomeDir genome/star_index \
+     --genomeFastaFiles genome/GRCh38.fa \
+     --sjdbGTFfile genome/gencode.v47.gtf \
+     --sjdbOverhang 100    # ReadLength - 1
+
+# 2. Align paired-end reads (~10-20 min)
+STAR --runThreadN 8 \
+     --genomeDir genome/star_index \
+     --readFilesIn sample_R1.fastq.gz sample_R2.fastq.gz \
+     --readFilesCommand zcat \
+     --outSAMtype BAM SortedByCoordinate \
+     --outFileNamePrefix results/sample/
+
+# 3. Index the BAM
+samtools index results/sample/Aligned.sortedByCoord.out.bam
+```
+
+## Workflow
+
+### Step 1: Prepare Reference Files
+
+Download a genome FASTA and matching GTF annotation (same assembly version).
+
+```bash
+# Download GRCh38 genome and GENCODE annotation
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_47/GRCh38.primary_assembly.genome.fa.gz
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_47/gencode.v47.primary_assembly.annotation.gtf.gz
+
+gunzip GRCh38.primary_assembly.genome.fa.gz gencode.v47.primary_assembly.annotation.gtf.gz
+mkdir -p genome/star_index
+
+echo "Genome and GTF ready."
+ls -lh GRCh38.primary_assembly.genome.fa gencode.v47.primary_assembly.annotation.gtf
+```
+
+### Step 2: Generate Genome Index
+
+Build the STAR genome index — required once per genome/read-length combination.
+
+```bash
+# Standard human genome index (requires ~32 GB RAM)
 STAR --runMode genomeGenerate \
      --runThreadN 16 \
      --genomeDir genome/star_index/ \
      --genomeFastaFiles GRCh38.primary_assembly.genome.fa \
      --sjdbGTFfile gencode.v47.primary_assembly.annotation.gtf \
      --sjdbOverhang 100
+
+# For small genomes (e.g., E. coli ~4.6 Mb), reduce genomeSAindexNbases
+# STAR --runMode genomeGenerate \
+#      --genomeSAindexNbases 11 \
+#      --genomeDir genome/ecoli_index/ ...
+
+echo "Index complete: $(ls genome/star_index/ | wc -l) files"
 ```
 
-双端比对 + 二轮 + 计数一步到位：
+### Step 3: Align RNA-seq Reads
+
+Align single-end or paired-end FASTQ files to the indexed genome.
 
 ```bash
+# Single-end alignment
 STAR --runThreadN 8 \
      --genomeDir genome/star_index/ \
-     --readFilesIn sample_R1.fastq.gz sample_R2.fastq.gz \
+     --readFilesIn sample1.fastq.gz \
+     --readFilesCommand zcat \
+     --outSAMtype BAM SortedByCoordinate \
+     --outSAMattributes NH HI AS NM MD \
+     --outFileNamePrefix results/sample1/
+
+# Paired-end alignment
+STAR --runThreadN 8 \
+     --genomeDir genome/star_index/ \
+     --readFilesIn sample1_R1.fastq.gz sample1_R2.fastq.gz \
+     --readFilesCommand zcat \
+     --outSAMtype BAM SortedByCoordinate \
+     --outSAMattributes NH HI AS NM MD \
+     --outFileNamePrefix results/sample1/
+
+echo "BAM: results/sample1/Aligned.sortedByCoord.out.bam"
+```
+
+### Step 4: Run 2-Pass Alignment for Improved Sensitivity
+
+Two-pass mode collects splice junctions from the first pass and uses them as annotation for the second pass.
+
+```bash
+# First pass — collect splice junctions
+STAR --runThreadN 8 \
+     --genomeDir genome/star_index/ \
+     --readFilesIn sample1_R1.fastq.gz sample1_R2.fastq.gz \
+     --readFilesCommand zcat \
+     --outSAMtype None \
+     --outFileNamePrefix pass1/sample1/
+
+# Second pass — realign with all junctions from pass 1
+SJ_FILES=$(ls pass1/*/SJ.out.tab | tr '\n' ' ')
+
+STAR --runThreadN 8 \
+     --genomeDir genome/star_index/ \
+     --readFilesIn sample1_R1.fastq.gz sample1_R2.fastq.gz \
+     --readFilesCommand zcat \
+     --sjdbFileChrStartEnd $SJ_FILES \
+     --outSAMtype BAM SortedByCoordinate \
+     --outFileNamePrefix results/sample1/
+
+# Alternative: single-command 2-pass
+STAR --runThreadN 8 \
+     --genomeDir genome/star_index/ \
+     --readFilesIn sample1_R1.fastq.gz sample1_R2.fastq.gz \
      --readFilesCommand zcat \
      --twopassMode Basic \
      --outSAMtype BAM SortedByCoordinate \
-     --quantMode GeneCounts \
-     --outSAMattributes NH HI AS NM MD \
-     --outFileNamePrefix results/sample/
-samtools index results/sample/Aligned.sortedByCoord.out.bam
+     --outFileNamePrefix results/sample1/
 ```
 
-多样本汇成计数矩阵（喂给 pydeseq2）：
+### Step 5: Check Alignment Statistics
+
+Parse the alignment log to assess mapping rate and read quality.
+
+```bash
+# View the alignment summary
+cat results/sample1/Log.final.out
+
+# Parse key metrics with python
+python3 - << 'EOF'
+import re, sys
+from pathlib import Path
+
+log = Path("results/sample1/Log.final.out").read_text()
+metrics = {}
+for line in log.splitlines():
+    if "|" in line:
+        key, _, val = line.partition("|")
+        metrics[key.strip()] = val.strip()
+
+print(f"Unique mapping:     {metrics.get('Uniquely mapped reads %', 'N/A')}")
+print(f"Multi-mapping:      {metrics.get('% of reads mapped to multiple loci', 'N/A')}")
+print(f"Too many mismatches:{metrics.get('% of reads unmapped: too many mismatches', 'N/A')}")
+print(f"Total input reads:  {metrics.get('Number of input reads', 'N/A')}")
+EOF
+```
+
+### Step 6: Generate Gene Count Tables
+
+Enable simultaneous gene counting during alignment using `--quantMode GeneCounts`.
+
+```bash
+# Align and count simultaneously
+STAR --runThreadN 8 \
+     --genomeDir genome/star_index/ \
+     --readFilesIn sample1_R1.fastq.gz sample1_R2.fastq.gz \
+     --readFilesCommand zcat \
+     --outSAMtype BAM SortedByCoordinate \
+     --quantMode GeneCounts \
+     --outFileNamePrefix results/sample1/
+
+# ReadsPerGene.out.tab has 4 columns:
+# gene_id  unstranded  stranded_fwd  stranded_rev
+head results/sample1/ReadsPerGene.out.tab
+
+# Load into pandas (select column based on library strandedness)
+python3 - << 'EOF'
+import pandas as pd
+
+df = pd.read_csv("results/sample1/ReadsPerGene.out.tab",
+                 sep="\t", header=None, skiprows=4,
+                 names=["gene_id", "unstranded", "fwd", "rev"])
+# For unstranded library: use column 2 (unstranded)
+counts = df.set_index("gene_id")["unstranded"]
+print(f"Genes with counts > 0: {(counts > 0).sum()}")
+print(counts[counts > 0].sort_values(ascending=False).head())
+EOF
+```
+
+## Key Parameters
+
+| Parameter | Default | Range/Options | Effect |
+|-----------|---------|---------------|--------|
+| `--runThreadN` | `1` | 1–64 | CPU threads for alignment |
+| `--sjdbOverhang` | `99` | ReadLength-1 | Splice junction overhang; set to ReadLength-1 |
+| `--outSAMtype` | `SAM` | `BAM SortedByCoordinate`, `BAM Unsorted` | Output format and sort order |
+| `--outFilterMismatchNmax` | `10` | 0–33 | Max mismatches per read; lower for stricter mapping |
+| `--outFilterMultimapNmax` | `10` | 1–9999 | Max genomic loci per read; reads exceeding limit marked unmapped |
+| `--quantMode` | `–` | `GeneCounts`, `TranscriptomeSAM` | Enable gene counting or transcriptome BAM |
+| `--twopassMode` | `None` | `None`, `Basic` | Enable 2-pass alignment for novel junction discovery |
+| `--alignIntronMax` | `1000000` | 1–1e9 | Maximum intron length; reduce for bacterial genomes |
+| `--outReadsUnmapped` | `None` | `Fastx` | Write unmapped reads to FASTQ |
+| `--genomeSAindexNbases` | `14` | 10–14 | SA index size; set log2(GenomeSize)/2 − 1 for small genomes |
+
+## Common Recipes
+
+### Recipe 1: Batch Align All Samples
+
+```bash
+#!/bin/bash
+# Align all paired-end samples in a directory
+SAMPLES=(ctrl_1 ctrl_2 treat_1 treat_2)
+INDEX="genome/star_index"
+DATA="data"
+OUT="results"
+THREADS=12
+
+mkdir -p "$OUT"
+for sample in "${SAMPLES[@]}"; do
+    echo "Aligning: $sample"
+    mkdir -p "$OUT/$sample"
+    STAR --runThreadN "$THREADS" \
+         --genomeDir "$INDEX" \
+         --readFilesIn "$DATA/${sample}_R1.fastq.gz" "$DATA/${sample}_R2.fastq.gz" \
+         --readFilesCommand zcat \
+         --outSAMtype BAM SortedByCoordinate \
+         --quantMode GeneCounts \
+         --twopassMode Basic \
+         --outFileNamePrefix "$OUT/$sample/"
+    samtools index "$OUT/$sample/Aligned.sortedByCoord.out.bam"
+    echo "Done: $sample — $(grep 'Uniquely mapped reads %' $OUT/$sample/Log.final.out | awk '{print $NF}')"
+done
+```
+
+### Recipe 2: Build Gene Count Matrix Across Samples
 
 ```python
 import pandas as pd
 from pathlib import Path
+
+results_dir = Path("results")
 samples = ["ctrl_1", "ctrl_2", "treat_1", "treat_2"]
-col = {"unstranded": 1, "fwd": 2, "rev": 3}["unstranded"]  # 按链特异性选列
+strandedness = "unstranded"  # or "fwd" / "rev"
+
+col_map = {"unstranded": 1, "fwd": 2, "rev": 3}
+col = col_map[strandedness]
+
 counts = {}
-for s in samples:
-    df = pd.read_csv(Path("results")/s/"ReadsPerGene.out.tab",
-                     sep="\t", header=None, skiprows=4)   # 跳过前 4 行汇总
-    counts[s] = df.set_index(0)[col]
+for sample in samples:
+    count_file = results_dir / sample / "ReadsPerGene.out.tab"
+    df = pd.read_csv(count_file, sep="\t", header=None, skiprows=4)
+    counts[sample] = df.set_index(0)[col]
+
 matrix = pd.DataFrame(counts)
-matrix = matrix[matrix.sum(axis=1) > 0]
+matrix = matrix[matrix.sum(axis=1) > 0]  # drop zero-count genes
 matrix.to_csv("gene_count_matrix.tsv", sep="\t")
+print(f"Count matrix: {matrix.shape} (genes × samples)")
+print(matrix.head())
 ```
 
-主要输出：`Aligned.sortedByCoord.out.bam`（排序 BAM）、`SJ.out.tab`（剪接位点表）、`Log.final.out`（比对统计）、`ReadsPerGene.out.tab`（基因计数）、`Unmapped.out.mate1/2`（加 `--outReadsUnmapped Fastx` 时）。
+### Recipe 3: Integrate with DESeq2 via pydeseq2
 
-## 注意事项
+```python
+import pandas as pd
+from pydeseq2.dds import DeseqDataSet
+from pydeseq2.default_inference import DefaultInference
 
-- `--sjdbOverhang` 必须等于 读长−1；不匹配会损失剪接灵敏度。
-- gzip 输入忘加 `--readFilesCommand zcat` 会报错或读不出内容。
-- 唯一比对率 < 60%：多为基因组/物种不符或污染，核对 FASTA 物种、跑 FastQC 查过表达序列。
-- `Fatal error: genome files not found`：`--genomeDir` 路径错或索引不全（应含 `Genome`、`SA`、`SAindex`），重跑 `genomeGenerate`。
-- 建索引 OOM：人基因组要 ≥ 32 GB RAM；小基因组加 `--genomeSAindexNbases 13` 或更低。
-- 多重比对率过高（> 20%）：重复性基因组，调低 `--outFilterMultimapNmax`，或 `--outSAMmultNmax 1` 每 read 只输出一条。
-- `ReadsPerGene.out.tab` 读 pandas 时 `skiprows=4` 跳过前 4 行汇总统计；选列要匹配文库链特异性，否则计数严重偏低。
-- ENCODE/Ensembl 提供预建索引，磁盘慢时优先复用、用 SSD。
+# Load count matrix from STAR output
+counts = pd.read_csv("gene_count_matrix.tsv", sep="\t", index_col=0).T
+metadata = pd.DataFrame({
+    "condition": ["control", "control", "treated", "treated"]
+}, index=counts.index)
 
-## 互见
+# Run DESeq2
+dds = DeseqDataSet(counts=counts, metadata=metadata,
+                   design_factors="condition",
+                   inference=DefaultInference(n_cpus=4))
+dds.deseq2()
+print("DESeq2 complete — see dds.varm['LFC'] for results")
+```
 
-- related：`genomic-file-toolkit` —— 产出的 BAM 用 pysam 做区域抓取/覆盖度统计；`nextflow-pipeline-builder` —— 把建索引→比对→计数封装成可扩展流水线。
-- combines_with：`gene-set-enrichment-analysis` —— 计数矩阵经差异表达后做富集分析；`nextflow-pipeline-builder` —— 批量样本编排。
+## Expected Outputs
 
----
+| Output | Format | Description |
+|--------|--------|-------------|
+| `Aligned.sortedByCoord.out.bam` | BAM | Coordinate-sorted aligned reads; index with `samtools index` |
+| `SJ.out.tab` | TSV | Splice junction table with coverage, motif, and novelty flags |
+| `Log.final.out` | Text | Alignment statistics: unique mapping %, multimappers %, etc. |
+| `ReadsPerGene.out.tab` | TSV | Gene counts (4 columns: unstranded/fwd/rev) when `--quantMode GeneCounts` |
+| `Unmapped.out.mate1/2` | FASTQ | Unmapped reads (when `--outReadsUnmapped Fastx`) |
+| `Log.out` | Text | Verbose run log; check for warnings and parameter echoes |
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| Unique mapping < 60% | Wrong genome assembly or species contamination | Verify genome FASTA matches sample species; run FastQC to check overrepresented sequences |
+| `Fatal error: genome files not found` | Wrong `--genomeDir` path or incomplete index | Re-run `genomeGenerate`; check `genomeDir` contains `Genome`, `SA`, `SAindex` files |
+| Out of memory during genome generation | Not enough RAM for genome SA index | Add `--genomeSAindexNbases 13` (or lower) for small genomes; request ≥32 GB RAM for human |
+| `.gz` files not decompressed | Missing `--readFilesCommand zcat` | Add `--readFilesCommand zcat` for gzip-compressed inputs |
+| `Error: number of input files differ` | R1/R2 read count mismatch | Verify FASTQ files with `zcat file.fastq.gz | wc -l`; re-download if corrupted |
+| `ReadsPerGene.out.tab` missing | `--quantMode GeneCounts` not set | Re-run with `--quantMode GeneCounts` or use featureCounts on BAM |
+| Very high multimapping (>20%) | Highly repetitive genome or wrong `--outFilterMultimapNmax` | Reduce `--outFilterMultimapNmax`; use `--outSAMmultNmax 1` to output only one alignment per read |
+| Genome index takes too long | Large genome + slow disk | Use SSD storage; pre-built indices available from ENCODE and Ensembl |
+
+## References
+
+- [STAR GitHub repository](https://github.com/alexdobin/STAR) — source code, releases, and STAR manual PDF
+- Dobin A et al. (2013) "STAR: ultrafast universal RNA-seq aligner" — *Bioinformatics* 29(1):15-21. [DOI:10.1093/bioinformatics/bts635](https://doi.org/10.1093/bioinformatics/bts635)
+- [ENCODE RNA-seq alignment standards](https://www.encodeproject.org/rna-seq/) — ENCODE project guidelines using STAR
+- [GENCODE genome annotations](https://www.gencodegenes.org/) — recommended GTF source for human/mouse STAR indices

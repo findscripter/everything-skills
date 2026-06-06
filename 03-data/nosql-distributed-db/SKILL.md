@@ -1,14 +1,14 @@
 ---
 name: nosql-distributed-db
-title: 分布式 NoSQL 数据库专家
-description: 当为 Cassandra/ScyllaDB/DynamoDB 等分布式宽列/键值库做查询优先建模、选分区键、单表设计与排查热分区/高延迟时使用；产出访问模式清单、分区/排序键方案、单表与反范式 schema、热分区/打分区与索引(GSI/LSI/TTL)策略；不适用于关系型 SQL 建模、MongoDB 文档建模或单机 KV 缓存选型；触发词：cassandra、scylladb、dynamodb、分区键、热分区、单表设计、GSI、宽列、查询优先建模
+title: NoSQL Expert Patterns (Cassandra & DynamoDB)
+description: Expert guidance for distributed NoSQL databases (Cassandra, DynamoDB). Focuses on mental models, query-first modeling, single-table design, and avoiding hot partitions in high-scale systems.
 domain: 数据/sql
-triggers: [cassandra, scylladb, dynamodb, 宽列数据库, wide-column, 分区键, partition key, 热分区, hot partition, 单表设计, single-table design, GSI, LSI, TTL, 查询优先建模, access pattern, ALLOW FILTERING, 反范式, denormalization, tombstone, 墓碑]
+triggers: [cassandra, scylladb, dynamodb, wide-column, partition key, hot partition, single-table design, GSI, LSI, TTL, access pattern, ALLOW FILTERING, denormalization, tombstone]
 tags: [nosql, cassandra, scylladb, dynamodb, wide-column, key-value, data-modeling, distributed-database, single-table-design, partitioning]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Cassandra, ScyllaDB, DynamoDB, CQL]
+tools: []
 requires: []
 related: [erd-schema-designer, database-design-advisor, postgresql-optimization, snowflake-development]
 combines_with: [erd-schema-designer, data-pipeline-engineer, database-design-advisor]
@@ -16,136 +16,113 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# 分布式 NoSQL 数据库专家
+# NoSQL Expert Patterns (Cassandra & DynamoDB)
 
-> domain：数据/misc｜name：nosql-distributed-db｜status：stable
-> agents：claude-code、codex、cursor、gemini-cli｜license：MIT
+## Overview
 
-## 何时使用
+This skill provides professional mental models and design patterns for **distributed wide-column and key-value stores** (specifically Apache Cassandra and Amazon DynamoDB).
 
-- 设计面向规模的分布式宽列/键值存储：Apache Cassandra、ScyllaDB、Amazon DynamoDB。
-- 选型评估：在上述分布式库之间权衡，或判断该不该从单机库迁过来。
-- 性能调优：排查既有 NoSQL 系统的「热分区(hot partition)」、高延迟、吞吐打满单节点。
-- 微服务「一服务一库」：需要为高度优化的读路径预先建模。
+Unlike SQL (where you model data entities), or document stores (like MongoDB), these distributed systems require you to **model your queries first**.
 
-核心心智：SQL 先建实体与关系、读时 JOIN；这类分布式库要**查询优先建模**——先列出访问模式，再为每个模式设计能一次查中的表/索引。
+## When to Use
+- **Designing for Scale**: Moving beyond simple single-node databases to distributed clusters.
+- **Technology Selection**: Evaluating or using **Cassandra**, **ScyllaDB**, or **DynamoDB**.
+- **Performance Tuning**: Troubleshooting "hot partitions" or high latency in existing NoSQL systems.
+- **Microservices**: Implementing "database-per-service" patterns where highly optimized reads are required.
 
-不该用的边界：
+## The Mental Shift: SQL vs. Distributed NoSQL
 
-- 关系型库 schema/范式/ERD 设计 → 用 `erd-schema-designer`，本条不做实体关系建模。
-- 写业务查询 SQL（联表/聚合/窗口）→ 用 `sql-query-builder`。
-- MongoDB 等文档库的文档/嵌套建模、单机 Redis/KV 做缓存选型 → 不在本条范围。
-- 需要强一致事务、自由 ad-hoc 查询、跨表 JOIN/GROUP BY 的负载 → 这类库不适配，应回到关系型或 OLAP。
+| Feature | SQL (Relational) | Distributed NoSQL (Cassandra/DynamoDB) |
+| :--- | :--- | :--- |
+| **Data modeling** | Model Entities + Relationships | Model **Queries** (Access Patterns) |
+| **Joins** | CPU-intensive, at read time | **Pre-computed** (Denormalized) at write time |
+| **Storage cost** | Expensive (minimize duplication) | Cheap (duplicate data for read speed) |
+| **Consistency** | ACID (Strong) | **BASE (Eventual)** / Tunable |
+| **Scalability** | Vertical (Bigger machine) | **Horizontal** (More nodes/shards) |
 
-## 步骤
+> **The Golden Rule:** In SQL, you design the data model to answer *any* query. In NoSQL, you design the data model to answer *specific* queries efficiently.
 
-```
-1. 查询优先建模（先模式，后表）
-   a. 列全部实体（User / Order / Product）
-   b. 列全部访问模式（"按 email 取 User"、"按 User 取 Order 并按日期排序"）
-   c. 为每个模式设计能"单次查中"的表/索引——不要指望事后加查询
-   注：这类库通常无法"以后再加查询"，加新模式 = 建新表/新索引 + 数据迁移
+## Core Design Patterns
 
-2. 分区键(PK)定生死——决定数据落在哪个物理节点
-   目标：数据与流量均匀分散
-   反模式：低基数 PK（status="active"、gender="m"）→ 热分区，吞吐被锁死在单节点
-   正解：高基数键（User ID、Device ID、复合键）
+### 1. Query-First Modeling (Access Patterns)
 
-3. 聚簇键 / 排序键——分区内磁盘排序
-   Cassandra 叫 Clustering Key，DynamoDB 叫 Sort Key
-   支持高效范围查询：WHERE user_id=X AND date > Y
-   本质是为特定读取需求把数据预排序
+You typically cannot "add a query later" without migration or creating a new table/index.
 
-4. 单表设计（邻接表，主要 DynamoDB）
-   多实体类型塞一张表，PK 相同、SK 区分类型 → 一次网络请求拿全
-   例：PK=USER#123 一把捞出 PROFILE + 所有 ORDER#xxx
+**Process:**
+1.  **List all Entities** (User, Order, Product).
+2.  **List all Access Patterns** ("Get User by Email", "Get Orders by User sorted by Date").
+3.  **Design Table(s)** specifically to serve those patterns with a single lookup.
 
-5. 反范式与冗余——别怕一份数据存多处
-   users_by_id（PK=uuid）、users_by_email（PK=email）各建一表
-   代价：跨表一致性需自管（最终一致或批量写）
+### 2. The Partition Key is King
 
-6. 收尾走"专家清单"逐项核对（见下）
-```
+Data is distributed across physical nodes based on the **Partition Key (PK)**.
+-   **Goal:** Even distribution of data and traffic.
+-   **Anti-Pattern:** Using a low-cardinality PK (e.g., `status="active"` or `gender="m"`) creates **Hot Partitions**, limiting throughput to a single node's capacity.
+-   **Best Practice:** Use high-cardinality keys (User IDs, Device IDs, Composite Keys).
 
-## 指令
+### 3. Clustering / Sort Keys
 
-判断口诀与硬约束：
+Within a partition, data is sorted on disk by the **Clustering Key (Cassandra)** or **Sort Key (DynamoDB)**.
+-   This allows for efficient **Range Queries** (e.g., `WHERE user_id=X AND date > Y`).
+-   It effectively pre-sorts your data for specific retrieval requirements.
 
-- **建模顺序反过来**：SQL 让模型回答任意查询；这里让模型高效回答**特定**查询。
-- **写便宜、读为王**：LSM 树下 Insert/Update 只是追加，别担心写量，重点优化读效率。
-- **存储不值钱**：为读速度复制数据是常态，不要为去重而牺牲读路径。
-- **一致性可调**：BASE / 最终一致是默认；强一致要显式付出代价。
+### 4. Single-Table Design (Adjacency Lists)
 
-Cassandra / ScyllaDB 专项：
+*Primary use: DynamoDB (but concepts apply elsewhere)*
 
-- 主键结构：`((Partition Key), Clustering Columns)`。
-- **无 JOIN、无聚合**：聚合预算到单独的 counter 表，别想 `JOIN` / `GROUP BY`。
-- **禁 `ALLOW FILTERING`**：生产里出现它 = 数据模型错了，它意味着全集群扫描。
-- **墓碑(tombstones)**：删除是昂贵标记，避免高频删除模式（如把标准表当队列用）。
+Storing multiple entity types in one table to enable pre-joined reads.
 
-AWS DynamoDB 专项：
+| PK (Partition) | SK (Sort) | Data Fields... |
+| :--- | :--- | :--- |
+| `USER#123` | `PROFILE` | `{ name: "Ian", email: "..." }` |
+| `USER#123` | `ORDER#998` | `{ total: 50.00, status: "shipped" }` |
+| `USER#123` | `ORDER#999` | `{ total: 12.00, status: "pending" }` |
 
-- **GSI（全局二级索引）**：建数据的「另一种视图」（如「按日期查 Order」而非按 User）。注意 GSI 是最终一致。
-- **LSI（本地二级索引）**：在同一分区内换一种排序，**必须建表时创建**。
-- **WCU / RCU**：理解容量模式；单表设计有助于优化消耗的容量单元。
-- **TTL**：用 Time-To-Live 属性自动过期旧数据（免费删除），避免产生墓碑。
+-   **Query:** `PK="USER#123"`
+-   **Result:** Fetches User Profile AND all Orders in **one network request**.
 
-## 示例
+### 5. Denormalization & Duplication
 
-SQL vs 分布式 NoSQL 心智对照：
+Don't be afraid to store the same data in multiple tables to serve different query patterns.
+-   **Table A:** `users_by_id` (PK: uuid)
+-   **Table B:** `users_by_email` (PK: email)
 
-| 维度 | SQL（关系型） | 分布式 NoSQL（Cassandra/DynamoDB） |
-| :-- | :-- | :-- |
-| 建模对象 | 实体 + 关系 | **查询（访问模式）** |
-| JOIN | 读时算，吃 CPU | **写时预计算**（反范式） |
-| 存储成本 | 贵，尽量去重 | 便宜，为读速度复制 |
-| 一致性 | ACID（强） | **BASE（最终）/ 可调** |
-| 扩展 | 垂直（换大机器） | **水平**（加节点/分片） |
+*Trade-off: You must manage data consistency across tables (often using eventual consistency or batch writes).*
 
-> 黄金法则：SQL 设计模型以回答*任意*查询；NoSQL 设计模型以高效回答*特定*查询。
+## Specific Guidance
 
-DynamoDB 单表设计（邻接表）——一次请求拿 User + 全部 Order：
+### Apache Cassandra / ScyllaDB
 
-```
-PK (Partition) | SK (Sort)   | Data Fields
-USER#123       | PROFILE     | { name: "Ian", email: "..." }
-USER#123       | ORDER#998   | { total: 50.00, status: "shipped" }
-USER#123       | ORDER#999   | { total: 12.00, status: "pending" }
+-   **Primary Key Structure:** `((Partition Key), Clustering Columns)`
+-   **No Joins, No Aggregates:** Do not try to `JOIN` or `GROUP BY`. Pre-calculate aggregates in a separate counter table.
+-   **Avoid `ALLOW FILTERING`:** If you see this in production, your data model is wrong. It implies a full cluster scan.
+-   **Writes are Cheap:** Inserts and Updates are just appends to the LSM tree. Don't worry about write volume as much as read efficiency.
+-   **Tombstones:** Deletes are expensive markers. Avoid high-velocity delete patterns (like queues) in standard tables.
 
-查询：PK = "USER#123"  →  一次网络请求返回 Profile 与所有 Order
-```
+### AWS DynamoDB
 
-专家上线前清单：
+-   **GSI (Global Secondary Index):** Use GSIs to create alternative views of your data (e.g., "Search Orders by Date" instead of by User).
+    -   *Note:* GSIs are eventually consistent.
+-   **LSI (Local Secondary Index):** Sorts data differently *within* the same partition. Must be created at table creation time.
+-   **WCU / RCU:** Understand capacity modes. Single-table design helps optimize consumed capacity units.
+-   **TTL:** Use Time-To-Live attributes to automatically expire old data (free delete) without creating tombstones.
 
-```
-[ ] 访问模式覆盖：每个查询模式都映射到某张具体表/索引？
-[ ] 基数检查：分区键唯一值是否足够多以均匀分散流量？
-[ ] 分区膨胀风险：单分区（如某用户的全部订单）会否无限增长？
-                  >10GB 就要"打分区"，如 USER#123#2024-01
-[ ] 一致性要求：该读模式能否容忍最终一致？
-```
+## Expert Checklist
 
-## 注意事项
+Before finalizing your NoSQL schema:
 
-三大反模式（看到就改）：
+-   [ ] **Access Pattern Coverage:** Does every query pattern map to a specific table or index?
+-   [ ] **Cardinality Check:** Does the Partition Key have enough unique values to spread traffic evenly?
+-   [ ] **Split Partition Risk:** For any single partition (e.g., a single user's orders), will it grow indefinitely? (If > 10GB, you need to "shard" the partition, e.g., `USER#123#2024-01`).
+-   [ ] **Consistency Requirement:** Can the application tolerate eventual consistency for this read pattern?
 
-- ❌ **散播-聚合(Scatter-Gather)**：扫所有分区只为找一条（Scan）。
-- ❌ **热键(Hot Keys)**：把「周一」全部数据塞进一个分区。
-- ❌ **关系式建模**：建 `Author` / `Book` 两表想在代码里 JOIN。改法：把 Book 摘要嵌进 Author，或把 Author 信息复制进 Book。
+## Common Anti-Patterns
 
-其他易错点：
+❌ **Scatter-Gather:** Querying *all* partitions to find one item (Scan).
+❌ **Hot Keys:** Putting all "Monday" data into one partition.
+❌ **Relational Modeling:** Creating `Author` and `Book` tables and trying to join them in code. (Instead, embed Book summaries in Author, or duplicate Author info in Books).
 
-- 低基数分区键是最常见性能杀手——上线前务必过「基数检查」。
-- 生产出现 `ALLOW FILTERING` / 全表 Scan 几乎都是建模问题，不要靠加机器硬扛。
-- 反范式带来的跨表一致性由你负责，明确「谁负责同步冗余」。
-- 本条给的是心智模型与设计模式，不替代环境内的实测、压测与专家评审；缺关键输入（访问模式、规模、一致性要求）时先停下来追问。
-
-## 互见
-
-- requires：无。
-- related：`erd-schema-designer` —— 关系型一侧的 schema/范式设计，与本条形成「关系 vs 分布式」对照；`sql-query-builder` —— 关系型查询编写；`snowflake-development` —— OLAP/数仓侧的数据开发。
-- combines_with：`data-pipeline-engineer` —— 反范式表常由管道写入与回填，组合解决「建模 + 灌数 + 跨表一致性」闭环。
-
----
-
-本条采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

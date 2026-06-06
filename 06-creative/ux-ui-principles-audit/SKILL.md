@@ -1,11 +1,11 @@
 ---
 name: ux-ui-principles-audit
-title: UX/UI 原则评估与反模式检测
-description: 当需要拿一份界面/屏幕/用户流去对照研究支撑的 UX/UI 原则做体检、找反模式（UX 异味）并产出带严重度与修复建议的审计报告时使用；不适用于从零做视觉稿、纯前端实现或无界面描述的拍脑袋评审；触发词：UX 审计、界面体检、反模式、UX 异味、可用性评估、AI 界面审查、用户流检查
+title: UX/UI Principles Audit & Antipattern Detection
+description: Use to audit an interface, screen, or user flow against research-backed UX/UI principles, detect antipatterns (UX smells), and produce a severity-rated report with concrete remediation; not for visual design from scratch or front-end implementation.
 domain: 创意/design
-triggers: [UX 审计, 界面体检, 反模式, UX 异味, 可用性评估, AI 界面审查, 用户流检查, 无障碍审计, 设计走查]
-tags: [创意, design, ux审计, 反模式, 可用性, 无障碍, ai界面, 用户流]
-level: 进阶
+triggers: [UX audit, interface audit, antipattern detection, UX smell, usability evaluation, AI interface review, user flow check, accessibility audit, design walkthrough, heuristic evaluation]
+tags: [creative, design, ux-audit, antipatterns, usability, accessibility, ai-interface, user-flow]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,92 +16,109 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-- 已有可描述的界面、屏幕或用户流（截图说明、组件清单、交互文字稿、线框图描述均可），要对照研究支撑的 UX/UI 原则做体检。
-- 目标是：检出反模式（UX 异味）、判断是否违背最佳实践、给每条发现标严重度并附可落地的修复建议。
-- 覆盖四类专项视角：① 通用界面评估（对照 168 条原则）；② 反模式/异味检测；③ AI 驱动界面的信任·透明·安全审查（44 条 AI 时代原则）；④ 用户流的决策·错误·反馈检查。
+- You have a describable interface, screen, or user flow (screenshot description, component inventory, interaction transcript, or wireframe description) and want to evaluate it against research-backed UX/UI principles.
+- The goal is to detect antipatterns (UX smells), check whether the UI follows best practices, and return structured findings with severity levels and actionable remediation steps.
+- Covers four specialized perspectives:
+  - **Interface evaluation** — evaluate interface descriptions against 168 research-backed UX/UI principles (`uxui-evaluator`).
+  - **Antipattern detection** — detect UX antipatterns using the uxuiprinciples smell taxonomy (`interface-auditor`).
+  - **AI-interface review** — audit AI-powered interfaces against 44 AI-era UX principles for trust, transparency, control, and safety (`ai-interface-reviewer`).
+  - **Flow checking** — check user flows against decision, error, and feedback principles (`flow-checker`).
 
-不该用的边界：
-- 从零做视觉设计、出 UI 稿或品牌 logo → 这是创作不是审计，本技能只评不画。
-- 写前端代码、改组件实现 → 交给前端实现类技能；本技能产出修复建议，不落代码。
-- 没有任何界面/流程描述、只是空谈设计理念 → 缺少评估对象，先索要界面描述再开工。
-- 设计令牌/组件库体系搭建 → 用 `ui-design-system-builder`。
+Do NOT use for:
+- Producing visual design, UI mockups, or brand logos from scratch — this skill evaluates, it does not draw.
+- Writing front-end code or editing component implementations — it produces remediation guidance, not code.
+- Abstract design philosophy with no interface or flow to evaluate — request an interface description first.
+- Building a design-token or component-library system — use a design-system builder skill instead.
 
-## 步骤 / 指令
+## Steps
 
 ```
-1. 选评估视角（可多选）
-   - 整体界面体检        → 168 条原则评估
-   - 专挑坏味道          → 反模式/异味检测
-   - AI 产品界面          → 44 条 AI 时代原则（信任/透明/可控/安全）
-   - 多步流程            → 用户流的决策点、错误处理、反馈检查
+1. Pick the evaluation perspective (multiple allowed)
+   - Whole-interface checkup   -> evaluate against 168 research-backed principles
+   - Hunt for bad smells       -> antipattern / UX smell detection
+   - AI-powered product UI     -> 44 AI-era principles (trust / transparency / control / safety)
+   - Multi-step flow           -> decision points, error handling, feedback checks
 
-2. 固定评估对象（缺则向用户索要）
-   - 界面：屏幕/组件清单 + 关键交互文字描述。
-   - 用户流：起点→各步→分支→终点，标出错误分支与反馈点。
-   - 若有上线 URL/原型，请用户提供截图或文字描述（本技能不抓取页面）。
+2. Fix the evaluation target (request it if missing)
+   - Interface: screen/component inventory + key interaction descriptions.
+   - User flow: start -> each step -> branches -> end, marking error branches and feedback points.
+   - If there is a live URL/prototype, ask the user for a screenshot or text description
+     (this skill does not fetch or render pages).
 
-3. 逐条对照原则扫描，每条发现给结构化条目：
-   - [严重度] 位置/组件 — 问题一句话（违背了哪条原则/属哪种反模式）
-   - 原因：为什么是问题（对用户的后果）
-   - 修复：可直接采用的改法（具体到布局/文案/交互）
+3. Scan against the relevant principles. For every finding, return a structured entry:
+   - [Severity] Location/component — one-line problem (which principle violated / which antipattern)
+   - Why: why it is a problem (consequence for the user)
+   - Fix: a directly usable change (specific to layout / copy / interaction)
 
-4. 严重度分级
-   - Critical：阻断任务、误导决策、无障碍硬伤、AI 误导用户。必改。
-   - Major：明显增加认知负荷或出错率的反模式。建议改。
-   - Minor：打磨项（措辞、一致性、视觉层级）。可选。
+4. Severity grading
+   - Critical: blocks the task, misleads decisions, hard accessibility failure, AI misleads the user. Must fix.
+   - Major:    antipattern that clearly raises cognitive load or error rate. Should fix.
+   - Minor:    polish (wording, consistency, visual hierarchy). Optional.
 
-5. 汇总输出
-   - 先 Critical/Major 后 Minor；同类反模式合并归组。
-   - 无问题项明确说"未发现该类问题"，不要凑数编造。
-   - 不确定的标"待确认"并写出假设，不冒充事实。
+5. Aggregate output
+   - Critical/Major first, then Minor; group findings of the same antipattern.
+   - For clean categories, state "no issues of this type found" — do not pad or fabricate.
+   - Mark uncertain items "to be confirmed" and state the assumption; never present guesses as fact.
 ```
 
-规则：
-- 单一职责：只审计评估，不顺手改设计、不落前端代码。
-- 每条发现可定位（指明组件/步骤）且可执行（带具体改法）。
-- 无障碍相关（对比度、键盘可达、屏幕阅读器、点击区）按 Critical/Major 处理并显式点名。
-- AI 界面额外查：是否标明 AI 生成、是否可纠错/可撤销、是否暴露不确定性、是否有越权/幻觉风险提示。
+Audit framework (apply where relevant, drawn from Nielsen's heuristics + mobile UX):
+- visibility of system status
+- match between system and real-world language
+- user control and freedom
+- consistency and standards
+- error prevention
+- recognition rather than recall
+- flexibility and efficiency of use
+- aesthetic and minimalist design
+- recovery from errors
+- help, onboarding, and empty-state guidance
+- mobile-specific: reachability, touch ergonomics, input burden, thumb-friendly action placement
 
-## 示例
+Rules:
+- Single responsibility: audit and evaluate only — do not redesign or write front-end code.
+- Every finding must be locatable (name the component/step) and actionable (include a concrete fix).
+- Accessibility issues (contrast, keyboard access, screen-reader support, hit-target size) are treated as Critical/Major and called out explicitly.
+- For AI interfaces additionally check: is AI-generated content labeled, is it correctable/reversible, is uncertainty exposed, is there a warning for over-reach / hallucination risk.
 
-最小审计提示词：
+## Example
+
+Minimal audit prompt:
 ```
-对照研究支撑的 UX/UI 原则与反模式清单，审计以下界面。
-每条发现：[严重度] 位置/组件 — 违背的原则/反模式；原因（对用户后果）；可执行修复。
-先 Critical/Major 后 Minor；无问题请明说，勿编造。
-<贴入界面/用户流描述>
-```
-
-输出条目样例：
-```
-[Critical] 结账页·主按钮 — 暗模式（confirmshaming）：取消按钮文案"我不想省钱"
-原因：用情绪施压诱导，违背用户自主与诚实原则，损害信任。
-修复：取消按钮改中性文案"暂不"，与主按钮视觉权重对等。
-
-[Major] AI 摘要卡片 — 未标注内容由 AI 生成，且无纠错入口
-原因：违背 AI 透明与可控原则，用户无法判断可信度、无法反馈错误。
-修复：加"AI 生成"标签 + "报告问题/重新生成"操作。
-
-[Minor] 表单·错误提示 — 仅靠红色传达错误，无文字/图标
-原因：色盲用户无法感知，弱化无障碍。
-修复：错误项补图标 + 明确文案，不单纯依赖颜色。
+Audit the interface below against research-backed UX/UI principles and the antipattern catalog.
+For each finding: [Severity] location/component — principle/antipattern violated; Why (user consequence); actionable Fix.
+Critical/Major first, then Minor; say so explicitly if a category is clean — do not fabricate.
+<paste interface / user-flow description>
 ```
 
-## 注意事项
+Sample finding entries:
+```
+[Critical] Checkout page · primary button — Dark pattern (confirmshaming): cancel button reads "I don't want to save money"
+Why: emotional pressure manipulates the user, violating autonomy and honesty principles, eroding trust.
+Fix: change the cancel button to neutral copy ("Not now") with visual weight equal to the primary button.
 
-- 本技能不抓取/渲染页面，只评估用户提供的界面或流程描述；需要看真实页面时让用户给截图或文字稿。
-- 原则数量（168 / 44）是来源参照体系，不必逐条复述；按相关性挑出真正命中的问题，避免输出过长失焦。
-- 区分"确证反模式"与"主观偏好"，别把风格口味标成 Critical。
-- 输出不替代真实可用性测试与专家评审；缺关键输入、权限或成功标准时先停下问清。
-- 修复建议要可直接采用：具体到改哪个文案/布局/交互，不要只说"建议优化体验"。
+[Major] AI summary card — not labeled as AI-generated, and no correction path
+Why: violates AI transparency and control principles; the user cannot judge reliability or report errors.
+Fix: add an "AI-generated" label + "Report issue / Regenerate" actions.
 
-## 互见
+[Minor] Form · error message — conveys error by red color only, no text/icon
+Why: color-blind users cannot perceive it; weakens accessibility.
+Fix: add an icon + explicit message to error items; do not rely on color alone.
+```
 
-- requires：无。
-- related：`ux-research-design-toolkit`（把用户研究数据转成设计决策；本技能聚焦成品界面的原则审计，两者一前一后）；`apple-hig-advisor`（苹果 HIG 平台专项审计，本技能是跨平台通用原则）。
-- combines_with：`ui-design-system-builder`（审计发现的不一致/无障碍问题，回流到设计令牌与组件体系修复）。
+## Notes
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT），原始来源 uxuiprinciples/agent-skills。
+- This skill does not fetch or render pages; it only evaluates the interface or flow description the user provides. When real pages need inspection, ask the user for screenshots or a text transcript.
+- The principle counts (168 / 44) are the reference framework — you do not need to recite every one. Surface only the genuinely-hit issues by relevance; avoid bloated, unfocused output.
+- Distinguish "confirmed antipattern" from "subjective preference" — do not mark a style taste as Critical.
+- Output does not replace real usability testing or expert review. Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+- Remediation must be directly usable: specify which copy/layout/interaction to change, not just "improve the experience."
+- Optionally connect to the uxuiprinciples.com API for enriched output with full citations.
+
+## See also
+
+- requires: none.
+- related: `ux-research-design-toolkit` (turns user-research data into design decisions; this skill focuses on principle-based audit of a finished interface — the two are sequential), `apple-hig-advisor` (platform-specific Apple HIG audit; this skill covers cross-platform general principles), `accessibility-wcag-audit`, `design-spells-microinteractions`.
+- combines_with: `ux-research-design-toolkit`, `wcag-22-audit-patterns`, and `ui-design-system-builder` (route the inconsistency/accessibility findings back into design tokens and the component system).
+- Adapted from sickn33/antigravity-awesome-skills (MIT); original source uxuiprinciples/agent-skills.

@@ -1,14 +1,14 @@
 ---
 name: gitops-argocd-flux
-title: GitOps 自动化部署
-description: 当用 ArgoCD 或 Flux 把 Git 仓库作为 Kubernetes 集群唯一可信源、需要声明式持续交付时使用；产出仓库布局、Application/Kustomization 清单、同步策略与渐进发布配置；不适用于一次性手动部署、非 K8s 目标或无集群/仓库权限的场景。触发词：GitOps、ArgoCD、Flux
+title: GitOps Workflow
+description: Complete guide to implementing GitOps workflows with ArgoCD and Flux for automated Kubernetes deployments.
 domain: 研发/devops
-triggers: [GitOps, ArgoCD, Flux, Argo Rollouts, 持续交付到 Kubernetes, App of Apps, 声明式部署, 集群自动同步, 金丝雀/蓝绿发布, Sealed Secrets/External Secrets]
-tags: [gitops, kubernetes, argocd, fluxcd, cd, 渐进发布, 密钥管理, 研发]
-level: 进阶
+triggers: [GitOps, ArgoCD, Flux, Argo Rollouts, App of Apps, Sealed Secrets/External Secrets]
+tags: [gitops, kubernetes, argocd, fluxcd, cd]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [kubectl, argocd, flux, kubeseal]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,80 +16,89 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# GitOps Workflow
 
-适用：
+Complete guide to implementing GitOps workflows with ArgoCD and Flux for automated Kubernetes deployments.
 
-- 为 Kubernetes 集群搭建 GitOps，把 Git 作为期望状态的唯一可信源。
-- 从 Git 自动化部署应用、配置自动同步（auto-sync）与环境晋升流程。
-- 实施渐进发布（金丝雀 / 蓝绿），管理多集群部署。
-- 在 GitOps 下做密钥管理（Sealed Secrets / External Secrets）。
+## Purpose
 
-不该用（负边界）：
+Implement declarative, Git-based continuous delivery for Kubernetes using ArgoCD or Flux CD, following OpenGitOps principles.
 
-- 只需一次性手动部署，不打算长期维护期望状态。
-- 部署目标不是 Kubernetes。
-- 无法获得集群访问或仓库写权限。
+## Use this skill when
 
-遵循 OpenGitOps 四原则：声明式（Declarative）、版本化且不可变（Versioned & Immutable，状态存于 Git）、自动拉取（Pulled Automatically，由 Agent 拉取期望状态）、持续协调（Continuously Reconciled，对齐实际与期望状态）。
+- Set up GitOps for Kubernetes clusters
+- Automate application deployments from Git
+- Implement progressive delivery strategies
+- Manage multi-cluster deployments
+- Configure automated sync policies
+- Set up secret management in GitOps
 
-## 步骤
+## Do not use this skill when
 
-1. 定义仓库布局与期望状态约定（按环境分目录或分仓库/分支）。
-2. 安装 ArgoCD 或 Flux 并接入集群。
-3. 配置同步策略、环境与晋升流程（生产加审批门禁）。
-4. 验证回滚与密钥处理，确认告警与健康检查到位。
+- You need a one-off manual deployment
+- You cannot manage cluster access or repo permissions
+- You are not deploying to Kubernetes
 
-推荐仓库布局：
+## Instructions
+
+1. Define repo layout and desired-state conventions.
+2. Install ArgoCD or Flux and connect clusters.
+3. Configure sync policies, environments, and promotion flow.
+4. Validate rollbacks and secret handling.
+
+## Safety
+
+- Avoid auto-sync to production without approvals.
+- Keep secrets out of Git and use sealed or external secret managers.
+
+## OpenGitOps Principles
+
+1. **Declarative** - Entire system described declaratively
+2. **Versioned and Immutable** - Desired state stored in Git
+3. **Pulled Automatically** - Software agents pull desired state
+4. **Continuously Reconciled** - Agents reconcile actual vs desired state
+
+## ArgoCD Setup
+
+### 1. Installation
+
+```bash
+# Create namespace
+kubectl create namespace argocd
+
+# Install ArgoCD
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Get admin password
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+**Reference:** See `references/argocd-setup.md` for detailed setup
+
+### 2. Repository Structure
 
 ```
 gitops-repo/
 ├── apps/
-│   ├── production/{app1,app2}/   # kustomization.yaml + deployment.yaml
+│   ├── production/
+│   │   ├── app1/
+│   │   │   ├── kustomization.yaml
+│   │   │   └── deployment.yaml
+│   │   └── app2/
 │   └── staging/
-├── infrastructure/{ingress-nginx,cert-manager,monitoring}/
-└── argocd/{applications,projects}/
+├── infrastructure/
+│   ├── ingress-nginx/
+│   ├── cert-manager/
+│   └── monitoring/
+└── argocd/
+    ├── applications/
+    └── projects/
 ```
 
-## 指令
-
-ArgoCD 安装与取初始密码：
-
-```bash
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-```
-
-Flux 安装与 bootstrap：
-
-```bash
-brew install fluxcd/tap/flux
-# 或下载官方安装脚本，先审阅再执行（不要直接管道到 bash）
-tmpdir="$(mktemp -d)"; trap 'rm -rf "$tmpdir"' EXIT
-curl -fsSLo "$tmpdir/flux-install.sh" https://fluxcd.io/install.sh
-sed -n '1,160p' "$tmpdir/flux-install.sh"
-sudo bash "$tmpdir/flux-install.sh"
-
-flux bootstrap github \
-  --owner=org --repository=gitops-repo \
-  --branch=main --path=clusters/production --personal
-```
-
-排障：
-
-```bash
-argocd app get my-app          # 查看应用状态
-argocd app diff my-app         # 查看与 Git 的差异（OutOfSync）
-argocd app sync my-app --prune # 同步并清理 Git 中已删除的资源
-argocd app sync my-app --force # 强制同步
-```
-
-## 示例
-
-ArgoCD Application（含自动同步策略）：
+### 3. Create Application
 
 ```yaml
+# argocd/applications/my-app.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -106,47 +115,128 @@ spec:
     namespace: production
   syncPolicy:
     automated:
-      prune: true      # 删除 Git 中已移除的资源
-      selfHeal: true   # 自动纠正手工漂移
-      allowEmpty: false
+      prune: true
+      selfHeal: true
     syncOptions:
     - CreateNamespace=true
-    retry:
-      limit: 5
-      backoff: {duration: 5s, factor: 2, maxDuration: 3m}
 ```
 
-App of Apps 模式：用一个父 Application 指向 `argocd/applications` 目录，统一纳管所有子应用，`syncPolicy.automated: {}` 即可。
+### 4. App of Apps Pattern
 
-Flux GitRepository + Kustomization：
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: applications
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/org/gitops-repo
+    targetRevision: main
+    path: argocd/applications
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated: {}
+```
+
+## Flux CD Setup
+
+### 1. Installation
+
+```bash
+# Install Flux CLI
+brew install fluxcd/tap/flux
+
+# Alternative: download the official installer, inspect it, then execute it
+tmpdir="$(mktemp -d)"
+trap 'rm -rf "$tmpdir"' EXIT
+curl -fsSLo "$tmpdir/flux-install.sh" https://fluxcd.io/install.sh
+sed -n '1,160p' "$tmpdir/flux-install.sh"
+sudo bash "$tmpdir/flux-install.sh"
+
+# Bootstrap Flux
+flux bootstrap github \
+  --owner=org \
+  --repository=gitops-repo \
+  --branch=main \
+  --path=clusters/production \
+  --personal
+```
+
+### 2. Create GitRepository
 
 ```yaml
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
-metadata: {name: my-app, namespace: flux-system}
+metadata:
+  name: my-app
+  namespace: flux-system
 spec:
   interval: 1m
   url: https://github.com/org/my-app
-  ref: {branch: main}
----
+  ref:
+    branch: main
+```
+
+### 3. Create Kustomization
+
+```yaml
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
-metadata: {name: my-app, namespace: flux-system}
+metadata:
+  name: my-app
+  namespace: flux-system
 spec:
   interval: 5m
   path: ./deploy
   prune: true
-  wait: true
-  timeout: 5m
-  sourceRef: {kind: GitRepository, name: my-app}
+  sourceRef:
+    kind: GitRepository
+    name: my-app
 ```
 
-渐进发布（Argo Rollouts，金丝雀）：
+## Sync Policies
+
+### Auto-Sync Configuration
+
+**ArgoCD:**
+```yaml
+syncPolicy:
+  automated:
+    prune: true      # Delete resources not in Git
+    selfHeal: true   # Reconcile manual changes
+    allowEmpty: false
+  retry:
+    limit: 5
+    backoff:
+      duration: 5s
+      factor: 2
+      maxDuration: 3m
+```
+
+**Flux:**
+```yaml
+spec:
+  interval: 1m
+  prune: true
+  wait: true
+  timeout: 5m
+```
+
+**Reference:** See `references/sync-policies.md`
+
+## Progressive Delivery
+
+### Canary Deployment with ArgoCD Rollouts
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
-metadata: {name: my-app}
+metadata:
+  name: my-app
 spec:
   replicas: 5
   strategy:
@@ -159,42 +249,80 @@ spec:
       - setWeight: 100
 ```
 
-蓝绿则用 `strategy.blueGreen`，设 `autoPromotionEnabled: false` 由人工晋升。
-
-密钥管理（二选一）：
+### Blue-Green Deployment
 
 ```yaml
-# External Secrets Operator：从外部密钥库拉取，不入库
+strategy:
+  blueGreen:
+    activeService: my-app
+    previewService: my-app-preview
+    autoPromotionEnabled: false
+```
+
+## Secret Management
+
+### External Secrets Operator
+
+```yaml
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
-metadata: {name: db-credentials}
+metadata:
+  name: db-credentials
 spec:
   refreshInterval: 1h
-  secretStoreRef: {name: aws-secrets-manager, kind: SecretStore}
-  target: {name: db-credentials}
+  secretStoreRef:
+    name: aws-secrets-manager
+    kind: SecretStore
+  target:
+    name: db-credentials
   data:
   - secretKey: password
-    remoteRef: {key: prod/db/password}
+    remoteRef:
+      key: prod/db/password
 ```
+
+### Sealed Secrets
 
 ```bash
-# Sealed Secrets：加密后再提交，可安全入库
+# Encrypt secret
 kubeseal --format yaml < secret.yaml > sealed-secret.yaml
+
+# Commit sealed-secret.yaml to Git
 ```
 
-## 注意事项
+## Best Practices
 
-- 风险等级高：生产环境严禁未经审批的 auto-sync，务必设审批门禁，并先在 staging 验证。
-- 密钥绝不明文入库，统一用 Sealed Secrets 或 External Secrets。
-- 按环境分仓库或分支隔离；对 Git 仓库实施 RBAC。
-- 为自定义资源配置健康检查；为同步失败启用通知/告警；按 Tag 发布以便快速回滚。
-- 本技能不替代环境特定的验证、测试与专家评审；若所需输入、权限、安全边界或成功标准缺失，应先暂停并澄清。
+1. **Use separate repos or branches** for different environments
+2. **Implement RBAC** for Git repositories
+3. **Enable notifications** for sync failures
+4. **Use health checks** for custom resources
+5. **Implement approval gates** for production
+6. **Keep secrets out of Git** (use External Secrets)
+7. **Use App of Apps pattern** for organization
+8. **Tag releases** for easy rollback
+9. **Monitor sync status** with alerts
+10. **Test changes** in staging first
 
-## 互见
+## Troubleshooting
 
-- k8s-manifest-generator：生成 Kubernetes 清单。
-- helm-chart-scaffolding：打包应用为 Helm Chart。
+**Sync failures:**
+```bash
+argocd app get my-app
+argocd app sync my-app --prune
+```
 
----
+**Out of sync status:**
+```bash
+argocd app diff my-app
+argocd app sync my-app --force
+```
 
-采编自 sickn33/antigravity-awesome-skills（MIT），适配重写。
+## Related Skills
+
+- `k8s-manifest-generator` - For creating manifests
+- `helm-chart-scaffolding` - For packaging applications
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

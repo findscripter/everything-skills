@@ -1,14 +1,14 @@
 ---
 name: account-reconciliation
-title: 账户对账核对
-description: 当做月结/期末对账，需把总账（GL）余额与子分类账、银行对账单或往来方数据核对一致时使用；做银行对账、GL-子账核对、关联方往来对账，产出调节表+调节项分类+账龄/升级清单；不适用于出具审计意见/财务建议，及只算单期账不做两方比对；触发词：对账、银行对账、调节表、GL对子账、往来对账、reconciliation
+title: Reconciliation
+description: Reconcile accounts by comparing GL balances to subledgers, bank statements, or third-party data. Use when performing bank reconciliations, GL-to-subledger recs, intercompany reconciliations, or identifying and categorizing reconciling items.
 domain: 商业/copy
-triggers: [对账, 银行对账, 调节表, GL对子账, 往来对账, reconciliation, bank reconciliation, 调节项, intercompany]
+triggers: [reconciliation, bank reconciliation, intercompany]
 tags: [finance, accounting, reconciliation, month-end-close, bank-reconciliation, intercompany]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [sql, python, pandas, excel]
+tools: []
 requires: []
 related: [gl-subledger-reconciler, month-end-close-manager, journal-entry-preparer, variance-flux-commentary]
 combines_with: [month-end-close-manager, financial-statements-generator, sox-control-testing]
@@ -16,138 +16,172 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-＜frontmatter 建议＞name: account-reconciliation｜title: 账户对账核对｜domain: 商业/misc（已定）｜status: stable｜agents: [claude-code, codex, cursor, gemini-cli]｜license: Apache-2.0｜source: anthropics/knowledge-work-plugins｜source_license: Apache-2.0｜related: [variance-flux-commentary, cfo-financial-advisor, startup-financial-modeler, billing-automation-systems]｜combines_with: [variance-flux-commentary, board-deck-builder]
+# Reconciliation
 
-# 账户对账核对
+**Important**: This skill assists with reconciliation workflows but does not provide financial advice. All reconciliations should be reviewed by qualified financial professionals before sign-off.
 
-> 重要：本技能仅辅助对账流程，不提供财务/审计意见。所有对账在签字定稿前须经合格财务人员复核。
+Methodology and best practices for account reconciliation, including GL-to-subledger, bank reconciliations, and intercompany. Covers reconciling item categorization, aging analysis, and escalation.
 
-## 何时使用
+## Reconciliation Types
 
-- 月结/期末，需把总账（GL）某科目余额与外部口径核对到一致：银行对账单、子分类账、或关联方往来余额。
-- 三类典型对账：
-  - GL ↔ 子分类账（应收/应付/固定资产/存货/预付/计提）
-  - 银行对账（GL 现金 ↔ 银行对账单）
-  - 关联方往来对账（A 对 B 的应收 ↔ B 对 A 的应付，合并应抵销为零）
-- 触发词：对账、银行对账、调节表、GL对子账、往来对账、reconciliation。
+### GL to Subledger Reconciliation
 
-不该用的边界：
+Compare the general ledger control account balance to the detailed subledger balance.
 
-- 只算单期账、不做两方（GL vs 外部口径）比对 → 那是出报表，不是对账。
-- 需要出审计意见、财务建议或税务/合规结论 → 超出本技能。
-- 拿不到外部口径数据（银行单/子账明细/对方往来余额）→ 不要硬凑平，先标"待取数"。
-- 解释损益科目"为什么波动" → 用 `variance-flux-commentary`，不是对账。
+**Common accounts:**
+- Accounts receivable (GL control vs AR subledger aging)
+- Accounts payable (GL control vs AP subledger aging)
+- Fixed assets (GL control vs fixed asset register)
+- Inventory (GL control vs inventory valuation report)
+- Prepaid expenses (GL control vs prepaid amortization schedule)
+- Accrued liabilities (GL control vs accrual detail schedules)
 
-## 步骤 / 指令
+**Process:**
+1. Pull GL balance for the control account as of period end
+2. Pull subledger trial balance or detail report as of the same date
+3. Compare totals — they should match if posting is real-time
+4. Investigate any differences (timing of posting, manual entries not reflected, interface errors)
 
-```
-1. 锁定口径
-   - 两方余额取同一截止日、同一币种/汇率口径、同一 scope。
-   - GL 侧拉控制科目余额；外部侧拉对应明细（子账试算表/银行单/对方往来）。
+**Common causes of differences:**
+- Manual journal entries posted to the control account but not reflected in the subledger
+- Subledger transactions not yet interfaced to the GL
+- Timing differences in batch posting
+- Reclassification entries in the GL without subledger adjustment
+- System interface errors or failed postings
 
-2. 按对账类型比对
-   A) GL ↔ 子分类账
-      - 比总额；实时过账时应相等。
-      - 不等则查：手工凭证只入 GL 未入子账 / 子账未接口到 GL /
-        批量过账时间差 / GL 重分类未同步子账 / 接口或过账失败。
-   B) 银行对账：两侧各自调到"调整后余额"，差额须为 0
-   C) 关联方：逐对实体比对，差异多源于一方已记一方未记、汇率不同、
-      分类错（往来 vs 第三方）、争议/未核销款、截止日口径不同。
+### Bank Reconciliation
 
-3. 把调节项分类（决定要不要做账）
-   - 类1 时间差：本身会自然清掉，不做调整分录
-     （未达账款/在途存款/系统在途/待审批）。预计 1-5 个工作日清。
-   - 类2 需调整：做调整分录纠正 GL 或子账
-     （未记银行费用/利息、记账错误金额或科目、漏记、分类错）。
-   - 类3 需调查：无法立即解释（不明差异/争议项/超期未清/反复出现的
-     同类差异）→ 查根因、留痕、未解决则升级。
+Compare the GL cash balance to the bank statement balance.
 
-4. 账龄 + 升级
-   - 给每个未清调节项打账龄并按阈值升级（见下表）。
-   - 趋势：对比上期总额、是否超重要性阈值、笔数是否逐期增长、有无每期复现项。
+**Process:**
+1. Obtain the bank statement balance as of period end
+2. Pull the GL cash account balance as of the same date
+3. Identify outstanding checks (issued but not cleared at the bank)
+4. Identify deposits in transit (recorded in GL but not yet credited by bank)
+5. Identify bank charges, interest, or adjustments not yet recorded in GL
+6. Reconcile both sides to an adjusted balance
 
-5. 定稿
-   - 调节表须含：编制人、复核人、日期、每个调节项的清晰说明。
-   - 任何无法解释的差额 → 不得关账，必须解决或书面留痕。
-```
-
-银行对账标准格式（差额须为 $0.00）：
+**Standard format:**
 
 ```
 Balance per bank statement:         $XX,XXX
-Add: Deposits in transit            $X,XXX     # 在途存款（已记GL，银行未贷记）
-Less: Outstanding checks           ($X,XXX)    # 未达支票（已开已记GL，银行未兑付）
+Add: Deposits in transit            $X,XXX
+Less: Outstanding checks           ($X,XXX)
 Add/Less: Bank errors               $X,XXX
 Adjusted bank balance:              $XX,XXX
 
 Balance per general ledger:         $XX,XXX
-Add: Interest/credits not recorded  $X,XXX     # 未记利息/贷项
-Less: Bank fees not recorded       ($X,XXX)    # 未记银行费用
+Add: Interest/credits not recorded  $X,XXX
+Less: Bank fees not recorded       ($X,XXX)
 Add/Less: GL errors                 $X,XXX
 Adjusted GL balance:                $XX,XXX
 
 Difference:                         $0.00
 ```
 
-账龄分桶与升级动作：
+### Intercompany Reconciliation
 
-| 账龄 | 状态 | 动作 |
-|---|---|---|
-| 0-30 天 | 当前 | 监控——在正常处理周期内 |
-| 31-60 天 | 老化 | 调查——跟进为何未清 |
-| 61-90 天 | 逾期 | 升级——通知主管，记录调查 |
-| 90+ 天 | 呆滞 | 升级管理层——可能需核销或调整 |
+Reconcile balances between related entities to ensure they net to zero on consolidation.
 
-升级阈值（示例，须按本机构重要性水平与风险偏好设定）：
+**Process:**
+1. Pull intercompany receivable/payable balances for each entity pair
+2. Compare Entity A's receivable from Entity B to Entity B's payable to Entity A
+3. Identify and resolve differences
+4. Confirm all intercompany transactions have been recorded on both sides
+5. Verify elimination entries are correct for consolidation
 
-| 触发条件 | 示例阈值 | 升级到 |
-|---|---|---|
-| 单笔金额 | > $10,000 | 主管复核 |
-| 单笔金额 | > $50,000 | 控制人（Controller）复核 |
-| 调节项总额 | > $100,000 | 控制人复核 |
-| 项目账龄 | > 60 天 | 主管跟进 |
-| 项目账龄 | > 90 天 | 控制人/管理层复核 |
-| 未平差额 | 任意金额 | 不得关账，必须解决或留痕 |
-| 增长趋势 | 连续 3+ 期 | 启动流程改进调查 |
+**Common causes of differences:**
+- Transactions recorded by one entity but not the other (timing)
+- Different FX rates used by each entity
+- Misclassification (intercompany vs third-party)
+- Disputed amounts or unapplied payments
+- Different period-end cut-off practices across entities
 
-## 示例
+## Reconciling Item Categorization
 
-银行对账（单位：元）：
+### Category 1: Timing Differences
 
-```
-银行对账单余额:            128,400
-加：在途存款                 9,200    # 6/30 入账，银行 7/1 才贷记
-减：未达支票               (6,750)   # 已开两张支票，银行未兑付
-调整后银行余额:            130,850
+Items that exist because of normal processing timing and will clear without action:
 
-GL 现金余额:              131,400
-加：未记利息                   60
-减：未记银行月费              (610)   # 类2，需做调整分录
-调整后 GL 余额:            130,850
+- **Outstanding checks:** Checks issued and recorded in GL, pending bank clearance
+- **Deposits in transit:** Deposits made and recorded in GL, pending bank credit
+- **In-transit transactions:** Items posted in one system but pending interface to the other
+- **Pending approvals:** Transactions awaiting approval to post in one system
 
-差额:                          0.00
-```
+**Expected resolution:** These items should clear within the normal processing cycle (typically 1-5 business days). No adjusting entry needed.
 
-调节项处置：在途存款/未达支票=类1（时间差，自然清，不做账）；利息+60、月费-610=类2，做调整分录入 GL。
+### Category 2: Adjustments Required
 
-委托提示词（给 Agent 调用时）：
-> 给两方余额（GL 侧 + 外部口径，同一截止日/币种/scope）。判定对账类型，逐项算差异，把每个调节项归为：类1时间差（不做账）/类2需调整（出调整分录）/类3需调查（查根因+升级）。出一张两侧调到"调整后余额"的调节表（差额须为 0），并对未清项打账龄、按阈值标升级。取不到外部口径就标"待取数"，禁止硬凑平。
+Items that require a journal entry to correct:
 
-## 注意事项
+- **Unrecorded bank charges:** Bank fees, wire charges, returned item fees
+- **Unrecorded interest:** Interest income or expense from bank/lender
+- **Recording errors:** Wrong amount, wrong account, duplicates
+- **Missing entries:** Transactions in one system with no corresponding entry in the other
+- **Classification errors:** Correctly recorded but in the wrong account
 
-- 不凑平：差额平不了就如实留差并查因，绝不臆造调节项把账做平。
-- 两方务必同口径（截止日/币种汇率/scope），不一致先对齐再比，否则差异失真。
-- 职责分离：对账人不应是该科目交易的处理人。
-- 跟踪到底：未清项要追到结清，不要无限期结转。
-- 反复出现的同类差异是流程问题信号——查根因并修底层流程，别每期手工调。
-- 时效：在关账日历内完成（通常期末后 T+3 至 T+5 工作日）；完整性：所有资产负债表科目按既定频率（重要科目月对、次要科目季对）覆盖。
-- 留痕完备：每份对账含编制人、复核人、日期、所有调节项说明，并按留存政策保管底稿。
-- 本技能不提供财务/审计意见，定稿前须经合格财务人员复核。
+**Action:** Prepare adjusting journal entry to correct the GL or subledger.
 
-## 互见
+### Category 3: Requires Investigation
 
-- related：`variance-flux-commentary`（对账定平后，损益/资产负债科目的波动解释交给它）；`cfo-financial-advisor`（对账暴露的重大异常或呆滞项上升为管理决策时）；`startup-financial-modeler`（核对后的余额作为建模/预测的干净基线）；`billing-automation-systems`（应收对账上游的开票/账单数据来源）。
-- combines_with：`variance-flux-commentary`（先对账保证科目余额可信，再做差异说明，构成月结闭环）；`board-deck-builder`（对账结论与升级项汇入董事会/管理层材料）。
+Items that cannot be immediately explained:
 
----
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+- **Unidentified differences:** Variances with no obvious cause
+- **Disputed items:** Amounts contested between parties
+- **Aged outstanding items:** Items that have not cleared within expected timeframes
+- **Recurring unexplained differences:** Same type of difference appearing each period
+
+**Action:** Investigate root cause, document findings, escalate if unresolved.
+
+## Aging Analysis for Outstanding Items
+
+Track the age of reconciling items to identify stale items requiring escalation:
+
+| Age Bucket | Status | Action |
+|-----------|--------|--------|
+| 0-30 days | Current | Monitor — within normal processing cycle |
+| 31-60 days | Aging | Investigate — follow up on why item has not cleared |
+| 61-90 days | Overdue | Escalate — notify supervisor, document investigation |
+| 90+ days | Stale | Escalate to management — potential write-off or adjustment needed |
+
+### Aging Report Format
+
+| Item # | Description | Amount | Date Originated | Age (Days) | Category | Status | Owner |
+|--------|-------------|--------|-----------------|------------|----------|--------|-------|
+| 1      | [Detail]    | $X,XXX | [Date]          | XX         | [Type]   | [Status] | [Name] |
+
+### Trending
+
+Track reconciling item totals over time to identify growing balances:
+
+- Compare total outstanding items to prior period
+- Flag if total reconciling items exceed materiality threshold
+- Flag if number of items is growing period over period
+- Identify recurring items that appear every period (may indicate process issue)
+
+## Escalation Thresholds
+
+Define escalation triggers based on your organization's risk tolerance:
+
+| Trigger | Threshold (Example) | Escalation |
+|---------|---------------------|------------|
+| Individual item amount | > $10,000 | Supervisor review |
+| Individual item amount | > $50,000 | Controller review |
+| Total reconciling items | > $100,000 | Controller review |
+| Item age | > 60 days | Supervisor follow-up |
+| Item age | > 90 days | Controller / management review |
+| Unreconciled difference | Any amount | Cannot close — must resolve or document |
+| Growing trend | 3+ consecutive periods | Process improvement investigation |
+
+*Note: Set thresholds based on your organization's materiality level and risk appetite. The examples above are illustrative.*
+
+## Reconciliation Best Practices
+
+1. **Timeliness:** Complete reconciliations within the close calendar deadline (typically T+3 to T+5 business days after period end)
+2. **Completeness:** Reconcile all balance sheet accounts on a defined frequency (monthly for material accounts, quarterly for immaterial)
+3. **Documentation:** Every reconciliation should include preparer, reviewer, date, and clear explanation of all reconciling items
+4. **Segregation:** The person who reconciles should not be the same person who processes transactions in that account
+5. **Follow-through:** Track open items to resolution — do not just carry items forward indefinitely
+6. **Root cause analysis:** For recurring reconciling items, investigate and fix the underlying process issue
+7. **Standardization:** Use consistent templates and procedures across all accounts
+8. **Retention:** Maintain reconciliations and supporting detail per your organization's document retention policy

@@ -1,14 +1,14 @@
 ---
 name: odoo-edi-connector
-title: Odoo EDI 电子数据交换
-description: 当需要在 Odoo 中对接 EDI（X12/EDIFACT）实现 B2B 单据自动化时使用；做 EDI 报文与 Odoo 业务对象的字段映射、贸易伙伴配置及入站/出站单据解析入库（产出映射表+Python 解析代码）；不适用于纯人工录单、非 EDI 的 API/CSV 对接或一次性数据导入；触发词：EDI、X12、850/856/810、EDIFACT、贸易伙伴对接
+title: Odoo EDI Connector
+description: Guide for implementing EDI (Electronic Data Interchange) with Odoo: X12, EDIFACT document mapping, partner onboarding, and automated order processing.
 domain: 领域/erp
-triggers: [EDI, X12, EDIFACT, 850 采购订单, 856 ASN, 810 发票, 997 功能确认, 贸易伙伴对接, B2B 单据自动化, odoo edi]
-tags: [odoo, erp, edi, x12, edifact, b2b集成, 订单自动化, xmlrpc]
-level: 进阶
+triggers: [EDI, X12, EDIFACT, 856 ASN, odoo edi]
+tags: [odoo, erp, edi, x12, edifact, xmlrpc]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [pyx12, xmlrpc.client, Odoo external API]
+tools: []
 requires: []
 related: [odoo-rpc-api, odoo-module-developer, odoo-purchase-workflow, odoo-shopify-integration]
 combines_with: [odoo-module-developer, odoo-inventory-optimizer, odoo-purchase-workflow]
@@ -16,85 +16,93 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Odoo EDI Connector
 
-适用于把 EDI（电子数据交换）单据自动接入 Odoo 的场景：
+## Overview
 
-- 零售/大客户要求用 EDI 850（采购订单）下单，需自动生成 `sale.order`。
-- 发货时需回传 EDI 856（ASN，预先发货通知）。
-- 从 Odoo 已确认的交货单自动生成 EDI 810（发票）。
-- 为新贸易伙伴建立 EDI 字段到 Odoo 字段的映射。
+Electronic Data Interchange (EDI) is the standard for automated B2B document exchange — purchase orders, invoices, ASNs (Advance Shipping Notices). This skill guides you through mapping EDI transactions (ANSI X12 or EDIFACT) to Odoo business objects, setting up trading partner configurations, and automating inbound/outbound document flows.
 
-不该用：纯人工录单、用普通 REST/CSV/Excel 对接（不走 EDI 标准报文）、一次性历史数据迁移，或贸易伙伴尚未约定 ISA/GS 标识与传输通道时——这些情况下先澄清需求再说。
+## When to Use This Skill
 
-## 步骤
+- A retail partner requires EDI 850 (Purchase Orders) to do business with you.
+- You need to send EDI 856 (ASN) when goods are shipped.
+- Automating EDI 810 (Invoice) generation from Odoo confirmed deliveries.
+- Mapping EDI fields to Odoo fields for a new trading partner.
 
-1. **确认范围**：明确 EDI 交易集（如 850/856/810）、标准（X12 或 EDIFACT）与具体贸易伙伴。
-2. **建立映射**：按下表把 EDI 段落映射到 Odoo 业务对象，逐字段对齐。
-3. **落地自动化**：用 Python 解析入站 EDI 文件，幂等地创建 Odoo 记录；出站则按模板拼装报文。
+## How It Works
 
-### EDI ↔ Odoo 对象映射
+1. **Activate**: Mention `@odoo-edi-connector` and specify the EDI transaction set and trading partner.
+2. **Map**: Receive a complete field mapping table between EDI segments and Odoo fields.
+3. **Automate**: Get Python code to parse incoming EDI files and create Odoo records.
 
-| EDI 交易集 | Odoo 对象 |
+## EDI ↔ Odoo Object Mapping
+
+| EDI Transaction | Odoo Object |
 |---|---|
-| 850 采购订单 | `sale.order`（入站客户 PO） |
-| 855 PO 确认 | 确认邮件 / SO 确认 |
-| 856 ASN 预先发货通知 | `stock.picking`（交货单） |
-| 810 发票 | `account.move`（客户发票） |
-| 846 库存查询 | `product.product` 库存水平 |
-| 997 功能确认 | 自动回执确认 |
+| 850 Purchase Order | `sale.order` (inbound customer PO) |
+| 855 PO Acknowledgment | Confirmation email / SO confirmation |
+| 856 ASN (Advance Ship Notice) | `stock.picking` (delivery order) |
+| 810 Invoice | `account.move` (customer invoice) |
+| 846 Inventory Inquiry | `product.product` stock levels |
+| 997 Functional Acknowledgment | Automated receipt confirmation |
 
-## 指令
+## Examples
 
-- 解析依赖 `pip install pyx12`；通过 `xmlrpc.client` 调 Odoo external API。
-- 凭据走环境变量：`ODOO_URL` / `ODOO_DB` / `ODOO_API_KEY` / `ODOO_UID`。
-- 关键段落：850 头部 `BEG`（PO 号、日期）、`N1`（买方）、`PO1`（行项目，SKU/数量/单价）。
-- 写入前必做幂等校验：用 PO 号查 `sale.order.client_order_ref`，已存在则跳过。
-
-## 示例
-
-### 示例 1：解析 EDI 850 并创建 Odoo 销售订单
+### Example 1: Parse EDI 850 and Create Odoo Sale Order (Python)
 
 ```python
 from pyx12 import x12file  # pip install pyx12
-import xmlrpc.client, os
+from datetime import datetime
+
+import xmlrpc.client
+import os
 
 odoo_url = os.getenv("ODOO_URL")
-db  = os.getenv("ODOO_DB")
-pwd = os.getenv("ODOO_API_KEY")
+db = os.getenv("ODOO_DB")
+pwd = os.getenv("ODOO_API_KEY") 
 uid = int(os.getenv("ODOO_UID", "2"))
+
 models = xmlrpc.client.ServerProxy(f"{odoo_url}/xmlrpc/2/object")
 
 def process_850(edi_file_path):
-    """解析 X12 850 采购订单并创建 Odoo 销售订单"""
+    """Parse X12 850 Purchase Order and create Odoo Sale Order"""
     with x12file.X12File(edi_file_path) as f:
         for transaction in f.get_transaction_sets():
-            # 头部信息（BEG 段）
-            po_number = transaction['BEG'][3]   # 采购订单号
-            po_date   = transaction['BEG'][5]   # 采购订单日期
+            # Extract header info (BEG segment)                     
+            po_number = transaction['BEG'][3]    # Purchase Order Number                                                    
+            po_date   = transaction['BEG'][5]    # Purchase Order Date 
 
-            # 幂等校验：PO 在 Odoo 中是否已存在
-            existing = models.execute_kw(db, uid, pwd, 'sale.order', 'search',
-                [[['client_order_ref', '=', po_number]]])
+            # IDEMPOTENCY CHECK: Verify PO doesn't already exist in Odoo
+            existing = models.execute_kw(db, uid, pwd, 'sale.order', 'search', [
+                [['client_order_ref', '=', po_number]]
+            ])
             if existing:
-                print(f"跳过：PO {po_number} 已存在。")
-                continue
+                print(f"Skipping: PO {po_number} already exists.")
+                continue 
 
-            # 买方（N1 段）
-            partner_name = transaction.get_segment('N1')[2] if transaction.get_segment('N1') else "Unknown"
-            partner = models.execute_kw(db, uid, pwd, 'res.partner', 'search',
-                [[['name', 'ilike', partner_name]]])
+            # Extract partner (N1 segment — Buyer)
+
+
+                        # Extract partner (N1 segment — Buyer)                  
+            partner_name = transaction.get_segment('N1')[2] if transaction.get_segment('N1') else "Unknown"                                                                             
+            
+            # Find partner in Odoo                                  
+            partner = models.execute_kw(db, uid, pwd, 'res.partner', 'search',                                                  
+                                [[['name', 'ilike', partner_name]]])                
+            
             if not partner:
-                print(f"错误：未找到客户 '{partner_name}'，跳过该交易。")
+                print(f"Error: Partner '{partner_name}' not found. Skipping transaction.")
                 continue
+                
             partner_id = partner[0]
 
-            # 行项目（PO1 段）
+            # Extract line items (PO1 segments)
             order_lines = []
             for po1 in transaction.get_segments('PO1'):
-                sku   = po1[7]          # 产品编码
-                qty   = float(po1[2])
-                price = float(po1[4])
+                sku     = po1[7]    # Product ID
+                qty     = float(po1[2])
+                price   = float(po1[4])
+
                 product = models.execute_kw(db, uid, pwd, 'product.product', 'search',
                     [[['default_code', '=', sku]]])
                 if product:
@@ -104,7 +112,7 @@ def process_850(edi_file_path):
                         'price_unit': price,
                     }))
 
-            # 创建销售订单
+            # Create Sale Order
             if partner_id and order_lines:
                 models.execute_kw(db, uid, pwd, 'sale.order', 'create', [{
                     'partner_id': partner_id,
@@ -113,13 +121,11 @@ def process_850(edi_file_path):
                 }])
 ```
 
-### 示例 2：生成 EDI 997 功能确认
+### Example 2: Send EDI 997 Acknowledgment
 
 ```python
-from datetime import datetime
-
 def generate_997(isa_control, gs_control, transaction_control):
-    """为收到的 EDI 生成功能确认（997）"""
+    """Generate a functional acknowledgment for received EDI"""
     today = datetime.now().strftime('%y%m%d')
     return f"""ISA*00*          *00*          *ZZ*YOURISAID      *ZZ*PARTNERISAID   *{today}*1200*^*00501*{isa_control}*0*P*>~
 GS*FA*YOURGID*PARTNERGID*{today}*1200*{gs_control}*X*005010X231A1~
@@ -131,20 +137,15 @@ GE*1*{gs_control}~
 IEA*1*{isa_control}~"""
 ```
 
-## 注意事项
+## Best Practices
 
-- 处理前先把每一条原始 EDI 报文存入审计日志表，便于追溯。
-- 收到交易后 24 小时内务必回发 997 功能确认。
-- 上线前与贸易伙伴约定测试周期，测试环境用 ISA 限定符 `T`（生产为 `P`）。
-- 不要在 Web 请求中同步处理 EDI 文件——交给异步队列。
-- 不要硬编码贸易伙伴的 ISA/GS 等限定符——按伙伴存进配置表。
-- 输出不能替代针对具体环境的校验、测试与专家复核；缺少必要输入、权限、安全边界或验收标准时，停下来澄清。
+- ✅ **Do:** Store every raw EDI transaction in an audit log table before processing.
+- ✅ **Do:** Always send a **997 Functional Acknowledgment** within 24 hours of receiving a transaction.
+- ✅ **Do:** Negotiate a test cycle with trading partners before going live — use test ISA qualifier `T`.
+- ❌ **Don't:** Process EDI files synchronously in web requests — queue them for async processing.
+- ❌ **Don't:** Hardcode trading partner qualifiers — store them in a configuration table per partner.
 
-## 互见
-
-- Odoo external API（XML-RPC）调用规范与鉴权
-- X12 / EDIFACT 报文结构与段落字典
-
----
-
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

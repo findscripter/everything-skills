@@ -1,11 +1,11 @@
 ---
 name: ab-test-setup-gates
-title: A/B 测试搭建与就绪门控
-description: 当要在产品/增长场景搭建 A/B 实验、需在写代码前锁死假设与指标时使用；做实验前的结构化设计与硬门控（假设锁定、主指标冻结、样本量/时长、护栏与就绪检查），产出可执行的实验方案与决策记录；不适用于已上线实验的中途调参、纯归因分析或无流量/无基线时的强行开测；触发词：A/B 测试、实验设计、样本量
+title: A/B Test Setup
+description: Structured guide for setting up A/B tests with mandatory gates for hypothesis, metrics, and execution readiness.
 domain: 商业/growth
-triggers: [A/B 测试, AB test, 实验设计, 样本量, MDE 最小可检测效应, 假设锁定, 主指标冻结, 护栏指标, 灰度实验, 对照组与实验组, 统计功效, 实验就绪门控]
+triggers: [AB test]
 tags: [growth, ab-testing, experimentation, metrics, statistics, product-analytics, decision-gate]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,70 +16,238 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# A/B Test Setup
 
-- 要在产品/增长场景搭建一次 A/B 实验，且希望在写任何代码前先把假设、指标、样本量、护栏全部定死。
-- 需要一套硬门控来防止常见翻车：偷看数据提前停、假设不清、主指标未冻结、流量不足却硬开。
-- 拿到一个改动想法，需要判断该不该做实验、做哪种实验、要跑多久。
+## 1️⃣ Purpose & Scope
 
-不该用的边界：
-- 实验已上线运行，想中途改变体（variant）、改成功标准或加新流量来源 —— 这违反实验纪律，应拒绝。
-- 只做事后归因/纯数据分析、不涉及对照实验设计。
-- 基线未知且无法估计、流量不足以检测出 MDE、主指标无法定义 —— 此时应拒绝开测并说明原因。
+Ensure every A/B test is **valid, rigorous, and safe** before a single line of code is written.
 
-## 步骤
-
-1. 前置检查：确认已有清晰的用户问题、可用的分析数据源、对流量量级的粗估。
-2. 假设质量自检：合格假设需包含——观察/证据、单一且具体的改动、方向性预期、明确受众、可度量的成功标准。
-3. 假设锁定（硬门控）：在设计变体或指标前，给出最终假设并明确「目标受众 / 主指标 / 预期效应方向 / 最小可检测效应 MDE」，然后明确发问：「这是我们这次实验最终承诺的假设吗？」未确认前不得推进。
-4. 假设与有效性检查（必做）：显式列出关于流量稳定性、用户独立性、指标可靠性、随机化质量、外部因素（季节性/活动/发版）的假设；若假设薄弱或被违反，警告用户并建议延后或重新设计。
-5. 选择实验类型，默认 A/B，除非有明确理由：
-   - A/B：单一改动、两个变体。
-   - A/B/n：多变体，需更高流量。
-   - 多变量测试 MVT：研究交互效应，需极高流量。
-   - Split URL：结构性大改。
-6. 定义指标：主指标（必做，单一、直接对应假设、上线前冻结）；次级指标（提供上下文、解释「为什么」，不得凌驾主指标）；护栏指标（不得恶化，显著变负则触发停测）。
-7. 样本量与时长：先定基线率、MDE、显著性水平（通常 95%）、统计功效（通常 80%），再估算每个变体所需样本量与预期时长。没有现实的样本量估算不得推进。
-8. 执行就绪门控（硬停）：仅当以下全部为真才可进入实现——假设已锁定、主指标已冻结、样本量已计算、实验时长已定义、护栏已设置、埋点已验证。缺一项就停下来解决。
-9. 运行中：监控技术健康度、记录外部因素；禁止因结果「好看」提前停、禁止中途改变体、禁止加新流量来源、禁止重定义成功标准。
-10. 分析与记录：解读结果时不外推到测试population之外、不夸大因果、不无视护栏失败、把统计显著性与商业判断分开；最后写实验记录并存入共享可检索的位置。
-
-## 指令
-
-- 假设未确认时，复述「这是我们这次实验最终承诺的假设吗？」并停住。
-- 不要在主指标未冻结、样本量未算、护栏未设的情况下给出实现代码或埋点方案。
-- 遇到护栏显著恶化，即使主指标赢了也判定为「不上线」。
-
-## 示例
-
-最小流程示例（A/B）：
-- 假设：「落地页首屏加信任徽章 -> 注册转化率提升」；受众=新访客；主指标=注册转化率；方向=上升；MDE=+2%（相对）。
-- 类型：A/B（单一改动）。
-- 指标：主=注册转化率；次=点击信任区域率；护栏=跳出率不上升、客诉量不上升。
-- 样本量：基线 5%、MDE +2% 相对、95% 显著性、80% 功效 -> 估算每组所需样本量与天数；流量不足则延后或放大改动。
-- 就绪门控逐项打勾后再开发。
-
-结果解读对照表：
-
-| 结果 | 行动 |
-| --- | --- |
-| 显著为正 | 考虑全量上线 |
-| 显著为负 | 否决该变体，记录学习 |
-| 不显著 | 考虑加流量或更大胆的改动 |
-| 护栏失败 | 即使主指标赢也不上线 |
-
-实验记录（必做）应包含：假设、变体、指标、计划样本量 vs 实际达成、结果、决策、学习、后续想法。
-
-## 注意事项
-
-- 不可妥协原则：一次实验一个假设；一个主指标；上线前承诺；不偷看；学习重于取胜；统计严谨优先。
-- 拒绝开测的条件：基线未知且无法估计；流量不足以检测 MDE；主指标未定义；一次改了多个变量却没有正确设计；假设无法清晰陈述。务必解释原因并给出下一步建议。
-- A/B 测试不是为了证明想法是对的，而是「带着信心去认知真相」。一旦你想赶进度、走捷径、「先试了再说」，这正是该放慢、重审设计的信号。
-
-## 互见
-
-- 增长/商业域内的指标体系与埋点验证类技能。
-- 统计功效/样本量计算工具类技能（如有）。
+- Prevents "peeking"
+- Enforces statistical power
+- Blocks invalid hypotheses
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+
+## 2️⃣ Pre-Requisites
+
+You must have:
+
+- A clear user problem
+- Access to an analytics source
+- Roughly estimated traffic volume
+
+### Hypothesis Quality Checklist
+
+A valid hypothesis includes:
+
+- Observation or evidence
+- Single, specific change
+- Directional expectation
+- Defined audience
+- Measurable success criteria
+
+---
+
+### 3️⃣ Hypothesis Lock (Hard Gate)
+
+Before designing variants or metrics, you MUST:
+
+- Present the **final hypothesis**
+- Specify:
+  - Target audience
+  - Primary metric
+  - Expected direction of effect
+  - Minimum Detectable Effect (MDE)
+
+Ask explicitly:
+
+> “Is this the final hypothesis we are committing to for this test?”
+
+**Do NOT proceed until confirmed.**
+
+---
+
+### 4️⃣ Assumptions & Validity Check (Mandatory)
+
+Explicitly list assumptions about:
+
+- Traffic stability
+- User independence
+- Metric reliability
+- Randomization quality
+- External factors (seasonality, campaigns, releases)
+
+If assumptions are weak or violated:
+
+- Warn the user
+- Recommend delaying or redesigning the test
+
+---
+
+### 5️⃣ Test Type Selection
+
+Choose the simplest valid test:
+
+- **A/B Test** – single change, two variants
+- **A/B/n Test** – multiple variants, higher traffic required
+- **Multivariate Test (MVT)** – interaction effects, very high traffic
+- **Split URL Test** – major structural changes
+
+Default to **A/B** unless there is a clear reason otherwise.
+
+---
+
+### 6️⃣ Metrics Definition
+
+#### Primary Metric (Mandatory)
+
+- Single metric used to evaluate success
+- Directly tied to the hypothesis
+- Pre-defined and frozen before launch
+
+#### Secondary Metrics
+
+- Provide context
+- Explain _why_ results occurred
+- Must not override the primary metric
+
+#### Guardrail Metrics
+
+- Metrics that must not degrade
+- Used to prevent harmful wins
+- Trigger test stop if significantly negative
+
+---
+
+### 7️⃣ Sample Size & Duration
+
+Define upfront:
+
+- Baseline rate
+- MDE
+- Significance level (typically 95%)
+- Statistical power (typically 80%)
+
+Estimate:
+
+- Required sample size per variant
+- Expected test duration
+
+**Do NOT proceed without a realistic sample size estimate.**
+
+---
+
+### 8️⃣ Execution Readiness Gate (Hard Stop)
+
+You may proceed to implementation **only if all are true**:
+
+- Hypothesis is locked
+- Primary metric is frozen
+- Sample size is calculated
+- Test duration is defined
+- Guardrails are set
+- Tracking is verified
+
+If any item is missing, stop and resolve it.
+
+---
+
+## Running the Test
+
+### During the Test
+
+**DO:**
+
+- Monitor technical health
+- Document external factors
+
+**DO NOT:**
+
+- Stop early due to “good-looking” results
+- Change variants mid-test
+- Add new traffic sources
+- Redefine success criteria
+
+---
+
+## Analyzing Results
+
+### Analysis Discipline
+
+When interpreting results:
+
+- Do NOT generalize beyond the tested population
+- Do NOT claim causality beyond the tested change
+- Do NOT override guardrail failures
+- Separate statistical significance from business judgment
+
+### Interpretation Outcomes
+
+| Result               | Action                                 |
+| -------------------- | -------------------------------------- |
+| Significant positive | Consider rollout                       |
+| Significant negative | Reject variant, document learning      |
+| Inconclusive         | Consider more traffic or bolder change |
+| Guardrail failure    | Do not ship, even if primary wins      |
+
+---
+
+## Documentation & Learning
+
+### Test Record (Mandatory)
+
+Document:
+
+- Hypothesis
+- Variants
+- Metrics
+- Sample size vs achieved
+- Results
+- Decision
+- Learnings
+- Follow-up ideas
+
+Store records in a shared, searchable location to avoid repeated failures.
+
+---
+
+## Refusal Conditions (Safety)
+
+Refuse to proceed if:
+
+- Baseline rate is unknown and cannot be estimated
+- Traffic is insufficient to detect the MDE
+- Primary metric is undefined
+- Multiple variables are changed without proper design
+- Hypothesis cannot be clearly stated
+
+Explain why and recommend next steps.
+
+---
+
+## Key Principles (Non-Negotiable)
+
+- One hypothesis per test
+- One primary metric
+- Commit before launch
+- No peeking
+- Learning over winning
+- Statistical rigor first
+
+---
+
+## Final Reminder
+
+A/B testing is not about proving ideas right.
+It is about **learning the truth with confidence**.
+
+If you feel tempted to rush, simplify, or “just try it” —
+that is the signal to **slow down and re-check the design**.
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

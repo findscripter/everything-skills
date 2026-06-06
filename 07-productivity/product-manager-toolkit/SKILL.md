@@ -1,14 +1,14 @@
 ---
 name: product-manager-toolkit
-title: 产品经理工具箱（RICE/PRD）
-description: 当需要做特性优先级排序、用户访谈综合或撰写 PRD 时使用；用 RICE 打分脚本与访谈分析脚本产出优先级清单/季度路线图/洞察报告，并套用 PRD 模板与发现框架；不适用于纯工程实现、UI 视觉设计或营销投放执行。触发词：RICE、优先级、PRD、用户访谈、路线图
+title: Product Manager Toolkit
+description: Comprehensive toolkit for product managers including RICE prioritization, customer interview analysis, PRD templates, discovery frameworks, and go-to-market strategies. Use for feature prioritization, user research synthesis, requirement documentation, and product strategy development.
 domain: 协作/pm
-triggers: [RICE 打分, 特性优先级排序, 写 PRD / 需求文档, 用户访谈分析与综合, 季度路线图规划, MoSCoW/ICE/Kano 取舍, Jobs to Be Done 拆解, North Star/HEART 指标设计]
-tags: [产品管理, 优先级排序, rice, prd, 用户访谈, 产品发现, gtm, 协作]
-level: 进阶
+triggers: []
+tags: [rice, prd, gtm]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, rice_prioritizer.py, customer_interview_analyzer.py, CSV, JSON]
+tools: []
 requires: []
 related: [agile-product-owner, cpo-product-advisor, codebase-to-prd, enterprise-project-manager]
 combines_with: [agile-product-owner, jira-expert, customer-research-synthesizer]
@@ -16,108 +16,212 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Product Manager Toolkit
 
-适用于产品经理从「发现」到「交付」的核心决策场景：
+Essential tools and frameworks for modern product management, from discovery to delivery.
 
-- 需要在多个候选特性间做客观优先级排序（跨团队、跨产品线对比）。
-- 做完用户访谈后，需要从转录文本中批量抽取痛点、需求、JTBD 模式与情绪信号。
-- 要撰写或评审 PRD（标准版 / 一页版 / 特性简报 / 敏捷 Epic）。
-- 规划季度路线图、设计成功指标（North Star、HEART）、或准备 GTM 上线清单。
+---
 
-不该用的边界：
+## Table of Contents
 
-- 纯工程实现 / 架构设计 / 写代码 —— 本技能只产出需求与优先级，不落地实现。
-- UI 视觉与交互稿设计 —— 用 Figma 等工具，本技能仅产出线框需求描述。
-- 营销投放、广告素材生产、销售执行 —— 不在范围内。
-- 数据本身的采集与清洗 —— 本技能消费指标结论，不负责埋点与数仓。
-- 估算「极不可靠」时不要硬套 RICE：垃圾进垃圾出，先补足证据再打分。
+- [Quick Start](#quick-start)
+- [Core Workflows](#core-workflows)
+  - [Feature Prioritization](#feature-prioritization-process)
+  - [Customer Discovery](#customer-discovery-process)
+  - [PRD Development](#prd-development-process)
+- [Tools Reference](#tools-reference)
+  - [RICE Prioritizer](#rice-prioritizer)
+  - [Customer Interview Analyzer](#customer-interview-analyzer)
+- [Input/Output Examples](#inputoutput-examples)
+- [Integration Points](#integration-points)
+- [Common Pitfalls](#common-pitfalls-to-avoid)
 
-## 步骤
+---
 
-### A. 特性优先级排序（Gather → Score → Analyze → Plan → Validate → Execute）
+## Quick Start
 
-1. 汇集需求来源：客服工单/访谈、销售管道阻塞项、技术债、战略目标。
-2. 用 RICE 脚本打分（CSV 输入，见下方指令）。
-3. 分析组合平衡：速赢 vs 大赌注分布、避免全是 XL 项目、检查战略对齐缺口。
-4. 生成路线图：按季度产能分配、识别依赖、制定干系人沟通计划。
-5. 定稿前校验（务必逐项）：Top 优先级是否对齐战略；做 2x 估算误差的敏感性分析；找关键干系人查盲区；补齐特性间依赖；与工程复核工作量估算。
-6. 执行迭代：跟踪实际 vs 估算工作量，每季度重估并据学习更新 RICE 输入。
-
-### B. 用户发现（Plan → Recruit → Interview → Analyze → Synthesize → Validate）
-
-1. 定义研究问题、目标分群，准备访谈脚本（结构 35 分钟：背景 5 / 问题探索 15 / 方案验证 10 / 收尾 5）。
-2. 每个分群招募 5-8 人，混合重度用户与流失用户。
-3. 半结构化访谈：聚焦问题而非方案，问「上次……是什么时候」而非「你会用吗」，拥抱沉默（默数到 7 再补话），全程少记录、经许可录音。
-4. 用访谈分析脚本抽取：痛点+严重度、需求+优先级、JTBD 模式、分段情绪、主题与金句、竞品提及。
-5. 综合：跨访谈聚合同类痛点，3+ 次提及视为「模式」，用机会-方案树映射机会区，按频次×严重度排序。
-6. 验证：写假设（We believe… For… Will… 右/错判定标准），低保真原型测真实行为，迭代并沉淀学习。
-
-### C. PRD 开发（Scope → Draft → Review → Refine → Approve → Track）
-
-1. 选模板：复杂跨团队=标准 PRD(6-8 周)；简单单团队=一页 PRD(2-4 周)；探索期=特性简报(1 周)；迭代交付=敏捷 Epic。
-2. 起草：先写问题陈述，前置成功指标，显式列出「不做什么(out-of-scope)」，附线框/原型。
-3. 评审：工程(可行性/工作量)、设计(体验缺口)、销售(市场验证)、支持(运营影响)。
-4. 据反馈精炼并记录权衡决策；审批后接入 Sprint 规划。
-5. 上线后跟踪：实际指标 vs 目标、收集反馈、复盘得失、更新估算准确度数据。
-
-## 指令
-
-RICE 优先级脚本（CSV 列：`name,reach,impact,confidence,effort,description`）：
-
+### For Feature Prioritization
 ```bash
-# 生成样例数据
+# Create sample data file
 python scripts/rice_prioritizer.py sample
 
-# 默认产能（10 人月）打分
-python scripts/rice_prioritizer.py features.csv
-
-# 自定义团队产能（人月）
-python scripts/rice_prioritizer.py features.csv --capacity 20
-
-# JSON 输出（供 Jira 等集成）
-python scripts/rice_prioritizer.py features.csv --output json > priorities.json
-
-# CSV 输出（供电子表格）
-python scripts/rice_prioritizer.py features.csv --output csv
+# Run prioritization with team capacity
+python scripts/rice_prioritizer.py sample_features.csv --capacity 15
 ```
 
-访谈分析脚本：
-
+### For Interview Analysis
 ```bash
-# 分析转录文本
-python scripts/customer_interview_analyzer.py interview.txt
-
-# JSON 输出（供聚合/看板）
-python scripts/customer_interview_analyzer.py interview.txt json > insights.json
+python scripts/customer_interview_analyzer.py interview_transcript.txt
 ```
 
-**RICE 公式与取值约束（务必保留）：**
+### For PRD Creation
+1. Choose template from `references/prd_templates.md`
+2. Fill sections based on discovery work
+3. Review with engineering for feasibility
+4. Version control in project management tool
+
+---
+
+## Core Workflows
+
+### Feature Prioritization Process
 
 ```
-RICE 分 = (Reach × Impact × Confidence) / Effort
+Gather → Score → Analyze → Plan → Validate → Execute
 ```
 
-- Reach：每季度受影响用户数（数值，如 5000）。
-- Impact：massive=3 / high=2 / medium=1 / low=0.5 / minimal=0.25。
-- Confidence：high=100% / medium=80% / low=50%。
-- Effort：xl=13 / l=8 / m=5 / s=3 / xs=1（人月）。
+#### Step 1: Gather Feature Requests
+- Customer feedback (support tickets, interviews)
+- Sales requests (CRM pipeline blockers)
+- Technical debt (engineering input)
+- Strategic initiatives (leadership goals)
 
-解读阈值：≥1000 高优（下季度强候选）；500-999 中优；100-499 低优（待办池）；<100 暂缓（需新数据）。
-
-PRD 模板见 `references/prd_templates.md`；RICE/MoSCoW/Kano/ICE/JTBD/HEART 等完整框架见 `references/frameworks.md`。
-
-## 示例
-
-RICE 计算（Mobile Push Notifications）：
-
-```
-Reach=10,000，Impact=massive(3)，Confidence=medium(0.8)，Effort=medium(5)
-RICE = (10,000 × 3 × 0.8) / 5 = 4,800  → ≥1000，列为下季度高优
+#### Step 2: Score with RICE
+```bash
+# Input: CSV with features
+python scripts/rice_prioritizer.py features.csv --capacity 20
 ```
 
-CSV 输入片段：
+See `references/frameworks.md` for RICE formula and scoring guidelines.
 
+#### Step 3: Analyze Portfolio
+Review the tool output for:
+- Quick wins vs big bets distribution
+- Effort concentration (avoid all XL projects)
+- Strategic alignment gaps
+
+#### Step 4: Generate Roadmap
+- Quarterly capacity allocation
+- Dependency identification
+- Stakeholder communication plan
+
+#### Step 5: Validate Results
+**Before finalizing the roadmap:**
+- [ ] Compare top priorities against strategic goals
+- [ ] Run sensitivity analysis (what if estimates are wrong by 2x?)
+- [ ] Review with key stakeholders for blind spots
+- [ ] Check for missing dependencies between features
+- [ ] Validate effort estimates with engineering
+
+#### Step 6: Execute and Iterate
+- Share roadmap with team
+- Track actual vs estimated effort
+- Revisit priorities quarterly
+- Update RICE inputs based on learnings
+
+---
+
+### Customer Discovery Process
+
+```
+Plan → Recruit → Interview → Analyze → Synthesize → Validate
+```
+
+#### Step 1: Plan Research
+- Define research questions
+- Identify target segments
+- Create interview script (see `references/frameworks.md`)
+
+#### Step 2: Recruit Participants
+- 5-8 interviews per segment
+- Mix of power users and churned users
+- Incentivize appropriately
+
+#### Step 3: Conduct Interviews
+- Use semi-structured format
+- Focus on problems, not solutions
+- Record with permission
+- Take minimal notes during interview
+
+#### Step 4: Analyze Insights
+```bash
+python scripts/customer_interview_analyzer.py transcript.txt
+```
+
+Extracts:
+- Pain points with severity
+- Feature requests with priority
+- Jobs to be done patterns
+- Sentiment and key themes
+- Notable quotes
+
+#### Step 5: Synthesize Findings
+- Group similar pain points across interviews
+- Identify patterns (3+ mentions = pattern)
+- Map to opportunity areas using Opportunity Solution Tree
+- Prioritize opportunities by frequency and severity
+
+#### Step 6: Validate Solutions
+**Before building:**
+- [ ] Create solution hypotheses (see `references/frameworks.md`)
+- [ ] Test with low-fidelity prototypes
+- [ ] Measure actual behavior vs stated preference
+- [ ] Iterate based on feedback
+- [ ] Document learnings for future research
+
+---
+
+### PRD Development Process
+
+```
+Scope → Draft → Review → Refine → Approve → Track
+```
+
+#### Step 1: Choose Template
+Select from `references/prd_templates.md`:
+
+| Template | Use Case | Timeline |
+|----------|----------|----------|
+| Standard PRD | Complex features, cross-team | 6-8 weeks |
+| One-Page PRD | Simple features, single team | 2-4 weeks |
+| Feature Brief | Exploration phase | 1 week |
+| Agile Epic | Sprint-based delivery | Ongoing |
+
+#### Step 2: Draft Content
+- Lead with problem statement
+- Define success metrics upfront
+- Explicitly state out-of-scope items
+- Include wireframes or mockups
+
+#### Step 3: Review Cycle
+- Engineering: feasibility and effort
+- Design: user experience gaps
+- Sales: market validation
+- Support: operational impact
+
+#### Step 4: Refine Based on Feedback
+- Address technical constraints
+- Adjust scope to fit timeline
+- Document trade-off decisions
+
+#### Step 5: Approval and Kickoff
+- Stakeholder sign-off
+- Sprint planning integration
+- Communication to broader team
+
+#### Step 6: Track Execution
+**After launch:**
+- [ ] Compare actual metrics vs targets
+- [ ] Conduct user feedback sessions
+- [ ] Document what worked and what didn't
+- [ ] Update estimation accuracy data
+- [ ] Share learnings with team
+
+---
+
+## Tools Reference
+
+### RICE Prioritizer
+
+Advanced RICE framework implementation with portfolio analysis.
+
+**Features:**
+- RICE score calculation with configurable weights
+- Portfolio balance analysis (quick wins vs big bets)
+- Quarterly roadmap generation based on capacity
+- Multiple output formats (text, JSON, CSV)
+
+**CSV Input Format:**
 ```csv
 name,reach,impact,confidence,effort,description
 User Dashboard Redesign,5000,high,high,l,Complete redesign
@@ -125,31 +229,137 @@ Mobile Push Notifications,10000,massive,medium,m,Add push support
 Dark Mode,8000,medium,high,s,Dark theme option
 ```
 
-假设模板：
+**Commands:**
+```bash
+# Create sample data
+python scripts/rice_prioritizer.py sample
 
+# Run with default capacity (10 person-months)
+python scripts/rice_prioritizer.py features.csv
+
+# Custom capacity
+python scripts/rice_prioritizer.py features.csv --capacity 20
+
+# JSON output for integration
+python scripts/rice_prioritizer.py features.csv --output json
+
+# CSV output for spreadsheets
+python scripts/rice_prioritizer.py features.csv --output csv
 ```
-We believe that 增加「保存支付方式」
-For 回访客户
-Will 提升结账完成率
-判对：结账完成率提升 15%
-判错：2 周后完成率持平，或保存支付方式采用率 < 20%
-```
-
-## 注意事项
-
-- 组合理想配比参考：40% 速赢 / 30% 大赌注 / 20% 填充 / 10% 缓冲；每季度复审。预留约 20% 产能给技术债与意外。
-- RICE 局限：不处理依赖、可能低估平台投入、Reach 估算易被操纵；必要时配合「价值×工作量」矩阵与敏感性分析。
-- 六大常见陷阱：方案先行（先理解问题再写 PRD）、分析瘫痪（给研究阶段设时间盒）、特性工厂（先定成功指标再开发）、忽视技术债（留 20% 产能）、干系人惊吓（周度异步更新+月度演示）、指标剧场（指标绑定用户价值而非虚荣数）。
-- 访谈红线：绝不问「你会用吗」（人会对未来行为撒谎）、不问诱导性问题、关注过去行为与情绪反应（痛=机会）、定性需用定量校验。
-- 框架选型：季度路线图=RICE+组合矩阵；Sprint 级=MoSCoW；快速对比=ICE；满意度归类=Kano；研究综合=JTBD+机会树；指标度量=HEART+特性指标。
-
-## 互见
-
-- `references/frameworks.md` —— RICE/MoSCoW/Kano/ICE/JTBD/机会解决树/North Star/HEART/漏斗/GTM 等完整框架。
-- `references/prd_templates.md` —— 各场景 PRD 模板。
-- `references/input-output-examples.md` —— 脚本输入输出示例。
-- `assets/rice_input_template.csv`、`assets/prd_template.md` —— 可直接套用的输入模板。
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+### Customer Interview Analyzer
+
+NLP-based interview analysis for extracting actionable insights.
+
+**Capabilities:**
+- Pain point extraction with severity assessment
+- Feature request identification and classification
+- Jobs-to-be-done pattern recognition
+- Sentiment analysis per section
+- Theme and quote extraction
+- Competitor mention detection
+
+**Commands:**
+```bash
+# Analyze interview transcript
+python scripts/customer_interview_analyzer.py interview.txt
+
+# JSON output for aggregation
+python scripts/customer_interview_analyzer.py interview.txt json
+```
+
+---
+
+## Input/Output Examples
+→ See references/input-output-examples.md for details
+
+## Integration Points
+
+Compatible tools and platforms:
+
+| Category | Platforms |
+|----------|-----------|
+| **Analytics** | Amplitude, Mixpanel, Google Analytics |
+| **Roadmapping** | ProductBoard, Aha!, Roadmunk, Productplan |
+| **Design** | Figma, Sketch, Miro |
+| **Development** | Jira, Linear, GitHub, Asana |
+| **Research** | Dovetail, UserVoice, Pendo, Maze |
+| **Communication** | Slack, Notion, Confluence |
+
+**JSON export enables integration with most tools:**
+```bash
+# Export for Jira import
+python scripts/rice_prioritizer.py features.csv --output json > priorities.json
+
+# Export for dashboard
+python scripts/customer_interview_analyzer.py interview.txt json > insights.json
+```
+
+---
+
+## Common Pitfalls to Avoid
+
+| Pitfall | Description | Prevention |
+|---------|-------------|------------|
+| **Solution-First** | Jumping to features before understanding problems | Start every PRD with problem statement |
+| **Analysis Paralysis** | Over-researching without shipping | Set time-boxes for research phases |
+| **Feature Factory** | Shipping features without measuring impact | Define success metrics before building |
+| **Ignoring Tech Debt** | Not allocating time for platform health | Reserve 20% capacity for maintenance |
+| **Stakeholder Surprise** | Not communicating early and often | Weekly async updates, monthly demos |
+| **Metric Theater** | Optimizing vanity metrics over real value | Tie metrics to user value delivered |
+
+---
+
+## Best Practices
+
+**Writing Great PRDs:**
+- Start with the problem, not the solution
+- Include clear success metrics upfront
+- Explicitly state what's out of scope
+- Use visuals (wireframes, flows, diagrams)
+- Keep technical details in appendix
+- Version control all changes
+
+**Effective Prioritization:**
+- Mix quick wins with strategic bets
+- Consider opportunity cost of delays
+- Account for dependencies between features
+- Buffer 20% for unexpected work
+- Revisit priorities quarterly
+- Communicate decisions with context
+
+**Customer Discovery:**
+- Ask "why" five times to find root cause
+- Focus on past behavior, not future intentions
+- Avoid leading questions ("Wouldn't you love...")
+- Interview in the user's natural environment
+- Watch for emotional reactions (pain = opportunity)
+- Validate qualitative with quantitative data
+
+---
+
+## Quick Reference
+
+```bash
+# Prioritization
+python scripts/rice_prioritizer.py features.csv --capacity 15
+
+# Interview Analysis
+python scripts/customer_interview_analyzer.py interview.txt
+
+# Generate sample data
+python scripts/rice_prioritizer.py sample
+
+# JSON outputs
+python scripts/rice_prioritizer.py features.csv --output json
+python scripts/customer_interview_analyzer.py interview.txt json
+```
+
+---
+
+## Reference Documents
+
+- `references/prd_templates.md` - PRD templates for different contexts
+- `references/frameworks.md` - Detailed framework documentation (RICE, MoSCoW, Kano, JTBD, etc.)

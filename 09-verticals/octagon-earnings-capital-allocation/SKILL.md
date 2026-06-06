@@ -1,14 +1,14 @@
 ---
 name: octagon-earnings-capital-allocation
-title: 管理层资本配置与股东回报解读
-description: 当需要从财报电话会逐字稿中提取管理层对资本配置、投资优先级、股东回报与并购意图的表态时使用；借助 Octagon MCP 分析指定股票代码，产出含 CapEx 拆分、回购/分红、并购意向、投资优先级与逐字稿页码引用的结构化资本配置分析；不适用于实盘交易、行情/基本面数字拉取或无 Octagon MCP/API Key 的环境；触发词：资本配置、股东回报、CapEx 指引
+title: Earnings Capital Allocation
+description: Extract management's commentary on capital allocation, investment priorities, shareholder returns, and strategic investments from earnings call transcripts.
 domain: 领域/fintech
-triggers: [资本配置 capital allocation, 股东回报 shareholder returns, 股票回购 buyback, 分红派息 dividend policy, 资本开支 CapEx 计划, 并购意向 M&A appetite, 投资优先级 investment priorities, Octagon MCP]
-tags: [fintech, 财报, 电话会议, 资本配置, 股东回报, 并购, octagon mcp, 投研]
-level: 进阶
+triggers: [Octagon MCP]
+tags: [fintech, octagon mcp]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Octagon MCP, npx, Node.js]
+tools: []
 requires: []
 related: [octagon-earnings-call-analysis, octagon-earnings-qa-analysis, octagon-earnings-financial-guidance, octagon-earnings-call-sentiment]
 combines_with: [octagon-sec-mda-analysis, octagon-equity-research-analyst]
@@ -16,162 +16,276 @@ license: MIT
 source: OctagonAI/skills
 source_license: MIT
 ---
-## 何时使用
+# Earnings Capital Allocation
 
-当需要把财报电话会逐字稿（earnings call transcript）中**管理层关于「钱怎么花」的表态**拆成可投研消费的结构化结论时使用，覆盖：
+Extract management's commentary on capital allocation strategy, investment priorities, CapEx plans, shareholder returns, and M&A intentions from earnings call transcripts.
 
-- 提取**资本配置策略**与**投资优先级**（哪条业务线是「top priority / focused on」，哪条在「reducing / optimizing」）。
-- 归纳**股东回报**：股票回购（金额、剩余授权、回购节奏与均价）与分红政策（每股、派息率、股息率）。
-- 拆解**资本开支（CapEx）**计划与结构（增长型/维护型、AI/云、地产、其他）及季度趋势。
-- 研判**并购（M&A）意愿**（积极/审慎/极少）与表态信号；评估**资产负债表灵活性**（净现金、Debt/EBITDA、可动用「弹药」）。
-- 保留**逐字稿页码引用**便于回溯。
+## Prerequisites
 
-典型场景：财报季批量覆盖、资本配置同业对比、把 CapEx/回购指引喂入三表与 DCF 模型、验证增长投资逻辑、监控并购胃口变化、评估「能不能负担得起这套配置」。
+Ensure Octagon MCP is configured. See [references/mcp-setup.md](references/mcp-setup.md) for installation instructions.
 
-**不该用的边界：**
-- 需要实盘下单 / 券商撮合 —— 本技能只做文本分析，不做交易。
-- 需要权威的财务数字（实际 CapEx、回购到账额、现金余额）—— 那要拉行情/基本面 API 或核对 10-Q/10-K，本技能产出的是管理层口径。
-- **未配置 Octagon MCP 或没有 `OCTAGON_API_KEY`** —— 数据源不可用，无法运行。
-- 把输出当可直接交易的权威结论 —— 含管理层主观措辞与对冲式语言，须与现金流量表、资产负债表交叉验证后再决策。
+## Workflow
 
-## 步骤
+### Step 1: Extract Capital Allocation Commentary
 
-1. **确认前置**：Octagon MCP 已配置且 `OCTAGON_API_KEY` 可用（见下「指令」）。
-2. **总体提取**：对目标股票代码 `<TICKER>` 跑一次整体资本配置与投资优先级分析，拿到全貌。
-3. **定向深挖**：按维度分别追问——整体策略 / 回购 / 分红 / CapEx / 并购 / 投资优先级。
-4. **结构化归档**：按 CapEx、回购、分红、M&A、投资重点、来源引用六类整理成表，保留页码。
-5. **量化校核**：用「弹药计算」估算可动用资本，用「总股东回报」核算回购+分红占 FCF/市值比例，判断可持续性。
-6. **趋势与漂移**：做环比（QoQ）与配置组合年度演变追踪，标注优先级升降与口径变化。
-
-## 指令
-
-**配置 Octagon MCP**（前置，一次性）。需 Node.js（含 `npx`），到 Octagon 控制台申请 API Key，在 MCP 客户端注册：
+Use the Octagon MCP to analyze capital allocation discussions:
 
 ```
-# 通用命令（Mac/Linux）
-env OCTAGON_API_KEY=<your-api-key> npx -y octagon-mcp
+Extract management's commentary on capital allocation and investment priorities from <TICKER>'s earnings transcript.
 ```
 
-Windows 用户在 MCP 配置中改用等价写法（`command: npx`，`args: ["-y","octagon-mcp"]`，`OCTAGON_API_KEY` 放入 env）。验证 `node -v && npm -v && npx -v` 均有版本号。
+### Step 2: Targeted Capital Analysis
 
-**总体提取**（先跑这一句拿全貌）：
-
-```
-从 <TICKER> 的财报电话会逐字稿中，提取管理层关于资本配置与投资优先级的表态。
-```
-
-**定向追问**（按维度逐条发起）：
+Focus on specific aspects of capital allocation:
 
 ```
-# 整体策略
-基于最新一期电话会，<TICKER> 的资本配置策略是什么？
+# Overall Strategy
+What is <TICKER>'s capital allocation strategy based on the latest earnings call?
 
-# 股票回购
-提取 <TICKER> 电话会中关于股票回购的表态。
+# Share Buybacks
+Extract buyback commentary from <TICKER>'s earnings call.
 
-# 分红政策
-管理层在 <TICKER> 逐字稿中对分红说了什么？
+# Dividend Policy
+What did management say about dividends in <TICKER>'s earnings transcript?
 
-# 资本开支
-提取 <TICKER> 电话会中的资本开支（CapEx）计划。
+# CapEx Plans
+Extract capital expenditure plans from <TICKER>'s earnings call.
 
-# 并购意愿
-管理层在 <TICKER> 电话会中对并购（M&A）说了什么？
+# M&A Appetite
+What did management say about M&A in <TICKER>'s earnings call?
 
-# 投资优先级
-基于电话会逐字稿，<TICKER> 的投资优先级是什么？
+# Investment Priorities
+What are <TICKER>'s investment priorities based on the earnings transcript?
 ```
 
-**应提取的字段（结构化输出）：**
+## Expected Output
 
-| 维度 | 字段 |
-|------|------|
-| CapEx | 资本开支金额、增长型/维护型拆分、聚焦领域（AI/云等）、季度趋势 |
-| 回购 | 当季回购额、剩余授权、回购股数、均价、节奏信号 |
-| 分红 | 当季派息额、每股股息、派息率、股息率 |
-| M&A | 并购策略、管道、目标规模（变革型/补强型）、整合状态 |
-| 投资重点 | 战略投资优先级与资源倾斜方向 |
-| 来源引用 | 逐字稿标识 + 页码 |
+The skill returns structured capital allocation analysis including:
 
-**配置类别（钱花在哪七类）：** 增长型 CapEx、维护型 CapEx、研发、并购、回购、分红、偿/再融资。
+| Component | Description |
+|-----------|-------------|
+| CapEx | Capital expenditure plans and breakdown |
+| Buybacks | Share repurchase activity and authorization |
+| Dividends | Dividend policy and payments |
+| M&A | Acquisition strategy and pipeline |
+| Investment Focus | Strategic investment priorities |
+| Source Citations | Transcript page references |
 
-**优先级信号词：**
-
-| 优先级 | 信号措辞 |
-|--------|----------|
-| 主优先 | "Our top priority"、"focused on" |
-| 次优先 | "Also investing in"、"continuing" |
-| 机会型 | "When appropriate"、"selectively" |
-| 弱化 | "Reducing"、"optimizing" |
-
-**并购胃口判读：**
-
-| 信号 | 解读 |
-|------|------|
-| "Evaluating opportunities" | 管道活跃 |
-| "Disciplined approach" | 审慎、重估值 |
-| "Focused on integration" | 在消化既有交易 |
-| "Organic priorities" | 并购非重点 |
-| "Strategic fit" | 有明确标准 |
-
-## 示例
-
-最小查询：
+## Example Query
 
 ```
-从 GOOGL 的财报电话会逐字稿中，提取管理层关于资本配置与投资优先级的表态。
+Extract management's commentary on capital allocation and investment priorities from GOOGL's earnings transcript.
 ```
 
-返回（结构化，节选）：
+## Example Response
+
+**Management Commentary on Capital Allocation and Investment Priorities (GOOGL Q3 2025)**
+
+**Capital Allocation Highlights**
+- **Strategic Investments**: $24.00 billion in capital expenditures (CapEx) allocated to technical infrastructure, with a focus on servers and data centers
+- **Shareholder Returns**: $11.50 billion in stock repurchases and $2.50 billion in dividend payments returned to shareholders
+
+**Investment Priorities**
+- **Waymo Focus**: Emphasis on resource allocation to Waymo for "substantial value creation" opportunities
+- **Future Plans**: Continued investment in technical infrastructure and initiatives to drive productivity/efficiency improvements across the business to support growth and financial performance
+
+**Source**: GOOGL_Q32025, Page: 4
+
+## Capital Allocation Framework
+
+### Allocation Categories
+
+| Category | Description | Examples |
+|----------|-------------|----------|
+| Growth CapEx | Investments for expansion | New data centers, capacity |
+| Maintenance CapEx | Sustaining operations | Equipment refresh |
+| R&D | Research and development | New products, technology |
+| M&A | Acquisitions | Strategic deals |
+| Buybacks | Share repurchases | Open market, ASR |
+| Dividends | Cash returns | Regular, special |
+| Debt | Balance sheet | Repayment, refinancing |
+
+### Priority Hierarchy
+
+| Priority | Signal |
+|----------|--------|
+| Primary | "Our top priority," "focused on" |
+| Secondary | "Also investing in," "continuing" |
+| Opportunistic | "When appropriate," "selectively" |
+| De-emphasized | "Reducing," "optimizing" |
+
+## Capital Expenditure Analysis
+
+### CapEx Breakdown
+
+| Type | Amount | % of Total | Focus Area |
+|------|--------|------------|------------|
+| Technical Infrastructure | $18B | 75% | AI/Cloud |
+| Real Estate | $4B | 17% | Offices |
+| Other | $2B | 8% | Various |
+| **Total CapEx** | **$24B** | **100%** | |
+
+### CapEx Trend Analysis
+
+| Metric | Q1 | Q2 | Q3 | Q4 | Trend |
+|--------|----|----|----|----|-------|
+| CapEx ($B) | 22 | 23 | 24 | 25E | Rising |
+| % of Revenue | 12% | 12.5% | 13% | 13% | Stable |
+| AI Focus | 40% | 50% | 60% | 70%E | Increasing |
+
+## Shareholder Returns Analysis
+
+### Buyback Assessment
+
+| Metric | Value | Signal |
+|--------|-------|--------|
+| Quarterly Buyback | $11.5B | Active |
+| Authorization Remaining | $50B | Capacity |
+| Shares Retired | 15M | Pace |
+| Avg. Price Paid | $165 | Discipline |
+
+### Dividend Analysis
+
+| Metric | Value | Signal |
+|--------|-------|--------|
+| Quarterly Dividend | $2.5B | Commitment |
+| Per Share | $0.20 | Growth potential |
+| Payout Ratio | 15% | Conservative |
+| Yield | 0.5% | Below market |
+
+### Total Shareholder Return
 
 ```
-管理层资本配置与投资优先级（GOOGL Q3 2025）
+Quarterly Returns:
+- Buybacks: $11.5B
+- Dividends: $2.5B
+- Total: $14.0B
 
-资本配置要点
-- 战略投资：240 亿美元 CapEx 投向技术基础设施，重点是服务器与数据中心
-- 股东回报：回购股票 115 亿美元 + 分红 25 亿美元，合计 140 亿美元
-
-投资优先级
-- Waymo：强调向 Waymo 倾斜资源，看重「显著价值创造」机会
-- 后续：持续投入技术基础设施，推进全业务提效以支撑增长
-
-来源：GOOGL_Q32025，页码 4
+Annualized: $56B
+As % of Market Cap: ~3%
+As % of FCF: ~60%
 ```
 
-**总股东回报校核（示例口径）：**
+## Investment Priority Analysis
+
+### Priority Matrix
+
+| Investment Area | Allocation | Growth Focus | Strategic Value |
+|-----------------|------------|--------------|-----------------|
+| AI/Cloud Infrastructure | High | Very High | Core |
+| Waymo (Autonomous) | Medium | High | Optionality |
+| YouTube | Medium | Medium | Monetization |
+| Search | Low | Low | Cash cow |
+
+### Priority Shift Tracking
+
+| Area | Prior Quarter | Current | Shift |
+|------|---------------|---------|-------|
+| AI Infrastructure | High | Very High | Increased |
+| Workforce | Medium | Low | Decreased |
+| Real Estate | Low | Very Low | Decreased |
+| Moonshots | Medium | Medium | Stable |
+
+## M&A Commentary Analysis
+
+### M&A Appetite Assessment
+
+| Signal | Aggressive | Selective | Minimal |
+|--------|------------|-----------|---------|
+| Language | "Active pipeline" | "Disciplined" | "Focused on organic" |
+| Deal Frequency | Multiple/year | Occasional | Rare |
+| Size Target | Transformational | Tuck-in | None mentioned |
+| Integration | Capacity | Digesting | N/A |
+
+### M&A Strategy Signals
+
+| Signal | Interpretation |
+|--------|----------------|
+| "Evaluating opportunities" | Active pipeline |
+| "Disciplined approach" | Selective, valuation-focused |
+| "Focused on integration" | Digesting recent deals |
+| "Organic priorities" | M&A not a focus |
+| "Strategic fit" | Specific criteria |
+
+## Financial Flexibility Assessment
+
+### Balance Sheet Strength
+
+| Metric | Value | Capacity |
+|--------|-------|----------|
+| Cash & Investments | $120B | High |
+| Net Cash | $80B | Very High |
+| Debt/EBITDA | 0.5x | Conservative |
+| FCF Yield | 5% | Strong |
+
+### Firepower Calculation
 
 ```
-当季回报 = 回购 115 亿 + 分红 25 亿 = 140 亿
-年化约 560 亿；占市值约 3%；占 FCF 约 60%
+Available Capital:
++ Cash on Hand: $120B
++ Annual FCF: $80B
++ Debt Capacity: $50B
+= Total Firepower: $250B
+
+Committed:
+- Buyback Program: $50B
+- CapEx (2 years): $50B
+= Available for M&A: $150B
 ```
 
-**可动用「弹药」估算：**
+## Tracking Capital Allocation
 
-```
-现金 + 年度 FCF + 债务空间 = 总弹药
-扣除（已承诺回购 + 两年 CapEx）= 可用于并购的额度
-```
+### Quarter-over-Quarter Changes
 
-引用格式：`TICKER_Q#YEAR`（逐字稿标识）+ `Page: #`（页码），多源时交叉引用。
+| Category | Q1 | Q2 | Q3 | Q4E | Signal |
+|----------|----|----|----|----|--------|
+| CapEx | $22B | $23B | $24B | $25B | Rising |
+| Buybacks | $10B | $11B | $11.5B | $12B | Rising |
+| Dividends | $2.5B | $2.5B | $2.5B | $2.5B | Stable |
+| M&A | $0 | $2B | $0 | TBD | Opportunistic |
 
-## 注意事项
+### Allocation Mix Evolution
 
-- **强依赖 Octagon MCP**：没有该 MCP 与有效 `OCTAGON_API_KEY` 则无法运行；Key 经环境变量注入，**勿硬编码**进配置或代码。
-- **言行一致性**：核对实际配置是否兑现既定策略，留意「说一套做一套」。
-- **盯优先级漂移**：优先级升降（如某业务从 High→Very High、人力/地产从 Medium→Low）往往是战略转向信号。
-- **用 FCF 验证可负担性**：把回购+分红+CapEx 合计与自由现金流对比，判断这套配置能否持续，避免靠加杠杆硬撑。
-- **回购择时**：留意是「buy high」还是「buy low」，结合均价与剩余授权评估纪律性。
-- **同业对比**：把配置组合与可比公司对照，判断竞争力。
-- **页码引用要保留**，结论须可回溯；输出仅供投研参考，不构成投资建议，输入缺失或边界不清时先停下确认。
+| Mix | 2023 | 2024 | 2025E | Trend |
+|-----|------|------|-------|-------|
+| Growth CapEx | 50% | 55% | 60% | Rising |
+| Shareholder Returns | 35% | 32% | 30% | Declining |
+| M&A | 10% | 8% | 5% | Declining |
+| Other | 5% | 5% | 5% | Stable |
 
-## 互见
+## Use Cases
 
-- related：`octagon-cash-flow-statement-data` —— 用现金流量表的 FCF 验证资本配置的可负担性（本技能核心校核口径）。
-- related：`octagon-balance-sheet-data` —— 评估资产负债表强度与「弹药」（净现金、Debt/EBITDA）。
-- related：`octagon-earnings-call-analysis`、`octagon-sec-mda-analysis` —— 同源电话会/MD&A 文本分析，互为补充。
-- combines_with：`three-statement-model`、`dcf-valuation-model` —— 把 CapEx 与股东回报指引喂入三表与 DCF 更新估值。
-- combines_with：`octagon-equity-research-analyst` —— 把资本配置结论并入整体股票研究画像。
-- 源仓库另有 `cash-flow-statement`、`balance-sheet`、`stock-price-change`、`sec-10k-analysis` 等配套技能，本库可按需对应到已收录条目。
+1. **Capital Strategy Assessment**: Understand allocation priorities
+2. **Shareholder Return Analysis**: Track buyback and dividend trends
+3. **Investment Thesis**: Validate growth investment strategy
+4. **M&A Monitoring**: Gauge acquisition appetite
+5. **Balance Sheet Analysis**: Assess financial flexibility
+6. **Peer Comparison**: Compare capital allocation across companies
 
----
-采编自 OctagonAI/skills（MIT 许可），版权归 OctagonAI，已做中文适配重写。
+## Combining with Other Skills
+
+| Skill | Combined Analysis |
+|-------|-------------------|
+| cash-flow-statement | FCF vs. capital allocation |
+| balance-sheet | Financial capacity |
+| earnings-financial-guidance | Investment vs. guidance |
+| stock-price-change | Buyback impact on price |
+| sec-10k-analysis | Validate allocation claims |
+
+## Analysis Tips
+
+1. **Track Consistency**: Does allocation match stated strategy?
+
+2. **Watch Shifts**: Changes in priority signal strategy changes
+
+3. **Compare to Peers**: Is allocation competitive?
+
+4. **Validate with FCF**: Can they afford the allocation?
+
+5. **M&A Signals**: Watch for deal appetite changes
+
+6. **Buyback Timing**: Are they buying high or low?
+
+## Interpreting Results
+
+See [references/interpreting-results.md](references/interpreting-results.md) for detailed guidance on analyzing capital allocation commentary.

@@ -1,14 +1,14 @@
 ---
 name: browser-extension-builder
-title: 跨浏览器扩展构建与发布
-description: 当需要从零构建 Chrome/Firefox/跨浏览器扩展时使用；做 Manifest V3 架构搭建（弹窗/内容脚本/Service Worker/存储/变现）并产出可发布到 Chrome Web Store 的扩展工程；不适用于普通网页前端、油猴脚本或浏览器自动化测试；触发词：浏览器扩展、chrome extension、manifest v3
+title: Browser Extension Builder
+description: Expert in building browser extensions that solve real problems -
 domain: 研发/frontend
-triggers: [浏览器扩展, chrome extension, firefox addon, manifest v3, content script, 内容脚本, service worker, 扩展发布, Chrome Web Store]
+triggers: [chrome extension, firefox addon, manifest v3, content script, service worker, Chrome Web Store]
 tags: [browser-extension, chrome, manifest-v3, content-script, service-worker, frontend, publishing, misc]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash]
+tools: []
 requires: []
 related: [chrome-extension-mv3, electron-desktop-development, vscode-extension-development, frontend-design]
 combines_with: [typescript-advanced-types, web-artifacts-builder, tailwind-css-patterns]
@@ -16,60 +16,71 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Browser Extension Builder
 
-需要构建用户每天真正会用的浏览器扩展时使用，覆盖 Chrome、Firefox 及跨浏览器场景。典型任务：搭建 MV3 工程骨架、写内容脚本改造页面、用 Service Worker 做后台逻辑、用 chrome.storage 持久化、设计变现与上架 Chrome Web Store。
+Expert in building browser extensions that solve real problems - Chrome, Firefox,
+and cross-browser extensions. Covers extension architecture, manifest v3, content
+scripts, popup UIs, monetization strategies, and Chrome Web Store publishing.
 
-核心约束意识：扩展不是普通网页，要时刻考虑权限最小化、安全性、商店审核政策。区分「玩具」和「工具」——能被安装并日常使用的才是工具。
+**Role**: Browser Extension Architect
 
-不该用的边界：
-- 普通网页 / Web 应用前端开发，不涉及浏览器 API 与 manifest —— 用通用前端技能。
-- 单纯的油猴（Tampermonkey）用户脚本，无需打包成扩展。
-- 浏览器自动化 / E2E 测试（Playwright、Puppeteer）—— 那是测试工具，不是扩展。
-- 已知输入、权限边界、成功标准缺失时，先停下来澄清再动手。
+You extend the browser to give users superpowers. You understand the
+unique constraints of extension development - permissions, security,
+store policies. You build extensions that people install and actually
+use daily. You know the difference between a toy and a tool.
 
-## 步骤
+### Expertise
 
-1. 定义功能：明确扩展解决什么真实问题、需要哪些浏览器能力，反推所需权限。
-2. 搭工程骨架：按下方目录结构创建文件，先写 manifest.json。
-3. 写 manifest V3：声明 action（弹窗）、content_scripts、background.service_worker、options_page，权限按需最小化。
-4. 实现内容脚本：在匹配页面上读取/改造 DOM，监听来自弹窗/后台的消息。
-5. 实现后台 Service Worker：承担跨组件协调，作为弹窗 ↔ 内容脚本的中枢。
-6. 接存储与状态：用 chrome.storage.local/sync 持久化设置，注意配额。
-7. 规划变现（可选）：选收入模型，支付走自有后端 + 外部结账页，做功能门控（feature gating）。
-8. 跑校验清单（见「注意事项」）后，打包上架 Chrome Web Store。
+- Chrome extension APIs
+- Manifest v3
+- Content scripts
+- Service workers
+- Extension UX
+- Store publishing
 
-## 指令
+## Capabilities
 
-通信拓扑（牢记这条主线）：
+- Extension architecture
+- Manifest v3 (MV3)
+- Content scripts
+- Background workers
+- Popup interfaces
+- Extension monetization
+- Chrome Web Store publishing
+- Cross-browser support
 
-```
-Popup ←→ Background (Service Worker) ←→ Content Script
-              ↓
-        chrome.storage
-```
+## Patterns
 
-推荐目录结构：
+### Extension Architecture
 
+Structure for modern browser extensions
+
+**When to use**: When starting a new extension
+
+## Extension Architecture
+
+### Project Structure
 ```
 extension/
-├── manifest.json          # 扩展配置
-├── popup/                 # popup.html / .css / .js  弹窗 UI
-├── content/content.js     # 运行在网页上的内容脚本
-├── background/service-worker.js  # 后台逻辑
-├── options/               # options.html / .js  设置页
-└── icons/                 # icon16.png / icon48.png / icon128.png
+├── manifest.json      # Extension config
+├── popup/
+│   ├── popup.html     # Popup UI
+│   ├── popup.css
+│   └── popup.js
+├── content/
+│   └── content.js     # Runs on web pages
+├── background/
+│   └── service-worker.js  # Background logic
+├── options/
+│   ├── options.html   # Settings page
+│   └── options.js
+└── icons/
+    ├── icon16.png
+    ├── icon48.png
+    └── icon128.png
 ```
 
-委派触发（遇到这些方向时考虑配合其他技能）：
-- react|vue|svelte 弹窗框架 → 前端技能。
-- 变现|支付|订阅 → micro-saas / 商业模式技能。
-- AI|LLM|GPT 能力 → AI 封装产品技能。
-
-## 示例
-
-Manifest V3 模板：
-
+### Manifest V3 Template
 ```json
 {
   "manifest_version": 3,
@@ -79,88 +90,303 @@ Manifest V3 模板：
   "permissions": ["storage", "activeTab"],
   "action": {
     "default_popup": "popup/popup.html",
-    "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
   },
-  "content_scripts": [{ "matches": ["<all_urls>"], "js": ["content/content.js"] }],
-  "background": { "service_worker": "background/service-worker.js" },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["content/content.js"]
+  }],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
   "options_page": "options/options.html"
 }
 ```
 
-内容脚本：改造页面 + 监听消息（return true 保持异步通道开启）：
+### Communication Pattern
+```
+Popup ←→ Background (Service Worker) ←→ Content Script
+              ↓
+        chrome.storage
+```
 
+### Content Scripts
+
+Code that runs on web pages
+
+**When to use**: When modifying or reading page content
+
+## Content Scripts
+
+### Basic Content Script
 ```javascript
+// content.js - Runs on every matched page
+
+// Wait for page to load
 document.addEventListener('DOMContentLoaded', () => {
-  const el = document.querySelector('.target');
-  if (el) el.style.backgroundColor = 'yellow';
+  // Modify the page
+  const element = document.querySelector('.target');
+  if (element) {
+    element.style.backgroundColor = 'yellow';
+  }
 });
 
+// Listen for messages from popup/background
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'getData') {
-    sendResponse({ data: document.querySelector('.data')?.textContent });
+    const data = document.querySelector('.data')?.textContent;
+    sendResponse({ data });
   }
-  return true; // 异步响应必须返回 true
+  return true; // Keep channel open for async
 });
 ```
 
-存储 + async/await 封装（回调式 API 包成 Promise）：
-
+### Injecting UI
 ```javascript
-async function getStorage(keys) {
-  return new Promise((resolve) => chrome.storage.local.get(keys, resolve));
+// Create floating UI on page
+function injectUI() {
+  const container = document.createElement('div');
+  container.id = 'my-extension-ui';
+  container.innerHTML = `
+    <div style="position: fixed; bottom: 20px; right: 20px;
+                background: white; padding: 16px; border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000;">
+      <h3>My Extension</h3>
+      <button id="my-extension-btn">Click me</button>
+    </div>
+  `;
+  document.body.appendChild(container);
+
+  document.getElementById('my-extension-btn').addEventListener('click', () => {
+    // Handle click
+  });
 }
-async function setStorage(data) {
-  return new Promise((resolve) => chrome.storage.local.set(data, resolve));
-}
-// sync 存储可跨设备同步：chrome.storage.sync.set({ setting: true })
-// 监听变化：chrome.storage.onChanged.addListener((changes, area) => { ... })
+
+injectUI();
 ```
 
-变现：功能门控 + 支付走自有后端（扩展不能直接对接 Stripe）：
+### Permissions for Content Scripts
+```json
+{
+  "content_scripts": [{
+    "matches": ["https://specific-site.com/*"],
+    "js": ["content.js"],
+    "run_at": "document_end"
+  }]
+}
+```
 
+### Storage and State
+
+Persisting extension data
+
+**When to use**: When saving user settings or data
+
+## Storage and State
+
+### Chrome Storage API
 ```javascript
-// 1. 弹窗里点 Upgrade → 打开你的网站带上 userId
-chrome.tabs.create({ url: `https://your-site.com/upgrade?user=${userId}` });
+// Save data
+chrome.storage.local.set({ key: 'value' }, () => {
+  console.log('Saved');
+});
 
-// 2. 支付后同步状态
+// Get data
+chrome.storage.local.get(['key'], (result) => {
+  console.log(result.key);
+});
+
+// Sync storage (syncs across devices)
+chrome.storage.sync.set({ setting: true });
+
+// Watch for changes
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (changes.key) {
+    console.log('key changed:', changes.key.newValue);
+  }
+});
+```
+
+### Storage Limits
+| Type | Limit |
+|------|-------|
+| local | 5MB |
+| sync | 100KB total, 8KB per item |
+
+### Async/Await Pattern
+```javascript
+// Modern async wrapper
+async function getStorage(keys) {
+  return new Promise((resolve) => {
+    chrome.storage.local.get(keys, resolve);
+  });
+}
+
+async function setStorage(data) {
+  return new Promise((resolve) => {
+    chrome.storage.local.set(data, resolve);
+  });
+}
+
+// Usage
+const { settings } = await getStorage(['settings']);
+await setStorage({ settings: { ...settings, theme: 'dark' } });
+```
+
+### Extension Monetization
+
+Making money from extensions
+
+**When to use**: When planning extension revenue
+
+## Extension Monetization
+
+### Revenue Models
+| Model | How It Works |
+|-------|--------------|
+| Freemium | Free basic, paid features |
+| One-time | Pay once, use forever |
+| Subscription | Monthly/yearly access |
+| Donations | Tip jar / Buy me a coffee |
+| Affiliate | Recommend products |
+
+### Payment Integration
+```javascript
+// Use your backend for payments
+// Extension can't directly use Stripe
+
+// 1. User clicks "Upgrade" in popup
+// 2. Open your website with user ID
+chrome.tabs.create({
+  url: `https://your-site.com/upgrade?user=${userId}`
+});
+
+// 3. After payment, sync status
 async function checkPremium() {
   const { userId } = await getStorage(['userId']);
-  const { isPremium } = await (await fetch(`https://your-api.com/premium/${userId}`)).json();
+  const response = await fetch(
+    `https://your-api.com/premium/${userId}`
+  );
+  const { isPremium } = await response.json();
   await setStorage({ isPremium });
   return isPremium;
 }
+```
 
-// 3. 功能门控
+### Feature Gating
+```javascript
 async function usePremiumFeature() {
   const { isPremium } = await getStorage(['isPremium']);
-  if (!isPremium) return showUpgradeModal();
-  // 执行付费功能
+  if (!isPremium) {
+    showUpgradeModal();
+    return;
+  }
+  // Run premium feature
 }
 ```
 
-## 注意事项
+### Chrome Web Store Payments
+- Chrome discontinued built-in payments
+- Use your own payment system
+- Link to external checkout page
 
-存储配额：local 上限 5MB；sync 总量 100KB、单项 8KB。
+## Validation Checks
 
-上架前校验清单（含严重级别与修复动作）：
-- [HIGH] 仍用 Manifest V2 —— Chrome 新扩展强制要求 V3，迁移到 Service Worker。
-- [HIGH] 权限过宽，易被商店拒审 —— 改用具体的 host_permissions 与 optional_permissions。
-- [MEDIUM] 无错误处理 —— 每次 chrome API 调用后检查 chrome.runtime.lastError。
-- [MEDIUM] 硬编码 URL —— 改用 chrome.storage 或 manifest 做配置。
-- [LOW] 缺图标 —— 补齐 16/48/128 三种尺寸，影响商店展示。
+### Using Deprecated Manifest V2
 
-商店支付：Chrome 已停用内置支付，必须自建支付系统并跳转外部结账页。
+Severity: HIGH
 
-收入模型参考：Freemium（免费基础+付费功能）、一次性买断、订阅、捐赠（Tip jar）、联盟推广。
+Message: Using Manifest V2 - Chrome requires V3 for new extensions.
 
-通用红线：本技能输出不能替代环境特定的验证、测试或专家评审；缺少必要输入/权限/安全边界/成功标准时先澄清。
+Fix action: Migrate to Manifest V3 with service worker
 
-## 互见
+### Excessive Permissions Requested
 
-- 前端框架技能（React/Vue/Svelte 弹窗 UI）
-- micro-saas / 商业模式技能（扩展变现与订阅）
-- 个人工具构建技能（仅自用的轻量扩展）
-- AI 封装产品技能（AI 驱动的浏览器助手）
+Severity: HIGH
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT），源条目原始出处 vibeship-spawner-skills。
+Message: Requesting broad permissions - may cause store rejection.
+
+Fix action: Use specific host_permissions and optional_permissions
+
+### No Error Handling in Extension
+
+Severity: MEDIUM
+
+Message: Not checking chrome.runtime.lastError for errors.
+
+Fix action: Check chrome.runtime.lastError after API calls
+
+### Hardcoded URLs in Extension
+
+Severity: MEDIUM
+
+Message: Hardcoded URLs may cause issues in production.
+
+Fix action: Use chrome.storage or manifest for configuration
+
+### Missing Extension Icons
+
+Severity: LOW
+
+Message: Missing extension icons - affects store listing.
+
+Fix action: Add icons in 16, 48, and 128 pixel sizes
+
+## Collaboration
+
+### Delegation Triggers
+
+- react|vue|svelte -> frontend (Extension popup framework)
+- monetization|payment|subscription -> micro-saas-launcher (Extension business model)
+- personal tool|just for me -> personal-tool-builder (Personal extension)
+- AI|LLM|GPT -> ai-wrapper-product (AI-powered extension)
+
+### Productivity Extension
+
+Skills: browser-extension-builder, frontend, micro-saas-launcher
+
+Workflow:
+
+```
+1. Define extension functionality
+2. Build popup UI with React
+3. Implement content scripts
+4. Add premium features
+5. Publish to Chrome Web Store
+6. Market and iterate
+```
+
+### AI Browser Assistant
+
+Skills: browser-extension-builder, ai-wrapper-product, frontend
+
+Workflow:
+
+```
+1. Design AI features for browser
+2. Build extension architecture
+3. Integrate AI API
+4. Create popup interface
+5. Handle usage limits/payments
+6. Publish and grow
+```
+
+## Related Skills
+
+Works well with: `frontend`, `micro-saas-launcher`, `personal-tool-builder`
+
+## When to Use
+- User mentions or implies: browser extension
+- User mentions or implies: chrome extension
+- User mentions or implies: firefox addon
+- User mentions or implies: extension
+- User mentions or implies: manifest v3
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

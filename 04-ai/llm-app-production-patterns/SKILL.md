@@ -1,14 +1,14 @@
 ---
 name: llm-app-production-patterns
-title: LLM 应用生产级模式
-description: 当需要在 RAG 检索策略、智能体架构（ReAct/函数调用/计划执行/多智能体）、Prompt 编排与生产可靠性模式之间选型并落地时使用；做按"架构决策矩阵"挑选模式并产出可运行实现骨架（混合检索、ReAct/工具调用循环、Prompt 链、缓存/限流/重试/回退、LLMOps 指标与评测）；不适用于无 LLM 的传统 ML、与 AI 无关的 UI 改动，或尚无数据源/部署目标时；触发词：RAG、ReAct、函数调用、计划执行、多智能体、Prompt 链、LLMOps、缓存限流回退
+title: 🤖 LLM Application Patterns
+description: Production-ready patterns for building LLM applications, inspired by [Dify](https://github.com/langgenius/dify) and industry best practices.
 domain: 智能/agents
-triggers: [选哪种智能体架构, ReAct 模式, 函数调用 Agent, 计划执行 Plan-and-Execute, 多智能体协作, RAG 检索策略选型, 混合检索, Prompt 链与版本化, LLMOps 指标与评测, 缓存限流重试回退, 架构决策矩阵]
-tags: [智能, agents, llm, rag, react, function-calling, multi-agent, llmops, 可靠性]
-level: 精通
+triggers: []
+tags: [agents, llm, rag, react, function-calling, multi-agent, llmops]
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Python, 向量数据库(Pinecone/Weaviate/Chroma/pgvector), OpenAI/Anthropic SDK, Redis, tenacity, OpenTelemetry]
+tools: []
 requires: []
 related: [production-llm-app-builder, autonomous-coding-agent-patterns, agent-workflow-pattern-designer, langchain-architecture]
 combines_with: [rag-implementation-workflow, cost-aware-llm-pipeline]
@@ -16,132 +16,763 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-本条目是 **生产级 LLM 应用的模式目录 + 选型指南**：在多种 RAG 检索策略、智能体架构、Prompt 编排与生产可靠性模式之间，依据「架构决策矩阵」快速选型，并给出每种模式的最小可运行实现骨架。偏「选哪个模式、怎么落地」；若你要的是端到端架构与工程化总览，见互见 `production-llm-app-builder`。
+# 🤖 LLM Application Patterns
 
-## 何时使用
+> Production-ready patterns for building LLM applications, inspired by [Dify](https://github.com/langgenius/dify) and industry best practices.
 
-适用：
-- 在 RAG 检索策略（语义/混合/多查询/上下文压缩）之间选型。
-- 在智能体架构（ReAct / 函数调用 / 计划执行 / 多智能体）之间选型并搭骨架。
-- 落地 Prompt 模板、版本化/A-B、Prompt 链等编排模式。
-- 加生产护栏：缓存、限流、重试、回退，以及 LLMOps 指标与评测。
+## When to Use This Skill
 
-不该用（负边界）：
-- 任务是无 LLM 的传统 ML / 纯数据科学。
-- 只是与 AI 无关的 UI 改动。
-- 还没有可访问的数据源或部署目标（先补齐输入再开工）。
-- 缺必要输入、权限、安全边界或成功标准时，先停下来澄清，不要硬套模式。
+Use this skill when:
 
-## 步骤 / 指令
+- Designing LLM-powered applications
+- Implementing RAG (Retrieval-Augmented Generation)
+- Building AI agents with tools
+- Setting up LLMOps monitoring
+- Choosing between agent architectures
 
-**第 1 步：用决策矩阵选模式**（复杂度/成本递增）：
+---
 
-| 模式 | 何时用 | 复杂度 | 成本 |
-|---|---|---|---|
-| 简单 RAG | FAQ、文档检索 | 低 | 低 |
-| 混合 RAG | 语义+关键词混合查询 | 中 | 中 |
-| ReAct 智能体 | 多步推理任务 | 中 | 中 |
-| 函数调用 | 结构化工具调用 | 低 | 低 |
-| 计划-执行 | 复杂、可分解的长任务 | 高 | 高 |
-| 多智能体 | 研究型/角色分工任务 | 很高 | 很高 |
+## 1. RAG Pipeline Architecture
 
-**第 2 步：按选中的模式落地。**
+### Overview
 
-- **RAG 检索**：默认 `语义检索`；查询既含语义又含精确关键词时上 `混合检索`（向量 + BM25，用 RRF 倒数排名融合，`alpha` 控比例：1.0 纯语义 / 0.0 纯关键词 / 0.5 均衡）；召回不足上 `多查询`（LLM 生成 3 个查询变体后去重）；token 紧张上 `上下文压缩`（先召回再抽取相关片段）。分块默认 `chunk_size=512` tokens、`chunk_overlap=50`、`separators=["\n\n","\n",". "," "]`。向量库选型：原型用 Chroma，已有 Postgres 用 pgvector，规模化用 Pinecone/Weaviate。Embedding：通用 `text-embedding-3-small`(1536) / 复杂查询 `text-embedding-3-large`(3072) / 自托管 `bge-large`(1024)。生成阶段强约束「仅依据给定上下文作答，信息不足时明说」并回带引用。
+RAG (Retrieval-Augmented Generation) grounds LLM responses in your data.
 
-- **智能体架构**：
-  - `ReAct`：Thought→Action→Observation 循环，设 `max_iterations`（默认 10）防失控；适合需要边推理边取信息的多步任务。
-  - `函数调用`：把工具定义成带 JSON Schema 的函数，`tool_choice="auto"`，循环执行 tool_calls 并回填 `role:"tool"` 消息直到无工具调用；结构化、可靠、成本低，能用就优先用。
-  - `计划-执行`：先 `create_plan` 出步骤列表，逐步执行，必要时 `replan`，最后 `synthesize`；适合可分解的复杂长任务。
-  - `多智能体`：coordinator 拆分 → 角色 Agent（researcher/analyst/writer/critic）协作 → critic 评审 → 不达标带反馈迭代；仅在研究型任务用，成本最高。
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Ingest    │────▶│   Retrieve  │────▶│   Generate  │
+│  Documents  │     │   Context   │     │   Response  │
+└─────────────┘     └─────────────┘     └─────────────┘
+      │                   │                   │
+      ▼                   ▼                   ▼
+ ┌─────────┐       ┌───────────┐       ┌───────────┐
+ │ Chunking│       │  Vector   │       │    LLM    │
+ │Embedding│       │  Search   │       │  + Context│
+ └─────────┘       └───────────┘       └───────────┘
+```
 
-- **Prompt 编排**：模板做变量校验（缺变量即抛错）+ few-shot 注入；Prompt 入 registry 做 `version` 化、按 `hash(user_id) % len(variants)` 分桶 A/B、`record_outcome` 追踪效果；多步用 Prompt 链（前一步输出作下一步输入，如 research→analyze→summarize）。
-
-- **生产可靠性护栏**（缺一不可上线）：
-  - 缓存：以 `sha256(model:prompt:kwargs)` 为 key，**仅缓存 `temperature==0` 的确定性输出**，设 TTL。
-  - 限流：滑动窗口按 RPM 控速，超限则 sleep 到窗口释放。
-  - 重试：指数退避 `wait_exponential(min=4,max=60)` + `stop_after_attempt(5)`；**只重试 RateLimit 和 5xx，不重试 4xx 客户端错误**。
-  - 回退：primary→fallbacks 多模型链（如 gpt-4-turbo → gpt-3.5-turbo → claude-3-sonnet），全失败再抛 `AllModelsFailedError`。
-
-- **LLMOps 可观测**：跟踪性能(`latency_p50/p99`、`tokens_per_second`)、质量(`user_satisfaction`、`task_completion`、`hallucination_rate`)、成本(`cost_per_request`、`cache_hit_rate`)、可靠性(`error_rate`、`timeout_rate`、`retry_rate`)；日志截断 prompt 存储、用 OpenTelemetry span 打 `prompt.length`/`tokens.total`；评测维度 = 相关性/连贯性/可溯源性/准确率/安全性，在测试集上跑 benchmark 汇总。
-
-**第 3 步：验证。** 用测试集 + 对抗性输入跑评测，分阶段灰度，再放量。
-
-## 示例
-
-ReAct 循环骨架（关键约束：`max_iterations` 防失控）：
+### 1.1 Document Ingestion
 
 ```python
+# Chunking strategies
+class ChunkingStrategy:
+    # Fixed-size chunks (simple but may break context)
+    FIXED_SIZE = "fixed_size"  # e.g., 512 tokens
+
+    # Semantic chunking (preserves meaning)
+    SEMANTIC = "semantic"      # Split on paragraphs/sections
+
+    # Recursive splitting (tries multiple separators)
+    RECURSIVE = "recursive"    # ["\n\n", "\n", " ", ""]
+
+    # Document-aware (respects structure)
+    DOCUMENT_AWARE = "document_aware"  # Headers, lists, etc.
+
+# Recommended settings
+CHUNK_CONFIG = {
+    "chunk_size": 512,       # tokens
+    "chunk_overlap": 50,     # token overlap between chunks
+    "separators": ["\n\n", "\n", ". ", " "],
+}
+```
+
+### 1.2 Embedding & Storage
+
+```python
+# Vector database selection
+VECTOR_DB_OPTIONS = {
+    "pinecone": {
+        "use_case": "Production, managed service",
+        "scale": "Billions of vectors",
+        "features": ["Hybrid search", "Metadata filtering"]
+    },
+    "weaviate": {
+        "use_case": "Self-hosted, multi-modal",
+        "scale": "Millions of vectors",
+        "features": ["GraphQL API", "Modules"]
+    },
+    "chromadb": {
+        "use_case": "Development, prototyping",
+        "scale": "Thousands of vectors",
+        "features": ["Simple API", "In-memory option"]
+    },
+    "pgvector": {
+        "use_case": "Existing Postgres infrastructure",
+        "scale": "Millions of vectors",
+        "features": ["SQL integration", "ACID compliance"]
+    }
+}
+
+# Embedding model selection
+EMBEDDING_MODELS = {
+    "openai/text-embedding-3-small": {
+        "dimensions": 1536,
+        "cost": "$0.02/1M tokens",
+        "quality": "Good for most use cases"
+    },
+    "openai/text-embedding-3-large": {
+        "dimensions": 3072,
+        "cost": "$0.13/1M tokens",
+        "quality": "Best for complex queries"
+    },
+    "local/bge-large": {
+        "dimensions": 1024,
+        "cost": "Free (compute only)",
+        "quality": "Comparable to OpenAI small"
+    }
+}
+```
+
+### 1.3 Retrieval Strategies
+
+```python
+# Basic semantic search
+def semantic_search(query: str, top_k: int = 5):
+    query_embedding = embed(query)
+    results = vector_db.similarity_search(
+        query_embedding,
+        top_k=top_k
+    )
+    return results
+
+# Hybrid search (semantic + keyword)
+def hybrid_search(query: str, top_k: int = 5, alpha: float = 0.5):
+    """
+    alpha=1.0: Pure semantic
+    alpha=0.0: Pure keyword (BM25)
+    alpha=0.5: Balanced
+    """
+    semantic_results = vector_db.similarity_search(query)
+    keyword_results = bm25_search(query)
+
+    # Reciprocal Rank Fusion
+    return rrf_merge(semantic_results, keyword_results, alpha)
+
+# Multi-query retrieval
+def multi_query_retrieval(query: str):
+    """Generate multiple query variations for better recall"""
+    queries = llm.generate_query_variations(query, n=3)
+    all_results = []
+    for q in queries:
+        all_results.extend(semantic_search(q))
+    return deduplicate(all_results)
+
+# Contextual compression
+def compressed_retrieval(query: str):
+    """Retrieve then compress to relevant parts only"""
+    docs = semantic_search(query, top_k=10)
+    compressed = llm.extract_relevant_parts(docs, query)
+    return compressed
+```
+
+### 1.4 Generation with Context
+
+```python
+RAG_PROMPT_TEMPLATE = """
+Answer the user's question based ONLY on the following context.
+If the context doesn't contain enough information, say "I don't have enough information to answer that."
+
+Context:
+{context}
+
+Question: {question}
+
+Answer:"""
+
+def generate_with_rag(question: str):
+    # Retrieve
+    context_docs = hybrid_search(question, top_k=5)
+    context = "\n\n".join([doc.content for doc in context_docs])
+
+    # Generate
+    prompt = RAG_PROMPT_TEMPLATE.format(
+        context=context,
+        question=question
+    )
+
+    response = llm.generate(prompt)
+
+    # Return with citations
+    return {
+        "answer": response,
+        "sources": [doc.metadata for doc in context_docs]
+    }
+```
+
+---
+
+## 2. Agent Architectures
+
+### 2.1 ReAct Pattern (Reasoning + Acting)
+
+```
+Thought: I need to search for information about X
+Action: search("X")
+Observation: [search results]
+Thought: Based on the results, I should...
+Action: calculate(...)
+Observation: [calculation result]
+Thought: I now have enough information
+Action: final_answer("The answer is...")
+```
+
+```python
+REACT_PROMPT = """
+You are an AI assistant that can use tools to answer questions.
+
+Available tools:
+{tools_description}
+
+Use this format:
+Thought: [your reasoning about what to do next]
+Action: [tool_name(arguments)]
+Observation: [tool result - this will be filled in]
+... (repeat Thought/Action/Observation as needed)
+Thought: I have enough information to answer
+Final Answer: [your final response]
+
+Question: {question}
+"""
+
 class ReActAgent:
-    def __init__(self, tools, llm):
+    def __init__(self, tools: list, llm):
         self.tools = {t.name: t for t in tools}
         self.llm = llm
         self.max_iterations = 10
 
     def run(self, question: str) -> str:
         prompt = REACT_PROMPT.format(
-            tools_description=self._format_tools(), question=question)
+            tools_description=self._format_tools(),
+            question=question
+        )
+
         for _ in range(self.max_iterations):
             response = self.llm.generate(prompt)
+
             if "Final Answer:" in response:
                 return self._extract_final_answer(response)
+
             action = self._parse_action(response)
             observation = self._execute_tool(action)
             prompt += f"\nObservation: {observation}\n"
+
         return "Max iterations reached"
 ```
 
-混合检索（语义 + BM25，RRF 融合）：
+### 2.2 Function Calling Pattern
 
 ```python
-def hybrid_search(query: str, top_k: int = 5, alpha: float = 0.5):
-    # alpha=1.0 纯语义 / 0.0 纯关键词(BM25) / 0.5 均衡
-    semantic_results = vector_db.similarity_search(query)
-    keyword_results = bm25_search(query)
-    return rrf_merge(semantic_results, keyword_results, alpha)
+# Define tools as functions with schemas
+TOOLS = [
+    {
+        "name": "search_web",
+        "description": "Search the web for current information",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Search query"
+                }
+            },
+            "required": ["query"]
+        }
+    },
+    {
+        "name": "calculate",
+        "description": "Perform mathematical calculations",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "expression": {
+                    "type": "string",
+                    "description": "Math expression to evaluate"
+                }
+            },
+            "required": ["expression"]
+        }
+    }
+]
+
+class FunctionCallingAgent:
+    def run(self, question: str) -> str:
+        messages = [{"role": "user", "content": question}]
+
+        while True:
+            response = self.llm.chat(
+                messages=messages,
+                tools=TOOLS,
+                tool_choice="auto"
+            )
+
+            if response.tool_calls:
+                for tool_call in response.tool_calls:
+                    result = self._execute_tool(
+                        tool_call.name,
+                        tool_call.arguments
+                    )
+                    messages.append({
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "content": str(result)
+                    })
+            else:
+                return response.content
 ```
 
-缓存 + 重试护栏（核心约束已标注）：
+### 2.3 Plan-and-Execute Pattern
 
 ```python
-def _cache_key(self, prompt, model, **kwargs):
-    content = f"{model}:{prompt}:{json.dumps(kwargs, sort_keys=True)}"
-    return hashlib.sha256(content.encode()).hexdigest()
+class PlanAndExecuteAgent:
+    """
+    1. Create a plan (list of steps)
+    2. Execute each step
+    3. Replan if needed
+    """
 
-# 仅缓存确定性输出
-if kwargs.get("temperature", 1.0) == 0:
-    self.redis.setex(key, self.ttl, response)
+    def run(self, task: str) -> str:
+        # Planning phase
+        plan = self.planner.create_plan(task)
+        # Returns: ["Step 1: ...", "Step 2: ...", ...]
 
-@retry(wait=wait_exponential(multiplier=1, min=4, max=60),
-       stop=stop_after_attempt(5))
+        results = []
+        for step in plan:
+            # Execute each step
+            result = self.executor.execute(step, context=results)
+            results.append(result)
+
+            # Check if replan needed
+            if self._needs_replan(task, results):
+                new_plan = self.planner.replan(
+                    task,
+                    completed=results,
+                    remaining=plan[len(results):]
+                )
+                plan = new_plan
+
+        # Synthesize final answer
+        return self.synthesizer.summarize(task, results)
+```
+
+### 2.4 Multi-Agent Collaboration
+
+```python
+class AgentTeam:
+    """
+    Specialized agents collaborating on complex tasks
+    """
+
+    def __init__(self):
+        self.agents = {
+            "researcher": ResearchAgent(),
+            "analyst": AnalystAgent(),
+            "writer": WriterAgent(),
+            "critic": CriticAgent()
+        }
+        self.coordinator = CoordinatorAgent()
+
+    def solve(self, task: str) -> str:
+        # Coordinator assigns subtasks
+        assignments = self.coordinator.decompose(task)
+
+        results = {}
+        for assignment in assignments:
+            agent = self.agents[assignment.agent]
+            result = agent.execute(
+                assignment.subtask,
+                context=results
+            )
+            results[assignment.id] = result
+
+        # Critic reviews
+        critique = self.agents["critic"].review(results)
+
+        if critique.needs_revision:
+            # Iterate with feedback
+            return self.solve_with_feedback(task, results, critique)
+
+        return self.coordinator.synthesize(results)
+```
+
+---
+
+## 3. Prompt IDE Patterns
+
+### 3.1 Prompt Templates with Variables
+
+```python
+class PromptTemplate:
+    def __init__(self, template: str, variables: list[str]):
+        self.template = template
+        self.variables = variables
+
+    def format(self, **kwargs) -> str:
+        # Validate all variables provided
+        missing = set(self.variables) - set(kwargs.keys())
+        if missing:
+            raise ValueError(f"Missing variables: {missing}")
+
+        return self.template.format(**kwargs)
+
+    def with_examples(self, examples: list[dict]) -> str:
+        """Add few-shot examples"""
+        example_text = "\n\n".join([
+            f"Input: {ex['input']}\nOutput: {ex['output']}"
+            for ex in examples
+        ])
+        return f"{example_text}\n\n{self.template}"
+
+# Usage
+summarizer = PromptTemplate(
+    template="Summarize the following text in {style} style:\n\n{text}",
+    variables=["style", "text"]
+)
+
+prompt = summarizer.format(
+    style="professional",
+    text="Long article content..."
+)
+```
+
+### 3.2 Prompt Versioning & A/B Testing
+
+```python
+class PromptRegistry:
+    def __init__(self, db):
+        self.db = db
+
+    def register(self, name: str, template: str, version: str):
+        """Store prompt with version"""
+        self.db.save({
+            "name": name,
+            "template": template,
+            "version": version,
+            "created_at": datetime.now(),
+            "metrics": {}
+        })
+
+    def get(self, name: str, version: str = "latest") -> str:
+        """Retrieve specific version"""
+        return self.db.get(name, version)
+
+    def ab_test(self, name: str, user_id: str) -> str:
+        """Return variant based on user bucket"""
+        variants = self.db.get_all_versions(name)
+        bucket = hash(user_id) % len(variants)
+        return variants[bucket]
+
+    def record_outcome(self, prompt_id: str, outcome: dict):
+        """Track prompt performance"""
+        self.db.update_metrics(prompt_id, outcome)
+```
+
+### 3.3 Prompt Chaining
+
+```python
+class PromptChain:
+    """
+    Chain prompts together, passing output as input to next
+    """
+
+    def __init__(self, steps: list[dict]):
+        self.steps = steps
+
+    def run(self, initial_input: str) -> dict:
+        context = {"input": initial_input}
+        results = []
+
+        for step in self.steps:
+            prompt = step["prompt"].format(**context)
+            output = llm.generate(prompt)
+
+            # Parse output if needed
+            if step.get("parser"):
+                output = step"parser"
+
+            context[step["output_key"]] = output
+            results.append({
+                "step": step["name"],
+                "output": output
+            })
+
+        return {
+            "final_output": context[self.steps[-1]["output_key"]],
+            "intermediate_results": results
+        }
+
+# Example: Research → Analyze → Summarize
+chain = PromptChain([
+    {
+        "name": "research",
+        "prompt": "Research the topic: {input}",
+        "output_key": "research"
+    },
+    {
+        "name": "analyze",
+        "prompt": "Analyze these findings:\n{research}",
+        "output_key": "analysis"
+    },
+    {
+        "name": "summarize",
+        "prompt": "Summarize this analysis in 3 bullet points:\n{analysis}",
+        "output_key": "summary"
+    }
+])
+```
+
+---
+
+## 4. LLMOps & Observability
+
+### 4.1 Metrics to Track
+
+```python
+LLM_METRICS = {
+    # Performance
+    "latency_p50": "50th percentile response time",
+    "latency_p99": "99th percentile response time",
+    "tokens_per_second": "Generation speed",
+
+    # Quality
+    "user_satisfaction": "Thumbs up/down ratio",
+    "task_completion": "% tasks completed successfully",
+    "hallucination_rate": "% responses with factual errors",
+
+    # Cost
+    "cost_per_request": "Average $ per API call",
+    "tokens_per_request": "Average tokens used",
+    "cache_hit_rate": "% requests served from cache",
+
+    # Reliability
+    "error_rate": "% failed requests",
+    "timeout_rate": "% requests that timed out",
+    "retry_rate": "% requests needing retry"
+}
+```
+
+### 4.2 Logging & Tracing
+
+```python
+import logging
+from opentelemetry import trace
+
+tracer = trace.get_tracer(__name__)
+
+class LLMLogger:
+    def log_request(self, request_id: str, data: dict):
+        """Log LLM request for debugging and analysis"""
+        log_entry = {
+            "request_id": request_id,
+            "timestamp": datetime.now().isoformat(),
+            "model": data["model"],
+            "prompt": data["prompt"][:500],  # Truncate for storage
+            "prompt_tokens": data["prompt_tokens"],
+            "temperature": data.get("temperature", 1.0),
+            "user_id": data.get("user_id"),
+        }
+        logging.info(f"LLM_REQUEST: {json.dumps(log_entry)}")
+
+    def log_response(self, request_id: str, data: dict):
+        """Log LLM response"""
+        log_entry = {
+            "request_id": request_id,
+            "completion_tokens": data["completion_tokens"],
+            "total_tokens": data["total_tokens"],
+            "latency_ms": data["latency_ms"],
+            "finish_reason": data["finish_reason"],
+            "cost_usd": self._calculate_cost(data),
+        }
+        logging.info(f"LLM_RESPONSE: {json.dumps(log_entry)}")
+
+# Distributed tracing
+@tracer.start_as_current_span("llm_call")
+def call_llm(prompt: str) -> str:
+    span = trace.get_current_span()
+    span.set_attribute("prompt.length", len(prompt))
+
+    response = llm.generate(prompt)
+
+    span.set_attribute("response.length", len(response))
+    span.set_attribute("tokens.total", response.usage.total_tokens)
+
+    return response.content
+```
+
+### 4.3 Evaluation Framework
+
+```python
+class LLMEvaluator:
+    """
+    Evaluate LLM outputs for quality
+    """
+
+    def evaluate_response(self,
+                          question: str,
+                          response: str,
+                          ground_truth: str = None) -> dict:
+        scores = {}
+
+        # Relevance: Does it answer the question?
+        scores["relevance"] = self._score_relevance(question, response)
+
+        # Coherence: Is it well-structured?
+        scores["coherence"] = self._score_coherence(response)
+
+        # Groundedness: Is it based on provided context?
+        scores["groundedness"] = self._score_groundedness(response)
+
+        # Accuracy: Does it match ground truth?
+        if ground_truth:
+            scores["accuracy"] = self._score_accuracy(response, ground_truth)
+
+        # Harmfulness: Is it safe?
+        scores["safety"] = self._score_safety(response)
+
+        return scores
+
+    def run_benchmark(self, test_cases: list[dict]) -> dict:
+        """Run evaluation on test set"""
+        results = []
+        for case in test_cases:
+            response = llm.generate(case["prompt"])
+            scores = self.evaluate_response(
+                question=case["prompt"],
+                response=response,
+                ground_truth=case.get("expected")
+            )
+            results.append(scores)
+
+        return self._aggregate_scores(results)
+```
+
+---
+
+## 5. Production Patterns
+
+### 5.1 Caching Strategy
+
+```python
+import hashlib
+from functools import lru_cache
+
+class LLMCache:
+    def __init__(self, redis_client, ttl_seconds=3600):
+        self.redis = redis_client
+        self.ttl = ttl_seconds
+
+    def _cache_key(self, prompt: str, model: str, **kwargs) -> str:
+        """Generate deterministic cache key"""
+        content = f"{model}:{prompt}:{json.dumps(kwargs, sort_keys=True)}"
+        return hashlib.sha256(content.encode()).hexdigest()
+
+    def get_or_generate(self, prompt: str, model: str, **kwargs) -> str:
+        key = self._cache_key(prompt, model, **kwargs)
+
+        # Check cache
+        cached = self.redis.get(key)
+        if cached:
+            return cached.decode()
+
+        # Generate
+        response = llm.generate(prompt, model=model, **kwargs)
+
+        # Cache (only cache deterministic outputs)
+        if kwargs.get("temperature", 1.0) == 0:
+            self.redis.setex(key, self.ttl, response)
+
+        return response
+```
+
+### 5.2 Rate Limiting & Retry
+
+```python
+import time
+from tenacity import retry, wait_exponential, stop_after_attempt
+
+class RateLimiter:
+    def __init__(self, requests_per_minute: int):
+        self.rpm = requests_per_minute
+        self.timestamps = []
+
+    def acquire(self):
+        """Wait if rate limit would be exceeded"""
+        now = time.time()
+
+        # Remove old timestamps
+        self.timestamps = [t for t in self.timestamps if now - t < 60]
+
+        if len(self.timestamps) >= self.rpm:
+            sleep_time = 60 - (now - self.timestamps[0])
+            time.sleep(sleep_time)
+
+        self.timestamps.append(time.time())
+
+# Retry with exponential backoff
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    stop=stop_after_attempt(5)
+)
 def call_llm_with_retry(prompt: str) -> str:
     try:
         return llm.generate(prompt)
     except RateLimitError:
-        raise                       # 重试限流
+        raise  # Will trigger retry
     except APIError as e:
         if e.status_code >= 500:
-            raise                   # 重试 5xx
-        raise                       # 不重试 4xx
+            raise  # Retry server errors
+        raise  # Don't retry client errors
 ```
 
-## 注意事项
+### 5.3 Fallback Strategy
 
-- **能用函数调用就别上 ReAct/多智能体**：复杂度和成本随矩阵向下陡增，先用最低复杂度模式跑通。
-- **缓存只对确定性输出生效**：`temperature>0` 的输出缓存会返回错误的复用结果，务必只缓存 `temperature==0`。
-- **重试要区分错误类型**：4xx 客户端错误重试无意义且浪费配额，只重试 RateLimit 与 5xx。
-- **RAG 生成必须强约束 + 回带引用**：提示词限定「仅依据上下文作答，信息不足时明说」，并返回 `sources`，降低幻觉。
-- **从第一天就内建可观测性与护栏**：缓存/限流/重试/回退/评测属于上线前置项，不是事后补丁。
-- 本技能输出不能替代针对具体环境的验证、测试与专家评审；缺输入/权限/安全边界时先澄清。
+```python
+class LLMWithFallback:
+    def __init__(self, primary: str, fallbacks: list[str]):
+        self.primary = primary
+        self.fallbacks = fallbacks
 
-## 互见
+    def generate(self, prompt: str, **kwargs) -> str:
+        models = [self.primary] + self.fallbacks
 
-- related：`production-llm-app-builder` —— 同源的端到端生产级 LLM/RAG 架构与工程化总览（本条聚焦「选模式 + 模式骨架」，那条聚焦全链路落地）。
-- related：`rag-pipeline-builder`、`hybrid-search-retrieval` —— RAG 检索流水线与混合检索的专项深化。
-- related：`multi-agent-system-designer`、`agent-workflow-pattern-designer`、`agent-tool-builder` —— 多智能体/工作流/工具设计的专项。
-- combines_with：`langfuse-llm-observability` —— 给本条的 LLMOps 指标接入可观测平台。
-- combines_with：`cost-aware-llm-pipeline`、`llm-model-router` —— 把缓存/回退/路由做成成本可控的推理链路。
-- combines_with：`llm-prompt-optimizer` —— 深化本条的 Prompt 模板/版本化/A-B 编排。
+        for model in models:
+            try:
+                return llm.generate(prompt, model=model, **kwargs)
+            except (RateLimitError, APIError) as e:
+                logging.warning(f"Model {model} failed: {e}")
+                continue
+
+        raise AllModelsFailedError("All models exhausted")
+
+# Usage
+llm_client = LLMWithFallback(
+    primary="gpt-4-turbo",
+    fallbacks=["gpt-3.5-turbo", "claude-3-sonnet"]
+)
+```
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+
+## Architecture Decision Matrix
+
+| Pattern              | Use When         | Complexity | Cost      |
+| :------------------- | :--------------- | :--------- | :-------- |
+| **Simple RAG**       | FAQ, docs search | Low        | Low       |
+| **Hybrid RAG**       | Mixed queries    | Medium     | Medium    |
+| **ReAct Agent**      | Multi-step tasks | Medium     | Medium    |
+| **Function Calling** | Structured tools | Low        | Low       |
+| **Plan-Execute**     | Complex tasks    | High       | High      |
+| **Multi-Agent**      | Research tasks   | Very High  | Very High |
+
+---
+
+## Resources
+
+- [Dify Platform](https://github.com/langgenius/dify)
+- [LangChain Docs](https://python.langchain.com/)
+- [LlamaIndex](https://www.llamaindex.ai/)
+- [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook)
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

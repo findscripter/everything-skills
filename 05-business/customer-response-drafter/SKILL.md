@@ -1,11 +1,11 @@
 ---
 name: customer-response-drafter
-title: 客户回复文案起草
-description: 当需为客户起草外发回复（产品答疑、故障/升级处理、坏消息告知、拒绝需求、账单问题）时使用；产出含语气标注、正文与「内部备注」的回复草稿，并给出语气/长度自检与跟进升级建议；不适用于内部沟通、营销文案或无需对客回复的任务；触发词：客户回复、草拟回复、故障通知、升级处理、坏消息、拒绝需求、账单问题
+title: Customer Response Drafter
+description: Draft a professional customer-facing response tailored to the situation, relationship, and channel — with a labeled tone, the body, and internal notes — when answering a product question, handling an outage or escalation, delivering bad news, declining a request, or replying to a
 domain: 商业/copy
-triggers: [客户回复, 草拟回复, 对客回复, 故障通知, 升级处理, 坏消息, 延期告知, 拒绝需求, 账单问题, 工单回复, 跟进邮件, escalation]
-tags: [客户支持, 对客沟通, 回复草稿, 语气, 升级, 邮件, 工单, 坏消息, 客户成功]
-level: 进阶
+triggers: [customer response, draft response, draft-response, reply to customer, outage notification, incident communication, handle escalation, escalation, bad news, delay notice, decline feature request, won't-fix reply, billing issue, ticket response, follow-up email]
+tags: [customer-support, customer-facing, response-draft, tone, escalation, email, ticket, bad-news, customer-success, copywriting]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,131 +16,206 @@ license: CC-BY-4.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
+## When to use
 
-# 客户回复文案起草
+Use this skill when you need to draft a **customer-facing** response that is tailored to the situation, the customer relationship, and the communication channel. Typical scenarios:
 
-## 何时使用
+- Answering a product question or capability inquiry.
+- Responding to an issue, outage, or customer escalation.
+- Delivering bad news: a delivery delay, a feature sunset, a won't-fix, or no exception.
+- Declining a feature request, discount, or exception.
+- Handling a billing or account issue and offering a resolution path.
+- Following up after silence, tailored to the stakeholder level (end user / manager / executive / technical / business).
 
-当需要为某个客户**对外发出**一条得体回复，且回复须贴合具体情境、客户关系阶段与沟通渠道时使用。典型场景：
+Do **not** use this skill for:
 
-- 解答产品问题、能力咨询。
-- 回应故障/事故、客户升级（escalation）。
-- 告知坏消息：交付延期、功能下线、won't-fix、不予例外。
-- 婉拒功能请求 / 折扣 / 破例。
-- 处理账单或账户问题，给出解决路径。
-- 沉默后跟进、按情境分层（终端用户 / 经理 / 高管 / 技术 / 业务）。
+- Internal communication, internal announcements, or team broadcasts (use an internal-comms skill).
+- Pure marketing / landing-page / cold-email acquisition copy (use a marketing-copy skill).
+- Tasks unrelated to a customer-facing reply.
+- This skill produces a **draft only**. Fact-checking, commitment authorization, and compliance review before sending remain a human responsibility; it does not replace actual sending or expert review.
 
-不该用（负边界）：
+## Steps
 
-- 内部沟通、对内通告、团队广播（用对内沟通类技能）。
-- 纯营销/落地页/冷邮件获客文案（用营销文案类技能）。
-- 与「对客回复」无关的任务。
-- 本技能只产出**草稿**，发送前的事实核验、承诺授权与合规审查仍需人工把关，不替代真实发送与专家评审。
+### 1. Understand the context
 
-## 步骤
+Parse the input to determine:
 
-1. **理解情境**：解析输入，定位——客户是谁（拉取账户上下文）、情境类型（问题/故障/升级/通告/坏消息/好消息/跟进）、紧迫度（等待多久）、渠道（邮件/工单/聊天，决定正式度）、关系阶段（新客/老客/已升级）、对接人层级（终端/经理/高管/技术/业务）。
-2. **检索背景**：从可用来源补齐——往来邮件（既有承诺、时间线、行文语气）、内部讨论（产品/工程/管理层口径）、CRM（套餐档位、关键干系人、历史敏感事件）、工单系统（关联工单、已知问题/绕行、SLA 状态）、知识库（可对外引用的文档/路线图/政策）。
-3. **生成草稿**：按下方模板产出，含语气标注与**内部备注（不外发）**。
-4. **质量自检**：逐项核对清单（见「指令」），不通过则重写。
-5. **提供迭代**：交付后主动问是否调语气（更正式/随和/共情/直接）、增删要点、改长短、为不同干系人另写一版、是否同时起草内部升级单、是否预排 N 天后的跟进。
+- **Customer**: Who is the communication for? Look up account context if available.
+- **Situation type**: Question, issue, escalation, announcement, negotiation, bad news, good news, follow-up.
+- **Urgency**: Is this time-sensitive? How long has the customer been waiting?
+- **Channel**: Email, support ticket, chat, or other (adjust formality accordingly).
+- **Relationship stage**: New customer, established, frustrated/escalated.
+- **Stakeholder level**: End user, manager, executive, technical, business.
 
-## 指令
+### 2. Research context
 
-**核心原则**：先共情后方案；BLUF 直给结论；诚实不过度承诺；具体（写明日期/姓名，不用「过几天」）；主动担责，用「我们」而非「系统/流程」；每条都收口给出明确下一步；情绪对齐（对方焦虑先安抚，兴奋则同频）。
+Gather relevant background from available sources:
 
-**回复结构**：① 确认/共情（1-2 句）→ ② 核心信息（1-3 段，具体可核）→ ③ 下一步（1-3 条：我做什么+何时、你需做什么、下次何时联系）→ ④ 收尾（1 句，温暖专业、表明随时可联系）。
+- **Email**: Previous correspondence on this topic, any commitments or timelines previously shared, the tone and style of the existing thread.
+- **Internal chat**: Internal discussions about this customer or topic, guidance from product/engineering/leadership, similar situations and how they were handled.
+- **CRM (if connected)**: Account details and plan level, contact information and key stakeholders, previous escalations or sensitive issues.
+- **Support platform (if connected)**: Related tickets and their resolution, known issues or workarounds, SLA status and response-time commitments.
+- **Knowledge base**: Official documentation or help articles to reference, product roadmap info (if shareable), policy or process documentation.
 
-**长度**：聊天 1-4 句；工单 1-3 短段；邮件最多 3-5 段；升级回复按需但加小标题分块；对高管越短越好（2-3 段、数据驱动）。
+### 3. Generate the draft
 
-**语气矩阵**：好消息→庆贺；常规更新→专业；技术→精准；延期→担责（诚实致歉、行动导向）；坏消息→坦率（直接共情、给方案）；故障→紧急（即时透明、可操作、安抚）；升级→高管级（沉稳、担责、给计划）；账单→精准（清晰事实、共情、聚焦解决）。
+Produce a response using the template below, including a tone label and an **internal notes (do not send)** block.
 
-**关系分层**：新客（0-3 月）更正式、多铺垫、主动给资源；老客（3 月+）温暖协作、可引共同历史、更高效；已升级/焦虑客户加倍共情与确认、提升响应紧迫度、给带具体承诺的行动计划、缩短反馈环。
+### 4. Run quality checks
 
-**行文规则**：用主动语态；「我」担个人承诺、「我们」担团队承诺；指派动作点名到人；用客户的术语而非内部黑话；写明确切日期时间；长文用小标题/要点拆分。**禁忌**：套话/buzzword（synergy、leverage、paradigm shift）；甩锅给他队/系统/流程；用被动语态逃避担责（"Mistakes were made"）；削弱信心的多余对冲；无谓抄送；滥用感叹号（每封最多一个）。
+Verify against the checklist (see Notes). If it does not pass, rewrite.
 
-**质量自检清单**：
-- [ ] 语气匹配情境与关系
-- [ ] 无超授权的承诺
-- [ ] 无不应外泄的路线图细节
-- [ ] 对既往对话引用准确
-- [ ] 下一步与归属清晰
-- [ ] 适配对接人层级（不对高管过于技术、不对工程师过于含糊）
-- [ ] 长度适配渠道
+### 5. Offer iterations
 
-**何时升级**：威胁取消/大降配、要求超权限的破例、超 SLA 未解、点名要见管理层、自身失误需高层介入 → 升级给经理；关键 bug 阻塞客户业务、功能缺口致竞争流失、超出标准支持的技术诉求、集成问题需工程排查 → 升级给产品/工程。升级单格式见示例。
+After presenting the draft, proactively offer to:
+- Adjust the tone (more formal, casual, empathetic, or direct).
+- Add or remove specific points.
+- Make it shorter or longer.
+- Draft a version for a different stakeholder.
+- Draft the internal escalation note as well.
+- Prepare a follow-up message to send after N days if there is no response.
 
-## 示例
+## Example
 
-**草稿输出模板**：
-
-```
-## 回复草稿
-
-**收件人：** [客户对接人]
-**主题：** [主题]
-**渠道：** [邮件 / 工单 / 聊天]
-**语气：** [共情 / 专业 / 技术 / 庆贺 / 坦率]
-
----
-[草稿正文]
----
-
-### 内部备注（不外发）
-- 为何这样写：[语气与内容取舍的理由]
-- 待核验：[发送前需确认的事实/承诺]
-- 风险点：[本回复的敏感之处]
-- 需跟进：[发送后要做的动作]
-- 升级提示：[是否需他人先审]
-```
-
-**坏消息——拒绝功能请求（节选）**：
+**Draft output template:**
 
 ```
-你好 [姓名]：
+## Draft Response
 
-感谢提出这个需求——我理解 [能力] 对 [其用例] 的价值。
-
-我已与产品团队确认，近期暂无构建计划，主要原因是 [诚实、不轻慢的说明]。
-不过我想确保你的目标仍能达成，可考虑：
-- [替代方案 1]
-- [替代方案 2]
-我已将该需求记入反馈系统，若方向有变会第一时间告知你。
-以上方案是否可行？很乐意就任一条深入聊聊。
-```
-
-**升级单格式**：
-
-```
-ESCALATION: [客户名] — [一句话摘要]
-紧急度: [Critical / High / Medium]
-客户影响: [对其而言什么坏了]
-背景: [2-3 句]
-已尝试: [迄今动作]
-需要: [具体的帮助或决策]
-截止: [需解决的时间]
-```
-
-调用示例：
-- 「Acme Corp 在问新仪表盘功能何时上线。」
-- 「客户升级——他们的集成已宕机 2 天。」
-- 「回应一个我们不会做的功能请求。」
-- 「客户遇到账单错误，要求尽快解决。」
-
-## 注意事项
-
-- 草稿仅供发送前参考：所有事实、时间线、承诺均须人工核验，且不得超出授权。
-- 严防外泄不可对外的路线图、内部口径或他客敏感信息。
-- 共情第一，但每条回复都要收口到明确的下一步与归属。
-- 对接人层级决定深度：勿对高管堆技术、勿对工程师含糊其辞。
-- 跟进节奏参考：未答问题 2-3 个工作日；开放工单关键级每日、标准级 2-3 天；坏消息后 1 周回访情绪。
-
-## 互见
-
-- related：`ai-customer-support` —— AI/自动化的客服体系设计；本技能聚焦单条对客文案
-- related：`customer-research-synthesizer`、`churn-prevention`、`cold-email-writer`
-- combines_with：`customer-health-scorer` —— 先评估客户健康/风险，再据此定回复语气与升级策略
+**To:** [Customer contact name]
+**Re:** [Subject/topic]
+**Channel:** [Email / Ticket / Chat]
+**Tone:** [Empathetic / Professional / Technical / Celebratory / Candid]
 
 ---
 
-采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+[Draft response text]
+
+---
+
+### Notes for You (internal — do not send)
+- **Why this approach:** [Rationale for tone and content choices]
+- **Things to verify:** [Any facts or commitments to confirm before sending]
+- **Risk factors:** [Anything sensitive about this response]
+- **Follow-up needed:** [Actions to take after sending]
+- **Escalation note:** [If this should be reviewed by someone else first]
+```
+
+**Bad news — declining a feature request (excerpt):**
+
+```
+Hi [Name],
+
+Thank you for sharing this request — I can see why [capability] would
+be valuable for [their use case].
+
+I discussed this with our product team, and this isn't something we're
+planning to build in the near term. The primary reason is [honest,
+respectful explanation].
+
+That said, I want to make sure you can accomplish your goal. Here are
+some alternatives:
+- [Alternative approach 1]
+- [Alternative approach 2]
+
+I've also documented your request in our feedback system, and if our
+direction changes, I'll let you know.
+
+Would any of these alternatives work for your team? Happy to dig
+deeper into any of them.
+```
+
+**Escalation format:**
+
+```
+ESCALATION: [Customer Name] — [One-line summary]
+
+Urgency: [Critical / High / Medium]
+Customer impact: [What's broken for them]
+History: [Brief background — 2-3 sentences]
+What I've tried: [Actions taken so far]
+What I need: [Specific help or decision needed]
+Deadline: [When this needs to be resolved by]
+```
+
+**Invocation examples:**
+- "Acme Corp is asking when the new dashboard feature will ship."
+- "Customer escalation — their integration has been down for 2 days."
+- "Responding to a feature request we won't be building."
+- "Customer hit a billing error and wants a resolution ASAP."
+
+## Notes
+
+### Core principles
+1. **Lead with empathy** before jumping to solutions.
+2. **Be direct** — bottom-line-up-front; customers are busy.
+3. **Be honest** — never overpromise, mislead, or hide bad news in jargon.
+4. **Be specific** — concrete dates and names, not "in a few days."
+5. **Own it** — say "we," not "the system" or "the process."
+6. **Close the loop** — every response ends with a clear next step.
+7. **Match their energy** — soothe frustration first; match excitement with enthusiasm.
+
+### Response structure
+1. Acknowledgment / context (1-2 sentences) → 2. Core message (1-3 paragraphs, specific and verifiable) → 3. Next steps (1-3 bullets: what I'll do and when, what they need to do, when they'll hear next) → 4. Closing (1 warm, professional sentence reinforcing availability).
+
+### Length guidelines
+- **Chat/IM**: 1-4 sentences.
+- **Support ticket**: 1-3 short, scannable paragraphs.
+- **Email**: 3-5 paragraphs max.
+- **Escalation response**: As long as needed but well-structured with headers.
+- **Executive communication**: Shorter is better — 2-3 paragraphs, data-driven.
+
+### Tone spectrum
+
+| Situation | Tone | Characteristics |
+|-----------|------|----------------|
+| Good news / wins | Celebratory | Enthusiastic, warm, forward-looking |
+| Routine update | Professional | Clear, concise, informative, friendly |
+| Technical response | Precise | Accurate, detailed, structured, patient |
+| Delayed delivery | Accountable | Honest, apologetic, action-oriented |
+| Bad news | Candid | Direct, empathetic, solution-oriented |
+| Issue / outage | Urgent | Immediate, transparent, actionable, reassuring |
+| Escalation | Executive | Composed, ownership-taking, plan-presenting |
+| Billing / account | Precise | Clear, factual, empathetic, resolution-focused |
+
+### Tone by relationship stage
+- **New customer (0-3 months)**: More formal, extra context, proactively offer resources, build trust through responsiveness.
+- **Established customer (3+ months)**: Warm and collaborative, reference shared history, more direct and efficient.
+- **Frustrated / escalated**: Extra empathy and acknowledgment, urgent response times, concrete action plans with specific commitments, shorter feedback loops.
+
+### Writing-style rules
+**Do**: use active voice; "I" for personal commitments, "we" for team commitments; name specific people for actions; use the customer's terminology; include exact dates and times; break up long responses with headers/bullets.
+**Don't**: use buzzwords (synergy, leverage, paradigm shift); deflect blame to other teams/systems/processes; use passive voice to dodge ownership ("Mistakes were made"); add confidence-undermining hedging; CC people unnecessarily; overuse exclamation marks (one per email max).
+
+### Quality checklist
+- [ ] Tone matches the situation and relationship
+- [ ] No commitments beyond what's authorized
+- [ ] No roadmap details that shouldn't be shared externally
+- [ ] Accurate references to previous conversations
+- [ ] Clear next steps and ownership
+- [ ] Appropriate for the stakeholder level (not too technical for executives, not too vague for engineers)
+- [ ] Length appropriate for the channel
+
+### When to escalate
+**To your manager** when: the customer threatens to cancel or significantly downsell; requests an exception you can't authorize; an issue is past SLA; they request leadership contact; you made an error needing senior involvement.
+**To product/engineering** when: a bug is critical and blocking the customer's business; a feature gap is causing a competitive loss; the customer has unique technical requirements beyond standard support; integration issues require engineering investigation.
+
+### Follow-up cadence
+- Unanswered question: 2-3 business days.
+- Open support issue: daily for critical, 2-3 days for standard.
+- After delivering bad news: 1 week to check on impact and sentiment.
+
+### Hard constraints
+- The draft is a pre-send aid: all facts, timelines, and commitments must be human-verified and within authorization.
+- Never leak non-public roadmap, internal positioning, or other customers' sensitive information.
+- Empathy first, but every reply must close with a clear next step and ownership.
+
+## See also
+
+- related: `ai-customer-support` — designing AI/automated support systems; this skill focuses on a single customer-facing message
+- related: `customer-research-synthesizer`, `churn-prevention`, `cold-email-writer`
+- combines_with: `customer-health-scorer` — assess customer health/risk first, then set the reply's tone and escalation strategy accordingly
+
+---
+
+Adapted from anthropics/knowledge-work-plugins (Apache-2.0).

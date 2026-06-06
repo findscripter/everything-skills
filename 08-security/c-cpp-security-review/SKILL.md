@@ -1,14 +1,14 @@
 ---
 name: c-cpp-security-review
-title: C/C++ 内存安全审查
-description: 当审计原生 C/C++ 应用（守护进程/服务/解析器）的内存安全与漏洞时使用；做一次性 sink 清单 + 按 bug class 聚焦分析，产出含数据流/可达性/缓解措施验证的发现项与去重分级报告；不适用于内核驱动/模块、托管语言（Java/C#/Python/Go/Rust）、无 libc 的裸机代码；触发词：C/C++ 安全审查、内存安全、缓冲区溢出、buffer overflow、整数溢出、use-after-free、UAF、释放后使用、竞态条件、race condition、格式化字符串、memory corruption、appsec、daemon 审计
+title: C/C++ Security Review
+description: Performs comprehensive C/C++ security review for memory corruption, integer overflows, race conditions, and platform-specific vulnerabilities. Use when auditing native C/C++ applications, reviewing daemons or services for memory safety, or hunting integer overflow / use-after-free / race conditions in userspace code.
 domain: 安全/appsec
-triggers: [C/C++ 安全审查, 内存安全, 缓冲区溢出, buffer overflow, 整数溢出, use-after-free, UAF, 释放后使用, 竞态条件, race condition, 格式化字符串, memory corruption, appsec, daemon 审计]
+triggers: [buffer overflow, use-after-free, UAF, race condition, memory corruption, appsec]
 tags: [security, appsec, c, cpp, memory-safety, code-review, vulnerability, static-analysis]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Grep, Read, Glob, Bash, Write]
+tools: []
 requires: []
 related: [zeroize-audit, constant-time-analyzer, binary-analysis-patterns, codeql-scanner]
 combines_with: [codeql-scanner, vulnerability-variant-analysis, false-positive-check]
@@ -16,120 +16,310 @@ license: CC-BY-SA-4.0
 source: trailofbits/skills
 source_license: CC-BY-SA-4.0
 ---
-## 何时使用
+# C/C++ Security Review
 
-适用于对原生 C/C++ 代码做安全导向的人工审查，目标是内存破坏类与平台相关漏洞：缓冲区溢出、整数溢出/回绕、use-after-free、未初始化数据、空指针解引用、竞态条件、类型混淆、格式化字符串，以及 Linux/macOS 守护进程与 Windows 用户态服务的特有问题。典型场景：审计网络服务/解析器/IPC 端点，或在一个代码子树内系统性排查上述 bug class。
+Runs in the main conversation (invoke via `/c-review:c-review`). Orchestrator owns the `Task*` ledger as bookkeeping for retries; workers and judges have no Task tools. Workers and judges are named plugin subagents (`c-review:c-review-worker`, `c-review:c-review-dedup-judge`, `c-review:c-review-fp-judge`); tool sets are declared in `plugins/c-review/agents/*.md`. Findings are exchanged via markdown-with-YAML files in a shared output directory.
 
-不该用的边界（命中任一就停下，换别的方法）：
-- 内核驱动/模块（Linux、Windows、macOS）——攻击面与原语不同。
-- 托管语言（Java、C#、Python、Go、Rust）——内存安全模型不同。
-- 无 libc 的嵌入式/裸机代码。
+## When to Use
 
-## 步骤
+Native C/C++ application security review: memory safety, integer overflow, races, type confusion, Linux/macOS daemons, Windows userspace services.
 
-先固定两个独立的范围，全程不要混淆：
-- finding_scope_root：用户要求审计的子树。发现项的漏洞位置必须落在此子树内。
-- context_roots：只读上下文（默认 `.`），可读它来核对调用者、包装函数、构建标志、缓解措施与威胁模型，但不得在其外提交发现项。
+## When NOT to Use
 
-1. 定威胁模型与参数。威胁模型取 `REMOTE` / `LOCAL_UNPRIVILEGED` / `BOTH`，它决定哪些 pass 在范围内（如 privilege-drop、envvar 在 `REMOTE` 下跳过；`LOCAL_UNPRIVILEGED` 下环境变量视为攻击者可控）。确定严重度过滤档（all/medium/high）——注意：**过滤档只影响最终报告呈现，不决定是否记录发现项；先记录所有已确认 bug，分级留到最后**。
-2. 探测语言/平台标志（在 finding_scope_root 内）：是否含 C++ 源（`*.cpp/*.cxx/*.cc/*.hpp/*.hh`）→ `is_cpp`；是否 include `pthread/signal/sys/socket/unistd` 等 → `is_posix`；是否 include `windows/winsock/ntdef` 等 → `is_windows`。据此启用对应 bug class 集合。
-3. 写一份上下文摘要：用途、范围、入口点（不可信数据从何进入：网络/文件/CLI/IPC）、信任边界（沙箱 vs 可信对端 vs 任意远端）、已有加固（fuzzing 语料、sanitizer、特权分离）。这是后续判定可达性与影响的基线。
-4. 建立 sink 清单（每次审查只建一次）。跑下面的 Grep，把命中合并成一个工作集，记录 `path:line`、被调函数名与一行上下文。**不要在后续每个 pass 里重复 grep**。
-5. 按 bug class 跑聚焦 pass。每个 pass 从 sink 清单里筛出它关心的被调函数，`Read` 包围函数，追踪该 pass 特有的不变量（见下方各类要点）。
-6. 对每个确认的 bug 写一份发现项文件（模板见示例），必须含数据流（源/汇/校验）、可达性调用链、影响、已检查的缓解措施、修复建议。
-7. 去重与定级。同一 `(path, line)` 被多 pass 命中时按优先级取最具体的一类；最后对每个主发现项给出误报判定与（存活项的）严重度。
+- Kernel drivers/modules (Linux, Windows, macOS).
+- Managed languages (Java, C#, Python, Go, Rust).
+- Embedded/bare-metal code without libc.
 
-## 指令
+## Subagents
 
-统一 sink 清单 grep（每个目标各跑一次，后续 pass 不再重复）：
+| Subagent type | Purpose | Tool set |
+|---|---|---|
+| `c-review:c-review-worker` | Run assigned cluster, write findings | Read, Write, Edit, Grep, Glob, Bash |
+| `c-review:c-review-dedup-judge` | Merge duplicates (runs **first**) | Read, Write, Edit, Glob |
+| `c-review:c-review-fp-judge` | FP + severity + final reports (runs **second**) | Read, Write, Edit, Grep, Glob, Bash |
 
-```
-Grep: pattern="\b(memcpy|memmove|memset|bcopy|bzero)\s*\("
-Grep: pattern="\b(strcpy|strncpy|stpcpy|stpncpy|strlcpy|strcat|strncat|strlcat|strdup|strndup)\s*\("
-Grep: pattern="\b(sprintf|vsprintf|snprintf|vsnprintf|asprintf|vasprintf|fprintf|dprintf|printf|vprintf|syslog|vsyslog)\s*\("
-Grep: pattern="\b(scanf|sscanf|fscanf|vscanf|vsscanf|vfscanf)\s*\("
-Grep: pattern="\b(gets|gets_s|fgets|read|pread|recv|recvfrom)\s*\("
-Grep: pattern="\b(malloc|calloc|realloc|reallocarray|alloca|aligned_alloc|posix_memalign)\s*\("
-Grep: pattern="\b(strtok|strtok_r|mbstowcs|wcstombs|wcsncpy|wcsncat|wcslen|tmpnam|tempnam|mktemp|putenv)\s*\("
-```
+Tools come from each agent's frontmatter at spawn time. The orchestrator's `Task*`/`Agent`/`Bash`/etc. come from this skill's `allowed-tools`.
 
-缓冲区写入类 pass（按此顺序，前面的 pass 先"吃掉"明显案例）：
-- BAN 禁用函数：生产代码裸调 `gets/strcpy/strcat/sprintf/vsprintf/tmpnam/mktemp/strtok(非_r)/rand/alloca/putenv` 即为问题，无需数据流；排除注释/字符串/测试中的字面量、被本地安全宏/包装覆盖、`#ifdef` 守护到非审计平台的情况。
-- FMT 格式化字符串：非字面量格式串（`printf(user_input)`）、`%n`、类型/宽度不匹配、缺 `__attribute__((format))` 的变参包装；排除编译期字面量、已有 format 注解的情况。
-- SNPRINTF 返回值误用：`buf[n]='\0'`（n 为返回值可能≥size）、`ptr += snprintf(...)` 未 clamp、`size - snprintf(...)` 可能为负。
-- OVERLAP 缓冲区重叠：源/汇同缓冲区（`sprintf(buf,"%s",buf)`、`memcpy(buf+k,buf,n)`）；`memmove` 安全可跳过。
-- MEMCPYSZ 负数/回绕尺寸进 `mem*`：尺寸来自可能为负的有符号运算（`end-start`）或无符号下溢回绕到 `SIZE_MAX`、syscall 返回 `-1` 直接 cast。
-- STRLENCPY 分配差一：`malloc(strlen(s))`+`strcpy` 漏掉终止符字节；`+1` 或 `strdup` 则安全。
-- STRNCPY 不终止：`strncpy(buf,src,sizeof(buf))` 后无 `buf[sizeof(buf)-1]='\0'`。
-- STRNCAT 尺寸误用：第三参用了 `sizeof(buf)` 而非 `sizeof(buf)-strlen(buf)-1`。
-- SCANFUNINIT：目标未初始化 + 未检查 `scanf` 返回值 + 后续用于安全决策。
-- FLEX 柔性数组：`data[0]`/`data[1]` 末尾成员 + `malloc(sizeof(struct))` 未用 `offsetof`。
-- STR 编码/多字节：字节数 vs 字符数混淆、locale 相关大小写映射用于安全比较、信任边界缺 UTF-8/16 校验。
-- BOF 兜底空间安全（最后跑）：循环边界差一（`<=`）、无界数组索引、`malloc(n*sizeof(T))` 乘法溢出、跨缓冲区 `memcmp/memcpy`。
-
-去重优先级（同一 `(path,line)` 取更高者）：SNPRINTF > BAN > UNSAFESTD；STRNCPY > STRLENCPY > BOF；STRNCAT > BOF；OVERLAP > MEMCPYSZ > BOF；FMT > BAN；STR > STRNCPY；其余并列时 BOF 兜底。
-
-其他 bug class 集合（据语言/平台标志启用）：对象生命周期（UNINIT/NULL/UAF/LEAK）、算术与类型（PREC/INT/TYPE/UB）、系统调用返回值（ERR，POSIX 下加 NEGRET/ERRNO/EINTR/socket 类）、并发（RACE/THREAD/SIGNAL/SPINLOCK）、环境状态（FS/ACCESS/TIME/DOS，本地威胁模型下加 PRIVDROP/ENVVAR）；C++ 专项（INIT/VIRT/SPTR/MOVE/ITER/LAMBDA/EXCEPT）；Windows 专项（CreateProcess/DLL planting/named pipe/token 权限等）。
-
-需要拒绝的合理化借口：「路径不可达」→ 用调用链证明，否则照报；「ASLR/DEP 挡住了」→ 缓解措施本身是绕过目标；「只崩溃不可利用」→ 内存破坏通常可控；「别处校验过」→ 去核实校验确实存在；「环境可信」→ `LOCAL_UNPRIVILEGED` 下环境变量攻击者可控。
-
-## 示例
-
-确认 bug 后写发现项文件（建议 `findings/<PREFIX>-<NNN>.md`），固定字段与七个小节：
-
-```markdown
----
-id: BOF-001
-bug_class: buffer-overflow
-title: parse_header 缺少边界检查
-location: src/net/parse.c:142
-function: parse_header
-confidence: High
 ---
 
-## Description
-什么不变量被破坏、攻击者控制什么。
+## Architecture
 
-## Code
-```c
-if (len > 0) {
-    memcpy(buf, src, len);   // buf 仅 64 字节，len 来自网络头
-}
+```
+coordinator: write context.md → build_run_plan.py → TaskCreate × M
+          → spawn primer (foreground) → spawn M workers (parallel)
+          → classify Phase-7 outcomes + write findings-index.txt
+          → dedup-judge → fp-judge → SARIF safety net → return REPORT.md
 ```
 
-## Data flow
-- 源：recv_request() 中 HTTP Content-Length 头（src/net/recv.c:88）
-- 汇：memcpy（src/net/parse.c:142）
-- 校验：无，len 仅受 uint32_t 类型限制
+Output directory contains: `context.md`, `plan.json`, `worker-prompts/`, `findings/`, `findings-index.d/` (per-worker shards), `findings-index.txt`, `run-summary.md`, `dedup-summary.md`, `fp-summary.md`, `REPORT.md`, `REPORT.sarif`.
 
-## Reachability trace
-recv_request → dispatch → parse_header → memcpy
+**Path convention:** set `${C_REVIEW_PLUGIN_ROOT}=${CLAUDE_PLUGIN_ROOT}` if that resolves (`Bash: ls "${CLAUDE_PLUGIN_ROOT}/prompts/clusters/buffer-write-sinks.md"`), otherwise `Bash: find ~/.claude -path '*/plugins/c-review/prompts/clusters/buffer-write-sinks.md' -print -quit`.
 
-## Impact
-栈缓冲区溢出，攻击者控制 len 与源字节。
+**Scope convention:** keep two scopes separate throughout the run:
 
-## Mitigations checked
-- 栈 canary：有（-fstack-protector-strong），但写入足够多即可绕过
-- ASLR：启用，需绕过
-- FORTIFY_SOURCE：此处未生效
+- `finding_scope_root` — the user-requested audit subtree. Workers may only file findings whose vulnerable location is inside this subtree.
+- `context_roots` — read-only repo roots/files workers and judges may inspect to verify reachability, callers, wrappers, build flags, mitigations, and threat-model details. Default to `.` unless the user explicitly forbids broader context. Reading context outside `finding_scope_root` is allowed; filing findings there is not.
 
-## Recommendation
-memcpy 前校验 len <= sizeof(buf)，或改用有界拷贝原语。
+---
+
+## Rationalizations to Reject
+
+- **"Background spawns parallelize the workers."** They do not — `Agent` calls in a single assistant message already run concurrently. `run_in_background=true` defeats the Phase 6a primer cache, so every worker pays full cache-creation (`cache_read_input_tokens=0`) and the ~15 K-token primer is wasted M times. This is the single most common defect — multiple recent runs spawned 7-of-8 (or all) workers with `bg=true`. Default: omit `run_in_background` from worker spawns.
+- **"I'll re-derive the cluster list / paths / pass prefixes inline instead of running `build_run_plan.py`."** The script is the only authority for selection and rendering. Paraphrasing it drops fields that the worker self-check requires, producing `worker-N abort: spawn prompt malformed`. Always run the script and `Read plan.json`.
+- **"The run partially succeeded — I'll just write `REPORT.md` from what completed."** Hiding partial runs behind a successful report is a correctness bug. If any Phase-5 cluster task is not `completed`, surface it prominently in `run-summary.md` and the final response.
+- **"Zero findings — skip Phase 8."** Always run both judges and Phase 8b: dedup-judge writes a minimal no-op `dedup-summary.md` on an empty index, fp-judge writes empty `REPORT.md`/`REPORT.sarif`, and Phase 8b's SARIF generator emits `results: []` for the empty case. SARIF consumers depend on a stable artifact set.
+- **"`Bash: ls README*` is fine for the preflight."** Under zsh, an unmatched glob aborts the whole compound command before `2>/dev/null` runs. Use `Glob` (preferred) or `find` (never fails on no-match).
+
+---
+
+## Orchestration Workflow
+
+Run these phases **in the main conversation**.
+
+### Phase 0: Parameter Collection
+
+**Entry:** skill invoked. **Exit:** `threat_model`, `worker_model`, `severity_filter` resolved; `scope_subpath` resolved or set to `"."`; `finding_scope_root=scope_subpath`; `context_roots` resolved.
+
+The skill is invoked directly (no command wrapper). Parse any free-text arguments the user passed on the `/c-review:c-review` line (e.g. `flamenco only`, `high severity only`, `use haiku`) and pre-fill the answers they imply — then ask for any missing required parameters with **one** `AskUserQuestion` call. Never silently default the required parameters.
+
+Required parameters:
+
+| Parameter | Values | How to infer from args |
+|---|---|---|
+| `threat_model` | `REMOTE` / `LOCAL_UNPRIVILEGED` / `BOTH` | Words like "remote", "network", "attacker" → `REMOTE`; "local", "unprivileged" → `LOCAL_UNPRIVILEGED`; otherwise ask. |
+| `worker_model` | `haiku` / `sonnet` / `opus` | Explicit model name in args. Otherwise ask (no silent default). |
+| `severity_filter` | `all` / `medium` / `high` | "all", "every", "noisy" → `all`; "medium and above" → `medium`; "high only", "criticals only" → `high`. Otherwise ask — **no silent default**. |
+| `scope_subpath` | repo-relative directory (optional) | Phrases like "X only", "just audit X/", "review subdirectory X" → `src/X/` or the matching subdir. Apply fuzzy matching against top-level subdirectories of the repo. If absent, set `"."`; if ambiguous, ask. |
+
+Call `AskUserQuestion` exactly once with only unresolved required parameters (`threat_model`, `worker_model`, `severity_filter`) plus `scope_subpath` only when the user explicitly requested a narrowed scope but it is ambiguous. If the required parameters were all pre-filled and scope is absent or resolved, skip the question.
+
+After resolving `scope_subpath`, set `finding_scope_root="${scope_subpath:-.}"`. Set `context_roots="."` by default so workers can verify callers/build settings outside a narrowed subtree without filing out-of-scope findings. If the user explicitly asks to forbid broader context, set `context_roots="${finding_scope_root}"` and note that reachability confidence may be lower.
+
+### Phase 1: Prerequisites
+
+**Entry:** Phase 0 complete. **Exit:** `is_cpp`, `is_posix`, `is_windows` flags determined.
+
+Probe within `${finding_scope_root:-.}`. Prefer `Glob`/`Grep` when available in the orchestrator's tool set; some sessions only expose `Bash`, so fall back to the equivalents below — both forms produce identical signals (non-empty output ⇒ flag true):
+
+```bash
+# is_cpp
+find "${finding_scope_root:-.}" -type f \( -name '*.cpp' -o -name '*.cxx' -o -name '*.cc' -o -name '*.hpp' -o -name '*.hh' \) -print -quit
+# is_posix
+grep -rlE '#include[[:space:]]*<(pthread|signal|sys/(socket|stat|types|wait)|unistd|errno)\.h>' \
+  --include='*.c' --include='*.h' \
+  --include='*.cpp' --include='*.cxx' --include='*.cc' --include='*.hpp' --include='*.hh' \
+  "${finding_scope_root:-.}" | head -1
+# is_windows
+grep -rlE '#include[[:space:]]*<(windows|winbase|winnt|winuser|winsock|ntdef|ntstatus)\.h>' \
+  --include='*.c' --include='*.h' \
+  --include='*.cpp' --include='*.cxx' --include='*.cc' --include='*.hpp' --include='*.hh' \
+  "${finding_scope_root:-.}" | head -1
 ```
 
-格式硬约束（去重依赖）：`location` 只能是一个 `path:line`（仓库相对路径，无 markdown 链接、不列多个）；`function` 只能是一个函数名；同一 bug 模式出现在三个函数就写三份文件，不要合并。
+`compile_commands.json` is informational (no agent currently uses LSP), but the probe is mandatory so the run summary records whether richer local tooling is available. Probe via `Glob: **/compile_commands.json` under `${context_roots}`. If `Glob` is unavailable, use:
 
-## 注意事项
+```bash
+printf '%s\n' "${context_roots:-.}" | tr ',' '\n' | while IFS= read -r root; do
+  [ -n "$root" ] && find "$root" -name compile_commands.json -print -quit
+done | head -1
+# `find "$root"` is quoted intentionally so a context root containing spaces
+# (e.g. "/Users/me/My Repo") survives word-splitting. Do not unquote it.
+```
 
-- sink 清单只建一次，后续 pass 复用，重复 grep 浪费且无新信息。
-- 严重度过滤档不用来过滤是否记录发现项——先记录所有已确认 bug，分级与误报判定放到最后统一做，避免"猜它不够高危就丢弃"导致漏报。
-- 用 `Glob` 预检文件存在再 `Read`；用 `find`（无匹配不报错）而非裸 `ls` glob 做预检，zsh 下未匹配的 glob 会在 `2>/dev/null` 生效前终止整条复合命令。
-- 守住分配的 bug class：同一根因不要硬塞进自己的类——攻击者可控 VLA 栈耗尽可能是 BOF/DOS/UB，但不是 UNINIT（除非确有未初始化数据被使用）。
-- 一处漏洞位置一份发现项，宁可少而高信号；"高信号"指对 bug 存在性的把握，不是对严重度的猜测。
-- 范围越窄，若禁止读外部上下文，可达性置信度会更低——尽量保留 context_roots 以核对调用者与构建设置。
+If absent, suggest CMake `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON`/Bear/compiledb to the user but continue.
 
-## 互见
+### Phase 2: Output Directory
 
-源技能采用"编排器 + 并行 worker + 去重判官 + 误报/严重度判官"的多 agent 架构并生成 SARIF；本条已适配为单 agent 可直接执行的审查流程，保留其威胁模型、bug class 体系、sink 清单方法与去重/定级判据。需要先排查依赖项已知漏洞见 dependency-auditor；需要更通用的正确性/可维护性代码审查（非安全专项）见 code-reviewer。
+**Entry:** Phase 1 flags set. **Exit:** absolute `output_dir` resolved; `${output_dir}/findings/` exists.
 
-本条采编自 trailofbits/skills（CC-BY-SA-4.0），方法学基于 Trail of Bits Testing Handbook（appsec.guide）。
+Resolve an absolute path for `output_dir` (default: `$(pwd)/.c-review-results/$(date -u +%Y%m%dT%H%M%SZ)/`):
+
+```bash
+mkdir -p "${output_dir}/findings"
+```
+
+### Phase 3: Codebase Context
+
+**Entry:** `${output_dir}` exists. **Exit:** `${output_dir}/context.md` written.
+
+Skim `README.{md,rst,txt}` and any build file (`Makefile`, `CMakeLists.txt`, `meson.build`, `configure.ac`) — preflight with the `Glob` tool before any `Read` (a `Read` on a missing file aborts the turn). Do **not** use `Bash: ls README*` for the preflight: under zsh, an unmatched glob aborts the whole compound command before `2>/dev/null` runs (observed: a Phase-3 `ls src/X/README*` call failed with `no matches found` and dropped the entire preflight). If you must use `Bash`, use `find . -maxdepth 2 -name 'README*' -o -name 'Makefile' -o -name 'CMakeLists.txt' -o -name 'meson.build'`, which never fails on no-match.
+
+Write `${output_dir}/context.md` with: YAML frontmatter (`threat_model`, `severity_filter`, `scope_subpath`, `finding_scope_root`, `context_roots`, `is_cpp`, `is_posix`, `is_windows`, `output_dir`, `compile_commands` as `present`/`absent` plus path when present), then a short markdown body with five sections — **Purpose** (1-3 sentences), **Scope** (what's in `finding_scope_root`, and that findings outside it are out of scope), **Entry points** (where untrusted data enters: network, files, CLI, IPC), **Trust boundaries** (sandboxed vs trusted peers vs arbitrary remote), **Existing hardening** (fuzzing corpora, sanitizers, privilege separation).
+
+### Phase 4: Build Run Plan (deterministic)
+
+**Entry:** language flags + `threat_model` known; `${output_dir}/findings/` exists. **Exit:** `${output_dir}/plan.json` and `${output_dir}/worker-prompts/*.txt` written; `M = worker_count` known.
+
+Selection, filtering, path resolution, and spawn-prompt rendering are **delegated to the script** to prevent the "orchestrator paraphrases the spawn template and drops fields" failure mode:
+
+```bash
+python3 "${C_REVIEW_PLUGIN_ROOT}/scripts/build_run_plan.py" \
+  --plugin-root "${C_REVIEW_PLUGIN_ROOT}" --output-dir "${output_dir}" \
+  --threat-model "${threat_model}" --severity-filter "${severity_filter}" \
+  --scope-subpath "${finding_scope_root:-.}" --context-roots "${context_roots:-.}" \
+  --is-cpp "${is_cpp}" --is-posix "${is_posix}" --is-windows "${is_windows}"
+```
+
+The script writes `plan.json` + `worker-prompts/worker-N.txt` + (if `--cache-primer=true`, the default) `worker-prompts/cache-primer.txt`, and prints a JSON summary on stdout. Exits non-zero on any missing prompt — surface the message and stop. Typical M: 7 (C POSIX), 8 (C++ POSIX), 10 (C POSIX + Windows), 11 (C++ POSIX + Windows). After it returns, `Read plan.json` for the structured selection — never re-derive filtering or paths.
+
+### Phase 5: Create Bookkeeping Tasks (orchestrator-internal)
+
+**Entry:** `${output_dir}/plan.json` exists; `M = plan.workers.length`. **Exit:** `cluster_task_ids[]` created (1:1 with `plan.workers`), all `pending`.
+
+The task ledger is **orchestrator bookkeeping only** (TUI visibility + Phase-7 retry tracking) — workers never read or write it. One `TaskCreate` per worker, populating `metadata` with `kind="cluster"`, `worker_n`, `cluster_id`, `spawn_prompt_path`, `pass_prefixes`, `attempt=1` — all values copied verbatim from `plan.workers[i]`. Track `cluster_task_ids[]` in `plan.workers` order.
+
+### Phase 6: Spawn workers (optional cache-primer first, then M in parallel)
+
+**Entry:** `cluster_task_ids[]` populated; per-worker spawn prompt files exist at `${output_dir}/worker-prompts/worker-N.txt`. **Exit:** all M `Agent` calls have returned (the parallel spawn block completed).
+
+#### Phase 6a: Cache primer (gated on `plan.run.cache_primer`)
+
+A parallel batch from cold start cannot share cache (all M requests dispatch simultaneously, none has finished writing). To warm the prefix, spawn a tiny primer first — **foreground** (background spawns don't share cache with subsequent foreground spawns).
+
+If `plan.run.cache_primer == true`, `build_run_plan.py` has written `${output_dir}/worker-prompts/cache-primer.txt`. Spawn it in its own assistant message: `Read` the file, pass verbatim as `Agent` `prompt` with `subagent_type=c-review:c-review-worker`, `model=${worker_model}`, `description="C review cache primer"`, no `run_in_background`. The script wrote the prefix byte-identical to `worker-1.txt` through the `<context>` block — that byte-identity is what gives the parallel workers their cache hit. The primer trailer contains `Cache primer: true`, which the worker system prompt treats as a first-class mode and returns exactly `worker-PRIMER abort: cache primer (no analysis performed)` in one text response with zero tool calls. Discard the abort line — Phase 7 ignores it (no `worker-N` id).
+
+Foreground spawn already serializes — no `sleep` needed before Phase 6b. Skip Phase 6a entirely if `plan.run.cache_primer == false`.
+
+#### Phase 6b: Spawn M real workers in ONE message
+
+> **STOP — read this before composing the spawn message.**
+>
+> Workers MUST be spawned **foreground** (no `run_in_background` field, or `run_in_background=false`).
+> "Parallel" here means *one assistant message containing M `Agent` calls* — that already runs them concurrently. **Background spawns are NOT how you parallelize this skill.**
+>
+> Background spawns defeat Phase 6a's primer cache: every worker pays full cache-creation on its first turn (`cache_read_input_tokens=0`), and the primer's ~15 K tokens are wasted M times over. Two real runs (audit logs available) had exactly this symptom — every worker started with `first_cr=0`.
+>
+> Before sending the spawn message, audit your draft: every `Agent` call must have **no** `run_in_background` key. If you wrote `run_in_background=true`, delete it.
+
+**Required spawn shape:** emit a single assistant message containing M `Agent` tool invocations. Sequential spawning serializes the review and is also wrong, but that failure is loud (timing); the background-spawn failure is silent (cost).
+
+For each worker `N ∈ [1..M]`:
+
+1. `Read: ${output_dir}/worker-prompts/worker-N.txt`
+2. Pass the file contents **verbatim** as the `Agent` tool's `prompt` argument:
+
+| Parameter | Value |
+|-----------|-------|
+| `subagent_type` | `c-review:c-review-worker` |
+| `model` | `${worker_model}` (haiku / sonnet / opus) |
+| `description` | `C review worker N` |
+| `prompt` | the full text of `worker-N.txt` (no edits) |
+| `run_in_background` | **field MUST be omitted, OR set to `false`.** Never `true`. See the foreground-spawn warning above. |
+
+The spawn prompt is the single authority. Pass it verbatim — every field is required by the worker's self-check; any deviation triggers `worker-N abort: spawn prompt malformed`.
+
+**Anti-patterns to reject:**
+
+- **Passing `run_in_background=true`** (the dominant historical defect — see warning above).
+- Hand-typing the spawn prompt instead of reading `worker-N.txt`.
+- Inserting Task-related instructions ("first call TaskList", "Assigned task id: <N>"). Workers have no Task tools.
+- Editing the rendered prompt before passing it (trimming "redundant" fields, collapsing pass lists).
+
+### Phase 7: Wait for Workers and Classify Outcomes
+
+**Entry:** all M Phase-6 `Agent` calls have returned. **Exit:** every cluster has either succeeded or been retried up to the cap; `${output_dir}/findings-index.txt` written.
+
+The Phase-6 `Agent` invocations block until each worker returns. Inspect each worker's return text and apply this classifier in order — first match wins:
+
+| # | Match (in return text) | Outcome | Action |
+|---|---|---|---|
+| 1 | `worker-N complete:` | **success** | `TaskUpdate` to `completed`. |
+| 2 | `abort: spawn prompt malformed`, `abort: pre-work budget exceeded`, or `abort: TaskList unavailable` (legacy) | **non-retryable orchestrator bug** | Stop the run, surface the abort + spawn-prompt path. Re-running the same prompt repeats the failure — pre-work-budget exhaustion always means the worker couldn't pass its self-check, which a retry won't fix. |
+| 3 | other `worker-N abort:` | **retryable** | Mark `pending`, set `metadata.abort_reason`, `needs_respawn=true`, increment `attempt`. |
+| 4 | `Agent` errored or no `complete:`/`abort:` token | **retryable** | Same as #3 (transient worker crash). |
+
+If any non-retryable, stop. Otherwise re-spawn each `pending` retryable with `attempt < 2` in one parallel block (cap = 2 attempts per cluster). Replacement workers can safely overwrite partial files — finding IDs are deterministic per prefix.
+
+#### Sanity-check + write index
+
+For every `complete:` cluster, list `${output_dir}/findings/${prefix}-*.md` for each `pass_prefix` (from `plan.json`). A worker that says "wrote N finding files" with N>0 but zero files on disk is **suspicious** — treat as retryable (classifier row #4). Zero claimed + zero on disk is fine.
+
+Then build the index — workers wrote per-worker shards under `${output_dir}/findings-index.d/`, prefer those:
+
+```bash
+# Use `find` rather than a `worker-*.txt` glob: zsh aborts the compound command on no-match
+# even with `2>/dev/null`, so an empty findings-index.d would otherwise drop the index file.
+# `awk 1` (vs `cat`) normalizes a missing trailing newline on any shard, so a future
+# worker that writes shards via Write/printf instead of `ls -1 | sort` can't silently glue
+# the last path of one shard onto the first of the next when sort -u dedupes.
+if [ -d "${output_dir}/findings-index.d" ]; then
+  find "${output_dir}/findings-index.d" -maxdepth 1 -type f -name 'worker-*.txt' -exec awk 1 {} + 2>/dev/null \
+    | sort -u > "${output_dir}/findings-index.txt"
+else
+  find "${output_dir}/findings" -maxdepth 1 -type f -name '*.md' 2>/dev/null | sort > "${output_dir}/findings-index.txt"
+fi
+```
+
+`sort -u` collapses duplicates from Phase-7 retries. Empty file is the unambiguous "zero findings" signal. Cross-check the line count against the sum of `wrote N` worker claims; log mismatches but don't abort.
+
+After task updates and index creation, run `TaskList` and write `${output_dir}/run-summary.md` with:
+
+- resolved parameters (`threat_model`, `severity_filter`, `finding_scope_root`, `context_roots`, language/platform flags, compile-commands status)
+- worker outcome table (`worker_n`, `cluster_id`, claimed finding count, shard line count, task status, retry/abort state)
+- `findings-index.txt` line count and any mismatch against worker claims
+- judge status once Phase 8 finishes, or the reason a judge was skipped/failed
+
+If any Phase-5 cluster task is not `completed`, include it prominently in `run-summary.md` and the final response. Do not hide a partial run behind a successful report.
+
+**Always run Phase 8 even on zero findings** — both judges short-circuit on an empty index: dedup-judge writes a minimal no-op `dedup-summary.md`, and fp-judge writes empty `REPORT.md`/`REPORT.sarif` so SARIF consumers get a stable artifact set.
+
+### Phase 8: Judge Pipeline (sequential, dedup → fp+severity)
+
+**Entry:** `findings-index.txt` exists. **Exit:** dedup-judge and fp-judge have returned; `dedup-summary.md`, `fp-summary.md`, `REPORT.md`, and ideally `REPORT.sarif` are written.
+
+Each judge's full protocol is its system prompt (`agents/c-review-{dedup,fp}-judge.md`); spawn prompts pass only per-run variables. Do **not** reference `prompts/internal/judges/` — those files don't exist.
+
+Spawn sequentially (dedup first, fp-judge sees only merged primaries):
+
+- `Agent(subagent_type="c-review:c-review-dedup-judge", description="Dedup judge", prompt=f"output_dir: {output_dir}")`
+- `Agent(subagent_type="c-review:c-review-fp-judge", description="FP + severity judge", prompt=f"output_dir: {output_dir}\nsarif_generator_path: {sarif_generator_path}")` — resolve `sarif_generator_path` to `${C_REVIEW_PLUGIN_ROOT}/scripts/generate_sarif.py`.
+
+**Judge failure handling.** Same shape as Phase 7's classifier, applied to judge return text:
+
+- `… complete:` → **success.**
+- `… abort:` → **non-retryable.** Surface the abort line plus `ls -l ${output_dir}/findings-index.txt`; stop.
+- No `complete:` (help message / error / question) → **retryable once.** `SendMessage(to=<agentId>, …)` rather than a fresh spawn (the agent already paid the protocol-parse cost). Include the explicit finding paths from `findings-index.txt`. If the second try still fails, surface the transcript and continue to Phase 8b.
+
+### Phase 8b: SARIF safety net
+
+**Entry:** fp-judge returned, or the run aborted early. **Exit:** `${output_dir}/REPORT.sarif` exists.
+
+```bash
+test -d "${output_dir}/findings" && python3 "${C_REVIEW_PLUGIN_ROOT}/scripts/generate_sarif.py" "${output_dir}"
+```
+
+Run unconditionally whenever `findings/` exists — generator is idempotent (full overwrite), emits `results: []` for zero-survivor runs, and handles partial runs (findings without `fp_verdict` are emitted as `LIKELY_TP` rather than being silently dropped). Always overwriting protects against the case where fp-judge crashed mid-write and left a corrupt `REPORT.sarif` on disk. Skip only if `${output_dir}/findings/` doesn't exist (Phase 2 failed). After this phase, update `${output_dir}/run-summary.md` with judge/SARIF status.
+
+### Phase 9: Return Report
+
+**Entry:** Phase 8b complete. **Exit:** every item in [Success Criteria](#success-criteria) verified true; `REPORT.md` returned to the caller.
+
+Before composing the response, walk the [Success Criteria](#success-criteria) checklist below and confirm each bullet against on-disk artifacts (`TaskList` for cluster tasks, `ls`/`Read` for the files). If any criterion fails, surface the failure prominently in the response — do **not** hide a partial run behind a successful report.
+
+Then `Read ${output_dir}/REPORT.md` and return its content to the caller. Append an Artifacts list pointing at `findings/`, `findings-index.txt`, `run-summary.md`, `dedup-summary.md`, `fp-summary.md`, `REPORT.md`, `REPORT.sarif`.
+
+---
+
+## Finding file frontmatter — three stages
+
+Authoritative schema: `agents/c-review-worker.md` ("Finding File Format"). Three-stage write:
+
+1. **Worker** — base fields (`id`, `bug_class`, `title`, `location`, `function`, `confidence`, `worker`) + seven body sections.
+2. **Dedup-judge** — adds `merged_into` on duplicates, or `also_known_as` + `locations` on primaries that absorbed.
+3. **FP+Severity judge** — adds `fp_verdict` + `fp_rationale` on every primary; on survivors (`TRUE_POSITIVE`/`LIKELY_TP`) also adds `severity`, `attack_vector`, `exploitability`, `severity_rationale`.
+
+## Bug classes / clusters
+
+Authoritative: `prompts/clusters/manifest.json`. 47 always-on bug classes, up to 64 with all conditional clusters enabled. `buffer-write-sinks` is fully consolidated (its sub-prompts are not re-read at runtime).
+
+---
+
+## Success Criteria
+
+The phase exits already cover most of this; the orchestrator-visible end-state is:
+
+- Every Phase-5 cluster task is `completed` (verify via `TaskList`).
+- `${output_dir}/run-summary.md` exists and records resolved scope/context, compile-commands probe result, worker claims vs index count, task status, and judge/SARIF status.
+- Every primary finding (no `merged_into`) has `fp_verdict` + `fp_rationale`; every survivor (`TRUE_POSITIVE`/`LIKELY_TP`) also has `severity`, `attack_vector`, `exploitability`, `severity_rationale`.
+- `REPORT.md` exists, severity-filtered per `severity_filter`.
+- `REPORT.sarif` exists (Phase 8b safety net guarantees this).

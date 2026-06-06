@@ -1,14 +1,14 @@
 ---
 name: depmap-crispr-essentiality
-title: DepMap CRISPR 基因必需性分析
-description: 当你用 DepMap CRISPR 基因效应（Chronos）数据分析基因必需性/依赖性，或把表达量与必需性做相关时使用；做符号纠正（负=必需）+ 逐基因 NaN-safe Spearman + 数据对齐，产出每基因相关系数表与阈值命中数；不适用于原始 gene effect 免取负、通路富集、变异致病性查询；触发词：DepMap、CRISPR、基因必需性、Chronos、essentiality
+title: DepMap CRISPR Gene Effect Analysis Guide
+description: DepMap CRISPR gene effect (Chronos) analysis: sign convention for essentiality, per-gene NaN-safe Spearman correlation, data loading/alignment. For general NaN-safe correlation see nan-safe-correlation; for quality filtering see degenerate-input-filtering.
 domain: 领域/science
-triggers: [DepMap, CRISPR, 基因必需性, 基因依赖性, Chronos, gene effect, 必需性相关, essentiality, CRISPRGeneEffect, 取负符号约定, 逐基因 Spearman, NaN-safe 相关]
+triggers: [DepMap, CRISPR, Chronos, gene effect, essentiality, CRISPRGeneEffect]
 tags: [science, genomics, bioinformatics, depmap, crispr, essentiality, chronos, spearman, correlation, cancer-dependency]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, pandas, numpy, scipy]
+tools: []
 requires: []
 related: [pydeseq2-differential-expression, gene-set-enrichment-analysis, guided-statistical-analysis, opentargets-database, scientific-database-lookup]
 combines_with: [gene-set-enrichment-analysis, guided-statistical-analysis, pydeseq2-differential-expression]
@@ -16,88 +16,250 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# DepMap CRISPR Gene Effect Analysis Guide
 
-当你要正确解读与分析 **DepMap CRISPR 基因效应（Chronos）数据**，尤其是把表达量与「必需性 / 依赖性」做相关分析时使用本条。典型场景：
+## Overview
 
-- 判断某基因在某细胞系是否为**必需基因**（敲除后活性下降）。
-- 把表达量（或其他组学）与「必需性」逐基因做 Spearman 相关，找强相关基因。
-- 在细胞系面板上按必需性给基因排序、找选择性必需基因。
+This guide covers the correct interpretation and analysis of DepMap CRISPR gene effect (Chronos) data. The most critical and common error in DepMap analyses is failing to negate the CRISPR scores when computing correlations with "essentiality." A secondary but equally damaging mistake is using bulk correlation shortcuts that mishandle per-gene NaN patterns. This guide provides the mandatory sign convention, the correct per-gene NaN-safe Spearman correlation implementation, and data loading/alignment procedures.
 
-**不该用的边界：**
-- 问题问的是**原始 gene effect**（非「必需性 / 依赖性」）—— 直接用原始分数，**不要取负**。
-- 通路 / 富集解读 —— 交 `gene-set-enrichment-analysis`。
-- 变异致病性、群体频率、靶点-疾病关联 —— 交 `clinvar-database` / `gnomad-population-database` / `opentargets-database`。
-- 通用 NaN-safe 相关与统计建议 —— 见 `guided-statistical-analysis`。
+## Key Concepts
 
-## 步骤 / 指令
+### DepMap CRISPR Score Convention
 
-DepMap 分析最高频、最致命的两个错误：(1) 算「必需性」相关时忘记给 CRISPR 分数取负；(2) 用整表捷径（`corrwith` / `rank().corrwith()`）算相关，对逐列 NaN 处理不一致。按下列决策流执行：
+The CRISPR gene effect score (produced by the Chronos algorithm) quantifies how gene knockout affects cell viability:
 
-1. **判断符号约定**：问题出现「必需性 / essentiality / 依赖性 / dependency」→ 必须对 CRISPR 分数**取负**（原始约定：负分=必需）；问的是原始 gene effect → 不取负。
-2. **加载数据**：`CRISPRGeneEffect.csv`（行=细胞系 `ACH-XXXXXX`，列=`基因名 (ENTREZ_ID)` 如 `A1BG (1)`，值含 NaN）；表达量同格式 `OmicsExpressionProteinCodingGenesTPMLogp1BatchCorrected.csv`。
-3. **对齐**：先求行（细胞系）、列（基因）交集再取子集，避免错位静默出错。
-4. **报告 NaN 摘要**：打印各表 NaN 总数、共同细胞系数、共同基因数，作为审计与排错线索。
-5. **必要时取负**：`essentiality = -crispr_aligned`（取负后正值=更必需）。
-6. **逐基因 Spearman + 配对去 NaN**：对每个基因单独 `scipy.stats.spearmanr`，掩码 `mask = ~(np.isnan(x) | np.isnan(y))`；有效对 `< 10` 则跳过（保守可设 20+）。**禁用** `DataFrame.corrwith` 和 `rank().corrwith()`。
-7. **取阈值出结论 + 显式声明符号约定**：报告 `>= 0.6` / `<= -0.6` 命中数，并写明「CRISPR 分数已取负，正相关=高表达对应更必需」。
+- **Negative score**: gene knockout reduces cell viability -- the gene is **essential** for that cell line
+- **Zero score**: no measurable effect on viability
+- **Positive score**: gene knockout increases viability (rare, may indicate tumor-suppressive behavior)
 
-> 关键陷阱：若你对**原始**分数相关，得到 3 个基因 `<= -0.6`、0 个 `>= 0.6`，那么「与必需性强正相关」的正确答案是 **3** 而非 0 —— 原始负相关就是必需性正相关。
+The DepMap portal distributes these scores in the file `CRISPRGeneEffect.csv`. Each row is a cell line (DepMap ID, e.g., `ACH-000001`) and each column is a gene in the format `GENE_NAME (ENTREZ_ID)`, e.g., `A1BG (1)`.
 
-## 示例
+### Essentiality Sign Interpretation
 
-```python
-import pandas as pd, numpy as np
-from scipy.stats import spearmanr
+Because negative raw scores indicate essentiality, any analysis that asks about "essentiality" or "dependency" requires negating the raw CRISPR scores:
 
-crispr = pd.read_csv('CRISPRGeneEffect.csv', index_col=0)
-expr   = pd.read_csv('OmicsExpressionProteinCodingGenesTPMLogp1BatchCorrected.csv', index_col=0)
+- "Correlation with essentiality" = correlation with `-CRISPRGeneEffect` (negated)
+- "Higher essentiality" = more negative raw score = more positive negated score
+- "Most essential gene" = gene with the most negative raw score
 
-def per_gene_spearman(expr, crispr, negate=True, min_pairs=10):
-    # 对齐：先交集再取子集（否则错位静默出错）
-    lines = expr.index.intersection(crispr.index)
-    genes = expr.columns.intersection(crispr.columns)
-    expr, crispr = expr.loc[lines, genes], crispr.loc[lines, genes]
-    if negate:
-        crispr = -crispr  # DepMap：负=必需；取负后正=必需
-    # NaN 摘要（分析前打印，便于排错）
-    print(f"共同细胞系 {len(lines)} | 共同基因 {len(genes)} | "
-          f"expr NaN {expr.isna().sum().sum()} | crispr NaN {crispr.isna().sum().sum()}")
-    out = {}
-    for g in genes:
-        x, y = expr[g].values, crispr[g].values
-        mask = ~(np.isnan(x) | np.isnan(y))   # 配对去 NaN，而非整表 dropna
-        if mask.sum() < min_pairs:            # 有效对太少则跳过
-            continue
-        out[g], _ = spearmanr(x[mask], y[mask])
-    return pd.Series(out).sort_values(ascending=False)
+If you correlate expression with **raw** CRISPR scores and find 3 genes with correlation <= -0.6 and 0 genes with correlation >= 0.6, then the correct answer for "genes with strong positive correlation with essentiality" is **3**, not 0. The negative correlations with raw scores ARE the positive correlations with essentiality.
 
-corr = per_gene_spearman(expr, crispr, negate=True)
-thr = 0.6
-print(f">= {thr}: {(corr >= thr).sum()} 个 | <= -{thr}: {(corr <= -thr).sum()} 个")
-print("注：CRISPR 分数已取负，正相关=高表达对应更必需。")
+### Data Structure: CRISPRGeneEffect Format
+
+The standard DepMap data files use a consistent structure:
+
+- **Index**: DepMap cell line identifiers (`ACH-XXXXXX`)
+- **Columns**: Gene identifiers in `GENE_NAME (ENTREZ_ID)` format
+- **Values**: Floating-point scores (may contain NaN for genes not screened in a given cell line)
+- **Companion files**: Expression data (`OmicsExpressionProteinCodingGenesTPMLogp1BatchCorrected.csv`) uses the same index/column format, enabling direct alignment
+
+Different genes have different patterns of missing data across cell lines. This is because not all genes are screened in all cell lines, and quality control may remove specific gene-cell line combinations.
+
+## Decision Framework
+
+```
+Question: How should I compute correlations with DepMap CRISPR data?
+├── Does the question mention "essentiality" or "dependency"?
+│   ├── Yes → Negate CRISPR scores before correlating (see Best Practices #1)
+│   └── No (raw gene effect) → Use raw scores directly
+├── How should I compute correlations?
+│   ├── Per-gene correlation → scipy.stats.spearmanr in a loop (see Best Practices #2)
+│   └── Matrix-wide correlation → AVOID; use per-gene loop instead
+└── How should I handle missing data?
+    ├── Pairwise NaN removal → CORRECT (see Best Practices #3)
+    └── Global row/column dropping → INCORRECT; loses too much data
 ```
 
-反模式（出现即替换为上面的逐基因循环）：
-```python
-expr.rank().corrwith(crispr.rank())          # 错：整表 NaN 处理不可靠
-expr.corrwith(crispr, method='spearman')     # 错：同上
-```
+| Scenario | Recommended Approach | Rationale |
+|----------|---------------------|-----------|
+| Correlating expression with "essentiality" | Negate CRISPR scores, then per-gene Spearman | Sign convention requires negation; per-gene handles NaN correctly |
+| Correlating expression with raw gene effect | Per-gene Spearman on raw scores | No negation needed, but NaN-safe per-gene loop still required |
+| Ranking genes by essentiality across cell lines | Rank by most negative mean raw score | More negative = more essential across the panel |
+| Identifying selectively essential genes | Compare score distributions across subgroups | Use per-subgroup mean/median of raw scores, then compare |
+| Filtering genes before correlation | Require minimum 10 valid cell line pairs | Genes with too few observations yield unreliable correlations |
 
-## 注意事项
+## Best Practices
 
-- **取负只在「必需性」语境**：原始约定负分=必需，反直觉；忘取负会让每个相关系数符号反转、结论全错。加注释 `# 负=必需`。
-- **配对去 NaN，禁整表 dropna**：各基因缺失模式不同，全表 `dropna()` 会丢掉所有「任一列含 NaN」的细胞系，样本量骤降。
-- **最小有效对阈值**：`< 10` 对的相关不稳定，按需调到 20+。
-- **必须先对齐**：两表细胞系/基因集可能不同，不取交集会错配行或抛索引错。
-- **列名格式**：DepMap 列是 `基因名 (ENTREZ_ID)`，拿纯符号（`TP53` 而非 `TP53 (7157)`）去 intersection 会得空集；先 `df.columns[:5]` 看格式，必要时 `df.columns.str.extract(r'^(.+?)\s*\(')[0]` 解析。
-- **结果显式声明符号约定**：报告必带一句「CRISPR 分数已取负，正相关表示高表达对应更必需」，避免下游误读。
-- 数据源与算法：DepMap Portal（depmap.org/portal）；Chronos 见 Dempster et al. 2019（doi:10.1038/s41467-019-09612-6）。
+1. **Always negate CRISPR scores when the analysis asks about "essentiality"**: The raw DepMap convention is that negative = essential. When a question or hypothesis refers to "essentiality," "dependency," or "gene importance," negate the scores so that higher values mean more essential. Explicitly state the sign convention in your results.
 
-## 互见
+2. **Use scipy.stats.spearmanr per gene in a loop**: Bulk matrix shortcuts (`DataFrame.corrwith`, `DataFrame.rank().corrwith()`) handle NaN inconsistently across columns. The only reliable method is to compute Spearman correlation gene by gene using `scipy.stats.spearmanr` with pairwise-complete observations.
 
-- related：`pydeseq2-differential-expression`、`guided-statistical-analysis`、`opentargets-database`、`scientific-database-lookup`
-- combines_with：`gene-set-enrichment-analysis` —— 把必需性强相关基因列表交富集，定位通路；`guided-statistical-analysis` —— NaN-safe 相关与多重检验校正的通用方法；`pydeseq2-differential-expression` —— 表达量上游来源
+3. **Apply pairwise NaN removal, not global dropping**: Different genes have different missing-data patterns. Dropping rows globally (any NaN in any column) discards far too much data. Instead, for each gene, mask out only the cell lines where either the expression or CRISPR value is NaN.
 
----
-*采编自 [jaechang-hits/SciAgent-Skills](https://github.com/jaechang-hits/SciAgent-Skills)（CC-BY-4.0），适配重写为中文。*
+4. **Set a minimum valid-pair threshold**: Genes with very few non-NaN cell line pairs produce unreliable correlation estimates. Require at least 10 (preferably 20+) valid pairs before computing a correlation. Skip genes below this threshold.
+
+5. **Report NaN summary before analysis**: Before computing correlations, print the total NaN count per dataset, the number of common cell lines, and the number of common genes. This provides an audit trail and helps catch data loading errors early.
+
+6. **Verify dataset alignment before computation**: Always intersect cell line IDs and gene columns between datasets before analysis. Misaligned indices produce silent errors -- correlations computed on mismatched rows are meaningless.
+
+7. **State the sign convention explicitly in results**: When reporting correlation results, always include a statement like "CRISPR scores were negated so that positive values represent higher essentiality." This prevents downstream misinterpretation.
+
+## Common Pitfalls
+
+1. **Forgetting to negate CRISPR scores for essentiality analysis**: The raw DepMap score convention (negative = essential) is counterintuitive. Omitting the negation reverses every correlation sign, leading to completely inverted conclusions.
+   - *How to avoid*: Always check whether the analysis question uses the word "essentiality" or "dependency." If so, negate the CRISPR scores. Add a comment in the code: `# Negate: in DepMap, negative = essential`.
+
+2. **Using bulk DataFrame correlation methods**: Methods like `DataFrame.corrwith(method='spearman')` or `DataFrame.rank().corrwith()` silently mishandle NaN values, potentially shifting correlations enough to push genes above or below significance thresholds.
+   - *How to avoid*: Always use a per-gene loop with `scipy.stats.spearmanr`. See the reference implementation in the Workflow section below.
+
+3. **Dropping rows globally instead of pairwise**: Calling `dropna()` on the entire DataFrame before correlation removes all cell lines that have any NaN in any gene, drastically reducing sample size.
+   - *How to avoid*: Apply NaN masking inside the per-gene loop: `mask = ~(np.isnan(x) | np.isnan(y))`. This preserves the maximum number of observations per gene.
+
+4. **Not checking for sufficient valid pairs**: Computing Spearman correlation on fewer than 10 observations produces unstable, unreliable estimates that may appear significant by chance.
+   - *How to avoid*: Add a guard clause: `if mask.sum() < 10: continue`. Adjust the threshold upward (e.g., 20) for more conservative analysis.
+
+5. **Misinterpreting correlation signs without stated convention**: Reporting "positive correlation" without stating whether CRISPR scores were negated leaves results ambiguous. Reviewers cannot tell if "positive" means "higher expression associates with more essential" or "less essential."
+   - *How to avoid*: Always include a sentence in the results section stating the sign convention used. For example: "CRISPR scores were negated so that positive correlation indicates higher expression is associated with greater essentiality."
+
+6. **Failing to align datasets before computation**: Expression and CRISPR datasets may have different cell lines or different gene sets. Computing correlations without explicit alignment can silently match wrong rows or produce index errors.
+   - *How to avoid*: Always compute `common_lines = expr.index.intersection(crispr.index)` and `common_genes = expr.columns.intersection(crispr.columns)`, then subset both DataFrames before any computation.
+
+7. **Ignoring the gene column format**: DepMap gene columns use the format `GENE_NAME (ENTREZ_ID)`. Attempting to match against plain gene symbols (e.g., `TP53` instead of `TP53 (7157)`) will produce empty intersections.
+   - *How to avoid*: Inspect column formats with `df.columns[:5]` before attempting any join or intersection. Parse gene names if needed: `df.columns.str.extract(r'^(.+?)\s*\(')[0]`.
+
+## Workflow
+
+1. **Step 1: Load DepMap data**
+
+   ```python
+   import pandas as pd
+
+   # Load CRISPR gene effect data
+   crispr = pd.read_csv('CRISPRGeneEffect.csv', index_col=0)
+
+   # Load expression data
+   expr = pd.read_csv(
+       'OmicsExpressionProteinCodingGenesTPMLogp1BatchCorrected.csv',
+       index_col=0
+   )
+
+   # Column format: "GENE_NAME (ENTREZ_ID)" e.g., "A1BG (1)"
+   # Index: DepMap cell line IDs e.g., "ACH-000001"
+   ```
+
+2. **Step 2: Align datasets**
+
+   ```python
+   # Find common cell lines and genes
+   common_lines = crispr.index.intersection(expr.index)
+   common_genes = crispr.columns.intersection(expr.columns)
+
+   print(f"Common cell lines: {len(common_lines)}")
+   print(f"Common genes: {len(common_genes)}")
+
+   # Subset to common
+   crispr_aligned = crispr.loc[common_lines, common_genes]
+   expr_aligned = expr.loc[common_lines, common_genes]
+   ```
+
+3. **Step 3: Report NaN summary**
+
+   ```python
+   expr_nan = expr_aligned.isna().sum().sum()
+   crispr_nan = crispr_aligned.isna().sum().sum()
+   print(f"Expression NaN count: {expr_nan}")
+   print(f"CRISPR NaN count: {crispr_nan}")
+   ```
+
+4. **Step 4: Negate CRISPR scores if computing essentiality correlations**
+
+   ```python
+   # Negate: in DepMap, negative raw score = essential
+   # After negation, positive = essential
+   essentiality = -crispr_aligned
+   ```
+
+5. **Step 5: Compute per-gene NaN-safe Spearman correlation**
+
+   ```python
+   from scipy.stats import spearmanr
+   import numpy as np
+
+   def compute_per_gene_spearman(expression_df, crispr_df, negate_crispr=True):
+       """Compute Spearman correlation per gene with proper NaN handling.
+
+       Args:
+           expression_df: DataFrame (cell_lines x genes)
+           crispr_df: DataFrame (cell_lines x genes)
+           negate_crispr: If True, negate CRISPR scores to represent essentiality
+
+       Returns:
+           Series of Spearman correlations indexed by gene name
+       """
+       # Align cell lines and genes
+       common_lines = expression_df.index.intersection(crispr_df.index)
+       common_genes = expression_df.columns.intersection(crispr_df.columns)
+
+       expr = expression_df.loc[common_lines, common_genes]
+       crispr = crispr_df.loc[common_lines, common_genes]
+
+       if negate_crispr:
+           crispr = -crispr
+
+       # Print NaN summary BEFORE analysis
+       expr_nan = expr.isna().sum().sum()
+       crispr_nan = crispr.isna().sum().sum()
+       print(f"Expression NaN count: {expr_nan}")
+       print(f"CRISPR NaN count: {crispr_nan}")
+       print(f"Common cell lines: {len(common_lines)}")
+       print(f"Common genes: {len(common_genes)}")
+
+       # Per-gene Spearman correlation with pairwise NaN removal
+       correlations = {}
+       for gene in common_genes:
+           x = expr[gene].values
+           y = crispr[gene].values
+
+           # Remove pairs where either value is NaN
+           mask = ~(np.isnan(x) | np.isnan(y))
+           if mask.sum() < 10:  # Skip genes with too few valid pairs
+               continue
+
+           rho, pval = spearmanr(x[mask], y[mask])
+           correlations[gene] = rho
+
+       return pd.Series(correlations).sort_values(ascending=False)
+   ```
+
+6. **Step 6: Apply threshold and report results**
+
+   ```python
+   correlations = compute_per_gene_spearman(expr_aligned, crispr_aligned,
+                                            negate_crispr=True)
+
+   threshold = 0.6
+   strong_positive = correlations[correlations >= threshold]
+   strong_negative = correlations[correlations <= -threshold]
+
+   print(f"Genes with correlation >= {threshold}: {len(strong_positive)}")
+   print(f"Genes with correlation <= -{threshold}: {len(strong_negative)}")
+   print(f"\nNote: CRISPR scores were negated so that positive correlation")
+   print(f"indicates higher expression associated with greater essentiality.")
+   ```
+
+7. **Step 7: Validate -- check for anti-patterns**
+
+   Verify that none of these bulk shortcuts were used anywhere in the analysis:
+
+   ```python
+   # WRONG: Bulk rank-then-correlate shortcut
+   ranked_expr = expression_df.rank()
+   ranked_crispr = crispr_df.rank()
+   correlations = ranked_expr.corrwith(ranked_crispr)  # NaN handling is unreliable
+
+   # WRONG: Bulk corrwith with method='spearman'
+   correlations = expression_df.corrwith(crispr_df, method='spearman')  # Same issue
+   ```
+
+   If any of these patterns appear in the code, replace them with the per-gene loop from Step 5.
+
+## Further Reading
+
+- [DepMap Portal](https://depmap.org/portal/) -- Primary data source for CRISPR gene effect scores, expression data, and other omics datasets across cancer cell lines
+- [Dempster et al. (2019) -- Chronos algorithm](https://doi.org/10.1038/s41467-019-09612-6) -- Original paper describing the Chronos computational method for estimating gene effect from CRISPR screen data
+- [DepMap Documentation and Data Downloads](https://depmap.org/portal/download/all/) -- Detailed file format descriptions, release notes, and download links for all DepMap datasets
+
+## Related Skills
+
+- `nan-safe-correlation` -- General techniques for NaN-safe correlation computation across omics datasets; this guide applies those principles specifically to DepMap CRISPR data
+- `degenerate-input-filtering` -- Upstream data quality filtering to remove low-variance or degenerate features before correlation analysis; recommended as a preprocessing step before DepMap essentiality correlation

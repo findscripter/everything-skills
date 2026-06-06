@@ -1,14 +1,14 @@
 ---
 name: lamindb-data-management
-title: LaminDB 生物数据治理
-description: 当为生物数据集（scRNA/AnnData/DataFrame/Zarr）做版本管理、谱系追踪、本体校验与可查询数据湖时使用；用 lamindb（含 bionty）以 track()/finish() 包裹分析，注册 Artifact、按 key/feature/本体过滤查询、用 Bionty 标准化细胞/基因术语并产出 FAIR 的可溯源 artifact；不适用于单细胞分析流程（聚类/差异表达用 single-cell-rnaseq-analysis）与纯本体查表（用 bionty 即可）；触发词：lamindb、lamin、artifact、谱系/lineage、ln.track、bionty、数据治理、FAIR、数据湖、本体校验
+title: LaminDB — Biological Data Management
+description: Open-source FAIR biology data framework. Version artifacts (AnnData, DataFrame, Zarr), track lineage, validate via ontologies (Bionty), query datasets. Integrates with Nextflow, Snakemake, W&B, scVI. For scRNA-seq use scanpy; for ontology lookups use bionty.
 domain: 领域/science
-triggers: [lamindb, lamin, artifact, 谱系, lineage, ln.track, bionty, 数据治理, FAIR, 数据湖, 本体校验, 数据版本]
+triggers: [lamindb, lamin, artifact, lineage, ln.track, bionty, FAIR]
 tags: [lamindb, bionty, data-management, lineage, provenance, fair, ontology, single-cell, bioinformatics, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [lamindb, bionty, python, anndata, pandas]
+tools: []
 requires: []
 related: [anndata-data-structure, cellxgene-census, single-cell-rnaseq-analysis, scvi-tools-single-cell]
 combines_with: [single-cell-rnaseq-analysis, muon-multiomics-singlecell]
@@ -16,130 +16,470 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# LaminDB — Biological Data Management
 
-当你需要把生物数据集变成**可查询、可溯源、FAIR** 的资产时使用本条，典型场景：
+## Overview
 
-- 管理与版本化数据集（scRNA、空间、流式、多模态：AnnData / DataFrame / Zarr / MuData / 任意文件）
-- 追踪计算谱系（哪段代码 / 哪次运行产生了哪份数据），保证可复现
-- 用生物本体（细胞类型 / 基因 / 组织 / 疾病）校验、标准化、策展元数据
-- 跨多个实验构建可查询的数据湖（按 key 前缀 / feature / 注释过滤）
-- 与工作流（Nextflow、Snakemake）或 MLOps（W&B、MLflow、scVI）集成时统一数据登记
+LaminDB is an open-source data framework for biology that makes data queryable, traceable, and FAIR (Findable, Accessible, Interoperable, Reusable). It combines data lakehouse architecture, lineage tracking, biological ontology validation, and a unified Python API for managing biological datasets from raw files to annotated, curated artifacts.
 
-**不该用本条的边界：**
+## When to Use
 
-- 做**单细胞分析**（QC、聚类、找 marker、差异表达、可视化）→ 用 `single-cell-rnaseq-analysis`（Scanpy）
-- 只做**本体查表**而不管理数据 → 直接用 bionty（`bt.CellType.search(...)`）
-- 本条只负责「数据登记 + 版本 + 谱系 + 本体校验 + 查询」这一件事
+- Managing and versioning biological datasets (scRNA-seq, spatial, flow cytometry, multi-modal)
+- Tracking computational lineage (which code produced which data)
+- Validating and curating data against biological ontologies (cell types, genes, tissues, diseases)
+- Building queryable data lakehouses across multiple experiments
+- Ensuring reproducibility with automatic environment and provenance capture
+- Integrating with workflow managers (Nextflow, Snakemake) or MLOps (W&B, MLflow)
+- Standardizing metadata with ontology-based annotation (Bionty)
+- For **single-cell analysis pipelines** (clustering, DE), use scanpy instead
+- For **ontology lookups only** without data management, use bionty directly
 
-## 步骤
+## Prerequisites
 
-1. 装环境并初始化实例（**必须先 init，否则 `InstanceNotSetupError`**）：
-   - `pip install 'lamindb[bionty,zarr,fcs]'`
-   - `lamin login` → `lamin init --storage ./my-data --name my-project`（云端用 `s3://...` + `--db postgresql://...`）
-2. **用 `ln.track()` / `ln.finish()` 包裹整个分析**——区块内所有 artifact 自动挂到本次 run，捕获代码/环境/用户。缺它则无谱系。
-3. 登记数据为 Artifact：`from_df` / `from_anndata` / `from_mudata` / `Artifact("path")`，给**层级 key**（`project/exp/datatype/file.ext`）后 `.save()`。
-4. 加注释：`artifact.features.add_values({...})`；需要严格校验时走 `ln.curators.AnnDataCurator(adata, schema).validate()`。
-5. 本体标准化：`bt.CellType.validate([...])` 查合法性，`bt.CellType.standardize(...)` 归一术语。
-6. 查询：**先 `.filter(...).df()` 看元数据，再 `.load()`/`.open()` 取数据**；大文件用 backed 模式 `.open()` 流式子集。
-7. 版本与谱系：改数据用 `revises=old_artifact` 出新版（**别换 key 复制**）；`artifact.view_lineage()` 看血缘。
+```bash
+pip install lamindb
+# With extras for specific data types
+pip install 'lamindb[bionty,zarr,fcs]'
+```
 
-## 指令
+**Setup**: Requires instance initialization before use:
+```bash
+lamin login
+lamin init --storage ./my-data --name my-project
+# Or with cloud storage:
+# lamin init --storage s3://my-bucket --name my-project --db postgresql://...
+```
 
-核心实体模型：
+**Instance types**: Local SQLite (development), Cloud + SQLite (small teams), Cloud + PostgreSQL (production).
 
-| 实体 | 作用 |
-|---|---|
-| `Artifact` | 版本化数据对象（`counts.h5ad`、`results.parquet`） |
-| `Run` | 单次代码执行 |
-| `Transform` | 代码定义（notebook / script / pipeline） |
-| `Feature` | 带类型的元数据字段（tissue、condition、batch） |
-| `Collection` | 一组相关 artifact，批量操作 |
-| `ULabel` | 自定义通用标签（high_quality、pilot） |
-
-关键参数：`key`=层级存储键；`description`=人读说明；`revises`=上一版（做版本而非复制）；`params`=本次 run 参数（入谱系）；`organism`（`bt.Gene.import_source` 用 "human"/"mouse"）；`permanent`（`.delete()`，默认 False=归档，True=永久删）。
-
-过滤后缀：`__startswith`（key 前缀）、`__gte`/`__lte`、`__contains`，以及 `features__<字段>=值`。`get()` 精确取（缺失抛错），`filter(...).one_or_none()` 缺失返回 None。
-
-Bionty 本体（搭 source）：`bt.Gene`(Ensembl)、`bt.Protein`(UniProt)、`bt.CellType`(CL)、`bt.Tissue`(Uberon)、`bt.Disease`(Mondo)、`bt.Pathway`(GO)、`bt.Organism`(NCBItaxon)。用前 `import_source()`。
-
-## 示例
-
-最小闭环（登记 + 查询）：
+## Quick Start
 
 ```python
-import lamindb as ln, pandas as pd
+import lamindb as ln
 
-ln.track()                                  # 起谱系：捕获代码/环境/用户
-df = pd.DataFrame({"gene": ["TP53","BRCA1"], "score": [0.95, 0.87]})
-art = ln.Artifact.from_df(df, key="results/gene_scores.parquet",
-                          description="Gene importance scores").save()
-print(art.uid, art.size)
+ln.track()  # Start lineage tracking
 
-hits = ln.Artifact.filter(key__startswith="results/").df()   # 先看元数据
-print(len(hits))
+# Save an artifact
+import pandas as pd
+df = pd.DataFrame({"gene": ["TP53", "BRCA1"], "score": [0.95, 0.87]})
+artifact = ln.Artifact.from_df(df, key="results/gene_scores.parquet", description="Gene importance scores")
+artifact.save()
+print(f"Saved: {artifact.uid}, size: {artifact.size}")
+
+# Query artifacts
+results = ln.Artifact.filter(key__startswith="results/").df()
+print(f"Found {len(results)} artifacts")
+
 ln.finish()
 ```
 
-AnnData 登记 + 注释 + 版本：
+## Core API
+
+### 1. Artifacts — Data Objects
+
+Artifacts are versioned data objects (files, DataFrames, AnnData, arrays).
 
 ```python
-import lamindb as ln, anndata as ad
+import lamindb as ln
+import pandas as pd
+import anndata as ad
+
 ln.track()
+
+# From DataFrame
+df = pd.DataFrame({"sample": ["A", "B"], "value": [1.5, 2.3]})
+artifact = ln.Artifact.from_df(df, key="experiments/batch1.parquet").save()
+print(f"ID: {artifact.uid}, Version: {artifact.version}")
+
+# From AnnData
 adata = ad.read_h5ad("counts.h5ad")
-art = ln.Artifact.from_anndata(adata, key="scrna/batch1.h5ad",
-                               description="scRNA-seq batch 1").save()
-art.features.add_values({"tissue": "PBMC", "condition": "treated", "batch": 1})
-art_v2 = ln.Artifact.from_anndata(adata, key="scrna/batch1.h5ad", revises=art).save()
-print(art_v2.is_latest)                     # 版本化：用 revises，不换 key
-ln.finish()
+artifact = ln.Artifact.from_anndata(adata, key="scrna/batch1.h5ad", description="scRNA-seq batch 1").save()
+
+# From file path
+artifact = ln.Artifact("results/figure.png", key="figures/fig1.png").save()
+
+# Load back
+df_loaded = artifact.load()  # Returns DataFrame/AnnData/etc.
+path = artifact.cache()       # Returns local file path
 ```
 
-本体校验 + 标准化 + 严格策展：
+```python
+# Versioning
+artifact_v2 = ln.Artifact.from_df(df_updated, key="experiments/batch1.parquet", revises=artifact).save()
+print(f"v1: {artifact.uid}, v2: {artifact_v2.uid}")
+print(f"Latest version: {artifact_v2.is_latest}")
+
+# Delete (archive first, then permanent)
+artifact.delete(permanent=False)  # Archive
+# artifact.delete(permanent=True)  # Permanent deletion
+```
+
+### 2. Lineage Tracking
+
+Automatic provenance capture for reproducibility.
 
 ```python
-import bionty as bt, lamindb as ln
-bt.CellType.import_source()
-ok = bt.CellType.validate(adata.obs["cell_type"].unique())   # [True, True, False...]
-if not all(ok):
-    adata.obs["cell_type"] = bt.CellType.standardize(adata.obs["cell_type"])
+import lamindb as ln
+
+# Start tracking — captures notebook/script, environment, user
+ln.track(params={"method": "PCA", "n_components": 50})
+
+# All artifacts created within this block are linked to this run
+input_data = ln.Artifact.get(key="raw/counts.h5ad")
+adata = input_data.load()
+
+# ... analysis code ...
+
+output = ln.Artifact.from_anndata(adata, key="processed/pca.h5ad").save()
+
+# View lineage graph
+output.view_lineage()
+
+ln.finish()  # Finalize tracking
+```
+
+### 3. Querying and Filtering
+
+Search and filter artifacts by metadata, features, and annotations.
+
+```python
+import lamindb as ln
+
+# Basic filtering
+artifacts = ln.Artifact.filter(key__startswith="scrna/").df()
+print(f"Found {len(artifacts)} scRNA-seq artifacts")
+
+# Filter by metadata
+recent = ln.Artifact.filter(
+    created_at__gte="2026-01-01",
+    size__gt=1000000
+).df()
+
+# Filter by annotated features
+immune = ln.Artifact.filter(
+    cell_types__name="T cell",
+    tissues__name="PBMC"
+).df()
+
+# Single record retrieval
+artifact = ln.Artifact.get(key="results/final.parquet")  # Exact match, raises if not found
+artifact = ln.Artifact.filter(key="results/final.parquet").one_or_none()  # Returns None if missing
+
+# Full-text search
+results = ln.Artifact.search("gene expression PBMC")
+
+# Streaming large files (without full load into memory)
+artifact = ln.Artifact.get(key="large_dataset.h5ad")
+backed = artifact.open()  # AnnData-backed mode
+subset = backed[backed.obs["cell_type"] == "B cell"]
+```
+
+### 4. Annotation and Validation
+
+Curate datasets against schemas and ontology terms.
+
+```python
+import lamindb as ln
+import bionty as bt
+
+# Annotate artifacts with features
+artifact = ln.Artifact.get(key="scrna/batch1.h5ad")
+artifact.features.add_values({
+    "tissue": "PBMC",
+    "condition": "treated",
+    "organism": "human",
+    "batch": 1
+})
+
+# Validate with schema
 curator = ln.curators.AnnDataCurator(adata, schema)
 try:
     curator.validate()
-    art = curator.save_artifact(key="curated/validated.h5ad")
+    artifact = curator.save_artifact(key="validated/batch1.h5ad")
+    print("Validation passed")
 except ln.errors.ValidationError as e:
-    print(f"校验失败: {e}")
+    print(f"Validation failed: {e}")
+
+# Standardize cell type names using ontology
+adata.obs["cell_type"] = bt.CellType.standardize(adata.obs["cell_type"])
 ```
 
-跨实验查询数据湖 + 流式大文件：
+### 5. Biological Ontologies (Bionty)
+
+Access standardized biological vocabularies for annotation.
 
 ```python
-treated = ln.Artifact.filter(key__startswith="scrna/",
-    features__tissue="PBMC", features__condition="treated").all()
-combined = ad.concat([a.load() for a in treated])            # 命中后再 load
-big = ln.Artifact.get(key="large.h5ad").open()               # backed，超内存流式
-subset = big[big.obs["cell_type"] == "B cell"]
+import bionty as bt
+
+# Available ontologies
+# bt.Gene (Ensembl), bt.Protein (UniProt), bt.CellType (CL),
+# bt.Tissue (Uberon), bt.Disease (Mondo), bt.Pathway (GO),
+# bt.CellLine (CLO), bt.Phenotype (HPO), bt.Organism (NCBItaxon)
+
+# Import and search ontology
+bt.CellType.import_source()
+results = bt.CellType.search("T helper")
+print(results.head())
+
+# Get specific term
+t_cell = bt.CellType.get(name="T cell")
+print(f"Ontology ID: {t_cell.ontology_id}")
+
+# Explore hierarchy
+children = t_cell.children.all()
+parents = t_cell.parents.all()
+print(f"Children: {[c.name for c in children]}")
+
+# Validate a list of terms
+validated = bt.CellType.validate(["T cell", "B cell", "Unknown_type"])
+# Returns boolean array: [True, True, False]
 ```
 
-## 注意事项
+### 6. Collections and Organization
 
-- **务必 init 实例**：未 init 调用即 `InstanceNotSetupError`，先 `lamin init --storage ... --name ...`。
-- **务必 track/finish 包裹**：缺它 artifact 无 provenance；`ln.track()` 需在 notebook/script 内，纯 REPL 会失败（或显式传 `transform`）。
-- **版本用 `revises=`，不要换 key 复制**：同 key 重复登记会 key 冲突；复制数据是反模式。
-- **先查元数据再取数**：`.filter().df()` 看清楚再 `.load()`；大文件用 `.open()`（backed）流式，别盲目全量载入。
-- **本体标准化跨数据集可比**：自由文本（"T helper cell"）映射到本体术语（CL:0000912），才能跨集查询；`import_source` 失败多为网络或 organism 没指定。
-- **删除分两步**：`.delete(permanent=False)` 先归档，确认后再 `permanent=True`。
-- 云端 artifact 未同步时 `.cache()` 可能 `FileNotFoundError`，改用 `.load()` 走内存。
+Group related artifacts for batch operations.
 
-## 互见
+```python
+import lamindb as ln
 
-- related：`anndata-data-structure` —— LaminDB 管理的单细胞数据主容器；先建/读 AnnData 再登记
-- related：`cellxgene-census` —— 公共单细胞数据源，可登记进 LaminDB 实例做治理
-- combines_with：`single-cell-rnaseq-analysis` —— 本条管「数据/谱系/版本」，该条管「分析」，串成可复现单细胞流程
-- combines_with：`scvi-tools-single-cell` —— 模型训练的数据与产物登记、版本与谱系追踪
-- combines_with：`nextflow-pipeline-builder` —— 在流水线各步 track/get/save，自动连起输入到输出的血缘
-- related：`gene-set-enrichment-analysis` —— 校验/标准化后的注释结果接下游富集分析
+# Create a collection
+artifacts = ln.Artifact.filter(key__startswith="scrna/batch_").all()
+collection = ln.Collection(artifacts, name="scRNA-seq batches Q1 2026").save()
+print(f"Collection: {collection.name}, {collection.n_objects} artifacts")
 
----
+# Query collection
+for artifact in collection.artifacts.all():
+    print(f"  {artifact.key}: {artifact.size} bytes")
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+# Organize with hierarchical keys
+# Convention: project/experiment/datatype/file
+# e.g., "immunology/exp42/scrna/counts.h5ad"
+```
+
+## Key Concepts
+
+### Core Entity Model
+
+| Entity | Purpose | Example |
+|--------|---------|---------|
+| **Artifact** | Versioned data object | `counts.h5ad`, `results.parquet` |
+| **Run** | Single code execution | Notebook run, script execution |
+| **Transform** | Code definition (notebook, script, pipeline) | `analysis.ipynb` |
+| **Feature** | Typed metadata field | `tissue`, `condition`, `batch` |
+| **Collection** | Group of related artifacts | "Experiment batches" |
+| **ULabel** | Universal label for custom categorization | "high_quality", "pilot" |
+
+### Data Types Supported
+
+| Format | Method | Use Case |
+|--------|--------|----------|
+| DataFrame | `Artifact.from_df()` | Tabular data, metadata tables |
+| AnnData | `Artifact.from_anndata()` | Single-cell data |
+| MuData | `Artifact.from_mudata()` | Multi-modal data |
+| Any file | `Artifact("path")` | Images, FASTQ, custom formats |
+| Zarr | Via zarr extra | Large array data |
+| TileDB-SOMA | Via tiledbsoma extra | Scalable cell-level queries |
+
+### track() / finish() Pattern
+
+Every analysis session should be wrapped:
+```python
+ln.track(params={"key": "value"})   # Start: captures code, environment, user
+# ... analysis ...
+ln.finish()                          # End: finalizes lineage links
+```
+
+## Common Workflows
+
+### Workflow: Multi-Experiment Data Lakehouse
+
+```python
+import lamindb as ln
+import anndata as ad
+
+ln.track()
+
+# Register multiple experiments
+data_files = ["batch1.h5ad", "batch2.h5ad", "batch3.h5ad"]
+tissues = ["PBMC", "bone_marrow", "PBMC"]
+conditions = ["control", "treated", "treated"]
+
+for i, (file, tissue, condition) in enumerate(zip(data_files, tissues, conditions)):
+    adata = ad.read_h5ad(file)
+    artifact = ln.Artifact.from_anndata(
+        adata, key=f"scrna/batch_{i}.h5ad", description=f"scRNA-seq batch {i}"
+    ).save()
+    artifact.features.add_values({
+        "tissue": tissue, "condition": condition, "batch": i
+    })
+    print(f"Registered batch {i}: {artifact.uid}")
+
+# Query across all experiments
+treated_pbmc = ln.Artifact.filter(
+    key__startswith="scrna/",
+    features__tissue="PBMC",
+    features__condition="treated"
+).all()
+print(f"Found {len(treated_pbmc)} matching datasets")
+
+# Load and concatenate
+import anndata as ad
+adatas = [a.load() for a in treated_pbmc]
+combined = ad.concat(adatas)
+print(f"Combined: {combined.shape}")
+
+ln.finish()
+```
+
+### Workflow: Validated Data Curation
+
+```python
+import lamindb as ln
+import bionty as bt
+import anndata as ad
+
+ln.track()
+
+# 1. Import ontologies
+bt.CellType.import_source()
+bt.Gene.import_source(organism="human")
+
+# 2. Load raw data
+adata = ad.read_h5ad("raw_counts.h5ad")
+print(f"Raw: {adata.shape}")
+
+# 3. Validate and standardize cell types
+validated = bt.CellType.validate(adata.obs["cell_type"].unique())
+if not all(validated):
+    adata.obs["cell_type"] = bt.CellType.standardize(adata.obs["cell_type"])
+
+# 4. Validate gene names
+gene_validated = bt.Gene.validate(adata.var_names)
+print(f"Valid genes: {sum(gene_validated)}/{len(gene_validated)}")
+
+# 5. Curate and save
+curator = ln.curators.AnnDataCurator(adata, schema)
+curator.validate()
+artifact = curator.save_artifact(key="curated/validated_counts.h5ad")
+print(f"Saved curated artifact: {artifact.uid}")
+
+ln.finish()
+```
+
+### Workflow: Nextflow Pipeline Integration
+
+1. In each Nextflow process, import lamindb and call `ln.track()`
+2. Load input artifacts with `ln.Artifact.get(key=...)`; cache to local path
+3. Run analysis; save output as new artifact with `ln.Artifact(...).save()`
+4. Call `ln.finish()` — lineage automatically links inputs to outputs
+
+## Key Parameters
+
+| Parameter | Function | Default | Options | Effect |
+|-----------|----------|---------|---------|--------|
+| `key` | `Artifact()` | None | String path | Hierarchical storage key (e.g., "project/data.h5ad") |
+| `description` | `Artifact()` | None | String | Human-readable description |
+| `revises` | `Artifact()` | None | Artifact | Previous version to revise |
+| `params` | `ln.track()` | None | Dict | Parameters for the current run |
+| `organism` | `bt.Gene.import_source()` | None | "human", "mouse" | Organism for ontology |
+| `permanent` | `.delete()` | False | True/False | Permanent vs archive deletion |
+| `__startswith` | `.filter()` | — | String | Key prefix filter |
+| `__gte`, `__lte` | `.filter()` | — | Value | Greater/less than or equal |
+| `__contains` | `.filter()` | — | String | Substring match |
+
+## Best Practices
+
+1. **Always wrap analysis with `ln.track()` / `ln.finish()`**: This captures lineage automatically. Without it, artifacts have no provenance.
+
+2. **Use hierarchical keys**: Structure as `project/experiment/datatype/file.ext` (e.g., `immunology/exp42/scrna/counts.h5ad`). This enables prefix-based queries.
+
+3. **Anti-pattern — duplicating data instead of versioning**: Use the `revises=` parameter to create new versions, not new keys for the same dataset.
+
+4. **Validate early**: Run schema validation before analysis. Catching bad metadata early saves debugging time downstream.
+
+5. **Use ontologies for standardization**: Map free-text labels to ontology terms (e.g., "T helper cell" → CL:0000912). This enables cross-dataset queries.
+
+6. **Anti-pattern — loading large files without checking size**: Use `.filter().df()` to inspect metadata first, then `.load()` or `.open()` (backed mode) for large files.
+
+7. **Query metadata first, load data second**: Filter with `.filter()` to find relevant artifacts, then load only what you need.
+
+## Common Recipes
+
+### Recipe: Bulk Dataset Registration
+
+```python
+import lamindb as ln
+from pathlib import Path
+
+ln.track()
+
+data_dir = Path("raw_data/")
+for fcs_file in data_dir.glob("*.fcs"):
+    artifact = ln.Artifact(str(fcs_file), key=f"flow_cytometry/{fcs_file.name}").save()
+    artifact.features.add_values({"assay": "flow_cytometry", "source": "batch_import"})
+    print(f"Registered: {fcs_file.name} -> {artifact.uid}")
+
+ln.finish()
+```
+
+### Recipe: View and Export Lineage
+
+```python
+import lamindb as ln
+
+artifact = ln.Artifact.get(key="results/final_analysis.h5ad")
+
+# View lineage graph (opens in browser or notebook)
+artifact.view_lineage()
+
+# Programmatic lineage access
+run = artifact.run
+print(f"Created by: {run.transform.name}")
+print(f"User: {run.created_by.name}")
+print(f"Date: {run.created_at}")
+print(f"Input artifacts: {[a.key for a in run.input_artifacts.all()]}")
+```
+
+### Recipe: Ontology Hierarchy Exploration
+
+```python
+import bionty as bt
+
+bt.CellType.import_source()
+t_cell = bt.CellType.get(name="T cell")
+
+# Explore hierarchy
+print(f"Parents: {[p.name for p in t_cell.parents.all()]}")
+print(f"Children: {[c.name for c in t_cell.children.all()]}")
+
+# Find all descendants
+descendants = t_cell.children.all()
+for child in descendants:
+    grandchildren = child.children.all()
+    print(f"  {child.name}: {[gc.name for gc in grandchildren]}")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `InstanceNotSetupError` | Instance not initialized | Run `lamin init --storage ./data --name my-project` |
+| `ln.track()` fails | No transform context | Run inside a notebook/script, not REPL; or pass `transform` explicitly |
+| Artifact `key` conflict | Key already exists (not a version) | Use `revises=` for versioning, or choose a different key |
+| `ValidationError` | Data doesn't match schema | Run `curator.validate()` to see specific failures; standardize terms |
+| Slow queries on large instances | No index on filtered field | Use `.df()` for overview first; add database indexes for frequently filtered fields |
+| Ontology import fails | Network issue or wrong organism | Check internet connection; specify `organism="human"` explicitly |
+| `FileNotFoundError` on `.cache()` | Cloud artifact not synced | Check storage connectivity; use `artifact.load()` instead for in-memory access |
+
+## Related Skills
+
+- **anndata-data-structure** — AnnData format used as primary data container in LaminDB for single-cell data
+- **scanpy-scrna-seq** — single-cell analysis pipeline; LaminDB manages data that scanpy analyzes
+- **scvi-tools-single-cell** — deep learning models for single-cell; integrates with LaminDB for data/model tracking
+
+## References
+
+- [LaminDB documentation](https://docs.lamin.ai) — official user guide and API reference
+- [LaminDB tutorial](https://docs.lamin.ai/tutorial) — step-by-step introduction
+- [Bionty documentation](https://docs.lamin.ai/bionty) — biological ontology management
+- [LaminDB GitHub](https://github.com/laminlabs/lamindb) — source code and issues

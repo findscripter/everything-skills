@@ -1,14 +1,14 @@
 ---
 name: codeql-scanner
-title: CodeQL 数据流漏洞扫描
-description: 当需要对代码库做深度安全审计、用 CodeQL 跨过程数据流/污点跟踪挖掘漏洞时使用；做的事是建库→建数据扩展→跑查询套件并产出 SARIF 报告；不适用于写自定义 QL 查询、CI/CD 集成、无法编译的语言或快速正则匹配（用 Semgrep/grep）；触发词：codeql、跑 codeql、codeql 扫描、codeql analysis、数据流分析、污点跟踪、SARIF、建 codeql 数据库
+title: CodeQL Analysis
+description: Scans a codebase for security vulnerabilities using CodeQL's interprocedural data flow and taint tracking analysis. Triggers on "run codeql", "codeql scan", "codeql analysis", "build codeql database", or "find vulnerabilities with codeql". Supports "run all" (security-and-quality + security-experime
 domain: 安全/appsec
-triggers: [codeql, 跑 codeql, codeql 扫描, codeql scan, codeql analysis, 数据流分析, 污点跟踪, taint tracking, SARIF, 建 codeql 数据库, find vulnerabilities with codeql]
+triggers: [codeql, codeql scan, codeql analysis, taint tracking, SARIF, find vulnerabilities with codeql]
 tags: [security, appsec, codeql, sast, taint-tracking, dataflow, sarif, vulnerability-scanning]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [codeql, jq, bash, find, grep]
+tools: []
 requires: []
 related: [semgrep-rule-creator, sast-configurator, vulnerability-variant-analysis, c-cpp-security-review]
 combines_with: [false-positive-check, vulnerability-variant-analysis, sast-configurator]
@@ -16,85 +16,261 @@ license: CC-BY-SA-4.0
 source: trailofbits/skills
 source_license: CC-BY-SA-4.0
 ---
-## 何时使用
+# CodeQL Analysis
 
-适用：
-- 用 CodeQL 的跨过程数据流 / 污点跟踪深挖安全漏洞（注入、路径穿越、SSRF、反序列化等需要顺着 source→sink 链路追踪的复杂问题）。
-- 从源码构建 CodeQL 数据库（含编译型语言需要追踪构建过程的情况）。
-- 用多个 query pack 做体系化安全审计。
-- 支持语言：Python、JavaScript/TypeScript、Go、Java/Kotlin、C/C++、C#、Ruby、Swift。
+Supported languages: Python, JavaScript/TypeScript, Go, Java/Kotlin, C/C++, C#, Ruby, Swift.
 
-不该用（负边界）：
-- 写自定义 QL 查询 —— 用专门的查询开发流程，本条只负责跑现成套件。
-- CI/CD 集成 —— 直接看 GitHub Actions 文档。
-- 只想快速正则/模式匹配 —— 用 Semgrep 或 grep，更快。
-- 编译型语言但无法在本机完成构建 —— 优先考虑 Semgrep；`--build-mode=none` 只是最后兜底，分析严重不完整。
-- 单文件或轻量检查 —— Semgrep 更合适。
+**Skill resources:** Reference files and templates are located at `{baseDir}/references/` and `{baseDir}/workflows/`.
 
-## 步骤
+## Essential Principles
 
-整条流水线固定为三步：**建库 → 建数据扩展 → 跑分析**。所有产物统一落到一个 `$OUTPUT_DIR`。
+1. **Database quality is non-negotiable.** A database that builds is not automatically good. Always run quality assessment (file counts, baseline LoC, extractor errors) and compare against expected source files. A cached build produces zero useful extraction.
 
-1. 环境与输出目录：确认 `codeql` 在 PATH 上（`codeql --version`）。用户指定了输出目录就用它；否则默认 `static_analysis_codeql_1`，存在则自增 `_2`、`_3`……，并先 `mkdir -p` 创建。
-2. 发现已有数据库：用 marker 文件 `codeql-database.yml` 识别数据库（不要假定它叫 `codeql.db`）。先在 `$OUTPUT_DIR` 内找，再回退到项目根（顶层 + 下探一层）。`find . -maxdepth 3 -name "codeql-database.yml"`。找到多个时，逐个用 `codeql resolve database` 取语言和创建时间，列给用户选；用户已在指令里指明用哪个或要新建时，跳过询问。
-3. 建库（build-database）：`codeql database create $DB_NAME --language=$CODEQL_LANG --source-root=. --overwrite`，编译型语言带 `--command='$BUILD_CMD'`。**建好不等于建对**：必须做质量评估（文件数、baseline LoC、抽取错误率），与预期源文件比对。baseline LoC 必须 > 0、错误率 < 5%。
-4. 建数据扩展（create-data-extensions）：即便用 Django/Spring/Express 等标准框架，项目仍会有包裹数据库调用、请求解析、命令执行的自定义封装，CodeQL 默认建模不到。生成对应 source/sink 模型 YAML 放到 `$OUTPUT_DIR/extensions/`；若确实跳过，要给出明确理由。
-5. 选规则并跑分析（run-analysis）：选扫描模式（见下），选 query pack、model pack 和威胁模型，执行查询。
-6. 处理结果：未过滤的原始结果保留在 `$OUTPUT_DIR/raw/results.sarif`，最终结果落到 `$OUTPUT_DIR/results/results.sarif`（important-only 过滤、run-all 直接拷贝）。把选用的 pack 记到 `$OUTPUT_DIR/rulesets.txt`。
+2. **Data extensions catch what CodeQL misses.** Even projects using standard frameworks (Django, Spring, Express) have custom wrappers around database calls, request parsing, or shell execution. Skipping the create-data-extensions workflow means missing vulnerabilities in project-specific code paths.
 
-## 指令
+3. **Explicit suite references prevent silent query dropping.** Never pass pack names directly to `codeql database analyze` — each pack's `defaultSuiteFile` applies hidden filters that can produce zero results. Always generate a custom `.qls` suite file.
 
-五条不可妥协的原则：
-1. **数据库质量一票否决** —— 能 build 不代表抽取得好；缓存命中的构建抽取量为零。永远做质量评估。
-2. **数据扩展补 CodeQL 的盲区** —— 跳过 create-data-extensions 就会漏掉项目特有代码路径里的漏洞。
-3. **永远用显式套件引用，别直接传 pack 名** —— 切勿 `codeql database analyze ... -- codeql/cpp-queries`。每个 pack 的 `defaultSuiteFile` 会偷偷套强过滤，可能直接 0 结果。务必生成自定义 `.qls` 套件。
-4. **0 结果要查不要庆祝** —— 0 结果可能意味着库质量差、缺模型、选错 pack 或套件被静默过滤；报「干净」前先排查。
-5. **macOS Apple Silicon 编译型语言需绕坑** —— 退出码 137 是 `arm64e`/`arm64` 不匹配而非构建失败；先试 Homebrew arm64 工具链或 Rosetta，再考虑 `--build-mode=none`。
+4. **Zero findings needs investigation, not celebration.** Zero results can indicate poor database quality, missing models, wrong query packs, or silent suite filtering. Investigate before reporting clean.
 
-两种扫描模式：
-- **Run all（推荐，最大覆盖）**：同时导入 `security-and-quality` + `security-experimental` 两个套件。注意 `security-and-quality` 排除了所有 `experimental/` 路径，单用会漏 1–52 条查询（视语言而定）。
-- **Important only**：按精度和 security-severity 阈值过滤的高精度安全发现。
+5. **macOS Apple Silicon requires workarounds for compiled languages.** Exit code 137 is `arm64e`/`arm64` mismatch, not a build failure. Try Homebrew arm64 tools or Rosetta before falling back to `build-mode=none`.
 
-别迷信 `security-extended`：它只是基线。对应语言若有 Trail of Bits packs 或 GitHubSecurityLab 社区 packs，要一并检查启用，它们能覆盖 `security-extended` 完全遗漏的类别。
+6. **Follow workflows step by step.** Once a workflow is selected, execute it step by step without skipping phases. Each phase gates the next — skipping quality assessment or data extensions leads to incomplete analysis.
 
-## 示例
+## Output Directory
 
-最常见场景「扫描这个代码库找漏洞」：
+All generated files (database, build logs, diagnostics, extensions, results) are stored in a single output directory.
+
+- **If the user specifies an output directory** in their prompt, use it as `OUTPUT_DIR`.
+- **If not specified**, default to `./static_analysis_codeql_1`. If that already exists, increment to `_2`, `_3`, etc.
+
+In both cases, **always create the directory** with `mkdir -p` before writing any files.
 
 ```bash
-# 1. 确认 CodeQL 已安装
-command -v codeql >/dev/null 2>&1 && codeql --version || echo "NOT INSTALLED"
+# Resolve output directory
+if [ -n "$USER_SPECIFIED_DIR" ]; then
+  OUTPUT_DIR="$USER_SPECIFIED_DIR"
+else
+  BASE="static_analysis_codeql"
+  N=1
+  while [ -e "${BASE}_${N}" ]; do
+    N=$((N + 1))
+  done
+  OUTPUT_DIR="${BASE}_${N}"
+fi
+mkdir -p "$OUTPUT_DIR"
+```
 
-# 2. 解析输出目录（自增）
+The output directory is resolved **once** at the start before any workflow executes. All workflows receive `$OUTPUT_DIR` and store their artifacts there:
+
+```
+$OUTPUT_DIR/
+├── rulesets.txt                 # Selected query packs (logged after Step 3)
+├── codeql.db/                   # CodeQL database (dir containing codeql-database.yml)
+├── build.log                    # Build log
+├── codeql-config.yml            # Exclusion config (interpreted languages)
+├── diagnostics/                 # Diagnostic queries and CSVs
+├── extensions/                  # Data extension YAMLs
+├── raw/                         # Unfiltered analysis output
+│   ├── results.sarif
+│   └── <mode>.qls
+└── results/                     # Final results (filtered for important-only, copied for run-all)
+    └── results.sarif
+```
+
+### Database Discovery
+
+A CodeQL database is identified by the presence of a `codeql-database.yml` marker file inside its directory. When searching for existing databases, **always collect all matches** — there may be multiple databases from previous runs or for different languages.
+
+**Discovery command:**
+
+```bash
+# Find ALL CodeQL databases (top-level and one subdirectory deep)
+find . -maxdepth 3 -name "codeql-database.yml" -not -path "*/\.*" 2>/dev/null \
+  | while read -r yml; do dirname "$yml"; done
+```
+
+- **Inside `$OUTPUT_DIR`:** `find "$OUTPUT_DIR" -maxdepth 2 -name "codeql-database.yml"`
+- **Project-wide (for auto-detection):** `find . -maxdepth 3 -name "codeql-database.yml"` — covers databases at the project top level (`./db-name/`) and one subdirectory deep (`./subdir/db-name/`). Does not search deeper.
+
+Never assume a database is named `codeql.db` — discover it by its marker file.
+
+**When multiple databases are found:**
+
+For each discovered database, collect metadata to help the user choose:
+
+```bash
+# For each database, extract language and creation time
+for db in $FOUND_DBS; do
+  CODEQL_LANG=$(codeql resolve database --format=json -- "$db" 2>/dev/null | jq -r '.languages[0]')
+  CREATED=$(grep '^creationMetadata:' -A5 "$db/codeql-database.yml" 2>/dev/null | grep 'creationTime' | awk '{print $2}')
+  echo "$db — language: $CODEQL_LANG, created: $CREATED"
+done
+```
+
+Then use `AskUserQuestion` to let the user select which database to use, or to build a new one. **Skip `AskUserQuestion` if the user explicitly stated which database to use or to build a new one in their prompt.**
+
+## Quick Start
+
+For the common case ("scan this codebase for vulnerabilities"):
+
+```bash
+# 1. Verify CodeQL is installed
+if ! command -v codeql >/dev/null 2>&1; then
+  echo "NOT INSTALLED: codeql binary not found on PATH"
+else
+  codeql --version || echo "ERROR: codeql found but --version failed (check installation)"
+fi
+
+# 2. Resolve output directory
 BASE="static_analysis_codeql"; N=1
 while [ -e "${BASE}_${N}" ]; do N=$((N + 1)); done
 OUTPUT_DIR="${BASE}_${N}"; mkdir -p "$OUTPUT_DIR"
-
-# 3. 建库（解释型语言示例）
-codeql database create "$OUTPUT_DIR/codeql.db" --language=python --source-root=. --overwrite
-
-# 4. 跑分析：用显式 .qls 套件，never 直接传 pack 名
-codeql database analyze "$OUTPUT_DIR/codeql.db" \
-  --format=sarif-latest \
-  --output="$OUTPUT_DIR/raw/results.sarif" \
-  --threads=0 \
-  $THREAT_MODEL_FLAG $MODEL_PACK_FLAGS $ADDITIONAL_PACK_FLAGS \
-  -- "$SUITE_FILE"
 ```
 
-model pack 引入方式：已安装的用 `--model-packs=myorg/java-models`；仓库内 model pack 或独立扩展用 `--additional-packs=./lib/codeql-models`（或 `--additional-packs=.`）。
+Then execute the full pipeline: **build database → create data extensions → run analysis** using the workflows below.
 
-## 注意事项
+## When to Use
 
-- 所有生成文件（数据库、build.log、diagnostics、extensions、raw、results）一律进 `$OUTPUT_DIR`，不要散落在工作目录，否则无法清理且会覆盖历史运行。`$OUTPUT_DIR` 在流程开始时一次性解析好，所有子流程共用。
-- 「scan / 全量扫描」不等于「替我选数据库」：存在多个数据库且用户没点名时，要问。
-- 一旦选定某个工作流，按阶段顺序执行，不要跳阶段——每个阶段是下一个的门禁，跳过质量评估或数据扩展会导致分析不完整。
-- 编译型语言无法构建时，`--build-mode=none` 仅作绝对最后手段。
+- Scanning a codebase for security vulnerabilities with deep data flow analysis
+- Building a CodeQL database from source code (with build capability for compiled languages)
+- Finding complex vulnerabilities that require interprocedural taint tracking or AST/CFG analysis
+- Performing comprehensive security audits with multiple query packs
 
-## 互见
+## When NOT to Use
 
-- code-reviewer：人工/规则向的代码审查，可与 CodeQL 的自动数据流扫描互补。
-- dependency-auditor：依赖与供应链安全审计，覆盖 CodeQL 源码扫描之外的第三方组件风险。
+- **Writing custom queries** - Use a dedicated query development skill
+- **CI/CD integration** - Use GitHub Actions documentation directly
+- **Quick pattern searches** - Use Semgrep or grep for speed
+- **No build capability** for compiled languages - Consider Semgrep instead
+- **Single-file or lightweight analysis** - Semgrep is faster for simple pattern matching
+
+## Rationalizations to Reject
+
+These shortcuts lead to missed findings. Do not accept them:
+
+- **"security-extended is enough"** - It is the baseline. Always check if Trail of Bits packs and Community Packs are available for the language. They catch categories `security-extended` misses entirely.
+- **"security-and-quality is the broadest suite"** - `security-and-quality` excludes all `experimental/` query paths. For run-all mode, import both `security-and-quality` and `security-experimental`. The delta is 1–52 queries depending on the language.
+- **"The database built, so it's good"** - A database that builds does not mean it extracted well. Always run quality assessment and check file counts against expected source files.
+- **"Data extensions aren't needed for standard frameworks"** - Even Django/Spring apps have custom wrappers that CodeQL does not model. Skipping extensions means missing vulnerabilities.
+- **"build-mode=none is fine for compiled languages"** - It produces severely incomplete analysis. Only use as an absolute last resort. On macOS, try the arm64 toolchain workaround or Rosetta first.
+- **"The build fails on macOS, just use build-mode=none"** - Exit code 137 is caused by `arm64e`/`arm64` mismatch, not a fundamental build failure. See [macos-arm64e-workaround.md](references/macos-arm64e-workaround.md).
+- **"No findings means the code is secure"** - Zero findings can indicate poor database quality, missing models, or wrong query packs. Investigate before reporting clean results.
+- **"I'll just run the default suite"** / **"I'll just pass the pack names directly"** - Each pack's `defaultSuiteFile` applies hidden filters and can produce zero results. Always use an explicit suite reference.
+- **"I'll put files in the current directory"** - All generated files must go in `$OUTPUT_DIR`. Scattering files in the working directory makes cleanup impossible and risks overwriting previous runs.
+- **"Just use the first database I find"** - Multiple databases may exist for different languages or from previous runs. When more than one is found, present all options to the user. Only skip the prompt when the user already specified which database to use.
+- **"The user said 'scan', that means they want me to pick a database"** - "Scan" is not database selection. If multiple databases exist and the user didn't name one, ask.
 
 ---
-本条采编自 trailofbits/skills（CC-BY-SA-4.0）。
+
+## Workflow Selection
+
+This skill has three workflows. **Once a workflow is selected, execute it step by step without skipping phases.**
+
+| Workflow | Purpose |
+|----------|---------|
+| [build-database](workflows/build-database.md) | Create CodeQL database using build methods in sequence |
+| [create-data-extensions](workflows/create-data-extensions.md) | Detect or generate data extension models for project APIs |
+| [run-analysis](workflows/run-analysis.md) | Select rulesets, execute queries, process results |
+
+### Auto-Detection Logic
+
+**If user explicitly specifies** what to do (e.g., "build a database", "run analysis on ./my-db"), execute that workflow directly. **Do NOT call `AskUserQuestion` for database selection if the user's prompt already makes their intent clear** — e.g., "build a new database", "analyze the codeql database in static_analysis_codeql_2", "run a full scan from scratch".
+
+**Default pipeline for "test", "scan", "analyze", or similar:** Discover existing databases first, then decide.
+
+```bash
+# Find ALL CodeQL databases by looking for codeql-database.yml marker file
+# Search top-level dirs and one subdirectory deep
+FOUND_DBS=()
+while IFS= read -r yml; do
+  db_dir=$(dirname "$yml")
+  codeql resolve database -- "$db_dir" >/dev/null 2>&1 && FOUND_DBS+=("$db_dir")
+done < <(find . -maxdepth 3 -name "codeql-database.yml" -not -path "*/\.*" 2>/dev/null)
+
+echo "Found ${#FOUND_DBS[@]} existing database(s)"
+```
+
+| Condition | Action |
+|-----------|--------|
+| No databases found | Resolve new `$OUTPUT_DIR`, execute build → extensions → analysis (full pipeline) |
+| One database found | Use `AskUserQuestion`: reuse it or build new? |
+| Multiple databases found | Use `AskUserQuestion`: list all with metadata, let user pick one or build new |
+| User explicitly stated intent | Skip `AskUserQuestion`, act on their instructions directly |
+
+### Database Selection Prompt
+
+When existing databases are found **and the user did not explicitly specify which to use**, present via `AskUserQuestion`:
+
+```
+header: "Existing CodeQL Databases"
+question: "I found existing CodeQL database(s). What would you like to do?"
+options:
+  - label: "<db_path_1> (language: python, created: 2026-02-24)"
+    description: "Reuse this database"
+  - label: "<db_path_2> (language: cpp, created: 2026-02-23)"
+    description: "Reuse this database"
+  - label: "Build a new database"
+    description: "Create a fresh database in a new output directory"
+```
+
+After selection:
+- **If user picks an existing database:** Set `$OUTPUT_DIR` to its parent directory (or the directory containing it), set `$DB_NAME` to the selected path, then proceed to extensions → analysis.
+- **If user picks "Build new":** Resolve a new `$OUTPUT_DIR`, execute build → extensions → analysis.
+
+### General Decision Prompt
+
+If the user's intent is ambiguous (neither database selection nor workflow is clear), ask:
+
+```
+I can help with CodeQL analysis. What would you like to do?
+
+1. **Full scan (Recommended)** - Build database, create extensions, then run analysis
+2. **Build database** - Create a new CodeQL database from this codebase
+3. **Create data extensions** - Generate custom source/sink models for project APIs
+4. **Run analysis** - Run security queries on existing database
+
+[If databases found: "I found N existing database(s): <list paths with language>"]
+[Show output directory: "Output will be stored in <OUTPUT_DIR>"]
+```
+
+---
+
+## Reference Index
+
+| File | Content |
+|------|---------|
+| **Workflows** | |
+| [workflows/build-database.md](workflows/build-database.md) | Database creation with build method sequence |
+| [workflows/create-data-extensions.md](workflows/create-data-extensions.md) | Data extension generation pipeline |
+| [workflows/run-analysis.md](workflows/run-analysis.md) | Query execution and result processing |
+| **References** | |
+| [references/macos-arm64e-workaround.md](references/macos-arm64e-workaround.md) | Apple Silicon build tracing workarounds |
+| [references/build-fixes.md](references/build-fixes.md) | Build failure fix catalog |
+| [references/quality-assessment.md](references/quality-assessment.md) | Database quality metrics and improvements |
+| [references/extension-yaml-format.md](references/extension-yaml-format.md) | Data extension YAML column definitions and examples |
+| [references/sarif-processing.md](references/sarif-processing.md) | jq commands for SARIF output processing |
+| [references/diagnostic-query-templates.md](references/diagnostic-query-templates.md) | QL queries for source/sink enumeration |
+| [references/important-only-suite.md](references/important-only-suite.md) | Important-only suite template and generation |
+| [references/run-all-suite.md](references/run-all-suite.md) | Run-all suite template |
+| [references/ruleset-catalog.md](references/ruleset-catalog.md) | Available query packs by language |
+| [references/threat-models.md](references/threat-models.md) | Threat model configuration |
+| [references/language-details.md](references/language-details.md) | Language-specific build and extraction details |
+| [references/performance-tuning.md](references/performance-tuning.md) | Memory, threading, and timeout configuration |
+
+---
+
+## Success Criteria
+
+A complete CodeQL analysis run should satisfy:
+
+- [ ] Output directory resolved (user-specified or auto-incremented default)
+- [ ] All generated files stored inside `$OUTPUT_DIR`
+- [ ] Database built (discovered via `codeql-database.yml` marker) with quality assessment passed (baseline LoC > 0, errors < 5%)
+- [ ] Data extensions evaluated — either created in `$OUTPUT_DIR/extensions/` or explicitly skipped with justification
+- [ ] Analysis run with explicit suite reference (not default pack suite)
+- [ ] All installed query packs (official + Trail of Bits + Community) used or explicitly excluded
+- [ ] Selected query packs logged to `$OUTPUT_DIR/rulesets.txt`
+- [ ] Unfiltered results preserved in `$OUTPUT_DIR/raw/results.sarif`
+- [ ] Final results in `$OUTPUT_DIR/results/results.sarif` (filtered for important-only, copied for run-all)
+- [ ] Zero-finding results investigated (database quality, model coverage, suite selection)
+- [ ] Build log preserved at `$OUTPUT_DIR/build.log` with all commands, fixes, and quality assessments

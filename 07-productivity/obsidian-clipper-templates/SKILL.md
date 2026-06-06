@@ -1,14 +1,14 @@
 ---
 name: obsidian-clipper-templates
-title: Obsidian 网页剪藏模板
-description: 当需要为 Obsidian Web Clipper 制作/打磨可导入 JSON 剪藏模板（含变量、过滤器、条件/循环逻辑、触发器、属性字段映射）时使用；产出经选择器实证校验、可直接复制导入的模板 JSON；不适用于剪藏插件本身的安装运维、非 Obsidian 笔记工具或凭空猜测 DOM 选择器；触发词：Obsidian 剪藏、Web Clipper 模板、剪藏 JSON、selector 变量、schema.org 剪藏
+title: Obsidian Web Clipper Template Creator
+description: Guide for creating templates for the Obsidian Web Clipper. Use when you want to create a new clipping template, understand available variables, or format clipped content.
 domain: 协作/knowledge
-triggers: [Obsidian 网页剪藏, Web Clipper 模板, 剪藏模板 JSON, Obsidian Clipper, selector 变量, schema.org 剪藏, noteContentFormat, 剪藏属性映射]
-tags: [obsidian, web-clipper, 知识管理, 模板, json, css-selector, schema-org, 网页剪藏]
-level: 进阶
+triggers: [Obsidian Clipper, noteContentFormat]
+tags: [obsidian, web-clipper, json, css-selector, schema-org]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [WebFetch, Read, 浏览器 DOM 快照]
+tools: []
 requires: []
 related: [obsidian-bases-builder, defuddle-web-extract, citation-management, bullet-point-structurer]
 combines_with: [filesystem-context-offload, multi-source-knowledge-synthesis]
@@ -16,91 +16,78 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Obsidian Web Clipper Template Creator
 
-- 需要为 **Obsidian Web Clipper** 创建或打磨一份可导入的 JSON 剪藏模板。
-- 要把某站点的真实 DOM、Schema.org 结构化数据、Meta 标签、CSS 选择器映射成合法的剪藏模板。
-- 交付模板前需要做选择器实证校验与模板逻辑（条件/循环/变量赋值/回退）设计。
+This skill helps you create importable JSON templates for the Obsidian Web Clipper.
 
-**不该用边界（负边界）：**
-- 不负责剪藏插件本身的安装、授权、同步运维。
-- 不适用于非 Obsidian 的笔记/剪藏工具（如 Notion Web Clipper）。
-- **严禁凭空猜测选择器**——拿不到 DOM 就停下来要 URL 或截图，不要硬编。
+## When to Use
+- You need to create or refine an importable Obsidian Web Clipper template.
+- You want to map a site's real DOM, schema data, and selectors into a valid clipping template.
+- You need selector verification and template logic guidance before handing the JSON to the user.
 
-## 步骤
+## Workflow
 
-1. **判定意图**：是特定站点（如 YouTube）、特定类型（如食谱 Recipe），还是通用剪藏？
-2. **复用已有 Base**：用户常在 `Bases/` 下定义了 Base schema。读取 `Bases/*.base` 找匹配类目（如 `Recipes.base`），用 Base 里的属性来组织模板的 `properties` 字段。
-3. **抓取并分析参考 URL（必做）**：向用户索取一个样例 URL；用 **WebFetch** 取页面内容，WebFetch 不可用则改用浏览器 DOM 快照；分析 HTML 中的 Schema.org JSON、Meta 标签与 CSS 选择器。
-4. **逐一校验选择器（必做）**：每个选择器都要对照抓取到的真实内容核验；无法核验就明说，并请用户换 URL。
-5. **起草 JSON**：按下文 Schema 写出合法 JSON 对象。
-6. **按需加逻辑**：仅在能改善模板时使用条件（可选块）、循环（列表数据）、变量赋值（避免重复长表达式）、回退（缺值兜底）；简单模板保持简单。
-7. **输出可导入 JSON**：始终以 JSON 代码块交付，供用户复制导入；剪藏编辑器会做语法校验。
+1. **Identify User Intent:** specific site (YouTube), specific type (Recipe), or general clipping?
+2. **Check Existing Bases:** The user likely has a "Base" schema defined in `Bases/`.
+    - **Action:** Read `Bases/*.base` to find a matching category (e.g., `Recipes.base`).
+    - **Action:** Use the properties defined in the Base to structure the Clipper template properties.
+    - See [references/bases-workflow.md](references/bases-workflow.md) for details.
+3. **Fetch & Analyze Reference URL:** Validate variables against a real page.
+    - **Action:** Ask the user for a sample URL of the content they want to clip (if not provided).
+    - **Action (REQUIRED):** Use **WebFetch** to retrieve page content; if WebFetch is not available, use a browser DOM snapshot. See [references/analysis-workflow.md](references/analysis-workflow.md).
+    - **Action:** Analyze the HTML for Schema.org JSON, Meta tags, and CSS selectors.
+    - **Action (REQUIRED):** Verify each selector against the fetched content. Do not guess selectors.
+    - See [references/analysis-workflow.md](references/analysis-workflow.md) for analysis techniques.
+4. **Draft the JSON:** Create a valid JSON object following the schema.
+    - See [references/json-schema.md](references/json-schema.md).
+5. **Consider template logic:** Use conditionals for optional blocks (e.g. show nutrition only if present), loops for list data, variable assignment to avoid repeating expressions, and fallbacks for missing variables. Use logic only when it improves the template; keep simple templates simple. See [references/logic.md](references/logic.md).
+6. **Verify Variables:** Ensure the chosen variables (Preset, Schema, Selector) exist in your analysis.
+    - **Action (REQUIRED):** If a selector cannot be verified from the fetched content, state that explicitly and ask for another URL.
+    - See [references/variables.md](references/variables.md).
 
-## 指令
+## Selector Verification Rules
 
-**根结构与字段：**
+- **Always verify selectors** against live page content before responding.
+- **Never guess selectors.** If the DOM cannot be accessed or the element is missing, ask for another URL or a screenshot.
+- **Prefer stable selectors** (data attributes, semantic roles, unique IDs) over fragile class chains.
+- **Document the target element** in your reasoning (e.g., "About sidebar paragraph") to reduce mismatch.
 
-```json
-{
-  "schemaVersion": "0.1.0",
-  "name": "模板名",
-  "behavior": "create",
-  "noteContentFormat": "正文，用 \\n 换行，可用全部变量与模板逻辑",
-  "properties": [],
-  "triggers": [],
-  "noteNameFormat": "{{title}}",
-  "path": "Inbox/"
-}
-```
+## Output Format
 
-- `schemaVersion`：恒为 `"0.1.0"`。
-- `behavior`：`create`（新建笔记，`path` 为文件夹）/ `append-specific`（追加到指定笔记，`path` 为完整文件路径）/ `append-daily`（追加到日记）。
-- `triggers`：自动选中该模板的数组，支持 URL 模式（字符串或正则，如 `"https://www.youtube.com/watch"`）与 Schema 类型（如 `"schema:Recipe"`）。
-- `properties`：每项 `{name, value, type}`，`type` ∈ `text | multitext | number | checkbox | date | datetime`；`value` 可含变量与逻辑。
+**ALWAYS** output the final result as a JSON code block that the user can copy and import.
 
-**变量四类：**
-- 预设：`{{title}}` `{{content}}` `{{url}}` `{{author}}` `{{published}}` `{{selection}}` `{{image}}` 等。
-- 选择器：`{{selector:css}}` 取文本，`{{selector:img.hero?src}}` 取属性，`{{selectorHtml:body|markdown}}`。
-- Meta：`{{meta:description}}` `{{meta:og:title}}`。
-- Schema.org：`{{schema:Recipe:recipeIngredient}}` `{{schema:author.name}}`。
-- AI 提示变量（需启用 Interpreter）：`{{"用 3 个要点总结"}}`。
-
-**常用过滤器**（`{{变量|过滤器}}`）：`markdown` `list` `table` `join:","` `first` `last` `map:item =>> item.text` `wikilink` `date:"YYYY-MM-DD"` `safe_name`。
-
-## 示例
-
-食谱模板（Schema 触发 + 循环 + 过滤器）：
+The Clipper template editor validates template syntax.
+If you use template logic (conditionals, loops, variable assignment), ensure it follows the syntax in [references/logic.md](references/logic.md) and the official [Logic](https://help.obsidian.md/web-clipper/logic) docs so the template passes validation.
 
 ```json
 {
   "schemaVersion": "0.1.0",
-  "name": "Recipe",
-  "behavior": "create",
-  "noteContentFormat": "![{{schema:Recipe:image|first}}]\n\n## 食材\n{{schema:Recipe:recipeIngredient|list}}\n\n## 步骤\n{{schema:Recipe:recipeInstructions|map:step =>> step.text|list}}",
-  "properties": [
-    { "name": "author", "value": "[[{{schema:Recipe:author.name}}]]", "type": "text" },
-    { "name": "source", "value": "{{url}}", "type": "text" },
-    { "name": "ingredients", "value": "{{schema:Recipe:recipeIngredient}}", "type": "multitext" }
-  ],
-  "triggers": ["schema:Recipe"],
-  "noteNameFormat": "{{schema:Recipe:name}}",
-  "path": "Recipes/"
+  "name": "My Template",
+  ...
 }
 ```
 
-## 注意事项
+## Resources
 
-- **选择器实证优先**：响应前必对照真实页面核验；元素缺失或 DOM 取不到，就要换 URL/截图，绝不猜测。
-- **优先稳定选择器**：data 属性、语义化 role、唯一 ID 优于脆弱的多层 class 链。
-- **在推理中标注目标元素**（如「关于侧栏段落」）以降低错配。
-- **逻辑语法**须遵循官方 [Logic](https://help.obsidian.md/web-clipper/logic) 文档，否则剪藏模板编辑器会校验报错。
-- 逻辑（条件/循环/赋值/回退）在 1.0.0 起对 `noteContentFormat` 与属性 `value` 字段均生效。
+- [references/variables.md](references/variables.md) - Available data variables.
+- [references/filters.md](references/filters.md) - Formatting filters.
+- [references/json-schema.md](references/json-schema.md) - JSON structure documentation.
+- [references/logic.md](references/logic.md) - Template logic.
+- [references/bases-workflow.md](references/bases-workflow.md) - How to map Bases to Templates.
+- [references/analysis-workflow.md](references/analysis-workflow.md) - How to validate page data.
 
-## 互见
+### Official Documentation
 
-- 官方文档：[Variables](https://help.obsidian.md/web-clipper/variables) / [Filters](https://help.obsidian.md/web-clipper/filters) / [Logic](https://help.obsidian.md/web-clipper/logic) / [Templates](https://help.obsidian.md/web-clipper/templates)
-- 同卷（07-协作/知识管理）：网页内容抓取与分析、结构化数据提取类技能。
+- [Variables](https://help.obsidian.md/web-clipper/variables)
+- [Filters](https://help.obsidian.md/web-clipper/filters)
+- [Logic](https://help.obsidian.md/web-clipper/logic)
+- [Templates](https://help.obsidian.md/web-clipper/templates)
 
----
-*采编自 [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills)（MIT），适配重写为中文技能大典条目。*
+## Examples
+
+See [assets/](assets/) for JSON examples.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

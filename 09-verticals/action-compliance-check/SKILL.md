@@ -1,14 +1,14 @@
 ---
 name: action-compliance-check
-title: 行动合规性检查（产品/业务举措）
-description: 当要为某项拟定行动、产品功能、营销活动或业务举措做合规扫描，识别适用法规、所需审批与风险点时使用；做产出含"放行/有条件放行/需进一步审查"判定及法规·要求·风险·审批四表的合规检查报告；不适用于出具正式法律意见、替非律师批准上线、做单一法规深度落地或纯技术实现；触发词：合规检查、能不能上线、上线前合规、跨境数据、GDPR/CCPA、需要哪些审批、监管影响、compliance check
+title: /compliance-check -- Compliance Review
+description: Run a compliance check on a proposed action, product feature, or business initiative, surfacing applicable regulations, required approvals, and risk areas. Use when launching a feature that touches personal data, when marketing or product proposes something with regulatory implications, or when you need to know which approvals and jurisdictional requirements apply before proceeding.
 domain: 领域/legal
-triggers: [合规检查, 能不能上线, 上线前合规, 跨境数据合规, 需要哪些审批, 监管影响评估, GDPR CCPA 适用, compliance check]
+triggers: [compliance check]
 tags: [legal, compliance, privacy, gdpr, ccpa, risk-assessment, approvals, go-to-market]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [WebSearch, 法律检索工具(Westlaw/CourtListener等)]
+tools: []
 requires: []
 related: [product-launch-legal-review, feature-legal-risk-assessment, legal-risk-classifier, marketing-claims-reviewer]
 combines_with: [product-launch-legal-review, quick-legal-problem-triage]
@@ -16,133 +16,271 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# /compliance-check -- Compliance Review
 
-当用户描述一项**拟定的行动、产品功能、营销活动或业务举措**，并想在推进前知道"会不会踩合规线、需要谁批、有哪些辖区要求"时使用。典型触发：
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-- "我们想上一个现金奖励的推荐返利活动"
-- "App 要加生物特征认证"
-- "要把欧盟客户数据放到美国机房处理"
-- "市场部想在广告里用客户证言"
+Run a compliance check on a proposed action, product feature, marketing campaign, or business initiative.
 
-核心产出：一份合规扫描报告，给出**放行 / 有条件放行 / 需进一步审查**的总体判定，并列清适用法规、要求差距、风险点与所需审批。
+**Important**: This command assists with legal workflows but does not provide legal advice. Compliance assessments should be reviewed by qualified legal professionals. Regulatory requirements change frequently; always verify current requirements with authoritative sources.
 
-**不该用的边界（务必遵守）：**
-- 不出具正式法律意见——本技能辅助梳理合规工作流，最终评估须由有资质的法律人士复核。
-- 不替非律师"批准上线"——批准是法律行为，须经律师/合规负责人签字。
-- 不做单一法规的深度落地（如完整的 GDPR 工程实现）——那应转给 `gdpr-data-handler`、`dsar-response-builder`、`privacy-impact-assessor` 等专项技能。
-- 监管要求频繁变动——任何条款、时限、阈值都须对照**权威一手来源**核验当前生效版本，不得凭模型记忆陈述。
+## Usage
 
-## 步骤
+```
+/compliance-check $ARGUMENTS
+```
 
-**第一步：补齐三要素。** 让用户把举措说"具体"。问清并锁定：
-1. **做什么**——"给全体用户群发邮件"远好于"做个营销活动"。
-2. **在哪做**——地域决定适用辖区，合规要求随辖区变。
-3. **碰什么数据**——涉及哪些个人数据，这是大多数合规要求的触发点。
+## What I Need From You
 
-**第二步：识别适用法规与政策。** 结合举措与数据/辖区，研究当前生效的适用规则（隐私、广告、行业监管、平台政策、公司内部政策），逐条映射到本举措。常见隐私法速查见下方"指令"。
+Describe what you're planning to do. Examples:
+- "We want to launch a referral program with cash rewards"
+- "We're adding biometric authentication to our mobile app"
+- "We need to process EU customer data in our US data center"
+- "Marketing wants to use customer testimonials in ads"
 
-**第三步：做要求差距分析。** 对每条适用要求，判定状态（已满足 / 未满足 / 未知）并给出待办动作。
-
-**第四步：识别风险点并定级。** 每个风险标 高/中/低 严重度，配缓解措施。
-
-**第五步：列所需审批。** 哪些人/团队（法务、隐私官/DPO、安全、市场负责人等）须签字，以及原因。
-
-**第六步：产出报告。** 按下方固定模板输出，并把"放行：是"作为闸门——非律师审查时须提示先经律师复核。
-
-## 指令
-
-输出固定结构（Markdown）：
+## Output
 
 ```markdown
-## 合规检查：[举措名]
+## Compliance Check: [Initiative]
 
-### 总体判定
-[放行 / 有条件放行 / 需进一步审查]
+### Summary
+[Quick assessment: Proceed / Proceed with conditions / Requires further review]
 
-### 适用法规与政策
-| 法规/政策 | 如何适用 | 关键要求 |
+### Applicable Regulations and Policies
+| Regulation/Policy | Relevance | Key Requirements |
+|-------------------|-----------|-----------------|
+| [GDPR / CCPA / HIPAA / etc.] | [How it applies] | [What you need to do] |
+
+### Requirements
+| # | Requirement | Status | Action Needed |
+|---|-------------|--------|---------------|
+| 1 | [Requirement] | [Met / Not Met / Unknown] | [What to do] |
+
+### Risk Areas
+| Risk | Severity | Mitigation |
+|------|----------|------------|
+| [Risk] | [High/Med/Low] | [How to address] |
+
+### Recommended Actions
+1. [Most important action]
+2. [Second priority]
+3. [Third priority]
+
+### Approvals Needed
+| Approver | Why | Status |
+|----------|-----|--------|
+| [Person/Team] | [Reason] | [Pending] |
+
+### Further Review Recommended
+[Areas where outside counsel or specialist review is advised]
+```
+
+## Privacy Regulation Overview
+
+### GDPR (General Data Protection Regulation)
+
+**Scope**: Applies to processing of personal data of individuals in the EU/EEA, regardless of where the processing organization is located.
+
+**Key Obligations for In-House Legal Teams**:
+- **Lawful basis**: Identify and document lawful basis for each processing activity (consent, contract, legitimate interest, legal obligation, vital interest, public task)
+- **Data subject rights**: Respond to access, rectification, erasure, portability, restriction, and objection requests within 30 days (extendable by 60 days for complex requests)
+- **Data protection impact assessments (DPIAs)**: Required for processing likely to result in high risk to individuals
+- **Breach notification**: Notify supervisory authority within 72 hours of becoming aware of a personal data breach; notify affected individuals without undue delay if high risk
+- **Records of processing**: Maintain Article 30 records of processing activities
+- **International transfers**: Ensure appropriate safeguards for transfers outside EEA (SCCs, adequacy decisions, BCRs)
+- **DPO requirement**: Appoint a Data Protection Officer if required (public authority, large-scale processing of special categories, large-scale systematic monitoring)
+
+**Common In-House Legal Touchpoints**:
+- Reviewing vendor DPAs for GDPR compliance
+- Advising product teams on privacy by design requirements
+- Responding to supervisory authority inquiries
+- Managing cross-border data transfer mechanisms
+- Reviewing consent mechanisms and privacy notices
+
+### CCPA / CPRA (California Consumer Privacy Act / California Privacy Rights Act)
+
+**Scope**: Applies to businesses that collect personal information of California residents and meet revenue, data volume, or data sale thresholds.
+
+**Key Obligations**:
+- **Right to know**: Consumers can request disclosure of personal information collected, used, and shared
+- **Right to delete**: Consumers can request deletion of their personal information
+- **Right to opt-out**: Consumers can opt out of the sale or sharing of personal information
+- **Right to correct**: Consumers can request correction of inaccurate personal information (CPRA addition)
+- **Right to limit use of sensitive personal information**: Consumers can limit use of sensitive PI to specific purposes (CPRA addition)
+- **Non-discrimination**: Cannot discriminate against consumers who exercise their rights
+- **Privacy notice**: Must provide a privacy notice at or before collection describing categories of PI collected and purposes
+- **Service provider agreements**: Contracts with service providers must restrict use of PI to the specified business purpose
+
+**Response Timelines**:
+- Acknowledge receipt within 10 business days
+- Respond substantively within 45 calendar days (extendable by 45 days with notice)
+
+### Other Key Regulations to Monitor
+
+| Regulation | Jurisdiction | Key Differentiators |
 |---|---|---|
-| [GDPR / CCPA / HIPAA / …] | [适用理由] | [你需要做什么] |
+| **LGPD** (Brazil) | Brazil | Similar to GDPR; requires DPO appointment; National Data Protection Authority (ANPD) enforcement |
+| **POPIA** (South Africa) | South Africa | Information Regulator oversight; required registration of processing |
+| **PIPEDA** (Canada) | Canada (federal) | Consent-based framework; OPC oversight; being modernized |
+| **PDPA** (Singapore) | Singapore | Do Not Call registry; mandatory breach notification; PDPC enforcement |
+| **Privacy Act** (Australia) | Australia | Australian Privacy Principles (APPs); notifiable data breaches scheme |
+| **PIPL** (China) | China | Strict cross-border transfer rules; data localization requirements; CAC oversight |
+| **UK GDPR** | United Kingdom | Post-Brexit UK version; ICO oversight; similar to EU GDPR with UK-specific adequacy |
 
-### 要求差距
-| # | 要求 | 状态 | 待办动作 |
+## DPA Review Checklist
+
+When reviewing a Data Processing Agreement or Data Processing Addendum, verify the following:
+
+### Required Elements (GDPR Article 28)
+
+- [ ] **Subject matter and duration**: Clearly defined scope and term of processing
+- [ ] **Nature and purpose**: Specific description of what processing will occur and why
+- [ ] **Type of personal data**: Categories of personal data being processed
+- [ ] **Categories of data subjects**: Whose personal data is being processed
+- [ ] **Controller obligations and rights**: Controller's instructions and oversight rights
+
+### Processor Obligations
+
+- [ ] **Process only on documented instructions**: Processor commits to process only per controller's instructions (with exception for legal requirements)
+- [ ] **Confidentiality**: Personnel authorized to process have committed to confidentiality
+- [ ] **Security measures**: Appropriate technical and organizational measures described (Article 32 reference)
+- [ ] **Sub-processor requirements**:
+  - [ ] Written authorization requirement (general or specific)
+  - [ ] If general authorization: notification of changes with opportunity to object
+  - [ ] Sub-processors bound by same obligations via written agreement
+  - [ ] Processor remains liable for sub-processor performance
+- [ ] **Data subject rights assistance**: Processor will assist controller in responding to data subject requests
+- [ ] **Security and breach assistance**: Processor will assist with security obligations, breach notification, DPIAs, and prior consultation
+- [ ] **Deletion or return**: On termination, delete or return all personal data (at controller's choice) and delete existing copies unless legal retention required
+- [ ] **Audit rights**: Controller has right to conduct audits and inspections (or accept third-party audit reports)
+- [ ] **Breach notification**: Processor will notify controller of personal data breaches without undue delay (ideally within 24-48 hours; must enable controller to meet 72-hour regulatory deadline)
+
+### International Transfers
+
+- [ ] **Transfer mechanism identified**: SCCs, adequacy decision, BCRs, or other valid mechanism
+- [ ] **SCCs version**: Using current EU SCCs (June 2021 version) if applicable
+- [ ] **Correct module**: Appropriate SCC module selected (C2P, C2C, P2P, P2C)
+- [ ] **Transfer impact assessment**: Completed if transferring to countries without adequacy decisions
+- [ ] **Supplementary measures**: Technical, organizational, or contractual measures to address gaps identified in transfer impact assessment
+- [ ] **UK addendum**: If UK personal data is in scope, UK International Data Transfer Addendum included
+
+### Practical Considerations
+
+- [ ] **Liability**: DPA liability provisions align with (or don't conflict with) the main services agreement
+- [ ] **Termination alignment**: DPA term aligns with the services agreement
+- [ ] **Data locations**: Processing locations specified and acceptable
+- [ ] **Security standards**: Specific security standards or certifications required (SOC 2, ISO 27001, etc.)
+- [ ] **Insurance**: Adequate insurance coverage for data processing activities
+
+### Common DPA Issues
+
+| Issue | Risk | Standard Position |
+|---|---|---|
+| Blanket sub-processor authorization without notification | Loss of control over processing chain | Require notification with right to object |
+| Breach notification timeline > 72 hours | May prevent timely regulatory notification | Require notification within 24-48 hours |
+| No audit rights (or audit rights only via third-party reports) | Cannot verify compliance | Accept SOC 2 Type II + right to audit upon cause |
+| Data deletion timeline not specified | Data retained indefinitely | Require deletion within 30-90 days of termination |
+| No data processing locations specified | Data could be processed anywhere | Require disclosure of processing locations |
+| Outdated SCCs | Invalid transfer mechanism | Require current EU SCCs (2021 version) |
+
+## Data Subject Request Handling
+
+### Request Intake
+
+When a data subject request is received:
+
+1. **Identify the request type**:
+   - Access (copy of personal data)
+   - Rectification (correction of inaccurate data)
+   - Erasure / deletion ("right to be forgotten")
+   - Restriction of processing
+   - Data portability (structured, machine-readable format)
+   - Objection to processing
+   - Opt-out of sale/sharing (CCPA/CPRA)
+   - Limit use of sensitive personal information (CPRA)
+
+2. **Identify applicable regulation(s)**:
+   - Where is the data subject located?
+   - Which laws apply based on your organization's presence and activities?
+   - What are the specific requirements and timelines?
+
+3. **Verify identity**:
+   - Confirm the requester is who they claim to be
+   - Use reasonable verification measures proportionate to the sensitivity of the data
+   - Do not require excessive documentation
+
+4. **Log the request**:
+   - Date received
+   - Request type
+   - Requester identity
+   - Applicable regulation
+   - Response deadline
+   - Assigned handler
+
+### Response Timelines
+
+| Regulation | Initial Acknowledgment | Substantive Response | Extension |
 |---|---|---|---|
-| 1 | [要求] | [已满足/未满足/未知] | [怎么做] |
+| GDPR | Not specified (best practice: promptly) | 30 days | +60 days (with notice) |
+| CCPA/CPRA | 10 business days | 45 calendar days | +45 days (with notice) |
+| UK GDPR | Not specified (best practice: promptly) | 30 days | +60 days (with notice) |
+| LGPD | Not specified | 15 days | Limited extensions |
 
-### 风险点
-| 风险 | 严重度 | 缓解措施 |
-|---|---|---|
-| [风险] | [高/中/低] | [如何应对] |
+### Exemptions and Exceptions
 
-### 建议动作（按优先级）
-1. [最重要] 2. [次要] 3. [第三]
+Before fulfilling a request, check whether any exemptions apply:
 
-### 所需审批
-| 审批方 | 原因 | 状态 |
-|---|---|---|
-| [人/团队] | [理由] | [待办] |
+**Common exemptions across regulations**:
+- Legal claims defense or establishment
+- Legal obligations requiring retention
+- Public interest or official authority
+- Freedom of expression and information (for erasure requests)
+- Archiving in the public interest or scientific/historical research
 
-### 建议进一步审查
-[需外部律师或专家复核的领域]
-```
+**Organization-specific considerations**:
+- Litigation hold: Data subject to a legal hold cannot be deleted
+- Regulatory retention: Financial records, employment records, and other categories may have mandatory retention periods
+- Third-party rights: Fulfilling the request might adversely affect the rights of others
 
-- **只引用与本举措真正相关的法规。** 把所有隐私法一股脑列出会淹没承重的那一两条；每条法规须映射到一句"为何适用"，否则删掉。
-- **不得静默补漏。** 若向配置的法律检索工具查询返回结果稀少或为零，如实报告并停止；不要擅自用网络搜索或模型知识填补。应给出选项（放宽查询 / 换工具 / 网络搜索结果标 `[web search — verify]` / 标未核实并停）让律师决定。
-- **来源分层标注。** 成文法/法规等稳定知识标 `[settled]`（仍需核但优先级低）；具体执法案例、阈值、生效日、近期更新标 `[verify]`；精确定位引用（具体子条款、CFR 分编、判例段号）标 `[verify-pinpoint]`，伪造风险最高，必须对照一手来源核验。
-- **"放行：是"是闸门。** 输出此结论前确认审查者身份；若为非律师，提示先与律师复核并生成一页简报。"有条件放行""需进一步审查"是判定而非批准，不受此闸门约束。
+### Response Process
 
-**隐私法速查（关键义务与时限，引用前须核当前版本）：**
+1. Gather all personal data of the requester across systems
+2. Apply any exemptions and document the basis
+3. Prepare response: fulfill the request or explain why (in whole or part) it cannot be fulfilled
+4. If denying (in whole or part): cite the specific legal basis for denial
+5. Inform the requester of their right to lodge a complaint with the supervisory authority
+6. Document the response and retain records of the request and response
 
-| 法规 | 辖区 | 关键要点 |
-|---|---|---|
-| **GDPR** | 欧盟/EEA（数据落在欧盟即适用，不论机构在哪） | 每项处理须有合法性基础（Art.6）；数据主体权利**30 天内**响应（复杂可延 60 天）；高风险处理须做 DPIA；个人数据泄露**72 小时内**通知监管机构；维护 Art.30 处理记录；跨境传输须有 SCC/充分性认定/BCR 等保障 |
-| **CCPA/CPRA** | 美国加州 | 知情权、删除权、退出"出售/共享"权、更正权、限制敏感个人信息使用权、不歧视；收集时/前须给隐私通知；**10 个工作日内**确认收到、**45 个日历日内**实质响应（可延 45 天） |
-| **LGPD**（巴西）、**PIPL**（中国，跨境从严+本地化）、**UK GDPR**（ICO 监管）、**PDPA**（新加坡）、**Privacy Act/APP**（澳大利亚）、**POPIA**（南非）、**PIPEDA**（加拿大） | 各辖区 | 多与 GDPR 同源但时限、DPO 要求、跨境与本地化规则各异，按辖区单独核 |
+## Regulatory Monitoring Basics
 
-## 示例
+### What to Monitor
 
-**输入：** "我们要把欧盟客户数据放到美国机房处理。"
+Maintain awareness of developments in:
+- **Regulatory guidance**: New or updated guidance from supervisory authorities (ICO, CNIL, FTC, state AGs, etc.)
+- **Enforcement actions**: Fines, orders, and settlements that signal regulatory priorities
+- **Legislative changes**: New privacy laws, amendments to existing laws, implementing regulations
+- **Industry standards**: Updates to ISO 27001, SOC 2, NIST frameworks, and sector-specific requirements
+- **Cross-border transfer developments**: Adequacy decisions, SCC updates, data localization requirements
 
-**报告（节选）：**
+### Monitoring Approach
 
-```markdown
-## 合规检查：欧盟客户数据在美机房处理
+1. **Subscribe to regulatory authority communications** (newsletters, RSS feeds, official announcements)
+2. **Track relevant legal publications** for analysis of new developments
+3. **Review industry association updates** for sector-specific guidance
+4. **Maintain a regulatory calendar** of known upcoming deadlines, effective dates, and compliance milestones
+5. **Brief the legal team** on material developments that affect the organization's processing activities
 
-### 总体判定
-有条件放行
+### Escalation Criteria
 
-### 适用法规与政策
-| 法规/政策 | 如何适用 | 关键要求 |
-|---|---|---|
-| GDPR [settled] | 处理对象为欧盟个人数据，触发跨境传输规则 | 须有合法传输机制（SCC/充分性认定/BCR） |
-| Schrems II 后的传输影响评估 [verify] | 传至无充分性认定的美国 | 完成 TIA 并配补充措施 |
+Escalate regulatory developments to senior counsel or leadership when:
+- A new regulation or guidance directly affects the organization's core business activities
+- An enforcement action in the organization's sector signals heightened regulatory scrutiny
+- A compliance deadline is approaching that requires organizational changes
+- A data transfer mechanism the organization relies on is challenged or invalidated
+- A regulatory authority initiates an inquiry or investigation involving the organization
 
-### 风险点
-| 风险 | 严重度 | 缓解措施 |
-|---|---|---|
-| 无有效传输机制，传输可能被认定违法 | 高 | 签署 2021 版 EU SCC（选对模块）+ 完成 TIA |
-| 机房分包商再传输不可控 | 中 | DPA 约束分包商、限定处理地点 |
+## Tips
 
-### 所需审批
-| 审批方 | 原因 | 状态 |
-|---|---|---|
-| 隐私官/DPO | 跨境传输机制审定 | 待办 |
-| 安全团队 | 静态/传输加密等补充措施 | 待办 |
-```
-
-## 注意事项
-
-- **越具体越准。** "群发邮件"要写清对象、地域、所涉数据，否则判定会失真——这正是第一步要补齐三要素的原因。
-- **不替代律师。** 本技能做的是结构化梳理与初筛，正式意见与上线批准须经合规/法律复核。
-- **时效性是高发坑。** 充分性认定、SCC 版本、州 UDAP、平台规则都频繁更新；无法核实当前要求时，标记交律师核验，绝不陈述未经确认的规则。
-- **引用核查声明随报告输出：** 本报告所引法规、案例、阈值与生效日由 AI 生成、未对照一手来源核验，依赖前须用权威来源核准确性与当前生效日。
-
-## 互见
-
-- requires：无
-- related：`general-counsel-advisor` —— 跨领域法律风险初判与升级路径；`regulatory-policy-diff` —— 追踪法规变更对本举措的影响。
-- combines_with：`privacy-impact-assessor` —— 当举措触及个人数据时下钻做 DPIA；`gdpr-data-handler` / `dsar-response-builder` / `dpa-clause-reviewer` —— 命中 GDPR/数据主体请求/数据处理协议时的专项落地；`marketing-claims-reviewer` —— 营销举措的声明合规审查。
-
----
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+1. **Be specific** — "We want to email all our users" is better than "marketing campaign."
+2. **Include the geography** — Compliance requirements vary by jurisdiction.
+3. **Mention the data** — What personal data is involved? This drives most compliance requirements.

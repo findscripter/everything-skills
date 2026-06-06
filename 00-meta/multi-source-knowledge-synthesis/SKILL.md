@@ -1,11 +1,11 @@
 ---
 name: multi-source-knowledge-synthesis
-title: 多源知识综合
-description: 当手头有来自多个渠道（聊天/邮件/云文档/任务系统/Wiki 等）的检索结果、需要去重合并成一个连贯且可溯源的答案时使用；做的是跨源去重、按主题聚类、按时效×权威性×一致性评估置信度、产出「先结论后细节+逐条署名」的综合回答；不适用于单一来源直接可答、原始资料尚未检索到、或用户只要罗列原文不要综合的场景。触发词：综合、汇总、去重、多源、跨来源、可溯源、谁说了算、最终结论
+title: Knowledge Synthesis
+description: Combines search results from multiple sources into coherent, deduplicated answers with source attribution. Handles confidence scoring based on freshness and authority, and summarizes large result sets effectively.
 domain: 通用/communication
-triggers: [综合多个来源, 汇总检索结果, 跨来源去重, 多源信息整合, 把这些结果整理成结论, 带出处的答案, 哪个是最终决定, 信息冲突怎么判, synthesize sources, deduplicate results]
-tags: [知识综合, 信息整合, 去重, 来源署名, 置信度评估, 企业检索, 多源, 结论先行, rag 后处理]
-level: 进阶
+triggers: [synthesize sources, deduplicate results]
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,137 +16,255 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# Knowledge Synthesis
 
-当你已经从**多个来源**（聊天、邮件、云文档、项目/任务系统、Wiki 等）拿到一批原始检索结果，需要把它们合成一个**连贯、可信、每句话都能溯源**的答案时使用。这是企业检索的「最后一公里」——从一堆零散命中到一段能直接给人看的结论。
+The last mile of enterprise search. Takes raw results from multiple sources and produces a coherent, trustworthy answer.
 
-典型触发：
-- 用户问一个问题，命中分散在 N 个系统里，需要合并成一个回答而非贴 N 段原文。
-- 同一信息在多处出现，需要去重并统一署名。
-- 来源之间互相矛盾或随时间演进，需要判定「哪个是最终结论」并暴露分歧。
+## The Goal
 
-**不该用于：**
-- 单一来源即可直接回答 —— 不需要综合流程，直接引用作答。
-- 原始资料还没检索到 —— 本技能是检索的**后处理**，不负责去各系统拉数据；先用检索类技能取回结果。
-- 用户明确只要原始片段、不要你加工综合时。
-- 把不相关命中硬塞进答案（仅因关键词匹配）—— 宁可丢弃也不污染结论。
-
-## 步骤
-
-固定 6 步流水线，输入是「全部来源的原始结果」，输出是「带署名的连贯答案」：
-
+Transform this:
 ```
-[原始结果]
-  ↓ 1. 去重    跨源合并同一信息
-  ↓ 2. 聚类    按主题/话题分组相关结果
-  ↓ 3. 排序    按与问题的相关度给簇和条目排序
-  ↓ 4. 评置信  时效 × 权威性 × 一致性
-  ↓ 5. 综合    写成叙事式答案 + 逐条署名
-  ↓ 6. 选格式  按结果数量决定详略层级
-[连贯答案 + 来源清单]
+~~chat result: "Sarah said in #eng: 'let's go with REST, GraphQL is overkill for our use case'"
+~~email result: "Subject: API Decision — Sarah's email confirming REST approach with rationale"
+~~cloud storage result: "API Design Doc v3 — updated section 2 to reflect REST decision"
+~~project tracker result: "Task: Finalize API approach — marked complete by Sarah"
 ```
 
-**1. 去重（cross-source dedup）** —— 判定「是同一件事」的信号：文本高度相似 / 同一作者发件人 / 时间戳相近（同日或相邻日）/ 指向同一实体（项目名、文档、决策）/ 一处引用另一处（「如聊天里讨论的」「见那封邮件」「参文档」）。
-合并办法：归为一条叙事，列出全部出现来源，以**最完整**的版本为主文，补入各来源独有细节。
-合并优先级：① 最完整（上下文最全）② 最权威（正式文档 > 聊天）③ 最新（演进型信息以最新为准）。
-
-**不要去重**（保留为独立条目）的情形：同话题但**结论不同** / 不同人表达不同观点 / 信息在来源间**实质演进**（决策 v1 vs v2）/ 代表不同时间段。
-
-**4. 评置信度** —— 两维度交叉：
-
-时效（状态类问题重时效，政策/事实类问题时效次要）：
-| 时效 | 影响 |
-|---|---|
-| 今天/昨天 | 对当前状态高置信 |
-| 本周 | 较好置信 |
-| 本月 | 中等——可能已变 |
-| 超过一个月 | 偏低——标注「可能过期」|
-
-权威性：
-| 来源类型 | 权威级别 |
-|---|---|
-| 官方 Wiki / 知识库 | 最高（经维护策展）|
-| 共享文档（终版）| 高（有意发布）|
-| 邮件公告 | 高（正式沟通）|
-| 会议纪要 | 中高（可能不全）|
-| 聊天（话题结论句）| 中（非正式但实时）|
-| 聊天（话题中段）| 偏低（未必是最终立场）|
-| 草稿文档 | 低（未定稿）|
-| 任务评论 | 视评论者而定 |
-
-## 指令
-
-**署名规则（每条断言都必须可溯源）：**
-- 始终标出来源类型（聊天 / 邮件 / 云文档 …）+ 具体位置（频道、文件夹、线程）+ 日期或相对时间 + 相关时的作者 + 可得的文档/线程标题。
-- 聊天注明频道名；邮件注明主题+发件人；云文档注明文档标题。
-- 行内引用 +「Sources:」末尾清单 双管齐下。
-
-**按置信度调整措辞：**
-- 高（多个新鲜且权威来源一致）→ 直接陈述：「团队决定 API 改用 REST。」
-- 中（单一来源或略旧）→ 加限定：「据上月 #engineering 的讨论，团队当时倾向 REST，此后可能有变。」
-- 低（数据旧/来源非正式/信号冲突）→ 明确不确定 + 建议核实：「找到三个月前一条 API 迁移讨论，但没有正式决策文档，信息可能过期，建议向团队确认现状。」
-
-**信息冲突时**：永远**显式暴露冲突**，不要悄悄挑一个版本。列出各方时间线，再给出「最新来源指向 X，但早期 Y 也探讨过」的判断。
-
-**按结果数量选详略：**
-- 1–5 条：逐条给上下文，不压缩，把全部信息给用户 + 完整署名。
-- 5–15 条：按主题分组，每组小结，给「Key sources（最相关 3–5 个）」+ 总命中数。
-- 15+ 条：高层综合 + 可下钻。给「Summary：要点（各由 N 个来源支撑）」「Top sources」「共 X 条横跨 Y 个来源，需要深挖哪块？」。
-
-**综合规则**：结论先行（别先讲检索过程）/ 不罗列原始结果而是叙事化 / 跨源相关项归并到一起 / 保留重要细微差别与告诫 / 结果集大时主动提议继续深挖。
-
-## 示例
-
-把分散命中合成一个答案：
-
-输入（原始命中）：
+Into this:
 ```
-聊天：Sarah 在 #eng 说「就用 REST，GraphQL 对我们这场景过重」
-邮件：主题「API Decision」——Sarah 确认 REST 方案及理由
-云文档：「API 设计文档 v3」——第 2 节已更新为 REST 决策
-任务系统：任务「敲定 API 方案」——Sarah 标记完成
-```
-
-输出（综合答案）：
-```
-团队在 API 改造中决定用 REST 而非 GraphQL。这个决定由 Sarah 拍板，理由是
-GraphQL 对当前场景过重。周二在 #engineering 讨论，周三邮件确认，设计文档已
-同步更新，相关任务也已标记完成。
+The team decided to go with REST over GraphQL for the API redesign. Sarah made the
+call, noting that GraphQL was overkill for the current use case. This was discussed
+in #engineering on Tuesday, confirmed via email Wednesday, and the design doc has
+been updated to reflect the decision. The related ~~project tracker task is marked complete.
 
 Sources:
-- 聊天：#engineering 线程（1 月 14 日）—— 初始决策讨论
-- 邮件：「API Decision」来自 Sarah（1 月 15 日）—— 正式确认
-- 云文档：「API 设计文档 v3」（1 月 15 日更新）—— 更新后的规范
-- 任务系统：「敲定 API 方案」（1 月 15 日完成）
+- ~~chat: #engineering thread (Jan 14)
+- ~~email: "API Decision" from Sarah (Jan 15)
+- ~~cloud storage: "API Design Doc v3" (updated Jan 15)
+- ~~project tracker: "Finalize API approach" (completed Jan 15)
 ```
 
-冲突示例：
+## Deduplication
+
+### Cross-Source Deduplication
+
+The same information often appears in multiple places. Identify and merge duplicates:
+
+**Signals that results are about the same thing:**
+- Same or very similar text content
+- Same author/sender
+- Timestamps within a short window (same day or adjacent days)
+- References to the same entity (project name, document, decision)
+- One source references another ("as discussed in ~~chat", "per the email", "see the doc")
+
+**How to merge:**
+- Combine into a single narrative item
+- Cite all sources where it appeared
+- Use the most complete version as the primary text
+- Add unique details from each source
+
+### Deduplication Priority
+
+When the same information exists in multiple sources, prefer:
 ```
-关于 API 方案我找到了相互矛盾的信息：
-- 1 月 10 日的聊天讨论倾向 GraphQL
-- 但 Sarah 1 月 15 日的邮件确认了 REST
-- 设计文档（1 月 15 日更新）也写的是 REST
-最新来源表明 REST 是最终决定，但早期聊天确实先探讨过 GraphQL。
+1. The most complete version (fullest context)
+2. The most authoritative source (official doc > chat)
+3. The most recent version (latest update wins for evolving info)
 ```
 
-## 注意事项
+### What NOT to Deduplicate
 
-**不要做（反模式）：**
-- 按来源逐条罗列（「聊天里说…邮件里说…云文档里说…」）——要按**主题**组织，不按来源。
-- 仅因关键词匹配就塞入不相关结果。
-- 把答案埋在方法论解释之下——结论先行。
-- 不标注就呈现冲突信息 / 漏掉来源署名。
-- 把不确定信息说得和铁证一样笃定。
-- 压缩过度，丢掉有用细节。
+Keep as separate items when:
+- The same topic is discussed but with different conclusions
+- Different people express different viewpoints
+- The information evolved meaningfully between sources (v1 vs v2 of a decision)
+- Different time periods are represented
 
-**要做：** 结论先行 / 按话题分组 / 适当标置信度 / 显式暴露冲突 / 所有断言署名 / 结果集大时主动提议深挖。
+## Citation and Source Attribution
 
-## 互见
+Every claim in the synthesized answer must be attributable to a source.
 
-- requires：`fact-checking` —— 综合前对关键断言做查证，区分「来源原文」与可能的误读。
-- related：`notebooklm-source-grounded-qa` —— 单源锚定问答；多源场景升级用本技能做合并。
-- combines_with：`entity-research-dossier` —— 把多源综合的结论沉淀进结构化调研档案；`citation-management` —— 规范化「Sources:」清单与行内署名。
+### Attribution Format
 
----
+Inline for direct references:
+```
+Sarah confirmed the REST approach in her email on Wednesday.
+The design doc was updated to reflect this (~~cloud storage: "API Design Doc v3").
+```
 
-采编自 anthropics/knowledge-work-plugins（Apache-2.0 许可证），原技能 `knowledge-synthesis`（enterprise-search 插件）。本条为适配中文「技能大典」的重写版，保留其 6 步综合流水线、跨源去重信号与优先级、时效×权威性置信度评级表、冲突显式暴露、按结果数量分级（1–5 / 5–15 / 15+）的详略策略及反模式清单等关键约束。
+Source list at the end for completeness:
+```
+Sources:
+- ~~chat: #engineering discussion (Jan 14) — initial decision thread
+- ~~email: "API Decision" from Sarah Chen (Jan 15) — formal confirmation
+- ~~cloud storage: "API Design Doc v3" last modified Jan 15 — updated specification
+```
+
+### Attribution Rules
+
+- Always name the source type (~~chat, ~~email, ~~cloud storage, etc.)
+- Include the specific location (channel, folder, thread)
+- Include the date or relative time
+- Include the author when relevant
+- Include document/thread titles when available
+- For ~~chat, note the channel name
+- For ~~email, note the subject line and sender
+- For ~~cloud storage, note the document title
+
+## Confidence Levels
+
+Not all results are equally trustworthy. Assess confidence based on:
+
+### Freshness
+
+| Recency | Confidence impact |
+|---------|------------------|
+| Today / yesterday | High confidence for current state |
+| This week | Good confidence |
+| This month | Moderate — things may have changed |
+| Older than a month | Lower confidence — flag as potentially outdated |
+
+For status queries, heavily weight freshness. For policy/factual queries, freshness matters less.
+
+### Authority
+
+| Source type | Authority level |
+|-------------|----------------|
+| Official wiki / knowledge base | Highest — curated, maintained |
+| Shared documents (final versions) | High — intentionally published |
+| Email announcements | High — formal communication |
+| Meeting notes | Moderate-high — may be incomplete |
+| Chat messages (thread conclusions) | Moderate — informal but real-time |
+| Chat messages (mid-thread) | Lower — may not reflect final position |
+| Draft documents | Low — not finalized |
+| Task comments | Contextual — depends on commenter |
+
+### Expressing Confidence
+
+When confidence is high (multiple fresh, authoritative sources agree):
+```
+The team decided to use REST for the API redesign. [direct statement]
+```
+
+When confidence is moderate (single source or somewhat dated):
+```
+Based on the discussion in #engineering last month, the team was leaning
+toward REST for the API redesign. This may have evolved since then.
+```
+
+When confidence is low (old data, informal source, or conflicting signals):
+```
+I found a reference to an API migration discussion from three months ago
+in ~~chat, but I couldn't find a formal decision document. The information
+may be outdated. You might want to check with the team for current status.
+```
+
+### Conflicting Information
+
+When sources disagree:
+```
+I found conflicting information about the API approach:
+- The ~~chat discussion on Jan 10 suggested GraphQL
+- But Sarah's email on Jan 15 confirmed REST
+- The design doc (updated Jan 15) reflects REST
+
+The most recent sources indicate REST was the final decision,
+but the earlier ~~chat discussion explored GraphQL first.
+```
+
+Always surface conflicts rather than silently picking one version.
+
+## Summarization Strategies
+
+### For Small Result Sets (1-5 results)
+
+Present each result with context. No summarization needed — give the user everything:
+```
+[Direct answer synthesized from results]
+
+[Detail from source 1]
+[Detail from source 2]
+
+Sources: [full attribution]
+```
+
+### For Medium Result Sets (5-15 results)
+
+Group by theme and summarize each group:
+```
+[Overall answer]
+
+Theme 1: [summary of related results]
+Theme 2: [summary of related results]
+
+Key sources: [top 3-5 most relevant sources]
+Full results: [count] items found across [sources]
+```
+
+### For Large Result Sets (15+ results)
+
+Provide a high-level synthesis with the option to drill down:
+```
+[Overall answer based on most relevant results]
+
+Summary:
+- [Key finding 1] (supported by N sources)
+- [Key finding 2] (supported by N sources)
+- [Key finding 3] (supported by N sources)
+
+Top sources:
+- [Most authoritative/relevant source]
+- [Second most relevant]
+- [Third most relevant]
+
+Found [total count] results across [source list].
+Want me to dig deeper into any specific aspect?
+```
+
+### Summarization Rules
+
+- Lead with the answer, not the search process
+- Do not list raw results — synthesize them into narrative
+- Group related items from different sources together
+- Preserve important nuance and caveats
+- Include enough detail that the user can decide whether to dig deeper
+- Always offer to provide more detail if the result set was large
+
+## Synthesis Workflow
+
+```
+[Raw results from all sources]
+          ↓
+[1. Deduplicate — merge same info from different sources]
+          ↓
+[2. Cluster — group related results by theme/topic]
+          ↓
+[3. Rank — order clusters and items by relevance to query]
+          ↓
+[4. Assess confidence — freshness × authority × agreement]
+          ↓
+[5. Synthesize — produce narrative answer with attribution]
+          ↓
+[6. Format — choose appropriate detail level for result count]
+          ↓
+[Coherent answer with sources]
+```
+
+## Anti-Patterns
+
+**Do not:**
+- List results source by source ("From ~~chat: ... From ~~email: ... From ~~cloud storage: ...")
+- Include irrelevant results just because they matched a keyword
+- Bury the answer under methodology explanation
+- Present conflicting info without flagging the conflict
+- Omit source attribution
+- Present uncertain information with the same confidence as well-supported facts
+- Summarize so aggressively that useful detail is lost
+
+**Do:**
+- Lead with the answer
+- Group by topic, not by source
+- Flag confidence levels when appropriate
+- Surface conflicts explicitly
+- Attribute all claims to sources
+- Offer to go deeper when result sets are large

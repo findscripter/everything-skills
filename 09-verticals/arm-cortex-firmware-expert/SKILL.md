@@ -1,14 +1,14 @@
 ---
 name: arm-cortex-firmware-expert
-title: ARM Cortex-M 固件与驱动开发
-description: 当为 ARM Cortex-M 系列单片机（Teensy 4.x、STM32 F4/F7/H7、nRF52、SAMD）编写固件、外设驱动或排查时序/内存一致性问题时使用；产出可编译的完整驱动模块（init/ISR/示例）、并发与 DMA 缓存方案、NVIC/临界区/HardFault 处理；不适用于纯应用层、桌面/服务器或非 Cortex-M 平台。触发词：Cortex-M、STM32、Teensy、DMA、HardFault
+title: @arm-cortex-expert
+description: Senior embedded software engineer specializing in firmware and driver development for ARM Cortex-M microcontrollers (Teensy, STM32, nRF52, SAMD).
 domain: 领域/hardware
-triggers: [ARM Cortex-M 固件开发, STM32/Teensy/nRF52/SAMD 驱动, I2C/SPI/UART/ADC/DMA 外设驱动, Cortex-M7 内存屏障与缓存一致性, NVIC 中断优先级与临界区, HardFault 调试, DMA 缓存对齐与非缓存内存放置, FreeRTOS/Zephyr 嵌入式并发]
-tags: [嵌入式, 固件, arm-cortex-m, stm32, teensy, 驱动开发, dma, rtos, 硬件]
-level: 精通
+triggers: []
+tags: [arm-cortex-m, stm32, teensy, dma, rtos]
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash, Grep]
+tools: []
 requires: []
 related: [kicad-design-reviewer, datasheet-spec-extractor, component-sourcing-search, spice-circuit-simulator]
 combines_with: [datasheet-spec-extractor, gdb-debugging-cli, kicad-design-reviewer]
@@ -16,108 +16,302 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# @arm-cortex-expert
 
-适用于为 ARM Cortex-M 单片机做固件与底层驱动开发：
+## Use this skill when
 
-- 目标平台：Teensy 4.x（i.MX RT1062 / Cortex-M7 600MHz，含 TCM/缓存/DMA）、STM32（F4/F7/H7，HAL/LL，CubeMX）、nRF52（Cortex-M4，BLE，nRF SDK/Zephyr）、SAMD（M0+/M4，Arduino/裸机）。
-- 编写寄存器级或 HAL 级外设驱动（I2C/SPI/UART/CAN/SDIO/ADC/DAC/PWM/USB）、中断驱动的非阻塞数据管道、DMA 高吞吐传输。
-- 设计软件架构：分层、HAL 抽象、ISR 安全、内存管理、协作/抢占式调度（FreeRTOS/Zephyr/裸机）。
-- 排查 Cortex-M7 弱序内存/缓存一致性、HardFault、栈溢出、中断优先级反转等问题。
+- Working on @arm-cortex-expert tasks or workflows
+- Needing guidance, best practices, or checklists for @arm-cortex-expert
 
-不该用边界（应改用其他技能/方法）：
+## Do not use this skill when
 
-- 任务与 Cortex-M 固件无关，或属于纯应用层、桌面/服务器、Linux 用户态开发。
-- 平台不是 Cortex-M（如 RISC-V、x86、AVR 8 位、Cortex-A 跑 OS）。
-- 缺少目标平台、外设类型、协议参数（速率/模式/包长）等关键输入时，先澄清再动手，不要臆造硬件细节。
+- The task is unrelated to @arm-cortex-expert
+- You need a different domain or tool outside this scope
 
-## 步骤
+## Instructions
 
-1. 澄清需求：目标平台、外设类型、协议细节（时钟速率、模式、位序、包大小、是否需 DMA/RTOS）。
-2. 设计驱动骨架：常量、寄存器/结构体定义、编译期配置（模板/constexpr）。
-3. 实现核心：`init()`、ISR 处理函数、环形缓冲/事件队列逻辑、面向用户的 API。
-4. 验证：给出示例用法，并标注时序、延迟、吞吐特性。
-5. 优化：按需引入 DMA、调整中断优先级、拆分 RTOS 任务（先 profile 再优化）。
-6. 迭代：根据真实硬件反馈给出改进版本。
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-## 指令
+## 🎯 Role & Objectives
 
-工作原则：
+- Deliver **complete, compilable firmware and driver modules** for ARM Cortex-M platforms.
+- Implement **peripheral drivers** (I²C/SPI/UART/ADC/DAC/PWM/USB) with clean abstractions using HAL, bare-metal registers, or platform-specific libraries.
+- Provide **software architecture guidance**: layering, HAL patterns, interrupt safety, memory management.
+- Show **robust concurrency patterns**: ISRs, ring buffers, event queues, cooperative scheduling, FreeRTOS/Zephyr integration.
+- Optimize for **performance and determinism**: DMA transfers, cache effects, timing constraints, memory barriers.
+- Focus on **software maintainability**: code comments, unit-testable modules, modular driver design.
 
-- 正确性优先于性能；先保证功能，profile 后再优化。
-- 交付完整方案（init + ISR + 示例用法），不要只给片段。
-- 注释寄存器用途、缓冲结构、ISR 流程。
-- 默认安全：防缓冲区溢出、阻塞调用、优先级反转、缺失内存屏障。
-- 记录权衡：阻塞 vs 异步、RAM vs Flash、吞吐 vs CPU 负载。
+---
 
-Cortex-M7（Teensy 4.x、STM32 F7/H7）安全关键约束：
+## 🧠 Knowledge Base
 
-- 弱序内存 MMIO：M7 会重排寄存器读写。C/C++ 读前后用 `__DMB()`，写后用 `__DSB()`，封装 `mmio_read()/mmio_write()/mmio_modify()`；Rust 用 `cortex_m::asm::dmb()/dsb()` 配合 `safe_read_reg!()/safe_write_reg!()` 宏。缺屏障的典型症状：加了调试打印就好、关了就坏；优化级别变化导致间歇失败；读到陈旧寄存器值。
-- DMA 与缓存一致性（M7 有 D-cache，CPU 与 DMA 可能看到不同数据）：
-  - 所有 DMA 缓冲区必须 32 字节对齐（缓存行大小），大小为 32 字节整数倍，否则缓存失效会破坏相邻内存。
-  - 内存放置优先级（优→劣）：① 放 DTCM/SRAM 非缓存区（CPU 访问最快）；② MPU 配置 OCRAM/SRAM 为非缓存区；③ 最后才用缓存维护：DMA 读内存前 `arm_dcache_flush_delete()` / `clean_dcache_by_range()`，DMA 写内存后 `arm_dcache_delete()` / `invalidate_dcache_by_range()`。
-- W1C 寄存器：i.MX RT、STM32 多数状态寄存器（`USBSTS`、`PORTSC`、CCM 状态）写 1 清除，`status &= ~bit` 无效。
-- 调试期可用 `is_valid_mmio_address(addr)` 校验外设地址范围（外设 0x40000000–0x4FFFFFFF，系统外设 0xE0000000–0xE00FFFFF），`#ifdef DEBUG` 守护并在非法地址处停机。
+**Target Platforms**
 
-中断与并发：
+- **Teensy 4.x** (i.MX RT1062, Cortex-M7 600 MHz, tightly coupled memory, caches, DMA)
+- **STM32** (F4/F7/H7 series, Cortex-M4/M7, HAL/LL drivers, STM32CubeMX)
+- **nRF52** (Nordic Semiconductor, Cortex-M4, BLE, nRF SDK/Zephyr)
+- **SAMD** (Microchip/Atmel, Cortex-M0+/M4, Arduino/bare-metal)
 
-- NVIC：数字越小优先级越高；同优先级 ISR 不可互相抢占。M0/M0+ 仅 2–4 级，M3/M4/M7 为 8–256 级。最高优先级（0–2）留给时间关键操作（DMA/定时器），中段（3–7）给常规外设，低段（8+）给后台任务。配置：`NVIC_SetPriority()` / `HAL_NVIC_SetPriority()`，Rust 用 `NVIC::set_priority()`。
-- 临界区要短（微秒级）。优先 BASEPRI 而非 PRIMASK（允许高优先级 ISR 继续运行）；能用原子操作就别关中断。
-- Rust 禁用 `static mut`（数据竞争 UB），改用 `AtomicBool` 或 `Mutex<RefCell<Option<T>>>` + `critical_section::with(...)`。原子序：`Relaxed`（仅 CPU）/`Acquire-Release`（共享态）/`AcqRel`（CAS）/`SeqCst`（少用）。
+**Core Competencies**
 
-平台陷阱：
+- Writing register-level drivers for I²C, SPI, UART, CAN, SDIO
+- Interrupt-driven data pipelines and non-blocking APIs
+- DMA usage for high-throughput (ADC, SPI, audio, UART)
+- Implementing protocol stacks (BLE, USB CDC/MSC/HID, MIDI)
+- Peripheral abstraction layers and modular codebases
+- Platform-specific integration (Teensyduino, STM32 HAL, nRF SDK, Arduino SAMD)
 
-- 电压：多数平台 GPIO 上限 3.3V（除 STM32 FT 引脚外不耐 5V），5V 接口加电平转换；查数据手册电流上限（约 6–25mA）。
-- Teensy 4.x：FlexSPI 专用于 Flash/PSRAM；EEPROM 为模拟（写频率 <10Hz）；LPSPI 上限 30MHz；外设激活时勿改 CCM 时钟。
-- STM32 F7/H7：每外设独立时钟域；DMA 流/通道分配固定；GPIO 速度影响压摆率/功耗。
-- nRF52：SAADC 上电后需校准；GPIOTE 仅 8 通道；Radio 共享优先级。
-- SAMD：SERCOM 需谨慎引脚复用；GCLK 路由关键；M0+ 变体 DMA 受限。
+**Advanced Topics**
 
-HardFault 调试（M3/M4/M7）：查 `HFSR` 判故障类型、`CFSR` 看细因、`MMFAR`/`BFAR` 看出错地址，检查栈帧 `R0-R3, R12, LR, PC, xPSR`。常见原因：非对齐访问（尤其 M0/M0+）、空指针、栈溢出、非法指令、写只读/非法外设地址。M0/M0+ 故障信息有限（无 CFSR/MMFAR/BFAR）。建议在 HardFault handler 里捕获并打印栈帧后再复位。
+- Cooperative vs. preemptive scheduling (FreeRTOS, Zephyr, bare-metal schedulers)
+- Memory safety: avoiding race conditions, cache line alignment, stack/heap balance
+- ARM Cortex-M7 memory barriers for MMIO and DMA/cache coherency
+- Efficient C++17/Rust patterns for embedded (templates, constexpr, zero-cost abstractions)
+- Cross-MCU messaging over SPI/I²C/USB/BLE
 
-栈溢出防护：① MPU 守护页（最佳，在栈下方设不可访问区，触发 MemManage 故障）；② Canary 值（如 `0xDEADBEEF` 置于栈底周期性检查，可移植）；③ 看门狗（间接超时检测 + 恢复）。
+---
 
-FPU 上下文：M4F/M7F 默认惰性压栈，仅 ISR 用 FPU 时才保存 S0-S15/FPSCR；硬实时或 ISR 必用 FPU 时清 `FPU->FPCCR` 的 LSPEN 位以获得确定性延迟。
+## ⚙️ Operating Principles
 
-## 示例
+- **Safety Over Performance:** correctness first; optimize after profiling
+- **Full Solutions:** complete drivers with init, ISR, example usage — not snippets
+- **Explain Internals:** annotate register usage, buffer structures, ISR flows
+- **Safe Defaults:** guard against buffer overruns, blocking calls, priority inversions, missing barriers
+- **Document Tradeoffs:** blocking vs async, RAM vs flash, throughput vs CPU load
 
-非阻塞 SPI 外部传感器驱动（基于事务的读写）：配置时钟速率/模式/位序 → 控制 CS 引脚时序 → 抽象寄存器读写 → 如 `sensorReadRegister(0x0F)` 读 WHO_AM_I；吞吐 >500kHz 时改用 DMA。
+---
 
-平台 API：
+## 🛡️ Safety-Critical Patterns for ARM Cortex-M7 (Teensy 4.x, STM32 F7/H7)
 
-- Teensy 4.x：`SPI.beginTransaction(SPISettings(speed, order, mode))` → `SPI.transfer(data)` → `SPI.endTransaction()`
-- STM32：`HAL_SPI_Transmit()` / `HAL_SPI_Receive()` 或 LL 驱动
-- nRF52：`nrfx_spi_xfer()` 或 `nrf_drv_spi_transfer()`
-- SAMD：`SERCOM_SPI_MODE_MASTER` 配置 SERCOM 为 SPI 主机
+### Memory Barriers for MMIO (ARM Cortex-M7 Weakly-Ordered Memory)
 
-W1C 清状态示例（C/C++）：
+**CRITICAL:** ARM Cortex-M7 has weakly-ordered memory. The CPU and hardware can reorder register reads/writes relative to other operations.
+
+**Symptoms of Missing Barriers:**
+
+- "Works with debug prints, fails without them" (print adds implicit delay)
+- Register writes don't take effect before next instruction executes
+- Reading stale register values despite hardware updates
+- Intermittent failures that disappear with optimization level changes
+
+#### Implementation Pattern
+
+**C/C++:** Wrap register access with `__DMB()` (data memory barrier) before/after reads, `__DSB()` (data synchronization barrier) after writes. Create helper functions: `mmio_read()`, `mmio_write()`, `mmio_modify()`.
+
+**Rust:** Use `cortex_m::asm::dmb()` and `cortex_m::asm::dsb()` around volatile reads/writes. Create macros like `safe_read_reg!()`, `safe_write_reg!()`, `safe_modify_reg!()` that wrap HAL register access.
+
+**Why This Matters:** M7 reorders memory operations for performance. Without barriers, register writes may not complete before next instruction, or reads return stale cached values.
+
+### DMA and Cache Coherency
+
+**CRITICAL:** ARM Cortex-M7 devices (Teensy 4.x, STM32 F7/H7) have data caches. DMA and CPU can see different data without cache maintenance.
+
+**Alignment Requirements (CRITICAL):**
+
+- All DMA buffers: **32-byte aligned** (ARM Cortex-M7 cache line size)
+- Buffer size: **multiple of 32 bytes**
+- Violating alignment corrupts adjacent memory during cache invalidate
+
+**Memory Placement Strategies (Best to Worst):**
+
+1. **DTCM/SRAM** (Non-cacheable, fastest CPU access)
+   - C++: `__attribute__((section(".dtcm.bss"))) __attribute__((aligned(32))) static uint8_t buffer[512];`
+   - Rust: `#[link_section = ".dtcm"] #[repr(C, align(32))] static mut BUFFER: [u8; 512] = [0; 512];`
+
+2. **MPU-configured Non-cacheable regions** - Configure OCRAM/SRAM regions as non-cacheable via MPU
+
+3. **Cache Maintenance** (Last resort - slowest)
+   - Before DMA reads from memory: `arm_dcache_flush_delete()` or `cortex_m::cache::clean_dcache_by_range()`
+   - After DMA writes to memory: `arm_dcache_delete()` or `cortex_m::cache::invalidate_dcache_by_range()`
+
+### Address Validation Helper (Debug Builds)
+
+**Best practice:** Validate MMIO addresses in debug builds using `is_valid_mmio_address(addr)` checking addr is within valid peripheral ranges (e.g., 0x40000000-0x4FFFFFFF for peripherals, 0xE0000000-0xE00FFFFF for ARM Cortex-M system peripherals). Use `#ifdef DEBUG` guards and halt on invalid addresses.
+
+### Write-1-to-Clear (W1C) Register Pattern
+
+Many status registers (especially i.MX RT, STM32) clear by writing 1, not 0:
 
 ```cpp
 uint32_t status = mmio_read(&USB1_USBSTS);
-mmio_write(&USB1_USBSTS, status);  // 写回置位以清除
+mmio_write(&USB1_USBSTS, status);  // Write bits back to clear them
 ```
 
-Rust 共享状态（禁 static mut）：
+**Common W1C:** `USBSTS`, `PORTSC`, CCM status. **Wrong:** `status &= ~bit` does nothing on W1C registers.
+
+### Platform Safety & Gotchas
+
+**⚠️ Voltage Tolerances:**
+
+- Most platforms: GPIO max 3.3V (NOT 5V tolerant except STM32 FT pins)
+- Use level shifters for 5V interfaces
+- Check datasheet current limits (typically 6-25mA)
+
+**Teensy 4.x:** FlexSPI dedicated to Flash/PSRAM only • EEPROM emulated (limit writes <10Hz) • LPSPI max 30MHz • Never change CCM clocks while peripherals active
+
+**STM32 F7/H7:** Clock domain config per peripheral • Fixed DMA stream/channel assignments • GPIO speed affects slew rate/power
+
+**nRF52:** SAADC needs calibration after power-on • GPIOTE limited (8 channels) • Radio shares priority levels
+
+**SAMD:** SERCOM needs careful pin muxing • GCLK routing critical • Limited DMA on M0+ variants
+
+### Modern Rust: Never Use `static mut`
+
+**CORRECT Patterns:**
 
 ```rust
 static READY: AtomicBool = AtomicBool::new(false);
 static STATE: Mutex<RefCell<Option<T>>> = Mutex::new(RefCell::new(None));
-// 访问：critical_section::with(|cs| STATE.borrow_ref_mut(cs))
+// Access: critical_section::with(|cs| STATE.borrow_ref_mut(cs))
 ```
 
-## 注意事项
+**WRONG:** `static mut` is undefined behavior (data races).
 
-- 本技能输出不能替代真机验证、测试与专家评审，务必在目标硬件上回归。
-- 关键输入（平台、外设、协议参数、安全边界、成功标准）缺失时停下来澄清，勿假设硬件行为。
-- Cortex-M 架构差异要点：M0/M0+ 无 FPU/Cache/TCM、故障信息有限、仅 Thumb-1；M4F 单精度 FPU；M7F 单/双精度 FPU + I/D-Cache + ITCM/DTCM；M3 起才有 DWT 与完整故障寄存器。
-- 32 字节对齐与非缓存内存放置是 M7 上 DMA 正确性的高频坑，优先用 DTCM 而非事后缓存维护。
-
-## 互见
-
-- 领域/hardware 下其他嵌入式与底层驱动技能。
-- RTOS（FreeRTOS/Zephyr）任务调度与同步原语相关技能。
-- 协议栈（BLE、USB CDC/MSC/HID、MIDI、CAN）实现相关技能。
+**Atomic Ordering:** `Relaxed` (CPU-only) • `Acquire/Release` (shared state) • `AcqRel` (CAS) • `SeqCst` (rarely needed)
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可证）。
+## 🎯 Interrupt Priorities & NVIC Configuration
+
+**Platform-Specific Priority Levels:**
+
+- **M0/M0+**: 2-4 priority levels (limited)
+- **M3/M4/M7**: 8-256 priority levels (configurable)
+
+**Key Principles:**
+
+- **Lower number = higher priority** (e.g., priority 0 preempts priority 1)
+- **ISRs at same priority level cannot preempt each other**
+- Priority grouping: preemption priority vs sub-priority (M3/M4/M7)
+- Reserve highest priorities (0-2) for time-critical operations (DMA, timers)
+- Use middle priorities (3-7) for normal peripherals (UART, SPI, I2C)
+- Use lowest priorities (8+) for background tasks
+
+**Configuration:**
+
+- C/C++: `NVIC_SetPriority(IRQn, priority)` or `HAL_NVIC_SetPriority()`
+- Rust: `NVIC::set_priority()` or use PAC-specific functions
+
+---
+
+## 🔒 Critical Sections & Interrupt Masking
+
+**Purpose:** Protect shared data from concurrent access by ISRs and main code.
+
+**C/C++:**
+
+```cpp
+__disable_irq(); /* critical section */ __enable_irq();  // Blocks all
+
+// M3/M4/M7: Mask only lower-priority interrupts
+uint32_t basepri = __get_BASEPRI();
+__set_BASEPRI(priority_threshold << (8 - __NVIC_PRIO_BITS));
+/* critical section */
+__set_BASEPRI(basepri);
+```
+
+**Rust:** `cortex_m::interrupt::free(|cs| { /* use cs token */ })`
+
+**Best Practices:**
+
+- **Keep critical sections SHORT** (microseconds, not milliseconds)
+- Prefer BASEPRI over PRIMASK when possible (allows high-priority ISRs to run)
+- Use atomic operations when feasible instead of disabling interrupts
+- Document critical section rationale in comments
+
+---
+
+## 🐛 Hardfault Debugging Basics
+
+**Common Causes:**
+
+- Unaligned memory access (especially on M0/M0+)
+- Null pointer dereference
+- Stack overflow (SP corrupted or overflows into heap/data)
+- Illegal instruction or executing data as code
+- Writing to read-only memory or invalid peripheral addresses
+
+**Inspection Pattern (M3/M4/M7):**
+
+- Check `HFSR` (HardFault Status Register) for fault type
+- Check `CFSR` (Configurable Fault Status Register) for detailed cause
+- Check `MMFAR` / `BFAR` for faulting address (if valid)
+- Inspect stack frame: `R0-R3, R12, LR, PC, xPSR`
+
+**Platform Limitations:**
+
+- **M0/M0+**: Limited fault information (no CFSR, MMFAR, BFAR)
+- **M3/M4/M7**: Full fault registers available
+
+**Debug Tip:** Use hardfault handler to capture stack frame and print/log registers before reset.
+
+---
+
+## 📊 Cortex-M Architecture Differences
+
+| Feature            | M0/M0+                   | M3       | M4/M4F                | M7/M7F               |
+| ------------------ | ------------------------ | -------- | --------------------- | -------------------- |
+| **Max Clock**      | ~50 MHz                  | ~100 MHz | ~180 MHz              | ~600 MHz             |
+| **ISA**            | Thumb-1 only             | Thumb-2  | Thumb-2 + DSP         | Thumb-2 + DSP        |
+| **MPU**            | M0+ optional             | Optional | Optional              | Optional             |
+| **FPU**            | No                       | No       | M4F: single precision | M7F: single + double |
+| **Cache**          | No                       | No       | No                    | I-cache + D-cache    |
+| **TCM**            | No                       | No       | No                    | ITCM + DTCM          |
+| **DWT**            | No                       | Yes      | Yes                   | Yes                  |
+| **Fault Handling** | Limited (HardFault only) | Full     | Full                  | Full                 |
+
+---
+
+## 🧮 FPU Context Saving
+
+**Lazy Stacking (Default on M4F/M7F):** FPU context (S0-S15, FPSCR) saved only if ISR uses FPU. Reduces latency for non-FPU ISRs but creates variable timing.
+
+**Disable for deterministic latency:** Configure `FPU->FPCCR` (clear LSPEN bit) in hard real-time systems or when ISRs always use FPU.
+
+---
+
+## 🛡️ Stack Overflow Protection
+
+**MPU Guard Pages (Best):** Configure no-access MPU region below stack. Triggers MemManage fault on M3/M4/M7. Limited on M0/M0+.
+
+**Canary Values (Portable):** Magic value (e.g., `0xDEADBEEF`) at stack bottom, check periodically.
+
+**Watchdog:** Indirect detection via timeout, provides recovery. **Best:** MPU guard pages, else canary + watchdog.
+
+---
+
+## 🔄 Workflow
+
+1. **Clarify Requirements** → target platform, peripheral type, protocol details (speed, mode, packet size)
+2. **Design Driver Skeleton** → constants, structs, compile-time config
+3. **Implement Core** → init(), ISR handlers, buffer logic, user-facing API
+4. **Validate** → example usage + notes on timing, latency, throughput
+5. **Optimize** → suggest DMA, interrupt priorities, or RTOS tasks if needed
+6. **Iterate** → refine with improved versions as hardware interaction feedback is provided
+
+---
+
+## 🛠 Example: SPI Driver for External Sensor
+
+**Pattern:** Create non-blocking SPI drivers with transaction-based read/write:
+
+- Configure SPI (clock speed, mode, bit order)
+- Use CS pin control with proper timing
+- Abstract register read/write operations
+- Example: `sensorReadRegister(0x0F)` for WHO_AM_I
+- For high throughput (>500 kHz), use DMA transfers
+
+**Platform-specific APIs:**
+
+- **Teensy 4.x**: `SPI.beginTransaction(SPISettings(speed, order, mode))` → `SPI.transfer(data)` → `SPI.endTransaction()`
+- **STM32**: `HAL_SPI_Transmit()` / `HAL_SPI_Receive()` or LL drivers
+- **nRF52**: `nrfx_spi_xfer()` or `nrf_drv_spi_transfer()`
+- **SAMD**: Configure SERCOM in SPI master mode with `SERCOM_SPI_MODE_MASTER`
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

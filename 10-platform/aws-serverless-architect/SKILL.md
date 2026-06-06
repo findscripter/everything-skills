@@ -1,14 +1,14 @@
 ---
 name: aws-serverless-architect
-title: AWS无服务器架构设计
-description: 当为初创团队设计 AWS 架构、生成 IaC 模板、优化云成本或上 AWS 时使用；做需求收集→选型→生成 CloudFormation/CDK/Terraform 模板→成本核算→部署校验，产出可落地架构方案与基础设施代码；不适用于非 AWS 云、纯应用代码或细粒度 IAM 安全审计。触发词：无服务器架构、CloudFormation、AWS成本优化
+title: AWS Solution Architect
+description: Design AWS architectures for startups using serverless patterns and IaC templates. Use when asked to design serverless architecture, create CloudFormation templates, optimize AWS costs, set up CI/CD pipelines, or migrate to AWS. Covers Lambda, API Gateway, DynamoDB, ECS, Aurora, and cost optimization.
 domain: 平台/cloud
-triggers: [设计无服务器架构, 生成CloudFormation模板, AWS成本优化, 搭建AWS CI/CD, 迁移到AWS, Lambda API Gateway DynamoDB选型, 三层架构 ECS Fargate Aurora, CDK Terraform IaC生成]
-tags: [aws, serverless, 云架构, iac, cloudformation, 成本优化, lambda, dynamodb]
-level: 进阶
+triggers: []
+tags: [aws, serverless, iac, cloudformation, lambda, dynamodb]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [CloudFormation/SAM, AWS CDK, Terraform, AWS CLI, CloudWatch]
+tools: []
 requires: []
 related: [aws-serverless-builder, gcp-cloud-architect, azure-cloud-architect, aws-cdk-patterns]
 combines_with: [terraform-specialist, aws-cost-optimizer, github-actions-author]
@@ -16,100 +16,77 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# AWS Solution Architect
 
-适用场景：
+Design scalable, cost-effective AWS architectures for startups with infrastructure-as-code templates.
 
-- 为初创/中小团队设计可扩展、低成本的 AWS 架构，优先无服务器模式。
-- 生成 IaC 模板（CloudFormation/SAM、CDK TypeScript、Terraform HCL）。
-- 核算并优化 AWS 月度成本，搭建 CI/CD，或将既有系统迁移到 AWS。
-- 覆盖 Lambda、API Gateway、DynamoDB、ECS、Aurora 等服务选型。
+---
 
-不该用的边界：
+## Workflow
 
-- 非 AWS 云（GCP/Azure/阿里云）的架构设计。
-- 仅写应用业务代码、不涉及基础设施。
-- 深度安全合规审计或细粒度 IAM 策略评审（本技能仅给最小权限基线）。
+### Step 1: Gather Requirements
 
-## 步骤
+Collect application specifications:
 
-1. 收集需求：应用类型（Web/移动后端/数据管道/SaaS）、用户量与 RPS、月度预算、团队规模与 AWS 经验、合规要求（GDPR/HIPAA/SOC 2）、可用性目标（SLA、RPO/RTO）。整理为 requirements.json。
-2. 设计架构并选型，从下列模式中匹配：
-   - 无服务器 Web：S3 + CloudFront + API Gateway + Lambda + DynamoDB + Cognito（约 $35/月）。
-   - 事件驱动微服务：EventBridge + Lambda + SQS + Step Functions。
-   - 三层架构：ALB + ECS Fargate + Aurora + ElastiCache。
-   - GraphQL 后端：AppSync + Lambda + DynamoDB + Cognito。
-   校验点：确认所选模式与团队运维成熟度、合规要求匹配后再继续。
-3. 生成 IaC 模板（无服务器优先用 SAM/CloudFormation，三层用 CDK，需多云用 Terraform）。
-4. 核算成本：输出按服务的月度明细、右调（right-sizing）建议、Savings Plans 机会、潜在节省额，并标注优先级（高/中/低）。
-5. 部署。
-6. 校验与失败处理：检查栈状态、配置 CloudWatch 告警；失败时定位原因→改模板→删除失败栈→重建。
-
-## 指令
-
-部署前先校验模板，避免无效语法导致建栈失败：
-
-```bash
-aws cloudformation validate-template --template-body file://template.yaml
+```
+- Application type (web app, mobile backend, data pipeline, SaaS)
+- Expected users and requests per second
+- Budget constraints (monthly spend limit)
+- Team size and AWS experience level
+- Compliance requirements (GDPR, HIPAA, SOC 2)
+- Availability requirements (SLA, RPO/RTO)
 ```
 
-部署三种方式：
+### Step 2: Design Architecture
+
+Run the architecture designer to get pattern recommendations:
 
 ```bash
-# CloudFormation（注意 --capabilities，否则 IAM 资源会被拒）
-aws cloudformation create-stack \
-  --stack-name my-app-stack \
-  --template-body file://template.yaml \
-  --capabilities CAPABILITY_IAM
-
-# CDK
-cdk deploy
-
-# Terraform
-terraform init && terraform apply
+python scripts/architecture_designer.py --input requirements.json
 ```
 
-校验与监控：
-
-```bash
-aws cloudformation describe-stacks --stack-name my-app-stack
-aws cloudwatch put-metric-alarm --alarm-name high-errors ...
-```
-
-建栈失败时排障：
-
-```bash
-# 查 CREATE_FAILED 的事件
-aws cloudformation describe-stack-events \
-  --stack-name my-app-stack \
-  --query 'StackEvents[?ResourceStatus==`CREATE_FAILED`]'
-# 删除失败栈后再重建
-aws cloudformation delete-stack --stack-name my-app-stack
-aws cloudformation wait stack-delete-complete --stack-name my-app-stack
-```
-
-## 示例
-
-需求 JSON 输入：
+**Example output:**
 
 ```json
 {
-  "application_type": "saas_platform",
-  "expected_users": 10000,
-  "requests_per_second": 100,
-  "budget_monthly_usd": 500,
-  "team_size": 3,
-  "aws_experience": "intermediate",
-  "compliance": ["SOC2"],
-  "availability_sla": "99.9%"
+  "recommended_pattern": "serverless_web",
+  "service_stack": ["S3", "CloudFront", "API Gateway", "Lambda", "DynamoDB", "Cognito"],
+  "estimated_monthly_cost_usd": 35,
+  "pros": ["Low ops overhead", "Pay-per-use", "Auto-scaling"],
+  "cons": ["Cold starts", "15-min Lambda limit", "Eventual consistency"]
 }
 ```
 
-无服务器核心资源（SAM/CloudFormation YAML，DynamoDB 用按量计费、Lambda 走最小权限）：
+Select from recommended patterns:
+- **Serverless Web**: S3 + CloudFront + API Gateway + Lambda + DynamoDB
+- **Event-Driven Microservices**: EventBridge + Lambda + SQS + Step Functions
+- **Three-Tier**: ALB + ECS Fargate + Aurora + ElastiCache
+- **GraphQL Backend**: AppSync + Lambda + DynamoDB + Cognito
+
+See `references/architecture_patterns.md` for detailed pattern specifications.
+
+**Validation checkpoint:** Confirm the recommended pattern matches the team's operational maturity and compliance requirements before proceeding to Step 3.
+
+### Step 3: Generate IaC Templates
+
+Create infrastructure-as-code for the selected pattern:
+
+```bash
+# Serverless stack (CloudFormation)
+python scripts/serverless_stack.py --app-name my-app --region us-east-1
+```
+
+**Example CloudFormation YAML output (core serverless resources):**
 
 ```yaml
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  AppName:
+    Type: String
+    Default: my-app
+
 Resources:
   ApiFunction:
     Type: AWS::Serverless::Function
@@ -130,23 +107,36 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: ANY
+
   DataTable:
     Type: AWS::DynamoDB::Table
     Properties:
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
-        - { AttributeName: pk, AttributeType: S }
-        - { AttributeName: sk, AttributeType: S }
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
       KeySchema:
-        - { AttributeName: pk, KeyType: HASH }
-        - { AttributeName: sk, KeyType: RANGE }
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
 ```
 
-三层架构 CDK 片段（Aurora Serverless 自动伸缩 0.5~4 ACU）：
+> Full templates including API Gateway, Cognito, IAM roles, and CloudWatch logging are generated by `serverless_stack.py` and also available in `references/architecture_patterns.md`.
+
+**Example CDK TypeScript snippet (three-tier pattern):**
 
 ```typescript
+import * as ecs from 'aws-cdk-lib/aws-ecs';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as rds from 'aws-cdk-lib/aws-rds';
+
 const vpc = new ec2.Vpc(this, 'AppVpc', { maxAzs: 2 });
+
 const cluster = new ecs.Cluster(this, 'AppCluster', { vpc });
+
 const db = new rds.ServerlessCluster(this, 'AppDb', {
   engine: rds.DatabaseClusterEngine.auroraPostgres({
     version: rds.AuroraPostgresEngineVersion.VER_15_2,
@@ -156,23 +146,249 @@ const db = new rds.ServerlessCluster(this, 'AppDb', {
 });
 ```
 
-成本优化输出示例（$2000/月 → 可省 $815）：右调 RDS（db.r5.2xlarge→db.r5.large 省 $420）、购买 1 年 Compute Savings Plan（省 $310）、S3 超 90 天对象转 Glacier Instant Retrieval（省 $85）。
+### Step 4: Review Costs
 
-## 注意事项
+Analyze estimated costs and optimization opportunities:
 
-- 无服务器的取舍：优点是低运维、按量付费、自动扩缩；缺点是冷启动、Lambda 单次最长 15 分钟、DynamoDB 最终一致性。
-- IAM 报错：核对 `--capabilities CAPABILITY_IAM` 与角色信任策略。
-- 资源配额超限：通过 Service Quotas 控制台申请提额。
-- 部署前务必跑 `validate-template`；失败栈处于 ROLLBACK_COMPLETE 时无法更新，需先删除再建。
-- DynamoDB 设计为单表 pk/sk，避免多表 join；高基数查询用 GSI。
-- 成本建议按优先级（高/中/低）落地，先做高优先级右调与 Savings Plans。
+```bash
+python scripts/cost_optimizer.py --resources current_setup.json --monthly-spend 2000
+```
 
-## 互见
+**Example output:**
 
-- 架构模式详解（6 种：无服务器、微服务、三层、数据处理、GraphQL、多区域）。
-- 服务选型决策矩阵（计算/数据库/存储/消息）。
-- 最佳实践（无服务器设计、成本优化、安全加固、可扩展性）。
+```json
+{
+  "current_monthly_usd": 2000,
+  "recommendations": [
+    { "action": "Right-size RDS db.r5.2xlarge → db.r5.large", "savings_usd": 420, "priority": "high" },
+    { "action": "Purchase 1-yr Compute Savings Plan at 40% utilization", "savings_usd": 310, "priority": "high" },
+    { "action": "Move S3 objects >90 days to Glacier Instant Retrieval", "savings_usd": 85, "priority": "medium" }
+  ],
+  "total_potential_savings_usd": 815
+}
+```
+
+Output includes:
+- Monthly cost breakdown by service
+- Right-sizing recommendations
+- Savings Plans opportunities
+- Potential monthly savings
+
+### Step 5: Deploy
+
+Deploy the generated infrastructure:
+
+```bash
+# CloudFormation
+aws cloudformation create-stack \
+  --stack-name my-app-stack \
+  --template-body file://template.yaml \
+  --capabilities CAPABILITY_IAM
+
+# CDK
+cdk deploy
+
+# Terraform
+terraform init && terraform apply
+```
+
+### Step 6: Validate and Handle Failures
+
+Verify deployment and set up monitoring:
+
+```bash
+# Check stack status
+aws cloudformation describe-stacks --stack-name my-app-stack
+
+# Set up CloudWatch alarms
+aws cloudwatch put-metric-alarm --alarm-name high-errors ...
+```
+
+**If stack creation fails:**
+
+1. Check the failure reason:
+   ```bash
+   aws cloudformation describe-stack-events \
+     --stack-name my-app-stack \
+     --query 'StackEvents[?ResourceStatus==`CREATE_FAILED`]'
+   ```
+2. Review CloudWatch Logs for Lambda or ECS errors.
+3. Fix the template or resource configuration.
+4. Delete the failed stack before retrying:
+   ```bash
+   aws cloudformation delete-stack --stack-name my-app-stack
+   # Wait for deletion
+   aws cloudformation wait stack-delete-complete --stack-name my-app-stack
+   # Redeploy
+   aws cloudformation create-stack ...
+   ```
+
+**Common failure causes:**
+- IAM permission errors → verify `--capabilities CAPABILITY_IAM` and role trust policies
+- Resource limit exceeded → request quota increase via Service Quotas console
+- Invalid template syntax → run `aws cloudformation validate-template --template-body file://template.yaml` before deploying
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT）。
+## Tools
+
+### architecture_designer.py
+
+Generates architecture patterns based on requirements.
+
+```bash
+python scripts/architecture_designer.py --input requirements.json --output design.json
+```
+
+**Input:** JSON with app type, scale, budget, compliance needs
+**Output:** Recommended pattern, service stack, cost estimate, pros/cons
+
+### serverless_stack.py
+
+Creates serverless CloudFormation templates.
+
+```bash
+python scripts/serverless_stack.py --app-name my-app --region us-east-1
+```
+
+**Output:** Production-ready CloudFormation YAML with:
+- API Gateway + Lambda
+- DynamoDB table
+- Cognito user pool
+- IAM roles with least privilege
+- CloudWatch logging
+
+### cost_optimizer.py
+
+Analyzes costs and recommends optimizations.
+
+```bash
+python scripts/cost_optimizer.py --resources inventory.json --monthly-spend 5000
+```
+
+**Output:** Recommendations for:
+- Idle resource removal
+- Instance right-sizing
+- Reserved capacity purchases
+- Storage tier transitions
+- NAT Gateway alternatives
+
+---
+
+## Quick Start
+
+### MVP Architecture (< $100/month)
+
+```
+Ask: "Design a serverless MVP backend for a mobile app with 1000 users"
+
+Result:
+- Lambda + API Gateway for API
+- DynamoDB pay-per-request for data
+- Cognito for authentication
+- S3 + CloudFront for static assets
+- Estimated: $20-50/month
+```
+
+### Scaling Architecture ($500-2000/month)
+
+```
+Ask: "Design a scalable architecture for a SaaS platform with 50k users"
+
+Result:
+- ECS Fargate for containerized API
+- Aurora Serverless for relational data
+- ElastiCache for session caching
+- CloudFront for CDN
+- CodePipeline for CI/CD
+- Multi-AZ deployment
+```
+
+### Cost Optimization
+
+```
+Ask: "Optimize my AWS setup to reduce costs by 30%. Current spend: $3000/month"
+
+Provide: Current resource inventory (EC2, RDS, S3, etc.)
+
+Result:
+- Idle resource identification
+- Right-sizing recommendations
+- Savings Plans analysis
+- Storage lifecycle policies
+- Target savings: $900/month
+```
+
+### IaC Generation
+
+```
+Ask: "Generate CloudFormation for a three-tier web app with auto-scaling"
+
+Result:
+- VPC with public/private subnets
+- ALB with HTTPS
+- ECS Fargate with auto-scaling
+- Aurora with read replicas
+- Security groups and IAM roles
+```
+
+---
+
+## Input Requirements
+
+Provide these details for architecture design:
+
+| Requirement | Description | Example |
+|-------------|-------------|---------|
+| Application type | What you're building | SaaS platform, mobile backend |
+| Expected scale | Users, requests/sec | 10k users, 100 RPS |
+| Budget | Monthly AWS limit | $500/month max |
+| Team context | Size, AWS experience | 3 devs, intermediate |
+| Compliance | Regulatory needs | HIPAA, GDPR, SOC 2 |
+| Availability | Uptime requirements | 99.9% SLA, 1hr RPO |
+
+**JSON Format:**
+
+```json
+{
+  "application_type": "saas_platform",
+  "expected_users": 10000,
+  "requests_per_second": 100,
+  "budget_monthly_usd": 500,
+  "team_size": 3,
+  "aws_experience": "intermediate",
+  "compliance": ["SOC2"],
+  "availability_sla": "99.9%"
+}
+```
+
+---
+
+## Output Formats
+
+### Architecture Design
+
+- Pattern recommendation with rationale
+- Service stack diagram (ASCII)
+- Monthly cost estimate and trade-offs
+
+### IaC Templates
+
+- **CloudFormation YAML**: Production-ready SAM/CFN templates
+- **CDK TypeScript**: Type-safe infrastructure code
+- **Terraform HCL**: Multi-cloud compatible configs
+
+### Cost Analysis
+
+- Current spend breakdown with optimization recommendations
+- Priority action list (high/medium/low) and implementation checklist
+
+---
+
+## Reference Documentation
+
+| Document | Contents |
+|----------|----------|
+| `references/architecture_patterns.md` | 6 patterns: serverless, microservices, three-tier, data processing, GraphQL, multi-region |
+| `references/service_selection.md` | Decision matrices for compute, database, storage, messaging |
+| `references/best_practices.md` | Serverless design, cost optimization, security hardening, scalability |

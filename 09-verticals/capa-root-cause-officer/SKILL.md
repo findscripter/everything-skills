@@ -1,14 +1,14 @@
 ---
 name: capa-root-cause-officer
-title: 医疗器械 CAPA 与根因分析
-description: 当医疗器械 QMS 出现投诉、审核发现或不合格需走纠正预防措施（CAPA）时使用；做根因分析（5Why/鱼骨/FTA/FMEA）、纠正与预防措施计划、有效性验证并产出 CAPA 计划与指标报告；不适用于风险管理（ISO 14971）或单纯返工等非系统性问题。触发词：CAPA 调查、根因分析、5Why、鱼骨图、有效性验证
+title: CAPA Officer
+description: CAPA system management for medical device QMS. Covers root cause analysis, corrective action planning, effectiveness verification, and CAPA metrics. Use for CAPA investigations, 5-Why analysis, fishbone diagrams, root cause determination, corrective action tracking, effectiveness verification, or CAPA program optimization.
 domain: 领域/medical
-triggers: [CAPA 调查, 根因分析, 5Why 分析, 鱼骨图, 纠正措施, 预防措施, 有效性验证, CAPA 指标, 不合格调查, 审核发现 CAPA]
-tags: [医疗器械, 质量管理, capa, 根因分析, iso 13485, fda 21 cfr 820, 合规]
-level: 进阶
+triggers: []
+tags: [capa, iso 13485, fda 21 cfr 820]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Bash]
+tools: []
 requires: []
 related: [iso13485-qms-audit, iso13485-qms-implementer, iso14971-risk-management, fda-qsr-audit-prep]
 combines_with: [iso14971-risk-management, quality-documentation-control, fda-qsr-audit-prep]
@@ -16,128 +16,419 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# CAPA Officer
 
-当医疗器械质量管理体系（QMS）触发需要系统性调查与改进时使用本技能，覆盖 CAPA 全流程：从启动、根因分析、措施计划到有效性验证与指标监控。典型触发：
+Corrective and Preventive Action (CAPA) management within Quality Management Systems, focusing on systematic root cause analysis, action implementation, and effectiveness verification.
 
-- 客户投诉（安全类必走 CAPA；质量类按严重度/频次评估）
-- 内审/外审发现（重大问题必走；轻微问题按情况建议）
-- 不合格（同类型重复 3 次以上必走；孤立项按风险评估）
-- 趋势分析显示劣化
+---
 
-**不该用边界：**
-- 单纯返工、报废等不涉及系统性原因的孤立纠正（属 correction，非 CAPA）。
-- 设计阶段的潜在失效预防风险评估，应走 ISO 14971 风险管理而非 CAPA。
-- 纯流程优化/持续改进无不合格触发时，无需强行立 CAPA。
+## Table of Contents
 
-## 步骤
+- [CAPA Investigation Workflow](#capa-investigation-workflow)
+- [Root Cause Analysis](#root-cause-analysis)
+- [Corrective Action Planning](#corrective-action-planning)
+- [Effectiveness Verification](#effectiveness-verification)
+- [CAPA Metrics and Reporting](#capa-metrics-and-reporting)
+- [Reference Documentation](#reference-documentation)
+- [Tools](#tools)
 
-1. **启动调查**：用客观证据记录触发事件；评估重要性，判定是否需 CAPA；按严重度组建团队（关键级：CAPA 负责人+流程负责人+QA 经理+SME+管理者代表；重大级：CAPA 负责人+流程负责人+SME；轻微级：CAPA 负责人+流程负责人）。
-2. **取证**：系统收集问题描述（什么/何地/何时/何人/多少）、事件时间线、相关记录、访谈笔记、实物/照片、关联投诉与历史 CAPA、过程参数与规格。
-3. **选择 RCA 方法**（决策树）：
-   - 安全关键/系统可靠性 → 故障树分析（FTA）
-   - 怀疑人因为主 → 人因分析
-   - 1-2 个线性因素 → 5Why
-   - 3-6 个复杂系统性因素 → 鱼骨图（6M）
-   - 未知/主动评估 → FMEA
-4. **确定根因并验证**：根因须可用客观证据验证、在组织可控范围内、能解释所有症状、消除后问题不再复发、无其他重大未处理原因。
-5. **制定措施计划**：区分遏制（24-72h，如隔离产品）、纠正（1-2 周，如返工）、纠正措施（30-90 天，消除根因）、预防措施（60-120 天，推广到相似流程）；分配责任人/资源/期限/可度量成功标准/验证方法。
-6. **有效性验证**：留足实施期后采集数据，与基线对比，评估成功标准并确认验证期内无复发。
-7. **关闭判定**：验证期有复发 → CAPA 无效（重查根因）；无复发且全部标准达成 → 有效，关闭；有差距则按差距大小延长验证或修订措施。
-8. **指标监控**：跟踪周期时长、逾期率、首次有效率、复发率等并纳入管理评审。
+---
 
-## 指令
+## CAPA Investigation Workflow
 
-**CAPA 跟踪脚本（生成状态报告与指标）：**
+Conduct systematic CAPA investigation from initiation through closure:
+
+1. Document trigger event with objective evidence
+2. Assess significance and determine CAPA necessity
+3. Form investigation team with relevant expertise
+4. Collect data and evidence systematically
+5. Select and apply appropriate RCA methodology
+6. Identify root cause(s) with supporting evidence
+7. Develop corrective and preventive actions
+8. **Validation:** Root cause explains all symptoms; if eliminated, problem would not recur
+
+### CAPA Necessity Determination
+
+| Trigger Type | CAPA Required | Criteria |
+|--------------|---------------|----------|
+| Customer complaint (safety) | Yes | Any complaint involving patient/user safety |
+| Customer complaint (quality) | Evaluate | Based on severity and frequency |
+| Internal audit finding (Major) | Yes | Systematic failure or absence of element |
+| Internal audit finding (Minor) | Recommended | Isolated lapse or partial implementation |
+| Nonconformance (recurring) | Yes | Same NC type occurring 3+ times |
+| Nonconformance (isolated) | Evaluate | Based on severity and risk |
+| External audit finding | Yes | All Major and Minor findings |
+| Trend analysis | Evaluate | Based on trend significance |
+
+### Investigation Team Composition
+
+| CAPA Severity | Required Team Members |
+|---------------|----------------------|
+| Critical | CAPA Officer, Process Owner, QA Manager, Subject Matter Expert, Management Rep |
+| Major | CAPA Officer, Process Owner, Subject Matter Expert |
+| Minor | CAPA Officer, Process Owner |
+
+### Evidence Collection Checklist
+
+- [ ] Problem description with specific details (what, where, when, who, how much)
+- [ ] Timeline of events leading to issue
+- [ ] Relevant records and documentation
+- [ ] Interview notes from involved personnel
+- [ ] Photos or physical evidence (if applicable)
+- [ ] Related complaints, NCs, or previous CAPAs
+- [ ] Process parameters and specifications
+
+---
+
+## Root Cause Analysis
+
+Select and apply appropriate RCA methodology based on problem characteristics.
+
+### RCA Method Selection Decision Tree
+
+```
+Is the issue safety-critical or involves system reliability?
+├── Yes → Use FAULT TREE ANALYSIS
+└── No → Is human error the suspected primary cause?
+    ├── Yes → Use HUMAN FACTORS ANALYSIS
+    └── No → How many potential contributing factors?
+        ├── 1-2 factors (linear causation) → Use 5 WHY ANALYSIS
+        ├── 3-6 factors (complex, systemic) → Use FISHBONE DIAGRAM
+        └── Unknown/proactive assessment → Use FMEA
+```
+
+### 5 Why Analysis
+
+Use when: Single-cause issues with linear causation, process deviations with clear failure point.
+
+**Template:**
+
+```
+PROBLEM: [Clear, specific statement]
+
+WHY 1: Why did [problem] occur?
+BECAUSE: [First-level cause]
+EVIDENCE: [Supporting data]
+
+WHY 2: Why did [first-level cause] occur?
+BECAUSE: [Second-level cause]
+EVIDENCE: [Supporting data]
+
+WHY 3: Why did [second-level cause] occur?
+BECAUSE: [Third-level cause]
+EVIDENCE: [Supporting data]
+
+WHY 4: Why did [third-level cause] occur?
+BECAUSE: [Fourth-level cause]
+EVIDENCE: [Supporting data]
+
+WHY 5: Why did [fourth-level cause] occur?
+BECAUSE: [Root cause]
+EVIDENCE: [Supporting data]
+```
+
+**Example - Calibration Overdue:**
+
+```
+PROBLEM: pH meter (EQ-042) found 2 months overdue for calibration
+
+WHY 1: Why was calibration overdue?
+BECAUSE: Equipment was not on calibration schedule
+EVIDENCE: Calibration schedule reviewed, EQ-042 not listed
+
+WHY 2: Why was it not on the schedule?
+BECAUSE: Schedule not updated when equipment was purchased
+EVIDENCE: Purchase date 2023-06-15, schedule dated 2023-01-01
+
+WHY 3: Why was the schedule not updated?
+BECAUSE: No process requires schedule update at equipment purchase
+EVIDENCE: SOP-EQ-001 reviewed, no such requirement
+
+WHY 4: Why is there no such requirement?
+BECAUSE: Procedure written before equipment tracking was centralized
+EVIDENCE: SOP last revised 2019, equipment system implemented 2021
+
+WHY 5: Why has procedure not been updated?
+BECAUSE: Periodic review did not assess compatibility with new systems
+EVIDENCE: No review against new equipment system documented
+
+ROOT CAUSE: Procedure review process does not assess compatibility
+with organizational systems implemented after original procedure creation.
+```
+
+### Fishbone Diagram Categories (6M)
+
+| Category | Focus Areas | Typical Causes |
+|----------|-------------|----------------|
+| Man (People) | Training, competency, workload | Skill gaps, fatigue, communication |
+| Machine (Equipment) | Calibration, maintenance, age | Wear, malfunction, inadequate capacity |
+| Method (Process) | Procedures, work instructions | Unclear steps, missing controls |
+| Material | Specifications, suppliers, storage | Out-of-spec, degradation, contamination |
+| Measurement | Calibration, methods, interpretation | Instrument error, wrong method |
+| Mother Nature | Temperature, humidity, cleanliness | Environmental excursions |
+
+See `references/rca-methodologies.md` for complete method details and templates.
+
+### Root Cause Validation
+
+Before proceeding to action planning, validate root cause:
+
+- [ ] Root cause can be verified with objective evidence
+- [ ] If root cause is eliminated, problem would not recur
+- [ ] Root cause is within organizational control
+- [ ] Root cause explains all observed symptoms
+- [ ] No other significant causes remain unaddressed
+
+---
+
+## Corrective Action Planning
+
+Develop effective actions addressing identified root causes:
+
+1. Define immediate containment actions
+2. Develop corrective actions targeting root cause
+3. Identify preventive actions for similar processes
+4. Assign responsibilities and resources
+5. Establish timeline with milestones
+6. Define success criteria and verification method
+7. Document in CAPA action plan
+8. **Validation:** Actions directly address root cause; success criteria are measurable
+
+### Action Types
+
+| Type | Purpose | Timeline | Example |
+|------|---------|----------|---------|
+| Containment | Stop immediate impact | 24-72 hours | Quarantine affected product |
+| Correction | Fix the specific occurrence | 1-2 weeks | Rework or replace affected items |
+| Corrective | Eliminate root cause | 30-90 days | Revise procedure, add controls |
+| Preventive | Prevent in other areas | 60-120 days | Extend solution to similar processes |
+
+### Action Plan Components
+
+```
+ACTION PLAN TEMPLATE
+
+CAPA Number: [CAPA-XXXX]
+Root Cause: [Identified root cause]
+
+ACTION 1: [Specific action description]
+- Type: [ ] Containment [ ] Correction [ ] Corrective [ ] Preventive
+- Responsible: [Name, Title]
+- Due Date: [YYYY-MM-DD]
+- Resources: [Required resources]
+- Success Criteria: [Measurable outcome]
+- Verification Method: [How success will be verified]
+
+ACTION 2: [Specific action description]
+...
+
+IMPLEMENTATION TIMELINE:
+Week 1: [Milestone]
+Week 2: [Milestone]
+Week 4: [Milestone]
+Week 8: [Milestone]
+
+APPROVAL:
+CAPA Owner: _____________ Date: _______
+Process Owner: _____________ Date: _______
+QA Manager: _____________ Date: _______
+```
+
+### Action Effectiveness Indicators
+
+| Indicator | Target | Red Flag |
+|-----------|--------|----------|
+| Action scope | Addresses root cause completely | Treats only symptoms |
+| Specificity | Measurable deliverables | Vague commitments |
+| Timeline | Aggressive but achievable | No due dates or unrealistic |
+| Resources | Identified and allocated | Not specified |
+| Sustainability | Permanent solution | Temporary fix |
+
+---
+
+## Effectiveness Verification
+
+Verify corrective actions achieved intended results:
+
+1. Allow adequate implementation period (minimum 30-90 days)
+2. Collect post-implementation data
+3. Compare to pre-implementation baseline
+4. Evaluate against success criteria
+5. Verify no recurrence during verification period
+6. Document verification evidence
+7. Determine CAPA effectiveness
+8. **Validation:** All criteria met with objective evidence; no recurrence observed
+
+### Verification Timeline Guidelines
+
+| CAPA Severity | Wait Period | Verification Window |
+|---------------|-------------|---------------------|
+| Critical | 30 days | 30-90 days post-implementation |
+| Major | 60 days | 60-180 days post-implementation |
+| Minor | 90 days | 90-365 days post-implementation |
+
+### Verification Methods
+
+| Method | Use When | Evidence Required |
+|--------|----------|-------------------|
+| Data trend analysis | Quantifiable issues | Pre/post comparison, trend charts |
+| Process audit | Procedure compliance issues | Audit checklist, interview notes |
+| Record review | Documentation issues | Sample records, compliance rate |
+| Testing/inspection | Product quality issues | Test results, pass/fail data |
+| Interview/observation | Training issues | Interview notes, observation records |
+
+### Effectiveness Determination
+
+```
+Did recurrence occur during verification period?
+├── Yes → CAPA INEFFECTIVE (re-investigate root cause)
+└── No → Were all effectiveness criteria met?
+    ├── Yes → CAPA EFFECTIVE (proceed to closure)
+    └── No → Extent of gap?
+        ├── Minor gap → Extend verification or accept with justification
+        └── Significant gap → CAPA INEFFECTIVE (revise actions)
+```
+
+See `references/effectiveness-verification-guide.md` for detailed procedures.
+
+---
+
+## CAPA Metrics and Reporting
+
+Monitor CAPA program performance through key indicators.
+
+### Key Performance Indicators
+
+| Metric | Target | Calculation |
+|--------|--------|-------------|
+| CAPA cycle time | <60 days average | (Close Date - Open Date) / Number of CAPAs |
+| Overdue rate | <10% | Overdue CAPAs / Total Open CAPAs |
+| First-time effectiveness | >90% | Effective on first verification / Total verified |
+| Recurrence rate | <5% | Recurred issues / Total closed CAPAs |
+| Investigation quality | 100% root cause validated | Root causes validated / Total CAPAs |
+
+### Aging Analysis Categories
+
+| Age Bucket | Status | Action Required |
+|------------|--------|-----------------|
+| 0-30 days | On track | Monitor progress |
+| 31-60 days | Monitor | Review for delays |
+| 61-90 days | Warning | Escalate to management |
+| >90 days | Critical | Management intervention required |
+
+### Management Review Inputs
+
+Monthly CAPA status report includes:
+- Open CAPA count by severity and status
+- Overdue CAPA list with owners
+- Cycle time trends
+- Effectiveness rate trends
+- Source analysis (complaints, audits, NCs)
+- Recommendations for improvement
+
+---
+
+## Reference Documentation
+
+### Root Cause Analysis Methodologies
+
+`references/rca-methodologies.md` contains:
+
+- Method selection decision tree
+- 5 Why analysis template and example
+- Fishbone diagram categories and template
+- Fault Tree Analysis for safety-critical issues
+- Human Factors Analysis for people-related causes
+- FMEA for proactive risk assessment
+- Hybrid approach guidance
+
+### Effectiveness Verification Guide
+
+`references/effectiveness-verification-guide.md` contains:
+
+- Verification planning requirements
+- Verification method selection
+- Effectiveness criteria definition (SMART)
+- Closure requirements by severity
+- Ineffective CAPA process
+- Documentation templates
+
+---
+
+## Tools
+
+### CAPA Tracker
 
 ```bash
-# 生成 CAPA 状态报告
+# Generate CAPA status report
 python scripts/capa_tracker.py --capas capas.json
 
-# 交互式手动录入
+# Interactive mode for manual entry
 python scripts/capa_tracker.py --interactive
 
-# JSON 输出便于集成
+# JSON output for integration
 python scripts/capa_tracker.py --capas capas.json --output json
 
-# 生成样例数据文件
+# Generate sample data file
 python scripts/capa_tracker.py --sample > sample_capas.json
 ```
 
-脚本输出：汇总指标（开/关/逾期/周期/有效性）、状态分布、严重度与来源分析、按时间桶的老化报告、逾期 CAPA 清单、可执行建议。
+Calculates and reports:
+- Summary metrics (open, closed, overdue, cycle time, effectiveness)
+- Status distribution
+- Severity and source analysis
+- Aging report by time bucket
+- Overdue CAPA list
+- Actionable recommendations
 
-**关键约束（强制对齐法规）：**
-- ISO 13485:2016 §8.5.2 纠正措施 / §8.5.3 预防措施：评审-定因-评估措施-实施-复核有效性。
-- FDA 21 CFR 820.100：须有 CAPA 程序、分析质量数据源、调查不合格原因、识别纠正与预防措施、验证有效性且不损害器械、提交管理评审。
-- 验证等待期与窗口：关键级等 30 天/验证 30-90 天；重大级等 60 天/60-180 天；轻微级等 90 天/90-365 天。
-
-## 示例
-
-**5Why（校准逾期）：**
-
-```
-问题：pH 计（EQ-042）发现校准已逾期 2 个月
-
-WHY 1：为何校准逾期？ 因：设备未列入校准计划
-       证据：核对校准计划，EQ-042 不在列
-WHY 2：为何未列入计划？ 因：采购设备时未更新计划
-       证据：采购日 2023-06-15，计划日期 2023-01-01
-WHY 3：为何计划未更新？ 因：无流程要求采购时更新校准计划
-       证据：SOP-EQ-001 中无此要求
-WHY 4：为何无此要求？ 因：程序编写早于设备追踪集中化
-       证据：SOP 末次修订 2019，设备系统 2021 上线
-WHY 5：为何程序未更新？ 因：定期评审未评估与新系统兼容性
-       证据：无针对新设备系统的评审记录
-
-根因：程序评审流程未评估与原程序创建后引入的组织系统的兼容性。
-```
-
-**措施计划模板：**
-
-```
-CAPA 编号：[CAPA-XXXX]    根因：[已识别根因]
-措施 1：[具体描述]
- - 类型：[ ] 遏制 [ ] 纠正 [ ] 纠正措施 [ ] 预防措施
- - 责任人：[姓名/职位]   截止：[YYYY-MM-DD]
- - 资源：[所需资源]
- - 成功标准：[可度量结果]   验证方法：[如何验证]
-审批：CAPA 负责人 / 流程负责人 / QA 经理 ____ 日期 ____
-```
-
-**样例输入（capas.json）：**
+### Sample CAPA Input
 
 ```json
 {
   "capas": [
     {
       "capa_number": "CAPA-2024-001",
-      "title": "pH 计校准逾期",
+      "title": "Calibration overdue for pH meter",
+      "description": "pH meter EQ-042 found 2 months overdue",
       "source": "AUDIT",
       "severity": "MAJOR",
       "status": "VERIFICATION",
       "open_date": "2024-06-15",
       "target_date": "2024-08-15",
       "owner": "J. Smith",
-      "root_cause": "程序评审缺口",
-      "corrective_action": "更新 SOP-EQ-001"
+      "root_cause": "Procedure review gap",
+      "corrective_action": "Updated SOP-EQ-001"
     }
   ]
 }
 ```
 
-## 注意事项
-
-- **措施要打到根因，不要治标**：红旗信号包括「只处理症状」「承诺模糊不可度量」「无截止日期」「资源未明确」「临时性修补」。
-- **有效性必须用客观证据**：前后数据对比、过程审核、记录抽查、检测、访谈观察，按问题类型选验证方法。
-- **常见 FDA 483 观察项**：重复问题未启动 CAPA（趋势分析缺失）、根因分析浮于表面（调查培训不足）、有效性未验证（无验证程序）、措施未触及根因（治标不治本）——逐条规避。
-- **指标目标参考**：周期 <60 天、逾期率 <10%、首次有效率 >90%、复发率 <5%、根因 100% 经验证。
-- 鱼骨图按 6M 分类排查：人（Man）、机（Machine）、法（Method）、料（Material）、测（Measurement）、环（Mother Nature）。
-
-## 互见
-
-- 风险管理（ISO 14971）：CAPA 涉及器械安全/性能时联动风险评估。
-- 不合格品控制：CAPA 上游来源之一。
-- 内审/管理评审：CAPA 状态与指标为管理评审输入。
-
 ---
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+
+## Regulatory Requirements
+
+### ISO 13485:2016 Clause 8.5
+
+| Sub-clause | Requirement | Key Activities |
+|------------|-------------|----------------|
+| 8.5.2 Corrective Action | Eliminate cause of nonconformity | NC review, cause determination, action evaluation, implementation, effectiveness review |
+| 8.5.3 Preventive Action | Eliminate potential nonconformity | Trend analysis, cause determination, action evaluation, implementation, effectiveness review |
+
+### FDA 21 CFR 820.100
+
+Required CAPA elements:
+- Procedures for implementing corrective and preventive action
+- Analyzing quality data sources (complaints, NCs, audits, service records)
+- Investigating cause of nonconformities
+- Identifying actions needed to correct and prevent recurrence
+- Verifying actions are effective and do not adversely affect device
+- Submitting relevant information for management review
+
+### Common FDA 483 Observations
+
+| Observation | Root Cause Pattern |
+|-------------|-------------------|
+| CAPA not initiated for recurring issue | Trend analysis not performed |
+| Root cause analysis superficial | Inadequate investigation training |
+| Effectiveness not verified | No verification procedure |
+| Actions do not address root cause | Symptom treatment vs. cause elimination |

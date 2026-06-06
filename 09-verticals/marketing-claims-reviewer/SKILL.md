@@ -1,14 +1,14 @@
 ---
 name: marketing-claims-reviewer
-title: 营销宣传声明合规审查
-description: 当需要审查营销文案（落地页/邮件/广告/标语）中的事实声明、比较性主张、暗示性主张与绝对化表述时使用；做逐条提取分类、举证核验、改写建议与"是否可发布"判定的合规审查报告；不适用于撰写营销创意、替客户做声明举证、审查纯图像设计或出具正式法律意见；触发词：营销声明审查、宣传文案合规、能不能这样说、夸大宣传、比较广告、绝对化用语、marketing claims review、check these claims、puffery、substantiation。
+title: /marketing-claims-review
+description: Review marketing copy for claims that need substantiation, reframing, or cutting. Use when the user says "review this marketing copy", "check these claims", "can we say this", "is this puffery or a problem", or pastes marketing content (landing pages, emails, ads, taglines).
 domain: 领域/legal
-triggers: [营销声明审查, 宣传文案合规, 能不能这样说, 夸大宣传, 比较广告, 绝对化用语, marketing claims review, check these claims, puffery, substantiation]
+triggers: [marketing claims review, check these claims, puffery, substantiation]
 tags: [legal, marketing, compliance, advertising, claims-review, ftc, substantiation]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [WebSearch, 法律检索工具(Westlaw/CourtListener等)]
+tools: []
 requires: []
 related: [general-counsel-advisor, regulatory-policy-diff, marketing-copy-editor]
 combines_with: [conversion-copywriter, marketing-copy-editor]
@@ -16,93 +16,213 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /marketing-claims-review
 
-当用户粘贴营销文案（落地页、邮件、广告、标语、社媒）或问"这句能不能说""这是夸大还是违规""帮我审一下这些声明"时使用。核心目标：在保留文案"势能"的前提下，找出会招致竞品律师函或监管问询的声明，并给出可发布判定与改写建议。
+1. Load `~/.claude/plugins/config/claude-for-legal/product-legal/CLAUDE.md` → Marketing claims standards.
+2. Apply the claim taxonomy and review workflow below.
+3. Extract every claim. Classify: puffery / factual / comparative / implied / absolute.
+4. For each non-puffery claim: substantiation check, suggested fix.
+5. Output: claim-by-claim with calls, suggested revision if short enough.
 
-**不该用的边界（务必遵守）：**
-- 不替客户写营销创意——只修正问题，文案的"声音"归营销方所有。
-- 不替客户做声明举证——只识别哪些声明需要证据、证据应向谁要（PM／数据团队／工程）。
-- 不审查设计或图像——只看文字。若图像暗示了某声明（如竞品 logo 被打红叉），标记出来，但视觉判断交由人工。
-- 不出具正式法律意见，不替非律师"批准发布"。批准发布是法律行为，须经律师复核。
-
-## 步骤
-
-**步骤 1：提取每一条声明。** 通读文案，列出每一句"断言事实／做出比较／给出承诺"的话。纯主观夸赞（puffery）不进列表。
-
-**步骤 2：分类并核验。** 对每条非夸赞声明，按下方分类法归类，核对是否有举证，给出判定与改写。固定输出块：
-
-```markdown
-**声明：** "[逐字引用]"
-**类型：** [具体事实 | 比较性 | 暗示性 | 绝对化]
-**已有举证：** [有——附链接 | 无 | 未知]
-**判定：** [✅ 可用 | ⚠️ 需补举证 | ⚠️ 需改措辞 | 🔴 删除]
-**改写建议：** "[保留势能的替代表述]"
-**理由：** [一句话]
 ```
-
-**步骤 3：对照产品实际。** 文案说的，产品真的能做到吗？查 PRD 或问 PM。常见偏差：文案按早期规格写就，产品已变更，无人更新文案。
-
-**步骤 4：先研究适用标准，再下结论。** 检索声明适用司法辖区与媒介下"当前生效"的广告与举证标准（如美国 FTC、NAD、各州 UDAP，以及医疗／金融／儿童产品等行业监管，和平台政策）。识别该"具体声明"需要何种举证（谁测的、何时测、样本量、同口径对比），而非是否"存在某种"证据。暗示性与比较性声明从严审查。
-
-**步骤 5：产出审查报告。** 顶部加工作产品抬头，含 Summary（N 条声明，N✅ N⚠️ N🔴，是否可发布）、逐条声明块（🔴 在前，⚠️ 次之，✅ 最后）、建议修订、发布前需补的举证表、引用核查声明。结尾给"下一步决策树"由律师选择。
-
-## 指令
-
-- **只引用与受审声明真正相关的标准。** 把全部 FTC 指引／NAD 判例／行业规则一股脑列出，会淹没真正承重的那条。除非文案含背书／证言／网红内容，否则不引《背书指南》(16 CFR Part 255)；除非有触发条款，否则不引披露叠加规则；除非文案指向该行业，否则不引行业监管。每条标准必须映射到一句具体引文，否则删掉。
-- **不得静默补漏（No silent supplement）。** 若向配置的法律检索工具查询某适用标准返回结果很少或为零，报告所查到的内容并停止。不要擅自用网络搜索或模型知识填补。应说："检索从 [工具] 返回了 [N] 条结果，[标准／辖区] 覆盖偏薄。选项：(1) 放宽查询；(2) 换检索工具；(3) 网络搜索——结果标 `[web search — verify]`，依赖前须对照发布机关核对；(4) 标为未核实并停止。你选哪个？"是否接受低置信来源由律师决定。
-- **来源分层标注。** 每条引用标来源标签。模型知识引用用三档而非单一"verify"：`[settled]`（稳定、广为人知的成文法／法规，如 FTC Act §5、Lanham Act §43(a) 概念，仍需核但优先级低）；`[verify]`（真实但应核：具体执法案例、NAD 判例、州 UDAP、行业规则、平台政策、判例要旨、阈值、生效日、近期更新）；`[verify-pinpoint]`（精确定位引用——具体子条款字母、CFR 分编、判例段号——伪造风险最高，必须对照一手来源核验）。工具检索引用保留来源标（`[Westlaw]`、`[CourtListener]`、`[FTC site]`、`[NAD]` 或 MCP 工具名）；网络搜索引用保留 `[web search — verify]`；用户提供（来自举证文件）保留 `[user provided]`。绝不剥除或合并标签。
-- **批准发布是闸门（Ready to ship: Yes）。** 输出"可发布：是"前，确认审查者身份。若为非律师，提示其先与律师复核，并生成一页简报（资产、已批声明、声明类型、各自举证、被标记的暗示性声明、上线前要问律师的三件事），无明确"是"不得跨过此闸门。"需按下方修改"与"否——需重写"是审查判定而非批准，不受闸门约束。
-
-## 示例
-
-**输入：** 标语「比 Slack 快 50%，企业级安全，永不宕机」
-
-**审查输出（节选）：**
-
-```markdown
-**声明：** "比 Slack 快 50%"
-**类型：** 比较性
-**已有举证：** 未知
-**判定：** ⚠️ 需补举证
-**改写建议：** 保留并点名 Slack——但须有可辩护的同口径基准数据（谁测、何时、样本）；否则抽象为"比传统聊天工具快"并附举证。
-**理由：** 点名竞品的比较广告从严，需可防御的对比基准。
-
-**声明：** "企业级安全"
-**类型：** 暗示性
-**判定：** ⚠️ 需改措辞
-**改写建议：** 写清是什么——SOC 2？写明，否则就是一句承诺。
-
-**声明：** "永不宕机"
-**类型：** 绝对化
-**判定：** 🔴 删除
-**改写建议：** "99.9% 可用性"（并配套定义它的 SLA）。
-**理由：** 绝对化表述一个反例即为假。
+/product-legal:marketing-claims-review
+[paste landing page copy]
 ```
-
-短资产（<50 词、一句标语／标题）的"建议修订"必须直接给出改好的那一句，可复制粘贴回资产，而非描述改了什么。
-
-**声明分类法速查：**
-- **主观夸赞（puffery）：** 无可衡量内容的主观断言（"最好的方式""你会爱上它""革命性"），是否可诉取决于辖区、语境、受众。
-- **具体事实：** 可衡量、具体、理性人会依赖（"快 50%""被 1 万家公司信任"——须是当前信任而非累计注册、"每周省 5 小时""HIPAA 合规"——这是合同承诺，须有 BAA 且实际配置）。
-- **比较性（从严）：** 点名或暗示竞品；"唯一能做 X 的平台"若他人也能做即为假，改"首个"或去掉"唯一"。
-- **暗示性：** 未明说但理性读者推断得出（"终于有了安全的替代品"暗示竞品不安全；客户 logo 无说明暗示其背书）；暗示性声明常与明示声明负担同等举证。
-- **绝对化：** "100% 准确""保证"（仅当真有带条款的保证，否则构成质保风险）"永远／每个"→"通常／多数"。
-
-**披露叠加场景**（落入额外披露规制，须研究当前要求）：证言／评论（说话人与广告主的实质关联通常须披露）、网红内容（标注、清晰度、显著性要求）、"效果因人而异"／非典型结果、免费试用／自动续费／负选项（自动转换条款的显著性与同意要求）。
-
-## 注意事项
-
-- 营销想说"最好"，法务要它"真实，或至少不可被证伪"。本技能修问题、保势能，不抢营销的笔。
-- 暗示性与比较性声明是高发雷区，举证负担往往与明示声明相同，务必从严。
-- "HIPAA 合规""保证"等是合同／质保承诺，不是文案修辞，触及即升级。
-- 验证时效性：背书指南、平台规则、州 UDAP 都频繁更新；无法核实当前标准时，标记交律师核验，绝不陈述未经确认的规则。
-- 引用核查声明须随报告输出：本审查所引 FTC 规则／NAD 判例／州 UDAP／行业法规／平台政策由 AI 生成、未对照一手来源核验，依赖前须用法律检索工具核准确性与当前生效日。
-
-## 互见
-
-- fact-checking：核验声明所引法规、案例、阈值与生效日的真实性。
-- prompt-template-designer：将本审查流程固化为可复用的提示模板。
 
 ---
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+
+## Matter context
+
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/product-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/product-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+
+---
+
+## Purpose
+
+Marketing wants to say the product is the best. Legal needs it to be true, or at least not provably false. This skill finds the claims that will get a demand letter from a competitor or an inquiry from a regulator, and suggests how to keep the energy while fixing the exposure.
+
+## Load standards
+
+Read `~/.claude/plugins/config/claude-for-legal/product-legal/CLAUDE.md` → `## Marketing claims`:
+- Comparative claims policy (allowed with substantiation / discouraged / never)
+- Substantiation standard (what's required before a claim ships)
+- Common rejected claims (learn from history)
+
+## Research the applicable standards before clearing copy
+
+Research the currently operative advertising and substantiation standards for the applicable jurisdictions and media (for example, FTC, NAD, state UDAP regimes, sector regulators for healthcare / financial / children's products, and platform-specific policies). Identify what substantiation the *specific claim* requires — who measured it, when, sample size, apples-to-apples basis — not just whether *some* substantiation exists on file. Flag implied claims and comparative claims for heightened scrutiny. Verify currency: endorsement and review guides have been updated recently and continue to evolve. Cite primary sources with pinpoint references. If you cannot verify the current standard, flag for attorney verification — do not state a rule you haven't confirmed.
+
+> **Only cite the standards that apply to the specific claims under review.** A blanket list of every FTC guideline, NAD practice note, or sector rule makes the load-bearing ones invisible. Do not cite the Endorsement Guides (16 CFR Part 255) unless the copy contains an endorsement, testimonial, or influencer content. Do not cite disclosure-overlay rules unless a claim in the asset triggers the overlay. Do not cite a sector regulator unless the copy targets or implicates that sector. A standard earns its place in the output by mapping to a specific quoted claim; otherwise drop it.
+
+> **No silent supplement.** If a research query to the configured legal research tool returns few or no results for the applicable standard (FTC rule, NAD decision, state UDAP, sector rule, platform policy), report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [standard / jurisdiction]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against the issuing authority before relying, or (4) flag as unverified and stop. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
+>
+> **Source attribution tiering.** Tag every citation with its source. For model-knowledge citations, use one of three tiers rather than a single blanket "verify" tag:
+>
+> - `[settled]` — stable, well-known statutory and regulatory references unlikely to have changed (e.g., FTC Act § 5, Lanham Act § 43(a) as a concept). Still verify before approving copy, but lower priority.
+> - `[verify]` — model-knowledge citations that are real but should be verified: specific FTC enforcement actions, NAD decisions, state UDAP statutes, sector-specific rules, platform policies, case holdings, thresholds, effective dates, recent updates (the Endorsement Guides and disclosure rules update frequently).
+> - `[verify-pinpoint]` — pinpoint citations (specific subsection letters, CFR subpart references, case paragraph numbers) carry the highest fabrication risk and should ALWAYS be verified against a primary source.
+>
+> Tool-retrieved citations keep their source tag (`[Westlaw]`, `[CourtListener]`, `[FTC site]`, `[NAD]`, `[platform policy]`, or the MCP tool name); web-search citations remain `[web search — verify]`; user-supplied citations (from substantiation files) remain `[user provided]`. The tiering surfaces the real verification work — a reader who verifies everything verifies nothing. Never strip or collapse the tags.
+
+## Claim taxonomy
+
+The categories below are structural patterns the reviewer should be able to recognize. Whether a given phrase is actionable depends on the currently operative rule in the applicable jurisdiction, the specific substantiation available, and the audience — research that before concluding.
+
+### Vague / subjective claims
+
+Subjective assertions with no measurable content. Whether they are actionable depends on jurisdiction, context, and audience — research before concluding.
+
+| Example |
+|---|
+| "The best way to manage your projects" |
+| "You'll love it" |
+| "Revolutionary" |
+
+### Specific factual claims
+
+Measurable, specific, a reasonable person might rely on it.
+
+| Example | Substantiation to look for |
+|---|---|
+| "50% faster than [competitor]" | Benchmark data, disclosed methodology, date |
+| "Trusted by 10,000 companies" | Actual count (not cumulative signups — *currently* trusted) |
+| "Saves 5 hours per week" | Study or customer data, disclosed sample |
+| "Enterprise-grade security" | What does that mean? SOC 2? Spell it out or it's a promise |
+| "HIPAA compliant" | BAA available, actually configured for it — this is a contractual promise |
+
+### Comparative claims (heightened scrutiny)
+
+Naming a competitor or implying one. Research the applicable rules for comparative advertising in the relevant jurisdictions and media before clearing.
+
+| Example | Fix pattern |
+|---|---|
+| "Faster than Slack" | Either name Slack with head-to-head data you can defend, or abstract to "faster than legacy chat tools" with substantiation |
+| "The only platform that does X" | False if anyone else does X — "The first platform to..." (if true) or drop "only" |
+| "[Competitor] can't do this" | Show your feature. Let the viewer compare. |
+
+Per `~/.claude/plugins/config/claude-for-legal/product-legal/CLAUDE.md` — if comparative claims are "never," flag all of them. If "allowed with substantiation," check for the substantiation.
+
+### Implied claims
+
+Not stated outright but a reasonable reader infers it. Research the treatment of implied claims under the applicable advertising regime — implied claims often carry the same substantiation burden as express ones.
+
+| Example | Implication | Fix |
+|---|---|---|
+| "Finally, a secure alternative" | Competitors are insecure | "Finally, security you can verify" |
+| Customer logos without context | These companies endorse us | "Customers include..." is fine; "Trusted by..." implies more |
+| "Built for healthcare" | HIPAA compliant | Clarify or qualify |
+
+### Absolute claims
+
+No room for error. One counter-example makes them false. Research whether qualifications cure the issue in the applicable jurisdiction.
+
+| Example | Fix pattern |
+|---|---|
+| "Never goes down" | "99.9% uptime" (with SLA that defines it) |
+| "100% accurate" | A specific, substantiated percentage tied to a benchmark |
+| "Guaranteed" | Only if you actually offer a guarantee with terms — this creates warranty exposure |
+| "Always" / "Every" | "Typically" / "Most" |
+
+## The review
+
+### Step 1: Extract every claim
+
+Read the copy. List every sentence or phrase that asserts a fact, makes a comparison, or promises something. Ignore pure puffery in the list.
+
+### Step 2: Classify and check
+
+For each claim:
+
+```markdown
+**Claim:** "[exact quote]"
+**Type:** [Specific factual | Comparative | Implied | Absolute]
+**Substantiation on file:** [Yes — link | No | Unknown]
+**Call:** [✅ Fine | ⚠️ Needs substantiation | ⚠️ Needs rewording | 🔴 Cut]
+**Suggested fix:** "[alternative phrasing that keeps the energy]"
+**Why:** [one line]
+```
+
+### Step 3: Check against the product
+
+Does the product actually do what the copy says? Not a philosophical question — check the PRD or ask the PM.
+
+Common drift: marketing copy written from an early spec, product changed, nobody updated the copy.
+
+### Step 4: Output
+
+Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/product-legal/CLAUDE.md` `## Outputs` (it differs by user role — see `## Who's using this`).
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs]
+
+# Marketing Review: [Campaign/Asset name]
+
+**Reviewed:** [date]
+**Asset:** [landing page / email / ad / etc.]
+
+---
+
+## Summary
+
+[N] claims reviewed. [N]✅ [N]⚠️ [N]🔴
+
+**Ready to ship:** [Yes | With changes below | No — rewrite needed]
+
+> **Before emitting "Ready to ship: Yes" (i.e., approving a claim for external use / publication):** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/product-legal/CLAUDE.md`. If the Role is Non-lawyer:
+>
+> > Approving a marketing claim for publication is a legal act — once published, substantiation gaps and comparative-claim exposure become enforcement or competitor-challenge risk. Have you reviewed this with an attorney? If yes, proceed. If no, here's a brief to bring to them:
+> >
+> > [Generate a 1-page summary: asset, claims approved, claim types (specific factual / comparative / implied / absolute), substantiation on file for each, any implied claims flagged, and the three things to ask the attorney before the copy goes live.]
+> >
+> > If you need to find a lawyer: your professional regulator's referral service is the fastest starting point (state bar in the US; SRA/Bar Standards Board in England & Wales; Law Society in Scotland/NI/Ireland/Canada/Australia; or your jurisdiction's equivalent).
+>
+> Do not proceed past this gate to "Ready to ship: Yes" without an explicit yes. "With changes below" and "No — rewrite needed" do not require the gate — those are review calls, not approvals.
+
+---
+
+## Claim-by-claim
+
+[All the claim blocks from Step 2, grouped: 🔴 first, then ⚠️, then ✅]
+
+---
+
+## Suggested revision
+
+[For short assets — under 50 words, or a tweet, headline, one-liner, tagline, short ad — the output in this block is the actual revised copy with the fixes applied inline, not a description of what changed. The reader should be able to copy-paste this block into the asset.
+For longer assets (>50 words but <300 words), show the revised copy with fixes applied inline.
+For longer assets (300+ words), summarize the changes as a bulleted diff ("Strip Claim 1. Rewrite Claim 3 to drop 'any.' Soften Claim 4 for regulated-domain risk.") rather than pasting the whole asset.
+A meta-description of changes is never an acceptable output for a short asset — when the asset is one line, the output should BE the revised one line.]
+
+---
+
+## Substantiation needed before ship
+
+| Claim | Need | From whom |
+|---|---|---|
+| [claim] | [data type] | [PM / data team / eng] |
+
+---
+
+## Citation check
+
+Any FTC rules, NAD decisions, state UDAP statutes, sector regulations, or platform policies cited in this review were generated by an AI model and have not been verified against a primary source. Before relying on a specific rule to clear or reject copy, verify it against a legal research tool (Westlaw, CourtListener, or your firm's research platform) for accuracy and current effective date — endorsement guides, platform rules, and state UDAP regimes all update frequently. Source tags on each citation (e.g., `[FTC site]`, `[web search — verify]`) show where it came from; `verify` tags carry higher fabrication risk and should be checked first.
+```
+
+## Disclosure overlays
+
+Copy that involves any of the fact patterns below sits inside an additional disclosure regime. Research the currently operative disclosure requirements in the applicable jurisdictions (including any platform policies and sector-specific rules) and verify currency — these regimes are updated frequently.
+
+- **Testimonials / reviews** — material connections between the speaker and the advertiser are typically disclosable; research the current form and placement rules
+- **Influencer content** — research the current tagging, clarity, and conspicuousness requirements for the channel and audience
+- **"Results may vary" / atypical results** — research whether a disclosure (and what form) is required when shown results aren't representative
+- **Free trial / auto-renewal / negative option** — research the current conspicuousness and consent requirements for auto-conversion terms
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+## What this skill does not do
+
+- It doesn't write the marketing. It fixes what's wrong with it. The suggested rewrites keep the energy, but the marketer owns the voice.
+- It doesn't substantiate claims. It identifies which ones need it and who has the data.
+- It doesn't review design or imagery — words only. If an image implies a claim (competitor logo with a red X through it), flag it, but visual review is a human judgment.

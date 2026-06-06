@@ -1,14 +1,14 @@
 ---
 name: llm-prompt-caching
-title: LLM 提示词缓存策略
-description: 当为 LLM 应用降本提速、复用稳定前缀或重复响应时使用；做提示词缓存/响应缓存/CAG 的选型与落地，产出可缓存的提示结构、失效策略与命中率监控方案；不适用于 CDN、数据库查询、静态资源缓存。触发词：提示词缓存、prompt caching、cache_control、CAG、响应缓存、cache 命中率
+title: Prompt Caching
+description: Caching strategies for LLM prompts including Anthropic prompt
 domain: 智能/prompting
-triggers: [提示词缓存, prompt caching, cache prompt, cache_control, ephemeral 缓存, 响应缓存, response cache, CAG, cache augmented generation, 缓存命中率, cache_read_input_tokens, 降低 LLM 成本, Redis 缓存 LLM, 语义缓存, 缓存失效, TTL]
-tags: [llm, 缓存, 性能优化, 成本优化, anthropic, 提示工程, cag, redis]
-level: 进阶
+triggers: [prompt caching, cache prompt, cache_control, response cache, CAG, cache augmented generation, cache_read_input_tokens, TTL]
+tags: [llm, anthropic, cag, redis]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Anthropic Prompt Caching, OpenAI Caching, Redis]
+tools: []
 requires: []
 related: [context-window-management, context-compression, llm-model-router, claude-api]
 combines_with: [production-llm-app-builder, rag-pipeline-builder, langfuse-llm-observability]
@@ -16,110 +16,477 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Prompt Caching
 
-当需要为 LLM 应用降低成本、降低延迟、提高吞吐时，按三类缓存对症下药：
+Caching strategies for LLM prompts including Anthropic prompt caching, response caching, and CAG (Cache Augmented Generation)
 
-- **提示词缓存（Prompt Cache）**：调用 Claude/OpenAI 时存在稳定的长系统提示或大块静态上下文，且这些前缀在多次请求间不变。Anthropic 原生缓存可在命中时让缓存 token 降本约 90%、延迟最多快约 2 倍。
-- **响应缓存（Response Cache）**：相同或高度相似的查询被反复提问，用 Redis 等缓存整段响应。
-- **CAG（Cache Augmented Generation）**：文档语料稳定、总量能塞进上下文窗口，直接把文档预缓存进提示，替代 RAG 检索。
+## Capabilities
 
-**不该用（负边界）：**
-- CDN 缓存、数据库查询缓存、静态资源缓存——本技能只覆盖 LLM 专属缓存。
-- 高温度（temperature > 0.5）非确定性输出，不应做响应缓存。
-- 命中率长期低于 50% 的场景，缓存检查与写入的开销可能反而高于不缓存。
-- 需要检索系统、上下文窗口优化、对话记忆时，转交 rag-implementation / context-window-management / conversation-memory。
+- prompt-cache
+- response-cache
+- kv-cache
+- cag-patterns
+- cache-invalidation
 
-## 步骤
+## Prerequisites
 
-1. **分析查询模式**：统计哪些前缀稳定、哪些查询高频，估算潜在命中率，再决定用哪类缓存。
-2. **提示词缓存**：把"永不变/极少变"的系统提示与知识库放进 `system` 数组并打 `cache_control: { type: "ephemeral" }`；动态内容只放进 `messages`，绝不进缓存前缀。
-3. **响应缓存**：对 prompt（含 model、temperature）做 SHA-256 哈希作 key，设置合理 TTL；可叠加语义相似缓存与温度感知缓存。
-4. **CAG**：稳定语料预格式化为带标题的文档块缓存进 system，定期（如每小时）刷新；用决策矩阵判断该用 CAG 还是 RAG。
-5. **监控与优化**：记录 `cache_read_input_tokens` / `cache_creation_input_tokens` 及命中/未命中率，持续调优前缀结构与 TTL。
+- Knowledge: Caching fundamentals, LLM API usage, Hash functions
+- Skills_recommended: context-window-management
 
-## 指令
+## Scope
 
-- 前缀必须**逐字节一致**才命中 Anthropic 缓存：禁止在缓存块里放时间戳、随机串等动态内容；保持消息顺序一致。
-- 多组件前缀拼接前先排序，且只对最末一个完整前缀打 `cache_control`，保证缓存键稳定。
-- 只缓存 `temperature <= 0.5` 的响应；任何缓存都要设 TTL，按数据新鲜度要求取值。
-- 为缓存命中实现失效机制：版本号失效（key 加 `v{n}:` 前缀）、内容哈希失效（源内容变则丢弃）、事件/标签失效（源更新时按 `source:{id}` 清除）。
-- 针对未命中优化，而非只优化命中：缓存查询设短超时（如 50ms）与 LLM 请求竞速，缓存写入异步进行、不阻塞响应。
+- Does_not_cover: CDN caching, Database query caching, Static asset caching
+- Boundaries: Focus is LLM-specific caching, Covers prompt and response caching
 
-## 示例
+## Ecosystem
 
-提示词缓存（关键是 `cache_control` 与动态/静态分离）：
+### Primary_tools
 
-```ts
+- Anthropic Prompt Caching - Native prompt caching in Claude API
+- Redis - In-memory cache for responses
+- OpenAI Caching - Automatic caching in OpenAI API
+
+## Patterns
+
+### Anthropic Prompt Caching
+
+Use Claude's native prompt caching for repeated prefixes
+
+**When to use**: Using Claude API with stable system prompts or context
+
 import Anthropic from '@anthropic-ai/sdk';
+
 const client = new Anthropic();
 
+// Cache the stable parts of your prompt
 async function queryWithCaching(userQuery: string) {
-  const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
-    max_tokens: 1024,
-    system: [
-      { type: "text", text: LONG_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } },
-      { type: "text", text: KNOWLEDGE_BASE,     cache_control: { type: "ephemeral" } },
-    ],
-    messages: [{ role: "user", content: userQuery }], // 动态部分
-  });
-  console.log(`Cache read: ${response.usage.cache_read_input_tokens}`);
-  console.log(`Cache write: ${response.usage.cache_creation_input_tokens}`);
-  return response;
+    const response = await client.messages.create({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1024,
+        system: [
+            {
+                type: "text",
+                text: LONG_SYSTEM_PROMPT,  // Your detailed instructions
+                cache_control: { type: "ephemeral" }  // Cache this!
+            },
+            {
+                type: "text",
+                text: KNOWLEDGE_BASE,  // Large static context
+                cache_control: { type: "ephemeral" }
+            }
+        ],
+        messages: [
+            { role: "user", content: userQuery }  // Dynamic part
+        ]
+    });
+
+    // Check cache usage
+    console.log(`Cache read: ${response.usage.cache_read_input_tokens}`);
+    console.log(`Cache write: ${response.usage.cache_creation_input_tokens}`);
+
+    return response;
 }
-```
 
-响应缓存（哈希 key + TTL，温度感知）：
+// Cost savings: 90% reduction on cached tokens
+// Latency savings: Up to 2x faster
 
-```ts
+### Response Caching
+
+Cache full LLM responses for identical or similar queries
+
+**When to use**: Same queries asked repeatedly
+
 import { createHash } from 'crypto';
 import Redis from 'ioredis';
+
 const redis = new Redis(process.env.REDIS_URL);
 
-const hashPrompt = (p: string) => createHash('sha256').update(p).digest('hex');
+class ResponseCache {
+    private ttl = 3600;  // 1 hour default
 
-async function getCachedWithParams(prompt: string, p: { temperature: number; model: string }) {
-  if (p.temperature > 0.5) return null; // 仅缓存低温响应
-  const key = hashPrompt(`${prompt}|${p.model}|${p.temperature}`);
-  return await redis.get(`response:${key}`);
+    // Exact match caching
+    async getCached(prompt: string): Promise<string | null> {
+        const key = this.hashPrompt(prompt);
+        return await redis.get(`response:${key}`);
+    }
+
+    async setCached(prompt: string, response: string): Promise<void> {
+        const key = this.hashPrompt(prompt);
+        await redis.set(`response:${key}`, response, 'EX', this.ttl);
+    }
+
+    private hashPrompt(prompt: string): string {
+        return createHash('sha256').update(prompt).digest('hex');
+    }
+
+    // Semantic similarity caching
+    async getSemanticallySimilar(
+        prompt: string,
+        threshold: number = 0.95
+    ): Promise<string | null> {
+        const embedding = await embed(prompt);
+        const similar = await this.vectorCache.search(embedding, 1);
+
+        if (similar.length && similar[0].similarity > threshold) {
+            return await redis.get(`response:${similar[0].id}`);
+        }
+        return null;
+    }
+
+    // Temperature-aware caching
+    async getCachedWithParams(
+        prompt: string,
+        params: { temperature: number; model: string }
+    ): Promise<string | null> {
+        // Only cache low-temperature responses
+        if (params.temperature > 0.5) return null;
+
+        const key = this.hashPrompt(
+            `${prompt}|${params.model}|${params.temperature}`
+        );
+        return await redis.get(`response:${key}`);
+    }
 }
-// 写入：redis.set(`response:${key}`, response, 'EX', 3600)
+
+### Cache Augmented Generation (CAG)
+
+Pre-cache documents in prompt instead of RAG retrieval
+
+**When to use**: Document corpus is stable and fits in context
+
+// CAG: Pre-compute document context, cache in prompt
+// Better than RAG when:
+// - Documents are stable
+// - Total fits in context window
+// - Latency is critical
+
+class CAGSystem {
+    private cachedContext: string | null = null;
+    private lastUpdate: number = 0;
+
+    async buildCachedContext(documents: Document[]): Promise<void> {
+        // Pre-process and format documents
+        const formatted = documents.map(d =>
+            `## ${d.title}\n${d.content}`
+        ).join('\n\n');
+
+        // Store with timestamp
+        this.cachedContext = formatted;
+        this.lastUpdate = Date.now();
+    }
+
+    async query(userQuery: string): Promise<string> {
+        // Use cached context directly in prompt
+        const response = await client.messages.create({
+            model: "claude-sonnet-4-20250514",
+            max_tokens: 1024,
+            system: [
+                {
+                    type: "text",
+                    text: "You are a helpful assistant with access to the following documentation.",
+                    cache_control: { type: "ephemeral" }
+                },
+                {
+                    type: "text",
+                    text: this.cachedContext!,  // Pre-cached docs
+                    cache_control: { type: "ephemeral" }
+                }
+            ],
+            messages: [{ role: "user", content: userQuery }]
+        });
+
+        return response.content[0].text;
+    }
+
+    // Periodic refresh
+    async refreshIfNeeded(documents: Document[]): Promise<void> {
+        const stale = Date.now() - this.lastUpdate > 3600000;  // 1 hour
+        if (stale) {
+            await this.buildCachedContext(documents);
+        }
+    }
+}
+
+// CAG vs RAG decision matrix:
+// | Factor           | CAG Better | RAG Better |
+// |------------------|------------|------------|
+// | Corpus size      | < 100K tokens | > 100K tokens |
+// | Update frequency | Low | High |
+// | Latency needs    | Critical | Flexible |
+// | Query specificity| General | Specific |
+
+## Sharp Edges
+
+### Cache miss causes latency spike with additional overhead
+
+Severity: HIGH
+
+Situation: Slow response when cache miss, slower than no caching
+
+Symptoms:
+- Slow responses on cache miss
+- Cache hit rate below 50%
+- Higher latency than uncached
+
+Why this breaks:
+Cache check adds latency.
+Cache write adds more latency.
+Miss + overhead > no caching.
+
+Recommended fix:
+
+// Optimize for cache misses, not just hits
+
+class OptimizedCache {
+    async queryWithCache(prompt: string): Promise<string> {
+        const cacheKey = this.hash(prompt);
+
+        // Non-blocking cache check
+        const cachedPromise = this.cache.get(cacheKey);
+        const llmPromise = this.queryLLM(prompt);
+
+        // Race: use cache if available before LLM returns
+        const cached = await Promise.race([
+            cachedPromise,
+            sleep(50).then(() => null)  // 50ms cache timeout
+        ]);
+
+        if (cached) {
+            // Cancel LLM request if possible
+            return cached;
+        }
+
+        // Cache miss: continue with LLM
+        const response = await llmPromise;
+
+        // Async cache write (don't block response)
+        this.cache.set(cacheKey, response).catch(console.error);
+
+        return response;
+    }
+}
+
+// Alternative: Probabilistic caching
+// Only cache if query matches known high-frequency patterns
+class SelectiveCache {
+    private patterns: Map<string, number> = new Map();
+
+    shouldCache(prompt: string): boolean {
+        const pattern = this.extractPattern(prompt);
+        const frequency = this.patterns.get(pattern) || 0;
+
+        // Only cache high-frequency patterns
+        return frequency > 10;
+    }
+
+    recordQuery(prompt: string): void {
+        const pattern = this.extractPattern(prompt);
+        this.patterns.set(pattern, (this.patterns.get(pattern) || 0) + 1);
+    }
+}
+
+### Cached responses become incorrect over time
+
+Severity: HIGH
+
+Situation: Users get outdated or wrong information from cache
+
+Symptoms:
+- Users report wrong information
+- Answers don't match current data
+- Complaints about outdated responses
+
+Why this breaks:
+Source data changed.
+No cache invalidation.
+Long TTLs for dynamic data.
+
+Recommended fix:
+
+// Implement proper cache invalidation
+
+class InvalidatingCache {
+    // Version-based invalidation
+    private cacheVersion = 1;
+
+    getCacheKey(prompt: string): string {
+        return `v${this.cacheVersion}:${this.hash(prompt)}`;
+    }
+
+    invalidateAll(): void {
+        this.cacheVersion++;
+        // Old keys automatically become orphaned
+    }
+
+    // Content-hash invalidation
+    async setWithContentHash(
+        key: string,
+        response: string,
+        sourceContent: string
+    ): Promise<void> {
+        const contentHash = this.hash(sourceContent);
+        await this.cache.set(key, {
+            response,
+            contentHash,
+            timestamp: Date.now()
+        });
+    }
+
+    async getIfValid(
+        key: string,
+        currentSourceContent: string
+    ): Promise<string | null> {
+        const cached = await this.cache.get(key);
+        if (!cached) return null;
+
+        // Check if source content changed
+        const currentHash = this.hash(currentSourceContent);
+        if (cached.contentHash !== currentHash) {
+            await this.cache.delete(key);
+            return null;
+        }
+
+        return cached.response;
+    }
+
+    // Event-based invalidation
+    onSourceUpdate(sourceId: string): void {
+        // Invalidate all caches that used this source
+        this.invalidateByTag(`source:${sourceId}`);
+    }
+}
+
+### Prompt caching doesn't work due to prefix changes
+
+Severity: MEDIUM
+
+Situation: Cache misses despite similar prompts
+
+Symptoms:
+- Cache hit rate lower than expected
+- Cache creation tokens high, read low
+- Similar prompts not hitting cache
+
+Why this breaks:
+Anthropic caching requires exact prefix match.
+Timestamps or dynamic content in prefix.
+Different message order.
+
+Recommended fix:
+
+// Structure prompts for optimal caching
+
+class CacheOptimizedPrompts {
+    // WRONG: Dynamic content in cached prefix
+    buildPromptBad(query: string): SystemMessage[] {
+        return [
+            {
+                type: "text",
+                text: `You are helpful. Current time: ${new Date()}`,  // BREAKS CACHE!
+                cache_control: { type: "ephemeral" }
+            }
+        ];
+    }
+
+    // RIGHT: Static prefix, dynamic at end
+    buildPromptGood(query: string): SystemMessage[] {
+        return [
+            {
+                type: "text",
+                text: STATIC_SYSTEM_PROMPT,  // Never changes
+                cache_control: { type: "ephemeral" }
+            },
+            {
+                type: "text",
+                text: STATIC_KNOWLEDGE_BASE,  // Rarely changes
+                cache_control: { type: "ephemeral" }
+            }
+            // Dynamic content goes in messages, NOT system
+        ];
+    }
+
+    // Prefix ordering matters
+    buildWithConsistentOrder(components: string[]): SystemMessage[] {
+        // Sort components for consistent ordering
+        const sorted = [...components].sort();
+        return sorted.map((c, i) => ({
+            type: "text",
+            text: c,
+            cache_control: i === sorted.length - 1
+                ? { type: "ephemeral" }
+                : undefined  // Only cache the full prefix
+        }));
+    }
+}
+
+## Validation Checks
+
+### Caching High Temperature Responses
+
+Severity: WARNING
+
+Message: Caching with high temperature. Responses are non-deterministic.
+
+Fix action: Only cache responses with temperature <= 0.5
+
+### Cache Without TTL
+
+Severity: WARNING
+
+Message: Cache without TTL. May serve stale data indefinitely.
+
+Fix action: Set appropriate TTL based on data freshness requirements
+
+### Dynamic Content in Cached Prefix
+
+Severity: WARNING
+
+Message: Dynamic content in cached prefix. Will cause cache misses.
+
+Fix action: Move dynamic content outside of cache_control blocks
+
+### No Cache Metrics
+
+Severity: INFO
+
+Message: Cache without hit/miss tracking. Can't measure effectiveness.
+
+Fix action: Add cache hit/miss metrics and logging
+
+## Collaboration
+
+### Delegation Triggers
+
+- context window|token -> context-window-management (Need context optimization)
+- rag|retrieval -> rag-implementation (Need retrieval system)
+- memory -> conversation-memory (Need memory persistence)
+
+### High-Performance LLM System
+
+Skills: prompt-caching, context-window-management, rag-implementation
+
+Workflow:
+
+```
+1. Analyze query patterns
+2. Implement prompt caching for stable prefixes
+3. Add response caching for frequent queries
+4. Consider CAG for stable document sets
+5. Monitor and optimize hit rates
 ```
 
-错误 vs 正确的可缓存前缀：
+## Related Skills
 
-```ts
-// 错误：动态内容进缓存前缀 -> 永远 miss
-{ type: "text", text: `You are helpful. Current time: ${new Date()}`,
-  cache_control: { type: "ephemeral" } } // BREAKS CACHE!
+Works well with: `context-window-management`, `rag-implementation`, `conversation-memory`
 
-// 正确：静态进 system 并缓存，动态留在 messages
-{ type: "text", text: STATIC_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }
-```
+## When to Use
+- User mentions or implies: prompt caching
+- User mentions or implies: cache prompt
+- User mentions or implies: response cache
+- User mentions or implies: cag
+- User mentions or implies: cache augmented
 
-CAG vs RAG 决策矩阵：
-
-| 因素 | CAG 更优 | RAG 更优 |
-|------|----------|----------|
-| 语料规模 | < 100K tokens | > 100K tokens |
-| 更新频率 | 低 | 高 |
-| 延迟要求 | 关键 | 灵活 |
-| 查询特异性 | 通用 | 具体 |
-
-## 注意事项
-
-- **未命中延迟尖峰（高危）**：缓存检查 + 写入的开销叠加，未命中时可能比不缓存还慢。命中率低于 50% 时优先用竞速 + 异步写入，或只对高频模式做选择性缓存（如某模式出现 >10 次才缓存）。
-- **缓存响应过期变脏（高危）**：源数据变了但无失效机制、或动态数据 TTL 过长，会持续返回错误信息。务必上版本号/内容哈希/事件失效。
-- **前缀变动导致不命中（中危）**：`cache_creation_input_tokens` 高而 `cache_read` 低，多因前缀含动态内容或消息顺序不一致。
-- 校验清单：高温缓存（仅缓存 temp ≤ 0.5）、缺 TTL（按新鲜度设值）、缓存前缀含动态内容（移出 cache_control）、缺命中/未命中指标（补埋点与日志）。
-
-## 互见
-
-- context-window-management（上下文/token 优化）
-- rag-implementation（检索系统，与 CAG 互为替代/补充）
-- conversation-memory（对话记忆持久化）
-- 高性能流水线：分析查询模式 → 稳定前缀做提示词缓存 → 高频查询做响应缓存 → 稳定语料考虑 CAG → 监控并优化命中率。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

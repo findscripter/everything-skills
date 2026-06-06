@@ -1,14 +1,14 @@
 ---
 name: pytdc-therapeutics-data-commons
-title: PyTDC 治疗学数据公地
-description: 当需加载 AI-ready 的 ADME/毒性/DTI/DDI 药物发现数据集、用 scaffold/cold 划分跑标准基准、或用 oracle 给生成分子打分时使用；走加载-划分-评估流水线产出标准指标与 5 种子基准；不适用于 ChEMBL 活性检索或纯特征化。触发词：TDC、PyTDC、ADMET、scaffold split、cold split、DTI、oracle
+title: PyTDC (Therapeutics Data Commons)
+description: Therapeutics Data Commons (TDC) AI-ready drug discovery datasets. Curated ADME, toxicity, DTI, DDI with scaffold/cold splits, standardized metrics, molecular oracles, and ADMET benchmarks for therapeutic ML and property prediction. For chemical database queries use chembl-database-bioactivity; for f
 domain: 领域/science
-triggers: [TDC, PyTDC, Therapeutics Data Commons, ADMET, ADME, 毒性数据集, DTI, DDI, scaffold split, cold split, oracle, QED, SA, GSK3B, DRD2, admet_group, MolGen, 药物发现数据集, 5 种子基准]
+triggers: [TDC, PyTDC, Therapeutics Data Commons, ADMET, ADME, DTI, DDI, scaffold split, cold split, oracle, QED, SA, GSK3B, DRD2, admet_group, MolGen]
 tags: [science, drug-discovery, datasets, benchmark, admet, oracle, dti, machine-learning, cheminformatics]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, PyTDC, numpy, pandas, scikit-learn, rdkit]
+tools: []
 requires: []
 related: [chembl-bioactivity-database, cheminformatics-toolkit, deepchem-drug-discovery, autodock-vina-docking, protein-language-models]
 combines_with: [deepchem-drug-discovery, scikit-learn-ml, cheminformatics-toolkit]
@@ -16,166 +16,416 @@ license: MIT
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# PyTDC (Therapeutics Data Commons)
 
-需要 **AI-ready 的药物发现数据集与标准化评估协议** 时使用 PyTDC（Therapeutics Data Commons）。它把治疗学数据组织为三类：单实例预测（分子/蛋白性质）、多实例预测（药-靶/药-药相互作用）、生成（分子设计、逆合成），并自带划分、指标与分子 oracle。典型场景：
+## Overview
 
-- 加载策展过的 ADME / 毒性 / 生物活性数据集训练 ML 模型。
-- 用标准化的 5 种子协议对药物发现模型做基准对比。
-- 用 cold-split 评估药-靶（DTI）/药-药（DDI）相互作用预测。
-- 生成新分子并用 oracle（QED、SA、DRD2、GSK3B 等）打分。
-- 取 scaffold（Bemis-Murcko）或时间（temporal）划分做制药 ML。
-- 分子表示转换：SMILES → PyG 图 / ECFP 指纹 / SELFIES。
+PyTDC is an open-science platform providing AI-ready datasets and benchmarks for drug discovery. It organizes therapeutics data into three categories: single-instance prediction (molecular/protein properties), multi-instance prediction (drug-target interactions), and generation (molecule design, retrosynthesis). All datasets come with standardized splits, evaluation metrics, and molecular oracles.
 
-**不该用本条的边界：**
-- 仅做 ChEMBL 化合物 / 靶点 / 活性检索（非打包数据集）→ 用 `chembl-bioactivity-database`。
-- 仅做分子特征化 / 指纹 / 描述符（不取 ML 数据集）→ 用 `cheminformatics-toolkit`。
-- 要端到端训练分子模型（GNN、ChemBERTa）→ 用 `deepchem-drug-discovery`（可用 TDC 数据喂它）。
-- 蛋白-配体对接 / 虚拟筛选打分用力场 → 用 `autodock-vina-docking`、`diffdock-blind-docking`。
+## When to Use
 
-## 步骤
+- Loading curated ADME, toxicity, or bioactivity datasets for ML model training
+- Benchmarking drug discovery models with standardized 5-seed evaluation protocols
+- Predicting drug-target or drug-drug interactions with proper cold-split evaluation
+- Generating novel molecules and scoring them with molecular oracles (QED, SA, DRD2, GSK3B)
+- Accessing scaffold-based or temporal train/test splits for pharmaceutical ML
+- Converting molecular representations (SMILES to PyG graphs, ECFP fingerprints, SELFIES)
+- For chemical database queries (compound search, bioactivity), use `chembl-database-bioactivity` instead
+- For molecular featurization beyond format conversion, use `molfeat` instead
 
-PyTDC 走统一的 **加载 → 划分 → 评估** 流水线：
-
-1. **选类目与数据集**：单实例 `from tdc.single_pred import ADME, Tox, HTS, QM`；多实例 `from tdc.multi_pred import DTI, DDI, PPI`；生成 `from tdc.generation import MolGen, RetroSyn`。首次访问会自动下载（~10–500 MB/集），用 `path='data/'` 指定持久缓存，避免重复下载。免 API key。
-2. **取数据**：`data = ADME(name='Caco2_Wang')`；`df = data.get_data(format='df')`。单实例列为 `['Drug_ID','Drug','Y']`（Drug 是 SMILES，Y 是标签）；多实例多出 `Target_ID`/`Target`（蛋白序列）。
-3. **划分**（关键决策）：`split = data.get_split(method='scaffold', seed=42, frac=[0.7,0.1,0.2])`。分子性质预测**默认且强烈推荐 `scaffold`**（Bemis-Murcko，保证训练/测试结构多样、不泄漏）；相互作用预测用 `cold_drug`/`cold_target`/`cold_drug_target`（测对未见药/靶的泛化）；`random` 会高估性能、不可发表。可用方法：`random`、`scaffold`、`cold_drug`、`cold_target`、`cold_drug_target`、`temporal`。
-4. **评估**：`Evaluator(name='MAE')(y_true, y_pred)`。分类用 `ROC-AUC`/`PR-AUC`/`F1`/`Accuracy`；回归用 `RMSE`/`MAE`/`R2`；排序用 `Spearman`/`Pearson`；多标签用 `Micro-F1`/`Macro-F1`。
-5. **生成任务用 oracle**：`Oracle(name='GSK3B')(smiles)` 返回 0–1 活性概率，支持批量 `oracle([smi1, smi2])`。
-6. **跑标准基准**：`from tdc.benchmark_group import admet_group`，按 5 种子协议训练-评估，`group.evaluate(predictions)` 返回 `mean ± std`。
-
-## 指令
-
-安装（核心轻量；scaffold 划分需 RDKit，PyG 转换需 torch-geometric）：
+## Prerequisites
 
 ```bash
-uv pip install PyTDC                # 核心：numpy, pandas, scikit-learn, tqdm, fuzzywuzzy
-uv pip install rdkit               # scaffold 划分所需
-uv pip install torch-geometric     # SMILES → PyG 图（可选）
+uv pip install PyTDC
+# Core deps: numpy, pandas, scikit-learn, tqdm, fuzzywuzzy
+# Optional: rdkit (scaffold splits), torch-geometric (PyG conversion)
 ```
 
-快速上手（scaffold 划分 + MAE 评估）：
+**API Note**: TDC downloads datasets on first access (~10-500 MB per dataset). Specify `path='data/'` to control download location. No API key required.
+
+## Quick Start
 
 ```python
 from tdc.single_pred import ADME
 from tdc import Evaluator
 
-data = ADME(name='Caco2_Wang')                      # 肠道通透性（回归）
+# Load dataset with scaffold split
+data = ADME(name='Caco2_Wang')
 split = data.get_split(method='scaffold', seed=42, frac=[0.7, 0.1, 0.2])
 train, valid, test = split['train'], split['valid'], split['test']
-print(len(train), len(valid), len(test))            # ~640 91 182
+print(f"Train: {len(train)}, Valid: {len(valid)}, Test: {len(test)}")
+# Train: ~640, Valid: ~91, Test: ~182
+
+# Evaluate predictions
 evaluator = Evaluator(name='MAE')
 # score = evaluator(test['Y'].values, predictions)
 ```
 
-数据集速查（用 `name=` 切换）：
+## Core API
+
+### Module 1: Single-Instance Prediction — Dataset Access
+
+Load datasets for predicting properties of individual molecules or proteins.
 
 ```python
-from tdc.single_pred import ADME, Tox
-ADME(name='BBB_Martins')               # 血脑屏障（二分类）
-ADME(name='Lipophilicity_AstraZeneca') # LogD（回归）
-ADME(name='Solubility_AqSolDB')        # 水溶性
-Tox(name='hERG')                       # 心脏毒性 / Tox(name='AMES') 致突变 / Tox(name='DILI') 肝损伤
-# 列出某任务全部数据集，避免拼错 name 报 KeyError：
-from tdc.utils import retrieve_dataset_names
-print(retrieve_dataset_names('ADME'))
+from tdc.single_pred import ADME, Tox, HTS, QM
+
+# ADME — pharmacokinetic properties
+data = ADME(name='Caco2_Wang')       # Intestinal permeability (regression)
+data = ADME(name='BBB_Martins')       # Blood-brain barrier (binary)
+data = ADME(name='Lipophilicity_AstraZeneca')  # LogD (regression)
+data = ADME(name='Solubility_AqSolDB')         # Aqueous solubility
+
+# Toxicity — adverse effects
+data = Tox(name='hERG')              # Cardiotoxicity (binary)
+data = Tox(name='AMES')              # Mutagenicity (binary)
+data = Tox(name='DILI')              # Drug-induced liver injury
+data = Tox(name='ClinTox')           # Clinical trial toxicity
+
+# Access data as DataFrame
+df = data.get_data(format='df')
+print(df.columns.tolist())
+# ['Drug_ID', 'Drug', 'Y'] — Drug is SMILES, Y is target label
+print(f"Dataset size: {len(df)}, Label range: [{df['Y'].min():.2f}, {df['Y'].max():.2f}]")
 ```
 
-多实例 + cold split（验证训练/测试零药物重叠）：
+Other single-prediction tasks: `HTS` (screening), `QM` (quantum mechanics), `Yields`, `Epitope`, `Develop`, `CRISPROutcome`.
+
+### Module 2: Multi-Instance Prediction — Interaction Datasets
+
+Load datasets for predicting interactions between pairs of biomedical entities.
 
 ```python
-from tdc.multi_pred import DTI
-data = DTI(name='BindingDB_Kd')        # 52,284 对，Kd 值；DAVIS / KIBA 为激酶数据
-cold = data.get_split(method='cold_drug', seed=1)
-overlap = set(cold['train']['Drug_ID']) & set(cold['test']['Drug_ID'])
-print(len(overlap))                    # 0 —— cold_drug 保证测试集药物训练未见
+from tdc.multi_pred import DTI, DDI, PPI
+
+# Drug-Target Interaction — binding affinity
+data = DTI(name='BindingDB_Kd')      # 52,284 pairs, Kd values
+data = DTI(name='DAVIS')             # 30,056 pairs, kinase binding
+data = DTI(name='KIBA')              # 118,254 pairs, kinase bioactivity
+
+# Drug-Drug Interaction — interaction type prediction
+data = DDI(name='DrugBank')           # 191,808 pairs, 86 interaction types
+
+# Protein-Protein Interaction
+data = PPI(name='HuRI')
+
+# Multi-instance data format
+df = data.get_data(format='df')
+print(df.columns.tolist())
+# ['Drug_ID', 'Drug', 'Target_ID', 'Target', 'Y']
+# Drug=SMILES, Target=protein sequence, Y=binding affinity or class
 ```
 
-生成 + oracle 打分：
+Other multi-instance tasks: `GDA`, `DrugRes`, `DrugSyn`, `PeptideMHC`, `AntibodyAff`, `MTI`, `Catalyst`, `TrialOutcome`.
+
+### Module 3: Generation Tasks — Molecular Design
+
+Load training sets and oracles for molecule generation and retrosynthesis.
 
 ```python
-from tdc.generation import MolGen
+from tdc.generation import MolGen, RetroSyn, PairMolGen
 from tdc import Oracle
-train_smiles = MolGen(name='ChEMBL_V29').get_split()['train']['Drug'].tolist()  # 1.6M 类药 SMILES
-oracle = Oracle(name='GSK3B')          # GSK3B 抑制预测，0–1
-print(oracle('CC(C)Cc1ccc(cc1)C(C)C(O)=O'))
-print(oracle(['CCO', 'c1ccccc1', 'CC(=O)O']))   # 批量
+
+# Molecule generation — training data
+data = MolGen(name='ChEMBL_V29')     # 1.6M drug-like SMILES
+split = data.get_split()
+train_smiles = split['train']['Drug'].tolist()
+
+# Oracle scoring — evaluate generated molecules
+oracle = Oracle(name='GSK3B')         # GSK3B inhibition predictor (0-1)
+score = oracle('CC(C)Cc1ccc(cc1)C(C)C(O)=O')
+print(f"GSK3B score: {score:.4f}")
+
+# Batch evaluation
+scores = oracle(['CCO', 'c1ccccc1', 'CC(=O)O'])
+print(f"Batch scores: {scores}")
+
+# Retrosynthesis — reaction prediction
+data = RetroSyn(name='USPTO')         # 1.9M reactions
+split = data.get_split()
+
+# Paired generation — prodrug design
+data = PairMolGen(name='Prodrug')
 ```
 
-## 示例
+### Module 4: Data Splits and Evaluation
 
-**5 种子 ADME 模型评估**（scaffold 划分，报 mean ± std）：
+Apply meaningful data splits and standardized evaluation metrics.
+
+```python
+from tdc.single_pred import ADME
+from tdc.multi_pred import DTI
+from tdc import Evaluator
+
+# Scaffold split — ensures chemical diversity between sets
+data = ADME(name='Caco2_Wang')
+split = data.get_split(method='scaffold', seed=42, frac=[0.7, 0.1, 0.2])
+
+# Cold splits — for DTI (unseen drugs/targets in test set)
+data = DTI(name='BindingDB_Kd')
+cold_drug = data.get_split(method='cold_drug', seed=1)
+cold_target = data.get_split(method='cold_target', seed=1)
+
+# Verify no overlap in cold split
+train_drugs = set(cold_drug['train']['Drug_ID'])
+test_drugs = set(cold_drug['test']['Drug_ID'])
+print(f"Drug overlap: {len(train_drugs & test_drugs)}")  # 0
+
+# Evaluation metrics
+eval_mae = Evaluator(name='MAE')
+eval_auc = Evaluator(name='ROC-AUC')
+eval_spearman = Evaluator(name='Spearman')
+# score = eval_mae(y_true, y_pred)
+```
+
+**Available split methods**: `random`, `scaffold` (Bemis-Murcko), `cold_drug`, `cold_target`, `cold_drug_target`, `temporal`.
+
+**Available metrics**: Classification — `ROC-AUC`, `PR-AUC`, `F1`, `Accuracy`, `Kappa`. Regression — `RMSE`, `MAE`, `R2`, `MSE`. Ranking — `Spearman`, `Pearson`. Multi-label — `Micro-F1`, `Macro-F1`.
+
+### Module 5: Benchmark Groups
+
+Run standardized multi-seed evaluation protocols for model comparison.
+
+```python
+from tdc.benchmark_group import admet_group
+
+# Load ADMET benchmark (22 datasets)
+group = admet_group(path='data/')
+
+# Standard 5-seed evaluation protocol
+benchmark = group.get('Caco2_Wang')
+predictions = {}
+
+for seed in [1, 2, 3, 4, 5]:
+    train_df = benchmark['train']
+    valid_df = benchmark['valid']
+    test_df = benchmark['test']
+    # Train your model on train_df, tune on valid_df
+    # predictions[seed] = model.predict(test_df['Drug'])
+    predictions[seed] = test_df['Y'].values  # placeholder
+
+# Get benchmark results
+results = group.evaluate(predictions)
+print(f"Mean MAE: {results['Caco2_Wang'][0]:.4f} ± {results['Caco2_Wang'][1]:.4f}")
+```
+
+## Key Concepts
+
+### Dataset Organization
+
+| Category | Import Path | Task Examples | Data Format |
+|----------|-------------|---------------|-------------|
+| Single-Instance | `tdc.single_pred` | ADME, Tox, HTS, QM | Drug (SMILES) + Y (label) |
+| Multi-Instance | `tdc.multi_pred` | DTI, DDI, PPI, DrugSyn | Drug + Target + Y |
+| Generation | `tdc.generation` | MolGen, RetroSyn | SMILES collections |
+| Benchmark | `tdc.benchmark_group` | admet_group | Curated splits |
+
+### Oracle Categories
+
+| Category | Examples | Speed | Output Range |
+|----------|----------|-------|-------------|
+| Biochemical | DRD2, GSK3B, JNK3, 5HT2A | Medium (ML) | 0-1 probability |
+| Physicochemical | QED, SA, LogP, MW | Fast (rule-based) | Varies by metric |
+| Composite | Isomer_Meta, Median1/2, Rediscovery | Medium | 0-1 combined |
+| Specialized | ASKCOS, Docking, Vina | Slow (external) | Varies |
+
+### Data Processing Utilities
+
+| Utility | Function | Example |
+|---------|----------|---------|
+| Format conversion | `MolConvert(src, dst)` | SMILES → PyG, ECFP, SELFIES, DGL |
+| Molecule filters | `MolFilter(filters)` | PAINS, BMS, Glaxo, drug-likeness |
+| Label binarization | `label_transform()` | Continuous → binary at threshold |
+| Unit conversion | `label_transform(from_unit, to_unit)` | nM → pIC50 |
+| ID resolution | `cid2smiles()`, `uniprot2seq()` | PubChem CID → SMILES |
+| Dataset listing | `retrieve_dataset_names(task)` | List all ADME datasets |
+
+## Common Workflows
+
+### Workflow 1: Multi-Seed ADME Model Evaluation
 
 ```python
 from tdc.single_pred import ADME
 from tdc import Evaluator
 import numpy as np
 
-data = ADME(name='Caco2_Wang'); evaluator = Evaluator(name='MAE'); results = []
+data = ADME(name='Caco2_Wang')
+evaluator = Evaluator(name='MAE')
+
+results = []
 for seed in [1, 2, 3, 4, 5]:
     split = data.get_split(method='scaffold', seed=seed)
-    train, test = split['train'], split['test']
-    # model.fit(train['Drug'], train['Y']); preds = model.predict(test['Drug'])
-    preds = test['Y'].values + np.random.normal(0, 0.1, len(test))   # 占位
-    results.append(evaluator(test['Y'].values, preds))
+    train, valid, test = split['train'], split['valid'], split['test']
+    # model.fit(train['Drug'], train['Y'])
+    # preds = model.predict(test['Drug'])
+    preds = test['Y'].values + np.random.normal(0, 0.1, len(test))  # placeholder
+    score = evaluator(test['Y'].values, preds)
+    results.append(score)
+    print(f"Seed {seed}: MAE = {score:.4f}")
+
 print(f"Mean MAE: {np.mean(results):.4f} ± {np.std(results):.4f}")
 ```
 
-**ADMET 标准基准组**（22 个数据集，5 种子协议）：
-
-```python
-from tdc.benchmark_group import admet_group
-group = admet_group(path='data/')
-benchmark = group.get('Caco2_Wang')
-predictions = {}
-for seed in [1, 2, 3, 4, 5]:
-    train, valid, test = benchmark['train'], benchmark['valid'], benchmark['test']
-    # 在 train 上训练、valid 调参，predictions[seed] = model.predict(test['Drug'])
-    predictions[seed] = test['Y'].values        # 占位
-results = group.evaluate(predictions)
-print(f"Mean MAE: {results['Caco2_Wang'][0]:.4f} ± {results['Caco2_Wang'][1]:.4f}")
-```
-
-**多目标分子打分**（oracle 加权，注意各 oracle 尺度不同）：
+### Workflow 2: Multi-Objective Molecular Scoring
 
 ```python
 from tdc import Oracle
-oracles = {'QED': (Oracle(name='QED'), 0.3),     # 类药性 0–1
-           'SA':  (Oracle(name='SA'), 0.3),       # 合成可及性 1–10（越低越好）
-           'GSK3B': (Oracle(name='GSK3B'), 0.4)}  # 靶点活性 0–1
-smi = 'CC(C)Cc1ccc(cc1)C(C)C(O)=O'
-weighted = sum(o(smi) * w for o, w in oracles.values())
-print(f"加权得分: {weighted:.4f}")
+import numpy as np
+
+# Define multi-objective scoring
+oracles = {
+    'QED': (Oracle(name='QED'), 0.3),      # drug-likeness
+    'SA': (Oracle(name='SA'), 0.3),         # synthetic accessibility
+    'GSK3B': (Oracle(name='GSK3B'), 0.4),   # target activity
+}
+
+test_smiles = ['CC(C)Cc1ccc(cc1)C(C)C(O)=O', 'c1ccc2c(c1)cc1ccc3cccc4ccc2c1c34']
+
+for smi in test_smiles:
+    scores = {}
+    weighted_sum = 0
+    for name, (oracle, weight) in oracles.items():
+        score = oracle(smi)
+        scores[name] = score
+        weighted_sum += score * weight
+    print(f"SMILES: {smi[:30]}...")
+    print(f"  Scores: {scores}")
+    print(f"  Weighted: {weighted_sum:.4f}")
 ```
 
-**分子格式转换**（SMILES → ECFP4 / SELFIES）：
+### Workflow 3: Cold-Split DTI Evaluation (text-only)
+
+1. Load DTI dataset — `DTI(name='BindingDB_Kd')` (Core API Module 2)
+2. Apply cold_drug split — `data.get_split(method='cold_drug', seed=seed)` (Core API Module 4)
+3. Verify zero drug overlap between train and test sets (Module 4 overlap check)
+4. Train model on train set, predict on test set
+5. Evaluate with Spearman correlation — `Evaluator(name='Spearman')` (Module 4)
+6. Repeat for 5 seeds and report mean ± std (same pattern as Workflow 1)
+
+## Key Parameters
+
+| Parameter | Function/Module | Default | Range/Options | Effect |
+|-----------|----------------|---------|---------------|--------|
+| `method` | `get_split()` | `'scaffold'` | `random`, `scaffold`, `cold_drug`, `cold_target`, `temporal` | Split strategy for train/test |
+| `seed` | `get_split()` | `42` | 1-5 for benchmarks | Reproducibility; use 5 seeds for benchmarks |
+| `frac` | `get_split()` | `[0.7, 0.1, 0.2]` | Sum must equal 1.0 | Train/valid/test proportions |
+| `name` | `Evaluator()` | — | `MAE`, `RMSE`, `ROC-AUC`, `Spearman`, etc. | Evaluation metric |
+| `name` | `Oracle()` | — | `QED`, `SA`, `GSK3B`, `DRD2`, etc. | Scoring function for molecules |
+| `src`/`dst` | `MolConvert()` | — | `SMILES`, `SELFIES`, `PyG`, `DGL`, `ECFP4` | Molecular representation formats |
+| `path` | `admet_group()` | `'data/'` | Any directory | Dataset download/cache location |
+| `format` | `get_data()` | `'df'` | `'df'`, `'dict'` | Output data format |
+
+## Best Practices
+
+1. **Always use scaffold splits** for molecular property prediction — random splits leak structural information and inflate performance metrics
+2. **Report 5-seed evaluations** with mean ± std — single-seed results are unreliable for method comparison
+3. **Use cold splits for interaction prediction** — `cold_drug` tests generalization to unseen drugs, `cold_target` to unseen targets
+4. **Filter molecules early** with `MolFilter` (PAINS, drug-likeness) before training to remove problematic compounds
+5. **Normalize oracles appropriately** — QED returns 0-1, SA returns 1-10 (lower is better), binding scores vary. Check oracle documentation before combining
+6. **Cache datasets** by specifying a persistent `path` — avoids re-downloading large datasets across sessions
+
+## Common Recipes
+
+### Recipe 1: Dataset Exploration and Statistics
+
+```python
+from tdc.single_pred import ADME
+from tdc.utils import retrieve_dataset_names
+
+# List all ADME datasets
+datasets = retrieve_dataset_names('ADME')
+print(f"Available ADME datasets: {datasets}")
+
+# Load and inspect
+data = ADME(name='Caco2_Wang')
+df = data.get_data(format='df')
+print(f"Size: {len(df)}")
+print(f"Label stats: mean={df['Y'].mean():.2f}, std={df['Y'].std():.2f}")
+print(f"SMILES example: {df['Drug'].iloc[0]}")
+```
+
+### Recipe 2: Molecule Format Conversion Pipeline
 
 ```python
 from tdc.chem_utils import MolConvert
-ecfp = MolConvert(src='SMILES', dst='ECFP4')('CC(C)Cc1ccc(cc1)C(C)C(O)=O')
-selfies = MolConvert(src='SMILES', dst='SELFIES')('CC(C)Cc1ccc(cc1)C(C)C(O)=O')
-print(ecfp.shape)   # (1024,) 二进制指纹
+
+# SMILES to multiple representations
+smiles = 'CC(C)Cc1ccc(cc1)C(C)C(O)=O'
+
+converter_ecfp = MolConvert(src='SMILES', dst='ECFP4')
+converter_selfies = MolConvert(src='SMILES', dst='SELFIES')
+
+ecfp = converter_ecfp(smiles)
+selfies = converter_selfies(smiles)
+print(f"ECFP4 shape: {ecfp.shape}")    # (1024,) binary fingerprint
+print(f"SELFIES: {selfies}")
 ```
 
-## 注意事项
+### Recipe 3: Custom Oracle with Constraint Satisfaction
 
-- **分子性质预测必须 scaffold 划分**：`random` 泄漏结构信息、虚高指标，审稿期望 scaffold 或 temporal 划分。`get_split` 默认即 `scaffold`。
-- **相互作用预测用 cold split**：`cold_drug` 测对未见药物泛化、`cold_target` 对未见靶点；`cold_drug_target` 两者皆未见。用上面的 overlap 检查确认零泄漏。
-- **永远报 5 种子 mean ± std**：单种子结果不可靠，不能用于方法对比；基准组（`admet_group`）天然按此协议。
-- **oracle 尺度各异，组合前先归一**：`QED` 返回 0–1，`SA` 返回 1–10（越低越好），结合分各异；直接加权前先核对各 oracle 文档/范围。
-- **oracle 返回 NaN**：多半是非法 SMILES 或 RDKit 解析失败，打分前先用 `Chem.MolFromSmiles(smi) is not None` 预过滤。
-- **数据集名写错报 `KeyError`**：用 `retrieve_dataset_names('ADME')` 取合法 name 再传。
-- **大数据集缓存**：始终指定持久 `path='data/'`，避免跨会话重复下载（DTI/生成集可达数百 MB）。`benchmark` 评估须传 `dict`，键为种子：`{1: preds1, 2: preds2, ...}`，否则报格式错。
-- **依赖缺失**：`ModuleNotFoundError: tdc` → `uv pip install PyTDC`；scaffold 划分失败 → 装 `rdkit`；PyG 转换失败 → 装 `torch-geometric`。
-- **数据处理工具**：`MolConvert(src,dst)`（格式转换）、`MolFilter`（PAINS/类药性过滤，训练前剔除问题分子）、`label_transform`（连续→二值、nM→pIC50 单位换算）、`cid2smiles()`/`uniprot2seq()`（ID 解析）。
+```python
+from tdc import Oracle
 
-## 互见
+# Define property constraints
+constraints = {
+    'QED': (Oracle(name='QED'), 0.5, 1.0),       # min, max
+    'SA': (Oracle(name='SA'), 1.0, 4.0),
+    'LogP': (Oracle(name='LogP'), -0.5, 5.0),
+}
 
-- related：`chembl-bioactivity-database` —— 直接检索 ChEMBL 化合物/靶点/活性（非打包数据集）的来源。
-- related：`cheminformatics-toolkit` —— RDKit 解析/清洗 SMILES、算指纹与描述符，喂入 TDC 数据集前的预处理。
-- related：`protein-language-models` —— DTI 任务蛋白序列侧的表征建模。
-- combines_with：`deepchem-drug-discovery` —— 用 TDC 数据集+划分喂 DeepChem 训练 GNN/语言模型。
-- combines_with：`scikit-learn-ml` —— 在 TDC 划分上训经典 ML 基线并用 `Evaluator` 评估。
+def check_constraints(smiles):
+    """Check if molecule satisfies all property constraints."""
+    results = {}
+    all_pass = True
+    for name, (oracle, lo, hi) in constraints.items():
+        score = oracle(smiles)
+        passed = lo <= score <= hi
+        results[name] = {'score': score, 'passed': passed}
+        all_pass = all_pass and passed
+    return all_pass, results
 
----
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+passed, details = check_constraints('CC(C)Cc1ccc(cc1)C(C)C(O)=O')
+for name, info in details.items():
+    status = "PASS" if info['passed'] else "FAIL"
+    print(f"{name}: {info['score']:.3f} [{status}]")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `ModuleNotFoundError: tdc` | Package not installed | `uv pip install PyTDC` |
+| Scaffold split fails | Missing RDKit dependency | `uv pip install rdkit` for scaffold decomposition |
+| Dataset download timeout | Large dataset or slow connection | Set `path='data/'` for persistent cache; retry |
+| `KeyError` on dataset name | Wrong name or task category | Use `retrieve_dataset_names('ADME')` to list valid names |
+| Oracle returns NaN | Invalid SMILES or RDKit parse failure | Validate SMILES with RDKit `MolFromSmiles()` first |
+| Cold split empty test set | Too few unique entities | Use `frac=[0.7, 0.1, 0.2]` with larger datasets |
+| Benchmark evaluation error | Wrong prediction format | Pass `dict` with seeds as keys: `{1: preds1, 2: preds2, ...}` |
+| Memory error on large dataset | Full dataset loaded to memory | Process in chunks or use smaller split fractions |
+| PyG conversion fails | torch-geometric not installed | `uv pip install torch-geometric` for graph conversion |
+
+## Bundled Resources
+
+### references/datasets_catalog.md
+Covers: complete catalog of all TDC datasets organized by task category (single-instance, multi-instance, generation) with dataset names, sizes, label types, and data sources. Relocated inline: top ADME/Tox/DTI datasets with code examples consolidated into Core API Modules 1-2. Omitted: None — all dataset entries preserved in catalog format.
+
+### references/oracles_utilities.md
+Covers: detailed oracle documentation (all 17+ oracles with parameters, speed tiers, output ranges, custom oracle template) and data processing utilities (format conversion targets, molecule filter types, label transformation, entity resolution). Consolidated from original `oracles.md` + `utilities.md`. Relocated inline: Quick Start oracle usage pattern, top evaluation metrics, split methods, MolConvert pattern → Core API Modules 3-4. Omitted: distribution learning KS-test example — niche statistical comparison; leaderboard submission guide — platform-specific.
+
+### Script Disposition
+- `load_and_split_data.py` (215 lines): scaffold/cold split patterns → Core API Module 4; custom split fractions → Key Parameters; evaluation examples → Workflow 1. Thin wrappers around `get_split()` and `Evaluator()`.
+- `benchmark_evaluation.py` (328 lines): 5-seed protocol → Core API Module 5 + Workflow 1; multi-dataset evaluation → Workflow 1 pattern; leaderboard guide → omitted (platform-specific).
+- `molecular_generation.py` (405 lines): single/batch oracle usage → Core API Module 3; multi-objective scoring → Workflow 2; constraint satisfaction → Recipe 3; distribution learning → omitted (niche).
+
+## Related Skills
+
+- **chembl-database-bioactivity** — for querying ChEMBL compound/target/activity data directly
+- **molfeat** — for advanced molecular featurization beyond TDC's built-in MolConvert
+- **rdkit-cheminformatics** — for molecular manipulation, substructure search, descriptor calculation
+
+## References
+
+- TDC Official Website: https://tdcommons.ai
+- TDC Documentation: https://tdc.readthedocs.io
+- GitHub Repository: https://github.com/mims-harvard/TDC
+- Huang et al. "Therapeutics Data Commons" NeurIPS 2021 Datasets and Benchmarks

@@ -1,14 +1,14 @@
 ---
 name: multi-agent-workflow-designer
-title: 多智能体工作流设计
-description: 当设计多步骤 Agent 流水线、在单 Agent 与多 Agent 之间抉择、或重构受上下文膨胀/交接不可靠困扰的 LLM 工作流时使用；做选定编排模式（顺序/并行/路由/编排器/评估器）、用脚手架脚本生成 JSON 骨架配置、定义交接契约与重试/超时/预算护栏，产出可落地的工作流蓝图；不适用于单条良构提示词即可解决的简单任务。触发词：多智能体工作流、Agent 编排、交接契约
+title: Multi-Agent Workflow Designer
+description: Design production-grade multi-agent workflows — pick an orchestration pattern (sequential/parallel/router/orchestrator/evaluator), scaffold a JSON skeleton, and define handoff contracts with retry/timeout/budget guardrails. Use when architecting a multi-step agent pipeline, decid
 domain: 智能/agents
-triggers: [设计多智能体工作流, Agent 编排模式选型, 单 Agent 还是多 Agent, 重构上下文膨胀的 LLM 流水线, 交接契约/handoff 契约, 顺序 并行 路由 编排器 评估器 模式, 生成工作流骨架配置, 为每步加重试超时和预算]
-tags: [智能体, agents, 工作流编排, 多智能体, ai编排, 流水线设计, 交接契约, 成本控制]
-level: 进阶
+triggers: [design a multi-agent workflow, choose an agent orchestration pattern, single-agent vs multi-agent, refactor an LLM pipeline with context bloat, define handoff contracts, sequential parallel router orchestrator evaluator patterns, scaffold a workflow skeleton config, add retry timeout and budget to each step]
+tags: [agents, multi-agent, workflow-orchestration, ai-orchestration, pipeline-design, handoff-contract, cost-control]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python3, workflow_scaffolder.py]
+tools: []
 requires: []
 related: [agent-workflow-pattern-designer, multi-agent-system-designer, crewai-multi-agent, langgraph-agent-framework]
 combines_with: [agent-tool-design, context-compression, llm-agent-benchmarking]
@@ -16,61 +16,57 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当一个任务复杂到单条提示词无法稳定胜任，需要把它拆成多个有明确边界的专职 Agent 协作时使用本技能。典型场景：
+Use this skill when a task is too complex for a single prompt and must be split across multiple specialist agents with clear boundaries. Typical signals:
 
-- 一条提示词不足以承载任务复杂度，需要带显式边界的专家 Agent。
-- 希望在动手实现前先定下确定性的工作流结构。
-- 需要质量/安全关卡的校验回路。
-- 正在重构一个受上下文膨胀或交接不可靠困扰的 LLM 工作流。
-- 在「单 Agent vs 多 Agent」之间做架构抉择。
+- A single prompt is insufficient for task complexity, and you need specialist agents with explicit boundaries.
+- You want a deterministic workflow structure decided before implementation.
+- You need validation loops for quality or safety gates.
+- You are refactoring an LLM workflow that suffers from context bloat or unreliable handoffs.
+- You are making the architectural call between single-agent and multi-agent approaches.
 
-**不该用的边界**：若任务用一条良构的提示词即可解决，不要为它套多 Agent 编排——过度编排会徒增成本、延迟与故障面。先用能满足需求的最小模式。
+**Boundary — when NOT to use:** if one well-structured prompt can solve the task, do not wrap it in multi-agent orchestration. Over-orchestration only adds cost, latency, and failure surface. Start with the smallest pattern that satisfies the requirement.
 
-## 步骤
+## Steps
 
-1. **选模式**：依据「依赖形态 + 风险画像」从五种模式中选型（见下方模式表）。
-2. **生成骨架**：用 `scripts/workflow_scaffolder.py` 生成 JSON 骨架配置。
-3. **定义交接契约**：为每一条边（edge）补齐交接契约字段。
-4. **加护栏**：为每一步加上重试/超时与输出校验关卡。
-5. **小预算试跑**：在放大规模前，用较小的上下文预算做 dry-run 验证。
+1. **Select a pattern** based on dependency shape and risk profile (see the Pattern Map below).
+2. **Scaffold the config** with `scripts/workflow_scaffolder.py` to generate a JSON skeleton.
+3. **Define handoff contract fields** for every edge.
+4. **Add guardrails** — retry/timeouts plus output-validation gates on each step.
+5. **Dry-run with small context budgets** before scaling up.
 
-## 指令
+**Pattern Map** (dependency shape → pattern):
 
-模式选型表（依赖形态 → 模式）：
+- `sequential`: strict step-by-step dependency chain — each step depends on the prior output.
+- `parallel`: fan-out/fan-in for independent subtasks; use for throughput and latency reduction.
+- `router`: dispatch by intent/type to specialized handlers, with a `fallback`.
+- `orchestrator`: a planner coordinates specialists with dependencies (DAG), planning dynamically.
+- `evaluator`: generator + quality-gate loop; use when correctness/quality must be enforced.
 
-- `sequential`：严格逐步依赖链——每一步都依赖上一步输出。
-- `parallel`：独立子任务先扇出（fan-out）后扇入（fan-in），用于提吞吐、降延迟。
-- `router`：按意图/类型分派到专职处理器，并配 `fallback` 兜底。
-- `orchestrator`：规划者（planner）协调多专家，按依赖（DAG）动态规划。
-- `evaluator`：生成器 + 质量关卡回路，正确性/质量必须把关时用。
-
-生成骨架命令：
+**Scaffolder usage** — `pattern` is one of `sequential | parallel | router | orchestrator | evaluator`; optional `--name` (default `new-workflow`) and `--output` (write to a path; otherwise print to stdout):
 
 ```bash
-# 生成顺序工作流骨架
+# Generate a sequential workflow skeleton
 python3 scripts/workflow_scaffolder.py sequential --name content-pipeline
 
-# 生成编排器工作流并落盘保存
+# Generate an orchestrator workflow and save it
 python3 scripts/workflow_scaffolder.py orchestrator --name incident-triage --output workflows/incident-triage.json
 ```
 
-脚本支持的 `pattern` 取值：`sequential | parallel | router | orchestrator | evaluator`；可选参数 `--name`（默认 `new-workflow`）、`--output`（落盘路径，缺省则打印到 stdout）。
-
-**交接最小契约**（每条边都必须携带这些字段）：
+**Handoff minimum contract** (every edge must carry these fields):
 
 - `workflow_id`
 - `step_id`
 - `task`
 - `constraints`
-- `upstream_artifacts`（只传定向产物，不要整段上游上下文）
+- `upstream_artifacts` (pass only targeted artifacts, never the full upstream context)
 - `budget_tokens`
 - `timeout_seconds`
 
-## 示例
+## Example
 
-顺序模式骨架（含内建重试）：
+Sequential skeleton (with built-in retry):
 
 ```json
 {
@@ -85,7 +81,7 @@ python3 scripts/workflow_scaffolder.py orchestrator --name incident-triage --out
 }
 ```
 
-评估器模式骨架（质量回路）：
+Evaluator skeleton (quality loop):
 
 ```json
 {
@@ -96,7 +92,7 @@ python3 scripts/workflow_scaffolder.py orchestrator --name incident-triage --out
 }
 ```
 
-编排器模式骨架（DAG 依赖 + 受控并行）：
+Orchestrator skeleton (DAG dependencies + bounded parallelism):
 
 ```json
 {
@@ -107,28 +103,28 @@ python3 scripts/workflow_scaffolder.py orchestrator --name incident-triage --out
 }
 ```
 
-## 注意事项
+## Notes
 
-常见陷阱：
+Common pitfalls:
 
-- 对一条良构提示词就能解决的任务过度编排。
-- 给外部模型调用漏配超时/重试策略。
-- 把整段上游上下文一股脑往下传，而非只传定向产物（artifacts）。
-- 忽视逐步累积的单步成本。
+- Over-orchestrating tasks that a single well-structured prompt could solve.
+- Missing timeout/retry policies for external-model calls.
+- Passing full upstream context instead of targeted artifacts.
+- Ignoring per-step cost accumulation.
 
-最佳实践：
+Best practices:
 
-1. 从能满足需求的最小模式起步。
-2. 交接载荷保持显式且有界。
-3. 扇入（fan-in）综合前，先校验各路中间产物。
-4. 每一步都强制预算与超时上限。
+1. Start with the smallest pattern that can satisfy requirements.
+2. Keep handoff payloads explicit and bounded.
+3. Validate intermediate outputs before fan-in synthesis.
+4. Enforce budget and timeout limits in every step.
 
-## 互见
+## See also
 
-- 模式模板详表：源技能 `references/workflow-patterns.md`（顺序/并行/路由/编排器/评估器各模式的 JSON 模板与选型启发式）。
-- 脚手架脚本：`scripts/workflow_scaffolder.py`。
-- 智能/agents 域内其他 Agent 编排、提示词工程类技能。
+- Detailed pattern templates: source skill `references/workflow-patterns.md` (JSON templates and selection heuristics for sequential/parallel/router/orchestrator/evaluator).
+- Scaffolder script: `scripts/workflow_scaffolder.py`.
+- Other agent-orchestration and prompt-engineering skills in the AI/agents domain.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT），适配重写为中文版，非逐字翻译。
+Adapted from alirezarezvani/claude-skills (MIT); English body reused from the original `agent-workflow-designer` skill, reorganized into this section structure without paraphrasing the commands, contracts, or code.

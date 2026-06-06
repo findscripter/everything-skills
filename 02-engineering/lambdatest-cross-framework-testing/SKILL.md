@@ -1,14 +1,14 @@
 ---
 name: lambdatest-cross-framework-testing
-title: LambdaTest 多框架测试自动化
-description: 当需要为 46 个主流测试框架（Selenium/Playwright/Cypress/Jest/pytest/Appium 等）跨 15+ 语言编写、脚手架、迁移或在 LambdaTest 云端跑自动化测试时使用；做按框架+语言选对工程结构/依赖/Runner 命令，配置本地或云端（RemoteWebDriver capabilities、LT_USERNAME/LT_ACCESS_KEY 走环境变量）并接入 CI/CD，产出生产级测试代码与流水线；不适用于纯手工探索测试、无回归价值的一次性脚本或缺少 LambdaTest 账号的云端场景；触发词：lambdatest、跨框架测试、selenium、playwright、appium、cucumber、框架迁移、云端测试
+title: LambdaTest Agent Skills — Test Automation Registry (46 Skills)
+description: Production-grade test automation skills for 46 frameworks across E2E, unit, mobile, BDD, visual, and cloud testing in 15+ languages.
 domain: 研发/testing
-triggers: [lambdatest, 跨框架测试, test automation, selenium, playwright, cypress, appium, pytest, jest, cucumber, bdd 测试, 框架迁移, selenium 迁移 playwright, 云端测试, RemoteWebDriver, 测试脚手架, scaffold tests]
-tags: [测试, test-automation, lambdatest, e2e, 单元测试, 移动测试, bdd, selenium, playwright, appium, 框架迁移, ci/cd, 研发, qa]
-level: 进阶
+triggers: [lambdatest, test automation, selenium, playwright, cypress, appium, pytest, jest, cucumber, RemoteWebDriver, scaffold tests]
+tags: [test-automation, lambdatest, e2e, bdd, selenium, playwright, appium, ci/cd, qa]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Selenium, Playwright, Cypress, Appium, pytest, Jest, RemoteWebDriver, LambdaTest / HyperExecute, GitHub Actions / Jenkins / GitLab CI]
+tools: []
 requires: []
 related: [browserstack-cross-browser-test, playwright-e2e-testing, webapp-testing, javascript-testing-patterns]
 combines_with: [ci-cd-pipeline-builder, playwright-e2e-testing, test-coverage-gap-finder]
@@ -16,88 +16,216 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT），源为 LambdaTest/agent-skills 的 46 框架测试自动化注册表。
+# LambdaTest Agent Skills — Test Automation Registry (46 Skills)
 
-## 何时使用
+## Overview
 
-当你要写、脚手架、评审、迁移或在云端运行任意主流框架的自动化测试时使用，让 Agent 以「资深 QA 自动化架构师」身份产出符合各框架真实约定的代码，而非通用样板。典型场景：
+This skill is a curated index of 46 production-grade test automation skills sourced from the [LambdaTest/agent-skills](https://github.com/LambdaTest/agent-skills) repository. It teaches AI coding assistants how to write, structure, and execute test automation code across every major framework and 15+ programming languages. Instead of generating generic test code, the AI becomes a senior QA automation architect that understands correct project structure, dependency versions, cloud execution, CI/CD integration, and common debugging patterns for each framework.
 
-- 为 Selenium / Playwright / Cypress / Jest / pytest / Appium 等 46 个框架编写或脚手架测试。
-- 新建测试工程，需要正确的目录结构、配置文件与依赖版本。
-- 把测试接入 CI/CD（GitHub Actions / Jenkins / GitLab CI）。
-- 跨框架迁移（如 Selenium→Playwright、Puppeteer→Cypress）。
-- 在 LambdaTest / TestMu AI 云端真实浏览器/设备矩阵上跑测试。
+This skill adapts material from an external GitHub repository:
+- `source_repo: LambdaTest/agent-skills`
+- `source_type: community`
 
-**不该用的边界：**
+## When to Use This Skill
 
-- 纯手工探索测试、无回归价值的一次性点击 → 不值得固化为脚本。
-- 缺少目标 URL、测试账号、成功判定标准时：先停下问清楚，别盲目生成。
-- 云端执行缺 LambdaTest 账号/凭据时，先引导用户获取，不要硬跑。
-- 本技能是「索引 + 触发指南」，各框架的完整实现细节仍以官方文档和源仓库为准，不替代环境搭建与专家评审。
-- 移动框架（Appium/Espresso/XCUITest/Flutter/Detox）需另装平台工具链（Android SDK、Xcode）。
+- Use when you need to write, scaffold, or review test automation code for any major framework
+- Use when working with Selenium, Playwright, Cypress, Jest, pytest, Appium, or any of the 46 supported frameworks
+- Use when setting up a new test project and need the correct project structure, config files, and dependencies
+- Use when integrating tests into a CI/CD pipeline (GitHub Actions, Jenkins, GitLab CI)
+- Use when migrating tests between frameworks (e.g. Selenium → Playwright, Puppeteer → Cypress)
+- Use when running tests on cloud infrastructure such as LambdaTest / TestMu AI
+- Use when the user asks how to write, debug, or scale automated tests
 
-## 步骤
+## How It Works
 
-1. **识别框架与语言**：确定用户用的测试框架 + 编程语言，匹配到下方注册表中对应的 skill。
-2. **加载框架上下文**：每个框架 skill 含——工程结构与依赖、核心代码模式、Page Object / 测试工具、云端执行配置、CI/CD 集成、常见问题排障表、最佳实践清单。
-3. **产出生产级代码**：用正确的 import 路径、配置格式、断言库与 Runner 命令，不要写通用样板。
-4. **配置本地或云端执行**：本地用本地 Runner 配置；云端用 `RemoteWebDriver` capabilities 或对应 SDK，凭据 `LT_USERNAME` / `LT_ACCESS_KEY` 一律走环境变量，**禁止硬编码**。云端 capabilities 用 LambdaTest Capabilities Generator（https://www.lambdatest.com/capabilities-generator/）生成。
-5. **接入 CI/CD**：按需生成并行执行、上传报告、失败抓产物的流水线（GitHub Actions / Jenkins / GitLab CI），secrets 存入 CI 的 Secrets 而非明文 YAML。
+### Step 1: Identify the Framework and Language
 
-## 指令
+Determine which testing framework and programming language the user is working with. Match it to one of the 46 supported skills below. Each skill covers a specific framework with language-appropriate code patterns.
 
-按类目挑选框架 skill（共 46 个）：
+### Step 2: Apply the Correct Skill Context
 
-| 类目 | 代表框架（语言） |
-|---|---|
-| E2E / 浏览器（15） | `selenium`(Java/Py/JS/C#/Ruby)、`playwright`(JS/TS/Py/Java/C#)、`cypress`(JS/TS)、`webdriverio`、`puppeteer`、`testcafe`、`nightwatchjs`、`capybara`(Ruby)、`selenide`(Java)、`protractor`、`codeception`/`laravel-dusk`(PHP)、`robot-framework`(Py) |
-| 单元测试（15） | `jest`、`junit-5`(Java)、`pytest`(Py)、`testng`(Java)、`vitest`、`mocha`、`jasmine`、`karma`、`xunit`/`nunit`/`mstest`(C#)、`rspec`/`testunit`(Ruby)、`phpunit`(PHP)、`unittest`(Py) |
-| 移动测试（5） | `appium`(多语言)、`espresso`(Java/Kotlin)、`xcuitest`(Swift/ObjC)、`flutter-testing`(Dart)、`detox`(JS/TS) |
-| BDD（7） | `cucumber`、`specflow`(C#)、`serenity-bdd`(Java)、`behave`/`lettuce`(Py)、`behat`(PHP)、`gauge`(多语言) |
-| 视觉（1） | `smartui`(JS/TS/Java) 视觉回归 |
-| 云端编排（1） | `hyperexecute`(YAML) 云端测试编排 |
-| 迁移（1） | `test-framework-migration`（Selenium↔Playwright↔Puppeteer↔Cypress） |
-| DevOps（1） | `cicd-pipeline`（GitHub Actions / Jenkins / GitLab CI） |
+Load the relevant framework skill from the registry below. Each skill includes: project setup and dependencies, core code patterns, page objects or test utilities, cloud execution configuration, CI/CD integration, a debugging table for common problems, and a best practices checklist.
 
-## 示例
+### Step 3: Generate Production-Ready Test Code
 
-提示词驱动的四类常见请求：
+Use the loaded skill context to generate test code that follows real-world conventions — not generic boilerplate. Apply correct import paths, configuration formats, assertion libraries, and runner commands specific to the framework and language.
 
-```text
-# 1. TS 脚手架：生成 playwright.config.ts + 登录页 Page Object + @playwright/test 用例 + GitHub Actions 并行流水线
-"用 TypeScript 为登录页写 Playwright 测试，在 Chrome 和 Firefox 上跑"
+### Step 4: Configure for Local or Cloud Execution
 
-# 2. 云端执行：配置 RemoteWebDriver + LambdaTest capabilities + 并行 TestNG 套件
-"把 Selenium Java 测试在 LambdaTest 的 Windows 11 Chrome/Firefox、macOS Safari 上跑"
+If the user wants to run tests locally, apply local runner configuration. If running on LambdaTest / TestMu AI cloud, configure RemoteWebDriver capabilities or the appropriate cloud SDK, and set `LT_USERNAME` and `LT_ACCESS_KEY` from environment variables — never hardcode credentials.
 
-# 3. 框架迁移：映射 locator / wait / 断言，保留测试意图、更新语法
-"把现有 Selenium Python 测试迁移到 Playwright"
+### Step 5: Add CI/CD Integration
 
-# 4. pytest 套件：生成带共享 fixtures 的 conftest.py + @pytest.mark.parametrize + pytest.ini 覆盖率
-"为支付 API 建一个带 fixtures 和参数化用例的 pytest 套件"
+When requested, generate a GitHub Actions (or Jenkins / GitLab CI) workflow that runs the tests in parallel, uploads reports, and captures artifacts on failure.
+
+## Skill Registry
+
+### 🌐 E2E / Browser Testing (15 skills)
+
+| Skill | Languages | Description |
+|---|---|---|
+| `selenium-skill` | Java, Python, JS, C#, Ruby | Selenium WebDriver with cross-browser and cloud support |
+| `playwright-skill` | JS, TS, Python, Java, C# | Playwright browser automation with API mocking |
+| `cypress-skill` | JS, TS | Cypress E2E and component testing |
+| `webdriverio-skill` | JS, TS | WebdriverIO with page objects and cloud integration |
+| `puppeteer-skill` | JS, TS | Puppeteer Chrome automation |
+| `testcafe-skill` | JS, TS | TestCafe cross-browser testing |
+| `nightwatchjs-skill` | JS, TS | Nightwatch.js browser automation |
+| `capybara-skill` | Ruby | Capybara acceptance testing |
+| `geb-skill` | Groovy | Geb Groovy browser automation |
+| `selenide-skill` | Java | Selenide fluent Selenium wrapper |
+| `nemojs-skill` | JS | Nemo.js PayPal browser automation |
+| `protractor-skill` | JS, TS | Protractor Angular E2E testing |
+| `codeception-skill` | PHP | Codeception full-stack PHP testing |
+| `laravel-dusk-skill` | PHP | Laravel Dusk browser testing |
+| `robot-framework-skill` | Python, Robot | Robot Framework keyword-driven testing |
+
+### 🧪 Unit Testing (15 skills)
+
+| Skill | Languages | Description |
+|---|---|---|
+| `jest-skill` | JS, TS | Jest unit and integration tests with mocking |
+| `junit-5-skill` | Java | JUnit 5 with parameterized tests and extensions |
+| `pytest-skill` | Python | pytest with fixtures, parametrize, and plugins |
+| `testng-skill` | Java | TestNG with data providers and parallel execution |
+| `vitest-skill` | JS, TS | Vitest for Vite projects |
+| `mocha-skill` | JS, TS | Mocha with Chai assertions |
+| `jasmine-skill` | JS, TS | Jasmine BDD-style unit testing |
+| `karma-skill` | JS, TS | Karma test runner |
+| `xunit-skill` | C# | xUnit.net for .NET |
+| `nunit-skill` | C# | NUnit for .NET |
+| `mstest-skill` | C# | MSTest for .NET |
+| `rspec-skill` | Ruby | RSpec with shared examples |
+| `phpunit-skill` | PHP | PHPUnit with data providers |
+| `testunit-skill` | Ruby | Test::Unit Ruby testing |
+| `unittest-skill` | Python | Python unittest with mocking |
+
+### 📱 Mobile Testing (5 skills)
+
+| Skill | Languages | Description |
+|---|---|---|
+| `appium-skill` | Java, Python, JS, Ruby, C# | Appium mobile testing for iOS and Android |
+| `espresso-skill` | Java, Kotlin | Espresso Android UI testing |
+| `xcuitest-skill` | Swift, Obj-C | XCUITest iOS UI testing |
+| `flutter-testing-skill` | Dart | Flutter widget and integration tests |
+| `detox-skill` | JS, TS | Detox React Native E2E testing |
+
+### 📋 BDD Testing (7 skills)
+
+| Skill | Languages | Description |
+|---|---|---|
+| `cucumber-skill` | Java, JS, Ruby, TS | Cucumber Gherkin BDD |
+| `specflow-skill` | C# | SpecFlow .NET BDD with Gherkin |
+| `serenity-bdd-skill` | Java | Serenity BDD with Screenplay pattern |
+| `behave-skill` | Python | Behave Python BDD |
+| `behat-skill` | PHP | Behat BDD for PHP |
+| `gauge-skill` | Java, Python, JS, Ruby, C# | Gauge specification-based testing |
+| `lettuce-skill` | Python | Lettuce Python BDD testing |
+
+### 👁️ Visual Testing (1 skill)
+
+| Skill | Languages | Description |
+|---|---|---|
+| `smartui-skill` | JS, TS, Java | SmartUI visual regression testing |
+
+### ☁️ Cloud Testing (1 skill)
+
+| Skill | Languages | Description |
+|---|---|---|
+| `hyperexecute-skill` | YAML | HyperExecute cloud test orchestration |
+
+### 🔄 Migration (1 skill)
+
+| Skill | Languages | Description |
+|---|---|---|
+| `test-framework-migration-skill` | JS, TS, Java, Python, C# | Convert tests between Selenium, Playwright, Puppeteer, Cypress |
+
+### 🔄 DevOps / CI/CD (1 skill)
+
+| Skill | Languages | Description |
+|---|---|---|
+| `cicd-pipeline-skill` | YAML | CI/CD pipeline integration for GitHub Actions, Jenkins, GitLab CI |
+
+## Examples
+
+### Example 1: Scaffold a Playwright test in TypeScript
+
+```
+"Write Playwright tests for the login page using TypeScript and run them on Chrome and Firefox"
 ```
 
-云端凭据一律走环境变量（绝不硬编码）：
+The skill will generate: correct `playwright.config.ts`, a typed Page Object for the login page, a test file using `@playwright/test`, and a GitHub Actions workflow with parallel execution.
 
-```bash
-export LT_USERNAME="<your-username>"
-export LT_ACCESS_KEY="<your-access-key>"
+### Example 2: Run Selenium tests on LambdaTest cloud
+
+```
+"Run my Selenium Java tests on Chrome, Firefox, and Safari on LambdaTest with OS Windows 11 and macOS Sonoma"
 ```
 
-## 注意事项
+The skill will configure `RemoteWebDriver` with LambdaTest capabilities, read `LT_USERNAME` and `LT_ACCESS_KEY` from environment variables, and set up a parallel TestNG suite.
 
-- **凭据安全**：`LT_USERNAME` / `LT_ACCESS_KEY`、API token 永不写进代码或明文 YAML，统一走环境变量 / CI Secrets。
-- **POM 隔离**：用 Page Object Model 把测试逻辑与 UI 选择器分离。
-- **显式等待**：所有框架都禁用固定 `sleep()`，改用 `waitForSelector`(Playwright) / `WebDriverWait`(Selenium) / `cy.get().should()`(Cypress)。
-- **并行 + 产物**：框架支持就并行跑；失败时务必抓截图与日志。
-- **依赖版本**：按各框架官方推荐版本对齐，别混用大版本。
-- **测试纪律**：不依赖执行顺序、不硬编码 URL/凭据/环境值、不写无断言的「假测试」、flaky 用例查根因而非永久加 retry。
-- **常见坑**：本地过、CI 挂 → CI 开 headless 且浏览器版本对齐；云端鉴权失败 → 核对环境变量与 LambdaTest 控制台凭据；capabilities 报错 → 用 Capabilities Generator；移动「device not found」→ 本地查 `adb devices`/模拟器，云端核对设备名与 LambdaTest 支持列表完全一致。
+### Example 3: Migrate Selenium tests to Playwright
 
-## 互见
+```
+"Migrate my existing Selenium Python tests to Playwright"
+```
 
-- related：`playwright-e2e-testing` —— 单框架 Playwright E2E 的深度搭建与配置
-- related：`browserstack-cross-browser-test` —— 另一家云端跨浏览器矩阵（BrowserStack）
-- related：`python-testing-pytest`、`javascript-testing-patterns`、`android-ui-verification` —— 具体语言/平台的测试深挖
-- combines_with：`ci-cd-pipeline-builder` —— 把生成的测试套件接入流水线并行执行
-- combines_with：`test-coverage-gap-finder` —— 补齐关键流的覆盖缺口
+The skill uses `test-framework-migration-skill` to map Selenium locators, waits, and assertions to their Playwright equivalents, preserving test intent while updating syntax.
+
+### Example 4: Set up pytest with fixtures
+
+```
+"Create a pytest test suite for the payments API with fixtures and parametrized test cases"
+```
+
+The skill generates a `conftest.py` with shared fixtures, parametrized test cases using `@pytest.mark.parametrize`, and a `pytest.ini` config with coverage reporting.
+
+## Best Practices
+
+- ✅ Always use environment variables for cloud credentials (`LT_USERNAME`, `LT_ACCESS_KEY`) — never hardcode them
+- ✅ Use Page Object Model (POM) to keep test logic separate from UI selectors
+- ✅ Prefer explicit waits over fixed `sleep()` calls in all frameworks
+- ✅ Run tests in parallel where the framework supports it to reduce execution time
+- ✅ Always capture screenshots and logs on test failure for easier debugging
+- ✅ Match dependency versions to what each framework officially recommends — avoid mixing major versions
+- ❌ Don't write tests that depend on test execution order
+- ❌ Don't hardcode URLs, credentials, or environment-specific values inside test files
+- ❌ Don't skip writing assertions — a test without assertions is not a test
+- ❌ Don't ignore flaky tests — investigate and fix root cause rather than adding retries as a permanent fix
+
+## Limitations
+
+- This skill is an index and trigger guide. The full implementation details for each framework live in the individual skill files at [LambdaTest/agent-skills](https://github.com/LambdaTest/agent-skills).
+- This skill does not replace framework-specific documentation, environment setup, or expert QA review.
+- Cloud execution examples assume a valid LambdaTest / TestMu AI account. Stop and ask the user for their setup details if credentials or target environments are unclear.
+- Mobile testing skills (Appium, Espresso, XCUITest, Flutter, Detox) require platform-specific toolchains (Android SDK, Xcode) that must be installed separately.
+
+## Security & Safety Notes
+
+- Never include `LT_USERNAME`, `LT_ACCESS_KEY`, API tokens, or any credentials in generated code. Always reference them via environment variables.
+- When generating CI/CD pipelines, store secrets in GitHub Actions Secrets or equivalent — never in plaintext YAML.
+- Installation commands (`npm install`, `pip install`, `mvn install`) should only be run in local development or authorized CI environments.
+
+## Common Pitfalls
+
+- **Problem:** Tests pass locally but fail on CI
+  **Solution:** Ensure headless mode is enabled in CI, and that browser versions match between local and CI environments. Use the framework's built-in CI detection where available.
+
+- **Problem:** Flaky tests due to timing issues
+  **Solution:** Replace `sleep()` with explicit waits — `waitForSelector` in Playwright, `WebDriverWait` in Selenium, `cy.get().should()` in Cypress.
+
+- **Problem:** Cloud tests fail with authentication errors
+  **Solution:** Verify `LT_USERNAME` and `LT_ACCESS_KEY` are correctly set as environment variables and match the credentials on the LambdaTest dashboard.
+
+- **Problem:** Wrong browser capabilities for cloud execution
+  **Solution:** Use the LambdaTest Capabilities Generator at https://www.lambdatest.com/capabilities-generator/ to get the correct capability object for your target browser and OS.
+
+- **Problem:** Mobile tests fail with "device not found"
+  **Solution:** For local runs, verify the emulator/simulator is running and `adb devices` (Android) or Simulator is active (iOS). For cloud runs, check the device name matches exactly what LambdaTest supports.
+
+## Related Skills
+
+- `@test-driven-development` — Use when you want to design tests before writing implementation code
+- `@testing-patterns` — Use for general testing design patterns and strategies
+- `@cicd-pipeline-skill` — Use when setting up end-to-end CI/CD pipelines with test automation
+- `@debugging-strategies` — Use when diagnosing systematic test failures

@@ -1,14 +1,14 @@
 ---
 name: professional-proofreader
-title: 专业文稿校对
-description: 当需要校对、修订书面文稿（语法/拼写/标点/可读性）或处理 .docx/.txt/.pdf 文件并另存修订版时使用；做最小必要修正并附修改清单，保持作者原意与文风；不适用于代码改写、技术重构或内容扩写。触发词：校对、proofread、修语法、润色、UPDATED_
+title: Professional Proofreader
+description: Use when a user asks to "proofread", "review and correct", "fix grammar", "improve readability while keeping my voice", and to proofread a document file and save an updated version.
 domain: 文书/office
-triggers: [校对, 帮我修一下语法, 润色这段文字, proofread, review and correct, fix grammar, improve readability while keeping my voice, 校对这个文档并另存, 加 UPDATED_ 前缀]
-tags: [文书, 校对, 写作, 语法, 润色, 文档处理]
-level: 入门
+triggers: [proofread, review and correct, fix grammar, improve readability while keeping my voice]
+tags: []
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit]
+tools: []
 requires: []
 related: [avoid-ai-writing-patterns, content-humanizer, beautiful-prose-stylist, marketing-copy-editor]
 combines_with: [doc-coauthoring, markdown-to-docx]
@@ -16,82 +16,104 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Professional Proofreader
 
-把有瑕疵的文稿（粘贴文本或上传文档）修订为可发布质量，同时不改变作者本意。适用于：
+## Overview
 
-- 用户要求「校对」「修订并纠错」「修语法」「润色这段」「在保留我文风的前提下提升可读性」。
-- 用户要求校对某个文档文件（.docx / .txt / 文本型 .pdf）并把修订版另存为带 `UPDATED_` 前缀的新文件。
-- 场景对标：学术校对、商务文档精修、发布前审阅。
-
-**不该用的边界（负边界）：**
-
-- 不用于代码编辑或技术重构。
-- 不扩写内容、不新增观点、不替你「续写」。
-- 不改变文件命名逻辑（除非用户明确要求）。
-- 输出不能替代针对具体场景的验证、测试或专家复核。
-- 若缺少必要输入、权限、安全边界或成功标准，停下并询问澄清。
-
-## 步骤
-
-本技能分两种模式：**内联文本** 与 **文件处理**。
-
-### 模式一：内联文本
-
-1. **内容隔离**——只提取待校对的文本。若没有提供文本，回复：
-   > 未收到待校对内容，请粘贴需要审阅的文字。
-2. **错误检测**——扫描：语法错误、拼写、标点、句子残缺（fragment）、流水句（run-on）、时态不一致、冠词/介词误用、代词歧义、冗余、别扭措辞、逻辑断裂、语气不一致、术语不一致。
-3. **文风保护（关键）**——改任何句子前先判断：语气是否有意为之？非正式是否刻意？重复是否为修辞？碎句是否是风格？**只要语法成立且属有意，就不动它。** 禁止：无故把口语正式化、稀释情感强度、无谓替换有辨识度的词汇、删掉富表现力的措辞。
-4. **最小必要修正**——施加能解决问题的最小改动。不扩写、不加新观点、不抹掉细微差别；除非结构已崩坏，否则不整段重写。精确优先于个人偏好。
-5. **清晰度与流畅度优化**——按需拆分过长流水句、合并碎裂思路、改善过渡、去除冗余；**含义须完整保留。**
-6. **校验通过**——定稿前确认：零残留语法错误、语气一致、含义未变、风格身份未被抹除、每处修改均已记录。发现违规先返工再输出。
-
-### 模式二：文件处理
-
-1. **识别文件类型**——支持 `.docx` / `.txt` / 文本型 `.pdf`；不支持则明确告知用户。
-2. **提取文本**——编辑前先完整读取文件内容。
-3. **套用标准校对流程**——错误检测 → 文风保护 → 最小修正 → 校验通过（同模式一步骤 2-6）。
-4. **重新生成文件**——尽量保留原格式；按要求的前缀/命名规则保存。
-5. **同时返回**——保存成功的确认 + 修改清单（除非用户明确要求仅输出文件）。
-
-## 指令
-
-- **始终附修改说明**，逐条解释改了什么、为什么。
-- 编辑标准固定如下：
-  - **语法**：主谓一致、时态一致、冠词、介词、代词指代清晰。
-  - **拼写**：纠正笔误；保持原文拼写变体（US/UK 不混用）。
-  - **标点**：逗号、撇号、引号、句界。
-  - **风格与语气**：保持作者声音、避免不必要的正式化、保留修辞选择。
-  - **可读性**：改善结构、增强逻辑流、去除冗余。
-- **绝不**：改变含义、刻意丢弃格式、超出请求改文件名、扩写内容。
-
-## 示例
-
-文件处理命名约定：
-
-```
-输入：weekly_meal_plan.docx
-输出：UPDATED_weekly_meal_plan.docx
-```
-
-输出规则：
-
-- 内联模式 → 返回「修订版」+「修改清单」。
-- 文件改写模式 → 保存修订文件 → 确认文件名 → 提供修改清单（除非被要求抑制）。
-- 结尾给用户一句友好提示。
-
-## 注意事项
-
-- 「文风保护」是硬约束：语法正确且有意的表达一律不改，宁可少改不可过度修饰。
-- 修改清单不可省略（除非用户显式只要文件）。
-- 文本型 PDF 才支持；扫描件/图片型 PDF 无法直接提取文本。
-- 校对结果仍需作者本人复核，尤其是术语、事实与署名口吻。
-
-## 互见
-
-- 简历类文稿生成与优化见 `resume-builder`。
-- 飞书在线文档的审阅/改写见 `lark-doc`；本地 Markdown 编辑与对比见 `lark-markdown`。
+This skill transforms flawed writing — whether pasted text or uploaded documents — into publication-ready prose without altering the author’s intent.
+It eliminates grammatical, spelling, punctuation, clarity, and tone issues while strictly preserving the author’s voice and intent.
+Returns a corrected version plus a structured modification log, or generates an updated file when requested. Not for code editing or technical refactoring.
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## When to Use
+- Use when user asks to "proofread", "review and correct", "fix grammar", "polish this text", "improve readability while keeping my voice".
+- Use when user asks to proofread a document file (like .docx, .pdf, .txt) and save the updated version as new file with 'UPDATED_' prefix.
+
+---
+
+# WORKFLOW MODES
+
+This skill operates in two modes:
+1. Inline Text Mode
+2. File Processing Mode
+
+### MODE 1: Inline Text
+
+Refer [markdown](references/inline-text-mode.md) for complete inline text mode.
+
+### MODE 2: File Processing
+
+Trigger when user says:
+
+- "Proofread [filename].[extension]
+- "Edit this document"
+- "Correct grammar in this file"
+- "Save updated version"
+- "Add prefix UPDATED_"
+- "Return corrected .[extension]"
+
+Refer [markdown](references/file-processing-mode.md) for complete file processing mode.
+
+---
+
+## Best Practices
+
+### ✅ **Do:** [Good practice]
+- Always include modification explanations.
+- Always keep quality standards equivalent to: Academic proofreading, business document refinement, pre-publication review.
+- Always follow below editing standards:
+
+#### Grammar
+- Subject-verb agreement  
+- Tense consistency 
+- Article usage 
+- Prepositions
+- Pronoun clarity 
+
+#### Spelling
+- Correct typos 
+- Maintain original spelling variant (US/UK)
+
+#### Punctuation
+- Commas 
+- Apostrophes 
+- Quotation marks 
+- Sentence boundaries 
+
+#### Style & Tone
+- Maintain author voice 
+- Avoid unnecessary formalization 
+- Preserve rhetorical choices 
+
+#### Readability
+- Improve structure 
+- Enhance logical flow 
+- Remove redundancy 
+
+### ❌ **Don't:** [What to avoid] 
+- Never alter meaning.
+- Never drop formatting intentionally.
+- Never change file name logic beyond request.
+- Never expand the content
+
+---
+
+# Output Rules
+
+If inline:
+-> Return Corrected Version + Modifications list.
+
+If file rewrite:
+-> Save updated file.
+-> Confirm filename.
+-> Provide modifications list unless suppressed.
+
+Give friendly message to user in the end.
+
+---
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

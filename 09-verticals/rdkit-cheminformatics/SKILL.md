@@ -1,14 +1,14 @@
 ---
 name: rdkit-cheminformatics
-title: RDKit 化学信息学工具箱
-description: 当需要用 RDKit 跑「化合物库画像 + 虚拟筛选」端到端流程时使用；批量解析 SMILES/SDF、标准化去重、算描述符、Lipinski/Veber 类药性过滤、Morgan 指纹 Tanimoto 相似度筛选、SMARTS 子结构过滤、Butina 聚类、反应枚举、2D/3D 构象与绘图，产出描述符表、命中 SDF/CSV 与分子图；不适用于追求更简接口（用 datamol）、蛋白对接/分子动力学/量子化学、纯数据库检索；触发词：rdkit、虚拟筛选、化合物库、描述符、Lipinski、Tanimoto、Morgan 指纹、SMARTS、Butina 聚类、构象生成
+title: RDKit Cheminformatics Toolkit
+description: Cheminformatics toolkit for molecular analysis and virtual screening: SMILES/SDF parsing, descriptors (MW, LogP, TPSA), fingerprints (Morgan/ECFP, MACCS), Tanimoto similarity, SMARTS substructure filtering, Lipinski drug-likeness, reaction enumeration, 2D/3D coordinates. For simpler API use datamol; use RDKit for fine-grained sanitization, custom fingerprints, or SMARTS/reaction control.
 domain: 领域/science
-triggers: [rdkit, 虚拟筛选, 化合物库, 分子描述符, Lipinski, Veber, Tanimoto, Morgan 指纹, SMARTS, Butina 聚类, 构象生成, 类药性]
+triggers: [rdkit, Lipinski, Veber, Tanimoto, SMARTS]
 tags: [rdkit, cheminformatics, virtual-screening, smiles, fingerprints, descriptors, lipinski, smarts, clustering, drug-discovery, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [RDKit, Python, pandas, rdkit.Chem, Descriptors, AllChem, DataStructs, MolStandardize, Butina, Draw]
+tools: []
 requires: []
 related: [datamol-cheminformatics, cheminformatics-toolkit, molfeat-molecular-featurization, deepchem-drug-discovery]
 combines_with: [pubchem-compound-search, chembl-bioactivity-database, autodock-vina-docking]
@@ -16,171 +16,463 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# RDKit Cheminformatics Toolkit
 
-需要用 RDKit 把一批化合物从**导入到筛选出命中**走完整条流程时使用本条 —— 它是「化合物库画像 + 虚拟筛选」的端到端工作流，串起描述符、类药性、指纹相似度、子结构、聚类、构象与绘图。
+## Overview
 
-典型场景：
+RDKit is the standard open-source cheminformatics library for Python, providing comprehensive APIs for molecular parsing, descriptor calculation, fingerprinting, substructure searching, and chemical reactions. This skill walks through a complete compound library profiling and virtual screening workflow — from loading molecules through drug-likeness filtering, similarity screening, and result visualization.
 
-- 对一组化合物批量算物化属性（MW/LogP/TPSA/HBD/HBA/可旋转键），做库画像。
-- 用 Lipinski 五规则 + Veber 标准筛出类药分子。
-- 以参考活性分子为锚，用 Morgan 指纹 Tanimoto 相似度对库做排序筛选。
-- 用 SMARTS 按官能团过滤、统计、定位匹配原子。
-- 用 Butina 聚类做多样性子集挑选。
-- 反应 SMARTS 组合枚举建库；生成 2D/3D 构象并绘图/导出 SDF/CSV。
+## When to Use
 
-**不该用本条的情形**：
+- Calculate molecular properties (MW, LogP, TPSA, HBD/HBA) for a compound set
+- Screen a library against a reference compound using fingerprint similarity
+- Filter compounds by substructure (SMARTS patterns) for functional group analysis
+- Assess drug-likeness using Lipinski's Rule of Five or custom filters
+- Generate 2D depictions or 3D conformers for downstream docking
+- Enumerate chemical libraries using reaction SMARTS (combinatorial chemistry)
+- Cluster compounds by structural similarity for diversity analysis
+- Standardize and deduplicate molecular datasets (canonical SMILES, InChI)
+- Use `datamol-cheminformatics` instead for a higher-level RDKit wrapper with batching and error handling; use `openbabel` instead for multi-format conversion (MOL2, XYZ, PDB)
 
-- 只做零散的单分子 API 调用、要更简洁的封装接口 —— 用 `datamol`（RDKit 高层包装，自带批处理与容错），或本库的 `cheminformatics-toolkit`（按能力分模块的工具箱视角）。
-- 蛋白-配体对接、分子动力学、量子化学/DFT —— 超出 RDKit，需 AutoDock Vina、OpenMM、Psi4 等。
-- 多格式互转（MOL2/XYZ/PDB） —— 用 OpenBabel。
-- 纯检索化合物数据库 —— 用 PubChem/ChEMBL 检索工具。
+## Prerequisites
 
-## 步骤
+- **Python packages**: `rdkit-pypi` (or `rdkit` via conda), `pandas`, `matplotlib`, `numpy`
+- **Data requirements**: Molecular structures as SMILES strings, SDF files, or MOL files
+- **Environment**: Python 3.8+; conda recommended for full RDKit installation
 
-1. **载入并校验**：`Chem.MolFromSmiles` / `Chem.SDMolSupplier` 读入，逐个判 `None` 收集失败项。
-2. **标准化去重**：`LargestFragmentChooser` 取最大片段去盐、`Uncharger` 中和电荷，按 canonical SMILES 去重。
-3. **算描述符**：`rdkit.Chem.Descriptors` 批量算属性，汇成 pandas 表。
-4. **类药性过滤**：Lipinski（MW≤500、LogP≤5、HBD≤5、HBA≤10）+ Veber（可旋转键≤10、TPSA≤140）。
-5. **相似度筛选**：对类药子集与参考分子算 Morgan 指纹 Tanimoto，按阈值排序取命中。
-6. **子结构过滤**（按需）：`MolFromSmarts` + `HasSubstructMatch`/`GetSubstructMatches` 统计与定位官能团。
-7. **绘图与导出**：`Draw.MolsToGridImage` 出网格图，`SDWriter`/`to_csv` 导出描述符表、命中 SDF。
-8. **进阶分支**（按需）：Butina 聚类挑多样性、反应枚举建库、ETKDG+MMFF 生成 3D 构象。
+```bash
+# Option 1: pip (lightweight)
+pip install rdkit-pypi pandas matplotlib numpy
 
-## 指令
+# Option 2: conda (full features including cartridge)
+conda install -c conda-forge rdkit pandas matplotlib numpy
+```
 
-载入 + 标准化去重（去盐/中和/规范化）：
+## Workflow
+
+### Step 1: Load and Validate Molecules
+
+Read molecular structures from SMILES or SDF and validate parsing.
 
 ```python
 from rdkit import Chem
-from rdkit.Chem.MolStandardize import rdMolStandardize
+import pandas as pd
+
+# --- From SMILES list ---
+smiles_list = [
+    "CC(=O)Oc1ccccc1C(=O)O",       # Aspirin
+    "CC12CCC3C(C1CCC2O)CCC4=CC(=O)CCC34C",  # Testosterone
+    "c1ccc2[nH]c(-c3ccccn3)nc2c1",  # Benzimidazole derivative
+    "CC(C)Cc1ccc(C(C)C(=O)O)cc1",   # Ibuprofen
+    "INVALID_SMILES",                 # Will fail
+]
 
 mols = []
+failed = []
 for smi in smiles_list:
-    m = Chem.MolFromSmiles(smi)      # 失败返回 None，必须判
-    if m is not None:
-        m.SetProp("_SMILES", smi); mols.append(m)
+    mol = Chem.MolFromSmiles(smi)
+    if mol is not None:
+        mol.SetProp("_SMILES", smi)
+        mols.append(mol)
+    else:
+        failed.append(smi)
 
-chooser, uncharger = rdMolStandardize.LargestFragmentChooser(), rdMolStandardize.Uncharger()
-seen, std = set(), []
-for m in mols:
-    m = uncharger.uncharge(chooser.choose(m))   # 取最大片段 + 中和电荷
-    canon = Chem.MolToSmiles(m)                  # canonical SMILES 去重键
-    if canon not in seen:
-        seen.add(canon); std.append(m)
+print(f"Successfully parsed: {len(mols)}/{len(smiles_list)}")
+print(f"Failed: {failed}")
+
+# --- From SDF file ---
+# suppl = Chem.SDMolSupplier("library.sdf")
+# mols = [mol for mol in suppl if mol is not None]
+# print(f"Loaded {len(mols)} molecules from SDF")
 ```
 
-描述符表 + 类药性过滤（Lipinski + Veber）：
+### Step 2: Standardize and Deduplicate
+
+Canonicalize SMILES and remove duplicates to ensure a clean dataset.
 
 ```python
-import pandas as pd
-from rdkit.Chem import Descriptors
+from rdkit.Chem.MolStandardize import rdMolStandardize
 
-df = pd.DataFrame([{
-    "SMILES": Chem.MolToSmiles(m), "MW": Descriptors.MolWt(m),
-    "LogP": Descriptors.MolLogP(m), "TPSA": Descriptors.TPSA(m),
-    "HBD": Descriptors.NumHDonors(m), "HBA": Descriptors.NumHAcceptors(m),
-    "RotBonds": Descriptors.NumRotatableBonds(m),
-} for m in std])
+# Standardize: neutralize charges, remove fragments, canonicalize
+uncharger = rdMolStandardize.Uncharger()
+chooser = rdMolStandardize.LargestFragmentChooser()
 
-df["Lipinski"] = (df.MW <= 500) & (df.LogP <= 5) & (df.HBD <= 5) & (df.HBA <= 10)
-df["Veber"]    = (df.RotBonds <= 10) & (df.TPSA <= 140)
-df["DrugLike"] = df.Lipinski & df.Veber
-drug_like = [std[i] for i in df[df.DrugLike].index]
+standardized = []
+seen_smiles = set()
+
+for mol in mols:
+    # Keep largest fragment (remove salts/counterions)
+    mol = chooser.choose(mol)
+    # Neutralize charges
+    mol = uncharger.uncharge(mol)
+    # Canonical SMILES for deduplication
+    canon_smi = Chem.MolToSmiles(mol)
+    if canon_smi not in seen_smiles:
+        seen_smiles.add(canon_smi)
+        mol.SetProp("canonical_smiles", canon_smi)
+        standardized.append(mol)
+
+print(f"After standardization: {len(standardized)} unique molecules")
+print(f"Removed {len(mols) - len(standardized)} duplicates/salts")
 ```
 
-Morgan 指纹 + Tanimoto 相似度筛选：
+### Step 3: Calculate Molecular Descriptors
+
+Compute physicochemical properties for each molecule.
+
+```python
+from rdkit.Chem import Descriptors
+
+records = []
+for mol in standardized:
+    desc = {
+        "SMILES": Chem.MolToSmiles(mol),
+        "MW": round(Descriptors.MolWt(mol), 2),
+        "LogP": round(Descriptors.MolLogP(mol), 2),
+        "TPSA": round(Descriptors.TPSA(mol), 2),
+        "HBD": Descriptors.NumHDonors(mol),
+        "HBA": Descriptors.NumHAcceptors(mol),
+        "RotBonds": Descriptors.NumRotatableBonds(mol),
+        "AromaticRings": Descriptors.NumAromaticRings(mol),
+        "HeavyAtoms": mol.GetNumHeavyAtoms(),
+        "RingCount": Descriptors.RingCount(mol),
+    }
+    records.append(desc)
+
+df = pd.DataFrame(records)
+print(df.to_string(index=False))
+print(f"\nDescriptor summary:\n{df.describe().round(2)}")
+```
+
+### Step 4: Apply Drug-Likeness Filters
+
+Filter compounds using Lipinski's Rule of Five and Veber criteria.
+
+```python
+def lipinski_filter(row):
+    """Lipinski Ro5: MW<=500, LogP<=5, HBD<=5, HBA<=10"""
+    return (row["MW"] <= 500 and row["LogP"] <= 5 and
+            row["HBD"] <= 5 and row["HBA"] <= 10)
+
+def veber_filter(row):
+    """Veber: RotBonds<=10, TPSA<=140"""
+    return row["RotBonds"] <= 10 and row["TPSA"] <= 140
+
+df["Lipinski"] = df.apply(lipinski_filter, axis=1)
+df["Veber"] = df.apply(veber_filter, axis=1)
+df["DrugLike"] = df["Lipinski"] & df["Veber"]
+
+print(f"Lipinski pass: {df['Lipinski'].sum()}/{len(df)}")
+print(f"Veber pass:    {df['Veber'].sum()}/{len(df)}")
+print(f"Drug-like:     {df['DrugLike'].sum()}/{len(df)}")
+
+drug_like_mols = [standardized[i] for i in df[df["DrugLike"]].index]
+print(f"\n{len(drug_like_mols)} drug-like compounds retained")
+```
+
+### Step 5: Generate Fingerprints and Similarity Search
+
+Compute Morgan fingerprints and screen against a reference compound.
 
 ```python
 from rdkit.Chem import AllChem
 from rdkit import DataStructs
 
-ref_fp = AllChem.GetMorganFingerprintAsBitVect(
-    Chem.MolFromSmiles("CC(=O)Oc1ccccc1C(=O)O"), radius=2, nBits=2048)  # 阿司匹林为参考
-rows = [(Chem.MolToSmiles(m),
-         DataStructs.TanimotoSimilarity(
-             ref_fp, AllChem.GetMorganFingerprintAsBitVect(m, 2, nBits=2048)))
-        for m in drug_like]
-sim_df = pd.DataFrame(rows, columns=["SMILES", "Tanimoto"]).sort_values("Tanimoto", ascending=False)
-hits = sim_df[sim_df.Tanimoto >= 0.3]            # 阈值越低越宽松（0.3~0.9）
+# Reference compound (e.g., known active)
+ref_smi = "CC(=O)Oc1ccccc1C(=O)O"  # Aspirin
+ref_mol = Chem.MolFromSmiles(ref_smi)
+ref_fp = AllChem.GetMorganFingerprintAsBitVect(ref_mol, radius=2, nBits=2048)
+
+# Screen library
+results = []
+for mol in drug_like_mols:
+    fp = AllChem.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
+    tanimoto = DataStructs.TanimotoSimilarity(ref_fp, fp)
+    results.append({
+        "SMILES": Chem.MolToSmiles(mol),
+        "Tanimoto": round(tanimoto, 3),
+    })
+
+sim_df = pd.DataFrame(results).sort_values("Tanimoto", ascending=False)
+print("Similarity ranking:")
+print(sim_df.to_string(index=False))
+
+# Filter by threshold
+threshold = 0.3
+hits = sim_df[sim_df["Tanimoto"] >= threshold]
+print(f"\n{len(hits)} compounds with Tanimoto >= {threshold}")
 ```
 
-SMARTS 子结构过滤 + 绘图导出：
+### Step 6: Substructure Filtering with SMARTS
+
+Filter compounds containing specific functional groups.
+
+```python
+# Define SMARTS patterns for functional groups of interest
+patterns = {
+    "Carboxylic acid": "[CX3](=O)[OX2H1]",
+    "Amide": "[CX3](=[OX1])[NX3]",
+    "Aromatic ring": "c1ccccc1",
+    "Hydroxyl": "[OX2H]",
+    "Ester": "[CX3](=O)[OX2][C]",
+}
+
+print("Substructure matches:")
+for name, smarts in patterns.items():
+    query = Chem.MolFromSmarts(smarts)
+    match_count = sum(1 for mol in drug_like_mols if mol.HasSubstructMatch(query))
+    print(f"  {name}: {match_count}/{len(drug_like_mols)} compounds")
+
+# Get specific matches with atom indices
+query = Chem.MolFromSmarts("[CX3](=O)[OX2H1]")  # Carboxylic acid
+for mol in drug_like_mols:
+    matches = mol.GetSubstructMatches(query)
+    if matches:
+        smi = Chem.MolToSmiles(mol)
+        print(f"\n{smi}: {len(matches)} carboxylic acid group(s)")
+        for match in matches:
+            print(f"  Atom indices: {match}")
+```
+
+### Step 7: 2D Visualization and Grid Plots
+
+Generate publication-quality molecular depictions.
 
 ```python
 from rdkit.Chem import Draw
-q = Chem.MolFromSmarts("[CX3](=O)[OX2H1]")       # 羧酸
-n = sum(m.HasSubstructMatch(q) for m in drug_like)
+from rdkit.Chem.Draw import rdMolDraw2D
+
+# Grid image of top hits
+legends = [f"Tan={row['Tanimoto']}" for _, row in sim_df.head(4).iterrows()]
+top_mols = [Chem.MolFromSmiles(smi) for smi in sim_df.head(4)["SMILES"]]
+
 img = Draw.MolsToGridImage(
-    [Chem.MolFromSmiles(s) for s in sim_df.head(4).SMILES],
-    molsPerRow=2, subImgSize=(300, 300),
-    legends=[f"Tan={t}" for t in sim_df.head(4).Tanimoto])
+    top_mols,
+    molsPerRow=2,
+    subImgSize=(300, 300),
+    legends=legends,
+)
 img.save("top_hits_grid.png")
-sim_df.to_csv("results/similarity_results.csv", index=False)
+print("Saved top_hits_grid.png")
+
+# Highlight substructure in a molecule
+mol = top_mols[0]
+query = Chem.MolFromSmarts("[CX3](=O)[OX2H1]")
+match = mol.GetSubstructMatch(query)
+if match:
+    highlight_img = Draw.MolToImage(mol, size=(400, 400), highlightAtoms=match)
+    highlight_img.save("substructure_highlight.png")
+    print("Saved substructure_highlight.png")
 ```
 
-## 示例
+### Step 8: Export Results
 
-Butina 聚类挑多样性代表（大库去冗余）：
+Save the profiling results and filtered compounds.
+
+```python
+import os
+
+os.makedirs("results", exist_ok=True)
+
+# Save descriptor table
+df.to_csv("results/descriptors.csv", index=False)
+print(f"Saved descriptors for {len(df)} compounds to results/descriptors.csv")
+
+# Save drug-like compounds as SDF
+writer = Chem.SDWriter("results/drug_like_compounds.sdf")
+for i, mol in enumerate(drug_like_mols):
+    # Attach descriptors as SDF properties
+    row = df[df["DrugLike"]].iloc[i]
+    mol.SetProp("MW", str(row["MW"]))
+    mol.SetProp("LogP", str(row["LogP"]))
+    mol.SetProp("TPSA", str(row["TPSA"]))
+    writer.write(mol)
+writer.close()
+print(f"Saved {len(drug_like_mols)} drug-like compounds to results/drug_like_compounds.sdf")
+
+# Save similarity results
+sim_df.to_csv("results/similarity_results.csv", index=False)
+print(f"Saved similarity rankings to results/similarity_results.csv")
+```
+
+## Key Parameters
+
+| Parameter | Default | Range / Options | Effect |
+|-----------|---------|-----------------|--------|
+| `MolFromSmiles(sanitize=)` | `True` | `True`, `False` | Automatic validation and aromaticity perception on parsing |
+| `Morgan radius` | `2` | `1`-`3` | Fingerprint radius; 2 ≈ ECFP4, 3 ≈ ECFP6 |
+| `Morgan nBits` | `2048` | `1024`-`4096` | Fingerprint bit length; higher = fewer collisions |
+| `Tanimoto threshold` | `0.7` | `0.3`-`0.9` | Similarity cutoff; lower = more permissive |
+| `Lipinski MW cutoff` | `500` | `300`-`600` | Max molecular weight for drug-likeness |
+| `Lipinski LogP cutoff` | `5` | `3`-`6` | Max lipophilicity |
+| `Veber RotBonds cutoff` | `10` | `7`-`15` | Max rotatable bonds for oral bioavailability |
+| `Veber TPSA cutoff` | `140` | `120`-`160` | Max polar surface area (Å²) |
+| `EmbedMolecule(randomSeed=)` | `None` | Any integer | Seed for reproducible 3D conformer generation |
+| `Butina distThresh` | `0.3` | `0.2`-`0.5` | Distance cutoff for Butina clustering |
+
+## Common Recipes
+
+### Recipe: Butina Clustering for Diversity Selection
+
+When to use: select a diverse subset from a large compound library.
 
 ```python
 from rdkit.ML.Cluster import Butina
-fps = [AllChem.GetMorganFingerprintAsBitVect(m, 2, nBits=2048) for m in std]
+from rdkit.Chem import AllChem
+from rdkit import DataStructs, Chem
+
+# Generate fingerprints
+fps = [AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=2048)
+       for mol in standardized]
+
+# Build distance matrix (lower triangle)
 dists = []
 for i in range(1, len(fps)):
     sims = DataStructs.BulkTanimotoSimilarity(fps[i], fps[:i])
-    dists.extend(1 - s for s in sims)            # 距离 = 1 - Tanimoto
+    dists.extend([1 - s for s in sims])
+
+# Cluster
 clusters = Butina.ClusterData(dists, len(fps), distThresh=0.3, isDistData=True)
-diverse = [std[c[0]] for c in clusters]          # 每簇首元素为质心
+print(f"{len(clusters)} clusters from {len(fps)} compounds")
+
+# Pick centroid from each cluster (first element = centroid)
+diverse_indices = [c[0] for c in clusters]
+diverse_mols = [standardized[i] for i in diverse_indices]
+print(f"Selected {len(diverse_mols)} diverse representatives")
 ```
 
-反应枚举（酰胺偶联，组合建库）：
+### Recipe: Reaction Enumeration (Amide Coupling)
+
+When to use: generate a combinatorial library from building blocks via reaction SMARTS.
 
 ```python
+from rdkit.Chem import AllChem, Chem
+
+# Amide coupling: carboxylic acid + amine → amide
 rxn = AllChem.ReactionFromSmarts(
-    "[C:1](=[O:2])[OH].[N:3]([H])([H])[C:4]>>[C:1](=[O:2])[N:3][C:4]")
-acids  = [Chem.MolFromSmiles(s) for s in ["OC(=O)c1ccccc1", "OC(=O)CC"]]
+    "[C:1](=[O:2])[OH].[N:3]([H])([H])[C:4]>>[C:1](=[O:2])[N:3][C:4]"
+)
+
+acids = [Chem.MolFromSmiles(s) for s in ["OC(=O)c1ccccc1", "OC(=O)CC"]]
 amines = [Chem.MolFromSmiles(s) for s in ["NCC", "NC1CCCCC1"]]
-prods = []
-for a in acids:
-    for n in amines:
-        for pset in rxn.RunReactants((a, n)):
-            for p in pset:
-                Chem.SanitizeMol(p)              # 产物需手动 sanitize
-                prods.append(Chem.MolToSmiles(p))
+
+products = []
+for acid in acids:
+    for amine in amines:
+        ps = rxn.RunReactants((acid, amine))
+        for product_set in ps:
+            for prod in product_set:
+                Chem.SanitizeMol(prod)
+                products.append(Chem.MolToSmiles(prod))
+
+print(f"Generated {len(products)} products:")
+for p in products:
+    print(f"  {p}")
 ```
 
-3D 构象 + MMFF 优化（供对接预备）：
+### Recipe: 3D Conformer Generation and MMFF Optimization
+
+When to use: prepare molecules for docking or 3D pharmacophore analysis.
 
 ```python
-m = Chem.AddHs(Chem.MolFromSmiles("CC(=O)Oc1ccccc1C(=O)O"))  # 3D 前先加氢
-params = AllChem.ETKDGv3(); params.randomSeed = 42; params.numThreads = 0
-cids = AllChem.EmbedMultipleConfs(m, numConfs=10, params=params)
+from rdkit import Chem
+from rdkit.Chem import AllChem
+
+mol = Chem.MolFromSmiles("CC(=O)Oc1ccccc1C(=O)O")
+mol = Chem.AddHs(mol)  # Required for 3D embedding
+
+# Generate multiple conformers
+params = AllChem.ETKDGv3()
+params.randomSeed = 42
+params.numThreads = 0  # Use all available cores
+conf_ids = AllChem.EmbedMultipleConfs(mol, numConfs=10, params=params)
+print(f"Generated {len(conf_ids)} conformers")
+
+# Optimize with MMFF94 force field
 energies = []
-for c in cids:
-    AllChem.MMFFOptimizeMolecule(m, confId=c)    # 失败可改 UFFOptimizeMolecule
-    ff = AllChem.MMFFGetMoleculeForceField(m, AllChem.MMFFGetMoleculeProperties(m), confId=c)
-    energies.append((c, ff.CalcEnergy()))
-best = min(energies, key=lambda x: x[1])[0]      # 最低能构象
+for conf_id in conf_ids:
+    result = AllChem.MMFFOptimizeMolecule(mol, confId=conf_id)
+    ff = AllChem.MMFFGetMoleculeForceField(mol, AllChem.MMFFGetMoleculeProperties(mol), confId=conf_id)
+    energy = ff.CalcEnergy()
+    energies.append((conf_id, energy))
+    print(f"  Conformer {conf_id}: {energy:.2f} kcal/mol (converged={result == 0})")
+
+# Get lowest energy conformer
+best_id = min(energies, key=lambda x: x[1])[0]
+print(f"\nBest conformer: {best_id} ({min(e for _, e in energies):.2f} kcal/mol)")
+
+# Save to SDF
+writer = Chem.SDWriter("conformers.sdf")
+for conf_id, energy in energies:
+    mol.SetProp("Energy", f"{energy:.2f}")
+    writer.write(mol, confId=conf_id)
+writer.close()
 ```
 
-## 注意事项
+### Recipe: Molecular Visualization with Atom Indices and Custom Drawing
 
-- **永远判 None**：所有 `MolFrom*` 失败返回 `None`，不检查会在后续崩溃。
-- **sanitize 调试**：`MolFromSmiles(smi, sanitize=False)` + `DetectChemistryProblems()` 定位价键/芳香性问题；kekulize 失败可 `SanitizeMol(mol, sanitizeOps=Chem.SANITIZE_ALL ^ Chem.SANITIZE_KEKULIZE)`。
-- **先标准化再去重**：不去盐/不中和会把同一母核的盐当成不同分子，污染计数与相似度。
-- **加氢时机**：依赖氢的描述符与 3D 嵌入前先 `AddHs()`；3D 失败（`EmbedMolecule` 返回 -1）改 `maxAttempts=50, useRandomCoords=True`；MMFF 报空力场时退回 `UFFOptimizeMolecule`。
-- **指纹参数**：Morgan radius=2≈ECFP4、3≈ECFP6；nBits 越大碰撞越少（1024~4096）。Tanimoto 阈值默认 0.7，筛选放宽到 0.3 更敏感。
-- **SMARTS 匹配规则**：查询未指定的属性匹配任意值；用 `[#6]` 表「任意碳」避免芳香/脂肪不匹配；先用简单 SMILES 验证 pattern。
-- **反应产物**：`RunReactants` 返回元组的元组，每份产物须手动 `SanitizeMol`。
-- **大库性能**：用 `ForwardSDMolSupplier` 流式读避免 `MemoryError`；用 `Bulk*Similarity` 批量算相似度；`MultithreadedSDMolSupplier` 并行解析。
-- **canonical 一致性**：跨 RDKit 版本 canonical SMILES 可能不一致，去重/缓存场景需锁版本。
+When to use: debug SMARTS matches, annotate atom positions for reports.
 
-## 互见
+```python
+from rdkit import Chem
+from rdkit.Chem.Draw import rdMolDraw2D
 
-- requires：`cheminformatics-toolkit` —— 先掌握 RDKit 按能力分模块的基础用法，再用本条的端到端筛选流程。
-- related：`pubchem-compound-search`、`scientific-database-lookup` —— 上游取化合物结构与活性数据。
-- combines_with：`autodock-vina-docking` —— 本条产出的类药命中与 3D 构象作为对接输入；`molecular-dynamics-simulation`、`deepchem-drug-discovery` —— 下游做动力学验证或 ML 打分。
+mol = Chem.MolFromSmiles("CC(=O)Oc1ccccc1C(=O)O")
+AllChem.Compute2DCoords(mol)
 
----
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+# Custom drawer with atom indices and stereo annotations
+drawer = rdMolDraw2D.MolDraw2DCairo(500, 400)
+opts = drawer.drawOptions()
+opts.addAtomIndices = True
+opts.addStereoAnnotation = True
+opts.bondLineWidth = 2.0
+
+drawer.DrawMolecule(mol)
+drawer.FinishDrawing()
+
+with open("annotated_molecule.png", "wb") as f:
+    f.write(drawer.GetDrawingText())
+print("Saved annotated_molecule.png with atom indices")
+```
+
+## Expected Outputs
+
+- `results/descriptors.csv` — Tabular descriptors (SMILES, MW, LogP, TPSA, HBD, HBA, RotBonds, Lipinski, Veber, DrugLike)
+- `results/drug_like_compounds.sdf` — Filtered compounds in SDF format with attached properties
+- `results/similarity_results.csv` — Tanimoto similarity rankings against reference compound
+- `top_hits_grid.png` — 2D grid image of top similar compounds
+- `substructure_highlight.png` — Molecule image with highlighted functional group
+- `conformers.sdf` — 3D conformer ensemble with MMFF energies
+- `annotated_molecule.png` — Atom-indexed 2D depiction
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `MolFromSmiles` returns `None` | Invalid SMILES string or valence error | Check SMILES validity; use `Chem.MolFromSmiles(smi, sanitize=False)` then `DetectChemistryProblems()` to diagnose |
+| `Kekulization error` | Invalid aromatic ring system | Check for non-standard aromaticity; try `Chem.SanitizeMol(mol, sanitizeOps=Chem.SANITIZE_ALL ^ Chem.SANITIZE_KEKULIZE)` |
+| `EmbedMolecule` returns `-1` | 3D embedding failed (ring strain, steric clash) | Use `AllChem.EmbedMolecule(mol, maxAttempts=50, useRandomCoords=True)` |
+| `MMFF has null force field` | Missing MMFF parameters for atom types | Switch to UFF: `AllChem.UFFOptimizeMolecule(mol)` |
+| Wrong descriptor values | Missing explicit hydrogens | Call `Chem.AddHs(mol)` before descriptor calculation for H-dependent properties |
+| `ForwardSDMolSupplier` empty | File not found or wrong format | Verify path; use `Chem.SDMolSupplier(path, sanitize=False)` to skip problematic molecules |
+| Slow fingerprint computation on large library | Sequential processing | Use `AllChem.GetMorganFingerprintAsBitVect` with pre-allocated arrays; consider `rdkit.Chem.MultithreadedSDMolSupplier` |
+| SMARTS pattern no matches | Incorrect SMARTS syntax or aromaticity mismatch | Test pattern with simple SMILES first; use `[#6]` instead of `C` for any carbon |
+| `MemoryError` on large SDF | Loading entire file into memory | Use `ForwardSDMolSupplier` for streaming; process in batches |
+| Inconsistent canonical SMILES | Different RDKit versions | Pin RDKit version; use `Chem.MolToSmiles(mol, canonical=True)` explicitly |
+
+## Bundled Resources
+
+This skill includes reference files in the `references/` subdirectory:
+
+- `references/api_reference.md` — Key RDKit modules and function lookup organized by capability (I/O, descriptors, fingerprints, drawing, reactions)
+- `references/descriptors_guide.md` — Complete list of 200+ molecular descriptors with names, descriptions, and typical ranges
+- `references/smarts_patterns.md` — Common SMARTS patterns for functional group detection, organized by chemical class
+
+## References
+
+- [RDKit Documentation](https://www.rdkit.org/docs/) — Official documentation and Getting Started guide
+- [RDKit Cookbook](https://www.rdkit.org/docs/Cookbook.html) — Recipes and common workflow patterns
+- [Getting Started with RDKit in Python](https://www.rdkit.org/docs/GettingStartedInPython.html) — Comprehensive tutorial
+- [Lipinski, C.A. et al. (2001) Advanced Drug Delivery Reviews 46:3-26](https://doi.org/10.1016/S0169-409X(00)00129-0) — Rule of Five
+- [Veber, D.F. et al. (2002) J. Med. Chem. 45:2615-2623](https://doi.org/10.1021/jm020017n) — Oral bioavailability criteria
+- [Morgan, H.L. (1965) J. Chem. Doc. 5:107-113](https://doi.org/10.1021/c160017a018) — Circular fingerprint algorithm

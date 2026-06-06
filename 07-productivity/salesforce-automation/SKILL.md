@@ -1,14 +1,14 @@
 ---
 name: salesforce-automation
-title: Salesforce 自动化
-description: 当需要通过 Rube MCP（Composio）自动化 Salesforce CRM 时使用；做潜在客户/联系人/客户/商机/任务的增删查改与 SOQL 查询，产出调用序列与 SOQL 语句；不适用于无 Rube MCP 连接或本地 SQL 数据库；触发词：salesforce、SOQL、CRM 自动化、lead 潜在客户、opportunity 商机、Rube MCP、Composio
+title: Salesforce Automation via Rube MCP
+description: Automate Salesforce tasks via Rube MCP (Composio): leads, contacts, accounts, opportunities, SOQL queries. Always search tools first for current schemas.
 domain: 协作/automation
-triggers: [salesforce, SOQL, CRM 自动化, lead 潜在客户, opportunity 商机, Rube MCP, Composio]
+triggers: [salesforce, SOQL, Rube MCP, Composio]
 tags: [salesforce, crm, soql, rube-mcp, composio, automation]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Rube MCP, Composio, RUBE_SEARCH_TOOLS, RUBE_MANAGE_CONNECTIONS, SOQL]
+tools: []
 requires: []
 related: [deal-pipeline-tracker, zapier-make-automation, sales-prospecting, customer-health-scorer]
 combines_with: [deal-pipeline-tracker, zapier-make-automation, cro-revenue-advisor]
@@ -16,68 +16,194 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Salesforce Automation via Rube MCP
 
-- 需要在 Salesforce CRM 中创建/搜索/更新潜在客户（Lead）、联系人（Contact）、客户（Account）、商机（Opportunity）、任务（Task）。
-- 需要用自定义 SOQL 查询 Salesforce 数据。
-- 前提：客户端已接入 Rube MCP，且 `salesforce` 工具包连接状态为 ACTIVE。
+Automate Salesforce CRM operations through Composio's Salesforce toolkit via Rube MCP.
 
-不该用的情况：
-- 没有 Rube MCP 连接、或不是 Salesforce 环境（本地关系型数据库请用 sql-query-builder）。
-- 缺少必填输入、权限或成功判定标准时，先停下来澄清，不要凭空操作生产数据。
+## Prerequisites
 
-## 步骤
+- Rube MCP must be connected (RUBE_SEARCH_TOOLS available)
+- Active Salesforce connection via `RUBE_MANAGE_CONNECTIONS` with toolkit `salesforce`
+- Always call `RUBE_SEARCH_TOOLS` first to get current tool schemas
 
-1. 确认 Rube MCP 可用：检查 `RUBE_SEARCH_TOOLS` 是否响应。
-2. 调用 `RUBE_MANAGE_CONNECTIONS`，toolkit 传 `salesforce`。
-3. 若连接非 ACTIVE，按返回的授权链接完成 Salesforce OAuth。
-4. 确认状态为 ACTIVE 后再执行任何业务流程。
-5. 执行具体操作前，**先调用 `RUBE_SEARCH_TOOLS` 获取当前工具的最新 schema**（参数名/字段可能变化）。
+## Setup
 
-## 指令
+**Get Rube MCP**: Add `https://rube.app/mcp` as an MCP server in your client configuration. No API keys needed — just add the endpoint and it works.
 
-接入：把 `https://rube.app/mcp` 加为 MCP server 即可，无需 API Key。
 
-按场景选工具序列（均带 `SALESFORCE_` 前缀）：
+1. Verify Rube MCP is available by confirming `RUBE_SEARCH_TOOLS` responds
+2. Call `RUBE_MANAGE_CONNECTIONS` with toolkit `salesforce`
+3. If connection is not ACTIVE, follow the returned auth link to complete Salesforce OAuth
+4. Confirm connection status shows ACTIVE before running any workflows
 
-- 潜在客户：`SEARCH_LEADS` / `LIST_LEADS` / `CREATE_LEAD` / `UPDATE_LEAD` / `ADD_LEAD_TO_CAMPAIGN` / `APPLY_LEAD_ASSIGNMENT_RULES`。创建必填 `LastName`、`Company`；常用 `Email`、`Phone`、`Title`。
-- 联系人与客户：`SEARCH_CONTACTS` / `LIST_CONTACTS` / `CREATE_CONTACT` / `SEARCH_ACCOUNTS` / `CREATE_ACCOUNT` / `ASSOCIATE_CONTACT_TO_ACCOUNT`。Contact 至少需 `LastName`；关联需同时给出有效 `contact_id` 与 `account_id`。
-- 商机：`SEARCH_OPPORTUNITIES` / `LIST_OPPORTUNITIES` / `GET_OPPORTUNITY` / `CREATE_OPPORTUNITY` / `RETRIEVE_OPPORTUNITIES_DATA`。创建必填 `Name`、`StageName`、`CloseDate`；`StageName` 必须与 Salesforce 中配置完全一致。
-- 任务：`SEARCH_TASKS` / `UPDATE_TASK` / `COMPLETE_TASK`。`Status` 必须匹配选项列表（picklist）值。
-- SOQL：`RUN_SOQL_QUERY` 或 `QUERY`，参数 `query`。
-- 辅助：`GET_USER_INFO`、`GET_ALL_CUSTOM_OBJECTS`（发现自定义对象）、`CREATE_A_RECORD`（通用建记录，传 `object_type` + fields）、`MASS_TRANSFER_OWNERSHIP`（批量转移归属）。
+## Core Workflows
 
-## 示例
+### 1. Manage Leads
 
-基础查询：
+**When to use**: User wants to create, search, update, or list leads
+
+**Tool sequence**:
+1. `SALESFORCE_SEARCH_LEADS` - Search leads by criteria [Optional]
+2. `SALESFORCE_LIST_LEADS` - List all leads [Optional]
+3. `SALESFORCE_CREATE_LEAD` - Create a new lead [Optional]
+4. `SALESFORCE_UPDATE_LEAD` - Update lead fields [Optional]
+5. `SALESFORCE_ADD_LEAD_TO_CAMPAIGN` - Add lead to campaign [Optional]
+6. `SALESFORCE_APPLY_LEAD_ASSIGNMENT_RULES` - Apply assignment rules [Optional]
+
+**Key parameters**:
+- `LastName`: Required for lead creation
+- `Company`: Required for lead creation
+- `Email`, `Phone`, `Title`: Common lead fields
+- `lead_id`: Lead ID for updates
+- `campaign_id`: Campaign ID for campaign operations
+
+**Pitfalls**:
+- LastName and Company are required fields for lead creation
+- Lead IDs are 15 or 18 character Salesforce IDs
+
+### 2. Manage Contacts and Accounts
+
+**When to use**: User wants to manage contacts and their associated accounts
+
+**Tool sequence**:
+1. `SALESFORCE_SEARCH_CONTACTS` - Search contacts [Optional]
+2. `SALESFORCE_LIST_CONTACTS` - List contacts [Optional]
+3. `SALESFORCE_CREATE_CONTACT` - Create a new contact [Optional]
+4. `SALESFORCE_SEARCH_ACCOUNTS` - Search accounts [Optional]
+5. `SALESFORCE_CREATE_ACCOUNT` - Create a new account [Optional]
+6. `SALESFORCE_ASSOCIATE_CONTACT_TO_ACCOUNT` - Link contact to account [Optional]
+
+**Key parameters**:
+- `LastName`: Required for contact creation
+- `Name`: Account name for creation
+- `AccountId`: Account ID to associate with contact
+- `contact_id`, `account_id`: IDs for association
+
+**Pitfalls**:
+- Contact requires at least LastName
+- Account association requires both valid contact and account IDs
+
+### 3. Manage Opportunities
+
+**When to use**: User wants to track and manage sales opportunities
+
+**Tool sequence**:
+1. `SALESFORCE_SEARCH_OPPORTUNITIES` - Search opportunities [Optional]
+2. `SALESFORCE_LIST_OPPORTUNITIES` - List all opportunities [Optional]
+3. `SALESFORCE_GET_OPPORTUNITY` - Get opportunity details [Optional]
+4. `SALESFORCE_CREATE_OPPORTUNITY` - Create new opportunity [Optional]
+5. `SALESFORCE_RETRIEVE_OPPORTUNITIES_DATA` - Retrieve opportunity data [Optional]
+
+**Key parameters**:
+- `Name`: Opportunity name (required)
+- `StageName`: Sales stage (required)
+- `CloseDate`: Expected close date (required)
+- `Amount`: Deal value
+- `AccountId`: Associated account
+
+**Pitfalls**:
+- Name, StageName, and CloseDate are required for creation
+- Stage names must match exactly what is configured in Salesforce
+
+### 4. Run SOQL Queries
+
+**When to use**: User wants to query Salesforce data with custom SOQL
+
+**Tool sequence**:
+1. `SALESFORCE_RUN_SOQL_QUERY` / `SALESFORCE_QUERY` - Execute SOQL [Required]
+
+**Key parameters**:
+- `query`: SOQL query string
+
+**Pitfalls**:
+- SOQL syntax differs from SQL; uses Salesforce object and field API names
+- Field API names may differ from display labels (e.g., `Account.Name` not `Account Name`)
+- Results are paginated for large datasets
+
+### 5. Manage Tasks
+
+**When to use**: User wants to create, search, update, or complete tasks
+
+**Tool sequence**:
+1. `SALESFORCE_SEARCH_TASKS` - Search tasks [Optional]
+2. `SALESFORCE_UPDATE_TASK` - Update task fields [Optional]
+3. `SALESFORCE_COMPLETE_TASK` - Mark task as complete [Optional]
+
+**Key parameters**:
+- `task_id`: Task ID for updates
+- `Status`: Task status value
+- `Subject`: Task subject
+
+**Pitfalls**:
+- Task status values must match picklist options in Salesforce
+
+## Common Patterns
+
+### SOQL Syntax
+
+**Basic query**:
 ```
 SELECT Id, Name, Email FROM Contact WHERE LastName = 'Smith'
 ```
 
-带关联关系：
+**With relationships**:
 ```
 SELECT Id, Name, Account.Name FROM Contact WHERE Account.Industry = 'Technology'
 ```
 
-日期过滤（用 Salesforce 日期字面量）：
+**Date filtering**:
 ```
 SELECT Id, Name FROM Lead WHERE CreatedDate = TODAY
 SELECT Id, Name FROM Opportunity WHERE CloseDate = NEXT_MONTH
 ```
 
-分页：大结果集返回分页 token，用 `SALESFORCE_QUERY` 配合 `nextRecordsUrl` 翻页；检查响应中的 `done`，为 false 则继续翻页。
+### Pagination
 
-## 注意事项
+- SOQL queries with large results return pagination tokens
+- Use `SALESFORCE_QUERY` with nextRecordsUrl for pagination
+- Check `done` field in response; if false, continue paging
 
-- **字段用 API 名而非显示标签**：例如 `Account.Name` 而不是 “Account Name”；自定义字段以 `__c` 结尾，可用 `GET_ALL_CUSTOM_OBJECTS` 发现。
-- **SOQL ≠ SQL**：语法基于 Salesforce 对象与字段 API 名，不能直接套用标准 SQL。
-- **ID 格式**：Salesforce ID 为 15 位（大小写敏感）或 18 位（大小写不敏感），多数操作两种均可。
-- 风险等级：critical。涉及写操作（创建/更新/批量转移归属）务必先在沙箱或小范围验证，再对生产数据执行。
-- 不要把输出当作环境特定校验、测试或专家评审的替代。
+## Known Pitfalls
 
-## 互见
+**Field API Names**:
+- Always use API names, not display labels
+- Custom fields end with `__c` suffix
+- Use SALESFORCE_GET_ALL_CUSTOM_OBJECTS to discover custom objects
 
-- sql-query-builder：本地/标准 SQL 查询构建（与 SOQL 区分使用）。
+**ID Formats**:
+- Salesforce IDs are 15 (case-sensitive) or 18 (case-insensitive) characters
+- Both formats are accepted in most operations
 
----
-本条采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Quick Reference
+
+| Task | Tool Slug | Key Params |
+|------|-----------|------------|
+| Create lead | SALESFORCE_CREATE_LEAD | LastName, Company |
+| Search leads | SALESFORCE_SEARCH_LEADS | query |
+| List leads | SALESFORCE_LIST_LEADS | (filters) |
+| Update lead | SALESFORCE_UPDATE_LEAD | lead_id, fields |
+| Create contact | SALESFORCE_CREATE_CONTACT | LastName |
+| Search contacts | SALESFORCE_SEARCH_CONTACTS | query |
+| Create account | SALESFORCE_CREATE_ACCOUNT | Name |
+| Search accounts | SALESFORCE_SEARCH_ACCOUNTS | query |
+| Link contact | SALESFORCE_ASSOCIATE_CONTACT_TO_ACCOUNT | contact_id, account_id |
+| Create opportunity | SALESFORCE_CREATE_OPPORTUNITY | Name, StageName, CloseDate |
+| Get opportunity | SALESFORCE_GET_OPPORTUNITY | opportunity_id |
+| Search opportunities | SALESFORCE_SEARCH_OPPORTUNITIES | query |
+| Run SOQL | SALESFORCE_RUN_SOQL_QUERY | query |
+| Query | SALESFORCE_QUERY | query |
+| Search tasks | SALESFORCE_SEARCH_TASKS | query |
+| Update task | SALESFORCE_UPDATE_TASK | task_id, fields |
+| Complete task | SALESFORCE_COMPLETE_TASK | task_id |
+| Get user info | SALESFORCE_GET_USER_INFO | (none) |
+| Custom objects | SALESFORCE_GET_ALL_CUSTOM_OBJECTS | (none) |
+| Create record | SALESFORCE_CREATE_A_RECORD | object_type, fields |
+| Transfer ownership | SALESFORCE_MASS_TRANSFER_OWNERSHIP | records, new_owner |
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

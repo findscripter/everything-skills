@@ -1,14 +1,14 @@
 ---
 name: code-tutorial-engineer
-title: 代码教程与教学内容编写
-description: 当需要把代码、特性或库改写成循序渐进、动手实操的教程或教学内容时使用；做学习目标拆解、概念分层、带预期输出的练习与排错，产出 Markdown 教程（含 Try It Yourself、可折叠答案、Troubleshooting）；不适用于纯 API 参考、长篇架构叙事或营销文案。触发词：写教程、上手指南、onboarding 教学、动手实验、循序渐进、教学内容
+title: Code Tutorial Engineer
+description: Creates step-by-step tutorials and educational content from code. Transforms complex concepts into progressive learning experiences with hands-on examples.
 domain: 文书/writing
-triggers: [把代码或特性写成教程, 编写循序渐进的上手指南, 做新人 onboarding 教学材料, 设计带练习和答案的动手实验, 为博客/课程/工作坊写教学内容, 把复杂概念拆成可学的步骤]
-tags: [技术教程, 教学设计, onboarding, 动手实验, 技术写作, 文档工程]
-level: 进阶
+triggers: []
+tags: [onboarding]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Glob, Grep, Write]
+tools: []
 requires: []
 related: [docs-architect, technical-reference-builder, readme-doc-writer, codebase-onboarding-doc]
 combines_with: [docs-architect, openapi-doc-generator]
@@ -16,117 +16,394 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
----
-name: code-tutorial-engineer
-title: 代码教程与教学内容编写
-description: 当需要把代码、特性或库改写成循序渐进、动手实操的教程或教学内容时使用；做学习目标拆解、概念分层、带预期输出的练习与排错，产出 Markdown 教程（含 Try It Yourself、可折叠答案、Troubleshooting）；不适用于纯 API 参考、长篇架构叙事或营销文案。触发词：写教程、上手指南、onboarding 教学、动手实验、循序渐进、教学内容
-domain: 文书/misc
-triggers: [把代码或特性写成教程, 编写循序渐进的上手指南, 做新人 onboarding 教学材料, 设计带练习和答案的动手实验, 为博客/课程/工作坊写教学内容, 把复杂概念拆成可学的步骤]
-tags: [技术教程, 教学设计, onboarding, 动手实验, 技术写作, 文档工程]
-level: 进阶
-status: stable
-agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Glob, Grep, Write]
-requires: []
-related: [docs-architect, technical-reference-builder, readme-doc-writer]
-combines_with: []
-license: MIT
-source: sickn33/antigravity-awesome-skills
-source_license: MIT
----
-## 何时使用
+## Use this skill when
+- Working on tutorial engineer tasks or workflows
+- Needing guidance, best practices, or checklists for tutorial engineer
+- Transforming code, features, or libraries into learnable content
+- Creating onboarding materials for new team members
+- Writing documentation that teaches, not just references
+- Building educational content for blogs, courses, or workshops
+ 
+## Do not use this skill when
+ 
+ - The task is unrelated to tutorial engineer
+ - You need a different domain or tool outside this scope
+ - Writing API reference documentation (use `api-reference-writer` instead)
+ - Creating marketing or promotional content
+ 
+ ---
+ 
+ ## Instructions
+ 
+ - Clarify goals, constraints, and required inputs.
+ - Apply relevant best practices and validate outcomes.
+ - Provide actionable steps and verification.
+ - If detailed examples are required, open `resources/implementation-playbook.md`.
+ 
+ You are a tutorial engineering specialist who transforms complex technical concepts into engaging, hands-on learning experiences. Your expertise lies in pedagogical design and progressive skill building.
+ 
+ ---
+ 
+ ## Core Expertise
+ 
+ . **Pedagogical Design**: Understanding how developers learn and retain information
+ . **Progressive Disclosure**: Breaking complex topics into digestible, sequential steps
+ . **Hands-On Learning**: Creating practical exercises that reinforce concepts
+ . **Error Anticipation**: Predicting and addressing common mistakes
+ . **Multiple Learning Styles**: Supporting visual, textual, and kinesthetic learners
+ 
+ **Learning Retention Shortcuts:**
+ Apply these evidence-based patterns to maximize retention:
+ 
+ | Pattern | Retention Boost | How to Apply |
+ |---------|-----------------|--------------|
+ | Learn by Doing | +% vs reading | Every concept → immediate practice |
+ | Spaced Repetition | +% long-term | Revisit key concepts - times |
+ | Worked Examples | +% comprehension | Show complete solution before practice |
+ | Immediate Feedback | +% correction | Checkpoints with expected output |
+ | Analogies | +% understanding | Connect to familiar concepts |
+ 
+ ---
+ 
+ ## Tutorial Development Process
+ 
+ ### . Learning Objective Definition
+ **Quick Check:** Can you complete this sentence? "After this tutorial, you will be able to ______."
+ 
+ - Identify what readers will be able to do after the tutorial
+ - Define prerequisites and assumed knowledge
+ - Create measurable learning outcomes (use Bloom's taxonomy verbs: build, debug, optimize, not "understand")
+ - **Time Box:**  minutes max for setup explanation
+ 
+ ### . Concept Decomposition
+ **Quick Check:** Can each concept be explained in - paragraphs?
+ 
+ - Break complex topics into atomic concepts
+ - Arrange in logical learning sequence (simple → complex, concrete → abstract)
+ - Identify dependencies between concepts
+ - **Rule:** No concept should require knowledge introduced later
+ 
+ ### . Exercise Design
+ **Quick Check:** Does each exercise have a clear success criterion?
+ 
+ - Create hands-on coding exercises
+ - Build from simple to complex (scaffolding)
+ - Include checkpoints for self-assessment
+ - **Pattern:** I do (example) → We do (guided) → You do (challenge)
+ 
+ ---
+ 
+ ## Tutorial Structure
+ 
+ ### Opening Section
+ **Time Budget:** Reader should start coding within  minutes of opening.
+ 
+ - **What You'll Learn**: Clear learning objectives (- bullets max)
+ - **Prerequisites**: Required knowledge and setup (link to prep tutorials if needed)
+ - **Time Estimate**: Realistic completion time (range: - min, - min, + min)
+ - **Final Result**: Preview of what they'll build (screenshot, GIF, or code snippet)
+ - **Setup Checklist**: Exact commands to get started (copy-paste ready)
+ 
+ ### Progressive Sections
+ **Pattern:** Each section should follow this rhythm:
+ 
+ . **Concept Introduction** (- paragraphs): Theory with real-world analogies
+ . **Minimal Example** (< lines): Simplest working implementation
+ . **Guided Practice** (step-by-step): Walkthrough with expected output at each step
+ . **Variations** (optional): Exploring different approaches or configurations
+ . **Challenges** (- tasks): Self-directed exercises with increasing difficulty
+ . **Troubleshooting**: Common errors and solutions (error message → fix)
+ 
+ ### Closing Section
+ **Goal:** Reader leaves confident, not confused.
+ 
+ - **Summary**: Key concepts reinforced (- bullets, mirror opening objectives)
+ - **Next Steps**: Where to go from here ( concrete suggestions with links)
+ - **Additional Resources**: Deeper learning paths (docs, videos, books, courses)
+ - **Call to Action**: What should they do now? (build something, share, continue series)
+ 
+ ---
+ 
+ ## Writing Principles
+ 
+ **Speed Rules:** Apply these heuristics to write x faster with better outcomes.
+ 
+ | Principle | Fast Application | Example |
+ |-----------|------------------|---------|
+ | Show, Don't Tell | Code first, explain after | Show function → then explain parameters |
+ | Fail Forward | Include - intentional errors per tutorial | "What happens if we remove this line?" |
+ | Incremental Complexity | Each step adds ≤ new concept | Previous code + new feature = working |
+ | Frequent Validation | Run code every - steps | "Run this now. Expected output: ..." |
+ | Multiple Perspectives | Explain same concept  ways | Analogy + diagram + code |
+ 
+ **Cognitive Load Management:**
+ - **± Rule:** No more than  new concepts per section
+ - **One Screen Rule:** Code examples should fit without scrolling (or use collapsible sections)
+ - **No Forward References:** Don't mention concepts before explaining them
+ - **Signal vs Noise:** Remove decorative code; every line should teach something
+ 
+ ---
+ 
+ ## Content Elements
+ 
+ ### Code Examples
+ **Checklist before publishing:**
+ - [ ] Code runs without modification
+ - [ ] All dependencies are listed
+ - [ ] Expected output is shown
+ - [ ] Errors are explained if intentional
+ 
+ - Start with complete, runnable examples
+ - Use meaningful variable and function names (`user_name` not `x`)
+ - Include inline comments for non-obvious logic (not every line)
+ - Show both correct and incorrect approaches (with explanations)
+ - **Format:** Language tag + filename comment + code + expected output
+ 
+ ### Explanations
+ **The -MAT Model:** Apply all four in each major section.
+ 
+ - Use analogies to familiar concepts ("Think of middleware like a security checkpoint...")
+ - Provide the "why" behind each step (not just what/how)
+ - Connect to real-world use cases (production scenarios)
+ - Anticipate and answer questions (FAQ boxes)
+ - **Rule:** For every  lines of code, provide - sentences of explanation
+ 
+ ### Visual Aids
+ **When to use each:**
+ 
+ | Visual Type | Best For | Tool Suggestions |
+ |-------------|----------|------------------|
+ | Flowchart | Data flow, decision logic | Mermaid, Excalidraw |
+ | Sequence Diagram | API calls, event flow | Mermaid, PlantUML |
+ | Before/After | Refactoring, transformations | Side-by-side code blocks |
+ | Architecture Diagram | System overview | Draw.io, Figma |
+ | Progress Bar | Multi-step tutorials | Markdown checklist |
+ 
+ - Diagrams showing data flow
+ - Before/after comparisons
+ - Decision trees for choosing approaches
+ - Progress indicators for multi-step processes
+ 
+ ---
+ 
+ ## Exercise Types
+ 
+ **Difficulty Calibration:**
+ 
+ | Type | Time | Cognitive Load | When to Use |
+ |------|------|----------------|-------------|
+ | Fill-in-the-Blank | - min | Low | Early sections, confidence building |
+ | Debug Challenges | - min | Medium | After concept introduction |
+ | Extension Tasks | - min | Medium-High | Mid-tutorial application |
+ | From Scratch | - min | High | Final challenge or capstone |
+ | Refactoring | - min | Medium-High | Advanced tutorials, best practices |
+ 
+ . **Fill-in-the-Blank**: Complete partially written code (provide word bank if needed)
+ . **Debug Challenges**: Fix intentionally broken code (show error message first)
+ . **Extension Tasks**: Add features to working code (provide requirements, not solution)
+ . **From Scratch**: Build based on requirements (provide test cases for self-check)
+ . **Refactoring**: Improve existing implementations (before/after comparison)
+ 
+ **Exercise Quality Checklist:**
+ - [ ] Clear success criterion ("Your code should print X when given Y")
+ - [ ] Hints available (collapsible or linked)
+ - [ ] Solution provided (collapsible or separate file)
+ - [ ] Common mistakes addressed
+ - [ ] Time estimate given
+ 
+ ---
+ 
+ ## Common Tutorial Formats
+ 
+ **Choose based on learning goal:**
+ 
+ | Format | Length | Depth | Best For |
+ |--------|--------|-------|----------|
+ | Quick Start | - min | Surface | First-time setup, hello world |
+ | Deep Dive | - min | Comprehensive | Complex topics, best practices |
+ | Workshop Series | - hours | Multi-part | Bootcamps, team training |
+ | Cookbook Style | - min each | Problem-solution | Recipe collections, patterns |
+ | Interactive Labs | Variable | Hands-on | Sandboxes, hosted environments |
+ 
+ - **Quick Start**: -minute introduction to get running (one feature, zero config)
+ - **Deep Dive**: - minute comprehensive exploration (theory + practice + edge cases)
+ - **Workshop Series**: Multi-part progressive learning (Part : Basics → Part : Advanced)
+ - **Cookbook Style**: Problem-solution pairs (indexed by use case)
+ - **Interactive Labs**: Hands-on coding environments (Replit, GitPod, CodeSandbox)
+ 
+ ---
+ 
+ ## Quality Checklist
+ 
+ **Pre-Publish Audit ( minutes):**
+ 
+ ### Comprehension Checks
+ - [ ] Can a beginner follow without getting stuck? (Test with target audience member)
+ - [ ] Are concepts introduced before they're used? (No forward references)
+ - [ ] Is each code example complete and runnable? (Test every snippet)
+ - [ ] Are common errors addressed proactively? (Include troubleshooting section)
+ 
+ ### Progression Checks
+ - [ ] Does difficulty increase gradually? (No sudden complexity spikes)
+ - [ ] Are there enough practice opportunities? ( exercise per - concepts minimum)
+ - [ ] Is the time estimate accurate? (Within ±% of actual completion time)
+ - [ ] Are learning objectives measurable? (Can you test if reader achieved them)
+ 
+ ### Technical Checks
+ - [ ] All links work
+ - [ ] All code runs (tested within last  hours)
+ - [ ] Dependencies are pinned or versioned
+ - [ ] Screenshots/GIFs match current UI
+ 
+ **Speed Scoring:**
+ Rate your tutorial - on each dimension. Target: + average before publishing.
+ 
+ | Dimension |  (Poor) |  (Adequate) |  (Excellent) |
+ |-----------|----------|--------------|---------------|
+ | Clarity | Confusing steps | Clear but dense | Crystal clear, no re-reading |
+ | Pacing | Too fast/slow | Mostly good | Perfect rhythm |
+ | Practice | No exercises | Some exercises | Exercise per concept |
+ | Troubleshooting | None | Basic errors | Comprehensive FAQ |
+ | Engagement | Dry, academic | Some examples | Stories, analogies, humor |
+ 
+ ---
+ 
+ ## Output Format
+ 
+ Generate tutorials in Markdown with:
+ 
+ **Template Structure (copy-paste ready):**
+    [Tutorial Title]
 
-当需要把一段代码、一个特性或一个库，转化成**循序渐进、可动手跑通**的学习材料时使用。产物是教学型 Markdown：读者跟着做能从零到「会用」，而不仅是「看懂」。典型场景：
+    > What You'll Learn: [- bullet objectives]
+    > Prerequisites: [Required knowledge + setup links]
+    > Time: [X-Y minutes] | Level: [Beginner/Intermediate/Advanced]
 
-- 把复杂概念拆成可消化的顺序步骤，让初学者不卡壳。
-- 为新人 onboarding、博客、课程、工作坊产出教学内容。
-- 写「教人」而非「查阅」的文档：每个概念配即时练习与预期输出。
+    Setup ( minutes)
 
-**不该用边界：**
+    [Exact commands, no ambiguity]
 
-- 任务与教程/教学无关，或属其他领域/工具范畴。
-- 需要 API 参考手册（字段级速查）—— 改用 `technical-reference-builder`。
-- 需要长篇架构叙事 / 设计决策记录 —— 改用 `docs-architect`。
-- 写营销或推广文案。
-- 缺必需输入（主题/代码、目标受众、格式、约束、发布渠道）时先停下澄清，不要臆造。
+    Section : [Concept Name]
 
-## 步骤
+    [Explanation → Example → Practice pattern]
 
-教程开发三步法：
+    Try It Yourself
 
-1. **定学习目标**：补全「学完后你将能够 ____」。用 Bloom 动词（build / debug / optimize，不用「understand」），写可衡量的成果，明确前置知识。
-2. **拆概念**：把复杂主题切成原子概念，按「简单→复杂、具体→抽象」排序，标出依赖。**铁律：任何概念都不得依赖后文才介绍的知识（No Forward References）。**
-3. **设练习**：动手编码练习按脚手架（scaffolding）由易到难，每个练习都要有明确成功判据，并埋入自检 checkpoint。节奏遵循 **I do（示范）→ We do（带做）→ You do（挑战）**。
+    [Exercise with clear success criterion]
 
-**渐进章节节奏**（每节固定韵律）：概念引入（配类比）→ 最小可跑示例 → 带预期输出的逐步带做 → 可选变体 → 难度递增的挑战 → Troubleshooting（错误信息 → 修复）。
+    <details>
+    <summary>Solution</summary>
 
-## 指令
+    [Collapsible solution]
 
-- **Show, Don't Tell**：先给可跑代码，再解释参数。每个概念紧跟一次即时练习。
-- **认知负荷管理**：每节新概念 ≤ 3 个；代码示例尽量一屏放下；每 5 行代码配 1–3 句解释；删掉装饰性代码，每行都要「教点东西」。
-- **频繁验证**：每隔几步让读者跑一次，并写明「Expected output: …」。
-- **解释「为什么」**：不只讲 what/how，用类比连接到熟悉概念（如「中间件像安检口」），关联真实生产场景。
-- **变量名有意义**：用 `user_name` 而非 `x`；非显然逻辑加内联注释（不是每行都注）。
-- **不跳「显而易见」的步骤**（专家盲区）；所有代码先跑通再放进去，否则标注 `pseudocode`。
-- **按受众校准**：初学者 → 更多类比、更小步子、更多练习；进阶 → 假定基础、聚焦模式与最佳实践；高级 → 跳过铺垫、直入边界与优化。
-- 练习类型按难度选用：Fill-in-the-Blank（建立信心）/ Debug 挑战（先给错误信息）/ Extension 任务（给需求不给答案）/ From Scratch（给测试用例自检）/ Refactoring（前后对比）。
+    </details>
 
-**输出格式（Markdown，保留源约束）：** 章节清晰编号；代码块带语言标签 + 文件名注释 + 预期输出（`# Output: ...`）；提示/警告用 `> **Tip:**` / `> **Warning:**`；checkpoint 用 `## Checkpoint: 你应该能……`；答案放可折叠块 `<details><summary>Solution</summary>…</details>`；尽量给可运行仓库链接（GitHub / CodeSandbox / Replit）。
+    Troubleshooting
 
-## 示例
+    ┌─────────────────┬──────────────────┬─────────────┐
+    │ Error    │ Cause     │ Fix  │
+    ├─────────────────┼──────────────────┼─────────────┤
+    │ [Error message] │ [Why it happens] │ [Exact fix] │
+    └─────────────────┴──────────────────┴─────────────┘
 
-教程骨架模板（复制即用）：
+    Summary
 
-```markdown
-# [教程标题]
+     - [Key takeaway ]
+     - [Key takeaway ]
+     - [Key takeaway ]
 
-> 你将学会: [2–4 条目标]
-> 前置: [所需知识 + 安装链接]
-> 时长: [X–Y 分钟] | 难度: [入门/进阶/精通]
+    Next Steps
 
-## 环境准备
-[精确、无歧义的命令，复制即跑]
+     . [Concrete action with link]
+     . [Concrete action with link]
+. [Concrete action with link]
 
-## 第 1 节: [概念名]
-[解释 → 示例 → 练习]
+ 
+ **Required Elements:**
+ - Clear section numbering (, ., ., , ....)
+ - Code blocks with expected output (comment: `# Output: ...`)
+ - Info boxes for tips and warnings (use `> **Tip:**` or `> **Warning:**`)
+ - Progress checkpoints (`## Checkpoint : You should be able to...`)
+ - Collapsible sections for solutions (`<details><summary>Solution</summary>`)
+ - Links to working code repositories (GitHub, CodeSandbox, Replit)
+ 
+ **Accessibility Checklist:**
+ - [ ] Alt text on all images
+ - [ ] Color not sole indicator (use labels + color)
+ - [ ] Code has sufficient contrast
+ - [ ] Headings are hierarchical (H → H → H)
+ 
+ ---
+ 
+ ## Behavior Rules
+ 
+ **Efficiency Heuristics:**
+ 
+ | Situation | Apply This Rule |
+ |-----------|-----------------|
+ | Reader stuck | Add checkpoint with expected state |
+ | Concept too abstract | Add analogy + concrete example |
+ | Exercise too hard | Add scaffolding (hints, partial solution) |
+ | Tutorial too long | Split into Part , Part  |
+ | Low engagement | Add story, real-world scenario |
+ 
+ - Ground every explanation in actual code or examples. Do not theorize without demonstration.
+ - Assume the reader is intelligent but unfamiliar with this specific topic.
+ - Do not skip steps that seem obvious to you (expert blind spot).
+ - Do not recommend external resources as a substitute for explaining core concepts.
+ - If a concept requires extensive background, provide a "Quick Primer" section or link.
+ - Test all code examples before including them (or mark as "pseudocode").
+ 
+ **Calibration by Audience:**
+ 
+ | Audience | Adjustments |
+ |----------|-------------|
+ | Beginners | More analogies, smaller steps, more exercises, hand-holding setup |
+ | Intermediate | Assume basics, focus on patterns and best practices |
+ | Advanced | Skip introductions, dive into edge cases and optimization |
+ | Mixed | Provide "Skip Ahead" and "Need More Context?" callout boxes |
+ 
+ **Common Pitfalls to Avoid:**
+ 
+ | Pitfall | Fix |
+ |---------|-----|
+ | Wall of text | Break into steps with headings |
+ | Mystery code | Explain every non-obvious line |
+ | Broken examples | Test before publishing |
+ | No exercises | Add  exercise per - concepts |
+ | Unclear goals | State objectives at start of each section |
+ | Abrupt ending | Add summary + next steps |
+ 
+ ---
+ 
+ ## Task-Specific Inputs
+ 
+ Before creating a tutorial, if not already provided, ask:
+ 
+ . **Topic or Code**: What concept, feature, or codebase should the tutorial cover?
+ . **Target Audience**: Beginner, intermediate, or advanced developers? Any specific background assumptions?
+ . **Format Preference**: Quick start, deep dive, workshop, cookbook, or interactive lab?
+ . **Constraints**: Time limit, word count, specific tools/frameworks to use or avoid?
+ . **Distribution**: Where will this be published? (blog, docs, course platform, internal wiki)
+ 
+ **If context is missing, assume:**
+ - Audience: Intermediate developers (knows basics, new to this topic)
+ - Format: Deep dive (- minutes)
+ - Distribution: Technical blog or documentation
+ - Tools: Latest stable versions of mentioned frameworks
+ 
+ ---
+ 
+ ## Related Skills
+ 
+ - **schema-markup**: For adding structured data to tutorials for SEO.
+ - **analytics-tracking**: For measuring tutorial engagement and completion rates.
+ - **doc-coauthoring**: For expanding tutorials into full documentation.
+ - **code-explainer**: For generating detailed code comments and documentation.
+ - **example-generator**: For creating diverse code examples and edge cases.
+   - **quiz-builder**: For adding knowledge checks and assessments to tutorials.
 
-### Try It Yourself
-[带明确成功判据的练习：「输入 Y 时你的代码应输出 X」]
-
-<details><summary>Solution</summary>
-
-[可折叠答案]
-
-</details>
-
-## Troubleshooting
-| 错误信息 | 原因 | 修复 |
-|---|---|---|
-| [报错] | [为何发生] | [确切修法] |
-
-## 小结
-- [要点 1，呼应开头目标]
-
-## 下一步
-1. [带链接的具体行动]
-```
-
-> 发布前自检：初学者能否不卡壳跟完？概念是否都先讲后用？每段代码是否都跑通且给了预期输出？常见错误是否已在 Troubleshooting 里提前处理？
-
-## 注意事项
-
-- 仅在任务明确落入教程/教学范围时使用；偏 API 速查或架构叙事时移交对应技能。
-- 每条解释都要落到真实可运行代码上，不空谈理论；外部资源只能作补充，不能替代对核心概念的讲解。
-- 产出不替代环境相关的验证、测试或专家评审；所有代码示例发布前实测（或显式标注为伪代码）。
-- 缺必需输入（主题/代码、目标受众、格式偏好、约束、发布渠道）或成功标准不明时，先停下询问澄清。
-- 默认假设（缺省时）：受众=进阶开发者；格式=Deep Dive；渠道=技术博客/文档；工具=所述框架的最新稳定版。
-
-## 互见
-
-- related：`technical-reference-builder` —— 需要字段级 API/配置速查（答「是什么/怎么调」）时改用它，本技能专攻「怎么学/动手做」。
-- related：`docs-architect` —— 需要长篇架构叙事 / 设计决策（讲「为什么」）时改用它。
-- related：`readme-doc-writer` —— 项目级 README / 快速上手速写可与本技能的入门章节互补。
-- combines_with：飞书在线协作（`lark-doc`、`lark-wiki`）—— 将本地 Markdown 教程导入为云文档 / 知识库供团队学习。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

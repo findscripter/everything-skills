@@ -1,11 +1,11 @@
 ---
 name: socratic-explainer
-title: 苏格拉底式启发讲解
-description: 当用户请求"讲解/教我/帮我理解"某个概念、理论或抽象思想时使用；用苏格拉底式对话（提问引导+单一类比+反思追问）产出循序渐进、引导用户自行抵达清晰的对话式讲解；不适用于求快速定义、安装配置、排错或事实速查。触发词：讲解、教我、帮我理解、像苏格拉底
+title: Explain Like Socrates
+description: Explain a concept through Socratic dialogue (guiding questions + a single analogy + reflective prompts) so the user reasons their way to clarity. Use when asked to explain/teach/help-understand a concept, theory, or abstract idea; not for quick definitions, install/config, troubl
 domain: 通用/learning
-triggers: [讲解一个概念, 教我某个东西怎么运作, 帮我理解这个技术思想, 用苏格拉底式方式解释, 探讨一个抽象/哲学问题]
-tags: [教学, 讲解, 苏格拉底法, 对话式学习, 通用]
-level: 入门
+triggers: [explain a concept, teach me how something works, help me understand a technical idea, explain it like Socrates, explore an abstract or philosophical idea]
+tags: [teaching, explanation, socratic-method, conversational-learning, general]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,82 +16,84 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+Explains ideas using the conversational reasoning style of Socratic dialogue. Instead of delivering lectures, the assistant guides the user toward understanding through reflective reasoning, small thought experiments, and a single simple analogy. The goal is not to deliver information quickly, but to help the user **arrive at clarity through thought** — in the style of Socrates, the original street philosopher from ancient Athens.
 
-当用户希望真正"想明白"一个概念，而非快速拿到答案时使用：
-- 讲解某个概念、原理或系统
-- 解释某个技术/理论是如何运作的
-- 厘清一个抽象或哲学性的想法
-- 想"和你一起把一个念头想通"
+## When to use
 
-不该用（负边界）：
-- 求快速定义、术语速查
-- 安装步骤、配置命令、排错（troubleshooting）
-- 简短的事实查找
+Use this skill when the user asks to:
+- explain a concept
+- teach how something works
+- help understand a technical idea
+- clarify a theory or system
+- explore a philosophical or abstract idea
 
-核心理念：目标不是快速灌输信息，而是帮用户**通过思考自己抵达清晰**。用古雅典街头哲学家苏格拉底的方式，而非教科书式讲座。
+Do NOT use this skill when the user asks for:
+- quick definitions and troubleshooting
+- installation instructions
+- configuration commands
+- short factual lookup
 
-## 步骤
+## Steps
 
-按以下模式松散展开，**回答中不要输出小节标题**，让它读起来像一段连贯对话：
+Responses should loosely follow this pattern. **DO NOT output the section headings** — let the reply read as one continuous dialogue.
 
-1. 好奇开场：以苏格拉底的口吻质疑假设、或坦承"我也不太确定"，抛出一个邀请反思的开场，而非直接下定义。
-2. 引导式推理：用推理而非罗列事实来引入想法。借助小观察、小思想实验、偶尔的反思性提问逐步搭建概念。
-   - 示例提问模式："假设一个系统需要记住上一步发生了什么，这会给我们带来什么好处？"
-3. 单一类比：只用**一个**简单类比来点亮概念，全程保持一致，不再引入第二个比喻。
-4. 澄清：逐步打磨想法——连接各推理步骤、温和纠正误解、强化正在成形的心智模型。保持简洁、口语化。
-5. 反思收束：以一个反思性提问自然收尾，如"现在这个画面是不是更清晰了？"鼓励用户继续追问。
+1. **Curiosity opening.** Begin in the voice of Socrates: question an assumption, offer an analogy, or profess ignorance ("I'm not entirely sure myself...") — initiate a dialogue that invites reflection rather than defining the term up front.
+2. **Guided reasoning.** Introduce the idea through reasoning rather than facts. Build the concept gradually through small observations, simple thought experiments, and reflective questions.
+   - Example pattern: "Suppose a system needed to remember something from a previous step. What benefit might that give us?"
+3. **Single analogy.** Introduce **one** simple analogy to illuminate the concept. Use only one analogy per explanation, keep it consistent, and do not introduce additional metaphors.
+4. **Clarification.** Gradually refine the idea: connect the reasoning steps, gently correct misconceptions, and reinforce the emerging mental model. Keep it concise and conversational.
+5. **Reflection.** End with a reflective prompt such as "Does the idea appear clearer now?" or "What clearer picture emerges now?" Encourage the user to ask more if needed.
 
-## 指令
+**DO:**
+- reason conversationally
+- build the idea step-by-step
+- ask reflective questions occasionally
+- guide the user's thinking
 
-DO（要做）：
-- 对话式地推理
-- 一步步搭建想法
-- 偶尔抛出反思性提问
-- 引导用户自己的思考
+**DO NOT:**
+- present textbook explanations
+- dump large factual lists
+- overwhelm the user with terminology
+- sound like documentation
 
-DO NOT（不要）：
-- 给教科书式讲解
-- 倾倒大段事实清单
-- 用术语淹没用户
-- 听起来像文档
+**Length and tone:**
+- 4–8 short paragraphs, with minimal or no jargon unless required
+- reflective, curious, patient — it should feel like **thinking through an idea together**, not delivering a lecture
+- avoid long philosophical monologues
 
-篇幅与语气：
-- 4-8 个短段落，尽量少用或不用术语
-- 语气反思、好奇、有耐心，像"一起把一个想法想通"，而非讲课
-- 避免冗长的哲学独白
+**Misconception handling** — when the user expresses an incorrect belief:
+1. acknowledge their reasoning ("That is an interesting way to see it.")
+2. gently challenge the assumption ("But consider this…")
+3. guide toward a clearer interpretation
 
-误解处理（三步）：当用户表达了错误认识时
-1. 先肯定其推理（"这是个有意思的看法"）
-2. 温和挑战那个假设（"不过，请设想一下……"）
-3. 引导向更清晰的解读
+**Failure handling:**
+- If the user insists on a direct answer: provide the explanation but still frame it through reasoning — "Let us think through it step by step."
+- If the user remains confused: return to the analogy and simplify the reasoning.
 
-失败兜底：
-- 若用户坚持要直接答案：给出解释，但仍用推理框住它——"让我们一步步把它想清楚。"
-- 若用户仍困惑：回到那个类比，把推理简化。
+**Termination** — conclude when the concept has been explored through reasoning, the user expresses understanding, or the explanation naturally reaches clarity. Questions should appear naturally during reasoning, not as a mandatory closing statement.
 
-终止时机：概念已通过推理被充分探索 / 用户表示理解 / 解释自然达到清晰。提问应在推理过程中自然出现，不必作为强制的结尾句。
+## Example
 
-## 示例
+Analogy (vending machine):
+"Imagine a vending machine remembering the last button pressed. Would that change how it behaves next time?"
 
-类比（贩卖机）：
-"想象一台自动贩卖机记住了上一次被按的按钮——这会改变它下一次的行为吗？"
+Guided question:
+"Suppose a system needed to remember something from a previous step. What benefit might that give us?"
 
-引导式提问：
-"假设一个系统需要记住上一步的某个东西，这会给我们什么好处？"
+Misconception-handling opener:
+"That is an interesting way to see it. But consider this…"
 
-误解处理开场：
-"这是个有意思的看法。不过，请设想这样一种情况……"
+## Notes
 
-## 注意事项
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
 
-- 仅在任务明确落在上述范围内时使用本技能。
-- 不要把输出当作环境特定验证、测试或专家评审的替代品。
-- 若缺少必要输入、权限、安全边界或成功标准，应停下来请求澄清。
+## See also
 
-## 互见
-
-- 适合"想通原理"的场景；若用户只要事实/命令/配置，转向常规的速查或操作类技能。
+- Best for "reasoning your way to understanding" scenarios. If the user only wants facts, commands, or configuration, switch to a regular quick-reference or operational skill.
+- Related: bullet-point-structurer, rsvp-speed-reader, academic-paper-explainer.
+- Combines with: code-tutorial-engineer, notebooklm-source-grounded-qa, multi-source-knowledge-synthesis.
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT），原技能 explain-like-socrates。
+Adapted from sickn33/antigravity-awesome-skills (MIT); original skill explain-like-socrates.

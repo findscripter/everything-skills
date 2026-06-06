@@ -1,14 +1,14 @@
 ---
 name: octagon-sec-8k-analysis
-title: SEC 8-K 重大事项分析
-description: 当需要实时追踪美股上市公司 8-K 临时公告中的重大事项与公司治理变动（并购、高管变动、业绩发布、网络安全事件、退市等）时使用；经 Octagon MCP 的 octagon-agent 抽取，产出含 8-K Item 编号、事件分类、材料性分级与发生时间的结构化摘要；不适用于无 Octagon MCP、非美股 SEC 体系、需投资或法律建议、或要逐字全文照录的场景；触发词：8-K、临时公告、重大事项、material event、Item 5.02
+title: SEC 8-K Analysis
+description: Analyze 8-K filings to extract material events and corporate changes using Octagon MCP. Use when tracking real-time corporate disclosures, M&A announcements, leadership changes, earnings releases, and other material events requiring immediate investor attention.
 domain: 领域/fintech
-triggers: [8-K 申报, 临时公告, 重大事项, material event, octagon-agent, 并购公告, 高管变动, Item 5.02, 业绩发布 8-K, 网络安全事件披露, 8-K/A 更正]
-tags: [fintech, sec, 8-k, 重大事项, 并购监控, 公司治理, octagon mcp, 事件驱动投资]
-level: 进阶
+triggers: [material event, octagon-agent, Item 5.02]
+tags: [fintech, sec, 8-k, octagon mcp]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Octagon MCP, octagon-agent]
+tools: []
 requires: []
 related: [octagon-sec-10k-analysis, octagon-sec-filing-analyst, octagon-sec-mda-analysis, octagon-sec-risk-factors]
 combines_with: [octagon-earnings-call-analysis, octagon-equity-research-analyst]
@@ -16,31 +16,32 @@ license: MIT
 source: OctagonAI/skills
 source_license: MIT
 ---
-# SEC 8-K 重大事项分析
+# SEC 8-K Analysis
 
-## 何时使用
+Analyze 8-K filings to extract material events and corporate changes for public companies using the Octagon MCP server.
 
-需要**实时追踪美股上市公司 8-K 临时公告（Current Report）中的重大事项与公司治理变动**时使用。8-K 是公司在重大事件发生后须及时（一般 4 个工作日内）提交的披露文件，相比 10-K/10-Q 时效最强。典型场景：事件驱动投资、并购监控、高管/董事变动追踪、业绩发布捕捉、网络安全事件预警、退市/重述/破产等关键风险监控、披露合规巡检。
+## Prerequisites
 
-**不该用的边界：**
-- **未配置 Octagon MCP** 的环境 —— 本技能依赖 `octagon-agent` 工具与 `octagon-sec-agent` 数据源，无 MCP 无法工作。
-- **非美股 SEC 体系**（A 股、港股、欧股等）—— 无 8-K 制度与 Item 编号体系，不通用。
-- 需要**投资买卖建议或法律意见** —— 本技能只抽取并归纳已公开披露内容，不替代分析师/律师判断。
-- 想做**风险因素（Item 1A）、MD&A 或完整财报分析** —— 那是其他技能（见互见），8-K 只覆盖临时重大事项。
-- 需要逐字全文 —— 输出是**事件摘要 + 分类 + 材料性分级**，不是原文照录。
+Ensure Octagon MCP is configured in your AI agent (Cursor, Claude Desktop, Windsurf, etc.). See [references/mcp-setup.md](references/mcp-setup.md) for installation instructions.
 
-## 步骤 / 指令
+## Workflow
 
-1. **确认前置**：Octagon MCP 已在 Agent（Cursor / Claude Desktop / Windsurf 等）中配置完成。
-2. **确定参数**：
-   - **Ticker**（必填）：股票代码，如 `AAPL`、`MSFT`、`GOOGL`。缺失先停下确认，不要臆测代码。
-   - **时间范围**（可选）：最近若干份、指定日期区间或「过去 6 个月」等。
-   - **事件类型**（可选）：限定关心的 8-K Item，如高管变动（5.02）、并购（2.01）、业绩（2.02）。
-3. **下发自然语言指令**，调用 `octagon-agent` 工具。
-4. **接收结构化输出**：申报摘要 + 重大事项 + 公司治理变动（数据源 `octagon-sec-agent`）。
-5. **解读**：用下方「Item 速查」核对覆盖面，按「材料性分级」判断优先级。
+### 1. Identify Analysis Parameters
 
-**MCP 调用格式：**
+Determine the following before querying:
+- **Ticker**: Stock symbol (e.g., AAPL, MSFT, GOOGL)
+- **Time Period** (optional): Recent filings, specific date range
+- **Event Type** (optional): Specific 8-K items of interest
+
+### 2. Execute Query via Octagon MCP
+
+Use the `octagon-agent` tool with a natural language prompt:
+
+```
+Analyze recent 8-K filings for <TICKER> and extract material events and corporate changes.
+```
+
+**MCP Call Format:**
 
 ```json
 {
@@ -52,80 +53,205 @@ source_license: MIT
 }
 ```
 
-**预期输出（示意）：**
+### 3. Expected Output
 
-- **申报摘要**：申报日期 2026-01-29；事件类别 Item 2.02（经营成果与财务状况）。
-- **重大事项**：本次申报无重大公司变动；财务焦点为 Q1 2026 业绩披露。
-- **公司治理变动**：无收购、处置或管理层变动。
-- **数据源**：octagon-sec-agent。
+The agent returns structured 8-K analysis including:
 
-**8-K Item 速查（用于核对覆盖面，附材料性）：**
+**Filing Summary:**
+- Filing date: January 29, 2026
+- Event category: Item 2.02 (Results of Operations and Financial Condition)
 
-| Item | 含义 | 材料性 |
-|---|---|---|
-| 1.01 / 1.02 | 重大确定性协议的签订 / 终止 | 高 |
-| 1.03 | 破产或接管 | 极高 |
-| 1.05 | 重大网络安全事件 | 高 |
-| 2.01 | 收购或处置完成 | 高 |
-| 2.02 | 经营成果与财务状况（业绩） | 中 |
-| 2.03 / 2.04 | 新增直接债务 / 触发加速条款 | 高 |
-| 2.06 | 重大资产减值 | 高 |
-| 3.01 | 退市或转板通知 | 极高 |
-| 4.01 / 4.02 | 更换会计师 / 不再依赖历史财报（重述） | 高 / 极高 |
-| 5.01 | 控制权变更 | 极高 |
-| 5.02 | 董事/高管离任或任命 | 高 |
-| 5.03 / 5.07 | 章程修订 / 股东投票结果 | 中 |
-| 7.01 | Regulation FD 披露 | 视情况 |
-| 8.01 | 其他事件（自愿披露） | 视情况 |
-| 9.01 | 财务报表与附件 | 支撑性 |
+**Material Events:**
+- No material corporate changes in this filing
+- Financial focus: Q1 2026 results disclosure
 
-**材料性分级（用于排优先级）：**
-- **极高（立即处置）**：破产（Ch.11/接管）、财报重述（不再依赖）、退市通知、控制权变更（收购/要约）、重大网络安全事件。
-- **高优先级**：并购完成/分拆、CEO/CFO 离任与董事会变动、重大合同/合作、减值/债务、会计师变更或分歧。
-- **中优先级**：季度业绩（Item 2.02）、成本削减重组、章程修订/投票结果、股票发行与权利修改。
+**Corporate Changes:**
+- No acquisitions, dispositions, or management changes
 
-## 示例
+**Data Sources**: octagon-sec-agent
 
-```text
-# 标准 8-K 重大事项提取
+### 4. Interpret Results
+
+See [references/interpreting-results.md](references/interpreting-results.md) for guidance on:
+- Understanding 8-K item categories
+- Assessing event materiality
+- Tracking corporate changes over time
+
+## Example Queries
+
+**Recent 8-K Analysis:**
+```
 Analyze recent 8-K filings for AAPL and extract material events and corporate changes.
+```
 
-# 高管变动（Item 5.02）
+**Leadership Changes:**
+```
 Find any 8-K filings for TSLA in 2025 that disclose executive departures or appointments.
+```
 
-# 并购活动
+**M&A Activity:**
+```
 Extract 8-K filings related to acquisitions or mergers for MSFT in the past 6 months.
+```
 
-# 业绩发布
+**Earnings Announcements:**
+```
 Summarize the most recent 8-K earnings release filing for GOOGL.
+```
 
-# 重大确定性协议
+**Material Agreements:**
+```
 Find 8-K filings disclosing material definitive agreements for AMZN.
+```
 
-# 会计师变更
+**Auditor Changes:**
+```
 Has NVDA filed any 8-K filings regarding auditor changes in the past year?
 ```
 
-## 注意事项
+## 8-K Item Categories
 
-**分析要点：**
-- **逐项查全**：一份 8-K 常含多个 Item，别只看标题；不显眼的 Item 里可能藏关键信息。
-- **读附件（Exhibit）**：新闻稿、协议正本等关键细节多在 Item 9.01 的 Exhibit 里。
-- **留意申报时机**：周五下午或假期前申报，可能意在淡化关注度。
-- **追踪频率模式**：8-K 高频→活跃并购/重组/波动；聚集出现→重大事件正在展开；规律出现→例行季度披露。
-- **交叉对照**：把 8-K 披露与随后的 10-Q/10-K 比对，看是否一致、是否补充。
-- **监控 8-K/A**：8-K/A 修订件会更新或更正先前披露，勿漏。
+### Section 1 - Registrant's Business and Operations
 
-**合规与限制：**
-- 输出依赖 `octagon-sec-agent` 数据源，覆盖范围与时效以 Octagon 数据为准；关键结论应回溯 SEC EDGAR 原始申报文件核验。
-- 结果仅供分析参考，**不构成投资建议或法律意见**，不能替代专业尽调与风控复核。
+| Item | Description | Materiality |
+|------|-------------|-------------|
+| 1.01 | Entry into Material Definitive Agreement | High |
+| 1.02 | Termination of Material Definitive Agreement | High |
+| 1.03 | Bankruptcy or Receivership | Critical |
+| 1.04 | Mine Safety Reporting | Industry-specific |
+| 1.05 | Material Cybersecurity Incidents | High |
 
-## 互见
+### Section 2 - Financial Information
 
-- related：`octagon-sec-risk-factors` / `octagon-sec-mda-analysis` / `octagon-sec-filing-analyst` —— 8-K 临时事项之外，深挖风险因素、MD&A 与完整财报披露。
-- related：`octagon-earnings-call-analysis` —— 8-K 业绩发布（Item 2.02）常与同期电话会互补印证。
-- combines_with：`diligence-issue-extractor` —— 重大事项时间线 + 尽调问题清单，组成事件驱动的投前风险评估。
-- combines_with：`octagon-equity-research-analyst` —— 把捕捉到的重大事项纳入完整股票研究与投资评级。
+| Item | Description | Materiality |
+|------|-------------|-------------|
+| 2.01 | Completion of Acquisition or Disposition | High |
+| 2.02 | Results of Operations and Financial Condition | Medium |
+| 2.03 | Creation of Direct Financial Obligation | High |
+| 2.04 | Triggering Events (Acceleration) | High |
+| 2.05 | Costs for Exit or Disposal Activities | Medium |
+| 2.06 | Material Impairments | High |
 
----
-本条采编自 OctagonAI/skills（MIT）。
+### Section 3 - Securities and Trading Markets
+
+| Item | Description | Materiality |
+|------|-------------|-------------|
+| 3.01 | Notice of Delisting or Transfer | Critical |
+| 3.02 | Unregistered Sales of Equity | Medium |
+| 3.03 | Material Modification to Rights | High |
+
+### Section 4 - Matters Related to Accountants and Financial Statements
+
+| Item | Description | Materiality |
+|------|-------------|-------------|
+| 4.01 | Changes in Certifying Accountant | High |
+| 4.02 | Non-Reliance on Previously Issued Financials | Critical |
+
+### Section 5 - Corporate Governance and Management
+
+| Item | Description | Materiality |
+|------|-------------|-------------|
+| 5.01 | Changes in Control | Critical |
+| 5.02 | Departure/Appointment of Directors/Officers | High |
+| 5.03 | Amendments to Articles/Bylaws | Medium |
+| 5.04 | Temporary Suspension of Trading | High |
+| 5.05 | Amendments to Code of Ethics | Medium |
+| 5.06 | Change in Shell Company Status | High |
+| 5.07 | Shareholder Vote Results | Medium |
+| 5.08 | Shareholder Nominations | Low |
+
+### Section 6 - Asset-Backed Securities
+
+| Item | Description | Materiality |
+|------|-------------|-------------|
+| 6.01-6.05 | ABS-specific disclosures | Industry-specific |
+
+### Section 7 - Regulation FD
+
+| Item | Description | Materiality |
+|------|-------------|-------------|
+| 7.01 | Regulation FD Disclosure | Varies |
+
+### Section 8 - Other Events
+
+| Item | Description | Materiality |
+|------|-------------|-------------|
+| 8.01 | Other Events (Voluntary) | Varies |
+
+### Section 9 - Financial Statements and Exhibits
+
+| Item | Description | Materiality |
+|------|-------------|-------------|
+| 9.01 | Financial Statements and Exhibits | Supporting |
+
+## Event Materiality Assessment
+
+### Critical Events (Immediate Action)
+
+| Event Type | Examples |
+|------------|----------|
+| Bankruptcy | Chapter 11 filing, receivership |
+| Restatement | Non-reliance on financials |
+| Delisting | Exchange notice received |
+| Control Change | Acquisition, tender offer |
+| Cyber Incident | Material breach disclosed |
+
+### High Priority Events
+
+| Event Type | Examples |
+|------------|----------|
+| M&A | Acquisition completion, divestitures |
+| Leadership | CEO/CFO departure, board changes |
+| Agreements | Major contracts, partnerships |
+| Financial | Impairments, debt obligations |
+| Auditor | Auditor change, disagreements |
+
+### Medium Priority Events
+
+| Event Type | Examples |
+|------------|----------|
+| Earnings | Quarterly results (Item 2.02) |
+| Restructuring | Cost reduction programs |
+| Governance | Bylaw amendments, vote results |
+| Securities | Stock issuances, modifications |
+
+## Tracking 8-K Patterns
+
+### Frequency Analysis
+
+| Pattern | What It May Indicate |
+|---------|---------------------|
+| High frequency | Active M&A, restructuring, volatility |
+| Low frequency | Stable operations, mature company |
+| Clustered | Major corporate event unfolding |
+| Regular | Routine quarterly disclosures |
+
+### Content Evolution
+
+Track over time:
+1. **Recurring themes** - Ongoing issues or strategies
+2. **New item types** - Emerging concerns or opportunities
+3. **Tone changes** - Shifting management sentiment
+4. **Exhibit quality** - Detail and transparency level
+
+## Analysis Tips
+
+1. **Check all items**: 8-Ks often contain multiple items - don't focus only on headlines.
+
+2. **Read exhibits**: Press releases and agreements in exhibits contain critical details.
+
+3. **Note timing**: Friday afternoon or holiday filings may attempt to minimize attention.
+
+4. **Track patterns**: Frequent 8-Ks may signal ongoing corporate activity.
+
+5. **Cross-reference**: Compare 8-K disclosures with subsequent 10-Q/10-K filings.
+
+6. **Monitor amendments**: 8-K/A filings update or correct prior disclosures.
+
+## Use Cases
+
+- **Event-driven investing**: Track material events for trading signals
+- **M&A monitoring**: Follow acquisition announcements and completions
+- **Governance oversight**: Monitor leadership and board changes
+- **Risk management**: Identify material risks as they emerge
+- **Compliance tracking**: Ensure timely disclosure monitoring

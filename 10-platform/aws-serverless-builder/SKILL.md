@@ -1,14 +1,14 @@
 ---
 name: aws-serverless-builder
-title: AWS 无服务器应用构建
-description: 当在 AWS 上构建生产级无服务器应用（Lambda、API Gateway、DynamoDB、SQS/SNS 事件驱动）时使用；产出 Handler 结构、SAM/CDK 模板、事件触发与冷启动优化的可执行方案；不适用于 GCP/Azure 无服务器、容器化部署或纯本地后端。触发词：Lambda、SAM、冷启动
+title: AWS Serverless
+description: Specialized skill for building production-ready serverless
 domain: 平台/cloud
-triggers: [AWS Lambda, SAM 部署, API Gateway, DynamoDB Streams, SQS 事件驱动, 冷启动优化, SnapStart, CDK 无服务器, serverless]
-tags: [aws, serverless, lambda, sam, cdk, api-gateway, dynamodb, sqs, 平台/cloud]
-level: 进阶
+triggers: [AWS Lambda, API Gateway, DynamoDB Streams, SnapStart, serverless]
+tags: [aws, serverless, lambda, sam, cdk, api-gateway, dynamodb, sqs]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [SAM CLI, AWS CDK, AWS SDK v3, boto3, CloudWatch]
+tools: []
 requires: []
 related: [aws-serverless-architect, gcp-cloud-run, aws-cdk-patterns, cloudflare-workers-edge]
 combines_with: [aws-serverless-architect, terraform-specialist, rest-api-endpoint-builder]
@@ -16,136 +16,1336 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# AWS Serverless
 
-适用：在 AWS 上构建生产级无服务器应用，包括 Lambda 函数实现、API Gateway（HTTP/REST）后端、DynamoDB 数据访问、SQS/SNS/DynamoDB Streams 等事件驱动处理，以及 SAM/CDK 部署与冷启动优化。
+Specialized skill for building production-ready serverless applications on AWS.
+Covers Lambda functions, API Gateway, DynamoDB, SQS/SNS event-driven patterns,
+SAM/CDK deployment, and cold start optimization.
 
-不该用（负边界）：
-- GCP（改用 Cloud Run / Cloud Functions）、Azure（改用 Azure Functions / Logic Apps）。
-- 容器化或长驻后端、非事件触发的常规服务。
-- 复杂编排（Step Functions / EventBridge）、认证（Cognito 授权器）、RDS 表结构设计——这些应委派给对应专项技能。
-- 不替代针对具体环境的验证、测试与专家评审；缺少输入、权限或成功标准时先停下来澄清。
+## Principles
 
-核心原则：先测量再优化内存与超时；对延迟敏感负载压低冷启动；Java/.NET 用 SnapStart；简单场景优先 HTTP API 而非 REST API；用 DLQ + 重试为失败设计；部署包尽量小；配置走环境变量；结构化日志带 correlation/request ID。
+- Right-size memory and timeout (measure before optimizing)
+- Minimize cold starts for latency-sensitive workloads
+- Use SnapStart for Java/.NET functions
+- Prefer HTTP API over REST API for simple use cases
+- Design for failure with DLQs and retries
+- Keep deployment packages small
+- Use environment variables for configuration
+- Implement structured logging with correlation IDs
 
-## 步骤
+## Patterns
 
-1. 选 IaC：简单/标准用 SAM（YAML），复杂可复用构造或偏好编程语言用 CDK（TypeScript）。
-2. 写 Handler：客户端在 handler 外初始化（跨热调用复用）；统一 try/catch；返回 API Gateway 兼容响应；Node.js 设 `context.callbackWaitsForEmptyEventLoop = false`。
-3. 选 API 类型：多数 REST 场景用 HTTP API（更低延迟约 10ms、便宜 50-70%）；需要缓存、请求校验、WAF、Usage Plan/API Key 时才用 REST API。
-4. 事件驱动：异步解耦用 SQS 触发，配 DLQ + `ReportBatchItemFailures` 局部失败重试；对数据变更实时反应用 DynamoDB Streams。
-5. 优化冷启动（按收益排序）：缩包 → SnapStart（Java/.NET）→ 加内存提速初始化 → 延迟重依赖加载 → 预置并发（最后手段）。
-6. 本地开发：`sam build` → `sam local start-api` / `sam local invoke` 调试，再 `sam deploy --guided`。
-7. 上线前过校验清单（见注意事项）。
+### Lambda Handler Pattern
 
-## 指令
+Proper Lambda function structure with error handling
 
-```bash
-# 安装与初始化
-pip install aws-sam-cli
-sam init --runtime nodejs20.x --name my-api
-# 构建 / 本地运行 / 单函数调用
-sam build
-sam local start-api
-sam local invoke GetItemFunction --event events/get.json
-sam local invoke --debug-port 5858 GetItemFunction   # Node.js 调试
-sam deploy --guided
-
-# CDK
-npm install -g aws-cdk
-cdk init app --language typescript
-cdk synth   # 生成 CloudFormation
-cdk diff    # 查看变更
-cdk deploy  # 部署
-```
-
-## 示例
-
-Node.js Handler（客户端外置 + 统一错误处理）：
+**When to use**: Any Lambda function implementation,API handlers, event processors, scheduled tasks
 
 ```javascript
+// Node.js Lambda Handler
+// handler.js
+
+// Initialize outside handler (reused across invocations)
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
-const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
+
+// Handler function
 exports.handler = async (event, context) => {
+  // Optional: Don't wait for event loop to clear (Node.js)
   context.callbackWaitsForEmptyEventLoop = false;
+
   try {
-    const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
-    const result = await docClient.send(new GetCommand({
-      TableName: process.env.TABLE_NAME, Key: { id: body.id }
-    }));
-    return { statusCode: 200,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify(result.Item) };
+    // Parse input based on event source
+    const body = typeof event.body === 'string'
+      ? JSON.parse(event.body)
+      : event.body;
+
+    // Business logic
+    const result = await processRequest(body);
+
+    // Return API Gateway compatible response
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify(result)
+    };
   } catch (error) {
-    console.error(JSON.stringify({ error: error.message, requestId: context.awsRequestId }));
-    return { statusCode: error.statusCode || 500,
+    console.error('Error:', JSON.stringify({
+      error: error.message,
+      stack: error.stack,
+      requestId: context.awsRequestId
+    }));
+
+    return {
+      statusCode: error.statusCode || 500,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: error.message || 'Internal server error' }) };
+      body: JSON.stringify({
+        error: error.message || 'Internal server error'
+      })
+    };
   }
 };
+
+async function processRequest(data) {
+  // Your business logic here
+  const result = await docClient.send(new GetCommand({
+    TableName: process.env.TABLE_NAME,
+    Key: { id: data.id }
+  }));
+  return result.Item;
+}
 ```
 
-SAM 模板（HTTP API + Lambda + DynamoDB，最小权限策略）：
+```python
+# Python Lambda Handler
+# handler.py
+
+import json
+import os
+import logging
+import boto3
+from botocore.exceptions import ClientError
+
+# Initialize outside handler (reused across invocations)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table(os.environ['TABLE_NAME'])
+
+def handler(event, context):
+    try:
+        # Parse input
+        body = json.loads(event.get('body', '{}')) if isinstance(event.get('body'), str) else event.get('body', {})
+
+        # Business logic
+        result = process_request(body)
+
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps(result)
+        }
+
+    except ClientError as e:
+        logger.error(f"DynamoDB error: {e.response['Error']['Message']}")
+        return error_response(500, 'Database error')
+
+    except json.JSONDecodeError:
+        return error_response(400, 'Invalid JSON')
+
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+        return error_response(500, 'Internal server error')
+
+def process_request(data):
+    response = table.get_item(Key={'id': data['id']})
+    return response.get('Item')
+
+def error_response(status_code, message):
+    return {
+        'statusCode': status_code,
+        'headers': {'Content-Type': 'application/json'},
+        'body': json.dumps({'error': message})
+    }
+```
+
+### Best_practices
+
+- Initialize clients outside handler (reused across warm invocations)
+- Always return proper API Gateway response format
+- Log with structured JSON for CloudWatch Insights
+- Include request ID in error logs for tracing
+
+### API Gateway Integration Pattern
+
+REST API and HTTP API integration with Lambda
+
+**When to use**: Building REST APIs backed by Lambda,Need HTTP endpoints for functions
 
 ```yaml
+# template.yaml (SAM)
+AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+
 Globals:
   Function:
     Runtime: nodejs20.x
     Timeout: 30
     MemorySize: 256
-    Environment: { Variables: { TABLE_NAME: !Ref ItemsTable } }
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref ItemsTable
+
 Resources:
+  # HTTP API (recommended for simple use cases)
   HttpApi:
     Type: AWS::Serverless::HttpApi
-    Properties: { StageName: prod }
+    Properties:
+      StageName: prod
+      CorsConfiguration:
+        AllowOrigins:
+          - "*"
+        AllowMethods:
+          - GET
+          - POST
+          - DELETE
+        AllowHeaders:
+          - "*"
+
+  # Lambda Functions
   GetItemFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: src/handlers/get.handler
       Events:
-        GetItem: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /items/{id}, Method: GET } }
-      Policies: [ DynamoDBReadPolicy: { TableName: !Ref ItemsTable } ]
+        GetItem:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /items/{id}
+            Method: GET
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ItemsTable
+
+  CreateItemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/create.handler
+      Events:
+        CreateItem:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /items
+            Method: POST
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ItemsTable
+
+  # DynamoDB Table
   ItemsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      AttributeDefinitions: [ { AttributeName: id, AttributeType: S } ]
-      KeySchema: [ { AttributeName: id, KeyType: HASH } ]
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
       BillingMode: PAY_PER_REQUEST
+
+Outputs:
+  ApiUrl:
+    Value: !Sub "https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com/prod"
 ```
 
-SQS 触发 + 局部批失败：`VisibilityTimeout` 设为 Lambda 超时的 6 倍，配 `RedrivePolicy`（`maxReceiveCount: 3`）指向 DLQ，函数事件加 `FunctionResponseTypes: [ReportBatchItemFailures]`，handler 返回 `{ batchItemFailures: [{ itemIdentifier: record.messageId }] }`。
+```javascript
+// src/handlers/get.js
+const { getItem } = require('../lib/dynamodb');
 
-DynamoDB Streams：`StreamViewType: NEW_AND_OLD_IMAGES`，按 `eventName`（INSERT/MODIFY/REMOVE）分发，用 `@aws-sdk/util-dynamodb` 的 `unmarshall` 解析。
+exports.handler = async (event) => {
+  const id = event.pathParameters?.id;
 
-## 注意事项
+  if (!id) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Missing id parameter' })
+    };
+  }
 
-锋利边缘（高危）：
-- INIT 阶段已计费（2025-08 起）：冷启动初始化按时长计费，账单可能涨 10-50%。查 CloudWatch 的 `INIT_REPORT Init Duration`，靠缩包、懒加载重依赖、SDK v3 模块化导入、SnapStart 降低。
-- 超时配置：默认仅 3 秒、上限 15 分钟（900s）。设为预期时长 + 缓冲；用 `context.getRemainingTimeInMillis()` 感知剩余时间优雅退出；给所有下游 HTTP 调用设 `timeout`。
-- OOM 崩溃：超内存被强杀且不抛可捕获异常。大文件改用流式处理（`for await (const chunk of stream)`），按需加 `MemorySize`（128-10240，更多内存=更多 CPU），用 Lambda Power Tuning 找最优值。
-- 递归/无限触发：S3 写回同桶、DynamoDB 触发更新同表会导致费用失控。用不同桶/前缀（如 `processed/`）+ 幂等检查，设 `ReservedConcurrentExecutions` 作熔断，配 CloudWatch 调用次数告警。
+  const item = await getItem(id);
 
-中危：
-- VPC 冷启动延迟：仅在需访问 VPC 内 RDS/ElastiCache/私有资源时才挂 VPC；多 AZ 子网，AWS 服务走 VPC Gateway Endpoint（DynamoDB/S3）避开 NAT。
-- Node.js 事件循环未清空导致跑满超时：设 `callbackWaitsForEmptyEventLoop = false`，并显式关闭数据库连接（`finally { await connection.end() }`）。
-- API Gateway 负载上限：REST/HTTP API 请求响应均 10MB，Lambda 同步响应 6MB、异步 256KB。大文件用 S3 预签名 URL（`getSignedUrl`）上传/下载，而非穿透网关。
+  if (!item) {
+    return {
+      statusCode: 404,
+      body: JSON.stringify({ error: 'Item not found' })
+    };
+  }
 
-校验清单（部署前自检）：
-- ERROR：禁止硬编码 AWS Access Key / Secret Key，用 IAM 角色或 Secrets Manager。
-- WARNING：避免通配符 IAM 权限（最小权限）；handler 必须有 try/catch；异步函数配 DLQ；用 SDK v3 模块化导入而非整包 v2；表名走环境变量。
-- INFO：Node.js 设 `callbackWaitsForEmptyEventLoop=false`；默认 128MB 内存常偏低；1-3 秒超时对外部调用偏短。
+  return {
+    statusCode: 200,
+    body: JSON.stringify(item)
+  };
+};
+```
 
-## 互见
+### Structure
 
-- GCP 无服务器 → gcp-cloud-run（容器用 Cloud Run，事件用 Cloud Functions）
-- Azure 无服务器 → azure-functions（Azure Functions、Logic Apps）
-- 数据库设计 → postgres-wizard（RDS 设计）
-- 认证授权 → auth-specialist（Cognito、API Gateway 授权器）
-- 复杂工作流 → workflow-automation（Step Functions、EventBridge）
-- AI 集成 → llm-architect（Lambda 调用 Bedrock 或外部 LLM）
+project/
+├── template.yaml      # SAM template
+├── src/
+│   ├── handlers/
+│   │   ├── get.js
+│   │   ├── create.js
+│   │   └── delete.js
+│   └── lib/
+│       └── dynamodb.js
+└── events/
+    └── event.json     # Test events
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。原 skill 标注上游来源为 vibeship-spawner-skills（Apache 2.0）。
+### Api_comparison
+
+- Http_api:
+  - Lower latency (~10ms)
+  - Lower cost (50-70% cheaper)
+  - Simpler, fewer features
+  - Best for: Most REST APIs
+- Rest_api:
+  - More features (caching, request validation, WAF)
+  - Usage plans and API keys
+  - Request/response transformation
+  - Best for: Complex APIs, enterprise features
+
+### Event-Driven SQS Pattern
+
+Lambda triggered by SQS for reliable async processing
+
+**When to use**: Decoupled, asynchronous processing,Need retry logic and DLQ,Processing messages in batches
+
+```yaml
+# template.yaml
+Resources:
+  ProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/processor.handler
+      Events:
+        SQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt ProcessingQueue.Arn
+            BatchSize: 10
+            FunctionResponseTypes:
+              - ReportBatchItemFailures  # Partial batch failure handling
+
+  ProcessingQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 180  # 6x Lambda timeout
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
+        maxReceiveCount: 3
+
+  DeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      MessageRetentionPeriod: 1209600  # 14 days
+```
+
+```javascript
+// src/handlers/processor.js
+exports.handler = async (event) => {
+  const batchItemFailures = [];
+
+  for (const record of event.Records) {
+    try {
+      const body = JSON.parse(record.body);
+      await processMessage(body);
+    } catch (error) {
+      console.error(`Failed to process message ${record.messageId}:`, error);
+      // Report this item as failed (will be retried)
+      batchItemFailures.push({
+        itemIdentifier: record.messageId
+      });
+    }
+  }
+
+  // Return failed items for retry
+  return { batchItemFailures };
+};
+
+async function processMessage(message) {
+  // Your processing logic
+  console.log('Processing:', message);
+
+  // Simulate work
+  await saveToDatabase(message);
+}
+```
+
+```python
+# Python version
+import json
+import logging
+
+logger = logging.getLogger()
+
+def handler(event, context):
+    batch_item_failures = []
+
+    for record in event['Records']:
+        try:
+            body = json.loads(record['body'])
+            process_message(body)
+        except Exception as e:
+            logger.error(f"Failed to process {record['messageId']}: {e}")
+            batch_item_failures.append({
+                'itemIdentifier': record['messageId']
+            })
+
+    return {'batchItemFailures': batch_item_failures}
+```
+
+### Best_practices
+
+- Set VisibilityTimeout to 6x Lambda timeout
+- Use ReportBatchItemFailures for partial batch failure
+- Always configure a DLQ for poison messages
+- Process messages idempotently
+
+### DynamoDB Streams Pattern
+
+React to DynamoDB table changes with Lambda
+
+**When to use**: Real-time reactions to data changes,Cross-region replication,Audit logging, notifications
+
+```yaml
+# template.yaml
+Resources:
+  ItemsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: items
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+  StreamProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/stream.handler
+      Events:
+        Stream:
+          Type: DynamoDB
+          Properties:
+            Stream: !GetAtt ItemsTable.StreamArn
+            StartingPosition: TRIM_HORIZON
+            BatchSize: 100
+            MaximumRetryAttempts: 3
+            DestinationConfig:
+              OnFailure:
+                Destination: !GetAtt StreamDLQ.Arn
+
+  StreamDLQ:
+    Type: AWS::SQS::Queue
+```
+
+```javascript
+// src/handlers/stream.js
+exports.handler = async (event) => {
+  for (const record of event.Records) {
+    const eventName = record.eventName;  // INSERT, MODIFY, REMOVE
+
+    // Unmarshall DynamoDB format to plain JS objects
+    const newImage = record.dynamodb.NewImage
+      ? unmarshall(record.dynamodb.NewImage)
+      : null;
+    const oldImage = record.dynamodb.OldImage
+      ? unmarshall(record.dynamodb.OldImage)
+      : null;
+
+    console.log(`${eventName}: `, { newImage, oldImage });
+
+    switch (eventName) {
+      case 'INSERT':
+        await handleInsert(newImage);
+        break;
+      case 'MODIFY':
+        await handleModify(oldImage, newImage);
+        break;
+      case 'REMOVE':
+        await handleRemove(oldImage);
+        break;
+    }
+  }
+};
+
+// Use AWS SDK v3 unmarshall
+const { unmarshall } = require('@aws-sdk/util-dynamodb');
+```
+
+### Stream_view_types
+
+- KEYS_ONLY: Only key attributes
+- NEW_IMAGE: After modification
+- OLD_IMAGE: Before modification
+- NEW_AND_OLD_IMAGES: Both before and after
+
+### Cold Start Optimization Pattern
+
+Minimize Lambda cold start latency
+
+**When to use**: Latency-sensitive applications,User-facing APIs,High-traffic functions
+
+## 1. Optimize Package Size
+
+```javascript
+// Use modular AWS SDK v3 imports
+// GOOD - only imports what you need
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
+
+// BAD - imports entire SDK
+const AWS = require('aws-sdk');  // Don't do this!
+```
+
+## 2. Use SnapStart (Java/.NET)
+
+```yaml
+# template.yaml
+Resources:
+  JavaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.example.Handler::handleRequest
+      Runtime: java21
+      SnapStart:
+        ApplyOn: PublishedVersions  # Enable SnapStart
+      AutoPublishAlias: live
+```
+
+## 3. Right-size Memory
+
+```yaml
+# More memory = more CPU = faster init
+Resources:
+  FastFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      MemorySize: 1024  # 1GB gets full vCPU
+      Timeout: 30
+```
+
+## 4. Provisioned Concurrency (when needed)
+
+```yaml
+Resources:
+  CriticalFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/critical.handler
+      AutoPublishAlias: live
+
+  ProvisionedConcurrency:
+    Type: AWS::Lambda::ProvisionedConcurrencyConfig
+    Properties:
+      FunctionName: !Ref CriticalFunction
+      Qualifier: live
+      ProvisionedConcurrentExecutions: 5
+```
+
+## 5. Keep Init Light
+
+```python
+# GOOD - Lazy initialization
+_table = None
+
+def get_table():
+    global _table
+    if _table is None:
+        dynamodb = boto3.resource('dynamodb')
+        _table = dynamodb.Table(os.environ['TABLE_NAME'])
+    return _table
+
+def handler(event, context):
+    table = get_table()  # Only initializes on first use
+    # ...
+```
+
+### Optimization_priority
+
+- 1: Reduce package size (biggest impact)
+- 2: Use SnapStart for Java/.NET
+- 3: Increase memory for faster init
+- 4: Delay heavy imports
+- 5: Provisioned concurrency (last resort)
+
+### SAM Local Development Pattern
+
+Local testing and debugging with SAM CLI
+
+**When to use**: Local development and testing,Debugging Lambda functions,Testing API Gateway locally
+
+```bash
+# Install SAM CLI
+pip install aws-sam-cli
+
+# Initialize new project
+sam init --runtime nodejs20.x --name my-api
+
+# Build the project
+sam build
+
+# Run locally
+sam local start-api
+
+# Invoke single function
+sam local invoke GetItemFunction --event events/get.json
+
+# Local debugging (Node.js with VS Code)
+sam local invoke --debug-port 5858 GetItemFunction
+
+# Deploy
+sam deploy --guided
+```
+
+```json
+// events/get.json (test event)
+{
+  "pathParameters": {
+    "id": "123"
+  },
+  "httpMethod": "GET",
+  "path": "/items/123"
+}
+```
+
+```json
+// .vscode/launch.json (for debugging)
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to SAM CLI",
+      "type": "node",
+      "request": "attach",
+      "address": "localhost",
+      "port": 5858,
+      "localRoot": "${workspaceRoot}/src",
+      "remoteRoot": "/var/task/src",
+      "protocol": "inspector"
+    }
+  ]
+}
+```
+
+### Commands
+
+- Sam_build: Build Lambda deployment packages
+- Sam_local_start_api: Start local API Gateway
+- Sam_local_invoke: Invoke single function
+- Sam_deploy: Deploy to AWS
+- Sam_logs: Tail CloudWatch logs
+
+### CDK Serverless Pattern
+
+Infrastructure as code with AWS CDK
+
+**When to use**: Complex infrastructure beyond Lambda,Prefer programming languages over YAML,Need reusable constructs
+
+```typescript
+// lib/api-stack.ts
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Construct } from 'constructs';
+
+export class ApiStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // DynamoDB Table
+    const table = new dynamodb.Table(this, 'ItemsTable', {
+      partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.DESTROY, // For dev only
+    });
+
+    // Lambda Function
+    const getItemFn = new lambda.Function(this, 'GetItemFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'get.handler',
+      code: lambda.Code.fromAsset('src/handlers'),
+      environment: {
+        TABLE_NAME: table.tableName,
+      },
+      memorySize: 256,
+      timeout: cdk.Duration.seconds(30),
+    });
+
+    // Grant permissions
+    table.grantReadData(getItemFn);
+
+    // API Gateway
+    const api = new apigateway.RestApi(this, 'ItemsApi', {
+      restApiName: 'Items Service',
+      defaultCorsPreflightOptions: {
+        allowOrigins: apigateway.Cors.ALL_ORIGINS,
+        allowMethods: apigateway.Cors.ALL_METHODS,
+      },
+    });
+
+    const items = api.root.addResource('items');
+    const item = items.addResource('{id}');
+
+    item.addMethod('GET', new apigateway.LambdaIntegration(getItemFn));
+
+    // Output API URL
+    new cdk.CfnOutput(this, 'ApiUrl', {
+      value: api.url,
+    });
+  }
+}
+```
+
+```bash
+# CDK commands
+npm install -g aws-cdk
+cdk init app --language typescript
+cdk synth    # Generate CloudFormation
+cdk diff     # Show changes
+cdk deploy   # Deploy to AWS
+```
+
+## Sharp Edges
+
+### Cold Start INIT Phase Now Billed (Aug 2025)
+
+Severity: HIGH
+
+Situation: Running Lambda functions in production
+
+Symptoms:
+Unexplained increase in Lambda costs (10-50% higher).
+Bill includes charges for function initialization.
+Functions with heavy startup logic cost more than expected.
+
+Why this breaks:
+As of August 1, 2025, AWS bills the INIT phase the same way it bills
+invocation duration. Previously, cold start initialization wasn't billed
+for the full duration.
+
+This affects functions with:
+- Heavy dependency loading (large packages)
+- Slow initialization code
+- Frequent cold starts (low traffic or poor concurrency)
+
+Cold starts now directly impact your bill, not just latency.
+
+Recommended fix:
+
+## Measure your INIT phase
+
+```bash
+# Check CloudWatch Logs for INIT_REPORT
+# Look for Init Duration in milliseconds
+
+# Example log line:
+# INIT_REPORT Init Duration: 423.45 ms
+```
+
+## Reduce INIT duration
+
+```javascript
+// 1. Minimize package size
+// Use tree shaking, exclude dev dependencies
+// npm prune --production
+
+// 2. Lazy load heavy dependencies
+let heavyLib = null;
+function getHeavyLib() {
+  if (!heavyLib) {
+    heavyLib = require('heavy-library');
+  }
+  return heavyLib;
+}
+
+// 3. Use AWS SDK v3 modular imports
+const { S3Client } = require('@aws-sdk/client-s3');
+// NOT: const AWS = require('aws-sdk');
+```
+
+## Use SnapStart for Java/.NET
+
+```yaml
+Resources:
+  JavaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: java21
+      SnapStart:
+        ApplyOn: PublishedVersions
+```
+
+## Monitor cold start frequency
+
+```javascript
+// Track cold starts with custom metric
+let isColdStart = true;
+
+exports.handler = async (event) => {
+  if (isColdStart) {
+    console.log('COLD_START');
+    // CloudWatch custom metric here
+    isColdStart = false;
+  }
+  // ...
+};
+```
+
+### Lambda Timeout Misconfiguration
+
+Severity: HIGH
+
+Situation: Running Lambda functions, especially with external calls
+
+Symptoms:
+Function times out unexpectedly.
+"Task timed out after X seconds" in logs.
+Partial processing with no response.
+Silent failures with no error caught.
+
+Why this breaks:
+Default Lambda timeout is only 3 seconds. Maximum is 15 minutes.
+
+Common timeout causes:
+- Default timeout too short for workload
+- Downstream service taking longer than expected
+- Network issues in VPC
+- Infinite loops or blocking operations
+- S3 downloads larger than expected
+
+Lambda terminates at timeout without graceful shutdown.
+
+Recommended fix:
+
+## Set appropriate timeout
+
+```yaml
+# template.yaml
+Resources:
+  MyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 30  # Seconds (max 900)
+      # Set to expected duration + buffer
+```
+
+## Implement timeout awareness
+
+```javascript
+exports.handler = async (event, context) => {
+  // Get remaining time
+  const remainingTime = context.getRemainingTimeInMillis();
+
+  // If running low on time, fail gracefully
+  if (remainingTime < 5000) {
+    console.warn('Running low on time, aborting');
+    throw new Error('Insufficient time remaining');
+  }
+
+  // For long operations, check periodically
+  for (const item of items) {
+    if (context.getRemainingTimeInMillis() < 10000) {
+      // Save progress and exit gracefully
+      await saveProgress(processedItems);
+      throw new Error('Timeout approaching, saved progress');
+    }
+    await processItem(item);
+  }
+};
+```
+
+## Set downstream timeouts
+
+```javascript
+const axios = require('axios');
+
+// Always set timeouts on HTTP calls
+const response = await axios.get('https://api.example.com/data', {
+  timeout: 5000  // 5 seconds
+});
+```
+
+### Out of Memory (OOM) Crash
+
+Severity: HIGH
+
+Situation: Lambda function processing data
+
+Symptoms:
+Function stops abruptly without error.
+CloudWatch logs appear truncated.
+"Max Memory Used" hits configured limit.
+Inconsistent behavior under load.
+
+Why this breaks:
+When Lambda exceeds memory allocation, AWS forcibly terminates
+the runtime. This happens without raising a catchable exception.
+
+Common causes:
+- Processing large files in memory
+- Memory leaks across invocations
+- Buffering entire response bodies
+- Heavy libraries consuming too much memory
+
+Recommended fix:
+
+## Increase memory allocation
+
+```yaml
+Resources:
+  MyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      MemorySize: 1024  # MB (128-10240)
+      # More memory = more CPU too
+```
+
+## Stream large data
+
+```javascript
+// BAD - loads entire file into memory
+const data = await s3.getObject(params).promise();
+const content = data.Body.toString();
+
+// GOOD - stream processing
+const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
+const s3 = new S3Client({});
+
+const response = await s3.send(new GetObjectCommand(params));
+const stream = response.Body;
+
+// Process stream in chunks
+for await (const chunk of stream) {
+  await processChunk(chunk);
+}
+```
+
+## Monitor memory usage
+
+```javascript
+exports.handler = async (event, context) => {
+  const used = process.memoryUsage();
+  console.log('Memory:', {
+    heapUsed: Math.round(used.heapUsed / 1024 / 1024) + 'MB',
+    heapTotal: Math.round(used.heapTotal / 1024 / 1024) + 'MB'
+  });
+  // ...
+};
+```
+
+## Use Lambda Power Tuning
+
+```bash
+# Find optimal memory setting
+# https://github.com/alexcasalboni/aws-lambda-power-tuning
+```
+
+### VPC-Attached Lambda Cold Start Delay
+
+Severity: MEDIUM
+
+Situation: Lambda functions in VPC accessing private resources
+
+Symptoms:
+Extremely slow cold starts (was 10+ seconds, now ~100ms).
+Timeouts on first invocation after idle period.
+Functions work in VPC but slow compared to non-VPC.
+
+Why this breaks:
+Lambda functions in VPC need Elastic Network Interfaces (ENIs).
+AWS improved this significantly with Hyperplane ENIs, but:
+
+- First cold start in VPC still has overhead
+- NAT Gateway issues can cause timeouts
+- Security group misconfig blocks traffic
+- DNS resolution can be slow
+
+Recommended fix:
+
+## Verify VPC configuration
+
+```yaml
+Resources:
+  MyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      VpcConfig:
+        SecurityGroupIds:
+          - !Ref LambdaSecurityGroup
+        SubnetIds:
+          - !Ref PrivateSubnet1
+          - !Ref PrivateSubnet2  # Multiple AZs
+
+  LambdaSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Lambda SG
+      VpcId: !Ref VPC
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0  # Allow HTTPS outbound
+```
+
+## Use VPC endpoints for AWS services
+
+```yaml
+# Avoid NAT Gateway for AWS service calls
+DynamoDBEndpoint:
+  Type: AWS::EC2::VPCEndpoint
+  Properties:
+    ServiceName: !Sub com.amazonaws.${AWS::Region}.dynamodb
+    VpcId: !Ref VPC
+    RouteTableIds:
+      - !Ref PrivateRouteTable
+    VpcEndpointType: Gateway
+
+S3Endpoint:
+  Type: AWS::EC2::VPCEndpoint
+  Properties:
+    ServiceName: !Sub com.amazonaws.${AWS::Region}.s3
+    VpcId: !Ref VPC
+    VpcEndpointType: Gateway
+```
+
+## Only use VPC when necessary
+
+Don't attach Lambda to VPC unless you need:
+- Access to RDS/ElastiCache in VPC
+- Access to private EC2 instances
+- Compliance requirements
+
+Most AWS services can be accessed without VPC.
+
+### Node.js Event Loop Not Cleared
+
+Severity: MEDIUM
+
+Situation: Node.js Lambda function with callbacks or timers
+
+Symptoms:
+Function takes full timeout duration to return.
+"Task timed out" even though logic completed.
+Extra billing for idle time.
+
+Why this breaks:
+By default, Lambda waits for the Node.js event loop to be empty
+before returning. If you have:
+- Unresolved setTimeout/setInterval
+- Dangling database connections
+- Pending callbacks
+
+Lambda waits until timeout, even if your response was ready.
+
+Recommended fix:
+
+## Tell Lambda not to wait for event loop
+
+```javascript
+exports.handler = async (event, context) => {
+  // Don't wait for event loop to clear
+  context.callbackWaitsForEmptyEventLoop = false;
+
+  // Your code here
+  const result = await processRequest(event);
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify(result)
+  };
+};
+```
+
+## Close connections properly
+
+```javascript
+// For database connections, use connection pooling
+// or close connections explicitly
+
+const mysql = require('mysql2/promise');
+
+exports.handler = async (event, context) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+
+  const connection = await mysql.createConnection({...});
+  try {
+    const [rows] = await connection.query('SELECT * FROM users');
+    return { statusCode: 200, body: JSON.stringify(rows) };
+  } finally {
+    await connection.end();  // Always close
+  }
+};
+```
+
+### API Gateway Payload Size Limits
+
+Severity: MEDIUM
+
+Situation: Returning large responses or receiving large requests
+
+Symptoms:
+"413 Request Entity Too Large" error
+"Execution failed due to configuration error: Malformed Lambda proxy response"
+Response truncated or failed
+
+Why this breaks:
+API Gateway has hard payload limits:
+- REST API: 10 MB request/response
+- HTTP API: 10 MB request/response
+- Lambda itself: 6 MB sync response, 256 KB async
+
+Exceeding these causes failures that may not be obvious.
+
+Recommended fix:
+
+## For large file uploads
+
+```javascript
+// Use presigned S3 URLs instead of passing through API Gateway
+
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+
+exports.handler = async (event) => {
+  const s3 = new S3Client({});
+
+  const command = new PutObjectCommand({
+    Bucket: process.env.BUCKET_NAME,
+    Key: `uploads/${Date.now()}.file`
+  });
+
+  const uploadUrl = await getSignedUrl(s3, command, { expiresIn: 300 });
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ uploadUrl })
+  };
+};
+```
+
+## For large responses
+
+```javascript
+// Store in S3, return presigned download URL
+exports.handler = async (event) => {
+  const largeData = await generateLargeReport();
+
+  await s3.send(new PutObjectCommand({
+    Bucket: process.env.BUCKET_NAME,
+    Key: `reports/${reportId}.json`,
+    Body: JSON.stringify(largeData)
+  }));
+
+  const downloadUrl = await getSignedUrl(s3,
+    new GetObjectCommand({
+      Bucket: process.env.BUCKET_NAME,
+      Key: `reports/${reportId}.json`
+    }),
+    { expiresIn: 3600 }
+  );
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ downloadUrl })
+  };
+};
+```
+
+### Infinite Loop or Recursive Invocation
+
+Severity: HIGH
+
+Situation: Lambda triggered by events
+
+Symptoms:
+Runaway costs.
+Thousands of invocations in minutes.
+CloudWatch logs show repeated invocations.
+Lambda writing to source bucket/table that triggers it.
+
+Why this breaks:
+Lambda can accidentally trigger itself:
+- S3 trigger writes back to same bucket
+- DynamoDB trigger updates same table
+- SNS publishes to topic that triggers it
+- Step Functions with wrong error handling
+
+Recommended fix:
+
+## Use different buckets/prefixes
+
+```yaml
+# S3 trigger with prefix filter
+Events:
+  S3Event:
+    Type: S3
+    Properties:
+      Bucket: !Ref InputBucket
+      Events: s3:ObjectCreated:*
+      Filter:
+        S3Key:
+          Rules:
+            - Name: prefix
+              Value: uploads/  # Only trigger on uploads/
+
+# Output to different bucket or prefix
+# OutputBucket or processed/ prefix
+```
+
+## Add idempotency checks
+
+```javascript
+exports.handler = async (event) => {
+  for (const record of event.Records) {
+    const key = record.s3.object.key;
+
+    // Skip if this is a processed file
+    if (key.startsWith('processed/')) {
+      console.log('Skipping already processed file:', key);
+      continue;
+    }
+
+    // Process and write to different location
+    await processFile(key);
+    await writeToS3(`processed/${key}`, result);
+  }
+};
+```
+
+## Set reserved concurrency as circuit breaker
+
+```yaml
+Resources:
+  RiskyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      ReservedConcurrentExecutions: 10  # Max 10 parallel
+      # Limits blast radius of runaway invocations
+```
+
+## Monitor with CloudWatch alarms
+
+```yaml
+InvocationAlarm:
+  Type: AWS::CloudWatch::Alarm
+  Properties:
+    MetricName: Invocations
+    Namespace: AWS/Lambda
+    Statistic: Sum
+    Period: 60
+    EvaluationPeriods: 1
+    Threshold: 1000  # Alert if >1000 invocations/min
+    ComparisonOperator: GreaterThanThreshold
+```
+
+## Validation Checks
+
+### Hardcoded AWS Credentials
+
+Severity: ERROR
+
+AWS credentials must never be hardcoded
+
+Message: Hardcoded AWS access key detected. Use IAM roles or environment variables.
+
+### AWS Secret Key in Source Code
+
+Severity: ERROR
+
+Secret keys should use Secrets Manager or environment variables
+
+Message: Hardcoded AWS secret key. Use IAM roles or Secrets Manager.
+
+### Overly Permissive IAM Policy
+
+Severity: WARNING
+
+Avoid wildcard permissions in Lambda IAM roles
+
+Message: Overly permissive IAM policy. Use least privilege principle.
+
+### Lambda Handler Without Error Handling
+
+Severity: WARNING
+
+Lambda handlers should have try/catch for graceful errors
+
+Message: Lambda handler without error handling. Add try/catch.
+
+### Missing callbackWaitsForEmptyEventLoop
+
+Severity: INFO
+
+Node.js handlers should set callbackWaitsForEmptyEventLoop
+
+Message: Consider setting context.callbackWaitsForEmptyEventLoop = false
+
+### Default Memory Configuration
+
+Severity: INFO
+
+Default 128MB may be too low for many workloads
+
+Message: Using default 128MB memory. Consider increasing for better performance.
+
+### Low Timeout Configuration
+
+Severity: WARNING
+
+Very low timeout may cause unexpected failures
+
+Message: Timeout of 1-3 seconds may be too low. Increase if making external calls.
+
+### No Dead Letter Queue Configuration
+
+Severity: WARNING
+
+Async functions should have DLQ for failed invocations
+
+Message: No DLQ configured. Add for async invocations.
+
+### Importing Full AWS SDK v2
+
+Severity: WARNING
+
+Import specific clients from AWS SDK v3 for smaller packages
+
+Message: Importing full AWS SDK. Use modular SDK v3 imports for smaller packages.
+
+### Hardcoded DynamoDB Table Name
+
+Severity: WARNING
+
+Table names should come from environment variables
+
+Message: Hardcoded table name. Use environment variable for portability.
+
+## Collaboration
+
+### Delegation Triggers
+
+- user needs GCP serverless -> gcp-cloud-run (Cloud Run for containers, Cloud Functions for events)
+- user needs Azure serverless -> azure-functions (Azure Functions, Logic Apps)
+- user needs database design -> postgres-wizard (RDS design, or use DynamoDB patterns)
+- user needs authentication -> auth-specialist (Cognito, API Gateway authorizers)
+- user needs complex workflows -> workflow-automation (Step Functions, EventBridge)
+- user needs AI integration -> llm-architect (Lambda calling Bedrock or external LLMs)
+
+## When to Use
+Use this skill when the request clearly matches the capabilities and patterns described above.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: strategy-backtest-expert
-title: 交易策略系统化回测指导
-description: 当要系统化压力测试/验证交易策略稳健性、判断一个回测能否上实盘、排查"看着太好"的可疑结果时使用；做"往死里测"方法论编排（假设零裁量化、参数平台而非尖峰、滑点摩擦加码、样本外步进、红旗清单）并用评分脚本产出 Deploy/Refine/Abandon 裁决；不适用于搭建回测引擎代码、采集行情数据、实盘下单或主观裁量交易；触发词：回测验证、压力测试、稳健性、过拟合、曲线拟合、前视偏差、幸存者偏差、滑点、样本外、走向前、参数敏感、回测评分。
+title: Backtest Expert
+description: Expert guidance for systematic backtesting of trading strategies. Use when developing, testing, stress-testing, or validating quantitative trading strategies. Covers "beating ideas to death" methodology, parameter robustness testing, slippage modeling, bias prevention, and interpreting backtest results. Applicable when user asks about backtesting, strategy validation, robustness testing, avoiding overfitting, or systematic trading development.
 domain: 领域/fintech
-triggers: [回测验证, 压力测试, 稳健性, robustness, 过拟合, 曲线拟合, curve-fitting, 前视偏差, look-ahead, 幸存者偏差, survivorship, 滑点, slippage, 样本外, out-of-sample, 走向前, walk-forward, 参数敏感, 回测评分, Deploy/Refine/Abandon, 太好了不真实]
+triggers: [robustness, curve-fitting, look-ahead, survivorship, slippage, out-of-sample, walk-forward, Deploy/Refine/Abandon]
 tags: [fintech, backtesting, robustness, validation, quant, methodology, risk]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python]
+tools: []
 requires: []
 related: [trading-strategy-backtester, backtesting-frameworks, portfolio-risk-metrics]
 combines_with: [trading-strategy-backtester, backtesting-frameworks, alpha-vantage-market-data]
@@ -16,61 +16,118 @@ license: MIT
 source: tradermonty/claude-trading-skills
 source_license: MIT
 ---
+# Backtest Expert
 
-# 交易策略系统化回测指导
+Systematic approach to backtesting trading strategies based on professional methodology that prioritizes robustness over optimistic results.
 
-把回测当作"证伪"而非"证明"的纪律编排。核心目标：找**最难被打破**的策略，而不是纸面上**收益最高**的策略。原则：到处加摩擦、压测假设，看谁还活着——在悲观条件下站得住的策略，更可能在实盘有效。
+## Core Philosophy
 
-## 何时使用
+**Goal**: Find strategies that "break the least", not strategies that "profit the most" on paper.
 
-适用：
-- 已有一个交易策略想法或一份回测结果，要系统化压测其稳健性、决定能否上实盘。
-- 排查"为什么这份回测可能在骗我"（参数敏感、前视/幸存者偏差、样本太小、滑点不够）。
-- 要一个量化、可复现的验收裁决（Deploy / Refine / Abandon），而非凭感觉拍板。
-- 学习并执行专业级回测方法论与红旗清单。
+**Principle**: Add friction, stress test assumptions, and see what survives. If a strategy holds up under pessimistic conditions, it's more likely to work in live trading.
 
-不该用（负边界）：
-- **搭建回测引擎/编写回测代码**（向量化/事件驱动引擎、walk-forward 实现、撮合记账）→ 用 `backtesting-frameworks` / `trading-strategy-backtester`，本技能只做**方法论与验收评分**，指标由用户提供。
-- 采集/清洗行情数据、实盘下单、券商 API 对接。
-- **主观裁量型**交易（依赖"盘感"、新闻、宏观语境）：本技能假设规则全部预先编码、零裁量，裁量策略可能不适用。
+## When to Use This Skill
 
-## 步骤 / 指令
+Use this skill when:
+- Developing or validating systematic trading strategies
+- Evaluating whether a trading idea is robust enough for live implementation
+- Troubleshooting why a backtest might be misleading
+- Learning proper backtesting methodology
+- Avoiding common pitfalls (curve-fitting, look-ahead bias, survivorship bias)
+- Assessing parameter sensitivity and regime dependence
+- Setting realistic expectations for slippage and execution costs
 
-时间分配铁律：**20% 生成想法，80% 试图打破它**。
+## Prerequisites
 
-```
-1. 陈述假设(Hypothesis)
-   - 一句话讲清 edge。讲不清就别往下测。
-   - 例:"财报后跳空 >3% 且首小时回踩前日收盘的股票存在均值回归机会"。
-2. 零裁量编码规则
-   - 入场(精确条件/时点/价格类型)、出场(止损/止盈/时间止损)、
-     仓位(固定额/组合%/波动率调整)、过滤(市值/成交量/板块/波动)、标的池(universe)。
-   - 每个决策都必须规则化、无歧义,不许主观判断。
-3. 跑初版回测
-   - 至少 5 年(最好 10+)、跨多种市场环境(牛/熊/高低波动)、含真实成本(手续费+保守滑点)。
-   - 若根本性崩坏,回到第 1 步改假设。
-4. 压力测试(80% 时间花在这里) —— 见下方四类压测
-5. 样本外验证 —— walk-forward,见下方
-6. 评估并下裁决 —— 跑评分脚本,得 Deploy/Refine/Abandon
-```
+- Python 3.9+ (for evaluation script)
+- No API keys required
+- No external data dependencies — metrics are user-provided
 
-第 4 步 · 四类压力测试：
+## Workflow
 
-- **参数敏感**：止损取基线的 50/75/100/125/150%，止盈取 80/90/100/110/120%，入出场时点 ±15-30 分钟。**找稳定的"平台"，不要窄"尖峰"**——例：止损在 1.5%–3.0% 之间都盈利=真 edge；只在 2.13% 才盈利=曲线拟合。
-- **执行摩擦**：滑点放大到典型值的 1.5–2 倍；按最坏成交建模（买在 ask+1 tick、卖在 bid-1 tick）；加入订单拒绝/部分成交；用悲观手续费结构。
-- **时间稳健**：逐年分析，要求多数年份正期望；不能依赖 1–2 个例外区间；分市场环境单独测。
-- **样本量**：绝对下限 30 笔；推荐 100+；高置信 200+。
+### 1. State the Hypothesis
 
-第 5 步 · Walk-forward 样本外：训练段优化（如第 1–3 年）→ 验证段测试（第 4 年）→ 滚动重复 → 比对样本内 vs 样本外。**警告信号**：样本外 < 样本内 50%、需频繁重优化参数、各段参数剧烈漂移。
+Define the edge in one sentence.
 
-第 6 步 · 评估问句 + 裁决标准：edge 在悲观假设下是否存活？参数变动下是否稳定？跨多环境是否有效？样本量是否够？结果是否"好到不真实"？
-- ✅ Deploy：通过全部压测且表现可接受。
-- 🔄 Refine：核心逻辑成立但需调参。
-- ❌ Abandon：未过压测或依赖脆弱假设。
+**Example**: "Stocks that gap up >3% on earnings and pull back to previous day's close within first hour provide mean-reversion opportunity."
 
-## 示例
+If you can't articulate the edge clearly, don't proceed to testing.
 
-运行评分脚本做结构化、量化验收（脚本对 5 维各 20 分共 100 分打分：样本量 / 期望值 / 风险管理 / 稳健性 / 执行真实性；检测红旗；输出裁决）：
+### 2. Codify Rules with Zero Discretion
+
+Define with complete specificity:
+- **Entry**: Exact conditions, timing, price type
+- **Exit**: Stop loss, profit target, time-based exit
+- **Position sizing**: Fixed $$, % of portfolio, volatility-adjusted
+- **Filters**: Market cap, volume, sector, volatility conditions
+- **Universe**: What instruments are eligible
+
+**Critical**: No subjective judgment allowed. Every decision must be rule-based and unambiguous.
+
+### 3. Run Initial Backtest
+
+Test over:
+- **Minimum 5 years** (preferably 10+)
+- **Multiple market regimes** (bull, bear, high/low volatility)
+- **Realistic costs**: Commissions + conservative slippage
+
+Examine initial results for basic viability. If fundamentally broken, iterate on hypothesis.
+
+### 4. Stress Test the Strategy
+
+This is where 80% of testing time should be spent.
+
+**Parameter sensitivity**:
+- Test stop loss at 50%, 75%, 100%, 125%, 150% of baseline
+- Test profit target at 80%, 90%, 100%, 110%, 120% of baseline
+- Vary entry/exit timing by ±15-30 minutes
+- Look for "plateaus" of stable performance, not narrow spikes
+
+**Execution friction**:
+- Increase slippage to 1.5-2x typical estimates
+- Model worst-case fills (buy at ask+1 tick, sell at bid-1 tick)
+- Add realistic order rejection scenarios
+- Test with pessimistic commission structures
+
+**Time robustness**:
+- Analyze year-by-year performance
+- Require positive expectancy in majority of years
+- Ensure strategy doesn't rely on 1-2 exceptional periods
+- Test in different market regimes separately
+
+**Sample size**:
+- Absolute minimum: 30 trades
+- Preferred: 100+ trades
+- High confidence: 200+ trades
+
+### 5. Out-of-Sample Validation
+
+**Walk-forward analysis**:
+1. Optimize on training period (e.g., Year 1-3)
+2. Test on validation period (Year 4)
+3. Roll forward and repeat
+4. Compare in-sample vs out-of-sample performance
+
+**Warning signs**:
+- Out-of-sample <50% of in-sample performance
+- Need frequent parameter re-optimization
+- Parameters change dramatically between periods
+
+### 6. Evaluate Results
+
+**Questions to answer**:
+- Does edge survive pessimistic assumptions?
+- Is performance stable across parameter variations?
+- Does strategy work in multiple market regimes?
+- Is sample size sufficient for statistical confidence?
+- Are results realistic, not "too good to be true"?
+
+**Decision criteria**:
+- ✅ **Deploy**: Survives all stress tests with acceptable performance
+- 🔄 **Refine**: Core logic sound but needs parameter adjustment
+- ❌ **Abandon**: Fails stress tests or relies on fragile assumptions
+
+Use the evaluation script for a structured, quantitative assessment:
 
 ```bash
 python3 skills/backtest-expert/scripts/evaluate_backtest.py \
@@ -85,45 +142,106 @@ python3 skills/backtest-expert/scripts/evaluate_backtest.py \
   --output-dir reports/
 ```
 
-裁决阈值与产物：
-- 评分 ≥70 → Deploy；40–69 → Refine；<40 → Abandon。
-- `reports/backtest_eval_<timestamp>.json`：含各维度分、红旗、裁决、profit factor、expectancy。
-- `reports/backtest_eval_<timestamp>.md`：人读报告（维度表 + 关键指标 + 红旗明细）。
+The script scores across 5 dimensions (Sample Size, Expectancy, Risk Management, Robustness, Execution Realism), detects red flags, and outputs a Deploy/Refine/Abandon verdict.
 
-关键计算口径（与脚本一致）：
+## Key Testing Principles
 
-```
-expectancy   = 胜率 * 平均盈利% - 败率 * 平均亏损%   # ≤0 直接判负期望
-profit_factor = (胜率 * 平均盈利%) / (败率 * 平均亏损%)
-```
+### Punish the Strategy
 
-红旗清单（命中 >2–3 条则不可上实盘，需补测）：
-- 数据质量：是否处理幸存者偏差？是否纳入退市标的？数据对齐有无前视？分红/拆股是否正确处理？
-- 样本量：≥100 笔（最好 200+）？≥5 年（最好 10+）？含完整市场周期？
-- 参数稳健：邻近参数值仍有效？存在稳定平台？参数 <5 个且有逻辑依据（非纯优化）？
-- 执行真实：含真实手续费？滑点按 1.5–2x 保守建模？考虑最坏成交与订单拒绝/部分成交？
-- 表现特征：多数年份正期望？各主要环境可接受？无 >50% 灾难性回撤？edge 大到能扛摩擦？
-- 偏差防控：策略先定义后测试？假设有经济逻辑？结果非"好到不真实"？做了样本外？无挑样本？
+Add friction everywhere:
+- Commissions higher than reality
+- Slippage 1.5-2x typical
+- Worst-case fills
+- Order rejections
+- Partial fills
 
-## 注意事项
+**Rationale**: Strategies that survive pessimistic assumptions often outperform in live trading.
 
-- **罚策略（Punish）**：到处加摩擦——手续费高于现实、滑点 1.5–2x、最坏成交、订单拒绝、部分成交。能在悲观假设下存活的策略往往实盘更稳。
-- **求平台不求尖峰**：稳定参数区间=真 edge；窄优化点=曲线拟合。
-- **测全集不测精选**：测每一个符合条件的标的（含失败的），别只研究事后挑出的"赢家"，否则=幸存者偏差，高估策略质量。
-- **想法生成与验证分离**：直觉用于生假设；验证必须纯数据驱动。绝不让对想法的偏爱影响对结果的解读。
-- **统计显著性**：小 edge 需大样本才能证明——每笔 5% 的 edge 需 100+ 笔才能与运气区分。
-- **太好要警惕**：胜率 >90%、回撤极小、时点完美 → 审查前视偏差或数据问题。脚本对 `win_rate>90 且回撤<5%` 会直接报 `too_good` 红旗。
-- **工具怪癖**：了解你的回测平台的插值方式、低流动性处理、数据对齐问题。
-- **无语境要求**：若策略要"完美语境"才有效，就不够稳健，不适合系统化交易。
-- 本技能不出具投资建议，不承诺未来收益；指标由用户提供，脚本不接外部数据/API。
+### Seek Plateaus, Not Peaks
 
-## 互见
+Look for parameter ranges where performance is stable, not optimal values that create performance spikes.
 
-- related：`trading-strategy-backtester`、`backtesting-frameworks` —— 它们负责**实现**回测引擎与 walk-forward/蒙特卡洛代码；本技能负责对其产出做**方法论压测与验收**。
-- related：`portfolio-risk-metrics` —— 计算夏普/索提诺/最大回撤等指标，喂入本技能的评分维度。
-- combines_with：`trading-strategy-backtester` / `backtesting-frameworks` —— 先用它们跑出指标，再用本技能下 Deploy/Refine/Abandon 裁决。
-- combines_with：`alpha-vantage-market-data` —— 提供 point-in-time 行情作为回测输入。
+**Good**: Strategy profitable with stop loss anywhere from 1.5% to 3.0%
+**Bad**: Strategy only works with stop loss at exactly 2.13%
 
----
+Stable performance indicates genuine edge; narrow optima suggest curve-fitting.
 
-采编自 tradermonty/claude-trading-skills（MIT 许可）：backtest-expert。本条为适配重写，保留其"往死里测"方法论、四类压力测试、参数平台/红旗清单、walk-forward 流程，以及 5 维评分脚本（样本量/期望值/风险管理/稳健性/执行真实性 → Deploy/Refine/Abandon）的命令与阈值。
+### Test All Cases, Not Cherry-Picked Examples
+
+**Wrong approach**: Study hand-picked "market leaders" that worked
+**Right approach**: Test every stock that met criteria, including those that failed
+
+Selective examples create survivorship bias and overestimate strategy quality.
+
+### Separate Idea Generation from Validation
+
+**Intuition**: Useful for generating hypotheses
+**Validation**: Must be purely data-driven
+
+Never let attachment to an idea influence interpretation of test results.
+
+## Common Failure Patterns
+
+Recognize these patterns early to save time:
+
+1. **Parameter sensitivity**: Only works with exact parameter values
+2. **Regime-specific**: Great in some years, terrible in others
+3. **Slippage sensitivity**: Unprofitable when realistic costs added
+4. **Small sample**: Too few trades for statistical confidence
+5. **Look-ahead bias**: "Too good to be true" results
+6. **Over-optimization**: Many parameters, poor out-of-sample results
+
+See `references/failed_tests.md` for detailed examples and diagnostic framework.
+
+## Output
+
+- `reports/backtest_eval_<timestamp>.json` — structured evaluation with per-dimension scores, red flags, and verdict
+- `reports/backtest_eval_<timestamp>.md` — human-readable report with dimension table, key metrics, and red flag details
+
+## Resources
+
+### Methodology Reference
+**File**: `references/methodology.md`
+
+**When to read**: For detailed guidance on specific testing techniques.
+
+**Contents**:
+- Stress testing methods
+- Parameter sensitivity analysis
+- Slippage and friction modeling
+- Sample size requirements
+- Market regime classification
+- Common biases and pitfalls (survivorship, look-ahead, curve-fitting, etc.)
+
+### Failed Tests Reference
+**File**: `references/failed_tests.md`
+
+**When to read**: When strategy fails tests, or learning from past mistakes.
+
+**Contents**:
+- Why failures are valuable
+- Common failure patterns with examples
+- Case study documentation framework
+- Red flags checklist for evaluating backtests
+
+## Critical Reminders
+
+**Time allocation**: Spend 20% generating ideas, 80% trying to break them.
+
+**Context-free requirement**: If strategy requires "perfect context" to work, it's not robust enough for systematic trading.
+
+**Red flag**: If backtest results look too good (>90% win rate, minimal drawdowns, perfect timing), audit carefully for look-ahead bias or data issues.
+
+**Tool limitations**: Understand your backtesting platform's quirks (interpolation methods, handling of low liquidity, data alignment issues).
+
+**Statistical significance**: Small edges require large sample sizes to prove. 5% edge per trade needs 100+ trades to distinguish from luck.
+
+## Discretionary vs Systematic Differences
+
+This skill focuses on **systematic/quantitative** backtesting where:
+- All rules are codified in advance
+- No discretion or "feel" in execution
+- Testing happens on all historical examples, not cherry-picked cases
+- Context (news, macro) is deliberately stripped out
+
+Discretionary traders study differently—this skill may not apply to setups requiring subjective judgment.

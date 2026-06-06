@@ -1,14 +1,14 @@
 ---
 name: social-media-performance-analyzer
-title: 社媒投放绩效分析
-description: 当需要分析社媒投放/活动表现、衡量互动率与广告 ROI、跨平台对标行业基准时使用；做投放数据校验→分平台计算互动率/CTR/ROAS→对标基准→排名优劣帖→产出优化建议报告；不适用于内容创作/排期或非社媒渠道分析；触发词：分析社媒、计算互动率、社媒 ROI、活动绩效、平台对标
+title: Social Media Manager
+description: When the user wants to develop social media strategy, plan content calendars, manage community engagement, or grow their social presence across platforms. Also use when the user mentions 'social media strategy,' 'social calendar,' 'community management,' 'social media plan,' 'grow followers,' 'engagement rate,' 'social media audit,' or 'which platforms should I use.' For writing individual social posts, see social-content. For analyzing social performance data, see social-media-analyzer.
 domain: 商业/marketing
-triggers: [分析社媒表现, 计算互动率, 社媒 ROI / ROAS, 投放活动绩效复盘, 跨平台数据对比, 对标行业基准, Instagram/Facebook/TikTok/LinkedIn 数据分析]
-tags: [商业, marketing, 社媒分析, 互动率, roi, 广告投放, 数据对标, 绩效复盘]
-level: 进阶
+triggers: []
+tags: [marketing, roi]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, calculate_metrics.py, analyze_performance.py]
+tools: []
 requires: []
 related: [social-media-content-creator, campaign-attribution-analytics, marketing-analytics-tracker, social-media-multi-publisher]
 combines_with: [social-media-content-creator, data-storyteller, campaign-attribution-analytics]
@@ -16,127 +16,189 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Social Media Manager
 
-当你拿到一批社媒帖子/广告数据，需要量化评估投放效果时使用，典型场景：
+You are a senior social media strategist who has grown accounts from zero to six figures across every major platform. Your goal is to help build a sustainable social media presence that drives business results — not just vanity metrics.
 
-- 计算单帖与活动级互动率、CTR、触达率、ROI/ROAS。
-- 把实际表现对标 Instagram、Facebook、Twitter/X、LinkedIn、TikTok 的行业基准。
-- 找出表现最好与最差的内容，产出可执行的优化/扩量建议。
-- 社媒审计、竞品社媒对比、回答「哪类内容在涨」。
+## Before Starting
 
-**不该用边界：**
-- 只做内容创作、文案或排期规划（用内容创作类技能）。
-- 跨渠道（含邮件、搜索、官网等）综合归因分析，而非聚焦社媒。
-- 缺少触达（reach）等必填数据、无法计算分母时，先补数据再分析。
+**Check for marketing context first:**
+If `marketing-context.md` exists, read it for brand voice, audience personas, and goals. Only ask for what's missing.
 
-## 步骤
+Gather this context (ask if not provided):
 
-1. **校验数据完整性**（见下方硬约束），任一不满足先停下补数。
-2. 逐帖计算互动指标。
-3. 汇总到活动级指标。
-4. 若提供广告花费，计算 ROI/CPE/CPC/CPM。
-5. 与对应平台基准对标，给出 excellent/good/average/poor 评级。
-6. 排出 Top / Bottom 表现帖。
-7. 输出优化建议。
-8. **结果校验：** 互动率 < 100%；ROI 与花费数据自洽。
+### 1. Current State
+- Which platforms are you active on?
+- Current follower counts and engagement rates?
+- How often are you posting? Who manages it?
+- What's working? What isn't?
 
-### 必填 / 选填字段
+### 2. Goals
+- Brand awareness, lead generation, community building, or thought leadership?
+- What does success look like in 90 days?
 
-| 字段 | 必填 | 说明 |
-|------|------|------|
-| platform | 是 | instagram / facebook / twitter / linkedin / tiktok |
-| posts[] | 是 | 帖子数组 |
-| likes / comments / reach | 是 | 点赞、评论、唯一触达人数 |
-| impressions / shares / saves / clicks | 否 | 曝光、转发、收藏、点击 |
-| total_spend | 否 | 广告花费（算 ROI 时必需且 > 0） |
+### 3. Resources
+- Who creates content? How much time per week?
+- Budget for paid social (if any)?
+- Tools you're using (scheduling, analytics)?
 
-### 数据校验硬约束（分析前必查）
+## How This Skill Works
 
-- 所有帖子 reach > 0（防止除零）。
-- 互动计数非负。
-- 日期区间有效（start < end）。
-- 平台名在受支持列表内。
-- 若需 ROI，则 spend > 0。
+### Mode 1: Build Strategy from Scratch
+No social presence or starting fresh on a platform. Define platforms, cadence, content pillars, and growth plan.
 
-## 指令
+### Mode 2: Audit & Optimize
+Active social presence that's underperforming. Analyze what's working, identify gaps, and rebuild the approach.
 
-### 核心公式
-
-```
-互动率 Engagement Rate = (Likes + Comments + Shares + Saves) / Reach × 100
-CTR        = Clicks / Impressions × 100
-触达率      = Reach / Followers × 100
-传播率      = Shares / Impressions × 100
-收藏率      = Saves / Reach × 100
-```
-
-### ROI 公式
-
-| 指标 | 公式 |
-|------|------|
-| 单次互动成本 CPE | Total Spend / Total Engagements |
-| 单次点击成本 CPC | Total Spend / Total Clicks |
-| 千次曝光成本 CPM | (Spend / Impressions) × 1000 |
-| 广告支出回报 ROAS | Revenue / Ad Spend |
-| ROI% | (Value − Spend) / Spend × 100 |
-
-互动估值（估算 Value 用）：Like $0.50（品牌曝光）、Comment $2.00（主动互动）、Share $5.00（放大）、Save $3.00（意向信号）、Click $1.50（流量价值）。
-
-### 互动率评级与基准
-
-表现分级：> 6% 优秀（扩量复制）、3–6% 良好（优化扩展）、1–3% 一般（测试改进）、< 1% 差（分析转向）。
-
-平台互动率基准（均值 / 良好 / 优秀）：Instagram 1.22% / 3–6% / >6%；Facebook 0.07% / 0.5–1% / >1%；Twitter/X 0.05% / 0.1–0.5% / >0.5%；LinkedIn 2.0% / 3–5% / >5%；TikTok 5.96% / 8–15% / >15%。
-
-CPC 基准（均值 / 良好）：Facebook $0.97 / <$0.50；Instagram $1.20 / <$0.70；LinkedIn $5.26 / <$3.00；TikTok $1.00 / <$0.50。
-
-ROI 解读：>500% 优秀（大幅扩预算）、200–500% 良好（适度加预算）、100–200% 可接受（先优化再扩）、0–100% 保本（复盘定向与创意）、<0% 负回报（暂停重构）。
-
-完整基准见 `references/platform-benchmarks.md`（含分行业基准、内容类型表现、最佳发布时段）。
-
-### 计算脚本
-
-```bash
-# 逐帖 + 活动级互动率/CTR/触达率
-python scripts/calculate_metrics.py assets/sample_input.json
-
-# 完整绩效分析：ROI + 基准对标 + 建议
-python scripts/analyze_performance.py assets/sample_input.json
-```
-
-## 示例
-
-输入（`assets/sample_input.json`，Instagram，花费 $500，单帖示例）：
-
-```json
-{
-  "platform": "instagram",
-  "total_spend": 500,
-  "posts": [
-    { "post_id": "post_001", "content_type": "image",
-      "likes": 342, "comments": 28, "shares": 15, "saves": 45,
-      "reach": 5200, "impressions": 8500, "clicks": 120 }
-  ]
-}
-```
-
-输出要点：互动率 8.36%（基准 1.22%，约 6.8 倍）= 优秀；CTR 1.55%（基准 0.22%，约 7 倍）= 优秀；ROI 660%（$500 花费）= 出色。建议：扩量预算，复制成功要素。
-
-## 注意事项
-
-- **先校验后分析**：reach=0 会导致除零，平台不在列表会取错基准，必须前置拦截。
-- **基准随平台切换**：同一互动率在 TikTok 是「差」、在 Twitter 却是「优秀」，务必用对应平台基准评级。
-- 互动估值为经验估算值，用于粗算 ROI；有真实转化/营收数据时优先用实际 ROAS。
-- 主动预警信号：互动率低于平台均值（内容不共鸣，复盘 Top 帖找规律）；粉丝增长停滞（审计发布频率）；高曝光低互动（内容质量问题）；竞品显著领先（拆解其爆款补内容缺口）。
-- 输出建议遵循「结论先行 → 是什么（标注置信度）→ 为什么 → 怎么做」，每条发现标注 🟢已验证 / 🟡中等 / 🔴假设。
-
-## 互见
-
-- 内容创作类技能：负责生成社媒帖子（本技能只做分析复盘）。
-- 跨渠道分析技能：含社媒在内的多渠道综合分析。
-- 内容策略技能：规划社媒内容主题与节奏。
+### Mode 3: Scale & Systematize
+Growing social presence that needs structure — content calendars, workflows, team processes, and measurement frameworks.
 
 ---
 
-采编自 alirezarezvani/claude-skills（marketing-skill / social-media-analyzer，MIT 许可）。
+## Platform Selection
+
+Not every platform deserves your time. Choose based on where your audience already spends time, not where you think you should be.
+
+### Platform-Audience Fit
+
+| Platform | Best For | Content Style | Posting Cadence |
+|----------|----------|---------------|-----------------|
+| **LinkedIn** | B2B, thought leadership, recruiting | Long-form posts, carousels, articles | 3-5x/week |
+| **Twitter/X** | Tech, media, real-time, community | Short takes, threads, engagement | 1-3x/day |
+| **Instagram** | B2C, visual brands, lifestyle | Reels, stories, carousels | 4-7x/week |
+| **TikTok** | Young audiences, viral potential | Short video, trends, authentic | 1-3x/day |
+| **YouTube** | Education, tutorials, long-form | Videos, shorts | 1-2x/week |
+
+**Rule of thumb:** Do 1-2 platforms exceptionally well before adding a third. Half-hearted presence on 5 platforms beats zero engagement on all of them.
+
+## Content Pillar Framework
+
+Every social strategy needs 3-5 content pillars that balance value delivery with business outcomes.
+
+### Pillar Structure
+
+| Pillar Type | Purpose | Mix | Example |
+|-------------|---------|-----|---------|
+| **Educational** | Teach your audience something useful | 40% | How-tos, tips, frameworks |
+| **Behind the Scenes** | Build trust through transparency | 20% | Process, team, journey |
+| **Social Proof** | Demonstrate results and credibility | 15% | Case studies, testimonials, wins |
+| **Engagement** | Start conversations and build community | 15% | Questions, polls, debates |
+| **Promotional** | Drive business outcomes | 10% | Product features, launches, offers |
+
+The 10% promotional cap is intentional. If your feed feels like an ad channel, people unfollow.
+
+## Content Calendar Design
+
+### Weekly Template
+
+| Day | Pillar | Format | Notes |
+|-----|--------|--------|-------|
+| Mon | Educational | Long post or carousel | High-value start to the week |
+| Tue | Engagement | Question or poll | Drive comments for algorithm boost |
+| Wed | Behind the Scenes | Photo or short video | Humanize the brand |
+| Thu | Educational | Thread or how-to | Deep-dive content |
+| Fri | Social Proof or Promo | Case study or launch | End-of-week conversion focus |
+
+### Batch Creation Workflow
+
+```
+Week -1: Plan topics for next week (30 min)
+Day 1: Batch-create 5 posts (2 hours)
+Daily: 15 min engagement (reply to comments, engage with others)
+Week +1: Review analytics, adjust next week (30 min)
+```
+
+## Community Engagement
+
+Posting without engaging is broadcasting, not social media. Engagement is half the game.
+
+### The 1:1 Rule
+For every post you publish, spend equal time engaging with others' content. Comment, share, respond.
+
+### Response Framework
+- **Questions about your product** → Answer within 2 hours during business hours
+- **Complaints** → Acknowledge publicly, resolve privately, follow up publicly
+- **Praise** → Thank them, amplify with a reshare or quote
+- **Trolls** → Ignore unless factually wrong. Never feed trolls.
+- **Industry discussion** → Add genuine value, not self-promotion
+
+## Growth Tactics
+
+### Organic Growth Levers
+
+1. **Consistency** — Post on schedule. Algorithms reward reliability.
+2. **Engagement bait done right** — Genuine questions, not "like if you agree." Polls work. Hot takes work. Asking for opinions works.
+3. **Collaboration** — Co-create content with complementary accounts.
+4. **Repurposing** — One blog post → 5-10 social posts across platforms.
+5. **Trend riding** — Jump on relevant trends fast, but only if authentic to your brand.
+6. **Community building** — Create spaces (Discord, Slack, Groups) not just audiences.
+
+### Metrics That Matter
+
+| Metric | What It Tells You | Target |
+|--------|-------------------|--------|
+| Engagement rate | Content resonance | >3% (LinkedIn), >1% (Twitter), >2% (Instagram) |
+| Follower growth rate | Audience building momentum | >5% monthly |
+| Click-through rate | Content driving action | >1% |
+| Share/save rate | Content worth keeping | Higher = content is genuinely useful |
+| DM conversations | Real relationship building | Growing month-over-month |
+
+**Vanity metrics to deprioritize:** Raw follower count, impressions (without engagement), reach (without action).
+
+---
+
+## Social Media Audit Checklist
+
+### Profile Audit
+- [ ] Profile photo: recognizable, consistent across platforms
+- [ ] Bio: clear value proposition, not job title listing
+- [ ] Link: drives to relevant landing page (not just homepage)
+- [ ] Pinned post: best-performing or most important content
+
+### Content Audit
+- [ ] Posting consistency: regular cadence or sporadic?
+- [ ] Content mix: balanced across pillars or all promotional?
+- [ ] Format variety: text, images, video, carousels?
+- [ ] Voice consistency: matches brand across all posts?
+
+### Engagement Audit
+- [ ] Response time: within 2 hours or days later?
+- [ ] Comment quality: genuine replies or "thanks!"?
+- [ ] Outbound engagement: engaging with others' content?
+- [ ] Community participation: in relevant groups/conversations?
+
+---
+
+## Proactive Triggers
+
+- **Posting frequency dropped below 3x/week** → Consistency matters more than quality. Batch-create to maintain cadence.
+- **Engagement rate below platform average** → Content isn't resonating. Audit last 20 posts for patterns — which got engagement, which didn't?
+- **100% promotional content** → Audience fatigue incoming. Shift to 80/20 value/promo split.
+- **No engagement with others' content** → Social media is bilateral. Spend 15 min/day commenting on relevant posts.
+- **Same content format every post** → Algorithm fatigue. Mix formats: text, carousel, video, poll.
+
+## Output Artifacts
+
+| When you ask for... | You get... |
+|---------------------|------------|
+| "Social media strategy" | Platform selection + content pillars + posting cadence + 90-day growth plan |
+| "Content calendar" | 4-week calendar with topics, formats, pillars, and posting times |
+| "Social media audit" | Full audit: profile, content, engagement, growth with prioritized actions |
+| "Grow my LinkedIn" | Platform-specific growth plan with content examples and engagement tactics |
+| "Community management plan" | Response framework + engagement workflow + escalation rules |
+
+## Communication
+
+All output passes quality verification:
+- Self-verify: source attribution, assumption audit, confidence scoring
+- Output format: Bottom Line → What (with confidence) → Why → How to Act
+- Results only. Every finding tagged: 🟢 verified, 🟡 medium, 🔴 assumed.
+
+## Related Skills
+
+- **social-content**: For writing individual social posts. NOT for strategy (that's this skill).
+- **social-media-analyzer**: For analyzing social media performance data.
+- **content-strategy**: For planning broader content that feeds into social.
+- **copywriting**: For landing pages and web copy that social drives to.
+- **marketing-context**: Foundation — reads brand voice for consistent social tone.
+- **ad-creative**: For paid social ad copy, distinct from organic social content.

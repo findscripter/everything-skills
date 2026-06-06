@@ -1,14 +1,14 @@
 ---
 name: ip-clause-review
-title: 协议知识产权条款审查
-description: 当需要审查一份协议里的知识产权条款（权利转让、归属、许可授予、保证、赔偿）时使用；做先定方向（己方授权/受让）+ 转让缺口优先检查 + 逐条按风险分级 + 跨条款一致性 + 法域提示，产出含外科式红线的备忘录；不适用于从零起草协议、出具正式法律意见或替人裁定主观归属争议（升级转交律师）；触发词：审查IP条款、知识产权条款、权利转让、许可范围、IP保证赔偿、雇佣/咨询/SOW协议、assignment、license scope、IP clause review。
+title: /ip-clause-review
+description: Review the IP clauses in an agreement — assignment, ownership, license grants, warranties, indemnities. Use when reviewing IP terms in employment, consulting, SOW, vendor, or licensing agreements, when asked to check the assignment language or license scope, or when an agreement with IP provisions i
 domain: 领域/legal
-triggers: [审查IP条款, 知识产权条款, 权利转让, 许可范围, IP保证赔偿, assignment, license scope, IP clause review, 雇佣协议IP, SOW知识产权]
+triggers: [assignment, license scope, IP clause review]
 tags: [legal, ip, intellectual-property, contract-review, assignment, license, indemnity, redline]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [IP practice profile (内部立场清单/CLAUDE.md), 法律检索工具/MCP (Westlaw/CourtListener 等), primary-source 引用]
+tools: []
 requires: []
 related: [contract-playbook-review, saas-subscription-agreement-review, dpa-clause-reviewer, vendor-agreement-redline-review]
 combines_with: [contract-playbook-review, ip-portfolio-register, claim-element-chart-builder]
@@ -16,160 +16,277 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-# 协议知识产权条款审查
+# /ip-clause-review
 
-## 何时使用
+Reviews the IP clauses in an agreement against the practice profile in `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`. Flags assignment gaps, ownership ambiguity, license-scope issues, and IP warranty/indemnity problems. Produces a memo with per-clause findings, prioritized by risk, with suggested redline language where appropriate.
 
-- 用户说"审一下这份协议的 IP 条款 / 知识产权条款""检查转让语言 / 许可范围对不对"，或直接附上一份含 IP 条款的协议（雇佣、咨询、SOW、供应商 MSA、入/出许可、合作/JDA 等）时。
-- 核心前提：你有一份**内部 IP 立场清单（practice profile）**，记录法域足迹、谁审批偏离、工作产品抬头等。占位符未配置则停止并提示先做冷启动访谈，不要凭空编造立场。
+## Instructions
 
-**不该用的边界：**
-- 不从零起草协议。结论若是"用我们的模板"，去取模板而非生成。
-- 不出具正式法律意见、不替非律师"批准签署"。
-- **不替人裁定主观归属争议**——当一条款可被双向解读时，标记交律师并陈列两边因素，绝不悄悄替人决定。
-- 法域问题若超出配置范围，明确说明并交专业人士，不要把美国法默认套到非美国事实上。
+1. **Load `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`.** If placeholders present, stop and prompt: "Run `/ip-legal:cold-start-interview` first — I need to learn your practice profile before I can review IP clauses against it."
 
-## 步骤
+2. **Get the agreement:** From file path, Drive link, or pasted text. If none provided, ask.
 
-1. **加载立场清单**：读取内部 IP practice profile。它告诉你法域足迹（影响精神权利可否放弃、雇佣作品是否适用、缺口是否被默示转让填补、许可可多宽）、偏离的审批人、工作产品抬头。占位符未配置则停止。
-2. **定方向（每份文档单独判，非一次性设置）**：本协议里己方在 IP 上是**授予方还是受让方**（granting / receiving / both）。同一天里审雇佣协议是"受让"侧、审出许可是"授予"侧，姿态相反。模棱两可（双向贡献的合作协议、流转 IP 的分销协议）就问；选 both 则两个方向分别审。
-3. **转让缺口优先检查（最高优先级）**：若是雇佣/咨询/SOW/work-for-hire 等"公司应受让对方工作产品 IP"的文档，**先查转让语言**（见指令）。缺口在备忘录顶部用 🔴/🟠 大声标出，附具体红线，别埋进一堆条目里。
-4. **逐条审查**：对每条 IP 相关条款出一个块——说了什么 / 市场基准（按协议类型+侧+法域）/ 风险级别 / 为何重要 / 拟议红线 / 决策呼叫。
-5. **跨条款一致性**：IP 条款作为一个系统而非逐条失败（见指令）。
-6. **法域提示**：精神权利、work-for-hire、默示许可、专利赔偿例外等按法域差异巨大，标明适用法并对照清单是 standard/escalate/never。
-7. **出具备忘录**：顶部加工作产品抬头，按结论→转让缺口检查→按级别排列的条款→一致性标记→法域提示→审批路由组织。结尾给"下一步决策树"由律师选。
+3. **Follow the workflow below.** In particular:
+   - Establish the agreement type and which side the company is on for IP (granting / receiving / both). The side question is per-document, not a one-time setup answer.
+   - Run the assignment gap check first if the agreement is an employment, consulting, SOW, or work-for-hire document.
+   - Produce per-clause findings prioritized by risk.
+   - Check cross-clause consistency, not just clause-by-clause.
+   - Note jurisdiction implications (moral rights, work-for-hire, implied license, patent indemnity).
 
-## 指令
+4. **Output the memo** per the template below — work-product header first, bottom line, assignment gap check, clauses by severity, consistency flags, jurisdiction note, approval routing.
 
-**转让缺口检查清单**（缺/弱即顶部 🔴/🟠 + 具体红线）：
-- **现在式转让**："hereby assigns" 或 "hereby irrevocably assigns and agrees to assign"。光写 "agrees to assign" 只是转让承诺、非转让本身，可能需第二份文件才能完善。
-- **范围**：覆盖受聘期间创造的全部 IP，还是仅"与公司业务相关"或"用公司资源创造"的？工作产品预期范围广时，窄范围即缺口。
-- **精神权利放弃**：在承认精神权利的法域（欧盟成员国、加拿大等；美国仅对视觉艺术有窄版 VARA）。受这些法域管辖或对方在该法域时，放弃或不主张承诺很重要。
-- **进一步保证（further assurances）**：对方同意日后签署完善转让所需的一切文件。
-- **既有 IP 排除项（carveout）**：对方从转让中排除了什么，清单是具体的还是开放式的。
+5. **Respect the decision posture.** When a clause could be read to allocate IP either way, flag for attorney review and surface the factors cutting both ways. Never silently decide a subjective allocation question.
 
-**AI 生成内容专项**（咨询/开发/内容/设计等可预见 AI 辅助创作时）：
-- 著作权——*Thaler v. Perlmutter* 与版权局 2023 AI 注册指南提示，无人类作者的 AI 生成作品可能不可版权化，边界仍在演进；转让条款只能转让已存在的权利。查：有无 AI 使用披露义务/陈述/区分人类与 AI 部分的机制？缺失则标 🟠，建议加 AI 使用陈述+披露义务。打标 `[review — AI 生成作品版权状态属演进领域，核对当前版权局指南与判例]`。
-- 专利——发明人署名错误会致专利不可执行。若顾问用 AI 工具贡献了发明构思，发明人认定不确定、专利有风险。对含专利转让的协议，查有无 AI 使用陈述、发明人认定流程、AI 使用披露义务；缺失则标记并建议补。
-
-**逐条审查的条款清单**：转让/work-for-hire；交付物归属（区别于转让）；改进与衍生作品归属；背景 IP vs 前景 IP（是否分别定义并按需许可背景 IP）；许可授予（范围、独占性、地域、使用领域、可再许可、期限、终止触发、费率结构）；IP 保证（不侵权、有权授予、原创）；IP 赔偿（范围、上限、程序、例外）；精神权利放弃；开源陈述；商标使用；保密/商业秘密。
-
-**严重级别校准：**
-
-| 级别 | 含义 |
-|---|---|
-| 🔴 Critical | 不改不签。应有转让的文档却缺转让；本想窄许可却给了无限许可；本想非独占却给了独占。 |
-| 🟠 High | 强力推动，不让步则升级。范围模糊、精神权利法域缺放弃、缺进一步保证、赔偿过窄。 |
-| 🟡 Medium | 首轮推，若为最后一项可接受。措辞不精确、存续期短于标准。 |
-| 🟢 Low | 记一笔，别耗筹码。不改变归属的文体偏差。 |
-
-**跨条款一致性检查**：许可授予是否匹配被许可标的范围（"use" 窄于 "use, modify, and create derivative works"）；保证是否覆盖授予所覆盖的全部（限于专利的不侵权保证，在也覆盖著作权/商业秘密的许可里留缺口）；赔偿是否覆盖保证所承诺的（有保证无赔偿＝有承诺无救济）；终止是否收回许可（或付清即永久许可存续——两者皆可辩，问的是是否符合意图）；本协议与相关 SOW/订单/补充函的 IP 分配是否一致，冲突标出。
-
-**红线粒度——以能达成立场的最小改动为默认。** 红线是谈判物不是重写。优先级：改一个词（"twelve (12)"→"twenty-four (24)"）＞改短语（"paid by the Buyer"→"paid and payable by the Buyer"）＞重构子条款（拆成 (a)(b)）＞替换整句＞替换整条。只有当对方版本离立场太远、外科式修改反而更难读时才整条替换，并在转送函中说明原因。
-
-**两条硬规矩：**
-- **不得静默填补**：检索工具对某规则（某法域精神权利放弃可执行性、默示许可范围、IP 保证存续标准）返回稀少时，报告所得并**停下来问**，不要用网络搜索或模型知识私自补全。
-- **来源分级标注**：每条引用打标签——`[Westlaw]`/`[CourtListener]`/`[USPTO]`/`[监管机构站点]`（仅当本次会话工具确实返回过）、`[user provided]`（对方草案/内部档）、`[web search — verify]`、`[model knowledge — verify]`（默认，未检索即归此档）、`[settled — last confirmed YYYY-MM-DD]`（已对一手来源核过的稳定引用）。带 verify 标签的伪造风险高，先核。**绝不剥除或合并标签。**
-
-**决策姿态**：条款可双向解读、或不清楚起草用词是否达成所述意图时，**标记交律师并陈列两边因素**，绝不悄悄裁定主观归属。已签的未决归属是单向门（在尽调/融资/诉讼中爆雷）；标记一条结果无事的模糊条款是双向门，律师 30 秒关掉。**默认走双向门。**
-
-**抬头与去标**：备忘录与底层协议可能受特权保护，输出继承其状态——只在特权圈内分发；对外交付（C&D、DMCA、外发摘要）前剥除工作产品抬头。抬头是标签不是控制，发往特权圈外（公开渠道、对方、客户）前先问是否构成特权放弃。
-
-## 示例
+## Examples
 
 ```
-用户：帮我审一下这份供应商 SOW 的 IP 条款。vendor-sow.pdf
+/ip-legal:ip-clause-review ~/Documents/vendor-sow.pdf
+/ip-legal:ip-clause-review https://docs.google.com/document/d/...
+/ip-legal:ip-clause-review
 ```
-
-处理路径：
-1. 加载 IP practice profile（占位符则停下提示冷启动）。
-2. 定方向：供应商 SOW、公司收交付物 → 多为**受让侧**（也可能含对方背景 IP 的入许可，标 both 分向审）。
-3. 转让缺口检查（最高优先级）：§7 写 "Contractor agrees to assign" → 仅承诺非现在式转让 → 🔴 顶部标出。
-
-```markdown
-## ⚠️ 转让缺口
-
-**第 7 条** 就工作产品 IP 作了转让，但："agrees to assign" 而非
-"hereby assigns"——这是转让承诺、非转让本身，完善需第二份文件。
-
-**风险：** 这类缺口数年后在 M&A 尽调中爆雷。对方（或其继受者）
-可能在我们以为已拥有的工作产品中保有残余权利。
-
-**拟议红线：**
-> "Contractor hereby irrevocably assigns and, to the extent any such
-> assignment cannot presently be made, agrees to assign ..."
-
-**升级：** 按 practice profile，转让范围缺口升级给 [审批人]。
-```
-
-4. 逐条出块（示例一条）：
-
-```markdown
-### 第 9.2 条：许可授予
-
-**说了什么：** 授予公司 "use" 交付物的非独占许可。
-
-**市场基准（供应商 SOW、受让侧、美国法）：** 含开发/集成的 SOW 通常
-应拿到 "use, modify, and create derivative works" 的许可。
-
-**风险：** 🟠 High
-
-**为何重要：** 仅 "use" 不能改、不能做衍生——后续无法维护或扩展交付物。
-
-**拟议红线：**
-> 在 "use" 后插入 "modify, and create derivative works based on"。
-
-**决策呼叫：** 若供应商坚持窄许可以保护其工具链，标记交律师权衡——
-窄许可保护对方背景 IP vs 我方维护需求，两边因素并陈。
-```
-
-5. 跨条款一致性：§11 不侵权保证仅限专利，但 §9.2 许可含著作权 → 标记缺口。
-6. 法域提示：管辖法为加州（标准），无精神权利问题；若交付物作者在法国则需补放弃条款。
-7. 出具备忘录骨架：
-
-```markdown
-[工作产品抬头]
-
-# IP 条款审查：[对手方] [协议类型]
-**审查日：** [日期]   **我方 IP 侧：** 受让 / 授予 / 双向
-**管辖法：** [法域]
-
-## 结论
-[两句：IP 分配能成立吗？必须先改什么？]
-**问题：** [N]🔴 [N]🟠 [N]🟡 [N]🟢
-**需审批：** [按清单的审批人]
-
-## 转让缺口检查
-[✅ 无 | ⚠️ 有缺口——见上]
-
-## 按级别排列的条款
-[Step 4 所有块，Critical→Low]
-
-## 跨条款一致性
-[Step 5 标记]
-
-## 法域提示
-[Step 6 标记]
-
-## 审批路由
-[按清单——谁批、什么自动升级]
-```
-
-## 注意事项
-
-- **转让与归属是多数协议里最高风险条款，且事后极难补救**：雇佣/咨询协议拿不到干净转让，会在数年后的 M&A 尽调、融资、诉讼中爆雷。弱/缺即在顶部大声标。
-- **方向定错＝每条建议反向**，每份文档单独判侧，模棱两可必先问。
-- **法域决定结果**：精神权利（欧盟/加拿大等可能不可完全转让或放弃；美国仅 VARA 窄版）、work-for-hire（美国 17 U.S.C. § 101 仅列举类别适用于独立承包商；英国对雇员默示转让但承包商未必；大陆法各异）、默示许可（普通法可能读入、大陆法通常不）、专利赔偿例外（组合/改装/用户提供为美国标准例外，与欧盟/UPC 互动仍在发展）。
-- 每个 🔴 和 🟠 必须有具体替换语言；审批人按清单点名，不要写"升级给法务"。
-- 严重级别只能升不能悄悄降；任何降级写明并解释（跨技能严重级别下限规则）。
-- 检索稀少不要硬填——停下来问，由律师决定是否接受低置信来源；带 verify 标签先核，绝不剥除标签。
-
-## 互见
-
-- requires：无（独立可用，但需先配置 IP practice profile）。
-- related：`general-counsel-advisor`、`nda-triage-reviewer`、`contract-playbook-review`、`employment-contract-drafter`。
-- combines_with：`diligence-issue-extractor` —— 把单份协议的转让缺口结论汇入交易级尽调问题清单；`oss-license-compliance` —— 审开源陈述条款时核验交付物中嵌入的 OSS 许可。
 
 ---
 
-*本条采编自 anthropics/claude-for-legal（Apache-2.0），适配重写为中文技能大典条目。*
+## Matter context
+
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/ip-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/ip-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+
+---
+
+## Purpose
+
+Read the IP clauses in an agreement and tell the lawyer what each one does, how it deviates from market or from the team's standard position, what the risk is, and — where appropriate — the specific redline to propose. The goal is a memo the lawyer can act on in one pass.
+
+**The highest-stakes clauses in most agreements are IP ownership and assignment.** They are hard to fix later. A failure to get a clean assignment on an employment or consulting agreement surfaces in M&A diligence, in financing, and in litigation, sometimes years after the agreement was signed. If assignment language is weak or missing in a document that should have it, flag it loudly at the top of the memo — not buried as one line item among many.
+
+## Precondition: load the practice profile
+
+**Before reading the agreement, read `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`.** If it is missing or still contains placeholders, stop and run `/ip-legal:cold-start-interview`. The practice profile tells you:
+
+- The jurisdiction footprint — which affects whether moral rights waivers are enforceable, whether work-for-hire applies, whether implied assignment fills a gap, how broad license grants can be
+- Who approves deviations and at what severity
+- The work-product header to prepend to outputs
+
+## Workflow
+
+### Step 1: Orient
+
+Read the whole agreement once, fast. Answer:
+
+| Question | Answer |
+|---|---|
+| What kind of agreement is this? | Employment / consulting or SOW / vendor MSA / in-license / out-license / collaboration or JDA / settlement / acquisition or asset purchase / other |
+| Which side are we on for IP? | Granting rights or receiving them / assigning IP or acquiring it / licensor or licensee |
+| Who is the counterparty? | Name, and sophistication — individual, startup, BigCo |
+| Is there consideration flowing for the IP specifically? | Salary, fee, royalty, upfront payment, equity, none |
+| Governing law and venue | What does it say — and does our practice profile flag that jurisdiction as escalate/never? |
+
+The side question is per-document, not a one-time setup answer. An in-house counsel reviewing an employment agreement is on the "receiving" side; reviewing an out-license the same day, on the "granting" side. The posture inverts.
+
+If the side is ambiguous (a collaboration agreement where both parties contribute and both receive rights, a reseller agreement with flow-through IP), ask:
+
+> Which side is [company] on for this agreement's IP? Granting rights, receiving rights, or both? If both, I'll review each direction separately.
+
+### Step 2: Assignment gap check (highest priority)
+
+If the agreement is an employment agreement, consulting agreement, SOW, work-for-hire contract, or anything else where the company should be receiving an assignment of the counterparty's IP in work product — check the assignment language first.
+
+Look for:
+
+- **Present-tense assignment** ("hereby assigns" or "hereby irrevocably assigns and agrees to assign"). A bare "agrees to assign" is a promise to assign, not an assignment, and can require a second document to perfect.
+- **Scope** — does it cover all IP created in the course of engagement, or only IP related to the company's business, or only IP created using company resources? Narrow scope is a gap if work product is expected to range broadly.
+- **Moral rights waiver** (for jurisdictions that recognize moral rights — EU member states, Canada, many others — the US recognizes a narrow version for visual art). If the agreement is governed by or has counterparties in a moral-rights jurisdiction, a waiver or non-assertion covenant matters.
+- **Further assurances** clause — counterparty agrees to sign whatever else is needed to perfect the assignment later.
+- **Pre-existing IP carveout** — what does the counterparty exclude from the assignment, and is that list specific or open-ended?
+
+If any of the above is missing or weak, flag at the top of the memo with a 🔴 or 🟠 severity and a specific redline.
+
+```markdown
+## ⚠️ ASSIGNMENT GAP
+
+**Section [X]** assigns IP in the work product, but: [specific issue — e.g.,
+"'agrees to assign' rather than 'hereby assigns,'" or "no moral rights waiver
+and governing law is France," or "no carveout list is provided and the
+counterparty has pre-existing platform IP"].
+
+**Risk:** This is the kind of gap that surfaces in M&A diligence years later.
+The counterparty (or a successor) may have residual rights in work product we
+thought we owned.
+
+**Proposed redline:**
+> "[specific replacement language]"
+
+**Escalation:** Per `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`, assignment-scope gaps escalate to [approver].
+```
+
+> **Can the assignment convey AI-generated content?** *Thaler v. Perlmutter* and the Copyright Office's 2023 AI registration guidance suggest that AI-generated works without any human authorship may not be copyrightable, though the boundaries remain unclear and this area is evolving. If the contractor uses AI for substantial portions of the deliverables, the copyright status of those portions is uncertain — and an assignment clause can only convey rights that exist.
+>
+> Check: does the agreement have an AI-use disclosure obligation? A representation about the role of AI in the deliverables? A mechanism to identify which portions are AI-assisted vs. human-authored?
+>
+> If absent and AI-assisted creation is foreseeable (consulting, development, content creation, design): 🟠 High. "The assignment clause is well-drafted but there's no AI-use disclosure. The copyright status of AI-generated content is unsettled, and without a disclosure obligation you won't know which portions are affected. Add an AI-use representation and a disclosure obligation." `[review — copyright status of AI-generated works is an evolving area; verify against current Copyright Office guidance and case law]`
+
+> **AI-assisted inventorship.** A patent filed with incorrect inventorship is unenforceable. If a consultant uses AI tools that contribute to an inventive concept, the inventorship question is unsettled and the patent is at risk. For any agreement with patent assignment provisions covering potentially patentable work product:
+>
+> Check: does the agreement have an AI-use representation? A process for determining inventorship where AI contributed? A disclosure obligation about AI use in the inventive process?
+>
+> If absent: flag. "Patent assignment without an AI-use representation. If AI tools contributed to the inventive concept, inventorship determination is complicated and an incorrectly-attributed patent is unenforceable. Add an AI-use representation and inventorship protocol."
+
+### Step 3: Clause-by-clause review
+
+For every IP-relevant clause, produce a block. The clauses to look for:
+
+- **Assignment / work-for-hire** — who owns what's created under the agreement
+- **Ownership of deliverables** — distinct from assignment; often states the output of the engagement
+- **Improvements and derivatives** — who owns improvements to pre-existing IP, who owns derivative works
+- **Background IP vs. foreground IP** — does the agreement define pre-existing IP and newly-created IP separately, and license the background IP to the extent needed?
+- **License grants** — scope, exclusivity, territory, field of use, sublicensability, term, termination triggers, royalty or fee structure
+- **IP warranties** — non-infringement of third-party rights, authority to grant, original work
+- **IP indemnities** — scope, cap, procedure, exclusions (user modifications, combinations, unauthorized use)
+- **Moral rights waiver** — jurisdiction-dependent
+- **Open source representations** — representations about what OSS is and is not embedded in deliverables
+- **Trademark use** — any grant or restriction on use of the other party's marks; brand guidelines; quality control for licensor
+- **Confidentiality / trade secrets** — treatment of trade secret material, reasonable measures, return or destruction, post-term obligations
+
+For each clause present, produce:
+
+```markdown
+### [Section X.X]: [Clause name]
+
+**What it says:** [plain-English summary, one or two sentences]
+
+**What's market (for this agreement type, this side, this jurisdiction):**
+[brief reference point]
+
+**Risk:** 🔴 Critical | 🟠 High | 🟡 Medium | 🟢 Low
+
+**Why it matters:** [one or two sentences — what goes wrong for the business
+if this stays as-is]
+
+**Proposed redline (if needed):**
+> "[specific replacement language]"
+
+**Decision call:** [If uncertain whether the clause achieves the intended IP
+allocation, flag for attorney review and state the factors cutting both
+ways. Do not silently decide a subjective allocation question.]
+```
+
+**Severity calibration:**
+
+| Level | Means |
+|---|---|
+| 🔴 Critical | Don't sign without fixing. Assignment gap in a document that should have one. Unlimited license where a narrow one was intended. Exclusive grant where non-exclusive was intended. |
+| 🟠 High | Strongly push; escalate if they won't move. Ambiguous scope, missing moral rights waiver in a moral rights jurisdiction, missing further assurances, narrow indemnity. |
+| 🟡 Medium | Push in first round; accept if it's the last open item. Cosmetic but imprecise language, survival periods shorter than standard. |
+| 🟢 Low | Note it, don't spend capital. A stylistic deviation that doesn't change the allocation. |
+
+### Step 4: Cross-clause consistency
+
+IP clauses fail as a system. Check:
+
+- **Does the license grant match the scope of what's being licensed?** (A license to "use" the deliverable is narrower than a license to "use, modify, and create derivative works.")
+- **Do the warranties cover everything the grant covers?** (A warranty of non-infringement limited to patents, in a license that also covers copyrights and trade secrets, leaves gaps.)
+- **Does the indemnity cover what the warranty promises?** (A warranty without indemnity is a promise without a remedy.)
+- **Does termination pull the license back?** (Or does a paid-up license survive termination? Either is defensible — the question is whether it matches intent.)
+- **Is the IP allocation between this agreement and any related SOW, order form, or related side letter consistent?** Flag conflicts.
+
+### Step 5: Jurisdiction note
+
+IP rules are jurisdiction-specific in ways that change the outcome. Flag if the agreement implicates any of these:
+
+- **Moral rights** — EU member states, Canada, much of the civil-law world recognize moral rights (paternity, integrity) that may not be fully assignable or waivable. US recognition is narrow (VARA, for visual art).
+- **Work-for-hire** — US doctrine is statutory (17 U.S.C. § 101) and only applies to enumerated categories for independent contractors. UK implies assignment in the employment context but not always for contractors. Civil-law jurisdictions handle this differently again.
+- **Implied license** — common-law jurisdictions may read in an implied license where the written grant is silent. Civil-law jurisdictions tend not to.
+- **Patent indemnity exclusions** — combinations, modifications, and user supply of accused features are standard US exclusions; the interaction with EU patent and UPC is still developing.
+
+State what jurisdiction the agreement is governed by, and whether the practice profile flags that jurisdiction as standard, escalate, or never.
+
+## Redline granularity
+
+**Edit at the smallest possible granularity.** A redline is a negotiation artifact, not a rewrite. Wholesale clause replacement signals "we threw out your drafting" — it's aggressive, it forces the counterparty to re-read the whole clause, and it discards the parts of their drafting that were fine. Surgical redlines — strike a word, insert a phrase, restructure a subclause — signal "we have specific asks" and are faster to read, understand, and accept.
+
+Default to the smallest edit that achieves the playbook position:
+- Replace a **word** before a phrase. ("twelve (12)" → "twenty-four (24)")
+- Replace a **phrase** before a sentence. ("paid by the Buyer" → "paid and payable by the Buyer")
+- Restructure a **subclause** before replacing the sentence. (Add "(a)" and "(b)" to split a compound condition.)
+- Replace a **sentence** before replacing the clause.
+- Only replace a **whole clause** when the counterparty's version is so far from your position that surgical edits would be harder to read than a fresh draft — and when you do, say so in the transmittal: "We've replaced §8.2 rather than marking it up because the changes were extensive. Happy to walk you through the delta."
+
+When in doubt, smaller. A client who receives a surgical redline trusts that you read carefully. A client who receives a wholesale replacement wonders whether you read at all.
+
+### Step 6: Assemble the memo
+
+Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md` → `## Outputs` (it differs by user role — see `## Who's using this`).
+
+This memo and the underlying agreement may be privileged, confidential, or both. The output inherits that status from the source. Distribute only within the privilege circle; mark and store it where privileged materials live; strip the work-product header before any external delivery.
+
+> **No silent supplement.** If a research query to the configured legal research tool returns few or no results for a rule the memo needs (enforceability of a moral rights waiver in a given jurisdiction, scope of an implied license, standard for an IP warranty survival period), report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [rule / jurisdiction]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag as unverified and stop. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
+>
+> **Source attribution.** Where the memo cites a statute, regulation, case, or treatise, tag the citation: `[Westlaw]`, `[statute / regulator site]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations from the counterparty draft or house files. Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags.
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs]
+
+# IP Clause Review: [Counterparty] [Agreement Type]
+
+**Reviewed:** [date]
+**Our side for IP:** [Granting / Receiving / Both]
+**Governing law:** [jurisdiction]
+
+---
+
+## Bottom line
+
+[Two sentences. Can the IP allocation stand? What has to change first?]
+
+**Issues:** [N]🔴 [N]🟠 [N]🟡 [N]🟢
+
+**Approval needed from:** [name, per practice profile]
+
+---
+
+## Assignment gap check
+
+[✅ Clear | ⚠️ Gap present — see above]
+
+---
+
+## Clauses by severity
+
+[All clause blocks from Step 3, grouped Critical → Low]
+
+---
+
+## Cross-clause consistency
+
+[Flags from Step 4]
+
+---
+
+## Jurisdiction note
+
+[Flags from Step 5]
+
+---
+
+## Approval routing
+
+[From practice profile — who approves, what triggers automatic escalation]
+```
+
+## Decision posture
+
+When a clause could be read to allocate IP either way, or when it is unclear whether the drafter's chosen words achieve the stated intent, **flag it for attorney review and surface the factors cutting both ways**. Do not silently decide a subjective allocation question. An unresolved IP allocation that gets signed is a one-way door — the error surfaces in diligence, financing, or litigation. Flagging an ambiguous clause that turns out to be fine is a two-way door.
+
+## Quality checks before delivering
+
+- [ ] Practice profile was loaded and the jurisdiction note reflects what's there
+- [ ] Assignment gap checked first (for employment/consulting/SOW/WFH)
+- [ ] Every 🔴 and 🟠 issue has specific replacement language
+- [ ] Cross-clause consistency checked, not just clause-by-clause
+- [ ] Source tags applied to citations; no stripped `verify` tags
+- [ ] Approver named per practice profile, not "escalate to legal"
+- [ ] Output marked with the work-product header
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.

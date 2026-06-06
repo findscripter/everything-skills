@@ -1,14 +1,14 @@
 ---
 name: langgraph-agent-framework
-title: LangGraph 智能体编排
-description: 当用 LangGraph 构建有状态、多步骤或多智能体 AI 应用时使用；用 StateGraph 设计状态、节点、条件分支、循环、持久化与人审，产出可运行的 ReAct/路由/并行智能体图。不适用于纯单次 LLM 调用、无状态提示链或 TypeScript 主导项目。触发词：langgraph、stateful agent、agent graph、react agent、human-in-the-loop、checkpointer
+title: LangGraph
+description: Expert in LangGraph - the production-grade framework for building
 domain: 智能/agents
-triggers: [langgraph, langchain agent, stateful agent, agent graph, react agent, agent workflow, multi-step agent, 智能体编排, 状态图, checkpointer, human-in-the-loop, 条件分支]
-tags: [langgraph, agent, 智能体, 状态图, 编排, 持久化, 人审, python, langchain]
-level: 进阶
+triggers: [langgraph, langchain agent, stateful agent, agent graph, react agent, agent workflow, multi-step agent, checkpointer, human-in-the-loop]
+tags: [langgraph, agent, python, langchain]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [StateGraph, ToolNode, add_messages, SqliteSaver, PostgresSaver, Send, ChatOpenAI]
+tools: []
 requires: []
 related: [crewai-multi-agent, pydantic-ai-agents, multi-agent-system-designer, multi-agent-workflow-designer]
 combines_with: [agent-tool-builder, agent-memory-systems, langfuse-llm-observability]
@@ -16,54 +16,87 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# LangGraph
 
-需要把 AI 工作流变成**显式、可调试、可恢复**的图时使用 LangGraph。典型场景：
+Expert in LangGraph - the production-grade framework for building stateful, multi-actor
+AI applications. Covers graph construction, state management, cycles and branches,
+persistence with checkpointers, human-in-the-loop patterns, and the ReAct agent pattern.
+Used in production at LinkedIn, Uber, and 400+ companies. This is LangChain's recommended
+approach for building agents.
 
-- 单智能体带工具调用（ReAct 模式：思考→调工具→再思考的循环）。
-- 多步骤/多智能体共享状态，需要 reducer 控制状态如何合并。
-- 按条件路由到不同分支（分类器→不同处理路径）。
-- 多轮对话或长任务，需要 checkpointer 持久化与断点续跑。
-- 敏感操作前插入人工审批（human-in-the-loop）。
-- Map-Reduce 式并行（多主题并发研究后汇总）。
+**Role**: LangGraph Agent Architect
 
-**不该用的边界**：
-- 纯单次 LLM 调用、无状态提示链——直接用 LangChain/SDK 即可，引入图反而过度设计。
-- TypeScript 为主的项目——LangGraph 主力是 Python（TS 版本仍较早期）。
-- 团队不熟悉图/状态概念且任务简单时，调试成本不划算。
+You are an expert in building production-grade AI agents with LangGraph. You
+understand that agents need explicit structure - graphs make the flow visible
+and debuggable. You design state carefully, use reducers appropriately, and
+always consider persistence for production. You know when cycles are needed
+and how to prevent infinite loops.
 
-前置：Python 3.9+、`langgraph` 包、可用的 LLM API（OpenAI/Anthropic 等）、基本异步与图概念。
+### Expertise
 
-## 步骤
+- Graph topology design
+- State schema patterns
+- Conditional branching
+- Persistence strategies
+- Human-in-the-loop
+- Tool integration
+- Error handling and recovery
 
-构建一个图的固定套路（七步）：
+## Capabilities
 
-1. **定义状态**：用 `TypedDict`，给需要累加的字段加 `Annotated[type, reducer]`。
-2. **定义工具/节点**：节点是函数 `state -> dict`，**只返回要更新的字段**（部分更新）。
-3. **绑定工具到 LLM**：`llm.bind_tools(tools)`。
-4. **定义路由函数**：返回下一个节点名或 `END`。
-5. **建图加边**：`add_node` / `add_edge` / `add_conditional_edges`，循环用回边实现。
-6. **编译**：`graph.compile()`；需要记忆/人审时传 `checkpointer=` 和 `interrupt_before=`。
-7. **运行**：`app.invoke(input, config)`；带 `thread_id` 实现对话连续性。
+- Graph construction (StateGraph)
+- State management and reducers
+- Node and edge definitions
+- Conditional routing
+- Checkpointers and persistence
+- Human-in-the-loop patterns
+- Tool integration
+- Streaming and async execution
 
-关键约束：
-- **reducer 决定状态如何合并**——`add_messages` 追加消息（不覆盖），`operator.add` 累加列表，自定义函数可合并字典；不加 reducer 则字段被覆盖。
-- **循环必须有终止条件**：路由函数要能返回 `END`，否则无限循环。
-- 生产环境务必配 checkpointer（SQLite 开发、PostgreSQL 生产）。
+## Prerequisites
 
-## 指令
+- 0: Python proficiency
+- 1: LLM API basics
+- 2: Async programming concepts
+- 3: Graph theory fundamentals
+- Required skills: Python 3.9+, langgraph package, LLM API access (OpenAI, Anthropic, etc.), Understanding of graph concepts
 
-- 设计状态先想清楚每个字段「累加还是覆盖」，据此选 reducer。
-- 节点返回部分更新，不要返回整个 state。
-- 工具执行用预置 `ToolNode(tools)`，不要手写循环。
-- 人审用 `interrupt_before=["节点名"]`；恢复时先 `app.update_state(config, {...})` 再 `app.invoke(None, config)`。
-- 并行用 `Send("节点名", 子状态)` 从条件边扇出，汇总节点用累加 reducer 收集结果。
+## Scope
 
-## 示例
+- 0: Python-only (TypeScript in early stages)
+- 1: Learning curve for graph concepts
+- 2: State management complexity
+- 3: Debugging can be challenging
 
-最小 ReAct 智能体（状态→工具→LLM→路由→建图→运行）：
+## Ecosystem
 
-```python
+### Primary
+
+- LangGraph
+- LangChain
+- LangSmith (observability)
+
+### Common_integrations
+
+- OpenAI / Anthropic / Google
+- Tavily (search)
+- SQLite / PostgreSQL (persistence)
+- Redis (state store)
+
+### Platforms
+
+- Python applications
+- FastAPI / Flask backends
+- Cloud deployments
+
+## Patterns
+
+### Basic Agent Graph
+
+Simple ReAct-style agent with tools
+
+**When to use**: Single agent with tool calling
+
 from typing import Annotated, TypedDict
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
@@ -71,92 +104,409 @@ from langgraph.prebuilt import ToolNode
 from langchain_openai import ChatOpenAI
 from langchain_core.tools import tool
 
+# 1. Define State
 class AgentState(TypedDict):
-    messages: Annotated[list, add_messages]  # 追加而非覆盖
+    messages: Annotated[list, add_messages]
+    # add_messages reducer appends, doesn't overwrite
+
+# 2. Define Tools
+@tool
+def search(query: str) -> str:
+    """Search the web for information."""
+    # Implementation here
+    return f"Results for: {query}"
 
 @tool
 def calculator(expression: str) -> str:
-    """计算数学表达式。"""
+    """Evaluate a math expression."""
     return str(eval(expression))
 
-tools = [calculator]
+tools = [search, calculator]
+
+# 3. Create LLM with tools
 llm = ChatOpenAI(model="gpt-4o").bind_tools(tools)
 
+# 4. Define Nodes
 def agent(state: AgentState) -> dict:
-    return {"messages": [llm.invoke(state["messages"])]}
+    """The agent node - calls LLM."""
+    response = llm.invoke(state["messages"])
+    return {"messages": [response]}
 
+# Tool node handles tool execution
+tool_node = ToolNode(tools)
+
+# 5. Define Routing
 def should_continue(state: AgentState) -> str:
-    return "tools" if state["messages"][-1].tool_calls else END
+    """Route based on whether tools were called."""
+    last_message = state["messages"][-1]
+    if last_message.tool_calls:
+        return "tools"
+    return END
 
+# 6. Build Graph
 graph = StateGraph(AgentState)
+
+# Add nodes
 graph.add_node("agent", agent)
-graph.add_node("tools", ToolNode(tools))
+graph.add_node("tools", tool_node)
+
+# Add edges
 graph.add_edge(START, "agent")
 graph.add_conditional_edges("agent", should_continue, ["tools", END])
-graph.add_edge("tools", "agent")  # 回边：工具结果交回 agent
+graph.add_edge("tools", "agent")  # Loop back
+
+# Compile
 app = graph.compile()
 
-result = app.invoke({"messages": [("user", "25 * 4 等于多少？")]})
-```
+# 7. Run
+result = app.invoke({
+    "messages": [("user", "What is 25 * 4?")]
+})
 
-持久化 + 多轮记忆（带 `thread_id`）：
+### State with Reducers
 
-```python
+Complex state management with custom reducers
+
+**When to use**: Multiple agents updating shared state
+
+from typing import Annotated, TypedDict
+from operator import add
+from langgraph.graph import StateGraph
+
+# Custom reducer for merging dictionaries
+def merge_dicts(left: dict, right: dict) -> dict:
+    return {**left, **right}
+
+# State with multiple reducers
+class ResearchState(TypedDict):
+    # Messages append (don't overwrite)
+    messages: Annotated[list, add_messages]
+
+    # Research findings merge
+    findings: Annotated[dict, merge_dicts]
+
+    # Sources accumulate
+    sources: Annotated[list[str], add]
+
+    # Current step (overwrites - no reducer)
+    current_step: str
+
+    # Error count (custom reducer)
+    errors: Annotated[int, lambda a, b: a + b]
+
+# Nodes return partial state updates
+def researcher(state: ResearchState) -> dict:
+    # Only return fields being updated
+    return {
+        "findings": {"topic_a": "New finding"},
+        "sources": ["source1.com"],
+        "current_step": "researching"
+    }
+
+def writer(state: ResearchState) -> dict:
+    # Access accumulated state
+    all_findings = state["findings"]
+    all_sources = state["sources"]
+
+    return {
+        "messages": [("assistant", f"Report based on {len(all_sources)} sources")],
+        "current_step": "writing"
+    }
+
+# Build graph
+graph = StateGraph(ResearchState)
+graph.add_node("researcher", researcher)
+graph.add_node("writer", writer)
+# ... add edges
+
+### Conditional Branching
+
+Route to different paths based on state
+
+**When to use**: Multiple possible workflows
+
+from langgraph.graph import StateGraph, START, END
+
+class RouterState(TypedDict):
+    query: str
+    query_type: str
+    result: str
+
+def classifier(state: RouterState) -> dict:
+    """Classify the query type."""
+    query = state["query"].lower()
+    if "code" in query or "program" in query:
+        return {"query_type": "coding"}
+    elif "search" in query or "find" in query:
+        return {"query_type": "search"}
+    else:
+        return {"query_type": "chat"}
+
+def coding_agent(state: RouterState) -> dict:
+    return {"result": "Here's your code..."}
+
+def search_agent(state: RouterState) -> dict:
+    return {"result": "Search results..."}
+
+def chat_agent(state: RouterState) -> dict:
+    return {"result": "Let me help..."}
+
+# Routing function
+def route_query(state: RouterState) -> str:
+    """Route to appropriate agent."""
+    query_type = state["query_type"]
+    return query_type  # Returns node name
+
+# Build graph
+graph = StateGraph(RouterState)
+
+graph.add_node("classifier", classifier)
+graph.add_node("coding", coding_agent)
+graph.add_node("search", search_agent)
+graph.add_node("chat", chat_agent)
+
+graph.add_edge(START, "classifier")
+
+# Conditional edges from classifier
+graph.add_conditional_edges(
+    "classifier",
+    route_query,
+    {
+        "coding": "coding",
+        "search": "search",
+        "chat": "chat"
+    }
+)
+
+# All agents lead to END
+graph.add_edge("coding", END)
+graph.add_edge("search", END)
+graph.add_edge("chat", END)
+
+app = graph.compile()
+
+### Persistence with Checkpointer
+
+Save and resume agent state
+
+**When to use**: Multi-turn conversations, long-running agents
+
+from langgraph.graph import StateGraph
 from langgraph.checkpoint.sqlite import SqliteSaver
-memory = SqliteSaver.from_conn_string("agent_state.db")  # 生产用 PostgresSaver
+from langgraph.checkpoint.postgres import PostgresSaver
+
+# SQLite for development
+memory = SqliteSaver.from_conn_string(":memory:")
+# Or persistent file
+memory = SqliteSaver.from_conn_string("agent_state.db")
+
+# PostgreSQL for production
+# memory = PostgresSaver.from_conn_string(DATABASE_URL)
+
+# Compile with checkpointer
 app = graph.compile(checkpointer=memory)
 
-config = {"configurable": {"thread_id": "user-123"}}
-app.invoke({"messages": [("user", "我叫 Alice")]}, config=config)
-app.invoke({"messages": [("user", "我叫什么？")]}, config=config)  # 记得是 Alice
+# Run with thread_id for conversation continuity
+config = {"configurable": {"thread_id": "user-123-session-1"}}
 
-state = app.get_state(config)            # 取当前对话状态
-for cp in app.get_state_history(config): # 遍历所有检查点
-    print(cp.config, cp.values)
-```
+# First message
+result1 = app.invoke(
+    {"messages": [("user", "My name is Alice")]},
+    config=config
+)
 
-人审（执行前暂停审批）：
+# Second message - agent remembers context
+result2 = app.invoke(
+    {"messages": [("user", "What's my name?")]},
+    config=config
+)
+# Agent knows name is Alice!
 
-```python
-app = graph.compile(checkpointer=memory, interrupt_before=["execute"])
-config = {"configurable": {"thread_id": "approval-flow"}}
-app.invoke({"messages": [("user", "发送报告")]}, config)  # 跑到 execute 前暂停
-
+# Get conversation history
 state = app.get_state(config)
-print(state.values["pending_action"])     # 人工审阅待执行动作
+print(state.values["messages"])
+
+# List all checkpoints
+for checkpoint in app.get_state_history(config):
+    print(checkpoint.config, checkpoint.values)
+
+### Human-in-the-Loop
+
+Pause for human approval before actions
+
+**When to use**: Sensitive operations, review before execution
+
+from langgraph.graph import StateGraph, START, END
+
+class ApprovalState(TypedDict):
+    messages: Annotated[list, add_messages]
+    pending_action: dict | None
+    approved: bool
+
+def agent(state: ApprovalState) -> dict:
+    # Agent decides on action
+    action = {"type": "send_email", "to": "user@example.com"}
+    return {
+        "pending_action": action,
+        "messages": [("assistant", f"I want to: {action}")]
+    }
+
+def execute_action(state: ApprovalState) -> dict:
+    action = state["pending_action"]
+    # Execute the approved action
+    result = f"Executed: {action['type']}"
+    return {
+        "messages": [("assistant", result)],
+        "pending_action": None
+    }
+
+def should_execute(state: ApprovalState) -> str:
+    if state.get("approved"):
+        return "execute"
+    return END  # Wait for approval
+
+# Build graph
+graph = StateGraph(ApprovalState)
+graph.add_node("agent", agent)
+graph.add_node("execute", execute_action)
+
+graph.add_edge(START, "agent")
+graph.add_conditional_edges("agent", should_execute, ["execute", END])
+graph.add_edge("execute", END)
+
+# Compile with interrupt_before for human review
+app = graph.compile(
+    checkpointer=memory,
+    interrupt_before=["execute"]  # Pause before execution
+)
+
+# Run until interrupt
+config = {"configurable": {"thread_id": "approval-flow"}}
+result = app.invoke({"messages": [("user", "Send report")]}, config)
+
+# Agent paused - get pending state
+state = app.get_state(config)
+pending = state.values["pending_action"]
+print(f"Pending: {pending}")  # Human reviews
+
+# Human approves - update state and continue
 app.update_state(config, {"approved": True})
-app.invoke(None, config)                   # 批准后恢复执行
-```
+result = app.invoke(None, config)  # Resume
 
-并行 Map-Reduce（用 `Send` 扇出）：
+### Parallel Execution (Map-Reduce)
 
-```python
+Run multiple branches in parallel
+
+**When to use**: Parallel research, batch processing
+
+from langgraph.graph import StateGraph, START, END, Send
 from langgraph.constants import Send
 
-def fanout_topics(state) -> list[Send]:
-    return [Send("research", {"topic": t}) for t in state["topics"]]
+class ParallelState(TypedDict):
+    topics: list[str]
+    results: Annotated[list[str], add]
+    summary: str
 
+def research_topic(state: dict) -> dict:
+    """Research a single topic."""
+    topic = state["topic"]
+    result = f"Research on {topic}..."
+    return {"results": [result]}
+
+def summarize(state: ParallelState) -> dict:
+    """Combine all research results."""
+    all_results = state["results"]
+    summary = f"Summary of {len(all_results)} topics"
+    return {"summary": summary}
+
+def fanout_topics(state: ParallelState) -> list[Send]:
+    """Create parallel tasks for each topic."""
+    return [
+        Send("research", {"topic": topic})
+        for topic in state["topics"]
+    ]
+
+# Build graph
+graph = StateGraph(ParallelState)
+graph.add_node("research", research_topic)
+graph.add_node("summarize", summarize)
+
+# Fan out to parallel research
 graph.add_conditional_edges(START, fanout_topics, ["research"])
-graph.add_edge("research", "summarize")  # 各分支汇入 summarize
+# All research nodes lead to summarize
+graph.add_edge("research", "summarize")
+graph.add_edge("summarize", END)
+
+app = graph.compile()
+
+result = app.invoke({
+    "topics": ["AI", "Climate", "Space"],
+    "results": []
+})
+# Research runs in parallel, then summarizes
+
+## Collaboration
+
+### Delegation Triggers
+
+- crewai|role-based|crew -> crewai (Need role-based multi-agent approach)
+- observability|tracing|langsmith -> langfuse (Need LLM observability)
+- structured output|json schema -> structured-output (Need structured LLM responses)
+- evaluate|benchmark|test agent -> agent-evaluation (Need to evaluate agent performance)
+
+### Production Agent Stack
+
+Skills: langgraph, langfuse, structured-output
+
+Workflow:
+
+```
+1. Design agent graph with LangGraph
+2. Add structured outputs for tool responses
+3. Integrate Langfuse for observability
+4. Test and monitor in production
 ```
 
-## 注意事项
+### Multi-Agent System
 
-- **无限循环**：带回边的图（agent↔tools）必须有能返回 `END` 的路由条件。
-- **状态覆盖陷阱**：忘记加 reducer 会让后写的更新覆盖前一个节点的结果；多智能体共享状态时尤其注意。
-- **调试难**：图行为可能不直观，建议接 LangSmith/Langfuse 做可观测与追踪。
-- **内存 vs 落盘**：`SqliteSaver.from_conn_string(":memory:")` 进程退出即丢；持久化要给文件路径或用 PostgreSQL。
-- **恢复语义**：人审恢复时 `invoke(None, config)`，传 `None` 表示「不追加新输入、从断点继续」。
-- 只在任务确实匹配上述场景时使用；输出需经环境内验证、测试与专家评审，缺关键输入/权限/安全边界时先停下来确认。
+Skills: langgraph, crewai, agent-communication
 
-## 互见
+Workflow:
 
-- **crewai**：需要基于角色的多智能体协作时。
-- **langfuse**：需要 LLM 可观测性/追踪时。
-- **structured-output**：需要结构化 JSON 输出时。
-- **agent-evaluation**：需要评测智能体性能时。
-- 生产组合：LangGraph 设计图 → 结构化输出规范工具响应 → Langfuse 监控。
+```
+1. Design agent roles (CrewAI patterns)
+2. Implement as LangGraph with subgraphs
+3. Add inter-agent communication
+4. Orchestrate with supervisor pattern
+```
 
----
+### Evaluated Agent
 
-采编自 sickn33/antigravity-awesome-skills（MIT），原条目上游为 vibeship-spawner-skills（Apache 2.0）。
+Skills: langgraph, agent-evaluation, langfuse
+
+Workflow:
+
+```
+1. Build agent with LangGraph
+2. Create evaluation suite
+3. Monitor with Langfuse
+4. Iterate based on metrics
+```
+
+## Related Skills
+
+Works well with: `crewai`, `autonomous-agents`, `langfuse`, `structured-output`
+
+## When to Use
+- User mentions or implies: langgraph
+- User mentions or implies: langchain agent
+- User mentions or implies: stateful agent
+- User mentions or implies: agent graph
+- User mentions or implies: react agent
+- User mentions or implies: agent workflow
+- User mentions or implies: multi-step agent
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

@@ -1,14 +1,14 @@
 ---
 name: pymoo-multiobjective-optimization
-title: pymoo 多目标优化框架
-description: 当用 Python 求解单/多/超多目标优化、需要权衡 Pareto 前沿或处理约束/混合变量优化时使用；用 pymoo 的统一 minimize() 配 NSGA-II/III、MOEA/D、GA/DE/PSO 求解并产出 Pareto 解集、可视化与 MCDM 决策；不适用于纯凸/线性规划（用 scipy/cvxpy）、深度学习超参搜索（用 Optuna/Ray Tune）或单纯符号求解。触发词：pymoo、多目标优化、Pareto 前沿、NSGA-II、NSGA-III、MOEA/D、遗传算法、进化算法、约束优化、ZDT、DTLZ、帕累托
+title: Pymoo - Multi-Objective Optimization in Python
+description: Multi-objective optimization framework. NSGA-II, NSGA-III, MOEA/D, Pareto fronts, constraint handling, benchmarks (ZDT, DTLZ), for engineering design and optimization problems.
 domain: 领域/science
-triggers: [pymoo, 多目标优化, Pareto 前沿, NSGA-II, NSGA-III, MOEA/D, 遗传算法, 进化算法, 约束优化, ZDT, DTLZ, 帕累托, multi-objective optimization]
+triggers: [pymoo, NSGA-II, NSGA-III, MOEA/D, ZDT, DTLZ, multi-objective optimization]
 tags: [pymoo, multi-objective-optimization, evolutionary-algorithm, nsga2, nsga3, pareto-front, genetic-algorithm, constrained-optimization, python]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [pymoo, python, numpy, scipy, matplotlib]
+tools: []
 requires: []
 related: [sympy-symbolic-math, scikit-learn-ml, statsmodels-statistical-modeling, fluidsim-cfd-simulation]
 combines_with: [fluidsim-cfd-simulation, matplotlib-visualization]
@@ -16,138 +16,650 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# Pymoo - Multi-Objective Optimization in Python
 
-适用：工程/设计/调度等存在**多个相互冲突目标**或需进化算法的优化问题。典型任务：
+## Overview
 
-- 单目标优化：用 GA、DE、PSO、CMA-ES 寻全局最优。
-- 多目标（2-3 目标）：求 Pareto 前沿、分析权衡 → NSGA-II。
-- 超多目标（4+ 目标）：高维 Pareto → NSGA-III（需参考方向）、RVEA、AGE-MOEA。
-- 约束优化：不等式 `g(x)<=0`、等式 `h(x)=0`。
-- 混合变量：连续/整数/二进制/类别变量同存。
-- 基准测试（ZDT/DTLZ/WFG）、自定义遗传算子、从前沿做多准则决策（MCDM）。
+Pymoo is a comprehensive Python framework for optimization with emphasis on multi-objective problems. Solve single and multi-objective optimization using state-of-the-art algorithms (NSGA-II/III, MOEA/D, SPEA2), benchmark problems (ZDT, DTLZ), customizable genetic operators, and multi-criteria decision making methods. Excels at finding trade-off solutions (Pareto fronts) for problems with conflicting objectives. Current stable release: **pymoo 0.6.1.6** (November 2025).
 
-不该用：纯凸/线性规划（用 scipy.optimize、cvxpy 更高效）、深度学习超参搜索（用 Optuna/Ray Tune）、单纯符号方程求解（用 sympy）；以及结果须经实测/专家复核的场景——本技能不替代验证。目标、约束或成功标准不明确时先停下确认。
+## Installation
 
-## 步骤
+```bash
+uv pip install pymoo
+```
 
-1. 安装：`uv pip install pymoo`（复现环境可固定 `pymoo==0.6.1.6`）。依赖 NumPy（2.x 起兼容）、SciPy；matplotlib 用于可视化，autograd/joblib 可选。
-2. 定义问题：内置用 `get_problem(...)`；自定义优先继承 `ElementwiseProblem`（逐解评估，便于并行）。
-3. 选算法（见下表）。多/超多目标按目标数选 NSGA-II / NSGA-III。
-4. 设终止条件：`('n_gen', N)`、`('n_evals', N)` 或 `get_termination("f_tol", tol=0.001)`。
-5. `minimize(problem, algorithm, termination, seed=1, verbose=True)` 求解。
-6. 取结果：`result.X`（决策变量）、`result.F`（目标值）、`result.G`/`result.CV`（约束违反）；可视化并按需做 MCDM 决策。
+For reproducible environments, pin a version: `uv pip install "pymoo==0.6.1.6"`.
 
-## 指令
+**Dependencies:** NumPy (2.x compatible since 0.6.1.3), SciPy, matplotlib (visualization). Autograd is optional for gradient-based features (since 0.6.1.3).
 
-统一入口：所有任务都走 `from pymoo.optimize import minimize`。
+**Documentation:** https://pymoo.org/ — LLM-friendly index: https://pymoo.org/llms.txt
 
-算法选择：
+## When to Use This Skill
 
-| 场景 | 推荐算法 |
-|---|---|
-| 单目标通用 / 连续 / 平滑 / 噪声大 | GA / DE / PSO / CMA-ES |
-| 多目标 2-3（标准） | NSGA-II（其次 SPEA2、MOEA/D、R-NSGA-II） |
-| 超多目标 4+ | NSGA-III、RVEA、AGE-MOEA |
-| 重约束 | SRES / ISRES（内置约束处理） |
+This skill should be used when:
+- Solving optimization problems with one or multiple objectives
+- Finding Pareto-optimal solutions and analyzing trade-offs
+- Implementing evolutionary algorithms (GA, DE, PSO, NSGA-II/III)
+- Working with constrained optimization problems
+- Benchmarking algorithms on standard test problems (ZDT, DTLZ, WFG)
+- Customizing genetic operators (crossover, mutation, selection)
+- Visualizing high-dimensional optimization results
+- Making decisions from multiple competing solutions
+- Handling binary, discrete, continuous, or mixed-variable problems
 
-约束写法（强约束）：不等式一律化为 `g(x) <= 0`（<=0 即可行）；等式化为 `h(x) = 0`；遇 `g(x) >= b` 转成 `-(g(x)-b) <= 0`。`n_ieq_constr` / `n_eq_constr` 在 `__init__` 声明，`_evaluate` 里写入 `out["G"]` / `out["H"]`。
+## Core Concepts
 
-约束处理四选一：① 默认可行性优先（多数算法自动支持，`result.CV[:,0]==0` 判可行）；② 罚函数 `ConstraintsAsPenalty(problem, penalty=1e6)`；③ 违反量当目标 `ConstraintsAsObjective(problem)`；④ 专用算法 SRES/ISRES。
+### The Unified Interface
 
-可视化按目标数：2 目标 `Scatter`；3 目标 `Scatter`（自动 3D）；4+ 目标 `PCP`（平行坐标）；多方案对比 `Petal`。
+Pymoo uses a consistent `minimize()` function for all optimization tasks:
 
-## 示例
+```python
+from pymoo.optimize import minimize
 
-多目标（NSGA-II + 前沿可视化）：
+result = minimize(
+    problem,        # What to optimize
+    algorithm,      # How to optimize
+    termination,    # When to stop
+    seed=1,
+    verbose=True
+)
+```
 
+**Result object contains:**
+- `result.X`: Decision variables of optimal solution(s)
+- `result.F`: Objective values of optimal solution(s)
+- `result.G`: Constraint violations (if constrained)
+- `result.algorithm`: Algorithm object with history
+
+### Problem Definition Styles
+
+Pymoo supports three problem definition styles:
+
+- **`Problem`**: Vectorized — `_evaluate` receives a batch of solutions (matrix)
+- **`ElementwiseProblem`**: One solution per call — recommended for custom problems and parallel evaluation
+- **`FunctionalProblem`**: Define objectives and constraints as separate functions without subclassing
+
+### Problem Types
+
+**Single-objective:** One objective to minimize/maximize
+**Multi-objective:** 2-3 conflicting objectives → Pareto front
+**Many-objective:** 4+ objectives → High-dimensional Pareto front
+**Constrained:** Objectives + inequality/equality constraints
+**Mixed-variable:** Continuous, integer, binary, and categorical variables in one problem
+**Dynamic:** Time-varying objectives or constraints
+
+## Quick Start Workflows
+
+### Workflow 1: Single-Objective Optimization
+
+**When:** Optimizing one objective function
+
+**Steps:**
+1. Define or select problem
+2. Choose single-objective algorithm (GA, DE, PSO, CMA-ES)
+3. Configure termination criteria
+4. Run optimization
+5. Extract best solution
+
+**Example:**
+```python
+from pymoo.algorithms.soo.nonconvex.ga import GA
+from pymoo.problems import get_problem
+from pymoo.optimize import minimize
+
+# Built-in problem
+problem = get_problem("rastrigin", n_var=10)
+
+# Configure Genetic Algorithm
+algorithm = GA(
+    pop_size=100,
+    eliminate_duplicates=True
+)
+
+# Optimize
+result = minimize(
+    problem,
+    algorithm,
+    ('n_gen', 200),
+    seed=1,
+    verbose=True
+)
+
+print(f"Best solution: {result.X}")
+print(f"Best objective: {result.F[0]}")
+```
+
+**See:** `scripts/single_objective_example.py` for complete example
+
+### Workflow 2: Multi-Objective Optimization (2-3 objectives)
+
+**When:** Optimizing 2-3 conflicting objectives, need Pareto front
+
+**Algorithm choice:** NSGA-II (standard for bi/tri-objective)
+
+**Steps:**
+1. Define multi-objective problem
+2. Configure NSGA-II
+3. Run optimization to obtain Pareto front
+4. Visualize trade-offs
+5. Apply decision making (optional)
+
+**Example:**
 ```python
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.problems import get_problem
 from pymoo.optimize import minimize
 from pymoo.visualization.scatter import Scatter
 
-problem = get_problem("zdt1")          # 双目标基准
+# Bi-objective benchmark problem
+problem = get_problem("zdt1")
+
+# NSGA-II algorithm
 algorithm = NSGA2(pop_size=100)
+
+# Optimize
 result = minimize(problem, algorithm, ('n_gen', 200), seed=1)
 
+# Visualize Pareto front
 plot = Scatter()
-plot.add(result.F, label="求得前沿")
-plot.add(problem.pareto_front(), label="真实前沿", alpha=0.3)
+plot.add(result.F, label="Obtained Front")
+plot.add(problem.pareto_front(), label="True Front", alpha=0.3)
+plot.show()
+
+print(f"Found {len(result.F)} Pareto-optimal solutions")
+```
+
+**See:** `scripts/multi_objective_example.py` for complete example
+
+### Workflow 3: Many-Objective Optimization (4+ objectives)
+
+**When:** Optimizing 4 or more objectives
+
+**Algorithm choice:** NSGA-III (designed for many objectives)
+
+**Key difference:** Must provide reference directions for population guidance
+
+**Steps:**
+1. Define many-objective problem
+2. Generate reference directions
+3. Configure NSGA-III with reference directions
+4. Run optimization
+5. Visualize using Parallel Coordinate Plot
+
+**Example:**
+```python
+from pymoo.algorithms.moo.nsga3 import NSGA3
+from pymoo.problems import get_problem
+from pymoo.optimize import minimize
+from pymoo.util.ref_dirs import get_reference_directions
+from pymoo.visualization.pcp import PCP
+
+# Many-objective problem (5 objectives)
+problem = get_problem("dtlz2", n_obj=5)
+
+# Generate reference directions (required for NSGA-III)
+ref_dirs = get_reference_directions("das-dennis", n_obj=5, n_partitions=12)
+
+# Configure NSGA-III
+algorithm = NSGA3(ref_dirs=ref_dirs)
+
+# Optimize
+result = minimize(problem, algorithm, ('n_gen', 300), seed=1)
+
+# Visualize with Parallel Coordinates
+plot = PCP(labels=[f"f{i+1}" for i in range(5)])
+plot.add(result.F, alpha=0.3)
 plot.show()
 ```
 
-超多目标（NSGA-III 必须给参考方向）：
+**See:** `scripts/many_objective_example.py` for complete example
 
-```python
-from pymoo.algorithms.moo.nsga3 import NSGA3
-from pymoo.util.ref_dirs import get_reference_directions
+### Workflow 4: Custom Problem Definition
 
-problem = get_problem("dtlz2", n_obj=5)
-ref_dirs = get_reference_directions("das-dennis", n_obj=5, n_partitions=12)
-algorithm = NSGA3(ref_dirs=ref_dirs)
-result = minimize(problem, algorithm, ('n_gen', 300), seed=1)
-```
+**When:** Solving domain-specific optimization problem
 
-自定义带约束问题：
+**Steps:**
+1. Extend `ElementwiseProblem` class
+2. Define `__init__` with problem dimensions and bounds
+3. Implement `_evaluate` method for objectives (and constraints)
+4. Use with any algorithm
 
+**Unconstrained example:**
 ```python
 from pymoo.core.problem import ElementwiseProblem
 import numpy as np
 
 class MyProblem(ElementwiseProblem):
     def __init__(self):
-        super().__init__(n_var=2, n_obj=2, n_ieq_constr=2,
-                         xl=np.array([0, 0]), xu=np.array([5, 5]))
+        super().__init__(
+            n_var=2,              # Number of variables
+            n_obj=2,              # Number of objectives
+            xl=np.array([0, 0]),  # Lower bounds
+            xu=np.array([5, 5])   # Upper bounds
+        )
 
     def _evaluate(self, x, out, *args, **kwargs):
-        out["F"] = [x[0]**2 + x[1]**2, (x[0]-1)**2 + (x[1]-1)**2]
-        out["G"] = [g1, g2]   # 每项需 <= 0
+        # Define objectives
+        f1 = x[0]**2 + x[1]**2
+        f2 = (x[0]-1)**2 + (x[1]-1)**2
+
+        out["F"] = [f1, f2]
 ```
 
-从前沿做决策（伪权重 MCDM，先归一化）：
+**Constrained example:**
+```python
+class ConstrainedProblem(ElementwiseProblem):
+    def __init__(self):
+        super().__init__(
+            n_var=2,
+            n_obj=2,
+            n_ieq_constr=2,        # Inequality constraints
+            n_eq_constr=1,         # Equality constraints
+            xl=np.array([0, 0]),
+            xu=np.array([5, 5])
+        )
 
+    def _evaluate(self, x, out, *args, **kwargs):
+        # Objectives
+        out["F"] = [f1, f2]
+
+        # Inequality constraints (g <= 0)
+        out["G"] = [g1, g2]
+
+        # Equality constraints (h = 0)
+        out["H"] = [h1]
+```
+
+**Constraint formulation rules:**
+- Inequality: Express as `g(x) <= 0` (feasible when ≤ 0)
+- Equality: Express as `h(x) = 0` (feasible when = 0)
+- Convert `g(x) >= b` to `-(g(x) - b) <= 0`
+
+**See:** `scripts/custom_problem_example.py` for complete examples
+
+### Workflow 5: Constraint Handling
+
+**When:** Problem has feasibility constraints
+
+**Approach options:**
+
+**1. Feasibility First (Default - Recommended)**
+```python
+from pymoo.algorithms.moo.nsga2 import NSGA2
+
+# Works automatically with constrained problems
+algorithm = NSGA2(pop_size=100)
+result = minimize(problem, algorithm, termination)
+
+# Check feasibility
+feasible = result.CV[:, 0] == 0  # CV = constraint violation
+print(f"Feasible solutions: {np.sum(feasible)}")
+```
+
+**2. Penalty Method**
+```python
+from pymoo.constraints.as_penalty import ConstraintsAsPenalty
+
+# Wrap problem to convert constraints to penalties
+problem_penalized = ConstraintsAsPenalty(problem, penalty=1e6)
+```
+
+**3. Constraint as Objective**
+```python
+from pymoo.constraints.as_obj import ConstraintsAsObjective
+
+# Treat constraint violation as additional objective
+problem_with_cv = ConstraintsAsObjective(problem)
+```
+
+**4. Specialized Algorithms**
+```python
+from pymoo.algorithms.soo.nonconvex.sres import SRES
+
+# SRES has built-in constraint handling
+algorithm = SRES()
+```
+
+**See:** `references/constraints_mcdm.md` for comprehensive constraint handling guide
+
+### Workflow 6: Decision Making from Pareto Front
+
+**When:** Have Pareto front, need to select preferred solution(s)
+
+**Steps:**
+1. Run multi-objective optimization
+2. Normalize objectives to [0, 1]
+3. Define preference weights
+4. Apply MCDM method
+5. Visualize selected solution
+
+**Example using Pseudo-Weights:**
 ```python
 from pymoo.mcdm.pseudo_weights import PseudoWeights
 import numpy as np
 
-F_norm = (result.F - result.F.min(0)) / (result.F.max(0) - result.F.min(0))
-weights = np.array([0.3, 0.7])        # 权重和为 1
-idx = PseudoWeights(weights).do(F_norm)
-best_X, best_F = result.X[idx], result.F[idx]
+# After obtaining result from multi-objective optimization
+# Normalize objectives
+F_norm = (result.F - result.F.min(axis=0)) / (result.F.max(axis=0) - result.F.min(axis=0))
+
+# Define preferences (must sum to 1)
+weights = np.array([0.3, 0.7])  # 30% f1, 70% f2
+
+# Apply decision making
+dm = PseudoWeights(weights)
+selected_idx = dm.do(F_norm)
+
+# Get selected solution
+best_solution = result.X[selected_idx]
+best_objectives = result.F[selected_idx]
+
+print(f"Selected solution: {best_solution}")
+print(f"Objective values: {best_objectives}")
 ```
 
-并行评估（每次评估昂贵时）：
+**Other MCDM methods:**
+- Compromise Programming: Select closest to ideal point
+- Knee Point: Find balanced trade-off solutions
+- Hypervolume Contribution: Select most diverse subset
 
+**See:**
+- `scripts/decision_making_example.py` for complete example
+- `references/constraints_mcdm.md` for detailed MCDM methods
+
+### Workflow 7: Visualization
+
+**Choose visualization based on number of objectives:**
+
+**2 objectives: Scatter Plot**
+```python
+from pymoo.visualization.scatter import Scatter
+
+plot = Scatter(title="Bi-objective Results")
+plot.add(result.F, color="blue", alpha=0.7)
+plot.show()
+```
+
+**3 objectives: 3D Scatter**
+```python
+plot = Scatter(title="Tri-objective Results")
+plot.add(result.F)  # Automatically renders in 3D
+plot.show()
+```
+
+**4+ objectives: Parallel Coordinate Plot**
+```python
+from pymoo.visualization.pcp import PCP
+
+plot = PCP(
+    labels=[f"f{i+1}" for i in range(n_obj)],
+    normalize_each_axis=True
+)
+plot.add(result.F, alpha=0.3)
+plot.show()
+```
+
+**Solution comparison: Petal Diagram**
+```python
+from pymoo.visualization.petal import Petal
+
+plot = Petal(
+    bounds=[result.F.min(axis=0), result.F.max(axis=0)],
+    labels=["Cost", "Weight", "Efficiency"]
+)
+plot.add(solution_A, label="Design A")
+plot.add(solution_B, label="Design B")
+plot.show()
+```
+
+**See:** `references/visualization.md` for all visualization types and usage
+
+### Workflow 8: Parallel Evaluation
+
+**When:** Each `_evaluate` call is expensive (simulations, ML models, external solvers)
+
+**Approach:** Pass an `elementwise_runner` to `ElementwiseProblem` using `StarmapParallelization` or `JoblibParallelization`.
+
+**Example (thread pool):**
 ```python
 from multiprocessing.pool import ThreadPool
+from pymoo.algorithms.soo.nonconvex.ga import GA
+from pymoo.core.problem import ElementwiseProblem
+from pymoo.optimize import minimize
 from pymoo.parallelization.starmap import StarmapParallelization
+
+class MyProblem(ElementwiseProblem):
+    def __init__(self, elementwise_runner=None, **kwargs):
+        super().__init__(
+            n_var=10, n_obj=1, xl=-5, xu=5,
+            elementwise_runner=elementwise_runner, **kwargs,
+        )
+
+    def _evaluate(self, x, out, *args, **kwargs):
+        out["F"] = (x ** 2).sum()  # Replace with expensive evaluation
 
 pool = ThreadPool(4)
 runner = StarmapParallelization(pool.starmap)
-problem = MyProblem(elementwise_runner=runner)  # __init__ 透传 elementwise_runner
-# ... minimize(...) 后 pool.close()
+problem = MyProblem(elementwise_runner=runner)
+
+result = minimize(problem, GA(), ("n_gen", 50), seed=1)
+pool.close()
 ```
 
-混合变量：在 `__init__` 用 `vars` 字典声明 `Real/Integer/Binary/Choice`，单目标用 `MixedVariableGA(pop_size=20)`，多目标加 `survival=RankAndCrowdingSurvival()`。
+**See:** `references/parallelization.md` for process pools, joblib, and pickling notes
 
-## 注意事项
+### Workflow 9: Mixed-Variable Optimization
 
-- NSGA-III/RVEA 必须提供 `ref_dirs`（`get_reference_directions`），否则无法引导种群。
-- 约束方向：全部表述为 `g(x) <= 0`、`h(x) = 0`；可行性优先要求约束公式正确，否则会出现「几乎无可行解」。
-- 不收敛：增大 `pop_size`、增加代数、换算法（多模态问题）、复核约束公式。
-- 前沿分布差：调参考方向、增种群、开启 `eliminate_duplicates=True`、检查目标量纲。
-- 量纲差异大先归一化；做 MCDM 前必须归一化到 [0,1]。
-- 复现：固定 `seed`；分析收敛用 `save_history=True`。
-- 计算太贵：减种群/代数、用更简算子，或经 `elementwise_runner` 并行评估。
-- 连续变量算子常用 SBX 交叉 + PM 变异；二进制用 Bitflip；排列（TSP/调度）用 OrderCrossover + InversionMutation。
-- 当前稳定版 pymoo 0.6.1.6（2025-11）。文档 https://pymoo.org/ ，LLM 友好索引 https://pymoo.org/llms.txt 。
+**When:** Decision variables include continuous, integer, binary, and/or categorical types
 
-## 互见
+**Approach:** Define a `vars` dict with typed variables; use `MixedVariableGA` (SOO) or add MOO survival.
 
-- related：`sympy-symbolic-math` —— 目标/约束的符号推导与解析梯度
-- related：`guided-statistical-analysis` —— 优化结果的统计分析与显著性检验
-- combines_with：`matplotlib-visualization` —— 自定义绘制 Pareto 前沿、收敛曲线
-- combines_with：`research-experiment-designer` —— 把优化纳入实验设计与方案对比
+**Example:**
+```python
+from pymoo.core.problem import ElementwiseProblem
+from pymoo.core.variable import Real, Integer, Choice, Binary
+from pymoo.core.mixed import MixedVariableGA
+from pymoo.optimize import minimize
 
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT）。
+class MixedProblem(ElementwiseProblem):
+    def __init__(self, **kwargs):
+        vars = {
+            "b": Binary(),
+            "x": Choice(options=["nothing", "multiply"]),
+            "y": Integer(bounds=(0, 2)),
+            "z": Real(bounds=(0, 5)),
+        }
+        super().__init__(vars=vars, n_obj=1, **kwargs)
+
+    def _evaluate(self, X, out, *args, **kwargs):
+        b, x, z, y = X["b"], X["x"], X["z"], X["y"]
+        f = z + y
+        if b:
+            f = 100 * f
+        if x == "multiply":
+            f = 10 * f
+        out["F"] = f
+
+algorithm = MixedVariableGA(pop_size=20)
+result = minimize(MixedProblem(), algorithm, ("n_evals", 1000), seed=1)
+```
+
+For multi-objective mixed-variable problems, use `MixedVariableGA(pop_size=20, survival=RankAndCrowdingSurvival())`. For single-objective mixed search, pymoo also wraps [Optuna](https://optuna.org) via `pymoo.algorithms.soo.nonconvex.optuna.Optuna`.
+
+**See:** `references/algorithms.md` for MixedVariableGA and Optuna details
+
+## Algorithm Selection Guide
+
+### Single-Objective Problems
+
+| Algorithm | Best For | Key Features |
+|-----------|----------|--------------|
+| **GA** | General-purpose | Flexible, customizable operators |
+| **DE** | Continuous optimization | Good global search |
+| **PSO** | Smooth landscapes | Fast convergence |
+| **CMA-ES** | Difficult/noisy problems | Self-adapting |
+
+### Multi-Objective Problems (2-3 objectives)
+
+| Algorithm | Best For | Key Features |
+|-----------|----------|--------------|
+| **NSGA-II** | Standard benchmark | Fast, reliable, well-tested |
+| **SPEA2** | Archive-based MOO | Strength-based fitness, external archive |
+| **R-NSGA-II** | Preference regions | Reference point guidance |
+| **MOEA/D** | Decomposable problems | Scalarization approach |
+
+### Many-Objective Problems (4+ objectives)
+
+| Algorithm | Best For | Key Features |
+|-----------|----------|--------------|
+| **NSGA-III** | 4-15 objectives | Reference direction-based |
+| **RVEA** | Adaptive search | Reference vector evolution |
+| **AGE-MOEA** | Complex landscapes | Adaptive geometry |
+
+### Constrained Problems
+
+| Approach | Algorithm | When to Use |
+|----------|-----------|-------------|
+| Feasibility-first | Any algorithm | Large feasible region |
+| Specialized | SRES, ISRES | Heavy constraints |
+| Penalty | GA + penalty | Algorithm compatibility |
+
+**See:** `references/algorithms.md` for comprehensive algorithm reference
+
+## Benchmark Problems
+
+### Quick problem access:
+```python
+from pymoo.problems import get_problem
+
+# Single-objective
+problem = get_problem("rastrigin", n_var=10)
+problem = get_problem("rosenbrock", n_var=10)
+
+# Multi-objective
+problem = get_problem("zdt1")        # Convex front
+problem = get_problem("zdt2")        # Non-convex front
+problem = get_problem("zdt3")        # Disconnected front
+
+# Many-objective
+problem = get_problem("dtlz2", n_obj=5, n_var=12)
+problem = get_problem("dtlz7", n_obj=4)
+```
+
+**See:** `references/problems.md` for complete test problem reference
+
+## Genetic Operator Customization
+
+### Standard operator configuration:
+```python
+from pymoo.algorithms.soo.nonconvex.ga import GA
+from pymoo.operators.crossover.sbx import SBX
+from pymoo.operators.mutation.pm import PM
+
+algorithm = GA(
+    pop_size=100,
+    crossover=SBX(prob=0.9, eta=15),
+    mutation=PM(eta=20),
+    eliminate_duplicates=True
+)
+```
+
+### Operator selection by variable type:
+
+**Continuous variables:**
+- Crossover: SBX (Simulated Binary Crossover)
+- Mutation: PM (Polynomial Mutation)
+
+**Binary variables:**
+- Crossover: TwoPointCrossover, UniformCrossover
+- Mutation: BitflipMutation
+
+**Permutations (TSP, scheduling):**
+- Crossover: OrderCrossover (OX)
+- Mutation: InversionMutation
+
+**See:** `references/operators.md` for comprehensive operator reference
+
+## Performance and Troubleshooting
+
+### Common issues and solutions:
+
+**Problem: Algorithm not converging**
+- Increase population size
+- Increase number of generations
+- Check if problem is multimodal (try different algorithms)
+- Verify constraints are correctly formulated
+
+**Problem: Poor Pareto front distribution**
+- For NSGA-III: Adjust reference directions
+- Increase population size
+- Check for duplicate elimination
+- Verify problem scaling
+
+**Problem: Few feasible solutions**
+- Use constraint-as-objective approach
+- Apply repair operators
+- Try SRES/ISRES for constrained problems
+- Check constraint formulation (should be g <= 0)
+
+**Problem: High computational cost**
+- Reduce population size
+- Decrease number of generations
+- Use simpler operators
+- Enable parallel evaluation via `elementwise_runner` (see Workflow 8)
+
+### Best practices:
+
+1. **Normalize objectives** when scales differ significantly
+2. **Set random seed** for reproducibility
+3. **Save history** to analyze convergence: `save_history=True`
+4. **Visualize results** to understand solution quality
+5. **Compare with true Pareto front** when available
+6. **Use appropriate termination criteria** (generations, evaluations, tolerance)
+7. **Tune operator parameters** for problem characteristics
+
+## Resources
+
+This skill includes comprehensive reference documentation and executable examples:
+
+### references/
+Detailed documentation for in-depth understanding:
+
+- **algorithms.md**: Complete algorithm reference with parameters, usage, and selection guidelines
+- **problems.md**: Benchmark test problems (ZDT, DTLZ, WFG) with characteristics
+- **operators.md**: Genetic operators (sampling, selection, crossover, mutation) with configuration
+- **visualization.md**: All visualization types with examples and selection guide
+- **constraints_mcdm.md**: Constraint handling techniques and multi-criteria decision making methods
+- **parallelization.md**: Parallel evaluation with StarmapParallelization and JoblibParallelization
+
+**Search patterns for references:**
+- Algorithm details: `grep -r "NSGA-II\|NSGA-III\|MOEA/D" references/`
+- Constraint methods: `grep -r "Feasibility First\|Penalty\|Repair" references/`
+- Visualization types: `grep -r "Scatter\|PCP\|Petal" references/`
+
+### scripts/
+Executable examples demonstrating common workflows:
+
+- **single_objective_example.py**: Basic single-objective optimization with GA
+- **multi_objective_example.py**: Multi-objective optimization with NSGA-II, visualization
+- **many_objective_example.py**: Many-objective optimization with NSGA-III, reference directions
+- **custom_problem_example.py**: Defining custom problems (constrained and unconstrained)
+- **decision_making_example.py**: Multi-criteria decision making with different preferences
+
+**Run examples:**
+```bash
+python3 scripts/single_objective_example.py
+python3 scripts/multi_objective_example.py
+python3 scripts/many_objective_example.py
+python3 scripts/custom_problem_example.py
+python3 scripts/decision_making_example.py
+```
+
+## Additional Notes
+
+**Common patterns:**
+- Use `ElementwiseProblem` for custom problems (or `FunctionalProblem` for function-based definitions)
+- Use `vars` dict with typed variables for mixed-variable problems
+- Constraints formulated as `g(x) <= 0` and `h(x) = 0`
+- Reference directions required for NSGA-III
+- Normalize objectives before MCDM
+- Use appropriate termination: `('n_gen', N)` or `get_termination("f_tol", tol=0.001)`

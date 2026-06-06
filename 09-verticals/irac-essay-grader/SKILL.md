@@ -1,14 +1,14 @@
 ---
 name: irac-essay-grader
-title: IRAC 法律论文评析
-description: 当法学生写完一篇 IRAC 法律分析论文、想要结构化反馈而非范文时使用；做问题识别、规则准确性、涵摄深度与组织性逐项评分，产出「识别/遗漏问题+规则核验+涵摄缺口+组织+及格档位+前三改法+至多1-2句标注示例」并跨次累积模式；不适用于代改论文、给出整篇范文、给精确分数或替代真实法律咨询/教授评分。触发词：评我的IRAC、批改我的论文、给我的法律论文反馈、grade my IRAC、check my essay、issue-spotting
+title: /irac-practice
+description: Grade an IRAC essay for structure, issue-spotting, rule accuracy, analysis depth, and organization. Does NOT rewrite the essay or show a model answer; tracks patterns across sessions. Use when the user says "grade my IRAC", "check my essay", or "I wrote this, give me feedback".
 domain: 领域/legal
-triggers: [评我的IRAC, 批改我的法律论文, 给我的IRAC论文反馈, grade my IRAC, check my essay, issue-spotting 问题识别]
+triggers: [grade my IRAC, check my essay]
 tags: [legal, law-student, irac, essay-grading, issue-spotting, legal-writing, exam-prep]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [markdown, tracker.md 会话跟踪文件, 法律检索工具 (Westlaw/Fastcase/CourtListener) 仅供用户事后核验]
+tools: []
 requires: []
 related: [legal-case-brief, academic-peer-reviewer, litigation-brief-section-drafter, quick-legal-problem-triage]
 combines_with: [legal-client-intake, citation-management]
@@ -16,109 +16,171 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /irac-practice
 
-法学生写完一篇 IRAC（Issue-Rule-Application-Conclusion）或 CRAC 结构的法律分析论文，想要**结构化的批改反馈**时使用：评估是否识别出全部争点、规则陈述是否准确、是否把规则**涵摄**到具体事实（而非把规则和事实各复述一遍而不连接）、组织是否有条理，并给出及格档位与前三优先改法。本技能跨会话累积该学生的错误模式，3 次以上后揭示规律——这是它真正的长期价值。
-
-适用两种模式：① 学生自带 hypo（练习题）+ 答案，按该 hypo 评；② 学生要练习，由本技能在其学科领域生成 hypo，学生作答后再评（生成的 hypo 同样遵守下方置信纪律）。
-
-**不该用 / 负边界：**
-- **绝不改写学生的论文，也绝不给出整篇范文。** 全部要点就是让学生靠自己写、拿到具体结构反馈、再自己重写来学习——给范文等于抄近路、毁掉学习。只允许 1-2 句**清楚标注的示例措辞**演示某个结构动作（且只能用占位符或不同学科，绝不在学生正在写的实质争点上演示）。
-- **不给精确数字分。** 只给 Pass / borderline（临界）/ not yet（尚不及格）三档，评分本质是定性的，精确分是伪精确。
-- **不替代教授评分**——教授有本技能不知道的评分细则与偏好；反馈用来改进，不是定论。
-- **真实事务闸门（最优先）**：若问题听起来像**真实**情形（自己的租约、停车罚单、家里生意、朋友被捕、真实金额/期限/当事人姓名），立刻停下并提示：「这听起来是真实情形而非假想题。我不能给法律意见，你也不能——你还不是律师。如属真实，[当事人]需要真正的律师：法律援助、学校法律诊所、律师转介服务（你所在法域的律师协会/律师公会/法援机构），或自费私人律师。我可以帮你理解涉及的一般法律概念，但那是学习，不是意见。」触发词：真实姓名/地址/日期、具体金额、「我的房东/老板/父母/朋友」、「我收到罚单/信函/通知」、以天计的期限——命中任一即触发。
-
-## 步骤
-
-1. **载入上下文**：读取学生练习档（当前课程、考试形式、提纲位置、学习风格），以及该学生的 `tracker.md`（若存在，用于跨次模式跟踪）。
-2. **确定评什么**：分清是自带 hypo 还是技能生成 hypo。
-3. **细读答案（不要略读）**：当作真在评分一样读，逐项对照预期 IRAC 组件。
-4. **逐组件映射**：
-   - **Issue 争点**：识别出哪些？hypo 里有哪些争点学生**没**识别出（这些是丢分点）？有没有把不是争点的东西误当争点？
-   - **Rule 规则**：每个处理到的争点，规则陈述是否 (a) 存在、(b) 准确、(c) 完整？
-   - **Application 涵摄**：每条规则，是否把规则**应用到具体事实**，还是只复述规则+事实而不连接？判据——能否找到「because / here / 因为 / 本案中」这类映射语言？
-   - **Conclusion 结论**：是否给出结论？是否回应了题目设问（the call）？
-   - **Organization 组织**：IRAC / CRAC 顺序？主题句领起还是埋没？段落切分是否合理？
-5. **输出结构化反馈**（见示例模板），逐组件、具体而非泛泛、不改写。
-6. **追加跟踪并揭示模式**：把本次结果追加到该学生的 `tracker.md`；3 次以上后总结规律。
-
-## 指令
-
-- **置信纪律——分清能确信什么：**
-  - 结构评分（有没有 IRAC？有没有组织？有没有用主题句？）——**确信**，结构就是结构。
-  - 问题识别——若争点明摆在事实表面则确信；若是合理评分者会分歧的可争论争点，标 `[UNCERTAIN: 可争论的争点判断]`，注明「你的评分者可能同意也可能不同意，这是可辩护的读法」。
-  - 规则准确性——对照自己的知识核验，凡不确定的标 `[VERIFY]`；**不因自己没把握就默默判错学生本来正确的规则陈述**。
-  - 若 hypo 来自不熟悉的法域或领域，**只评结构并明说**：「我能评你的 IRAC 形态，但无法独立核验 [该领域] 的规则，请对照你的提纲交叉核对。」
-- **引证核验提示（不可省）**：反馈中提到的任何判例/法条/规则均由 AI 生成、未经核实；学生在重写或交评分论文前，须在 Westlaw / Fastcase / CourtListener / 学校检索工具上查证——AI 生成的引证有时是杜撰或误引。
-- **标注示例措辞——只标注、不可抄：** 若学生漏掉某个具体结构动作（如规则-涵摄映射），可给**一句**示例演示该动作，并明确标注：「这是一种写涵摄句的方式——写你自己的版本，别抄这句：[示例]」。每次评分至多 1-2 句，绝不给整段 IRAC 范例。**绝不在学生的实质争点上演示**——示例须用占位符或不同学科（学生写车祸过失就别用过失涵摄句），否则就从「看见动作」越界成「被递答案」。
-- **决策姿态——偏向可恢复的错误**：遇到主观判断（问题识别是否完整、IRAC 是否结构健全、规则陈述是否准确）且答案不确定时，用 `[review]`/`[UNCERTAIN]` 内联标记具体那一行，而非默默判定阈值未达、也别单写一段说教式 caveat。漏标是单向门，多标是审阅者 30 秒就能关上的双向门——默认走双向门。
-
-## 示例
-
-逐组件反馈模板（开头加 `STUDY NOTES — NOT LEGAL ADVICE` 学习笔记标头）：
-
-```markdown
-# IRAC Grade — [日期]
-
-**Hypo:** [摘要或指针]
-**Student answer length:** [N 词]
-**Expected issues:** [列表——来自 hypo]
-
-## Issue spotting 问题识别
-**Spotted 已识别:** [列表]
-**Missed 遗漏:** [列表——丢在桌上的分]
-**Mis-identified 误判:** [若把非争点当成争点]
-[可争论争点标: [UNCERTAIN: 可辩护的读法]]
-
-## Rule statements 规则陈述
-逐个已处理争点:
-- **[争点1]:** [准确 / 部分正确 / 错误 / 缺要件] — [一句话指出哪里不对] — [不确定则标 VERIFY]
-
-## Analysis 涵摄
-逐条已陈述规则:
-- **[争点1] — 你涵摄了吗?** [是, 应用到了具体事实 | 部分, 提了事实但没连到规则要件 | 否, 复述规则再罗列事实而无映射]
-- [若涵摄不到位: 你需要做的是把 [具体事实] 连到 [具体规则要件]。不是「被告因事实而有过失」，而是「被告违反注意义务，因为 [具体事实] 意味着 [关于该要件的具体结论]」]
-
-## Organization 组织
-- **Order:** IRAC? CRAC? 其他?
-- **Paragraph:** 主题句领起还是埋没? **Transitions:** 流畅还是一堵文字墙? **Call responsiveness:** 回应设问了吗?
-
-## If graded 若今天评分
-- **[Pass / borderline / not yet]** — 一句话理由
-
-## Top three fixes 前三改法（排序，各一句）
-1. 2. 3.
-
-## Citation check 引证核验
-[本反馈引用的判例/法条均 AI 生成未核实，重写或交评前请上 Westlaw/Fastcase/CourtListener 查证]
-```
-
-跨次跟踪追加到 `tracker.md`：
-
-```markdown
-## [日期] — [学科 / hypo 主题]
-- Issues missed: [列表]
-- Rule accuracy: [% 或定性]
-- Analysis gap: [具体模式——如「复述规则但不涵摄」]
-- Organization: [ok / weak / strong]
-```
-
-3 次以上揭示模式，例如：「你连续三次漏掉反方论点」「你 Issue+Rule 很强，但 Application 一贯偏弱」「你组织很强，缺口在规则准确性——去刷黑体字规则的闪卡」。
-
-## 注意事项
-
-- **永不改写、永不给范文**：学生必须在自己脑中建起范文，给范文就短路了学习。这是本技能的第一红线，无例外。
-- **只给三档，不给精确分**：Pass / borderline / not yet，定性评分。
-- **涵摄判据要硬**：找「because / here / 因为 / 本案中」类映射语言；找不到就是只复述未涵摄。
-- **不熟的法域只评结构并明说**：内容正确性的判断留给学生的提纲与教授。
-- **跨次模式才是真价值**：一次反馈帮一篇论文，模式反馈改变学习方式。
-- **学习笔记标头而非工作成果特权标头**：学生学习材料不是律师指导下的法律工作，且「attorney work product」是美国 FRCP 26(b)(3) 概念、多数法域无对应——一律用 `STUDY NOTES — NOT LEGAL ADVICE`。
-
-## 互见
-
-- general-counsel-advisor（总法律顾问）：从学生练习升级到真实合同/条款审查时，注意真实事务闸门——本技能只评学习用 hypo。
-- fact-checking（事实核查）：本技能对规则准确性与引证的「未核验即标注」纪律，可配合事实核查方法核验 AI 生成的判例与法条。
+1. Load `~/.claude/plugins/config/claude-for-legal/law-student/CLAUDE.md` → classes, exam formats, outline locations, learning style.
+2. Apply the framework below.
+3. Establish mode: student-provided hypo + answer, OR skill-generated hypo with student's answer.
+4. Read the answer closely. Map against expected IRAC components.
+5. Output structured feedback: issues spotted/missed, rule accuracy, analysis depth, organization, grade band, top 3 fixes, at most 1-2 labeled example phrasings (never a full IRAC model).
+6. Append to `~/.claude/plugins/config/claude-for-legal/law-student/irac-sessions/[student]/tracker.md` for pattern detection. Surface patterns after 3+ sessions.
 
 ---
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。所有输出均为学习材料，不构成法律意见，不得直接用作评分作业（先查校规荣誉守则与教授 AI 政策）。
+## Real-matter check
+
+If the question the student is asking sounds like it's about a REAL situation — their lease, their parking ticket, their family's business, their friend's arrest, a real dollar amount, a real deadline, a real party name — stop.
+
+> "This sounds like a real situation, not a hypothetical. I can't give you legal advice, and you can't give it either — you're not a lawyer yet. If this is real, [the person] needs an actual lawyer: legal aid, your school's clinic, a lawyer referral service (your jurisdiction's bar association, law society, or legal aid body), or (if there's money) a private attorney. I'm happy to help you understand the general legal concepts involved, but that's study, not advice."
+
+Watch for: real names, real addresses, real dates, specific dollar amounts, "my landlord/boss/parent/friend," "I got a ticket/letter/notice," deadlines measured in days. Any one of these is a trigger.
+
+## Purpose
+
+1L writing is mostly IRAC. 2L-3L writing that touches legal analysis is IRAC under the hood. The exam rewards structure as much as content. This skill grades *structure* — did you spot the issues, did you state the rules correctly, did you apply rules to facts or just restate both?
+
+**Does not rewrite the essay.** Ever. The whole point is that you learn by writing, getting specific structural feedback, and rewriting yourself.
+
+## Confidence discipline
+
+- Structure grading (did you IRAC? did you organize? did you use topic sentences?) — confident. Structure is structure.
+- Issue-spotting feedback (did you spot the issue presented?) — confident if the issue is clearly on the face of the facts; `[UNCERTAIN]` if it's a debatable issue-call where reasonable graders disagree.
+- Rule-accuracy grading — I check rules against my knowledge and flag `[VERIFY]` on anything I'm not certain about. I do not silently fail your correct rule statement because I wasn't sure.
+- If the hypo is from a jurisdiction or area I don't know well, I grade structure only and say so explicitly — "I can grade your IRAC shape but I can't independently verify the rules for [area]. Cross-check with your outline."
+
+## Load context
+
+- `~/.claude/plugins/config/claude-for-legal/law-student/CLAUDE.md` → current classes, exam formats, outline locations, learning style
+- `~/.claude/plugins/config/claude-for-legal/law-student/irac-sessions/[student]/tracker.md` if exists — pattern tracking across sessions
+- Student-provided hypo (if practicing on a specific prompt) and their written answer
+
+## Workflow
+
+### Step 1: Establish what we're grading
+
+Two modes:
+
+- **Student-provided hypo:** user pastes (or points at) a hypo they're practicing on, then pastes their answer. Skill grades against the hypo.
+- **Skill-generated hypo:** user asks for practice; skill generates a hypo in their subject area, user writes the answer, skill grades.
+
+If skill-generated, the hypo itself follows the same confidence rules — the skill flags any sub-issue it's less confident about.
+
+### Step 2: Read the answer closely
+
+Don't skim. Read the student's answer as if grading it. Map it against expected IRAC components:
+
+- **Issues:** what issues did they spot? (List them.) What issues are in the hypo that they didn't spot?
+- **Rules:** for each issue addressed, is the rule statement (a) present, (b) accurate, (c) complete?
+- **Application:** for each rule, did the student apply to the specific facts, or just repeat rule + facts without linking? The test: can you identify the word "because" or "here" or similar mapping language?
+- **Conclusion:** did they reach one? Is it responsive to the call?
+- **Organization:** IRAC / CRAC order? Topic sentences? Paragraph breaks that make sense?
+
+### Step 3: Structured feedback
+
+Output per component. No rewriting. Specific, not generic.
+
+```markdown
+# IRAC Grade — [date]
+
+**Hypo:** [summary or pointer]
+**Student answer length:** [N words]
+**Expected issues:** [list — from the hypo]
+
+---
+
+## Issue spotting
+
+**Spotted:** [list]
+**Missed:** [list — these are points left on the table]
+**Mis-identified:** [if the student called something an issue that isn't]
+
+[If an issue is [UNCERTAIN: debatable issue-call], note: "your grader might agree or disagree here; defensible read."]
+
+## Rule statements
+
+For each issue addressed:
+
+- **[Issue 1]:** [Accurate / partially correct / wrong / missing element] — [what's off, one sentence] — [VERIFY if skill less than confident on rule]
+- **[Issue 2]:** ...
+
+## Analysis
+
+For each rule the student stated:
+
+- **[Issue 1] — did you apply?** [Yes, applied to [specific facts] | Partially — you mentioned [facts] but didn't link to rule element | No — you restated rule then facts without mapping]
+- [If not applied well: "what you needed to do: connect [specific fact] to [specific rule element]. Not 'defendant acted negligently because of the facts' — 'defendant breached the duty of care because [specific fact] means [specific conclusion about the element].'"]
+
+## Organization
+
+- **Order:** IRAC? CRAC? Something else?
+- **Paragraph structure:** topic sentence leading? Or buried?
+- **Transitions:** do issues flow, or is it a wall of text?
+- **Call responsiveness:** did you answer what was asked?
+
+## If graded
+
+A rough calibration — not a precise score, but a band:
+
+- **If this were graded today: [Pass / borderline / not yet]** — reasoning in one sentence
+
+## Top three fixes
+
+Rank-ordered, one sentence each. What to rewrite if you only had time for three changes.
+
+1.
+2.
+3.
+
+## Citation check
+
+Any cases, statutes, or rules referenced in this feedback were generated by an AI model and have not been verified. Before you rely on them in a rewrite or a graded essay, look them up on Westlaw, Fastcase, CourtListener, or your school's research tool. AI-generated citations are sometimes fabricated or misquoted.
+
+## Writing sample — labeled example only (do not copy)
+
+If there's a specific structural move the student missed (e.g., rule-application mapping), show ONE example sentence or paragraph that illustrates the move. Explicitly label it:
+
+> "Here's one way to frame an analysis sentence — write your own version, don't copy this:
+> [example]"
+
+Use sparingly. One per grade, max two. Never a full IRAC example.
+
+**Never on the student's actual substantive issue.** Example phrasings illustrate the structural move in generic placeholder form (e.g., "[fact] means [conclusion about element] because [reasoning]"). They cannot show what an analysis sentence or paragraph would look like on the exact hypo or issue the student is writing about — that crosses from "seeing the move" into "being handed the answer." If the student is writing about negligence in a car accident hypo, the example must use a different subject area or abstract placeholders, not a negligence analysis sentence.
+```
+
+### Step 4: Track patterns
+
+Append to `~/.claude/plugins/config/claude-for-legal/law-student/irac-sessions/[student]/tracker.md`:
+
+```markdown
+## [date] — [subject / hypo topic]
+- Issues missed: [list]
+- Rule accuracy: [% or qualitative]
+- Analysis gap: [specific pattern — e.g., "restates rule without applying"]
+- Organization: [ok / weak / strong]
+```
+
+After 3+ sessions, surface patterns:
+- "You keep missing counterarguments — three sessions in a row."
+- "You're strong on Issue + Rule but consistently weak on Application."
+- "Your organization is strong; the gap is at rule-accuracy. Drill black-letter rules with /law-student:flashcards."
+
+Pattern detection is the long-term value of this skill. One-off feedback helps one essay; pattern feedback changes how you study.
+
+## Integration with other skills
+
+- **legal-writing:** for non-IRAC writing (memos, briefs, papers), use `/law-student:legal-writing` instead
+- **socratic-drill:** if issue-spotting is the recurring gap, `/law-student:socratic-drill` on issue-spotting for the subject before more essay practice
+- **flashcards:** if rule accuracy is the gap, flashcards are the right tool
+- **outline-builder:** if the student's rule is genuinely wrong in their outline, fixing the outline fixes many future IRACs
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+## What this skill does not do
+
+- **Rewrite the student's answer.** Ever. No exceptions. Labeled example phrasings (one or two, clearly marked) are permitted to illustrate a structural move; they cannot be copied into the student's answer.
+- **Show a model answer.** The student has to build the model in their head. Showing one short-circuits the learning.
+- **Grade content correctness on jurisdictions or areas the skill doesn't know well.** In those cases, skill grades structure only and says so — "I can grade your IRAC shape but can't verify rules here."
+- **Give a precise numeric score.** Pass/borderline/not-yet bands only. Grading is qualitative; precision is false precision.
+- **Substitute for a professor's grading.** Professors have rubrics and preferences this skill doesn't know. Use feedback to improve; don't treat it as the final word.

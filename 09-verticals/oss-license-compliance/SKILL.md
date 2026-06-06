@@ -1,14 +1,14 @@
 ---
 name: oss-license-compliance
-title: 开源许可证合规审查
-description: 当审查依赖清单/SBOM/单个库或准备开源出站代码、需判断 copyleft 义务与许可证兼容性时使用；做许可证家族分类、按部署模型映射义务并产出含风险分级与处置建议（遵守/替换/移除/法务复核/商业授权）的合规备忘录；不适用于安全漏洞或依赖版本升级审计（用 dependency-auditor），也不替代律师对争议性 copyleft 触发的最终裁决；触发词：开源许可证合规、license compliance、copyleft、GPL/AGPL/LGPL、SBOM 审查、open source review
+title: /oss-review
+description: Open source license compliance check for a dependency list, a single library, or outbound code. Use when reviewing a manifest, SBOM, or repo for copyleft obligations and license compatibility, when asked whether a library can ship, or when preparing code to be open-sourced.
 domain: 领域/legal
-triggers: [开源许可证合规, license compliance, copyleft, GPL, AGPL, LGPL, SBOM 审查, open source review, 许可证兼容性, 出站开源审查]
+triggers: [license compliance, copyleft, GPL, AGPL, LGPL, open source review]
 tags: [legal, oss, license, compliance, copyleft, sbom, dependency]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [SPDX, CycloneDX, package.json, requirements.txt, go.mod, Cargo.toml, pom.xml]
+tools: []
 requires: []
 related: [general-counsel-advisor, dependency-auditor, supply-chain-risk-auditor, regulatory-policy-diff]
 combines_with: [dependency-auditor, supply-chain-risk-auditor]
@@ -16,106 +16,275 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /oss-review
 
-- 审查一份依赖清单（`package.json`、`requirements.txt`、`go.mod`、`Gemfile`、`Cargo.toml`、`pom.xml`、SPDX/CycloneDX SBOM、lockfile）的许可证合规性。
-- 评估单个库是否可以引入并发布。
-- 准备把团队自有代码开源（出站代码），需核对内嵌依赖与所选出站许可证是否兼容。
+Runs an open source license compliance check against the practice profile in `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`. Classifies dependencies by license family, maps obligations to the deployment model, flags license-unknown and non-OSI-posing-as-OSS packages, and recommends actions — comply, replace, remove, seek legal review, seek commercial license.
 
-不该用的边界：
+## Instructions
 
-- 不做安全漏洞扫描、CVE 或依赖陈旧/版本升级审计——那是 `dependency-auditor` 的职责。
-- 本技能输出的是「一遍过」分类与处置建议，不替代律师裁决。凡判为强 copyleft 或许可证不明者，发布前必须经律师复核。
-- 不要凭模型知识或网络搜索填补关键事实空缺（如某许可证最新文本、AGPL 网络触发在特定法域的可执行性）；查不到就如实说明并停下，由人决定是否采纳低置信来源。
+1. **Load `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`.** If placeholders present, stop and prompt: "Run `/ip-legal:cold-start-interview` first — I need to learn your practice profile (and OSS policy, if any) before I can review." If the practice profile points at an uploaded OSS policy, read that too — it is the source of truth for accepted / review / banned licenses on this team.
 
-## 步骤
+2. **Establish the scope:** a dependency list (package.json, requirements.txt, go.mod, Gemfile, Cargo.toml, pom.xml, SBOM), a single library, or outbound code the team is preparing to open-source. If the user passed a path, infer from the file; otherwise ask.
 
-1. **确定范围**：依赖清单 / 单个库 / 出站代码三选一。清单→逐项分类并汇总义务；单库→分类该包并尽量遍历传递依赖；出站→核查直接+传递内嵌依赖、校验所选出站许可证兼容性、检查 LICENSE/NOTICE 文件。
-2. **确定部署模型**（分类义务前最关键的输入，同一份清单在不同模型下义务不同）：SaaS/托管服务、分发二进制、仅内部使用、嵌入式/固件。
-3. **逐包分类**：读真实许可证文本，不要只信元数据（LICENSE 文件可能写错，头注释与 README 可能冲突，包管理器元数据可能过期）。分入六桶：宽松 / 弱 copyleft / 强 copyleft / 公有领域 / 非 OSI 源可见 / 其他·自定义·未知。
-4. **映射义务到部署模型**：为每个包列出该模型触发的具体义务，并判定风险等级与处置建议。
-5. **标记失败模式**：许可证未知、文件与头注释冲突、不兼容组合、伪装成开源的非 OSI 许可证、近期改过许可证的包。
-6. **（出站时）出站检查**：兼容性、LICENSE/NOTICE 完整性、第三方文本捆绑、无专有/机密/凭据/客户数据残留、项目名商标策略。
-7. **汇总备忘录**：底线结论→顶部红旗→按严重度分组的逐包块→法域提示→出站检查→审批路由。
+3. **Establish the deployment model** before classifying obligations — SaaS, distributed binary, internal only, or embedded. The same dependency list triggers different obligations depending on this.
 
-## 指令
+4. **Follow the workflow below.** In particular:
+   - Read the actual license text, not just metadata — LICENSE files can be wrong, package metadata can be stale.
+   - Classify each package into permissive / weak copyleft / strong copyleft / public domain / non-OSI / unknown.
+   - Flag license-unknown as "needs review," not permissive by default.
+   - Flag non-OSI source-available licenses (SSPL, BUSL, Commons Clause, Elastic License, fair-source) — these are not open source.
+   - For outbound code, check that the chosen outbound license is compatible with every embedded dependency.
 
-**部署模型 → 实质相关许可证：**
+5. **Output the memo** per the template below — work-product header first, bottom line, top-of-memo flags, per-package blocks grouped by severity, jurisdiction note, outbound check (if applicable), approval routing.
 
-| 部署 | 实质触发的许可证 |
+6. **Respect the decision posture.** When a copyleft-trigger analysis turns on a contested question (AGPL's "interacts over a network," GPL-3.0's "conveying," LGPL linking scope), flag for attorney review and surface the factors cutting both ways. Anything flagged as strong copyleft or license-unknown goes to an attorney before the dependency ships or the code is released.
+
+## Examples
+
+```
+/ip-legal:oss-review ~/code/my-project/package.json
+/ip-legal:oss-review ~/code/my-project/requirements.txt
+/ip-legal:oss-review redis
+/ip-legal:oss-review ~/code/my-project  # repo root — scan all manifests
+```
+
+---
+
+## Works better connected
+
+OSS clearance requests usually come in via a ticketing system. Connected to
+Jira, Linear, or Asana, this skill can: monitor incoming OSS requests, respond
+with guidance directly in the ticket (flagging incomplete info, asking for the
+repo link, returning the license-family classification), and track clearance
+status across requests.
+
+Without a connector, paste the ticket or describe the request and I'll handle
+it one at a time. See `CONNECTORS.md` at the repo root for how to add a
+ticketing connector.
+
+## Matter context
+
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/ip-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/ip-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+
+---
+
+## Purpose
+
+Tell the user what licenses are in their dependency tree, what obligations those licenses trigger given how the code will be deployed, and what to do about each one. The output is a memo the lawyer (or the engineer with attorney access) can act on — comply, replace, remove, seek legal review, seek commercial license.
+
+**This is a first-pass classification.** Copyleft analysis depends on the deployment model, the degree of linking, the jurisdiction, and sometimes on legal questions that have not been tested in court (notably AGPL's "interacts over a network," GPL-3.0's patent clause). For anything that classifies as strong copyleft or license-unknown, an attorney evaluates before the dependency ships or the code is released. The skill reports what it found; the lawyer decides what to do.
+
+## Precondition: load the practice profile
+
+**Before scanning dependencies, read `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`.** If it is missing or still contains placeholders, stop and run `/ip-legal:cold-start-interview`. The practice profile tells you:
+
+- Who owns OSS review on this team (often engineering with legal sign-off)
+- Escalation routing for copyleft obligations
+- The work-product header to prepend
+
+If the practice profile has an OSS policy uploaded, read that too — it is the source of truth for which licenses the team accepts, which trigger review, and which are banned.
+
+## Workflow
+
+### Step 1: What's the scope?
+
+Ask (or infer from what the user provided):
+
+> What are we reviewing?
+>
+> 1. **A dependency list** — `package.json`, `requirements.txt`, `go.mod`, `Gemfile`, `Cargo.toml`, `pom.xml`, an SBOM (SPDX / CycloneDX), a lockfile
+> 2. **A single library** — one specific package you're considering adding
+> 3. **Our own code** — we're planning to open-source this and need to check what's embedded
+
+The analysis path differs:
+
+- Dependency list → classify every entry, roll up obligations
+- Single library → classify one package and walk its transitive dependencies if available
+- Outbound code → check what's embedded (direct and transitive), check whether chosen outbound license is compatible with all embedded licenses, check that LICENSE / NOTICE files are correct
+
+### Step 2: What's the deployment model?
+
+This is the single most important input after the license list — the same library carries different obligations depending on how the software is delivered. Ask:
+
+> How will this be deployed?
+>
+> 1. **SaaS / hosted service** — users access over a network; nothing ships to the user
+> 2. **Distributed binary** — we ship compiled code to users (desktop app, mobile app, on-prem server, CLI tool)
+> 3. **Internal only** — used only inside the company, not distributed outside
+> 4. **Embedded / firmware** — shipped in hardware or as closed-system firmware
+
+| Deployment | Licenses that materially matter |
 |---|---|
-| SaaS | AGPL（网络触发）；任何 UI 中的宽松署名；若把 SSPL/BUSL/Elastic 重做成竞品服务 |
-| 分发二进制 | GPL、LGPL、MPL、EPL（均在分发时触发）；宽松署名 |
-| 仅内部 | 多数 copyleft 不触发（无分发）；署名仍是好习惯；外部用户经网络访问时 AGPL 仍触发 |
-| 嵌入式/固件 | GPL 尤其难合规（源码披露+可复现构建+部分情形需安装信息），出货前规划 |
+| SaaS | AGPL (network-trigger), permissive attribution in any UI, SSPL/BUSL/Elastic if repurposing as competing service |
+| Distributed binary | GPL, LGPL, MPL, EPL (all trigger on distribution), permissive attribution |
+| Internal only | Most copyleft does not trigger — no distribution. Permissive attribution still good hygiene. AGPL still triggers if users outside the company interact over the network. |
+| Embedded / firmware | GPL is especially hard to comply with here (source disclosure + reproducible build + installation information in some cases). Plan for this before shipping, not after. |
 
-**分类六桶（许可证家族）：**
+Flag the deployment model in the output memo — the same dependency list reviewed against "SaaS" vs. "distributed binary" yields different obligations.
 
-- **宽松**：MIT、BSD-2/3-Clause、Apache-2.0、ISC、Zlib、Unlicense。义务：署名、保留许可证文本；Apache-2.0 额外含专利授权 + NOTICE 要求。
-- **弱 copyleft**：LGPL-2.1/3.0、MPL-2.0、EPL-1.0/2.0、CDDL。文件级或库级源码披露；链接规则各异。
-- **强 copyleft**：GPL-2.0/3.0、AGPL-3.0、OSL、EUPL。广泛源码披露；AGPL 延伸至网络使用。
-- **公有领域/奉献**：CC0、Unlicense、WTFPL。通常无义务，但部分法域不承认公有领域奉献。
-- **非 OSI 源可见**：SSPL、BUSL、Commons Clause、Elastic License、Confluent Community、fair-source 系列。**不是开源**，限制商用/竞品用途，须读具体条款。
-- **其他/自定义/未知**：厂商专有、缺失许可证文件、文件与头注释冲突。停下——默认不当作宽松。
+### Step 3: Classify each dependency
 
-**链接关系决定 copyleft 是否真正触发（严重度由此而定）：**
+For every package, determine the license. Read the actual license text, not just the metadata — LICENSE files can be wrong (the file says MIT but the headers say GPL; the README claims Apache but there's no license file), and package manager metadata can be stale.
 
-- 静态链接/共同编译 → 合并为一个二进制，强信号触发（LGPL「基于库的作品」、GPL 衍生作品）。
-- 动态链接/共享库 → 运行时可分离；LGPL 明确允许（「使用库的作品」），GPL 立场有争议。
-- 头文件包含/内联函数 → 视包含量可能构成衍生作品。
-- 子进程/IPC → 经定义良好接口通信的独立进程，一般不构成衍生。
-- 网络 API 调用 → 多数许可证不触发；但 **AGPL** 的网络交互条款使「经网络提供软件」即等同分发——微服务里 AGPL 组件藏在 API 后仍触发。
-- 文件级 copyleft（MPL）→ 仅被修改的文件带 copyleft，检查有无 copyleft 文件被改。
+Classify into:
 
-> 关键：静态链接 LGPL 进专有产品 = 🔴Critical；动态链接 LGPL = 🟢Low。同一许可证，相反评级。「LGPL——弱 copyleft，链接规则各异」而不做链接分析，正是让工程师被起诉的答案。
+| Bucket | Examples | Key obligations |
+|---|---|---|
+| **Permissive** | MIT, BSD-2-Clause, BSD-3-Clause, Apache-2.0, ISC, Zlib, Unlicense | Attribution, preserve license text, Apache-2.0 adds patent grant + NOTICE requirement |
+| **Weak copyleft** | LGPL-2.1, LGPL-3.0, MPL-2.0, EPL-1.0, EPL-2.0, CDDL | File-level or library-level source disclosure; linking rules vary |
+| **Strong copyleft** | GPL-2.0, GPL-3.0, AGPL-3.0, OSL, EUPL (depending on version) | Broad source disclosure; AGPL extends to network use |
+| **Public domain / dedication** | CC0, Unlicense, WTFPL | Typically no obligations, but some are contested in jurisdictions that don't recognize dedication to public domain |
+| **Non-OSI source-available** | SSPL, BUSL, Commons Clause, Elastic License, Confluent Community, fair-source family | Not open source — restrict commercial use, competing-service use, or both. Read the specific license. |
+| **Other / custom / unknown** | vendor-specific, proprietary, missing license file, license conflict between file and headers | Stop — do not treat as permissive by default |
 
-**严重度校准：** 🔴Critical=触发型部署里的强 copyleft（分发二进制中的 GPL、SaaS 中的 AGPL），或与商业模式实质冲突的非 OSI 许可证，或许可证无法确定且该包是承重依赖；🟠High=团队尚未准备好的弱 copyleft 义务、所选许可证含糊的双授权、文件与头注释冲突；🟡Medium=未接入构建的宽松署名（缺 NOTICES/LICENSE）、视消费方式可能触发的传递 copyleft；🟢Low=义务已满足的宽松、不触发部署模型的 copyleft。
+Flag:
 
-**额外标记**：双授权包（我们用哪个许可证？）、已弃用包、顶层宽松但传递依赖含 copyleft 的包、近期改过许可证的包（Redis、MongoDB、Elastic、HashiCorp——核对锁定版本确属你以为的许可证）。
+- **Dual-licensed packages** — which license are we using? The choice may change obligations.
+- **Deprecated packages** — the package is no longer maintained; is there a supported replacement?
+- **Packages with a copyleft dependency in their own tree** — the top-level license is permissive but a transitive dependency is copyleft.
+- **Packages that changed license recently** — Redis, MongoDB, Elastic, HashiCorp — make sure the version pinned is under the license you think it is.
 
-## 示例
+### Step 4: Map obligations to the deployment model
 
-```
-review ~/code/my-project/package.json
-review ~/code/my-project/requirements.txt
-review redis
-review ~/code/my-project   # 仓库根 — 扫描所有清单
-```
-
-逐包输出块模板：
+For each classified dependency, state what the deployment model triggers:
 
 ```markdown
 ### [package@version] — [License]
 
-**分类：** [宽松 / 弱 copyleft / 强 copyleft / 公有领域 / 非 OSI / 未知]
+**Classification:** [Permissive / Weak copyleft / Strong copyleft / Public domain / Non-OSI / Unknown]
 
-**针对本部署（[SaaS/二进制/内部/嵌入式]）的义务：**
-- [ ] [具体义务，如「在随应用分发的 NOTICES 文件中包含署名」]
-- [ ] [如「若修改并分发，须发布我方修改的源码」]
-- [ ] [如「AGPL 网络触发——用户经网络访问我方修改版时须向其提供源码」]
+**Obligations for our deployment ([SaaS / binary / internal / embedded]):**
 
-**风险：** 🔴 Critical | 🟠 High | 🟡 Medium | 🟢 Low
+- [ ] [Specific obligation — e.g., "Include attribution in a NOTICES file shipped with the app"]
+- [ ] [e.g., "If we modify and distribute, publish source of our modifications"]
+- [ ] [e.g., "AGPL network trigger — if users access our modified version over a network, source must be offered to them"]
 
-**建议：** [遵守义务 | 替换为〈替代品〉 | 移除 | 发布前法务复核 | 向〈厂商〉申请商业授权]
+**Risk:** 🔴 Critical | 🟠 High | 🟡 Medium | 🟢 Low
+
+**Recommendation:** [Comply with obligations | Replace with [alternative] | Remove | Attorney review before shipping | Seek commercial license from [vendor]]
 ```
 
-备忘录骨架：底线（能否发布？先要做什么？+ 审查包数 + 各分类计数 + 各级问题数）→ 顶部红旗（未知清单/冲突清单/伪开源清单/不兼容组合）→ 逐包块（按严重度分组）→ 法域提示 → 出站检查 → 审批路由。
+> **How is the copyleft dependency consumed?** The linking relationship determines whether copyleft actually triggers. Ask or determine:
+> - **Static linking / compilation together:** The works are combined into one binary. Strong signal that copyleft triggers (LGPL "work based on the Library," GPL derivative work).
+> - **Dynamic linking / shared library:** The works remain separable at runtime. LGPL explicitly permits this ("work that uses the Library"). GPL's position is contested (FSF says derivative, others disagree).
+> - **Header inclusion / inline functions:** Can create a derivative work depending on how much is included.
+> - **Subprocess / IPC:** Separate processes communicating over well-defined interfaces. Generally not derivative.
+> - **Network API call:** For most licenses, no. For **AGPL**, the network-interaction clause means serving the software over a network IS distribution. In a microservices architecture, an AGPL component behind an API still triggers.
+> - **File-scope copyleft (MPL):** Only the modified files carry copyleft, not the whole work. Check whether any copyleft files were modified.
+>
+> **The severity rating depends on this.** "LGPL — weak copyleft, linking rules vary" without the linking analysis is the answer that gets an engineer sued. Static-linked LGPL in a proprietary product is 🔴 Critical. Dynamic-linked LGPL is 🟢 Low. Same license, opposite rating.
 
-## 注意事项
+**Severity calibration:**
 
-- **决策姿态**：无法自信分类的许可证一律标「需复核」，绝不默认宽松。低估许可证风险是单向门——基于「默认宽松」的发布决定，几个月后会变成源码披露义务或禁令；过度标记是双向门，复核时可收窄。
-- **争议问题升级**：当 copyleft 触发取决于未经法院充分检验的问题（AGPL「经网络交互」、GPL-3.0「conveying」与专利条款、LGPL 链接范围），标记为待法务复核并同时陈列正反两面因素。
-- **不兼容组合**：GPL-2.0-only + Apache-2.0 是历史已知不兼容；仔细核对 MPL/EPL/GPL 组合。
-- **不要被 GitHub 的「open source」徽章误导**：SSPL/BUSL/Commons Clause/Elastic/Confluent Community 都读具体许可证文本再判断。
-- **出站不可降级合并**：内嵌了 GPL 代码就不能以 MIT 发布——合并作品须为 GPL。
-- **来源标注**：引用许可证文本、判例或管理方指引（OSI/SPDX/FSF/SFC-SFLC）时打标签；网络搜索结果标 `[web search — verify]`，模型知识标 `[model knowledge — verify]`，仓库直读标 `[user provided]`，带 verify 的须对照一手来源核验后再依赖。
-- **交付前自检**：部署模型已先于义务确立；每个依赖（含可得的传递依赖）都有分类；未知项已标记未默认宽松；任何 copyleft/非 OSI 结论都读过真实许可证文本而非仅元数据；建议字段已给出明确处置。
+| Level | Means |
+|---|---|
+| 🔴 Critical | Strong copyleft in a deployment that triggers it (e.g., GPL in a distributed binary, AGPL in a SaaS). Non-OSI license that the business model actually conflicts with (e.g., SSPL while we're building a managed service). License cannot be determined and the package is load-bearing. |
+| 🟠 High | Weak copyleft with obligations the team hasn't set up for (file-level disclosure, NOTICE requirements). Dual-licensed where the chosen license is ambiguous. License file says one thing, headers say another. |
+| 🟡 Medium | Permissive with attribution requirements that haven't been wired into the build (missing NOTICES file, missing LICENSE in distribution). Transitive copyleft in a position that may or may not trigger, depending on how the library is consumed. |
+| 🟢 Low | Permissive with obligations already satisfied. Copyleft in a deployment model that doesn't trigger it (e.g., GPL library used internally only, with no redistribution). |
 
-## 互见
+### Step 5: Flag failure modes
 
-- `dependency-auditor`：依赖的安全漏洞、陈旧版本与供应链审计（与本技能的许可证维度互补）。
-- `code-reviewer`：出站开源前对代码本身的质量与机密残留复核。
+Call out any of the following in a top-of-memo section:
+
+- **License unknown** — classify as "needs review," not permissive. An unclassified dependency should stop a ship decision, not slip through.
+- **License file conflicts with file headers** — read both and report the conflict.
+- **Incompatible combinations** — GPL-2.0 only + Apache-2.0 historically a known incompatibility; check MPL / EPL / GPL combinations carefully.
+- **Non-OSI licenses posing as open source** — SSPL, BUSL, Commons Clause, Elastic License, Confluent Community. Read the license; don't rely on GitHub's "open source" badge.
+- **License changes** — if a prior version was permissive and the current version is source-available, the pin matters.
+
+### Step 6: Outbound check (if reviewing our own code before open-sourcing)
+
+If the user is preparing to open-source code:
+
+- Confirm the chosen outbound license is compatible with every embedded dependency's license (e.g., you cannot release under MIT if you've embedded GPL code — the combined work must be GPL)
+- Confirm LICENSE file is present and correct
+- Confirm NOTICE file is present and lists required attributions (Apache-2.0 and others)
+- Confirm third-party license texts are bundled where required
+- Confirm no proprietary or confidential code, no customer data, no embedded credentials in the repo history
+- Confirm trademark and brand policy for any project name (separate from the copyright license)
+
+### Step 7: Assemble the memo
+
+Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md` → `## Outputs` (differs by user role — see `## Who's using this`).
+
+This memo and any dependency list reviewed may be privileged, confidential, or both. The output inherits that status from the source. Distribute only within the privilege circle; strip the work-product header before any external delivery (including before attaching the memo to an engineering ticket outside the privilege circle).
+
+> **No silent supplement.** If a research query to the configured legal research tool returns few or no results for a rule the memo needs (enforceability of AGPL's network trigger in a given jurisdiction, scope of GPL-3.0's patent grant, latest license text for a recently-relicensed package), report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [rule / license / jurisdiction]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag as unverified and stop. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
+>
+> **Source attribution.** Where the memo cites a license text, a court decision interpreting a license, or guidance from a steward (FSF, OSI, SPDX, SFLC), tag the citation: `[OSI]`, `[SPDX]`, `[FSF]`, `[SFC/SFLC]`, `[Westlaw]`, or the MCP tool name for citations retrieved from a connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for license text read directly from the repo. Citations tagged `verify` carry higher fabrication risk. Never strip or collapse the tags.
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs]
+
+# OSS Review: [Project / Dependency List / Package]
+
+**Reviewed:** [date]
+**Scope:** [Dependency list / Single library / Outbound code]
+**Deployment model:** [SaaS / Binary / Internal / Embedded]
 
 ---
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0），已适配重写为面向 AI Agent 消费的中文条目，去除了原插件特有的配置加载、事项工作区与特权抬头等内部机制，保留核心方法论、命令与约束。
+## Bottom line
+
+[Two sentences. Can this ship? What has to happen first?]
+
+**Packages reviewed:** [N]
+**By classification:** [N permissive, N weak copyleft, N strong copyleft, N public domain, N non-OSI, N unknown]
+**Issues:** [N]🔴 [N]🟠 [N]🟡 [N]🟢
+
+**Approval needed from:** [name, per practice profile]
+
+---
+
+## Top-of-memo flags
+
+[License-unknown list, license-conflict list, non-OSI-posing-as-OSS list, incompatible combinations]
+
+---
+
+## By package
+
+[Blocks from Step 4, grouped by severity]
+
+---
+
+## Jurisdiction note
+
+OSS license enforceability varies — AGPL's network trigger has not been broadly tested in court; GPL-3.0's patent clause reads differently under US vs. EU patent law; dedications to public domain are not universally recognized. State the governing-law choice for any downstream distribution (e.g., vendor agreements incorporating the code) and flag jurisdictions the practice profile marks as escalate.
+
+---
+
+## Outbound check (if applicable)
+
+[From Step 6]
+
+---
+
+## Approval routing
+
+[From practice profile — who approves, what triggers automatic escalation]
+```
+
+## Decision posture
+
+When a license cannot be confidently classified, flag it as **"needs review"** — do not call it permissive. Under-classifying license risk is a one-way door: a ship decision made on a permissive-by-default assumption becomes a source-disclosure obligation or an injunction months later. Over-flagging is a two-way door — the attorney narrows the list in review.
+
+Likewise, when the copyleft-trigger analysis turns on a contested question (AGPL's "interacts over a network," GPL-3.0's "conveying," the scope of LGPL linking), flag for attorney review and surface the factors cutting both ways.
+
+## Quality checks before delivering
+
+- [ ] Practice profile and any OSS policy were loaded
+- [ ] Deployment model was established before classifying obligations
+- [ ] Every dependency has a classification, including transitives where available
+- [ ] License-unknown packages are flagged, not defaulted to permissive
+- [ ] License text was read (not just metadata) for any copyleft or non-OSI finding
+- [ ] Source tags applied to citations; no stripped `verify` tags
+- [ ] Approver named per practice profile
+- [ ] Output marked with the work-product header
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+If the scan surfaced more than ~10 packages, or any time the user asks: offer the dashboard (see CLAUDE.md `## Outputs → Dashboard offer for data-heavy outputs`). Shape the offer to what's useful here — counts by license family (permissive / weak copyleft / strong copyleft / AGPL / proprietary / unknown), risk distribution, and a table of findings with severity and package version.

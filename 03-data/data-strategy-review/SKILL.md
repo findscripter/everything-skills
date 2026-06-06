@@ -1,14 +1,14 @@
 ---
 name: data-strategy-review
-title: 数据战略决策审查
-description: 当任何计划触及训练数据、数据架构、数据产品化或数据团队招聘时使用；以六个 CDO 拷问对计划做决策导向的压力测试，产出含审查结论（SHIP/SHARPEN/BLOCK）与下一步的结构化审查报告；不适用于纯数据清洗、SQL 取数、ETL 实现等执行层任务；触发词：数据战略审查、CDO 审查、cdo review、data strategy review、训练数据合规、consent provenance、数据架构选型、warehouse lakehouse mesh、数据产品化、data monetization、M&A 数据尽调、数据团队招聘
+title: Chief Data Officer Advisor
+description: Chief Data Officer advisory for startups: AI training data rights and consent provenance, data product strategy (warehouse vs lakehouse vs mesh, build-vs-buy), B2B customer-data-as-asset valuation and M&A readiness, data team org evolution. Use when deciding whether to train models on customer data, choosing data architecture, valuing data for fundraising or M&A, sequencing data hires, or when user mentions CDO, chief data officer, data strategy, data mesh, lakehouse, training data, data product, data monetization, or customer data asset. NOT a tactical data engineering skill — strategic decisions only.
 domain: 数据/analysis
-triggers: [数据战略审查, CDO 审查, cdo review, data strategy review, 训练数据合规, consent provenance, 数据架构选型, warehouse lakehouse mesh, 数据产品化, data monetization, M&A 数据尽调, 数据团队招聘]
+triggers: [cdo review, data strategy review, consent provenance, warehouse lakehouse mesh, data monetization]
 tags: [data-strategy, analysis, governance, data-architecture, ml-training, compliance, decision-review]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, ai_training_data_audit.py, data_product_strategy_picker.py, data_asset_valuator.py]
+tools: []
 requires: []
 related: [chief-data-officer-advisor, chief-ai-officer-advisor, data-pipeline-engineer]
 combines_with: [chief-data-officer-advisor, data-quality-frameworks, kpi-dashboard-design]
@@ -16,100 +16,194 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Chief Data Officer Advisor
 
-在对任何触及数据战略的计划「拍板前」运行本审查，扮演决策导向的首席数据官（CDO），用六个强制问题压力测试该计划。典型触发场景：
+Strategic data leadership for startup CDOs and founders without one. **Four decisions, no surveys:**
 
-- 批准使用客户数据的新 ML 模型训练前
-- 签订多年期数据基础设施 SaaS 合同（Snowflake、Databricks、Fivetran）前
-- 把客户数据产品化（基准报告、embedding 接口、数据授权）前
-- 关键数据岗位招聘（数据负责人、CDO、数据 PM、ML 工程师）前
-- 启动并购数据尽调（无论买方还是卖方）前
-- 当有人把「变现 / monetize」与「数据」放在一起说时
+1. **Can we train our model on this data?** — origin × consent × use-case matrix
+2. **Warehouse, lakehouse, or mesh — and what do we build vs buy?** — stage-driven architecture
+3. **What is our customer data worth?** — strategic value + M&A multiplier + productization paths
+4. **What data role do we hire next?** — stage-to-role map, centralize-vs-embed trigger
 
-**不该用边界**：本条只做战略级决策拷问与放行判断，不负责落地执行。纯数据清洗、SQL 取数、ETL 管线编写、报表实现等动手任务请改用对应执行类技能（见互见）。
+This skill does **not** cover tactical data engineering. For schema design, observability, query optimization, RAG, or ML platform implementation, see `engineering/database-designer/`, `engineering/observability-designer/`, `engineering/data-quality-auditor/`, `engineering/sql-database-assistant/`, `engineering/rag-architect/`, `engineering/llm-cost-optimizer/`.
 
-## 步骤
+## Keywords
 
-1. **定位决策类型**：先用一句话确认这是四类 CDO 决策中的哪一类——训练（training）/ 架构（architecture）/ 资产（asset）/ 招聘（hire）。决策类型决定后续跑哪些脚本。
-2. **逐条回答六个 CDO 问题**（见下「指令」），每条都要落到具体业务结论，拒绝「以后可能用得上」「感觉像护城河」这类非决策答案。
-3. **按需运行脚本**：涉及 AI 用例跑训练审计；涉及改技术栈跑架构选型；涉及产品化或并购前跑资产估值。
-4. **输出结构化报告**：按下方「输出格式」汇总，给出 SHIP / SHARPEN / BLOCK 裁决与三条具体下一步。
+CDO, chief data officer, AI training data, consent provenance, training rights, GDPR Article 6 lawful basis, GDPR Article 22, EU AI Act high-risk, ePrivacy, copyright fair use, hiQ v. LinkedIn, scraped data, synthetic data, data product, data mesh, lakehouse, medallion architecture, dbt, Snowflake, BigQuery, Databricks, Fivetran, Airbyte, reverse ETL, feature store, customer data as asset, data monetization, data productization, anonymization, k-anonymity, differential privacy, M&A data diligence, data org, analytics engineer, data engineer, data scientist, data product manager, centralize vs embed, hub and spoke
 
-## 指令
-
-六个 CDO 强制问题：
-
-1. **这份数据驱动什么决策？** 若没有任何决策被解锁，就别采集 / 训练 / 产品化它。真正的答案必须指名一个需要此数据的具体业务判断。
-2. **每个数据源的同意来源（consent provenance）是什么？** 逐源列出：来源、同意流程、数据分类、预期用途。「仅 1st-party-TOS」弱于「1st-party 显式 opt-in」；打包式 TOS 不覆盖实质性新用途（如用 PII 训练基础模型）。范围内含 AI 用例时运行 `ai_training_data_audit.py`。
-3. **内部谁在消费？跨多少个不同职能域？** 这决定「集中 vs 嵌入」「仓库 vs 数据网格」：<5 个消费方→仅 warehouse；5–25→lakehouse；25+ 且联邦式文化→mesh。**过早选架构是数据团队倦怠的头号原因。**
-4. **并购尽调影响如何？** 设想收购方明天就来问这套数据语料：是否有书面匿名化流程？多少比例客户有 MSA 例外条款？训练数据来源日志是否最新？建议每季度运行 `data_asset_valuator.py`。
-5. **去掉这个数据源，模型 / 决策 / 报告还能重训 / 重跑 / 重发吗？** 能→爆炸半径低，同意姿态以后可改；不能→爆炸半径高，已结构性绑定该源，须更严格审查。
-6. **解锁这件事需要什么岗位？是不是正确的下一招？** 该招分析工程师却招了数据科学家＝12 个月生产力损失。把「被解锁的决策」映射到具体岗位，并确认前置岗位已就位（ML 工程师前先有数据工程师，数据科学家前先有分析师）。
-
-按需运行的脚本（路径相对原 skill）：
+## Quick Start
 
 ```bash
-# 1. AI 训练审计（任何 ML / AI 用例）
-python ../../../skills/chief-data-officer-advisor/scripts/ai_training_data_audit.py sources.json
+# Audit data sources for AI training eligibility
+python scripts/ai_training_data_audit.py                              # uses embedded sample
+python scripts/ai_training_data_audit.py path/to/sources.json
 
-# 2. 架构决策（改技术栈时）
-python ../../../skills/chief-data-officer-advisor/scripts/data_product_strategy_picker.py profile.json
+# Pick data architecture + build-vs-buy + sequencing
+python scripts/data_product_strategy_picker.py                        # uses embedded Series A SaaS
+python scripts/data_product_strategy_picker.py path/to/profile.json
 
-# 3. 数据资产估值（产品化或并购前）
-python ../../../skills/chief-data-officer-advisor/scripts/data_asset_valuator.py corpus.json
+# Value the customer data corpus + productization viability
+python scripts/data_asset_valuator.py                                 # uses embedded B2B sample
+python scripts/data_asset_valuator.py path/to/corpus.json
 ```
 
-## 示例
+## Key Questions (ask these first)
 
-输出报告固定格式：
+- **What decision does this data drive?** (If none, why are we collecting it?)
+- **What's the consent provenance of every source we want to train on?** (TOS-only is not the same as explicit opt-in.)
+- **Who are the internal data consumers, and how many distinct domains do they span?** (Drives centralize-vs-embed and warehouse-vs-mesh.)
+- **In an M&A scenario, is our data a moat or a liability?** (Customer carve-outs in MSAs can flip the answer.)
+- **Are we hiring an analytics engineer or a data scientist next?** (They solve different problems; founders confuse them.)
+- **Have we run an anonymization audit before any external sharing?** (k-anonymity ≥ 5 is the floor, not the ceiling.)
 
-```markdown
-# CDO 审查：<计划>
-**日期：** YYYY-MM-DD
+## Core Responsibilities
 
-## 正在做的决策
-[一句话——四类之一：训练 | 架构 | 资产 | 招聘]
+### 1. AI Training Data Rights
 
-## 训练审计（如适用）
-- NO-GO 源：N    MITIGATE 源：N    GO 源：N
-- 首要整改项：<一行>
+The 2026 question every startup is facing: **can we use customer data to train our model?**
 
-## 架构（如适用）
-- 建议：WAREHOUSE / LAKEHOUSE / MESH
-- 自建 vs 采购：<一行>    叫停标准：<何时重新评估>
+The answer is rarely binary. It depends on three independent dimensions:
 
-## 资产价值（如适用）
-- 战略价值：X/10 | 护城河：STRONG / MEDIUM / WEAK
-- 并购倍数：X.Xx – X.Xx ARR    产品化路径：<名称>
+| Dimension | Values |
+|---|---|
+| **Origin** | 1st-party-explicit-opt-in / 1st-party-TOS-only / partner-licensed / scraped / synthetic |
+| **Data class** | Anonymous aggregate / behavioral / PII / 3rd-party content / regulated (PHI, PCI, kids) |
+| **Use case** | In-product personalization / fine-tune our model / train foundation model / external sharing |
 
-## 组织（如适用）
-- 下一招：<岗位>    为何是它而非别的：<一行>    前置岗位到位：是/否
+Each combination produces GO / MITIGATE / NO-GO. **Run** `ai_training_data_audit.py` on a JSON inventory of sources.
 
-## 裁决
-🟢 SHIP | 🟡 SHARPEN | 🔴 BLOCK
+See `references/ai_training_data_rights.md` for the full matrix + GDPR Art. 6 lawful basis decision tree + EU AI Act high-risk triggers.
 
-## 下一步
-[3 条具体行动]
+### 2. Data Product Strategy
+
+**Architecture choice (warehouse vs lakehouse vs mesh) is stage-driven, not preference-driven:**
+
+- **Warehouse only** (Snowflake / BigQuery / Postgres): ≤5 data consumers, <2TB, no ML use cases
+- **Lakehouse** (warehouse + object storage, often Databricks or Snowflake-with-Iceberg): 5–25 data consumers, 2TB–1PB, 1–3 ML use cases
+- **Data mesh**: 25+ data consumers across 4+ domains, federated ownership culture in place
+
+**Build vs buy is decided per layer:**
+
+| Layer | Buy unless | Build only if |
+|---|---|---|
+| Storage / warehouse | Never build | (You’re a data infra company) |
+| ELT / ingest | Never build | Source isn’t supported by Fivetran/Airbyte |
+| Modeling (dbt) | Always build | This is your IP |
+| BI / dashboards | Buy at <100 consumers | Embedded analytics for customers |
+| Feature store | Defer until 3+ prod models | Then build OR buy Tecton/Hopsworks |
+| ML platform | Defer until 5+ prod models | Then buy SageMaker/Vertex/Databricks |
+
+**Run** `data_product_strategy_picker.py` for a stage-specific recommendation. See `references/data_product_strategy.md` for kill criteria per architecture and the build-vs-buy decision tree.
+
+### 3. B2B Customer-Data-as-Asset
+
+**The shift:** at Series B+, customer data is no longer just operational — it’s an asset that can be:
+- A defensibility moat (replicating requires years of customer cohort)
+- An M&A multiplier (1.2x–2x ARR uplift for strategic buyers)
+- A direct revenue stream (anonymized industry benchmarks, embedding endpoints, licensing)
+
+But it can also be a **liability**:
+- 47/380 customers with MSA carve-outs makes productization legally infeasible
+- Anonymization audits often reveal re-identification risk above tolerable thresholds
+- Regulatory exposure increases linearly with productization (GDPR Art. 28 processors vs Art. 26 joint controllers)
+
+**Run** `data_asset_valuator.py` with corpus characteristics to get strategic value score + productization paths + risk-adjusted value.
+
+See `references/customer_data_as_asset.md` for the valuation framework, M&A diligence prep checklist, and contractual constraint audit pattern.
+
+### 4. Data Team Org Evolution
+
+**The wrong question:** "Should we hire a data scientist?"
+**The right question:** "What’s the next decision we can’t make because we lack data, and what role unblocks that?"
+
+Stage-to-role map (B2B SaaS baseline):
+
+| Stage | First hire | Then | Then |
+|---|---|---|---|
+| Pre-seed / seed | Founder-as-analyst (SQL + spreadsheets) | — | — |
+| Series A (Series A) | Analyst | Analytics engineer (dbt) | — |
+| Series B | Data engineer | Senior analyst (embedded in GTM) | Data PM (if 3+ teams need data) |
+| Growth | Manager of analytics | ML engineer (if model is core) | Head of Data |
+| Late-stage | Head of Data → CDO | Specialized: BI, MLE, DPO | Federated owners per domain (mesh) |
+
+**Centralize-vs-embed trigger:** when 3+ functional areas (sales, marketing, product, ops, CS) need bespoke data weekly, the central team becomes the bottleneck. Move to hub-and-spoke (central platform + embedded analysts) before that becomes a hiring crisis.
+
+See `references/data_team_org_evolution.md`.
+
+## Workflows
+
+### Workflow 1: AI Training Decision (1 hour)
+**Goal:** Decide whether a specific data source can train a specific use case.
+
+```bash
+# 1. Build sources.json with one entry per data source
+# 2. Run the audit
+python scripts/ai_training_data_audit.py sources.json
+# 3. For each MITIGATE: assign owner + remediation
+# 4. For each NO-GO: document the kill reason for the legal log
+# 5. Cross-check with cs-general-counsel-advisor on top-3 mitigation items
+# 6. Log via /cs:decide
 ```
 
-## 注意事项
+### Workflow 2: Architecture Decision (1 day)
+**Goal:** Pick warehouse / lakehouse / mesh and the build-vs-buy split for the next 12 months.
 
-- **决策优先于数据**：任何回答都要落到一个具体业务决策，「可能用得上」「像护城河」一律视为未通过。
-- **同意来源逐源核验**：打包 TOS 不等于对新用途（尤其基础模型训练 PII）的合法授权。
-- **不要过早选架构**：先数清消费方数量与职能域，再决定 warehouse / lakehouse / mesh。
-- **爆炸半径意识**：去掉某源仍能重跑＝低风险；强绑定某源＝高风险，须更严审查。
-- **招聘排序**：缺前置岗位时招高阶岗等于浪费一年；按数据工程师→分析师→ML/数据科学家的次序补位。
-- 多年期基础设施合同建议触发一次「冷静期 / freeze」，避免被供应商长期锁定。
+```bash
+python scripts/data_product_strategy_picker.py profile.json
+# Cross-check with cs-cto-advisor on engineering capacity
+# Cross-check with cs-cfo-advisor on 3-year TCO
+# Log via /cs:decide; consider /cs:freeze 90 if signing a multi-year SaaS contract
+```
 
-## 互见
+### Workflow 3: Data Asset Valuation for M&A Prep (3 days)
+**Goal:** Value the data corpus and prepare for due diligence.
 
-- 涉及把数据导出、清洗、整理为可分析格式：`csv-data-cleaner`
-- 涉及取数 / 查询构造以验证「该数据驱动什么决策」：`sql-query-builder`
-- 涉及 AI 训练数据合规审计中的事实与来源核验：`fact-checking`
-- 涉及对「为何采集 / 训练此数据」做根因质询：`first-principles-thinking`
-- 若需用 RAG 而非微调来满足数据用例，先评估 `rag-pipeline-builder`
+1. Inventory the corpus: size, freshness, exclusivity, customer overlap, contractual restrictions
+2. Run `data_asset_valuator.py`
+3. Run the M&A diligence prep checklist in `customer_data_as_asset.md`
+4. Surface contractual carve-outs to cs-general-counsel-advisor for re-papering plan
+5. Decide productization path (benchmark report / embedding endpoint / direct license)
+6. Log via /cs:decide
+
+### Workflow 4: Data Team Roadmap (1 week)
+**Goal:** Build the next 18 months of data hires aligned to business decisions.
+
+1. List the top 5 decisions the business can’t make today due to missing data or analysis
+2. Map each decision to the role that unblocks it
+3. Sequence hires (one role at a time, ramp before next)
+4. Cross-check with cs-chro-advisor on comp bands and leveling
+5. Identify the centralize-vs-embed trigger date
+
+## Output Standards (when invoked via cs-cdo-advisor)
+
+```
+**Bottom Line:** [one sentence — decision and rationale]
+**The Decision:** [one of the 4 framings]
+**The Evidence:** [numbers, not adjectives]
+**How to Act:** [3 concrete next steps]
+**Your Decision:** [the call only the founder can make]
+```
+
+## Adjacent Skills
+
+- `../cto-advisor/` — architecture capacity, scaling cliffs
+- `../ciso-advisor/` — data security, threat modeling for productized data
+- `../general-counsel-advisor/` — contractual constraints, DPA, training-data rights
+- `../cfo-advisor/` — build-vs-buy TCO, M&A valuation math
+- `../chro-advisor/` — data team hiring, leveling, comp
+- `../../../engineering/database-designer/` — tactical schema design
+- `../../../engineering/rag-architect/` — tactical AI/RAG implementation
+- `../../../engineering/llm-cost-optimizer/` — model cost management
+
+## References
+
+- [ai_training_data_rights.md](references/ai_training_data_rights.md) — The training-rights matrix + GDPR Art. 6 / EU AI Act decision tree
+- [data_product_strategy.md](references/data_product_strategy.md) — Warehouse / lakehouse / mesh kill criteria + build-vs-buy decision tree
+- [customer_data_as_asset.md](references/customer_data_as_asset.md) — Valuation framework + M&A diligence prep + productization paths
+- [data_team_org_evolution.md](references/data_team_org_evolution.md) — Stage-to-role map + centralize-vs-embed trigger
 
 ---
 
-本条采编自 alirezarezvani/claude-skills（MIT 许可）。
+**Version:** 1.0.0
+**Status:** Production Ready
+**Disclaimer:** Decisions touching training data rights, data productization, or M&A data diligence should involve qualified counsel. This skill surfaces decisions and tradeoffs — it does not replace legal review.

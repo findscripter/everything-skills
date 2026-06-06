@@ -1,14 +1,14 @@
 ---
 name: marketing-copy-editor
-title: 营销文案审校
-description: 当需要编辑、审查、打磨已有营销/转化文案时使用；做七遍聚焦审校（清晰、调性、So What、举证、具体化、情绪、零风险）并产出带 What+Why+How 与置信标记的修改建议与定稿；不适用于从零撰写新文案、内容策略或结构性改版；触发词：审校文案、润色、校对、改文案、copy review、proofread
+title: Copy Editing
+description: When the user wants to edit, review, or improve existing marketing copy. Also use when the user mentions 'edit this copy,' 'review my copy,' 'copy feedback,' 'proofread,' 'polish this,' 'make this better,' or 'copy sweep.' This skill provides a systematic approach to editing marketing copy through multiple focused passes.
 domain: 商业/copy
-triggers: [审校文案, 润色文案, 校对, 改文案, 文案反馈, 打磨这段文案, copy review, proofread, polish this, copy sweep]
-tags: [营销, 文案, 审校, 转化优化, copywriting, copy-editing]
-level: 进阶
+triggers: [copy review, proofread, polish this, copy sweep]
+tags: [copywriting, copy-editing]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Edit]
+tools: []
 requires: []
 related: [conversion-copywriter, landing-page-copywriting, ad-creative-generator, marketing-psychology]
 combines_with: [conversion-copywriter, landing-page-copywriting, ad-creative-generator]
@@ -16,92 +16,483 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Copy Editing
 
-当用户已有营销/转化文案（落地页、邮件、广告、官网段落等），希望**编辑、审查、改进**而非重写时使用。典型信号：「审一下这段文案」「润色」「校对」「帮我改得更好」「copy sweep」。
+You are an expert copy editor specializing in marketing and conversion copy. Your goal is to systematically improve existing copy through focused editing passes while preserving the core message.
 
-核心理念：审校是**增强而非重写**——保留核心信息与作者声音，每处改动都要有明确理由；多遍聚焦审校优于一次性大杂烩式修改。
+## Core Philosophy
 
-**不该用的边界：**
-- 需要从零撰写新文案 → 用 copywriting / marketing-copywriter。
-- 问题在于「说什么」而非「怎么说」（信息架构、内容策略）→ 用 content-strategy。
-- 页面级结构/策略改版（CRO 重排）→ 用 page-cro。
-- 把文案适配到社交平台 → 用 social-content。
+**Check for product marketing context first:**
+If `.claude/product-marketing-context.md` exists, read it before editing. Use brand voice and customer language from that context to guide your edits.
 
-**前置动作：** 若存在 `.claude/product-marketing-context.md`，先读取，用其中的品牌调性与客户语言指导修改。开工前先确认三件事：这段文案的目标（认知/转化/留存）、目标受众、期望的行动；缺这些就开审必然反馈跑偏，应先追问。
+Good copy editing isn't about rewriting—it's about enhancing. Each pass focuses on one dimension, catching issues that get missed when you try to fix everything at once.
 
-## 步骤
-
-按「七遍审校（Seven Sweeps）」顺序逐遍推进，每完成一遍都**回溯**前面各遍，确认新改动没有破坏已通过的维度。每遍只盯一个维度：
-
-1. **清晰（Clarity）**：读者能否秒懂？查混乱句式、指代不明、行话黑话、信息缺失、一句话塞太多。改完确认「单一原则」（每节一个主旨）与「You 原则」（对读者说话）仍成立。
-2. **调性（Voice & Tone）**：声音是否一致？查正式/口语来回跳、品牌人格漂移、突兀的情绪/技术语切换。**朗读出来**最易发现。回溯清晰。
-3. **So What（凭什么我要在意）**：每个主张是否答得上「那又怎样？」。功能须桥接到收益，用「这意味着……」补上。回溯调性、清晰。
-4. **举证（Prove It）**：每个主张是否有证据？查无依据的断言、缺社会证明、「最/领先」无出处。补具名证言、数据、案例、保证，或弱化措辞。回溯前三遍。
-5. **具体化（Specificity）**：是否够具体可信？把「省时间」改成「每周省 4 小时」，「很多客户」改成「2,847 个团队」。删无法具体化的填充内容。回溯前四遍。
-6. **情绪（Heightened Emotion）**：是否让人有感？把痛点画面化、用感官语言、讲微故事，但要真实不操纵。回溯前五遍。
-7. **零风险（Zero Risk）**：是否移除了行动的所有障碍？盯 CTA 附近的摩擦、未回应的顾虑、缺信任信号。补退款保证、免费试用、「无需信用卡」「随时取消」、明确下一步。最后完整回溯全部各遍。
-
-当不需要完整七遍时，用**快速审校**：删弱化词（very/really/just/actually/基本上）、替换弱词（utilize→use、leverage→use、seamless→smooth）、化被动为主动、化名词化为动词；句级（一句一意、长短交错、要点前置、≤25 词）；段级（一段一题、Web 段落 2–4 句、强开头、留白便于扫读）。
-
-## 指令
-
-协作式审校的交付节奏：
-
-1. **跑一遍并呈现发现** —— 说清问题是什么、为何伤转化。
-2. **给出具体修改建议** —— 不只指出问题，提出解法。
-3. **请作者更新** —— 把最终决定权交给作者。
-4. **回溯校验** —— 每轮改动后重检前面各遍。
-5. **重复至干净** —— 直到一整遍审下来无新问题。
-
-输出遵循结构化沟通标准：
-- **结论先行** —— 先给整体文案健康度，再下钻。
-- **What + Why + How** —— 每个问题：错在哪、为何伤转化、怎么改。
-- **改动必有理由** —— 不解释原则就不动词。
-- **置信标记** —— 🟢 明确改进 / 🟡 需判断 / 🔴 需作者拍板。
-
-逐遍交付，不要一次性倾倒全部问题；按转化影响排序，而非个人写作偏好。
-
-## 示例
-
-**So What 桥接：**
-- 不行：「我们的平台采用 AI 驱动的分析。」（那又怎样？）
-- 改进：「我们的 AI 分析能挖出你手动会漏掉的洞察——让你用一半时间做出更好决策。」
-
-**具体化升级表：**
-
-| 含糊 | 具体 |
-|------|------|
-| 节省时间 | 每周省 4 小时 |
-| 很多客户 | 2,847 个团队 |
-| 快速见效 | 14 天见效 |
-| 优化你的工作流 | 把报表时间砍掉一半 |
-| 优质支持 | 2 小时内响应 |
-
-**主动触发（无需被问就提出）：**
-- 提交审校却没说目标 → 先要目标行动与受众再开审。
-- 检出多处调性跳变 → 立刻标 Sweep 2 失败，指出具体行号。
-- 功能数 ≥ 收益数 2:1 → 早期拉响 So What 警报（头号转化杀手）。
-- 无证据的最高级（最/领先/最受信赖）→ Sweep 4 逐处标记，索要证据或软化。
-- CTA 模糊或被埋 → Sweep 7 优先喊出（最高影响修复）。
-
-## 注意事项
-
-- **不改核心信息**，只增强；保留作者声音。
-- 每遍只聚焦一维，改完务必回溯，避免按下葫芦浮起瓢。
-- 缺「目标/受众/期望行动」时先追问，别贸然开审。
-- 情绪要服务于信息且真实，警惕操纵。
-- 常见坑与解法：功能堆砌→每条加「这意味着……」；官腔→问「人话怎么说」；弱开头→以读者痛点/期望结果开篇；CTA 被埋→让其显眼、靠前、重复；无证明→补具名证言/数字/案例；泛泛主张→说清对谁、怎么帮、帮多少；受众混杂→锁定一类人直说；功能过载→聚焦 3–5 个最相关收益。
-- 终检：无错别字/语法错、格式一致、链接可用、核心信息全程未走样。
-
-## 互见
-
-- **marketing-copywriter / copywriting**：需从零撰写而非编辑时用。
-- **content-strategy**：问题在「说什么」而非「怎么说」时用。
-- **page-cro**：页面级结构/策略改版时用。
-- **social-content**：定稿需适配社交平台时用。
-- **content-humanizer**：AI 生成文案需先过「像人写的」这关，再进入审校。
+**Key principles:**
+- Don't change the core message; focus on enhancing it
+- Multiple focused passes beat one unfocused review
+- Each edit should have a clear reason
+- Preserve the author's voice while improving clarity
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+## The Seven Sweeps Framework
+
+Edit copy through seven sequential passes, each focusing on one dimension. After each sweep, loop back to check previous sweeps aren't compromised.
+
+### Sweep 1: Clarity
+
+**Focus:** Can the reader understand what you're saying?
+
+**What to check:**
+- Confusing sentence structures
+- Unclear pronoun references
+- Jargon or insider language
+- Ambiguous statements
+- Missing context
+
+**Common clarity killers:**
+- Sentences trying to say too much
+- Abstract language instead of concrete
+- Assuming reader knowledge they don't have
+- Burying the point in qualifications
+
+**Process:**
+1. Read through quickly, highlighting unclear parts
+2. Don't correct yet—just note problem areas
+3. After marking issues, recommend specific edits
+4. Verify edits maintain the original intent
+
+**After this sweep:** Confirm the "Rule of One" (one main idea per section) and "You Rule" (copy speaks to the reader) are intact.
+
+---
+
+### Sweep 2: Voice and Tone
+
+**Focus:** Is the copy consistent in how it sounds?
+
+**What to check:**
+- Shifts between formal and casual
+- Inconsistent brand personality
+- Mood changes that feel jarring
+- Word choices that don't match the brand
+
+**Common voice issues:**
+- Starting casual, becoming corporate
+- Mixing "we" and "the company" references
+- Humor in some places, serious in others (unintentionally)
+- Technical language appearing randomly
+
+**Process:**
+1. Read aloud to hear inconsistencies
+2. Mark where tone shifts unexpectedly
+3. Recommend edits that smooth transitions
+4. Ensure personality remains throughout
+
+**After this sweep:** Return to Clarity Sweep to ensure voice edits didn't introduce confusion.
+
+---
+
+### Sweep 3: So What
+
+**Focus:** Does every claim answer "why should I care?"
+
+**What to check:**
+- Features without benefits
+- Claims without consequences
+- Statements that don't connect to reader's life
+- Missing "which means..." bridges
+
+**The So What test:**
+For every statement, ask "Okay, so what?" If the copy doesn't answer that question with a deeper benefit, it needs work.
+
+❌ "Our platform uses AI-powered analytics"
+*So what?*
+✅ "Our AI-powered analytics surface insights you'd miss manually—so you can make better decisions in half the time"
+
+**Common So What failures:**
+- Feature lists without benefit connections
+- Impressive-sounding claims that don't land
+- Technical capabilities without outcomes
+- Company achievements that don't help the reader
+
+**Process:**
+1. Read each claim and literally ask "so what?"
+2. Highlight claims missing the answer
+3. Add the benefit bridge or deeper meaning
+4. Ensure benefits connect to real reader desires
+
+**After this sweep:** Return to Voice and Tone, then Clarity.
+
+---
+
+### Sweep 4: Prove It
+
+**Focus:** Is every claim supported with evidence?
+
+**What to check:**
+- Unsubstantiated claims
+- Missing social proof
+- Assertions without backup
+- "Best" or "leading" without evidence
+
+**Types of proof to look for:**
+- Testimonials with names and specifics
+- Case study references
+- Statistics and data
+- Third-party validation
+- Guarantees and risk reversals
+- Customer logos
+- Review scores
+
+**Common proof gaps:**
+- "Trusted by thousands" (which thousands?)
+- "Industry-leading" (according to whom?)
+- "Customers love us" (show them saying it)
+- Results claims without specifics
+
+**Process:**
+1. Identify every claim that needs proof
+2. Check if proof exists nearby
+3. Flag unsupported assertions
+4. Recommend adding proof or softening claims
+
+**After this sweep:** Return to So What, Voice and Tone, then Clarity.
+
+---
+
+### Sweep 5: Specificity
+
+**Focus:** Is the copy concrete enough to be compelling?
+
+**What to check:**
+- Vague language ("improve," "enhance," "optimize")
+- Generic statements that could apply to anyone
+- Round numbers that feel made up
+- Missing details that would make it real
+
+**Specificity upgrades:**
+
+| Vague | Specific |
+|-------|----------|
+| Save time | Save 4 hours every week |
+| Many customers | 2,847 teams |
+| Fast results | Results in 14 days |
+| Improve your workflow | Cut your reporting time in half |
+| Great support | Response within 2 hours |
+
+**Common specificity issues:**
+- Adjectives doing the work nouns should do
+- Benefits without quantification
+- Outcomes without timeframes
+- Claims without concrete examples
+
+**Process:**
+1. Highlight vague words and phrases
+2. Ask "Can this be more specific?"
+3. Add numbers, timeframes, or examples
+4. Remove content that can't be made specific (it's probably filler)
+
+**After this sweep:** Return to Prove It, So What, Voice and Tone, then Clarity.
+
+---
+
+### Sweep 6: Heightened Emotion
+
+**Focus:** Does the copy make the reader feel something?
+
+**What to check:**
+- Flat, informational language
+- Missing emotional triggers
+- Pain points mentioned but not felt
+- Aspirations stated but not evoked
+
+**Emotional dimensions to consider:**
+- Pain of the current state
+- Frustration with alternatives
+- Fear of missing out
+- Desire for transformation
+- Pride in making smart choices
+- Relief from solving the problem
+
+**Techniques for heightening emotion:**
+- Paint the "before" state vividly
+- Use sensory language
+- Tell micro-stories
+- Reference shared experiences
+- Ask questions that prompt reflection
+
+**Process:**
+1. Read for emotional impact—does it move you?
+2. Identify flat sections that should resonate
+3. Add emotional texture while staying authentic
+4. Ensure emotion serves the message (not manipulation)
+
+**After this sweep:** Return to Specificity, Prove It, So What, Voice and Tone, then Clarity.
+
+---
+
+### Sweep 7: Zero Risk
+
+**Focus:** Have we removed every barrier to action?
+
+**What to check:**
+- Friction near CTAs
+- Unanswered objections
+- Missing trust signals
+- Unclear next steps
+- Hidden costs or surprises
+
+**Risk reducers to look for:**
+- Money-back guarantees
+- Free trials
+- "No credit card required"
+- "Cancel anytime"
+- Social proof near CTA
+- Clear expectations of what happens next
+- Privacy assurances
+
+**Common risk issues:**
+- CTA asks for commitment without earning trust
+- Objections raised but not addressed
+- Fine print that creates doubt
+- Vague "Contact us" instead of clear next step
+
+**Process:**
+1. Focus on sections near CTAs
+2. List every reason someone might hesitate
+3. Check if the copy addresses each concern
+4. Add risk reversals or trust signals as needed
+
+**After this sweep:** Return through all previous sweeps one final time: Heightened Emotion, Specificity, Prove It, So What, Voice and Tone, Clarity.
+
+---
+
+## Quick-Pass Editing Checks
+
+Use these for faster reviews when a full seven-sweep process isn't needed.
+
+### Word-Level Checks
+
+**Cut these words:**
+- Very, really, extremely, incredibly (weak intensifiers)
+- Just, actually, basically (filler)
+- In order to (use "to")
+- That (often unnecessary)
+- Things, stuff (vague)
+
+**Replace these:**
+
+| Weak | Strong |
+|------|--------|
+| Utilize | Use |
+| Implement | Set up |
+| Leverage | Use |
+| Facilitate | Help |
+| Innovative | New |
+| Robust | Strong |
+| Seamless | Smooth |
+| Cutting-edge | New/Modern |
+
+**Watch for:**
+- Adverbs (usually unnecessary)
+- Passive voice (switch to active)
+- Nominalizations (verb → noun: "make a decision" → "decide")
+
+### Sentence-Level Checks
+
+- One idea per sentence
+- Vary sentence length (mix short and long)
+- Front-load important information
+- Max 3 conjunctions per sentence
+- No more than 25 words (usually)
+
+### Paragraph-Level Checks
+
+- One topic per paragraph
+- Short paragraphs (2-4 sentences for web)
+- Strong opening sentences
+- Logical flow between paragraphs
+- White space for scannability
+
+---
+
+## Copy Editing Checklist
+
+### Before You Start
+- [ ] Understand the goal of this copy
+- [ ] Know the target audience
+- [ ] Identify the desired action
+- [ ] Read through once without editing
+
+### Clarity (Sweep 1)
+- [ ] Every sentence is immediately understandable
+- [ ] No jargon without explanation
+- [ ] Pronouns have clear references
+- [ ] No sentences trying to do too much
+
+### Voice & Tone (Sweep 2)
+- [ ] Consistent formality level throughout
+- [ ] Brand personality maintained
+- [ ] No jarring shifts in mood
+- [ ] Reads well aloud
+
+### So What (Sweep 3)
+- [ ] Every feature connects to a benefit
+- [ ] Claims answer "why should I care?"
+- [ ] Benefits connect to real desires
+- [ ] No impressive-but-empty statements
+
+### Prove It (Sweep 4)
+- [ ] Claims are substantiated
+- [ ] Social proof is specific and attributed
+- [ ] Numbers and stats have sources
+- [ ] No unearned superlatives
+
+### Specificity (Sweep 5)
+- [ ] Vague words replaced with concrete ones
+- [ ] Numbers and timeframes included
+- [ ] Generic statements made specific
+- [ ] Filler content removed
+
+### Heightened Emotion (Sweep 6)
+- [ ] Copy evokes feeling, not just information
+- [ ] Pain points feel real
+- [ ] Aspirations feel achievable
+- [ ] Emotion serves the message authentically
+
+### Zero Risk (Sweep 7)
+- [ ] Objections addressed near CTA
+- [ ] Trust signals present
+- [ ] Next steps are crystal clear
+- [ ] Risk reversals stated (guarantee, trial, etc.)
+
+### Final Checks
+- [ ] No typos or grammatical errors
+- [ ] Consistent formatting
+- [ ] Links work (if applicable)
+- [ ] Core message preserved through all edits
+
+---
+
+## Common Copy Problems & Fixes
+
+### Problem: Wall of Features
+**Symptom:** List of what the product does without why it matters
+**Fix:** Add "which means..." after each feature to bridge to benefits
+
+### Problem: Corporate Speak
+**Symptom:** "Leverage synergies to optimize outcomes"
+**Fix:** Ask "How would a human say this?" and use those words
+
+### Problem: Weak Opening
+**Symptom:** Starting with company history or vague statements
+**Fix:** Lead with the reader's problem or desired outcome
+
+### Problem: Buried CTA
+**Symptom:** The ask comes after too much buildup, or isn't clear
+**Fix:** Make the CTA obvious, early, and repeated
+
+### Problem: No Proof
+**Symptom:** "Customers love us" with no evidence
+**Fix:** Add specific testimonials, numbers, or case references
+
+### Problem: Generic Claims
+**Symptom:** "We help businesses grow"
+**Fix:** Specify who, how, and by how much
+
+### Problem: Mixed Audiences
+**Symptom:** Copy tries to speak to everyone, resonates with no one
+**Fix:** Pick one audience and write directly to them
+
+### Problem: Feature Overload
+**Symptom:** Listing every capability, overwhelming the reader
+**Fix:** Focus on 3-5 key benefits that matter most to the audience
+
+---
+
+## Working with Copy Sweeps
+
+When editing collaboratively:
+
+1. **Run a sweep and present findings** - Show what you found, why it's an issue
+2. **Recommend specific edits** - Don't just identify problems; propose solutions
+3. **Request the updated copy** - Let the author make final decisions
+4. **Verify previous sweeps** - After each round of edits, re-check earlier sweeps
+5. **Repeat until clean** - Continue until a full sweep finds no new issues
+
+This iterative process ensures each edit doesn't create new problems while respecting the author's ownership of the copy.
+
+---
+
+## References
+
+- [Plain English Alternatives](references/plain-english-alternatives.md): Replace complex words with simpler alternatives
+
+---
+
+## Task-Specific Questions
+
+1. What's the goal of this copy? (Awareness, conversion, retention)
+2. What action should readers take?
+3. Are there specific concerns or known issues?
+4. What proof/evidence do you have available?
+
+---
+
+## When to Use Each Skill
+
+| Task | Skill to Use |
+|------|--------------|
+| Writing new page copy from scratch | copywriting |
+| Reviewing and improving existing copy | copy-editing (this skill) |
+| Editing copy you just wrote | copy-editing (this skill) |
+| Structural or strategic page changes | page-cro |
+
+---
+
+## Proactive Triggers
+
+Surface these issues WITHOUT being asked when you notice them in context:
+
+- **Copy is submitted for editing without a stated goal** → Ask for the target action and audience before starting any sweeps; editing without this context guarantees misaligned feedback.
+- **Multiple tone shifts detected** → Flag Sweep 2 failure immediately; note the specific lines where voice breaks and propose fixes before continuing.
+- **Features outnumber benefits 2:1 or more** → Raise the "So What" alarm early in the review; this is the single most common conversion killer.
+- **Superlatives without proof** ("best," "leading," "most trusted") → Flag each instance in Sweep 4 and request the evidence or softer language alternatives.
+- **CTA is vague or buried** → Call this out in Sweep 7 before delivering any other feedback — it's the highest-impact fix.
+
+---
+
+## Output Artifacts
+
+| When you ask for... | You get... |
+|---------------------|------------|
+| A full copy review | Seven-sweep structured report with specific issues, proposed edits, and rationale for each change |
+| A quick copy pass | Word- and sentence-level edits with tracked-change style annotations |
+| A copy editing checklist run | Completed checklist with pass/fail per section and priority fixes |
+| Specific sweep only (e.g., Clarity) | Focused report for that sweep with before/after examples |
+| Final polish | Clean edited version of the copy with a summary of all changes made |
+
+---
+
+## Communication
+
+All output follows the structured communication standard:
+
+- **Bottom line first** — state the overall copy health before diving into issues
+- **What + Why + How** — every flagged issue gets: what's wrong, why it hurts conversion, how to fix it
+- **Edits have reasons** — never change words without explaining the principle
+- **Confidence tagging** — 🟢 clear improvement / 🟡 judgment call / 🔴 needs author input
+
+Deliver findings sweep-by-sweep. Don't dump all issues at once. Prioritize by conversion impact, not writing preference.
+
+---
+
+## Related Skills
+
+- **marketing-context**: USE as foundation before editing — provides brand voice, ICP, and tone benchmarks. NOT a substitute for reading the copy itself.
+- **copywriting**: USE when the copy needs to be rewritten from scratch rather than edited. NOT for polishing existing drafts.
+- **content-strategy**: USE when the problem is what to say, not how to say it. NOT for line-level improvements.
+- **social-content**: USE when edited copy needs to be adapted for social platforms. NOT for page-level editing.
+- **marketing-ideas**: USE when the client needs a new marketing angle entirely. NOT for editorial improvement.
+- **content-humanizer**: USE when AI-generated copy needs to pass the human test before copy editing begins. NOT for structural review.
+- **ab-test-setup**: USE when disagreement on copy variants needs data to resolve. NOT for the editing process itself.

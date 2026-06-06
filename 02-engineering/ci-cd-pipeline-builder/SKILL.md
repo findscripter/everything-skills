@@ -1,14 +1,14 @@
 ---
 name: ci-cd-pipeline-builder
-title: CI/CD流水线生成
-description: 当为新仓库搭建CI、重构脆弱流水线或跨仓库统一部署流程时使用；基于检测到的技术栈信号生成GitHub Actions/GitLab CI起步流水线（含缓存、矩阵、环境感知部署阶段）；不适用于已有成熟流水线的细粒度调优或非CI/CD的通用脚本编写；触发词：ci/cd、流水线、github actions、gitlab ci、自动化部署、构建发布
+title: Senior Devops
+description: Comprehensive DevOps skill for CI/CD, infrastructure automation, containerization, and cloud platforms (AWS, GCP, Azure). Includes pipeline setup, infrastructure as code, deployment automation, and monitoring. Use when setting up pipelines, deploying applications, managing infrastructure, implementing monitoring, or optimizing deployment processes.
 domain: 研发/devops
-triggers: [CI/CD, 流水线, pipeline, GitHub Actions, GitLab CI, 自动化部署, 构建发布, lint/test/build, 部署门禁, 技术栈检测]
-tags: [devops, ci-cd, github-actions, gitlab-ci, 自动化, 部署, 研发效能]
-level: 进阶
+triggers: [CI/CD, pipeline, GitHub Actions, GitLab CI, lint/test/build]
+tags: [devops, ci-cd, github-actions, gitlab-ci]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, Read, Write, Glob]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,134 +16,321 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Senior Devops
 
-适用场景：
+Complete toolkit for senior devops with modern tools and best practices.
 
-- 为新仓库从零搭建 CI（lint/test/build 基线）。
-- 替换从其它项目复制来的脆弱、不匹配的流水线文件。
-- 在 GitHub Actions 与 GitLab CI 之间迁移。
-- 审计现有流水线步骤是否与真实技术栈一致。
-- 在做自定义加固前，先生成一个可复现的基线。
+## Quick Start
 
-不该用的边界：
+### Main Capabilities
 
-- 已有成熟、稳定流水线，只需做细粒度性能调优或某一步排障时（应直接改对应步骤，而非重新生成）。
-- 与 CI/CD 无关的通用 Shell/构建脚本编写。
-- 需要平台特有高级特性（复杂 OIDC 联邦、自托管 Runner 编排等）的深度定制——本技能产出基线，进阶能力需逐项叠加。
-
-核心原则：**先检测技术栈，再生成流水线**，用确定性的文件信号代替猜测。
-
-## 步骤
-
-1. **检测技术栈**：从仓库文件（锁文件、语言清单、脚本命令）识别语言/运行时/工具链，输出机器可读结果供后续自动化使用。
-2. **生成流水线**：将检测结果喂给生成器，产出 GitHub Actions 或 GitLab CI 的起步 YAML，并写入对应路径（`.github/workflows/ci.yml` 或 `.gitlab-ci.yml`）。
-3. **合并前校验**：确认 `lint`/`test`/`build` 命令在项目中真实存在，本地尽量跑通生成的流水线，文档化所需 secrets/env，部署任务用受保护分支/环境门禁。
-4. **安全地叠加部署阶段**：从仅 CI（lint/test/build）起步 → 加 staging 部署（显式环境上下文）→ 加 production 部署（人工审批门禁），rollout/rollback 命令保持显式可审计。
-
-## 指令
-
-检测技术栈（文本或 JSON 输出，JSON 可落盘供生成器复用）：
+This skill provides three core capabilities through automated scripts:
 
 ```bash
-python3 scripts/stack_detector.py --repo . --format text
-python3 scripts/stack_detector.py --repo . --format json > detected-stack.json
+# Script 1: Pipeline Generator — scaffolds CI/CD pipelines for GitHub Actions or CircleCI
+python scripts/pipeline_generator.py ./app --platform=github --stages=build,test,deploy
+
+# Script 2: Terraform Scaffolder — generates and validates IaC modules for AWS/GCP/Azure
+python scripts/terraform_scaffolder.py ./infra --provider=aws --module=ecs-service --verbose
+
+# Script 3: Deployment Manager — orchestrates container deployments with rollback support
+python3 scripts/deployment_manager.py ./deploy --verbose --json
 ```
 
-支持通过 stdin 或 `--input` 文件传入离线分析载荷。
+## Core Capabilities
 
-从检测结果生成流水线：
+### 1. Pipeline Generator
 
-```bash
-python3 scripts/pipeline_generator.py \
-  --input detected-stack.json \
-  --platform github \
-  --output .github/workflows/ci.yml \
-  --format text
-```
+Scaffolds CI/CD pipeline configurations for GitHub Actions or CircleCI, with stages for build, test, security scan, and deploy.
 
-直接端到端从仓库生成（GitLab 示例）：
-
-```bash
-python3 scripts/pipeline_generator.py --repo . --platform gitlab --output .gitlab-ci.yml
-```
-
-查看脚本接口：`python3 scripts/stack_detector.py --help` / `python3 scripts/pipeline_generator.py --help`。
-
-检测启发式（优先确定性文件信号）：锁文件决定包管理器偏好；语言清单决定运行时家族；脚本命令（若存在）驱动 lint/test/build 命令；缺失脚本时回退为保守的占位命令。
-
-## 示例
-
-GitHub Actions Node.js 基线（含 npm 缓存）：
-
+**Example — GitHub Actions workflow:**
 ```yaml
-name: Node CI
-on: [push, pull_request]
+# .github/workflows/ci.yml
+name: CI/CD Pipeline
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
 
 jobs:
-  ci:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
       - run: npm run lint
-      - run: npm test
-      - run: npm run build
-```
+      - run: npm test -- --coverage
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
 
-Python 基线（setup-python + pytest）：
-
-```yaml
-name: Python CI
-on: [push, pull_request]
-jobs:
-  test:
+  build-docker:
+    needs: build-and-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Build and push image
+        uses: docker/build-push-action@v5
         with:
-          python-version: '3.12'
-      - run: python3 -m pip install -U pip
-      - run: python3 -m pip install -r requirements.txt
-      - run: python3 -m pytest
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+  deploy:
+    needs: build-docker
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster production \
+            --service app-service \
+            --force-new-deployment
 ```
 
-部署门禁策略（最小约束）：`lint` 先于 `test`，`test` 先于 `build`，部署任务必须依赖 `build` 产物，生产部署需人工审批 + 受保护分支。环境模式：`develop` → 自动部署 staging；`main` → 人工晋升 production。每个部署任务都应定义 rollback 命令或回滚流程引用。
+**Usage:**
+```bash
+python scripts/pipeline_generator.py <project-path> --platform=github|circleci --stages=build,test,deploy
+```
 
-## 注意事项
+### 2. Terraform Scaffolder
 
-常见坑：
+Generates, validates, and plans Terraform modules. Enforces consistent module structure and runs `terraform validate` + `terraform plan` before any apply.
 
-1. 把 Node 流水线直接套进 Python/Go 仓库。
-2. 测试尚不稳定就启用部署任务。
-3. 忘记设置依赖缓存 key。
-4. 对每个琐碎分支都跑昂贵的矩阵构建。
-5. 生产部署任务缺少分支保护。
-6. 把 secrets 硬编码进 YAML，而非用 CI secret 仓库。
+**Example — AWS ECS service module:**
+```hcl
+# modules/ecs-service/main.tf
+resource "aws_ecs_task_definition" "app" {
+  family                   = var.service_name
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = var.cpu
+  memory                   = var.memory
 
-最佳实践：
+  container_definitions = jsonencode([{
+    name      = var.service_name
+    image     = var.container_image
+    essential = true
+    portMappings = [{
+      containerPort = var.container_port
+      protocol      = "tcp"
+    }]
+    environment = [for k, v in var.env_vars : { name = k, value = v }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = "/ecs/${var.service_name}"
+        awslogs-region        = var.aws_region
+        awslogs-stream-prefix = "ecs"
+      }
+    }
+  }])
+}
 
-- 先检测后生成；生成的基线纳入版本控制。
-- 一次只加一项优化（缓存 / 矩阵 / 拆分任务）。
-- 部署前要求 CI 全绿；生产凭据放受保护环境。
-- 技术栈发生显著变化时重新生成流水线。
-- 单任务运行超过 10 分钟时按阶段拆分；确有兼容性需求才引入测试矩阵；部署任务与 CI 任务分离以保持反馈快速；把流水线时长与不稳定率当作一等指标跟踪。
+resource "aws_ecs_service" "app" {
+  name            = var.service_name
+  cluster         = var.cluster_id
+  task_definition = aws_ecs_task_definition.app.arn
+  desired_count   = var.desired_count
+  launch_type     = "FARGATE"
 
-校验清单：YAML 能成功解析 / 所有引用命令在仓库中存在 / 缓存策略匹配包管理器 / 所需 secrets 已文档化而非内嵌 / 分支与受保护环境规则符合组织策略。
+  network_configuration {
+    subnets          = var.private_subnet_ids
+    security_groups  = [aws_security_group.app.id]
+    assign_public_ip = false
+  }
 
-平台选型：GitHub Actions 适合紧密集成 GitHub 生态；GitLab CI 适合自托管环境下 SCM+CI 一体化；每仓库保持一份权威流水线源以减少漂移。
+  load_balancer {
+    target_group_arn = aws_lb_target_group.app.arn
+    container_name   = var.service_name
+    container_port   = var.container_port
+  }
+}
+```
 
-## 互见
+**Usage:**
+```bash
+python scripts/terraform_scaffolder.py <target-path> --provider=aws|gcp|azure --module=ecs-service|gke-deployment|aks-service [--verbose]
+```
 
-- references/github-actions-templates.md：GitHub Actions 模板
-- references/gitlab-ci-templates.md：GitLab CI 模板
-- references/deployment-gates.md：部署门禁与回滚约束
+### 3. Deployment Manager
+
+Orchestrates deployments with blue/green or rolling strategies, health-check gates, and automatic rollback on failure.
+
+**Example — Kubernetes blue/green deployment (blue-slot specific elements):**
+```yaml
+# k8s/deployment-blue.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-blue
+  labels:
+    app: myapp
+    slot: blue      # slot label distinguishes blue from green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+      slot: blue
+  template:
+    metadata:
+      labels:
+        app: myapp
+        slot: blue
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/org/app:1.2.3
+          readinessProbe:       # gate: pod must pass before traffic switches
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+```
+
+**Usage:**
+```bash
+python scripts/deployment_manager.py deploy \
+  --env=staging|production \
+  --image=app:1.2.3 \
+  --strategy=blue-green|rolling \
+  --health-check-url=https://app.example.com/healthz
+
+python scripts/deployment_manager.py rollback --env=production --to-version=1.2.2
+python scripts/deployment_manager.py --analyze --env=production   # audit current state
+```
+
+## Resources
+
+- Pattern Reference: `references/cicd_pipeline_guide.md` — detailed CI/CD patterns, best practices, anti-patterns
+- Workflow Guide: `references/infrastructure_as_code.md` — IaC step-by-step processes, optimization, troubleshooting
+- Technical Guide: `references/deployment_strategies.md` — deployment strategy configs, security considerations, scalability
+- Tool Scripts: `scripts/` directory
+
+## Development Workflow
+
+### 1. Infrastructure Changes (Terraform)
+
+```bash
+# Scaffold or update module
+python scripts/terraform_scaffolder.py ./infra --provider=aws --module=ecs-service --verbose
+
+# Validate and plan — review diff before applying
+terraform -chdir=infra init
+terraform -chdir=infra validate
+terraform -chdir=infra plan -out=tfplan
+
+# Apply only after plan review
+terraform -chdir=infra apply tfplan
+
+# Verify resources are healthy
+aws ecs describe-services --cluster production --services app-service \
+  --query 'services[0].{Status:status,Running:runningCount,Desired:desiredCount}'
+```
+
+### 2. Application Deployment
+
+```bash
+# Generate or update pipeline config
+python scripts/pipeline_generator.py . --platform=github --stages=build,test,security,deploy
+
+# Build and tag image
+docker build -t ghcr.io/org/app:$(git rev-parse --short HEAD) .
+docker push ghcr.io/org/app:$(git rev-parse --short HEAD)
+
+# Deploy with health-check gate
+python scripts/deployment_manager.py deploy \
+  --env=production \
+  --image=app:$(git rev-parse --short HEAD) \
+  --strategy=blue-green \
+  --health-check-url=https://app.example.com/healthz
+
+# Verify pods are running
+kubectl get pods -n production -l app=myapp
+kubectl rollout status deployment/app-blue -n production
+
+# Switch traffic after verification
+kubectl patch service app-svc -n production \
+  -p '{"spec":{"selector":{"slot":"blue"}}}'
+```
+
+### 3. Rollback Procedure
+
+```bash
+# Immediate rollback via deployment manager
+python scripts/deployment_manager.py rollback --env=production --to-version=1.2.2
+
+# Or via kubectl
+kubectl rollout undo deployment/app -n production
+kubectl rollout status deployment/app -n production
+
+# Verify rollback succeeded
+kubectl get pods -n production -l app=myapp
+curl -sf https://app.example.com/healthz || echo "ROLLBACK FAILED — escalate"
+```
+
+## Multi-Cloud Cross-References
+
+Use these companion skills for cloud-specific deep dives:
+
+| Skill | Cloud | Use When |
+|-------|-------|----------|
+| **aws-solution-architect** | AWS | ECS/EKS, Lambda, VPC design, cost optimization |
+| **azure-cloud-architect** | Azure | AKS, App Service, Virtual Networks, Azure DevOps |
+| **gcp-cloud-architect** | GCP | GKE, Cloud Run, VPC, Cloud Build *(coming soon)* |
+
+**Multi-cloud vs single-cloud decision:**
+- **Single-cloud** (default) — lower operational complexity, deeper managed-service integration, better cost leverage with committed-use discounts
+- **Multi-cloud** — required when mandated by compliance/data residency, acquiring companies on different clouds, or needing best-of-breed services across providers (e.g., AWS for compute + GCP for ML)
+- **Hybrid** — on-prem + cloud; use when regulated workloads must stay on-prem while burst/non-sensitive workloads run in the cloud
+
+> Start single-cloud. Add a second cloud only when there is a concrete business or compliance driver — not for theoretical redundancy.
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+## Cloud-Agnostic IaC
+
+### Terraform / OpenTofu (Default Choice)
+
+Terraform (or its open-source fork OpenTofu) is the recommended IaC tool for most teams:
+- Single language (HCL) across AWS, Azure, GCP, and 3,000+ providers
+- State management with remote backends (S3, GCS, Azure Blob)
+- Plan-before-apply workflow prevents drift surprises
+- Cross-reference **terraform-patterns** for module structure, state isolation, and CI/CD integration
+
+### Pulumi (Programming Language IaC)
+
+Choose Pulumi when the team strongly prefers TypeScript, Python, Go, or C# over HCL:
+- Full programming language — loops, conditionals, unit tests native
+- Same cloud provider coverage as Terraform
+- Easier onboarding for dev teams that resist learning HCL
+
+### When to Use Cloud-Native IaC
+
+| Tool | Use When |
+|------|----------|
+| **CloudFormation** | AWS-only shop; need native AWS support (StackSets, Service Catalog) |
+| **Bicep** | Azure-only shop; simpler syntax than ARM templates |
+| **Cloud Deployment Manager** | GCP-only; rare — most GCP teams prefer Terraform |
+
+> **Rule of thumb:** Use Terraform/OpenTofu unless you are 100% committed to a single cloud AND the cloud-native tool offers a feature Terraform cannot replicate (e.g., AWS Service Catalog integration).
+
+---
+
+## Troubleshooting
+
+Check the comprehensive troubleshooting section in `references/deployment_strategies.md`.

@@ -1,11 +1,11 @@
 ---
 name: odoo-manufacturing-advisor
-title: Odoo 制造 MRP 规划
-description: 当在 Odoo 配置物料清单/工作中心、跑 MRP 排程或排查生产订单缺料时使用；做 BoM/工序/补货规则配置与 MRP 运行结果解读，产出可落地的菜单路径与参数；不适用于 Maintenance/PLM/Quality 模块及外部预测对接；触发词：物料清单、MRP、生产订单
+title: Odoo Manufacturing Advisor
+description: Expert guide for Odoo Manufacturing: Bills of Materials (BoM), Work Centers, routings, MRP planning, and production order workflows.
 domain: 领域/erp
-triggers: [Odoo 制造, 物料清单 BoM, 工作中心 Work Center, MRP 排程, 补货规则, 生产订单缺料, 套件 Kit, 委外加工]
-tags: [erp, odoo, 制造, mrp, 供应链]
-level: 进阶
+triggers: []
+tags: [erp, odoo, mrp]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,89 +16,95 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Odoo Manufacturing Advisor
 
-适用场景：
-- 为成品创建或拆解物料清单（BoM），含组件、工序、变体。
-- 配置工作中心的产能、时间效率、OEE 目标与单位工时成本。
-- 运行 MRP 排程，根据需求自动生成采购单（PO）与生产订单（MO）。
-- 排查生产订单差异或组件缺料，解读补货异常消息。
+## Overview
 
-不该用（负边界）：
-- Maintenance（维护）、PLM（产品生命周期）、Quality（质量）属独立企业版模块，本条目不覆盖。
-- 委外加工（Subcontracting）的收货与计价细节、生产环节的批次/序列号追溯，仅提示风险，未展开。
-- 需求来源为外部系统预测（非销售订单 / 再订货规则）时，需自定义集成，超出范围。
+This skill helps you configure and optimize Odoo Manufacturing (MRP). It covers Bills of Materials (BoM), Work Centers, routing operations, production order lifecycle, and Material Requirements Planning (MRP) runs to ensure you never run short of materials.
 
-## 步骤
+## When to Use This Skill
 
-1. 确认需求场景：成品结构、产能配置、还是补货/缺料排查。
-2. 在 Manufacturing 设置中启用 Work Orders，方可使用工序路由与按工序计时。
-3. 按下文「指令」逐项配置 BoM、工作中心，再运行 MRP 排程。
-4. 运行后到 Replenishment 复核异常消息，理解 Replenish / Reschedule / Cancel 三类含义后再决定是否人工干预。
+- Creating or structuring Bills of Materials for finished goods.
+- Setting up Work Centers with capacity and efficiency settings.
+- Running an MRP to automatically generate purchase and production orders from demand.
+- Troubleshooting production order discrepancies or component availability issues.
 
-## 指令
+## How It Works
 
-创建物料清单（BoM）：
+1. **Activate**: Mention `@odoo-manufacturing-advisor` and describe your manufacturing scenario.
+2. **Configure**: Receive step-by-step instructions for BoM setup, routing, and MRP configuration.
+3. **Plan**: Get guidance on running MRP and interpreting procurement messages.
+
+## Examples
+
+### Example 1: Create a Bill of Materials
+
 ```text
-菜单：Manufacturing → Products → Bills of Materials → New
-Product   ：成品名（如 Finished Widget v2）
-BoM Type  ：Manufacture This Product
-Quantity  ：1（每份 BoM 产出 1 件）
+Menu: Manufacturing → Products → Bills of Materials → New
 
-Components 页签：
-  Raw Plastic Sheet | Qty 0.5 | 单位 kg
-  Steel Bolt M6     | Qty 4   | 单位 Units
-  Rubber Gasket     | Qty 1   | 单位 Units
+Product: Finished Widget v2
+BoM Type: Manufacture This Product
+Quantity: 1 (produce 1 unit per BoM)
 
-Operations 页签（需先启用 Work Orders）：
-  Injection Molding | 工作中心 Press A | 时长 30 min
-  Assembly          | 工作中心 Line 1  | 时长 15 min
+Components Tab:
+  - Raw Plastic Sheet  | Qty: 0.5  | Unit: kg
+  - Steel Bolt M6      | Qty: 4    | Unit: Units
+  - Rubber Gasket      | Qty: 1    | Unit: Units
+
+Operations Tab (requires "Work Orders" enabled in MFG Settings):
+  - Operation: Injection Molding | Work Center: Press A   | Duration: 30 min
+  - Operation: Assembly          | Work Center: Line 1    | Duration: 15 min
 ```
 
-BoM 类型区分（关键约束，勿混淆）：
-- Manufacture This Product：标准生产 BoM，会创建生产订单（MO）。
-- Kit（套件）：作为组合销售，组件分别发货，不创建 MO。
-- Subcontracting（委外）：组件发给委外方，由其返回成品。
+> **BoM Types explained:**
+>
+> - **Manufacture This Product** — standard production BoM, creates a Manufacturing Order
+> - **Kit** — sold as a bundle; components are delivered separately (no MO created)
+> - **Subcontracting** — components are sent to a subcontractor who returns the finished product
 
-配置工作中心：
+### Example 2: Configure a Work Center
+
 ```text
-菜单：Manufacturing → Configuration → Work Centers → New
-Work Center     ：CNC Machine 1
-Working Hours   ：Standard 40h/week
-Time Efficiency ：85%（计入停机；85% = 每周 34 有效小时）
-Capacity        ：2（可同时运行 2 道生产工序）
-OEE Target      ：90%（设备综合效率 KPI 目标）
-Costs per Hour  ：$75.00（用于制造成本核算）
+Menu: Manufacturing → Configuration → Work Centers → New
+
+Work Center: CNC Machine 1
+Working Hours: Standard 40h/week
+Time Efficiency: 85%      (machine downtime factored in; 85% = 34 effective hrs/week)
+Capacity: 2               (can run 2 production operations simultaneously)
+OEE Target: 90%           (Overall Equipment Effectiveness KPI target)
+Costs per Hour: $75.00    (used for manufacturing cost reporting)
 ```
 
-运行 MRP 排程：
-```text
-默认每日 cron 自动运行；手动触发：
-菜单：Inventory → Operations → Replenishment → Run Scheduler
-     （部分版本为 Manufacturing → Planning → Replenishment）
+### Example 3: Run the MRP Scheduler
 
-运行后复核异常：Inventory → Operations → Replenishment
-消息类型：
-  Replenish  — 库存低于最小值，需开 PO 或 MO
-  Reschedule — 订单计划日期与需求冲突
-  Cancel     — 需求已消失，可取消该订单
+```text
+The MRP scheduler runs automatically via a daily cron job.
+To trigger it manually:
+
+Menu: Inventory → Operations → Replenishment → Run Scheduler
+(or Manufacturing → Planning → Replenishment in some versions)
+
+After running, review procurement exceptions:
+Menu: Inventory → Operations → Replenishment
+
+Message Types:
+  "Replenish"   — Stock is below minimum; needs a PO or MO
+  "Reschedule"  — An order's scheduled date conflicts with demand
+  "Cancel"      — Demand no longer exists; the order can be cancelled
 ```
 
-## 示例
+## Best Practices
 
-为多配置成品（颜色 / 尺寸 / 电压）排产：用产品属性建立带变体的 BoM，避免为每个变体重复维护 BoM；在组件上设置 Lead Times（供应商交期 + 安全交期），让 MRP 提前排出采购单，运行排程后在 Replenishment 按消息类型核对，仅在有充分理由时覆盖 MRP 建议。
+- ✅ **Do:** Enable **Work Orders** in Manufacturing Settings to use routing and time-tracking per operation.
+- ✅ **Do:** Use **BoM with variants** (via product attributes) for products that come in multiple configurations (color, size, voltage) — avoids duplicate BoMs.
+- ✅ **Do:** Set **Lead Times** on components (vendor lead time + security lead time) so MRP schedules purchase orders in advance.
+- ✅ **Do:** Use **Scrap Orders** when discarding defective components during production — never adjust stock manually.
+- ❌ **Don't:** Manually create purchase orders for MRP-managed items — override MRP suggestions only when justified.
+- ❌ **Don't:** Confuse **Kit** BoM with **Manufacture This Product** — a Kit never creates a Manufacturing Order.
 
-## 注意事项
+## Limitations
 
-- 启用 Work Orders 才能按工序做路由与计时。
-- MRP 托管的物料不要手动开采购单，除非有正当理由覆盖建议。
-- 生产中报废缺陷件用 Scrap Orders，切勿手动调整库存。
-- 切勿把 Kit 当成 Manufacture This Product —— Kit 永不生成 MO。
-- 批次 / 序列号追溯会显著增加复杂度，先用小批量试跑再全量铺开。
-
-## 互见
-
-- 采购与库存补货规则、销售订单驱动需求的相关条目（领域/ERP）。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+- This skill targets **Odoo Manufacturing (mrp)** module. **Maintenance**, **PLM** (Product Lifecycle Management), and **Quality** modules are separate Enterprise modules not covered here.
+- **Subcontracting** workflows (sending components to a third-party manufacturer) have additional receipt and valuation steps not fully detailed here.
+- **Lot/serial number traceability** in production (tracking which lot was consumed per MO) adds complexity; test with small batches before full rollout.
+- MRP calculations assume demand comes from **Sale Orders** and **Reordering Rules** — forecasts from external systems require custom integration.

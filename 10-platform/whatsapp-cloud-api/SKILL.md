@@ -1,14 +1,14 @@
 ---
 name: whatsapp-cloud-api
-title: WhatsApp Cloud API 集成
-description: 当需要用 Meta 官方 WhatsApp Business Cloud API 收发消息、对接 webhook 或搭建自动客服时使用；做发文本/模板/交互消息、HMAC-SHA256 校验 webhook、24 小时会话窗口与合规管控，产出 Node.js/Python 可运行集成代码；不适用于个人 WhatsApp、已下线的 On-Premises API 或非 Meta 渠道。触发词：whatsapp、whatsapp business、whatsapp cloud api、api whatsapp、whatsapp 模板、whatsapp 机器人、chatbot whatsapp、whatsapp webhook、whatsapp 消息群发
+title: WhatsApp Cloud API - Integracao Profissional
+description: Integracao com WhatsApp Business Cloud API (Meta). Mensagens, templates, webhooks HMAC-SHA256, automacao de atendimento. Boilerplates Node.js e Python.
 domain: 平台/integration
-triggers: [whatsapp, whatsapp business, whatsapp cloud api, api whatsapp, whatsapp 模板, whatsapp 机器人, chatbot whatsapp, whatsapp webhook, whatsapp 消息群发]
+triggers: [whatsapp, whatsapp business, whatsapp cloud api, api whatsapp, chatbot whatsapp, whatsapp webhook]
 tags: [whatsapp, messaging, meta, webhooks, integration, chatbot]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [nodejs, typescript, express, python, httpx, axios, flask, graph-api, ngrok, claude-api]
+tools: []
 requires: []
 related: [twilio-communications, slack-bolt-bot-builder, discord-bot-architect, agentmail-email-infra]
 combines_with: [twilio-communications, ai-customer-support, rest-api-endpoint-builder]
@@ -16,69 +16,147 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# WhatsApp Cloud API - Integracao Profissional
 
-- 需要通过 Meta 官方 WhatsApp Business Cloud API 发送/接收消息、对接 webhook、搭建自动客服或群发模板时。
-- 适配 Node.js/TypeScript（Express）或 Python（Flask/httpx）两种栈。
-- API 版本：Graph API v21.0；Base URL：`https://graph.facebook.com/v21.0/{phone-number-id}/messages`；认证：Bearer Token（生产用永久 System User Token）。
+## Overview
 
-不该用：
-- 个人 WhatsApp 账号、非商业用途。
-- 已于 2025 年 10 月下线的 On-Premises API（Cloud API 是唯一受支持选项）。
-- 仅需简单单条通知、用更轻量专用工具即可完成时。
+Integracao com WhatsApp Business Cloud API (Meta). Mensagens, templates, webhooks HMAC-SHA256, automacao de atendimento. Boilerplates Node.js e Python.
 
-## 步骤
+## When to Use This Skill
 
-1. 准备前置：Meta Business Suite 账号、Meta for Developers 应用并添加 WhatsApp 产品、已验证号码、永久 System User Token。
-2. 配置环境变量（见下）。
-3. 24 小时窗口内可发任意类型消息（免费）；窗口外仅能发已审批的模板消息（按类别计费）。
-4. 配置 webhook：先过 GET 验证，再用 HMAC-SHA256 校验每条 POST。
-5. 发消息后用测试脚本验证投递与状态回执。
+- When the user mentions "whatsapp" or related topics
+- When the user mentions "whatsapp business" or related topics
+- When the user mentions "api whatsapp" or related topics
+- When the user mentions "chatbot whatsapp" or related topics
+- When the user mentions "mensagem whatsapp" or related topics
+- When the user mentions "template whatsapp" or related topics
 
-## 指令
+## Do Not Use This Skill When
 
-环境变量：
-```env
-WHATSAPP_TOKEN=访问令牌
-PHONE_NUMBER_ID=电话号码ID
-WABA_ID=WhatsApp商业账号ID
-APP_SECRET=应用密钥
-VERIFY_TOKEN=自定义webhook校验令牌
+- The task is unrelated to whatsapp cloud api
+- A simpler, more specific tool can handle the request
+- The user needs general-purpose assistance without domain expertise
+
+## How It Works
+
+Skill para implementar integracoes profissionais com WhatsApp Business usando a Cloud API oficial da Meta. Suporta Node.js/TypeScript e Python.
+
+### Overview
+
+A WhatsApp Cloud API e a API oficial da Meta para envio e recebimento de mensagens via WhatsApp Business. Desde outubro 2025, e a unica opcao suportada (a API On-Premises foi descontinuada).
+
+**Versao da API:** Graph API v21.0 (2026)
+**Base URL:** `https://graph.facebook.com/v21.0/{phone-number-id}/messages`
+**Autenticacao:** Bearer Token (System User Token para producao)
+
+**Pricing 2026 (por mensagem):**
+
+| Categoria      | Custo             | Quando cobrado                          |
+|----------------|-------------------|-----------------------------------------|
+| Marketing      | $0.025-$0.1365    | Campanhas, promocoes                    |
+| Utility        | $0.004-$0.0456    | Confirmacoes de pedido, atualizacoes    |
+| Authentication | $0.004-$0.0456    | OTP, reset de senha                     |
+| Service        | GRATIS            | Resposta dentro da janela de 24h        |
+
+**Pre-requisitos:**
+- Conta Meta Business Suite (gratuita)
+- App no Meta for Developers com produto WhatsApp
+- Numero de telefone verificado
+- System User Token (permanente)
+
+Se o usuario nao tem conta Meta Business, leia `references/setup-guide.md` para o guia completo de setup do zero.
+
+---
+
+## Decision Tree
+
+Use esta arvore para determinar o proximo passo:
+
+```
+O usuario precisa de setup inicial?
+├── SIM → Leia references/setup-guide.md
+└── NAO → Qual linguagem?
+    ├── Node.js/TypeScript
+    └── Python
+    → O que quer fazer?
+       ├── Enviar mensagens → Secao "Tipos de Mensagem" abaixo
+       ├── Receber mensagens → Secao "Webhooks" abaixo
+       ├── Automatizar atendimento → Secao "Automacao" abaixo
+       ├── WhatsApp Flows / Commerce → Secao "Features Avancados" abaixo
+       ├── Gerenciar templates → references/template-management.md
+       └── Compliance / limites → Secao "Compliance & Quality" abaixo
 ```
 
-决策路径：需要从零搭建则先看 setup-guide；否则按「语言（Node/Python）→ 目标（发消息 / 收消息 / 自动化 / Flows·Commerce / 模板管理 / 合规）」分流。
+Para iniciar um projeto do zero com boilerplate pronto, use o script:
+```bash
+python scripts/setup_project.py --language nodejs --path ./meu-projeto
 
-## 示例
+## Ou
 
-发送文本（Node.js/TS）：
+python scripts/setup_project.py --language python --path ./meu-projeto
+```
+
+---
+
+## 1. Configurar Variaveis De Ambiente
+
+```env
+WHATSAPP_TOKEN=seu_access_token_aqui
+PHONE_NUMBER_ID=seu_phone_number_id
+WABA_ID=seu_whatsapp_business_account_id
+APP_SECRET=seu_app_secret
+VERIFY_TOKEN=token_customizado_para_webhook
+```
+
+## 2. Enviar Mensagem De Texto Simples
+
+**Node.js/TypeScript:**
 ```typescript
 import axios from 'axios';
+
 const GRAPH_API = 'https://graph.facebook.com/v21.0';
+
 async function sendText(to: string, message: string) {
-  const r = await axios.post(
+  const response = await axios.post(
     `${GRAPH_API}/${process.env.PHONE_NUMBER_ID}/messages`,
-    { messaging_product: 'whatsapp', to, type: 'text', text: { body: message } },
+    {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'text',
+      text: { body: message }
+    },
     { headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` } }
   );
-  return r.data; // { messaging_product, contacts, messages: [{ id }] }
+  return response.data; // { messaging_product, contacts, messages: [{ id }] }
 }
 ```
 
-发送文本（Python，httpx）：
+**Python:**
 ```python
-import httpx, os
+import httpx
+import os
+
 GRAPH_API = "https://graph.facebook.com/v21.0"
+
 async def send_text(to: str, message: str) -> dict:
     async with httpx.AsyncClient() as client:
-        r = await client.post(
+        response = await client.post(
             f"{GRAPH_API}/{os.environ['PHONE_NUMBER_ID']}/messages",
-            json={"messaging_product": "whatsapp", "to": to,
-                  "type": "text", "text": {"body": message}},
-            headers={"Authorization": f"Bearer {os.environ['WHATSAPP_TOKEN']}"})
-        return r.json()
+            json={
+                "messaging_product": "whatsapp",
+                "to": to,
+                "type": "text",
+                "text": {"body": message}
+            },
+            headers={"Authorization": f"Bearer {os.environ['WHATSAPP_TOKEN']}"}
+        )
+        return response.json()  # {"messaging_product", "contacts", "messages": [{"id"}]}
 ```
 
-模板消息（窗口外唯一可主动发起的形式，须先审批）：
+## 3. Enviar Template Message (Fora Da Janela De 24H)
+
+Templates sao a unica forma de iniciar conversa com um cliente. Devem ser aprovados pela WhatsApp antes do uso.
+
 ```json
 {
   "messaging_product": "whatsapp",
@@ -88,53 +166,326 @@ async def send_text(to: str, message: str) -> dict:
     "name": "hello_world",
     "language": { "code": "pt_BR" },
     "components": [
-      { "type": "body", "parameters": [ { "type": "text", "text": "João" } ] }
+      {
+        "type": "body",
+        "parameters": [
+          { "type": "text", "text": "João" }
+        ]
+      }
     ]
   }
 }
 ```
 
-Webhook GET 验证（Express）：
+## 4. Verificar Entrega
+
+Use o script de teste para validar:
+```bash
+python scripts/send_test_message.py --to 5511999999999 --message "Teste de integracao"
+```
+
+---
+
+## Tipos De Mensagem
+
+| Tipo               | Uso                                   | Limite           |
+|--------------------|---------------------------------------|------------------|
+| Text               | Mensagens simples de texto            | 4096 chars       |
+| Template           | Iniciar conversa / fora da janela 24h | 1600 chars body  |
+| Image              | Fotos e imagens                       | 5MB              |
+| Document           | PDFs, planilhas, docs                 | 100MB            |
+| Video              | Videos                                | 16MB             |
+| Audio              | Mensagens de voz                      | 16MB             |
+| Interactive Button | Botoes de resposta rapida             | Max 3 botoes     |
+| Interactive List   | Menu com opcoes em secoes             | Max 10 opcoes    |
+| Location           | Compartilhar localizacao              | lat/long         |
+| Contact            | Compartilhar contato                  | vCard format     |
+| Reaction           | Reagir com emoji a mensagem           | 1 emoji          |
+
+**Exemplo - Botoes interativos (Node.js):**
 ```typescript
+async function sendButtons(to: string, body: string, buttons: Array<{id: string, title: string}>) {
+  return axios.post(`${GRAPH_API}/${process.env.PHONE_NUMBER_ID}/messages`, {
+    messaging_product: 'whatsapp',
+    to,
+    type: 'interactive',
+    interactive: {
+      type: 'button',
+      body: { text: body },
+      action: {
+        buttons: buttons.map(b => ({
+          type: 'reply',
+          reply: { id: b.id, title: b.title }
+        }))
+      }
+    }
+  }, { headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` } });
+}
+
+// Uso:
+await sendButtons('5511999999999', 'Como posso ajudar?', [
+  { id: 'suporte', title: 'Suporte' },
+  { id: 'vendas', title: 'Vendas' },
+  { id: 'info', title: 'Informacoes' }
+]);
+```
+
+**Para exemplos completos de todos os tipos em Node.js e Python**, leia `references/message-types.md`.
+
+---
+
+## Webhooks
+
+Webhooks permitem receber mensagens e atualizacoes de status em tempo real.
+
+## Verificacao (Get) - Obrigatorio
+
+Quando voce configura o webhook no Meta Developers, a Meta envia um GET para verificar:
+
+```typescript
+// Node.js (Express)
 app.get('/webhook', (req, res) => {
   const mode = req.query['hub.mode'];
   const token = req.query['hub.verify_token'];
   const challenge = req.query['hub.challenge'];
-  if (mode === 'subscribe' && token === process.env.VERIFY_TOKEN) res.status(200).send(challenge);
-  else res.sendStatus(403);
+
+  if (mode === 'subscribe' && token === process.env.VERIFY_TOKEN) {
+    res.status(200).send(challenge);
+  } else {
+    res.sendStatus(403);
+  }
 });
 ```
 
-Webhook POST 签名校验（HMAC-SHA256，恒定时间比较）：
+## Recebimento (Post) - Com Seguranca Hmac-Sha256
+
+Toda notificacao de webhook vem assinada no header `X-Hub-Signature-256`. Valide SEMPRE antes de processar:
+
 ```typescript
 import crypto from 'crypto';
+
 function validateSignature(rawBody: Buffer, signature: string): boolean {
-  const expected = crypto.createHmac('sha256', process.env.APP_SECRET!)
-    .update(rawBody).digest('hex');
+  const expectedSig = crypto
+    .createHmac('sha256', process.env.APP_SECRET!)
+    .update(rawBody)
+    .digest('hex');
   return crypto.timingSafeEqual(
-    Buffer.from(`sha256=${expected}`), Buffer.from(signature));
+    Buffer.from(`sha256=${expectedSig}`),
+    Buffer.from(signature)
+  );
 }
 ```
 
-交互按钮（Node.js，最多 3 个按钮）：
-```typescript
-interactive: { type: 'button', body: { text: body },
-  action: { buttons: buttons.map(b => ({ type: 'reply', reply: { id: b.id, title: b.title } })) } }
-```
+**Importante:** Usar `crypto.timingSafeEqual` (Node.js) ou `hmac.compare_digest` (Python) para prevenir timing attacks. Nunca use comparacao simples de strings.
 
-## 注意事项
+## Eventos Recebidos
 
-- 签名校验必须用 `crypto.timingSafeEqual`（Node）或 `hmac.compare_digest`（Python）防时序攻击，绝不用普通字符串相等比较。每条 webhook 都带 `X-Hub-Signature-256` 头，处理前先校验。
-- Webhook 端点需 HTTPS + 有效 SSL，须在 5 秒内返回 HTTP 200；本地开发用 ngrok。
-- 消息类型限制：文本 4096 字符、模板 body 1600 字符、图片 5MB、文档 100MB、视频/音频 16MB、按钮最多 3 个、列表最多 10 项。
-- 合规清单：发送前取得明确 opt-in；实现 opt-out（关键词 SAIR/STOP）；记录带时间戳的同意；遵守 LGPD/GDPR；模板需先审批。
-- 质量分（绿/黄/红）影响发送上限：红色需立即降量。2026 起发送限额按 Business Portfolio 计；完成商业验证后可直达 100K 会话/24h。
-- 常见错误：401 令牌失效→重新生成 System User Token；400→对照示例核验 JSON；模板被拒→修改后重提；速率超限（80 msg/s）→加重试队列。
-- 可结合 Claude API 做智能回复：webhook 收消息 → 带上下文调用 Claude → 经 WhatsApp 回复，并保留转人工通道。
+- **messages** - Mensagem do cliente (texto, midia, botao, localizacao)
+- **statuses** - Atualizado de status (sent → delivered → read)
+- **errors** - Erros de entrega
 
-## 互见
+**Requisitos:**
+- Endpoint HTTPS com certificado SSL valido
+- Responder com HTTP 200 em ate 5 segundos
+- Dev: use ngrok para teste local
 
-- claude-api：将 WhatsApp 消息接入 Claude，实现智能自动应答与会话上下文管理。
+**Para setup completo com exemplos Node.js e Python**, leia `references/webhook-setup.md`.
 
 ---
-本条采编自 sickn33/antigravity-awesome-skills（MIT）。
+
+## Menu Principal Interativo
+
+Use botoes ou listas para criar um menu de opcoes na primeira interacao:
+
+```python
+
+## Python - Menu Com Lista Interativa
+
+async def send_main_menu(to: str):
+    await send_interactive_list(
+        to=to,
+        header="Bem-vindo!",
+        body="Selecione o que precisa:",
+        button_text="Ver opcoes",
+        sections=[{
+            "title": "Atendimento",
+            "rows": [
+                {"id": "suporte", "title": "Suporte Tecnico", "description": "Ajuda com problemas"},
+                {"id": "vendas", "title": "Vendas", "description": "Conhecer nossos produtos"},
+                {"id": "financeiro", "title": "Financeiro", "description": "Boletos e pagamentos"},
+            ]
+        }]
+    )
+```
+
+## State Machine Para Fluxos
+
+Gerencie conversas com uma maquina de estados. Cada cliente tem um estado atual que determina como a proxima mensagem sera processada:
+
+```
+INICIO → MENU_PRINCIPAL → SUPORTE → AGUARDANDO_DETALHES → ESCALACAO_HUMANO
+                        → VENDAS → CATALOGO → CHECKOUT
+                        → FINANCEIRO → SEGUNDA_VIA_BOLETO
+```
+
+## Janela De 24 Horas
+
+- **Dentro da janela (24h apos ultima mensagem do cliente):** Pode enviar qualquer tipo de mensagem gratuitamente
+- **Fora da janela:** Apenas template messages (cobradas por categoria)
+
+## Integracao Com Ia (Claude Api)
+
+Combine WhatsApp com Claude para respostas inteligentes:
+1. Receba mensagem via webhook
+2. Envie para Claude API com contexto da conversa
+3. Retorne resposta via WhatsApp
+4. Mantenha escalacao para humano disponivel
+
+**Para padroes completos de automacao**, leia `references/automation-patterns.md`.
+
+---
+
+## Whatsapp Flows
+
+Formularios interativos multi-tela dentro do WhatsApp. O cliente preenche campos sem sair do app. Definidos em JSON com screens, components e actions.
+
+Use cases: cadastros, agendamentos, pesquisas NPS, selecao de produtos.
+
+## Commerce & Catalogo
+
+Ate 500 produtos no catalogo WhatsApp. Envie mensagens de produto individual ou multi-produto com checkout in-app.
+
+## Template Management Api
+
+Crie, liste e delete templates programaticamente. Ate 6000 traducoes por conta. Aprovacao em minutos.
+
+## Whatsapp Channels
+
+Broadcasting unidirecional para subscribers ilimitados. Localizado na aba "Atualizacoes" do WhatsApp.
+
+## Click-To-Whatsapp Ads
+
+Anuncios no Facebook/Instagram com botao que abre conversa no WhatsApp. 99% de taxa de abertura.
+
+## Status Tracking
+
+Rastreie entrega: pending → server → device → read. Receba via webhook de status updates.
+
+**Para detalhes completos de features avancados**, leia `references/advanced-features.md`.
+**Para gerenciamento de templates via API**, leia `references/template-management.md`.
+
+---
+
+## Checklist Essencial
+
+- [ ] Opt-in explicito obtido antes de enviar mensagens
+- [ ] Mecanismo de opt-out implementado (keyword "SAIR" ou "STOP")
+- [ ] Registro de consentimento com timestamp, metodo e proposito
+- [ ] Conteudo dentro das politicas do WhatsApp (sem spam, sem conteudo proibido)
+- [ ] LGPD/GDPR compliance (base legal definida, direitos do titular)
+- [ ] Frequencia de mensagens adequada (nao excessiva)
+- [ ] Templates aprovados antes do uso
+- [ ] Verificacao de negocio completa (para limites maiores)
+
+## Quality Rating
+
+O WhatsApp monitora a qualidade das suas mensagens e atribui um rating:
+
+| Rating    | Significado                        | Acao                              |
+|-----------|------------------------------------|-----------------------------------|
+| Verde     | Boa qualidade, poucos bloqueios    | Manter — elegivel para upgrade    |
+| Amarelo   | Qualidade media, atencao necessaria| Revisar conteudo e frequencia     |
+| Vermelho  | Qualidade baixa, risco de suspensao| Acao imediata: reduzir volume     |
+
+**Sinais positivos:** Alta taxa de resposta, engajamento, poucos bloqueios
+**Sinais negativos:** Bloqueios, reports de spam, baixo engajamento
+
+## Tier System (Limites De Mensagem)
+
+Desde outubro 2025, limites sao por **Business Portfolio** (nao por numero):
+
+| Tier         | Conversas/24h | Como alcancar                           |
+|--------------|---------------|------------------------------------------|
+| Inicial      | 250           | Conta nova / nao verificada              |
+| Tier 1       | 1,000         | Auto-upgrade: 50%+ do limite por 7 dias  |
+| Tier 2       | 10,000        | Auto-upgrade: 50%+ do limite por 7 dias  |
+| Tier 3       | 100,000       | Auto-upgrade: 50%+ do limite por 7 dias  |
+| Unlimited    | Ilimitado     | Auto-upgrade: 50%+ do limite por 7 dias  |
+
+**Mudancas 2026:** Tiers 2K e 10K serao removidos. Apos verificacao de negocio, limite imediato de 100K.
+
+**Para guia completo de compliance**, leia `references/compliance.md`.
+
+---
+
+## Troubleshooting
+
+| Problema                       | Causa Provavel                     | Solucao                                    |
+|--------------------------------|------------------------------------|--------------------------------------------|
+| 401 Unauthorized               | Token expirado ou invalido         | Gerar novo System User Token               |
+| 400 Bad Request                | Payload malformado                 | Verificar JSON contra exemplos             |
+| Template rejeitado             | Conteudo viola politicas           | Revisar e resubmeter com alteracoes        |
+| Webhook nao recebe             | URL invalida ou sem HTTPS          | Usar ngrok (dev) ou certificado SSL (prod) |
+| Rate limit exceeded            | Ultrapassou 80 msg/s              | Implementar queue com retry                |
+| Quality rating baixo           | Muitos bloqueios/reports           | Reduzir volume, melhorar conteudo          |
+| Mensagem nao entregue          | Numero invalido ou nao no WhatsApp | Validar numero antes de enviar             |
+| Numero nao verificado          | OTP nao completado                 | Repetir verificacao via SMS ou ligacao      |
+
+Para validar sua configuracao:
+```bash
+python scripts/validate_config.py
+```
+
+---
+
+## Referencias (Leia Conforme Necessidade)
+
+| Arquivo                        | Quando ler                                        |
+|--------------------------------|---------------------------------------------------|
+| `references/setup-guide.md`    | Setup inicial — criar conta Meta, configurar API  |
+| `references/message-types.md`  | Exemplos completos de todos os tipos de mensagem   |
+| `references/webhook-setup.md`  | Configurar webhooks com seguranca HMAC             |
+| `references/automation-patterns.md` | Chatbot, filas, state machine, integracao IA  |
+| `references/compliance.md`     | LGPD/GDPR, opt-in, quality rating, tier system    |
+| `references/api-reference.md`  | Endpoints, erros, rate limits, pricing 2026        |
+| `references/advanced-features.md` | Flows, Commerce, Channels, Ads, Status Tracking|
+| `references/template-management.md` | CRUD de templates via API                     |
+
+## Scripts
+
+| Script                         | O que faz                                         |
+|--------------------------------|---------------------------------------------------|
+| `scripts/setup_project.py`     | Cria projeto com boilerplate (Node.js ou Python)   |
+| `scripts/validate_config.py`   | Valida credenciais e conexao com a API             |
+| `scripts/send_test_message.py` | Envia mensagem teste para validar setup            |
+
+## Boilerplate
+
+| Diretorio                      | Conteudo                                          |
+|--------------------------------|---------------------------------------------------|
+| `assets/boilerplate/nodejs/`   | Projeto TypeScript/Express completo                |
+| `assets/boilerplate/python/`   | Projeto Python/Flask completo                      |
+| `assets/examples/`             | Exemplos de payloads JSON (templates, webhooks, flows) |
+
+## Best Practices
+
+- Provide clear, specific context about your project and requirements
+- Review all suggestions before applying them to production code
+- Combine with other complementary skills for comprehensive analysis
+
+## Common Pitfalls
+
+- Using this skill for tasks outside its domain expertise
+- Applying recommendations without understanding your specific context
+- Not providing enough project context for accurate analysis
+
+## Related Skills
+
+- `instagram` - Complementary skill for enhanced analysis
+- `social-orchestrator` - Complementary skill for enhanced analysis
+- `telegram` - Complementary skill for enhanced analysis
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

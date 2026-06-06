@@ -1,11 +1,11 @@
 ---
 name: company-culture-architect
-title: 公司文化体系构建
-description: 当需要把公司文化从墙上口号变成可观察、可度量、可落地的运营系统时使用；做使命/愿景/价值观工作坊、价值观到行为锚点的转译、文化准则（culture code）撰写、季度文化健康测评与分阶段文化仪式设计（产出价值观行为表、文化准则文档、文化测评问卷与解读、阶段化仪式清单）；不适用于个人绩效面谈、HR 招聘流程执行或具体劳动法合规；触发词：公司文化、价值观、使命、愿景、文化准则、culture code、文化健康、文化债、创始人文化、价值观漂白、文化测评、心理安全
+title: Culture Architect
+description: Build, measure, and evolve company culture as operational behavior — not wall posters. Covers mission/vision/values workshops, values-to-behaviors translation, culture code creation, culture health assessment, and cultural rituals by stage. Use when building company values, assessing culture health, designing cultural rituals, creating culture codes, handling culture clashes, or when user mentions culture, values, culture debt, founder culture, or culture code.
 domain: 协作/pm
-triggers: [公司文化, 价值观, 使命, 愿景, 文化准则, culture code, 文化健康, 文化债, 创始人文化, 价值观漂白, 文化测评, 心理安全, 文化仪式, 文化冲突]
+triggers: [culture code]
 tags: [culture, values, mission-vision, culture-code, culture-health, rituals, psychological-safety, leadership]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,107 +16,157 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-＃ 公司文化体系构建
+# Culture Architect
 
-> 核心原则：**文化 =（你奖励什么）+（你容忍什么）+（你庆祝什么）**。文化不是墙上的标语，而是可观察的行为、可度量的健康度、能随规模扩展的仪式。若价值观写着「透明」却惩罚报忧者，那真实价值观是「粉饰」。工作的本质是缩小「宣称」与「实际」之间的差距。
+Culture is what you DO, not what you SAY. This skill builds culture as an operational system — observable behaviors, measurable health, and rituals that scale.
 
-## 何时使用
+## Keywords
+culture, company culture, values, mission, vision, culture code, cultural rituals, culture health, values-to-behaviors, founder culture, culture debt, value-washing, culture assessment, culture survey, Netflix culture deck, HubSpot culture code, psychological safety, culture scaling
 
-适用于：从零提炼或重塑使命/愿景/价值观；把抽象价值观转译为可验证的行为锚点；撰写对外公开的文化准则（culture code）；季度文化健康测评与结果解读；按团队规模阶段设计文化仪式；处理并购/快速扩招带来的文化稀释与冲突。
+## Core Principle
 
-**不该用边界**：个人绩效面谈、薪酬谈判交给 HR/经理；招聘流程、背景调查等操作性事务不属本技能；具体劳动法/合规问题需法务。本技能聚焦文化的**系统性设计与治理**，不替代日常人事执行。
+**Culture = (What you reward) + (What you tolerate) + (What you celebrate)**
 
-## 步骤
+If your values say "transparency" but you punish bearers of bad news — your real value is "optics." Culture is not aspirational. It's descriptive. The work is closing the gap between stated and actual.
 
-按需选用以下六个框架，建议顺序：先立价值观 → 转译行为 → 写准则 → 测健康 → 配仪式 → 防反模式。
+## Frameworks
 
-**1 · 使命/愿景/价值观工作坊（对话式，非企业团建）**
-- 使命（为何存在，超越赚钱）：问「如果我们明天消失，世界会失去什么？」用**现在时**陈述，如「我们减少养老护理中可预防的跌倒」，而非「成为领先的……」。
-- 愿景（5-10 年的胜利图景）：要**具体到可能出错**，如「欧洲每家养老院都用我们的系统」胜过「成为市场领导者」。
-- 价值观（我们真正示范的行为）：从**观察**出发而非听起来好听的词，问「上一个优秀员工做了哪件没人要求他做的事？」**控制在 3-5 条**，超过 5 条等于没有。
+### 1. Mission / Vision / Values Workshop
 
-**2 · 价值观 → 行为锚点转译（这才是真正的工作）**
-五步法：① 不加筛选列出所有现有价值观 → ② 每条找近 6 个月内 3 个真实案例（找不到 3 个 = 这条不真实）→ ③ 从案例提取**可观察动作**（非感受、非意图）→ ④ 写正向锚点：「〔主体〕在〔具体情境〕下做〔具体动作〕」→ ⑤ 写反例：「〔主体〕即便在〔诱惑/压力〕下也不做〔具体反向动作〕」。
+Run this conversationally, not as a corporate offsite. Three questions:
 
-**3 · 撰写文化准则（culture code）**
-公开文档，目的是**吓退不合适的人、吸引对的人**。固定结构：① 我们是谁（使命+背景）② 谁在这里如鱼得水（具体行为，非形容词）③ **谁不适合这里**（诚实，这一节最有用）④ 如何做决策 ⑤ 如何沟通 ⑥ 如何培养人 ⑦ 对领导者的期待。
-反模式：别写「我们是一家人」（家人不会因绩效互相解雇）；别只列优点（「谁不适合」才让文档可信）；别写成愿景体而非描述体。
+**Mission** — Why do we exist (beyond making money)?
+- "What would be lost if we disappeared tomorrow?"
+- Mission is present-tense. "We reduce preventable falls in elderly care." Not "to be the leading..."
 
-**4 · 文化健康测评（季度跑，8-12 题，匿名）**
-五大测量域：心理安全、清晰度/对齐、公平、成长、对领导层的信任。分数解读与行动闸门：
+**Vision** — What does winning look like in 5–10 years?
+- Specific enough to be wrong. "Every care home in Europe uses our system" beats "be the market leader."
 
-| 分数 | 信号 | 行动 |
-|---|---|---|
-| 80-100% | 健康 | 维持、庆祝、固化记录 |
-| 65-79% | 预警 | 定位具体摩擦点，勿过度反应 |
-| 50-64% | 受损 | 领导层紧急介入 + 具体修复 |
-| <50% | 危机 | 文化紧急事态，全员级干预 |
+**Values** — What behaviors do we actually model?
+- Start with what you observe, not what sounds good. "What did our last great hire do that nobody asked them to?"
+- Keep to 3–5. More than 5 and none of them mean anything.
 
-**5 · 分阶段文化仪式**（works at 10 ≠ works at 100）
-- **种子期（<15 人）**：每周 15 分钟「Wins & Learnings」（各说一个赢、一个教训，无幻灯片）；开放账本（月度同步营收/烧钱/跑道）；「复盘即庆祝」防止甩锅文化萌芽。
-- **早期增长（15-50 人）**：首次季度文化测评；与价值观绑定的公开认可仪式（不只看结果）；入职 buddy 制；创始人 office hours 保持可达。
-- **扩张（50-200 人）**：同伴驱动（非 HR）的文化委员会，4-6 人季度轮换；价值观纳入绩效评估；管理者培训（文化此时存亡于团队 lead）；「边缘审计」复盘近 10 起绩效问题/离职/晋升，问「与价值观一致吗？」。
-- **大型（200+ 人）**：文化作为战略，年度文化计划带 owner 与 KPI；文化内部 NPS；子文化对齐（工程文化 ≠ 销售文化，但都须对齐公司内核）。
+### 2. Values → Behaviors Translation
 
-**6 · 防文化反模式**
-- **价值观漂白**：列了不践行的价值观（员工讨论时翻白眼）→ 修复：做价值观审计，问「上一个被晋升的人展示了什么？」若不匹配，真实价值观另有其物。
-- **文化债**：「那个有毒的明星员工以后再处理」，later 会复利 → 修复：处理文化违规**要比你以为的更快**，一个被容忍的坏行为会摧毁十个好行为建立的东西。
-- **创始人文化陷阱**：文化冻结在创始团队个性上 → 修复：随规模显式演进，10 人时的「先做后说」在 100 人时可能是破坏性的。
-- **文化靠渗透**：以为文化会自然传递（10 人会，50 人不会）→ 修复：刻意化——记录它、教它、量它、显式奖励它。
+This is the work. Every value needs behavioral anchors or it's decoration.
 
-## 指令
+| Value | Bad version | Behavioral anchor |
+|-------|------------|-------------------|
+| Transparency | "We're open and honest" | "We share bad news within 24 hours, including to our manager" |
+| Ownership | "We take responsibility" | "We don't hand off problems — we own them until resolved, even across team boundaries" |
+| Speed | "We move fast" | "Decisions under €5K happen at team level, same day, no approval needed" |
+| Quality | "We don't cut corners" | "We stop the line before shipping something we're not proud of" |
+| Customer-first | "Customers are our priority" | "Any team member can escalate a customer issue to leadership, bypassing normal channels" |
 
-**价值观转译的强制格式**
-```
-正向锚点：[主体] 在 [具体情境] 下做 [具体可观察动作]
-反例锚点：[主体] 即便在 [诱惑/压力] 下也不做 [具体反向动作]
-```
-示例（客户至上）：正向=「我们在 24 小时内解决客户报告的关键问题，不论是否在路线图上」；反例=「客户未确认前，我们不把工单标记为已解决」。
+**Workshop exercise:** Write your value. Then ask "How would a new hire know we actually live this on day 30?" If you can't answer concretely, it's not a value — it's an aspiration.
 
-**10 题核心测评问卷（Likert 1-5 + 开放文本，必须匿名）**
-1. 我能向经理提出顾虑或异议而不担心负面后果（心理安全）
-2. 我清楚我的工作如何连接到公司最重要的目标（清晰/对齐）
-3. 犯错时我能坦诚而不隐瞒（心理安全）
-4. 这里的决策基于事实与绩效，而非政治或关系（公平）
-5. 即便是坏消息，我也相信领导层说的是真话（信任）
-6. 我在当前岗位上有成长、被挑战（成长）
-7. 有人持续低绩效而无人处理时，我觉得这被妥善处理了（问责）
-8. 我在工作中能做自己（包容）
-9. 经理以让我觉得有意义的方式认可我的贡献（认可）
-10. 我会把这家公司推荐给我尊重的人（总体健康 / eNPS）
+### 3. Culture Code Creation
 
-开放文本（挑 2-3 题）：「领导层做哪一件不同的事最能改善文化？」「我们容忍了什么不该容忍的？」「成长中我们最该保护、却最可能失去的是什么？」
+A culture code is a public document that describes how you operate. It should scare off the wrong people and attract the right ones.
 
-**测评结果分析约束**
-- eNPS（第 10 题）= %推荐者(9-10) − %贬损者(1-6)；健康 >20，优秀 >40。
-- 第 1、3 题（心理安全）<70% → 这是**领导问题不是文化问题**，先修经理。
-- 第 7 题（问责）是最诚实的题：不问责低绩效者会摧毁高绩效者留存。
-- 关注两次测评间**跌幅最大项**，别用平均值抹平它。
+**Structure:**
+1. Who we are (mission + context)
+2. Who thrives here (specific behaviors, not adjectives)
+3. Who doesn't thrive here (honest — this is the useful part)
+4. How we make decisions
+5. How we communicate
+6. How we grow people
+7. What we expect of leaders
 
-**文化演进框架（扩张时用，避免「冻结」或「失忆」）**
-保留（Preserve）核心价值观 → 适配（Adapt）随阶段更新的行为（「快」在 10 人=当天决定，200 人=一周内带对的人决定）→ 新增（Add）新规模需要的行为（如 100 人时的文档文化）→ 退役（Retire）规模下有害的行为（「先斩后奏」在种子期可行，B 轮制造协调混乱）。
-沟通话术，避免让演进看起来像虚伪：「我们过去在团队层快速决策。规模变大后这造成协调问题。底层价值——速度——没变，变的是交付方式：〔新行为〕。」
+See `templates/culture-code-template.md` for a complete template.
 
-## 示例
+**Anti-patterns to avoid:**
+- "We're a family" — families don't fire each other for performance
+- Listing only positive traits — the "who doesn't thrive here" section is what makes it credible
+- Making it aspirational instead of descriptive
 
-**季度文化复盘**：① 跑 10 题测评（匿名）→ 心理安全两题均 64% <70% → 停，定位到 X 团队经理，先做管理者一对一辅导。② eNPS = 35% 推荐者 − 18% 贬损者 = 17 <20 → 预警，看开放文本找摩擦。③ 第 7 题问责 52%（受损）→ 标记被保护的明星员工，触发「边缘审计」，复盘近 10 起晋升是否符合价值观。④ 委员会 2 周内向全员同步结果 + 2-3 个具体行动 + 30 天问责复查。
+### 4. Culture Health Assessment
 
-**并购文化整合**：签约前做文化尽调（与财务尽调同等重要），问「他们如何决策？什么会被解雇？什么会被晋升？庆祝什么？」；前 90 天**不强加文化**，做双边审计（我们该采纳他们什么 / 他们该采纳我们什么 / 哪些冲突必须解决），双方各派有实权的整合负责人。失败模式：以为收购 = 文化吸收——对方文化不会消失，只会转入地下，再以功能失调浮现。
+Run quarterly. 8–12 questions. Anonymous. See `references/culture-playbook.md` for survey design.
 
-## 注意事项
+**Core areas to measure:**
+1. Psychological safety — "Can I raise a concern without fear?"
+2. Clarity — "Do I know how my work connects to company goals?"
+3. Fairness — "Are decisions made consistently and transparently?"
+4. Growth — "Am I learning and being challenged here?"
+5. Trust in leadership — "Do I believe what leadership tells me?"
 
-- **文化是描述性的，不是愿景性的**：文化准则要诚实于权衡，如「我们追求速度，这有时意味着决策会被重审」比「我们又快又一次做对」更可信。
-- 测评的硬约束：**永远匿名**；8-12 题、≤15 分钟；不准备公开并行动就**不要发问卷**；保持题目跨期一致以获取趋势数据。
-- 价值观锚点常见错误：太模糊（「以客户为先」改变不了行为）、太宽泛（「凡事重视质量」无法度量或违反）、太个人（「我们有激情」描述情绪非动作）、太愿景（「我们力争交付世界级……」，"力争"让人脱钩）。
-- 快速扩招的稀释防控：扩张**前**就编码文化；入职即文化传递（沉浸于「决策如何做、庆祝什么、不容忍什么」）；为「文化增量」招人而非「文化吻合」（fit=同质化，add=带来强化文化的新视角）；管理者密度要够（只加 IC 不加 manager，新人无人传递文化）；文化 buddy 配对前 60 天。
-- 领导者自查问题：「能说出上一个因文化原因被解雇的人吗？他做了什么？」「上一个被晋升者靠什么行为晋升？这在价值观里吗？」「新人第一天会观察到什么，告诉他这里真正重视什么？」「我们容忍了什么不该容忍的？谁知道却无所作为？」
-- 红旗信号：价值观贴在墙上却从不在评估/决策中被引用；明星员工被豁免文化标准；领导者「没空」做文化仪式；新人觉得文化「和宣传的不一样」；没有安全提出文化顾虑的机制；测评结果从不向团队公开。
+**Score interpretation:**
+| Score | Signal | Action |
+|-------|--------|--------|
+| 80–100% | Healthy | Maintain, celebrate, document |
+| 65–79% | Warning | Identify specific friction — don't over-react |
+| 50–64% | Damaged | Urgent leadership attention + specific fixes |
+| < 50% | Crisis | Culture emergency — all-hands intervention |
 
-## 互见
+### 5. Cultural Rituals by Stage
 
-- `templates/culture-code-template.md` —— 完整文化准则模板（含「谁适合/谁不适合」「如何决策/沟通/育人」「对领导者期待」等小节）。
-- `references/culture-playbook.md` —— Netflix 文化手册分析、价值观-行为映射、问卷设计、分阶段仪式实例、并购整合 playbook、文化演进框架。
-- related：`enterprise-project-manager`（组织重组/扩张时同步管理文化扰动）；与一线管理、招聘、绩效流程组合落地。
+Rituals are the delivery mechanism for culture. What works at 10 people breaks at 100.
 
----
-本条采编自 alirezarezvani/claude-skills（MIT 许可证）。
+**Seed stage (< 15 people)**
+- Weekly all-hands (30 min): company update + one win + one learning
+- Monthly retrospective: what's working, what's not — no hierarchy
+- "Default to transparency": share everything unless there's a specific reason not to
+
+**Early growth (15–50 people)**
+- Quarterly culture survey: first formal check-in
+- Recognition ritual: explicit, public, tied to values (not just results)
+- Onboarding buddy program: cultural transmission now requires intentional effort
+- Leadership office hours: founders stay accessible as layers appear
+
+**Scaling (50–200 people)**
+- Culture committee (peer-driven, not HR): 4–6 people rotating quarterly
+- Values-based performance review: culture fit is measured, not assumed
+- Manager training: culture now lives or dies in team leads
+- Department all-hands + company all-hands separate
+
+**Large (200+ people)**
+- Culture as strategy: explicit annual culture plan with owner and KPIs
+- Internal NPS for culture ("Would you recommend this company to a friend?")
+- Subculture management: engineering culture ≠ sales culture — both must align to company core
+
+### 6. Culture Anti-Patterns
+
+**Value-washing:** Listing values you don't practice. Symptom: employees roll their eyes during values discussions.
+- Fix: Run a values audit. Ask "What did the last person who got promoted demonstrate?" If it doesn't match your values, your real values are different.
+
+**Culture debt:** Accumulating cultural compromises over time. "We'll address the toxic star performer later." Later compounds.
+- Fix: Act on culture violations faster than you think necessary. One tolerated bad behavior destroys what ten good behaviors build.
+
+**Founder culture trap:** Culture stays frozen at founding team's personality. New hires assimilate or leave.
+- Fix: Explicitly evolve values as you scale. What worked at 10 people (move fast, ask forgiveness) may be destructive at 100 (we need process).
+
+**Culture by osmosis:** Assuming culture transmits naturally. It did at 10 people. It doesn't at 50.
+- Fix: Make culture intentional. Document it. Teach it. Measure it. Reward it explicitly.
+
+## Culture Integration with C-Suite
+
+| When... | Culture Architect works with... | To... |
+|---------|---------------------------------|-------|
+| Hiring surge | CHRO | Ensure culture fit is measured, not guessed |
+| Org reorg | COO + CEO | Manage culture disruption from structure change |
+| M&A or partnership | CEO + COO | Detect and resolve culture clashes early |
+| Performance issues | CHRO | Separate culture fit from skill deficit |
+| Strategy pivot | CEO | Update values/behaviors that the pivot makes obsolete |
+| Rapid growth | All | Scale rituals before culture dilutes |
+
+## Key Questions a Culture Architect Asks
+
+- "Can you name the last person we fired for culture reasons? What did they do?"
+- "What behavior got your last promoted employee promoted? Is that in your values?"
+- "What would a new hire observe on day 1 that tells them what's really valued here?"
+- "What do we tolerate that we shouldn't? Who knows and does nothing?"
+- "How does a team lead in Berlin know what the culture is in Madrid?"
+
+## Red Flags
+
+- Values posted on the wall, never referenced in reviews or decisions
+- Star performers protected from cultural standards
+- Leaders who "don't have time" for culture rituals
+- New hires feeling the culture is "different than advertised"
+- No mechanism to raise cultural concerns safely
+- Culture survey results never shared with the team
+
+## Detailed References
+- `references/culture-playbook.md` — Netflix analysis, survey design, ritual examples, M&A playbook
+- `templates/culture-code-template.md` — Culture code document template

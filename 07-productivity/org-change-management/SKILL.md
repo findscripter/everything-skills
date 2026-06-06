@@ -1,11 +1,11 @@
 ---
 name: org-change-management
-title: 组织变革管理ADKAR
-description: 当推行重组/换工具/战略转向/砍产品/换高管等组织变革，需有序落地并管理阻力时使用；用ADKAR五阶段（认知-意愿-知识-能力-巩固）产出沟通节奏、阻力应对话术与采用度度量；不适用于纯个人任务管理或一次性技术操作。触发词：变革管理、ADKAR、重组reorg、战略转向pivot
+title: Change Management Playbook
+description: Framework for rolling out organizational changes without chaos. Covers the ADKAR model adapted for startups, communication templates, resistance patterns, and change fatigue management. Handles process changes, org restructures, strategy pivots, and culture changes. Use when announcing a reorg, switching tools, pivoting strategy, killing a product, changing leadership, or when user mentions change management, change rollout, managing resistance, org change, reorg, or pivot communication.
 domain: 协作/pm
-triggers: [变革管理, 组织变革, ADKAR, 重组, reorg, 战略转向, pivot, 换工具迁移, 砍产品, 换高管, 管理阻力, 变革落地, 采用度, 变革疲劳]
-tags: [协作, pm, 变革管理, adkar, 组织发展, 沟通, stakeholder, c-level]
-level: 进阶
+triggers: [ADKAR, reorg, pivot]
+tags: [pm, adkar, stakeholder, c-level]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,146 +16,243 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# Change Management Playbook
 
-需要把一项**组织级变革**有序推行、避免混乱时使用。典型场景：
+Most changes fail at implementation, not design. The ADKAR model tells you why and how to fix it.
 
-- 流程变革（换工具、换工作流，如 Jira→Linear 迁移）
-- 组织变革（重组 reorg、换/走高管、团队拆分合并）
-- 战略转向（pivot、砍掉某条产品线、改变方向）
-- 文化变革（价值观刷新、行为预期调整）
+## Keywords
+change management, ADKAR, organizational change, reorg, process change, tool migration, strategy pivot, change resistance, change fatigue, change communication, stakeholder management, adoption, compliance, change rollout, transition
 
-核心判断：大多数变革**失败在落地，而非设计**。当你需要回答"宣布之后怎么让它真正生根"时，用本技能。
+## Core Model: ADKAR Adapted for Startups
 
-**不该用的边界：**
-- 纯个人/小组的任务排期、待办管理 —— 用项目管理工具即可，不需要变革框架。
-- 一次性技术操作（如执行一次数据迁移脚本）本身，不涉及"让人改变行为"。
-- 已进入法律/裁员合规流程的人事处置 —— 那是 HR/法务范畴，本技能只覆盖沟通与采用。
+ADKAR is a change management model by Prosci. Original version is for enterprises. This is the startup-speed adaptation.
 
-## 步骤
+### A — Awareness
 
-用 **ADKAR**（Prosci 模型的创业团队加速版）五阶段逐项过关，缺一不可：
+**What it is:** People understand WHY the change is happening — the business reason, not just the announcement.
 
-1. **A — Awareness 认知**：让人理解**为什么**要变（业务原因），而不只是宣布做什么。
-   - 常见错误：先讲 WHAT（"我们要换新 CRM"）再讲 WHY。永远先讲 WHY。
-   - 要回答：我们在解决什么问题？为什么是现在？不变会怎样？谁做的决定、怎么做的？
-   - 加速技巧：CEO/决策人录一段 5 分钟视频用大白话讲清"为什么"，胜过一份正式变更公告。
-   - **信息≠解释**：不要只"通知"（"下月从 Jira 换到 Linear"），要"解释"（"工程团队每周因 Jira 损失约 4 小时，按当前规模每月 60+ 小时；同规模团队用 Linear 平均降低 40% 这部分开销，所以换"）。
+**The mistake:** Communicating the WHAT before the WHY. "We're moving to a new CRM" before "here's why our current process is killing us."
 
-2. **D — Desire 意愿**：让人**愿意**改变，至少不主动抵制。认知≠意愿，理解了仍可能反感。
-   - 逐一为每个干系群体诚实回答"这对我有什么好处/影响"（见下表）。
-   - "什么"已定，也要让人参与"怎么做"。
-   - 直面恐惧，别假装变革对所有人都更好、别忽视真实的损失。
-   - 加速技巧：宣布后 **48 小时内**开一场"疑虑与提问"会——不为推翻决定，而是回应恐惧、表明你在听。
+**What people need to hear:**
+- What is the problem we're solving? (Be honest. If it's "we need to cut costs," say that.)
+- Why now? What would happen if we didn't change?
+- Who made this decision and how?
 
-3. **K — Knowledge 知识**：让人知道在新世界里**怎么操作**（技能、行为、流程）。
-   - 别宣布完就指望大家自己摸索。
-   - 提供：分步文档、上线前培训/演练、"遇到[常见场景]怎么办"的明确答案、卡住时找谁。
-   - 文档要短（多数变革 < 2 页）、**按角色组织**（"如果你在销售，对你的变化是…"）、有明确负责人和提问渠道。
-
-4. **A — Ability 能力**："培训过了"≠"会做了"。培训是知识，能力靠练习。
-   - 提供：评估前的练习时间、可犯错的安全环境（不公开羞辱早期挣扎）、过渡期减负（学新技能时别同时压新活）、随手可得的帮助（专属 Slack 频道/对接人/文档）。
-   - **能力缺口信号**：压力下回退旧行为、出现绕过新系统的"野路子"、培训分高但行为没变。
-
-5. **R — Reinforcement 巩固**：让改变**留下来**，新行为成为默认。别在上线日就宣布胜利。
-   - 可见的度量、表彰早期采用者、领导以身示范、（可能时）**移除旧选项**、对不采用有明确且一致的后果。
-   - **采用 vs 合规**：合规=有人看才做、没人看就回退；采用=因为相信更好而做。只有巩固能造就采用，合规来自强制。**目标是采用**。
-
-## 指令
-
-**各变革类型的时间线、最难阶段与沟通节奏：**
-
-| 类型 | 全面落地周期 | 最难阶段 | 关键巩固动作 |
-|------|------|------|------|
-| 流程变革（工具/工作流） | 4–8 周 | 能力（知道却没养成习惯） | 弃用/下线旧工具 |
-| 组织变革（重组/换人） | 3–6 月 | 意愿（担心岗位与关系） | 新领导行为一致 |
-| 战略转向（新方向/砍产品） | 3–12 月 | 认知（不信转向是真的） | 可见的资源重新分配 |
-| 文化变革（价值观/行为） | 12–24 月 | 巩固（宣布≠行为改变） | 体现新价值观的可见决策 |
-
-**流程变革沟通序列：** -2周宣布 why+上线日 → -1周培训 → 第0周上线+对接人在线 → 第2周采用度盘点 → 第4周收反馈+晒成果 → 第8周下线旧系统。
-
-**组织变革沟通序列：** Day0 当面/同步视频宣布并讲 why → Day1 经理与最受影响成员 1:1 → 第1周发布诚实 FAQ（覆盖 10 个最常见疑虑）→ 第2–4周新结构开始运转（别拖延落地）→ 第2月首次复盘 → 第3–6月定期盘点团队健康与士气。
-> 高管离任/被替换时：诚实说能说的。**永远不要说**"我们不能透露原因"；要么给真实解释，要么说"具体细节不便透露，但我能告诉你这对你意味着什么"。
-
-**战略转向沟通序列：** 永远先对内（员工绝不该从新闻稿得知 pivot）→ 全员会给足背景（市场变了什么、我们做什么、对各团队意味什么）→ 各团队负责人开"这对我们意味什么"对话 → **2 周内宣布资源重新分配**（钱不动，没人信）→ 公开庆祝新方向首个里程碑。
-> 杀死 pivot 的做法：宣布新方向，却仍按原力度给旧方向投钱。
-
-**阻力是信息，不是抗命。先诊断再回应：**
-
-| 阻力表现 | 信号 | 回应 |
-|------|------|------|
-| "这行不通" | 认知/信任缺口 | 摆出变革的证据基础 |
-| "为什么是现在" | 认知缺口 | 讲清紧迫性——不变会怎样 |
-| "没人征求我意见" | 意愿缺口 | 承认缺口，现在就拉他参与"怎么做" |
-| "我没时间搞这个" | 能力缺口 | 减负或顺延时间线 |
-| "以前试过了" | 信任缺口 | 具体说明这次哪里不一样 |
-| 沉默不执行 | 任意缺口 | 1:1 诊断 |
-
-> 对阻力最糟的回应：把它当人格缺陷一笔带过（"有些人就是抗拒变化"）。
-
-**变革疲劳：** 变得太快，人就不再相信任何变革会落地。
-- 信号：宣布时翻白眼（"又来了"）、相关会议出席率低、纸面快速合规但实际采用慢、"上月还在 X 现在又 Y"。
-- 预防：**做完再开新的**；一次只推一项重大变革，重大变革之间留 2–3 个月稳定期；**主动宣布什么不变**；先晒上一轮成果再启动下一轮。
-- 已陷入疲劳时：暂停非关键变革；做"变革盘点"（同时进行几项？）；宣布 60 天变革停摆，先把 80% 完成的收尾；明确宣布"本季度什么不变"。
-
-**变革管理关键自查：**
-- 对这次变革最怀疑的人是谁？我们直接跟他们谈过吗？
-- 大家是理解 why，还是只知道 what？
-- 在用新方式考核绩效前，给过练习时间吗？
-- 旧方式还在吗？还在，人就会用。
-- 领导自己在示范新行为吗？
-- 此刻我们同时在推几项变革？
-
-**红线（出现即叫停）：** 周五下午宣布（让人整个周末发酵）；"已成定局、不接受提问"的框定；没有 FAQ 或安全提问渠道；上线 6 周后旧系统/流程仍在跑；领导豁免于他们要求别人做的改变；不度量采用度、把"上线=成功"。
-
-## 示例
-
-**工具迁移沟通计划（模板）：**
-```
-COMMUNICATION PLAN — [工具名] 迁移
-AUDIENCE: 全员 / [具体团队]   DECISION OWNER: [姓名]
-GO-LIVE DATE: [日期]   POINT OF CONTACT: [姓名] @ [频道]
-
-时间线:
-Week -4: 决定敲定（仅内部）
-Week -3: 培训材料就绪
-Week -2: 全员宣布（why + 时间线 + 支持计划）
-Week -1: 培训（2 场，不同时间）
-Week 0:  上线。对接人在 Slack。旧系统仍可访问。
-Week 2:  首次采用度盘点，定向帮助未采用者。
-Week 4:  限制旧系统访问。
-Week 8:  旧系统完全下线。
-
-KEY MESSAGES: 为什么换（诚实2句）/ 对你的变化（按角色，≤3条）/
-              什么不变（对抗疲劳）/ 怎么求助 / 时间线
-FAQ: 旧系统会彻底没吗？/ 我在旧系统里的数据怎么办？/ 上线时我还不熟练怎么办？
-```
-
-**重组宣布要点：** 宣布前一周——与每位受影响领导 1:1、HR 待命、备好 FAQ。宣布结构——①背景 why（2–3 分钟）②变什么：新结构与汇报线（3–4 分钟）③**什么不变**：角色/薪酬/团队成员（2 分钟）④时间线（1 分钟）⑤Q&A 开放不限时（≥15 分钟）。
-> **不要说**："我们不能透露[某人]为何离开"（若确在离开）/"这对所有人影响一样"（并不是）/"没人岗位有风险"（除非 100% 确定）。
-
-**阻力应对话术：**
-- 直言怀疑者（先单聊）："我知道你对这次变革有顾虑。在更大范围宣布前我想先听你的，你最担心什么？"
-- 沉默不执行者（1:1 点名行为）："我注意到上线两周了你还在用[旧方式]。我想搞清楚卡在哪——是不会、没时间，还是别的？"
-- 哀悼型老将（先承认损失）："我知道你的专长建立在[旧方法]上，这次变革要你重新发展一套，这是真实的转变。" 然后给出具体发展计划。
-- "我们早试过了"的犬儒者：承认历史 + 具体说明这次哪里不同 + 头 30 天快速做出势头来证明。
-
-**采用度诊断：** 随机抽样问"你为什么用[新方式]而不是[旧方式]"——答"因为不得不"=合规（不稳，松手就回退）；答"更快/更省事/更好"=采用（自我维持）。只有采用能让变革永久。
-
-## 注意事项
-
-- **顺序不可跳**：A→D→K→A→R 任一阶段缺口都会让变革失败；卡住时先定位是哪一阶段的缺口，再对症下药（如"培训分高但行为没变"是能力缺口，不是知识缺口）。
-- **认知阶段先 WHY 后 WHAT**，且要"解释"不要"通知"。
-- **区分知识缺口与能力缺口**：不知道做什么=知识缺口；知道却不做、压力下回退=能力缺口。处理方式不同。
-- 战略转向**钱必须跟着动**，否则等于没转。
-- 文化变革靠**领导先示范**和把新行为写进绩效评估，光宣布价值观无效。
-- 始终瞄准**采用而非合规**，并真正度量采用度——别把上线当成功。
-
-## 互见
-
-- 组织健康诊断（org-health-diagnostic）：变革前后评估团队健康与士气基线。
-- OKR / 目标管理类技能：战略转向后用于落地新方向的目标对齐与资源重分配。
-- 干系人沟通 / 全员会沟通类技能：承接本技能中的沟通节奏与话术执行。
+**Startup shortcut:** A 5-minute video from the CEO or decision-maker explaining the "why" in plain language beats a formal change announcement document every time.
 
 ---
-*采编自 alirezarezvani/claude-skills（MIT 许可证），对 ADKAR 创业加速版做了中文适配重写，保留原始模型、沟通序列、阻力应对话术与采用度度量等关键约束。*
+
+### D — Desire
+
+**What it is:** People want to make the change happen — or at least don't actively resist it.
+
+**The mistake:** Assuming communication creates desire. Awareness ≠ desire. People can understand a change and still hate it.
+
+**What creates desire:**
+- "What's in it for me?" — answer this for each stakeholder group, honestly
+- Involving people in the "how" even if the "what" is decided
+- Addressing fears directly: "Some people are worried this means their role is changing. Here's the truth: [honest answer]"
+
+**What destroys desire:**
+- Pretending the change is better for everyone than it is
+- Ignoring the legitimate losses people will experience
+- Making announcements without any consultation
+
+**Startup shortcut:** Run a short "concerns and questions" session within 48 hours of announcement. Not to reverse the decision — to address the fears and show you're listening.
+
+---
+
+### K — Knowledge
+
+**What it is:** People know HOW to operate in the new world — the specific skills, behaviors, and processes.
+
+**The mistake:** Announcing the change and assuming people will figure it out.
+
+**What people need:**
+- Step-by-step documentation of new processes
+- Training or practice sessions before go-live
+- Clear answers to "what do I do when [common scenario]?"
+- Who to ask when they're stuck
+
+**Types of knowledge transfer:**
+| Method | Best for | When |
+|--------|---------|------|
+| Live training | Skill-based changes, complex tools | Before go-live |
+| Documentation | Process changes, reference material | Always |
+| Video walkthroughs | Tool migrations | Available 24/7, self-paced |
+| Shadowing / peer learning | Behavior changes | Weeks 2–4 after launch |
+| Office hours | Any change with many edge cases | First 4–6 weeks |
+
+---
+
+### A — Ability
+
+**What it is:** People have the time, tools, and support to actually do things differently.
+
+**The mistake:** "We've trained everyone" ≠ "everyone can now do it." Training is knowledge. Ability is practice.
+
+**What creates ability:**
+- Time to practice before being evaluated
+- A safe environment to make mistakes (no public shaming for early struggles)
+- Reduced load during transition (if you're asking people to learn new skills, don't simultaneously pile on new work)
+- Access to help (a Slack channel, a point person, documentation)
+
+**Signs of ability gap:**
+- People revert to old behavior under pressure
+- Workarounds emerge (people invent their own way around the new system)
+- Training scores are high but actual behavior hasn't changed
+
+---
+
+### R — Reinforcement
+
+**What it is:** The change sticks. The new behavior becomes the default.
+
+**The mistake:** Declaring victory at go-live. Changes fail because they're never reinforced.
+
+**What creates reinforcement:**
+- Visible measurement (are we tracking adoption?)
+- Recognition of early adopters ("Sarah fully migrated to the new workflow in week 2 — ask her how")
+- Leader modeling (if the CEO uses the old way, everyone will)
+- Removing the old option (when possible — eliminate the path of least resistance)
+- Consequences for non-adoption (stated clearly, applied consistently)
+
+**Adoption vs. compliance:**
+- **Compliance:** People do it when watched, revert when not
+- **Adoption:** People do it because they believe it's better
+
+Only reinforcement creates adoption. Compliance is the result of enforcement. Aim for adoption.
+
+---
+
+## Change Types and ADKAR Application
+
+### Process Change (new tools, new workflows)
+
+**Timeline:** 4–8 weeks for full adoption
+**Hardest phase:** Ability (people know what to do but haven't built the habit)
+**Critical reinforcement:** Remove or deprecate the old tool/process
+
+**Communication sequence:**
+1. Week -2: Announce the why + go-live date
+2. Week -1: Training sessions available
+3. Week 0 (go-live): Launch + point person available
+4. Week 2: Adoption check-in (who's using it? Who isn't?)
+5. Week 4: Feedback collection + public wins
+6. Week 8: Old system deprecated
+
+---
+
+### Org Change (reorg, new leader, team splits/merges)
+
+**Timeline:** 3–6 months for full stabilization
+**Hardest phase:** Desire (people fear for their roles and relationships)
+**Critical reinforcement:** Consistent behavior from new leadership
+
+**Communication sequence:**
+1. Day 0: Announce the change with the "why" — in person or synchronous video
+2. Day 1: 1:1s with most affected team members by their manager
+3. Week 1: FAQ published with honest answers to the 10 most common concerns
+4. Week 2–4: New structure is operating (don't delay implementation)
+5. Month 2: First retrospective — what's working, what needs adjustment
+6. Month 3–6: Regular check-ins on team health and morale
+
+**What to say when a leader is leaving or being replaced:**
+Be honest about what you can share. Never: "We can't share the reasons." Always: either a truthful explanation or "we're not able to share the specifics, but I can tell you [what this means for you]."
+
+---
+
+### Strategy Pivot (new direction, killed products)
+
+**Timeline:** 3–12 months for full alignment
+**Hardest phase:** Awareness (people don't believe the pivot is real)
+**Critical reinforcement:** Resource reallocation that visibly proves the pivot is happening
+
+**Communication sequence:**
+1. Internal first, always. Employees should never hear about a pivot from a press release.
+2. All-hands with full context: what changed in the market, what you're doing, what it means for teams
+3. Each team leader runs a "what does this mean for us?" conversation with their team
+4. Resource reallocation announced within 2 weeks (if the money doesn't move, people won't believe the pivot)
+5. First milestone of the new direction celebrated publicly
+
+**What kills pivots:** Announcing a new direction while still funding the old one at the same level.
+
+---
+
+### Culture Change (values refresh, behavior expectations)
+
+**Timeline:** 12–24 months for genuine behavior change
+**Hardest phase:** Reinforcement (behavior doesn't change just because values were announced)
+**Critical reinforcement:** Visible decisions that reflect the new values
+
+**Communication sequence:**
+1. Build with input: involve a representative sample of the company in defining the change
+2. Announce with story: "Here's what we observed, here's what we're changing and why"
+3. Behavior anchors: for each culture change, state the specific behavior in observable terms
+4. Leader behavior: leadership team must visibly model the new behavior first
+5. Performance integration: new expected behaviors appear in reviews within one cycle
+6. Celebrate the right behaviors: when someone exemplifies the new culture, name it publicly
+
+---
+
+## Resistance Patterns
+
+Resistance is information, not defiance. Diagnose before responding.
+
+| Resistance pattern | What it signals | Response |
+|-------------------|-----------------|---------|
+| "This won't work" | Awareness gap or credibility gap | Explain the evidence base for the change |
+| "Why now?" | Awareness gap | Explain urgency — what happens if we don't change |
+| "I wasn't consulted" | Desire gap | Acknowledge the gap; involve them in the "how" now |
+| "I don't have time for this" | Ability gap | Reduce their load or push the timeline |
+| "We tried this before" | Trust gap | Acknowledge what's different this time. Be specific. |
+| Silent non-compliance | Could be any gap | 1:1 conversation to diagnose |
+
+**The worst response to resistance:** Dismissing it. "Some people are resistant to change" as if resistance is a personality flaw rather than a signal.
+
+---
+
+## Change Fatigue
+
+When organizations change too fast, people stop believing any change will stick.
+
+### Signals
+- Eye-rolls during change announcements ("here we go again")
+- Low attendance at change-related sessions
+- Fast compliance on paper, slow adoption in practice
+- "Last month we were doing X, now we're doing Y" comments
+
+### Prevention
+- **Finish what you start.** Don't announce a new change while the last one is still being absorbed.
+- **Space changes.** One significant change at a time. Give 2–3 months of stability between major changes.
+- **Announce what's NOT changing.** People in change-fatigue need to know what's stable.
+- **Show results.** Publish what the previous change achieved before launching the next.
+
+### When you're already in change fatigue
+- Pause non-critical changes
+- Run a "change inventory": how many changes are in progress simultaneously?
+- Prioritize ruthlessly: which changes are essential now? Which can wait?
+- Communicate stability: "Here's what is NOT changing this quarter"
+
+---
+
+## Key Questions for Change Management
+
+- "Who are the most skeptical people about this change? Have we talked to them directly?"
+- "Do people understand why we're doing this, or just what we're doing?"
+- "Have we given people time to practice before we measure performance on the new way?"
+- "Is the old way still available? If so, people will use it."
+- "Are leaders modeling the new behavior themselves?"
+- "How many changes are we running simultaneously right now?"
+
+## Red Flags
+
+- Change announced on Friday afternoon (people stew over the weekend)
+- "This is final, questions are not welcome" framing
+- No published FAQ or way to ask questions safely
+- Old system/process still running 6 weeks after "go-live"
+- Leaders exempted from the change they're asking everyone else to make
+- No measurement of adoption — assuming go-live = success
+
+## Detailed References
+- `references/change-playbook.md` — ADKAR deep dive, resistance counter-strategies, communication templates, change fatigue management

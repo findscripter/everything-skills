@@ -1,14 +1,14 @@
 ---
 name: odoo-module-developer
-title: Odoo 自定义模块开发
-description: 当从零搭建或扩展 Odoo 自定义模块（建模型、装清单、配安全）、排查模块加载/manifest 报错、正确实现 compute/onchange/constraint 时使用；做模块脚手架（__manifest__.py、models、views、security）、用 _inherit 扩展既有模型、按 Odoo 约定校验代码并产出可安装目录；不适用于 OWL/前端组件、纯 XML 视图、自动化测试与 v13 及更早结构；触发词：odoo 模块、__manifest__、_inherit、ORM、models.Model、ir.model.access、脚手架
+title: Odoo Module Developer
+description: Expert guide for creating custom Odoo modules. Covers __manifest__.py, model inheritance, ORM patterns, and module structure best practices.
 domain: 领域/erp
-triggers: [odoo 模块, __manifest__, _inherit, ORM, models.Model, ir.model.access.csv, 脚手架, compute, onchange, constraint, 自定义模块, 扩展 sale.order]
+triggers: [__manifest__, _inherit, ORM, models.Model, ir.model.access.csv, compute, onchange, constraint]
 tags: [odoo, erp, python, orm, module-development, manifest, scaffolding, model-inheritance]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Odoo, odoo-bin, Python]
+tools: []
 requires: []
 related: [odoo-orm-expert, odoo-xml-views-builder, odoo-security-rules, odoo-qweb-templates]
 combines_with: [odoo-automated-tests, odoo-migration-helper]
@@ -16,55 +16,32 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# Odoo 自定义模块开发
+# Odoo Module Developer
 
-## 何时使用
+## Overview
 
-适用于 Odoo（社区版/企业版，v14+）的自定义模块开发场景：
+This skill transforms your AI into an expert Odoo custom module developer. It guides you through scaffolding new modules, defining models, setting up security, and following Odoo's coding conventions for both Community and Enterprise editions.
 
-- 从零搭建一个新的自定义模块（脚手架 + manifest + 模型）。
-- 扩展既有 Odoo 模型，例如给 `sale.order` 加字段、改行为（用 `_inherit`，绝不改核心文件）。
-- 排查模块加载失败、`__manifest__.py` 配置错误、访问权限报错。
-- 正确实现 `compute` / `onchange` / `@api.constrains` 等 ORM 方法。
+## When to Use This Skill
 
-**不该用边界**：
+- Starting a new custom Odoo module from scratch.
+- Extending an existing Odoo model (e.g., adding fields to `sale.order`).
+- Troubleshooting module loading errors or manifest issues.
+- Implementing `onchange`, `compute`, and `constraint` methods correctly.
 
-- 不覆盖 OWL JavaScript 组件与前端 widget 开发；纯 XML 视图构建另用 `odoo-xml-views-builder`。
-- 不覆盖 **Odoo 13 及更早**结构（无 `__manifest__.py` 自动加载机制）——本技能面向 v14+。
-- 不覆盖多公司（multi-company）/多网站（multi-website）配置，那需额外的 `company_id` / `website_id` 字段。
-- 不生成自动化测试文件，那交给 `odoo-automated-tests`。
+## How It Works
 
-## 步骤
+1. **Activate**: Mention `@odoo-module-developer` and describe the module you want to build.
+2. **Scaffold**: Get the full folder structure with `__manifest__.py`, `__init__.py`, models, views, and security files.
+3. **Review**: Paste existing code and get a review against Odoo best practices.
 
-1. **确认输入**：目标 Odoo 版本、模块名（snake_case）、要建/扩展的模型、依赖应用（如 `base`、`mail`、`sale`）。
-2. **建目录脚手架**：按标准结构创建文件夹与空 `__init__.py`（见示例）。
-3. **写 `__manifest__.py`**：填 `name`/`version`/`depends`/`data`，并补 `author`、`website` 便于在 Apps 列表识别。`version` 必须是 `{odoo版本}.{major}.{minor}.{patch}`，如 `17.0.1.0.0`。
-4. **定义模型**：在 `models/*.py` 用带命名空间的 `_name`（如 `hospital.patient`），必要时 `_inherit = ['mail.thread', 'mail.activity.mixin']` 自动获得 chatter/日志。
-5. **挂载 `__init__.py`**：在 `models/__init__.py` 里 `from . import xxx`，根 `__init__.py` 里 `from . import models`，否则模型不会被加载。
-6. **配安全**：每个新模型都要在 `security/ir.model.access.csv` 里给出访问规则，否则用户报权限错误。
-7. **登记 data**：把 view XML、security CSV 等按加载顺序写进 manifest 的 `data` 列表（security 在前）。
-8. **安装并校验**：用 CLI 安装并查看日志确认无加载错误。
+## Examples
 
-## 指令
+### Example 1: Scaffold a New Module
 
-扩展 vs 新建的判断：
+**Prompt:** `Create a module called "hospital_management" with a model for patients`
 
-- **要加字段/改逻辑到现成模型** → 新建模块，模型里 `_inherit = '现有模型名'`（不写 `_name`），切忌直接编辑核心模块源码。
-- **要全新业务对象** → 模型里写 `_name = 'your.model'` + `_description`。
-
-CLI 安装与升级（`-i` 安装，`-u` 升级已装模块）：
-
-```bash
-# 首次安装模块（--stop-after-init 装完即退）
-./odoo-bin -d mydb --stop-after-init -i hospital_management
-
-# 改了 Python/视图后升级模块
-./odoo-bin -d mydb --stop-after-init -u hospital_management
-```
-
-## 示例
-
-**目录结构**（snake_case，禁用空格/大写）：
+**Generated structure:**
 
 ```text
 hospital_management/
@@ -81,7 +58,7 @@ hospital_management/
 └── data/
 ```
 
-**`__manifest__.py`：**
+**`__manifest__.py`:**
 
 ```python
 {
@@ -98,7 +75,7 @@ hospital_management/
 }
 ```
 
-**`models/hospital_patient.py`：**
+**`models/hospital_patient.py`:**
 
 ```python
 from odoo import models, fields, api
@@ -118,31 +95,19 @@ class HospitalPatient(models.Model):
     ], default='draft', tracking=True)
 ```
 
-**扩展既有模型（给 `sale.order` 加字段）：**
+## Best Practices
 
-```python
-from odoo import models, fields
+- ✅ **Do:** Always prefix your model `_name` with a namespace (e.g., `hospital.patient`).
+- ✅ **Do:** Use `_inherit = ['mail.thread']` to add chatter/logging automatically.
+- ✅ **Do:** Specify `version` in manifest as `{odoo_version}.{major}.{minor}.{patch}`.
+- ✅ **Do:** Set `'author'` and `'website'` in `__manifest__.py` so your module is identifiable in the Apps list.
+- ❌ **Don't:** Modify core Odoo model files directly — always use `_inherit`.
+- ❌ **Don't:** Forget to add new models to `ir.model.access.csv` or users will get access errors.
+- ❌ **Don't:** Use spaces or uppercase in folder names — Odoo requires snake_case module names.
 
-class SaleOrder(models.Model):
-    _inherit = 'sale.order'  # 只写 _inherit，不写 _name
+## Limitations
 
-    delivery_note = fields.Char(string='Delivery Note')
-```
-
-## 注意事项
-
-- ✅ 模型 `_name` 必须带命名空间前缀（如 `hospital.patient`），避免与核心模型冲突。
-- ✅ 用 `_inherit = ['mail.thread']` 一键获得 chatter / 操作日志。
-- ✅ manifest 里设 `author` 和 `website`，模块在 Apps 列表才可识别。
-- ❌ 绝不直接修改 Odoo 核心模型源码——一律用 `_inherit`，否则升级即被覆盖。
-- ❌ 新模型忘记写进 `ir.model.access.csv` → 用户访问报错。
-- ❌ 文件夹/模块名禁用空格与大写，Odoo 要求 snake_case。
-- 改 Python 后用 `-u` 升级模块（仅 XML 视图改动有时需重启即可），改 manifest 的 `depends` 后也要升级。
-
-## 互见
-
-- related：`odoo-localization-compliance` —— 国家级财税/电子发票合规，常作为模块开发后的会计层配置。
-- 同源但尚未收录（如需可后续采编）：`odoo-orm-expert`（深挖 ORM 模式）、`odoo-xml-views-builder`（视图 XML）、`odoo-security-rules`（记录级权限）、`odoo-automated-tests`（测试）。
-
----
-本条采编自 sickn33/antigravity-awesome-skills（MIT）。
+- Does not cover **OWL JavaScript components** or frontend widget development — use `@odoo-xml-views-builder` for view XML.
+- **Odoo 13 and below** have a different module structure (no `__manifest__.py` auto-loading) — this skill targets v14+.
+- Does not cover **multi-company** or **multi-website** configuration; those require additional model fields (`company_id`, `website_id`).
+- Does not generate automated test files — use `@odoo-automated-tests` for that.

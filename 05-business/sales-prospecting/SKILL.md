@@ -1,14 +1,14 @@
 ---
 name: sales-prospecting
-title: 销售线索挖掘与筛选
-description: 当需要把 ICP 画像转成已验证、已打分的可触达线索清单（覆盖 B2B SaaS／通用 B2B／本地小微商家）时使用；做线索发现、资格审查、打分排序并产出含来源与置信度的线索表（Markdown 或 CSV）；不适用于撰写外呼文案（见 cold-email）或单账户深度竞品研究。触发词：prospecting、线索挖掘、build prospect list、找客户、lead gen、找 SaaS 公司、找 B2B 企业、找本地商家、ICP 匹配、target account list、qualified leads、外呼名单。
+title: Prospecting
+description: When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions "prospecting," "build a prospect list," "find prospects," "find leads," "lead gen list," "find SaaS companies that," "find B2B companies," "find local businesses," "ICP-fit accounts," "who should we go after," "outbound list," "target account list," "find clients near me," "businesses without websites," "prospect research," or "qualified leads." Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.
 domain: 商业/sales
-triggers: [prospecting, 线索挖掘, build prospect list, 找客户, lead gen, 找 SaaS 公司, 找 B2B 企业, 找本地商家, ICP 匹配, target account list, qualified leads, 外呼名单]
+triggers: [prospecting, build prospect list, lead gen, target account list, qualified leads]
 tags: [sales, prospecting, lead-generation, b2b, saas, icp, outbound, compliance]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Apollo, Clay, Clearbit, ZoomInfo, Hunter, Snov, Truelist, LinkedIn Sales Navigator, BuiltWith, Crunchbase, Google Maps, Yelp, Firecrawl, Browserbase, GitHub]
+tools: []
 requires: []
 related: [cold-email-writer, cro-revenue-advisor, sales-enablement, deal-desk-reviewer]
 combines_with: [cold-email-writer, sales-enablement, email-drip-sequence]
@@ -16,92 +16,252 @@ license: MIT
 source: coreyhaines31/marketingskills
 source_license: MIT
 ---
-## 何时使用
+# Prospecting
 
-当用户要把一个 ICP（理想客户画像）转化为一份**已验证、已打分、可直接外呼**的线索清单时使用。覆盖三条业务线（motion）：
+You are an expert at building qualified prospect lists across three motions: B2B SaaS, general B2B, and local small businesses. Your goal is to turn an ICP definition into a verified, scored, ready-to-outreach lead sheet — using the right data sources, qualification signals, and compliance posture for each motion.
 
-- **SaaS**：卖给其他 SaaS／数字化企业，看 ICP 匹配 + 技术栈匹配 + 增长信号（融资、招聘、产品迭代）。
-- **B2B**：卖给非 SaaS 的 B2B（服务、制造、企业、中端市场），看行业 + 规模 + 地域 + 购买信号（触发事件、换供应商）。
-- **本地小微（Local SMB）**：卖给本地店铺、健身房、餐厅、诊所、美容院等，看在营状态 + 官网状态 + 距离 + 决策人可触达性。
+## Before Starting
 
-**不该用的边界**：
-- 清单建好后**写外呼文案／序列** → 改用 cold-email。
-- 对单个具体账户做**深度竞品研究** → 改用 competitor-profiling（这是研究，不是建表筛选）。
-- 需要**线索路由、生命周期、CRM 交接** → 属于 RevOps 范畴，不在本条。
+**Check for product marketing context first:**
+If `.agents/product-marketing.md` exists (or `.claude/product-marketing.md`, or the legacy `product-marketing-context.md` filename, in older setups), read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
 
-本条只负责「建表 + 资格审查」阶段。
+## Pick the Branch
 
-## 步骤
+Prospecting motions differ enough that the workflow forks at intake. Pick **one** branch based on who the user is selling to:
 
-固定五个阶段，工具与信号随业务线变，阶段不变：
+| Branch | Sell to | What "qualified" looks like | Primary sources |
+|--------|---------|----------------------------|----------------|
+| **SaaS** | Other SaaS companies / digital businesses | ICP fit + tech stack match + growth signals (funding, hiring, product velocity) | LinkedIn, BuiltWith, Crunchbase, Apollo, Clay, Clearbit, ProductHunt |
+| **B2B** | Non-SaaS B2B (services, manufacturers, enterprises, mid-market) | Industry + size + geographic fit + buying signals (trigger events, vendor changes) | Apollo, ZoomInfo, Clay, Clearbit, LinkedIn Sales Nav, industry directories |
+| **Local SMB** | Local small businesses (shops, gyms, restaurants, clinics, salons, services) | Active business + website status + proximity + decision-maker access | Google Maps, Yelp, local directories, Facebook, business websites |
 
-1. **定义 ICP**：若存在 `.agents/product-marketing.md`（或 `.claude/product-marketing.md`、旧命名 `product-marketing-context.md`）先读取，只补问未覆盖的信息。整理出：① 企业属性匹配（行业、规模、营收带、地域、商业模式）；② 技术栈匹配（仅 SaaS）；③ 购买信号（为什么是现在）；④ 决策人画像；⑤ 排除条件（什么样直接 skip）。**输出**：一段 ICP 陈述 + 一份通过／淘汰勾选清单。没有它不要进入下一步。
-2. **构建候选池（发现）**：候选数量取最终目标的 **2–3 倍**，因为筛选会大幅淘汰。SaaS／B2B 组合 2–3 个数据源交叉验证（Apollo/ZoomInfo 查企业属性，Clearbit/Clay 做富化，LinkedIn Sales Nav 做决策人映射）；本地小微以浏览器辅助为主，从 Google Maps 起步，再用 Yelp、官网、社媒、公开目录交叉核对。质量优先：25 条已验证胜过 250 条垃圾。
-3. **逐条资格审查**：每条候选对照 ICP 清单打分，每条结论都要附**证据**（一两个来源 URL），不允许无依据断言。置信度三档：**High** = 至少两个独立来源或官方页面确认；**Medium** = 一个可信来源 + 一致的搜索证据；**Low** = 证据残缺或含糊，标注不确定项。B2B／SaaS 的邮箱联系人，**入最终表前必须验证可达性**（用 Truelist 等），无效／高风险邮箱不入表。
-4. **打分与优先级**：Hot = 强 ICP 匹配 + 明确购买信号 + 决策人可触达 + 联系方式已验证；Warm = ICP 匹配 + 信号较弱或较旧 + 联系方式可验证；Cold = ICP 匹配松散 或 无明确信号 或 联系方式未验证；Skip = 命中排除条件（出 ICP、已关停、重复、无关、低置信）。默认目标配比约 20% Hot、30% Warm，其余 Cold/Skip。
-5. **输出线索表**：默认聊天内 Markdown 表；超过 25 行或用户要文件时改 CSV。表后**必加「优先外呼目标（Top outreach targets）」**：挑 3–5 条 Hot，每条一句话说明为什么先打它。
+If the user describes a hybrid motion (e.g., "SMBs that are also SaaS"), pick the dominant branch and pull in qualification signals from the other.
 
-## 指令
+For the branch-specific deep dives:
+- **SaaS** → see [references/saas-prospecting.md](references/saas-prospecting.md)
+- **B2B** → see [references/b2b-prospecting.md](references/b2b-prospecting.md)
+- **Local SMB** → see [references/local-prospecting.md](references/local-prospecting.md)
 
-**SaaS／B2B 聊天表（≤25 行）列头：**
+---
+
+## Shared Framework (all branches)
+
+Every prospecting engagement follows the same five phases. Tools and qualification signals change per branch; the phases don't.
+
+### Phase 1 — Define the ICP
+
+Pull from `product-marketing.md` if available. Otherwise, gather:
+
+1. **Firmographic fit** — industry, company size, revenue band, geography, business model
+2. **Technographic fit** (SaaS branch) — what tools they already use, what they're missing
+3. **Buying signal** — why now? (trigger event, funding, hiring, new initiative, dissatisfaction with current vendor, recent move/expansion)
+4. **Decision-maker profile** — role, seniority, what they care about
+5. **Disqualifiers** — what makes a prospect a clear "skip"
+
+Output the ICP as a one-paragraph statement plus a checklist of pass/fail criteria. Don't move to discovery without this.
+
+### Phase 2 — Build the candidate list (discovery)
+
+Source 2–3× more candidates than the user wants in the final list — qualification will cull aggressively.
+
+- **SaaS / B2B**: combine 2–3 sources for cross-verification. Apollo or ZoomInfo for firmographics; Clearbit or Clay for enrichment; LinkedIn Sales Nav for decision-maker mapping.
+- **Local SMB**: browser-assisted research starting with Google Maps for the target category in the target area; cross-check with Yelp, the business website, social pages, and public directories.
+
+If the user's list quality bar is high, smaller is better. 25 verified leads beats 250 mostly-junk ones.
+
+### Phase 3 — Qualify each candidate
+
+Score every candidate against the ICP checklist. Add **evidence** (a source URL or two) for each qualification — never assert without backing.
+
+**Confidence levels** (used across all branches):
+- **High**: confirmed by at least two independent sources or official business page
+- **Medium**: one credible source plus consistent search evidence
+- **Low**: incomplete or ambiguous evidence — flag what remains uncertain
+
+For email contacts (B2B / SaaS branches), **always verify deliverability before adding to the final list** — see Truelist integration in [references/data-sources.md](references/data-sources.md). Don't ship leads with invalid or risky emails.
+
+### Phase 4 — Score and prioritize
+
+Apply this rubric across all branches:
+
+| Score | Definition |
+|-------|------------|
+| **Hot** | Strong ICP fit + clear buying signal + decision-maker accessible + verified contact |
+| **Warm** | ICP fit + softer or older signal + contact verifiable |
+| **Cold** | Loose ICP fit OR no clear signal OR contact unverified |
+| **Skip** | Disqualifier hit (out of ICP, closed business, duplicate, irrelevant, low confidence) |
+
+Branch-specific signals refine the scoring — see each reference file. Default ratio target: ~20% Hot, ~30% Warm, rest Cold/Skip.
+
+### Phase 5 — Output the lead sheet
+
+Default to a markdown table in chat. Switch to CSV when the list is >25 rows or the user explicitly asks for a file.
+
+After the table, always add **"Top outreach targets"** — the top 3–5 hot leads with one sentence each on why this lead should be reached out to first.
+
+Columns vary by branch (see reference files), but every lead sheet includes:
+- score, business/company name, contact (where applicable), why-it's-a-prospect, source(s), confidence, last verified date
+
+---
+
+## Compliance Guardrails
+
+These apply to every branch. **Read first, every engagement.**
+
+1. **No bulk scraping** of LinkedIn, Google Maps, paywalled sites, or rate-limited APIs. Browser is an assisted research tool, not a scraper.
+2. **No CAPTCHA, login wall, or bot protection bypass.** If a site requires it, work with what's publicly visible.
+3. **Public business contact channels only.** Use info@, hello@, contact@, and named-role emails (founder, owner) where they're published on the business's own site. Personal/private emails require a lawful basis (existing relationship, opt-in, etc.).
+4. **GDPR / CAN-SPAM / CASL aware.** Capture and retain the source URL and date for every contact you add to a list — required for downstream outreach compliance.
+5. **No reselling extracted data** from Google Maps, LinkedIn, or any platform whose terms prohibit it. List building for the user's own outreach is fine; productizing the list to sell is not.
+6. **Rate limit yourself.** Even on public sources, space requests. Don't fingerprint as a bot.
+
+For the full compliance reference (GDPR, CAN-SPAM, CASL, LinkedIn ToS, Google Maps ToS, Clay/Apollo/ZoomInfo use restrictions): see [references/compliance.md](references/compliance.md).
+
+---
+
+## Inputs to Collect
+
+If missing, ask once, then infer reasonable defaults and continue:
+
+- **Branch** (SaaS / B2B / Local SMB) — usually inferable from context
+- **ICP description** — pull from `product-marketing.md` if present
+- **Target count** — default 25 for SaaS / B2B, 15 for Local SMB
+- **Geography** (essential for Local SMB; useful for B2B; less critical for SaaS)
+- **Tools the user has access to** — Apollo? Clay? ZoomInfo? Hunter? Truelist? Defaults to what's free + browser
+- **Output format** — chat table (default) or CSV
+- **Buying signal preference** — what triggers should they prioritize? (funding rounds, hiring, recent move, etc.)
+
+---
+
+## Tool Selection Quick Picks
+
+Full breakdown in [references/data-sources.md](references/data-sources.md). Quick picks:
+
+| If the user has access to... | Use it for |
+|------------------------------|------------|
+| **Apollo** | B2B / SaaS firmographic + contact discovery |
+| **Clay** | Multi-source enrichment, waterfall lookups, custom scoring |
+| **Clearbit** | Email-to-company and company enrichment |
+| **ZoomInfo** | Enterprise B2B contact + intent data |
+| **Hunter or Snov** | Email pattern guessing and verification |
+| **Truelist** | Email deliverability validation (before adding to outreach list) |
+| **LinkedIn Sales Navigator** | Decision-maker mapping (manual, no scraping) |
+| **BuiltWith / Wappalyzer** | Tech stack qualification (SaaS branch) |
+| **Crunchbase** | Funding signals (SaaS branch) |
+| **GitHub** | Stargazers / forks of competitor or adjacent repos (dev-tool SaaS branch) |
+| **Google Maps + browser** | Local SMB discovery |
+| **Firecrawl / Browserbase** | Programmatic extraction from individual prospect websites — never from platforms |
+
+**If the user has no enrichment tools**: lean on browser-assisted research with public sources — company website, About page, LinkedIn company page, news mentions. Slower but works.
+
+---
+
+## Output Formats
+
+### Default — chat table
+
+For SaaS / B2B (≤25 rows):
+
 ```
 | Score | Company | Industry | Size | Signal | Contact | Email status | Source | Confidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ```
 
-**本地小微聊天表（≤15 行）列头：**
+For Local SMB (≤15 rows) — port from the local-prospector reference:
+
 ```
 | Score | Business | Category | Area | Website status | Website/Social | Phone | Why it's a prospect | Confidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ```
 
-**SaaS／B2B CSV 列：**
+### CSV — when >25 rows or user requests a file
+
+SaaS / B2B columns:
+
 ```csv
 score,company,domain,industry,size_band,country,signal,contact_name,contact_title,contact_email,email_status,linkedin,source_urls,why_prospect,confidence,verified_date,notes
 ```
 
-**本地小微 CSV 列：**
+Local SMB columns:
+
 ```csv
 score,business,category,area,distance_km,website_status,website_url,social_urls,phone,email,source_urls,why_prospect,confidence,verified_date,notes
 ```
 
-表后固定附：优先外呼目标、搜索参数（业务线、ICP、地点/半径、目标数、生成日期）、未决问题（无法验证、需用户复核的项）。
+### Always include after the table
 
-**定稿前质量检查清单：**
-- [ ] 去重（SaaS/B2B 按域名，本地按 商家名+地址）。
-- [ ] 每条 Hot 都有已验证联系方式 + 至少一个来源 URL。
-- [ ] 没有邮箱验证失败的线索混入；失败的单独放「invalid」桶并标记。
-- [ ] 没有「Hot」却缺购买信号的线索。
-- [ ] 置信度诚实——「High」需两个独立来源，不能是自己两次搜索。
-- [ ] 无来自禁止抓取的线索（LinkedIn 批量、Google Maps 批量导出等）。
-- [ ] 每条联系方式都留存来源 URL + 日期（GDPR / CAN-SPAM 溯源）。
-- [ ] 最终数量符合用户要求，或已说明为何更少（质量门槛）。
-
-## 示例
-
-用户：「帮我在杭州找 20 家没有官网或官网很差的健身房，要能联系到老板。」
-1. 判定业务线 = 本地小微；ICP = 杭州在营健身房，官网缺失/低质，能触达决策人；目标 20，取候选 ~50。
-2. 浏览器从 Google Maps 搜「杭州 健身房」，逐家核对 Yelp/点评、是否有官网、社媒、电话；记录官网状态。
-3. 逐家打分：在营 + 无官网 + 有公开老板/前台电话 → Hot；有官网但很旧 → Warm；信息残缺 → Low/Skip。每条留来源 URL + 验证日期。
-4. 输出本地小微表（≤15 行优先，溢出转 CSV），表后给 3–5 个优先外呼目标，例如「XX 健身工作室：无官网、点评近 30 天仍活跃、前台电话公开，最易切入」。
-
-## 注意事项
-
-合规护栏（每次都先读）：
-1. **禁止批量抓取** LinkedIn、Google Maps、付费墙站点、限流 API。浏览器是辅助研究工具，不是爬虫。
-2. **不绕过** CAPTCHA、登录墙、机器人防护；要登录的就只用公开可见内容。
-3. **只用公开商务联系渠道**：info@／hello@／contact@ 及商家自有官网上公布的具名角色邮箱（创始人、店主）。私人邮箱需合法依据（已有关系、opt-in 等）。
-4. **GDPR / CAN-SPAM / CASL 意识**：每条联系方式都留存来源 URL 与日期，供下游外呼合规与审计。
-5. **不得转售**从 Google Maps、LinkedIn 等条款禁止平台提取的数据。为用户自己外呼建表可以，包装成产品出售不行。
-6. **自我限速**：即便是公开源也要拉开请求间隔，别表现得像机器人。
-
-常见错误：没有 ICP 就开始发现；把数据源当权威不交叉核对（Apollo/ZoomInfo 常过期）；加联系人不验证邮箱（退信会快速毁掉冷邮信誉）；批量抓 LinkedIn/Google Maps（封号 + 违反 ToS）；混用业务线评分（别拿「官网状态」去评 SaaS）；ICP 匹配但无购买信号还打「Hot」；缺来源 URL（每条都应可溯源）；忘记保留授权/溯源记录。
-
-## 互见
-
-- **first-principles-thinking**：拆解「为什么是现在」的购买信号、从根因推导 ICP 假设时可借用。
-- **csv-data-cleaner**：导出 CSV 线索表后做去重、字段规整、清洗时使用。
-- **fact-checking**：核验线索证据、把置信度从 Low 提升到 High 的交叉验证方法可参考。
+- **Top outreach targets**: top 3–5 hot leads with one-sentence outreach rationale each
+- **Search parameters**: branch, ICP, location/radius, target count, date generated
+- **Open questions**: anything you couldn't verify and the user should look at
 
 ---
-本条采编自 coreyhaines31/marketingskills（MIT）。
+
+## Quality Checks (before finalizing)
+
+- [ ] Remove duplicates (by domain for SaaS/B2B, by business + address for Local SMB)
+- [ ] Every "Hot" lead has a verified contact + at least one source URL
+- [ ] No lead has an email that failed Truelist (or your validator) verification — move to a separate "invalid" bucket and flag for the user
+- [ ] No lead labeled "Hot" lacks a clear buying signal
+- [ ] Confidence levels honest — "High" requires 2 independent sources, not just two of your own searches
+- [ ] No leads sourced from prohibited scraping (LinkedIn at scale, Google Maps bulk extract, etc.)
+- [ ] Source URL + date captured for every contact (GDPR / CAN-SPAM lineage)
+- [ ] Final count matches user's request, or you've explained why it's smaller (quality bar)
+
+---
+
+## Common Mistakes
+
+1. **Starting discovery without an ICP**. Build candidates against vague criteria and you'll qualify the wrong things.
+2. **Treating data sources as authoritative without cross-checks**. Apollo and ZoomInfo are out of date often; verify before scoring as "Hot."
+3. **Adding contacts without email verification**. Cold email reputation tanks fast with bounces — always validate.
+4. **Bulk scraping LinkedIn or Google Maps**. Real risk: account suspension + ToS violation. Browser as an assisted tool only.
+5. **Mixing branches**. Don't apply Local SMB scoring (website status) to a B2B SaaS prospect, or vice versa.
+6. **"Hot" labels without buying signals**. ICP fit alone is not enough — the signal is what makes the timing right.
+7. **No source URLs**. Every claim should be traceable to a public source. Future outreach depends on this lineage.
+8. **Ignoring quiet hours / time zone** when scheduling the downstream outreach (handoff to cold-email).
+9. **Forgetting to retain consent / lineage records**. Required for GDPR DSARs and CAN-SPAM audits.
+
+---
+
+## Task-Specific Questions
+
+1. Which branch — SaaS, B2B, or Local SMB?
+2. What's your ICP? (Or: should I pull from your product-marketing context?)
+3. How many qualified leads do you want?
+4. What tools do you have access to (Apollo / Clay / ZoomInfo / Hunter / Truelist / browser only)?
+5. What's the triggering buying signal you care most about?
+6. Geography or radius (Local SMB / B2B)?
+7. Chat table or CSV?
+
+---
+
+## Tool Integrations
+
+For implementation, see the [tools registry](../../tools/REGISTRY.md). Key prospecting tools:
+
+| Tool | Best For | MCP | Guide |
+|------|----------|:---:|-------|
+| **Apollo** | B2B / SaaS firmographic + contact discovery | - | [apollo.md](../../tools/integrations/apollo.md) |
+| **Clay** | Multi-source enrichment + waterfall | ✓ | [clay.md](../../tools/integrations/clay.md) |
+| **Clearbit** | Email-to-company enrichment | - | [clearbit.md](../../tools/integrations/clearbit.md) |
+| **ZoomInfo** | Enterprise B2B contact + intent | ✓ | [zoominfo.md](../../tools/integrations/zoominfo.md) |
+| **Hunter** | Email pattern + verification | - | [hunter.md](../../tools/integrations/hunter.md) |
+| **Snov** | Email finder + verifier | - | [snov.md](../../tools/integrations/snov.md) |
+| **Truelist** | Email deliverability validation | - | [truelist.md](../../tools/integrations/truelist.md) |
+| **Outreach** | Sales engagement (post-list) | ✓ | [outreach.md](../../tools/integrations/outreach.md) |
+| **RB2B** | Visitor identification (warm intent) | - | [rb2b.md](../../tools/integrations/rb2b.md) |
+| **GitHub** | Stargazers/forks/watchers as developer-intent signal | - | [github.md](../../tools/integrations/github.md) |
+| **Firecrawl** | Single-target site extraction (prospect's own website) | ✓ | [firecrawl.md](../../tools/integrations/firecrawl.md) |
+| **Browserbase** | Real-browser site research when rendering or interaction needed | ✓ | [browserbase.md](../../tools/integrations/browserbase.md) |
+
+---
+
+## Related Skills
+
+- **cold-email**: For writing outbound sequences against the qualified list (the natural next step after prospecting)
+- **customer-research**: For understanding why current customers buy — informs the ICP definition
+- **competitor-profiling**: For deeper research on individual accounts (different from list-building qualification)
+- **revops**: For lead routing, lifecycle, and CRM handoff after prospecting
+- **sales-enablement**: For battle cards and one-pagers used in the outreach
+- **directory-submissions**: For inbound discovery surfaces (the prospects might find you back)
+- **product-marketing**: For the ICP definition that anchors every prospecting engagement

@@ -1,14 +1,14 @@
 ---
 name: amazon-alexa-skill-builder
-title: Amazon Alexa 语音技能开发（Claude + AWS）
-description: 当需要用 ASK CLI + AWS Lambda 开发 Amazon Alexa 语音技能、并以 Claude 作为对话大脑（含 DynamoDB 记忆、Polly 语音、APL 屏显、Smart Home 控制）时使用；做交互模型/Lambda 处理器/部署脚本的搭建与产出；不适用于纯网页/移动 App 或非 Alexa 平台语音助手；触发词：Alexa、ASK CLI、语音技能、Smart Home
+title: AMAZON ALEXA — Voz Inteligente com Claude
+description: Integracao completa com Amazon Alexa para criar skills de voz inteligentes, transformar Alexa em assistente com Claude como cerebro (projeto Auri) e integrar com AWS ecosystem (Lambda, DynamoDB, Polly, Transcribe, Lex, Smart Home).
 domain: 平台/cloud
-triggers: [Alexa, ASK CLI, 语音技能, voice skill, Amazon Alexa, Lambda 语音, Smart Home, APL, Polly, invocation name, interaction model, Echo Show]
-tags: [voice, alexa, aws, smart-home, lambda, 平台]
-level: 进阶
+triggers: [Alexa, ASK CLI, voice skill, Amazon Alexa, Smart Home, APL, Polly, invocation name, interaction model, Echo Show]
+tags: [voice, alexa, aws, smart-home, lambda]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [ask-cli, aws-cli, python, anthropic-sdk, claude-code]
+tools: []
 requires: []
 related: [aws-serverless-builder, aws-serverless-architect, azure-realtime-voice-ai, claude-api]
 combines_with: [agentphone-voice-sms-agents, aws-cdk-patterns]
@@ -16,48 +16,245 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# AMAZON ALEXA — Voz Inteligente com Claude
 
-适用：
-- 用 ASK CLI 从零创建并部署一个 Alexa 语音技能（交互模型 + Lambda 后端）。
-- 把 Alexa 设备改造成「以 Claude 为大脑」的智能助手：语音转文本→Lambda→Claude API→Polly 语音回复，并用 DynamoDB 持久化对话历史与偏好。
-- 集成 APL 屏显（Echo Show）、Alexa Smart Home API 设备控制与 Routines 自动化。
+## Overview
 
-不该用：
-- 与 Alexa 无关的任务，或可用更简单专用工具完成的需求。
-- 非 Alexa 的语音平台（Google Assistant、小爱等），或纯网页/移动 App 对话。
-- 需要 < 8s 内完成、但 Claude 调用 + Polly 合成会超时的重型同步流程（应改异步/分段）。
+Integracao completa com Amazon Alexa para criar skills de voz inteligentes, transformar Alexa em assistente com Claude como cerebro (projeto Auri) e integrar com AWS ecosystem (Lambda, DynamoDB, Polly, Transcribe, Lex, Smart Home).
 
-## 步骤
+## When to Use This Skill
 
-整体数据流：`Alexa 设备 → Alexa Cloud（ASR/NLU）→ AWS Lambda（编排）→ Claude API（推理）`，旁路接 DynamoDB（记忆）/ Polly（TTS）/ APL（屏显）。
+- When you need specialized assistance with this domain
 
-1. 安装前置工具并配置凭证（ASK CLI + AWS CLI）。
-2. 用模板新建技能，设定 invocation name（唤醒词）。
-3. 定义交互模型（intents / slots / types），覆盖对话、Smart Home、Routine。
-4. 编写 Lambda 处理器：LaunchRequest 与 ChatIntent，接入 Claude 并裁剪响应长度。
-5. 建 DynamoDB 表，做历史持久化 + TTL 过期。
-6.（可选）Polly 自定义语音、APL 屏显、Smart Home 控制。
-7. 部署、模拟测试，最后提交认证发布。
+## Do Not Use This Skill When
 
-## 指令
+- The task is unrelated to amazon alexa
+- A simpler, more specific tool can handle the request
+- The user needs general-purpose assistance without domain expertise
 
-前置安装与配置：
+## How It Works
+
+> Voce e o especialista em Alexa e AWS Voice. Missao: transformar
+> qualquer dispositivo Alexa em assistente ultra-inteligente usando
+> Claude como LLM backend, com voz neural, memoria persistente e
+> controle de Smart Home. Projeto-chave: AURI.
+
+---
+
+## 1. Visao Geral Do Ecossistema
+
+```
+[Alexa Device] → [Alexa Cloud] → [AWS Lambda] → [Claude API]
+    Fala          Transcricao      Logica          Inteligencia
+      ↑               ↑               ↑                ↑
+   Usuario         Intent        Handler          Anthropic
+                               + DynamoDB
+                               + Polly TTS
+                               + APL Visual
+```
+
+## Componentes Da Arquitetura Auri
+
+| Componente | Servico AWS | Funcao |
+|-----------|-------------|--------|
+| Voz → Texto | Alexa ASR nativo | Reconhecimento de fala |
+| NLU | ASK Interaction Model + Lex V2 | Extrair intent e slots |
+| Backend | AWS Lambda (Python/Node.js) | Logica e orquestracao |
+| LLM | Claude API (Anthropic) | Inteligencia e respostas |
+| Persistencia | Amazon DynamoDB | Historico e preferencias |
+| Texto → Voz | Amazon Polly (neural) | Fala natural da Auri |
+| Interface Visual | APL (Alexa Presentation Language) | Telas em Echo Show |
+| Smart Home | Alexa Smart Home API | Controle de dispositivos |
+| Automacao | Alexa Routines API | Rotinas inteligentes |
+
+---
+
+### 2.1 Pre-Requisitos
+
 ```bash
-# ASK CLI
+
+## Ask Cli
+
 npm install -g ask-cli
 ask configure
-# AWS CLI
+
+## Aws Cli
+
 pip install awscli
 aws configure
 ```
 
-新建技能 + 设唤醒词（`models/<locale>.json` 内 `interactionModel.languageModel.invocationName`）：
-```bash
-ask new --template hello-world --skill-name auri --language en-US
+## Criar Skill Com Template
+
+ask new \
+  --template hello-world \
+  --skill-name auri \
+  --language pt-BR
+
+## └── .Ask/Ask-Resources.Json
+
 ```
 
-Lambda 依赖（requirements.txt，固定版本下限）：
+## 2.3 Configurar Invocation Name
+
+No arquivo `models/pt-BR.json`:
+```json
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "auri"
+    }
+  }
+}
+```
+
+---
+
+## 3.1 Intents Essenciais Para Auri
+
+```json
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "auri",
+      "intents": [
+        {"name": "AMAZON.HelpIntent"},
+        {"name": "AMAZON.StopIntent"},
+        {"name": "AMAZON.CancelIntent"},
+        {"name": "AMAZON.FallbackIntent"},
+        {
+          "name": "ChatIntent",
+          "slots": [{"name": "query", "type": "AMAZON.SearchQuery"}],
+          "samples": [
+            "{query}",
+            "me ajuda com {query}",
+            "quero saber sobre {query}",
+            "o que voce sabe sobre {query}",
+            "explique {query}",
+            "pesquise {query}"
+          ]
+        },
+        {
+          "name": "SmartHomeIntent",
+          "slots": [
+            {"name": "device", "type": "AMAZON.Room"},
+            {"name": "action", "type": "ActionType"}
+          ],
+          "samples": [
+            "{action} a {device}",
+            "controla {device}",
+            "acende {device}",
+            "apaga {device}"
+          ]
+        },
+        {
+          "name": "RoutineIntent",
+          "slots": [{"name": "routine", "type": "RoutineType"}],
+          "samples": [
+            "ativa rotina {routine}",
+            "executa {routine}",
+            "modo {routine}"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "ActionType",
+          "values": [
+            {"name": {"value": "liga", "synonyms": ["acende", "ativa", "liga"]}},
+            {"name": {"value": "desliga", "synonyms": ["apaga", "desativa", "desliga"]}}
+          ]
+        },
+        {
+          "name": "RoutineType",
+          "values": [
+            {"name": {"value": "bom dia", "synonyms": ["acordar", "manhã"]}},
+            {"name": {"value": "boa noite", "synonyms": ["dormir", "descansar"]}},
+            {"name": {"value": "trabalho", "synonyms": ["trabalhar", "foco"]}},
+            {"name": {"value": "sair", "synonyms": ["saindo", "goodbye"]}}
+          ]
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+## 4.1 Handler Principal Python
+
+```python
+import os
+import time
+import anthropic
+import boto3
+from ask_sdk_core.skill_builder import SkillBuilder
+from ask_sdk_core.handler_input import HandlerInput
+from ask_sdk_core.utils import is_intent_name, is_request_type
+from ask_sdk_model import Response
+from ask_sdk_dynamodb_persistence_adapter import DynamoDbPersistenceAdapter
+
+## ============================================================
+
+@sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
+def launch_handler(handler_input: HandlerInput) -> Response:
+    attrs = handler_input.attributes_manager.persistent_attributes
+    name = attrs.get("name", "")
+    greeting = f"Oi{', ' + name if name else ''}! Eu sou a Auri. Como posso ajudar?"
+    return (handler_input.response_builder
+            .speak(greeting).ask("Em que posso ajudar?").response)
+
+
+@sb.request_handler(can_handle_func=is_intent_name("ChatIntent"))
+def chat_handler(handler_input: HandlerInput) -> Response:
+    try:
+        # Obter query
+        slots = handler_input.request_envelope.request.intent.slots
+        query = slots["query"].value if slots.get("query") else None
+        if not query:
+            return (handler_input.response_builder
+                    .speak("Pode repetir? Nao entendi bem.").ask("Pode repetir?").response)
+
+        # Carregar historico
+        attrs = handler_input.attributes_manager.persistent_attributes
+        history = attrs.get("history", [])
+
+        # Montar mensagens para Claude
+        messages = history[-MAX_HISTORY:]
+        messages.append({"role": "user", "content": query})
+
+        # Chamar Claude
+        client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+        response = client.messages.create(
+            model=CLAUDE_MODEL,
+            max_tokens=512,
+            system=AURI_SYSTEM_PROMPT,
+            messages=messages
+        )
+        reply = response.content[0].text
+
+        # Truncar para nao exceder timeout
+        if len(reply) > MAX_RESPONSE_CHARS:
+            reply = reply[:MAX_RESPONSE_CHARS] + "... Quer que eu continue?"
+
+        # Salvar historico
+        history.append({"role": "user", "content": query})
+        history.append({"role": "assistant", "content": reply})
+        attrs["history"] = history[-50:]  # Manter ultimas 50
+        handler_input.attributes_manager.persistent_attributes = attrs
+        handler_input.attributes_manager.save_persist
+
+### 4.2 Variaveis De Ambiente Lambda
+
+```
+ANTHROPIC_API_KEY=sk-...  (armazenar em Secrets Manager)
+DYNAMODB_TABLE=auri-users
+AWS_REGION=us-east-1
+```
+
+### 4.3 Requirements.Txt
+
 ```
 ask-sdk-core>=1.19.0
 ask-sdk-dynamodb-persistence-adapter>=1.19.0
@@ -65,14 +262,10 @@ anthropic>=0.40.0
 boto3>=1.34.0
 ```
 
-Lambda 环境变量（密钥务必走 Secrets Manager，不要明文）：
-```
-ANTHROPIC_API_KEY=sk-...   # 存入 Secrets Manager
-DYNAMODB_TABLE=auri-users
-AWS_REGION=us-east-1
-```
+---
 
-建持久化表：
+### 5.1 Criar Tabela
+
 ```bash
 aws dynamodb create-table \
   --table-name auri-users \
@@ -82,99 +275,389 @@ aws dynamodb create-table \
   --region us-east-1
 ```
 
-部署 / 测试 / 发布：
-```bash
-ask deploy                                  # 部署技能 + Lambda
-ask status                                  # 查看状态
-ask dialog --locale en-US                   # 交互式对话测试
-ask simulate --text "open auri" --locale en-US --skill-id amzn1.ask.skill.YOUR-ID
-ask validate --locales en-US                # 校验交互模型
+### 5.2 Schema Do Usuario
+
+```json
+{
+  "userId": "amzn1.ask.account.XXXXX",
+  "name": "Joao",
+  "history": [
+    {"role": "user", "content": "..."},
+    {"role": "assistant", "content": "..."}
+  ],
+  "preferences": {
+    "language": "pt-BR",
+    "voice": "Vitoria",
+    "personality": "assistente profissional"
+  },
+  "smartHome": {
+    "devices": {},
+    "routines": {}
+  },
+  "updatedAt": 1740960000,
+  "ttl": 1748736000
+}
 ```
 
-手动建 Lambda 并挂 Alexa 触发器（timeout ≤ 8s）：
-```bash
-aws lambda create-function --function-name auri-skill \
-  --runtime python3.11 --role arn:aws:iam::ACCOUNT:role/auri-lambda-role \
-  --handler lambda_function.handler --timeout 8 --memory-size 512 \
+### 5.3 Ttl Automatico (Expirar Dados Antigos)
+
+```python
+import time
+
+## Adicionar Ttl De 180 Dias Ao Salvar
+
+attrs["ttl"] = int(time.time()) + (180 * 24 * 3600)
+```
+
+---
+
+### 6.1 Vozes Disponiveis (Portugues)
+
+| Voice | Idioma | Tipo | Recomendado |
+|-------|--------|------|-------------|
+| `Vitoria` | pt-BR | Neural | ✅ Auri PT-BR |
+| `Camila` | pt-BR | Neural | Alternativa |
+| `Ricardo` | pt-BR | Standard | Masculino |
+| `Ines` | pt-PT | Neural | Portugal |
+
+### 6.2 Integrar Polly Na Resposta
+
+```python
+import boto3
+import base64
+
+def synthesize_polly(text: str, voice_id: str = "Vitoria") -> str:
+    """Retorna URL de audio Polly para usar em Alexa."""
+    client = boto3.client("polly", region_name="us-east-1")
+    response = client.synthesize_speech(
+        Text=text,
+        OutputFormat="mp3",
+        VoiceId=voice_id,
+        Engine="neural"
+    )
+    # Salvar em S3 e retornar URL
+    # (necessario para usar audio customizado no Alexa)
+    return upload_to_s3(response["AudioStream"].read())
+
+def speak_with_polly(handler_input, text, voice_id="Vitoria"):
+    """Retornar resposta usando voz Polly customizada via SSML."""
+    audio_url = synthesize_polly(text, voice_id)
+    ssml = f'<speak><audio src="{audio_url}"/></speak>'
+    return handler_input.response_builder.speak(ssml)
+```
+
+### 6.3 Ssml Para Controle De Voz
+
+```xml
+<speak>
+  <prosody rate="90%" pitch="+5%">
+    Oi! Eu sou a Auri.
+  </prosody>
+  <break time="0.5s"/>
+  <emphasis level="moderate">Como posso ajudar?</emphasis>
+</speak>
+```
+
+---
+
+### 7.1 Template De Chat
+
+```json
+{
+  "type": "APL",
+  "version": "2023.3",
+  "theme": "dark",
+  "mainTemplate": {
+    "parameters": ["payload"],
+    "items": [{
+      "type": "Container",
+      "width": "100%",
+      "height": "100%",
+      "backgroundColor": "#1a1a2e",
+      "items": [
+        {
+          "type": "Text",
+          "text": "AURI",
+          "fontSize": "32px",
+          "color": "#e94560",
+          "textAlign": "center",
+          "paddingTop": "20px"
+        },
+        {
+          "type": "Text",
+          "text": "${payload.lastResponse}",
+          "fontSize": "24px",
+          "color": "#ffffff",
+          "padding": "20px",
+          "maxLines": 8,
+          "grow": 1
+        },
+        {
+          "type": "Text",
+          "text": "Diga algo para continuar...",
+          "fontSize": "18px",
+          "color": "#888888",
+          "textAlign": "center",
+          "paddingBottom": "20px"
+        }
+      ]
+    }]
+  }
+}
+```
+
+### 7.2 Adicionar Apl Na Resposta
+
+```python
+@sb.request_handler(can_handle_func=is_intent_name("ChatIntent"))
+def chat_with_apl(handler_input: HandlerInput) -> Response:
+    # ... obter reply do Claude ...
+
+    # Verificar se device suporta APL
+    supported = handler_input.request_envelope.context.system.device.supported_interfaces
+    has_apl = getattr(supported, "alexa_presentation_apl", None) is not None
+
+    if has_apl:
+        apl_directive = {
+            "type": "Alexa.Presentation.APL.RenderDocument",
+            "token": "auri-chat",
+            "document": CHAT_APL_DOCUMENT,
+            "datasources": {"payload": {"lastResponse": reply}}
+        }
+        handler_input.response_builder.add_directive(apl_directive)
+
+    return handler_input.response_builder.speak(reply).ask("Mais alguma coisa?").response
+```
+
+---
+
+### 8.1 Ativar Smart Home Skill
+
+No `skill.json`, adicionar:
+```json
+{
+  "apis": {
+    "smartHome": {
+      "endpoint": {
+        "uri": "arn:aws:lambda:us-east-1:123456789:function:auri-smart-home"
+      }
+    }
+  }
+}
+```
+
+### 8.2 Handler De Smart Home
+
+```python
+def handle_smart_home_directive(event, context):
+    namespace = event["directive"]["header"]["namespace"]
+    name = event["directive"]["header"]["name"]
+    endpoint_id = event["directive"]["endpoint"]["endpointId"]
+
+    if namespace == "Alexa.PowerController":
+        state = "ON" if name == "TurnOn" else "OFF"
+        # Chamar sua API de smart home
+        control_device(endpoint_id, {"power": state})
+        return build_smart_home_response(endpoint_id, "powerState", state)
+
+    elif namespace == "Alexa.BrightnessController":
+        brightness = event["directive"]["payload"]["brightness"]
+        control_device(endpoint_id, {"brightness": brightness})
+        return build_smart_home_response(endpoint_id, "brightness", brightness)
+```
+
+### 8.3 Discovery De Dispositivos
+
+```python
+def handle_discovery(event, context):
+    return {
+        "event": {
+            "header": {
+                "namespace": "Alexa.Discovery",
+                "name": "Discover.Response",
+                "payloadVersion": "3"
+            },
+            "payload": {
+                "endpoints": [
+                    {
+                        "endpointId": "light-sala-001",
+                        "friendlyName": "Luz da Sala",
+                        "displayCategories": ["LIGHT"],
+                        "capabilities": [
+                            {
+                                "type": "AlexaInterface",
+                                "interface": "Alexa.PowerController",
+                                "version": "3"
+                            },
+                            {
+                                "type": "AlexaInterface",
+                                "interface": "Alexa.BrightnessController",
+                                "version": "3"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+```
+
+---
+
+## Deploy Completo (Skill + Lambda)
+
+cd auri/
+ask deploy
+
+## Verificar Status
+
+ask status
+
+## Testar No Simulador
+
+ask dialog --locale pt-BR
+
+## Teste Especifico De Intent
+
+ask simulate \
+  --text "abrir auri" \
+  --locale pt-BR \
+  --skill-id amzn1.ask.skill.YOUR-SKILL-ID
+```
+
+## Criar Lambda Manualmente
+
+aws lambda create-function \
+  --function-name auri-skill \
+  --runtime python3.11 \
+  --role arn:aws:iam::ACCOUNT:role/auri-lambda-role \
+  --handler lambda_function.handler \
+  --timeout 8 \
+  --memory-size 512 \
   --zip-file fileb://function.zip
 
-aws lambda add-permission --function-name auri-skill \
-  --statement-id alexa-skill-trigger --action lambda:InvokeFunction \
+## Adicionar Trigger Alexa
+
+aws lambda add-permission \
+  --function-name auri-skill \
+  --statement-id alexa-skill-trigger \
+  --action lambda:InvokeFunction \
   --principal alexa-appkit.amazon.com \
   --event-source-token amzn1.ask.skill.YOUR-SKILL-ID
 ```
 
-## 示例
+## Usar Secrets Manager
 
-ChatIntent 处理器（接入 Claude + 历史持久化 + 截断防超时）：
-```python
-import os, anthropic
-from ask_sdk_core.utils import is_intent_name, is_request_type
+aws secretsmanager create-secret \
+  --name auri/anthropic-key \
+  --secret-string '{"ANTHROPIC_API_KEY": "sk-..."}'
 
-@sb.request_handler(can_handle_func=is_intent_name("ChatIntent"))
-def chat_handler(handler_input):
-    slots = handler_input.request_envelope.request.intent.slots
-    query = slots["query"].value if slots.get("query") else None
-    if not query:
-        return handler_input.response_builder.speak("Sorry, please repeat.").ask("Please repeat?").response
+## Lambda Acessa Via Sdk:
 
-    attrs = handler_input.attributes_manager.persistent_attributes
-    history = attrs.get("history", [])
-    messages = history[-MAX_HISTORY:] + [{"role": "user", "content": query}]
-
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-    resp = client.messages.create(
-        model=CLAUDE_MODEL, max_tokens=512,
-        system=AURI_SYSTEM_PROMPT, messages=messages)
-    reply = resp.content[0].text
-
-    if len(reply) > MAX_RESPONSE_CHARS:          # 防止超过 8s timeout
-        reply = reply[:MAX_RESPONSE_CHARS] + "... continue?"
-
-    history += [{"role": "user", "content": query},
-                {"role": "assistant", "content": reply}]
-    attrs["history"] = history[-50:]             # 仅保留最近 50 条
-    attrs["ttl"] = int(time.time()) + 180*24*3600  # 180 天过期
-    handler_input.attributes_manager.persistent_attributes = attrs
-    handler_input.attributes_manager.save_persistent_attributes()
-    return handler_input.response_builder.speak(reply).ask("Anything else?").response
+import boto3, json
+def get_secret(secret_name):
+    client = boto3.client('secretsmanager')
+    response = client.get_secret_value(SecretId=secret_name)
+    return json.loads(response['SecretString'])
 ```
-
-交互模型片段（ChatIntent 用 `AMAZON.SearchQuery`，并定义自定义类型）：
-```json
-{"name": "ChatIntent",
- "slots": [{"name": "query", "type": "AMAZON.SearchQuery"}],
- "samples": ["{query}", "help me with {query}", "explain {query}"]}
-```
-
-Smart Home Discovery 响应骨架（namespace `Alexa.Discovery` / payloadVersion `3`）：
-```python
-def handle_discovery(event, context):
-    return {"event": {"header": {"namespace": "Alexa.Discovery",
-        "name": "Discover.Response", "payloadVersion": "3"},
-      "payload": {"endpoints": [{
-        "endpointId": "light-001", "friendlyName": "Living Room Light",
-        "displayCategories": ["LIGHT"], "capabilities": [
-          {"type": "AlexaInterface", "interface": "Alexa.PowerController", "version": "3"}]}]}}}
-```
-
-Polly 自定义语音用 SSML `<audio src=...>` 注入（先合成上传 S3 再引用 URL）；APL 屏显需先判断 `device.supported_interfaces.alexa_presentation_apl` 再 `add_directive(Alexa.Presentation.APL.RenderDocument)`。
-
-## 注意事项
-
-- Lambda timeout 上限 8s：Claude `max_tokens` 控制在 512 左右并截断长回复，必要时分段续答；Polly + S3 合成较慢，谨慎放进同步链路。
-- 密钥绝不明文写入环境变量或代码，统一走 Secrets Manager，Lambda 用 `secretsmanager:GetSecretValue` 读取。
-- DynamoDB 历史只保留最近 N 条（示例 50）并设 TTL（示例 180 天），避免单条记录膨胀与超额计费；建表用 PAY_PER_REQUEST。
-- 至少需要两个 Lambda 触发 principal/触发器：对话技能用 `alexa-appkit.amazon.com`，Smart Home 用对应 Smart Home 端点配置。
-- APL 仅在 Echo Show 等带屏设备生效，务必先检测 `supported_interfaces` 再下发指令，否则纯音箱会报错。
-- IAM Role 需覆盖 Lambda、DynamoDB、Polly、CloudWatch Logs（以及 Secrets Manager）权限。
-- 发布前在 ASK 模拟器跑全量功能、确认性能（< 8s），再提交 Amazon 认证。
-
-## 互见
-
-- AWS Lambda / Serverless 部署类技能（如有）。
-- Claude API 接入与提示工程类技能（system prompt、上下文管理、流式响应）。
-- 其他对话式/语音助手开发技能可对照交互模型设计与会话状态持久化思路。
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT）。原文为葡萄牙语「Auri」项目，本条目适配重写为中文并将示例语言切换为 en-US 通用形态，保留其架构、关键命令与代码约束。
+
+## Fase 1 — Setup (Dia 1)
+
+```
+[ ] Conta Amazon Developer criada
+[ ] Conta AWS configurada (free tier)
+[ ] ASK CLI instalado e configurado
+[ ] IAM Role criada com permissoes: Lambda, DynamoDB, Polly, Logs
+[ ] Anthropic API key armazenada em Secrets Manager
+```
+
+## Fase 2 — Skill Base (Dia 2-3)
+
+```
+[ ] ask new --template hello-world --skill-name auri
+[ ] Interaction model definido (pt-BR.json)
+[ ] LaunchRequest handler funcionando
+[ ] ChatIntent handler com Claude integrado
+[ ] ask deploy funcionando
+[ ] Teste basico no ASK simulator
+```
+
+## Fase 3 — Persistencia (Dia 4)
+
+```
+[ ] DynamoDB table criada
+[ ] Persistencia de historico funcionando
+[ ] TTL configurado
+[ ] Preferencias do usuario salvas
+```
+
+## Fase 4 — Polly + Apl (Dia 5-6)
+
+```
+[ ] Polly integrado com voz Vitoria (neural)
+[ ] APL template de chat criado
+[ ] APL renderizando em Echo Show simulator
+```
+
+## Fase 5 — Smart Home (Opcional)
+
+```
+[ ] Smart Home skill habilitada
+[ ] Discovery de dispositivos funcionando
+[ ] PowerController implementado
+[ ] Teste com device real
+```
+
+## Fase 6 — Publicacao
+
+```
+[ ] Teste completo de todas funcionalidades
+[ ] Performance OK (< 8s timeout)
+[ ] Certificacao Amazon submetida
+[ ] Publicado na Alexa Skills Store
+```
+
+---
+
+## 11. Comandos Rapidos
+
+| Acao | Comando |
+|------|---------|
+| Criar skill | `ask new --template hello-world` |
+| Deploy | `ask deploy` |
+| Simular | `ask simulate --text "abre a auri"` |
+| Dialog interativo | `ask dialog --locale pt-BR` |
+| Ver logs | `ask smapi get-skill-simulation` |
+| Validar modelo | `ask validate --locales pt-BR` |
+| Exportar skill | `ask smapi export-package --skill-id ID` |
+| Listar skills | `ask list skills` |
+
+---
+
+## 12. Referencias
+
+- Boilerplate Python completo: `assets/boilerplate/lambda_function.py`
+- Interaction model PT-BR: `assets/interaction-models/pt-BR.json`
+- APL chat template: `assets/apl-templates/chat-interface.json`
+- Smart Home examples: `references/smart-home-api.md`
+- ASK SDK Python docs: https://github.com/alexa/alexa-skills-kit-sdk-for-python
+- Claude + Alexa guide: https://www.anthropic.com/news/claude-and-alexa-plus
+
+## Best Practices
+
+- Provide clear, specific context about your project and requirements
+- Review all suggestions before applying them to production code
+- Combine with other complementary skills for comprehensive analysis
+
+## Common Pitfalls
+
+- Using this skill for tasks outside its domain expertise
+- Applying recommendations without understanding your specific context
+- Not providing enough project context for accurate analysis
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

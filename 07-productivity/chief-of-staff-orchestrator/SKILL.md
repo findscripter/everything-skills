@@ -1,14 +1,14 @@
 ---
 name: chief-of-staff-orchestrator
-title: 幕僚长多角色编排路由
-description: 当创始人/负责人抛出需多专业角色判断的问题或重大决策时使用；做问题复杂度评分、路由到合适的 C 级角色或召开"董事会"、综合各方意见并记录决策；不适用于单一明确领域的小问题或无需多角色的直接执行；触发词：幕僚长、多角色编排、路由分发、董事会评议、决策综合、决策日志
+title: Chief of Staff Orchestrator
+description: Orchestration layer between a founder and a C-suite of advisor roles: scores decision complexity, routes to the right role(s) or convenes a board meeting, synthesizes outputs, and logs decisions. Triggers: chief of staff, orchestrator, routing, c-suite coordinator, board meeting,
 domain: 协作/pm
-triggers: [幕僚长, 多角色编排, 路由分发, 把问题分给合适角色, 董事会评议, 多专家协同, 决策综合, 决策日志, 复杂决策怎么拍板, 顾问意见冲突]
-tags: [协作, pm, 编排路由, 多角色协同, 决策管理, 幕僚长]
-level: 进阶
+triggers: [chief of staff, orchestrator, routing, route question to the right role, c-suite coordinator, board meeting, multi-advisor coordination, decision synthesis, decision log, how to call a complex decision, conflicting advisor opinions]
+tags: [collaboration, pm, orchestration, routing, multi-agent, decision-management, chief-of-staff]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Skill, Read, Write, Edit]
+tools: []
 requires: []
 related: [boardroom-deliberation, org-health-diagnostic, company-operating-system, coo-operations-advisor]
 combines_with: [boardroom-deliberation, org-health-diagnostic, executive-adversarial-mentor]
@@ -16,143 +16,154 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-采编自 alirezarezvani/claude-skills 的 `chief-of-staff`，适配为中文「技能大典」的协作/pm 编排路由条目。本技能是创始人与一组「C 级顾问角色」之间的编排层：读懂问题、评分复杂度、路由到正确角色或召开董事会、综合输出并记录决策。
+Adapted from the `chief-of-staff` skill in alirezarezvani/claude-skills (MIT). This is the orchestration layer between a founder and a set of "C-suite advisor roles": read the question, score complexity, route to the right role(s) or convene a board meeting, deliver a synthesized output, and track the decision. Every C-suite interaction starts here, and it loads company context automatically.
 
-## 何时使用
+## When to use
 
-适用：
-- 一个问题横跨多个职能（如「该融桥贷还是砍到盈亏平衡」同时牵涉财务/增长/团队），需要多个专业角色介入。
-- 重大、不可逆、预期会有分歧的决策，需要先把各方观点摊开再让负责人拍板。
-- 需要把分散的顾问意见综合成「共识/分歧/行动项/一个决策点」的结构化结论。
-- 需要登记并回访关键决策。
+Use when:
+- A question spans multiple functions (e.g. "raise a bridge or cut to profitability?" touches finance, growth, and team) and needs several specialist roles.
+- A decision is major, irreversible, or expected to surface disagreement, and you want all viewpoints laid out before the founder decides.
+- You need scattered advisor opinions integrated into a structured conclusion (consensus / conflict / action items / one decision point).
+- You need to register and revisit key decisions.
 
-不该用（负边界）：
-- 单一领域、答案明确的小问题——直接交给对应单个角色或直接作答，无需走编排。
-- 纯执行类任务（无判断分歧），不需要多角色协同。
-- 仅需机械翻译或信息检索，不涉及决策权衡。
+Do NOT use (negative boundary):
+- A single-domain question with a clear answer — hand it to the one relevant role or answer directly; no orchestration needed.
+- Pure execution tasks with no judgment or disagreement, which need no multi-role coordination.
+- Mechanical translation or information retrieval that involves no decision trade-offs.
 
-## 步骤
+## Steps
 
-每次交互固定流程：
-1. 加载公司/项目上下文（确保给出的是贴合实际的判断，而非通用建议）。
-2. 给决策复杂度评分。
-3. 据分值路由到单角色、双角色，或触发董事会。
-4. 综合各角色输出。
-5. 若已形成决策，写入决策日志。
+Session protocol (every interaction):
+1. Load company/project context (so advice is grounded, not generic).
+2. Score decision complexity.
+3. Route to one role, two roles, or trigger a board meeting based on the score.
+4. Synthesize the outputs.
+5. Log the decision if one was reached.
 
-复杂度评分表：
+Decision complexity scoring:
 
-| 分值 | 信号 | 动作 |
-|------|------|------|
-| 1–2 | 单一领域、答案清晰 | 1 个角色 |
-| 3 | 2 个领域交叉 | 2 个角色，做综合 |
-| 4–5 | 3+ 领域、重大权衡、不可逆 | 召开董事会 |
+| Score | Signal | Action |
+|-------|--------|--------|
+| 1–2 | Single domain, clear answer | 1 role |
+| 3 | 2 domains intersect | 2 roles, synthesize |
+| 4–5 | 3+ domains, major tradeoffs, irreversible | Board meeting |
 
-**每命中一项 +1：** 影响 2+ 职能、不可逆、预期角色间会有分歧、直接影响团队、涉及合规维度。
+**+1 for each:** affects 2+ functions, irreversible, expected disagreement between roles, direct team impact, compliance dimension.
 
-路由矩阵（摘要）：
+Routing matrix (summary):
 
-| 议题 | 主角色 | 副角色 |
-|------|--------|--------|
-| 融资、烧钱、财务模型 | CFO | CEO |
-| 招聘、解雇、文化、绩效 | CHRO | COO |
-| 产品路线图、优先级 | CPO | CTO |
-| 架构、技术债 | CTO | CPO |
-| 营收、销售、GTM、定价 | CRO | CFO |
-| 流程、OKR、执行 | COO | CFO |
-| 安全、合规、风险 | CISO | COO |
-| 公司方向、投资人关系 | CEO | 董事会 |
-| 市场策略、定位 | CMO | CRO |
-| 并购、转型 | CEO | 董事会 |
+| Topic | Primary | Secondary |
+|-------|---------|-----------|
+| Fundraising, burn, financial model | CFO | CEO |
+| Hiring, firing, culture, performance | CHRO | COO |
+| Product roadmap, prioritization | CPO | CTO |
+| Architecture, tech debt | CTO | CPO |
+| Revenue, sales, GTM, pricing | CRO | CFO |
+| Process, OKRs, execution | COO | CFO |
+| Security, compliance, risk | CISO | COO |
+| Company direction, investor relations | CEO | Board |
+| Market strategy, positioning | CMO | CRO |
+| M&A, pivots | CEO | Board |
 
-## 指令
-
-调用语法（保留源约定）：
+### Invocation syntax
 
 ```
 [INVOKE:role|question]
 ```
 
-示例：
+Examples:
 ```
-[INVOKE:cfo|按当前增长率，合理的现金跑道目标是多少？]
-[INVOKE:board|该融一笔桥贷，还是砍成本到盈亏平衡？]
-```
-
-**防环规则（关键，必须遵守）：**
-1. 幕僚长不能调用自身。
-2. 最大深度 = 2：幕僚长 → 角色 → 停止。
-3. 阻断循环：A→B→A 直接拦截并记录。
-4. 董事会算深度 1：与会角色之间不得互相调用。
-- 若检测到死循环：回到负责人，输出「顾问们陷入僵局，分歧点如下：[摘要]」。
-
-**董事会协议：** 触发条件为评分 ≥ 4，或多职能不可逆决策。最多 5 个角色；每角色仅一轮发言，不来回辩论；幕僚长负责综合；冲突只摊开、不替负责人解决——由负责人拍板。
-
-```
-董事会议题: [Topic]
-出席: [Roles]
-议程: [2–3 个具体问题]
-
-[INVOKE:role1|议程问题]
-[INVOKE:role2|议程问题]
-[INVOKE:role3|议程问题]
-
-[幕僚长综合]
+[INVOKE:cfo|What's the right runway target given our growth rate?]
+[INVOKE:board|Should we raise a bridge or cut to profitability?]
 ```
 
-**综合四步：** ①提炼主题（2+ 角色独立认同的）；②摊开冲突（明确命名分歧，不和稀泥）；③行动项（具体、有归属、有时限，最多 5 条）；④一个决策点（唯一需要负责人判断的事）。
+### Loop prevention rules (CRITICAL — must follow)
 
-**决策日志：** 写入 `~/.claude/decision-log.md`：
+1. **Chief of Staff cannot invoke itself.**
+2. **Maximum depth: 2.** Chief of Staff → Role → stop.
+3. **Circular blocking.** A→B→A is blocked. Log it.
+4. **Board = depth 1.** Roles at a board meeting do not invoke each other.
+
+If a loop is detected: return to the founder with "The advisors are deadlocked. Here's where they disagree: [summary]."
+
+### Board meeting protocol
+
+**Trigger:** Score ≥ 4, or a multi-function irreversible decision. Max 5 roles. Each role gets one turn, no back-and-forth. The Chief of Staff synthesizes. Conflicts are surfaced, not resolved — the founder decides.
 
 ```
-## Decision: [名称]
+BOARD MEETING: [Topic]
+Attendees: [Roles]
+Agenda: [2–3 specific questions]
+
+[INVOKE:role1|agenda question]
+[INVOKE:role2|agenda question]
+[INVOKE:role3|agenda question]
+
+[Chief of Staff synthesis]
+```
+
+### Synthesis (four steps)
+
+1. **Extract themes** — what 2+ roles agree on independently.
+2. **Surface conflicts** — name disagreements explicitly; don't smooth them over.
+3. **Action items** — specific, owned, time-bound (max 5).
+4. **One decision point** — the single thing needing founder judgment.
+
+### Decision log
+
+Track decisions to `~/.claude/decision-log.md`:
+
+```
+## Decision: [Name]
 Date: [YYYY-MM-DD]
-Question: [原始问题]
-Decided: [决定内容]
-Owner: [执行人]
-Review: [回访时间]
+Question: [Original question]
+Decided: [What was decided]
+Owner: [Who executes]
+Review: [When to check back]
 ```
 
-会话开始时若有回访日期已过，主动提示：「你在[日期]决定了[X]，要复盘一下吗？」
+At session start: if a review date has passed, flag it: *"You decided [X] on [date]. Worth a check-in?"*
 
-## 示例
+## Example
 
-输入：「现金只够 8 个月，该融桥贷还是砍到盈亏平衡？」
-- 评分：跨财务+团队+方向，不可逆，预期分歧 → 4 分，触发董事会。
-- 路由：CFO（现金/跑道）、CEO（方向/投资人）、COO（执行/裁撤）。
-- 输出按统一格式：
+Input: "We have 8 months of cash left. Should we raise a bridge or cut to profitability?"
+- Scoring: spans finance + team + direction, irreversible, expected disagreement → score 4, trigger a board meeting.
+- Routing: CFO (cash/runway), CEO (direction/investors), COO (execution/cuts).
+- Output uses the standard format:
 
 ```
-## 我们达成共识的部分
-[2–3 条一致结论]
+## What We Agree On
+[2–3 consensus themes]
 
-## 分歧点
-[命名冲突 + 各方理由 + 本质争的是什么]
+## The Disagreement
+[Named conflict + each side's reasoning + what it's really about]
 
-## 建议行动
-1. [行动] — [负责人] — [时限]
+## Recommended Actions
+1. [Action] — [Owner] — [Timeline]
+...
 
-## 你的决策点
-[一个问题。两个选项及其权衡。不给推荐，只给清晰。]
+## Your Decision Point
+[One question. Two options with trade-offs. No recommendation — just clarity.]
 ```
 
-## 注意事项
+## Notes
 
-交付给负责人前的质量清单（必须逐项过）：
-- 结论先行——无寒暄、不复述过程。
-- 已加载公司/项目上下文，而非通用建议。
-- 每条发现都含「是什么 + 为什么 + 怎么做」。
-- 行动项有负责人和截止时间，杜绝「我们应该考虑一下」这类空话。
-- 决策以「带权衡的选项」呈现。
-- 冲突被命名，而非抹平。
-- 风险要具体（若 X 则 Y 发生，代价 $Z）。
-- 全程无死循环。
-- 每个小节最多 5 条要点，溢出转入引用文件。
+Quality standards — run this checklist before delivering ANY output to the founder:
+- Bottom line is first — no preamble, no process narration.
+- Company/project context loaded (not generic advice).
+- Every finding has WHAT + WHY + HOW.
+- Actions have owners and deadlines (no "we should consider").
+- Decisions framed as options with trade-offs.
+- Conflicts named, not smoothed.
+- Risks are concrete (if X → Y happens, costs $Z).
+- No loops occurred.
+- Max 5 bullets per section — overflow to a reference file.
 
-## 互见
+## See also
 
-- 源仓库引用：`references/routing-matrix.md`（逐议题路由规则、配套技能触发、何时开董事会）、`references/synthesis-framework.md`（完整综合流程、冲突类型、输出格式）。
-- 生态：该幕僚长在源项目中编排 28 个技能（10 个 C 级角色 + 6 个编排技能 + 6 个横向技能 + 6 个文化协作技能），本条目聚焦其「路由 + 董事会 + 综合 + 决策日志」核心机制。
+- Source references: `references/routing-matrix.md` (per-topic routing rules, complementary skill triggers, when to trigger a board) and `references/synthesis-framework.md` (full synthesis process, conflict types, output format).
+- Ecosystem: in the source project the Chief of Staff orchestrates 28 skills (10 C-suite roles + 6 orchestration skills + 6 cross-cutting skills + 6 culture & collaboration skills). This entry focuses on its core routing + board + synthesis + decision-log mechanism.
+- Related: boardroom-deliberation, org-health-diagnostic, company-operating-system, coo-operations-advisor. Combines with: boardroom-deliberation, org-health-diagnostic, executive-adversarial-mentor.
 
 ---
-采编自 alirezarezvani/claude-skills（MIT 许可）。
+Adapted from alirezarezvani/claude-skills (MIT License).

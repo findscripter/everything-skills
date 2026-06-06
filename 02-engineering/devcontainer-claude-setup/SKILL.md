@@ -1,14 +1,14 @@
 ---
 name: devcontainer-claude-setup
-title: Devcontainer 隔离开发环境搭建
-description: 当需要为项目新增 Devcontainer 支持、搭建隔离/沙箱化的 Claude Code 开发环境时使用；做语言探测并在 .devcontainer/ 生成 Dockerfile、devcontainer.json、post_install.py、.zshrc、install.sh 等配置产物；不适用于已有 devcontainer 仅做微调、通用 Docker 问题或生产容器部署。触发词：devcontainer、隔离开发环境、沙箱 Claude Code
+title: Devcontainer Setup Skill
+description: Creates devcontainers with Claude Code, language-specific tooling (Python/Node/Rust/Go), and persistent volumes. Use when adding devcontainer support to a project, setting up isolated development environments, or configuring sandboxed Claude Code workspaces.
 domain: 研发/devops
-triggers: [set up a devcontainer, 添加 devcontainer 支持, 搭建隔离开发环境, 沙箱化 Claude Code 工作区, Reopen in Container, devcontainer up]
-tags: [devcontainer, docker, claude code, 开发环境, 沙箱隔离, vs code, uv, 多语言]
-level: 进阶
+triggers: [set up a devcontainer, Reopen in Container, devcontainer up]
+tags: [devcontainer, docker, claude code, vs code, uv]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash]
+tools: []
 requires: []
 related: [docker-development-optimizer, docker-expert, docker-container-optimizer, deployment-engineer]
 combines_with: [ci-cd-pipeline-builder, fullstack-project-scaffolder]
@@ -16,123 +16,302 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Devcontainer Setup Skill
 
-适用：
-- 用户要求「搭建 devcontainer」「添加 devcontainer 支持」。
-- 需要一个沙箱化、可复现的 Claude Code 开发环境。
-- 需要带持久化配置的隔离开发环境（多项目互不污染）。
+Creates a pre-configured devcontainer with Claude Code and language-specific tooling.
 
-不该用（负边界）：
-- 项目已有 devcontainer 配置，只需局部修改 —— 直接改现有文件即可。
-- 用户问的是通用 Docker / 容器知识，与本流程无关。
-- 用户要部署生产容器 —— 本技能只面向开发环境。
+## When to Use
+- User asks to "set up a devcontainer" or "add devcontainer support"
+- User wants a sandboxed Claude Code development environment
+- User needs isolated development environments with persistent configuration
 
-## 步骤
+## When NOT to Use
 
-整体流程：项目侦察 → 语言探测 → 生成配置 → 写入 `.devcontainer/` → 提示用户启动。
+- User already has a devcontainer configuration and just needs modifications
+- User is asking about general Docker or container questions
+- User wants to deploy production containers (this is for development only)
 
-### 1. 项目侦察
+## Workflow
 
-推断项目名（按序取首个命中）：
-1. `package.json` → `name`
+```mermaid
+flowchart TB
+    start([User requests devcontainer])
+    recon[1. Project Reconnaissance]
+    detect[2. Detect Languages]
+    generate[3. Generate Configuration]
+    write[4. Write files to .devcontainer/]
+    done([Done])
+
+    start --> recon
+    recon --> detect
+    detect --> generate
+    generate --> write
+    write --> done
+```
+
+## Phase 1: Project Reconnaissance
+
+### Infer Project Name
+
+Check in order (use first match):
+
+1. `package.json` → `name` field
 2. `pyproject.toml` → `project.name`
 3. `Cargo.toml` → `package.name`
-4. `go.mod` → 模块路径最后一段（`/` 之后）
-5. 兜底用目录名
+4. `go.mod` → module path (last segment after `/`)
+5. Directory name as fallback
 
-转为 slug：全小写，空格/下划线替换为连字符。得到两个占位值：`{{PROJECT_NAME}}`（人类可读名）、`{{PROJECT_SLUG}}`（卷命名用）。
+Convert to slug: lowercase, replace spaces/underscores with hyphens.
 
-### 2. 语言探测
+### Detect Language Stack
 
-| 语言 | 探测文件 |
-|------|----------|
-| Python | `pyproject.toml`、`*.py` |
-| Node/TS | `package.json`、`tsconfig.json` |
+| Language | Detection Files |
+|----------|-----------------|
+| Python | `pyproject.toml`, `*.py` |
+| Node/TypeScript | `package.json`, `tsconfig.json` |
 | Rust | `Cargo.toml` |
-| Go | `go.mod`、`go.sum` |
+| Go | `go.mod`, `go.sum` |
 
-多语言项目按优先级全部配置：Python（用 Dockerfile 装 uv + Python）> Node/TS（devcontainer feature）> Rust（feature）> Go（feature）。各语言的扩展与 settings 合并写入；`postCreateCommand` 用 `&&` 串联，如：
+### Multi-Language Projects
+
+If multiple languages are detected, configure all of them in the following priority order:
+
+1. **Python** - Primary language, uses Dockerfile for uv + Python installation
+2. **Node/TypeScript** - Uses devcontainer feature
+3. **Rust** - Uses devcontainer feature
+4. **Go** - Uses devcontainer feature
+
+For multi-language `postCreateCommand`, chain all setup commands:
 ```
 uv run /opt/post_install.py && uv sync && npm ci
 ```
 
-### 3. 生成配置
+Extensions and settings from all detected languages should be merged into the configuration.
 
-从 `resources/` 基础模板起步，替换 `{{PROJECT_NAME}}` / `{{PROJECT_SLUG}}`，再叠加语言专属修改。
+## Phase 2: Generate Configuration
 
-基础模板已含：Claude Code（marketplace 插件 anthropics/skills、trailofbits/skills、trailofbits/skills-curated）、uv 装 Python 3.13、fnm 装 Node 22、ast-grep、网络隔离工具（iptables/ipset，需 NET_ADMIN 能力）、现代 CLI（ripgrep、fd、fzf、tmux、git-delta）。
+Start with base templates from `resources/` directory. Substitute:
 
-### 4. 写入这些文件到 `.devcontainer/`
+- `{{PROJECT_NAME}}` → Human-readable name (e.g., "My Project")
+- `{{PROJECT_SLUG}}` → Slug for volumes (e.g., "my-project")
 
-1. `Dockerfile` — 镜像构建指令
-2. `devcontainer.json` — VS Code/devcontainer 配置
-3. `post_install.py` — 创建后初始化脚本
-4. `.zshrc` — Shell 配置
-5. `install.sh` — 管理 devcontainer 的 CLI（提供 `devc` 命令）
+Then apply language-specific modifications below.
 
-### 5. 校验清单（呈给用户前逐项核对）
+## Base Template Features
 
-1. 所有 `{{PROJECT_NAME}}` 已替换为人类可读名。
-2. 所有 `{{PROJECT_SLUG}}` 已替换为 slug。
-3. `devcontainer.json` JSON 合法（无尾随逗号、嵌套正确）。
-4. 已为所有探测到的语言加上对应扩展。
-5. `postCreateCommand` 含全部所需命令（`&&` 串联）。
+The base template includes:
 
-## 指令
+- **Claude Code** with marketplace plugins (anthropics/skills, trailofbits/skills, trailofbits/skills-curated)
+- **Python 3.13** via uv (fast binary download)
+- **Node 22** via fnm (Fast Node Manager)
+- **ast-grep** for AST-based code search
+- **Network isolation tools** (iptables, ipset) with NET_ADMIN capability
+- **Modern CLI tools**: ripgrep, fd, fzf, tmux, git-delta
 
-各语言专属修改（按探测结果叠加）：
+---
 
-Python（含自定义版本时改 Dockerfile）：
+## Language-Specific Sections
+
+### Python Projects
+
+**Detection:** `pyproject.toml`, `requirements.txt`, `setup.py`, or `*.py` files
+
+**Dockerfile additions:**
+
+The base Dockerfile already includes Python 3.13 via uv. If a different version is required (detected from `pyproject.toml`), modify the Python installation:
+
 ```dockerfile
+# Install Python via uv (fast binary download, not source compilation)
 RUN uv python install <version> --default
 ```
-扩展：`ms-python.python`、`ms-python.vscode-pylance`、`charliermarsh.ruff`；settings 设 `python.defaultInterpreterPath` 为 `.venv/bin/python`，`[python]` 用 ruff 格式化并 `source.organizeImports: explicit`。
-postCreate（有 `pyproject.toml`）：`rm -rf .venv && uv sync && uv run /opt/post_install.py`
 
-Node/TS（基础模板已含 Node 22，无需改 Dockerfile）：
-扩展 `dbaeumer.vscode-eslint`、`esbenp.prettier-vscode`；settings 用 prettier 格式化 + `source.fixAll.eslint: explicit`。按 lockfile 选包管理器：
+**devcontainer.json extensions:**
+
+Add to `customizations.vscode.extensions`:
+```json
+"ms-python.python",
+"ms-python.vscode-pylance",
+"charliermarsh.ruff"
+```
+
+Add to `customizations.vscode.settings`:
+```json
+"python.defaultInterpreterPath": ".venv/bin/python",
+"[python]": {
+  "editor.defaultFormatter": "charliermarsh.ruff",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  }
+}
+```
+
+**postCreateCommand:**
+If `pyproject.toml` exists, chain commands:
+```
+rm -rf .venv && uv sync && uv run /opt/post_install.py
+```
+
+---
+
+### Node/TypeScript Projects
+
+**Detection:** `package.json` or `tsconfig.json`
+
+**No Dockerfile additions needed:** The base template includes Node 22 via fnm (Fast Node Manager).
+
+**devcontainer.json extensions:**
+
+Add to `customizations.vscode.extensions`:
+```json
+"dbaeumer.vscode-eslint",
+"esbenp.prettier-vscode"
+```
+
+Add to `customizations.vscode.settings`:
+```json
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.codeActionsOnSave": {
+  "source.fixAll.eslint": "explicit"
+}
+```
+
+**postCreateCommand:**
+Detect package manager from lockfile and chain with base command:
 - `pnpm-lock.yaml` → `uv run /opt/post_install.py && pnpm install --frozen-lockfile`
-- `yarn.lock` → `... && yarn install --frozen-lockfile`
-- `package-lock.json` → `... && npm ci`
-- 无 lockfile → `... && npm install`
+- `yarn.lock` → `uv run /opt/post_install.py && yarn install --frozen-lockfile`
+- `package-lock.json` → `uv run /opt/post_install.py && npm ci`
+- No lockfile → `uv run /opt/post_install.py && npm install`
 
-Rust：feature `"ghcr.io/devcontainers/features/rust:1": {}`；扩展 `rust-lang.rust-analyzer`、`tamasfe.even-better-toml`。postCreate：有 `Cargo.lock` 用 `... && cargo build --locked`，否则 `... && cargo build`。
+---
 
-Go：feature `"ghcr.io/devcontainers/features/go:1": {"version": "latest"}`；扩展 `golang.go`，settings 开 `go.useLanguageServer`。postCreate：`uv run /opt/post_install.py && go mod download`。
+### Rust Projects
 
-持久化卷（`devcontainer.json` 的 `mounts`）：
+**Detection:** `Cargo.toml`
+
+**Features to add:**
+
+```json
+"ghcr.io/devcontainers/features/rust:1": {}
+```
+
+**devcontainer.json extensions:**
+
+Add to `customizations.vscode.extensions`:
+```json
+"rust-lang.rust-analyzer",
+"tamasfe.even-better-toml"
+```
+
+Add to `customizations.vscode.settings`:
+```json
+"[rust]": {
+  "editor.defaultFormatter": "rust-lang.rust-analyzer"
+}
+```
+
+**postCreateCommand:**
+If `Cargo.lock` exists, use locked builds:
+```
+uv run /opt/post_install.py && cargo build --locked
+```
+If no lockfile, use standard build:
+```
+uv run /opt/post_install.py && cargo build
+```
+
+---
+
+### Go Projects
+
+**Detection:** `go.mod`
+
+**Features to add:**
+
+```json
+"ghcr.io/devcontainers/features/go:1": {
+  "version": "latest"
+}
+```
+
+**devcontainer.json extensions:**
+
+Add to `customizations.vscode.extensions`:
+```json
+"golang.go"
+```
+
+Add to `customizations.vscode.settings`:
+```json
+"[go]": {
+  "editor.defaultFormatter": "golang.go"
+},
+"go.useLanguageServer": true
+```
+
+**postCreateCommand:**
+```
+uv run /opt/post_install.py && go mod download
+```
+
+---
+
+## Reference Material
+
+For additional guidance, see:
+- `references/dockerfile-best-practices.md` - Layer optimization, multi-stage builds, architecture support
+- `references/features-vs-dockerfile.md` - When to use devcontainer features vs custom Dockerfile
+
+---
+
+## Adding Persistent Volumes
+
+Pattern for new mounts in `devcontainer.json`:
+
 ```json
 "mounts": [
   "source={{PROJECT_SLUG}}-<purpose>-${devcontainerId},target=<container-path>,type=volume"
 ]
 ```
-常见追加：Rust `target=/home/vscode/.cargo`、Go `target=/home/vscode/go`。
 
-## 示例
-
-为一个 Python + Node 双语言项目生成配置：
-1. 侦察：`pyproject.toml` 中 `name = "my-project"` → PROJECT_NAME=「My Project」，PROJECT_SLUG=「my-project」。
-2. 探测：命中 Python + Node/TS。
-3. 合并扩展（python/pylance/ruff + eslint/prettier），合并 settings。
-4. `postCreateCommand`（lockfile 为 `package-lock.json`）：
-```
-rm -rf .venv && uv sync && uv run /opt/post_install.py && npm ci
-```
-5. 写入 `.devcontainer/` 下 5 个文件，校验 JSON 合法后呈给用户。
-
-## 注意事项
-
-- 启动方式告知用户：VS Code 中「Reopen in Container」；或命令行 `devcontainer up --workspace-folder .`。
-- CLI 助手：`.devcontainer/install.sh self-install` 把 `devc` 命令加入 PATH。
-- 仅在任务明确落在上述范围内时使用；产物不能替代环境相关的实测、验证与专家评审。
-- 缺少必要输入、权限、安全边界或成功标准时，停下来向用户澄清。
-- 网络隔离依赖 NET_ADMIN 能力，宿主/平台不支持时需相应降级。
-
-## 互见
-
-- 进阶参考（源仓库 references/）：`dockerfile-best-practices.md`（分层优化、多阶段构建、架构支持）、`features-vs-dockerfile.md`（何时用 devcontainer feature vs 自定义 Dockerfile）。
-- 同域「研发/misc」下其他环境搭建类技能。
+Common additions:
+- `source={{PROJECT_SLUG}}-cargo-${devcontainerId},target=/home/vscode/.cargo,type=volume` (Rust)
+- `source={{PROJECT_SLUG}}-go-${devcontainerId},target=/home/vscode/go,type=volume` (Go)
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT）。原 skill 标注上游来源为 vibeship-spawner-skills（Apache 2.0）。
+
+## Output Files
+
+Generate these files in the project's `.devcontainer/` directory:
+
+1. `Dockerfile` - Container build instructions
+2. `devcontainer.json` - VS Code/devcontainer configuration
+3. `post_install.py` - Post-creation setup script
+4. `.zshrc` - Shell configuration
+5. `install.sh` - CLI helper for managing the devcontainer (`devc` command)
+
+---
+
+## Validation Checklist
+
+Before presenting files to the user, verify:
+
+1. All `{{PROJECT_NAME}}` placeholders are replaced with the human-readable name
+2. All `{{PROJECT_SLUG}}` placeholders are replaced with the slugified name
+3. JSON syntax is valid in `devcontainer.json` (no trailing commas, proper nesting)
+4. Language-specific extensions are added for all detected languages
+5. `postCreateCommand` includes all required setup commands (chained with `&&`)
+
+---
+
+## User Instructions
+
+After generating, inform the user:
+
+1. How to start: "Open in VS Code and select 'Reopen in Container'"
+2. Alternative: `devcontainer up --workspace-folder .`
+3. CLI helper: Run `.devcontainer/install.sh self-install` to add the `devc` command to PATH
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

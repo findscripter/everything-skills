@@ -1,14 +1,14 @@
 ---
 name: temporal-golang-workflows
-title: Temporal Go 工作流：确定性编排与 mTLS
-description: 当用 Temporal Go SDK 构建持久化分布式编排（长流程、Saga、信号/定时器、子工作流）时使用；做确定性工作流、mTLS Worker、版本化与重放测试的生产级 Go 实现；不适用于 Python/Java/TS SDK、无持久化需求的简单请求响应或普通 cron。触发词：Temporal、Go SDK、workflow 确定性、mTLS Worker、GetVersion、ContinueAsNew、Selector 信号、Saga 编排
+title: Temporal Go SDK (temporal-golang-pro)
+description: Use when building durable distributed systems with Temporal Go SDK. Covers deterministic workflow rules, mTLS worker configs, and advanced patterns.
 domain: 研发/backend
-triggers: [Temporal, Temporal Go SDK, 工作流确定性, mTLS Worker, GetVersion 版本化, ContinueAsNew, Selector 信号, Saga 编排, 持久化执行, 重放测试]
+triggers: [Temporal, Temporal Go SDK, mTLS Worker, ContinueAsNew]
 tags: [temporal, golang, workflow, orchestration, mtls, distributed-systems, saga, durable-execution]
-level: 精通
+level: advanced
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [go, go.temporal.io/sdk]
+tools: []
 requires: []
 related: [temporal-workflow-python, golang-pro, saga-orchestration, go-concurrency-patterns]
 combines_with: [mtls-zero-trust-config, grpc-golang-services, event-sourcing-cqrs]
@@ -16,71 +16,94 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-# Temporal Go 工作流：确定性编排与 mTLS
+# Temporal Go SDK (temporal-golang-pro)
 
-用 Temporal Go SDK 把模糊的编排需求落成生产级实现，聚焦持久化执行、严格确定性与企业级 Worker 配置。
+## Overview
 
-## 何时使用
+Expert-level guide for building resilient, scalable, and deterministic distributed systems using the Temporal Go SDK. This skill transforms vague orchestration requirements into production-grade Go implementations, focusing on durable execution, strict determinism, and enterprise-scale worker configuration.
 
-- 用 Go 构建需要持久状态与可靠编排的微服务/分布式系统。
-- 实现跨天/跨月的长流程、Saga 补偿、信号驱动审批、子工作流编排。
-- Worker 需要细粒度并发、mTLS 安全、拦截器等生产级配置。
-- 运行中工作流要做版本化演进或零停机 Worker 升级。
+## When to Use This Skill
 
-**不该用的边界：**
-- 其他语言 SDK（Python/Java/TypeScript）——另找对应技能。
-- 无持久化/无协调需求的简单请求-响应。
-- 不需要持久化的普通 cron。
-- 只做高层设计而不落地实现（用 `workflow-orchestration-patterns`）。
-- 不覆盖 Temporal Cloud UI、证书签发、Nexus、多集群复制、多区域容灾、实验性 worker-versioning。假设 Temporal Server v1.20+ 与 Go SDK v1.25+。
+- **Designing Distributed Systems**: When building microservices that require durable state and reliable orchestration.
+- **Implementing Complex Workflows**: Using the Go SDK to handle long-running processes (days/months) or complex Saga patterns.
+- **Optimizing Performance**: When workers need fine-tuned concurrency, mTLS security, or custom interceptors.
+- **Ensuring Reliability**: Implementing idempotent activities, graceful error handling, and sophisticated retry policies.
+- **Maintenance & Evolution**: Versioning running workflows or performing zero-downtime worker updates.
 
-## 步骤 / 指令
+## Do not use this skill when
 
-1. **收集上下文**：先问清目标集群（Cloud / 自托管）与 Namespace、Task Queue 名与吞吐量、安全要求（mTLS 证书路径、认证）、失败模式与期望的 retry/timeout 策略。
-2. **校验确定性**：工作流代码必须过这 5 条铁律——
-   - 不用原生 Go 并发（goroutine）→ 改用 `workflow.Go` / `workflow.Channel` / `workflow.Selector`。
-   - 不用原生时间（`time.Now` / `time.Sleep`）→ 改用 `workflow.Now` / `workflow.Sleep`。
-   - 不做非确定性 map 遍历 → 遍历前对 key 排序。
-   - 不在工作流内做外部 I/O 或网络调用 → 一律放进 Activity。
-   - 不用非确定性随机数 → 用 `workflow.SideEffect` 或 Activity 生成。
-3. **增量实现**：先定共享 Protobuf/数据结构 → 再 Activity → 再 Workflow → 最后 Worker。
-4. **关键能力按需取用**：
-   - Worker 调优：`worker.Options` 的 `MaxConcurrentActivityTaskPollers`、`WorkerStopTimeout`、`StickyScheduleToStartTimeout`。
-   - 拦截器：Client/Worker/Workflow 拦截器做日志、链路、鉴权等横切关注。
-   - 版本化：`workflow.GetVersion` + `workflow.GetReplaySafeLogger` 安全演进逻辑。
-   - 历史大小：用 `ContinueAsNew` 规避默认 50MB / 5万事件上限。
-   - 长 Activity（>1 分钟）：调用 `activity.RecordHeartbeat`。
-   - 重放测试：`replayer.ReplayWorkflowHistoryFromJSON` 验证改动对旧历史兼容。
+- Using Temporal with other SDKs (Python, Java, TypeScript) - refer to their specific `-pro` skills.
+- The task is a simple request/response without durability or coordination needs.
+- High-level design without implementation (use `workflow-orchestration-patterns`).
 
-## 示例
+## Step-by-Step Guide
 
-### 示例 1：版本化工作流（确定性）
+1.  **Gather Context**: Proactively ask for:
+    - Target **Temporal Cluster** (Cloud vs. Self-hosted) and **Namespace**.
+    - **Task Queue** names and expected throughput.
+    - **Security requirements** (mTLS paths, authentication).
+    - **Failure modes** and desired retry/timeout policies.
+2.  **Verify Determinism**: Before suggesting workflow code, verify against these **5 Rules**:
+    - No native Go concurrency (goroutines).
+    - No native time (`time.Now`, `time.Sleep`).
+    - No non-deterministic map iteration (must sort keys).
+    - No direct external I/O or network calls.
+    - No non-deterministic random numbers.
+3.  **Implement Incrementally**: Start with shared Protobuf/Data classes, then Activities, then Workflows, and finally Workers.
+4.  **Leverage Resources**: If the implementation requires advanced patterns (Sagas, Interceptors, Replay Testing), explicitly refer to the implementation playbook and testing strategies.
+
+## Capabilities
+
+### Go SDK Implementation
+
+- **Worker Management**: Deep knowledge of `worker.Options`, including `MaxConcurrentActivityTaskPollers`, `WorkerStopTimeout`, and `StickyScheduleToStartTimeout`.
+- **Interceptors**: Implementing Client, Worker, and Workflow interceptors for cross-cutting concerns (logging, tracing, auth).
+- **Custom Data Converters**: Integrating Protobuf, encrypted payloads, or custom JSON marshaling.
+
+### Advanced Workflow Patterns
+
+- **Durable Concurrency**: Using `workflow.Go`, `workflow.Channel`, and `workflow.Selector` instead of native primitives.
+- **Versioning**: Implementing safe code evolution using `workflow.GetVersion` and `workflow.GetReplaySafeLogger`.
+- **Large-scale Processing**: Pattern for `ContinueAsNew` to manage history size limits (defaults: 50MB or 50K events).
+- **Child Workflows**: Managing lifecycle, cancellation, and parent-child signal propagation.
+
+### Testing & Observability
+
+- **Testsuite Mastery**: Using `WorkflowTestSuite` for unit and functional testing with deterministic time control.
+- **Mocking**: Sophisticated activity and child workflow mocking strategies.
+- **Replay Testing**: Validating code changes against production event histories.
+- **Metrics**: Configuring Prometheus/OpenTelemetry exporters for worker performance tracking.
+
+## Examples
+
+### Example 1: Versioned Workflow (Deterministic)
 
 ```go
-// imports 省略，需要 go.temporal.io/sdk/{workflow,temporal} 与 time
+// Note: imports omitted. Requires 'go.temporal.io/sdk/workflow', 'go.temporal.io/sdk/temporal', and 'time'.
 func SubscriptionWorkflow(ctx workflow.Context, userID string) error {
-    // 1. 版本化以安全演进逻辑（v1 = DefaultVersion）
+    // 1. Versioning for logic evolution (v1 = DefaultVersion)
     v := workflow.GetVersion(ctx, "billing_logic", workflow.DefaultVersion, 2)
 
     for i := 0; i < 12; i++ {
         ao := workflow.ActivityOptions{
             StartToCloseTimeout: 5 * time.Minute,
-            RetryPolicy:         &temporal.RetryPolicy{MaximumAttempts: 3},
+            RetryPolicy: &temporal.RetryPolicy{MaximumAttempts: 3},
         }
         ctx = workflow.WithActivityOptions(ctx, ao)
 
-        // 2. 执行 Activity（务必处理 error）
+        // 2. Activity Execution (Always handle errors)
         err := workflow.ExecuteActivity(ctx, ChargePaymentActivity, userID).Get(ctx, nil)
         if err != nil {
             workflow.GetLogger(ctx).Error("Payment failed", "Error", err)
             return err
         }
 
-        // 3. 持久 Sleep（时间跳跃安全），按版本切换周期
+        // 3. Durable Sleep (Time-skipping safe)
         sleepDuration := 30 * 24 * time.Hour
         if v >= 2 {
             sleepDuration = 28 * 24 * time.Hour
         }
+
         if err := workflow.Sleep(ctx, sleepDuration); err != nil {
             return err
         }
@@ -89,17 +112,17 @@ func SubscriptionWorkflow(ctx workflow.Context, userID string) error {
 }
 ```
 
-### 示例 2：完整 mTLS Worker
+### Example 2: Full mTLS Worker Setup
 
 ```go
 func RunSecureWorker() error {
-    // 1. 加载客户端证书与私钥
+    // 1. Load Client Certificate and Key
     cert, err := tls.LoadX509KeyPair("client.pem", "client.key")
     if err != nil {
         return fmt.Errorf("failed to load client keys: %w", err)
     }
 
-    // 2. 加载 CA 证书校验服务端（完整 mTLS）
+    // 2. Load CA Certificate for Server verification (Proper mTLS)
     caPem, err := os.ReadFile("ca.pem")
     if err != nil {
         return fmt.Errorf("failed to read CA cert: %w", err)
@@ -109,7 +132,7 @@ func RunSecureWorker() error {
         return fmt.Errorf("failed to parse CA cert")
     }
 
-    // 3. 带完整 TLS 配置拨号集群
+    // 3. Dial Cluster with full TLS config
     c, err := client.Dial(client.Options{
         HostPort:  "temporal.example.com:7233",
         Namespace: "production",
@@ -135,22 +158,24 @@ func RunSecureWorker() error {
 }
 ```
 
-### 示例 3：Selector + 信号 + 超时
+### Example 3: Selector & Signal Integration
 
 ```go
 func ApprovalWorkflow(ctx workflow.Context) (string, error) {
     var approved bool
     signalCh := workflow.GetSignalChannel(ctx, "approval-signal")
 
-    // 用 Selector 同时等待多个异步事件
+    // Use Selector to wait for multiple async events
     s := workflow.NewSelector(ctx)
     s.AddReceive(signalCh, func(c workflow.ReceiveChannel, _ bool) {
         c.Receive(ctx, &approved)
     })
-    // 加 72 小时超时定时器
+
+    // Add 72-hour timeout timer
     s.AddReceive(workflow.NewTimer(ctx, 72*time.Hour).GetChannel(), func(c workflow.ReceiveChannel, _ bool) {
         approved = false
     })
+
     s.Select(ctx)
 
     if !approved {
@@ -160,31 +185,42 @@ func ApprovalWorkflow(ctx workflow.Context) (string, error) {
 }
 ```
 
-## 注意事项
+## Best Practices
 
-**应当做：**
-- 始终处理 `ExecuteActivity` 与 `client.Dial` 的 error。
-- 并发用 `workflow.Go` / `workflow.Channel`，绝不用原生 goroutine。
-- map 遍历前先排序 key 以保确定性。
-- Activity 超过 1 分钟用 `activity.RecordHeartbeat`，并处理 context 取消。
-- 改逻辑前用 `replayer.ReplayWorkflowHistoryFromJSON` 校验兼容性。
+- ✅ **Do:** Always handle errors from `ExecuteActivity` and `client.Dial`.
+- ✅ **Do:** Use `workflow.Go` and `workflow.Channel` for concurrency.
+- ✅ **Do:** Sort map keys before iteration to maintain determinism.
+- ✅ **Do:** Use `activity.RecordHeartbeat` for activities lasting > 1 minute.
+- ✅ **Do:** Test logic compatibility using `replayer.ReplayWorkflowHistoryFromJSON`.
+- ❌ **Don't:** Swallow errors with `_` or `log.Fatal` in production workers.
+- ❌ **Don't:** Perform direct Network/Disk I/O inside a Workflow function.
+- ❌ **Don't:** Rely on native `time.Now()` or `rand.Int()`.
+- ❌ **Don't:** Apply this to simple cron jobs that don't require durability.
 
-**不要做：**
-- 用 `_` 吞错或在生产 Worker 里 `log.Fatal`。
-- 在工作流函数内做网络/磁盘 I/O。
-- 依赖原生 `time.Now()` / `rand.Int()`。
-- 把它套到不需要持久化的简单 cron 上。
+## Troubleshooting
 
-**常见故障排查：**
-- **Panic: Determinism Mismatch**：通常是未用 `workflow.GetVersion` 就改逻辑，或引入了非确定性代码（如原生 map 遍历）。
-- **Error: History Size Exceeded**：触达默认 5 万事件上限，需实现 `ContinueAsNew`。
-- **Worker Hang**：检查 `WorkerStopTimeout`，确保所有 Activity 都处理 context 取消。
+- **Panic: Determinism Mismatch**: Usually caused by logic changes without `workflow.GetVersion` or non-deterministic code (e.g., native maps).
+- **Error: History Size Exceeded**: History limit reached (default 50K events). Ensure `ContinueAsNew` is implemented.
+- **Worker Hang**: Check `WorkerStopTimeout` and ensure all activities handle context cancellation.
 
-## 互见
+## Limitations
 
-- related：`grpc-golang` —— 内部传输协议与 Protobuf 设计
-- related：`golang-pro` —— Go 通用性能调优与高级语法
-- related：`workflow-orchestration-patterns` —— 语言无关的编排策略
+- Does not cover Temporal Cloud UI navigation or TLS certificate provisioning workflows.
+- Does not cover Temporal Java, Python, or TypeScript SDKs; refer to their dedicated `-pro` skills.
+- Assumes Temporal Server v1.20+ and Go SDK v1.25+; older SDK versions may have different APIs.
+- Does not cover experimental Temporal features (e.g., Nexus, Multi-cluster Replication).
+- Does not address global namespace configuration or multi-region failover setup.
+- Does not cover Temporal Worker versioning via the `worker-versioning` feature flag (experimental).
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Resources
+
+- [Implementation Playbook](resources/implementation-playbook.md) - Deep dive into Go SDK patterns.
+- [Testing Strategies](resources/testing-strategies.md) - Unit, Replay, and Integration testing for Go.
+- [Temporal Go SDK Reference](https://pkg.go.dev/go.temporal.io/sdk)
+- [Temporal Go Samples](https://github.com/temporalio/samples-go)
+
+## Related Skills
+
+- `grpc-golang` - Internal transport protocol and Protobuf design.
+- `golang-pro` - General Go performance tuning and advanced syntax.
+- `workflow-orchestration-patterns` - Language-agnostic orchestration strategy.

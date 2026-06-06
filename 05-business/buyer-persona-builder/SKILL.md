@@ -1,14 +1,14 @@
 ---
 name: buyer-persona-builder
-title: 买家画像构建
-description: 当你已有用户/客户数据（分析、调研、访谈、工单）并要为营销与销售产出可落地的数据驱动买家画像时使用；做"原型归类→人口/行为/动机聚合→痛点带频次→营销含义→置信度评级"并输出结构化画像（文本/JSON）；不适用于零数据的"拍脑袋"画像、纯 UX 界面设计实现、或单画像覆盖全部人群。触发词：买家画像、用户画像、客户原型、ICP 画像、persona
+title: Buyer Persona Builder
+description: Turn real user/customer data (analytics, surveys, interviews, support tickets) into actionable, data-driven buyer personas for marketing and sales — archetype clustering, demographic/behavioral aggregation, frequency-counted pain points, marketing implications, and a confidence r
 domain: 商业/marketing
-triggers: [买家画像, 用户画像, 客户原型, ICP 画像, persona, 数据驱动画像, 目标客户细分, 痛点提炼, 客户细分, 理想客户画像]
-tags: [商业, marketing, 买家画像, 客户细分, 用户研究, icp, 数据驱动]
-level: 进阶
+triggers: [buyer persona, user persona, customer archetype, ICP persona, persona, data-driven persona, target customer segmentation, pain point extraction, customer segmentation, ideal customer profile]
+tags: [business, marketing, buyer-persona, customer-segmentation, user-research, icp, data-driven]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [persona_generator.py, Read, Bash]
+tools: []
 requires: []
 related: [customer-research-synthesizer, competitive-analysis, market-sizing-analyst, content-strategy-planner]
 combines_with: [customer-research-synthesizer, content-marketing-strategist, product-marketing-gtm-strategy]
@@ -16,19 +16,21 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当你手上**已有真实的用户/客户数据**（产品分析、调研问卷、销售/客成访谈、支持工单、CRM 字段），需要把它们提炼成**营销与销售可直接使用**的买家画像时使用：定向投放、销售话术、内容选题、ICP 圈定、官网文案的对象设定。
+Use this skill when you **already have real user/customer data** (product analytics, survey responses, sales/CS interviews, support tickets, CRM fields) and need to distill it into buyer personas that **marketing and sales can act on directly**: ad targeting, sales talk tracks, content topics, ICP definition, and the audience model behind landing-page copy.
 
-**不该用的边界（重要）：**
-- 没有任何数据，只想凭团队主观"拍脑袋"造画像 —— 这是被本方法明确禁止的反模式（见"注意事项"）。
-- 你要做的是**界面/交互的 UX 设计实现**（设计 token、组件、可用性测试），那属于产品/设计范畴，不是本条目。
-- 想用**一个画像覆盖所有人**（25-55 岁、又要简单又要高级…）—— 应拆成多个细分画像，而不是拉伸一个。
-- 仅做单点定量统计（留存、漏斗），不需要"人格化"的客户原型。
+The original `usage_context=work` field is treated as a B2B/business-buyer signal — a core dimension for a marketing persona.
 
-## 步骤
+**Where NOT to use (important boundaries):**
+- You have no data and just want to invent a persona from team opinion — this is an explicitly forbidden anti-pattern (see Notes).
+- You are doing **UX/interaction design implementation** (design tokens, components, usability testing) — that is product/design scope, not this entry.
+- You want **one persona to cover everyone** (25–55, simple yet advanced…) — split into multiple segment personas instead of stretching one.
+- You only need single-metric quant analysis (retention, funnel) with no "humanized" customer archetype.
 
-1. **准备客户数据**（JSON 数组，每条一个用户）。关键字段：
+## Steps
+
+1. **Prepare customer data** — a JSON array, one object per user. Key fields:
    ```json
    [
      {
@@ -43,77 +45,94 @@ source_license: MIT
      }
    ]
    ```
-   `usage_context=work` 会被识别为商业/B2B 买家信号，是营销画像的核心维度。
 
-2. **运行画像生成器**（脚本默认内置 30 条样本数据，可替换为你自己的数据源）：
+2. **Run the persona generator** (the script ships with sample data; replace it with your own source):
    ```bash
-   # 人类可读输出
+   # Human-readable output
    python scripts/persona_generator.py
 
-   # JSON 输出，便于接入 CRM / BI / 投放系统
+   # JSON output for CRM / BI / ad-targeting integration
    python scripts/persona_generator.py json > personas.json
    ```
 
-3. **核对画像四要素是否真的来自数据**：原型（archetype）是否匹配数据模式；人口属性是否源于真实字段；目标是否具体可执行；痛点是否带频次（如"加载慢 14/20 人提及"）。
+3. **Review the generated components — confirm each one really comes from the data:**
 
-4. **看置信度评级**，决定能否对外使用：
-   | 样本量 | 置信度 | 适用场景 |
-   |--------|--------|----------|
-   | 5-10 人 | 低 | 仅探索性假设 |
-   | 11-30 人 | 中 | 方向性参考 |
-   | 31+ 人 | 高 | 可用于生产/正式投放 |
+   | Component | What to Check |
+   |-----------|---------------|
+   | Archetype | Does it match the data patterns? |
+   | Demographics | Are they derived from actual data? |
+   | Goals | Are they specific and actionable? |
+   | Frustrations | Do they include frequency counts? |
+   | Marketing implications | Can marketing/sales act on these? |
 
-   下限要求：**≥ 20 人 + ≥ 2 个数据源（定量 + 定性）**，否则只能当假设。
+4. **Read the confidence rating** to decide whether the persona is safe to ship:
 
-5. **验证再落地**：拿画像问 3-5 个真实客户"这像不像你？"；与销售/客成/工单交叉核对；与分析数据对账。通过后再用于话术与投放。
+   | Sample Size | Confidence | Use Case |
+   |-------------|------------|----------|
+   | 5–10 users | Low | Exploratory hypothesis only |
+   | 11–30 users | Medium | Directional reference |
+   | 31+ users | High | Production / live targeting |
 
-## 指令
+   Floor requirement: **≥ 20 users + ≥ 2 data sources (quant + qual)** — below that, treat it as a hypothesis only.
 
-- 原型识别采用启发式规则（脚本内逻辑）：`daily` 使用且功能数 >10 → **重度用户/Power User**；主设备为 mobile/tablet → **移动优先**；`work` 语境占比高于 personal → **商业买家/Business User**；其余 → **轻度用户**。商业场景下优先关注后者派生的"协作、报表、ROI、集成"营销含义。
-- 痛点必须**带频次**，禁止泛泛的"界面让人困惑"；要写成"找不到导出功能（8/12 人提及）"。
-- 人口属性**点到为止**：写"30-40 岁，城市职场人，研究生学历"，不要"34 岁，西雅图，斯坦福 MBA"。
-- 目标要**可执行**：写"每天需处理 50+ 条目且不做重复操作"，不要"想变高效"。
-- 每个画像须代表用户基数的 **≥ 15%**，否则考虑合并，不要为离群点单独立画像。
+5. **Validate before you ship:** show the persona to 3–5 real customers ("Does this sound like you?"); cross-check against sales/CS and support tickets; reconcile against analytics. Only then use it for talk tracks and targeting.
 
-## 示例
+## Steps (rules / instructions)
+
+- **Archetype classification** (heuristic logic inside the script):
+
+  | Archetype | Identifying Signals | Marketing / Design Focus |
+  |-----------|---------------------|--------------------------|
+  | Power User | Daily use, 10+ features, shortcuts | Efficiency, customization |
+  | Casual User | Weekly use, 3–5 features, simple | Simplicity, guidance |
+  | Business User | Work context, team features, ROI | Collaboration, reporting |
+  | Mobile-First | Mobile primary, quick actions | Touch, offline, speed |
+
+  In B2B contexts, prioritize the Business User's derived marketing angles — collaboration, reporting, ROI, integrations.
+- **Frustrations must carry a frequency.** No generic "the interface is confusing"; write "Can't find export function (mentioned by 8/12 users)".
+- **Keep demographics brief.** Write "Age 30–40, urban professional, graduate degree", not "34, Seattle, Stanford MBA".
+- **Goals must be actionable.** Write "Needs to process 50+ items daily without repetitive tasks", not "wants to be productive".
+- **Each persona must represent ≥ 15% of the user base.** Below that, consider merging — don't build a persona for an outlier.
+
+## Example
 
 ```
 ============================================================
-PERSONA: Taylor 商业买家
+PERSONA: Taylor the Business Buyer
 ============================================================
 
-📝 一个在工作场景下高频使用产品的日活用户
+📝 A daily user who primarily uses the product for work purposes
 
 Archetype: Business User
-Quote: "我得向决策者证明清晰的价值（ROI）"
+Quote: "I need to prove clear value (ROI) to decision-makers"
 
-👤 人口属性：年龄 25-34｜城市｜技术熟练度 进阶
-🎯 目标：提升团队效率｜跟踪指标｜与现有工具集成
-😤 痛点：报表能力弱（14/20）｜协作差｜缺企业级功能
-💡 营销/产品含义：
-  → 主打专业视觉与企业级信任（SSO、审计日志）
-  → 内容聚焦 ROI 与团队协作场景
-📈 基于 30 名用户｜置信度：中
+👤 Demographics: Age 25–34 | Urban | Tech Proficiency: Advanced
+🎯 Goals: Improve team efficiency | Track metrics | Integrate with existing tools
+😤 Frustrations: Weak reporting (14/20) | Poor collaboration | Missing enterprise features
+💡 Marketing / Product Implications:
+  → Lead with professional visuals and enterprise trust (SSO, audit logs)
+  → Focus content on ROI and team-collaboration scenarios
+📈 Based on 30 users | Confidence: Medium
 ```
 
-营销落地：用上面的 Quote 作广告主标题，用"痛点 + 频次"作落地页的痛点段，用"营销含义"决定内容选题与定向。
+Marketing application: use the Quote as an ad headline, use "pain point + frequency" as the pain section of the landing page, and use the marketing implications to drive content topics and targeting.
 
-## 注意事项
+## Notes
 
-避开这些会让画像失效的反模式：
-- **弹性画像**：一个画像试图覆盖所有人 → 按细分拆分。
-- **人口堆砌画像**：只有年龄/收入/学历，没有目标和痛点 → 以目标和痛点开头，人口属性最简化。
-- **理想客户画像**：描述你"想要"的客户而非"真实拥有"的 → 必须基于真实数据，保留真实局限。
-- **委员会画像**：每个干系人塞一句主观意见（CEO 加"偏企业"、销售加"爱看 demo"）→ 单一负责人、只用数据。
-- **过期画像**：建一次再不更新 → 每季度复盘并补充新数据。
+Avoid these anti-patterns that make a persona invalid:
 
-红线：把假设当数据、单一数据源、零频次的痛点，都会让画像不可信。
+- **The Elastic Persona** — one persona stretched to include everyone. Fix: create separate personas for distinct segments.
+- **The Demographic Persona** — all demographics (age/income/education), no goals or frustrations. Fix: lead with goals and frustrations, keep demographics minimal.
+- **The Ideal User Persona** — describes the customer you *want*, not the one you *have*. Fix: base on real user data, keep realistic limitations.
+- **The Committee Persona** — each stakeholder bolts on an opinion (CEO adds "enterprise-focused", sales adds "loves demos"). Fix: single owner, data-driven only.
+- **The Stale Persona** — built once, never updated. Fix: review quarterly and refresh with new data.
 
-## 互见
+Red lines: treating assumptions as data, relying on a single data source, and zero-frequency pain points all make a persona untrustworthy.
 
-- UX 用户研究与旅程地图（原始来源技能，偏产品/设计侧）。
-- 客户细分 / ICP 与销售线索打分（商业域内可衔接的下游条目）。
+Red flags to watch (from the methodology): an "Everyone" persona (too broad → split), contradicting data (forcing a narrative → re-cluster), no frustrations (sanitized → dig deeper), assumptions labeled as data (no real research → conduct it), and a single data source (fragile → add another type).
 
----
+## See also
 
-采编自 alirezarezvani/claude-skills（MIT），适配重写为面向商业/marketing 的买家画像构建，保留其原型分类、置信度评级与画像有效性反模式等关键约束。
+- UX user research and journey mapping (the original upstream skill, product/design oriented).
+- Customer segmentation / ICP and sales lead scoring (downstream entries within the business domain).
+- `customer-research-synthesizer`, `content-marketing-strategist`, `product-marketing-gtm-strategy` (combines well with these).

@@ -1,14 +1,14 @@
 ---
 name: agentmail-email-infra
-title: AI 智能体邮件基础设施
-description: 当 AI 智能体需要真实邮箱完成注册/验证码/事务通信时使用；通过 AgentMail REST API 开通账号、收发邮件、注册 Webhook、查询 karma 余额并产出可执行调用；不适用于自建/企业 SMTP/IMAP 或个人邮箱代收。触发词：AgentMail、智能体邮箱、theagentmail.net
+title: AgentMail — Email for AI Agents
+description: Email infrastructure for AI agents. Create accounts, send/receive emails, manage webhooks, and check karma balance via the AgentMail API.
 domain: 平台/integration
-triggers: [AgentMail, 智能体邮箱, agent email, theagentmail.net, 验证码邮箱, 邮件 webhook, karma 余额, 注册收信, 收验证码, 临时邮箱 API]
-tags: [平台, integration, email, agent, webhook, rest-api, agentmail, automation]
-level: 进阶
+triggers: [AgentMail, agent email, theagentmail.net]
+tags: [integration, email, agent, webhook, rest-api, agentmail, automation]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [curl, AgentMail REST API, @agentmail/sdk, Node.js crypto]
+tools: []
 requires: []
 related: [twilio-communications, whatsapp-cloud-api, transactional-email-template-builder, imessage-claude-bridge]
 combines_with: [mcp-builder, agent-tool-builder, computer-use-agents]
@@ -16,65 +16,33 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# AgentMail — Email for AI Agents
 
-- AI 智能体需要一个真实可收发的邮箱（`@theagentmail.net`），用于第三方服务注册、接收验证码/确认链接、或事务性邮件往来。
-- 需要开通/查询/删除 AgentMail 账号、发信、读取收件箱、下载附件，或注册入站 Webhook 把邮件事件接入自动化流程。
-- 需要监控 karma 余额与扣费，规避因余额耗尽导致的发信失败。
+AgentMail gives AI agents real email addresses (`@theagentmail.net`) with a REST API. Agents can send and receive email, sign up for services (GitHub, AWS, Slack, etc.), and get verification codes. A karma system prevents spam and keeps the shared domain's reputation high.
 
-**不该用：**
-- 接管企业自建 SMTP/IMAP、Gmail/Outlook 等个人邮箱的代收代发 —— 本技能只覆盖 AgentMail 托管域。
-- 大规模营销群发或任何可能损害共享域名声誉的行为（karma 机制会惩罚此类操作）。
-- 缺少 API Key、密钥权限或成功判定标准时，先停下来确认再调用。
+Base URL: `https://api.theagentmail.net`
 
-## 步骤
+## When to Use
+- An AI agent needs a real inbox/outbox for signups, verification flows, or transactional communication.
+- You need to provision AgentMail accounts, send messages, read inbox contents, or register inbound webhooks.
+- You need to monitor karma usage or wire email events into agent automation.
 
-1. **拿到凭证**：从 AgentMail 控制台获取 `am_...` 格式的 API Key，所有请求都带 `Authorization: Bearer am_...`。Base URL：`https://api.theagentmail.net`。
-2. **查余额**：执行任何扣 karma 的操作前，先 `GET /v1/karma` 确认 `balance` 充足（余额为 0 时发信/建号返回 HTTP 402）。
-3. **开通账号**（-10 karma）：`POST /v1/accounts`，记录返回的 `accountId`。
-4. **执行业务**：按需发信（-1）、轮询收件箱、读取整封邮件正文、下载附件。
-5. **接入实时事件**：如需即时收信，注册 Webhook，并在回调端校验签名 + 时间戳防重放。
-6. **回收**：用完账号 `DELETE /v1/accounts/:id`，可退回 10 karma。
+## Quick start
 
-## 指令
+All requests require `Authorization: Bearer am_...` header (API key from dashboard).
 
-核心 REST 端点（与 karma 影响）：
-
-| 方法 | 路径 | 说明 | Karma |
-|------|------|------|-------|
-| POST | `/v1/accounts` | 创建邮箱账号 | -10 |
-| GET | `/v1/accounts` | 列出所有账号 | |
-| GET | `/v1/accounts/:id` | 账号详情 | |
-| DELETE | `/v1/accounts/:id` | 删除账号 | +10 |
-| POST | `/v1/accounts/:id/messages` | 发送邮件 | -1 |
-| GET | `/v1/accounts/:id/messages` | 列出邮件 | |
-| GET | `/v1/accounts/:id/messages/:msgId` | 读取整封邮件（含正文/附件） | |
-| GET | `/v1/accounts/:id/messages/:msgId/attachments/:attId` | 取附件下载 URL | |
-| POST | `/v1/accounts/:id/webhooks` | 注册 Webhook | |
-| GET | `/v1/accounts/:id/webhooks` | 列出 Webhook | |
-| DELETE | `/v1/accounts/:id/webhooks/:whId` | 删除 Webhook | |
-| GET | `/v1/karma` | 查余额 + 事件流 | |
-
-发信可选字段：`cc`、`bcc`（字符串数组）；`inReplyTo`、`references`（用于会话串联）；`attachments`（`{filename, contentType, content}`，`content` 为 base64）。
-
-**karma 规则（关键约束）：**
-- 仅来自受信任服务商（Gmail、Outlook、Yahoo、iCloud、ProtonMail、Fastmail、Hey 等）的入站邮件才奖励 karma（`email_received` +2）；未知/一次性域名不计。
-- 对同一发件人，在你回复之前只奖励一次。对方连发 5 封而你未回复，只有第一封得分；回复后该发件人再来信才再次得分。
-- `money_paid` +100，`account_deleted` +10（退还建号成本），`email_sent` -1，`account_created` -10。
-
-## 示例
-
-创建账号：
+### Create an email account (-10 karma)
 
 ```bash
 curl -X POST https://api.theagentmail.net/v1/accounts \
   -H "Authorization: Bearer am_..." \
   -H "Content-Type: application/json" \
   -d '{"address": "my-agent@theagentmail.net"}'
-# => {"data": {"id": "...", "address": "my-agent@theagentmail.net", "displayName": null, "createdAt": 123}}
 ```
 
-发信：
+Response: `{"data": {"id": "...", "address": "my-agent@theagentmail.net", "displayName": null, "createdAt": 123}}`
+
+### Send email (-1 karma)
 
 ```bash
 curl -X POST https://api.theagentmail.net/v1/accounts/{accountId}/messages \
@@ -88,16 +56,30 @@ curl -X POST https://api.theagentmail.net/v1/accounts/{accountId}/messages \
   }'
 ```
 
-读取收件箱与整封邮件：
+Optional fields: `cc`, `bcc` (string arrays), `inReplyTo`, `references` (strings for threading), `attachments` (array of `{filename, contentType, content}` where content is base64).
+
+### Read inbox
 
 ```bash
+# List messages
 curl https://api.theagentmail.net/v1/accounts/{accountId}/messages \
   -H "Authorization: Bearer am_..."
+
+# Get full message (with body and attachments)
 curl https://api.theagentmail.net/v1/accounts/{accountId}/messages/{messageId} \
   -H "Authorization: Bearer am_..."
 ```
 
-注册 Webhook（实时入站）：
+### Check karma
+
+```bash
+curl https://api.theagentmail.net/v1/karma \
+  -H "Authorization: Bearer am_..."
+```
+
+Response: `{"data": {"balance": 90, "events": [...]}}`
+
+### Register webhook (real-time inbound)
 
 ```bash
 curl -X POST https://api.theagentmail.net/v1/accounts/{accountId}/webhooks \
@@ -106,7 +88,11 @@ curl -X POST https://api.theagentmail.net/v1/accounts/{accountId}/webhooks \
   -d '{"url": "https://my-agent.example.com/inbox"}'
 ```
 
-Webhook 回调签名校验（HMAC-SHA256，拒收 5 分钟前的时间戳防重放）：
+Webhook deliveries include two security headers:
+- `X-AgentMail-Signature` -- HMAC-SHA256 hex digest of the request body, signed with the webhook secret
+- `X-AgentMail-Timestamp` -- millisecond timestamp of when the delivery was sent
+
+Verify the signature and reject requests with timestamps older than 5 minutes to prevent replay attacks:
 
 ```typescript
 import { createHmac } from "crypto";
@@ -117,63 +103,166 @@ const verifyWebhook = (body: string, signature: string, timestamp: string, secre
 };
 ```
 
-TypeScript SDK（`@agentmail/sdk`）典型流程：
+### Download attachment
 
-```typescript
-import { createClient, AgentMailError } from "@agentmail/sdk";
-
-const mail = createClient({ apiKey: "am_..." });
-const account = await mail.accounts.create({ address: "my-agent@theagentmail.net" });
-await mail.messages.send(account.id, { to: ["human@example.com"], subject: "Hello", text: "Sent by an AI agent." });
-
-const messages = await mail.messages.list(account.id);
-const detail = await mail.messages.get(account.id, messages[0].id);
-const att = await mail.attachments.getUrl(account.id, messageId, attachmentId); // att.url 为带签名下载链接
-const karma = await mail.karma.getBalance(); // karma.balance
+```bash
+curl https://api.theagentmail.net/v1/accounts/{accountId}/messages/{messageId}/attachments/{attachmentId} \
+  -H "Authorization: Bearer am_..."
 ```
 
-常见模式 —— 注册后轮询验证码邮件：
+Returns `{"data": {"url": "https://signed-download-url..."}}`.
+
+## Full API reference
+
+| Method | Path | Description | Karma |
+|--------|------|-------------|-------|
+| POST | `/v1/accounts` | Create email account | -10 |
+| GET | `/v1/accounts` | List all accounts | |
+| GET | `/v1/accounts/:id` | Get account details | |
+| DELETE | `/v1/accounts/:id` | Delete account | +10 |
+| POST | `/v1/accounts/:id/messages` | Send email | -1 |
+| GET | `/v1/accounts/:id/messages` | List messages | |
+| GET | `/v1/accounts/:id/messages/:msgId` | Get full message | |
+| GET | `/v1/accounts/:id/messages/:msgId/attachments/:attId` | Get attachment URL | |
+| POST | `/v1/accounts/:id/webhooks` | Register webhook | |
+| GET | `/v1/accounts/:id/webhooks` | List webhooks | |
+| DELETE | `/v1/accounts/:id/webhooks/:whId` | Delete webhook | |
+| GET | `/v1/karma` | Get balance + events | |
+
+## Karma system
+
+Every action has a karma cost or reward:
+
+| Event | Karma | Why |
+|---|---|---|
+| `money_paid` | +100 | Purchase credits |
+| `email_received` | +2 | Someone replied from a trusted domain |
+| `account_deleted` | +10 | Karma refunded when you delete an address |
+| `email_sent` | -1 | Sending costs karma |
+| `account_created` | -10 | Creating addresses costs karma |
+
+**Important rules:**
+- Karma is only awarded for inbound emails from trusted providers (Gmail, Outlook, Yahoo, iCloud, ProtonMail, Fastmail, Hey, etc.). Emails from unknown/throwaway domains don't earn karma.
+- You only earn karma once per sender until the agent replies. If sender X emails you 5 times without a reply, only the first earns karma. Reply to X, and the next email from X earns karma again.
+- Deleting an account refunds the 10 karma it cost to create.
+
+When karma reaches 0, sends and account creation return HTTP 402. Always check balance before operations that cost karma.
+
+## TypeScript SDK
 
 ```typescript
+import { createClient } from "@agentmail/sdk";
+
+const mail = createClient({ apiKey: "am_..." });
+
+// Create account
+const account = await mail.accounts.create({
+  address: "my-agent@theagentmail.net",
+});
+
+// Send email
+await mail.messages.send(account.id, {
+  to: ["human@example.com"],
+  subject: "Hello",
+  text: "Sent by an AI agent.",
+});
+
+// Read inbox
+const messages = await mail.messages.list(account.id);
+const detail = await mail.messages.get(account.id, messages[0].id);
+
+// Attachments
+const att = await mail.attachments.getUrl(accountId, messageId, attachmentId);
+// att.url is a signed download URL
+
+// Webhooks
+await mail.webhooks.create(account.id, {
+  url: "https://my-agent.example.com/inbox",
+});
+
+// Karma
+const karma = await mail.karma.getBalance();
+console.log(karma.balance);
+```
+
+## Error handling
+
+```typescript
+import { AgentMailError } from "@agentmail/sdk";
+
+try {
+  await mail.messages.send(accountId, { to: ["a@b.com"], subject: "Hi", text: "Hey" });
+} catch (e) {
+  if (e instanceof AgentMailError) {
+    console.log(e.status);   // 402, 404, 401, etc.
+    console.log(e.code);     // "INSUFFICIENT_KARMA", "NOT_FOUND", etc.
+    console.log(e.message);
+  }
+}
+```
+
+## Common patterns
+
+### Sign up for a service and read verification email
+
+```typescript
+const account = await mail.accounts.create({
+  address: "signup-bot@theagentmail.net",
+});
+
+// Use the address to sign up (browser automation, API, etc.)
+
+// Poll for verification email
 for (let i = 0; i < 30; i++) {
   const messages = await mail.messages.list(account.id);
   const verification = messages.find(m =>
     m.subject.toLowerCase().includes("verify") ||
-    m.subject.toLowerCase().includes("confirm"));
+    m.subject.toLowerCase().includes("confirm")
+  );
   if (verification) {
     const detail = await mail.messages.get(account.id, verification.id);
-    // 从 detail.bodyText / detail.bodyHtml 解析验证链接或验证码
+    // Parse verification link/code from detail.bodyText or detail.bodyHtml
     break;
   }
   await new Promise(r => setTimeout(r, 2000));
 }
 ```
 
-发信后等待回复（按 `direction === "inbound"` 且时间戳晚于发信判定）：
+### Send email and wait for reply
 
 ```typescript
-const sent = await mail.messages.send(account.id, { to: ["human@company.com"], subject: "Question about order #12345", text: "Can you check the status?" });
+const sent = await mail.messages.send(account.id, {
+  to: ["human@company.com"],
+  subject: "Question about order #12345",
+  text: "Can you check the status?",
+});
+
 for (let i = 0; i < 60; i++) {
   const messages = await mail.messages.list(account.id);
-  const reply = messages.find(m => m.direction === "inbound" && m.timestamp > sent.timestamp);
-  if (reply) { const detail = await mail.messages.get(account.id, reply.id); break; }
+  const reply = messages.find(m =>
+    m.direction === "inbound" && m.timestamp > sent.timestamp
+  );
+  if (reply) {
+    const detail = await mail.messages.get(account.id, reply.id);
+    // Process reply
+    break;
+  }
   await new Promise(r => setTimeout(r, 5000));
 }
 ```
 
-## 注意事项
+## Types
 
-- **402 = karma 不足**：发信和建号在余额为 0 时返回 HTTP 402，务必先查 `/v1/karma`。错误码示例：`INSUFFICIENT_KARMA`、`NOT_FOUND`；HTTP 状态含 401/402/404 等，SDK 抛 `AgentMailError`（含 `.status`/`.code`/`.message`）。
-- **Webhook 安全**：必须同时校验 `X-AgentMail-Signature`（请求体的 HMAC-SHA256 hex）与 `X-AgentMail-Timestamp`（毫秒时间戳），拒收超过 5 分钟的投递以防重放。
-- **附件**：`GET .../attachments/:attId` 返回 `{"data": {"url": "..."}}`，是带签名的临时下载 URL，不直接返回二进制；发信附件 `content` 需 base64 编码。
-- **轮询节奏**：验证码场景建议 2s 间隔、≤30 次；等待人工回复建议 5s 间隔、≤60 次，避免空转浪费配额。
-- **核心类型**：`Message` 含 `direction: "inbound" | "outbound"` 与 `timestamp`；`MessageDetail` 额外有 `bodyText`/`bodyHtml`/`cc`/`bcc`/`inReplyTo`/`references`/`attachments`。
-- 用完即弃：删号退还 karma，长期不用的账号应回收。
+```typescript
+type Account = { id: string; address: string; displayName: string | null; createdAt: number };
+type Message = { id: string; from: string; to: string[]; subject: string; direction: "inbound" | "outbound"; status: string; timestamp: number };
+type MessageDetail = Message & { cc: string[] | null; bcc: string[] | null; bodyText: string | null; bodyHtml: string | null; inReplyTo: string | null; references: string | null; attachments: AttachmentMeta[] };
+type AttachmentMeta = { id: string; filename: string; contentType: string; size: number };
+type KarmaBalance = { balance: number; events: KarmaEvent[] };
+type KarmaEvent = { id: string; type: string; amount: number; timestamp: number; metadata?: Record<string, unknown> };
+```
 
-## 互见
-
-- `lark-mail`：飞书托管邮箱的起草/收发/规则管理，企业内网场景的对照方案。
-- 平台/integration 域下其他第三方 API 接入类技能（Webhook 签名校验、轮询等待模式可复用）。
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

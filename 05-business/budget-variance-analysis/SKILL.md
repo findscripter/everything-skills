@@ -1,14 +1,14 @@
 ---
 name: budget-variance-analysis
-title: 预算差异归因分析
-description: 当需把预算/上期/预测 vs 实际的差异拆成可量化动因（量×价、率×结构、人头薪酬、费用类别）并做瀑布桥分析时使用；做差异分解+重要性筛查+瀑布/桥接对账表，每个动因带带符号金额并验证"起点+各动因=终点"；不适用于只写文字波动说明（→variance-flux-commentary）、不出审计/合规/预测结论、无底层量价人头数据时编造动因；触发词：差异分析、量价分解、瀑布图、bridge、价量结构、预算vs实际、variance analysis
+title: Variance Analysis
+description: Decompose financial variances into drivers with narrative explanations and waterfall analysis. Use when analyzing budget vs. actual, period-over-period changes, revenue or expense variances, or preparing variance commentary for leadership.
 domain: 商业/copy
-triggers: [差异分析, 量价分解, 瀑布图, bridge, 价量结构, 预算vs实际, variance analysis, waterfall, price volume, rate mix]
+triggers: [bridge, variance analysis, waterfall, price volume, rate mix]
 tags: [finance, fpa, variance, waterfall, bridge, budget-vs-actual]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [python, pandas, sql]
+tools: []
 requires: []
 related: [variance-flux-commentary, financial-statements-generator, gl-subledger-reconciler, month-end-close-manager]
 combines_with: [financial-statements-generator, variance-flux-commentary, board-deck-builder]
@@ -16,124 +16,263 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-免责声明：本技能辅助差异分析流程，不构成财务建议。所有分析在用于对外/对上报告前，须经具备资质的财务人员复核。
+# Variance Analysis
 
-## 何时使用
+**Important**: This skill assists with variance analysis workflows but does not provide financial advice. All analyses should be reviewed by qualified financial professionals before use in reporting.
 
-- 拿到「基准 vs 实际」两组数（预算 vs 实际、上期 vs 本期、预测 vs 实际、环比 MoM），需要把总差异**拆成带符号的量化动因**并解释构成。
-- 差异可表达为「量×价」「率×结构」「人头×薪酬」或可归入费用类别，要把总差异桥接（waterfall/bridge）到一张可对账的明细表。
-- 触发词：差异分析、量价分解、瀑布图、bridge、价量结构、预算vs实际、variance analysis。
+Techniques for decomposing variances, materiality thresholds, narrative generation, waterfall chart methodology, and budget vs actual vs forecast comparisons.
 
-不该用的边界：
-- 只想要**文字波动说明**（每条科目一句话"为什么变"+小结），不需要量×价数学拆解 → 用 `variance-flux-commentary`，别在这里重复造轮子。
-- 取不到底层量、价、人头、供应商构成等明细数据 → 不要硬凑动因，标"动因待核实"，禁止臆造。
-- 需要审计意见、合规结论或前瞻预测 → 超出本技能；它只解释「已发生差异由哪些动因构成」。
+## Variance Decomposition Techniques
 
-## 步骤 / 指令
+### Price / Volume Decomposition
 
+The most fundamental variance decomposition. Used for revenue, cost of goods, and any metric that can be expressed as Price x Volume.
+
+**Formula:**
 ```
-1. 对齐口径
-   - 基准与实际同一 scope、同期、同币种/汇率口径；不一致先对齐再比。
-   - 总差异 = 实际 - 基准（预算或上期）。先记下方向（有利/不利）。
+Total Variance = Actual - Budget (or Prior)
 
-2. 选分解方法（按科目性质二选一或叠加）
-   - 收入 / COGS / 任何可写成 价×量 的指标 → 价量分解
-   - 跨细分的混合率（毛利率、blended rate）→ 率/结构(rate/mix)分解
-   - 薪酬 / 人力成本 → 人头/薪酬分解
-   - 不适用价量的运营费用 → 费用类别分解
+Volume Effect  = (Actual Volume - Budget Volume) x Budget Price
+Price Effect   = (Actual Price - Budget Price) x Actual Volume
+Mix Effect     = Residual (interaction term), or allocated proportionally
 
-3. 套公式算每个动因（带符号），并验证闭合
-   - 价量（两因素，混合内嵌）：
-       Volume Effect = (实际量 - 基准量) × 基准价
-       Price  Effect = (实际价 - 基准价) × 实际量
-       校验：Volume + Price = Total Variance
-   - 价量结构（三因素，拆出 mix）：
-       Volume = (实际量 - 基准量) × 基准价 × 基准结构
-       Price  = (实际价 - 基准价) × 基准量 × 实际结构
-       Mix    = 基准价 × 基准量 × (实际结构 - 基准结构)
-   - 率/结构：
-       Rate Effect = Σ 实际量_i × (实际率_i - 基准率_i)
-       Mix  Effect = Σ 基准率_i × (实际量_i - 基准结构下的期望量_i)
-   - 人头/薪酬（拆 5 项）：
-       1 Headcount = (实际HC - 基准HC) × 基准人均薪酬
-       2 Rate      = (实际人均 - 基准人均) × 基准HC
-       3 Mix       职级/部门结构变动差额
-       4 Timing    早/晚于计划入职的部分期效应
-       5 Attrition 非计划离职节省（部分被补员成本抵消）
-   - 费用类别（按驱动归类）：人头驱动 / 量驱动 / 可裁量 / 合同固定 / 一次性 / 时间错配(phasing)
-
-4. 重要性筛查——只对过阈值的差异写动因
-   | 对比类型        | 百分比阈值 | 触发 |
-   |----------------|-----------|------|
-   | 实际 vs 预算    | 10%       | 额或% 任一超 |
-   | 实际 vs 上期    | 15%       | 任一超 |
-   | 实际 vs 预测    | 5%        | 任一超 |
-   | 环比 MoM        | 20%       | 任一超 |
-   金额阈值按公司规模设定（常用：损益项取收入的 0.5%-1%）。
-   多项过阈时，优先级：绝对额最大 → 百分比最大 → 方向反常 → 新出现的差异 → 持续累积。
-
-5. 出瀑布/桥接 + 对账表
-   - 起点(基准) → 各带符号动因 → 终点(实际)。
-   - 硬校验：起点 + Σ动因 = 终点；不闭合不得交付。
-   - 动因控制在 5-8 个，零碎并入"其他"；从最大正到最大负排序。
+Verification:  Volume Effect + Price Effect = Total Variance
+               (when mix is embedded in the price/volume terms)
 ```
 
-文本瀑布格式（无绘图工具时直接用）：
-
+**Three-way decomposition (separating mix):**
 ```
-WATERFALL：收入 — Q4 实际 vs Q4 预算
-
-Q4 预算收入                                    $10,000K
-  |--[+] 新客量增长                             +$800K
-  |--[+] 存量扩容(expansion)                    +$400K
-  |--[-] 降价/折扣                              -$200K
-  |--[-] 流失/收缩(churn)                       -$350K
-  |--[+] 汇率顺风                               +$50K
-  |--[-] 时间错配(订单滑到Q1)                    -$150K
-Q4 实际收入                                    $10,550K
-
-净差异：+$550K (+5.5% 有利)
+Volume Effect = (Actual Volume - Budget Volume) x Budget Price x Budget Mix
+Price Effect  = (Actual Price - Budget Price) x Budget Volume x Actual Mix
+Mix Effect    = Budget Price x Budget Volume x (Actual Mix - Budget Mix)
 ```
 
-## 示例
+**Example — Revenue variance:**
+- Budget: 10,000 units at $50 = $500,000
+- Actual: 11,000 units at $48 = $528,000
+- Total variance: +$28,000 favorable
+  - Volume effect: +1,000 units x $50 = +$50,000 (favorable — sold more units)
+  - Price effect: -$2 x 11,000 units = -$22,000 (unfavorable — lower ASP)
+  - Net: +$28,000
 
-收入差异（两因素价量分解）：
-- 预算：10,000 件 × $50 = $500,000
-- 实际：11,000 件 × $48 = $528,000
-- 总差异：+$28,000（有利）
-  - Volume = (11,000-10,000) × $50 = +$50,000（多卖）
-  - Price  = ($48-$50) × 11,000 = -$22,000（ASP 下降）
-  - 校验：+50,000 - 22,000 = +28,000 ✓
+### Rate / Mix Decomposition
 
-桥接对账表（与上面瀑布配套，% of Variance 单项可超 100% 因有抵消项）：
+Used when analyzing blended rates across segments with different unit economics.
 
-| 动因 | 金额 | 占总差异% | 累计 |
-|---|---|---|---|
-| 新客量增长 | +$800K | 145% | +$800K |
-| 存量扩容 | +$400K | 73% | +$1,200K |
-| 降价/折扣 | -$200K | -36% | +$1,000K |
-| 流失/收缩 | -$350K | -64% | +$650K |
-| 汇率顺风 | +$50K | 9% | +$700K |
-| 时间错配 | -$150K | -27% | +$550K |
-| 总差异 | +$550K | 100% | |
+**Formula:**
+```
+Rate Effect = Sum of (Actual Volume_i x (Actual Rate_i - Budget Rate_i))
+Mix Effect  = Sum of (Budget Rate_i x (Actual Volume_i - Expected Volume_i at Budget Mix))
+```
 
-委托提示词（给 Agent 调用）：
-> 输入基准与实际两组数（同口径）。按科目性质选价量/率结构/人头薪酬/费用类别分解法，逐动因算带符号金额并验证"起点+Σ动因=终点"，不闭合则报错不交付。仅对过阈值差异（实际vs预算10%、vs上期15%、vs预测5%、MoM20%）写动因，动因数据不足标"动因待核实"，不要编。最后给文本瀑布+桥接对账表（5-8个动因，按最大正到最大负排序，零碎并入"其他"）。
+**Example — Gross margin variance:**
+- Product A: 60% margin, Product B: 40% margin
+- Budget mix: 50% A, 50% B → Blended margin 50%
+- Actual mix: 40% A, 60% B → Blended margin 48%
+- Mix effect explains 2pp of margin compression
 
-## 注意事项
+### Headcount / Compensation Decomposition
 
-- **必须闭合**：起点 + Σ动因 = 终点，不对账不交付；价量两因素法只在 mix 内嵌于价/量项时才闭合，需拆 mix 改用三因素法。
-- 动因须可溯源（量、价、人头净增减、供应商/科目构成、凭证来源）；数据讲不清就标"动因待核实"，绝不杜撰。
-- 阈值优先用公司给定重要性标准；缺省按上表，并注明所用阈值。
-- 百分比注意分母为零或接近零（如新开科目上期为 0），改用绝对额表述或标注。
-- 三组数务必同口径（scope/期间/币种汇率），否则差异失真。
-- 差异趋势的隐含信号：持续有利→预算偏保守(sandbagging)；持续不利→目标过激或执行问题；越拉越大→恶化或目标失真。
-- 本技能只做"已发生差异的量化归因"，不出审计意见、合规结论或预测。
+Used for analyzing payroll and people-cost variances.
 
-## 互见
+```
+Total Comp Variance = Actual Compensation - Budget Compensation
 
-- related：`variance-flux-commentary`（本技能产出量化动因后，由它把每条波动写成一句话因果说明加小结，量化与叙事分工）；`startup-financial-modeler`（差异分析的基准数来自财务模型/预算，回流校准模型假设）；`data-storyteller`（把瀑布与对账表转成给管理层/董事会的可视叙事）。
-- combines_with：`board-deck-builder`（差异瀑布与桥接表是董事会/月度复盘材料的核心页）；`cfo-financial-advisor`（CFO 视角解读差异动因并定下一步动作）。
+Decompose into:
+1. Headcount variance    = (Actual HC - Budget HC) x Budget Avg Comp
+2. Rate variance         = (Actual Avg Comp - Budget Avg Comp) x Budget HC
+3. Mix variance          = Difference due to level/department mix shift
+4. Timing variance       = Hiring earlier/later than planned (partial-period effect)
+5. Attrition impact      = Savings from unplanned departures (partially offset by backfill costs)
+```
 
----
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+### Spend Category Decomposition
+
+Used for operating expense analysis when price/volume is not applicable.
+
+```
+Total OpEx Variance = Actual OpEx - Budget OpEx
+
+Decompose by:
+1. Headcount-driven costs    (salaries, benefits, payroll taxes, recruiting)
+2. Volume-driven costs       (hosting, transaction fees, commissions, shipping)
+3. Discretionary spend       (travel, events, professional services, marketing programs)
+4. Contractual/fixed costs   (rent, insurance, software licenses, subscriptions)
+5. One-time / non-recurring  (severance, legal settlements, write-offs, project costs)
+6. Timing / phasing          (spend shifted between periods vs plan)
+```
+
+## Materiality Thresholds and Investigation Triggers
+
+### Setting Thresholds
+
+Materiality thresholds determine which variances require investigation and narrative explanation. Set thresholds based on:
+
+1. **Financial statement materiality:** Typically 1-5% of a key benchmark (revenue, total assets, net income)
+2. **Line item size:** Larger line items warrant lower percentage thresholds
+3. **Volatility:** More volatile line items may need higher thresholds to avoid noise
+4. **Management attention:** What level of variance would change a decision?
+
+### Recommended Threshold Framework
+
+| Comparison Type | Dollar Threshold | Percentage Threshold | Trigger |
+|----------------|-----------------|---------------------|---------|
+| Actual vs Budget | Organization-specific | 10% | Either exceeded |
+| Actual vs Prior Period | Organization-specific | 15% | Either exceeded |
+| Actual vs Forecast | Organization-specific | 5% | Either exceeded |
+| Sequential (MoM) | Organization-specific | 20% | Either exceeded |
+
+*Set dollar thresholds based on your organization's size. Common practice: 0.5%-1% of revenue for income statement items.*
+
+### Investigation Priority
+
+When multiple variances exceed thresholds, prioritize investigation by:
+
+1. **Largest absolute dollar variance** — biggest P&L impact
+2. **Largest percentage variance** — may indicate process issue or error
+3. **Unexpected direction** — variance opposite to trend or expectation
+4. **New variance** — item that was on track and is now off
+5. **Cumulative/trending variance** — growing each period
+
+## Narrative Generation for Variance Explanations
+
+### Structure for Each Variance Narrative
+
+```
+[Line Item]: [Favorable/Unfavorable] variance of $[amount] ([percentage]%)
+vs [comparison basis] for [period]
+
+Driver: [Primary driver description]
+[2-3 sentences explaining the business reason for the variance, with specific
+quantification of contributing factors]
+
+Outlook: [One-time / Expected to continue / Improving / Deteriorating]
+Action: [None required / Monitor / Investigate further / Update forecast]
+```
+
+### Narrative Quality Checklist
+
+Good variance narratives should be:
+
+- [ ] **Specific:** Names the actual driver, not just "higher than expected"
+- [ ] **Quantified:** Includes dollar and percentage impact of each driver
+- [ ] **Causal:** Explains WHY it happened, not just WHAT happened
+- [ ] **Forward-looking:** States whether the variance is expected to continue
+- [ ] **Actionable:** Identifies any required follow-up or decision
+- [ ] **Concise:** 2-4 sentences, not a paragraph of filler
+
+### Common Narrative Anti-Patterns to Avoid
+
+- "Revenue was higher than budget due to higher revenue" (circular — no actual explanation)
+- "Expenses were elevated this period" (vague — which expenses? why?)
+- "Timing" without specifying what was early/late and when it will normalize
+- "One-time" without explaining what the item was
+- "Various small items" for a material variance (must decompose further)
+- Focusing only on the largest driver and ignoring offsetting items
+
+## Waterfall Chart Methodology
+
+### Concept
+
+A waterfall (or bridge) chart shows how you get from one value to another through a series of positive and negative contributors. Used to visualize variance decomposition.
+
+### Data Structure
+
+```
+Starting value:  [Base/Budget/Prior period amount]
+Drivers:         [List of contributing factors with signed amounts]
+Ending value:    [Actual/Current period amount]
+
+Verification:    Starting value + Sum of all drivers = Ending value
+```
+
+### Text-Based Waterfall Format
+
+When a charting tool is not available, present as a text waterfall:
+
+```
+WATERFALL: Revenue — Q4 Actual vs Q4 Budget
+
+Q4 Budget Revenue                                    $10,000K
+  |
+  |--[+] Volume growth (new customers)               +$800K
+  |--[+] Expansion revenue (existing customers)      +$400K
+  |--[-] Price reductions / discounting               -$200K
+  |--[-] Churn / contraction                          -$350K
+  |--[+] FX tailwind                                  +$50K
+  |--[-] Timing (deals slipped to Q1)                 -$150K
+  |
+Q4 Actual Revenue                                    $10,550K
+
+Net Variance: +$550K (+5.5% favorable)
+```
+
+### Bridge Reconciliation Table
+
+Complement the waterfall with a reconciliation table:
+
+| Driver | Amount | % of Variance | Cumulative |
+|--------|--------|---------------|------------|
+| Volume growth | +$800K | 145% | +$800K |
+| Expansion revenue | +$400K | 73% | +$1,200K |
+| Price reductions | -$200K | -36% | +$1,000K |
+| Churn / contraction | -$350K | -64% | +$650K |
+| FX tailwind | +$50K | 9% | +$700K |
+| Timing (deal slippage) | -$150K | -27% | +$550K |
+| **Total variance** | **+$550K** | **100%** | |
+
+*Note: Percentages can exceed 100% for individual drivers when there are offsetting items.*
+
+### Waterfall Best Practices
+
+1. Order drivers from largest positive to largest negative (or in logical business sequence)
+2. Keep to 5-8 drivers maximum — aggregate smaller items into "Other"
+3. Verify the waterfall reconciles (start + drivers = end)
+4. Color-code: green for favorable, red for unfavorable (in visual charts)
+5. Label each bar with both the amount and a brief description
+6. Include a "Total Variance" summary bar
+
+## Budget vs Actual vs Forecast Comparisons
+
+### Three-Way Comparison Framework
+
+| Metric | Budget | Forecast | Actual | Bud Var ($) | Bud Var (%) | Fcast Var ($) | Fcast Var (%) |
+|--------|--------|----------|--------|-------------|-------------|---------------|---------------|
+| Revenue | $X | $X | $X | $X | X% | $X | X% |
+| COGS | $X | $X | $X | $X | X% | $X | X% |
+| Gross Profit | $X | $X | $X | $X | X% | $X | X% |
+
+### When to Use Each Comparison
+
+- **Actual vs Budget:** Annual performance measurement, compensation decisions, board reporting. Budget is set at the beginning of the year and typically not changed.
+- **Actual vs Forecast:** Operational management, identifying emerging issues. Forecast is updated periodically (monthly or quarterly) to reflect current expectations.
+- **Forecast vs Budget:** Understanding how expectations have changed since planning. Useful for identifying planning accuracy issues.
+- **Actual vs Prior Period:** Trend analysis, sequential performance. Useful when budget is not meaningful (new business lines, post-acquisition).
+- **Actual vs Prior Year:** Year-over-year growth analysis, seasonality-adjusted comparison.
+
+### Forecast Accuracy Analysis
+
+Track how accurate forecasts are over time to improve planning:
+
+```
+Forecast Accuracy = 1 - |Actual - Forecast| / |Actual|
+
+MAPE (Mean Absolute Percentage Error) = Average of |Actual - Forecast| / |Actual| across periods
+```
+
+| Period | Forecast | Actual | Variance | Accuracy |
+|--------|----------|--------|----------|----------|
+| Jan    | $X       | $X     | $X (X%)  | XX%      |
+| Feb    | $X       | $X     | $X (X%)  | XX%      |
+| ...    | ...      | ...    | ...      | ...      |
+| **Avg**|          |        | **MAPE** | **XX%**  |
+
+### Variance Trending
+
+Track how variances evolve over the year to identify systematic bias:
+
+- **Consistently favorable:** Budget may be too conservative (sandbagging)
+- **Consistently unfavorable:** Budget may be too aggressive or execution issues
+- **Growing unfavorable:** Deteriorating performance or unrealistic targets
+- **Shrinking variance:** Forecast accuracy improving through the year (normal pattern)
+- **Volatile:** Unpredictable business or poor forecasting methodology

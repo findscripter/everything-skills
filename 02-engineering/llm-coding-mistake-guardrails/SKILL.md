@@ -1,14 +1,14 @@
 ---
 name: llm-coding-mistake-guardrails
-title: 减少 LLM 编码常见错误的准则
-description: 当用 LLM 编写、审查或重构代码时使用；产出最小可行改动 + 显式假设 + 可验证成功标准（先写复现/校验测试再实现）；不适用于无需谨慎权衡的琐碎改动或纯需求澄清；触发词：LLM 编码、外科手术式改动、过度设计、可验证目标
+title: Karpathy Guidelines: Guardrails to Reduce LLM Coding Mistakes
+description: Behavioral guardrails for writing/reviewing/refactoring code with an LLM: surface assumptions, keep changes surgical, avoid over-engineering, and turn tasks into verifiable goals (write a reproducing/validating test first). Triggers: LLM coding, surgical change, over-engineering,
 domain: 研发/review
-triggers: [用 LLM 写代码, review 代码避免过度设计, 重构要保持最小改动, 把任务变成可验证目标, 代码过度复杂需要简化, 改动只动该动的]
-tags: [编码准则, code-review, llm 编码, 简洁性, 重构]
-level: 进阶
+triggers: [writing code with an LLM, review code to avoid over-engineering, keep a refactor to the minimal change, turn a task into a verifiable goal, code is overcomplicated and needs simplifying, change only what must change]
+tags: [coding-guidelines, code-review, llm-coding, simplicity, refactoring]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude-code, cursor, codex-cli, gemini-cli]
+tools: []
 requires: []
 related: [adversarial-code-reviewer, code-reviewer, clean-code-principles, autonomous-coding-agent-patterns]
 combines_with: [test-coverage-gap-finder, systematic-debugger, code-simplifier]
@@ -16,79 +16,94 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-- 用 LLM 编写、审查或重构代码，需要避免过度设计与投机性抽象时。
-- 改动需保持「外科手术式」，只动与需求直接相关的代码时。
-- 需要把模糊任务转成带明确成功标准、可独立循环验证的目标时。
-- 代码已经过度复杂、需要拆解简化时。
+Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
-**不该用（负边界）：**
-- 琐碎、低风险的小改动，凭判断直接做即可，不必走完整流程。
-- 纯需求澄清、架构选型讨论等不落到代码的场景。
-- 紧急修复：优先做「最小且已验证」的修正，而非铺开详尽规划。
-- 探索性原型：可放宽部分谨慎度，但假设与验证仍要写明。
+- Use when writing, reviewing, or refactoring code with an LLM and you need to avoid overcomplication and speculative abstractions.
+- Use when a change needs to stay surgical and touch only code directly tied to the request.
+- Use when assumptions, tradeoffs, and verification criteria should be made explicit.
+- Use when code has become overcomplicated and needs to be simplified.
 
-> 权衡：本准则偏向「谨慎优先于速度」。它是行为护栏，不替代项目自身的架构与风格规范。
+**Don't use (negative boundaries):**
+- Trivial, low-risk changes — use judgment and just make them; no need to run the full process.
+- Pure requirements clarification or architecture-selection discussions that don't land in code.
+- Emergency fixes — prioritize the smallest verified correction over extensive planning.
+- Exploratory prototypes — some caution can be relaxed, but assumptions and verification still must be explicit.
 
-## 步骤
+> **Tradeoff:** These guidelines bias toward caution over speed. They are behavioral guardrails, not a replacement for the project's own architecture and style rules.
 
-1. **编码前先想清楚**：显式说明假设；存在多种解读就全列出、不要默默选一个；有更简方案就指出并在合理时反推（push back）；有不清楚的地方先停下，点名困惑点并发问。
-2. **简洁优先**：只写解决问题的最小代码——不加未被要求的功能、不为一次性代码做抽象、不加未请求的「灵活性/可配置」、不为不可能发生的场景写错误处理。自检：「资深工程师会不会觉得这过度复杂？」是则重写。
-3. **外科手术式改动**：只碰必须碰的；不顺手「优化」相邻代码/注释/格式，不重构没坏的东西，沿用现有风格即使你有别的偏好；发现无关死代码只提示、不删除。
-4. **清理你自己制造的孤儿**：移除因「你的改动」而失效的 import/变量/函数；除非被要求，不动既有的历史死代码。
-5. **目标驱动执行**：把任务转成可验证目标，定义成功标准后独立循环直到通过。多步任务先给一句话计划，每步附带 verify。
+## Steps
 
-## 指令
+1. **Think before coding.** Don't assume, don't hide confusion, surface tradeoffs.
+   - State your assumptions explicitly. If uncertain, ask.
+   - If multiple interpretations exist, present them — don't pick silently.
+   - If a simpler approach exists, say so. Push back when warranted.
+   - If something is unclear, stop. Name what's confusing. Ask.
+2. **Simplicity first.** Write the minimum code that solves the problem; nothing speculative.
+   - No features beyond what was asked.
+   - No abstractions for single-use code.
+   - No "flexibility" or "configurability" that wasn't requested.
+   - No error handling for impossible scenarios.
+   - Ask: "Would a senior engineer say this is overcomplicated?" If yes, rewrite.
+3. **Surgical changes.** Touch only what you must; clean up only your own mess.
+   - Don't "improve" adjacent code, comments, or formatting.
+   - Don't refactor things that aren't broken.
+   - Match existing style, even if you'd do it differently.
+   - If you notice unrelated dead code, mention it — don't delete it.
+4. **Clean up the orphans you create.** Remove imports/variables/functions that YOUR changes made unused. Don't remove pre-existing dead code unless asked.
+5. **Goal-driven execution.** Transform the task into a verifiable goal, define success criteria, and loop independently until verified. For multi-step tasks, state a brief plan with a `verify` per step.
 
-- **改动的判定标准**：每一行被改动的代码，都应能直接追溯到用户的需求。
-- **任务转目标的范式**：
-  - 「加校验」→「先为非法输入写测试，再让它们通过」
-  - 「修这个 bug」→「先写一个复现它的测试，再让它通过」
-  - 「重构 X」→「确保重构前后测试都通过」
-- **多步计划模板**：
+## Example
 
-```text
-1. [步骤] -> verify: [检查项]
-2. [步骤] -> verify: [检查项]
-3. [步骤] -> verify: [检查项]
-```
+**The test for a change:** every changed line should trace directly to the user's request.
 
-强成功标准让你能独立循环；「让它能跑起来」这类弱标准会导致反复澄清。
+**Turn tasks into verifiable goals:**
+- "Add validation" -> "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" -> "Write a test that reproduces it, then make it pass"
+- "Refactor X" -> "Ensure tests pass before and after"
 
-## 示例
-
-```text
-用户请求：「给这个表单加校验。」
-
-更好的回应：
-1. 假设：校验应在提交前运行，并就地显示行内错误。
-2. 计划：加一个小校验器，为非法输入加测试，再验证既有提交行为不变。
-3. 范围：只改表单组件及其测试文件。
-```
+**Multi-step plan template:**
 
 ```text
-用户请求：「重构这个 service。」
-
-更好的回应：
-1. 先问：哪些行为必须保持不变？
-2. 定位一个具体坏味道，例如重复的解析逻辑。
-3. 做最小重构，并跑既有的 service 测试。
+1. [Step] -> verify: [check]
+2. [Step] -> verify: [check]
+3. [Step] -> verify: [check]
 ```
 
-## 注意事项
+Strong success criteria let you loop independently. Weak criteria such as "make it work" require constant clarification.
 
-- 本准则是行为护栏，不替代项目专属的架构与风格规则；二者冲突时以项目规范为准。
-- 紧急修复场景：以最小化、已验证的修正为先，规划从简。
-- 探索性原型：谨慎度可适度放宽，但假设与验证标准仍须显式写出。
-- 「200 行能压到 50 行就重写」是态度而非硬指标，目标是消除投机性复杂度，而非机械减行。
+```text
+User request: "Add validation to this form."
 
-## 互见
+Better response:
+1. Assumption: validation should run before submit and show inline errors.
+2. Plan: add a small validator, add tests for invalid inputs, then verify existing submit behavior.
+3. Scope: only touch the form component and its test file.
+```
 
-- 源出处：Andrej Karpathy 关于 LLM 编码陷阱的观察（x.com/karpathy/status/2015883857489522876）。
-- 配合代码审查类技能（如对 diff 的正确性与简化审查）落地第 3、5 步。
-- 与项目内「测试先行 / TDD」实践衔接第 4、5 步的可验证目标。
+```text
+User request: "Refactor this service."
+
+Better response:
+1. Ask what behavior must remain unchanged.
+2. Identify a concrete smell, such as duplicated parsing logic.
+3. Make the smallest refactor and run the existing service tests.
+```
+
+## Notes
+
+- These guidelines are behavioral guardrails, not a replacement for project-specific architecture or style rules; when they conflict, the project's rules win.
+- For emergency fixes, prioritize the smallest verified correction over extensive planning.
+- For exploratory prototypes, some caution can be relaxed, but assumptions and verification criteria should still be explicit.
+- "If you write 200 lines and it could be 50, rewrite it" is an attitude, not a hard metric — the goal is to eliminate speculative complexity, not to mechanically cut lines.
+
+## See also
+
+- Source: Andrej Karpathy's observations on LLM coding pitfalls (x.com/karpathy/status/2015883857489522876).
+- Pair with code-review skills (correctness and simplification review over a diff) to enforce steps 3 and 5.
+- Connect with the project's test-first / TDD practice for the verifiable goals in steps 4 and 5.
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT），原始条目 multica-ai/andrej-karpathy-skills。
+Adapted from sickn33/antigravity-awesome-skills (MIT); original entry multica-ai/andrej-karpathy-skills.

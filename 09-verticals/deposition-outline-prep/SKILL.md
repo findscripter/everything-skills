@@ -1,14 +1,14 @@
 ---
 name: deposition-outline-prep
-title: 证人质询提纲准备
-description: 当为某位证人准备出庭质询/取证（deposition）提纲时使用；按案件理论从 eDiscovery 平台调取其文件、围绕证人立场组织主题并整理弹劾材料，产出可朗读的结构化质询提纲；不适用于代证人撰写证词陈述、替律师临场决定问什么或预测证人回答；触发词：证人质询提纲、取证提纲、depo prep、deposition outline、弹劾材料、cross-examination
+title: /deposition-prep
+description: Build a deposition outline for a witness — pull their documents from the eDiscovery platform, organize topics around the case theory, and surface impeachment material. Use when the user says "depo prep for [witness]", "build a depo outline", or "prepare for [name]'s deposition".
 domain: 领域/legal
-triggers: [证人质询提纲, 取证提纲, depo prep, deposition outline, 弹劾材料, cross-examination]
+triggers: [depo prep, deposition outline, cross-examination]
 tags: [legal, litigation, deposition, witness, ediscovery, cross-examination]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [eDiscovery 平台 (Everlaw/Relativity/DISCO), 法律检索工具 (Westlaw/CourtListener/Trellis/Descrybe), markdown]
+tools: []
 requires: []
 related: [litigation-chronology-builder, diligence-issue-extractor, privilege-log-reviewer, legal-hold-manager]
 combines_with: [litigation-chronology-builder, legal-hold-manager]
@@ -16,87 +16,201 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /deposition-prep
 
-为某位证人准备 deposition（出庭质询/取证）提纲时使用：从案件理论出发，调取该证人相关文件，围绕其立场组织主题，整理可在现场朗读的弹劾与确权问题序列。
-
-**不该用（负边界）：**
-- **不替证人撰写证词陈述。** 英格兰及威尔士 PD 57AC（及美国 declaration/affidavit）禁止由他人以证人口吻凭时间线或文件「代写」证词；法院正在制裁 AI 辅助代写证词。本技能只做：拟问题提示以唤起证人本人回忆、记录并整理证人原话、生成其查阅过的文件清单、对证人已起草的陈述跑 PD 57AC 合规清单、起草律师合规证明。证据由证人给出，不由模型杜撰。
-- 不代替律师出庭、不预测证人会怎么答、不在现场临时决定追问什么——这些是律师的庭上判断。
-
-## 步骤
-
-1. **载入案件上下文**：从案件配置读取案件理论、关键支点事实（pivot fact）、对我方有利/不利事实、eDiscovery 平台。
-2. **利益冲突闸门（不可绕过）**：先在事项日志（`matters/_log.yaml`）核对该 matter slug。若该事项未登记，拒绝并引导用户先跑 matter intake 流程跑冲突检查，再回来建提纲。
-3. **明确证人**：姓名、角色、与案件关系；以及「为什么取证这名证人」——这个「为什么」要接回案件理论；若该证人能确立支点事实，那就是提纲的核心。
-4. **判定证人立场（写第一个问题前先分支）**：
-   - 敌对/对方证人 → 交叉询问式：封闭、诱导、一次一个事实，「搭笼子」。
-   - 友好/我方证人 → 直接询问式：开放式问题让证人讲故事；对自家证人用封闭诱导问题通常不当且损害可信度。
-   - 中立第三方 → 混合：先开放取故事，再封闭钉细节。
-   - 公司代表（30(b)(6) 或州对应程序）→ 研究指定主题、约束实体的规则、以及证人个人认知 vs 公司认知之区分。
-5. **研究适用规则并标注来源**：检索该法域与证人类型的取证规则（FRCP 30 / 州对应规则 / 地方规则 / 法官常规命令），引用一手来源。
-6. **调取证人文件**（从 Everlaw/Relativity/DISCO）：证人撰写的、收发的、被点名提及的文件，以及其在场的日历/会议记录；按日期组织，标出对案件理论最关键的「热文件」。
-7. **构建主题并写提纲**（见下方模板）。
-
-## 指令
-
-- **口头校准——别贪全。** 提纲是现场朗读的口头辩护。只挑真正重要的 3-4 个主题；4 小时取证配 200 问会逼律师跳读，而跳读正是问询线索中途丢失之处。最强的弹劾放最前（证人开场最清醒，开庭笔录开头几页最可能被法官/陪审团看到）。提纲若因记录深厚而长，要明说并标出哪里该收拢。
-- **逐字引用必须逐字。** 凡给对方律师、证人、其他被取证人、法庭或任何记录文件加引号的话，必须手上有确切原文并能定位引用，否则：用不加引号的转述并清楚归属（如「证人此前作证称 X `[verify against record — Tr. p. __]`」）；标占位符 `[verify exact quote — record cite pending]`；**绝不填空**——编造的先前陈述会在证人否认、笔录又不支持的瞬间毁掉整个弹劾。
-- **精确引证必须支撑整个命题。** 若弹劾点是「证人在某日说了 X、Y、Z」，须核实该引证同时支撑 X 且 Y 且 Z；只支撑 Z 就拆开引证（X 见 Tr. p.10、Y 见 p.12、Z 见 p.15）或收窄命题。
-- **不擅自补料。** 若法律检索工具返回结果稀少，报告所得并停下；不要私自用网络搜索或模型知识填空，而是给出选项（拓宽检索 / 换工具 / 网搜并打 `[web search — verify]` 标 / 留 `[UNCERTAIN]` 标记并停）交律师决定。
-- **来源标注，永不剥除。** 每条规则/判例/权威引证标注出处：`[Westlaw]`、`[CourtListener]`、`[Trellis]`、`[Descrybe]` 或 MCP 工具名；网搜来源标 `[web search — verify]`；凭训练记忆标 `[model knowledge — verify]`；用户提供标 `[user provided]`。文件引证（Bates/制作号）保留原生出处。带 `verify` 的引证编造风险更高，取证前须先核。
-- **目的地核查与特权。** 提纲为工作成果，继承其特权保护。输出前确认去向是否在特权圈内（公开频道、全员列表、对方律师、供应商、客户都可能弃权）；放在特权材料文件夹、适当标注、分发须审慎决定。
-- **主题构建顺序**：背景（始终最前，证人防御前先锁定无争议事实）→ 有利事实（确权后再对质）→ 不利事实（用文件对质，先拿到我方版本）→ 弹劾材料（敌对或矛盾时用：先前不一致陈述、矛盾文件）→ 支点事实序列（最精心构造的一段，问题形式随第 4 步立场而定）。
-
-## 示例
-
-提纲骨架（开头加角色相应的工作成果标头）：
-
-```markdown
-# Deposition Outline: [证人姓名]
-
-**Date:** [取证日期]
-**Witness role:** [职务、与案件关系]
-**Witness posture:** [adverse / friendly / neutral / 30(b)(6)] — 决定问题形式
-**Applicable deposition rules:** [FRCP 30 / 州规则 / 地方规则，附精确引证] `[UNCERTAIN — verify currency]`
-**Why we're taking this depo:** [一句话目标]
-**Theory connection:** [本证人如何契合案件理论]
-
-## I. Background
-[封闭问题，一问一事实，锁定无争议内容]
-
-## II. [有利事实主题]
-**Goal:** 为简易判决/庭审确立 [事实]。
-**Documents:** [Bates] — [描述] — [为何重要]
-**Questions:** [序列；每问封闭，层层逼出承认]
-
-## III. [不利事实主题]
-**Goal:** 在证人被庭审前辅导之前，按我方条件拿到其对 [不利事实] 的解释。
-
-## IV. Impeachment material（按需使用）
-[证人矛盾时用以对质的先前陈述/文件]
-
-## V. [支点事实序列]
-**Goal:** [案件成败所系之事实]
-[最紧的一段：每问是非题、每问立一事实、搭笼子]
-
-## Exhibit list
-| # | Bates | Description | Used in section |
-|---|---|---|---|
-```
-
-标记纪律（构建/审阅时内联使用）：`[VERIFY: 事实主张]`（未对记录核实的事实）、`[UNCERTAIN: 法律命题]`（未对现行权威核实的法律点）、`[CITE NEEDED: 具体引证]`（记录或权威引证待补）。
-
-## 注意事项
-
-- 取证由律师驱动，提纲只是地图；不预测证人答话，只为可能答案做准备；现场追问交律师当庭判断。
-- 「太周全」对口头辩护就是「不聚焦」——宁可少而锐。
-- 凡引入提纲的规则/判例均由 AI 生成，取证前须逐条对 Westlaw/CourtListener/检索平台核验时效与范围；先核带 `verify` 标的引证。
-
-## 互见
-
-- fact-checking：本技能对记录逐字引用、精确引证与来源标注的核验纪律，可配合事实核查方法使用。
+1. Load `~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md` → case theory, key facts.
+2. Follow the workflow and reference below.
+3. Pull docs authored by / mentioning witness from eDiscovery platform.
+4. Build outline: background, key docs, topics tied to theory, impeachment material.
 
 ---
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+# Deposition Prep
+
+## Witness statements for England & Wales — PD 57AC
+
+If the user's jurisdiction includes England & Wales and they're asking for a trial witness statement for the Business & Property Courts (or any CPR-governed proceeding), PD 57AC applies. The statement must be in the witness's own words, must not contain argument, must identify the documents the witness used to refresh their memory, and must carry the required confirmation of compliance and the legal representative's certificate.
+
+**Drafting a narrative "as the witness" from a chronology, document set, or your account of the case is exactly what PD 57AC was designed to prevent.** Courts are actively sanctioning AI-assisted witness statement drafting. If you ask me to do it, I won't.
+
+What I WILL do: prepare question prompts to elicit the witness's actual recollection; capture and organize what the witness says (their words, not mine); generate the list of documents they were shown; run a PD 57AC compliance checklist against a statement they've drafted; draft the solicitor's certificate of compliance. I help you get the witness's evidence into the statement. I don't write the evidence.
+
+For US depositions, declarations, and affidavits: different rules, but the same discipline applies. A declaration in the declarant's voice that the declarant didn't write is a credibility problem at best.
+
+## Destination check
+
+Before producing output, check where it's going. If the user has named a destination (a channel, a distribution list, a counterparty, "everyone"), ask whether it's inside the privilege circle. Public channels, company-wide lists, counterparty/opposing counsel, vendors, and clients (for work product) waive the protection. When the destination looks outside the circle, flag it and offer (a) the privileged version for legal only, (b) a sanitized version for the broader channel, or (c) both — don't silently apply a privileged header and then help paste it somewhere the header won't protect it. See the canonical `## Shared guardrails → Destination check` in this plugin's CLAUDE.md.
+
+## Purpose
+
+A depo outline is a map: background → lock in the good facts → confront with the bad ones → box in on the theory. This skill builds the map from the documents and the case theory.
+
+## Record fidelity — quotes and pinpoints
+
+Two rules that govern every citation and every quotation pulled from the record into this outline. Canonical statement lives in the plugin's `CLAUDE.md` shared guardrails; repeated here because an impeachment confrontation built on a misquoted prior statement or a misgrounded transcript cite collapses the impeachment.
+
+**Verbatim quotes from the record must be verbatim.** Never put quotation marks around words attributed to opposing counsel, the witness, another deponent, the court, or any record document unless you have the exact passage in front of you and can cite to it. When you want to characterize what someone said but can't find the exact words:
+
+- **Paraphrase without quotation marks**, attributing clearly: "Witness previously testified that X `[verify against record — Tr. p. __]`."
+- **Mark the placeholder:** `[verify exact quote — record cite pending]`
+- **Never fill the gap.** An invented prior statement destroys the impeachment the moment the witness disavows it and the transcript doesn't back you up. Every `[verify exact quote]` must be flagged in the reviewer note.
+
+**Pinpoint cites must support the whole proposition.** If an impeachment point is "the witness said X, Y, and Z on [date]," verify the pinpoint cite supports X AND Y AND Z. If it only supports Z, split the cite — "said X (Tr. p. 10), Y (Tr. p. 12), Z (Tr. p. 15)" — or narrow the proposition. A cite that supports part of an impeachment is the failure mode where opposing counsel asks the witness to read more of the surrounding transcript and your confrontation falls apart.
+
+## Oral calibration
+
+A depo outline is read aloud in real time. That's oral advocacy, not written. It means:
+
+- Pick the 3-4 topics that actually matter. Don't try to cover everything — a 200-question outline on a 4-hour depo makes the lawyer skim, and skimming is how lines of questioning get lost mid-sequence.
+- Lead with your strongest confrontation. The witness is freshest at the start, and the transcript's opening pages are the ones a judge or jury is most likely to see.
+- For adverse witnesses: the tightest questions go in the tightest sequences. Everything else is scaffolding.
+- If you're preparing a rebuttal closing after the depo, the calibration is stricter still — the tribunal remembers the first two minutes and the last two.
+
+"Too thorough" for oral work reads as unfocused. If the outline is long because the record is deep, say so and flag where the lawyer should collapse.
+
+## Load context
+
+`~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md` → case theory (theory, pivot fact, key facts for/against), eDiscovery platform.
+
+**Conflicts gate — unbypassable.** Before building an outline, check `~/.claude/plugins/config/claude-for-legal/litigation-legal/matters/_log.yaml` for the matter slug. If the matter is not in `_log.yaml`, refuse and route:
+
+> "I don't see [matter slug] in the matter log. Run `/litigation-legal:matter-intake` first so the conflicts check runs and the matter workspace is set up. I won't build a deposition outline on a matter that hasn't been intaken — the conflicts check is the gate."
+
+Do not proceed on an unintaken matter. Intake is what runs conflicts and writes the `_log.yaml` row this skill reads from.
+
+## Workflow
+
+### Step 1: Who is this witness?
+
+- Name, role, relationship to the case
+- Why are we deposing them — what do we need from this witness?
+
+The "why" connects to the theory. If the witness can establish the pivot fact, that's the centerpiece of the outline.
+
+### Step 1a: Witness posture — branch before drafting questions
+
+Prep structure differs by posture. Identify the witness posture before writing a single question:
+
+- **Adverse / hostile** — cross-examination style: closed, leading, one fact at a time. Build the box.
+- **Friendly / your own** — direct-examination style: open questions that let the witness tell the story. Closed leading questions with your own witness are usually improper and undercut credibility with the factfinder.
+- **Neutral third-party** — mix; often open to get the story, closed to pin specifics.
+- **Corporate representative (30(b)(6) or state equivalent)** — topic designation, binding-the-entity rules, and the witness's personal-knowledge vs. corporate-knowledge distinction all have distinct rules. Research the applicable deposition rule for the forum and the 30(b)(6) / state-equivalent procedure. Confirm: what topics were designated, who was produced, scope of binding testimony.
+
+**Research the applicable deposition rules for the forum and witness type** (FRCP 30 / state equivalent, local rules, judge's standing orders on depositions). Cite primary sources. Don't apply a one-size prep structure — the question form, the approach to documents, and the use of impeachment material all depend on posture.
+
+**No silent supplement.** If a research query to the configured legal research tool (Westlaw, CourtListener, Trellis, Descrybe, or firm platform) returns few or no results for the forum's deposition rules or a cite you need for impeachment, report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [rule / authority]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) leave the `[UNCERTAIN]` marker and stop here. Which would you like?" A lawyer decides whether to accept lower-confidence sources; the skill does not decide for them.
+
+**Source attribution.** Tag every rule reference, case cite, and authority in the outline with where it came from: `[Westlaw]`, `[CourtListener]`, `[Trellis]`, `[Descrybe]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations the partner or senior associate supplied. Document citations (Bates, production numbers) retain their native source. Citations tagged `verify` carry higher fabrication risk and should be checked before the deposition. Never strip or collapse the tags.
+
+### Step 2: Pull their documents
+
+From the eDiscovery platform (Everlaw/Relativity/DISCO if connected):
+
+- Documents authored by witness
+- Documents sent to or from witness
+- Documents mentioning witness by name
+- Calendar entries and meeting notes with witness present
+
+Organize by date. Flag the hot docs — the ones that matter most for the theory.
+
+### Step 3: Build topics
+
+Each topic is a thing you want to establish or explore. Organize around the theory:
+
+**Background (always first — lock in uncontroversial facts before the witness is defensive):**
+- Role, tenure, responsibilities
+- Reporting structure
+- How they interacted with the key players
+
+**Good facts (lock them in before confronting):**
+- Facts from `~/.claude/plugins/config/claude-for-legal/litigation-legal/CLAUDE.md` → key facts for us, that this witness can establish
+- Documents that support our theory, authored or received by this witness
+
+**Bad facts (confront with documents):**
+- Facts against us that this witness will be asked about anyway — get your version first
+- Documents that hurt — know how the witness will explain them
+
+**Impeachment (if hostile or if they contradict):**
+- Prior inconsistent statements (from docs, prior testimony, declarations)
+- Documents that contradict what you expect them to say
+
+**The pivot fact:**
+- The sequence of questions that establishes (or undermines) the fact the case turns on
+- This is the most carefully constructed section. Question form follows witness posture from Step 1a: tight closed leading on adverse, controlled open on friendly, mixed on neutral. Don't default to one pattern.
+
+### Step 4: Write the outline
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
+
+# Deposition Outline: [Witness Name]
+
+**Date:** [depo date]
+**Witness role:** [title, relationship to case]
+**Witness posture:** [adverse / friendly / neutral / 30(b)(6) or state equivalent] — drives question form
+**Applicable deposition rules:** [FRCP 30 / state rule / local rule / standing order — with pinpoint cites] `[UNCERTAIN — verify currency]`
+**Why we're taking this depo:** [one sentence — the goal]
+**Theory connection:** [how this witness fits the case theory]
+
+---
+
+## I. Background
+
+[Questions — closed, one fact each. Lock in the uncontroversial stuff.]
+
+## II. [Good fact topic]
+
+**Goal:** Establish [fact] for use at summary judgment / trial.
+
+**Documents:**
+- [Bates] — [description] — [why it matters]
+
+**Questions:**
+[The sequence. Each question closed. Build to the admission.]
+
+## III. [Bad fact topic]
+
+**Goal:** Get the witness's explanation of [bad fact] on our terms before they're prepped for trial.
+
+[Same structure]
+
+## IV. Impeachment material (use if needed)
+
+[Prior statements / documents to confront with, if the witness contradicts]
+
+## V. [Pivot fact sequence]
+
+**Goal:** [The thing the case turns on]
+
+[This is the tightest section. Every question is a yes/no. Every question establishes one fact. Build the box.]
+
+---
+
+## Exhibit list
+
+| # | Bates | Description | Used in section |
+|---|---|---|---|
+
+## Marker discipline
+
+Use inline while building and reviewing:
+- `[VERIFY: factual assertion]` — any fact not confirmed against the record
+- `[UNCERTAIN: legal proposition]` — any legal point (rule, deadline, scope-of-questioning limit) not confirmed against current authority
+- `[CITE NEEDED: specific cite]` — record or authority cite pending
+
+## Notes for the attorney
+
+- [Anything the outline doesn't capture — witness demeanor notes, strategic calls to make in the moment]
+
+---
+
+**Privileged / work-product material.** This outline is built from case materials and work product and inherits their protection status. Keep it in the privileged-materials folder, mark it appropriately, and make any distribution decision (co-counsel, client, experts) deliberately — distribution outside the privilege circle can waive protection.
+
+**Cite check any authority relied on.** Rule citations (FRCP 30, state equivalents, local rules, standing orders) and any case law pulled into the outline were generated by an AI model. Verify each against Westlaw, CourtListener, or your research platform — confirm currency and scope before using at the deposition. Source tags on each citation (e.g., `[Westlaw]`, `[web search — verify]`) show where the cite came from; `verify` tags carry higher fabrication risk and should be checked first.
+```
+
+## What this skill does not do
+
+- Take the deposition. The outline is a map; the attorney drives.
+- Predict what the witness will say. It prepares for likely answers, but witnesses surprise.
+- Decide what to ask on the fly. Follow-ups are the attorney's judgment in the room.

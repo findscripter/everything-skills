@@ -1,14 +1,14 @@
 ---
 name: lifecycle-email-sequence
-title: 生命周期邮件序列设计
-description: 当需要设计或优化生命周期邮件序列（欢迎/培育/再激活/购后等自动化流）时使用；产出含触发条件、节奏、退出条件的序列架构与每封邮件（主题/预览/正文/CTA）完整草稿及指标基线；不适用于未授权陌生人的冷启动外联（用 cold-email）或纯应用内引导（用 onboarding-cro）。触发词：邮件序列、滴灌、培育序列、欢迎邮件、再激活、生命周期邮件
+title: Lifecycle Email Sequence Design
+description: Design or optimize lifecycle/automated email sequences (welcome, nurture, re-engagement, onboarding, post-purchase) — produce sequence architecture plus complete ready-to-send drafts (subject/preview/body/CTA) and metric benchmarks. Use for opted-in/warm audiences; not for cold o
 domain: 商业/growth
-triggers: [邮件序列, drip / 滴灌活动, 培育序列 / nurture, 欢迎/onboarding 邮件, 再激活 / win-back 邮件, 邮件自动化 / lifecycle email, 试用转付费邮件, 购后/续费邮件流]
-tags: [商业, growth, 邮件营销, 生命周期, 自动化, 文案]
-level: 进阶
+triggers: [email sequence, drip campaign, nurture sequence, welcome / onboarding emails, re-engagement / win-back emails, email automation / lifecycle emails, trial-to-paid email flow, post-purchase / renewal email flow]
+tags: [business, growth, email-marketing, lifecycle, automation, copywriting]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Customer.io, Mailchimp, Resend, SendGrid, Kit]
+tools: []
 requires: []
 related: [email-drip-sequence, churn-prevention, user-onboarding-optimizer, cold-email-writer]
 combines_with: [user-onboarding-optimizer, churn-prevention, conversion-copywriter]
@@ -16,97 +16,101 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-当用户要**设计或优化一条自动化邮件流**，把人从某个触发点逐步推向激活/转化/复购时使用，常见形态：
+Use when the user wants to **create or optimize an automated email flow** that moves people from a trigger point toward activation, conversion, or repeat purchase. Common forms:
 
-- 欢迎/Onboarding 序列（注册或开通后）
-- 线索培育序列（售前）
-- 再激活/Win-back 序列（30-60 天不活跃）
-- 购后/续费/账单恢复序列
-- 事件触发型、教育型、销售型序列
+- Welcome / onboarding sequence (post-signup or post-activation)
+- Lead nurture sequence (pre-sale)
+- Re-engagement / win-back sequence (30-60 days of inactivity)
+- Post-purchase / renewal / failed-payment recovery sequence
+- Event-based, educational, or sales sequences
 
-**不该用的边界：**
-- 面向**未主动授权**的陌生人做外联开发 → 用 `cold-email`，本技能只服务已订阅/已表达兴趣的暖线索。
-- 纯**应用内引导**体验 → 用 `onboarding-cro`；邮件只做配合，不重复 in-app 流程。
-- 落地页文案优化 → 用 `copywriting`；邮件点击跟踪/UTM/归因 → 用 `analytics-tracking`。
+**Boundaries (do NOT use here):**
+- Outbound prospecting to people who have **NOT opted in** → use `cold-email`. This skill serves only warm leads, subscribers, or users who have expressed interest.
+- Pure **in-app onboarding** experience → use `onboarding-cro`; email only supports and must not duplicate the in-app flow.
+- Landing-page copy linked from emails → use `copywriting`. Click tracking / UTM / attribution → use `analytics-tracking`.
 
-## 步骤
+## Steps
 
-1. **读上下文再提问。** 若存在 `.claude/product-marketing-context.md` 先读取，只补问其中没有覆盖、且本任务特有的信息（品牌语气、ICP、产品背景）。
-2. **明确三要素：**
-   - 序列类型（欢迎/培育/再激活/购后/事件/教育/销售）。
-   - 受众情境：他们是谁？什么触发进入此序列？已知/已信什么？当前与你的关系阶段？
-   - 目标：首要转化动作、关系建设目标、分群目标、何为成功。
-3. **定序列骨架：** 长度、节奏、退出条件、分支逻辑（见下方基线）。
-4. **逐封写满：** 每封给出主题、预览文案、完整正文、CTA 与（如有）分群条件，并为每封附 3 个 A/B 主题变体。
-5. **配指标计划：** 按邮件类型与序列目标给打开率/点击率/转化率基线。
-6. **冲突检查：** 标注是否与受众正在收的其它序列重复或撞期。
+1. **Read context before asking.** If `.claude/product-marketing-context.md` exists, read it first. Only ask for information not already covered and specific to this task (brand voice, ICP, product background).
+2. **Establish the three essentials:**
+   - **Sequence type** (welcome / nurture / re-engagement / post-purchase / event / educational / sales).
+   - **Audience context:** Who are they? What triggered entry into this sequence? What do they already know/believe? What is their current relationship stage with you?
+   - **Goals:** primary conversion action, relationship-building goals, segmentation goals, and what defines success.
+3. **Define the sequence skeleton:** length, timing/cadence, exit conditions, and branching logic (see baselines below).
+4. **Write every email in full:** subject line, preview text, complete body, CTA, and (if applicable) segmentation conditions — plus 3 A/B subject-line variations per email.
+5. **Attach a metrics plan:** open / click / conversion-rate benchmarks per email type and sequence goal.
+6. **Conflict check:** flag whether any email overlaps or collides in timing with other sequences the audience is already receiving.
 
-## 指令
+## Instructions
 
-**核心原则**
-- 一封一职：每封一个主要目的、一个主 CTA。
-- 先给价值再开口：用内容建立信任，赢得推销资格。
-- 相关性优先于数量：宁少而精，按分群保证相关。
-- 给清晰下一步：每封都把人往前推一格，链接必须有用。
+**Core principles**
+- **One email, one job:** one primary purpose and one main CTA per email; don't try to do everything.
+- **Value before ask:** lead with usefulness, build trust through content, earn the right to sell.
+- **Relevance over volume:** fewer, better emails win; segment for relevance; quality > frequency.
+- **Clear path forward:** every email moves them somewhere; links must do something useful; make next steps obvious.
 
-**序列长度与节奏基线**
-- 欢迎：3-7 封 / 12-14 天；培育：6-8 封 / 2-3 周；Onboarding：5-7 封 / 14 天；再激活：3-4 封 / 2 周。
-- 欢迎首封立即发；序列早期 1-2 天/封；培育 2-4 天/封；长期每周或双周。
-- B2B 避开周末；B2C 可测周末；按收件人本地时间发送。
+**Sequence length & timing baselines**
+- Length: Welcome 3-7 emails; Lead nurture 5-10; Onboarding 5-10; Re-engagement 3-5 — adjust for sales-cycle length, product complexity, and relationship stage.
+- Timing: Welcome email immediately; early sequence 1-2 days apart; nurture 2-4 days apart; long-term weekly or bi-weekly.
+- B2B: avoid weekends. B2C: test weekends. Send at the recipient's local time zone.
 
-**主题行**
-- 清晰 > 机灵，具体 > 含糊，40-60 字符为佳，emoji 需 A/B 验证。
-- 可用模式：提问「还在为 X 苦恼吗？」/ 教程「如何在 X 时间内达成 Y」/ 数字「3 个方法做到 X」/ 直给「{名字}，你的 X 已就绪」/ 故事钩「我在 X 上犯的错」。
+**Subject lines**
+- Clear > Clever, Specific > Vague, benefit- or curiosity-driven; 40-60 characters ideal; test emoji (polarizing).
+- Patterns that work: Question "Still struggling with X?" / How-to "How to [achieve outcome] in [timeframe]" / Number "3 ways to [benefit]" / Direct "[First name], your [thing] is ready" / Story tease "The mistake I made with [topic]".
 
-**预览文案**：约 90-140 字符，延展而非重复主题，补全悬念。
+**Preview text:** ~90-140 characters; extend the subject line rather than repeat it; complete the thought or add intrigue.
 
-**正文结构与篇幅**：Hook → 情境 → 价值 → CTA → 人味落款；短段落（1-3 句）、留白、要点列表、移动优先。事务类 50-125 字，教育类 150-300 字，故事类 300-500 字。对话式语气、主被动用主动、读出声要像人话。
+**Body structure & length:** Hook → Context → Value → CTA → human, warm sign-off. Short paragraphs (1-3 sentences), white space, bullet points for scanability, bold sparingly, mobile-first. Length: 50-125 words transactional, 150-300 words educational, 300-500 words story-driven. Tone: conversational not formal, first- and second-person, active voice — read it out loud to check it sounds human.
 
-**CTA**：主操作用按钮、次操作用链接；每封一个清晰主 CTA；按钮文案=动作+结果。
+**CTA:** buttons for primary actions, links for secondary; one clear primary CTA per email; button text = action + outcome.
 
-## 示例
+## Example
 
-**序列总览（输出模板）**
+**Sequence overview (output template)**
 ```
-序列名称: [Name]
-触发条件: [What starts the sequence]
-目标: [Primary conversion goal]
-长度: [Number of emails]
-节奏: [Delay between emails]
-退出条件: [When they leave the sequence]
+Sequence Name: [Name]
+Trigger: [What starts the sequence]
+Goal: [Primary conversion goal]
+Length: [Number of emails]
+Timing: [Delay between emails]
+Exit Conditions: [When they leave the sequence]
 ```
 
-**单封邮件（输出模板）**
+**For each email (output template)**
 ```
 Email [#]: [Name/Purpose]
-发送: [Timing]
-Subject: [主题行]
-Preview: [预览文案]
-Body: [完整正文]
-CTA: [按钮文案] → [链接目标]
-分群/条件: [If applicable]
+Send: [Timing]
+Subject: [Subject line]
+Preview: [Preview text]
+Body: [Full copy]
+CTA: [Button text] → [Link destination]
+Segment/Conditions: [If applicable]
 ```
 
-**欢迎序列（5-7 封 / 12-14 天）骨架**：1 欢迎+兑现承诺（立即）→ 2 快速见效（第 1-2 天）→ 3 故事/Why（第 3-4 天）→ 4 社会证明（第 5-6 天）→ 5 化解异议（第 7-8 天）→ 6 核心功能（第 9-11 天）→ 7 促转化（第 12-14 天）。
+**Welcome sequence (5-7 emails over 12-14 days):** 1. Welcome + deliver promised value (immediate) → 2. Quick win (day 1-2) → 3. Story/Why (day 3-4) → 4. Social proof (day 5-6) → 5. Overcome objection (day 7-8) → 6. Core feature highlight (day 9-11) → 7. Conversion (day 12-14).
 
-**再激活序列（3-4 封 / 2 周，触发=30-60 天不活跃）**：1 真诚问候 → 2 价值提醒（有何更新）→ 3 激励（专属优惠）→ 4 最后一次（留下或退订）。
+**Lead nurture sequence (6-8 emails over 2-3 weeks):** Deliver lead magnet → Expand on topic → Problem deep-dive → Solution framework → Case study → Differentiation → Objection handler → Direct offer.
 
-## 注意事项
+**Re-engagement sequence (3-4 emails over 2 weeks, trigger = 30-60 days inactive):** 1. Check-in (genuine concern) → 2. Value reminder (what's new) → 3. Incentive (special offer) → 4. Last chance (stay or unsubscribe).
 
-- **交付即可发：** 每封都含主题、预览、完整正文、CTA；序列≥5 封时先给总览表再逐封展开。
-- 写作前务必加载 `marketing-context` 获取品牌语气、ICP、产品上下文。
-- **主动诊断信号：** 试用转付费低 → 先确认是否有试用到期邮件序列，再谈 in-app 或定价；打开高但点击低 → 先查正文与 CTA 具体性，别先怪主题行；名单变冷 → 先上递进式优惠的再激活序列，再谈拉新投放；用户只说「想做邮件营销」→ 先澄清序列类型再动笔。
-- **产出物清单：** 序列架构文档、全部邮件草稿、指标基线、分群规则（进入/退出/分支/抑制名单）、每封 3 个主题变体。
+## Notes
 
-## 互见
+- **Deliver ready to send:** every email includes subject, preview, full body, and CTA; for sequences of 5+ emails, lead with the overview table before expanding each email.
+- Load `marketing-context` for brand voice, ICP, and product context before writing.
+- **Tool integrations:** Customer.io (behavior-based automation), Mailchimp (SMB email marketing), Resend (developer-friendly transactional), SendGrid (transactional email at scale), Kit (creator/newsletter focused).
+- **Proactive diagnostic triggers:**
+  - Low trial-to-paid conversion → check for a trial-expiration email sequence before recommending in-app or pricing changes.
+  - High open rates but low clicks → diagnose body copy and CTA specificity before blaming subject lines.
+  - List going cold → suggest a re-engagement sequence with progressive offers before recommending acquisition spend.
+  - User just says "do email marketing" → clarify sequence type before writing anything.
+- **Output artifacts:** sequence architecture doc; complete email drafts; metrics benchmarks; segmentation rules (entry/exit/branching/suppression); 3 subject-line variations per email.
 
-- `cold-email`：序列面向**未授权**陌生人时改用它。
-- `onboarding-cro`：邮件配合应用内引导时协调避免重复。
-- `copywriting`：邮件所链落地页文案优化。
-- `launch-strategy`：围绕特定发布窗口编排邮件序列时。
-- `analytics-tracking`：邮件点击跟踪、UTM、归因。
+## See also
 
----
-采编自 alirezarezvani/claude-skills（MIT）。
+- `cold-email` — use instead when the sequence targets people who have NOT opted in (outbound prospecting).
+- `onboarding-cro` — coordinate when emails support a parallel in-app onboarding flow, to avoid duplication.
+- `copywriting` — optimize landing-page copy linked from emails.
+- `launch-strategy` — when orchestrating email sequences around a specific launch/announcement window.
+- `analytics-tracking` — email click tracking, UTM parameters, and attribution.

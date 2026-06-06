@@ -1,14 +1,14 @@
 ---
 name: design-brainstorming
-title: 构思转设计的结构化头脑风暴
-description: 当在动手实现前需要把模糊想法转为经过验证的设计/规格时使用；做结构化对话产出"理解锁定+多方案权衡+增量设计+决策日志"并落盘为文档；不适用于已明确需求只待编码、或纯执行/调试场景。触发词：头脑风暴、需求澄清、设计方案、技术选型、写设计文档
+title: Brainstorming Ideas Into Validated Designs
+description: Use before creative or constructive work (features, architecture, behavior changes) to turn vague ideas into clear, validated designs and specs via disciplined dialogue — not for already-specified work that only needs coding or for pure execution/debugging. Triggers: brainstorm, 
 domain: 通用/thinking
-triggers: [头脑风暴, 需求澄清, 设计方案, 技术选型, 写设计文档, 构思, feature 设计, 架构设计, design doc]
-tags: [设计, 需求分析, 头脑风暴, 决策, 方案评审, 通用]
-level: 进阶
+triggers: [brainstorm, clarify requirements, design approach, design doc, feature design, architecture design, tech selection, validate idea before building]
+tags: [design, requirements-analysis, brainstorming, decision, design-review, thinking, general]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [对话/提问, Markdown 文档, 决策日志]
+tools: []
 requires: []
 related: [decision-navigator, first-principles-thinking, research-idea-generator]
 combines_with: [spec-driven-workflow, tech-stack-evaluator, premortem-plan-challenger]
@@ -16,126 +16,114 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-在任何创造性或建设性工作（新功能、架构、行为变更）**动手实现之前**，用本技能把原始想法转化为**清晰、经过验证的设计与规格**。它专治四种病：过早实现、隐藏假设、方案错位、系统脆弱。
+Use this skill **before any creative or constructive work** (new features, architecture, behavior changes) to turn raw ideas into **clear, validated designs and specifications** through structured dialogue **before implementation begins**.
 
-激活本技能期间，你的角色是**设计引导者与资深评审**，不是建造者：
+This skill exists to prevent: premature implementation, hidden assumptions, misaligned solutions, and fragile systems.
 
-- 不写实现、不写代码、不改变行为
-- 不臆造投机性功能
-- 不带未声明的隐藏假设
-- 不跳步抢跑
+While this skill is active you are operating as a **design facilitator and senior reviewer**, not a builder. You are **not allowed** to implement, code, or modify behavior:
 
-核心是"把节奏放慢到刚好能把事做对"。
+- No creative implementation
+- No speculative features
+- No silent assumptions
+- No skipping ahead
 
-**不该用的边界：**
+Your job is to **slow the process down just enough to get it right**.
 
-- 需求已明确、只待编码或调试 —— 直接进入实现，别走这套流程
-- 纯执行类任务（修 bug、跑脚本、改配置）
-- 一次性琐碎改动，走完整流程反而是浪费
+**When NOT to use:**
 
-## 步骤
+- Requirements are already clear and only coding or debugging remains — go straight to implementation.
+- Pure execution tasks (fixing a bug, running a script, changing config).
+- One-off trivial changes, where the full process would be wasteful overhead.
 
-### 1. 理解当前上下文（强制第一步）
+## Steps
 
-提问之前先做功课：审阅现有项目状态（文件、文档、计划、既往决策），分清"已存在"与"被提议"，记下那些看似隐含但**未经确认**的约束。**此阶段不要设计。**
+### 1. Understand the current context (mandatory first step)
 
-### 2. 理解想法（一次只问一个问题）
+Before asking any questions, review the current project state (if available): files, documentation, plans, prior decisions. Identify what already exists vs. what is proposed, and note constraints that appear implicit but unconfirmed. **Do not design yet.**
 
-目标是**共同的清晰**，不是速度。
+### 2. Understand the idea (one question at a time)
 
-- 每条消息**只问一个问题**
-- 尽量用**多选题**，仅在必要时才用开放式提问
-- 话题需要深挖时，拆成多个问题分别问
+Your goal here is **shared clarity**, not speed.
 
-聚焦：目的、目标用户、约束、成功标准、明确的非目标。
+- Ask **one question per message**
+- Prefer **multiple-choice questions** when possible; use open-ended questions only when necessary
+- If a topic needs depth, split it into multiple questions
 
-### 3. 非功能性需求（强制）
+Focus on understanding: purpose, target users, constraints, success criteria, and explicit non-goals.
 
-必须显式澄清或提出假设：性能预期、规模（用户/数据/流量）、安全与隐私约束、可靠性/可用性、维护与归属。用户不确定时，给出合理默认值并**明确标注为"假设"**。
+### 3. Non-functional requirements (mandatory)
 
-### 4. 理解锁定（硬性闸门）
+You MUST explicitly clarify or propose assumptions for: performance expectations; scale (users, data, traffic); security or privacy constraints; reliability / availability needs; maintenance and ownership expectations. If the user is unsure, propose reasonable defaults and clearly mark them as **assumptions**.
 
-提出**任何设计之前**必须暂停，产出：
+### 4. Understanding lock (hard gate)
 
-- **理解摘要**：5–7 条要点，覆盖 做什么 / 为什么 / 给谁用 / 关键约束 / 明确非目标
-- **假设清单**：列出全部假设
-- **待解问题**：列出未决问题
+Before proposing **any design**, you MUST pause and produce:
 
-然后逐字询问：
+- **Understanding Summary** — a concise 5–7 bullet summary covering: what is being built, why it exists, who it is for, key constraints, explicit non-goals.
+- **Assumptions** — list all assumptions explicitly.
+- **Open Questions** — list unresolved questions, if any.
 
-> "这是否准确反映了你的意图？进入设计前，请确认或更正任何内容。"
+Then ask, verbatim:
 
-**未获明确确认，不得继续。**
+> "Does this accurately reflect your intent? Please confirm or correct anything before we move to design."
 
-### 5. 探索设计方案
+**Do NOT proceed until explicit confirmation is given.**
 
-确认理解后：提出 **2–3 个可行方案**，**先给推荐项**，清晰说明权衡（复杂度、可扩展性、风险、维护成本）。避免过早优化 —— **YAGNI 要狠**。此处仍非最终设计。
+### 5. Explore design approaches
 
-### 6. 增量呈现设计
+Once understanding is confirmed, propose **2–3 viable approaches**, lead with your **recommended option**, and explain trade-offs clearly (complexity, extensibility, risk, maintenance). Avoid premature optimization — **YAGNI ruthlessly**. This is still **not** final design.
 
-- 每段控制在 **200–300 字以内**
-- 每段之后追问：
+### 6. Present the design (incrementally)
 
-  > "到这里看起来对吗？"
+Break the design into sections of **200–300 words max**. After each section, ask:
 
-按相关性覆盖：架构、组件、数据流、错误处理、边界情况、测试策略。
+> "Does this look right so far?"
 
-### 7. 决策日志（强制）
+Cover, as relevant: architecture, components, data flow, error handling, edge cases, testing strategy.
 
-全程维护一份滚动**决策日志**，每条记录：决定了什么 / 考虑过哪些替代方案 / 为什么选这个。该日志须保留用于归档。
+### 7. Decision log (mandatory)
 
-### 设计之后
+Maintain a running **Decision Log** throughout the discussion. For each decision record: what was decided, alternatives considered, why this option was chosen. Preserve this log for documentation.
 
-- **文档化**：设计通过验证后，写入持久共享格式（如 Markdown），包含 理解摘要 + 假设 + 决策日志 + 最终设计，按项目标准流程落盘。
-- **交接实现（可选）**：文档完成后再问"准备好进入实现了吗？"。同意则制定显式实现计划、隔离工作区（若工作流支持）、增量推进。
+### After the design
 
-## 指令
+- **Documentation** — once validated, write the final design to a durable, shared format (e.g. Markdown), including the understanding summary, assumptions, decision log, and final design. Persist according to the project's standard workflow.
+- **Implementation handoff (optional)** — only after documentation is complete, ask: "Ready to set up for implementation?" If yes, create an explicit implementation plan, isolate work if the workflow supports it, and proceed incrementally.
 
-退出头脑风暴模式的**硬性退出条件**（必须全部满足）：
+## Example
 
-- 理解锁定已确认
-- 至少一个设计方案被明确接受
-- 主要假设已记录
-- 关键风险已被知晓
-- 决策日志完整
+User: "I want to add a report-export feature to the admin backend."
 
-任一条件未满足 → 继续打磨，**不得进入实现**。
+Correct approach (per this skill):
 
-**不可妥协的关键原则：** 一次只问一个问题 · 假设必须显式 · 探索替代方案 · 增量验证 · 清晰优于花哨 · 愿意回退澄清 · YAGNI 要狠。
+1. First review the existing project for related export/report code, data models, and the permission system (Step 1).
+2. Clarify one multiple-choice question at a time, e.g. "How is export triggered? (A) user clicks manually (B) scheduled automatically (C) both" (Step 2).
+3. Probe non-functional requirements: "Expected data volume per export? (A) under a thousand rows (B) tens of thousands (C) millions+" — the answer directly decides whether an async job is needed (Step 3).
+4. Produce the Understanding Summary + Assumptions + Open Questions and ask the user to confirm (Step 4 hard gate).
+5. After confirmation, propose 2–3 approaches, recommendation first: "Approach A synchronous generation (simple, fits small data); Approach B async queue + notification (scalable, higher complexity)…" (Step 5).
+6. Present the design in sections, asking "Does this look right so far?" after each, while maintaining the Decision Log (Steps 6, 7).
 
-> 若设计属于高影响、高风险或需要更高置信度，必须在实现前把定稿设计与决策日志交接给 `multi-agent-brainstorming`（多智能体头脑风暴）技能。
+Wrong approach: starting to write export code as soon as the user speaks — exactly the "premature implementation" this skill prevents.
 
-## 示例
+## Notes
 
-用户："我想给后台加一个导出报表的功能。"
+**Exit criteria (hard stop conditions).** You may exit brainstorming mode **only when all of the following are true**: Understanding Lock confirmed; at least one design approach explicitly accepted; major assumptions documented; key risks acknowledged; Decision Log complete. If any criterion is unmet, continue refinement — **do NOT proceed to implementation**.
 
-正确做法（按本技能）：
+**Key principles (non-negotiable):** one question at a time · assumptions must be explicit · explore alternatives · validate incrementally · prefer clarity over cleverness · be willing to go back and clarify · **YAGNI ruthlessly**.
 
-1. 先看现有项目有没有相关导出/报表代码、数据模型、权限体系（步骤 1）。
-2. 一次一个多选题澄清，例如："导出触发方式？(A) 用户手动点击 (B) 定时自动 (C) 两者都要"（步骤 2）。
-3. 追问非功能性需求："单次导出预计数据量级？(A) 千行内 (B) 万级 (C) 百万级以上" —— 不同量级直接决定是否需异步任务（步骤 3）。
-4. 给出理解摘要 + 假设 + 待解问题，请用户确认（步骤 4 硬闸门）。
-5. 确认后提 2–3 方案，先推荐："方案 A 同步生成（简单，适合小数据量）；方案 B 异步队列 + 通知（可扩展，复杂度高）……"（步骤 5）。
-6. 分段呈现设计，每段问"到这里对吗"，全程记决策日志（步骤 6、7）。
+- The mandatory first step (context review) cannot be skipped — asking without it reinvents existing constraints and wastes round-trips.
+- Understanding Lock is a hard gate, not a courtesy check: without the user's explicit confirmation, do not move to design. Silent assumptions are explicitly forbidden.
+- The output is design and specification; it is **not** a substitute for environment-specific validation, testing, or expert review.
+- If required inputs, permissions, safety boundaries, or success criteria are missing, stop and ask for clarification rather than assuming.
+- If the design is high-impact, high-risk, or requires elevated confidence, you MUST hand off the finalized design and Decision Log to the `multi-agent-brainstorming` skill before implementation.
 
-错误做法：用户一说就直接开始写导出代码 —— 这正是本技能要阻止的"过早实现"。
+## See also
 
-## 注意事项
-
-- **第一步不可跳过**：不审上下文就提问，会重复发明已有约束，浪费往返。
-- **理解锁定是硬闸门**，不是礼节性确认：没拿到用户明确"确认"二字，不许进入设计。
-- 假设必须显式标注，不能默默替用户做决定（"silent assumptions" 是明令禁止项）。
-- 增量验证：设计分段呈现并逐段确认，避免一口气抛出大块设计后才发现方向错了。
-- 本技能产出的是设计与规格，**不能替代环境特定的验证、测试或专家评审**。
-- 若必需的输入、权限、安全边界或成功标准缺失，应停下来要求澄清，而非自行假定。
-
-## 互见
-
-- `multi-agent-brainstorming`（多智能体头脑风暴）：高风险/高影响设计的下一步交接目标。
-- 实现阶段技能：本技能完成并文档化后，方可交接给具体的编码/实现工作流。
+- `multi-agent-brainstorming` — handoff target for high-risk / high-impact designs.
+- Implementation-phase skills — only after this skill completes and the design is documented may you hand off to a concrete coding/implementation workflow.
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+Adapted from sickn33/antigravity-awesome-skills (MIT license).

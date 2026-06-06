@@ -1,14 +1,14 @@
 ---
 name: analysis-qa-validator
-title: 分析交付前质检
-description: 当把分析/报表/SQL 结果交给干系人或上会前需要质检时使用；做方法论、计算、可视化与结论的交付前 QA，产出含「可发布/带注意事项发布/需返工」三级置信评级的校验报告；不适用于从零跑数据集画像（用 dataset-quality-auditor）、搭管道质量校验（用 data-quality-validator）或纯写 SQL（用 sql-query-builder）。触发词：分析复核、交付前质检、结论是否站得住、口径检查、上会前 review
+title: Analysis QA Validator (Pre-Delivery Review)
+description: QA an analysis before sharing with stakeholders — review methodology, spot-check calculations, audit visualizations, and validate conclusions, then produce a confidence assessment (Ready to share / Share with caveats / Needs revision). Triggers: validate analysis, pre-delivery QA
 domain: 数据/analysis
-triggers: [分析复核, 交付前质检, 结论是否被数据支撑, 口径检查, 上会前 review, SQL 结果对不对, 同比环比口径, join 膨胀, 幸存者偏差, 不完整周期对比, 均值的均值, 置信评级, 校验报告, 可发布吗]
-tags: [数据, misc, 分析质检, 数据复核, 方法论审查, 口径校验, 可视化审查, 干系人汇报]
-level: 进阶
+triggers: [validate analysis before sharing, pre-delivery QA, review analysis for exec presentation, are these conclusions supported by the data, does this SQL result look right, spot-check calculations, YoY/MoM comparison check, join explosion, survivorship bias, incomplete period comparison, average of averages, denominator shifting, confidence assessment, is this ready to share]
+tags: [data, analysis, qa, validation, methodology-review, metric-definitions, visualization-review, stakeholder-reporting]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [sql, python]
+tools: []
 requires: []
 related: [data-quality-validator, dataset-quality-auditor, data-quality-frameworks, spreadsheet-formula-auditor]
 combines_with: [dataset-profiler, html-dashboard-builder]
@@ -16,99 +16,114 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+## When to use
 
-适用于：在把一份分析交给干系人、上管理层会、或据此做决策之前，对它做一轮交付前 QA——查方法论、抽验计算、审可视化、验结论，最后给一个可对外的置信评级。被复核的对象可以是会话里的文档/报表、文件（Markdown、Notebook、表格）、SQL 查询及其结果、图表及其底层数据，或一段「方法+发现」的口头描述。典型请求：
+Use this skill to run a pre-delivery QA pass on an analysis before sharing it with stakeholders, presenting to leadership, or making a decision based on it — checking methodology, accuracy, biases, and presentation, then producing a shareable confidence assessment. The thing being reviewed can be:
 
-- "这份季度营收分析发给高管前帮我复核一下"
-- "我拿 Q4 的流失率比 Q3，但 Q4 测量窗口更短，帮我看有没有问题"
-- "这段漏斗 SQL 和结果，逻辑对吗？"
+- A document or report in the conversation
+- A file (markdown, notebook, spreadsheet)
+- SQL queries and their results
+- Charts and their underlying data
+- A description of methodology and findings
 
-不该用（负边界）：
-- 要对一份**陌生数据集从零跑画像/审计**（缺失值、异常值、DQS）→ 用 `dataset-quality-auditor`。
-- 要给**数据管道/数仓搭自动化质量校验**（Great Expectations、dbt test、数据契约）→ 用 `data-quality-validator`。
-- 只是要**写/调一条 SQL 查询**本身，而非复核既成分析 → 用 `sql-query-builder`。
+Typical requests:
 
-本技能是「人工复核既成分析」的判断框架，不产出可调度的校验代码。
+- "Review this quarterly revenue analysis before I send it to the exec team."
+- "Check my churn analysis — I'm comparing Q4 churn rates to Q3 but Q4 has a shorter measurement window."
+- "Here's a SQL query and its results for our conversion funnel. Does the logic look right?"
 
-## 步骤
+Negative boundaries (use a different skill instead):
 
-按顺序走七步，每步都把发现记下来，最后汇成报告。
+- Profiling/auditing an **unfamiliar dataset from scratch** (missing values, outliers, data-quality score) → use `dataset-quality-auditor`.
+- Building **automated quality validation for a pipeline/warehouse** (Great Expectations, dbt tests, data contracts) → use `data-quality-validator`.
+- Just **writing or tuning a SQL query** itself, rather than reviewing a finished analysis → use `sql-query-builder`.
 
-1. **审方法论与假设**：问题框定对不对（会不会被换种解读）？选数对不对（表/数据集/时间范围）？口径定义清不清、和干系人理解是否一致？对比是否公平（时间窗、cohort 规模、上下文可比）？人群定义有没有意外排除？
-2. **跑交付前 QA 清单**：逐项过下方四类检查（数据质量 / 计算 / 合理性 / 呈现）。
-3. **比对常见分析陷阱**：对照下方陷阱目录系统排查（join 膨胀、幸存者偏差、不完整周期对比、分母漂移、均值的均值、时区错配、分段选择偏差）。
-4. **抽验计算与聚合**：独立重算几个关键数；验小计加总等于总计；该求和到 100% 的百分比是否接近 100%；同比/环比用的基期对不对；筛选条件在各指标间是否一致。
-5. **审可视化**（若有图表）：柱状图轴是否从零起；对比图量纲是否一致；标题是否如实描述所示内容；是否存在截断轴、不等距、3D 失真等误导。
-6. **验叙事与结论**：结论是否被所示数据支撑；是否承认替代解释；不确定性是否如实沟通；建议是否由发现合乎逻辑推出；置信措辞是否匹配证据强度。
-7. **给改进建议 + 三级置信评级**：建议要具体可执行（补哪个分析、加哪条 caveat、换哪种图、缺哪块上下文）。评级三选一并说明：**可发布**（方法论稳、计算已验、caveat 已注，仅有不阻断的小建议）/ **带注意事项发布**（大体正确但有须告知干系人的限制或假设，列出必须传达的 caveat）/ **需返工**（发现具体错误或方法论问题，列出修改项并按优先级排序）。
+This skill is a human-review judgment framework for finished analyses; it does not produce schedulable validation code.
 
-## 指令
+## Steps
 
-**交付前 QA 清单**（分享任何分析前逐项过）
+Work through these seven steps in order, recording findings at each step, then roll them into a report.
 
-- 数据质量：来源核实（用对表了吗）｜新鲜度（标注 as-of 日期）｜完整性（时间序列无意外缺口）｜空值处理（查关键列空值率，已排除/填补/标记）｜去重（无坏 join 或重复源记录导致的重复计数）｜筛选核实（所有 WHERE 正确、无意外排除）。
-- 计算：聚合逻辑（GROUP BY 含所有非聚合列、聚合粒度对得上分析口径）｜分母正确（比率用对分母且非零）｜日期对齐（对比用等长周期，部分周期已排除或注明）｜join 正确（INNER vs LEFT 选对，多对多没把计数撑大）｜口径一致（指标与干系人定义一致，偏差已注）｜小计加总（部分之和等于整体，不等则解释如重叠）。
-- 合理性：量级（数在可信区间，营收非负，百分比 0–100%）｜趋势连续（无无法解释的跳变）｜交叉印证（关键数对得上 dashboard / 既往报告 / 财务）｜数量级（总营收/用户数与已知大致吻合）｜边界情形（空分段、零活跃周期、新实体怎么表现）。
-- 呈现：图表准确（柱状图从零起、轴有标签、多面板量纲一致）｜数字格式（精度、货币/百分号一致、千分位）｜标题清晰（说洞察而非只报指标、注明日期范围）｜caveat 透明（已知限制与假设显式写出）｜可复现（他人能据文档重建此分析）。
+1. **Review methodology and assumptions.** Is the analysis answering the right question (could it be interpreted differently)? Are the right tables/datasets and time range being used? Are metrics defined clearly and consistently with how stakeholders understand them? Is the comparison fair (time periods, cohort sizes, and contexts comparable)? Is the population correctly defined, with no unintended exclusions?
+2. **Run the pre-delivery QA checklist.** Work through the four categories below — data quality, calculation, reasonableness, and presentation checks.
+3. **Check for common analytical pitfalls.** Systematically review against the pitfall catalog below (join explosion, survivorship bias, incomplete period comparison, denominator shifting, average of averages, timezone mismatches, selection bias).
+4. **Verify calculations and aggregations.** Recalculate a few key numbers independently; verify subtotals sum to totals; check that percentages sum to ~100% where expected; confirm YoY/MoM comparisons use the correct base periods; validate filters are applied consistently across all metrics.
+5. **Assess visualizations** (if any charts). Do axes start at appropriate values (zero for bar charts)? Are scales consistent across comparison charts? Do titles accurately describe what's shown? Are there truncated axes, inconsistent intervals, or 3D effects that distort perception?
+6. **Evaluate narrative and conclusions.** Are conclusions supported by the data shown? Are alternative explanations acknowledged? Is uncertainty communicated appropriately? Do recommendations follow logically from findings? Does the level of confidence match the strength of evidence?
+7. **Suggest improvements and give a 3-level confidence assessment.** Make suggestions specific and actionable (additional analyses, caveats/limitations to note, better framings/visualizations, missing context). Rate on a 3-level scale and explain: **Ready to share** (methodologically sound, calculations verified, caveats noted; only minor non-blocking suggestions) / **Share with noted caveats** (largely correct but has specific limitations or assumptions that must be communicated; list the required caveats) / **Needs revision** (found specific errors, methodological issues, or missing analyses; list the required changes in priority order).
 
-**结果 sanity check**
+## Example
 
-- 量级 smell test：用户数对得上已知 MAU/DAU？营收数量级对得上已知 ARR？转化率在 0–100% 且对得上 dashboard？50%+ 的 MoM 增长是真实还是数据问题？均值是否符合对分布的认知？各分段百分比是否求和约 100%？
-- 交叉验证：① 同一指标用两种算法各算一遍看是否一致；② 抽个别记录手工追溯；③ 对标已发布 dashboard / 财务 / 既往分析；④ 反推（人均×人数 ≈ 总额？）；⑤ 边界检查（筛到单日/单用户/单类别，微观结果合理吗）。
-- 需警惕的红旗：单期变动 >50% 且无明显原因；计数/求和恰好是整数（疑似筛选或默认值问题）；比率恰好 0% 或 100%（疑似数据不完整）；结果完美印证假设（现实通常更糙）；跨期或跨分段值完全相同（疑似查询漏了某维度）。
+**Pre-Delivery QA Checklist** (run before sharing any analysis)
 
-## 示例
+- **Data quality:** Source verification (right tables/sources?) | Freshness (note the "as of" date) | Completeness (no unexpected gaps in time series or missing segments) | Null handling (checked null rates in key columns; excluded/imputed/flagged) | Deduplication (no double-counting from bad joins or duplicate source records) | Filter verification (all WHERE clauses correct, no unintended exclusions).
+- **Calculation:** Aggregation logic (GROUP BY includes all non-aggregated columns; level matches analysis grain) | Denominator correctness (right, non-zero denominator for rates) | Date alignment (same period length; partial periods excluded or noted) | Join correctness (INNER vs LEFT appropriate; many-to-many hasn't inflated counts) | Metric definitions (match stakeholder definitions; deviations noted) | Subtotals sum (parts add to the whole, or explain why not, e.g. overlap).
+- **Reasonableness:** Magnitude (plausible range; revenue not negative; percentages 0–100%) | Trend continuity (no unexplained jumps/drops) | Cross-reference (matches dashboards, prior reports, finance) | Order of magnitude (totals/user counts in the right ballpark) | Edge cases (empty segments, zero-activity periods, new entities).
+- **Presentation:** Chart accuracy (bar charts start at zero; axes labeled; scales consistent across panels) | Number formatting (precision, consistent currency/percentage, thousands separators) | Title clarity (state the insight, not just the metric; specify date ranges) | Caveat transparency (known limitations/assumptions stated explicitly) | Reproducibility (someone else could recreate the analysis from the docs).
 
-**陷阱速查（保留源关键约束）**
+**Common analytical pitfalls**
 
-- **Join 膨胀**：多对多 join 悄悄把行数翻倍。检测：
+- **Join explosion** — a many-to-many join silently multiplies rows, inflating counts and sums. Detect:
   ```sql
+  -- Check row count before and after join
   SELECT COUNT(*) FROM table_a;                                      -- 1,000
-  SELECT COUNT(*) FROM table_a a JOIN table_b b ON a.id = b.a_id;    -- 3,500（出事了）
+  SELECT COUNT(*) FROM table_a a JOIN table_b b ON a.id = b.a_id;    -- 3,500 (uh oh)
   ```
-  防：join 后必查行数；通过 join 计数实体时用 `COUNT(DISTINCT a.id)` 而非 `COUNT(*)`。
-- **幸存者偏差**：只分析「今天还在」的实体，漏掉已流失/已删除的。下结论前先问"谁不在这个数据集里？"
-- **不完整周期对比**：拿部分周期比完整周期（"1 月营收 $500K vs 12 月 $800K"——但 1 月还没过完）。防：只比完整周期，或对齐到同月同日/同天数。
-- **分母漂移**：跨期改了"合格/活跃"的定义，使比率不可比。防：跨期用一致定义，定义变更须注明。
-- **均值的均值**：A 组 100 人均值 $50，B 组 10 人均值 $200。错：(50+200)/2=$125；对：加权 (100×50+10×200)/110=$63.64。永远从原始数据聚合。
-- **时区错配**：UTC 事件时间戳 vs 本地展示日期 / 不同截断时间的日汇总。防：分析前统一到单一时区（建议 UTC）并记录。
-- **分段选择偏差**：用结果本身定义分段造成循环逻辑（"完成 onboarding 的留存更高"——他们自选择了）。防：按处理前特征而非结果定义分段。
-- 其他统计陷阱：辛普森悖论、相关当因果、小样本、离群点拖累均值（考虑中位数）、多重检验/挑樱桃、前视偏差、挑对叙事有利的时间段。
+  Prevent: always check row counts after joins; investigate the relationship (really 1:1 or 1:many?); use `COUNT(DISTINCT a.id)` instead of `COUNT(*)` when counting entities through joins.
+- **Survivorship bias** — analyzing only entities that exist today, ignoring deleted/churned/failed ones. Before drawing conclusions, ask "who is NOT in this dataset?"
+- **Incomplete period comparison** — comparing a partial period to a full one ("January revenue is $500K vs. December's $800K" — but January isn't over). Prevent: filter to complete periods, or compare same-day-of-month / same-number-of-days.
+- **Denominator shifting** — the definition of "eligible"/"active" changes between periods, making rates incomparable. Prevent: use consistent definitions across compared periods; note any definition changes.
+- **Average of averages** — Group A: 100 users, avg $50; Group B: 10 users, avg $200. Wrong: (50+200)/2 = $125. Right: weighted (100×50 + 10×200)/110 = $63.64. Always aggregate from raw data; never average pre-aggregated averages.
+- **Timezone mismatches** — UTC event timestamps vs. local-time user-facing dates, or daily rollups with different cutoff times. Prevent: standardize all timestamps to one timezone (UTC recommended) before analysis and document it.
+- **Selection bias in segmentation** — segments defined by the outcome being measured create circular logic ("users who completed onboarding have higher retention" — they self-selected). Prevent: define segments on pre-treatment characteristics, not outcomes.
+- **Other statistical traps** — Simpson's paradox; correlation presented as causation; small sample sizes; outliers distorting averages (consider medians); multiple testing / cherry-picking; look-ahead bias; cherry-picked time ranges that favor a narrative.
 
-**报告输出格式**
+**Result sanity checking**
+
+- **Magnitude smell test:** Do user counts match known MAU/DAU? Is revenue in the right order of magnitude vs. known ARR? Are conversion rates 0–100% and matching the dashboard? Is 50%+ MoM growth real or a data issue? Is the average reasonable given the distribution? Do segment percentages sum to ~100%?
+- **Cross-validation techniques:** (1) Calculate the same metric two different ways and verify they match. (2) Spot-check individual records — trace a few specific entities manually. (3) Compare to known benchmarks (published dashboards, finance reports, prior analyses). (4) Reverse engineer — does per-user revenue × user count ≈ total? (5) Boundary checks — filter to a single day/user/category; are the micro-results sensible?
+- **Red flags warranting investigation:** any metric that changed >50% period-over-period without an obvious cause; counts/sums that are exact round numbers (filter or default-value issue); rates exactly 0% or 100% (may indicate incomplete data); results that perfectly confirm the hypothesis (reality is usually messier); identical values across periods/segments (query is probably ignoring a dimension).
+
+**Report output format**
 
 ```
-## 校验报告
-### 总体评级：[可发布 | 带注意事项发布 | 需返工]
-### 方法论审查
-[关于方法、选数、口径定义的发现]
-### 发现的问题
-1. [严重度 高/中/低] [问题描述与影响]
-### 计算抽验
-- [指标]：[已核实 / 发现差异]
-### 可视化审查
-[图表或视觉呈现的问题]
-### 改进建议
-1. [建议及其重要性]
-### 须告知干系人的注意事项
-- [必须传达的 caveat]
+## Validation Report
+
+### Overall Assessment: [Ready to share | Share with caveats | Needs revision]
+
+### Methodology Review
+[Findings about approach, data selection, definitions]
+
+### Issues Found
+1. [Severity: High/Medium/Low] [Issue description and impact]
+
+### Calculation Spot-Checks
+- [Metric]: [Verified / Discrepancy found]
+
+### Visualization Review
+[Any issues with charts or visual presentation]
+
+### Suggested Improvements
+1. [Improvement and why it matters]
+
+### Required Caveats for Stakeholders
+- [Caveat that must be communicated]
 ```
 
-## 注意事项
+## Notes
 
-- **任何高风险汇报或决策前都先跑这套质检**；即便快分析也值得做一次 sanity check，花一分钟可保住可信度。
-- 发现问题就**先修再复核**；把校验输出和分析一起交付，能增强干系人信心。
-- 给每条发现配置信措辞，让置信措辞匹配证据强度——不要把"很可能"写成"必然"。
-- 复现性是底线：标注数据快照日期、把查询/代码纳入版本控制（git 或共享文档），重跑时记录改了什么、为什么。每份非平凡分析应附：问题、数据源(含 as-of)、口径定义、方法步骤、假设与限制、关键发现、SQL 查询、caveat。
+- Run this validation before any high-stakes presentation or decision; even quick analyses benefit from a sanity check — it takes a minute and can save your credibility.
+- If the validation finds issues, fix them and re-validate; share the validation output alongside your analysis to build stakeholder confidence.
+- Match confidence wording to the strength of evidence — don't phrase a "likely" as a "certainty."
+- Reproducibility is the floor: note the data-snapshot date, keep queries/code in version control (git or a shared docs system), and when re-running with updated data, document what changed and why. Every non-trivial analysis should document: the question; data sources (with as-of dates); definitions; methodology steps; assumptions and limitations; key findings; SQL queries; and caveats. For reusable code, include a docstring stating author, date, data source, last-validated date, assumptions, and output description.
 
-## 互见
+## See also
 
-- related：`dataset-quality-auditor` —— 复核中怀疑底层数据脏时，转去做完整数据集画像与 DQS 评分。
-- related：`data-quality-validator` —— 同类问题反复出现时，沉淀成管道级自动校验（GE/dbt test/数据契约）。
-- related：`sql-query-builder` —— 抽验或重算时需要重写/调优查询。
-- combines_with：`financial-analysis-toolkit` —— 当被复核的是财务/会计数字，叠加财务口径校验。
-- combines_with：`kpi-dashboard-design`、`matplotlib-visualization`、`plotly-interactive-viz` —— 可视化审查发现图表误导时，据建议重做图表。
+- related: `dataset-quality-auditor` — when you suspect the underlying data is dirty during review, switch to a full dataset profile and data-quality score.
+- related: `data-quality-validator` — when the same issues recur, codify them as pipeline-level automated checks (Great Expectations / dbt tests / data contracts).
+- related: `sql-query-builder` — when spot-checking or recomputing requires rewriting or tuning a query.
+- combines_with: `financial-analysis-toolkit` — when the thing under review is financial/accounting figures, layer on financial-definition checks.
+- combines_with: `kpi-dashboard-design`, `matplotlib-visualization`, `plotly-interactive-viz` — when visualization review finds misleading charts, rebuild them per the suggestions.
 
 ---
-采编自 anthropics/knowledge-work-plugins（Apache-2.0 许可证）。
+Adapted from anthropics/knowledge-work-plugins (Apache-2.0). Source: `data/skills/validate-data/SKILL.md`.

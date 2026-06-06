@@ -1,14 +1,14 @@
 ---
 name: octagon-sec-risk-factors
-title: SEC 风险因素提取
-description: 当需要从美股 SEC 文件（10-K/10-Q）Item 1A 风险披露中提取归类并对比风险因素时使用；经 Octagon MCP 的 octagon-agent 抽取风险点，产出按宏观/运营/财务/法律/战略分类、带来源页码的清单；不适用于无 Octagon MCP、非美股 SEC 体系、或需法律与投资建议的场景；触发词：SEC 风险因素、Item 1A、10-K 风险披露
+title: SEC Risk Factors Analysis
+description: Extract and summarize risk factors from SEC filings using Octagon MCP. Use when analyzing Item 1A risk disclosures, categorizing business risks, identifying new or material risks, and comparing risk profiles across companies or time periods.
 domain: 领域/fintech
-triggers: [SEC 风险因素, Item 1A, 10-K 风险披露, 10-Q 风险更新, octagon-agent, 风险因素归类, 同业风险对比, 年度风险变化]
-tags: [fintech, sec, 风险因素, 10-k, 10-q, octagon mcp, 尽职调查, 财报分析]
-level: 进阶
+triggers: [Item 1A, octagon-agent]
+tags: [fintech, sec, 10-k, 10-q, octagon mcp]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Octagon MCP, octagon-agent]
+tools: []
 requires: []
 related: [three-statement-model, lbo-model-builder, dcf-valuation-model, alpha-vantage-market-data]
 combines_with: [diligence-issue-extractor, dcf-valuation-model, portfolio-risk-metrics]
@@ -16,31 +16,32 @@ license: MIT
 source: OctagonAI/skills
 source_license: MIT
 ---
+# SEC Risk Factors Analysis
 
-# SEC 风险因素提取
+Extract and summarize risk factors from SEC filings (10-K and 10-Q) for public companies using the Octagon MCP server.
 
-## 何时使用
+## Prerequisites
 
-需要从美股上市公司的 **SEC 申报文件（10-K 年报 / 10-Q 季报）Item 1A「风险因素」**章节提取、归类、按时间或同业对比风险披露时使用。典型场景：投资尽调、组合风险监控、竞品风险画像、行业风险扫描、披露充分性合规复核。
+Ensure Octagon MCP is configured in your AI agent (Cursor, Claude Desktop, Windsurf, etc.). See [references/mcp-setup.md](references/mcp-setup.md) for installation instructions.
 
-**不该用的边界：**
-- **未配置 Octagon MCP** 的环境 —— 本技能依赖 `octagon-agent` 工具与 `octagon-sec-agent` 数据源，无 MCP 无法工作。
-- **非美股 SEC 体系**（如 A 股、港股、欧股）—— 文件结构与 Item 1A 概念不通用。
-- 需要**法律意见、投资买卖建议或对未披露风险的判断** —— 本技能只抽取并归纳已公开披露内容，不替代律师/分析师判断。
-- 需要逐字全文 —— 输出是**归纳摘要 + 分类**，不是原文照录。
+## Workflow
 
-## 步骤 / 指令
+### 1. Identify Analysis Parameters
 
-1. **确认前置**：Octagon MCP 已在 Agent（Cursor / Claude Desktop / Windsurf 等）中配置完成。
-2. **确定参数**：
-   - **Ticker**（必填）：股票代码，如 `AAPL`、`MSFT`、`GOOGL`。
-   - **Filing Type**（可选）：`10-K`（年度全量）或 `10-Q`（季度更新）。
-   - **Focus Areas**（可选）：限定风险类别，如「网络安全」「监管合规」。
-3. **下发自然语言指令**，调用 `octagon-agent` 工具。
-4. **接收结构化输出**：按风险类别归类、附来源页码的表格（数据源 `octagon-sec-agent`）。
-5. **解读**：按下方「分析要点」评估材料性、追踪 YoY 变化、对比同业。
+Determine the following before querying:
+- **Ticker**: Stock symbol (e.g., AAPL, MSFT, GOOGL)
+- **Filing Type** (optional): 10-K (annual) or 10-Q (quarterly updates)
+- **Focus Areas** (optional): Specific risk categories of interest
 
-**MCP 调用格式：**
+### 2. Execute Query via Octagon MCP
+
+Use the `octagon-agent` tool with a natural language prompt:
+
+```
+Extract and summarize the risk factors section from <TICKER>'s latest annual report.
+```
+
+**MCP Call Format:**
 
 ```json
 {
@@ -52,76 +53,155 @@ source_license: MIT
 }
 ```
 
-**预期输出（示意）：**
+### 3. Expected Output
 
-| 风险类别 | 描述 | 来源页码 |
-|---|---|---|
-| 宏观与行业风险 | 经济下行、通胀、汇率 | 10-K, p.8 |
-| 法律与监管合规 | 诉讼、监管挑战 | 10-K, p.15-16 |
-| 财务风险 | 价格压力、竞争、汇率波动 | 10-K, p.18-31 |
-| 业务风险 | 产品换代、竞争力 | 10-K, p.11 |
-| 运营风险 | 制造、物流、外包 | 10-K, p.11 |
-| 数据安全与隐私 | 网络安全、数据保护 | 10-K, p.18 |
-| 供应链风险 | 地缘紧张、自然灾害 | 10-K, p.9 |
+The agent returns categorized risk factors including:
 
-**五大风险分类速查（用于核对覆盖面）：**
+| Risk Category | Description | Source Pages |
+|---------------|-------------|--------------|
+| Macroeconomic & Industry Risks | Economic downturns, inflation, currency | 10-K, p.8 |
+| Legal & Regulatory Compliance | Legal proceedings, regulatory challenges | 10-K, p.15-16 |
+| Financial Risks | Pricing pressures, competition, FX volatility | 10-K, p.18-31 |
+| Business Risks | Product transitions, competitiveness | 10-K, p.11 |
+| Operational Risks | Manufacturing, logistics, outsourcing | 10-K, p.11 |
+| Data Security & Privacy | Cybersecurity, data protection | 10-K, p.18 |
+| Supply Chain Risks | Geopolitical tensions, natural disasters | 10-K, p.9 |
 
-| 类别 | 子类示例 |
-|---|---|
-| 宏观 | 经济周期、通胀、利率、汇率、地缘政治 |
-| 运营 | 供应链、制造、技术系统、关键人才、业务连续性 |
-| 财务 | 流动性、信用、市场、税务、养老金 |
-| 法律监管 | 合规、诉讼、反垄断、数据隐私（GDPR/CCPA）、环境 ESG |
-| 战略 | 竞争、技术颠覆、并购整合、创新管线、声誉 |
+**Data Sources**: octagon-sec-agent
 
-## 示例
+### 4. Interpret Results
 
-```text
-# 标准风险因素提取
+See [references/interpreting-results.md](references/interpreting-results.md) for guidance on:
+- Understanding risk factor categories
+- Assessing risk materiality
+- Comparing risks across filings
+- Identifying new or emerging risks
+
+## Example Queries
+
+**Standard Risk Factor Extraction:**
+```
 Extract and summarize the risk factors section from AAPL's latest annual report.
+```
 
-# 季度风险更新（10-Q 新增/变更）
+**Quarterly Risk Updates:**
+```
 Extract any new or updated risk factors from TSLA's latest 10-Q filing.
+```
 
-# 限定类别
+**Specific Risk Category:**
+```
 Extract cybersecurity and data privacy risk factors from META's latest 10-K.
+```
 
-# 跨年度对比
+**Comparative Analysis:**
+```
 Compare the risk factors between GOOGL's 2024 and 2023 10-K filings.
+```
 
-# 同业对比
+**Industry Comparison:**
+```
 Extract and compare supply chain risk factors from AAPL and MSFT's latest 10-K filings.
+```
 
-# 监管聚焦
+**Regulatory Focus:**
+```
 Extract all regulatory and legal compliance risk factors from JPM's latest annual report.
 ```
 
-## 注意事项
+## Risk Factor Categories
 
-**分析要点：**
-- **顺序即材料性**：风险通常按管理层感知的重要性排序，靠前者往往最关键。
-- **篇幅即关注度**：描述越详尽，通常代表管理层越担忧。
-- **具体优于套话**：含具体事例的风险是真实关切，泛泛措辞多为模板。
-- **交叉对照 MD&A**：管理层讨论分析常为风险因素提供上下文。
-- **追踪 YoY 变化**：新增/删除/改写的风险揭示演变中的关切。
-- **对比同业**：独有风险 vs 行业通用披露，区分公司特异性问题。
+### Macroeconomic Risks
 
-**风险变化的解读：**
-- **新增风险**（高优先级）：相对上期新加，常反映近期事件或战略转向。
-- **删除风险**（需监控）：可能已化解，或被并入其他风险 —— 到 MD&A 核实。
-- **措辞改写**（重要）：扩写=关切上升；缩写=关切下降；更具体=风险正在显化。
+| Risk Type | Examples |
+|-----------|----------|
+| Economic Cycles | Recessions, GDP decline, consumer spending |
+| Inflation | Input costs, pricing power, margin pressure |
+| Interest Rates | Borrowing costs, valuation impacts |
+| Currency | FX volatility, translation effects |
+| Geopolitical | Trade wars, sanctions, political instability |
 
-**合规与限制：**
-- 输出依赖 `octagon-sec-agent` 数据源，覆盖范围与时效以 Octagon 数据为准；关键结论应回溯原始申报文件核验。
-- 结果仅供分析参考，**不构成投资建议或法律意见**，不能替代专业尽调与风控复核。
-- 缺少 Ticker 或目标文件类型时先停下确认，不要臆测代码。
+### Operational Risks
 
-## 互见
+| Risk Type | Examples |
+|-----------|----------|
+| Supply Chain | Supplier concentration, logistics disruptions |
+| Manufacturing | Production issues, quality control |
+| Technology | System failures, IT infrastructure |
+| Human Capital | Key personnel, labor relations |
+| Business Continuity | Natural disasters, pandemics |
 
-- related：`three-statement-model` / `dcf-valuation-model` / `lbo-model-builder` —— 风险画像为估值与建模提供折现率与情景假设依据。
-- related：`alpha-vantage-market-data` —— 拉取行情与基本面数据，与定性风险互补。
-- combines_with：`diligence-issue-extractor` —— 风险因素抽取 + 尽调问题清单，组成完整投资前风险评估。
-- combines_with：`portfolio-risk-metrics` —— 定性披露风险 + 定量组合风险指标，形成持仓风险全景。
+### Financial Risks
 
----
-采编自 OctagonAI/skills（MIT 许可），已做中文适配重写。
+| Risk Type | Examples |
+|-----------|----------|
+| Liquidity | Cash flow, access to capital |
+| Credit | Counterparty risk, receivables |
+| Market | Stock price volatility, valuation |
+| Tax | Rate changes, audit exposure |
+| Pension | Funding obligations, assumptions |
+
+### Regulatory & Legal Risks
+
+| Risk Type | Examples |
+|-----------|----------|
+| Compliance | Industry regulations, licensing |
+| Litigation | Lawsuits, class actions |
+| Antitrust | Competition law, market dominance |
+| Data Privacy | GDPR, CCPA, data breaches |
+| Environmental | ESG regulations, climate policies |
+
+### Strategic Risks
+
+| Risk Type | Examples |
+|-----------|----------|
+| Competition | Market share, pricing pressure |
+| Disruption | Technology shifts, new entrants |
+| M&A | Integration risks, deal failure |
+| Innovation | R&D success, product pipeline |
+| Reputation | Brand damage, public perception |
+
+## Analyzing Risk Changes
+
+### New Risks (High Priority)
+
+Risks added since prior filing:
+- Indicates emerging concerns
+- Often reflects recent events
+- May signal strategic shifts
+
+### Removed Risks (Monitor)
+
+Risks no longer disclosed:
+- Issue may be resolved
+- Or consolidated into other risks
+- Verify resolution in MD&A
+
+### Modified Language (Important)
+
+Risks with changed wording:
+- Expanded = increased concern
+- Reduced = diminished concern
+- More specific = crystallizing risk
+
+## Analysis Tips
+
+1. **Order matters**: Risks are typically ordered by perceived materiality - first risks are often most significant.
+
+2. **Length signals importance**: More detailed risk descriptions often indicate greater management concern.
+
+3. **Specificity is key**: Specific examples suggest real concerns vs. boilerplate language.
+
+4. **Cross-reference MD&A**: Management discussion often provides context for risk factors.
+
+5. **Track changes YoY**: New, removed, or modified risks reveal evolving concerns.
+
+6. **Compare to peers**: Unique risks vs. industry-standard disclosures indicate company-specific issues.
+
+## Use Cases
+
+- **Investment due diligence**: Comprehensive risk assessment before investing
+- **Portfolio risk monitoring**: Track risk evolution for holdings
+- **Competitive analysis**: Compare risk profiles across competitors
+- **Sector research**: Identify common vs. unique risks in an industry
+- **Compliance review**: Ensure adequate risk disclosure

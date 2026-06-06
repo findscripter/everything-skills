@@ -1,14 +1,14 @@
 ---
 name: employee-handbook-update-diff
-title: 员工手册变更影响分析
-description: 当要把一处拟议改动并入员工手册、需先看清它对其他条款/交叉引用/各州补充条款的连锁影响时使用；做现行条款 diff、排查交叉引用与各州补充冲突、做减损承诺风险检查并输出发布清单；不适用于审批改动、向员工宣贯或追踪签收。触发词：更新手册, 改员工手册, 手册变更, 把这条加进手册, handbook update, ripple effect, 各州补充
+title: Handbook Updates
+description: Diff a proposed handbook change against the current version, flag ripple effects and state supplement impacts. Use when user says "update the handbook", "add this to the handbook", "handbook change", or has a policy ready for insertion.
 domain: 领域/legal
-triggers: [更新手册, 改员工手册, 手册变更, 把这条加进手册, 手册条款 diff, handbook update, handbook change, ripple effect, 各州补充]
+triggers: [handbook update, handbook change, ripple effect]
 tags: [legal, employment, handbook, policy-diff, ripple-effect, compliance]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [markdown]
+tools: []
 requires: []
 related: [regulatory-policy-diff, worker-classification-analyzer, employment-contract-drafter, general-counsel-advisor]
 combines_with: [regulatory-policy-diff, general-counsel-advisor]
@@ -16,111 +16,101 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# Handbook Updates
 
-当一处拟议改动要并入员工手册，需要在落笔前看清它的连锁影响时使用。手册改一处往往牵动多处：改 PTO（带薪休假）政策会波及离职结算、休假政策的交叉引用以及三个州的补充条款。本技能在这些不一致变成事实之前把「水波纹」找出来。
+## Matter context
 
-典型触发：用户说「更新一下手册」「把这条加进手册」「这是要插入的政策」，或手上已有一段待插入的政策文本。
-
-不该用的边界：
-- 不**审批**手册改动——批准由 HR / 法务负责人定，本技能只做影响分析。
-- 不向员工**宣贯/通知**改动，也不**追踪签收回执**。
-- 不替决策者拍板模糊条款的定性；遇争议解读时点明并交人工裁断。
-
-## 步骤
-
-先载入院内上下文（手册存放位置、各州补充条款清单、更新节奏），来源为院内规范文件（如实践配置里的 `CLAUDE.md`）。
-
-> 多客户私人执业才有「事务工作区（matter workspace）」；院内单雇主场景该机制关闭，跳过相关步骤，直接用实践级上下文。
-
-1. **取得改动**：改哪一节？新文本是什么？为何改（法律要求 / 政策决定 / 文字清理）？
-2. **与现行条款做 diff**：读现行手册对应节，展示差异。
-3. **排查交叉引用**：在手册内搜索指向被改节的引用，逐条判断改后是否仍成立。
-4. **各州补充条款影响**：逐个补充条款判断是否被改动牵动。
-5. **减损承诺检查**：改动是否在削减旧版承诺的某项权益？是则标风险。
-6. **汇总输出**：变更 diff + 交叉引用影响表 + 各州补充影响表 + 承诺检查 + 发布清单。
-
-## 指令
-
-### 第 2 步：与现行条款做 diff
-
-读现行手册对应节，以 diff 形式展示：
-
-```diff
-- [旧文本]
-+ [新文本]
-```
-
-### 第 3 步：交叉引用
-
-在手册内搜索指向被改节的引用，三类都要查：
-- 引用本节的其他政策（如「累计费率见 PTO 政策」）。
-- 本节使用或定义的术语（defined terms）。
-- 修改本节的各州补充条款。
-
-每条引用逐一判断：改动后是否仍说得通？凡会因此失真/失效的，标出来。
-
-### 第 4 步：各州补充条款影响
-
-对清单中每个州的补充条款逐一问：
-- 该补充是否修改了正被改动的这一节？
-- 改动是否令该补充变得**过时、错误或不完整**？
-- 改动是否在原本不需要补充的州**新催生**出补充需求？
-
-### 第 5 步：减损承诺检查（关键风险点）
-
-改动是否在削减旧版承诺过的某项权益？
-
-是 → 这是风险。部分州把手册政策视同合同条款，削减权益可能不止改文档那么简单——可能需要**提前通知、对价（consideration）**，某些州甚至不得溯及既往地实施。
-
-**标出来，但不要拦阻**——交由人工/律师定夺。
-
-## 示例
-
-输出骨架：
-
-```markdown
-## 手册更新：[条款名]
-
-### 变更
-[diff]
-
-### 交叉引用影响
-| 条款 | 引用被改节的方式 | 改后仍准确？ | 需修什么 |
-|------|------------------|--------------|----------|
-| [名] | [如何引用] | ✅/⚠️ | [处理项] |
-
-### 各州补充影响
-| 州 | 现行补充内容 | 改动后 | 行动 |
-|----|--------------|--------|------|
-| [州] | [现表述] | [仍有效 / 已过时 / 需更新] | [无 / 更新 / 需新增补充] |
-
-### 承诺检查
-[若削减权益：标记 + 法域风险提示（通知 / 对价 / 不可溯及）]
-
-### 发布清单
-- [ ] 交叉引用已更新
-- [ ] 各州补充已更新
-- [ ] [若削减权益：通知 / 对价问题已处理]
-- [ ] 版本号与日期已更新
-- [ ] 签收流程（如需要）
-```
-
-## 注意事项
-
-- **减损承诺是头号陷阱**：手册在部分州具合同效力，削减权益绝不能只改文档了事。务必标风险并提示法域差异，但把决定权留给律师。
-- **各州补充易被遗漏**：改主条款常使既有补充变过时，或在新州催生补充需求——逐州过一遍，别只看主文。
-- **交叉引用是隐性破口**：术语定义和「见某政策」式引用在改动后最容易自相矛盾，逐条核而非抽样。
-- 涉及法律引文（statute / 各州规则）时，凡未对照一手法源者打 `[模型知识—待核实]`，行动前核查。
-- 结尾给「下一步决策树」（起草修订文本 / 升级上报 / 补充事实 / 观望 / 其他），由律师选择，而非替其锁定。
-
-## 互见
-
-- requires：无
-- related：`regulatory-policy-diff` —— 当改动源于一条新法规时，先用它做法规→制度的差距分析，再回到本技能落地手册条款。
-- related：`worker-classification-analyzer`、`employment-contract-drafter` —— 同属雇佣法域，手册条款常与分类政策、雇佣合同条款互相牵动。
-- combines_with：`general-counsel-advisor` —— 减损承诺等高风险改动可升级给它做法务把关与上报决策。
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/employment-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/employment-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
 
 ---
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+## Purpose
+
+Handbook changes have ripple effects. Change the PTO policy and you've affected the final pay calculation, the leave policy cross-reference, and three state supplements. This skill finds the ripples before they become inconsistencies.
+
+## Load context
+
+`~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → handbook location, state supplements list, update cadence.
+
+## Workflow
+
+### Step 1: Get the change
+
+- What section is changing?
+- What's the new language?
+- Why? (Legal requirement, policy decision, cleanup)
+
+### Step 2: Diff against current
+
+Read the current handbook section. Show the diff:
+
+```diff
+- [old language]
++ [new language]
+```
+
+### Step 3: Find cross-references
+
+Search the handbook for references to the changed section:
+
+- Other policies that cite this one ("see the PTO policy for accrual rates")
+- Defined terms that this section uses or defines
+- State supplements that modify this section
+
+Each cross-reference: does it still make sense after the change? Flag any that break.
+
+### Step 4: State supplement impact
+
+For each state supplement in `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md`:
+
+- Does this supplement modify the section being changed?
+- Does the change make the supplement obsolete, wrong, or incomplete?
+- Does the change create a need for a *new* supplement in a state that didn't need one before?
+
+### Step 5: Promise check
+
+Is the change reducing something the old version promised?
+
+If yes: that's a risk. Some states treat handbook policies as contractual. Reducing a benefit may need more than just updating the document — advance notice, consideration, or in some cases it can't be done retroactively.
+
+Flag this. Don't block it — but flag it.
+
+## Output
+
+```markdown
+## Handbook Update: [Section name]
+
+### Change
+
+[diff]
+
+### Cross-reference impact
+
+| Section | References changed section | Still accurate? | Fix needed |
+|---|---|---|---|
+| [name] | [how] | ✅/⚠️ | [what] |
+
+### State supplement impact
+
+| State | Current supplement | After change | Action |
+|---|---|---|---|
+| [state] | [what it says] | [still valid / obsolete / needs update] | [none / update / new supplement needed] |
+
+### Promise check
+
+[If reducing a benefit: flag + jurisdictional risk note]
+
+### Ready to publish
+
+- [ ] Cross-references updated
+- [ ] State supplements updated
+- [ ] [If benefit reduction: notice/consideration addressed]
+- [ ] Version number and date updated
+- [ ] Acknowledgment process (if required)
+```
+
+## What this skill does not do
+
+- Approve handbook changes. HR/legal leadership does.
+- Communicate changes to employees.
+- Track acknowledgments.

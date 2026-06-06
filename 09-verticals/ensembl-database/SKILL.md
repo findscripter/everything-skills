@@ -1,14 +1,14 @@
 ---
 name: ensembl-database
-title: Ensembl 基因注释数据库
-description: 当需要通过 Ensembl REST API 在线获取基因/转录本/变异注释、做 ID 映射（HGNC↔Ensembl↔RefSeq↔UniProt）、取序列、VEP 变异效应、调控特征或跨物种同源时使用；做基因注释检索与产出（坐标/序列/xref/CSV 注释表）；不适用于本地批量离线注释（用 pyensembl）、通路/代谢注释（用 kegg/reactome）；触发词：Ensembl、ENSG、VEP、ortholog
+title: Ensembl Genome Database
+description: Ensembl REST API for gene/transcript/variant annotations in 300+ species. Gene info by symbol/ID, sequence, cross-refs (HGNC, RefSeq, UniProt), regulatory features. For bulk local use pyensembl; for pathways use kegg-database.
 domain: 领域/science
-triggers: [Ensembl 基因注释, ENSG/ENST/ENSP 稳定 ID 查询, 基因符号转 Ensembl ID, VEP 变异效应预测, rsID 注释, HGVS 变异注释, 跨物种同源 ortholog/paralog, 调控特征查询, 基因/转录本/蛋白序列获取, GRCh38/GRCh37 区间基因重叠]
+triggers: []
 tags: [databases, genomics-bioinformatics, variant-annotation, rest-api, comparative-genomics]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [requests, pandas, joblib]
+tools: []
 requires: []
 related: [gget-genomic-databases, ucsc-genome-browser, uniprot-protein-database, gnomad-population-database]
 combines_with: [gget-genomic-databases, clinvar-database]
@@ -16,35 +16,39 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# Ensembl Genome Database
 
-适用：
-- 按基因符号或 Ensembl 稳定 ID 取官方基因/转录本注释（稳定 ID、biotype、基因组坐标）。
-- 在标识符命名空间间转换：HGNC 符号 ↔ Ensembl ID ↔ RefSeq ↔ UniProt。
-- 取基因或转录本的基因组 / cDNA / CDS / 蛋白序列。
-- 用 VEP 预测一批 SNP（HGVS 或 rsID）的功能后果与影响等级。
-- 查询某基因组区间的调控特征（启动子、增强子、CTCF）。
-- 跨物种比较基因组：同源（ortholog/paralog）、基因树。
+## Overview
 
-不该用（负边界）：
-- 大规模本地离线注释 → 用 `pyensembl`，避免高频打 REST。
-- 通路/代谢注释 → 用 `kegg-database` 或 `reactome-database`。
-- NCBI RefSeq/GenBank 主导的检索 → 用 Biopython 的 `Entrez`。
+Ensembl is a comprehensive genome annotation database covering 300+ vertebrate and non-vertebrate species. The Ensembl REST API provides programmatic access to gene models, transcript/protein sequences, variant annotations, cross-references, regulatory features, and comparative genomics without requiring any login or API key.
 
-## 步骤
+## When to Use
 
-1. 装依赖：`pip install requests`（联网即可，无需 API Key）。
-2. 选端点：单条用 GET `/lookup/...`，多条务必用 POST 批量端点。
-3. 区间查询固定 assembly（`coord_system_version=GRCh38`；GRCh37 用 `grch37.rest.ensembl.org`）。
-4. 控速 ≤ ~15 req/s；循环里加 `time.sleep(0.1)`，优先批量。
-5. 落地为 DataFrame/CSV，必要时用 `joblib.Memory` 缓存。
+- Retrieving official gene and transcript annotations (stable IDs, biotype, genomic coordinates) for human or model organism genes
+- Converting between gene identifier namespaces (HGNC symbol ↔ Ensembl ID ↔ RefSeq ↔ UniProt)
+- Fetching genomic or cDNA/CDS/protein sequences for a gene or transcript
+- Looking up variant consequences and functional impact (VEP) for a list of SNPs
+- Querying regulatory features (promoters, enhancers, CTCF sites) in a genomic region
+- Performing comparative genomics queries (orthologs, paralogs, gene trees) across species
+- For local offline access to large genomic annotations, use `pyensembl` instead
+- For pathway and metabolic annotations, use `kegg-database` or `reactome-database` instead
 
-## 指令
+## Prerequisites
 
-通用封装与基址：
+- **Python packages**: `requests`
+- **Data requirements**: gene symbols, Ensembl stable IDs (ENSG…/ENST…/ENSP…), or genomic coordinates
+- **Environment**: internet connection required; no API key needed
+- **Rate limits**: max ~15 requests/second; use `expand=1` and batch endpoints to minimize calls
+
+```bash
+pip install requests
+```
+
+## Quick Start
 
 ```python
-import requests, json
+import requests
+
 BASE = "https://rest.ensembl.org"
 HEADERS = {"Content-Type": "application/json"}
 
@@ -52,121 +56,429 @@ def ensembl_get(endpoint, params=None):
     r = requests.get(f"{BASE}{endpoint}", headers=HEADERS, params=params)
     r.raise_for_status()
     return r.json()
+
+# Look up human BRCA1
+gene = ensembl_get("/lookup/symbol/homo_sapiens/BRCA1", params={"expand": 1})
+print(f"ID: {gene['id']}, Chr: {gene['seq_region_name']}:{gene['start']}-{gene['end']}")
+print(f"Transcripts: {len(gene.get('Transcript', []))}")
 ```
 
-按符号查基因（`expand=1` 展开转录本）：
+## Core API
+
+### Query 1: Gene Lookup by Symbol or Stable ID
+
+Retrieve gene metadata from a gene symbol or Ensembl stable ID.
 
 ```python
-gene = ensembl_get("/lookup/symbol/homo_sapiens/TP53", params={"expand": 1})
-print(gene["id"], f'{gene["seq_region_name"]}:{gene["start"]}-{gene["end"]}',
-      gene["biotype"], len(gene.get("Transcript", [])))
+import requests
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+# By gene symbol
+r = requests.get(
+    f"{BASE}/lookup/symbol/homo_sapiens/TP53",
+    headers=HEADERS,
+    params={"expand": 1}
+)
+gene = r.json()
+print(f"Ensembl ID : {gene['id']}")
+print(f"Location   : {gene['seq_region_name']}:{gene['start']}-{gene['end']} ({gene['strand']})")
+print(f"Biotype    : {gene['biotype']}")
+print(f"Transcripts: {len(gene.get('Transcript', []))}")
 ```
 
-按稳定 ID 查（基因/转录本/蛋白通用）：`GET /lookup/id/ENSG00000141510`。
-
-批量符号查询（POST，最多约 1000 条）：
-
 ```python
-r = requests.post(f"{BASE}/lookup/symbol/homo_sapiens",
-                  headers=HEADERS,
-                  data=json.dumps({"symbols": ["BRCA1","BRCA2","TP53","EGFR","MYC"]}))
+# By stable ID (works for genes, transcripts, proteins)
+r = requests.get(
+    f"{BASE}/lookup/id/ENSG00000141510",
+    headers=HEADERS,
+    params={"expand": 0}
+)
+obj = r.json()
+print(f"Symbol: {obj.get('display_name')}, Species: {obj.get('species')}")
 ```
 
-取序列（蛋白需 `Content-Type: text/plain`）：
+### Query 2: Batch Lookup
+
+Retrieve information for multiple IDs in one call (POST endpoint).
 
 ```python
-r = requests.get(f"{BASE}/sequence/id/ENST00000269305",
-                 headers={"Content-Type": "text/plain"},
-                 params={"type": "protein"})  # type: genomic|cDNA|CDS|protein
+import requests, json
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+# Batch lookup by symbols
+symbols = ["BRCA1", "BRCA2", "TP53", "EGFR", "MYC"]
+r = requests.post(
+    f"{BASE}/lookup/symbol/homo_sapiens",
+    headers=HEADERS,
+    data=json.dumps({"symbols": symbols})
+)
+results = r.json()
+for sym, data in results.items():
+    if data:
+        print(f"{sym}: {data['id']} ({data['seq_region_name']}:{data['start']}-{data['end']})")
+```
+
+### Query 3: Sequence Retrieval
+
+Fetch genomic, cDNA, CDS, or protein sequences.
+
+```python
+import requests
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "text/plain"}
+
+# Protein sequence for canonical transcript
+r = requests.get(
+    f"{BASE}/sequence/id/ENST00000269305",
+    headers=HEADERS,
+    params={"type": "protein"}
+)
 seq = r.text
+print(f"Protein sequence ({len(seq)} aa): {seq[:60]}...")
 ```
 
-区间基因组序列：`GET /sequence/region/human/17:43044295..43125364?coord_system_version=GRCh38`。
+```python
+# Genomic region sequence
+HEADERS_JSON = {"Content-Type": "application/json"}
+r = requests.get(
+    f"{BASE}/sequence/region/human/17:43044295..43125364",
+    headers=HEADERS_JSON,
+    params={"coord_system_version": "GRCh38"}
+)
+result = r.json()
+print(f"Retrieved {len(result['seq'])} bp of genomic sequence")
+```
 
-交叉引用（ID 映射）：`GET /xrefs/id/ENSG00000141510`，按 `dbname` 分组取 HGNC、RefSeq_gene_name、Uniprot_gn、MIM_gene。
+### Query 4: Cross-References (ID Mapping)
 
-VEP 变异注释（HGVS 批量，POST）：
+Map Ensembl IDs to external database identifiers.
 
 ```python
-r = requests.post(f"{BASE}/vep/human/hgvs", headers=HEADERS,
-                  data=json.dumps({"hgvs_notations": ["17:g.43094692C>T","13:g.32929387C>T"]}))
+import requests
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+# All xrefs for a gene
+r = requests.get(
+    f"{BASE}/xrefs/id/ENSG00000141510",
+    headers=HEADERS
+)
+xrefs = r.json()
+
+# Group by database
+from collections import defaultdict
+by_db = defaultdict(list)
+for x in xrefs:
+    by_db[x["dbname"]].append(x["primary_id"])
+
+for db in ["HGNC", "RefSeq_gene_name", "Uniprot_gn", "MIM_gene"]:
+    if db in by_db:
+        print(f"{db}: {by_db[db]}")
+```
+
+### Query 5: Variant Consequence Annotation (VEP)
+
+Predict functional consequences of variants via REST VEP endpoint.
+
+```python
+import requests, json
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+# Annotate a list of hgvs notations
+variants = ["17:g.43094692C>T", "13:g.32929387C>T"]
+r = requests.post(
+    f"{BASE}/vep/human/hgvs",
+    headers=HEADERS,
+    data=json.dumps({"hgvs_notations": variants})
+)
 for v in r.json():
-    for tc in v.get("transcript_consequences", []):
-        if tc.get("canonical") == 1:  # 取规范转录本，最具生物学意义
-            print(v["input"], tc.get("gene_symbol"), tc.get("impact"),
-                  tc.get("consequence_terms"))
+    print(f"\nVariant: {v.get('input')}")
+    for tc in v.get("transcript_consequences", [])[:2]:
+        print(f"  Gene: {tc.get('gene_symbol')}, Impact: {tc.get('impact')}, Consequence: {tc.get('consequence_terms')}")
 ```
 
-按 rsID 注释：`GET /vep/human/id/rs699`。
+```python
+# Annotate by rsID
+r = requests.get(
+    f"{BASE}/vep/human/id/rs699",
+    headers=HEADERS
+)
+v = r.json()[0]
+print(f"rsID rs699 in gene: {v['transcript_consequences'][0]['gene_symbol']}")
+print(f"Consequence: {v['transcript_consequences'][0]['consequence_terms']}")
+```
 
-调控特征：`GET /overlap/region/human/17:43044000-43126000?feature=regulatory`（`feature` 也可为 gene/transcript/variation）。
+### Query 6: Regulatory Features
 
-跨物种同源：`GET /homology/symbol/human/TP53?target_species=mus_musculus&type=orthologues`。
-
-## 示例
-
-符号 → Ensembl ID 映射表：
+Query regulatory build features in a genomic region.
 
 ```python
-import pandas as pd
-symbols = ["EGFR","KRAS","BRAF","PIK3CA","PTEN","AKT1","MYC","RB1"]
-r = requests.post(f"{BASE}/lookup/symbol/homo_sapiens", headers=HEADERS,
-                  data=json.dumps({"symbols": symbols}))
+import requests
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+# Regulatory features in BRCA1 region
+r = requests.get(
+    f"{BASE}/overlap/region/human/17:43044000-43126000",
+    headers=HEADERS,
+    params={"feature": "regulatory"}
+)
+features = r.json()
+print(f"Found {len(features)} regulatory features")
+for f in features[:5]:
+    print(f"  {f.get('feature_type')}: {f.get('start')}-{f.get('end')} ({f.get('description', 'n/a')})")
+```
+
+### Query 7: Comparative Genomics (Orthologs / Gene Trees)
+
+Find orthologs and paralogs across species.
+
+```python
+import requests
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+# Get mouse ortholog for human TP53
+r = requests.get(
+    f"{BASE}/homology/symbol/human/TP53",
+    headers=HEADERS,
+    params={"target_species": "mus_musculus", "type": "orthologues"}
+)
 data = r.json()
-df = pd.DataFrame([{"symbol": s,
-                    "ensembl_id": d["id"] if d else None,
-                    "chrom": d["seq_region_name"] if d else None}
-                   for s, d in data.items()])
-df.to_csv("symbol_to_ensembl.csv", index=False)
+for homo in data["data"][0]["homologies"][:3]:
+    tgt = homo["target"]
+    print(f"Mouse ortholog: {tgt['id']} ({tgt.get('perc_id', 'n/a')}% identity)")
 ```
 
-变异注释流水线（输出规范转录本后果到 CSV）：
+## Key Concepts
+
+### Stable IDs and Versioning
+
+Ensembl uses stable IDs with optional version suffixes (e.g., `ENSG00000141510.17`). Genes (`ENSG`), transcripts (`ENST`), proteins (`ENSP`), and exons (`ENSE`) each have their own prefix. IDs are preserved across releases when possible; retired IDs can still be resolved via the archive API.
+
+### Assembly Versions
+
+Human genome: GRCh38 (current) and GRCh37 (legacy, via `grch37.rest.ensembl.org`). Always specify which assembly your coordinates belong to when making region-based queries.
+
+## Common Workflows
+
+### Workflow 1: Gene-to-Protein Information Pipeline
+
+**Goal**: Retrieve all key annotations for a gene list — coordinates, transcripts, xrefs, and canonical protein sequence.
 
 ```python
-def vep_batch(hgvs):
-    r = requests.post(f"{BASE}/vep/human/hgvs", headers=HEADERS,
-                      data=json.dumps({"hgvs_notations": hgvs}))
-    r.raise_for_status(); return r.json()
+import requests, json, time
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+def batch_lookup(symbols, species="homo_sapiens"):
+    r = requests.post(
+        f"{BASE}/lookup/symbol/{species}",
+        headers=HEADERS,
+        data=json.dumps({"symbols": symbols, "expand": 1})
+    )
+    return r.json()
+
+def canonical_transcript(gene_data):
+    """Return the ID of the canonical (longest CDS) transcript."""
+    transcripts = gene_data.get("Transcript", [])
+    coding = [t for t in transcripts if t.get("biotype") == "protein_coding"]
+    if not coding:
+        return None
+    return max(coding, key=lambda t: t.get("Translation", {}).get("length", 0))
+
+genes = ["BRCA1", "BRCA2", "TP53"]
+lookup = batch_lookup(genes)
+
+for sym in genes:
+    g = lookup.get(sym)
+    if not g:
+        print(f"{sym}: not found")
+        continue
+    canon = canonical_transcript(g)
+    print(f"\n{sym} ({g['id']})")
+    print(f"  Location: {g['seq_region_name']}:{g['start']}-{g['end']}")
+    if canon:
+        prot_len = canon.get("Translation", {}).get("length", "n/a")
+        print(f"  Canonical transcript: {canon['id']} ({prot_len} aa)")
+    time.sleep(0.1)  # be polite
+```
+
+### Workflow 2: Variant Annotation Pipeline
+
+**Goal**: Annotate a VCF-style variant list with gene, consequence, and impact.
+
+```python
+import requests, json, pandas as pd
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+# Input: list of hgvs notations
+hgvs_list = [
+    "17:g.43094692C>T",
+    "17:g.43063873A>G",
+    "13:g.32929387C>T",
+]
+
+# Annotate in batches of 200
+def vep_batch(hgvs_batch):
+    r = requests.post(
+        f"{BASE}/vep/human/hgvs",
+        headers=HEADERS,
+        data=json.dumps({"hgvs_notations": hgvs_batch})
+    )
+    r.raise_for_status()
+    return r.json()
 
 records = []
-for ann in vep_batch(["17:g.43094692C>T","17:g.43063873A>G","13:g.32929387C>T"]):
+for ann in vep_batch(hgvs_list):
     for tc in ann.get("transcript_consequences", []):
         if tc.get("canonical") == 1:
-            records.append({"variant": ann["input"], "gene": tc.get("gene_symbol"),
-                            "consequence": ",".join(tc.get("consequence_terms", [])),
-                            "impact": tc.get("impact"), "biotype": tc.get("biotype")})
-pd.DataFrame(records).to_csv("vep_results.csv", index=False)
+            records.append({
+                "variant": ann["input"],
+                "gene": tc.get("gene_symbol"),
+                "consequence": ",".join(tc.get("consequence_terms", [])),
+                "impact": tc.get("impact"),
+                "biotype": tc.get("biotype"),
+            })
+
+df = pd.DataFrame(records)
+print(df.to_string(index=False))
+df.to_csv("vep_results.csv", index=False)
+print(f"\nSaved {len(df)} variant annotations → vep_results.csv")
 ```
 
-区间基因重叠（如 GWAS 位点）：`GET /overlap/region/human/17:43044295-43125364?feature=gene&biotype=protein_coding`。
+## Key Parameters
 
-## 注意事项
+| Parameter | Module | Default | Range / Options | Effect |
+|-----------|--------|---------|-----------------|--------|
+| `expand` | Lookup | `0` | `0` or `1` | Include nested transcripts/translations |
+| `type` | Sequence | `"genomic"` | `"genomic"`, `"cDNA"`, `"CDS"`, `"protein"` | Sequence type to return |
+| `target_species` | Homology | `None` | Species name or taxon ID | Filter homologs to target species |
+| `feature` | Overlap | required | `"gene"`, `"transcript"`, `"regulatory"`, `"variation"` | Feature type to retrieve |
+| `coord_system_version` | Region | `"GRCh38"` | `"GRCh38"`, `"GRCh37"` | Genome assembly |
+| `content_type` | All | via header | `"application/json"`, `"text/plain"` | Response format |
 
-关键概念：
-- 稳定 ID 带可选版本后缀（`ENSG00000141510.17`）；前缀区分 ENSG/ENST/ENSP/ENSE，跨版本尽量保留。
-- 人类装配：当前 GRCh38，旧版 GRCh37 走 `grch37.rest.ensembl.org`；区间查询务必指明 assembly。
+## Best Practices
 
-最佳实践：
-- 多条一律走批量 POST，循环单查极易触发限速。
-- 仅需坐标/biotype 时用 `expand=0`，载荷更小更快。
-- 开发期用 `joblib.Memory("cache/")` 缓存查询结果。
+1. **Use batch endpoints**: POST `/lookup/symbol/{species}` and POST `/vep/human/hgvs` accept up to 1000 IDs; single-ID GET requests in a loop will hit rate limits quickly.
 
-常见报错排查：
-- `429 Too Many Requests`：超 ~15 req/s → 加 `time.sleep(0.1)`、改批量。
-- VEP `400 Bad Request`：HGVS 格式错 → 校验 `chr:g.posREF>ALT`（如 `17:g.43094692C>T`）。
-- `Gene not found`：符号不在库或物种名错 → 符号查询用 `homo_sapiens` 而非 `human`。
-- 区间返回错基因：assembly 不匹配 → 固定 `coord_system_version=GRCh38` 或换 GRCh37 域名。
-- 旧 ID 无法解析：已退役 → `GET /archive/id/{id}` 取当前映射。
-- `503 Service Unavailable`：维护中 → 稍后重试，查 status.ensembl.org。
+2. **Pin assembly version**: For region-based queries always specify `coord_system_version=GRCh38` (or use `grch37.rest.ensembl.org` for legacy coordinates) to avoid silent mismatch errors.
 
-## 互见
+3. **Cache responses**: Gene metadata rarely changes between Ensembl releases; cache results to disk (`joblib.Memory`) to avoid redundant API calls during development.
+   ```python
+   from joblib import Memory
+   mem = Memory("cache/", verbose=0)
+   cached_lookup = mem.cache(batch_lookup)
+   ```
 
-- `pyensembl`：本地离线大规模基因组注释（替代高频 REST）。
-- `kegg-database` / `reactome-database`：通路与代谢/富集注释。
-- `gget`：封装 Ensembl 及 20+ 数据库的 CLI/Python 速查。
-- Biopython `Entrez`：NCBI RefSeq/GenBank 替代检索。
+4. **Use `expand=0` for metadata**: When you only need gene coordinates and biotype (not transcript details), keep `expand=0` for smaller payloads and faster responses.
 
-参考：Ensembl REST API（rest.ensembl.org）、稳定 ID 指南、VEP 文档。
+5. **Check canonical flag in VEP**: VEP returns consequences for all overlapping transcripts; filter on `tc.get("canonical") == 1` to get the biologically most relevant consequence per variant.
 
----
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+## Common Recipes
+
+### Recipe: Symbol → Ensembl ID Mapping Table
+
+When to use: Build a lookup table from gene symbols to Ensembl IDs for downstream analysis.
+
+```python
+import requests, json, pandas as pd
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+symbols = ["EGFR", "KRAS", "BRAF", "PIK3CA", "PTEN", "AKT1", "MYC", "RB1"]
+r = requests.post(
+    f"{BASE}/lookup/symbol/homo_sapiens",
+    headers=HEADERS,
+    data=json.dumps({"symbols": symbols})
+)
+data = r.json()
+rows = [{"symbol": s, "ensembl_id": d["id"] if d else None,
+         "chrom": d["seq_region_name"] if d else None} for s, d in data.items()]
+df = pd.DataFrame(rows)
+df.to_csv("symbol_to_ensembl.csv", index=False)
+print(df.to_string(index=False))
+```
+
+### Recipe: Region Gene Overlap
+
+When to use: Find all genes overlapping a genomic interval (e.g., a GWAS locus).
+
+```python
+import requests, pandas as pd
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+chrom, start, end = "17", 43044295, 43125364
+r = requests.get(
+    f"{BASE}/overlap/region/human/{chrom}:{start}-{end}",
+    headers=HEADERS,
+    params={"feature": "gene", "biotype": "protein_coding"}
+)
+genes = r.json()
+df = pd.DataFrame([{
+    "id": g["id"], "name": g.get("external_name"),
+    "start": g["start"], "end": g["end"], "strand": g["strand"]
+} for g in genes])
+print(df.to_string(index=False))
+print(f"\n{len(df)} protein-coding genes in region")
+```
+
+### Recipe: Species List
+
+When to use: Check which species are available in Ensembl before querying.
+
+```python
+import requests
+
+BASE = "https://rest.ensembl.org"
+HEADERS = {"Content-Type": "application/json"}
+
+r = requests.get(f"{BASE}/info/species", headers=HEADERS)
+species_list = r.json()["species"]
+print(f"Total species: {len(species_list)}")
+vertebrates = [s for s in species_list if s.get("division") == "EnsemblVertebrates"]
+print(f"Vertebrates: {len(vertebrates)}")
+for s in vertebrates[:5]:
+    print(f"  {s['common_name']} ({s['name']}): {s['assembly']}")
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `HTTP 429 Too Many Requests` | Exceeding ~15 req/s rate limit | Add `time.sleep(0.1)` between requests; use batch POST endpoints |
+| `HTTP 400 Bad Request` on VEP | Malformed HGVS notation | Verify format: `chr:g.posREF>ALT` (e.g., `17:g.43094692C>T`) |
+| `Gene not found` | Gene symbol not in Ensembl | Try alternative symbol; check species name (use `homo_sapiens` not `human` for symbols) |
+| Region query returns wrong genes | Assembly mismatch | Set `coord_system_version=GRCh38` or use `grch37.rest.ensembl.org` |
+| Old ID not resolving | Retired Ensembl ID | Query `GET /archive/id/{id}` to get current mapping |
+| `HTTP 503 Service Unavailable` | Server maintenance | Retry after a few minutes; check Ensembl status at status.ensembl.org |
+
+## Related Skills
+
+- `gget-genomic-databases` — CLI/Python wrapper covering Ensembl + 20 other databases; use for quick lookups without raw API code
+- `biopython-molecular-biology` — Biopython's `Entrez` module for NCBI databases (alternative for RefSeq/GenBank queries)
+- `kegg-database` — Pathway/metabolic annotations for the same gene set
+- `reactome-database` — Pathway enrichment and hierarchy queries
+
+## References
+
+- [Ensembl REST API documentation](https://rest.ensembl.org) — Interactive API explorer and endpoint reference
+- [Ensembl Help & Documentation](https://www.ensembl.org/info/docs/api/rest/rest_access.html) — REST API overview
+- [Ensembl stable IDs guide](https://www.ensembl.org/info/genome/stable_ids/index.html) — ID versioning policy
+- [VEP documentation](https://www.ensembl.org/info/docs/tools/vep/index.html) — Variant Effect Predictor full reference

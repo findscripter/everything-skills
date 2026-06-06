@@ -1,14 +1,14 @@
 ---
 name: clinicaltrials-database-search
-title: ClinicalTrials.gov 临床试验检索
-description: 当需要按疾病、药物/干预、地点、申办方或试验阶段检索全球临床试验，或按 NCT 编号取详情、按状态过滤、翻页、导出 CSV 时使用；用纯 requests 调 ClinicalTrials.gov API v2（公开免鉴权）检索研究并产出结构化结果/CSV。不适用于化合物生物活性（用 chembl-bioactivity-database）或综合科研多库查询（用 scientific-database-lookup）。触发词：临床试验、ClinicalTrials.gov、NCT、招募状态、试验阶段、患者匹配、试验申办方
+title: ClinicalTrials.gov Database — Clinical Trial Search
+description: Query ClinicalTrials.gov API v2 for trial data. Search by condition, drug/intervention, location, sponsor, or phase; fetch details by NCT ID; filter by status; paginate; export CSV. For clinical research, patient matching, and trial portfolio analysis.
 domain: 领域/science
-triggers: [临床试验, ClinicalTrials.gov, NCT, clinical trials, 招募, RECRUITING, 试验阶段, PHASE, 入排标准, eligibility, 患者匹配, 申办方, sponsor, 干预, intervention, 试验导出 CSV]
+triggers: [ClinicalTrials.gov, NCT, clinical trials, RECRUITING, PHASE, eligibility, sponsor, intervention]
 tags: [science, clinical-trials, drug-discovery, database, rest-api, clinicaltrials-gov]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [requests, pandas, ClinicalTrials.gov API v2]
+tools: []
 requires: []
 related: [pytdc-therapeutics-datasets, drugbank-database-access, scientific-database-lookup, fda-device-consultant]
 combines_with: [drugbank-database-access, scientific-database-lookup, pytdc-therapeutics-datasets]
@@ -16,213 +16,464 @@ license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
 ---
-## 何时使用
+# ClinicalTrials.gov Database — Clinical Trial Search
 
-当你需要在 ClinicalTrials.gov（全球临床试验注册库）中检索、获取或导出试验数据时使用本技能。典型场景：
+## Overview
 
-- 查找某疾病/适应症正在招募（RECRUITING）的临床试验
-- 查找测试某药物 / 器械 / 干预手段的试验
-- 按地理区域定位试验（患者转诊 / 就近入组）
-- 跟踪某申办方或机构的临床试验组合（portfolio）
-- 按 NCT 编号取单条试验的入排标准、结局指标、联系人详情
-- 跨治疗领域分析试验趋势（阶段、入组人数、时间线）
-- 为系统综述 / meta 分析批量导出试验数据，或监测状态变更与结果发布
+Query the ClinicalTrials.gov API v2 (public, no authentication) to search and retrieve clinical trial data worldwide. Supports searching by condition, intervention, location, sponsor, and status; retrieving detailed study information by NCT ID; paginating large result sets; and exporting to CSV.
 
-**不该用本技能的边界：**
-- 化合物生物活性 / IC50/Ki 等 SAR 数据 → 用 `chembl-bioactivity-database`
-- 一站式跨多个科研/生物医学库的统一 REST 查询 → 用 `scientific-database-lookup`
-- 发表文献检索（本库只覆盖试验注册，不含论文）→ 转科研文献检索类技能
+## When to Use
 
-## 步骤 / 指令
+- Searching for recruiting clinical trials for a specific condition or disease
+- Finding trials testing a specific drug, device, or intervention
+- Locating trials in a specific geographic region for patient referral
+- Tracking a sponsor's or institution's clinical trial portfolio
+- Retrieving detailed eligibility criteria, outcomes, and contacts for a specific trial
+- Analyzing clinical trial trends (phases, enrollment, timelines) across a therapeutic area
+- Exporting trial data for systematic reviews or meta-analyses
+- Monitoring trial status changes and results postings
+- For chemical compound bioactivity data use chembl-database-bioactivity instead; for published literature use pubmed-database
 
-1. **准备环境**：`pip install requests`（唯一必需，无需 API key）；表格分析另装 `pandas`。
+## Prerequisites
 
-2. **设定基址**：`CT_API = "https://clinicaltrials.gov/api/v2"`。约束：公开免鉴权；速率约 50 请求/分钟/IP；单页最大 `pageSize=1000`；日期为 ISO 8601，文本字段为 CommonMark Markdown；响应格式 `json`（默认）或 `csv`。
+```bash
+uv pip install requests pandas
+```
 
-3. **选端点**：
-   - `GET /studies?<query 参数>` —— 检索（返回 `totalCount`、`studies[]`、`nextPageToken`）
-   - `GET /studies/{NCT_ID}` —— 取单条试验详情（如 `NCT04852770`）
+**API details**:
+- Base URL: `https://clinicaltrials.gov/api/v2`
+- Authentication: None required (public API)
+- Rate limit: ~50 requests/minute per IP
+- Response formats: JSON (default), CSV
+- Max page size: 1000 studies per request
+- Date format: ISO 8601; text fields use CommonMark Markdown
 
-4. **拼查询参数**（`requests.get(..., params={...})` 自动 URL 编码）：
-
-   | 参数 | 含义 | 示例 |
-   |---|---|---|
-   | `query.cond` | 疾病/适应症 | `lung cancer` |
-   | `query.intr` | 干预/药物 | `Pembrolizumab` |
-   | `query.locn` | 地理位置 | `New York` |
-   | `query.spons` | 申办方 | `National Cancer Institute` |
-   | `query.term` | 全文检索 | `immunotherapy` |
-   | `filter.overallStatus` | 状态（逗号分隔多值） | `RECRUITING,COMPLETED` |
-   | `filter.phase` | 阶段（逗号分隔） | `PHASE2,PHASE3` |
-   | `filter.ids` | NCT 编号过滤 | `NCT04852770` |
-   | `sort` | 排序 | `LastUpdatePostDate:desc` |
-   | `pageSize` | 每页条数（≤1000，默认 10） | `100` |
-   | `pageToken` | 翻页游标 | 上次响应的 `nextPageToken` |
-   | `format` | 响应格式 | `json` / `csv` |
-
-   排序字段：`LastUpdatePostDate` / `EnrollmentCount` / `StartDate` / `StudyFirstPostDate`，各带 `:asc` 或 `:desc`。
-
-5. **状态枚举**（大小写敏感，须精确匹配）：`RECRUITING`（招募中）、`NOT_YET_RECRUITING`（获批未开）、`ENROLLING_BY_INVITATION`（邀请入组）、`ACTIVE_NOT_RECRUITING`（在研已截止入组）、`SUSPENDED`（暂停）、`TERMINATED`（提前终止）、`COMPLETED`（已完成）、`WITHDRAWN`（入组前撤回）。
-
-6. **阶段枚举**：`EARLY_PHASE1`、`PHASE1`（安全/剂量）、`PHASE2`（有效性/副作用）、`PHASE3`（大规模有效性）、`PHASE4`（上市后监测）、`NA`（非药物研究不适用）。
-
-7. **取嵌套字段**（响应为深层嵌套 JSON，统一从 `study['protocolSection']` 进入；缺模块用 `.get()` 或 `safe_get` 兜底）：
-
-   | 数据 | 路径 |
-   |---|---|
-   | NCT ID | `protocolSection.identificationModule.nctId` |
-   | 标题 | `…identificationModule.briefTitle` |
-   | 状态 | `…statusModule.overallStatus` |
-   | 阶段 | `…designModule.phases` |
-   | 入组数 | `…designModule.enrollmentInfo.count` |
-   | 入排标准 | `…eligibilityModule` |
-   | 地点 | `…contactsLocationsModule.locations` |
-   | 干预 | `…armsInterventionsModule.interventions` |
-   | 结果 | `study.get('resultsSection')`（无结果为 None） |
-
-8. **翻页**：沿响应里的 `nextPageToken` 走，把它回填进下次请求的 `pageToken`，直到为空；批量循环加 `time.sleep(1.5)` 守速率。
-
-## 示例
-
-**通用助手 + 按疾病检索招募试验：**
+## Quick Start
 
 ```python
-import requests, time
+import requests
+import time
+
 CT_API = "https://clinicaltrials.gov/api/v2"
 
 def ct_search(params):
-    r = requests.get(f"{CT_API}/studies", params=params, timeout=30)
-    r.raise_for_status()
-    return r.json()
+    """Reusable helper for ClinicalTrials.gov searches."""
+    response = requests.get(f"{CT_API}/studies", params=params, timeout=30)
+    response.raise_for_status()
+    return response.json()
 
+# Search for recruiting breast cancer trials
 results = ct_search({
     "query.cond": "breast cancer",
     "filter.overallStatus": "RECRUITING",
     "pageSize": 10,
-    "sort": "LastUpdatePostDate:desc",
+    "sort": "LastUpdatePostDate:desc"
 })
-print(f"共 {results['totalCount']} 项试验")
-for s in results["studies"][:3]:
-    ident = s["protocolSection"]["identificationModule"]
-    print(f'  {ident["nctId"]}: {ident["briefTitle"]}')
+print(f"Found {results['totalCount']} trials")
+for study in results['studies'][:3]:
+    nct = study['protocolSection']['identificationModule']['nctId']
+    title = study['protocolSection']['identificationModule']['briefTitle']
+    print(f"  {nct}: {title}")
 ```
 
-**按药物 + 阶段过滤（多状态逗号分隔，一次请求覆盖）：**
+## Key Concepts
+
+### Response Data Structure
+
+ClinicalTrials.gov returns deeply nested JSON. Key navigation paths:
+
+| Data | Path |
+|------|------|
+| NCT ID | `study['protocolSection']['identificationModule']['nctId']` |
+| Title | `study['protocolSection']['identificationModule']['briefTitle']` |
+| Status | `study['protocolSection']['statusModule']['overallStatus']` |
+| Phase | `study['protocolSection']['designModule']['phases']` |
+| Enrollment | `study['protocolSection']['designModule']['enrollmentInfo']['count']` |
+| Eligibility | `study['protocolSection']['eligibilityModule']` |
+| Locations | `study['protocolSection']['contactsLocationsModule']['locations']` |
+| Interventions | `study['protocolSection']['armsInterventionsModule']['interventions']` |
+| Results | `study.get('resultsSection')` (None if no results posted) |
+
+### Study Status Values
+
+| Status | Description |
+|--------|-------------|
+| `RECRUITING` | Currently recruiting participants |
+| `NOT_YET_RECRUITING` | Approved but not yet open |
+| `ENROLLING_BY_INVITATION` | Invitation-only enrollment |
+| `ACTIVE_NOT_RECRUITING` | Active, enrollment closed |
+| `SUSPENDED` | Temporarily halted |
+| `TERMINATED` | Stopped prematurely |
+| `COMPLETED` | Study concluded |
+| `WITHDRAWN` | Withdrawn before enrollment |
+
+### Study Phase Values
+
+| Phase | Description |
+|-------|-------------|
+| `EARLY_PHASE1` | Early Phase 1 (formerly Phase 0) |
+| `PHASE1` | Phase 1 — safety and dosing |
+| `PHASE2` | Phase 2 — efficacy and side effects |
+| `PHASE3` | Phase 3 — large-scale efficacy |
+| `PHASE4` | Phase 4 — post-market surveillance |
+| `NA` | Not applicable (non-drug studies) |
+
+### Query Parameters Reference
+
+| Parameter | Type | Description | Example |
+|-----------|------|-------------|---------|
+| `query.cond` | string | Condition/disease | `lung cancer` |
+| `query.intr` | string | Intervention/drug | `Pembrolizumab` |
+| `query.locn` | string | Geographic location | `New York` |
+| `query.spons` | string | Sponsor name | `National Cancer Institute` |
+| `query.term` | string | General full-text search | `immunotherapy` |
+| `filter.overallStatus` | string | Status filter (comma-separated) | `RECRUITING,COMPLETED` |
+| `filter.phase` | string | Phase filter | `PHASE2,PHASE3` |
+| `filter.ids` | string | NCT ID filter | `NCT04852770` |
+| `sort` | string | Sort order | `LastUpdatePostDate:desc` |
+| `pageSize` | int | Results per page (max 1000) | `100` |
+| `pageToken` | string | Pagination token | (from previous response) |
+| `format` | string | Response format | `json` or `csv` |
+
+**Sort options**: `LastUpdatePostDate`, `EnrollmentCount`, `StartDate`, `StudyFirstPostDate` — each with `:asc` or `:desc`.
+
+## Core API
+
+### 1. Search by Condition
 
 ```python
+results = ct_search({
+    "query.cond": "type 2 diabetes",
+    "filter.overallStatus": "RECRUITING",
+    "pageSize": 20,
+    "sort": "LastUpdatePostDate:desc"
+})
+print(f"Found {results['totalCount']} recruiting diabetes trials")
+for study in results['studies'][:5]:
+    proto = study['protocolSection']
+    nct = proto['identificationModule']['nctId']
+    title = proto['identificationModule']['briefTitle']
+    print(f"  {nct}: {title}")
+```
+
+### 2. Search by Intervention/Drug
+
+```python
+# Find Phase 3 trials testing Pembrolizumab
 results = ct_search({
     "query.intr": "Pembrolizumab",
     "filter.overallStatus": "RECRUITING,ACTIVE_NOT_RECRUITING",
     "filter.phase": "PHASE3",
-    "pageSize": 50,
+    "pageSize": 50
 })
-print(f'Phase 3 Pembrolizumab 试验：{results["totalCount"]}')
+print(f"Phase 3 Pembrolizumab trials: {results['totalCount']}")
 ```
 
-**按 NCT 编号取详情（入排标准 / 年龄 / 性别）：**
+### 3. Search by Location
 
 ```python
-nct = "NCT04852770"
-study = requests.get(f"{CT_API}/studies/{nct}", timeout=30).json()
-proto = study["protocolSection"]
-elig = proto.get("eligibilityModule", {})
-print(proto["identificationModule"]["briefTitle"], proto["statusModule"]["overallStatus"])
-print(f'年龄 {elig.get("minimumAge")}–{elig.get("maximumAge")}，性别 {elig.get("sex")}')
-print((elig.get("eligibilityCriteria", "N/A"))[:300])
+results = ct_search({
+    "query.cond": "cancer",
+    "query.locn": "New York",
+    "filter.overallStatus": "RECRUITING",
+    "pageSize": 20
+})
+
+# Extract location details
+for study in results['studies'][:3]:
+    locs = study['protocolSection'].get('contactsLocationsModule', {}).get('locations', [])
+    for loc in locs:
+        if 'New York' in loc.get('city', ''):
+            print(f"  {loc.get('facility')}: {loc['city']}, {loc.get('state', '')}")
 ```
 
-**大结果集翻页（最大页 + 守速率）：**
+### 4. Search by Sponsor
 
 ```python
-all_studies, token = [], None
-for page in range(10):  # 上限 10 页
-    params = {"query.cond": "cancer", "filter.overallStatus": "RECRUITING", "pageSize": 1000}
-    if token:
-        params["pageToken"] = token
-    data = ct_search(params)
-    all_studies.extend(data["studies"])
-    token = data.get("nextPageToken")
-    if not token:
-        break
-    time.sleep(1.5)
-print(f"共取 {len(all_studies)} 项")
+results = ct_search({
+    "query.spons": "National Cancer Institute",
+    "pageSize": 20
+})
+
+for study in results['studies'][:5]:
+    sponsor_mod = study['protocolSection']['sponsorCollaboratorsModule']
+    lead = sponsor_mod['leadSponsor']['name']
+    collabs = [c['name'] for c in sponsor_mod.get('collaborators', [])]
+    print(f"  Lead: {lead}, Collaborators: {collabs}")
 ```
 
-**导出 CSV：**
+### 5. Retrieve Study Details by NCT ID
 
 ```python
-r = requests.get(f"{CT_API}/studies", params={
-    "query.cond": "heart disease", "filter.overallStatus": "RECRUITING",
-    "format": "csv", "pageSize": 1000}, timeout=60)
-open("heart_disease_trials.csv", "w", encoding="utf-8").write(r.text)
+nct_id = "NCT04852770"
+response = requests.get(f"{CT_API}/studies/{nct_id}", timeout=30)
+response.raise_for_status()
+study = response.json()
+
+# Extract key information
+proto = study['protocolSection']
+print(f"Title: {proto['identificationModule']['briefTitle']}")
+print(f"Status: {proto['statusModule']['overallStatus']}")
+
+# Eligibility criteria
+elig = proto.get('eligibilityModule', {})
+print(f"Ages: {elig.get('minimumAge')} - {elig.get('maximumAge')}")
+print(f"Sex: {elig.get('sex')}")
+print(f"Criteria:\n{elig.get('eligibilityCriteria', 'N/A')[:300]}")
 ```
 
-**安全取字段 + 提取摘要（应对缺模块）：**
+### 6. Pagination for Large Result Sets
 
 ```python
-def safe_get(study, *keys, default="N/A"):
-    cur = study
-    for k in keys:
-        cur = cur.get(k) if isinstance(cur, dict) else None
-        if cur is None:
-            return default
-    return cur
+all_studies = []
+page_token = None
+max_pages = 10
 
-def extract_summary(study):
-    p = study.get("protocolSection", {})
-    d = p.get("designModule", {})
-    return {
-        "nct_id": safe_get(p, "identificationModule", "nctId"),
-        "title": p.get("identificationModule", {}).get("briefTitle"),
-        "status": safe_get(p, "statusModule", "overallStatus"),
-        "phases": d.get("phases", []),
-        "enrollment": d.get("enrollmentInfo", {}).get("count"),
+for page in range(max_pages):
+    params = {
+        "query.cond": "cancer",
+        "filter.overallStatus": "RECRUITING",
+        "pageSize": 1000,
     }
+    if page_token:
+        params["pageToken"] = page_token
+
+    results = ct_search(params)
+    all_studies.extend(results['studies'])
+    page_token = results.get('nextPageToken')
+
+    if not page_token:
+        break
+    time.sleep(1.5)  # respect rate limits
+
+print(f"Retrieved {len(all_studies)} studies across {page + 1} pages")
 ```
 
-**带退避的健壮检索（批量必备，命中 429 时退避）：**
+### 7. Export to CSV
+
+```python
+response = requests.get(f"{CT_API}/studies", params={
+    "query.cond": "heart disease",
+    "filter.overallStatus": "RECRUITING",
+    "format": "csv",
+    "pageSize": 1000
+}, timeout=60)
+
+with open("heart_disease_trials.csv", "w") as f:
+    f.write(response.text)
+print("Exported to heart_disease_trials.csv")
+```
+
+## Common Workflows
+
+### Workflow 1: Multi-Criteria Trial Discovery
+
+```python
+import requests, time
+
+CT_API = "https://clinicaltrials.gov/api/v2"
+
+def ct_search(params):
+    response = requests.get(f"{CT_API}/studies", params=params, timeout=30)
+    response.raise_for_status()
+    return response.json()
+
+# Step 1: Search with multiple filters
+results = ct_search({
+    "query.cond": "lung cancer",
+    "query.intr": "immunotherapy",
+    "query.locn": "California",
+    "filter.overallStatus": "RECRUITING,NOT_YET_RECRUITING",
+    "pageSize": 100,
+    "sort": "LastUpdatePostDate:desc"
+})
+print(f"Total matches: {results['totalCount']}")
+
+# Step 2: Filter by phase
+phase23 = [
+    s for s in results['studies']
+    if any(p in ['PHASE2', 'PHASE3']
+           for p in s['protocolSection'].get('designModule', {}).get('phases', []))
+]
+print(f"Phase 2/3 trials: {len(phase23)}")
+
+# Step 3: Extract summaries
+for study in phase23[:5]:
+    proto = study['protocolSection']
+    nct = proto['identificationModule']['nctId']
+    title = proto['identificationModule']['briefTitle']
+    enrollment = proto.get('designModule', {}).get('enrollmentInfo', {}).get('count', 'N/A')
+    print(f"  {nct}: {title} (n={enrollment})")
+```
+
+### Workflow 2: Completed Trials with Results Analysis
+
+```python
+# Step 1: Find completed trials with posted results
+results = ct_search({
+    "query.cond": "alzheimer disease",
+    "filter.overallStatus": "COMPLETED",
+    "pageSize": 100,
+    "sort": "LastUpdatePostDate:desc"
+})
+
+with_results = [s for s in results['studies'] if s.get('hasResults', False)]
+print(f"Completed with results: {len(with_results)} / {len(results['studies'])}")
+
+# Step 2: Get detailed results for top trial
+if with_results:
+    nct = with_results[0]['protocolSection']['identificationModule']['nctId']
+    detail = requests.get(f"{CT_API}/studies/{nct}", timeout=30).json()
+
+    if 'resultsSection' in detail:
+        outcomes = detail['resultsSection'].get('outcomeMeasuresModule', {})
+        measures = outcomes.get('outcomeMeasures', [])
+        for m in measures[:3]:
+            print(f"  Outcome: {m.get('title')}")
+            print(f"  Type: {m.get('type')}")
+```
+
+### Workflow 3: Sponsor Portfolio Comparison
+
+```python
+sponsors = ["Pfizer", "Novartis", "Roche"]
+for sponsor in sponsors:
+    results = ct_search({
+        "query.spons": sponsor,
+        "filter.overallStatus": "RECRUITING",
+        "pageSize": 1
+    })
+    print(f"{sponsor}: {results['totalCount']} recruiting trials")
+    time.sleep(1.5)
+```
+
+## Common Recipes
+
+### Recipe: Rate-Limited Bulk Search
 
 ```python
 def ct_search_with_retry(params, max_retries=3):
     for attempt in range(max_retries):
         try:
-            r = requests.get(f"{CT_API}/studies", params=params, timeout=30)
-            r.raise_for_status()
-            return r.json()
+            response = requests.get(f"{CT_API}/studies", params=params, timeout=30)
+            response.raise_for_status()
+            return response.json()
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 429:
-                time.sleep(60)            # 限流，等满 1 分钟
+                wait = 60
+                print(f"Rate limited. Waiting {wait}s...")
+                time.sleep(wait)
             else:
                 raise
         except requests.exceptions.RequestException:
             if attempt == max_retries - 1:
                 raise
             time.sleep(2 ** attempt)
-    raise RuntimeError("超过最大重试次数")
+    raise Exception("Max retries exceeded")
 ```
 
-## 注意事项
+### Recipe: Extract Study Summary
 
-- **状态/阶段值大小写敏感**：用 `RECRUITING` 而非 `recruiting`，否则 400 Bad Request。
-- **多状态用逗号一次查完**：`RECRUITING,NOT_YET_RECRUITING`，别每个状态发一次请求。
-- **访结果前先查 `hasResults`**：多数试验无已发布结果，`resultsSection` 缺失；直接访问会 KeyError。
-- **嵌套字段一律 `.get()` 兜底**：`contactsLocationsModule` / `armsInterventionsModule` 等并非每条试验都填充。
-- **守速率（约 50/分钟）**：批量用 `pageSize=1000` 减少请求数；命中 429 等 60s 后重试或指数退避。
-- **翻页早停**属正常：`nextPageToken` 缺失即已取完，用 `totalCount` 与已收集数核对。
-- **默认排序建议** `LastUpdatePostDate:desc`，最新更新的试验优先；日期字段 `lastUpdatePostDateStruct.date` 为 ISO 8601 字符串，`type` 标 `ACTUAL`/`ESTIMATED`。
-- **CSV 与 JSON 结构不同**：CSV 把嵌套结构扁平化；需要程序化访问字段时用 JSON。大批量 CSV 导出易超时，提高 timeout 或改用分页。
-- **空 `studies` 数组**：多为过滤过严或拼写错误，放宽状态/阶段过滤或核对拼写。
+```python
+def extract_summary(study):
+    proto = study.get('protocolSection', {})
+    ident = proto.get('identificationModule', {})
+    status = proto.get('statusModule', {})
+    design = proto.get('designModule', {})
+    return {
+        'nct_id': ident.get('nctId'),
+        'title': ident.get('officialTitle') or ident.get('briefTitle'),
+        'status': status.get('overallStatus'),
+        'phases': design.get('phases', []),
+        'enrollment': design.get('enrollmentInfo', {}).get('count'),
+        'last_update': status.get('lastUpdatePostDateStruct', {}).get('date')
+    }
 
-## 互见
+# Usage
+for study in results['studies'][:3]:
+    s = extract_summary(study)
+    print(f"{s['nct_id']}: {s['status']} | Phase: {s['phases']} | n={s['enrollment']}")
+```
 
-- related：`scientific-database-lookup` —— 跨多个科研/生物医学库的统一 REST 查询入口
-- related：`chembl-bioactivity-database` —— 在研药物的化合物生物活性数据
-- related：`opentargets-database` —— 将药物-靶点证据关联到疾病
-- combines_with：`research-experiment-designer` —— 据试验注册信息设计/对标研究方案
-- combines_with：`nih-grant-finder` —— 试验组合分析与科研资助检索互补
+### Recipe: Safe Field Navigation
 
-参考：API 文档 https://clinicaltrials.gov/data-api/api ｜ v1→v2 迁移 https://clinicaltrials.gov/data-api/about-api/api-migration ｜ OpenAPI 规范 https://clinicaltrials.gov/data-api/about-api/api-spec ｜ 主站 https://clinicaltrials.gov/
+```python
+def safe_get(study, *keys, default='N/A'):
+    """Navigate nested study JSON safely."""
+    current = study
+    for key in keys:
+        if isinstance(current, dict):
+            current = current.get(key)
+        else:
+            return default
+        if current is None:
+            return default
+    return current
 
----
+# Usage — handles missing fields gracefully
+nct = safe_get(study, 'protocolSection', 'identificationModule', 'nctId')
+phases = safe_get(study, 'protocolSection', 'designModule', 'phases', default=[])
+enrollment = safe_get(study, 'protocolSection', 'designModule', 'enrollmentInfo', 'count')
+```
 
-采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+## Key Parameters
+
+| Parameter | Endpoint | Default | Description |
+|-----------|----------|---------|-------------|
+| `query.cond` | search | — | Condition/disease search term |
+| `query.intr` | search | — | Intervention/drug search term |
+| `query.locn` | search | — | Geographic location filter |
+| `query.spons` | search | — | Sponsor/organization filter |
+| `query.term` | search | — | General full-text search |
+| `filter.overallStatus` | search | all | Comma-separated status values |
+| `filter.phase` | search | all | Comma-separated phase values |
+| `pageSize` | search | 10 | Results per page (max 1000) |
+| `sort` | search | relevance | `{field}:{asc\|desc}` |
+| `format` | both | `json` | `json` or `csv` |
+| `timeout` | (client) | 30s | Set in requests call |
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| 429 Too Many Requests | Rate limit exceeded (~50/min) | Wait 60s; use max `pageSize=1000`; implement exponential backoff |
+| Empty studies array | No trials match filters | Broaden search (remove status/phase filters); check spelling |
+| 400 Bad Request | Invalid parameter value | Verify status/phase values match enumeration exactly (e.g., `RECRUITING` not `recruiting`) |
+| Missing `resultsSection` | Trial has no posted results | Check `study['hasResults']` before accessing results |
+| KeyError on nested field | Not all trials have all modules | Use `.get()` with defaults or `safe_get` helper (see Recipes) |
+| Pagination stops early | `nextPageToken` absent | All results retrieved; check `totalCount` vs collected count |
+| CSV format differs from JSON | Different field structure | CSV flattens nested structure; use JSON for programmatic access |
+| Timeout on large exports | CSV with many results | Increase timeout; paginate with `pageSize=1000` instead |
+
+## Best Practices
+
+- **Use maximum page size** (1000) for bulk retrieval to minimize request count against rate limit
+- **Always check `hasResults`** before accessing `resultsSection` — most trials have no posted results
+- **Navigate safely** with `.get()` chains — not all trials populate all modules (especially `contactsLocationsModule`, `armsInterventionsModule`)
+- **Specify multiple status values** with commas (e.g., `RECRUITING,NOT_YET_RECRUITING`) — don't make separate requests per status
+- **Use `sort=LastUpdatePostDate:desc`** by default — returns most recently updated trials first
+- **Date interpretation**: `lastUpdatePostDateStruct.date` is ISO 8601 string; `type` field indicates `ACTUAL` vs `ESTIMATED`
+
+## Related Skills
+
+- `pubmed-database` — Published literature search complementary to trial registry data
+- `chembl-database-bioactivity` — Compound bioactivity data for drugs under investigation
+- `bioservices-multi-database` — Alternative database access via unified Python interface
+
+## References
+
+- ClinicalTrials.gov API documentation: https://clinicaltrials.gov/data-api/api
+- API migration guide (v1→v2): https://clinicaltrials.gov/data-api/about-api/api-migration
+- ClinicalTrials.gov homepage: https://clinicaltrials.gov/
+- OpenAPI specification: https://clinicaltrials.gov/data-api/about-api/api-spec
+
+## Bundled Resources
+
+**Self-contained entry**. Original total: 866 lines (SKILL.md 507 + api_reference.md 359). Scripts: 216 lines (query_clinicaltrials.py).
+
+**Original file disposition**:
+- `SKILL.md` (507 lines) → Core API modules 1-7 (condition, intervention, location, sponsor, details, pagination, CSV export). "Core Capabilities" sections 1-10 consolidated: Search by Condition → Module 1, Search by Intervention → Module 2, Geographic Search → Module 3, Search by Sponsor → Module 4, Retrieve Detailed Study → Module 5, Pagination → Module 6, Data Export → Module 7, Combined Query → Workflow 1, Extract Summary → Recipe. "Resources" section stub → removed, content consolidated inline. Per-use-case disposition: Patient Matching → When to Use bullet + Workflow 1; Research Analysis → When to Use + Workflow 2; Drug Tracking → When to Use + Module 2; Geographic Search → Module 3; Sponsor Tracking → Module 4 + Workflow 3; Data Export → Module 7; Trial Monitoring → When to Use bullet; Eligibility Screening → Module 5
+- `references/api_reference.md` (359 lines) → Fully consolidated inline: endpoint parameters → Key Concepts "Query Parameters Reference" table; status/phase values → Key Concepts tables; response structure → Key Concepts "Response Data Structure" table; HTTP error codes → Troubleshooting table; rate limit guidance → Prerequisites + Best Practices; use cases → duplicated main SKILL.md examples, absorbed into Core API; data standards (ISO 8601, CommonMark) → Prerequisites note. Error handling patterns → Recipes "Rate-Limited Bulk Search"
+- `scripts/query_clinicaltrials.py` (216 lines) → Helper function pattern: `search_studies()` → Quick Start `ct_search()` helper; `get_study_details()` → Module 5 inline; `search_with_all_results()` → Module 6 pagination pattern; `extract_study_summary()` → Recipe "Extract Study Summary". Thin-wrapper shortcut applied — each function was a thin wrapper around requests.get()
+
+**Retention**: ~465 lines / 866 original (excl. scripts) = ~54%.

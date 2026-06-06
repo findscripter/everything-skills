@@ -1,14 +1,14 @@
 ---
 name: email-sequence-designer
-title: 邮件序列编排设计
-description: 当需要为生命周期或营销活动设计多封自动化邮件序列（含完整文案、节奏、分支与退出逻辑、性能基准）时使用；做邮件序列编排，产出序列概览表+逐封文案+流程图+分支规则+A/B建议+追踪指标；不适用于单封邮件撰写、内容日历或社媒投放。触发词：邮件序列、滴灌培育、onboarding 流程
+title: Email Sequence
+description: Design and draft multi-email sequences with full copy, timing, branching logic, exit conditions, and performance benchmarks. Use when building onboarding, lead nurture, re-engagement, win-back, or product launch flows, when you need a complete drip campaign with A/B test suggestions, or when mapping a sequence end-to-end with a flow diagram.
 domain: 商业/copy
-triggers: [邮件序列, drip 滴灌营销, lead nurture 线索培育, onboarding 新用户引导, re-engagement 再激活, win-back 召回, 产品发布邮件流, 升级/upsell 序列, 邮件自动化流程]
-tags: [营销, 邮件营销, 生命周期营销, 文案, 自动化, 增长]
-level: 进阶
+triggers: []
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write]
+tools: []
 requires: []
 related: [email-drip-sequence, lifecycle-email-sequence, cold-email-writer, conversion-copywriter]
 combines_with: [transactional-email-template-builder, landing-page-copywriting, marketing-copy-editor]
@@ -16,125 +16,217 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-为任意生命周期或营销活动场景，设计并撰写完整的多封邮件序列：包含可直接落地的文案、发送节奏、分支逻辑、退出条件与性能基准。
+# Email Sequence
 
-## 何时使用
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-- 用户要搭建 onboarding（新用户引导）、lead nurture（线索培育）、re-engagement（再激活）、win-back（流失召回）、产品发布、活动跟进、升级/upsell、教育型滴灌等**自动化邮件流**。
-- 需要一套端到端的 drip campaign，附带 A/B 测试建议与文本流程图。
-- 需要把序列映射到 Klaviyo / Mailchimp / Customer.io / HubSpot / Marketo 等平台的自动化流。
+Design and draft complete email sequences with full copy, timing, branching logic, and performance benchmarks for any lifecycle or campaign use case.
 
-**不该用边界：**
-- 只写**单封**邮件或一次性广播 —— 不需要序列编排，直接撰写即可。
-- 制定内容日历、社媒投放、落地页或广告文案 —— 不在本技能范围。
-- 不替代真实的邮件平台配置与发送，本技能只产出文案与逻辑设计。
+## Trigger
 
-## 步骤
+User runs `/email-sequence` or asks to create, design, build, or draft an email sequence, drip campaign, nurture flow, or onboarding series.
 
-### 0. 收集输入（缺则先问，不要臆造）
-1. **序列类型**：onboarding / lead nurture / re-engagement / 产品发布 / 活动跟进 / 升级·upsell / win-back / 教育滴灌 之一。
-2. **目标**：激活、转化、降流失、促参会、升档等。
-3. **受众**：是谁、处于哪个阶段、分群细节（角色、行业、行为触发、生命周期阶段）。
-4. **邮件数量**（可选）：未指定则按下方模板推荐。
-5. **节奏偏好**（可选）：如「每 3 天」「每周」「首周密集后递减」。
-6. **品牌语气**：本地已配置则自动套用并告知用户；未配置则询问，无则默认「清晰、对话式、专业」。
-7. **附加上下文**（可选）：具体优惠/折扣、CTA 与落地页、可用内容素材（博客、案例、视频）、要突出的功能、对手差异点。
+## Inputs
 
-### 1. 序列策略（先定架构，再写文案）
-- **叙事弧线**：整条序列讲什么故事？首封到末封的情感与逻辑递进。
-- **旅程映射**：每封对应购买/使用旅程的阶段（认知→考虑→决策→激活→扩展）。
-- **升级逻辑**：每封在强度、紧迫感或价值上如何叠加前一封。
-- **成功定义**：哪个动作表示序列已达成目标、收件人应退出。
+Gather the following from the user. If not provided, ask before proceeding:
 
-### 2. 单封邮件设计（逐封产出）
-每封都要给出：
-- **主题行**：提供 2-3 个备选，混用好奇/利益驱动/紧迫/个性化/提问等切入；尽量 ≤50 字符，留意移动端预览截断。
-- **预览文本**：40-90 字符，补充而非重复主题行，提升打开意愿。
-- **邮件目的**：一句话说明它为何存在、把收件人推向何处。
-- **正文**：可直接用的完整草稿；层次清晰（钩子—正文—CTA）；短段落（每段 ≤2-3 句）；可扫读、关键短语加粗；适当插入个性化占位符（名字、公司、所用产品）。
-- **主 CTA**：按钮文案 + 跳转目标；每封一个主 CTA（仅在阶段合适时加次 CTA）。
-- **发送时机**：相对触发事件或上一封后的天数；注明是否随互动调整（如「打开未点击则提前发」）。
-- **分群/条件**：谁收、谁跳过；行为或属性条件（如「仅发给未完成设置的用户」）。
+1. **Sequence type** — one of:
+   - Onboarding
+   - Lead nurture
+   - Re-engagement
+   - Product launch
+   - Event follow-up
+   - Upgrade/upsell
+   - Win-back
+   - Educational drip
 
-### 3. 序列流程控制
-- **分支条件**：按互动走不同路径。例：「打开邮件2 但未点 CTA → 发 2b（更软的二次邀约）而非邮件3」；「点了邮件1 的 CTA → 跳过邮件2 直接到邮件3」。
-- **退出条件**：收件人转化（完成目标动作）即移出序列；明确「转化」对本序列的定义。
-- **再进入规则**：能否重新进入、在何条件下（如「90 天后再次流失则重入 win-back」）。
-- **抑制规则**：已在另一活跃序列、已退订营销、或近 48 小时联系过客服的，不发送。
+2. **Goal** — what the sequence should achieve (e.g., activate new users, convert leads to customers, reduce churn, drive event attendance, upsell to a higher tier)
 
-### 4. 性能基准（供用户设目标）
-按序列类型给出预期，并据行业/受众微调：
+3. **Audience** — who receives this sequence, what stage they are at, and any relevant segmentation details (role, industry, behavior triggers, lifecycle stage)
 
-| 指标 | Onboarding | Lead Nurture | Re-engagement | Win-back |
-|------|-----------|--------------|---------------|----------|
-| 打开率 | 50-70% | 20-30% | 15-25% | 15-20% |
-| 点击率 | 10-20% | 3-7% | 2-5% | 2-4% |
-| 转化率 | 15-30% | 2-5% | 3-8% | 1-3% |
-| 退订率 | <0.5% | <0.5% | 1-2% | 1-3% |
+4. **Number of emails** (optional) — if not specified, recommend a count based on the sequence type using the templates in the Sequence Type Templates section below
 
-### 序列类型模板（起步框架，按目标/受众调整长度与内容）
-- **Onboarding（5-7 封 / 14-21 天）**：欢迎+设预期 → 快速见效展示价值 → 核心功能精讲 → 进阶功能或集成 → 社会证明+社区 → 回访+征求反馈 → 升级引导或下一步。
-- **Lead Nurture（4-6 封 / 3-4 周）**：价值优先的教育内容 → 痛点识别 → 解决方案定位+证据 → 社会证明与成果 → 软 CTA（试用/演示/资源）→ 硬 CTA（购买/预约/注册）。
-- **Re-engagement（3-4 封 / 10-14 天）**：「想念你」+回归理由 → 价值提醒（在错过什么）→ 激励或专属优惠 → 最后机会+明确截止。
-- **Win-back（3-5 封 / 30 天）**：友好询问哪里出了问题 → 离开后有何更新 → 特别优惠/回归激励 → 征求反馈（即便不回来）→ 最后告别但留门。
-- **产品发布（4-6 封 / 2-3 周）**：预告/前期造势 → 发布公告+完整细节 → 功能聚焦或用例 → 社会证明+早期成果 → 限时优惠/赠品 → 最后机会/提醒。
-- **活动跟进（3-4 封 / 7-10 天）**：致谢+要点或回放 → 活动资源合集 → 相关优惠/下一步 → 反馈问卷。
-- **升级/Upsell（3-5 封 / 2-3 周）**：使用里程碑或成功庆祝 → 正在触及的功能/限额瓶颈 → 升级收益+证据 → 限时激励 → 套餐直接对比。
-- **教育滴灌（5-8 封 / 4-6 周）**：介绍+将学到什么 → 第1课基础 → 第2课进阶 → 第3课高级 → 实操练习 → 资源合集 → 结业+下一步。
+5. **Timing/cadence preferences** (optional) — desired spacing between emails (e.g., "every 3 days", "weekly", "aggressive first week then taper off")
 
-### 5. 工具集成
-- **邮件营销已连接（Klaviyo / Mailchimp / Customer.io）**：说明如何在平台建为 flow/automation；用平台特性（智能发送时间、条件分流、A/B 测试）；把分支逻辑映射到可视化流程构建器。
-- **营销自动化或 CRM 已连接（HubSpot / Marketo）**：用 lead scoring 数据指导分群与退出条件；用生命周期阶段定制各分群文案；说明如何基于 CRM 属性或列表成员设置 enrollment 触发器。
-- **未连接任何工具**：以可复制粘贴格式交付全部文案，并附通用平台落地清单：1) 创建 automation/flow；2) 设置 enrollment 触发器；3) 按指定延迟逐封添加；4) 配置分支与退出条件；5) 为推荐指标设置追踪。
+6. **Brand voice** — if configured in local settings, apply automatically and inform the user. If not configured, ask: "Do you have brand voice guidelines I should follow? If not, I'll use a clear, conversational professional tone."
 
-### 6. 交付产物
-按以下小节呈现完整序列：
-- **序列概览表**：`# | 主题行 | 目的 | 时机 | 主 CTA | 条件`。
-- **完整邮件草稿**：每封含主题备选、预览文本、目的、正文、CTA、时机、分群备注。
-- **序列流程图**：文本图，标出邮件流、分支路径与退出点。
-- **分支逻辑清单**：所有条件、退出、抑制的速查列表。
-- **A/B 测试建议**：2-3 项（主题行 / CTA 文案 / 发送时间 / 邮件长度），说明测什么、如何分流、如何判定赢家。
-- **追踪指标**：序列主转化指标；逐封指标（打开率、CTR、退订率）；序列级指标（总转化率、转化耗时、流失点）；复盘节奏（如「首月每周、之后每月」）。
+7. **Additional context** (optional):
+   - Specific offers, discounts, or incentives to include
+   - CTAs or landing pages to link to
+   - Content assets available (blog posts, case studies, videos, guides)
+   - Product features to highlight
+   - Competitor differentiators to reference
 
-### 7. 收尾（主动追问）
-询问是否需要：改某封文案/语气；为特定场景加分支；为另一分群做变体；起草主题行 A/B 变体；搭建配套序列（如线索培育转化后的购后跟进）。
+## Process
 
-## 示例
+### 1. Sequence Strategy
 
-序列流程图示例（文本格式）：
+Before drafting any emails, define the overall sequence architecture:
+
+- **Narrative arc** — what story does this sequence tell across all emails? What is the emotional and logical progression from first email to last?
+- **Journey mapping** — map each email to a stage of the buyer or user journey (awareness, consideration, decision, activation, expansion)
+- **Escalation logic** — how does the intensity, urgency, or value of each email build on the previous one?
+- **Success definition** — what specific action signals that the sequence has done its job and the recipient should exit?
+
+### 2. Individual Email Design
+
+For each email in the sequence, produce:
+
+#### Subject Line
+- Provide 2-3 options per email
+- Vary approaches: curiosity, benefit-driven, urgency, personalization, question-based
+- Keep under 50 characters where possible; note preview behavior on mobile
+
+#### Preview Text
+- 40-90 characters that complement (not repeat) the subject line
+- Should add context or intrigue that increases open likelihood
+
+#### Email Purpose
+- One sentence explaining why this email exists and what it moves the recipient toward
+
+#### Body Copy
+- Full draft ready to use
+- Clear hierarchy: hook, body, CTA
+- Short paragraphs (2-3 sentences max)
+- Scannable formatting with bold key phrases where appropriate
+- Personalization tokens where relevant (e.g., first name, company name, product used)
+
+#### Primary CTA
+- Button text and destination
+- One primary CTA per email (secondary CTA only if appropriate for the sequence stage)
+
+#### Timing
+- Days after the trigger event or after the previous email
+- Note if timing should adjust based on engagement (e.g., "send sooner if they opened but did not click")
+
+#### Segment/Condition Notes
+- Who receives this email vs. who skips it
+- Any behavioral or attribute-based conditions (e.g., "only send to users who have not completed setup")
+
+### 3. Sequence Logic
+
+Define the flow control for the sequence:
+
+- **Branching conditions** — alternate paths based on engagement. For example:
+  - "If opened email 2 but did not click CTA, send email 2b (softer re-ask) instead of email 3"
+  - "If clicked CTA in email 1, skip email 2 and go directly to email 3"
+- **Exit conditions** — when a recipient converts (completes the desired action), remove them from the sequence. Define what "conversion" means for this sequence.
+- **Re-entry rules** — can someone re-enter the sequence? Under what conditions? (e.g., "if a user churns again 90 days later, re-enter the win-back sequence")
+- **Suppression rules** — do not send if the recipient is already in another active sequence, has unsubscribed from marketing, or has contacted support in the last 48 hours
+
+### 4. Performance Benchmarks
+
+Provide expected benchmarks based on the sequence type so the user can set targets:
+
+| Metric | Onboarding | Lead Nurture | Re-engagement | Win-back |
+|--------|-----------|--------------|---------------|----------|
+| Open rate | 50-70% | 20-30% | 15-25% | 15-20% |
+| Click-through rate | 10-20% | 3-7% | 2-5% | 2-4% |
+| Conversion rate | 15-30% | 2-5% | 3-8% | 1-3% |
+| Unsubscribe rate | <0.5% | <0.5% | 1-2% | 1-3% |
+
+Adjust benchmarks based on industry and audience if the user has provided that context.
+
+## Sequence Type Templates
+
+Use these as starting frameworks. Adapt length and content based on the user's goal and audience.
+
+**Onboarding (5-7 emails over 14-21 days):**
+Welcome and set expectations -- Quick win to demonstrate value -- Core feature deep dive -- Advanced feature or integration -- Social proof and community -- Check-in and feedback request -- Upgrade prompt or next steps
+
+**Lead Nurture (4-6 emails over 3-4 weeks):**
+Value-first educational content -- Pain point identification -- Solution positioning with proof -- Social proof and results -- Soft CTA (trial, demo, resource) -- Direct CTA (buy, book, sign up)
+
+**Re-engagement (3-4 emails over 10-14 days):**
+"We miss you" with a compelling reason to return -- Value reminder highlighting what they are missing -- Incentive or exclusive offer -- Last chance with clear deadline
+
+**Win-back (3-5 emails over 30 days):**
+Friendly check-in asking what went wrong -- What is new since they left -- Special offer or incentive to return -- Feedback request (even if they do not come back) -- Final goodbye with door open
+
+**Product Launch (4-6 emails over 2-3 weeks):**
+Teaser or pre-announcement -- Launch announcement with full details -- Feature spotlight or use case -- Social proof and early results -- Limited-time offer or bonus -- Last chance or reminder
+
+**Event Follow-up (3-4 emails over 7-10 days):**
+Thank you with key takeaways or recordings -- Resource roundup from the event -- Related offer or next step -- Feedback survey
+
+**Upgrade/Upsell (3-5 emails over 2-3 weeks):**
+Usage milestone or success celebration -- Feature gap or limitation they are hitting -- Upgrade benefits with proof -- Limited-time incentive -- Direct comparison of plans
+
+**Educational Drip (5-8 emails over 4-6 weeks):**
+Introduction and what they will learn -- Lesson 1: foundational concept -- Lesson 2: intermediate concept -- Lesson 3: advanced concept -- Practical application or exercise -- Resource roundup -- Graduation and next steps
+
+## Tool Integration
+
+### If ~~email marketing is connected (e.g., Klaviyo, Mailchimp, Customer.io)
+- Reference how to set up the sequence as a flow or automation in the platform
+- Note any platform-specific features to use (e.g., smart send time, conditional splits, A/B testing)
+- Map the branching logic to the platform's visual flow builder concepts
+
+### If ~~marketing automation or ~~CRM is connected (e.g., HubSpot, Marketo)
+- Reference lead scoring data to inform segmentation and exit conditions
+- Use lifecycle stage data to tailor messaging per segment
+- Note how to set enrollment triggers based on CRM properties or list membership
+
+### If no tools are connected
+- Deliver all email content in copy-paste-ready format
+- Include a setup checklist the user can follow in any email platform:
+  1. Create the automation or flow
+  2. Set the enrollment trigger
+  3. Add each email with the specified delays
+  4. Configure branching and exit conditions
+  5. Set up tracking for the recommended metrics
+
+## Output
+
+Present the complete sequence with the following sections:
+
+### Sequence Overview Table
+
+| # | Subject Line | Purpose | Timing | Primary CTA | Condition |
+|---|-------------|---------|--------|-------------|-----------|
+
+### Full Email Drafts
+Each email with subject line options, preview text, purpose, body copy, CTA, timing, and segment notes.
+
+### Sequence Flow Diagram
+A text-based diagram showing the email flow, branching paths, and exit points. Use a clear format such as:
 
 ```
-[触发] --> 邮件1 (Day 0)
+[Trigger] --> Email 1 (Day 0)
                 |
-          已打开? --是--> 邮件2 (Day 3)
+          Opened? --Yes--> Email 2 (Day 3)
                 |              |
-                否        点击CTA? --是--> [退出: 已转化]
+                No        Clicked CTA? --Yes--> [EXIT: Converted]
                 |              |
-                v              否
-          邮件1b (Day 2)        |
+                v              No
+          Email 1b (Day 2)     |
                 |              v
-                +--------> 邮件3 (Day 7)
+                +--------> Email 3 (Day 7)
                                |
                                v
-                          邮件4 (Day 10)
+                          Email 4 (Day 10)
                                |
-                          [退出: 序列完成]
+                          [EXIT: Sequence complete]
 ```
 
-## 注意事项
+### Branching Logic Notes
+Summary of all conditions, exits, and suppressions in a reference list.
 
-- **先策略后文案**：未定义叙事弧线、旅程映射、升级逻辑、成功定义前，不要急着写正文。
-- **缺输入先问**：序列类型/目标/受众三项必需，缺失时先询问再动手，禁止臆造。
-- **退出与抑制不可省**：转化即退出；已退订、已在别的活跃序列、近 48h 联系客服者不发，避免骚扰与合规风险。
-- **基准随行业调整**：上表为通用区间，有行业/受众上下文时据此校准目标。
-- **每封一个主 CTA**：避免多目标稀释；次 CTA 仅在阶段合适时加。
-- **个性化占位符**要与实际平台字段对应，交付前提示用户核对。
+### A/B Test Suggestions
+- 2-3 recommended A/B tests (subject lines, CTA text, send time, email length)
+- What to test, how to split, and how to measure the winner
 
-## 互见
+### Metrics to Track
+- Primary conversion metric for the sequence
+- Per-email metrics: open rate, CTR, unsubscribe rate
+- Sequence-level metrics: overall conversion rate, time to conversion, drop-off points
+- Recommended review cadence (e.g., "Review performance weekly for the first month, then monthly")
 
-- 单封邮件文案撰写、内容日历、社媒投放等同域营销技能（互补，非替代）。
-- A/B 实验设计与转化分析类技能（用于落地后的测试与复盘）。
+## After the Sequence
 
----
-
-采编自 anthropics/knowledge-work-plugins（Apache-2.0）。源：marketing/skills/email-sequence。
+Ask: "Would you like me to:
+- Revise the copy or tone for any specific email?
+- Add a branching path for a specific scenario?
+- Create a variation of this sequence for a different audience segment?
+- Draft the A/B test variants for the subject lines?
+- Build a companion sequence (e.g., a post-purchase follow-up after this lead nurture converts)?"

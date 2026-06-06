@@ -1,14 +1,14 @@
 ---
 name: offer-restrictive-covenant-review
-title: 录用函与竞业限制审查
-description: 当需要在录用函（offer letter）发出前审查其连同竞业/不招揽/保密-IP 等限制性条款及法域合规项时使用；做按辖区→豁免分类→限制性条款→法域专项→函件内容五步核查，产出含可执行性分析、问题清单与待办的审查意见（产物）；不适用于起草录用函本身、凭记忆陈述竞业/豁免规则、或深度调研新法域。触发词：审查录用函、offer letter 审查、竞业限制能不能用、non-compete、限制性条款、薪酬透明、ban-the-box、薪资历史、at-will、入职合规
+title: /hiring-review
+description: Review an offer letter and any restrictive covenants — jurisdiction check included. Substantive rules (covenant enforceability, pay-transparency, salary-history limits, exemption criteria) are researched per hire, not stored. Use when the user says "review this offer", "can we use a non-compete here
 domain: 领域/legal
-triggers: [审查录用函, offer letter 审查, 录用函审查, 竞业限制能不能用, non-compete, 限制性条款, restrictive covenant, 不招揽, non-solicit, 薪酬透明, pay transparency, ban-the-box, 薪资历史限制, salary history, at-will, 豁免加班分类, 入职合规, 在某州招人]
+triggers: [non-compete, restrictive covenant, non-solicit, pay transparency, ban-the-box, salary history, at-will]
 tags: [legal, employment, offer-letter, restrictive-covenant, non-compete, jurisdiction, compliance, hiring-review]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [legal-research-connector, westlaw, courtlistener, web-search]
+tools: []
 requires: []
 related: [employment-contract-drafter, worker-classification-analyzer, wage-hour-employment-qa, offer-letter-drafter]
 combines_with: [international-hiring-eor-planner, legal-risk-classifier, esignature-routing]
@@ -16,88 +16,204 @@ license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
-## 何时使用
+# /hiring-review
 
-在录用函（offer letter）**发出前**，对函件本体及其附带的限制性条款（竞业 non-compete、客户不招揽、员工不招揽、保密/商业秘密、IP 归属）与法域合规项做发函前审查时使用。这两类检查——法域核查与限制性条款核查——是本技能的价值所在；函件其余部分多为样板，直到它不是为止。
-
-四步落点判定整体结论：**可发函 / 需修改 / 升级**。
-
-**不该用的边界（硬性）：**
-- 不**起草**录用函——只审查既有草案。起草路由到 `employment-contract-drafter`。
-- 不做招聘**决策**——只查文书。
-- **不凭记忆陈述**竞业可执行性或豁免阈值：每一个法域专属判定都必须来自针对适用辖区的**当前核查**并附引证。竞业可执行性近年在多州经立法、行政与诉讼反复变动，**严禁依赖旧记忆**判断哪些州允许竞业。
-- 不**深度调研新法域**：遇到法域表未覆盖的辖区，**标记「需调研」**并停，路由到 `general-counsel-advisor` 或外部律师补全，本技能不自行深挖。
-
-## 步骤
-
-按以下五步审查，逐步落锤：
-
-1. **Step 1 法域**：此人**实际在哪工作**（不是总部在哪）。远程→其居住州/国管辖；混合→通常居住地，但需核对函件 choice-of-law 条款（未必站得住）。核查法域表：若该辖区不在表内，标记「该州首次招人，法域表未覆盖，发函前需调研」。
-2. **Step 2 豁免加班分类**：exempt / non-exempt？函件应写明且岗位应支持。三项测试：**薪资基础**（固定薪不随工时变？）、**薪资水平**（高于联邦及州适用阈值？多州按年度指数化、多州按雇主规模分档）、**职责测试**（岗位是否真正含豁免职责）。**调研当前生效阈值与职责测试并引一手来源、核验时效**。函件称 exempt 但岗位描述不支持→标记；误分类代价高昂。
-3. **Step 3 限制性条款**：若函件含竞业/客户不招揽/员工不招揽/保密-IP——**先适用公司限制性条款政策**（是否该给这名雇员上条款），再叠加法域核查。对每类条款核查当前生效规则：条款具体类型（各有规则）、是否有薪资/收入阈值条件、通知/对价/garden-leave 要求、行业豁免（如医疗、广播）、期限与地域合理性测试、跨州条款的 choice-of-law/choice-of-forum 可执行性。**引一手来源、核验时效**。
-4. **Step 4 法域专项**：核查法域表常见类别——**薪酬透明**（是否要求职位发布含薪资区间？本 offer 是否落在已公布区间内）、**ban-the-box**（对犯罪记录询问的时点/范围限制）、**薪资历史限制**（是否禁止询问/依赖既往薪资）、**法定发函/入职通知**（工资通知、病假通知等及是否有模板）。逐项研究、引证或标「需调研」。
-5. **Step 5 函件内容**：读函件正文。**at-will（雇主可随时无因解雇）仅美国适用**——见「注意事项」。核对：录用前提（背调、推荐、合法用工资格 I-9 或当地 right-to-work 核验）清晰；起始日/职位/薪酬/汇报关系写明；股权条款与计划一致；整合条款（函件即全部约定）；非美国法域则核对通知期是否达法定下限、当地法定书面说明事项是否齐全、试用期是否合规。
-
-## 指令
-
-- **来源标注（不可省略/合并）**：每条引用打标签——`[Westlaw]` / `[CourtListener]` / MCP 工具名（法律研究连接器）；`[web search — verify]`（网搜）；`[model knowledge — verify]`（训练知识回忆）；`[user provided]`（用户提供）。带 `verify` 的造假风险高，优先核验。
-- **禁止静默补全**：若研究查询对某辖区的豁免阈值/限制性条款/薪酬透明等返回很少或无结果，**报告所得并停止**，不得用网搜/模型知识私自填补。给出四个选项（拓宽查询/换工具/网搜并打 verify 标签/标为未核实并停止），由律师决定是否接受低置信来源。
-- **重大行动闸门（make an offer）**：出「可发函」结论或可签署终稿前，若用户角色为非律师，须先确认「是否已与律师审过此 offer」。未审则不出「可发函」，改出标注 DRAFT 的供律师复核稿，并附移交简报（候选人/岗位/实际工作法域、豁免分类及理由、限制性条款及可执行性分析、法域专项、未决问题、可能出错处、应问律师的问题）。
-- **法域假设声明**：审查仅适用 Step 1 认定的雇员工作法域；工作地变更或跨法域时本审查未必适用。
-
-## 示例
-
-审查意见输出骨架（保留源结构）：
-
-```markdown
-[工作产品头——按配置 ## Outputs，因角色而异]
-
-## 录用审查：[候选人] — [职位] — [法域]
-
-**整体：** [可发函 | 需修改 | 升级]
-
-### 法域：[州/国]
-[法域表条目。命中的任何自动升级触发项。]
-
-### 分类
-[exempt/non-exempt 结论，基于已核查的阈值与职责测试。任何标记。]
-
-### 限制性条款
-[如有。按已核查法域规则给可执行性结论，附精确引证与时效说明。建议修改。]
-
-### 法域专项
-[薪酬透明、通知、薪资历史等——各自已研究并引证，或标「需调研」。]
-
-### 录用函
-[函件本身的问题]
-
-### 待办
-- [ ] [发函前需做的具体修改]
-```
-
-输入示例：
-
-```
-我们想给加州候选人录用函里加个 12 个月竞业，能用吗？
-```
-→ 触发 Step 1（加州）+ Step 3（竞业）。**严禁凭记忆答**，须当前核查加州对竞业的现行禁止规则并引一手来源；多半结论为不可执行，标记「需修改/升级」，给替代方案（保密/IP、客户不招揽是否另有规则）。
-
-## 注意事项
-
-- **at-will 仅美国**：「at-will」指任一方可无因无通知解除（受成文法例外约束），此概念美国以外不存在。**仅当法域为美国时才检查 at-will 措辞**；蒙大拿州非 at-will（WDEA 要求转正后须有 cause）。**绝不向非美国录用函建议添加 at-will 语句**——它法律上无意义、可能与强制法定条款冲突，并向对方律师暴露雇主不懂该法域。
-- 非美国法域改查：通知期（是否达法定下限）、该法域要求的法定书面说明事项（如英国 ERA 1996 s.1：薪酬/工时/通知期/假期/养老金/纪律申诉程序）、试用期条款、法域强制条款。
-- **限制性条款近年高度易变**：竞业可执行性经立法/行政/诉讼在多州反复变动，逐次核查、勿依赖旧记忆。
-- **法域专项随年更新**：薪资历史限制、薪酬透明等多有近期修订或新执法指引，须查当前规则。
-- **本技能不深挖新法域**：法域表未覆盖即标「需调研」并路由 `general-counsel-advisor` 或外部律师；不静默用美国框架套非美国事实（confident-and-wrong 比 uncertain-and-flagged 更糟）。
-- 非律师用户出终稿前必须过重大行动闸门；需找律师时引导其联系所在辖区执业监管机构（美国州律协、英格兰及威尔士 SRA/BSB 等）转介。
-
-## 互见
-
-- requires：`worker-classification-analyzer` —— 录用前若雇员/承包人定性未定，先跑用工分类再审查录用函（豁免分类与限制性条款均以雇员关系为前提）。
-- related：`legal-risk-classifier` —— 对审查中暴露的具体风险点（如误分类、竞业不可执行、缺法定通知）做严重度分级。
-- related：`general-counsel-advisor` —— 法域表未覆盖或需深度调研时路由的总法律顾问视角。
-- combines_with：`employment-contract-drafter` —— 审查发现需改稿时，由起草技能产出修订后的录用函/合同草案，本技能再复审。
+1. Load `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → jurisdictional footprint, hiring review triggers, restrictive covenant policy.
+2. Use the workflow below.
+3. Check: jurisdiction, classification, restrictive covenants, background check compliance.
+4. Flag anything that hits the jurisdiction-specific escalation table.
 
 ---
 
-本条采编自 anthropics/claude-for-legal（Apache-2.0）。
+## Matter context
+
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/employment-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/employment-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+
+---
+
+## Purpose
+
+Offer letters are mostly boilerplate until they're not. The jurisdiction check
+and the restrictive-covenant check are where this skill earns its keep. The
+skill does not state the law — every jurisdiction-specific rule is researched
+and cited at the time of review.
+
+## Load context
+
+`~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → jurisdictional footprint, hiring review triggers, restrictive
+covenant policy, offer letter template location.
+
+## Output header
+
+Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → `## Outputs` (it differs by user role — see `## Who's using this`).
+
+## Workflow
+
+### Step 1: Jurisdiction
+
+Where will this person work? Not where HQ is — where *they* are.
+
+If remote: their home state/country governs. If hybrid: usually their home
+state, but check the offer letter's choice-of-law clause (may or may not hold
+up).
+
+Check the jurisdiction table in `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` for this state/country. If it's
+not in the table — new jurisdiction — flag that: "First hire in [state]. The
+jurisdiction table doesn't cover this. Research needed before offer goes out."
+
+### Step 2: Classification
+
+Exempt or non-exempt? The offer should say, and the role should support it.
+
+| Test | Check |
+|---|---|
+| Salary basis | Paid a fixed salary regardless of hours? |
+| Salary level | Above the applicable federal and state thresholds? |
+| Duties test | Does the role actually involve the exempt duties? |
+
+> **Research before calling exemption.** Identify the currently operative
+> salary thresholds (federal and state — several states index annually and
+> several have tiered thresholds by employer size) and the applicable duties
+> test(s) for the role. Cite primary sources. Verify currency.
+
+If the offer says exempt but the role description does not support the
+exempt duties — flag it. Misclassification is expensive.
+
+### Step 3: Restrictive covenants
+
+If the offer includes a non-compete, customer non-solicit, employee
+non-solicit, or confidentiality/IP assignment:
+
+> **Research enforceability before advising.** For the employee's jurisdiction,
+> identify the currently operative rules on each restrictive covenant in the
+> offer. Non-compete enforceability in particular has shifted in multiple
+> states in recent years through legislation, agency action, and litigation —
+> do not rely on prior memory of which states permit non-competes. Note:
+> - The specific type of covenant (non-compete, customer non-solicit, employee
+>   non-solicit, confidentiality/trade-secret, IP assignment) — each has its
+>   own rules.
+> - Any salary or income threshold that conditions enforceability.
+> - Any notice, consideration, or garden-leave requirements.
+> - Any industry-specific carve-outs (e.g., healthcare, broadcasting).
+> - Duration and geographic-scope reasonableness tests.
+> - Choice-of-law and choice-of-forum enforceability for out-of-state covenants.
+> Cite primary sources. Verify currency.
+
+Per `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` restrictive covenant policy: does this hire even get one?
+Some companies use them selectively. Apply the house policy first, then
+research overlays from the jurisdiction.
+
+> **No silent supplement.** If a research query to the configured legal research tool returns few or no results for the jurisdiction's exemption thresholds, restrictive-covenant rules, pay-transparency law, or any other item you're researching, report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [jurisdiction / topic]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag as unverified and stop. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
+>
+> **Source attribution.** Tag every citation in the review with where it came from: `[Westlaw]`, `[CourtListener]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations the user supplied. Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags.
+
+### Step 4: Jurisdiction-specific requirements
+
+Check the `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` table for this jurisdiction. Common categories to
+research for each hire:
+
+- **Pay transparency** — does the jurisdiction require a salary range in the
+  posting? If so, is this offer within the posted range? Research the current
+  rule (including any recent amendments or new enforcement guidance).
+- **Ban-the-box** — does the jurisdiction or locality restrict the timing or
+  scope of criminal-history inquiries?
+- **Salary-history limits** — is the jurisdiction one that restricts asking
+  about or relying on prior salary? Research current rules and recent
+  amendments.
+- **Required offer-letter or onboarding notices** — some jurisdictions require
+  specific notices at offer or hire (wage-notice statutes, sick-leave notices,
+  etc.). Research what is currently required and whether a template exists.
+
+Cite primary sources. Verify currency.
+
+### Step 5: Offer letter content
+
+Read the letter. Check:
+
+**Employment-at-will is US-only.** "At-will" means either party can terminate without cause or notice (subject to statutory exceptions). This concept does not exist outside the US:
+
+- **US (most states):** At-will is the default. Offer letters often include "at-will" language to defeat implied-contract arguments. Check that it's present if US.
+- **Montana:** Not at-will — Wrongful Discharge from Employment Act requires cause after probation.
+- **UK:** No at-will. Employees have statutory protections from day 1 (unfair dismissal after 2 years of service, automatic unfair dismissal for protected reasons from day 1). The offer letter must contain the written statement of particulars (ERA 1996 s.1): pay, hours, notice period, holidays, pension, disciplinary/grievance procedures.
+- **EU:** No at-will. Termination requires cause, notice, and often works council consultation or collective redundancy procedures. The offer letter requirements vary by member state but notice periods and written particulars are standard.
+- **Australia:** No at-will. Fair Work Act minimum notice periods, unfair dismissal protections, NES.
+- **Canada:** No at-will. Common law reasonable notice (can be months), ESA minimums, wrongful dismissal exposure.
+- **Singapore, other APAC:** No at-will. Employment Act and contract-based protections.
+
+**Check for at-will language ONLY if the jurisdiction is US.** For non-US jurisdictions, check instead for: notice period (and whether it meets statutory minimum), the written-statement particulars the jurisdiction requires, probation period terms, and any jurisdiction-specific mandatory clauses.
+
+**Never recommend adding at-will language to a non-US offer letter.** It's legally meaningless, it can conflict with mandatory statutory terms, and it signals to the employee's lawyer that the employer didn't understand the jurisdiction.
+
+- At-will language present and not undermined elsewhere (US only — see above)
+- Contingencies clear (background check, reference, I-9 if US / right-to-work verification for the applicable jurisdiction)
+- Start date, title, salary, reporting structure stated
+- Equity terms (if any) consistent with the plan
+- Integration clause so the letter is the whole deal
+- For non-US: notice period meets statutory minimum, jurisdiction's required written-statement particulars included, probation period compliant with local rules
+
+## Output
+
+> **Jurisdiction assumption.** This review applies the rules of the employee's work jurisdiction identified in Step 1. Enforceability of restrictive covenants, exemption thresholds, pay-transparency obligations, salary-history limits, and required notices vary materially by state and locality, and several have shifted recently. If the candidate's work location changes, or the role spans jurisdictions, this review may not apply as written.
+
+```markdown
+[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
+
+## Hiring Review: [Candidate] — [Role] — [Jurisdiction]
+
+**Overall:** [Clear to send | Changes needed | Escalate]
+
+### Jurisdiction: [State/Country]
+[Jurisdiction table entry. Any auto-escalate triggers that fire.]
+
+### Classification
+[Exempt/non-exempt call, grounded in researched thresholds and duties test.
+Any flags.]
+
+### Restrictive covenants
+[If any. Enforceability call per researched jurisdiction rules, with pinpoint
+cites and currency note. Suggested changes.]
+
+### Jurisdiction-specific requirements
+[Pay transparency, notices, salary-history rules, etc. — each researched and
+cited, or flagged as needing research.]
+
+### Offer letter
+[Any issues with the letter itself]
+
+### Action items
+- [ ] [specific change needed before sending]
+```
+
+## Consequential-action gate (make an offer)
+
+**Before producing a "Clear to send" recommendation or a final offer letter for signature:** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md`. If the Role is **Non-lawyer**:
+
+> Making an offer has legal consequences — the letter is a contract, and restrictive covenants, classification, and jurisdiction-specific terms are difficult to reset once sent. Have you reviewed this offer with an attorney? If yes, proceed. If no, here's a brief to bring to them:
+>
+> - Candidate, role, jurisdiction (where they'll actually work)
+> - Classification call (exempt/non-exempt) and why
+> - Restrictive covenants in the offer and the enforceability analysis
+> - Jurisdiction-specific requirements that apply (pay transparency, wage notices, salary-history rules)
+> - Open questions and what's unresolved
+> - What could go wrong (misclassification liability, unenforceable non-compete, missing required notice, conflicting at-will language)
+> - What to ask the attorney (is this the right form for this jurisdiction; can we use our standard non-compete here; what notices need to go with the letter)
+>
+> If you need to find an attorney, solicitor, barrister, or other authorised legal professional: contact your professional regulator (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent) for a referral service.
+
+Do not produce a "Clear to send" output past this gate without an explicit yes. A marked-DRAFT flagged for attorney review is fine.
+
+---
+
+## Close with the next-steps decision tree
+
+End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+
+## What this skill does not do
+
+- Draft the offer letter — reviews it.
+- Make the hire decision — checks the paperwork.
+- State restrictive-covenant or exemption rules from memory — every
+  jurisdiction-specific call is based on researched, cited sources verified
+  for currency.
+- Research a new jurisdiction in depth on its own — flags that research is
+  needed, and uses `wage-hour-qa` or outside counsel to fill in.

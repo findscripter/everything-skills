@@ -1,14 +1,14 @@
 ---
 name: gene-set-enrichment-analysis
-title: 通路与基因集富集分析
-description: 当你手握一组基因（差异表达基因、CRISPR 筛选命中、聚类标志基因、蛋白质组命中）或带打分的排序基因表，想知道哪些生物学通路/GO 条目/基因集被显著富集时使用；做 ORA 过表征分析或 GSEA 富集分析并产出带 FDR 的结果表与点图；不适用于上游差异表达计算、纯 ID 查询或单接口通路抓取；触发词：通路富集、富集分析、基因集富集、GO 富集、KEGG、Reactome、GSEA、ORA、过表征、pathway enrichment、gene set enrichment、functional annotation
+title: Pathway Enrichment
+description: Run pathway and gene-set enrichment analysis on gene lists or ranked gene data, then interpret the results. Use whenever the user has a set of genes (differentially expressed genes from PyDESeq2/Scanpy, CRISPR-screen hits, cluster marker genes, proteomics hits) and wants to know which biological pathways, GO terms, or gene sets are over-represented or enriched. Covers over-representation analysis (ORA / Enrichr / Fisher / hypergeometric), ranked Gene Set Enrichment Analysis (GSEA / preranked), single-sample scoring (ssGSEA/GSVA), and functional profiling via gseapy, g:Profiler, Enrichr libraries, MSigDB, GO, KEGG, Reactome, and WikiPathways — plus gene-ID mapping, choosing the right background universe, multiple-testing correction, redundancy reduction, dotplots/enrichment maps, and publication-ready tables. Use this for "pathway analysis", "enrichment analysis", "GO enrichment", "KEGG/Reactome pathways", "GSEA", "over-representation", "functional annotation", or "what pathways are my genes in".
 domain: 领域/science
-triggers: [通路富集, 富集分析, 基因集富集, GO 富集, KEGG, Reactome, GSEA, ORA, 过表征, pathway enrichment, gene set enrichment, functional annotation]
+triggers: [KEGG, Reactome, GSEA, ORA, pathway enrichment, gene set enrichment, functional annotation]
 tags: [bioinformatics, enrichment, gsea, ora, gene-set, pathway, go, kegg, reactome, msigdb, gseapy, science]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [gseapy, gprofiler-official, pandas, numpy, scipy, matplotlib, mygene, MSigDB, Enrichr]
+tools: []
 requires: []
 related: [single-cell-rnaseq-analysis, genomic-file-toolkit, nextflow-pipeline-builder, scientific-database-lookup]
 combines_with: [single-cell-rnaseq-analysis, scientific-database-lookup]
@@ -16,118 +16,66 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# Pathway Enrichment
 
-当用户已有一组基因或带打分的排序基因表，想知道「哪些生物学被富集」时使用。这是差异表达、筛选实验或聚类后的标准收尾步骤。典型场景：
+## Overview
 
-- 在基因列表中查找富集的 GO / KEGG / Reactome / WikiPathways / MSigDB Hallmark 条目。
-- 对 DESeq2、edgeR、limma 或 Scanpy `rank_genes_groups` 的输出跑 GSEA / 预排序 GSEA。
-- 按样本/单细胞给通路活性打分（ssGSEA、GSVA）。
-- 对富集结果做解读、去冗余、可视化，或产出发表级表格/图。
-- 在 ORA 与 GSEA 之间抉择、选基因集库、定背景、修 gene-ID 问题。
+Enrichment analysis answers "what biology is over-represented in my genes?" It is the standard last step after differential expression, a screen, or clustering. There are two core methods, and choosing correctly is the single most important decision:
 
-不该用的边界：
-- 上游差异表达本身的计算（属于 pydeseq2 / scanpy 等技能）。
-- 只想做一次性 Enrichr 快查 —— `gget enrichr` 更轻量。
-- 只想抓取原始通路/互作 API（Reactome、KEGG、STRING）—— 用 database-lookup 类技能。
-- 本技能聚焦完整、可辩护、可发表的富集工作流。
+- **ORA (over-representation analysis)** — take a *thresholded* gene list (e.g., padj < 0.05) and test which gene sets it overlaps more than chance, using Fisher's exact / hypergeometric tests. Tools: Enrichr, g:Profiler.
+- **GSEA (gene set enrichment analysis)** — take the *whole ranked list* of genes (no threshold) and test whether each gene set is concentrated toward the top or bottom. Preranked GSEA uses a per-gene score (e.g., the DESeq2 `stat`). Better when effects are broad and subtle.
 
-## 步骤
+This skill orchestrates these analyses, the gene-set databases behind them, and the interpretation pitfalls that make results wrong or unpublishable.
 
-### 1. 锁定输入并选方法（最关键的一步）
+## When to Use This Skill
 
-确认：哪些基因、什么物种、有没有每基因打分、代表什么比较（方向影响解读）。两种核心方法二选一：
+Use this skill when the user wants to:
+- Find enriched GO terms / KEGG / Reactome / WikiPathways / MSigDB Hallmark sets in a gene list.
+- Run GSEA / preranked GSEA on DESeq2, edgeR, limma, or Scanpy `rank_genes_groups` output.
+- Score pathway activity per sample/cell (ssGSEA, GSVA).
+- Interpret, deduplicate, and visualize enrichment results, or build a publication table/figure.
+- Decide between ORA and GSEA, pick gene-set libraries, choose a background, or fix gene-ID problems.
 
-- **ORA（过表征分析）**：拿**已阈值过滤**的基因列表（如 padj < 0.05），用 Fisher 精确/超几何检验看它与哪些基因集重叠超过随机。工具：Enrichr、g:Profiler。
-- **GSEA（基因集富集分析）**：拿**完整排序列表**（不设阈值），检验每个基因集是否集中在排序的顶端或底端。预排序 GSEA 用每基因打分（如 DESeq2 的 `stat`）。当效应广泛而微弱时更优。
+For quick one-off Enrichr lookups the `gget` skill (`gget enrichr`) is lighter weight; for raw pathway/interaction APIs (Reactome, KEGG, STRING) see the `database-lookup` skill. Use **this** skill for full, defensible enrichment workflows.
 
-选型对照：
+## Choosing the Right Method
 
-| 情形 | 方法 | 入口 |
-|------|------|------|
-| 离散命中列表（DE 基因、筛选命中、聚类标志） | ORA | `gp.enrichr(...)` 或 g:Profiler |
-| 完整排序列表（每个检测基因 + 打分） | 预排序 GSEA | `gp.prerank(...)` |
-| 表达矩阵 + 类别标签 | GSEA | `gp.gsea(...)` |
-| 每样本/单细胞通路打分 | ssGSEA / GSVA | `gp.ssgsea(...)`、`gp.gsva(...)` |
-| 自定义背景或 500+ 物种 | 带自定义域的 ORA | g:Profiler（`domain_scope='custom'`） |
+| Situation | Method | Tool / entry point |
+|-----------|--------|--------------------|
+| You have a discrete hit list (DE genes, screen hits, cluster markers) | **ORA** | `gp.enrichr(...)` or g:Profiler |
+| You have a full ranked list (every tested gene + a score) | **Preranked GSEA** | `gp.prerank(...)` |
+| You have an expression matrix + class labels | **GSEA** | `gp.gsea(...)` |
+| You want a pathway score per sample/cell | **ssGSEA / GSVA** | `gp.ssgsea(...)`, `gp.gsva(...)` |
+| You need a custom background or 500+ organisms | **ORA with custom domain** | g:Profiler (`domain_scope='custom'`) |
+| You want TF / signaling *activity* (PROGENy, DoRothEA) | activity inference | see `references/databases-and-gene-sets.md` (decoupler) |
 
-经验法则：阈值列表 → ORA；带打分的排序表 → GSEA。**绝不要先阈值过滤再喂给 GSEA**，那会丢掉 GSEA 赖以工作的排序。
+When in doubt: a thresholded list → ORA; a ranked table with scores → GSEA. Never threshold a list and then feed it to GSEA — that discards the ranking GSEA depends on.
 
-### 2. 把 gene-ID 转到正确命名空间
-
-Enrichr/MSigDB 库以**基因符号**为键（人类大写，小鼠首字母大写）。若手头是 Ensembl/Entrez ID，先转换（`gp.Biomart`、g:Profiler `g:Convert`、`mygene`）。**ID 静默不匹配是「什么都不显著」的头号原因。**
-
-### 3. 选匹配问题的基因集库
-
-Hallmark（宽主题）→ GO:BP（机制）→ KEGG/Reactome/WikiPathways（精选通路）→ C7（免疫）等。别一口气跑 50 个库，挑 2–4 个贴合生物学的即可。库名会随时间变化，**别盲目硬编码**，先列出再选。
-
-### 4. 设定背景全集（仅 ORA）
-
-背景必须是你的实验**本可检测到**的基因（如所有表达/检测到的基因），而非整个基因组。背景错了会虚高显著性。Enrichr 用固定背景；当背景要紧时，用 g:Profiler 的 `domain_scope='custom'` + 你的 `background`，或 `gp.enrich()` 显式给背景。
-
-### 5. 运行分析
-
-用下方示例或封装好的 `scripts/run_enrichment.py`。GSEA 务必设 `seed` 并报告 `permutation_num`。
-
-### 6. 按校正后 p 值过滤
-
-用 `Adjusted P-value`（ORA，Benjamini–Hochberg）或 `FDR q-val`（GSEA），**不是原始 p 值**。常用阈值 0.05；同时看重叠/基因数，避免「命中」只是 2000 基因集里的 1 个。
-
-### 7. 可视化
-
-点图、条形图、富集图（enrichment map）、GSEA running-score 图，gseapy 内置：`gp.dotplot`、`gp.barplot`、`gp.enrichment_map`、`gp.gseaplot`。
-
-### 8. 去冗余与解读
-
-GO 尤其会返回大量近重复条目。用富集图（条目–条目相似度）、leading-edge 重叠或父条目折叠，只报代表性条目。
-
-## 指令
-
-安装：
+## Setup
 
 ```bash
 uv pip install gseapy gprofiler-official
-# gseapy 会带入 pandas/numpy/scipy/matplotlib。Enrichr、g:Profiler、MSigDB 下载需要联网。
-# 完全离线 ORA 用本地 GMT 文件配 gp.enrich()。
+# gseapy pulls pandas, numpy, scipy, matplotlib. Network access is needed for
+# Enrichr, g:Profiler, and MSigDB downloads. For fully offline ORA, use a local
+# GMT file with gp.enrich() (see references/gseapy.md).
 ```
 
-核对并列出可用基因集库（库名会漂移，别硬编码）：
+Verify and list available gene-set libraries (names change over time — never hardcode blindly):
 
 ```python
 import gseapy as gp
-names = gp.get_library_name(organism="human")   # 200+ Enrichr 库
+names = gp.get_library_name(organism="human")   # 200+ Enrichr libraries
 print([n for n in names if "Reactome" in n or "KEGG" in n or "Hallmark" in n])
 ```
 
-封装脚本（自动处理符号清洗、去重、去 NA、从 DESeq2 表构造排序、逐库 FDR 过滤）：
+## Quick Start
 
-```bash
-# 从命中列表跑 ORA（每行一个基因符号）
-python scripts/run_enrichment.py ora \
-  --genes deg_symbols.txt \
-  --libraries MSigDB_Hallmark_2020 GO_Biological_Process_2023 KEGG_2021_Human \
-  --organism human --outdir results/
-
-# 从 DESeq2 结果 CSV 跑预排序 GSEA（自动用 stat 构造排序）
-python scripts/run_enrichment.py gsea \
-  --deseq2 deseq2_results.csv \
-  --libraries MSigDB_Hallmark_2020 GO_Biological_Process_2023 \
-  --organism human --outdir results/ --seed 123
-
-# 从显式两列排序文件（gene,score）跑预排序 GSEA
-python scripts/run_enrichment.py gsea --rnk ranked_genes.csv --outdir results/
-```
-
-`--help` 查看全部选项（背景文件、FDR 阈值、min/max 集合大小、置换次数）。
-
-## 示例
-
-### ORA：对命中列表（gseapy + Enrichr）
+### ORA on a hit list (gseapy + Enrichr)
 
 ```python
 import gseapy as gp
 
-# Enrichr 库要 HGNC 基因符号（人类大写）。需要时先映射 ID。
+# Enrichr libraries expect HGNC gene SYMBOLS (human: UPPERCASE). Map IDs first if needed.
 genes = [g.strip() for g in open("deg_symbols.txt") if g.strip()]
 
 enr = gp.enrichr(
@@ -135,22 +83,22 @@ enr = gp.enrichr(
     gene_sets=["MSigDB_Hallmark_2020", "GO_Biological_Process_2023",
                "KEGG_2021_Human", "Reactome_2022"],
     organism="human",
-    outdir=None,            # 内存模式；给路径则同时写表/图
+    outdir=None,            # in-memory; set a path to also write tables/plots
 )
 res = enr.results
 sig = res[res["Adjusted P-value"] < 0.05].sort_values("Adjusted P-value")
 print(sig[["Gene_set", "Term", "Overlap", "Adjusted P-value", "Combined Score", "Genes"]].head(20))
 ```
 
-### 预排序 GSEA：从 DESeq2 结果
+### Preranked GSEA from DESeq2 results
 
 ```python
 import gseapy as gp
 import pandas as pd
 
-res = pd.read_csv("deseq2_results.csv", index_col=0)   # index = 基因符号
-# 按检验统计量排序（符号=方向，幅度=证据）。比按 log2FoldChange 更稳，
-# 后者对低 count 基因噪声大。
+res = pd.read_csv("deseq2_results.csv", index_col=0)   # index = gene symbols
+# Rank by the test statistic (sign = direction, magnitude = evidence). This is
+# more stable than ranking by log2FoldChange, which is noisy for low-count genes.
 rnk = res["stat"].dropna().sort_values(ascending=False)
 rnk.index = rnk.index.str.upper()
 rnk = rnk[~rnk.index.duplicated(keep="first")]
@@ -158,37 +106,98 @@ rnk = rnk[~rnk.index.duplicated(keep="first")]
 pre = gp.prerank(
     rnk=rnk,
     gene_sets=["MSigDB_Hallmark_2020", "GO_Biological_Process_2023"],
-    min_size=15, max_size=500,        # 丢掉过小/过大的集合（噪声或太泛）
-    permutation_num=1000, seed=123,   # seed = 可复现的 p 值
+    min_size=15, max_size=500,        # drop tiny/huge sets (noisy or generic)
+    permutation_num=1000, seed=123,   # seed = reproducible p-values
     threads=4, outdir=None,
 )
 out = pre.res2d.sort_values("FDR q-val")
 print(out[["Term", "ES", "NES", "NOM p-val", "FDR q-val", "Lead_genes"]].head(20))
 ```
 
-若没有 `stat` 列，用 `sign(log2FoldChange) * -log10(pvalue)` 构造排序。
+If you have no `stat` column, build the rank from `sign(log2FoldChange) * -log10(pvalue)`.
 
-## 注意事项
+## Core Workflow
 
-以下问题导致大多数错误或不可复现的结果：
+For a defensible analysis, work through these steps. The middle steps (ID type, background) are where results most often silently go wrong.
 
-1. **gene-ID / 物种不匹配** —— 符号 vs Ensembl、人类 vs 小鼠大小写。映射好 ID 并正确设 `organism`，否则匹配会静默掉到约零。
-2. **背景错误（ORA）** —— 用整个基因组而非检测到/表达的基因集，会虚高 p 值。必要时设自定义背景。
-3. **GSEA 前做了阈值过滤** —— GSEA 需要**完整**排序列表；只有 ORA 用切过的列表。
-4. **仅按 log2FoldChange 给 GSEA 排序** —— 对低 count 基因不稳；优先 `stat` 或 `sign(LFC) * -log10(p)`。
-5. **跨库多重检验** —— FDR 是在**单库内**计算的；跑多个库会成倍增加检验。报告逐库 FDR 并保守对待。
-6. **冗余 GO 条目** —— 别报同一条目的 40 个变体；折叠并展示代表。
-7. **显著 ≠ 相关** —— 检查重叠数和基因集大小；小集合轻易就显著。
-8. **ORA 列表过短/过长** —— <10 基因功效不足；>2000 失去特异性（改用 GSEA）。
-9. **缺复现元数据** —— Enrichr/GO 库有版本且会随时间漂移。记录库名+日期，并给 GSEA 设 `seed`。
+### Step 1 — Pin down inputs and pick the method
+Confirm: which genes, what organism, is there a per-gene score (→ GSEA) or just a list (→ ORA), and what comparison they represent (direction matters for interpretation).
 
-## 互见
+### Step 2 — Get gene IDs into the right namespace
+Enrichr/MSigDB libraries are keyed by **gene symbols** (human UPPERCASE, mouse Title-case). If you have Ensembl/Entrez IDs, convert first. See `references/databases-and-gene-sets.md` for `gp.Biomart`, g:Profiler `g:Convert`, and `mygene`. A silent ID mismatch is the #1 cause of "nothing is significant".
 
-- 上游（基因来源）：差异表达（pydeseq2 的 DE 基因 + GSEA 用的 `stat`）、单细胞标志基因（scanpy `rank_genes_groups`）、筛选命中、蛋白质组命中。
-- 数据库 / ID：Reactome、KEGG、STRING、Gene Ontology API；`gget enrichr` 快查、ID 映射。
-- 下游：科学可视化（自定义图）、网络图（富集图）、科学写作/文献综述（解读与引用）、统计分析（多重检验细节）。
+### Step 3 — Choose gene-set libraries to match the question
+Hallmark (broad themes) → GO:BP (mechanism) → KEGG/Reactome/WikiPathways (curated pathways) → C7 (immune), etc. Don't run 50 libraries; pick 2–4 that fit the biology. Catalog and selection guidance: `references/databases-and-gene-sets.md`.
 
-资源：gseapy 文档 https://gseapy.readthedocs.io/ ·仓库 https://github.com/zqfang/GSEApy ；g:Profiler https://biit.cs.ut.ee/gprofiler/ ；Enrichr https://maayanlab.cloud/Enrichr/ ；MSigDB https://www.gsea-msigdb.org/gsea/msigdb/ ；GSEA 方法 Subramanian et al. (2005) PNAS, DOI: 10.1073/pnas.0506580102。
+### Step 4 — Set the background universe (ORA only)
+The background must be the genes that *could* have been detected in your assay (e.g., all expressed/tested genes), not the whole genome. The wrong background inflates significance. Enrichr uses a fixed background; when background matters, use g:Profiler with `domain_scope='custom'` + your `background`, or `gp.enrich()` with an explicit background. Rationale in `references/interpretation.md`.
 
----
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT 许可）。
+### Step 5 — Run the analysis
+Use the Quick Start patterns or the bundled `scripts/run_enrichment.py`. For GSEA always set a `seed` and report `permutation_num`.
+
+### Step 6 — Filter on adjusted p-values
+Use `Adjusted P-value` (ORA, Benjamini–Hochberg) or `FDR q-val` (GSEA), not raw p-values. Typical cutoff 0.05; also check the overlap/gene count so a "hit" isn't 1 gene out of a 2000-gene set.
+
+### Step 7 — Visualize
+Dotplots, bar plots, enrichment maps, and GSEA running-score plots are built into gseapy (`gp.dotplot`, `gp.barplot`, `gp.enrichment_map`, `gp.gseaplot`). See `references/gseapy.md`.
+
+### Step 8 — Reduce redundancy and interpret
+GO especially returns many near-duplicate terms. Collapse with an enrichment map (term–term similarity), leading-edge overlap, or parent terms, and report representative terms. Interpretation framework and a publication-table format are in `references/interpretation.md`.
+
+## Helper Script
+
+`scripts/run_enrichment.py` runs ORA or GSEA end-to-end and writes a results table plus a dotplot, handling the boilerplate (symbol cleanup, dedup, NA removal, rank construction from a DESeq2 table, per-library FDR filtering).
+
+```bash
+# ORA from a hit list (one gene symbol per line)
+python scripts/run_enrichment.py ora \
+  --genes deg_symbols.txt \
+  --libraries MSigDB_Hallmark_2020 GO_Biological_Process_2023 KEGG_2021_Human \
+  --organism human --outdir results/
+
+# Preranked GSEA from a DESeq2 results CSV (auto-builds the rank from `stat`)
+python scripts/run_enrichment.py gsea \
+  --deseq2 deseq2_results.csv \
+  --libraries MSigDB_Hallmark_2020 GO_Biological_Process_2023 \
+  --organism human --outdir results/ --seed 123
+
+# Preranked GSEA from an explicit 2-column rank file (gene,score)
+python scripts/run_enrichment.py gsea --rnk ranked_genes.csv --outdir results/
+```
+
+Run `python scripts/run_enrichment.py --help` for all options (background file, FDR cutoff, min/max set size, permutations).
+
+## Common Pitfalls
+
+These cause most wrong or irreproducible results:
+
+1. **Gene-ID / organism mismatch** — symbols vs Ensembl, human vs mouse casing. Map IDs and set `organism` correctly, or matches silently drop to ~zero.
+2. **Wrong background (ORA)** — using the whole genome instead of the tested/expressed gene set inflates p-values. Set a custom background when it matters.
+3. **Thresholding before GSEA** — GSEA needs the *full* ranked list; only ORA uses a cut list.
+4. **Ranking GSEA by log2FoldChange alone** — unstable for low-count genes; prefer `stat` or `sign(LFC) * -log10(p)`.
+5. **Multiple-testing across libraries** — FDR is computed *within* a library; running many libraries multiplies tests. Report per-library FDR and stay conservative.
+6. **Redundant GO terms** — don't report 40 variants of the same term; collapse and show representatives.
+7. **Significance ≠ relevance** — check the overlap count and gene-set size; tiny sets reach significance trivially.
+8. **List too short/long for ORA** — <10 genes is underpowered; >2000 loses specificity (consider GSEA instead).
+9. **No reproducibility metadata** — Enrichr/GO libraries are versioned and drift over time. Record library names+date and set a GSEA `seed`.
+
+## Integration with Other Skills
+
+- **Upstream (where genes come from):** `pydeseq2` (DE genes + `stat` for GSEA), `scanpy` (`rank_genes_groups` markers / scores), `depmap`/`pytdc` (screen hits), proteomics skills (`pyopenms`, `matchms`).
+- **Databases / IDs:** `database-lookup` (Reactome, KEGG, STRING, Gene Ontology APIs), `gget` (`gget enrichr` quick path, `gget info` for ID mapping), `bioservices`.
+- **Downstream:** `scientific-visualization` (custom figures), `networkx` (enrichment-map graphs), `scientific-writing` / `literature-review` (interpret and cite), `statistical-analysis` (multiple-testing details).
+
+## Reference Files
+
+Read the relevant file when you need depth:
+
+- `references/gseapy.md` — full gseapy API: `enrichr`, offline `enrich`, `prerank`, `gsea`, `ssgsea`, `gsva`, `Msigdb`, `Biomart`, `get_library_name`/`read_gmt`, every plot, result-column meanings, GMT/offline usage, and troubleshooting (rate limits, empty results).
+- `references/databases-and-gene-sets.md` — GO, KEGG, Reactome, WikiPathways, MSigDB collections, Enrichr library naming, g:Profiler sources, organism handling, gene-ID conversion, library selection by question, and pointers to Reactome/STRING APIs and decoupler activity inference.
+- `references/interpretation.md` — ORA vs GSEA statistics, background-universe choice, multiple-testing methods (BH vs g:SCS vs Bonferroni), leading-edge genes, redundancy reduction, effect vs significance, a publication-table template, and reproducibility checklist.
+
+## Resources
+
+- gseapy docs: https://gseapy.readthedocs.io/ · repo: https://github.com/zqfang/GSEApy
+- g:Profiler: https://biit.cs.ut.ee/gprofiler/ · Python client: https://pypi.org/project/gprofiler-official/
+- Enrichr: https://maayanlab.cloud/Enrichr/ · MSigDB: https://www.gsea-msigdb.org/gsea/msigdb/
+- GSEA method: Subramanian et al. (2005) PNAS, DOI: 10.1073/pnas.0506580102

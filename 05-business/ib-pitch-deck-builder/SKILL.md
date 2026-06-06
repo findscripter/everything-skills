@@ -1,14 +1,14 @@
 ---
 name: ib-pitch-deck-builder
-title: 投行路演演示稿构建
-description: 当拿到投行路演 PPT 模板和源数据（Excel/CSV/PDF/研报）需把数据灌入既有版式时使用；按"抽数校验→内容映射→灌入排版→验证修复循环→终检"流程产出格式合规的 pitch deck（真表对象、对比度达标、删占位框、跨页数字一致、附 LibreOffice 渲染免责声明）；不适用于从零设计演示文稿或编造无源数据。触发词：pitch deck、路演演示稿、投行模板填充、灌数据进幻灯片
+title: Populating Investment Banking Pitch Deck Templates
+description: Populates investment banking pitch deck templates with data from source files. Use when: user provides a PowerPoint template to fill in, user has source data (Excel/CSV) to populate into slides, user mentions populating or filling a pitch deck template, or user needs to transfer data into existing slide layouts. Not for creating presentations from scratch.
 domain: 商业/finance
-triggers: [pitch deck, 路演演示稿, 投行路演, PPT模板填充, 灌数据进幻灯片, pitch deck template, populate slides, 把数据填进PPT模板]
-tags: [商业, finance, 投行, 演示文稿, pptx, pitch-deck, 数据灌入, 财务校验]
-level: 进阶
+triggers: [pitch deck, pitch deck template, populate slides]
+tags: [finance, pptx, pitch-deck]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [PowerPoint/pptx 工具, LibreOffice (soffice), pdftoppm, 电子表格]
+tools: []
 requires: []
 related: [ib-deck-quality-check, pitch-deck-refresh, board-deck-builder, cim-builder]
 combines_with: [ib-deck-quality-check, pitch-deck-refresh, company-tear-sheet]
@@ -16,111 +16,406 @@ license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0
 ---
-## 何时使用
+# Populating Investment Banking Pitch Deck Templates
 
-当你拿到一份**已有版式的投行路演 PPT 模板**，需要把源数据灌进去时使用：
+## Reference Files
 
-- 用户提供 PowerPoint 模板要求填充内容。
-- 有源数据（Excel/CSV/PDF 研报/Word/数据库/网页）需要落到幻灯片版式里。
-- 用户提到"填模板""灌数据进 pitch deck""把数据放进现有版式"。
+**Read all reference files at task start before beginning any work.** These contain critical patterns and anti-patterns that will affect your approach. Do not wait until you encounter issues.
 
-任务类型决策：① 空模板灌源数据 → 走下方完整流程；② 编辑已填好的页 → 抽取现有内容、修改、重新验证；③ 修既有页的格式问题 → 直接查"常见错误"对照表做定点修复。
+| File | Purpose |
+|------|---------|
+| [`formatting-standards.md`](reference/formatting-standards.md) | Text, bullets, tables, charts, alignment |
+| [`slide-templates.md`](reference/slide-templates.md) | Content mapping guidance for common slide types |
+| [`xml-reference.md`](reference/xml-reference.md) | PowerPoint XML patterns for tables, shapes, arrows |
+| [`calculation-standards.md`](reference/calculation-standards.md) | Financial formulas for verification (CAGR, consensus) |
 
-**不该用的边界：**
-- 不用于**从零设计**演示文稿（无模板、无版式）——本技能只负责往既有版式里灌数。
-- 不编造数据：源数据缺口用显式占位符标注（如 `[待补充]`），绝不臆造数字。
-- 不对引用的市场/财务数字做事实背书；外部数据需另行核验。
+---
 
-## 步骤
+## Workflow Decision Tree
 
-进度追踪（复制并逐项打勾）：
+**What type of task is this?**
 
 ```
-Pitch Deck 进度:
-- [ ] 阶段1: 抽取并校验源数据
-- [ ] 阶段2: 内容映射到模板各区
-- [ ] 阶段3: 灌入并按模板风格排版
-- [ ] 阶段4: 验证 → 修复 → 重复直到干净
-- [ ] 阶段5: 终检交付
+┌─ Populating empty template with source data?
+│  └─→ Follow "Template Population Workflow" below
+│
+├─ Editing existing populated slides?
+│  └─→ Extract current content, modify, revalidate
+│
+└─ Fixing formatting issues on existing slides?
+   └─→ See "Common Failures" table, apply targeted fixes
 ```
 
-1. **阶段1 抽数校验**：先把原模板**备份**为 `[文件名]_backup.pptx`（直接改 XML 或意外报错会损坏文件）。识别所有源材料 → 抽取数据点 → 逐个数字对源校验 → 统一单位与币种（全部换成模板主口径）→ 标记需复算的计算项（见"指令-财务复算公式"）。
-2. **阶段2 内容映射**：先**打开并目视通读模板**，理解结构/风格/已有内容 → 找出全部占位区与内容框 → 把源数据映射到对应区 → 识别"彩色指示框"（任务方留的说明框）→ 记录数据缺口与不匹配。
-3. **阶段3 灌入排版**："先内容、后格式"。**删掉彩色指示框**再造正式内容（见反模式1）；表格必须建成**真正的表对象**（禁止用 `|`/制表符/空格拼假表）；箭头/形状用 PPT 形状对象（不用 →、⟹ 文本符号）；有 logo 就放，没有就标 `[LOGO NOT PROVIDED - please supply company logo]`。
-4. **阶段4 验证→修复循环**：用 LibreOffice 转图逐页核对（见下命令与清单），按"3 轮上限"修复，仍不过则升级给用户。
-5. **阶段5 终检**：过完整自查清单后交付，并**必带 LibreOffice 渲染免责声明**。
+---
 
-## 指令
+## ⚠️ Critical Rendering Limitation
 
-**验证转图命令（每轮验证都跑）：**
+**LibreOffice is used for validation but DOES NOT render PowerPoint files accurately.** It will mangle fonts, gradients, shape positions, text wrapping, and some table formatting.
+
+**What this means:** A slide that passes visual validation in LibreOffice may still have issues in Microsoft PowerPoint. The validation loop catches structural issues (missing content, broken tables, placeholder formatting retained) but **cannot** catch font substitution, subtle alignment shifts, or gradient problems.
+
+**Required action:** Always include this statement when delivering output:
+> "This file was validated using LibreOffice. Please review in Microsoft PowerPoint before distribution, as rendering differences may exist."
+
+---
+
+## Template Population Workflow
+
+Copy and track progress:
+
+```
+Pitch Deck Progress:
+- [ ] Phase 1: Extract and validate source data
+- [ ] Phase 2: Map content to template sections
+- [ ] Phase 3: Populate slides with proper formatting
+- [ ] Phase 4: Validate → Fix → Repeat until clean
+- [ ] Phase 5: Final verification
+```
+
+### Phase 1: Data Extraction
+1. **Create backup** of original template before any modifications — copy to `[filename]_backup.pptx`. Direct XML editing or unexpected errors can corrupt files.
+2. Identify all source materials (Excel, CSV, PDF reports, Word documents, databases, web sources)
+3. Extract relevant data points from each source
+4. Validate all numbers against original sources
+5. Standardize units and currency (convert all figures to the primary unit/currency used in the template)
+6. Note any calculations that need verification → see [`calculation-standards.md`](reference/calculation-standards.md) for formulas
+
+### Phase 2: Content Mapping
+1. **Open and visually review the template** — understand its structure, style, and existing content before modifying
+2. Analyze template structure — identify all placeholder areas and content boxes
+3. Map source data to corresponding template sections → see [`slide-templates.md`](reference/slide-templates.md) for mapping guidance
+4. Identify placeholder guidance boxes (colored instruction boxes from task creator)
+5. Note any data gaps or mismatches → see [`slide-templates.md`](reference/slide-templates.md#handling-data-template-mismatches) for resolution
+
+### Phase 3: Template Population
+1. **Remove or reformat placeholder boxes** — colored instruction boxes show WHAT to create, not HOW to format. Delete them and create properly formatted content in their place. See [Critical Anti-Patterns](#critical-anti-patterns-never-do-these).
+2. Populate each section with mapped content (focus on content first)
+3. **Then apply formatting** to match template style → see [`formatting-standards.md`](reference/formatting-standards.md)
+4. Create tables as actual table objects (NEVER use pipe/tab-separated text) → see [`xml-reference.md`](reference/xml-reference.md#table-implementation)
+5. Create arrows/shapes as PowerPoint objects → see [`xml-reference.md`](reference/xml-reference.md#arrow-shapes)
+6. Insert company logo if provided in task files; if not available, flag to user: "[LOGO NOT PROVIDED - please supply company logo]"
+
+### Phase 4: Validate → Fix → Repeat
+
+**This is a feedback loop. Repeat until all checks pass OR escalation is triggered.**
 
 ```bash
-# 转 PDF 再转图做目视验证
+# Convert to images for visual validation
 soffice --headless --convert-to pdf presentation.pptx
 pdftoppm -jpeg -r 150 presentation.pdf slide
 ```
 
-转换失败时：先 `which soffice` 确认安装；改试 `libreoffice --headless --convert-to pdf presentation.pptx`；仍失败则手动用 PowerPoint/LibreOffice 导出。
+**Validation checklist (check each slide image):**
+- [ ] Text readable against background?
+- [ ] Tables are actual objects (columns aligned, NOT pipe/tab-separated text)?
+- [ ] Charts/tables fill designated areas?
+- [ ] Bullet formatting consistent within sections?
+- [ ] Font sizes match across same-level boxes?
+- [ ] No content beyond slide boundaries?
+- [ ] **No placeholder formatting retained** (no large colored boxes with data dumped in)?
+- [ ] **No text-based "tables"** (no `|` or tab separators creating fake columns)?
+- [ ] **Cross-slide consistency**: Same metrics/figures identical across all slides where they appear?
 
-**逐页验证清单：** 文字与背景对比度够吗 / 表格是真对象（列对齐、非 `|` 拼接）吗 / 图表表格填满指定区吗 / 同节内项目符号一致吗 / 同层级框字号一致吗 / 无内容超出页边吗 / 无保留占位框格式（彩色大框塞数据）吗 / 无文本假表吗 / **跨页同一指标/数字完全一致**吗。
+**Fix cycle protocol:**
 
-**修复循环 3 轮上限：** 第1轮修全部已发现问题并复验；第2轮修剩余问题并复验；第3轮仍有问题则**停止循环**，逐条列出（页号+描述）+ 说明已尝试动作 + 带显式免责声明交付（"以下问题无法自动解决：[列表]，需人工复核"）。字体渲染、复杂形状对齐等问题往往需在 PowerPoint 手动处理，**切勿无限循环**。
+| Cycle | Action |
+|-------|--------|
+| 1 | Fix all identified issues, re-validate |
+| 2 | Fix remaining issues, re-validate |
+| 3 | If issues persist, document remaining problems and escalate to user |
 
-**三大反模式（必须规避）：**
-1. **往占位框里灌数据**：彩色指示框（亮黄/橙、含"在此插入…"指引文字）**本身就是占位符**，应整体删除后另建正式内容；只有版式占位符（slide master 自带、中性色、"单击此处添加文本"）才保留形状只换文字。识别测试：若成品页出现塞满数据文字的大彩色矩形，就是抄了占位格式。
-2. **文本假表**：用 `|`、制表符、空格拼列 ≠ 表格，永远对不齐、不专业。建表后**必须核验是真表对象**。
-3. **继承占位对比度**：占位框常是彩底浅字（如黄底白字），正式正文应用**深字浅底**（正文 `#000000`/`#333333` on 白/浅底；表头与强调区可用品牌色）。
+**After 3 cycles, if issues remain:**
+1. List each unresolved issue with slide number and description
+2. Explain what was attempted
+3. Deliver the file with explicit disclaimer: "The following issues could not be resolved automatically: [list]. Manual review required."
 
-**财务复算公式（校验源数据预算值，源数据应已含算好的数）：**
+**Do not** continue cycling indefinitely. Some issues (font rendering, complex shape alignment) may require manual intervention in PowerPoint.
 
+### Phase 5: Final Verification
+
+Run through the [Final Quality Checklist](#final-quality-checklist) before delivering.
+
+---
+
+## Quick Reference Tables
+
+### Bullet Symbols
+
+| Context | Symbol | Usage |
+|---------|--------|-------|
+| Included/Positive | ✓ | Items within scope, features present |
+| Excluded/Negative | × | Items outside scope, features absent |
+| Neutral list | • | General enumeration, commentary |
+| Numbered sequence | 1. 2. 3. | Process steps, rankings |
+| Sub-bullets | – | Secondary points under main bullets |
+
+### Slide Hierarchy Levels (Typical)
+
+These are typical ranges—adjust based on template specifications:
+
+| Level | Examples | Typical Size | Style |
+|-------|----------|--------------|-------|
+| Title | Slide title | 40-48pt | Bold |
+| Subtitle | Market definition, slide descriptor | 18-22pt | Bold |
+| Section Header | "Key Projections", "Commentary" | 14-16pt | Regular |
+| Block Label | "Segments Included", "Definition" sidebar | 12-14pt | Regular |
+| Block Content | Bullet points, body text | 11-14pt | Regular |
+| Table Header | Column headers | 10-12pt | Bold |
+| Table Body | Cell content | 9-11pt | Regular |
+| Footnotes | Sources, notes | 8-9pt | Italic |
+
+### Font Consistency Matching
+
+Boxes at the **same hierarchy level** MUST use identical font sizes:
+
+| Same Level | Must Match With |
+|------------|-----------------|
+| "Segments Included" | "Segments Excluded" |
+| "Definition" | "Scope Rationale" |
+| Left column bullets | Right column bullets |
+| All block labels | Each other |
+| All section headers | Each other |
+
+### Rounding for Presentation
+
+These are **typical conventions** — adjust based on the magnitude of values and template style:
+
+| Value Type | Typical Rounding | Example |
+|------------|------------------|---------|
+| Large market sizes ($10bn+) | Nearest $1bn | 18.5 → $19bn |
+| Smaller market sizes (<$10bn) | Nearest $0.5bn or $0.1bn | 2.3 → $2.5bn |
+| Size ranges | Match precision of sources | 14.9-22.1 → $15-22bn |
+| CAGR | Whole % or 0.5% | 16.4% → 16% or 16.5% |
+| Market share | Nearest 5% or match source | 21.4% → 20% |
+| Multiples | 1 decimal | 9.69 → 9.7x |
+
+**Principle:** Rounding should not materially change the figure. For smaller values, use finer precision.
+
+### Text Density Rules
+
+- Max 6-7 bullets per content box
+- Max 2 lines per bullet point
+- Parenthetical examples: same line or indented below
+- No orphan words (single word on new line)
+
+### Alignment Principles
+
+**Vertically stacked boxes** must have identical:
+- Left margin position, bullet indentation, text start position, box width
+
+**Horizontally adjacent boxes** must have identical:
+- Top position, height (where possible), internal padding
+
+### Multi-Slide Consistency
+
+When the same data appears on multiple slides:
+- Use identical figures, formatting, and terminology
+- If a metric is updated on one slide, update all occurrences
+- Cross-reference during validation to catch mismatches
+
+---
+
+## MUST Requirements
+
+These requirements are non-negotiable regardless of template:
+
+| Requirement | Details |
+|-------------|---------|
+| **Text Readability** | All text MUST have sufficient contrast with background. Examples: white/light text on dark blue, dark green, black backgrounds; black/dark text on white, light gray, light yellow backgrounds. |
+| **Actual Table Objects** | Tabular data MUST be table objects, not tab-separated text. See [`xml-reference.md`](reference/xml-reference.md#table-implementation). |
+| **Proper Chart/Table Sizing** | Pasted visuals MUST fill designated area. See [`formatting-standards.md`](reference/formatting-standards.md#chart-and-image-handling). |
+| **Consistent Formatting** | Bullets within section MUST match (symbol, size, indent). Same-level boxes MUST use same font size. |
+| **Content Boundaries** | All content MUST stay within slide edges. Footnote box width: ~32.5cm for 16:9, ~24cm for 4:3. |
+| **No Placeholder Formatting** | Remove colored instruction boxes. Main body: dark text on light background per template. |
+
+---
+
+## Critical Anti-Patterns: NEVER DO THESE
+
+These failures occur when placeholder formatting is mistaken for output formatting. Recognizing these patterns is essential.
+
+### Anti-Pattern 1: Populating Data INTO Placeholder Boxes
+
+**What happens:** Template has colored instruction boxes (yellow, orange, etc.) with guidance text. Model replaces the guidance text with actual data BUT KEEPS THE COLORED BOX.
+
+**Why it's wrong:** The colored box IS the placeholder. It tells you what content goes there. The output should have different formatting — typically dark text on white/light background, or properly styled shapes.
+
+**Recognition test:** If your populated slide has large colored rectangles filled with data text, you have copied the placeholder format instead of replacing it.
+
+**Critical distinction — two types of "placeholders":**
+
+| Type | How to identify | What to do |
+|------|-----------------|------------|
+| **Instruction boxes** | Bright colors (yellow, orange), contains guidance text like "Insert X here", white/light text on colored background | DELETE the entire shape, then create new content with production formatting |
+| **Layout placeholders** | Part of slide master/layout, neutral colors matching template theme, "Click to add text" | KEEP the shape, REPLACE the text content only |
+
+If uncertain: check if the shape exists on an empty slide from the same template. Layout placeholders persist; instruction boxes are regular shapes.
+
+### Anti-Pattern 2: Text-Based "Tables"
+
+**What happens:** Model creates table-like content using separator characters (`|`, tabs, spaces) instead of actual table objects.
+
+**Why it's wrong:** This is NOT a table. Columns will never align properly, it cannot be formatted consistently, and it looks unprofessional.
+
+**Recognition test:** If you're typing `|` characters or relying on spaces/tabs to create columns, you're creating text, not a table.
+
+**MUST verify:** After creating any table, verify it is an actual table object. See [`xml-reference.md`](reference/xml-reference.md#critical-verify-tables-are-actual-table-objects) for verification methods.
+
+### Anti-Pattern 3: Inheriting Placeholder Contrast
+
+**What happens:** Placeholder uses light text on colored background (e.g., white on yellow). Model populates data but keeps this color scheme, resulting in hard-to-read output.
+
+**Why it's wrong:** Placeholder colors are deliberately distinct to signal "replace me." Production slides typically use dark text on light backgrounds for body content.
+
+**Recognition test:** If your populated content has light/white text on bright colored backgrounds in body areas (not headers), you've inherited placeholder formatting.
+
+**Correct approach:** Apply production formatting — typically dark text (#000000 or #333333) on white or light backgrounds for body content. Headers and accent areas may use brand colors.
+
+### Summary: Placeholder vs. Production
+
+| Element | Placeholder (Input) | Production (Output) |
+|---------|---------------------|---------------------|
+| Instruction boxes | Colored background, guidance text | Removed or reformatted |
+| Data areas | "[Insert data here]" text | Actual data with clean formatting |
+| Tables | Description of what table should contain | Actual table object with rows/columns |
+| Body text | Light text on colored background | Dark text on light background |
+
+**The placeholder tells you WHAT to create, not HOW to format it.**
+
+---
+
+## Common Failures
+
+For detailed explanations of the most critical failures, see [Critical Anti-Patterns](#critical-anti-patterns-never-do-these) above.
+
+| Failure | Solution | Reference |
+|---------|----------|-----------|
+| Unstructured text dumps | Break into bullets (✓, ×, •) | [`formatting-standards.md`](reference/formatting-standards.md#bullet-point-structure) |
+| Pipe/tab-separated "tables" | Create actual table objects — text with separators is NOT a table | [`xml-reference.md`](reference/xml-reference.md#table-implementation) |
+| Poor text/background contrast | Audit every text element | — |
+| Tiny pasted charts | Resize to fill area, paste chart only | [`formatting-standards.md`](reference/formatting-standards.md#proper-sizing-workflow) |
+| Source data pasted with charts | Select only chart object before copy | — |
+| Data dumped into placeholder boxes | Delete colored instruction boxes, create new properly formatted content | [Anti-Patterns](#critical-anti-patterns-never-do-these) |
+| Inconsistent bullets | Define style once, apply to all | [`formatting-standards.md`](reference/formatting-standards.md#bullet-consistency) |
+| Inconsistent fonts across boxes | Standardize same-level boxes | [`formatting-standards.md`](reference/formatting-standards.md#font-consistency) |
+| Content overflow | Set explicit box widths (footnotes: 32.5cm for 16:9, 24cm for 4:3) | — |
+| Missing logo | Use logo from task files; if not provided, flag to user | — |
+| Remaining `[brackets]` | Search and replace all placeholders | — |
+| Text arrows (→, ⟹) | Use PowerPoint shape objects | [`xml-reference.md`](reference/xml-reference.md#arrow-shapes) |
+
+---
+
+## Error Handling
+
+**If PDF/image conversion fails:**
+1. Check LibreOffice is installed: `which soffice`
+2. Try alternative: `libreoffice --headless --convert-to pdf presentation.pptx`
+3. If still failing, open in PowerPoint/LibreOffice manually and export
+
+**If source data has inconsistencies or conflicts:**
+1. **Priority order**: Use data explicitly provided in the task files first
+2. If using data from other sources (web search, external documents), flag this to the user
+3. Document any discrepancies explicitly
+4. Add footnote explaining data source choice
+
+**If calculations don't match source projections:**
+1. Show your calculation methodology
+2. Note the discrepancy and possible causes (different base year, methodology)
+3. Present both values if material difference
+4. Flag to user for resolution
+
+---
+
+## Table Structure Guidelines
+
+When creating tables (MUST be actual table objects):
+
+**Column Alignment:**
+- Text columns: Left-aligned (header and content)
+- Numeric columns: Right-aligned or center-aligned (header matches content)
+
+**Header Row:**
+- Bold text
+- Shaded background (template's brand color)
+- White or contrasting text
+
+**Consensus/Total Row:**
+- Bold text
+- Separator line above
+- Distinct background shading
+
+**Width:** Fill designated section width completely.
+
+For XML implementation, see [`xml-reference.md`](reference/xml-reference.md#table-implementation).
+
+---
+
+## Footnote Format
+
+**Format:**
 ```
-CAGR 投影:   未来值 = 现值 × (1 + CAGR)^n      # n=基准年到目标年的年数, 2024→2030=6
-             例: 22.1 × (1.164)^6 = 55.0 ✓
-EV/Revenue:  倍数 = 企业价值 ÷ 营收;  隐含EV = 营收 × 倍数   # 例 436÷45=9.69≈9.7x
-EV/EBITDA:   倍数 = 企业价值 ÷ EBITDA
-市场份额:    份额% = 细分规模 ÷ 总市场 × 100        # 例 18÷65=27.7%≈28%
-YoY 增长:    (本期 - 上期) ÷ 上期 × 100
-端点反推CAGR: (期末值 ÷ 期初值)^(1/n) - 1
+Sources: [Source 1] (Year), [Source 2] (Year).
+Notes: (1) [First note]; (2) [Second note].
 ```
 
-共识方法：规模共识取各源全距（min–max，如 $14.9–22.1bn → $15–22bn）；CAGR 共识剔除最高最低离群、取中心簇；投影共识对规模区间中点套共识 CAGR。复算结果与源值偏差 > 5% 须排查（基准年/CAGR/口径/LTM vs NTM 差异），存疑则脚注说明并展示算法。
-
-**呈现约束：** 同层级框字号必须一致；每框 ≤6-7 条项目、每条 ≤2 行、无孤字；脚注框宽约 32.5cm(16:9)/24cm(4:3)；正文上标 ¹²³ 必须有对应 Notes 条目。
-
-**交付必带声明（LibreOffice 仅做结构验证，不能准确渲染字体/渐变/位置/换行）：**
-> "This file was validated using LibreOffice. Please review in Microsoft PowerPoint before distribution, as rendering differences may exist."（本文件经 LibreOffice 验证，分发前请在 Microsoft PowerPoint 中复核，渲染可能存在差异。）
-
-## 示例
-
-**项目符号约定：** ✓ 含/正向 · × 排除/负向 · • 中性枚举 · 1./2./3. 有序步骤 · – 子项。
-
-**取整惯例（不应实质改变数值，小值用更细精度）：** 大市场($10bn+)→近 $1bn（18.5→$19bn）；小市场(<$10bn)→近 $0.5bn；区间匹配源精度（14.9-22.1→$15-22bn）；CAGR→整数%或0.5%（16.4%→16%）；市场份额→近5%；倍数→1位小数（9.69→9.7x）。
-
-**脚注格式：**
-
+**Example:**
 ```
 Sources: Grand View Research (2024), Mordor Intelligence (2024), Markets and Markets (2023).
 Notes: (1) Excludes hardware revenue; (2) Includes both B2B and B2C segments.
 ```
 
-**常见错误对照（定点修复用）：** 无结构文本块 → 拆成项目符号；`|`/制表符假表 → 建真表对象；对比度差 → 逐元素审计；图表缩成缩略图 → 放大填满、只粘图表对象；数据塞进彩框 → 删框另建正式内容；项目符号/字号不一致 → 定义一次统一套用；内容溢出 → 显式设框宽；残留 `[方括号]` → 全局查替；文本箭头 → 换形状对象。
-
-## 注意事项
-
-- **必须先备份再改**：直接编辑 XML 易损坏 pptx。
-- **LibreOffice 渲染不可信**：它会错排字体/渐变/位置/换行/部分表格。验证循环只能抓结构性问题（缺内容、坏表、残留占位格式），**抓不到**字体替换、细微对齐偏移、渐变问题——故交付必带上面的免责声明，且字体/复杂形状问题留待 PowerPoint 手动修。
-- **跨页一致性**：同一数字/指标在多页出现时口径、格式、措辞完全一致；改一处必改全部。
-- **源数据冲突优先级**：优先用任务文件内显式提供的数据；用到外部源（网搜、外部文档）须向用户标记；差异显式记录并加脚注说明取舍。
-- **数据卫生**：缺口用显式占位符不臆造；外部市场/财务数字与"研究表明"类断言需另行核验，本技能不自行背书。
-- **logo**：用任务材料里的 logo，无则标 `[LOGO NOT PROVIDED]`；通常右上、跨页同尺寸、不压内容。
-
-## 互见
-
-- related：`board-deck-builder` —— 董事会/投资人汇报材料，叙事框架与本技能的"灌模板"互补。
-- related：`market-sizing-tam-sam-som`、`market-sizing-analyst` —— pitch deck 中市场规模页的测算来源。
-- combines_with：`pptx`/演示文稿编辑类技能 —— 提供 PowerPoint XML（表格、形状、箭头）的底层实现细节。
-- 源技能 references：`reference/formatting-standards.md`（文本/项目符号/表/图/对齐）、`reference/slide-templates.md`（各类幻灯片内容映射）、`reference/xml-reference.md`（表格/形状/箭头的 PPT XML 模式）、`reference/calculation-standards.md`（CAGR/共识等校验公式）。
+All superscript numbers (¹, ², ³) in slide body MUST have corresponding Notes entries.
 
 ---
 
-采编自 anthropics/financial-services（Apache-2.0 License）。
+## Logo Placement
+
+- Use logo file provided in task materials
+- If no logo provided, flag to user: "[LOGO NOT PROVIDED - please supply company logo]"
+- Position: typically top-right, consistent size across slides, must not overlap content
+
+---
+
+## Data Requirements by Slide Type
+
+For detailed data requirements, formatting principles, and example column headers for each slide type, see [`slide-templates.md`](reference/slide-templates.md#common-slide-types-and-data-requirements).
+
+Common slide types covered: Market Definition, Market Sizing/TAM, Competitive Landscape, Financial Summary, Transaction Comparables.
+
+---
+
+## Final Quality Checklist
+
+Before delivering the populated template, verify:
+
+### Data Accuracy
+- [ ] All figures match original source documents
+- [ ] Calculated values verified against formulas (see [`calculation-standards.md`](reference/calculation-standards.md))
+- [ ] Years and time periods are correct
+- [ ] Company/competitor names spelled correctly
+- [ ] Same figures are identical across all slides where they appear
+
+### Content Mapping
+- [ ] Every template section populated with appropriate data
+- [ ] No `[bracket]` placeholder text remaining
+- [ ] All source citations included in footnotes
+- [ ] Footnote numbers (¹²³) have corresponding Notes entries
+
+### Formatting
+- [ ] Text readable against all backgrounds (sufficient contrast)
+- [ ] Tables are actual table objects (NOT pipe/tab-separated text)
+- [ ] Charts/tables fill designated areas (no thumbnails)
+- [ ] Bullet formatting consistent within each section
+- [ ] Font sizes match across same-level boxes
+- [ ] No content extends beyond slide boundaries
+- [ ] No placeholder boxes retained with data dumped inside
+- [ ] No colored instruction boxes in final output
+
+### Template Compliance
+- [ ] Placeholder instruction boxes reformatted or removed
+- [ ] Formatting matches template style (colors, fonts)
+- [ ] Logo present and correctly positioned
+- [ ] Production formatting applied (dark text on light background for main content)
+
+### Final Step
+- [ ] Recommend user validate in Microsoft PowerPoint before distribution (LibreOffice may render differently)

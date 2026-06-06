@@ -1,14 +1,14 @@
 ---
 name: invariant-guard-correctness
-title: 契约不变式正确性守卫
-description: 当编写或评审"自以为熟悉"的算法（循环/递归/原地修改/边界）时使用；在写代码前先落笔函数契约、循环不变式、终止性论证与边界清单，产出正确性优先的实现与自检；不适用于显然无误的一行式或纯并发同步推理；触发词：循环不变式、二分边界、off-by-one
+title: invariant-guard — Correctness-First Coding
+description: Correctness-first: forces writing the function contract, loop invariant, termination argument, and edge cases BEFORE code. Catches Boyer-Moore, leftmost binary search, QuickSelect traps.
 domain: 通用/thinking
-triggers: [写循环不变式, 二分查找边界 off-by-one, Boyer-Moore 多数投票, 递归缺少 base case / 终止性, 原地修改读写指针 dedup/partition, 算法后置条件比循环不变式强]
-tags: [算法, 正确性, 循环不变式, 契约, 边界用例, 形式化验证, 通用, 思维]
-level: 进阶
+triggers: []
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [claude-code, antigravity, cursor, gemini-cli, codex-cli]
+tools: []
 requires: []
 related: [algorithm-first-discipline, large-scale-math-algorithms, complexity-cuts, closed-loop-delivery]
 combines_with: [systematic-debugging-strategies, test-coverage-gap-finder]
@@ -16,141 +16,295 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# invariant-guard — Correctness-First Coding
 
-在编写或评审"显然实现往往悄悄出错"的算法时使用本技能。模型知道什么是循环不变式、递归要有 base case、空表会出问题、`<` 与 `≤` 有别——但它不会在写代码前把这些写下来，于是交付了测试抓不到的细微正确性 bug。
+The model knows what a loop invariant is. It knows recursion needs a base case. It knows about empty lists, integer overflow, and the difference between `<` and `≤`. It just does not write these down before producing code, so it ships subtle correctness bugs that tests do not catch.
 
-**典型场景（后置条件比循环天然不变式更强）：**
-- 后置条件强于循环不变式：Boyer–Moore 多数投票、Floyd 判环、最左 vs 任意二分、QuickSelect 划分。
-- 读+写双指针的原地修改：原地去重、划分、旋转。
-- 带多参数或累加器状态的递归。
-- 含重复元素、空输入、边界值的 off-by-one 嫌疑点。
-- 必须收敛终止的迭代细化：不动点、牛顿法、EM。
-- 任何让你冒出"这算法我会"念头的函数——陷阱通常在契约里，不在循环体里。
+invariant-guard fixes the behavior. State the invariants. State the base case. State the termination argument. State the edge cases. Then write the code — and verify that the code maintains what you stated.
 
-**不该用的边界：**
-- 显然不会失败的一行式：协议本身是开销，留给非平凡的循环/递归/原地修改。
-- 纯数学（概率、FFT、几何）：转 `mathguard`，近似算法的后置条件是 ε-界而非等式。
-- 并发推理：不变式默认假设单线程；多线程需额外的 happens-before / 可线性化论证，本技能不覆盖。
-- 算法尚未选定时：先到 `lemmaly` 定算法，再回来写不变式。
+**Violating the letter of these rules is violating the spirit of the skill.** "I know this algorithm" is the exact rationalization that ships off-by-one and missing-postcondition bugs.
 
-## 步骤（写代码前的协议，按此顺序）
+## When to Use This Skill
 
-在产出含循环、递归或非平凡状态的代码前，你的消息必须依次包含：
+Use **invariant-guard** when writing or reviewing algorithms where the obvious implementation is subtly wrong:
 
-1. **函数契约** — 前置条件、后置条件、返回值，各一行。
-2. **循环不变式** — 每个循环一条（规则 1）。
-3. **终止性论证** — 每个循环或递归一条（规则 2、3）。
-4. **base case 与度量** — 递归专用（规则 3）。
-5. **边界用例表** — 每个适用情形一条，附预期行为（规则 4）。
-6. **非法状态不可表示** — 指明用哪些类型或断言来强制不变式（规则 5）。
-7. **代码本体。**
-8. **自检** — 每个循环一行，确认不变式在循环顶成立、循环体保持它、退出条件蕴含后置条件。
+- Postcondition stronger than the loop's natural invariant: Boyer–Moore majority, Floyd's cycle detection, leftmost vs any binary search, QuickSelect partition.
+- In-place mutation with read+write pointers: dedup-in-place, partition, rotate.
+- Recursion with multiple parameters or accumulator state.
+- Off-by-one suspects with duplicates, empty inputs, boundary values.
+- Iterative refinements that must terminate: fixed-point, Newton, EM.
+- Any function where you catch yourself thinking "I know this algorithm" — the trap is usually in the contract, not the loop body.
 
-**1–6 中任一缺失，不得产出代码。**
+Pairs with `lemmaly` (picks the algorithm) and `mathguard` (picks the math). Load `invariant-guard` *after* the algorithm has been chosen and *before* the loop body is written.
 
-## 指令
-
-铁律（不可违反）：
+## The Iron Law
 
 ```text
-没有书面的不变式与终止性论证，就不写任何循环或递归
+NO LOOP OR RECURSION WITHOUT A WRITTEN INVARIANT AND TERMINATION ARGUMENT
 ```
 
-若你无法用一句话写出不变式，说明你还没设计好这个循环。
+If you cannot write the invariant in one sentence, you have not designed the loop. Write code anyway and you are coding by guess — and the bug will be in the case you did not enumerate.
 
-**五条不可协商规则：**
+## Non-negotiable rules
 
-1. **每个循环一行不变式。** 写循环前，一句话陈述每次迭代顶部成立的事实。例：`循环顶：result 等于 a[0..i) 之和`；`循环顶：lo ≤ 目标位置 ≤ hi`。
-2. **每个循环一行终止性论证。** 指名每次迭代严格递减（或严格趋向某界）的量。例：`hi − lo 每次严格递减`；`i 每次 +1 且以 n 为上界`。无终止性论证则不写循环。
-3. **每个递归显式给出 base case 与度量。** 写出 base case（不再递归的最小输入）、度量（每次递归调用严格递减的非负整数，如 `len(xs)`、`hi − lo`、`depth`）、组合方式（子结果如何合成答案）。互递归：陈述跨整个环的度量。
-4. **写代码前列边界，不是写完后。** 对集合/数值函数，列出适用项及其行为：空输入（`[]`/`""`/`null`/`None`）、单元素、全相等、已排序/逆序、重复（当假设唯一时）、负数/零/恰为边界值、整数上下溢、NaN/±Inf/`-0`/非规格化浮点、off-by-one 边界（索引 0、n−1、n，长度 0、1）、迭代中并发修改。每个适用情形写一句预期行为。
-5. **让非法状态不可达，而非仅不处理。** 优先把约束编码进类型与结构：用和类型替代布尔标志糊（`Loading | Loaded(data) | Error(msg)` 而非 `{loading, data, error}`）；用 newtype 防 ID 混淆（`UserId` vs `OrderId`）；需至少一个元素时用非空列表类型；在边界处解析而非下游反复校验（parse-don't-validate）。语言表达不了时，把不变式写成注释并在边界断言。
+1. **Every loop gets a one-line invariant.** Before writing any loop, state in one sentence what is true at the top of every iteration. Examples:
+   - "At loop top: `result` contains the sum of `a[0..i)`."
+   - "At loop top: `lo ≤ target_position ≤ hi`."
+   - "At loop top: `seen` contains every element processed so far; `dups` contains every element that appeared at least twice."
 
-**产出纪律：** 每个循环带一行 `// inv:`（或 `# inv:`）注释陈述不变式；每个递归注释写明 base case 与度量；处理步骤 5 中列出的每个边界，或显式委派（"空输入抛错——调用方责任"）；廉价时在入口断言前置条件；语言允许处优先用类型（和类型、newtype、非空、非 null）替代运行时检查。
+   If you cannot write the invariant in one sentence, you have not designed the loop yet.
 
-## 示例
+2. **Every loop gets a one-line termination argument.** Name the quantity that strictly decreases (or strictly increases toward a bound) on every iteration. Examples:
+   - "`hi − lo` strictly decreases each iteration."
+   - "`i` increases by 1 and is bounded above by `n`."
+   - "`stack.length` strictly decreases each pop; nothing pushes inside this branch."
 
-**陷阱：Boyer–Moore 多数投票**——"陷阱在契约里，不在循环体里"的典范。
+   No termination argument, no loop.
 
-不带本技能交付的实现，在 `[1,2,3]`（返回 `3`，应为 `null`）和 `[2,2,1,1]`（返回 `1`，应为 `null`）上失败。投票循环是对的，错的是后置条件。协议如何抓住它：
+3. **Every recursion gets an explicit base case and a measure.** Before writing a recursive function, state:
+   - The base case(s) — the smallest inputs that return without recursing.
+   - The measure — a non-negative integer that strictly decreases on every recursive call (e.g. `len(xs)`, `hi − lo`, `depth`, `n`).
+   - The combination — how the recursive results combine into the answer.
 
-写**步骤 1（契约）**逼出后置条件：`当且仅当 count(x, arr) > arr.length/2 时返回 x，否则 null`。写**步骤 2（循环不变式）**逼出：`若 arr 存在严格多数元素，则循环退出时它等于 candidate`。两句不等价——不变式只保证"若存在多数则它是候选"，并不保证"候选是多数"。落笔即见缺口：需要第二趟验证。
+   No base case + measure, no recursion. (Mutual recursion: state the measure across the cycle.)
+
+4. **List edge cases before writing, not after.** For every function operating on a collection or number, list which of these apply and how they behave:
+   - Empty input (`[]`, `""`, `null`, `undefined`, `None`).
+   - Singleton (`[x]`).
+   - All-equal elements.
+   - Already-sorted / reverse-sorted input.
+   - Duplicates (when uniqueness is assumed).
+   - Negative numbers, zero, exactly the boundary value.
+   - Integer overflow / underflow at the type max/min.
+   - NaN, ±Infinity, `-0`, denormals (for floats).
+   - Off-by-one boundaries: index 0, index n−1, index n, length 0, length 1.
+   - Concurrent modification while iterating.
+
+   The cases that apply must each have a one-phrase expected behavior written down.
+
+5. **Make illegal states unreachable, not just unhandled.** Prefer encoding constraints in types and structure so the wrong state cannot be constructed:
+   - Sum type over boolean flag soup (`Loading | Loaded(data) | Error(msg)` not `{loading, data, error}`).
+   - Newtype for IDs that must not be swapped (`UserId` vs `OrderId`).
+   - Non-empty list type when the function requires at least one element.
+   - Parsed value at the boundary, not validated repeatedly downstream (parse-don't-validate).
+
+   If the language cannot encode it, write the invariant as a comment and assert it at the boundary.
+
+## The pre-write protocol
+
+Before producing non-trivial code that has loops, recursion, or non-trivial state, your message must contain — in this order:
+
+1. **Function contract** — preconditions, postconditions, and what the function returns. One line each.
+2. **Loop invariants** — one per loop. (Rule 1.)
+3. **Termination arguments** — one per loop or recursion. (Rules 2, 3.)
+4. **Base cases and measure** — for recursion. (Rule 3.)
+5. **Edge case table** — bullets, one per applicable case, with expected behavior. (Rule 4.)
+6. **Illegal states made unrepresentable** — name the types or asserts that enforce invariants. (Rule 5.)
+7. **The code.**
+8. **Self-check** — one line per loop confirming the invariant holds at top, body preserves it, and exit implies postcondition.
+
+If any of 1–6 is missing, do not emit code.
+
+## Worked trap — Boyer–Moore majority vote
+
+This is the canonical "the trap is in the contract, not the loop body" case.
+
+**Naive baseline (what gets shipped without the skill):**
 
 ```typescript
 function findMajority(arr: number[]): number | null {
   if (arr.length === 0) return null;
-  // Pass 1: 投票
   let candidate = arr[0], count = 0;
-  // inv: 若 arr 存在严格多数，则在每个 count===0 重置点它等于 candidate
   for (const x of arr) {
     if (count === 0) candidate = x;
     if (x === candidate) count++; else count--;
   }
-  // Pass 2: 验证——投票不变式严格弱于后置条件
+  return candidate;   // BUG: returns the candidate even when no majority exists
+}
+```
+
+This implementation fails on `[1,2,3]` (returns `3`, expected `null`) and `[2,2,1,1]` (returns `1`, expected `null`). The voting loop is correct; the postcondition is wrong.
+
+**Why the protocol catches it.** Writing **step 1 (function contract)** forces the postcondition in plain language:
+
+> Returns `x` iff `count(x, arr) > arr.length / 2`; else `null`.
+
+Then writing **step 2 (loop invariant)** forces the invariant of the voting pass:
+
+> If a strict majority element exists in `arr`, it equals `candidate` when the loop exits.
+
+These two statements are not equivalent. The loop invariant guarantees "if a majority exists, it is the candidate" — not "the candidate is a majority." Once you write both down, the gap is visible: you need a second pass to verify, or the postcondition is unmet.
+
+**Correct implementation that survives the protocol:**
+
+```typescript
+function findMajority(arr: number[]): number | null {
+  if (arr.length === 0) return null;
+  // Pass 1: vote.
+  let candidate = arr[0], count = 0;
+  // inv: if a strict majority exists in arr, it equals candidate at every count===0 reset.
+  for (const x of arr) {
+    if (count === 0) candidate = x;
+    if (x === candidate) count++; else count--;
+  }
+  // Pass 2: verify — the voting invariant is strictly weaker than the postcondition.
   let tally = 0;
-  // inv: tally = candidate 在 arr[0..i) 中的出现次数
+  // inv: tally = count of candidate in arr[0..i).
   for (const x of arr) if (x === candidate) tally++;
   return tally * 2 > arr.length ? candidate : null;
 }
 ```
 
-同一陷阱推广到：Floyd 判环（找到相遇点只证明有环，不给环起点，需第二趟走）；双指针"找任意" vs "找最左"（一者的不变式不满足另一者的后置条件）；QuickSelect 划分（划分不变式 off-by-one 会悄悄破坏"该位置是第 k 小"）；DP 重构（表给最优值，重构最优路径需对选择数组另立不变式）。**规则：先写后置条件，再写循环不变式，检查后者蕴含前者；不蕴含就是缺一趟、缺一查或缺辅助状态。**
+**Pattern to generalize.** The same trap appears in:
 
-**范例：二分查找最左匹配。** 多数"我会二分"的实现是为"找任意匹配"写的，陷阱在后置条件。给定含重复的升序数组，返回 `target` 最左出现的下标，否则 `-1`：
+- **Floyd's cycle detection** — finding the meeting point tells you a cycle exists, *not* where it starts. You need a second walk.
+- **Two-pointer "find any"** vs **"find leftmost"** — the loop invariant for one does not satisfy the postcondition of the other.
+- **QuickSelect partition** — the loop returns a position; the postcondition is that the element at that position is the k-th smallest. Off by one in the partition invariant silently breaks it.
+- **DP with reconstruction** — the table tells you the optimum value; reconstructing the optimum path needs separate invariants on the choice array.
+
+In every case: **write the postcondition first; write the loop invariant second; check that the second implies the first. If not, you are missing a pass, a check, or an auxiliary state.**
+
+## Canonical example — binary search for the leftmost match
+
+Most "I know binary search" implementations are written for "find any match." The trap is the postcondition.
+
+**Problem.** Given a sorted array with duplicates, return the index of the **leftmost** occurrence of `target`, or `-1`.
+
+### Without the protocol — returns any match
+
+```ts
+function leftmost(a: number[], target: number): number {
+  let lo = 0, hi = a.length - 1;
+  while (lo <= hi) {
+    const mid = (lo + hi) >> 1;
+    if (a[mid] === target) return mid;       // returns ANY occurrence
+    if (a[mid] < target) lo = mid + 1; else hi = mid - 1;
+  }
+  return -1;
+}
+// leftmost([1,2,2,2,3], 2) → may return 2, not 1
+```
+
+The loop invariant ("target lies in `a[lo..hi]` if anywhere") is satisfied. But the postcondition ("returned index is the *smallest* `i` with `a[i] === target`") is strictly stronger. The loop body's early return abandons the search before reaching the leftmost.
+
+### With the protocol — contract-driven leftmost
 
 ```ts
 function leftmost(a: number[], target: number): number {
   // contract:
-  //   pre:  a 升序
-  //   post: 返回最小的 i 使 a[i] === target，缺失则 -1
-  let lo = 0, hi = a.length;                 // 半开区间 [lo, hi)
-  // inv: 所有 < lo 的下标 a[i] < target；所有 ≥ hi 的下标 a[i] > target 或已越过最左匹配
-  // term: hi - lo 每次严格折半
+  //   pre:  a is sorted ascending
+  //   post: returns smallest i with a[i] === target, or -1 if absent
+  let lo = 0, hi = a.length;                 // half-open [lo, hi)
+  // inv: every index < lo has a[i] < target; every index ≥ hi has a[i] > target OR is past leftmost match
+  // term: hi - lo strictly halves each iteration
   while (lo < hi) {
     const mid = (lo + hi) >> 1;
     if (a[mid] < target) lo = mid + 1; else hi = mid;
   }
-  // exit: lo === hi，由不变式 lo 是 a[lo] >= target 的最左下标
+  // exit: lo === hi, and by invariant lo is the leftmost index where a[lo] >= target
   return lo < a.length && a[lo] === target ? lo : -1;
 }
 ```
 
-循环形状不变，差别是契约先写——循环体被选成维持一个"蕴含后置条件"的不变式。注意不能在命中时早返回（那只给任意匹配）。
+Same loop shape. The difference is the contract was written first — and the loop body was chosen to maintain an invariant that *implies* the postcondition.
 
-**常用不变式模式（速查）：**
+## Common invariant patterns to reach for
 
-| 循环/算法形状 | 典型不变式 | 终止性 |
+| Loop / algorithm shape | Canonical invariant | Termination |
 |---|---|---|
-| 线性扫描累加 | 顶部 `acc = f(a[0..i))` | `i` +1，以 n 为界 |
-| 双指针（有序） | 目标（若有）落在 `a[lo..hi]` | `hi − lo` 严格递减 |
-| 二分查找 | 目标（若在）∈ `a[lo..hi]` 且非空 | `hi − lo` 严格折半 |
-| 滑动窗口 | 窗口 `[l..r)` 满足约束；答案 ≥ 目前最优 | `r` 每轮至少前进一次 |
-| BFS | 距离 <d 的节点已弹出；队列含距离 d 的节点 | 每次弹出节点数严格减 |
-| 原地划分 | `a[0..i)` < pivot；`a[i..j)` ≥ pivot；`a[j..n)` 未见 | `n − j` 严格递减 |
+| Linear scan accumulating | `acc = f(a[0..i))` at top | `i` increases by 1, bounded by `n` |
+| Two-pointer (sorted) | `target (if any) lies in a[lo..hi]` | `hi − lo` strictly decreases |
+| Binary search | `target (if present) ∈ a[lo..hi]` and `a[lo..hi]` non-empty | `hi − lo` strictly halves |
+| Sliding window | window `[l..r)` satisfies the constraint; answer ≥ best so far | `r` advances at least once per outer iter |
+| BFS | every node at distance < d has been popped; queue contains some at distance d | strict node count decrease per pop |
+| DFS / recursion on tree | result for subtree rooted at v = combine(children results) | depth (or remaining nodes) strictly decreases |
+| Divide and conquer | result on `a[lo..hi]` = combine(results on the two halves) | `hi − lo` strictly halves |
+| Greedy with priority queue | extracted item is globally optimal for the remaining problem | heap size strictly decreases per extract |
+| Union-Find op | `find(x)` always returns the canonical root of x's component | tree height bounded by O(log n) (with rank) |
+| In-place partition | `a[0..i)` < pivot; `a[i..j)` ≥ pivot; `a[j..n)` unseen | `n − j` strictly decreases |
 
-## 注意事项
+## Edge case table — defaults to consider
 
-- **不是自动证明器。** 本技能要求作者"写"不变式，不会机械检验；配合基于属性的测试（property-based）取得更强证据。
-- **默认不含并发。** 所述不变式假设单线程，除非显式扩展；多线程需额外 happens-before/可线性化论证。
-- **浮点与溢出边界依赖语言。** 边界表是清单，不替代你对所在语言数值语义的理解。
-- **会拖慢平凡代码。** 一眼无误的一行式上，协议是纯开销。
-- **唯一的强制手段是文档。** 作者跳过写不变式，本技能无法检测——配合代码评审或要求填契约的 PR 模板。
+| Input shape | Cases to check |
+|---|---|
+| Array / list | empty, singleton, all-equal, sorted, reversed, with duplicates |
+| String | empty, single char, all whitespace, unicode (surrogates, combining), bytes vs code points |
+| Integer | 0, 1, −1, MIN, MAX, MAX − 1, near overflow in arithmetic, division by 0 |
+| Float | 0.0, −0.0, NaN, ±Inf, denormal, exact comparison should be ε-based |
+| Map / dict | empty, missing key (default vs error), key collision semantics |
+| Tree / graph | empty, single node, cycle (if undirected), self-loop, multigraph, disconnected |
+| Stream / iterator | empty, infinite, single yield, exception mid-iteration |
+| Time / date | DST transition, leap second/day, timezone offset, epoch boundary |
+| Concurrent | empty contention, single thread, max contention, cancellation mid-op |
 
-警惕这些借口：`"这算法我会，单趟搞定"`（知道循环 ≠ 知道契约，陷阱在循环不强制的后置条件里）；`"我脑内跑过，没问题"`（心算跳过边界，写下不变式并验证它蕴含后置条件）；`"边界显然"`（那就花 30 秒写下来）；`"测试会抓到"`（测试只抓你想到的例子，后置条件抓所有例子）；`"加验证趟显得冗余"`（Boyer–Moore 投票+验证仍是 O(n)，"显得冗余"正是交付 bug 的借口）。
+## Output discipline
 
-红旗——停下先写不变式：将写 `while(...)` 却没陈述进入时成立的事实；将写 `if (i === n−1)` 或 `if (i === n)`；将递归却没在本消息命名 base case；将写 `// TODO: handle empty`；将对浮点用 `==`；将在循环中途静默吞掉错误。
+Code you emit must:
 
-**验证清单（声称正确前逐项核对）：** 每个循环有一行 `// inv:`；每个循环有书面终止性论证；每个递归命名 base case 与度量；函数后置条件已写且被最后循环的退出状态蕴含；表中每个适用边界有测试或显式"委派给调用方"说明；至少一个测试覆盖每个非平凡边界（空、单元素、最大值、off-by-one）；被拒的非法状态要么类型上不可表示、要么入口断言；近似/随机算法的 ε-界写进后置条件而非等式。不能逐项打勾，则代码是"例子正确"而非"行为正确"——补缺口或降级所声称的契约。
+- Have one comment per loop stating the invariant (use `// inv:` or `# inv:`).
+- Have one comment per recursion stating the base case and measure.
+- Handle every edge case you listed in step 5, or explicitly delegate ("throws on empty — caller responsibility").
+- Assert preconditions at function entry when the language supports it cheaply.
+- Use types (sum types, newtypes, non-empty, non-null) over runtime checks where the language allows.
 
-一句话主旨：**测试验证例子，不变式验证行为；AI 默认交付"例子正确、行为错误"的代码，本技能让它先就行为推理。**
+## When to escalate or redirect
 
-## 互见
+- The function is performance-critical and you have not picked the algorithm — go back to **`lemmaly`** first; pick the algorithm, then state its invariants here.
+- The technique is mathematical (probabilistic, FFT, geometry) — load **`mathguard`**; invariants for approximate algorithms include ε-bounds, not equality.
+- The code is concurrent — invariants must account for interleaving; explicitly state "single-threaded only" if that is the assumption.
 
-- `lemmaly` — 写不变式前算法选型须先定；算法族不清时先用它。
-- `mathguard` — 近似/随机算法的 ε-界后置条件。
-- `complexity-cuts` — 若 3+ 次优化变换都测试失败，bug 是缺契约而非缺优化，升级到此。
+## Rationalizations to watch for
 
----
+| Excuse | Reality |
+| --- | --- |
+| "I know this algorithm — single pass, done." | Knowing the loop ≠ knowing the contract. The trap usually lives in the postcondition the loop does not enforce. |
+| "I traced it in my head, it works." | Mental tracing skips edge cases. Write the invariant; check it implies the postcondition. |
+| "Edge cases are obvious." | Then write them down in 30 seconds. If they are obvious, the table is cheap. If they are not, the table just saved you. |
+| "Tests will catch it." | Tests catch the examples you thought of. The trap is the example you did not. Postconditions catch all examples. |
+| "The postcondition is implied." | If it were, the natural loop invariant would equal it. When they differ (Boyer–Moore, leftmost search, QuickSelect), you need a second pass, an extra check, or auxiliary state. |
+| "Adding a verification pass feels redundant." | Boyer–Moore voting + verification is still O(n). "Feels redundant" is the rationalization that ships the bug. |
 
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+## Red flags — STOP and write the invariant first
+
+- About to write `while (...)` without having stated what is true on entry.
+- About to write `if (i === n − 1)` or `if (i === n)` — boundary suspicious, restate the invariant.
+- About to recurse without naming the base case in this message.
+- About to write `// TODO: handle empty` — handle it now or change the type so empty is impossible.
+- About to use `==` on floats.
+- About to compare across signed/unsigned or across types where overflow rolls.
+- About to silently swallow an error in the middle of a loop ("just continue").
+- Tests pass but you did not actually state what the function guarantees.
+- "It works on the examples I tried."
+
+## Verification checklist
+
+Before claiming the function is correct:
+
+- [ ] Every loop has a one-line `// inv:` comment in code.
+- [ ] Every loop has a termination argument written down (in comment or PR description).
+- [ ] Every recursion names its base case and measure in code.
+- [ ] The function's postcondition is written and is implied by the exit state of the last loop.
+- [ ] Every applicable edge case from the table has a test or an explicit "delegated to caller" note.
+- [ ] At least one test exercises each non-trivial boundary (empty, singleton, max, off-by-one).
+- [ ] Illegal states the function rejects are either unrepresentable in the type, or asserted at entry.
+- [ ] For approximate/randomized algorithms (escalated to mathguard): ε-bounds are part of the postcondition, not equality.
+
+Cannot check every box? The code is example-correct, not behavior-correct. Either fill the gap or downgrade the function's claimed contract.
+
+## Limitations
+
+- **Not an automated prover.** invariant-guard requires the author to *write* invariants; it does not mechanically check them. Pair with property-based tests for stronger evidence.
+- **Concurrency is out of scope by default.** Stated invariants assume single-threaded execution unless explicitly extended; multi-threaded reasoning needs additional happens-before / linearizability arguments.
+- **Float and overflow edge cases are language-specific.** The edge-case table is a checklist, not a substitute for understanding your language's numeric semantics.
+- **Will slow down trivial code.** For one-liners that obviously cannot fail, the protocol is overhead; reserve it for non-trivial loops, recursion, and in-place mutation.
+- **Documentation is the only enforcement.** If the author skips writing the invariants, this skill cannot detect that — pair with code review or a PR template that asks for the contract.
+
+## The thesis, in one line
+
+> **Tests verify examples. Invariants verify behavior. AI assistants ship example-correct, behavior-wrong code by default. invariant-guard makes them reason about behavior first.**
+
+## Related Skills
+
+- `lemmaly` — algorithm choice must be settled before invariants; load lemmaly first if the algorithm family is unclear.
+- `mathguard` — ε-bounded postconditions for approximate / randomized algorithms.
+- `complexity-cuts` — if 3+ optimization transformations have failed tests, the bug is a missing contract, not a missing optimization — escalate here.

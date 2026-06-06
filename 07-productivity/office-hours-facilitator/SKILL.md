@@ -1,14 +1,14 @@
 ---
 name: office-hours-facilitator
-title: 答疑时间会引导（创始人六问拷问）
-description: 当任何重大动作（融资/转型/新立项）或决策前需要先逼清思路时使用；做 YC 式六问书面拷问（问题/客户/分发/壁垒/资本/创始人契合）并产出一页 GREEN/YELLOW/RED 简报与路由建议；不适用于答案明确的小问题、纯执行或机械检索。触发词：答疑时间、六问拷问、决策前先想清楚、立项评审、融资前自检、创始人契合
+title: Office Hours Facilitator (Six-Question Founder Interrogation)
+description: Run a YC-style six-question written interrogation (problem/customer/distribution/defensibility/capital/founder fit) before any major decision, producing a one-page GREEN/YELLOW/RED brief and routing recommendation; use before launching a major initiative, fundraising, or a strate
 domain: 协作/pm
-triggers: [答疑时间, 六问拷问, office hours, 决策前先想清楚, 立项前评审, 融资前自检, 战略转型评估, 问题是不是想清楚了, ICP 是谁, 凭什么是你做, 防止陷入方案先行, 一页简报]
-tags: [协作, pm, 决策框架, 创始人拷问, yc office hours, 强制澄清, 立项评审, 简报]
-level: 进阶
+triggers: [office hours, six-question interrogation, think before deciding, pre-initiative review, pre-fundraise self-check, strategic pivot assessment, is the problem framed, who is the ICP, why are you the one to do this, avoid solutionism, one-page brief]
+tags: [collaboration, pm, decision-framework, founder-interrogation, yc office hours, forced-clarity, initiative-review, brief]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Skill, Read, Write]
+tools: []
 requires: []
 related: [boardroom-deliberation, business-assumption-stress-test, premortem-plan-challenger, executive-adversarial-mentor]
 combines_with: [hard-call-advisor, andreessen-vc-lens]
@@ -16,88 +16,83 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-采编自 alirezarezvani/claude-skills 的 `office-hours`（原 `/cs:office-hours` 命令），适配为中文「技能大典」协作/pm 的决策前强制澄清条目。核心机制是认知强制函数：任何分析或建议之前，创始人/负责人必须先**书面**回答六个具体问题。逼清思路本身就是价值——不是回答问题，是被问倒。
+Adapted from `office-hours` (the `/cs:office-hours` command) in alirezarezvani/claude-skills. The core mechanism is a cognitive forcing function: before any analysis or advice, the founder/owner must answer six concrete questions **in writing**. Modeled on YC office hours — no analysis until the founder has done the thinking. Forcing clarity is itself the value: the goal is not to answer the questions, but to be caught out by them. This is what prevents drift into solutionism.
 
-## 何时使用
+## When to use
 
-适用：
-- 任何重大动作启动前——立项、融资、战略转型。
-- 当负责人很兴奋时（兴奋是危险信号，正该压力测试）。
-- 当答案"显而易见"时（显而易见的答案通常是错的）。
-- 需要把模糊想法收敛成一页可路由的结构化简报时。
+Use it:
+- Before starting any major initiative — a new project, fundraising, or a strategic pivot.
+- When the owner is excited (excitement is a tell — pressure-test it).
+- When the answer is "obvious" (the obvious answer is usually wrong).
+- When a vague idea needs to converge into a single, routable, structured brief.
 
-不该用（负边界）：
-- 答案已经清晰的单一领域小问题——直接作答或交给对应角色，别空转六问。
-- 纯执行类任务（无判断分歧），不需要拷问。
-- 仅需机械翻译或信息检索，不涉及框架取舍。
+Do NOT use it (negative boundary):
+- Small, single-domain questions whose answer is already clear — just answer or hand off to the right role; don't spin up all six questions.
+- Pure execution tasks (no judgment in dispute) — no interrogation needed.
+- Mechanical translation or information retrieval that involves no framing trade-offs.
 
-## 步骤
+## Steps
 
-1. 抛出主题，要求负责人**逐条书面**回答全部六问（缺一不可，任何角色介入前都不许跳过）。
-2. 逐条核验回答是否过关（见下「指令」中每问的判废线）。
-3. 汇总成一页简报并给出红黄绿评级。
-4. 据评级路由：GREEN→进入下一步（单角色评审或开董事会）；YELLOW→指明第 N 问需重新打磨；RED→否决或重新定义，不得推进。
+1. State the topic and require the owner to answer **all six questions in writing**, one by one (none may be skipped; no C-role or reviewer weighs in until all six are answered).
+2. Check each answer against its kill-line (see each question's rejection criterion below). An answer that misses its line counts as unanswered.
+3. Compile the answers into a one-page brief and assign a GREEN / YELLOW / RED assessment.
+4. Route by assessment: GREEN → proceed to the next step (single-role review, or convene the boardroom); YELLOW → name which question(s) must be sharpened; RED → kill or redefine — do not proceed.
 
-## 指令
+## Example
 
-**六问（每问含判废线，不达标即视为该问未答）：**
+**The Six Questions** (each with its kill-line — miss it and the question counts as unanswered):
 
-1. **问题**：这是谁的问题？用他们自己的话怎么描述？——要客户原话，不要你的框架。引不出一句客户原话，就没有值得做的问题。
-2. **客户**：ICP 是谁？点名一个今天就会买的真人。——真人、真公司、真岗位。点不出一个，ICP 就没到位。
-3. **分发**：客户第一次怎么听到你的名字？——渠道、意图、搜索词、朋友、会议，点名其一。答"营销以后再说"，就是否。
-4. **壁垒**：如果成了，什么能拦住对手 6 个月内抄走？——网络效应/切换成本/数据护城河/监管壁垒/品牌，选一个。"我们执行更好"不算壁垒。
-5. **资本**：花多少？多久回本？这笔钱的替代用途是什么？——总投入、回本月数、机会成本。说不清就别批。
-6. **创始人契合**：凭什么是你做？为什么值得为它押上未来 3 年？——创始人-市场契合是存活的最强预测因子。动机若是雇佣兵心态，公司也会是。
+1. **Problem** — *Whose problem is this, and how do they describe it in their own words?* Not your framing — their words. If you can't quote a customer, you don't have a problem worth solving.
+2. **Customer** — *Who is the ICP? Name one real person who would buy this today.* Real human, real company, real seat. If you can't name one, the ICP isn't ready.
+3. **Distribution** — *How does the customer first hear your name?* Channel, intent, search query, friend, conference — name it. If the answer is "we'll figure out marketing later," the answer is no.
+4. **Defensibility** — *If this works, what stops a competitor from copying it in 6 months?* Network effects, switching costs, data moat, regulatory moat, brand — pick one. "We'll execute better" is not a defense.
+5. **Capital** — *What does this cost, when does it pay back, and what's the alternative use of the money?* Total spend, payback months, opportunity cost. If you don't know, don't approve it.
+6. **Founder Fit** — *Why are you the right person to do this — and why does this matter enough to spend the next 3 years on it?* Founder-market fit is the strongest predictor of survival. If the answer is mercenary, the company will be too.
 
-**一页简报输出格式（保留源约定）：**
+**One-page brief output format** (keep the source convention):
 
 ```markdown
-# Office Hours Brief: <主题>
-Date: YYYY-MM-DD
-Founder: <name>
+# Office Hours Brief: <topic>
+**Date:** YYYY-MM-DD
+**Founder:** <name>
 
-## 1. 问题
-> [负责人原话]
-## 2. 客户
-> [负责人原话]
-## 3. 分发
-> [负责人原话]
-## 4. 壁垒
-> [负责人原话]
-## 5. 资本
-> [负责人原话]
-## 6. 创始人契合
-> [负责人原话]
+## 1. Problem
+> [founder's verbatim answer]
+## 2. Customer
+> [founder's verbatim answer]
+## 3. Distribution
+> [founder's verbatim answer]
+## 4. Defensibility
+> [founder's verbatim answer]
+## 5. Capital
+> [founder's verbatim answer]
+## 6. Founder Fit
+> [founder's verbatim answer]
 
 ---
-评级（三选一）：
-- 🟢 GREEN — 简报达标，进入下一步
-- 🟡 YELLOW — 先打磨第 [N] 问再推进
-- 🔴 RED — 否决或重新定义，不得推进
+**Assessment** (one of):
+- 🟢 GREEN — brief passes; proceed to the next step
+- 🟡 YELLOW — sharpen Q[N] before proceeding
+- 🔴 RED — kill or redefine; do not proceed
 ```
 
-**路由（评级 GREEN 后）：** 单一职能问题→对应单角色评审；跨职能问题→先出简报再开董事会评议。
+**Worked example** — Topic: "Should we build an internal data dashboard?"
 
-## 示例
+- Q1 can't quote a customer; Q3 answers "once we build it, people will just use it" → Q1 and Q3 fail their kill-lines.
+- Assessment: 🟡 YELLOW. Output: "Sharpen Q1 and Q3 first — get at least one verbatim pain quote from a target user, and spell out how they would first reach for it — then proceed."
+- The owner fills both gaps and re-runs; it now passes → 🟢 GREEN, routed to a single-role product/data review.
 
-主题：「该不该自建一个内部数据看板」。
+**Routing (after GREEN):** single-function question → the corresponding single-role review; cross-functional question → produce the brief first, then convene the boardroom for multi-role deliberation.
 
-- 第 1 问客户引不出原话、第 3 问答"做出来大家自然会用" → 第 1、3 问判废。
-- 评级 🟡 YELLOW，输出：「先打磨第 1、3 问——拿到至少一句目标用户的原话痛点，并写清他们第一次怎么会用上它，再推进立项。」
-- 负责人补足两问后重跑，达标转 🟢 GREEN，路由到产品/数据单角色评审。
+## Notes
 
-## 注意事项
+- Most bad decisions don't fail at execution — they fail at **framing**. Six concrete answers surface the framing weaknesses before anyone burns time on analysis.
+- Answers must be **in writing** and in the owner's own words. Verbal hand-waving counts as unanswered.
+- The assessment has exactly three levels — there is no "good enough." A YELLOW must name which question is weak and what is missing.
+- This is an interrogation, not a questionnaire: the owner either fills the gaps or realizes the question wasn't ready.
 
-- 多数坏决策不是败在执行，而是败在**框架（framing）**。六个具体回答会在任何人烧时间分析之前暴露框架漏洞。
-- 答案必须**书面**且用负责人原话，口头含糊一律视为未答。
-- 评级只有三档，没有"基本可以"——YELLOW 必须点名是哪一问、缺什么。
-- 这是拷问而非问卷：负责人要么补上空白，要么意识到这问题根本还没想清楚。
+## See also
 
-## 互见
-
-- `chief-of-staff-orchestrator`（协作/pm）：幕僚长在入口不清时会触发本六问拷问，简报达标后再路由到 C 级角色或董事会。
-- `executive-adversarial-mentor`（通用/thinking）：对抗式拷问的姊妹机制，可在六问之后进一步压测论证。
-- `org-health-diagnostic`（协作/pm）、`prd-spec-writer`（协作/pm）、`task-decomposition-planner`（协作/pm）：GREEN 简报可作为其下游输入（组织诊断、PRD、拆解执行）。
-
----
-采编自 alirezarezvani/claude-skills（MIT 许可证），已按中文技能大典 SCHEMA 适配重写。
+- `chief-of-staff-orchestrator` (collaboration/pm): the chief of staff triggers this six-question interrogation when intake is unclear, then routes to a C-role or the boardroom once the brief passes.
+- `executive-adversarial-mentor` (general/thinking): the sibling adversarial-interrogation mechanism; can further stress-test the argument after the six questions.
+- `org-health-diagnostic`, `prd-spec-writer`, `task-decomposition-planner` (collaboration/pm): a GREEN brief feeds these downstream (org diagnosis, PRD, decomposition into execution).

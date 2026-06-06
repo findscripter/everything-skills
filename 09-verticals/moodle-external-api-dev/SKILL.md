@@ -1,14 +1,14 @@
 ---
 name: moodle-external-api-dev
-title: Moodle 外部 API 开发
-description: 当为 Moodle 插件开发自定义 Web 服务（REST/AJAX）以暴露课程、测验、用户数据时使用；按外部 API 框架产出 external_api 三方法类、services.php 注册与权限/事务校验；不适用于前端主题、核心补丁或非 Moodle LMS；触发词：Moodle、external_api、Web 服务、wsfunction
+title: Moodle External API Development
+description: This skill guides you through creating custom external web service APIs for Moodle LMS, following Moodle's external API framework and coding standards.
 domain: 领域/edu
-triggers: [Moodle 外部 API, external_api 三方法, Moodle Web 服务开发, services.php 注册函数, wsfunction REST 调用, execute_parameters/execute/execute_returns, Moodle 插件暴露接口]
+triggers: [execute_parameters/execute/execute_returns]
 tags: [moodle, php, external-api, web-service, lms, edu, rest, ajax]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash]
+tools: []
 requires: []
 related: [php-pro, laravel-app-specialist, rest-api-endpoint-builder, api-design-principles]
 combines_with: [api-test-suite-builder, backend-security-coder]
@@ -16,86 +16,600 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Moodle External API Development
 
-- 为 Moodle 插件（`local_*` / `mod_*`）开发自定义 Web 服务，暴露课程、测验、用户跟踪或报表能力。
-- 为移动 App / 外部系统提供 REST 或 AJAX 后端接口。
-- 需要遵循 Moodle 外部 API 框架（external_api 三方法模式）与编码规范。
+This skill guides you through creating custom external web service APIs for Moodle LMS, following Moodle's external API framework and coding standards.
 
-不该用的边界：
-- 不用于前端主题（theme）、JS/CSS 改造、块（block）渲染等纯展示层。
-- 不用于修改 Moodle 核心源码或打补丁；自定义能力应走插件而非改核心。
-- 不用于非 Moodle 的 LMS；本技能依赖 Moodle 的 DML、capability、context 体系。
-- 缺少插件路径、所需 capability、读写类型（read/write）等关键输入时，先澄清再动手。
+## When to Use This Skill
 
-## 步骤 / 指令
+- Creating custom web services for Moodle plugins
+- Implementing REST/AJAX endpoints for course management
+- Building APIs for quiz operations, user tracking, or reporting
+- Exposing Moodle functionality to external applications
+- Developing mobile app backends using Moodle
 
-外部 API 类必须实现严格的三方法模式：`execute_parameters()` 定义入参结构、`execute()` 写业务逻辑、`execute_returns()` 定义返回结构。返回结构必须与 `execute()` 实际返回完全匹配。
+## Core Architecture Pattern
 
-1. 建类文件 `local/yourplugin/classes/external/your_api_name.php`：`namespace local_yourplugin\external;`，加 `defined('MOODLE_INTERNAL') || die();`，`require_once("$CFG->libdir/externallib.php");`，类 `extends external_api`。命名空间用 `local_pluginname\external` 或 `mod_modname\external`。
-2. 写 `execute_parameters()`：用 `external_function_parameters`、`external_value`、`external_single_structure`（命名对象）、`external_multiple_structure`（数组）。常用类型 `PARAM_INT/PARAM_TEXT/PARAM_RAW/PARAM_BOOL/PARAM_FLOAT/PARAM_ALPHANUMEXT`；标志 `VALUE_REQUIRED/VALUE_OPTIONAL/VALUE_DEFAULT,默认值`。
-3. 写 `execute()` 五步：①`self::validate_parameters(self::execute_parameters(), [...])` 校验入参；②`$context = \context_course::instance(...)` + `self::validate_context($context)`；③`require_capability('moodle/course:view', $context)`（跨用户访问再加 `viewhiddenactivities` 等）；④全部用占位符参数化 SQL（`:paramname`），优先 `$DB->get_records()/get_field_sql()` 等；⑤组装并返回结构化数据。
-4. 写 `execute_returns()`：结构与返回值逐字段对齐，每字段写描述，允许嵌套。
-5. 注册服务到 `local/yourplugin/db/services.php`：`$functions` 中键名形如 `local_yourplugin_your_api_name`，填 `classname`（全命名空间类名）、`methodname`（恒为 `'execute'`）、`classpath`、`type`（`read`=SELECT / `write`=增删改）、`ajax => true`、`capabilities`、可选 `services`（如 `MOODLE_OFFICIAL_MOBILE_SERVICE`）；`$services` 定义服务包含的函数集合。
-6. 错误处理与日志：`execute()` 包 try-catch，分别捕获 `\invalid_parameter_exception`、`\moodle_exception`、`\Exception`，记录时间戳、消息、最后 SQL（`$DB->get_last_sql()`）、堆栈，记完后重新抛出。日志写 `$CFG->dataroot/local_yourplugin/`。
-7. 改完 services.php 后必须清缓存：站点管理 > 开发 > 清除所有缓存（否则报 Function not found）。
+Moodle external APIs follow a strict three-method pattern:
 
-进阶：写操作用 `$DB->start_delegated_transaction()` + `allow_commit()`，异常时 `$transaction->rollback($e)`；建课程模块用 `add_course_module()` + `xxx_add_instance()` + `course_add_cm_to_section()`，再回填 `instance`；按 group + availability JSON 做活动可见性限制。
+1. **`execute_parameters()`** - Defines input parameter structure
+2. **`execute()`** - Contains business logic
+3. **`execute_returns()`** - Defines return structure
 
-## 示例
+## Step-by-Step Implementation
 
-最简只读 API（统计某用户某课程测验提交数）核心：
+### Step 1: Create the External API Class File
+
+**Location**: `/local/yourplugin/classes/external/your_api_name.php`
 
 ```php
-public static function execute($userid, $courseid) {
-    global $DB;
-    self::validate_parameters(self::execute_parameters(), [
-        'userid' => $userid, 'courseid' => $courseid
-    ]);
-    $sql = "SELECT COUNT(*) AS quiz_attempts
-            FROM {quiz_attempts} qa
-            JOIN {quiz} q ON qa.quiz = q.id
-            WHERE qa.userid = :userid AND q.course = :courseid";
-    $attempts = $DB->get_field_sql($sql, ['userid' => $userid, 'courseid' => $courseid]);
-    return ['quiz_attempts' => (int)$attempts];
+<?php
+namespace local_yourplugin\external;
+
+defined('MOODLE_INTERNAL') || die();
+require_once("$CFG->libdir/externallib.php");
+
+use external_api;
+use external_function_parameters;
+use external_single_structure;
+use external_value;
+
+class your_api_name extends external_api {
+    
+    // Three required methods will go here
+    
 }
-public static function execute_returns() {
-    return new external_single_structure([
-        'quiz_attempts' => new external_value(PARAM_INT, 'Total number of quiz attempts')
+```
+
+**Key Points**:
+- Class must extend `external_api`
+- Namespace follows: `local_pluginname\external` or `mod_modname\external`
+- Include the security check: `defined('MOODLE_INTERNAL') || die();`
+- Require externallib.php for base classes
+
+### Step 2: Define Input Parameters
+
+```php
+public static function execute_parameters() {
+    return new external_function_parameters([
+        'userid' => new external_value(PARAM_INT, 'User ID', VALUE_REQUIRED),
+        'courseid' => new external_value(PARAM_INT, 'Course ID', VALUE_REQUIRED),
+        'options' => new external_single_structure([
+            'includedetails' => new external_value(PARAM_BOOL, 'Include details', VALUE_DEFAULT, false),
+            'limit' => new external_value(PARAM_INT, 'Result limit', VALUE_DEFAULT, 10)
+        ], 'Options', VALUE_OPTIONAL)
     ]);
 }
 ```
 
-curl 测试（先取 token 再调用）：
+**Common Parameter Types**:
+- `PARAM_INT` - Integers
+- `PARAM_TEXT` - Plain text (HTML stripped)
+- `PARAM_RAW` - Raw text (no cleaning)
+- `PARAM_BOOL` - Boolean values
+- `PARAM_FLOAT` - Floating point numbers
+- `PARAM_ALPHANUMEXT` - Alphanumeric with extended chars
+
+**Structures**:
+- `external_value` - Single value
+- `external_single_structure` - Object with named fields
+- `external_multiple_structure` - Array of items
+
+**Value Flags**:
+- `VALUE_REQUIRED` - Parameter must be provided
+- `VALUE_OPTIONAL` - Parameter is optional
+- `VALUE_DEFAULT, defaultvalue` - Optional with default
+
+### Step 3: Implement Business Logic
+
+```php
+public static function execute($userid, $courseid, $options = []) {
+    global $DB, $USER;
+
+    // 1. Validate parameters
+    $params = self::validate_parameters(self::execute_parameters(), [
+        'userid' => $userid,
+        'courseid' => $courseid,
+        'options' => $options
+    ]);
+
+    // 2. Check permissions/capabilities
+    $context = \context_course::instance($params['courseid']);
+    self::validate_context($context);
+    require_capability('moodle/course:view', $context);
+
+    // 3. Verify user access
+    if ($params['userid'] != $USER->id) {
+        require_capability('moodle/course:viewhiddenactivities', $context);
+    }
+
+    // 4. Database operations
+    $sql = "SELECT id, name, timecreated
+            FROM {your_table}
+            WHERE userid = :userid
+              AND courseid = :courseid
+            LIMIT :limit";
+    
+    $records = $DB->get_records_sql($sql, [
+        'userid' => $params['userid'],
+        'courseid' => $params['courseid'],
+        'limit' => $params['options']['limit']
+    ]);
+
+    // 5. Process and return data
+    $results = [];
+    foreach ($records as $record) {
+        $results[] = [
+            'id' => $record->id,
+            'name' => $record->name,
+            'timestamp' => $record->timecreated
+        ];
+    }
+
+    return [
+        'items' => $results,
+        'count' => count($results)
+    ];
+}
+```
+
+**Critical Steps**:
+1. **Always validate parameters** using `validate_parameters()`
+2. **Check context** using `validate_context()`
+3. **Verify capabilities** using `require_capability()`
+4. **Use parameterized queries** to prevent SQL injection
+5. **Return structured data** matching return definition
+
+### Step 4: Define Return Structure
+
+```php
+public static function execute_returns() {
+    return new external_single_structure([
+        'items' => new external_multiple_structure(
+            new external_single_structure([
+                'id' => new external_value(PARAM_INT, 'Item ID'),
+                'name' => new external_value(PARAM_TEXT, 'Item name'),
+                'timestamp' => new external_value(PARAM_INT, 'Creation time')
+            ])
+        ),
+        'count' => new external_value(PARAM_INT, 'Total items')
+    ]);
+}
+```
+
+**Return Structure Rules**:
+- Must match exactly what `execute()` returns
+- Use appropriate parameter types
+- Document each field with description
+- Nested structures allowed
+
+### Step 5: Register the Service
+
+**Location**: `/local/yourplugin/db/services.php`
+
+```php
+<?php
+defined('MOODLE_INTERNAL') || die();
+
+$functions = [
+    'local_yourplugin_your_api_name' => [
+        'classname'   => 'local_yourplugin\external\your_api_name',
+        'methodname'  => 'execute',
+        'classpath'   => 'local/yourplugin/classes/external/your_api_name.php',
+        'description' => 'Brief description of what this API does',
+        'type'        => 'read',  // or 'write'
+        'ajax'        => true,
+        'capabilities'=> 'moodle/course:view', // comma-separated if multiple
+        'services'    => [MOODLE_OFFICIAL_MOBILE_SERVICE] // Optional
+    ],
+];
+
+$services = [
+    'Your Plugin Web Service' => [
+        'functions' => [
+            'local_yourplugin_your_api_name'
+        ],
+        'restrictedusers' => 0,
+        'enabled' => 1
+    ]
+];
+```
+
+**Service Registration Keys**:
+- `classname` - Full namespaced class name
+- `methodname` - Always 'execute'
+- `type` - 'read' (SELECT) or 'write' (INSERT/UPDATE/DELETE)
+- `ajax` - Set true for AJAX/REST access
+- `capabilities` - Required Moodle capabilities
+- `services` - Optional service bundles
+
+### Step 6: Implement Error Handling & Logging
+
+```php
+private static function log_debug($message) {
+    global $CFG;
+    $logdir = $CFG->dataroot . '/local_yourplugin';
+    if (!file_exists($logdir)) {
+        mkdir($logdir, 0777, true);
+    }
+    $debuglog = $logdir . '/api_debug.log';
+    $timestamp = date('Y-m-d H:i:s');
+    file_put_contents($debuglog, "[$timestamp] $message\n", FILE_APPEND | LOCK_EX);
+}
+
+public static function execute($userid, $courseid) {
+    global $DB;
+
+    try {
+        self::log_debug("API called: userid=$userid, courseid=$courseid");
+        
+        // Validate parameters
+        $params = self::validate_parameters(self::execute_parameters(), [
+            'userid' => $userid,
+            'courseid' => $courseid
+        ]);
+
+        // Your logic here
+        
+        self::log_debug("API completed successfully");
+        return $result;
+
+    } catch (\invalid_parameter_exception $e) {
+        self::log_debug("Parameter validation failed: " . $e->getMessage());
+        throw $e;
+    } catch (\moodle_exception $e) {
+        self::log_debug("Moodle exception: " . $e->getMessage());
+        throw $e;
+    } catch (\Exception $e) {
+        // Log detailed error info
+        $lastsql = method_exists($DB, 'get_last_sql') ? $DB->get_last_sql() : '[N/A]';
+        self::log_debug("Fatal error: " . $e->getMessage());
+        self::log_debug("Last SQL: " . $lastsql);
+        self::log_debug("Stack trace: " . $e->getTraceAsString());
+        throw $e;
+    }
+}
+```
+
+**Error Handling Best Practices**:
+- Wrap logic in try-catch blocks
+- Log errors with timestamps and context
+- Capture SQL queries on database errors
+- Preserve stack traces for debugging
+- Re-throw exceptions after logging
+
+## Advanced Patterns
+
+### Complex Database Operations
+
+```php
+// Transaction example
+$transaction = $DB->start_delegated_transaction();
+
+try {
+    // Insert record
+    $recordid = $DB->insert_record('your_table', $dataobject);
+    
+    // Update related records
+    $DB->set_field('another_table', 'status', 1, ['recordid' => $recordid]);
+    
+    // Commit transaction
+    $transaction->allow_commit();
+} catch (\Exception $e) {
+    $transaction->rollback($e);
+    throw $e;
+}
+```
+
+### Working with Course Modules
+
+```php
+// Create course module
+$moduleid = $DB->get_field('modules', 'id', ['name' => 'quiz'], MUST_EXIST);
+
+$cm = new \stdClass();
+$cm->course = $courseid;
+$cm->module = $moduleid;
+$cm->instance = 0; // Will be updated after activity creation
+$cm->visible = 1;
+$cm->groupmode = 0;
+$cmid = add_course_module($cm);
+
+// Create activity instance (e.g., quiz)
+$quiz = new \stdClass();
+$quiz->course = $courseid;
+$quiz->name = 'My Quiz';
+$quiz->coursemodule = $cmid;
+// ... other quiz fields ...
+
+$quizid = quiz_add_instance($quiz, null);
+
+// Update course module with instance ID
+$DB->set_field('course_modules', 'instance', $quizid, ['id' => $cmid]);
+course_add_cm_to_section($courseid, $cmid, 0);
+```
+
+### Access Restrictions (Groups/Availability)
+
+```php
+// Restrict activity to specific user via group
+$groupname = 'activity_' . $activityid . '_user_' . $userid;
+
+// Create or get group
+if (!$groupid = $DB->get_field('groups', 'id', ['courseid' => $courseid, 'name' => $groupname])) {
+    $groupdata = (object)[
+        'courseid' => $courseid,
+        'name' => $groupname,
+        'timecreated' => time(),
+        'timemodified' => time()
+    ];
+    $groupid = $DB->insert_record('groups', $groupdata);
+}
+
+// Add user to group
+if (!$DB->record_exists('groups_members', ['groupid' => $groupid, 'userid' => $userid])) {
+    $DB->insert_record('groups_members', (object)[
+        'groupid' => $groupid,
+        'userid' => $userid,
+        'timeadded' => time()
+    ]);
+}
+
+// Set availability condition
+$restriction = [
+    'op' => '&',
+    'show' => false,
+    'c' => [
+        [
+            'type' => 'group',
+            'id' => $groupid
+        ]
+    ],
+    'showc' => [false]
+];
+
+$DB->set_field('course_modules', 'availability', json_encode($restriction), ['id' => $cmid]);
+```
+
+### Random Question Selection with Tags
+
+```php
+private static function get_random_questions($categoryid, $tagname, $limit) {
+    global $DB;
+    
+    $sql = "SELECT q.id
+            FROM {question} q
+            INNER JOIN {question_versions} qv ON qv.questionid = q.id
+            INNER JOIN {question_bank_entries} qbe ON qbe.id = qv.questionbankentryid
+            INNER JOIN {question_categories} qc ON qc.id = qbe.questioncategoryid
+            JOIN {tag_instance} ti ON ti.itemid = q.id
+            JOIN {tag} t ON t.id = ti.tagid
+            WHERE LOWER(t.name) = :tagname
+              AND qc.id = :categoryid
+              AND ti.itemtype = 'question'
+              AND q.qtype = 'multichoice'";
+    
+    $qids = $DB->get_fieldset_sql($sql, [
+        'categoryid' => $categoryid,
+        'tagname' => strtolower($tagname)
+    ]);
+    
+    shuffle($qids);
+    return array_slice($qids, 0, $limit);
+}
+```
+
+## Testing Your API
+
+### 1. Via Moodle Web Services Test Client
+
+1. Enable web services: **Site administration > Advanced features**
+2. Enable REST protocol: **Site administration > Plugins > Web services > Manage protocols**
+3. Create service: **Site administration > Server > Web services > External services**
+4. Test function: **Site administration > Development > Web service test client**
+
+### 2. Via curl
 
 ```bash
+# Get token first
 curl -X POST "https://yourmoodle.com/login/token.php" \
-  -d "username=admin" -d "password=yourpassword" -d "service=moodle_mobile_app"
+  -d "username=admin" \
+  -d "password=yourpassword" \
+  -d "service=moodle_mobile_app"
 
+# Call your API
 curl -X POST "https://yourmoodle.com/webservice/rest/server.php" \
   -d "wstoken=YOUR_TOKEN" \
   -d "wsfunction=local_yourplugin_your_api_name" \
   -d "moodlewsrestformat=json" \
-  -d "userid=2" -d "courseid=3"
+  -d "userid=2" \
+  -d "courseid=3"
 ```
 
-AJAX 调用：`require(['core/ajax'], ...)` → `ajax.call([{methodname, args}])`，`.done()/.fail()` 处理。
+### 3. Via JavaScript (AJAX)
 
-## 注意事项
+```javascript
+require(['core/ajax'], function(ajax) {
+    var promises = ajax.call([{
+        methodname: 'local_yourplugin_your_api_name',
+        args: {
+            userid: 2,
+            courseid: 3
+        }
+    }]);
 
-- 永远先 `validate_parameters()`、再 `validate_context()`、再 `require_capability()`，顺序不可省。
-- 杜绝 SQL 注入：只用占位符，绝不拼接用户输入；改完服务必清缓存。
-- 「Invalid parameter value」多因定义与实际类型/必选项/嵌套结构不一致。
-- 事务要短，避免嵌套与死锁；写操作务必有提交或回滚。
-- 遵循 Moodle 命名规范（小写 + 下划线），每个参数与返回字段都写描述。
-- 常用表速查：`{user}` `{course}` `{course_modules}` `{modules}` `{quiz}` `{quiz_attempts}` `{question}` `{question_categories}` `{grade_items}` `{grade_grades}` `{groups}` `{groups_members}` `{logstore_standard_log}`。
-- 调试清单：开 debug 模式、查 Web 服务日志（站点管理 > 报告 > 日志）、看自定义日志、`$DB->set_debug(true)`、用 admin 排除权限问题、清浏览器与 Moodle 缓存、查 PHP 错误日志。
-- 本技能仅适配 Moodle 外部 API 场景，产出需在目标环境实测，不能替代专家评审与安全验证。
+    promises[0].done(function(response) {
+        console.log('Success:', response);
+    }).fail(function(error) {
+        console.error('Error:', error);
+    });
+});
+```
 
-## 互见
+## Common Pitfalls & Solutions
 
-- 官方文档：Moodle External API（functions / subsystems）、Database API（DML）、Coding Style — moodledev.io。
-- 领域内可配合：插件 `version.php` / `db/access.php`（capability 定义）/ `lang` 语言串 / `tests/external_test.php` 单测。
+### 1. "Function not found" Error
+**Solution**: 
+- Purge caches: **Site administration > Development > Purge all caches**
+- Verify function name in services.php matches exactly
+- Check namespace and class name are correct
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+### 2. "Invalid parameter value detected"
+**Solution**:
+- Ensure parameter types match between definition and usage
+- Check required vs optional parameters
+- Validate nested structure definitions
+
+### 3. SQL Injection Vulnerabilities
+**Solution**:
+- Always use placeholder parameters (`:paramname`)
+- Never concatenate user input into SQL strings
+- Use Moodle's database methods: `get_record()`, `get_records()`, etc.
+
+### 4. Permission Denied Errors
+**Solution**:
+- Call `self::validate_context($context)` early in execute()
+- Check required capabilities match user's permissions
+- Verify user has role assignments in the context
+
+### 5. Transaction Deadlocks
+**Solution**:
+- Keep transactions short
+- Always commit or rollback in finally blocks
+- Avoid nested transactions
+
+## Debugging Checklist
+
+- [ ] Check Moodle debug mode: **Site administration > Development > Debugging**
+- [ ] Review web services logs: **Site administration > Reports > Logs**
+- [ ] Check custom log files in `$CFG->dataroot/local_yourplugin/`
+- [ ] Verify database queries using `$DB->set_debug(true)`
+- [ ] Test with admin user to rule out permission issues
+- [ ] Clear browser cache and Moodle caches
+- [ ] Check PHP error logs on server
+
+## Plugin Structure Checklist
+
+```
+local/yourplugin/
+├── version.php                 # Plugin version and metadata
+├── db/
+│   ├── services.php           # External service definitions
+│   └── access.php             # Capability definitions (optional)
+├── classes/
+│   └── external/
+│       ├── your_api_name.php  # External API implementation
+│       └── another_api.php    # Additional APIs
+├── lang/
+│   └── en/
+│       └── local_yourplugin.php  # Language strings
+└── tests/
+    └── external_test.php      # Unit tests (optional but recommended)
+```
+
+## Examples from Real Implementation
+
+### Simple Read API (Get Quiz Attempts)
+
+```php
+<?php
+namespace local_userlog\external;
+
+defined('MOODLE_INTERNAL') || die();
+require_once("$CFG->libdir/externallib.php");
+
+use external_api;
+use external_function_parameters;
+use external_single_structure;
+use external_value;
+
+class get_quiz_attempts extends external_api {
+    public static function execute_parameters() {
+        return new external_function_parameters([
+            'userid' => new external_value(PARAM_INT, 'User ID'),
+            'courseid' => new external_value(PARAM_INT, 'Course ID')
+        ]);
+    }
+
+    public static function execute($userid, $courseid) {
+        global $DB;
+
+        self::validate_parameters(self::execute_parameters(), [
+            'userid' => $userid,
+            'courseid' => $courseid
+        ]);
+
+        $sql = "SELECT COUNT(*) AS quiz_attempts
+                FROM {quiz_attempts} qa
+                JOIN {quiz} q ON qa.quiz = q.id
+                WHERE qa.userid = :userid AND q.course = :courseid";
+
+        $attempts = $DB->get_field_sql($sql, [
+            'userid' => $userid,
+            'courseid' => $courseid
+        ]);
+
+        return ['quiz_attempts' => (int)$attempts];
+    }
+
+    public static function execute_returns() {
+        return new external_single_structure([
+            'quiz_attempts' => new external_value(PARAM_INT, 'Total number of quiz attempts')
+        ]);
+    }
+}
+```
+
+### Complex Write API (Create Quiz from Categories)
+
+See attached `create_quiz_from_categories.php` for a comprehensive example including:
+- Multiple database insertions
+- Course module creation
+- Quiz instance configuration
+- Random question selection with tags
+- Group-based access restrictions
+- Extensive error logging
+- Transaction management
+
+## Quick Reference: Common Moodle Tables
+
+| Table | Purpose |
+|-------|---------|
+| `{user}` | User accounts |
+| `{course}` | Courses |
+| `{course_modules}` | Activity instances in courses |
+| `{modules}` | Available activity types (quiz, forum, etc.) |
+| `{quiz}` | Quiz configurations |
+| `{quiz_attempts}` | Quiz attempt records |
+| `{question}` | Question bank |
+| `{question_categories}` | Question categories |
+| `{grade_items}` | Gradebook items |
+| `{grade_grades}` | Student grades |
+| `{groups}` | Course groups |
+| `{groups_members}` | Group memberships |
+| `{logstore_standard_log}` | Activity logs |
+
+## Additional Resources
+
+- [Moodle External API Documentation](https://moodledev.io/docs/5.2/apis/subsystems/external/functions)
+- [Moodle Coding Style](https://moodledev.io/general/development/policies/codingstyle)
+- [Moodle Database API](https://moodledev.io/docs/5.2/apis/core/dml)
+- [Web Services API Documentation](https://moodledev.io/docs/5.2/apis/subsystems/external)
+
+## Guidelines
+
+- Always validate input parameters using `validate_parameters()`
+- Check user context and capabilities before operations
+- Use parameterized SQL queries (never string concatenation)
+- Implement comprehensive error handling and logging
+- Follow Moodle naming conventions (lowercase, underscores)
+- Document all parameters and return values clearly
+- Test with different user roles and permissions
+- Consider transaction safety for write operations
+- Purge caches after service registration changes
+- Keep API methods focused and single-purpose
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

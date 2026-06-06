@@ -1,14 +1,14 @@
 ---
 name: quality-documentation-control
-title: 医疗器械质量文件控制管理
-description: 当需要为 ISO 13485/21 CFR Part 11 质量体系建立文件编号、版本、变更控制与电子签名审计时使用；做文件全生命周期管控并产出受控文件清单、变更记录与合规校验报告；不适用于非受控内部文档、纸质记录或一般邮件。触发词：文件控制、文件编号、版本控制、变更控制、电子签名、21 CFR Part 11、审计追踪
+title: Quality Documentation Manager
+description: Document control system management for medical device QMS. Covers document numbering, version control, change management, and 21 CFR Part 11 compliance. Use for document control procedures, change control workflow, document numbering, version management, electronic signature compliance, or regulatory documentation review.
 domain: 领域/medical
-triggers: [文件控制, 文件编号, 版本控制, 变更控制, 文件审批, 电子签名, 21 CFR Part 11, 审计追踪, 文件生命周期, 受控文件, 文件主清单, 记录保留]
-tags: [医疗器械, 质量管理体系, iso13485, 21cfr11, 文件控制, 变更管理, 电子签名, 合规审计]
-level: 进阶
+triggers: [21 CFR Part 11]
+tags: [iso13485, 21cfr11]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Edit, Bash]
+tools: []
 requires: []
 related: [iso13485-qms-implementer, iso13485-qms-audit, capa-root-cause-officer, fda-qsr-audit-prep]
 combines_with: [iso13485-qms-implementer, capa-root-cause-officer]
@@ -16,73 +16,343 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-为符合 ISO 13485 与 FDA 21 CFR 820/Part 11 的质量管理体系（QMS）设计并运行文件控制系统，覆盖编号规则、审批工作流、变更控制、电子记录与电子签名合规。
+# Quality Documentation Manager
 
-## 何时使用
+Document control system design and management for ISO 13485-compliant quality management systems, including numbering conventions, approval workflows, change control, and electronic record compliance.
 
-适用：
+---
 
-- 设计或落地受控文件的编号体系、生命周期与主清单（Document Master List）。
-- 搭建评审/审批工作流、变更控制流程与变更分类。
-- 实施 21 CFR Part 11 的电子记录、审计追踪与电子签名控制。
-- 准备 ISO 13485 4.2 / FDA 820.40 内审或法规审查。
+## Table of Contents
 
-不该用（负边界）：
+- [Document Control Workflow](#document-control-workflow)
+- [Document Numbering System](#document-numbering-system)
+- [Approval and Review Process](#approval-and-review-process)
+- [Change Control Process](#change-control-process)
+- [21 CFR Part 11 Compliance](#21-cfr-part-11-compliance)
+- [Reference Documentation](#reference-documentation)
+- [Tools](#tools)
 
-- 非法规要求的内部非受控文档、草稿笔记。
-- 纯纸质记录或一般邮件沟通（不在 Part 11 范围内）。
-- 产品设计技术细节本身（属设计控制 skill），本 skill 只管文件控制层。
+---
 
-## 步骤
+## Document Control Workflow
 
-1. 编号：按 `PREFIX-CATEGORY-SEQUENCE[-REVISION]` 申请编号，由文件控制员核验类别、分配下一顺序号并登记主清单，作者用该号建档。校验：格式合规、主清单无重号。
-2. 创建：用受控模板起草，标注状态为 Draft（仅作者编辑、不可使用）。
-3. 评审：按文件类型路由必需评审人，评审期 5-10 个工作日；作者处置全部意见并记录回应，再重提。
-4. 审批：按审批矩阵获取签名（含姓名、签名、日期、角色四要素）。校验：必需评审人全部完成、所有意见有书面处置结论。
-5. 生效：分配生效日期、完成培训后发布为 Effective，更新主清单。校验：使用点可获取最新版、作废版已移除。
-6. 变更：填变更申请单（含理由）→ 文件控制员分配变更号并登记 → 影响评估 → 按分类审批 → 实施 → 升版并补全变更历史。校验：变更与批准范围一致、变更历史完整。
-7. 退役：版本被替代标 Superseded 从在用移除，不再适用标 Obsolete 按保留期归档。
+Implement document control from creation through obsolescence:
 
-## 指令
+1. Assign document number per numbering procedure
+2. Create document using controlled template
+3. Route for review to required reviewers
+4. Address review comments and document responses
+5. Obtain required approval signatures
+6. Assign effective date and distribute
+7. Update Document Master List
+8. **Validation:** Document accessible at point of use; obsolete versions removed
 
-编号类别码（CATEGORY）：01 质量管理 / 02 文件控制 / 03 人力资源 / 04 设计开发 / 05 采购 / 06 生产 / 07 质量控制 / 08 CAPA / 09 风险管理（ISO 14971）/ 10 法规事务。
+### Document Lifecycle Stages
 
-文件前缀（PREFIX）：QM 质量手册 / SOP 标准操作程序 / WI 作业指导书 / TF 模板表单 / SPEC 规范 / PLN 计划。
+| Stage | Definition | Actions Required |
+|-------|------------|------------------|
+| Draft | Under creation or revision | Author editing, not for use |
+| Review | Circulated for review | Reviewers provide feedback |
+| Approved | All signatures obtained | Ready for training/distribution |
+| Effective | Training complete, released | Available for use |
+| Superseded | Replaced by newer revision | Remove from active use |
+| Obsolete | No longer applicable | Archive per retention schedule |
 
-升版规则：重大修订递增主版本号（Rev 01→02）；轻微修订递增子版本（Rev 01→01.1）；行政性修订加字母后缀或不变（Rev 01→01a）。
+### Document Types and Prefixes
 
-变更分类与审批级别：行政性（无内容影响，文件控制员批，如错别字/排版）；轻微（局部内容，过程负责人+QA）；重大（实质内容，完整评审周期）；紧急（安全/合规紧迫，加急+追溯审批）。
+| Prefix | Document Type | Typical Content |
+|--------|---------------|-----------------|
+| QM | Quality Manual | QMS overview, scope, policy |
+| SOP | Standard Operating Procedure | Process-level procedures |
+| WI | Work Instruction | Task-level step-by-step |
+| TF | Template/Form | Controlled forms |
+| SPEC | Specification | Product/process specs |
+| PLN | Plan | Quality/project plans |
 
-文件校验工具：
+### Required Reviewers by Document Type
+
+| Document Type | Required Reviewers | Required Approvers |
+|---------------|-------------------|-------------------|
+| SOP | Process Owner, QA | QA Manager, Process Owner |
+| WI | Area Supervisor, QA | Area Manager |
+| SPEC | Engineering, QA | Engineering Manager, QA |
+| TF | Process Owner | QA |
+| Design Documents | Design Team, QA | Design Control Authority |
+
+---
+
+## Document Numbering System
+
+Assign consistent document numbers for identification and retrieval.
+
+### Numbering Format
+
+Standard format: `PREFIX-CATEGORY-SEQUENCE[-REVISION]`
+
+```
+Example: SOP-02-001-A
+
+SOP = Document type (Standard Operating Procedure)
+02  = Category code (Document Control)
+001 = Sequential number
+A   = Revision indicator
+```
+
+### Category Codes
+
+| Code | Functional Area | Description |
+|------|-----------------|-------------|
+| 01 | Quality Management | QMS procedures, management review |
+| 02 | Document Control | This area |
+| 03 | Human Resources | Training, competency |
+| 04 | Design & Development | Design control processes |
+| 05 | Purchasing | Supplier management |
+| 06 | Production | Manufacturing procedures |
+| 07 | Quality Control | Inspection, testing |
+| 08 | CAPA | Corrective/preventive actions |
+| 09 | Risk Management | ISO 14971 processes |
+| 10 | Regulatory Affairs | Submissions, compliance |
+
+### Numbering Workflow
+
+1. Author requests document number from Document Control
+2. Document Control verifies category assignment
+3. Document Control assigns next available sequence number
+4. Number recorded in Document Master List
+5. Author creates document using assigned number
+6. **Validation:** Number format matches standard; no duplicates in Master List
+
+### Revision Designation
+
+| Change Type | Revision Increment | Example |
+|-------------|-------------------|---------|
+| Major revision | Increment number | Rev 01 → Rev 02 |
+| Minor revision | Increment sub-revision | Rev 01 → Rev 01.1 |
+| Administrative | No change or letter suffix | Rev 01 → Rev 01a |
+
+See `references/document-control-procedures.md` for complete numbering guidance.
+
+---
+
+## Approval and Review Process
+
+Obtain required reviews and approvals before document release.
+
+### Review Workflow
+
+1. Author completes document draft
+2. Author submits for review via routing form or DMS
+3. Reviewers assigned based on document type
+4. Reviewers provide comments within review period (5-10 business days)
+5. Author addresses comments and documents responses
+6. Author resubmits revised document
+7. Approvers sign and date
+8. **Validation:** All required reviewers completed; all comments addressed with documented disposition
+
+### Comment Disposition
+
+| Disposition | Action Required |
+|-------------|-----------------|
+| Accept | Incorporate comment as written |
+| Accept with modification | Incorporate with changes, document rationale |
+| Reject | Do not incorporate, document justification |
+| Defer | Address in future revision, document reason |
+
+### Approval Matrix
+
+```
+Document Level 1 (Policy/QM): CEO or delegate + QA Manager
+Document Level 2 (SOP): Department Manager + QA Manager
+Document Level 3 (WI/TF): Area Supervisor + QA Representative
+```
+
+### Signature Requirements
+
+| Element | Requirement |
+|---------|-------------|
+| Name | Printed name of signer |
+| Signature | Handwritten or electronic signature |
+| Date | Date signature applied |
+| Role | Function/role of signer |
+
+---
+
+## Change Control Process
+
+Manage document changes systematically through review and approval.
+
+### Change Control Workflow
+
+1. Identify need for document change
+2. Complete Change Request Form with justification
+3. Document Control assigns change number and logs request
+4. Route to reviewers for impact assessment
+5. Obtain approvals based on change classification
+6. Author implements approved changes
+7. Update revision number and change history
+8. **Validation:** Changes match approved scope; change history complete
+
+### Change Classification
+
+| Class | Definition | Approval Level | Examples |
+|-------|------------|----------------|----------|
+| Administrative | No content impact | Document Control | Typos, formatting |
+| Minor | Limited content change | Process Owner + QA | Clarifications |
+| Major | Significant content change | Full review cycle | New requirements |
+| Emergency | Urgent safety/compliance | Expedited + retrospective | Safety issues |
+
+### Impact Assessment Checklist
+
+| Impact Area | Assessment Questions |
+|-------------|---------------------|
+| Training | Does change require retraining? |
+| Equipment | Does change affect equipment or systems? |
+| Validation | Does change require revalidation? |
+| Regulatory | Does change affect regulatory filings? |
+| Other Documents | Which related documents need updating? |
+| Records | What records are affected? |
+
+### Change History Documentation
+
+Each document must include change history:
+
+```
+| Revision | Date | Description | Author | Approver |
+|----------|------|-------------|--------|----------|
+| 01 | 2023-01-15 | Initial release | J. Smith | M. Jones |
+| 02 | 2024-03-01 | Updated workflow | J. Smith | M. Jones |
+```
+
+---
+
+## 21 CFR Part 11 Compliance
+
+Implement electronic record and signature controls for FDA compliance.
+
+### Part 11 Scope
+
+| Applies To | Does Not Apply To |
+|------------|-------------------|
+| Records required by FDA regulations | Paper records |
+| Records submitted to FDA | Internal non-regulated documents |
+| Electronic signatures on required records | General email communication |
+
+### Electronic Record Controls
+
+1. Validate system for accuracy and reliability
+2. Implement secure audit trail for all changes
+3. Restrict system access to authorized individuals
+4. Generate accurate copies in human-readable format
+5. Protect records throughout retention period
+6. **Validation:** Audit trail captures who, what, when for all changes
+
+### Audit Trail Requirements
+
+| Requirement | Implementation |
+|-------------|----------------|
+| Secure | Cannot be modified by users |
+| Computer-generated | System creates automatically |
+| Time-stamped | Date and time of each action |
+| Original values | Previous values retained |
+| User identity | Who made each change |
+
+### Electronic Signature Requirements
+
+| Requirement | Implementation |
+|-------------|----------------|
+| Unique to individual | Not shared between persons |
+| At least 2 components | User ID + password minimum |
+| Signature manifestation | Name, date/time, meaning displayed |
+| Linked to record | Cannot be excised or copied |
+
+### Signature Manifestation
+
+Every electronic signature must display:
+
+| Element | Example |
+|---------|---------|
+| Printed name | John Smith |
+| Date and time | 2024-03-15 14:32:05 EST |
+| Meaning | Approved for Release |
+
+### System Controls Checklist
+
+**Access Controls:**
+- [ ] Unique user ID for each person
+- [ ] Password complexity enforced
+- [ ] Account lockout after failed attempts
+- [ ] Session timeout after inactivity
+
+**Audit Trail:**
+- [ ] All record creation logged
+- [ ] All modifications logged with old/new values
+- [ ] User identity captured
+- [ ] Date/time stamp on all entries
+
+**Security:**
+- [ ] Role-based access control
+- [ ] Encryption for data at rest and in transit
+- [ ] Regular backup and tested recovery
+
+See `references/21cfr11-compliance-guide.md` for detailed compliance requirements.
+
+---
+
+## Reference Documentation
+
+### Document Control Procedures
+
+`references/document-control-procedures.md` contains:
+
+- Document numbering system and format
+- Document lifecycle stages and transitions
+- Review and approval workflow details
+- Change control process with classification criteria
+- Distribution and access control methods
+- Record retention periods and disposal procedures
+- Document Master List requirements
+
+### 21 CFR Part 11 Compliance Guide
+
+`references/21cfr11-compliance-guide.md` contains:
+
+- Part 11 scope and applicability
+- Electronic record requirements (§11.10)
+- Electronic signature requirements (§11.50, 11.100, 11.200)
+- System control specifications
+- Validation approach and documentation
+- Compliance checklist and gap assessment template
+- Common FDA deficiencies and prevention
+
+---
+
+## Tools
+
+### Document Validator
 
 ```bash
-# 校验文件元数据
+# Validate document metadata
 python scripts/document_validator.py --doc document.json
 
-# 交互式校验
+# Interactive validation mode
 python scripts/document_validator.py --interactive
 
-# 输出 JSON 以便集成
+# JSON output for integration
 python scripts/document_validator.py --doc document.json --output json
 
-# 生成示例文件 JSON
+# Generate sample document JSON
 python scripts/document_validator.py --sample > sample_doc.json
 ```
 
-校验项：编号规则合规、标题与状态、日期（生效/复审到期）、按类型的审批要求、变更历史完整性、Part 11 控制（审计追踪、签名）。
+Validates:
+- Document numbering convention compliance
+- Title and status requirements
+- Date validation (effective, review due)
+- Approval requirements by document type
+- Change history completeness
+- 21 CFR Part 11 controls (audit trail, signatures)
 
-## 示例
-
-变更历史表（每份文件必含）：
-
-```
-| 版本 | 日期       | 描述         | 作者     | 审批人   |
-|------|------------|--------------|----------|----------|
-| 01   | 2023-01-15 | 初始发布     | J. Smith | M. Jones |
-| 02   | 2024-03-01 | 更新工作流   | J. Smith | M. Jones |
-```
-
-文件校验输入 JSON：
+### Sample Document Input
 
 ```json
 {
@@ -106,23 +376,62 @@ python scripts/document_validator.py --sample > sample_doc.json
 }
 ```
 
-编号示例 `SOP-02-001-A`：SOP=类型（标准操作程序），02=类别（文件控制），001=顺序号，A=版本标识。
+---
 
-## 注意事项
+## Document Control Metrics
 
-- 21 CFR Part 11 范围：仅适用于 FDA 法规要求的记录、提交 FDA 的记录及其电子签名；纸质记录、内部非受控文档、一般邮件不适用。
-- 审计追踪须满足：安全（用户不可改）、计算机自动生成、时间戳、保留原始值、记录修改者身份（who/what/when 齐全）。
-- 电子签名须满足：个人唯一（不可共享）、至少 2 个组件（用户名+密码起步）、显示签名表现（姓名+日期时间+含义，如「Approved for Release」）、与记录绑定不可剥离复制。
-- 系统控制清单：唯一用户 ID、密码复杂度、失败锁定、会话超时；全量创建/修改记录新旧值与身份时间戳；基于角色的访问控制、静态与传输加密、定期备份并验证恢复。
-- 周期复审：政策每 3 年、SOP/WI 每 2 年、规范随产品变更、表单/模板每 3 年。
-- 常见审计发现及预防：在用作废文件→分发控制；缺审批签名→发布前强制工作流；变更历史不全→每次升版强制更新；无复审计划→建立并执行复审日历；审计追踪不足→对 DMS 做 Part 11 验证。
-- 法规锚点：ISO 13485:2016 第 4.2 条（4.2.4 文件控制、4.2.5 记录控制）；FDA 21 CFR 820.40 文件控制、820.180/181/184/186 记录要求。
+Track document control system performance.
 
-## 互见
+### Key Performance Indicators
 
-- 设计开发文件控制 / CAPA 管理 / 风险管理（ISO 14971）等同体系其他 skill。
-- 原仓库参考：`references/document-control-procedures.md`（完整编号与变更指南）、`references/21cfr11-compliance-guide.md`（Part 11 详细要求与差距评估模板）。
+| Metric | Target | Calculation |
+|--------|--------|-------------|
+| Document cycle time | <30 days | Average days from draft to effective |
+| Review completion rate | >95% | Reviews completed on time / Total reviews |
+| Change request backlog | <10 | Open change requests at month end |
+| Overdue review rate | <5% | Documents past review date / Total effective |
+| Audit finding rate | <2 per audit | Document control findings per internal audit |
+
+### Periodic Review Schedule
+
+| Document Type | Review Frequency |
+|---------------|------------------|
+| Policy | Every 3 years |
+| SOP | Every 2 years |
+| WI | Every 2 years |
+| Specifications | As needed or with product changes |
+| Forms/Templates | Every 3 years |
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可），已按中文「技能大典」SCHEMA 适配重写。
+## Regulatory Requirements
+
+### ISO 13485:2016 Clause 4.2
+
+| Sub-clause | Requirement |
+|------------|-------------|
+| 4.2.1 | Quality management system documentation |
+| 4.2.2 | Quality manual |
+| 4.2.3 | Medical device file (technical documentation) |
+| 4.2.4 | Control of documents |
+| 4.2.5 | Control of records |
+
+### FDA 21 CFR 820
+
+| Section | Requirement |
+|---------|-------------|
+| 820.40 | Document controls |
+| 820.180 | General record requirements |
+| 820.181 | Device master record |
+| 820.184 | Device history record |
+| 820.186 | Quality system record |
+
+### Common Audit Findings
+
+| Finding | Prevention |
+|---------|------------|
+| Obsolete documents in use | Implement distribution control |
+| Missing approval signatures | Enforce workflow before release |
+| Incomplete change history | Require history update with each revision |
+| No periodic review schedule | Establish and enforce review calendar |
+| Inadequate audit trail | Validate DMS for Part 11 compliance |

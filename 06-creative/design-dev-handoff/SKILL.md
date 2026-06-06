@@ -1,14 +1,14 @@
 ---
 name: design-dev-handoff
-title: 设计开发交付规格
-description: 当设计稿定稿、要交给工程实现时使用；产出覆盖布局/设计令牌/组件 props/交互状态/响应式断点/边界情况/动效的开发交付规格文档；不适用于尚在探索的概念稿或纯视觉评审；触发词：设计交付、handoff、Figma 转开发
+title: /design-handoff
+description: Generate developer handoff specs from a design. Use when a design is ready for engineering and needs a spec sheet covering layout, design tokens, component props, interaction states, responsive breakpoints, edge cases, and animation details.
 domain: 创意/design
-triggers: [设计交付, 开发交付规格, handoff, design handoff, Figma 转开发, 标注规格, 交付文档, 设计稿落地, 组件状态规格, 响应式断点]
-tags: [设计, 前端, 交付, figma, 设计令牌, 响应式, 可访问性, 协作]
-level: 进阶
+triggers: [handoff, design handoff]
+tags: [figma]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Figma, Read, Write]
+tools: []
 requires: []
 related: [ui-design-system-builder, design-critique, frontend-design, web-component-design]
 combines_with: [ui-design-system-builder, prd-spec-writer]
@@ -16,108 +16,128 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# /design-handoff
 
-当设计稿已定稿、需要交给工程团队实现，而你要把设计语言翻译成可直接落地的规格说明书时使用。典型输入是一个 Figma 链接、设计截图，或一段对界面的文字描述。
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-核心目标：让开发者**不需要猜**。凡是规格里没写的，开发者就会自己脑补，导致还原偏差。
+Generate comprehensive developer handoff documentation from a design.
 
-**不该用的边界：**
-- 设计还在概念探索 / 多方案比稿阶段——此时规格会频繁推翻，不值得固化。
-- 纯视觉评审、走查反馈——那是评判好坏，而非定义实现细节。
-- 没有任何设计基准（既无稿也无描述）——先把设计本身定下来。
+## Usage
 
-## 步骤
-
-1. **取源**：若提供 Figma URL，从 Figma 拉取精确测量值、令牌与组件规格；否则基于截图或文字描述工作。
-2. **盘点界面**：明确这个界面/功能做什么、用户在什么场景下使用（写进 Overview，解释「为什么」）。
-3. **逐维度填规格**：按下方五个维度采集——视觉、交互、内容、边界、可访问性。能用令牌就别写死值。
-4. **覆盖全部状态**：默认、悬停、激活、禁用、加载、错误、空状态，一个都不能漏。
-5. **按输出模板成文**：用下方 Markdown 表格结构输出，保证开发者可逐行对照实现。
-6. **打通工具链（可选）**：连了设计工具就导出资产与精确规格；连了项目跟踪工具就把交付关联到实现工单，并为每个小节建子任务。
-
-### 五个采集维度
-
-- **视觉规格**：精确测量（内边距、外边距、宽度）；设计令牌引用（颜色、字体、间距）；响应式断点与行为；组件变体与状态。
-- **交互规格**：点击/轻触行为；悬停态；过渡与动画（时长、缓动）；手势（滑动、捏合、长按）。
-- **内容规格**：字符上限；截断行为；空状态；加载态；错误态。
-- **边界情况**：内容最小/最大值；国际化文本（更长字符串）；慢网络；数据缺失。
-- **可访问性**：焦点顺序；ARIA 标签与角色；键盘交互；屏幕阅读器播报。
-
-### 四条原则
-
-1. **不要假设**——没写的开发者会猜，所以把一切都写明。
-2. **用令牌而非数值**——引用 `spacing-md` 而不是 `16px`。
-3. **展示所有状态**——默认、悬停、激活、禁用、加载、错误、空。
-4. **说清「为什么」**——例如「移动端折叠是因为用户多为单手操作」，能帮开发者在边角处做出正确判断。
-
-## 示例
-
-```markdown
-## 交付规格：[功能/界面名称]
-
-### 概述
-[这个界面/功能做什么，用户场景]
-
-### 布局
-[栅格系统、断点、响应式行为]
-
-### 使用的设计令牌
-| 令牌 | 值 | 用途 |
-|------|-----|------|
-| `color-primary` | #[hex] | CTA 按钮、链接 |
-| `spacing-md` | [X]px | 区块之间 |
-| `font-heading-lg` | [字号/字重/字族] | 页面标题 |
-
-### 组件
-| 组件 | 变体 | Props | 备注 |
-|------|------|-------|------|
-| [组件] | [变体] | [Props] | [特殊行为] |
-
-### 状态与交互
-| 元素 | 状态 | 行为 |
-|------|------|------|
-| [CTA 按钮] | 悬停 | [背景加深 10%] |
-| [CTA 按钮] | 加载 | [转圈、禁用] |
-| [表单] | 错误 | [红色边框，下方错误信息] |
-
-### 响应式行为
-| 断点 | 变化 |
-|------|------|
-| 桌面 (>1024px) | [默认布局] |
-| 平板 (768-1024px) | [变化点] |
-| 移动 (<768px) | [变化点] |
-
-### 边界情况
-- **空状态**：[无数据时显示什么]
-- **长文本**：[截断规则]
-- **加载**：[骨架屏或转圈]
-- **错误**：[错误态外观]
-
-### 动效 / 动画
-| 元素 | 触发 | 动画 | 时长 | 缓动 |
-|------|------|------|------|------|
-| [元素] | [触发] | [描述] | [ms] | [easing] |
-
-### 可访问性说明
-- [焦点顺序]
-- [需要的 ARIA 标签]
-- [键盘交互]
+```
+/design-handoff $ARGUMENTS
 ```
 
-## 注意事项
+Generate handoff specs for: @$1
 
-- **提供 Figma 链接** 才能拿到精确测量值、令牌与组件信息；只有截图时测量值多为估算，需标注「待核」。
-- **主动追问边界**：「100 条数据会怎样？」这类问题能逼出边界规格。
-- **说明技术栈**：告知「我们用 React + Tailwind」可让实现建议更对口。
-- 令牌名以设计系统的真实命名为准，模板里的 `color-primary` / `spacing-md` 只是占位示例。
-- 状态表里禁用与加载常被遗忘——交付前对照「默认/悬停/激活/禁用/加载/错误/空」七态自检一遍。
+If a Figma URL is provided, pull the design from Figma. Otherwise, work from the provided description or screenshot.
 
-## 互见
+## What to Include
 
-- 创意/misc 域内其他「设计-工程协作」类技能。
-- 项目跟踪类技能（用于把交付规格落成工单与子任务）。
+### Visual Specifications
+- Exact measurements (padding, margins, widths)
+- Design token references (colors, typography, spacing)
+- Responsive breakpoints and behavior
+- Component variants and states
 
----
+### Interaction Specifications
+- Click/tap behavior
+- Hover states
+- Transitions and animations (duration, easing)
+- Gesture support (swipe, pinch, long-press)
 
-采编自 anthropics/knowledge-work-plugins（Apache-2.0），在其 `design-handoff` 基础上适配重写为中文可执行规格。
+### Content Specifications
+- Character limits
+- Truncation behavior
+- Empty states
+- Loading states
+- Error states
+
+### Edge Cases
+- Minimum/maximum content
+- International text (longer strings)
+- Slow connections
+- Missing data
+
+### Accessibility
+- Focus order
+- ARIA labels and roles
+- Keyboard interactions
+- Screen reader announcements
+
+## Principles
+
+1. **Don't assume** — If it's not specified, the developer will guess. Specify everything.
+2. **Use tokens, not values** — Reference `spacing-md` not `16px`.
+3. **Show all states** — Default, hover, active, disabled, loading, error, empty.
+4. **Describe the why** — "This collapses on mobile because users primarily use one-handed" helps developers make good judgment calls.
+
+## Output
+
+```markdown
+## Handoff Spec: [Feature/Screen Name]
+
+### Overview
+[What this screen/feature does, user context]
+
+### Layout
+[Grid system, breakpoints, responsive behavior]
+
+### Design Tokens Used
+| Token | Value | Usage |
+|-------|-------|-------|
+| `color-primary` | #[hex] | CTA buttons, links |
+| `spacing-md` | [X]px | Between sections |
+| `font-heading-lg` | [size/weight/family] | Page title |
+
+### Components
+| Component | Variant | Props | Notes |
+|-----------|---------|-------|-------|
+| [Component] | [Variant] | [Props] | [Special behavior] |
+
+### States and Interactions
+| Element | State | Behavior |
+|---------|-------|----------|
+| [CTA Button] | Hover | [Background darken 10%] |
+| [CTA Button] | Loading | [Spinner, disabled] |
+| [Form] | Error | [Red border, error message below] |
+
+### Responsive Behavior
+| Breakpoint | Changes |
+|------------|---------|
+| Desktop (>1024px) | [Default layout] |
+| Tablet (768-1024px) | [What changes] |
+| Mobile (<768px) | [What changes] |
+
+### Edge Cases
+- **Empty state**: [What to show when no data]
+- **Long text**: [Truncation rules]
+- **Loading**: [Skeleton or spinner]
+- **Error**: [Error state appearance]
+
+### Animation / Motion
+| Element | Trigger | Animation | Duration | Easing |
+|---------|---------|-----------|----------|--------|
+| [Element] | [Trigger] | [Description] | [ms] | [easing] |
+
+### Accessibility Notes
+- [Focus order]
+- [ARIA labels needed]
+- [Keyboard interactions]
+```
+
+## If Connectors Available
+
+If **~~design tool** is connected:
+- Pull exact measurements, tokens, and component specs from Figma
+- Export assets and generate a complete spec sheet
+
+If **~~project tracker** is connected:
+- Link the handoff to the implementation ticket
+- Create sub-tasks for each section of the spec
+
+## Tips
+
+1. **Share the Figma link** — I can pull exact measurements, tokens, and component info.
+2. **Mention edge cases** — "What happens with 100 items?" helps me spec boundary conditions.
+3. **Specify the tech stack** — "We use React + Tailwind" helps me give relevant implementation notes.

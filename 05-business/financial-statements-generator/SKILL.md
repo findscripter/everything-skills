@@ -1,14 +1,14 @@
 ---
 name: financial-statements-generator
-title: 财务三表生成
-description: 当做月度/季度/年度/YTD 损益表、月结需标记重大差异、实际对预算比对、或为管理层准备财务摘要时使用；做含本期 vs 上期 vs 上年同期 vs 预算的损益表加差异分析、关键指标与重大差异清单，并备资产负债表/现金流量表参考格式与 GAAP（ASC 220/210/230）列报口径；不适用于提供投资/会计意见、出审计结论或正式申报底稿，须经合格财务人员复核；触发词：财务三表、损益表、income statement、资产负债表、现金流量表、月结、variance analysis、P&L
+title: /financial-statements
+description: Generate financial statements (income statement, balance sheet, cash flow) with period-over-period comparison and variance analysis. Use when preparing a monthly or quarterly P&L, closing the books and need to flag material variances, comparing actuals to budget, building a financial summary for leadership review, or looking up GAAP presentation requirements and period-end adjustments.
 domain: 商业/copy
-triggers: [财务三表, 损益表, income statement, 资产负债表, 现金流量表, 月结, variance analysis, P&L, 财务报表, 实际对预算]
+triggers: [income statement, variance analysis, P&L]
 tags: [finance, accounting, financial-statements, gaap, month-end-close, variance]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [sql, python, pandas]
+tools: []
 requires: []
 related: [budget-variance-analysis, three-statement-model, month-end-close-manager, variance-flux-commentary]
 combines_with: [budget-variance-analysis, board-deck-builder]
@@ -16,108 +16,332 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# /financial-statements
 
-- 编制月度 / 季度 / 年度 / 年初至今（YTD）损益表（P&L），需带对比期与差异分析。
-- 月结关账后，需逐条标记重大差异（material variances）供调查。
-- 实际数对预算 / 预测比对，或为管理层评审准备财务摘要。
-- 需查 GAAP 列报要求（ASC 220/210/230）或期末调整 / 重分类口径时。
-- 触发词：财务三表、损益表、income statement、资产负债表、现金流量表、月结、variance analysis、P&L。
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-不该用的边界：
+**Important**: This command assists with financial statement workflows but does not provide financial advice. All statements should be reviewed by qualified financial professionals before use in reporting or filings.
 
-- 本技能仅辅助报表工作流，**不提供财务 / 投资 / 会计意见**；任何报表用于对外报告或申报前须经合格财务人员复核。
-- 不出审计结论、税务意见或正式申报底稿。
-- 取不到科目背后业务数据时，不要臆造差异动因——标"动因待查"。
-- 单期算账、不对比上期/预算 → 只是出报表，差异分析部分留空。
+Generate financial statements with period-over-period comparison and variance analysis. The workflow below walks through income statement generation; balance sheet and cash flow statement reference formats, GAAP presentation requirements (ASC 220/210/230), and common period-end adjustments are included as supporting reference material.
 
-## 步骤 / 指令
-
-输入：`period-type`（monthly / quarterly / annual / ytd）、`period`（如 `2024-12` / `2024-Q4` / `2024`）。
+## Usage
 
 ```
-1. 取数（Gather Financial Data）
-   - 接 ERP / 数据仓库：拉本期试算平衡表或损益数据、对比期数据
-     （上期 / 上年同期 / 预算）、科目层级与分组用于列报。
-   - 无数据源：提示用户粘贴试算表、上传表格，或提供
-     本期收入/费用（按科目或类别）、对比期数、已知调整/重分类。
-
-2. 生成损益表（多列对比格式，见示例）
-   - 列：本期 | 上期 | 差异($) | 差异(%) | 预算 | 预算差异($)
-   - 行：收入 → 收入成本 → 毛利(含毛利率) → 营业费用
-     → 营业利润(含营业利润率) → 营业外收支 → 税前利润
-     → 所得税 → 净利润(含净利率)。
-   - 口径："in thousands"（千元）除非另注；单位与会计期间须一致。
-
-3. 差异分析（Variance Analysis）
-   - 金额差异 = 本期 − 上期（或本期 − 预算）
-   - 百分比差异 = (本期 − 上期) / |上期| × 100
-   - 利润率/比率类用基点(bp)表示变动，1 bp = 0.01%。
-   - 重要性阈值（择一或组合触发，按公司标准）：
-       固定金额（如 $50K/$100K）| 百分比（如 10%/15%）
-       | 金额或百分比任一超标 | 按科目规模分档（见示例阈值表）。
-   - 差异拆解（driver decomposition）：量/价/结构(mix)效应、
-     新增或停用科目、一次性/非经常项、时间性差异、汇率(FX)影响。
-   - 逐条：①量化($+%) ②判有利/不利 ③拆动因 ④写业务原因叙述
-     ⑤判临时 or 趋势 ⑥列后续动作（深查/更新预测/改流程）。
-
-4. 关键指标摘要：收入增速、毛利率、营业利润率、净利率、
-   OpEx/收入占比、有效税率（各列本期/上期/变动 pp）。
-
-5. 重大差异清单：科目 | 差异($) | 差异(%) | 方向 | 初步动因 | 动作。
-
-6. 输出：格式化损益表 + 关键指标 + 重大差异清单（带调查标记）
-   + 未解释差异的追问清单；可对单条差异下钻 →
-   交 variance-flux-commentary 写 flux 说明。
+/financial-statements <period-type> <period>
 ```
 
-资产负债表 / 现金流量表：本技能内置二者的**参考行项格式**与 GAAP 列报要点，供按需展开。资产负债表区分流动/非流动、应收净额、PP&E 净额、商誉不摊销减值测试（ASC 350）、租赁确认使用权资产与负债（ASC 842）；现金流量表常用间接法（净利润起调非现金项），披露已付利息与所得税，非现金投融资活动单独披露。
+### Arguments
 
-## 示例
+- `period-type` — The reporting period type:
+  - `monthly` — Single month P&L with prior month and prior year month comparison
+  - `quarterly` — Quarter P&L with prior quarter and prior year quarter comparison
+  - `annual` — Full year P&L with prior year comparison
+  - `ytd` — Year-to-date P&L with prior year YTD comparison
+- `period` — The period to report (e.g., `2024-12`, `2024-Q4`, `2024`)
 
-损益表多列格式（节选，单位：千元）：
+## Workflow
+
+### 1. Gather Financial Data
+
+If ~~erp or ~~data warehouse is connected:
+- Pull trial balance or income statement data for the specified period
+- Pull comparison period data (prior period, prior year, budget/forecast)
+- Pull account hierarchy and groupings for presentation
+
+If no data source is connected:
+> Connect ~~erp or ~~data warehouse to pull financial data automatically. You can also paste trial balance data, upload a spreadsheet, or provide income statement data for analysis.
+
+Prompt the user to provide:
+- Current period revenue and expense data (by account or category)
+- Comparison period data (prior period, prior year, and/or budget)
+- Any known adjustments or reclassifications
+
+### 2. Generate Income Statement
+
+Present in standard multi-column format:
 
 ```
-INCOME STATEMENT — Period: 2024-12 (in thousands)
+INCOME STATEMENT
+Period: [Period description]
+(in thousands, unless otherwise noted)
 
-                          Current   Prior    Var($)   Var(%)   Budget   BudVar($)
+                              Current    Prior      Variance   Variance   Budget    Budget
+                              Period     Period     ($)        (%)        Amount    Var ($)
+                              --------   --------   --------   --------   --------  --------
 REVENUE
-  Product revenue         $42,300  $38,900  $3,400    8.7%    $40,000   $2,300
-  Service revenue         $11,200  $10,800    $400    3.7%    $11,500    ($300)
-TOTAL REVENUE             $53,500  $49,700  $3,800    7.6%    $51,500   $2,000
-COST OF REVENUE          ($16,000)($15,100)  $(900)   6.0%   ($15,800)  $(200)
-GROSS PROFIT             $37,500  $34,600  $2,900    8.4%    $35,700   $1,800
-  Gross Margin             70.1%    69.6%   (+50 bp)
-OPERATING INCOME         $12,400  $10,900  $1,500   13.8%    $11,200   $1,200
-NET INCOME (LOSS)         $9,100   $8,100   $1,000   12.3%     $8,400     $700
-  Net Margin               17.0%    16.3%   (+70 bp)
+  Product revenue             $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+  Service revenue             $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+  Other revenue               $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+                              --------   --------   --------              --------  --------
+TOTAL REVENUE                 $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+
+COST OF REVENUE
+  [Cost items]                $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+                              --------   --------   --------              --------  --------
+GROSS PROFIT                  $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+  Gross Margin                XX.X%      XX.X%
+
+OPERATING EXPENSES
+  Research & development      $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+  Sales & marketing           $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+  General & administrative    $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+                              --------   --------   --------              --------  --------
+TOTAL OPERATING EXPENSES      $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+
+OPERATING INCOME (LOSS)       $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+  Operating Margin            XX.X%      XX.X%
+
+OTHER INCOME (EXPENSE)
+  Interest income             $XX,XXX    $XX,XXX    $X,XXX     X.X%
+  Interest expense           ($XX,XXX)  ($XX,XXX)   $X,XXX     X.X%
+  Other, net                  $XX,XXX    $XX,XXX    $X,XXX     X.X%
+                              --------   --------   --------
+TOTAL OTHER INCOME (EXPENSE)  $XX,XXX    $XX,XXX    $X,XXX     X.X%
+
+INCOME BEFORE TAXES           $XX,XXX    $XX,XXX    $X,XXX     X.X%
+  Income tax expense          $XX,XXX    $XX,XXX    $X,XXX     X.X%
+                              --------   --------   --------
+
+NET INCOME (LOSS)             $XX,XXX    $XX,XXX    $X,XXX     X.X%       $XX,XXX   $X,XXX
+  Net Margin                  XX.X%      XX.X%
 ```
 
-分档重要性阈值（按需调整）：
+### 3. Variance Analysis
 
-| 科目规模 | 金额阈值 | 百分比阈值 |
-|---|---|---|
-| > $10M | $500K | 5% |
-| $1M – $10M | $100K | 10% |
-| < $1M | $50K | 15% |
+For each line item, calculate and flag material variances.
 
-委托提示词（给 Agent 调用时）：
-> 按 `period-type` 与 `period` 取本期/上期/上年同期/预算（同一口径）。生成多列损益表，逐行算金额与百分比差异、利润率用 bp。对超重要性阈值的科目拆量/价/结构/一次性/时间性/汇率动因，写一句业务原因，判临时还是趋势；数据不足标"动因待查"，不要编。输出损益表 + 关键指标摘要 + 重大差异清单 + 追问清单。提醒报表须经合格财务人员复核。
+#### Variance Calculation
 
-## 注意事项
+For each line item, calculate:
+- **Dollar variance:** Current period - Prior period (or current period - budget)
+- **Percentage variance:** (Current - Prior) / |Prior| x 100
+- **Basis point change:** For margins and ratios, express change in basis points (1 bp = 0.01%)
 
-- **免责**：本技能辅助报表流程，不提供财务/投资/会计意见；正式报告或申报前须经合格财务人员复核。
-- 对比口径必须一致：同一 scope、会计期间、币种/汇率；不一致先对齐再比，否则差异失真。
-- 百分比注意分母为零或近零（如新开科目上期为 0），改用绝对额表述或标注。
-- 差异动因讲"为什么变"而非复述数字；取不到底层数据就标"动因待查"，禁止臆造。
-- GAAP 列报要点：费用按职能分类（COGS/R&D/S&M/G&A）为美国公司常见；营业与营业外分列；所得税单列；US GAAP 与 IFRS 均禁止"非常项目(extraordinary items)"；终止经营单列且按税后列示。
-- 股权激励(SBC)计入各职能费用、附注披露总额；重组费用重大时单列或附注；非 GAAP 指标须明确标注并对 GAAP 调节。
-- 期末调整勿漏：应计/预提、递延、折旧摊销、坏账准备、存货跌价、外币重估、税款计提、公允价值调整；重分类：长债一年内到期转流动、终止经营重分类、内部交易抵销。
+#### Materiality Thresholds
 
-## 互见
+Define what constitutes a "material" variance requiring investigation. Common approaches:
 
-- related：`variance-flux-commentary`（对单条重大差异下钻、逐条写底层业务的 flux 波动说明，对应源中 `/flux`）；`cfo-financial-advisor`（把三表与差异结论上升到 CFO 级财务策略判断）；`board-deck-builder`（将损益表与关键指标摘要做成董事会汇报材料）；`data-storyteller`（把差异叙事转成面向非财务受众的图文故事）。
-- combines_with：`variance-flux-commentary`（出表后逐科目补 flux 说明）、`cfo-financial-advisor`（报表 → 决策）、`board-deck-builder`（报表 → 汇报）。
+- **Fixed dollar threshold:** Variances exceeding a set dollar amount (e.g., $50K, $100K)
+- **Percentage threshold:** Variances exceeding a set percentage (e.g., 10%, 15%)
+- **Combined:** Either the dollar OR percentage threshold is exceeded
+- **Scaled:** Different thresholds for different line items based on their size and volatility
 
----
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+*Example thresholds (adjust for your organization):*
+
+| Line Item Size | Dollar Threshold | Percentage Threshold |
+|---------------|-----------------|---------------------|
+| > $10M        | $500K           | 5%                  |
+| $1M - $10M    | $100K           | 10%                 |
+| < $1M         | $50K            | 15%                 |
+
+#### Variance Decomposition
+
+Break down total variance into component drivers:
+
+- **Volume/quantity effect:** Change in volume at prior period rates
+- **Rate/price effect:** Change in rate/price at current period volume
+- **Mix effect:** Shift in composition between items with different rates/margins
+- **New/discontinued items:** Items present in one period but not the other
+- **One-time/non-recurring items:** Items that are not expected to repeat
+- **Timing effect:** Items shifting between periods (not a true change in run rate)
+- **Currency effect:** Impact of FX rate changes on translated results
+
+#### Investigation and Narrative
+
+For each material variance:
+1. Quantify the variance ($ and %)
+2. Identify whether favorable or unfavorable
+3. Decompose into drivers using the categories above
+4. Provide a narrative explanation of the business reason
+5. Assess whether the variance is temporary or represents a trend change
+6. Note any actions required (further investigation, forecast update, process change)
+
+### 4. Key Metrics Summary
+
+```
+KEY METRICS
+                              Current    Prior      Change
+Revenue growth (%)                                  X.X%
+Gross margin (%)              XX.X%      XX.X%      X.X pp
+Operating margin (%)          XX.X%      XX.X%      X.X pp
+Net margin (%)                XX.X%      XX.X%      X.X pp
+OpEx as % of revenue          XX.X%      XX.X%      X.X pp
+Effective tax rate (%)        XX.X%      XX.X%      X.X pp
+```
+
+### 5. Material Variance Summary
+
+List all material variances requiring investigation:
+
+| Line Item | Variance ($) | Variance (%) | Direction | Preliminary Driver | Action |
+|-----------|-------------|-------------|-----------|-------------------|--------|
+| [Item]    | $X,XXX      | X.X%        | Unfav.    | [If known]        | Investigate |
+
+### 6. Output
+
+Provide:
+1. Formatted income statement with comparisons
+2. Key metrics summary
+3. Material variance listing with investigation flags
+4. Suggested follow-up questions for unexplained variances
+5. Offer to drill into any specific variance with `/flux`
+
+## GAAP Presentation Requirements
+
+### Income Statement (ASC 220 / IAS 1)
+
+- Present all items of income and expense recognized in a period
+- Classify expenses either by nature (materials, labor, depreciation) or by function (COGS, R&D, S&M, G&A) — function is more common for US companies
+- If classified by function, disclose depreciation, amortization, and employee benefit costs by nature in the notes
+- Present operating and non-operating items separately
+- Show income tax expense as a separate line
+- Extraordinary items are prohibited under both US GAAP and IFRS
+- Discontinued operations presented separately, net of tax
+
+**Common presentation considerations:**
+
+- **Revenue disaggregation:** ASC 606 requires disaggregation of revenue into categories that depict how the nature, amount, timing, and uncertainty of revenue are affected by economic factors
+- **Stock-based compensation:** Classify within the functional expense categories (R&D, S&M, G&A) with total SBC disclosed in notes
+- **Restructuring charges:** Present separately if material, or include in operating expenses with note disclosure
+- **Non-GAAP adjustments:** If presenting non-GAAP measures (common in earnings releases), clearly label and reconcile to GAAP
+
+### Balance Sheet (ASC 210 / IAS 1)
+
+- Distinguish between current and non-current assets and liabilities
+- Current: expected to be realized, consumed, or settled within 12 months (or the operating cycle if longer)
+- Present assets in order of liquidity (most liquid first) — standard US practice
+- Accounts receivable shown net of allowance for credit losses (ASC 326)
+- Property and equipment shown net of accumulated depreciation
+- Goodwill is not amortized — tested for impairment annually (ASC 350)
+- Leases: recognize right-of-use assets and lease liabilities for operating and finance leases (ASC 842)
+
+### Cash Flow Statement (ASC 230 / IAS 7)
+
+- Indirect method is most common (start with net income, adjust for non-cash items)
+- Direct method is permitted but rarely used (requires supplemental indirect reconciliation)
+- Interest paid and income taxes paid must be disclosed (either on the face or in notes)
+- Non-cash investing and financing activities disclosed separately (e.g., assets acquired under leases, stock issued for acquisitions)
+- Cash equivalents: short-term, highly liquid investments with original maturities of 3 months or less
+
+## Balance Sheet Reference Format
+
+```
+ASSETS
+Current Assets
+  Cash and cash equivalents
+  Short-term investments
+  Accounts receivable, net
+  Inventory
+  Prepaid expenses and other current assets
+Total Current Assets
+
+Non-Current Assets
+  Property and equipment, net
+  Operating lease right-of-use assets
+  Goodwill
+  Intangible assets, net
+  Long-term investments
+  Other non-current assets
+Total Non-Current Assets
+
+TOTAL ASSETS
+
+LIABILITIES AND STOCKHOLDERS' EQUITY
+Current Liabilities
+  Accounts payable
+  Accrued liabilities
+  Deferred revenue, current portion
+  Current portion of long-term debt
+  Operating lease liabilities, current portion
+  Other current liabilities
+Total Current Liabilities
+
+Non-Current Liabilities
+  Long-term debt
+  Deferred revenue, non-current
+  Operating lease liabilities, non-current
+  Other non-current liabilities
+Total Non-Current Liabilities
+
+Total Liabilities
+
+Stockholders' Equity
+  Common stock
+  Additional paid-in capital
+  Retained earnings (accumulated deficit)
+  Accumulated other comprehensive income (loss)
+  Treasury stock
+Total Stockholders' Equity
+
+TOTAL LIABILITIES AND STOCKHOLDERS' EQUITY
+```
+
+## Cash Flow Statement Reference Format (Indirect Method)
+
+```
+CASH FLOWS FROM OPERATING ACTIVITIES
+Net income (loss)
+Adjustments to reconcile net income to net cash from operations:
+  Depreciation and amortization
+  Stock-based compensation
+  Amortization of debt issuance costs
+  Deferred income taxes
+  Loss (gain) on disposal of assets
+  Impairment charges
+  Other non-cash items
+Changes in operating assets and liabilities:
+  Accounts receivable
+  Inventory
+  Prepaid expenses and other assets
+  Accounts payable
+  Accrued liabilities
+  Deferred revenue
+  Other liabilities
+Net Cash Provided by (Used in) Operating Activities
+
+CASH FLOWS FROM INVESTING ACTIVITIES
+  Purchases of property and equipment
+  Purchases of investments
+  Proceeds from sale/maturity of investments
+  Acquisitions, net of cash acquired
+  Other investing activities
+Net Cash Provided by (Used in) Investing Activities
+
+CASH FLOWS FROM FINANCING ACTIVITIES
+  Proceeds from issuance of debt
+  Repayment of debt
+  Proceeds from issuance of common stock
+  Repurchases of common stock
+  Dividends paid
+  Payment of debt issuance costs
+  Other financing activities
+Net Cash Provided by (Used in) Financing Activities
+
+Effect of exchange rate changes on cash
+
+Net Increase (Decrease) in Cash and Cash Equivalents
+Cash and cash equivalents, beginning of period
+Cash and cash equivalents, end of period
+```
+
+## Common Adjustments and Reclassifications
+
+### Period-End Adjustments
+
+1. **Accruals:** Record expenses incurred but not yet paid (AP accruals, payroll accruals, interest accruals)
+2. **Deferrals:** Adjust prepaid expenses, deferred revenue, and deferred costs for the period
+3. **Depreciation and amortization:** Book periodic depreciation/amortization from fixed asset and intangible schedules
+4. **Bad debt provision:** Adjust allowance for credit losses based on aging analysis and historical loss rates
+5. **Inventory adjustments:** Record write-downs for obsolete, slow-moving, or impaired inventory
+6. **FX revaluation:** Revalue foreign-currency-denominated monetary assets and liabilities at period-end rates
+7. **Tax provision:** Record current and deferred income tax expense
+8. **Fair value adjustments:** Mark-to-market investments, derivatives, and other fair-value items
+
+### Reclassifications
+
+1. **Current/non-current reclassification:** Reclassify long-term debt maturing within 12 months to current
+2. **Contra account netting:** Net allowances against gross receivables, accumulated depreciation against gross assets
+3. **Intercompany elimination:** Eliminate intercompany balances and transactions in consolidation
+4. **Discontinued operations:** Reclassify results of discontinued operations to a separate line item
+5. **Equity method adjustments:** Record share of investee income/loss for equity method investments
+6. **Segment reclassifications:** Ensure transactions are properly classified by operating segment

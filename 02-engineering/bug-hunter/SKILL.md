@@ -1,14 +1,14 @@
 ---
 name: bug-hunter
-title: 症状到根因的缺陷追踪修复
-description: 当报告 bug、出现报错或行为异常、需要排查间歇性故障与线上问题时使用；做证据驱动的系统化调试（复现→取证→假设→验证→定位根因→改根因→回归测试），产出根因结论、最小修复与防回归用例；不适用于纯新功能开发、需求设计或仅靠掩盖症状（如随手加可选链兜底）即收工的场景；触发词：修 bug、调试、报错排查
+title: Bug Hunter
+description: Systematically finds and fixes bugs using proven debugging techniques. Traces from symptoms to root cause, implements fixes, and prevents regression.
 domain: 研发/review
-triggers: [修 bug, 调试 debug, 报错/异常排查, 间歇性故障, 线上问题定位, git bisect 找回归]
-tags: [调试, 缺陷修复, 根因分析, 回归测试, 研发]
-level: 进阶
+triggers: []
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [日志/控制台, 调试器(debugger/--inspect), git bisect, 浏览器 DevTools, 单元测试框架]
+tools: []
 requires: []
 related: []
 combines_with: []
@@ -16,122 +16,378 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Bug Hunter
 
-适用：
+Systematically hunt down and fix bugs using proven debugging techniques. No guessing—follow the evidence.
 
-- 用户报告 bug 或报错、说「修一下这个 bug」「调试一下」。
-- 功能行为与预期不符。
-- 间歇性失败、偶现的诡异行为。
-- 线上/生产问题需要调查。
+## When to Use This Skill
 
-不该用（负边界）：
+- User reports a bug or error
+- Something isn't working as expected
+- User says "fix the bug" or "debug this"
+- Intermittent failures or weird behavior
+- Production issues need investigation
 
-- 纯新功能开发、架构/需求设计 —— 不属于「已有缺陷追踪」。
-- 仅想用兜底掩盖症状（如随手加 `?.` 默认值）而不查根因 —— 本技能要求改根因。
-- 缺少复现步骤、必要权限或成功判据时，先停下来追问，别盲改。
+## The Debugging Process
 
-核心原则：不靠猜，跟着证据走；先复现再修；修根因而非症状；改完务必回归并补测试。
+### 1. Reproduce the Bug
 
-## 步骤
+First, make it happen consistently:
 
-1. 复现：拿到精确复现步骤，本地复现，记录触发条件、错误信息/行为，确认是必现还是偶现。无法复现就补环境信息（dev/staging/prod、浏览器/设备、前置操作、错误日志）。
-2. 取证：查日志（`tail -f logs/app.log`、`journalctl -u myapp -f`、浏览器 DevTools Console），看完整堆栈（错误类型、消息、行号、时间戳），看状态（处理的数据、DB、localStorage/cookie）。
-3. 立假设：基于证据给出可证伪的猜测，例如「登录超时是因为 session cookie 在鉴权完成前就过期」。
-4. 验假设：加日志（`console.log('before:', userData)`）、下断点（`debugger;`）、隔离问题（注释代码、换 mock 数据缩小范围）。
-5. 定根因：从症状回溯，常见根因 —— null/undefined、类型错误、竞态、缺错误处理、逻辑错误、差一错误、async/await 漏用、缺校验。沿「症状→在哪→为什么…」逐层下钻到真正起点。
-6. 改根因：修起点而非掩盖表象。
+```
+1. Get exact steps to reproduce
+2. Try to reproduce locally
+3. Note what triggers it
+4. Document the error message/behavior
+5. Check if it happens every time or randomly
+```
 
+If you can't reproduce it, gather more info:
+- What environment? (dev, staging, prod)
+- What browser/device?
+- What user actions preceded it?
+- Any error logs?
+
+### 2. Gather Evidence
+
+Collect all available information:
+
+**Check logs:**
+```bash
+# Application logs
+tail -f logs/app.log
+
+# System logs
+journalctl -u myapp -f
+
+# Browser console
+# Open DevTools → Console tab
+```
+
+**Check error messages:**
+- Full stack trace
+- Error type and message
+- Line numbers
+- Timestamp
+
+**Check state:**
+- What data was being processed?
+- What was the user trying to do?
+- What's in the database?
+- What's in local storage/cookies?
+
+### 3. Form a Hypothesis
+
+Based on evidence, guess what's wrong:
+
+```
+"The login times out because the session cookie 
+expires before the auth check completes"
+
+"The form fails because email validation regex 
+doesn't handle plus signs"
+
+"The API returns 500 because the database query 
+has a syntax error with special characters"
+```
+
+### 4. Test the Hypothesis
+
+Prove or disprove your guess:
+
+**Add logging:**
 ```javascript
-// 坏修复（掩盖症状）
-const name = user?.profile?.name || 'Unknown';
+console.log('Before API call:', userData);
+const response = await api.login(userData);
+console.log('After API call:', response);
+```
 
-// 好修复（修根因：登录时确保写入 user ID）
+**Use debugger:**
+```javascript
+debugger; // Execution pauses here
+const result = processData(input);
+```
+
+**Isolate the problem:**
+```javascript
+// Comment out code to narrow down
+// const result = complexFunction();
+const result = { mock: 'data' }; // Use mock data
+```
+
+### 5. Find Root Cause
+
+Trace back to the actual problem:
+
+**Common root causes:**
+- Null/undefined values
+- Wrong data types
+- Race conditions
+- Missing error handling
+- Incorrect logic
+- Off-by-one errors
+- Async/await issues
+- Missing validation
+
+**Example trace:**
+```
+Symptom: "Cannot read property 'name' of undefined"
+↓
+Where: user.profile.name
+↓
+Why: user.profile is undefined
+↓
+Why: API didn't return profile
+↓
+Why: User ID was null
+↓
+Root cause: Login didn't set user ID in session
+```
+
+### 6. Implement Fix
+
+Fix the root cause, not the symptom:
+
+**Bad fix (symptom):**
+```javascript
+// Just hide the error
+const name = user?.profile?.name || 'Unknown';
+```
+
+**Good fix (root cause):**
+```javascript
+// Ensure user ID is set on login
 const login = async (credentials) => {
   const user = await authenticate(credentials);
-  if (user) { session.userId = user.id; return user; }
+  if (user) {
+    session.userId = user.id; // Fix: Set user ID
+    return user;
+  }
   throw new Error('Invalid credentials');
 };
 ```
 
-7. 验修复：复现原 bug → 应用修复 → 再复现应失败 → 测边界 → 测相关功能 → 跑现有测试。
-8. 防回归：补一条测试锁住行为。
+### 7. Test the Fix
+
+Verify it actually works:
+
+```
+1. Reproduce the original bug
+2. Apply the fix
+3. Try to reproduce again (should fail)
+4. Test edge cases
+5. Test related functionality
+6. Run existing tests
+```
+
+### 8. Prevent Regression
+
+Add a test so it doesn't come back:
 
 ```javascript
 test('login sets user ID in session', async () => {
   const user = await login({ email: 'test@example.com', password: 'pass' });
+  
   expect(session.userId).toBe(user.id);
   expect(session.userId).not.toBeNull();
 });
 ```
 
-## 指令
+## Debugging Techniques
 
-- 二分定位：撒 `CHECKPOINT 1/2/3` 日志，每次把问题空间砍一半。
-- 时光调试：用 git 找引入回归的提交：
+### Binary Search
+
+Cut the problem space in half repeatedly:
+
+```javascript
+// Does the bug happen before or after this line?
+console.log('CHECKPOINT 1');
+// ... code ...
+console.log('CHECKPOINT 2');
+// ... code ...
+console.log('CHECKPOINT 3');
+```
+
+### Rubber Duck Debugging
+
+Explain the code line by line out loud. Often you'll spot the issue while explaining.
+
+### Print Debugging
+
+Strategic console.logs:
+
+```javascript
+console.log('Input:', input);
+console.log('After transform:', transformed);
+console.log('Before save:', data);
+console.log('Result:', result);
+```
+
+### Diff Debugging
+
+Compare working vs broken:
+- What changed recently?
+- What's different between environments?
+- What's different in the data?
+
+### Time Travel Debugging
+
+Use git to find when it broke:
 
 ```bash
 git bisect start
-git bisect bad            # 当前提交是坏的
-git bisect good abc123    # 这个旧提交是好的
-# git 会逐个 checkout 提交供你测试
+git bisect bad  # Current commit is broken
+git bisect good abc123  # This old commit worked
+# Git will check out commits for you to test
 ```
 
-- 打印调试：在 input / transform 后 / save 前 / result 处打日志。
-- 差异调试：最近改了什么？环境/数据有何不同？
-- 小黄鸭调试：逐行讲给别人（或鸭子）听，常在讲的过程中发现问题。
-- 卡住时：休息 10 分钟 / 搜精确错误信息 / 查 GitHub Issues 与 SO / 做最小复现 / 删了重写问题代码 / 带上下文求助。
+## Common Bug Patterns
 
-## 示例
-
-根因回溯链：
-
-```
-症状：Cannot read property 'name' of undefined
-↓ 在哪：user.profile.name
-↓ 为什么：user.profile 是 undefined
-↓ 为什么：API 没返回 profile
-↓ 为什么：User ID 为 null
-↓ 根因：登录没把 user ID 写进 session
-```
-
-常见 bug 模式（坏→好）：
+### Null/Undefined
 
 ```javascript
-// 竞态：data 还没加载就读
-let data = null;
-fetchData().then(r => data = r);
-console.log(data);            // null
-const data = await fetchData(); // 修复
+// Bug
+const name = user.profile.name;
 
-// 差一错误
-for (let i = 0; i <= arr.length; i++) {} // 末次越界
-for (let i = 0; i < arr.length; i++) {}  // 修复
+// Fix
+const name = user?.profile?.name || 'Unknown';
 
-// 类型隐式转换
-if (count == 0) {}  // "" / [] / null 都为真
-if (count === 0) {} // 仅 0 为真
-
-// 漏 await
-const r = asyncFn();        // 拿到的是 Promise
-const r = await asyncFn();  // 修复
+// Better fix
+if (!user || !user.profile) {
+  throw new Error('User profile required');
+}
+const name = user.profile.name;
 ```
 
-修复后按模板归档：症状 / 根因 / 修复 / 变更文件(含行号) / 测试 / 防回归措施。
+### Race Condition
 
-## 注意事项
+```javascript
+// Bug
+let data = null;
+fetchData().then(result => data = result);
+console.log(data); // null - not loaded yet
 
-- 不要把「掩盖症状」当修复；可选链兜底只在确实是合法空值时用。
-- 改完一定跑现有测试 + 新增回归用例，验证边界与相关功能。
-- 调试工具速记：浏览器 DevTools（Console/Sources 断点/Network/Application/Performance）；Node `node --inspect app.js` 配 `chrome://inspect`；VS Code 用 `.vscode/launch.json` 配 `launch`。
-- 缺输入、权限、安全边界或成功判据时停下追问；本技能产出不替代环境内验证、测试与专家评审。
+// Fix
+const data = await fetchData();
+console.log(data); // correct value
+```
 
-## 互见
+### Off-by-One
 
-- 系统化调试（进阶调试方法）。
-- 测试驱动开发（补测试/防回归）。
-- 推送前代码审计（代码评审）。
+```javascript
+// Bug
+for (let i = 0; i <= array.length; i++) {
+  console.log(array[i]); // undefined on last iteration
+}
 
----
+// Fix
+for (let i = 0; i < array.length; i++) {
+  console.log(array[i]);
+}
+```
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+### Type Coercion
+
+```javascript
+// Bug
+if (count == 0) { // true for "", [], null
+  
+// Fix
+if (count === 0) { // only true for 0
+```
+
+### Async Without Await
+
+```javascript
+// Bug
+const result = asyncFunction(); // Returns Promise
+console.log(result.data); // undefined
+
+// Fix
+const result = await asyncFunction();
+console.log(result.data); // correct value
+```
+
+## Debugging Tools
+
+### Browser DevTools
+
+```
+Console: View logs and errors
+Sources: Set breakpoints, step through code
+Network: Check API calls and responses
+Application: View cookies, storage, cache
+Performance: Find slow operations
+```
+
+### Node.js Debugging
+
+```javascript
+// Built-in debugger
+node --inspect app.js
+
+// Then open chrome://inspect in Chrome
+```
+
+### VS Code Debugging
+
+```json
+// .vscode/launch.json
+{
+  "type": "node",
+  "request": "launch",
+  "name": "Debug App",
+  "program": "${workspaceFolder}/app.js"
+}
+```
+
+## When You're Stuck
+
+1. Take a break (seriously, walk away for 10 minutes)
+2. Explain it to someone else (or a rubber duck)
+3. Search for the exact error message
+4. Check if it's a known issue (GitHub issues, Stack Overflow)
+5. Simplify: Create minimal reproduction
+6. Start over: Delete and rewrite the problematic code
+7. Ask for help (provide context, what you've tried)
+
+## Documentation Template
+
+After fixing, document it:
+
+```markdown
+## Bug: Login timeout after 30 seconds
+
+**Symptom:** Users get logged out immediately after login
+
+**Root Cause:** Session cookie expires before auth check completes
+
+**Fix:** Increased session timeout from 30s to 3600s in config
+
+**Files Changed:**
+- config/session.js (line 12)
+
+**Testing:** Verified login persists for 1 hour
+
+**Prevention:** Added test for session persistence
+```
+
+## Key Principles
+
+- Reproduce first, fix second
+- Follow the evidence, don't guess
+- Fix root cause, not symptoms
+- Test the fix thoroughly
+- Add tests to prevent regression
+- Document what you learned
+
+## Related Skills
+
+- `@systematic-debugging` - Advanced debugging
+- `@test-driven-development` - Testing
+- `@codebase-audit-pre-push` - Code review
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

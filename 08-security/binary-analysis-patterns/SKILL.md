@@ -1,14 +1,14 @@
 ---
 name: binary-analysis-patterns
-title: 二进制逆向与汇编分析模式
-description: 当逆向编译后的二进制、读 x86-64/ARM 反汇编或还原程序逻辑（变量、结构体、函数签名、控制流）时使用；做汇编模式识别与 Ghidra/IDA 脚本辅助，产出还原的伪代码/类型/标注；不适用于源码可得、动态调试取值或纯漏洞利用编写。触发词：反汇编、汇编、Ghidra、IDA、调用约定、反编译
+title: Binary Analysis Patterns
+description: Comprehensive patterns and techniques for analyzing compiled binaries, understanding assembly code, and reconstructing program logic.
 domain: 安全/appsec
-triggers: [反汇编, 汇编分析, 二进制逆向, Ghidra, IDA Pro, IDAPython, 调用约定, 反编译, 函数序言, 栈帧, 结构体还原, x86-64, ARM64, AArch64, 跳转表, 类型还原]
-tags: [安全, 逆向工程, 二进制分析, 汇编, 反编译, x86-64, arm, ghidra, ida, misc]
-level: 进阶
+triggers: [Ghidra, IDA Pro, IDAPython, x86-64, ARM64, AArch64]
+tags: [x86-64, arm, ghidra, ida, misc]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Ghidra, IDA Pro, IDAPython, objdump, readelf]
+tools: []
 requires: []
 related: [anti-reversing-techniques, firmware-reverse-analyst, constant-time-analyzer, yara-rule-authoring]
 combines_with: [anti-reversing-techniques, gdb-debugging-cli, yara-rule-authoring]
@@ -16,115 +16,414 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Binary Analysis Patterns
 
-适用：
-- 面对编译后的二进制（无源码或源码不可信），需读懂 x86-64 / ARM 反汇编。
-- 还原程序逻辑：局部变量、数组、结构体、函数签名、控制流（if/循环/switch）。
-- 识别常见算法实现（strlen/strcpy/memcpy、乘除优化、位运算）。
-- 用 Ghidra/IDAPython 脚本批量改善反编译结果或定位危险调用。
+Comprehensive patterns and techniques for analyzing compiled binaries, understanding assembly code, and reconstructing program logic.
 
-不该用（负边界）：
-- 有可信源码可直接读时。
-- 需要运行时取值、下断点、跟踪实际数据流——那是动态调试（gdb/x64dbg）的范畴。
-- 编写漏洞利用 PoC、堆喷、ROP 链构造——本技能只做静态识别，不覆盖利用开发。
-- 与逆向无关的任务。
+## Use this skill when
 
-## 步骤
+- Working on binary analysis patterns tasks or workflows
+- Needing guidance, best practices, or checklists for binary analysis patterns
 
-1. 初步分流：文件类型、架构（x86-64/ARM32/ARM64）、导入/导出表。
-2. 字符串分析：提取可疑字符串、错误信息、格式串，作为命名线索。
-3. 函数识别：入口点、导出函数、交叉引用（xref）。
-4. 控制流梳理：用下方模式还原 if/循环/switch 结构。
-5. 数据结构还原：依据访问偏移与宽度推断 struct/数组/全局。
-6. 算法识别：加解密、哈希、压缩、字符串操作。
-7. 文档化：加注释、重命名符号、应用类型定义。
+## Do not use this skill when
 
-## 指令
+- The task is unrelated to binary analysis patterns
+- You need a different domain or tool outside this scope
 
-- 先明确目标、约束与已知输入（架构、平台、是否带符号）。
-- 按宽度推断类型：1 字节→char/bool，2 字节→short，4 字节→int/float，8 字节→long/double/指针。`movzx` 零扩展（无符号），`movsx` 符号扩展（有符号）。
-- 按寄存器推断参数（见调用约定），按函数末尾 RAX/X0 推断返回值。
-- 警惕优化产物：内联、尾调用（`jmp` 代替 `call`+`ret`）、死代码、PIC 的 RIP 相对寻址——反编译结构未必对应源码结构。
-- 复杂示例与脚本，参考源仓库 `resources/implementation-playbook.md`。
+## Instructions
 
-### 调用约定速查
+- Clarify goals, constraints, and required inputs.
+- Apply relevant best practices and validate outcomes.
+- Provide actionable steps and verification.
+- If detailed examples are required, open `resources/implementation-playbook.md`.
 
-- System V AMD64（Linux/macOS）：参数 RDI, RSI, RDX, RCX, R8, R9，余者入栈；返回 RAX（128 位用 RDX）。被调用者保存：RBX, RBP, R12-R15。
-- Microsoft x64（Windows）：参数 RCX, RDX, R8, R9，余者入栈；栈上预留 32 字节 shadow space；返回 RAX。
-- ARM64（AArch64）：参数 X0-X7，返回 X0；帧指针 X29，链接寄存器 X30。
-- ARM32：参数 R0-R3 余者入栈，返回 R0；链接寄存器 LR(R14)。
+## Disassembly Fundamentals
 
-## 示例
+### x86-64 Instruction Patterns
 
-函数序言/收尾（x86-64）：
+#### Function Prologue/Epilogue
 ```asm
-; 标准序言
-push rbp           ; 保存基址指针
-mov rbp, rsp       ; 建立栈帧
-sub rsp, 0x20      ; 分配局部变量
-; 标准收尾
-leave              ; 等价于 mov rsp, rbp; pop rbp
+; Standard prologue
+push rbp           ; Save base pointer
+mov rbp, rsp       ; Set up stack frame
+sub rsp, 0x20      ; Allocate local variables
+
+; Leaf function (no calls)
+; May skip frame pointer setup
+sub rsp, 0x18      ; Just allocate locals
+
+; Standard epilogue
+mov rsp, rbp       ; Restore stack pointer
+pop rbp            ; Restore base pointer
+ret
+
+; Leave instruction (equivalent)
+leave              ; mov rsp, rbp; pop rbp
 ret
 ```
 
-ARM64 序言/收尾：
+#### Calling Conventions
+
+**System V AMD64 (Linux, macOS)**
 ```asm
-stp x29, x30, [sp, #-16]!  ; 保存 FP 和 LR
-mov x29, sp                 ; 设置帧指针
-; ...
-ldp x29, x30, [sp], #16    ; 恢复 FP 和 LR
+; Arguments: RDI, RSI, RDX, RCX, R8, R9, then stack
+; Return: RAX (and RDX for 128-bit)
+; Caller-saved: RAX, RCX, RDX, RSI, RDI, R8-R11
+; Callee-saved: RBX, RBP, R12-R15
+
+; Example: func(a, b, c, d, e, f, g)
+mov rdi, [a]       ; 1st arg
+mov rsi, [b]       ; 2nd arg
+mov rdx, [c]       ; 3rd arg
+mov rcx, [d]       ; 4th arg
+mov r8, [e]        ; 5th arg
+mov r9, [f]        ; 6th arg
+push [g]           ; 7th arg on stack
+call func
+```
+
+**Microsoft x64 (Windows)**
+```asm
+; Arguments: RCX, RDX, R8, R9, then stack
+; Shadow space: 32 bytes reserved on stack
+; Return: RAX
+
+; Example: func(a, b, c, d, e)
+sub rsp, 0x28      ; Shadow space + alignment
+mov rcx, [a]       ; 1st arg
+mov rdx, [b]       ; 2nd arg
+mov r8, [c]        ; 3rd arg
+mov r9, [d]        ; 4th arg
+mov [rsp+0x20], [e] ; 5th arg on stack
+call func
+add rsp, 0x28
+```
+
+### ARM Assembly Patterns
+
+#### ARM64 (AArch64) Calling Convention
+```asm
+; Arguments: X0-X7
+; Return: X0 (and X1 for 128-bit)
+; Frame pointer: X29
+; Link register: X30
+
+; Function prologue
+stp x29, x30, [sp, #-16]!  ; Save FP and LR
+mov x29, sp                 ; Set frame pointer
+
+; Function epilogue
+ldp x29, x30, [sp], #16    ; Restore FP and LR
 ret
 ```
 
-控制流——for 循环与跳转表 switch：
+#### ARM32 Calling Convention
+```asm
+; Arguments: R0-R3, then stack
+; Return: R0 (and R1 for 64-bit)
+; Link register: LR (R14)
+
+; Function prologue
+push {fp, lr}
+add fp, sp, #4
+
+; Function epilogue
+pop {fp, pc}    ; Return by popping PC
+```
+
+## Control Flow Patterns
+
+### Conditional Branches
+
+```asm
+; if (a == b)
+cmp eax, ebx
+jne skip_block
+; ... if body ...
+skip_block:
+
+; if (a < b) - signed
+cmp eax, ebx
+jge skip_block    ; Jump if greater or equal
+; ... if body ...
+skip_block:
+
+; if (a < b) - unsigned
+cmp eax, ebx
+jae skip_block    ; Jump if above or equal
+; ... if body ...
+skip_block:
+```
+
+### Loop Patterns
+
 ```asm
 ; for (int i = 0; i < n; i++)
 xor ecx, ecx           ; i = 0
 loop_start:
-cmp ecx, [n]
+cmp ecx, [n]           ; i < n
 jge loop_end
-; ... 循环体 ...
-inc ecx
+; ... loop body ...
+inc ecx                ; i++
 jmp loop_start
 loop_end:
 
-; switch 跳转表
+; while (condition)
+jmp loop_check
+loop_body:
+; ... body ...
+loop_check:
+cmp eax, ebx
+jl loop_body
+
+; do-while
+loop_body:
+; ... body ...
+cmp eax, ebx
+jl loop_body
+```
+
+### Switch Statement Patterns
+
+```asm
+; Jump table pattern
 mov eax, [switch_var]
 cmp eax, max_case
 ja default_case
 jmp [jump_table + eax*8]
+
+; Sequential comparison (small switch)
+cmp eax, 1
+je case_1
+cmp eax, 2
+je case_2
+cmp eax, 3
+je case_3
+jmp default_case
 ```
 
-数据结构——数组与结构体访问（偏移即字段）：
+## Data Structure Patterns
+
+### Array Access
+
 ```asm
-mov eax, [rbx + rcx*4]   ; array[i]，4 字节元素，rbx=基址 rcx=索引
-; struct { int a@0; char b@4; long c@8; short d@16; }
-mov eax, [rdi]           ; s->a
-movzx eax, byte [rdi+4]  ; s->b
-mov rax, [rdi+8]         ; s->c
-movzx eax, word [rdi+16] ; s->d
+; array[i] - 4-byte elements
+mov eax, [rbx + rcx*4]        ; rbx=base, rcx=index
+
+; array[i] - 8-byte elements
+mov rax, [rbx + rcx*8]
+
+; Multi-dimensional array[i][j]
+; arr[i][j] = base + (i * cols + j) * element_size
+imul eax, [cols]
+add eax, [j]
+mov edx, [rbx + rax*4]
 ```
 
-算术优化识别：
+### Structure Access
+
+```c
+struct Example {
+    int a;      // offset 0
+    char b;     // offset 4
+    // padding  // offset 5-7
+    long c;     // offset 8
+    short d;    // offset 16
+};
+```
+
 ```asm
-lea eax, [rax + rax*2]   ; x * 3
-lea eax, [rax + rax*4]   ; x * 5
-and eax, 7               ; x % 8（2 的幂取模）
-sar eax, 3               ; 有符号除以 8（配合 cdq 修正负数）
+; Accessing struct fields
+mov rdi, [struct_ptr]
+mov eax, [rdi]         ; s->a (offset 0)
+movzx eax, byte [rdi+4] ; s->b (offset 4)
+mov rax, [rdi+8]       ; s->c (offset 8)
+movzx eax, word [rdi+16] ; s->d (offset 16)
 ```
 
-Ghidra 脚本——定位危险调用：
+### Linked List Traversal
+
+```asm
+; while (node != NULL)
+list_loop:
+test rdi, rdi          ; node == NULL?
+jz list_done
+; ... process node ...
+mov rdi, [rdi+8]       ; node = node->next (assuming next at offset 8)
+jmp list_loop
+list_done:
+```
+
+## Common Code Patterns
+
+### String Operations
+
+```asm
+; strlen pattern
+xor ecx, ecx
+strlen_loop:
+cmp byte [rdi + rcx], 0
+je strlen_done
+inc ecx
+jmp strlen_loop
+strlen_done:
+; ecx contains length
+
+; strcpy pattern
+strcpy_loop:
+mov al, [rsi]
+mov [rdi], al
+test al, al
+jz strcpy_done
+inc rsi
+inc rdi
+jmp strcpy_loop
+strcpy_done:
+
+; memcpy using rep movsb
+mov rdi, dest
+mov rsi, src
+mov rcx, count
+rep movsb
+```
+
+### Arithmetic Patterns
+
+```asm
+; Multiplication by constant
+; x * 3
+lea eax, [rax + rax*2]
+
+; x * 5
+lea eax, [rax + rax*4]
+
+; x * 10
+lea eax, [rax + rax*4]  ; x * 5
+add eax, eax            ; * 2
+
+; Division by power of 2 (signed)
+mov eax, [x]
+cdq                     ; Sign extend to EDX:EAX
+and edx, 7              ; For divide by 8
+add eax, edx            ; Adjust for negative
+sar eax, 3              ; Arithmetic shift right
+
+; Modulo power of 2
+and eax, 7              ; x % 8
+```
+
+### Bit Manipulation
+
+```asm
+; Test specific bit
+test eax, 0x80          ; Test bit 7
+jnz bit_set
+
+; Set bit
+or eax, 0x10            ; Set bit 4
+
+; Clear bit
+and eax, ~0x10          ; Clear bit 4
+
+; Toggle bit
+xor eax, 0x10           ; Toggle bit 4
+
+; Count leading zeros
+bsr eax, ecx            ; Bit scan reverse
+xor eax, 31             ; Convert to leading zeros
+
+; Population count (popcnt)
+popcnt eax, ecx         ; Count set bits
+```
+
+## Decompilation Patterns
+
+### Variable Recovery
+
+```asm
+; Local variable at rbp-8
+mov qword [rbp-8], rax  ; Store to local
+mov rax, [rbp-8]        ; Load from local
+
+; Stack-allocated array
+lea rax, [rbp-0x40]     ; Array starts at rbp-0x40
+mov [rax], edx          ; array[0] = value
+mov [rax+4], ecx        ; array[1] = value
+```
+
+### Function Signature Recovery
+
+```asm
+; Identify parameters by register usage
+func:
+    ; rdi used as first param (System V)
+    mov [rbp-8], rdi    ; Save param to local
+    ; rsi used as second param
+    mov [rbp-16], rsi
+    ; Identify return by RAX at end
+    mov rax, [result]
+    ret
+```
+
+### Type Recovery
+
+```asm
+; 1-byte operations suggest char/bool
+movzx eax, byte [rdi]   ; Zero-extend byte
+movsx eax, byte [rdi]   ; Sign-extend byte
+
+; 2-byte operations suggest short
+movzx eax, word [rdi]
+movsx eax, word [rdi]
+
+; 4-byte operations suggest int/float
+mov eax, [rdi]
+movss xmm0, [rdi]       ; Float
+
+; 8-byte operations suggest long/double/pointer
+mov rax, [rdi]
+movsd xmm0, [rdi]       ; Double
+```
+
+## Ghidra Analysis Tips
+
+### Improving Decompilation
+
+```java
+// In Ghidra scripting
+// Fix function signature
+Function func = getFunctionAt(toAddr(0x401000));
+func.setReturnType(IntegerDataType.dataType, SourceType.USER_DEFINED);
+
+// Create structure type
+StructureDataType struct = new StructureDataType("MyStruct", 0);
+struct.add(IntegerDataType.dataType, "field_a", null);
+struct.add(PointerDataType.dataType, "next", null);
+
+// Apply to memory
+createData(toAddr(0x601000), struct);
+```
+
+### Pattern Matching Scripts
+
 ```python
+# Find all calls to dangerous functions
 for func in currentProgram.getFunctionManager().getFunctions(True):
     for ref in getReferencesTo(func.getEntryPoint()):
         if func.getName() in ["strcpy", "sprintf", "gets"]:
             print(f"Dangerous call at {ref.getFromAddress()}")
 ```
 
-IDAPython——查找对某函数的调用：
+## IDA Pro Patterns
+
+### IDAPython Analysis
+
 ```python
-import idautils, idc
+import idaapi
+import idautils
+import idc
+
+# Find all function calls
 def find_calls(func_name):
     for func_ea in idautils.Functions():
         for head in idautils.Heads(func_ea, idc.find_func_end(func_ea)):
@@ -132,20 +431,38 @@ def find_calls(func_name):
                 target = idc.get_operand_value(head, 0)
                 if idc.get_func_name(target) == func_name:
                     print(f"Call to {func_name} at {hex(head)}")
+
+# Rename functions based on strings
+def auto_rename():
+    for s in idautils.Strings():
+        for xref in idautils.XrefsTo(s.ea):
+            func = idaapi.get_func(xref.frm)
+            if func and "sub_" in idc.get_func_name(func.start_ea):
+                # Use string as hint for naming
+                pass
 ```
 
-## 注意事项
+## Best Practices
 
-- 优化产物会破坏「汇编结构对应源码结构」的直觉：内联展开、尾调用优化、死代码消除、PIC 的 RIP 相对寻址都会误导判断。
-- 跳转表的元素宽度（`*8` vs `*4`）和上界 `ja default_case` 的检查是识别 switch 的关键。
-- 叶函数（无调用）可能省略帧指针，仅 `sub rsp` 分配局部，不要据此误判非函数边界。
-- 本技能产出是静态推断，必须以实际反汇编工具的交叉验证为准，勿当作可执行结论；缺少架构/平台/输入信息时先澄清。
+### Analysis Workflow
 
-## 互见
+1. **Initial triage**: File type, architecture, imports/exports
+2. **String analysis**: Identify interesting strings, error messages
+3. **Function identification**: Entry points, exports, cross-references
+4. **Control flow mapping**: Understand program structure
+5. **Data structure recovery**: Identify structs, arrays, globals
+6. **Algorithm identification**: Crypto, hashing, compression
+7. **Documentation**: Comments, renamed symbols, type definitions
 
-- 动态调试与运行时取值（gdb/x64dbg）。
-- 危险函数命中后的漏洞利用开发（另属利用编写范畴，本技能不覆盖）。
-- 安全/misc 域内的恶意样本分析与算法识别。
+### Common Pitfalls
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+- **Optimizer artifacts**: Code may not match source structure
+- **Inline functions**: Functions may be expanded inline
+- **Tail call optimization**: `jmp` instead of `call` + `ret`
+- **Dead code**: Unreachable code from optimization
+- **Position-independent code**: RIP-relative addressing
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

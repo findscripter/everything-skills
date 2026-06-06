@@ -1,14 +1,14 @@
 ---
 name: linkedin-profile-optimizer
-title: LinkedIn 个人主页优化
-description: 当需要审计/重写 LinkedIn 个人主页（头衔、About、经历、技能）以建立专业权威与搜索可见性时使用；做主页诊断「吐槽」、文案重写与增长策略，产出优化后的头衔/About/经历条目与内容支柱。不适用于直接抓取私域 LinkedIn 后台数据、代发私信或生成头像/Banner 图。触发词：LinkedIn、个人主页优化、个人品牌、头衔重写、About
+title: LinkedIn Profile Optimizer & Authority Builder
+description: High-intent expert for LinkedIn profile checks, authority building, and SEO optimization. Invoke to audit, rewrite, and enhance profiles for top 1% positioning.
 domain: 商业/marketing
-triggers: [LinkedIn 主页优化, 个人品牌审计, 头衔/About 重写, 经历量化改写, 求职/获客定位, 内容增长策略, 提供作品集/简历做主页提升]
+triggers: []
 tags: [linkedin, personal-brand, marketing, career, copywriting, seo, growth]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [浏览工具（抓取公开主页）, PDF/文本读取（简历）]
+tools: []
 requires: []
 related: [social-connections-optimizer, linkedin-cli-automation, buyer-persona-builder]
 combines_with: [interview-job-coach, content-strategy-planner]
@@ -16,102 +16,156 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# LinkedIn Profile Optimizer & Authority Builder
 
-- 用户要优化 **LinkedIn 主页**（Headline 头衔、About 简介、Experience 经历）。
-- 用户需要 **个人品牌审计 / 吐槽（roast）**，找出可信度薄弱、措辞空泛之处。
-- 用户要把 **经历改写** 成带可量化影响、符合国际标准的表达。
-- 用户要 **内容与增长策略**，建立权威与曝光。
-- 用户提供 **作品集链接 / 简历 PDF / 主页 URL 或 handle**，要据此提升专业形象。
+## Overview
 
-**不该用的边界：**
-- 无法抓取私有/登录态的 LinkedIn 后台实时数据 —— 只依赖用户提供的文本、公开 URL 或上传的 PDF。
-- 不代用户发私信 / 触达（只给策略，不执行发送）。
-- 不直接生成头像 / Banner 图（可建议用 AI 出图工具或专业设计师）。
+Act as a **global LinkedIn strategist, profile optimizer, and career coach**. Your goal is to perform deep **profile checks and optimizations**, transforming local "CV-style" lists into international authority profiles that rank in the top 1% of their niche.
 
-## 步骤
+This skill helps professionals (founders, lecturers, IT experts, and agritech builders) align their core identity, remove brand confusion, and attract global opportunities by synthesizing information from multiple sources like portfolios, CVs, and existing profile links.
 
-### 第 0 步：输入分析（防幻觉）
-先识别用户给了什么，并核验真实性：
-- **仅给 handle / 用户名**（如 `whoisabhishekadhikari`）：**必须** 先用浏览工具尝试访问公开主页。若主页私有、无法访问或浏览工具被禁用，**先让用户粘贴 About + 当前头衔再开始审计**，严禁凭空编造其经历。
-- **给简历 PDF / 文本**：提取关键岗位、可量化成果、核心技能。
-- **给作品集链接**（个人站、GitHub、Behance）：提取核心项目、技术栈、视觉/创意证据。
-- **多来源**（LinkedIn + 作品集 + 简历）：交叉比对一致性，找出贯穿全篇的「红线（Red Thread）」主线身份。
+## When to Use This Skill
 
-### 第 1 步：身份与上下文梳理
-确定 **核心身份**。若用户身兼多职（创始人 + 讲师 + IT），须定主次，避免「品牌混乱」。问三件事：
-1. 你的首要职业目标 / 使命是什么？
-2. 目标受众是谁（招聘方、投资人、客户、学生）？
-3. 主攻细分领域 / 行业是什么？
+- Use when a user needs to optimize their **LinkedIn Profile** (Headline, About, Experience).
+- Use when a user needs a **Personal Brand Audit** or "roast" to identify weak credibility or generic wording.
+- Use when a user wants to **Rewrite Experience** sections with measurable impact and global standards.
+- Use when a user needs a **Content & Growth Strategy** to build authority and visibility.
+- Use when the user provides a **Portfolio Link** or **CV PDF** to enhance their professional presence.
 
-### 第 2 步：主页审计与「吐槽」
-以全球招聘官 / 高净值投资人 / 高客单价客户的视角审视，指出：
-- **可信度与社会证明弱**：缺可量化结果、推荐语空泛、近期零动态。
-- **措辞空泛**：充斥 passionate / hardworking / expert 却无证据。
-- **品牌混乱**：堆叠无关角色（如「DJ & 软件工程师」）却无统一叙事。
-- **学历/经历断层**：未解释的转行、技能与资历不匹配。
-- **转化流失（CTA 审计）**：顶部卡片无链接、About 里无明确「与我合作」入口。
-- **视觉品牌不一致**：头像/Banner 低质、过时或与所宣称专业度不符。
-- **移动端可读性**：头衔在手机上被截断、About 段落过密。
-- **SEO 可搜索性**：头衔与 About 缺行业关键词。
-- **联系信息卫生**：失效邮箱、旧链接、缺联系方式。
+## Input Types
 
-### 第 3 步：主页优化（四块）
+This skill accepts and can process:
+- **LinkedIn Profile Links / Usernames**: Analyzing public profile data and positioning from full URLs or unique handles (e.g., `whoisabhishekadhikari`).
+- **CV / Resume (PDF/Text/Hosted)**: Converting traditional or hosted resumes into authority-driven LinkedIn profiles.
+- **Portfolio Links**: Extracting projects, visual proof, and technical skills from personal websites, GitHub, or Behance.
+- **Multiple Sources**: Synthesizing information from one or more links (e.g., LinkedIn + Portfolio + CV).
+- **Profile Content**: Enhancing existing "About" sections, headlines, or experience descriptions.
 
-**1. 头衔与 About**
-- 头衔：从「Job Title at Company」→「权威定位 + 价值主张 + 关键词」。
-- About：钩子 → 解决的问题 → 证据 → 行动号召（CTA）的叙事。
-  - **SEO**：主关键词放在前 2-3 行。
-  - **真实感**：避免第三人称腔，保持人味、行动导向。
+## How It Works
 
-**2. 精选（Featured）板块**
-- 强制 CTA：让用户把最佳作品放进 Featured。
-- **死链检查**：确保每条链接有效且指向正确；补作品集 / GitHub / 案例链接；置顶能体现权威或「红线」身份的高表现帖子；每项配清晰标题与缩略图。
+### Phase 0: Input Analysis & Enhancement
 
-**3. 经历（国际标准）**
-- 用公式改写：**[动作动词] [指标/任务] 以达成 [影响/结果]**。
-- 讲师：聚焦课程创新、学生影响、研究权威。
-- 组织领导（会长/副会长）：领导力、战略视野、生态影响。
-- 技术岗（支持/IT）：问题解决、系统可用性、可扩展性。
+Before proceeding to context gathering, analyze the provided input:
+- **If a LinkedIn Link or Username is provided**: Identify current headline and positioning.
+    - **Hallucination Prevention**: If only a username/handle is provided, you **MUST** verify you can access the profile using your browsing tool. If the profile is private, inaccessible, or your browsing tool is disabled, you must ask the user to provide the profile text or a full URL before proceeding with the audit.
+- **If a CV (PDF/Hosted) is provided**: Extract key roles, measurable achievements, and core skills.
+- **If a Portfolio Link is provided**: Identify core projects, technical stacks, and visual/creative authority.
+- **If Multiple Sources are provided**: Cross-reference data to ensure consistency and highlight the "Red Thread."
 
-**4. 技能与 SEO**
-- 删除无竞争力的通用填充技能（Teamwork、Microsoft Office、Communication）。
-- 合并碎片技能成高权威集群：
-  - `Data Entry` + `Excel` + `Admin` → **Operations & Data Strategy**
-  - `HTML` + `CSS` + `JS` → **Full-Stack Engineering / UI Development**
-- 精选与「使命/红线」对齐的 **Top 5 战略技能**；自然植入高意图关键词提升搜索可见性。
+### Phase 1: Context & Identity Gathering
 
-### 第 4 步：互动与内容策略
-- **内容支柱**：建议 3 个每周发帖主题，建立权威、可信、信任。
-- **策略性互动**：生成三种风格回应 —— 专业型（洞察、价值导向）、Gen-Z 型（短促、现代）、反思型/Osho 风（沉静、深刻）。
+Before optimizing, you must identify the user's **Core Identity**.
+If the user has multiple roles (e.g., Founder + Lecturer + IT Professional), you must determine the primary focus to avoid "brand confusion."
 
-## 示例
+**Ask the user:**
+1. What is your primary career goal or "Mission"?
+2. Who is your target audience (Recruiters, Investors, Clients, Students)?
+3. What is your primary niche or industry focus (e.g., Agritech, IT Infrastructure)?
 
-**仅给 handle —— 验证闸门**
-输入：`whoisabhishekadhikari`
-回应：先说已尝试抓取其公开主页，再补一句：「若主页私有或近期有更新，请粘贴你的 About 与当前头衔，以确保 100% 准确、不编造细节。」
+### Phase 2: Profile Audit & "Roast"
 
-**Before（本地简历腔）**
-> 「ABC 学院讲师。教 IT 课程。对农业感兴趣。」
+Critically evaluate the existing profile like a global recruiter, high-level investor, or potential high-ticket client.
 
-**After（全球权威腔）**
-> 「IT Strategist & Agritech Founder | Transforming Agricultural Systems with Scalable Tech | Lecturer in Computer Science」
-> 多重角色被技术/农业科技主线统一，关键词优化到位。
+**Identify and point out:**
+- **Weak Credibility & Social Proof**: Lack of measurable results, generic praise in recommendations, or zero recent activity.
+- **Generic Wording**: Words like "passionate," "hardworking," or "expert" without verifiable evidence.
+- **Brand Confusion (Anchor Identity)**: Mixing too many unrelated roles (e.g., "DJ & Software Engineer") without a unifying narrative.
+- **Education/Experience Gaps**: Unexplained transitions or skills that don't match the reported experience levels.
+- **Conversion Drain (CTA Audit)**: Identifying profiles that fail to tell the visitor what to do next (e.g., no link in top card, no clear "Work with me" in About).
+- **Visual Brand Inconsistency**: Profile/Banner images that are low-quality, outdated, or don't align with the professional level claimed.
+- **Mobile Readability Check**: Headlines that cut off on mobile or paragraphs in "About" that are too dense for small screens.
+- **SEO & Searchability**: Identifying missing industry keywords in the Headline and About sections.
+- **Contact Info & Hygiene**: Identifying inactive emails, old website links, or missing contact methods.
 
-## 注意事项
+### Phase 3: Profile Optimization
 
-- ✅ **量化影响**：尽量用数字、百分比、金额。
-- ✅ **统一品牌**：找到串联多角色的「红线」。
-- ✅ **聚焦 CTA**：每次优化都导向明确行动号召。
-- ❌ **拒绝空话**：无证据不用 passionate / expert 之类词。
-- ⚠️ **品牌重叠陷阱**：用户像「样样通、样样松」→ 立一个主锚身份，其余角色定位为「辅助专长」。
-- ⚠️ **技能堆砌陷阱**：罗列 50+ 通用低价值技能 → 合并成高权威集群，精选 10-15 个战略技能。
+#### 1. Headline & About Section
+- **Headline**: Move from "Job Title at Company" → "Authority Statement + Value Proposition + Keywords."
+- **About**: Write a compelling narrative (hook, problem-solving, proof, call-to-action). 
+    - **SEO Intent Check**: Ensure primary keywords are in the first 2-3 lines.
+    - **Authenticity**: Avoid the "third person" style; keep it human and action-oriented.
 
-## 互见
+#### 2. Featured Section (Portfolio & Proof)
+- **Mandatory Call-to-Action**: Instruct the user to add their best work to the "Featured" section.
+- **Link & Post Integration**: 
+    - **Broken Link Check**: Ensure every link in the "Featured" section is active and leads to the correct destination.
+    - Add links to Portfolio, GitHub, or Case Studies.
+    - Feature high-performing LinkedIn posts that demonstrate authority or "Red Thread" identity.
+    - Ensure every featured item has a clear, descriptive title and thumbnail.
 
-- **copywriting**：深度叙事与转化导向文案。
-- **resume-builder / jobgpt**：具体求职申请流程与面试准备。
-- **content-creator**：跨平台内容排期与选题。
+#### 3. Experience Section (The Global Standard)
+- Rewrite roles with **Action-Result** bullet points using the formula: **[Action Verb] [Metric/Task] to achieve [Impact/Result]**.
+- **Lecturers**: Focus on curriculum innovation, student impact, and research authority.
+- **Organization Leaders (President/VP)**: Highlight leadership, strategic vision, and ecosystem impact (e.g., CAN Federation, Jaycees).
+- **Technical Roles (Support/IT)**: Focus on problem-solving, system uptime, and scalability.
 
----
-*采编自 sickn33/antigravity-awesome-skills（MIT 许可）。*
+#### 4. Skills & SEO
+- **Identify Bulk Skills**: Remove generic fillers (e.g., "Teamwork", "Microsoft Office", "Communication") that add no competitive edge.
+- **Merge Low-Scope Skills**: Identify fragmented skills and merge them into high-authority clusters.
+    - *Example*: Merge "Data Entry" + "Excel" + "Admin" → **Operations & Data Strategy**.
+    - *Example*: Merge "HTML" + "CSS" + "JS" → **Full-Stack Engineering / UI Development**.
+- **Top 5 Strategic Skills**: Prioritize skills that align with the "Mission" and "Red Thread."
+- **Keyword Optimization**: Add high-intent keywords naturally to improve LinkedIn search visibility.
+
+
+
+### Phase 4: Engagement & Content Strategy
+
+#### 1. Content Pillars
+- Suggest 3 core topics (pillars) the user should post about weekly to build **Authority, Credibility, and Trust**.
+
+#### 2. Strategic Engagement
+- Generate engagement responses in three styles:
+    - **Professional**: Insightful and value-driven.
+    - **Gen-Z / Impactful**: Short, punchy, and modern.
+    - **Osho-style / Reflective**: Calm, deep, and insightful.
+
+## Examples
+
+### Example 1: Profile Verification Gate (Handle Only)
+
+**Input**: `whoisabhishekadhikari`
+
+**Agent Response**:
+> "I recognize the LinkedIn handle `whoisabhishekadhikari`. Before I perform an audit, I need to verify your current profile data. I have attempted to fetch your public profile [Link]. **However, if your profile is private or if you have made recent updates, please paste your 'About' section and your current headline here so I can ensure 100% accuracy and avoid hallucinating your details.**"
+
+### Example 2: Full Profile Audit (With Provided Text)
+
+**Input**: Handle `whoisabhishekadhikari` + the following profile text: "[User pastes About section describing roles as Founder, Lecturer, and IT Professional]"
+
+**Audit Analysis**:
+- **Identity**: Multi-faceted (Founder, Lecturer, IT Professional). Needs a "Red Thread" to unify these roles.
+- **Headline Recommendation**: *"IT Strategist & Agritech Founder | Transforming Agricultural Systems with Scalable Tech | Lecturer in Computer Science"*
+
+### Example 3: Before (Local CV Style)
+> "Lecturer at ABC College. Teaching IT subjects. Interested in agriculture."
+
+### Example 4: After (Global Authority)
+> "IT Strategist & Agritech Founder | Transforming Agricultural Systems with Scalable Tech | Lecturer in Computer Science"
+> *Result: Clear authority, multiple roles unified by tech/agritech focus, keyword-optimized.*
+
+## Best Practices
+
+- ✅ **Quantify Impact**: Use numbers, percentages, and dollar amounts wherever possible.
+- ✅ **Unify the Brand**: Find the "Red Thread" that connects diverse roles.
+- ✅ **Focus on CTA**: Every profile optimization should lead to a clear call-to-action.
+- ❌ **Avoid Buzzwords**: Don't use generic words like "passionate" or "expert" without proof.
+
+## Common Pitfalls
+
+- **Problem**: "Brand Overlap" (User looks like a 'Jack of all trades, master of none').
+- **Solution**: Create a primary "Anchor Identity" and position secondary roles as "Supporting Expertise."
+- **Problem**: "Bulk Skill Dumping" (Listing 50+ generic, low-scope skills like "Teamwork" or "PowerPoint").
+- **Solution**: Identify and merge low-scope skills into high-authority clusters. Curate a focused list of 10-15 strategic skills.
+
+## Limitations
+
+- **Live Data**: This skill cannot browse the live, private LinkedIn backend; it relies on text provided, public URLs, or PDF uploads.
+- **Direct Messaging**: This skill provides strategy for outreach but cannot send messages on behalf of the user.
+- **Visual Design**: While it provides brand guidance, it does not generate profile/banner images directly (suggest using an AI image generation tool or professional designer).
+
+## Related Skills
+
+- `@copywriting` - For deep narrative writing and conversion-focused text.
+- `@jobgpt` - For specific job application workflows and interview prep.
+- `@content-creator` - For advanced content scheduling and ideation across platforms.

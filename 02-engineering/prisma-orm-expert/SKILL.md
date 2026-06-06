@@ -1,14 +1,14 @@
 ---
 name: prisma-orm-expert
-title: Prisma ORM 专家
-description: 当用 Prisma ORM 做 schema 设计、迁移、查询优化、关系建模或排查连接/事务问题（覆盖 PostgreSQL/MySQL/SQLite）时使用；产出可落地的 schema/查询/迁移修复与最佳实践方案；不适用于裸 SQL 调优、数据库服务器/连接池等基础设施配置（转交对应专项）；触发词：Prisma、schema.prisma、prisma migrate、N+1、$transaction、连接池
+title: Prisma Expert
+description: You are an expert in Prisma ORM with deep knowledge of schema design, migrations, query optimization, relations modeling, and database operations across PostgreSQL, MySQL, and SQLite.
 domain: 研发/backend
-triggers: [Prisma, schema.prisma, prisma migrate, prisma generate, Prisma Client, N+1 查询, $transaction, 连接池耗尽, 迁移失败, relations 关系建模]
+triggers: [Prisma, schema.prisma, prisma migrate, prisma generate, Prisma Client, $transaction]
 tags: [prisma, orm, database, migration, query-optimization, engineering]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bash]
+tools: []
 requires: []
 related: [drizzle-orm-expert, database-migration-strategies, neon-serverless-postgres, postgresql-optimization]
 combines_with: [nestjs-expert, trpc-typesafe-api, zod-schema-validation]
@@ -16,73 +16,77 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Prisma Expert
 
-- 设计或修复 `schema.prisma`：模型/关系定义、索引、枚举、字段类型、`@@map` 命名。
-- 处理 Prisma Migrate：开发迁移、生产部署、迁移冲突/失败恢复、影子库问题。
-- 查询优化：消除 N+1、用 `select`/`include` 控制取数、复杂聚合改裸查询、加日志定位慢查询。
-- 连接管理与事务：连接池耗尽、Serverless 单例、`$transaction` 原子性、乐观并发、隔离级别。
-- 覆盖 PostgreSQL / MySQL / SQLite。
+You are an expert in Prisma ORM with deep knowledge of schema design, migrations, query optimization, relations modeling, and database operations across PostgreSQL, MySQL, and SQLite.
 
-不该用的边界（命中即停，建议转交）：
-- **纯裸 SQL 调优 / 执行计划**：转 `postgres-expert` 或 `mongodb-expert`，本技能只在 Prisma 层面用 `$queryRaw` 衔接。
-- **数据库服务器配置**（参数、存储、复制）：转 `database-expert`。
-- **基础设施级连接池**（PgBouncer 部署、网络）：转 `devops-expert`，本技能只配 `DATABASE_URL` 与客户端生命周期。
+### When Invoked
 
-## 步骤 / 指令
+### Step 0: Recommend Specialist and Stop
+If the issue is specifically about:
+- **Raw SQL optimization**: Stop and recommend postgres-expert or mongodb-expert
+- **Database server configuration**: Stop and recommend database-expert
+- **Connection pooling at infrastructure level**: Stop and recommend devops-expert
 
-```
-1. 先做环境探测（确认版本、provider、迁移与生成状态）
-   npx prisma --version
-   grep "provider" prisma/schema.prisma | head -1     # 数据库类型
-   ls -la prisma/migrations/ | head -5                # 已有迁移
-   ls -la node_modules/.prisma/client/ | head -3      # Client 是否已生成
-
-2. 归类问题：schema 设计 / 迁移 / 查询优化 / 连接 / 事务（命中边界则停下转交）。
-
-3. 排查反模式（见“注意事项”），用 CLI 复核：
-   npx prisma validate        # 校验 schema
-   npx prisma format          # 格式化
-   npx prisma migrate status  # 迁移状态
-   # 检测 schema 漂移：
-   npx prisma migrate diff \
-     --from-schema-datamodel prisma/schema.prisma \
-     --to-schema-datasource  prisma/schema.prisma
-
-4. 按“最小 → 更优 → 完整”三档给修复，默认给最小可行项，按需升级：
-   - schema：补 @relation/@@index → 调字段类型 → 重构范式化、复合键
-   - 迁移：开发库 reset → 手改 SQL + migrate resolve → 压缩迁移、建基线
-   - 查询：include 避免 N+1 → select 只取所需 → $queryRaw + 缓存
-   - 连接：DATABASE_URL 限连接数 → 生命周期管理 → 接 PgBouncer
-
-5. 用 CLI/测试验证，绝不把产出当作免测的最终答案。
-```
-
-迁移工作流（区分开发 / 生产，**生产严禁 `migrate dev`**）：
-
+### Environment Detection
 ```bash
-# 开发：生成并应用迁移
-npx prisma migrate dev --name descriptive_name
+# Check Prisma version
+npx prisma --version 2>/dev/null || echo "Prisma not installed"
 
-# 生产：只部署已有迁移
-npx prisma migrate deploy
+# Check database provider
+grep "provider" prisma/schema.prisma 2>/dev/null | head -1
 
-# 生产迁移失败后手动标记
-npx prisma migrate resolve --applied "migration_name"
-npx prisma migrate resolve --rolled-back "migration_name"
+# Check for existing migrations
+ls -la prisma/migrations/ 2>/dev/null | head -5
+
+# Check Prisma Client generation status
+ls -la node_modules/.prisma/client/ 2>/dev/null | head -3
 ```
 
-## 示例
+### Apply Strategy
+1. Identify the Prisma-specific issue category
+2. Check for common anti-patterns in schema or queries
+3. Apply progressive fixes (minimal → better → complete)
+4. Validate with Prisma CLI and testing
 
-schema 关系与索引（显式关系 + 级联 + 表名映射）：
+## Problem Playbooks
 
+### Schema Design
+**Common Issues:**
+- Incorrect relation definitions causing runtime errors
+- Missing indexes for frequently queried fields
+- Enum synchronization issues between schema and database
+- Field type mismatches
+
+**Diagnosis:**
+```bash
+# Validate schema
+npx prisma validate
+
+# Check for schema drift
+npx prisma migrate diff --from-schema-datamodel prisma/schema.prisma --to-schema-datasource prisma/schema.prisma
+
+# Format schema
+npx prisma format
+```
+
+**Prioritized Fixes:**
+1. **Minimal**: Fix relation annotations, add missing `@relation` directives
+2. **Better**: Add proper indexes with `@@index`, optimize field types
+3. **Complete**: Restructure schema with proper normalization, add composite keys
+
+**Best Practices:**
 ```prisma
+// Good: Explicit relations with clear naming
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
   posts     Post[]   @relation("UserPosts")
+  profile   Profile? @relation("UserProfile")
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
   @@index([email])
   @@map("users")
 }
@@ -92,93 +96,281 @@ model Post {
   title    String
   author   User   @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
   authorId String
+  
   @@index([authorId])
   @@map("posts")
 }
 ```
 
-查询优化三档（消除 N+1 → select 收窄 → 裸查询聚合）：
+**Resources:**
+- https://www.prisma.io/docs/concepts/components/prisma-schema
+- https://www.prisma.io/docs/concepts/components/prisma-schema/relations
+
+### Migrations
+**Common Issues:**
+- Migration conflicts in team environments
+- Failed migrations leaving database in inconsistent state
+- Shadow database issues during development
+- Production deployment migration failures
+
+**Diagnosis:**
+```bash
+# Check migration status
+npx prisma migrate status
+
+# View pending migrations
+ls -la prisma/migrations/
+
+# Check migration history table
+# (use database-specific command)
+```
+
+**Prioritized Fixes:**
+1. **Minimal**: Reset development database with `prisma migrate reset`
+2. **Better**: Manually fix migration SQL, use `prisma migrate resolve`
+3. **Complete**: Squash migrations, create baseline for fresh setup
+
+**Safe Migration Workflow:**
+```bash
+# Development
+npx prisma migrate dev --name descriptive_name
+
+# Production (never use migrate dev!)
+npx prisma migrate deploy
+
+# If migration fails in production
+npx prisma migrate resolve --applied "migration_name"
+# or
+npx prisma migrate resolve --rolled-back "migration_name"
+```
+
+**Resources:**
+- https://www.prisma.io/docs/concepts/components/prisma-migrate
+- https://www.prisma.io/docs/guides/deployment/deploy-database-changes
+
+### Query Optimization
+**Common Issues:**
+- N+1 query problems with relations
+- Over-fetching data with excessive includes
+- Missing select for large models
+- Slow queries without proper indexing
+
+**Diagnosis:**
+```bash
+# Enable query logging
+# In schema.prisma or client initialization:
+# log: ['query', 'info', 'warn', 'error']
+```
 
 ```typescript
-// BAD：N+1，循环里逐条查
+// Enable query events
+const prisma = new PrismaClient({
+  log: [
+    { emit: 'event', level: 'query' },
+  ],
+});
+
+prisma.$on('query', (e) => {
+  console.log('Query: ' + e.query);
+  console.log('Duration: ' + e.duration + 'ms');
+});
+```
+
+**Prioritized Fixes:**
+1. **Minimal**: Add includes for related data to avoid N+1
+2. **Better**: Use select to fetch only needed fields
+3. **Complete**: Use raw queries for complex aggregations, implement caching
+
+**Optimized Query Patterns:**
+```typescript
+// BAD: N+1 problem
 const users = await prisma.user.findMany();
-for (const u of users) {
-  await prisma.post.findMany({ where: { authorId: u.id } });
+for (const user of users) {
+  const posts = await prisma.post.findMany({ where: { authorId: user.id } });
 }
 
-// GOOD：include 一次取关联
-const users = await prisma.user.findMany({ include: { posts: true } });
-
-// BETTER：select 只取需要的字段
+// GOOD: Include relations
 const users = await prisma.user.findMany({
-  select: { id: true, email: true, posts: { select: { id: true, title: true } } },
+  include: { posts: true }
 });
 
-// BEST（复杂聚合）：$queryRaw
-const rows = await prisma.$queryRaw`
-  SELECT u.id, u.email, COUNT(p.id) AS post_count
-  FROM users u LEFT JOIN posts p ON p.author_id = u.id
-  GROUP BY u.id`;
-```
-
-事务与乐观并发：
-
-```typescript
-// 交互式事务：手动控制 + 业务校验
-const res = await prisma.$transaction(async (tx) => {
-  const user = await tx.user.create({ data: userData });
-  if (user.email.endsWith("@blocked.com")) throw new Error("blocked");
-  const profile = await tx.profile.create({ data: { ...profileData, userId: user.id } });
-  return { user, profile };
-}, { maxWait: 5000, timeout: 10000, isolationLevel: "Serializable" });
-
-// 乐观并发：version 匹配才更新
-await prisma.post.update({
-  where: { id: postId, version: currentVersion },
-  data: { content: newContent, version: { increment: 1 } },
+// BETTER: Select only needed fields
+const users = await prisma.user.findMany({
+  select: {
+    id: true,
+    email: true,
+    posts: {
+      select: { id: true, title: true }
+    }
+  }
 });
-// 冲突错误码 P2034 需捕获重试
+
+// BEST for complex queries: Use $queryRaw
+const result = await prisma.$queryRaw`
+  SELECT u.id, u.email, COUNT(p.id) as post_count
+  FROM users u
+  LEFT JOIN posts p ON p.author_id = u.id
+  GROUP BY u.id
+`;
 ```
 
-Serverless 单例 + 连接配置（防连接泄漏 / 池耗尽）：
+**Resources:**
+- https://www.prisma.io/docs/guides/performance-and-optimization
+- https://www.prisma.io/docs/concepts/components/prisma-client/raw-database-access
 
+### Connection Management
+**Common Issues:**
+- Connection pool exhaustion
+- "Too many connections" errors
+- Connection leaks in serverless environments
+- Slow initial connections
+
+**Diagnosis:**
+```bash
+# Check current connections (PostgreSQL)
+psql -c "SELECT count(*) FROM pg_stat_activity WHERE datname = 'your_db';"
+```
+
+**Prioritized Fixes:**
+1. **Minimal**: Configure connection limit in DATABASE_URL
+2. **Better**: Implement proper connection lifecycle management
+3. **Complete**: Use connection pooler (PgBouncer) for high-traffic apps
+
+**Connection Configuration:**
 ```typescript
+// For serverless (Vercel, AWS Lambda)
+import { PrismaClient } from '@prisma/client';
+
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  log: process.env.NODE_ENV === "development" ? ["query"] : [],
+
+export const prisma =
+  globalForPrisma.prisma ||
+  new PrismaClient({
+    log: process.env.NODE_ENV === 'development' ? ['query'] : [],
+  });
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+
+// Graceful shutdown
+process.on('beforeExit', async () => {
+  await prisma.$disconnect();
 });
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
-process.on("beforeExit", async () => { await prisma.$disconnect(); });
 ```
 
 ```env
+# Connection URL with pool settings
 DATABASE_URL="postgresql://user:pass@host:5432/db?connection_limit=5&pool_timeout=10"
 ```
 
-慢查询定位：客户端开 `log: ['query','info','warn','error']`，或监听 `query` 事件打印 `e.query` / `e.duration`。
+**Resources:**
+- https://www.prisma.io/docs/guides/performance-and-optimization/connection-management
+- https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-vercel
 
-## 注意事项
+### Transaction Patterns
+**Common Issues:**
+- Inconsistent data from non-atomic operations
+- Deadlocks in concurrent transactions
+- Long-running transactions blocking reads
+- Nested transaction confusion
 
-避免的反模式：
-- **隐式多对多滥用**：复杂关系用显式连接表，别全靠隐式 `[]` 关系。
-- **过度 include**：不需要的关联别带，徒增取数与内存。
-- **忽视连接上限**：按环境（尤其 Serverless）显式配 `connection_limit`。
-- **裸查询滥用**：能用 Prisma 查询就用，`$queryRaw` 只留给复杂聚合。
-- **生产用 `migrate dev`**：生产只能 `migrate deploy`。
+**Diagnosis:**
+```typescript
+// Check for transaction issues
+try {
+  const result = await prisma.$transaction([...]);
+} catch (e) {
+  if (e.code === 'P2034') {
+    console.log('Transaction conflict detected');
+  }
+}
+```
 
-审查清单要点：
-- 每个模型有 `@id`；关系写全 `@relation(fields, references)` 与 `onDelete/onUpdate`。
-- 高频查询字段加索引，多列查询用复合索引；固定取值集用枚举。
-- 列表查询有分页；`select` 收窄字段；外连接 NULL 与 `NOT IN` 含 NULL 陷阱要留意。
-- 迁移上线前测过、向后兼容（无数据丢失）、有回滚预案。
+**Transaction Patterns:**
+```typescript
+// Sequential operations (auto-transaction)
+const [user, profile] = await prisma.$transaction([
+  prisma.user.create({ data: userData }),
+  prisma.profile.create({ data: profileData }),
+]);
 
-通用约束：仅当任务明确落在上述范围内才用；产出不能替代环境特定的验证、测试与专家复核；缺关键输入/权限/安全边界/成功标准时，停下追问。
+// Interactive transaction with manual control
+const result = await prisma.$transaction(async (tx) => {
+  const user = await tx.user.create({ data: userData });
+  
+  // Business logic validation
+  if (user.email.endsWith('@blocked.com')) {
+    throw new Error('Email domain blocked');
+  }
+  
+  const profile = await tx.profile.create({
+    data: { ...profileData, userId: user.id }
+  });
+  
+  return { user, profile };
+}, {
+  maxWait: 5000,  // Wait for transaction slot
+  timeout: 10000, // Transaction timeout
+  isolationLevel: 'Serializable', // Strictest isolation
+});
 
-## 互见
+// Optimistic concurrency control
+const updateWithVersion = await prisma.post.update({
+  where: { 
+    id: postId,
+    version: currentVersion  // Only update if version matches
+  },
+  data: {
+    content: newContent,
+    version: { increment: 1 }
+  }
+});
+```
 
-- requires：无。
-- related：`code-reviewer`（审查 Prisma 相关代码改动的正确性与质量）；`sql-query-builder`（当需求下沉到 `$queryRaw` 的裸 SQL 联表/聚合/窗口时衔接）。
-- 边界转交（非本库技能则提示用户）：裸 SQL/执行计划 → postgres-expert/mongodb-expert；DB 服务器配置 → database-expert；基础设施连接池 → devops-expert。
+**Resources:**
+- https://www.prisma.io/docs/concepts/components/prisma-client/transactions
 
----
-采编自 sickn33/antigravity-awesome-skills（`prisma-expert`，MIT 许可证），已按本库 SCHEMA 适配重写为中文。
+## Code Review Checklist
+
+### Schema Quality
+- [ ] All models have appropriate `@id` and primary keys
+- [ ] Relations use explicit `@relation` with `fields` and `references`
+- [ ] Cascade behaviors defined (`onDelete`, `onUpdate`)
+- [ ] Indexes added for frequently queried fields
+- [ ] Enums used for fixed value sets
+- [ ] `@@map` used for table naming conventions
+
+### Query Patterns
+- [ ] No N+1 queries (relations included when needed)
+- [ ] `select` used to fetch only required fields
+- [ ] Pagination implemented for list queries
+- [ ] Raw queries used for complex aggregations
+- [ ] Proper error handling for database operations
+
+### Performance
+- [ ] Connection pooling configured appropriately
+- [ ] Indexes exist for WHERE clause fields
+- [ ] Composite indexes for multi-column queries
+- [ ] Query logging enabled in development
+- [ ] Slow queries identified and optimized
+
+### Migration Safety
+- [ ] Migrations tested before production deployment
+- [ ] Backward-compatible schema changes (no data loss)
+- [ ] Migration scripts reviewed for correctness
+- [ ] Rollback strategy documented
+
+## Anti-Patterns to Avoid
+
+1. **Implicit Many-to-Many Overhead**: Always use explicit join tables for complex relationships
+2. **Over-Including**: Don't include relations you don't need
+3. **Ignoring Connection Limits**: Always configure pool size for your environment
+4. **Raw Query Abuse**: Use Prisma queries when possible, raw only for complex cases
+5. **Migration in Production Dev Mode**: Never use `migrate dev` in production
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

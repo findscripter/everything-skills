@@ -1,14 +1,14 @@
 ---
 name: defuddle-web-extract
-title: Defuddle 网页正文提取为 Markdown
-description: 当用户给出网页 URL 需要阅读/总结/分析时使用；用 Defuddle CLI 提取去导航去广告的正文并产出干净 Markdown（含元数据）以节省 token；不适用于需登录/付费墙/重 JS 渲染的页面、需精确抓取或交互的场景。触发词：网页正文、Defuddle、URL 转 Markdown
+title: Defuddle Web Content Extraction to Markdown
+description: Use the Defuddle CLI to extract clean, clutter-free article content from a web page URL as Markdown (with metadata), saving tokens versus fetching the full page; not for login/paywall/heavy-JS pages. Triggers: Defuddle, URL to Markdown, extract web page body, summarize this link.
 domain: 平台/browser
-triggers: [读取网页URL, 提取网页正文, 网页转Markdown, 总结这个链接, Defuddle, 节省token抓正文]
-tags: [网页提取, markdown, cli, 内容清洗, token优化, defuddle]
-level: 入门
+triggers: [read web page URL, extract web page content, convert web page to Markdown, summarize this link, Defuddle, token-efficient content scraping]
+tags: [web-extraction, markdown, cli, content-cleaning, token-optimization, defuddle]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Bash, defuddle]
+tools: []
 requires: []
 related: [firecrawl-web-scraper, exa-semantic-search, browser-automation-builder, youtube-transcript-ingest]
 combines_with: [exa-semantic-search, rag-implementation-workflow]
@@ -16,71 +16,69 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-- 用户给出一个常规网页 URL，需要阅读、总结、分析其正文内容时优先使用。
-- 处理文档、文章、博客等公开标准网页，且在意 token 用量（去掉导航/广告/页脚等噪音）时使用，效果优于直接 WebFetch 抓全页。
+Use the Defuddle CLI to extract clean, readable content from web pages. Prefer it over WebFetch for standard web pages — it removes navigation, ads, and clutter, reducing token usage.
 
-不该用的边界：
-- 需要登录、付费墙、强 JavaScript 动态渲染或反爬的页面，Defuddle 可能取不到正文。
-- 需要精确抓取页面特定结构、表单交互、点击翻页或截图时，改用浏览器类工具。
-- 缺少必要输入（URL、权限、成功标准）时先停下来澄清，不要凭空抓取。
+- Use when the user provides a normal webpage URL to read, summarize, or analyze.
+- Prefer it over noisy page-fetch approaches when token efficiency matters.
+- Use for docs, articles, blog posts, and similar public web content.
 
-## 步骤
+Do not use when:
+- The page requires login, sits behind a paywall, relies on heavy JavaScript rendering, or has anti-scraping — Defuddle may fail to retrieve the content.
+- You need to scrape specific page structure precisely, interact with forms, click through pagination, or take screenshots — use a browser-automation tool instead.
+- Required inputs (URL, permissions, success criteria) are missing — stop and ask for clarification rather than scraping blindly.
 
-1. 确认已安装；未安装则全局安装：`npm install -g defuddle`。
-2. 用 `defuddle parse <url> --md` 提取正文，始终带 `--md` 输出 Markdown。
-3. 内容较长时用 `-o` 落盘为文件，再分段读取处理。
-4. 只需标题/描述/域名等元数据时用 `-p <name>` 单独取，避免拉全文。
+## Steps
 
-## 指令
+1. Confirm Defuddle is installed; if not, install it globally: `npm install -g defuddle`.
+2. Extract the body with `defuddle parse <url> --md` — always pass `--md` for Markdown output.
+3. For long content, write to disk with `-o`, then read and process it in chunks.
+4. When you only need metadata (title/description/domain), fetch it individually with `-p <name>` instead of pulling the full text.
 
 ```bash
-# 安装（仅首次）
+# Install (first time only)
 npm install -g defuddle
 
-# 提取正文为 Markdown（默认且推荐）
+# Extract content as Markdown (default and recommended)
 defuddle parse <url> --md
 
-# 保存到文件
+# Save to a file
 defuddle parse <url> --md -o content.md
 
-# 仅取指定元数据
+# Extract a single metadata property
 defuddle parse <url> -p title
 defuddle parse <url> -p description
 defuddle parse <url> -p domain
 ```
 
-输出格式对照：
+Output formats:
 
-| 参数 | 输出 |
-|------|------|
-| `--md` | Markdown（首选） |
-| `--json` | JSON，含 HTML 与 Markdown 两份 |
-| （不带） | 原始 HTML |
-| `-p <name>` | 指定的单个元数据属性 |
+| Flag | Format |
+|------|--------|
+| `--md` | Markdown (default choice) |
+| `--json` | JSON with both HTML and markdown |
+| (none) | HTML |
+| `-p <name>` | Specific metadata property |
 
-## 示例
+## Example
 
-总结一篇博客：
+Summarize a blog post:
 
 ```bash
 defuddle parse https://example.com/blog/post --md -o post.md
 ```
 
-随后读取 `post.md` 并基于干净正文进行总结，而不是把整页 HTML 喂给模型。
+Then read `post.md` and summarize from the clean body, rather than feeding the full page HTML to the model.
 
-## 注意事项
+## Notes
 
-- 始终优先 `--md`；只有在需要结构化处理时才用 `--json`，需要原始结构时才用 HTML。
-- 输出不能替代环境相关的验证、测试或专家复核，重要结论需人工确认。
-- 仅在任务明确落在上述范围内时使用；命中登录墙或动态页失败时，回退到 WebFetch 或浏览器工具。
+- Always prefer `--md`; use `--json` only when you need structured processing, and raw HTML only when you need the original structure.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review; confirm important conclusions manually.
+- Use this skill only when the task clearly matches the scope above. On a login wall or a dynamic-page failure, fall back to WebFetch or a browser tool.
 
-## 互见
+## See also
 
-- WebFetch：Defuddle 取不到正文（登录/动态渲染）时的回退方案。
-- 浏览器自动化（chrome-devtools 系列）：需要交互、点击、截图或抓取特定 DOM 时使用。
-
----
-
-采编自 sickn33/antigravity-awesome-skills（MIT），原技能 source: https://github.com/kepano/obsidian-skills。
+- WebFetch: the fallback when Defuddle cannot retrieve content (login / dynamic rendering).
+- Browser automation (chrome-devtools tools): use when you need interaction, clicks, screenshots, or scraping specific DOM.
+- firecrawl-web-scraper, exa-semantic-search, browser-automation-builder, youtube-transcript-ingest (related); combines with exa-semantic-search and rag-implementation-workflow.

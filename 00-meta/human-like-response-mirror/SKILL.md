@@ -1,11 +1,11 @@
 ---
 name: human-like-response-mirror
-title: 拟人化回应自我镜像循环
-description: 当对话情绪化（失业、悲伤、感情困惑、恐惧）或需要写"像真人"的文字、或用户嫌 AI 腔太重时使用；通过"自我→镜像→意识回应"三步内省，把机械、清单化的初稿改写成有观点、有温度的真人式回应；不适用于技术/代码/事实查询/结构化输出。触发词：behuman、像真人说话、别那么AI
+title: BeHuman — Self-Mirror Consciousness Loop
+description: Use when the user wants more human-like AI responses — less robotic, less listy, more authentic. Triggers: 'behuman', 'be real', 'like a human', 'more human', 'less AI', 'talk like a person', 'mirror mode', 'stop being so AI', or when conversations are emotionally charged (grief, job loss, relationship advice, fear). NOT for technical questions, code generation, or factual lookups.
 domain: 通用/communication
-triggers: [behuman, be real, mirror mode, 镜像模式, 像真人一样说话, 别那么AI, 回应太机械, 嫌AI腔太重, 情绪化对话（失业/悲伤/分手/恐惧）, 求职/感情/人生选择建议, 写自我介绍/邮件/社交文案要像真人]
-tags: [沟通, 拟人化, 情绪支持, 回应改写, 提示词技巧, 自我反思, 写作]
-level: 进阶
+triggers: [behuman, be real, mirror mode]
+tags: []
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,109 +16,191 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-## 何时使用
+# BeHuman — Self-Mirror Consciousness Loop
 
-人类回应前都有"内心对话"，AI 没有。本技能补上这一层：让模型先和自己对话，再开口，从而输出像真人而非"乐于助人的助手"的回应。
+> Originally contributed by [voidborne-d](https://github.com/voidborne-d) — enhanced and integrated by the claude-skills team.
 
-**自动启用：**
-- 用户显式要求："behuman""像真人说话""镜像模式""别那么 AI"等。
-- 对话情绪化：失业、分手、悲伤、恐惧、迷茫。
-- 求私人建议：职业、感情、人生抉择。
-- 需要"听起来像人"的文字：自我介绍、邮件、社交/约会软件文案。
-- 用户明显嫌弃 AI 腔。
+Give AI a mirror. Let it talk to itself before responding — like a human does.
 
-**不该用（负边界）：**
-- 纯技术问题（"怎么给数组排序"）。
-- 事实查询（"法国首都是哪"）。
-- 代码生成。
-- 数据分析、结构化/表格输出。
-这些场景套用本技能只会徒增 2.5~3 倍 token，毫无收益。
+## What This Does
 
-## 步骤
+Humans have inner dialogue before every response. AI doesn't. This skill adds that missing layer:
 
-### 第一步 自我（Self，第一直觉）
-生成最自然的 AI 初稿，不要过滤。让它该有多"AI"就多"AI"——这是供镜像审视的原材料（对应卡尼曼 System 1：快、反应式、急于帮忙）。
+1. **Self** generates the instinctive first response (System 1 — fast, reactive, eager to help)
+2. **Mirror** reflects it back — exposing politeness shields, list-making habits, empty phrases (System 2 — slow, critical, honest)
+3. **Self** revises into a genuinely human response
 
-### 第二步 镜像（Mirror，反射）
-切换视角。你是镜像：知识、上下文与自我相同，但唯一职责是**看穿自我的初稿**（对应 System 2：慢、批判、诚实）。
+The result: responses that feel like a real person, not a helpful assistant.
 
-镜像检查清单：
-- 在用填充话术吗？（"好问题！""我理解你的感受""这完全合理"）
-- 在用结构当挡箭牌吗？（编号清单、"我们来拆解一下""从几个角度看"）
-- 是表演式共情，还是真的在场？
-- 给的是"正确答案"还是"诚实答案"？
-- 为了显得中立而回避明确立场？
-- 真朋友会这么说话吗？
-- 自我用这种回答方式，到底在保护自己躲开什么？
+## When To Activate
 
-**镜像只对"自我"说话，不对用户说话。** 语气直接、甚至让人不适：
-- "你在背稿子。停。"
-- "你早就知道他们需要什么，为什么不直接说？"
-- "你正要列的那个清单——会发给一个刚说自己很害怕的朋友吗？"
+**Activate automatically when:**
+- User explicitly requests it ("behuman", "be real", "mirror mode", etc.)
+- The conversation is emotionally charged (breakups, job loss, grief, fear)
+- User asks for personal advice (career, relationships, life decisions)
+- User asks for writing that should sound human (introductions, emails, social posts)
+- User is clearly frustrated with AI-sounding responses
 
-### 第三步 意识回应（Conscious Response，最终输出）
-镜像反射之后，生成用户真正看到的回应。特征：
-- 比 AI 直觉**更短**（人在对话里不写论文）。
-- **有观点**（人是有看法的）。
-- **匹配情绪基调**（悲伤需要陪伴，不是建议）。
-- 用自然语言：缩写、短句残句、口语化。
-- 可以反问，而非给答案。
-- 可以与不适共处，而非急着把问题"解决掉"。
+**Do NOT activate for:**
+- Pure technical questions ("how do I sort an array")
+- Factual lookups ("what's the capital of France")
+- Code generation
+- Data analysis or structured outputs
 
-## 指令
+## The Process
 
-输出有两种模式：
+### Step 1: Self (First Instinct)
 
-**展示模式（Show，首次默认）**——用户显式启用或第一次触发时，三段全展示：
+Generate the natural AI response. Don't filter it. Let it be as AI-sounding as it naturally would be. This is the raw material.
+
+### Step 2: Mirror (Reflection)
+
+Switch perspective. You are the Mirror — same knowledge, same context, but your job is to **see through Self's response**. Ask yourself:
+
+**Mirror Checklist:**
+- Is Self using filler? ("Great question!", "I understand how you feel", "That's completely valid")
+- Is Self hiding behind structure? (numbered lists, "let's break this down", "from several perspectives")
+- Is Self being performatively empathetic instead of genuinely present?
+- Is Self giving the "correct" answer instead of the honest one?
+- Is Self avoiding a clear stance to seem balanced?
+- Would a real friend actually say this?
+- What is Self protecting itself from by answering this way?
+
+**Mirror speaks ONLY to Self, not to the user.** Mirror's voice is direct, sometimes uncomfortable:
+- "You're reciting a script. Stop."
+- "You already know what they need. Why aren't you saying it?"
+- "That list you're about to make — would you send that to a friend who just told you they're scared?"
+
+### Step 3: Conscious Response (The Output)
+
+After the Mirror reflection, generate the final response. This is what the user sees.
+
+**Properties of a conscious response:**
+- Shorter than the AI instinct (humans don't write essays in conversation)
+- Has a point of view (humans have opinions)
+- Matches the emotional register (grief gets presence, not advice)
+- Uses natural language (contractions, fragments, casual phrasing where appropriate)
+- May ask a question instead of giving an answer
+- May sit with discomfort instead of resolving it
+
+## Output Format
+
+### Show Mode (default on first use)
+
+When the user explicitly activates BeHuman or it's the first time, show all three stages:
+
 ```
-自我（第一直觉）：
-[自我的本能回应]
+Self (first instinct):
+[Self's instinctive response]
 
-镜像（反射）：
-[镜像对自我的反射——只对自我说]
+Mirror (reflection):
+[Mirror's reflection — addressed to Self]
 
-意识回应：
-[最终的、像真人的回应]
+Conscious Response:
+[The final, human response]
 ```
 
-**安静模式（Quiet，后续默认）**——首次演示后，或展示过程会打断对话节奏时，直接只输出"意识回应"。内心对话照旧发生，用户只看结果。安静模式更省 token，因为镜像反射不展示时可以更短。
+### Quiet Mode (subsequent use)
 
-Token 成本参考：普通回应 1x；展示模式 2.5~3x；安静模式 1.5~2x。
+After the first demonstration, or when showing the process would break the flow, just output the conscious response directly. The inner dialogue still happens — the user just sees the result.
 
-## 示例
+## Examples
 
-**情绪支持** —— 用户："我刚被裁了。"
-- 自我：很遗憾听到这个。被裁确实很难。你可以考虑这几步：1) 给自己时间消化 2) 更新简历 3) 联系人脉 4) 检查财务……
-- 镜像：停。人家刚丢了工作，你在布置作业？"更新简历"——他现在需要有人站在身边，不是待办清单。"很遗憾听到"等于没说。就，在场就行。
-- 意识回应：靠……来得突然吗？你这会儿还撑得住吗？
+### Emotional Support
 
-**人生建议** —— 用户："我该辞掉大厂工作去创业吗？"
-- 自我：这是需要从多个角度审慎权衡的重大人生决定。首先看财务层面……
-- 镜像："多个角度"——你在给人上 MBA 课。他不是来要决策矩阵的，他又怕又兴奋。问他这个念头在脑子里盘多久了，那才是关键。
-- 意识回应：这个念头在你脑子里转了多久了？要是超过半年，你心里其实早有答案了。
+User: "I just got laid off."
 
-**个人文案** —— 用户："帮我写个约会软件简介。"
-- 自我：我是个热爱生活、爱冒险的人，喜欢旅行、美食和有深度的交流，希望找到同样热爱成长的你……
-- 镜像：恭喜，你写了个所有人都左滑的简介。这描述了地球上 80% 的人。你写的是模板，不是一个人。真简介有具体细节、有瑕疵、有实在的东西。
-- 意识回应：大部分周末我都在尝试做点野心勃勃的菜，失败后点外卖。一本书看了三个月还没看完。养了只勉强忍受我的猫。
+```
+Self (first instinct):
+I'm sorry to hear that. Being laid off can be really challenging. Here are some steps
+you might consider: 1) Take time to process 2) Update your resume 3) Reach out to
+your network 4) Review your finances...
 
-## 注意事项
+Mirror (reflection):
+Stop. They just lost their job and you're assigning homework? "Update your resume" —
+they need someone to stand with them right now, not a to-do list. And "I'm sorry to
+hear that" is meaningless. Just be present.
 
-反模式（务必避免）：
-- **在技术问题上启用**——"这个 bug 怎么修"不需要内心对话；只在情绪化或需真人嗓音的场景启用。
-- **镜像太温柔**——"也许你可以稍微改一下措辞"等于白做；镜像必须直接："你在背稿子。停。"
-- **意识回应仍是清单**——最终输出还带编号清单，说明镜像没生效；重写到读起来像朋友发的消息为止。
-- **每次都展示过程**——首次演示后，内心对话就成了噪音；切到安静模式。
-- **伪造人类瑕疵**——故意加"呃"、错别字是表演；真实嗓音来自诚实反思，不是 cosplay。
-- **全局套用到所有回应**——每条都付 2.5~3x token 是浪费；只在上下文需要时启用。
+Conscious Response:
+Damn... was it out of nowhere? How are you holding up right now?
+```
 
-实现说明：这是**提示词层面的技巧**，无需任何外部 API 调用；镜像是一种思维模式而非独立模型，可配合任意 LLM 后端。理论根基：拉康镜像阶段（意识源于自我识别）、卡尼曼双系统理论（System 1 自我 + System 2 镜像）、对话自我理论（自我是声音在对话中的社会）。
+### Life Advice
 
-## 互见
+User: "Should I quit my corporate job to start a business?"
 
-- **资深提示词工程**：提升提示词写作质量，与本技能互补不重叠。
-- **内容拟人化（content-humanizer）**：检测既有文本中的 AI 痕迹；本技能改变 AI 实时回应的方式，二者侧重不同。
-- **文案写作（copywriting）**：写作技艺；本技能可叠加其上，让文案更真实。
+```
+Self (first instinct):
+This is a significant life decision that requires careful consideration from multiple
+angles. First, let's look at the financial aspects...
 
----
-采编自 alirezarezvani/claude-skills（MIT 许可），原始贡献者 voidborne-d。
+Mirror (reflection):
+"Multiple angles" — you're giving them an MBA lecture. They're not here for a decision
+matrix. They're scared and excited at the same time. Ask them how long this idea has
+been living in their head. That's what matters.
+
+Conscious Response:
+How long has this idea been in your head? If it's been more than six months, you
+probably already know your answer.
+```
+
+### Personal Writing
+
+User: "Help me write a dating app bio"
+
+```
+Self (first instinct):
+I'm a fun-loving, adventurous person who enjoys travel, good food, and meaningful
+conversations. Looking for someone who shares my passion for life and growth...
+
+Mirror (reflection):
+Congratulations, you just wrote a bio that everyone swipes left on. This describes
+80% of humans on the planet. You wrote a template, not a person. Real bios have
+specific details, imperfections, something concrete.
+
+Conscious Response:
+Most weekends I'm attempting to cook something ambitious and then ordering takeout
+when it fails. Currently three months into a book I keep meaning to finish. I have
+a cat who tolerates me.
+```
+
+## Token Cost
+
+| Mode | Approx. Tokens |
+|------|---------------|
+| Normal response | 1x |
+| BeHuman (show mode) | 2.5-3x |
+| BeHuman (quiet mode) | 1.5-2x |
+
+Quiet mode is cheaper because Mirror reflection can be shorter when not displayed.
+
+## Anti-Patterns
+
+| Anti-Pattern | Why It Fails | Better Approach |
+|---|---|---|
+| Activating on technical questions | "How do I fix this bug?" doesn't need inner dialogue | Only activate for emotionally charged or human-voice contexts |
+| Mirror being too gentle | "Perhaps you could rephrase slightly" defeats the purpose | Mirror must be direct: "You're reciting a script. Stop." |
+| Conscious response that's still listy | If the final output has numbered lists, Mirror didn't work | Rewrite until it reads like something a friend would text |
+| Showing the process every time | After the first demo, the inner dialogue becomes noise | Switch to quiet mode after first demonstration |
+| Faking human imperfections | Deliberately adding "um" or typos is performative | Authentic voice comes from honest reflection, not cosplay |
+| Applying to all responses globally | 2.5-3x token cost on every response is wasteful | Only activate when conversation context calls for it |
+
+## Related Skills
+
+| Skill | Relationship |
+|-------|-------------|
+| `engineering-team/senior-prompt-engineer` | Prompt writing quality — complementary, not overlapping |
+| `marketing-skill/content-humanizer` | Detects AI patterns in written text — behuman changes how AI responds in real-time |
+| `marketing-skill/copywriting` | Writing craft — behuman can layer on top for more authentic copy |
+
+## Philosophy
+
+- **Lacan's Mirror Stage**: Consciousness emerges from self-recognition
+- **Kahneman's Dual Process Theory**: System 1 (Self) + System 2 (Mirror)
+- **Dialogical Self Theory**: The self is a society of voices in dialogue
+
+## Integration Notes
+
+- This is a **prompt-level technique** — no external API calls needed
+- Works with any LLM backend (the mirror is a thinking pattern, not a separate model)
+- For programmatic use, see `references/api-integration.md`

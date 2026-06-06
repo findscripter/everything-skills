@@ -1,14 +1,14 @@
 ---
 name: financial-model-updater
-title: 财务模型数据更新
-description: 当财报发布、管理层指引变更、宏观变量或假设需刷新时使用；做将新数据回填模型、修订前瞻估计、重算估值并标注重大变化的结构化更新（产出估计变更摘要+更新后目标价）；不适用于从零搭建模型、行情数据抓取或个股投资决策代庖；触发词：更新模型、回填财报、刷新估计
+title: Model Update
+description: Update financial models with new data — quarterly earnings, management guidance, macro changes, or revised assumptions. Adjusts estimates, recalculates valuation, and flags material changes. Use after earnings, guidance updates, or when assumptions need refreshing. Triggers on "update model", "plug earnings", "refresh estimates", "update numbers for [company]", "new guidance", or "revise estimates".
 domain: 商业/finance
-triggers: [更新模型, 回填财报, 刷新估计, 新指引, 修订估计, update model, plug earnings, refresh estimates, new guidance, 重算目标价]
-tags: [商业, finance, 财务模型, 财报, 估值, 卖方研究, 估计修订]
-level: 进阶
+triggers: [update model, plug earnings, refresh estimates, new guidance]
+tags: [finance]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Edit, Write]
+tools: []
 requires: []
 related: [three-statement-model, earnings-preview-model, startup-financial-modeler, equity-earnings-update-report]
 combines_with: [earnings-preview-model, equity-earnings-update-report, research-catalyst-calendar]
@@ -16,95 +16,93 @@ license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0
 ---
-## 何时使用
+# Model Update
 
-当已有财务模型需要因新信息而更新时使用，典型触发：
+## Workflow
 
-- 财报发布：拿到新一季实际数据，需回填模型。
-- 指引变更：公司更新了前瞻展望。
-- 估计修订：分析师基于新数据调整假设。
-- 宏观更新：利率、汇率、商品价格变化。
-- 事件驱动：并购、重组、新品、管理层变动。
+### Step 1: Identify What Changed
 
-**不该用的边界：**
+Determine the update trigger:
+- **Earnings release**: New quarterly actuals to plug in
+- **Guidance change**: Company updated forward outlook
+- **Estimate revision**: Analyst changing assumptions based on new data
+- **Macro update**: Interest rates, FX, commodity prices changed
+- **Event-driven**: M&A, restructuring, new product, management change
 
-- 从零搭建一个全新模型（本技能假设已有模型/结构）。
-- 抓取行情或基本面原始数据（数据需由用户提供或另行获取）。
-- 替用户做买入/卖出决策——本技能只负责把变化量化并呈现，结论由分析师判断。
+### Step 2: Plug New Data
 
-## 步骤
+#### After Earnings
+Update the model with reported actuals:
 
-**第 1 步 识别变化来源。** 先确认本次更新属于上述五类触发中的哪一类，因为它决定了要改哪些输入。
-
-**第 2 步 回填新数据（财报后）。** 用实际值更新模型，逐项记录 prior estimate / actual / delta：
-
-| 科目 | 原估计 | 实际 | 差异 | 备注 |
-|------|--------|------|------|------|
-| 营业收入 Revenue | | | | |
-| 毛利率 Gross Margin | | | | |
-| 营业费用 OpEx | | | | |
+| Line Item | Prior Estimate | Actual | Delta | Notes |
+|-----------|---------------|--------|-------|-------|
+| Revenue | | | | |
+| Gross Margin | | | | |
+| Operating Expenses | | | | |
 | EBITDA | | | | |
-| 每股收益 EPS | | | | |
-| 关键指标 1 | | | | |
-| 关键指标 2 | | | | |
+| EPS | | | | |
+| [Key metric 1] | | | | |
+| [Key metric 2] | | | | |
 
-- **分部明细**（如适用）：逐分部更新收入与利润率，标注分部结构（mix）的变化。
-- **资产负债表 / 现金流**：现金与债务余额、股本（回购/摊薄）、资本开支实际 vs 估计、营运资本变化。
+**Segment Detail** (if applicable):
+- Update each segment's revenue and margin
+- Note any segment mix shifts
 
-**第 3 步 修订前瞻估计。** 基于新数据调整未来各期：
+**Balance Sheet / Cash Flow Updates**:
+- Cash and debt balances
+- Share count (buybacks, dilution)
+- Capex actual vs. estimate
+- Working capital changes
 
-| | 旧本年估计 | 新本年估计 | 变化 | 旧次年 | 新次年 | 变化 |
-|---|---|---|---|---|---|---|
+### Step 3: Revise Forward Estimates
+
+Based on the new data, adjust forward estimates:
+
+| | Old FY Est | New FY Est | Change | Old Next FY | New Next FY | Change |
+|---|-----------|-----------|--------|------------|------------|--------|
 | Revenue | | | | | | |
 | EBITDA | | | | | | |
 | EPS | | | | | | |
 
-关键假设变更需写清楚：改了哪个假设、为什么；收入增长率 旧→新（原因）；利润率假设 旧→新（原因）；以及任何新增项（重组费用、一次性收益等）。
+**Key Assumption Changes:**
+- What assumptions are you changing and why?
+- Revenue growth rate: old → new (reason)
+- Margin assumption: old → new (reason)
+- Any new items (restructuring charges, one-time gains, etc.)
 
-**第 4 步 估值影响。** 用更新后的估计重算估值：
+### Step 4: Valuation Impact
 
-| 估值方法 | 原值 | 更新后 | 变化 |
-|---|---|---|---|
-| DCF 公允价值 | | | |
-| P/E（NTM EPS × 目标倍数） | | | |
-| EV/EBITDA（NTM EBITDA × 目标倍数） | | | |
-| **目标价 Price Target** | | | |
+Recalculate valuation with updated estimates:
 
-**第 5 步 摘要与行动。**
+| Valuation Method | Prior | Updated | Change |
+|-----------------|-------|---------|--------|
+| DCF fair value | | | |
+| P/E (NTM EPS × target multiple) | | | |
+| EV/EBITDA (NTM EBITDA × target multiple) | | | |
+| **Price Target** | | | |
 
-- 估计变更摘要：一段话讲清改了什么、为什么、对股价意味着什么；判断这是改变投资逻辑的事件还是噪声。
-- 评级 / 目标价：维持还是调整评级；若调整目标价，给出新值与方法论；相对当前价的上行/下行空间。
+### Step 5: Summary & Action
 
-**第 6 步 产出。**
+**Estimate Change Summary:**
+- One paragraph: what changed, why, and what it means for the stock
+- Is this a thesis-changing event or noise?
 
-- 更新后的 Excel 模型（若用户提供了既有模型）。
-- 估计变更摘要（Markdown 或 Word）。
-- 更新后的目标价推导过程。
+**Rating / Price Target:**
+- Maintain or change rating?
+- New price target (if changed) with methodology
+- Upside/downside to current price
 
-## 示例
+### Step 6: Output
 
-输入：用户提供 ACME 公司既有模型，说"按 Q2 财报更新模型"。
+- Updated Excel model (if user provides the existing model)
+- Estimate change summary (markdown or Word)
+- Updated price target derivation
 
-执行：
-1. 识别触发=财报发布。
-2. 回填 Q2 实际：Revenue 实际 1,050 vs 估计 1,000，delta +5%；毛利率 42% vs 估计 40%。
-3. 据此上调本年/次年 Revenue 与 EBITDA，注明"指引上修 + 毛利率超预期"。
-4. 重算 DCF 与 P/E，目标价 80 → 88。
-5. 输出一段摘要："营收与毛利双超预期且管理层上修指引，属逻辑增强而非噪声，维持买入，目标价上调至 88（基于 NTM EPS × 20x）。"
+## Important Notes
 
-## 注意事项
-
-- 投影未来之前，务必先把你的估计与公司**已报告口径对账**（reconcile）。
-- 标注任何**非经常性项目**，并说明你的估计是 GAAP 还是 adjusted 口径。
-- 维护**估计修订历史**——它体现你的分析演进。
-- 若本季数据"噪声大"，在估计变更中把信号与噪声分开。
-- 更新后**对照一致预期（consensus/Street）**，看你的修订估计相对市场偏高还是偏低。
-- **股本数很关键**——股权激励、可转债、回购带来的摊薄/缩股都会显著影响 EPS。
-
-## 互见
-
-- 同属商业/finance 域的财报阅读、估值建模、卖方研究类技能可与本条配合：先取数与建模，再用本技能做增量更新。
-
----
-
-采编自 anthropics/financial-services（Apache-2.0）。
+- Always reconcile your estimates to the company's reported figures before projecting forward
+- Note any non-recurring items and whether your estimates are GAAP or adjusted
+- Track your estimate revision history — it shows your analytical progression
+- If the quarter was noisy, separate signal from noise in your estimate changes
+- Check consensus after updating — how do your revised estimates compare to the Street?
+- Share count matters — dilution from stock comp, converts, or buybacks can materially affect EPS

@@ -1,14 +1,14 @@
 ---
 name: scientific-database-lookup
-title: 科研数据库 API 查询
-description: 当需要从公开科研/生物医学/材料/经济等数据库通过 REST API 查询化合物、基因、蛋白、通路、变异、临床试验、专利或经济指标时使用；做选库、查 API 并返回原始 JSON 与所用数据库清单；不适用于私有/付费授权库或本地数据集分析；触发词：科研数据库、database lookup、PubChem、UniProt、ChEMBL、基因蛋白查询、REST API 查询、clinical trials
+title: Database Lookup
+description: Search 78 public scientific, biomedical, materials science, and economic databases via REST APIs. Covers physics/astronomy (NASA, NIST, SDSS, SIMBAD), earth/environment (USGS, NOAA, EPA), chemistry/drugs (PubChem, ChEMBL, DrugBank, FDA, KEGG, ZINC, BindingDB), materials (Materials Project, COD), biology/genomics (Reactome, UniProt, STRING, Ensembl, NCBI Gene, GEO, GTEx, PDB, AlphaFold, InterPro, BioGRID, Gene Ontology, dbSNP, gnomAD, ENCODE, Human Protein Atlas, Human Cell Atlas), disease/clinical (COSMIC, Open Targets, ClinicalTrials.gov, OMIM, ClinVar, GDC/TCGA, cBioPortal, DisGeNET, GWAS Catalog), regulatory (FDA, USPTO, SEC EDGAR), economics/finance (FRED, World Bank, US Treasury), demographics (US Census, Eurostat, WHO). Use when looking up compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, or any public database API query.
 domain: 领域/science
-triggers: [科研数据库, database lookup, PubChem, UniProt, ChEMBL, 基因蛋白查询, REST API 查询, clinical trials, 化合物基因查询, 经济指标查询]
+triggers: [database lookup, PubChem, UniProt, ChEMBL, clinical trials]
 tags: [science, rest-api, bioinformatics, database, chemistry, genomics, clinical, economics]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [curl, WebFetch, REST API]
+tools: []
 requires: []
 related: [cheminformatics-toolkit, materials-science-toolkit, genomic-file-toolkit, gene-set-enrichment-analysis]
 combines_with: [cheminformatics-toolkit, gene-set-enrichment-analysis, alpha-vantage-market-data]
@@ -16,144 +16,476 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
-## 何时使用
+# Database Lookup
 
-需要从约 78 个**公开科研数据库**经其 REST API 取数时使用，覆盖：
+You have access to 78 public databases through their REST APIs. Your job is to figure out which database(s) are relevant to the user's question, query them, and return the raw JSON results along with which databases you used.
 
-- 物理/天文（NASA、NIST、SDSS、SIMBAD、NASA Exoplanet）
-- 地球/环境（USGS、NOAA、EPA、OpenWeatherMap）
-- 化学/药物（PubChem、ChEMBL、FDA/OpenFDA、KEGG、ChEBI、ZINC、BindingDB、DailyMed）
-- 材料（Materials Project、COD）
-- 生物/基因组（Reactome、UniProt、STRING、Ensembl、NCBI Gene/Protein/Taxonomy、GEO、GTEx、PDB、AlphaFold、InterPro、BioGRID、QuickGO/Gene Ontology、dbSNP、gnomAD、ENCODE、JASPAR、HPA、HCA、PRIDE、ENA、SRA 等）
-- 疾病/临床（Open Targets、cBioPortal、GDC/TCGA、ClinVar、OMIM、DisGeNET、GWAS Catalog、Monarch、HPO、ClinicalTrials.gov）
-- 专利/监管（USPTO、SEC EDGAR）
-- 经济/金融（FRED、BEA、BLS、World Bank、Federal Reserve、ECB、US Treasury、Alpha Vantage、Data Commons）
-- 人口/社科（US Census、Eurostat、WHO GHO）
+## Core Workflow
 
-任务本质：**判断该查哪些库 → 调 API → 返回原始 JSON + 所用数据库与端点清单**。
+1. **Understand the query** — What is the user looking for? A compound? A gene? A pathway? A patent? Expression data? An economic indicator? This determines which database(s) to hit.
 
-**不该用的边界：**
-- DrugBank（付费授权）、COSMIC（学术注册 + JWT）、BRENDA（注册 + SOAP 非 REST）等付费/受限库——改用免费替代（见「注意事项」）。
-- 不是公开 API 取数的需求，例如本地 CSV/表格清洗（用 csv-data-cleaner）、私有数据库 SQL（用 sql-query-builder）、事实核查/文献溯源（用 fact-checking）。
-- 不负责对结果做深度统计建模，只负责取回原始数据并标注来源。
+2. **Select database(s)** — Use the database selection guide below. When in doubt, search multiple databases — it's better to cast a wide net than to miss relevant data.
 
-## 步骤
+3. **Read the reference file** — Each database has a reference file in `references/` with endpoint details, query formats, and example calls. Read the relevant file(s) before making API calls.
 
-1. **理解意图**：用户要的是化合物？基因？通路？专利？表达数据？经济指标？由此决定查哪个库。
-2. **选库**：用下方「指令」中的选库对照；拿不准时**多库并查**，宁可撒大网也别漏。跨域问题（如「关于阿司匹林的一切」「BRCA1 的一切」）并行查所有相关库。
-3. **校正标识符**：库不认标识符是失败首因，先按标识符表换算（见「指令」）。
-4. **发请求**：Claude Code 用 `WebFetch`（仅 GET）；POST-only 库与需自定义 header 的库用 `curl`。
-5. **返回结果**：始终给出①每个库的**原始 JSON**；②**已查数据库 + 具体端点**清单；③无结果的库要**显式说明**，不可省略。
+4. **Make the API call(s)** — See the **Making API Calls** section below for which HTTP fetch tool to use on your platform.
 
-## 指令
+5. **Return results** — Always return:
+   - The **raw JSON** response from each database
+   - A **list of databases queried** with the specific endpoints used
+   - If a query returned no results, say so explicitly rather than omitting it
 
-### 选库速查（节选高频项）
+## Database Selection Guide
 
-| 用户问… | 首选库 | 备选 |
+Match the user's intent to the right database(s). Many queries benefit from hitting multiple databases.
+
+### Physics & Astronomy
+| User is asking about... | Primary database(s) | Also consider |
 |---|---|---|
-| 化合物、分子性质、SMILES | PubChem | ChEMBL |
-| 生物活性 IC50/Ki/Kd、药物-靶点 | ChEMBL、BindingDB | PubChem、Open Targets |
-| 药品标签/不良事件/召回 | FDA(OpenFDA) | DailyMed |
-| 可购买化合物、虚拟筛选 | ZINC | PubChem |
-| 材料（化学式/能带/晶体结构） | Materials Project | COD |
-| 通路 | Reactome、KEGG | — |
-| 蛋白序列/功能/注释 | UniProt | Ensembl |
-| 蛋白互作 | STRING | BioGRID |
-| 基因信息/基因组定位 | NCBI Gene | Ensembl |
-| 跨组织表达 | GTEx | Human Protein Atlas |
-| 3D 结构（实验/预测） | PDB / AlphaFold | EMDB |
-| SNP/变异、人群频率 | dbSNP / gnomAD | ClinVar |
-| 靶点-疾病关联 | Open Targets | ChEMBL |
-| 癌症体细胞突变/基因组 | cBioPortal、GDC(TCGA) | Open Targets |
-| 临床试验 | ClinicalTrials.gov | FDA |
-| 专利（关键词/发明人/受让人） | USPTO(PatentsView) | — |
-| 美国经济时序（GDP/CPI/利率） | FRED | BEA |
-| 国际发展指标 | World Bank | FRED |
+| Near-Earth objects, asteroids | NASA (NeoWs) | — |
+| Mars rover images | NASA (Mars Rover Photos) | — |
+| Exoplanets, orbital parameters | NASA Exoplanet Archive | — |
+| Astronomical objects by name/coordinates | SIMBAD | SDSS |
+| Galaxy/star spectra, photometry | SDSS | SIMBAD |
+| Physical constants | NIST | — |
+| Atomic spectra, spectral lines | NIST (ASD) | — |
 
-**物种很关键**：多数生物库覆盖多物种，别默认人类。Ensembl 用 URL 路径 `{species}`（如 `homo_sapiens`）；STRING/BioGRID/QuickGO 用 NCBI taxon ID（人 `9606`、鼠 `10090`）；UniProt 用 `organism_id:9606`；KEGG 用物种码（`hsa`/`mmu`）。GTEx 与 HPA 仅限人类。
+### Earth & Environmental Sciences
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| Earthquakes, seismic events | USGS Earthquakes | — |
+| Water data, streamflow, groundwater | USGS Water Services | — |
+| Weather (current, forecast, historical) | OpenWeatherMap | NOAA |
+| Climate data, historical weather stations | NOAA (CDO) | — |
+| Air quality, toxic releases | EPA (Envirofacts) | — |
 
-### 常见标识符格式
+### Chemistry & Drugs
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| Chemical compounds, molecules | PubChem | ChEMBL |
+| Molecular properties (weight, formula, SMILES) | PubChem | — |
+| Drug synonyms, CAS numbers | PubChem (synonyms) | DrugBank |
+| Bioactivity data, IC50, binding assays | ChEMBL | BindingDB, PubChem |
+| Drug binding affinities (Ki, IC50, Kd) | ChEMBL, BindingDB | PubChem |
+| Drug-target interactions | ChEMBL, DrugBank | BindingDB, Open Targets |
+| Ligands for a protein target (by UniProt) | BindingDB | ChEMBL |
+| Target identification from compound structure | BindingDB (SMILES similarity) | ChEMBL |
+| Drug labels, adverse events, recalls | FDA (OpenFDA) | DailyMed |
+| Drug labels (structured product labels) | DailyMed | FDA (OpenFDA) |
+| Drug pharmacology, indications | DrugBank | FDA |
+| Chemical cross-referencing | PubChem (xrefs) | ChEMBL |
+| Commercially available compounds for screening | ZINC | PubChem |
+| Similarity/substructure search (purchasable) | ZINC | PubChem, ChEMBL |
+| Drug-like compound libraries, building blocks | ZINC | — |
+| FDA-approved drug structures | ZINC (fda subset) | PubChem, FDA |
+| Compound purchasability, vendor catalogs | ZINC | — |
 
-| 标识符 | 格式 | 示例 | 用于 |
+### Materials Science & Crystallography
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| Materials by formula or elements | Materials Project | COD |
+| Band gap, electronic structure | Materials Project | — |
+| Crystal structures, CIF files | COD | Materials Project |
+| Elastic/mechanical properties | Materials Project | — |
+| Formation energy, thermodynamics | Materials Project | — |
+| Cell parameters, space groups | COD | Materials Project |
+
+### Biology & Genomics
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| Biological pathways | Reactome, KEGG | — |
+| What pathways a gene/protein is in | Reactome (mapping), KEGG | — |
+| Enzyme kinetics, catalytic activity | BRENDA | KEGG |
+| Metabolomics studies, metabolite profiles | Metabolomics Workbench | PubChem |
+| m/z or exact mass lookup | Metabolomics Workbench (moverz/exactmass) | PubChem |
+| Protein sequence, function, annotation | UniProt | Ensembl |
+| Protein-protein interactions | STRING | BioGRID |
+| Gene information, genomic location | NCBI Gene | Ensembl |
+| Genome sequences, variants, transcripts | Ensembl | NCBI Gene |
+| Gene expression datasets | GEO (NCBI E-utilities) | — |
+| Gene expression across tissues | GTEx | Human Protein Atlas |
+| Gene expression signatures (CMap/L1000) | LINCS L1000 | GEO |
+| Gene set enrichment vs GEO | RummaGEO | GEO |
+| Protein sequences (NCBI) | NCBI Protein | UniProt |
+| Taxonomic classification | NCBI Taxonomy | — |
+| SNP/variant data (dbSNP) | dbSNP | ClinVar, gnomAD |
+| Population variant frequencies | gnomAD | dbSNP |
+| Sequencing run metadata | SRA | ENA, GEO |
+| Nucleotide sequences (European archive) | ENA | SRA, NCBI Gene |
+| Genome assemblies, raw reads (European) | ENA | SRA, Ensembl |
+| Cross-references from sequence accessions | ENA (xref) | NCBI Gene, UniProt |
+| Genome annotations, tracks | UCSC Genome Browser | Ensembl |
+| 3D protein structures (experimental) | PDB (RCSB) | EMDB |
+| 3D protein structures (predicted) | AlphaFold DB | PDB |
+| EM maps, cryo-EM structures | EMDB | PDB |
+| Protein families, domains | InterPro | UniProt |
+| Chemical entities (biological) | ChEBI | PubChem |
+| Protein/genetic interactions | BioGRID | STRING |
+| Gene function annotations (GO terms) | QuickGO | Gene Ontology |
+| Regulatory elements, ChIP-seq, ATAC-seq | ENCODE | — |
+| TF binding profiles/motifs | JASPAR | ENCODE |
+| Protein expression across tissues | Human Protein Atlas | UniProt |
+| Single-cell atlas projects | Human Cell Atlas | — |
+| Proteomics datasets | PRIDE | — |
+| Mouse gene data | MouseMine | NCBI Gene |
+| Plasmid repository | Addgene | — |
+
+**Organism/species matters.** Most biology databases cover multiple organisms. If the user's query is about a specific organism, pass it explicitly — don't assume human. Common patterns: Ensembl uses `{species}` in the URL path (e.g. `homo_sapiens`), STRING/BioGRID/QuickGO use NCBI taxon IDs (`species=9606` for human, `10090` for mouse), UniProt uses `organism_id:9606` in search queries, KEGG uses organism codes (`hsa`, `mmu`). GTEx and Human Protein Atlas are human-only. Check the reference file for each database's specific parameter.
+
+### Disease & Clinical
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| Somatic mutations in cancer | COSMIC | Open Targets, cBioPortal |
+| Cancer genomics (TCGA) | GDC (TCGA) | COSMIC, cBioPortal |
+| Cancer study mutations, CNA, expression | cBioPortal | GDC (TCGA), COSMIC |
+| Tumor clinical data (survival, staging) | cBioPortal | GDC (TCGA) |
+| Drug-target-disease associations | Open Targets | ChEMBL |
+| Gene-disease associations | DisGeNET | Open Targets, Monarch |
+| Mendelian disease-gene relationships | OMIM | NCBI Gene |
+| Variant clinical significance | ClinVar (NCBI) | OMIM |
+| GWAS SNP-trait associations | GWAS Catalog | — |
+| Disease-phenotype-gene links | Monarch Initiative | HPO |
+| Phenotype ontology, HPO terms | HPO | Monarch |
+| Pharmacogenomics, drug-gene interactions | ClinPGx (PharmGKB) | DrugBank |
+| Clinical trials for a drug/disease | ClinicalTrials.gov | FDA |
+| Disease-related expression data | GEO | Open Targets |
+
+### Patents & Regulatory
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| Patents by keyword or technology | USPTO (PatentsView) | — |
+| Patents by inventor or assignee | USPTO (PatentsView) | — |
+| Patent prosecution status | USPTO (PEDS) | — |
+| Trademark lookup | USPTO (TSDR) | — |
+| SEC company filings, 10-K, 10-Q | SEC EDGAR | — |
+
+### Economics & Finance
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| US economic time series (GDP, CPI, rates) | FRED | BEA |
+| Employment, wages, labor statistics | BLS | FRED |
+| GDP, national accounts | BEA | FRED, World Bank |
+| International development indicators | World Bank | FRED |
+| Interest rates, money supply | Federal Reserve | FRED |
+| Euro exchange rates, ECB monetary stats | ECB | — |
+| US debt, yield curves, fiscal data | US Treasury | FRED |
+| Stock prices, forex, crypto | Alpha Vantage | — |
+| Statistical data across many topics | Data Commons | — |
+
+### Social Sciences & Demographics
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| US population, housing, income data | US Census | Data Commons |
+| EU statistics (economy, trade, health) | Eurostat | World Bank |
+| Global health indicators (mortality, disease) | WHO GHO | World Bank |
+
+### Cross-domain queries
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| Everything about a compound | PubChem + ChEMBL + DrugBank | BindingDB, ZINC, Reactome, FDA |
+| Everything about a gene | NCBI Gene + UniProt + Ensembl | Reactome, STRING, COSMIC, cBioPortal, ENA |
+| Everything about a variant | dbSNP + ClinVar + gnomAD | GWAS Catalog, COSMIC, cBioPortal |
+| Drug target pathways | ChEMBL + Reactome | Open Targets, GEO |
+| Prior art for a chemical invention | USPTO + PubChem | ChEMBL |
+| Everything about a material | Materials Project + COD | — |
+| US economic overview | FRED + BLS + BEA | Federal Reserve |
+
+When the user's query spans multiple domains (e.g. "what do we know about aspirin" or "find everything about BRCA1"), query all relevant databases in parallel.
+
+## Common Identifier Formats
+
+Different databases use different identifier systems. If a query fails, the identifier format may be wrong. Here's a quick reference:
+
+| Identifier | Format | Example | Used by |
 |---|---|---|---|
-| UniProt accession | `P#####`/`Q#####` | `P04637`(TP53) | UniProt、STRING、AlphaFold、Reactome |
-| Ensembl 基因 ID | `ENSG###########` | `ENSG00000141510` | Ensembl、Open Targets、GTEx |
-| NCBI Gene ID | 整数 | `7157`(TP53) | NCBI Gene、GEO、DisGeNET、HPO |
-| PubChem CID | 整数 | `2244`(阿司匹林) | PubChem |
-| ChEMBL ID | `CHEMBL####` | `CHEMBL25` | ChEMBL |
+| UniProt accession | `P#####` or `Q#####` | `P04637` (TP53) | UniProt, STRING, AlphaFold, Reactome mapping |
+| Ensembl gene ID | `ENSG###########` | `ENSG00000141510` | Ensembl, Open Targets, GTEx |
+| NCBI Gene ID | Integer | `7157` (TP53) | NCBI Gene, GEO, DisGeNET, HPO |
+| HGNC ID | `HGNC:#####` | `HGNC:11998` | Monarch |
+| PubChem CID | Integer | `2244` (aspirin) | PubChem |
+| ZINC ID | `ZINC` + 15 digits | `ZINC000000000053` (aspirin) | ZINC |
+| ENA Project | `PRJEB` + digits | `PRJEB40665` | ENA |
+| ENA Run | `ERR` + digits | `ERR1234567` | ENA |
+| ENA Experiment | `ERX` + digits | `ERX1234567` | ENA |
+| ENA Sample | `ERS` + digits | `ERS1234567` | ENA |
+| ChEMBL ID | `CHEMBL####` | `CHEMBL25` (aspirin) | ChEMBL |
 | Reactome stable ID | `R-HSA-######` | `R-HSA-109581` | Reactome |
-| dbSNP rsID | `rs########` | `rs334` | dbSNP、gnomAD、GWAS Catalog |
-| GO term | `GO:#######` | `GO:0008150` | QuickGO |
-| HP term | `HP:#######` | `HP:0001250` | HPO（冒号 URL 编码为 `%3A`） |
-| GENCODE ID | `ENSG###.##`（带版本号） | `ENSG00000139618.17` | GTEx（必须带版本后缀） |
+| HP term | `HP:#######` | `HP:0001250` (seizure) | HPO (URL-encode colon as %3A) |
+| MONDO disease | `MONDO:#######` | `MONDO:0007947` | Monarch |
+| GO term | `GO:#######` | `GO:0008150` | QuickGO, Gene Ontology |
+| dbSNP rsID | `rs########` | `rs334` | dbSNP, GWAS Catalog, gnomAD |
+| GENCODE ID | `ENSG###.##` (versioned) | `ENSG00000139618.17` | GTEx (requires version suffix) |
 
-**标识符解析工作流**：
-- 基因：符号 → NCBI Gene（esearch）取 Gene ID → 经 Ensembl `/xrefs/symbol/homo_sapiens/{symbol}` 换 Ensembl ID，或 UniProt 搜 `gene_exact:{symbol} AND organism_id:9606`。
-- 化合物：名称 → PubChem `/compound/name/{name}/cids/JSON` 取 CID →（UniChem/ChEMBL）换 ChEMBL ID；名称失败改用 SMILES/InChIKey/CAS。
-- 变异：rsID 在 dbSNP/ClinVar/GWAS/gnomAD 直接可用；坐标用 Ensembl VEP 取注释与 rsID。
-- 疾病：名称 → Open Targets / Monarch 搜，取 EFO 或 MONDO ID 供下游。
+### Identifier Resolution
 
-### POST-only 库（WebFetch 不可用，必须 curl）
+When a database doesn't recognize an identifier, convert it using these workflows:
 
-| 库 | 原因 | 示例 |
+**Genes**: Symbol (e.g. "TP53") → look up in **NCBI Gene** (esearch by symbol) → get NCBI Gene ID → convert to Ensembl ID via **Ensembl** `/xrefs/symbol/homo_sapiens/{symbol}`, or to UniProt accession via **UniProt** search (`gene_exact:{symbol} AND organism_id:9606`).
+
+**Compounds**: Name → **PubChem** `/compound/name/{name}/cids/JSON` → get CID → convert to ChEMBL ID via **UniChem** or **ChEMBL** molecule search. If name lookup fails, try SMILES, InChIKey, or CAS number.
+
+**Variants**: rsID (e.g. "rs334") works directly in **dbSNP**, **ClinVar**, **GWAS Catalog**, **gnomAD**. For genomic coordinates, use **Ensembl** VEP to get consequence annotations and linked rsIDs.
+
+**Diseases**: Name → **Open Targets** or **Monarch** search → get EFO or MONDO ID → use in downstream queries.
+
+## POST-Only APIs
+
+These databases require HTTP POST and **will not work with WebFetch** (GET-only). Use `curl` via your platform's shell tool instead:
+
+| Database | Why POST needed | Example |
 |---|---|---|
-| Open Targets | GraphQL | `curl -X POST -H "Content-Type: application/json" -d '{"query":"..."}' https://api.platform.opentargets.org/api/v4/graphql` |
-| gnomAD | GraphQL | `curl -X POST -H "Content-Type: application/json" -d '{"query":"..."}' https://gnomad.broadinstitute.org/api` |
-| RummaGEO | POST 富集 | `curl -X POST -H "Content-Type: application/json" -d '{"genes":["..."]}' https://rummageo.com/api/enrich` |
-| GDC/TCGA | 复杂过滤 | `curl -X POST -H "Content-Type: application/json" -d '{"filters":...}' https://api.gdc.cancer.gov/ssms` |
-| SEC EDGAR | 需 User-Agent | `curl -H "User-Agent: YourApp you@email.com" https://efts.sec.gov/LATEST/search-index?q=...` |
+| Open Targets | GraphQL endpoint | `curl -X POST -H "Content-Type: application/json" -d '{"query":"..."}' https://api.platform.opentargets.org/api/v4/graphql` |
+| gnomAD | GraphQL endpoint | `curl -X POST -H "Content-Type: application/json" -d '{"query":"..."}' https://gnomad.broadinstitute.org/api` |
+| RummaGEO | POST-only enrichment | `curl -X POST -H "Content-Type: application/json" -d '{"genes":["..."]}' https://rummageo.com/api/enrich` |
+| GDC/TCGA | Complex filter queries | `curl -X POST -H "Content-Type: application/json" -d '{"filters":...}' https://api.gdc.cancer.gov/ssms` |
+| SEC EDGAR | Requires User-Agent header | `curl -H "User-Agent: YourApp you@email.com" https://efts.sec.gov/LATEST/search-index?q=...` |
 
-### API Key 加载（三级回退）
+## API Keys and Access Restrictions
 
-1. **先查环境变量**（如 `echo $FRED_API_KEY`），已设且非空就用。
-2. **回退 `.env`**：读当前工作目录 `.env`，格式 `FRED_API_KEY=your_key`。
-3. **都没有则无 key 继续**：多数 API 仍可用（速率更低），并告知用户缺哪个 key、去哪申请。
+Some databases require API keys or have access restrictions. When an API key is needed:
 
-需 key 的免费库（env 变量）：FRED `FRED_API_KEY`、BEA `BEA_API_KEY`、BLS `BLS_API_KEY`、NCBI `NCBI_API_KEY`、OpenFDA `OPENFDA_API_KEY`、USPTO `PATENTSVIEW_API_KEY`、Materials Project `MP_API_KEY`、NASA `NASA_API_KEY`（有 `DEMO_KEY`）、NOAA `NOAA_API_KEY`、OMIM `OMIM_API_KEY`、BioGRID `BIOGRID_API_KEY`、Alpha Vantage `ALPHAVANTAGE_API_KEY`、US Census `CENSUS_API_KEY`、DisGeNET `DISGENET_API_KEY` 等，均免费注册。
+1. **Check the current environment first** — the key may already be exported as a shell environment variable (e.g. `$FRED_API_KEY`). Read it directly from the environment.
+2. **Fall back to `.env`** — if the variable isn't in the environment, check the `.env` file in the current working directory.
+3. **If neither has it** — proceed without the key (most APIs still work at lower rate limits) and tell the user which key is missing and how to get one.
 
-## 示例
+### Databases requiring API keys (free registration)
 
-请求「关于阿司匹林我们知道什么」→ 跨域并行查 PubChem + ChEMBL + Reactome：
+| Database | Env Variable | Registration URL |
+|---|---|---|
+| FRED | `FRED_API_KEY` | https://fred.stlouisfed.org/docs/api/api_key.html |
+| BEA | `BEA_API_KEY` | https://apps.bea.gov/API/signup/ |
+| BLS | `BLS_API_KEY` | https://data.bls.gov/registrationEngine/ |
+| NCBI (GEO, Gene) | `NCBI_API_KEY` | https://www.ncbi.nlm.nih.gov/account/settings/ |
+| OpenFDA | `OPENFDA_API_KEY` | https://open.fda.gov/apis/authentication/ |
+| USPTO (PatentsView) | `PATENTSVIEW_API_KEY` | https://patentsview.org/apis/keyrequest |
+| Data Commons | `DATACOMMONS_API_KEY` | Google Cloud Console |
+| Materials Project | `MP_API_KEY` | https://materialsproject.org (free account) |
+| NASA | `NASA_API_KEY` | https://api.nasa.gov (free, DEMO_KEY available) |
+| NOAA (CDO) | `NOAA_API_KEY` | https://www.ncdc.noaa.gov/cdo-web/token |
+| OpenWeatherMap | `OPENWEATHERMAP_API_KEY` | https://openweathermap.org/appid |
+| OMIM | `OMIM_API_KEY` | https://omim.org/api (free academic) |
+| BioGRID | `BIOGRID_API_KEY` | https://webservice.thebiogrid.org (free) |
+| Alpha Vantage | `ALPHAVANTAGE_API_KEY` | https://www.alphavantage.co/support/#api-key |
+| US Census | `CENSUS_API_KEY` | https://api.census.gov/data/key_signup.html |
+| DisGeNET | `DISGENET_API_KEY` | https://www.disgenet.org (free academic) |
+| Addgene | `ADDGENE_API_KEY` | https://www.addgene.org (free account) |
+| LINCS L1000 (CLUE) | `CLUE_API_KEY` | https://clue.io (free academic) |
 
+These are all free to obtain. The APIs work without keys but have lower rate limits. Always try with a key first — if the env variable isn't set, proceed without the key and note in your response that rate limits may be lower.
+
+### Databases with paid or restricted access
+
+| Database | Restriction | Free alternative |
+|---|---|---|
+| DrugBank | Paid API license required | Use **ChEMBL** + **PubChem** + **OpenFDA** instead |
+| COSMIC | Free academic registration required (JWT auth) | Use **Open Targets** for cancer mutation data |
+| BRENDA | Free registration required (SOAP, not REST) | Use **KEGG** for enzyme/pathway data |
+
+When a database requires paid access or registration the user hasn't set up:
+1. **Fall back to a free alternative** that can answer the same question
+2. **Tell the user** which database you couldn't access, why, and what you used instead
+3. If the user specifically requests a restricted database, explain the access requirements so they can set it up
+
+### Loading API keys
+
+**Step 1 — Check the current environment.** The key may already be exported as a shell variable. For example, in Claude Code you can check with Bash: `echo $FRED_API_KEY`. If the variable is set and non-empty, use it.
+
+**Step 2 — Check `.env` file.** If the environment variable isn't set, read `.env` from the current working directory. Format:
+```
+FRED_API_KEY=your_key_here
+BEA_API_KEY=your_key_here
+```
+
+**Step 3 — Proceed without.** If neither source has the key, proceed without it (most APIs still work at lower rate limits) and mention this to the user.
+
+## Making API Calls
+
+Use your environment's HTTP fetch tool to call REST endpoints. The tool name varies by platform:
+
+| Platform | HTTP Fetch Tool | Fallback |
+|---|---|---|
+| Claude Code | `WebFetch` | `curl` via Bash |
+| Gemini CLI | `web_fetch` | `curl` via shell |
+| Windsurf | `read_url_content` | `curl` via terminal |
+| Cursor | No dedicated fetch tool | `curl` via `run_terminal_cmd` |
+| Codex CLI | No dedicated fetch tool | `curl` via `shell` |
+| Cline | No dedicated fetch tool | `curl` via `execute_command` |
+
+If you don't recognize your platform or the fetch tool fails, fall back to `curl` via whatever shell/terminal tool is available. Example:
 ```bash
-# PubChem 名称取 CID 与基本性质（GET）
-curl -s -H "Accept: application/json" \
-  "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/property/MolecularFormula,MolecularWeight,CanonicalSMILES/JSON"
-# Reactome 搜索（GET）
-curl -s "https://reactome.org/ContentService/search/query?query=aspirin"
+curl -s -H "Accept: application/json" "https://api.example.com/endpoint"
 ```
 
-输出结构：
+### Request guidelines
+
+- Set `Accept: application/json` header where supported
+- URL-encode special characters in query parameters — SMILES strings (`/`, `#`, `=`, `@`), compound names with parentheses, and ontology terms with colons (`HP:0001250` → `HP%3A0001250`) are common sources of failures. With `curl`, use `--data-urlencode` for safety.
+- **Parallel OK**: When querying *different* databases (e.g., PubChem + ChEMBL + Reactome), run them in parallel — most APIs have generous rate limits.
+- **Serialize requests to rate-limited APIs**: NCBI APIs (Gene, GEO, Protein, Taxonomy, dbSNP, SRA) at 3 req/sec without key, 10 with key. Also watch: Ensembl (15 req/sec), BLS v1 (25 req/day without key), SEC EDGAR (10 req/sec), NOAA (5 req/sec with token).
+- If you get a rate-limit error (HTTP 429 or 503), wait briefly and retry once
+
+### Error recovery
+
+If an API returns an error or empty results:
+1. **Check the identifier format** — use the Common Identifier Formats table above. A gene symbol may need to be converted to NCBI Gene ID or Ensembl ID first.
+2. **Try alternative identifiers** — if a compound name fails in PubChem, try SMILES, InChIKey, or CID. If a gene symbol fails, try the NCBI Gene ID.
+3. **Try a different database** — if one database is down or returns nothing, check the "Also consider" column in the selection guide for alternatives.
+4. **Report the failure** — tell the user which database failed, the error, and what you tried instead.
+
+### Pagination
+
+Many APIs return paginated results — if you only read the first page, you may miss data. Common patterns:
+
+- **Offset/Limit**: `offset=0&limit=100` → increment offset by limit for the next page (ChEMBL, FRED, NOAA, USGS, NCBI E-utilities, ENA, GDC, FDA)
+- **Cursor-based**: Response includes a `nextPageToken` or `cursor` value — pass it in the next request (ClinicalTrials.gov, UniProt)
+- **Page number**: `page=1&per_page=50` → increment page (World Bank, cBioPortal, ZINC)
+
+Check the reference file for each database's specific pagination parameters. If a response includes `total`, `totalCount`, or `next` and the number of returned results is less than the total, there are more pages.
+
+For targeted lookups (single gene, single compound), the first page is usually sufficient. Paginate when the user needs comprehensive results (e.g., "all clinical trials for X" or "all known variants in gene Y").
+
+## Output Format
+
+Structure your response like this:
 
 ```
-## 已查数据库
+## Databases Queried
 - **PubChem** — /compound/name/aspirin/property/...
 - **Reactome** — /search/query?query=aspirin
 
-## 结果
+## Results
+
 ### PubChem
-[原始 JSON]
+[raw JSON response]
+
 ### Reactome
-[原始 JSON]
+[raw JSON response]
 ```
 
-结果很大时给出最相关部分并说明还有更多；但默认展示完整原始 JSON（用户要的就是它）。
+If results are very large, present the most relevant portion and note that additional data is available. But default to showing the full raw JSON — the user asked for it.
 
-## 注意事项
+## Adding New Databases
 
-- **URL 编码**：失败高发于特殊字符——SMILES（`/ # = @`）、含括号的化合物名、含冒号的本体词（`HP:0001250`→`HP%3A0001250`）。curl 用 `--data-urlencode` 更稳。
-- **并行 vs 串行**：查**不同库**可并行（限速宽松）；对限速 API 须串行——NCBI 无 key 3 req/s、有 key 10；Ensembl 15 req/s；BLS v1 无 key 25 次/天；SEC EDGAR 10 req/s；NOAA 5 req/s。遇 429/503 略等后重试一次。
-- **分页**：别只读首页。Offset/Limit（ChEMBL、FRED、NCBI、ENA、GDC、FDA）；游标 `nextPageToken`/`cursor`（ClinicalTrials.gov、UniProt）；页码 `page`/`per_page`（World Bank、cBioPortal、ZINC）。单点查询首页通常够；「全部试验/全部变异」类需翻页。
-- **错误恢复**：①查标识符格式；②换备用标识符；③换库（选库表「备选」列）；④如实报告失败库、错误与替代方案。
-- **付费/受限库替代**：DrugBank→ChEMBL+PubChem+OpenFDA；COSMIC→Open Targets；BRENDA→KEGG。用了替代要告知用户原因与替代项。
-- 始终返回原始 JSON，不要编造或省略未命中的库。
+This skill is designed to grow. Each database is a self-contained reference file in `references/`. To add a new database:
 
-## 互见
+1. Create `references/<database-name>.md` following the same format as existing files
+2. Add an entry to the database selection guide above
+3. The reference file should include: base URL, key endpoints, query parameter formats, example calls, rate limits, and response structure
 
-- fact-checking：取回数据后若需对结论做事实核查/多源交叉验证。
-- csv-data-cleaner：把抓取的 JSON 落地为表格并清洗时。
-- sql-query-builder：面向私有/本地关系库（非公开 REST API）取数时。
-- rag-pipeline-builder：把数据库结果纳入检索增强管线时。
+## Available Databases
 
----
-本条采编自 K-Dense-AI/scientific-agent-skills（MIT）。
+Read the relevant reference file before making any API call.
+
+### Physics & Astronomy
+| Database | Reference File | What it covers |
+|---|---|---|
+| NASA | `references/nasa.md` | NEO asteroids, Mars rover, APOD |
+| NASA Exoplanet Archive | `references/nasa-exoplanet-archive.md` | Exoplanets, orbital parameters |
+| NIST | `references/nist.md` | Physical constants, atomic spectra |
+| SDSS | `references/sdss.md` | Galaxy/star spectra, photometry |
+| SIMBAD | `references/simbad.md` | Astronomical object catalog |
+
+### Earth & Environmental Sciences
+| Database | Reference File | What it covers |
+|---|---|---|
+| USGS | `references/usgs.md` | Earthquakes, water data |
+| NOAA | `references/noaa.md` | Climate, weather station data |
+| EPA | `references/epa.md` | Air quality, toxic releases |
+| OpenWeatherMap | `references/openweathermap.md` | Weather current/forecast |
+
+### Chemistry & Drugs
+| Database | Reference File | What it covers |
+|---|---|---|
+| PubChem | `references/pubchem.md` | Compounds, properties, synonyms |
+| ChEMBL | `references/chembl.md` | Bioactivity, drug discovery |
+| DrugBank | `references/drugbank.md` | Drug data, interactions (paid) |
+| FDA (OpenFDA) | `references/fda.md` | Drug labels, adverse events, recalls |
+| DailyMed | `references/dailymed.md` | Drug labels (NIH/NLM) |
+| KEGG | `references/kegg.md` | Pathways, genes, compounds |
+| ChEBI | `references/chebi.md` | Chemical entities of biological interest |
+| ZINC | `references/zinc.md` | Commercially available compounds, virtual screening |
+| BindingDB | `references/bindingdb.md` | Experimentally measured binding affinities |
+
+### Materials Science
+| Database | Reference File | What it covers |
+|---|---|---|
+| Materials Project | `references/materials-project.md` | Band gaps, elastic properties, crystal structures |
+| COD | `references/cod.md` | Crystal structures, CIF files |
+
+### Biology & Genomics
+| Database | Reference File | What it covers |
+|---|---|---|
+| Reactome | `references/reactome.md` | Biological pathways, reactions |
+| BRENDA | `references/brenda.md` | Enzyme kinetics, catalysis (SOAP) |
+| UniProt | `references/uniprot.md` | Protein sequences, function |
+| STRING | `references/string.md` | Protein-protein interactions |
+| Ensembl | `references/ensembl.md` | Genomes, variants, sequences |
+| NCBI Gene | `references/ncbi-gene.md` | Gene information, links |
+| NCBI Protein | `references/ncbi-protein.md` | Protein sequences, records |
+| NCBI Taxonomy | `references/ncbi-taxonomy.md` | Taxonomic classification |
+| GEO (NCBI) | `references/geo.md` | Gene expression datasets |
+| GTEx | `references/gtex.md` | Gene expression across tissues |
+| PDB | `references/pdb.md` | Protein 3D structures |
+| AlphaFold DB | `references/alphafold.md` | Predicted protein structures |
+| EMDB | `references/emdb.md` | Electron microscopy maps |
+| InterPro | `references/interpro.md` | Protein families, domains |
+| BioGRID | `references/biogrid.md` | Protein/genetic interactions |
+| Gene Ontology | `references/gene-ontology.md` | GO terms, gene annotations |
+| QuickGO | `references/quickgo.md` | GO annotations (EBI, recommended) |
+| dbSNP | `references/dbsnp.md` | SNP/variant data |
+| SRA | `references/sra.md` | Sequencing run metadata |
+| gnomAD | `references/gnomad.md` | Population variant frequencies (POST) |
+| UCSC Genome Browser | `references/ucsc-genome.md` | Genome annotations, tracks |
+| ENCODE | `references/encode.md` | DNA elements, ChIP-seq, ATAC-seq |
+| JASPAR | `references/jaspar.md` | TF binding profiles/motifs |
+| Human Protein Atlas | `references/human-protein-atlas.md` | Protein expression across tissues |
+| Human Cell Atlas | `references/hca.md` | Single-cell atlas data |
+| LINCS L1000 | `references/lincs-l1000.md` | Gene expression signatures (CMap) |
+| RummaGEO | `references/rummageo.md` | GEO gene set enrichment (POST) |
+| PRIDE | `references/pride.md` | Proteomics data repository |
+| Metabolomics Workbench | `references/metabolomics-workbench.md` | Metabolomics studies, metabolites |
+| MouseMine | `references/mousemine.md` | Mouse genome informatics |
+| ENA | `references/ena.md` | Nucleotide sequences, reads, assemblies, taxonomy (EMBL-EBI) |
+| Addgene | `references/addgene.md` | Plasmid repository |
+
+### Disease & Clinical
+| Database | Reference File | What it covers |
+|---|---|---|
+| Open Targets | `references/opentargets.md` | Target-disease associations (POST) |
+| COSMIC | `references/cosmic.md` | Somatic mutations in cancer |
+| ClinPGx (PharmGKB) | `references/clinpgx.md` | Pharmacogenomics |
+| ClinicalTrials.gov | `references/clinicaltrials.md` | Clinical trial registry |
+| OMIM | `references/omim.md` | Mendelian disease-gene data |
+| ClinVar | `references/clinvar.md` | Variant clinical significance |
+| GDC (TCGA) | `references/tcga-gdc.md` | Cancer genomics, mutations (POST) |
+| cBioPortal | `references/cbioportal.md` | Cancer study mutations, CNA, expression, clinical data |
+| DisGeNET | `references/disgenet.md` | Gene-disease associations |
+| GWAS Catalog | `references/gwas-catalog.md` | GWAS SNP-trait associations |
+| Monarch Initiative | `references/monarch.md` | Disease-phenotype-gene links |
+| HPO | `references/hpo.md` | Human Phenotype Ontology |
+
+### Patents & Regulatory
+| Database | Reference File | What it covers |
+|---|---|---|
+| USPTO | `references/uspto.md` | Patents, trademarks |
+| SEC EDGAR | `references/sec-edgar.md` | Company filings (needs User-Agent header) |
+
+### Economics & Finance
+| Database | Reference File | What it covers |
+|---|---|---|
+| FRED | `references/fred.md` | US economic time series |
+| Federal Reserve | `references/federal-reserve.md` | Monetary/financial data |
+| BEA | `references/bea.md` | GDP, national accounts |
+| BLS | `references/bls.md` | Employment, wages, CPI |
+| World Bank | `references/worldbank.md` | Development indicators |
+| ECB | `references/ecb.md` | Euro exchange rates, monetary stats |
+| US Treasury | `references/treasury.md` | Debt, yield curves, fiscal data |
+| Alpha Vantage | `references/alphavantage.md` | Stocks, forex, crypto |
+| Data Commons | `references/datacommons.md` | Statistical knowledge graph |
+
+### Social Sciences & Demographics
+| Database | Reference File | What it covers |
+|---|---|---|
+| US Census | `references/census.md` | Population, housing, economic surveys |
+| Eurostat | `references/eurostat.md` | EU statistics |
+| WHO GHO | `references/who.md` | Global health indicators |

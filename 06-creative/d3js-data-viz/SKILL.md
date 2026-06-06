@@ -1,14 +1,14 @@
 ---
 name: d3js-data-viz
-title: D3.js 交互式数据可视化
-description: 当需要用 D3.js 构建自定义、交互式、出版级数据可视化（网络图、地理投影、弦图、热力图、力导向图等标准图表库做不出的图形）时使用；做绑定数据到 DOM、用比例尺/坐标轴/形状生成器渲染 SVG 并加上过渡、缩放、提示框等交互；不适用于 3D（改用 Three.js）或现成图表库够用的简单图。触发词：D3.js、数据可视化、力导向图
+title: D3.js Interactive Data Visualisation
+description: Use D3.js to build custom, interactive, publication-quality data visualisations (networks, geo projections, chord diagrams, heatmaps, force-directed layouts) that standard chart libraries can't produce; bind data to the DOM, render SVG with scales/axes/shape generators, and add t
 domain: 创意/design
-triggers: [D3.js, d3, 数据可视化, 交互式图表, 力导向图, 弦图, 热力图, SVG 图表, 比例尺, 坐标轴, 缩放平移, 网络图, 可视化]
-tags: [d3js, 数据可视化, 前端, svg, 交互, 图表, javascript, 创意]
-level: 进阶
+triggers: [D3.js, d3, data visualisation, interactive chart, force-directed graph, chord diagram, heatmap, SVG chart, scales, axes, zoom and pan, network graph, data binding]
+tags: [d3js, data-visualisation, frontend, svg, interactive, charts, javascript, creative]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [JavaScript, D3.js v7, SVG, Canvas, ResizeObserver]
+tools: []
 requires: []
 related: [threejs-3d-web, algorithmic-art, plotly-interactive-viz, matplotlib-visualization]
 combines_with: [web-artifacts-builder, data-storyteller, kpi-dashboard-design]
@@ -16,81 +16,99 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-用 D3.js（Data-Driven Documents）把数据绑定到 DOM 元素、做数据驱动的变换，生成对每个视觉元素都可精细控制的自定义、出版级可视化。技术不限框架，可用于原生 JS、React、Vue、Svelte 等。
+Use D3.js (Data-Driven Documents) to bind data to DOM elements and apply data-driven transformations, creating custom, publication-quality visualisations with precise control over every visual element. The techniques work across any JavaScript environment, including vanilla JavaScript, React, Vue, Svelte, and other frameworks.
 
-适合用 D3.js：
-- 需要独特视觉编码或布局的自定义图形
-- 复杂的平移、缩放、刷选（brush）交互
-- 网络/图可视化：力导向布局、树图、层级图、弦图
-- 自定义投影的地理可视化
-- 需要平滑、编排化过渡动画
-- 出版级、精细样式控制的图形
-- 标准图表库没有的新颖图表类型
+**Use d3.js for:**
+- Custom visualisations requiring unique visual encodings or layouts
+- Interactive explorations with complex pan, zoom, or brush behaviours
+- Network/graph visualisations (force-directed layouts, tree diagrams, hierarchies, chord diagrams)
+- Geographic visualisations with custom projections
+- Visualisations requiring smooth, choreographed transitions
+- Publication-quality graphics with fine-grained styling control
+- Novel chart types not available in standard libraries
 
-不该用（边界）：
-- 3D 可视化 -> 改用 Three.js
-- 简单的标准图（基础柱/折线/饼），现成图表库（Chart.js、ECharts 等）够用且更省事时，不必上 D3
-- 缺少明确输入、数据格式或成功标准时，先停下来问清楚，不要硬画
+**Consider alternatives for:**
+- 3D visualisations — use Three.js instead
+- Simple standard charts (basic bar/line/pie) where a ready-made library (Chart.js, ECharts) is sufficient and lighter
+- Stop and ask for clarification if required inputs, data format, or success criteria are missing — don't force a chart
 
-## 步骤
+## Steps
 
-1. 引入 D3。模块化：`import * as d3 from 'd3';`；或 CDN（7.x）：`<script src="https://d3js.org/d3.v7.min.js"></script>`。所有模块（比例尺、坐标轴、形状、过渡等）都挂在 `d3` 命名空间下。
+1. **Set up d3.js.** Import modules: `import * as d3 from 'd3';` or use the CDN (7.x): `<script src="https://d3js.org/d3.v7.min.js"></script>`. All modules (scales, axes, shapes, transitions, etc.) are accessible through the `d3` namespace.
 
-2. 选集成模式。
-   - 模式 A（多数情况推荐）：直接 DOM 操作，用 `d3.select(...)` 命令式选取并操作元素，适配任何环境，配合过渡/交互/D3 全部能力。
-   - 模式 B（带模板的框架）：只用 D3 算数据（比例尺、布局），元素由框架声明式渲染（React 的 `.map` -> `<rect>`、Vue 的 `v-for`）。简单图或框架偏好声明式时用它。
+2. **Choose the integration pattern.**
+   - **Pattern A: Direct DOM manipulation (recommended for most cases).** Use d3 to select and manipulate DOM elements imperatively with `d3.select(...)`. Works in any JavaScript environment and unlocks d3's full transition/interaction capabilities.
+   - **Pattern B: Declarative rendering (for frameworks with templating).** Use d3 only for data calculations (scales, layouts) and render elements via your framework (React's `.map` → `<rect>`, Vue's `v-for`). Use it for simpler visualisations or when your framework prefers declarative rendering.
 
-3. 用标准结构组织绘图函数（见下方「指令」骨架）：先空值校验并清空旧渲染 -> 定义尺寸与 margin -> 建带 margin 偏移的主 `g` 分组 -> 建比例尺 -> 建并 append 坐标轴 -> 用 `.data().join()` 绑定数据生成视觉元素。
+3. **Structure the drawing function** (call when data changes): null-check and clear the previous render → define dimensions and margin → create a main `g` group with margin offset → create scales → create and append axes → bind data with `.data().join()` to create visual elements (see the skeleton below).
 
-4. 做响应式。用 `window` 的 `resize` 监听或 `ResizeObserver` 监听容器尺寸，重算 `getBoundingClientRect()` 后重绘；并返回清理函数（移除监听/`observer.disconnect()`），组件卸载时调用。
+4. **Implement responsive sizing.** Listen to `window` `resize` or use a `ResizeObserver` on the container, recompute from `getBoundingClientRect()`, and redraw; return a cleanup function (remove listener / `observer.disconnect()`) to call when the component unmounts.
 
-5. 加交互与动画：提示框（tooltip）、缩放平移（`d3.zoom`）、点击、过渡（`.transition()`）。
+5. **Add interactivity and animation:** tooltips, zoom/pan (`d3.zoom`), click handlers, and transitions (`.transition()`).
 
-## 指令
-
-标准绘图骨架（数据变化时调用）：
+### Standard drawing skeleton
 
 ```javascript
 function drawVisualization(data) {
-  if (!data || data.length === 0) return;            // 1. 空值校验
+  if (!data || data.length === 0) return;       // 1. Null check
 
-  const svg = d3.select('#chart');
-  svg.selectAll("*").remove();                        // 2. 清空旧渲染
+  const svg = d3.select('#chart');              // Select by ID, class, or DOM element
+  svg.selectAll("*").remove();                  // 2. Clear previous render
 
+  // 3. Define dimensions
   const width = 800, height = 400;
   const margin = { top: 20, right: 30, bottom: 40, left: 50 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  const g = svg.append("g")                           // 3. 带 margin 的主分组
+  // 4. Main group with margins
+  const g = svg.append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
+  // 5. Scales
   const xScale = d3.scaleLinear()
     .domain([0, d3.max(data, d => d.x)]).range([0, innerWidth]);
   const yScale = d3.scaleLinear()
-    .domain([0, d3.max(data, d => d.y)]).range([innerHeight, 0]); // y 轴反转
+    .domain([0, d3.max(data, d => d.y)]).range([innerHeight, 0]); // inverted for SVG coords
 
+  // 6. Axes
   g.append("g").attr("transform", `translate(0,${innerHeight})`)
     .call(d3.axisBottom(xScale));
   g.append("g").call(d3.axisLeft(yScale));
 
-  g.selectAll("circle").data(data).join("circle")     // 用 .join() 绑定
+  // 7. Bind data and create visual elements
+  g.selectAll("circle").data(data).join("circle")
     .attr("cx", d => xScale(d.x))
     .attr("cy", d => yScale(d.y))
     .attr("r", 5).attr("fill", "steelblue");
 }
 ```
 
-比例尺速查：
-- 定量：`scaleLinear` / `scaleLog`（指数数据）/ `scalePow().exponent(2)` / `scaleTime`
-- 序数：`scaleBand().padding(0.1)`（柱状）/ `scalePoint`（折线/散点分类）/ `scaleOrdinal(d3.schemeCategory10)`（颜色）
-- 顺序色：`scaleSequential(d3.interpolateBlues)`；发散色：`scaleDiverging(d3.interpolateRdBu)`
+### Scales quick reference
 
-## 示例
+- **Quantitative:** `scaleLinear` / `scaleLog` (exponential data) / `scalePow().exponent(2)` / `scaleTime`
+- **Ordinal:** `scaleBand().padding(0.1)` (bars) / `scalePoint` (line/scatter categories) / `scaleOrdinal(d3.schemeCategory10)` (colours)
+- **Sequential colour:** `scaleSequential(d3.interpolateBlues)`; **diverging:** `scaleDiverging(d3.interpolateRdBu)`
 
-柱状图核心（用 `scaleBand`）：
+### Responsive sizing with ResizeObserver
+
+```javascript
+function setupResponsiveChartWithObserver(svgElement, data) {
+  const observer = new ResizeObserver(() => {
+    const { width, height } = svgElement.getBoundingClientRect();
+    d3.select(svgElement).attr('width', width).attr('height', height);
+    drawChart(data, d3.select(svgElement), width, height); // Redraw
+  });
+  observer.observe(svgElement.parentElement);
+  return () => observer.disconnect(); // cleanup
+}
+```
+
+## Example
+
+**Bar chart core (using `scaleBand`):**
 
 ```javascript
 const xScale = d3.scaleBand()
@@ -106,18 +124,18 @@ g.selectAll("rect").data(data).join("rect")
   .attr("fill", "steelblue");
 ```
 
-折线图用形状生成器：
+**Line chart with a shape generator:**
 
 ```javascript
 const line = d3.line()
   .x(d => xScale(d.date)).y(d => yScale(d.value))
-  .curve(d3.curveMonotoneX);                    // 平滑曲线
+  .curve(d3.curveMonotoneX);                    // smooth curve
 g.append("path").datum(data)
   .attr("fill", "none").attr("stroke", "steelblue")
   .attr("stroke-width", 2).attr("d", line);
 ```
 
-力导向网络（可拖拽，tick 里更新坐标）：
+**Force-directed network (draggable, update coords on tick):**
 
 ```javascript
 const simulation = d3.forceSimulation(nodes)
@@ -130,10 +148,20 @@ simulation.on("tick", () => {
       .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
   node.attr("cx", d => d.x).attr("cy", d => d.y);
 });
-// node 上 .call(d3.drag().on("start"/"drag"/"end", ...)) 配合 fx/fy 实现拖拽
+
+function dragstarted(event) {
+  if (!event.active) simulation.alphaTarget(0.3).restart();
+  event.subject.fx = event.subject.x; event.subject.fy = event.subject.y;
+}
+function dragged(event)  { event.subject.fx = event.x; event.subject.fy = event.y; }
+function dragended(event){
+  if (!event.active) simulation.alphaTarget(0);
+  event.subject.fx = null; event.subject.fy = null;
+}
+// node.call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
 ```
 
-提示框（tooltip，建在 SVG 外的 div，`pointer-events: none`）：
+**Tooltip (a `div` outside the SVG, `pointer-events: none`):**
 
 ```javascript
 circles
@@ -147,7 +175,7 @@ circles
   .on("mouseout", () => tooltip.style("visibility", "hidden"));
 ```
 
-缩放平移：
+**Zoom and pan:**
 
 ```javascript
 const zoom = d3.zoom().scaleExtent([0.5, 10])
@@ -155,23 +183,20 @@ const zoom = d3.zoom().scaleExtent([0.5, 10])
 svg.call(zoom);
 ```
 
-源文件还附 `references/`（d3-patterns、scale-reference、colour-schemes）与 `assets/`（chart-template.js、interactive-template.js、sample-data.json），含弦图、热力图、饼图等完整范式，需要时按图查阅。
+The source skill also ships `references/` (`d3-patterns.md`, `scale-reference.md`, `colour-schemes.md`) and `assets/` (`chart-template.js`, `interactive-template.js`, `sample-data.json`), with full recipes for chord diagrams, heatmaps, pie charts, and more — read them when detailed guidance for a specific pattern is needed.
 
-## 注意事项
+## Notes
 
-- 数据预处理：先过滤无效值 `data.filter(d => d.value != null && !isNaN(d.value))`，需要排序时用 `[...data].sort(...)`，日期用 `d3.timeParse("%Y-%m-%d")` 解析。
-- 性能（>1000 元素）：用 Canvas 取代 SVG；用 quadtree 做碰撞检测；用 `.join()` 取代分开的 enter/update/exit；自定义动画用 `requestAnimationFrame`；防抖 resize 处理器。
-- 无障碍：给 svg 加 `role="img"` 与 `aria-label`，append `<title>`/`<desc>`，保证颜色对比度，为交互元素提供键盘导航与数据表替代。
-- 常见坑：
-  - 坐标轴不显示 -> 检查 domain 是否含 NaN、轴是否 append 到正确分组、transform 平移是否正确。
-  - 过渡不生效 -> `.transition()` 要在改属性之前调用、元素需有唯一 key 保证数据绑定、确认 useEffect 依赖含所有变化数据。
-  - 响应式失效 -> 用 ResizeObserver 或 resize 监听、确保 SVG 设了 width/height 或 viewBox。
-- 不要把输出当作环境特定的验证、测试或专家评审的替代品。
+- **Data preparation:** filter invalid values with `data.filter(d => d.value != null && !isNaN(d.value))`; sort with `[...data].sort(...)` when order matters; parse dates with `d3.timeParse("%Y-%m-%d")`.
+- **Performance (>1000 elements):** use Canvas instead of SVG; use a quadtree for collision detection; prefer `.join()` over separate enter/update/exit; use `requestAnimationFrame` for custom animations; debounce resize handlers.
+- **Accessibility:** add `role="img"` and `aria-label` to the svg, append `<title>`/`<desc>`, ensure sufficient colour contrast, and provide keyboard navigation and a data-table alternative for interactive elements.
+- **Common issues:**
+  - Axes not appearing → check the domain for NaN, verify the axis is appended to the correct group, and confirm the transform translation.
+  - Transitions not working → call `.transition()` before changing attributes, give elements unique keys for proper data binding, and ensure `useEffect` dependencies include all changing data.
+  - Responsive sizing not working → use ResizeObserver or a window resize listener and ensure the SVG has width/height attributes or a viewBox.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
 
-## 互见
+## See also
 
-- 3D 可视化：改用 Three.js
-- 简单标准图的轻量替代：Chart.js、Apache ECharts
-
----
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+- 3D visualisation → use Three.js
+- Lightweight alternatives for simple standard charts → Chart.js, Apache ECharts

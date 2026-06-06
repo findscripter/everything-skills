@@ -1,14 +1,14 @@
 ---
 name: legal-inquiry-responder
-title: 法律咨询应答（模板+升级判定）
-description: 当需要用既有模板回复常见法律咨询（数据主体请求 DSR、诉讼保全通知、供应商法律问题、业务团队 NDA 请求、隐私问询、传票/法律程序、保险报案）时使用；先跑升级触发器自检，无触发则套模板填具体事实/管辖/期限生成「待审阅草稿」+ 跟进事项，命中触发则停手、说明触发原因、给升级路径与「DRAFT-FOR COUNSEL REVIEW ONLY」草稿；不适用于提供法律意见、直接外发定稿、传票/监管/诉讼等必须律师定夺的场景。触发词：法律咨询回复、模板回复、DSR应答、保全通知、NDA请求、传票应答、升级判定
+title: /legal-response -- Generate Response from Templates
+description: Generate a response to a common legal inquiry using configured templates, with built-in escalation checks for situations that shouldn't use a templated reply. Use when responding to data subject requests, litigation hold notices, vendor legal questions, NDA requests from business teams, or subpoenas.
 domain: 领域/legal
-triggers: [法律咨询回复, 模板回复, DSR应答, 数据主体请求, 诉讼保全通知, 供应商法律问题, NDA请求, 隐私问询, 传票应答, 保险报案, 升级判定, legal response, data subject request, litigation hold notice]
-tags: [法律, 合规, 模板, 数据主体请求, 诉讼保全, nda, 隐私, 传票, 升级判定]
-level: 进阶
+triggers: [legal response, data subject request, litigation hold notice]
+tags: [nda]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [docx, markdown]
+tools: []
 requires: []
 related: [quick-legal-problem-triage, legal-client-intake, nda-triage-reviewer, dsar-response-builder]
 combines_with: [legal-risk-classifier]
@@ -16,96 +16,229 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-# 法律咨询应答（模板+升级判定）
+# /legal-response -- Generate Response from Templates
 
-> 本技能辅助法律工作流，**不提供法律意见**。生成内容均为草稿，外发前须经合格律师审阅，受监管的沟通（DSR、传票等）尤其如此。
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-## 何时使用
+Generate a response to a common legal inquiry using configured templates. Customizes the response with specific details and includes escalation triggers for situations that should not use a templated response.
 
-需要对**常见、可模板化**的法律咨询起草回复，且本质上重复出现、有标准框架时：
+**Important**: This command assists with legal workflows but does not provide legal advice. Generated responses should be reviewed by qualified legal professionals before being sent, especially for regulated communications.
 
-- `dsr` 数据主体请求（访问/删除/更正/可携/退出）
-- `hold` 诉讼/证据保全通知（discovery / litigation hold）
-- `vendor` 供应商法律问题（合同状态、修订、合规证明、审计、保险证书）
-- `nda` 业务团队 NDA 请求（发标准件 / 接收对方件加批注 / 婉拒 / 续期）
-- `privacy` 隐私问询（Cookie/追踪、隐私政策、数据共享、儿童数据、跨境传输）
-- `subpoena` 传票或法律程序应答
-- `insurance` 保险报案/补充材料/权利保留回复
-- `custom` 自定义模板
-
-未给类型则先列出上述类目并询问。
-
-**不该用（应停手转人工）**：① 需要出具法律意见或个案诉讼策略；② 命中下文「升级触发器」的任何场景；③ 传票/法律程序——**几乎总需律师个案审查**，模板仅为起点；④ 直接外发定稿——本技能只产「待审阅草稿」。
-
-## 步骤
-
-**S1 识别类型**：接收类型，模糊则列类目澄清。
-
-**S2 加载模板**：在本地设置查模板（如 `legal.local.md` 或 templates 目录）。有则载入并识别必填变量；无则告知未找到、按类型给一个合理默认结构、并可走「模板创建」帮其建模板存档复用。
-
-**S3 升级触发器自检（生成任何回复前必跑）**：评估本情形是否**不该**用模板回复。
-
-通用触发器（所有类目）：涉潜在诉讼/监管调查；来自监管/政府/执法机关；回复可能构成有约束力的承诺或弃权；涉潜在刑事责任；已有或可能有媒体关注；前所未有（团队无先例）；多法域且要求冲突；涉高管或董事会成员。
-
-分类触发器：
-- **DSR**：涉未成年人数据 / 由未成年人或其代表提出；来自监管机构（非个人）；数据正处于保全（litigation hold）下；请求人为有活跃争议/HR 事项的现/前员工；范围异常宽泛或疑似「钓鱼式」；涉有特殊要求法域的数据；涉特殊类别数据（健康/生物识别/基因）。
-- **保全 Hold**：涉潜在刑事责任；保全范围不清/有争议/可能过宽；某些数据是否在范围内存疑；同一或关联事项已有在先保全；保全可能显著影响在营业务；与监管删除要求冲突；保管人对范围有异议。
-- **供应商**：涉争议或潜在违约；供应商威胁诉讼或终止；涉监管合规（非仅合同条款）；回复可能构成约束性承诺/弃权；可能影响在谈判判。
-- **NDA**：对方是竞争对手；涉政府涉密信息；业务背景指向潜在并购（M&A）；涉异常主题（AI 训练数据、生物识别数据等）。
-- **传票/法律程序**：**永远需律师审查**（模板仅起点）；存在特权问题；涉第三方数据；涉跨境提交；时限不合理。
-
-**命中触发器时**：① **停**——不出模板回复；② **告警**——告知用户已检出触发器；③ **说明**——指出命中哪条、为何重要；④ **建议**——给升级路径（资深律师/外部律师/特定成员）；⑤ **提供**——给一份明确标注 `DRAFT — FOR COUNSEL REVIEW ONLY` 的草稿，而非定稿。
-
-**S4 采集具体事实**（按类型）：
-- DSR：请求人姓名/联系方式、请求类型、涉及数据、适用法规（GDPR/CCPA/CPRA/其他）、回复期限。
-- 保全：事项名/编号、保管人、保全范围（日期段/数据类型/系统）、外部律师联系人、生效日。
-- 供应商：供应商名、参照协议、具体问题、相关合同条款。
-- NDA：发起业务团队/联系人、对方名、用途、单/双向、特殊要求。
-
-**S5 生成回复**：用事实填充模板，确保——语气得当（专业、清晰，对业务读者不过度法言法语）；含该类型全部法定要素；引用具体日期/期限/义务；给收件人明确下一步；含适当免责/警示。把草稿呈给用户审阅后再发。
-
-**强制定制**：每份模板回复必须替换——正确姓名/日期/编号、个案具体事实、适用法域与法规、按收悉日推算的正确期限、恰当签名块与联系人。**按受众/关系/敏感度/紧迫性调语气**。**按法域校准**：核验所引法规对请求人法域正确、期限匹配适用法、含法域特定权利信息与术语。
-
-**S6 无模板则建模板**：走模板创建指引并呈成品，建议用户存入本地设置复用。
-
-## 指令
-
-升级判定决策伪代码：
+## Invocation
 
 ```
-for trigger in (通用触发器 + 该类目触发器):
-    if 命中(trigger):
-        停止生成模板回复
-        告警并说明命中的 trigger 与理由
-        给出升级路径（资深/外部律师 或 具体成员）
-        产出草稿，抬头标注 "DRAFT — FOR COUNSEL REVIEW ONLY"
-        return
-# 传票/法律程序：无条件进入上述分支
-生成模板回复（含强制定制项）→ 呈用户审阅 → 跟进事项清单
+/legal-response [inquiry-type]
 ```
 
-## 示例
+Common inquiry types:
+- `dsr` or `data-subject-request` -- Data subject access/deletion/correction requests
+- `hold` or `discovery-hold` -- Litigation hold notices
+- `vendor` or `vendor-question` -- Vendor legal questions
+- `nda` or `nda-request` -- NDA requests from business teams
+- `privacy` or `privacy-inquiry` -- Privacy-related questions
+- `subpoena` -- Subpoena or legal process responses
+- `insurance` -- Insurance claim notifications
+- `custom` -- Use a custom template
 
-**DSR 模板结构**：
+If no inquiry type is provided, ask the user what type of response they need and show available categories.
 
+## Workflow
+
+### Step 1: Identify Inquiry Type
+
+Accept the inquiry type from the user. If the type is ambiguous, show available categories and ask for clarification.
+
+### Step 2: Load Template
+
+Look for templates in local settings (e.g., `legal.local.md` or a templates directory).
+
+**If templates are configured:**
+- Load the appropriate template for the inquiry type
+- Identify required variables (recipient name, dates, specific details)
+
+**If no templates are configured:**
+- Inform the user that no templates were found for this inquiry type
+- Offer to help create a template (see Template Creation Guide below)
+- Provide a reasonable default response structure based on the inquiry type
+
+### Step 3: Check Escalation Triggers
+
+Before generating any response, evaluate whether this situation has characteristics that should NOT use a templated response.
+
+#### Universal Escalation Triggers (Apply to All Categories)
+- The matter involves potential litigation or regulatory investigation
+- The inquiry is from a regulator, government agency, or law enforcement
+- The response could create a binding legal commitment or waiver
+- The matter involves potential criminal liability
+- Media attention is involved or likely
+- The situation is unprecedented (no prior handling by the team)
+- Multiple jurisdictions are involved with conflicting requirements
+- The matter involves executive leadership or board members
+
+#### Data Subject Request Escalation Triggers
+- Request involves a minor's data, or is from/on behalf of a minor
+- Request is from a regulatory authority (not an individual)
+- Request involves data that is subject to a litigation hold
+- Requester is a current or former employee with an active dispute or HR matter
+- Request scope is unusually broad or appears to be a fishing expedition
+- Request involves data processed in a jurisdiction with unique requirements
+- Request involves special category data (health, biometric, genetic)
+
+#### Discovery Hold Escalation Triggers
+- The matter involves potential criminal liability
+- The preservation scope is unclear, disputed, or potentially overbroad
+- There are questions about whether certain data is within scope
+- Prior holds for the same or related matter exist
+- The hold may affect ongoing business operations significantly
+- Hold conflicts with regulatory deletion requirements
+- Custodian objects to the hold scope
+
+#### Vendor Question Escalation Triggers
+- The question involves a dispute or potential breach
+- The vendor is threatening litigation or termination
+- The question involves regulatory compliance (not just contract terms)
+- The response could create a binding commitment or waiver
+- Response could affect ongoing negotiation
+
+#### NDA Request Escalation Triggers
+- The counterparty is a competitor
+- The NDA involves government classified information
+- The business context suggests the NDA is for a potential M&A transaction
+- The request involves unusual subject matter (AI training data, biometric data, etc.)
+
+#### Subpoena / Legal Process Escalation Triggers
+- **ALWAYS requires counsel review** (templates are starting points only)
+- Privilege issues identified
+- Third-party data involved
+- Cross-border production issues
+- Unreasonable timeline
+
+**When an escalation trigger is detected:**
+1. **Stop**: Do not generate a templated response
+2. **Alert**: Inform the user that an escalation trigger has been detected
+3. **Explain**: Describe which trigger was detected and why it matters
+4. **Recommend**: Suggest the appropriate escalation path (senior counsel, outside counsel, specific team member)
+5. **Offer**: Provide a draft for counsel review (clearly marked as "DRAFT - FOR COUNSEL REVIEW ONLY") rather than a final response
+
+### Step 4: Gather Specific Details
+
+Prompt the user for the details needed to customize the response:
+
+**Data Subject Request:**
+- Requester name and contact information
+- Type of request (access, deletion, correction, portability, opt-out)
+- What data is involved
+- Applicable regulation (GDPR, CCPA, CPRA, other)
+- Response deadline
+
+**Discovery Hold:**
+- Matter name and reference number
+- Custodians (who needs to preserve)
+- Scope of preservation (date range, data types, systems)
+- Outside counsel contact
+- Effective date
+
+**Vendor Question:**
+- Vendor name
+- Reference agreement (if applicable)
+- Specific question being addressed
+- Relevant contract provisions
+
+**NDA Request:**
+- Requesting business team and contact
+- Counterparty name
+- Purpose of the NDA
+- Mutual or unilateral
+- Any special requirements
+
+### Step 5: Generate Response
+
+Populate the template with the gathered details. Ensure the response:
+- Uses appropriate tone (professional, clear, not overly legalistic for business audiences)
+- Includes all required legal elements for the response type
+- References specific dates, deadlines, and obligations
+- Provides clear next steps for the recipient
+- Includes appropriate disclaimers or caveats
+
+Present the draft response to the user for review before sending.
+
+#### Customization Guidelines
+
+**Required customization** — Every templated response MUST be customized with:
+- Correct names, dates, and reference numbers
+- Specific facts of the situation
+- Applicable jurisdiction and regulation
+- Correct response deadlines based on when the inquiry was received
+- Appropriate signature block and contact information
+
+**Tone adjustment** — Adjust tone based on:
+- **Audience**: Internal vs. external, business vs. legal, individual vs. regulatory authority
+- **Relationship**: New counterparty vs. existing partner vs. adversarial party
+- **Sensitivity**: Routine inquiry vs. contentious matter vs. regulatory investigation
+- **Urgency**: Standard timeline vs. expedited response needed
+
+**Jurisdiction-specific adjustments:**
+- Verify that cited regulations are correct for the requester's jurisdiction
+- Adjust timelines to match applicable law
+- Include jurisdiction-specific rights information
+- Use jurisdiction-appropriate legal terminology
+
+### Step 6: Template Creation (If No Template Exists)
+
+If the user wants to create a new template, walk through the Template Creation Guide (see below) and present the finished template for review. Suggest the user save the approved template to their local settings for future use.
+
+## Response Categories
+
+### 1. Data Subject Requests (DSRs)
+
+**Sub-categories**:
+- Acknowledgment of receipt
+- Identity verification request
+- Fulfillment response (access, deletion, correction)
+- Partial denial with explanation
+- Full denial with explanation
+- Extension notification
+
+**Key template elements**:
+- Reference to applicable regulation (GDPR, CCPA, etc.)
+- Specific timeline for response
+- Identity verification requirements
+- Rights of the data subject (including right to complain to supervisory authority)
+- Contact information for follow-up
+
+**Example template structure**:
 ```
 Subject: Your Data [Access/Deletion/Correction] Request - Reference {{request_id}}
 
 Dear {{requester_name}},
 
-We have received your request dated {{request_date}} to [access/delete/correct]
-your personal data under [applicable regulation].
+We have received your request dated {{request_date}} to [access/delete/correct] your personal data under [applicable regulation].
 
 [Acknowledgment / verification request / fulfillment details / denial basis]
 
 We will respond substantively by {{response_deadline}}.
 
 [Contact information]
-[Rights information，含向监管机构投诉的权利]
+[Rights information]
 ```
 
-**保全通知模板结构**（律师-当事人沟通，密级抬头）：
+### 2. Discovery Holds (Litigation Holds)
 
+**Sub-categories**:
+- Initial hold notice to custodians
+- Hold reminder / periodic reaffirmation
+- Hold modification (scope change)
+- Hold release
+
+**Key template elements**:
+- Matter name and reference number
+- Clear preservation obligations
+- Scope of preservation (date range, data types, systems, communication types)
+- Prohibition on spoliation
+- Contact for questions
+- Acknowledgment requirement
+
+**Example template structure**:
 ```
 Subject: LEGAL HOLD NOTICE - {{matter_name}} - Action Required
 
@@ -114,51 +247,223 @@ ATTORNEY-CLIENT COMMUNICATION
 
 Dear {{custodian_name}},
 
+You are receiving this notice because you may possess documents, communications, or data relevant to the matter referenced above.
+
 PRESERVATION OBLIGATION:
-Effective immediately, you must preserve all documents and electronically
-stored information (ESI) related to:
+Effective immediately, you must preserve all documents and electronically stored information (ESI) related to:
 - Subject matter: {{hold_scope}}
 - Date range: {{start_date}} to present
 - Document types: {{document_types}}
 
 DO NOT delete, destroy, modify, or discard any potentially relevant materials.
 
-Please acknowledge receipt by {{acknowledgment_deadline}}.
+[Specific instructions for systems, email, chat, local files]
+
+Please acknowledge receipt of this notice by {{acknowledgment_deadline}}.
+
 Contact {{legal_contact}} with any questions.
 ```
 
-**输出格式**：
+### 3. Privacy Inquiries
+
+**Sub-categories**:
+- Cookie/tracking inquiry responses
+- Privacy policy questions
+- Data sharing practice inquiries
+- Children's data inquiries
+- Cross-border transfer questions
+
+**Key template elements**:
+- Reference to the organization's privacy notice
+- Specific answers based on current practices
+- Links to relevant privacy documentation
+- Contact information for the privacy team
+
+### 4. Vendor Legal Questions
+
+**Sub-categories**:
+- Contract status inquiry response
+- Amendment request response
+- Compliance certification requests
+- Audit request responses
+- Insurance certificate requests
+
+**Key template elements**:
+- Reference to the applicable agreement
+- Specific response to the vendor's question
+- Any required caveats or limitations
+- Next steps and timeline
+
+### 5. NDA Requests
+
+**Sub-categories**:
+- Sending the organization's standard form NDA
+- Accepting a counterparty's NDA (with markup)
+- Declining an NDA request with explanation
+- NDA renewal or extension
+
+**Key template elements**:
+- Purpose of the NDA
+- Standard terms summary
+- Execution instructions
+- Timeline expectations
+
+### 6. Subpoena / Legal Process
+
+**Sub-categories**:
+- Acknowledgment of receipt
+- Objection letter
+- Request for extension
+- Compliance cover letter
+
+**Key template elements**:
+- Case reference and jurisdiction
+- Specific objections (if any)
+- Preservation confirmation
+- Timeline for compliance
+- Privilege log reference (if applicable)
+
+**Critical note**: Subpoena responses almost always require individualized counsel review. Templates serve as starting frameworks, not final responses.
+
+### 7. Insurance Notifications
+
+**Sub-categories**:
+- Initial claim notification
+- Supplemental information
+- Reservation of rights response
+
+**Key template elements**:
+- Policy number and coverage period
+- Description of the matter or incident
+- Timeline of events
+- Requested coverage confirmation
+
+## Template Management Methodology
+
+### Template Organization
+
+Templates should be organized by category and maintained in the team's local settings. Each template should include:
+
+1. **Category**: The type of inquiry the template addresses
+2. **Template name**: A descriptive identifier
+3. **Use case**: When this template is appropriate
+4. **Escalation triggers**: When this template should NOT be used
+5. **Required variables**: Information that must be customized for each use
+6. **Template body**: The response text with variable placeholders
+7. **Follow-up actions**: Standard steps after sending the response
+8. **Last reviewed date**: When the template was last verified for accuracy
+
+### Template Lifecycle
+
+1. **Creation**: Draft template based on best practices and team input
+2. **Review**: Legal team review and approval of template content
+3. **Publication**: Add to template library with metadata
+4. **Use**: Generate responses using the template
+5. **Feedback**: Track when templates are modified during use to identify improvement opportunities
+6. **Update**: Revise templates when laws, policies, or best practices change
+7. **Retirement**: Archive templates that are no longer applicable
+
+## Template Creation Guide
+
+When helping users create new templates:
+
+### 1. Define the Use Case
+- What type of inquiry does this address?
+- How frequently does this come up?
+- Who is the typical audience?
+- What is the typical urgency level?
+
+### 2. Identify Required Elements
+- What information must be included in every response?
+- What regulatory requirements apply?
+- What organizational policies govern this type of response?
+
+### 3. Define Variables
+- What changes with each use? (names, dates, specifics)
+- What stays the same? (legal requirements, standard language)
+- Use clear variable names: `{{requester_name}}`, `{{response_deadline}}`, `{{matter_reference}}`
+
+### 4. Draft the Template
+- Write in clear, professional language
+- Avoid unnecessary legal jargon for business audiences
+- Include all legally required elements
+- Add placeholders for all variable content
+- Include a subject line template if for email use
+
+### 5. Define Escalation Triggers
+- What situations should NOT use this template?
+- What characteristics indicate the matter needs individualized attention?
+- Be specific: vague triggers are not useful
+
+### 6. Add Metadata
+- Template name and category
+- Version number and last reviewed date
+- Author and approver
+- Follow-up actions checklist
+
+### Template Format
+
+```markdown
+## Template: {{template_name}}
+**Category**: {{category}}
+**Version**: {{version}} | **Last Reviewed**: {{date}}
+**Approved By**: {{approver}}
+
+### Use When
+- [Condition 1]
+- [Condition 2]
+
+### Do NOT Use When (Escalation Triggers)
+- [Trigger 1]
+- [Trigger 2]
+
+### Variables
+| Variable | Description | Example |
+|---|---|---|
+| {{var1}} | [what it is] | [example value] |
+| {{var2}} | [what it is] | [example value] |
+
+### Subject Line
+[Subject template with {{variables}}]
+
+### Body
+[Response body with {{variables}}]
+
+### Follow-Up Actions
+1. [Action 1]
+2. [Action 2]
+
+### Notes
+[Any special instructions for users of this template]
+```
+
+## Output Format
 
 ```
 ## Generated Response: [Inquiry Type]
-**To**: [recipient]   **Subject**: [subject line]
+
+**To**: [recipient]
+**Subject**: [subject line]
+
 ---
+
 [Response body]
+
 ---
+
 ### Escalation Check
-[确认未检出触发器，或标注命中的触发器及建议]
+[Confirmation that no escalation triggers were detected, OR flagged triggers with recommendations]
+
 ### Follow-Up Actions
-1. [发后动作]  2. [日历提醒]  3. [跟踪/留痕要求]
+1. [Post-send actions]
+2. [Calendar reminders to set]
+3. [Tracking or logging requirements]
 ```
 
-## 注意事项
+## Notes
 
-- **永远先呈草稿供审阅再外发**；若经 MCP 连接邮箱，可代建草稿邮件（不直接发送）。
-- **跟踪回复期限**并可代设日历提醒；受监管回复（DSR、传票）务必标注适用期限与法规要求。
-- 模板是「活文档」：用户改动模板回复时，建议据此回写改进模板。
-- 传票/法律程序：**模板仅为框架，非定稿**，几乎总须律师个案审查。
-- 所有产出均为草稿、非法律意见；最终责任在执业律师。
-
-## 互见
-
-- related：`dsar-response-builder` —— DSR 端到端核验+应答构建，本技能 DSR 类目的深化
-- related：`legal-hold-manager` —— 保全通知的签发/刷新/解除全生命周期管理
-- related：`nda-triage-reviewer` —— NDA 请求分流与条款审查
-- related：`legal-risk-classifier` —— 升级/风险定级的量化框架
-- related：`general-counsel-advisor` —— 命中升级触发器后的律师升级路径
-- combines_with：`esignature-routing` —— 回复定稿后走签署路由
-- combines_with：`legal-hold-manager` —— DSR 数据撞上在保全时联动判定
-
----
-
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+- Always present the draft response for user review before suggesting it be sent
+- If connected to email via MCP, offer to create a draft email with the response
+- Track response deadlines and offer to set calendar reminders
+- For regulated responses (DSRs, subpoenas), always note the applicable deadline and regulatory requirements
+- Templates should be living documents; suggest updates when the user modifies a templated response, so the template can be improved over time

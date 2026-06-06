@@ -1,11 +1,11 @@
 ---
 name: context-compression
-title: 智能体上下文压缩策略
-description: 当智能体会话历史膨胀到逼近上下文窗口、需要压缩对话或巨型代码库时使用；产出以「锚定式增量摘要」为主的结构化压缩方案（含触发时机、结构化摘要分区、探针评估）；不适用于短会话或重抓取成本极低的场景；触发词：上下文压缩、对话摘要、context window 超限
+title: Context Compression Strategies
+description: When agent sessions generate millions of tokens of conversation history, compression becomes mandatory. The naive approach is aggressive compression to minimize tokens per request.
 domain: 智能/prompting
-triggers: [上下文压缩, 对话摘要, context window 超限, 智能体忘记改过哪些文件, 巨型代码库压缩, 压缩质量评估]
-tags: [上下文工程, 智能体, 摘要, context-compression, 评估]
-level: 进阶
+triggers: []
+tags: [context-compression]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
@@ -16,119 +16,266 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Context Compression Strategies
 
-在以下情况启用本技能：
+When agent sessions generate millions of tokens of conversation history, compression becomes mandatory. The naive approach is aggressive compression to minimize tokens per request. The correct optimization target is tokens per task: total tokens consumed to complete a task, including re-fetching costs when compression loses critical information.
 
-- 智能体会话历史超出上下文窗口限制（动辄百万 token）。
-- 代码库本身超出窗口（5M+ token 级系统）。
-- 设计对话摘要 / 会话压缩策略。
-- 排查智能体「忘记自己改过哪些文件」一类问题。
-- 构建压缩质量的评估框架。
+## When to Use
+Activate this skill when:
+- Agent sessions exceed context window limits
+- Codebases exceed context windows (5M+ token systems)
+- Designing conversation summarization strategies
+- Debugging cases where agents "forget" what files they modified
+- Building evaluation frameworks for compression quality
 
-**核心目标不是「每次请求最少 token」，而是「每个任务最少 token」**：从任务开始到完成消耗的总 token，包括压缩丢信息后被迫重新抓取的成本。一个只多省 0.5% token、却引发 20% 重抓取的策略，总账更亏。
+## Core Concepts
 
-**不该用的边界**：
-- 会话很短、或重抓取成本极低时，直接用最激进的不透明压缩即可，无需本技能的结构化开销。
-- 本技能产出的摘要不能替代环境内的实测、验证与专家复核。
-- 缺少必要输入、权限、安全边界或成功标准时，先停下来澄清，不要硬压。
+Context compression trades token savings against information loss. Three production-ready approaches exist:
 
-## 步骤
+1. **Anchored Iterative Summarization**: Maintain structured, persistent summaries with explicit sections for session intent, file modifications, decisions, and next steps. When compression triggers, summarize only the newly-truncated span and merge with the existing summary. Structure forces preservation by dedicating sections to specific information types.
 
-锚定式增量摘要（Anchored Iterative Summarization，首选）的落地流程：
+2. **Opaque Compression**: Produce compressed representations optimized for reconstruction fidelity. Achieves highest compression ratios (99%+) but sacrifices interpretability. Cannot verify what was preserved.
 
-1. 按智能体需求定义固定的摘要分区（见下方模板）。
-2. 首次触发压缩时，把被截断的历史归纳进各分区。
-3. 后续每次压缩，只归纳新截断的内容。
-4. 把新摘要**增量合并**进已有分区，而不是整体重新生成（重生成会在多轮压缩中丢细节）。
-5. 记录每条信息来自哪一轮压缩，便于排查。
+3. **Regenerative Full Summary**: Generate detailed structured summaries on each compression. Produces readable output but may lose details across repeated compression cycles due to full regeneration rather than incremental merging.
 
-**触发时机**同样关键：
+The critical insight: structure forces preservation. Dedicated sections act as checklists that the summarizer must populate, preventing silent information drift.
 
-| 策略 | 触发点 | 权衡 |
-|------|--------|------|
-| 固定阈值 | 上下文利用率 70-80% | 简单，但可能压得过早 |
-| 滑动窗口 | 保留最近 N 轮 + 摘要 | 上下文大小可预测 |
-| 重要性优先 | 先压低相关度片段 | 复杂但保信号 |
-| 任务边界 | 在逻辑任务完成处压缩 | 摘要干净但时机不定 |
+## Detailed Topics
 
-对多数编码智能体，**滑动窗口 + 结构化摘要**在可预测性与质量上最平衡。
+### Why Tokens-Per-Task Matters
 
-## 指令
+Traditional compression metrics target tokens-per-request. This is the wrong optimization. When compression loses critical details like file paths or error messages, the agent must re-fetch information, re-explore approaches, and waste tokens recovering context.
 
-- 永远优化 tokens-per-task，而非 tokens-per-request。
-- 用带显式分区的结构化摘要做文件追踪；分区即清单，强制摘要器逐项填写，防止信息「静默漂移」。
-- 在上下文利用率 70-80% 时触发压缩。
-- 用增量合并替代整体重生成。
-- 用探针式评估检验压缩质量。
-- 若文件追踪至关重要，单独维护工件索引（artifact index）/ 文件状态表。
-- 接受略低的压缩率以换取更高的信息保留度。
-- 把重抓取频率当作压缩质量的监控信号。
+The right metric is tokens-per-task: total tokens consumed from task start to completion. A compression strategy saving 0.5% more tokens but causing 20% more re-fetching costs more overall.
 
-三种方案对比（可据此选型）：
+### The Artifact Trail Problem
 
-| 方法 | 压缩率 | 质量分 | 权衡 |
-|------|--------|--------|------|
-| 锚定增量 | 98.6% | 3.70 | 质量最佳，压缩略低 |
-| 重生成 | 98.7% | 3.44 | 质量尚可，可读性好 |
-| 不透明 | 99.3% | 3.35 | 压缩最高，质量受损 |
+Artifact trail integrity is the weakest dimension across all compression methods, scoring 2.2-2.5 out of 5.0 in evaluations. Even structured summarization with explicit file sections struggles to maintain complete file tracking across long sessions.
 
-多保留 0.7% 的 token 换来 0.35 质量分；凡重抓取有成本的任务，都该倾向结构化方案。选型口径：长会话 / 需文件追踪 / 要可验证 → 锚定增量；要极限省 token 且会话短 → 不透明；要摘要可读、阶段边界清晰 → 重生成。
+Coding agents need to know:
+- Which files were created
+- Which files were modified and what changed
+- Which files were read but not changed
+- Function names, variable names, error messages
 
-**巨型代码库**（超窗口）走三阶段压缩：研究阶段产出一份结构化研究文档 → 规划阶段转成含函数签名、类型定义、数据流的实现规格（5M token 代码库≈2000 词规格）→ 实现阶段对着规格执行。若有手工迁移示例 / 参考 PR，用作模板，它能揭示静态分析看不到的约束与「本质复杂度 vs 偶然复杂度」的区分。
+This problem likely requires specialized handling beyond general summarization: a separate artifact index or explicit file-state tracking in agent scaffolding.
 
-## 示例
+### Structured Summary Sections
 
-**结构化摘要模板**：
+Effective structured summaries include explicit sections:
 
 ```markdown
-## 会话意图
-[用户想完成什么]
+## Session Intent
+[What the user is trying to accomplish]
 
-## 文件改动
-- auth.controller.ts: 修复 JWT token 生成
-- config/redis.ts: 更新连接池
-- tests/auth.test.ts: 为新配置补 mock
+## Files Modified
+- auth.controller.ts: Fixed JWT token generation
+- config/redis.ts: Updated connection pooling
+- tests/auth.test.ts: Added mock setup for new config
 
-## 关键决策
-- 用 Redis 连接池替代每请求一连接
-- 瞬时失败采用指数退避重试
+## Decisions Made
+- Using Redis connection pool instead of per-request connections
+- Retry logic with exponential backoff for transient failures
 
-## 当前状态
-- 14 个测试通过，2 个失败
+## Current State
+- 14 tests passing, 2 failing
+- Remaining: mock setup for session service tests
 
-## 下一步
-1. 修复剩余失败用例
-2. 跑全量测试
-3. 更新文档
+## Next Steps
+1. Fix remaining test failures
+2. Run full test suite
+3. Update documentation
 ```
 
-**探针式评估**：压缩后直接提问来量化功能质量（ROUGE / 向量相似度抓不到这点——摘要词面重合度高，却可能丢了智能体唯一需要的那个文件路径）。
+This structure prevents silent loss of file paths or decisions because each section must be explicitly addressed.
 
-| 探针类型 | 测什么 | 示例问题 |
-|----------|--------|----------|
-| 召回 | 事实保留 | "原始报错信息是什么？" |
-| 工件 | 文件追踪 | "我们改过哪些文件？" |
-| 续接 | 任务规划 | "下一步该做什么？" |
-| 决策 | 推理链 | "关于 Redis 问题我们定了什么？" |
+### Compression Trigger Strategies
 
-**好坏对比**——问「最初的报错是什么」：
-- 好（结构化）："/api/auth/login 返回 401 Unauthorized，凭据有效仍失败，根因是会话存储中 Redis 连接陈旧。"——端点、错误码、根因俱全。
-- 差（激进压缩）："我们在调一个认证问题，登录失败了，修了些配置。"——技术细节全丢。
+When to trigger compression matters as much as how to compress:
 
-## 注意事项
+| Strategy | Trigger Point | Trade-off |
+|----------|---------------|-----------|
+| Fixed threshold | 70-80% context utilization | Simple but may compress too early |
+| Sliding window | Keep last N turns + summary | Predictable context size |
+| Importance-based | Compress low-relevance sections first | Complex but preserves signal |
+| Task-boundary | Compress at logical task completions | Clean summaries but unpredictable timing |
 
-- **工件追踪是普遍最弱项**（评估中仅 2.2-2.5/5.0）：即便带显式文件分区，长会话里也难保完整。编码智能体需要知道哪些文件被创建 / 被改且改了什么 / 只读未改，以及函数名、变量名、报错信息——必要时用独立的工件索引或脚手架里的显式文件状态追踪来补强。
-- 评估覆盖六维：准确性、上下文感知、工件追踪、完整性、连续性、指令遵循。准确性在各方法间差异最大（0.6 分差距），工件追踪普遍偏弱。
-- 不透明压缩压缩率最高（99%+）但不可解释，无法验证保留了什么——慎用于需要审计的场景。
+The sliding window approach with structured summaries provides the best balance of predictability and quality for most coding agent use cases.
 
-## 互见
+### Probe-Based Evaluation
 
-- context-degradation：压缩是对抗上下文退化的缓解手段。
-- context-optimization：压缩只是众多优化技术之一。
-- evaluation：探针式评估同样适用于压缩测试。
-- memory-systems：压缩与暂存区 / 摘要记忆模式相关。
+Traditional metrics like ROUGE or embedding similarity fail to capture functional compression quality. A summary may score high on lexical overlap while missing the one file path the agent needs.
+
+Probe-based evaluation directly measures functional quality by asking questions after compression:
+
+| Probe Type | What It Tests | Example Question |
+|------------|---------------|------------------|
+| Recall | Factual retention | "What was the original error message?" |
+| Artifact | File tracking | "Which files have we modified?" |
+| Continuation | Task planning | "What should we do next?" |
+| Decision | Reasoning chain | "What did we decide about the Redis issue?" |
+
+If compression preserved the right information, the agent answers correctly. If not, it guesses or hallucinates.
+
+### Evaluation Dimensions
+
+Six dimensions capture compression quality for coding agents:
+
+1. **Accuracy**: Are technical details correct? File paths, function names, error codes.
+2. **Context Awareness**: Does the response reflect current conversation state?
+3. **Artifact Trail**: Does the agent know which files were read or modified?
+4. **Completeness**: Does the response address all parts of the question?
+5. **Continuity**: Can work continue without re-fetching information?
+6. **Instruction Following**: Does the response respect stated constraints?
+
+Accuracy shows the largest variation between compression methods (0.6 point gap). Artifact trail is universally weak (2.2-2.5 range).
+
+## Practical Guidance
+
+### Three-Phase Compression Workflow
+
+For large codebases or agent systems exceeding context windows, apply compression through three phases:
+
+1. **Research Phase**: Produce a research document from architecture diagrams, documentation, and key interfaces. Compress exploration into a structured analysis of components and dependencies. Output: single research document.
+
+2. **Planning Phase**: Convert research into implementation specification with function signatures, type definitions, and data flow. A 5M token codebase compresses to approximately 2,000 words of specification.
+
+3. **Implementation Phase**: Execute against the specification. Context remains focused on the spec rather than raw codebase exploration.
+
+### Using Example Artifacts as Seeds
+
+When provided with a manual migration example or reference PR, use it as a template to understand the target pattern. The example reveals constraints that static analysis cannot surface: which invariants must hold, which services break on changes, and what a clean migration looks like.
+
+This is particularly important when the agent cannot distinguish essential complexity (business requirements) from accidental complexity (legacy workarounds). The example artifact encodes that distinction.
+
+### Implementing Anchored Iterative Summarization
+
+1. Define explicit summary sections matching your agent's needs
+2. On first compression trigger, summarize truncated history into sections
+3. On subsequent compressions, summarize only new truncated content
+4. Merge new summary into existing sections rather than regenerating
+5. Track which information came from which compression cycle for debugging
+
+### When to Use Each Approach
+
+**Use anchored iterative summarization when:**
+- Sessions are long-running (100+ messages)
+- File tracking matters (coding, debugging)
+- You need to verify what was preserved
+
+**Use opaque compression when:**
+- Maximum token savings required
+- Sessions are relatively short
+- Re-fetching costs are low
+
+**Use regenerative summaries when:**
+- Summary interpretability is critical
+- Sessions have clear phase boundaries
+- Full context review is acceptable on each compression
+
+### Compression Ratio Considerations
+
+| Method | Compression Ratio | Quality Score | Trade-off |
+|--------|-------------------|---------------|-----------|
+| Anchored Iterative | 98.6% | 3.70 | Best quality, slightly less compression |
+| Regenerative | 98.7% | 3.44 | Good quality, moderate compression |
+| Opaque | 99.3% | 3.35 | Best compression, quality loss |
+
+The 0.7% additional tokens retained by structured summarization buys 0.35 quality points. For any task where re-fetching costs matter, this trade-off favors structured approaches.
+
+## Examples
+
+**Example 1: Debugging Session Compression**
+
+Original context (89,000 tokens, 178 messages):
+- 401 error on /api/auth/login endpoint
+- Traced through auth controller, middleware, session store
+- Found stale Redis connection
+- Fixed connection pooling, added retry logic
+- 14 tests passing, 2 failing
+
+Structured summary after compression:
+
+```markdown
+## Session Intent
+Debug 401 Unauthorized error on /api/auth/login despite valid credentials.
+
+## Root Cause
+Stale Redis connection in session store. JWT generated correctly but session could not be persisted.
+
+## Files Modified
+- auth.controller.ts: No changes (read only)
+- middleware/cors.ts: No changes (examined)
+- config/redis.ts: Fixed connection pooling configuration
+- services/session.service.ts: Added retry logic for transient failures
+- tests/auth.test.ts: Updated mock setup
+
+## Test Status
+14 passing, 2 failing (mock setup issues)
+
+## Next Steps
+1. Fix remaining test failures (mock session service)
+2. Run full test suite
+3. Deploy to staging
+```
+
+**Example 2: Probe Response Quality**
+
+After compression, asking "What was the original error?":
+
+Good response (structured summarization):
+> "The original error was a 401 Unauthorized response from the /api/auth/login endpoint. Users received this error with valid credentials. Root cause was stale Redis connection in session store."
+
+Poor response (aggressive compression):
+> "We were debugging an authentication issue. The login was failing. We fixed some configuration problems."
+
+The structured response preserves endpoint, error code, and root cause. The aggressive response loses all technical detail.
+
+## Guidelines
+
+1. Optimize for tokens-per-task, not tokens-per-request
+2. Use structured summaries with explicit sections for file tracking
+3. Trigger compression at 70-80% context utilization
+4. Implement incremental merging rather than full regeneration
+5. Test compression quality with probe-based evaluation
+6. Track artifact trail separately if file tracking is critical
+7. Accept slightly lower compression ratios for better quality retention
+8. Monitor re-fetching frequency as a compression quality signal
+
+## Integration
+
+This skill connects to several others in the collection:
+
+- context-degradation - Compression is a mitigation strategy for degradation
+- context-optimization - Compression is one optimization technique among many
+- evaluation - Probe-based evaluation applies to compression testing
+- memory-systems - Compression relates to scratchpad and summary memory patterns
+
+## References
+
+Internal reference:
+- Evaluation Framework Reference - Detailed probe types and scoring rubrics
+
+Related skills in this collection:
+- context-degradation - Understanding what compression prevents
+- context-optimization - Broader optimization strategies
+- evaluation - Building evaluation frameworks
+
+External resources:
+- Factory Research: Evaluating Context Compression for AI Agents (December 2025)
+- Research on LLM-as-judge evaluation methodology (Zheng et al., 2023)
+- Netflix Engineering: "The Infinite Software Crisis" - Three-phase workflow and context compression at scale (AI Summit 2025)
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。原文外部参考：Factory Research《Evaluating Context Compression for AI Agents》(2025-12)、LLM-as-judge 评估方法（Zheng et al., 2023）、Netflix Engineering《The Infinite Software Crisis》(AI Summit 2025)。
+## Skill Metadata
+
+**Created**: 2025-12-22
+**Last Updated**: 2025-12-26
+**Author**: Agent Skills for Context Engineering Contributors
+**Version**: 1.1.0
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.

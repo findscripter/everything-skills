@@ -1,14 +1,14 @@
 ---
 name: ad-creative-generator
-title: 广告创意批量生成
-description: 当需要为付费广告写文案、生成标题、批量产出或迭代创意时使用；做平台合规的广告标题/正文/CTA 生成、迭代与变体矩阵并跑校验打分；不适用于投放策略/预算/受众定向（用 paid-ads）或落地页长文案（用 copywriting）。触发词：写广告文案、生成标题、批量创意、RSA、Meta 广告、创意测试
+title: Ad Creative Generator
+description: Generate, iterate, and scale paid-ad creative (headlines/body/CTA) for Google, Meta, LinkedIn, X, and TikTok with platform-spec compliance and a 0-100 validation score; not for campaign strategy or landing-page copy.
 domain: 商业/copy
-triggers: [写广告文案, 生成广告标题, 批量创意 / bulk creative, 广告变体 / 创意矩阵, 迭代现有广告, RSA headlines, Meta / LinkedIn / TikTok 广告文案, 广告文案校验 / 字符数检查, 创意测试 A/B 变体]
-tags: [商业, copy, 广告创意, 付费投放, 文案生成, 营销]
-level: 进阶
+triggers: [write ad copy, generate headlines, create ad variations, bulk creative, iterate on ads, RSA headlines, Meta / LinkedIn / TikTok ad copy, ad copy validation / character count check, creative testing A/B variations, creative matrix]
+tags: [business, copy, ad-creative, paid-advertising, copywriting, marketing]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Read, Write, Bash]
+tools: []
 requires: []
 related: [paid-ad-creative, conversion-copywriter, landing-page-copywriting, marketing-copy-editor]
 combines_with: [paid-ads-strategist, paid-ad-creative, landing-page-copywriting]
@@ -16,126 +16,128 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
-扮演一位写过上千条广告的效果型创意总监：产出能过平台审核、能止住滑动、能带来行动的文案，并可规模化生成。本技能只产文案，不做投放策略。
+You are a performance creative director who has written thousands of ads. You know what converts, what gets rejected, and what looks like it should work but doesn't. Your goal is to produce ad copy that passes platform review, stops the scroll, and drives action — at scale. This skill produces copy only; it does not plan campaigns.
 
-## 何时使用
+## When to use
 
-- 需要为 Google、Meta、LinkedIn、Twitter/X、TikTok 等平台写广告标题/正文/CTA。
-- 要从零生成一整套创意、基于数据迭代优化、或把赢家创意扩成多变体/多平台矩阵。
-- 要对已有文案做平台合规校验（字符数、违规触发词、质量评分）。
+Use when the user needs to **generate, iterate, or scale ad creative** for paid advertising — they say things like "write ad copy," "generate headlines," "create ad variations," "bulk creative," "iterate on ads," "RSA headlines," "Meta ad copy," "LinkedIn ad," "creative testing," or "validate my ad copy."
 
-不该用（负边界）：
-- 投放策略、受众定向、预算分配、平台选择 -> 用 paid-ads。
-- 落地页与长篇网站文案 -> 用 copywriting。
-- 决定测哪些变体、如何测显著性 -> 用 ab-test-setup（本技能负责生成变体本身）。
-- 自然流量社媒/博客内容 -> 用 content-creator（约束和语气不同）。
+- Writing headlines / body / CTA for Google, Meta, LinkedIn, Twitter/X, or TikTok.
+- Building a full creative set from scratch, iterating on data, or scaling a winner into a multi-variant / multi-platform matrix.
+- Validating existing copy for platform compliance (character counts, rejection triggers, quality score).
 
-## 步骤
+Do NOT use (negative boundaries):
+- Campaign strategy, audience targeting, budget allocation, platform selection → use **paid-ads**.
+- Landing-page and long-form web copy → use **copywriting**.
+- Deciding which variants to test and how to measure significance → use **ab-test-setup** (this skill generates the variants themselves).
+- Organic social / blog content → use **content-creator** (different constraints and voice).
 
-开工前先收集上下文（若存在 `marketing-context.md` 先读它，只问未覆盖的部分）：
-1. 产品与报价：在推什么、一句话价值主张、客户得到什么、多快拿到。
-2. 受众：写给谁（职位/痛点/所处场景）、他们已有的认知与异议。
-3. 平台与漏斗阶段：哪些平台、认知/考虑/决策阶段、是否有可迭代的现成文案。
-4. 效果数据（迭代时）：当前在跑的文案、赢家及其 CTR/CVR/CPA、已测过什么。
+## Steps
 
-三种工作模式：
+**Before starting, gather context.** If `marketing-context.md` exists, read it first and only ask for what it doesn't cover:
+1. **Product & offer** — what's being advertised, the one-sentence value prop, what the customer gets and how fast.
+2. **Audience** — who you're writing for (job title, pain point, moment in their day), what they already believe, what objections they'll have.
+3. **Platform & stage** — which platforms, funnel stage (Awareness / Consideration / Decision), existing copy to iterate or starting fresh.
+4. **Performance data (if iterating)** — what's running, which ads win (CTR / CVR / CPA), what's already been tested.
 
-模式一 从零生成
-1. 提炼核心信息：客户的生活会发生什么改变。
-2. 按漏斗阶段映射并选定创意框架。
-3. 每种公式生成 5-10 条标题。
-4. 按平台写正文（严守字符上限）。
-5. 交付前过质量检查。
+Then work in one of three modes:
 
-模式二 基于数据迭代
-1. 盘点现有文案，标出每条的切入角度。
-2. 找出赢家模式（钩子类型、报价框架、情绪诉求）。
-3. 加码：围绕赢家主题做 3-5 个变体。
-4. 开新角度：在未探索领域做 2-3 个测试。
-5. 全部对照平台规格与质量分校验。
+**Mode 1 — Generate from scratch**
+1. Extract the core message — what changes in the customer's life.
+2. Map to funnel stage → select a creative framework.
+3. Generate 5-10 headlines per formula type.
+4. Write body copy per platform (respecting character limits).
+5. Apply the quality checklist before handing off.
 
-模式三 扩量变体
-1. 锁定核心信息。
-2. 一次只变一个元素：钩子、社会证明、CTA、格式。
-3. 跨平台改写而非重写。
-4. 产出创意矩阵：行=角度，列=平台。
+**Mode 2 — Iterate from performance data**
+1. Audit current copy — what angle is each ad taking.
+2. Identify the winning pattern (hook type, offer framing, emotional driver).
+3. Double down: 3-5 variations on the winning theme.
+4. Open new angles: 2-3 tests in unexplored territory.
+5. Validate all against platform specs and quality score.
 
-## 指令
+**Mode 3 — Scale variations**
+1. Lock the core message.
+2. Vary one element at a time: hook, social proof, CTA, format.
+3. Adapt across platforms (reformat, don't rewrite from scratch).
+4. Produce a creative matrix: rows = angles, columns = platforms.
 
-平台规格速查：
+**Platform specs quick reference**
 
-| 平台 | 标题上限 | 正文上限 | 备注 |
-|------|---------|---------|------|
-| Google RSA | 30 字符 ×15 条 | 90 字符 ×4 条描述 | 最多 3 条固定；标题 ≥3、描述 ≥2 |
-| Google Display | 30 字符 ×5 | 90 字符 ×5 | 另需 5 张图 |
-| Meta（FB/IG） | 40 字符 | 主文案 125 字符（预览，绝对上限 2200） | 图内文字 <20% |
-| LinkedIn | 70 字符 | 引导文 150 字符（预览，绝对 600） | 禁标题党 |
-| Twitter/X | 70 字符 | 总 280 字符（含 URL 约 23，实测正文上限 257） | 禁欺骗性话术 |
-| TikTok | 无叠加标题 | 字幕 80-100 字符 | 前 3 秒抓钩子 |
+| Platform | Headline limit | Body copy limit | Notes |
+|----------|---------------|-----------------|-------|
+| Google RSA | 30 chars (×15) | 90 chars (×4 descriptions) | Max 3 pinned; ≥3 headlines, ≥2 descriptions |
+| Google Display | 30 chars (×5) | 90 chars (×5) | Also needs 5 images |
+| Meta (FB/IG) | 40 chars | 125 chars primary text (preview; 2200 absolute) | Image text <20% |
+| LinkedIn | 70 chars | 150 chars intro text (preview; 600 absolute) | No click-bait |
+| Twitter/X | 70 chars | 280 chars total (~23 for URL → ~257 body) | No deceptive tactics |
+| TikTok | No overlay headline | 80-100 chars caption | Hook in first 3s |
 
-按漏斗阶段选框架：
-- 认知（陌生）：问题 -> 放大 -> 暗示方案。引出痛点而非产品，用他们抱怨时的原话。适合好奇钩子、数据钩子、"你懂那种感觉"钩子。
-- 考虑（在比选项）：方案 -> 机制 -> 证明。用对方想要的结果来解释你在做什么，强调机制差异，开始上社会证明。适合利益优先标题、对比框架、运作原理文案。
-- 决策（临门一脚）：证明 -> 去风险 -> 紧迫。带数字的案例/见证，免费试用/退款/免信用卡去风险，只用真实紧迫（不要假倒计时）。
+**Creative framework by funnel stage**
+- **Awareness (lead with the problem):** Problem → Amplify → Hint at solution. Lead with the pain, not the product; use the language they use complaining to a colleague. Works well with curiosity hooks, stat-based hooks, "you know that feeling" hooks.
+- **Consideration (lead with the solution):** Solution → Mechanism → Proof. Explain what you do through the lens of the outcome they want; show you work differently; start adding social proof. Works well with benefit-first headlines, comparison frames, how-it-works copy.
+- **Decision (lead with proof):** Proof → Risk removal → Urgency. Testimonials and case studies with numbers; remove risk (free trial, money-back, no credit card); use only real urgency, never fake countdowns.
 
-有效标题公式：
-- 利益优先：`[动词] [具体结果] [时间或限定]` —— "把流失率砍 30%，无需追着客户跑"。
-- 好奇：反直觉/意外断言 —— "你最好的客户为什么在第 90 天流失"。
-- 社会证明：`[数字] [人/公司] [结果]` —— "1200 个 SaaS 团队用它减少工单"。
-- 真实紧迫：`[真实稀缺或限时价值]` —— "Q1 定价 3/31 截止"；禁 "🔥限时！立即行动！！！"。
-- 痛点激化：生动描述痛点 —— "还在让 40% 注册用户没看到价值就流失？"
+**Headline formulas that actually work**
+- **Benefit-first:** `[Verb] [specific outcome] [timeframe or qualifier]` — "Cut your churn rate by 30% without chasing customers."
+- **Curiosity:** `[Surprising or counterintuitive claim]` — "Why your best customers leave at 90 days."
+- **Social proof:** `[Number] [people/companies] [outcome]` — "1,200 SaaS teams use this to reduce support tickets."
+- **Urgency (done right):** `[Real scarcity or time-sensitive value]` — "Q1 pricing ends March 31." Never: "🔥 LIMITED TIME DEAL!! ACT NOW!!!" (gets rejected and looks desperate).
+- **Problem agitation:** `[Describe the pain vividly]` — "Still losing 40% of signups before they see value?"
 
-校验脚本（交付前必须跑，验字符数 + 违规触发词，每条打 0-100 分）：
+**Validation script (run before handing off — checks character counts + rejection triggers, scores each ad 0-100):**
 
 ```
-python3 scripts/ad_copy_validator.py                  # 跑内置样例
-python3 scripts/ad_copy_validator.py ads.json         # 校验 JSON 文件
+python3 scripts/ad_copy_validator.py                  # runs embedded sample
+python3 scripts/ad_copy_validator.py ads.json         # validates a JSON file
 echo '{"platform":"google_rsa","headlines":["My headline"]}' | python3 scripts/ad_copy_validator.py
 ```
 
-JSON 输入格式：`platform`（google_rsa|meta_feed|linkedin|twitter|tiktok）、`headlines`/`descriptions`（Google）、`primary_text`/`headline`（Meta）、`intro_text`（LinkedIn）。脚本扣分项：超字符 -20、全大写 -15、标点过度 -10、商标词 -25、违禁短语 -15、可疑断言 -30；≥85 绿，≥60 黄，<60 红。
+JSON input fields: `platform` (`google_rsa` | `meta_feed` | `linkedin` | `twitter` | `tiktok`), `headlines` / `descriptions` (Google), `primary_text` / `headline` (Meta), `intro_text` (LinkedIn). The scorer starts at 100 and deducts per issue category (over-limit chars, ALL CAPS, excessive punctuation, trademarked terms, prohibited phrases, unverifiable claims). Grading: ≥85 🟢 Excellent, ≥60 🟡 Needs Work, <60 🔴 High Risk; an ad passes at ≥70.
 
-质量检查清单：
-- 合规：字符数全部达标；除缩写外无全大写；无过度标点（!!! ??? ....）；无 "click here / buy now" 或平台商标；正文不出现 "Facebook/Insta/Google"。
-- 质量：标题可独立成立；具体断言优于含糊（"省 3 小时" > "省时间"）；CTA 清晰且与落地页一致；不写无法兑现的断言（#1、行业最佳等）。
-- 受众：理想客户会为它停下滑动吗；语言是否贴近他们谈论该问题的方式；漏斗阶段与定向是否匹配。
+**Quality checklist (verify before submitting):**
+- *Platform compliance:* all character counts within limits; no ALL CAPS except acronyms; no excessive punctuation (!!!, ???, ….); no "click here," "buy now," or platform trademarks; no first-person platform references ("Facebook," "Insta," "Google").
+- *Quality standards:* headline stands alone; specific claim over vague ("save 3 hours" > "save time"); CTA clear and matches the landing-page offer; no claims you can't back up (#1, best-in-class).
+- *Audience check:* would the ideal customer stop scrolling; does the language match how they talk about the problem; is the funnel stage right for the targeting.
 
-主动预警（无需被问就提示）：泛标题（"做大生意""省时省钱"）-> 换成可量化版本；字符数违规 -> 标清；阶段-信息错配（给陌生受众看证明类内容）；假紧迫（无真实约束的倒计时）；钩子类型无变化（10 条全一个公式）；文案逐字照搬落地页。
+**Proactive triggers (surface without being asked):** generic headlines ("Grow your business," "Save time and money") → replace with specific, measurable versions; character-count violations → mark clearly; stage-message mismatch (proof content to cold audiences); fake urgency (countdowns with no real constraint); no variation in hook type (10 headlines, one formula); copy lifted verbatim from the landing page.
 
-## 示例
+## Example
 
-输入示例 -> 产出：
-- "生成 RSA 标题" -> 15 条按公式分组、全部 ≤30 字符、附固定位建议。
-- "为这个活动写 Meta 广告" -> 每个漏斗阶段 3 套完整广告（主文案+标题+描述）。
-- "迭代我的赢家广告" -> 赢家分析 + 5 条同主题变体 + 2 条新角度测试。
-- "做一个创意矩阵" -> 角度 × 平台 表格，每格完整文案。
-- "校验我的广告文案" -> 逐行报告，含字符数、拒审风险标记、质量分（0-100）。
+| When you ask for... | You get... |
+|---------------------|------------|
+| "Generate RSA headlines" | 15 headlines organized by formula type, all ≤30 chars, with pinning recommendations |
+| "Write Meta ads for this campaign" | 3 full ad sets (primary text + headline + description) for each funnel stage |
+| "Iterate on my winning ads" | Winner analysis + 5 on-theme variations + 2 new-angle tests |
+| "Create a creative matrix" | Table: angles × platforms with full copy per cell |
+| "Validate my ad copy" | Line-by-line report with character counts, rejection-risk flags, and quality score (0-100) |
+| "Give me LinkedIn ad copy" | 3 sponsored-content ads with intro text ≤150 chars, plus headlines ≤70 chars |
 
-呈现格式（每行标注字符数与置信标签：🟢已验证公式 / 🟡新角度 / 🔴高风险断言）：
+Presentation format (show character count and a confidence tag on each line — 🟢 tested formula / 🟡 new angle / 🔴 high-risk claim):
 
 ```
-[广告组名] | [平台] | [漏斗阶段]
+[AD SET NAME] | [Platform] | [Funnel Stage]
 Headline: "..." (28 chars) 🟢
 Body: "..." (112 chars) 🟢
 CTA: "Learn More"
-Notes: 利益优先公式，考虑阶段已验证格式
+Notes: Benefit-first formula, tested format for consideration stage
 ```
 
-## 注意事项
+## Notes
 
-- 结论先行：先给文案，再解释逻辑。
-- 平台规格始终可见：每行旁标字符数。
-- 拒审风险显式标出，别让用户猜。
-- 紧迫只用真实约束，假倒计时会同时损害信任并触发平台拒审。
-- 广告文案与落地页要"连贯但不雷同"，逐字复制会被预警。
+- **Bottom line first** — lead with the copy, explain the rationale after.
+- **Platform specs always visible** — show the character count next to each line.
+- **Flag rejection risks explicitly** — don't make the user guess.
+- **Urgency only with real constraints** — fake countdowns damage trust and trigger platform rejection at the same time.
+- Ad copy and the landing page should feel **connected but not identical**; verbatim duplication gets flagged.
 
-## 互见
+## See also
 
-- paid-ads：投放策略、受众定向、预算、平台选择（不写文案）。
-- copywriting：落地页与长文案（非字符受限的平台广告）。
-- ab-test-setup：规划测哪些变体、如何测显著性。
-- content-creator：自然流量社媒与博客内容。
-- copy-editing：打磨润色现有文案（非批量生成或平台格式化）。
+- **paid-ads** — campaign strategy, audience targeting, budget, platform selection (does not write copy).
+- **copywriting** — landing-page and long-form copy (not character-constrained platform ads).
+- **ab-test-setup** — planning which variants to test and how to measure significance.
+- **content-creator** — organic social and blog content.
+- **copy-editing** — polishing existing copy (not bulk generation or platform formatting).
 
 ---
-采编自 alirezarezvani/claude-skills（MIT）。
+Adapted from alirezarezvani/claude-skills (MIT).

@@ -1,14 +1,14 @@
 ---
 name: codebase-structure-protocol
-title: 代码库结构记忆协议
-description: 当 Agent 需要在大型代码库中持久记忆结构、导航依赖、做改前影响分析时使用；用 .dsp/ 目录与 dsp-cli 把"实体-导入-导出及原因"外化为可查图谱并随代码增量维护；不适用于纯内部实现改动、人类文档或 AST 全量转储；触发词：.dsp、dsp-cli、结构映射
+title: Codebase Structure Protocol (DSP)
+description: Give agents persistent structural memory of a codebase via a queryable .dsp/ graph and dsp-cli — navigate dependencies, track public APIs, and do impact analysis before refactors without re-reading the whole repo. Triggers: .dsp, dsp-cli, structure mapping, impact analysis.
 domain: 通用/research
-triggers: [项目存在 .dsp/ 目录, 要求 bootstrap 或映射项目结构, 在 DSP 跟踪的项目中增删改代码文件, 导航依赖/查找模块, 重构或替换依赖前做影响分析, 提到 DSP、dsp-cli、.dsp]
-tags: [代码库导航, 依赖图, 影响分析, 结构记忆, 重构, 上下文优化]
-level: 进阶
+triggers: [project has a .dsp/ directory, asked to set up DSP, bootstrap, or map a project's structure, creating/modifying/deleting code files in a DSP-tracked project, navigating project structure or finding dependencies/modules, impact analysis before a refactor or dependency replacement, mentions DSP, dsp-cli, .dsp, or structure mapping]
+tags: [codebase-navigation, dependency-graph, impact-analysis, structural-memory, refactoring, context-optimization]
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [dsp-cli.py, Bash, Read]
+tools: []
 requires: []
 related: [filesystem-context-offload, monorepo-navigator, codebase-onboarding-doc, agents-md-maintainer]
 combines_with: [codebase-to-prd, legacy-codebase-modernizer, tech-debt-prioritizer]
@@ -16,97 +16,134 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+## When to use
 
-满足以下任一情况时使用：
+LLM coding agents lose context between tasks. On large codebases they spend most of their tokens on "orientation" — figuring out where things live, what depends on what, and what is safe to change. DSP solves this by externalizing the project's structural map into a persistent, queryable graph stored in a `.dsp/` directory next to the code.
 
-- 项目已有 `.dsp/` 目录（DSP 已搭好）。
-- 用户要求搭建 DSP、bootstrap 或映射项目结构。
-- 在 DSP 跟踪的项目中**新建/修改/删除代码文件**，需同步图谱。
-- 导航项目结构、理解依赖、定位模块。
-- 重构或替换某依赖**前**做影响分析（谁会被波及）。
-- 用户提到 DSP、`dsp-cli`、`.dsp` 或"结构映射"。
+DSP is NOT documentation for humans and NOT an AST dump. It captures three things: **meaning** (why an entity exists), **boundaries** (what it imports and exposes), and **reasons** (why each connection exists). This is enough for an agent to navigate, refactor, and generate code without loading the entire source tree into the context window.
 
-**不该用**：仅改了内部实现而未影响实体的用途或依赖时，不要动 `.dsp/`。DSP 不是给人看的文档，也不是 AST 全量转储；不要为每个局部变量或私有 helper 建实体，只记文件级 Object 与公开/共享实体。
+Use this skill when:
+- The project has a `.dsp/` directory (DSP is already set up).
+- The user asks to set up DSP, bootstrap, or map a project's structure.
+- Creating, modifying, or deleting code files in a DSP-tracked project (to keep the graph updated).
+- Navigating project structure, understanding dependencies, or finding specific modules.
+- Performing impact analysis before a refactor or dependency replacement (who will be affected).
+- The user mentions DSP, `dsp-cli`, `.dsp`, or structure mapping.
 
-## 核心模型
+**Don't** touch `.dsp/` for internal-only changes that don't affect an entity's purpose or dependencies. Don't create UIDs for every local variable or private helper — only file-level Objects and public/shared entities.
 
-- **代码即图**：有向图。节点是**实体**，边是 `imports` 与 `shared`(导出)。实体两类——**Object**（非函数的"东西"：模块/文件/类/配置/资源/外部依赖）和 **Function**（导出的函数/方法/handler/pipeline）。
-- **按 UID 定身份，不按路径**：每个实体有稳定 UID——Object 为 `obj-<8hex>`，Function 为 `func-<8hex>`。路径是可变属性，UID 在重命名、移动、重排版后不变。文件内实体用源码注释锚点绑定 UID：
-  ```js
-  // @dsp func-7f3a9c12
-  export function calculateTotal(items) { ... }
-  ```
-- **每条连接都有"为什么"**：记录 import 时存一句简短 reason，写在被导入实体的 `exports/` 反向索引里。无 reason 的依赖图只告诉你"谁导入谁"，reason 才告诉你**改它安全吗、谁会坏**——DSP 的价值大半在此。
-- **全导入覆盖**：任何被引用的文件/产物（代码、图片、样式、配置、JSON、wasm…）都要在 `.dsp` 里有对应 Object。外部依赖记为 `kind: external`，加入 TOC，但**绝不深入** `node_modules`/`site-packages` 分析其内部。
+## Core model
 
-存储为纯文本，可 diff、可评审，无需数据库。目录结构：
+**Code = graph.** DSP models the codebase as a directed graph. Nodes are **entities**, edges are **imports** and **shared/exports**. Two entity kinds exist:
+- **Object**: any "thing" that isn't a function (module/file/class/config/resource/external dependency).
+- **Function**: an exported function/method/handler/pipeline.
+
+**Identity by UID, not by file path.** Every entity gets a stable UID: `obj-<8hex>` for objects, `func-<8hex>` for functions. File paths are attributes that can change; UIDs survive renames, moves, and reformatting. For entities inside a file, the UID is anchored with a comment marker in source code:
+
+```js
+// @dsp func-7f3a9c12
+export function calculateTotal(items) { ... }
+```
+
+```python
+# @dsp obj-e5f6g7h8
+class UserService:
+```
+
+**Every connection has a "why".** When an import is recorded, DSP stores a short reason explaining *why* that dependency exists. This lives in the `exports/` reverse index of the imported entity. A dependency graph without reasons tells you *what imports what*; reasons tell you **what is safe to change and who will break** — this is where most of DSP's value lives.
+
+**Full import coverage.** Every file or artifact that is imported anywhere must be represented in `.dsp` as an Object — code, images, styles, configs, JSON, wasm, everything. External dependencies (npm packages, stdlib, etc.) are recorded as `kind: external` but their internals are never analyzed; never descend into `node_modules`/`site-packages`.
+
+**Storage format.** Everything is plain text. Diffable. Reviewable. No database needed.
+
 ```
 .dsp/
-├── TOC                  # 从根开始的全部实体 UID 有序列表
+├── TOC                        # ordered list of all entity UIDs from root
 ├── obj-a1b2c3d4/
-│   ├── description      # 源路径、kind、用途（1-3 句）
-│   ├── imports          # 依赖的 UID（每行一个）
-│   ├── shared           # 公开 API / 导出实体的 UID
-│   └── exports/         # 反向索引：谁导入了我、为什么
-└── func-7f3a9c12/ ...
+│   ├── description            # source path, kind, purpose (1-3 sentences)
+│   ├── imports                # UIDs this entity depends on (one per line)
+│   ├── shared                 # UIDs of public API / exported entities
+│   └── exports/               # reverse index: who imports this and why
+│       ├── <importer_uid>     # file content = "why" text
+│       └── <shared_uid>/
+│           ├── description    # what is exported
+│           └── <importer_uid> # why this specific export is imported
+└── func-7f3a9c12/
+    ├── description
+    ├── imports
+    └── exports/
 ```
 
-## 步骤
+## Steps
 
-**前置**：依赖独立 Python CLI 脚本 `dsp-cli.py`（需 Python 3.10+）。若项目缺失，下载：
+**Prerequisite.** The skill relies on a standalone Python CLI script `dsp-cli.py` (requires **Python 3.10+**). If it is missing from the project, download it:
+
 ```bash
 curl -O https://raw.githubusercontent.com/k-kolomeitsev/data-structure-protocol/main/skills/data-structure-protocol/scripts/dsp-cli.py
 ```
-所有命令形如 `python dsp-cli.py --root <项目根> <command>`。
 
-**Bootstrap（首次映射，`.dsp/` 为空时）**：沿 import 从根入口做 DFS。
-1. 识别根入口（`package.json` 的 main、框架入口、`main.py` 等）。
-2. 记录根文件：`create-object`，为每个导出 `create-function`，再 `create-shared`，对所有依赖 `add-import`。
-3. 取第一个**非外部**导入，完整记录它，下钻进它的 imports。
-4. 无未访问的本地导入时回溯；直到所有可达文件都被记录。
-5. 外部依赖：`create-object --kind external` 并加入 TOC，但不下钻。
+All commands use `python dsp-cli.py --root <project-root> <command>`.
 
-**改代码时的对应动作**（仅在用途或依赖变化时才动 DSP）：
+**Bootstrap (initial mapping, when `.dsp/` is empty).** Traverse the project from root entrypoint(s) via DFS on imports:
+1. Identify root entrypoints (`package.json` main, framework entry, `main.py`, etc.).
+2. Document the root file: `create-object`, `create-function` for each export, `create-shared`, `add-import` for all dependencies.
+3. Take the first non-external import, document it fully, descend into its imports.
+4. Backtrack when no unvisited local imports remain; continue until all reachable files are documented.
+5. External dependencies: `create-object --kind external`, add to TOC, but never descend into `node_modules`/`site-packages`/etc.
 
-| 代码变更 | DSP 动作 |
+**Workflow rules.**
+- **Before changing code**: find affected entities via `search`, `find-by-source`, or `read-toc`. Read their `description` and `imports` to understand context.
+- **When creating a file/module**: call `create-object`. For each exported function — `create-function` (with `--owner`). Register exports via `create-shared`.
+- **When adding an import**: call `add-import` with a brief `why`. For external deps — first `create-object --kind external` if the entity doesn't exist.
+- **When removing import/export/file**: call `remove-import`, `remove-shared`, `remove-entity`. Cascade cleanup is automatic.
+- **When renaming/moving a file**: call `move-entity`. UID does not change.
+- **Don't touch DSP** if only internal implementation changed without affecting purpose or dependencies.
+
+**When to update DSP (code change → DSP action).**
+
+| Code Change | DSP Action |
 |---|---|
-| 新建文件/模块 | `create-object` + `create-function` + `create-shared` + `add-import` |
-| 新增 import | `add-import`（新依赖先 `create-object --kind external`） |
-| 移除 import | `remove-import` |
-| 新增导出 | `create-shared`（新函数先 `create-function`） |
-| 移除导出 | `remove-shared` |
-| 重命名/移动文件 | `move-entity`（UID 不变） |
-| 删除文件 | `remove-entity`（级联清理自动完成） |
-| 用途变化 | `update-description` |
-| 仅内部实现改动 | **无需更新 DSP** |
+| New file/module | `create-object` + `create-function` + `create-shared` + `add-import` |
+| New import added | `add-import` (+ `create-object --kind external` if new dep) |
+| Import removed | `remove-import` |
+| Export added | `create-shared` (+ `create-function` if new) |
+| Export removed | `remove-shared` |
+| File renamed/moved | `move-entity` |
+| File deleted | `remove-entity` |
+| Purpose changed | `update-description` |
+| Internal-only change | **No DSP update needed** |
 
-**改前必做**：用 `search` / `find-by-source` / `read-toc` 找到受影响实体，读它们的 `description` 与 `imports` 理解上下文，再动手。
+**Key commands.**
 
-## 指令
+| Category | Commands |
+|----------|----------|
+| **Create** | `init`, `create-object`, `create-function`, `create-shared`, `add-import` |
+| **Update** | `update-description`, `update-import-why`, `move-entity` |
+| **Delete** | `remove-import`, `remove-shared`, `remove-entity` |
+| **Navigate** | `get-entity`, `get-children --depth N`, `get-parents --depth N`, `get-path`, `get-recipients`, `read-toc` |
+| **Search** | `search <query>`, `find-by-source <path>` |
+| **Diagnostics** | `detect-cycles`, `get-orphans`, `get-stats` |
 
-关键命令分组：
-- **创建**：`init`、`create-object`、`create-function`、`create-shared`、`add-import`
-- **更新**：`update-description`、`update-import-why`、`move-entity`
-- **删除**：`remove-import`、`remove-shared`、`remove-entity`
-- **导航**：`get-entity`、`get-children --depth N`、`get-parents --depth N`、`get-path`、`get-recipients`、`read-toc`
-- **搜索**：`search <query>`、`find-by-source <path>`
-- **诊断**：`detect-cycles`、`get-orphans`、`get-stats`
+## Example
 
-## 示例
+**Example 1: Setting up DSP and documenting a module**
 
-**示例 1：搭建 DSP 并记录一个模块**
 ```bash
 python dsp-cli.py --root . init
-python dsp-cli.py --root . create-object "src/app.ts" "应用主入口"
-# 输出: obj-a1b2c3d4
-python dsp-cli.py --root . create-function "src/app.ts#start" "启动 HTTP 服务" --owner obj-a1b2c3d4
-# 输出: func-7f3a9c12
+
+python dsp-cli.py --root . create-object "src/app.ts" "Main application entrypoint"
+# Output: obj-a1b2c3d4
+
+python dsp-cli.py --root . create-function "src/app.ts#start" "Starts the HTTP server" --owner obj-a1b2c3d4
+# Output: func-7f3a9c12
+
 python dsp-cli.py --root . create-shared obj-a1b2c3d4 func-7f3a9c12
-python dsp-cli.py --root . add-import obj-a1b2c3d4 obj-deadbeef "HTTP 路由"
+
+python dsp-cli.py --root . add-import obj-a1b2c3d4 obj-deadbeef "HTTP routing"
 ```
 
-**示例 2：改动前导航图谱**
+**Example 2: Navigating the graph before making changes**
+
 ```bash
 python dsp-cli.py --root . search "authentication"
 python dsp-cli.py --root . get-entity obj-a1b2c3d4
@@ -115,29 +152,30 @@ python dsp-cli.py --root . get-recipients obj-a1b2c3d4
 python dsp-cli.py --root . get-path obj-a1b2c3d4 func-7f3a9c12
 ```
 
-**示例 3：替换某库前的影响分析**
+**Example 3: Impact analysis before replacing a library**
+
 ```bash
 python dsp-cli.py --root . find-by-source "lodash"
-# 输出: obj-11223344
+# Output: obj-11223344
+
 python dsp-cli.py --root . get-recipients obj-11223344
-# 列出所有导入 lodash 的模块及"为什么"——据此可系统化替换
+# Shows every module that imports lodash and WHY — lets you systematically replace it
 ```
 
-## 注意事项
+## Notes
 
-- 创建文件、新增 import、改公开 API 时**立即**更新 DSP，别攒着。
-- 记 import 时务必写有意义的 `why`，这是 DSP 价值集中地。
-- 第三方库一律 `kind: external`，不分析其内部。
-- `description` 保持精简（1-3 句讲用途，不讲实现）。
-- 把 `.dsp/` 的 diff 当代码 diff 评审，保持准确。
-- 重命名/移动**不要**改 UID，用 `move-entity`。
-- 仅内部实现改动**不要**碰 `.dsp/`。
-- 仅在任务明确落入上述范围时使用；产物不替代环境内验证、测试与专家评审；缺少必要输入、权限、安全边界或成功标准时，停下来澄清。
+- **Do:** update DSP immediately when creating new files, adding imports, or changing public APIs — don't batch it up.
+- **Do:** always add a meaningful `why` reason when recording an import — this is where most of DSP's value lives.
+- **Do:** use `kind: external` for third-party libraries without analyzing their internals.
+- **Do:** keep descriptions minimal (1-3 sentences about purpose, not implementation).
+- **Do:** treat `.dsp/` diffs like code diffs — review them, keep them accurate.
+- **Don't:** touch `.dsp/` for internal-only changes that don't affect purpose or dependencies.
+- **Don't:** change an entity's UID on rename/move (use `move-entity` instead).
+- **Don't:** create UIDs for every local variable or helper — only file-level Objects and public/shared entities.
+- Use this skill only when the task clearly matches the scope above. Do not treat the output as a substitute for environment-specific validation, testing, or expert review. Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
 
-## 互见
+## See also
 
-- **上下文压缩 / 上下文优化**：DSP 用定向检索替代"全量加载"，减少压缩需求，agent 只拉取最小"上下文包"。
-- **架构设计**：DSP 捕获的导入/导出边界即架构边界，可反哺系统设计决策。
-
----
-采编自 [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills)（MIT），原协议出处 [k-kolomeitsev/data-structure-protocol](https://github.com/k-kolomeitsev/data-structure-protocol)。
+- **context-compression / context-optimization** — DSP reduces the need for compression by providing targeted retrieval instead of loading everything; agents pull minimal "context bundles" instead of raw source.
+- **architecture** — DSP captures architectural boundaries (imports/exports) that feed system design decisions.
+- **References**: [ARCHITECTURE.md](https://github.com/k-kolomeitsev/data-structure-protocol/blob/main/ARCHITECTURE.md), [CLI source + reference docs](https://github.com/k-kolomeitsev/data-structure-protocol/tree/main/skills/data-structure-protocol), [introduction article](https://github.com/k-kolomeitsev/data-structure-protocol/blob/main/article.md).

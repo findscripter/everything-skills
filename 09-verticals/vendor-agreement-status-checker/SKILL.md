@@ -1,14 +1,14 @@
 ---
 name: vendor-agreement-status-checker
-title: 供应商协议状态核查（CLM/CRM 跨系统）
-description: 当为某供应商做入驻/续约、需跨 CLM/CRM/邮件/文档/IM 汇总「已签什么、缺什么、何时到期」时使用；做的是跨系统检索该供应商全部协议、按类型/状态/到期/自动续约编表、做覆盖度缺口分析（NDA/MSA/DPA/SOW/SLA/保险），并标注 90 天内到期与存续义务，产出合并状态报告；不适用于起草/谈判/审条款、出具法律意见、单份合同逐条审查。触发词：供应商协议、vendor agreement、协议状态、合同到期、自动续约、MSA、DPA、缺口分析、续约核查
+title: /vendor-check -- Vendor Agreement Status
+description: Check the status of existing agreements with a vendor across all connected systems — CLM, CRM, email, and document storage — with gap analysis and upcoming deadlines. Use when onboarding or renewing a vendor, when you need a consolidated view of what's signed and what's missing (MSA, DPA, SOW), or when checking for approaching expirations and surviving obligations.
 domain: 领域/legal
-triggers: [供应商协议, vendor agreement, 协议状态, 合同到期, 自动续约, MSA, DPA, 缺口分析, 续约核查, vendor check]
+triggers: [vendor agreement, MSA, DPA, vendor check]
 tags: [legal, vendor-management, clm, crm, contract-status, renewal, gap-analysis, due-diligence]
-level: 进阶
+level: intermediate
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [CLM MCP, CRM MCP, Email MCP, Document MCP (Box/Egnyte/SharePoint), Chat MCP (Slack/Teams)]
+tools: []
 requires: []
 related: [vendor-agreement-redline-review, contract-renewal-tracker, contract-amendment-history-tracer, vendor-evaluation]
 combines_with: [entity-compliance-tracker]
@@ -16,141 +16,156 @@ license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
 ---
-## 何时使用
+# /vendor-check -- Vendor Agreement Status
 
-- 为某供应商做**入驻或续约**，需要先看清「现在到底跟它签了哪些协议、还缺哪些、哪些快到期」。
-- 需要把分散在 CLM / CRM / 邮件 / 文档库 / IM 的协议信息**汇总成一张合并视图**，判断法律关系完整度。
-- 排查**临近到期 / 自动续约 / 失效后仍存续的义务**（保密、赔偿等）。
+> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
 
-**不该用的边界（命中即停 / 转人工）：**
+Check the status of existing agreements with a vendor across all connected systems. Provides a consolidated view of the legal relationship.
 
-- 不起草、不谈判、不审改条款——本条只做「状态盘点」，逐条审查转 `nda-triage-reviewer` / `dpa-clause-reviewer`。
-- 不出具法律意见。本工作流辅助法律流程，**报告须经合格法务对照原始文件核验**后方可依赖。
-- 供应商名称含糊（全称/商号/缩写/母子公司）时**先澄清**再查，不要猜。
+**Important**: This command assists with legal workflows but does not provide legal advice. Agreement status reports should be verified against original documents by qualified legal professionals.
 
-## 步骤
-
-### 第 1 步：锁定供应商（消歧）
-
-接收供应商名，处理常见变体后再查：全称 vs 商号（如 "Alphabet Inc." vs "Google"）、缩写（"AWS" vs "Amazon Web Services"）、母/子公司关系。名称含糊或属供应商集团（多子公司）时，问清是查**单一主体**还是**整个集团**。
-
-### 第 2 步：按优先级检索已连系统
-
-逐系统检索该供应商（**仅查已通过 MCP 连接的系统**），并记录哪些查了、哪些没连：
-
-- **CLM（合同生命周期）—— 若已连**：全部相关合同——生效中、近 3 年已过期、谈判中/待签、以及修订与附录。
-- **CRM —— 若已连**：账户状态与关系类型、关联商机/交易、对方法务/合同团队联系人。
-- **邮件 —— 若已连**：近 6 个月合同相关往来、NDA/协议附件、谈判线程。
-- **文档库（Box / Egnyte / SharePoint）—— 若已连**：已签执行件、红线稿/草稿、尽调材料。
-- **IM（Slack / Teams）—— 若已连**：近 3 个月内涉及该供应商的合同请求、法律提问、团队讨论。
-
-### 第 3 步：编制协议状态表
-
-对每份找到的协议，填：
-
-| 字段 | 内容 |
-|---|---|
-| 协议类型 | NDA / MSA / SOW / DPA / SLA / 许可协议 等 |
-| 状态 | 生效中 / 已过期 / 谈判中 / 待签 |
-| 生效日 | 起始日期 |
-| 到期日 | 到期或续约日期 |
-| 自动续约 | 是/否 + 续约期限与通知期 |
-| 关键条款 | 责任上限、管辖法、终止条款 |
-| 修订 | 在档的修订/附录 |
-
-### 第 4 步：缺口分析（覆盖度）
-
-列出已有 vs 可能缺失，按关系类型标记缺口：
+## Invocation
 
 ```
-## 协议覆盖度
-[√] NDA — [状态]
-[√/缺] MSA — [状态或「未找到」]
-[√/缺] DPA — [状态或「未找到」]
-[√/缺] SOW — [状态或「未找到」]
-[√/缺] SLA — [状态或「未找到」]
-[√/缺] 保险凭证 — [状态或「未找到」]
+/vendor-check [vendor name]
 ```
 
-关键判断：例如**有 MSA 但无 DPA 且该供应商处理个人数据**，则标出缺 DPA 的风险。
+If no vendor name is provided, prompt the user to specify which vendor to check.
 
-### 第 5 步：生成合并报告
+## Workflow
 
-```markdown
-## 供应商协议状态：[供应商名]
-**核查日期**：[今天]
-**已查来源**：[已检索系统列表]
-**不可用来源**：[未连接系统，如有]
+### Step 1: Identify the Vendor
 
-## 关系概览
-**供应商**：[法律全称]   **关系类型**：[供应商/伙伴/客户…]   **CRM 状态**：[如有]
+Accept the vendor name from the user. Handle common variations:
+- Full legal name vs. trade name (e.g., "Alphabet Inc." vs. "Google")
+- Abbreviations (e.g., "AWS" vs. "Amazon Web Services")
+- Parent/subsidiary relationships
 
-## 协议摘要
-### [协议类型] — [状态]
-- 生效：[日期]   到期：[日期]（[自动续约 / 不自动续约]）
-- 关键条款：[实质条款摘要]   存放位置：[执行件位置]
+Ask the user to clarify if the vendor name is ambiguous.
 
-## 缺口分析
-[已具备 vs 可能需要]
+### Step 2: Search Connected Systems
 
-## 待办行动
-- [临近到期 / 续约截止]
-- [尚未到位的必备协议]
-- [需修订/更新项]
+Search for the vendor across all available connected systems, in priority order:
 
-## 备注
-[来自邮件/IM 检索的相关背景]
+#### CLM (Contract Lifecycle Management) -- If Connected
+Search for all contracts involving the vendor:
+- Active agreements
+- Expired agreements (last 3 years)
+- Agreements in negotiation or pending signature
+- Amendments and addenda
+
+#### CRM -- If Connected
+Search for the vendor/account record:
+- Account status and relationship type
+- Associated opportunities or deals
+- Contact information for vendor's legal/contracts team
+
+#### Email -- If Connected
+Search for recent relevant correspondence:
+- Contract-related emails (last 6 months)
+- NDA or agreement attachments
+- Negotiation threads
+
+#### Documents (e.g., Box, Egnyte, SharePoint) -- If Connected
+Search for:
+- Executed agreements
+- Redlines and drafts
+- Due diligence materials
+
+#### Chat (e.g., Slack, Teams) -- If Connected
+Search for recent mentions:
+- Contract requests involving this vendor
+- Legal questions about the vendor
+- Relevant team discussions (last 3 months)
+
+### Step 3: Compile Agreement Status
+
+For each agreement found, report:
+
+| Field | Details |
+|-------|---------|
+| **Agreement Type** | NDA, MSA, SOW, DPA, SLA, License Agreement, etc. |
+| **Status** | Active, Expired, In Negotiation, Pending Signature |
+| **Effective Date** | When the agreement started |
+| **Expiration Date** | When it expires or renews |
+| **Auto-Renewal** | Yes/No, with renewal term and notice period |
+| **Key Terms** | Liability cap, governing law, termination provisions |
+| **Amendments** | Any amendments or addenda on file |
+
+### Step 4: Gap Analysis
+
+Identify what agreements exist and what might be missing:
+
+```
+## Agreement Coverage
+
+[CHECK] NDA -- [status]
+[CHECK/MISSING] MSA -- [status or "Not found"]
+[CHECK/MISSING] DPA -- [status or "Not found"]
+[CHECK/MISSING] SOW(s) -- [status or "Not found"]
+[CHECK/MISSING] SLA -- [status or "Not found"]
+[CHECK/MISSING] Insurance Certificate -- [status or "Not found"]
 ```
 
-### 第 6 步：处理缺失来源
+Flag any gaps that may be needed based on the relationship type (e.g., if there is an MSA but no DPA and the vendor handles personal data).
 
-关键系统未连 MCP 时**明确告知**，不要静默跳过：
+### Step 5: Generate Report
 
-- **无 CLM**：注明未连 CLM，建议人工查 CLM，只报其它系统所得。
-- **无 CRM**：跳过 CRM 背景并注明缺口。
-- **无邮件**：注明未查邮件，建议用户自查「[供应商名] agreement」「[供应商名] NDA」。
-- **无文档库**：注明未检索文档存储。
-
-始终清楚列出**查了哪些、没查哪些**，让用户知道报告完整度。
-
-## 指令
-
-- **可用性优先于猜测**：只检索已连系统，未连的写入「不可用来源」，绝不臆造协议存在与否。
-- **到期高亮（硬规则）**：任一协议在 **90 天内到期**，在报告中**显著高亮**。
-- **存续义务标记**：已过期但仍有存续义务（保密、赔偿等）的协议必须标出——「已过期 ≠ 无义务」。
-- **零命中处理**：所有已连系统均无协议时，明确报告并问用户是否存于别处。
-
-## 示例
-
-输入：「帮我核查一下我们跟 Acme 的供应商协议状态。」
-
-代理动作：消歧（Acme 全称/子公司）→ 按 CLM→CRM→邮件→文档→IM 顺序检索已连系统 → 逐协议填状态表 → 跑 NDA/MSA/DPA/SOW/SLA/保险覆盖度（Acme 处理个人数据但无 DPA → 标缺口）→ 生成合并报告，其中：
+Output a consolidated report:
 
 ```
-### MSA — 生效中
-- 生效：2023-04-01   到期：2026-07-15（自动续约，续约前 60 天需书面通知）
-- 关键条款：责任上限=12 个月费用；管辖法=Delaware
-- 存放：/Contracts/Acme-MSA-2023.pdf
-⚠️ 距到期 < 90 天且自动续约 —— 7-08 日前决定续/止
+## Vendor Agreement Status: [Vendor Name]
 
-## 缺口分析
-[缺] DPA — Acme 处理个人数据，建议补签 DPA（移交 dpa-clause-reviewer）
+**Search Date**: [today's date]
+**Sources Checked**: [list of systems searched]
+**Sources Unavailable**: [list of systems not connected, if any]
+
+## Relationship Overview
+
+**Vendor**: [full legal name]
+**Relationship Type**: [vendor/partner/customer/etc.]
+**CRM Status**: [if available]
+
+## Agreement Summary
+
+### [Agreement Type 1] -- [Status]
+- **Effective**: [date]
+- **Expires**: [date] ([auto-renews / does not auto-renew])
+- **Key Terms**: [summary of material terms]
+- **Location**: [where the executed copy is stored]
+
+### [Agreement Type 2] -- [Status]
+[etc.]
+
+## Gap Analysis
+
+[What's in place vs. what may be needed]
+
+## Upcoming Actions
+
+- [Any approaching expirations or renewal deadlines]
+- [Required agreements not yet in place]
+- [Amendments or updates that may be needed]
+
+## Notes
+
+[Any relevant context from email/chat searches]
 ```
 
-## 注意事项
+### Step 6: Handle Missing Sources
 
-- **不提供法律意见**：协议状态报告须由合格法务对照原始文件核验。
-- **自动续约陷阱**：务必算清「续约前通知期」截止日并前置高亮，错过窗口将自动续约。
-- **集团 vs 单体**：供应商有多个子公司时先确认查单体还是整个集团，避免遗漏关联协议。
-- **存续义务**：过期协议常保留保密/赔偿义务，盘点时单列，勿因「已过期」而忽略。
-- **缺口要结合关系定性**：缺 DPA 是否构成风险取决于该供应商是否触碰个人数据；缺保险凭证是否必要取决于服务性质。
+If key systems are not connected via MCP:
 
-## 互见
+- **No CLM**: Note that no CLM is connected. Suggest the user check their CLM manually. Report what was found in other systems.
+- **No CRM**: Skip CRM context. Note the gap.
+- **No Email**: Note that email was not searched. Suggest the user search their email for "[vendor name] agreement" or "[vendor name] NDA".
+- **No Documents**: Note that document storage was not searched.
 
-- general-counsel-advisor：缺口与续约的法律风险判断、上交决策。
-- dpa-clause-reviewer：发现缺/弱 DPA 时下钻审查数据处理条款。
-- nda-triage-reviewer：盘点中遇待签 NDA 时做签前分级速审。
-- legal-hold-manager：涉诉/调查时对该供应商相关协议与往来做留存。
+Always clearly state which sources were checked and which were not, so the user knows the completeness of the report.
 
----
-本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。
+## Notes
+
+- If no agreements are found in any connected system, report that clearly and ask the user if they have agreements stored elsewhere
+- For vendor groups (e.g., a vendor with multiple subsidiaries), ask whether the user wants to check a specific entity or the entire group
+- Flag any agreements that are expired but may still have surviving obligations (confidentiality, indemnification, etc.)
+- If an agreement is approaching expiration (within 90 days), highlight this prominently

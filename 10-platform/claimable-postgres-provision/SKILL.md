@@ -1,14 +1,14 @@
 ---
 name: claimable-postgres-provision
-title: 即用临时 Postgres 数据库
-description: 当需要无注册、零信用卡的临时 Postgres（原型/演示/测试/Agent 自动建库）并写入 DATABASE_URL 时使用；做 pg.new（Neon Claimable Postgres）一键开库、解析连接串与 claim_url、写 .env、可选播种 SQL；不适用于生产负载、长期持久化、需指定区域/分支或强配额。触发词：临时数据库、pg.new、claimable postgres、get-db、DATABASE_URL
+title: Claimable Postgres
+description: Provision instant temporary Postgres databases via Claimable Postgres by Neon (pg.new). No login or credit card required. Use for quick Postgres environments and throwaway DATABASE_URL for prototyping.
 domain: 平台/cloud
-triggers: [临时 Postgres, 临时数据库, pg.new, claimable postgres, get-db, instant postgres, DATABASE_URL, 免注册数据库, throwaway database, neon 临时库, 原型数据库, 一次性数据库]
-tags: [postgres, neon, 临时数据库, 原型, 测试环境, database-url, pg.new, get-db, 平台]
-level: 入门
+triggers: [pg.new, claimable postgres, get-db, instant postgres, DATABASE_URL, throwaway database]
+tags: [postgres, neon, database-url, pg.new, get-db]
+level: beginner
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [curl, npx, get-db, psql, vite-plugin-db]
+tools: []
 requires: []
 related: [neon-serverless-postgres, postgresql-optimization, cloud-cost-optimization, database-migration-strategies]
 combines_with: [env-secrets-hygiene, prisma-orm-expert, drizzle-orm-expert]
@@ -16,53 +16,11 @@ license: MIT
 source: sickn33/antigravity-awesome-skills
 source_license: MIT
 ---
-## 何时使用
+# Claimable Postgres
 
-- 需要一个**即开即用、无需注册/信用卡**的 Postgres，用于本地开发、演示、原型、测试环境。
-- Agent 为完成任务需要真实数据库（如「做个带真实数据库的 todo app」）而用户没给连接串时，自动开一个并告知。
-- 想要一个可丢弃的 `DATABASE_URL` 写进项目 `.env` 快速跑起来。
+Instant Postgres databases for local development, demos, prototyping, and test environments. No account required. Databases expire after 72 hours unless claimed to a Neon account.
 
-不该用（负边界）：
-
-- **生产负载**：用标准 Neon 开通流程，而非临时 claimable 库。
-- **需要长期持久化**：临时库 72 小时后过期；要保留必须及时打开 claim_url 认领（claim）。
-- **需指定区域 / 分支 / 宽配额**：区域固定 us-east-2，未认领库无分支且配额更严（见下表）。
-- 强关系建模、检索、优化等本身不属于「开库」——开库后转交对应数据库技能。
-
-核心约束：未认领（UNCLAIMED）数据库 **72 小时后过期**；认领需在浏览器登录/注册 Neon 账号。库立即可用，认领是可选项。
-
-## 步骤
-
-判断走哪条路：
-- **REST API**（首选，给 Agent 用）：返回结构化 JSON，除 `curl` 无运行时依赖，便于解析与错误处理。
-- **CLI**（`npx get-db@latest --yes`）：一条命令开库并写 `.env`，Node 环境下最省事。
-- **SDK**（`get-db`）：在 Node 脚本里编程式开库。
-- **Vite 插件**（`vite-plugin-db`）：Vite 项目 `vite dev` 时若缺 `DATABASE_URL` 自动开库。
-- **浏览器**：用户无法跑 CLI/API 时，引导其访问 https://pg.new。
-
-API 路径：
-1. **确认意图**：若请求含糊，确认用户要的是临时、免注册库；若明说「临时/快速」则跳过。
-2. **开库**：POST `https://pg.new/api/v1/database`，body `{"ref": "agent-skills"}`（经本技能开库统一用 `agent-skills`）。
-3. **解析响应**：取出 `connection_string`、`claim_url`、`expires_at`。
-4. **写 .env**：写 `DATABASE_URL=<connection_string>`；**不覆盖已有键**，先检查再决定。
-5. **可选播种**：有 seed SQL 则 `psql "$DATABASE_URL" -f seed.sql`。
-6. **汇报**：告知写入位置、所用键、claim_url，并提醒「现在即可用，72 小时内 claim 可永久保留」。
-7. 可选：给个 `SELECT 1` 连通性测试。
-
-CLI 路径：先查目标 `.env` 是否已有 `DATABASE_URL`（CLI 发现该键会直接退出不开库）；若已存在，给三选项并确认：① 删除/注释旧行后重跑；② `--env` 写到别的文件（如 `.env.local`）；③ `--key` 换变量名。然后用 `@latest --yes` 加确认过的选项执行 → 校验写入 → 汇报。
-
-## 指令
-
-- 始终用 `@latest`（避免缓存旧版）+ `--yes`（跳过会卡住 Agent 的交互提示）。
-- `ref` 必填且非空，否则 400 `Missing referrer`。
-- API 返回的 `connection_string` 是 **pooled（连接池）** URL。需要**直连**（如 Prisma 迁移）时，把主机名里的 `-pooler` 去掉；CLI 会自动同时写 pooled 与 direct 两条。
-- 状态查询：`GET https://pg.new/api/v1/database/{id}`，状态流转 `UNCLAIMED → CLAIMING → CLAIMED`；**认领后 `connection_string` 返回 `null`**。
-- 其他包管理器：`yarn dlx` / `pnpm dlx` / `bunx get-db@latest` / `deno run -A get-db@latest`。
-- 认领：API/SDK 把 `claim_url` 给用户；CLI 用 `npx get-db@latest claim`（读 `.env` 里的 claim_url 并自动开浏览器）。用户**不能认领进 Vercel 关联的组织**，须另选 Neon org。
-
-## 示例
-
-REST 开库（解析 JSON 后写 .env）：
+## Quick Start
 
 ```bash
 curl -s -X POST "https://pg.new/api/v1/database" \
@@ -70,62 +28,211 @@ curl -s -X POST "https://pg.new/api/v1/database" \
   -d '{"ref": "agent-skills"}'
 ```
 
-响应（节选）：
+Parse `connection_string` and `claim_url` from the JSON response. Write `connection_string` to the project's `.env` as `DATABASE_URL`.
+
+For other methods (CLI, SDK, Vite plugin), see [Which Method?](#which-method) below.
+
+## Which Method?
+
+- **REST API**: Returns structured JSON. No runtime dependency beyond `curl`. Preferred when the agent needs predictable output and error handling.
+- **CLI** (`npx get-db@latest --yes`): Provisions and writes `.env` in one command. Convenient when Node.js is available and the user wants a simple setup.
+- **SDK** (`get-db/sdk`): Scripts or programmatic provisioning in Node.js.
+- **Vite plugin** (`vite-plugin-db`): Auto-provisions on `vite dev` if `DATABASE_URL` is missing. Use when the user has a Vite project.
+- **Browser**: User cannot run CLI or API. Direct to https://pg.new.
+
+## REST API
+
+**Base URL:** `https://pg.new/api/v1`
+
+### Create a database
+
+```bash
+curl -s -X POST "https://pg.new/api/v1/database" \
+  -H "Content-Type: application/json" \
+  -d '{"ref": "agent-skills"}'
+```
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `ref` | Yes | Tracking tag that identifies who provisioned the database. Use `"agent-skills"` when provisioning through this skill. |
+| `enable_logical_replication` | No | Enable logical replication (default: false, cannot be disabled once enabled) |
+
+The `connection_string` returned by the API is a pooled connection URL. For a direct (non-pooled) connection (e.g. Prisma migrations), remove `-pooler` from the hostname. The CLI writes both pooled and direct URLs automatically.
+
+**Response:**
 
 ```json
 {
-  "id": "019beb39-...",
+  "id": "019beb39-37fb-709d-87ac-7ad6198b89f7",
   "status": "UNCLAIMED",
+  "neon_project_id": "gentle-scene-06438508",
   "connection_string": "postgresql://...",
   "claim_url": "https://pg.new/claim/019beb39-...",
-  "expires_at": "2026-01-26T14:19:14.580Z"
+  "expires_at": "2026-01-26T14:19:14.580Z",
+  "created_at": "2026-01-23T14:19:14.580Z",
+  "updated_at": "2026-01-23T14:19:14.580Z"
 }
 ```
 
-CLI 一步开库 + 写 env（自定义文件、播种、来源标记）：
+### Check status
 
 ```bash
-npx get-db@latest --yes --ref agent-skills --env .env.local --seed ./schema.sql
+curl -s "https://pg.new/api/v1/database/{id}"
 ```
 
-CLI 写入 `.env` 的内容：
+Returns the same response shape. Status transitions: `UNCLAIMED` -> `CLAIMING` -> `CLAIMED`. After the database is claimed, `connection_string` returns `null`.
+
+### Error responses
+
+| Condition | HTTP | Message |
+|-----------|------|---------|
+| Missing or empty `ref` | 400 | `Missing referrer` |
+| Invalid database ID | 400 | `Database not found` |
+| Invalid JSON body | 500 | `Failed to create the database.` |
+
+## CLI
+
+```bash
+npx get-db@latest --yes
+```
+
+Provisions a database and writes the connection string to `.env` in one step. Always use `@latest` and `--yes` (skips interactive prompts that would stall the agent).
+
+### Pre-run Check
+
+Check if `DATABASE_URL` (or the chosen key) already exists in the target `.env`. The CLI exits without provisioning if it finds the key.
+
+If the key exists, offer the user three options:
+
+1. Remove or comment out the existing line, then rerun.
+2. Use `--env` to write to a different file (e.g. `--env .env.local`).
+3. Use `--key` to write under a different variable name.
+
+Get confirmation before proceeding.
+
+### Options
+
+| Option | Alias | Description | Default |
+|--------|-------|-------------|---------|
+| `--yes` | `-y` | Skip prompts, use defaults | `false` |
+| `--env` | `-e` | .env file path | `./.env` |
+| `--key` | `-k` | Connection string env var key | `DATABASE_URL` |
+| `--prefix` | `-p` | Prefix for generated public env vars | `PUBLIC_` |
+| `--seed` | `-s` | Path to seed SQL file | none |
+| `--logical-replication` | `-L` | Enable logical replication | `false` |
+| `--ref` | `-r` | Referrer id (use `agent-skills` when provisioning through this skill) | none |
+
+Alternative package managers: `yarn dlx get-db@latest`, `pnpm dlx get-db@latest`, `bunx get-db@latest`, `deno run -A get-db@latest`.
+
+### Output
+
+The CLI writes to the target `.env`:
 
 ```
-DATABASE_URL=postgresql://...              # pooled，应用查询用
-DATABASE_URL_DIRECT=postgresql://...       # direct，迁移用（如 Prisma）
+DATABASE_URL=postgresql://...              # pooled (use for application queries)
+DATABASE_URL_DIRECT=postgresql://...       # direct (use for migrations, e.g. Prisma)
 PUBLIC_POSTGRES_CLAIM_URL=https://pg.new/claim/...
 ```
 
-CLI 常用选项：`--yes/-y` 跳提示｜`--env/-e`（默认 `./.env`）｜`--key/-k`（默认 `DATABASE_URL`）｜`--prefix/-p`（默认 `PUBLIC_`）｜`--seed/-s` SQL 文件｜`--logical-replication/-L`｜`--ref/-r`。
+## SDK
 
-SDK（Node 编程式开库）：
+Use for scripts and programmatic provisioning flows.
 
 ```typescript
 import { instantPostgres } from 'get-db';
+
 const { databaseUrl, databaseUrlDirect, claimUrl, claimExpiresAt } = await instantPostgres({
   referrer: 'agent-skills',
   seed: { type: 'sql-script', path: './init.sql' },
 });
-// 返回 pooled / direct 连接串、claimUrl、claimExpiresAt(Date)；referrer 必填
 ```
 
-Vite 插件：`npm install -D vite-plugin-db`，`vite dev` 时缺 `DATABASE_URL` 自动开库。
+Returns `databaseUrl` (pooled), `databaseUrlDirect` (direct, for migrations), `claimUrl`, and `claimExpiresAt` (Date object). The `referrer` parameter is required.
 
-## 注意事项
+## Vite Plugin
 
-- **绝不覆盖已有 env 变量**：先检查；冲突时 CLI 用 `--env`/`--key`，API 则跳过写入。
-- **破坏性播种须先问**：seed SQL 含 `DROP`/`TRUNCATE`/大量 `DELETE` 前确认。
-- 写凭据进 `.env` 后，确认其被 `.gitignore` 覆盖；未覆盖则警告用户，**勿擅自改 `.gitignore`**。
-- 默认与限额：Provider=AWS、Region=us-east-2（claimable 库不可改）、Postgres 17。未认领配额更严：存储 100 MB / 传输 ~1 GB / 无分支 / 72 小时过期；认领（免费版）后约 512 MB / ~5 GB / 有分支 / 不过期。认领会把限额重置为免费版默认。
-- 启用 logical replication 后**不可关闭**。
-- 报错对照：缺 `ref` → 400 `Missing referrer`；无效 ID → 400 `Database not found`；JSON body 非法 → 500 `Failed to create the database.`。
-- 生产工作负载请改用标准 Neon 开通；需长期保留则立刻打开 claim_url 认领。
+For Vite projects, `vite-plugin-db` auto-provisions a database on `vite dev` if `DATABASE_URL` is missing. Install with `npm install -D vite-plugin-db`. See the [Claimable Postgres docs](https://neon.com/docs/reference/claimable-postgres#vite-plugin) for configuration.
 
-## 互见
+## Agent Workflow
 
-- requires：（无）—— 仅需 `curl` 或 Node。
-- related：`neon-serverless-postgres` —— 同属 Neon 生态，从临时库升级到正式 serverless Postgres；`postgresql-optimization` —— 库开好后的查询/索引优化。
-- combines_with：`neon-serverless-postgres` —— 临时库认领后转入正式管理；ORM/迁移技能（Prisma 等）—— 用 direct 连接串跑迁移。
+### API path
 
----
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+1. **Confirm intent:** If the request is ambiguous, confirm the user wants a temporary, no-signup database. Skip this if they explicitly asked for a quick or temporary database.
+2. **Provision:** POST to `https://pg.new/api/v1/database` with `{"ref": "agent-skills"}`.
+3. **Parse response:** Extract `connection_string`, `claim_url`, and `expires_at` from the JSON response.
+4. **Write .env:** Write `DATABASE_URL=<connection_string>` to the project's `.env` (or the user's preferred file and key). Do not overwrite an existing key without confirmation.
+5. **Seed (if needed):** If the user has a seed SQL file, run it against the new database:
+   ```bash
+   psql "$DATABASE_URL" -f seed.sql
+   ```
+6. **Report:** Tell the user where the connection string was written, which key was used, and share the claim URL. Remind them: the database works now; claim within 72 hours to keep it permanently.
+7. **Optional:** Offer a quick connection test (e.g. `SELECT 1`).
+
+### CLI path
+
+1. **Check .env:** Check the target `.env` for an existing `DATABASE_URL` (or chosen key). If present, do not run. Offer remove, `--env`, or `--key` and get confirmation.
+2. **Confirm intent:** If the request is ambiguous, confirm the user wants a temporary, no-signup database. Skip this if they explicitly asked for a quick or temporary database.
+3. **Gather options:** Use defaults unless context suggests otherwise (e.g., user mentions a custom env file, seed SQL, or logical replication).
+4. **Run:** Execute with `@latest --yes` plus the confirmed options. Always use `@latest` to avoid stale cached versions. `--yes` skips interactive prompts that would stall the agent.
+   ```bash
+   npx get-db@latest --yes --ref agent-skills --env .env.local --seed ./schema.sql
+   ```
+5. **Verify:** Confirm the connection string was written to the intended file.
+6. **Report:** Tell the user where the connection string was written, which key was used, and that a claim URL is in the env file. Remind them: the database works now; claim within 72 hours to keep it permanently.
+7. **Optional:** Offer a quick connection test (e.g. `SELECT 1`).
+
+### Output Checklist
+
+Always report:
+
+- Where the connection string was written (e.g. `.env`)
+- Which variable key was used (`DATABASE_URL` or custom key)
+- The claim URL (from `.env` or API response)
+- That unclaimed databases are temporary (72 hours)
+
+## Claiming
+
+Claiming is optional. The database works immediately without it. To optionally claim, the user opens the claim URL in a browser, where they sign in or create a Neon account to claim the database.
+
+- **API/SDK:** Give the user the `claim_url` from the create response.
+- **CLI:** `npx get-db@latest claim` reads the claim URL from `.env` and opens the browser automatically.
+
+Users cannot claim into Vercel-linked orgs; they must choose another Neon org.
+
+## Defaults and Limits
+
+| Parameter | Value |
+|-----------|-------|
+| Provider | AWS |
+| Region | us-east-2 |
+| Postgres | 17 |
+
+Region cannot be changed for claimable databases. Unclaimed databases have stricter quotas. Claiming resets limits to free plan defaults.
+
+| | Unclaimed | Claimed (Free plan) |
+|---|-----------|---------------------|
+| Storage | 100 MB | 512 MB |
+| Transfer | 1 GB | ~5 GB |
+| Branches | No | Yes |
+| Expiration | 72 hours | None |
+
+## Auto-provisioning
+
+If the agent needs a database to fulfill a task (e.g. "build me a todo app with a real database") and the user has not provided a connection string, provision one via the API and inform the user. Include the claim URL so they can keep it.
+
+## Safety and UX Notes
+
+- Do not overwrite existing env vars. Check first, then use `--env` or `--key` (CLI) or skip writing (API) to avoid conflicts.
+- Ask before running destructive seed SQL (`DROP`, `TRUNCATE`, mass `DELETE`).
+- For production workloads, recommend standard Neon provisioning instead of temporary claimable databases.
+- If users need long-term persistence, instruct them to open the claim URL right away.
+- After writing credentials to an .env file, check that it's covered by .gitignore. If not, warn the user. Do not modify `.gitignore` without confirmation.
+
+
+## When to Use
+Use this skill when tackling tasks related to its primary domain or functionality as described above.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
