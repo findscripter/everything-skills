@@ -1,0 +1,6 @@
+{
+  "name": "everything-skills-en",
+  "description": "Encyclopedic AI-agent skill library (English): curated, cross-linked open-source skills",
+  "version": "1.0.0",
+  "contextFileName": "GEMINI.md"
+}

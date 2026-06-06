@@ -11,7 +11,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SKIP_DIRS = new Set(['_template', 'INDEX', 'node_modules', '.git', 'scripts', 'assets']);
+// 注：'en' 为英文镜像树（与本卷同名技能），由 scripts/build-en-index.mjs 单独索引，此处必须跳过以免重名误报。
+const SKIP_DIRS = new Set(['_template', 'INDEX', 'node_modules', '.git', 'scripts', 'assets', 'en']);
 
 // 受控词表（卷→合法类），用于校验 domain 的「类」段
 const TX = JSON.parse(await fs.readFile(path.join(ROOT, 'taxonomy.json'), 'utf8'));
