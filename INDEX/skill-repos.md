@@ -6,7 +6,7 @@
 
 - 编制日期：2026-09-02（Asia/Shanghai）
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：101 个独立仓库（另注明更名别名）
+- 收录条数：179 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索方法与截断规则
@@ -38,6 +38,28 @@ GitHub topic agent-skills 命中两万以上仓库，本目录不倾销该 topic
 22. org:google|huggingface|cloudflare|expo|makenotion skills; org:microsoft SkillOpt|azure-skills|waza|power-platform|skills-for-fabric
 23. 技能库/技能包; seed names baoyu-skills, tons-of-skills-marketplace, finance-skills, next-skills, compound-engineering-plugin, awesome-codex-plugins, awesome-hermes-agent
 24. topic:agent-skills stars:200..2000 collection OR pack OR kit OR marketplace
+25. skills.sh homepage All Time leaderboard
+26. HN Show HN skill packs (Recursive-Mode)
+27. 少数派 / V2EX / 掘金 / 即刻 / 卡兹克公众号 / DEV HyperFrames
+28. retry unread READMEs from prior catalog pass
+29. unnamed-style high-star: taste / impeccable / hyperframes / archify / humanizer / diagram-design / distilly / baoyu-design
+30. official vendor CLIs and skill packs: larksuite/cli, googleworkspace/cli, prisma, supabase, firebase, remotion, dotnet, SenseNova
+31. topic:agent-skills created:>2026-06-01 stars:>200
+32. topic:agent-skills stars:50..500 created:>2026-06-01
+33. awesome-*-skills in:name (page beyond cataloged lists)
+34. filename:marketplace.json path:.claude-plugin (vendor hits)
+35. org:hashicorp / org:shopify / org:stripe skills
+36. cursor skills pack; opencode skills; antigravity skills
+37. 技能市场 / 技能商店 / claude 插件市场
+38. inbound GitHub URLs from cataloged VoltAgent/awesome-agent-skills README
+39. Reddit r/ClaudeAI + r/cursor; Product Hunt; DEV.to skills.sh; 少数派 Marketplace 文; 小红书@如宝; YouTube/Bluesky npx skills add
+40. unnamed high-star: Nutlope/hallmark, mvanhorn/last30days-skill
+41. READMEs of cataloged awesome lists: ComposioHQ/travisvn/heilcheng/BehiSecc/libukai/0xNyk/hashgraph-online/gamedev-skills/lawve-ai/Prat011/spencerpauly/fleurytian/apify/skillmatic-ai
+42. org:vercel skills (beyond vercel-labs); org:anthropics remaining plugins/harnesses; org:microsoft remaining skill*
+43. org:aws / awslabs (beyond agent-plugins); org:databricks; org:snowflake; org:mongodb; org:langchain / langchain-ai; org:huggingface more than huggingface/skills
+44. org:google / google-gemini more than skills/mantis/agents-cli/stitch; org:meta; org:apple
+45. 掘金 / 知乎 / V2EX recent (not translation mirrors); 即刻/小红书 other authors; Bilibili GitHub links
+46. filename:marketplace.json path:.claude-plugin; filename:SKILL.md path:skills created:>2026-07-01; "npx skills add" filename:README.md
 
 ### 截断规则
 
@@ -93,6 +115,47 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 | [google/mantis](https://github.com/google/mantis) | 856 | Google 可移植安全审查技能套件：计划、研究、复现、补丁、报告的顺序流水线；npx skills add google/mantis。非官方支持产品。 | README 未单列 SPDX | 约 16 | 仅索引 |
 | [microsoft/power-platform-skills](https://github.com/microsoft/power-platform-skills) | 795 | 微软 Power Platform 插件市场：Power Pages、Model/Canvas/Code/Mobile Apps、Power Automate 等。 | MIT | 8 插件 | 仅索引 |
 | [makenotion/skills](https://github.com/makenotion/skills) | 161 | Notion 官方 Agent Skills，推荐 npx skills add makenotion/skills；当前公开表仅 notion-cli。 | README 未单列 SPDX | 1 | 仅索引 |
+| [googleworkspace/cli](https://github.com/googleworkspace/cli) | 30,698 | Google Workspace 非官方支持 CLI（gws）：Drive/Gmail/Calendar 等 Discovery 动态命令面，附 100+ Agent Skills。 | Apache-2.0 | 100+ | 仅索引 |
+| [larksuite/cli](https://github.com/larksuite/cli) | 16,946 | 飞书/Lark 官方 CLI：200+ 命令与 26 条 Agent Skills（日历/文档/消息/表格/会议等），skills CLI 安装 larksuite/cli。 | MIT | 26 | 仅索引 |
+| [dotnet/skills](https://github.com/dotnet/skills) | 5,319 | .NET 官方 Agent Skills 插件市场：dotnet/advanced/data/diag/msbuild/nuget/upgrade/maui/ai/test/aspnetcore/blazor 等，Copilot/Claude/Codex/Cursor 插件市场。 | README 指向 LICENSE | 15 插件 | 仅索引 |
+| [OpenSenseNova/SenseNova-Skills](https://github.com/OpenSenseNova/SenseNova-Skills) | 5,272 | 商汤 SenseNova 办公技能：信息图/PPT/Excel 分析/深度研究/多源搜索，SKILL.md 可装 OpenClaw 与 Hermes。 | MIT | 约 22 | 仅索引 |
+| [remotion-dev/skills](https://github.com/remotion-dev/skills) | 4,468 | Remotion 官方 Agent Skills：best-practices/create/markup/studio/render/maps/captions/saas/interactivity/docs/upgrade/multimedia。 | README 未单列 SPDX | 12 | 仅索引 |
+| [supabase/agent-skills](https://github.com/supabase/agent-skills) | 2,569 | Supabase 官方技能：supabase 全产品包 + postgres-best-practices；skills CLI 与 Claude 插件市场。 | README 未单列 SPDX | 2 | 仅索引 |
+| [firebase/agent-skills](https://github.com/firebase/agent-skills) | 432 | Firebase 官方 Agent Skills：README 安装命令指向 firebase/skills 别名路径，兼 Gemini/Claude/Codex/Kimi 插件。 | Apache-2.0 | 官方技能包 | 仅索引 |
+| [prisma/skills](https://github.com/prisma/skills) | 54 | Prisma 官方 ORM/Client/Postgres/Compute 技能 8 条。 | MIT | 8 | 仅索引 |
+| [browserbase/skills](https://github.com/browserbase/skills) | 3,708 | Browserbase 官方浏览器自动化技能：browser/functions/trace/autobrowse/safe-browser/search/ui-test 等；npx skills add browserbase/skills。 | README 未单列 SPDX | 18 | 仅索引 |
+| [hashicorp/agent-skills](https://github.com/hashicorp/agent-skills) | 858 | HashiCorp 官方 Terraform 16 条 + Packer 4 条 Agent Skills；npx skills add 与 Claude/Codex 产品插件包 terraform@hashicorp / packer@hashicorp。 | MPL-2.0 | 20 | 仅索引 |
+| [angular/skills](https://github.com/angular/skills) | 630 | Angular 官方编码技能：angular-developer 与 angular-new-app，npx skills add angular/skills；源在 angular/angular 的 skills/dev-skills。 | README 未单列 SPDX | 2 | 仅索引 |
+| [elastic/agent-skills](https://github.com/elastic/agent-skills) | 566 | Elastic 官方技能：Cloud/Elasticsearch/Kibana/Observability/Security 五组，npx skills add elastic/agent-skills 与 Claude/Copilot 插件市场。 | Apache-2.0 | 36 | 仅索引 |
+| [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills) | 523 | ClickHouse 官方技能：best-practices/architecture/JS troubleshooting/chdb/infra/ClickStack OTel；npx skills add 与 clickhousectl skills。 | Apache-2.0 | 8 | 仅索引 |
+| [LambdaTest/agent-skills](https://github.com/LambdaTest/agent-skills) | 364 | TestMu AI（原 LambdaTest）官方测试技能：Selenium/Playwright/Cypress 等跨语言框架，npx agentskillsforall add。 | README 未单列 SPDX | 测试框架技能包 | 仅索引 |
+| [qdrant/skills](https://github.com/qdrant/skills) | 230 | Qdrant 官方向量检索技能：scaling/sizing/search-quality/multitenancy/model-migration 等 + Advisor 元技能。 | README 未单列 SPDX | 11 | 仅索引 |
+| [OpenZeppelin/openzeppelin-skills](https://github.com/OpenZeppelin/openzeppelin-skills) | 208 | OpenZeppelin 官方安全合约技能：Solidity/Cairo/Stylus/Stellar/Sui 的 setup/upgrade/review。 | AGPL-3.0 | 11 | 仅索引 |
+| [resend/resend-skills](https://github.com/resend/resend-skills) | 169 | Resend 官方邮件技能：resend/agent-email-inbox/resend-cli/react-email/email-best-practices，兼 MCP。 | MIT | 5 | 仅索引 |
+| [circlefin/skills](https://github.com/circlefin/skills) | 145 | Circle 官方稳定币技能：USDC/CCTP/wallets/Gateway/Arc/agent-wallet 等，npx skills add circlefin/skills。 | Apache-2.0 | 18 | 仅索引 |
+| [redis/agent-skills](https://github.com/redis/agent-skills) | 137 | Redis 官方技能：core/connections/search/semantic-cache/clustering/security/observability/iris-development。 | MIT | 8 | 仅索引 |
+| [Shopify/agent-skills](https://github.com/Shopify/agent-skills) | 71 | Shopify 官方技能：Admin/Storefront/Functions/Hydrogen/Liquid/Polaris 扩展等 15 条；npx skill install。 | README 未单列 SPDX | 15 | 仅索引 |
+| [greensock/gsap-skills](https://github.com/greensock/gsap-skills) | 14,799 | GSAP 官方动画技能 8 条：core/timeline/ScrollTrigger/plugins/utils/react/performance/frameworks；npx skills add greensock/gsap-skills。 | MIT | 8 | 仅索引 |
+| [google-gemini/gemini-skills](https://github.com/google-gemini/gemini-skills) | 3,969 | Gemini API 官方技能：gemini-api-dev / live-api / omni-flash；npx skills add google-gemini/gemini-skills。非官方支持产品。 | README 未单列 SPDX | 3 | 仅索引 |
+| [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | 2,503 | AWS 官方 Agent Toolkit：aws-core/agents/data-analytics/devsecops 四插件 + MCP；README 称后继 awslabs/agent-plugins；npx skills add aws/agent-toolkit-for-aws/skills。 | Apache-2.0 | 4 插件 | 仅索引 |
+| [apify/agent-skills](https://github.com/apify/agent-skills) | 2,362 | Apify 官方 5 条：ultimate-scraper/actor-development/actorization/output-schema/sdk-integration；npx skills add。社区精选见 apify/awesome-skills。 | Apache-2.0 | 5 | 仅索引 |
+| [WordPress/agent-skills](https://github.com/WordPress/agent-skills) | 2,093 | WordPress 官方 17 条：blocks/themes/plugins/REST/Playground 等；npx skills add WordPress/agent-skills。 | GPL-2.0-or-later | 17 | 仅索引 |
+| [langchain-ai/langchain-skills](https://github.com/langchain-ai/langchain-skills) | 1,190 | LangChain/LangGraph/Deep Agents 21 条技能；npx skills add langchain-ai/langchain-skills。早期开发。 | README 未单列 SPDX | 21 | 仅索引 |
+| [getsentry/skills](https://github.com/getsentry/skills) | 974 | Sentry 团队官方开发技能约 27 条 + 2 子代理；npx skills add getsentry/skills。产品接入技能另见 getsentry/sentry-for-ai。 | Apache-2.0 | 约 27 | 仅索引 |
+| [planetscale/database-skills](https://github.com/planetscale/database-skills) | 651 | PlanetScale 官方数据库技能：mysql/postgres/vitess/neki；npx skills add planetscale/database-skills。 | README 未单列 SPDX | 4 | 仅索引 |
+| [posit-dev/skills](https://github.com/posit-dev/skills) | 488 | Posit 官方 Claude 技能：R 包/Shiny/Quarto/Connect/GitHub PR 等分类；npx skills add posit-dev/skills。 | MIT | 约 20+ | 仅索引 |
+| [elevenlabs/skills](https://github.com/elevenlabs/skills) | 438 | ElevenLabs 官方 TTS/STT/agents/SFX/music/dubbing 等 10 条；npx skills add elevenlabs/skills。 | MIT | 10 | 仅索引 |
+| [microsoft/skills-for-copilot-studio](https://github.com/microsoft/skills-for-copilot-studio) | 428 | 微软 Copilot Studio STANDARD agent YAML 插件：manage/author/test/advisor 四子代理。实验性、非官方支持产品。 | README 未单列 SPDX | 4 子代理 | 仅索引 |
+| [microsoft/win-dev-skills](https://github.com/microsoft/win-dev-skills) | 406 | 微软 WinUI 3 / Windows App SDK 技能 8 条 + winui-dev 编排代理；Copilot/Claude/Codex 插件市场。Preview。 | MIT | 8 | 仅索引 |
+| [amd/skills](https://github.com/amd/skills) | 322 | AMD 官方 Agent Skills：Ryzen AI 本地推理、Instinct LLM serving、ROCm 诊断等；npx skills add amd/skills。 | MIT | 约 7 | 仅索引 |
+| [databricks/databricks-agent-skills](https://github.com/databricks/databricks-agent-skills) | 293 | Databricks 官方稳定技能 29 条（core/jobs/pipelines/Unity Catalog 等）；databricks aitools install 与多宿主插件市场。 | README 未单列 SPDX | 29 | 仅索引 |
+| [vercel/vercel-plugin](https://github.com/vercel/vercel-plugin) | 273 | Vercel 官方插件：35 条生态技能 + 3 专家代理 + 知识图谱；npx plugins add vercel/vercel-plugin。 | Apache-2.0 | 35 | 仅索引 |
+| [mongodb/agent-skills](https://github.com/mongodb/agent-skills) | 181 | MongoDB 官方 Atlas 插件 + 查询/schema/Search/Vector 技能；npx skills add mongodb/agent-skills。 | README 未单列 SPDX | 官方插件包 | 仅索引 |
+| [langchain-ai/langsmith-skills](https://github.com/langchain-ai/langsmith-skills) | 153 | LangSmith 观测技能 3 条：trace/dataset/evaluator；npx skills add langchain-ai/langsmith-skills。 | README 未单列 SPDX | 3 | 仅索引 |
+| [black-forest-labs/skills](https://github.com/black-forest-labs/skills) | 114 | Black Forest Labs FLUX 图像/视频官方技能：prompt 实践、BFL API、FLUX 3 视频套件；npx skills add。 | MIT | 约 10 | 仅索引 |
+| [firecrawl/skills](https://github.com/firecrawl/skills) | 98 | Firecrawl 官方技能目录（CI 同步）：core CLI/MCP、build SDK、workflows；npx skills add firecrawl/skills。 | ISC | 核心+构建+工作流 | 仅索引 |
+| [wandb/skills](https://github.com/wandb/skills) | 67 | Weights & Biases 官方训练/评测技能 3 条（experimental）；npx skills add wandb/skills。 | README 未单列 SPDX | 3 | 仅索引 |
+| [replicate/skills](https://github.com/replicate/skills) | 55 | Replicate 官方模型检索/对比/运行/发布与图视频 prompting 7 条；npx skills add replicate/skills。 | README 未单列 SPDX | 7 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -121,6 +184,15 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 | [lawve-ai/awesome-legal-skills](https://github.com/lawve-ai/awesome-legal-skills) | 676 | 法律工作自动化 Agent Skills 精选列表。 | README 未单列 SPDX | 精选列表 | 仅索引 |
 | [trailofbits/skills-curated](https://github.com/trailofbits/skills-curated) | 496 | Trail of Bits 审核过的 Claude Code 插件市场：开发/安全/生产力/写作，以及从 openai/skills 转换的便携技能。 | CC-BY-SA-4.0 | 约 28 插件 | 仅索引 |
 | [LinklyAI/best-skills](https://github.com/LinklyAI/best-skills) | 368 | 跨 skills.sh / ClawHub / 腾讯 SkillHub 的每日 Top 100 技能排行与开放 CSV，非技能正文库。 | CC BY 4.0 | 排行榜 | 仅索引 |
+| [tmstack/awesome-persona-skills](https://github.com/tmstack/awesome-persona-skills) | 3,821 | 中文人设/蒸馏技能精选：同事/老板/前任/自己/女娲等，链到 titanwings/distilly 等独立仓。 | README 未单列 SPDX | 精选列表 | 仅索引 |
+| [Prat011/awesome-llm-skills](https://github.com/Prat011/awesome-llm-skills) | 1,709 | 跨 Claude/Codex/Gemini/OpenCode/Qwen 的 LLM Skills awesome 列表。 | Apache-2.0 | 精选列表 | 仅索引 |
+| [spencerpauly/awesome-cursor-skills](https://github.com/spencerpauly/awesome-cursor-skills) | 745 | Cursor 专用 SKILL.md 精选：Cursor-native 工作流 + 市场插件索引。 | README 未单列 SPDX | 精选列表 | 仅索引 |
+| [skillmatic-ai/awesome-agent-skills](https://github.com/skillmatic-ai/awesome-agent-skills) | 667 | Agent Skills 学习路径 awesome：规范、平台、市场、评测与论文索引。 | README 未单列 SPDX | 精选+教程 | 仅索引 |
+| [ZeroPointRepo/awesome-hermes-skills](https://github.com/ZeroPointRepo/awesome-hermes-skills) | 497 | Nous Hermes Agent 技能/插件精选，README 徽章 368 条（内置+可选+社区）。 | README 未单列 SPDX | 368 | 仅索引 |
+| [brycewang-stanford/Awesome-Journal-Skills](https://github.com/brycewang-stanford/Awesome-Journal-Skills) | 1,053 | 斯坦福 REAP × CoPaper.AI 期刊技能包：README 宣称 4166 条技能、300 pack、744 venue，覆盖 11 学科投稿规范。 | MIT | 4166 / 300 pack | 仅索引 |
+| [fleurytian/awesome-claude-skills](https://github.com/fleurytian/awesome-claude-skills) | 316 | 小红书@如宝 的 Claude Skills：McKinsey 顾问 PPT、咪蒙写作、find-session、美国政府停摆追踪。 | MIT | 4 | 仅索引 |
+| [apify/awesome-skills](https://github.com/apify/awesome-skills) | 248 | Apify 社区 Actor 技能精选 13 条（广告情报/地图线索/电商/OSINT 等），npx skills add apify/awesome-skills。 | Apache-2.0 | 13 | 仅索引 |
+| [JackyST0/awesome-agent-skills](https://github.com/JackyST0/awesome-agent-skills) | 629 | V2EX 帖整理的跨 Cursor/Claude/Copilot Agent Skills awesome + 5 条示例技能与安装脚本。 | README 未单列 SPDX | 精选列表 + 5 示例 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -159,6 +231,24 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 | [eternityspring/shuohao-skills](https://github.com/eternityspring/shuohao-skills) | 2,535 | AI 短剧制作五段技能：大纲、角色、美术、剧本、分镜，软链到 Claude Code 与 Codex。 | Apache-2.0 | 5 | 仅索引 |
 | [badlogic/pi-skills](https://github.com/badlogic/pi-skills) | 2,478 | pi-coding-agent 技能集，兼容 Claude Code/Codex/Amp/Droid：Brave 搜索、浏览器、Gmail/Calendar/Drive、转录等。 | MIT | 8 | 仅索引 |
 | [wondelai/skills](https://github.com/wondelai/skills) | 2,079 | 畅销书框架蒸馏成商业/营销/UX/编码技能，README 宣称 50 技能 + 12 引导旅程。 | README 未单列 SPDX | 50 | 仅索引 |
+| [emilkowalski/skills](https://github.com/emilkowalski/skills) | 34,707 | animations.dev 作者的设计/动效技能：emil-design-eng、animate、review-animations、apple-design 等。 | README 未单列 SPDX | 12 | 仅索引 |
+| [titanwings/distilly](https://github.com/titanwings/distilly) | 24,265 | Distilly（原 Colleague Skill）：把人的经验蒸馏成可安装 Person Profile 技能，覆盖同事/关系/名人三族。 | MIT | 1 元技能（生成人设技能） | 仅索引 |
+| [KKKKhazix/khazix-skills](https://github.com/KKKKhazix/khazix-skills) | 20,356 | 数字生命卡兹克自用 6 条技能：leader/storage-analyzer/aihot/neat-freak/hv-analysis/khazix-writer。 | MIT | 6 | 仅索引 |
+| [Vincentwei1021/video-shotcraft](https://github.com/Vincentwei1021/video-shotcraft) | 7,064 | 电影感产品视频 Agent Skill：157 镜配方卡 + Remotion 模板，面向 Claude Code/Codex。 | README 未单列 SPDX | 1（配方库技能） | 仅索引 |
+| [JimLiu/baoyu-design](https://github.com/JimLiu/baoyu-design) | 3,805 | 把 Claude Design 封装为本地 Agent Skill：高保真 UI/原型/PPT 输出独立 HTML，Cursor/Claude/Codex。 | MIT | 1（内置多工作流） | 仅索引 |
+| [mohitagw15856/pm-claude-skills](https://github.com/mohitagw15856/pm-claude-skills) | 1,330 | 1153 条专业 Agent Skills（PRD/复盘到生活工作流），MIT，在 Anthropic 官方插件目录。 | MIT | 1153 | 仅索引 |
+| [fivetaku/gptaku_plugins](https://github.com/fivetaku/gptaku_plugins) | 1,101 | GPTaku Claude Code 插件市场：17 插件（insane-search/design/review/research 等），韩英中日西多语 README。 | MIT | 17 插件 | 仅索引 |
+| [BagelHole/DevOps-Security-Agent-Skills](https://github.com/BagelHole/DevOps-Security-Agent-Skills) | 944 | DevOps/安全/基础设施/合规 Agent Skills，README 宣称 160+。 | MIT | 160+ | 仅索引 |
+| [data-goblin/power-bi-agentic-development](https://github.com/data-goblin/power-bi-agentic-development) | 887 | Power BI / Fabric 插件市场：11 插件（semantic-models/reports/pbip/fabric-cli 等），Claude Code 与 Copilot CLI。 | GPL-3.0 | 11 插件 | 仅索引 |
+| [inference-sh/skills](https://github.com/inference-sh/skills) | 722 | inference.sh 官方技能：图像/视频生成、LLM、搜索、SDK/UI 组件。 | MIT | 工具+指南技能包 | 仅索引 |
+| [giuseppe-trisciuoglio/developer-kit](https://github.com/giuseppe-trisciuoglio/developer-kit) | 337 | 模块化 Claude Code 插件市场：150+ 技能、45+ 代理，覆盖 Java/TS/Python/PHP/AWS。 | MIT | 150+ | 仅索引 |
+| [try-works/recursive-mode](https://github.com/try-works/recursive-mode) | 129 | 文件化递归工程工作流技能包：requirements→plan→TDD→review→memory；Show HN。 | README 未单列 SPDX | 9 | 仅索引 |
+| [jnMetaCode/superpowers-zh](https://github.com/jnMetaCode/superpowers-zh) | 7,944 | obra/superpowers 中文增强版：14 翻译 + 6 中国特色技能，npx superpowers-zh 适配 23 款编码代理。 | MIT | 20 | 仅索引 |
+| [MengTo/Skills](https://github.com/MengTo/Skills) | 5,726 | Meng To 设计/游戏/Web 技能库：123 条 SKILL.md（Codex 工作流、Three.js 游戏、落地页动效）。 | MIT | 123 | 仅索引 |
+| [SamurAIGPT/Generative-Media-Skills](https://github.com/SamurAIGPT/Generative-Media-Skills) | 4,205 | 生成式媒体 Agent Skills：MuAPI CLI + 41 条图像/视频/社交配方，npx skills add SamurAIGPT/Generative-Media-Skills。 | MIT | 41+ 配方 | 仅索引 |
+| [ScrapeCreators/social-media-research-skills](https://github.com/ScrapeCreators/social-media-research-skills) | 1,973 | 社交研究技能 13 条：outlier/transcript/comments/ads/trends/influencer 等，npx skills add。 | README 未单列 SPDX | 13 | 仅索引 |
+| [AIDevGTM/gtm-cofounder](https://github.com/AIDevGTM/gtm-cofounder) | 261 | Product Hunt #1：开发者工具 GTM 技能（定位/首批用户/发布/定价），npx skills add AIDevGTM/gtm-cofounder。 | MIT | 约 18 | 仅索引 |
+| [SkyworkAI/Skywork-Skills](https://github.com/SkyworkAI/Skywork-Skills) | 203 | 天工办公技能 6 条：PPT/文档/Excel/图像/搜索/音乐；npx skills add SkyworkAI/Skywork-Skills。 | MIT | 6 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -171,6 +261,8 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 | [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry) | 7,214 | MCP 服务器官方注册表，不是 SKILL.md 库；作为相邻基础设施收录。 | README 未单列 SPDX | MCP 注册表 | 仅索引 |
 | [antfu/skills-npm](https://github.com/antfu/skills-npm) | 512 | Anthony Fu helper for publishing agent skills as packages. | MIT | infra | 仅索引 |
 | [microsoft/waza](https://github.com/microsoft/waza) | 1,291 | 微软 Agent Skills CLI/框架：创建、测试、度量并改进技能质量与触发效果。 | README 未单列 SPDX | 评测/CLI | 仅索引 |
+| [microsoft/skill-recorder](https://github.com/microsoft/skill-recorder) | 3,751 | 微软桌面录屏工具：把一次真实操作还原成可复用技能文档或定时自动化。 | MIT | 生成器 | 仅索引 |
+| [TanStack/intent](https://github.com/TanStack/intent) | 328 | TanStack 官方 CLI：为库作者生成并校验 Agent Skills。 | README 未单列 SPDX | 生成器/CLI | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
@@ -190,6 +282,14 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 | [OthmanAdi/planning-with-files](https://github.com/OthmanAdi/planning-with-files) | 26,575 | 文件化规划技能：task_plan/findings/progress 落盘，hooks 每轮注入；`npx skills add`，60+ agent。 | MIT | 规划技能 | 仅索引 |
 | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 124,042 | UI/UX 设计智能技能：192 条推理规则、可安装到 Claude/Cursor 等；marketplace + CLI。 | MIT | UI/UX 技能 | 仅索引 |
 | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | 113,737 | `/graphify` 技能：把代码/文档/PDF 建成可查询知识图谱（tree-sitter 本地解析）。 | 未在 README 首页单列 SPDX | `/graphify` 技能 | 仅索引 |
+| [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | 83,508 | Anti-slop 前端审美技能：design-taste-frontend 等约 13 条。 | MIT | 约 13 | 仅索引 |
+| [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 64,828 | 前端设计技能：1 技能 + 23 命令 + 61 检测规则；impeccable install 与 Claude 插件市场。 | Apache-2.0 | 1 技能 + 23 命令 | 仅索引 |
+| [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | 43,656 | HeyGen HTML→MP4 视频框架，附 20 条 Agent Skills（hyperframes 路由器）。 | Apache-2.0 | 20 | 仅索引 |
+| [tt-a1i/archify](https://github.com/tt-a1i/archify) | 42,971 | 架构图 Agent Skill：把代码/系统描述编成可交互 HTML/SVG。 | MIT | 1 | 仅索引 |
+| [blader/humanizer](https://github.com/blader/humanizer) | 39,789 | 去 AI 腔写作技能，35 条维基模式。 | MIT | 1 | 仅索引 |
+| [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | 29,375 | 39 种编辑向图示类型技能，输出独立 HTML+SVG，面向 Claude Code/Codex/Pi。 | README 未单列 SPDX | 39 图示类型 | 仅索引 |
+| [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | 60,945 | /last30days 跨 Reddit/X/YouTube/HN/Polymarket 的近期研究技能，marketplace + npx skills add；仓库名无 agent。 | MIT | 1 | 仅索引 |
+| [Nutlope/hallmark](https://github.com/Nutlope/hallmark) | 27,843 | Together AI 反 AI-slop 设计技能：21 主题 + 57 闸门；npx skills add nutlope/hallmark。仓库名无 skill。 | MIT | 1 | 仅索引 |
 
 ## 自 2026 年中以来值得注意的新库或爆发仓
 
@@ -198,29 +298,30 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 - VoltAgent/awesome-openclaw-skills、affaan-m/ECC、sickn33/agentic-awesome-skills、vercel-labs/skills、mattpocock/skills、kepano/obsidian-skills、microsoft/skills、phuryn/pm-skills、openai/plugins、iflytek/skillhub、NVIDIA/SkillSpector、NVIDIA/skills、anthropics/claude-plugins-community、anthropics/k12-teacher-skills
 - 本轮补录爆发仓：google/skills、huggingface/skills、google-labs-code/stitch-skills、EveryInc/compound-engineering-plugin、JimLiu/baoyu-skills、mukul975/Anthropic-Cybersecurity-Skills、jeremylongshore/tons-of-skills-marketplace、anbeime/skill、microsoft/SkillOpt、microsoft/waza、google/mantis、anthropics/launch-your-agent
 - 名称不含 skill 的本轮追加：ponytail、caveman、gstack、graphify、planning-with-files、ui-ux-pro-max-skill
+- 本轮平台帖/热榜补录爆发仓：Leonxlnx/taste-skill、pbakaus/impeccable、heygen-com/hyperframes、tt-a1i/archify、blader/humanizer、cathrynlavery/diagram-design、emilkowalski/skills、titanwings/distilly、KKKKhazix/khazix-skills、googleworkspace/cli、larksuite/cli、Vincentwei1021/video-shotcraft、JimLiu/baoyu-design
+- 上轮未读现已入表：dotnet/skills、OpenSenseNova/SenseNova-Skills、TanStack/intent、microsoft/skill-recorder 及一组 awesome/垂直市场仓
 - 名称不含 skill/agent 现已入表：defending-code-reference-harness、launch-your-agent、agents-cli、mantis、compound-engineering-plugin、waza、superpowers-marketplace、awesome-codex-plugins（另加第 6 节 ponytail/caveman/gstack/planning-with-files/ui-ux-pro-max-skill/graphify）
+- 第三轮官方厂商补录：hashicorp/agent-skills、elastic/agent-skills、ClickHouse/agent-skills、browserbase/skills、angular/skills、Shopify/agent-skills、qdrant/skills、OpenZeppelin/openzeppelin-skills、circlefin/skills、redis/agent-skills、resend/resend-skills、LambdaTest/agent-skills
+- 第三轮平台/awesome 补录：mvanhorn/last30days-skill、Nutlope/hallmark、jnMetaCode/superpowers-zh、MengTo/Skills、SamurAIGPT/Generative-Media-Skills、brycewang-stanford/Awesome-Journal-Skills、ScrapeCreators/social-media-research-skills、AIDevGTM/gtm-cofounder、fleurytian/awesome-claude-skills、apify/awesome-skills
+- 第四轮官方厂商补录：greensock/gsap-skills、google-gemini/gemini-skills、aws/agent-toolkit-for-aws、apify/agent-skills、WordPress/agent-skills、langchain-ai/langchain-skills、getsentry/skills、planetscale/database-skills、posit-dev/skills、elevenlabs/skills、microsoft/skills-for-copilot-studio、microsoft/win-dev-skills、amd/skills、databricks/databricks-agent-skills、vercel/vercel-plugin、mongodb/agent-skills、langchain-ai/langsmith-skills、black-forest-labs/skills、firecrawl/skills、wandb/skills、replicate/skills
+- 第四轮 awesome/垂直：JackyST0/awesome-agent-skills（V2EX）、SkyworkAI/Skywork-Skills
 
 ## 未能拉取 README / 未纳入分表
 
 种子或检索中出现、但本轮未成功阅读 README（或不收录），故不进入上列分表，供下轮补读：
 
-- InternScience/Awesome-Scientific-Skills
-- OpenSenseNova/SenseNova-Skills
-- TanStack/intent
-- dotnet/skills
-- fivetaku/gptaku_plugins
-- mohitagw15856/pm-claude-skills
-- tmstack/awesome-persona-skills
-- Prat011/awesome-llm-skills
-- spencerpauly/awesome-cursor-skills
-- BagelHole/DevOps-Security-Agent-Skills
-- data-goblin/power-bi-agentic-development
-- inference-sh/skills
-- giuseppe-trisciuoglio/developer-kit
-- ZeroPointRepo/awesome-hermes-skills
-- skillmatic-ai/awesome-agent-skills
-- microsoft/skill-recorder
+- InternScience/Awesome-Scientific-Skills（根 README.md 仍不存在，仅 skills-metric/README.md）
 - WorldFlowAI/everything-claude-code（ECC 第三方重传警告，跳过）
 - gemini-extension.json skills（0 hits）
+- org:stripe skills（0 hits）
+- zhaoxuya520/reverse-skill（逆向/渗透路由包，本目录不收录攻击向技能）
+- better-auth/skills（仓库无 README.md，仅 .claude-plugin + better-auth/ + security/ 目录；未读 README 不入表）
+- launchdarkly/agent-skills（search 校验失败，仓库可能不存在或不可见）
+- org:snowflake skills（0 hits）
+- org:meta / org:apple skills in:name（0 hits）
+- org:langchain（非 langchain-ai）skills in:name（search 校验失败）
+- gsd-build/get-shit-done（已归档，README 仅跳转到 open-gsd/gsd-core，本轮未把后继仓当技能包核验）
+- 即刻其他作者、小红书非如宝帖、Bilibili 描述：未找到未入表的高星独立技能仓
+- 知乎近期多为规范/教程转载，未出新 GitHub 技能仓
 
 本目录供 findscripter/everything-skills 维护者做来源发现；转载请保留检索方法与采编标记。
