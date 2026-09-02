@@ -6,16 +6,16 @@
 
 - 编制日期：2026-09-02（Asia/Shanghai）
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：55 个独立仓库（另注明更名别名）
+- 收录条数：61 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索方法与截断规则
 
-GitHub topic agent-skills 命中两万以上仓库，本目录不倾销该 topic。只收 SKILL.md 集合、插件市场、awesome-*-skills、官方目录、垂直技能包、注册表与安装器。
+GitHub topic agent-skills 命中两万以上仓库，本目录不倾销该 topic。只收 SKILL.md 集合、插件市场、awesome-*-skills、官方目录、垂直技能包、注册表与安装器。也收仓库名不含 skill/agent、但 README 证明是可安装技能包的库。
 
 ### 使用过的检索式
-1. topic:agent-skills stars-gt-100 (sort stars; total_count about 682)
-2. awesome agent skills in name and description, stars-gt-10
+1. topic:agent-skills stars-gt-100
+2. awesome agent skills in name and description
 3. awesome-claude-skills OR awesome-agent-skills OR awesome-codex-skills in:name
 4. openai/skills, vercel-labs/skills, agentskills/agentskills, anthropics/skills
 5. topic:claude-skills stars-gt-50
@@ -26,10 +26,15 @@ GitHub topic agent-skills 命中两万以上仓库，本目录不倾销该 topic
 10. topic:agent-skills stars-gt-500 page 2
 11. seed list user and in:name lookups
 12. follow-up README reads for NVIDIA, Microsoft, Matt Pocock, Obsidian, PM, Orchestra, Skill Seekers, SkillSpector, k12, community plugins, aaron marketing
+13. claude-plugin marketplace
+14. "npx skills" OR skills.sh
+15. filename:SKILL.md
+16. Claude 技能库 / 技能包 / 智能体技能
+17. names that are skills without saying so: ponytail, caveman, gstack, graphify, planning-with-files
 
 ### 截断规则
 
-官方仓库一律收录。everything-skills INDEX/sources.md 的 18 个已采编来源一律收录（不论星标）。社区技能库/awesome/市场一般要求约 100 stars 以上，官方与已采编除外。排除仅挂 topic 的应用产品、CS 学习路线图、单技能病毒仓、awesome 垃圾 fork。未读到 README 的仓库不进入分表。
+官方仓库一律收录。everything-skills INDEX/sources.md 的 18 个已采编来源一律收录（不论星标）。未读到 README 的仓库不进入分表。排除仅挂 topic 的应用产品、CS 学习路线图。
 
 ### 更名与后继
 
@@ -46,9 +51,6 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 ---
 
 ## 1. 官方与权威
-
-表列：仓库（链接）、Stars、README 摘要、许可、技能数、采编状态。
-
 
 | 仓库 | Stars | README 摘要 | 许可 | 技能数 | 采编 |
 |---|---:|---|---|---|---|
@@ -68,9 +70,7 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 | [microsoft/skills](https://github.com/microsoft/skills) | 2,981 | 微软官方 Azure SDK / AI Foundry Agent Skills；Skill Explorer 宣称 175 条。 | MIT | 175 | 仅索引 |
 | [NVIDIA/skills](https://github.com/NVIDIA/skills) | 3,174 | NVIDIA 官方已验证技能目录：Physical AI、仿真、CUDA-X、RAG。 | Apache-2.0 + CC-BY-4.0 | 持续增长的官方目录 | 仅索引 |
 
-
 ## 2. 精选列表 / 大集合
-
 
 | 仓库 | Stars | README 摘要 | 许可 | 技能数 | 采编 |
 |---|---:|---|---|---|---|
@@ -84,9 +84,7 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 | [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) | 14,934 | Claude Skills 社区 awesome 列表，按领域分类索引可安装技能仓。 | README 未单列 SPDX | 精选列表 | 仅索引 |
 | [heilcheng/awesome-agent-skills](https://github.com/heilcheng/awesome-agent-skills) | 6,163 | Agent Skills 目录，配套站点 agent-skill.co。 | README 未单列 SPDX | 精选列表 | 仅索引 |
 
-
 ## 3. 垂直领域技能包
-
 
 | 仓库 | Stars | README 摘要 | 许可 | 技能数 | 采编 |
 |---|---:|---|---|---|---|
@@ -115,10 +113,7 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 | [voidful/academic-skills](https://github.com/voidful/academic-skills) | 126 | 学术研究技能（文献、写作、投稿等）。 | MIT | 7 / 采编 7 | 已采编 |
 | [findscripter/everything-skills](https://github.com/findscripter/everything-skills) | 2 | 本项目：中文优先类书式技能大典，1108 条技能、11 卷插件市场。 | 混合（见 NOTICE） | 1108 | 本项目 |
 
-
 ## 4. 安装器 / 注册表 / 基础设施
-
-第 1 节的 vercel-labs/skills 即跨代理技能安装 CLI，此处不重复占一行。
 
 | 仓库 | Stars | README 摘要 | 许可 | 技能数 | 采编 |
 |---|---:|---|---|---|---|
@@ -135,45 +130,24 @@ anthropics/skills, wshobson/agents, sickn33/antigravity-awesome-skills（现 age
 |---|---:|---|---|---|---|
 | [anthropics/claude-cookbooks](https://github.com/anthropics/claude-cookbooks) | 52,358 | Claude API cookbook（笔记本/教程），不是 SKILL.md 技能库；作为官方学习材料索引。 | README 未单列 SPDX | 教程而非技能 | 仅索引 |
 
+## 6. 名称不含 skill / agent 的技能库（本轮追加）
+
+仓库名往往是方法论、产品或梗。判定依据是 README：可安装的 SKILL.md / Claude 插件市场 / `npx skills add`。
+
+| 仓库 | Stars | README 摘要 | 许可 | 技能数 | 采编 |
+|---|---:|---|---|---|---|
+| [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | 120,526 | 「懒惰的高级工程师」技能/插件：YAGNI 梯子，少写代码；`/plugin marketplace add`，附带 6 条 slash 技能。 | MIT | 6 条命令技能 | 仅索引 |
+| [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | 102,351 | 压缩 agent 输出（及输入代理）的技能；`npx skills add JuliusBrussee/caveman`，宣称适配 30+ agent。 | MIT（技能）/ BSL-1.1（引擎） | 技能+命令套件 | 仅索引 |
+| [garrytan/gstack](https://github.com/garrytan/gstack) | 131,059 | Garry Tan 的 Claude Code 虚拟工程团队：23 个角色 slash 命令 + 8 个工具，全 Markdown。 | MIT | 23 专家 + 8 工具 | 仅索引 |
+| [OthmanAdi/planning-with-files](https://github.com/OthmanAdi/planning-with-files) | 26,575 | 文件化规划技能：task_plan/findings/progress 落盘，hooks 每轮注入；`npx skills add`，60+ agent。 | MIT | 规划技能 | 仅索引 |
+| [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 124,042 | UI/UX 设计智能技能：192 条推理规则、可安装到 Claude/Cursor 等；marketplace + CLI。 | MIT | UI/UX 技能 | 仅索引 |
+| [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | 113,737 | `/graphify` 技能：把代码/文档/PDF 建成可查询知识图谱（tree-sitter 本地解析）。 | 未在 README 首页单列 SPDX | `/graphify` 技能 | 仅索引 |
+
 ## 自 2026 年中以来值得注意的新库或爆发仓
 
 相对 2026 年 6 月本地草稿：
 
-- VoltAgent/awesome-openclaw-skills（2026-01-25）：OpenClaw/ClawHub 技能精选，星标破 5 万
-- affaan-m/ECC（2026-01）：everything-claude-code 后继，星标约 24.6 万
-- sickn33/agentic-awesome-skills（2026-01）：antigravity 线更名为 AAS Core，2100+ 技能
-- vercel-labs/skills（2026-01）：跨 70 余种代理的标准技能 CLI
-- mattpocock/skills（2026-02-03）：工程纪律技能包，星标约 24.4 万
-- kepano/obsidian-skills（2026-01-02）：官方级 Obsidian 技能
-- microsoft/skills（2026-01-16）：微软 175 条 Azure/Foundry 技能
-- phuryn/pm-skills（2026-03-01）：PM 技能市场 68 技能
-- openai/plugins（2026-03-04）：接替 openai/skills
-- iflytek/skillhub（2026-03-11）：国产自托管技能注册表
-- NVIDIA/SkillSpector（2026-03-21）：技能安全扫描成为基础设施
-- NVIDIA/skills（2026-02-25）：NVIDIA 已验证技能目录
-- anthropics/claude-plugins-community（2026-03-20）：官方社区插件市场镜像
-- anthropics/k12-teacher-skills（2026-07-10）：Claude for Teachers 官方技能
-- aaron-he-zhu/seo-geo-claude-skills（2026-06-28）：已变为路标；技能并入 120 条营销伞仓
-
-## 未能拉取 README / 未纳入分表的候选
-
-种子或检索中出现、API 能搜到、但本轮未成功阅读 README，故不进入上列分表，供下轮补读：
-
-- anthropics/defending-code-reference-harness、anthropics/launch-your-agent、vercel-labs/next-skills
-- JimLiu/baoyu-skills、jeremylongshore/tons-of-skills-marketplace、mukul975/Anthropic-Cybersecurity-Skills、anbeime/skill
-- WorldFlowAI/everything-claude-code（ECC README 警告勿用第三方重传）
-- dotnet/skills、OpenSenseNova/SenseNova-Skills、EveryInc/compound-engineering-plugin
-- gamedev-skills/awesome-gamedev-agent-skills（2026-06-24）、lawve-ai/awesome-legal-skills、InternScience/Awesome-Scientific-Skills
-- brycewang-stanford/Auto-Empirical-Research-Skills、LinklyAI/best-skills（2026-08-11）
-- hashgraph-online/awesome-codex-plugins、0xNyk/awesome-hermes-agent
-- himself65/finance-skills、RKiding/Awesome-finance-skills、samber/cc-skills-golang
-- trailofbits/skills-curated、TanStack/intent、Leon-Drq/openagentskill、skillhub-club/skillhub-desktop
-- microsoft/SkillOpt、microsoft/skill-recorder（2026-07-29）、BehiSecc/awesome-claude-skills、libukai/awesome-agent-skills
-
-更名导致旧路径无 README：sickn33/antigravity-awesome-skills、affaan-m/everything-claude-code、ComposioHQ/awesome-codex-skills（已分别改读后继仓）。
-
-## 排除示例
-
-检索中反复出现但不是技能库、故不收录：Cherry Studio、各类简历生成器、KubeSphere、LibreChat、CowAgent 等仅挂 topic:agent-skills 的应用产品。
+- VoltAgent/awesome-openclaw-skills、affaan-m/ECC、sickn33/agentic-awesome-skills、vercel-labs/skills、mattpocock/skills、kepano/obsidian-skills、microsoft/skills、phuryn/pm-skills、openai/plugins、iflytek/skillhub、NVIDIA/SkillSpector、NVIDIA/skills、anthropics/claude-plugins-community、anthropics/k12-teacher-skills
+- 名称不含 skill 的本轮追加：ponytail、caveman、gstack、graphify、planning-with-files、ui-ux-pro-max-skill
 
 本目录供 findscripter/everything-skills 维护者做来源发现；转载请保留检索方法与采编标记。
