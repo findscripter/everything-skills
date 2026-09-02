@@ -104,13 +104,14 @@ everything-skills/
 │   └── SKILL.md             # 条目模板（复制即用）
 ├── scripts/
 │   └── build-index.mjs      # 索引/目录/互见图谱生成器（零依赖 Node）
-├── INDEX/                   # ← 全部自动生成，勿手改
+├── INDEX/                   # catalog/tags/tools/graph/search/sources 由脚本生成
 │   ├── catalog.md           # 全书总目（按卷·类）
 │   ├── tags.md              # 标签索引
 │   ├── tools.md             # 工具索引
 │   ├── graph.md             # 互见图谱（Mermaid）
 │   ├── graph.json           # 互见图谱（机读，供可视化）
-│   └── search.json          # 召回层：扁平记录，供两段式发现/搜索
+│   ├── search.json          # 召回层：扁平记录，供两段式发现/搜索
+│   └── skill-repos.md       # 技能仓库总目（人工编制，只索引不收录源码）
 ├── .claude-plugin/
 │   └── marketplace.json     # 插件市场清单（自动生成，可 /plugin marketplace add 安装）
 ├── 00-meta/                 # 卷〇·通用元能力
@@ -166,6 +167,7 @@ status: stable
 - 按标签找 → [INDEX/tags.md](INDEX/tags.md)
 - 按工具找 → [INDEX/tools.md](INDEX/tools.md)
 - 看技能关系（依赖/互见/组合）→ [INDEX/graph.md](INDEX/graph.md)
+- 技能仓库总目（只索引 GitHub 技能库，不收录源码）→ [INDEX/skill-repos.md](INDEX/skill-repos.md)
 - 全文/语义搜索 → 直接用编辑器或后续接入的搜索（这才是"检索"的正解）
 
 ## 路线图
