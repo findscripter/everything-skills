@@ -8,3 +8,7 @@
 - Stars：GitHub Search API 当日快照，非估算
 - 收录条数：271 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
+
+## 检索方法与截断规则
+
+GitHub topic agent-skills 命中两万以上仓库，本目录不倾销该 topic。只收 SKILL.md 集合、插件市场、awesome-*-skills、官方目录、垂直技能包、注册表与安装器。也收仓库名不含 skill/agent、但 README 证明是可安装技能包的库。
