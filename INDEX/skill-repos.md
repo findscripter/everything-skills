@@ -9,6 +9,28 @@
 - 收录条数：271 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
-## 检索方法与截断规则
+## 检索与截断
 
-GitHub topic agent-skills 命中两万以上仓库，本目录不倾销该 topic。只收 SKILL.md 集合、插件市场、awesome-*-skills、官方目录、垂直技能包、注册表与安装器。也收仓库名不含 skill/agent、但 README 证明是可安装技能包的库。
+只收 SKILL.md 集合、插件市场、awesome-*-skills、官方目录、垂直技能包、注册表与安装器；也收仓库名不含 skill/agent、但 README 证明可安装的技能包。不倾销 topic:agent-skills。未读到 README 的不入表。
+
+检索覆盖：GitHub topic/org/code search、skills.sh、ClawHub、HN/Reddit/V2EX/即刻/小红书、awesome 外链、`npx skills add`、`.claude-plugin/marketplace.json`。
+
+### 更名与后继
+
+- sickn33/antigravity-awesome-skills → sickn33/agentic-awesome-skills
+- affaan-m/everything-claude-code → affaan-m/ECC
+- ComposioHQ/awesome-codex-skills → composio-community/awesome-codex-skills
+- aaron-he-zhu/seo-geo-claude-skills → aaron-marketing-skills（v9.9.12 冻结）
+- openai/skills → openai/plugins
+- vercel-labs/next-skills → vercel/next.js skills/
+
+### 已采编来源
+
+见 INDEX/sources.md（18 个上游，不论星标一律收录）。
+
+未纳入：InternScience/Awesome-Scientific-Skills（无根 README）、WorldFlowAI/everything-claude-code（ECC 第三方警告）、攻击向/无 README 仓。
+
+## 1. 官方与权威
+
+| 仓库 | Stars | README 摘要 | 许可 | 技能数 | 采编 |
+|---|---:|---|---|---|---|
