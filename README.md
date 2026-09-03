@@ -78,7 +78,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 
 ## 技能仓库目录
 
-目前索引 **293** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。星标/许可/采编见 [INDEX/skill-repos.md](INDEX/skill-repos.md)。
+目前索引 **293** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。本页是目录；详细表由 `data/skill-repos.jsonl` 生成，见 [INDEX/skill-repos.md](INDEX/skill-repos.md)。
 
 ### 1. 官方与权威（93）
 
@@ -419,8 +419,12 @@ everything-skills/
 ├── CONTRIBUTING.md          # 如何新增一条技能
 ├── _template/
 │   └── SKILL.md             # 条目模板（复制即用）
+├── data/
+│   ├── skill-repos.jsonl    # 外部技能库目录源（jsonl）
+│   └── skill-repos.meta.md  # 总目前言（检索方法等）
 ├── scripts/
-│   └── build-index.mjs      # 索引/目录/互见图谱生成器（零依赖 Node）
+│   ├── build-index.mjs      # 索引/目录/互见图谱生成器（零依赖 Node）
+│   └── build-skill-repos.mjs # 由 jsonl 生成 INDEX/skill-repos.md
 ├── INDEX/                   # catalog/tags/tools/graph/search/sources 由脚本生成
 │   ├── catalog.md           # 全书总目（按卷·类）
 │   ├── tags.md              # 标签索引
@@ -428,7 +432,7 @@ everything-skills/
 │   ├── graph.md             # 互见图谱（Mermaid）
 │   ├── graph.json           # 互见图谱（机读，供可视化）
 │   ├── search.json          # 召回层：扁平记录，供两段式发现/搜索
-│   └── skill-repos.md       # 技能仓库总目（人工编制，只索引不收录源码）
+│   └── skill-repos.md       # 技能仓库总目（由 jsonl 生成，勿手改）
 ├── .claude-plugin/
 │   └── marketplace.json     # 插件市场清单（自动生成，可 /plugin marketplace add 安装）
 ├── 00-meta/                 # 卷〇·通用元能力
@@ -497,7 +501,7 @@ status: stable
 
 ## 贡献
 
-读 [CONTRIBUTING.md](CONTRIBUTING.md)。一句话：复制模板 → 填 frontmatter → 写正文 → 跑 `build-index.mjs` 校验 → 提 PR。
+读 [CONTRIBUTING.md](CONTRIBUTING.md)。一句话：复制模板 → 填 frontmatter → 写正文 → 跑 `node scripts/build-index.mjs` 与 `node scripts/build-skill-repos.mjs` 校验 → 提 PR。
 
 ---
 

@@ -1,7 +1,8 @@
 # 路线图 · ROADMAP
 
 > 来源：对分类法与字段规范做的 3 视角对抗式评审（discovery 发现机制 / maintainer 归位 / scale 规模化）。
-> 三个视角高度收敛。下面区分**本次已折叠进骨架**与**待办（按 P0–P3）**。骨架阶段先立架构与治理护栏，填肉阶段再补量与工具。
+> 三个视角高度收敛。下面区分**已折叠进骨架**与**待办（按 P0–P3）**。
+> **骨架已立、填肉进行中**：1108 条技能已入卷。本 PR 补上 CI，以及 `data/skill-repos.jsonl` → `INDEX/skill-repos.md` 生成器（293 个外部 GitHub 技能库）。
 
 ## ✅ 已折叠进骨架（本次）
 
@@ -15,16 +16,17 @@
 - **研发卷补 `mobile` / `observability`**；`fullstack` 降级为 `combines_with`（不再并列）。
 - **verticals 正交规则**：垂直卷只收行业强绑定技能，纯功能实现放功能卷 + 行业 tag。
 - **降噪**：`version` / `level` / `tags` 由必填改为可选；默认 license 由 CC-BY-SA-4.0 → **CC-BY-4.0**（利于单包自由复制）。
+- **类（第二层）受控化**：`taxonomy.json`（卷→合法类枚举）已落地；`build-index.mjs` 对 `domain` 的「类」做 error 级校验。
 
 ## ⏳ P0（填肉前必须补）
 
-- **类（第二层）受控化**：建 `taxonomy.json`（卷→合法类枚举），生成器 error 级校验 `domain` 的「类」∈ 本卷类集，并消除样例里 `Office`/`思维`/`SQL` 这类中英大小写不一致。
 - **description 结构化强校验**：固定模板「当〈场景〉时使用；做〈动作+产物〉；不适用于〈负边界〉；触发词：a、b、c」，四段齐全方可合入；设长度硬上限（error）。**负触发词是降误召的关键，当前缺失。**
 - **发现回归集**：`scripts/eval-discovery.mjs` + `queries.jsonl`（用户说法→期望命中 name），用关键词/嵌入跑召回率与误召率。没有它，「description 发现」无法证伪。
 - **两段式发现协议**：先按 `domain`/`tags`/`triggers` 粗筛候选，再按 `description` 精排——消费 `search.json`，让分类法真正进入召回链路（否则分类对 Agent 零贡献）。
 
 ## ⏳ P1
 
+- **taxonomy.json aliases 未接线**：`aliases` 表已写在 taxonomy.json，但生成器尚未用它做类名归一。小缺口，暂不实现接线。
 - 用**真 YAML 解析器**替换手写正则；每条 `SKILL.md` 加 `schema_version` 以支持未来字段演进迁移。
 - **互见反向边自动补全**：`related`/`combines_with` 单写一处，生成器补双向（规模化下人工双向维护必失败）。
 - **卷间消歧矩阵**：对 writing↔copy↔communication、automation↔devops↔agents、review↔audit 等高频争议写明默认归属与判据，并做成可校验约束（主类唯一）。
@@ -34,7 +36,7 @@
 ## ⏳ P2 / P3
 
 - **受控词表 + 归一**：tags/agents/tools 建词表，`pdf=PDF=PDFs` 别名归一，避免索引碎片化。
-- **图谱分片渲染**：单一 Mermaid 图在数千节点不可渲染——改按卷生成子图；catalog 也分卷。
+- **图谱分片渲染**：单一 Mermaid 图在数千节点不可渲染——改按卷生成子图；catalog 也分卷。**graph.md 分片仍为 P2。**
 - **国际化**：`description_en` / `keywords_en`，title 中英并存（服务英文语境 Agent，提升英文触发词召回）。
 - **version 去仪式化**：要么让工具消费它（驱动弃用/兼容/变更日志）并规定 bump 规则，要么删除直到有依赖求解需求。
 
