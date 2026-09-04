@@ -6,10 +6,25 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: node scripts/build-index.mjs
       - run: node scripts/build-skill-repos.mjs
-      - run: git diff --exit-code
+      - name: Commit regenerated indexes if dirty
+        run: |
+          if git diff --quiet -- INDEX/skill-repos.md; then
+            echo "INDEX/skill-repos.md already matches jsonl"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add INDEX/skill-repos.md
+          git commit -m "chore: regenerate INDEX/skill-repos.md from jsonl [skip ci]"
+          git push
