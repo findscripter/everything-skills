@@ -1,1 +1,1 @@
-PLACEHOLDER_LOAD_FROM_FILE
+/workspace/daily-skill/INDEX-only.md
