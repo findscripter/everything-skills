@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-03（Asia/Shanghai）
+- 编制日期：2026-09-04（Asia/Shanghai）
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：293 个独立仓库（另注明更名别名）
+- 收录条数：315 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -173,6 +173,8 @@
 | [Hisn00w/ASu-skills](https://github.com/Hisn00w/ASu-skills) | 3,188 | 中文求职工作流插件：9 入口（简历/面试/开源贡献/投递）；Claude/Codex/Trae 插件。 | MIT | 9 | 仅索引 |
 | [JasonColapietro/suede-creator-skills](https://github.com/JasonColapietro/suede-creator-skills) | 129 | 74 个开源 Creator/营销/代码评审技能包（A–F ship grade）；Claude/Codex 插件 + `npx skills add`。 | MIT + BSD（NOTICE） | 74 | 仅索引 |
 | [neondatabase/agent-skills](https://github.com/neondatabase/agent-skills) | 85 | Neon 官方 Agent Skills（Postgres/Auth/Object Storage/AI Gateway 等）；`npx skills add` + 插件。 | 未在首页单列 SPDX | 约 8 | 仅索引 |
+| [mxyhi/ok-skills](https://github.com/mxyhi/ok-skills) | 480 | 精选编码 Agent 技能合集 31 条（planning/docs/browser/design 等）；clone 到 ~/.agents/skills。 | 见 LICENSE | 31 | 仅索引 |
+| [Dominic789654/awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness) | 220 | DeepSeek Harness（DSH）插件/技能/MCP 精选列表。 | README 未单列 SPDX | awesome 列表 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -251,6 +253,16 @@
 | [Neeeophytee/finding-unknowns-skills](https://github.com/Neeeophytee/finding-unknowns-skills) | 322 | Thariq Shihipar 未知项方法论 11 条技能；npx skills add + Claude/Codex 插件。非 Anthropic 官方。 | MIT | 11 | 仅索引 |
 | [CloudWave818/ieee-skills](https://github.com/CloudWave818/ieee-skills) | 253 | 非官方 IEEE 论文工作流 10 条 Codex skills（summarize/writing/reviewer/experiment/figure 等）。 | MIT | 10 | 仅索引 |
 | [JimLiu/science-skills](https://github.com/JimLiu/science-skills) | 225 | 宝玉 Claude Science 风格科学技能：alphafold/boltz/文献/单细胞/远程计算等。 | README 未单列 SPDX | 科学技能目录 | 仅索引 |
+| [geekjourneyx/md2wechat-skill](https://github.com/geekjourneyx/md2wechat-skill) | 3,616 | 微信公众号 Markdown→排版/草稿 CLI + Agent Skill（skills/md2wechat）；`md2wechat skills` discovery，适配 Claude/Codex/OpenClaw。 | Source Available（商业需授权） | 1+ 平台变体 | 仅索引 |
+| [prompt-security/clawsec](https://github.com/prompt-security/clawsec) | 1,097 | OpenClaw/Hermes/NanoClaw/PicoClaw 安全技能套件：签名情报、漂移检测、安装闸门；`npx skills add prompt-security/clawsec`。 | AGPL-3.0 | suite + 多平台包 | 仅索引 |
+| [XiaoMaColtAI/math-modeling-skill](https://github.com/XiaoMaColtAI/math-modeling-skill) | 1,057 | 数学建模三阶段技能（建模/编程/论文）+ DSH 插件；`npx skills add` math-modeling。 | README 未单列 SPDX | 1 主技能 + 角色/工具 | 仅索引 |
+| [alchaincyf/huashu-md-html](https://github.com/alchaincyf/huashu-md-html) | 896 | 花叔 md↔html/docx 四向流水线 Agent Skill（4 主题反 AI-slop）；`npx skills add alchaincyf/huashu-md-html`。 | MIT | 1 | 仅索引 |
+| [product-on-purpose/pm-skills](https://github.com/product-on-purpose/pm-skills) | 642 | 产品管理 Agent Skills 68 条（Triple Diamond 全生命周期）+ 插件；skills.sh / agentskills.io。 | Apache-2.0 | 68 | 仅索引 |
+| [michaelshimeles/skills](https://github.com/michaelshimeles/skills) | 576 | Claude Code 工作流技能包 6 条（worktree/证据测试/Greptile 循环等）+ AGENTS.md。 | README 未单列 SPDX | 6 | 仅索引 |
+| [saurabhkumar8112/cyclomatic-complexity-skill](https://github.com/saurabhkumar8112/cyclomatic-complexity-skill) | 367 | 降低圈复杂度重构 Claude 技能；`/plugin marketplace add saurabhkumar8112/cyclomatic-complexity-skill`。 | Apache-2.0 | 1 | 仅索引 |
+| [arpitg1304/robotics-agent-skills](https://github.com/arpitg1304/robotics-agent-skills) | 353 | 机器人学 Agent Skills 10 条（ROS1/ROS2/感知/测试/安全）；SKILL.md 集合 + install.sh。 | Apache-2.0 | 10 | 仅索引 |
+| [tigerless-labs/design-harness](https://github.com/tigerless-labs/design-harness) | 215 | 证据驱动系统设计 Agent Skill（sources/ideas 画布）；Claude/Codex 插件市场。 | MIT | 1 | 仅索引 |
+| [lornshrimp/Lorn.NovelWriteSkills](https://github.com/lornshrimp/Lorn.NovelWriteSkills) | 202 | 长篇网文写作工作流技能库（题材/大纲/章节/多平台分发）+ CommonSkills。 | README 未单列 SPDX | 多题材技能包 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -270,6 +282,12 @@
 | [huggingface/upskill](https://github.com/huggingface/upskill) | 740 | Hugging Face 官方：从任务/轨迹生成并评测 SKILL.md（teacher→student）。 | README 未单列 SPDX | 生成器/评测 CLI | 仅索引 |
 | [NVIDIA/SkillEvaluator](https://github.com/NVIDIA/SkillEvaluator) | 394 | NVIDIA 官方技能三层评测：校验/去重/现场 agent 评测；Verified Skills 流水线，配合 SkillSpector。 | Apache-2.0 | 评测框架 | 仅索引 |
 | [changchangidea-oss/SkillRadar](https://github.com/changchangidea-oss/SkillRadar) | 175 | Agent Skills 发现/安全扫描/排序/路由：Codex 插件 + npx skills add；离线注册表 Top-3。 | MIT | 注册表/路由器 | 仅索引 |
+| [activeloopai/hivemind](https://github.com/activeloopai/hivemind) | 1,593 | 团队共享记忆：从轨迹挖掘并生成可复用 SKILL.md；Claude 插件市场 + OpenClaw/Codex/Cursor hooks。 | Apache-2.0 | 记忆/技能化 infra | 仅索引 |
+| [Railly/tinte](https://github.com/Railly/tinte) | 618 | 把设计系统编译成 Agent Plugin（SKILL.md + tokens.css）；`bunx tinte build --plugin`。仓库名无 skill。 | MIT | 生成器/插件 | 仅索引 |
+| [WoJiSama/skill-based-architecture](https://github.com/WoJiSama/skill-based-architecture) | 548 | 可路由项目 Skill 元架构（routing.yaml + 薄壳）；Claude 插件市场 `/plugin marketplace add WoJiSama/skill-based-architecture`。V2EX 热帖。 | 见 LICENSE | 1 元技能 | 仅索引 |
+| [EverMind-AI/SkillCorpus](https://github.com/EverMind-AI/SkillCorpus) | 492 | 把散落 SKILL.md 聚合成可检索语料 + 评测/插件（OpenClaw/Hermes/DSH）；SkillHub 配套开源层。 | Apache-2.0（match/evaluate MIT） | 语料/检索 infra | 仅索引 |
+| [zhuyansen/agent-skills-hub](https://github.com/zhuyansen/agent-skills-hub) | 355 | AgentSkillsHub：Claude/MCP/Codex 技能目录与评分站点开源后端（非 SKILL.md 库本体）。 | README 未单列 SPDX | 目录/评分 infra | 仅索引 |
+| [K-Dense-AI/mimeo](https://github.com/K-Dense-AI/mimeo) | 260 | 把公开专家语料编译成 SKILL.md/AGENTS.md 的 CLI（mimeo）；arxiv:2609.00453。 | README 未单列 SPDX | 生成器 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
@@ -357,3 +375,7 @@
 | [superdesigndev/superdesign-skill](https://github.com/superdesigndev/superdesign-skill) | 500 | Superdesign UI/演示/图形技能。 | MIT | 1 | 仅索引 |
 | [yan-labs/serenity-aleabitoreddit](https://github.com/yan-labs/serenity-aleabitoreddit) | 475 | Serenity AI/半导体供应链研究技能。仓库名无 skill。 | README 未单列 SPDX | 1 | 仅索引 |
 | [existential-birds/beagle](https://github.com/existential-birds/beagle) | 80 | Beagle 技能市场：Python/Go/Rust/Elixir/React/iOS 审查。 | README 未单列 SPDX | marketplace | 仅索引 |
+| [Nanako0129/sepia](https://github.com/Nanako0129/sepia) | 1,875 | 去 AI 腔写作 Agent Skill（叙事结构优先）；`npx skills add Nanako0129/sepia`，Claude/Codex/Grok/Antigravity 原生插件。仓库名无 skill。 | MIT | 1 + 4 操作包装 | 仅索引 |
+| [Vincentwei1021/video-talkcraft](https://github.com/Vincentwei1021/video-talkcraft) | 602 | 口播视频动效 Agent Skill：字级配音同步 + 79 动效卡 + Remotion；`npx skills add Vincentwei1021/video-talkcraft`。仓库名无 skill。 | PolyForm Noncommercial 1.0.0 | 1 | 仅索引 |
+| [inkboard/system-atlas](https://github.com/inkboard/system-atlas) | 391 | 架构讨论→可交互等轴测 atlas 的 Agent Skill；`npx skills add inkboard/system-atlas`。仓库名无 skill。 | MIT | 1 | 仅索引 |
+| [kunchenguid/vision](https://github.com/kunchenguid/vision) | 310 | 从仓库历史起草并压力测试 VISION.md 的 Agent Skill；`npx skills add kunchenguid/vision`。仓库名无 skill。 | MIT | 1 | 仅索引 |
