@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-04（Asia/Shanghai）
+- 编制日期：2026-09-05（Asia/Shanghai）
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：315 个独立仓库（另注明更名别名）
+- 收录条数：341 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -130,6 +130,7 @@
 | [remix-run/agent-skills](https://github.com/remix-run/agent-skills) | 137 | Remix 官方 React Router 三模式技能（已归档，后继 `npx skills add remix-run/react-router --skill react-router`）。 | MIT | 3（已归档） | 仅索引 |
 | [sanity-io/agent-toolkit](https://github.com/sanity-io/agent-toolkit) | 180 | Sanity 官方 4 条技能 + MCP/Claude/Cursor/Codex 插件；npx skills add sanity-io/agent-toolkit。 | MIT | 4 | 仅索引 |
 | [coderabbitai/skills](https://github.com/coderabbitai/skills) | 165 | CodeRabbit 官方 code-review / autofix 技能，适配 35+ 代理；npx skills add coderabbitai/skills。 | MIT | 2 | 仅索引 |
+| [base/skills](https://github.com/base/skills) | 117 | Base链官方Skills（build-on-base/base-mcp/vibenet）；npx skills add base/skills。 | MIT | 5 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -175,6 +176,13 @@
 | [neondatabase/agent-skills](https://github.com/neondatabase/agent-skills) | 85 | Neon 官方 Agent Skills（Postgres/Auth/Object Storage/AI Gateway 等）；`npx skills add` + 插件。 | 未在首页单列 SPDX | 约 8 | 仅索引 |
 | [mxyhi/ok-skills](https://github.com/mxyhi/ok-skills) | 480 | 精选编码 Agent 技能合集 31 条（planning/docs/browser/design 等）；clone 到 ~/.agents/skills。 | 见 LICENSE | 31 | 仅索引 |
 | [Dominic789654/awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness) | 220 | DeepSeek Harness（DSH）插件/技能/MCP 精选列表。 | README 未单列 SPDX | awesome 列表 | 仅索引 |
+| [ttfake92-lab/skills](https://github.com/ttfake92-lab/skills) | 215 | 内容创作Skills合集（视频提示词/Remotion/缩略图）；npx skills add ttfake92-lab/skills。 | None | 10 | 仅索引 |
+| [mblode/agent-skills](https://github.com/mblode/agent-skills) | 102 | 交付向Skills 26条（UI/排版/PR/SEO等）+插件市场；npx skills add。 | MIT | 26 | 仅索引 |
+| [J-nowcow/awesome-korean-agent-skills](https://github.com/J-nowcow/awesome-korean-agent-skills) | 40 | 韩语Coding Agent Skills精选400+功能分类索引。 | CC0-1.0 | 400+ index | 仅索引 |
+| [Agents365-ai/365-skills](https://github.com/Agents365-ai/365-skills) | 37 | Agents365生产级技能/插件市场；npx skills add + Claude marketplace。 | None | 24 | 仅索引 |
+| [linny006/awesome-agent-skills](https://github.com/linny006/awesome-agent-skills) | 31 | 自动更新Agent Skills精选列表（质量评级）。 | None | index | 仅索引 |
+| [paulnsorensen/easy-cheese](https://github.com/paulnsorensen/easy-cheese) | 18 | 便携跨harness Agent Skills工具包；npx skills/插件市场。 | MIT | 18 | 仅索引 |
+| [kevinaimonster/skill-hub](https://github.com/kevinaimonster/skill-hub) | 3 | 中文技能宝50+可安装Skills；npx skills add --full-depth。 | MIT | 101 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -263,6 +271,15 @@
 | [arpitg1304/robotics-agent-skills](https://github.com/arpitg1304/robotics-agent-skills) | 353 | 机器人学 Agent Skills 10 条（ROS1/ROS2/感知/测试/安全）；SKILL.md 集合 + install.sh。 | Apache-2.0 | 10 | 仅索引 |
 | [tigerless-labs/design-harness](https://github.com/tigerless-labs/design-harness) | 215 | 证据驱动系统设计 Agent Skill（sources/ideas 画布）；Claude/Codex 插件市场。 | MIT | 1 | 仅索引 |
 | [lornshrimp/Lorn.NovelWriteSkills](https://github.com/lornshrimp/Lorn.NovelWriteSkills) | 202 | 长篇网文写作工作流技能库（题材/大纲/章节/多平台分发）+ CommonSkills。 | README 未单列 SPDX | 多题材技能包 | 仅索引 |
+| [Agents365-ai/video-podcast-maker](https://github.com/Agents365-ai/video-podcast-maker) | 1,601 | 主题→4K口播视频Agent Skill（研究/脚本/TTS/Remotion）；经365-skills市场安装。 | CC BY-NC 4.0 | 4 | 仅索引 |
+| [yushui2022/MathModel-Skill](https://github.com/yushui2022/MathModel-Skill) | 352 | 数学建模全流程Skills（赛题→建模→代码→论文）；Trae/Claude/Codex安装包。异于XiaoMaColtAI同主题仓。 | MIT | 30 | 仅索引 |
+| [ascend-ai-coding/awesome-ascend-skills](https://github.com/ascend-ai-coding/awesome-ascend-skills) | 168 | 昇腾NPU开发Skills知识库；npx按域安装；skills.sh收录。 | None | 231 | 仅索引 |
+| [DoHyun468/claw-hwp](https://github.com/DoHyun468/claw-hwp) | 158 | 韩文HWP读写Claude/Codex插件技能；plugin marketplace add。 | MIT | 1 | 仅索引 |
+| [maplibre/maplibre-agent-skills](https://github.com/maplibre/maplibre-agent-skills) | 143 | MapLibre GL JS社区Skills；npx skills add maplibre/maplibre-agent-skills。 | NOASSERTION | 9 | 仅索引 |
+| [Azhi-ss/academic-figure-skills](https://github.com/Azhi-ss/academic-figure-skills) | 98 | 学术论文配图Skills 5条；npx skills add -g --all。 | MIT | 5 | 仅索引 |
+| [0731coderlee-sudo/wechat-publisher](https://github.com/0731coderlee-sudo/wechat-publisher) | 46 | Markdown→微信公众号草稿OpenClaw Skill；npx skills add。V2EX。 | MIT | 1 | 仅索引 |
+| [prime-skills/runcomfy-agent-skills](https://github.com/prime-skills/runcomfy-agent-skills) | 42 | RunComfy媒体生成Skills；skills.sh热榜；agentspace-so别名指向本仓。 | MIT | 30 | 仅索引 |
+| [Tetra-Research/dangerous-professional-plugin](https://github.com/Tetra-Research/dangerous-professional-plugin) | 10 | Patio11 Dangerous Professional沟通风格插件/Skill；HN Show。 | MIT | 1 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -288,6 +305,10 @@
 | [EverMind-AI/SkillCorpus](https://github.com/EverMind-AI/SkillCorpus) | 492 | 把散落 SKILL.md 聚合成可检索语料 + 评测/插件（OpenClaw/Hermes/DSH）；SkillHub 配套开源层。 | Apache-2.0（match/evaluate MIT） | 语料/检索 infra | 仅索引 |
 | [zhuyansen/agent-skills-hub](https://github.com/zhuyansen/agent-skills-hub) | 355 | AgentSkillsHub：Claude/MCP/Codex 技能目录与评分站点开源后端（非 SKILL.md 库本体）。 | README 未单列 SPDX | 目录/评分 infra | 仅索引 |
 | [K-Dense-AI/mimeo](https://github.com/K-Dense-AI/mimeo) | 260 | 把公开专家语料编译成 SKILL.md/AGENTS.md 的 CLI（mimeo）；arxiv:2609.00453。 | README 未单列 SPDX | 生成器 | 仅索引 |
+| [Chat2AnyLLM/awesome-claude-skills](https://github.com/Chat2AnyLLM/awesome-claude-skills) | 147 | Claude Skills上游源元数据目录（不镜像正文）。 | None | 目录级 | 仅索引 |
+| [LearnPrompt/skillrush-town](https://github.com/LearnPrompt/skillrush-town) | 107 | 淘金小镇：ClawHub Top100快照+潜力技能雷达，附可安装Skill。 | MIT | 1 | 仅索引 |
+| [dfrysinger/qrspi-plus](https://github.com/dfrysinger/qrspi-plus) | 38 | QRSPI结构化agentic开发流水线Claude/Copilot插件。 | MIT | 38 | 仅索引 |
+| [MichelKerkmeester/skilled-agent-harness_spec-driven-loops](https://github.com/MichelKerkmeester/skilled-agent-harness_spec-driven-loops) | 34 | Spec-driven agent loops定制Skill/连续性框架。 | MIT | 87 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
@@ -379,3 +400,8 @@
 | [Vincentwei1021/video-talkcraft](https://github.com/Vincentwei1021/video-talkcraft) | 602 | 口播视频动效 Agent Skill：字级配音同步 + 79 动效卡 + Remotion；`npx skills add Vincentwei1021/video-talkcraft`。仓库名无 skill。 | PolyForm Noncommercial 1.0.0 | 1 | 仅索引 |
 | [inkboard/system-atlas](https://github.com/inkboard/system-atlas) | 391 | 架构讨论→可交互等轴测 atlas 的 Agent Skill；`npx skills add inkboard/system-atlas`。仓库名无 skill。 | MIT | 1 | 仅索引 |
 | [kunchenguid/vision](https://github.com/kunchenguid/vision) | 310 | 从仓库历史起草并压力测试 VISION.md 的 Agent Skill；`npx skills add kunchenguid/vision`。仓库名无 skill。 | MIT | 1 | 仅索引 |
+| [hopechen067/MapStage](https://github.com/hopechen067/MapStage) | 279 | 地图投影/地形调参器+可安装mapstage Skill；仓库名无skill。 | MIT | 1 | 仅索引 |
+| [bybit-exchange/svg-diagram](https://github.com/bybit-exchange/svg-diagram) | 218 | 手写SVG架构/流程/时序图Skill+svg-lint；npx skills add。V2EX。仓库名无skill。 | MIT | 1 | 仅索引 |
+| [yschimke/compose-ai-tools](https://github.com/yschimke/compose-ai-tools) | 110 | Compose Preview→PNG CLI，附Claude skills供Agent看UI；仓库名无skill。 | Apache-2.0 | 3 | 仅索引 |
+| [Kayforkind/reimagine-it](https://github.com/Kayforkind/reimagine-it) | 39 | HTML→更强独立页CLI+Agent Skill/插件；仓库名无skill。 | MIT | 7 | 仅索引 |
+| [V-Songbird/foreman](https://github.com/V-Songbird/foreman) | 34 | Claude插件：跨会话项目计划保活；仓库名无skill。 | MIT | 5 | 仅索引 |
