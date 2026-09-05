@@ -21,6 +21,6 @@
 {"full_name":"Jason-chen-coder/dev-skills","html_url":"https://github.com/Jason-chen-coder/dev-skills","stars":5,"summary":"开发向 Agent Skills。","license":"Other","skill_count":"多","status":"仅索引","section":"vertical"}
 {"full_name":"KKenny0/card-skill","html_url":"https://github.com/KKenny0/card-skill","stars":5,"summary":"卡片设计/生成 Skill。","license":"Other","skill_count":"1","status":"仅索引","section":"vertical"}
 {"full_name":"Aident-AI/aident-skill","html_url":"https://github.com/Aident-AI/aident-skill","stars":4,"summary":"Aident Loadout：连接千级应用的 Agent Skill。","license":"MIT","skill_count":"2","status":"仅索引","section":"vertical"}
-{"full_name":"CyrilLeMat/temper-skills","html_url":"https://github.com/CyrilLeMat/temper-skills","stars":4,"summary":"Skill 决策逻辑测试套件（Temper）。","license":"Other","skill_count":"10","status":"仅索引","section":"vertical"}
+{"full_name":"CyrilLeMat/temper-skills","html_url":"https://github.com/CyrilLeMat/temper-skills","stars":4,"summary":"Temper：Skill 决策逻辑对抗测试/冻结工具；Claude Code 内 `/temper`，技能位于 `.claude/skills`。","license":"Other","skill_count":"10","status":"仅索引","section":"infra"}
 {"full_name":"Basic-XYZ/baku-skills","html_url":"https://github.com/Basic-XYZ/baku-skills","stars":2,"summary":"我自己在真实工作流里跑过、觉得值得留下的 Agent Skills。","license":"MIT","skill_count":"37","status":"仅索引","section":"vertical"}
 {"full_name":"ASOScan/aso-skills","html_url":"https://github.com/ASOScan/aso-skills","stars":1,"summary":"ASO（应用商店优化）Agent Skills。","license":"MIT","skill_count":"20","status":"仅索引","section":"vertical"}
