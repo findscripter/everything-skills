@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：341 个独立仓库（另注明更名别名）
+- 收录条数：342 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -280,6 +280,7 @@
 | [0731coderlee-sudo/wechat-publisher](https://github.com/0731coderlee-sudo/wechat-publisher) | 46 | Markdown→微信公众号草稿OpenClaw Skill；npx skills add。V2EX。 | MIT | 1 | 仅索引 |
 | [prime-skills/runcomfy-agent-skills](https://github.com/prime-skills/runcomfy-agent-skills) | 42 | RunComfy媒体生成Skills；skills.sh热榜；agentspace-so别名指向本仓。 | MIT | 30 | 仅索引 |
 | [Tetra-Research/dangerous-professional-plugin](https://github.com/Tetra-Research/dangerous-professional-plugin) | 10 | Patio11 Dangerous Professional沟通风格插件/Skill；HN Show。 | MIT | 1 | 仅索引 |
+| [virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill) | 28,582 | 技术书PDF→Claude Code Skill；可学习/引用的知识技能包。`npx skills add virgiliojr94/book-to-skill`。 | MIT | 1+ | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
