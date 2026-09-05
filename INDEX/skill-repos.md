@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：369 个独立仓库（另注明更名别名）
+- 收录条数：397 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -190,6 +190,11 @@
 | [sanyuan0704/sanyuan-skills](https://github.com/sanyuan0704/sanyuan-skills) | 3,897 | 三元代码审查Skills（SOLID/安全/性能等）。`npx skills add sanyuan0704/sanyuan-skills`。 | MIT | 6 | 仅索引 |
 | [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills) | 2,752 | 基于Lighthouse/Core Web Vitals的Web质量优化Agent Skills。`npx skills add`。 | Apache-2.0 | 多 | 仅索引 |
 | [ciembor/agent-rules-books](https://github.com/ciembor/agent-rules-books) | 2,689 | 源自经典书籍的AGENTS.md规则/Skills（Codex/Cursor/Claude）。 | MIT | 多 | 仅索引 |
+| [ReScienceLab/opc-skills](https://github.com/ReScienceLab/opc-skills) | 1,757 | 一人公司/独立创业者Agent Skills合集。 | MIT | 多 | 仅索引 |
+| [zenstory-ai/drama-skills](https://github.com/zenstory-ai/drama-skills) | 1,585 | AI短剧/漫剧创作Skill合集（剧本→分镜→提示词→审查）；Claude/Codex。 | MIT | 多 | 仅索引 |
+| [alchaincyf/huashu-skills](https://github.com/alchaincyf/huashu-skills) | 1,468 | 花叔开源Agent Skills总目录（旗舰+人物视角+内置，50+）。 | MIT | 52 | 仅索引 |
+| [tjboudreaux/cc-thinking-skills](https://github.com/tjboudreaux/cc-thinking-skills) | 1,285 | 28个评测导向心智模型/批判思维Claude Skills。`npx skills add tjboudreaux/cc-thinking-skills`。 | MIT | 28 | 仅索引 |
+| [gooseworks-ai/goose-skills](https://github.com/gooseworks-ai/goose-skills) | 1,195 | Growth/GTM Skills+数据API（广告/社媒等）for Claude/Codex/Cursor。 | MIT | 多 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -301,6 +306,14 @@
 | [lackeyjb/playwright-skill](https://github.com/lackeyjb/playwright-skill) | 3,101 | 面向编码Agent的通用Playwright自动化Skill。`npx skills add lackeyjb/playwright-skill`。 | MIT | 1 | 仅索引 |
 | [NarratorAI-Studio/narrator-ai-cli-skill](https://github.com/NarratorAI-Studio/narrator-ai-cli-skill) | 2,537 | AI解说大师：封装narrator-ai-cli供Claude/Codex调用的Skill。 | MIT | 1 | 仅索引 |
 | [yanliudesign/mono-color-skill](https://github.com/yanliudesign/mono-color-skill) | 2,520 | 单色/双色编辑印刷风图像Skill（海报/杂志/肖像）。 | MIT | 1 | 仅索引 |
+| [amElnagdy/delegate-skills](https://github.com/amElnagdy/delegate-skills) | 1,673 | 把编码任务委派给独立CLI Agent并审diff落地。`npx skills add amElnagdy/delegate-skills`。 | MIT | 多 | 仅索引 |
+| [AvdLee/Swift-Concurrency-Agent-Skill](https://github.com/AvdLee/Swift-Concurrency-Agent-Skill) | 1,641 | Swift Concurrency专家Agent Skill（开源Agent Skills格式）。 | MIT | 1 | 仅索引 |
+| [LottieFiles/motion-design-skill](https://github.com/LottieFiles/motion-design-skill) | 1,526 | 通用动效设计原则Agent Skill（timing/easing等）。`npx skills add LottieFiles/motion-design-skill`。 | MIT | 1 | 仅索引 |
+| [conorluddy/ios-simulator-skill](https://github.com/conorluddy/ios-simulator-skill) | 1,242 | iOS Simulator Claude插件Skill。`/plugin marketplace add conorluddy/ios-simulator-skill`。 | MIT | 1 | 仅索引 |
+| [AvdLee/Xcode-Build-Optimization-Agent-Skill](https://github.com/AvdLee/Xcode-Build-Optimization-Agent-Skill) | 1,212 | Xcode增量/清洁构建优化Agent Skill。`npx skills add`。 | MIT | 1 | 仅索引 |
+| [imxv/Pretty-mermaid-skills](https://github.com/imxv/Pretty-mermaid-skills) | 1,182 | 美化Mermaid→SVG/终端ASCII的Agent Skill。`npx skills add imxv/pretty-mermaid-skills`。 | MIT | 1 | 仅索引 |
+| [itsmostafa/aws-agent-skills](https://github.com/itsmostafa/aws-agent-skills) | 1,150 | AWS场景Agent Skills合集。 | MIT | 多 | 仅索引 |
+| [bevibing/tutor-skills](https://github.com/bevibing/tutor-skills) | 1,130 | PDF/文档/代码库→Obsidian学习库的Claude Skill。 | MIT | 1 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -332,6 +345,11 @@
 | [MichelKerkmeester/skilled-agent-harness_spec-driven-loops](https://github.com/MichelKerkmeester/skilled-agent-harness_spec-driven-loops) | 34 | Spec-driven agent loops定制Skill/连续性框架。 | MIT | 87 | 仅索引 |
 | [davepoon/buildwithclaude](https://github.com/davepoon/buildwithclaude) | 3,416 | Claude Skills/Agents/Commands/Hooks/Plugins/Marketplace发现枢纽。仓库名无skill。 | MIT | 目录 | 仅索引 |
 | [yaojingang/yao-meta-skill](https://github.com/yaojingang/yao-meta-skill) | 2,596 | YAO元技能：工程化/评测/治理/可移植的技能工作流。 | MIT | 1+ | 仅索引 |
+| [rebelytics/one-skill-to-rule-them-all](https://github.com/rebelytics/one-skill-to-rule-them-all) | 2,364 | 自改进元技能：构建并改进你的全部skills（含自身）。 | MIT | 1 | 仅索引 |
+| [DenisSergeevitch/agents-best-practices](https://github.com/DenisSergeevitch/agents-best-practices) | 2,271 | 跨厂商Agent Skill最佳实践（Codex/Claude/harness）。`npx skills add DenisSergeevitch/agents-best-practices`。 | MIT | 1+ | 仅索引 |
+| [Astro-Han/karpathy-llm-wiki](https://github.com/Astro-Han/karpathy-llm-wiki) | 2,152 | Karpathy风格LLM Wiki，兼容Claude/Cursor/Codex Agent Skills。 | MIT | 多 | 仅索引 |
+| [AI-Builder-Club/skills](https://github.com/AI-Builder-Club/skills) | 1,236 | Codebase harness + loop engineer Skills。 | MIT | 多 | 仅索引 |
+| [CreminiAI/skillpack](https://github.com/CreminiAI/skillpack) | 1,197 | 本地AI Agent打包部署给团队的Skill包。 | MIT | 多 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
@@ -433,3 +451,13 @@
 | [gotalab/cc-sdd](https://github.com/gotalab/cc-sdd) | 3,652 | Spec-driven长期自治实现框架；附可安装Skills。仓库名无skill。 | MIT | 多 | 仅索引 |
 | [jangviktor-web/nihaixia](https://github.com/jangviktor-web/nihaixia) | 2,803 | 倪海厦视角中医Agent Skill（伤寒/金匮/针灸等）。`npx skills add`。仓库名无skill。 | None | 1+ | 仅索引 |
 | [romainsimon/paperasse](https://github.com/romainsimon/paperasse) | 2,369 | 法国官僚流程专项Agent Skills（会计/公证等）。仓库名无skill。 | MIT | 多 | 仅索引 |
+| [JuneYaooo/nihaisha-nishi-tcm](https://github.com/JuneYaooo/nihaisha-nishi-tcm) | 2,050 | 倪海厦中医课程Agent Skill：检索/方证穴位/笔记与板书证据。仓库名无skill。 | None | 1+ | 仅索引 |
+| [nateherkai/scroll-craft](https://github.com/nateherkai/scroll-craft) | 1,804 | 高端沉浸式滚动驱动网站构建Agent Skill。仓库名无skill。 | MIT | 1 | 仅索引 |
+| [lennney/stop-that-shit](https://github.com/lennney/stop-that-shit) | 1,568 | Stop That Shit：拦截无需求哈希/校验和乱造的Hook+Skill Guard。仓库名无skill。 | MIT | 多 | 仅索引 |
+| [lyra81604/zhengxi-views](https://github.com/lyra81604/zhengxi-views) | 1,546 | 可溯源郑希投研Agent Skill（公开观点+基金数据打分）。仓库名无skill。 | MIT | 1 | 仅索引 |
+| [MrGeDiao/shuorenhua](https://github.com/MrGeDiao/shuorenhua) | 1,428 | 说人话：中文优先去AI味改写Skill（Codex/Claude）。仓库名无skill。 | MIT | 1 | 仅索引 |
+| [wuji-labs/nopua](https://github.com/wuji-labs/nopua) | 1,387 | 用尊重/关怀激发AI潜能的Skill（找Bug等）。仓库名无skill。 | MIT | 1 | 仅索引 |
+| [noobnooc/agent](https://github.com/noobnooc/agent) | 1,378 | 个人主页式Agent Skills合集。仓库名无skill。 | MIT | 多 | 仅索引 |
+| [pyang5166/gbro-collage-broll](https://github.com/pyang5166/gbro-collage-broll) | 1,250 | 半调纸拼贴B-roll生成Skill（三闸门审批）。仓库名无skill。 | MIT | 1 | 仅索引 |
+| [huytieu/COG-second-brain](https://github.com/huytieu/COG-second-brain) | 1,170 | 自演进第二大脑：33 skills/10 agents/CRM闭环。仓库名无skill。 | MIT | 33 | 仅索引 |
+| [Anionex/agent-vision-toolkit](https://github.com/Anionex/agent-vision-toolkit) | 1,162 | 纯文本模型看图工具箱与技能（多图/UI还原/GUI自动化）。仓库名无skill。 | MIT | 多 | 仅索引 |
