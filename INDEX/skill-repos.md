@@ -992,6 +992,7 @@
 | [ZongziForu/cn-law-hub](https://github.com/ZongziForu/cn-law-hub) | 66 | 中国法条检索与现行有效核验 Agent Skill。 | 其他 | 1 | 仅索引 |
 | [kangarooking/director-skills](https://github.com/kangarooking/director-skills) | 65 | AI 视频创作导演技能包（开源）。 | 其他 | 多 | 仅索引 |
 | [Songzhi-lab/chinese-font-selector](https://github.com/Songzhi-lab/chinese-font-selector) | 65 | 可商用中文字体选字与中英混排知识包技能。 | 其他 | 1 | 仅索引 |
+| [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh) | 16,729 | 中文去 AI 味 Humanizer 技能。 | 其他 | 1 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1038,7 +1039,7 @@
 | [first-fluke/oh-my-agent](https://github.com/first-fluke/oh-my-agent) | 1,268 | 跨运行时多 Agent harness：产物门控与独立评审。 | MIT | 工具 | 仅索引 |
 | [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | 67,409 | 规格驱动开发 OpenSpec（含 agent skills）。 | 其他 | 多 | 仅索引 |
 | [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | 52,714 | BMAD 方法：多智能体规格驱动开发技能体系。 | 其他 | 多 | 仅索引 |
-| [millionco/react-doctor](https://github.com/millionco/react-doctor) | 14,718 | React Doctor：面向 Agents 的代码审查技能。 | 其他 | 1 | 仅索引 |
+| [millionco/react-doctor](https://github.com/millionco/react-doctor) | 14,718 | React Doctor：Agent 可安装的 React 审查/修复技能（含 CLI）。 | 其他 | 4 | 仅索引 |
 | [tw93/Waza](https://github.com/tw93/Waza) | 6,963 | Waza：Claude Code 设计/工程技能包。 | 其他 | 多 | 仅索引 |
 | [runkids/skillshare](https://github.com/runkids/skillshare) | 2,623 | 一条命令跨 60+ AI CLI 同步/分享 Skills（含审计）。 | MIT | 工具 | 仅索引 |
 | [a5c-ai/babysitter](https://github.com/a5c-ai/babysitter) | 1,773 | Agent 劳动力服从性与确定性自编排 harness。 | 其他 | 工具 | 仅索引 |
@@ -1197,4 +1198,3 @@
 | [aaronyi97/image-story-video-wizard](https://github.com/aaronyi97/image-story-video-wizard) | 267 | 确认门控的图文故事视频制作技能。 | MIT | 1 | 仅索引 |
 | [camilleroux/genart-skill](https://github.com/camilleroux/genart-skill) | 137 | 确定性哈希种子生成艺术 Claude 插件技能。 | MIT | 1 | 仅索引 |
 | [hi-nikola/hand-drawn-explainer-video-nikola](https://github.com/hi-nikola/hand-drawn-explainer-video-nikola) | 108 | 中文手绘知识讲解视频 Codex Skill。 | Apache-2.0 | 1 | 仅索引 |
-| [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh) | 16,729 | 中文去 AI 味 Humanizer 技能。 | 其他 | 1 | 仅索引 |
