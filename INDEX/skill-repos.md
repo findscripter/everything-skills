@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1135 个独立仓库（另注明更名别名）
+- 收录条数：1103 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -186,17 +186,6 @@
 | [coinbase/agentic-wallet-skills](https://github.com/coinbase/agentic-wallet-skills) | 126 | Coinbase Agentic Wallet 官方技能（awal CLI）。 | MIT | 1+ | 仅索引 |
 | [quark-clouddrive/quarkclouddrive_offical](https://github.com/quark-clouddrive/quarkclouddrive_offical) | 37 | 夸克网盘官方 Skill：Agent 内管理/检索网盘文件。 | Apache-2.0 | 1 | 仅索引 |
 | [snyk/agent-scan](https://github.com/snyk/agent-scan) | 3,013 | Snyk 官方：扫描 AI agents/MCP/skills 安全风险。 | Apache-2.0 | 工具 | 仅索引 |
-| [okx/agent-skills](https://github.com/okx/agent-skills) | 170 | OKX 官方交易/组合/行情/机器人 Agent Skills（okx CLI）。 | MIT | 9 | 仅索引 |
-| [NVlabs/ASPIRE](https://github.com/NVlabs/ASPIRE) | 127 | NVIDIA ASPIRE：机器人 Agent Skills 发现。 | 其他 | 多 | 仅索引 |
-| [clay-run/agent-plugins](https://github.com/clay-run/agent-plugins) | 110 | Clay 官方 GTM/ enrichment Agent Skills+MCP+CLI。 | 其他 | 多 | 仅索引 |
-| [GoogleCloudPlatform/cxas-scrapi](https://github.com/GoogleCloudPlatform/cxas-scrapi) | 95 | Google CX Agent Studio 官方 Python API/CLI/Skills。 | Apache-2.0 | 多 | 仅索引 |
-| [resemble-ai/detect-skill](https://github.com/resemble-ai/detect-skill) | 78 | Resemble AI 官方深伪检测/媒体安全 Agent Skill。 | 其他 | 1 | 仅索引 |
-| [polars-inc/skills](https://github.com/polars-inc/skills) | 76 | Polars 官方 AI Agent Skills。 | MIT | 多 | 仅索引 |
-| [motherduckdb/agent-skills](https://github.com/motherduckdb/agent-skills) | 55 | MotherDuck 官方 22 个 Agent Skills：连接/SQL/Dive/管线。 | MIT | 22 | 仅索引 |
-| [confluentinc/agent-skills](https://github.com/confluentinc/agent-skills) | 54 | Confluent 官方流处理/事件流 Agent Skills。 | Apache-2.0 | 多 | 仅索引 |
-| [metalbear-co/skills](https://github.com/metalbear-co/skills) | 27 | MetalBear 官方用户 Agent Skills 包。 | MIT | 多 | 仅索引 |
-| [Hashnode/gql-skill](https://github.com/Hashnode/gql-skill) | 16 | Hashnode GraphQL API 官方可安装 Agent Skill。 | 其他 | 1 | 仅索引 |
-| [transloadit/skills](https://github.com/transloadit/skills) | 3 | Transloadit 官方媒体处理 Agent Skills。 | 其他 | 多 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -452,21 +441,6 @@
 | [Hisn00w/ASu-skills](https://github.com/Hisn00w/ASu-skills) | 3,188 | 中文求职工作流插件：9 入口（简历/面试/开源贡献/投递）；Claude/Codex/Trae 插件。 | MIT | 9 | 仅索引 |
 | [JasonColapietro/suede-creator-skills](https://github.com/JasonColapietro/suede-creator-skills) | 129 | 74 个开源 Creator/营销/代码评审技能包（A–F ship grade）；Claude/Codex 插件 + `npx skills add`。 | MIT + BSD（NOTICE） | 74 | 仅索引 |
 | [neondatabase/agent-skills](https://github.com/neondatabase/agent-skills) | 85 | Neon 官方 Agent Skills（Postgres/Auth/Object Storage/AI Gateway 等）；`npx skills add` + 插件。 | 未在首页单列 SPDX | 约 8 | 仅索引 |
-| [aiskillstore/marketplace](https://github.com/aiskillstore/marketplace) | 416 | 安全审计过的 Claude/Codex 技能市场，一键安装。 | 其他 | 多 | 仅索引 |
-| [majiayu000/spellbook](https://github.com/majiayu000/spellbook) | 274 | 跨运行时 Claude/Codex 多 Agent 技能书。 | 其他 | 多 | 仅索引 |
-| [yan-labs/yan-skills](https://github.com/yan-labs/yan-skills) | 177 | Google Trends SEO/AI 新闻等 Yan 技能合集。 | 其他 | 多 | 仅索引 |
-| [swyxio/skills](https://github.com/swyxio/skills) | 156 | swyx 的 Claude Code/Agent Skills 合集。 | 其他 | 多 | 仅索引 |
-| [TheGoat395/Codex-Skills](https://github.com/TheGoat395/Codex-Skills) | 122 | Codex 优先前端/网站/动效/无访问性技能库。 | 其他 | 多 | 仅索引 |
-| [mathbullet/skills](https://github.com/mathbullet/skills) | 119 | mathbullet Agent Skills 合集。 | 其他 | 多 | 仅索引 |
-| [Tyche-MKR/scientific-agent-skills](https://github.com/Tyche-MKR/scientific-agent-skills) | 99 | 科学 Agent Skills：165+ 验证技能与数据库。 | 其他 | 165 | 仅索引 |
-| [Gingiris-1031/gingiris-skills](https://github.com/Gingiris-1031/gingiris-skills) | 77 | AI 创业运营可复用 Claude Code 技能集。 | MIT | 多 | 仅索引 |
-| [ogulcancelik/agent-skills](https://github.com/ogulcancelik/agent-skills) | 76 | 小而固执的跨 Agent 编码技能包。 | 其他 | 多 | 仅索引 |
-| [fei0810/bear-research-skills](https://github.com/fei0810/bear-research-skills) | 71 | 熊言熊语：学术科研思路沉淀为 Agent Skills。 | 其他 | 多 | 仅索引 |
-| [nota-america/forgecat-agent-profiles](https://github.com/nota-america/forgecat-agent-profiles) | 64 | ForgeCat 可安装 Agent Profiles/技能包市场。 | 其他 | 多 | 仅索引 |
-| [zeroclaw-labs/zeroclaw-skills](https://github.com/zeroclaw-labs/zeroclaw-skills) | 61 | ZeroClaw 官方社区技能注册表。 | 其他 | 多 | 仅索引 |
-| [palmier-io/palmier-skills](https://github.com/palmier-io/palmier-skills) | 60 | Palmier Pro Agent Skills。 | 其他 | 多 | 仅索引 |
-| [open-fox/agents](https://github.com/open-fox/agents) | 55 | open-fox Agent Skills 合集。 | 其他 | 多 | 仅索引 |
-| [huangwb8/skills](https://github.com/huangwb8/skills) | 48 | 通用技能开发流水线（Claude Code & Codex）。 | 其他 | 多 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -953,12 +927,6 @@
 | [tigerless-labs/paper-radar](https://github.com/tigerless-labs/paper-radar) | 169 | 28 家科技公司 arXiv 论文雷达技能。 | MIT | 1 | 仅索引 |
 | [phileiny/h3-storyboard-skill](https://github.com/phileiny/h3-storyboard-skill) | 154 | MiniMax H3 分镜与角色表演技能。 | MIT | 1 | 仅索引 |
 | [machina-exm/film-studio-skills](https://github.com/machina-exm/film-studio-skills) | 111 | AI 影视制片管线：7 个可安装技能。 | 其他 | 7 | 仅索引 |
-| [wanshuiyin/HERO-Anti-OverDefense](https://github.com/wanshuiyin/HERO-Anti-OverDefense) | 417 | HERO 反过度防御：粘贴式编码 Agent 契约。 | 其他 | 1 | 仅索引 |
-| [chrichuang218/ai-learning-coach](https://github.com/chrichuang218/ai-learning-coach) | 213 | Codex 项目制 AI 私教学习教练技能。 | 其他 | 1 | 仅索引 |
-| [T8mars/minimax-h3-prompt-skill-T8](https://github.com/T8mars/minimax-h3-prompt-skill-T8) | 197 | MiniMax H3/Seedance 2.0 创意 DNA 视频技能。 | 其他 | 多 | 仅索引 |
-| [appautomaton/document-SKILLs](https://github.com/appautomaton/document-SKILLs) | 157 | PDF/Excel/Word/PPTX 文档操作 Claude/Codex Skills。 | 其他 | 多 | 仅索引 |
-| [SerhiiKorniienko/bullshit-detector](https://github.com/SerhiiKorniienko/bullshit-detector) | 140 | 逐条核验音视频/文章的事实核查 Agent Skills。 | 其他 | 多 | 仅索引 |
-| [godot-fun/godot-agent](https://github.com/godot-fun/godot-agent) | 139 | 轻量 Godot 框架 + 出游戏 Agent Skills。 | 其他 | 多 | 仅索引 |
 | [AlephAITech/DoubaoWorkGuide](https://github.com/AlephAITech/DoubaoWorkGuide) | 132 | 豆包工作系统化中文实践指南与 Skills。 | 其他 | 多 | 仅索引 |
 | [Ovid/paad](https://github.com/Ovid/paad) | 110 | PAAD：把工程实践带回 AI 速度的 Claude 插件技能。 | 其他 | 多 | 仅索引 |
 | [LiarMTTT/TavernWeave](https://github.com/LiarMTTT/TavernWeave) | 105 | SillyTavern 角色卡工程非商业 Agent Skills。 | 其他 | 多 | 仅索引 |
