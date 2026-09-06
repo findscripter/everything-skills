@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1132 个独立仓库（另注明更名别名）
+- 收录条数：1236 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -196,6 +196,12 @@
 | [metalbear-co/skills](https://github.com/metalbear-co/skills) | 27 | MetalBear 官方用户 Agent Skills 包。 | MIT | 多 | 仅索引 |
 | [Hashnode/gql-skill](https://github.com/Hashnode/gql-skill) | 16 | Hashnode GraphQL API 官方可安装 Agent Skill。 | 其他 | 1 | 仅索引 |
 | [transloadit/skills](https://github.com/transloadit/skills) | 3 | Transloadit 官方媒体处理 Agent Skills。 | 其他 | 多 | 仅索引 |
+| [callstackincubator/agent-skills](https://github.com/callstackincubator/agent-skills) | 1,637 | Callstack：面向 React Native 的 Agent Skills 集合。 | MIT | 多 | 仅索引 |
+| [Kotlin/kotlin-agent-skills](https://github.com/Kotlin/kotlin-agent-skills) | 1,032 | Kotlin 官方：Kotlin 项目可用的 AI Agent Skills。 | Apache-2.0 | 多 | 仅索引 |
+| [laravel/agent-skills](https://github.com/laravel/agent-skills) | 713 | Laravel 官方 Agent Skills（Cloud/LSP/Nightwatch 等）。 | 其他 | 多 | 仅索引 |
+| [dbt-labs/dbt-agent-skills](https://github.com/dbt-labs/dbt-agent-skills) | 700 | dbt Labs 官方：面向 dbt 工作流的 Agent Skills 集合。 | Apache-2.0 | 多 | 仅索引 |
+| [makenotion/claude-code-notion-plugin](https://github.com/makenotion/claude-code-notion-plugin) | 478 | Notion 官方 Claude Code Notion 插件与技能。 | 其他 | 多 | 仅索引 |
+| [contentful/skill-kit](https://github.com/contentful/skill-kit) | 66 | Contentful 官方：用 TypeScript 状态机构建 Agent Skills 的 SDK。 | MIT | 3 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -465,6 +471,21 @@
 | [palmier-io/palmier-skills](https://github.com/palmier-io/palmier-skills) | 60 | Palmier Pro 精选/社区 Agent Skills 目录。 | 其他 | 多 | 仅索引 |
 | [open-fox/agents](https://github.com/open-fox/agents) | 55 | open-fox：浏览器自动化/内容/设计/Obsidian 等 Agent Skills。 | 其他 | 多 | 仅索引 |
 | [huangwb8/skills](https://github.com/huangwb8/skills) | 48 | 通用技能开发流水线（Claude Code & Codex）。 | 其他 | 多 | 仅索引 |
+| [LeoYeAI/openclaw-master-skills](https://github.com/LeoYeAI/openclaw-master-skills) | 2,133 | OpenClaw 热门 skills 精选合集（定期更新）。 | MIT | 1211 | 仅索引 |
+| [openclaw/agent-skills](https://github.com/openclaw/agent-skills) | 1,078 | OpenClaw 实用 Agent Skills 集合。 | 其他 | 多 | 仅索引 |
+| [levnikolaevich/claude-code-skills](https://github.com/levnikolaevich/claude-code-skills) | 558 | 工程向独立 Claude/Codex skills（评审/审计/测试等）。 | MIT | 7 | 仅索引 |
+| [helloianneo/awesome-claude-code-skills](https://github.com/helloianneo/awesome-claude-code-skills) | 460 | Claude Code Skills/Agents/Plugins 中文精选合集。 | 其他 | 50+ | 仅索引 |
+| [claude-office-skills/skills](https://github.com/claude-office-skills/skills) | 447 | 办公场景实用 Claude Skills 精选。 | MIT | 11 | 仅索引 |
+| [nuwa-skills/awesome-nuwa](https://github.com/nuwa-skills/awesome-nuwa) | 353 | Awesome list of 濂冲ú.skill 鈥?鐢ㄥコ濞茶捀棣忕殑浜虹墿鎬濈淮妗嗘灦鍚堥泦 \| Distille… | 其他 | 多 | 仅索引 |
+| [lingxling/awesome-skills-cn](https://github.com/lingxling/awesome-skills-cn) | 274 | 鐑棬Skills涓枃cn瀛︿範鐗?鏁欑▼锛屾彁渚?000+Skills锛岄泦鎴恈laude skills (11w+… | MIT | 4 | 仅索引 |
+| [w95/awesome-claude-corporate-skills](https://github.com/w95/awesome-claude-corporate-skills) | 191 | 166 production-ready Claude AI skills organized by corporate… | MIT | 166 | 仅索引 |
+| [GetBindu/awesome-claude-code-and-skills](https://github.com/GetBindu/awesome-claude-code-and-skills) | 188 | A collection of Claude Skills | Apache-2.0 | 35 | 仅索引 |
+| [Epsilon617/Codex-Academic-Skills](https://github.com/Epsilon617/Codex-Academic-Skills) | 179 | A curated list of research-oriented skills usable in OpenAI Codex, cov… | MIT | 4 | 仅索引 |
+| [JayZeeDesign/awesome-claude-skills](https://github.com/JayZeeDesign/awesome-claude-skills) | 169 | Agent Skills 仓库：awesome-claude-skills。 | 其他 | 多 | 仅索引 |
+| [jMerta/codex-skills](https://github.com/jMerta/codex-skills) | 130 | Codex CLI skills catalog | MIT | 多 | 仅索引 |
+| [GoekeLab/awesome-genomic-skills](https://github.com/GoekeLab/awesome-genomic-skills) | 97 | A curated list of awesome genomics and bioinformatics agentic skills, … | CC0-1.0 | 多 | 仅索引 |
+| [Mann1988/awesome-claude-skills](https://github.com/Mann1988/awesome-claude-skills) | 65 | 馃搳 Explore high-quality Claude skills focused on business an… | MIT | 多 | 仅索引 |
+| [xmm/codex-bmad-skills](https://github.com/xmm/codex-bmad-skills) | 47 | BMAD skills and workflows for OpenAI Codex (App, CLI, Web): intent-bas… | 其他 | 1 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -993,6 +1014,79 @@
 | [kangarooking/director-skills](https://github.com/kangarooking/director-skills) | 65 | AI 视频创作导演技能包（开源）。 | 其他 | 多 | 仅索引 |
 | [Songzhi-lab/chinese-font-selector](https://github.com/Songzhi-lab/chinese-font-selector) | 65 | 可商用中文字体选字与中英混排知识包技能。 | 其他 | 1 | 仅索引 |
 | [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh) | 16,729 | 中文去 AI 味 Humanizer 技能。 | 其他 | 1 | 仅索引 |
+| [zubair-trabzada/geo-seo-claude](https://github.com/zubair-trabzada/geo-seo-claude) | 10,310 | GEO/AI 搜索优化向 Claude SEO 技能包。 | MIT | 1 | 仅索引 |
+| [nicobailon/visual-explainer](https://github.com/nicobailon/visual-explainer) | 9,657 | 生成图解/幻灯/差异评审等富 HTML 的 Agent Skill。 | MIT | 10 | 仅索引 |
+| [eze-is/web-access](https://github.com/eze-is/web-access) | 8,862 | 为 Claude Code 提供联网检索与浏览器能力的 skill。 | 其他 | 多 | 仅索引 |
+| [ibelick/ui-skills](https://github.com/ibelick/ui-skills) | 8,164 | UI/界面构建向 Agent Skills。 | MIT | 多 | 仅索引 |
+| [Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills) | 6,577 | ML/CV/NLP 论文写作技能包（适配 Codex/Claude/Gemini）。 | MIT | 多 | 仅索引 |
+| [uditgoenka/autoresearch](https://github.com/uditgoenka/autoresearch) | 6,193 | Claude Autoresearch：自主迭代研究/优化 skill。 | MIT | 3 | 仅索引 |
+| [zLanqing/codex-claude-academic-skills](https://github.com/zLanqing/codex-claude-academic-skills) | 3,580 | 面向中文科研：文献阅读/论文写作/科学计算 Skills（Claude+Codex）。 | MIT | 3 | 仅索引 |
+| [op7418/Claude-to-IM-skill](https://github.com/op7418/Claude-to-IM-skill) | 2,874 | 把 Claude Code/Codex 桥接到 Telegram/Discord 等 IM。 | MIT | 1 | 仅索引 |
+| [asuojun/claude-vision-skill](https://github.com/asuojun/claude-vision-skill) | 2,267 | Claude 视觉相关 skill。 | 其他 | 1 | 仅索引 |
+| [aiwithremy/claude-skills-llm-council](https://github.com/aiwithremy/claude-skills-llm-council) | 1,841 | 多模型顾问团决策 skill（LLM Council）。 | 其他 | 3 | 仅索引 |
+| [adamlyttleapps/claude-skill-aso-appstore-screenshots](https://github.com/adamlyttleapps/claude-skill-aso-appstore-screenshots) | 1,711 | App Store 截图/ASO 相关 Claude skill。 | MIT | 1 | 仅索引 |
+| [adamlyttleapps/claude-skill-app-onboarding-questionnaire](https://github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire) | 1,192 | 问卷式 App onboarding 设计/生成 skill。 | MIT | 1 | 仅索引 |
+| [dgreenheck/webgpu-claude-skill](https://github.com/dgreenheck/webgpu-claude-skill) | 1,184 | Three.js WebGPU 开发 Claude skill。 | 其他 | 1 | 仅索引 |
+| [am-will/codex-skills](https://github.com/am-will/codex-skills) | 1,028 | Codex skills 集合。 | 其他 | 多 | 仅索引 |
+| [199-biotechnologies/claude-deep-research-skill](https://github.com/199-biotechnologies/claude-deep-research-skill) | 1,013 | 企业级深度研究流水线 Claude skill。 | 其他 | 1 | 仅索引 |
+| [Jane-xiaoer/claude-skill-web-clone](https://github.com/Jane-xiaoer/claude-skill-web-clone) | 986 | 高保真网站克隆方法论 skill。 | MIT | 1 | 仅索引 |
+| [komal-SkyNET/claude-skill-homeassistant](https://github.com/komal-SkyNET/claude-skill-homeassistant) | 955 | Home Assistant 工作流 Claude skill。 | MIT | 3 | 仅索引 |
+| [simonw/claude-skills](https://github.com/simonw/claude-skills) | 928 | Claude 代码解释器 /mnt/skills 内容镜像。 | 其他 | 多 | 仅索引 |
+| [sunbigfly/ppt-agent-skills](https://github.com/sunbigfly/ppt-agent-skills) | 889 | 代码驱动演示文稿生成框架与 Agent Skills。 | 其他 | 多 | 仅索引 |
+| [WJZ-P/gemini-skill](https://github.com/WJZ-P/gemini-skill) | 830 | 浏览器驱动的 Gemini 绘图 MCP/skill。 | MIT | 1 | 仅索引 |
+| [tfriedel/claude-office-skills](https://github.com/tfriedel/claude-office-skills) | 821 | Office 文档创建/编辑 Claude skills（PPTX/DOCX/XLSX/PDF）。 | 其他 | 多 | 仅索引 |
+| [thedivergentai/GD-Agentic-Skills](https://github.com/thedivergentai/GD-Agentic-Skills) | 664 | Godot 4.7+ AI Agent 高密度技能库。 | LGPL-3.0 | 98 | 仅索引 |
+| [Hao0321/claude-skill-social-post](https://github.com/Hao0321/claude-skill-social-post) | 660 | 学习风格并自动发 FB/IG/Threads 的社交发帖 skill。 | MIT | 1 | 仅索引 |
+| [sleekdotdesign/agent-skills](https://github.com/sleekdotdesign/agent-skills) | 572 | 设计向 Agent Skills 集合。 | MIT | 多 | 仅索引 |
+| [HoangNguyen0403/agent-skills-standard](https://github.com/HoangNguyen0403/agent-skills-standard) | 562 | 多语言/框架 Agent Skills 标准与最佳实践合集。 | MIT | 280 | 仅索引 |
+| [AAASS554/codex-academic-paper-skills](https://github.com/AAASS554/codex-academic-paper-skills) | 529 | 软工论文规划与修订 Codex skills。 | MIT | 多 | 仅索引 |
+| [njzjz/nsfc-agent-skills](https://github.com/njzjz/nsfc-agent-skills) | 528 | 撰写 NSFC 本子的 Agent Skills。 | 其他 | 4 | 仅索引 |
+| [cosmicstack-labs/mercury-agent-skills](https://github.com/cosmicstack-labs/mercury-agent-skills) | 471 | Mercury/OpenClaw/Hermes 可复用技能注册表。 | MIT | 132 | 仅索引 |
+| [alirezarezvani/claude-code-aso-skill](https://github.com/alirezarezvani/claude-code-aso-skill) | 430 | Claude Code AEO/ASO 自动化框架 skill。 | 其他 | 1 | 仅索引 |
+| [chenxiachan/xhs-claude-skills](https://github.com/chenxiachan/xhs-claude-skills) | 413 | 小红书内容提取到 Obsidian 的 Claude skills。 | MIT | 4 | 仅索引 |
+| [HuangYuChuh/ComfyUI_Skills_OpenClaw](https://github.com/HuangYuChuh/ComfyUI_Skills_OpenClaw) | 401 | 面向 OpenClaw/Hermes/Codex 的 ComfyUI 工作流 skills。 | MIT | 1 | 仅索引 |
+| [LeoYeAI/teammate-skill](https://github.com/LeoYeAI/teammate-skill) | 257 | Distill a teammate into an AI Skill. Auto-collect Slack/Teams/GitHub d… | MIT | 7 | 仅索引 |
+| [provencher/codex-skills](https://github.com/provencher/codex-skills) | 244 | Reusable skills for ChatGPT work and Codex. | MIT | 多 | 仅索引 |
+| [Spark-To-Paper-Skills/paperjury-codex](https://github.com/Spark-To-Paper-Skills/paperjury-codex) | 216 | Codex-first port of PaperJury, a pre-submission CS paper review and ed… | MIT | 1 | 仅索引 |
+| [Vivixiao980/xhs-cover-skill](https://github.com/Vivixiao980/xhs-cover-skill) | 183 | 灏忕孩涔﹀皝闈㈢敓鎴愬櫒 - Claude Code Skill锛屾敮鎸?8绉嶉璁鹃鏍硷紝鍛戒护琛岀洿鎺ョ敓鎴愬皬绾… | 其他 | 1 | 仅索引 |
+| [Impertio-Studio/Frappe_Claude_Skill_Package](https://github.com/Impertio-Studio/Frappe_Claude_Skill_Package) | 176 | 60 deterministic Claude AI skills for Frappe Framework & ERPNext v14-v… | 其他 | 61 | 仅索引 |
+| [EXboys/skilllite](https://github.com/EXboys/skilllite) | 167 | A lightweight secure Self-evolution engine built in Rust, featuring a … | MIT | 3 | 仅索引 |
+| [simbajigege/book2skills](https://github.com/simbajigege/book2skills) | 159 | Create best skills based on best books | MIT | 2 | 仅索引 |
+| [moonlarry/codex-paper-skills](https://github.com/moonlarry/codex-paper-skills) | 158 | Codex杩愯瑙勮寖鍙婂啓璁烘枃浣跨敤鐨勫涓猻kills | 其他 | 多 | 仅索引 |
+| [proflead/codex-skills-library](https://github.com/proflead/codex-skills-library) | 141 | Codex Skills Library is a curated library of reusable Codex skills for… | 其他 | 13 | 仅索引 |
+| [lokikill123/codex-token-skills](https://github.com/lokikill123/codex-token-skills) | 111 | 鈿?Cut 60-80% token cost for DeepSeek V4 Pro on Codex CLI. to… | MIT | 多 | 仅索引 |
+| [rbrown101010/codex-marketing-skills](https://github.com/rbrown101010/codex-marketing-skills) | 95 | Private team repo for Codex creator and marketing skills | 其他 | 1 | 仅索引 |
+| [JustSteveKing/api-skill](https://github.com/JustSteveKing/api-skill) | 82 | An opinionated agent skill that encodes production-ready patterns for … | MIT | 1 | 仅索引 |
+| [grp06/useful-codex-skills](https://github.com/grp06/useful-codex-skills) | 77 | Agent Skills 仓库：useful-codex-skills。 | MIT | 多 | 仅索引 |
+| [mmiani/kotlin-kmp-claude-agent-skills](https://github.com/mmiani/kotlin-kmp-claude-agent-skills) | 73 | Public AI agent skills for Kotlin Multiplatform projects, grounded in … | 其他 | 17 | 仅索引 |
+| [AsyrafHussin/agent-skills](https://github.com/AsyrafHussin/agent-skills) | 72 | Skills for AI coding agents 鈥?Laravel, PHP, React, TypeScrip… | MIT | 1 | 仅索引 |
+| [wangjinger1218/nsfc-skills](https://github.com/wangjinger1218/nsfc-skills) | 68 | Agent Skills 仓库：nsfc-skills。 | MIT | 多 | 仅索引 |
+| [ziho7/agnes-skills](https://github.com/ziho7/agnes-skills) | 64 | Claude Code skills for Agnes AI image and video generation APIs | 其他 | 多 | 仅索引 |
+| [DwDestiny/codex-visual-asset-skills](https://github.com/DwDestiny/codex-visual-asset-skills) | 60 | Codex skills for transparent image assets and animation sprite sets | MIT | 4 | 仅索引 |
+| [sechiro/VRCUdonSkills-for-Codex](https://github.com/sechiro/VRCUdonSkills-for-Codex) | 58 | VRCUdonSkills-for-Codex | MIT | 1 | 仅索引 |
+| [LinklyAI/linkly-ai-skills](https://github.com/LinklyAI/linkly-ai-skills) | 55 | Agent Skills for Linkly AI 鈥?search, browse, and read your l… | Apache-2.0 | 多 | 仅索引 |
+| [Rylaispirit/rylai-codex-hermes-skills](https://github.com/Rylaispirit/rylai-codex-hermes-skills) | 55 | 35 portable Agent Skills for Codex, Hermes, and Claude, maintained by … | MIT | 3 | 仅索引 |
+| [Job-Yang/jobbyang-ai-skills](https://github.com/Job-Yang/jobbyang-ai-skills) | 52 | Job Yang's AI Agent Skills: writing, video reading, and reusable agent… | MIT | 多 | 仅索引 |
+| [zhangpeicheng8788-ux/xhs-skill](https://github.com/zhangpeicheng8788-ux/xhs-skill) | 46 | xhs-skill锛岃嚜鍔ㄥ彂甯冪瑪璁帮細鏍囬銆傛鏂囷紝閰嶅浘鍒板皬绾功 | 其他 | 5 | 仅索引 |
+| [jefflester/claude-skills-supercharged](https://github.com/jefflester/claude-skills-supercharged) | 42 | A "supercharged" implementation of Claude Code Skills 鈥撀爑sin… | MIT | 3 | 仅索引 |
+| [YeyeQian/codex-thesis-review-skills](https://github.com/YeyeQian/codex-thesis-review-skills) | 42 | Codex skills for master's and doctoral thesis review | MIT | 多 | 仅索引 |
+| [cfh-7598/cnki-codex-skills](https://github.com/cfh-7598/cnki-codex-skills) | 34 | Codex-native CNKI skills with Playwright/CDP automation and Zotero exp… | MIT | 1 | 仅索引 |
+| [Echo-aloha/asphalt-codex-skills-5](https://github.com/Echo-aloha/asphalt-codex-skills-5) | 26 | Codex Skills for version-pure PFC2D/PFC3D 5.0 asphalt-mixture modeling… | MIT | 1 | 仅索引 |
+| [zx1160763849-hash/codex-cost-router-skills](https://github.com/zx1160763849-hash/codex-cost-router-skills) | 26 | Codex Cost Router Skills - preflight task routing skills for Codex to … | MIT | 多 | 仅索引 |
+| [pimenov/codex-first-skills-pack](https://github.com/pimenov/codex-first-skills-pack) | 23 | 袩褍斜谢懈褔薪褘泄 锌邪泻械褌 懈薪卸械薪械褉薪褘褏 skills 写谢褟 Codex | 其他 | 8 | 仅索引 |
+| [PureTokens/andrej-karpathy-skills-codex](https://github.com/PureTokens/andrej-karpathy-skills-codex) | 21 | Codex-compatible package for Forrest Chang's Karpathy coding guideline… | 其他 | 多 | 仅索引 |
+| [Interstellar-code/claud-skills](https://github.com/Interstellar-code/claud-skills) | 17 | Production-ready Claude Code framework with 13 agents, 9 skills, and a… | 其他 | 10 | 仅索引 |
+| [teixasalone/UnrealEngine5-Skills](https://github.com/teixasalone/UnrealEngine5-Skills) | 17 | Provide reusable workflows for Unreal Engine 5.6/5.7 to simplify Bluep… | MIT | 多 | 仅索引 |
+| [oila-gmbh/skill-bill](https://github.com/oila-gmbh/skill-bill) | 16 | SkillBill packages your engineering judgment into governed skills, the… | 其他 | 1 | 仅索引 |
+| [wanshuiyin/ALIGN-Agentic-Loop-Image-GeneratioN](https://github.com/wanshuiyin/ALIGN-Agentic-Loop-Image-GeneratioN) | 15 | Agentic loop image generation without diffusion or autoregressive imag… | MIT | 多 | 仅索引 |
+| [yalishevant/kotlin-backend-agent-skills](https://github.com/yalishevant/kotlin-backend-agent-skills) | 15 | Agent Skills 仓库：kotlin-backend-agent-skills。 | MIT | 25 | 仅索引 |
+| [av/skills](https://github.com/av/skills) | 14 | Agent skills for Claude Code, Codex, OpenCode & Cursor 鈥?aut… | MIT | 26 | 仅索引 |
+| [girish6055/NanoBanana-PPT-Skills](https://github.com/girish6055/NanoBanana-PPT-Skills) | 14 | 馃帹 Generate high-quality PPTs with AI, featuring smart trans… | 其他 | 多 | 仅索引 |
+| [idea2go2go/smartfolder-skill](https://github.com/idea2go2go/smartfolder-skill) | 13 | A Claude skill that turns a folder into a collaboration knowledge base… | CC-BY-4.0 | 20 | 仅索引 |
+| [kanfu-panda/pdlc-skills](https://github.com/kanfu-panda/pdlc-skills) | 12 | 38 slash commands that turn Claude Code into a real PDLC wor… | MIT | 1 | 仅索引 |
+| [noartem/skills](https://github.com/noartem/skills) | 12 | Collection of Agents Skill for Laravel, Vue | 其他 | 多 | 仅索引 |
+| [PauloFelipeM/agent-laravel-skills](https://github.com/PauloFelipeM/agent-laravel-skills) | 12 | A structured repository for creating and maintaining Laravel Best Prac… | 其他 | 1 | 仅索引 |
+| [kurone-kito/idd-skill](https://github.com/kurone-kito/idd-skill) | 11 | 馃 An automated setup kit for implementing loop engineering … | MIT | 1 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1067,6 +1161,10 @@
 | [ericrisco/rsc-harness](https://github.com/ericrisco/rsc-harness) | 65 | 给 Agent 记忆与数据库手臂的元 harness。 | 其他 | 工具 | 仅索引 |
 | [musoyangrigor/gitx-skill](https://github.com/musoyangrigor/gitx-skill) | 65 | 跨 Agent 干净提交/打标签/安全推送的 GitX 技能。 | 其他 | 1 | 仅索引 |
 | [per-simmons/fable-orchestration](https://github.com/per-simmons/fable-orchestration) | 65 | 用 Fable 架构、Opus 执行的廉价编排技能。 | 其他 | 1 | 仅索引 |
+| [alirezarezvani/claude-code-skill-factory](https://github.com/alirezarezvani/claude-code-skill-factory) | 858 | Claude Code Skill 工厂/生成与部署工具包。 | MIT | 8 | 仅索引 |
+| [darkrishabh/agent-skills-eval](https://github.com/darkrishabh/agent-skills-eval) | 724 | agentskills.io 风格技能评测运行器。 | MIT | 8 | 仅索引 |
+| [majiayu000/claude-skill-registry](https://github.com/majiayu000/claude-skill-registry) | 593 | Claude Code skills 注册表/检索。 | MIT | 4 | 仅索引 |
+| [K-Dense-AI/claude-skills-mcp](https://github.com/K-Dense-AI/claude-skills-mcp) | 401 | 科学 Agent Skills 向量检索 MCP。 | Apache-2.0 | 多 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
@@ -1198,3 +1296,9 @@
 | [aaronyi97/image-story-video-wizard](https://github.com/aaronyi97/image-story-video-wizard) | 267 | 确认门控的图文故事视频制作技能。 | MIT | 1 | 仅索引 |
 | [camilleroux/genart-skill](https://github.com/camilleroux/genart-skill) | 137 | 确定性哈希种子生成艺术 Claude 插件技能。 | MIT | 1 | 仅索引 |
 | [hi-nikola/hand-drawn-explainer-video-nikola](https://github.com/hi-nikola/hand-drawn-explainer-video-nikola) | 108 | 中文手绘知识讲解视频 Codex Skill。 | Apache-2.0 | 1 | 仅索引 |
+| [QuZhan51496/paper2anything](https://github.com/QuZhan51496/paper2anything) | 406 | 论文 PDF 转幻灯/海报等的技能包。 | Apache-2.0 | 5 | 仅索引 |
+| [panggungunvibe/atutun-xhs-cover](https://github.com/panggungunvibe/atutun-xhs-cover) | 393 | 闃垮洡鍥ら鏍煎皬绾功灏侀潰鎻愮ず璇嶇敓鎴?skill | 其他 | 多 | 仅索引 |
+| [i18next/i18next-cli](https://github.com/i18next/i18next-cli) | 235 | i18next 统一高性能 CLI（含 Agent Skills）。 | 其他 | 多 | 仅索引 |
+| [bergside/design-md-figma](https://github.com/bergside/design-md-figma) | 149 | Figma plugin that extracts local style guidelines and generates DESIGN… | MIT | 5 | 仅索引 |
+| [LcpMarvel/feishu-whiteboard-pro](https://github.com/LcpMarvel/feishu-whiteboard-pro) | 57 | A Claude Code / agent skill for building genuinely designed,… | 其他 | 多 | 仅索引 |
+| [jinyh/nsfc-xai-review](https://github.com/jinyh/nsfc-xai-review) | 18 | NSFC AI+鑷劧绉戝浜ゅ弶鏂瑰悜鍩洪噾鐢宠涔﹀嚱璇勮嚜鏌?Skill | 其他 | 多 | 仅索引 |
