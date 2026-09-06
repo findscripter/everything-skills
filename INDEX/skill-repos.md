@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1007 个独立仓库（另注明更名别名）
+- 收录条数：1035 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -180,6 +180,11 @@
 | [remix-run/agent-skills](https://github.com/remix-run/agent-skills) | 137 | Remix 官方 React Router 三模式技能（已归档，后继 `npx skills add remix-run/react-router --skill react-router`）。 | MIT | 3（已归档） | 仅索引 |
 | [sanity-io/agent-toolkit](https://github.com/sanity-io/agent-toolkit) | 180 | Sanity 官方 4 条技能 + MCP/Claude/Cursor/Codex 插件；npx skills add sanity-io/agent-toolkit。 | MIT | 4 | 仅索引 |
 | [coderabbitai/skills](https://github.com/coderabbitai/skills) | 165 | CodeRabbit 官方 code-review / autofix 技能，适配 35+ 代理；npx skills add coderabbitai/skills。 | MIT | 2 | 仅索引 |
+| [anthropics/commerce-agents](https://github.com/anthropics/commerce-agents) | 2,094 | Anthropic 购物与商户 Agent 参考蓝图（prompt/skills/工具契约）。 | Apache-2.0 | 多 | 仅索引 |
+| [Shopify/claude-for-commerce-examples](https://github.com/Shopify/claude-for-commerce-examples) | 104 | Shopify 对 Anthropic commerce-agents 的店面/商户实现示例。 | Apache-2.0 | 示例 | 仅索引 |
+| [alpacahq/alpaca-skills](https://github.com/alpacahq/alpaca-skills) | 143 | Alpaca Trading/Broker API 官方 Agent Skills。 | Apache-2.0 | 多 | 仅索引 |
+| [coinbase/agentic-wallet-skills](https://github.com/coinbase/agentic-wallet-skills) | 126 | Coinbase Agentic Wallet 官方技能（awal CLI）。 | MIT | 1+ | 仅索引 |
+| [quark-clouddrive/quarkclouddrive_offical](https://github.com/quark-clouddrive/quarkclouddrive_offical) | 37 | 夸克网盘官方 Skill：Agent 内管理/检索网盘文件。 | Apache-2.0 | 1 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -913,6 +918,14 @@
 | [Neeeophytee/finding-unknowns-skills](https://github.com/Neeeophytee/finding-unknowns-skills) | 322 | Thariq Shihipar 未知项方法论 11 条技能；npx skills add + Claude/Codex 插件。非 Anthropic 官方。 | MIT | 11 | 仅索引 |
 | [CloudWave818/ieee-skills](https://github.com/CloudWave818/ieee-skills) | 253 | 非官方 IEEE 论文工作流 10 条 Codex skills（summarize/writing/reviewer/experiment/figure 等）。 | MIT | 10 | 仅索引 |
 | [JimLiu/science-skills](https://github.com/JimLiu/science-skills) | 225 | 宝玉 Claude Science 风格科学技能：alphafold/boltz/文献/单细胞/远程计算等。 | README 未单列 SPDX | 科学技能目录 | 仅索引 |
+| [crawfordxx/xiaoma-durex-copywriter](https://github.com/crawfordxx/xiaoma-durex-copywriter) | 572 | 杜蕾斯式双层语义文案与海报 Skill。 | MIT | 1 | 仅索引 |
+| [Kronop/vibe-aso](https://github.com/Kronop/vibe-aso) | 349 | iOS App Store 优化与多语言 ASO 技能。 | MIT | 1 | 仅索引 |
+| [gozen3ji/consulting-pptx-skill](https://github.com/gozen3ji/consulting-pptx-skill) | 239 | 咨询风 PPTX：62 型幻灯片目录与机械校验。 | MIT | 1 | 仅索引 |
+| [GaZmagik/iso-24495](https://github.com/GaZmagik/iso-24495) | 171 | ISO 24495 简明语言写作与审计技能/插件。 | MIT | 7 | 仅索引 |
+| [tigerless-labs/influencer-discovery](https://github.com/tigerless-labs/influencer-discovery) | 178 | 影响者发现与联系人富化管线技能。 | 其他 | 1 | 仅索引 |
+| [tigerless-labs/paper-radar](https://github.com/tigerless-labs/paper-radar) | 169 | 28 家科技公司 arXiv 论文雷达技能。 | MIT | 1 | 仅索引 |
+| [phileiny/h3-storyboard-skill](https://github.com/phileiny/h3-storyboard-skill) | 154 | MiniMax H3 分镜与角色表演技能。 | MIT | 1 | 仅索引 |
+| [machina-exm/film-studio-skills](https://github.com/machina-exm/film-studio-skills) | 111 | AI 影视制片管线：7 个可安装技能。 | 其他 | 7 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -954,12 +967,21 @@
 | [huggingface/upskill](https://github.com/huggingface/upskill) | 740 | Hugging Face 官方：从任务/轨迹生成并评测 SKILL.md（teacher→student）。 | README 未单列 SPDX | 生成器/评测 CLI | 仅索引 |
 | [NVIDIA/SkillEvaluator](https://github.com/NVIDIA/SkillEvaluator) | 394 | NVIDIA 官方技能三层评测：校验/去重/现场 agent 评测；Verified Skills 流水线，配合 SkillSpector。 | Apache-2.0 | 评测框架 | 仅索引 |
 | [changchangidea-oss/SkillRadar](https://github.com/changchangidea-oss/SkillRadar) | 175 | Agent Skills 发现/安全扫描/排序/路由：Codex 插件 + npx skills add；离线注册表 Top-3。 | MIT | 注册表/路由器 | 仅索引 |
+| [what1f/kitter](https://github.com/what1f/kitter) | 194 | 本地优先 Skill 管理器：一库多项目按需装。 | Apache-2.0 | 工具 | 仅索引 |
+| [agent-sh/agnix](https://github.com/agent-sh/agnix) | 404 | Agent 指令文件（SKILL.md/CLAUDE.md）linter 与 LSP。 | MIT | 工具 | 仅索引 |
+| [first-fluke/oh-my-agent](https://github.com/first-fluke/oh-my-agent) | 1,268 | 跨运行时多 Agent harness：产物门控与独立评审。 | MIT | 工具 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
 | 仓库 | Stars | README 摘要 | 许可 | 技能数 | 采编 |
 |---|---:|---|---|---|---|
 | [anthropics/claude-cookbooks](https://github.com/anthropics/claude-cookbooks) | 52,358 | Claude API cookbook（笔记本/教程），不是 SKILL.md 技能库；作为官方学习材料索引。 | README 未单列 SPDX | 教程而非技能 | 仅索引 |
+| [UditAkhourii/neuroarxiv](https://github.com/UditAkhourii/neuroarxiv) | 417 | 写新架构前先检索 arXiv 先验的技能。 | MIT | 1 | 仅索引 |
+| [Socialpranker/deepdive](https://github.com/Socialpranker/deepdive) | 393 | Claude Code 十二阶段结构化深度研究技能。 | MIT | 1 | 仅索引 |
+| [aigorahub/elves](https://github.com/aigorahub/elves) | 218 | 多批次自主开发/研究过夜技能（跨模型）。 | MIT | 1 | 仅索引 |
+| [Vuk97/forward-implementation-first](https://github.com/Vuk97/forward-implementation-first) | 163 | 先交付实现、再验证的反簿记拖延技能。 | MIT | 1 | 仅索引 |
+| [SeanEllyJames/deep-research-skill](https://github.com/SeanEllyJames/deep-research-skill) | 201 | 强调判断而非堆砌信息的深度调研技能。 | MIT | 1 | 仅索引 |
+| [MrZoyo/deslop-GPT](https://github.com/MrZoyo/deslop-GPT) | 97 | 删除优先：去测试膨胀与验证剧场的技能。 | MIT | 1 | 仅索引 |
 
 ## 6. 名称不含 skill / agent 的技能库（本轮追加）
 
@@ -1073,3 +1095,9 @@
 | [superdesigndev/superdesign-skill](https://github.com/superdesigndev/superdesign-skill) | 500 | Superdesign UI/演示/图形技能。 | MIT | 1 | 仅索引 |
 | [yan-labs/serenity-aleabitoreddit](https://github.com/yan-labs/serenity-aleabitoreddit) | 475 | Serenity AI/半导体供应链研究技能。仓库名无 skill。 | README 未单列 SPDX | 1 | 仅索引 |
 | [existential-birds/beagle](https://github.com/existential-birds/beagle) | 80 | Beagle 技能市场：Python/Go/Rust/Elixir/React/iOS 审查。 | README 未单列 SPDX | marketplace | 仅索引 |
+| [Leonxlnx/unlazy](https://github.com/Leonxlnx/unlazy) | 3,084 | Depth Tree 反懒惰完成纪律技能（验收闸门）。 | MIT | 1 | 仅索引 |
+| [s0xDk/refactoring-ui-skill](https://github.com/s0xDk/refactoring-ui-skill) | 530 | Refactoring UI 书中机械设计规则技能。 | MIT | 1 | 仅索引 |
+| [LunarXuan/image-prompt-reverse](https://github.com/LunarXuan/image-prompt-reverse) | 298 | 高保真图像提示词逆向工程技能。 | GPL-3.0 | 1 | 仅索引 |
+| [aaronyi97/image-story-video-wizard](https://github.com/aaronyi97/image-story-video-wizard) | 267 | 确认门控的图文故事视频制作技能。 | MIT | 1 | 仅索引 |
+| [camilleroux/genart-skill](https://github.com/camilleroux/genart-skill) | 137 | 确定性哈希种子生成艺术 Claude 插件技能。 | MIT | 1 | 仅索引 |
+| [hi-nikola/hand-drawn-explainer-video-nikola](https://github.com/hi-nikola/hand-drawn-explainer-video-nikola) | 108 | 中文手绘知识讲解视频 Codex Skill。 | Apache-2.0 | 1 | 仅索引 |
