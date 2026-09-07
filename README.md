@@ -9,7 +9,7 @@
 >
 > **中文优先**：全库技能均为中文——这是以英文为主的技能生态里少见的体系化中文技能库。
 >
-> 本库 1108 条中文技能；另索引 **1236** 个外部 GitHub 技能库（只读 README）。
+> 本库 1108 条中文技能；另索引 **1262** 个外部 GitHub 技能库（只读 README）。
 >
 > **English version** — a full English tree mirrors this library 1-to-1 (same `name`, same cross-references) on the [`en`](https://github.com/findscripter/everything-skills/tree/en) branch. Where an upstream English original exists, the English tree **reuses it verbatim** rather than translating back from Chinese (`source` keeps every skill traceable).
 >
@@ -78,7 +78,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 
 ## 技能仓库目录
 
-目前索引 **1236** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+目前索引 **1262** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
 
 完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
 
@@ -248,7 +248,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`makenotion/claude-code-notion-plugin`](https://github.com/makenotion/claude-code-notion-plugin)
 - [`contentful/skill-kit`](https://github.com/contentful/skill-kit)
 
-### 2. 精选列表 / 大集合（collections）（279）
+### 2. 精选列表 / 大集合（collections）（285）
 
 - [`mxyhi/ok-skills`](https://github.com/mxyhi/ok-skills)
 - [`Dominic789654/awesome-deepseek-harness`](https://github.com/Dominic789654/awesome-deepseek-harness)
@@ -529,8 +529,14 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`GoekeLab/awesome-genomic-skills`](https://github.com/GoekeLab/awesome-genomic-skills)
 - [`Mann1988/awesome-claude-skills`](https://github.com/Mann1988/awesome-claude-skills)
 - [`xmm/codex-bmad-skills`](https://github.com/xmm/codex-bmad-skills)
+- [`RankSpotAI/awesome-seo-agent-skills`](https://github.com/RankSpotAI/awesome-seo-agent-skills)
+- [`BENZEMA216/awesome-weread`](https://github.com/BENZEMA216/awesome-weread)
+- [`fortunto2/solo-factory`](https://github.com/fortunto2/solo-factory)
+- [`martinholovsky/SOTA-skills`](https://github.com/martinholovsky/SOTA-skills)
+- [`mirkobozzetto/arsenal`](https://github.com/mirkobozzetto/arsenal)
+- [`dreamers-laboratory/useful-skills-playbook`](https://github.com/dreamers-laboratory/useful-skills-playbook)
 
-### 3. 垂直领域技能包（vertical）（596）
+### 3. 垂直领域技能包（vertical）（615）
 
 - [`inference-sh/skills`](https://github.com/inference-sh/skills)
 - [`giuseppe-trisciuoglio/developer-kit`](https://github.com/giuseppe-trisciuoglio/developer-kit)
@@ -1128,8 +1134,27 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`noartem/skills`](https://github.com/noartem/skills)
 - [`PauloFelipeM/agent-laravel-skills`](https://github.com/PauloFelipeM/agent-laravel-skills)
 - [`kurone-kito/idd-skill`](https://github.com/kurone-kito/idd-skill)
+- [`techjanitor/botmaker`](https://github.com/techjanitor/botmaker)
+- [`manavmishra/ZeroSlop`](https://github.com/manavmishra/ZeroSlop)
+- [`alchaincyf/huashu-mac-use`](https://github.com/alchaincyf/huashu-mac-use)
+- [`bangtutorial/bang-motion`](https://github.com/bangtutorial/bang-motion)
+- [`wbso-ai/omarchy-plugin-security-skill`](https://github.com/wbso-ai/omarchy-plugin-security-skill)
+- [`jvogan/a-fable-of-codexes`](https://github.com/jvogan/a-fable-of-codexes)
+- [`ultimatile/arxiv-skills`](https://github.com/ultimatile/arxiv-skills)
+- [`Servosity/msp-skills`](https://github.com/Servosity/msp-skills)
+- [`sakhadib/IUT-Thesis-Skill-for-AI`](https://github.com/sakhadib/IUT-Thesis-Skill-for-AI)
+- [`Daqi029/saas-onboarding-diagnosis`](https://github.com/Daqi029/saas-onboarding-diagnosis)
+- [`DenisSergeevitch/game-sensitivity-coach`](https://github.com/DenisSergeevitch/game-sensitivity-coach)
+- [`MohgaNabil/deutsch-lernpaket`](https://github.com/MohgaNabil/deutsch-lernpaket)
+- [`Romandredan/1c-quality-gate`](https://github.com/Romandredan/1c-quality-gate)
+- [`Alchemist-Jo/textbook-anything`](https://github.com/Alchemist-Jo/textbook-anything)
+- [`MO7YW4NG/openscite`](https://github.com/MO7YW4NG/openscite)
+- [`0nicell/data-deletion-skill`](https://github.com/0nicell/data-deletion-skill)
+- [`TokenHungryMash/personalized-travel-guide-skill`](https://github.com/TokenHungryMash/personalized-travel-guide-skill)
+- [`kpab/seo-mastery-agent-skills`](https://github.com/kpab/seo-mastery-agent-skills)
+- [`Latifox/find-me-saas`](https://github.com/Latifox/find-me-saas)
 
-### 4. 安装器 / 注册表 / 基础设施（infra）（73）
+### 4. 安装器 / 注册表 / 基础设施（infra）（74）
 
 - [`activeloopai/hivemind`](https://github.com/activeloopai/hivemind)
 - [`Railly/tinte`](https://github.com/Railly/tinte)
@@ -1204,6 +1229,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`darkrishabh/agent-skills-eval`](https://github.com/darkrishabh/agent-skills-eval)
 - [`majiayu000/claude-skill-registry`](https://github.com/majiayu000/claude-skill-registry)
 - [`K-Dense-AI/claude-skills-mcp`](https://github.com/K-Dense-AI/claude-skills-mcp)
+- [`tobihagemann/turbo`](https://github.com/tobihagemann/turbo)
 
 ### 5. 其他（other）（7）
 
@@ -1335,7 +1361,6 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`bergside/design-md-figma`](https://github.com/bergside/design-md-figma)
 - [`LcpMarvel/feishu-whiteboard-pro`](https://github.com/LcpMarvel/feishu-whiteboard-pro)
 - [`jinyh/nsfc-xai-review`](https://github.com/jinyh/nsfc-xai-review)
-
 
 ## 设计哲学：保留类书的魂，换掉过时的骨
 
