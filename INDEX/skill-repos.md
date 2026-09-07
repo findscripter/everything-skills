@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1236 个独立仓库（另注明更名别名）
+- 收录条数：1262 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -486,6 +486,12 @@
 | [GoekeLab/awesome-genomic-skills](https://github.com/GoekeLab/awesome-genomic-skills) | 97 | A curated list of awesome genomics and bioinformatics agentic skills, … | CC0-1.0 | 多 | 仅索引 |
 | [Mann1988/awesome-claude-skills](https://github.com/Mann1988/awesome-claude-skills) | 65 | 馃搳 Explore high-quality Claude skills focused on business an… | MIT | 多 | 仅索引 |
 | [xmm/codex-bmad-skills](https://github.com/xmm/codex-bmad-skills) | 47 | BMAD skills and workflows for OpenAI Codex (App, CLI, Web): intent-bas… | 其他 | 1 | 仅索引 |
+| [RankSpotAI/awesome-seo-agent-skills](https://github.com/RankSpotAI/awesome-seo-agent-skills) | 86 | SEO / GEO / AEO 方向 Agent Skills 精选列表 | CC0-1.0 | 精选列表 | 仅索引 |
+| [BENZEMA216/awesome-weread](https://github.com/BENZEMA216/awesome-weread) | 61 | 微信读书官方 Agent Skill 二创项目精选 | CC0-1.0 | 精选列表 | 仅索引 |
+| [martinholovsky/SOTA-skills](https://github.com/martinholovsky/SOTA-skills) | 18 | 工程最佳实践 40+ skills（安全/云/合规/UX 文案） | CC-BY-4.0 | 40+ | 仅索引 |
+| [fortunto2/solo-factory](https://github.com/fortunto2/solo-factory) | 18 | 独行项目 45 skills + 3 agents 传感器工厂 | MIT | 45 | 仅索引 |
+| [mirkobozzetto/arsenal](https://github.com/mirkobozzetto/arsenal) | 15 | 跨 Pi/OMP/Codex/Claude 的便携工作流 skills 运行时 | MIT | 多 | 仅索引 |
+| [dreamers-laboratory/useful-skills-playbook](https://github.com/dreamers-laboratory/useful-skills-playbook) | 13 | 生产实测 27 个 agent skills（11 类） | Apache-2.0 | 27 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1087,6 +1093,25 @@
 | [noartem/skills](https://github.com/noartem/skills) | 12 | Collection of Agents Skill for Laravel, Vue | 其他 | 多 | 仅索引 |
 | [PauloFelipeM/agent-laravel-skills](https://github.com/PauloFelipeM/agent-laravel-skills) | 12 | A structured repository for creating and maintaining Laravel Best Prac… | 其他 | 1 | 仅索引 |
 | [kurone-kito/idd-skill](https://github.com/kurone-kito/idd-skill) | 11 | 馃 An automated setup kit for implementing loop engineering … | MIT | 1 | 仅索引 |
+| [techjanitor/botmaker](https://github.com/techjanitor/botmaker) | 210 | Hermes Agent 专精「造专科 bot」的 skill + SOUL | MIT | 1 | 仅索引 |
+| [alchaincyf/huashu-mac-use](https://github.com/alchaincyf/huashu-mac-use) | 66 | 让 Agent 操控 macOS 无 API 原生 app 的 computer-use skill | MIT | 1 | 仅索引 |
+| [bangtutorial/bang-motion](https://github.com/bangtutorial/bang-motion) | 56 | 浏览器动效 / 开场片头类 Agent Skill（单页 HTML 输出） | MIT | 1 | 仅索引 |
+| [wbso-ai/omarchy-plugin-security-skill](https://github.com/wbso-ai/omarchy-plugin-security-skill) | 55 | Omarchy 插件市场上架安全陷阱审查 skill | MIT | 1 | 仅索引 |
+| [manavmishra/ZeroSlop](https://github.com/manavmishra/ZeroSlop) | 112 | AI 文风去味评分与本地改写 Agent Skill | MIT | 1 | 仅索引 |
+| [jvogan/a-fable-of-codexes](https://github.com/jvogan/a-fable-of-codexes) | 47 | Claude 指挥并行 Codex 舰队的编排 skills | MIT | 多 | 仅索引 |
+| [ultimatile/arxiv-skills](https://github.com/ultimatile/arxiv-skills) | 41 | arXiv 检索与文档构建 Claude skills | MIT | 2 | 仅索引 |
+| [Servosity/msp-skills](https://github.com/Servosity/msp-skills) | 36 | MSP 工具（PSA/RMM/M365）本地优先 MCP + Skills | Apache-2.0 | 多 | 仅索引 |
+| [sakhadib/IUT-Thesis-Skill-for-AI](https://github.com/sakhadib/IUT-Thesis-Skill-for-AI) | 32 | IUT 本科论文起草与维护可复用 Agent Skill | MIT | 1 | 仅索引 |
+| [Daqi029/saas-onboarding-diagnosis](https://github.com/Daqi029/saas-onboarding-diagnosis) | 24 | SaaS 新用户引导 / 激活 / Aha Moment 诊断 skill | CC-BY-NC-4.0 | 1 | 仅索引 |
+| [DenisSergeevitch/game-sensitivity-coach](https://github.com/DenisSergeevitch/game-sensitivity-coach) | 23 | 游戏鼠标灵敏度调校与跨游戏换算 Agent Skill | MIT | 1 | 仅索引 |
+| [MohgaNabil/deutsch-lernpaket](https://github.com/MohgaNabil/deutsch-lernpaket) | 22 | 德语 B2 周练三件套 Claude skills（会话/测验/翻译） | MIT | 3 | 仅索引 |
+| [Romandredan/1c-quality-gate](https://github.com/Romandredan/1c-quality-gate) | 22 | 1C:Enterprise 开发质量门禁 Claude Code 插件/skills | MIT | 多 | 仅索引 |
+| [Alchemist-Jo/textbook-anything](https://github.com/Alchemist-Jo/textbook-anything) | 20 | 大学 STEM 教材讲解与连通习题生成 Agent Skill | MIT | 1 | 仅索引 |
+| [MO7YW4NG/openscite](https://github.com/MO7YW4NG/openscite) | 16 | 学术 PDF 入链引用分析 Agent Skill（Scite 替代向） | MIT | 1 | 仅索引 |
+| [0nicell/data-deletion-skill](https://github.com/0nicell/data-deletion-skill) | 13 | 个人数据经纪商清除与隐私请求流程 Claude skill | CC-BY-NC-SA-4.0 | 1 | 仅索引 |
+| [TokenHungryMash/personalized-travel-guide-skill](https://github.com/TokenHungryMash/personalized-travel-guide-skill) | 13 | 个性化旅行手册网页生成 Agent Skill | MIT | 1 | 仅索引 |
+| [kpab/seo-mastery-agent-skills](https://github.com/kpab/seo-mastery-agent-skills) | 12 | 基于官方检索文档的 SEO Agent Skills（英日） | MIT | 多 | 仅索引 |
+| [Latifox/find-me-saas](https://github.com/Latifox/find-me-saas) | 10 | SaaS 点子调研 / 打分 / 枢轴分析 skills 包 | MIT | 10+ | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1165,6 +1190,7 @@
 | [darkrishabh/agent-skills-eval](https://github.com/darkrishabh/agent-skills-eval) | 724 | agentskills.io 风格技能评测运行器。 | MIT | 8 | 仅索引 |
 | [majiayu000/claude-skill-registry](https://github.com/majiayu000/claude-skill-registry) | 593 | Claude Code skills 注册表/检索。 | MIT | 4 | 仅索引 |
 | [K-Dense-AI/claude-skills-mcp](https://github.com/K-Dense-AI/claude-skills-mcp) | 401 | 科学 Agent Skills 向量检索 MCP。 | Apache-2.0 | 多 | 仅索引 |
+| [tobihagemann/turbo](https://github.com/tobihagemann/turbo) | 402 | 可组合 agent 开发流程（Claude/Codex 双版本 modular skills） | MIT | 多 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
