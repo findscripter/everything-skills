@@ -9,7 +9,7 @@
 >
 > **中文优先**：全库技能均为中文——这是以英文为主的技能生态里少见的体系化中文技能库。
 >
-> 本库 1108 条中文技能；另索引 **1263** 个外部 GitHub 技能库（只读 README）。
+> 本库 1108 条中文技能；另索引 **1323** 个外部 GitHub 技能库（只读 README）。
 >
 > **English version** — a full English tree mirrors this library 1-to-1 (same `name`, same cross-references) on the [`en`](https://github.com/findscripter/everything-skills/tree/en) branch. Where an upstream English original exists, the English tree **reuses it verbatim** rather than translating back from Chinese (`source` keeps every skill traceable).
 >
@@ -78,11 +78,11 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 
 ## 技能仓库目录
 
-目前索引 **1263** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+目前索引 **1323** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
 
 完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
 
-### 1. 官方与权威（official）（164）
+### 1. 官方与权威（official）（167）
 
 - [`anthropics/skills`](https://github.com/anthropics/skills)
 - [`agentskills/agentskills`](https://github.com/agentskills/agentskills)
@@ -248,8 +248,11 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`makenotion/claude-code-notion-plugin`](https://github.com/makenotion/claude-code-notion-plugin)
 - [`contentful/skill-kit`](https://github.com/contentful/skill-kit)
 - [`apache/magpie`](https://github.com/apache/magpie)
+- [`zoom/skills`](https://github.com/zoom/skills)
+- [`atlassian/forge-skills`](https://github.com/atlassian/forge-skills)
+- [`cashfree/agent-skills`](https://github.com/cashfree/agent-skills)
 
-### 2. 精选列表 / 大集合（collections）（285）
+### 2. 精选列表 / 大集合（collections）（297）
 
 - [`mxyhi/ok-skills`](https://github.com/mxyhi/ok-skills)
 - [`Dominic789654/awesome-deepseek-harness`](https://github.com/Dominic789654/awesome-deepseek-harness)
@@ -536,8 +539,20 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`martinholovsky/SOTA-skills`](https://github.com/martinholovsky/SOTA-skills)
 - [`mirkobozzetto/arsenal`](https://github.com/mirkobozzetto/arsenal)
 - [`dreamers-laboratory/useful-skills-playbook`](https://github.com/dreamers-laboratory/useful-skills-playbook)
+- [`human-avatar/skills-for-humanity`](https://github.com/human-avatar/skills-for-humanity)
+- [`Yila-AI/awesome-research-skills`](https://github.com/Yila-AI/awesome-research-skills)
+- [`vasilyu1983/AI-Agents-public`](https://github.com/vasilyu1983/AI-Agents-public)
+- [`terrylica/cc-skills`](https://github.com/terrylica/cc-skills)
+- [`frankxai/claude-skills-library`](https://github.com/frankxai/claude-skills-library)
+- [`OpenLinkSoftware/ai-agent-skills`](https://github.com/OpenLinkSoftware/ai-agent-skills)
+- [`iliaal/whetstone`](https://github.com/iliaal/whetstone)
+- [`kesslernity/awesome-copilot-cowork-skills`](https://github.com/kesslernity/awesome-copilot-cowork-skills)
+- [`agents-inc/skills`](https://github.com/agents-inc/skills)
+- [`lidge-jun/codexclaw`](https://github.com/lidge-jun/codexclaw)
+- [`junminhong/awesome-agent-skills`](https://github.com/junminhong/awesome-agent-skills)
+- [`ulises-jeremias/agent-toolkit`](https://github.com/ulises-jeremias/agent-toolkit)
 
-### 3. 垂直领域技能包（vertical）（615）
+### 3. 垂直领域技能包（vertical）（647）
 
 - [`inference-sh/skills`](https://github.com/inference-sh/skills)
 - [`giuseppe-trisciuoglio/developer-kit`](https://github.com/giuseppe-trisciuoglio/developer-kit)
@@ -1154,8 +1169,40 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`TokenHungryMash/personalized-travel-guide-skill`](https://github.com/TokenHungryMash/personalized-travel-guide-skill)
 - [`kpab/seo-mastery-agent-skills`](https://github.com/kpab/seo-mastery-agent-skills)
 - [`Latifox/find-me-saas`](https://github.com/Latifox/find-me-saas)
+- [`HKUSTDial/Supervisor-Skills`](https://github.com/HKUSTDial/Supervisor-Skills)
+- [`kennyzir/7deer_skills`](https://github.com/kennyzir/7deer_skills)
+- [`rrezartprebreza/spring-boot-skills`](https://github.com/rrezartprebreza/spring-boot-skills)
+- [`machina-sports/sports-skills`](https://github.com/machina-sports/sports-skills)
+- [`johnpapa/ai-ready`](https://github.com/johnpapa/ai-ready)
+- [`techygarg/lattice`](https://github.com/techygarg/lattice)
+- [`addyosmani/clarity`](https://github.com/addyosmani/clarity)
+- [`calesthio/generative-media-skills`](https://github.com/calesthio/generative-media-skills)
+- [`kitze/council`](https://github.com/kitze/council)
+- [`guiguiyan930-source/game-ui-design-workflow`](https://github.com/guiguiyan930-source/game-ui-design-workflow)
+- [`Blotato-Inc/blotato-skills`](https://github.com/Blotato-Inc/blotato-skills)
+- [`aronhy/tiktok-agent-skills`](https://github.com/aronhy/tiktok-agent-skills)
+- [`aleksandr-alhoff/seo-landing`](https://github.com/aleksandr-alhoff/seo-landing)
+- [`firefly-hefeng/VESTI-SKILLS`](https://github.com/firefly-hefeng/VESTI-SKILLS)
+- [`open-infra-skills/infra-skills`](https://github.com/open-infra-skills/infra-skills)
+- [`N1arko/redaktura-skills`](https://github.com/N1arko/redaktura-skills)
+- [`meshy-dev/meshy-3d-agent`](https://github.com/meshy-dev/meshy-3d-agent)
+- [`See-Sol-Lab/private-house-code-v2.5`](https://github.com/See-Sol-Lab/private-house-code-v2.5)
+- [`kcchien/model-thinking`](https://github.com/kcchien/model-thinking)
+- [`netresearch/agent-rules-skill`](https://github.com/netresearch/agent-rules-skill)
+- [`Desko77/cursor-1c-skills`](https://github.com/Desko77/cursor-1c-skills)
+- [`getaero-io/gtm-eng-skills`](https://github.com/getaero-io/gtm-eng-skills)
+- [`respira-press/agent-skills-wordpress`](https://github.com/respira-press/agent-skills-wordpress)
+- [`yha9806/academic-writing-toolkit`](https://github.com/yha9806/academic-writing-toolkit)
+- [`Djarvur/go-ultimate`](https://github.com/Djarvur/go-ultimate)
+- [`PyModel/css-pro-tips`](https://github.com/PyModel/css-pro-tips)
+- [`geekjourneyx/geekx-skills`](https://github.com/geekjourneyx/geekx-skills)
+- [`GabrielOnDelphi/Claude-Tools-for-Delphi`](https://github.com/GabrielOnDelphi/Claude-Tools-for-Delphi)
+- [`zhu-hailin/cumcm-modeling-analyst`](https://github.com/zhu-hailin/cumcm-modeling-analyst)
+- [`bitdezi/claude-skill-product-optimize`](https://github.com/bitdezi/claude-skill-product-optimize)
+- [`aiopshwang/data-analysis-ml-agent-skills`](https://github.com/aiopshwang/data-analysis-ml-agent-skills)
+- [`a-attia/scicomp-research-skills`](https://github.com/a-attia/scicomp-research-skills)
 
-### 4. 安装器 / 注册表 / 基础设施（infra）（74）
+### 4. 安装器 / 注册表 / 基础设施（infra）（87）
 
 - [`activeloopai/hivemind`](https://github.com/activeloopai/hivemind)
 - [`Railly/tinte`](https://github.com/Railly/tinte)
@@ -1231,6 +1278,19 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`majiayu000/claude-skill-registry`](https://github.com/majiayu000/claude-skill-registry)
 - [`K-Dense-AI/claude-skills-mcp`](https://github.com/K-Dense-AI/claude-skills-mcp)
 - [`tobihagemann/turbo`](https://github.com/tobihagemann/turbo)
+- [`mksglu/context-mode`](https://github.com/mksglu/context-mode)
+- [`instavm/open-skills`](https://github.com/instavm/open-skills)
+- [`initializ/forge`](https://github.com/initializ/forge)
+- [`luna-prompts/skillnote`](https://github.com/luna-prompts/skillnote)
+- [`Berserk-hub150/skillhawk`](https://github.com/Berserk-hub150/skillhawk)
+- [`gtrabanco/agentic-workflow`](https://github.com/gtrabanco/agentic-workflow)
+- [`hussi9/skill-router`](https://github.com/hussi9/skill-router)
+- [`zernie/vigiles`](https://github.com/zernie/vigiles)
+- [`avibe-bot/askill`](https://github.com/avibe-bot/askill)
+- [`moatazhamada/ai-omni-skills`](https://github.com/moatazhamada/ai-omni-skills)
+- [`MSiccDev/ai-context-kit`](https://github.com/MSiccDev/ai-context-kit)
+- [`pdugan20/claudelint`](https://github.com/pdugan20/claudelint)
+- [`EvolveHQ/docflow`](https://github.com/EvolveHQ/docflow)
 
 ### 5. 其他（other）（7）
 
