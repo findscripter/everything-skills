@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1262 个独立仓库（另注明更名别名）
+- 收录条数：1263 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -202,6 +202,7 @@
 | [dbt-labs/dbt-agent-skills](https://github.com/dbt-labs/dbt-agent-skills) | 700 | dbt Labs 官方：面向 dbt 工作流的 Agent Skills 集合。 | Apache-2.0 | 多 | 仅索引 |
 | [makenotion/claude-code-notion-plugin](https://github.com/makenotion/claude-code-notion-plugin) | 478 | Notion 官方 Claude Code Notion 插件与技能。 | 其他 | 多 | 仅索引 |
 | [contentful/skill-kit](https://github.com/contentful/skill-kit) | 66 | Contentful 官方：用 TypeScript 状态机构建 Agent Skills 的 SDK。 | MIT | 3 | 仅索引 |
+| [apache/magpie](https://github.com/apache/magpie) | 88 | Apache 官方项目维护 Agent Skills（分诊/PR/发版/安全等配方族） | Apache-2.0 | 多 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
