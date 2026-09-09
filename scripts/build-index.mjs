@@ -224,9 +224,11 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
 }
 
 // graph.json + graph.md（related/combines_with 视为无向、去重；requires 有向）
+// graph.md：卷级总览 + 按卷折叠（截断），避免整库单图无法在 GitHub 渲染。
+// 规则常量与独立 regen 脚本保持一致：跨卷 Top14、卷内度最高 ≤25 节点。
 {
   const nodes = skills.map(s => ({ id: s.fm.name, title: s.fm.title, domain: s.fm.domain, level: s.fm.level, status: s.fm.status }));
-  // 无向边去重
+  // 无向边去重（仅渲染用；graph.json 仍写原始 edges）
   const seen = new Set();
   const rendered = [];
   for (const e of edges) {
@@ -238,10 +240,97 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
     rendered.push(e);
   }
   await fs.writeFile(path.join(INDEX, 'graph.json'), JSON.stringify({ nodes, edges }, null, 2));
-  const arrow = { requires: '-->|requires|', related: '-.-|related|', combines_with: '===|combines|' };
-  let md = `# 互见图谱 · Graph\n\n${stamp}\n依赖(requires) 实箭头有向、互见(related) 虚线无向、组合(combines_with) 粗线无向。\n\n\`\`\`mermaid\ngraph LR\n`;
-  for (const e of rendered) md += `  ${e.from} ${arrow[e.type]} ${e.to}\n`;
-  md += '```\n';
+
+  const MAX_CROSS_VOL_EDGES = 14;
+  const MAX_VOL_NODES = 25;
+  const ARROW = { requires: '-->', related: '-.-', combines_with: '===' };
+  const volOf = (n) => String((n && n.domain) || '').split('/')[0].trim();
+  const escLabel = (s) => String(s || '').replace(/"/g, "'").replace(/\n/g, ' ');
+  const mid = (id) => String(id).replace(/[^A-Za-z0-9_-]/g, '_');
+  const nodesById = new Map(nodes.map(n => [n.id, n]));
+  const cnOrder = VOLS.map(v => v.cn);
+  const fence = '```';
+
+  const dedupeRender = (list) => {
+    const s = new Set(); const out = [];
+    for (const e of list) {
+      let key;
+      if (UNDIRECTED.has(e.type)) key = e.type + ':' + [e.from, e.to].sort().join('|');
+      else key = e.type + ':' + e.from + '->' + e.to;
+      if (s.has(key)) continue; s.add(key); out.push(e);
+    }
+    return out;
+  };
+
+  const cross = new Map();
+  for (const e of dedupeRender(edges.filter(e => UNDIRECTED.has(e.type)))) {
+    const a = nodesById.get(e.from), b = nodesById.get(e.to);
+    if (!a || !b) continue;
+    const va = volOf(a), vb = volOf(b);
+    if (!va || !vb || va === vb) continue;
+    if (!CN2DIR.has(va) || !CN2DIR.has(vb)) continue;
+    const key = [va, vb].sort().join('|');
+    cross.set(key, (cross.get(key) || 0) + 1);
+  }
+  const topCross = [...cross.entries()].sort((a, b) => b[1] - a[1]).slice(0, MAX_CROSS_VOL_EDGES);
+
+  let overview = fence + 'mermaid\ngraph LR\n';
+  for (const cn of cnOrder) overview += '  ' + cn + '\n';
+  for (const [key, c] of topCross) {
+    const parts = key.split('|');
+    overview += '  ' + parts[0] + ' ---|' + c + '| ' + parts[1] + '\n';
+  }
+  overview += fence + '\n';
+  const crossNote = topCross.slice(0, 5).map(([k, c]) => {
+    const parts = k.split('|');
+    return parts[0] + '–' + parts[1] + '(' + c + ')';
+  }).join('、');
+
+  let md = '# 互见图谱 · Graph\n\n' + stamp + '\n';
+  md += '全库 **' + nodes.length + '** 节点、**' + edges.length + '** 条互见边（含方向重复前的原始边）。\n\n';
+  md += '图例：`-->` 依赖(requires) · `-.-` 互见(related) · `===` 组合(combines_with)。\n\n';
+  md += '整库单图无法在 GitHub 上渲染，故拆成「卷级总览 + 按卷折叠」。机读全量见同目录 [`graph.json`](graph.json)。\n\n';
+  md += '## 卷级总览（跨卷最强互见）\n\n';
+  md += '无向边按跨卷计数取 Top ' + MAX_CROSS_VOL_EDGES + '；边上数字为边数。示例热点：' + crossNote + '…\n\n';
+  md += overview + '\n';
+  md += '## 按卷展开（仅卷内边）\n\n';
+  md += '每卷最多展示度最高的 ' + MAX_VOL_NODES + ' 个节点及其诱导边；空卷跳过。\n\n';
+
+  for (const v of VOLS) {
+    const volNodes = nodes.filter(n => volOf(n) === v.cn).map(n => n.id);
+    if (!volNodes.length) continue;
+    const vs = new Set(volNodes);
+    let intra = dedupeRender(edges.filter(e => vs.has(e.from) && vs.has(e.to)));
+    if (!intra.length) continue;
+    const deg = new Map();
+    for (const e of intra) {
+      deg.set(e.from, (deg.get(e.from) || 0) + 1);
+      deg.set(e.to, (deg.get(e.to) || 0) + 1);
+    }
+    let involved = [...deg.keys()];
+    let truncated = false;
+    if (involved.length > MAX_VOL_NODES) {
+      involved = involved.sort((a, b) => (deg.get(b) - deg.get(a)) || a.localeCompare(b)).slice(0, MAX_VOL_NODES);
+      const keep = new Set(involved);
+      intra = intra.filter(e => keep.has(e.from) && keep.has(e.to));
+      truncated = true;
+    } else {
+      involved = involved.sort((a, b) => (deg.get(b) - deg.get(a)) || a.localeCompare(b));
+    }
+    const note = truncated
+      ? ('（已截断：仅保留度最高的 ' + MAX_VOL_NODES + ' 个节点及其诱导边）')
+      : '';
+    md += '<details><summary>' + v.title + '（' + involved.length + ' 节点 / ' + intra.length + ' 边）' + note + '</summary>\n\n';
+    md += fence + 'mermaid\ngraph LR\n';
+    for (const id of involved) {
+      const n = nodesById.get(id);
+      let label = escLabel((n && n.title) || id);
+      if (label.length > 28) label = label.slice(0, 27) + '…';
+      md += '  ' + mid(id) + '["' + label + '"]\n';
+    }
+    for (const e of intra) md += '  ' + mid(e.from) + ' ' + ARROW[e.type] + ' ' + mid(e.to) + '\n';
+    md += fence + '\n\n</details>\n\n';
+  }
   await fs.writeFile(path.join(INDEX, 'graph.md'), md);
 }
 
