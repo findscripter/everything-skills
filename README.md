@@ -1,1 +1,1 @@
-@file:///workspace/daily-out/README.md
+PLACEHOLDER
