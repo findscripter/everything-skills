@@ -19,50 +19,104 @@
 
 ## 一图看懂：技能互见图谱（节选）
 
-全库 **1108 条技能、6843 条互见边**。整图无法渲染，这里截取连接最密的一个技能簇示意——
-实线 = 依赖(requires)，虚线 = 互见(related)，粗线 = 组合(combines_with)。
-**这正是本仓库区别于"平铺列表"的核心：技能不是孤立条目，而是连成网络。**
+全库 **1108 条技能、6843 条互见边**。整图见 [INDEX/graph.md](INDEX/graph.md)（卷级总览 + 按卷折叠）；以下两张为**示意节选**（由 graph.json 按固定规则自动重绘），便于在 GitHub 上直接渲染。
+
+图例：实线箭头 `-->` = 依赖(requires)，虚线 `-.-` = 互见(related)，粗线 `===` = 组合(combines_with)。
+
+**这正是本仓库区别于「平铺列表」的核心：技能不是孤立条目，而是连成网络。**
+
+### 卷级总览（跨卷最强互见）
+
+11 卷之间 Top 14 条无向跨卷边（边标签 = 边数）。
 
 ```mermaid
 graph LR
-  board_deck_builder["董事会与投资人汇报材料生成"]
-  cfo_financial_advisor["CFO 财务顾问（单位经济与融资）"]
-  startup_financial_modeler["创业财务模型构建"]
-  cro_revenue_advisor["CRO 营收增长顾问（B2B SaaS）"]
-  data_storyteller["数据叙事与可视化表达"]
-  market_sizing_analyst["市场规模测算（TAM/SAM/SOM）"]
-  org_health_diagnostic["组织健康度跨职能诊断"]
-  boardroom_deliberation["C 级多角色董事会六阶段审议"]
-  enterprise_project_manager["企业级项目组合管理"]
-  board_meeting_prep["董事会对抗式备会演练"]
-  ma_playbook["并购策略手册（尽调与估值整合）"]
-  variance_flux_commentary["财务差异（Flux）说明撰写"]
-  boardroom_deliberation -.- board_meeting_prep
-  boardroom_deliberation === board_deck_builder
-  board_deck_builder === board_meeting_prep
-  board_deck_builder === cfo_financial_advisor
-  startup_financial_modeler === board_deck_builder
-  board_deck_builder === data_storyteller
-  board_meeting_prep === cfo_financial_advisor
-  board_meeting_prep -.- cro_revenue_advisor
-  board_meeting_prep === startup_financial_modeler
-  cfo_financial_advisor === startup_financial_modeler
-  cfo_financial_advisor -.- cro_revenue_advisor
-  cro_revenue_advisor === board_deck_builder
-  ma_playbook === cfo_financial_advisor
-  ma_playbook === startup_financial_modeler
-  ma_playbook -.- market_sizing_analyst
-  ma_playbook === board_deck_builder
-  market_sizing_analyst === startup_financial_modeler
-  market_sizing_analyst === board_deck_builder
-  variance_flux_commentary === cfo_financial_advisor
-  variance_flux_commentary === board_deck_builder
-  variance_flux_commentary -.- startup_financial_modeler
-  variance_flux_commentary === data_storyteller
-  enterprise_project_manager === board_deck_builder
-  org_health_diagnostic === boardroom_deliberation
-  org_health_diagnostic === board_deck_builder
+  通用
+  文书
+  研发
+  数据
+  智能
+  商业
+  创意
+  协作
+  安全
+  领域
+  平台
+  平台 ---|81| 研发
+  创意 ---|76| 研发
+  商业 ---|70| 领域
+  协作 ---|63| 商业
+  数据 ---|58| 领域
+  安全 ---|49| 研发
+  协作 ---|44| 研发
+  协作 ---|41| 通用
+  平台 ---|39| 智能
+  智能 ---|35| 通用
+  安全 ---|33| 领域
+  研发 ---|31| 通用
+  协作 ---|28| 文书
+  商业 ---|24| 研发
 ```
+
+### 密集聚类示意（RAG / LLM）
+
+以 `production-llm-app-builder` / `rag-pipeline-builder`（生产级 LLM 应用与 RAG 系统构建 / RAG 检索管道搭建）为枢纽的 ego 簇，约 15 个技能 / 36 条边（节点标签为中文标题）。
+
+```mermaid
+graph LR
+  production-llm-app-builder["生产级 LLM 应用与 RAG 系统构建"]
+  rag-pipeline-builder["RAG 检索管道搭建"]
+  embedding-model-strategies["嵌入模型选型与优化"]
+  rag-implementation-workflow["RAG 检索增强实现"]
+  hybrid-search-retrieval["向量与关键词混合检索"]
+  vector-index-tuning["向量索引调优"]
+  langfuse-llm-observability["Langfuse LLM 可观测"]
+  llm-model-router["测量驱动的 LLM 模型路由"]
+  llm-judge-evaluation["LLM-as-Judge 高级评测"]
+  ai-engineering-toolkit["AI 工程工作流工具箱"]
+  context-window-management["LLM 上下文窗口管理策略"]
+  llm-prompt-caching["LLM 提示词缓存策略"]
+  agent-memory-systems["AI 智能体记忆系统设计"]
+  mlops-model-productionizer["机器学习模型生产化与 MLOps"]
+  llm-conversation-memory["LLM 对话持久记忆系统"]
+  agent-memory-systems === rag-pipeline-builder
+  context-window-management === production-llm-app-builder
+  context-window-management === rag-pipeline-builder
+  embedding-model-strategies === production-llm-app-builder
+  hybrid-search-retrieval === production-llm-app-builder
+  langfuse-llm-observability === production-llm-app-builder
+  llm-conversation-memory === production-llm-app-builder
+  llm-conversation-memory === rag-pipeline-builder
+  llm-judge-evaluation === production-llm-app-builder
+  llm-model-router === production-llm-app-builder
+  llm-prompt-caching === production-llm-app-builder
+  llm-prompt-caching === rag-pipeline-builder
+  rag-pipeline-builder === llm-judge-evaluation
+  rag-pipeline-builder === vector-index-tuning
+  vector-index-tuning === production-llm-app-builder
+  ai-engineering-toolkit -.- production-llm-app-builder
+  embedding-model-strategies -.- rag-pipeline-builder
+  hybrid-search-retrieval -.- rag-pipeline-builder
+  mlops-model-productionizer -.- production-llm-app-builder
+  production-llm-app-builder -.- rag-implementation-workflow
+  production-llm-app-builder -.- rag-pipeline-builder
+  rag-implementation-workflow -.- rag-pipeline-builder
+  vector-index-tuning -.- rag-pipeline-builder
+  agent-memory-systems === hybrid-search-retrieval
+  agent-memory-systems === vector-index-tuning
+  ai-engineering-toolkit === context-window-management
+  ai-engineering-toolkit === langfuse-llm-observability
+  ai-engineering-toolkit === rag-implementation-workflow
+  embedding-model-strategies === agent-memory-systems
+  embedding-model-strategies === rag-implementation-workflow
+  llm-conversation-memory === embedding-model-strategies
+  llm-judge-evaluation === llm-conversation-memory
+  llm-judge-evaluation === rag-implementation-workflow
+  llm-model-router === ai-engineering-toolkit
+  llm-model-router === langfuse-llm-observability
+  llm-prompt-caching === langfuse-llm-observability
+```
+
 
 ---
 
