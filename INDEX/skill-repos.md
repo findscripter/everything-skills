@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1323 个独立仓库（另注明更名别名）
+- 收录条数：1386 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -206,6 +206,7 @@
 | [atlassian/forge-skills](https://github.com/atlassian/forge-skills) | 21 | Atlassian Forge 官方 Skills 插件（脚手架、审查、调试、安全） | Apache-2.0 | 6 | 仅索引 |
 | [zoom/skills](https://github.com/zoom/skills) | 74 | Zoom 开发平台官方 Skills（REST/SDK/MCP 路由） | MIT | 20+ | 仅索引 |
 | [cashfree/agent-skills](https://github.com/cashfree/agent-skills) | 20 | Cashfree 支付集成 Agent Skills（npx 安装多框架） | MIT | 20+ | 仅索引 |
+| [publora/skills](https://github.com/publora/skills) | 47 | Publora 官方社交发帖/排期 Agent Skills（经 MCP） | Unknown | 9 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -508,6 +509,24 @@
 | [junminhong/awesome-agent-skills](https://github.com/junminhong/awesome-agent-skills) | 17 | 精选 Agent Skills / 合集 / 工具外链目录（不托管正文） | MIT | links | 仅索引 |
 | [ulises-jeremias/agent-toolkit](https://github.com/ulises-jeremias/agent-toolkit) | 16 | 跨助手可组合 Skills/Agents/Loops 工具箱（CLI+市场） | MIT | many | 仅索引 |
 | [human-avatar/skills-for-humanity](https://github.com/human-avatar/skills-for-humanity) | 223 | 171 个结构化推理方法论 Skills（决策/伦理/系统思维等），Show HN 推出 | MIT | 171 | 仅索引 |
+| [irinabuht12-oss/marketing-skills](https://github.com/irinabuht12-oss/marketing-skills) | 1,221 | 48 个免费 Claude 营销技能（Ads/SEO/GEO）并配 Ryze MCP 数据连接 | Unknown | 约 48 | 仅索引 |
+| [michael-denyer/pstack-claude](https://github.com/michael-denyer/pstack-claude) | 256 | Poteto pstack 工作流移植到 Claude Code/Codex/OpenCode/Gemini 的技能与插件集 | Unknown | 多 | 仅索引 |
+| [BZDmathclub/bzd-math-modeling-skills](https://github.com/BZDmathclub/bzd-math-modeling-skills) | 224 | 全国大学生数学建模竞赛全流程 Agent Skills（读题/建模/自查/评审） | Unknown | 约 15 | 仅索引 |
+| [fabricioctelles/skills](https://github.com/fabricioctelles/skills) | 75 | 跨 Kiro/Cursor/Windsurf/Claude/Codex 的可复用 Agent Skills 集合 | Unknown | 多 | 仅索引 |
+| [Unknown-333/awesome-data-engineering-skills](https://github.com/Unknown-333/awesome-data-engineering-skills) | 17 | 数据工程（dbt/Airflow/Spark 等）Agent Skills 精选 | Unknown | 约 36 | 仅索引 |
+| [naderelewa/Product-to-Prod](https://github.com/naderelewa/Product-to-Prod) | 41 | 产品管理全链路 Claude/Codex 技能与插件（PRD/路线图/GTM） | Unknown | 多 | 仅索引 |
+| [ConnorGriffin/skills](https://github.com/ConnorGriffin/skills) | 20 | UI mockup/浏览器验证/Codebase Memory/worktree 等便携编码技能 | Unknown | 多 | 仅索引 |
+| [codejunkie99/x-article-skills](https://github.com/codejunkie99/x-article-skills) | 21 | 研究、写作与打包 X 平台长文的 8 个 Agent Skills | Unknown | 8 | 仅索引 |
+| [aka-kika/akakika-skills](https://github.com/aka-kika/akakika-skills) | 10 | 40 个面向冷静原生软件与 Agent 工作流的 SKILL.md 集合 | Unknown | 40 | 仅索引 |
+| [ommakes/Skills](https://github.com/ommakes/Skills) | 20 | 产品设计向 Claude Skills 集合 | Unknown | 多 | 仅索引 |
+| [fdiblen/rseng-agent-skills](https://github.com/fdiblen/rseng-agent-skills) | 10 | 研究软件工程（RSEng）向 AI coding agents 技能包 | Unknown | 多 | 仅索引 |
+| [62656456/ai-film-skills](https://github.com/62656456/ai-film-skills) | 11 | 影视脚本/分镜/提示词等 19 个独立 Agent Skills | Unknown | 19 | 仅索引 |
+| [dubzeb/awesome-gemini-spark-prompts](https://github.com/dubzeb/awesome-gemini-spark-prompts) | 19 | Gemini/Gems/Workspace 提示与 skills 规格精选 | Unknown | 精选 | 仅索引 |
+| [alebgl77/claude-inc](https://github.com/alebgl77/claude-inc) | 14 | 虚拟公司式 Claude Code：8 部门与 54 份技能手册 | MIT | 约 54 | 仅索引 |
+| [infranodus/skills](https://github.com/infranodus/skills) | 118 | InfraNodus 洞见生成配套的 LLM 思维增强 Skills | Unknown | 多 | 仅索引 |
+| [ai-shifu/skills](https://github.com/ai-shifu/skills) | 11 | AI-Shifu 一对一互动课程创作 Skills | Unknown | 多 | 仅索引 |
+| [songgoldenwind-crypto/liuyao-skills](https://github.com/songgoldenwind-crypto/liuyao-skills) | 26 | 全平台六爻占卜 Agent Skills（Claude/Codex/Cursor 等） | Unknown | 多 | 仅索引 |
+| [minsooparkk/budongsan-skills](https://github.com/minsooparkk/budongsan-skills) | 15 | 韩国房产税费等计算器技能插件（Codex/Claude） | MIT | 约 58 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1160,6 +1179,42 @@
 | [zhu-hailin/cumcm-modeling-analyst](https://github.com/zhu-hailin/cumcm-modeling-analyst) | 17 | CUMCM 数学建模竞赛协作 Skill（读题、求解、验证、论文） | NOASSERTION | 1 | 仅索引 |
 | [aiopshwang/data-analysis-ml-agent-skills](https://github.com/aiopshwang/data-analysis-ml-agent-skills) | 12 | 证据优先的数据分析/ML Agent Skills 套件 | MIT | 7 | 仅索引 |
 | [bitdezi/claude-skill-product-optimize](https://github.com/bitdezi/claude-skill-product-optimize) | 13 | 产品打磨 Skill：主动发现视觉/逻辑/代码质量问题并逐项讨论-实施-验收-提交 | MIT | 1 | 仅索引 |
+| [achimala/dream-loop](https://github.com/achimala/dream-loop) | 378 | 用图像生成目标图+子代理评审闭环做高视觉质量场景的 Agent Skill | Unknown | 1 | 仅索引 |
+| [daishuge/pcb-skill](https://github.com/daishuge/pcb-skill) | 78 | 从创意到可下单 PCB 的 EasyEDA MCP 驱动 Agent Skill | MIT | 1 | 仅索引 |
+| [adand-91/requirement-ledger](https://github.com/adand-91/requirement-ledger) | 117 | 把纠错沉淀为可追溯需求与修复计划的隐私优先反馈 Skill | Unknown | 1 | 仅索引 |
+| [gviiisen/repo-context-ledger](https://github.com/gviiisen/repo-context-ledger) | 105 | 用 Git 保存可验证功能说明，跨会话交接上下文的 Agent Skill | Unknown | 1 | 仅索引 |
+| [nwiizo/oi-owarasero](https://github.com/nwiizo/oi-owarasero) | 98 | 《おい、とりあえず終わらせろ》五步收尾流程的 Claude/Codex Skill | Unknown | 1 | 仅索引 |
+| [guinacio/claude-image-gen](https://github.com/guinacio/claude-image-gen) | 62 | 经 Skills/MCP 调用 Gemini/OpenAI 图像生成 | Unknown | 多 | 仅索引 |
+| [KeWang0622/kaogong-skill](https://github.com/KeWang0622/kaogong-skill) | 56 | 公务员考试（行测/申论/面试）AI 辅导 Agent Skill | Unknown | 多 | 仅索引 |
+| [netresearch/git-workflow-skill](https://github.com/netresearch/git-workflow-skill) | 48 | Git 分支/提交/PR 工作流最佳实践 Agent Skill | Unknown | 1 | 仅索引 |
+| [netresearch/php-modernization-skill](https://github.com/netresearch/php-modernization-skill) | 44 | PHP 8.x 现代化（类型/属性/PHPStan）Agent Skill | Unknown | 1 | 仅索引 |
+| [Jakeschincariol/linkedin-agent-skill](https://github.com/Jakeschincariol/linkedin-agent-skill) | 34 | 运营 LinkedIn 账号的 11 个免费 Claude Skills | Unknown | 11 | 仅索引 |
+| [cth9191/motion-design](https://github.com/cth9191/motion-design) | 34 | 经 Higgsfield 改编运动设计成片的 Codex/Claude Skill | Unknown | 1 | 仅索引 |
+| [CreateLafont/dnr-flat-pic](https://github.com/CreateLafont/dnr-flat-pic) | 16 | 照片转扁平矢量插画的跨平台 Agent Skill | Unknown | 1 | 仅索引 |
+| [hope138/enterprise-ai-project-assessor](https://github.com/hope138/enterprise-ai-project-assessor) | 10 | 企业 AI 立项/POC/试点方案评审 Agent Skill | Unknown | 1 | 仅索引 |
+| [Gracker/Perfetto-Skills](https://github.com/Gracker/Perfetto-Skills) | 25 | Android/Linux/Chromium Perfetto 证据分析便携 Skill | Unknown | 多 | 仅索引 |
+| [Shehabov/pm-resume-builder-skill](https://github.com/Shehabov/pm-resume-builder-skill) | 29 | 产品经理简历 ATS 友好生成 Claude Skill | MIT | 1 | 仅索引 |
+| [javen-wangjunren/elementor-website-skill](https://github.com/javen-wangjunren/elementor-website-skill) | 26 | 用可维护 Elementor 组件规划/搭建 B2B 站点的技能套件 | Unknown | 多 | 仅索引 |
+| [nevertoday/xxd-strip-ai-meta](https://github.com/nevertoday/xxd-strip-ai-meta) | 26 | 批量剥离 AI 溯源与图片元数据的 CLI+Agent Skill | Unknown | 1 | 仅索引 |
+| [ALLENLION35/geo-first-principles](https://github.com/ALLENLION35/geo-first-principles) | 15 | 面向企业负责人的 GEO 第一性原理分析 Skill | Unknown | 1 | 仅索引 |
+| [ahmedyehya92/saas-platform-teardown-kit](https://github.com/ahmedyehya92/saas-platform-teardown-kit) | 14 | 输入 SaaS URL 输出尽调级平台拆解的 Claude Skill | Unknown | 1 | 仅索引 |
+| [DogukanK/claude-pc-cleanup](https://github.com/DogukanK/claude-pc-cleanup) | 14 | macOS 磁盘清理（分级确认）Claude Skill | Unknown | 1 | 仅索引 |
+| [mikefutia/ad-multiplier](https://github.com/mikefutia/ad-multiplier) | 10 | 保留镜头与成片结构仅替换出镜人的视频广告复用 Skill | Unknown | 1 | 仅索引 |
+| [icesixgod/awesome-astra-blender-characters](https://github.com/icesixgod/awesome-astra-blender-characters) | 12 | Blender 角色创建/修复与九视图校验 Agent Skill | Unknown | 1 | 仅索引 |
+| [QingYunA/agent-html](https://github.com/QingYunA/agent-html) | 12 | 零依赖单文件 HTML 设计系统与 Agent Skill | Unknown | 1 | 仅索引 |
+| [qqyumidi/eli5-plus](https://github.com/qqyumidi/eli5-plus) | 11 | 分层可视化独立 HTML 讲解页 Agent Skill | Unknown | 1 | 仅索引 |
+| [enwong93-sketch/video-to-3d](https://github.com/enwong93-sketch/video-to-3d) | 11 | 转台/多视角证据驱动的 Blender 角色重建 Skill | Unknown | 1 | 仅索引 |
+| [fatdog-pro/Comsol-automatic-wwj](https://github.com/fatdog-pro/Comsol-automatic-wwj) | 11 | 真实 COMSOL 计算与 Desktop 可视化的配套 Skill/MCP 环境 | Unknown | 1 | 仅索引 |
+| [Warlord-K/visual-thinking](https://github.com/Warlord-K/visual-thinking) | 20 | 视觉设计与产品视频向 Agent Skill | Unknown | 多 | 仅索引 |
+| [momotarabitch2/write-in-pencil](https://github.com/momotarabitch2/write-in-pencil) | 15 | 把 UI/幻灯/图示探索成铅笔草图的 Agent Skill | Unknown | 1 | 仅索引 |
+| [shir-danishyar/humanize](https://github.com/shir-danishyar/humanize) | 15 | 去除 AI 写作痕迹的双模式 Skill（含确定性检查） | Unknown | 1 | 仅索引 |
+| [uxuiprinciples/agent-skills](https://github.com/uxuiprinciples/agent-skills) | 15 | 五份 UX 评估/气味检测/流程检查 SKILL.md | Unknown | 5 | 仅索引 |
+| [88lin/computer-repair-skill](https://github.com/88lin/computer-repair-skill) | 11 | 跨平台电脑维修诊断 Playbook Agent Skill | Unknown | 约 62 | 仅索引 |
+| [zimodzh/dsh-plugin-dev-skills](https://github.com/zimodzh/dsh-plugin-dev-skills) | 14 | 开发 DeepSeek Harness 插件的 Agent Skill 标准 | Unknown | 1 | 仅索引 |
+| [mcdenil-skills/razbor-servisa](https://github.com/mcdenil-skills/razbor-servisa) | 16 | 把无 API 服务逆向成 Agent 可调用 CLI 的 Claude Skill | Unknown | 1 | 仅索引 |
+| [harebeats/cannonball](https://github.com/harebeats/cannonball) | 10 | 复用既有站点组件再生成的跨 Agent Skills | Unknown | 多 | 仅索引 |
+| [afrozahmad07/excalidraw-board](https://github.com/afrozahmad07/excalidraw-board) | 10 | 从 JSON 规格生成可编辑 Excalidraw 图的 Claude Skill | Unknown | 1 | 仅索引 |
+| [irinabuht12-oss/email-campaigns-claude](https://github.com/irinabuht12-oss/email-campaigns-claude) | 156 | 用 Resend 做 HTML 邮件活动的 Claude Skill | Unknown | 1 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1252,6 +1307,14 @@
 | [mksglu/context-mode](https://github.com/mksglu/context-mode) | 20,840 | 跨 17+ 平台的上下文窗口优化插件：沙箱工具输出、会话记忆与路由，附带一组 ctx-* Agent Skills | Elastic-2.0 | 8 | 仅索引 |
 | [instavm/open-skills](https://github.com/instavm/open-skills) | 452 | 本地沙箱运行 Claude Skills 的 MCP 运行时（原 BandarLabs/open-skills），可导入官方/自定义 SKILL.md | Apache-2.0 | 运行时+示例 | 仅索引 |
 | [avibe-bot/askill](https://github.com/avibe-bot/askill) | 13 | Agent Skills 包管理器（版本/依赖/安全评分），Show HN Askill | MIT | 包管理器 | 仅索引 |
+| [ooocooc/open-skill-sunset](https://github.com/ooocooc/open-skill-sunset) | 87 | 只读审计过期 AGENTS.md/CLAUDE.md/通用 SKILL.md 指令 | Unknown | 工具 | 仅索引 |
+| [netresearch/skill-repo-skill](https://github.com/netresearch/skill-repo-skill) | 18 | 技能仓库结构与多渠道分发指南 Skill | Unknown | 1 | 仅索引 |
+| [lattebbrook/agent-skiller](https://github.com/lattebbrook/agent-skiller) | 28 | 可视化逐步编排 Agent Skills 的开源构建器 | Unknown | 工具 | 仅索引 |
+| [bshea-1/Routed](https://github.com/bshea-1/Routed) | 19 | 跨 AI 编码环境的本地通用 Agent Skills 路由器 | Unknown | 工具 | 仅索引 |
+| [alifurkangokce/driftlint](https://github.com/alifurkangokce/driftlint) | 40 | 检测 CLAUDE.md/AGENTS.md/skills 声明与代码漂移的零配置检查器 | Unknown | 工具 | 仅索引 |
+| [jameskomo/config-drift-checker](https://github.com/jameskomo/config-drift-checker) | 20 | Claude Code 配置（CLAUDE.md/skills/hooks）漂移与回归 CI | Unknown | 工具 | 仅索引 |
+| [Hannay001/lockkeeper](https://github.com/Hannay001/lockkeeper) | 14 | 跨 Claude/Codex/Cursor 的能力路由与注入防火墙 | Unknown | 工具 | 仅索引 |
+| [beautyfree/skiller](https://github.com/beautyfree/skiller) | 46 | 跨 Claude/Cursor/Codex 的桌面 Skills 管理器 | Unknown | 工具 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
