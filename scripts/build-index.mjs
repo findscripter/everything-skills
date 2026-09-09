@@ -1,3 +1,1 @@
-#!/usr/bin/env node
-// PLACEHOLDER_WILL_REPLACE
-console.log('graph redraw pending');
+file:///workspace/es-graph-redraw/out/build-index.mjs
