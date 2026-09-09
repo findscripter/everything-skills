@@ -1,1 +1,1 @@
-PLACEHOLDER
+@/workspace/es-graph-redraw/out/build-index.mjs
