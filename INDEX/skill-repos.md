@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1386 个独立仓库（另注明更名别名）
+- 收录条数：1428 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -207,6 +207,7 @@
 | [zoom/skills](https://github.com/zoom/skills) | 74 | Zoom 开发平台官方 Skills（REST/SDK/MCP 路由） | MIT | 20+ | 仅索引 |
 | [cashfree/agent-skills](https://github.com/cashfree/agent-skills) | 20 | Cashfree 支付集成 Agent Skills（npx 安装多框架） | MIT | 20+ | 仅索引 |
 | [publora/skills](https://github.com/publora/skills) | 47 | Publora 官方社交发帖/排期 Agent Skills（经 MCP） | Unknown | 9 | 仅索引 |
+| [heygen-com/hyperframes-community-skills](https://github.com/heygen-com/hyperframes-community-skills) | 67 | HeyGen HyperFrames 社区维护工作流 Skills | Unknown | 若干 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -527,6 +528,28 @@
 | [ai-shifu/skills](https://github.com/ai-shifu/skills) | 11 | AI-Shifu 一对一互动课程创作 Skills | Unknown | 多 | 仅索引 |
 | [songgoldenwind-crypto/liuyao-skills](https://github.com/songgoldenwind-crypto/liuyao-skills) | 26 | 全平台六爻占卜 Agent Skills（Claude/Codex/Cursor 等） | Unknown | 多 | 仅索引 |
 | [minsooparkk/budongsan-skills](https://github.com/minsooparkk/budongsan-skills) | 15 | 韩国房产税费等计算器技能插件（Codex/Claude） | MIT | 约 58 | 仅索引 |
+| [bam-bam-2/solo-skills](https://github.com/bam-bam-2/solo-skills) | 362 | 一人公司生产力：26 个可安装 Agent Skills（韩语） | Unknown | 多 | 仅索引 |
+| [JayLZhou/Awesome-Agent-Skills](https://github.com/JayLZhou/Awesome-Agent-Skills) | 144 | Agent Skills 精选列表 | Unknown | 多 | 仅索引 |
+| [idiotLeoLYJ/Daliu-Awesome-Skills](https://github.com/idiotLeoLYJ/Daliu-Awesome-Skills) | 132 | 大刘自建高质量 Skills 合集 | Unknown | 约 17 | 仅索引 |
+| [smvlx/awesome-ru-ai-skills](https://github.com/smvlx/awesome-ru-ai-skills) | 74 | 俄罗斯本地服务集成向 AI Agent Skills | Unknown | 多 | 仅索引 |
+| [keyuyuan/skillhub-awesome-skills](https://github.com/keyuyuan/skillhub-awesome-skills) | 73 | Skillhub.club 策展 Awesome Skills | Unknown | 多 | 仅索引 |
+| [kael-odin/awesome-academic-research-skills](https://github.com/kael-odin/awesome-academic-research-skills) | 72 | 中文学术科研 Agent Skill 日更排行榜 | Unknown | 多 | 仅索引 |
+| [mkanat/skills](https://github.com/mkanat/skills) | 69 | Max Kanat-Alexander 代码质量 Agent Skills | Unknown | 多 | 仅索引 |
+| [dsebban/skills](https://github.com/dsebban/skills) | 60 | OMP/pstack 多 Agent 编排技能集 | Unknown | 多 | 仅索引 |
+| [patrick-fu/awesome-skills](https://github.com/patrick-fu/awesome-skills) | 58 | Patrick 公开发布的实用 Skills 合集 | Unknown | 多 | 仅索引 |
+| [gmh5225/awesome-skills](https://github.com/gmh5225/awesome-skills) | 48 | 跨平台 Agent Skills 资源精选 | Unknown | 若干 | 仅索引 |
+| [yzfly/awesome-skills-zh](https://github.com/yzfly/awesome-skills-zh) | 41 | Claude/Agent Skills 中文精选列表 | Unknown | 约 20 | 仅索引 |
+| [maxvaega/awesome-skills](https://github.com/maxvaega/awesome-skills) | 40 | 可复用 Agent Skills 精选 | Unknown | 若干 | 仅索引 |
+| [h4vzz/awesome-ai-agent-skills](https://github.com/h4vzz/awesome-ai-agent-skills) | 34 | 70+ 跨平台 AI Agent Skills | Unknown | 若干 | 仅索引 |
+| [johnqtcg/awesome-skills](https://github.com/johnqtcg/awesome-skills) | 30 | 带评测报告的生产级 Claude Code Skills | Unknown | 约 51 | 仅索引 |
+| [fabricioctelles/jump-skills](https://github.com/fabricioctelles/jump-skills) | 28 | Jump Skill Ninjas：路由到专项技能的元技能库 | Unknown | 若干 | 仅索引 |
+| [ningzimu/awesome-skills](https://github.com/ningzimu/awesome-skills) | 25 | 实用 AI Agent Skills 精选 | Unknown | 若干 | 仅索引 |
+| [O0000-code/awesome-academic-skills](https://github.com/O0000-code/awesome-academic-skills) | 24 | 学术全流程 Claude/Agent Skills 索引 | Unknown | 多 | 仅索引 |
+| [cuic19053-hue/awesome-student-ai-skills](https://github.com/cuic19053-hue/awesome-student-ai-skills) | 17 | 大学生竞赛立项等 35 个 AI Skills | Unknown | 约 35 | 仅索引 |
+| [StudentSuite/awesome-skills-plugins-for-students](https://github.com/StudentSuite/awesome-skills-plugins-for-students) | 16 | 面向学生的 Skills/插件精选 | Unknown | 约 9 | 仅索引 |
+| [FridrichMethod/awesome-skills](https://github.com/FridrichMethod/awesome-skills) | 15 | 生物信息/学术写作等 Skills 自动同步合集 | Unknown | 多 | 仅索引 |
+| [ashish7802/awesome-api-skills](https://github.com/ashish7802/awesome-api-skills) | 13 | 面向 API 开发的可安装 Agent Skills | Unknown | 多 | 仅索引 |
+| [cooler333/cool-claude-code](https://github.com/cooler333/cool-claude-code) | 10 | Claude Code 与 Agent 工具精选 | Unknown | 若干 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1215,6 +1238,23 @@
 | [harebeats/cannonball](https://github.com/harebeats/cannonball) | 10 | 复用既有站点组件再生成的跨 Agent Skills | Unknown | 多 | 仅索引 |
 | [afrozahmad07/excalidraw-board](https://github.com/afrozahmad07/excalidraw-board) | 10 | 从 JSON 规格生成可编辑 Excalidraw 图的 Claude Skill | Unknown | 1 | 仅索引 |
 | [irinabuht12-oss/email-campaigns-claude](https://github.com/irinabuht12-oss/email-campaigns-claude) | 156 | 用 Resend 做 HTML 邮件活动的 Claude Skill | Unknown | 1 | 仅索引 |
+| [jaccen/Awesome-Gaussian-Skills](https://github.com/jaccen/Awesome-Gaussian-Skills) | 149 | 3DGS/NeRF/图形学科研 Agent Skills | Unknown | 约 12 | 仅索引 |
+| [fallow-rs/fallow-skills](https://github.com/fallow-rs/fallow-skills) | 121 | fallow 代码库智能（死代码/复杂度）Agent Skills | Unknown | 多 | 仅索引 |
+| [xjli360/sealeap-amazon-ad-skills](https://github.com/xjli360/sealeap-amazon-ad-skills) | 86 | 亚马逊广告/Listing/AMC 等垂直 Agent Skills | Unknown | 若干 | 仅索引 |
+| [appeeky/ua-skills](https://github.com/appeeky/ua-skills) | 55 | 移动应用付费增长 UA Agent Skills（APPEEKY） | Unknown | 约 24 | 仅索引 |
+| [Tranz007/ux-skills](https://github.com/Tranz007/ux-skills) | 41 | 面向 UX 设计师的 Agent Skills | Unknown | 若干 | 仅索引 |
+| [RandalSchwartz/dart-sdk-skills](https://github.com/RandalSchwartz/dart-sdk-skills) | 29 | Dart/Flutter SDK 与迁移相关 Agent Skills | Unknown | 若干 | 仅索引 |
+| [K-Dense-AI/drug-discovery-agent-skills](https://github.com/K-Dense-AI/drug-discovery-agent-skills) | 25 | 小分子/蛋白药物发现 Agent Skills | Unknown | 约 37 | 仅索引 |
+| [PranavNagrecha/AwesomeSalesforceSkills](https://github.com/PranavNagrecha/AwesomeSalesforceSkills) | 17 | Salesforce 知识层 Skills/MCP 大包 | Unknown | 约 1000 | 仅索引 |
+| [XPOZpublic/xpoz-agent-skills](https://github.com/XPOZpublic/xpoz-agent-skills) | 15 | 社交媒体情报 Xpoz Agent Skills | Unknown | 若干 | 仅索引 |
+| [l2461090/Literature-monitor-skills](https://github.com/l2461090/Literature-monitor-skills) | 14 | 课题组文献监控与周报 Skills | Unknown | 若干 | 仅索引 |
+| [seoskillsai/seo-skills-ai](https://github.com/seoskillsai/seo-skills-ai) | 14 | 跨工具 SEO/技术优化 Agent Skills | Unknown | 约 20 | 仅索引 |
+| [gongyijie85/mattpocock-skills-dsh](https://github.com/gongyijie85/mattpocock-skills-dsh) | 13 | mattpocock/skills 的 DSH 适配版 | Unknown | 约 4 | 仅索引 |
+| [JunSeo99/claude-skill-codex-imagegen](https://github.com/JunSeo99/claude-skill-codex-imagegen) | 12 | Claude Code 借 Codex 做图像生成/编辑 Skill | Unknown | 约 3 | 仅索引 |
+| [sixblade325/WaterHand-Processor-Development-Skills](https://github.com/sixblade325/WaterHand-Processor-Development-Skills) | 12 | Chisel/RISC-V 处理器开发 Codex Skills | Unknown | 若干 | 仅索引 |
+| [ConnorRX56/presentation-delivery-skills](https://github.com/ConnorRX56/presentation-delivery-skills) | 11 | 一句话生成可编辑 PPTX 的演示 Skills | Unknown | 若干 | 仅索引 |
+| [msdanyg/humanize-pro](https://github.com/msdanyg/humanize-pro) | 11 | 去 AI 痕迹并按渠道改写的 Claude Skill | Unknown | 若干 | 仅索引 |
+| [SPYfighting/my-academic-skills](https://github.com/SPYfighting/my-academic-skills) | 11 | 学术研究用 Claude/Codex/OpenCode Skills | Unknown | 约 4 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1315,6 +1355,8 @@
 | [jameskomo/config-drift-checker](https://github.com/jameskomo/config-drift-checker) | 20 | Claude Code 配置（CLAUDE.md/skills/hooks）漂移与回归 CI | Unknown | 工具 | 仅索引 |
 | [Hannay001/lockkeeper](https://github.com/Hannay001/lockkeeper) | 14 | 跨 Claude/Codex/Cursor 的能力路由与注入防火墙 | Unknown | 工具 | 仅索引 |
 | [beautyfree/skiller](https://github.com/beautyfree/skiller) | 46 | 跨 Claude/Cursor/Codex 的桌面 Skills 管理器 | Unknown | 工具 | 仅索引 |
+| [costiash/claude-code-docs](https://github.com/costiash/claude-code-docs) | 50 | Claude 官方文档按需拉取插件/Skill | Unknown | 多 | 仅索引 |
+| [minivv/dsh-agent-skills](https://github.com/minivv/dsh-agent-skills) | 14 | DeepSeek Harness 内发现/管理 Agent Skills | Unknown | 约 4 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
