@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1386 个独立仓库（另注明更名别名）
+- 收录条数：1427 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -207,6 +207,17 @@
 | [zoom/skills](https://github.com/zoom/skills) | 74 | Zoom 开发平台官方 Skills（REST/SDK/MCP 路由） | MIT | 20+ | 仅索引 |
 | [cashfree/agent-skills](https://github.com/cashfree/agent-skills) | 20 | Cashfree 支付集成 Agent Skills（npx 安装多框架） | MIT | 20+ | 仅索引 |
 | [publora/skills](https://github.com/publora/skills) | 47 | Publora 官方社交发帖/排期 Agent Skills（经 MCP） | Unknown | 9 | 仅索引 |
+| [microsoft/hve-core](https://github.com/microsoft/hve-core) | 1,446 | 微软 Hypervelocity Engineering：面向 GitHub Copilot 的指令/提示/代理/技能组件集 | MIT | 多 | 仅索引 |
+| [EpicGames/unreal-engine-skills-for-claude-code-plugin](https://github.com/EpicGames/unreal-engine-skills-for-claude-code-plugin) | 275 | Epic 官方 Unreal Editor Claude Code 插件：unreal-mcp 技能 + 30+ MCP toolset | Unknown | 约 1+ | 仅索引 |
+| [matlab/agent-skills-playground](https://github.com/matlab/agent-skills-playground) | 176 | MathWorks MATLAB/Simulink Agent Skills 实验沙箱（官方 playground） | Unknown | 多 | 仅索引 |
+| [slackapi/slack-skills-plugin](https://github.com/slackapi/slack-skills-plugin) | 127 | Slack 官方技能插件：Slack MCP + Developer Skills，兼容 Claude/Codex/Cursor | MIT | 多 | 仅索引 |
+| [pulumi/agent-skills](https://github.com/pulumi/agent-skills) | 68 | Pulumi 官方 IaC Agent Skills：迁移/密钥/代码转换等 agentskills.io 技能 | Apache-2.0 | 多 | 仅索引 |
+| [catalystbyzoho/agent-skills](https://github.com/catalystbyzoho/agent-skills) | 60 | Zoho Catalyst 官方 Agent Skills：部署就绪代码与 Zoho MCP 基础设施 | Unknown | 多 | 仅索引 |
+| [huaweicloud/huaweicloud-devkit](https://github.com/huaweicloud/huaweicloud-devkit) | 47 | 华为云官方 AI 代理 DevKit：云知识技能 + KooCLI + 安全护栏 | Apache-2.0 | 多 | 仅索引 |
+| [AgentEra/Agently-Skills](https://github.com/AgentEra/Agently-Skills) | 26 | Agently 框架官方 Agent Skills 集合 | Unknown | 多 | 仅索引 |
+| [ultralytics/skills](https://github.com/ultralytics/skills) | 20 | Ultralytics 官方 YOLO Agent Skills：训练/推理/跟踪/导出 | AGPL-3.0 | 约 12 | 仅索引 |
+| [kestra-io/agent-skills](https://github.com/kestra-io/agent-skills) | 18 | Kestra 官方工作流编排 Agent Skills 集合 | Unknown | 约 10 | 仅索引 |
+| [preset-io/agent-skills](https://github.com/preset-io/agent-skills) | 11 | Preset/Superset 官方 BI Agent Skills（含 Snowflake Cortex） | Unknown | 约 8 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -527,6 +538,15 @@
 | [ai-shifu/skills](https://github.com/ai-shifu/skills) | 11 | AI-Shifu 一对一互动课程创作 Skills | Unknown | 多 | 仅索引 |
 | [songgoldenwind-crypto/liuyao-skills](https://github.com/songgoldenwind-crypto/liuyao-skills) | 26 | 全平台六爻占卜 Agent Skills（Claude/Codex/Cursor 等） | Unknown | 多 | 仅索引 |
 | [minsooparkk/budongsan-skills](https://github.com/minsooparkk/budongsan-skills) | 15 | 韩国房产税费等计算器技能插件（Codex/Claude） | MIT | 约 58 | 仅索引 |
+| [almendili/skills](https://github.com/almendili/skills) | 382 | 可移植 SKILL.md 技能包（含 architecture-map 等） | Unknown | 约 1+ | 仅索引 |
+| [aapersh/strategy-skills-for-claude](https://github.com/aapersh/strategy-skills-for-claude) | 313 | 21 个战略咨询独立 Claude Skills（六大咨询域） | Unknown | 约 21 | 仅索引 |
+| [Misaka-Mikoto-Tech/agent-skills](https://github.com/Misaka-Mikoto-Tech/agent-skills) | 261 | Codex 向可复用 Agent Skills（含安全 PowerShell 等） | Unknown | 约 7 | 仅索引 |
+| [yonatangross/orchestkit](https://github.com/yonatangross/orchestkit) | 229 | Claude Code 完整开发工具包：约 107 skills / 36 agents / 171 hooks | MIT | 约 107 | 仅索引 |
+| [YiShu5/claude-skills](https://github.com/YiShu5/claude-skills) | 83 | 产品/内容/写作/演示与工作流自动化实战编码代理技能 | Unknown | 多 | 仅索引 |
+| [lovstudio/skills](https://github.com/lovstudio/skills) | 65 | Lovstudio Claude Code 技能生态总索引（CJK/文档转换等） | Unknown | 多 | 仅索引 |
+| [maxedapps/agent-skills](https://github.com/maxedapps/agent-skills) | 58 | Maxed Apps 可安装技能：测试/评审/计划/报告/造技能等 | MIT | 约 10+ | 仅索引 |
+| [rustyrazorblade/skills](https://github.com/rustyrazorblade/skills) | 43 | Jon Haddad 数据库理解与 AI 驱动开发 Claude Skills | Unknown | 约 6+ | 仅索引 |
+| [etr/groundwork](https://github.com/etr/groundwork) | 42 | Groundwork：Claude/Codex 规划·设计·TDD·调试技能库（30+） | Unknown | 约 30+ | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1215,6 +1235,22 @@
 | [harebeats/cannonball](https://github.com/harebeats/cannonball) | 10 | 复用既有站点组件再生成的跨 Agent Skills | Unknown | 多 | 仅索引 |
 | [afrozahmad07/excalidraw-board](https://github.com/afrozahmad07/excalidraw-board) | 10 | 从 JSON 规格生成可编辑 Excalidraw 图的 Claude Skill | Unknown | 1 | 仅索引 |
 | [irinabuht12-oss/email-campaigns-claude](https://github.com/irinabuht12-oss/email-campaigns-claude) | 156 | 用 Resend 做 HTML 邮件活动的 Claude Skill | Unknown | 1 | 仅索引 |
+| [EverettFish/holo-card-studio](https://github.com/EverettFish/holo-card-studio) | 1,335 | Codex Skill：一句话生成可交互 3D 全息闪卡（Blender+Three.js） | Unknown | 1 | 仅索引 |
+| [kajisho5/ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | 936 | 本地 FFmpeg 视频编辑 Agent Skill（Claude/Cursor/Codex/MCP） | Unknown | 1 | 仅索引 |
+| [larashero3-dotcom/lieflat-gongwen](https://github.com/larashero3-dotcom/lieflat-gongwen) | 739 | 102 万字语料蒸馏的中文公文写作 Skill（7 类文体） | Unknown | 1 | 仅索引 |
+| [Vincentwei1021/anything2explainer](https://github.com/Vincentwei1021/anything2explainer) | 713 | 主题→Remotion 讲解视频 Skill（TTS/字幕/章节进度条） | Unknown | 1 | 仅索引 |
+| [larashero3-dotcom/lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone) | 712 | 283 万字语料统计的去 AI 味写作 Skill | Unknown | 1 | 仅索引 |
+| [jtydhr88/screenwriting-skills](https://github.com/jtydhr88/screenwriting-skills) | 568 | 编剧/剧本创作向 Agent Skills 包 | Unknown | 多 | 仅索引 |
+| [carnot-tech/consulting-pptx-skill](https://github.com/carnot-tech/consulting-pptx-skill) | 434 | 咨询级 PPTX 生成 Claude Skill（62 型幻灯片规格+校验） | Unknown | 1 | 仅索引 |
+| [mizzlelover/gongwen-gbt9704-skill](https://github.com/mizzlelover/gongwen-gbt9704-skill) | 335 | 按 GB/T 9704-2012 生成可编辑公文 DOCX 的跨平台 Skill | Unknown | 1 | 仅索引 |
+| [vaibhavarora14/job-application-agent](https://github.com/vaibhavarora14/job-application-agent) | 145 | 隐私优先求职申请 Codex/Claude Skill（发现/填表/跟踪） | Unknown | 约 9 | 仅索引 |
+| [viettranx/3dviz-pro-max](https://github.com/viettranx/3dviz-pro-max) | 136 | 创意 3D 可视化 Agent Skill（Three.js/Blender，含配方与知识库） | MIT | 1 | 仅索引 |
+| [unclecatvn/agent-skills](https://github.com/unclecatvn/agent-skills) | 132 | Odoo 开发与专业工作流 AI 技能包（CLI 可装） | MIT | 多 | 仅索引 |
+| [jaakla/openmapstack-skills](https://github.com/jaakla/openmapstack-skills) | 69 | 可复现 GIS 分析 Agent Skill（OSM/STAC/DuckDB/PostGIS/MapLibre） | Unknown | 多 | 仅索引 |
+| [gl0bal01/malware-analysis-claude-skills](https://github.com/gl0bal01/malware-analysis-claude-skills) | 46 | 蓝队恶意软件分析 Claude Skills（分诊/动态分析/检测工程/报告） | Unknown | 约 5 | 仅索引 |
+| [CBirkbeck/mathlib-quality](https://github.com/CBirkbeck/mathlib-quality) | 33 | Lean 4/mathlib 代码质量与 golf Claude Code 技能插件 | Unknown | 多 | 仅索引 |
+| [DailybotHQ/deepworkplan-skill](https://github.com/DailybotHQ/deepworkplan-skill) | 20 | 可恢复多小时 Deep Work Plan 的可安装 Agent Skill（Markdown-only） | MIT | 约 12 | 仅索引 |
+| [jeffy-Peng/jeffy-skills](https://github.com/jeffy-Peng/jeffy-skills) | 20 | 可追溯深度研究与职场消息写作个人 Skill 仓（npx skills add） | Unknown | 2 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1315,6 +1351,11 @@
 | [jameskomo/config-drift-checker](https://github.com/jameskomo/config-drift-checker) | 20 | Claude Code 配置（CLAUDE.md/skills/hooks）漂移与回归 CI | Unknown | 工具 | 仅索引 |
 | [Hannay001/lockkeeper](https://github.com/Hannay001/lockkeeper) | 14 | 跨 Claude/Codex/Cursor 的能力路由与注入防火墙 | Unknown | 工具 | 仅索引 |
 | [beautyfree/skiller](https://github.com/beautyfree/skiller) | 46 | 跨 Claude/Cursor/Codex 的桌面 Skills 管理器 | Unknown | 工具 | 仅索引 |
+| [Gentleman-Programming/gentle-ai](https://github.com/Gentleman-Programming/gentle-ai) | 6,620 | 跨代理工程环境配置器：持久记忆/Spec-DD/精选技能/MCP/人设 | MIT | 多 | 仅索引 |
+| [romiluz13/cc10x](https://github.com/romiluz13/cc10x) | 164 | Claude Code Loop Engine：1 路由·9 代理·16 skills·4 工作流 | Unknown | 约 16 | 仅索引 |
+| [DFKHelper/token-goat](https://github.com/DFKHelper/token-goat) | 113 | 跨代理 Token 优化与提示注入防护 hooks/skills（Claude/Codex/Copilot 等） | Unknown | 多 | 仅索引 |
+| [orziz/odai](https://github.com/orziz/odai) | 110 | 证据驱动任务治理框架，附可安装 odai Agent Skills | Unknown | 多 | 仅索引 |
+| [andersonamaral2/Claude-Code-to-Deep-Agents-Skills-Converter](https://github.com/andersonamaral2/Claude-Code-to-Deep-Agents-Skills-Converter) | 57 | 通用 SKILL.md 转换器（Claude↔Deep Agents↔Codex↔Cursor 等） | MIT | 工具 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
