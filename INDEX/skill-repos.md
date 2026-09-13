@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1469 个独立仓库（另注明更名别名）
+- 收录条数：1501 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -219,6 +219,9 @@
 | [ultralytics/skills](https://github.com/ultralytics/skills) | 20 | Ultralytics 官方 YOLO Agent Skills：训练/推理/跟踪/导出 | AGPL-3.0 | 约 12 | 仅索引 |
 | [kestra-io/agent-skills](https://github.com/kestra-io/agent-skills) | 18 | Kestra 官方工作流编排 Agent Skills 集合 | Unknown | 约 10 | 仅索引 |
 | [preset-io/agent-skills](https://github.com/preset-io/agent-skills) | 11 | Preset/Superset 官方 BI Agent Skills（含 Snowflake Cortex） | Unknown | 约 8 | 仅索引 |
+| [vmware-skills/VMware-AIops](https://github.com/vmware-skills/VMware-AIops) | 72 | VMware vCenter/ESXi 监控与运维 Claude Skills（monitor + aiops） | MIT | 4 | 仅索引 |
+| [vmware-skills/VMware-Monitor](https://github.com/vmware-skills/VMware-Monitor) | 12 | 只读 VMware vCenter/ESXi 监控 Skill（强制只读安全） | MIT | 4 | 仅索引 |
+| [scenario-labs/skills](https://github.com/scenario-labs/skills) | 11 | Scenario 官方：图像/视频/音频/纹理/3D 工作流 Agent Skills | MIT | 61 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -570,6 +573,14 @@
 | [maxedapps/agent-skills](https://github.com/maxedapps/agent-skills) | 58 | Maxed Apps 可安装技能：测试/评审/计划/报告/造技能等 | MIT | 约 10+ | 仅索引 |
 | [rustyrazorblade/skills](https://github.com/rustyrazorblade/skills) | 43 | Jon Haddad 数据库理解与 AI 驱动开发 Claude Skills | Unknown | 约 6+ | 仅索引 |
 | [etr/groundwork](https://github.com/etr/groundwork) | 42 | Groundwork：Claude/Codex 规划·设计·TDD·调试技能库（30+） | Unknown | 约 30+ | 仅索引 |
+| [chujianyun/skills](https://github.com/chujianyun/skills) | 733 | 无名（WuMing）的 Claude Skills 合集 | Unknown | 31 | 仅索引 |
+| [naveedharri/benai-skills](https://github.com/naveedharri/benai-skills) | 61 | benai Claude/Agent Skills 合集 | MIT | 11 | 仅索引 |
+| [drayline/rootnode-skills](https://github.com/drayline/rootnode-skills) | 40 | 27 个诊断/构建/优化 Claude 环境各架构层的 Skills | Apache-2.0 | 27 | 仅索引 |
+| [tenequm/skills](https://github.com/tenequm/skills) | 36 | 构建、发布与增长软件产品的 Agent Skills | MIT | 约 1+ | 仅索引 |
+| [transcendr/slopware-skills](https://github.com/transcendr/slopware-skills) | 36 | Slopware 便携 Agent Skills/插件（MSW Kernel / Minimum Sufficient Work） | Unknown | 8 | 仅索引 |
+| [shipshitdev/skills](https://github.com/shipshitdev/skills) | 35 | Claude / Cursor / Codex 技能与命令合集 | Unknown | 188 | 仅索引 |
+| [starslingdev/skills](https://github.com/starslingdev/skills) | 20 | StarSling 出品的 Agent Skills | MIT | 5 | 仅索引 |
+| [bradfrost/skills](https://github.com/bradfrost/skills) | 11 | Brad Frost 工作与生活向 Agent Skills | MIT | 12 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1291,6 +1302,27 @@
 | [CBirkbeck/mathlib-quality](https://github.com/CBirkbeck/mathlib-quality) | 33 | Lean 4/mathlib 代码质量与 golf Claude Code 技能插件 | Unknown | 多 | 仅索引 |
 | [DailybotHQ/deepworkplan-skill](https://github.com/DailybotHQ/deepworkplan-skill) | 20 | 可恢复多小时 Deep Work Plan 的可安装 Agent Skill（Markdown-only） | MIT | 约 12 | 仅索引 |
 | [jeffy-Peng/jeffy-skills](https://github.com/jeffy-Peng/jeffy-skills) | 20 | 可追溯深度研究与职场消息写作个人 Skill 仓（npx skills add） | Unknown | 2 | 仅索引 |
+| [AgriciDaniel/codex-seo](https://github.com/AgriciDaniel/codex-seo) | 707 | Codex 优先 SEO 技能套件：26 工作流 + TOML agents 与数据集成 | MIT | 26 | 仅索引 |
+| [adrianpunk/punk-ip-illustrations](https://github.com/adrianpunk/punk-ip-illustrations) | 188 | 个人 IP 文章配图 Agent Skill | MIT | 多 | 仅索引 |
+| [ojiudezue/productmind-skills](https://github.com/ojiudezue/productmind-skills) | 76 | 产品思维与工程严谨结合的开源 Claude Code skills | Unknown | 约 1+ | 仅索引 |
+| [k7cfo/remove-your-data](https://github.com/k7cfo/remove-your-data) | 51 | 从数据经纪商删除个人数据的 Agent-first Skill | AGPL-3.0 | 约 1+ | 仅索引 |
+| [LycheeAILab/avatar-forge](https://github.com/LycheeAILab/avatar-forge) | 46 | 人物图+参考声+口播稿 → 数字人口播视频的开源 Agent Skill | MIT | 多 | 仅索引 |
+| [newbanser/pristine-skill](https://github.com/newbanser/pristine-skill) | 41 | First-Time Principle 元技能：每次重生按首次原则开工 | MIT | 约 1+ | 仅索引 |
+| [MoizIbnYousaf/marketing-cli](https://github.com/MoizIbnYousaf/marketing-cli) | 31 | Agent-native 营销 CLI：76 skills + 研究/审阅 agents | MIT | 76 | 仅索引 |
+| [ptreezh/sscisubagent-skills](https://github.com/ptreezh/sscisubagent-skills) | 28 | 中文社会科学研究 Subagent 与 Skills 集合 | Unknown | 66 | 仅索引 |
+| [fourleaf13-hue/decision-first-dashboard](https://github.com/fourleaf13-hue/decision-first-dashboard) | 23 | 把 KPI 仪表盘改成决策优先仪表盘的 Agent Skill | MIT | 约 1+ | 仅索引 |
+| [zxc663/shisan-xinuo-workflow](https://github.com/zxc663/shisan-xinuo-workflow) | 23 | 十三希诺可审计工程治理 Skill（三级跑道与渐进披露） | MIT | 约 1+ | 仅索引 |
+| [sunniie/nexcanvas-drawio](https://github.com/sunniie/nexcanvas-drawio) | 22 | 可编辑、证据锚定的 Draw.io 架构图 Agent Skill | MIT | 20 | 仅索引 |
+| [autolab-ai/hills](https://github.com/autolab-ai/hills) | 19 | 为每个问题创建 hill-to-climb 的 agentic skill | MIT | 约 1+ | 仅索引 |
+| [riekelt/technical-writer](https://github.com/riekelt/technical-writer) | 16 | 工程写作技能：规格、ADR、changelog、runbook、迁移指南 | MIT | 12 | 仅索引 |
+| [Abolfazlshahi/claude-capability-bridge-skill](https://github.com/Abolfazlshahi/claude-capability-bridge-skill) | 15 | 教自定义模型发现/使用 Claude Desktop 工具的程序性 Skill | MIT | 20 | 仅索引 |
+| [andykear/FileMaker-XMLsnippet-Layout-Claude-Skill](https://github.com/andykear/FileMaker-XMLsnippet-Layout-Claude-Skill) | 15 | FileMaker 布局 XML 逆向规格 + 可粘贴布局生成 Claude Skill | Unknown | 约 1+ | 仅索引 |
+| [ilyautov/small-business-ru](https://github.com/ilyautov/small-business-ru) | 15 | 俄罗斯小企业税务/现金流/对手方核查等 34 个开源 AI skills | Apache-2.0 | 34 | 仅索引 |
+| [product-on-purpose/thinking-framework-skills](https://github.com/product-on-purpose/thinking-framework-skills) | 15 | 63 个证据分级、可执行的思维框架 Agent Skills | Apache-2.0 | 63 | 仅索引 |
+| [scrollmark/social-skills](https://github.com/scrollmark/social-skills) | 15 | 理解社交媒体的 Claude Code skills | MIT | 约 1+ | 仅索引 |
+| [ejklock/living-docs-skill](https://github.com/ejklock/living-docs-skill) | 13 | 文档即活系统：constitution/ADR/PRD 治理不漂移 Skill | MIT | 5 | 仅索引 |
+| [gxCaesar/open-research-skills](https://github.com/gxCaesar/open-research-skills) | 11 | 科研全流程十个可独立安装的 agent skills（论文/绘图/基金等） | Apache-2.0 | 10 | 仅索引 |
+| [wyuzhi/qisi-video-remix](https://github.com/wyuzhi/qisi-video-remix) | 10 | 视频创意改编 Agent Skill：参考视频→剧本→分镜→提示词 | MIT | 2 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
