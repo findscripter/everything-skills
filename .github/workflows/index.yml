@@ -1,0 +1,37 @@
+name: index
+on:
+  pull_request:
+  push:
+    branches: [main, en]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/build-index.mjs
+      - run: node scripts/build-skill-repos.mjs
+      - name: Refresh README skill-repos directory
+        run: |
+          if [ "${{ github.base_ref }}" = "en" ] || [ "${{ github.ref_name }}" = "en" ] || grep -q "## Skill repos directory" README.md; then
+            node scripts/refresh-readme-skill-repos-directory.mjs --lang=en
+          else
+            node scripts/refresh-readme-skill-repos-directory.mjs
+          fi
+      - name: Commit regenerated indexes if dirty
+        run: |
+          if git diff --quiet -- INDEX/skill-repos.md README.md; then
+            echo "INDEX/skill-repos.md and README.md already match jsonl"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add INDEX/skill-repos.md README.md
+          git commit -m "chore: regenerate INDEX + README skill-repos directory from jsonl [skip ci]"
+          git push
