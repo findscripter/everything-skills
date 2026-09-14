@@ -1,66 +1,63 @@
-# 技能大典 · Everything Skills
+# Everything Skills
 
-> 一部面向 **AI Agent** 的技能类书。事以类聚，技以互见。
+> An encyclopedic, cross-linked **skill library for AI agents**. Skills cluster by kind; techniques cross-reference each other.
 >
-> 收录可被 Claude Code / Codex / Cursor / Gemini CLI 等智能体直接加载的 `SKILL.md` 技能包，
-> 以中国传统**类书**的「分类 + 互见 + 索引」思想组织，但把实现换成了今天真正能 scale 的形态。
-
-> **一键安装**：在 Claude Code 里运行 `/plugin marketplace add findscripter/everything-skills`，即可浏览、按卷分装 11 个插件。也提供 `AGENTS.md` / `GEMINI.md`（+ `gemini-extension.json`）/ `CLAUDE.md` 同源上下文，供 Codex / Gemini CLI / Cursor 等发现使用。
+> Curated `SKILL.md` packages loadable by Claude Code / Codex / Cursor / Gemini CLI and similar agents — organized like a classical **leishu** (encyclopedia: taxonomy + cross-references + indexes), implemented for scale.
 >
-> **中文优先**：全库技能均为中文——这是以英文为主的技能生态里少见的体系化中文技能库。
+> **Install**: in Claude Code run `/plugin marketplace add findscripter/everything-skills` to browse and install 11 volume plugins. Multi-harness context files (`AGENTS.md` / `GEMINI.md` + `gemini-extension.json` / `CLAUDE.md`) help Codex / Gemini CLI / Cursor discover the same tree.
 >
-> 本库 1108 条中文技能；另索引 **1567** 个外部 GitHub 技能库（只读 README）。
+> **Language**: repository chrome on `main` is **English**; each `SKILL.md` stays in its **native/original language**. Chinese chrome edition: [`zh`](https://github.com/findscripter/everything-skills/tree/zh). Full English skill mirror on `en` is **deprecated** — see [LANGUAGE.md](LANGUAGE.md).
 >
-> **English version** — a full English tree mirrors this library 1-to-1 (same `name`, same cross-references) on the [`en`](https://github.com/findscripter/everything-skills/tree/en) branch. Where an upstream English original exists, the English tree **reuses it verbatim** rather than translating back from Chinese (`source` keeps every skill traceable).
+> This library holds **1108** curated skills and also indexes **1567** external GitHub skill libraries (README-only).
 >
-> **安全与许可**：技能本体是给 Agent 的**指令文本**（非可执行程序）；凡涉及脚本/网络调用的已在各自「注意事项」中标注。本库为精选改编合集，逐条来源与许可见 [INDEX/sources.md](INDEX/sources.md)、总说明见 [LICENSE](LICENSE) / [NOTICE](NOTICE)。
+> **Security & license**: skill bodies are **instruction text** for agents (not executables). Scripts / network calls are flagged in each skill's notes. Provenance: [INDEX/sources.md](INDEX/sources.md); terms: [LICENSE](LICENSE) / [NOTICE](NOTICE). Policy: [SECURITY.md](SECURITY.md).
 
 ---
 
-## 一图看懂：技能互见图谱（节选）
+## Graph showcase (excerpt)
 
-全库 **1108 条技能、6843 条互见边**。整图见 [INDEX/graph.md](INDEX/graph.md)（卷级总览 + 按卷折叠）；以下两张为**示意节选**（由 graph.json 按固定规则自动重绘），便于在 GitHub 上直接渲染。
+**1108 skills · 6843 cross-reference edges.** Full graph: [INDEX/graph.md](INDEX/graph.md) (volume overview + per-volume folds). The two diagrams below are **illustrative excerpts** (redrawn from `graph.json` by fixed rules) so GitHub can render them inline.
 
-图例：实线箭头 `-->` = 依赖(requires)，虚线 `-.-` = 互见(related)，粗线 `===` = 组合(combines_with)。
+Legend: solid arrow `-->` = `requires`, dashed `-.-` = `related`, thick `===` = `combines_with`.
 
-**这正是本仓库区别于「平铺列表」的核心：技能不是孤立条目，而是连成网络。**
+**This is what sets the repo apart from a flat list: skills form a network, not isolated cards.**
 
-### 卷级总览（跨卷最强互见）
+### Volume overview (strongest cross-volume links)
 
-11 卷之间 Top 14 条单向跨卷边（边标签 = 边数）。
+Top 14 directed cross-volume edges among the 11 volumes (edge label = count).
 
 ```mermaid
 graph LR
-  通用
-  文书
-  研发
-  数据
-  智能
-  商业
-  创意
-  协作
-  安全
-  领域
-  平台
-  平台 ---|81| 研发
-  创意 ---|76| 研发
-  商业 ---|70| 领域
-  协作 ---|63| 商业
-  数据 ---|58| 领域
-  安全 ---|49| 研发
-  协作 ---|44| 研发
-  协作 ---|41| 通用
-  平台 ---|39| 智能
-  智能 ---|35| 通用
-  安全 ---|33| 领域
-  研发 ---|31| 通用
-  协作 ---|28| 文书
-  商业 ---|24| 研发
+  Meta
+  Documents
+  Engineering
+  Data
+  AI
+  Business
+  Creative
+  Productivity
+  Security
+  Verticals
+  Platform
+  Platform ---|81| Engineering
+  Creative ---|76| Engineering
+  Business ---|70| Verticals
+  Productivity ---|63| Business
+  Data ---|58| Verticals
+  Security ---|49| Engineering
+  Productivity ---|44| Engineering
+  Productivity ---|41| Meta
+  Platform ---|39| AI
+  AI ---|35| Meta
+  Security ---|33| Verticals
+  Engineering ---|31| Meta
+  Productivity ---|28| Documents
+  Business ---|24| Engineering
 ```
 
-### 密集聚类示意（RAG / LLM）
+### Dense cluster (RAG / LLM)
 
-以 `production-llm-app-builder` / `rag-pipeline-builder`（生产级 LLM 应用与 RAG 系统构建 / RAG 检索管道搭建）为枢纽的 ego 簇，约 15 个技能 / 36 条边（节点标签为中文标题）。
+Ego cluster around `production-llm-app-builder` / `rag-pipeline-builder` (~15 skills / 36 edges). Node labels keep the skills' native titles.
 
 ```mermaid
 graph LR
@@ -120,24 +117,25 @@ graph LR
 
 ---
 
-## 这是什么
+## What this is
 
-每一条技能是一个文件夹，里面有一个标准的 `SKILL.md`（带 YAML frontmatter）。
-AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来决定是否加载——
-这意味着：
+Each skill is a folder with a standard `SKILL.md` (YAML frontmatter).
+At runtime, agents **match the `description` field** to decide whether to load a skill — so:
 
-- **发现靠元数据，不靠目录树**。目录是给人类维护者用的；Agent 看的是 frontmatter。
-- **一条技能只放一个地方**，跨领域的关联用「互见」字段（`related` / `requires` / `combines_with`）表达成**关系图**，而不是把技能复制到 5 个分类下。
-- **索引、目录、互见图谱全部由脚本自动生成**，永不手工维护。
+- **Discovery is metadata-driven, not directory browsing.** Folders are for human maintainers; agents read frontmatter.
+- **One skill, one place.** Cross-domain links use `related` / `requires` / `combines_with` as a **relation graph**, instead of copying the same skill into five categories.
+- **Indexes, catalogs, and graphs are script-generated** — never hand-maintained.
 
-## 技能仓库目录
+See also [LANGUAGE.md](LANGUAGE.md) and [SECURITY.md](SECURITY.md).
 
-目前索引 **1567** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+## Skill repos directory
 
-完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
+Currently indexing **1567** GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.
+
+Full tables (stars / summary / license) are generated from `data/skill-repos.jsonl` (and part shards) into **[INDEX/skill-repos.md](INDEX/skill-repos.md)**. This page is the categorized link directory.
 
 <details>
-<summary>1. 官方与权威（official）（189）</summary>
+<summary>1. Official (189)</summary>
 
 - [`anthropics/skills`](https://github.com/anthropics/skills) — Anthropic 官方 Agent Skills 示例与文档技能；marketplace 源 anthropics/skills。
 - [`vercel-labs/agent-browser`](https://github.com/vercel-labs/agent-browser) — Vercel 官方浏览器自动化 CLI + 可安装 Agent Skill（发现桩 + CLI 热加载 core）；npx skills add vercel-labs/agent-browser。仓库名含 agent。
@@ -332,7 +330,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>2. 精选列表 / 大集合（collections）（377）</summary>
+<summary>2. Collections (377)</summary>
 
 - [`ComposioHQ/awesome-claude-skills`](https://github.com/ComposioHQ/awesome-claude-skills) — Claude Skills 最大社区精选之一，README 收录 1000+ 技能条目。
 - [`santifer/career-ops`](https://github.com/santifer/career-ops) — 求职/职业运营 Agent Skills 工作流（高星）。
@@ -715,7 +713,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>3. 垂直领域技能包（vertical）（763）</summary>
+<summary>3. Vertical (763)</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — 方法论技能包：TDD、头脑风暴、子代理驱动开发等可组合工程纪律。
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — Everything Claude Code 后继：技能/代理/命令/钩子插件市场。原名 everything-claude-code。
@@ -1484,7 +1482,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>4. 安装器 / 注册表 / 基础设施（infra）（113）</summary>
+<summary>4. Infra (113)</summary>
 
 - [`Fission-AI/OpenSpec`](https://github.com/Fission-AI/OpenSpec) — 规格驱动开发 OpenSpec（含 agent skills）。
 - [`bmad-code-org/BMAD-METHOD`](https://github.com/bmad-code-org/BMAD-METHOD) — BMAD 方法：多智能体规格驱动开发技能体系。
@@ -1603,7 +1601,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>5. 其他（other）（7）</summary>
+<summary>5. Other (7)</summary>
 
 - [`anthropics/claude-cookbooks`](https://github.com/anthropics/claude-cookbooks) — Claude API cookbook（笔记本/教程），不是 SKILL.md 技能库；作为官方学习材料索引。
 - [`UditAkhourii/neuroarxiv`](https://github.com/UditAkhourii/neuroarxiv) — 写新架构前先检索 arXiv 先验的技能。
@@ -1616,7 +1614,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>6. 名称不含 skill / agent（unnamed）（118）</summary>
+<summary>6. Unnamed (118)</summary>
 
 - [`garrytan/gstack`](https://github.com/garrytan/gstack) — Garry Tan 的 Claude Code 虚拟工程团队：23 个角色 slash 命令 + 8 个工具，全 Markdown。
 - [`nextlevelbuilder/ui-ux-pro-max-skill`](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) — UI/UX 设计智能技能：192 条推理规则、可安装到 Claude/Cursor 等；marketplace + CLI。

@@ -1,3 +1,36 @@
+# Contributing
+
+Welcome — add or improve skills for **AI agent consumption**. The bar is always: *can an agent discover and execute this skill accurately?*
+
+> **Chinese edition** of these docs lives on [`zh`](https://github.com/findscripter/everything-skills/tree/zh). Language policy: [LANGUAGE.md](LANGUAGE.md). Skills keep their native/original language.
+
+## Add a skill (5 steps)
+
+1. **Place it**: pick the best `volume/class` in [TAXONOMY.md](TAXONOMY.md). When unsure, prefer the most searchable class — cross-domain links go in relation fields, not duplicate folders.
+2. **Create the folder**: under the volume dir, `your-skill-name/` (ASCII kebab-case, unique). Copy [`_template/SKILL.md`](_template/SKILL.md).
+3. **Frontmatter**: follow [SCHEMA.md](SCHEMA.md). Polish `description` — include phrasings / trigger words users might say.
+4. **Body**: fixed sections (when to use / steps / examples / cautions / cross-refs); keep it executable and tight.
+5. **Validate**:
+   ```bash
+   node scripts/build-index.mjs
+   ```
+   No missing required fields, no duplicate `name`, no dangling cross-refs. The generator rebuilds `INDEX/`.
+
+## PR checklist
+
+- [ ] `name` matches folder, ASCII kebab-case, unique
+- [ ] `description` is one line: when + what + triggers
+- [ ] `domain` matches the volume
+- [ ] Single responsibility
+- [ ] Cross-refs point at real skills; at least one `related` / `requires` / `combines_with` (avoid orphans)
+- [ ] Body is for agent execution, not encyclopedia padding
+- [ ] Local `build-index.mjs` is clean
+
+---
+
+<details>
+<summary>Original Chinese CONTRIBUTING (also on branch zh)</summary>
+
 # 贡献指南 · CONTRIBUTING
 
 欢迎为《技能大典》新增或完善技能。本仓库面向 **AI Agent 消费**，请始终以"这条技能能否被智能体准确发现并执行"为标准。
@@ -55,3 +88,6 @@
 ## 弃用技能
 
 把 `status` 改为 `deprecated`，并在取代它的新技能里写 `supersedes: [old-name]`。不要直接删（可能有依赖）。
+
+
+</details>
