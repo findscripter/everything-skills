@@ -9,7 +9,7 @@
 >
 > **中文优先**：全库技能均为中文——这是以英文为主的技能生态里少见的体系化中文技能库。
 >
-> 本库 1108 条中文技能；另索引 **1537** 个外部 GitHub 技能库（只读 README）。
+> 本库 1108 条中文技能；另索引 **1567** 个外部 GitHub 技能库（只读 README）。
 >
 > **English version** — a full English tree mirrors this library 1-to-1 (same `name`, same cross-references) on the [`en`](https://github.com/findscripter/everything-skills/tree/en) branch. Where an upstream English original exists, the English tree **reuses it verbatim** rather than translating back from Chinese (`source` keeps every skill traceable).
 >
@@ -27,7 +27,7 @@
 
 ### 卷级总览（跨卷最强互见）
 
-11 卷之间 Top 14 条无向跨卷边（边标签 = 边数）。
+11 卷之间 Top 14 条单向跨卷边（边标签 = 边数）。
 
 ```mermaid
 graph LR
@@ -132,12 +132,12 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 
 ## 技能仓库目录
 
-目前索引 **1537** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+目前索引 **1567** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
 
 完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
 
 <details>
-<summary>1. 官方与权威（official）（187）</summary>
+<summary>1. 官方与权威（official）（189）</summary>
 
 - [`anthropics/skills`](https://github.com/anthropics/skills) — Anthropic 官方 Agent Skills 示例与文档技能；marketplace 源 anthropics/skills。
 - [`vercel-labs/agent-browser`](https://github.com/vercel-labs/agent-browser) — Vercel 官方浏览器自动化 CLI + 可安装 Agent Skill（发现桩 + CLI 热加载 core）；npx skills add vercel-labs/agent-browser。仓库名含 agent。
@@ -271,6 +271,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`wandb/skills`](https://github.com/wandb/skills) — Weights & Biases 官方训练/评测技能 3 条（experimental）；npx skills add wandb/skills。
 - [`contentful/skill-kit`](https://github.com/contentful/skill-kit) — Contentful 官方：用 TypeScript 状态机构建 Agent Skills 的 SDK。
 - [`Bria-AI/bria-skill`](https://github.com/Bria-AI/bria-skill) — Bria AI 图像 Agent Skill。
+- [`VapiAI/skills`](https://github.com/VapiAI/skills) — Vapi 官方语音 AI Agent Skills（创建助手/工具/活动等），兼容 skills.sh
 - [`catalystbyzoho/agent-skills`](https://github.com/catalystbyzoho/agent-skills) — Zoho Catalyst 官方 Agent Skills：部署就绪代码与 Zoho MCP 基础设施
 - [`aws/tools-for-devops-agent`](https://github.com/aws/tools-for-devops-agent) — AWS DevOps Agent 开源 skills / 自定义 agents 工具包
 - [`califio/skills`](https://github.com/califio/skills) — Calif.io 官方 Agent Skills。
@@ -298,6 +299,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`metalbear-co/skills`](https://github.com/metalbear-co/skills) — MetalBear 官方用户 Agent Skills 包。
 - [`AgentEra/Agently-Skills`](https://github.com/AgentEra/Agently-Skills) — Agently 框架官方 Agent Skills 集合
 - [`awslabs/hcls-agent-skills`](https://github.com/awslabs/hcls-agent-skills) — AWS 医疗与生命科学官方 Agent Skills。
+- [`didit-protocol/skills`](https://github.com/didit-protocol/skills) — Didit 身份核验官方 12 个生产级 Agent Skills（KYC/AML/生物识别等）
 - [`helius-labs/core-ai`](https://github.com/helius-labs/core-ai) — Helius Solana Core AI Skills。
 - [`Starchild-ai-agent/official-skills`](https://github.com/Starchild-ai-agent/official-skills) — Starchild 官方 Skills。
 - [`atlassian/forge-skills`](https://github.com/atlassian/forge-skills) — Atlassian Forge 官方 Skills 插件（脚手架、审查、调试、安全）
@@ -330,7 +332,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>2. 精选列表 / 大集合（collections）（368）</summary>
+<summary>2. 精选列表 / 大集合（collections）（377）</summary>
 
 - [`ComposioHQ/awesome-claude-skills`](https://github.com/ComposioHQ/awesome-claude-skills) — Claude Skills 最大社区精选之一，README 收录 1000+ 技能条目。
 - [`santifer/career-ops`](https://github.com/santifer/career-ops) — 求职/职业运营 Agent Skills 工作流（高星）。
@@ -436,6 +438,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`realkimbarrett/advertising-skills`](https://github.com/realkimbarrett/advertising-skills) — 广告投放 Agent Skills。
 - [`chujianyun/skills`](https://github.com/chujianyun/skills) — 无名（WuMing）的 Claude Skills 合集
 - [`dongshuyan/compass-skills`](https://github.com/dongshuyan/compass-skills) — 指南针式多域Agent Skills。
+- [`mikiarlo3/awesome-growth-hacking-skills`](https://github.com/mikiarlo3/awesome-growth-hacking-skills) — 精选增长黑客/营销 Agent Skills 目录（enso.bot 策展），按策略、获客、内容、RevOps 等分类
 - [`staruhub/ClaudeSkills`](https://github.com/staruhub/ClaudeSkills) — 研究/产品决策/幻灯/发布等13条精选Agent Skills。
 - [`borghei/Claude-Skills`](https://github.com/borghei/Claude-Skills) — 大量 Claude Skills/专家 Agent 与工具合集。
 - [`Appllama/appllama-skills`](https://github.com/Appllama/appllama-skills) — 把头部App拆解成可落地构建的Agent Skills。
@@ -502,6 +505,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`ttfake92-lab/skills`](https://github.com/ttfake92-lab/skills) — 内容创作Skills合集（视频提示词/Remotion/缩略图）；npx skills add ttfake92-lab/skills。
 - [`secondsky/claude-skills`](https://github.com/secondsky/claude-skills) — Cloudflare/React/Tailwind 等生产级 Claude Code Skills。
 - [`deckardger/tanstack-agent-skills`](https://github.com/deckardger/tanstack-agent-skills) — TanStack 生态 Agent Skills。
+- [`scarletkc/agents`](https://github.com/scarletkc/agents) — 跨代理共享标准与可复用 skills（AGENTS.md + SKILL.md），面向 Claude Code / Codex CLI
 - [`fewwwww/awesome-web3-skills`](https://github.com/fewwwww/awesome-web3-skills) — Web3/加密Agent Skills精选。
 - [`finfin/awesome-frontend-skills`](https://github.com/finfin/awesome-frontend-skills) — 可`npx skills add`的前端Agent Skills精选列表。
 - [`naodeng/awesome-qa-skills`](https://github.com/naodeng/awesome-qa-skills) — 双语（中/英）测试向AI Agent Skills库。
@@ -526,6 +530,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`pattern-ai-labs/agentcall`](https://github.com/pattern-ai-labs/agentcall) — AgentCall Agent Skills/工具包。
 - [`gokapso/agent-skills`](https://github.com/gokapso/agent-skills) — Kapso Agent Skills 合集。
 - [`firecrawl/firecrawl-workflows`](https://github.com/firecrawl/firecrawl-workflows) — Firecrawl 工作流 Agent Skills。
+- [`serpro69/claude-toolbox`](https://github.com/serpro69/claude-toolbox) — 精简多语言 Claude Code 配置与插件工具箱：MCP、skills、agents 等生产向工作流
 - [`oaustegard/claude-skills`](https://github.com/oaustegard/claude-skills) — 个人 Claude Skills 合集。
 - [`TerminalSkills/skills`](https://github.com/TerminalSkills/skills) — 开源 AI Agent Skills 库（多客户端）。
 - [`JayLZhou/Awesome-Agent-Skills`](https://github.com/JayLZhou/Awesome-Agent-Skills) — Agent Skills 精选列表
@@ -559,6 +564,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`YiShu5/claude-skills`](https://github.com/YiShu5/claude-skills) — 产品/内容/写作/演示与工作流自动化实战编码代理技能
 - [`michtio/craftcms-claude-skills`](https://github.com/michtio/craftcms-claude-skills) — Craft CMS 5 生产级 Claude Code Skills/Agents。
 - [`Gingiris-1031/gingiris-skills`](https://github.com/Gingiris-1031/gingiris-skills) — AI 创业运营可复用 Claude Code 技能集。
+- [`simota/agent-skills`](https://github.com/simota/agent-skills) — 90 个专科 AI agents + Nexus 编排的跨平台技能集合（Claude/Codex/Antigravity）
 - [`ogulcancelik/agent-skills`](https://github.com/ogulcancelik/agent-skills) — 小而固执的跨 Agent 编码技能包。
 - [`sneg55/agent-starter`](https://github.com/sneg55/agent-starter) — Agent Starter 入门技能包。
 - [`fabricioctelles/skills`](https://github.com/fabricioctelles/skills) — 跨 Kiro/Cursor/Windsurf/Claude/Codex 的可复用 Agent Skills 集合
@@ -579,6 +585,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`lovstudio/skills`](https://github.com/lovstudio/skills) — Lovstudio Claude Code 技能生态总索引（CJK/文档转换等）
 - [`Mann1988/awesome-claude-skills`](https://github.com/Mann1988/awesome-claude-skills) — 馃搳 Explore high-quality Claude skills focused on business an…
 - [`nota-america/forgecat-agent-profiles`](https://github.com/nota-america/forgecat-agent-profiles) — ForgeCat 可安装 Agent Profiles/技能包市场。
+- [`tmchow/agent-skills`](https://github.com/tmchow/agent-skills) — 个人跨平台 Agent Skills 集合，可通过 npx skills 安装到 Claude/Cursor/Codex 等
 - [`wendylabsinc/claude-skills`](https://github.com/wendylabsinc/claude-skills) — Wendy Labs Claude Skills。
 - [`laguagu/claude-code-nextjs-skills`](https://github.com/laguagu/claude-code-nextjs-skills) — Next.js/AI SDK/pgvector 向 Claude Code Skills。
 - [`terrylica/cc-skills`](https://github.com/terrylica/cc-skills) — Claude Code Skills/Plugins 市场：工作流、质量、DevOps 等插件包
@@ -601,9 +608,11 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`adrianpuiu/specification-document-generator`](https://github.com/adrianpuiu/specification-document-generator) — 证据驱动架构规格文档技能/插件市场：`/plugin marketplace add` 安装 architecture-skills（含 specification-architect）；六阶段可追溯文档。接替已废弃的 claude-skills-marketplace。
 - [`belumume/claude-skills`](https://github.com/belumume/claude-skills) — Claude Skills 合集。
 - [`xmm/codex-bmad-skills`](https://github.com/xmm/codex-bmad-skills) — BMAD skills and workflows for OpenAI Codex (App, CLI, Web): intent-bas…
+- [`eai-org/agent-toolkit`](https://github.com/eai-org/agent-toolkit) — 项目无关的工程 Agent Skills/规则工具包：文档压缩、技能创作与日常工程任务
 - [`massimodeluisa/recursive-decomposition-skill`](https://github.com/massimodeluisa/recursive-decomposition-skill) — 递归任务分解 Agent Skill。
 - [`Randroids-Dojo/skills`](https://github.com/Randroids-Dojo/skills) — Randroids Dojo 的 Claude Code skills 合集
 - [`rustyrazorblade/skills`](https://github.com/rustyrazorblade/skills) — Jon Haddad 数据库理解与 AI 驱动开发 Claude Skills
+- [`antonbabenko/agent-plugins`](https://github.com/antonbabenko/agent-plugins) — Claude Code / Codex 插件市场与可执行纪律型 Agent Skills 集合
 - [`etr/groundwork`](https://github.com/etr/groundwork) — Groundwork：Claude/Codex 规划·设计·TDD·调试技能库（30+）
 - [`gbasin/stress-test-skill`](https://github.com/gbasin/stress-test-skill) — 压力测试 Agent Skill。
 - [`ericwang915/PythonClaw`](https://github.com/ericwang915/PythonClaw) — Python 向 OpenClaw Skills。
@@ -647,6 +656,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`gohypergiant/agent-skills`](https://github.com/gohypergiant/agent-skills) — AI coding agent Skills 合集。
 - [`codejunkie99/x-article-skills`](https://github.com/codejunkie99/x-article-skills) — 研究、写作与打包 X 平台长文的 8 个 Agent Skills
 - [`Ezra144israel/governed-agent-skills`](https://github.com/Ezra144israel/governed-agent-skills) — 治理型 Agent Skills 合集。
+- [`heymegabyte/claude-skills`](https://github.com/heymegabyte/claude-skills) — Emdash：面向 32+ AI 编码工具的 solo-SaaS 技能平台（一句话到 Cloudflare 部署）
 - [`lidge-jun/codexclaw`](https://github.com/lidge-jun/codexclaw) — OpenAI Codex 开发纪律插件：28 skills + PABCD 工作流
 - [`ConnorGriffin/skills`](https://github.com/ConnorGriffin/skills) — UI mockup/浏览器验证/Codebase Memory/worktree 等便携编码技能
 - [`j4flmao/agent-skills`](https://github.com/j4flmao/agent-skills) — Agent Skills 合集。
@@ -667,6 +677,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`ProxiBlue/claude-skills`](https://github.com/ProxiBlue/claude-skills) — Claude Skills 实验合集。
 - [`rdmgator12/awesome-claude-plugins`](https://github.com/rdmgator12/awesome-claude-plugins) — Anthropic Claude Plugins 目录镜像索引
 - [`Unknown-333/awesome-data-engineering-skills`](https://github.com/Unknown-333/awesome-data-engineering-skills) — 数据工程（dbt/Airflow/Spark 等）Agent Skills 精选
+- [`beeyev/skills`](https://github.com/beeyev/skills) — 小型 Agent Skills 集合，含 GitLab CI Handbook 等可安装技能
 - [`StudentSuite/awesome-skills-plugins-for-students`](https://github.com/StudentSuite/awesome-skills-plugins-for-students) — 面向学生的 Skills/插件精选
 - [`ulises-jeremias/agent-toolkit`](https://github.com/ulises-jeremias/agent-toolkit) — 跨助手可组合 Skills/Agents/Loops 工具箱（CLI+市场）
 - [`vladimirrott/claude-math`](https://github.com/vladimirrott/claude-math) — Claude Code 终端数学公式 Unicode 可读渲染 Skill。
@@ -704,7 +715,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>3. 垂直领域技能包（vertical）（752）</summary>
+<summary>3. 垂直领域技能包（vertical）（763）</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — 方法论技能包：TDD、头脑风暴、子代理驱动开发等可组合工程纪律。
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — Everything Claude Code 后继：技能/代理/命令/钩子插件市场。原名 everything-claude-code。
@@ -878,6 +889,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`Vincentwei1021/anything2explainer`](https://github.com/Vincentwei1021/anything2explainer) — 主题→Remotion 讲解视频 Skill（TTS/字幕/章节进度条）
 - [`larashero3-dotcom/lieflat-less-ai-tone`](https://github.com/larashero3-dotcom/lieflat-less-ai-tone) — 283 万字语料统计的去 AI 味写作 Skill
 - [`AmazingAng/old-coder`](https://github.com/AmazingAng/old-coder) — 证据优先的老派工程策略 Skill（先跑验收再读代码）。
+- [`flaqai/backlink_skills`](https://github.com/flaqai/backlink_skills) — Codex 驱动的外链提交与 SEO 内容生产技能包：目录提交、写作与多平台分发工作流
 - [`AgriciDaniel/codex-seo`](https://github.com/AgriciDaniel/codex-seo) — Codex 优先 SEO 技能套件：26 工作流 + TOML agents 与数据集成
 - [`onmax/nuxt-skills`](https://github.com/onmax/nuxt-skills) — Nuxt 前端 Agent Skills。
 - [`feichanggege/ecommerce-visual-copywriting-skill`](https://github.com/feichanggege/ecommerce-visual-copywriting-skill) — 电商视觉文案设计 Skill：主图/详情分镜/图内文案与生图 Prompt。
@@ -907,6 +919,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`24kchengYe/human-skill-tree`](https://github.com/24kchengYe/human-skill-tree) — 终身学习技能树（30+ human skills）Agent Skills。
 - [`ayi-ai/nie-grassroots-logic`](https://github.com/ayi-ai/nie-grassroots-logic) — 聂·基层运行逻辑方法论工具箱 Agent Skill。
 - [`michalparkola/tapestry-skills-for-claude-code`](https://github.com/michalparkola/tapestry-skills-for-claude-code) — 下载文章/PDF/YouTube 等资料的 Tapestry Skills。
+- [`eternityspring/reelbench-skills`](https://github.com/eternityspring/reelbench-skills) — AI 视频侧 Claude/Codex 技能：成片拉片（video-shots）与分镜信息合成（video-sync）
 - [`joeseesun/qiaomu-design`](https://github.com/joeseesun/qiaomu-design) — 乔木设计：反 AI 味设计与风格系统 Skill。
 - [`AAASS554/codex-academic-paper-skills`](https://github.com/AAASS554/codex-academic-paper-skills) — 软工论文规划与修订 Codex skills。
 - [`njzjz/nsfc-agent-skills`](https://github.com/njzjz/nsfc-agent-skills) — 撰写 NSFC 本子的 Agent Skills。
@@ -1164,6 +1177,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`meshy-dev/meshy-3d-agent`](https://github.com/meshy-dev/meshy-3d-agent) — Meshy AI 3D 生成/打印 Agent Skills（Cursor/Claude/OpenClaw）
 - [`nathankim0/clean-architecture-skills`](https://github.com/nathankim0/clean-architecture-skills) — 整洁架构评审与设计 Claude Skills。
 - [`See-Sol-Lab/private-house-code-v2.5`](https://github.com/See-Sol-Lab/private-house-code-v2.5) — Codex 全局编码约束 Skill：抑制过度工程与 token 浪费
+- [`hyperfx-ai/marketing-skills`](https://github.com/hyperfx-ai/marketing-skills) — 面向营销的 Agent Skills（广告/社媒/SEO/邮件等），配合 Hyper MCP 工具背包
 - [`xjli360/sealeap-amazon-ad-skills`](https://github.com/xjli360/sealeap-amazon-ad-skills) — 亚马逊广告/Listing/AMC 等垂直 Agent Skills
 - [`shepsci/kaggle-skill`](https://github.com/shepsci/kaggle-skill) — Kaggle 竞赛工作流 Agent Skill。
 - [`longsizhuo/openInvest`](https://github.com/longsizhuo/openInvest) — 金融/投资研究 Agent Skills。
@@ -1318,6 +1332,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`ptreezh/sscisubagent-skills`](https://github.com/ptreezh/sscisubagent-skills) — 中文社会科学研究 Subagent 与 Skills 集合
 - [`tcsenpai/specification-website-skill`](https://github.com/tcsenpai/specification-website-skill) — specification.website 离线打包 Agent Skill。
 - [`Echo-aloha/asphalt-codex-skills-5`](https://github.com/Echo-aloha/asphalt-codex-skills-5) — Codex Skills for version-pure PFC2D/PFC3D 5.0 asphalt-mixture modeling…
+- [`eldermoraes/quarkus-agentic-scaffolding`](https://github.com/eldermoraes/quarkus-agentic-scaffolding) — Quarkus + LangChain4j 智能体脚手架技能与约定（CLAUDE.md/AGENTS.md）
 - [`javen-wangjunren/elementor-website-skill`](https://github.com/javen-wangjunren/elementor-website-skill) — 用可维护 Elementor 组件规划/搭建 B2B 站点的技能套件
 - [`nevertoday/xxd-strip-ai-meta`](https://github.com/nevertoday/xxd-strip-ai-meta) — 批量剥离 AI 溯源与图片元数据的 CLI+Agent Skill
 - [`zx1160763849-hash/codex-cost-router-skills`](https://github.com/zx1160763849-hash/codex-cost-router-skills) — Codex Cost Router Skills - preflight task routing skills for Codex to …
@@ -1338,12 +1353,14 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`MohgaNabil/deutsch-lernpaket`](https://github.com/MohgaNabil/deutsch-lernpaket) — 德语 B2 周练三件套 Claude skills（会话/测验/翻译）
 - [`Romandredan/1c-quality-gate`](https://github.com/Romandredan/1c-quality-gate) — 1C:Enterprise 开发质量门禁 Claude Code 插件/skills
 - [`sunniie/nexcanvas-drawio`](https://github.com/sunniie/nexcanvas-drawio) — 可编辑、证据锚定的 Draw.io 架构图 Agent Skill
+- [`Jobo16/ielts-buddy`](https://github.com/Jobo16/ielts-buddy) — 雅思学习本地 Agent Skills：计划、作文批改、口语陪练、听力阅读复盘与模考
 - [`PureTokens/andrej-karpathy-skills-codex`](https://github.com/PureTokens/andrej-karpathy-skills-codex) — Codex-compatible package for Forrest Chang's Karpathy coding guideline…
 - [`PyModel/css-pro-tips`](https://github.com/PyModel/css-pro-tips) — 面向现代 CSS Baseline 的跨 Agent 单一 SKILL.md
 - [`Alchemist-Jo/textbook-anything`](https://github.com/Alchemist-Jo/textbook-anything) — 大学 STEM 教材讲解与连通习题生成 Agent Skill
 - [`DailybotHQ/deepworkplan-skill`](https://github.com/DailybotHQ/deepworkplan-skill) — 可恢复多小时 Deep Work Plan 的可安装 Agent Skill（Markdown-only）
 - [`geekjourneyx/geekx-skills`](https://github.com/geekjourneyx/geekx-skills) — 工程裁决/追问/实现约束 Agent Skills（geekx-gate 等）
 - [`jeffy-Peng/jeffy-skills`](https://github.com/jeffy-Peng/jeffy-skills) — 可追溯深度研究与职场消息写作个人 Skill 仓（npx skills add）
+- [`JellyBrick/korean-prose-skill`](https://github.com/JellyBrick/korean-prose-skill) — 韩语撰写与校对 Agent Skill，清理翻译腔与不自然文风
 - [`Warlord-K/visual-thinking`](https://github.com/Warlord-K/visual-thinking) — 视觉设计与产品视频向 Agent Skill
 - [`autolab-ai/hills`](https://github.com/autolab-ai/hills) — 为每个问题创建 hill-to-climb 的 agentic skill
 - [`Leehyunbin0131/claude-ros2-skills`](https://github.com/Leehyunbin0131/claude-ros2-skills) — ROS2 Claude Skills。
@@ -1376,10 +1393,12 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`yalishevant/kotlin-backend-agent-skills`](https://github.com/yalishevant/kotlin-backend-agent-skills) — Agent Skills 仓库：kotlin-backend-agent-skills。
 - [`ahmedyehya92/saas-platform-teardown-kit`](https://github.com/ahmedyehya92/saas-platform-teardown-kit) — 输入 SaaS URL 输出尽调级平台拆解的 Claude Skill
 - [`av/skills`](https://github.com/av/skills) — Agent skills for Claude Code, Codex, OpenCode & Cursor 鈥?aut…
+- [`CodeAlive-AI/codealive-skills`](https://github.com/CodeAlive-AI/codealive-skills) — CodeAlive 语义代码搜索与代码库问答的官方 Agent Skills / 插件
 - [`DogukanK/claude-pc-cleanup`](https://github.com/DogukanK/claude-pc-cleanup) — macOS 磁盘清理（分级确认）Claude Skill
 - [`girish6055/NanoBanana-PPT-Skills`](https://github.com/girish6055/NanoBanana-PPT-Skills) — 馃帹 Generate high-quality PPTs with AI, featuring smart trans…
 - [`l2461090/Literature-monitor-skills`](https://github.com/l2461090/Literature-monitor-skills) — 课题组文献监控与周报 Skills
 - [`novoads/agent-skills`](https://github.com/novoads/agent-skills) — 营销向 AI 视频/图片广告 Skills。
+- [`OpenGHz/embodied-ai-paper-writer`](https://github.com/OpenGHz/embodied-ai-paper-writer) — 具身智能顶会论文写作便携 Agent Skill（SKILL.md + 参考剧本）
 - [`seoskillsai/seo-skills-ai`](https://github.com/seoskillsai/seo-skills-ai) — 跨工具 SEO/技术优化 Agent Skills
 - [`zimodzh/dsh-plugin-dev-skills`](https://github.com/zimodzh/dsh-plugin-dev-skills) — 开发 DeepSeek Harness 插件的 Agent Skill 标准
 - [`0nicell/data-deletion-skill`](https://github.com/0nicell/data-deletion-skill) — 个人数据经纪商清除与隐私请求流程 Claude skill
@@ -1391,6 +1410,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`TokenHungryMash/personalized-travel-guide-skill`](https://github.com/TokenHungryMash/personalized-travel-guide-skill) — 个性化旅行手册网页生成 Agent Skill
 - [`aiopshwang/data-analysis-ml-agent-skills`](https://github.com/aiopshwang/data-analysis-ml-agent-skills) — 证据优先的数据分析/ML Agent Skills 套件
 - [`ariaxhan/kernel-claude`](https://github.com/ariaxhan/kernel-claude) — Kernel Claude 插件 Skills。
+- [`axisrobo/ea-harness`](https://github.com/axisrobo/ea-harness) — 企业架构设计与校验技能包/CLI（需求、设计、图表校验与门禁）
 - [`DonkeyKing01/tasteful-ui-skill`](https://github.com/DonkeyKing01/tasteful-ui-skill) — 品味优先的 UI 设计 Agent skill
 - [`EmblemCompany/Agent-skills`](https://github.com/EmblemCompany/Agent-skills) — EmblemAI 官方 Agent Skills（多链加密工具）。
 - [`HetCreep/CoalMine`](https://github.com/HetCreep/CoalMine) — 九项质量金丝雀 Skills + 自动节奏 hooks。
@@ -1398,6 +1418,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`JunSeo99/claude-skill-codex-imagegen`](https://github.com/JunSeo99/claude-skill-codex-imagegen) — Claude Code 借 Codex 做图像生成/编辑 Skill
 - [`kanfu-panda/pdlc-skills`](https://github.com/kanfu-panda/pdlc-skills) — 38 slash commands that turn Claude Code into a real PDLC wor…
 - [`kpab/seo-mastery-agent-skills`](https://github.com/kpab/seo-mastery-agent-skills) — 基于官方检索文档的 SEO Agent Skills（英日）
+- [`mixocreative/ecommerce-cia`](https://github.com/mixocreative/ecommerce-cia) — 台湾电商金流串接与完整性审查 AI skill（蓝新/绿界等），支持 Claude/Codex/Cursor
 - [`netresearch/go-development-skill`](https://github.com/netresearch/go-development-skill) — 企业级 Go 开发模式 Agent Skill
 - [`noartem/skills`](https://github.com/noartem/skills) — Collection of Agents Skill for Laravel, Vue
 - [`PauloFelipeM/agent-laravel-skills`](https://github.com/PauloFelipeM/agent-laravel-skills) — A structured repository for creating and maintaining Laravel Best Prac…
@@ -1416,6 +1437,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`msdanyg/humanize-pro`](https://github.com/msdanyg/humanize-pro) — 去 AI 痕迹并按渠道改写的 Claude Skill
 - [`Qovery/qovery-skills`](https://github.com/Qovery/qovery-skills) — Qovery/K8s 部署 Agent Skills
 - [`qqyumidi/eli5-plus`](https://github.com/qqyumidi/eli5-plus) — 分层可视化独立 HTML 讲解页 Agent Skill
+- [`romainsimon/skills-for-decision-making`](https://github.com/romainsimon/skills-for-decision-making) — 基于《Algorithms for Decision Making》的决策理论 Agent Skills 与计算器
 - [`SPYfighting/my-academic-skills`](https://github.com/SPYfighting/my-academic-skills) — 学术研究用 Claude/Codex/OpenCode Skills
 - [`warith-harchaoui/sprezzature`](https://github.com/warith-harchaoui/sprezzature) — 前端设计系统向 Claude/OpenCode skills（UI/UX/无障碍）
 - [`0xArchiveIO/0xarchive-skill`](https://github.com/0xArchiveIO/0xarchive-skill) — 0xArchive 市场数据 Skill（Hyperliquid/Lighter）。
@@ -1462,7 +1484,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>4. 安装器 / 注册表 / 基础设施（infra）（105）</summary>
+<summary>4. 安装器 / 注册表 / 基础设施（infra）（113）</summary>
 
 - [`Fission-AI/OpenSpec`](https://github.com/Fission-AI/OpenSpec) — 规格驱动开发 OpenSpec（含 agent skills）。
 - [`bmad-code-org/BMAD-METHOD`](https://github.com/bmad-code-org/BMAD-METHOD) — BMAD 方法：多智能体规格驱动开发技能体系。
@@ -1514,11 +1536,13 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`K-Dense-AI/mimeo`](https://github.com/K-Dense-AI/mimeo) — 把公开专家语料编译成 SKILL.md/AGENTS.md 的 CLI（mimeo）；arxiv:2609.00453。
 - [`initializ/forge`](https://github.com/initializ/forge) — Anthropic Agent Skills 标准的开源安全便携运行时
 - [`what1f/kitter`](https://github.com/what1f/kitter) — 本地优先 Skill 管理器：一库多项目按需装。
+- [`william-garden/sync-skill`](https://github.com/william-garden/sync-skill) — 一键在多款编码代理/IDE 间同步 SKILL.md 技能目录的安装器
 - [`kairyou/agent-tools`](https://github.com/kairyou/agent-tools) — 可复用 Agent Skills + Codex/Claude/opencode 集成。
 - [`changchangidea-oss/SkillRadar`](https://github.com/changchangidea-oss/SkillRadar) — Agent Skills 发现/安全扫描/排序/路由：Codex 插件 + npx skills add；离线注册表 Top-3。
 - [`sudokar/openspec-plus`](https://github.com/sudokar/openspec-plus) — 增强 OpenSpec 规范驱动开发的 Agent Skills。
 - [`romiluz13/cc10x`](https://github.com/romiluz13/cc10x) — Claude Code Loop Engine：1 路由·9 代理·16 skills·4 工作流
 - [`oliver-zehentleitner/keep-the-why`](https://github.com/oliver-zehentleitner/keep-the-why) — 仓库原生保留决策理由的 Agent Skill 约定。
+- [`Tencent/SkillHone`](https://github.com/Tencent/SkillHone) — 腾讯开源：基于持久决策历史的持续 Agent Skill 演化与优化运行时
 - [`Chat2AnyLLM/awesome-claude-skills`](https://github.com/Chat2AnyLLM/awesome-claude-skills) — Claude Skills上游源元数据目录（不镜像正文）。
 - [`genggng/hermes-arxiv-agent`](https://github.com/genggng/hermes-arxiv-agent) — Hermes 每日 arXiv 抓取摘要推飞书技能。
 - [`ashutoshsinghpr7/wikiskill`](https://github.com/ashutoshsinghpr7/wikiskill) — WikiSkill：持久知识 wiki 自进化 Hermes Skills。
@@ -1546,6 +1570,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`luna-prompts/skillnote`](https://github.com/luna-prompts/skillnote) — 开源 Skill 注册表：创建/管理/分发 SKILL.md 跨多 Agent
 - [`andersonamaral2/Claude-Code-to-Deep-Agents-Skills-Converter`](https://github.com/andersonamaral2/Claude-Code-to-Deep-Agents-Skills-Converter) — 通用 SKILL.md 转换器（Claude↔Deep Agents↔Codex↔Cursor 等）
 - [`costiash/claude-code-docs`](https://github.com/costiash/claude-code-docs) — Claude 官方文档按需拉取插件/Skill
+- [`SpaceZephyr/build-your-harness`](https://github.com/SpaceZephyr/build-your-harness) — 三个配套 harness 搭建/体检/翻阅 Agent Skills，零依赖、多运行时通用
 - [`beautyfree/skiller`](https://github.com/beautyfree/skiller) — 跨 Claude/Cursor/Codex 的桌面 Skills 管理器
 - [`alifurkangokce/driftlint`](https://github.com/alifurkangokce/driftlint) — 检测 CLAUDE.md/AGENTS.md/skills 声明与代码漂移的零配置检查器
 - [`erichare/skillroute`](https://github.com/erichare/skillroute) — 本地优先 skill 路由：索引 SKILL.md 并经 MCP 提供计划
@@ -1555,15 +1580,20 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`lattebbrook/agent-skiller`](https://github.com/lattebbrook/agent-skiller) — 可视化逐步编排 Agent Skills 的开源构建器
 - [`sx4im/skillcheck`](https://github.com/sx4im/skillcheck) — 对 Agent Skills 做盲测 A/B 与 bootstrap CI 评测
 - [`moonrunnerkc/tracemantle`](https://github.com/moonrunnerkc/tracemantle) — SKILL.md 校验与 agent-skill bundle 变更/证据门禁
+- [`dltsum/doc2skill`](https://github.com/dltsum/doc2skill) — 将操作手册/文档自动转化为高质量 Agent Skills（SKILL.md + references）的工具
 - [`gtrabanco/agentic-workflow`](https://github.com/gtrabanco/agentic-workflow) — 栈无关的 agentic 编程工作流 Skills + 文档脚手架
 - [`hussi9/skill-router`](https://github.com/hussi9/skill-router) — 按任务自动路由 Skill/Agent/模型/思考深度的元 Skill
 - [`jameskomo/config-drift-checker`](https://github.com/jameskomo/config-drift-checker) — Claude Code 配置（CLAUDE.md/skills/hooks）漂移与回归 CI
 - [`bshea-1/Routed`](https://github.com/bshea-1/Routed) — 跨 AI 编码环境的本地通用 Agent Skills 路由器
 - [`netresearch/skill-repo-skill`](https://github.com/netresearch/skill-repo-skill) — 技能仓库结构与多渠道分发指南 Skill
+- [`RiriXt1/skillcheck`](https://github.com/RiriXt1/skillcheck) — Agent Skills（SKILL.md）静态检查器：前置元数据、密钥泄露、重名与模糊触发
+- [`theinfosecguy/razin`](https://github.com/theinfosecguy/razin) — 面向 SKILL.md 的本地静态分析安全扫描器（确定性发现，不执行技能代码）
+- [`himself65/skill-lint`](https://github.com/himself65/skill-lint) — 校验 Claude/Agent Skills（SKILL.md）的 lint 工具
 - [`zernie/vigiles`](https://github.com/zernie/vigiles) — Agent harness 体检：校验 CLAUDE.md/AGENTS.md/skills/hooks
 - [`Hannay001/lockkeeper`](https://github.com/Hannay001/lockkeeper) — 跨 Claude/Codex/Cursor 的能力路由与注入防火墙
 - [`minivv/dsh-agent-skills`](https://github.com/minivv/dsh-agent-skills) — DeepSeek Harness 内发现/管理 Agent Skills
 - [`avibe-bot/askill`](https://github.com/avibe-bot/askill) — Agent Skills 包管理器（版本/依赖/安全评分），Show HN Askill
+- [`KnoxOps/agent-runbook`](https://github.com/KnoxOps/agent-runbook) — 将契约式 YAML runbook 编译为 Claude/Codex SKILL.md 的多代理框架
 - [`moatazhamada/ai-omni-skills`](https://github.com/moatazhamada/ai-omni-skills) — 跨工具统一分发与同步 Agent Skills 的源包
 - [`MSiccDev/ai-context-kit`](https://github.com/MSiccDev/ai-context-kit) — AGENTS-first / skills-first 上下文协作框架与模板
 - [`pdugan20/claudelint`](https://github.com/pdugan20/claudelint) — Claude Code 项目 linter（CLAUDE.md/skills/settings/hooks）
@@ -1708,119 +1738,3 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`swaylq/humanize-chinese`](https://github.com/swaylq/humanize-chinese) — 中文 AI 文本去痕迹 Skill。
 
 </details>
-
-## 设计哲学：保留类书的魂，换掉过时的骨
-
-类书（《永乐大典》《四库全书》）的伟大，在于**没有全文检索的时代**用人工分类 + 互见解决"找东西"。
-今天搜索已经解决了检索，所以我们**继承它的思想，修正它的机制**：
-
-| 类书思想 | 在本仓库的对应实现 | 为什么这样改 |
-|---|---|---|
-| 事以类聚（分类） | 11 卷功能域目录（[TAXONOMY.md](TAXONOMY.md)） | 命名**内容可预测**，贡献者一眼知道往哪放；不用乾坤五行那种语义为空的隐喻 |
-| 互见法（一物多见） | frontmatter 关系字段 → 自动生成[互见图谱](INDEX/) | Agent 不浏览目录；互见做成**图的边**才能驱动依赖/组合/进阶推荐 |
-| 总目 + 分目 + 索引 | `scripts/build-index.mjs` **自动生成** [INDEX/](INDEX/) | 手工维护多套索引必然腐烂；让机器从 frontmatter 重建 |
-| 条目体例统一 | [SCHEMA.md](SCHEMA.md) + [`_template/SKILL.md`](_template/SKILL.md) | 机读友好、单一职责、token 精简——为 Agent 而非为人类阅读优化 |
-
-> **为什么不用「天-地-人-事-物 / 乾坤坎离 / 金木水火土」？**
-> 因为受众是 AI Agent。那套命名很美，但"思维归乾、沟通归坤"是**不可预测的映射**——
-> 贡献者猜不到该放哪、用户猜不到去哪找，会原样复活你最想消灭的"分类混乱"。
-> 对机器它更是完全不可见。我们把"类书味"留在**标题、目录、互见**这一层，而非生硬套在原始路径上。
-
-## 目录结构
-
-```
-everything-skills/
-├── README.md                # 本文件（总序）
-├── TAXONOMY.md              # 分类总纲：11 卷功能域 + 设计原则
-├── SCHEMA.md                # 技能条目的 frontmatter 字段规范
-├── taxonomy.json            # 卷→合法类 受控词表（生成器校验依据）
-├── CONTRIBUTING.md          # 如何新增一条技能
-├── _template/
-│   └── SKILL.md             # 条目模板（复制即用）
-├── data/
-│   ├── skill-repos.jsonl    # 外部技能库目录源（jsonl）
-│   └── skill-repos.meta.md  # 总目前言（检索方法等）
-├── scripts/
-│   ├── build-index.mjs      # 索引/目录/互见图谱生成器（零依赖 Node）
-│   └── build-skill-repos.mjs # 由 jsonl 生成 INDEX/skill-repos.md
-├── INDEX/                   # catalog/tags/tools/graph/search/sources 由脚本生成
-│   ├── catalog.md           # 全书总目（按卷·类）
-│   ├── tags.md              # 标签索引
-│   ├── tools.md             # 工具索引
-│   ├── graph.md             # 互见图谱（Mermaid）
-│   ├── graph.json           # 互见图谱（机读，供可视化）
-│   ├── search.json          # 召回层：扁平记录，供两段式发现/搜索
-│   └── skill-repos.md       # 技能仓库总目（由 jsonl 生成，勿手改）
-├── .claude-plugin/
-│   └── marketplace.json     # 插件市场清单（自动生成，可 /plugin marketplace add 安装）
-├── 00-meta/                 # 卷〇·通用元能力
-├── 01-documents/            # 卷一·文书
-├── 02-engineering/          # 卷二·研发
-├── 03-data/                 # 卷三·数据
-├── 04-ai/                   # 卷四·智能
-├── 05-business/             # 卷五·商业
-├── 06-creative/             # 卷六·创意
-├── 07-productivity/         # 卷七·协作
-├── 08-security/             # 卷八·安全
-├── 09-verticals/            # 卷九·领域专精
-└── 10-platform/             # 卷十·平台集成（连接器/CLI/云/浏览器/MCP）
-```
-
-> **路径用 ASCII kebab-case，标题用中文。** 单条技能的文件夹名即它的 `name`（技能 ID），
-> 必须是 ASCII 短横线命名（跨平台 / 跨 Agent 安全），中文标题写在 frontmatter 的 `title` 里。
-> 「类书」活在目录与索引层，而非原始路径层。
-
-## 一条技能长什么样
-
-见 [`_template/SKILL.md`](_template/SKILL.md) 与字段规范 [SCHEMA.md](SCHEMA.md)。核心是 frontmatter：
-
-```yaml
----
-name: pdf-form-filler
-title: PDF 表单填写
-description: 当需要以编程方式填写、提取或勾选 PDF 表单字段（AcroForm/XFA）时使用；触发词：填表、PDF 表单、表单字段、批量盖章。
-domain: 文书/PDF
-tags: [pdf, forms, extraction]
-level: 进阶
-requires: [pdf-basics]            # 依赖（前置技能）
-related: [markdown-to-docx]       # 互见
-combines_with: [csv-data-cleaner] # 组合
-agents: [claude-code, codex, cursor]
-tools: [python, pypdf]
-status: stable
----
-```
-
-## 如何被 AI Agent 使用
-
-- **作为插件市场安装（推荐）**：仓库含 `.claude-plugin/marketplace.json`，在 Claude Code 里 `/plugin marketplace add <repo>` 即可浏览、**按卷分装**（11 个插件对应 11 卷）。对标 anthropics/skills、wshobson/agents 的安装方式。
-- **Claude Code / Agent SDK**：把整个仓库（或某几卷）作为 skills 目录挂载，Agent 按 `description` 自动发现。
-- **导出单包**：每个技能文件夹自包含，可单独复制给任意支持 `SKILL.md` 的工具。
-- **多版本适配**：`agents:` 字段声明兼容的助手；后续可由脚本生成各家优化变体。
-
-## 如何检索
-
-不靠人脑爬目录，靠生成出来的索引（运行 `node scripts/build-index.mjs` 重建）：
-
-- 按领域浏览 → [INDEX/catalog.md](INDEX/catalog.md)
-- 按标签找 → [INDEX/tags.md](INDEX/tags.md)
-- 按工具找 → [INDEX/tools.md](INDEX/tools.md)
-- 看技能关系（依赖/互见/组合）→ [INDEX/graph.md](INDEX/graph.md)
-- 技能仓库目录（只索引 GitHub 技能库，不收录源码）→ [本页目录](#技能仓库目录) · 详细表 [INDEX/skill-repos.md](INDEX/skill-repos.md)
-- 全文/语义搜索 → 直接用编辑器或后续接入的搜索（这才是"检索"的正解）
-
-## 路线图
-
-- **第一阶段 · 骨架**：定稿分类总纲、字段规范、条目模板、索引生成器；每卷放数条样例技能跑通全链路。
-- **第二阶段 · 填肉（当前）**：填肉进行中 / 1108 条已收录。
-- **第三阶段 · 特色**：技能依赖图可视化、组合推荐、一键导出各 Agent 变体、社区贡献与评分。
-
-> 已做过一轮 3 视角对抗评审（发现机制 / 归位 / 规模化）。完整发现与 P0–P3 待办见 [ROADMAP.md](ROADMAP.md)。
-
-## 贡献
-
-读 [CONTRIBUTING.md](CONTRIBUTING.md)。一句话：复制模板 → 填 frontmatter → 写正文 → 跑 `node scripts/build-index.mjs` 与 `node scripts/build-skill-repos.mjs` 校验 → 提 PR。
-
----
-
-*事以类聚，技以互见。— 技能大典*

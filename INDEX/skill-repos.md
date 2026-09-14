@@ -8,7 +8,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1537 个独立仓库（另注明更名别名）
+- 收录条数：1567 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -22,18 +22,11 @@
 - sickn33/antigravity-awesome-skills → sickn33/agentic-awesome-skills
 - affaan-m/everything-claude-code → affaan-m/ECC
 - ComposioHQ/awesome-codex-skills → composio-community/awesome-codex-skills
-- aaron-he-zhu/seo-geo-claude-skills → aaron-marketing-skills（v9.9.12 冻结）
-- openai/skills → openai/plugins
-- vercel-labs/next-skills → vercel/next.js skills/
-- gsd-build/get-shit-done → open-gsd/gsd-core
-- adrianpuiu/claude-skills-marketplace → adrianpuiu/specification-document-generator（原仓 README 标明 obsolete）
 - 1102tools/federal-contracting-skills → 1102tools-dev/federal-contracting-skills
 
-### 已采编来源
+### 永久剔除
 
-见 INDEX/sources.md（18 个上游，不论星标一律收录）。
-
-未纳入：InternScience/Awesome-Scientific-Skills（无根 README）、WorldFlowAI/everything-claude-code（ECC 第三方警告）、攻击向/无 README 仓（含 mukul975/Anthropic-Cybersecurity-Skills）。
+- mukul975/Anthropic-Cybersecurity-Skills（攻击包）
 
 ## 1. 官方与权威
 
@@ -226,6 +219,8 @@
 | [basecamp/basecamp-cli](https://github.com/basecamp/basecamp-cli) | 272 | Basecamp 官方 CLI 与 Agent Skills | MIT | 2 | 仅索引 |
 | [aws/tools-for-devops-agent](https://github.com/aws/tools-for-devops-agent) | 59 | AWS DevOps Agent 开源 skills / 自定义 agents 工具包 | Apache-2.0 | 多 | 仅索引 |
 | [kevmoo/dash_skills](https://github.com/kevmoo/dash_skills) | 144 | Dart/Flutter 生态 Agent Skills（dash_skills） | Apache-2.0 | 多 | 仅索引 |
+| [VapiAI/skills](https://github.com/VapiAI/skills) | 65 | Vapi 官方语音 AI Agent Skills（创建助手/工具/活动等），兼容 skills.sh | MIT | 0 | 仅索引 |
+| [didit-protocol/skills](https://github.com/didit-protocol/skills) | 26 | Didit 身份核验官方 12 个生产级 Agent Skills（KYC/AML/生物识别等） | MIT | 12 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -599,6 +594,15 @@
 | [rdmgator12/awesome-claude-plugins](https://github.com/rdmgator12/awesome-claude-plugins) | 17 | Anthropic Claude Plugins 目录镜像索引 | CC0-1.0 | 333 | 仅索引 |
 | [gregoire-costory/awesome-agentic-finops](https://github.com/gregoire-costory/awesome-agentic-finops) | 29 | 云成本/FinOps 向 MCP 与 assistant skills 策展 | CC0-1.0 | 多 | 仅索引 |
 | [sumsun-dev/awesome-web3-claude](https://github.com/sumsun-dev/awesome-web3-claude) | 13 | Web3 + Claude Code：MCP/skills/框架策展 | Unknown | 多 | 仅索引 |
+| [mikiarlo3/awesome-growth-hacking-skills](https://github.com/mikiarlo3/awesome-growth-hacking-skills) | 709 | 精选增长黑客/营销 Agent Skills 目录（enso.bot 策展），按策略、获客、内容、RevOps 等分类 | MIT | 0 | 仅索引 |
+| [scarletkc/agents](https://github.com/scarletkc/agents) | 213 | 跨代理共享标准与可复用 skills（AGENTS.md + SKILL.md），面向 Claude Code / Codex CLI | Apache-2.0 | 0 | 仅索引 |
+| [serpro69/claude-toolbox](https://github.com/serpro69/claude-toolbox) | 149 | 精简多语言 Claude Code 配置与插件工具箱：MCP、skills、agents 等生产向工作流 | Other | 0 | 仅索引 |
+| [simota/agent-skills](https://github.com/simota/agent-skills) | 77 | 90 个专科 AI agents + Nexus 编排的跨平台技能集合（Claude/Codex/Antigravity） | MIT | 90 | 仅索引 |
+| [tmchow/agent-skills](https://github.com/tmchow/agent-skills) | 64 | 个人跨平台 Agent Skills 集合，可通过 npx skills 安装到 Claude/Cursor/Codex 等 | MIT | 0 | 仅索引 |
+| [eai-org/agent-toolkit](https://github.com/eai-org/agent-toolkit) | 46 | 项目无关的工程 Agent Skills/规则工具包：文档压缩、技能创作与日常工程任务 | MIT | 0 | 仅索引 |
+| [antonbabenko/agent-plugins](https://github.com/antonbabenko/agent-plugins) | 42 | Claude Code / Codex 插件市场与可执行纪律型 Agent Skills 集合 | MIT | 0 | 仅索引 |
+| [heymegabyte/claude-skills](https://github.com/heymegabyte/claude-skills) | 21 | Emdash：面向 32+ AI 编码工具的 solo-SaaS 技能平台（一句话到 Cloudflare 部署） | MIT | 19 | 仅索引 |
+| [beeyev/skills](https://github.com/beeyev/skills) | 16 | 小型 Agent Skills 集合，含 GitLab CI Handbook 等可安装技能 | MIT | 1 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1356,6 +1360,17 @@
 | [forjd/better-writing](https://github.com/forjd/better-writing) | 31 | 更清晰具体的人类文风 Agent skill | MIT | 1 | 仅索引 |
 | [eugenelim/agent-ready-repo](https://github.com/eugenelim/agent-ready-repo) | 22 | 团队 AI 作业系统：skills/subagents/hooks 一键安装包 | MIT | 多 | 仅索引 |
 | [netresearch/go-development-skill](https://github.com/netresearch/go-development-skill) | 12 | 企业级 Go 开发模式 Agent Skill | MIT | 1 | 仅索引 |
+| [flaqai/backlink_skills](https://github.com/flaqai/backlink_skills) | 709 | Codex 驱动的外链提交与 SEO 内容生产技能包：目录提交、写作与多平台分发工作流 | MIT | 0 | 仅索引 |
+| [eternityspring/reelbench-skills](https://github.com/eternityspring/reelbench-skills) | 534 | AI 视频侧 Claude/Codex 技能：成片拉片（video-shots）与分镜信息合成（video-sync） | Apache-2.0 | 2 | 仅索引 |
+| [hyperfx-ai/marketing-skills](https://github.com/hyperfx-ai/marketing-skills) | 87 | 面向营销的 Agent Skills（广告/社媒/SEO/邮件等），配合 Hyper MCP 工具背包 | MIT | 0 | 仅索引 |
+| [eldermoraes/quarkus-agentic-scaffolding](https://github.com/eldermoraes/quarkus-agentic-scaffolding) | 26 | Quarkus + LangChain4j 智能体脚手架技能与约定（CLAUDE.md/AGENTS.md） | MIT | 3 | 仅索引 |
+| [Jobo16/ielts-buddy](https://github.com/Jobo16/ielts-buddy) | 21 | 雅思学习本地 Agent Skills：计划、作文批改、口语陪练、听力阅读复盘与模考 | MIT | 0 | 仅索引 |
+| [JellyBrick/korean-prose-skill](https://github.com/JellyBrick/korean-prose-skill) | 20 | 韩语撰写与校对 Agent Skill，清理翻译腔与不自然文风 | Unknown | 1 | 仅索引 |
+| [CodeAlive-AI/codealive-skills](https://github.com/CodeAlive-AI/codealive-skills) | 14 | CodeAlive 语义代码搜索与代码库问答的官方 Agent Skills / 插件 | MIT | 1 | 仅索引 |
+| [OpenGHz/embodied-ai-paper-writer](https://github.com/OpenGHz/embodied-ai-paper-writer) | 14 | 具身智能顶会论文写作便携 Agent Skill（SKILL.md + 参考剧本） | MIT | 1 | 仅索引 |
+| [axisrobo/ea-harness](https://github.com/axisrobo/ea-harness) | 12 | 企业架构设计与校验技能包/CLI（需求、设计、图表校验与门禁） | MIT | 0 | 仅索引 |
+| [mixocreative/ecommerce-cia](https://github.com/mixocreative/ecommerce-cia) | 12 | 台湾电商金流串接与完整性审查 AI skill（蓝新/绿界等），支持 Claude/Codex/Cursor | MIT | 1 | 仅索引 |
+| [romainsimon/skills-for-decision-making](https://github.com/romainsimon/skills-for-decision-making) | 11 | 基于《Algorithms for Decision Making》的决策理论 Agent Skills 与计算器 | MIT | 8 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1466,6 +1481,14 @@
 | [erichare/skillroute](https://github.com/erichare/skillroute) | 40 | 本地优先 skill 路由：索引 SKILL.md 并经 MCP 提供计划 | MIT | 工具 | 仅索引 |
 | [moonrunnerkc/tracemantle](https://github.com/moonrunnerkc/tracemantle) | 24 | SKILL.md 校验与 agent-skill bundle 变更/证据门禁 | MIT | 工具 | 仅索引 |
 | [sx4im/skillcheck](https://github.com/sx4im/skillcheck) | 26 | 对 Agent Skills 做盲测 A/B 与 bootstrap CI 评测 | MIT | 工具 | 仅索引 |
+| [william-garden/sync-skill](https://github.com/william-garden/sync-skill) | 185 | 一键在多款编码代理/IDE 间同步 SKILL.md 技能目录的安装器 | MIT | 1 | 仅索引 |
+| [Tencent/SkillHone](https://github.com/Tencent/SkillHone) | 151 | 腾讯开源：基于持久决策历史的持续 Agent Skill 演化与优化运行时 | MIT | 0 | 仅索引 |
+| [SpaceZephyr/build-your-harness](https://github.com/SpaceZephyr/build-your-harness) | 48 | 三个配套 harness 搭建/体检/翻阅 Agent Skills，零依赖、多运行时通用 | MIT | 3 | 仅索引 |
+| [dltsum/doc2skill](https://github.com/dltsum/doc2skill) | 21 | 将操作手册/文档自动转化为高质量 Agent Skills（SKILL.md + references）的工具 | MIT | 1 | 仅索引 |
+| [RiriXt1/skillcheck](https://github.com/RiriXt1/skillcheck) | 18 | Agent Skills（SKILL.md）静态检查器：前置元数据、密钥泄露、重名与模糊触发 | MIT | 1 | 仅索引 |
+| [theinfosecguy/razin](https://github.com/theinfosecguy/razin) | 16 | 面向 SKILL.md 的本地静态分析安全扫描器（确定性发现，不执行技能代码） | MIT | 1 | 仅索引 |
+| [himself65/skill-lint](https://github.com/himself65/skill-lint) | 15 | 校验 Claude/Agent Skills（SKILL.md）的 lint 工具 | MIT | 1 | 仅索引 |
+| [KnoxOps/agent-runbook](https://github.com/KnoxOps/agent-runbook) | 13 | 将契约式 YAML runbook 编译为 Claude/Codex SKILL.md 的多代理框架 | MIT | 1 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 

@@ -6,7 +6,7 @@
 
 - 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：{{COUNT}} 个独立仓库（另注明更名别名）
+- 收录条数：1567 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -20,15 +20,8 @@
 - sickn33/antigravity-awesome-skills → sickn33/agentic-awesome-skills
 - affaan-m/everything-claude-code → affaan-m/ECC
 - ComposioHQ/awesome-codex-skills → composio-community/awesome-codex-skills
-- aaron-he-zhu/seo-geo-claude-skills → aaron-marketing-skills（v9.9.12 冻结）
-- openai/skills → openai/plugins
-- vercel-labs/next-skills → vercel/next.js skills/
-- gsd-build/get-shit-done → open-gsd/gsd-core
-- adrianpuiu/claude-skills-marketplace → adrianpuiu/specification-document-generator（原仓 README 标明 obsolete）
 - 1102tools/federal-contracting-skills → 1102tools-dev/federal-contracting-skills
 
-### 已采编来源
+### 永久剔除
 
-见 INDEX/sources.md（18 个上游，不论星标一律收录）。
-
-未纳入：InternScience/Awesome-Scientific-Skills（无根 README）、WorldFlowAI/everything-claude-code（ECC 第三方警告）、攻击向/无 README 仓（含 mukul975/Anthropic-Cybersecurity-Skills）。
+- mukul975/Anthropic-Cybersecurity-Skills（攻击包）
