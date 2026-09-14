@@ -1,3 +1,13 @@
+# Roadmap
+
+> From a three-angle adversarial review of taxonomy & schema (discovery / maintainer placement / scale). Perspectives largely converged. Below: **already folded into the skeleton** vs **backlog (P0–P3)**.
+>
+> Skeleton is up; flesh continues: **1108** skills are in volume. CI and `data/skill-repos.jsonl` → `INDEX/skill-repos.md` generation are in place.
+>
+> Chinese edition of this doc: [`zh`](https://github.com/findscripter/everything-skills/tree/zh). Language policy: [LANGUAGE.md](LANGUAGE.md).
+
+---
+
 # 路线图 · ROADMAP
 
 > 来源：对分类法与字段规范做的 3 视角对抗式评审（discovery 发现机制 / maintainer 归位 / scale 规模化）。
@@ -43,3 +53,4 @@
 ---
 
 *评审是为了让骨架经得起规模化，而非堆砌。每条 P0/P1 落地时，更新此表的状态。*
+

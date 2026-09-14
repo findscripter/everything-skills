@@ -1,7 +1,10 @@
 #!/usr/bin/env node
-// Regenerate README ## 技能仓库目录 from data/skill-repos*.jsonl
+// Regenerate README skill-repos directory from data/skill-repos*.jsonl
 // Rebuilds the whole section: summaries + collapsible <details> per category.
-// Usage: node scripts/refresh-readme-skill-repos-directory.mjs
+// Usage:
+//   node scripts/refresh-readme-skill-repos-directory.mjs          # default --lang=en (main chrome)
+//   node scripts/refresh-readme-skill-repos-directory.mjs --lang=en
+//   node scripts/refresh-readme-skill-repos-directory.mjs --lang=zh
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,7 +13,10 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = path.join(ROOT, 'data');
 const README = path.join(ROOT, 'README.md');
 
-const SECTION_META = [
+const langArg = process.argv.find(a => a.startsWith('--lang='));
+const LANG = (langArg ? langArg.slice('--lang='.length) : 'en').toLowerCase();
+
+const SECTION_META_ZH = [
   ['official', '1. 官方与权威（official）'],
   ['collections', '2. 精选列表 / 大集合（collections）'],
   ['vertical', '3. 垂直领域技能包（vertical）'],
@@ -19,12 +25,25 @@ const SECTION_META = [
   ['unnamed', '6. 名称不含 skill / agent（unnamed）'],
 ];
 
+const SECTION_META_EN = [
+  ['official', '1. Official'],
+  ['collections', '2. Collections'],
+  ['vertical', '3. Vertical'],
+  ['infra', '4. Infra'],
+  ['other', '5. Other'],
+  ['unnamed', '6. Unnamed'],
+];
+
+const SECTION_META = LANG === 'en' ? SECTION_META_EN : SECTION_META_ZH;
+const SECTION_HEADING = LANG === 'en' ? '## Skill repos directory' : '## 技能仓库目录';
+const EMPTY_SUMMARY = LANG === 'en' ? '(no summary)' : '（暂无摘要）';
+
 function sanitizeSummary(s) {
   const t = String(s ?? '')
     .replace(/[\r\n]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-  return t || '（暂无摘要）';
+  return t || EMPTY_SUMMARY;
 }
 
 const files = (await fs.readdir(DATA))
@@ -59,19 +78,29 @@ for (const id of Object.keys(bySection)) {
 
 const total = byFull.size;
 const parts = [];
-parts.push('## 技能仓库目录\n');
-parts.push(
-  `\n目前索引 **${total}** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。\n`,
-);
-parts.push(
-  '\n完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。\n',
-);
+parts.push(SECTION_HEADING + '\n');
+if (LANG === 'en') {
+  parts.push(
+    `\nCurrently indexing **${total}** GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.\n`,
+  );
+  parts.push(
+    '\nFull tables (stars / summary / license) are generated from `data/skill-repos.jsonl` (and part shards) into **[INDEX/skill-repos.md](INDEX/skill-repos.md)**. This page is the categorized link directory.\n',
+  );
+} else {
+  parts.push(
+    `\n目前索引 **${total}** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。\n`,
+  );
+  parts.push(
+    '\n完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。\n',
+  );
+}
 
 const counts = {};
 for (const [id, title] of SECTION_META) {
   const items = bySection[id];
   counts[id] = items.length;
-  parts.push(`\n<details>\n<summary>${title}（${items.length}）</summary>\n\n`);
+  const countLabel = LANG === 'en' ? ` (${items.length})` : `（${items.length}）`;
+  parts.push(`\n<details>\n<summary>${title}${countLabel}</summary>\n\n`);
   for (const o of items) {
     const url = o.html_url || `https://github.com/${o.full_name}`;
     const summary = sanitizeSummary(o.summary);
@@ -83,15 +112,29 @@ for (const [id, title] of SECTION_META) {
 const newSec = parts.join('');
 
 let readme = await fs.readFile(README, 'utf8');
-const start = readme.indexOf('## 技能仓库目录');
-if (start < 0) throw new Error('missing ## 技能仓库目录');
-const rest = readme.slice(start + 10);
+const altHeading = LANG === 'en' ? '## 技能仓库目录' : '## Skill repos directory';
+let start = readme.indexOf(SECTION_HEADING);
+let usedHeading = SECTION_HEADING;
+if (start < 0) {
+  start = readme.indexOf(altHeading);
+  usedHeading = altHeading;
+}
+if (start < 0) throw new Error('missing ' + SECTION_HEADING + ' (or alt-language heading)');
+const headingLen = usedHeading.length;
+const rest = readme.slice(start + headingLen);
 const m = rest.match(/\n## [^#]/);
-const end = m ? start + 10 + m.index : readme.length;
+const end = m ? start + headingLen + m.index : readme.length;
 readme = readme.slice(0, start) + newSec + readme.slice(end);
-readme = readme.replace(
-  /另索引 \*\*\d+\*\* 个外部 GitHub 技能库/,
-  `另索引 **${total}** 个外部 GitHub 技能库`,
-);
-await fs.writeFile(README, readme);
-console.log('updated README unique=', total, counts);
+if (LANG === 'en') {
+  readme = readme.replace(
+    /Also indexes \*\*\d+\*\* external GitHub skill (?:libraries|repos)/,
+    `Also indexes **${total}** external GitHub skill libraries`,
+  );
+} else {
+  readme = readme.replace(
+    /另索引 \*\*\d+\*\* 个外部 GitHub 技能库/,
+    `另索引 **${total}** 个外部 GitHub 技能库`,
+  );
+}
+await fs.writeFile(README, readme, 'utf8');
+console.log('updated README lang=' + LANG + ' unique=', total, counts);
