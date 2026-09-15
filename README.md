@@ -8,7 +8,7 @@
 >
 > **Language**: repository chrome on `main` is **English**; each `SKILL.md` stays in its **native/original language**. Chinese chrome edition: [`zh`](https://github.com/findscripter/everything-skills/tree/zh). Full English skill mirror on `en` is **deprecated** — see [LANGUAGE.md](LANGUAGE.md).
 >
-> This library holds **1108** curated skills and also indexes **1567** external GitHub skill libraries (README-only).
+> This library holds **1108** curated skills and also indexes **1606** external GitHub skill libraries (README-only).
 >
 > **Security & license**: skill bodies are **instruction text** for agents (not executables). Scripts / network calls are flagged in each skill's notes. Provenance: [INDEX/sources.md](INDEX/sources.md); terms: [LICENSE](LICENSE) / [NOTICE](NOTICE). Policy: [SECURITY.md](SECURITY.md).
 
