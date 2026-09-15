@@ -126,9 +126,10 @@ const m = rest.match(/\n## [^#]/);
 const end = m ? start + headingLen + m.index : readme.length;
 readme = readme.slice(0, start) + newSec + readme.slice(end);
 if (LANG === 'en') {
+  // README chrome may use "Also indexes" or lowercase "also indexes"
   readme = readme.replace(
-    /Also indexes \*\*\d+\*\* external GitHub skill (?:libraries|repos)/,
-    `Also indexes **${total}** external GitHub skill libraries`,
+    /([Aa]lso indexes) \*\*\d+\*\* external GitHub skill (?:libraries|repos)/,
+    (_, lead) => `${lead} **${total}** external GitHub skill libraries`,
   );
 } else {
   readme = readme.replace(

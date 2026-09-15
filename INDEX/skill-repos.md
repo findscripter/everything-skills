@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-05（Asia/Shanghai）；同日清理：去重/政策剔除后 unique ≈1007
+- 编制日期：2026-09-15（Asia/Shanghai）；日常增量索引 part54
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1567 个独立仓库（另注明更名别名）
+- 收录条数：1606 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -221,6 +221,8 @@
 | [kevmoo/dash_skills](https://github.com/kevmoo/dash_skills) | 144 | Dart/Flutter 生态 Agent Skills（dash_skills） | Apache-2.0 | 多 | 仅索引 |
 | [VapiAI/skills](https://github.com/VapiAI/skills) | 65 | Vapi 官方语音 AI Agent Skills（创建助手/工具/活动等），兼容 skills.sh | MIT | 0 | 仅索引 |
 | [didit-protocol/skills](https://github.com/didit-protocol/skills) | 26 | Didit 身份核验官方 12 个生产级 Agent Skills（KYC/AML/生物识别等） | MIT | 12 | 仅索引 |
+| [aliyun/maxcompute-semantic](https://github.com/aliyun/maxcompute-semantic) | 13 | 阿里云 MaxCompute 语义层 CLI + 可移植 SKILL.md：为代理提供表/指标/JOIN 上下文与 SQL 审查执行。 | Apache-2.0 | 1 bundle + CLI | 仅索引 |
+| [UiPath/coder_eval](https://github.com/UiPath/coder_eval) | 129 | UiPath 开源「编码代理的 Playwright」：沙箱 YAML 套件评测技能/MCP/CLI，可作 CI 门禁。 | Apache-2.0 | 评测框架（含 Claude 插件） | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -603,6 +605,10 @@
 | [antonbabenko/agent-plugins](https://github.com/antonbabenko/agent-plugins) | 42 | Claude Code / Codex 插件市场与可执行纪律型 Agent Skills 集合 | MIT | 0 | 仅索引 |
 | [heymegabyte/claude-skills](https://github.com/heymegabyte/claude-skills) | 21 | Emdash：面向 32+ AI 编码工具的 solo-SaaS 技能平台（一句话到 Cloudflare 部署） | MIT | 19 | 仅索引 |
 | [beeyev/skills](https://github.com/beeyev/skills) | 16 | 小型 Agent Skills 集合，含 GitLab CI Handbook 等可安装技能 | MIT | 1 | 仅索引 |
+| [agent-skills-hub/agent-skills-hub](https://github.com/agent-skills-hub/agent-skills-hub) | 92 | Agent Skills Hub：跨 Claude/Gemini/Cursor/Codex 等的技能注册表与 NPX 安装，约 790+ 技能。 | MIT | 约 790+ | 仅索引 |
+| [tinh2/skills-hub-registry](https://github.com/tinh2/skills-hub-registry) | 16 | skills-hub.ai 官方技能集合：约 430 条覆盖研发全生命周期与垂直行业，日同步注册表。 | README 未单列 SPDX | 约 430 | 仅索引 |
+| [Borda/AI-Rig](https://github.com/Borda/AI-Rig) | 27 | Python/ML/开源维护工作流：Claude Code 与 Codex 多插件包（foundry/oss/develop/research 等）。 | Apache-2.0 | 多插件数十技能 | 仅索引 |
+| [smturtle2/codex-skills](https://github.com/smturtle2/codex-skills) | 13 | 面向 Codex 的可单独安装技能集：动画、EPUB 翻译、图像、播客文案、子代理创建等约 10 条。 | README 未单列 SPDX | 约 10 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1371,6 +1377,29 @@
 | [axisrobo/ea-harness](https://github.com/axisrobo/ea-harness) | 12 | 企业架构设计与校验技能包/CLI（需求、设计、图表校验与门禁） | MIT | 0 | 仅索引 |
 | [mixocreative/ecommerce-cia](https://github.com/mixocreative/ecommerce-cia) | 12 | 台湾电商金流串接与完整性审查 AI skill（蓝新/绿界等），支持 Claude/Codex/Cursor | MIT | 1 | 仅索引 |
 | [romainsimon/skills-for-decision-making](https://github.com/romainsimon/skills-for-decision-making) | 11 | 基于《Algorithms for Decision Making》的决策理论 Agent Skills 与计算器 | MIT | 8 | 仅索引 |
+| [ponomr/thinking-toolkit](https://github.com/ponomr/thinking-toolkit) | 10 | 30 个思维模型打包为可移植 Agent Skill（决策矩阵/因果图/预检表等），纯 Markdown 零依赖。 | README 未单列 SPDX | 1（含 30 模型） | 仅索引 |
+| [anilcancakir/laravel-ai-sdk-skills](https://github.com/anilcancakir/laravel-ai-sdk-skills) | 25 | Laravel AI SDK 的可复用能力系统：用 SKILL.md 定义代理技能并接入 Laravel 应用。 | MIT | 技能系统/多技能 | 仅索引 |
+| [dzcmemory-web/bazi-ziwei-skills](https://github.com/dzcmemory-web/bazi-ziwei-skills) | 27 | 八字+紫微斗数排盘与印证 Skill（mingpan/iztro）：算法排盘与水墨风 HTML 海报，兼容多 Agent。 | README 未单列 SPDX | 约 2+ | 仅索引 |
+| [alvindemesadev/boring-engineering](https://github.com/alvindemesadev/boring-engineering) | 11 | 反过度工程 SKILL.md：把 KISS/YAGNI/DRY 落成可执行决策系统，适用于多编码代理。 | README 未单列 SPDX | 1 | 仅索引 |
+| [anasfik/FlutterGuard](https://github.com/anasfik/FlutterGuard) | 25 | Flutter APK/AAB 安全审计 Agent Skill：面向 OpenClaw/Codex/Claude Code 等的防御性检查清单。 | README 未单列 SPDX | 1 | 仅索引 |
+| [ericluo04/claude-academic-workflow](https://github.com/ericluo04/claude-academic-workflow) | 13 | 学术研究工作流约 20 技能：因果推断、文献、Bib 审计、复现包、LaTeX/TikZ、Quarto 幻灯片门禁。 | README 未单列 SPDX | 约 20 | 仅索引 |
+| [maton-ai/api-gateway-skill](https://github.com/maton-ai/api-gateway-skill) | 29 | 托管鉴权 API 网关 Skill：一键把代理接到 Slack/HubSpot/Salesforce/Google Workspace 等。 | README 未单列 SPDX | 1 + 插件 | 仅索引 |
+| [johnnydecimal/skills](https://github.com/johnnydecimal/skills) | 10 | Johnny.Decimal 文件组织体系的 Agent Skills，帮助代理按 JD 编号管理资料。 | README 未单列 SPDX | 少量 | 仅索引 |
+| [netresearch/docker-development-skill](https://github.com/netresearch/docker-development-skill) | 22 | Netresearch Docker 开发 Skill：Dockerfile 最佳实践、CI 测试与 Compose 编排模式。 | README 未单列 SPDX | 1 | 仅索引 |
+| [uxKero/anydesign](https://github.com/uxKero/anydesign) | 190 | 从图片/网站/Figma 提取设计系统并生成 design.md（token、组件清单、重建笔记）的 Claude Skill。 | README 未单列 SPDX | 1 | 仅索引 |
+| [xr843/Master-skill](https://github.com/xr843/Master-skill) | 394 | FoJin 驱动的佛教 AI 人格框架 Skill：源典 grounding、边界意识与保真测试，可运行。 | README 未单列 SPDX | 人格/技能包 | 仅索引 |
+| [guramzhgamadze/WordPress-Elementor-Skill](https://github.com/guramzhgamadze/WordPress-Elementor-Skill) | 25 | WordPress + Elementor Pro 生产级开发标准 Skill：插件/组件/REST/性能实践。 | README 未单列 SPDX | 1 | 仅索引 |
+| [maxrave-dev/kotlin-footguns](https://github.com/maxrave-dev/kotlin-footguns) | 387 | 从生产级音乐 App 提炼的 Kotlin/Compose Multiplatform/桌面 JVM 踩坑 Agent Skills（约 224）。 | GPL-3.0 | 约 224 | 仅索引 |
+| [jentic/jentic-api-scorecard](https://github.com/jentic/jentic-api-scorecard) | 21 | OpenAPI AI 就绪度评分：CLI/GitHub Action + Agent Skills，输出 HTML 与 Overlay。 | README 未单列 SPDX | 含 agent skills | 仅索引 |
+| [tigerless-labs/seo-ops](https://github.com/tigerless-labs/seo-ops) | 236 | SEO 基础结构检查 Agent Skill：给 URL 做 26 项确定性 crawler 视角 pass/fail 报告，零 LLM。 | README 未单列 SPDX | 1 + 26 checks | 仅索引 |
+| [ZSeven-W/craft-skills](https://github.com/ZSeven-W/craft-skills) | 153 | 研究驱动/评测驱动设计向 Skills：Logo 语义融合、日记漫画、透明图生成、微缩流程剧场等。 | README 未单列 SPDX | 约 4 | 仅索引 |
+| [GENEXIS-AI/gpt-image-skill](https://github.com/GENEXIS-AI/gpt-image-skill) | 166 | 用 ChatGPT 订阅在 Codex/Claude Code 等本地代理中生成/编辑 GPT 图像（不走 Images API 单独计费）。 | README 未单列 SPDX | 1 | 仅索引 |
+| [yaojingang/GEOHub](https://github.com/yaojingang/GEOHub) | 161 | 开源 GEO/SEO Agent Skill Hub：发现、诊断、内容、度量与策略优化等协议化技能包。 | README 未单列 SPDX | 约 8+ | 仅索引 |
+| [zenstory-ai/oh-story-dsh](https://github.com/zenstory-ai/oh-story-dsh) | 346 | DeepSeek Harness 社区插件：小说/短剧/互动游戏/视频解说创作 Skills 与工作台（非 DeepSeek 官方）。 | MIT | 多工作台技能 | 仅索引 |
+| [Alexwtlf/agentic-product-demo](https://github.com/Alexwtlf/agentic-product-demo) | 249 | 用编码代理 + Remotion 做产品演示视频的 Agent Skill：UI 是代码而非录屏。 | README 未单列 SPDX | 1 | 仅索引 |
+| [Colinjqq/content-forecast](https://github.com/Colinjqq/content-forecast) | 173 | 创作者优先的选题/脚本评审/拍摄指导与播放预测 Agent Skill（先问为何你适合讲）。 | MIT | 1 | 仅索引 |
+| [yizhiyanhua-ai/fireworks-open-eli5](https://github.com/yizhiyanhua-ai/fireworks-open-eli5) | 189 | 把复杂系统做成可离线交互可视化 ELI5 故事的可移植 Agent Skill（证据阶梯 + 单文件 HTML）。 | README 未单列 SPDX | 1 | 仅索引 |
+| [moskoo/xxg-portrait-rebuild-light](https://github.com/moskoo/xxg-portrait-rebuild-light) | 197 | 人像重打光图像编辑 Skill：保留身份与构图，分离光位/曝光/肤质微细节（Codex/Claude/OpenClaw）。 | MIT | 1 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1489,6 +1518,16 @@
 | [theinfosecguy/razin](https://github.com/theinfosecguy/razin) | 16 | 面向 SKILL.md 的本地静态分析安全扫描器（确定性发现，不执行技能代码） | MIT | 1 | 仅索引 |
 | [himself65/skill-lint](https://github.com/himself65/skill-lint) | 15 | 校验 Claude/Agent Skills（SKILL.md）的 lint 工具 | MIT | 1 | 仅索引 |
 | [KnoxOps/agent-runbook](https://github.com/KnoxOps/agent-runbook) | 13 | 将契约式 YAML runbook 编译为 Claude/Codex SKILL.md 的多代理框架 | MIT | 1 | 仅索引 |
+| [Nagi-ovo/dsh-find-plugins](https://github.com/Nagi-ovo/dsh-find-plugins) | 172 | DSH Skill：按自然语言从 GitHub dsh-plugin topic 发现、解释、安装并验证插件。 | README 未单列 SPDX | 1 | 仅索引 |
+| [kina-cmd/agent-skill-sync](https://github.com/kina-cmd/agent-skill-sync) | 14 | 跨 Codex/Claude/WorkBuddy 扫描分类并同步 SKILL.md 的零依赖 Python CLI（skillsync）。 | MIT | 安装器/同步器 | 仅索引 |
+| [krishyaid-coder/doodle](https://github.com/krishyaid-coder/doodle) | 25 | Claude SKILL.md linter：捕获模糊描述、体量过大与触发失败，帮助技能真正开火。 | README 未单列 SPDX | 工具 | 仅索引 |
+| [vanillagreencom/kendex](https://github.com/vanillagreencom/kendex) | 76 | Agent/skills/hooks/扩展的包管理器：一次编写、多 harness 安装的桌面端+CLI。 | README 未单列 SPDX | 包管理器 | 仅索引 |
+| [byronxlg/skillfold](https://github.com/byronxlg/skillfold) | 12 | Claude Code/Codex 声明式技能管理：YAML 声明 + lockfile 钉版本，可复现安装到 .claude/skills。 | README 未单列 SPDX | 安装器 | 仅索引 |
+| [Zandereins/schliff](https://github.com/Zandereins/schliff) | 16 | AGENTS.md/SKILL.md 等指令文件的确定性质量评分器（8 维+安全），零依赖。 | MIT | 工具 | 仅索引 |
+| [ianustec/openwebui-skill-creator](https://github.com/ianustec/openwebui-skill-creator) | 10 | Open WebUI Tool：访谈→起草→校验→持久化 Workspace Skill（SKILL.md），默认私有。 | MIT | 创建器 | 仅索引 |
+| [runxhq/runx](https://github.com/runxhq/runx) | 88 | Agent Skill 工作流受管运行时：SKILL.md 组合为图、权限收窄、每步留收据（runx.ai）。 | Apache-2.0 | 运行时/目录 | 仅索引 |
+| [xingkongliang/skills-manager](https://github.com/xingkongliang/skills-manager) | 4,730 | 跨 50+ 编码工具管理/同步 Agent Skills 的轻量桌面应用（Claude/Codex/Cursor/Copilot 等）。 | MIT | 管理器 | 仅索引 |
+| [aktsmm/vscode-agent-skill-ninja](https://github.com/aktsmm/vscode-agent-skill-ninja) | 25 | VS Code 扩展：搜索/安装/管理 Agent Skills（SKILL.md），面向 Copilot 与 Claude Code。 | README 未单列 SPDX | 扩展/管理器 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
