@@ -34,7 +34,8 @@ source_license: CC-BY-4.0
 - **概率/深度生成模型**（scVI、scANVI、TOTALVI）→ 用 scvi-tools
 - 本条只负责数据结构、I/O 与拼接这一件事
 
-## 步骤
+## 步骤 / 指令
+
 
 1. 装环境：`pip install "anndata>=0.10"`（按需加 `scanpy zarr h5py`）。
 2. 构建对象：`ad.AnnData(X=..., obs=..., var=...)`；计数矩阵优先 `csr_matrix`（稀疏省 ~10x 内存）。
@@ -44,7 +45,6 @@ source_license: CC-BY-4.0
 6. 拼接：`ad.concat([...], axis=0/1, join="inner"/"outer", label=, keys=, merge=)`。
 7. 保存前：`strings_to_categoricals()` + 稀疏化 + 删 `uns` 大对象 + gzip。
 
-## 指令
 
 AnnData 各槽位（slot）速查：
 
@@ -113,6 +113,12 @@ adata.obsp["connectivities"] = csr_matrix(np.random.rand(adata.n_obs, adata.n_ob
 adata.uns["neighbors"] = {"params": {"n_neighbors": 15, "method": "umap"}}
 ```
 
+### 超大集合与 on-disk 拼接（补强）
+
+- `AnnCollection` / `ad.experimental.concat_on_disk({...}, out.h5ad)`：多批次过大时避免一次载入。
+- 写盘前：`strings_to_categoricals()`、确保 `X` 稀疏、清理 `uns` 中巨型缓存、`compression="gzip"`。
+- 多模态 `axis=1` 拼接要求 obs 对齐；跨批次 `obs_names_make_unique()` 防 barcode 碰撞。
+
 ## 注意事项
 
 - **计数矩阵用稀疏**：scRNA 计数 90%+ 为零，`csr_matrix` 省约 10x 内存；存前 `if not issparse(adata.X): adata.X = csr_matrix(adata.X)`。
@@ -134,4 +140,4 @@ adata.uns["neighbors"] = {"params": {"n_neighbors": 15, "method": "umap"}}
 
 ---
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。2026-09-16 上游刷新（吸收上游新增程序要点，保持 SCHEMA 中文适配密度）。
