@@ -13,7 +13,7 @@ requires: []
 related: [skill-optimizer, skill-creator]
 combines_with: []
 license: MIT
-source: alirezarezvani/claude-skills
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用
@@ -145,4 +145,4 @@ source_license: MIT
 
 ---
 
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+采编自 affaan-m/ECC（MIT 许可证）。
