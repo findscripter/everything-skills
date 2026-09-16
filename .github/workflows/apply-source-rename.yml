@@ -1,0 +1,65 @@
+name: apply-source-rename-once
+on:
+  push:
+    branches: [chore/source-rename-canonical-2026-09-16]
+    paths:
+      - '.github/workflows/apply-source-rename.yml'
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chore/source-rename-canonical-2026-09-16
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Mechanically rename source frontmatter
+        run: |
+          python3 << 'PY'
+          from pathlib import Path
+          import re
+          renames = [
+              ('sickn33/antigravity-awesome-skills', 'sickn33/agentic-awesome-skills'),
+              ('affaan-m/everything-claude-code', 'affaan-m/ECC'),
+          ]
+          dirs = sorted([p for p in Path('.').iterdir() if p.is_dir() and re.match(r'^\d{2}-', p.name)])
+          counts = {old: 0 for old, _ in renames}
+          files_touched = {old: set() for old, _ in renames}
+          for d in dirs:
+              for skill in d.rglob('SKILL.md'):
+                  text = skill.read_text(encoding='utf-8')
+                  new = text
+                  for old, newname in renames:
+                      pattern = re.compile(rf'^([ \t]*source:[ \t]*)(.*{re.escape(old)}.*)([ \t]*)$', re.M)
+                      updated, n = pattern.subn(lambda m, o=old, nn=newname: m.group(1)+m.group(2).replace(o,nn)+m.group(3), new)
+                      if n:
+                          counts[old] += n
+                          files_touched[old].add(str(skill))
+                          new = updated
+                  if new != text:
+                      skill.write_text(new, encoding='utf-8')
+          print('COUNTS', {k: {'replacements': v, 'files': len(files_touched[k])} for k,v in counts.items()})
+          PY
+          node scripts/build-index.mjs || true
+          # Keep graph.md stable if only sources.md matters for this chore
+          git checkout -- INDEX/graph.md 2>/dev/null || true
+          git status --short | head -20
+          echo "changed=$(git status --porcelain | wc -l)"
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: rename source: antigravity→agentic, ECC
+
+          Mechanically update YAML source: frontmatter to canonical renames.
+          Regenerate INDEX/sources.md. Skill bodies unchanged."
+          git push
