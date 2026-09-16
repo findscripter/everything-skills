@@ -6,7 +6,7 @@ domain: 领域/legal
 triggers: [不动产拍卖法律分析, 司法拍卖, 法拍房, 拍卖瑕疵无效, 信托让与, bem de familia, 家庭住宅豁免, 随物负担, property auction legal, judicial auction, foreclosure due diligence]
 tags: [legal, auction-law, real-estate, due-diligence, brazilian-law, foreclosure]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [claude-code]
 requires: []
@@ -15,7 +15,9 @@ combines_with: [general-counsel-advisor]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 - 对**司法拍卖**（执行/查封/拍卖）或**非司法拍卖**（信托让与 alienação fiduciária）标的做买受前法律尽职调查时。
