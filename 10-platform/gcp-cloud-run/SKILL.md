@@ -13,7 +13,7 @@ requires: []
 related: [gcp-cloud-architect, aws-serverless-builder, cloudflare-workers-edge, kubernetes-architect]
 combines_with: [docker-container-optimizer, terraform-specialist, rest-api-endpoint-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

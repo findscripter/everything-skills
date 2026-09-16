@@ -13,7 +13,7 @@ requires: []
 related: [neon-serverless-postgres, postgresql-optimization, cloud-cost-optimization, database-migration-strategies]
 combines_with: [env-secrets-hygiene, prisma-orm-expert, drizzle-orm-expert]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

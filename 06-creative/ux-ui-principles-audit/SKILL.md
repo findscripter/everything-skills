@@ -13,7 +13,7 @@ requires: []
 related: [ux-research-design-toolkit, apple-hig-advisor, accessibility-wcag-audit, design-spells-microinteractions]
 combines_with: [ux-research-design-toolkit, wcag-22-audit-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

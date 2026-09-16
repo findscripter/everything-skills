@@ -13,7 +13,7 @@ requires: []
 related: [idor-vulnerability-testing, api-fuzzing-bug-bounty, burp-suite-testing, ffuf-web-fuzzing]
 combines_with: [burp-suite-testing, penetration-testing-methodology, ffuf-web-fuzzing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 > 仅限授权使用：本技能只能用于已授权的安全评估、防御性验证或受控教学环境。严禁在无授权目标上测试或破坏生产数据。

@@ -13,7 +13,7 @@ requires: []
 related: [x-twitter-scraper-toolkit, x-twitter-automation, firecrawl-web-scraper, defuddle-web-extract]
 combines_with: [news-sentiment-briefing, browser-automation-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [stripe-integration, graphql-architect, rest-api-endpoint-builder, shadcn-ui-components]
 combines_with: [stripe-integration, billing-automation-systems, transactional-email-template-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

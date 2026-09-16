@@ -13,7 +13,7 @@ requires: []
 related: [browser-extension-builder, chrome-extension-mv3, electron-desktop-development, typescript-advanced-types]
 combines_with: [codetour-walkthrough-builder, developer-experience-optimizer, web-artifacts-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [skill-creator, skill-optimizer, skill-ecosystem-auditor, agents-md-maintainer]
 combines_with: [agent-skill-security-scanner, claude-command-selector]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

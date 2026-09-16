@@ -13,7 +13,7 @@ requires: []
 related: [skill-creator, llm-prompt-optimizer, agent-tool-design, llm-agent-benchmarking]
 combines_with: [llm-judge-evaluation, self-improving-memory-agent, langfuse-llm-observability]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Agent 技能诊断与优化（Skill Optimizer）

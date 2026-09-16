@@ -13,7 +13,7 @@ requires: []
 related: [caveman-compressed-mode, meeting-transcript-analyzer]
 combines_with: [audio-to-markdown-transcriber, doc-coauthoring]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

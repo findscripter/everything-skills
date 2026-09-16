@@ -13,7 +13,7 @@ requires: []
 related: [bash-defensive-patterns, posix-shell-scripting, powershell-windows, git-hooks-automation]
 combines_with: [bash-defensive-patterns, git-hooks-automation, ci-cd-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

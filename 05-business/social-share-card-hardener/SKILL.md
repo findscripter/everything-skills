@@ -13,7 +13,7 @@ requires: []
 related: [seo-meta-tags-optimizer, seo-image-generator, technical-seo-checker, schema-markup-builder]
 combines_with: [seo-audit, seo-performance-reporter]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

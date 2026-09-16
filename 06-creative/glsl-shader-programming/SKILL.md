@@ -13,7 +13,7 @@ requires: []
 related: [threejs-3d-web, algorithmic-art, unity-game-developer, unreal-engine-cpp]
 combines_with: [threejs-3d-web, unity-game-developer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

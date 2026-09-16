@@ -13,7 +13,7 @@ requires: []
 related: [agent-tool-design, mcp-builder, pydantic-ai-agents, autonomous-coding-agent-patterns]
 combines_with: [langgraph-agent-framework, multi-agent-system-designer, ai-native-cli-design]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 工具是 AI 智能体与世界交互的接口。一个设计良好的工具，决定了智能体是能稳定工作，还是会幻觉、静默失败、或多花 10 倍 token。

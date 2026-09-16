@@ -13,7 +13,7 @@ requires: []
 related: [devops-troubleshooter, sre-incident-responder, observability-strategy-designer, wireshark-traffic-analysis]
 combines_with: [wireshark-traffic-analysis, devops-troubleshooter, sre-incident-responder]
 license: CC-BY-4.0
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

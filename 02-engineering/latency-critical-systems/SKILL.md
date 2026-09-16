@@ -13,7 +13,7 @@ requires: []
 related: [performance-profiler, websocket-realtime-engineer, content-hash-cache-pattern, microservices-patterns]
 combines_with: [observability-strategy-designer, slo-sli-implementation, data-throughput-accelerator]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [odoo-localization-compliance, sales-forecast-builder, salesforce-automation]
 combines_with: [sales-forecast-builder, sales-enablement]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

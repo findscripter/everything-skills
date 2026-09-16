@@ -13,7 +13,7 @@ requires: []
 related: [typescript-advanced-types, trpc-typesafe-api, tanstack-query, javascript-modern-pro]
 combines_with: [trpc-typesafe-api, rest-api-endpoint-builder, react-state-management]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [seo-audit, seo-site-architecture, schema-markup-builder, seo-content-writer]
 combines_with: [seo-audit, seo-content-writer, schema-markup-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [docs-architect, technical-reference-builder, readme-doc-writer, markdown-to-docx]
 combines_with: [mermaid-diagram-expert, docs-architect, codebase-onboarding-doc]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

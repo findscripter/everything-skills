@@ -13,7 +13,7 @@ requires: []
 related: [statsmodels-statistical-modeling, polars-dataframe, matplotlib-visualization, mlops-model-productionizer]
 combines_with: [polars-dataframe, matplotlib-visualization, mlops-model-productionizer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ---
@@ -31,7 +31,7 @@ requires: []
 related: [csv-data-cleaner]
 combines_with: []
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

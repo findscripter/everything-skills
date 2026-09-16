@@ -13,7 +13,7 @@ requires: []
 related: [kubernetes-architect, helm-chart-scaffolding, deployment-engineer, gitops-argocd-flux]
 combines_with: [ci-cd-pipeline-builder, k8s-security-policies, service-mesh-architect]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Kubernetes 部署工作流

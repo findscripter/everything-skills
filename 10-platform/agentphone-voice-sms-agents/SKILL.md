@@ -13,7 +13,7 @@ requires: []
 related: [twilio-communications, whatsapp-cloud-api, agentmail-email-infra, zoom-phone-integration]
 combines_with: [twilio-communications, ai-customer-support, agent-tool-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

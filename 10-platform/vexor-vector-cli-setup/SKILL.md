@@ -13,7 +13,7 @@ requires: []
 related: [vexor-semantic-file-search, exa-semantic-search, ai-native-cli-design, embedding-model-strategies]
 combines_with: [vexor-semantic-file-search, codebase-structure-protocol, rag-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Vexor 向量 CLI：语义文件搜索工具配置

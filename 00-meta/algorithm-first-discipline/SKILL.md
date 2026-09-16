@@ -13,7 +13,7 @@ requires: []
 related: [large-scale-math-algorithms, complexity-cuts, invariant-guard-correctness, python-performance-optimization]
 combines_with: [closed-loop-delivery, adversarial-code-reviewer, code-reviewer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

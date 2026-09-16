@@ -13,7 +13,7 @@ requires: []
 related: [context-window-management, context-compression, llm-model-router, claude-api]
 combines_with: [production-llm-app-builder, rag-pipeline-builder, langfuse-llm-observability]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

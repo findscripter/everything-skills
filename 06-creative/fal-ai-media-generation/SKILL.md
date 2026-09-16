@@ -13,7 +13,7 @@ requires: []
 related: [slack-gif-creator, algorithmic-art, demo-video-generator, videodb-perception-editing]
 combines_with: [ad-creative-generator, mcp-builder, demo-video-generator]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 # fal.ai 多模态媒体生成（图像/视频/音频）

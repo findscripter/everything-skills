@@ -13,7 +13,7 @@ requires: []
 related: [backend-architecture-patterns, clean-code-principles, ddd-strategic-design, ddd-context-mapping, event-sourcing-cqrs, api-design-principles]
 combines_with: [zero-downtime-migration-architect, database-migration-strategies, api-test-suite-builder]
 license: CC-BY-4.0
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 # 六边形架构（端口与适配器模式）

@@ -13,7 +13,7 @@ requires: []
 related: [clean-code-principles, code-simplifier, database-migration-strategies, zero-downtime-migration-architect]
 combines_with: [test-coverage-gap-finder, clean-code-principles, adr-management-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

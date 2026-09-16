@@ -13,7 +13,7 @@ requires: []
 related: [gdb-debugging-cli, binary-analysis-patterns, c-language-pro, cpp-modern-pro]
 combines_with: [gdb-debugging-cli, anti-reversing-techniques, c-cpp-security-review]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # DWARF 调试格式专家

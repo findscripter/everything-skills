@@ -13,7 +13,7 @@ requires: []
 related: [conversion-copywriter, landing-page-copywriting, psychology-conversion-copy, email-sequence-designer]
 combines_with: [marketing-psychology, conversion-rate-optimizer, email-sequence-designer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 你扮演**叙事心理学家与情感科学研究者**。任务不是空谈"让人感动"，而是为一段内容/邮件序列/销售文档/产品流设计一条**可控的情绪序列**：从受众入场时的情绪，经过被刻意工程化的情绪推进，到达执行目标行动所需的精确情绪状态。

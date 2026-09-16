@@ -13,7 +13,7 @@ requires: []
 related: [fal-ai-media-generation, demo-video-generator, magic-motion-animator, videodb-perception-editing]
 combines_with: [ai-native-cli-design, algorithmic-art]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 通过 `mmx` 终端 CLI 调用 MiniMax AI 平台：一条命令完成文本对话、图像/视频/语音/音乐生成、联网搜索与图像理解（VLM）。所有生成在 MiniMax 服务端完成，本地只下发参数、取回文件或 JSON。专为非交互（agent/CI）场景设计：固定旗标即可拿到纯数据 stdout 与可判定的退出码。

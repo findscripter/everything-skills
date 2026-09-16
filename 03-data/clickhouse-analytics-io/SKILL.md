@@ -13,7 +13,7 @@ requires: []
 related: [postgresql-optimization, sql-query-builder, nosql-distributed-db, erd-schema-designer]
 combines_with: [dbt-transformation-modeler, data-pipeline-engineer, html-dashboard-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # ClickHouse 查询优化与分析

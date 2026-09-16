@@ -13,7 +13,7 @@ requires: []
 related: [webapp-testing, browserstack-cross-browser-test, javascript-testing-patterns, android-ui-verification]
 combines_with: [ci-cd-pipeline-builder, accessibility-wcag-audit, test-coverage-gap-finder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

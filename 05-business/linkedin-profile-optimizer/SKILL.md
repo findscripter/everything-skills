@@ -13,7 +13,7 @@ requires: []
 related: [social-connections-optimizer, linkedin-cli-automation, buyer-persona-builder]
 combines_with: [interview-job-coach, content-strategy-planner]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

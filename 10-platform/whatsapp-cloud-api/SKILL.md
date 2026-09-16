@@ -13,7 +13,7 @@ requires: []
 related: [twilio-communications, slack-bolt-bot-builder, discord-bot-architect, agentmail-email-infra]
 combines_with: [twilio-communications, ai-customer-support, rest-api-endpoint-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

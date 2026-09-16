@@ -13,7 +13,7 @@ requires: []
 related: [data-quality-validator, dataset-quality-auditor, dbt-transformation-modeler, data-pipeline-engineer]
 combines_with: [dbt-transformation-modeler, airflow-dag-builder, data-pipeline-engineer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

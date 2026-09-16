@@ -13,7 +13,7 @@ requires: []
 related: [codetour-walkthrough-builder, code-tutorial-engineer, codebase-onboarding-doc, docs-architect]
 combines_with: [codebase-onboarding-doc, docs-architect]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [solidity-security-auditor, defi-protocol-templates, blockchain-web3-developer, c-cpp-security-review]
 combines_with: [solidity-security-auditor, false-positive-check, security-audit-toolkit]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

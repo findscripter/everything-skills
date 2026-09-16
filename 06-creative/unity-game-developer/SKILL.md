@@ -13,7 +13,7 @@ requires: []
 related: [unreal-engine-cpp, glsl-shader-programming, bevy-ecs-rust]
 combines_with: [glsl-shader-programming]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

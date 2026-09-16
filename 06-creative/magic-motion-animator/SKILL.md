@@ -13,7 +13,7 @@ requires: []
 related: [animejs-web-animation, demo-video-generator, design-spells-microinteractions, fal-ai-media-generation]
 combines_with: [slack-gif-creator, theme-factory]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 借助 [Magic Animator](https://magicanimator.com/) 以 AI 驱动的运动，把静态 Logo、界面、图标与社媒素材在数秒内变成高级、动感的体验。核心是通过聊天式提示词请求「有意图、显高级」的运动，而非套用平庸的线性动画。先想清楚要传达的情绪与品牌调性，再动手。

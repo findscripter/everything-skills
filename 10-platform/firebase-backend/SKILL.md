@@ -13,7 +13,7 @@ requires: []
 related: [convex-reactive-backend, neon-serverless-postgres, cloudflare-workers-edge, gcp-cloud-run]
 combines_with: [firebase-apk-scanner, rest-api-endpoint-builder, stripe-integration]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [grafana-dashboards, observability-strategy-designer, prometheus-configuration, distributed-tracing]
 combines_with: [slo-sli-implementation, prometheus-configuration, observability-strategy-designer]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

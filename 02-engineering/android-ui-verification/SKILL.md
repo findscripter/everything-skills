@@ -13,7 +13,7 @@ requires: []
 related: [webapp-testing, playwright-e2e-testing, browserstack-cross-browser-test, react-native-architecture]
 combines_with: [react-native-architecture, jetpack-compose-expert, test-coverage-gap-finder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

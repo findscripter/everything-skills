@@ -13,7 +13,7 @@ requires: []
 related: [kicad-design-reviewer, datasheet-spec-extractor, component-sourcing-search, spice-circuit-simulator]
 combines_with: [datasheet-spec-extractor, gdb-debugging-cli, kicad-design-reviewer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

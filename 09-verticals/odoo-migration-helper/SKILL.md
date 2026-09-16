@@ -13,7 +13,7 @@ requires: []
 related: [odoo-module-developer, odoo-orm-expert, odoo-automated-tests, legacy-framework-modernizer]
 combines_with: [odoo-backup-strategy, odoo-performance-tuner]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

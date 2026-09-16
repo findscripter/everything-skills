@@ -13,7 +13,7 @@ requires: []
 related: [bash-defensive-patterns, posix-shell-scripting, linux-system-troubleshooting, shellcheck-linting]
 combines_with: [bats-shell-testing, operational-runbook-writer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Linux 运维脚本模板

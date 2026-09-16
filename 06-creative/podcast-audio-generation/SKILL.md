@@ -13,7 +13,7 @@ requires: []
 related: [azure-realtime-voice-ai, pipecat-voice-assistant, minimax-media-cli, fal-ai-media-generation]
 combines_with: [audio-to-markdown-transcriber, demo-video-generator]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 经 Azure OpenAI Realtime API（`gpt-realtime-mini`）把文本叙事实时合成为播客级人声：WebSocket 连接 → 下发文稿 → 流式收 PCM 音频块与逐字稿 → 拼接转 WAV → base64 回传前端播放。合成全在 Azure 端完成，本地只发提示、收音频流。

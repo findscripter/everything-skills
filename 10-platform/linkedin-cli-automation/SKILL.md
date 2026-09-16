@@ -13,7 +13,7 @@ requires: []
 related: [apollo-lead-enrichment, x-twitter-automation, sales-prospecting, linkedin-profile-optimizer]
 combines_with: [apollo-sequence-loader, cold-email-writer, social-connections-optimizer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

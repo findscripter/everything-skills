@@ -13,7 +13,7 @@ requires: []
 related: [data-pipeline-engineer, spark-job-optimization, dask-distributed-dataframes, data-quality-frameworks]
 combines_with: [data-quality-validator, airflow-dag-builder, gl-subledger-reconciler]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

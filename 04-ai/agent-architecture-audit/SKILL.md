@@ -13,7 +13,7 @@ requires: []
 related: [ai-engineering-toolkit, agent-tool-design, agent-memory-architecture, skill-optimizer]
 combines_with: [langfuse-llm-observability, llm-agent-benchmarking, coding-agent-headtohead-eval]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

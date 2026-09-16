@@ -13,7 +13,7 @@ requires: []
 related: [java-modern-pro, kotlin-coroutines-flow, unity-game-developer, bevy-ecs-rust]
 combines_with: [java-modern-pro, error-handling-patterns, performance-profiler]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

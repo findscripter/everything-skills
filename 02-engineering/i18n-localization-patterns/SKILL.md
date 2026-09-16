@@ -13,7 +13,7 @@ requires: []
 related: [accessibility-wcag-audit, wcag-22-audit-patterns, react-state-management, frontend-design]
 combines_with: [sveltekit-fullstack, modern-angular-expert, tailwind-css-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

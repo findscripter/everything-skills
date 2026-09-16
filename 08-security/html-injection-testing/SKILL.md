@@ -13,7 +13,7 @@ requires: []
 related: [path-traversal-testing, idor-vulnerability-testing, broken-authentication-testing, burp-suite-testing]
 combines_with: [burp-suite-testing, penetration-testing-methodology, api-fuzzing-bug-bounty]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 > 仅限授权使用：仅在获得授权的安全评估、防御验证或受控教学环境中使用本技能。

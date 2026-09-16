@@ -13,7 +13,7 @@ requires: []
 related: [observability-strategy-designer, performance-profiler, grafana-dashboards, prometheus-configuration]
 combines_with: [microservices-patterns, devops-troubleshooter, slo-sli-implementation]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

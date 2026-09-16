@@ -13,7 +13,7 @@ requires: []
 related: [playwright-e2e-testing, lambdatest-cross-framework-testing, webapp-testing, java-modern-pro]
 combines_with: [api-test-suite-builder, ci-cd-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

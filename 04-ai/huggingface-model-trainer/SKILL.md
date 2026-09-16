@@ -13,7 +13,7 @@ requires: []
 related: [huggingface-hub-cli, mlops-model-productionizer, local-llm-inference, scikit-learn-ml]
 combines_with: [embedding-model-strategies, computer-vision-expert, transformers-js]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

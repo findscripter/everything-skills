@@ -13,7 +13,7 @@ requires: []
 related: [pptx-document-processing, theme-factory]
 combines_with: [pptx-document-processing, board-deck-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # python-pptx 幻灯片生成

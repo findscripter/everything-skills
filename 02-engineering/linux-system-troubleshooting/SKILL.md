@@ -13,7 +13,7 @@ requires: []
 related: [linux-sysadmin-shell-scripts, devops-troubleshooter, network-interface-health, error-log-detective]
 combines_with: [sre-incident-responder, performance-profiler]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Linux 系统排障

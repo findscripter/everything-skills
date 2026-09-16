@@ -13,7 +13,7 @@ requires: []
 related: [network-interface-health, wireshark-traffic-analysis, cloud-misconfig-auditor, k8s-security-policies]
 combines_with: [change-management-request, security-incident-response]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

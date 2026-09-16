@@ -13,7 +13,7 @@ requires: []
 related: [discord-bot-architect, whatsapp-cloud-api, twilio-communications, slack-gif-creator]
 combines_with: [agent-tool-builder, mcp-builder, rest-api-endpoint-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

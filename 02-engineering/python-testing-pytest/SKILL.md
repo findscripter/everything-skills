@@ -13,7 +13,7 @@ requires: []
 related: [javascript-testing-patterns, test-coverage-gap-finder, api-test-suite-builder, async-python-patterns]
 combines_with: [fastapi-async-api, django-async-pro, test-coverage-gap-finder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

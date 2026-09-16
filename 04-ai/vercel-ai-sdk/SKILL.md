@@ -13,7 +13,7 @@ requires: []
 related: [claude-api, github-copilot-sdk, pydantic-ai-agents, transformers-js]
 combines_with: [agent-tool-builder, llm-prompt-caching, langfuse-llm-observability]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

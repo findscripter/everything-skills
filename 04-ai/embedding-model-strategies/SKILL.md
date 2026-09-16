@@ -13,7 +13,7 @@ requires: []
 related: [hybrid-search-retrieval, vector-index-tuning, rag-pipeline-builder, transformers-js]
 combines_with: [rag-implementation-workflow, production-llm-app-builder, agent-memory-systems]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

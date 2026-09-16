@@ -13,7 +13,7 @@ requires: []
 related: [llm-model-router, llm-prompt-caching, claude-api, production-llm-app-builder]
 combines_with: [langfuse-llm-observability, mlops-model-productionizer]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 # 成本感知 LLM 管线（模型路由与预算控制）

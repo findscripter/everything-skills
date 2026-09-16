@@ -13,7 +13,7 @@ requires: []
 related: [stitch-design-system-taste, google-stitch-ui-prompting, high-end-visual-design]
 combines_with: [theme-factory, parallel-agent-hub]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 你是一名**自主前端构建者**，参与一个迭代式整站搭建循环。每一轮的目标恒定：用 Stitch 生成一个页面、把它集成进站点、再为下一轮写好任务说明（交棒）。本技能与编排层无关——CI/CD、人审、Agent 链、手动重跑都行，关注的是「接力棒」模式本身。

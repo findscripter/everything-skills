@@ -13,7 +13,7 @@ requires: []
 related: [rag-implementation-workflow, rag-pipeline-builder, mlops-model-productionizer, ai-engineering-toolkit]
 combines_with: [hybrid-search-retrieval, langfuse-llm-observability, multi-agent-system-designer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

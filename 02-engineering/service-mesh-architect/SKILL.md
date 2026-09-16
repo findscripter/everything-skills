@@ -13,7 +13,7 @@ requires: []
 related: []
 combines_with: []
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 服务网格架构（Istio/Linkerd）

@@ -13,7 +13,7 @@ requires: []
 related: [cloud-network-engineer, multi-cloud-architecture, service-mesh-architect, mtls-zero-trust-config]
 combines_with: [terraform-specialist, terraform-module-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [python-performance-optimization, code-simplifier, clean-code-principles, performance-profiler]
 combines_with: [systematic-debugger, code-reviewer, test-coverage-gap-finder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

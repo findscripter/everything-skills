@@ -13,7 +13,7 @@ requires: []
 related: [autonomous-coding-agent-patterns, browser-automation-builder, computer-vision-expert, agent-tool-builder]
 combines_with: [langgraph-agent-framework, multi-agent-system-designer, full-page-screenshot]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

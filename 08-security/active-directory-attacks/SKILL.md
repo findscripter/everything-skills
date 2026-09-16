@@ -13,7 +13,7 @@ requires: []
 related: [linux-privilege-escalation, penetration-testing-methodology, cloud-penetration-testing, red-team-recon]
 combines_with: [red-team-recon, penetration-testing-methodology, wireshark-traffic-analysis]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 > 仅限授权使用：只能在获得授权的安全评估、防御验证或受控教学环境中使用本技能。

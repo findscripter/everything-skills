@@ -13,7 +13,7 @@ requires: []
 related: [prometheus-configuration, observability-strategy-designer, distributed-tracing, slo-sli-implementation]
 combines_with: [performance-profiler, devops-troubleshooter, kubernetes-architect]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

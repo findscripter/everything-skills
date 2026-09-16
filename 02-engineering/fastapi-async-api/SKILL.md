@@ -13,7 +13,7 @@ requires: []
 related: [async-python-patterns, rest-api-endpoint-builder, django-async-pro, graphql-architect]
 combines_with: [python-testing-pytest, prisma-orm-expert, distributed-tracing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

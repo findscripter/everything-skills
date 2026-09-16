@@ -13,7 +13,7 @@ requires: []
 related: [llm-prompt-caching, python-performance-optimization, error-handling-patterns, data-throughput-accelerator]
 combines_with: [pdf-processing-toolkit, async-python-patterns]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [churn-prevention, pricing-strategy, paywall-upgrade-cro, stripe-integration]
 combines_with: [churn-prevention, stripe-integration, pricing-strategy]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

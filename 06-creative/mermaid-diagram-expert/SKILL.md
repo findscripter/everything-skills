@@ -13,7 +13,7 @@ requires: []
 related: [d3js-data-viz, business-process-mapper]
 combines_with: [docs-architect, technical-reference-builder, codebase-onboarding-doc]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

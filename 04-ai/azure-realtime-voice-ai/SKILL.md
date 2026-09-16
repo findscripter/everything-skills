@@ -13,7 +13,7 @@ requires: []
 related: [claude-api, local-llm-inference, vercel-ai-sdk]
 combines_with: [websocket-realtime-engineer, twilio-communications, production-llm-app-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

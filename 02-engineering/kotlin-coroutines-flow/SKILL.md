@@ -13,7 +13,7 @@ requires: []
 related: [jetpack-compose-expert, swift-concurrency, go-concurrency-patterns, async-python-patterns]
 combines_with: [java-modern-pro, react-native-architecture, error-handling-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

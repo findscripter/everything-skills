@@ -13,7 +13,7 @@ requires: []
 related: [adversarial-code-reviewer, code-reviewer, clean-code-principles, autonomous-coding-agent-patterns]
 combines_with: [test-coverage-gap-finder, systematic-debugger, code-simplifier]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

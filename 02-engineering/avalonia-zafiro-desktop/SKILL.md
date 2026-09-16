@@ -13,7 +13,7 @@ requires: []
 related: [dotnet-backend-patterns, electron-desktop-development, clean-code-principles, error-handling-patterns]
 combines_with: [error-handling-patterns, clean-code-principles]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

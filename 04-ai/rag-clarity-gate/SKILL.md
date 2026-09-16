@@ -13,7 +13,7 @@ requires: []
 related: [rag-implementation-workflow, rag-pipeline-builder, production-llm-app-builder, embedding-model-strategies]
 combines_with: [rag-pipeline-builder, fact-checking, ai-model-knowledge-distill]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # RAG 入库前文档清晰度校验

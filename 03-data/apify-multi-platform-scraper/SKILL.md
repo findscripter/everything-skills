@@ -13,7 +13,7 @@ requires: []
 related: [apify-actor-development, apify-ecommerce-scraper, data-scraper-agent-builder, firecrawl-web-scraper]
 combines_with: [csv-data-cleaner, dataset-profiler]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [avoid-ai-writing-patterns, content-humanizer, beautiful-prose-stylist, marketing-copy-editor]
 combines_with: [doc-coauthoring, markdown-to-docx]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

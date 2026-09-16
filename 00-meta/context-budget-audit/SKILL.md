@@ -13,7 +13,7 @@ requires: []
 related: [context-window-management, context-compression, skill-optimizer, agent-architecture-audit]
 combines_with: [skill-optimizer, cost-aware-llm-pipeline, agent-architecture-audit]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

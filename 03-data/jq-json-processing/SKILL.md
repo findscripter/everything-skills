@@ -13,7 +13,7 @@ requires: []
 related: [polars-dataframe, csv-data-cleaner, sql-query-builder]
 combines_with: [csv-data-cleaner, polars-dataframe, matplotlib-visualization]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

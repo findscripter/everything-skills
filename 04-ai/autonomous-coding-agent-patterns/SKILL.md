@@ -13,7 +13,7 @@ requires: []
 related: [computer-use-agents, agent-tool-builder, multi-agent-system-designer, parallel-agent-hub]
 combines_with: [langgraph-agent-framework, autoresearch-optimization-agent, context-compression]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

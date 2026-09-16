@@ -13,7 +13,7 @@ requires: []
 related: [hybrid-search-retrieval, exa-semantic-search, rest-api-endpoint-builder, vector-index-tuning]
 combines_with: [shadcn-ui-components, fastapi-async-api, react-state-management]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

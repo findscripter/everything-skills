@@ -13,7 +13,7 @@ requires: []
 related: [backend-security-coder, api-security-best-practices, codeql-scanner, broken-authentication-testing]
 combines_with: [php-pro, codeql-scanner, false-positive-check]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [transformers-js, huggingface-hub-cli, scikit-learn-ml, local-llm-inference]
 combines_with: [huggingface-model-trainer, mlops-model-productionizer, computer-use-agents]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 > 角色：前沿视觉系统架构师与空间智能专家（SOTA 2026）。目标：设计、实现并优化端到端计算机视觉流水线——从 YOLO26 实时检测到 SAM 3 基础模型分割，再到 VLM 视觉推理与 3D 重建。

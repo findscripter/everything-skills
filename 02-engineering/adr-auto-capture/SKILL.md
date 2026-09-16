@@ -13,7 +13,7 @@ requires: []
 related: [adr-management-patterns, adr-writer, technical-change-tracker, codetour-walkthrough-builder]
 combines_with: [spec-driven-workflow, brooks-design-lint]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 # 架构决策实时捕获为 ADR

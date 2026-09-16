@@ -13,7 +13,7 @@ requires: []
 related: [azure-cloud-architect, aws-serverless-architect, azure-container-apps-deploy, gcp-cloud-run]
 combines_with: [terraform-specialist, ci-cd-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

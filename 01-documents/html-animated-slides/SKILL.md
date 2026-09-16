@@ -13,7 +13,7 @@ requires: []
 related: [python-pptx-deck-generator, pptx-document-processing, web-artifacts-builder, html-dashboard-builder]
 combines_with: [theme-factory, animejs-web-animation]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 动画 HTML 演示文稿生成

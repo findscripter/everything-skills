@@ -13,7 +13,7 @@ requires: []
 related: [prometheus-configuration, grafana-dashboards, observability-strategy-designer, sre-incident-responder]
 combines_with: [distributed-tracing, postmortem-writer, incident-commander-framework]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

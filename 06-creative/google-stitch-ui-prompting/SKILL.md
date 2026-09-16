@@ -13,7 +13,7 @@ requires: []
 related: [stitch-design-system-taste, stitch-iterative-build-loop, magic-ui-component-generator, high-end-visual-design]
 combines_with: [design-dev-handoff, web-artifacts-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [apify-actorization, apify-ecommerce-scraper, apify-multi-platform-scraper, browser-automation-builder]
 combines_with: [apify-actorization, data-scraper-agent-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

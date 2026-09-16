@@ -13,7 +13,7 @@ requires: []
 related: [news-sentiment-briefing, competitive-intel-tracker, multi-agent-orchestrator, entity-research-dossier]
 combines_with: [news-sentiment-briefing, competitive-intel-tracker, multi-agent-orchestrator]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

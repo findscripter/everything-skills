@@ -13,7 +13,7 @@ requires: []
 related: [cloud-penetration-testing, cloud-misconfig-auditor, penetration-testing-methodology, container-security-hardening]
 combines_with: [cloud-misconfig-auditor, red-team-recon, penetration-testing-methodology]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 > 仅限授权使用：本技能只能用于获授权的安全评估、防御验证或受控教学环境。开始前必须取得书面授权并记录全部操作。

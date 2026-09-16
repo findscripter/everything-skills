@@ -13,7 +13,7 @@ requires: []
 related: [stripe-integration, paypal-payment-integration, pakistan-payments-stack, blockchain-web3-developer]
 combines_with: [billing-automation-systems, transactional-email-template-builder, zod-schema-validation]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [returns-reverse-logistics, carrier-relationship-management, customs-trade-compliance]
 combines_with: [carrier-relationship-management, returns-reverse-logistics]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

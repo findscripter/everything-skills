@@ -13,7 +13,7 @@ requires: []
 related: [frontend-design, php-pro, accessibility-wcag-audit, i18n-localization-patterns]
 combines_with: [seo-audit, technical-seo-checker, schema-markup-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 代码库转 WordPress 主题

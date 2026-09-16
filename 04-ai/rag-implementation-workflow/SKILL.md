@@ -13,7 +13,7 @@ requires: []
 related: [rag-pipeline-builder, production-llm-app-builder, embedding-model-strategies, hybrid-search-retrieval]
 combines_with: [vector-index-tuning, llm-judge-evaluation, langfuse-llm-observability]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ---

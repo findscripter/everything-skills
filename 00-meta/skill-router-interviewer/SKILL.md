@@ -13,7 +13,7 @@ requires: []
 related: [claude-command-selector, decision-navigator, cross-tool-skill-manager, skill-ecosystem-auditor]
 combines_with: [objective-to-build-blueprint, query-decomposition-search]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

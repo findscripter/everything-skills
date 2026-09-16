@@ -13,7 +13,7 @@ requires: []
 related: [odoo-docker-deployment, odoo-orm-expert, postgresql-optimization, odoo-backup-strategy]
 combines_with: [odoo-docker-deployment, postgresql-optimization]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 建议放置路径：`e:/Everthing-Skills/09-verticals/odoo-performance-tuner/SKILL.md`
@@ -36,7 +36,7 @@ requires: []
 related: [odoo-localization-compliance]
 combines_with: [odoo-localization-compliance]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ```

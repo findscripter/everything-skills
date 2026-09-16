@@ -13,7 +13,7 @@ requires: []
 related: [plan-execution-checkpoints, task-decomposition-planner, spec-driven-workflow, closed-loop-delivery]
 combines_with: [parallel-agent-dispatch, quota-aware-subagent-orchestrator, hierarchical-agent-memory]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

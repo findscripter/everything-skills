@@ -13,7 +13,7 @@ requires: []
 related: [complexity-cuts, performance-profiler, async-python-patterns, code-simplifier]
 combines_with: [python-testing-pytest, polars-dataframe, systematic-debugger]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

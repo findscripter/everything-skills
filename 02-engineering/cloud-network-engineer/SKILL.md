@@ -13,7 +13,7 @@ requires: []
 related: [hybrid-cloud-networking, service-mesh-architect, istio-traffic-management, mtls-zero-trust-config]
 combines_with: [kubernetes-architect, cloud-misconfig-auditor, terraform-specialist]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 云网络工程

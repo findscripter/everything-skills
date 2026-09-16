@@ -13,7 +13,7 @@ requires: []
 related: [odoo-backup-strategy, odoo-performance-tuner, docker-expert, odoo-module-developer]
 combines_with: [docker-development-optimizer, odoo-localization-compliance]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

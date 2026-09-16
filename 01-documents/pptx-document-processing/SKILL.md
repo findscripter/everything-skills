@@ -13,7 +13,7 @@ requires: []
 related: [python-pptx-deck-generator, markdown-to-docx, theme-factory]
 combines_with: [python-pptx-deck-generator, board-deck-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用
