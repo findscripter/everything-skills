@@ -13,7 +13,7 @@ requires: []
 related: [caveman-compressed-mode, meeting-transcript-analyzer]
 combines_with: [audio-to-markdown-transcriber, doc-coauthoring]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用
@@ -32,7 +32,7 @@ source_license: MIT
 - 用户明确要求段落 / 散文叙述
 - 创意写作，如故事、随笔、文案
 - 项目符号会降低清晰度，或与指定输出格式冲突（如须用表格、代码块、JSON）
-- 要求忠实摘要时，不要臆造超出原文的层级结构
+- 要求忠实摘要时，不要膻造超出原文的层级结构
 
 ## 步骤
 
