@@ -1,1 +1,1 @@
-LOAD_FROM_/tmp/cu_push/initiating.json
+PLACEHOLDER_WILL_REPLACE_VIA_SHELL_HELPER
