@@ -6,7 +6,7 @@ domain: 平台/cloud
 triggers: [azd up, azd init, azd env set, Azure Container Apps, azure.yaml, remoteBuild, containerapp host, Bicep main.parameters.json, Managed Identity principalId, postprovision RBAC hook, Container Apps 服务发现, azd deploy --service, az containerapp logs, 幂等部署, azd auth login]
 tags: [azure, container apps, azd, bicep, iac, 远程构建, managed identity, rbac, devops, 容器部署]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [azd, az, Bicep, docker, Azure Container Registry]
 requires: []
@@ -15,7 +15,9 @@ combines_with: [terraform-specialist, ci-cd-pipeline-builder, gcp-cloud-run]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 适用于用 **Azure Developer CLI（azd）** 把容器化的「前端 + 后端」应用部署到 **Azure Container Apps（ACA）**，并满足以下任一诉求时：
