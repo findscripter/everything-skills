@@ -6,7 +6,7 @@ domain: 智能/model-ops
 triggers: [模型部署, MLOps 流水线, 特征库, 模型监控, 漂移检测, RAG 系统, LLM 接入, 模型服务化, ML A/B 测试, 自动再训练]
 tags: [智能, model-ops, mlops, 模型部署, llm, rag, 模型监控, 漂移检测]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Docker, Kubernetes, MLflow, Feast, FastAPI/Uvicorn, Triton, 向量数据库(Pinecone/Qdrant/Weaviate), tenacity, scipy]
 requires: []
@@ -15,7 +15,9 @@ combines_with: [langfuse-llm-observability, llm-model-router, huggingface-hub-cl
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 采编自 alirezarezvani/claude-skills（MIT）。聚焦生产与运维侧，不覆盖模型研究与初始训练。
 
 ## 何时使用

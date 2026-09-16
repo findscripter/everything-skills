@@ -6,7 +6,7 @@ domain: 领域/hardware
 triggers: [硬件文档生成, 生成报告, HDD, CE技术文件, ICD, 设计评审包, 制造移交包, 渲染原理图, 渲染PCB, 框图, generate documentation, CE technical file, design review package, render schematic, block diagram]
 tags: [hardware, kicad, documentation, pcb, schematic, pdf, emc, report-generation]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python3, kicad, svglib, python3-venv]
 requires: []
@@ -15,7 +15,9 @@ combines_with: [kicad-design-reviewer, emc-precompliance-analyzer, markdown-to-d
 license: MIT
 source: aklofas/kicad-happy
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 当你有一个 **KiCad 6+ 工程**（`.kicad_sch` / `.kicad_pcb`），需要产出专业硬件工程文档时使用：

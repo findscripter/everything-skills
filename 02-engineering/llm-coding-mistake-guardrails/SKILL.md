@@ -6,7 +6,7 @@ domain: 研发/review
 triggers: [用 LLM 写代码, review 代码避免过度设计, 重构要保持最小改动, 把任务变成可验证目标, 代码过度复杂需要简化, 改动只动该动的]
 tags: [编码准则, code-review, llm 编码, 简洁性, 重构]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [claude-code, cursor, codex-cli, gemini-cli]
 requires: []
@@ -15,7 +15,9 @@ combines_with: [test-coverage-gap-finder, systematic-debugger, code-simplifier]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 - 用 LLM 编写、审查或重构代码，需要避免过度设计与投机性抽象时。

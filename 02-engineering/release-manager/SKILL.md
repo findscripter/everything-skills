@@ -6,7 +6,7 @@ domain: 研发/devops
 triggers: [规划版本发布, 生成变更日志 changelog, 协调上线部署, 创建发布分支 release branch, 自动化版本号 SemVer, 热修复 hotfix 上线, 灰度发布与回滚预案, conventional commits 解析]
 tags: [研发, devops, 发布管理, 语义化版本, changelog, 部署协调, 回滚, 热修复]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [git, conventional-commits, SemVer, CI/CD]
 requires: []
@@ -15,7 +15,9 @@ combines_with: []
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 适用场景：

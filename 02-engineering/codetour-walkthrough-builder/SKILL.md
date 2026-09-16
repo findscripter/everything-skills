@@ -6,7 +6,7 @@ domain: 研发/architecture
 triggers: [CodeTour, 代码导览, 代码漫游, tour, onboarding tour, 架构导览, PR 评审导览, RCA 导览, 讲清 X 怎么跑, vibe check, .tour 文件]
 tags: [codetour, walkthrough, onboarding, architecture, pr-review, rca, vscode, documentation]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [VS Code CodeTour extension, Git]
 requires: []
@@ -15,7 +15,9 @@ combines_with: []
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 适用：
@@ -110,7 +112,7 @@ source_license: MIT
 | **Refactorer** | 安全重构 | 接缝、隐藏依赖、抽取顺序 |
 | **External contributor** | 安全贡献 | 安全区、约定、雷区 |
 
-真实参考：[coder/code-server 的 contributing.tour](https://github.com/coder/code-server/blob/main/.tours/contributing.tour)。
+真实参考：[coder/code-server 的 contributing.tour](https://github.com/microsoft/codetour/blob/main/.tours/contributing.tour)。
 
 ## 注意事项
 

@@ -6,7 +6,7 @@ domain: 商业/seo
 triggers: [自然流量突然暴跌怎么排查, 网站排名骤降原因分析, 怀疑被谷歌核心更新打击, GSC 收到人工处罚消息, site 收录数量骤减, 改版/迁移后流量掉了, robots.txt 或 noindex 误改导致掉量, SEO 事件响应取证报告]
 tags: [seo, 自然流量, 事件响应, 取证排查, google-search-console, 核心更新, 人工处罚, 技术seo, 网站迁移, eeat]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Google Search Console, GA4 / Matomo, 服务器/CDN 日志, 部署变更日志 (Git/CI-CD/CMS), Core Web Vitals / PageSpeed]
 requires: []
@@ -15,7 +15,9 @@ combines_with: [seo-audit, seo-content-writer, schema-markup-builder]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 适用：自然流量或排名在短期内**突然、显著**下跌，需要定位最可能成因并给出按优先级排序的修复方案。典型事件包括流量崩盘、疑似人工处罚、核心更新冲击、重大技术回归（误改 robots.txt / noindex、迁移丢失跳转、5xx 激增等）。

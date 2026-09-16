@@ -6,7 +6,7 @@ domain: 安全/compliance
 triggers: [多框架合规, 合规编排, 跨框架映射, 控制项重叠, 证据池, 证据复用, 模拟审计, 内审项目, 认证就绪, 年度审计日历, GRC, ISO 27001 + SOC 2, ISO 27001 + ISO 42001]
 tags: [合规, compliance, 安全, grc, 多框架, 跨框架映射, 证据管理, 审计, iso, soc2, 认证]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Bash, Write, python]
 requires: []
@@ -15,7 +15,9 @@ combines_with: [gdpr-data-handling, iso42001-aims-specialist, dependency-auditor
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 # 多框架合规编排器
 
 元编排器：让合规团队**配置**适用框架、**计算**跨框架控制项重叠、**模拟**内部审计、**整合**多框架证据。四个决策，不做单框架深潜——单框架操作交给对应专项技能，本技能只做编排。
