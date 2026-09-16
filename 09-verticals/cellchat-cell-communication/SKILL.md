@@ -32,7 +32,8 @@ source_license: CC-BY-4.0
 - 需要配体到靶基因的调控推断（预测发送细胞配体调控受体细胞哪些靶基因）→ 用 **NicheNet**
 - 物种非人/鼠：CellChatDB 仅覆盖人鼠，其它物种需自建数据库
 
-## 步骤
+## 步骤 / 指令
+
 
 1. 建对象：从 Seurat 对象（取归一化 `data` + Idents 标签）或计数矩阵 + 标签向量 `createCellChat`
 2. 设库子集：`cellchat@DB <- CellChatDB.human`（或 .mouse），可 `subsetDB` 限定信号类别，再 `subsetData`
@@ -43,7 +44,6 @@ source_license: CC-BY-4.0
 7. 可视化：弦图 `netVisual_circle/aggregate`、热图 `netVisual_heatmap`、气泡图 `netVisual_bubble`
 8. 跨条件：`mergeCellChat` → `compareInteractions` / `netVisual_diffInteraction` / `rankNet`
 
-## 指令
 
 安装（CRAN 常滞后，从 GitHub 装）：
 
@@ -107,6 +107,12 @@ netVisual_diffInteraction(cc, weight.scale=TRUE)             # 增/减连接弦�
 rankNet(cc, mode="comparison", stacked=TRUE, do.stat=TRUE)   # 各条件特异通路
 ```
 
+### 通讯模式与导出补强
+
+- 通路级中心性热图后，用 NMF `identifyCommunicationPatterns`（`selectK` 肘部选 k，先试 2–3）识别发送/接收模式；不收敛时降 k 或合并稀有细胞群。
+- 导出：`subsetCommunication` 写 LR 级表；保存 `saveRDS(cellchat, ...)` 再做重可视化，避免重复 `computeCommunProb`。
+- 双条件比较前统一 `levels(idents)`；用 `rankNet(..., mode="comparison")` 找条件特异通路。
+
 ## 注意事项
 
 - **输入必须是对数归一化值**，不是原始计数（否则 `computeCommunProb` 概率全 0）；用 `subsetData()` 后确认 `nrow(cellchat@data.signaling) > 0`。
@@ -127,4 +133,4 @@ rankNet(cc, mode="comparison", stacked=TRUE, do.stat=TRUE)   # 各条件特异�
 
 ---
 
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。
+本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0），适配重写而非逐字翻译。2026-09-16 上游刷新（吸收上游新增程序要点，保持 SCHEMA 中文适配密度）。
