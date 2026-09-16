@@ -42,7 +42,8 @@ source_license: MIT
 
 典型路径：差距评估(4–8 周) → 整改(8–16 周) → Type I 审计(4–6 周) → 观察期(6–12 月) → Type II 审计(4–6 周) → 年度续审。
 
-## 步骤
+## 步骤 / 指令
+
 
 1. **确定范围**：Security（通用准则 CC1–CC9）对每份 SOC 2 报告都**必选**；Availability(A1)、Confidentiality(C1)、Processing Integrity(PI1)、Privacy(P1–P8) 四类按业务需要可选。切忌「过度纳入」——只选客户/业务真正要求的类别。
    - 有 SLA、停机直接影响业务 → 选 Availability。
@@ -63,7 +64,6 @@ source_license: MIT
 
 6. **审计就绪评分**：对照清单打分，90–100% 可直接审计；75–89% 先补小差距；50–74% 需整改；<50% 需重建合规体系。
 
-## 指令
 
 工具脚本（保留源命令）：
 
@@ -101,6 +101,10 @@ python scripts/gap_analyzer.py --controls current_controls.json --type type2 --j
 4. 证据追踪：`python scripts/evidence_tracker.py --matrix controls.json --status` 找出尚缺证据的控制，对访问复核接入工单自动触发。
 5. 审计前 4–6 周对照清单评分，达 90%+ 后约审，并对 AWS 等子服务组织采用 carve-out 法、补充 CUEC。
 
+### 证据自动化与持续合规（补强）
+
+从「审计前突击取证」转向持续合规四件套：自动取证脚本 → 控制状态看板 → 漂移告警 → 带时间戳且审计师可访问的证据库。优先自动化：IAM 季度复核触发、IaC/配置快照、漏洞扫描报告、Git 变更审批轨迹、备份恢复演练记录。观察期内重大未报变更须记例外票据。
+
 ## 注意事项
 
 - **Security 必选**，其余四类按需选择；范围越窄越易通过，切勿默认全选五类。
@@ -119,3 +123,5 @@ python scripts/gap_analyzer.py --controls current_controls.json --type type2 --j
 
 ---
 *采编自 alirezarezvani/claude-skills（MIT License）。*
+
+2026-09-16 上游刷新（吸收上游新增程序要点，保持 SCHEMA 中文适配密度）。
