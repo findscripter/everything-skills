@@ -1,1 +1,1 @@
-PLACEHOLDER_WILL_REPLACE
+file:///workspace/TEMP/everything-skills/09-verticals/cellchat-cell-communication/SKILL.md
