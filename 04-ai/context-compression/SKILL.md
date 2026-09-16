@@ -33,7 +33,8 @@ source_license: MIT
 - 本技能产出的摘要不能替代环境内的实测、验证与专家复核。
 - 缺少必要输入、权限、安全边界或成功标准时，先停下来澄清，不要硬压。
 
-## 步骤
+## 步骤 / 指令
+
 
 锚定式增量摘要（Anchored Iterative Summarization，首选）的落地流程：
 
@@ -54,7 +55,6 @@ source_license: MIT
 
 对多数编码智能体，**滑动窗口 + 结构化摘要**在可预测性与质量上最平衡。
 
-## 指令
 
 - 永远优化 tokens-per-task，而非 tokens-per-request。
 - 用带显式分区的结构化摘要做文件追踪；分区即清单，强制摘要器逐项填写，防止信息「静默漂移」。
@@ -116,6 +116,10 @@ source_license: MIT
 - 好（结构化）："/api/auth/login 返回 401 Unauthorized，凭据有效仍失败，根因是会话存储中 Redis 连接陈旧。"——端点、错误码、根因俱全。
 - 差（激进压缩）："我们在调一个认证问题，登录失败了，修了些配置。"——技术细节全丢。
 
+### 工件轨迹问题（Artifact Trail）
+
+评估中「工件轨迹完整性」是所有压缩方法的最弱维（约 2.2–2.5/5）。即便有显式「文件改动」分区，长会话仍易静默丢路径。编码智能体必须区分：新建 / 已改及改了什么 / 只读未改，并保留函数名、变量名、报错原文。通用摘要不够时，**单独维护工件索引或脚手架级文件状态表**，不要指望一次摘要扛全部。
+
 ## 注意事项
 
 - **工件追踪是普遍最弱项**（评估中仅 2.2-2.5/5.0）：即便带显式文件分区，长会话里也难保完整。编码智能体需要知道哪些文件被创建 / 被改且改了什么 / 只读未改，以及函数名、变量名、报错信息——必要时用独立的工件索引或脚手架里的显式文件状态追踪来补强。
@@ -131,4 +135,4 @@ source_license: MIT
 
 ---
 
-采编自 sickn33/antigravity-awesome-skills（MIT 许可）。原文外部参考：Factory Research《Evaluating Context Compression for AI Agents》(2025-12)、LLM-as-judge 评估方法（Zheng et al., 2023）、Netflix Engineering《The Infinite Software Crisis》(AI Summit 2025)。
+采编自 sickn33/agentic-awesome-skills（MIT 许可）。原文外部参考：Factory Research《Evaluating Context Compression for AI Agents》(2025-12)、LLM-as-judge 评估方法（Zheng et al., 2023）、Netflix Engineering《The Infinite Software Crisis》(AI Summit 2025)。2026-09-16 上游刷新（吸收上游新增程序要点，保持 SCHEMA 中文适配密度）。
