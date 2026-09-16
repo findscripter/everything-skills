@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-15（Asia/Shanghai）；日常增量索引 part54
+- 编制日期：2026-09-16（Asia/Shanghai）；日常增量索引 part55
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1606 个独立仓库（另注明更名别名）
+- 收录条数：1644 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -223,6 +223,9 @@
 | [didit-protocol/skills](https://github.com/didit-protocol/skills) | 26 | Didit 身份核验官方 12 个生产级 Agent Skills（KYC/AML/生物识别等） | MIT | 12 | 仅索引 |
 | [aliyun/maxcompute-semantic](https://github.com/aliyun/maxcompute-semantic) | 13 | 阿里云 MaxCompute 语义层 CLI + 可移植 SKILL.md：为代理提供表/指标/JOIN 上下文与 SQL 审查执行。 | Apache-2.0 | 1 bundle + CLI | 仅索引 |
 | [UiPath/coder_eval](https://github.com/UiPath/coder_eval) | 129 | UiPath 开源「编码代理的 Playwright」：沙箱 YAML 套件评测技能/MCP/CLI，可作 CI 门禁。 | Apache-2.0 | 评测框架（含 Claude 插件） | 仅索引 |
+| [langfuse/skills](https://github.com/langfuse/skills) | 276 | Langfuse 官方 Agent Skills：教代理做 tracing / prompt / evaluation。 | MIT | ~4+ | 仅索引 |
+| [gemini-cli-extensions/google-cloud-storage](https://github.com/gemini-cli-extensions/google-cloud-storage) | 26 | Google Cloud Storage 官方插件：GCS Agent Skills + Cloud Storage MCP。 | NOASSERTION | bundle+MCP | 仅索引 |
+| [NVIDIA-Omniverse/usd-convert-cad](https://github.com/NVIDIA-Omniverse/usd-convert-cad) | 24 | NVIDIA Omniverse 官方 CAD→OpenUSD 转换 Agent Skill。 | Apache-2.0 | 1 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -609,6 +612,8 @@
 | [tinh2/skills-hub-registry](https://github.com/tinh2/skills-hub-registry) | 16 | skills-hub.ai 官方技能集合：约 430 条覆盖研发全生命周期与垂直行业，日同步注册表。 | README 未单列 SPDX | 约 430 | 仅索引 |
 | [Borda/AI-Rig](https://github.com/Borda/AI-Rig) | 27 | Python/ML/开源维护工作流：Claude Code 与 Codex 多插件包（foundry/oss/develop/research 等）。 | Apache-2.0 | 多插件数十技能 | 仅索引 |
 | [smturtle2/codex-skills](https://github.com/smturtle2/codex-skills) | 13 | 面向 Codex 的可单独安装技能集：动画、EPUB 翻译、图像、播客文案、子代理创建等约 10 条。 | README 未单列 SPDX | 约 10 | 仅索引 |
+| [ThomasMoreAI/legal-skills-open](https://github.com/ThomasMoreAI/legal-skills-open) | 74 | 开源法律 AI 技能库（SKILL.md）：39 法域、200+ practice plugins。 | Apache-2.0 | 3500+ | 仅索引 |
+| [sanhuang520-ship-it/awesome-chinese-ai-tools](https://github.com/sanhuang520-ship-it/awesome-chinese-ai-tools) | 10 | 中文 Agent Skills 合集索引（含本站原创与多端实测记录）。 | MIT | 212 entries | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1400,6 +1405,31 @@
 | [Colinjqq/content-forecast](https://github.com/Colinjqq/content-forecast) | 173 | 创作者优先的选题/脚本评审/拍摄指导与播放预测 Agent Skill（先问为何你适合讲）。 | MIT | 1 | 仅索引 |
 | [yizhiyanhua-ai/fireworks-open-eli5](https://github.com/yizhiyanhua-ai/fireworks-open-eli5) | 189 | 把复杂系统做成可离线交互可视化 ELI5 故事的可移植 Agent Skill（证据阶梯 + 单文件 HTML）。 | README 未单列 SPDX | 1 | 仅索引 |
 | [moskoo/xxg-portrait-rebuild-light](https://github.com/moskoo/xxg-portrait-rebuild-light) | 197 | 人像重打光图像编辑 Skill：保留身份与构图，分离光位/曝光/肤质微细节（Codex/Claude/OpenClaw）。 | MIT | 1 | 仅索引 |
+| [Eriemon/verilog-generator](https://github.com/Eriemon/verilog-generator) | 282 | Verilog-2001 RTL / FPGA 设计工作流 Agent Skill。 | Apache-2.0 | 1+ | 仅索引 |
+| [jherrodthomas/robotics-skills-suite](https://github.com/jherrodthomas/robotics-skills-suite) | 241 | 工业机器人/Cobot/AMR/ROS2/IEC 等 76 条审计向 Claude 技能。 | MIT | 76 | 仅索引 |
+| [senpi-ai/senpi-skills](https://github.com/senpi-ai/senpi-skills) | 124 | Hyperliquid 自主交易 Agent Skills + 80+ 策略模板。 | MIT | skills+80 tpl | 仅索引 |
+| [joshua-zyy/academic-paper-writer](https://github.com/joshua-zyy/academic-paper-writer) | 111 | 面向 CS/AI/ML 的证据驱动、分节推进论文写作 Agent Skill。 | MIT | 1+ | 仅索引 |
+| [breath57/dingtalk-skills](https://github.com/breath57/dingtalk-skills) | 101 | 钉钉文档/知识库/多维表/日程/通讯录等企业 Skill 库（curl 轻量）。 | NOASSERTION | 10+ | 仅索引 |
+| [ilang-ai/Imprint](https://github.com/ilang-ai/Imprint) | 101 | 跨平台「AI DNA」综合 Skill：记忆/压缩/评审/调试/规划/测试/git/SEO。 | MIT | 1 mega | 仅索引 |
+| [ilang-ai/autocode](https://github.com/ilang-ai/autocode) | 86 | AutoCode：一句话到部署的 48 条零依赖会话技能。 | MIT | 48 | 仅索引 |
+| [motiful/product-shots](https://github.com/motiful/product-shots) | 63 | 单张产品图→电商主图/A+/多角度/社媒广告的 Claude Code 技能。 | MIT | 7 | 仅索引 |
+| [miaoqichuan/new-litigation-visualization](https://github.com/miaoqichuan/new-litigation-visualization) | 56 | 诉讼可视化与庭前材料（时间轴/对抗图等）Claude 技能工具集。 | MIT | bundle | 仅索引 |
+| [chengzhi-c/natural-talk](https://github.com/chengzhi-c/natural-talk) | 54 | 让 AI 像人说话与创作的规则/技能集。 | MIT | rules+skills | 仅索引 |
+| [xxyshawn-creator/yuge-overseas-sales-research](https://github.com/xxyshawn-creator/yuge-overseas-sales-research) | 32 | 海外销售公司调研 Claude Skill（五看六定报告）。 | MIT | 1 | 仅索引 |
+| [averma416/consulting-gauntlet](https://github.com/averma416/consulting-gauntlet) | 29 | 咨询全栈 Claude 技能：策略框架与财务建模。 | NOASSERTION | 6 agents+ | 仅索引 |
+| [ilang-ai/ilang-openclaw](https://github.com/ilang-ai/ilang-openclaw) | 29 | I-Lang 动词技能包，面向 OpenClaw/Hermes 等代理。 | MIT | 88 verbs | 仅索引 |
+| [Eriemon/hls-generator](https://github.com/Eriemon/hls-generator) | 28 | AMD/Xilinx Vitis HLS 生成与 FPGA 工作流 Agent Skill。 | Apache-2.0 | 1+ | 仅索引 |
+| [florianbonnet14/thepowerofanalytics_claudeskills](https://github.com/florianbonnet14/thepowerofanalytics_claudeskills) | 28 | North Star / KPI Tree 与复杂分析规划 Claude Skills。 | NOASSERTION | bundle | 仅索引 |
+| [colineberhardt/claude-running-coach](https://github.com/colineberhardt/claude-running-coach) | 25 | 跑步教练训练计划与训练分析 Claude Skills。 | NOASSERTION | bundle | 仅索引 |
+| [cyijun/agent-smith](https://github.com/cyijun/agent-smith) | 25 | 递归拆任务执行的 Claude Code 插件/技能（Agent Smith）。 | MIT | plugin+skills | 仅索引 |
+| [anyshift-io/sre-skills](https://github.com/anyshift-io/sre-skills) | 17 | 面向 AI 代理的方法论型 SRE 技能库（Apache-2.0）。 | Apache-2.0 | library | 仅索引 |
+| [lsj4232/kr_patent_skill](https://github.com/lsj4232/kr_patent_skill) | 15 | 韩国专利实务 Claude 技能：发明人沟通到说明书/docx。 | NOASSERTION | bundle | 仅索引 |
+| [renakoni/note-organizer](https://github.com/renakoni/note-organizer) | 15 | 课程/PDF/PPT/题库整理为 Markdown/Obsidian 复习笔记 Skill。 | NOASSERTION | 1 | 仅索引 |
+| [voidmatcha/e2e-skills](https://github.com/voidmatcha/e2e-skills) | 15 | Playwright/Cypress E2E：生成/审查/调试可靠测试的 Agent Skills。 | MIT | 4 | 仅索引 |
+| [wayne2wang/codex-skills-zilin](https://github.com/wayne2wang/codex-skills-zilin) | 13 | Codex 自动化忙活技能包（腾出时间做想法）。 | MIT | 4 | 仅索引 |
+| [kuya-egg/monozukuri](https://github.com/kuya-egg/monozukuri) | 11 | 日式工艺风格：简单正确可验证的编码 Agent Skill。 | NOASSERTION | 1 | 仅索引 |
+| [egalano/build-a-skill](https://github.com/egalano/build-a-skill) | 10 | 交互式 Skill：按 Anthropic 指南带你做出可工作的 SKILL.md。 | NOASSERTION | 1 | 仅索引 |
+| [luciole-studio/apostle-skills](https://github.com/luciole-studio/apostle-skills) | 10 | 严谨思考/阅读/研究/翻译向 Agent Skills。 | AGPL-3.0 | bundle | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1528,6 +1558,14 @@
 | [runxhq/runx](https://github.com/runxhq/runx) | 88 | Agent Skill 工作流受管运行时：SKILL.md 组合为图、权限收窄、每步留收据（runx.ai）。 | Apache-2.0 | 运行时/目录 | 仅索引 |
 | [xingkongliang/skills-manager](https://github.com/xingkongliang/skills-manager) | 4,730 | 跨 50+ 编码工具管理/同步 Agent Skills 的轻量桌面应用（Claude/Codex/Cursor/Copilot 等）。 | MIT | 管理器 | 仅索引 |
 | [aktsmm/vscode-agent-skill-ninja](https://github.com/aktsmm/vscode-agent-skill-ninja) | 25 | VS Code 扩展：搜索/安装/管理 Agent Skills（SKILL.md），面向 Copilot 与 Claude Code。 | README 未单列 SPDX | 扩展/管理器 | 仅索引 |
+| [guanyang/open-agent-hub](https://github.com/guanyang/open-agent-hub) | 968 | 零依赖 CLI：一键链接 Skills/Agents/Commands 到项目或全局。 | MIT | CLI+packs | 仅索引 |
+| [leeguooooo/image-use](https://github.com/leeguooooo/image-use) | 362 | 用 ChatGPT 订阅在 CLI 出图的 Agent Skill（无需 OPENAI_API_KEY）。 | NOASSERTION | CLI skill | 仅索引 |
+| [kklimuk/docx-cli](https://github.com/kklimuk/docx-cli) | 205 | 代理读写批注 .docx 的 CLI，附 Agent Skills 封装。 | NOASSERTION | CLI+skills | 仅索引 |
+| [smith-horn/skillsmith](https://github.com/smith-horn/skillsmith) | 78 | 团队级 Agent Skills 注册表：版本化共享、扫描与隔离。 | NOASSERTION | registry | 仅索引 |
+| [mensfeld/craftdesk](https://github.com/mensfeld/craftdesk) | 66 | Claude Code skills/agents/hooks/plugins 的包管理器（类 npm）。 | MIT | CLI | 仅索引 |
+| [gridctl/gridctl](https://github.com/gridctl/gridctl) | 45 | 带内置技能库的 MCP 网关。 | NOASSERTION | gateway+skills | 仅索引 |
+| [linny006/trending-claude-skills](https://github.com/linny006/trending-claude-skills) | 41 | 每 15 分钟刷新的 claude-skills / agent 仓库热度榜。 | NOASSERTION | leaderboard | 仅索引 |
+| [linny006/skills-tracker](https://github.com/linny006/skills-tracker) | 23 | 实时追踪 GitHub 新 skills 仓库的生态雷达。 | NOASSERTION | tracker | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
