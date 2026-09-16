@@ -1,9 +1,14 @@
-# upstream-aliases
+# upstream-aliases.jsonl
 
-Canonical file: `upstream-aliases.jsonl` (concat of part1..part3 in order).
+Canonical map of high-confidence local→upstream skill ID aliases (2026-09-16 cleanup).
 
-Parts exist only to allow staged git commits when single-file MCP payloads are size-capped; merge with:
+**144** lines. Assemble from parts (already on this branch):
 
 ```bash
-cat data/upstream-aliases.part{1,2,3}.jsonl > data/upstream-aliases.jsonl
+cat data/upstream-aliases.part1.jsonl \
+    data/upstream-aliases.part2.jsonl \
+    data/upstream-aliases.part3.jsonl \
+  > data/upstream-aliases.jsonl
 ```
+
+Each line: `local_name`, `local_path`, `upstream_repo`, `upstream_id`, `upstream_path`, `match_reason`.
