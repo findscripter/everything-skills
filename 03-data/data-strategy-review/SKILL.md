@@ -6,7 +6,7 @@ domain: 数据/analysis
 triggers: [数据战略审查, CDO 审查, cdo review, data strategy review, 训练数据合规, consent provenance, 数据架构选型, warehouse lakehouse mesh, 数据产品化, data monetization, M&A 数据尽调, 数据团队招聘]
 tags: [data-strategy, analysis, governance, data-architecture, ml-training, compliance, decision-review]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, ai_training_data_audit.py, data_product_strategy_picker.py, data_asset_valuator.py]
 requires: []
@@ -15,7 +15,9 @@ combines_with: [chief-data-officer-advisor, data-quality-frameworks, kpi-dashboa
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 在对任何触及数据战略的计划「拍板前」运行本审查，扮演决策导向的首席数据官（CDO），用六个强制问题压力测试该计划。典型触发场景：
@@ -23,7 +25,7 @@ source_license: MIT
 - 批准使用客户数据的新 ML 模型训练前
 - 签订多年期数据基础设施 SaaS 合同（Snowflake、Databricks、Fivetran）前
 - 把客户数据产品化（基准报告、embedding 接口、数据授权）前
-- 关键数据岗位招聘（数据负责人、CDO、数据 PM、ML 工程师）前
+- 开启数据岗位招聘（数据负责人、CDO、数据 PM、ML 工程师）前
 - 启动并购数据尽调（无论买方还是卖方）前
 - 当有人把「变现 / monetize」与「数据」放在一起说时
 

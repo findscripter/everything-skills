@@ -6,7 +6,7 @@ domain: 安全/appsec
 triggers: [安全钩子, 拦截不安全代码, security hook, block unsafe code, command injection, SQL injection, eval/pickle/os.system, GitHub Actions 安全]
 tags: [security, appsec, hook, static-analysis, command-injection, sql-injection, xss, deserialization]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Claude Code PreToolUse hook, Python stdlib, semgrep, CodeQL]
 requires: []
@@ -15,7 +15,9 @@ combines_with: [sast-configurator, semgrep-rule-creator, backend-security-coder]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 - 在 Claude Code 会话中编辑安全敏感代码（鉴权、支付、用户输入处理、IaC/工作流文件）时，想要一个"落盘前"的安全网，在 Edit/Write/MultiEdit 完成前拦截已知危险写法。
