@@ -1,1 +1,1 @@
-file:///workspace/TEMP/everything-skills/09-verticals/cellchat-cell-communication/SKILL.md
+@file:///tmp/pf_split/cellchat-cell-communication.content.md
