@@ -119,6 +119,10 @@ evals.json 最小骨架（断言后补）：
   "evals": [ { "id": 1, "prompt": "用户的任务 prompt", "expected_output": "期望结果描述", "files": [] } ] }
 ```
 
+### 进阶：盲测对比（可选）
+
+当用户问「新版本是否真的更好」且环境有子 agent 时，可做盲测：把两个版本的产出交给独立评判 agent（不告知哪个是新版），再分析胜出原因。多数情况人工评审环已够用；Claude.ai 无子 agent 时跳过盲测。
+
 ## 注意事项
 
 - **description 是触发的唯一机制**：必含负边界(降误召)+触发词(提召回)；Claude 只为"自己不易一步搞定"的复杂任务才查阅技能，简单一步任务(读个文件)不触发属正常，别拿它当测试用例。
@@ -135,3 +139,7 @@ evals.json 最小骨架（断言后补）：
 
 - related：`mcp-builder` —— 若要封装的是「接三方系统的 MCP 工具/server」而非通用技能，用它；`prompt-template-designer` —— 技能正文里的提示词段落，可用它打磨成稳定模板。
 - combines_with：`fact-checking` —— 写 description、断言或 reference 文档时，对引入的硬事实/外部声明先核验再写入，避免技能固化错误信息。
+
+
+---
+采编自 anthropics/skills（Apache-2.0）。2026-09-16 上游刷新（吸收上游新增程序要点，保持 SCHEMA 中文适配密度）。
