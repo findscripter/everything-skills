@@ -17,3 +17,7 @@ Upstream skill ID not found after thorough search. Folders kept; `status: deprec
 - `property-auction-legal-analysis` — `09-verticals/property-auction-legal-analysis/SKILL.md`
 - `azure-container-apps-deploy` — `10-platform/azure-container-apps-deploy/SKILL.md`
 - `imessage-claude-bridge` — `10-platform/imessage-claude-bridge/SKILL.md`
+
+## Added from ambiguous-12 (2026-09-16)
+
+- `tax-loss-harvesting` — `09-verticals/tax-loss-harvesting/SKILL.md` — no dedicated TLH skill remains in `anthropics/financial-services`
