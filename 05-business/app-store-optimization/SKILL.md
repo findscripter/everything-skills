@@ -25,7 +25,8 @@ source_license: MIT
 - 企业 / 内部分发应用、TestFlight 仅测试版 -> 不进公开商店搜索，ASO 收益极低。
 - 纯付费投放（ASA / UAC 等广告竞价策略）-> 属于买量范畴，不在本技能内。
 
-## 步骤
+## 步骤 / 指令
+
 
 ASO 包含五条可独立运行的工作流，按需取用。
 
@@ -59,7 +60,6 @@ ASO 包含五条可独立运行的工作流，按需取用。
 ### 5. A/B 测试
 按影响力选测试元素（图标 > 截图1 > 标题 > 简短描述）-> 写假设 -> 控制组 vs 单变量实验组 -> 算样本量（基线转化、最小可检出效应通常 5%、显著性 95%）-> iOS 用 Product Page Optimization，安卓用 Store Listing Experiments -> 至少跑 7 天到统计显著 -> 分析并落地胜出版本。
 
-## 指令
 
 辅助脚本（均为 Python，按需调用）：
 
@@ -108,6 +108,12 @@ task,todo,checklist,reminder,organize,daily,planner,schedule,deadline,goals,habi
 
 截图文案演进：`Task List Feature`（功能、被动）-> `Create Task Lists`（动作动词）-> `Never Miss a Deadline`（收益导向、有情绪）= 最佳。
 
+### 上线后与本地化补强
+
+- iOS 关键词域变更需重新提审；推广文本可不发版修改。安卓无独立关键词域，索引重建约 1–2 小时。
+- 多语言：标题/副标题勿直译堆词；用 `localization_helper` 类流程按 locale 分套元数据，核心词按当地搜索习惯重做研究而非机器翻译。
+- 评分策略：低于约 4.0 星严重压制转化——应用内评分提示与差评 24h 内回复应写入上线 Runbook。
+
 ## 注意事项
 
 平台行为差异：
@@ -130,4 +136,4 @@ task,todo,checklist,reminder,organize,daily,planner,schedule,deadline,goals,habi
 - marketing-strategy-pmm：GTM / 上市策略规划。
 
 ---
-采编自 alirezarezvani/claude-skills（MIT 许可证）。
+采编自 alirezarezvani/claude-skills（MIT 许可证）。2026-09-16 上游刷新（吸收上游新增程序要点，保持 SCHEMA 中文适配密度）。
