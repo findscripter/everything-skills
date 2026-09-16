@@ -1,1 +1,0 @@
-LOAD_FROM_/tmp/pf_cellchat_now.json
