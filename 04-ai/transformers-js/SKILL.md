@@ -13,7 +13,7 @@ requires: []
 related: [local-llm-inference, huggingface-hub-cli, embedding-model-strategies, computer-vision-expert]
 combines_with: [vercel-ai-sdk, huggingface-model-trainer, rag-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

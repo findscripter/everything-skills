@@ -13,7 +13,7 @@ requires: []
 related: [twilio-communications, agentmail-email-infra, tmux-session-management]
 combines_with: [twilio-communications, tmux-session-management]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # iMessage 短信驱动 Claude 会话桥接

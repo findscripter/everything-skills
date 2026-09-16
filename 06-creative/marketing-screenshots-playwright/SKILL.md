@@ -13,7 +13,7 @@ requires: []
 related: [playwright-e2e-testing, full-page-screenshot, webapp-testing, browser-automation-builder]
 combines_with: [app-store-optimization, landing-page-copywriting, product-launch-strategy]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

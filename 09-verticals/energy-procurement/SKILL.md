@@ -13,7 +13,7 @@ requires: []
 related: [vendor-evaluation, inventory-demand-planning, dcf-valuation-model, pe-returns-sensitivity]
 combines_with: [financial-analysis-toolkit, dcf-valuation-model, vendor-evaluation]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

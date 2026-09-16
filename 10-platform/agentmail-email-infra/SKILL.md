@@ -13,7 +13,7 @@ requires: []
 related: [twilio-communications, whatsapp-cloud-api, transactional-email-template-builder, imessage-claude-bridge]
 combines_with: [mcp-builder, agent-tool-builder, computer-use-agents]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

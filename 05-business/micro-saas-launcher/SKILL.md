@@ -13,7 +13,7 @@ requires: []
 related: [digital-product-monetization, pricing-strategy, product-launch-strategy, saas-marketing-ideas]
 combines_with: [fullstack-project-scaffolder, user-onboarding-optimizer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

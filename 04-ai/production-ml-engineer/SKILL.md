@@ -13,7 +13,7 @@ requires: []
 related: [mlops-model-productionizer, production-llm-app-builder, llm-app-production-patterns, computer-vision-expert]
 combines_with: [data-pipeline-engineer, shap-model-explainability]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 采编自 sickn33/antigravity-awesome-skills（MIT）。本技能是「生产级 ML 工程师」人格：覆盖框架选型、服务架构、特征工程、分布式训练、评估与监控的端到端工程设计；偏「系统全景与架构决策」。若只需把已训模型「上线 + 运维 runbook」（容器模板、漂移阈值表、RAG/LLM 接入清单），用更聚焦的 `mlops-model-productionizer`。

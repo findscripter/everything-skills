@@ -13,7 +13,7 @@ requires: []
 related: [fact-checking, citation-management, entity-research-dossier]
 combines_with: [fact-checking, citation-management]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

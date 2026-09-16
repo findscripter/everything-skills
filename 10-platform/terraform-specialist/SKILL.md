@@ -13,7 +13,7 @@ requires: []
 related: [terraform-module-builder, aws-cdk-patterns, cloudformation-best-practices, gitops-argocd-flux]
 combines_with: [github-actions-author, multi-cloud-architecture, cloud-cost-optimization]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [ai-generated-code-auditor, clean-code-principles, code-simplifier, legacy-codebase-modernizer]
 combines_with: [pre-deploy-checklist, env-secrets-hygiene, web-mock-data-hunter]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

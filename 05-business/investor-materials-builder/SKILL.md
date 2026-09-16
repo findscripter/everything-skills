@@ -13,7 +13,7 @@ requires: []
 related: [ib-pitch-deck-builder, board-deck-builder, startup-financial-modeler, pitch-deck-refresh]
 combines_with: [python-pptx-deck-generator, three-statement-model, market-sizing-tam-sam-som]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [scientific-database-lookup, academic-paper-writer, scientific-manuscript-writing, fact-checking]
 combines_with: [academic-paper-writer, scientific-manuscript-writing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

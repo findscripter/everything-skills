@@ -13,7 +13,7 @@ requires: []
 related: [langgraph-agent-framework, multi-agent-system-designer, multi-agent-workflow-designer, pydantic-ai-agents]
 combines_with: [agent-tool-builder, agent-workflow-pattern-designer, llm-agent-benchmarking]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

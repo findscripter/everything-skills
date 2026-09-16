@@ -13,7 +13,7 @@ requires: []
 related: [container-security-hardening, cloud-misconfig-auditor, kubernetes-architect, service-mesh-architect]
 combines_with: [container-security-hardening, cloud-misconfig-auditor, istio-traffic-management]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

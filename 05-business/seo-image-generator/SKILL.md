@@ -13,7 +13,7 @@ requires: []
 related: [seo-meta-tags-optimizer, unsplash-photo-integration, social-share-card-hardener, seo-content-writer]
 combines_with: [seo-meta-tags-optimizer, seo-content-writer, social-share-card-hardener]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [avoid-ai-writing-patterns, content-humanizer, humanize-chinese-text, professional-proofreader]
 combines_with: [doc-coauthoring, conversion-copywriter]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

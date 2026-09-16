@@ -13,7 +13,7 @@ requires: []
 related: [ab-test-designer, conversion-rate-optimizer, analytics-tracking-setup, marketing-analytics-tracker]
 combines_with: [ab-test-designer, conversion-rate-optimizer, signup-flow-cro]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

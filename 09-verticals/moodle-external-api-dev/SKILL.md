@@ -13,7 +13,7 @@ requires: []
 related: [php-pro, laravel-app-specialist, rest-api-endpoint-builder, api-design-principles]
 combines_with: [api-test-suite-builder, backend-security-coder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

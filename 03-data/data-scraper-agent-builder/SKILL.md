@@ -13,7 +13,7 @@ requires: []
 related: [browser-automation-builder, firecrawl-web-scraper, apify-ecommerce-scraper, data-pipeline-engineer]
 combines_with: [regex-vs-llm-structured-text, cost-aware-llm-pipeline, csv-data-cleaner]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 # 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）

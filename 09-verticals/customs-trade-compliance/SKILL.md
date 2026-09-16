@@ -13,7 +13,7 @@ requires: []
 related: [carrier-relationship-management, returns-reverse-logistics, oss-license-compliance, regulatory-policy-diff]
 combines_with: [carrier-relationship-management, inventory-demand-planning]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

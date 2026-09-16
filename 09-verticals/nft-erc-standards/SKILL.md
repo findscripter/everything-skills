@@ -13,7 +13,7 @@ requires: []
 related: [solidity-security-auditor, defi-protocol-templates, blockchain-web3-developer, evm-token-decimals]
 combines_with: [solidity-security-auditor, defi-amm-security-audit, nodejs-keccak256-hashing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

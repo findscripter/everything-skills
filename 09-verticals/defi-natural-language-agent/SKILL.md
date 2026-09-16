@@ -13,7 +13,7 @@ requires: []
 related: [blockchain-web3-developer, agent-payment-x402, defi-protocol-templates, evm-token-decimals]
 combines_with: [solidity-security-auditor, nodejs-keccak256-hashing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

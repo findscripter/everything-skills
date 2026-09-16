@@ -13,7 +13,7 @@ requires: []
 related: [cpp-modern-pro, c-cpp-security-review, gdb-debugging-cli, arm-cortex-firmware-expert]
 combines_with: [gdb-debugging-cli, c-cpp-security-review]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

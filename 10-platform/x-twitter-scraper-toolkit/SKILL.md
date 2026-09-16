@@ -13,7 +13,7 @@ requires: []
 related: [x-twitter-automation, x-post-to-json-fetcher, browser-automation-builder]
 combines_with: [social-media-multi-publisher, news-sentiment-briefing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

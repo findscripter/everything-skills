@@ -13,7 +13,7 @@ requires: []
 related: [playwright-e2e-testing, api-test-suite-builder, webapp-testing, javascript-testing-patterns]
 combines_with: [performance-profiler, grafana-dashboards, slo-sli-implementation]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

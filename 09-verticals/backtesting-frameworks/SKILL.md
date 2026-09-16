@@ -13,7 +13,7 @@ requires: []
 related: [trading-strategy-backtester, portfolio-risk-metrics, portfolio-rebalancer]
 combines_with: [alpha-vantage-market-data, portfolio-risk-metrics, trading-strategy-backtester]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

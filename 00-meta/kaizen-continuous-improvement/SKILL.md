@@ -13,7 +13,7 @@ requires: []
 related: [invariant-guard-correctness, algorithm-first-discipline, closed-loop-delivery, first-principles-thinking]
 combines_with: [clean-code-principles, tech-debt-prioritizer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [embedding-model-strategies, vector-index-tuning, hybrid-search-retrieval, nosql-distributed-db, postgresql-optimization]
 combines_with: [rag-pipeline-builder, rag-implementation-workflow, embedding-model-strategies, hybrid-search-retrieval, data-pipeline-engineer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 向量数据库工程：Pinecone/Weaviate 与语义检索

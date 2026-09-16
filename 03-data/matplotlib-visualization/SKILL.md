@@ -13,7 +13,7 @@ requires: []
 related: [seaborn-statistical-charts, plotly-interactive-viz, d3js-data-viz]
 combines_with: [seaborn-statistical-charts, polars-dataframe, scikit-learn-ml]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

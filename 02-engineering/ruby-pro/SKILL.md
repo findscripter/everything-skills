@@ -13,7 +13,7 @@ requires: []
 related: [php-pro, golang-pro, java-modern-pro, rust-pro]
 combines_with: [rest-api-endpoint-builder, error-handling-patterns, code-reviewer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

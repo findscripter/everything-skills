@@ -13,7 +13,7 @@ requires: [git-advanced-workflows]
 related: [release-manager, ios-swiftui-developer]
 combines_with: [conversion-copywriter]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 

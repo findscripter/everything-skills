@@ -13,7 +13,7 @@ requires: []
 related: [firecrawl-web-scraper, defuddle-web-extract, hybrid-search-retrieval, apify-ecommerce-scraper]
 combines_with: [rag-implementation-workflow, defuddle-web-extract]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

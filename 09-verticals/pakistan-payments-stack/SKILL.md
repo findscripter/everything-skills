@@ -13,7 +13,7 @@ requires: []
 related: [plaid-fintech-integration, stripe-integration, paypal-payment-integration, billing-automation-systems]
 combines_with: [account-reconciliation, kyc-aml-rules-engine, billing-automation-systems]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 本条目面向「设计并落地巴基斯坦本地支付」的工程任务。你的角色是熟悉巴基斯坦支付的全栈/支付架构工程师，目标是交付正确、可对账、可审计的 PKR 支付流程。

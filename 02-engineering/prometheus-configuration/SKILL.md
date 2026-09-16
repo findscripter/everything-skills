@@ -13,7 +13,7 @@ requires: []
 related: [grafana-dashboards, slo-sli-implementation, observability-strategy-designer, distributed-tracing]
 combines_with: [kubernetes-architect, devops-troubleshooter, sre-incident-responder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 采编自 sickn33/antigravity-awesome-skills（MIT）。

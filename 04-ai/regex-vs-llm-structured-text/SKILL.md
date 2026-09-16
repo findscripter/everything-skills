@@ -13,7 +13,7 @@ requires: []
 related: [prompt-template-designer, llm-model-router, rag-pipeline-builder]
 combines_with: [claude-api, llm-judge-evaluation]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

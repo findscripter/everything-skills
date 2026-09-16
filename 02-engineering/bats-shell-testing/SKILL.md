@@ -13,7 +13,7 @@ requires: []
 related: [posix-shell-scripting, bash-defensive-patterns, shellcheck-linting, test-coverage-gap-finder]
 combines_with: [ci-cd-pipeline-builder, git-hooks-automation]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [whatsapp-cloud-api, agentmail-email-infra, slack-bolt-bot-builder, imessage-claude-bridge]
 combines_with: [whatsapp-cloud-api, auth-implementation-patterns, transactional-email-template-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

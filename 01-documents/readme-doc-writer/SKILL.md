@@ -13,7 +13,7 @@ requires: []
 related: [docs-architect, codebase-onboarding-doc, technical-reference-builder, code-tutorial-engineer]
 combines_with: [docs-architect, changelog-generator]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

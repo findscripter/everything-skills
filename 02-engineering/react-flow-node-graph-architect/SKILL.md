@@ -13,7 +13,7 @@ requires: []
 related: [react-state-management, tanstack-query, typescript-advanced-types, frontend-design]
 combines_with: [react-state-management, d3js-data-viz, web-artifacts-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

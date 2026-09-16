@@ -13,7 +13,7 @@ requires: []
 related: [entity-research-dossier, multi-source-knowledge-synthesis, codebase-structure-protocol]
 combines_with: [github-pr-comment-resolver, codebase-onboarding-doc, oss-license-compliance]
 license: CC-BY-4.0
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [aws-serverless-architect, azure-cloud-architect, gcp-cloud-architect, cloud-cost-optimization]
 combines_with: [terraform-specialist, cloud-cost-optimization, kubernetes-architect]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

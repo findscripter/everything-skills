@@ -13,7 +13,7 @@ requires: []
 related: [boardroom-deliberation, executive-adversarial-mentor, premortem-plan-challenger, decision-navigator, first-principles-thinking]
 combines_with: [premortem-plan-challenger, business-assumption-stress-test, entity-research-dossier]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

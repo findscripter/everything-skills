@@ -13,7 +13,7 @@ requires: []
 related: [market-sizing-analyst, competitive-analysis, startup-financial-modeler, international-expansion-strategy]
 combines_with: [competitive-analysis, startup-financial-modeler, board-deck-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

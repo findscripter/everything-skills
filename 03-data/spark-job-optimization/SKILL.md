@@ -13,7 +13,7 @@ requires: []
 related: [data-pipeline-engineer, polars-dataframe, airflow-dag-builder, snowflake-development]
 combines_with: [data-pipeline-engineer, airflow-dag-builder, data-quality-validator]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Apache Spark 作业性能调优

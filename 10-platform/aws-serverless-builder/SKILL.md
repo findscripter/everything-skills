@@ -13,7 +13,7 @@ requires: []
 related: [aws-serverless-architect, gcp-cloud-run, aws-cdk-patterns, cloudflare-workers-edge]
 combines_with: [aws-serverless-architect, terraform-specialist, rest-api-endpoint-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

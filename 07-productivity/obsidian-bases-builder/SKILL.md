@@ -13,7 +13,7 @@ requires: []
 related: [obsidian-clipper-templates, confluence-space-architect, notion-template-business, company-policy-lookup]
 combines_with: [bullet-point-structurer, multi-source-knowledge-synthesis]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

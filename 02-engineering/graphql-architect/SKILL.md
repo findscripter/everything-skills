@@ -13,7 +13,7 @@ requires: []
 related: [api-design-principles, rest-api-endpoint-builder, trpc-typesafe-api, fastapi-async-api]
 combines_with: [api-design-reviewer, prisma-orm-expert, tanstack-query]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

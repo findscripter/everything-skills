@@ -13,7 +13,7 @@ requires: []
 related: [coding-agent-headtohead-eval, llm-agent-benchmarking, langfuse-llm-observability, ai-engineering-toolkit]
 combines_with: [cost-aware-llm-pipeline, autonomous-coding-agent-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [first-principles-assumption-auditor, math-proof-writer, guided-statistical-analysis]
 combines_with: [sympy-symbolic-math, math-proof-writer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

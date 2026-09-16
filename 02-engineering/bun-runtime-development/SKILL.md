@@ -13,7 +13,7 @@ requires: []
 related: [javascript-modern-pro, typescript-advanced-types, hono-edge-api, uv-python-package-manager]
 combines_with: [trpc-typesafe-api, turborepo-caching, javascript-testing-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

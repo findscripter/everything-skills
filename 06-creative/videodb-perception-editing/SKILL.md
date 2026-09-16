@@ -13,7 +13,7 @@ requires: []
 related: [demo-video-generator, youtube-transcript-ingest, slack-gif-creator]
 combines_with: [demo-video-generator, audio-to-markdown-transcriber]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 把视频/音频/直播/桌面会话当作「可感知 + 可记忆 + 可动作」的对象：摄入 → 建索引理解 → 按时间戳检索证据 → 时间轴编辑/生成媒体。一切重活在 VideoDB 服务端完成，不在本地编码。

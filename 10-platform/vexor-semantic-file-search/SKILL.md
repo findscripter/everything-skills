@@ -13,7 +13,7 @@ requires: []
 related: [vexor-vector-cli-setup, codebase-structure-protocol, monorepo-navigator]
 combines_with: [codebase-onboarding-doc, vexor-vector-cli-setup]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

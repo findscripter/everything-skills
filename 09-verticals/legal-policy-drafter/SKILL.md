@@ -13,7 +13,7 @@ requires: []
 related: [dpa-clause-reviewer, dpa-playbook-review, privacy-impact-assessor, gdpr-data-handling]
 combines_with: [gdpr-data-handler, legal-inquiry-responder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

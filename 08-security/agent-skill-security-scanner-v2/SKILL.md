@@ -13,7 +13,7 @@ requires: []
 related: [agent-skill-security-scanner, agent-plugin-audit, skill-ecosystem-auditor, ai-system-security-audit]
 combines_with: [dependency-auditor, supply-chain-risk-auditor]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

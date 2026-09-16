@@ -13,7 +13,7 @@ requires: []
 related: [burp-suite-testing, api-fuzzing-bug-bounty, false-positive-check, security-audit-toolkit]
 combines_with: [penetration-testing-methodology, ffuf-web-fuzzing, red-team-recon]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Burp Suite 工程文件命令行解析

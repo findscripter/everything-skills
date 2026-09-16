@@ -13,7 +13,7 @@ requires: []
 related: [python-testing-pytest, playwright-e2e-testing, test-coverage-gap-finder, api-test-suite-builder]
 combines_with: [javascript-modern-pro, playwright-e2e-testing, test-coverage-gap-finder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

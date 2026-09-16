@@ -13,7 +13,7 @@ requires: []
 related: [docs-architect, adr-management-patterns, codetour-walkthrough-builder, backend-architecture-patterns]
 combines_with: [adr-auto-capture, docs-architect]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

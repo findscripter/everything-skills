@@ -13,7 +13,7 @@ requires: []
 related: [uv-python-package-manager, devcontainer-claude-setup, turborepo-caching, bash-defensive-patterns]
 combines_with: [ci-cd-pipeline-builder, git-hooks-automation]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

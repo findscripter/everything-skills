@@ -13,7 +13,7 @@ requires: []
 related: [developer-experience-optimizer, ai-native-cli-design, zapier-make-automation, micro-saas-launcher]
 combines_with: [file-organizer, agent-tool-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

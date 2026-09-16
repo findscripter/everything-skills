@@ -13,7 +13,7 @@ requires: []
 related: [bullet-point-structurer, rsvp-speed-reader, claude-command-selector, academic-paper-explainer]
 combines_with: [code-tutorial-engineer, notebooklm-source-grounded-qa, multi-source-knowledge-synthesis]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

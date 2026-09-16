@@ -13,7 +13,7 @@ requires: []
 related: [fal-ai-media-generation, slack-gif-creator, algorithmic-art, web-artifacts-builder]
 combines_with: [web-artifacts-builder, fal-ai-media-generation]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

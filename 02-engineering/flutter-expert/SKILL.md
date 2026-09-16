@@ -13,7 +13,7 @@ requires: []
 related: [react-native-architecture, ios-swiftui-developer, jetpack-compose-expert, swiftui-best-practices]
 combines_with: [android-ui-verification, firebase-backend, app-store-optimization]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [coo-operations-advisor, incident-commander-framework, process-sop-documenter, change-management-request]
 combines_with: [operational-runbook-writer, sre-incident-responder, org-change-management]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # ITIL 服务管理顾问

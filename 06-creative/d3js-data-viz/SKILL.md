@@ -13,7 +13,7 @@ requires: []
 related: [threejs-3d-web, algorithmic-art, plotly-interactive-viz, matplotlib-visualization]
 combines_with: [web-artifacts-builder, data-storyteller, kpi-dashboard-design]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [context-window-management, llm-prompt-caching, llm-prompt-optimizer, agent-memory-systems]
 combines_with: [production-llm-app-builder, langgraph-agent-framework, rag-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

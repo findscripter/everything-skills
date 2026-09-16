@@ -13,7 +13,7 @@ requires: []
 related: [n8n-mcp-tools-expert, zapier-make-automation, agent-workflow-pattern-designer, business-process-mapper]
 combines_with: [salesforce-automation, mcp-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ＃ n8n 工作流架构模式

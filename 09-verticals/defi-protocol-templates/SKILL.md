@@ -13,7 +13,7 @@ requires: []
 related: [blockchain-web3-developer, solidity-security-auditor]
 combines_with: [solidity-security-auditor, blockchain-web3-developer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

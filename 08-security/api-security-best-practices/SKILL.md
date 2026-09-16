@@ -13,7 +13,7 @@ requires: []
 related: [auth-implementation-patterns, backend-security-coder, insecure-defaults-detector, api-fuzzing-bug-bounty]
 combines_with: [auth-implementation-patterns, backend-security-coder, stride-threat-modeler]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

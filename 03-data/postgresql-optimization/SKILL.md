@@ -13,7 +13,7 @@ requires: []
 related: [erd-schema-designer, sql-query-builder, nosql-distributed-db, neon-serverless-postgres]
 combines_with: [sql-query-builder, erd-schema-designer, database-migration-strategies]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [octagon-stock-quote, alpha-vantage-market-data, portfolio-risk-metrics, portfolio-rebalancer, institutional-flow-tracker]
 combines_with: [portfolio-risk-metrics, portfolio-rebalancer, octagon-stock-quote]
 license: CC-BY-4.0
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

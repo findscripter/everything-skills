@@ -13,7 +13,7 @@ requires: []
 related: [agents-md-maintainer, context-window-management, context-compression, codebase-structure-protocol]
 combines_with: [mcp-builder, agent-readiness-aeo-check, codebase-onboarding-doc]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

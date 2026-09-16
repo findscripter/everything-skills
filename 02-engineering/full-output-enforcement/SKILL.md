@@ -13,7 +13,7 @@ requires: []
 related: [llm-coding-mistake-guardrails, code-reviewer, adversarial-code-reviewer, llm-prompt-optimizer]
 combines_with: [code-simplifier, code-reviewer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

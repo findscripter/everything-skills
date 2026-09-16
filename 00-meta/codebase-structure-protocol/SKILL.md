@@ -13,7 +13,7 @@ requires: []
 related: [filesystem-context-offload, monorepo-navigator, codebase-onboarding-doc, agents-md-maintainer]
 combines_with: [codebase-to-prd, legacy-codebase-modernizer, tech-debt-prioritizer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

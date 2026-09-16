@@ -13,7 +13,7 @@ requires: []
 related: [content-humanizer, avoid-ai-writing-patterns, beautiful-prose-stylist, professional-proofreader]
 combines_with: [xiaohongshu-content-strategy, wechat-official-account-growth]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

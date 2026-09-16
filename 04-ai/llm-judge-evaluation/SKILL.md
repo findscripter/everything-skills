@@ -13,7 +13,7 @@ requires: []
 related: [llm-agent-benchmarking, ai-engineering-toolkit, langfuse-llm-observability, llm-prompt-optimizer]
 combines_with: [production-llm-app-builder, rag-implementation-workflow, llm-conversation-memory]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

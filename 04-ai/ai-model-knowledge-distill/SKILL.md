@@ -13,7 +13,7 @@ requires: []
 related: [rag-implementation-workflow, embedding-model-strategies, self-improving-memory-agent, production-llm-app-builder]
 combines_with: [vector-index-tuning, rag-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

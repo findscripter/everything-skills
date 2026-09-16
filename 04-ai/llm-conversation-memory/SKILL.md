@@ -13,7 +13,7 @@ requires: []
 related: [agent-memory-systems, agent-memory-architecture, self-improving-memory-agent, context-compression]
 combines_with: [rag-pipeline-builder, embedding-model-strategies, production-llm-app-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

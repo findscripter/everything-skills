@@ -13,7 +13,7 @@ requires: []
 related: [react-state-management, trpc-typesafe-api, zod-schema-validation, sveltekit-fullstack]
 combines_with: [rest-api-endpoint-builder, typescript-advanced-types, shadcn-ui-components]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

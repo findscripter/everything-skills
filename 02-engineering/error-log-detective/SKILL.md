@@ -13,7 +13,7 @@ requires: []
 related: [devops-troubleshooter, systematic-debugger, systematic-debugging-strategies, distributed-tracing]
 combines_with: [observability-strategy-designer, grafana-dashboards, incident-commander-framework]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

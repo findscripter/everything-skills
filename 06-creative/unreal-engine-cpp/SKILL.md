@@ -13,7 +13,7 @@ requires: []
 related: [unity-game-developer, glsl-shader-programming, cpp-modern-pro, bevy-ecs-rust]
 combines_with: [glsl-shader-programming]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 为 Unreal Engine 5.x 编写健壮、高性能且符合 Epic Games 规范的 C++ 代码，覆盖 UObject 与垃圾回收（GC）卫生、反射系统、性能模式与命名约定。

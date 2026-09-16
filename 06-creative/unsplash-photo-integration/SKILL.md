@@ -13,7 +13,7 @@ requires: []
 related: [seo-image-generator, fal-ai-media-generation, photopea-embedded-editor, theme-factory]
 combines_with: [seo-image-generator, web-artifacts-builder, frontend-design]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Unsplash 图库集成：免费高质量摄影图搜索接入

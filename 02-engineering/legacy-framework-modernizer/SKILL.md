@@ -13,7 +13,7 @@ requires: []
 related: [legacy-codebase-modernizer, zero-downtime-migration-architect, angularjs-to-angular-migration, tech-debt-prioritizer]
 combines_with: [database-migration-strategies, feature-flags-architect, test-coverage-gap-finder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 遗留系统现代化重构（框架迁移）

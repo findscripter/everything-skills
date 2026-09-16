@@ -13,7 +13,7 @@ requires: []
 related: [fastapi-async-api, async-python-patterns, rest-api-endpoint-builder, temporal-workflow-python]
 combines_with: [python-testing-pytest, postgresql-optimization, rest-api-endpoint-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [scientific-database-lookup, portfolio-risk-metrics, backtesting-frameworks, trading-strategy-backtester]
 combines_with: [trading-strategy-backtester, portfolio-risk-metrics, dcf-valuation-model]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

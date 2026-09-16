@@ -13,7 +13,7 @@ requires: []
 related: [fastapi-async-api, trpc-typesafe-api, rest-api-endpoint-builder, graphql-architect]
 combines_with: [prisma-orm-expert, zod-schema-validation, bullmq-job-queue]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用
