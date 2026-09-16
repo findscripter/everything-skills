@@ -26,7 +26,8 @@ source_license: MIT
 - 不把引用数 / h-index / 论文数量等同于质量，不把高产等同于好导师或过劳。
 - 不用 CS/ML 范式硬套人文、社科、临床、纯数学等领域（单作者、低产、专著、理论贡献在其领域内均属正常且高声望）。
 
-## 步骤
+## 步骤 / 指令
+
 
 0. **判定领域、建立领域画像（Field Profile）**：从院系、发表场所、关键词确定主领域，并明确六个维度——发表文化（会议驱动/期刊驱动/专著驱动/混合）、署名规范（一作+末位通讯/字母序/单作者常见/大团队）、典型课题组结构、产量基准、资源类型、指导文化。后续每一步都按此画像解读。
 1. **教授快照**：机构、院系、实验室、研究方向、公开学生/校友名单、近期职衔、逐年发文量、高频场所、高频合作者、可见的经费/数据集/系统线索；末尾写一段"学术身份"概括。
@@ -41,7 +42,6 @@ source_license: MIT
 9. **对话与面谈剧本**：按层级给出教授可能提问、各题考察点、强答结构、失败模式、反问清单、如何抛小想法。
 10. **以可执行的后续动作收尾**。
 
-## 指令
 
 证据阶梯（每个非平凡判断都套用）：
 - **A 直接证据**：来源直接陈述（论文写明数据规模、实验室页面列明学生身份、经费库显示金额）。
@@ -51,7 +51,7 @@ source_license: MIT
 
 强制语言提示词："directly supported by" / "suggested by repeated evidence" / "reasonable inference" / "cannot be concluded from public evidence alone"。
 
-反证协议（每个重大判断给五项）：claim、supporting evidence、**alternative explanations（≥2-3 个）**、weighted judgment（最可能解释 + 粗略置信权重）、what would reduce uncertainty。**模糊阈值规则**：当支撑与反证势均力敌时，不得默认正面解读，须显式声明模糊并建议进一步打听（找在读学生、读实验室新闻、查领域社区）。
+反证协议（每个重大判断给五项）：claim、supporting evidence、**alternative explanations（≥2-3 个）**、weighted judgment（最可能解释 + 粗略置信权重）、what would reduce uncertainty。**模糊处置规则**：当支撑与反证势均力敌时，不得默认正面解读，须显式声明模糊并建议进一步打听（找在读学生、读实验室新闻、查领域社区）。
 
 来源采集优先序：Scholar → 个人/实验室主页 → 领域文献库（CS/ML: DBLP、ACL Anthology；生医: PubMed、Europe PMC、ClinicalTrials.gov；社科经济: SSRN、RePEc、EconLit；人文哲学: PhilPapers、JSTOR；数学: MathSciNet、zbMATH；物理: INSPIRE-HEP、ADS；通用: Scopus、Web of Science）→ 预印本（arXiv/bioRxiv/medRxiv/SSRN）→ Semantic Scholar → 学生/校友页与 CV → 经费库（NSF、NIH Reporter、MOST、ERC）→ 学位论文库。来源冲突时取最权威者并标明冲突。
 
@@ -71,6 +71,15 @@ source_license: MIT
 5. 适配：把申请人映射为"经验研究者（学徒过渡）"，指出 workshop 一作是加分但需展示研究成熟度；预警若该教授近年无学生一作则标 serious。
 6. 产出博士版套磁（围绕 1-2 条研究线 + 可贡献的工程/数据点）+ 20 分钟面谈结构 + 三个后续动作（如"读 Z 论文""准备 X 方向小提案""联系在读学生 Y"）。
 
+### 申请人层级校准要点（补强）
+
+- **博士**：强调独立性、可发表议题、导师是否有稳定经费与学生一作成长轨迹。
+- **学硕（论文轨）**：看课题粒度是否匹配 1–2 年窗口，忌只看博士尺度实验室。
+- **课硕找项目 / 本科专题**：更看可上手子课题与指导带宽，而非独立开题能力。
+- **RA/博后/访学**：对齐技术栈与可交付物，明确是否有带人性经费与工位。
+
+层级错配是最常见误判：用博士标准筛课硕项目，或用本科专题标准评估博后，都会导致适配结论失真。
+
 ## 注意事项
 
 - 不把推测当事实；不从单篇论文推断工作量、性格或伦理。
@@ -87,4 +96,4 @@ source_license: MIT
 - first-principles-thinking：在证据模糊、需拆解"高产到底意味着什么"等多解问题时辅助推理。
 
 ---
-本条采编自 voidful/academic-skills（professor-fit-analyzer，MIT 许可）。
+本条采编自 voidful/academic-skills（professor-fit-analyzer，MIT 许可）。2026-09-16 上游刷新（吸收上游新增程序要点，保持 SCHEMA 中文适配密度）。
