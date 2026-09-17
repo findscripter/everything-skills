@@ -224,8 +224,8 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
 }
 
 // graph.json + graph.md（related/combines_with 视为无向、去重；requires 有向）
-// graph.md：卷级总览 + 按卷折叠（截断），避免整库单图无法在 GitHub 渲染。
-// 规则常量与独立 regen 脚本保持一致：跨卷 Top14、卷内度最高 ≤25 节点。
+// graph.md：卷级总览 mermaid + 按卷折叠的紧凑边表（不再渲染大块卷内 mermaid），避免 README/INDEX 体积膨胀。
+// 规则：跨卷 Top14；每卷度最高 ≤10 个枢纽 + Top ≤24 条诱导边（表格）。
 {
   const nodes = skills.map(s => ({ id: s.fm.name, title: s.fm.title, domain: s.fm.domain, level: s.fm.level, status: s.fm.status }));
   // 无向边去重（仅渲染用；graph.json 仍写原始 edges）
@@ -242,11 +242,10 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
   await fs.writeFile(path.join(INDEX, 'graph.json'), JSON.stringify({ nodes, edges }, null, 2));
 
   const MAX_CROSS_VOL_EDGES = 14;
-  const MAX_VOL_NODES = 25;
+  const MAX_VOL_HUBS = 10;
+  const MAX_VOL_EDGES = 24;
   const ARROW = { requires: '-->', related: '-.-', combines_with: '===' };
   const volOf = (n) => String((n && n.domain) || '').split('/')[0].trim();
-  const escLabel = (s) => String(s || '').replace(/"/g, "'").replace(/\n/g, ' ');
-  const mid = (id) => String(id).replace(/[^A-Za-z0-9_-]/g, '_');
   const nodesById = new Map(nodes.map(n => [n.id, n]));
   const cnOrder = VOLS.map(v => v.cn);
   const fence = '```';
@@ -289,12 +288,12 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
   let md = '# 互见图谱 · Graph\n\n' + stamp + '\n';
   md += '全库 **' + nodes.length + '** 节点、**' + edges.length + '** 条互见边（含方向重复前的原始边）。\n\n';
   md += '图例：`-->` 依赖(requires) · `-.-` 互见(related) · `===` 组合(combines_with)。\n\n';
-  md += '整库单图无法在 GitHub 上渲染，故拆成「卷级总览 + 按卷折叠」。机读全量见同目录 [`graph.json`](graph.json)。\n\n';
+  md += '整库单图无法在 GitHub 上渲染，故拆成「卷级总览 mermaid + 按卷紧凑边表」。机读全量见同目录 [`graph.json`](graph.json)。\n\n';
   md += '## 卷级总览（跨卷最强互见）\n\n';
   md += '无向边按跨卷计数取 Top ' + MAX_CROSS_VOL_EDGES + '；边上数字为边数。示例热点：' + crossNote + '…\n\n';
   md += overview + '\n';
-  md += '## 按卷展开（仅卷内边）\n\n';
-  md += '每卷最多展示度最高的 ' + MAX_VOL_NODES + ' 个节点及其诱导边；空卷跳过。\n\n';
+  md += '## 按卷展开（仅卷内边 · 紧凑表）\n\n';
+  md += '每卷列出度最高的 ' + MAX_VOL_HUBS + ' 个枢纽，及其诱导边中按两端度之和排序的 Top ' + MAX_VOL_EDGES + ' 条；空卷跳过。完整边集见 `graph.json`。\n\n';
 
   for (const v of VOLS) {
     const volNodes = nodes.filter(n => volOf(n) === v.cn).map(n => n.id);
@@ -307,29 +306,35 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
       deg.set(e.from, (deg.get(e.from) || 0) + 1);
       deg.set(e.to, (deg.get(e.to) || 0) + 1);
     }
-    let involved = [...deg.keys()];
+    let hubs = [...deg.keys()].sort((a, b) => (deg.get(b) - deg.get(a)) || a.localeCompare(b));
     let truncated = false;
-    if (involved.length > MAX_VOL_NODES) {
-      involved = involved.sort((a, b) => (deg.get(b) - deg.get(a)) || a.localeCompare(b)).slice(0, MAX_VOL_NODES);
-      const keep = new Set(involved);
-      intra = intra.filter(e => keep.has(e.from) && keep.has(e.to));
+    if (hubs.length > MAX_VOL_HUBS) {
+      hubs = hubs.slice(0, MAX_VOL_HUBS);
       truncated = true;
-    } else {
-      involved = involved.sort((a, b) => (deg.get(b) - deg.get(a)) || a.localeCompare(b));
     }
-    const note = truncated
-      ? ('（已截断：仅保留度最高的 ' + MAX_VOL_NODES + ' 个节点及其诱导边）')
-      : '';
-    md += '<details><summary>' + v.title + '（' + involved.length + ' 节点 / ' + intra.length + ' 边）' + note + '</summary>\n\n';
-    md += fence + 'mermaid\ngraph LR\n';
-    for (const id of involved) {
-      const n = nodesById.get(id);
-      let label = escLabel((n && n.title) || id);
-      if (label.length > 28) label = label.slice(0, 27) + '…';
-      md += '  ' + mid(id) + '["' + label + '"]\n';
+    const keep = new Set(hubs);
+    let hubEdges = intra.filter(e => keep.has(e.from) && keep.has(e.to));
+    hubEdges = hubEdges.sort((a, b) => {
+      const da = (deg.get(a.from) || 0) + (deg.get(a.to) || 0);
+      const db = (deg.get(b.from) || 0) + (deg.get(b.to) || 0);
+      return db - da || a.from.localeCompare(b.from) || a.to.localeCompare(b.to);
+    });
+    let edgeTrunc = false;
+    if (hubEdges.length > MAX_VOL_EDGES) {
+      hubEdges = hubEdges.slice(0, MAX_VOL_EDGES);
+      edgeTrunc = true;
     }
-    for (const e of intra) md += '  ' + mid(e.from) + ' ' + ARROW[e.type] + ' ' + mid(e.to) + '\n';
-    md += fence + '\n\n</details>\n\n';
+    const noteParts = [];
+    if (truncated) noteParts.push('枢纽截断至 ' + MAX_VOL_HUBS);
+    if (edgeTrunc) noteParts.push('边截断至 ' + MAX_VOL_EDGES);
+    const note = noteParts.length ? ('（' + noteParts.join('；') + '）') : '';
+    md += '<details><summary>' + v.title + '（枢纽 ' + hubs.length + ' / 边 ' + hubEdges.length + '）' + note + '</summary>\n\n';
+    md += '**Hubs (by degree):** ' + hubs.map(id => '`' + id + '`(' + deg.get(id) + ')').join(', ') + '\n\n';
+    md += '| from | type | to |\n| --- | --- | --- |\n';
+    for (const e of hubEdges) {
+      md += '| `' + e.from + '` | `' + (ARROW[e.type] || e.type) + '` | `' + e.to + '` |\n';
+    }
+    md += '\n</details>\n\n';
   }
   await fs.writeFile(path.join(INDEX, 'graph.md'), md);
 }
