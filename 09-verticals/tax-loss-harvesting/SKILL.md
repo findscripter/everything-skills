@@ -6,7 +6,7 @@ domain: 领域/fintech
 triggers: [税务亏损收割, 亏损收割, 收割亏损, TLH, tax-loss harvesting, harvest losses, unrealized losses, 浮亏抵税, 洗售规则, wash sale, 年末税务规划, year-end tax planning]
 tags: [fintech, tax-loss-harvesting, wash-sale, wealth-management, capital-gains, tax-planning]
 level: 进阶
-status: stable
+status: deprecated
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Excel, spreadsheet]
 requires: []
@@ -16,6 +16,7 @@ license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0
 ---
+> **Upstream status:** No dedicated tax-loss-harvesting (TLH) skill remains in the current upstream repository tree after a thorough name/alias search (2026-09-16 ambiguous-12 resolution). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 - 为客户的**应税账户**做年末或常态化税务规划，希望用浮亏头寸抵消已实现资本利得、降低当年税负。
