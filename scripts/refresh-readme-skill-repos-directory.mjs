@@ -38,12 +38,29 @@ const SECTION_META = LANG === 'en' ? SECTION_META_EN : SECTION_META_ZH;
 const SECTION_HEADING = LANG === 'en' ? '## Skill repos directory' : '## 技能仓库目录';
 const EMPTY_SUMMARY = LANG === 'en' ? '(no summary)' : '（暂无摘要）';
 
+/** en → summary (English); zh → summary_zh then summary */
+function pickSummary(o) {
+  if (LANG === 'zh') {
+    const zh = o.summary_zh;
+    if (zh != null && String(zh).trim()) return zh;
+  }
+  return o.summary;
+}
+
 function sanitizeSummary(s) {
   const t = String(s ?? '')
     .replace(/[\r\n]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
   return t || EMPTY_SUMMARY;
+}
+
+/** Map Chinese status labels to English for --lang=en */
+function pickStatus(status) {
+  const s = String(status ?? '');
+  if (LANG !== 'en') return s;
+  const map = { '仅索引': 'indexed-only', '已采编': 'curated', '本项目': 'this-project' };
+  return map[s] || s;
 }
 
 const files = (await fs.readdir(DATA))
@@ -103,7 +120,7 @@ for (const [id, title] of SECTION_META) {
   parts.push(`\n<details>\n<summary>${title}${countLabel}</summary>\n\n`);
   for (const o of items) {
     const url = o.html_url || `https://github.com/${o.full_name}`;
-    const summary = sanitizeSummary(o.summary);
+    const summary = sanitizeSummary(pickSummary(o));
     parts.push(`- [\`${o.full_name}\`](${url}) — ${summary}\n`);
   }
   parts.push(`\n</details>\n`);
