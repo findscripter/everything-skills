@@ -25,3 +25,9 @@
 ### 永久剔除
 
 - mukul975/Anthropic-Cybersecurity-Skills（攻击包）
+
+## 字段
+
+- `summary`：English one-line blurb（目录英文版）
+- `summary_zh`：Chinese one-line blurb（原摘要迁入；目录中文版优先）
+- README：`node scripts/refresh-readme-skill-repos-directory.mjs --lang=en|zh`
