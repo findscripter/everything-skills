@@ -131,7 +131,7 @@
       "title": "第一性原理假设审计",
       "domain": "通用/thinking",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "first-principles-thinking",
@@ -789,7 +789,7 @@
       "title": "CodeTour 代码导览生成",
       "domain": "研发/architecture",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "complexity-cuts",
@@ -1293,7 +1293,7 @@
       "title": "减少 LLM 编码常见错误的准则",
       "domain": "研发/review",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "magic-ui-component-generator",
@@ -1524,7 +1524,7 @@
       "title": "发布管理与部署协调",
       "domain": "研发/devops",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "rest-api-endpoint-builder",
@@ -1944,7 +1944,7 @@
       "title": "数据战略决策审查",
       "domain": "数据/analysis",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "data-throughput-accelerator",
@@ -2430,6 +2430,13 @@
       "status": "stable"
     },
     {
+      "id": "ledger-tasks-yylo",
+      "title": "YYLO Ledger 任务看板与依赖管理",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "llm-agent-benchmarking",
       "title": "LLM 智能体测试与基准评测",
       "domain": "智能/eval",
@@ -2490,7 +2497,7 @@
       "title": "机器学习模型生产化与 MLOps",
       "domain": "智能/model-ops",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "multi-agent-system-designer",
@@ -3624,7 +3631,7 @@
       "title": "SEO 流量骤降取证排查",
       "domain": "商业/seo",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "serp-feature-analysis",
@@ -4457,7 +4464,7 @@
       "title": "技术变更记录与会话交接追踪",
       "domain": "协作/automation",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "vendor-evaluation",
@@ -4814,7 +4821,7 @@
       "title": "多框架合规编排器（multi-framework-compliance-orchestrator）",
       "domain": "安全/compliance",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "network-interface-health",
@@ -4877,7 +4884,7 @@
       "title": "编码安全反模式拦截钩子",
       "domain": "安全/appsec",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "security-audit-toolkit",
@@ -5416,7 +5423,7 @@
       "title": "自然语言 DeFi 链上交易代理",
       "domain": "领域/fintech",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "defi-protocol-templates",
@@ -5766,7 +5773,7 @@
       "title": "硬件工程文档生成",
       "domain": "领域/hardware",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "harmony-batch-correction",
@@ -6858,7 +6865,7 @@
       "title": "不动产拍卖法律分析",
       "domain": "领域/legal",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "protein-language-models",
@@ -7124,7 +7131,7 @@
       "title": "税务亏损收割策略",
       "domain": "领域/fintech",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "three-statement-model",
@@ -7362,7 +7369,7 @@
       "title": "Azure Container Apps 容器化部署（azd）",
       "domain": "平台/cloud",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "azure-functions-serverless",
@@ -7502,7 +7509,7 @@
       "title": "iMessage 短信驱动 Claude 会话桥接",
       "domain": "平台/integration",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "linkedin-cli-automation",
@@ -17386,6 +17393,26 @@
     {
       "from": "langgraph-agent-framework",
       "to": "langfuse-llm-observability",
+      "type": "combines_with"
+    },
+    {
+      "from": "ledger-tasks-yylo",
+      "to": "autonomous-coding-agent-patterns",
+      "type": "related"
+    },
+    {
+      "from": "ledger-tasks-yylo",
+      "to": "multi-agent-workflow-designer",
+      "type": "related"
+    },
+    {
+      "from": "ledger-tasks-yylo",
+      "to": "dmux-multi-agent-workflows",
+      "type": "combines_with"
+    },
+    {
+      "from": "ledger-tasks-yylo",
+      "to": "parallel-agent-hub",
       "type": "combines_with"
     },
     {

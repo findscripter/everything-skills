@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-全库 **1108** 节点、**6843** 条互见边（含方向重复前的原始边）。
+全库 **1109** 节点、**6847** 条互见边（含方向重复前的原始边）。
 
 图例：`-->` 依赖(requires) · `-.-` 互见(related) · `===` 组合(combines_with)。
 
@@ -161,7 +161,7 @@ graph LR
 
 <details><summary>卷四 · 智能（枢纽 10 / 边 20）（枢纽截断至 10）</summary>
 
-**Hubs (by degree):** `production-llm-app-builder`(26), `langfuse-llm-observability`(20), `rag-pipeline-builder`(20), `langgraph-agent-framework`(19), `embedding-model-strategies`(17), `llm-model-router`(17), `ai-engineering-toolkit`(16), `llm-judge-evaluation`(16), `multi-agent-system-designer`(16), `autonomous-coding-agent-patterns`(15)
+**Hubs (by degree):** `production-llm-app-builder`(26), `langfuse-llm-observability`(20), `rag-pipeline-builder`(20), `langgraph-agent-framework`(19), `embedding-model-strategies`(17), `llm-model-router`(17), `ai-engineering-toolkit`(16), `autonomous-coding-agent-patterns`(16), `llm-judge-evaluation`(16), `multi-agent-system-designer`(16)
 
 | from | type | to |
 | --- | --- | --- |
@@ -180,8 +180,8 @@ graph LR
 | `langfuse-llm-observability` | `-.-` | `ai-engineering-toolkit` |
 | `langfuse-llm-observability` | `-.-` | `llm-judge-evaluation` |
 | `rag-pipeline-builder` | `===` | `llm-judge-evaluation` |
-| `langgraph-agent-framework` | `-.-` | `multi-agent-system-designer` |
 | `autonomous-coding-agent-patterns` | `===` | `langgraph-agent-framework` |
+| `langgraph-agent-framework` | `-.-` | `multi-agent-system-designer` |
 | `llm-model-router` | `===` | `ai-engineering-toolkit` |
 | `ai-engineering-toolkit` | `-.-` | `llm-judge-evaluation` |
 | `autonomous-coding-agent-patterns` | `-.-` | `multi-agent-system-designer` |
