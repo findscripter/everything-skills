@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-18（Asia/Shanghai）；日常增量索引 part57
+- 编制日期：2026-09-19（Asia/Shanghai）；日常增量索引 part58
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1698 个独立仓库（另注明更名别名）
+- 收录条数：1712 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -27,7 +27,12 @@
 ### 永久剔除
 
 - mukul975/Anthropic-Cybersecurity-Skills（攻击包）
-- 字段：`summary`=English one-line blurb；`summary_zh`=Chinese one-line blurb（原摘要迁入）。README `--lang=en` 用 summary；`--lang=zh` 优先 `summary_zh`。
+
+## 字段
+
+- `summary`：English one-line blurb（目录英文版）
+- `summary_zh`：Chinese one-line blurb（原摘要迁入；目录中文版优先）
+- README：`node scripts/refresh-readme-skill-repos-directory.mjs --lang=en|zh`
 
 ## 1. Official
 
@@ -229,6 +234,7 @@
 | [NVIDIA-Omniverse/usd-convert-cad](https://github.com/NVIDIA-Omniverse/usd-convert-cad) | 24 | NVIDIA Omniverse official CAD→OpenUSD conversion Agent Skill. | Apache-2.0 | 1 | indexed-only |
 | [spotify/portal-ai-plugins](https://github.com/spotify/portal-ai-plugins) | 1,758 | Spotify Portal AI Plugins: wire Portal CLI workflows into Claude/Codex/Cursor. | Apache-2.0 | 插件 | indexed-only |
 | [openai/role-specific-plugins](https://github.com/openai/role-specific-plugins) | 544 | OpenAI official role-specific Codex plugin templates (sales/data/product design, etc.). | MIT | 模板集 | indexed-only |
+| [basecamp/skills](https://github.com/basecamp/skills) | 73 | 37signals official Agent Skills for Basecamp/HEY/Fizzy via product CLIs; npx skills add basecamp/skills. | NOASSERTION | 3 | indexed-only |
 
 ## 2. Collections
 
@@ -631,6 +637,8 @@
 | [suboss87/FDEOps](https://github.com/suboss87/FDEOps) | 824 | Forward Deployed Engineering skills pack: 35 task skills + fde coordinator writing customer agreements/approvals/handoffs into coding-agent workflows. | MIT | 35+ | indexed-only |
 | [doncheli/don-cheli-sdd](https://github.com/doncheli/don-cheli-sdd) | 57 | Specification-Driven Development framework: 88+ commands, 51 skills, forced TDD/OWASP; Claude Code/Cursor/Codex, etc. | Apache-2.0 | 51 | indexed-only |
 | [WYRE-AI/msp-claude-plugins](https://github.com/WYRE-AI/msp-claude-plugins) | 46 | MSP-oriented Claude Code plugin marketplace: 80+ PSA/RMM/security/finance vendor plugins and cross-tool workflow packs. | Apache-2.0 | 80+ | indexed-only |
+| [l3a0/claude-plugins](https://github.com/l3a0/claude-plugins) | 19 | Personal Claude Code plugin marketplace (l3a0 namespace) with kindle-highlights skill for verbatim export/recovery. | MIT | 1 | indexed-only |
+| [synthesisengineering/synthesis-skills](https://github.com/synthesisengineering/synthesis-skills) | 19 | Synthesis Engineering Agent Skills pack (~63): review/content/PM/coordination on agentskills.io; multi-client install. | Apache-2.0 | 63 | indexed-only |
 
 ## 3. Vertical
 
@@ -1466,6 +1474,11 @@
 | [alexex1993/mcu-skills](https://github.com/alexex1993/mcu-skills) | 17 | MCU firmware Agent Skills: one SKILL.md per board family (STM32/ESP32/RP2040/nRF/AVR, etc.). | MIT | 19 | indexed-only |
 | [fal3/claude-skills-collection](https://github.com/fal3/claude-skills-collection) | 16 | Installable Swift/Apple-platform skills set (SwiftUI/concurrency/a11y/testing, etc.) with cross-agent install scripts. | MIT | 13 | indexed-only |
 | [Faizalimam990/Startup_builder_pro](https://github.com/Faizalimam990/Startup_builder_pro) | 20 | Single-skill workflow turning product ideas/existing repos into shippable SaaS (stack-preference interview + progressive-disclosure references). | NOASSERTION | 1 | indexed-only |
+| [agentii-ai/agentii-investment-intelligence](https://github.com/agentii-ai/agentii-investment-intelligence) | 203 | Equity-research Agent Skills pack (80 across 14 verticals) on agentii MCP/SEC+XBRL data; Claude marketplace + copy-skills install. | Apache-2.0 | 80 | indexed-only |
+| [jtydhr88/music-composition-skills](https://github.com/jtydhr88/music-composition-skills) | 96 | 29 Agent Skills for pop arranging: ARR-SPEC workflow compiling to Suno/YuE2/MIDI; Claude/Codex plugin marketplace. | MIT | 29 | indexed-only |
+| [netresearch/jira-skill](https://github.com/netresearch/jira-skill) | 82 | Jira Claude plugin with jira-communication + jira-syntax skills (CLI scripts, Cloud/Server-DC); npx skills add. | Other | 2 | indexed-only |
+| [jtydhr88/lyric-writing-skills](https://github.com/jtydhr88/lyric-writing-skills) | 72 | 18 lyric-writing Agent Skills producing LYR-SPEC (tone/rhyme/structure) for Mandarin/Cantonese/EN/JA; pairs with music-composition-skills. | MIT | 18 | indexed-only |
+| [getcargohq/cargo-skills](https://github.com/getcargohq/cargo-skills) | 18 | Cargo GTM engineering skills (19): lead lists/enrichment/CRM sync/buying signals; npx skills add + Claude plugin. | MIT | 19 | indexed-only |
 
 ## 4. Infra
 
@@ -1612,6 +1625,10 @@
 | [Bevel-Software/Hexis](https://github.com/Bevel-Software/Hexis) | 88 | Hexis: team collaboration git-backed skills/tools/context control plane (MCP). | Apache-2.0 | 控制面 | indexed-only |
 | [wei18/Upkeep](https://github.com/wei18/Upkeep) | 14 | Repo-drift audit skill + reusable CI: parallel review of docs/spec/asset inconsistencies with evidence (output-only). | MIT | 技能+CI | indexed-only |
 | [PyModel/niblet-skill-mcp](https://github.com/PyModel/niblet-skill-mcp) | 21 | UI design MCP + design skill: ground coding agents’ UI work with real product screenshots/assets. | Apache-2.0 | 1+MCP | indexed-only |
+| [kitze/skillbox](https://github.com/kitze/skillbox) | 161 | Self-hosted versioned skills library for agents: MCP, scoped clients, CLI fetch/publish, optional Jev recommendations. | MIT | registry | indexed-only |
+| [Dicklesworthstone/skillranker](https://github.com/Dicklesworthstone/skillranker) | 48 | Rust CLI (sr) ranking which agent skill fits the next step via TypeSafe Jev + Claude hooks/TUI; requires TypeSafe API key. | Other | 0 | indexed-only |
+| [modem-dev/ossrules](https://github.com/modem-dev/ossrules) | 15 | Browse pinned AGENTS.md/CLAUDE.md and agent skills from OSS projects via ossrules.md API/llms.txt (downloadable bundles). | MIT | corpus | indexed-only |
+| [Sivan757/dsh-agent-plugins-market](https://github.com/Sivan757/dsh-agent-plugins-market) | 11 | DeepSeek Harness plugin marketplace: install Claude/Codex/Cursor skill suites, MCP, hooks via Web GUI. | MIT | marketplace | indexed-only |
 
 ## 5. Other
 
@@ -1632,6 +1649,8 @@
 | [codingSamss/all-my-ai-needs](https://github.com/codingSamss/all-my-ai-needs) | 12 | Claude Code + Codex dual-platform dotfiles: unified skills/agents/hooks management. | NOASSERTION | dotfiles | indexed-only |
 | [aaddrick/attention-control](https://github.com/aaddrick/attention-control) | 111 | Agent output-discipline skill/plugin for ADHD readers: ATC-style fielded replies (ACTION/EDIT/STATE/NEXT). | MIT | 插件 | indexed-only |
 | [MrMarudi/academy-coach](https://github.com/MrMarudi/academy-coach) | 22 | Claude Academy hands-on coach plugin: academy-learn + academy-review skills aligned to official best practices. | MIT | 2 | indexed-only |
+| [NiazMorshed2007/jev-review](https://github.com/NiazMorshed2007/jev-review) | 122 | Local-first MCP plugin + jev-review skill for continuous multi-dimension code-quality scoring via TypeSafe Jev. | MIT | 1 | indexed-only |
+| [dbreunig/building-with-jev-skill](https://github.com/dbreunig/building-with-jev-skill) | 104 | Single Agent Skill for designing/debugging TypeSafe Jev Choice/Score/Noul questions; npx skills add + Claude plugin. | NOASSERTION | 1 | indexed-only |
 
 ## 6. Unnamed (repo name lacks skill / agent)
 

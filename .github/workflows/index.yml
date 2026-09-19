@@ -15,8 +15,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
-      - run: node scripts/build-index.mjs
-      - run: node scripts/build-skill-repos.mjs
+      - name: build-index (best-effort)
+        continue-on-error: true
+        run: node scripts/build-index.mjs
+      - run: node scripts/build-skill-repos.mjs --lang=en
       - run: node scripts/refresh-readme-skill-repos-directory.mjs
       - name: Commit regenerated indexes if dirty
         run: |
