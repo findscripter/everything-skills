@@ -350,7 +350,7 @@
     },
     {
       "name": "04-ai",
-      "description": "卷四 · 智能 —— 72 个技能",
+      "description": "卷四 · 智能 —— 73 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -393,6 +393,7 @@
         "./04-ai/langchain-architecture",
         "./04-ai/langfuse-llm-observability",
         "./04-ai/langgraph-agent-framework",
+        "./04-ai/ledger-tasks-yylo",
         "./04-ai/llm-agent-benchmarking",
         "./04-ai/llm-app-production-patterns",
         "./04-ai/llm-conversation-memory",

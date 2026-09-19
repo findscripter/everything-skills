@@ -460,7 +460,7 @@
     "vol": "00-meta",
     "domain": "通用/thinking",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "思维方法",
       "第一性原理",
@@ -2941,7 +2941,7 @@
     "vol": "02-engineering",
     "domain": "研发/architecture",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "codetour",
       "walkthrough",
@@ -4428,15 +4428,8 @@
       "on-call",
       "可观测性"
     ],
-    "triggers": [
-      "事故指挥",
-      "严重级别",
-      "SEV",
-      "复盘",
-      "PIR",
-      "止损"
-    ],
-    "description": "当声明线上事故、跨团队协调止损或主持复盘（PIR）时使用；做严重级别分级、时间线重建、沟通模板与无责复盘产物；不适用于日常缺陷排期或单点非紧急工单。触发词：事故指挥、严重级别、SEV、复盘、PIR、止损",
+    "triggers": [],
+    "description": "Comprehensive incident response framework from detection through resolution and post-incident review. Battle-tested SRE/DevOps practices: severity classification, timeline reconstruction, structured post-incident analysis. Use when declaring an incident, coordinating multi-team response during an outage, leading a post-mortem, or setting up on-call practices for a new service.",
     "path": "02-engineering/incident-commander-framework/SKILL.md"
   },
   {
@@ -4953,7 +4946,7 @@
     "vol": "02-engineering",
     "domain": "研发/review",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "编码准则",
       "code-review",
@@ -5876,7 +5869,7 @@
     "vol": "02-engineering",
     "domain": "研发/devops",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "研发",
       "devops",
@@ -7554,7 +7547,7 @@
     "vol": "03-data",
     "domain": "数据/analysis",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "data-strategy",
       "analysis",
@@ -9086,12 +9079,8 @@
       "context-compression",
       "评估"
     ],
-    "triggers": [
-      "上下文压缩",
-      "对话摘要",
-      "context window 超限"
-    ],
-    "description": "当智能体会话历史膨胀到逼近上下文窗口、需要压缩对话或巨型代码库时使用；产出以「锚定式增量摘要」为主的结构化压缩方案（含触发时机、结构化摘要分区、探针评估）；不适用于短会话或重抓取成本极低的场景；触发词：上下文压缩、对话摘要、context window 超限",
+    "triggers": [],
+    "description": "When agent sessions generate millions of tokens of conversation history, compression becomes mandatory. The naive approach is aggressive compression to minimize tokens per request.",
     "path": "04-ai/context-compression/SKILL.md"
   },
   {
@@ -9534,6 +9523,33 @@
     "path": "04-ai/langgraph-agent-framework/SKILL.md"
   },
   {
+    "name": "ledger-tasks-yylo",
+    "title": "YYLO Ledger 任务看板与依赖管理",
+    "vol": "04-ai",
+    "domain": "智能/agents",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "任务管理",
+      "kanban",
+      "依赖图",
+      "编码智能体",
+      "yylo",
+      "cli",
+      "并行编排"
+    ],
+    "triggers": [
+      "task board",
+      "kanban",
+      "任务看板",
+      "依赖管理",
+      "yy ledger",
+      "topological order"
+    ],
+    "description": "当编码智能体需要用命令行管理任务看板（创建/检索/流转/依赖/归档）时使用；驱动 yy ledger 完成任务全生命周期，含 blocked_by 依赖图、ready/order 并行编排与跨目录合并，产出结构化任务记录与回执；不适用于代码重构本身或非任务管理场景；触发词：task board、kanban、任务看板、依赖管理、yy ledger、topological order",
+    "path": "04-ai/ledger-tasks-yylo/SKILL.md"
+  },
+  {
     "name": "llm-agent-benchmarking",
     "title": "LLM 智能体测试与基准评测",
     "vol": "04-ai",
@@ -9770,7 +9786,7 @@
     "vol": "04-ai",
     "domain": "智能/model-ops",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "智能",
       "model-ops",
@@ -10281,20 +10297,8 @@
       "agents",
       "meta"
     ],
-    "triggers": [
-      "创建技能",
-      "写 skill",
-      "SKILL.md",
-      "技能评测",
-      "eval",
-      "benchmark",
-      "优化 description",
-      "触发率",
-      "打包 skill",
-      "skill creator",
-      "make a skill"
-    ],
-    "description": "当需要为 AI Agent 从零创建一条新技能、改写优化既有技能、用评测对比验证效果、或调优 description 触发率时使用；做技能起草+评测+迭代+打包的全流程产物；不适用于只想直接执行某任务而非沉淀可复用技能、或仅微调一句提示词；触发词：创建技能、写 skill、SKILL.md、技能评测、eval、benchmark、优化 description、触发率、打包 skill、skill creator、make a skill",
+    "triggers": [],
+    "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
     "path": "04-ai/skill-creator/SKILL.md"
   },
   {
@@ -10853,14 +10857,8 @@
       "ios",
       "android"
     ],
-    "triggers": [
-      "ASO",
-      "应用商店优化",
-      "应用排名",
-      "关键词",
-      "元数据"
-    ],
-    "description": "当为 iOS/Android App 提升商店搜索排名与下载转化时使用；做关键词研究打分、元数据优化、竞品差距分析、A/B 测试与上线清单，产出可落地的标题/副标题/描述/关键词域改写及测试方案；不适用于 Web 应用（用网页 SEO）、企业内部应用、TestFlight 测试版或纯付费投放策略。触发词：ASO、应用商店优化、应用排名、关键词、元数据",
+    "triggers": [],
+    "description": "App Store Optimization (ASO) toolkit for researching keywords, analyzing competitor rankings, generating metadata suggestions, and improving app visibility on Apple App Store and Google Play Store. Use when the user asks about ASO, app store rankings, app metadata, app titles and descriptions, app store listings, app visibility, or mobile app marketing on iOS or Android. Supports keyword research and scoring, competitor keyword analysis, metadata optimization, A/B test planning, launch checklists, and tracking ranking changes.",
     "path": "05-business/app-store-optimization/SKILL.md"
   },
   {
@@ -12381,14 +12379,8 @@
       "docx",
       "卖方研究"
     ],
-    "triggers": [
-      "首次覆盖",
-      "initiating coverage",
-      "深度研究报告",
-      "价格目标",
-      "DCF 估值"
-    ],
-    "description": "当对一家公司做首次覆盖、需要产出 30-50 页机构级（JPM/GS/MS 风格）卖方深度研究报告时使用；分 5 个独立任务（公司研究→财务建模→估值→出图→成稿），逐任务产出 .md 研究稿、.xlsx 模型、25-35 张图与最终 DOCX；不适用于已覆盖公司的季度财报点评、flash 快评、或要求一次性自动跑完全流程；触发词：首次覆盖、initiating coverage、深度研究报告、价格目标、DCF 估值",
+    "triggers": [],
+    "description": "Create institutional-quality equity research initiation reports through a 5-task workflow. Tasks must be executed individually with verified prerequisites - (1) company research, (2) financial modeling, (3) valuation analysis, (4) chart generation, (5) final report assembly. Each task produces specific deliverables (markdown docs, Excel models, charts, or DOCX reports). Tasks 3-5 have dependencies on earlier tasks.",
     "path": "05-business/initiating-coverage-report/SKILL.md"
   },
   {
@@ -13521,15 +13513,8 @@
       "财报更新",
       "powerpoint"
     ],
-    "triggers": [
-      "用Q4数据更新deck",
-      "刷新comps",
-      "roll forward",
-      "换新财报数字",
-      "把485M全改成512M",
-      "季度数据刷新"
-    ],
-    "description": "当需要把已有演示稿（deck）里的旧数字批量换成新数字——季度刷新、财报更新、可比公司滚动、市场数据再基准——而非重做版式时使用；做的事是定位每处旧值（含不同量级/精度/单位写法及图表底层数据）、出变更清单经审批后做最小化替换并产出回执；不适用于重写叙事/重建幻灯片、未经确认就改派生指标（增长率、份额）、或从零搭建 deck。触发词：用Q4数据更新deck、刷新comps、roll forward、换新财报数字、把485M全改成512M、季度数据刷新。",
+    "triggers": [],
+    "description": "Populates investment banking pitch deck templates with data from source files. Use when: user provides a PowerPoint template to fill in, user has source data (Excel/CSV) to populate into slides, user mentions populating or filling a pitch deck template, or user needs to transfer data into existing slide layouts. Not for creating presentations from scratch.",
     "path": "05-business/pitch-deck-refresh/SKILL.md"
   },
   {
@@ -14432,7 +14417,7 @@
     "vol": "05-business",
     "domain": "商业/seo",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "seo",
       "自然流量",
@@ -15121,20 +15106,8 @@
       "interactive",
       "html-artifact"
     ],
-    "triggers": [
-      "算法艺术",
-      "生成艺术",
-      "generative art",
-      "algorithmic art",
-      "流场",
-      "flow field",
-      "粒子系统",
-      "particle system",
-      "p5.js",
-      "noise",
-      "Voronoi"
-    ],
-    "description": "当用户想用代码创作生成式/算法艺术（流场、粒子系统、噪声、Voronoi 等）并要可交互调参与种子复现时使用；产出一份算法理念 .md 加一个自包含、带种子导航与参数控件的 p5.js 交互 HTML 作品；不适用于位图修图、复刻某位在世艺术家风格或常规网页/数据可视化开发；触发词：算法艺术、生成艺术、generative art、algorithmic art、流场、flow field、粒子系统、particle system、p5.js、noise、Voronoi",
+    "triggers": [],
+    "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
     "path": "06-creative/algorithmic-art/SKILL.md"
   },
   {
@@ -17793,7 +17766,7 @@
     "vol": "07-productivity",
     "domain": "协作/automation",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "change-tracking",
       "session-handoff",
@@ -19260,7 +19233,7 @@
     "vol": "08-security",
     "domain": "安全/compliance",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "合规",
       "compliance",
@@ -19527,7 +19500,7 @@
     "vol": "08-security",
     "domain": "安全/appsec",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "security",
       "appsec",
@@ -19744,14 +19717,8 @@
       "证据收集",
       "saas"
     ],
-    "triggers": [
-      "SOC 2",
-      "信任服务准则",
-      "控制矩阵",
-      "审计证据",
-      "差距分析"
-    ],
-    "description": "当为 SaaS/云服务准备 SOC 2 Type I/II 审计时使用；做信任服务准则（TSC）映射、控制矩阵生成、差距分析、证据收集与审计就绪评估，产出控制矩阵/差距清单/证据台账/就绪评分；不适用于 ISO 27001、GDPR 等其他合规框架的主审。触发词：SOC 2、信任服务准则、控制矩阵、审计证据、差距分析",
+    "triggers": [],
+    "description": "Use when the user asks to prepare for SOC 2 audits, map Trust Service Criteria, build control matrices, collect audit evidence, perform gap analysis, or assess SOC 2 Type I vs Type II readiness.",
     "path": "08-security/soc2-compliance-preparer/SKILL.md"
   },
   {
@@ -20161,20 +20128,8 @@
       "cold-email",
       "edu"
     ],
-    "triggers": [
-      "导师适配",
-      "教授分析",
-      "professor fit",
-      "advisor fit",
-      "套磁邮件",
-      "cold email",
-      "选导师",
-      "读博申请",
-      "找毕设导师",
-      "实验室评估",
-      "google scholar 分析"
-    ],
-    "description": "当用户想评估某教授/实验室是否值得申请、对比候选导师、撰写套磁邮件或准备面谈时使用；基于公开学术证据（Scholar、个人/实验室主页、领域文献库）做适配重写式分析，产出领域画像、教授快照、研究谱系、逐篇证据、导师评估、未来方向、适配度、预警信号与套磁/面谈剧本；不适用于无任何公开链接或文献来源、纯凭名字臆测，也不替代与在读学生的实际打听核实。触发词：导师适配、教授分析、professor fit、advisor fit、套磁邮件、cold email、选导师、读博申请、找毕设导师、实验室评估、google scholar 分析。",
+    "triggers": [],
+    "description": "analyze a professor from google scholar, publication lists, personal websites, lab pages, and field-specific bibliographic databases (e.g., DBLP, PubMed, SSRN, PhilPapers, MathSciNet, arXiv, Scopus) to evaluate research strength, mentoring quality, collaboration network, lab resources, research taxonomy, future directions, applicant fit, outreach emails, and interview strategy. designed for students at all levels — PhD applicants, master's students, and undergraduate researchers (capstone/thesis/independent study) — across all academic disciplines. use when the user wants to assess whether a professor or lab is worth applying to, compare advisors, prepare a cold email, find a thesis or capstone advisor, infer future research openings, or build a structured dossier from public academic evidence.",
     "path": "09-verticals/advisor-fit-analyzer/SKILL.md"
   },
   {
@@ -20246,18 +20201,8 @@
       "bioinformatics",
       "science"
     ],
-    "triggers": [
-      "anndata",
-      "h5ad",
-      "单细胞数据结构",
-      "obs",
-      "var",
-      "obsm",
-      "layers",
-      "concat",
-      "backed 模式"
-    ],
-    "description": "当构建/读写/拼接单细胞带注释矩阵（X + obs/var/layers/obsm/uns），或处理超内存 .h5ad/.zarr 时使用；用 anndata 完成对象构建、I/O、子集视图、层与嵌入、按 obs/var 拼接并产出标准 AnnData/.h5ad，供 Scanpy/scvi-tools 消费；不适用于聚类/差异表达/可视化等分析（用 single-cell-rnaseq-analysis）与概率建模（用 scvi-tools）；触发词：anndata、h5ad、单细胞数据结构、obs、var、obsm、layers、concat、backed 模式",
+    "triggers": [],
+    "description": "Annotated matrices for single-cell genomics. Stores X with obs/var metadata, layers, embeddings (obsm/varm), graphs (obsp/varp), uns. Use for .h5ad/.zarr I/O, concatenation, scverse integration. For analysis use scanpy; for probabilistic models use scvi-tools.",
     "path": "09-verticals/anndata-data-structure/SKILL.md"
   },
   {
@@ -20972,15 +20917,8 @@
       "pathway",
       "science"
     ],
-    "triggers": [
-      "CellChat",
-      "细胞通讯",
-      "配体受体",
-      "cell-cell communication",
-      "CellChatDB",
-      "netVisual"
-    ],
-    "description": "当用 scRNA-seq 推断并可视化细胞间配体-受体通讯、做通路信号网络与跨条件比较时使用；用 R 包 CellChat 从 Seurat/计数矩阵建对象→CellChatDB 子集→过表达基因→通讯概率→通路聚合→网络中心性→弦图/热图/气泡图→双条件对比，产出交互表与图；不适用于纯 Python 流程或多数据库共识排名（用 liana）、配体到靶基因调控推断（用 NicheNet）、人/鼠以外物种（需自建库）；触发词：CellChat、细胞通讯、配体受体、cell-cell communication、CellChatDB、netVisual",
+    "triggers": [],
+    "description": "Infer and visualize intercellular communication from scRNA-seq with CellChat (R). Build CellChat from Seurat/counts → subset CellChatDB ligand-receptor pairs → over-expressed genes per group → communication probabilities → pathway signaling → network centrality (senders/receivers/influencers) → chord/heatmap/bubble plots → cross-condition compare. Human, mouse. Use liana for pure-Python.",
     "path": "09-verticals/cellchat-cell-communication/SKILL.md"
   },
   {
@@ -21585,14 +21523,8 @@
       "进出口单证",
       "misc"
     ],
-    "triggers": [
-      "HS 归类",
-      "关税优化",
-      "报关单证",
-      "Incoterms",
-      "受限方筛查"
-    ],
-    "description": "当处理跨境进出口报关、HS 归类、关税优化、受限方筛查或多法域贸易合规时使用；产出归类裁定依据、单证清单、优惠原产地/估价方案与筛查处置记录；不适用于纯境内交易或替代正式法律意见。触发词：HS 归类、关税优化、报关单证、Incoterms、受限方筛查",
+    "triggers": [],
+    "description": "Codified expertise for customs documentation, tariff classification, duty optimisation, restricted party screening, and regulatory compliance across multiple jurisdictions.",
     "path": "09-verticals/customs-trade-compliance/SKILL.md"
   },
   {
@@ -21843,7 +21775,7 @@
     "vol": "09-verticals",
     "domain": "领域/fintech",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "defi",
       "wallet",
@@ -22511,17 +22443,8 @@
       "可持续报告",
       "hardware"
     ],
-    "triggers": [
-      "能源采购",
-      "电价优化",
-      "需量电费",
-      "PPA",
-      "VPPA",
-      "对冲",
-      "负荷画像",
-      "Scope 2"
-    ],
-    "description": "当为多设施企业做电力/天然气采购、电价优化、需量电费治理或可再生能源 PPA 评估时使用；产出账单结构拆解、采购策略（固定/指数/区块+指数/分层对冲）、需量削峰 ROI 与 PPA/VPPA 风险调整 NPV 决策建议；不适用于居民/小微用电、能源交易撮合或电网运行调度。触发词：能源采购、电价优化、需量电费、PPA、VPPA、对冲、负荷画像、Scope 2。",
+    "triggers": [],
+    "description": "Codified expertise for electricity and gas procurement, tariff optimization, demand charge management, renewable PPA evaluation, and multi-facility energy cost management. Informed by energy procurement managers with 15+ years experience at large commercial and industrial consumers. Includes market structure analysis, hedging strategies, load profiling, and sustainability reporting frameworks. Use when procuring energy, optimizing tariffs, managing demand charges, evaluating PPAs, or developing energy strategies.",
     "path": "09-verticals/energy-procurement/SKILL.md"
   },
   {
@@ -23394,7 +23317,7 @@
     "vol": "09-verticals",
     "domain": "领域/hardware",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "hardware",
       "kicad",
@@ -27420,17 +27343,8 @@
       "risk",
       "python"
     ],
-    "triggers": [
-      "期权策略",
-      "备兑开仓",
-      "保护性认沽",
-      "价差",
-      "铁鹰",
-      "跨式",
-      "希腊值",
-      "IV crush"
-    ],
-    "description": "当用户要分析/对比期权策略、模拟盈亏、算希腊值或做财报期策略时使用；用 Black-Scholes 给期权理论定价、算 Delta/Gamma/Theta/Vega、模拟到期损益与盈亏图、给仓位与离场规则；不适用于实时报价/真实下单执行、个性化投资建议或美式期权精确定价；触发词：期权策略、备兑开仓、保护性认沽、价差、铁鹰、跨式、希腊值、IV crush。",
+    "triggers": [],
+    "description": "Options trading strategy analysis and simulation tool. Provides theoretical pricing using Black-Scholes model, Greeks calculation, strategy P/L simulation, and risk management guidance. Use when user requests options strategy analysis, covered calls, protective puts, spreads, iron condors, earnings plays, or options risk management. Includes volatility analysis, position sizing, and earnings-based strategy recommendations. Educational focus with practical trade simulation.",
     "path": "09-verticals/options-strategy-advisor/SKILL.md"
   },
   {
@@ -27953,7 +27867,7 @@
     "vol": "09-verticals",
     "domain": "领域/legal",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "legal",
       "auction-law",
@@ -29152,7 +29066,7 @@
     "vol": "09-verticals",
     "domain": "领域/fintech",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "fintech",
       "tax-loss-harvesting",
@@ -30136,7 +30050,7 @@
     "vol": "10-platform",
     "domain": "平台/cloud",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "azure",
       "container apps",
@@ -30702,7 +30616,7 @@
     "vol": "10-platform",
     "domain": "平台/integration",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "imessage",
       "sms",
@@ -31632,18 +31546,8 @@
       "integration",
       "platform"
     ],
-    "triggers": [
-      "Zoom OAuth",
-      "access token",
-      "refresh token",
-      "account_credentials",
-      "PKCE",
-      "设备码",
-      "4709",
-      "4735",
-      "scope"
-    ],
-    "description": "当为 Zoom 集成做认证决策（选应用类型、选授权模式、规划 scope、实现令牌刷新、排查 OAuth 报错）时使用；做一套覆盖账户级 S2S、用户授权码、设备码、Chatbot 四种 grant 的可执行实现，含令牌交换/刷新、PKCE、scope 选型与 4700-4741 错误对照；不适用于 Zoom SDK 嵌入/RTMS/MCP 等非认证问题；触发词：Zoom OAuth、access token、refresh token、account_credentials、PKCE、设备码、4709、4735、scope。",
+    "triggers": [],
+    "description": "Reference skill for Zoom authentication. Use after routing to an auth workflow when choosing app credentials, grant types, scopes, token refresh behavior, or debugging Zoom OAuth failures.",
     "path": "10-platform/zoom-oauth-setup/SKILL.md"
   },
   {

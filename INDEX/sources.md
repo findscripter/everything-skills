@@ -191,7 +191,7 @@
 - [`claimable-postgres-provision`](../10-platform/claimable-postgres-provision/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`claude-api`](../04-ai/claude-api/SKILL.md) ← anthropics/skills　`Apache-2.0`
 - [`claude-code-settings-auditor`](../10-platform/claude-code-settings-auditor/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
-- [`claude-command-selector`](../00-meta/claude-command-selector/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`claude-command-selector`](../00-meta/claude-command-selector/SKILL.md) ← affaan-m/ECC　`MIT`
 - [`clean-code-principles`](../02-engineering/clean-code-principles/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`clean-craft-code-review`](../02-engineering/clean-craft-code-review/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`click-path-state-audit`](../02-engineering/click-path-state-audit/SKILL.md) ← affaan-m/ECC　`MIT`
@@ -554,6 +554,7 @@
 - [`latex-paper-format-conversion`](../01-documents/latex-paper-format-conversion/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`lead-form-cro`](../05-business/lead-form-cro/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
+- [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) ← yylo-dev/yylo-skills　`MIT`
 - [`legacy-codebase-modernizer`](../02-engineering/legacy-codebase-modernizer/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`legacy-framework-modernizer`](../02-engineering/legacy-framework-modernizer/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`legal-briefing-generator`](../09-verticals/legal-briefing-generator/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
