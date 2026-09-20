@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-19（Asia/Shanghai）；日常增量索引 part58
+- 编制日期：2026-09-20（Asia/Shanghai）；日常增量索引 part59
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1712 个独立仓库（另注明更名别名）
+- 收录条数：1730 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -235,6 +235,7 @@
 | [spotify/portal-ai-plugins](https://github.com/spotify/portal-ai-plugins) | 1,758 | Spotify Portal AI Plugins: wire Portal CLI workflows into Claude/Codex/Cursor. | Apache-2.0 | 插件 | indexed-only |
 | [openai/role-specific-plugins](https://github.com/openai/role-specific-plugins) | 544 | OpenAI official role-specific Codex plugin templates (sales/data/product design, etc.). | MIT | 模板集 | indexed-only |
 | [basecamp/skills](https://github.com/basecamp/skills) | 73 | 37signals official Agent Skills for Basecamp/HEY/Fizzy via product CLIs; npx skills add basecamp/skills. | NOASSERTION | 3 | indexed-only |
+| [NVIDIA-TAO/tao-skill-bank](https://github.com/NVIDIA-TAO/tao-skill-bank) | 89 | NVIDIA official TAO Agent Skills bank (models/data/platform/apps) for Claude/Codex plugin marketplaces; install from release tag. | Apache-2.0 | corpus | indexed-only |
 
 ## 2. Collections
 
@@ -639,6 +640,9 @@
 | [WYRE-AI/msp-claude-plugins](https://github.com/WYRE-AI/msp-claude-plugins) | 46 | MSP-oriented Claude Code plugin marketplace: 80+ PSA/RMM/security/finance vendor plugins and cross-tool workflow packs. | Apache-2.0 | 80+ | indexed-only |
 | [l3a0/claude-plugins](https://github.com/l3a0/claude-plugins) | 19 | Personal Claude Code plugin marketplace (l3a0 namespace) with kindle-highlights skill for verbatim export/recovery. | MIT | 1 | indexed-only |
 | [synthesisengineering/synthesis-skills](https://github.com/synthesisengineering/synthesis-skills) | 19 | Synthesis Engineering Agent Skills pack (~63): review/content/PM/coordination on agentskills.io; multi-client install. | Apache-2.0 | 63 | indexed-only |
+| [echoVic/boss-skill](https://github.com/echoVic/boss-skill) | 558 | Auditable BMAD-style agent-team workflow (9 roles, event-sourced gates) for Claude/Codex/Hermes; npx skills add echoVic/boss-skill. | MIT | marketplace | indexed-only |
+| [Albertchamberlain/Awesome-OKF](https://github.com/Albertchamberlain/Awesome-OKF) | 100 | YAML-driven Awesome OKF catalog (tools/plugins/Claude skills) with CLI + MCP search; pipx install awesome-okf. | MIT | catalog | indexed-only |
+| [nahid-sparktales/agent-dispatcher](https://github.com/nahid-sparktales/agent-dispatcher) | 16 | Capability-aware Claude/Codex dispatcher: 27 roles + 79 local skills + recipes; claude plugin marketplace add nahid-sparktales/agent-dispatcher. | MIT | 79 | indexed-only |
 
 ## 3. Vertical
 
@@ -1479,6 +1483,13 @@
 | [netresearch/jira-skill](https://github.com/netresearch/jira-skill) | 82 | Jira Claude plugin with jira-communication + jira-syntax skills (CLI scripts, Cloud/Server-DC); npx skills add. | Other | 2 | indexed-only |
 | [jtydhr88/lyric-writing-skills](https://github.com/jtydhr88/lyric-writing-skills) | 72 | 18 lyric-writing Agent Skills producing LYR-SPEC (tone/rhyme/structure) for Mandarin/Cantonese/EN/JA; pairs with music-composition-skills. | MIT | 18 | indexed-only |
 | [getcargohq/cargo-skills](https://github.com/getcargohq/cargo-skills) | 18 | Cargo GTM engineering skills (19): lead lists/enrichment/CRM sync/buying signals; npx skills add + Claude plugin. | MIT | 19 | indexed-only |
+| [dmoshehun-prog/learn-from-materials](https://github.com/dmoshehun-prog/learn-from-materials) | 370 | Cross-agent learning skill: PDF/EPUB/DOCX/PPT → traceable .learnkb + offline interactive HTML; clone into ~/.agents/skills. | MIT | 1 | indexed-only |
+| [georgeguimaraes/elixir-agent-tools](https://github.com/georgeguimaraes/elixir-agent-tools) | 177 | Five concise Elixir/Phoenix/Ecto/OTP/Oban Agent Skills plus optional Mix hooks; npx skills add georgeguimaraes/elixir-agent-tools. | Apache-2.0 | 5 | indexed-only |
+| [op7418/guizang-product-video-skill](https://github.com/op7418/guizang-product-video-skill) | 152 | Product changelog promo-video Agent Skill (real components + code-driven motion/audio) for Claude/Codex; npx skills add … --skill guizang-product-video-skill. | AGPL-3.0 | 1 | indexed-only |
+| [joeseesun/qiaomu-download](https://github.com/joeseesun/qiaomu-download) | 130 | yt-dlp media-download Agent Skill (YouTube/Bilibili/X/WeChat channels + ffprobe verify); npx skills add joeseesun/qiaomu-download. | MIT | 1 | indexed-only |
+| [Oldcircle/geo-sleuth](https://github.com/Oldcircle/geo-sleuth) | 114 | Photo geolocation Agent Skill (OSM/elevation/skyline/street-view evidence chain) for Claude/Codex/Cursor; npx skills add Oldcircle/geo-sleuth. | MIT | 1 | indexed-only |
+| [gongyu0918-debug/chinese-official-writing-skill](https://github.com/gongyu0918-debug/chinese-official-writing-skill) | 95 | Chinese official/document writing Agent Skill v2 (通知/请示/方案/新闻评论 + length/prose checks); copy chinese-official-writing/ into skills dir. | MIT | 1 | indexed-only |
+| [hexiaofeier/hehe-industry-research-skill-pack](https://github.com/hexiaofeier/hehe-industry-research-skill-pack) | 88 | 14 Chinese industry/company research Agent Skills (sizing, chain, finance, valuation) with evidence gates; clone skills/ folders. | MIT | 14 | indexed-only |
 
 ## 4. Infra
 
@@ -1629,6 +1640,10 @@
 | [Dicklesworthstone/skillranker](https://github.com/Dicklesworthstone/skillranker) | 48 | Rust CLI (sr) ranking which agent skill fits the next step via TypeSafe Jev + Claude hooks/TUI; requires TypeSafe API key. | Other | 0 | indexed-only |
 | [modem-dev/ossrules](https://github.com/modem-dev/ossrules) | 15 | Browse pinned AGENTS.md/CLAUDE.md and agent skills from OSS projects via ossrules.md API/llms.txt (downloadable bundles). | MIT | corpus | indexed-only |
 | [Sivan757/dsh-agent-plugins-market](https://github.com/Sivan757/dsh-agent-plugins-market) | 11 | DeepSeek Harness plugin marketplace: install Claude/Codex/Cursor skill suites, MCP, hooks via Web GUI. | MIT | marketplace | indexed-only |
+| [To3akaRin/mac-computer-use](https://github.com/To3akaRin/mac-computer-use) | 326 | macOS Agent Skill for native AX + CDP computer-use (windows, input, screenshots) across Claude/Codex/Cursor; build via scripts/build.sh. | MIT | 1 | indexed-only |
+| [pliablepixels/gap-trap](https://github.com/pliablepixels/gap-trap) | 172 | Repo quality-gates skill: contracts, proven-red tests, ratchets, playbooks so agents cannot skip checks; npx skills add pliablepixels/gap-trap. | MIT | 1 | indexed-only |
+| [ruc-datalab/SkillAdam](https://github.com/ruc-datalab/SkillAdam) | 70 | Skill evolution optimizer (test→edit→validate) for Codex/Claude/Cursor/Copilot; arXiv SkillAdam installers under integrations/. | MIT | 1 | indexed-only |
+| [lcy362/flint](https://github.com/lcy362/flint) | 25 | Local-first personal skills hub (tag/dedupe/symlink deploy to agents); npm i -g flint-skills-hub or npx flint-skills-hub. | MIT | registry | indexed-only |
 
 ## 5. Other
 
@@ -1651,6 +1666,9 @@
 | [MrMarudi/academy-coach](https://github.com/MrMarudi/academy-coach) | 22 | Claude Academy hands-on coach plugin: academy-learn + academy-review skills aligned to official best practices. | MIT | 2 | indexed-only |
 | [NiazMorshed2007/jev-review](https://github.com/NiazMorshed2007/jev-review) | 122 | Local-first MCP plugin + jev-review skill for continuous multi-dimension code-quality scoring via TypeSafe Jev. | MIT | 1 | indexed-only |
 | [dbreunig/building-with-jev-skill](https://github.com/dbreunig/building-with-jev-skill) | 104 | Single Agent Skill for designing/debugging TypeSafe Jev Choice/Score/Noul questions; npx skills add + Claude plugin. | NOASSERTION | 1 | indexed-only |
+| [Da7-Tech/SureForge](https://github.com/Da7-Tech/SureForge) | 110 | Instruction-only research→ask→plan→verify→independent-review Agent Skill (light/standard/full tiers); npx skills add Da7-Tech/SureForge. | MIT | 1 | indexed-only |
+| [kerpopule/hermes-jev-skills](https://github.com/kerpopule/hermes-jev-skills) | 44 | Eight TypeSafe Jev Agent Skills (routing/memory/compaction/skill-select/computer-use) for Hermes/Claude/Codex; python install.py. | MIT | 8 | indexed-only |
+| [Consensys/repo-security-review](https://github.com/Consensys/repo-security-review) | 20 | Defensive multi-phase Claude Code skill for repo security audits (secrets/OWASP/deps/PR mode); clone into ~/.claude/skills. | NOASSERTION | 1 | indexed-only |
 
 ## 6. Unnamed (repo name lacks skill / agent)
 
