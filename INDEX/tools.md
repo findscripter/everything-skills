@@ -8994,6 +8994,9 @@
 ### `yt-dlp`
 - [`youtube-transcript-ingest`](../10-platform/youtube-transcript-ingest/SKILL.md) — YouTube 字幕抓取入库
 
+### `yy`
+- [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
+
 ### `zarr`
 - [`anndata-data-structure`](../09-verticals/anndata-data-structure/SKILL.md) — AnnData 单细胞数据结构
 - [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组

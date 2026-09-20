@@ -1827,6 +1827,7 @@
 - [`defuddle-web-extract`](../10-platform/defuddle-web-extract/SKILL.md) — Defuddle 网页正文提取为 Markdown
 - [`huggingface-hub-cli`](../04-ai/huggingface-hub-cli/SKILL.md) — Hugging Face Hub CLI（hf 命令行）
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换
+- [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
 - [`linkedin-cli-automation`](../10-platform/linkedin-cli-automation/SKILL.md) — LinkedIn CLI 自动化
 - [`longbridge-securities-toolkit`](../09-verticals/longbridge-securities-toolkit/SKILL.md) — 长桥证券工具集：实时行情、组合与期权分析
 - [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
@@ -5480,6 +5481,7 @@
 
 ### `kanban`
 - [`kanban-agent-pipeline-orchestrator`](../07-productivity/kanban-agent-pipeline-orchestrator/SKILL.md) — 看板智能体流水线：Asana/Linear 自动开发编排
+- [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
 - [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
 
 ### `kb-article`
@@ -11571,6 +11573,9 @@
 ### `yt-dlp`
 - [`youtube-transcript-ingest`](../10-platform/youtube-transcript-ingest/SKILL.md) — YouTube 字幕抓取入库
 
+### `yylo`
+- [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
+
 ### `zafiro`
 - [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
 
@@ -12023,6 +12028,9 @@
 ### `任务拆解`
 - [`objective-to-build-blueprint`](../00-meta/objective-to-build-blueprint/SKILL.md) — 目标转施工蓝图：一句话转可执行分步计划
 
+### `任务管理`
+- [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
+
 ### `任务队列`
 - [`bullmq-job-queue`](../02-engineering/bullmq-job-queue/SKILL.md) — BullMQ Redis 任务队列后台处理
 
@@ -12133,6 +12141,7 @@
 
 ### `依赖图`
 - [`codebase-structure-protocol`](../00-meta/codebase-structure-protocol/SKILL.md) — 代码库结构记忆协议
+- [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
 
 ### `依赖注入`
 - [`dotnet-backend-patterns`](../02-engineering/dotnet-backend-patterns/SKILL.md) — dotnet 后端开发模式
@@ -14022,6 +14031,7 @@
 
 ### `并行编排`
 - [`dmux-multi-agent-workflows`](../04-ai/dmux-multi-agent-workflows/SKILL.md) — dmux 多 Agent 并行编排（tmux 面板）
+- [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
 
 ### `并行调度`
 - [`bevy-ecs-rust`](../02-engineering/bevy-ecs-rust/SKILL.md) — Bevy 实体组件系统 Rust 游戏开发
@@ -16457,6 +16467,9 @@
 
 ### `编码准则`
 - [`llm-coding-mistake-guardrails`](../02-engineering/llm-coding-mistake-guardrails/SKILL.md) — 减少 LLM 编码常见错误的准则
+
+### `编码智能体`
+- [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
 
 ### `编译工具链`
 - [`dwarf-debug-format-expert`](../02-engineering/dwarf-debug-format-expert/SKILL.md) — DWARF 调试格式专家

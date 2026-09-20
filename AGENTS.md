@@ -1,7 +1,7 @@
 <!-- 本文件由 scripts/build-index.mjs 自动生成，请勿手改。 -->
 # 技能大典 · Everything Skills —— AI Agent 使用指南
 
-本仓库是面向 AI Agent 的技能库：**1108 条 `SKILL.md` 技能**，按 11 卷功能域组织在 `00-meta/` … `10-platform/` 目录下（非单一 `skills/` 目录）。
+本仓库是面向 AI Agent 的技能库：**1109 条 `SKILL.md` 技能**，按 11 卷功能域组织在 `00-meta/` … `10-platform/` 目录下（非单一 `skills/` 目录）。
 
 ## 如何发现技能
 - Agent 按每条技能 frontmatter 的 `description` 字段匹配是否加载——不靠浏览目录。
