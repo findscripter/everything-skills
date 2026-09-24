@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-20（Asia/Shanghai）；日常增量索引 part59
+- 编制日期：2026-09-24（Asia/Shanghai）；日常增量索引 part60
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1730 个独立仓库（另注明更名别名）
+- 收录条数：1756 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -236,6 +236,9 @@
 | [openai/role-specific-plugins](https://github.com/openai/role-specific-plugins) | 544 | OpenAI official role-specific Codex plugin templates (sales/data/product design, etc.). | MIT | 模板集 | indexed-only |
 | [basecamp/skills](https://github.com/basecamp/skills) | 73 | 37signals official Agent Skills for Basecamp/HEY/Fizzy via product CLIs; npx skills add basecamp/skills. | NOASSERTION | 3 | indexed-only |
 | [NVIDIA-TAO/tao-skill-bank](https://github.com/NVIDIA-TAO/tao-skill-bank) | 89 | NVIDIA official TAO Agent Skills bank (models/data/platform/apps) for Claude/Codex plugin marketplaces; install from release tag. | Apache-2.0 | corpus | indexed-only |
+| [evilmartians/agent-skills](https://github.com/evilmartians/agent-skills) | 45 | Evil Martians production Agent Skills (e.g. llms-visibility); npx skills add + Claude plugin marketplace. | MIT | 5+ | indexed-only |
+| [timescale/pg-aiguide](https://github.com/timescale/pg-aiguide) | 1,849 | Timescale Postgres AI guide: MCP + installable postgres Agent Skill/plugin; npx skills add timescale/pg-aiguide. | Apache-2.0 | 1+ | indexed-only |
+| [GPUtw-ai/GPUtw-Skill](https://github.com/GPUtw-ai/GPUtw-Skill) | 54 | GPUtw.ai official skill teaching Claude/Codex/Cursor/Copilot/Gemini to use the GPUtw GPU cloud REST API. | MIT | 1 | indexed-only |
 
 ## 2. Collections
 
@@ -643,6 +646,11 @@
 | [echoVic/boss-skill](https://github.com/echoVic/boss-skill) | 558 | Auditable BMAD-style agent-team workflow (9 roles, event-sourced gates) for Claude/Codex/Hermes; npx skills add echoVic/boss-skill. | MIT | marketplace | indexed-only |
 | [Albertchamberlain/Awesome-OKF](https://github.com/Albertchamberlain/Awesome-OKF) | 100 | YAML-driven Awesome OKF catalog (tools/plugins/Claude skills) with CLI + MCP search; pipx install awesome-okf. | MIT | catalog | indexed-only |
 | [nahid-sparktales/agent-dispatcher](https://github.com/nahid-sparktales/agent-dispatcher) | 16 | Capability-aware Claude/Codex dispatcher: 27 roles + 79 local skills + recipes; claude plugin marketplace add nahid-sparktales/agent-dispatcher. | MIT | 79 | indexed-only |
+| [wuyoscar/jev-skill](https://github.com/wuyoscar/jev-skill) | 462 | Curated Awesome Jev Skills: workflows and installable agent skills around TypeSafe Jev System One. | MIT | many | indexed-only |
+| [modelscope/Awesome-Vibe-Research](https://github.com/modelscope/Awesome-Vibe-Research) | 439 | ModelScope curated vibe-research catalog: agents, skills, workflows and practices across the research lifecycle. | Apache-2.0 | catalog | indexed-only |
+| [bubbleptr/awesome-pi](https://github.com/bubbleptr/awesome-pi) | 123 | Awesome Pi Coding Agent: curated extensions, themes, skills, prompts and community resources. | CC0-1.0 | catalog | indexed-only |
+| [TsCarpe/claude-sdlc-skills](https://github.com/TsCarpe/claude-sdlc-skills) | 63 | AI-native SDLC skills: requirement intake/audit, adversarial review gate, AI test orchestration, release config audit; npx skills add. | MIT | 7+ | indexed-only |
+| [minorun365/agent-builder-skills](https://github.com/minorun365/agent-builder-skills) | 40 | Japanese skill pack for building AI-agent web apps on AWS (Bedrock AgentCore / CDK / Strands); Claude marketplace install. | Apache-2.0 | 1+ | indexed-only |
 
 ## 3. Vertical
 
@@ -1490,6 +1498,17 @@
 | [Oldcircle/geo-sleuth](https://github.com/Oldcircle/geo-sleuth) | 114 | Photo geolocation Agent Skill (OSM/elevation/skyline/street-view evidence chain) for Claude/Codex/Cursor; npx skills add Oldcircle/geo-sleuth. | MIT | 1 | indexed-only |
 | [gongyu0918-debug/chinese-official-writing-skill](https://github.com/gongyu0918-debug/chinese-official-writing-skill) | 95 | Chinese official/document writing Agent Skill v2 (通知/请示/方案/新闻评论 + length/prose checks); copy chinese-official-writing/ into skills dir. | MIT | 1 | indexed-only |
 | [hexiaofeier/hehe-industry-research-skill-pack](https://github.com/hexiaofeier/hehe-industry-research-skill-pack) | 88 | 14 Chinese industry/company research Agent Skills (sizing, chain, finance, valuation) with evidence gates; clone skills/ folders. | MIT | 14 | indexed-only |
+| [minorun365/minorun-marp-skill](https://github.com/minorun365/minorun-marp-skill) | 370 | Marp talk-slide skill pack: story/diagram/design balance skills, dark theme, and checkers; copy into ~/.claude/skills. | Apache-2.0 | pack | indexed-only |
+| [JourniOne-ai/JourniOne-Planning-Skills](https://github.com/JourniOne-ai/JourniOne-Planning-Skills) | 185 | Travel-planning Agent Skill: inspiration → day-by-day itinerary → shareable Travel Journal with optional hotel/flight hooks. | NOASSERTION | 1 | indexed-only |
+| [Michael-Jiahao-Zhang/game-the-llm-reviewer](https://github.com/Michael-Jiahao-Zhang/game-the-llm-reviewer) | 149 | Academic-writing skill: meaning-preserving rewrites to defend sound research against LLM reviewer bias; npx skills add. | MIT | 1 | indexed-only |
+| [beyondtahir/beyondseo](https://github.com/beyondtahir/beyondseo) | 110 | SEO/AEO/GEO agent skill house: native crawl, content, competitors, reputation and backlink plans without required API keys. | MIT | 1 | indexed-only |
+| [lxsssssss/pdf-translate](https://github.com/lxsssssss/pdf-translate) | 101 | Layout-preserving PDF translation Agent Skill for Claude/Codex/Cursor/Antigravity/WorkBuddy. | MIT | 1 | indexed-only |
+| [mizzlelover/cida](https://github.com/mizzlelover/cida) | 95 | 辞达 Cídá: modern Chinese high-quality writing Agent Skill for Claude/Codex/OpenCode; clone into ~/.claude/skills/cida. | MIT | 1 | indexed-only |
+| [ljx-chase/research-field-onboarding](https://github.com/ljx-chase/research-field-onboarding) | 64 | Reusable research-field onboarding skill for Claude/ChatGPT/Codex and other instruction-following agents; npx skills add -g. | MIT | 1 | indexed-only |
+| [mirage-hq/Tesseract](https://github.com/mirage-hq/Tesseract) | 59 | Mirage Tesseract CLI releases plus agent skills for creating/editing videos; npx skills add mirage-hq/Tesseract. | NOASSERTION | 1+ | indexed-only |
+| [socai-io/jev-social](https://github.com/socai-io/jev-social) | 50 | Jev×socai social-media research skill: Instagram/TikTok/LinkedIn with browser evidence and cited reports; npx skills add. | MIT | 1 | indexed-only |
+| [alexgreensh/anidoodle](https://github.com/alexgreensh/anidoodle) | 43 | Deterministic hand-drawn art/animation-as-code Agent Skill (nine styles); clone into ~/.claude/skills/anidoodle. | Apache-2.0 | 1 | indexed-only |
+| [anticipate218/math-modeling-skill](https://github.com/anticipate218/math-modeling-skill) | 43 | Math-modeling contest skill for CUMCM/Huawei Cup/MCM-ICM: topic, model, validation and paper self-check; install to .agents/skills. | MIT | 1 | indexed-only |
 
 ## 4. Infra
 
@@ -1644,6 +1663,13 @@
 | [pliablepixels/gap-trap](https://github.com/pliablepixels/gap-trap) | 172 | Repo quality-gates skill: contracts, proven-red tests, ratchets, playbooks so agents cannot skip checks; npx skills add pliablepixels/gap-trap. | MIT | 1 | indexed-only |
 | [ruc-datalab/SkillAdam](https://github.com/ruc-datalab/SkillAdam) | 70 | Skill evolution optimizer (test→edit→validate) for Codex/Claude/Cursor/Copilot; arXiv SkillAdam installers under integrations/. | MIT | 1 | indexed-only |
 | [lcy362/flint](https://github.com/lcy362/flint) | 25 | Local-first personal skills hub (tag/dedupe/symlink deploy to agents); npm i -g flint-skills-hub or npx flint-skills-hub. | MIT | registry | indexed-only |
+| [wy-coliney/jev-browser-use](https://github.com/wy-coliney/jev-browser-use) | 435 | Jev-driven browser automation skill: Jev clicks, Codex thinks/verifies; npx skills add + Codex plugin marketplace. | MIT | 1 | indexed-only |
+| [kishormorol/cli-faq-shortcuts](https://github.com/kishormorol/cli-faq-shortcuts) | 103 | Agent Skill that mines Claude/Codex history into short FAQ slash commands; install under ~/.agents/skills. | Apache-2.0 | 1 | indexed-only |
+| [openqa-cn/jev-browser](https://github.com/openqa-cn/jev-browser) | 81 | CodexQA Jev Browser skill: indexed browser automation where Jev chooses controls and Playwright acts; npx skills add. | MIT | 1 | indexed-only |
+| [ARahim3/cachebeat](https://github.com/ARahim3/cachebeat) | 59 | Tiny Claude Code skill that keeps prompt cache warm during idle so the next message hits cache; copy SKILL.md+beat.sh. | NOASSERTION | 1 | indexed-only |
+| [riesaexe/r-doc](https://github.com/riesaexe/r-doc) | 45 | Agent skill for maintaining project AGENTS.md and docs/ governance; npx skills add riesaexe/r-doc --skill r-doc. | MIT | 1 | indexed-only |
+| [angel291592/Intent-Router](https://github.com/angel291592/Intent-Router) | 42 | Intent compiler skill: vague requests → typed IntentSpec (probe/ask/halt) for routers and System One models; npx skills add. | MIT | 1 | indexed-only |
+| [using-system/otelyssey](https://github.com/using-system/otelyssey) | 38 | OpenTelemetry Agent Plugins marketplace that self-validates via issues; add with claude/copilot/codex/grok plugin marketplace. | MIT | marketplace | indexed-only |
 
 ## 5. Other
 
