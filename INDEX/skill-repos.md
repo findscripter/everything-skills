@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-24（Asia/Shanghai）；日常增量索引 part60
+- 编制日期：2026-09-30（Asia/Shanghai）；日常增量索引 part61（补跑 2026-09-25～09-30）
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1756 个独立仓库（另注明更名别名）
+- 收录条数：1916 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -239,6 +239,54 @@
 | [evilmartians/agent-skills](https://github.com/evilmartians/agent-skills) | 45 | Evil Martians production Agent Skills (e.g. llms-visibility); npx skills add + Claude plugin marketplace. | MIT | 5+ | indexed-only |
 | [timescale/pg-aiguide](https://github.com/timescale/pg-aiguide) | 1,849 | Timescale Postgres AI guide: MCP + installable postgres Agent Skill/plugin; npx skills add timescale/pg-aiguide. | Apache-2.0 | 1+ | indexed-only |
 | [GPUtw-ai/GPUtw-Skill](https://github.com/GPUtw-ai/GPUtw-Skill) | 54 | GPUtw.ai official skill teaching Claude/Codex/Cursor/Copilot/Gemini to use the GPUtw GPU cloud REST API. | MIT | 1 | indexed-only |
+| [docker/skills](https://github.com/docker/skills) | 432 | Docker skills for AI coding agents to build, test, debug and optimize containerized apps; npx skills add docker/skills. | Apache-2.0 | 多 | indexed-only |
+| [oracle/skills](https://github.com/oracle/skills) | 861 | Oracle curated open-source installable skills for Oracle technologies (db and more); npx skills add oracle/skills/db. | UPL-1.0 | 多 | indexed-only |
+| [apollographql/skills](https://github.com/apollographql/skills) | 115 | Apollo GraphQL official Agent Skills; npx skills add apollographql/skills. | MIT | 多 | indexed-only |
+| [UiPath/skills](https://github.com/UiPath/skills) | 165 | UiPath skills letting agents drive UiPath capabilities; npx skills add UiPath/skills (catalog listing). | MIT | 5+ | indexed-only |
+| [railwayapp/railway-skills](https://github.com/railwayapp/railway-skills) | 327 | Railway official agent skills for deploying and operating on Railway; /plugin install railway@claude-plugins-official. | MIT | 1+ | indexed-only |
+| [modular/skills](https://github.com/modular/skills) | 199 | Modular Agent Skills for Mojo and MAX development; Claude plugin marketplace add modular/skills. | NOASSERTION | 多 | indexed-only |
+| [temporalio/skill-temporal-developer](https://github.com/temporalio/skill-temporal-developer) | 222 | Temporal official developer skill for building with Temporal; npx skills add temporalio/skill-temporal-developer. | MIT | 1 | indexed-only |
+| [neo4j-contrib/neo4j-skills](https://github.com/neo4j-contrib/neo4j-skills) | 113 | Neo4j skills for coding agents incl. Cypher; npx skills add neo4j-contrib/neo4j-skills. | MIT | 多 | indexed-only |
+| [probabl-ai/skills](https://github.com/probabl-ai/skills) | 132 | probabl tabular data-science skills that guardrail AI agents (scikit-learn/skore ecosystem); installed via the skore CLI. | BSD-3-Clause | 30 | indexed-only |
+| [sonilo-ai/skills](https://github.com/sonilo-ai/skills) | 115 | Sonilo agent skills for its licensed music, SFX, dubbing and audio-ducking API; npx skills add + Claude plugin. | MIT | 多 | indexed-only |
+| [butterbase-ai/butterbase-skills](https://github.com/butterbase-ai/butterbase-skills) | 533 | Butterbase.ai skills plugin for Claude Code; claude plugin add @butterbase/skills. | MIT | 多 | indexed-only |
+| [AltimateAI/data-engineering-skills](https://github.com/AltimateAI/data-engineering-skills) | 125 | Altimate data-engineering skills for Claude Code; /plugin marketplace add AltimateAI/data-engineering-skills. | MIT | 多 | indexed-only |
+| [open-mercato/skills](https://github.com/open-mercato/skills) | 210 | Open Mercato enterprise AI-engineering skills coined on a 1.2M-line ERP; npx skills add open-mercato/skills --skill '*'. | MIT | 100+ | indexed-only |
+| [iflytek/iFly-Skills](https://github.com/iflytek/iFly-Skills) | 218 | iFLYTEK official skills for speech, OCR, translation, proofreading and multimodal AI; distributed via ClawHub and Tencent SkillHub. | Apache-2.0 | 10+ | indexed-only |
+| [huaweicloud/huaweicloud-skills](https://github.com/huaweicloud/huaweicloud-skills) | 51 | Huawei Cloud official skills; npx skills add huaweicloud/huaweicloud-skills --skill <name>. | MIT | 多 | indexed-only |
+| [modelstudioai/skills](https://github.com/modelstudioai/skills) | 57 | Alibaba Model Studio (Bailian) curated verified Agent Skills; installed via npx skills add modelstudioai/cli. | Apache-2.0 | 多 | indexed-only |
+| [aws-samples/sample-apex-skills](https://github.com/aws-samples/sample-apex-skills) | 81 | AWS sample curated agentic skills for platform engineering, delivered via an NPX installer. | MIT-0 | 多 | indexed-only |
+| [apache/doris-skills](https://github.com/apache/doris-skills) | 46 | Apache Doris agent skills; npx skills add apache/doris-skills. | Apache-2.0 | 14 | indexed-only |
+| [clerk/skills](https://github.com/clerk/skills) | 83 | Clerk AI skills for building with Clerk auth; npx skills add clerk/skills. | Unknown | 多 | indexed-only |
+| [monte-carlo-data/mc-agent-toolkit](https://github.com/monte-carlo-data/mc-agent-toolkit) | 92 | Monte Carlo official toolkit: skills and plugins for data observability in coding agents; /plugin marketplace add. | Apache-2.0 | 多 | indexed-only |
+| [squirrelscan/skills](https://github.com/squirrelscan/skills) | 92 | squirrelscan website-audit agent skills; npx skills add squirrelscan/skills or plugin marketplace. | MIT | 14 | indexed-only |
+| [ActiveCampaign/postmark-skills](https://github.com/ActiveCampaign/postmark-skills) | 46 | ActiveCampaign Postmark AI skills; npx skills add ActiveCampaign/postmark-skills. | MIT | 多 | indexed-only |
+| [syncfusion/maui-ui-components-skills](https://github.com/syncfusion/maui-ui-components-skills) | 61 | Syncfusion skills for .NET MAUI UI components; npx installer. | Unknown | 多 | indexed-only |
+| [TencentCloudBase/skills](https://github.com/TencentCloudBase/skills) | 78 | Tencent CloudBase Agent Skills for production backend development; points to cloudbase-skills via npx skills add. | Unknown | 多 | indexed-only |
+| [TencentCloudBase/cloudbase-skills](https://github.com/TencentCloudBase/cloudbase-skills) | 34 | Tencent CloudBase skills for full-stack apps; npx skills add TencentCloudBase/cloudbase-skills. | MIT | 多 | indexed-only |
+| [Unity-Technologies/unity-agent-plugin](https://github.com/Unity-Technologies/unity-agent-plugin) | 373 | Unity official agent plugin/skills for third-party agent platforms; /plugin marketplace add Unity-Technologies/unity-agent-plugin. | NOASSERTION | 5+ | indexed-only |
+| [VeryGoodOpenSource/vgv-ai-flutter-plugin](https://github.com/VeryGoodOpenSource/vgv-ai-flutter-plugin) | 166 | Very Good Ventures Flutter/Dart AI plugin with 15 skills; claude plugin marketplace add. | MIT | 15 | indexed-only |
+| [runpod/runpod-plugins-official](https://github.com/runpod/runpod-plugins-official) | 46 | Runpod official plugins and skills; npx skills add runpod/runpod-plugins-official. | Apache-2.0 | 多 | indexed-only |
+| [datahub-project/datahub-skills](https://github.com/datahub-project/datahub-skills) | 42 | DataHub LLM agent skills for search, enrichment, quality and connectors; npx skills add or plugin install. | Apache-2.0 | 多 | indexed-only |
+| [roboflow/computer-vision-skills](https://github.com/roboflow/computer-vision-skills) | 42 | Roboflow agent-ready skills for computer-vision workflows; claude plugin marketplace add. | Apache-2.0 | 11 | indexed-only |
+| [contentful/skills](https://github.com/contentful/skills) | 39 | Contentful skills teaching agents to build on Contentful; /plugin marketplace add contentful/skills. | MIT | 11 | indexed-only |
+| [exploreomni/omni-agent-skills](https://github.com/exploreomni/omni-agent-skills) | 40 | Omni BI official skills so agents understand and execute Omni tasks; npx skills add. | NOASSERTION | 多 | indexed-only |
+| [nominal-io/skills](https://github.com/nominal-io/skills) | 40 | Nominal official skills for its platform; project-local npx skills add. | Apache-2.0 | 多 | indexed-only |
+| [panewslab/skills](https://github.com/panewslab/skills) | 45 | PANews Agent Toolkit: crypto/blockchain news skills; npx skills add panewslab/skills. | MIT | 9 | indexed-only |
+| [wix/skills](https://github.com/wix/skills) | 33 | Wix official skills; /plugin marketplace add wix/skills. | MIT | 9 | indexed-only |
+| [genkit-ai/skills](https://github.com/genkit-ai/skills) | 32 | Genkit official skills for building apps with Genkit (JS/TS, Go, etc.); npx skills add genkit-ai/skills. | Unknown | 4 | indexed-only |
+| [quarkusio/skills](https://github.com/quarkusio/skills) | 37 | Quarkus official skills for developing and maintaining Quarkus apps; npx skills add. | Apache-2.0 | 多 | indexed-only |
+| [digitalocean-labs/do-app-platform-skills](https://github.com/digitalocean-labs/do-app-platform-skills) | 36 | DigitalOcean Labs skills for App Platform deploy, migration, networking and databases; git clone. | MIT | 11 | indexed-only |
+| [coupler-io/skills](https://github.com/coupler-io/skills) | 35 | Coupler.io skills for marketing, sales, finance and reporting analysis; /plugin marketplace add coupler-io/skills. | Unknown | 多 | indexed-only |
+| [inngest/inngest-skills](https://github.com/inngest/inngest-skills) | 28 | Inngest official Agent Skills; npx skills add inngest/inngest-skills. | NOASSERTION | 16 | indexed-only |
+| [datarobot-oss/datarobot-agent-skills](https://github.com/datarobot-oss/datarobot-agent-skills) | 27 | DataRobot skills bringing platform capabilities to coding agents; npx ai-agent-skills install. | Apache-2.0 | 24 | indexed-only |
+| [tscircuit/skill](https://github.com/tscircuit/skill) | 28 | tscircuit official skills for PCB/circuit code; npx skills add tscircuit/skill. | MIT | 1+ | indexed-only |
+| [jfrog/jfrog-skills](https://github.com/jfrog/jfrog-skills) | 26 | JFrog Platform skills: artifacts, CVE queries and more; npx skills add git@github.com:jfrog/jfrog-skills.git. | Apache-2.0 | 多 | indexed-only |
+| [crowdsecurity/crowdsec-skill](https://github.com/crowdsecurity/crowdsec-skill) | 24 | CrowdSec official skill for Claude Code and Codex to install, configure and debug the engine; /plugin marketplace add. | MIT | 1+ | indexed-only |
+| [intel/gpu-ai-skills](https://github.com/intel/gpu-ai-skills) | 27 | Intel skills for running, benchmarking and profiling Hugging Face models on Intel GPUs; git clone. | Apache-2.0 | 28 | indexed-only |
+| [joomcode/joompulse-skills](https://github.com/joomcode/joompulse-skills) | 52 | Joom public Claude skills turning JoomPulse data into Mercado Livre seller workflows; /plugin marketplace add. | MIT | 18 | indexed-only |
+| [OptimNow/cloud-finops-skills](https://github.com/OptimNow/cloud-finops-skills) | 57 | OptimNow Cloud FinOps skill + MCP, FinOps Foundation aligned; /plugin marketplace add. | NOASSERTION | 多 | indexed-only |
+| [usetrmnl/trmnl-agent-skills](https://github.com/usetrmnl/trmnl-agent-skills) | 26 | TRMNL template-writer agent prompts and skills; /plugin marketplace add usetrmnl/trmnl-agent-skills. | MIT | 多 | indexed-only |
 
 ## 2. Collections
 
@@ -651,6 +699,48 @@
 | [bubbleptr/awesome-pi](https://github.com/bubbleptr/awesome-pi) | 123 | Awesome Pi Coding Agent: curated extensions, themes, skills, prompts and community resources. | CC0-1.0 | catalog | indexed-only |
 | [TsCarpe/claude-sdlc-skills](https://github.com/TsCarpe/claude-sdlc-skills) | 63 | AI-native SDLC skills: requirement intake/audit, adversarial review gate, AI test orchestration, release config audit; npx skills add. | MIT | 7+ | indexed-only |
 | [minorun365/agent-builder-skills](https://github.com/minorun365/agent-builder-skills) | 40 | Japanese skill pack for building AI-agent web apps on AWS (Bedrock AgentCore / CDK / Strands); Claude marketplace install. | Apache-2.0 | 1+ | indexed-only |
+| [mizchi/skills](https://github.com/mizchi/skills) | 348 | mizchi personal agent skills distributed via APM; each skill README shows npx skills add. | Unknown | 12 | indexed-only |
+| [dzhng/skills](https://github.com/dzhng/skills) | 970 | dzhng reusable skills for software factories: ideas to specs to implementation to autonomous runs; npx skills add dzhng/skills. | MIT | 34 | indexed-only |
+| [tronghieu/agent-skills](https://github.com/tronghieu/agent-skills) | 72 | Method-driven skills for knowledge work: strategy, research, critical thinking, data; npx skills add or Claude plugin. | MIT | 44 | indexed-only |
+| [Parcha-ai/parcha-skills](https://github.com/Parcha-ai/parcha-skills) | 62 | Parcha skills for running long-running coding agents; npx skills add Parcha-ai/parcha-skills. | MIT | 7 | indexed-only |
+| [alamops/skills](https://github.com/alamops/skills) | 54 | Personal open-source Agent Skills collection, installable as Claude plugin or via npx skills. | MIT | 多 | indexed-only |
+| [mouadja02/skills](https://github.com/mouadja02/skills) | 10 | Curated collection of ~790 Agent Skills across 36 categories with searchable site and curl/PowerShell install scripts. | Unknown | 792 | indexed-only |
+| [LukeberryPi/skills](https://github.com/LukeberryPi/skills) | 24 | LukeberryPi personal agent skills; npx skills add LukeberryPi/skills. | Unknown | 8 | indexed-only |
+| [shadcn-labs/skills](https://github.com/shadcn-labs/skills) | 24 | Shadcn Labs skills collection; npx skills add shadcn-labs/skills. | MIT | 多 | indexed-only |
+| [lycfyi/yskills](https://github.com/lycfyi/yskills) | 24 | Claude Code skills the author uses, open-sourced one at a time; plugin marketplace add lycfyi/yskills. | MIT | 多 | indexed-only |
+| [YPares/agent-skills](https://github.com/YPares/agent-skills) | 30 | Various skills for AI coding assistants; /plugin marketplace add ypares/agent-skills. | MIT | 多 | indexed-only |
+| [Codagent-AI/agent-skills](https://github.com/Codagent-AI/agent-skills) | 30 | Codagent plugin of focused skills for each SDLC stage; claude plugin marketplace add. | MIT | 多 | indexed-only |
+| [derailed-dash/dazbo-agent-skills](https://github.com/derailed-dash/dazbo-agent-skills) | 24 | Dazbo collection of agentic skills; NPX install recommended. | MIT | 4+ | indexed-only |
+| [easychen/skills](https://github.com/easychen/skills) | 24 | easychen (Fangtang) skills roundup following agentskills.io; npx skills add. | AGPL-3.0 | 2+ | indexed-only |
+| [paulklayvc/skills](https://github.com/paulklayvc/skills) | 40 | Agent skills from a VC: company research, opportunity sourcing; npx skills add paulklayvc/skills. | MIT | 多 | indexed-only |
+| [SkylarKitchen/skills](https://github.com/SkylarKitchen/skills) | 102 | Design-work agent skills (3D build guides etc.); claude plugin marketplace add SkylarKitchen/skills. | MIT | 3+ | indexed-only |
+| [yuanhao667/Skills](https://github.com/yuanhao667/Skills) | 10 | Codex skills for product, writing, AI evals and docs; install individually via npx skills add yuanhao667/Skills. | Unknown | 13 | indexed-only |
+| [leonvanzyl/skills](https://github.com/leonvanzyl/skills) | 88 | Leon van Zyl four-skill pack; npx skills add leonvanzyl/skills. | Unknown | 4 | indexed-only |
+| [Oscaner/skills](https://github.com/Oscaner/skills) | 81 | cdd-first methodology repo doubling as a plugin marketplace of personal skills; /plugin marketplace add oscaner/skills. | MIT | 12 | indexed-only |
+| [wlzh/skills](https://github.com/wlzh/skills) | 617 | Author's Codex/Claude skills collection for personal workflows; copy into ~/.claude/skills. | MIT | 多 | indexed-only |
+| [wwwzhouhui/skills_collection](https://github.com/wwwzhouhui/skills_collection) | 276 | Personal Claude Code Skills collection (WeChat typesetting, video kit, etc.); copy into ~/.claude/skills. | Unknown | 11+ | indexed-only |
+| [Luyu2026/Skill-Bible](https://github.com/Luyu2026/Skill-Bible) | 193 | Skill-Bible: curated directory of handy skills with copy-to-skills-dir install. | NOASSERTION | 多 | indexed-only |
+| [win4r/MuseAI-Skills](https://github.com/win4r/MuseAI-Skills) | 305 | muse.ai skills and runtime snapshot: 68 skills, workflow guides and connector manifests; git clone. | Unknown | 68 | indexed-only |
+| [Lynricsy/HyperSkills](https://github.com/Lynricsy/HyperSkills) | 25 | Integrated skill set: one tech ecosystem or task class equals one skill, 581 upstreams re-synthesized; npx skills. | MIT | 81 | indexed-only |
+| [00200200/maintainer-skills-lab](https://github.com/00200200/maintainer-skills-lab) | 45 | 16 reusable skills and 6 agents for Codex/Claude/Cursor/OpenCode; /plugin marketplace add. | MIT | 16 | indexed-only |
+| [00200200/cinch](https://github.com/00200200/cinch) | 31 | Universal skills and agents for every AI harness, author once and wire anywhere; README documents per-harness install. | MIT | 26 | indexed-only |
+| [softspark/ai-toolkit](https://github.com/softspark/ai-toolkit) | 177 | Professional AI coding toolkit: 94 skills, 44 agents, multi-platform; npm install -g @softspark/ai-toolkit. | Apache-2.0 | 94 | indexed-only |
+| [techwolf-ai/ai-first-toolkit](https://github.com/techwolf-ai/ai-first-toolkit) | 129 | TechWolf Claude Code and Codex skills for AI-first work (audit, re-engineer, bootstrap); claude plugin marketplace add. | MIT | 多 | indexed-only |
+| [xm1k3/ai-community-skills](https://github.com/xm1k3/ai-community-skills) | 10 | Aggregator surfacing scattered community skills for Claude Code/Codex; npm install -g ai-community-skills. | MIT | 多 | indexed-only |
+| [zhuyansen/awesome-claude-video-skills](https://github.com/zhuyansen/awesome-claude-video-skills) | 307 | Curated list of skills and toolkits letting Claude Code/Codex make video (180 repos); entries show npx skills add. | NOASSERTION | 精选列表 | indexed-only |
+| [xiaolai/claude-plugin-marketplace](https://github.com/xiaolai/claude-plugin-marketplace) | 80 | xiaolai central marketplace for Claude Code plugins (marketplace.json). | ISC | marketplace | indexed-only |
+| [netresearch/claude-code-marketplace](https://github.com/netresearch/claude-code-marketplace) | 63 | Netresearch curated Agent Skills marketplace (agentskills.io); /plugin marketplace add. | MIT | marketplace | indexed-only |
+| [glincker/claude-code-marketplace](https://github.com/glincker/claude-code-marketplace) | 37 | Community Claude Code marketplace of SDLC agents and skills; /plugin marketplace add. | Apache-2.0 | marketplace | indexed-only |
+| [closedloop-ai/claude-plugins](https://github.com/closedloop-ai/claude-plugins) | 102 | ClosedLoop open-source Claude Code plugins for plan-first multi-agent delivery; install.sh / plugin marketplace. | Apache-2.0 | marketplace | indexed-only |
+| [2389-research/claude-plugins](https://github.com/2389-research/claude-plugins) | 95 | 28 plugins and MCP servers for Claude Code (TDD, orchestration, refinement); npx skills add. | MIT | 28 插件 | indexed-only |
+| [wigtn/wigtn-plugins](https://github.com/wigtn/wigtn-plugins) | 45 | Claude Code plugins for AI-native engineers; /plugin marketplace add wigtn/wigtn-plugins. | Apache-2.0 | marketplace | indexed-only |
+| [laurigates/claude-plugins](https://github.com/laurigates/claude-plugins) | 59 | Claude Code plugin collection for development workflows; claude plugin install laurigates/claude-plugins. | MIT | marketplace | indexed-only |
+| [lahfir/claude-plugins](https://github.com/lahfir/claude-plugins) | 51 | Lahfir Claude Code plugins marketplace; /plugin marketplace add lahfir/claude-plugins. | MIT | marketplace | indexed-only |
+| [mukiwu/muki-ai-plugins](https://github.com/mukiwu/muki-ai-plugins) | 59 | Claude Code QA plugin marketplace (visual regression, test review); /plugin marketplace add. | Unknown | marketplace | indexed-only |
+| [AI-Unified-Process/marketplace](https://github.com/AI-Unified-Process/marketplace) | 132 | AI Unified Process Claude plugin marketplace; /plugin marketplace add ai-unified-process/marketplace. | Apache-2.0 | marketplace | indexed-only |
+| [ai-driven-dev/framework](https://github.com/ai-driven-dev/framework) | 492 | AI-Driven Dev marketplace framework: plugins, agents, skills, hooks, templates; /plugin marketplace add. | MIT | marketplace | indexed-only |
+| [waybarrios/opencode-power-pack](https://github.com/waybarrios/opencode-power-pack) | 529 | 54 rigorous skills for Codex/OpenCode/Pi (review, security audit, feature dev); plugin marketplace + npm. | MIT | 54 | indexed-only |
+| [mvanhorn/printing-press-library](https://github.com/mvanhorn/printing-press-library) | 2,044 | Official library of CLIs generated by CLI Printing Press with 500+ skill files; npx skills add. | Unknown | 500+ | indexed-only |
 
 ## 3. Vertical
 
@@ -1509,6 +1599,68 @@
 | [socai-io/jev-social](https://github.com/socai-io/jev-social) | 50 | Jev×socai social-media research skill: Instagram/TikTok/LinkedIn with browser evidence and cited reports; npx skills add. | MIT | 1 | indexed-only |
 | [alexgreensh/anidoodle](https://github.com/alexgreensh/anidoodle) | 43 | Deterministic hand-drawn art/animation-as-code Agent Skill (nine styles); clone into ~/.claude/skills/anidoodle. | Apache-2.0 | 1 | indexed-only |
 | [anticipate218/math-modeling-skill](https://github.com/anticipate218/math-modeling-skill) | 43 | Math-modeling contest skill for CUMCM/Huawei Cup/MCM-ICM: topic, model, validation and paper self-check; install to .agents/skills. | MIT | 1 | indexed-only |
+| [yaojingang/yao-geo-skills](https://github.com/yaojingang/yao-geo-skills) | 798 | Open-source skill collection for GEO content and workflows, continuously updated; git clone install. | MIT | 多 | indexed-only |
+| [cat-xierluo/legal-skills](https://github.com/cat-xierluo/legal-skills) | 705 | Skills collection for legal professionals (contract review etc.); copy into ~/.claude/skills. | Unknown | 多 | indexed-only |
+| [Nikolay-Shirokov/cc-1c-skills](https://github.com/Nikolay-Shirokov/cc-1c-skills) | 648 | Skill set for AI agents covering the full 1C development cycle; copy .claude/skills/ into project. | MIT | 55 | indexed-only |
+| [growthenginenowoslawski/coldoutboundskills](https://github.com/growthenginenowoslawski/coldoutboundskills) | 734 | Open-source Claude Code skills for cold email and outbound sales; git clone. | MIT | 8 | indexed-only |
+| [xjli360/sealeap-ecommerce-skills](https://github.com/xjli360/sealeap-ecommerce-skills) | 50 | 194 MIT Agent Skills for Shopify, Etsy, eBay, TikTok Shop, Walmart and more; git clone. | MIT | 194 | indexed-only |
+| [xjli360/sealeap-amazon-skills](https://github.com/xjli360/sealeap-amazon-skills) | 204 | Agent Skills for Amazon research, listings, ads, inventory and ops; git clone. | MIT | 多 | indexed-only |
+| [danjdewhurst/story-skills](https://github.com/danjdewhurst/story-skills) | 253 | Agent Skills for end-to-end story writing packaged as Codex/Claude plugins; /plugin marketplace add. | MIT | 多 | indexed-only |
+| [fugazi/test-automation-skills-agents](https://github.com/fugazi/test-automation-skills-agents) | 243 | Library of agents, instructions and skills for QA automation engineers; /plugin marketplace add. | MIT | 11 | indexed-only |
+| [emotixco/claude-skills-founder](https://github.com/emotixco/claude-skills-founder) | 310 | Claude Code skills for startup founders: briefs, competitor analysis, pricing, decks; plugin marketplace add. | MIT | 3+ | indexed-only |
+| [markfulton/ai-employees](https://github.com/markfulton/ai-employees) | 476 | Open-source AI Employees: 8 scheduled business roles and 60 routines on Claude Code and other harnesses; plugin marketplace add. | MIT | 60 | indexed-only |
+| [Barty-Bart/motion-graphics](https://github.com/Barty-Bart/motion-graphics) | 349 | Motion-graphics skills for Claude Code and Codex; npx skills add Barty-Bart/motion-graphics. | NOASSERTION | 5 | indexed-only |
+| [Jakeschincariol/youtube-agent-skill](https://github.com/Jakeschincariol/youtube-agent-skill) | 218 | Eleven Claude skills to run a YouTube channel (hooks, titles, thumbnails); git clone. | MIT | 11 | indexed-only |
+| [Jakeschincariol/instagram-agent-skill](https://github.com/Jakeschincariol/instagram-agent-skill) | 212 | Thirteen Claude skills to run an Instagram account (Reels hooks, research); git clone. | MIT | 13 | indexed-only |
+| [openqa-cn/codexqa](https://github.com/openqa-cn/codexqa) | 80 | CodexQA: 11 local-first Agent Skills for QA (change impact, AI code review); npx skills add openqa-cn/codexqa. | Apache-2.0 | 11 | indexed-only |
+| [amElnagdy/review-skills](https://github.com/amElnagdy/review-skills) | 129 | Two-model debate PR/MR review skills plus a review babysitter; npx skills add amElnagdy/review-skills. | MIT | 2+ | indexed-only |
+| [tikalk/adlc-team-skills](https://github.com/tikalk/adlc-team-skills) | 139 | Skills for the agentic SDLC team lifecycle (team-boot, team-learn, team-repair); npx installer. | MIT | 多 | indexed-only |
+| [quocbao201104/marketing-agent-skills](https://github.com/quocbao201104/marketing-agent-skills) | 11 | Marketing skills for research, strategy, content and campaign analysis; npx skills add. | MIT | 多 | indexed-only |
+| [soumyaRauth/skills-hub](https://github.com/soumyaRauth/skills-hub) | 10 | Skills for real engineering work: impact maps, proof-driven dev, production gates; npx skills add --skill '*'. | MIT | 多 | indexed-only |
+| [MK27MK/no-bs-skills](https://github.com/MK27MK/no-bs-skills) | 13 | Agent skills for pragmatic programmers; npx skills add MK27MK/no-bs-skills. | MIT | 多 | indexed-only |
+| [gabuldev/flutter-skills](https://github.com/gabuldev/flutter-skills) | 11 | Claude Code skills for Flutter: Clean Architecture, Cubit, DI, theming, tests; copy into .claude/skills. | MIT | 多 | indexed-only |
+| [AS-FOSS/aegis-skills](https://github.com/AS-FOSS/aegis-skills) | 13 | Defensive cybersecurity skills to harden software, infrastructure and games; npx skills add AS-FOSS/aegis-skills. | Apache-2.0 | 40 | indexed-only |
+| [smukh/a11y-agent-skills](https://github.com/smukh/a11y-agent-skills) | 10 | Tested accessibility skills with CLI, MCP server and GitHub Action for audits and regression checks; skills dir install. | MIT | 多 | indexed-only |
+| [ScottDuncanAI/claude-manufacturing-skills](https://github.com/ScottDuncanAI/claude-manufacturing-skills) | 54 | Claude skills encoding chemical process and manufacturing engineering practice; /plugin marketplace add. | MIT | 多 | indexed-only |
+| [nitinjain999/platform-skills](https://github.com/nitinjain999/platform-skills) | 46 | Platform engineering skills handbook: Kubernetes, OpenShift, Argo CD, Flux, cloud; git clone. | Apache-2.0 | 多 | indexed-only |
+| [mart337i/odoo-skills](https://github.com/mart337i/odoo-skills) | 40 | Agent skills for Odoo addon development and OCA module migration; npx github:mart337i/odoo-skills. | Unknown | 多 | indexed-only |
+| [lool-ventures/founder-skills](https://github.com/lool-ventures/founder-skills) | 42 | AI agent skills for high-velocity startup founders; claude plugin marketplace add. | Apache-2.0 | 多 | indexed-only |
+| [tuanductran/hr-skills](https://github.com/tuanductran/hr-skills) | 63 | AI skills and technical-recruiting knowledge for HR/talent teams; cp -r into ~/.claude/skills. | MIT | 多 | indexed-only |
+| [RTFM-IT-Services-LLC/msp-claude-skills](https://github.com/RTFM-IT-Services-LLC/msp-claude-skills) | 105 | Claude skills collection for managed service providers (MSPs); /plugin marketplace add. | NOASSERTION | 多 | indexed-only |
+| [FAIRY123456789/human-edge-agent-skills](https://github.com/FAIRY123456789/human-edge-agent-skills) | 96 | 18 portable Agent Skills for voice-native AI, human judgment, writing and life systems; plugin marketplace add. | MIT | 18 | indexed-only |
+| [afadtc/afa-dtc-skills](https://github.com/afadtc/afa-dtc-skills) | 166 | Growth-advisor skill system for indie sites and DTC brands (diagnosis, ads, CRO, retention); plugin marketplace add. | NOASSERTION | 30 | indexed-only |
+| [xyaz1313/xyskill](https://github.com/xyaz1313/xyskill) | 56 | XY Skill: business and private-domain advisor skills with ontology/FDE methodology; npx skills add. | NOASSERTION | 46 | indexed-only |
+| [nexscope-ai/nexscope-ecommerce-skills](https://github.com/nexscope-ai/nexscope-ecommerce-skills) | 81 | 127 portable ecommerce skills for marketplace research, product discovery and keywords; git clone. | Unknown | 127 | indexed-only |
+| [TestAny-io/testany-agent-skills](https://github.com/TestAny-io/testany-agent-skills) | 82 | Testany agent skills for engineering, prompts, content, testing; plugin marketplace add. | MIT | 多 | indexed-only |
+| [walidboulanouar/Ay-Skills](https://github.com/walidboulanouar/Ay-Skills) | 91 | AY Automate open-source Claude Code skills; drop into .claude/skills. | MIT | 多 | indexed-only |
+| [KunoLu/640-skills](https://github.com/KunoLu/640-skills) | 230 | Agent Skills for solopreneurs and teams; directory copy or npx skills add. | Apache-2.0 | 多 | indexed-only |
+| [borghei/AI-Skills-German-Law](https://github.com/borghei/AI-Skills-German-Law) | 32 | AI skills for German legal practice and EU compliance (66 plugins, 291 skills); /plugin marketplace add. | NOASSERTION | 291 | indexed-only |
+| [chambear2809/splunk-cisco-skills](https://github.com/chambear2809/splunk-cisco-skills) | 39 | Skills that turn an agent into a Splunk engineer (app install, ITSI, HEC); local installer scripts. | Apache-2.0 | 多 | indexed-only |
+| [kevintsengtw/dotnet-testing-agent-skills](https://github.com/kevintsengtw/dotnet-testing-agent-skills) | 28 | Agent Skills for .NET testing from the iThome 30-day challenge; npx skills install. | MIT | 多 | indexed-only |
+| [julianrubisch/skills](https://github.com/julianrubisch/skills) | 27 | Opinionated agentic skills for Rails development; npx skills add julianrubisch/skills. | MIT | 多 | indexed-only |
+| [andreworia/claude-consulting-skills](https://github.com/andreworia/claude-consulting-skills) | 20 | 11 Claude skills for strategy and management consulting; git clone. | MIT | 11 | indexed-only |
+| [andreworia/claude-finance-skills](https://github.com/andreworia/claude-finance-skills) | 19 | 12 Claude skills for investment banking, PE and corporate finance; git clone. | MIT | 12 | indexed-only |
+| [andreworia/claude-powerpoint-skills](https://github.com/andreworia/claude-powerpoint-skills) | 19 | 12 Claude skills for board-ready PowerPoint decks; git clone. | MIT | 12 | indexed-only |
+| [andreworia/claude-excel-skills](https://github.com/andreworia/claude-excel-skills) | 15 | 12 Claude skills for financial modeling in Excel; git clone. | MIT | 12 | indexed-only |
+| [charlie947/motion-graphics-skills](https://github.com/charlie947/motion-graphics-skills) | 29 | 13 Claude Code skills for launch-grade motion graphics as code; npx skills add. | MIT | 13 | indexed-only |
+| [shouldnotappearcalm/a-share-skill](https://github.com/shouldnotappearcalm/a-share-skill) | 242 | A-share data analysis, quant screening and paper-trading skill set; mkdir ~/.agents/skills install. | MIT | 16 | indexed-only |
+| [tudoumashu/ai-memory-skillpack](https://github.com/tudoumashu/ai-memory-skillpack) | 298 | Bounded project-memory skills for Codex CLI and Claude Code; git clone. | MIT | 4+ | indexed-only |
+| [trustfuture/simon-skills](https://github.com/trustfuture/simon-skills) | 232 | Faceless video-channel skill set: investigative long-form and whiteboard explainers; git clone. | MIT | 9 | indexed-only |
+| [ContextJet-ai/awesome-llm-observability](https://github.com/ContextJet-ai/awesome-llm-observability) | 36 | 50+ LLM observability tools plus 26 runnable Agent Skills; /plugin marketplace add. | NOASSERTION | 26 | indexed-only |
+| [Liberty91LTD/cti-skills](https://github.com/Liberty91LTD/cti-skills) | 24 | Defensive cyber threat intelligence skills for each CTI lifecycle stage; /plugin marketplace add. | MIT | 3+ | indexed-only |
+| [Scino/fstack](https://github.com/Scino/fstack) | 21 | fstack: 53 native skills installable via npx @scino/fstack install --all. | MIT | 53 | indexed-only |
+| [khadir-syed/k_ai-agent-skills](https://github.com/khadir-syed/k_ai-agent-skills) | 19 | Markdown-only safety-first reusable skills for Codex, Claude Code and Copilot CLI; git clone. | MIT | 19 | indexed-only |
+| [idexal/idexal-skills](https://github.com/idexal/idexal-skills) | 13 | 118+ production-ready agent skills (SKILL.md library) for the Idexal IDE and CLI; git clone. | Unknown | 118 | indexed-only |
+| [SuperChason/ontology-driven-ai-data-management-skills](https://github.com/SuperChason/ontology-driven-ai-data-management-skills) | 15 | 16 cross-platform Agent Skills for enterprise ontology engineering; git clone. | MIT | 16 | indexed-only |
+| [edhoferdian/EEF](https://github.com/edhoferdian/EEF) | 19 | 38 native skills for a developer workflow from API design to deployment; npx eef-install. | MIT | 38 | indexed-only |
+| [codebygarv/Ai-skills](https://github.com/codebygarv/Ai-skills) | 25 | Community catalogue of 150+ reusable AI agent skills; npx github:codebygarv/Ai-skills add <skill>. | MIT | 150 | indexed-only |
+| [Lifecycle-Innovations-Limited/claude-ops](https://github.com/Lifecycle-Innovations-Limited/claude-ops) | 532 | Business operating system for Claude Code: 57 skills, 21 agents, daemon; /plugin marketplace add. | MIT | 57 | indexed-only |
+| [GRCEngClub/claude-grc-engineering](https://github.com/GRCEngClub/claude-grc-engineering) | 415 | GRC Engineering Club Claude Code plugins for evidence collection and compliance; /plugin marketplace add. | NOASSERTION | 多 | indexed-only |
+| [oliver-kriska/claude-elixir-phoenix](https://github.com/oliver-kriska/claude-elixir-phoenix) | 557 | Claude Code plugin for Elixir/Phoenix/LiveView with 26 specialist agents and skills; /plugin marketplace add. | MIT | 26 | indexed-only |
+| [chrisbanes/skills](https://github.com/chrisbanes/skills) | 1,070 | Chris Banes skills for Kotlin, Jetpack Compose and Android development; npx skills add chrisbanes/skills. | Apache-2.0 | 60+ | indexed-only |
+| [ParthJadhav/app-store-screenshots](https://github.com/ParthJadhav/app-store-screenshots) | 7,114 | End-to-end App Store screenshot creation skill; npx skills add. | MIT | 1+ | indexed-only |
+| [htdt/godogen](https://github.com/htdt/godogen) | 7,027 | Autonomous game-dev skills for Godot, Bevy and Babylon.js with Claude Code/Codex; publish.sh installs .claude/skills. | MIT | 多 | indexed-only |
+| [white0dew/XiaohongshuSkills](https://github.com/white0dew/XiaohongshuSkills) | 3,470 | Xiaohongshu auto-post/comment/search skill for OpenClaw, Codex and Claude Code; copy into .claude/skills. | MIT | 多 | indexed-only |
 
 ## 4. Infra
 
@@ -1670,6 +1822,11 @@
 | [riesaexe/r-doc](https://github.com/riesaexe/r-doc) | 45 | Agent skill for maintaining project AGENTS.md and docs/ governance; npx skills add riesaexe/r-doc --skill r-doc. | MIT | 1 | indexed-only |
 | [angel291592/Intent-Router](https://github.com/angel291592/Intent-Router) | 42 | Intent compiler skill: vague requests → typed IntentSpec (probe/ask/halt) for routers and System One models; npx skills add. | MIT | 1 | indexed-only |
 | [using-system/otelyssey](https://github.com/using-system/otelyssey) | 38 | OpenTelemetry Agent Plugins marketplace that self-validates via issues; add with claude/copilot/codex/grok plugin marketplace. | MIT | marketplace | indexed-only |
+| [zjunlp/SkillNet](https://github.com/zjunlp/SkillNet) | 1,365 | SkillNet: create, evaluate and connect AI skills; pip install skillnet-ai. | MIT | 工具 | indexed-only |
+| [Leon-Drq/openagentskill](https://github.com/Leon-Drq/openagentskill) | 355 | Open Agent Skill: npm-like registry and CLI for AI Agent Skills. | MIT | 工具 | indexed-only |
+| [skilld-dev/skilld](https://github.com/skilld-dev/skilld) | 307 | Privacy-friendly open-source skills.sh alternative; npx skilld search/run. | MIT | 工具 | indexed-only |
+| [ginuim/skill-base](https://github.com/ginuim/skill-base) | 121 | Private skill distribution platform: publish, install, update and roll back team skills; npx skill-base. | Unknown | 工具 | indexed-only |
+| [FrancoStino/opencode-skills-collection](https://github.com/FrancoStino/opencode-skills-collection) | 79 | OpenCode plugin that auto-downloads and keeps a skills collection up to date; npm plugin install. | MIT | 工具 | indexed-only |
 
 ## 5. Other
 
@@ -1695,6 +1852,9 @@
 | [Da7-Tech/SureForge](https://github.com/Da7-Tech/SureForge) | 110 | Instruction-only research→ask→plan→verify→independent-review Agent Skill (light/standard/full tiers); npx skills add Da7-Tech/SureForge. | MIT | 1 | indexed-only |
 | [kerpopule/hermes-jev-skills](https://github.com/kerpopule/hermes-jev-skills) | 44 | Eight TypeSafe Jev Agent Skills (routing/memory/compaction/skill-select/computer-use) for Hermes/Claude/Codex; python install.py. | MIT | 8 | indexed-only |
 | [Consensys/repo-security-review](https://github.com/Consensys/repo-security-review) | 20 | Defensive multi-phase Claude Code skill for repo security audits (secrets/OWASP/deps/PR mode); clone into ~/.claude/skills. | NOASSERTION | 1 | indexed-only |
+| [revfactory/harness](https://github.com/revfactory/harness) | 9,098 | Meta-skill that designs domain-specific agent teams and generates their skills; /plugin marketplace add revfactory/harness. | Apache-2.0 | 1+ | indexed-only |
+| [0xNyk/council-of-high-intelligence](https://github.com/0xNyk/council-of-high-intelligence) | 4,532 | Structured multi-perspective deliberation skill (councils/triads) for hard decisions; plugin marketplace add. | MIT | 1+ | indexed-only |
+| [undefined-ui/second-brain-os](https://github.com/undefined-ui/second-brain-os) | 820 | Self-maintaining AI second brain: guide, starter vault and agent skills; cp skills into .claude/skills. | MIT | 多 | indexed-only |
 
 ## 6. Unnamed (repo name lacks skill / agent)
 
