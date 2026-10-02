@@ -4,9 +4,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-30（Asia/Shanghai）；日常增量索引 part61（补跑 2026-09-25～09-30）
+- 编制日期：2026-10-02（Asia/Shanghai）；日常增量索引 part65（基于 main；未叠 PR #37）
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1916 个独立仓库（另注明更名别名）
+- 收录条数：1944 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
