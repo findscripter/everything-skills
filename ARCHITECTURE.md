@@ -26,8 +26,8 @@ data/skill-repos*.jsonl + data/skill-repos.meta.md
 
 ## 语言策略
 
-- `main`：英文仓库 chrome，技能正文保持原始语言。
-- `zh`：中文仓库 chrome。
+- `main`：README、根部上下文文件和技能仓库目录使用英文，技能正文保持原始语言。
+- `zh`：上述仓库界面使用中文；结构化 `INDEX/` 索引标题跨分支保持稳定。
 - `en`：历史英文镜像分支，已不作为主发布路径。
 
 语言必须通过 `--lang=en|zh` 显式传入统一入口 `scripts/build-all.mjs`。CI 根据目标分支传入同样的语言参数。

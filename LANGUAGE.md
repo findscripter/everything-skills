@@ -4,10 +4,12 @@
 
 | 表面 | 规则 |
 | --- | --- |
-| `main` 仓库界面 | 英文 README、根文档、策略和生成区标题 |
-| `zh` 仓库界面 | 中文 README、根文档和生成区标题 |
+| `main` 仓库界面 | 英文 README、根文档、策略、multi-harness 上下文和技能仓库目录标题 |
+| `zh` 仓库界面 | 中文 README、根文档、策略、multi-harness 上下文和技能仓库目录标题 |
 | `00-meta` … `10-platform` 下的 `SKILL.md` | 保留原始/本地语言，不维护第二套完整英文技能树 |
 | `data/skill-repos*.jsonl` | 只做 README 级外部目录；`summary` / `summary_zh` 按字段逐步补齐 |
+
+`INDEX/catalog.md`、`tags.md`、`tools.md`、`graph.md` 和 `sources.md` 是面向维护与机器消费的稳定结构索引，当前跨分支保留中文标题。
 
 `en` 分支的完整英文技能镜像已废弃。今后新增或修订技能只进入一套卷目录，通过 `main` / `zh` 生成不同语言的仓库界面。
 
