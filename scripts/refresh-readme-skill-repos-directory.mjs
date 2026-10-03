@@ -2,19 +2,22 @@
 // Regenerate README skill-repos directory from data/skill-repos*.jsonl
 // Rebuilds the whole section: summaries + collapsible <details> per category.
 // Usage:
-//   node scripts/refresh-readme-skill-repos-directory.mjs          # default --lang=en (main chrome)
 //   node scripts/refresh-readme-skill-repos-directory.mjs --lang=en
 //   node scripts/refresh-readme-skill-repos-directory.mjs --lang=zh
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadSkillRepos } from './load-skill-repos.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const DATA = path.join(ROOT, 'data');
 const README = path.join(ROOT, 'README.md');
 
 const langArg = process.argv.find(a => a.startsWith('--lang='));
-const LANG = (langArg ? langArg.slice('--lang='.length) : 'en').toLowerCase();
+const LANG = (langArg ? langArg.slice('--lang='.length) : process.env.SKILL_LANG || '').toLowerCase();
+if (!['en', 'zh'].includes(LANG)) {
+  console.error('用法：node scripts/refresh-readme-skill-repos-directory.mjs --lang=en|zh（也可设置 SKILL_LANG）');
+  process.exit(2);
+}
 
 const SECTION_META_ZH = [
   ['official', '1. 官方与权威（official）'],
@@ -63,24 +66,15 @@ function pickStatus(status) {
   return map[s] || s;
 }
 
-const files = (await fs.readdir(DATA))
-  .filter(n => n === 'skill-repos.jsonl' || /^skill-repos\.part\d+\.jsonl$/.test(n))
-  .sort((a, b) => {
-    const rank = n => (n === 'skill-repos.jsonl' ? 0 : Number(n.match(/part(\d+)/)[1]));
-    return rank(a) - rank(b);
-  });
-
-const byFull = new Map();
-for (const n of files) {
-  const text = await fs.readFile(path.join(DATA, n), 'utf8');
-  for (const line of text.split(/\n/)) {
-    if (!line.trim()) continue;
-    const o = JSON.parse(line);
-    const key = String(o.full_name || '').toLowerCase();
-    if (!key || byFull.has(key)) continue; // first wins
-    byFull.set(key, o);
-  }
+let repos;
+try {
+  repos = await loadSkillRepos();
+} catch (error) {
+  console.error(error.message);
+  process.exit(1);
 }
+
+const byFull = new Map(repos.map(repo => [String(repo.full_name).toLowerCase(), repo]));
 
 const bySection = Object.fromEntries(SECTION_META.map(([id]) => [id, []]));
 for (const o of byFull.values()) {
@@ -129,6 +123,17 @@ for (const [id, title] of SECTION_META) {
 const newSec = parts.join('');
 
 let readme = await fs.readFile(README, 'utf8');
+const BEGIN = '<!-- BEGIN GENERATED:skill-repos -->';
+const END = '<!-- END GENERATED:skill-repos -->';
+const beginAt = readme.indexOf(BEGIN);
+const endAt = readme.indexOf(END);
+if ((beginAt < 0) !== (endAt < 0)) throw new Error('README generated markers are incomplete');
+
+if (beginAt >= 0) {
+  if (readme.indexOf(BEGIN, beginAt + BEGIN.length) >= 0 || readme.indexOf(END, endAt + END.length) >= 0)
+    throw new Error('README generated markers must be unique');
+  readme = readme.slice(0, beginAt) + BEGIN + '\n' + newSec.trimEnd() + '\n' + readme.slice(endAt);
+} else {
 const altHeading = LANG === 'en' ? '## 技能仓库目录' : '## Skill repos directory';
 let start = readme.indexOf(SECTION_HEADING);
 let usedHeading = SECTION_HEADING;
@@ -141,7 +146,8 @@ const headingLen = usedHeading.length;
 const rest = readme.slice(start + headingLen);
 const m = rest.match(/\n## [^#]/);
 const end = m ? start + headingLen + m.index : readme.length;
-readme = readme.slice(0, start) + newSec + readme.slice(end);
+readme = readme.slice(0, start) + BEGIN + '\n' + newSec.trimEnd() + '\n' + END + readme.slice(end);
+}
 if (LANG === 'en') {
   // README chrome may use "Also indexes" or lowercase "also indexes"
   readme = readme.replace(

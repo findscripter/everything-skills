@@ -11,8 +11,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-// 注：'en' 为英文镜像树（与本卷同名技能），由 scripts/build-en-index.mjs 单独索引，此处必须跳过以免重名误报。
+// 注：历史英文镜像树位于 en/，当前主索引仍跳过该目录以免重名误报。
 const SKIP_DIRS = new Set(['_template', 'INDEX', 'node_modules', '.git', 'scripts', 'assets', 'en']);
+const langArg = process.argv.find(a => a.startsWith('--lang='));
+const LANG = (langArg ? langArg.slice('--lang='.length) : process.env.SKILL_LANG || '').toLowerCase();
+if (!['en', 'zh'].includes(LANG)) {
+  console.error('用法：node scripts/build-index.mjs --lang=en|zh（也可设置 SKILL_LANG）');
+  process.exit(2);
+}
 
 // 受控词表（卷→合法类），用于校验 domain 的「类」段
 const TX = JSON.parse(await fs.readFile(path.join(ROOT, 'taxonomy.json'), 'utf8'));
@@ -43,6 +49,19 @@ const DESC_WARN_LEN = 200;
 
 const errors = [];
 const warnings = [];
+const pendingWrites = new Map();
+
+// 生成器可能在一个工作目录旁边遇到另一个完整 checkout（例如本地的
+// everything-skills/）。嵌套 checkout 不是本仓库的数据源，必须在递归时
+// 跳过，否则会把同一批技能扫描两遍并产生大量假重名。
+async function hasGitMetadata(dir) {
+  try {
+    await fs.access(path.join(dir, '.git'));
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 async function collect(dir, acc = []) {
   let entries;
@@ -51,6 +70,7 @@ async function collect(dir, acc = []) {
   for (const e of entries) {
     if (e.isDirectory()) {
       if (SKIP_DIRS.has(e.name) || e.name.startsWith('.')) continue;
+      if (await hasGitMetadata(path.join(dir, e.name))) continue;
       await collect(path.join(dir, e.name), acc);
     } else if (e.name === 'SKILL.md') acc.push(path.join(dir, e.name));
   }
@@ -122,7 +142,32 @@ function validate(s) {
 }
 
 // ---------- 主流程 ----------
-const files = await collect(ROOT);
+// 只扫描受控的 11 个卷目录。生成物、文档、临时目录和嵌套 checkout
+// 都不属于技能源数据，避免未知顶层目录改变索引语义。
+const TOP_LEVEL_DIRS = new Set([...VOLS.map(v => v.dir), ...SKIP_DIRS]);
+for (const entry of await fs.readdir(ROOT, { withFileTypes: true })) {
+  if (!entry.isDirectory() || entry.name.startsWith('.') || TOP_LEVEL_DIRS.has(entry.name)) continue;
+  const dir = path.join(ROOT, entry.name);
+  if (await hasGitMetadata(dir)) {
+    warnings.push(`${entry.name}/：检测到嵌套 Git 仓库，已跳过`);
+    continue;
+  }
+  const unexpectedSkills = await collect(dir);
+  if (unexpectedSkills.length)
+    errors.push(`${entry.name}/：未知顶层目录包含 ${unexpectedSkills.length} 个 SKILL.md，请移入 00-meta…10-platform 卷目录`);
+}
+const files = [];
+for (const { dir } of VOLS) {
+  const volumePath = path.join(ROOT, dir);
+  try {
+    const stat = await fs.stat(volumePath);
+    if (!stat.isDirectory()) throw new Error('不是目录');
+  } catch {
+    errors.push(`${dir}/：卷目录不存在或不可读取`);
+    continue;
+  }
+  await collect(volumePath, files);
+}
 const skills = [];
 for (const file of files) {
   const fm = parseFrontmatter(await fs.readFile(file, 'utf8'), relOf(file));
@@ -189,6 +234,31 @@ for (const s of skills) {
 // ---------- 生成 INDEX ----------
 const INDEX = path.join(ROOT, 'INDEX');
 await fs.mkdir(INDEX, { recursive: true });
+
+function stageWrite(file, content) {
+  pendingWrites.set(file, content);
+}
+
+async function flushWrites() {
+  for (const [file, content] of pendingWrites) {
+    await fs.mkdir(path.dirname(file), { recursive: true });
+    const tmp = `${file}.tmp-${process.pid}`;
+    try {
+      await fs.writeFile(tmp, content);
+      try {
+        await fs.rename(tmp, file);
+      } catch (error) {
+        // Windows 不允许 rename 覆盖已存在文件；仅在目标是已有生成物时
+        // 采用删除后替换，避免把临时文件遗留在仓库里。
+        if (!['EEXIST', 'EPERM'].includes(error.code)) throw error;
+        await fs.rm(file, { force: true });
+        await fs.rename(tmp, file);
+      }
+    } finally {
+      await fs.rm(tmp, { force: true });
+    }
+  }
+}
 const stamp = '> 本文件由 scripts/build-index.mjs 自动生成，请勿手改。\n';
 const linkOf = s => `${s.vol}/${s.folder}/SKILL.md`;
 const sorted = [...skills].sort((a, b) => (a.fm.name || '').localeCompare(b.fm.name || ''));
@@ -207,7 +277,7 @@ const sorted = [...skills].sort((a, b) => (a.fm.name || '').localeCompare(b.fm.n
       md += `- [\`${s.fm.name}\`](../${linkOf(s)}) — ${s.fm.title || ''}${dep}　\`${s.fm.domain || ''}\`${s.fm.level ? ' · ' + s.fm.level : ''}\n`;
     }
   }
-  await fs.writeFile(path.join(INDEX, 'catalog.md'), md);
+  stageWrite(path.join(INDEX, 'catalog.md'), md);
 }
 
 // tags.md / tools.md
@@ -220,7 +290,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
     md += `\n### \`${t}\`\n`;
     for (const s of map.get(t)) md += `- [\`${s.fm.name}\`](../${linkOf(s)}) — ${s.fm.title || ''}\n`;
   }
-  await fs.writeFile(path.join(INDEX, fname), md);
+  stageWrite(path.join(INDEX, fname), md);
 }
 
 // graph.json + graph.md（related/combines_with 视为无向、去重；requires 有向）
@@ -239,7 +309,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
     }
     rendered.push(e);
   }
-  await fs.writeFile(path.join(INDEX, 'graph.json'), JSON.stringify({ nodes, edges }, null, 2));
+  stageWrite(path.join(INDEX, 'graph.json'), JSON.stringify({ nodes, edges }, null, 2));
 
   const MAX_CROSS_VOL_EDGES = 14;
   const MAX_VOL_NODES = 25;
@@ -331,7 +401,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
     for (const e of intra) md += '  ' + mid(e.from) + ' ' + ARROW[e.type] + ' ' + mid(e.to) + '\n';
     md += fence + '\n\n</details>\n\n';
   }
-  await fs.writeFile(path.join(INDEX, 'graph.md'), md);
+  stageWrite(path.join(INDEX, 'graph.md'), md);
 }
 
 // search.json —— 两段式发现的召回层（扁平记录，供向量/BM25/关键词索引）
@@ -342,7 +412,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
     tags: s.fm.tags || [], triggers: parseTriggers(s.fm.description),
     description: s.fm.description || '', path: linkOf(s),
   }));
-  await fs.writeFile(path.join(INDEX, 'search.json'), JSON.stringify(records, null, 2));
+  stageWrite(path.join(INDEX, 'search.json'), JSON.stringify(records, null, 2));
 }
 
 // sources.md —— 采编署名与许可清单（合规用）
@@ -352,7 +422,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
   if (!withSrc.length) md += '\n（暂无采编条目）\n';
   for (const s of withSrc)
     md += `- [\`${s.fm.name}\`](../${linkOf(s)}) ← ${s.fm.source}　\`${s.fm.source_license || '未注明'}\`\n`;
-  await fs.writeFile(path.join(INDEX, 'sources.md'), md);
+  stageWrite(path.join(INDEX, 'sources.md'), md);
 }
 
 // .claude-plugin/marketplace.json —— 使仓库可作为 Claude Code 插件市场安装
@@ -378,15 +448,40 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
     metadata: { description: '技能大典 · Everything Skills — 类书式 AI Agent 技能库', version: '1.0.0' },
     plugins,
   };
-  await fs.mkdir(path.join(ROOT, '.claude-plugin'), { recursive: true });
-  await fs.writeFile(path.join(ROOT, '.claude-plugin', 'marketplace.json'), JSON.stringify(mp, null, 2));
+  stageWrite(path.join(ROOT, '.claude-plugin', 'marketplace.json'), JSON.stringify(mp, null, 2));
 }
 
 // 多 harness 上下文文件：CLAUDE.md / AGENTS.md / GEMINI.md 同源 + gemini-extension.json
 // 对标 obra/superpowers、wshobson/agents——让 Claude Code / Codex / Gemini CLI / Cursor 等都能发现并使用本库技能。
 // 注：本库技能分布在 11 个卷目录（非单一 skills/），故用「上下文文件指路」而非依赖目录约定的 skills 路径。
 {
-  const ctx = `<!-- 本文件由 scripts/build-index.mjs 自动生成，请勿手改。 -->
+  const ctx = LANG === 'en'
+    ? `<!-- Generated by scripts/build-index.mjs; do not edit manually. -->
+# Everything Skills — Agent Usage Guide
+
+This repository is an Agent skill library: **${skills.length} \`SKILL.md\` skills** organized into 11 domain volumes under \`00-meta/\` … \`10-platform/\` (there is no single \`skills/\` directory).
+
+## Discovering skills
+- Agents match each skill's \`description\` field at runtime; they do not browse the directory tree.
+- Human indexes: \`INDEX/catalog.md\`, \`INDEX/tags.md\`, and \`INDEX/graph.md\`.
+- Machine-readable recall: \`INDEX/search.json\` (name/description/triggers/domain for two-stage retrieval).
+
+## Using a skill
+Open its folder and follow the \`SKILL.md\` instructions. Each skill is self-contained and single-purpose.
+
+## Installation (Claude Code marketplace)
+\`\`\`
+/plugin marketplace add findscripter/everything-skills
+\`\`\`
+The 11 volumes are installable as 11 plugins.
+
+## Relationships
+Skill relationships use frontmatter \`requires\`, \`related\`, and \`combines_with\`; the generated graph lives in \`INDEX/graph.md\`.
+
+## License
+See per-skill \`source_license\` and \`INDEX/sources.md\`, plus \`LICENSE\` and \`NOTICE\`.
+`
+    : `<!-- 本文件由 scripts/build-index.mjs 自动生成，请勿手改。 -->
 # 技能大典 · Everything Skills —— AI Agent 使用指南
 
 本仓库是面向 AI Agent 的技能库：**${skills.length} 条 \`SKILL.md\` 技能**，按 11 卷功能域组织在 \`00-meta/\` … \`10-platform/\` 目录下（非单一 \`skills/\` 目录）。
@@ -411,19 +506,25 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
 ## 许可
 精选改编的合集，逐条许可见各 \`SKILL.md\` 的 \`source_license\` 与 \`INDEX/sources.md\`；总说明见 \`LICENSE\` 与 \`NOTICE\`。
 `;
-  for (const f of ['CLAUDE.md', 'AGENTS.md', 'GEMINI.md']) await fs.writeFile(path.join(ROOT, f), ctx);
+  for (const f of ['CLAUDE.md', 'AGENTS.md', 'GEMINI.md']) stageWrite(path.join(ROOT, f), ctx);
   const gemExt = {
     name: 'everything-skills',
     description: '类书式 AI Agent 技能大典：精选/中文化/互见成网的开源技能库',
     version: '1.0.0',
     contextFileName: 'GEMINI.md',
   };
-  await fs.writeFile(path.join(ROOT, 'gemini-extension.json'), JSON.stringify(gemExt, null, 2));
+  stageWrite(path.join(ROOT, 'gemini-extension.json'), JSON.stringify(gemExt, null, 2));
 }
 
 // ---------- 汇报 ----------
 console.log(`扫描到 ${skills.length} 条技能，${edges.length} 条互见边。`);
-console.log('已生成 INDEX/{catalog,tags,tools,graph,sources}.md + graph.json + search.json + .claude-plugin/marketplace.json');
 if (warnings.length) { console.log(`\n⚠ 警告 ${warnings.length}：`); for (const w of warnings) console.log('  - ' + w); }
 if (errors.length) { console.error(`\n✗ 错误 ${errors.length}：`); for (const e of errors) console.error('  - ' + e); process.exit(1); }
+try {
+  await flushWrites();
+} catch (error) {
+  console.error(`\n✗ 写入生成物失败：${error.message}`);
+  process.exit(1);
+}
+console.log('已生成 INDEX/{catalog,tags,tools,graph,sources}.md + graph.json + search.json + .claude-plugin/marketplace.json');
 console.log('\n✓ 校验通过。');

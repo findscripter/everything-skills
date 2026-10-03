@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 // 技能大典 · 技能仓库总目生成器（零依赖）
-// 用法: node scripts/build-skill-repos.mjs
+// 用法: node scripts/build-skill-repos.mjs --lang=en|zh
 // 读 data/skill-repos.jsonl（及可选 skill-repos.partN.jsonl 分片）+ meta，写 INDEX/skill-repos.md。
 // 请改 jsonl / meta，勿手改生成文件。
 
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadSkillRepos } from './load-skill-repos.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const langArg = process.argv.find(a => a.startsWith('--lang='));
-const LANG = (langArg ? langArg.slice('--lang='.length) : 'zh').toLowerCase();
+const LANG = (langArg ? langArg.slice('--lang='.length) : process.env.SKILL_LANG || '').toLowerCase();
+if (!['en', 'zh'].includes(LANG)) {
+  console.error('用法：node scripts/build-skill-repos.mjs --lang=en|zh（也可设置 SKILL_LANG）');
+  process.exit(2);
+}
 const STATUS_EN = { '仅索引': 'indexed-only', '已采编': 'curated', '本项目': 'this-project' };
 function pickSummary(o) {
   if (LANG === 'zh') {
@@ -24,9 +29,7 @@ function pickStatus(s) {
   if (LANG !== 'en') return v;
   return STATUS_EN[v] || v;
 }
-const DATA = path.join(ROOT, 'data');
-const JSONL = path.join(DATA, 'skill-repos.jsonl');
-const META = path.join(DATA, 'skill-repos.meta.md');
+const META = path.join(ROOT, 'data', 'skill-repos.meta.md');
 const OUT = path.join(ROOT, 'INDEX', 'skill-repos.md');
 
 const SECTIONS_ZH = [
@@ -54,50 +57,12 @@ const SECTIONS_EN = [
   },
 ];
 const SECTIONS = LANG === 'en' ? SECTIONS_EN : SECTIONS_ZH;
-const KNOWN_SECTION = new Set(SECTIONS.map(s => s.id));
-const KNOWN_STATUS = new Set(['仅索引', '已采编', '本项目']);
-const REQUIRED = ['full_name', 'html_url', 'stars', 'summary', 'license', 'skill_count', 'status', 'section'];
-
-const dataFiles = (await fs.readdir(DATA))
-  .filter(n => n === 'skill-repos.jsonl' || /^skill-repos\.part\d+\.jsonl$/.test(n))
-  .sort((a, b) => {
-    const rank = n => n === 'skill-repos.jsonl' ? 1 : Number(n.match(/part(\d+)/)[1]);
-    return rank(a) - rank(b);
-  });
-if (!dataFiles.includes('skill-repos.jsonl')) {
-  console.error('缺少 data/skill-repos.jsonl');
+let repos;
+try {
+  repos = await loadSkillRepos();
+} catch (error) {
+  console.error(error.message);
   process.exit(1);
-}
-const raw = (await Promise.all(dataFiles.map(n => fs.readFile(path.join(DATA, n), 'utf8')))).join('\n');
-const repos = [];
-const seen = new Set();
-let lineNo = 0;
-for (const line of raw.split(/\r?\n/)) {
-  lineNo++;
-  const t = line.trim();
-  if (!t || t.startsWith('#')) continue;
-  let obj;
-  try { obj = JSON.parse(t); }
-  catch (e) { console.error(`jsonl:${lineNo}: 非法 JSON`); process.exit(1); }
-  for (const k of REQUIRED) {
-    if (obj[k] === undefined || obj[k] === '') {
-      console.error(`jsonl:${lineNo}: 缺少字段 "${k}"`); process.exit(1);
-    }
-  }
-  if (!KNOWN_SECTION.has(obj.section)) {
-    console.error(`jsonl:${lineNo}: 未知 section "${obj.section}"`); process.exit(1);
-  }
-  if (!KNOWN_STATUS.has(obj.status)) {
-    console.error(`jsonl:${lineNo}: 未知 status "${obj.status}"`); process.exit(1);
-  }
-  if (typeof obj.stars !== 'number' || !Number.isFinite(obj.stars)) {
-    console.error(`jsonl:${lineNo}: stars 须为数字`); process.exit(1);
-  }
-  if (seen.has(obj.full_name)) {
-    console.error(`jsonl:${lineNo}: 重复 full_name "${obj.full_name}"`); process.exit(1);
-  }
-  seen.add(obj.full_name);
-  repos.push(obj);
 }
 
 function fmtStars(n) {

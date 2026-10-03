@@ -268,7 +268,7 @@ graph LR
 
 </details>
 
-<details><summary>卷二 · 研发（25 节点 / 56 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
+<details><summary>卷二 · 研发（25 节点 / 54 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
 
 ```mermaid
 graph LR
@@ -296,7 +296,7 @@ graph LR
   zod-schema-validation["Zod 类型安全数据校验"]
   async-python-patterns["Python 异步并发编程模式"]
   backend-architecture-patterns["后端架构模式（整洁/六边形/DDD）"]
-  javascript-testing-patterns["JS/TS 测试策略"]
+  golang-pro["Go 现代工程实践"]
   async-python-patterns -.- fastapi-async-api
   async-python-patterns === error-handling-patterns
   clean-code-principles -.- code-simplifier
@@ -318,10 +318,8 @@ graph LR
   fastapi-async-api === distributed-tracing
   frontend-design -.- webapp-testing
   frontend-design === webapp-testing
-  javascript-testing-patterns -.- playwright-e2e-testing
-  javascript-testing-patterns -.- test-coverage-gap-finder
-  javascript-testing-patterns === playwright-e2e-testing
-  javascript-testing-patterns === test-coverage-gap-finder
+  golang-pro === performance-profiler
+  golang-pro === microservices-patterns
   legacy-codebase-modernizer -.- clean-code-principles
   legacy-codebase-modernizer -.- code-simplifier
   legacy-codebase-modernizer === test-coverage-gap-finder
@@ -357,7 +355,7 @@ graph LR
 
 </details>
 
-<details><summary>卷三 · 数据（25 节点 / 104 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
+<details><summary>卷三 · 数据（25 节点 / 103 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
 
 ```mermaid
 graph LR
@@ -384,8 +382,8 @@ graph LR
   seaborn-statistical-charts["Seaborn 统计图表"]
   airflow-dag-patterns["Airflow DAG 生产实践模式"]
   clickhouse-analytics-io["ClickHouse 查询优化与分析"]
-  html-dashboard-builder["交互式 HTML 仪表盘构建"]
-  postgresql-optimization["PostgreSQL 性能优化"]
+  data-throughput-accelerator["大规模数据吞吐加速（导入/回填/ETL）"]
+  erd-schema-designer["ERD 与数据库范式设计"]
   airflow-dag-builder -.- airflow-dag-patterns
   airflow-dag-builder -.- data-pipeline-engineer
   airflow-dag-builder -.- dbt-transformation-modeler
@@ -403,12 +401,10 @@ graph LR
   analysis-qa-validator -.- dataset-quality-auditor
   analysis-qa-validator -.- data-quality-frameworks
   analysis-qa-validator === dataset-profiler
-  analysis-qa-validator === html-dashboard-builder
-  clickhouse-analytics-io -.- postgresql-optimization
   clickhouse-analytics-io -.- sql-query-builder
+  clickhouse-analytics-io -.- erd-schema-designer
   clickhouse-analytics-io === dbt-transformation-modeler
   clickhouse-analytics-io === data-pipeline-engineer
-  clickhouse-analytics-io === html-dashboard-builder
   csv-data-cleaner -.- dataset-quality-auditor
   csv-data-cleaner -.- data-quality-validator
   csv-data-cleaner -.- polars-dataframe
@@ -440,8 +436,13 @@ graph LR
   data-question-analyzer -.- data-quality-validator
   data-question-analyzer -.- kpi-dashboard-design
   data-question-analyzer -.- sql-query-builder
-  data-question-analyzer === html-dashboard-builder
   data-question-analyzer === matplotlib-visualization
+  data-throughput-accelerator -.- data-pipeline-engineer
+  data-throughput-accelerator -.- spark-job-optimization
+  data-throughput-accelerator -.- dask-distributed-dataframes
+  data-throughput-accelerator -.- data-quality-frameworks
+  data-throughput-accelerator === data-quality-validator
+  data-throughput-accelerator === airflow-dag-builder
   dataset-profiler -.- dataset-quality-auditor
   dataset-profiler -.- data-quality-validator
   dataset-profiler -.- analysis-qa-validator
@@ -458,10 +459,8 @@ graph LR
   dbt-transformation-patterns -.- data-pipeline-engineer
   dbt-transformation-patterns -.- sql-query-builder
   dbt-transformation-patterns === snowflake-development
-  html-dashboard-builder -.- kpi-dashboard-design
-  html-dashboard-builder -.- plotly-interactive-viz
-  html-dashboard-builder === sql-query-builder
-  html-dashboard-builder === kpi-dashboard-design
+  erd-schema-designer -.- sql-query-builder
+  erd-schema-designer === sql-query-builder
   kpi-dashboard-design -.- plotly-interactive-viz
   kpi-dashboard-design -.- matplotlib-visualization
   kpi-dashboard-design -.- sql-query-builder
@@ -477,8 +476,6 @@ graph LR
   polars-dataframe -.- spark-job-optimization
   polars-dataframe -.- scikit-learn-ml
   polars-dataframe === scikit-learn-ml
-  postgresql-optimization -.- sql-query-builder
-  postgresql-optimization === sql-query-builder
   scikit-learn-ml -.- matplotlib-visualization
   seaborn-statistical-charts === polars-dataframe
   seaborn-statistical-charts === scikit-learn-ml
@@ -494,7 +491,7 @@ graph LR
 
 </details>
 
-<details><summary>卷四 · 智能（25 节点 / 96 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
+<details><summary>卷四 · 智能（25 节点 / 97 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
 
 ```mermaid
 graph LR
@@ -522,7 +519,7 @@ graph LR
   coding-agent-headtohead-eval["编码 Agent 对比评测（通过率/成本/耗时）"]
   context-window-management["LLM 上下文窗口管理策略"]
   llm-prompt-optimizer["LLM 提示词优化"]
-  skill-optimizer["Agent 技能诊断与优化（Skill Optimiz…"]
+  prompt-template-designer["提示词模板设计"]
   agent-memory-systems -.- embedding-model-strategies
   agent-memory-systems === rag-pipeline-builder
   agent-tool-builder -.- agent-tool-design
@@ -530,7 +527,6 @@ graph LR
   agent-tool-builder === langgraph-agent-framework
   agent-tool-builder === multi-agent-system-designer
   agent-tool-design -.- autonomous-coding-agent-patterns
-  agent-tool-design -.- skill-optimizer
   agent-tool-design === multi-agent-system-designer
   agent-tool-design === langgraph-agent-framework
   agent-tool-design === agent-workflow-pattern-designer
@@ -583,7 +579,6 @@ graph LR
   langgraph-agent-framework -.- multi-agent-system-designer
   langgraph-agent-framework === agent-memory-systems
   llm-agent-benchmarking -.- llm-judge-evaluation
-  llm-agent-benchmarking -.- skill-optimizer
   llm-agent-benchmarking === multi-agent-system-designer
   llm-agent-benchmarking === langgraph-agent-framework
   llm-agent-benchmarking === production-llm-app-builder
@@ -599,6 +594,7 @@ graph LR
   llm-prompt-caching === production-llm-app-builder
   llm-prompt-caching === rag-pipeline-builder
   llm-prompt-caching === langfuse-llm-observability
+  llm-prompt-optimizer -.- prompt-template-designer
   llm-prompt-optimizer -.- llm-prompt-caching
   llm-prompt-optimizer === llm-agent-benchmarking
   llm-prompt-optimizer === context-window-management
@@ -612,18 +608,20 @@ graph LR
   production-llm-app-builder -.- rag-implementation-workflow
   production-llm-app-builder -.- rag-pipeline-builder
   production-llm-app-builder === multi-agent-system-designer
+  prompt-template-designer -.- llm-prompt-caching
+  prompt-template-designer -.- ai-engineering-toolkit
+  prompt-template-designer === claude-api
+  prompt-template-designer === llm-judge-evaluation
   rag-implementation-workflow -.- rag-pipeline-builder
   rag-implementation-workflow -.- embedding-model-strategies
   rag-implementation-workflow === langfuse-llm-observability
+  rag-pipeline-builder --> prompt-template-designer
   rag-pipeline-builder === llm-judge-evaluation
-  skill-optimizer -.- llm-prompt-optimizer
-  skill-optimizer === llm-judge-evaluation
-  skill-optimizer === langfuse-llm-observability
 ```
 
 </details>
 
-<details><summary>卷五 · 商业（25 节点 / 76 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
+<details><summary>卷五 · 商业（25 节点 / 75 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
 
 ```mermaid
 graph LR
@@ -651,10 +649,12 @@ graph LR
   content-marketing-strategist["全渠道内容营销策略"]
   equity-earnings-update-report["股票财报点评报告撰写"]
   sales-prospecting["销售线索挖掘与筛选"]
-  market-sizing-analyst["市场规模测算（TAM/SAM/SOM）"]
+  data-storyteller["数据叙事与可视化表达"]
   board-deck-builder -.- cfo-financial-advisor
   board-deck-builder -.- startup-financial-modeler
+  board-deck-builder -.- data-storyteller
   board-deck-builder === cfo-financial-advisor
+  board-deck-builder === data-storyteller
   cfo-financial-advisor -.- startup-financial-modeler
   cfo-financial-advisor -.- cro-revenue-advisor
   cfo-financial-advisor === startup-financial-modeler
@@ -663,9 +663,7 @@ graph LR
   cold-email-writer -.- sales-enablement
   cold-email-writer === sales-prospecting
   cold-email-writer === sales-enablement
-  competitive-analysis -.- market-sizing-analyst
   competitive-analysis -.- product-marketing-gtm-strategy
-  competitive-analysis === market-sizing-analyst
   competitive-analysis === product-marketing-gtm-strategy
   competitive-analysis === pricing-strategy
   content-marketing-strategist -.- content-strategy-planner
@@ -695,21 +693,18 @@ graph LR
   customer-research-synthesizer === conversion-copywriter
   customer-research-synthesizer === product-marketing-gtm-strategy
   equity-earnings-update-report -.- variance-flux-commentary
+  equity-earnings-update-report -.- data-storyteller
   equity-earnings-update-report -.- board-deck-builder
-  equity-earnings-update-report -.- market-sizing-analyst
   equity-earnings-update-report -.- competitive-analysis
+  equity-earnings-update-report === data-storyteller
   equity-earnings-update-report === board-deck-builder
   equity-earnings-update-report === pricing-strategy
   ma-playbook -.- cfo-financial-advisor
   ma-playbook -.- startup-financial-modeler
   ma-playbook -.- competitive-analysis
-  ma-playbook -.- market-sizing-analyst
   ma-playbook === cfo-financial-advisor
   ma-playbook === startup-financial-modeler
   ma-playbook === board-deck-builder
-  market-sizing-analyst -.- startup-financial-modeler
-  market-sizing-analyst === startup-financial-modeler
-  market-sizing-analyst === board-deck-builder
   pricing-strategy -.- cfo-financial-advisor
   product-marketing-gtm-strategy -.- sales-enablement
   product-marketing-gtm-strategy === sales-enablement
@@ -726,13 +721,15 @@ graph LR
   variance-flux-commentary -.- cfo-financial-advisor
   variance-flux-commentary -.- board-deck-builder
   variance-flux-commentary -.- startup-financial-modeler
+  variance-flux-commentary -.- data-storyteller
   variance-flux-commentary === board-deck-builder
   variance-flux-commentary === cfo-financial-advisor
+  variance-flux-commentary === data-storyteller
 ```
 
 </details>
 
-<details><summary>卷六 · 创意（25 节点 / 73 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
+<details><summary>卷六 · 创意（25 节点 / 72 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
 
 ```mermaid
 graph LR
@@ -759,8 +756,8 @@ graph LR
   iconsax-icon-library["Iconsax 图标库与生成"]
   industrial-brutalist-ui["工业野兽派遥测 UI"]
   minimalist-editorial-ui["极简编辑风界面设计"]
+  photopea-embedded-editor["Photopea 嵌入式编辑器集成（photopea.…"]
   stitch-iterative-build-loop["Stitch 迭代构建循环：自主接力式网站搭建"]
-  videodb-perception-editing["VideoDB 视频感知索引与编辑"]
   algorithmic-art -.- glsl-shader-programming
   algorithmic-art -.- canvas-design
   algorithmic-art === theme-factory
@@ -774,7 +771,6 @@ graph LR
   canvas-design -.- ui-design-system-builder
   canvas-design === brand-guidelines
   canvas-design === theme-factory
-  demo-video-generator -.- videodb-perception-editing
   demo-video-generator -.- slack-gif-creator
   design-critique -.- ux-ui-principles-audit
   design-critique -.- design-dev-handoff
@@ -789,7 +785,6 @@ graph LR
   fal-ai-media-generation -.- slack-gif-creator
   fal-ai-media-generation -.- algorithmic-art
   fal-ai-media-generation -.- demo-video-generator
-  fal-ai-media-generation -.- videodb-perception-editing
   fal-ai-media-generation === demo-video-generator
   glassmorphism-ui-design === theme-factory
   high-end-visual-design -.- minimalist-editorial-ui
@@ -817,9 +812,11 @@ graph LR
   minimax-media-cli -.- fal-ai-media-generation
   minimax-media-cli -.- demo-video-generator
   minimax-media-cli -.- magic-motion-animator
-  minimax-media-cli -.- videodb-perception-editing
   minimax-media-cli === algorithmic-art
-  slack-gif-creator -.- videodb-perception-editing
+  photopea-embedded-editor -.- fal-ai-media-generation
+  photopea-embedded-editor -.- slack-gif-creator
+  photopea-embedded-editor -.- algorithmic-art
+  photopea-embedded-editor === fal-ai-media-generation
   slack-gif-creator === demo-video-generator
   stitch-design-system-taste -.- stitch-iterative-build-loop
   stitch-design-system-taste -.- ui-design-system-builder
@@ -833,7 +830,6 @@ graph LR
   ux-research-design-toolkit -.- ux-ui-principles-audit
   ux-research-design-toolkit === ux-ui-principles-audit
   ux-research-design-toolkit === ui-design-system-builder
-  videodb-perception-editing === demo-video-generator
 ```
 
 </details>
@@ -976,7 +972,7 @@ graph LR
   broken-authentication-testing["认证与会话漏洞检测利用"]
   cloud-misconfig-auditor["云基础设施安全审计"]
   cloud-penetration-testing["多云基础设施渗透测试"]
-  soc2-compliance-preparer["SOC 2 审计准备与控制矩阵"]
+  iso27001-isms-implementer["ISO 27001 信息安全体系实施"]
   agent-skill-security-scanner -.- dependency-auditor
   agent-skill-security-scanner === dependency-auditor
   agent-skill-security-scanner === false-positive-check
@@ -1011,8 +1007,8 @@ graph LR
   codeql-scanner === false-positive-check
   codeql-scanner === vulnerability-variant-analysis
   codeql-scanner === sast-configurator
-  compliance-readiness-review -.- soc2-compliance-preparer
-  compliance-readiness-review === soc2-compliance-preparer
+  compliance-readiness-review -.- iso27001-isms-implementer
+  compliance-readiness-review === iso27001-isms-implementer
   compliance-readiness-review === security-audit-toolkit
   dependency-auditor -.- sast-configurator
   dependency-auditor === false-positive-check
@@ -1025,6 +1021,7 @@ graph LR
   insecure-defaults-detector === codeql-scanner
   insecure-defaults-detector === false-positive-check
   insecure-defaults-detector === vulnerability-variant-analysis
+  iso27001-isms-implementer === security-incident-response
   penetration-testing-methodology -.- red-team-recon
   penetration-testing-methodology === red-team-recon
   penetration-testing-methodology === burp-suite-testing
@@ -1039,7 +1036,6 @@ graph LR
   security-incident-response -.- yara-rule-authoring
   security-incident-response -.- security-audit-toolkit
   security-incident-response === wireshark-traffic-analysis
-  soc2-compliance-preparer === security-audit-toolkit
   stride-threat-modeler -.- false-positive-check
   stride-threat-modeler === dependency-auditor
   vulnerability-variant-analysis -.- c-cpp-security-review
@@ -1049,7 +1045,7 @@ graph LR
 
 </details>
 
-<details><summary>卷九 · 领域专精（25 节点 / 61 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
+<details><summary>卷九 · 领域专精（25 节点 / 62 边）（已截断：仅保留度最高的 25 个节点及其诱导边）</summary>
 
 ```mermaid
 graph LR
@@ -1076,14 +1072,18 @@ graph LR
   pubchem-compound-search["PubChem 化合物检索"]
   legal-hold-manager["诉讼证据保全通知管理"]
   litigation-chronology-builder["案件事实时间线构建"]
-  guided-statistical-analysis["统计分析与检验选择"]
-  opentargets-database["Open Targets 靶点-疾病关联查询"]
+  anndata-data-structure["AnnData 单细胞数据结构"]
+  clinvar-database["ClinVar 变异临床意义查询"]
   alpha-vantage-market-data -.- scientific-database-lookup
   alpha-vantage-market-data -.- portfolio-risk-metrics
   alpha-vantage-market-data === portfolio-risk-metrics
   alpha-vantage-market-data === dcf-valuation-model
+  anndata-data-structure -.- single-cell-rnaseq-analysis
+  anndata-data-structure === single-cell-rnaseq-analysis
   cheminformatics-toolkit -.- scientific-database-lookup
   cheminformatics-toolkit === scientific-database-lookup
+  clinvar-database -.- uniprot-protein-database
+  clinvar-database === gatk-variant-calling
   contract-playbook-review -.- legal-risk-classifier
   contract-playbook-review -.- general-counsel-advisor
   contract-playbook-review === legal-risk-classifier
@@ -1100,7 +1100,7 @@ graph LR
   genomic-file-toolkit === gene-set-enrichment-analysis
   gget-genomic-databases -.- uniprot-protein-database
   gget-genomic-databases -.- scientific-database-lookup
-  gget-genomic-databases -.- opentargets-database
+  gget-genomic-databases -.- clinvar-database
   gget-genomic-databases === uniprot-protein-database
   gget-genomic-databases === gene-set-enrichment-analysis
   gget-genomic-databases === single-cell-rnaseq-analysis
@@ -1127,9 +1127,6 @@ graph LR
   octagon-stock-quote === octagon-financial-health-scores
   octagon-stock-quote === dcf-valuation-model
   octagon-stock-quote === portfolio-risk-metrics
-  opentargets-database -.- uniprot-protein-database
-  opentargets-database === uniprot-protein-database
-  opentargets-database === gene-set-enrichment-analysis
   portfolio-rebalancer -.- portfolio-risk-metrics
   portfolio-rebalancer === portfolio-risk-metrics
   pubchem-compound-search -.- cheminformatics-toolkit

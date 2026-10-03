@@ -1,31 +1,29 @@
-name: index
+name: generated-index
+
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, zh]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: generated-index-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    env:
+      # main 使用英文仓库 chrome，zh 使用中文仓库 chrome。
+      # PR 按目标分支决定语言，避免贡献分支的默认值改变发布语义。
+      SKILL_LANG: ${{ (github.base_ref == 'zh' || github.ref_name == 'zh') && 'zh' || 'en' }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
-        with: { node-version: 22 }
-      - run: node scripts/build-index.mjs
-      - run: node scripts/build-skill-repos.mjs
-      - run: node scripts/refresh-readme-skill-repos-directory.mjs
-      - name: Commit regenerated indexes if dirty
-        run: |
-          if git diff --quiet -- INDEX/skill-repos.md README.md; then
-            echo "INDEX/skill-repos.md and README.md already match jsonl"
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add INDEX/skill-repos.md README.md
-          git commit -m "chore: regenerate INDEX + README skill-repos directory from jsonl [skip ci]"
-          git push
+        with:
+          node-version: 22
+      - name: Validate and regenerate all indexes
+        run: node scripts/check-generated.mjs --lang="$SKILL_LANG"

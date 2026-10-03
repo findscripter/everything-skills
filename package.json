@@ -1,0 +1,19 @@
+{
+  "name": "everything-skills",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build-all.mjs --lang=en",
+    "build:zh": "node scripts/build-all.mjs --lang=zh",
+    "check": "node scripts/check-generated.mjs --lang=en",
+    "check:zh": "node scripts/check-generated.mjs --lang=zh",
+    "build:index": "node scripts/build-index.mjs --lang=en",
+    "build:index:zh": "node scripts/build-index.mjs --lang=zh",
+    "build:repos": "node scripts/build-skill-repos.mjs --lang=en",
+    "build:repos:zh": "node scripts/build-skill-repos.mjs --lang=zh"
+  }
+}

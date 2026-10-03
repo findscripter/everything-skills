@@ -3,6 +3,10 @@
 
 # 第三方源仓库的克隆区（用于挖取技能，不纳入本仓库发布）
 .vendor/
+
+# 本地辅助 checkout：它是独立 Git 仓库，不属于本项目发布树
+everything-skills/
+
 node_modules/
 
 # 推广素材（站外投稿/社媒用，本地保留，不公开发布）
