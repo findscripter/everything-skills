@@ -9,7 +9,7 @@
 >
 > **语言策略**：`zh` 分支提供中文仓库界面；每条 `SKILL.md` 保留原始/本地语言，不维护第二套完整英文技能树。详见 [LANGUAGE.md](LANGUAGE.md)。
 >
-> 本库 1108 条技能；另索引 **1698** 个外部 GitHub 技能库（只读 README）。
+> 本库 1108 条技能；另索引 **1706** 个外部 GitHub 技能库（只读 README）。
 >
 > `main` 提供英文仓库界面；历史 `en` 完整英文镜像分支已废弃。
 >
@@ -133,7 +133,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 <!-- BEGIN GENERATED:skill-repos -->
 ## 技能仓库目录
 
-目前索引 **1698** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+目前索引 **1706** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
 
 完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
 
@@ -340,8 +340,9 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>2. 精选列表 / 大集合（collections）（397）</summary>
+<summary>2. 精选列表 / 大集合（collections）（399）</summary>
 
+- [`Shubhamsaboo/awesome-llm-apps`](https://github.com/Shubhamsaboo/awesome-llm-apps) — 100+ 个开源 AI Agent、Agent Skills 与 RAG 应用；技能可一键安装，带安全/评测 CI，支持 Claude/Codex/Cursor。
 - [`ComposioHQ/awesome-claude-skills`](https://github.com/ComposioHQ/awesome-claude-skills) — Claude Skills 最大社区精选之一，README 收录 1000+ 技能条目。
 - [`santifer/career-ops`](https://github.com/santifer/career-ops) — 求职/职业运营 Agent Skills 工作流（高星）。
 - [`shanraisshan/claude-code-best-practice`](https://github.com/shanraisshan/claude-code-best-practice) — 从 vibe coding 到 agentic engineering 的 Claude Code 最佳实践指南/技能。
@@ -433,6 +434,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`brycewang-stanford/Awesome-Journal-Skills`](https://github.com/brycewang-stanford/Awesome-Journal-Skills) — 斯坦福 REAP × CoPaper.AI 期刊技能包：README 宣称 4166 条技能、300 pack、744 venue，覆盖 11 学科投稿规范。
 - [`numman-ali/n-skills`](https://github.com/numman-ali/n-skills) — 跨代理精选市场（SKILL.md + AGENTS.md + openskills）：orchestration、gastown、dev-browser 等。
 - [`jezweb/claude-skills`](https://github.com/jezweb/claude-skills) — 全栈Cloudflare/React/Tailwind/AI应用Claude Skills。
+- [`dzhng/skills`](https://github.com/dzhng/skills) — 软件工厂通用 Agent Skills 合集：探索未知、自动研究、规格编写等可组合工作流，可用 npx 安装并兼容 Claude Code、Codex 等 harness。
 - [`kostja94/marketing-skills`](https://github.com/kostja94/marketing-skills) — 营销Agent Skills（SEO/社媒/达人等）160+开源。
 - [`new-silvermoon/awesome-android-agent-skills`](https://github.com/new-silvermoon/awesome-android-agent-skills) — 标准化Android Agent Skills精选（Copilot/Claude等）。
 - [`bear2u/my-skills`](https://github.com/bear2u/my-skills) — My Skills Hub 可安装技能中心。
@@ -743,12 +745,13 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>3. 垂直领域技能包（vertical）（830）</summary>
+<summary>3. 垂直领域技能包（vertical）（834）</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — 方法论技能包：TDD、头脑风暴、子代理驱动开发等可组合工程纪律。
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — Everything Claude Code 后继：技能/代理/命令/钩子插件市场。原名 everything-claude-code。
 - [`mattpocock/skills`](https://github.com/mattpocock/skills) — Matt Pocock 给真工程师的可组合技能：grill-me、TDD、架构深化、分诊与规格化。
 - [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills) — Addy Osmani 生产工程技能 25 条 + 9 条斜杠命令。
+- [`calesthio/OpenMontage`](https://github.com/calesthio/OpenMontage) — 开源智能视频制作系统：12 条生产流水线、100+ 工具与 700+ Agent 技能/制作知识文件，覆盖脚本、素材、剪辑与渲染。
 - [`hugohe3/ppt-master`](https://github.com/hugohe3/ppt-master) — 文档/主题一键生成原生 PowerPoint 的 AI PPT Agent Skills。
 - [`kepano/obsidian-skills`](https://github.com/kepano/obsidian-skills) — Obsidian 创始人维护：Markdown、Bases、JSON Canvas、CLI、Defuddle。
 - [`coreyhaines31/marketingskills`](https://github.com/coreyhaines31/marketingskills) — 营销向 Agent Skills（内容、SEO、增长等），README 列出约 50 条。
@@ -779,6 +782,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`Agents365-ai/drawio-skill`](https://github.com/Agents365-ai/drawio-skill) — 自然语言/资料→可维护.drawio架构图Skill（Diagram IR）；经365市场安装。
 - [`eze-is/web-access`](https://github.com/eze-is/web-access) — 为 Claude Code 提供联网检索与浏览器能力的 skill。
 - [`AgriciDaniel/claude-ads`](https://github.com/AgriciDaniel/claude-ads) — 跨 12 广告平台的付费媒体运营 Claude Skill。
+- [`genspark-ai/genoffice`](https://github.com/genspark-ai/genoffice) — 开源 AI Office 套件：提供 CLI、MCP 服务与可安装 Agent Skill，可在本地创建/读取/编辑 DOCX、XLSX、PPTX、PDF。
 - [`ibelick/ui-skills`](https://github.com/ibelick/ui-skills) — UI/界面构建向 Agent Skills。
 - [`jnMetaCode/superpowers-zh`](https://github.com/jnMetaCode/superpowers-zh) — obra/superpowers 中文增强版：14 翻译 + 6 中国特色技能，npx superpowers-zh 适配 23 款编码代理。
 - [`chuspeeism/dashi-ppt-skill`](https://github.com/chuspeeism/dashi-ppt-skill) — 多视觉主题、浏览器可编辑演示文稿生成Agent Skill（大师PPT）。
@@ -820,6 +824,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`cloudflare/security-audit-skill`](https://github.com/cloudflare/security-audit-skill) — Cloudflare 开源的多阶段安全审计 Agent Skill；`npx skills add`，产出 findings.json。
 - [`samber/cc-skills-golang`](https://github.com/samber/cc-skills-golang) — 生产级 Go 专用技能（风格、并发、测试、安全、samber/* 库等），评测宣称有技能 98% vs 无技能 57%。
 - [`lackeyjb/playwright-skill`](https://github.com/lackeyjb/playwright-skill) — 面向编码Agent的通用Playwright自动化Skill。`npx skills add lackeyjb/playwright-skill`。
+- [`jherrodthomas/automotive-skills-suite`](https://github.com/jherrodthomas/automotive-skills-suite) — 汽车工程技能套件：152 个可安装 Claude 技能，覆盖安全、网络安全、质量、通信协议、AUTOSAR、MBSE 与验证确认。
 - [`FreedomIntelligence/OpenClaw-Medical-Skills`](https://github.com/FreedomIntelligence/OpenClaw-Medical-Skills) — 大型开源医疗 AI Skills 库（OpenClaw）。
 - [`Ceeon/videocut-skills`](https://github.com/Ceeon/videocut-skills) — 用 Claude Code Skills 做的视频剪辑 Agent。
 - [`op7418/Claude-to-IM-skill`](https://github.com/op7418/Claude-to-IM-skill) — 把 Claude Code/Codex 桥接到 Telegram/Discord 等 IM。
@@ -890,6 +895,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`BagelHole/DevOps-Security-Agent-Skills`](https://github.com/BagelHole/DevOps-Security-Agent-Skills) — DevOps/安全/基础设施/合规 Agent Skills，README 宣称 160+。
 - [`kajisho5/ffmpeg-skill`](https://github.com/kajisho5/ffmpeg-skill) — 本地 FFmpeg 视频编辑 Agent Skill（Claude/Cursor/Codex/MCP）
 - [`Raymondhou0917/speak-human-tw`](https://github.com/Raymondhou0917/speak-human-tw) — 繁中去 AI 腔改写 Skill（含中国用语/标点校正）。
+- [`LeonChaoX/qinyan-academic-skills`](https://github.com/LeonChaoX/qinyan-academic-skills) — 多语言学术研究技能库：187 个技能、18 个领域，覆盖文献、写作、基金、生物信息、临床、机器学习与数据分析。
 - [`simonw/claude-skills`](https://github.com/simonw/claude-skills) — Claude 代码解释器 /mnt/skills 内容镜像。
 - [`boyang-hu/website-rebuild-skill`](https://github.com/boyang-hu/website-rebuild-skill) — 只读镜像抓取+压缩代码还原网站复刻Agent Skill。
 - [`alchaincyf/huashu-md-html`](https://github.com/alchaincyf/huashu-md-html) — 花叔 md↔html/docx 四向流水线 Agent Skill（4 主题反 AI-slop）；`npx skills add alchaincyf/huashu-md-html`。
@@ -1579,7 +1585,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>4. 安装器 / 注册表 / 基础设施（infra）（141）</summary>
+<summary>4. 安装器 / 注册表 / 基础设施（infra）（143）</summary>
 
 - [`thedotmack/claude-mem`](https://github.com/thedotmack/claude-mem) — claude-mem：跨会话持久上下文记忆（捕获 agent 全程活动）。
 - [`Fission-AI/OpenSpec`](https://github.com/Fission-AI/OpenSpec) — 规格驱动开发 OpenSpec（含 agent skills）。
@@ -1594,6 +1600,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`modelcontextprotocol/registry`](https://github.com/modelcontextprotocol/registry) — MCP 服务器官方注册表，不是 SKILL.md 库；作为相邻基础设施收录。
 - [`tw93/Waza`](https://github.com/tw93/Waza) — Waza：Claude Code 设计/工程技能包。
 - [`Gentleman-Programming/gentle-ai`](https://github.com/Gentleman-Programming/gentle-ai) — 跨代理工程环境配置器：持久记忆/Spec-DD/精选技能/MCP/人设
+- [`jacob-bd/gemini-notebook-mcp-cli`](https://github.com/jacob-bd/gemini-notebook-mcp-cli) — Gemini Notebook CLI + MCP 服务与可安装技能，支持 Claude/Codex/Cursor/Gemini CLI 等多种 Agent 工具。
 - [`iflytek/skillhub`](https://github.com/iflytek/skillhub) — 科大讯飞开源自托管技能注册表与市场。
 - [`xingkongliang/skills-manager`](https://github.com/xingkongliang/skills-manager) — 跨 50+ 编码工具管理/同步 Agent Skills 的轻量桌面应用（Claude/Codex/Cursor/Copilot 等）。
 - [`microsoft/skill-recorder`](https://github.com/microsoft/skill-recorder) — 微软桌面录屏工具：把一次真实操作还原成可复用技能文档或定时自动化。
@@ -1611,6 +1618,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`CreminiAI/skillpack`](https://github.com/CreminiAI/skillpack) — 本地AI Agent打包部署给团队的Skill包。
 - [`fcakyon/claude-codex-settings`](https://github.com/fcakyon/claude-codex-settings) — 实战 Claude/Codex/Cursor 配置、插件与 Agents。
 - [`agenmod/immortal-skill`](https://github.com/agenmod/immortal-skill) — 开源数字永生：聊天记录蒸馏七维数字分身Skill框架。
+- [`jiweiyeah/Skills-Manager`](https://github.com/jiweiyeah/Skills-Manager) — 跨平台 Agent Skills 管理器：以 symlink 将一套技能同步到 32 个 AI 编码工具，含市场、启停、adopt 与 doctor CLI。
 - [`guanyang/open-agent-hub`](https://github.com/guanyang/open-agent-hub) — 零依赖 CLI：一键链接 Skills/Agents/Commands 到项目或全局。
 - [`LearnPrompt/luban-skill`](https://github.com/LearnPrompt/luban-skill) — 鲁班：把可用 Skill 打磨成可安装/可传播/可验证/可进化公共资产的工坊。
 - [`alirezarezvani/claude-code-skill-factory`](https://github.com/alirezarezvani/claude-code-skill-factory) — Claude Code Skill 工厂/生成与部署工具包。

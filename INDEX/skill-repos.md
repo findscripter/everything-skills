@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-09-18（Asia/Shanghai）；日常增量索引 part57
+- 编制日期：2026-10-04（Asia/Shanghai）；日常增量索引 part58
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1698 个独立仓库（另注明更名别名）
+- 收录条数：1706 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -636,6 +636,8 @@
 | [suboss87/FDEOps](https://github.com/suboss87/FDEOps) | 824 | Forward Deployed Engineering 技能包：35 个任务技能 + fde 协调器，把客户约定/审批/交接写进编码代理工作流。 | MIT | 35+ | 仅索引 |
 | [doncheli/don-cheli-sdd](https://github.com/doncheli/don-cheli-sdd) | 57 | Specification-Driven Development 框架：88+ 命令、51 skills、强制 TDD/OWASP，兼容 Claude Code/Cursor/Codex 等。 | Apache-2.0 | 51 | 仅索引 |
 | [WYRE-AI/msp-claude-plugins](https://github.com/WYRE-AI/msp-claude-plugins) | 46 | 面向 MSP 的 Claude Code 插件市场：80+ PSA/RMM/安全/财务等供应商插件与跨工具工作流包。 | Apache-2.0 | 80+ | 仅索引 |
+| [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | 140,656 | 100+ 个开源 AI Agent、Agent Skills 与 RAG 应用；技能可一键安装，带安全/评测 CI，支持 Claude/Codex/Cursor。 | Apache-2.0 | 100+ | 仅索引 |
+| [dzhng/skills](https://github.com/dzhng/skills) | 976 | 软件工厂通用 Agent Skills 合集：探索未知、自动研究、规格编写等可组合工作流，可用 npx 安装并兼容 Claude Code、Codex 等 harness。 | MIT | 多技能 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1471,6 +1473,10 @@
 | [alexex1993/mcu-skills](https://github.com/alexex1993/mcu-skills) | 17 | MCU 固件 Agent Skills：按板级（STM32/ESP32/RP2040/nRF/AVR 等）一板一 SKILL.md。 | MIT | 19 | 仅索引 |
 | [fal3/claude-skills-collection](https://github.com/fal3/claude-skills-collection) | 16 | Swift/Apple 平台可安装技能集（SwiftUI/并发/无障碍/测试等），带跨代理安装脚本。 | MIT | 13 | 仅索引 |
 | [Faizalimam990/Startup_builder_pro](https://github.com/Faizalimam990/Startup_builder_pro) | 20 | 把产品想法/已有仓库做成可上线 SaaS 的单技能工作流（栈偏好问询 + 渐进披露 references）。 | NOASSERTION | 1 | 仅索引 |
+| [calesthio/OpenMontage](https://github.com/calesthio/OpenMontage) | 62,740 | 开源智能视频制作系统：12 条生产流水线、100+ 工具与 700+ Agent 技能/制作知识文件，覆盖脚本、素材、剪辑与渲染。 | AGPL-3.0 | 700+ | 仅索引 |
+| [genspark-ai/genoffice](https://github.com/genspark-ai/genoffice) | 8,551 | 开源 AI Office 套件：提供 CLI、MCP 服务与可安装 Agent Skill，可在本地创建/读取/编辑 DOCX、XLSX、PPTX、PDF。 | Apache-2.0 | 1+MCP | 仅索引 |
+| [jherrodthomas/automotive-skills-suite](https://github.com/jherrodthomas/automotive-skills-suite) | 3,022 | 汽车工程技能套件：152 个可安装 Claude 技能，覆盖安全、网络安全、质量、通信协议、AUTOSAR、MBSE 与验证确认。 | MIT | 152 | 仅索引 |
+| [LeonChaoX/qinyan-academic-skills](https://github.com/LeonChaoX/qinyan-academic-skills) | 931 | 多语言学术研究技能库：187 个技能、18 个领域，覆盖文献、写作、基金、生物信息、临床、机器学习与数据分析。 | MIT | 187 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -1617,6 +1623,8 @@
 | [Bevel-Software/Hexis](https://github.com/Bevel-Software/Hexis) | 88 | Hexis：团队协作的 git-backed skills/tools/context 控制面（MCP）。 | Apache-2.0 | 控制面 | 仅索引 |
 | [wei18/Upkeep](https://github.com/wei18/Upkeep) | 14 | 仓库漂移审计技能+可复用 CI：并行审查文档/规格/资产不一致并附证据（output-only）。 | MIT | 技能+CI | 仅索引 |
 | [PyModel/niblet-skill-mcp](https://github.com/PyModel/niblet-skill-mcp) | 21 | UI 设计 MCP + design skill：用真实产品截图/素材接地编码代理的界面工作。 | Apache-2.0 | 1+MCP | 仅索引 |
+| [jacob-bd/gemini-notebook-mcp-cli](https://github.com/jacob-bd/gemini-notebook-mcp-cli) | 6,220 | Gemini Notebook CLI + MCP 服务与可安装技能，支持 Claude/Codex/Cursor/Gemini CLI 等多种 Agent 工具。 | MIT | 1+MCP | 仅索引 |
+| [jiweiyeah/Skills-Manager](https://github.com/jiweiyeah/Skills-Manager) | 1,009 | 跨平台 Agent Skills 管理器：以 symlink 将一套技能同步到 32 个 AI 编码工具，含市场、启停、adopt 与 doctor CLI。 | MIT | 管理器 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
