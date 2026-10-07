@@ -9,7 +9,7 @@
 >
 > **语言策略**：`zh` 分支提供中文仓库界面；每条 `SKILL.md` 保留原始/本地语言，不维护第二套完整英文技能树。详见 [LANGUAGE.md](LANGUAGE.md)。
 >
-> 本库 1108 条技能；另索引 **1711** 个外部 GitHub 技能库（只读 README）。
+> 本库 1108 条技能；另索引 **1715** 个外部 GitHub 技能库（只读 README）。
 >
 > `main` 提供英文仓库界面；历史 `en` 完整英文镜像分支已废弃。
 >
@@ -133,7 +133,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 <!-- BEGIN GENERATED:skill-repos -->
 ## 技能仓库目录
 
-目前索引 **1711** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+目前索引 **1715** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
 
 完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
 
@@ -340,7 +340,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>2. 精选列表 / 大集合（collections）（402）</summary>
+<summary>2. 精选列表 / 大集合（collections）（405）</summary>
 
 - [`Shubhamsaboo/awesome-llm-apps`](https://github.com/Shubhamsaboo/awesome-llm-apps) — 100+ 个开源 AI Agent、Agent Skills 与 RAG 应用；技能可一键安装，带安全/评测 CI，支持 Claude/Codex/Cursor。
 - [`ComposioHQ/awesome-claude-skills`](https://github.com/ComposioHQ/awesome-claude-skills) — Claude Skills 最大社区精选之一，README 收录 1000+ 技能条目。
@@ -740,15 +740,18 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`neomjs/neo-agent-skills`](https://github.com/neomjs/neo-agent-skills) — Neo.mjs Agent Skills。
 - [`Olshansk/agent-skills`](https://github.com/Olshansk/agent-skills) — Agent Skills 合集。
 - [`Bang-isme/CodexAI---Skills`](https://github.com/Bang-isme/CodexAI---Skills) — 端到端开发工作流 Codex Skills 包。
+- [`ellmos-ai/skills`](https://github.com/ellmos-ai/skills) — MIT 许可的可移植 SKILL.md 技能库，支持 Claude Code、Codex 兼容 Agent、BACH、Gemini 与本地优先 LLM 工作流。
 - [`kevinaimonster/skill-hub`](https://github.com/kevinaimonster/skill-hub) — 中文技能宝50+可安装Skills；npx skills add --full-depth。
 - [`flowkit-labs/skills`](https://github.com/flowkit-labs/skills) — Flowkit Skills；skills.sh热装。
 - [`shengyy/agent-skills`](https://github.com/shengyy/agent-skills) — 可复用的 MIT 许可 AI Agent Skills，支持 Claude Code、Codex、Cursor 等工具，可用 npx skills 安装。
+- [`pandoscope/skills`](https://github.com/pandoscope/skills) — MIT 许可的 Agent 工程技能库：包含原创技能、精简派生技能与固定版本的上游引用，并可传播到消费仓库。
 - [`sensein/agent_skills`](https://github.com/sensein/agent_skills) — Apache-2.0 许可的 Agent Skills、工具与工作流合集，以可校验的 SKILL.md 目录组织。
+- [`smyrick/skills`](https://github.com/smyrick/skills) — MIT 许可的 AI Agent Skills 库：11 个便携 SKILL.md 工作流，含插件打包、Codex/Claude 适配器与回归验证。
 
 </details>
 
 <details>
-<summary>3. 垂直领域技能包（vertical）（834）</summary>
+<summary>3. 垂直领域技能包（vertical）（835）</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — 方法论技能包：TDD、头脑风暴、子代理驱动开发等可组合工程纪律。
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — Everything Claude Code 后继：技能/代理/命令/钩子插件市场。原名 everything-claude-code。
@@ -1584,6 +1587,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`Basic-XYZ/baku-skills`](https://github.com/Basic-XYZ/baku-skills) — 我自己在真实工作流里跑过、觉得值得留下的 Agent Skills。
 - [`findscripter/everything-skills`](https://github.com/findscripter/everything-skills) — 本项目：中文优先类书式技能大典，1108 条技能、11 卷插件市场。
 - [`ASOScan/aso-skills`](https://github.com/ASOScan/aso-skills) — ASO（应用商店优化）Agent Skills。
+- [`minhhoit/gamedev-agent-skills`](https://github.com/minhhoit/gamedev-agent-skills) — Apache-2.0 游戏开发技能库：73 个可移植 SKILL.md，覆盖 Godot、Unity、Unreal、Phaser、Bevy 等引擎。
 
 </details>
 

@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-07（Asia/Shanghai）；日常增量索引 part59
+- 编制日期：2026-10-08（Asia/Shanghai）；日常增量索引 part60
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1711 个独立仓库（另注明更名别名）
+- 收录条数：1715 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -641,6 +641,9 @@
 | [SkillMedev/skills](https://github.com/SkillMedev/skills) | 17 | 开放的 MIT 技能目录：475 个可移植 SKILL.md，支持 Claude Code、Cursor、Gemini CLI 与 Codex。 | MIT | 475 | 仅索引 |
 | [shengyy/agent-skills](https://github.com/shengyy/agent-skills) | 2 | 可复用的 MIT 许可 AI Agent Skills，支持 Claude Code、Codex、Cursor 等工具，可用 npx skills 安装。 | MIT | 多技能 | 仅索引 |
 | [sensein/agent_skills](https://github.com/sensein/agent_skills) | 1 | Apache-2.0 许可的 Agent Skills、工具与工作流合集，以可校验的 SKILL.md 目录组织。 | Apache-2.0 | 多技能 | 仅索引 |
+| [smyrick/skills](https://github.com/smyrick/skills) | 1 | MIT 许可的 AI Agent Skills 库：11 个便携 SKILL.md 工作流，含插件打包、Codex/Claude 适配器与回归验证。 | MIT | 11 | 仅索引 |
+| [pandoscope/skills](https://github.com/pandoscope/skills) | 1 | MIT 许可的 Agent 工程技能库：包含原创技能、精简派生技能与固定版本的上游引用，并可传播到消费仓库。 | MIT | 多技能 | 仅索引 |
+| [ellmos-ai/skills](https://github.com/ellmos-ai/skills) | 6 | MIT 许可的可移植 SKILL.md 技能库，支持 Claude Code、Codex 兼容 Agent、BACH、Gemini 与本地优先 LLM 工作流。 | MIT | 多技能 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1480,6 +1483,7 @@
 | [genspark-ai/genoffice](https://github.com/genspark-ai/genoffice) | 8,551 | 开源 AI Office 套件：提供 CLI、MCP 服务与可安装 Agent Skill，可在本地创建/读取/编辑 DOCX、XLSX、PPTX、PDF。 | Apache-2.0 | 1+MCP | 仅索引 |
 | [jherrodthomas/automotive-skills-suite](https://github.com/jherrodthomas/automotive-skills-suite) | 3,022 | 汽车工程技能套件：152 个可安装 Claude 技能，覆盖安全、网络安全、质量、通信协议、AUTOSAR、MBSE 与验证确认。 | MIT | 152 | 仅索引 |
 | [LeonChaoX/qinyan-academic-skills](https://github.com/LeonChaoX/qinyan-academic-skills) | 931 | 多语言学术研究技能库：187 个技能、18 个领域，覆盖文献、写作、基金、生物信息、临床、机器学习与数据分析。 | MIT | 187 | 仅索引 |
+| [minhhoit/gamedev-agent-skills](https://github.com/minhhoit/gamedev-agent-skills) | 0 | Apache-2.0 游戏开发技能库：73 个可移植 SKILL.md，覆盖 Godot、Unity、Unreal、Phaser、Bevy 等引擎。 | Apache-2.0 | 73 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
