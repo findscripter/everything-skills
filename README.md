@@ -9,7 +9,7 @@
 >
 > **语言策略**：`zh` 分支提供中文仓库界面；每条 `SKILL.md` 保留原始/本地语言，不维护第二套完整英文技能树。详见 [LANGUAGE.md](LANGUAGE.md)。
 >
-> 本库 1108 条技能；另索引 **1706** 个外部 GitHub 技能库（只读 README）。
+> 本库 1108 条技能；另索引 **1711** 个外部 GitHub 技能库（只读 README）。
 >
 > `main` 提供英文仓库界面；历史 `en` 完整英文镜像分支已废弃。
 >
@@ -133,7 +133,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 <!-- BEGIN GENERATED:skill-repos -->
 ## 技能仓库目录
 
-目前索引 **1706** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+目前索引 **1711** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
 
 完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
 
@@ -340,7 +340,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>2. 精选列表 / 大集合（collections）（399）</summary>
+<summary>2. 精选列表 / 大集合（collections）（402）</summary>
 
 - [`Shubhamsaboo/awesome-llm-apps`](https://github.com/Shubhamsaboo/awesome-llm-apps) — 100+ 个开源 AI Agent、Agent Skills 与 RAG 应用；技能可一键安装，带安全/评测 CI，支持 Claude/Codex/Cursor。
 - [`ComposioHQ/awesome-claude-skills`](https://github.com/ComposioHQ/awesome-claude-skills) — Claude Skills 最大社区精选之一，README 收录 1000+ 技能条目。
@@ -703,6 +703,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`philipbankier/awesome-agent-skills`](https://github.com/philipbankier/awesome-agent-skills) — 跨平台 Agent Skills/工具/插件精选目录。
 - [`ProxiBlue/claude-skills`](https://github.com/ProxiBlue/claude-skills) — Claude Skills 实验合集。
 - [`rdmgator12/awesome-claude-plugins`](https://github.com/rdmgator12/awesome-claude-plugins) — Anthropic Claude Plugins 目录镜像索引
+- [`SkillMedev/skills`](https://github.com/SkillMedev/skills) — 开放的 MIT 技能目录：475 个可移植 SKILL.md，支持 Claude Code、Cursor、Gemini CLI 与 Codex。
 - [`Unknown-333/awesome-data-engineering-skills`](https://github.com/Unknown-333/awesome-data-engineering-skills) — 数据工程（dbt/Airflow/Spark 等）Agent Skills 精选
 - [`beeyev/skills`](https://github.com/beeyev/skills) — 小型 Agent Skills 集合，含 GitLab CI Handbook 等可安装技能
 - [`StudentSuite/awesome-skills-plugins-for-students`](https://github.com/StudentSuite/awesome-skills-plugins-for-students) — 面向学生的 Skills/插件精选
@@ -741,6 +742,8 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`Bang-isme/CodexAI---Skills`](https://github.com/Bang-isme/CodexAI---Skills) — 端到端开发工作流 Codex Skills 包。
 - [`kevinaimonster/skill-hub`](https://github.com/kevinaimonster/skill-hub) — 中文技能宝50+可安装Skills；npx skills add --full-depth。
 - [`flowkit-labs/skills`](https://github.com/flowkit-labs/skills) — Flowkit Skills；skills.sh热装。
+- [`shengyy/agent-skills`](https://github.com/shengyy/agent-skills) — 可复用的 MIT 许可 AI Agent Skills，支持 Claude Code、Codex、Cursor 等工具，可用 npx skills 安装。
+- [`sensein/agent_skills`](https://github.com/sensein/agent_skills) — Apache-2.0 许可的 Agent Skills、工具与工作流合集，以可校验的 SKILL.md 目录组织。
 
 </details>
 
@@ -1585,7 +1588,7 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 </details>
 
 <details>
-<summary>4. 安装器 / 注册表 / 基础设施（infra）（143）</summary>
+<summary>4. 安装器 / 注册表 / 基础设施（infra）（145）</summary>
 
 - [`thedotmack/claude-mem`](https://github.com/thedotmack/claude-mem) — claude-mem：跨会话持久上下文记忆（捕获 agent 全程活动）。
 - [`Fission-AI/OpenSpec`](https://github.com/Fission-AI/OpenSpec) — 规格驱动开发 OpenSpec（含 agent skills）。
@@ -1730,6 +1733,8 @@ AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来�
 - [`EvolveHQ/docflow`](https://github.com/EvolveHQ/docflow) — ADR 驱动文档工作流 Skills（Claude Code / pi）
 - [`ianustec/openwebui-skill-creator`](https://github.com/ianustec/openwebui-skill-creator) — Open WebUI Tool：访谈→起草→校验→持久化 Workspace Skill（SKILL.md），默认私有。
 - [`CyrilLeMat/temper-skills`](https://github.com/CyrilLeMat/temper-skills) — Temper：Skill 决策逻辑对抗测试/冻结工具；Claude Code 内 `/temper`，技能位于 `.claude/skills`。
+- [`skillmds/skillmd`](https://github.com/skillmds/skillmd) — MIT 许可的 SKILL.md 注册表工具链：CLI、MCP 服务、Lint、安全扫描、质量评分与 GitHub Action。
+- [`skill-one/agents-skills`](https://github.com/skill-one/agents-skills) — Apache-2.0 许可的 Rust 库与 CLI：为 70+ 编码 Agent 安装和管理 SKILL.md。
 
 </details>
 

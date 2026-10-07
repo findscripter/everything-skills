@@ -6,9 +6,9 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-04（Asia/Shanghai）；日常增量索引 part58
+- 编制日期：2026-10-07（Asia/Shanghai）；日常增量索引 part59
 - Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1706 个独立仓库（另注明更名别名）
+- 收录条数：1711 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
 
 ## 检索与截断
@@ -638,6 +638,9 @@
 | [WYRE-AI/msp-claude-plugins](https://github.com/WYRE-AI/msp-claude-plugins) | 46 | 面向 MSP 的 Claude Code 插件市场：80+ PSA/RMM/安全/财务等供应商插件与跨工具工作流包。 | Apache-2.0 | 80+ | 仅索引 |
 | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | 140,656 | 100+ 个开源 AI Agent、Agent Skills 与 RAG 应用；技能可一键安装，带安全/评测 CI，支持 Claude/Codex/Cursor。 | Apache-2.0 | 100+ | 仅索引 |
 | [dzhng/skills](https://github.com/dzhng/skills) | 976 | 软件工厂通用 Agent Skills 合集：探索未知、自动研究、规格编写等可组合工作流，可用 npx 安装并兼容 Claude Code、Codex 等 harness。 | MIT | 多技能 | 仅索引 |
+| [SkillMedev/skills](https://github.com/SkillMedev/skills) | 17 | 开放的 MIT 技能目录：475 个可移植 SKILL.md，支持 Claude Code、Cursor、Gemini CLI 与 Codex。 | MIT | 475 | 仅索引 |
+| [shengyy/agent-skills](https://github.com/shengyy/agent-skills) | 2 | 可复用的 MIT 许可 AI Agent Skills，支持 Claude Code、Codex、Cursor 等工具，可用 npx skills 安装。 | MIT | 多技能 | 仅索引 |
+| [sensein/agent_skills](https://github.com/sensein/agent_skills) | 1 | Apache-2.0 许可的 Agent Skills、工具与工作流合集，以可校验的 SKILL.md 目录组织。 | Apache-2.0 | 多技能 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1625,6 +1628,8 @@
 | [PyModel/niblet-skill-mcp](https://github.com/PyModel/niblet-skill-mcp) | 21 | UI 设计 MCP + design skill：用真实产品截图/素材接地编码代理的界面工作。 | Apache-2.0 | 1+MCP | 仅索引 |
 | [jacob-bd/gemini-notebook-mcp-cli](https://github.com/jacob-bd/gemini-notebook-mcp-cli) | 6,220 | Gemini Notebook CLI + MCP 服务与可安装技能，支持 Claude/Codex/Cursor/Gemini CLI 等多种 Agent 工具。 | MIT | 1+MCP | 仅索引 |
 | [jiweiyeah/Skills-Manager](https://github.com/jiweiyeah/Skills-Manager) | 1,009 | 跨平台 Agent Skills 管理器：以 symlink 将一套技能同步到 32 个 AI 编码工具，含市场、启停、adopt 与 doctor CLI。 | MIT | 管理器 | 仅索引 |
+| [skillmds/skillmd](https://github.com/skillmds/skillmd) | 1 | MIT 许可的 SKILL.md 注册表工具链：CLI、MCP 服务、Lint、安全扫描、质量评分与 GitHub Action。 | MIT | 注册表/CLI | 仅索引 |
+| [skill-one/agents-skills](https://github.com/skill-one/agents-skills) | 0 | Apache-2.0 许可的 Rust 库与 CLI：为 70+ 编码 Agent 安装和管理 SKILL.md。 | Apache-2.0 | 管理器/CLI | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
