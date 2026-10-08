@@ -43,6 +43,7 @@ const CN2DIR = new Map(VOLS.map(v => [v.cn, v.dir]));
 
 const REQUIRED = ['name', 'title', 'description', 'domain', 'status', 'agents'];
 const REL_FIELDS = ['requires', 'related', 'combines_with'];
+const ARRAY_FIELDS = ['agents', ...REL_FIELDS, 'supersedes', 'tags', 'tools', 'triggers'];
 const UNDIRECTED = new Set(['related', 'combines_with']);
 const KNOWN_AGENTS = new Set(['claude-code', 'codex', 'cursor', 'gemini-cli', 'copilot', 'windsurf', 'aider', 'cline']);
 const DESC_WARN_LEN = 200;
@@ -77,6 +78,45 @@ async function collect(dir, acc = []) {
   return acc;
 }
 
+// 保留 flow 数组元素的基本类型，避免把数字、布尔值等强行当成字符串。
+// 带引号的逗号属于字符串内容，不是数组分隔符。
+function parseInlineArray(value) {
+  const body = value.slice(1, -1);
+  if (!body.trim()) return [];
+  const parts = [];
+  let part = '', quote = '';
+  for (let i = 0; i < body.length; i++) {
+    const char = body[i];
+    if (quote) {
+      part += char;
+      if (quote === '"' && char === '\\' && i + 1 < body.length) part += body[++i];
+      else if (char === quote) {
+        if (quote === "'" && body[i + 1] === "'") part += body[++i];
+        else quote = '';
+      }
+    } else if ((char === '"' || char === "'") && !part.trim()) {
+      quote = char;
+      part += char;
+    } else if (char === ',') {
+      parts.push(part.trim());
+      part = '';
+    } else part += char;
+  }
+  if (quote) return null;
+  parts.push(part.trim());
+  return parts.map(item => {
+    if (item.startsWith('"')) {
+      try { return JSON.parse(item); } catch { return null; }
+    }
+    if (item.startsWith("'"))
+      return item.endsWith("'") ? item.slice(1, -1).replaceAll("''", "'") : null;
+    if (/^(null|~)$/i.test(item) || /^[\[{]/.test(item)) return null;
+    if (/^(true|false)$/i.test(item)) return item.toLowerCase() === 'true';
+    if (/^[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[-+]?\d+)?$/i.test(item)) return Number(item);
+    return item;
+  });
+}
+
 // 极简 frontmatter 解析（scalar / inline 数组 / 单行 description）+ 多行值告警
 function parseFrontmatter(raw, file) {
   const lines = raw.replace(/^﻿/, '').split(/\r?\n/);
@@ -92,7 +132,7 @@ function parseFrontmatter(raw, file) {
     const key = m[1];
     let val = m[2].trim();
     if (val.startsWith('[') && val.endsWith(']'))
-      fm[key] = val.slice(1, -1).split(',').map(s => s.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+      fm[key] = parseInlineArray(val);
     else fm[key] = val.replace(/^["']|["']$/g, '');
   }
   if (!closed) errors.push(`${file}: frontmatter 未闭合（缺少结束 ---）`);
@@ -112,6 +152,15 @@ function validate(s) {
     const v = fm[k];
     if (v === undefined || v === '' || (Array.isArray(v) && v.length === 0))
       errors.push(`${relOf(file)}: 缺少必填字段 "${k}"`);
+  }
+  for (const key of REQUIRED.filter(key => key !== 'agents')) {
+    if (fm[key] !== undefined && typeof fm[key] !== 'string')
+      errors.push(`${relOf(file)}: 字段 "${key}" 须为字符串`);
+  }
+  for (const key of ARRAY_FIELDS) {
+    const value = fm[key];
+    if (value !== undefined && (!Array.isArray(value) || value.some(item => typeof item !== 'string' || !item.trim())))
+      errors.push(`${relOf(file)}: 字段 "${key}" 须为非空字符串组成的数组（可用 [] 表示空数组）`);
   }
   if (!DIR2VOL.has(vol)) { warnings.push(`${relOf(file)}: 顶层目录 "${vol}" 不在已知卷中`); }
   if (fm.name && fm.name !== folder) errors.push(`${relOf(file)}: name "${fm.name}" 与文件夹 "${folder}" 不一致`);
@@ -135,10 +184,18 @@ function validate(s) {
     if (fm.description.length > DESC_WARN_LEN) warnings.push(`${relOf(file)}: description 过长(${fm.description.length}>${DESC_WARN_LEN})，挤占发现上下文预算`);
     if (!/触发词[:：]/.test(fm.description)) warnings.push(`${relOf(file)}: description 缺「触发词：」段，建议补充以提升召回`);
   }
-  for (const a of (fm.agents || [])) if (!KNOWN_AGENTS.has(a)) warnings.push(`${relOf(file)}: 未知 agent "${a}"（受控词表外）`);
-  if (fm.source && !fm.source_license) warnings.push(`${relOf(file)}: 有 source 但缺 source_license（采编须注明原始许可）`);
+  for (const a of (Array.isArray(fm.agents) ? fm.agents : [])) if (!KNOWN_AGENTS.has(a)) warnings.push(`${relOf(file)}: 未知 agent "${a}"（受控词表外）`);
+  if (fm.source && (typeof fm.source_license !== 'string' || !fm.source_license.trim()))
+    errors.push(`${relOf(file)}: 有 source 但缺有效 source_license（采编须注明原始许可）`);
   if (fm.source_license && /proprietary|source-available|all rights reserved|未授权/i.test(fm.source_license))
     errors.push(`${relOf(file)}: source_license="${fm.source_license}" 不可再分发，不得采编其内容`);
+}
+
+function exitOnErrors() {
+  if (!errors.length) return;
+  console.error(`\n✗ 错误 ${errors.length}：`);
+  for (const error of errors) console.error('  - ' + error);
+  process.exit(1);
 }
 
 // ---------- 主流程 ----------
@@ -183,14 +240,46 @@ for (const s of skills) {
   else byName.set(s.fm.name, s);
 }
 for (const s of skills) validate(s);
+// 类型错误先终止，后续图谱和渲染只能消费已通过契约校验的元数据。
+exitOnErrors();
 
-// 弃用链校验
+// supersedes 是新技能 → 被取代旧技能；反向查找旧技能的继任者。
+const successors = new Map();
 for (const s of skills) {
-  if (s.fm.status === 'deprecated') {
-    const sup = s.fm.supersedes || [];
-    if (!sup.length) errors.push(`${relOf(s.file)}: status=deprecated 但缺 supersedes（继任技能）`);
-    for (const t of sup) if (!byName.has(t)) errors.push(`${relOf(s.file)}: supersedes → "${t}" 不存在`);
+  for (const oldName of (s.fm.supersedes || [])) {
+    const old = byName.get(oldName);
+    if (!old) { errors.push(`${relOf(s.file)}: supersedes → "${oldName}" 不存在`); continue; }
+    if (old === s) { errors.push(`${relOf(s.file)}: supersedes 不可取代自身`); continue; }
+    if (old.fm.status !== 'deprecated')
+      errors.push(`${relOf(s.file)}: supersedes → "${oldName}" 须标记 status=deprecated`);
+    if (!successors.has(oldName)) successors.set(oldName, []);
+    successors.get(oldName).push(s.fm.name);
   }
+}
+{
+  const state = new Map(), stack = [];
+  const visit = name => {
+    state.set(name, 'visiting');
+    stack.push(name);
+    for (const next of (successors.get(name) || [])) {
+      if (state.get(next) === 'visiting')
+        errors.push(`supersedes 继任链成环：${[...stack.slice(stack.indexOf(next)), next].join(' → ')}`);
+      else if (!state.has(next)) visit(next);
+    }
+    stack.pop();
+    state.set(name, 'done');
+  };
+  for (const name of byName.keys()) if (!state.has(name)) visit(name);
+}
+function hasActiveSuccessor(name, seen = new Set()) {
+  if (seen.has(name)) return false;
+  seen.add(name);
+  return (successors.get(name) || []).some(next =>
+    byName.get(next).fm.status !== 'deprecated' || hasActiveSuccessor(next, seen));
+}
+for (const s of skills) {
+  if (s.fm.status === 'deprecated' && !hasActiveSuccessor(s.fm.name))
+    errors.push(`${relOf(s.file)}: status=deprecated 但无可用继任技能（由新技能 supersedes 声明，继任链不能成环）`);
 }
 
 // 互见边 + 悬空(error) + 指向 deprecated(error)
@@ -260,7 +349,7 @@ async function flushWrites() {
   }
 }
 const stamp = '> 本文件由 scripts/build-index.mjs 自动生成，请勿手改。\n';
-const linkOf = s => `${s.vol}/${s.folder}/SKILL.md`;
+const linkOf = s => relOf(s.file);
 const sorted = [...skills].sort((a, b) => (a.fm.name || '').localeCompare(b.fm.name || ''));
 
 // catalog.md
@@ -409,7 +498,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
   const records = skills.map(s => ({
     name: s.fm.name, title: s.fm.title, vol: s.vol, domain: s.fm.domain,
     level: s.fm.level || '', status: s.fm.status || '',
-    tags: s.fm.tags || [], triggers: parseTriggers(s.fm.description),
+    tags: s.fm.tags || [], triggers: s.fm.triggers ?? parseTriggers(s.fm.description),
     description: s.fm.description || '', path: linkOf(s),
   }));
   stageWrite(path.join(INDEX, 'search.json'), JSON.stringify(records, null, 2));
@@ -439,7 +528,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
       description: `${v.title} —— ${list.length} 个技能`,
       source: './',
       strict: false,
-      skills: list.map(s => `./${v.dir}/${s.folder}`),
+      skills: list.map(s => `./${path.posix.dirname(linkOf(s))}`),
     });
   }
   const mp = {
@@ -519,7 +608,7 @@ See per-skill \`source_license\` and \`INDEX/sources.md\`, plus \`LICENSE\` and 
 // ---------- 汇报 ----------
 console.log(`扫描到 ${skills.length} 条技能，${edges.length} 条互见边。`);
 if (warnings.length) { console.log(`\n⚠ 警告 ${warnings.length}：`); for (const w of warnings) console.log('  - ' + w); }
-if (errors.length) { console.error(`\n✗ 错误 ${errors.length}：`); for (const e of errors) console.error('  - ' + e); process.exit(1); }
+exitOnErrors();
 try {
   await flushWrites();
 } catch (error) {

@@ -11,8 +11,8 @@
 | `title` | ✅ | string | 中文标题（如 `PDF 表单填写`） |
 | `description` | ✅ | string（单行） | **最关键字段**，Agent 靠它匹配。用结构化模板：`当〈场景〉时使用；做〈动作+产物〉；不适用于〈负边界〉；触发词：a、b、c`。单行 |
 | `triggers` |  | string[] | （推荐）显式触发词；缺省时生成器从 description 的「触发词：」自动解析入 search.json |
-| `domain` | ✅ | string | 浏览坐标，`卷中文/类`，如 `文书/Office`（**卷中文须与所在目录一致，生成器强校验**） |
-| `tags` |  | string[] | （可选）人类索引用；Agent 发现**不读** tags，勿依赖它召回 |
+| `domain` | ✅ | string | 浏览坐标，`卷中文/类`，如 `文书/office`（**卷中文须与所在目录一致，类名使用 taxonomy.json 中的 ASCII slug，生成器强校验**） |
+| `tags` |  | string[] | （可选）人工检索与两段式发现的粗筛条件；最终仍按 description 匹配任务 |
 | `level` |  | enum | （可选）`入门` \| `进阶` \| `精通`；主要给人看，对发现无用 |
 | `status` | ✅ | enum | `draft` \| `stable` \| `deprecated` |
 | `version` |  | string | （可选）语义化版本；当前无工具消费，属预留 |
@@ -22,7 +22,7 @@
 | `related` |  | string[] | **互见**：相关但不互相依赖的技能 `name` |
 | `combines_with` |  | string[] | **组合**：常与之搭配解决更大问题的技能 `name` |
 | `supersedes` |  | string[] | 本技能取代的旧技能 `name`（配合 `deprecated` 使用） |
-| `license` |  | string | 默认 `CC-BY-4.0`（弱 copyleft，利于单包自由复制/商用集成） |
+| `license` |  | string | 原创条目默认 `CC-BY-4.0`（署名许可）；采编条目保留各自上游许可，见 LICENSE / NOTICE |
 | `schema_version` |  | string | （可选，约定 `1`）字段演进时的迁移依据，见 [ROADMAP.md](ROADMAP.md) |
 | `source` |  | string | 采编来源（repo slug/URL）。采自第三方时必填，自动汇入 `INDEX/sources.md` |
 | `source_license` |  | string | 源技能原始许可（Apache-2.0/MIT/CC-BY…）。**专有 / source-available / 无许可 → 禁止采编其内容，生成器报 error** |
@@ -33,7 +33,7 @@
 - `related` → 无向边「互见」：横向相关，供发散查找。
 - `combines_with` → 无向边「组合」：协同使用（驱动**组合推荐**）。
 
-生成器会校验：互见指向的 `name` 必须真实存在，否则报「悬空互见」警告。
+生成器会校验：互见指向的 `name` 必须真实存在，否则报「悬空互见」错误。
 
 ## 发现机制（两段式）
 
@@ -75,4 +75,4 @@ Agent 发现技能靠 `description` 语义匹配，不浏览目录。规模化�
 2. **`description` 含触发词**：想清楚用户会怎么说，把那些词放进去（决定 Agent 能否命中）。
 3. **`description` 单行**：不要用多行 `>`/`|`，保证零依赖解析器稳定。
 4. **token 精简**：正文为执行服务，不堆背景知识。
-5. **跑校验**：提交前 `node scripts/build-index.mjs`，确保无必填缺失、无悬空互见、无重名。
+5. **跑校验**：按目标分支选择统一入口 `node scripts/build-all.mjs --lang=en`（main）或 `node scripts/build-all.mjs --lang=zh`（zh），确保无必填缺失、无悬空互见、无重名，并提交生成物。

@@ -7,8 +7,10 @@
 
 上游来源与许可
 --------------
+以下许可标签汇总自当前各条 SKILL.md 的 source_license；逐条记录以 INDEX/sources.md 为准。
   · anthropics/skills                      — Apache-2.0
   · anthropics/financial-services          — Apache-2.0
+  · anthropics/knowledge-work-plugins      — Apache-2.0
   · anthropics/claude-for-legal            — Apache-2.0
   · wshobson/agents                        — MIT
   · alirezarezvani/claude-skills           — MIT
@@ -18,6 +20,12 @@
   · K-Dense-AI/scientific-agent-skills     — MIT（逐条核验，仅收录可再分发条目）
   · sickn33/antigravity-awesome-skills     — MIT（逐条核验，仅收录可再分发条目）
   · trailofbits/skills                     — CC BY-SA 4.0（改编条目同以 CC BY-SA 4.0 提供）
+  · affaan-m/everything-claude-code         — MIT
+  · jeffallan/claude-skills                 — MIT
+  · aaron-he-zhu/seo-geo-claude-skills      — MIT
+  · jaechang-hits/SciAgent-Skills           — CC-BY-4.0 / CC0-1.0（按条目）
+  · tradermonty/claude-trading-skills       — MIT
+  · OctagonAI/skills                       — MIT
 
 说明
 ----
@@ -25,7 +33,7 @@
     精简内容。技术要点与关键约束尽量忠实于上游。
   - 仅收录原始许可允许再分发的条目；专有 / 仅源代码可见 / 无许可 / 非商业(NC) /
     GPL 系的条目均已排除。
-  - 完整的逐条来源—许可对照表，见 INDEX/sources.md（共 537 条采编条目）。
+  - 完整的逐条来源—许可对照表，见 INDEX/sources.md（2026-10-08 快照：1097 条采编条目、18 个上游；动态数量以该索引为准）。
 
 如你是上述任一项目的作者，希望调整署名方式、或认为某条收录不当，请提 issue，
 我们会尽快配合更正或移除。

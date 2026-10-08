@@ -3,7 +3,7 @@ name: gwas-catalog-database
 title: GWAS Catalog 关联查询
 description: 当需要从 NHGRI-EBI GWAS Catalog REST API 查已发表 GWAS 的 SNP-性状关联、按性状(EFO)/变异(rsID)/基因/区域/PMID 检索、做疾病遗传结构/多效性/曼哈顿图取数时使用；做 HAL+JSON 取数并产出关联表、显著位点清单或汇总统计 FTP 路径；不适用于变异功能注释(用 gget/Ensembl VEP)、人群频率(用 gnomAD)、致病性判定(用 ClinVar)、药靶验证(用 OpenTargets)；触发词：GWAS、GWAS Catalog、SNP 关联、rsID、EFO、性状关联、全基因组显著、5e-8、多效性、汇总统计、PRS、曼哈顿图
 domain: 领域/science
-triggers: [GWAS, GWAS Catalog, SNP 关联, rsID, EFO, 性状关联, 全基因组显著, 5e-8, 多效性, pleiotropy, 汇总统计, summary statistics, PRS, 曼哈顿图, Manhattan plot, PMID 检索]
+triggers: [GWAS, GWAS Catalog, SNP 关联, rsID, EFO, 性状关联, 全基因组显著, "5e-8", 多效性, pleiotropy, 汇总统计, summary statistics, PRS, 曼哈顿图, Manhattan plot, PMID 检索]
 tags: [science, bioinformatics, genomics, gwas, gwas-catalog, rest-api, snp, efo, association, variant]
 level: 进阶
 status: stable

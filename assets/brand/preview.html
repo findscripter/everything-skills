@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Everything Skills · Brand preview</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; color: #283d32; background: #e8e4d7; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+  main { width: min(1200px, calc(100% - 48px)); margin: 44px auto 80px; }
+  header { display: flex; align-items: center; gap: 18px; margin-bottom: 32px; }
+  header img { width: 64px; }
+  h1 { font-size: 23px; margin: 0 0 5px; }
+  p { margin: 0; color: #586b5d; font-size: 14px; }
+  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .label { margin: 32px 0 12px; font-size: 12px; letter-spacing: 2px; font-weight: 600; }
+  .wide { display: block; width: 100%; height: auto; }
+  .marks { display: flex; gap: 24px; flex-wrap: wrap; }
+  figure { margin: 0; }
+  .marks img { width: 112px; height: 112px; }
+  figcaption { font-size: 12px; margin-top: 10px; }
+  footer { margin-top: 32px; font-size: 13px; line-height: 1.8; }
+  @media (prefers-color-scheme: dark) { body { color: #f3eddc; background: #0b1411; } p { color: #9ab0a2; } }
+  @media (max-width: 600px) { main { width: calc(100% - 28px); margin-top: 24px; } h1 { font-size: 18px; } }
+</style>
+<main>
+  <header><picture><source media="(prefers-reduced-motion: reduce)" srcset="logo-static.svg" /><img src="logo.svg" alt="开卷互见 Logo" /></picture><div><h1>Everything Skills · 开卷互见</h1><p>墨绿、纸色、暖金与玉色。书页归类，节点互见。</p></div></header>
+  <picture><source media="(prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="hero-mobile-static.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="hero-static.svg" /><source media="(max-width: 600px)" srcset="hero-mobile.svg" /><img class="wide" src="hero.svg" alt="Everything Skills 动画首页横幅" /></picture>
+  <p class="label">01 / A LIVING LIBRARY</p>
+  <picture><source media="(max-width: 600px)" srcset="stats-mobile.svg" /><img class="wide" src="stats.svg" alt="从索引生成的四项规模统计" /></picture>
+  <p class="label">02 / DISCOVER · CONNECT · COMPOSE</p>
+  <picture><source media="(max-width: 600px)" srcset="workflow-mobile.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="workflow-static.svg" /><img class="wide" src="workflow.svg" alt="发现、关联、组合三个阶段" /></picture>
+  <p class="label">03 / THE OPEN FOLIO</p>
+  <div class="marks"><figure><picture><source media="(prefers-reduced-motion: reduce)" srcset="logo-static.svg" /><img src="logo.svg" alt="动画 Logo" /></picture><figcaption>动画 · 10.8 秒呼吸与描线</figcaption></figure><figure><img src="logo-static.svg" alt="静态 Logo" /><figcaption>静态 · 分享与印刷</figcaption></figure></div>
+  <footer>所有素材均为独立 SVG，无脚本、外部字体或网络依赖。动画响应系统“减少动态效果”设置。<br /><a href="hero-static.svg">静态横幅</a> · <a href="workflow-static.svg">静态流程图</a> · <a href="../../README.md">项目 README</a></footer>
+</main>
+</html>

@@ -3,7 +3,7 @@ name: worker-classification-analyzer
 title: 用工关系分类分析
 description: 当需要在用工关系正式开始前判定其性质（雇员/独立承包人/派遣临时工/供应商外包）并核对意图结构与事实是否一致时使用；做基于司法辖区适用判定标准的逐要素分析，产出分类结论、要素逐项评分表与差距清单（产物）；不适用于对已存在的用工关系做事后追溯重分类、起草合同或补救方案。触发词：用工分类、worker classification、独立承包人、independent contractor、1099、雇员还是承包人、员工误分类、misclassification、ABC test、是供应商还是派遣
 domain: 领域/legal
-triggers: [用工分类, worker classification, 独立承包人, independent contractor, 1099, 雇员还是承包人, 员工误分类, misclassification, ABC test, 是供应商还是派遣, 如何给这个人分类, 新招一个承包商]
+triggers: [用工分类, worker classification, 独立承包人, independent contractor, "1099", 雇员还是承包人, 员工误分类, misclassification, ABC test, 是供应商还是派遣, 如何给这个人分类, 新招一个承包商]
 tags: [legal, employment, worker-classification, compliance, misclassification, labor-law]
 level: 进阶
 status: stable

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192" role="img" aria-labelledby="logo-title logo-desc">
+  <title id="logo-title">Everything Skills — 开卷互见</title>
+  <desc id="logo-desc">深墨绿底上的一册展开的书，左页刻出字母 E，右页以玉色节点连接技能，金线延伸至书外。关系线缓慢描绘，节点轻微呼吸；系统减少动态效果时显示完整静态图形。</desc>
+  <defs>
+    <radialGradient id="page-glow" cx="50%" cy="45%" r="65%">
+      <stop offset="0" stop-color="#90b8a7" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#90b8a7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="folio-shade" x1="101" y1="55" x2="150" y2="134" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#90b8a7" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#90b8a7" stop-opacity=".035"/>
+    </linearGradient>
+    <style>
+      .network-trace { stroke-dasharray: 1; stroke-dashoffset: 0; }
+      @media (prefers-reduced-motion: no-preference) {
+        .network-trace { animation: trace 10.8s ease-in-out infinite; }
+        .network-trace.secondary { animation-delay: -3.6s; }
+        .node-halo { transform-box: fill-box; transform-origin: center; animation: breathe 10.8s ease-in-out infinite; }
+        .node-halo.secondary { animation-delay: -3.6s; }
+      }
+      @keyframes trace {
+        0%, 8% { stroke-dashoffset: 1; }
+        38%, 76% { stroke-dashoffset: 0; }
+        100% { stroke-dashoffset: -1; }
+      }
+      @keyframes breathe {
+        0%, 100% { transform: scale(1); opacity: .24; }
+        42%, 58% { transform: scale(1.22); opacity: .48; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .network-trace { animation: none; stroke-dashoffset: 0; }
+        .node-halo { animation: none; transform: none; opacity: .3; }
+      }
+    </style>
+  </defs>
+  <rect width="192" height="192" rx="38" fill="#111d1a"/>
+  <rect x="8" y="8" width="176" height="176" rx="31" fill="url(#page-glow)" stroke="#90b8a7" stroke-opacity=".2"/>
+  <path d="M42 58C61 52 80 53 95 63V137C80 127 61 124 42 130Z" fill="#f3eddc"/>
+  <path d="M101 63C116 53 134 52 151 58V130C134 124 116 127 101 137Z" fill="url(#folio-shade)" stroke="#deb46c" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M98 66V136" fill="none" stroke="#deb46c" stroke-width="2" stroke-linecap="round"/>
+  <path d="M59 74V115M59 74L79 75M59 94L77 95M59 115L82 119" fill="none" stroke="#111d1a" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M115 75Q126 71 135 84Q126 92 118 102L139 112M115 75Q111 89 118 102L114 122M135 84L139 112" stroke="#90b8a7" stroke-opacity=".3"/>
+    <path d="M135 84C151 76 158 58 153 39" stroke="#deb46c" stroke-opacity=".28"/>
+    <path class="network-trace" pathLength="1" d="M115 75Q126 71 135 84Q126 92 118 102L139 112" stroke="#90b8a7"/>
+    <path class="network-trace secondary" pathLength="1" d="M115 75Q111 89 118 102L114 122M135 84L139 112" stroke="#90b8a7"/>
+    <path class="network-trace secondary" pathLength="1" d="M135 84C151 76 158 58 153 39" stroke="#deb46c"/>
+  </g>
+  <g fill="none" stroke="#90b8a7" stroke-width="1">
+    <circle class="node-halo" cx="118" cy="102" r="7" opacity=".3"/>
+    <circle class="node-halo secondary" cx="153" cy="39" r="8" opacity=".3" stroke="#deb46c"/>
+  </g>
+  <g stroke="#111d1a" stroke-width="1.5">
+    <circle cx="115" cy="75" r="3.6" fill="#90b8a7"/>
+    <circle cx="135" cy="84" r="3.6" fill="#90b8a7"/>
+    <circle cx="118" cy="102" r="4.2" fill="#deb46c"/>
+    <circle cx="139" cy="112" r="3.6" fill="#90b8a7"/>
+    <circle cx="114" cy="122" r="3.2" fill="#90b8a7"/>
+    <circle cx="153" cy="39" r="4.8" fill="#deb46c"/>
+  </g>
+  <path d="M72 150H92M104 150H123" fill="none" stroke="#deb46c" stroke-opacity=".45" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M98 147L101 150L98 153L95 150Z" fill="#deb46c"/>
+  <rect x="142" y="145" width="13" height="13" rx="2" fill="#e88f76"/>
+  <path d="M146 148V155M151 148V155M146 151H151" fill="none" stroke="#111d1a" stroke-width="1.25" stroke-linecap="round"/>
+</svg>

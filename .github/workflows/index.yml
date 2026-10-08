@@ -25,5 +25,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Verify index and brand regression tests
+        run: npm test
       - name: Validate and regenerate all indexes
         run: node scripts/check-generated.mjs --lang="$SKILL_LANG"

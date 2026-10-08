@@ -3,7 +3,7 @@ name: zoom-oauth-setup
 title: Zoom 认证与 OAuth 实现
 description: 当为 Zoom 集成做认证决策（选应用类型、选授权模式、规划 scope、实现令牌刷新、排查 OAuth 报错）时使用；做一套覆盖账户级 S2S、用户授权码、设备码、Chatbot 四种 grant 的可执行实现，含令牌交换/刷新、PKCE、scope 选型与 4700-4741 错误对照；不适用于 Zoom SDK 嵌入/RTMS/MCP 等非认证问题；触发词：Zoom OAuth、access token、refresh token、account_credentials、PKCE、设备码、4709、4735、scope。
 domain: 平台/integration
-triggers: [Zoom OAuth, Zoom 认证, access token, refresh token, account_credentials, authorization_code, PKCE, 设备码授权, redirect_uri 不匹配, 4709, 4735, S2S OAuth, Zoom scope]
+triggers: [Zoom OAuth, Zoom 认证, access token, refresh token, account_credentials, authorization_code, PKCE, 设备码授权, redirect_uri 不匹配, "4709", "4735", S2S OAuth, Zoom scope]
 tags: [zoom, oauth, authentication, access-token, refresh-token, pkce, s2s-oauth, scopes, integration, platform]
 level: 进阶
 status: stable

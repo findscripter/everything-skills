@@ -14,6 +14,9 @@
     "build:index": "node scripts/build-index.mjs --lang=en",
     "build:index:zh": "node scripts/build-index.mjs --lang=zh",
     "build:repos": "node scripts/build-skill-repos.mjs --lang=en",
-    "build:repos:zh": "node scripts/build-skill-repos.mjs --lang=zh"
+    "build:repos:zh": "node scripts/build-skill-repos.mjs --lang=zh",
+    "build:brand": "node scripts/build-brand.mjs --lang=en",
+    "build:brand:zh": "node scripts/build-brand.mjs --lang=zh",
+    "test": "node --test tests/brand.test.mjs tests/index-pipeline.test.mjs"
   }
 }

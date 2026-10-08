@@ -8,11 +8,14 @@
 2. **建文件夹**：在对应卷目录下建 `your-skill-name/`（ASCII kebab-case，全库唯一），复制 [`_template/SKILL.md`](_template/SKILL.md) 进去。
 3. **填 frontmatter**：按 [SCHEMA.md](SCHEMA.md) 填写。重点打磨 `description`——把用户可能的说法/触发词写进去。
 4. **写正文**：固定小节（何时使用 / 步骤 / 示例 / 注意事项 / 互见），精简可执行。
-5. **校验**：运行
+5. **校验**：按目标分支选择一种语言，运行统一生成入口：
    ```bash
-   node scripts/build-index.mjs
+   # main：英文仓库界面
+   node scripts/build-all.mjs --lang=en
+   # zh：中文仓库界面
+   node scripts/build-all.mjs --lang=zh
    ```
-   确保：无必填字段缺失、无 `name` 重复、无悬空互见（指向不存在的技能）。生成器会顺带重建 `INDEX/`。
+   确保：无必填字段缺失、无 `name` 重复、无悬空互见（指向不存在的技能）。统一入口会重建技能索引、外部仓库目录和同源上下文；将对应生成物一并提交。
 
 ## 质量清单（PR 自检）
 
@@ -22,7 +25,7 @@
 - [ ] 单一职责：只做一件事
 - [ ] 互见字段指向的技能真实存在；至少与 1 条已有技能建立 `related`/`requires`/`combines_with` 关系（避免孤岛）
 - [ ] 正文给 Agent 执行用，无百科式冗余
-- [ ] 本地跑过 `build-index.mjs`，零报错
+- [ ] 本地跑过对应语言的 `build-all.mjs --lang=en|zh`，零报错；生成物已提交
 
 ## 互见怎么连（避免孤岛）
 
@@ -41,7 +44,7 @@
 |---|---|---|
 | 写邮件 / 文案 / 对内沟通 | 营销转化→`商业/copy`；对外长文档→`文书/writing`；对内表达·提问→`通用/communication` | 按**面向受众**切，不按「写」这个动作切 |
 | 自动化 / 运维 / 智能体编排 | 本地脚本→`协作/automation`；交付与运行时→`研发/devops`；多步 LLM 决策→`智能/agents`；接三方系统→`平台/integration` | 按**被编排对象**切 |
-| 代码审查 / 安全审计 | 通用质量→`研发/review`；漏洞与依赖→`安全/appsec`·`安全/审计` | 按**找什么**切 |
+| 代码审查 / 安全审计 | 通用质量→`研发/review`；漏洞与依赖→`安全/appsec`·`安全/audit` | 按**找什么**切 |
 | 行业任务 vs 功能实现 | 行业知识强绑定→`领域/*`；纯功能（清洗/写作/查询）→功能卷 + 行业 `tags` | 见 [TAXONOMY.md](TAXONOMY.md) 正交规则 |
 | 全栈 | 不存在并列的 fullstack 类 | 放主功能类，用 `combines_with` 串联 |
 

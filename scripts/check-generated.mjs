@@ -29,6 +29,7 @@ const generated = [
   'GEMINI.md',
   'gemini-extension.json',
   'README.md',
+  'assets/brand',
 ];
 const status = spawnSync('git', ['status', '--porcelain', '--untracked-files=all', '--', ...generated], {
   cwd: ROOT,

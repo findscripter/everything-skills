@@ -2,7 +2,7 @@
 
 > 来源：对分类法与字段规范做的 3 视角对抗式评审（discovery 发现机制 / maintainer 归位 / scale 规模化）。
 > 三个视角高度收敛。下面区分**已折叠进骨架**与**待办（按 P0–P3）**。
-> **骨架已立、填肉进行中**：1108 条技能已入卷。本 PR 补上 CI，以及 `data/skill-repos.jsonl` → `INDEX/skill-repos.md` 生成器（293 个外部 GitHub 技能库）。
+> **骨架已立、填肉进行中**：截至 2026-10-08，1108 条技能已入卷，另索引 1728 个外部 GitHub 技能库。统一生成与 CI 一致性检查已接入；动态数量以 [技能总目](INDEX/catalog.md) 和 [外部仓库总目](INDEX/skill-repos.md) 为准。
 
 ## ✅ 已折叠进骨架（本次）
 
@@ -17,6 +17,7 @@
 - **verticals 正交规则**：垂直卷只收行业强绑定技能，纯功能实现放功能卷 + 行业 tag。
 - **降噪**：`version` / `level` / `tags` 由必填改为可选；默认 license 由 CC-BY-SA-4.0 → **CC-BY-4.0**（利于单包自由复制）。
 - **类（第二层）受控化**：`taxonomy.json`（卷→合法类枚举）已落地；`build-index.mjs` 对 `domain` 的「类」做 error 级校验。
+- **图谱按卷折叠渲染**：`INDEX/graph.md` 已提供卷级总览与 11 卷折叠子图；大卷按节点度截取展示，完整关系保存在 `INDEX/graph.json`。
 
 ## ⏳ P0（填肉前必须补）
 
@@ -36,7 +37,7 @@
 ## ⏳ P2 / P3
 
 - **受控词表 + 归一**：tags/agents/tools 建词表，`pdf=PDF=PDFs` 别名归一，避免索引碎片化。
-- **图谱分片渲染**：单一 Mermaid 图在数千节点不可渲染——改按卷生成子图；catalog 也分卷。**graph.md 分片仍为 P2。**
+- **大索引浏览**：图谱按卷折叠已完成；后续按浏览需求评估 catalog 分文件、搜索页面和图谱按需展开。
 - **国际化**：`description_en` / `keywords_en`，title 中英并存（服务英文语境 Agent，提升英文触发词召回）。
 - **version 去仪式化**：要么让工具消费它（驱动弃用/兼容/变更日志）并规定 bump 规则，要么删除直到有依赖求解需求。
 

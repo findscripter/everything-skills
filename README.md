@@ -1,135 +1,76 @@
 # 技能大典 · Everything Skills
 
-> 一部面向 **AI Agent** 的技能类书。事以类聚，技以互见。
->
-> 收录可被 Claude Code / Codex / Cursor / Gemini CLI 等智能体直接加载的 `SKILL.md` 技能包，
-> 以中国传统**类书**的「分类 + 互见 + 索引」思想组织，但把实现换成了今天真正能 scale 的形态。
+<!-- BEGIN GENERATED:brand -->
+<p align="center">
+  <a href="INDEX/catalog.md"><picture><source media="(prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="assets/brand/hero-mobile-static.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/brand/hero-static.svg" /><source media="(max-width: 600px)" srcset="assets/brand/hero-mobile.svg" /><img src="assets/brand/hero.svg" alt="Everything Skills — a connected atlas of Agent Skills" width="1200" /></picture></a>
+</p>
 
-> **一键安装**：在 Claude Code 里运行 `/plugin marketplace add findscripter/everything-skills`，即可浏览、按卷分装 11 个插件。也提供 `AGENTS.md` / `GEMINI.md`（+ `gemini-extension.json`）/ `CLAUDE.md` 同源上下文，供 Codex / Gemini CLI / Cursor 等发现使用。
->
-> **语言策略**：`zh` 分支提供中文仓库界面；每条 `SKILL.md` 保留原始/本地语言，不维护第二套完整英文技能树。详见 [LANGUAGE.md](LANGUAGE.md)。
->
-> 本库 1108 条技能；另索引 **1728** 个外部 GitHub 技能库（只读 README）。
->
-> `main` 提供英文仓库界面；历史 `en` 完整英文镜像分支已废弃。
->
-> **安全与许可**：技能本体是给 Agent 的**指令文本**（非可执行程序）；凡涉及脚本/网络调用的已在各自「注意事项」中标注。本库为精选改编合集，逐条来源与许可见 [INDEX/sources.md](INDEX/sources.md)、总说明见 [LICENSE](LICENSE) / [NOTICE](NOTICE)。
+<p align="center"><strong>事以类聚，技以互见。为 AI Agent 编写的技能类书。</strong></p>
 
----
+<p align="center">
+  <a href="INDEX/catalog.md">技能总目</a> · <a href="INDEX/graph.md">关系图谱</a> · <a href="INDEX/skill-repos.md">外部技能库</a> · <a href="CONTRIBUTING.md">贡献指南</a>
+</p>
 
-## 一图看懂：技能互见图谱（节选）
+<p align="center">
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1108 skills · 11 volumes · 6843 relation edges · 1728 indexed repositories" width="1200" /></picture>
+</p>
+<!-- END GENERATED:brand -->
 
-全库 **1108 条技能、6843 条互见边**。整图见 [INDEX/graph.md](INDEX/graph.md)（卷级总览 + 按卷折叠）；以下两张为**示意节选**（由 graph.json 按固定规则自动重绘），便于在 GitHub 上直接渲染。
+## 快速开始
 
-图例：实线箭头 `-->` = 依赖(requires)，虚线 `-.-` = 互见(related)，粗线 `===` = 组合(combines_with)。
+在 Claude Code 中添加插件市场，再选择需要的卷：
 
-**这正是本仓库区别于「平铺列表」的核心：技能不是孤立条目，而是连成网络。**
-
-### 卷级总览（跨卷最强互见）
-
-11 卷之间 Top 14 条单向跨卷边（边标签 = 边数）。
-
-```mermaid
-graph LR
-  通用
-  文书
-  研发
-  数据
-  智能
-  商业
-  创意
-  协作
-  安全
-  领域
-  平台
-  平台 ---|81| 研发
-  创意 ---|76| 研发
-  商业 ---|70| 领域
-  协作 ---|63| 商业
-  数据 ---|58| 领域
-  安全 ---|49| 研发
-  协作 ---|44| 研发
-  协作 ---|41| 通用
-  平台 ---|39| 智能
-  智能 ---|35| 通用
-  安全 ---|33| 领域
-  研发 ---|31| 通用
-  协作 ---|28| 文书
-  商业 ---|24| 研发
+```text
+/plugin marketplace add findscripter/everything-skills
 ```
 
-### 密集聚类示意（RAG / LLM）
+例如，安装研发卷：
 
-以 `production-llm-app-builder` / `rag-pipeline-builder`（生产级 LLM 应用与 RAG 系统构建 / RAG 检索管道搭建）为枢纽的 ego 簇，约 15 个技能 / 36 条边（节点标签为中文标题）。
-
-```mermaid
-graph LR
-  production-llm-app-builder["生产级 LLM 应用与 RAG 系统构建"]
-  rag-pipeline-builder["RAG 检索管道搭建"]
-  embedding-model-strategies["嵌入模型选型与优化"]
-  rag-implementation-workflow["RAG 检索增强实现"]
-  hybrid-search-retrieval["向量与关键词混合检索"]
-  vector-index-tuning["向量索引调优"]
-  langfuse-llm-observability["Langfuse LLM 可观测"]
-  llm-model-router["测量驱动的 LLM 模型路由"]
-  llm-judge-evaluation["LLM-as-Judge 高级评测"]
-  ai-engineering-toolkit["AI 工程工作流工具箱"]
-  context-window-management["LLM 上下文窗口管理策略"]
-  llm-prompt-caching["LLM 提示词缓存策略"]
-  agent-memory-systems["AI 智能体记忆系统设计"]
-  mlops-model-productionizer["机器学习模型生产化与 MLOps"]
-  llm-conversation-memory["LLM 对话持久记忆系统"]
-  agent-memory-systems === rag-pipeline-builder
-  context-window-management === production-llm-app-builder
-  context-window-management === rag-pipeline-builder
-  embedding-model-strategies === production-llm-app-builder
-  hybrid-search-retrieval === production-llm-app-builder
-  langfuse-llm-observability === production-llm-app-builder
-  llm-conversation-memory === production-llm-app-builder
-  llm-conversation-memory === rag-pipeline-builder
-  llm-judge-evaluation === production-llm-app-builder
-  llm-model-router === production-llm-app-builder
-  llm-prompt-caching === production-llm-app-builder
-  llm-prompt-caching === rag-pipeline-builder
-  rag-pipeline-builder === llm-judge-evaluation
-  rag-pipeline-builder === vector-index-tuning
-  vector-index-tuning === production-llm-app-builder
-  ai-engineering-toolkit -.- production-llm-app-builder
-  embedding-model-strategies -.- rag-pipeline-builder
-  hybrid-search-retrieval -.- rag-pipeline-builder
-  mlops-model-productionizer -.- production-llm-app-builder
-  production-llm-app-builder -.- rag-implementation-workflow
-  production-llm-app-builder -.- rag-pipeline-builder
-  rag-implementation-workflow -.- rag-pipeline-builder
-  vector-index-tuning -.- rag-pipeline-builder
-  agent-memory-systems === hybrid-search-retrieval
-  agent-memory-systems === vector-index-tuning
-  ai-engineering-toolkit === context-window-management
-  ai-engineering-toolkit === langfuse-llm-observability
-  ai-engineering-toolkit === rag-implementation-workflow
-  embedding-model-strategies === agent-memory-systems
-  embedding-model-strategies === rag-implementation-workflow
-  llm-conversation-memory === embedding-model-strategies
-  llm-judge-evaluation === llm-conversation-memory
-  llm-judge-evaluation === rag-implementation-workflow
-  llm-model-router === ai-engineering-toolkit
-  llm-model-router === langfuse-llm-observability
-  llm-prompt-caching === langfuse-llm-observability
+```text
+/plugin install 02-engineering@everything-skills
 ```
 
+每条技能由一个 `SKILL.md` 和独立目录组成。Codex、Cursor、Gemini CLI 等 Agent 可通过 [AGENTS.md](AGENTS.md)、[GEMINI.md](GEMINI.md) 或 [CLAUDE.md](CLAUDE.md) 找到技能，再按任务读取所需指令。
+
+## 从发现到组合
+
+<p align="center">
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/workflow-mobile.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/brand/workflow-static.svg" /><img src="assets/brand/workflow.svg" alt="通过描述与触发词发现技能，沿 requires / related / combines_with 关系查找前置与搭配技能，再组合工作流。" width="1200" /></picture>
+</p>
+
+这是一部面向 AI Agent 的技能类书：按领域归位，用关系图连接。通过 `domain`、`tags`、`triggers` 缩小候选范围，再按 `description` 匹配任务。技能正文保持原始语言，每个技能只存放一处。
+
+完整技能目录见 [Catalog](INDEX/catalog.md)，标签入口见 [Tags](INDEX/tags.md)，依赖、互见与组合关系见 [Graph](INDEX/graph.md)。机器可读版本为 [search.json](INDEX/search.json) 和 [graph.json](INDEX/graph.json)。
+
+## 十一卷，按需取用
+
+| 卷 | 领域 | 适用任务 |
+| --- | --- | --- |
+| [00-meta](00-meta/README.md) | 通用 | 研究、规划、思考与 Agent 工作方法 |
+| [01-documents](01-documents/README.md) | 文书 | 文档、表格、演示与写作 |
+| [02-engineering](02-engineering/README.md) | 研发 | 开发、架构、测试与交付 |
+| [03-data](03-data/README.md) | 数据 | 分析、数据库与数据工程 |
+| [04-ai](04-ai/README.md) | 智能 | 模型、RAG、Agent 与评测 |
+| [05-business](05-business/README.md) | 商业 | 营销、产品、经营与增长 |
+| [06-creative](06-creative/README.md) | 创意 | 设计、图像、音视频与交互 |
+| [07-productivity](07-productivity/README.md) | 协作 | 沟通、项目、流程与个人效率 |
+| [08-security](08-security/README.md) | 安全 | 防御审计、风险与合规 |
+| [09-verticals](09-verticals/README.md) | 领域专精 | 科研、医疗、法律与行业工作流 |
+| [10-platform](10-platform/README.md) | 平台集成 | 云平台、CLI、连接器与自动化 |
+
+## 维护与贡献
+
+技能元数据和外部仓库 JSONL 是源数据，目录、图谱与品牌统计由脚本生成。新增或修改条目后运行 `npm run build:zh`（中文）或 `npm run build`（英文）；提交后运行对应的 `check:zh` / `check` 确认生成物一致。
+
+- [CONTRIBUTING.md](CONTRIBUTING.md)：添加、修改和验证技能。
+- [ARCHITECTURE.md](ARCHITECTURE.md)：源数据、生成物与发布边界。
+- [LANGUAGE.md](LANGUAGE.md)：`main` / `zh` 界面与原语言技能正文；历史 `en` 镜像已废弃。
+- [PROJECT-REVIEW.md](PROJECT-REVIEW.md)：本次全库审查、已修正问题和后续建议。
+- [assets/brand/README.md](assets/brand/README.md)：动画 Logo、静态版本与 SVG 素材使用方法。
+
+安全与许可：技能是 Agent 指令包，来源与许可见 [INDEX/sources.md](INDEX/sources.md)、[LICENSE](LICENSE) 和 [NOTICE](NOTICE)；使用约定见 [SECURITY.md](SECURITY.md)。
 
 ---
-
-## 这是什么
-
-每一条技能是一个文件夹，里面有一个标准的 `SKILL.md`（带 YAML frontmatter）。
-AI Agent 在运行时**读取每条技能的 `description` 字段做匹配**来决定是否加载——
-这意味着：
-
-- **发现靠元数据，不靠目录树**。目录是给人类维护者用的；Agent 看的是 frontmatter。
-- **一条技能只放一个地方**，跨领域的关联用「互见」字段（`related` / `requires` / `combines_with`）表达成**关系图**，而不是把技能复制到 5 个分类下。
-- **索引、目录、互见图谱全部由脚本自动生成**，永不手工维护。
-
 <!-- BEGIN GENERATED:skill-repos -->
 ## 技能仓库目录
 

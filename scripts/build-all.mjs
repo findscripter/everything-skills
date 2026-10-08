@@ -18,6 +18,7 @@ const steps = [
   ['build-index.mjs', `--lang=${lang}`],
   ['build-skill-repos.mjs', `--lang=${lang}`],
   ['refresh-readme-skill-repos-directory.mjs', `--lang=${lang}`],
+  ['build-brand.mjs', `--lang=${lang}`],
 ];
 
 for (const [script, ...args] of steps) {

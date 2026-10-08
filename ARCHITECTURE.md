@@ -20,9 +20,14 @@ data/skill-repos*.jsonl + data/skill-repos.meta.md
         │ 共享 JSONL loader
         ├── scripts/build-skill-repos.mjs --lang=en|zh → INDEX/skill-repos.md
         └── scripts/refresh-readme-skill-repos-directory.mjs --lang=en|zh → README.md
+
+生成后的 search.json / graph.json / marketplace.json + JSONL + Logo 矢量源
+        └── scripts/build-brand.mjs → assets/brand/*.svg + README 品牌概览
 ```
 
 `SKILL.md` frontmatter、`taxonomy.json` 和 `data/skill-repos*.jsonl` 是源数据；`INDEX/`、根部多 harness 文件、插件市场清单和 README 技能仓库区是生成物，禁止手工修改生成区。
+
+`assets/brand/logo.svg` 和 `logo-static.svg` 是原创矢量源文件；横幅、统计和流程图由品牌生成器输出。README 品牌区用独立的 `GENERATED:brand` 标记，外部目录仍使用 `GENERATED:skill-repos` 标记；两者互不覆盖。
 
 ## 语言策略
 
@@ -38,6 +43,9 @@ data/skill-repos*.jsonl + data/skill-repos.meta.md
 - 生成器先完成校验，再开始逐文件替换生成物；校验失败不会开始写入，写入异常会清理临时文件并报错。
 - `scripts/load-skill-repos.mjs` 是技能仓库 JSONL 的唯一加载与去重入口，README 和 INDEX 不允许各自解释数据。
 - CI 只读执行完整生成与漂移检查，覆盖所有生成物；不在 PR 中向贡献分支写入或推送代码。
+- 搜索索引优先保留 frontmatter 的显式 `triggers`，仅在字段缺省时从 description 提取；技能路径始终使用真实相对目录。
+- `supersedes` 从新技能指向被取代技能，弃用链必须能到达可用技能；数组字段类型错误和第三方来源缺许可会阻止生成。
+- 品牌数据直接读取索引；CI 包含 `assets/brand` 的漂移检查与 Node 内建回归测试。
 
 ## 常用命令
 
@@ -49,6 +57,9 @@ npm run check
 # zh 风格
 npm run build:zh
 npm run check:zh
+
+# 零依赖的元数据和品牌回归测试
+npm test
 ```
 
 如果检查失败，先查看输出的生成文件列表，再提交对应的生成物。不要直接编辑 `INDEX/`、`AGENTS.md`、`CLAUDE.md` 或 `GEMINI.md` 来绕过检查。
