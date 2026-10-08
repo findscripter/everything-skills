@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-共 1109 条技能。
+共 1110 条技能。
 
 ## 卷〇 · 通用
 
@@ -643,6 +643,7 @@
 - [`status-report-generator`](../07-productivity/status-report-generator/SKILL.md) — 项目状态报告生成　`协作/knowledge` · 进阶
 - [`support-kb-article-writer`](../07-productivity/support-kb-article-writer/SKILL.md) — 支持知识库文章撰写　`协作/knowledge` · 入门
 - [`vendor-evaluation`](../07-productivity/vendor-evaluation/SKILL.md) — 供应商评估决策　`协作/knowledge` · 进阶
+- [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）　`协作/knowledge` · 进阶
 - [`agile-product-owner`](../07-productivity/agile-product-owner/SKILL.md) — 敏捷产品负责人与待办管理　`协作/pm` · 进阶
 - [`board-prep-orchestrator`](../07-productivity/board-prep-orchestrator/SKILL.md) — 董事会会前筹备编排　`协作/pm` · 进阶
 - [`change-management-request`](../07-productivity/change-management-request/SKILL.md) — 变更管理请求（影响分析+回滚计划）　`协作/pm` · 进阶

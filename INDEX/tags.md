@@ -63,6 +63,9 @@
 ### `8-k`
 - [`octagon-sec-8k-analysis`](../09-verticals/octagon-sec-8k-analysis/SKILL.md) — SEC 8-K 重大事项分析
 
+### `Record`
+- [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
+
 ### `a/b测试`
 - [`app-store-optimization`](../05-business/app-store-optimization/SKILL.md) — 应用商店优化ASO
 - [`lead-form-cro`](../05-business/lead-form-cro/SKILL.md) — 表单转化率优化（lead-form-cro）
@@ -1835,6 +1838,7 @@
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
 - [`tmux-session-management`](../10-platform/tmux-session-management/SKILL.md) — tmux 会话与终端多路复用
 - [`vexor-vector-cli-setup`](../10-platform/vexor-vector-cli-setup/SKILL.md) — Vexor 向量 CLI：语义文件搜索工具配置
+- [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 - [`x-twitter-scraper-toolkit`](../10-platform/x-twitter-scraper-toolkit/SKILL.md) — X/Twitter 抓取工具：搜索、导出、发推与 DM
 
 ### `cli-wrapper`
@@ -11363,6 +11367,7 @@
 
 ### `wiki`
 - [`confluence-space-architect`](../07-productivity/confluence-space-architect/SKILL.md) — Confluence 知识库空间架构
+- [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 
 ### `wikidata`
 - [`seo-entity-optimizer`](../05-business/seo-entity-optimizer/SKILL.md) — 实体优化与知识图谱信号构建
@@ -11575,6 +11580,7 @@
 
 ### `yylo`
 - [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
+- [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 
 ### `zafiro`
 - [`avalonia-zafiro-desktop`](../02-engineering/avalonia-zafiro-desktop/SKILL.md) — Avalonia 跨平台桌面应用（Zafiro/MVVM）
@@ -14995,6 +15001,7 @@
 - [`c4-architecture-docs`](../02-engineering/c4-architecture-docs/SKILL.md) — C4 模型架构文档自动生成
 - [`mermaid-diagram-expert`](../06-creative/mermaid-diagram-expert/SKILL.md) — Mermaid 图表绘制专家
 - [`readme-doc-writer`](../01-documents/readme-doc-writer/SKILL.md) — README 文档撰写
+- [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 
 ### `文档写作`
 - [`doc-coauthoring`](../01-documents/doc-coauthoring/SKILL.md) — 协作式文档共创工作流
@@ -15740,6 +15747,7 @@
 
 ### `版本控制`
 - [`git-advanced-workflows`](../02-engineering/git-advanced-workflows/SKILL.md) — Git 高级工作流
+- [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 
 ### `版本管理`
 - [`mise-toolchain-configurator`](../02-engineering/mise-toolchain-configurator/SKILL.md) — mise 工具链配置
@@ -16001,6 +16009,7 @@
 ### `知识管理`
 - [`obsidian-bases-builder`](../07-productivity/obsidian-bases-builder/SKILL.md) — Obsidian Bases 数据库视图
 - [`obsidian-clipper-templates`](../07-productivity/obsidian-clipper-templates/SKILL.md) — Obsidian 网页剪藏模板
+- [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 
 ### `知识综合`
 - [`multi-source-knowledge-synthesis`](../00-meta/multi-source-knowledge-synthesis/SKILL.md) — 多源知识综合
@@ -16470,6 +16479,7 @@
 
 ### `编码智能体`
 - [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
+- [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 
 ### `编译工具链`
 - [`dwarf-debug-format-expert`](../02-engineering/dwarf-debug-format-expert/SKILL.md) — DWARF 调试格式专家
