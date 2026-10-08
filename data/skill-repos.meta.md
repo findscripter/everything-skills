@@ -4,10 +4,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-08（Asia/Shanghai）；日常增量索引 part60
-- Stars：GitHub Search API 当日快照，非估算
-- 收录条数：1715 个独立仓库（另注明更名别名）
-- 读取方式：GitHub API 读各库 README；未 clone 任何第三方仓库
+- 编制日期：2026-10-08（Asia/Shanghai）；日常增量索引 part66
+- Stars：GitHub API 采集快照，非估算；各批次采集日期不同
+- 收录条数：{{COUNT}} 个独立仓库（另注明更名别名）
+- 读取方式：GitHub API / 原始文件读取各库 README；未 clone 任何第三方仓库
+
+本轮核验记录见 [part66 审核记录](../data/skill-repos.part66.audit.md)。新增记录的 Stars 为 2026-10-08 快照；旧记录保留各自采集时的快照。
 
 ## 检索与截断
 
