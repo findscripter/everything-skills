@@ -648,7 +648,7 @@
     },
     {
       "name": "07-productivity",
-      "description": "卷七 · 协作 —— 58 个技能",
+      "description": "卷七 · 协作 —— 59 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -709,6 +709,7 @@
         "./07-productivity/task-decomposition-planner",
         "./07-productivity/technical-change-tracker",
         "./07-productivity/vendor-evaluation",
+        "./07-productivity/wiki-yylo",
         "./07-productivity/zapier-make-automation"
       ]
     },

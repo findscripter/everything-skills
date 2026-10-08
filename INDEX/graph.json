@@ -4474,6 +4474,13 @@
       "status": "stable"
     },
     {
+      "id": "wiki-yylo",
+      "title": "YYLO Ledger 项目知识库（wiki Record）",
+      "domain": "协作/knowledge",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "zapier-make-automation",
       "title": "Zapier 与 Make 无代码自动化",
       "domain": "协作/automation",
@@ -26813,6 +26820,31 @@
     {
       "from": "vendor-evaluation",
       "to": "contract-playbook-review",
+      "type": "combines_with"
+    },
+    {
+      "from": "wiki-yylo",
+      "to": "ledger-tasks-yylo",
+      "type": "related"
+    },
+    {
+      "from": "wiki-yylo",
+      "to": "adr-writer",
+      "type": "related"
+    },
+    {
+      "from": "wiki-yylo",
+      "to": "decision-log-recorder",
+      "type": "related"
+    },
+    {
+      "from": "wiki-yylo",
+      "to": "agent-memory-systems",
+      "type": "combines_with"
+    },
+    {
+      "from": "wiki-yylo",
+      "to": "codebase-onboarding-doc",
       "type": "combines_with"
     },
     {
