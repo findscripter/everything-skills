@@ -13,7 +13,7 @@ requires: []
 related: [penetration-testing-methodology, shodan-reconnaissance, ffuf-web-fuzzing, cloud-penetration-testing]
 combines_with: [shodan-reconnaissance, ffuf-web-fuzzing, penetration-testing-methodology]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

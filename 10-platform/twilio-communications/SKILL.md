@@ -10,10 +10,10 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Python twilio SDK, twilio.rest.Client, twilio.twiml.voice_response (VoiceResponse/Gather), twilio.request_validator.RequestValidator, Twilio Verify v2, Flask Webhook, Twilio Console (Trust Hub / Content Template Builder)]
 requires: []
-related: [whatsapp-cloud-api, agentmail-email-infra, slack-bolt-bot-builder, imessage-claude-bridge]
+related: [whatsapp-cloud-api, agentmail-email-infra, slack-bolt-bot-builder]
 combines_with: [whatsapp-cloud-api, auth-implementation-patterns, transactional-email-template-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

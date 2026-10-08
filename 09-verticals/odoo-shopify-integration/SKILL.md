@@ -13,7 +13,7 @@ requires: []
 related: [odoo-ecommerce-configurator, odoo-rpc-api, odoo-edi-connector, shopify-app-development]
 combines_with: [odoo-inventory-optimizer, odoo-sales-crm-expert, shopify-app-development]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

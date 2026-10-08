@@ -13,7 +13,7 @@ requires: []
 related: [odoo-orm-expert, odoo-xml-views-builder, odoo-security-rules, odoo-qweb-templates]
 combines_with: [odoo-automated-tests, odoo-migration-helper]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Odoo 自定义模块开发

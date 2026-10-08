@@ -13,7 +13,7 @@ requires: []
 related: [advisor-fit-analyzer]
 combines_with: []
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 一套覆盖求职全周期的持久化、自适应辅导系统。它不是题库，而是一套有主张的系统：跟踪你的作答模式、给答案打分，并随使用次数增多而愈发精准。状态写入 `coaching_state.md`，跨会话保存，保证每次都能从上次中断处续接。

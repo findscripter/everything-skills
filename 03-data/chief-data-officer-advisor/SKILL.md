@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [ai_training_data_audit.py, data_product_strategy_picker.py, data_asset_valuator.py]
 requires: []
-related: [data-strategy-review, chief-ai-officer-advisor, data-pipeline-engineer]
-combines_with: [data-strategy-review, data-quality-frameworks, kpi-dashboard-design]
+related: [chief-ai-officer-advisor, data-pipeline-engineer]
+combines_with: [data-quality-frameworks, kpi-dashboard-design]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

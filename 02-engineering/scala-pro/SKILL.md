@@ -13,7 +13,7 @@ requires: []
 related: [java-modern-pro, kotlin-coroutines-flow, golang-pro, rust-pro]
 combines_with: [spark-job-optimization, graphql-architect, data-pipeline-engineer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

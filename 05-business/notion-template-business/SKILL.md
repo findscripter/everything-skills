@@ -13,7 +13,7 @@ requires: []
 related: [digital-product-monetization, micro-saas-launcher, free-tool-marketing-strategy, pricing-strategy]
 combines_with: [product-launch-strategy, obsidian-bases-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Notion 模板生意运营

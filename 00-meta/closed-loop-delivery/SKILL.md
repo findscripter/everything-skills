@@ -13,7 +13,7 @@ requires: []
 related: [structured-decision-framework, pre-deploy-checklist, code-reviewer, deployment-engineer, webapp-testing]
 combines_with: [github-pr-comment-resolver, pre-deploy-checklist, ci-cd-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 验收标准闭环交付

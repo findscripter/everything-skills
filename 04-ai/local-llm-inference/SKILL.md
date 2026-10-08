@@ -11,9 +11,9 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Ollama, llama.cpp, vLLM, LM Studio, GPT4All]
 requires: []
 related: [huggingface-hub-cli, transformers-js, huggingface-model-trainer, llm-model-router]
-combines_with: [embedding-model-strategies, production-llm-app-builder, mlops-model-productionizer]
+combines_with: [embedding-model-strategies, production-llm-app-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

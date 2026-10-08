@@ -13,7 +13,7 @@ requires: []
 related: [firecrawl-web-scraper, exa-semantic-search, browser-automation-builder, youtube-transcript-ingest]
 combines_with: [exa-semantic-search, rag-implementation-workflow]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

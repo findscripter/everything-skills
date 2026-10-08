@@ -13,7 +13,7 @@ requires: []
 related: [odoo-module-developer, odoo-orm-expert, odoo-rpc-api, odoo-migration-helper]
 combines_with: [odoo-docker-deployment, odoo-module-developer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

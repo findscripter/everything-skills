@@ -13,7 +13,7 @@ requires: []
 related: [odoo-inventory-optimizer, odoo-manufacturing-advisor, odoo-accounting-setup, odoo-sales-crm-expert]
 combines_with: [odoo-inventory-optimizer, odoo-accounting-setup, odoo-edi-connector]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

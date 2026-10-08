@@ -13,7 +13,7 @@ requires: []
 related: [chrome-extension-mv3, electron-desktop-development, vscode-extension-development, frontend-design]
 combines_with: [typescript-advanced-types, web-artifacts-builder, tailwind-css-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

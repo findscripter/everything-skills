@@ -13,7 +13,7 @@ requires: []
 related: [bug-hunter, jira-expert, agile-product-owner, github-pr-comment-resolver]
 combines_with: [bug-hunter, jira-expert, agile-product-owner]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [animejs-web-animation, glassmorphism-ui-design, ux-ui-principles-audit, frontend-design]
 combines_with: [animejs-web-animation, tailwind-css-patterns, web-artifacts-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

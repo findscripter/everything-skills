@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, uv, fmp-api, yfinance]
 requires: []
 related: [market-breadth-analyzer, market-top-detector, portfolio-risk-metrics, portfolio-rebalancer]
-combines_with: [portfolio-rebalancer, tax-loss-harvesting]
+combines_with: [portfolio-rebalancer]
 license: MIT
 source: tradermonty/claude-trading-skills
 source_license: MIT

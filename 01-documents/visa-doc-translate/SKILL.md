@@ -13,7 +13,7 @@ requires: []
 related: [pdf-processing-toolkit, pdf-form-filler, markdown-to-docx]
 combines_with: [pdf-processing-toolkit]
 license: CC-BY-SA-4.0
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [context-compression, context-window-management, context-budget-audit, codebase-structure-protocol]
 combines_with: [parallel-agent-dispatch, iterative-context-retrieval]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 文件系统上下文卸载

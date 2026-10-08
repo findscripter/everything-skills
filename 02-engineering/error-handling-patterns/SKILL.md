@@ -13,7 +13,7 @@ requires: []
 related: [bug-hunter, systematic-debugger, error-log-detective, saga-orchestration]
 combines_with: [rest-api-endpoint-builder, distributed-tracing, microservices-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [stride-threat-modeler, attack-tree-construction, penetration-testing-methodology, false-positive-check]
 combines_with: [stride-threat-modeler, penetration-testing-methodology, security-incident-response]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

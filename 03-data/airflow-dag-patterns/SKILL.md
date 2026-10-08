@@ -13,7 +13,7 @@ requires: []
 related: [airflow-dag-builder, data-pipeline-engineer, dbt-transformation-patterns, snowflake-development]
 combines_with: [data-quality-validator, dbt-transformation-patterns, spark-job-optimization]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

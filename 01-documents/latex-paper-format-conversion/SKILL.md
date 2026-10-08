@@ -13,7 +13,7 @@ requires: []
 related: [academic-paper-writer, scientific-manuscript-writing, academic-paper-explainer, citation-management]
 combines_with: [academic-paper-writer, citation-management, academic-peer-reviewer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # LaTeX 论文格式转换

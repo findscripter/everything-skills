@@ -13,7 +13,7 @@ requires: []
 related: [temporal-workflow-python, saga-orchestration, rest-api-endpoint-builder, error-handling-patterns]
 combines_with: [nestjs-expert, error-handling-patterns, transactional-email-template-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

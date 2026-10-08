@@ -13,7 +13,7 @@ requires: []
 related: [cpp-modern-pro, rust-pro, python-performance-optimization, c-language-pro]
 combines_with: [guided-statistical-analysis, materials-science-toolkit]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

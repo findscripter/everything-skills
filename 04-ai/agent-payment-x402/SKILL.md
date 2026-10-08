@@ -13,7 +13,7 @@ requires: []
 related: [agent-tool-builder, agent-tool-design, mcp-builder, stripe-integration]
 combines_with: [agent-tool-builder, mcp-builder, langgraph-agent-framework]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 采编自 affaan-m/everything-claude-code（MIT）。

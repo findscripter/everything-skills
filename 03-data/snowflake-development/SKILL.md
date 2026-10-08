@@ -13,7 +13,7 @@ requires: []
 related: [dbt-transformation-modeler, data-pipeline-engineer, sql-query-builder, dbt-transformation-patterns]
 combines_with: [dbt-transformation-modeler, airflow-dag-builder, data-quality-frameworks]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

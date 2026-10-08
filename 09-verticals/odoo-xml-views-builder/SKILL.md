@@ -13,7 +13,7 @@ requires: []
 related: [odoo-module-developer, odoo-orm-expert, odoo-qweb-templates, odoo-security-rules]
 combines_with: [odoo-module-developer, odoo-qweb-templates]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ＞ 重要冲突待裁决：任务指定 `domain: 领域/ERP`，但 `taxonomy.json` 中 `09-verticals`(领域) 的受控类只有 `science/legal/medical/edu/fintech/hardware`，**不含 ERP**。`scripts/build-index.mjs` 第 107-108 行对越界类报 **error**（非 warning），故 `领域/ERP` 会导致校验失败。建议二选一：① 在 `taxonomy.json` 给 `09-verticals.classes` 增补 `"erp"`（slug 惯例小写，故用 `领域/erp`）；② 沿用兄弟条目 `odoo-localization-compliance` 的 `领域/fintech`。下方正文按任务以 ERP 语义撰写，落盘前请先定 domain。

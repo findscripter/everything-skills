@@ -13,7 +13,7 @@ requires: []
 related: [llm-judge-evaluation, llm-agent-benchmarking, autonomous-coding-agent-patterns, ai-engineering-toolkit]
 combines_with: [llm-judge-evaluation, parallel-agent-hub, llm-model-router]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 # 编码 Agent 对比评测（通过率/成本/耗时）

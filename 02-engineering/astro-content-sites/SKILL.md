@@ -13,7 +13,7 @@ requires: []
 related: [sveltekit-fullstack, modern-angular-expert, frontend-design, progressive-web-app]
 combines_with: [tailwind-css-patterns, shadcn-ui-components, seo-site-architecture]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

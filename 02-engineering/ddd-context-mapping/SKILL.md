@@ -13,7 +13,7 @@ requires: []
 related: [ddd-strategic-design, microservices-patterns, backend-architecture-patterns, event-sourcing-cqrs]
 combines_with: [saga-orchestration, cqrs-implementation, api-design-principles]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

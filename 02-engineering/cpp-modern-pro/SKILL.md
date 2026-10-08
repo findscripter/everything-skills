@@ -13,7 +13,7 @@ requires: []
 related: [gdb-debugging-cli, rust-pro, c-cpp-security-review, unreal-engine-cpp]
 combines_with: [gdb-debugging-cli, c-cpp-security-review, bug-hunter]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

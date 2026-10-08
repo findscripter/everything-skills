@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python3, os.walk, argparse, git, Notion API, Confluence REST API]
 requires: []
 related: [docs-architect, readme-doc-writer, adr-writer, developer-experience-optimizer]
-combines_with: [docs-architect, developer-experience-optimizer, codetour-walkthrough-builder]
+combines_with: [docs-architect, developer-experience-optimizer]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

@@ -13,7 +13,7 @@ requires: []
 related: [react-state-management, sveltekit-fullstack, typescript-advanced-types, shadcn-ui-components]
 combines_with: [tailwind-css-patterns, tanstack-query, playwright-e2e-testing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [swiftui-best-practices, ios-swiftui-developer, kotlin-coroutines-flow, go-concurrency-patterns]
 combines_with: [ios-swiftui-developer, swiftui-best-practices, systematic-debugger]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

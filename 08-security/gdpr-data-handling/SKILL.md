@@ -13,7 +13,7 @@ requires: []
 related: [gdpr-data-handler, compliance-readiness-review, iso27001-isms-implementer, soc2-compliance-preparer]
 combines_with: [dsar-response-builder, privacy-impact-assessor, compliance-readiness-review]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

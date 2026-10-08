@@ -13,7 +13,7 @@ requires: []
 related: [websocket-realtime-engineer, rest-api-endpoint-builder, transactional-email-template-builder, ai-customer-support]
 combines_with: [database-design-advisor, react-state-management, support-ticket-triage]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

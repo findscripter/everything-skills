@@ -10,10 +10,10 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Azure Functions Core Tools (func), Azure CLI (az), .NET 8/9, @azure/functions v4, azure-functions Python, Application Insights]
 requires: []
-related: [azure-cloud-architect, aws-serverless-architect, azure-container-apps-deploy, gcp-cloud-run]
+related: [azure-cloud-architect, aws-serverless-architect, gcp-cloud-run]
 combines_with: [terraform-specialist, ci-cd-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

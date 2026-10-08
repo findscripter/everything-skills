@@ -13,7 +13,7 @@ requires: []
 related: [tanstack-query, typescript-advanced-types, frontend-design, modern-angular-expert]
 combines_with: [shadcn-ui-components, zod-schema-validation, web-component-design]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

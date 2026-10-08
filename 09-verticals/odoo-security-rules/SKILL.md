@@ -13,7 +13,7 @@ requires: []
 related: [odoo-module-developer, odoo-orm-expert, odoo-rpc-api, odoo-hr-payroll-setup]
 combines_with: [odoo-module-developer, odoo-automated-tests]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

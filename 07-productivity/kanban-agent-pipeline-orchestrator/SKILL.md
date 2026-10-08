@@ -13,7 +13,7 @@ requires: []
 related: [multi-agent-orchestrator, agent-workflow-builder, parallel-agent-hub, dmux-multi-agent-workflows]
 combines_with: [quota-aware-subagent-orchestrator, task-decomposition-planner, jira-expert]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 看板智能体流水线：Asana/Linear 自动开发编排

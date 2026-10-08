@@ -13,7 +13,7 @@ requires: []
 related: [kotlin-coroutines-flow, scala-pro, golang-pro, dotnet-backend-patterns]
 combines_with: [nestjs-expert, graphql-architect, grpc-golang-services]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

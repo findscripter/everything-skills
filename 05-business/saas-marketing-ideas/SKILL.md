@@ -13,7 +13,7 @@ requires: []
 related: [free-tool-marketing-strategy, cmo-marketing-advisor, content-marketing-strategist, referral-program-designer]
 combines_with: [content-strategy-planner, paid-ads-strategist, product-launch-strategy]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

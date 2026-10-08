@@ -13,7 +13,7 @@ requires: []
 related: [minimalist-editorial-ui, glassmorphism-ui-design, ui-design-system-builder, design-spells-microinteractions]
 combines_with: [tailwind-css-patterns, web-artifacts-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 高端视觉界面设计

@@ -13,7 +13,7 @@ requires: []
 related: [erd-schema-designer, database-design-advisor, postgresql-optimization, snowflake-development]
 combines_with: [erd-schema-designer, data-pipeline-engineer, database-design-advisor]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 分布式 NoSQL 数据库专家

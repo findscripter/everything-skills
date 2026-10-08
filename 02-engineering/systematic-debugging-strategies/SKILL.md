@@ -13,7 +13,7 @@ requires: []
 related: [systematic-debugger, bug-hunter, error-log-detective, gdb-debugging-cli]
 combines_with: [performance-profiler, distributed-tracing, git-advanced-workflows]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

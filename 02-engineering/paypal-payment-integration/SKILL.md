@@ -13,7 +13,7 @@ requires: []
 related: [stripe-integration, plaid-fintech-integration, agent-payment-x402, billing-automation-systems]
 combines_with: [rest-api-endpoint-builder, transactional-email-template-builder, error-handling-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

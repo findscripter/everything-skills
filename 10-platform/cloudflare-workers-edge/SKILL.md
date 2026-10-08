@@ -13,7 +13,7 @@ requires: []
 related: [cloudflare-workers-expert, gcp-cloud-run, aws-serverless-builder, hono-edge-api]
 combines_with: [hono-edge-api, firebase-backend, rest-api-endpoint-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

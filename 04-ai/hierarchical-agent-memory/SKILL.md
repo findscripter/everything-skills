@@ -13,7 +13,7 @@ requires: []
 related: [agent-memory-architecture, agent-memory-systems, self-improving-memory-agent, llm-conversation-memory]
 combines_with: [context-compression, agents-md-maintainer, filesystem-context-offload]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [golang-pro, grpc-golang-services, rust-pro, async-python-patterns]
 combines_with: [golang-pro, grpc-golang-services, performance-profiler]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

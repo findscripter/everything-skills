@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [standard-version, semantic-release, git-cliff, commitizen, commitlint, husky, github-actions, git]
 requires: []
-related: [release-manager, git-advanced-workflows, technical-change-tracker, github-issue-writer]
-combines_with: [release-manager, ci-cd-pipeline-builder, git-advanced-workflows]
+related: [git-advanced-workflows, github-issue-writer]
+combines_with: [ci-cd-pipeline-builder, git-advanced-workflows]
 license: MIT
 source: wshobson/agents
 source_license: MIT

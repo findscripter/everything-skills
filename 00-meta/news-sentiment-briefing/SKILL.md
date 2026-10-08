@@ -13,7 +13,7 @@ requires: []
 related: [daily-news-report, competitive-intel-tracker, fact-checking, entity-research-dossier]
 combines_with: [fact-checking, competitive-intel-tracker]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

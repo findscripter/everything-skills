@@ -13,7 +13,7 @@ requires: []
 related: [skill-creator, skill-optimizer, cross-tool-skill-manager, ai-model-knowledge-distill]
 combines_with: [agent-skill-security-scanner, skill-ecosystem-auditor]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 > 适配自第三方工具 Skill Seekers（CLI 名 `skill-seekers`）。源 SKILL.md 仅为占位骨架，实质能力来自上游仓库，本条已补全真实命令与流程。

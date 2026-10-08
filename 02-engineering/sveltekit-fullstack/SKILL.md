@@ -13,7 +13,7 @@ requires: []
 related: [modern-angular-expert, astro-content-sites, react-state-management, progressive-web-app]
 combines_with: [shadcn-ui-components, tailwind-css-patterns, playwright-e2e-testing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # SvelteKit 全栈开发

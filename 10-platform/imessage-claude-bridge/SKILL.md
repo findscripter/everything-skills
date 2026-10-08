@@ -6,16 +6,19 @@ domain: 平台/integration
 triggers: [text claude, 手机控制 claude, 远程驱动 claude, imessage 驱动 claude, imessage 控制电脑, 从手机敲代码, textme, sendblue 入站, 短信遥控笔记本]
 tags: [imessage, sms, sendblue, claude-code, daemon, remote-control, automation, integration]
 level: 进阶
-status: stable
+status: deprecated
+deprecate_reason: "Original upstream skill ID was not found during the 2026-09-16 source audit; retained as a historical archive with no replacement."
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [nodejs, claude-code, sendblue, pm2, launchd, whisper, openai-api]
 requires: []
 related: [twilio-communications, agentmail-email-infra, tmux-session-management]
 combines_with: [twilio-communications, tmux-session-management]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 # iMessage 短信驱动 Claude 会话桥接
 
 ## 何时使用

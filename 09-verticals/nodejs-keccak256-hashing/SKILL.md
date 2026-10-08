@@ -13,7 +13,7 @@ requires: []
 related: [evm-token-decimals, solidity-security-auditor, blockchain-web3-developer, defi-protocol-templates]
 combines_with: [defi-amm-security-audit, agent-payment-x402]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

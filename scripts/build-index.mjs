@@ -78,6 +78,23 @@ async function collect(dir, acc = []) {
   return acc;
 }
 
+function parseQuotedScalar(value) {
+  if (value.startsWith('"')) {
+    try { return JSON.parse(value); } catch { return null; }
+  }
+  if (value.startsWith("'"))
+    return value.endsWith("'") ? value.slice(1, -1).replaceAll("''", "'") : null;
+  return value;
+}
+
+function parseArrayItem(item) {
+  if (/^["']/.test(item)) return parseQuotedScalar(item);
+  if (/^(null|~)$/i.test(item) || /^[\[{]/.test(item)) return null;
+  if (/^(true|false)$/i.test(item)) return item.toLowerCase() === 'true';
+  if (/^[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[-+]?\d+)?$/i.test(item)) return Number(item);
+  return item;
+}
+
 // 保留 flow 数组元素的基本类型，避免把数字、布尔值等强行当成字符串。
 // 带引号的逗号属于字符串内容，不是数组分隔符。
 function parseInlineArray(value) {
@@ -104,20 +121,61 @@ function parseInlineArray(value) {
   }
   if (quote) return null;
   parts.push(part.trim());
-  return parts.map(item => {
-    if (item.startsWith('"')) {
-      try { return JSON.parse(item); } catch { return null; }
-    }
-    if (item.startsWith("'"))
-      return item.endsWith("'") ? item.slice(1, -1).replaceAll("''", "'") : null;
-    if (/^(null|~)$/i.test(item) || /^[\[{]/.test(item)) return null;
-    if (/^(true|false)$/i.test(item)) return item.toLowerCase() === 'true';
-    if (/^[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[-+]?\d+)?$/i.test(item)) return Number(item);
-    return item;
-  });
+  return parts.map(parseArrayItem);
 }
 
-// 极简 frontmatter 解析（scalar / inline 数组 / 单行 description）+ 多行值告警
+function parseBlockArray(lines, file, key) {
+  const items = [];
+  let indent;
+  for (const line of lines) {
+    if (!line.trim() || line.trimStart().startsWith('#')) continue;
+    const match = line.match(/^( +)-(?:\s+(.*)|\s*)$/);
+    if (!match || (indent !== undefined && match[1].length !== indent)) {
+      errors.push(`${file}: 字段 "${key}" 的多行数组仅支持同级、单行字符串元素`);
+      return null;
+    }
+    indent = match[1].length;
+    const value = (match[2] || '').trim();
+    // 嵌套 sequence / mapping 不属于 string[]，不能扁平化成字符串。
+    items.push(!/^["']/.test(value) && (/^-(?:\s|$)/.test(value) || /:\s/.test(value)) ? null : parseArrayItem(value));
+  }
+  return items.length ? items : null;
+}
+
+function parseBlockString(lines, indicator, file, key) {
+  const content = lines.filter(line => !line.startsWith('#'));
+  const first = content.find(line => line.trim());
+  if (!first) return indicator.endsWith('+') ? '\n'.repeat(content.length) : '';
+  const indent = first.match(/^ */)[0].length;
+  if (!indent || content.some(line => line.trim() && !line.startsWith(' '.repeat(indent)))) {
+    errors.push(`${file}: 字段 "${key}" 的多行字符串须使用一致的内容缩进`);
+    return null;
+  }
+  const values = content.map(line => line.trim() ? line.slice(indent) : '');
+  let text;
+  if (indicator.startsWith('|')) text = values.join('\n');
+  else {
+    text = '';
+    let previous, blanks = 0;
+    for (const value of values) {
+      if (!value) { blanks++; continue; }
+      if (previous === undefined) text += '\n'.repeat(blanks);
+      else if (blanks) text += '\n'.repeat(blanks);
+      else text += previous.startsWith(' ') || value.startsWith(' ') ? '\n' : ' ';
+      text += value;
+      previous = value;
+      blanks = 0;
+    }
+    text += '\n'.repeat(blanks);
+  }
+  text += '\n';
+  if (indicator.endsWith('-')) return text.replace(/\n+$/, '');
+  if (indicator.endsWith('+')) return text;
+  return text.replace(/\n+$/, '') + '\n';
+}
+
+// 受限 frontmatter：scalar、flow/block 字符串数组、|/> 多行字符串。
+// 多行值在下一个顶层 key 或 frontmatter 结束符处停止，不解释嵌套 YAML 对象。
 function parseFrontmatter(raw, file) {
   const lines = raw.replace(/^﻿/, '').split(/\r?\n/);
   if (lines[0].trim() !== '---') { errors.push(`${file}: 缺少 frontmatter（首行应为 ---）`); return null; }
@@ -130,10 +188,16 @@ function parseFrontmatter(raw, file) {
     const m = line.match(/^([A-Za-z_]+):\s?(.*)$/);
     if (!m) { warnings.push(`${file}: frontmatter 内疑似多行/非法值被忽略 → "${line.trim().slice(0, 40)}"`); continue; }
     const key = m[1];
-    let val = m[2].trim();
-    if (val.startsWith('[') && val.endsWith(']'))
+    const val = m[2].trim();
+    if (/^[|>][+-]?$/.test(val) || (!val && ARRAY_FIELDS.includes(key))) {
+      let end = i + 1;
+      while (end < lines.length && !/^(?:[A-Za-z_]+:|---\s*$)/.test(lines[end])) end++;
+      const block = lines.slice(i + 1, end);
+      fm[key] = val ? parseBlockString(block, val, file, key) : parseBlockArray(block, file, key);
+      i = end - 1;
+    } else if (val.startsWith('[') && val.endsWith(']'))
       fm[key] = parseInlineArray(val);
-    else fm[key] = val.replace(/^["']|["']$/g, '');
+    else fm[key] = key === 'deprecate_reason' ? parseArrayItem(val) : parseQuotedScalar(val);
   }
   if (!closed) errors.push(`${file}: frontmatter 未闭合（缺少结束 ---）`);
   return fm;
@@ -162,6 +226,8 @@ function validate(s) {
     if (value !== undefined && (!Array.isArray(value) || value.some(item => typeof item !== 'string' || !item.trim())))
       errors.push(`${relOf(file)}: 字段 "${key}" 须为非空字符串组成的数组（可用 [] 表示空数组）`);
   }
+  if (fm.deprecate_reason !== undefined && (typeof fm.deprecate_reason !== 'string' || !fm.deprecate_reason.trim()))
+    errors.push(`${relOf(file)}: 字段 "deprecate_reason" 须为非空字符串`);
   if (!DIR2VOL.has(vol)) { warnings.push(`${relOf(file)}: 顶层目录 "${vol}" 不在已知卷中`); }
   if (fm.name && fm.name !== folder) errors.push(`${relOf(file)}: name "${fm.name}" 与文件夹 "${folder}" 不一致`);
   if (fm.name && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(fm.name)) errors.push(`${relOf(file)}: name "${fm.name}" 须 ASCII kebab-case`);
@@ -278,8 +344,8 @@ function hasActiveSuccessor(name, seen = new Set()) {
     byName.get(next).fm.status !== 'deprecated' || hasActiveSuccessor(next, seen));
 }
 for (const s of skills) {
-  if (s.fm.status === 'deprecated' && !hasActiveSuccessor(s.fm.name))
-    errors.push(`${relOf(s.file)}: status=deprecated 但无可用继任技能（由新技能 supersedes 声明，继任链不能成环）`);
+  if (s.fm.status === 'deprecated' && !hasActiveSuccessor(s.fm.name) && !s.fm.deprecate_reason)
+    errors.push(`${relOf(s.file)}: status=deprecated 但无可用继任技能或 deprecate_reason 终止归档原因（由新技能 supersedes 声明，继任链不能成环）`);
 }
 
 // 互见边 + 悬空(error) + 指向 deprecated(error)
@@ -383,8 +449,8 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
 }
 
 // graph.json + graph.md（related/combines_with 视为无向、去重；requires 有向）
-// graph.md：卷级总览 + 按卷折叠（截断），避免整库单图无法在 GitHub 渲染。
-// 规则常量与独立 regen 脚本保持一致：跨卷 Top14、卷内度最高 ≤25 节点。
+// graph.md：卷级总览 mermaid + 按卷折叠的紧凑边表（不再渲染大块卷内 mermaid），避免 README/INDEX 体积膨胀。
+// 规则：跨卷 Top14；每卷度最高 ≤10 个枢纽 + Top ≤24 条诱导边（表格）。
 {
   const nodes = skills.map(s => ({ id: s.fm.name, title: s.fm.title, domain: s.fm.domain, level: s.fm.level, status: s.fm.status }));
   // 无向边去重（仅渲染用；graph.json 仍写原始 edges）
@@ -401,11 +467,10 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
   stageWrite(path.join(INDEX, 'graph.json'), JSON.stringify({ nodes, edges }, null, 2));
 
   const MAX_CROSS_VOL_EDGES = 14;
-  const MAX_VOL_NODES = 25;
+  const MAX_VOL_HUBS = 10;
+  const MAX_VOL_EDGES = 24;
   const ARROW = { requires: '-->', related: '-.-', combines_with: '===' };
   const volOf = (n) => String((n && n.domain) || '').split('/')[0].trim();
-  const escLabel = (s) => String(s || '').replace(/"/g, "'").replace(/\n/g, ' ');
-  const mid = (id) => String(id).replace(/[^A-Za-z0-9_-]/g, '_');
   const nodesById = new Map(nodes.map(n => [n.id, n]));
   const cnOrder = VOLS.map(v => v.cn);
   const fence = '```';
@@ -448,12 +513,12 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
   let md = '# 互见图谱 · Graph\n\n' + stamp + '\n';
   md += '全库 **' + nodes.length + '** 节点、**' + edges.length + '** 条互见边（含方向重复前的原始边）。\n\n';
   md += '图例：`-->` 依赖(requires) · `-.-` 互见(related) · `===` 组合(combines_with)。\n\n';
-  md += '整库单图无法在 GitHub 上渲染，故拆成「卷级总览 + 按卷折叠」。机读全量见同目录 [`graph.json`](graph.json)。\n\n';
+  md += '整库单图无法在 GitHub 上渲染，故拆成「卷级总览 mermaid + 按卷紧凑边表」。机读全量见同目录 [`graph.json`](graph.json)。\n\n';
   md += '## 卷级总览（跨卷最强互见）\n\n';
   md += '无向边按跨卷计数取 Top ' + MAX_CROSS_VOL_EDGES + '；边上数字为边数。示例热点：' + crossNote + '…\n\n';
   md += overview + '\n';
-  md += '## 按卷展开（仅卷内边）\n\n';
-  md += '每卷最多展示度最高的 ' + MAX_VOL_NODES + ' 个节点及其诱导边；空卷跳过。\n\n';
+  md += '## 按卷展开（仅卷内边 · 紧凑表）\n\n';
+  md += '每卷列出度最高的 ' + MAX_VOL_HUBS + ' 个枢纽，及其诱导边中按两端度之和排序的 Top ' + MAX_VOL_EDGES + ' 条；空卷跳过。完整边集见 `graph.json`。\n\n';
 
   for (const v of VOLS) {
     const volNodes = nodes.filter(n => volOf(n) === v.cn).map(n => n.id);
@@ -466,29 +531,35 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
       deg.set(e.from, (deg.get(e.from) || 0) + 1);
       deg.set(e.to, (deg.get(e.to) || 0) + 1);
     }
-    let involved = [...deg.keys()];
+    let hubs = [...deg.keys()].sort((a, b) => (deg.get(b) - deg.get(a)) || a.localeCompare(b));
     let truncated = false;
-    if (involved.length > MAX_VOL_NODES) {
-      involved = involved.sort((a, b) => (deg.get(b) - deg.get(a)) || a.localeCompare(b)).slice(0, MAX_VOL_NODES);
-      const keep = new Set(involved);
-      intra = intra.filter(e => keep.has(e.from) && keep.has(e.to));
+    if (hubs.length > MAX_VOL_HUBS) {
+      hubs = hubs.slice(0, MAX_VOL_HUBS);
       truncated = true;
-    } else {
-      involved = involved.sort((a, b) => (deg.get(b) - deg.get(a)) || a.localeCompare(b));
     }
-    const note = truncated
-      ? ('（已截断：仅保留度最高的 ' + MAX_VOL_NODES + ' 个节点及其诱导边）')
-      : '';
-    md += '<details><summary>' + v.title + '（' + involved.length + ' 节点 / ' + intra.length + ' 边）' + note + '</summary>\n\n';
-    md += fence + 'mermaid\ngraph LR\n';
-    for (const id of involved) {
-      const n = nodesById.get(id);
-      let label = escLabel((n && n.title) || id);
-      if (label.length > 28) label = label.slice(0, 27) + '…';
-      md += '  ' + mid(id) + '["' + label + '"]\n';
+    const keep = new Set(hubs);
+    let hubEdges = intra.filter(e => keep.has(e.from) && keep.has(e.to));
+    hubEdges = hubEdges.sort((a, b) => {
+      const da = (deg.get(a.from) || 0) + (deg.get(a.to) || 0);
+      const db = (deg.get(b.from) || 0) + (deg.get(b.to) || 0);
+      return db - da || a.from.localeCompare(b.from) || a.to.localeCompare(b.to);
+    });
+    let edgeTrunc = false;
+    if (hubEdges.length > MAX_VOL_EDGES) {
+      hubEdges = hubEdges.slice(0, MAX_VOL_EDGES);
+      edgeTrunc = true;
     }
-    for (const e of intra) md += '  ' + mid(e.from) + ' ' + ARROW[e.type] + ' ' + mid(e.to) + '\n';
-    md += fence + '\n\n</details>\n\n';
+    const noteParts = [];
+    if (truncated) noteParts.push('枢纽截断至 ' + MAX_VOL_HUBS);
+    if (edgeTrunc) noteParts.push('边截断至 ' + MAX_VOL_EDGES);
+    const note = noteParts.length ? ('（' + noteParts.join('；') + '）') : '';
+    md += '<details><summary>' + v.title + '（枢纽 ' + hubs.length + ' / 边 ' + hubEdges.length + '）' + note + '</summary>\n\n';
+    md += '**Hubs (by degree):** ' + hubs.map(id => '`' + id + '`(' + deg.get(id) + ')').join(', ') + '\n\n';
+    md += '| from | type | to |\n| --- | --- | --- |\n';
+    for (const e of hubEdges) {
+      md += '| `' + e.from + '` | `' + (ARROW[e.type] || e.type) + '` | `' + e.to + '` |\n';
+    }
+    md += '\n</details>\n\n';
   }
   stageWrite(path.join(INDEX, 'graph.md'), md);
 }
@@ -500,6 +571,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
     level: s.fm.level || '', status: s.fm.status || '',
     tags: s.fm.tags || [], triggers: s.fm.triggers ?? parseTriggers(s.fm.description),
     description: s.fm.description || '', path: linkOf(s),
+    ...(s.fm.deprecate_reason ? { deprecate_reason: s.fm.deprecate_reason } : {}),
   }));
   stageWrite(path.join(INDEX, 'search.json'), JSON.stringify(records, null, 2));
 }

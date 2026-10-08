@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [excel, spreadsheet, pdf, docx]
 requires: []
 related: [fixed-income-portfolio-review, client-review-prep, portfolio-risk-metrics, investment-proposal-builder]
-combines_with: [portfolio-rebalancer, tax-loss-harvesting, investment-thesis-tracker]
+combines_with: [portfolio-rebalancer, investment-thesis-tracker]
 license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0

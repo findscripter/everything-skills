@@ -13,7 +13,7 @@ requires: []
 related: [go-playwright-automation, browser-automation-builder, firecrawl-web-scraper, golang-pro]
 combines_with: [golang-pro, firecrawl-web-scraper]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

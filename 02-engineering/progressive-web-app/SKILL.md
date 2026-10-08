@@ -13,7 +13,7 @@ requires: []
 related: [sveltekit-fullstack, react-state-management, web-component-design, browser-extension-builder]
 combines_with: [tailwind-css-patterns, accessibility-wcag-audit, performance-profiler]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

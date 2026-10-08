@@ -13,7 +13,7 @@ requires: []
 related: [fal-ai-media-generation, minimax-media-cli, high-end-visual-design, canvas-design]
 combines_with: [seo-image-generator, demo-video-generator]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

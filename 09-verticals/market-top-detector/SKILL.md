@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, fmp-api, websearch]
 requires: []
 related: [market-breadth-analyzer, macro-regime-detector, portfolio-rebalancer, institutional-flow-tracker]
-combines_with: [market-breadth-analyzer, portfolio-rebalancer, tax-loss-harvesting]
+combines_with: [market-breadth-analyzer, portfolio-rebalancer]
 license: MIT
 source: tradermonty/claude-trading-skills
 source_license: MIT

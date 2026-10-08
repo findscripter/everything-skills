@@ -13,7 +13,7 @@ requires: []
 related: [agent-workflow-builder, task-decomposition-planner, multi-agent-system-designer, parallel-agent-hub]
 combines_with: [task-decomposition-planner, agent-workflow-builder, multi-agent-workflow-designer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

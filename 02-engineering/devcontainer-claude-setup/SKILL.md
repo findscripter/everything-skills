@@ -13,7 +13,7 @@ requires: []
 related: [docker-development-optimizer, docker-expert, docker-container-optimizer, deployment-engineer]
 combines_with: [ci-cd-pipeline-builder, fullstack-project-scaffolder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

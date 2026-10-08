@@ -13,7 +13,7 @@ requires: []
 related: [technical-reference-builder, api-design-principles, docs-architect, rest-api-endpoint-builder]
 combines_with: [api-design-principles, code-tutorial-engineer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

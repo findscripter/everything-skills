@@ -13,7 +13,7 @@ requires: []
 related: [matplotlib-visualization, seaborn-statistical-charts, d3js-data-viz, kpi-dashboard-design]
 combines_with: [polars-dataframe, kpi-dashboard-design, data-storyteller]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

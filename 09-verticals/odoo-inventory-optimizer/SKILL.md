@@ -13,7 +13,7 @@ requires: []
 related: [odoo-purchase-workflow, odoo-manufacturing-advisor, odoo-sales-crm-expert, odoo-accounting-setup]
 combines_with: [odoo-purchase-workflow, odoo-manufacturing-advisor]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

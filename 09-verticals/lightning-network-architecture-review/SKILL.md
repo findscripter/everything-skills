@@ -10,10 +10,10 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, WebFetch, WebSearch]
 requires: []
-related: [blockchain-web3-developer, solidity-security-auditor, defi-protocol-templates, defi-natural-language-agent]
+related: [blockchain-web3-developer, solidity-security-auditor, defi-protocol-templates]
 combines_with: [defi-amm-security-audit, backend-architecture-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

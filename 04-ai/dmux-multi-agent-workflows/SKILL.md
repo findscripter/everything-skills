@@ -13,7 +13,7 @@ requires: []
 related: [parallel-agent-hub, multi-agent-orchestrator, multi-agent-system-designer, autonomous-coding-agent-patterns]
 combines_with: [git-worktrees-workflow, tmux-session-management, coding-agent-headtohead-eval]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

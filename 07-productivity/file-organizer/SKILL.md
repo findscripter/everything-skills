@@ -13,7 +13,7 @@ requires: []
 related: [pdf-processing-toolkit, csv-data-cleaner, busybox-on-windows, jq-json-processing]
 combines_with: [pdf-processing-toolkit, audio-to-markdown-transcriber, markdown-to-docx]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

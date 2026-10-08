@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python3, ngspice, LTspice, Xyce, simulate_subcircuits.py, extract_parasitics.py]
 requires: []
-related: [kicad-design-reviewer, emc-precompliance-analyzer, datasheet-spec-extractor, hardware-doc-generator]
+related: [kicad-design-reviewer, emc-precompliance-analyzer, datasheet-spec-extractor]
 combines_with: [kicad-design-reviewer, datasheet-spec-extractor]
 license: MIT
 source: aklofas/kicad-happy

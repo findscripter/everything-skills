@@ -13,7 +13,7 @@ requires: []
 related: [animejs-web-animation, design-spells-microinteractions, threejs-3d-web, frontend-design]
 combines_with: [threejs-3d-web, tailwind-css-patterns, theme-factory]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

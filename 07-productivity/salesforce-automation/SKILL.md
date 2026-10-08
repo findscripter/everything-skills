@@ -13,7 +13,7 @@ requires: []
 related: [deal-pipeline-tracker, zapier-make-automation, sales-prospecting, customer-health-scorer]
 combines_with: [deal-pipeline-tracker, zapier-make-automation, cro-revenue-advisor]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

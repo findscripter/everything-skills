@@ -13,7 +13,7 @@ requires: []
 related: [agent-memory-architecture, llm-conversation-memory, embedding-model-strategies, self-improving-memory-agent]
 combines_with: [rag-pipeline-builder, vector-index-tuning, hybrid-search-retrieval]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

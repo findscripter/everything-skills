@@ -13,7 +13,7 @@ requires: []
 related: [competitive-analysis, andreessen-vc-lens, business-assumption-stress-test, tech-stack-evaluator]
 combines_with: [competitive-analysis, market-sizing-analyst, premortem-plan-challenger]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

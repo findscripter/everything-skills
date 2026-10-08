@@ -22,6 +22,7 @@
 | `related` |  | string[] | **互见**：相关但不互相依赖的技能 `name` |
 | `combines_with` |  | string[] | **组合**：常与之搭配解决更大问题的技能 `name` |
 | `supersedes` |  | string[] | 本技能取代的旧技能 `name`（配合 `deprecated` 使用） |
+| `deprecate_reason` |  | string | 弃用原因；无继任者的历史档案必须明确填写，保留正文但不作为活动技能推荐 |
 | `license` |  | string | 原创条目默认 `CC-BY-4.0`（署名许可）；采编条目保留各自上游许可，见 LICENSE / NOTICE |
 | `schema_version` |  | string | （可选，约定 `1`）字段演进时的迁移依据，见 [ROADMAP.md](ROADMAP.md) |
 | `source` |  | string | 采编来源（repo slug/URL）。采自第三方时必填，自动汇入 `INDEX/sources.md` |

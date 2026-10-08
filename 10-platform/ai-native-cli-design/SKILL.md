@@ -13,7 +13,7 @@ requires: []
 related: [agent-tool-builder, agent-tool-design, mcp-builder, skill-creator]
 combines_with: [mcp-builder, agent-tool-builder, google-workspace-cli-admin]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 采编自 sickn33/antigravity-awesome-skills（MIT）的 Agent-Friendly CLI Spec v0.1，适配重写。

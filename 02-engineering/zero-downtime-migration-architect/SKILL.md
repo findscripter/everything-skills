@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Write, Edit, Bash, Grep, Glob]
 requires: []
-related: [database-migration-strategies, database-design-advisor, legacy-codebase-modernizer, release-manager]
+related: [database-migration-strategies, database-design-advisor, legacy-codebase-modernizer]
 combines_with: [deployment-engineer, feature-flags-architect, ci-cd-pipeline-builder]
 license: MIT
 source: alirezarezvani/claude-skills

@@ -13,7 +13,7 @@ requires: []
 related: [go-rod-browser-automation, browser-automation-builder, firecrawl-web-scraper, playwright-e2e-testing]
 combines_with: [golang-pro, apify-ecommerce-scraper]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Playwright Go 隐身浏览器自动化

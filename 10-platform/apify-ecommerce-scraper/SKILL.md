@@ -13,7 +13,7 @@ requires: []
 related: [firecrawl-web-scraper, browser-automation-builder, defuddle-web-extract, exa-semantic-search]
 combines_with: [browser-automation-builder, competitive-analysis, csv-data-cleaner]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

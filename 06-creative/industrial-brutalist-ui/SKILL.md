@@ -13,7 +13,7 @@ requires: []
 related: [high-end-visual-design, minimalist-editorial-ui, glassmorphism-ui-design, ui-design-system-builder]
 combines_with: [tailwind-css-patterns, frontend-design, d3js-data-viz]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

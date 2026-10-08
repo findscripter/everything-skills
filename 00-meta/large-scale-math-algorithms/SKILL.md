@@ -13,7 +13,7 @@ requires: []
 related: [complexity-cuts, algorithm-first-discipline, python-performance-optimization, latency-critical-systems]
 combines_with: [data-throughput-accelerator, performance-profiler]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 大规模数学算法升级

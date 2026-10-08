@@ -10,10 +10,10 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [hf, hf-mount, curl]
 requires: []
-related: [huggingface-model-trainer, transformers-js, local-llm-inference, mlops-model-productionizer]
+related: [huggingface-model-trainer, transformers-js, local-llm-inference]
 combines_with: [computer-vision-expert, embedding-model-strategies, scikit-learn-ml]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [browser-automation-builder, apify-ecommerce-scraper, defuddle-web-extract, exa-semantic-search]
 combines_with: [rag-implementation-workflow, csv-data-cleaner]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

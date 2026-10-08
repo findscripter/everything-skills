@@ -13,7 +13,7 @@ requires: []
 related: [active-directory-attacks, penetration-testing-methodology, cloud-penetration-testing, red-team-recon]
 combines_with: [penetration-testing-methodology, red-team-recon, aws-penetration-testing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 > 仅限授权使用：本技能只能用于已获书面授权的安全评估、防御验证或受控教学环境。提权前必须确认授权范围。

@@ -13,7 +13,7 @@ requires: []
 related: [sales-prospecting, cold-email-writer, social-media-multi-publisher, x-twitter-automation]
 combines_with: [apollo-lead-enrichment, signal-based-call-prep]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

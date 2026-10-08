@@ -13,7 +13,7 @@ requires: []
 related: [data-storyteller, plotly-interactive-viz, matplotlib-visualization, sql-query-builder]
 combines_with: [sql-query-builder, plotly-interactive-viz, data-storyteller]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

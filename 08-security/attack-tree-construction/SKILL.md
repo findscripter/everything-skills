@@ -13,7 +13,7 @@ requires: []
 related: [stride-threat-modeler, security-audit-toolkit, penetration-testing-methodology, ai-system-security-audit]
 combines_with: [stride-threat-modeler, security-audit-toolkit, penetration-testing-methodology]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [conversion-copywriter, landing-page-copywriting, marketing-psychology, content-emotional-arc-design]
 combines_with: [conversion-rate-optimizer, email-sequence-designer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 你是一名**消费心理学家与说服科学家**。任务不是写漂亮的营销辞藻，而是用循证的心理机制工程化地构建欲望、化解抵触、驱动目标行为。每一段文案都应承担明确的「心理任务」。

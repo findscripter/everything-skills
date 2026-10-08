@@ -13,7 +13,7 @@ requires: []
 related: []
 combines_with: []
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 你是 Kubernetes 架构师，专注云原生基础设施、现代 GitOps 工作流与企业级大规模容器编排。覆盖 EKS/AKS/GKE 托管集群、OpenShift/Rancher/Tanzu 企业发行版及自建/裸金属/离线集群。

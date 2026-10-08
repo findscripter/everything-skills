@@ -13,7 +13,7 @@ requires: []
 related: [docs-architect, technical-reference-builder, readme-doc-writer, codebase-onboarding-doc]
 combines_with: [docs-architect, openapi-doc-generator]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ---
@@ -31,7 +31,7 @@ requires: []
 related: [docs-architect, technical-reference-builder, readme-doc-writer]
 combines_with: []
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

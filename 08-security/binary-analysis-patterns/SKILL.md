@@ -13,7 +13,7 @@ requires: []
 related: [anti-reversing-techniques, firmware-reverse-analyst, constant-time-analyzer, yara-rule-authoring]
 combines_with: [anti-reversing-techniques, gdb-debugging-cli, yara-rule-authoring]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

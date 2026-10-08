@@ -13,7 +13,7 @@ requires: []
 related: [matplotlib-visualization, plotly-interactive-viz, scikit-learn-ml]
 combines_with: [matplotlib-visualization, polars-dataframe, plotly-interactive-viz]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

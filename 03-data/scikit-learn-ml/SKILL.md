@@ -10,10 +10,10 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, scikit-learn, pandas, numpy, matplotlib]
 requires: []
-related: [statsmodels-statistical-modeling, polars-dataframe, matplotlib-visualization, mlops-model-productionizer]
-combines_with: [polars-dataframe, matplotlib-visualization, mlops-model-productionizer]
+related: [statsmodels-statistical-modeling, polars-dataframe, matplotlib-visualization]
+combines_with: [polars-dataframe, matplotlib-visualization]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ---
@@ -31,7 +31,7 @@ requires: []
 related: [csv-data-cleaner]
 combines_with: []
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

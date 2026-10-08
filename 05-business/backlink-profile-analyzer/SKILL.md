@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Ahrefs/Semrush/Moz, Google Search Console, backlink CSV, Google Disavow Tool]
 requires: []
-related: [seo-audit, internal-linking-optimizer, technical-seo-checker, seo-traffic-drop-forensics]
+related: [seo-audit, internal-linking-optimizer, technical-seo-checker]
 combines_with: [competitive-analysis, seo-performance-reporter]
 license: Apache-2.0
 source: aaron-he-zhu/seo-geo-claude-skills

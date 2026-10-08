@@ -10,10 +10,10 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, git, notion, obsidian]
 requires: []
-related: [decision-log-recorder, activity-digest-generator, obsidian-bases-builder, technical-change-tracker]
+related: [decision-log-recorder, activity-digest-generator, obsidian-bases-builder]
 combines_with: [obsidian-clipper-templates, status-report-generator]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 开发日记系统：多项目上下文自动记录器

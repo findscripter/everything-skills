@@ -13,7 +13,7 @@ requires: []
 related: [ai-native-cli-design, agent-skill-security-scanner, skill-ecosystem-auditor]
 combines_with: [mcp-builder, devcontainer-claude-setup]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

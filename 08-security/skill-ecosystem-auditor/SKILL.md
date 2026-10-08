@@ -13,7 +13,7 @@ requires: []
 related: [agent-skill-security-scanner-v2, agent-plugin-audit, skill-optimizer, agent-readiness-aeo-check]
 combines_with: [skill-optimizer, skill-creator, agent-skill-security-scanner-v2]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 技能生态审计：质量、安全、成本与重复检测

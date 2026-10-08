@@ -13,7 +13,7 @@ requires: []
 related: [local-llm-inference, production-llm-app-builder, agent-tool-design]
 combines_with: [prompt-template-designer, llm-model-router]
 license: CC-BY-4.0
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

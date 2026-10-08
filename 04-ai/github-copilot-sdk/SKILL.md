@@ -13,7 +13,7 @@ requires: []
 related: [claude-api, vercel-ai-sdk, pydantic-ai-agents, autonomous-coding-agent-patterns]
 combines_with: [agent-tool-builder, mcp-builder, langfuse-llm-observability]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

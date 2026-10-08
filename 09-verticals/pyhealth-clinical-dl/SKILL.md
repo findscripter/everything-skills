@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pyhealth, python, pytorch, uv]
 requires: []
 related: [neurokit2-biosignal-processing, dicom-medical-imaging, pytdc-therapeutics-datasets, scikit-learn-ml]
-combines_with: [mlops-model-productionizer, shap-model-explainability, guided-statistical-analysis]
+combines_with: [shap-model-explainability, guided-statistical-analysis]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT

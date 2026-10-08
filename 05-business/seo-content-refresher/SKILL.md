@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Google Search Console, GA4 / 分析工具, SEO 工具 (Ahrefs/Semrush), Rich Results Test]
 requires: []
-related: [seo-content-writer, seo-content-gap-analysis, seo-traffic-drop-forensics, seo-keyword-research]
+related: [seo-content-writer, seo-content-gap-analysis, seo-keyword-research]
 combines_with: [seo-performance-reporter, seo-keyword-research]
 license: Apache-2.0
 source: aaron-he-zhu/seo-geo-claude-skills

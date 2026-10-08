@@ -13,7 +13,7 @@ requires: []
 related: [apify-actor-development, apify-multi-platform-scraper, ai-native-cli-design, apify-ecommerce-scraper]
 combines_with: [docker-container-optimizer, apify-actor-development]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

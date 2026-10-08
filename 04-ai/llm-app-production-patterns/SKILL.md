@@ -13,7 +13,7 @@ requires: []
 related: [production-llm-app-builder, autonomous-coding-agent-patterns, agent-workflow-pattern-designer, langchain-architecture]
 combines_with: [rag-implementation-workflow, cost-aware-llm-pipeline]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 本条目是 **生产级 LLM 应用的模式目录 + 选型指南**：在多种 RAG 检索策略、智能体架构、Prompt 编排与生产可靠性模式之间，依据「架构决策矩阵」快速选型，并给出每种模式的最小可运行实现骨架。偏「选哪个模式、怎么落地」；若你要的是端到端架构与工程化总览，见互见 `production-llm-app-builder`。

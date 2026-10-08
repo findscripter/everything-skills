@@ -13,7 +13,7 @@ requires: []
 related: [chrome-extension-mv3, progressive-web-app, vscode-extension-development, react-state-management]
 combines_with: [typescript-advanced-types, shadcn-ui-components, ci-cd-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [defi-protocol-templates, solidity-security-auditor]
 combines_with: [solidity-security-auditor, defi-protocol-templates]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

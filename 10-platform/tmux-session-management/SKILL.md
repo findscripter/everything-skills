@@ -11,9 +11,9 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [tmux, bash, ssh]
 requires: []
 related: [posix-shell-scripting, bash-defensive-patterns, busybox-on-windows, powershell-windows]
-combines_with: [imessage-claude-bridge, posix-shell-scripting]
+combines_with: [posix-shell-scripting]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [news-sentiment-briefing, entity-research-dossier, multi-source-knowledge-synthesis, query-decomposition-search]
 combines_with: [x-twitter-scraper-toolkit, fact-checking, exa-semantic-search]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

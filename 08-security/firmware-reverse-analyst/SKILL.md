@@ -13,7 +13,7 @@ requires: []
 related: [binary-analysis-patterns, anti-reversing-techniques, arm-cortex-firmware-expert, yara-rule-authoring]
 combines_with: [binary-analysis-patterns, anti-reversing-techniques, wireshark-traffic-analysis]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

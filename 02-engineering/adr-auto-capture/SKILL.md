@@ -10,10 +10,10 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Markdown, Git/PR]
 requires: []
-related: [adr-management-patterns, adr-writer, technical-change-tracker, codetour-walkthrough-builder]
+related: [adr-management-patterns, adr-writer]
 combines_with: [spec-driven-workflow, brooks-design-lint]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 # 架构决策实时捕获为 ADR

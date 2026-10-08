@@ -26,6 +26,7 @@
   · jaechang-hits/SciAgent-Skills           — CC-BY-4.0 / CC0-1.0（按条目）
   · tradermonty/claude-trading-skills       — MIT
   · OctagonAI/skills                       — MIT
+  · yylo-dev/yylo-skills                    — MIT
 
 说明
 ----
@@ -33,7 +34,7 @@
     精简内容。技术要点与关键约束尽量忠实于上游。
   - 仅收录原始许可允许再分发的条目；专有 / 仅源代码可见 / 无许可 / 非商业(NC) /
     GPL 系的条目均已排除。
-  - 完整的逐条来源—许可对照表，见 INDEX/sources.md（2026-10-08 快照：1097 条采编条目、18 个上游；动态数量以该索引为准）。
+  - 完整的逐条来源—许可对照表，见 INDEX/sources.md（2026-10-08 快照：1098 条采编条目、19 个上游；动态数量以该索引为准）。
 
 如你是上述任一项目的作者，希望调整署名方式、或认为某条收录不当，请提 issue，
 我们会尽快配合更正或移除。

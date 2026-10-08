@@ -13,7 +13,7 @@ requires: []
 related: [red-team-recon, penetration-testing-methodology, wireshark-traffic-analysis, cloud-penetration-testing]
 combines_with: [red-team-recon, penetration-testing-methodology, firmware-reverse-analyst]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Shodan 资产侦察方法论

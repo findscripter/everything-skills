@@ -13,7 +13,7 @@ requires: []
 related: [inventory-demand-planning, carrier-relationship-management, customs-trade-compliance]
 combines_with: [inventory-demand-planning, carrier-relationship-management]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

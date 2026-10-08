@@ -13,7 +13,7 @@ requires: []
 related: [odoo-orm-expert, odoo-module-developer, odoo-security-rules, rest-api-endpoint-builder]
 combines_with: [odoo-shopify-integration, n8n-workflow-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

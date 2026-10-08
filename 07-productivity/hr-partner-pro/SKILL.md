@@ -13,7 +13,7 @@ requires: []
 related: [interview-system-designer, company-culture-builder, org-change-management, employment-contract-drafter]
 combines_with: [interview-system-designer, employment-contract-drafter, company-culture-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

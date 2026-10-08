@@ -13,7 +13,7 @@ requires: []
 related: [fp-ts-refactor, typescript-advanced-types, javascript-modern-pro, error-handling-patterns]
 combines_with: [fp-ts-refactor, zod-schema-validation, typescript-advanced-types]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # fp-ts 实用函数式编程

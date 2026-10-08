@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: [org-change-management, org-change-management-adkar, operational-runbook-writer, technical-change-tracker]
+related: [org-change-management, org-change-management-adkar, operational-runbook-writer]
 combines_with: [operational-runbook-writer, stakeholder-update-writer]
 license: Apache-2.0
 source: anthropics/knowledge-work-plugins

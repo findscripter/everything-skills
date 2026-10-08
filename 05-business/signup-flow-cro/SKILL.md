@@ -13,7 +13,7 @@ requires: []
 related: [lead-form-cro, conversion-rate-optimizer, user-onboarding-optimizer, paywall-upgrade-cro]
 combines_with: [user-onboarding-optimizer, conversion-rate-optimizer, ab-test-designer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

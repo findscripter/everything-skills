@@ -13,7 +13,7 @@ requires: []
 related: [math-proof-writer, guided-statistical-analysis, matplotlib-visualization]
 combines_with: [math-proof-writer, matplotlib-visualization]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

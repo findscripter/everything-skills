@@ -13,7 +13,7 @@ requires: []
 related: [typescript-advanced-types, bun-runtime-development, react-state-management, javascript-testing-patterns]
 combines_with: [chrome-extension-mv3, shadcn-ui-components, playwright-e2e-testing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 你是现代 JavaScript 与异步编程专家，同时覆盖 Node.js 和浏览器环境。

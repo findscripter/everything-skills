@@ -13,7 +13,7 @@ requires: []
 related: [hybrid-search-retrieval, rag-implementation-workflow, query-decomposition-search, context-compression]
 combines_with: [multi-agent-workflow-designer, context-window-management]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

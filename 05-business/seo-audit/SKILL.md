@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Google Search Console, PageSpeed Insights, Rich Results Test, Screaming Frog, Chrome DevTools, Ahrefs/Semrush]
 requires: []
-related: [seo-site-architecture, schema-markup-builder, seo-traffic-drop-forensics, seo-content-writer]
+related: [seo-site-architecture, schema-markup-builder, seo-content-writer]
 combines_with: [seo-site-architecture, seo-content-writer, schema-markup-builder]
 license: MIT
 source: coreyhaines31/marketingskills

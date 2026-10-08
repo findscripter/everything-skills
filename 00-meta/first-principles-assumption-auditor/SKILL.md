@@ -6,16 +6,19 @@ domain: 通用/thinking
 triggers: [第一性原理, 帮我想清楚, 拆解一下, 从底层分析, 这个假设对吗, 我在做一个决定, 从根本上分析, 底层逻辑, 元问题, 重新思考, 有没有想错, 质疑我的假设, 审计我的推理, 我漏了什么, axiom, first principles, break it down, challenge this belief]
 tags: [思维方法, 第一性原理, 决策分析, 假设审计, 批判性思维, 反谄媚, 认知重建]
 level: 进阶
-status: stable
+status: deprecated
+deprecate_reason: "Original upstream skill ID was not found during the 2026-09-16 source audit; retained as a historical archive with no replacement."
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
 related: [first-principles-thinking, business-assumption-stress-test, premortem-plan-challenger, executive-adversarial-mentor]
 combines_with: [business-assumption-stress-test, premortem-plan-challenger]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 适用：

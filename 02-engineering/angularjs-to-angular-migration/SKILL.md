@@ -13,7 +13,7 @@ requires: []
 related: [modern-angular-expert, legacy-codebase-modernizer, zero-downtime-migration-architect, typescript-advanced-types]
 combines_with: [modern-angular-expert, legacy-codebase-modernizer, frontend-design]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

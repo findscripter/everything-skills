@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [bias_pattern_detector.py, conversation_depth_analyzer.py, directional_recommendation_validator.py]
 requires: []
-related: [executive-adversarial-mentor, premortem-plan-challenger, first-principles-assumption-auditor, business-assumption-stress-test]
+related: [executive-adversarial-mentor, premortem-plan-challenger, business-assumption-stress-test]
 combines_with: [context-budget-audit, structured-decision-framework]
 license: MIT
 source: alirezarezvani/claude-skills

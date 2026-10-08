@@ -13,7 +13,7 @@ requires: []
 related: [content-engine-strategist, content-marketing-strategist, social-media-content-creator, content-strategy-planner]
 combines_with: [social-media-multi-publisher, social-media-content-creator, content-engine-strategist]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [product-marketing-gtm-strategy, competitive-intel-tracker, cro-revenue-advisor, contract-proposal-writer]
 combines_with: [product-marketing-gtm-strategy, competitive-intel-tracker, contract-proposal-writer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 销售赋能物料制作

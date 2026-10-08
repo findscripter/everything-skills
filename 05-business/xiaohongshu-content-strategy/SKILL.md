@@ -13,7 +13,7 @@ requires: []
 related: [wechat-official-account-growth, social-media-content-creator, content-strategy-planner, content-marketing-strategist]
 combines_with: [wechat-official-account-growth, social-media-content-creator, social-media-multi-publisher]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 小红书爆款内容策略

@@ -13,7 +13,7 @@ requires: []
 related: [salesforce-automation, business-process-mapper, agentmail-email-infra, stripe-integration]
 combines_with: [salesforce-automation, business-process-mapper, email-drip-sequence]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Zapier 与 Make 无代码自动化

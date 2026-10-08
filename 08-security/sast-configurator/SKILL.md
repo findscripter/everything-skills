@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Semgrep, SonarQube, CodeQL, GitHub Actions, GitLab CI, Jenkins, Docker, pre-commit, SARIF]
 requires: []
-related: [codeql-scanner, semgrep-rule-creator, dependency-auditor, security-antipattern-hook]
+related: [codeql-scanner, semgrep-rule-creator, dependency-auditor]
 combines_with: [semgrep-rule-creator, ci-cd-pipeline-builder, dependency-auditor]
 license: MIT
 source: wshobson/agents

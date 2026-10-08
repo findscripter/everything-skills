@@ -13,7 +13,7 @@ requires: []
 related: [technical-reference-builder, readme-doc-writer, code-tutorial-engineer, codebase-onboarding-doc]
 combines_with: [codebase-to-prd, openapi-doc-generator]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

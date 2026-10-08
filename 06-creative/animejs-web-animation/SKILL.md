@@ -13,7 +13,7 @@ requires: []
 related: [design-spells-microinteractions, glassmorphism-ui-design, threejs-3d-web, frontend-design]
 combines_with: [web-artifacts-builder, tailwind-css-patterns, frontend-design]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 采用 [Anime.js](https://animejs.com/)（轻量但强大的 JavaScript 动画引擎）构建远超普通 CSS 过渡的高保真网页动效，擅长复杂时间线、交错（stagger）以及对 DOM、CSS、SVG 的精确控制，适合奖项级别的交互站点。

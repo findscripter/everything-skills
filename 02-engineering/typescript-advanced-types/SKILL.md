@@ -13,7 +13,7 @@ requires: []
 related: [javascript-modern-pro, zod-schema-validation, trpc-typesafe-api, bun-runtime-development]
 combines_with: [react-state-management, shadcn-ui-components, nestjs-expert]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

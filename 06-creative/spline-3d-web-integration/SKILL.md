@@ -13,7 +13,7 @@ requires: []
 related: [threejs-3d-web, glsl-shader-programming, scroll-driven-web-experience, animejs-web-animation]
 combines_with: [high-end-visual-design, web-artifacts-builder, frontend-design]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 将 [Spline.design](https://spline.design)（浏览器内的 3D 设计工具，可理解为「3D 版 Figma」）制作的交互式 3D 场景嵌入网页。设计师在 Spline 编辑器里搭建对象、材质、动画、物理与事件，导出为托管的 `.splinecode` URL，本技能负责选对集成路径、接好运行时控制并产出沉浸式、有 wow 效果的高端 UI。

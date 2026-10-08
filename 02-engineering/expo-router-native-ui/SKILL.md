@@ -13,7 +13,7 @@ requires: []
 related: [react-native-architecture, flutter-expert, ios-swiftui-developer, react-state-management]
 combines_with: [apple-hig-advisor, frontend-design, android-ui-verification]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

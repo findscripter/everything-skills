@@ -13,7 +13,7 @@ requires: []
 related: [drizzle-orm-expert, database-migration-strategies, neon-serverless-postgres, postgresql-optimization]
 combines_with: [nestjs-expert, trpc-typesafe-api, zod-schema-validation]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

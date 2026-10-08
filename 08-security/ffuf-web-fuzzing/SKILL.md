@@ -13,7 +13,7 @@ requires: []
 related: [burp-suite-testing, api-fuzzing-bug-bounty, red-team-recon, path-traversal-testing]
 combines_with: [red-team-recon, burp-suite-testing, penetration-testing-methodology]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

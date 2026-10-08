@@ -13,7 +13,7 @@ requires: []
 related: [prisma-orm-expert, database-migration-strategies, zod-schema-validation, neon-serverless-postgres]
 combines_with: [trpc-typesafe-api, typescript-advanced-types, rest-api-endpoint-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [social-media-content-creator, social-media-performance-analyzer, content-marketing-strategist]
 combines_with: [social-media-content-creator, social-media-performance-analyzer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

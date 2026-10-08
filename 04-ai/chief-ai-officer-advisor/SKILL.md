@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [model_buildvsbuy_calculator.py, ai_risk_classifier.py, ai_cost_economics.py]
 requires: []
-related: [mlops-model-productionizer, llm-model-router, claude-api, chief-data-officer-advisor]
+related: [llm-model-router, claude-api, chief-data-officer-advisor]
 combines_with: [production-llm-app-builder, ai-engineering-toolkit, local-llm-inference]
 license: MIT
 source: alirezarezvani/claude-skills

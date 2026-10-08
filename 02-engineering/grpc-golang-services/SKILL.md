@@ -13,7 +13,7 @@ requires: []
 related: [golang-pro, go-concurrency-patterns, microservices-patterns, trpc-typesafe-api]
 combines_with: [golang-pro, microservices-patterns, service-mesh-architect]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

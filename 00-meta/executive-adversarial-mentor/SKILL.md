@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [decision_matrix_scorer.py, stakeholder_mapper.py]
 requires: []
-related: [boardroom-deliberation, premortem-plan-challenger, first-principles-assumption-auditor, business-assumption-stress-test]
+related: [boardroom-deliberation, premortem-plan-challenger, business-assumption-stress-test]
 combines_with: [premortem-plan-challenger, board-meeting-prep, business-assumption-stress-test]
 license: MIT
 source: alirezarezvani/claude-skills

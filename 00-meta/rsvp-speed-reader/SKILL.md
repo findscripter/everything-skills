@@ -13,7 +13,7 @@ requires: []
 related: [bullet-point-structurer, socratic-explainer, interactive-pdf-viewer, multi-source-knowledge-synthesis]
 combines_with: [web-artifacts-builder, youtube-transcript-ingest, interactive-pdf-viewer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

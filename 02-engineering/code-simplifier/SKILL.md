@@ -13,7 +13,7 @@ requires: []
 related: [clean-code-principles, complexity-cuts, clean-craft-code-review, code-reviewer]
 combines_with: [legacy-codebase-modernizer, systematic-debugger, adversarial-code-reviewer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [ux-ui-principles-audit, accessibility-wcag-audit, wcag-22-audit-patterns, design-critique]
 combines_with: [frontend-design, web-mock-data-hunter]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

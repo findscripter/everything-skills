@@ -131,7 +131,7 @@
       "title": "第一性原理假设审计",
       "domain": "通用/thinking",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "first-principles-thinking",
@@ -789,7 +789,7 @@
       "title": "CodeTour 代码导览生成",
       "domain": "研发/architecture",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "complexity-cuts",
@@ -1293,7 +1293,7 @@
       "title": "减少 LLM 编码常见错误的准则",
       "domain": "研发/review",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "magic-ui-component-generator",
@@ -1524,7 +1524,7 @@
       "title": "发布管理与部署协调",
       "domain": "研发/devops",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "rest-api-endpoint-builder",
@@ -1944,7 +1944,7 @@
       "title": "数据战略决策审查",
       "domain": "数据/analysis",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "data-throughput-accelerator",
@@ -2430,6 +2430,13 @@
       "status": "stable"
     },
     {
+      "id": "ledger-tasks-yylo",
+      "title": "YYLO Ledger 任务看板与依赖管理",
+      "domain": "智能/agents",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "llm-agent-benchmarking",
       "title": "LLM 智能体测试与基准评测",
       "domain": "智能/eval",
@@ -2490,7 +2497,7 @@
       "title": "机器学习模型生产化与 MLOps",
       "domain": "智能/model-ops",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "multi-agent-system-designer",
@@ -3624,7 +3631,7 @@
       "title": "SEO 流量骤降取证排查",
       "domain": "商业/seo",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "serp-feature-analysis",
@@ -4457,7 +4464,7 @@
       "title": "技术变更记录与会话交接追踪",
       "domain": "协作/automation",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "vendor-evaluation",
@@ -4814,7 +4821,7 @@
       "title": "多框架合规编排器（multi-framework-compliance-orchestrator）",
       "domain": "安全/compliance",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "network-interface-health",
@@ -4877,7 +4884,7 @@
       "title": "编码安全反模式拦截钩子",
       "domain": "安全/appsec",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "security-audit-toolkit",
@@ -5416,7 +5423,7 @@
       "title": "自然语言 DeFi 链上交易代理",
       "domain": "领域/fintech",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "defi-protocol-templates",
@@ -5766,7 +5773,7 @@
       "title": "硬件工程文档生成",
       "domain": "领域/hardware",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "harmony-batch-correction",
@@ -6858,7 +6865,7 @@
       "title": "不动产拍卖法律分析",
       "domain": "领域/legal",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "protein-language-models",
@@ -7124,7 +7131,7 @@
       "title": "税务亏损收割策略",
       "domain": "领域/fintech",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "three-statement-model",
@@ -7362,7 +7369,7 @@
       "title": "Azure Container Apps 容器化部署（azd）",
       "domain": "平台/cloud",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "azure-functions-serverless",
@@ -7502,7 +7509,7 @@
       "title": "iMessage 短信驱动 Claude 会话桥接",
       "domain": "平台/integration",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "linkedin-cli-automation",
@@ -7770,11 +7777,6 @@
     },
     {
       "from": "agent-self-reflection",
-      "to": "first-principles-assumption-auditor",
-      "type": "related"
-    },
-    {
-      "from": "agent-self-reflection",
       "to": "business-assumption-stress-test",
       "type": "related"
     },
@@ -7881,11 +7883,6 @@
     {
       "from": "business-assumption-stress-test",
       "to": "premortem-plan-challenger",
-      "type": "related"
-    },
-    {
-      "from": "business-assumption-stress-test",
-      "to": "first-principles-assumption-auditor",
       "type": "related"
     },
     {
@@ -8205,11 +8202,6 @@
     },
     {
       "from": "executive-adversarial-mentor",
-      "to": "first-principles-assumption-auditor",
-      "type": "related"
-    },
-    {
-      "from": "executive-adversarial-mentor",
       "to": "business-assumption-stress-test",
       "type": "related"
     },
@@ -8317,11 +8309,6 @@
       "from": "first-principles-assumption-auditor",
       "to": "premortem-plan-challenger",
       "type": "combines_with"
-    },
-    {
-      "from": "first-principles-thinking",
-      "to": "first-principles-assumption-auditor",
-      "type": "related"
     },
     {
       "from": "first-principles-thinking",
@@ -8835,11 +8822,6 @@
     },
     {
       "from": "premortem-plan-challenger",
-      "to": "first-principles-assumption-auditor",
-      "type": "related"
-    },
-    {
-      "from": "premortem-plan-challenger",
       "to": "executive-adversarial-mentor",
       "type": "combines_with"
     },
@@ -9220,11 +9202,6 @@
     },
     {
       "from": "codetour-authoring",
-      "to": "codetour-walkthrough-builder",
-      "type": "related"
-    },
-    {
-      "from": "codetour-authoring",
       "to": "code-tutorial-engineer",
       "type": "related"
     },
@@ -9307,11 +9284,6 @@
       "from": "doc-coauthoring",
       "to": "professional-proofreader",
       "type": "combines_with"
-    },
-    {
-      "from": "doc-to-math-spec",
-      "to": "first-principles-assumption-auditor",
-      "type": "related"
     },
     {
       "from": "doc-to-math-spec",
@@ -9855,16 +9827,6 @@
     },
     {
       "from": "adr-auto-capture",
-      "to": "technical-change-tracker",
-      "type": "related"
-    },
-    {
-      "from": "adr-auto-capture",
-      "to": "codetour-walkthrough-builder",
-      "type": "related"
-    },
-    {
-      "from": "adr-auto-capture",
       "to": "spec-driven-workflow",
       "type": "combines_with"
     },
@@ -9886,11 +9848,6 @@
     {
       "from": "adversarial-code-reviewer",
       "to": "brooks-design-lint",
-      "type": "related"
-    },
-    {
-      "from": "adversarial-code-reviewer",
-      "to": "llm-coding-mistake-guardrails",
       "type": "related"
     },
     {
@@ -9921,11 +9878,6 @@
     {
       "from": "ai-generated-code-auditor",
       "to": "vibe-code-production-cleanup",
-      "type": "related"
-    },
-    {
-      "from": "ai-generated-code-auditor",
-      "to": "llm-coding-mistake-guardrails",
       "type": "related"
     },
     {
@@ -10102,11 +10054,6 @@
       "from": "app-store-release-notes",
       "to": "git-advanced-workflows",
       "type": "requires"
-    },
-    {
-      "from": "app-store-release-notes",
-      "to": "release-manager",
-      "type": "related"
     },
     {
       "from": "app-store-release-notes",
@@ -10496,11 +10443,6 @@
     {
       "from": "c4-architecture-docs",
       "to": "adr-management-patterns",
-      "type": "related"
-    },
-    {
-      "from": "c4-architecture-docs",
-      "to": "codetour-walkthrough-builder",
       "type": "related"
     },
     {
@@ -11465,11 +11407,6 @@
     },
     {
       "from": "feature-flags-architect",
-      "to": "release-manager",
-      "type": "related"
-    },
-    {
-      "from": "feature-flags-architect",
       "to": "deployment-engineer",
       "type": "related"
     },
@@ -11477,11 +11414,6 @@
       "from": "feature-flags-architect",
       "to": "ci-cd-pipeline-builder",
       "type": "related"
-    },
-    {
-      "from": "feature-flags-architect",
-      "to": "release-manager",
-      "type": "combines_with"
     },
     {
       "from": "feature-flags-architect",
@@ -11657,11 +11589,6 @@
       "from": "frontend-design",
       "to": "webapp-testing",
       "type": "combines_with"
-    },
-    {
-      "from": "full-output-enforcement",
-      "to": "llm-coding-mistake-guardrails",
-      "type": "related"
     },
     {
       "from": "full-output-enforcement",
@@ -13100,11 +13027,6 @@
     },
     {
       "from": "pre-deploy-checklist",
-      "to": "release-manager",
-      "type": "related"
-    },
-    {
-      "from": "pre-deploy-checklist",
       "to": "deployment-engineer",
       "type": "related"
     },
@@ -13117,11 +13039,6 @@
       "from": "pre-deploy-checklist",
       "to": "feature-flags-architect",
       "type": "related"
-    },
-    {
-      "from": "pre-deploy-checklist",
-      "to": "release-manager",
-      "type": "combines_with"
     },
     {
       "from": "pre-deploy-checklist",
@@ -14415,11 +14332,6 @@
     },
     {
       "from": "vscode-extension-development",
-      "to": "codetour-walkthrough-builder",
-      "type": "combines_with"
-    },
-    {
-      "from": "vscode-extension-development",
       "to": "developer-experience-optimizer",
       "type": "combines_with"
     },
@@ -14551,11 +14463,6 @@
     {
       "from": "zero-downtime-migration-architect",
       "to": "legacy-codebase-modernizer",
-      "type": "related"
-    },
-    {
-      "from": "zero-downtime-migration-architect",
-      "to": "release-manager",
       "type": "related"
     },
     {
@@ -14740,11 +14647,6 @@
     },
     {
       "from": "chief-data-officer-advisor",
-      "to": "data-strategy-review",
-      "type": "related"
-    },
-    {
-      "from": "chief-data-officer-advisor",
       "to": "chief-ai-officer-advisor",
       "type": "related"
     },
@@ -14752,11 +14654,6 @@
       "from": "chief-data-officer-advisor",
       "to": "data-pipeline-engineer",
       "type": "related"
-    },
-    {
-      "from": "chief-data-officer-advisor",
-      "to": "data-strategy-review",
-      "type": "combines_with"
     },
     {
       "from": "chief-data-officer-advisor",
@@ -15750,22 +15647,12 @@
     },
     {
       "from": "scikit-learn-ml",
-      "to": "mlops-model-productionizer",
-      "type": "related"
-    },
-    {
-      "from": "scikit-learn-ml",
       "to": "polars-dataframe",
       "type": "combines_with"
     },
     {
       "from": "scikit-learn-ml",
       "to": "matplotlib-visualization",
-      "type": "combines_with"
-    },
-    {
-      "from": "scikit-learn-ml",
-      "to": "mlops-model-productionizer",
       "type": "combines_with"
     },
     {
@@ -16640,11 +16527,6 @@
     },
     {
       "from": "chief-ai-officer-advisor",
-      "to": "mlops-model-productionizer",
-      "type": "related"
-    },
-    {
-      "from": "chief-ai-officer-advisor",
       "to": "llm-model-router",
       "type": "related"
     },
@@ -16805,11 +16687,6 @@
     },
     {
       "from": "computer-vision-expert",
-      "to": "mlops-model-productionizer",
-      "type": "combines_with"
-    },
-    {
-      "from": "computer-vision-expert",
       "to": "computer-use-agents",
       "type": "combines_with"
     },
@@ -16906,11 +16783,6 @@
     {
       "from": "cost-aware-llm-pipeline",
       "to": "langfuse-llm-observability",
-      "type": "combines_with"
-    },
-    {
-      "from": "cost-aware-llm-pipeline",
-      "to": "mlops-model-productionizer",
       "type": "combines_with"
     },
     {
@@ -17170,11 +17042,6 @@
     },
     {
       "from": "huggingface-hub-cli",
-      "to": "mlops-model-productionizer",
-      "type": "related"
-    },
-    {
-      "from": "huggingface-hub-cli",
       "to": "computer-vision-expert",
       "type": "combines_with"
     },
@@ -17191,11 +17058,6 @@
     {
       "from": "huggingface-model-trainer",
       "to": "huggingface-hub-cli",
-      "type": "related"
-    },
-    {
-      "from": "huggingface-model-trainer",
-      "to": "mlops-model-productionizer",
       "type": "related"
     },
     {
@@ -17389,6 +17251,26 @@
       "type": "combines_with"
     },
     {
+      "from": "ledger-tasks-yylo",
+      "to": "autonomous-coding-agent-patterns",
+      "type": "related"
+    },
+    {
+      "from": "ledger-tasks-yylo",
+      "to": "multi-agent-workflow-designer",
+      "type": "related"
+    },
+    {
+      "from": "ledger-tasks-yylo",
+      "to": "dmux-multi-agent-workflows",
+      "type": "combines_with"
+    },
+    {
+      "from": "ledger-tasks-yylo",
+      "to": "parallel-agent-hub",
+      "type": "combines_with"
+    },
+    {
       "from": "llm-agent-benchmarking",
       "to": "llm-judge-evaluation",
       "type": "related"
@@ -17540,11 +17422,6 @@
     },
     {
       "from": "llm-model-router",
-      "to": "mlops-model-productionizer",
-      "type": "related"
-    },
-    {
-      "from": "llm-model-router",
       "to": "langfuse-llm-observability",
       "type": "combines_with"
     },
@@ -17656,11 +17533,6 @@
     {
       "from": "local-llm-inference",
       "to": "production-llm-app-builder",
-      "type": "combines_with"
-    },
-    {
-      "from": "local-llm-inference",
-      "to": "mlops-model-productionizer",
       "type": "combines_with"
     },
     {
@@ -17875,11 +17747,6 @@
     },
     {
       "from": "production-llm-app-builder",
-      "to": "mlops-model-productionizer",
-      "type": "related"
-    },
-    {
-      "from": "production-llm-app-builder",
       "to": "ai-engineering-toolkit",
       "type": "related"
     },
@@ -17897,11 +17764,6 @@
       "from": "production-llm-app-builder",
       "to": "multi-agent-system-designer",
       "type": "combines_with"
-    },
-    {
-      "from": "production-ml-engineer",
-      "to": "mlops-model-productionizer",
-      "type": "related"
     },
     {
       "from": "production-ml-engineer",
@@ -18271,11 +18133,6 @@
     {
       "from": "shap-model-explainability",
       "to": "scikit-learn-ml",
-      "type": "related"
-    },
-    {
-      "from": "shap-model-explainability",
-      "to": "mlops-model-productionizer",
       "type": "related"
     },
     {
@@ -19036,11 +18893,6 @@
     {
       "from": "backlink-profile-analyzer",
       "to": "technical-seo-checker",
-      "type": "related"
-    },
-    {
-      "from": "backlink-profile-analyzer",
-      "to": "seo-traffic-drop-forensics",
       "type": "related"
     },
     {
@@ -22720,11 +22572,6 @@
     },
     {
       "from": "seo-audit",
-      "to": "seo-traffic-drop-forensics",
-      "type": "related"
-    },
-    {
-      "from": "seo-audit",
       "to": "seo-content-writer",
       "type": "related"
     },
@@ -22786,11 +22633,6 @@
     {
       "from": "seo-content-refresher",
       "to": "seo-content-gap-analysis",
-      "type": "related"
-    },
-    {
-      "from": "seo-content-refresher",
-      "to": "seo-traffic-drop-forensics",
       "type": "related"
     },
     {
@@ -23026,11 +22868,6 @@
     {
       "from": "seo-rank-tracker",
       "to": "serp-feature-analysis",
-      "type": "related"
-    },
-    {
-      "from": "seo-rank-tracker",
-      "to": "seo-traffic-drop-forensics",
       "type": "related"
     },
     {
@@ -23671,11 +23508,6 @@
     {
       "from": "technical-seo-checker",
       "to": "seo-audit",
-      "type": "combines_with"
-    },
-    {
-      "from": "technical-seo-checker",
-      "to": "seo-traffic-drop-forensics",
       "type": "combines_with"
     },
     {
@@ -25350,11 +25182,6 @@
     },
     {
       "from": "change-management-request",
-      "to": "technical-change-tracker",
-      "type": "related"
-    },
-    {
-      "from": "change-management-request",
       "to": "operational-runbook-writer",
       "type": "combines_with"
     },
@@ -25365,28 +25192,13 @@
     },
     {
       "from": "changelog-generator",
-      "to": "release-manager",
-      "type": "related"
-    },
-    {
-      "from": "changelog-generator",
       "to": "git-advanced-workflows",
-      "type": "related"
-    },
-    {
-      "from": "changelog-generator",
-      "to": "technical-change-tracker",
       "type": "related"
     },
     {
       "from": "changelog-generator",
       "to": "github-issue-writer",
       "type": "related"
-    },
-    {
-      "from": "changelog-generator",
-      "to": "release-manager",
-      "type": "combines_with"
     },
     {
       "from": "changelog-generator",
@@ -25491,11 +25303,6 @@
     {
       "from": "codebase-onboarding-doc",
       "to": "developer-experience-optimizer",
-      "type": "combines_with"
-    },
-    {
-      "from": "codebase-onboarding-doc",
-      "to": "codetour-walkthrough-builder",
       "type": "combines_with"
     },
     {
@@ -26215,11 +26022,6 @@
     },
     {
       "from": "multi-project-dev-diary",
-      "to": "technical-change-tracker",
-      "type": "related"
-    },
-    {
-      "from": "multi-project-dev-diary",
       "to": "obsidian-clipper-templates",
       "type": "combines_with"
     },
@@ -26352,11 +26154,6 @@
       "from": "office-hours-facilitator",
       "to": "andreessen-vc-lens",
       "type": "combines_with"
-    },
-    {
-      "from": "oncall-handoff-writer",
-      "to": "technical-change-tracker",
-      "type": "related"
     },
     {
       "from": "oncall-handoff-writer",
@@ -27135,11 +26932,6 @@
     },
     {
       "from": "agent-skill-security-scanner",
-      "to": "security-antipattern-hook",
-      "type": "related"
-    },
-    {
-      "from": "agent-skill-security-scanner",
       "to": "supply-chain-risk-auditor",
       "type": "combines_with"
     },
@@ -27511,11 +27303,6 @@
     {
       "from": "backend-security-coder",
       "to": "insecure-defaults-detector",
-      "type": "related"
-    },
-    {
-      "from": "backend-security-coder",
-      "to": "security-antipattern-hook",
       "type": "related"
     },
     {
@@ -28330,11 +28117,6 @@
     },
     {
       "from": "insecure-defaults-detector",
-      "to": "security-antipattern-hook",
-      "type": "related"
-    },
-    {
-      "from": "insecure-defaults-detector",
       "to": "backend-security-coder",
       "type": "related"
     },
@@ -28925,11 +28707,6 @@
     },
     {
       "from": "sast-configurator",
-      "to": "security-antipattern-hook",
-      "type": "related"
-    },
-    {
-      "from": "sast-configurator",
       "to": "semgrep-rule-creator",
       "type": "combines_with"
     },
@@ -29161,11 +28938,6 @@
     {
       "from": "semgrep-rule-creator",
       "to": "vulnerability-variant-analysis",
-      "type": "related"
-    },
-    {
-      "from": "semgrep-rule-creator",
-      "to": "security-antipattern-hook",
       "type": "related"
     },
     {
@@ -30755,11 +30527,6 @@
     },
     {
       "from": "client-performance-report",
-      "to": "tax-loss-harvesting",
-      "type": "combines_with"
-    },
-    {
-      "from": "client-performance-report",
       "to": "investment-thesis-tracker",
       "type": "combines_with"
     },
@@ -31910,22 +31677,12 @@
     },
     {
       "from": "emc-precompliance-analyzer",
-      "to": "hardware-doc-generator",
-      "type": "related"
-    },
-    {
-      "from": "emc-precompliance-analyzer",
       "to": "pcb-fab-assembly",
       "type": "related"
     },
     {
       "from": "emc-precompliance-analyzer",
       "to": "kicad-design-reviewer",
-      "type": "combines_with"
-    },
-    {
-      "from": "emc-precompliance-analyzer",
-      "to": "hardware-doc-generator",
       "type": "combines_with"
     },
     {
@@ -33825,11 +33582,6 @@
     },
     {
       "from": "kicad-design-reviewer",
-      "to": "hardware-doc-generator",
-      "type": "related"
-    },
-    {
-      "from": "kicad-design-reviewer",
       "to": "spice-circuit-simulator",
       "type": "combines_with"
     },
@@ -34160,11 +33912,6 @@
     },
     {
       "from": "lightning-network-architecture-review",
-      "to": "defi-natural-language-agent",
-      "type": "related"
-    },
-    {
-      "from": "lightning-network-architecture-review",
       "to": "defi-amm-security-audit",
       "type": "combines_with"
     },
@@ -34334,11 +34081,6 @@
       "type": "combines_with"
     },
     {
-      "from": "macro-regime-detector",
-      "to": "tax-loss-harvesting",
-      "type": "combines_with"
-    },
-    {
       "from": "macs3-peak-calling",
       "to": "deeptools-ngs-analysis",
       "type": "related"
@@ -34431,11 +34173,6 @@
     {
       "from": "market-top-detector",
       "to": "portfolio-rebalancer",
-      "type": "combines_with"
-    },
-    {
-      "from": "market-top-detector",
-      "to": "tax-loss-harvesting",
       "type": "combines_with"
     },
     {
@@ -37770,22 +37507,12 @@
     },
     {
       "from": "portfolio-rebalancer",
-      "to": "tax-loss-harvesting",
-      "type": "related"
-    },
-    {
-      "from": "portfolio-rebalancer",
       "to": "backtesting-frameworks",
       "type": "related"
     },
     {
       "from": "portfolio-rebalancer",
       "to": "portfolio-risk-metrics",
-      "type": "combines_with"
-    },
-    {
-      "from": "portfolio-rebalancer",
-      "to": "tax-loss-harvesting",
       "type": "combines_with"
     },
     {
@@ -38062,11 +37789,6 @@
       "from": "pyhealth-clinical-dl",
       "to": "scikit-learn-ml",
       "type": "related"
-    },
-    {
-      "from": "pyhealth-clinical-dl",
-      "to": "mlops-model-productionizer",
-      "type": "combines_with"
     },
     {
       "from": "pyhealth-clinical-dl",
@@ -38930,11 +38652,6 @@
     },
     {
       "from": "spice-circuit-simulator",
-      "to": "hardware-doc-generator",
-      "type": "related"
-    },
-    {
-      "from": "spice-circuit-simulator",
       "to": "kicad-design-reviewer",
       "type": "combines_with"
     },
@@ -39780,11 +39497,6 @@
     },
     {
       "from": "agentmail-email-infra",
-      "to": "imessage-claude-bridge",
-      "type": "related"
-    },
-    {
-      "from": "agentmail-email-infra",
       "to": "mcp-builder",
       "type": "combines_with"
     },
@@ -40211,11 +39923,6 @@
     {
       "from": "azure-functions-serverless",
       "to": "aws-serverless-architect",
-      "type": "related"
-    },
-    {
-      "from": "azure-functions-serverless",
-      "to": "azure-container-apps-deploy",
       "type": "related"
     },
     {
@@ -40714,11 +40421,6 @@
       "type": "combines_with"
     },
     {
-      "from": "github-actions-author",
-      "to": "release-manager",
-      "type": "combines_with"
-    },
-    {
       "from": "go-playwright-automation",
       "to": "go-rod-browser-automation",
       "type": "related"
@@ -41060,11 +40762,6 @@
     },
     {
       "from": "sendblue-imessage-api",
-      "to": "imessage-claude-bridge",
-      "type": "related"
-    },
-    {
-      "from": "sendblue-imessage-api",
       "to": "twilio-communications",
       "type": "related"
     },
@@ -41355,11 +41052,6 @@
     },
     {
       "from": "tmux-session-management",
-      "to": "imessage-claude-bridge",
-      "type": "combines_with"
-    },
-    {
-      "from": "tmux-session-management",
       "to": "posix-shell-scripting",
       "type": "combines_with"
     },
@@ -41376,11 +41068,6 @@
     {
       "from": "twilio-communications",
       "to": "slack-bolt-bot-builder",
-      "type": "related"
-    },
-    {
-      "from": "twilio-communications",
-      "to": "imessage-claude-bridge",
       "type": "related"
     },
     {

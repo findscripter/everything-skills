@@ -6,16 +6,19 @@ domain: 领域/fintech
 triggers: [自然语言 DeFi 操作, 在 EVM 链上换币/质押/桥接, 查询链上余额价格路由报价, 构建/模拟/签名钱包交易, EIP-712 类型化数据签名, 切换 app/模型/链/会话或 AA 设置]
 tags: [defi, wallet, onchain, account-abstraction, eip-712, cli, agent, intent]
 level: 进阶
-status: stable
+status: deprecated
+deprecate_reason: "Original upstream skill ID was not found during the 2026-09-16 source audit; retained as a historical archive with no replacement."
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [@aomi-labs/client, aomi, npm, npx]
 requires: []
 related: [blockchain-web3-developer, agent-payment-x402, defi-protocol-templates, evm-token-decimals]
 combines_with: [solidity-security-auditor, nodejs-keccak256-hashing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
+supersedes: []
 ---
+> **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用
 
 适用：

@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, shap, matplotlib, numpy, pandas, scikit-learn, xgboost/lightgbm(可选), tensorflow/torch(可选)]
 requires: []
-related: [scikit-learn-ml, mlops-model-productionizer, statsmodels-statistical-modeling, computer-vision-expert]
+related: [scikit-learn-ml, statsmodels-statistical-modeling, computer-vision-expert]
 combines_with: [matplotlib-visualization, huggingface-model-trainer]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills

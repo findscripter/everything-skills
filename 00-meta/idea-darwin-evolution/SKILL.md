@@ -13,7 +13,7 @@ requires: []
 related: [design-brainstorming, research-idea-generator, first-principles-thinking, kaizen-continuous-improvement]
 combines_with: [business-assumption-stress-test, structured-decision-framework, premortem-plan-challenger]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

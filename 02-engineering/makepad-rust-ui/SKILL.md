@@ -13,7 +13,7 @@ requires: []
 related: [rust-pro, avalonia-zafiro-desktop, electron-desktop-development, bevy-ecs-rust]
 combines_with: [rust-pro, ui-design-system-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

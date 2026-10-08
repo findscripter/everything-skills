@@ -13,7 +13,7 @@ requires: []
 related: [odoo-rpc-api, odoo-module-developer, odoo-purchase-workflow, odoo-shopify-integration]
 combines_with: [odoo-module-developer, odoo-inventory-optimizer, odoo-purchase-workflow]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

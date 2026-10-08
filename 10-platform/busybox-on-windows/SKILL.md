@@ -13,7 +13,7 @@ requires: []
 related: [powershell-windows, posix-shell-scripting, tmux-session-management, bash-defensive-patterns]
 combines_with: [powershell-windows, posix-shell-scripting]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

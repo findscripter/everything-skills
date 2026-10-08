@@ -13,7 +13,7 @@ requires: []
 related: [fp-ts-pragmatic-guide, typescript-advanced-types, javascript-modern-pro, error-handling-patterns]
 combines_with: [typescript-advanced-types, error-handling-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

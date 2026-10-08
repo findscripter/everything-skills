@@ -10,7 +10,7 @@ version: 0.1.0
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: [first-principles-assumption-auditor, decision-navigator, design-brainstorming]
+related: [decision-navigator, design-brainstorming]
 combines_with: [business-assumption-stress-test, design-brainstorming]
 license: CC-BY-SA-4.0
 ---

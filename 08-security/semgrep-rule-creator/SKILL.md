@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [semgrep, WebFetch, Bash, Read, Write, Edit, Glob, Grep]
 requires: []
-related: [sast-configurator, codeql-scanner, vulnerability-variant-analysis, security-antipattern-hook]
+related: [sast-configurator, codeql-scanner, vulnerability-variant-analysis]
 combines_with: [sast-configurator, vulnerability-variant-analysis, false-positive-check]
 license: CC-BY-SA-4.0
 source: trailofbits/skills

@@ -13,7 +13,7 @@ requires: []
 related: [threat-detection-hunting, security-incident-response, shodan-reconnaissance, firmware-reverse-analyst]
 combines_with: [threat-detection-hunting, security-incident-response, penetration-testing-methodology]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

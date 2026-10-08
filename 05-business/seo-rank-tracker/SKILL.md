@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Google Search Console, Ahrefs/Semrush, Google Analytics, AI 可见性监测工具]
 requires: []
-related: [seo-performance-reporter, serp-feature-analysis, seo-traffic-drop-forensics, seo-keyword-research]
+related: [seo-performance-reporter, serp-feature-analysis, seo-keyword-research]
 combines_with: [seo-performance-reporter, seo-content-refresher, seo-keyword-research]
 license: Apache-2.0
 source: aaron-he-zhu/seo-geo-claude-skills

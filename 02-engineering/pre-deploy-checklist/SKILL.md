@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [git, CI/CD, monitoring, feature-flags]
 requires: []
-related: [release-manager, deployment-engineer, ci-cd-pipeline-builder, feature-flags-architect]
-combines_with: [release-manager, zero-downtime-migration-architect, operational-runbook-writer]
+related: [deployment-engineer, ci-cd-pipeline-builder, feature-flags-architect]
+combines_with: [zero-downtime-migration-architect, operational-runbook-writer]
 license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0

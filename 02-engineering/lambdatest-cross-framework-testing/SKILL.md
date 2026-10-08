@@ -13,7 +13,7 @@ requires: []
 related: [browserstack-cross-browser-test, playwright-e2e-testing, webapp-testing, javascript-testing-patterns]
 combines_with: [ci-cd-pipeline-builder, playwright-e2e-testing, test-coverage-gap-finder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 采编自 sickn33/antigravity-awesome-skills（MIT），源为 LambdaTest/agent-skills 的 46 框架测试自动化注册表。

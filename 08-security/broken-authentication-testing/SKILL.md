@@ -13,7 +13,7 @@ requires: []
 related: [idor-vulnerability-testing, burp-suite-testing, auth-implementation-patterns, api-fuzzing-bug-bounty]
 combines_with: [burp-suite-testing, penetration-testing-methodology, idor-vulnerability-testing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

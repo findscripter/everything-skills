@@ -13,7 +13,7 @@ requires: []
 related: [secrets-manager, env-secrets-hygiene, auth-implementation-patterns, insecure-defaults-detector]
 combines_with: [env-secrets-hygiene, ci-cd-pipeline-builder, terraform-specialist]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

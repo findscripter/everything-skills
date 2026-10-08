@@ -13,7 +13,7 @@ requires: []
 related: [fda-device-consultant, eu-mdr-745-specialist, iso13485-qms-implementer, dicom-medical-imaging]
 combines_with: [itil-service-management, iso27001-isms-implementer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-09",
+  "timezone": "Asia/Shanghai",
+  "notice": "Search leads only, not admission evidence. Repository and representative-skill checks are in skill-repos.part75.audit.json. Two concurrent search batches failed with 429 and were retried sequentially.",
+  "batches": [
+    {
+      "batch": "search_batch_0",
+      "urls": [
+        "https://github.com/adityakamath/ros2-skill",
+        "https://github.com/test1card/femis-skill",
+        "https://github.com/test1card/femis-skillAn",
+        "https://github.com/arpitg1304/robotics-agent-skills",
+        "https://github.com/arpitg1304/robotics-agent-skills.git",
+        "https://github.com/a5c-ai/babysitter",
+        "https://github.com/fmschulz/omics-skills",
+        "https://github.com/NousResearch/hermes-agent",
+        "https://github.com/GPTomics/bioSkills",
+        "https://github.com/variomeanalytics/bioinformatics-agent-skills",
+        "https://github.com/abwoo/nih-skill"
+      ]
+    },
+    {
+      "batch": "search_batch_1",
+      "urls": [
+        "https://github.com/guo-yu/skills",
+        "https://github.com/Demolinator/revit-mcp-plugin",
+        "https://github.com/srini047/skills-i8n",
+        "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction",
+        "https://github.com/foreveryh/claude-skills-tutorial",
+        "https://github.com/Abhinavbwj/Claude-skills-for-Computational-Designers",
+        "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction.git",
+        "https://github.com/dungnotnull/Agricultural-Economic-Development-Forecast-Strategy-Advisor-agent-skill",
+        "https://github.com/beaverondam/skill-markdown-i18n",
+        "https://github.com/Tasdax123/claude-fidelity-translator",
+        "https://github.com/SkillMedev/skills",
+        "https://github.com/odisysai/agentic-agri-advisor"
+      ]
+    },
+    {
+      "batch": "search_batch_2",
+      "urls": [
+        "https://github.com/wentorai/research-plugins",
+        "https://github.com/mgmeyers/obsidian-zotero-integration",
+        "https://github.com/zyf4321/zotero-obsidian-paper-reader-skill",
+        "https://github.com/WenyuChiou/ai-research-skills",
+        "https://github.com/WenyuChiou/zotero-skills",
+        "https://github.com/agents-inc/skills",
+        "https://github.com/KreerC/ACCESSIBILITY.md",
+        "https://github.com/microsoft/vscode",
+        "https://github.com/SiriYep/zotero-obsidian-linker",
+        "https://github.com/ParkerGong/codex-literature-workflow",
+        "https://github.com/Ar9av/obsidian-wiki",
+        "https://github.com/AgriciDaniel/claude-obsidian",
+        "https://github.com/Drakonis96/nodus"
+      ]
+    },
+    {
+      "batch": "search_extra_1",
+      "urls": [
+        "https://github.com/salikkhann/openmedskills",
+        "https://github.com/portolan-sdi/portolan-skills",
+        "https://github.com/portolan-sdi/portolan-skills.git",
+        "https://github.com/K-Dense-AI/scientific-agent-skills",
+        "https://github.com/mims-harvard/ToolUniverse",
+        "https://github.com/dromlakhani/MD2SKILL",
+        "https://github.com/fcon-tech/portolan",
+        "https://github.com/aipoch/medical-research-skills",
+        "https://github.com/aipoch/medical-research-skills.git",
+        "https://github.com/isaaccorley/geospatial-skills",
+        "https://github.com/fastah/ip-geofeed-skills",
+        "https://github.com/FreedomIntelligence/OpenClaw-Medical-Skills"
+      ]
+    },
+    {
+      "batch": "search_retry_0",
+      "urls": [
+        "https://github.com/milim6/OpenFOAM_Turbo_expert_SKILL",
+        "https://github.com/twj011/openfoam-agent-skills",
+        "https://github.com/LZF1111/CFDriver_skill",
+        "https://github.com/LZF1111/CFDriver_skill.git",
+        "https://github.com/ZimoLiao/scholaraio",
+        "https://github.com/test1card/femis-skill",
+        "https://github.com/rhiza-research/forecasting-skills",
+        "https://github.com/ForgeCAD/forgecad-public-kit",
+        "https://github.com/swtbkim/openfoam-claude-suite",
+        "https://github.com/truman-t3/industrial-design-portfolio-skill",
+        "https://github.com/vindu939/freecad-skills",
+        "https://github.com/borghei/claude-skills"
+      ]
+    },
+    {
+      "batch": "search_retry_2",
+      "urls": [
+        "https://github.com/beriberikix/zephyr-agent-skills",
+        "https://github.com/stanfish06/skillquarium",
+        "https://github.com/K-Dense-AI/scientific-agents",
+        "https://github.com/test1card/femis-skill",
+        "https://github.com/Nazmus-Mahdi/alterlab-academic-skills",
+        "https://github.com/tizzy916/humanities-writing-companion",
+        "https://github.com/toby/flashback",
+        "https://github.com/saeed-vayghan/gemini-agent-skills",
+        "https://github.com/adriancmurray/sovereign-agent"
+      ]
+    },
+    {
+      "batch": "search_targets_last",
+      "urls": [
+        "https://github.com/tholewis/green-software-engineer",
+        "https://github.com/leap-laboratories/discovery-engine",
+        "https://github.com/msimchowitz/writing-skills",
+        "https://github.com/HiAPIAI/hiapi-food-commercial-video-skill",
+        "https://github.com/bestagentkits/agency-skills",
+        "https://github.com/SylphAI-Inc/atskills",
+        "https://github.com/kaill-jlq/MMSkillRisk.",
+        "https://github.com/huaweicloud/huaweicloud-skills.git"
+      ]
+    },
+    {
+      "batch": "search_platforms",
+      "urls": [
+        "https://github.com/lz2026km/hermes-agent",
+        "https://github.com/awknode/hermes-agent-skills",
+        "https://gitee.com/tekan/skill",
+        "https://github.com/Neeeophytee/finding-unknowns-skills",
+        "https://github.com/runninwithitmarketing/hermes-skill-deck",
+        "https://github.com/NousResearch/hermes-agent",
+        "https://gitlab.com/fabriciotelles/skills",
+        "https://github.com/mvanhorn/last30days-skill",
+        "https://github.com/Neeeophytee/awesome-ai-workflows",
+        "https://github.com/Komagon/hermes-production-patterns",
+        "https://github.com/atomicmemory/llm-wiki-compiler"
+      ]
+    }
+  ]
+}

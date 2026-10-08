@@ -13,7 +13,7 @@ requires: []
 related: [ai-generated-code-auditor, vibe-code-production-cleanup, adversarial-code-reviewer, code-reviewer]
 combines_with: [vibe-code-production-cleanup, webapp-testing, click-path-state-audit]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [defensive-malware-analyst, threat-detection-hunting, yara-rule-authoring, binary-analysis-patterns]
 combines_with: [security-incident-response, wireshark-traffic-analysis]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

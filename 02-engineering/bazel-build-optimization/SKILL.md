@@ -13,7 +13,7 @@ requires: []
 related: [turborepo-caching, monorepo-navigator, ci-cd-pipeline-builder, fullstack-project-scaffolder]
 combines_with: [monorepo-navigator, ci-cd-pipeline-builder, docker-development-optimizer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [async-python-patterns, python-performance-optimization, fastapi-async-api, python-testing-pytest]
 combines_with: [django-async-pro, docker-development-optimizer, ci-cd-pipeline-builder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # uv 高速 Python 包管理

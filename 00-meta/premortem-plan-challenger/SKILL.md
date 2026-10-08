@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: [executive-adversarial-mentor, boardroom-deliberation, business-assumption-stress-test, first-principles-assumption-auditor]
+related: [executive-adversarial-mentor, boardroom-deliberation, business-assumption-stress-test]
 combines_with: [executive-adversarial-mentor, boardroom-deliberation, business-assumption-stress-test]
 license: MIT
 source: alirezarezvani/claude-skills

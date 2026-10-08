@@ -13,7 +13,7 @@ requires: []
 related: [zod-schema-validation, typescript-advanced-types, rest-api-endpoint-builder, graphql-architect]
 combines_with: [zod-schema-validation, tanstack-query, drizzle-orm-expert]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

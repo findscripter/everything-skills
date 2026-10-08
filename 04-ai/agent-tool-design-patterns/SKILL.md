@@ -13,7 +13,7 @@ requires: []
 related: [agent-tool-design, agent-tool-builder, agent-readiness-aeo-check, mcp-builder]
 combines_with: [langgraph-agent-framework, multi-agent-system-designer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

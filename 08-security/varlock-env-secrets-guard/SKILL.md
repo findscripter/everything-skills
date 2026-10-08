@@ -13,7 +13,7 @@ requires: []
 related: [env-secrets-hygiene, secrets-management, secrets-manager, insecure-defaults-detector]
 combines_with: [agent-skill-security-scanner, security-diff-review]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Varlock 环境变量防护：会话中密钥零泄露管理

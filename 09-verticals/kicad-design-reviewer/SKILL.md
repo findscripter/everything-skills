@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python3, analyze_schematic.py, analyze_pcb.py, cross_analysis.py, analyze_emc.py, analyze_thermal.py, analyze_gerbers.py, diff_analysis.py, what_if.py, lifecycle_audit.py, pdftotext, ngspice]
 requires: []
-related: [emc-precompliance-analyzer, spice-circuit-simulator, pcb-bom-manager, hardware-doc-generator]
+related: [emc-precompliance-analyzer, spice-circuit-simulator, pcb-bom-manager]
 combines_with: [spice-circuit-simulator, emc-precompliance-analyzer, pcb-fab-assembly]
 license: MIT
 source: aklofas/kicad-happy

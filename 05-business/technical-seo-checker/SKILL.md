@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [WebFetch, PageSpeed Insights, Google Search Console, Rich Results Test, Screaming Frog, Chrome DevTools]
 requires: []
 related: [seo-audit, seo-site-architecture, schema-markup-builder]
-combines_with: [seo-audit, seo-traffic-drop-forensics]
+combines_with: [seo-audit]
 license: Apache-2.0
 source: aaron-he-zhu/seo-geo-claude-skills
 source_license: Apache-2.0

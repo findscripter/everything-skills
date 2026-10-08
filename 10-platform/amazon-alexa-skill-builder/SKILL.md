@@ -13,7 +13,7 @@ requires: []
 related: [aws-serverless-builder, aws-serverless-architect, azure-realtime-voice-ai, claude-api]
 combines_with: [agentphone-voice-sms-agents, aws-cdk-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

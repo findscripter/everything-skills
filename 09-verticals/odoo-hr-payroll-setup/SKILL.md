@@ -13,7 +13,7 @@ requires: []
 related: [odoo-accounting-setup, odoo-sales-crm-expert, odoo-module-developer, odoo-localization-compliance]
 combines_with: [odoo-accounting-setup, odoo-localization-compliance]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

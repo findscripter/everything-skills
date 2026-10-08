@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Python 3.8+, analyze_emc.py, analyze_schematic.py, analyze_pcb.py, KiCad, ngspice/LTspice/Xyce（可选）]
 requires: []
-related: [kicad-design-reviewer, spice-circuit-simulator, hardware-doc-generator, pcb-fab-assembly]
-combines_with: [kicad-design-reviewer, hardware-doc-generator, spice-circuit-simulator]
+related: [kicad-design-reviewer, spice-circuit-simulator, pcb-fab-assembly]
+combines_with: [kicad-design-reviewer, spice-circuit-simulator]
 license: MIT
 source: aklofas/kicad-happy
 source_license: MIT

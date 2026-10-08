@@ -13,7 +13,7 @@ requires: []
 related: [clean-code-principles, brooks-design-lint, adversarial-code-reviewer, code-reviewer]
 combines_with: [backend-architecture-patterns, code-simplifier, legacy-codebase-modernizer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

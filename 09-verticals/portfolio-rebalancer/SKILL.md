@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [excel, spreadsheet]
 requires: []
-related: [portfolio-risk-metrics, tax-loss-harvesting, backtesting-frameworks]
-combines_with: [portfolio-risk-metrics, tax-loss-harvesting]
+related: [portfolio-risk-metrics, backtesting-frameworks]
+combines_with: [portfolio-risk-metrics]
 license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0

@@ -13,7 +13,7 @@ requires: []
 related: [idor-vulnerability-testing, broken-authentication-testing, ffuf-web-fuzzing, burp-suite-testing]
 combines_with: [burp-suite-testing, red-team-recon, path-traversal-testing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

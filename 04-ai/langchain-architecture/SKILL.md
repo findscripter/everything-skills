@@ -13,7 +13,7 @@ requires: []
 related: [langgraph-agent-framework, pydantic-ai-agents, vercel-ai-sdk, llm-app-production-patterns]
 combines_with: [rag-implementation-workflow, agent-memory-architecture]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

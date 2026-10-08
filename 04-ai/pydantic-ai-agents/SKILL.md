@@ -13,7 +13,7 @@ requires: []
 related: [langgraph-agent-framework, crewai-multi-agent, vercel-ai-sdk, agent-tool-builder]
 combines_with: [claude-api, langfuse-llm-observability, multi-agent-system-designer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

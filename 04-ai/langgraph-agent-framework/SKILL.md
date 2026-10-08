@@ -13,7 +13,7 @@ requires: []
 related: [crewai-multi-agent, pydantic-ai-agents, multi-agent-system-designer, multi-agent-workflow-designer]
 combines_with: [agent-tool-builder, agent-memory-systems, langfuse-llm-observability]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

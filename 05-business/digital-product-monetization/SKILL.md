@@ -13,7 +13,7 @@ requires: []
 related: [pricing-strategy, billing-automation-systems, paywall-upgrade-cro, churn-prevention]
 combines_with: [stripe-integration, unit-economics-analyzer, micro-saas-launcher]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 数字产品变现策略

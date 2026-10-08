@@ -13,7 +13,7 @@ requires: []
 related: [swiftui-best-practices, ios-swiftui-developer, swift-concurrency]
 combines_with: [apple-hig-advisor, glassmorphism-ui-design]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [systematic-debugger, systematic-debugging-strategies, webapp-testing, react-state-management]
 combines_with: [playwright-e2e-testing, bug-hunter, react-state-management]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [event-sourcing-cqrs, cqrs-implementation, microservices-patterns, temporal-workflow-python]
 combines_with: [ddd-context-mapping, distributed-tracing, error-handling-patterns]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

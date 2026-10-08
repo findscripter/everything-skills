@@ -13,7 +13,7 @@ requires: []
 related: [algorithm-first-discipline, large-scale-math-algorithms, complexity-cuts, closed-loop-delivery]
 combines_with: [systematic-debugging-strategies, test-coverage-gap-finder]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

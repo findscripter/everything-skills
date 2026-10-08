@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [GitHub Actions, actions/checkout, actions/setup-node, actions/setup-python, docker/build-push-action, docker/metadata-action, kubectl, aws-eks, aquasecurity/trivy-action, github/codeql-action, snyk, slackapi/slack-github-action]
 requires: []
 related: [ci-cd-pipeline-builder, deployment-engineer, gitops-argocd-flux, git-hooks-automation]
-combines_with: [docker-container-optimizer, terraform-specialist, release-manager]
+combines_with: [docker-container-optimizer, terraform-specialist]
 license: MIT
 source: wshobson/agents
 source_license: MIT

@@ -13,7 +13,7 @@ requires: []
 related: [k8s-security-policies, cloud-misconfig-auditor, dependency-auditor, docker-development-optimizer]
 combines_with: [k8s-security-policies, dependency-auditor, docker-development-optimizer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

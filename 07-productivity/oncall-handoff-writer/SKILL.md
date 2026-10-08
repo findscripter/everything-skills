@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pagerduty, slack, grafana, kubectl]
 requires: []
-related: [technical-change-tracker, incident-commander-framework, postmortem-writer, devops-troubleshooter]
+related: [incident-commander-framework, postmortem-writer, devops-troubleshooter]
 combines_with: [incident-commander-framework, postmortem-writer, sre-incident-responder]
 license: MIT
 source: wshobson/agents

@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Grep, Glob, Bash]
 requires: []
-related: [security-antipattern-hook, backend-security-coder, env-secrets-hygiene, sast-configurator]
+related: [backend-security-coder, env-secrets-hygiene, sast-configurator]
 combines_with: [codeql-scanner, false-positive-check, vulnerability-variant-analysis]
 license: CC-BY-SA-4.0
 source: trailofbits/skills

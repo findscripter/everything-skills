@@ -13,7 +13,7 @@ requires: []
 related: [llm-judge-evaluation, llm-agent-benchmarking, llm-prompt-optimizer, production-llm-app-builder]
 combines_with: [langfuse-llm-observability, rag-implementation-workflow, context-window-management]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ---
@@ -32,7 +32,7 @@ requires: []
 related: [llm-prompt-optimizer, llm-judge-evaluation, context-window-management, rag-pipeline-builder, ai-system-security-audit]
 combines_with: [prompt-template-designer, rag-pipeline-builder, ai-system-security-audit, llm-judge-evaluation]
 license: CC-BY-4.0
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

@@ -13,7 +13,7 @@ requires: []
 related: [monorepo-navigator, bazel-build-optimization, ci-cd-pipeline-builder, git-advanced-workflows]
 combines_with: [typescript-advanced-types, deployment-engineer, github-actions-author]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

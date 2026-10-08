@@ -13,7 +13,7 @@ requires: []
 related: [odoo-inventory-optimizer, odoo-purchase-workflow, odoo-sales-crm-expert, odoo-module-developer]
 combines_with: [odoo-orm-expert, inventory-demand-planning]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

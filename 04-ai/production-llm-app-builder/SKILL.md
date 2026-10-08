@@ -10,10 +10,10 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [LangChain/LangGraph, LlamaIndex, 向量数据库(Pinecone/Qdrant/Weaviate/pgvector), FastAPI, LangSmith/Phoenix, OpenAI/Anthropic SDK]
 requires: []
-related: [rag-implementation-workflow, rag-pipeline-builder, mlops-model-productionizer, ai-engineering-toolkit]
+related: [rag-implementation-workflow, rag-pipeline-builder, ai-engineering-toolkit]
 combines_with: [hybrid-search-retrieval, langfuse-llm-observability, multi-agent-system-designer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

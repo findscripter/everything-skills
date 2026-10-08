@@ -13,7 +13,7 @@ requires: []
 related: [service-mesh-architect, istio-traffic-management, k8s-security-policies, secrets-management]
 combines_with: [kubernetes-architect, container-security-hardening]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

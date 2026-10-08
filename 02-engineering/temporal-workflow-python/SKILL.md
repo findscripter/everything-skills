@@ -13,7 +13,7 @@ requires: []
 related: [saga-orchestration, async-python-patterns, fastapi-async-api, bullmq-job-queue]
 combines_with: [microservices-patterns, event-sourcing-cqrs, distributed-tracing]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Temporal 持久工作流编排（Python）

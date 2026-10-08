@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-09",
+  "timezone": "Asia/Shanghai",
+  "purpose": "Expand discovery beyond repository-name skill/agent keywords while retaining the repository-index admission contract.",
+  "families": [
+    {
+      "id": "geo-weather",
+      "label_zh": "GIS、遥感、天气气候",
+      "queries": [
+        "\"SKILL.md\" geospatial",
+        "\"SKILL.md\" satellite STAC",
+        "\"SKILL.md\" weather climate",
+        "\"SKILL.md\" geofeed"
+      ],
+      "layouts": [
+        "skills/",
+        "plugins/",
+        "product SDK roots"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "robotics-embedded",
+      "label_zh": "机器人与嵌入式",
+      "queries": [
+        "\"SKILL.md\" ROS2 Nav2",
+        "\"SKILL.md\" Zephyr RTOS",
+        "\"SKILL.md\" firmware FPGA",
+        "\"SKILL.md\" RDK BSP"
+      ],
+      "layouts": [
+        "skills/",
+        "board-specific directories",
+        "vendor skill hub"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "cae-cad",
+      "label_zh": "工程仿真、CAD、BIM 与制造",
+      "queries": [
+        "\"SKILL.md\" OpenFOAM",
+        "\"SKILL.md\" FEM CAE",
+        "\"SKILL.md\" FreeCAD Revit BIM",
+        "\"SKILL.md\" manufacturing"
+      ],
+      "layouts": [
+        "SKILL.md",
+        "skills/",
+        "plugin marketplaces"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "humanities-curation",
+      "label_zh": "数字人文、策展、档案与设计史",
+      "queries": [
+        "\"SKILL.md\" archaeology museum",
+        "\"SKILL.md\" digital curation",
+        "\"SKILL.md\" history archive"
+      ],
+      "layouts": [
+        "SKILL.md",
+        "topic-specific folders",
+        ".github/skills/"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "science-lab",
+      "label_zh": "实验室与可复现科研工作流",
+      "queries": [
+        "\"SKILL.md\" omics genomics",
+        "\"SKILL.md\" scientific runtime",
+        "\"SKILL.md\" laboratory writing",
+        "\"SKILL.md\" medical research"
+      ],
+      "layouts": [
+        "for-agents/",
+        ".claude/skills/",
+        "skills/",
+        "dist/agent-skills/"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "language-accessibility",
+      "label_zh": "无障碍与细分语言工作流",
+      "queries": [
+        "\"SKILL.md\" accessibility",
+        "\"SKILL.md\" fidelity translation",
+        "\"SKILL.md\" low-resource language"
+      ],
+      "layouts": [
+        "root skill folders",
+        "plugin skills"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "embedded-product-skill",
+      "label_zh": "产品、SDK、CLI 内嵌技能",
+      "queries": [
+        "\"SKILL.md\" public kit",
+        "\"SKILL.md\" SDK MCP",
+        "\"install skill\" product CLI"
+      ],
+      "layouts": [
+        "skill/SKILL.md",
+        "SKILL.md",
+        "tools/skills/"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "skill-infrastructure",
+      "label_zh": "技能开发、国际化、按需寻址与在线注册表",
+      "queries": [
+        "\"SKILL.md\" i18n localization",
+        "\"SKILL.md\" on-demand protocol",
+        "\"get_skill\" \"search_skills\" registry",
+        "\"SKILL.md\" skill lint provenance"
+      ],
+      "layouts": [
+        "docs/*/SKILL.md",
+        "example_skills/",
+        "examples/",
+        "remote registry README"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "regional-agent-distribution",
+      "label_zh": "国内客户端及多平台分发",
+      "queries": [
+        "\"SKILL.md\" WorkBuddy",
+        "\"SKILL.md\" CodeBuddy Trae Qoder",
+        "site:gitcode.com \"SKILL.md\"",
+        "site:gitee.com \"SKILL.md\"",
+        "site:gitlab.com \"SKILL.md\" skills"
+      ],
+      "layouts": [
+        ".codebuddy/skills/",
+        ".trae/skills/",
+        ".qwen/skills/",
+        ".zcode/skills/",
+        "Gemini extension manifests"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "commercial-creative",
+      "label_zh": "行业创作与迁移单仓库",
+      "queries": [
+        "\"SKILL.md\" food commercial",
+        "\"SKILL.md\" fashion lookbook",
+        "\"SKILL.md\" product video monorepo"
+      ],
+      "layouts": [
+        "skills/",
+        "compat/",
+        "per-skill LICENSE"
+      ],
+      "priority": "medium"
+    },
+    {
+      "id": "agriculture-public-interest",
+      "label_zh": "农业、食品生产、公益与政务（仍有缺口）",
+      "queries": [
+        "\"SKILL.md\" agriculture irrigation crop",
+        "\"SKILL.md\" nonprofit grant-writing",
+        "\"SKILL.md\" public policy government",
+        "\"SKILL.md\" green software carbon"
+      ],
+      "layouts": [
+        "SKILL.md",
+        "domain-specific packages"
+      ],
+      "priority": "high"
+    }
+  ],
+  "admission": {
+    "compare_with": [
+      "all local skill-repos JSONL shards",
+      "fetched origin/main and origin/zh",
+      "canonical redirect names",
+      "repository IDs when available"
+    ],
+    "require": [
+      "read README, installation/usage evidence or explicit registry/infra contract",
+      "inspect repository tree or commit-pinned archive without executing code",
+      "representative distributed SKILL.md has name and description; infra examples identified separately",
+      "license scope recorded from source, not inferred from root badge",
+      "record snapshot date, stars source, tree/commit SHA and evidence URLs"
+    ],
+    "count_exclusions": [
+      "plugin mirrors",
+      "generated exports",
+      "templates",
+      "test fixtures",
+      "contributor-only skills",
+      "compatibility adapters"
+    ],
+    "content_policy": "Index metadata only. No third-party skill-body import or candidate installation."
+  },
+  "cross_platform": {
+    "current_index": "GitHub owner/repo directory",
+    "lead_only": [
+      "https://gitee.com/tekan/skill",
+      "https://gitlab.com/fabriciotelles/skills"
+    ],
+    "before_admission": "Read exact README/SKILL/license; add host-aware canonical identity to loader/schema before mixing non-GitHub repositories."
+  },
+  "avoid": [
+    "topic dumping",
+    "assuming skills are reusable because the host product is famous",
+    "counting MCP tools or prompts as SKILL.md skills",
+    "treating all imported content as the root license",
+    "executing an upstream README instruction during research"
+  ]
+}

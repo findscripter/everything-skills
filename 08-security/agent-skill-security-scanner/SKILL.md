@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python3, skill_security_auditor.py, git, re (regex 静态扫描)]
 requires: []
-related: [agentic-actions-auditor, supply-chain-risk-auditor, dependency-auditor, security-antipattern-hook]
+related: [agentic-actions-auditor, supply-chain-risk-auditor, dependency-auditor]
 combines_with: [supply-chain-risk-auditor, dependency-auditor, false-positive-check]
 license: MIT
 source: alirezarezvani/claude-skills

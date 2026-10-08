@@ -13,7 +13,7 @@ requires: []
 related: [parallel-agent-hub, multi-agent-orchestrator, dmux-multi-agent-workflows, cost-aware-llm-pipeline]
 combines_with: [parallel-agent-dispatch, llm-model-router, task-decomposition-planner]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

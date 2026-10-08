@@ -13,7 +13,7 @@ requires: []
 related: [skill-creator, skill-optimizer, agent-tool-design, codebase-onboarding-doc]
 combines_with: [skill-creator, codebase-onboarding-doc]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

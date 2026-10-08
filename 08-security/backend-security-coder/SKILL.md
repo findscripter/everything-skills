@@ -10,10 +10,10 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Read, Edit, Write, Grep, Bash]
 requires: []
-related: [api-security-best-practices, auth-implementation-patterns, insecure-defaults-detector, security-antipattern-hook]
+related: [api-security-best-practices, auth-implementation-patterns, insecure-defaults-detector]
 combines_with: [api-security-best-practices, sast-configurator, codeql-scanner]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

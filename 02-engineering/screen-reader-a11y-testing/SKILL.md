@@ -13,7 +13,7 @@ requires: []
 related: [accessibility-wcag-audit, wcag-22-audit-patterns, webapp-testing, playwright-e2e-testing]
 combines_with: [accessibility-wcag-audit, wcag-22-audit-patterns, frontend-design]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # 屏幕阅读器无障碍测试

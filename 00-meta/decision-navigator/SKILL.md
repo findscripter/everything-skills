@@ -13,7 +13,7 @@ requires: []
 related: [design-brainstorming, first-principles-thinking, executive-adversarial-mentor]
 combines_with: [task-decomposition-planner, design-brainstorming]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

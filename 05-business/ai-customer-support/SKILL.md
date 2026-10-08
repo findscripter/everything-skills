@@ -13,7 +13,7 @@ requires: []
 related: [churn-prevention, customer-health-scorer, customer-research-synthesizer, billing-automation-systems]
 combines_with: [churn-prevention, customer-research-synthesizer, customer-health-scorer]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 ## 何时使用

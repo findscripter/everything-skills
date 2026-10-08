@@ -13,7 +13,7 @@ requires: []
 related: [google-stitch-ui-prompting, stitch-iterative-build-loop, ui-design-system-builder, high-end-visual-design]
 combines_with: [stitch-iterative-build-loop, theme-factory]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Stitch 设计品味：排版色彩布局动效系统生成

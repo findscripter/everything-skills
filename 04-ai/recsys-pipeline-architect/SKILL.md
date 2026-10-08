@@ -13,7 +13,7 @@ requires: []
 related: [hybrid-search-retrieval, production-llm-app-builder, rag-pipeline-builder, vector-index-tuning]
 combines_with: [embedding-model-strategies, ab-test-designer, agent-workflow-pattern-designer]
 license: MIT
-source: affaan-m/everything-claude-code
+source: affaan-m/ECC
 source_license: MIT
 ---
 采编自 affaan-m/everything-claude-code（MIT），适配重写为中文版本。原始模式由 xAI 开源的 For You 算法（github.com/xai-org/x-algorithm，Apache-2.0）推广，本条目为该模式的独立中文实现（不复制原算法代码）。

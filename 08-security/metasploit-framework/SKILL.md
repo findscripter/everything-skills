@@ -13,7 +13,7 @@ requires: []
 related: [penetration-testing-methodology, red-team-recon, pentest-lab-network-services, linux-privilege-escalation]
 combines_with: [shodan-reconnaissance, active-directory-attacks, security-incident-response]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Metasploit 渗透框架

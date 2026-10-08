@@ -13,7 +13,7 @@ requires: []
 related: [temporal-workflow-python, golang-pro, saga-orchestration, go-concurrency-patterns]
 combines_with: [mtls-zero-trust-config, grpc-golang-services, event-sourcing-cqrs]
 license: MIT
-source: sickn33/antigravity-awesome-skills
+source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
 # Temporal Go 工作流：确定性编排与 mTLS
