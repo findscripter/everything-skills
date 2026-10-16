@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-15（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part80
+- 编制日期：2026-10-16（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part81
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2132 个独立仓库（另注明更名别名）
+- 收录条数：2182 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -800,6 +800,13 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [TuringWorks/civstack](https://github.com/TuringWorks/civstack) | 1 | CivStack 公共经济角色与工作流库，涵盖政务、公用事业、工业、环境及人员责任边界。 | CC-BY-4.0 | 433 core (+30 views) | 仅索引 |
 | [wentorai/research-plugins](https://github.com/wentorai/research-plugins) | 298 | 科研龙虾学术工作流库，含 433 条任务技能、40 条路由入口及单独计数的数据库工具集成。 | MIT | 433 tasks + 40 routers | 仅索引 |
 | [Axect/skills](https://github.com/Axect/skills) | 3 | 面向研究者的技能集合，覆盖文献、论文审查、学术机会、科研图表、写作与研究运营。 | MIT | 30 | 仅索引 |
+| [nexu-io/open-design](https://github.com/nexu-io/open-design) | 101,359 | nexu-io/open-design 公开提供 549 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 549 | 仅索引 |
+| [ruvnet/RuView](https://github.com/ruvnet/RuView) | 98,217 | ruvnet/RuView 公开提供 54 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 54 | 仅索引 |
+| [android/skills](https://github.com/android/skills) | 7,842 | android/skills 公开提供 30 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 30 | 仅索引 |
+| [mvschwarz/openrig](https://github.com/mvschwarz/openrig) | 7,513 | mvschwarz/openrig 公开提供 94 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 94 | 仅索引 |
+| [maziyarpanahi/openmed](https://github.com/maziyarpanahi/openmed) | 5,693 | maziyarpanahi/openmed 公开提供 74 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 74 | 仅索引 |
+| [aipoch/open-science](https://github.com/aipoch/open-science) | 4,905 | aipoch/open-science 公开提供 25 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 25 | 仅索引 |
+| [Ar9av/obsidian-wiki](https://github.com/Ar9av/obsidian-wiki) | 3,576 | Ar9av/obsidian-wiki 公开提供 40 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 40 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1848,6 +1855,30 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [WenyuChiou/zotero-skills](https://github.com/WenyuChiou/zotero-skills) | 58 | Zotero 文献库操作与科研工作流技能，通过作者维护的研究技能市场公开分发。 | MIT | 1 | 仅索引 |
 | [AkaLiu/zotero-skill](https://github.com/AkaLiu/zotero-skill) | 5 | 双语本地 Zotero 文献技能，用于论文和笔记检索、PDF 阅读及有文献上下文的研究辅助。 | MIT | 1 | 仅索引 |
 | [jinzhezenggroup/computational-chemistry-agent-skills](https://github.com/jinzhezenggroup/computational-chemistry-agent-skills) | 151 | 计算化学工作流，覆盖量子化学、原子仿真、分子动力学、数据准备、声子与机器学习势；各技能保留自己的许可声明。 | LGPL-3.0 (root); per-skill MIT / LGPL-3.0-or-later | 67 public files (incl. routers) | 仅索引 |
+| [Egonex-AI/Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) | 86,488 | Egonex-AI/Understand-Anything 公开提供 9 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 9 | 仅索引 |
+| [zhayujie/CowAgent](https://github.com/zhayujie/CowAgent) | 47,420 | zhayujie/CowAgent 公开提供 3 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 3 | 仅索引 |
+| [JCodesMore/ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template) | 36,842 | JCodesMore/ai-website-cloner-template 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 1 | 仅索引 |
+| [pascalorg/editor](https://github.com/pascalorg/editor) | 24,894 | pascalorg/editor 公开提供 4 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 4 | 仅索引 |
+| [tradecatlabs/vibe-coding-cn](https://github.com/tradecatlabs/vibe-coding-cn) | 17,583 | tradecatlabs/vibe-coding-cn 公开提供 24 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 24 | 仅索引 |
+| [citrolabs/ego-lite](https://github.com/citrolabs/ego-lite) | 17,451 | citrolabs/ego-lite 公开提供 2 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 2 | 仅索引 |
+| [latent-spaces/brag](https://github.com/latent-spaces/brag) | 16,158 | latent-spaces/brag 公开提供 2 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 2 | 仅索引 |
+| [krillinai/OpenCreator](https://github.com/krillinai/OpenCreator) | 13,251 | krillinai/OpenCreator 公开提供 15 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 15 | 仅索引 |
+| [aden-hive/hive](https://github.com/aden-hive/hive) | 11,108 | aden-hive/hive 公开提供 24 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 24 | 仅索引 |
+| [pacifio/atlas](https://github.com/pacifio/atlas) | 9,606 | pacifio/atlas 公开提供 6 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 6 | 仅索引 |
+| [TokenRhythm/opensquilla](https://github.com/TokenRhythm/opensquilla) | 7,099 | TokenRhythm/opensquilla 公开提供 12 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 12 | 仅索引 |
+| [SawyerHood/dev-browser](https://github.com/SawyerHood/dev-browser) | 6,666 | SawyerHood/dev-browser 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 1 | 仅索引 |
+| [anysearch-ai/anysearch-skill](https://github.com/anysearch-ai/anysearch-skill) | 6,525 | anysearch-ai/anysearch-skill 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 1 | 仅索引 |
+| [gosom/google-maps-scraper](https://github.com/gosom/google-maps-scraper) | 6,485 | gosom/google-maps-scraper 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 1 | 仅索引 |
+| [kucherenko/jscpd](https://github.com/kucherenko/jscpd) | 6,399 | kucherenko/jscpd 公开提供 5 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 5 | 仅索引 |
+| [GargantuaX/gemini-watermark-remover](https://github.com/GargantuaX/gemini-watermark-remover) | 5,670 | GargantuaX/gemini-watermark-remover 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 1 | 仅索引 |
+| [metalbear-co/mirrord](https://github.com/metalbear-co/mirrord) | 5,365 | metalbear-co/mirrord 公开提供 12 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 12 | 仅索引 |
+| [Observal/Observal](https://github.com/Observal/Observal) | 4,484 | Observal/Observal 公开提供 11 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 11 | 仅索引 |
+| [glitternetwork/pinme](https://github.com/glitternetwork/pinme) | 3,747 | glitternetwork/pinme 公开提供 7 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 7 | 仅索引 |
+| [FireRedTeam/FireRed-OpenStoryline](https://github.com/FireRedTeam/FireRed-OpenStoryline) | 3,492 | FireRedTeam/FireRed-OpenStoryline 公开提供 7 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 7 | 仅索引 |
+| [QingYunA/answer-me-with-html](https://github.com/QingYunA/answer-me-with-html) | 3,454 | QingYunA/answer-me-with-html 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 1 | 仅索引 |
+| [Jakeschincariol/replica-skill](https://github.com/Jakeschincariol/replica-skill) | 2,756 | Jakeschincariol/replica-skill 公开提供 11 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 11 | 仅索引 |
+| [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) | 2,599 | oil-oil/oil-motion 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 1 | 仅索引 |
+| [zanwei/design-dna](https://github.com/zanwei/design-dna) | 1,976 | zanwei/design-dna 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 1 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -2029,6 +2060,25 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [rhiza-research/weather-skills-core](https://github.com/rhiza-research/weather-skills-core) | 1 | 可组合天气技能开发基础设施：共享 Zarr 契约、来源记录、检查工具与技能编写指南。 | MIT | 1 | 仅索引 |
 | [lawrence3699/agent-skills-corpus](https://github.com/lawrence3699/agent-skills-corpus) | 3 | 可复现的 Agent Skills 生态语料库：汇集 GitHub、GitLab 与 Gitee 的 CC0 元数据，用于去重、分类和许可研究；不是可安装技能包。 | CC0-1.0 (metadata); MIT (scripts); upstream licenses retained | 55,698 dataset records | 仅索引 |
 | [codejunkie99/agentic-stack](https://github.com/codejunkie99/agentic-stack) | 2,295 | Apache 可移植 .agent 层，含 16 条记忆、数据、调试、部署和 Agent 循环技能，兼容 Claude、Codex、Cursor、Windsurf、OpenCode 与 OpenClaw。 | Apache-2.0 | 16 | 仅索引 |
+| [morluto/rea](https://github.com/morluto/rea) | 270,516 | morluto/rea 公开提供 4 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 4 | 仅索引 |
+| [paperclipai/paperclip](https://github.com/paperclipai/paperclip) | 102,732 | paperclipai/paperclip 公开提供 79 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 79 | 仅索引 |
+| [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | 75,137 | ruvnet/ruflo 公开提供 380 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 380 | 仅索引 |
+| [career-ops-hq/career-ops](https://github.com/career-ops-hq/career-ops) | 75,057 | career-ops-hq/career-ops 公开提供 12 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 12 | 仅索引 |
+| [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | 47,389 | alibaba/open-code-review 公开提供 4 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 4 | 仅索引 |
+| [agentscope-ai/QwenPaw](https://github.com/agentscope-ai/QwenPaw) | 35,727 | agentscope-ai/QwenPaw 公开提供 49 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 49 | 仅索引 |
+| [iOfficeAI/OfficeCLI](https://github.com/iOfficeAI/OfficeCLI) | 32,053 | iOfficeAI/OfficeCLI 公开提供 12 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 12 | 仅索引 |
+| [nanocoai/nanoclaw](https://github.com/nanocoai/nanoclaw) | 30,955 | nanocoai/nanoclaw 公开提供 63 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 63 | 仅索引 |
+| [eigent-ai/eigent](https://github.com/eigent-ai/eigent) | 15,559 | eigent-ai/eigent 公开提供 6 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 6 | 仅索引 |
+| [EverMind-AI/EverOS](https://github.com/EverMind-AI/EverOS) | 13,439 | EverMind-AI/EverOS 公开提供 5 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 5 | 仅索引 |
+| [OrchestratorInc/agent-orchestrator](https://github.com/OrchestratorInc/agent-orchestrator) | 13,213 | OrchestratorInc/agent-orchestrator 公开提供 7 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 7 | 仅索引 |
+| [tw93/Kami](https://github.com/tw93/Kami) | 11,973 | tw93/Kami 公开提供 2 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 2 | 仅索引 |
+| [MemTensor/MemOS](https://github.com/MemTensor/MemOS) | 11,880 | MemTensor/MemOS 公开提供 7 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 7 | 仅索引 |
+| [ThinkInAIXYZ/deepchat](https://github.com/ThinkInAIXYZ/deepchat) | 6,362 | ThinkInAIXYZ/deepchat 公开提供 25 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 25 | 仅索引 |
+| [Q00/ouroboros](https://github.com/Q00/ouroboros) | 6,229 | Q00/ouroboros 公开提供 24 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 24 | 仅索引 |
+| [zgsm-ai/costrict](https://github.com/zgsm-ai/costrict) | 4,450 | zgsm-ai/costrict 公开提供 3 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 3 | 仅索引 |
+| [parcadei/Continuous-Claude-v3](https://github.com/parcadei/Continuous-Claude-v3) | 3,944 | parcadei/Continuous-Claude-v3 公开提供 160 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 160 | 仅索引 |
+| [evalstate/fast-agent](https://github.com/evalstate/fast-agent) | 3,936 | evalstate/fast-agent 公开提供 3 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 3 | 仅索引 |
+| [rlaope/oh-my-hermes](https://github.com/rlaope/oh-my-hermes) | 3,383 | rlaope/oh-my-hermes 公开提供 260 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 260 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
