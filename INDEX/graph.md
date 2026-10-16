@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-全库 **1113** 节点、**6800** 条互见边（含方向重复前的原始边）。
+全库 **1114** 节点、**6805** 条互见边（含方向重复前的原始边）。
 
 图例：`-->` 依赖(requires) · `-.-` 互见(related) · `===` 组合(combines_with)。
 
@@ -242,22 +242,22 @@ graph LR
 
 <details><summary>卷七 · 协作（枢纽 10 / 边 23）（枢纽截断至 10）</summary>
 
-**Hubs (by degree):** `enterprise-project-manager`(16), `agile-product-owner`(15), `company-culture-builder`(14), `company-operating-system`(14), `jira-expert`(13), `task-decomposition-planner`(13), `status-report-generator`(12), `org-health-diagnostic`(11), `product-manager-toolkit`(10), `coo-operations-advisor`(9)
+**Hubs (by degree):** `enterprise-project-manager`(16), `agile-product-owner`(15), `company-culture-builder`(14), `company-operating-system`(14), `task-decomposition-planner`(14), `jira-expert`(13), `status-report-generator`(12), `org-health-diagnostic`(11), `product-manager-toolkit`(10), `coo-operations-advisor`(9)
 
 | from | type | to |
 | --- | --- | --- |
 | `agile-product-owner` | `===` | `enterprise-project-manager` |
 | `enterprise-project-manager` | `-.-` | `agile-product-owner` |
+| `enterprise-project-manager` | `-.-` | `task-decomposition-planner` |
+| `agile-product-owner` | `-.-` | `task-decomposition-planner` |
 | `enterprise-project-manager` | `-.-` | `jira-expert` |
 | `enterprise-project-manager` | `===` | `jira-expert` |
-| `enterprise-project-manager` | `-.-` | `task-decomposition-planner` |
+| `task-decomposition-planner` | `===` | `agile-product-owner` |
 | `agile-product-owner` | `-.-` | `jira-expert` |
 | `agile-product-owner` | `===` | `jira-expert` |
-| `agile-product-owner` | `-.-` | `task-decomposition-planner` |
 | `company-culture-builder` | `-.-` | `company-operating-system` |
 | `company-culture-builder` | `===` | `company-operating-system` |
 | `status-report-generator` | `-.-` | `enterprise-project-manager` |
-| `task-decomposition-planner` | `===` | `agile-product-owner` |
 | `enterprise-project-manager` | `===` | `product-manager-toolkit` |
 | `product-manager-toolkit` | `-.-` | `enterprise-project-manager` |
 | `agile-product-owner` | `-.-` | `product-manager-toolkit` |

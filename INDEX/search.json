@@ -20518,6 +20518,36 @@
     "path": "07-productivity/personal-tool-builder/SKILL.md"
   },
   {
+    "name": "plan-ledger-tasks-yylo",
+    "title": "YYLO 需求规划与 Ledger 任务注册",
+    "vol": "07-productivity",
+    "domain": "协作/pm",
+    "level": "进阶",
+    "status": "stable",
+    "tags": [
+      "需求规划",
+      "PDR",
+      "任务拆分",
+      "项目管理",
+      "kanban",
+      "yylo",
+      "cli",
+      "编码智能体"
+    ],
+    "triggers": [
+      "把需求转成实现级任务",
+      "精简 PDR 起草与固化",
+      "yy ledger create 登记任务",
+      "依赖与验收标准写入任务体",
+      "PDR Artifact Record",
+      "显式规划请求才动手",
+      "规划不等于开工",
+      "返回任务 ID 与依赖摘要"
+    ],
+    "description": "当用户明确要求规划或登记工作时使用；先把想法收敛为精简 PDR（目标/范围/排除/风险/验收）并固化为 artifact 回执，再经 yy ledger 拆分登记可独立实现与验证的任务、写入依赖与验收标准，产出 PDR Record ID 与任务 ID 列表；不适用于直接开始实现、任务执行期流转或非 YYLO 环境；触发词：需求规划、PDR、拆任务、任务注册、登记工作、yy ledger",
+    "path": "07-productivity/plan-ledger-tasks-yylo/SKILL.md"
+  },
+  {
     "name": "prd-spec-writer",
     "title": "PRD 与功能规格撰写",
     "vol": "07-productivity",

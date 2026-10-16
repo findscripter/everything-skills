@@ -4390,6 +4390,13 @@
       "status": "stable"
     },
     {
+      "id": "plan-ledger-tasks-yylo",
+      "title": "YYLO 需求规划与 Ledger 任务注册",
+      "domain": "协作/pm",
+      "level": "进阶",
+      "status": "stable"
+    },
+    {
       "id": "prd-spec-writer",
       "title": "PRD 与功能规格撰写",
       "domain": "协作/knowledge",
@@ -26436,6 +26443,31 @@
     {
       "from": "personal-tool-builder",
       "to": "agent-tool-builder",
+      "type": "combines_with"
+    },
+    {
+      "from": "plan-ledger-tasks-yylo",
+      "to": "prd-spec-writer",
+      "type": "related"
+    },
+    {
+      "from": "plan-ledger-tasks-yylo",
+      "to": "task-decomposition-planner",
+      "type": "related"
+    },
+    {
+      "from": "plan-ledger-tasks-yylo",
+      "to": "ledger-tasks-yylo",
+      "type": "related"
+    },
+    {
+      "from": "plan-ledger-tasks-yylo",
+      "to": "github-issue-writer",
+      "type": "combines_with"
+    },
+    {
+      "from": "plan-ledger-tasks-yylo",
+      "to": "workflow-yylo",
       "type": "combines_with"
     },
     {

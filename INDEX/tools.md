@@ -8997,6 +8997,7 @@
 ### `yy`
 - [`artifact-yylo`](../04-ai/artifact-yylo/SKILL.md) — YYLO Ledger 证据归档库
 - [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册
 - [`understand-project-yylo`](../02-engineering/understand-project-yylo/SKILL.md) — YYLO 项目理解与变更前调研
 - [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 - [`workflow-yylo`](../07-productivity/workflow-yylo/SKILL.md) — YYLO Ledger 工作流定义库（workflow Record）

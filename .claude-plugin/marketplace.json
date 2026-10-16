@@ -650,7 +650,7 @@
     },
     {
       "name": "07-productivity",
-      "description": "卷七 · 协作 —— 60 个技能",
+      "description": "卷七 · 协作 —— 61 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -697,6 +697,7 @@
         "./07-productivity/org-change-management-adkar",
         "./07-productivity/org-health-diagnostic",
         "./07-productivity/personal-tool-builder",
+        "./07-productivity/plan-ledger-tasks-yylo",
         "./07-productivity/prd-spec-writer",
         "./07-productivity/process-sop-documenter",
         "./07-productivity/product-discovery-process",

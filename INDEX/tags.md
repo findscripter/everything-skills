@@ -63,6 +63,9 @@
 ### `8-k`
 - [`octagon-sec-8k-analysis`](../09-verticals/octagon-sec-8k-analysis/SKILL.md) — SEC 8-K 重大事项分析
 
+### `PDR`
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册
+
 ### `Record`
 - [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 
@@ -1837,6 +1840,7 @@
 - [`longbridge-securities-toolkit`](../09-verticals/longbridge-securities-toolkit/SKILL.md) — 长桥证券工具集：实时行情、组合与期权分析
 - [`minimax-media-cli`](../06-creative/minimax-media-cli/SKILL.md) — MiniMax 多模态生成 CLI
 - [`personal-tool-builder`](../07-productivity/personal-tool-builder/SKILL.md) — 自用工具构建方法论
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册
 - [`shadcn-ui-components`](../02-engineering/shadcn-ui-components/SKILL.md) — shadcn/ui 组件库实践
 - [`tmux-session-management`](../10-platform/tmux-session-management/SKILL.md) — tmux 会话与终端多路复用
 - [`understand-project-yylo`](../02-engineering/understand-project-yylo/SKILL.md) — YYLO 项目理解与变更前调研
@@ -5491,6 +5495,7 @@
 - [`kanban-agent-pipeline-orchestrator`](../07-productivity/kanban-agent-pipeline-orchestrator/SKILL.md) — 看板智能体流水线：Asana/Linear 自动开发编排
 - [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
 - [`odoo-xml-views-builder`](../09-verticals/odoo-xml-views-builder/SKILL.md) — Odoo XML 视图构建
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册
 
 ### `kb-article`
 - [`support-kb-article-writer`](../07-productivity/support-kb-article-writer/SKILL.md) — 支持知识库文章撰写
@@ -11586,6 +11591,7 @@
 ### `yylo`
 - [`artifact-yylo`](../04-ai/artifact-yylo/SKILL.md) — YYLO Ledger 证据归档库
 - [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册
 - [`understand-project-yylo`](../02-engineering/understand-project-yylo/SKILL.md) — YYLO 项目理解与变更前调研
 - [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 - [`workflow-yylo`](../07-productivity/workflow-yylo/SKILL.md) — YYLO Ledger 工作流定义库（workflow Record）
@@ -12041,6 +12047,9 @@
 
 ### `任务分解`
 - [`quota-aware-subagent-orchestrator`](../04-ai/quota-aware-subagent-orchestrator/SKILL.md) — 配额感知子智能体编排：大型多文件任务并行
+
+### `任务拆分`
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册
 
 ### `任务拆解`
 - [`objective-to-build-blueprint`](../00-meta/objective-to-build-blueprint/SKILL.md) — 目标转施工蓝图：一句话转可执行分步计划
@@ -16502,6 +16511,7 @@
 ### `编码智能体`
 - [`artifact-yylo`](../04-ai/artifact-yylo/SKILL.md) — YYLO Ledger 证据归档库
 - [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册
 - [`understand-project-yylo`](../02-engineering/understand-project-yylo/SKILL.md) — YYLO 项目理解与变更前调研
 - [`wiki-yylo`](../07-productivity/wiki-yylo/SKILL.md) — YYLO Ledger 项目知识库（wiki Record）
 - [`workflow-yylo`](../07-productivity/workflow-yylo/SKILL.md) — YYLO Ledger 工作流定义库（workflow Record）
@@ -17832,6 +17842,9 @@
 ### `需求文档`
 - [`codebase-to-prd`](../01-documents/codebase-to-prd/SKILL.md) — 代码库逆向生成PRD
 
+### `需求规划`
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册
+
 ### `需量管理`
 - [`energy-procurement`](../09-verticals/energy-procurement/SKILL.md) — 能源采购与电费优化（含 PPA 评估）
 
@@ -17879,6 +17892,7 @@
 
 ### `项目管理`
 - [`jira-expert`](../07-productivity/jira-expert/SKILL.md) — Jira 项目与工作流专家
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册
 - [`scrum-master-analytics`](../07-productivity/scrum-master-analytics/SKILL.md) — Scrum 敏捷教练与冲刺数据分析
 
 ### `项目说明`
