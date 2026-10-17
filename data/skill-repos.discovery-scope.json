@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-15",
+  "updated_at": "2026-10-17",
   "timezone": "Asia/Shanghai",
   "purpose": "Expand discovery beyond repository-name skill/agent keywords while retaining the repository-index admission contract.",
   "families": [
@@ -104,7 +104,9 @@
       "queries": [
         "\"SKILL.md\" public kit",
         "\"SKILL.md\" SDK MCP",
-        "\"install skill\" product CLI"
+        "\"install skill\" product CLI",
+        "\"npx skills add\" product SDK CLI",
+        "\"agent skills\" official product integration"
       ],
       "layouts": [
         "skill/SKILL.md",
@@ -203,7 +205,9 @@
         "\"SKILL.md\" power grid model",
         "\"SKILL.md\" energy utilities",
         "\"SKILL.md\" manufacturing A3 lean",
-        "\"SKILL.md\" power systems renewable"
+        "\"SKILL.md\" power systems renewable",
+        "\"SKILL.md\" MES semiconductor manufacturing",
+        "\"SKILL.md\" DFM PCB assembly"
       ],
       "layouts": [
         ".agents/skills/",
@@ -257,6 +261,21 @@
         "native product integration directories"
       ],
       "priority": "medium"
+    },
+    {
+      "id": "business-operations",
+      "label_zh": "财务、营销、职业与协作工作流",
+      "queries": [
+        "\"SKILL.md\" accounting finance operations",
+        "\"SKILL.md\" marketing analytics GTM",
+        "\"SKILL.md\" career recruiting collaboration"
+      ],
+      "layouts": [
+        "skills/",
+        "domain skill folders",
+        "plugin marketplaces"
+      ],
+      "priority": "high"
     }
   ],
   "admission": {
@@ -303,5 +322,6 @@
   "count_interpretation_note": "A directory named templates can contain real template-authoring task skills; inspect its role rather than excluding solely by substring. Separate parent routers and generated views from leaf tasks.",
   "source_followup_note": "Follow README-declared active successors and native product catalogs. Carbon keyword matches can refer to a design system or ERP, not emissions.",
   "source_overlap_note": "Compare commit-pinned SKILL blob hashes as well as names, IDs and fork flags. Some unmarked copies have substantial overlap plus distinct files; preserve that distinction and never label the whole file count globally new.",
-  "license_scope_note": "Noncommercial content can only be explicitly indexed under the current metadata-only workflow; never silently classify it as unrestricted open source or import its instructions. Root and per-skill notices stay separate."
+  "license_scope_note": "Noncommercial content can only be explicitly indexed under the current metadata-only workflow; never silently classify it as unrestricted open source or import its instructions. Root and per-skill notices stay separate.",
+  "public_distribution_note": "For multi-package repositories, verify each claimed plugin manifest and public README; root defaults need not include every separately distributed plugin. Mark untested compatibility claims explicitly."
 }

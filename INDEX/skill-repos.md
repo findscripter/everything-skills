@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-16（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part81
+- 编制日期：2026-10-17（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part82
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2182 个独立仓库（另注明更名别名）
+- 收录条数：2268 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -24,6 +24,8 @@ part75 扩展：GIS/天气气候、机器人/嵌入式、CAE/CAD/BIM、数字策
 part78 扩展：公益筹款、城市开放数据、规划与公共采购、电网与工厂运营，并追踪产品原生桌面技能目录和活跃后继。将当前技能、历史版本、核心包/视图、任务技能/路由入口及内部维护流程分开计数；许可证保留内容分区与 MIT-0 等准确标签。
 
 part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文献管理、公开档案视觉工作流及产品内嵌技能。补充固定提交技能 blob 的跨仓库重叠核验；带非商业限制的内容只明确索引元数据，不采编正文或称为无限制开源内容。
+
+part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科研传播、财务和商业创意工作流，并追踪产品、SDK、CLI 的原生公开技能。按公开清单区分主技能、插件模块、维护项、镜像及安装副本；保留第三方模板和派生内容的许可范围。
 
 ### 更名与后继
 
@@ -314,6 +316,26 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [opendataloader-project/opendataloader-pdf](https://github.com/opendataloader-project/opendataloader-pdf) | 29,707 | OpenDataLoader PDF product with a public agent skill for structured extraction, format selection, and runtime CLI discovery; enterprise PDF/UA services are separate. | Apache-2.0 | 1 | indexed-only |
 | [learning-commons-org/agent-skills](https://github.com/learning-commons-org/agent-skills) | 38 | Learning Commons teaching skills for checking understanding, differentiated lessons, lesson creation, and preparation, with optional education MCP integration. | Apache-2.0 | 4 | indexed-only |
 | [Genentech/openfe_skill](https://github.com/Genentech/openfe_skill) | 28 | Genentech OpenFE skill for relative binding-free-energy workflows on Slurm HPC with site-specific configuration kept separately. | MIT | 1 | indexed-only |
+| [phaserjs/phaser](https://github.com/phaserjs/phaser) | 40,497 | Develop Phaser 4 games across scenes, assets, input, physics, animation, and migration from Phaser 3. | MIT | 28 | indexed-only |
+| [ueberdosis/tiptap](https://github.com/ueberdosis/tiptap) | 38,749 | Set up and extend Tiptap editors, collaboration, comments, AI features, and document conversion in applications. | MIT | 1 | indexed-only |
+| [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory) | 31,253 | Add persistent memory, user profiles, personalization, and semantic knowledge retrieval to TypeScript or Python agents. | Apache-2.0 | 1 | indexed-only |
+| [resend/react-email](https://github.com/resend/react-email) | 19,847 | Build React email templates and visual editors, render HTML, and send transactional mail with Resend. | MIT | 1 | indexed-only |
+| [longbridge/gpui-kit](https://github.com/longbridge/gpui-kit) | 17,841 | Build Rust desktop interfaces with GPUI Kit components, coding guidance, and detailed interaction and visual design rules. | Apache-2.0 | 2 | indexed-only |
+| [tradingview/lightweight-charts](https://github.com/tradingview/lightweight-charts) | 17,594 | Build Lightweight Charts v5 charts and author custom series, primitives, and chart plugins. | Apache-2.0 | 2 | indexed-only |
+| [umijs/qiankun](https://github.com/umijs/qiankun) | 16,698 | Create qiankun 3 micro-frontend hosts and micro apps, including React/Vue and Vite integration. | MIT | 1 | indexed-only |
+| [MiniMax-AI/skills](https://github.com/MiniMax-AI/skills) | 13,713 | MiniMax agent skills for frontend/fullstack/mobile development, shaders, documents, slides, music, multimodal workflows, and visual analysis. | MIT (repository); Apache-2.0-derived portions retain their original license and attribution | 22 | indexed-only |
+| [moonshine-ai/moonshine](https://github.com/moonshine-ai/moonshine) | 11,248 | Integrate on-device speech recognition, speech synthesis, voice cloning, and AgentFlow voice agents with Moonshine. | MIT | 1 | indexed-only |
+| [goadesign/goa](https://github.com/goadesign/goa) | 6,110 | Design Go service contracts in the Goa DSL, generate HTTP/gRPC/JSON-RPC code, and implement and verify services. | MIT | 1 | indexed-only |
+| [frappe/builder](https://github.com/frappe/builder) | 2,438 | Create, edit, style, and publish Frappe Builder pages and components through frappectl. | MIT | 1 | indexed-only |
+| [deepmodeling/deepmd-kit](https://github.com/deepmodeling/deepmd-kit) | 2,061 | DeePMD-kit setup, potential training and fine-tuning, Python inference, and LAMMPS simulation workflows. | LGPL-3.0-or-later | 6 | indexed-only |
+| [frappe/frappe-ui](https://github.com/frappe/frappe-ui) | 1,068 | Build Frappe applications with Vue 3 UI components, design tokens, forms, dialogs, and lists. | MIT | 1 | indexed-only |
+| [dataforseo/mcp-server-typescript](https://github.com/dataforseo/mcp-server-typescript) | 254 | Use the DataForSEO CLI to search API documentation and request SEO and marketing data. | Apache-2.0 | 1 | indexed-only |
+| [deepmodeling/dpdispatcher](https://github.com/deepmodeling/dpdispatcher) | 62 | Submit and monitor local or HPC computational jobs through Shell, Slurm, PBS, LSF, and Bohrium. | LGPL-3.0-or-later | 1 | indexed-only |
+| [capawesome-team/skills](https://github.com/capawesome-team/skills) | 51 | Build and upgrade Capacitor and Ionic apps, develop plugins, and ship native builds and live updates with Capawesome. | MIT | 30 | indexed-only |
+| [tuniucorp/tuniu-cli](https://github.com/tuniucorp/tuniu-cli) | 9 | Search Tuniu flights, hotels, attraction tickets, trains, cruises, and vacation products through one travel CLI. | MIT | 1 | indexed-only |
+| [databricks-industry-solutions/hls-skills](https://github.com/databricks-industry-solutions/hls-skills) | 3 | Databricks health and life-sciences skills for omics, cohorts, privacy and payer/provider measures. | Databricks License — restricted to use within or connecting to Databricks Services | 9 | indexed-only |
+| [criticalmanufacturing/agent-plugins](https://github.com/criticalmanufacturing/agent-plugins) | 0 | Official CM GPT skill for finding cited answers in Critical Manufacturing MES documentation. | MIT | 1 | indexed-only |
+| [splinetool/spline-skills](https://github.com/splinetool/spline-skills) | 0 | Use the Spline MCP editor to build and refine editable 3D scenes, animations, websites, and app screens. | MIT | 1 | indexed-only |
 
 ## 2. Collections
 
@@ -807,6 +829,10 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [maziyarpanahi/openmed](https://github.com/maziyarpanahi/openmed) | 5,693 | maziyarpanahi/openmed publishes a public Agent Skills collection with 74 SKILL.md entries; the fixed tree and README provide an install or usage path. | Apache-2.0 | 74 | indexed-only |
 | [aipoch/open-science](https://github.com/aipoch/open-science) | 4,905 | aipoch/open-science publishes a public Agent Skills collection with 25 SKILL.md entries; the fixed tree and README provide an install or usage path. | Apache-2.0 | 25 | indexed-only |
 | [Ar9av/obsidian-wiki](https://github.com/Ar9av/obsidian-wiki) | 3,576 | Ar9av/obsidian-wiki publishes a public Agent Skills collection with 40 SKILL.md entries; the fixed tree and README provide an install or usage path. | MIT | 40 | indexed-only |
+| [tamdogood/builder-essential-skills](https://github.com/tamdogood/builder-essential-skills) | 224 | Builder workflow collection for planning, research, learning, writing, testing, code review, marketing kits, and reusable playbooks. | MIT | 18 | indexed-only |
+| [KalarisLabs/research-agent-skills](https://github.com/KalarisLabs/research-agent-skills) | 23 | Research skill collection spanning scientific computing, academic writing, literature work and experimental methods. | MIT (collection and skill instructions); bundled publisher templates and third-party materials retain their own terms | 281 | indexed-only |
+| [makukhin-ie/ai-toolbox](https://github.com/makukhin-ie/ai-toolbox) | 0 | Reusable workflows for Notion GTD sessions, print-ready book typesetting, language tutoring, and PrusaSlicer filament profiles. | MIT | 4 | indexed-only |
+| [thatrgbgamer/SuperClaude-FountEngine](https://github.com/thatrgbgamer/SuperClaude-FountEngine) | 0 | Preference-aware writing, email, research, document formatting, repository onboarding, debugging, and Fount game-authoring skills. | MIT | 9 | indexed-only |
 
 ## 3. Vertical
 
@@ -1879,6 +1905,58 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [Jakeschincariol/replica-skill](https://github.com/Jakeschincariol/replica-skill) | 2,756 | Jakeschincariol/replica-skill publishes a public Agent Skills collection with 11 SKILL.md entries; the fixed tree and README provide an install or usage path. | MIT | 11 | indexed-only |
 | [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) | 2,599 | oil-oil/oil-motion publishes a public Agent Skills collection with 1 SKILL.md entries; the fixed tree and README provide an install or usage path. | MIT | 1 | indexed-only |
 | [zanwei/design-dna](https://github.com/zanwei/design-dna) | 1,976 | zanwei/design-dna publishes a public Agent Skills collection with 1 SKILL.md entries; the fixed tree and README provide an install or usage path. | MIT | 1 | indexed-only |
+| [wilbert-MD-PhD/medical-illustration](https://github.com/wilbert-MD-PhD/medical-illustration) | 177 | Evidence-backed medical illustration workflows for educational comics, research figures and editable delivery. | MIT (core Skill/code); CC-BY-4.0 (original documentation/showcases); third-party terms separate | 1 | indexed-only |
+| [openaccountant/skills](https://github.com/openaccountant/skills) | 91 | Financial workflow library for business and personal accounting, tax preparation, cash flow, reporting, and reconciliation, with shared jurisdiction guides. | MIT | 44 | indexed-only |
+| [forsonny/The-Crucible-Writing-System-For-Claude](https://github.com/forsonny/The-Crucible-Writing-System-For-Claude) | 60 | A four-stage epic-fantasy writing plugin for planning, outlining, drafting, and editing with the Crucible narrative framework. | MIT (current skills); archived example chapters: restricted | 4 | indexed-only |
+| [eliasstravik/gtm-skills](https://github.com/eliasstravik/gtm-skills) | 19 | Maintain shared GTM workspaces, ideal-customer profiles and personas, qualify prospects, and create reusable local or hosted workflows. | MIT | 7 | indexed-only |
+| [hujizhou35-cmd/medical-journal-selector](https://github.com/hujizhou35-cmd/medical-journal-selector) | 15 | Compare medical publication venues using current evidence on journal fit, quartiles, fees and timelines. | MIT | 1 | indexed-only |
+| [Remotivated/job-hunt-skills](https://github.com/Remotivated/job-hunt-skills) | 15 | Evidence-based job-search workflows for resumes, cover letters, company research, interview preparation, LinkedIn profiles, and claim checks. | MIT | 12 | indexed-only |
+| [LaoZhong-Mihari/codex-organic-chem](https://github.com/LaoZhong-Mihari/codex-organic-chem) | 8 | Structure-grounded organic-chemistry reasoning with local molecular tools, reaction checks and publication figures. | MIT; bundled third-party editor components retain GPL/commercial terms | 1 | indexed-only |
+| [jammyfu/open-game-skills](https://github.com/jammyfu/open-game-skills) | 6 | Game-development skill cluster with a dispatcher, discipline workflows, asset production, engine/studio constraints, and gameplay acceptance criteria. | MIT | 192 | indexed-only |
+| [harshith-vaddiparthy/finance-skills](https://github.com/harshith-vaddiparthy/finance-skills) | 5 | Finance operations skills for receivables, payment reminders, contract/invoice review, revenue QA, reconciliation, close checklists, and CFO briefings. | MIT | 9 | indexed-only |
+| [kaihere14/skills](https://github.com/kaihere14/skills) | 5 | Capture product visuals and create brand-specific social images in platform sizes with accompanying post copy. | MIT | 1 | indexed-only |
+| [popjam-io/skills](https://github.com/popjam-io/skills) | 5 | Ad creative workflows, brand and writing-style extraction, landing-page design, platform safe-zone checks, and Remotion rendering guidance. | MIT | 6 | indexed-only |
+| [silico-quantum/quantum-chem-skills](https://github.com/silico-quantum/quantum-chem-skills) | 5 | Quantum-chemistry skills for Gaussian, PySCF, Multiwfn, MOMAP, RDKit, molecular sampling and visualization. | MIT | 9 | indexed-only |
+| [graphed-inc/marketing-skills](https://github.com/graphed-inc/marketing-skills) | 3 | Agent workflows for LinkedIn engager enrichment, post-to-video conversion, editable motion graphics, and product feedback. | MIT | 4 | indexed-only |
+| [AliakseiT/heor-skills](https://github.com/AliakseiT/heor-skills) | 2 | Health-economics and reimbursement workflows for evidence review, economic modeling and market-access dossiers. | Apache-2.0 | 10 | indexed-only |
+| [Covari-mfg/manufacturing-skills](https://github.com/Covari-mfg/manufacturing-skills) | 2 | FDM/FFF manufacturability review covering orientation, supports, tolerances, materials and production risks. | Apache-2.0 | 1 | indexed-only |
+| [Kohulan/orthonym-skills](https://github.com/Kohulan/orthonym-skills) | 2 | Measurement-led chemistry development workflows for bounded goals, evaluation loops, targeting and review. | MIT | 23 | indexed-only |
+| [manifoldmcp/marketing-skills](https://github.com/manifoldmcp/marketing-skills) | 2 | Marketing research and reporting skills across search, social, ads, stores, competitors, and customers, with optional live Manifold data. | MIT | 26 | indexed-only |
+| [RobLincolne/claude-better-text-skill](https://github.com/RobLincolne/claude-better-text-skill) | 2 | Edit nonfiction prose for clarity, active verbs, consistent voice, and removal of common AI rhetorical habits. | MIT | 1 | indexed-only |
+| [alessandrobonomi00/cad-mechanical-designer-skill](https://github.com/alessandrobonomi00/cad-mechanical-designer-skill) | 1 | CAD design guidance for robust parametric parts, assemblies, drawings and manufacturability checks. | MIT | 1 | indexed-only |
+| [carocoda/marketing_skills](https://github.com/carocoda/marketing_skills) | 1 | LinkedIn animated infographics, unusually successful post research, and profile reviews with draft copy and visual prompts. | MIT | 3 | indexed-only |
+| [deepakp999/data-storytelling-slides](https://github.com/deepakp999/data-storytelling-slides) | 1 | Create analytical PowerPoint storylines and slide specifications with consulting-style layouts, charts, and iterative per-slide review. | MIT | 1 | indexed-only |
+| [ESRShbb/scientific-workflow-skills](https://github.com/ESRShbb/scientific-workflow-skills) | 1 | Chemistry and life-science workflows for NMR, ChemDraw, IC50 analysis, characterization and scientific figures. | MIT | 6 | indexed-only |
+| [faborsky/marketing-miner-mcp-skill](https://github.com/faborsky/marketing-miner-mcp-skill) | 1 | A community Marketing Miner MCP skill for Czech and Slovak keyword research, competitor visibility, content gaps, and credit-aware analysis. | MIT | 1 | indexed-only |
+| [gfjwg22xcb-del/cie-igcse-chemistry-study-open](https://github.com/gfjwg22xcb-del/cie-igcse-chemistry-study-open) | 1 | Independent IGCSE Chemistry study skill with syllabus guidance, worked examples, quizzes and feedback. | CC-BY-4.0 | 1 | indexed-only |
+| [J-D11/manufacturing-ai](https://github.com/J-D11/manufacturing-ai) | 1 | Fabrication workflow guidance from model preparation and slicing through physical inspection and small-batch production. | MIT | 1 | indexed-only |
+| [Jason-0409-G/vivarium](https://github.com/Jason-0409-G/vivarium) | 1 | Recoverable comparative-genomics workflows for preparation, search, relatedness, phylogeny and reporting. | MIT | 6 | indexed-only |
+| [LittleDrunkWang/computational-chemistry-dft](https://github.com/LittleDrunkWang/computational-chemistry-dft) | 1 | Auditable small-molecule thermodynamics and kinetics workflows for ORCA, Gaussian, Psi4, xTB and CREST. | MIT | 1 | indexed-only |
+| [scaliaven/chemist](https://github.com/scaliaven/chemist) | 1 | Two computational-chemistry skills for ASE-based simulations and Amber molecular-dynamics workflows. | MIT | 2 | indexed-only |
+| [TheDop/analytical-figures-skill](https://github.com/TheDop/analytical-figures-skill) | 1 | Publication figures and checked analyses for spectroscopy, calibration, chemometrics and crystal structures. | MIT | 1 | indexed-only |
+| [topmindspace/topmind-presentation](https://github.com/topmindspace/topmind-presentation) | 1 | Produce paged HTML presentations and editable PowerPoint decks from source materials, including report layouts and architecture diagrams. | MIT | 1 | indexed-only |
+| [3494036618-eng/chemistry-research-skills](https://github.com/3494036618-eng/chemistry-research-skills) | 0 | Auditable chemistry data workflows for identity, structure, features, libraries, reactions and route-evidence review. | Apache-2.0 | 8 | indexed-only |
+| [arey325/marketing-kit-plugin](https://github.com/arey325/marketing-kit-plugin) | 0 | A V-Kit connector skill for querying advertising, app-store, analytics, subscription, and revenue metrics across client accounts. | MIT | 1 | indexed-only |
+| [arunanksharan/semiconductor-skills](https://github.com/arunanksharan/semiconductor-skills) | 0 | Semiconductor manufacturing skills for fab excursions, failure analysis, packaging qualification and yield monitoring. | MIT | 4 | indexed-only |
+| [bbecht/demand-gen-claude-skills](https://github.com/bbecht/demand-gen-claude-skills) | 0 | B2B demand-generation workflows for attribution, prospect qualification, customer segmentation, pipeline analysis, campaigns, and experiments. | MIT | 7 | indexed-only |
+| [benabbate-sales/gtm-cadence-builder](https://github.com/benabbate-sales/gtm-cadence-builder) | 0 | Build a B2B SaaS GTM meeting cadence, quarterly calendar, agenda appendix, and responsibility matrix from client context. | MIT | 1 | indexed-only |
+| [bowtiekreative/signalstack-social-media-strategist](https://github.com/bowtiekreative/signalstack-social-media-strategist) | 0 | Audit social analytics, prioritize performance problems, design experiments, and draft content plans, hooks, scripts, carousels, and captions. | MIT | 1 | indexed-only |
+| [DarrenWongKaWa/dft-wannier-transport-skill](https://github.com/DarrenWongKaWa/dft-wannier-transport-skill) | 0 | Engineering guidance for DFT-to-Wannier transport calculations, long runs and manuscript-number provenance. | MIT | 1 | indexed-only |
+| [evgeniyzakharow-design/thermoforming-dfm](https://github.com/evgeniyzakharow-design/thermoforming-dfm) | 0 | Thermoforming design review for draft, radii, wall thinning, depth, venting and sheet nesting. | MIT | 1 | indexed-only |
+| [guilhermefriol/claude-skills-design](https://github.com/guilhermefriol/claude-skills-design) | 0 | Portuguese design skills for multi-viewport visual UX audits and guided selection among UI component libraries. | MIT | 2 | indexed-only |
+| [HycJack/edu-explainer-video-skill](https://github.com/HycJack/edu-explainer-video-skill) | 0 | Turn mathematics and physics problems into synchronized animated explainers and interactive HTML steppers. | MIT | 1 | indexed-only |
+| [JinnWorks/jinn-skills](https://github.com/JinnWorks/jinn-skills) | 0 | Brand-aware marketing deliverables including positioning, campaigns, content, messaging reviews, competitive analysis, and sales enablement. | MIT | 59 | indexed-only |
+| [joey114132/claude-robotics-skills](https://github.com/joey114132/claude-robotics-skills) | 0 | Robotics advisors and audit workflows spanning robot platforms, ROS 2, perception, learning and safety. | MIT | 24 | indexed-only |
+| [justinharry2143/computational-chemistry-materials-agent](https://github.com/justinharry2143/computational-chemistry-materials-agent) | 0 | Codex skills for computational chemistry and materials modeling, output analysis and reproducibility. | MIT | 46 | indexed-only |
+| [Lancifonins/chem-skills](https://github.com/Lancifonins/chem-skills) | 0 | Compound lookup and native ChemDraw creation skills, with an optional combined chemistry suite. | MIT | 3 | indexed-only |
+| [MrGoulart3/MGE-Skills](https://github.com/MrGoulart3/MGE-Skills) | 0 | Create narrated molecular and materials videos using real simulation trajectories and Blender. | MIT | 1 | indexed-only |
+| [Oweik/pcb-art-easyeda](https://github.com/Oweik/pcb-art-easyeda) | 0 | EasyEDA PCB-art workflow for copper, solder-mask and silkscreen layers with Gerber draft validation. | MIT | 1 | indexed-only |
+| [pugofka/growth-ideas-skill](https://github.com/pugofka/growth-ideas-skill) | 0 | Research a company or product and develop sourced growth hypotheses with cheap experiments, scoring, and stopping criteria. | MIT | 1 | indexed-only |
+| [robertriedel/POD2_Config_Skill](https://github.com/robertriedel/POD2_Config_Skill) | 0 | Generate and validate SAP Digital Manufacturing POD 2.0 configurations using standard plugins and actions. | MIT | 1 | indexed-only |
+| [spilno-agency/spilno-agency-skills](https://github.com/spilno-agency/spilno-agency-skills) | 0 | Analyze Google Ads performance from GA4 and prepare a branded ROAS corridor and advertising-budget scenario report. | MIT | 1 | indexed-only |
+| [sunjun333/aosaiqunxing-mcp](https://github.com/sunjun333/aosaiqunxing-mcp) | 0 | Query Chinese school Olympiad results across five subjects through a source-aware agent skill. | MIT | 1 | indexed-only |
+| [tizsabrine/claude-skills-design](https://github.com/tizsabrine/claude-skills-design) | 0 | Apply the Google PAIR framework to produce concrete AI product design briefs covering trust, feedback, onboarding, and failure states. | MIT | 1 | indexed-only |
+| [yinum/analytical-skills](https://github.com/yinum/analytical-skills) | 0 | Analytical-chemistry publishing workflows for literature, figures, statistics, manuscript writing and submission. | Apache-2.0 | 15 | indexed-only |
 
 ## 4. Infra
 
@@ -2079,6 +2157,13 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [parcadei/Continuous-Claude-v3](https://github.com/parcadei/Continuous-Claude-v3) | 3,944 | parcadei/Continuous-Claude-v3 publishes a public Agent Skills collection with 160 SKILL.md entries; the fixed tree and README provide an install or usage path. | MIT | 160 | indexed-only |
 | [evalstate/fast-agent](https://github.com/evalstate/fast-agent) | 3,936 | evalstate/fast-agent publishes a public Agent Skills collection with 3 SKILL.md entries; the fixed tree and README provide an install or usage path. | Apache-2.0 | 3 | indexed-only |
 | [rlaope/oh-my-hermes](https://github.com/rlaope/oh-my-hermes) | 3,383 | rlaope/oh-my-hermes publishes a public Agent Skills collection with 260 SKILL.md entries; the fixed tree and README provide an install or usage path. | MIT | 260 | indexed-only |
+| [yamadashy/repomix](https://github.com/yamadashy/repomix) | 28,869 | Pack local or remote repositories with Repomix to explore architecture, code patterns, file sizes, and token counts. | MIT | 1 | indexed-only |
+| [VibiumDev/vibium](https://github.com/VibiumDev/vibium) | 2,939 | Automate browser tasks and inspect interfaces with Vibium browser and check skills. | Apache-2.0 | 2 | indexed-only |
+| [RinDig/icm-architect](https://github.com/RinDig/icm-architect) | 1,933 | Design or restructure agent workspaces using ICM folder architecture, workflow sequencing, scoped context, and persistent Markdown state. | MIT | 1 | indexed-only |
+| [risingwavelabs/box0](https://github.com/risingwavelabs/box0) | 80 | Delegate coding, review, research, and data tasks to specialized Claude Code or Codex workers through Box0. | MIT | 1 | indexed-only |
+| [Raftersecurity/rafter-cli](https://github.com/Raftersecurity/rafter-cli) | 27 | Security reviews, early threat modeling, third-party skill audits, and local scanning with the Rafter CLI. | MIT | 4 | indexed-only |
+| [fraylabs/possible](https://github.com/fraylabs/possible) | 11 | Possible outcome and recipe registry with a public agent skill for discovering, inspecting, and reusing AI workflow recipes. | MIT | 1 | indexed-only |
+| [Agent-Card/ai-catalog-cli](https://github.com/Agent-Card/ai-catalog-cli) | 10 | Discover, validate, inspect, and install MCP servers, A2A agents, and skills from AI Catalogs, including OCI catalogs. | Apache-2.0 | 1 | indexed-only |
 
 ## 5. Other
 
@@ -2255,3 +2340,6 @@ Names are often methodologies, products, or memes. Inclusion is based on README:
 | [fcon-tech/portolan](https://github.com/fcon-tech/portolan) | 1 | Codebase-survey product bundling an installable Portolan skill, MCP wiring, and source-anchored architecture charts. | MIT | 1 | indexed-only |
 | [leap-laboratories/discovery-engine](https://github.com/leap-laboratories/discovery-engine) | 7 | Leap Laboratories tabular-pattern discovery service with an agent skill and MCP/SDK guidance; hosted execution is a separate service. | MIT | 1 | indexed-only |
 | [nraford7/art-direct](https://github.com/nraford7/art-direct) | 9 | Art-direction skill turning documents and other content into visual directions, image prompts, and production briefs. | MIT | 1 | indexed-only |
+| [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) | 88,162 | Scrape and crawl sites with Scrapling adaptive parsing, browser rendering, stealth fetching, and spiders. | BSD-3-Clause | 1 | indexed-only |
+| [casey/just](https://github.com/casey/just) | 36,313 | Write and maintain justfiles using the just command runner syntax and task patterns. | CC0-1.0 | 1 | indexed-only |
+| [t8y2/dbx](https://github.com/t8y2/dbx) | 27,019 | Inspect DBX database connections and schemas, run bounded read-only queries, and generate DBML and schema documentation. | Apache-2.0 | 1 | indexed-only |
