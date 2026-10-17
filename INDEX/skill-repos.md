@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-16（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part81
+- 编制日期：2026-10-17（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part82
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2182 个独立仓库（另注明更名别名）
+- 收录条数：2268 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -24,6 +24,8 @@ part75 扩展：GIS/天气气候、机器人/嵌入式、CAE/CAD/BIM、数字策
 part78 扩展：公益筹款、城市开放数据、规划与公共采购、电网与工厂运营，并追踪产品原生桌面技能目录和活跃后继。将当前技能、历史版本、核心包/视图、任务技能/路由入口及内部维护流程分开计数；许可证保留内容分区与 MIT-0 等准确标签。
 
 part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文献管理、公开档案视觉工作流及产品内嵌技能。补充固定提交技能 blob 的跨仓库重叠核验；带非商业限制的内容只明确索引元数据，不采编正文或称为无限制开源内容。
+
+part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科研传播、财务和商业创意工作流，并追踪产品、SDK、CLI 的原生公开技能。按公开清单区分主技能、插件模块、维护项、镜像及安装副本；保留第三方模板和派生内容的许可范围。
 
 ### 更名与后继
 
@@ -314,6 +316,26 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [opendataloader-project/opendataloader-pdf](https://github.com/opendataloader-project/opendataloader-pdf) | 29,707 | OpenDataLoader PDF 产品附公开 Agent Skill，用于结构化提取、格式选择与运行时 CLI 发现；企业版 PDF/UA 服务另计。 | Apache-2.0 | 1 | 仅索引 |
 | [learning-commons-org/agent-skills](https://github.com/learning-commons-org/agent-skills) | 38 | Learning Commons 教学技能，覆盖理解检查、差异化教学、教案创建与备课，附可选教育 MCP 集成。 | Apache-2.0 | 4 | 仅索引 |
 | [Genentech/openfe_skill](https://github.com/Genentech/openfe_skill) | 28 | Genentech OpenFE 技能，用于 Slurm HPC 上的相对结合自由能工作流，站点配置单独保存。 | MIT | 1 | 仅索引 |
+| [phaserjs/phaser](https://github.com/phaserjs/phaser) | 40,497 | 开发 Phaser 4 游戏，覆盖场景、资源、输入、物理、动画以及 Phaser 3 迁移。 | MIT | 28 | 仅索引 |
+| [ueberdosis/tiptap](https://github.com/ueberdosis/tiptap) | 38,749 | 在应用中搭建和扩展 Tiptap 编辑器，集成协作、评论、AI 功能和文档转换。 | MIT | 1 | 仅索引 |
+| [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory) | 31,253 | 为 TypeScript 或 Python Agent 集成持久记忆、用户画像、个性化和语义知识检索。 | Apache-2.0 | 1 | 仅索引 |
+| [resend/react-email](https://github.com/resend/react-email) | 19,847 | 构建 React 邮件模板和可视化编辑器、渲染 HTML，并用 Resend 发送事务邮件。 | MIT | 1 | 仅索引 |
+| [longbridge/gpui-kit](https://github.com/longbridge/gpui-kit) | 17,841 | 结合 GPUI Kit 组件、编码指南及交互和视觉设计规则构建 Rust 桌面界面。 | Apache-2.0 | 2 | 仅索引 |
+| [tradingview/lightweight-charts](https://github.com/tradingview/lightweight-charts) | 17,594 | 使用 Lightweight Charts v5 构建图表，并开发自定义序列、图元和图表插件。 | Apache-2.0 | 2 | 仅索引 |
+| [umijs/qiankun](https://github.com/umijs/qiankun) | 16,698 | 创建 qiankun 3 微前端主应用与子应用，处理 React、Vue 和 Vite 集成。 | MIT | 1 | 仅索引 |
+| [MiniMax-AI/skills](https://github.com/MiniMax-AI/skills) | 13,713 | MiniMax Agent 技能，覆盖前后端及移动开发、Shader、文档、幻灯片、音乐、多模态工作流和视觉分析。 | MIT (repository); Apache-2.0-derived portions retain their original license and attribution | 22 | 仅索引 |
+| [moonshine-ai/moonshine](https://github.com/moonshine-ai/moonshine) | 11,248 | 使用 Moonshine 集成端侧语音识别、语音合成、声音克隆和 AgentFlow 语音 Agent。 | MIT | 1 | 仅索引 |
+| [goadesign/goa](https://github.com/goadesign/goa) | 6,110 | 使用 Goa DSL 设计 Go 服务契约，生成 HTTP、gRPC、JSON-RPC 代码并实现和验证服务。 | MIT | 1 | 仅索引 |
+| [frappe/builder](https://github.com/frappe/builder) | 2,438 | 通过 frappectl 创建、编辑、换肤并发布 Frappe Builder 页面与组件。 | MIT | 1 | 仅索引 |
+| [deepmodeling/deepmd-kit](https://github.com/deepmodeling/deepmd-kit) | 2,061 | DeePMD-kit 安装、势能模型训练与微调、Python 推理及 LAMMPS 模拟工作流。 | LGPL-3.0-or-later | 6 | 仅索引 |
+| [frappe/frappe-ui](https://github.com/frappe/frappe-ui) | 1,068 | 使用 Vue 3 组件、设计令牌、表单、弹窗和列表构建 Frappe 应用界面。 | MIT | 1 | 仅索引 |
+| [dataforseo/mcp-server-typescript](https://github.com/dataforseo/mcp-server-typescript) | 254 | 通过 DataForSEO CLI 检索 API 文档并请求 SEO 与营销数据。 | Apache-2.0 | 1 | 仅索引 |
+| [deepmodeling/dpdispatcher](https://github.com/deepmodeling/dpdispatcher) | 62 | 通过 Shell、Slurm、PBS、LSF 和 Bohrium 提交并跟踪本地或 HPC 计算任务。 | LGPL-3.0-or-later | 1 | 仅索引 |
+| [capawesome-team/skills](https://github.com/capawesome-team/skills) | 51 | 开发和升级 Capacitor、Ionic 应用与插件，并用 Capawesome 完成原生构建、热更新和商店发布。 | MIT | 30 | 仅索引 |
+| [tuniucorp/tuniu-cli](https://github.com/tuniucorp/tuniu-cli) | 9 | 通过途牛统一旅行 CLI 查询机票、酒店、景点门票、火车票、邮轮与度假产品。 | MIT | 1 | 仅索引 |
+| [databricks-industry-solutions/hls-skills](https://github.com/databricks-industry-solutions/hls-skills) | 3 | Databricks 医疗生命科学技能，覆盖组学、队列、去标识和支付方/服务方指标。 | Databricks License — restricted to use within or connecting to Databricks Services | 9 | 仅索引 |
+| [criticalmanufacturing/agent-plugins](https://github.com/criticalmanufacturing/agent-plugins) | 0 | Critical Manufacturing 官方 CM GPT 技能，检索 MES 文档并给出来源引用。 | MIT | 1 | 仅索引 |
+| [splinetool/spline-skills](https://github.com/splinetool/spline-skills) | 0 | 通过 Spline MCP 编辑器建立和迭代可编辑的 3D 场景、动画、网站与应用界面。 | MIT | 1 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -807,6 +829,10 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [maziyarpanahi/openmed](https://github.com/maziyarpanahi/openmed) | 5,693 | maziyarpanahi/openmed 公开提供 74 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 74 | 仅索引 |
 | [aipoch/open-science](https://github.com/aipoch/open-science) | 4,905 | aipoch/open-science 公开提供 25 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 25 | 仅索引 |
 | [Ar9av/obsidian-wiki](https://github.com/Ar9av/obsidian-wiki) | 3,576 | Ar9av/obsidian-wiki 公开提供 40 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 40 | 仅索引 |
+| [tamdogood/builder-essential-skills](https://github.com/tamdogood/builder-essential-skills) | 224 | 构建者工作流集合，覆盖规划、研究、学习、写作、测试、代码审查、营销素材与可复用手册。 | MIT | 18 | 仅索引 |
+| [KalarisLabs/research-agent-skills](https://github.com/KalarisLabs/research-agent-skills) | 23 | 覆盖科学计算、学术写作、文献研究与实验方法的研究技能集合。 | MIT (collection and skill instructions); bundled publisher templates and third-party materials retain their own terms | 281 | 仅索引 |
+| [makukhin-ie/ai-toolbox](https://github.com/makukhin-ie/ai-toolbox) | 0 | 可复用的 Notion GTD 会话、印刷书籍排版、语言辅导与 PrusaSlicer 耗材配置工作流。 | MIT | 4 | 仅索引 |
+| [thatrgbgamer/SuperClaude-FountEngine](https://github.com/thatrgbgamer/SuperClaude-FountEngine) | 0 | 共享偏好配置驱动的写作、邮件、调研、文档整理、仓库入门、调试与 Fount 游戏创作技能。 | MIT | 9 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1879,6 +1905,58 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [Jakeschincariol/replica-skill](https://github.com/Jakeschincariol/replica-skill) | 2,756 | Jakeschincariol/replica-skill 公开提供 11 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 11 | 仅索引 |
 | [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) | 2,599 | oil-oil/oil-motion 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 1 | 仅索引 |
 | [zanwei/design-dna](https://github.com/zanwei/design-dna) | 1,976 | zanwei/design-dna 公开提供 1 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 1 | 仅索引 |
+| [wilbert-MD-PhD/medical-illustration](https://github.com/wilbert-MD-PhD/medical-illustration) | 177 | 基于证据的医学绘图流程，支持科普漫画、科研示意图与可编辑成果交付。 | MIT (core Skill/code); CC-BY-4.0 (original documentation/showcases); third-party terms separate | 1 | 仅索引 |
+| [openaccountant/skills](https://github.com/openaccountant/skills) | 91 | 面向企业及个人财务的会计、报税准备、现金流、报告与对账工作流，附共享地区规则指南。 | MIT | 44 | 仅索引 |
+| [forsonny/The-Crucible-Writing-System-For-Claude](https://github.com/forsonny/The-Crucible-Writing-System-For-Claude) | 60 | 基于 Crucible 叙事框架的史诗奇幻写作插件，覆盖规划、大纲、起草与编辑四阶段。 | MIT (current skills); archived example chapters: restricted | 4 | 仅索引 |
+| [eliasstravik/gtm-skills](https://github.com/eliasstravik/gtm-skills) | 19 | 维护共享 GTM 工作区、理想客户画像和角色画像，筛选潜客，并建立本地或托管复用工作流。 | MIT | 7 | 仅索引 |
+| [hujizhou35-cmd/medical-journal-selector](https://github.com/hujizhou35-cmd/medical-journal-selector) | 15 | 依据期刊契合度、分区、费用和时效证据比较医学投稿期刊。 | MIT | 1 | 仅索引 |
+| [Remotivated/job-hunt-skills](https://github.com/Remotivated/job-hunt-skills) | 15 | 以事实证据为基础的求职工作流，覆盖简历、求职信、公司研究、面试准备、LinkedIn 和陈述核查。 | MIT | 12 | 仅索引 |
+| [LaoZhong-Mihari/codex-organic-chem](https://github.com/LaoZhong-Mihari/codex-organic-chem) | 8 | 结合本地分子工具、反应核查和论文绘图的结构约束有机化学推理技能。 | MIT; bundled third-party editor components retain GPL/commercial terms | 1 | 仅索引 |
+| [jammyfu/open-game-skills](https://github.com/jammyfu/open-game-skills) | 6 | 游戏开发技能簇，包含调度入口、专业工作流、资产制作、引擎与工作室约束及玩法验收规则。 | MIT | 192 | 仅索引 |
+| [harshith-vaddiparthy/finance-skills](https://github.com/harshith-vaddiparthy/finance-skills) | 5 | 财务运营技能：应收账款、催款、合同与发票检查、收入核验、对账、关账清单及 CFO 简报。 | MIT | 9 | 仅索引 |
+| [kaihere14/skills](https://github.com/kaihere14/skills) | 5 | 截取产品视觉素材，生成各平台尺寸的品牌社交图片，并配套帖子文案。 | MIT | 1 | 仅索引 |
+| [popjam-io/skills](https://github.com/popjam-io/skills) | 5 | 广告创意、品牌与文风提取、落地页设计、平台安全区域检查及 Remotion 渲染指导。 | MIT | 6 | 仅索引 |
+| [silico-quantum/quantum-chem-skills](https://github.com/silico-quantum/quantum-chem-skills) | 5 | 量子化学技能，覆盖 Gaussian、PySCF、Multiwfn、MOMAP、RDKit、分子采样与可视化。 | MIT | 9 | 仅索引 |
+| [graphed-inc/marketing-skills](https://github.com/graphed-inc/marketing-skills) | 3 | 用于 LinkedIn 互动者信息补充、帖子转视频、可编辑动效图形和产品反馈的智能体工作流。 | MIT | 4 | 仅索引 |
+| [AliakseiT/heor-skills](https://github.com/AliakseiT/heor-skills) | 2 | 卫生经济与报销准入流程，覆盖证据综述、经济模型及申报材料。 | Apache-2.0 | 10 | 仅索引 |
+| [Covari-mfg/manufacturing-skills](https://github.com/Covari-mfg/manufacturing-skills) | 2 | 面向 FDM/FFF 的可制造性评审，检查方向、支撑、公差、材料及生产风险。 | Apache-2.0 | 1 | 仅索引 |
+| [Kohulan/orthonym-skills](https://github.com/Kohulan/orthonym-skills) | 2 | 面向化学开发的测量驱动流程，涵盖目标约束、评估循环、定点修复与复核。 | MIT | 23 | 仅索引 |
+| [manifoldmcp/marketing-skills](https://github.com/manifoldmcp/marketing-skills) | 2 | 覆盖搜索、社交、广告、商店、竞争对手和客户的营销研究与报告技能，可选接入 Manifold 实时数据。 | MIT | 26 | 仅索引 |
+| [RobLincolne/claude-better-text-skill](https://github.com/RobLincolne/claude-better-text-skill) | 2 | 以清晰表达、主动动词和一致文风改写非虚构文本，并清理常见 AI 修辞习惯。 | MIT | 1 | 仅索引 |
+| [alessandrobonomi00/cad-mechanical-designer-skill](https://github.com/alessandrobonomi00/cad-mechanical-designer-skill) | 1 | 机械 CAD 设计技能，覆盖参数化零件、装配、工程图与可制造性核查。 | MIT | 1 | 仅索引 |
+| [carocoda/marketing_skills](https://github.com/carocoda/marketing_skills) | 1 | LinkedIn 动态信息图、异常高表现帖子研究，以及附文案与视觉提示词的个人资料审阅。 | MIT | 3 | 仅索引 |
+| [deepakp999/data-storytelling-slides](https://github.com/deepakp999/data-storytelling-slides) | 1 | 以咨询风格版式和图表制作分析型 PowerPoint 叙事与逐页规格，并支持逐页迭代审阅。 | MIT | 1 | 仅索引 |
+| [ESRShbb/scientific-workflow-skills](https://github.com/ESRShbb/scientific-workflow-skills) | 1 | 化学与生命科学流程技能，覆盖 NMR、ChemDraw、IC50、表征证据和科研绘图。 | MIT | 6 | 仅索引 |
+| [faborsky/marketing-miner-mcp-skill](https://github.com/faborsky/marketing-miner-mcp-skill) | 1 | 面向捷克与斯洛伐克市场的社区 Marketing Miner MCP 技能，覆盖关键词、竞争可见度、内容缺口和额度控制。 | MIT | 1 | 仅索引 |
+| [gfjwg22xcb-del/cie-igcse-chemistry-study-open](https://github.com/gfjwg22xcb-del/cie-igcse-chemistry-study-open) | 1 | 独立编写的 IGCSE 化学学习技能，提供考纲导学、例题、测验及答题反馈。 | CC-BY-4.0 | 1 | 仅索引 |
+| [J-D11/manufacturing-ai](https://github.com/J-D11/manufacturing-ai) | 1 | 从模型准备、切片到实物检查与小批量生产的制造流程技能。 | MIT | 1 | 仅索引 |
+| [Jason-0409-G/vivarium](https://github.com/Jason-0409-G/vivarium) | 1 | 可恢复的比较基因组学流程，覆盖预处理、检索、亲缘比较、系统发育与报告。 | MIT | 6 | 仅索引 |
+| [LittleDrunkWang/computational-chemistry-dft](https://github.com/LittleDrunkWang/computational-chemistry-dft) | 1 | 面向 ORCA、Gaussian、Psi4、xTB、CREST 的可审计小分子热力学与动力学流程。 | MIT | 1 | 仅索引 |
+| [scaliaven/chemist](https://github.com/scaliaven/chemist) | 1 | 两项计算化学技能，分别提供 ASE 模拟和 Amber 分子动力学流程。 | MIT | 2 | 仅索引 |
+| [TheDop/analytical-figures-skill](https://github.com/TheDop/analytical-figures-skill) | 1 | 面向光谱、校准、化学计量学与晶体结构的出版绘图和分析核查技能。 | MIT | 1 | 仅索引 |
+| [topmindspace/topmind-presentation](https://github.com/topmindspace/topmind-presentation) | 1 | 将材料制作为可翻页 HTML 演示与可编辑 PowerPoint，支持报告版式和架构图。 | MIT | 1 | 仅索引 |
+| [3494036618-eng/chemistry-research-skills](https://github.com/3494036618-eng/chemistry-research-skills) | 0 | 可审计化学数据流程，覆盖身份、结构、特征、分子库、反应及路线证据审查。 | Apache-2.0 | 8 | 仅索引 |
+| [arey325/marketing-kit-plugin](https://github.com/arey325/marketing-kit-plugin) | 0 | 用于跨客户账户查询广告、应用商店、分析、订阅和收入指标的 V-Kit 连接器技能。 | MIT | 1 | 仅索引 |
+| [arunanksharan/semiconductor-skills](https://github.com/arunanksharan/semiconductor-skills) | 0 | 半导体制造技能，覆盖晶圆工艺异常、失效分析、封装鉴定与良率监控。 | MIT | 4 | 仅索引 |
+| [bbecht/demand-gen-claude-skills](https://github.com/bbecht/demand-gen-claude-skills) | 0 | B2B 需求开发工作流，覆盖归因、潜客筛选、客户分群、销售管道分析、活动和实验。 | MIT | 7 | 仅索引 |
+| [benabbate-sales/gtm-cadence-builder](https://github.com/benabbate-sales/gtm-cadence-builder) | 0 | 根据客户背景设计 B2B SaaS GTM 会议节奏、季度日历、议程附件和职责矩阵。 | MIT | 1 | 仅索引 |
+| [bowtiekreative/signalstack-social-media-strategist](https://github.com/bowtiekreative/signalstack-social-media-strategist) | 0 | 审计社交数据、排序表现问题、设计实验，并起草内容计划、开头钩子、脚本、轮播和配文。 | MIT | 1 | 仅索引 |
+| [DarrenWongKaWa/dft-wannier-transport-skill](https://github.com/DarrenWongKaWa/dft-wannier-transport-skill) | 0 | DFT 至 Wannier 输运计算的工程指南，覆盖长任务与论文数值溯源。 | MIT | 1 | 仅索引 |
+| [evgeniyzakharow-design/thermoforming-dfm](https://github.com/evgeniyzakharow-design/thermoforming-dfm) | 0 | 热成型设计评审，检查拔模角、圆角、壁厚减薄、深度、排气和板材排样。 | MIT | 1 | 仅索引 |
+| [guilhermefriol/claude-skills-design](https://github.com/guilhermefriol/claude-skills-design) | 0 | 葡萄牙语设计技能：多视口视觉与 UX 审计，以及 UI 组件库选型引导。 | MIT | 2 | 仅索引 |
+| [HycJack/edu-explainer-video-skill](https://github.com/HycJack/edu-explainer-video-skill) | 0 | 将数学、物理题制作成同步动画讲解视频与交互式 HTML 分步演示。 | MIT | 1 | 仅索引 |
+| [JinnWorks/jinn-skills](https://github.com/JinnWorks/jinn-skills) | 0 | 品牌导向的定位、营销活动、内容、信息审校、竞争分析与销售赋能交付物。 | MIT | 59 | 仅索引 |
+| [joey114132/claude-robotics-skills](https://github.com/joey114132/claude-robotics-skills) | 0 | 机器人顾问与审查流程，覆盖多类平台、ROS 2、感知、学习和安全。 | MIT | 24 | 仅索引 |
+| [justinharry2143/computational-chemistry-materials-agent](https://github.com/justinharry2143/computational-chemistry-materials-agent) | 0 | 面向计算化学与材料建模的 Codex 技能，覆盖输出分析和可复现性检查。 | MIT | 46 | 仅索引 |
+| [Lancifonins/chem-skills](https://github.com/Lancifonins/chem-skills) | 0 | 化合物信息检索与原生 ChemDraw 绘制技能，并提供合并套件选项。 | MIT | 3 | 仅索引 |
+| [MrGoulart3/MGE-Skills](https://github.com/MrGoulart3/MGE-Skills) | 0 | 利用真实模拟轨迹和 Blender 制作带旁白的分子、材料科普视频。 | MIT | 1 | 仅索引 |
+| [Oweik/pcb-art-easyeda](https://github.com/Oweik/pcb-art-easyeda) | 0 | 嘉立创 EDA 板画技能，处理铜层、阻焊、丝印与 Gerber 草稿验证。 | MIT | 1 | 仅索引 |
+| [pugofka/growth-ideas-skill](https://github.com/pugofka/growth-ideas-skill) | 0 | 研究公司或产品，形成带来源、低成本实验、评分和停止标准的增长假设。 | MIT | 1 | 仅索引 |
+| [robertriedel/POD2_Config_Skill](https://github.com/robertriedel/POD2_Config_Skill) | 0 | 使用标准插件与动作生成、验证 SAP Digital Manufacturing POD 2.0 配置。 | MIT | 1 | 仅索引 |
+| [spilno-agency/spilno-agency-skills](https://github.com/spilno-agency/spilno-agency-skills) | 0 | 从 GA4 分析 Google Ads 表现，制作品牌化 ROAS 波动区间与广告预算情景报告。 | MIT | 1 | 仅索引 |
+| [sunjun333/aosaiqunxing-mcp](https://github.com/sunjun333/aosaiqunxing-mcp) | 0 | 通过带来源的 Agent 技能查询中国高中五科学科奥赛成绩与历史数据。 | MIT | 1 | 仅索引 |
+| [tizsabrine/claude-skills-design](https://github.com/tizsabrine/claude-skills-design) | 0 | 应用 Google PAIR 框架生成 AI 产品设计简报，覆盖信任、反馈、引导和故障状态。 | MIT | 1 | 仅索引 |
+| [yinum/analytical-skills](https://github.com/yinum/analytical-skills) | 0 | 分析化学论文工作流，覆盖文献、绘图、统计、写作与投稿。 | Apache-2.0 | 15 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -2079,6 +2157,13 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [parcadei/Continuous-Claude-v3](https://github.com/parcadei/Continuous-Claude-v3) | 3,944 | parcadei/Continuous-Claude-v3 公开提供 160 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 160 | 仅索引 |
 | [evalstate/fast-agent](https://github.com/evalstate/fast-agent) | 3,936 | evalstate/fast-agent 公开提供 3 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | Apache-2.0 | 3 | 仅索引 |
 | [rlaope/oh-my-hermes](https://github.com/rlaope/oh-my-hermes) | 3,383 | rlaope/oh-my-hermes 公开提供 260 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 | MIT | 260 | 仅索引 |
+| [yamadashy/repomix](https://github.com/yamadashy/repomix) | 28,869 | 用 Repomix 打包本地或远程仓库，分析架构、代码模式、文件规模和令牌数量。 | MIT | 1 | 仅索引 |
+| [VibiumDev/vibium](https://github.com/VibiumDev/vibium) | 2,939 | 通过 Vibium 的 browser 与 check 技能自动操作浏览器并检查界面。 | Apache-2.0 | 2 | 仅索引 |
+| [RinDig/icm-architect](https://github.com/RinDig/icm-architect) | 1,933 | 用 ICM 文件夹架构、流程顺序、上下文作用域和持久化 Markdown 状态设计或重构智能体工作区。 | MIT | 1 | 仅索引 |
+| [risingwavelabs/box0](https://github.com/risingwavelabs/box0) | 80 | 通过 Box0 将编码、审查、研究和数据任务委派给专门的 Claude Code 或 Codex 工作者。 | MIT | 1 | 仅索引 |
+| [Raftersecurity/rafter-cli](https://github.com/Raftersecurity/rafter-cli) | 27 | 使用 Rafter CLI 进行代码安全审查、设计阶段威胁建模、第三方技能审计和本地扫描。 | MIT | 4 | 仅索引 |
+| [fraylabs/possible](https://github.com/fraylabs/possible) | 11 | Possible 成果与配方注册表，附公开 Agent Skill，用于发现、检查与复用 AI 工作流配方。 | MIT | 1 | 仅索引 |
+| [Agent-Card/ai-catalog-cli](https://github.com/Agent-Card/ai-catalog-cli) | 10 | 从 AI Catalog 发现、校验、查看和安装 MCP 服务器、A2A Agent 与技能，支持 OCI 目录。 | Apache-2.0 | 1 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
@@ -2255,3 +2340,6 @@ part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文
 | [fcon-tech/portolan](https://github.com/fcon-tech/portolan) | 1 | 代码库测绘产品，捆绑可安装 Portolan 技能、MCP 接入及可追溯架构图。 | MIT | 1 | 仅索引 |
 | [leap-laboratories/discovery-engine](https://github.com/leap-laboratories/discovery-engine) | 7 | Leap Laboratories 表格模式发现服务，附 Agent Skill 与 MCP/SDK 指南；托管执行属于独立服务。 | MIT | 1 | 仅索引 |
 | [nraford7/art-direct](https://github.com/nraford7/art-direct) | 9 | 艺术指导技能，将文档等内容整理为视觉方向、图像提示词与制作简报。 | MIT | 1 | 仅索引 |
+| [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) | 88,162 | 使用 Scrapling 的自适应解析、浏览器渲染、隐身抓取与爬虫框架采集网页。 | BSD-3-Clause | 1 | 仅索引 |
+| [casey/just](https://github.com/casey/just) | 36,313 | 按 just 命令运行器的语法与任务模式编写和维护 justfile。 | CC0-1.0 | 1 | 仅索引 |
+| [t8y2/dbx](https://github.com/t8y2/dbx) | 27,019 | 查看 DBX 数据库连接与结构，运行有限只读查询，并生成 DBML 和数据库结构文档。 | Apache-2.0 | 1 | 仅索引 |
