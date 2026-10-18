@@ -78,6 +78,7 @@
 
 - [part84 JSONL](skill-repos.part84.jsonl)
 - [机器审核](skill-repos.part84.audit.json)
-- 产品组：`C:/Users/13185/AppData/Local/Temp/products18-wave3-accepted.audit.json`
-- 科研组：`C:/Users/13185/AppData/Local/Temp/everything-science-20261018b/science2.audit.json`
-- 工作流组：`C:/Users/13185/AppData/Local/Temp/everything-workflows-20261018/reviewed2.json`
+- 产品组审核缓存：`products18-wave3-accepted.audit.json`，SHA-256 `E58615C7A915F57E5A7D8B435A77065BD57B1580784208E339E765F456300539`；已将接受条目的证据嵌入本审计 JSON。
+- 科研组审核缓存：`science2.audit.json`，SHA-256 `C3D14B703CD40CE49C02A5556D83F330918821F3834EF159EAC71F8F6645DCA2`；已将接受条目的证据嵌入本审计 JSON。
+- 工作流组审核缓存：`reviewed2.json`，SHA-256 `71AA6C41F40287EB2392AF906687351C30F65BFE3C85DAFD4CB2DA49EBC5C147`；已将接受条目的证据嵌入本审计 JSON。
+- 暂缓与排除候选仅保留在上述审核缓存的摘要中，未写入正式分片。

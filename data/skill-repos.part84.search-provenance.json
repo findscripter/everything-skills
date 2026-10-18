@@ -7,15 +7,18 @@
   "candidate_sources": [
     {
       "kind": "products",
-      "file": "C:/Users/13185/AppData/Local/Temp/products18-wave3-rows.json"
+      "source": "reviewer cache products18-wave3-accepted.audit.json",
+      "sha256": "E58615C7A915F57E5A7D8B435A77065BD57B1580784208E339E765F456300539"
     },
     {
       "kind": "science",
-      "file": "C:/Users/13185/AppData/Local/Temp/everything-science-20261018b/science2.rows.json"
+      "source": "reviewer cache science2.audit.json",
+      "sha256": "C3D14B703CD40CE49C02A5556D83F330918821F3834EF159EAC71F8F6645DCA2"
     },
     {
       "kind": "workflows",
-      "file": "C:/Users/13185/AppData/Local/Temp/everything-workflows-20261018/reviewed2.json"
+      "source": "reviewer cache reviewed2.json",
+      "sha256": "71AA6C41F40287EB2392AF906687351C30F65BFE3C85DAFD4CB2DA49EBC5C147"
     }
   ],
   "accepted_by_section": {
@@ -25,10 +28,7 @@
     "collections": 9
   },
   "excluded_review_sources": [
-    "C:/Users/13185/AppData/Local/Temp/products18-wave3-accepted.audit.json",
-    "C:/Users/13185/AppData/Local/Temp/products18-wave3-readme-staleness.json",
-    "C:/Users/13185/AppData/Local/Temp/everything-science-20261018b/science2.audit.json",
-    "C:/Users/13185/AppData/Local/Temp/everything-workflows-20261018/deferred2.json"
+    "Deferred/excluded candidates remain in the reviewer audit snapshots identified by hash; no rejected candidate was added to the formal shard."
   ],
   "notes": [
     "Read-only GitHub evidence review; no candidate installation or execution.",

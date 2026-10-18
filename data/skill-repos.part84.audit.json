@@ -34,6 +34,40 @@
         "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/third_party/github/LICENSE",
         "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/cursor-sdk/README.md"
       ],
+      "source_commit_sha": "16541c6bc1ed6c8d808b2f78a33364003e82b967",
+      "source_tree_sha": "163cfd907a8d02671955319d7c4efdc4fef707a2",
+      "readme_sha256": "e31c947c01637adea6ed58a031445b799995ea2cffdb84604c697b4ac809c68d",
+      "representative_skill": {
+        "path": "cursor-sdk/skills/cursor-sdk/SKILL.md",
+        "url": "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/cursor-sdk/skills/cursor-sdk/SKILL.md",
+        "sha256": "3fbe439f366ea94e0a756fc7288d2d8bd3f871bed4b97219dc1aee2f8c8ab979",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "cursor-sdk/LICENSE",
+          "url": "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/cursor-sdk/LICENSE",
+          "sha256": "702f5f331b56aff0e33d8c7826df5202559f894145eb70355c6477b55b5bb8a0"
+        },
+        {
+          "path": "third_party/github/LICENSE",
+          "url": "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/third_party/github/LICENSE",
+          "sha256": "702f5f331b56aff0e33d8c7826df5202559f894145eb70355c6477b55b5bb8a0"
+        }
+      ],
+      "distribution_evidence": "README presents this repository as the official Cursor plugin catalog; plugin README documents Cursor Settings/Plugins installation and each plugin keeps its own public SKILL.md and LICENSE.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/cursor/plugins",
+        "value": 12419
+      },
+      "stars_source": "https://api.github.com/repos/cursor/plugins",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -56,6 +90,35 @@
         "https://github.com/google/adk-recipes/blob/05811bbacd9b0335c645e8d20e0d41cfdea08f7f/plugins/retail/skills/product-search/SKILL.md",
         "https://github.com/google/adk-recipes/blob/05811bbacd9b0335c645e8d20e0d41cfdea08f7f/LICENSE"
       ],
+      "source_commit_sha": "05811bbacd9b0335c645e8d20e0d41cfdea08f7f",
+      "source_tree_sha": "6174a7344d440d5669a7ba37b9c70374e20bed7b",
+      "readme_sha256": "81f95416ccb2580452c54b0031e790987e447d494866ee4bd69ba14a6fd462b7",
+      "representative_skill": {
+        "path": "plugins/retail/skills/product-search/SKILL.md",
+        "url": "https://github.com/google/adk-recipes/blob/05811bbacd9b0335c645e8d20e0d41cfdea08f7f/plugins/retail/skills/product-search/SKILL.md",
+        "sha256": "a8dafa07a69baa2776102c3c530907a0fd607e9f8dd95b862b2be142b3b7dbee",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/google/adk-recipes/blob/05811bbacd9b0335c645e8d20e0d41cfdea08f7f/LICENSE",
+          "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1"
+        }
+      ],
+      "distribution_evidence": "plugins/README explicitly identifies spec-compliant installable plugin bundles and gives npx skills add google/adk-recipes --skill retail-product-search/retail-virtual-tryon.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/google/adk-recipes",
+        "value": 10457
+      },
+      "stars_source": "https://api.github.com/repos/google/adk-recipes",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -78,6 +141,35 @@
         "https://github.com/browser-use/browser-harness/blob/c6a941287424f32e2d20c7b7b892c8493f46808d/SKILL.md",
         "https://github.com/browser-use/browser-harness/blob/c6a941287424f32e2d20c7b7b892c8493f46808d/LICENSE"
       ],
+      "source_commit_sha": "c6a941287424f32e2d20c7b7b892c8493f46808d",
+      "source_tree_sha": "89b474d98ac4ec210d01ee0debfa5bb5bca93c11",
+      "readme_sha256": "69309c3dfeec03b6499374e36fda7d2d15e3a9c276b5a5f00574f0cb29a47156",
+      "representative_skill": {
+        "path": "SKILL.md",
+        "url": "https://github.com/browser-use/browser-harness/blob/c6a941287424f32e2d20c7b7b892c8493f46808d/SKILL.md",
+        "sha256": "9e25a96375a0e120c16b76ea9d0a57c2fb7a5765813f89d5b9bcdc6dba6ea175",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/browser-use/browser-harness/blob/c6a941287424f32e2d20c7b7b892c8493f46808d/LICENSE",
+          "sha256": "5afa3d97bf1e6f998d587fa101e3fe0d0c416840b7fe77bcd6ae97690a334631"
+        }
+      ],
+      "distribution_evidence": "README setup prompt instructs installing the browser-harness package and registering its skill for Claude Code/Codex/Cursor; root SKILL.md is public and linked.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/browser-use/browser-harness",
+        "value": 18471
+      },
+      "stars_source": "https://api.github.com/repos/browser-use/browser-harness",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -100,6 +192,35 @@
         "https://github.com/pinchtab/pinchtab/blob/a62662027f233444c579c29fbe42ad90df0d5bc7/skills/pinchtab/SKILL.md",
         "https://github.com/pinchtab/pinchtab/blob/a62662027f233444c579c29fbe42ad90df0d5bc7/LICENSE"
       ],
+      "source_commit_sha": "a62662027f233444c579c29fbe42ad90df0d5bc7",
+      "source_tree_sha": "3f37fa7e98b67605635ca8ec8cc5320f535c7684",
+      "readme_sha256": "b90ddd2c3dfe43ab1322b63243f4541e01f06918c46f537bf8440e1f91397928",
+      "representative_skill": {
+        "path": "skills/pinchtab/SKILL.md",
+        "url": "https://github.com/pinchtab/pinchtab/blob/a62662027f233444c579c29fbe42ad90df0d5bc7/skills/pinchtab/SKILL.md",
+        "sha256": "76a93ae88e9b7310ed4715164ba2e156b5b755e370f32ce35faae452929be6c9",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/pinchtab/pinchtab/blob/a62662027f233444c579c29fbe42ad90df0d5bc7/LICENSE",
+          "sha256": "8e526b04f1f02203eebfd55aead0657a7ae87e0591cf8a44fbee19441aa0f116"
+        }
+      ],
+      "distribution_evidence": "README states npm package ships the pinchtab agent skill, provides pinchtab skill status/update and Grok plugin installation; public skills/ paths are canonical.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/pinchtab/pinchtab",
+        "value": 10395
+      },
+      "stars_source": "https://api.github.com/repos/pinchtab/pinchtab",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -122,6 +243,35 @@
         "https://github.com/xberg-io/xberg/blob/ae9c1922750e0d1fdc58e636ba0aeb7d8d546237/skills/xberg/SKILL.md",
         "https://github.com/xberg-io/xberg/blob/ae9c1922750e0d1fdc58e636ba0aeb7d8d546237/LICENSE"
       ],
+      "source_commit_sha": "ae9c1922750e0d1fdc58e636ba0aeb7d8d546237",
+      "source_tree_sha": "9d0189b3e440395bebe741c43d64d38328a147ee",
+      "readme_sha256": "9b6b0f8ed2457ef55ccc5773a5d3a8d3da744b3718cae23b6f52f593d4e0f910",
+      "representative_skill": {
+        "path": "skills/xberg/SKILL.md",
+        "url": "https://github.com/xberg-io/xberg/blob/ae9c1922750e0d1fdc58e636ba0aeb7d8d546237/skills/xberg/SKILL.md",
+        "sha256": "d6663c525a9d0470f0a1fcff8510e87990379262f28860357b9fa50364ba4263",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/xberg-io/xberg/blob/ae9c1922750e0d1fdc58e636ba0aeb7d8d546237/LICENSE",
+          "sha256": "081ff9e2978a771dc90f475aa5130871d85debdf120683cbb860b41662641272"
+        }
+      ],
+      "distribution_evidence": "README has an explicit public Agent Skills section with npx skills add xberg-io/xberg plus Claude/Codex/Cursor/Gemini/other plugin installation.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/xberg-io/xberg",
+        "value": 9423
+      },
+      "stars_source": "https://api.github.com/repos/xberg-io/xberg",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -144,6 +294,35 @@
         "https://github.com/smol-machines/smolvm/blob/f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1/docs/coding-agent/SKILL.md",
         "https://github.com/smol-machines/smolvm/blob/f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1/LICENSE"
       ],
+      "source_commit_sha": "f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1",
+      "source_tree_sha": "07060d830bff02f866612f46cbb14f1317a4c0e5",
+      "readme_sha256": "c9b173dd25bd9f07719e90608d6a36ad78506b5c94c118ceae7d67b2ca73549a",
+      "representative_skill": {
+        "path": "docs/coding-agent/SKILL.md",
+        "url": "https://github.com/smol-machines/smolvm/blob/f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1/docs/coding-agent/SKILL.md",
+        "sha256": "a2fe11bcbba3d2504f7aafb3303d89d997e79e726b6dfd2383e9ac356c1e16fa",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/smol-machines/smolvm/blob/f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1/LICENSE",
+          "sha256": "ac6a4050f2f415a02f3c223ddee932a07de627bc143059e9a1ea9df088e46909"
+        }
+      ],
+      "distribution_evidence": "README says each docs task has a SKILL.md that agents can follow and provides published installer commands for smolvm.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/smol-machines/smolvm",
+        "value": 6759
+      },
+      "stars_source": "https://api.github.com/repos/smol-machines/smolvm",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -166,6 +345,35 @@
         "https://github.com/anthropics/oncall-kit/blob/c03282cd5381a5a2e12e32bfb3c8957d52ce01f1/skills/triage/SKILL.md",
         "https://github.com/anthropics/oncall-kit/blob/c03282cd5381a5a2e12e32bfb3c8957d52ce01f1/LICENSE"
       ],
+      "source_commit_sha": "c03282cd5381a5a2e12e32bfb3c8957d52ce01f1",
+      "source_tree_sha": "f2dc184eb70ed92318821894d825611c64fe6163",
+      "readme_sha256": "f2897c9f0ecd8d14f6058391679fac7cfc34b5896ef3a163bdaf7917e02a0aca",
+      "representative_skill": {
+        "path": "skills/triage/SKILL.md",
+        "url": "https://github.com/anthropics/oncall-kit/blob/c03282cd5381a5a2e12e32bfb3c8957d52ce01f1/skills/triage/SKILL.md",
+        "sha256": "d664c2ad65b3a5e8b9a4df1669c4c2034d3b0a9ef4a89823d0948afd43f33962",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/anthropics/oncall-kit/blob/c03282cd5381a5a2e12e32bfb3c8957d52ce01f1/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ],
+      "distribution_evidence": "README documents cloning/opening the kit in Claude Code and running the oncall-setup skill, with the public skills/ directory as the install surface.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/anthropics/oncall-kit",
+        "value": 241
+      },
+      "stars_source": "https://api.github.com/repos/anthropics/oncall-kit",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -188,6 +396,35 @@
         "https://github.com/AnmolSaini16/mapcn/blob/116d3b18d77f258721d5fec2d922df9271027121/skills/mapcn/SKILL.md",
         "https://github.com/AnmolSaini16/mapcn/blob/116d3b18d77f258721d5fec2d922df9271027121/LICENSE"
       ],
+      "source_commit_sha": "116d3b18d77f258721d5fec2d922df9271027121",
+      "source_tree_sha": "a9cd8a06dce9a878e0ddc73283bf26734b956f06",
+      "readme_sha256": "a07b2710fa859f59b0f0e8c32cbb899b7e0392dc74f9a53e475eaddf04411b90",
+      "representative_skill": {
+        "path": "skills/mapcn/SKILL.md",
+        "url": "https://github.com/AnmolSaini16/mapcn/blob/116d3b18d77f258721d5fec2d922df9271027121/skills/mapcn/SKILL.md",
+        "sha256": "4762c8f45dcfe08c3b6e3348ca8ab8130df80d732ab2326fab896a59b33846ca",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/AnmolSaini16/mapcn/blob/116d3b18d77f258721d5fec2d922df9271027121/LICENSE",
+          "sha256": "73020a10c41b48b72fbcc0f8bc38fbc24ff13df874a3142ab48094162490bb29"
+        }
+      ],
+      "distribution_evidence": "README Agent Skill section gives npx skills add AnmolSaini16/mapcn and links the skill docs.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/AnmolSaini16/mapcn",
+        "value": 12275
+      },
+      "stars_source": "https://api.github.com/repos/AnmolSaini16/mapcn",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -211,6 +448,40 @@
         "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/LICENSE",
         "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/NOTICE"
       ],
+      "source_commit_sha": "c2070577c5965b4d6148e1a70c65c9ded8245ec4",
+      "source_tree_sha": "f6a22a41bd8203ea0bad62002cea606923cb5d06",
+      "readme_sha256": "5555b51e5d15490cb2a8511cbf0c538a7f0509f8bd6987cbf3b8323ab4b74820",
+      "representative_skill": {
+        "path": "skills/mcptoon/SKILL.md",
+        "url": "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/skills/mcptoon/SKILL.md",
+        "sha256": "9b9feabcb81e5ec4725e7041ed834c42a2e3d0e9a24e3462a2ad36dc555d0baf",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/LICENSE",
+          "sha256": "ae99b36e8e246ee87a9bf6460f0e54dbf1be0e431fda325e5f7cf2730947f046"
+        },
+        {
+          "path": "NOTICE",
+          "url": "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/NOTICE",
+          "sha256": "cd376439cb55097a8cdd8909980d746d497dcd4bdb3726daa7feec30c7e1772b"
+        }
+      ],
+      "distribution_evidence": "README calls mcptoon a CLI for MCP tools and agent skills, documents pip install mcptoon + mcptoon quickstart, and states quickstart self-installs the official /mcptoon skill.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/activeing123/mcptoon",
+        "value": 285
+      },
+      "stars_source": "https://api.github.com/repos/activeing123/mcptoon",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -233,6 +504,35 @@
         "https://github.com/OpenMinis/MinisSkills/blob/71bcfc81ae440c9e91213f94b25b9fa60c8580a7/android-dev/SKILL.md",
         "https://github.com/OpenMinis/MinisSkills/blob/71bcfc81ae440c9e91213f94b25b9fa60c8580a7/LICENSE"
       ],
+      "source_commit_sha": "71bcfc81ae440c9e91213f94b25b9fa60c8580a7",
+      "source_tree_sha": "36c0018e3fcc831c58c8aa1885e2e3909df2619c",
+      "readme_sha256": "23dd23bc24e396bcb42edcdad7448d49d7f6842166ccc24252d182e3dabf3c1c",
+      "representative_skill": {
+        "path": "android-dev/SKILL.md",
+        "url": "https://github.com/OpenMinis/MinisSkills/blob/71bcfc81ae440c9e91213f94b25b9fa60c8580a7/android-dev/SKILL.md",
+        "sha256": "02cc35554931ee20a3d1e430b7520c5dbd228fbc437b6f63e4f6d28b7ca6d4af",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/OpenMinis/MinisSkills/blob/71bcfc81ae440c9e91213f94b25b9fa60c8580a7/LICENSE",
+          "sha256": "2858f336d8173207aa079c4711085a28d22615d464b6a387363f7824116d00f0"
+        }
+      ],
+      "distribution_evidence": "README defines the public MinisSkills directory contract, SKILL.md format and submission checklist; root LICENSE applies to the collection.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/OpenMinis/MinisSkills",
+        "value": 465
+      },
+      "stars_source": "https://api.github.com/repos/OpenMinis/MinisSkills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -255,6 +555,35 @@
         "https://github.com/vite-hub/vitehub/blob/917ddbc86a0932efc47d439a9db3b434973ae732/docs/skills/vitehub/SKILL.md",
         "https://github.com/vite-hub/vitehub/blob/917ddbc86a0932efc47d439a9db3b434973ae732/LICENSE"
       ],
+      "source_commit_sha": "917ddbc86a0932efc47d439a9db3b434973ae732",
+      "source_tree_sha": "1fe40a4cd903206b6f595f5bdb88da3e9c785847",
+      "readme_sha256": "0fc9e1ea40fa8481d779fb11c37efe99935e80fa298ed23c865cb0df0b0ebd54",
+      "representative_skill": {
+        "path": "docs/skills/vitehub/SKILL.md",
+        "url": "https://github.com/vite-hub/vitehub/blob/917ddbc86a0932efc47d439a9db3b434973ae732/docs/skills/vitehub/SKILL.md",
+        "sha256": "a9c035224a27405b2ede6b58448f5cc70f3d625868be9cab0fb4cf29909030dd",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/vite-hub/vitehub/blob/917ddbc86a0932efc47d439a9db3b434973ae732/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        }
+      ],
+      "distribution_evidence": "README explicitly tells coding agents to npx skills add https://vitehub.dev --skill vitehub and links Apache-2.0 license.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/vite-hub/vitehub",
+        "value": 22
+      },
+      "stars_source": "https://api.github.com/repos/vite-hub/vitehub",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -278,6 +607,40 @@
         "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/LICENSE",
         "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/packages/openfilm/LICENSE"
       ],
+      "source_commit_sha": "90189757998c75c68c4fa5c534dca363b8907768",
+      "source_tree_sha": "976a43c1cb45f06ddbe481899044cd9d016f2ade",
+      "readme_sha256": "64ebf57fd93a59778200bb784acb1a578f8f3b56cd3204c226931d81ac247dd1",
+      "representative_skill": {
+        "path": "skills/openfilm/SKILL.md",
+        "url": "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/skills/openfilm/SKILL.md",
+        "sha256": "7506dde61d3d518a7534104c22741e85ca292e03ff70e3e6907e01a636404c27",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/LICENSE",
+          "sha256": "4f39fecc5d074a4795bb7c55c5aaad1a4505b5e022ae6c2c3b55b4f26e7c43fc"
+        },
+        {
+          "path": "packages/openfilm/LICENSE",
+          "url": "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/packages/openfilm/LICENSE",
+          "sha256": "4f39fecc5d074a4795bb7c55c5aaad1a4505b5e022ae6c2c3b55b4f26e7c43fc"
+        }
+      ],
+      "distribution_evidence": "README gives npx skills add openfilm/openfilm and describes the coding-agent video workflow and Studio installation.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/openfilm/openfilm",
+        "value": 876
+      },
+      "stars_source": "https://api.github.com/repos/openfilm/openfilm",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -301,6 +664,40 @@
         "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/LICENSE",
         "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/NOTICE"
       ],
+      "source_commit_sha": "5f4a49a1098402bf45363b71ba242c74bb126371",
+      "source_tree_sha": "243fcff60cd4c31a90f203626dcdc451a3ac6c2a",
+      "readme_sha256": "4a30af4cb09e2575c88101d1e39d3bac81cca68fbbe5ccdbc0fb455a801a42d4",
+      "representative_skill": {
+        "path": "vibe-ic-marketplace/plugins/vibe-ic/skills/analog-layout/SKILL.md",
+        "url": "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/vibe-ic-marketplace/plugins/vibe-ic/skills/analog-layout/SKILL.md",
+        "sha256": "7ce16c06ec5abc232d41836e50609e90f04f6c56bb77723ee6a374d922dd991e",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "path": "NOTICE",
+          "url": "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/NOTICE",
+          "sha256": "e8c888fa0d6f66eb56e1d9cd1088cc396a1cf7b4bda21a07b8abd5837f77106a"
+        }
+      ],
+      "distribution_evidence": "README identifies vibe-ic as a Claude Code plugin + MCP-EDA product and documents its one-install marketplace/plugin bundle with public skill files.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/vibeic/vibe-ic",
+        "value": 28
+      },
+      "stars_source": "https://api.github.com/repos/vibeic/vibe-ic",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -323,6 +720,35 @@
         "https://github.com/1507078/openwrt-one-skills/blob/d97164f540984f7a093f5305de1590ccbf2c6eac/skills/openwrt-one-first-boot/SKILL.md",
         "https://github.com/1507078/openwrt-one-skills/blob/d97164f540984f7a093f5305de1590ccbf2c6eac/LICENSE"
       ],
+      "source_commit_sha": "d97164f540984f7a093f5305de1590ccbf2c6eac",
+      "source_tree_sha": "f8b3c18a20d67c21a598131baecc11a8ae953ea1",
+      "readme_sha256": "2fd4b4ec62d88dded4f3b368ba24735fc85537365a794fddc23e3ca82adb1150",
+      "representative_skill": {
+        "path": "skills/openwrt-one-first-boot/SKILL.md",
+        "url": "https://github.com/1507078/openwrt-one-skills/blob/d97164f540984f7a093f5305de1590ccbf2c6eac/skills/openwrt-one-first-boot/SKILL.md",
+        "sha256": "4cdcb90b6de7fd6bbe6323cfb8883f67d3e491f3f321a27ad367030bd1af7796",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/1507078/openwrt-one-skills/blob/d97164f540984f7a093f5305de1590ccbf2c6eac/LICENSE",
+          "sha256": "bcd6c897df1fff53ddb5a2f284e7021d01a5e6405731c0b50deb11cc1d705831"
+        }
+      ],
+      "distribution_evidence": "README supports Claude Code/Codex/Agent Skills, offers plugin marketplace and git/copy installation, and lists the three skills with risk levels.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/1507078/openwrt-one-skills",
+        "value": 2
+      },
+      "stars_source": "https://api.github.com/repos/1507078/openwrt-one-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -345,6 +771,35 @@
         "https://github.com/Superfast-Robotics/robot-skill-hub/blob/1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba/skills/find-robot-skills/SKILL.md",
         "https://github.com/Superfast-Robotics/robot-skill-hub/blob/1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba/LICENSE"
       ],
+      "source_commit_sha": "1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba",
+      "source_tree_sha": "d55941a614a9f25f8f855af1435575200faea267",
+      "readme_sha256": "7851b60ffbb1eeed28d3e0a4d18c021610e0afe7ad7e47cbbf02890c11541087",
+      "representative_skill": {
+        "path": "skills/find-robot-skills/SKILL.md",
+        "url": "https://github.com/Superfast-Robotics/robot-skill-hub/blob/1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba/skills/find-robot-skills/SKILL.md",
+        "sha256": "602116eff305f26e867701e95440de59e19b4cb03094409af5e6b5632d0f9d4b",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/Superfast-Robotics/robot-skill-hub/blob/1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba/LICENSE",
+          "sha256": "a36626d945a25e7f2bcf1054b7798b22a2528b48bc5251d3fab34f36e56eeba2"
+        }
+      ],
+      "distribution_evidence": "README gives npx skills add --skill find-robot-skills, a read-only MCP endpoint, provenance checks and prepare/inspect commands for robotic skills.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/Superfast-Robotics/robot-skill-hub",
+        "value": 0
+      },
+      "stars_source": "https://api.github.com/repos/Superfast-Robotics/robot-skill-hub",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -368,6 +823,40 @@
         "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/LICENSE",
         "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/NOTICE"
       ],
+      "source_commit_sha": "40130da18528f54d7a76b24052798dbad6462649",
+      "source_tree_sha": "a59a3702a85d6c46f9901c5237967b7a9ca0aa75",
+      "readme_sha256": "a1172bf7d3728b6bf75c72dcabd6e26e1ff6b62bd3a89d13466ca6d78085b355",
+      "representative_skill": {
+        "path": "skills/using-phux/SKILL.md",
+        "url": "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/skills/using-phux/SKILL.md",
+        "sha256": "1a237430f6aec1fd6a32ebe6634e457f089fe000649bd72c7c760edff98877fa",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/LICENSE",
+          "sha256": "5ba6bc69e37a252179e1be4f63d1b03c5600f930f6099462260f2700d090550d"
+        },
+        {
+          "path": "NOTICE",
+          "url": "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/NOTICE",
+          "sha256": "347b98d053b2643341de1a9d1ea2df9607f9b3c2f4a6c543b6342330ca57d745"
+        }
+      ],
+      "distribution_evidence": "README gives npx skills add no-phux/skills and per-skill install commands, and links the public Agent Skills setup guide.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/no-phux/skills",
+        "value": 0
+      },
+      "stars_source": "https://api.github.com/repos/no-phux/skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -391,6 +880,40 @@
         "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/skills/LICENSE",
         "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/plugins/helios/LICENSE"
       ],
+      "source_commit_sha": "7d3a9d156a437c79af49d694f80fec94f8b96efc",
+      "source_tree_sha": "116758ffa3219100a849f64b81e33fc489e23c4c",
+      "readme_sha256": "308b7fc54563e5314c77d920ab3490da5cf435c8169107178c496d4899adbe9e",
+      "representative_skill": {
+        "path": "skills/guided/product-demo/SKILL.md",
+        "url": "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/skills/guided/product-demo/SKILL.md",
+        "sha256": "06c5978e9695fd821335d6ef65608db840bce27d1bb539338880eb22e7b959aa",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "skills/LICENSE",
+          "url": "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/skills/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+        },
+        {
+          "path": "plugins/helios/LICENSE",
+          "url": "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/plugins/helios/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+        }
+      ],
+      "distribution_evidence": "README recommends npx skills add BintzGavin/helios, lists guided video types, and explicitly states skills/plugin are Apache-2.0 while engine is ELv2.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/BintzGavin/helios",
+        "value": 121
+      },
+      "stars_source": "https://api.github.com/repos/BintzGavin/helios",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
       "review_batch": "products"
     },
     {
@@ -401,23 +924,33 @@
       "summary_zh": "AWS 官方 Amazon Location Service 上下文与 Agent Skill 包，覆盖地图、地点、地理编码、路线、地理围栏和追踪。",
       "license": "MIT-0 (README and LICENSE.md; GitHub API metadata reported Apache-2.0, requiring source-license precedence)",
       "skill_count": "1",
+      "status": "仅索引",
+      "section": "vertical",
       "repository_id": 1150897397,
+      "last_reviewed": "2026-10-18",
       "discovery_family": "geo-weather",
-      "source_commit_sha": "62287735854caf7564d00838bb7b8c7c0cd6547c",
-      "source_tree_sha": "f114d3ced844bf3953e59a8611bee77501ff79a3",
-      "readme_sha256": "472f29aade82a49d5ffc7b2dba1685dacfb1674e833b4f3b371b5fc21626e77f",
-      "representative_path": "plugins/amazon-location-service/skills/amazon-location-service/SKILL.md",
-      "representative_sha256": "1850846723245d2e9c15045925fc03bd7c1df69483afc982cd7136adcbb96fdb",
       "skill_count_basis": "Three SKILL.md paths are Claude/plugin/template projections of one amazon-location-service task; count one canonical capability.",
-      "distribution_evidence": "README shows npx skills add aws-geospatial/amazon-location-agent-context plus Claude/Cursor/Kiro/other-agent install routes.",
-      "license_scope": "README states MIT-0 via LICENSE.md; AWS trademarks/service terms and API credentials remain external.",
       "evidence": [
         "https://github.com/aws-geospatial/amazon-location-agent-context/blob/62287735854caf7564d00838bb7b8c7c0cd6547c/README.md",
         "https://github.com/aws-geospatial/amazon-location-agent-context/blob/62287735854caf7564d00838bb7b8c7c0cd6547c/plugins/amazon-location-service/skills/amazon-location-service/SKILL.md",
         "https://github.com/aws-geospatial/amazon-location-agent-context/blob/62287735854caf7564d00838bb7b8c7c0cd6547c/LICENSE"
       ],
-      "status": "仅索引",
-      "section": "vertical",
+      "source_commit_sha": "62287735854caf7564d00838bb7b8c7c0cd6547c",
+      "source_tree_sha": "f114d3ced844bf3953e59a8611bee77501ff79a3",
+      "readme_sha256": "472f29aade82a49d5ffc7b2dba1685dacfb1674e833b4f3b371b5fc21626e77f",
+      "representative_path": "plugins/amazon-location-service/skills/amazon-location-service/SKILL.md",
+      "representative_sha256": "1850846723245d2e9c15045925fc03bd7c1df69483afc982cd7136adcbb96fdb",
+      "distribution_evidence": "README shows npx skills add aws-geospatial/amazon-location-agent-context plus Claude/Cursor/Kiro/other-agent install routes.",
+      "license_scope": "README states MIT-0 via LICENSE.md; AWS trademarks/service terms and API credentials remain external.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/aws-geospatial/amazon-location-agent-context",
+        "value": 7
+      },
+      "stars_source": "https://api.github.com/repos/aws-geospatial/amazon-location-agent-context",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
       "review_batch": "science"
     },
     {
@@ -428,23 +961,33 @@
       "summary_zh": "以证据为先的科研配图套件，覆盖规划、渲染、审计、可复现导出、视觉主张台账和期刊检查。",
       "license": "MIT",
       "skill_count": "1",
+      "status": "仅索引",
+      "section": "vertical",
       "repository_id": 1243889912,
+      "last_reviewed": "2026-10-18",
       "discovery_family": "science-lab",
-      "source_commit_sha": "df72094211b860580e25275b2cc668a0aba0b9d9",
-      "source_tree_sha": "80d2bbb385f411193e94754889cb825d981be9f4",
-      "readme_sha256": "8271d98f1aae9cbfead5b9daeb0e4e2d3cac1e5fbe86c558bd17d13a3da218a7",
-      "representative_path": "claude-code/skills/scientific-figure-suite/SKILL.md",
-      "representative_sha256": "a4916ba9b0fc894f9a84ba1b12477482c60137f66ff70b2f607346f1b164b42b",
       "skill_count_basis": "Claude and Codex paths are identical platform projections of one router skill; internal workflows are explicitly not separately registered.",
-      "distribution_evidence": "README gives clone and platform installation for Claude Code and Codex; validation workflow and MIT badge present.",
-      "license_scope": "Root MIT applies authored suite; no nested conflicting license found.",
       "evidence": [
         "https://github.com/enesgul23/scientific-figure-skills/blob/df72094211b860580e25275b2cc668a0aba0b9d9/README.md",
         "https://github.com/enesgul23/scientific-figure-skills/blob/df72094211b860580e25275b2cc668a0aba0b9d9/claude-code/skills/scientific-figure-suite/SKILL.md",
         "https://github.com/enesgul23/scientific-figure-skills/blob/df72094211b860580e25275b2cc668a0aba0b9d9/LICENSE"
       ],
-      "status": "仅索引",
-      "section": "vertical",
+      "source_commit_sha": "df72094211b860580e25275b2cc668a0aba0b9d9",
+      "source_tree_sha": "80d2bbb385f411193e94754889cb825d981be9f4",
+      "readme_sha256": "8271d98f1aae9cbfead5b9daeb0e4e2d3cac1e5fbe86c558bd17d13a3da218a7",
+      "representative_path": "claude-code/skills/scientific-figure-suite/SKILL.md",
+      "representative_sha256": "a4916ba9b0fc894f9a84ba1b12477482c60137f66ff70b2f607346f1b164b42b",
+      "distribution_evidence": "README gives clone and platform installation for Claude Code and Codex; validation workflow and MIT badge present.",
+      "license_scope": "Root MIT applies authored suite; no nested conflicting license found.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/enesgul23/scientific-figure-skills",
+        "value": 7
+      },
+      "stars_source": "https://api.github.com/repos/enesgul23/scientific-figure-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
       "review_batch": "science"
     },
     {
@@ -455,23 +998,33 @@
       "summary_zh": "工程仿真 CAE 中心，结合可复用 Agent Skills、MCP 桥接和 Abaqus、Ansys、CST、Calculix、COMSOL、FEP、LAMMPS、OVITO、Peridigm 工作流。",
       "license": "MIT",
       "skill_count": "多技能",
+      "status": "仅索引",
+      "section": "vertical",
       "repository_id": 1222504648,
+      "last_reviewed": "2026-10-18",
       "discovery_family": "cae-cad",
-      "source_commit_sha": "cb4d869bc79f1914da085299fd46783fb304f902",
-      "source_tree_sha": "ad0b0ce09104af42ec4bc9aafce64aeed655c02d",
-      "readme_sha256": "bd79ccd8635d8955669b8a7f86ea4700502e6ebf8c779e4c25e23d3e006c515c",
-      "representative_path": "MCP/Ansys/PyAnsys/pycfx-mcp/src/ansys/cfx/mcp/cfx/skills/SKILL.md",
-      "representative_sha256": "94bd6564ab443101c7b8f68bb5508e98a35cf274d9ee3b0f66a251400400ded3",
       "skill_count_basis": "62 SKILL.md files include MCP/vendor copies, routers, nested composite workflows and task leaves; retain multi-skill label rather than count every file independently.",
-      "distribution_evidence": "README clone instructions and copy complete skill directories into Codex/agent skills; CAE MCP install steps and solver prerequisites explicit.",
-      "license_scope": "Root MIT plus numerous close MCP licenses; commercial solver binaries/licenses remain external and not relicensed.",
       "evidence": [
         "https://github.com/Cai-aa/CAE-Agent-Hub/blob/cb4d869bc79f1914da085299fd46783fb304f902/README.md",
         "https://github.com/Cai-aa/CAE-Agent-Hub/blob/cb4d869bc79f1914da085299fd46783fb304f902/MCP/Ansys/PyAnsys/pycfx-mcp/src/ansys/cfx/mcp/cfx/skills/SKILL.md",
         "https://github.com/Cai-aa/CAE-Agent-Hub/blob/cb4d869bc79f1914da085299fd46783fb304f902/LICENSE"
       ],
-      "status": "仅索引",
-      "section": "vertical",
+      "source_commit_sha": "cb4d869bc79f1914da085299fd46783fb304f902",
+      "source_tree_sha": "ad0b0ce09104af42ec4bc9aafce64aeed655c02d",
+      "readme_sha256": "bd79ccd8635d8955669b8a7f86ea4700502e6ebf8c779e4c25e23d3e006c515c",
+      "representative_path": "MCP/Ansys/PyAnsys/pycfx-mcp/src/ansys/cfx/mcp/cfx/skills/SKILL.md",
+      "representative_sha256": "94bd6564ab443101c7b8f68bb5508e98a35cf274d9ee3b0f66a251400400ded3",
+      "distribution_evidence": "README clone instructions and copy complete skill directories into Codex/agent skills; CAE MCP install steps and solver prerequisites explicit.",
+      "license_scope": "Root MIT plus numerous close MCP licenses; commercial solver binaries/licenses remain external and not relicensed.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/Cai-aa/CAE-Agent-Hub",
+        "value": 1081
+      },
+      "stars_source": "https://api.github.com/repos/Cai-aa/CAE-Agent-Hub",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
       "review_batch": "science"
     },
     {
@@ -482,23 +1035,33 @@
       "summary_zh": "42 个 Agent Skills 覆盖论文全生命周期，从文献发现、写作、核验到投稿、答辩、发表和报告。",
       "license": "Apache-2.0",
       "skill_count": "42",
+      "status": "仅索引",
+      "section": "vertical",
       "repository_id": 1275796993,
+      "last_reviewed": "2026-10-18",
       "discovery_family": "literature-reference-management",
-      "source_commit_sha": "f9a0ed8f0f1770fb0321c5b022d55ed34c939927",
-      "source_tree_sha": "f6c56d19636a06672ad1b93373535c71526b875e",
-      "readme_sha256": "53857c9c983004ce49d0a8dd0a324c863c99f6323713ba950e519a17b2575cef",
-      "representative_path": "skills/add-venue-profile/SKILL.md",
-      "representative_sha256": "204cbd0c3943d291dfcb79dcc924bcd95bc0eebaa266c849a2af50c809a4b759",
       "skill_count_basis": "README lists 42 public task skills; website, llms.txt and templates are supporting/generated views.",
-      "distribution_evidence": "README documents npx skills add ShaishavMaisuria/research-paper-lifecycle-skills and Agent Skills standard.",
-      "license_scope": "Apache-2.0 root plus NOTICE; no unlicensed third-party body import identified.",
       "evidence": [
         "https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills/blob/f9a0ed8f0f1770fb0321c5b022d55ed34c939927/README.md",
         "https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills/blob/f9a0ed8f0f1770fb0321c5b022d55ed34c939927/skills/add-venue-profile/SKILL.md",
         "https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills/blob/f9a0ed8f0f1770fb0321c5b022d55ed34c939927/LICENSE"
       ],
-      "status": "仅索引",
-      "section": "vertical",
+      "source_commit_sha": "f9a0ed8f0f1770fb0321c5b022d55ed34c939927",
+      "source_tree_sha": "f6c56d19636a06672ad1b93373535c71526b875e",
+      "readme_sha256": "53857c9c983004ce49d0a8dd0a324c863c99f6323713ba950e519a17b2575cef",
+      "representative_path": "skills/add-venue-profile/SKILL.md",
+      "representative_sha256": "204cbd0c3943d291dfcb79dcc924bcd95bc0eebaa266c849a2af50c809a4b759",
+      "distribution_evidence": "README documents npx skills add ShaishavMaisuria/research-paper-lifecycle-skills and Agent Skills standard.",
+      "license_scope": "Apache-2.0 root plus NOTICE; no unlicensed third-party body import identified.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/ShaishavMaisuria/research-paper-lifecycle-skills",
+        "value": 54
+      },
+      "stars_source": "https://api.github.com/repos/ShaishavMaisuria/research-paper-lifecycle-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
       "review_batch": "science"
     },
     {
@@ -509,23 +1072,33 @@
       "summary_zh": "厂商中立的 18 技能地理空间 AI 套件，在结果成为主张前检查 CRS、单位、可比性、空间泄漏、不确定性、溯源和安全拒答。",
       "license": "MIT",
       "skill_count": "18",
+      "status": "仅索引",
+      "section": "vertical",
       "repository_id": 1305263254,
+      "last_reviewed": "2026-10-18",
       "discovery_family": "geo-weather",
-      "source_commit_sha": "19937ce14c7d60d764732cc2688c6a3dd92f6d0e",
-      "source_tree_sha": "07159dffe250a4219ce25bda60e252c7dd654d11",
-      "readme_sha256": "47ed709a1498cdd034c8b409365e44beb4dd5974081b7ebc02499b7a9d1ace",
-      "representative_path": "skills/geoai-orchestrator/SKILL.md",
-      "representative_sha256": "6925301bb4417e9f05ec2026c53dbc97252ffc184b875203b3e4c6b878b4907a",
       "skill_count_basis": "README lists 18 narrow specialists; all have public SKILL.md and benchmark/behavior packages are evidence resources, not skills.",
-      "distribution_evidence": "README gives npx skills add muend/geoai-skills --skill * -a codex and single-specialist Claude installation.",
-      "license_scope": "Root MIT; method sources/benchmarks cited as evidence, not re-licensed content.",
       "evidence": [
         "https://github.com/muend/geoai-skills/blob/19937ce14c7d60d764732cc2688c6a3dd92f6d0e/README.md",
         "https://github.com/muend/geoai-skills/blob/19937ce14c7d60d764732cc2688c6a3dd92f6d0e/skills/geoai-orchestrator/SKILL.md",
         "https://github.com/muend/geoai-skills/blob/19937ce14c7d60d764732cc2688c6a3dd92f6d0e/LICENSE"
       ],
-      "status": "仅索引",
-      "section": "vertical",
+      "source_commit_sha": "19937ce14c7d60d764732cc2688c6a3dd92f6d0e",
+      "source_tree_sha": "07159dffe250a4219ce25bda60e252c7dd654d11",
+      "readme_sha256": "47ed709a1498cdd034c8b409365e44bebef4dd5974081b7ebc02499b7a9d1ace",
+      "representative_path": "skills/geoai-orchestrator/SKILL.md",
+      "representative_sha256": "6925301bb4417e9f05ec2026c53dbc97252ffc184b875203b3e4c6b878b4907a",
+      "distribution_evidence": "README gives npx skills add muend/geoai-skills --skill * -a codex and single-specialist Claude installation.",
+      "license_scope": "Root MIT; method sources/benchmarks cited as evidence, not re-licensed content.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/muend/geoai-skills",
+        "value": 32
+      },
+      "stars_source": "https://api.github.com/repos/muend/geoai-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
       "review_batch": "science"
     },
     {
@@ -572,13 +1145,10 @@
         "source": "https://api.github.com/repos/21st-dev/registry",
         "value": 10
       },
+      "stars_source": "https://api.github.com/repos/21st-dev/registry",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "skills/21st-registry/SKILL.md": "4d266da5d8ccef393c6ecddbfbd563c68402d8a5"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\21st-dev--registry.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -625,61 +1195,10 @@
         "source": "https://api.github.com/repos/CODE-SAURABH/OpenSkills",
         "value": 3
       },
+      "stars_source": "https://api.github.com/repos/CODE-SAURABH/OpenSkills",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "agent-memory/SKILL.md": "2b59fbb1a89752d71778860ea27bc1411c79e518",
-        "ai-engineer/SKILL.md": "1c59b2fefceda3cd18420865305f9a99a34fe0dc",
-        "api-design/SKILL.md": "6f4960bc01ed10871583ad3177987b5cdd791bf6",
-        "autoplan/SKILL.md": "f5241b7aa240c044df0a3a9380ec8f30a7640074",
-        "backend-dev/SKILL.md": "402673aa48fe7c75e0862747b5db2fc32a5cabec",
-        "benchmark/SKILL.md": "ff211a8f6f15c4ad248b917bcfd0f6d5390e589d",
-        "brand-guidelines/SKILL.md": "b9682089e8abebdf9acc44f045190b8e8fa197a3",
-        "code-reviewer/SKILL.md": "cc36d664e2acbb86945f567be8a41d55138eb25d",
-        "commit-message/SKILL.md": "e10c51aada9b83036350cef8a3701a9bee64d961",
-        "data-engineer/SKILL.md": "f3d87f42d2f5f63fa4b37584731ee11af94d65e5",
-        "database-architect/SKILL.md": "1684eb6d6514272850bc77622718eb47ed54730a",
-        "debugger/SKILL.md": "1d79992cf7590f24a96fe244ab4103f7ee238bba",
-        "design-explorer/SKILL.md": "f27452ee4a5b96ece981cba562c1c33c6e8ab9f8",
-        "devex-engineer/SKILL.md": "34ad8d3b7d3431a2eae2c7472d0df8a9869d341a",
-        "devops-platform/SKILL.md": "7f12917f9bf345bb3c9c829d77305db988d8760f",
-        "doc-coauthoring/SKILL.md": "e91cbad767db704f041d4291ceb2a02428c2d9c1",
-        "forward-deployment-engineer/SKILL.md": "d2f41d59b1a8492470c5d72e507bdc7c06a070a7",
-        "frontend-design/SKILL.md": "057cfc455605d934836fdc68fd405bc71c78ca59",
-        "internal-comms/SKILL.md": "cbce03e08d1728e2d7cce465f0e2ab9d9dd067c7",
-        "java-development/SKILL.md": "2076cca1218e91fd71b7d06be069dfecaaad4361",
-        "land-and-deploy/SKILL.md": "27df2d41826b7b6dc140ba87e47efdae62cccf8f",
-        "mcp-builder/SKILL.md": "a96cd4895a6adbf8b08d4adce04e5d526a84221d",
-        "office-hours/SKILL.md": "3fc0eca94af176aa4d6f46c1d67c2f50a47a95c1",
-        "pdf/SKILL.md": "023506728275b508b3e8cbda29db10377d0b339a",
-        "performance-optimizer/SKILL.md": "03ac2194e51d80b115087ebb5d71d3de47f97325",
-        "plan-ceo-review/SKILL.md": "3d227c6ba9cea1026b91ac90bae126a3f21ea291",
-        "plan-design-review/SKILL.md": "caafd9e757b7e370b228ad249d6ef6ecee226fc2",
-        "plan-eng-review/SKILL.md": "5e7ee399b4cf02693183214bd46592adbf496210",
-        "pptx/SKILL.md": "cd24a93b0223acd1743a294a6a7aaad1d8a2a538",
-        "product-engineer/SKILL.md": "4a62da4e353e3cc74fb7939655855d2ee4c223cf",
-        "prompt-engineer/SKILL.md": "24480391e442719273c6d5d635d7230b5828d178",
-        "python-development/SKILL.md": "2ed72255f39494ff500733d7dc674fd6eadf067d",
-        "qa-engineer/SKILL.md": "ebe965a9efa773b508eb08bf90d495ec60cc1ae7",
-        "react-development/SKILL.md": "32daf5f1f75ab952fb9719bebdf3d769c34f19c7",
-        "release-engineer/SKILL.md": "54e9aed20c4fee404f6f1daeea63f85bbacbf147",
-        "research-agent/SKILL.md": "96129c362aa053d1b75ae9f2dda9b916bf992c7d",
-        "retro-engineer/SKILL.md": "35547b0f1379d688e32e081fd772ccbf60aa0cd8",
-        "safety-guardrails/SKILL.md": "1ef36e405a4a6dd75a90ba375cdad0b5838ac48e",
-        "security-engineer/SKILL.md": "e929d6ee18bdbfdf67a21fe19e6c7d37bc034848",
-        "skill-creator/SKILL.md": "1ee745e774f035eb4868a50e79db217b86c1006f",
-        "spec-author/SKILL.md": "b3c359c87ce7cdc297d162b721048eebf40b3d4c",
-        "sre-canary/SKILL.md": "d7b028422481955360420deeb5a457c3c9f4a616",
-        "system-design/SKILL.md": "34fcbcabebd21054237705105b899fca47ef572d",
-        "technical-writer/SKILL.md": "37d8b46c9b11c8ddd2226f523b5f17eaa1ad654f",
-        "test-writer/SKILL.md": "315c882504bf082bee3833a8b9c092f4c8781eaf",
-        "theme-factory/SKILL.md": "21819093dd6a2082485ca0f73a5494bf485a2166",
-        "typescript-development/SKILL.md": "16cd22abaab0966e50dce4e052d855cff3509de5",
-        "webapp-testing/SKILL.md": "200a9e47d7ca5e08170d6cc8a3f0b960cc09beb5",
-        "xlsx/SKILL.md": "586c4d6764bdd4379a2a7c2402ee2b13cf73f566"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\CODE-SAURABH--OpenSkills.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -732,37 +1251,10 @@
         "source": "https://api.github.com/repos/evgeniiPerov/quay",
         "value": 4
       },
+      "stars_source": "https://api.github.com/repos/evgeniiPerov/quay",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        ".agents/skills/design-an-interface/SKILL.md": "d056bd183229ca93bd41cf1b8c10c6fd1f30e75f",
-        ".agents/skills/diagnose/SKILL.md": "ed55bda2fdb0d690ea3b80a1cf28bf848c5ad2b5",
-        ".agents/skills/git-guardrails-claude-code/SKILL.md": "58bcdd875b164093b95f436fa32a65c6cb5eb572",
-        ".agents/skills/grill-me/SKILL.md": "3947ff9c4ad980d14fc07fccbf659d47c114e81d",
-        ".agents/skills/grill-with-docs/SKILL.md": "62b9efb6f991d1b229adee7506962f13ced0c499",
-        ".agents/skills/handoff/SKILL.md": "2eb98a51b97bb5bac461a26ad14828eeac827909",
-        ".agents/skills/improve-codebase-architecture/SKILL.md": "44cc7d3136c44534d68ac523fa6cd37e759d2846",
-        ".agents/skills/qa/SKILL.md": "305e43fbc1a171987fcab977ebd124c3f9792d39",
-        ".agents/skills/request-refactor-plan/SKILL.md": "7e8b2e41d7ce805746d18b8e9dba4559301db251",
-        ".agents/skills/review/SKILL.md": "7507a362147167c277b17ec5abf8bedb99fc42d5",
-        ".agents/skills/rust-best-practices/SKILL.md": "5a44d1c29a3d0a9cc5bba78effced63741453300",
-        ".agents/skills/rust-testing/SKILL.md": "21b484a1c67eb5fe71a2bf42c19df6a9c62baab4",
-        ".agents/skills/setup-matt-pocock-skills/SKILL.md": "c0d850b976fc47d2c5807e8b0f50a2c03e8a29ab",
-        ".agents/skills/setup-pre-commit/SKILL.md": "1b9708168263067adb4684d06ebb8f4ccfe9682c",
-        ".agents/skills/teach/SKILL.md": "c679eeccd48ca720c8196e5d9a9e58223abf213b",
-        ".agents/skills/to-issues/SKILL.md": "9f6efbfe5fb5fcb9a751482e333d2f54da173102",
-        ".agents/skills/to-prd/SKILL.md": "ee758fdc34a9102caac95623b2dc07aea86e297e",
-        ".agents/skills/triage/SKILL.md": "3fd5617e906cf9b71a6b17424791adb905fc248b",
-        ".agents/skills/ubiquitous-language/SKILL.md": "35b649ddcd4f6da16d70f27662e0dfb86fb34870",
-        ".agents/skills/using-quay/SKILL.md": "f69013f84ef000daf9a3382602edce05283866db",
-        ".agents/skills/vercel-composition-patterns/SKILL.md": "d07025bf943345bc1cf15eb923594f889ff881f0",
-        ".agents/skills/vercel-react-best-practices/SKILL.md": "237988de4a66dd8a71d30a2c24ebe1a86b58d04e",
-        ".agents/skills/webapp-testing/SKILL.md": "4726215301db64a0cc4d41fc3219c61f37a30f4a",
-        ".agents/skills/write-a-skill/SKILL.md": "7339c8a38d6c2e1ee5fd721327bca3441a9408be",
-        ".agents/skills/zoom-out/SKILL.md": "1e7a5dc728fed0a85a28c9dfb6e78ce5a81da7db"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\evgeniiPerov--quay.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -809,15 +1301,10 @@
         "source": "https://api.github.com/repos/iam-niranjan/wcag-skills",
         "value": 0
       },
+      "stars_source": "https://api.github.com/repos/iam-niranjan/wcag-skills",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "skills/wcag22-a/SKILL.md": "4c9e540c60ee391a68ccdf267b70272afe83d7cd",
-        "skills/wcag22-aa/SKILL.md": "fabf19973cb07591e1fb04d8171a9616aab78a00",
-        "skills/wcag22-aaa/SKILL.md": "c3ea1c13ee5cc8f1560b5478d512f509ddb5d895"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\iam-niranjan--wcag-skills.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -864,13 +1351,10 @@
         "source": "https://api.github.com/repos/arham777/ui-ux-kit",
         "value": 3
       },
+      "stars_source": "https://api.github.com/repos/arham777/ui-ux-kit",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "SKILL.md": "0fb1ef8289e274e8e9651e5a4fe68b835aad7b4a"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\arham777--ui-ux-kit.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -917,13 +1401,10 @@
         "source": "https://api.github.com/repos/Armitanemati/liquid-glass-claude-skill",
         "value": 3
       },
+      "stars_source": "https://api.github.com/repos/Armitanemati/liquid-glass-claude-skill",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "SKILL.md": "2efa165f0082f49be71874e30900c58ba1922227"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\Armitanemati--liquid-glass-claude-skill.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -970,35 +1451,10 @@
         "source": "https://api.github.com/repos/manish1803/nextjs-fullstack-skills",
         "value": 2
       },
+      "stars_source": "https://api.github.com/repos/manish1803/nextjs-fullstack-skills",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "skills/01-frontend-engineering/accessibility-a11y/SKILL.md": "829af16638cb811a8305438e1e0b616822fe5ca5",
-        "skills/01-frontend-engineering/design-system-tailwind/SKILL.md": "da676fe78bdbbbc496e68aa595b29337b179c3e8",
-        "skills/01-frontend-engineering/motion-design-toolkit/SKILL.md": "aa92b89cbfc168a3234b8f323f70345120e24276",
-        "skills/01-frontend-engineering/nextjs-architecture/SKILL.md": "4ed472aff8293a97581d3070f8f737a63eee000c",
-        "skills/01-frontend-engineering/react-component-engineering/SKILL.md": "f69eb47b6821bebefbb2048ded3463aba28c598e",
-        "skills/01-frontend-engineering/react-three-fiber-3d/SKILL.md": "2de7d05c3a4397fc17dd42547dceed6699eb93bc",
-        "skills/01-frontend-engineering/responsive-mobile-first/SKILL.md": "9c1e69f32dd7a5fdea36e72973cd596a8536e0d8",
-        "skills/02-fullstack-backend/auth-authorization/SKILL.md": "9d8345a3e1af733d391ddbe7b6ce6d07d7d016a1",
-        "skills/02-fullstack-backend/database-schema-design/SKILL.md": "94725f9ccf6942c1b1501800705038676c585a11",
-        "skills/02-fullstack-backend/form-validation-error-handling/SKILL.md": "6ac1fc546b3555d7bf02c2e3007e4be4879d3b27",
-        "skills/02-fullstack-backend/mern-stack-architecture/SKILL.md": "50b24b1ce9124fcce52c551f943341128c7a1d66",
-        "skills/02-fullstack-backend/rest-api-integration/SKILL.md": "34c8d99306bb2d161593d48dce072dd7b66638c3",
-        "skills/02-fullstack-backend/state-management/SKILL.md": "0fa26bfeb1fc55f2d81627a1b26977884a3140a0",
-        "skills/03-product-saas/landing-page-conversion/SKILL.md": "72782609d86e0bd171b6132fe0679c65a2cc6248",
-        "skills/03-product-saas/payment-gateway-integration/SKILL.md": "dedb511983eb2abbc6c88ac9cb86851309242bda",
-        "skills/03-product-saas/saas-dashboard-admin/SKILL.md": "3c6b360bfa4f1db242a63a4b0a6a8a10d869f924",
-        "skills/03-product-saas/startup-mvp-development/SKILL.md": "4acade7ab241104ca63e13ec623a20c57a3da094",
-        "skills/04-ux-ui-design/ux-research-flow-design/SKILL.md": "450676d1996a59ce42edbf63853a4df5f785ce73",
-        "skills/04-ux-ui-design/visual-design-language/SKILL.md": "e46e57ed2c2f634f4948eaeab3fb5c447c850683",
-        "skills/05-ai-agent-workflow/ai-assisted-frontend-workflow/SKILL.md": "31e81f76b0b807d7fc7d42501d7b299de8c2425e",
-        "skills/06-dev-workflow/deployment-vercel-production/SKILL.md": "ee00f6e80ef31b51ff7c64797213cc4d12b74f42",
-        "skills/06-dev-workflow/performance-seo-optimization/SKILL.md": "26a2676f3a636c5bfe022fb8d72939c0dc9f909e",
-        "skills/06-dev-workflow/project-architecture-clean-code/SKILL.md": "bf1e753f1dd853abd1c621bca2f161ee1035f114"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\manish1803--nextjs-fullstack-skills.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -1045,16 +1501,10 @@
         "source": "https://api.github.com/repos/Taimoorkhan1122/boring-react",
         "value": 1
       },
+      "stars_source": "https://api.github.com/repos/Taimoorkhan1122/boring-react",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "skills/react-component-engineering/SKILL.md": "8011c4eb0b0459e2082f3f186709a3d768853518",
-        "skills/react-motion-engineering/SKILL.md": "07d3998bf7535c9ed7430d7f5064d27fb63d82cf",
-        "skills/react-production-engineering/SKILL.md": "a3388e8cbccbca6983a970c7dcd19f07b2903d96",
-        "skills/react-quality-engineering/SKILL.md": "535236bea321a1ef38338815163492b01da89bdc"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\Taimoorkhan1122--boring-react.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -1101,15 +1551,10 @@
         "source": "https://api.github.com/repos/weareoxd/design-skill-generator",
         "value": 1
       },
+      "stars_source": "https://api.github.com/repos/weareoxd/design-skill-generator",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        ".claude/skills/feature-implementation-plan/SKILL.md": "1951546981ef53cf606d9743817c9dcdf39df003",
-        ".claude/skills/react-best-practices/SKILL.md": "b86c57afe8b8dcb15b2af03c0fee599ef9f9bae0",
-        ".claude/skills/refine-feature/SKILL.md": "9cbf395e25bd2132efda3bfda5a3a368d6261b85"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\weareoxd--design-skill-generator.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -1156,17 +1601,10 @@
         "source": "https://api.github.com/repos/yaacovcorcos/papiskill",
         "value": 2
       },
+      "stars_source": "https://api.github.com/repos/yaacovcorcos/papiskill",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "registry/official/code-review/SKILL.md": "1d54ea30c776e8710326865ec7d3d96b74b4abdf",
-        "registry/official/company-documentation-system/SKILL.md": "aacff66d91ee707574df35e9f35ac2b574d12a49",
-        "registry/official/medical-literature-review/SKILL.md": "cd22290adadea13764b23c90d99d3e46d05b4b3a",
-        "registry/official/skill-authoring/SKILL.md": "1c262d25473b520bd62bbb532828814c4aa9ac1f",
-        "registry/official/software-development-documentation/SKILL.md": "8aedbe7ef90b46f2743b829801bab3f4a8ddc084"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\yaacovcorcos--papiskill.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -1231,35 +1669,10 @@
         "source": "https://api.github.com/repos/sentenz/skills",
         "value": 3
       },
+      "stars_source": "https://api.github.com/repos/sentenz/skills",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "skills/adr/SKILL.md": "379425fc7e52d307ca911a7d525d0ac9dbdf1ab6",
-        "skills/cpp-api-documentation/SKILL.md": "689bdacaf92f7f1781ae92c551ba762755cf5932",
-        "skills/cpp-benchmark-testing/SKILL.md": "4bf28e82e0552d3e3eef7707e396c2aef771e70d",
-        "skills/cpp-fuzz-testing/SKILL.md": "053e860f1a2bb7f792e06bc6cad1d1d8411e1533",
-        "skills/cpp-mock-testing/SKILL.md": "1c1fec319996429ae0dd9e39f67e5be835affe88",
-        "skills/cpp-unit-testing/SKILL.md": "6add726cbe207d47a73092db5e7f9a922f7b5f1b",
-        "skills/dependabot/SKILL.md": "710ccb6c4f3e07d073a61714757d3b5bf9e187de",
-        "skills/github-actions-efficiency/SKILL.md": "75a24adeabd554d9def05bf74daa8ba8bc6eaa9a",
-        "skills/github-actions-hardening/SKILL.md": "26fdbd2b6cbf57c0d30e442be74f25362199abff",
-        "skills/go-api-documentation/SKILL.md": "d04ef3d6e201cdbb6f10bedd6a6060342e60159f",
-        "skills/go-benchmark-testing/SKILL.md": "cc96bfc2b68539a13f4aa7afa44a6b8e9db1259a",
-        "skills/go-fuzz-testing/SKILL.md": "1c12050bb9deca536d2b6719e1d4e175fdb73f09",
-        "skills/go-unit-testing/SKILL.md": "ab20ee2d26be03c972a6b91a0074e3e092708617",
-        "skills/material-3/SKILL.md": "7619bf0720dfafd2e7f422f00ad442c85c2abb6a",
-        "skills/multi-stage-dockerfile/SKILL.md": "201e96e59da3488bc18287594fcd0c050b4ca2fb",
-        "skills/python-benchmark-testing/SKILL.md": "13f97ff837ae8fdb7586172703be1376258206a3",
-        "skills/python-fuzz-testing/SKILL.md": "447aa8cf0692c224df0306c876036e036c04d16a",
-        "skills/python-mock-testing/SKILL.md": "a1056a0b470cbbc448ad2f5dfd432ad8e1022cf3",
-        "skills/python-unit-testing/SKILL.md": "3264ee383119deee16da91dbc5823e01396ba357",
-        "skills/technical-article/SKILL.md": "ab95ea41f61369b23a9303b9935fe0e603c45de5",
-        "skills/terraform/SKILL.md": "5e170ae7aee34a5a100c88c0aa3147129f09c94a",
-        "skills/threat-modeling-ics/SKILL.md": "c6f61da0377f942d9bf00f1f71b6607dc51004b1",
-        "skills/tm7-threat-model/SKILL.md": "9845d39ffdf7b5904ca6d507091febf069ca6236"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\sentenz--skills.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -1312,48 +1725,10 @@
         "source": "https://api.github.com/repos/sigistry/marketplace",
         "value": 3
       },
+      "stars_source": "https://api.github.com/repos/sigistry/marketplace",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "plugins/a11y-i18n-remediator/skills/catalog-hygiene/SKILL.md": "2a7d3c83f7689c49394598f755bff83ae511af3d",
-        "plugins/a11y-i18n-remediator/skills/icu-messageformat/SKILL.md": "4c94b8931ebcdb128a2b2785413546a956e18d5c",
-        "plugins/a11y-i18n-remediator/skills/wcag-remediation/SKILL.md": "4f687f2e9d9a398fea7dfd7c1888111c3f154e2d",
-        "plugins/api-contract-keeper/skills/error-envelope/SKILL.md": "5041b076eb7cabeaa161d3e62890a42a8a21d283",
-        "plugins/api-contract-keeper/skills/idempotency-patterns/SKILL.md": "1f5f1c89b45bfd8992f316d80e35f7f96535ce5c",
-        "plugins/api-contract-keeper/skills/job-reliability/SKILL.md": "b6cff1404564830785b03c7d0646c1bae27af0d6",
-        "plugins/api-contract-keeper/skills/openapi-drift/SKILL.md": "0be10b2f1e8ddb581d6b16ae48a743c11f626da2",
-        "plugins/ci-incident-medic/skills/dockerfile-smells/SKILL.md": "2c228a3c5129b7fbb6703d73f7b03895b2da1b2b",
-        "plugins/ci-incident-medic/skills/gha-failure-taxonomy/SKILL.md": "f549e8eea4e39071fb92d5cc60eaf64044f95bbb",
-        "plugins/ci-incident-medic/skills/incident-response/SKILL.md": "c3ac291a407fe99caf206bcc683069ff6f713c53",
-        "plugins/ci-incident-medic/skills/k8s-manifest-validation/SKILL.md": "f2a574de77413687967c6a49b5ea3e1dbca46110",
-        "plugins/code-auditor/skills/architecture-diagramming/SKILL.md": "e2865ef431827c62b8ea5e0034a71b3e25a58a26",
-        "plugins/code-auditor/skills/assessment-scoring/SKILL.md": "3a46a9062cfa3a9b16a599391fd409523bfc23c9",
-        "plugins/code-auditor/skills/security-methodology/SKILL.md": "22ef484cfe1ec1a728399aa8b50ea7109dbcff31",
-        "plugins/codebase-navigator/skills/build-system-decode/SKILL.md": "e0973be6dbc977a148796d02d7902b92221b92d1",
-        "plugins/codebase-navigator/skills/setup-diagnosis/SKILL.md": "b6e9efe2ab99527eeee3263ac1fdc8fcdaa7dbb1",
-        "plugins/doc-generator/skills/documentation-standards/SKILL.md": "6772303c537b130ac93aceb8bfb119a2a6937935",
-        "plugins/doc-generator/skills/mermaid-diagrams/SKILL.md": "9c83f05ed3f5d5e3cf82940e73b3ad584675a5c9",
-        "plugins/llm-app-hardener/skills/eval-authoring/SKILL.md": "d684a46bc0e901189710ec141311e7daae80277b",
-        "plugins/llm-app-hardener/skills/owasp-llm-top10/SKILL.md": "f2350bd54a541df91efd9d0ae9b52507f4f82924",
-        "plugins/llm-app-hardener/skills/prompt-versioning-hygiene/SKILL.md": "248d9af72c9d04c6444ac219989c49cfe6e97548",
-        "plugins/llm-app-hardener/skills/structured-output/SKILL.md": "1ebdcae85bb8e418b8013f91d75963caad76226a",
-        "plugins/mcp-server-smith/skills/mcp-2026-07-28/SKILL.md": "d63a68a79c39b42d33070482cb977f6055962e8b",
-        "plugins/mcp-server-smith/skills/mcp-authorization/SKILL.md": "24c5f717da6912ebc8441541d7901531d44357cb",
-        "plugins/mcp-server-smith/skills/mcp-server-security/SKILL.md": "a226a23d064b7a28e018c45824b7db5fbf20f5bf",
-        "plugins/mcp-server-smith/skills/mcp-tool-design/SKILL.md": "e3b00a9006b3d933f500cb7d6b36aea196c63eeb",
-        "plugins/records/skills/fhir-ci-quality/SKILL.md": "9d2f74340033ab157644fe9633ced103dd4db0e0",
-        "plugins/records/skills/fhir-project-doctor/SKILL.md": "de5be0e2a6bd6b576465213ec53b3ff68a2b3108",
-        "plugins/records/skills/fhir-validation/SKILL.md": "14f9d0c7aa480ea3c9f0fbcddbb91157e2c2af20",
-        "plugins/release-conductor/skills/breaking-change-detection/SKILL.md": "5de96236b9d4205fa2c324173a58ff70415b8d2e",
-        "plugins/release-conductor/skills/changelog-assembly/SKILL.md": "52df4d043856d6e4da00ec4279e09e78280d700e",
-        "plugins/responsive-design-kit/skills/responsive-design-expert/SKILL.md": "e226f810812993d8c857ae526b79b98e05221026",
-        "plugins/slop-check/skills/audit/SKILL.md": "c6762eeae64c33882ba7397a59ec1f1212241942",
-        "plugins/sql-safety-net/skills/explain-interpreter/SKILL.md": "04be08187c8ec0f2e8974d60fddec862f5fc6d68",
-        "plugins/sql-safety-net/skills/safe-migrations/SKILL.md": "b6bb909184920425421e704fcb7065b3a727b52c",
-        "plugins/sql-safety-net/skills/schema-antipatterns/SKILL.md": "0301a8e35d80aeffa84416a1f02aca64e568dc0e"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\sigistry--marketplace.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -1394,11 +1769,10 @@
         "source": "https://api.github.com/repos/scalefocus/skilly",
         "value": 8
       },
+      "stars_source": "https://api.github.com/repos/scalefocus/skilly",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {},
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\scalefocus--skilly.audit.json",
       "infrastructure_contract": "README documents external `npx skills add` consumer commands, hosted/self-hosted quickstart, review gates, install tokens and MCP endpoint.",
       "review_batch": "workflows"
     },
@@ -1446,20 +1820,10 @@
         "source": "https://api.github.com/repos/SkillsCatalog/registry",
         "value": 1
       },
+      "stars_source": "https://api.github.com/repos/SkillsCatalog/registry",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "skills/skill-create/SKILL.md": "ead1c95b63bd6e68b16512249b4379855f51e860",
-        "skills/skill-installer/SKILL.md": "e6695c975aeca41e792f48a74ebabd8cecda3c68",
-        "skills/skill-manifest-generator/SKILL.md": "357a1e91f6a6a1686b18695295eb2c64bad31c34",
-        "skills/skill-publisher/SKILL.md": "b9944324edf29a08a603c11d159f0d9928e03fa0",
-        "skills/skill-safety-scanner/SKILL.md": "e68327db18ced95310972110277be3ba83184ee4",
-        "skills/skill-search/SKILL.md": "8145490f95ee68637f0785394a6a2518c148576d",
-        "skills/skill-validator/SKILL.md": "73e09220d73c56266c3d05ecd0f8789b531e77d5",
-        "templates/basic-skill/SKILL.md": "d7a7bcfebfc1ab7a217043962666ef81a9648a26"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\SkillsCatalog--registry.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -1506,14 +1870,10 @@
         "source": "https://api.github.com/repos/alfaris/Design-AI-Skills",
         "value": 1
       },
+      "stars_source": "https://api.github.com/repos/alfaris/Design-AI-Skills",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {
-        "design-audit-panel/SKILL.md": "aac233568e6ee1f970e09078258bd504d35515ed",
-        "devils-advocate-and-convincer/SKILL.md": "142881a633fe4567faa256329f140bd28a3720c2"
-      },
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\alfaris--Design-AI-Skills.audit.json",
       "review_batch": "workflows"
     },
     {
@@ -1554,11 +1914,10 @@
         "source": "https://api.github.com/repos/Kargatharaakash/website-design-systems-mcp",
         "value": 18
       },
+      "stars_source": "https://api.github.com/repos/Kargatharaakash/website-design-systems-mcp",
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "skill_blobs": {},
-      "raw_evidence_file": "C:\\Users\\13185\\AppData\\Local\\Temp\\everything-workflows-20261018\\Kargatharaakash--website-design-systems-mcp.audit.json",
       "infrastructure_contract": "README documents npm install, Claude Desktop MCP configuration and clone/install usage; generated output is explicitly a `skill.md` file.",
       "review_batch": "workflows"
     }
@@ -1566,15 +1925,18 @@
   "source_audits": [
     {
       "kind": "products",
-      "path": "C:/Users/13185/AppData/Local/Temp/products18-wave3-rows.json"
+      "source": "reviewer cache products18-wave3-accepted.audit.json",
+      "sha256": "E58615C7A915F57E5A7D8B435A77065BD57B1580784208E339E765F456300539"
     },
     {
       "kind": "science",
-      "path": "C:/Users/13185/AppData/Local/Temp/everything-science-20261018b/science2.rows.json"
+      "source": "reviewer cache science2.audit.json",
+      "sha256": "C3D14B703CD40CE49C02A5556D83F330918821F3834EF159EAC71F8F6645DCA2"
     },
     {
       "kind": "workflows",
-      "path": "C:/Users/13185/AppData/Local/Temp/everything-workflows-20261018/reviewed2.json"
+      "source": "reviewer cache reviewed2.json",
+      "sha256": "71AA6C41F40287EB2392AF906687351C30F65BFE3C85DAFD4CB2DA49EBC5C147"
     }
   ],
   "mapping": {
@@ -1584,15 +1946,25 @@
     "workflows:other-community": "collections"
   },
   "deferred_or_excluded_sources": [
-    "C:/Users/13185/AppData/Local/Temp/products18-wave3-accepted.audit.json",
-    "C:/Users/13185/AppData/Local/Temp/products18-wave3-readme-staleness.json",
-    "C:/Users/13185/AppData/Local/Temp/everything-science-20261018b/science2.audit.json",
-    "C:/Users/13185/AppData/Local/Temp/everything-workflows-20261018/deferred2.json"
+    "Reviewer caches were not copied; excluded/deferred decisions are summarized below and accepted evidence is embedded in this audit JSON."
   ],
   "review_notes": [
     "AWS Amazon Location is indexed with MIT-0 from README/LICENSE.md because GitHub API metadata reported Apache-2.0.",
     "Cai-aa/CAE-Agent-Hub is retained as 多技能 because its 62 SKILL.md paths include vendor/MCP copies and composite workflows.",
     "Cursor root repository is indexed with per-plugin licensing; root NOASSERTION is not treated as a blanket license for all plugins.",
     "README staleness findings for accepted candidates remain in the source audit; no candidate was installed or executed."
+  ],
+  "accepted_count": 38,
+  "provenance_fields": [
+    "repository_id",
+    "last_reviewed",
+    "stars_snapshot",
+    "stars_source",
+    "source_commit_sha",
+    "source_tree_sha",
+    "readme_sha256",
+    "evidence",
+    "license_evidence",
+    "representative_skill_or_path"
   ]
 }
