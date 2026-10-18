@@ -47,6 +47,20 @@
 | API 交付 | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) → [api-security-best-practices](08-security/api-security-best-practices/SKILL.md) |
 | 无障碍与供应链信任 | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) → [wcag-22-audit-patterns](02-engineering/wcag-22-audit-patterns/SKILL.md) → [supply-chain-risk-auditor](08-security/supply-chain-risk-auditor/SKILL.md) |
 
+## 本地检索
+
+仓库自带一个零依赖 CLI，直接读取生成的索引：
+
+```text
+npm run skill -- search "无障碍审计"
+npm run skill -- list --domain science
+npm run skill -- why agent-self-reflection
+npm run skill -- repo anthropics/skills
+npm run skill -- eval
+```
+
+`eval` 会运行版本库中的 `data/search-eval.json` 任务集；分数衡量这些示例的召回覆盖，不代表运行时、安全或专业效果认证。
+
 ## 从发现到组合
 
 <p align="center">

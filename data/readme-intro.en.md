@@ -47,6 +47,20 @@ These small combinations show how to turn the relationship graph into a workflow
 | API delivery | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) → [api-security-best-practices](08-security/api-security-best-practices/SKILL.md) |
 | Accessibility and trust | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) → [wcag-22-audit-patterns](02-engineering/wcag-22-audit-patterns/SKILL.md) → [supply-chain-risk-auditor](08-security/supply-chain-risk-auditor/SKILL.md) |
 
+## Search locally
+
+The repository includes a zero-dependency CLI over the generated indexes:
+
+```text
+npm run skill -- search "accessibility audit"
+npm run skill -- list --domain science
+npm run skill -- why agent-self-reflection
+npm run skill -- repo anthropics/skills
+npm run skill -- eval
+```
+
+The evaluation command runs the checked-in task set in `data/search-eval.json`; its score measures retrieval coverage for those examples, not runtime or security certification.
+
 ## Discover, connect, compose
 
 <p align="center">
