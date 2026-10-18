@@ -8,7 +8,7 @@
   "final_catalog_count": 2382,
   "shard": "../../skill-repos.part84.jsonl",
   "audit": "../../skill-repos.part84.audit.json",
-  "status": "pending-publication",
+  "status": "published",
   "daily_target_receipt": "additions.json records the first 76 qualifying repositories; this follow-up is recorded separately to avoid rewriting the completed target receipt.",
   "repositories": [
     {
@@ -163,5 +163,28 @@
       "full_name": "Kargatharaakash/website-design-systems-mcp",
       "repository_id": 1153865597
     }
-  ]
+  ],
+  "publication": {
+    "main": {
+      "branch": "main",
+      "commit": "dc4e054e53e51836cf05dd2820bfa006f7faef9c",
+      "ci_run_id": 39105543381,
+      "ci_url": "https://github.com/findscripter/everything-skills/actions/runs/39105543381",
+      "ci_status": "completed",
+      "ci_conclusion": "success"
+    },
+    "zh": {
+      "branch": "zh",
+      "commit": "72c939c7aceb252ae3e9010882ad54d525c0da79",
+      "ci_run_id": 39105575601,
+      "ci_url": "https://github.com/findscripter/everything-skills/actions/runs/39105575601",
+      "ci_status": "completed",
+      "ci_conclusion": "success"
+    },
+    "atomic_push": false,
+    "no_force_push": true
+  },
+  "catalog_shard_sha256": "2483f56089a453527f7d31a4f48bb34d9b1ba297272a7687f61fe99aae6edb19",
+  "audit_sha256": "16e527ca2230c6f50550d6fc4d79b13de4a11ce719a76803ddd5df72777f01be",
+  "published_at": "2026-10-18T06:52:21Z"
 }
