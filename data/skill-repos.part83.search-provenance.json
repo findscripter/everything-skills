@@ -1,0 +1,3366 @@
+{
+  "date": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "skill_routes": [
+    "agent-reach GitHub CLI/API backend",
+    "browser-harness --doctor unavailable locally; purpose-built GitHub APIs used without opening browser tabs"
+  ],
+  "root_queries": [
+    "\"npx skills add\" \"CLI\" in:readme",
+    "\"Agent Skills\" \"SDK\" in:readme",
+    "\"SKILL.md\" \"climate\" in:readme",
+    "\"SKILL.md\" \"embedded\" in:readme"
+  ],
+  "root_unique_search_hits": 371,
+  "root_existing_baseline_hits": 127,
+  "root_new_search_leads": 244,
+  "root_search_leads": [
+    {
+      "full_name": "vercel-labs/skills",
+      "repository_id": 1134543109,
+      "stars_search_snapshot": 35373,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "The open agent skills tool - npx skills",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mem0ai/mem0",
+      "repository_id": 656099147,
+      "stars_search_snapshot": 67360,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "The Memory Layer for AI Agents - Drop-in memory infrastructure for AI agents and apps. Context that persists. Built for production.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "kepano/obsidian-skills",
+      "repository_id": 1126947080,
+      "stars_search_snapshot": 49693,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "alchaincyf/nuwa-skill",
+      "repository_id": 1201730379,
+      "stars_search_snapshot": 34830,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "你想蒸馏的下一个员工，何必是同事。蒸馏任何人的思维方式——心智模型、决策启发式、表达DNA。Distill how anyone thinks.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Leonxlnx/taste-skill",
+      "repository_id": 1162099055,
+      "stars_search_snapshot": 98458,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "addyosmani/agent-skills",
+      "repository_id": 1158722119,
+      "stars_search_snapshot": 107849,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Production-grade engineering skills for AI coding agents.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "iii-hq/iii",
+      "repository_id": 911303109,
+      "stars_search_snapshot": 18846,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Effortlessly compose, extend, and observe every service in real-time for the first time ever.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mvanhorn/last30days-skill",
+      "repository_id": 1140843380,
+      "stars_search_snapshot": 64593,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "heygen-com/hyperframes",
+      "repository_id": 1177402105,
+      "stars_search_snapshot": 66008,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Write HTML. Render video. Built for agents.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Dammyjay93/interface-design",
+      "repository_id": 1127982345,
+      "stars_search_snapshot": 5816,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Design engineering for Claude Code. Craft, memory, and enforcement for consistent UI.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "coreyhaines31/marketingskills",
+      "repository_id": 1135212071,
+      "stars_search_snapshot": 55253,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "twentyhq/twenty",
+      "repository_id": 572984571,
+      "stars_search_snapshot": 58466,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "The open alternative to Salesforce, designed for AI.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "genkit-ai/genkit",
+      "repository_id": 793795224,
+      "stars_search_snapshot": 6527,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Open-source framework for building agentic apps in JavaScript, Go, Dart, and Python, built and used in production by Google",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "greensock/gsap-skills",
+      "repository_id": 1172781277,
+      "stars_search_snapshot": 16540,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Official AI skills for GSAP. These skills teach AI coding agents how to correctly use GSAP (GreenSock Animation Platform), including best practices, common animation patterns, and plugin usage.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "latent-spaces/brag",
+      "repository_id": 1271560627,
+      "stars_search_snapshot": 16519,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "You built it. Now brag. Turn the project you just created into a short, shareable launch video with one command.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "amElnagdy/guard-skills",
+      "repository_id": 1261422007,
+      "stars_search_snapshot": 1270,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Guard skills for coding agents, quality gates that catch AI-generated failure modes in code, tests, and docs",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "bmad-code-org/BMAD-METHOD",
+      "repository_id": 965615190,
+      "stars_search_snapshot": 54268,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Breakthrough Method for Agile Ai Driven Development",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "jackwener/OpenCLI",
+      "repository_id": 1181982220,
+      "stars_search_snapshot": 30379,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Make Any Website into CLI & Use your logged-in browser by AI agent. ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "AlphaGBM/skills",
+      "repository_id": 1202559832,
+      "stars_search_snapshot": 3668,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Bring realtime market data and research workflows into Claude Code, Cursor & beyond — 29 open-source Skills for stocks, options and commodities.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "oso95/scroll-world",
+      "repository_id": 1291501023,
+      "stars_search_snapshot": 10218,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A skill that turn any brand into a scrollable 3D world landing page",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "inference-sh/skills",
+      "repository_id": 1146509126,
+      "stars_search_snapshot": 771,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "inference.sh Agent skills for using our API to give your agents access to hundreds of apps and other agents",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "wheresryan22/anatomy",
+      "repository_id": 1410124849,
+      "stars_search_snapshot": 15117,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "An agent skill for creating detailed, interactive isometric illustrations of real-world machines and complex systems. Generates polished SVGs with optional WebGL shaders and 3D effects.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Rich-Harris/degit",
+      "repository_id": 98913789,
+      "stars_search_snapshot": 7948,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Straightforward project scaffolding",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "partme-ai/full-stack-skills",
+      "repository_id": 1135871706,
+      "stars_search_snapshot": 700,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "这是一个免费的全栈开发所需的技能市场，提供各种实用的 AI 技能集合，支持多种平台。",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "langchain-ai/langchain-skills",
+      "repository_id": 1139530107,
+      "stars_search_snapshot": 1294,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ConardLi/garden-skills",
+      "repository_id": 1216954187,
+      "stars_search_snapshot": 12958,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "ConardLi's open-source Skills collection, featuring web design, knowledge retrieval, image generation, and more.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "alchaincyf/zhangxuefeng-skill",
+      "repository_id": 1201947430,
+      "stars_search_snapshot": 10524,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "张雪峰.skill — 张雪峰的认知操作系统。高考志愿/考研/职业规划的实战思维框架。由女娲.skill生成。",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "WordPress/agent-skills",
+      "repository_id": 1137891086,
+      "stars_search_snapshot": 2259,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Expert-level WordPress knowledge for AI coding assistants - blocks, themes, plugins, and best practices",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ant-design/ant-design-pro",
+      "repository_id": 101394335,
+      "stars_search_snapshot": 38862,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "👨🏻‍💻👩🏻‍💻 Use Ant Design like a Pro!",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "google-gemini/gemini-skills",
+      "repository_id": 1151113612,
+      "stars_search_snapshot": 4290,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Skills for the Gemini API, SDK and model/agent interactions",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "emqx/MQTTX",
+      "repository_id": 188391577,
+      "stars_search_snapshot": 5076,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "A Powerful and All-in-One MQTT 5.0 client toolbox for Desktop, CLI and WebSocket.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mufeedvh/code2prompt",
+      "repository_id": 769564277,
+      "stars_search_snapshot": 7725,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A CLI tool to convert your codebase into a single LLM prompt with source tree, prompt templating, and token counting.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "OthmanAdi/planning-with-files",
+      "repository_id": 1127110039,
+      "stars_search_snapshot": 27494,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Persistent file-based planning for AI coding agents and long-running tasks. Crash-proof markdown plans, session recovery after /clear and compaction, per-turn re-injection against context rot, deterministic completion gate. Manus-style. Install from npm, the Claude Code plugin marketplace, or npx skills. Codex, Cursor, OpenCode, 60+ agents.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "LearnPrompt/awesome-seedance",
+      "repository_id": 1347550908,
+      "stars_search_snapshot": 2118,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "🎬 Evidence-led Seedance 2.5 / 2.0 prompt library: 600+ cases traced to original posts, 260+ cross-model retest runs with public verdicts, 25 copy-ready templates, 50+ installable AI-video Skills. Synced daily from goodcase.ai. EN / 中文 / 日本語.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ReScienceLab/opc-skills",
+      "repository_id": 1136152017,
+      "stars_search_snapshot": 1867,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Agent Skills for Solopreneurs",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "googleworkspace/cli",
+      "repository_id": 1171026502,
+      "stars_search_snapshot": 31613,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google Discovery Service. Includes AI agent skills.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "blader/humanizer",
+      "repository_id": 1136666433,
+      "stars_search_snapshot": 57841,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent skill that removes signs of AI-generated writing from text",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "arcadeai-labs/smithery-cli",
+      "repository_id": 906846835,
+      "stars_search_snapshot": 843,
+      "license_search_metadata": "AGPL-3.0",
+      "fork_search_metadata": false,
+      "description": "Install, manage and develop MCP servers and skills for agents",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "supabase/agent-skills",
+      "repository_id": 1135501937,
+      "stars_search_snapshot": 2862,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent Skills to help developers using AI agents with Supabase",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "SynaLinks/synalinks-skills",
+      "repository_id": 655021836,
+      "stars_search_snapshot": 907,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Coding Agents skills for Synalinks OSS",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "cloudflare/security-audit-skill",
+      "repository_id": 1273427276,
+      "stars_search_snapshot": 30719,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mintlify/starter",
+      "repository_id": 581018208,
+      "stars_search_snapshot": 1932,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "The starter kit for your mintlify project",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "google-gemma/gemma-skills",
+      "repository_id": 1197867826,
+      "stars_search_snapshot": 1025,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Skills for the Gemma and model/agent interactions",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "fcakyon/claude-codex-settings",
+      "repository_id": 1016566225,
+      "stars_search_snapshot": 1181,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Battle-tested Claude Code, OpenAI Codex, Cursor configs, plugins, hooks and agents with Kimi, MiniMax and GLM API support.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "hamelsmu/evals-skills",
+      "repository_id": 1170210179,
+      "stars_search_snapshot": 1678,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Skills for AI Evals to compliment the course: AI Evals For Engineers & PMs",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "trustwallet/tw-agent-skills",
+      "repository_id": 1168339741,
+      "stars_search_snapshot": 109,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "nuxt-content/docus",
+      "repository_id": 312318044,
+      "stars_search_snapshot": 3117,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Write beautiful documentations with Nuxt and Markdown.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "dexhunter/seedance2-skill",
+      "repository_id": 1155501359,
+      "stars_search_snapshot": 4332,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "skill to create best prompts for generating videos with seedance2.0",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "amalshaji/portr",
+      "repository_id": 721585564,
+      "stars_search_snapshot": 3189,
+      "license_search_metadata": "AGPL-3.0",
+      "fork_search_metadata": false,
+      "description": "Expose local http, tcp or websocket connections to the public internet",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Eyadkelleh/awesome-skills-security",
+      "repository_id": 1112154391,
+      "stars_search_snapshot": 391,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Security testing toolkit for AI Agent: curated SecLists wordlists, injection payloads, and expert agents for authorized pentesting, CTFs, and bug bounties",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "firebase/agent-skills",
+      "repository_id": 1154880547,
+      "stars_search_snapshot": 472,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Agent Skills for Firebase",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "virgiliojr94/book-to-skill",
+      "repository_id": 1226123343,
+      "stars_search_snapshot": 35158,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "lackeyjb/playwright-skill",
+      "repository_id": 1079469057,
+      "stars_search_snapshot": 3212,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "General-purpose Playwright automation for coding agents",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "starknet-io/starknet.js",
+      "repository_id": 418545583,
+      "stars_search_snapshot": 1255,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "JavaScript library for Starknet",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "base/skills",
+      "repository_id": 1137418804,
+      "stars_search_snapshot": 120,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "npx skills add base/skills",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "pchalasani/claude-code-tools",
+      "repository_id": 1029289585,
+      "stars_search_snapshot": 2019,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Practical productivity tools for Claude Code, Codex-CLI, and similar CLI coding agents.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "alchaincyf/x-mentor-skill",
+      "repository_id": 1202683283,
+      "stars_search_snapshot": 1287,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "X导师.skill — 女娲的第一个「非人类」作品。蒸馏6位顶级X创作者方法论 + 开源算法数据，提炼完整的选题-写作-增长操作手册。Made with 女娲.skill",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "zanwei/design-dna",
+      "repository_id": 1189432033,
+      "stars_search_snapshot": 1984,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Turn reference UIs (images, screenshots, URLs) into quantified Design DNA JSON—tokens, qualitative style, visual effects—then generate matching UI from your content.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "kostja94/marketing-skills",
+      "repository_id": 1167296906,
+      "stars_search_snapshot": 1047,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent Skills for Marketing — SEO, Social, Influencer & More. 160+ open-source skills for SEO, content, 40+ page types, paid ads, channels, and strategies. Add project context; get tailored, production-ready output. Cursor, Claude Code, OpenClaw — no lock-in.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "BagelHole/DevOps-Security-Agent-Skills",
+      "repository_id": 1143707508,
+      "stars_search_snapshot": 1164,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent-ready DevOps, security, infrastructure, and compliance knowledge base with 80+ skills across Kubernetes, Terraform, AWS/Azure/GCP, AI platform operations, container hardening, SOC2/ISO27001, and incident response—plus ready-to-run scripts, templates, and playbooks for SRE, platform, and security teams.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "am-will/codex-skills",
+      "repository_id": 1135937291,
+      "stars_search_snapshot": 1037,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "aws/agent-toolkit-for-aws",
+      "repository_id": 1219009070,
+      "stars_search_snapshot": 2901,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Official, AWS-supported MCP servers, skills, and plugins to help AI agents build on AWS",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "finfin/awesome-frontend-skills",
+      "repository_id": 1183147331,
+      "stars_search_snapshot": 235,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "A curated list of frontend Agent Skills installable via npx skills add",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "FireRedTeam/FireRed-OpenStoryline",
+      "repository_id": 1152159038,
+      "stars_search_snapshot": 3515,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "FireRed-OpenStoryline is an AI video editing agent that transforms manual editing into intention-driven directing through natural language interaction, LLM-powered planning, and precise tool orchestration. It facilitates transparent, human-in-the-loop creation with reusable Style Skills for consistent, professional storytelling.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "dickwu/apple-design-skill",
+      "repository_id": 1168827461,
+      "stars_search_snapshot": 1531,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Cross-platform UI/UX design reviewer based on Apple HIG. Works with Flutter, Tauri, Electron, React Native. Compatible with Claude Code, Cursor, Codex.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "wshobson/agents",
+      "repository_id": 1025856648,
+      "stars_search_snapshot": 40974,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Multi-harness agentic plugin marketplace for Claude Code, Codex, Cursor, OpenCode, GitHub Copilot, Google Antigravity, and Pi",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "NVIDIA/skills",
+      "repository_id": 1167034425,
+      "stars_search_snapshot": 3632,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Agent Skills for NVIDIA products — install into Claude Code, Codex, and other coding agents to run Physical AI, robotics, simulation, CUDA, and RAG workflows end to end.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Jakubantalik/transitions.dev",
+      "repository_id": 1217396442,
+      "stars_search_snapshot": 5389,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "UI motion agent, a library of 43+ crafted transitions, a skill that fits your workflow.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "dbt-labs/dbt-agent-skills",
+      "repository_id": 1130059064,
+      "stars_search_snapshot": 738,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "A curated collection of Agent Skills for working with dbt, to help AI agents understand and execute dbt workflows more effectively.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "alchaincyf/steve-jobs-skill",
+      "repository_id": 1201942857,
+      "stars_search_snapshot": 963,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "乔布斯.skill — Steve Jobs的认知操作系统。6个心智模型 + 8条决策启发式 + 完整表达DNA。由女娲.skill生成。",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "wondelai/skills",
+      "repository_id": 1145158024,
+      "stars_search_snapshot": 2451,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Wondel.ai Agent Skills — Business, Marketing, UX & Coding Frameworks from Bestselling Books. 50 skills + 12 guided journeys for Claude Code, Codex, Cursor & other agentskills.io agents.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "rookie-ricardo/erduo-skills",
+      "repository_id": 1138443863,
+      "stars_search_snapshot": 938,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mcncarl/yichen-skills",
+      "repository_id": 1155113456,
+      "stars_search_snapshot": 4441,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "pifferologo/cloud-agents-cli",
+      "repository_id": 1278838315,
+      "stars_search_snapshot": 130,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "google cloud agent cli  for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from piffer labs",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "VisActor/skills",
+      "repository_id": 748476385,
+      "stars_search_snapshot": 471,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent skills for the VisActor visualization ecosystem.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "aliyun/alibabacloud-aiops-skills",
+      "repository_id": 1179538187,
+      "stars_search_snapshot": 266,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "testdino-hq/playwright-skill",
+      "repository_id": 1157070830,
+      "stars_search_snapshot": 396,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "TestDino Playwright Skill: AI-powered guides for Playwright best practices, made by testdino.com.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "gauss314/skills",
+      "repository_id": 1257647992,
+      "stars_search_snapshot": 249,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Financial market data consumption skills for claude code and AI agents",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "zjp1997720/zhijian-skills",
+      "repository_id": 1303388198,
+      "stars_search_snapshot": 784,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Canonical source and governance toolkit for Zhijian AI public Agent Skills",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "tw93/MiaoYan",
+      "repository_id": 253461233,
+      "stars_search_snapshot": 8672,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "⛷ A quiet, local-first Markdown writing app for Mac, to help you write great sentences.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "HKUDS/CLI-Anything",
+      "repository_id": 1176011916,
+      "stars_search_snapshot": 54061,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "\"CLI-Anything: Making ALL Software Agent-Native\" -- CLI-Hub: https://clianything.cc/",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "x-hw/amazing-qr",
+      "repository_id": 66557478,
+      "stars_search_snapshot": 10838,
+      "license_search_metadata": "GPL-3.0",
+      "fork_search_metadata": false,
+      "description": "💮 amazing QRCode generator (supporting animated gif) - amazing 二维码生成器（支持 gif 动态图片二维码）",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "getpaseo/paseo",
+      "repository_id": 1075381375,
+      "stars_search_snapshot": 21229,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Orchestrate multiple coding agents from desktop and mobile",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "appeeky/aso-skills",
+      "repository_id": 1168912251,
+      "stars_search_snapshot": 2185,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "AI agent skills for App Store Optimization (ASO) and app marketing. Built for indie developers, app marketers, and growth teams who want Cursor, Claude Code, or any Agent Skills-compatible AI assistant to help with keyword research, metadata optimization, competitor analysis, and app growth.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "CloudAI-X/claude-workflow-v2",
+      "repository_id": 1126064944,
+      "stars_search_snapshot": 1420,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Universal Claude Code workflow plugin with agents, skills, hooks, and commands",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "timescale/pg-aiguide",
+      "repository_id": 1025052801,
+      "stars_search_snapshot": 1871,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "MCP server and Claude plugin for Postgres skills and documentation. Helps AI coding tools generate better PostgreSQL code.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "intellectronica/agent-skills",
+      "repository_id": 1138465232,
+      "stars_search_snapshot": 295,
+      "license_search_metadata": "CC0-1.0",
+      "fork_search_metadata": false,
+      "description": "@intellectronica's agent skills",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "opensearch-project/opensearch-agent-skills",
+      "repository_id": 1198640368,
+      "stars_search_snapshot": 59,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "A collection of Agent Skills for building search applications and analyzing observability data with OpenSearch. ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "NVIDIA/OpenShell",
+      "repository_id": 1166129534,
+      "stars_search_snapshot": 16539,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "OpenShell is the safe, private runtime for autonomous AI agents.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "desplega-ai/agent-swarm",
+      "repository_id": 1119736729,
+      "stars_search_snapshot": 898,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Your Company Agentic Operating System",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "imxv/Pretty-mermaid-skills",
+      "repository_id": 1145741988,
+      "stars_search_snapshot": 1534,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "AI Agent Skill to generate and render beautiful Mermaid diagrams as SVG or terminal ASCII — 15 themes, 6 diagram types, batch CLI, no browser.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "modal-labs/modal-client",
+      "repository_id": 553878560,
+      "stars_search_snapshot": 525,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "SDK libraries for Modal",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ferdinandobons/startup-skill",
+      "repository_id": 1174682625,
+      "stars_search_snapshot": 1201,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "AI agent skills for startup validation, competitive intelligence, and planning",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "JimLiu/baoyu-design",
+      "repository_id": 1261650101,
+      "stars_search_snapshot": 4403,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Run Claude Design locally as an Agent Skill — Cursor, Claude Code & more. Produce polished UI mockups, prototypes, decks & wireframes as self-contained HTML, without claude.ai/design. Best with Opus or Claude.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "microsoft/apm",
+      "repository_id": 1059472549,
+      "stars_search_snapshot": 4031,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent Package Manager",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "SeanJ1ang/design-judge-skills",
+      "repository_id": 1304696714,
+      "stars_search_snapshot": 712,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Evidence-driven Agent Skills for design award research, evaluation, award matching, entry writing, and submission readiness.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "jackwener/wechat-article-to-markdown",
+      "repository_id": 1169918139,
+      "stars_search_snapshot": 1063,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "微信公众号文章抓取 & Markdown 转换工具",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "bencium/bencium-marketplace",
+      "repository_id": 1078819607,
+      "stars_search_snapshot": 456,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "comprehensive skills based on the Anthropic Skills guide and our design and development philosophy",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "spree/spree-starter",
+      "repository_id": 45354865,
+      "stars_search_snapshot": 402,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "@spree application starter template",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "BuildGreatProducts/builder-os",
+      "repository_id": 1266247085,
+      "stars_search_snapshot": 230,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "BuilderOS is your operating system for building with AI",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "openinterpreter/openinterpreter",
+      "repository_id": 666299222,
+      "stars_search_snapshot": 68596,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "A coding agent for open models like Kimi K3 and GLM 5.3",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "koala73/worldmonitor",
+      "repository_id": 1130564872,
+      "stars_search_snapshot": 88631,
+      "license_search_metadata": "AGPL-3.0",
+      "fork_search_metadata": false,
+      "description": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Shubhamsaboo/awesome-llm-apps",
+      "repository_id": 793375104,
+      "stars_search_snapshot": 142140,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "100+ AI Agents, Agent Skills and RAG Apps - Free and Open Source.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "K-Dense-AI/scientific-agent-skills",
+      "repository_id": 1079456184,
+      "stars_search_snapshot": 52253,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 250,000+ scientists worldwide. 177 ready-to-use validated skills plus 100+ scientific databases covering biology, chemistry, medicine, and drug discovery. Compatible with Cursor, Claude Code, Codex, Pi, Antigravity, and the open Agent Skills standard.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "VoltAgent/awesome-agent-skills",
+      "repository_id": 1084853233,
+      "stars_search_snapshot": 35900,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "DefiLlama/DefiLlama-Adapters",
+      "repository_id": 312716297,
+      "stars_search_snapshot": 1270,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "sickn33/agentic-awesome-skills",
+      "repository_id": 1134426800,
+      "stars_search_snapshot": 47778,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "AAS Core is the local, agent-first control plane for complete catalog discovery, agent-owned selection, stack validation, and planning, backed by 2,600+ agentic skills. Includes CLI, local MCP, catalog, plugins, and Workbench.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "dotnet/skills",
+      "repository_id": 1149257427,
+      "stars_search_snapshot": 5660,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Repository for skills to assist AI coding agents with .NET and C#",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "memodb-io/Acontext",
+      "repository_id": 1020834440,
+      "stars_search_snapshot": 3697,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Agent Skills as a Memory Layer",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "heilcheng/awesome-agent-skills",
+      "repository_id": 1124920990,
+      "stars_search_snapshot": 6282,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Tutorials, Guides and Agent Skills Directories",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "BehiSecc/awesome-claude-skills",
+      "repository_id": 1078332194,
+      "stars_search_snapshot": 10262,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "A curated list of Claude Skills.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "modelcontextprotocol/ext-apps",
+      "repository_id": 1101234405,
+      "stars_search_snapshot": 2968,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "jondot/awesome-react-native",
+      "repository_id": 32948863,
+      "stars_search_snapshot": 35706,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Awesome React Native components, news, tools, and learning material!",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "composio-community/open-claude-cowork",
+      "repository_id": 1133210524,
+      "stars_search_snapshot": 4294,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Open Source version of Claude Cowork with 500+ SaaS app integrations",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "stripe/ai",
+      "repository_id": 886826524,
+      "stars_search_snapshot": 1956,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "One-stop shop for building AI-powered products and businesses with Stripe.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "rohitg00/ai-engineering-from-scratch",
+      "repository_id": 1185590488,
+      "stars_search_snapshot": 70681,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Learn AI Engineering! Learn it. Build it. Ship it for others.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "repository_id": 1120349776,
+      "stars_search_snapshot": 18157,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A comprehensive collection of Agent Skills for context engineering, multi-agent architectures, and production agent systems. Use when building, optimizing, or debugging agent systems that require effective context management.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "CopilotKit/CopilotKit",
+      "repository_id": 655515393,
+      "stars_search_snapshot": 38081,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "The Frontend Stack for Agents & Generative UI. React, Angular, Mobile, Slack, and more.  Makers of the AG-UI Protocol",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "cloudflare/skills",
+      "repository_id": 1113922795,
+      "stars_search_snapshot": 3090,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Skills for teaching agents how to build on Cloudflare.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "google/skills",
+      "repository_id": 1197652028,
+      "stars_search_snapshot": 21381,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Agent Skills for Google products and technologies",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "anthropics/claude-plugins-official",
+      "repository_id": 1100776768,
+      "stars_search_snapshot": 41763,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "github/copilot-sdk",
+      "repository_id": 1133883850,
+      "stars_search_snapshot": 10561,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Multi-platform SDK for integrating GitHub Copilot Agent into apps and services",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "jqueryscript/awesome-claude-code",
+      "repository_id": 1019011969,
+      "stars_search_snapshot": 532,
+      "license_search_metadata": "CC0-1.0",
+      "fork_search_metadata": false,
+      "description": "A curated list of awesome tools, IDE integrations, frameworks, and other resources for developers working with Anthropic's Claude Code. ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "apify/agent-skills",
+      "repository_id": 1129716674,
+      "stars_search_snapshot": 2438,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Collection of Apify agent skills",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "googleapis/mcp-toolbox",
+      "repository_id": 812044182,
+      "stars_search_snapshot": 16674,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "MCP Toolbox for Databases is an open source MCP server for databases.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Observal/Axl",
+      "repository_id": 1351691201,
+      "stars_search_snapshot": 1194,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "appwrite/appwrite",
+      "repository_id": 180190854,
+      "stars_search_snapshot": 57715,
+      "license_search_metadata": "BSD-3-Clause",
+      "fork_search_metadata": false,
+      "description": "The open-source cloud for agents & devs. Including Auth, Databases, Storage, Functions, Messaging, Hosting, Realtime, WAF and more",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "spree/spree",
+      "repository_id": 3314,
+      "stars_search_snapshot": 15761,
+      "license_search_metadata": "BSD-3-Clause",
+      "fork_search_metadata": false,
+      "description": "Open Source Platform for DTC, B2B Commerce, Marketplaces & Omnichannel. REST APIs, TypeScript SDKs, and production-ready Next.js storefront. Self-host it. Own your data. No vendor lock-in. Zero platform fees.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "owainlewis/awesome-artificial-intelligence",
+      "repository_id": 29906842,
+      "stars_search_snapshot": 16687,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A curated list of Artificial Intelligence (AI) courses, books, video lectures and papers.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "solana-foundation/solana-dev-skill",
+      "repository_id": 1132741163,
+      "stars_search_snapshot": 578,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Skills for agentic development on Solana",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "midudev/autoskills",
+      "repository_id": 1191521334,
+      "stars_search_snapshot": 6955,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "One command. Your entire AI skill stack. Installed.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "google/adk-recipes",
+      "repository_id": 958830671,
+      "stars_search_snapshot": 10457,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "A collection of agent recipes, reference patterns, and vertical plugins built with Agent Development Kit (ADK)",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "refly-ai/refly",
+      "repository_id": 759799529,
+      "stars_search_snapshot": 7536,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "The first open-source agent skills builder. Define skills by vibe workflow, run on Claude Code, Cursor, Codex & more. Build Clawdbot 🦞· APIs for Lovable · Bots for Slack & Lark/Feishu · Skills are infrastructure, not prompts.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "K-Dense-AI/karpathy",
+      "repository_id": 1097835077,
+      "stars_search_snapshot": 1566,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "An agentic Machine Learning Engineer",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "skillmatic-ai/awesome-agent-skills",
+      "repository_id": 1121267947,
+      "stars_search_snapshot": 684,
+      "license_search_metadata": "CC0-1.0",
+      "fork_search_metadata": false,
+      "description": "The definitive resource for Agent Skills - modular capabilities revolutionizing AI agent architecture",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "livekit/agents",
+      "repository_id": 707441527,
+      "stars_search_snapshot": 14800,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "A framework for building realtime voice AI agents 🤖🎙️📹 ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Asymptote-Labs/agent-beacon",
+      "repository_id": 1236183038,
+      "stars_search_snapshot": 1836,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "The cross-harness, self-improving memory layer for AI agents. Join our community: https://discord.com/invite/zdNChS2fBu",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "GetStream/stream-chat-react-native",
+      "repository_id": 178163307,
+      "stars_search_snapshot": 1181,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": " 💬 React-Native Chat SDK ➜ Stream Chat. Includes a tutorial on building your own chat app experience using React-Native, React-Navigation and Stream",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "shanraisshan/claude-code-best-practice",
+      "repository_id": 1087192965,
+      "stars_search_snapshot": 67675,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "from vibe coding to agentic engineering - practice makes claude perfect",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "superradcompany/microsandbox",
+      "repository_id": 867192625,
+      "stars_search_snapshot": 8718,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "🧱 easy, fast, programmable and local-first microVM runtime and library",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "JackyST0/awesome-agent-skills",
+      "repository_id": 1143816215,
+      "stars_search_snapshot": 653,
+      "license_search_metadata": "CC0-1.0",
+      "fork_search_metadata": false,
+      "description": "🤖 精选的 AI Agent Skills 列表，适用于 Cursor、Claude Code、GitHub Copilot 等 AI 编程工具",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Picrew/awesome-agent-harness",
+      "repository_id": 1195759722,
+      "stars_search_snapshot": 1863,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "An awesome list of Agent Harness engineering resources, including GitHub projects, tools, benchmarks, and practical guides.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "datawhalechina/agent-skills-with-anthropic",
+      "repository_id": 1147279004,
+      "stars_search_snapshot": 1541,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "本项目围绕吴恩达老师在DeepLearning.AI出品的agent-skills-with-anthropic系列课程，为学习者打造中文翻译与知识整理教程。项目提供课程内容翻译、知识点梳理和示例代码解读等内容，欢迎大家Star!",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "AvdLee/SwiftUI-Agent-Skill",
+      "repository_id": 1139114532,
+      "stars_search_snapshot": 3713,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Add expert SwiftUI Best Practices guidance to your AI coding tool (Agent Skills open format).",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "anthropics/commerce-agents",
+      "repository_id": 1353548665,
+      "stars_search_snapshot": 3262,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Reference blueprint for building shopping and merchant agents with Claude. Examples in retail, commerce, telecom, and entertainment included.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "yizhiyanhua-ai/fireworks-tech-graph",
+      "repository_id": 1207091162,
+      "stars_search_snapshot": 11757,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Generate production-quality SVG+PNG technical diagrams from natural language. 7 styles, UML support, and AI/Agent workflow patterns.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "MiniMax-AI/skills",
+      "repository_id": 1184030270,
+      "stars_search_snapshot": 13710,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "huggingface/skills",
+      "repository_id": 1102903896,
+      "stars_search_snapshot": 11178,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Give your agents the power of the Hugging Face ecosystem",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "flutter/flutter-intellij",
+      "repository_id": 64172164,
+      "stars_search_snapshot": 2019,
+      "license_search_metadata": "BSD-3-Clause",
+      "fork_search_metadata": false,
+      "description": "Flutter Plugin for IntelliJ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "darkrishabh/agent-skills-eval",
+      "repository_id": 1230541272,
+      "stars_search_snapshot": 802,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A test runner for agentskills.io-style AI agent skills",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "nicobailon/visual-explainer",
+      "repository_id": 1159484260,
+      "stars_search_snapshot": 10485,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent skill that generates rich HTML pages or slide decks for diagrams, diff reviews, plan audits, data tables, and project recaps",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "awslabs/agent-plugins",
+      "repository_id": 1150865300,
+      "stars_search_snapshot": 924,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Agent Plugins for AWS equip AI coding agents with the skills to help you architect, deploy, and operate on AWS.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "iflytek/skillhub",
+      "repository_id": 1178833585,
+      "stars_search_snapshot": 5239,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Self-hosted, open-source agent skill registry for enterprises. Publish & version skill packages, govern with RBAC and audit logs, deploy   on-premise with Docker or Kubernetes.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "modelscope/ms-agent",
+      "repository_id": 674153903,
+      "stars_search_snapshot": 4414,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "MS-Agent: a lightweight framework to empower agentic execution of complex tasks",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "rounak/PhoneAgent",
+      "repository_id": 993002543,
+      "stars_search_snapshot": 801,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "An AI agent that can get things done across iPhone apps.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "rerun-io/rerun",
+      "repository_id": 479289739,
+      "stars_search_snapshot": 11609,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Visualize, query, and stream to train on multimodal robotics data.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "AutoArk/EVA-OS",
+      "repository_id": 1104312115,
+      "stars_search_snapshot": 1925,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "EVA OS — A real-time multimodal AIOS for next-generation hardware, enabling your devices being “alive” and as intelligent as a real brain. ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "vercel-labs/openreview",
+      "repository_id": 1170324144,
+      "stars_search_snapshot": 1693,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "An open-source, self-hosted AI code review bot powered by Vercel.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "SigNoz/signoz",
+      "repository_id": 326404870,
+      "stars_search_snapshot": 32376,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "SigNoz is an open-source, OpenTelemetry-native observability platform for your team and their AI agents. Get logs, metrics, and traces in one tool with features like APM, distributed tracing, log management, infra monitoring, etc. Combined with SigNoz MCP and a native AI teammate (in SigNoz Cloud) it helps you build more resilient apps.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "microsoft/WindowsAppSDK",
+      "repository_id": 256049233,
+      "stars_search_snapshot": 4703,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "The Windows App SDK empowers all Windows desktop apps with modern Windows UI, APIs, and platform features, including back-compat support, shipped via NuGet.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "TanStack/ai",
+      "repository_id": 1072429861,
+      "stars_search_snapshot": 3201,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "🤖 Type-safe, provider-agnostic TypeScript AI SDK for streaming chat, tool calling, agents, and multimodal apps across OpenAI, Anthropic, Gemini, React, Vue, Svelte, and Solid.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "callstackincubator/agent-skills",
+      "repository_id": 1134388286,
+      "stars_search_snapshot": 1673,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A collection of agent-optimized React Native skills for AI coding assistants.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "speakeasy-api/speakeasy",
+      "repository_id": 543052826,
+      "stars_search_snapshot": 454,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Build APIs your users love ❤️ with Speakeasy. ✨ Polished and type-safe SDKs. 🌐 Terraform providers, MCP servers, CLIs and Contract Tests for your API. OpenAPI native. ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "new-silvermoon/awesome-android-agent-skills",
+      "repository_id": 753723465,
+      "stars_search_snapshot": 980,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "A collection of standardized Agent Skills to teach GitHub Copilot, Claude, Gemini and Cursor about modern Android development (Kotlin, Jetpack Compose, etc.).",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "workany-ai/workany",
+      "repository_id": 1137285687,
+      "stars_search_snapshot": 1526,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Desktop Agent for Any Task",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ant-design/x",
+      "repository_id": 798235565,
+      "stars_search_snapshot": 4813,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Craft AI-driven interface effortlessly🤖",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "charmbracelet/crush",
+      "repository_id": 987670088,
+      "stars_search_snapshot": 28686,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Glamourous agentic coding for all 💘",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "solana-foundation/awesome-solana-ai",
+      "repository_id": 1135980037,
+      "stars_search_snapshot": 432,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Public repo of AI tooling to help build on Solana",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "fastforgedev/fastforge",
+      "repository_id": 417769887,
+      "stars_search_snapshot": 1146,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Ship every app faster to your users — Build, package, and publish with one clear configuration. Target popular distribution formats and app stores while fitting naturally into your CI/CD pipeline.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "TheWidlarzGroup/react-native-video",
+      "repository_id": 33166041,
+      "stars_search_snapshot": 7720,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A <Video /> component for react-native",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "vinta/awesome-python",
+      "repository_id": 21289110,
+      "stars_search_snapshot": 328228,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "The definitive list that answers \"I want to do X in Python, which tool should I use?\"",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "hashgraph-online/awesome-ai-plugins",
+      "repository_id": 1204165322,
+      "stars_search_snapshot": 764,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "A curated list of the best awesome AI plugins for AI assistants including Claude Code, OpenAI Codex / ChatGPT, Gemini, Antigravity, Pi / Oh My Pi, Grok, OpenCodek DSH, Kimi and More. https://hol.org/plugins",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mims-harvard/ToolUniverse",
+      "repository_id": 942272855,
+      "stars_search_snapshot": 1745,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Democratizing AI scientists with ToolUniverse",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "subinium/awesome-claude-code",
+      "repository_id": 1152861125,
+      "stars_search_snapshot": 119,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Curated list of tools, skills, plugins, and MCP servers for Claude Code",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ProvableHQ/sdk",
+      "repository_id": 326268532,
+      "stars_search_snapshot": 634,
+      "license_search_metadata": "GPL-3.0",
+      "fork_search_metadata": false,
+      "description": "Javascript & Typescript SDK for Zero-Knowledge Application Development",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "GetStream/stream-chat-react",
+      "repository_id": 170228946,
+      "stars_search_snapshot": 845,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "React Chat SDK ➜ Stream Chat 💬",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "microsoft/skills",
+      "repository_id": 1135891523,
+      "stars_search_snapshot": 3129,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Skills, MCP servers, Custom Agents, Agents.md for SDKs to ground Coding Agents",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "alibaba/UnifiedModel",
+      "repository_id": 1230664565,
+      "stars_search_snapshot": 422,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "The semantic layer that makes enterprise data understandable to AI agents — model entities and relations once, query through SPL/MCP/REST, and connect telemetry, services, and business objects in one object graph.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "block/berd",
+      "repository_id": 1331110883,
+      "stars_search_snapshot": 984,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "a desktop app for getting work done with any model",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "internet-court/internet-court-skill",
+      "repository_id": 1271239690,
+      "stars_search_snapshot": 6755,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "The trust layer for agent-to-agent commerce — natural-language mandates, ERC-7710 delegated permissions, x402 payments, escrow, and dispute resolution as one open, catch-all Agent Skill / Claude Code plugin.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "plugin87/ux-ui-agent-skills",
+      "repository_id": 1183286798,
+      "stars_search_snapshot": 2034,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Turn Claude into a senior design architect: DTCG tokens, 52 components, WCAG 2.2 AA-AAA, 138 design systems, any-framework code, and 50 objective gates that fail the build instead of faking success.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "strands-agents/docs",
+      "repository_id": 983716936,
+      "stars_search_snapshot": 197,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Documentation for the Strands Agents SDK. A model-driven approach to building AI agents in just a few lines of code. ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "lightdash/lightdash",
+      "repository_id": 349372179,
+      "stars_search_snapshot": 6191,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Agentic BI. Analytics at the speed of code ⚡️",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "VectifyAI/OpenKB",
+      "repository_id": 1201253077,
+      "stars_search_snapshot": 4790,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "OpenKB: Open LLM Knowledge Base",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "RoggeOhta/awesome-codex-cli",
+      "repository_id": 1196948954,
+      "stars_search_snapshot": 553,
+      "license_search_metadata": "CC0-1.0",
+      "fork_search_metadata": false,
+      "description": "Curated list of 150+ tools, skills, subagents & plugins for OpenAI Codex CLI",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "opencoredev/login-with-chatgpt",
+      "repository_id": 1293014571,
+      "stars_search_snapshot": 333,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A simple SDK that lets your users log in with their ChatGPT account.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "databricks-solutions/ai-dev-kit",
+      "repository_id": 1117894769,
+      "stars_search_snapshot": 1952,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Databricks Toolkit for Coding Agents provided by Field Engineering",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "MicrosoftDocs/mcp",
+      "repository_id": 998658053,
+      "stars_search_snapshot": 1951,
+      "license_search_metadata": "CC-BY-4.0",
+      "fork_search_metadata": false,
+      "description": "Official Microsoft Learn MCP Server and CLI tool – powering LLMs and AI agents with real-time, trusted Microsoft docs & code samples.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mqttsnet/thinglinks",
+      "repository_id": 407425852,
+      "stars_search_snapshot": 1080,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Enterprise-grade IoT platform powered by ThingLinks Engine.  Supports MQTT / HTTP / CoAP / TCP / Modbus, rule engine,  Visual display screen & multi-tenancy. Millions of connections per node.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "oracle/netsuite-suitecloud-sdk",
+      "repository_id": 222663474,
+      "stars_search_snapshot": 356,
+      "license_search_metadata": "UPL-1.0",
+      "fork_search_metadata": false,
+      "description": "SuiteCloud Software Development Kit (SuiteCloud SDK) are the set of tools that allow you to customize accounts and create SuiteApps through SuiteCloud Development Framework (SDF).",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Abhinavbwj/Urban-Design-Skills-Claude",
+      "repository_id": 1169127191,
+      "stars_search_snapshot": 133,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Urban Design Skills Claude",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "msitarzewski/agency-agents",
+      "repository_id": 1075372545,
+      "stars_search_snapshot": 160908,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "QuZhan51496/paper2anything",
+      "repository_id": 1269930651,
+      "stars_search_snapshot": 461,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "An agent skills pack that turns an academic paper PDF into slides, a poster, a webpage, a Xiaohongshu post, or a WeChat article (paper2slides/poster/html/xhs/wechat)",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "brightdata/skills",
+      "repository_id": 1144208576,
+      "stars_search_snapshot": 266,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "cmer81/open-meteo-mcp",
+      "repository_id": 1010836930,
+      "stars_search_snapshot": 71,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A comprehensive MCP server providing access to Open-Meteo weather APIs for Large Language Models",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "AgentTeam-TaichuAI/ScienceClaw",
+      "repository_id": 1180557903,
+      "stars_search_snapshot": 671,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "ScienceClaw is a personal research assistant built with LangChain DeepAgents and AIO Sandbox infrastructure, adopting a completely new architecture beyond OpenClaw. It offers stronger security, better transparency, and a more user-friendly experience.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Geeksfino/finskills",
+      "repository_id": 1151105316,
+      "stars_search_snapshot": 282,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Financial engineering and risk/compliance skills for agents",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "vinkius-labs/mcpfusion",
+      "repository_id": 1156046366,
+      "stars_search_snapshot": 255,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "MCP Fusion - The TypeScript framework for secure MCP servers.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "johnmwangimegwe/kenya-climate-agent",
+      "repository_id": 1274307061,
+      "stars_search_snapshot": 5,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Reasoning Over Earth Engine: An AI Agent for Kenya's Climate Risk",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "flaqai/Awesome_SEO_Writing_Skill",
+      "repository_id": 1299104550,
+      "stars_search_snapshot": 89,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Share the awesome skills for SEO Writing. All the skills are developed by Flaq AI Team",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Abhinavbwj/Skills-Architects",
+      "repository_id": 1203147517,
+      "stars_search_snapshot": 298,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Waybox-AI/roadtrip-skill",
+      "repository_id": 1276819713,
+      "stars_search_snapshot": 124,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "An AI agent skill that turns \"start + days\" into a road trip you can actually drive.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "lionelsimai/claude-skills-collection",
+      "repository_id": 1152588323,
+      "stars_search_snapshot": 29,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Lucaswangzcx/literature-downloader-skill",
+      "repository_id": 1222445555,
+      "stars_search_snapshot": 245,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A Chinese Codex skill for academic literature search, lawful full-text downloading, readable reports, and student-friendly paper lists.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "itgoyo/hermes-skills",
+      "repository_id": 1217702792,
+      "stars_search_snapshot": 68,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "310+ Hermes Agent Skills — reusable AI agent workflows for coding, marketing, design, finance, MLOps and more",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "pminervini/deep-research-mcp",
+      "repository_id": 1034144207,
+      "stars_search_snapshot": 115,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "MCP server for OpenAI Deep Research, Gemini Deep Research, Tavily Research, DR-Tulu, and Open Deep Research",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Tyche-MKR/scientific-agent-skills",
+      "repository_id": 1352303594,
+      "stars_search_snapshot": 80,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 190,000+ scientists worldwide. 165 ready-to-use validated skills plus 100+ scientific databases covering biology, chemistry, medicine, and drug discovery. Compatible with Cursor, Claude Code, Codex, Pi, Antigravity, and the open Agent Skills standard.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "GoekeLab/awesome-genomic-skills",
+      "repository_id": 1252217827,
+      "stars_search_snapshot": 121,
+      "license_search_metadata": "CC0-1.0",
+      "fork_search_metadata": false,
+      "description": "A curated list of awesome genomics and bioinformatics agentic skills, MCPs and benchmarks for Claude Code, Copilot, Codex, Cursor, Gemini CLI, etc",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "gabogabucho/trendingcontent-agent",
+      "repository_id": 1192242400,
+      "stars_search_snapshot": 43,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "stbenjam/skillsaw",
+      "repository_id": 1231888139,
+      "stars_search_snapshot": 67,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Keep your skills sharp. Intelligence for agent context.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "louisedesadeleer/color-correct",
+      "repository_id": 1293519413,
+      "stars_search_snapshot": 25,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "🎨 AI colorist skill for Claude Code — 9 named looks reverse-engineered from great creators. Pick a look, see the menu, or let AI decide.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "CaseMark/skills",
+      "repository_id": 1165005195,
+      "stars_search_snapshot": 45,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "DogInfantry/claude-skill-management-consultant-B1",
+      "repository_id": 1202207630,
+      "stars_search_snapshot": 145,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Claude skill & plugin: turn Claude (or any LLM) into an MBB-grade management consultant. Case-interview coaching, strategy frameworks, market sizing, board-ready problem-solving. 129 reference modules. Free & open-source.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "qianye-wuyu/yueyuan-bazi",
+      "repository_id": 1333406789,
+      "stars_search_snapshot": 272,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "跃渊 YueYuan · 子平命理分析系统（研究型八字解读 Skill：假设-证据-反证、规则分层、预注册预测+后验验证、变格四态状态机、100 案例测试）",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "xjtulyc/awesome-rosetta-skills",
+      "repository_id": 1183875385,
+      "stars_search_snapshot": 34,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Awesome all-in-one research skills for AI agents — covering every academic discipline. Works with Claude Code, Codex, Gemini CLI & Cursor.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "geekjourneyx/jina-cli",
+      "repository_id": 1169145602,
+      "stars_search_snapshot": 311,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A lightweight CLI tool wrapping Jina AI Reader API for AI Agents. Fetch and parse any URL into LLM-friendly   formats (Markdown/Text/HTML). Perfect for reading X(Twitter), blogs, and news sites.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "RongleCat/awesome-grok-bot",
+      "repository_id": 1339813167,
+      "stars_search_snapshot": 429,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Curated bilingual list of Grok Bot resources — always-on AI teammates with their own cloud computer.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "SteadfastAsArt/geoscience-skills",
+      "repository_id": 1142266166,
+      "stars_search_snapshot": 70,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "🌍 30 AI-powered geoscience skills for Claude Code, Cursor & GitHub Copilot. Seismic, well logs, 3D modelling, inversion, geostatistics, spatial regression, NetCDF, and more.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "KarenSpinner/article-thumbnail-skill",
+      "repository_id": 1233375495,
+      "stars_search_snapshot": 34,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Claude Code skill for generating brand-consistent illustrated article thumbnails via Gemini 2.5 Flash Image (Nano Banana).",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "video-db/agentic-streams",
+      "repository_id": 1198825926,
+      "stars_search_snapshot": 44,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Create & stream personalized agentic video briefings on any topic. ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "stripe/link-cli",
+      "repository_id": 1219424489,
+      "stars_search_snapshot": 856,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Let your agents spend on your behalf. Your payment credentials are never exposed. You approve every purchase.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Zhonghao1995/agentic-swmm-workflow",
+      "repository_id": 1167231870,
+      "stars_search_snapshot": 30,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agentic SWMM is an automated, auditable, and memory-informed framework for reproducible stormwater modelling, integrating QGIS and EPA SWMM through the aiswmm runtime, reusable Skills, and MCP interfaces, with QA verification, provenance tracking, calibration support, and Codex, Hermes, Claude code as well as OpenClaw compatibility",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "kevinpbuckley/unreal-engine-skills",
+      "repository_id": 1192282501,
+      "stars_search_snapshot": 71,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "psubbiah/digging-agent",
+      "repository_id": 1230353505,
+      "stars_search_snapshot": 0,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A starter agent for the patient information work journalists didn't sign up for, but have to do. Built for Women in Journalism, May 2026.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Luligu/matterbridge-example-dynamic-platform",
+      "repository_id": 762665972,
+      "stars_search_snapshot": 10,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Matterbridge dynamic platform plugin example",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "sadassimov/geemu-skill",
+      "repository_id": 1260384190,
+      "stars_search_snapshot": 60,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "GEEMu - Google Earth Engine Master Utility: a GEE/geemap workflow skill for OpenAI Codex and Claude Code",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "uw-ssec/rse-plugins",
+      "repository_id": 1091290859,
+      "stars_search_snapshot": 29,
+      "license_search_metadata": "BSD-3-Clause",
+      "fork_search_metadata": false,
+      "description": "Research Software Engineering Plugins for Coding Agents",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "vikiboss/60s-skills",
+      "repository_id": 1149595948,
+      "stars_search_snapshot": 47,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Skills for 60s API project. 60s API 项目的配套 Skill，支持 Claude Code、Codex、Cursor 等主流 Agent Coding 工具。",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Benny-Lewis/home-assistant-assistant",
+      "repository_id": 1142957181,
+      "stars_search_snapshot": 57,
+      "license_search_metadata": "MPL-2.0",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ThisIsJeron/awesome-openclaw-plugins",
+      "repository_id": 1149350397,
+      "stars_search_snapshot": 14,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "A curated list of plugins for OpenClaw, the open-source personal AI assistant",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "lyndonkl/claude",
+      "repository_id": 1081462004,
+      "stars_search_snapshot": 169,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Agents, skills and anything else to use with claude",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mariourquia/cre-skills-plugin",
+      "repository_id": 1184639906,
+      "stars_search_snapshot": 50,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "100+ institutional-grade CRE skills for Claude Code, Desktop, and Cowork. Deal screening, underwriting, structuring, capital markets, asset management, leasing, investor relations, development, disposition, and daily ops. 50+ expert agents, 12+ Python calculators, 10+ orchestrator pipelines, catalog-driven routing.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ai4s-research/awesome-ai-for-science",
+      "repository_id": 1069616483,
+      "stars_search_snapshot": 2034,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A curated list of awesome AI tools, libraries, papers, datasets, and frameworks that accelerate scientific discovery — from physics and chemistry to biology, materials, and beyond.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Marc0L33/FootballProphet",
+      "repository_id": 1281390480,
+      "stars_search_snapshot": 13,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "GeoGeekLab/nature-reviewer-skills",
+      "repository_id": 1283995054,
+      "stars_search_snapshot": 48,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Nature-style AI peer reviewer for scientific manuscripts. 我把Nature期刊审稿人蒸馏了。",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "johnmwangimegwe/lake-Victoria-flood-agent",
+      "repository_id": 1310708055,
+      "stars_search_snapshot": 0,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Reasoning Over Earth Engine: Building an AI Agent for Lake Victoria's Flood Risk",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "johnnyh1975/HA_Bubble_Skill",
+      "repository_id": 1253290366,
+      "stars_search_snapshot": 17,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Claude skill library for building Home Assistant dashboards with Bubble Card, Streamline Card, Sidebar Card and Mushroom — including a merged HA/Bubble/Mushroom CSS theme, colour intelligence with WCAG checks, and full troubleshooting reference.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ZeroPointRepo/awesome-grok-bot",
+      "repository_id": 1332067090,
+      "stars_search_snapshot": 66,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Grok Bot skills, plugins, and MCP servers: 60+ verified entries plus self-hosted alternatives.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "alexgrebeshok-coder/ai-pmo-skills",
+      "repository_id": 1162245034,
+      "stars_search_snapshot": 10,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "AI-PMO Skills for Claude Code - 11 production-ready project management skills for construction & infrastructure",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "googlarz/fashion-skill",
+      "repository_id": 1214961939,
+      "stars_search_snapshot": 17,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Personal AI stylist skill for Claude Code and Claude Cowork — wardrobe inventory, outfit recommendations, pre-purchase checks, in-store mode, and more.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Eliclx/p1-cabin-agent",
+      "repository_id": 1241182323,
+      "stars_search_snapshot": 6,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "智能座舱",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "sacridini/Awesome-Geospatial",
+      "repository_id": 58225794,
+      "stars_search_snapshot": 5331,
+      "license_search_metadata": "CC0-1.0",
+      "fork_search_metadata": false,
+      "description": "Long list of geospatial tools and resources",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "TravisLeeeeee/awesome-openclaw-personas",
+      "repository_id": 1191405676,
+      "stars_search_snapshot": 110,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "🧠 Curated collection of 214+ best OpenClaw personas — weekly updated by Deskclaw.net from GitHub & community. AI, productivity, dev, marketing, finance & more.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Socialpranker/deepdive",
+      "repository_id": 1245614371,
+      "stars_search_snapshot": 373,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Deepdive skill for Claude Code — 12-phase research pipeline: plan-review gate, parallel sub-agent search, claims-ledger triangulation with dissent protection, relevance × authority evidence filter, multi-angle red team, four-layer citation verification. 105 blocks, 29 channels, 460+ stat sources, 47 APIs, 1072 verified endpoints.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "coco-research/coco",
+      "repository_id": 1221180063,
+      "stars_search_snapshot": 703,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "CoCo Super Intelligence is the orchestration layer that turns Claude Code, Cursor, or Codex into an engineering department: a routed advisory board, 226 skills, 386 commands, persistent state. Local. Open-core — MIT core; Super Intelligence is proprietary, own-use.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "jokull/icelandic-data",
+      "repository_id": 1127800077,
+      "stars_search_snapshot": 55,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Data toolkit for Icelandic public data, built around Claude Code",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Hongjian01/ClimWorkflow",
+      "repository_id": 1375677296,
+      "stars_search_snapshot": 102,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "可恢复气候数据智能体：自然语言 → 获取 / 检查 / 绘图 / 报告",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "hh-health-AI/healthcare-equity",
+      "repository_id": 1347439209,
+      "stars_search_snapshot": 101,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Synthesis engine for buy-side healthcare equity research. ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "brycewang-stanford/Awesome-Journal-Skills",
+      "repository_id": 1248879346,
+      "stars_search_snapshot": 1269,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Journal-specific Claude Code/Codex skill packs covering mainstream journals — AER, QJE, Nature, Cell, 管理世界, 经济研究 & 200+ more — your fast track to getting published. ｜ 覆盖主流期刊的 Claude Code/Codex 期刊技能包，从选题、识别策略到表格规范与审稿回复全流程，助你快速发论文。",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "piotrek-orlowski/claude-wrds-public",
+      "repository_id": 1168735104,
+      "stars_search_snapshot": 30,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "any2any-mllm/Omni-IO-Skill",
+      "repository_id": 1349685651,
+      "stars_search_snapshot": 179,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "jacob-bd/perplexity-web-mcp",
+      "repository_id": 1149321490,
+      "stars_search_snapshot": 203,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "MCP server and Anthropic API-compatible interface for Perplexity AI web interface",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "TeoSlayer/pilot-skills",
+      "repository_id": 1205154934,
+      "stars_search_snapshot": 8,
+      "license_search_metadata": "AGPL-3.0",
+      "fork_search_metadata": false,
+      "description": "80+ agent skills for Pilot Protocol — communication, file transfer, trust, task routing, swarm coordination, and more",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Jeomon/Operator-Use",
+      "repository_id": 1189129395,
+      "stars_search_snapshot": 41,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "🐧Operator-Use: AI that can do stuffs on your computer",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "uprockcom/cli",
+      "repository_id": 1172983756,
+      "stars_search_snapshot": 10,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "UpRock CLI",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "spacemata/-mbb-management-consultant-claude-skill",
+      "repository_id": 1219311721,
+      "stars_search_snapshot": 9,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Free MBB-level management consultant AI skill for Claude. McKinsey/Bain/BCG frameworks, case interview prep, market sizing, strategy consulting tools for MBA students, consultants & business professionals.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "EverettFish/voxel-beat-planet",
+      "repository_id": 1373796132,
+      "stars_search_snapshot": 15,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Give any song a one-of-a-kind music-reactive Three.js voxel planet.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "berba-q/faostat-skills",
+      "repository_id": 1210279303,
+      "stars_search_snapshot": 9,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "AI skills for analyzing UN FAOSTAT food & agriculture data — country profiles, trade analysis, climate assessments, commodity briefings. Plugin for Claude Code & Codex.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "miticojo/ha-skill",
+      "repository_id": 1163439340,
+      "stars_search_snapshot": 3,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Expert agent skill for Home Assistant — automations, dashboards, MCP/AI integration, custom components",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "GISWLH/IPCC",
+      "repository_id": 1292533040,
+      "stars_search_snapshot": 20,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Source-grounded IPCC-style climate visualization for Codex and Claude, with offline search, reproducible demos, and traceable plotting conventions.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "syaor4n/seedcraft",
+      "repository_id": 1196948025,
+      "stars_search_snapshot": 7,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Your code. Your world. — Claude Code plugin that turns your coding stats into a Minecraft world seed.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "MaoranSun/paper-to-storyboard",
+      "repository_id": 1259800932,
+      "stars_search_snapshot": 5,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Convert academic PDFs into single-page scrollytelling websites — a Claude Code skill.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mvanhorn/printing-press-library",
+      "repository_id": 1194120108,
+      "stars_search_snapshot": 2067,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Official library of CLIs generated by the CLI Printing Press. Endorsed, tested, and community-contributed.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "majiayu000/awesome-grok-bot",
+      "repository_id": 1351094922,
+      "stars_search_snapshot": 68,
+      "license_search_metadata": "CC0-1.0",
+      "fork_search_metadata": false,
+      "description": "4814 live x.ai/bot shares for Grok Bot — curated catalog with shelf tiers, searchable Pages, bilingual README. Not a prompt dump.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "tondevrel/scientific-agent-skills",
+      "repository_id": 1146808489,
+      "stars_search_snapshot": 23,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "GBA-BI/EpiClaw",
+      "repository_id": 1184902014,
+      "stars_search_snapshot": 10,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "OpenWonderLabs/switchbot-openapi-cli",
+      "repository_id": 1213447359,
+      "stars_search_snapshot": 135,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Command-line interface for the SwitchBot API v1.1",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "luokai0/ai-agent-skills-by-luo-kai",
+      "repository_id": 1182832946,
+      "stars_search_snapshot": 13,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "tykimos/onto-osint",
+      "repository_id": 1202920014,
+      "stars_search_snapshot": 4,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Ontology-Based OSINT Report System — fork and configure for any topic",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ZCZHAO-1999/shakespeare-writing-studio",
+      "repository_id": 1289805474,
+      "stars_search_snapshot": 178,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent-ready writing studio for Chinese WeChat articles, English essays, research writing, human voice editing, source-bound data storytelling, and statistical graphics.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "LengFeng00/research-gap-finder",
+      "repository_id": 1188753375,
+      "stars_search_snapshot": 18,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "An AI Agent skill for systematic literature analysis, research gap identification, and hypothesis generation",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Alvaro-Manzo/promptshift",
+      "repository_id": 1262278177,
+      "stars_search_snapshot": 10,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Model-aware prompt adapter for Claude — translate any prompt to GPT, Gemini, Mistral, Llama and more",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "JonatanGS777/ai-skill-agent-control-deck-2026",
+      "repository_id": 1201693169,
+      "stars_search_snapshot": 7,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Premium AI Skill & Agent Control Deck — benchmarked, versioned and production-ready for Claude-based workflows.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "pathomasco-beep/World-builder-roleplay",
+      "repository_id": 1191176597,
+      "stars_search_snapshot": 14,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A two-skill system for Claude that generates deeply detailed fictional worlds and then runs them as immersive, consequence-driven roleplay sandboxes.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "macnaer/CMD521_AI_demo",
+      "repository_id": 1261260946,
+      "stars_search_snapshot": 0,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": " NetDevOps + Database Automation demo with SWAPI Starwars importer",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "TheRealSimon42/simon42-dashboard-strategy",
+      "repository_id": 1069022174,
+      "stars_search_snapshot": 272,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Custom Lovelace Dashboard Strategy for Home Assistant — automatically generates dynamic dashboards from area/device/entity metadata",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "dungnotnull/Climate-Change-Forecasting-Solutions-Advisor-agent-skill",
+      "repository_id": 1330675452,
+      "stars_search_snapshot": 4,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "🌍 Pure Python climate science forecasting & policy advisor. Interprets IPCC scenario families (SSP1-1.9 to SSP5-8.5), models emissions reduction pathways, quantifies regional climate uncertainties, and evaluates UNFCCC adaptation frameworks using TF-IDF RAG retrieval over 28 research papers..",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mvanhorn/clawdbot-skill-tesla",
+      "repository_id": 1139550521,
+      "stars_search_snapshot": 7,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Full Tesla control from the terminal - dashboard, scheduled preconditioning, energy monitoring, charge station finder, multi-vehicle management via Fleet API. OpenClaw skill.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "toby/flashback",
+      "repository_id": 1257610369,
+      "stars_search_snapshot": 7,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "🌆 A time machine for taste - historically literate agentic design",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "sidhu-master/Home-Assistant-Manager",
+      "repository_id": 1159444994,
+      "stars_search_snapshot": 6,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Winbda/claude-skills-collection",
+      "repository_id": 1202231990,
+      "stars_search_snapshot": 4,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Vambrocop/EvidenceForge",
+      "repository_id": 1223098584,
+      "stars_search_snapshot": 7,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent skills for systematic review, meta-analysis, umbrella review, and AI-assisted evidence synthesis.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "kangning-huang/science_narrative_skills",
+      "repository_id": 1133917735,
+      "stars_search_snapshot": 5,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Claude skills for evaluating scientific writing using the And-But-Therefore (ABT) framework",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "tractorjuice/arc-kit",
+      "repository_id": 1076043819,
+      "stars_search_snapshot": 2259,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "The Enterprise Architecture Governance Harness — strategy, architecture, delivery, and assurance using AI coding assistants",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "rhiza-research/weather-skills",
+      "repository_id": 1211846392,
+      "stars_search_snapshot": 6,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "AI skills",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "do-me/Copernicus-Services-Products-Metadata",
+      "repository_id": 1109914838,
+      "stars_search_snapshot": 5,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Downloads the products metadata from all Copernicus Services, once per week via CI and commits the files to this repo.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "tinh2/skills-hub-registry",
+      "repository_id": 1169603396,
+      "stars_search_snapshot": 20,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Open registry of community-contributed AI coding skills (SKILL.md files) — daily-synced to skills-hub.ai. Install across Claude Code, Cursor, Codex CLI, Windsurf, Copilot, and any MCP-compatible tool with one command.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "factory-x-contributions/business-models",
+      "repository_id": 1031771261,
+      "stars_search_snapshot": 2,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Methodology and tools for developing data-driven business models in manufacturing (Factory-X Subproject 3)",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "openclaw/clawhub",
+      "repository_id": 1127248221,
+      "stars_search_snapshot": 9517,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Skill + Plugin Registry for OpenClaw",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "cathrynlavery/diagram-design",
+      "repository_id": 1212769188,
+      "stars_search_snapshot": 57026,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, and Pi. 44 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "NevaMind-AI/memU",
+      "repository_id": 1028070615,
+      "stars_search_snapshot": 14551,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Personal memory across agents",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "revfactory/harness-100",
+      "repository_id": 1189033239,
+      "stars_search_snapshot": 1306,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "SnailSploit/Claude-Red",
+      "repository_id": 1172273835,
+      "stars_search_snapshot": 7582,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "claude-red is a curated library of offensive security skills designed for the Claude skills system. Each skill is a structured SKILL.md file that primes Claude with expert-level methodology for a specific attack surface — from SQLi to shellcode, EDR evasion to exploit development.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "neuml/txtai",
+      "repository_id": 286301447,
+      "stars_search_snapshot": 13024,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "💡 All-in-one AI framework for semantic search, LLM orchestration and language model workflows",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "doctrine/mongodb-odm",
+      "repository_id": 677781,
+      "stars_search_snapshot": 1097,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "The Official PHP MongoDB ORM/ODM",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "alirezarezvani/claude-skills",
+      "repository_id": 1079084637,
+      "stars_search_snapshot": 28333,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "380 Claude Code skills & agent skills & plugins (30+ Agents, 70+ custom commands, 380+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory, research, business operations, commercial & finance, and your daily productivity skills.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ogx-ai/ogx",
+      "repository_id": 820145382,
+      "stars_search_snapshot": 8439,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Open GenAI Stack",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "HKUDS/OpenHarness",
+      "repository_id": 1198616956,
+      "stars_search_snapshot": 16007,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "\"OpenHarness: Open Agent Harness with a Built-in Personal Agent--Ohmo!\"",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ChenLiu-1996/figures4papers",
+      "repository_id": 974591843,
+      "stars_search_snapshot": 8669,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "My Python scripts to make high-quality figures for publications in top AI conferences and journals.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "iOfficeAI/OfficeCLI",
+      "repository_id": 1182212878,
+      "stars_search_snapshot": 32114,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "OfficeCLI is the first and best Office suite  purpose-built for AI agents to read, edit, and automate Word, Excel, and PowerPoint files. Free, open-source, single binary, no Office installation required.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Jakeschincariol/replica-skill",
+      "repository_id": 1403115747,
+      "stars_search_snapshot": 3177,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Eleven free Claude skills that clone any app: reverse-engineer it, rebuild it, test it for bugs, then fix what its users hate. Free, MIT.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "MadsLorentzen/ai-job-search",
+      "repository_id": 1185389803,
+      "stars_search_snapshot": 50412,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "The job search that runs on your machine. AI job application framework built on Claude Code: evaluate postings, tailor CVs, write cover letters, prep interviews. Fork it and own it.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Agents365-ai/drawio-skill",
+      "repository_id": 1171833693,
+      "stars_search_snapshot": 10205,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent skill that turns natural language, code, Terraform/K8s, SQL, OpenAPI, AsyncAPI, Protobuf and GraphQL sources into editable, tested draw.io architecture diagrams: incremental sync, multi-view projection, drift diff, CI architecture tests, whiteboard derasterize, interactive HTML/PPTX/Mermaid exports.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "HKUDS/OpenSpace",
+      "repository_id": 1190363679,
+      "stars_search_snapshot": 7755,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "\"OpenSpace: The Skill Management Layer for AI Agents\" -- https://open-space.cloud/",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "zarazhangrui/codebase-to-course",
+      "repository_id": 1188997672,
+      "stars_search_snapshot": 5692,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "A Claude Code skill that turns any codebase into a beautiful, interactive single-page HTML course for non-technical vibe coders.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "amaancoderx/npxskillui",
+      "repository_id": 1210177075,
+      "stars_search_snapshot": 2417,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "truefoundry/trueforge",
+      "repository_id": 1309751899,
+      "stars_search_snapshot": 6274,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "The open-source agent harness - the runtime layer that turns an LLM into a working agent.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ProfSynapse/Professor-Synapse",
+      "repository_id": 675335937,
+      "stars_search_snapshot": 3470,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ThinkfleetAI/memmesh",
+      "repository_id": 1276368237,
+      "stars_search_snapshot": 420,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Persistent, self-improving memory for AI agents. Local-first Rust memory engine with MCP support.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "AgriciDaniel/claude-blog",
+      "repository_id": 1160406193,
+      "stars_search_snapshot": 2415,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Claude Code blog skill suite: 30 sub-skills, 5 agents, 5-gate v1.9.0 Blog Delivery Contract, dual-optimized for Google rankings and AI citations. Active development at AI-Marketing-Hub/claude-blog (AI Marketing Hub Pro community); public releases ship here.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "RightNow-AI/openfang",
+      "repository_id": 1166139870,
+      "stars_search_snapshot": 18211,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Open-source Agent Operating System",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Kiyoraka/Project-AI-MemoryCore",
+      "repository_id": 1047417368,
+      "stars_search_snapshot": 377,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "nyaruka/phonenumbers",
+      "repository_id": 90799909,
+      "stars_search_snapshot": 1603,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Go port of Google's libphonenumber library",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "simonlin1212/global-stock-data",
+      "repository_id": 1244493472,
+      "stars_search_snapshot": 1746,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "美股与全球市场数据工具包（给 AI 编程助手用）：官方源优先、零鉴权、标注合规级别 | US & global market data for AI coding assistants — zero-auth, official sources. CBOE options + 0DTE, VIX term structure, FINRA short data, SEC Form 4 / 13F, central-bank rates & FX, Taiwan exchanges, EIA energy. 16 layers, 50+ endpoints, 17 sources, each with its compliance tier.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "questflowai/investorskills",
+      "repository_id": 1251057798,
+      "stars_search_snapshot": 1912,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Investor Skills is an open-source library that turns durable investing judgment into portable, structured formats. It collects how great investors think, filter opportunities, size risk, and act under uncertainty — then structures those patterns so humans can study them and AI finance agents can apply them.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "samber/cc-skills-golang",
+      "repository_id": 1188322477,
+      "stars_search_snapshot": 3505,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "🧑‍🎨 A collection of Golang agentic skills that works",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "anysearch-ai/anysearch-skill",
+      "repository_id": 1225178950,
+      "stars_search_snapshot": 6581,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Unified real-time search engine skill for AI agents. Supports general web search, vertical domain search, parallel batch search, and full-page content extraction.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "GenielabsOpenSource/spine-animation-ai",
+      "repository_id": 1166005695,
+      "stars_search_snapshot": 541,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "AI-powered Claude skill for Spine 2D skeletal animation — auto-rig, animate, and preview characters",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "trpc-group/trpc-agent-go",
+      "repository_id": 983515771,
+      "stars_search_snapshot": 1867,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "A Go framework for building production agent systems with graph workflows, tools, memory, A2A, AG-UI, MCP, evaluation, and observability.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "iamzifei/show-me-the-money",
+      "repository_id": 1191780326,
+      "stars_search_snapshot": 1091,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Claude Code skill suite that builds and runs a 24/7 automated business from scratch — from idea discovery to revenue generation.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "H-mmer/pentest-agents",
+      "repository_id": 1198251684,
+      "stars_search_snapshot": 1020,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Bug bounty agent framework for Claude Code, Codex, Gemini, Cursor, Windsurf, Copilot, and OpenClaw — 48 agents, 26 commands, 19 CLI tools, 2 MCP servers, autonomous hunt loops, exploit chain builder.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Vincentwei1021/anything2explainer",
+      "repository_id": 1361693766,
+      "stars_search_snapshot": 2567,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Topic in, narrated explainer video out. A Claude Code / Codex skill that turns any topic into a black-canvas motion-graphics explainer video with TTS voiceover, subtitles and a chapter progress bar. Chinese or English; every frame drawn in code with Remotion.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "buildfastwithai/gen-ai-experiments",
+      "repository_id": 811759488,
+      "stars_search_snapshot": 787,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Collection of Jupyter notebooks is designed to provide you with a comprehensive guide to various AI tools and technologies",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "yaklang/hack-skills",
+      "repository_id": 1204024367,
+      "stars_search_snapshot": 2476,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Helping AI Agent become an awesome practical hacker!",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "stophobia/deerflow2.0-enhanced",
+      "repository_id": 1190051002,
+      "stars_search_snapshot": 839,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "DeerFlow 2.0 Enhanced - Chinese localization + New skills",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Orchestra-Research/AI-Research-SKILLs",
+      "repository_id": 1088558237,
+      "stars_search_snapshot": 13641,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent will be an AI research agent with full horsepower. Maintained by Orchestra Research.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "alibaba/skill-up",
+      "repository_id": 1233753464,
+      "stars_search_snapshot": 1224,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "An evaluation and evolution tool for Agent Skills.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ClawRunr/JavaClaw",
+      "repository_id": 1184459159,
+      "stars_search_snapshot": 754,
+      "license_search_metadata": "LGPL-3.0",
+      "fork_search_metadata": false,
+      "description": "JavaClaw, a Java version of OpenClaw built on Spring Boot, Spring AI and JobRunr",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "DenisovAV/flutter_edge_ai",
+      "repository_id": 780897965,
+      "stars_search_snapshot": 641,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "On-device AI for Flutter — Gemma and other LLMs, multimodal, function calling, embeddings, RAG and speech on Android, iOS, Web, macOS, Windows and Linux.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "VoltAgent/awesome-claude-design",
+      "repository_id": 1214125715,
+      "stars_search_snapshot": 4113,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Awesome Claude Design: 68 ready-to-use design system inspirations in DESIGN.md format. Drop one in, scaffold a full UI in one shot.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "AgibotTech/genie_sim",
+      "repository_id": 970057938,
+      "stars_search_snapshot": 1426,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Simulation Platform from AgiBot",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Vincentwei1021/video-shotcraft",
+      "repository_id": 1305663861,
+      "stars_search_snapshot": 12296,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "AI video skill for Claude Code & Codex — cinematic product videos with Remotion: 152 shot recipe cards, 209 motion previews, a production-ready template",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Astro-Han/karpathy-llm-wiki",
+      "repository_id": 1201775166,
+      "stars_search_snapshot": 2508,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent Skills-compatible LLM wiki for Claude Code, Cursor, and Codex. Build a Karpathy-style knowledge base from raw sources, citations, and linting.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "garrytan/gstack",
+      "repository_id": 1179264259,
+      "stars_search_snapshot": 136788,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Cocoon-AI/architecture-diagram-generator",
+      "repository_id": 1121262780,
+      "stars_search_snapshot": 7452,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Generate beautiful dark-themed system architecture diagrams as standalone HTML/SVG files. Works as a Claude AI skill.    ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Trac-Systems/intercom",
+      "repository_id": 1148546778,
+      "stars_search_snapshot": 20,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "peer-to-peer network for agentic communication & swarms",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "live-codes/livecodes",
+      "repository_id": 328283993,
+      "stars_search_snapshot": 1522,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A Code Playground That Just Works!",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "claude-office-skills/skills",
+      "repository_id": 1145199131,
+      "stars_search_snapshot": 526,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A curated collection of practical Claude Skills for real-world office tasks",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "0xNyk/awesome-hermes-agent",
+      "repository_id": 1189234446,
+      "stars_search_snapshot": 5860,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Independent directory of useful skills, plugins, memory providers, tools, surfaces, and guides for Nous Research's open-source Hermes Agent.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "PleasePrompto/notebooklm-skill",
+      "repository_id": 1079107863,
+      "stars_search_snapshot": 7777,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Use this skill to enable Claude Code to communicate directly with your Google NotebookLM notebooks. Query your uploaded documents and get source-grounded, citation-backed answers from Gemini. Features browser automation, library management, persistent authentication, and answers exclusively from your own knowledge base.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "mnemon-dev/mnemon",
+      "repository_id": 1162230313,
+      "stars_search_snapshot": 638,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "LLM-supervised persistent memory for AI agents — graph-based recall, cross-session knowledge, single binary. Works with DeepSeek Harness, Claude Code, OpenClaw, and any agent runtime.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "eugeniughelbur/obsidian-second-brain",
+      "repository_id": 1190557545,
+      "stars_search_snapshot": 4799,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Persistent memory for Claude Code, Codex and 6 other AI agents, stored as plain markdown in your Obsidian vault. New: Crew, one shared logbook so Claude Code, Codex, Cursor and Grok Bot know what each other did. 48 commands: semantic search, self-rewriting notes, key-less research, scheduled agents.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "daymade/claude-code-skills",
+      "repository_id": 1081140442,
+      "stars_search_snapshot": 1472,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Professional Claude Code skills marketplace featuring production-ready skills for enhanced development workflows.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "TheQtCompanyRnD/agent-skills",
+      "repository_id": 1192474409,
+      "stars_search_snapshot": 485,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Official Qt AI engineering skills for Claude Code, Codex, Copilot, Gemini,and other AI coding tools",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "berabuddies/Semia",
+      "repository_id": 1229574762,
+      "stars_search_snapshot": 612,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Semia, security audit for AI agent skills.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "yaojingang/yao-meta-skill",
+      "repository_id": 1197197392,
+      "stars_search_snapshot": 2708,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "YAO = Yielding AI Outcomes. A rigorous engineering, evaluation, governance, and portability system for reusable agent skills.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "alirezarezvani/ClaudeForge",
+      "repository_id": 1094878969,
+      "stars_search_snapshot": 431,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "A CLAUDE.md Generator and Maintenance tool for for Claude Code to create high-quality CLAUDE.md instruction files — aligned with Anthropic’s best practices for Claude Code.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "HKUDS/DeepTutor",
+      "repository_id": 1124219907,
+      "stars_search_snapshot": 41573,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "DeepTutor: Lifelong Personalized Tutoring. https://deeptutor.info/.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "smol-machines/smolvm",
+      "repository_id": 1119210021,
+      "stars_search_snapshot": 6759,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "An embeddable, portable, branchable virtual machine to safely run Agents locally.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ClawBio/ClawBio",
+      "repository_id": 1166871123,
+      "stars_search_snapshot": 1160,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "🦖 ClawBio - The first bioinformatics-native AI agent skill library. Local-first. Reproducible. Open. Free.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "dnnyngyen/kimi-agent-internals",
+      "repository_id": 1143493034,
+      "stars_search_snapshot": 330,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Extracted artifacts from Kimi OK-Computer (and other agents) system for AI studies in agentic architecture.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "EverMind-AI/SkillCorpus",
+      "repository_id": 1330431542,
+      "stars_search_snapshot": 686,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Open-source infrastructure that turns scattered SKILL.md files into curated, retrieval-ready agent-skill corpora—with retrieval and evaluation tooling included.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "teng-lin/notebooklm-py",
+      "repository_id": 1129786550,
+      "stars_search_snapshot": 19774,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Unofficial Python API and agentic skill for Google Gemini Notebook. Full programmatic access to Gemini Notebook's features—including capabilities the web UI doesn't expose—via Python, CLI, and AI agents like Claude Code, Codex, and OpenClaw.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "vercel/vercel-plugin",
+      "repository_id": 1172750294,
+      "stars_search_snapshot": 309,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Comprehensive Vercel ecosystem plugin — relational knowledge graph, skills for every major product, specialized agents, and Vercel conventions. Turns any AI agent into a Vercel expert.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "bytedance/deer-flow",
+      "repository_id": 979115477,
+      "stars_search_snapshot": 84028,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "An open-source long-horizon SuperAgent harness that researches, codes, and creates. With the help of sandboxes, memories, tools, skill, subagents and message gateway, it handles different levels of tasks that could take minutes to hours.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "hoodini/ai-agents-skills",
+      "repository_id": 1129785480,
+      "stars_search_snapshot": 288,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "🧠 AI Agent Skills Repository - A curated collection of specialized skills for AI coding agents (Claude Code, GitHub Copilot, Cursor, Windsurf). Created by Yuval Avidani using GitHub Copilot via VS Code Insiders.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "bybit-exchange/svg-diagram",
+      "repository_id": 1333155576,
+      "stars_search_snapshot": 629,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Agent skill that draws architecture, flowchart, sequence, data-flow and lifecycle diagrams as hand-placed SVG, to one linted house style.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "vellum-ai/vellum-assistant",
+      "repository_id": 1152424073,
+      "stars_search_snapshot": 1436,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "An AI Assistant that’s easy to setup, does your work 24/7, knows your preferences and gets better over time.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "jal-co/shieldcn",
+      "repository_id": 1218446841,
+      "stars_search_snapshot": 927,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Beautiful README badges, inspired by shields.io and styled like shadcn/ui.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "GarethManning/education-agent-skills",
+      "repository_id": 1170158614,
+      "stars_search_snapshot": 875,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "165 evidence-grounded AI skills for teachers, school leaders and EdTech builders—pedagogy, learning science, curriculum, assessment and regeneration. Claude, Codex and Hermes.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "TryCaspian/caspian-sdk",
+      "repository_id": 1306503677,
+      "stars_search_snapshot": 973,
+      "license_search_metadata": "AGPL-3.0",
+      "fork_search_metadata": false,
+      "description": "Agent communication SDK. The open-source agent communication layer for AI agents — email, WhatsApp, Slack, Discord, Telegram, SMS. Python & TypeScript.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "actboy168/luamake",
+      "repository_id": 163670357,
+      "stars_search_snapshot": 211,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "stellarlinkco/myclaw",
+      "repository_id": 1151960235,
+      "stars_search_snapshot": 265,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": "Your own personal AI assistant. Any OS. Any Platform. mini clawbot.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "nduckmink/arkon",
+      "repository_id": 1225722703,
+      "stars_search_snapshot": 1495,
+      "license_search_metadata": "NOASSERTION",
+      "fork_search_metadata": false,
+      "description": "Arkon: Enterprise AI Knowledge Hub & MCP Server. Self-hosted knowledge base for teams to manage RAG contexts, access policies, and AI skills. Connect Claude and other LLMs via Model Context Protocol (MCP) for automated, secure organizational knowledge integration.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "ritual-foundation/ritual-dapp-skills",
+      "repository_id": 1220194478,
+      "stars_search_snapshot": 65,
+      "license_search_metadata": "BSD-3-Clause-Clear",
+      "fork_search_metadata": false,
+      "description": "Skills, examples, and integration patterns for building AI-native dapps on Ritual Chain.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "tracewayapp/traceway",
+      "repository_id": 1118625788,
+      "stars_search_snapshot": 1710,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "The only tool you need to know what is happening and how to fix it.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Yeachan-Heo/gajae-code",
+      "repository_id": 1250283885,
+      "stars_search_snapshot": 3000,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Gajae Code MVP",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "shaom/svg-hand-drawn-skill",
+      "repository_id": 1208964213,
+      "stars_search_snapshot": 265,
+      "license_search_metadata": "",
+      "fork_search_metadata": false,
+      "description": null,
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "0xranx/golembot",
+      "repository_id": 1169838651,
+      "stars_search_snapshot": 322,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "Any Agent × Any Provider × Anywhere. Connect Cursor, Claude Code, OpenCode, or Codex to Slack, Telegram, Discord, Feishu, DingTalk, WeCom, WeChat — with any LLM provider.",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "nvk/llm-wiki",
+      "repository_id": 1201628267,
+      "stars_search_snapshot": 1427,
+      "license_search_metadata": "MIT",
+      "fork_search_metadata": false,
+      "description": "LLM-compiled knowledge bases for any AI agent. Parallel multi-agent research, thesis-driven investigation, source ingestion, wiki compilation, querying, and artifact generation. ",
+      "evidence_level": "search metadata only; not approved"
+    },
+    {
+      "full_name": "Graphify-Labs/graphify",
+      "repository_id": 1200597263,
+      "stars_search_snapshot": 127800,
+      "license_search_metadata": "Apache-2.0",
+      "fork_search_metadata": false,
+      "description": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
+      "evidence_level": "search metadata only; not approved"
+    }
+  ],
+  "products_search_provenance": "C:\\Users\\13185\\AppData\\Local\\Temp/products18-search.json",
+  "research_groups": {
+    "root": 14,
+    "products": 20,
+    "science": 22,
+    "workflows": 20
+  },
+  "unreviewed_leads_are_not_exclusions_or_admissions": true
+}
