@@ -10,6 +10,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const GENERATED = [
   'INDEX/catalog.md', 'INDEX/tags.md', 'INDEX/tools.md', 'INDEX/graph.md',
   'INDEX/graph.json', 'INDEX/search.json', 'INDEX/sources.md',
+  'INDEX/quality.json',
   '.claude-plugin/marketplace.json', 'AGENTS.md', 'CLAUDE.md', 'GEMINI.md',
   'gemini-extension.json',
 ];
@@ -109,6 +110,48 @@ test('nested skill folders keep real paths in search, markdown indexes, and plug
   for (const index of ['catalog', 'tags', 'tools', 'sources'])
     assert.ok((await fs.readFile(path.join(root, `INDEX/${index}.md`), 'utf8')).includes(`../${relativePath}`));
   assert.deepEqual((await json(root, '.claude-plugin/marketplace.json')).plugins[0].skills, ['./00-meta/thinking/nested']);
+});
+
+test('quality metadata stays conservative and is embedded in search records', async t => {
+  const root = await fixture(t);
+  await addSkill(root, 'quality-base');
+  await addSkill(root, 'quality-target', {
+    requires: '[quality-base]', tools: '[python]', source: 'example/fixture', source_license: 'MIT',
+  });
+  await fs.mkdir(path.join(root, 'data'), { recursive: true });
+  await fs.writeFile(path.join(root, 'data/quality-overrides.json'), JSON.stringify({
+    schema_version: 1,
+    skills: {
+      'quality-target': {
+        review_status: 'reviewed', last_reviewed: '2026-10-18', source_freshness: 'fresh',
+        license_confidence: 'verified', capabilities: ['read-only'], security_risk: 'review',
+        dependencies: { runtime: ['python'] },
+      },
+    },
+  }));
+  const result = generate(root);
+  assert.equal(result.status, 0, result.stderr);
+  const quality = await json(root, 'INDEX/quality.json');
+  const target = quality.skills.find(record => record.name === 'quality-target');
+  assert.deepEqual(target.quality, {
+    review_status: 'reviewed', last_reviewed: '2026-10-18', source_type: 'curated',
+    source_freshness: 'fresh', license_confidence: 'verified',
+    dependencies: { skills: ['quality-base'], tools: ['python'], runtime: ['python'] },
+    capabilities: ['read-only'], maturity: 'stable', security_risk: 'review',
+  });
+  const search = (await json(root, 'INDEX/search.json')).find(record => record.name === 'quality-target');
+  assert.deepEqual(search.quality, target.quality);
+  const conservative = quality.skills.find(record => record.name === 'quality-base').quality;
+  assert.equal(conservative.review_status, 'unreviewed');
+  assert.equal(conservative.source_freshness, 'unknown');
+  assert.equal(conservative.security_risk, 'unknown');
+
+  await fs.writeFile(path.join(root, 'data/quality-overrides.json'), JSON.stringify({
+    schema_version: 1, skills: { 'quality-target': { securty_risk: 'low' } },
+  }));
+  const invalid = generate(root);
+  assert.equal(invalid.status, 1);
+  assert.match(invalid.stderr, /不是受支持的质量字段/);
 });
 
 test('scalar values for array fields fail validation instead of silently losing graph edges', async t => {

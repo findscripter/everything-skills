@@ -1,0 +1,12 @@
+[
+  {"query":"无障碍审计", "expected":["accessibility-wcag-audit"]},
+  {"query":"API 安全审计", "expected":["api-security-best-practices"]},
+  {"query":"KiCad 电路设计审查", "expected":["kicad-design-reviewer"]},
+  {"query":"代码库导览", "expected":["codebase-onboarding-doc"]},
+  {"query":"解释论文", "expected":["academic-paper-explainer"]},
+  {"query":"Python 性能优化", "expected":["python-performance-optimization"]},
+  {"query":"SQL 注入防护", "expected":["api-security-best-practices"]},
+  {"query":"React 组件测试", "expected":["javascript-testing-patterns"]}
+]
+
+

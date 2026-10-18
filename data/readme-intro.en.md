@@ -19,6 +19,34 @@ For example, install the engineering volume:
 
 Each skill has its own folder and `SKILL.md`. Codex, Cursor, Gemini CLI, and other agents can follow [AGENTS.md](AGENTS.md), [GEMINI.md](GEMINI.md), or [CLAUDE.md](CLAUDE.md) to find and load the instructions for a task.
 
+## Start from a task
+
+You do not need to know a skill name first. Pick the outcome closest to your task, open the first skill, and follow its `requires` / `related` links when you need more coverage:
+
+| I need to... | Start here |
+| --- | --- |
+| Understand and onboard a codebase | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) → [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) |
+| Research and explain a paper | [entity-research-dossier](00-meta/entity-research-dossier/SKILL.md) → [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) |
+| Design, test, and review an API | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) |
+| Audit accessibility or agent security | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) · [agent-skill-security-scanner](08-security/agent-skill-security-scanner/SKILL.md) |
+
+### What you are looking at
+
+- **Bundled skills** are the folders in this repository. Each has a `SKILL.md` and can be installed by volume through the marketplace.
+- **Indexed repositories** are external libraries, marketplaces, and lists summarized in [INDEX/skill-repos.md](INDEX/skill-repos.md). Their source and `SKILL.md` files are not copied here; check the upstream license and install instructions before using them.
+- **Generated maps** are the catalog, tags, graph, `search.json`, `quality.json`, marketplace metadata, and README statistics. They are generated from source data and are navigation aids, not additional skill bodies. `quality.json` exposes evidence facets such as review state, freshness, license confidence, dependencies, and security risk; `unknown` / `unreviewed` means no claim has been established.
+
+### Starter bundles
+
+These small combinations show how to turn the relationship graph into a workflow:
+
+| Bundle | Suggested path |
+| --- | --- |
+| Repository onboarding | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) → [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) → [spec-driven-workflow](02-engineering/spec-driven-workflow/SKILL.md) |
+| Literature review | [entity-research-dossier](00-meta/entity-research-dossier/SKILL.md) → [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) → [citation-management](01-documents/citation-management/SKILL.md) |
+| API delivery | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) → [api-security-best-practices](08-security/api-security-best-practices/SKILL.md) |
+| Accessibility and trust | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) → [wcag-22-audit-patterns](02-engineering/wcag-22-audit-patterns/SKILL.md) → [supply-chain-risk-auditor](08-security/supply-chain-risk-auditor/SKILL.md) |
+
 ## Discover, connect, compose
 
 <p align="center">

@@ -12,7 +12,7 @@
         ▼
 scripts/build-index.mjs
         ├── INDEX/catalog.md / tags.md / tools.md
-        ├── INDEX/graph.md / graph.json / search.json / sources.md
+        ├── INDEX/graph.md / graph.json / search.json / quality.json / sources.md
         ├── .claude-plugin/marketplace.json
         └── AGENTS.md / CLAUDE.md / GEMINI.md / gemini-extension.json
 
@@ -25,7 +25,7 @@ data/skill-repos*.jsonl + data/skill-repos.meta.md
         └── scripts/build-brand.mjs → assets/brand/*.svg + README 品牌概览
 ```
 
-`SKILL.md` frontmatter、`taxonomy.json` 和 `data/skill-repos*.jsonl` 是源数据；`INDEX/`、根部多 harness 文件、插件市场清单和 README 技能仓库区是生成物，禁止手工修改生成区。
+`SKILL.md` frontmatter、`taxonomy.json`、`data/quality-overrides.json` 和 `data/skill-repos*.jsonl` 是源数据；`INDEX/`、根部多 harness 文件、插件市场清单和 README 技能仓库区是生成物，禁止手工修改生成区。质量覆盖只记录可核验的人工补充，缺少证据的维度保持 `unknown`/`unreviewed`。
 
 `assets/brand/logo.svg` 和 `logo-static.svg` 是原创矢量源文件；横幅、统计和流程图由品牌生成器输出。README 品牌区用独立的 `GENERATED:brand` 标记，外部目录仍使用 `GENERATED:skill-repos` 标记；两者互不覆盖。
 
@@ -44,6 +44,7 @@ data/skill-repos*.jsonl + data/skill-repos.meta.md
 - `scripts/load-skill-repos.mjs` 是技能仓库 JSONL 的唯一加载与去重入口，README 和 INDEX 不允许各自解释数据。
 - CI 只读执行完整生成与漂移检查，覆盖所有生成物；不在 PR 中向贡献分支写入或推送代码。
 - 搜索索引优先保留 frontmatter 的显式 `triggers`，仅在字段缺省时从 description 提取；技能路径始终使用真实相对目录。
+- `data/quality-overrides.json` 与 frontmatter 的 `requires`/`tools` 一起生成 `INDEX/quality.json`；`INDEX/search.json` 内嵌同一份质量摘要，便于检索后筛选，不将未知状态解释为安全认证。
 - `supersedes` 从新技能指向被取代技能，弃用链必须能到达可用技能；数组字段类型错误和第三方来源缺许可会阻止生成。
 - 品牌数据直接读取索引；CI 包含 `assets/brand` 的漂移检查与 Node 内建回归测试。
 
