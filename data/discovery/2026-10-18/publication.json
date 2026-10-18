@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "observed_at": "2026-10-18T09:16:43.589593+08:00",
+  "verdict": "achieved",
+  "target": 50,
+  "actual_new_independent_repositories": 76,
+  "gap": 0,
+  "baseline_count": 2268,
+  "final_catalog_count": 2344,
+  "baseline_file": "baseline.json",
+  "baseline_sha256": "0c2dcbe9cff0ba65afd698b3801fd8263786d02aebb0da61e3cef9ec8674f0fe",
+  "new_repository_list": "additions.json",
+  "catalog_shard": "../../skill-repos.part83.jsonl",
+  "catalog_shard_sha256": "34d74cf7f7d06c687fac2eb162423b8d03ad0ed0d57f893b4e7a6b627b46df2f",
+  "audit": "../../skill-repos.part83.audit.json",
+  "substantively_reviewed_distinct": 119,
+  "deferred_or_excluded_after_review": 43,
+  "root_search_baseline_duplicates": 127,
+  "root_unique_search_hits": 371,
+  "publication": "atomic fast-forward push of main and zh; no force push, branch deletion, or external contribution PR merge",
+  "dataset_publication": {
+    "main": {
+      "dataset_commit": "02dafe2b40f8fda24691def5a7deb7035a4366aa",
+      "ci_run_id": 39085814633,
+      "ci_url": "https://github.com/findscripter/everything-skills/actions/runs/39085814633",
+      "workflow": "generated-index",
+      "ci_status": "completed",
+      "ci_conclusion": "success",
+      "ci_updated_at": "2026-10-18T01:15:33Z"
+    },
+    "zh": {
+      "dataset_commit": "6b9eb11016a478cf612aa3e656e1253e2f6ae7f2",
+      "ci_run_id": 39085814645,
+      "ci_url": "https://github.com/findscripter/everything-skills/actions/runs/39085814645",
+      "workflow": "generated-index",
+      "ci_status": "completed",
+      "ci_conclusion": "success",
+      "ci_updated_at": "2026-10-18T01:15:30Z"
+    }
+  },
+  "local_validation": {
+    "main": [
+      "node scripts/build-all.mjs --lang=en: exit 0",
+      "npm test: 18/18",
+      "node scripts/check-generated.mjs --lang=en: exit 0"
+    ],
+    "zh": [
+      "node scripts/build-all.mjs --lang=zh: exit 0",
+      "npm test: 18/18",
+      "node scripts/check-generated.mjs --lang=zh: exit 0"
+    ],
+    "cross_branch_sources": "Identical data and skill sources on both branches; interfaces generated in their own languages."
+  },
+  "scope_limitations": [
+    "Metadata-only index; no candidate installed or executed and no third-party skill bodies imported.",
+    "Public usage/installation evidence and representative instructions were inspected; no claim of full runtime, security, scientific, clinical, legal, or financial effectiveness validation.",
+    "This receipt records already observed dataset commits and their successful CI; later receipt-only commits do not add or recount repositories."
+  ]
+}

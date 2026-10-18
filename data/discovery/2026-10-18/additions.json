@@ -8,8 +8,8 @@
   "baseline_sha256": "0c2dcbe9cff0ba65afd698b3801fd8263786d02aebb0da61e3cef9ec8674f0fe",
   "catalog_shard": "../../skill-repos.part83.jsonl",
   "locally_verified_new_count": 76,
-  "daily_qualifying_count": 0,
-  "status": "awaiting remote main/zh publication and necessary CI",
+  "daily_qualifying_count": 76,
+  "status": "achieved",
   "counting_rule": "Only rows present on both published branches with necessary CI passing qualify; search leads, repeats, old branch imports and maintenance do not qualify.",
   "repositories": [
     {
@@ -316,5 +316,11 @@
       "full_name": "Insightful-Pipe/marketing-skills",
       "repository_id": 1412831331
     }
-  ]
+  ],
+  "publication_receipt": "publication.json",
+  "dataset_commits": {
+    "main": "02dafe2b40f8fda24691def5a7deb7035a4366aa",
+    "zh": "6b9eb11016a478cf612aa3e656e1253e2f6ae7f2"
+  },
+  "necessary_ci": "generated-index succeeded on both dataset commits"
 }
