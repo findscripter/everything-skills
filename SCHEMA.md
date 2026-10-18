@@ -28,6 +28,45 @@
 | `source` |  | string | 采编来源（repo slug/URL）。采自第三方时必填，自动汇入 `INDEX/sources.md` |
 | `source_license` |  | string | 源技能原始许可（Apache-2.0/MIT/CC-BY…）。**专有 / source-available / 无许可 → 禁止采编其内容，生成器报 error** |
 
+## 质量筛选元数据（`data/quality-overrides.json`）
+
+质量元数据与技能正文分离，供 `INDEX/quality.json` 和 `INDEX/search.json` 的筛选器使用。覆盖文件的最小结构为：
+
+```json
+{
+  "schema_version": 1,
+  "skills": {
+    "skill-name": {
+      "review_status": "reviewed",
+      "last_reviewed": "2026-10-18",
+      "source_freshness": "fresh",
+      "license_confidence": "verified",
+      "capabilities": ["read-only"],
+      "security_risk": "review",
+      "dependencies": {"runtime": ["python"]}
+    }
+  }
+}
+```
+
+所有字段均可省略；生成器会为缺少证据的维度使用保守默认值。`requires` 和 `tools` 始终从技能 frontmatter 生成，不能通过覆盖文件改写。受控值如下：
+
+- `review_status`: `unreviewed` | `reviewed` | `needs-review` | `archived`
+- `source_type`: `native` | `curated` | `external-reference`
+- `source_freshness`: `fresh` | `aging` | `stale` | `unknown`
+- `license_confidence`: `verified` | `declared` | `inferred` | `unknown`
+- `maturity`: `experimental` | `stable` | `deprecated`
+- `security_risk`: `low` | `review` | `high` | `unknown`
+
+空覆盖文件不代表条目已通过安全审查：默认 `review_status=unreviewed`、`source_freshness=unknown`、`security_risk=unknown`。`license_confidence=declared` 仅表示条目声明了许可，不等于法律核验；`security_risk=low` 只能由人工审查证据显式填写。
+
+生成器输出：
+
+- `INDEX/quality.json`：按技能列出的完整质量摘要；
+- `INDEX/search.json`：每条召回记录内嵌相同的 `quality` 摘要，便于一次检索后筛选。
+
+质量覆盖只允许引用现有技能名称，未知名称或非法枚举会使生成校验失败。
+
 ### 关于「互见」三件套（类书精髓 → 图的边）
 
 - `requires` → 有向边「依赖」：A requires B 表示用 A 前需要 B（驱动**前置学习路径**）。

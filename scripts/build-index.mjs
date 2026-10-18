@@ -48,6 +48,19 @@ const UNDIRECTED = new Set(['related', 'combines_with']);
 const KNOWN_AGENTS = new Set(['claude-code', 'codex', 'cursor', 'gemini-cli', 'copilot', 'windsurf', 'aider', 'cline']);
 const DESC_WARN_LEN = 200;
 
+// 质量元数据只允许在 data/quality-overrides.json 中做显式、可审计的补充。
+// 未有证据的维度保持 unknown/unreviewed，生成器不会把缺失证据推断成安全或成熟。
+const QUALITY_ENUMS = {
+  review_status: new Set(['unreviewed', 'reviewed', 'needs-review', 'archived']),
+  source_type: new Set(['native', 'curated', 'external-reference']),
+  source_freshness: new Set(['fresh', 'aging', 'stale', 'unknown']),
+  license_confidence: new Set(['verified', 'declared', 'inferred', 'unknown']),
+  maturity: new Set(['experimental', 'stable', 'deprecated']),
+  security_risk: new Set(['low', 'review', 'high', 'unknown']),
+};
+const QUALITY_KEYS = new Set([...Object.keys(QUALITY_ENUMS), 'last_reviewed', 'capabilities', 'dependencies']);
+const QUALITY_OVERRIDE_FILE = path.join(ROOT, 'data', 'quality-overrides.json');
+
 const errors = [];
 const warnings = [];
 const pendingWrites = new Map();
@@ -418,6 +431,80 @@ const stamp = '> 本文件由 scripts/build-index.mjs 自动生成，请勿手�
 const linkOf = s => relOf(s.file);
 const sorted = [...skills].sort((a, b) => (a.fm.name || '').localeCompare(b.fm.name || ''));
 
+// 质量覆盖是可选的：空文件或不存在时，所有条目使用保守默认值。
+// 只接受针对现有技能的显式覆盖，避免拼写错误悄悄产生“孤儿”元数据。
+let qualityOverrides = {};
+try {
+  const raw = await fs.readFile(QUALITY_OVERRIDE_FILE, 'utf8');
+  const parsed = JSON.parse(raw);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    errors.push('data/quality-overrides.json: 顶层须为对象');
+  } else if (parsed.schema_version !== undefined && parsed.schema_version !== 1) {
+    errors.push('data/quality-overrides.json: schema_version 须为 1');
+  } else if (parsed.skills !== undefined && (!parsed.skills || typeof parsed.skills !== 'object' || Array.isArray(parsed.skills))) {
+    errors.push('data/quality-overrides.json: skills 须为对象');
+  } else {
+    qualityOverrides = parsed.skills || {};
+    for (const [name, override] of Object.entries(qualityOverrides)) {
+      if (!byName.has(name)) {
+        errors.push(`data/quality-overrides.json: 覆盖了不存在的技能 "${name}"`);
+        continue;
+      }
+      if (!override || typeof override !== 'object' || Array.isArray(override)) {
+        errors.push(`data/quality-overrides.json: "${name}" 的覆盖值须为对象`);
+        continue;
+      }
+      for (const key of Object.keys(override)) {
+        if (!QUALITY_KEYS.has(key)) errors.push(`data/quality-overrides.json: ${name}.${key} 不是受支持的质量字段`);
+      }
+      for (const [field, values] of Object.entries(QUALITY_ENUMS)) {
+        if (override[field] !== undefined && !values.has(override[field]))
+          errors.push(`data/quality-overrides.json: ${name}.${field} 值 "${override[field]}" 不在受控词表`);
+      }
+      if (override.last_reviewed !== undefined && override.last_reviewed !== null &&
+          (typeof override.last_reviewed !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(override.last_reviewed)))
+        errors.push(`data/quality-overrides.json: ${name}.last_reviewed 须为 YYYY-MM-DD 或 null`);
+      if (override.capabilities !== undefined &&
+          (!Array.isArray(override.capabilities) || override.capabilities.some(v => typeof v !== 'string' || !v.trim())))
+        errors.push(`data/quality-overrides.json: ${name}.capabilities 须为非空字符串数组`);
+      if (override.dependencies !== undefined) {
+        const deps = override.dependencies;
+        if (!deps || typeof deps !== 'object' || Array.isArray(deps))
+          errors.push(`data/quality-overrides.json: ${name}.dependencies 须为对象`);
+        else if (deps.runtime !== undefined &&
+          (!Array.isArray(deps.runtime) || deps.runtime.some(v => typeof v !== 'string' || !v.trim())))
+          errors.push(`data/quality-overrides.json: ${name}.dependencies.runtime 须为非空字符串数组`);
+      }
+    }
+  }
+} catch (error) {
+  if (error.code !== 'ENOENT') errors.push(`data/quality-overrides.json: 无法读取或解析（${error.message}）`);
+}
+
+function qualityFor(skill) {
+  const fm = skill.fm;
+  const override = qualityOverrides[fm.name] || {};
+  const sourceType = override.source_type || (fm.source ? 'curated' : 'native');
+  const licenseConfidence = override.license_confidence || ((fm.source_license || fm.license) ? 'declared' : 'unknown');
+  const maturity = override.maturity || (fm.status === 'deprecated' ? 'deprecated' : fm.status === 'draft' ? 'experimental' : 'stable');
+  const dependencies = {
+    skills: Array.isArray(fm.requires) ? [...fm.requires] : [],
+    tools: Array.isArray(fm.tools) ? [...fm.tools] : [],
+  };
+  if (override.dependencies?.runtime) dependencies.runtime = [...override.dependencies.runtime];
+  return {
+    review_status: override.review_status || (fm.status === 'deprecated' ? 'archived' : 'unreviewed'),
+    last_reviewed: override.last_reviewed ?? null,
+    source_type: sourceType,
+    source_freshness: override.source_freshness || 'unknown',
+    license_confidence: licenseConfidence,
+    dependencies,
+    capabilities: override.capabilities ? [...override.capabilities] : [],
+    maturity,
+    security_risk: override.security_risk || 'unknown',
+  };
+}
+
 // catalog.md
 {
   const byVol = new Map();
@@ -571,9 +658,28 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
     level: s.fm.level || '', status: s.fm.status || '',
     tags: s.fm.tags || [], triggers: s.fm.triggers ?? parseTriggers(s.fm.description),
     description: s.fm.description || '', path: linkOf(s),
+    quality: qualityFor(s),
     ...(s.fm.deprecate_reason ? { deprecate_reason: s.fm.deprecate_reason } : {}),
   }));
   stageWrite(path.join(INDEX, 'search.json'), JSON.stringify(records, null, 2));
+}
+
+// quality.json —— 面向筛选器/目录客户端的质量摘要。
+// 该文件只表达已记录的证据状态；unknown/unreviewed 不等于安全或低质量。
+{
+  const entries = sorted.map(s => ({ name: s.fm.name, path: linkOf(s), quality: qualityFor(s) }));
+  stageWrite(path.join(INDEX, 'quality.json'), JSON.stringify({
+    schema_version: 1,
+    semantics: {
+      review_status: 'unreviewed|reviewed|needs-review|archived',
+      source_type: 'native|curated|external-reference',
+      source_freshness: 'fresh|aging|stale|unknown',
+      license_confidence: 'verified|declared|inferred|unknown',
+      maturity: 'experimental|stable|deprecated',
+      security_risk: 'low|review|high|unknown',
+    },
+    skills: entries,
+  }, null, 2));
 }
 
 // sources.md —— 采编署名与许可清单（合规用）

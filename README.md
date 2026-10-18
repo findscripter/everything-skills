@@ -32,6 +32,34 @@
 
 每条技能由一个 `SKILL.md` 和独立目录组成。Codex、Cursor、Gemini CLI 等 Agent 可通过 [AGENTS.md](AGENTS.md)、[GEMINI.md](GEMINI.md) 或 [CLAUDE.md](CLAUDE.md) 找到技能，再按任务读取所需指令。
 
+## 从任务开始找技能
+
+你不必先知道技能名称。先选择最接近目标的一行，打开第一条技能；需要更完整的覆盖时，再沿着它的 `requires` / `related` 关系继续查找：
+
+| 我想要…… | 从这里开始 |
+| --- | --- |
+| 了解并接手一个代码库 | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) → [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) |
+| 调研并解释一篇论文 | [entity-research-dossier](00-meta/entity-research-dossier/SKILL.md) → [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) |
+| 设计、测试和审查 API | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) |
+| 做无障碍或 Agent 安全审计 | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) · [agent-skill-security-scanner](08-security/agent-skill-security-scanner/SKILL.md) |
+
+### 你看到的内容分别是什么
+
+- **仓库内技能**：本仓库中的实际目录，每条都有 `SKILL.md`，可按卷通过 marketplace 安装。
+- **外部仓库索引**：[INDEX/skill-repos.md](INDEX/skill-repos.md) 中的外部技能库、marketplace 和目录摘要。这里不复制它们的源代码或 `SKILL.md`；使用前请回到上游核对许可和安装方式。
+- **生成的导航文件**：目录、标签、关系图、`search.json`、`quality.json`、marketplace 元数据和 README 统计。这些文件由源数据生成，用于导航，不是额外的技能正文。`quality.json` 提供审核状态、来源新鲜度、许可可信度、依赖和安全风险等证据维度；`unknown` / `unreviewed` 表示尚无对应结论。
+
+### 四个入门组合
+
+下面的组合展示如何把关系图串成一条可执行的工作流：
+
+| 组合 | 建议路径 |
+| --- | --- |
+| 仓库接手 | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) → [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) → [spec-driven-workflow](02-engineering/spec-driven-workflow/SKILL.md) |
+| 文献综述 | [entity-research-dossier](00-meta/entity-research-dossier/SKILL.md) → [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) → [citation-management](01-documents/citation-management/SKILL.md) |
+| API 交付 | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) → [api-security-best-practices](08-security/api-security-best-practices/SKILL.md) |
+| 无障碍与供应链信任 | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) → [wcag-22-audit-patterns](02-engineering/wcag-22-audit-patterns/SKILL.md) → [supply-chain-risk-auditor](08-security/supply-chain-risk-auditor/SKILL.md) |
+
 ## 从发现到组合
 
 <p align="center">
