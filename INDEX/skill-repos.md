@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-18（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part83
+- 编制日期：2026-10-18（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part84
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2344 个独立仓库（另注明更名别名）
+- 收录条数：2382 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -360,6 +360,19 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [vikiboss/60s-skills](https://github.com/vikiboss/60s-skills) | 47 | 60s API 技能：查询中国天气、每日新闻、热点、实用工具、娱乐、公共数据和媒体信息。 | MIT | 7 | 仅索引 |
 | [uw-ssec/rse-plugins](https://github.com/uw-ssec/rse-plugins) | 29 | 使用科研软件工程插件处理科学 Python、天文、多维数组、HoloViz、可复现研究与容器工作流。 | BSD-3-Clause; containerization and zarr-chunk-optimization plugins MIT | 75 + 1 router | 仅索引 |
 | [carla-simulator/carla-agentic-tools](https://github.com/carla-simulator/carla-agentic-tools) | 4 | 通过技能与 MCP 使用 CARLA 仿真、传感器、地图、场景、ROS2 及自动驾驶评测流程。 | MIT | 60 | 仅索引 |
+| [cursor/plugins](https://github.com/cursor/plugins) | 12,419 | Cursor 官方插件目录，覆盖 SDK、团队协作、代码审查、浏览器与第三方 SaaS 集成。 | Per-plugin licenses (representative cursor-sdk plugin license; root API reports NOASSERTION) | 111 个官方插件目录（多技能） | 仅索引 |
+| [google/adk-recipes](https://github.com/google/adk-recipes) | 10,457 | Google ADK 官方零售插件技能，提供商品检索和虚拟试穿 Agent 工作流。 | Apache-2.0 repository; plugin dependencies/assets may retain their own terms | 2 | 仅索引 |
+| [browser-use/browser-harness](https://github.com/browser-use/browser-harness) | 18,471 | 让 Claude Code、Codex 或 Cursor 通过 CDP 操作用户浏览器的浏览器 Harness。 | MIT | 1 | 仅索引 |
+| [pinchtab/pinchtab](https://github.com/pinchtab/pinchtab) | 10,395 | 本地优先的浏览器控制服务器与 Agent Skills，支持 CLI、MCP、性能优化和隐身评分。 | MIT | 4 | 仅索引 |
+| [xberg-io/xberg](https://github.com/xberg-io/xberg) | 9,423 | Xberg 文档/多媒体解析与 OCR 工具的官方 Agent Skills、插件和 MCP 集成。 | MIT code/skills; some reference material retains Elastic-2.0 terms | 7 | 仅索引 |
+| [anthropics/oncall-kit](https://github.com/anthropics/oncall-kit) | 241 | Anthropic 官方 Claude 值班工具包，覆盖事件分诊、设置、交接与状态天气技能。 | Apache-2.0 | 4 | 仅索引 |
+| [AnmolSaini16/mapcn](https://github.com/AnmolSaini16/mapcn) | 12,275 | MapLibre/shadcn 地图组件的 Agent Skill，指导 React 应用按需安装和配置地图。 | MIT | 1 | 仅索引 |
+| [OpenMinis/MinisSkills](https://github.com/OpenMinis/MinisSkills) | 465 | Minis 社区技能集合，覆盖移动开发、数据、社交媒体、效率工具和本地自动化。 | MIT collection; nested shortcuts-builder includes its own NOTICE/terms | 56 | 仅索引 |
+| [vite-hub/vitehub](https://github.com/vite-hub/vitehub) | 22 | ViteHub 官方技能，指导在 ViteHub 原语上构建 Agent、KV、UI 和可组合服务。 | Apache-2.0 | 1 | 仅索引 |
+| [openfilm/openfilm](https://github.com/openfilm/openfilm) | 876 | OpenFilm 开源 AI 视频 Agent，包含视频制作路由和多种可安装的创意视频技能。 | MIT | 11 | 仅索引 |
+| [vibeic/vibe-ic](https://github.com/vibeic/vibe-ic) | 28 | Vibe-IC 电子设计自动化 Agent 插件与 MCP-EDA 技能市场，覆盖模拟/数字芯片设计验证。 | Apache-2.0 | 71 | 仅索引 |
+| [no-phux/skills](https://github.com/no-phux/skills) | 0 | Phux 持久终端 Agent Skills，覆盖 CLI、MCP 和工具驱动的交互式终端工作流。 | Apache-2.0 | 3 | 仅索引 |
+| [BintzGavin/helios](https://github.com/BintzGavin/helios) | 121 | Helios 程序化视频引擎技能，覆盖动画设计、视频制作、渲染、Studio 与数据可视化。 | Apache-2.0 (skills/plugin); ELv2 engine | 19 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -858,6 +871,15 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [makukhin-ie/ai-toolbox](https://github.com/makukhin-ie/ai-toolbox) | 0 | 可复用的 Notion GTD 会话、印刷书籍排版、语言辅导与 PrusaSlicer 耗材配置工作流。 | MIT | 4 | 仅索引 |
 | [thatrgbgamer/SuperClaude-FountEngine](https://github.com/thatrgbgamer/SuperClaude-FountEngine) | 0 | 共享偏好配置驱动的写作、邮件、调研、文档整理、仓库入门、调试与 Fount 游戏创作技能。 | MIT | 9 | 仅索引 |
 | [BuildGreatProducts/builder-os](https://github.com/BuildGreatProducts/builder-os) | 230 | 产品构建技能集合：创意验证、产品规划、设计系统、MVP 执行、发布检查及不同 Harness 的构建循环。 | MIT | 7 tasks + 3 harness variants | 仅索引 |
+| [21st-dev/registry](https://github.com/21st-dev/registry) | 10 | 通过 21st.dev 注册表发布、搜索和安装团队 React 组件，并提供内置 Agent Skill。 | MIT | 1 | 仅索引 |
+| [CODE-SAURABH/OpenSkills](https://github.com/CODE-SAURABH/OpenSkills) | 3 | 面向记忆、后端、API、安全、QA、规划与复盘的可移植生产级 AI 工程技能。 | MIT | 49 | 仅索引 |
+| [iam-niranjan/wcag-skills](https://github.com/iam-niranjan/wcag-skills) | 0 | 将 WCAG 2.2 A、AA、AAA 级成功标准核验后打包为无障碍审计 SKILL.md。 | MIT | 3 | 仅索引 |
+| [arham777/ui-ux-kit](https://github.com/arham777/ui-ux-kit) | 3 | 以品味优先、反 AI 套路的界面设计工作流，并留下可复用 DESIGN_SYSTEM.md。 | MIT | 1 | 仅索引 |
+| [Armitanemati/liquid-glass-claude-skill](https://github.com/Armitanemati/liquid-glass-claude-skill) | 3 | 适用于 Web、SwiftUI、移动端的 Liquid Glass 与玻璃拟态设计推理，含对比度、性能和回退规则。 | MIT | 1 | 仅索引 |
+| [manish1803/nextjs-fullstack-skills](https://github.com/manish1803/nextjs-fullstack-skills) | 2 | 覆盖 Next.js、React、R3F、动效、支付及 UX/UI 的多客户端全栈 Agent Skills。 | MIT | 23 | 仅索引 |
+| [Taimoorkhan1122/boring-react](https://github.com/Taimoorkhan1122/boring-react) | 1 | 以可维护组件、生产模式、质量和动效纪律约束 React 工程实践，并附对抗性评测。 | MIT | 4 | 仅索引 |
+| [weareoxd/design-skill-generator](https://github.com/weareoxd/design-skill-generator) | 1 | 从截图或 Figma URL 生成设计系统 SKILL.md，并附项目自身的功能规划/精炼技能。 | MIT | 3 | 仅索引 |
+| [alfaris/Design-AI-Skills](https://github.com/alfaris/Design-AI-Skills) | 1 | 面向设计审查、演示与论证的英阿双语设计批评与说服思维技能。 | CC-BY-4.0 | 2 | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -2018,6 +2040,13 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [Eternity-487/Teach3D](https://github.com/Eternity-487/Teach3D) | 2 | 将实物、结构和过程转化为浏览器交互式 3D 课程，加入有证据依据的讲解、导学操作和课堂问题。 | MIT; externally sourced 3D assets require their original permissions | 1 | 仅索引 |
 | [sunzhaokai95/curation-research-skill](https://github.com/sunzhaokai95/curation-research-skill) | 2 | 将展览和博物馆主题调研整理为经过证据校准的 XMind 知识图谱，可选生成 Word 报告。 | MIT | 1 | 仅索引 |
 | [Insightful-Pipe/marketing-skills](https://github.com/Insightful-Pipe/marketing-skills) | 0 | 使用 InsightfulPipe 实时数据或用户导出资料审查广告、SEO 与分析指标。 | MIT | 77（另含路由） | 仅索引 |
+| [1507078/openwrt-one-skills](https://github.com/1507078/openwrt-one-skills) | 2 | OpenWrt One 路由器 Agent Skills，覆盖首启、家庭路由配置和网络观测。 | MIT | 3 | 仅索引 |
+| [Superfast-Robotics/robot-skill-hub](https://github.com/Superfast-Robotics/robot-skill-hub) | 0 | 机器人技能检索与证据注册表，提供带来源校验的查找、检查和准备工作流。 | MIT | 1 | 仅索引 |
+| [aws-geospatial/amazon-location-agent-context](https://github.com/aws-geospatial/amazon-location-agent-context) | 7 | AWS 官方 Amazon Location Service 上下文与 Agent Skill 包，覆盖地图、地点、地理编码、路线、地理围栏和追踪。 | MIT-0 (README and LICENSE.md; GitHub API metadata reported Apache-2.0, requiring source-license precedence) | 1 | 仅索引 |
+| [enesgul23/scientific-figure-skills](https://github.com/enesgul23/scientific-figure-skills) | 7 | 以证据为先的科研配图套件，覆盖规划、渲染、审计、可复现导出、视觉主张台账和期刊检查。 | MIT | 1 | 仅索引 |
+| [Cai-aa/CAE-Agent-Hub](https://github.com/Cai-aa/CAE-Agent-Hub) | 1,081 | 工程仿真 CAE 中心，结合可复用 Agent Skills、MCP 桥接和 Abaqus、Ansys、CST、Calculix、COMSOL、FEP、LAMMPS、OVITO、Peridigm 工作流。 | MIT | 多技能 | 仅索引 |
+| [ShaishavMaisuria/research-paper-lifecycle-skills](https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills) | 54 | 42 个 Agent Skills 覆盖论文全生命周期，从文献发现、写作、核验到投稿、答辩、发表和报告。 | Apache-2.0 | 42 | 仅索引 |
+| [muend/geoai-skills](https://github.com/muend/geoai-skills) | 32 | 厂商中立的 18 技能地理空间 AI 套件，在结果成为主张前检查 CRS、单位、可比性、空间泄漏、不确定性、溯源和安全拒答。 | MIT | 18 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -2240,6 +2269,15 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [Qsnh/skillsgist](https://github.com/Qsnh/skillsgist) | 43 | 在 Cloudflare 自托管公私有版本化 Agent Skills 注册表，支持多客户端安装。 | MIT | 基础设施 | 仅索引 |
 | [Jignesh-Ponamwar/skills-mcp](https://github.com/Jignesh-Ponamwar/skills-mcp) | 10 | 通过 MCP 以渐进加载方式提供可自托管、可搜索的 Agent Skills 注册表。 | Apache-2.0 | 基础设施 | 仅索引 |
 | [jo-inc/safe-skill-search](https://github.com/jo-inc/safe-skill-search) | 8 | 利用 BM25 索引、质量分数与来源过滤在本地检索 Agent Skill 注册表。 | MIT | 基础设施 | 仅索引 |
+| [smol-machines/smolvm](https://github.com/smol-machines/smolvm) | 6,759 | 面向 Agent 的可分支 microVM，提供安装、凭据、开发环境、GPU 与持久分支工作流技能。 | Apache-2.0 | 11 | 仅索引 |
+| [activeing123/mcptoon](https://github.com/activeing123/mcptoon) | 285 | MCP 工具与 Agent Skill 的本地零依赖上下文优化、发现、治理和统一 CLI。 | Apache-2.0 | 1 | 仅索引 |
+| [evgeniiPerov/quay](https://github.com/evgeniiPerov/quay) | 4 | 基于 Git 的注册表与 MCP 服务，用于跨客户端共享、安装、更新和审计 SKILL.md。 | MIT | 25 | 仅索引 |
+| [yaacovcorcos/papiskill](https://github.com/yaacovcorcos/papiskill) | 2 | 基于 Git 的公开注册表与 CLI，用于搜索、安装、校验和发布可移植 SKILL.md 包。 | MIT | 5 | 仅索引 |
+| [sentenz/skills](https://github.com/sentenz/skills) | 3 | Apache 许可的模块化开发技能目录，面向 AI 编程助手并支持 .agents/skills 安装。 | Apache-2.0 | 23 | 仅索引 |
+| [sigistry/marketplace](https://github.com/sigistry/marketplace) | 3 | 带开放安全检查、机器可读核验和同意式外部引用的插件/技能注册表。 | MIT (registry; nested/plugin licenses retained) | 36 | 仅索引 |
+| [scalefocus/skilly](https://github.com/scalefocus/skilly) | 8 | Apache 许可的自托管组织级版本化、审阅式 SKILL.md 注册表。 | Apache-2.0 | 基础设施 | 仅索引 |
+| [SkillsCatalog/registry](https://github.com/SkillsCatalog/registry) | 1 | 社区 Agent Skills 注册表，覆盖创建、安装、搜索、校验、发布和安全扫描。 | MIT | 7 | 仅索引 |
+| [Kargatharaakash/website-design-systems-mcp](https://github.com/Kargatharaakash/website-design-systems-mcp) | 18 | 从网站提取设计系统并生成 AI-ready SKILL.md 的 MCP 产品。 | MIT | 基础设施 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 

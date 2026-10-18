@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "baseline_count": 2344,
+  "accepted_count": 38,
+  "candidate_sources": [
+    {
+      "kind": "products",
+      "source": "reviewer cache products18-wave3-accepted.audit.json",
+      "sha256": "E58615C7A915F57E5A7D8B435A77065BD57B1580784208E339E765F456300539"
+    },
+    {
+      "kind": "science",
+      "source": "reviewer cache science2.audit.json",
+      "sha256": "C3D14B703CD40CE49C02A5556D83F330918821F3834EF159EAC71F8F6645DCA2"
+    },
+    {
+      "kind": "workflows",
+      "source": "reviewer cache reviewed2.json",
+      "sha256": "71AA6C41F40287EB2392AF906687351C30F65BFE3C85DAFD4CB2DA49EBC5C147"
+    }
+  ],
+  "accepted_by_section": {
+    "official": 13,
+    "infra": 9,
+    "vertical": 7,
+    "collections": 9
+  },
+  "excluded_review_sources": [
+    "Deferred/excluded candidates remain in the reviewer audit snapshots identified by hash; no rejected candidate was added to the formal shard."
+  ],
+  "notes": [
+    "Read-only GitHub evidence review; no candidate installation or execution.",
+    "This is a post-target follow-up shard; part83 remains the daily target receipt baseline."
+  ]
+}

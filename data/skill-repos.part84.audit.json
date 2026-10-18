@@ -1,0 +1,1970 @@
+{
+  "schema_version": 2,
+  "checked_at": "2026-10-18 (Asia/Shanghai)",
+  "baseline_count": 2344,
+  "added_count": 38,
+  "final_count": 2382,
+  "scope": "Post-target follow-up metadata index. No candidate installation, execution, cloning or third-party skill-body import.",
+  "counting_notes": [
+    "Each repository counts once by canonical full_name and available repository ID against the fixed 2344 baseline.",
+    "The 38 entries were independently reviewed by product/registry, science/GIS/CAE, and design/workflow reviewers; README, installation or distribution evidence, representative SKILL.md or infrastructure contract, and license scope were checked.",
+    "Skill counts preserve repository-specific semantics; routers, templates, generated/client copies, fixtures and maintenance helpers are not counted as independent skills.",
+    "This follow-up is cumulative with the 76 repositories in part83; it does not alter the already achieved daily target claim."
+  ],
+  "accepted": [
+    {
+      "full_name": "cursor/plugins",
+      "html_url": "https://github.com/cursor/plugins",
+      "stars": 12419,
+      "summary": "Cursor plugin specification and official plugins",
+      "summary_zh": "Cursor 官方插件目录，覆盖 SDK、团队协作、代码审查、浏览器与第三方 SaaS 集成。",
+      "license": "Per-plugin licenses (representative cursor-sdk plugin license; root API reports NOASSERTION)",
+      "skill_count": "111 个官方插件目录（多技能）",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1140229822,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "111 .cursor-plugin/plugin.json manifests; plugin-local duplicate paths and nested compatibility copies are not counted as additional repositories.",
+      "evidence": [
+        "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/README.md",
+        "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/cursor-sdk/skills/cursor-sdk/SKILL.md",
+        "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/cursor-sdk/LICENSE",
+        "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/third_party/github/LICENSE",
+        "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/cursor-sdk/README.md"
+      ],
+      "source_commit_sha": "16541c6bc1ed6c8d808b2f78a33364003e82b967",
+      "source_tree_sha": "163cfd907a8d02671955319d7c4efdc4fef707a2",
+      "readme_sha256": "e31c947c01637adea6ed58a031445b799995ea2cffdb84604c697b4ac809c68d",
+      "representative_skill": {
+        "path": "cursor-sdk/skills/cursor-sdk/SKILL.md",
+        "url": "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/cursor-sdk/skills/cursor-sdk/SKILL.md",
+        "sha256": "3fbe439f366ea94e0a756fc7288d2d8bd3f871bed4b97219dc1aee2f8c8ab979",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "cursor-sdk/LICENSE",
+          "url": "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/cursor-sdk/LICENSE",
+          "sha256": "702f5f331b56aff0e33d8c7826df5202559f894145eb70355c6477b55b5bb8a0"
+        },
+        {
+          "path": "third_party/github/LICENSE",
+          "url": "https://github.com/cursor/plugins/blob/16541c6bc1ed6c8d808b2f78a33364003e82b967/third_party/github/LICENSE",
+          "sha256": "702f5f331b56aff0e33d8c7826df5202559f894145eb70355c6477b55b5bb8a0"
+        }
+      ],
+      "distribution_evidence": "README presents this repository as the official Cursor plugin catalog; plugin README documents Cursor Settings/Plugins installation and each plugin keeps its own public SKILL.md and LICENSE.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/cursor/plugins",
+        "value": 12419
+      },
+      "stars_source": "https://api.github.com/repos/cursor/plugins",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "google/adk-recipes",
+      "html_url": "https://github.com/google/adk-recipes",
+      "stars": 10457,
+      "summary": "A collection of agent recipes, reference patterns, and vertical plugins built with Agent Development Kit (ADK)",
+      "summary_zh": "Google ADK 官方零售插件技能，提供商品检索和虚拟试穿 Agent 工作流。",
+      "license": "Apache-2.0 repository; plugin dependencies/assets may retain their own terms",
+      "skill_count": "2",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 958830671,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "embedded-product-skill",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "Two installable retail plugin skills in plugins/; .agents repo-maintainer helpers, tutorial examples and deployable agents excluded.",
+      "evidence": [
+        "https://github.com/google/adk-recipes/blob/05811bbacd9b0335c645e8d20e0d41cfdea08f7f/README.md",
+        "https://github.com/google/adk-recipes/blob/05811bbacd9b0335c645e8d20e0d41cfdea08f7f/plugins/retail/skills/product-search/SKILL.md",
+        "https://github.com/google/adk-recipes/blob/05811bbacd9b0335c645e8d20e0d41cfdea08f7f/LICENSE"
+      ],
+      "source_commit_sha": "05811bbacd9b0335c645e8d20e0d41cfdea08f7f",
+      "source_tree_sha": "6174a7344d440d5669a7ba37b9c70374e20bed7b",
+      "readme_sha256": "81f95416ccb2580452c54b0031e790987e447d494866ee4bd69ba14a6fd462b7",
+      "representative_skill": {
+        "path": "plugins/retail/skills/product-search/SKILL.md",
+        "url": "https://github.com/google/adk-recipes/blob/05811bbacd9b0335c645e8d20e0d41cfdea08f7f/plugins/retail/skills/product-search/SKILL.md",
+        "sha256": "a8dafa07a69baa2776102c3c530907a0fd607e9f8dd95b862b2be142b3b7dbee",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/google/adk-recipes/blob/05811bbacd9b0335c645e8d20e0d41cfdea08f7f/LICENSE",
+          "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1"
+        }
+      ],
+      "distribution_evidence": "plugins/README explicitly identifies spec-compliant installable plugin bundles and gives npx skills add google/adk-recipes --skill retail-product-search/retail-virtual-tryon.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/google/adk-recipes",
+        "value": 10457
+      },
+      "stars_source": "https://api.github.com/repos/google/adk-recipes",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "browser-use/browser-harness",
+      "html_url": "https://github.com/browser-use/browser-harness",
+      "stars": 18471,
+      "summary": "Let Claude Code, Codex or Cursor use your real Chrome, logged in as you. One prompt to set up. Open source, MIT.",
+      "summary_zh": "让 Claude Code、Codex 或 Cursor 通过 CDP 操作用户浏览器的浏览器 Harness。",
+      "license": "MIT",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1213049020,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "embedded-product-skill",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "One canonical root browser-harness skill; skills/ and src/ copies are package/runtime compatibility copies.",
+      "evidence": [
+        "https://github.com/browser-use/browser-harness/blob/c6a941287424f32e2d20c7b7b892c8493f46808d/README.md",
+        "https://github.com/browser-use/browser-harness/blob/c6a941287424f32e2d20c7b7b892c8493f46808d/SKILL.md",
+        "https://github.com/browser-use/browser-harness/blob/c6a941287424f32e2d20c7b7b892c8493f46808d/LICENSE"
+      ],
+      "source_commit_sha": "c6a941287424f32e2d20c7b7b892c8493f46808d",
+      "source_tree_sha": "89b474d98ac4ec210d01ee0debfa5bb5bca93c11",
+      "readme_sha256": "69309c3dfeec03b6499374e36fda7d2d15e3a9c276b5a5f00574f0cb29a47156",
+      "representative_skill": {
+        "path": "SKILL.md",
+        "url": "https://github.com/browser-use/browser-harness/blob/c6a941287424f32e2d20c7b7b892c8493f46808d/SKILL.md",
+        "sha256": "9e25a96375a0e120c16b76ea9d0a57c2fb7a5765813f89d5b9bcdc6dba6ea175",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/browser-use/browser-harness/blob/c6a941287424f32e2d20c7b7b892c8493f46808d/LICENSE",
+          "sha256": "5afa3d97bf1e6f998d587fa101e3fe0d0c416840b7fe77bcd6ae97690a334631"
+        }
+      ],
+      "distribution_evidence": "README setup prompt instructs installing the browser-harness package and registering its skill for Claude Code/Codex/Cursor; root SKILL.md is public and linked.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/browser-use/browser-harness",
+        "value": 18471
+      },
+      "stars_source": "https://api.github.com/repos/browser-use/browser-harness",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "pinchtab/pinchtab",
+      "html_url": "https://github.com/pinchtab/pinchtab",
+      "stars": 10395,
+      "summary": "High-performance browser automation bridge and multi-instance orchestrator with advanced stealth injection and real-time dashboard.",
+      "summary_zh": "本地优先的浏览器控制服务器与 Agent Skills，支持 CLI、MCP、性能优化和隐身评分。",
+      "license": "MIT",
+      "skill_count": "4",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1158432527,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "embedded-product-skill",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "Four user-facing skills under skills/: pinchtab, pinchtab-mcp, pinchtab-opt and pinchtab-stealth-score; pinchtab-dev is contributor-only and plugins/grok copies excluded.",
+      "evidence": [
+        "https://github.com/pinchtab/pinchtab/blob/a62662027f233444c579c29fbe42ad90df0d5bc7/README.md",
+        "https://github.com/pinchtab/pinchtab/blob/a62662027f233444c579c29fbe42ad90df0d5bc7/skills/pinchtab/SKILL.md",
+        "https://github.com/pinchtab/pinchtab/blob/a62662027f233444c579c29fbe42ad90df0d5bc7/LICENSE"
+      ],
+      "source_commit_sha": "a62662027f233444c579c29fbe42ad90df0d5bc7",
+      "source_tree_sha": "3f37fa7e98b67605635ca8ec8cc5320f535c7684",
+      "readme_sha256": "b90ddd2c3dfe43ab1322b63243f4541e01f06918c46f537bf8440e1f91397928",
+      "representative_skill": {
+        "path": "skills/pinchtab/SKILL.md",
+        "url": "https://github.com/pinchtab/pinchtab/blob/a62662027f233444c579c29fbe42ad90df0d5bc7/skills/pinchtab/SKILL.md",
+        "sha256": "76a93ae88e9b7310ed4715164ba2e156b5b755e370f32ce35faae452929be6c9",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/pinchtab/pinchtab/blob/a62662027f233444c579c29fbe42ad90df0d5bc7/LICENSE",
+          "sha256": "8e526b04f1f02203eebfd55aead0657a7ae87e0591cf8a44fbee19441aa0f116"
+        }
+      ],
+      "distribution_evidence": "README states npm package ships the pinchtab agent skill, provides pinchtab skill status/update and Grok plugin installation; public skills/ paths are canonical.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/pinchtab/pinchtab",
+        "value": 10395
+      },
+      "stars_source": "https://api.github.com/repos/pinchtab/pinchtab",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "xberg-io/xberg",
+      "html_url": "https://github.com/xberg-io/xberg",
+      "stars": 9423,
+      "summary": "Polyglot document intelligence with a Rust core: extract text, metadata, images, tables, and structured data from 106 formats across 140 file extensions, plus code intelligence for 371 languages. Fifteen bindings, with CLI, REST API, and MCP server.",
+      "summary_zh": "Xberg 文档/多媒体解析与 OCR 工具的官方 Agent Skills、插件和 MCP 集成。",
+      "license": "MIT code/skills; some reference material retains Elastic-2.0 terms",
+      "skill_count": "7",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 925434317,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "embedded-product-skill",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "Seven canonical skills under skills/; plugin/.ai-rulez and per-client (.cursor-plugin/.opencode/.pi/.hermes) generated/compatibility copies excluded.",
+      "evidence": [
+        "https://github.com/xberg-io/xberg/blob/ae9c1922750e0d1fdc58e636ba0aeb7d8d546237/README.md",
+        "https://github.com/xberg-io/xberg/blob/ae9c1922750e0d1fdc58e636ba0aeb7d8d546237/skills/xberg/SKILL.md",
+        "https://github.com/xberg-io/xberg/blob/ae9c1922750e0d1fdc58e636ba0aeb7d8d546237/LICENSE"
+      ],
+      "source_commit_sha": "ae9c1922750e0d1fdc58e636ba0aeb7d8d546237",
+      "source_tree_sha": "9d0189b3e440395bebe741c43d64d38328a147ee",
+      "readme_sha256": "9b6b0f8ed2457ef55ccc5773a5d3a8d3da744b3718cae23b6f52f593d4e0f910",
+      "representative_skill": {
+        "path": "skills/xberg/SKILL.md",
+        "url": "https://github.com/xberg-io/xberg/blob/ae9c1922750e0d1fdc58e636ba0aeb7d8d546237/skills/xberg/SKILL.md",
+        "sha256": "d6663c525a9d0470f0a1fcff8510e87990379262f28860357b9fa50364ba4263",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/xberg-io/xberg/blob/ae9c1922750e0d1fdc58e636ba0aeb7d8d546237/LICENSE",
+          "sha256": "081ff9e2978a771dc90f475aa5130871d85debdf120683cbb860b41662641272"
+        }
+      ],
+      "distribution_evidence": "README has an explicit public Agent Skills section with npx skills add xberg-io/xberg plus Claude/Codex/Cursor/Gemini/other plugin installation.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/xberg-io/xberg",
+        "value": 9423
+      },
+      "stars_source": "https://api.github.com/repos/xberg-io/xberg",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "smol-machines/smolvm",
+      "html_url": "https://github.com/smol-machines/smolvm",
+      "stars": 6759,
+      "summary": "An embeddable, portable, branchable virtual machine to safely run Agents locally.",
+      "summary_zh": "面向 Agent 的可分支 microVM，提供安装、凭据、开发环境、GPU 与持久分支工作流技能。",
+      "license": "Apache-2.0",
+      "skill_count": "11",
+      "status": "仅索引",
+      "section": "infra",
+      "repository_id": 1119210021,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "robotics-embedded",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "Eleven docs/*/SKILL.md task packets for public smolvm installation, coding-agent sandboxing, VM lifecycle and runtime workflows; README/reference files are not extra skills.",
+      "evidence": [
+        "https://github.com/smol-machines/smolvm/blob/f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1/README.md",
+        "https://github.com/smol-machines/smolvm/blob/f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1/docs/coding-agent/SKILL.md",
+        "https://github.com/smol-machines/smolvm/blob/f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1/LICENSE"
+      ],
+      "source_commit_sha": "f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1",
+      "source_tree_sha": "07060d830bff02f866612f46cbb14f1317a4c0e5",
+      "readme_sha256": "c9b173dd25bd9f07719e90608d6a36ad78506b5c94c118ceae7d67b2ca73549a",
+      "representative_skill": {
+        "path": "docs/coding-agent/SKILL.md",
+        "url": "https://github.com/smol-machines/smolvm/blob/f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1/docs/coding-agent/SKILL.md",
+        "sha256": "a2fe11bcbba3d2504f7aafb3303d89d997e79e726b6dfd2383e9ac356c1e16fa",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/smol-machines/smolvm/blob/f0c7a0fe1e0d81fe348edfcbe8bb8498c76951b1/LICENSE",
+          "sha256": "ac6a4050f2f415a02f3c223ddee932a07de627bc143059e9a1ea9df088e46909"
+        }
+      ],
+      "distribution_evidence": "README says each docs task has a SKILL.md that agents can follow and provides published installer commands for smolvm.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/smol-machines/smolvm",
+        "value": 6759
+      },
+      "stars_source": "https://api.github.com/repos/smol-machines/smolvm",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "anthropics/oncall-kit",
+      "html_url": "https://github.com/anthropics/oncall-kit",
+      "stars": 241,
+      "summary": "Starter kit for a Claude-assisted on-call: mines your incident history into triage playbooks, sets up through human-approved gates, and runs read-only in your Slack channel — humans deploy every fix.",
+      "summary_zh": "Anthropic 官方 Claude 值班工具包，覆盖事件分诊、设置、交接与状态天气技能。",
+      "license": "Apache-2.0",
+      "skill_count": "4",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1322278165,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "public-interest-operations",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "Four public on-call workflow skills: oncall-setup, triage, handoff and weather; references/fixtures/routines excluded.",
+      "evidence": [
+        "https://github.com/anthropics/oncall-kit/blob/c03282cd5381a5a2e12e32bfb3c8957d52ce01f1/README.md",
+        "https://github.com/anthropics/oncall-kit/blob/c03282cd5381a5a2e12e32bfb3c8957d52ce01f1/skills/triage/SKILL.md",
+        "https://github.com/anthropics/oncall-kit/blob/c03282cd5381a5a2e12e32bfb3c8957d52ce01f1/LICENSE"
+      ],
+      "source_commit_sha": "c03282cd5381a5a2e12e32bfb3c8957d52ce01f1",
+      "source_tree_sha": "f2dc184eb70ed92318821894d825611c64fe6163",
+      "readme_sha256": "f2897c9f0ecd8d14f6058391679fac7cfc34b5896ef3a163bdaf7917e02a0aca",
+      "representative_skill": {
+        "path": "skills/triage/SKILL.md",
+        "url": "https://github.com/anthropics/oncall-kit/blob/c03282cd5381a5a2e12e32bfb3c8957d52ce01f1/skills/triage/SKILL.md",
+        "sha256": "d664c2ad65b3a5e8b9a4df1669c4c2034d3b0a9ef4a89823d0948afd43f33962",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/anthropics/oncall-kit/blob/c03282cd5381a5a2e12e32bfb3c8957d52ce01f1/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ],
+      "distribution_evidence": "README documents cloning/opening the kit in Claude Code and running the oncall-setup skill, with the public skills/ directory as the install surface.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/anthropics/oncall-kit",
+        "value": 241
+      },
+      "stars_source": "https://api.github.com/repos/anthropics/oncall-kit",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "AnmolSaini16/mapcn",
+      "html_url": "https://github.com/AnmolSaini16/mapcn",
+      "stars": 12275,
+      "summary": "Beautiful map components. 100% Free, Zero config, one command setup.",
+      "summary_zh": "MapLibre/shadcn 地图组件的 Agent Skill，指导 React 应用按需安装和配置地图。",
+      "license": "MIT",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1124108056,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "geo-weather",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "One public mapcn consumer skill; references and shadcn component files not counted.",
+      "evidence": [
+        "https://github.com/AnmolSaini16/mapcn/blob/116d3b18d77f258721d5fec2d922df9271027121/README.md",
+        "https://github.com/AnmolSaini16/mapcn/blob/116d3b18d77f258721d5fec2d922df9271027121/skills/mapcn/SKILL.md",
+        "https://github.com/AnmolSaini16/mapcn/blob/116d3b18d77f258721d5fec2d922df9271027121/LICENSE"
+      ],
+      "source_commit_sha": "116d3b18d77f258721d5fec2d922df9271027121",
+      "source_tree_sha": "a9cd8a06dce9a878e0ddc73283bf26734b956f06",
+      "readme_sha256": "a07b2710fa859f59b0f0e8c32cbb899b7e0392dc74f9a53e475eaddf04411b90",
+      "representative_skill": {
+        "path": "skills/mapcn/SKILL.md",
+        "url": "https://github.com/AnmolSaini16/mapcn/blob/116d3b18d77f258721d5fec2d922df9271027121/skills/mapcn/SKILL.md",
+        "sha256": "4762c8f45dcfe08c3b6e3348ca8ab8130df80d732ab2326fab896a59b33846ca",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/AnmolSaini16/mapcn/blob/116d3b18d77f258721d5fec2d922df9271027121/LICENSE",
+          "sha256": "73020a10c41b48b72fbcc0f8bc38fbc24ff13df874a3142ab48094162490bb29"
+        }
+      ],
+      "distribution_evidence": "README Agent Skill section gives npx skills add AnmolSaini16/mapcn and links the skill docs.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/AnmolSaini16/mapcn",
+        "value": 12275
+      },
+      "stars_source": "https://api.github.com/repos/AnmolSaini16/mapcn",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "activeing123/mcptoon",
+      "html_url": "https://github.com/activeing123/mcptoon",
+      "stars": 285,
+      "summary": "One zero-dependency CLI for every MCP server and agent skill. Token optimization, tool discovery and context compression: 71,929 -> 581 tokens (-99.2%, measured), schemas stay out of context. One config for Claude Code, Codex, Cursor, every agent. 341KB, pure Python. | 零依赖 CLI：管所有 MCP 工具与技能，工具发现省 99.2% token。",
+      "summary_zh": "MCP 工具与 Agent Skill 的本地零依赖上下文优化、发现、治理和统一 CLI。",
+      "license": "Apache-2.0",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "infra",
+      "repository_id": 1313597274,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "One canonical /mcptoon governance skill; claude-code-plugin, plugin/mcptoon-skills and src copies are distribution/implementation copies; plugin authoring/connect/triage are separate maintainer surfaces.",
+      "evidence": [
+        "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/README.md",
+        "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/skills/mcptoon/SKILL.md",
+        "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/LICENSE",
+        "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/NOTICE"
+      ],
+      "source_commit_sha": "c2070577c5965b4d6148e1a70c65c9ded8245ec4",
+      "source_tree_sha": "f6a22a41bd8203ea0bad62002cea606923cb5d06",
+      "readme_sha256": "5555b51e5d15490cb2a8511cbf0c538a7f0509f8bd6987cbf3b8323ab4b74820",
+      "representative_skill": {
+        "path": "skills/mcptoon/SKILL.md",
+        "url": "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/skills/mcptoon/SKILL.md",
+        "sha256": "9b9feabcb81e5ec4725e7041ed834c42a2e3d0e9a24e3462a2ad36dc555d0baf",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/LICENSE",
+          "sha256": "ae99b36e8e246ee87a9bf6460f0e54dbf1be0e431fda325e5f7cf2730947f046"
+        },
+        {
+          "path": "NOTICE",
+          "url": "https://github.com/activeing123/mcptoon/blob/c2070577c5965b4d6148e1a70c65c9ded8245ec4/NOTICE",
+          "sha256": "cd376439cb55097a8cdd8909980d746d497dcd4bdb3726daa7feec30c7e1772b"
+        }
+      ],
+      "distribution_evidence": "README calls mcptoon a CLI for MCP tools and agent skills, documents pip install mcptoon + mcptoon quickstart, and states quickstart self-installs the official /mcptoon skill.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/activeing123/mcptoon",
+        "value": 285
+      },
+      "stars_source": "https://api.github.com/repos/activeing123/mcptoon",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "OpenMinis/MinisSkills",
+      "html_url": "https://github.com/OpenMinis/MinisSkills",
+      "stars": 465,
+      "summary": "Skills collection for Minis.",
+      "summary_zh": "Minis 社区技能集合，覆盖移动开发、数据、社交媒体、效率工具和本地自动化。",
+      "license": "MIT collection; nested shortcuts-builder includes its own NOTICE/terms",
+      "skill_count": "56",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1169933831,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "business-operations",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "56 top-level canonical skill directories; nested todoocard/today-eats is counted as its own public skill, while README/evals/resources are not.",
+      "evidence": [
+        "https://github.com/OpenMinis/MinisSkills/blob/71bcfc81ae440c9e91213f94b25b9fa60c8580a7/README.md",
+        "https://github.com/OpenMinis/MinisSkills/blob/71bcfc81ae440c9e91213f94b25b9fa60c8580a7/android-dev/SKILL.md",
+        "https://github.com/OpenMinis/MinisSkills/blob/71bcfc81ae440c9e91213f94b25b9fa60c8580a7/LICENSE"
+      ],
+      "source_commit_sha": "71bcfc81ae440c9e91213f94b25b9fa60c8580a7",
+      "source_tree_sha": "36c0018e3fcc831c58c8aa1885e2e3909df2619c",
+      "readme_sha256": "23dd23bc24e396bcb42edcdad7448d49d7f6842166ccc24252d182e3dabf3c1c",
+      "representative_skill": {
+        "path": "android-dev/SKILL.md",
+        "url": "https://github.com/OpenMinis/MinisSkills/blob/71bcfc81ae440c9e91213f94b25b9fa60c8580a7/android-dev/SKILL.md",
+        "sha256": "02cc35554931ee20a3d1e430b7520c5dbd228fbc437b6f63e4f6d28b7ca6d4af",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/OpenMinis/MinisSkills/blob/71bcfc81ae440c9e91213f94b25b9fa60c8580a7/LICENSE",
+          "sha256": "2858f336d8173207aa079c4711085a28d22615d464b6a387363f7824116d00f0"
+        }
+      ],
+      "distribution_evidence": "README defines the public MinisSkills directory contract, SKILL.md format and submission checklist; root LICENSE applies to the collection.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/OpenMinis/MinisSkills",
+        "value": 465
+      },
+      "stars_source": "https://api.github.com/repos/OpenMinis/MinisSkills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "vite-hub/vitehub",
+      "html_url": "https://github.com/vite-hub/vitehub",
+      "stars": 22,
+      "summary": "Agents for any host, composed with server primitives through one Vite plugin.",
+      "summary_zh": "ViteHub 官方技能，指导在 ViteHub 原语上构建 Agent、KV、UI 和可组合服务。",
+      "license": "Apache-2.0",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1208410366,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "embedded-product-skill",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "One public vitehub product skill; docs/code-review and resolving-merge-conflicts are repository maintenance helpers and duplicate copies under skills/ are excluded.",
+      "evidence": [
+        "https://github.com/vite-hub/vitehub/blob/917ddbc86a0932efc47d439a9db3b434973ae732/README.md",
+        "https://github.com/vite-hub/vitehub/blob/917ddbc86a0932efc47d439a9db3b434973ae732/docs/skills/vitehub/SKILL.md",
+        "https://github.com/vite-hub/vitehub/blob/917ddbc86a0932efc47d439a9db3b434973ae732/LICENSE"
+      ],
+      "source_commit_sha": "917ddbc86a0932efc47d439a9db3b434973ae732",
+      "source_tree_sha": "1fe40a4cd903206b6f595f5bdb88da3e9c785847",
+      "readme_sha256": "0fc9e1ea40fa8481d779fb11c37efe99935e80fa298ed23c865cb0df0b0ebd54",
+      "representative_skill": {
+        "path": "docs/skills/vitehub/SKILL.md",
+        "url": "https://github.com/vite-hub/vitehub/blob/917ddbc86a0932efc47d439a9db3b434973ae732/docs/skills/vitehub/SKILL.md",
+        "sha256": "a9c035224a27405b2ede6b58448f5cc70f3d625868be9cab0fb4cf29909030dd",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/vite-hub/vitehub/blob/917ddbc86a0932efc47d439a9db3b434973ae732/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        }
+      ],
+      "distribution_evidence": "README explicitly tells coding agents to npx skills add https://vitehub.dev --skill vitehub and links Apache-2.0 license.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/vite-hub/vitehub",
+        "value": 22
+      },
+      "stars_source": "https://api.github.com/repos/vite-hub/vitehub",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "openfilm/openfilm",
+      "html_url": "https://github.com/openfilm/openfilm",
+      "stars": 876,
+      "summary": "The open source AI video agent: turns any coding agent into a video agent, with an editor to change anything it makes.",
+      "summary_zh": "OpenFilm 开源 AI 视频 Agent，包含视频制作路由和多种可安装的创意视频技能。",
+      "license": "MIT",
+      "skill_count": "11",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1404197626,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "commercial-creative",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "One openfilm router plus ten public video production skills under packages/openfilm/skills; package copies and shared code are not additional repos.",
+      "evidence": [
+        "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/README.md",
+        "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/skills/openfilm/SKILL.md",
+        "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/LICENSE",
+        "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/packages/openfilm/LICENSE"
+      ],
+      "source_commit_sha": "90189757998c75c68c4fa5c534dca363b8907768",
+      "source_tree_sha": "976a43c1cb45f06ddbe481899044cd9d016f2ade",
+      "readme_sha256": "64ebf57fd93a59778200bb784acb1a578f8f3b56cd3204c226931d81ac247dd1",
+      "representative_skill": {
+        "path": "skills/openfilm/SKILL.md",
+        "url": "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/skills/openfilm/SKILL.md",
+        "sha256": "7506dde61d3d518a7534104c22741e85ca292e03ff70e3e6907e01a636404c27",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/LICENSE",
+          "sha256": "4f39fecc5d074a4795bb7c55c5aaad1a4505b5e022ae6c2c3b55b4f26e7c43fc"
+        },
+        {
+          "path": "packages/openfilm/LICENSE",
+          "url": "https://github.com/openfilm/openfilm/blob/90189757998c75c68c4fa5c534dca363b8907768/packages/openfilm/LICENSE",
+          "sha256": "4f39fecc5d074a4795bb7c55c5aaad1a4505b5e022ae6c2c3b55b4f26e7c43fc"
+        }
+      ],
+      "distribution_evidence": "README gives npx skills add openfilm/openfilm and describes the coding-agent video workflow and Studio installation.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/openfilm/openfilm",
+        "value": 876
+      },
+      "stars_source": "https://api.github.com/repos/openfilm/openfilm",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "vibeic/vibe-ic",
+      "html_url": "https://github.com/vibeic/vibe-ic",
+      "stars": 28,
+      "summary": "AI-native IC design plugin with MCP-EDA — from natural-language intent to verified silicon.",
+      "summary_zh": "Vibe-IC 电子设计自动化 Agent 插件与 MCP-EDA 技能市场，覆盖模拟/数字芯片设计验证。",
+      "license": "Apache-2.0",
+      "skill_count": "71",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1268128556,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "cae-cad",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "71 skills in the vibe-ic marketplace plugin; generated/client bundles and deterministic programs are not separate skills or repositories.",
+      "evidence": [
+        "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/README.md",
+        "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/vibe-ic-marketplace/plugins/vibe-ic/skills/analog-layout/SKILL.md",
+        "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/LICENSE",
+        "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/NOTICE"
+      ],
+      "source_commit_sha": "5f4a49a1098402bf45363b71ba242c74bb126371",
+      "source_tree_sha": "243fcff60cd4c31a90f203626dcdc451a3ac6c2a",
+      "readme_sha256": "4a30af4cb09e2575c88101d1e39d3bac81cca68fbbe5ccdbc0fb455a801a42d4",
+      "representative_skill": {
+        "path": "vibe-ic-marketplace/plugins/vibe-ic/skills/analog-layout/SKILL.md",
+        "url": "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/vibe-ic-marketplace/plugins/vibe-ic/skills/analog-layout/SKILL.md",
+        "sha256": "7ce16c06ec5abc232d41836e50609e90f04f6c56bb77723ee6a374d922dd991e",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "path": "NOTICE",
+          "url": "https://github.com/vibeic/vibe-ic/blob/5f4a49a1098402bf45363b71ba242c74bb126371/NOTICE",
+          "sha256": "e8c888fa0d6f66eb56e1d9cd1088cc396a1cf7b4bda21a07b8abd5837f77106a"
+        }
+      ],
+      "distribution_evidence": "README identifies vibe-ic as a Claude Code plugin + MCP-EDA product and documents its one-install marketplace/plugin bundle with public skill files.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/vibeic/vibe-ic",
+        "value": 28
+      },
+      "stars_source": "https://api.github.com/repos/vibeic/vibe-ic",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "1507078/openwrt-one-skills",
+      "html_url": "https://github.com/1507078/openwrt-one-skills",
+      "stars": 2,
+      "summary": "Set up and operate an OpenWrt One router with an AI coding agent. For developers who don't know networking. Works with Claude Code, Codex, and any Agent Skills host.",
+      "summary_zh": "OpenWrt One 路由器 Agent Skills，覆盖首启、家庭路由配置和网络观测。",
+      "license": "MIT",
+      "skill_count": "3",
+      "status": "仅索引",
+      "section": "vertical",
+      "repository_id": 1353304063,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "robotics-embedded",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "Three canonical OpenWrt One router skills listed in README; advanced outline and references excluded.",
+      "evidence": [
+        "https://github.com/1507078/openwrt-one-skills/blob/d97164f540984f7a093f5305de1590ccbf2c6eac/README.md",
+        "https://github.com/1507078/openwrt-one-skills/blob/d97164f540984f7a093f5305de1590ccbf2c6eac/skills/openwrt-one-first-boot/SKILL.md",
+        "https://github.com/1507078/openwrt-one-skills/blob/d97164f540984f7a093f5305de1590ccbf2c6eac/LICENSE"
+      ],
+      "source_commit_sha": "d97164f540984f7a093f5305de1590ccbf2c6eac",
+      "source_tree_sha": "f8b3c18a20d67c21a598131baecc11a8ae953ea1",
+      "readme_sha256": "2fd4b4ec62d88dded4f3b368ba24735fc85537365a794fddc23e3ca82adb1150",
+      "representative_skill": {
+        "path": "skills/openwrt-one-first-boot/SKILL.md",
+        "url": "https://github.com/1507078/openwrt-one-skills/blob/d97164f540984f7a093f5305de1590ccbf2c6eac/skills/openwrt-one-first-boot/SKILL.md",
+        "sha256": "4cdcb90b6de7fd6bbe6323cfb8883f67d3e491f3f321a27ad367030bd1af7796",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/1507078/openwrt-one-skills/blob/d97164f540984f7a093f5305de1590ccbf2c6eac/LICENSE",
+          "sha256": "bcd6c897df1fff53ddb5a2f284e7021d01a5e6405731c0b50deb11cc1d705831"
+        }
+      ],
+      "distribution_evidence": "README supports Claude Code/Codex/Agent Skills, offers plugin marketplace and git/copy installation, and lists the three skills with risk levels.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/1507078/openwrt-one-skills",
+        "value": 2
+      },
+      "stars_source": "https://api.github.com/repos/1507078/openwrt-one-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "Superfast-Robotics/robot-skill-hub",
+      "html_url": "https://github.com/Superfast-Robotics/robot-skill-hub",
+      "stars": 0,
+      "summary": "Agent-first robotics skill discovery: pinned source examples, reproducible preparation, and reviewed task findings.",
+      "summary_zh": "机器人技能检索与证据注册表，提供带来源校验的查找、检查和准备工作流。",
+      "license": "MIT",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "vertical",
+      "repository_id": 1423241384,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "robotics-embedded",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "One public registry/locator skill; upstream robotics source artifacts are referenced by checksums and are not copied or counted as skills.",
+      "evidence": [
+        "https://github.com/Superfast-Robotics/robot-skill-hub/blob/1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba/README.md",
+        "https://github.com/Superfast-Robotics/robot-skill-hub/blob/1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba/skills/find-robot-skills/SKILL.md",
+        "https://github.com/Superfast-Robotics/robot-skill-hub/blob/1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba/LICENSE"
+      ],
+      "source_commit_sha": "1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba",
+      "source_tree_sha": "d55941a614a9f25f8f855af1435575200faea267",
+      "readme_sha256": "7851b60ffbb1eeed28d3e0a4d18c021610e0afe7ad7e47cbbf02890c11541087",
+      "representative_skill": {
+        "path": "skills/find-robot-skills/SKILL.md",
+        "url": "https://github.com/Superfast-Robotics/robot-skill-hub/blob/1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba/skills/find-robot-skills/SKILL.md",
+        "sha256": "602116eff305f26e867701e95440de59e19b4cb03094409af5e6b5632d0f9d4b",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/Superfast-Robotics/robot-skill-hub/blob/1c4c1e1533ff364fd4a35cddc8750b9306b0a5ba/LICENSE",
+          "sha256": "a36626d945a25e7f2bcf1054b7798b22a2528b48bc5251d3fab34f36e56eeba2"
+        }
+      ],
+      "distribution_evidence": "README gives npx skills add --skill find-robot-skills, a read-only MCP endpoint, provenance checks and prepare/inspect commands for robotic skills.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/Superfast-Robotics/robot-skill-hub",
+        "value": 0
+      },
+      "stars_source": "https://api.github.com/repos/Superfast-Robotics/robot-skill-hub",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "no-phux/skills",
+      "html_url": "https://github.com/no-phux/skills",
+      "stars": 0,
+      "summary": "Agent skills for phux. Install: npx skills add no-phux/skills",
+      "summary_zh": "Phux 持久终端 Agent Skills，覆盖 CLI、MCP 和工具驱动的交互式终端工作流。",
+      "license": "Apache-2.0",
+      "skill_count": "3",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1378712373,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "Three canonical phux consumer skills (CLI, MCP, tools); no-phux/phux internal .agents copies are excluded.",
+      "evidence": [
+        "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/README.md",
+        "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/skills/using-phux/SKILL.md",
+        "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/LICENSE",
+        "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/NOTICE"
+      ],
+      "source_commit_sha": "40130da18528f54d7a76b24052798dbad6462649",
+      "source_tree_sha": "a59a3702a85d6c46f9901c5237967b7a9ca0aa75",
+      "readme_sha256": "a1172bf7d3728b6bf75c72dcabd6e26e1ff6b62bd3a89d13466ca6d78085b355",
+      "representative_skill": {
+        "path": "skills/using-phux/SKILL.md",
+        "url": "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/skills/using-phux/SKILL.md",
+        "sha256": "1a237430f6aec1fd6a32ebe6634e457f089fe000649bd72c7c760edff98877fa",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/LICENSE",
+          "sha256": "5ba6bc69e37a252179e1be4f63d1b03c5600f930f6099462260f2700d090550d"
+        },
+        {
+          "path": "NOTICE",
+          "url": "https://github.com/no-phux/skills/blob/40130da18528f54d7a76b24052798dbad6462649/NOTICE",
+          "sha256": "347b98d053b2643341de1a9d1ea2df9607f9b3c2f4a6c543b6342330ca57d745"
+        }
+      ],
+      "distribution_evidence": "README gives npx skills add no-phux/skills and per-skill install commands, and links the public Agent Skills setup guide.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/no-phux/skills",
+        "value": 0
+      },
+      "stars_source": "https://api.github.com/repos/no-phux/skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "BintzGavin/helios",
+      "html_url": "https://github.com/BintzGavin/helios",
+      "stars": 121,
+      "summary": "Programmatic video creation with web technologies you already know. CSS animations just work.",
+      "summary_zh": "Helios 程序化视频引擎技能，覆盖动画设计、视频制作、渲染、Studio 与数据可视化。",
+      "license": "Apache-2.0 (skills/plugin); ELv2 engine",
+      "skill_count": "19",
+      "status": "仅索引",
+      "section": "official",
+      "repository_id": 1036932940,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "commercial-creative",
+      "discovery_subfamily": "product-sdk-cli-native",
+      "skill_count_basis": "19 user-facing skills: root catalog, core, two design guides, getting-started, seven guided workflows, player, renderer, studio and three workflows; examples and internal skill-creator excluded; plugin make-video is a separate compatible distribution copy.",
+      "evidence": [
+        "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/README.md",
+        "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/skills/guided/product-demo/SKILL.md",
+        "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/skills/LICENSE",
+        "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/plugins/helios/LICENSE"
+      ],
+      "source_commit_sha": "7d3a9d156a437c79af49d694f80fec94f8b96efc",
+      "source_tree_sha": "116758ffa3219100a849f64b81e33fc489e23c4c",
+      "readme_sha256": "308b7fc54563e5314c77d920ab3490da5cf435c8169107178c496d4899adbe9e",
+      "representative_skill": {
+        "path": "skills/guided/product-demo/SKILL.md",
+        "url": "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/skills/guided/product-demo/SKILL.md",
+        "sha256": "06c5978e9695fd821335d6ef65608db840bce27d1bb539338880eb22e7b959aa",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "skills/LICENSE",
+          "url": "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/skills/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+        },
+        {
+          "path": "plugins/helios/LICENSE",
+          "url": "https://github.com/BintzGavin/helios/blob/7d3a9d156a437c79af49d694f80fec94f8b96efc/plugins/helios/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+        }
+      ],
+      "distribution_evidence": "README recommends npx skills add BintzGavin/helios, lists guided video types, and explicitly states skills/plugin are Apache-2.0 while engine is ELv2.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/BintzGavin/helios",
+        "value": 121
+      },
+      "stars_source": "https://api.github.com/repos/BintzGavin/helios",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "metadata_source": "github_rest_metadata_and_fixed_commit_tree",
+      "checked_at": "2026-10-18",
+      "independent_verified": true,
+      "review_batch": "products"
+    },
+    {
+      "full_name": "aws-geospatial/amazon-location-agent-context",
+      "html_url": "https://github.com/aws-geospatial/amazon-location-agent-context",
+      "stars": 7,
+      "summary": "Official AWS Amazon Location Service context and Agent Skill package for maps, places, geocoding, routing, geofencing and tracking across Kiro, Claude, Cursor and generic Agent Skills clients.",
+      "summary_zh": "AWS 官方 Amazon Location Service 上下文与 Agent Skill 包，覆盖地图、地点、地理编码、路线、地理围栏和追踪。",
+      "license": "MIT-0 (README and LICENSE.md; GitHub API metadata reported Apache-2.0, requiring source-license precedence)",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "vertical",
+      "repository_id": 1150897397,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "geo-weather",
+      "skill_count_basis": "Three SKILL.md paths are Claude/plugin/template projections of one amazon-location-service task; count one canonical capability.",
+      "evidence": [
+        "https://github.com/aws-geospatial/amazon-location-agent-context/blob/62287735854caf7564d00838bb7b8c7c0cd6547c/README.md",
+        "https://github.com/aws-geospatial/amazon-location-agent-context/blob/62287735854caf7564d00838bb7b8c7c0cd6547c/plugins/amazon-location-service/skills/amazon-location-service/SKILL.md",
+        "https://github.com/aws-geospatial/amazon-location-agent-context/blob/62287735854caf7564d00838bb7b8c7c0cd6547c/LICENSE"
+      ],
+      "source_commit_sha": "62287735854caf7564d00838bb7b8c7c0cd6547c",
+      "source_tree_sha": "f114d3ced844bf3953e59a8611bee77501ff79a3",
+      "readme_sha256": "472f29aade82a49d5ffc7b2dba1685dacfb1674e833b4f3b371b5fc21626e77f",
+      "representative_path": "plugins/amazon-location-service/skills/amazon-location-service/SKILL.md",
+      "representative_sha256": "1850846723245d2e9c15045925fc03bd7c1df69483afc982cd7136adcbb96fdb",
+      "distribution_evidence": "README shows npx skills add aws-geospatial/amazon-location-agent-context plus Claude/Cursor/Kiro/other-agent install routes.",
+      "license_scope": "README states MIT-0 via LICENSE.md; AWS trademarks/service terms and API credentials remain external.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/aws-geospatial/amazon-location-agent-context",
+        "value": 7
+      },
+      "stars_source": "https://api.github.com/repos/aws-geospatial/amazon-location-agent-context",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "science"
+    },
+    {
+      "full_name": "enesgul23/scientific-figure-skills",
+      "html_url": "https://github.com/enesgul23/scientific-figure-skills",
+      "stars": 7,
+      "summary": "Evidence-first scientific figure suite for planning, rendering, auditing and packaging publication-grade figures with reproducible exports, visual-claim ledgers and journal checks.",
+      "summary_zh": "以证据为先的科研配图套件，覆盖规划、渲染、审计、可复现导出、视觉主张台账和期刊检查。",
+      "license": "MIT",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "vertical",
+      "repository_id": 1243889912,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "science-lab",
+      "skill_count_basis": "Claude and Codex paths are identical platform projections of one router skill; internal workflows are explicitly not separately registered.",
+      "evidence": [
+        "https://github.com/enesgul23/scientific-figure-skills/blob/df72094211b860580e25275b2cc668a0aba0b9d9/README.md",
+        "https://github.com/enesgul23/scientific-figure-skills/blob/df72094211b860580e25275b2cc668a0aba0b9d9/claude-code/skills/scientific-figure-suite/SKILL.md",
+        "https://github.com/enesgul23/scientific-figure-skills/blob/df72094211b860580e25275b2cc668a0aba0b9d9/LICENSE"
+      ],
+      "source_commit_sha": "df72094211b860580e25275b2cc668a0aba0b9d9",
+      "source_tree_sha": "80d2bbb385f411193e94754889cb825d981be9f4",
+      "readme_sha256": "8271d98f1aae9cbfead5b9daeb0e4e2d3cac1e5fbe86c558bd17d13a3da218a7",
+      "representative_path": "claude-code/skills/scientific-figure-suite/SKILL.md",
+      "representative_sha256": "a4916ba9b0fc894f9a84ba1b12477482c60137f66ff70b2f607346f1b164b42b",
+      "distribution_evidence": "README gives clone and platform installation for Claude Code and Codex; validation workflow and MIT badge present.",
+      "license_scope": "Root MIT applies authored suite; no nested conflicting license found.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/enesgul23/scientific-figure-skills",
+        "value": 7
+      },
+      "stars_source": "https://api.github.com/repos/enesgul23/scientific-figure-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "science"
+    },
+    {
+      "full_name": "Cai-aa/CAE-Agent-Hub",
+      "html_url": "https://github.com/Cai-aa/CAE-Agent-Hub",
+      "stars": 1081,
+      "summary": "CAE engineering simulation hub combining reusable agent skills, MCP bridges and evidence-oriented Abaqus, Ansys, CST, Calculix, COMSOL, FEP, LAMMPS, OVITO and Peridigm workflows.",
+      "summary_zh": "工程仿真 CAE 中心，结合可复用 Agent Skills、MCP 桥接和 Abaqus、Ansys、CST、Calculix、COMSOL、FEP、LAMMPS、OVITO、Peridigm 工作流。",
+      "license": "MIT",
+      "skill_count": "多技能",
+      "status": "仅索引",
+      "section": "vertical",
+      "repository_id": 1222504648,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "cae-cad",
+      "skill_count_basis": "62 SKILL.md files include MCP/vendor copies, routers, nested composite workflows and task leaves; retain multi-skill label rather than count every file independently.",
+      "evidence": [
+        "https://github.com/Cai-aa/CAE-Agent-Hub/blob/cb4d869bc79f1914da085299fd46783fb304f902/README.md",
+        "https://github.com/Cai-aa/CAE-Agent-Hub/blob/cb4d869bc79f1914da085299fd46783fb304f902/MCP/Ansys/PyAnsys/pycfx-mcp/src/ansys/cfx/mcp/cfx/skills/SKILL.md",
+        "https://github.com/Cai-aa/CAE-Agent-Hub/blob/cb4d869bc79f1914da085299fd46783fb304f902/LICENSE"
+      ],
+      "source_commit_sha": "cb4d869bc79f1914da085299fd46783fb304f902",
+      "source_tree_sha": "ad0b0ce09104af42ec4bc9aafce64aeed655c02d",
+      "readme_sha256": "bd79ccd8635d8955669b8a7f86ea4700502e6ebf8c779e4c25e23d3e006c515c",
+      "representative_path": "MCP/Ansys/PyAnsys/pycfx-mcp/src/ansys/cfx/mcp/cfx/skills/SKILL.md",
+      "representative_sha256": "94bd6564ab443101c7b8f68bb5508e98a35cf274d9ee3b0f66a251400400ded3",
+      "distribution_evidence": "README clone instructions and copy complete skill directories into Codex/agent skills; CAE MCP install steps and solver prerequisites explicit.",
+      "license_scope": "Root MIT plus numerous close MCP licenses; commercial solver binaries/licenses remain external and not relicensed.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/Cai-aa/CAE-Agent-Hub",
+        "value": 1081
+      },
+      "stars_source": "https://api.github.com/repos/Cai-aa/CAE-Agent-Hub",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "science"
+    },
+    {
+      "full_name": "ShaishavMaisuria/research-paper-lifecycle-skills",
+      "html_url": "https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills",
+      "stars": 54,
+      "summary": "42 Agent Skills covering the research-paper lifecycle from literature discovery and writing through verification, submission, rebuttal, publication and talks.",
+      "summary_zh": "42 个 Agent Skills 覆盖论文全生命周期，从文献发现、写作、核验到投稿、答辩、发表和报告。",
+      "license": "Apache-2.0",
+      "skill_count": "42",
+      "status": "仅索引",
+      "section": "vertical",
+      "repository_id": 1275796993,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "literature-reference-management",
+      "skill_count_basis": "README lists 42 public task skills; website, llms.txt and templates are supporting/generated views.",
+      "evidence": [
+        "https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills/blob/f9a0ed8f0f1770fb0321c5b022d55ed34c939927/README.md",
+        "https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills/blob/f9a0ed8f0f1770fb0321c5b022d55ed34c939927/skills/add-venue-profile/SKILL.md",
+        "https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills/blob/f9a0ed8f0f1770fb0321c5b022d55ed34c939927/LICENSE"
+      ],
+      "source_commit_sha": "f9a0ed8f0f1770fb0321c5b022d55ed34c939927",
+      "source_tree_sha": "f6c56d19636a06672ad1b93373535c71526b875e",
+      "readme_sha256": "53857c9c983004ce49d0a8dd0a324c863c99f6323713ba950e519a17b2575cef",
+      "representative_path": "skills/add-venue-profile/SKILL.md",
+      "representative_sha256": "204cbd0c3943d291dfcb79dcc924bcd95bc0eebaa266c849a2af50c809a4b759",
+      "distribution_evidence": "README documents npx skills add ShaishavMaisuria/research-paper-lifecycle-skills and Agent Skills standard.",
+      "license_scope": "Apache-2.0 root plus NOTICE; no unlicensed third-party body import identified.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/ShaishavMaisuria/research-paper-lifecycle-skills",
+        "value": 54
+      },
+      "stars_source": "https://api.github.com/repos/ShaishavMaisuria/research-paper-lifecycle-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "science"
+    },
+    {
+      "full_name": "muend/geoai-skills",
+      "html_url": "https://github.com/muend/geoai-skills",
+      "stars": 32,
+      "summary": "Vendor-neutral 18-skill geospatial AI stack that tests CRS, units, comparability, spatial leakage, uncertainty, provenance and safe refusal before a result becomes a claim.",
+      "summary_zh": "厂商中立的 18 技能地理空间 AI 套件，在结果成为主张前检查 CRS、单位、可比性、空间泄漏、不确定性、溯源和安全拒答。",
+      "license": "MIT",
+      "skill_count": "18",
+      "status": "仅索引",
+      "section": "vertical",
+      "repository_id": 1305263254,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "geo-weather",
+      "skill_count_basis": "README lists 18 narrow specialists; all have public SKILL.md and benchmark/behavior packages are evidence resources, not skills.",
+      "evidence": [
+        "https://github.com/muend/geoai-skills/blob/19937ce14c7d60d764732cc2688c6a3dd92f6d0e/README.md",
+        "https://github.com/muend/geoai-skills/blob/19937ce14c7d60d764732cc2688c6a3dd92f6d0e/skills/geoai-orchestrator/SKILL.md",
+        "https://github.com/muend/geoai-skills/blob/19937ce14c7d60d764732cc2688c6a3dd92f6d0e/LICENSE"
+      ],
+      "source_commit_sha": "19937ce14c7d60d764732cc2688c6a3dd92f6d0e",
+      "source_tree_sha": "07159dffe250a4219ce25bda60e252c7dd654d11",
+      "readme_sha256": "47ed709a1498cdd034c8b409365e44bebef4dd5974081b7ebc02499b7a9d1ace",
+      "representative_path": "skills/geoai-orchestrator/SKILL.md",
+      "representative_sha256": "6925301bb4417e9f05ec2026c53dbc97252ffc184b875203b3e4c6b878b4907a",
+      "distribution_evidence": "README gives npx skills add muend/geoai-skills --skill * -a codex and single-specialist Claude installation.",
+      "license_scope": "Root MIT; method sources/benchmarks cited as evidence, not re-licensed content.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/muend/geoai-skills",
+        "value": 32
+      },
+      "stars_source": "https://api.github.com/repos/muend/geoai-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "science"
+    },
+    {
+      "full_name": "21st-dev/registry",
+      "html_url": "https://github.com/21st-dev/registry",
+      "stars": 10,
+      "summary": "Publish, search and install team React components through the 21st.dev registry with a bundled Agent Skill.",
+      "summary_zh": "通过 21st.dev 注册表发布、搜索和安装团队 React 组件，并提供内置 Agent Skill。",
+      "license": "MIT",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "collections",
+      "repository_id": 1225877795,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "embedded-product-skill",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "One bundled `skills/21st-registry/SKILL.md`; CLI/package components are not extra skills. README contains mojibake in example trigger text, but commands and package paths are clear.",
+      "evidence": [
+        "https://github.com/21st-dev/registry/blob/93d686812df081cca6532f07bcb145ad22cc5d72/README.md",
+        "https://github.com/21st-dev/registry/blob/93d686812df081cca6532f07bcb145ad22cc5d72/skills/21st-registry/SKILL.md",
+        "https://github.com/21st-dev/registry/blob/93d686812df081cca6532f07bcb145ad22cc5d72/LICENSE"
+      ],
+      "source_commit_sha": "93d686812df081cca6532f07bcb145ad22cc5d72",
+      "source_tree_sha": "4d6b49e179bfc122419b8207999b1c277f24105b",
+      "readme_sha256": "5f039b48db3e6e8ee5404e38d094950a079becbff64cc89ba06aaea7c9505246",
+      "representative_skill": {
+        "path": "skills/21st-registry/SKILL.md",
+        "url": "https://github.com/21st-dev/registry/blob/93d686812df081cca6532f07bcb145ad22cc5d72/skills/21st-registry/SKILL.md",
+        "sha256": "816815266f64f0df3e42eba5a27e225a618c7177c35dfd4443ac2864a46d94b3",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/21st-dev/registry/blob/93d686812df081cca6532f07bcb145ad22cc5d72/LICENSE",
+          "sha256": "8bc26817d6b5c323f8cb5e5da77182fe0db8a5ad0e0b563903f9382bba06dc9a"
+        }
+      ],
+      "distribution_evidence": "README documents npm/npx CLI, team registry commands, `npx @21st-dev/registry install-skill --global`, and Claude/Cursor agent use.",
+      "license_scope": "MIT source license; team components and account registry content remain user-owned.",
+      "overlap_review": "One bundled `skills/21st-registry/SKILL.md`; CLI/package components are not extra skills. README contains mojibake in example trigger text, but commands and package paths are clear.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/21st-dev/registry",
+        "value": 10
+      },
+      "stars_source": "https://api.github.com/repos/21st-dev/registry",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "CODE-SAURABH/OpenSkills",
+      "html_url": "https://github.com/CODE-SAURABH/OpenSkills",
+      "stars": 3,
+      "summary": "Portable production-grade AI engineering skills for memory, backend, API, security, QA, planning and retrospectives.",
+      "summary_zh": "面向记忆、后端、API、安全、QA、规划与复盘的可移植生产级 AI 工程技能。",
+      "license": "MIT",
+      "skill_count": "49",
+      "status": "仅索引",
+      "section": "collections",
+      "repository_id": 1311888439,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "business-operations",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "49 one-file task skills; no generated exports or mirrors counted. Representative agent-memory is a substantive workflow, not a router/template.",
+      "evidence": [
+        "https://github.com/CODE-SAURABH/OpenSkills/blob/71d3c6d75f504b3693a93e3dada42207b1a6d221/README.md",
+        "https://github.com/CODE-SAURABH/OpenSkills/blob/71d3c6d75f504b3693a93e3dada42207b1a6d221/agent-memory/SKILL.md",
+        "https://github.com/CODE-SAURABH/OpenSkills/blob/71d3c6d75f504b3693a93e3dada42207b1a6d221/LICENSE"
+      ],
+      "source_commit_sha": "71d3c6d75f504b3693a93e3dada42207b1a6d221",
+      "source_tree_sha": "efd9f27aab05fdd5560ef1cb4ef63b1d808a96c7",
+      "readme_sha256": "7ccf7e7bc04d140283037bfe963b98c595205bcb36f7eedcf0e55bc7dc62448f",
+      "representative_skill": {
+        "path": "agent-memory/SKILL.md",
+        "url": "https://github.com/CODE-SAURABH/OpenSkills/blob/71d3c6d75f504b3693a93e3dada42207b1a6d221/agent-memory/SKILL.md",
+        "sha256": "6731944fd229b279e9c4b2ef627487acec87f6e55ad0be0bad6013ae2c5425df",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/CODE-SAURABH/OpenSkills/blob/71d3c6d75f504b3693a93e3dada42207b1a6d221/LICENSE",
+          "sha256": "7d83dd904a16f939587d2697c7c74a37b97f11a16219528ebe3e4b7d4db1c284"
+        }
+      ],
+      "distribution_evidence": "README Quick Install documents cloning and copying individual skill directories to Claude/Codex/Antigravity and explicit `SKILL.md` loading.",
+      "license_scope": "MIT root license covers authored skills and documentation.",
+      "overlap_review": "49 one-file task skills; no generated exports or mirrors counted. Representative agent-memory is a substantive workflow, not a router/template.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/CODE-SAURABH/OpenSkills",
+        "value": 3
+      },
+      "stars_source": "https://api.github.com/repos/CODE-SAURABH/OpenSkills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "evgeniiPerov/quay",
+      "html_url": "https://github.com/evgeniiPerov/quay",
+      "stars": 4,
+      "summary": "Git-native registry and MCP server for sharing, installing, updating and auditing SKILL.md files across agent roots.",
+      "summary_zh": "基于 Git 的注册表与 MCP 服务，用于跨客户端共享、安装、更新和审计 SKILL.md。",
+      "license": "MIT",
+      "skill_count": "25",
+      "status": "仅索引",
+      "section": "infra",
+      "repository_id": 1232790195,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Infrastructure admission plus 25 bundled project skills; nested webapp-testing license is recorded separately and not assumed root MIT.",
+      "evidence": [
+        "https://github.com/evgeniiPerov/quay/blob/bbca5e737ebc4668f8040e70a7d82281079e71ff/README.md",
+        "https://github.com/evgeniiPerov/quay/blob/bbca5e737ebc4668f8040e70a7d82281079e71ff/.agents/skills/design-an-interface/SKILL.md",
+        "https://github.com/evgeniiPerov/quay/blob/bbca5e737ebc4668f8040e70a7d82281079e71ff/.agents/skills/webapp-testing/LICENSE.txt",
+        "https://github.com/evgeniiPerov/quay/blob/bbca5e737ebc4668f8040e70a7d82281079e71ff/LICENSE"
+      ],
+      "source_commit_sha": "bbca5e737ebc4668f8040e70a7d82281079e71ff",
+      "source_tree_sha": "f873aa177ff0fe9db6041fb091b2d4d9bae2ff0d",
+      "readme_sha256": "21892df4e32b34a2b32b38c70c98f29309265b26e72b4c2826207c637479f955",
+      "representative_skill": {
+        "path": ".agents/skills/design-an-interface/SKILL.md",
+        "url": "https://github.com/evgeniiPerov/quay/blob/bbca5e737ebc4668f8040e70a7d82281079e71ff/.agents/skills/design-an-interface/SKILL.md",
+        "sha256": "a2596e9fa2d50e23ba014f64a5b8f9df4eb56b846a52cad152899ef5eb97b085",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": ".agents/skills/webapp-testing/LICENSE.txt",
+          "url": "https://github.com/evgeniiPerov/quay/blob/bbca5e737ebc4668f8040e70a7d82281079e71ff/.agents/skills/webapp-testing/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/evgeniiPerov/quay/blob/bbca5e737ebc4668f8040e70a7d82281079e71ff/LICENSE",
+          "sha256": "e87e4e1a2dcda8ba6dfd3fe24c3ecf3006754562b015b67b7c5765792e6353e4"
+        }
+      ],
+      "distribution_evidence": "README documents Homebrew/PowerShell install, `quay add/update/push`, any git repo as hub, mirror roots and MCP installation.",
+      "license_scope": "MIT root implementation; nested webapp-testing content has its own license path. Git repositories remain source hubs; no body copy performed.",
+      "overlap_review": "Infrastructure admission plus 25 bundled project skills; nested webapp-testing license is recorded separately and not assumed root MIT.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/evgeniiPerov/quay",
+        "value": 4
+      },
+      "stars_source": "https://api.github.com/repos/evgeniiPerov/quay",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "iam-niranjan/wcag-skills",
+      "html_url": "https://github.com/iam-niranjan/wcag-skills",
+      "stars": 0,
+      "summary": "Normative WCAG 2.2 Level A, AA and AAA criteria packaged as verified SKILL.md files for accessibility audits.",
+      "summary_zh": "将 WCAG 2.2 A、AA、AAA 级成功标准核验后打包为无障碍审计 SKILL.md。",
+      "license": "MIT",
+      "skill_count": "3",
+      "status": "仅索引",
+      "section": "collections",
+      "repository_id": 1318927625,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "accessibility",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Three conformance-level skills; generated normative text is not counted as authored guidance.",
+      "evidence": [
+        "https://github.com/iam-niranjan/wcag-skills/blob/58351730e5a0370aa0a31d91d66ab8eb2b175ee5/README.md",
+        "https://github.com/iam-niranjan/wcag-skills/blob/58351730e5a0370aa0a31d91d66ab8eb2b175ee5/skills/wcag22-a/SKILL.md",
+        "https://github.com/iam-niranjan/wcag-skills/blob/58351730e5a0370aa0a31d91d66ab8eb2b175ee5/LICENSE"
+      ],
+      "source_commit_sha": "58351730e5a0370aa0a31d91d66ab8eb2b175ee5",
+      "source_tree_sha": "2a78fb5b1f467b1ba12b05aef76a7e5204f9ea67",
+      "readme_sha256": "2b88a0f538429a2a68103f351d9d0eecd26c74f3078743cdbfd998c2bdd0a0ce",
+      "representative_skill": {
+        "path": "skills/wcag22-a/SKILL.md",
+        "url": "https://github.com/iam-niranjan/wcag-skills/blob/58351730e5a0370aa0a31d91d66ab8eb2b175ee5/skills/wcag22-a/SKILL.md",
+        "sha256": "8aced60cd697c49779d98270580ed909d395ad64a519c40e25e4d52390cde648",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/iam-niranjan/wcag-skills/blob/58351730e5a0370aa0a31d91d66ab8eb2b175ee5/LICENSE",
+          "sha256": "43c4dcfbd595385abfcb232623e82ee28b0b65f146cf930dc98529a71ca7abfc"
+        }
+      ],
+      "distribution_evidence": "README documents clone/install and copy into Claude/Cursor/agent skill locations, with source URL and hash verification.",
+      "license_scope": "Root MIT covers generator/instructions; representative criteria text is reproduced under W3C Document License and source URL/hash, not blanket MIT.",
+      "overlap_review": "Three conformance-level skills; generated normative text is not counted as authored guidance.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/iam-niranjan/wcag-skills",
+        "value": 0
+      },
+      "stars_source": "https://api.github.com/repos/iam-niranjan/wcag-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "arham777/ui-ux-kit",
+      "html_url": "https://github.com/arham777/ui-ux-kit",
+      "stars": 3,
+      "summary": "Taste-first anti-slop UI design workflow that leaves a reusable DESIGN_SYSTEM.md for future pages.",
+      "summary_zh": "以品味优先、反 AI 套路的界面设计工作流，并留下可复用 DESIGN_SYSTEM.md。",
+      "license": "MIT",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "collections",
+      "repository_id": 1278284781,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "commercial-creative",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Single root skill with references; no duplicate client surfaces.",
+      "evidence": [
+        "https://github.com/arham777/ui-ux-kit/blob/af67a2cba570f64d93cba01d798fc41be6110f8f/README.md",
+        "https://github.com/arham777/ui-ux-kit/blob/af67a2cba570f64d93cba01d798fc41be6110f8f/SKILL.md",
+        "https://github.com/arham777/ui-ux-kit/blob/af67a2cba570f64d93cba01d798fc41be6110f8f/LICENSE"
+      ],
+      "source_commit_sha": "af67a2cba570f64d93cba01d798fc41be6110f8f",
+      "source_tree_sha": "322726702008650faf6b692491b4b5f9f72fd909",
+      "readme_sha256": "bde243f1e1b31e53f2b3fd81b8daf1e3e880dede59e75e1ac8b9c903edf0013f",
+      "representative_skill": {
+        "path": "SKILL.md",
+        "url": "https://github.com/arham777/ui-ux-kit/blob/af67a2cba570f64d93cba01d798fc41be6110f8f/SKILL.md",
+        "sha256": "7861db38fe4a7ad8ac5d765e946f6efcdd94696d9e7ca2a0432dc7cbc71506c7",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/arham777/ui-ux-kit/blob/af67a2cba570f64d93cba01d798fc41be6110f8f/LICENSE",
+          "sha256": "d183f11216a87b6391f16bedb5cb5415cce76f7a9698c3d510e3edb176cd7f0c"
+        }
+      ],
+      "distribution_evidence": "README documents `npx skills add arham777/ui-ux-kit`, git installs for Claude/Cursor/Codex and generic SKILL.md use.",
+      "license_scope": "MIT root source license.",
+      "overlap_review": "Single root skill with references; no duplicate client surfaces.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/arham777/ui-ux-kit",
+        "value": 3
+      },
+      "stars_source": "https://api.github.com/repos/arham777/ui-ux-kit",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "Armitanemati/liquid-glass-claude-skill",
+      "html_url": "https://github.com/Armitanemati/liquid-glass-claude-skill",
+      "stars": 3,
+      "summary": "Brand-agnostic Liquid Glass and glassmorphism reasoning for web, SwiftUI and mobile with contrast, performance and fallback rules.",
+      "summary_zh": "适用于 Web、SwiftUI、移动端的 Liquid Glass 与玻璃拟态设计推理，含对比度、性能和回退规则。",
+      "license": "MIT",
+      "skill_count": "1",
+      "status": "仅索引",
+      "section": "collections",
+      "repository_id": 1365850892,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "commercial-creative",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Single root skill; examples and design assets are outputs, not separate skills.",
+      "evidence": [
+        "https://github.com/Armitanemati/liquid-glass-claude-skill/blob/05e99d959198aef012caefaadcd15e088f19c48c/README.md",
+        "https://github.com/Armitanemati/liquid-glass-claude-skill/blob/05e99d959198aef012caefaadcd15e088f19c48c/SKILL.md",
+        "https://github.com/Armitanemati/liquid-glass-claude-skill/blob/05e99d959198aef012caefaadcd15e088f19c48c/LICENSE"
+      ],
+      "source_commit_sha": "05e99d959198aef012caefaadcd15e088f19c48c",
+      "source_tree_sha": "fbd65789025f95957cf76f4609f3ec0003090024",
+      "readme_sha256": "bf0ce2ae44371c3f6c01556d51577d991dfa214b73d9bc8d071a97b5ac4ef156",
+      "representative_skill": {
+        "path": "SKILL.md",
+        "url": "https://github.com/Armitanemati/liquid-glass-claude-skill/blob/05e99d959198aef012caefaadcd15e088f19c48c/SKILL.md",
+        "sha256": "2870f83d9c7a3c4a35716a38a894a0e9f5e6b7cc073e9b7b79d7a7d2f8b2e96e",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/Armitanemati/liquid-glass-claude-skill/blob/05e99d959198aef012caefaadcd15e088f19c48c/LICENSE",
+          "sha256": "57d28bc0c7611774706d26afe83ed15655eb2a9af684394c39822f113f43c026"
+        }
+      ],
+      "distribution_evidence": "README documents direct folder installation for Claude Code and any open SKILL.md client.",
+      "license_scope": "MIT root source license.",
+      "overlap_review": "Single root skill; examples and design assets are outputs, not separate skills.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/Armitanemati/liquid-glass-claude-skill",
+        "value": 3
+      },
+      "stars_source": "https://api.github.com/repos/Armitanemati/liquid-glass-claude-skill",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "manish1803/nextjs-fullstack-skills",
+      "html_url": "https://github.com/manish1803/nextjs-fullstack-skills",
+      "stars": 2,
+      "summary": "Next.js, React, R3F, motion, payments and UX/UI Agent Skills for multi-agent frontend/full-stack development.",
+      "summary_zh": "覆盖 Next.js、React、R3F、动效、支付及 UX/UI 的多客户端全栈 Agent Skills。",
+      "license": "MIT",
+      "skill_count": "23",
+      "status": "仅索引",
+      "section": "collections",
+      "repository_id": 1286969709,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "embedded-product-skill",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "23 skills intentionally consolidate overlapping ideas; README warns against counting old 40+ ideas as independent skills.",
+      "evidence": [
+        "https://github.com/manish1803/nextjs-fullstack-skills/blob/563e0b30455c5bcec988606d43daaefb3e7707e4/README.md",
+        "https://github.com/manish1803/nextjs-fullstack-skills/blob/563e0b30455c5bcec988606d43daaefb3e7707e4/skills/01-frontend-engineering/accessibility-a11y/SKILL.md",
+        "https://github.com/manish1803/nextjs-fullstack-skills/blob/563e0b30455c5bcec988606d43daaefb3e7707e4/LICENSE"
+      ],
+      "source_commit_sha": "563e0b30455c5bcec988606d43daaefb3e7707e4",
+      "source_tree_sha": "e6cbf8d2a6a0e97711b9108331802c06c5978de2",
+      "readme_sha256": "2128667798bf2da73a8c10b9cf3c3cc27993ba16b544a1612313a48fe06a2423",
+      "representative_skill": {
+        "path": "skills/01-frontend-engineering/accessibility-a11y/SKILL.md",
+        "url": "https://github.com/manish1803/nextjs-fullstack-skills/blob/563e0b30455c5bcec988606d43daaefb3e7707e4/skills/01-frontend-engineering/accessibility-a11y/SKILL.md",
+        "sha256": "ecaaf02b420475093e4761c0f1ef55bfeb3e0c7e756d4924cd1b1268fe88c1c6",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/manish1803/nextjs-fullstack-skills/blob/563e0b30455c5bcec988606d43daaefb3e7707e4/LICENSE",
+          "sha256": "cc6fbab09c64ad8762e668ae69c36d8ebee8735c20cbc37d136e20b18aa64269"
+        }
+      ],
+      "distribution_evidence": "README explicitly documents npx skills add/list/specific `--skill`, global and agent targets plus install.sh.",
+      "license_scope": "MIT root source license.",
+      "overlap_review": "23 skills intentionally consolidate overlapping ideas; README warns against counting old 40+ ideas as independent skills.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/manish1803/nextjs-fullstack-skills",
+        "value": 2
+      },
+      "stars_source": "https://api.github.com/repos/manish1803/nextjs-fullstack-skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "Taimoorkhan1122/boring-react",
+      "html_url": "https://github.com/Taimoorkhan1122/boring-react",
+      "stars": 1,
+      "summary": "Evidence-tested React engineering skills enforcing maintainable components, production patterns, quality and motion discipline.",
+      "summary_zh": "以可维护组件、生产模式、质量和动效纪律约束 React 工程实践，并附对抗性评测。",
+      "license": "MIT",
+      "skill_count": "4",
+      "status": "仅索引",
+      "section": "collections",
+      "repository_id": 1342803077,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "embedded-product-skill",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Four canonical skills; core bundle is three and motion is optional. Evaluations/references are not extra skills.",
+      "evidence": [
+        "https://github.com/Taimoorkhan1122/boring-react/blob/6f464b2c36f63c9e22c6a912ccb9de942537f8e8/README.md",
+        "https://github.com/Taimoorkhan1122/boring-react/blob/6f464b2c36f63c9e22c6a912ccb9de942537f8e8/skills/react-component-engineering/SKILL.md",
+        "https://github.com/Taimoorkhan1122/boring-react/blob/6f464b2c36f63c9e22c6a912ccb9de942537f8e8/LICENSE"
+      ],
+      "source_commit_sha": "6f464b2c36f63c9e22c6a912ccb9de942537f8e8",
+      "source_tree_sha": "dc35c1f087af8ae86ce960a54601ef81dffe4943",
+      "readme_sha256": "e1ce21db7b80dc442c606df91f2fefcae56c82a0fd1abf84b30d95ecc8b18f03",
+      "representative_skill": {
+        "path": "skills/react-component-engineering/SKILL.md",
+        "url": "https://github.com/Taimoorkhan1122/boring-react/blob/6f464b2c36f63c9e22c6a912ccb9de942537f8e8/skills/react-component-engineering/SKILL.md",
+        "sha256": "5c1d75f9200dae05d3fa025aba87c2e0b55a70e021148f0043ef49d48083d312",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/Taimoorkhan1122/boring-react/blob/6f464b2c36f63c9e22c6a912ccb9de942537f8e8/LICENSE",
+          "sha256": "398907686207f778301d8e9b163ff57d5245761e4a48c9fc4d01f8ef6a4b3dd1"
+        }
+      ],
+      "distribution_evidence": "README documents clone/install script, core/all bundles, Codex/Claude portability and eval runners.",
+      "license_scope": "MIT root source license; cited upstream docs remain references.",
+      "overlap_review": "Four canonical skills; core bundle is three and motion is optional. Evaluations/references are not extra skills.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/Taimoorkhan1122/boring-react",
+        "value": 1
+      },
+      "stars_source": "https://api.github.com/repos/Taimoorkhan1122/boring-react",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "weareoxd/design-skill-generator",
+      "html_url": "https://github.com/weareoxd/design-skill-generator",
+      "stars": 1,
+      "summary": "Generate design-system SKILL.md context from screenshots or Figma URLs, alongside feature/refinement skills used by the project.",
+      "summary_zh": "从截图或 Figma URL 生成设计系统 SKILL.md，并附项目自身的功能规划/精炼技能。",
+      "license": "MIT",
+      "skill_count": "3",
+      "status": "仅索引",
+      "section": "collections",
+      "repository_id": 1205351024,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "commercial-creative",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Three public SKILL.md files are in the project; generator product output is not counted as an additional skill.",
+      "evidence": [
+        "https://github.com/weareoxd/design-skill-generator/blob/4a2c9c3129714af16afc1a7b76ee188daf3b8eab/README.md",
+        "https://github.com/weareoxd/design-skill-generator/blob/4a2c9c3129714af16afc1a7b76ee188daf3b8eab/.claude/skills/feature-implementation-plan/SKILL.md",
+        "https://github.com/weareoxd/design-skill-generator/blob/4a2c9c3129714af16afc1a7b76ee188daf3b8eab/LICENSE"
+      ],
+      "source_commit_sha": "4a2c9c3129714af16afc1a7b76ee188daf3b8eab",
+      "source_tree_sha": "80af22c393ebbcd356e930606f5fe49d65a51f3b",
+      "readme_sha256": "78cecd56a81f5212d1d7e01d18c82a6fdf18070bfe189886977318eb8726fafd",
+      "representative_skill": {
+        "path": ".claude/skills/feature-implementation-plan/SKILL.md",
+        "url": "https://github.com/weareoxd/design-skill-generator/blob/4a2c9c3129714af16afc1a7b76ee188daf3b8eab/.claude/skills/feature-implementation-plan/SKILL.md",
+        "sha256": "cce1c4c20cdc8dc02b32d454c720f872fcf8f1a06b666999da87fd3b67a87ed4",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/weareoxd/design-skill-generator/blob/4a2c9c3129714af16afc1a7b76ee188daf3b8eab/LICENSE",
+          "sha256": "5a717f0b9f0ca6f913704d7f36487df6f2bbd3fb13ca7a32bd19a1b5c5c8b0ba"
+        }
+      ],
+      "distribution_evidence": "README documents npm install and automatic `.agents/skills/` discovery for Claude Code and other AI coding tools.",
+      "license_scope": "MIT root source license.",
+      "overlap_review": "Three public SKILL.md files are in the project; generator product output is not counted as an additional skill.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/weareoxd/design-skill-generator",
+        "value": 1
+      },
+      "stars_source": "https://api.github.com/repos/weareoxd/design-skill-generator",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "yaacovcorcos/papiskill",
+      "html_url": "https://github.com/yaacovcorcos/papiskill",
+      "stars": 2,
+      "summary": "Git-backed public registry and CLI for searching, installing, validating and publishing portable SKILL.md packages.",
+      "summary_zh": "基于 Git 的公开注册表与 CLI，用于搜索、安装、校验和发布可移植 SKILL.md 包。",
+      "license": "MIT",
+      "skill_count": "5",
+      "status": "仅索引",
+      "section": "infra",
+      "repository_id": 1270616861,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Infrastructure plus five official registry skills; registry docs, schema and runbooks are not counted.",
+      "evidence": [
+        "https://github.com/yaacovcorcos/papiskill/blob/056b2575e1aea2f3911d541e5d07f076aa90d3da/README.md",
+        "https://github.com/yaacovcorcos/papiskill/blob/056b2575e1aea2f3911d541e5d07f076aa90d3da/registry/official/code-review/SKILL.md",
+        "https://github.com/yaacovcorcos/papiskill/blob/056b2575e1aea2f3911d541e5d07f076aa90d3da/LICENSE"
+      ],
+      "source_commit_sha": "056b2575e1aea2f3911d541e5d07f076aa90d3da",
+      "source_tree_sha": "16ac9dfce1378e8e31ed2eab5cdcf46868592455",
+      "readme_sha256": "5454f57f3a071d1118eca3051c6ae921cb985106c3dd4070b0286af55877b156",
+      "representative_skill": {
+        "path": "registry/official/code-review/SKILL.md",
+        "url": "https://github.com/yaacovcorcos/papiskill/blob/056b2575e1aea2f3911d541e5d07f076aa90d3da/registry/official/code-review/SKILL.md",
+        "sha256": "692f8207668831b845ca3f76160ed0424d2a8a709c127456246dcae93f69eece",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/yaacovcorcos/papiskill/blob/056b2575e1aea2f3911d541e5d07f076aa90d3da/LICENSE",
+          "sha256": "aa84a378c4f3196ae06268a3c8d61592b304d9cf06212c2e33738abc3000ffc7"
+        }
+      ],
+      "distribution_evidence": "README documents papiskill.com registry, npm CLI, official/community Git collections and authenticated private installs.",
+      "license_scope": "MIT root source license; community packages are separately licensed by their source repos.",
+      "overlap_review": "Infrastructure plus five official registry skills; registry docs, schema and runbooks are not counted.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/yaacovcorcos/papiskill",
+        "value": 2
+      },
+      "stars_source": "https://api.github.com/repos/yaacovcorcos/papiskill",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "sentenz/skills",
+      "html_url": "https://github.com/sentenz/skills",
+      "stars": 3,
+      "summary": "Apache-licensed catalog of modular development skills for AI coding assistants with `.agents/skills` installation.",
+      "summary_zh": "Apache 许可的模块化开发技能目录，面向 AI 编程助手并支持 .agents/skills 安装。",
+      "license": "Apache-2.0",
+      "skill_count": "23",
+      "status": "仅索引",
+      "section": "infra",
+      "repository_id": 1151715283,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "23 canonical task skills; nested GitHub action and Docker licenses are recorded separately from Apache root.",
+      "evidence": [
+        "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/README.md",
+        "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/skills/adr/SKILL.md",
+        "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/LICENSE",
+        "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/skills/github-actions-efficiency/LICENSE",
+        "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/skills/github-actions-hardening/LICENSE",
+        "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/skills/multi-stage-dockerfile/LICENSE"
+      ],
+      "source_commit_sha": "4ced7d8bd5d11210fca04ca53cb76c288b216631",
+      "source_tree_sha": "8999ebadc51941bc453f5ac2a13560707c0a0558",
+      "readme_sha256": "c30eed3826d4dd3afbd684a970391bde6625adf97ebab5f7040256f161db1841",
+      "representative_skill": {
+        "path": "skills/adr/SKILL.md",
+        "url": "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/skills/adr/SKILL.md",
+        "sha256": "8928b06fae9e0dace15581eb227cad340846ffbb16846f5a6ab681af6aa0aa30",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/LICENSE",
+          "sha256": "922ebefc6fc7c78fc0b3af22c424ccdbf73ebb4988fcccba6b415bdf2d2afaf6"
+        },
+        {
+          "path": "skills/github-actions-efficiency/LICENSE",
+          "url": "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/skills/github-actions-efficiency/LICENSE",
+          "sha256": "e32449d23085399adc1222f7a17408b730550258e51627c153cb108ca9955823"
+        },
+        {
+          "path": "skills/github-actions-hardening/LICENSE",
+          "url": "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/skills/github-actions-hardening/LICENSE",
+          "sha256": "e32449d23085399adc1222f7a17408b730550258e51627c153cb108ca9955823"
+        },
+        {
+          "path": "skills/multi-stage-dockerfile/LICENSE",
+          "url": "https://github.com/sentenz/skills/blob/4ced7d8bd5d11210fca04ca53cb76c288b216631/skills/multi-stage-dockerfile/LICENSE",
+          "sha256": "2510b446bc1f0cf9702453075d20cd88631e20e5642658edb7325d9c1eb534f7"
+        }
+      ],
+      "distribution_evidence": "README documents Skills CLI installation, `make agent-skills-add`, `.agents/skills/<name>/SKILL.md` paths and activation cues.",
+      "license_scope": "Apache-2.0 root; nested GitHub Inc. skills include MIT licenses and are not relabeled Apache.",
+      "overlap_review": "23 canonical task skills; nested GitHub action and Docker licenses are recorded separately from Apache root.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/sentenz/skills",
+        "value": 3
+      },
+      "stars_source": "https://api.github.com/repos/sentenz/skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "sigistry/marketplace",
+      "html_url": "https://github.com/sigistry/marketplace",
+      "stars": 3,
+      "summary": "Verified plugin/skill registry with open security checks, machine-readable verification and consent-first external references.",
+      "summary_zh": "带开放安全检查、机器可读核验和同意式外部引用的插件/技能注册表。",
+      "license": "MIT (registry; nested/plugin licenses retained)",
+      "skill_count": "36",
+      "status": "仅索引",
+      "section": "infra",
+      "repository_id": 1075743932,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "36 bundled public skill entries; marketplace/verified/skills JSON are generated views, external-by-reference entries are not copied or counted as bundled.",
+      "evidence": [
+        "https://github.com/sigistry/marketplace/blob/d47ff0be6fffb9d9d912bd56d9dc3f4d3ae6d24a/README.md",
+        "https://github.com/sigistry/marketplace/blob/d47ff0be6fffb9d9d912bd56d9dc3f4d3ae6d24a/plugins/a11y-i18n-remediator/skills/catalog-hygiene/SKILL.md",
+        "https://github.com/sigistry/marketplace/blob/d47ff0be6fffb9d9d912bd56d9dc3f4d3ae6d24a/LICENSE",
+        "https://github.com/sigistry/marketplace/blob/d47ff0be6fffb9d9d912bd56d9dc3f4d3ae6d24a/plugins/records/LICENSE"
+      ],
+      "source_commit_sha": "d47ff0be6fffb9d9d912bd56d9dc3f4d3ae6d24a",
+      "source_tree_sha": "2bb15724aba04b57a7b804c25e4d4d14ede72a8b",
+      "readme_sha256": "24dcc8a383cc2aa0feb9c3c68d28c1aa424d357dfbde708340112535ef6c6f47",
+      "representative_skill": {
+        "path": "plugins/a11y-i18n-remediator/skills/catalog-hygiene/SKILL.md",
+        "url": "https://github.com/sigistry/marketplace/blob/d47ff0be6fffb9d9d912bd56d9dc3f4d3ae6d24a/plugins/a11y-i18n-remediator/skills/catalog-hygiene/SKILL.md",
+        "sha256": "b432711c0d5e5e1fb3e3110cd84fcc0966ca8e0c05a0c4a1d5f0e7ab720580be",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/sigistry/marketplace/blob/d47ff0be6fffb9d9d912bd56d9dc3f4d3ae6d24a/LICENSE",
+          "sha256": "59fe13e2c741241596d2016d9d392c14d9a6c89724a73c188dc34375fd8b40f4"
+        },
+        {
+          "path": "plugins/records/LICENSE",
+          "url": "https://github.com/sigistry/marketplace/blob/d47ff0be6fffb9d9d912bd56d9dc3f4d3ae6d24a/plugins/records/LICENSE",
+          "sha256": "a731bc19c533b32ba4f3f8830ed6d5c2149e532ea9b6cf63ed96e10f3d38f511"
+        }
+      ],
+      "distribution_evidence": "README documents Claude marketplace install, read-only MCP catalog, direct skill pages and local verification script.",
+      "license_scope": "MIT root plus nested `plugins/records` license; external listings retain their own licenses. Security claims are methodology evidence, not execution here.",
+      "overlap_review": "36 bundled public skill entries; marketplace/verified/skills JSON are generated views, external-by-reference entries are not copied or counted as bundled.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/sigistry/marketplace",
+        "value": 3
+      },
+      "stars_source": "https://api.github.com/repos/sigistry/marketplace",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "scalefocus/skilly",
+      "html_url": "https://github.com/scalefocus/skilly",
+      "stars": 8,
+      "summary": "Apache-licensed self-hosted governed registry for versioned, reviewed organizational SKILL.md assets.",
+      "summary_zh": "Apache 许可的自托管组织级版本化、审阅式 SKILL.md 注册表。",
+      "license": "Apache-2.0",
+      "skill_count": "基础设施",
+      "status": "仅索引",
+      "section": "infra",
+      "repository_id": 1295009274,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Infrastructure admission: repository contains registry implementation/spec rather than public SKILL.md task files.",
+      "evidence": [
+        "https://github.com/scalefocus/skilly/blob/353a8eb14c98ba7f814196bfc82252b49b481128/README.md",
+        "https://github.com/scalefocus/skilly/blob/353a8eb14c98ba7f814196bfc82252b49b481128/LICENSE"
+      ],
+      "source_commit_sha": "353a8eb14c98ba7f814196bfc82252b49b481128",
+      "source_tree_sha": "f907801f8586ddb8bb8ecd6015bec113d537183c",
+      "readme_sha256": "acc5896e6ff74899862a6387d0df2ba31ced4b119179d0830fc27322ebe0f46d",
+      "representative_skill": null,
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/scalefocus/skilly/blob/353a8eb14c98ba7f814196bfc82252b49b481128/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ],
+      "distribution_evidence": "README documents external `npx skills add` consumer commands, hosted/self-hosted quickstart, review gates, install tokens and MCP endpoint.",
+      "license_scope": "Apache-2.0 root source; customer-published skills are separately licensed.",
+      "overlap_review": "Infrastructure admission: repository contains registry implementation/spec rather than public SKILL.md task files.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/scalefocus/skilly",
+        "value": 8
+      },
+      "stars_source": "https://api.github.com/repos/scalefocus/skilly",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "infrastructure_contract": "README documents external `npx skills add` consumer commands, hosted/self-hosted quickstart, review gates, install tokens and MCP endpoint.",
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "SkillsCatalog/registry",
+      "html_url": "https://github.com/SkillsCatalog/registry",
+      "stars": 1,
+      "summary": "Community Agent Skills registry with creation, installation, search, validation, publishing and safety-scanning workflows.",
+      "summary_zh": "社区 Agent Skills 注册表，覆盖创建、安装、搜索、校验、发布和安全扫描。",
+      "license": "MIT",
+      "skill_count": "7",
+      "status": "仅索引",
+      "section": "infra",
+      "repository_id": 1127317770,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Eight SKILL.md files include seven substantive tools plus `templates/basic-skill` (template excluded). Each skill is individually licensed per README; root infrastructure MIT.",
+      "evidence": [
+        "https://github.com/SkillsCatalog/registry/blob/e83c630d59313e1899255ca0bb9046abcb6e66cc/README.md",
+        "https://github.com/SkillsCatalog/registry/blob/e83c630d59313e1899255ca0bb9046abcb6e66cc/skills/skill-create/SKILL.md",
+        "https://github.com/SkillsCatalog/registry/blob/e83c630d59313e1899255ca0bb9046abcb6e66cc/LICENSE"
+      ],
+      "source_commit_sha": "e83c630d59313e1899255ca0bb9046abcb6e66cc",
+      "source_tree_sha": "009a9f01c1af673d2877a789e5f9323335f0d184",
+      "readme_sha256": "4d3cd5b23b11fec18afe4733b1135469b8bd03786be508fdeba4b3271f154839",
+      "representative_skill": {
+        "path": "skills/skill-create/SKILL.md",
+        "url": "https://github.com/SkillsCatalog/registry/blob/e83c630d59313e1899255ca0bb9046abcb6e66cc/skills/skill-create/SKILL.md",
+        "sha256": "83d1f4803d5bfcc3e868ed6699c296b64e9c03f31da1ed027e94df1d2bb1aca3",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/SkillsCatalog/registry/blob/e83c630d59313e1899255ca0bb9046abcb6e66cc/LICENSE",
+          "sha256": "9fbdf2c4c34a78a6bd125fd6b722a0ce9f82d2f0065470236cbaf071afce8c8b"
+        }
+      ],
+      "distribution_evidence": "README documents catalog API/direct clone installation and `skill-installer/scripts/install_skill.py`.",
+      "license_scope": "Root MIT; individual skill licenses must be read from each package, representative `skill-create` declares MIT. Template excluded from count.",
+      "overlap_review": "Eight SKILL.md files include seven substantive tools plus `templates/basic-skill` (template excluded). Each skill is individually licensed per README; root infrastructure MIT.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/SkillsCatalog/registry",
+        "value": 1
+      },
+      "stars_source": "https://api.github.com/repos/SkillsCatalog/registry",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "alfaris/Design-AI-Skills",
+      "html_url": "https://github.com/alfaris/Design-AI-Skills",
+      "stars": 1,
+      "summary": "Bilingual English/Arabic design critique and persuasive-thinking skills for design review, presentation and defense.",
+      "summary_zh": "面向设计审查、演示与论证的英阿双语设计批评与说服思维技能。",
+      "license": "CC-BY-4.0",
+      "skill_count": "2",
+      "status": "仅索引",
+      "section": "collections",
+      "repository_id": 1324967137,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "commercial-creative",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Two public skills, each complete with references and metadata; no generated copies.",
+      "evidence": [
+        "https://github.com/alfaris/Design-AI-Skills/blob/cd13ff80a0b5f9b8e7a8a8bfd438aa45926abd4b/README.md",
+        "https://github.com/alfaris/Design-AI-Skills/blob/cd13ff80a0b5f9b8e7a8a8bfd438aa45926abd4b/design-audit-panel/SKILL.md",
+        "https://github.com/alfaris/Design-AI-Skills/blob/cd13ff80a0b5f9b8e7a8a8bfd438aa45926abd4b/LICENSE"
+      ],
+      "source_commit_sha": "cd13ff80a0b5f9b8e7a8a8bfd438aa45926abd4b",
+      "source_tree_sha": "364cc015fce68c18f06090689c238c55bd2f2811",
+      "readme_sha256": "9d236bcf64c2384dc38338f1f701db7466f1a2cde2649041574551b5022e3d24",
+      "representative_skill": {
+        "path": "design-audit-panel/SKILL.md",
+        "url": "https://github.com/alfaris/Design-AI-Skills/blob/cd13ff80a0b5f9b8e7a8a8bfd438aa45926abd4b/design-audit-panel/SKILL.md",
+        "sha256": "4a5ae9358d8399459add25587be44e31c89c3ec468e5a532b72f7361a446bf3e",
+        "name_description_present": true
+      },
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/alfaris/Design-AI-Skills/blob/cd13ff80a0b5f9b8e7a8a8bfd438aa45926abd4b/LICENSE",
+          "sha256": "8ffee1f7baeedab8505dcc4444e249e26054c4c12a3f2d32468b02d5953bf922"
+        }
+      ],
+      "distribution_evidence": "README documents one-prompt installer, portable folder copy for Codex/Claude/Cursor and `npx skills add . --list` compatibility.",
+      "license_scope": "CC BY 4.0 root license (API reports NOASSERTION because this is not an SPDX identifier); attribution to Ahmed Faris required.",
+      "overlap_review": "Two public skills, each complete with references and metadata; no generated copies.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/alfaris/Design-AI-Skills",
+        "value": 1
+      },
+      "stars_source": "https://api.github.com/repos/alfaris/Design-AI-Skills",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "review_batch": "workflows"
+    },
+    {
+      "full_name": "Kargatharaakash/website-design-systems-mcp",
+      "html_url": "https://github.com/Kargatharaakash/website-design-systems-mcp",
+      "stars": 18,
+      "summary": "MCP product that extracts website design systems and generates AI-ready SKILL.md files from live sites.",
+      "summary_zh": "从网站提取设计系统并生成 AI-ready SKILL.md 的 MCP 产品。",
+      "license": "MIT",
+      "skill_count": "基础设施",
+      "status": "仅索引",
+      "section": "infra",
+      "repository_id": 1153865597,
+      "last_reviewed": "2026-10-18",
+      "discovery_family": "skill-infrastructure",
+      "discovery_subfamily": "business-creative-registry-accessibility",
+      "skill_count_basis": "Infrastructure/product admission: no repository SKILL.md; the public contract is the MCP generator that emits skills. No generated output counted as an independent repository skill.",
+      "evidence": [
+        "https://github.com/Kargatharaakash/website-design-systems-mcp/blob/a98484c7e59a27530907f67636c7c8b05c9dd8c9/README.md",
+        "https://github.com/Kargatharaakash/website-design-systems-mcp/blob/a98484c7e59a27530907f67636c7c8b05c9dd8c9/LICENSE"
+      ],
+      "source_commit_sha": "a98484c7e59a27530907f67636c7c8b05c9dd8c9",
+      "source_tree_sha": "edd943f066b28e91656bb03108c5ab92ff45b2ad",
+      "readme_sha256": "a3f784c4ca65a2122ab30e06875b959749fc6f8762f257658b7aad750d7297bb",
+      "representative_skill": null,
+      "license_evidence": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/Kargatharaakash/website-design-systems-mcp/blob/a98484c7e59a27530907f67636c7c8b05c9dd8c9/LICENSE",
+          "sha256": "bcbd61d81e07c99dc672fc4221c2a0c96abefac5048d938f59322b1ae6549cc9"
+        }
+      ],
+      "distribution_evidence": "README documents npm install, Claude Desktop MCP configuration and clone/install usage; generated output is explicitly a `skill.md` file.",
+      "license_scope": "MIT root source license; scraped website assets and generated design data retain source/site terms.",
+      "overlap_review": "Infrastructure/product admission: no repository SKILL.md; the public contract is the MCP generator that emits skills. No generated output counted as an independent repository skill.",
+      "stars_snapshot": {
+        "date": "2026-10-18",
+        "source": "https://api.github.com/repos/Kargatharaakash/website-design-systems-mcp",
+        "value": 18
+      },
+      "stars_source": "https://api.github.com/repos/Kargatharaakash/website-design-systems-mcp",
+      "fork": false,
+      "archived": false,
+      "tree_truncated": false,
+      "infrastructure_contract": "README documents npm install, Claude Desktop MCP configuration and clone/install usage; generated output is explicitly a `skill.md` file.",
+      "review_batch": "workflows"
+    }
+  ],
+  "source_audits": [
+    {
+      "kind": "products",
+      "source": "reviewer cache products18-wave3-accepted.audit.json",
+      "sha256": "E58615C7A915F57E5A7D8B435A77065BD57B1580784208E339E765F456300539"
+    },
+    {
+      "kind": "science",
+      "source": "reviewer cache science2.audit.json",
+      "sha256": "C3D14B703CD40CE49C02A5556D83F330918821F3834EF159EAC71F8F6645DCA2"
+    },
+    {
+      "kind": "workflows",
+      "source": "reviewer cache reviewed2.json",
+      "sha256": "71AA6C41F40287EB2392AF906687351C30F65BFE3C85DAFD4CB2DA49EBC5C147"
+    }
+  ],
+  "mapping": {
+    "products:embedded": "infra",
+    "science:*": "vertical",
+    "workflows:skill-infrastructure": "infra",
+    "workflows:other-community": "collections"
+  },
+  "deferred_or_excluded_sources": [
+    "Reviewer caches were not copied; excluded/deferred decisions are summarized below and accepted evidence is embedded in this audit JSON."
+  ],
+  "review_notes": [
+    "AWS Amazon Location is indexed with MIT-0 from README/LICENSE.md because GitHub API metadata reported Apache-2.0.",
+    "Cai-aa/CAE-Agent-Hub is retained as 多技能 because its 62 SKILL.md paths include vendor/MCP copies and composite workflows.",
+    "Cursor root repository is indexed with per-plugin licensing; root NOASSERTION is not treated as a blanket license for all plugins.",
+    "README staleness findings for accepted candidates remain in the source audit; no candidate was installed or executed."
+  ],
+  "accepted_count": 38,
+  "provenance_fields": [
+    "repository_id",
+    "last_reviewed",
+    "stars_snapshot",
+    "stars_source",
+    "source_commit_sha",
+    "source_tree_sha",
+    "readme_sha256",
+    "evidence",
+    "license_evidence",
+    "representative_skill_or_path"
+  ]
+}
