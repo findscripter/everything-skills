@@ -951,7 +951,8 @@
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "review_batch": "science"
+      "review_batch": "science",
+      "discovery_subfamily": "geo-routing"
     },
     {
       "full_name": "enesgul23/scientific-figure-skills",
@@ -988,7 +989,8 @@
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "review_batch": "science"
+      "review_batch": "science",
+      "discovery_subfamily": "science-figure"
     },
     {
       "full_name": "Cai-aa/CAE-Agent-Hub",
@@ -1025,7 +1027,8 @@
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "review_batch": "science"
+      "review_batch": "science",
+      "discovery_subfamily": "cae-simulation"
     },
     {
       "full_name": "ShaishavMaisuria/research-paper-lifecycle-skills",
@@ -1062,7 +1065,8 @@
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "review_batch": "science"
+      "review_batch": "science",
+      "discovery_subfamily": "research-paper-lifecycle"
     },
     {
       "full_name": "muend/geoai-skills",
@@ -1099,7 +1103,8 @@
       "fork": false,
       "archived": false,
       "tree_truncated": false,
-      "review_batch": "science"
+      "review_batch": "science",
+      "discovery_subfamily": "geoai"
     },
     {
       "full_name": "21st-dev/registry",
