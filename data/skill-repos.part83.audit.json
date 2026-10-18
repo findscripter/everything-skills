@@ -2,7 +2,7 @@
   "schema_version": 2,
   "checked_at": "2026-10-18 (Asia/Shanghai)",
   "baseline_file": "discovery/2026-10-18/baseline.json",
-  "baseline_sha256": "0c2dcbe9cff0ba65afd698b3801fd8263786d02aebb0da61e3cef9ec8674f0fe",
+  "baseline_sha256": "5ab4479115791071b3fe1f11be7c69762e8789012b844f44c09f970691004134",
   "baseline_count": 2268,
   "added_count": 76,
   "final_count": 2344,
@@ -10111,6 +10111,12 @@
       "old": "9b5b87c29654668f971f95157493538c1eade5443b2b1d58b7f9813c7b12bd0a",
       "new": "80f7330deb2856300b060d57441415fd1f3bd010ae6927f4dcba8ba3b8a7661f",
       "reason": "Initial raw response was truncated; independent fixed raw and Git blob/base64 reads both returned 17,492 bytes and matched the fixed tree blob."
+    },
+    {
+      "field": "baseline_sha256",
+      "old": "0c2dcbe9cff0ba65afd698b3801fd8263786d02aebb0da61e3cef9ec8674f0fe",
+      "new": "5ab4479115791071b3fe1f11be7c69762e8789012b844f44c09f970691004134",
+      "reason": "Hash the committed LF bytes required by .gitattributes, rather than the Windows CRLF working-copy bytes before the first commit. Baseline identities and refs are unchanged."
     }
   ],
   "independent_reviews": {
