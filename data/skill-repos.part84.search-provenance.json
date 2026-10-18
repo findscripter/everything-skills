@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "baseline_count": 2344,
+  "accepted_count": 38,
+  "candidate_sources": [
+    {
+      "kind": "products",
+      "file": "C:/Users/13185/AppData/Local/Temp/products18-wave3-rows.json"
+    },
+    {
+      "kind": "science",
+      "file": "C:/Users/13185/AppData/Local/Temp/everything-science-20261018b/science2.rows.json"
+    },
+    {
+      "kind": "workflows",
+      "file": "C:/Users/13185/AppData/Local/Temp/everything-workflows-20261018/reviewed2.json"
+    }
+  ],
+  "accepted_by_section": {
+    "official": 13,
+    "infra": 9,
+    "vertical": 7,
+    "collections": 9
+  },
+  "excluded_review_sources": [
+    "C:/Users/13185/AppData/Local/Temp/products18-wave3-accepted.audit.json",
+    "C:/Users/13185/AppData/Local/Temp/products18-wave3-readme-staleness.json",
+    "C:/Users/13185/AppData/Local/Temp/everything-science-20261018b/science2.audit.json",
+    "C:/Users/13185/AppData/Local/Temp/everything-workflows-20261018/deferred2.json"
+  ],
+  "notes": [
+    "Read-only GitHub evidence review; no candidate installation or execution.",
+    "This is a post-target follow-up shard; part83 remains the daily target receipt baseline."
+  ]
+}

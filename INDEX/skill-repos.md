@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-18（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part83
+- 编制日期：2026-10-18（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part84
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2344 个独立仓库（另注明更名别名）
+- 收录条数：2382 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -360,6 +360,19 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [vikiboss/60s-skills](https://github.com/vikiboss/60s-skills) | 47 | 60s API skills for Chinese weather, daily news, trending topics, utilities, entertainment, public data, and media information. | MIT | 7 | indexed-only |
 | [uw-ssec/rse-plugins](https://github.com/uw-ssec/rse-plugins) | 29 | Use research software engineering plugins for scientific Python, astronomy, multidimensional arrays, HoloViz, reproducibility and container workflows. | BSD-3-Clause; containerization and zarr-chunk-optimization plugins MIT | 75 + 1 router | indexed-only |
 | [carla-simulator/carla-agentic-tools](https://github.com/carla-simulator/carla-agentic-tools) | 4 | Run documented CARLA simulation, sensor, map, scenario, ROS2, and autonomous-driving evaluation procedures through skills and MCP. | MIT | 60 | indexed-only |
+| [cursor/plugins](https://github.com/cursor/plugins) | 12,419 | Cursor plugin specification and official plugins | Per-plugin licenses (representative cursor-sdk plugin license; root API reports NOASSERTION) | 111 个官方插件目录（多技能） | indexed-only |
+| [google/adk-recipes](https://github.com/google/adk-recipes) | 10,457 | A collection of agent recipes, reference patterns, and vertical plugins built with Agent Development Kit (ADK) | Apache-2.0 repository; plugin dependencies/assets may retain their own terms | 2 | indexed-only |
+| [browser-use/browser-harness](https://github.com/browser-use/browser-harness) | 18,471 | Let Claude Code, Codex or Cursor use your real Chrome, logged in as you. One prompt to set up. Open source, MIT. | MIT | 1 | indexed-only |
+| [pinchtab/pinchtab](https://github.com/pinchtab/pinchtab) | 10,395 | High-performance browser automation bridge and multi-instance orchestrator with advanced stealth injection and real-time dashboard. | MIT | 4 | indexed-only |
+| [xberg-io/xberg](https://github.com/xberg-io/xberg) | 9,423 | Polyglot document intelligence with a Rust core: extract text, metadata, images, tables, and structured data from 106 formats across 140 file extensions, plus code intelligence for 371 languages. Fifteen bindings, with CLI, REST API, and MCP server. | MIT code/skills; some reference material retains Elastic-2.0 terms | 7 | indexed-only |
+| [anthropics/oncall-kit](https://github.com/anthropics/oncall-kit) | 241 | Starter kit for a Claude-assisted on-call: mines your incident history into triage playbooks, sets up through human-approved gates, and runs read-only in your Slack channel — humans deploy every fix. | Apache-2.0 | 4 | indexed-only |
+| [AnmolSaini16/mapcn](https://github.com/AnmolSaini16/mapcn) | 12,275 | Beautiful map components. 100% Free, Zero config, one command setup. | MIT | 1 | indexed-only |
+| [OpenMinis/MinisSkills](https://github.com/OpenMinis/MinisSkills) | 465 | Skills collection for Minis. | MIT collection; nested shortcuts-builder includes its own NOTICE/terms | 56 | indexed-only |
+| [vite-hub/vitehub](https://github.com/vite-hub/vitehub) | 22 | Agents for any host, composed with server primitives through one Vite plugin. | Apache-2.0 | 1 | indexed-only |
+| [openfilm/openfilm](https://github.com/openfilm/openfilm) | 876 | The open source AI video agent: turns any coding agent into a video agent, with an editor to change anything it makes. | MIT | 11 | indexed-only |
+| [vibeic/vibe-ic](https://github.com/vibeic/vibe-ic) | 28 | AI-native IC design plugin with MCP-EDA — from natural-language intent to verified silicon. | Apache-2.0 | 71 | indexed-only |
+| [no-phux/skills](https://github.com/no-phux/skills) | 0 | Agent skills for phux. Install: npx skills add no-phux/skills | Apache-2.0 | 3 | indexed-only |
+| [BintzGavin/helios](https://github.com/BintzGavin/helios) | 121 | Programmatic video creation with web technologies you already know. CSS animations just work. | Apache-2.0 (skills/plugin); ELv2 engine | 19 | indexed-only |
 
 ## 2. Collections
 
@@ -858,6 +871,15 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [makukhin-ie/ai-toolbox](https://github.com/makukhin-ie/ai-toolbox) | 0 | Reusable workflows for Notion GTD sessions, print-ready book typesetting, language tutoring, and PrusaSlicer filament profiles. | MIT | 4 | indexed-only |
 | [thatrgbgamer/SuperClaude-FountEngine](https://github.com/thatrgbgamer/SuperClaude-FountEngine) | 0 | Preference-aware writing, email, research, document formatting, repository onboarding, debugging, and Fount game-authoring skills. | MIT | 9 | indexed-only |
 | [BuildGreatProducts/builder-os](https://github.com/BuildGreatProducts/builder-os) | 230 | Product-builder skill collection for idea validation, product planning, design systems, MVP execution, launch checks, and harness-specific build loops. | MIT | 7 tasks + 3 harness variants | indexed-only |
+| [21st-dev/registry](https://github.com/21st-dev/registry) | 10 | Publish, search and install team React components through the 21st.dev registry with a bundled Agent Skill. | MIT | 1 | indexed-only |
+| [CODE-SAURABH/OpenSkills](https://github.com/CODE-SAURABH/OpenSkills) | 3 | Portable production-grade AI engineering skills for memory, backend, API, security, QA, planning and retrospectives. | MIT | 49 | indexed-only |
+| [iam-niranjan/wcag-skills](https://github.com/iam-niranjan/wcag-skills) | 0 | Normative WCAG 2.2 Level A, AA and AAA criteria packaged as verified SKILL.md files for accessibility audits. | MIT | 3 | indexed-only |
+| [arham777/ui-ux-kit](https://github.com/arham777/ui-ux-kit) | 3 | Taste-first anti-slop UI design workflow that leaves a reusable DESIGN_SYSTEM.md for future pages. | MIT | 1 | indexed-only |
+| [Armitanemati/liquid-glass-claude-skill](https://github.com/Armitanemati/liquid-glass-claude-skill) | 3 | Brand-agnostic Liquid Glass and glassmorphism reasoning for web, SwiftUI and mobile with contrast, performance and fallback rules. | MIT | 1 | indexed-only |
+| [manish1803/nextjs-fullstack-skills](https://github.com/manish1803/nextjs-fullstack-skills) | 2 | Next.js, React, R3F, motion, payments and UX/UI Agent Skills for multi-agent frontend/full-stack development. | MIT | 23 | indexed-only |
+| [Taimoorkhan1122/boring-react](https://github.com/Taimoorkhan1122/boring-react) | 1 | Evidence-tested React engineering skills enforcing maintainable components, production patterns, quality and motion discipline. | MIT | 4 | indexed-only |
+| [weareoxd/design-skill-generator](https://github.com/weareoxd/design-skill-generator) | 1 | Generate design-system SKILL.md context from screenshots or Figma URLs, alongside feature/refinement skills used by the project. | MIT | 3 | indexed-only |
+| [alfaris/Design-AI-Skills](https://github.com/alfaris/Design-AI-Skills) | 1 | Bilingual English/Arabic design critique and persuasive-thinking skills for design review, presentation and defense. | CC-BY-4.0 | 2 | indexed-only |
 
 ## 3. Vertical
 
@@ -2018,6 +2040,13 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [Eternity-487/Teach3D](https://github.com/Eternity-487/Teach3D) | 2 | Turn objects, structures and processes into interactive browser-based 3D lessons with evidence-linked explanations, guided actions and classroom questions. | MIT; externally sourced 3D assets require their original permissions | 1 | indexed-only |
 | [sunzhaokai95/curation-research-skill](https://github.com/sunzhaokai95/curation-research-skill) | 2 | Research exhibition and museum topics into evidence-calibrated XMind knowledge maps with optional Word reports. | MIT | 1 | indexed-only |
 | [Insightful-Pipe/marketing-skills](https://github.com/Insightful-Pipe/marketing-skills) | 0 | Audit advertising, SEO and analytics using live InsightfulPipe data or supplied exports. | MIT | 77（另含路由） | indexed-only |
+| [1507078/openwrt-one-skills](https://github.com/1507078/openwrt-one-skills) | 2 | Set up and operate an OpenWrt One router with an AI coding agent. For developers who don't know networking. Works with Claude Code, Codex, and any Agent Skills host. | MIT | 3 | indexed-only |
+| [Superfast-Robotics/robot-skill-hub](https://github.com/Superfast-Robotics/robot-skill-hub) | 0 | Agent-first robotics skill discovery: pinned source examples, reproducible preparation, and reviewed task findings. | MIT | 1 | indexed-only |
+| [aws-geospatial/amazon-location-agent-context](https://github.com/aws-geospatial/amazon-location-agent-context) | 7 | Official AWS Amazon Location Service context and Agent Skill package for maps, places, geocoding, routing, geofencing and tracking across Kiro, Claude, Cursor and generic Agent Skills clients. | MIT-0 (README and LICENSE.md; GitHub API metadata reported Apache-2.0, requiring source-license precedence) | 1 | indexed-only |
+| [enesgul23/scientific-figure-skills](https://github.com/enesgul23/scientific-figure-skills) | 7 | Evidence-first scientific figure suite for planning, rendering, auditing and packaging publication-grade figures with reproducible exports, visual-claim ledgers and journal checks. | MIT | 1 | indexed-only |
+| [Cai-aa/CAE-Agent-Hub](https://github.com/Cai-aa/CAE-Agent-Hub) | 1,081 | CAE engineering simulation hub combining reusable agent skills, MCP bridges and evidence-oriented Abaqus, Ansys, CST, Calculix, COMSOL, FEP, LAMMPS, OVITO and Peridigm workflows. | MIT | 多技能 | indexed-only |
+| [ShaishavMaisuria/research-paper-lifecycle-skills](https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills) | 54 | 42 Agent Skills covering the research-paper lifecycle from literature discovery and writing through verification, submission, rebuttal, publication and talks. | Apache-2.0 | 42 | indexed-only |
+| [muend/geoai-skills](https://github.com/muend/geoai-skills) | 32 | Vendor-neutral 18-skill geospatial AI stack that tests CRS, units, comparability, spatial leakage, uncertainty, provenance and safe refusal before a result becomes a claim. | MIT | 18 | indexed-only |
 
 ## 4. Infra
 
@@ -2240,6 +2269,15 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [Qsnh/skillsgist](https://github.com/Qsnh/skillsgist) | 43 | Self-host private and public versioned Agent Skills registries on Cloudflare with multi-agent installs. | MIT | 基础设施 | indexed-only |
 | [Jignesh-Ponamwar/skills-mcp](https://github.com/Jignesh-Ponamwar/skills-mcp) | 10 | Serve a self-hosted searchable Agent Skills registry with progressive disclosure over MCP. | Apache-2.0 | 基础设施 | indexed-only |
 | [jo-inc/safe-skill-search](https://github.com/jo-inc/safe-skill-search) | 8 | Search local Agent Skill registries with BM25 indexing, quality scores and source filtering. | MIT | 基础设施 | indexed-only |
+| [smol-machines/smolvm](https://github.com/smol-machines/smolvm) | 6,759 | An embeddable, portable, branchable virtual machine to safely run Agents locally. | Apache-2.0 | 11 | indexed-only |
+| [activeing123/mcptoon](https://github.com/activeing123/mcptoon) | 285 | One zero-dependency CLI for every MCP server and agent skill. Token optimization, tool discovery and context compression: 71,929 -> 581 tokens (-99.2%, measured), schemas stay out of context. One config for Claude Code, Codex, Cursor, every agent. 341KB, pure Python. \| 零依赖 CLI：管所有 MCP 工具与技能，工具发现省 99.2% token。 | Apache-2.0 | 1 | indexed-only |
+| [evgeniiPerov/quay](https://github.com/evgeniiPerov/quay) | 4 | Git-native registry and MCP server for sharing, installing, updating and auditing SKILL.md files across agent roots. | MIT | 25 | indexed-only |
+| [yaacovcorcos/papiskill](https://github.com/yaacovcorcos/papiskill) | 2 | Git-backed public registry and CLI for searching, installing, validating and publishing portable SKILL.md packages. | MIT | 5 | indexed-only |
+| [sentenz/skills](https://github.com/sentenz/skills) | 3 | Apache-licensed catalog of modular development skills for AI coding assistants with `.agents/skills` installation. | Apache-2.0 | 23 | indexed-only |
+| [sigistry/marketplace](https://github.com/sigistry/marketplace) | 3 | Verified plugin/skill registry with open security checks, machine-readable verification and consent-first external references. | MIT (registry; nested/plugin licenses retained) | 36 | indexed-only |
+| [scalefocus/skilly](https://github.com/scalefocus/skilly) | 8 | Apache-licensed self-hosted governed registry for versioned, reviewed organizational SKILL.md assets. | Apache-2.0 | 基础设施 | indexed-only |
+| [SkillsCatalog/registry](https://github.com/SkillsCatalog/registry) | 1 | Community Agent Skills registry with creation, installation, search, validation, publishing and safety-scanning workflows. | MIT | 7 | indexed-only |
+| [Kargatharaakash/website-design-systems-mcp](https://github.com/Kargatharaakash/website-design-systems-mcp) | 18 | MCP product that extracts website design systems and generates AI-ready SKILL.md files from live sites. | MIT | 基础设施 | indexed-only |
 
 ## 5. Other
 

@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "purpose": "post-target follow-up publication",
+  "baseline_count": 2344,
+  "added_count": 38,
+  "final_catalog_count": 2382,
+  "shard": "../../skill-repos.part84.jsonl",
+  "audit": "../../skill-repos.part84.audit.json",
+  "status": "pending-publication",
+  "daily_target_receipt": "additions.json records the first 76 qualifying repositories; this follow-up is recorded separately to avoid rewriting the completed target receipt.",
+  "repositories": [
+    {
+      "full_name": "cursor/plugins",
+      "repository_id": 1140229822
+    },
+    {
+      "full_name": "google/adk-recipes",
+      "repository_id": 958830671
+    },
+    {
+      "full_name": "browser-use/browser-harness",
+      "repository_id": 1213049020
+    },
+    {
+      "full_name": "pinchtab/pinchtab",
+      "repository_id": 1158432527
+    },
+    {
+      "full_name": "xberg-io/xberg",
+      "repository_id": 925434317
+    },
+    {
+      "full_name": "smol-machines/smolvm",
+      "repository_id": 1119210021
+    },
+    {
+      "full_name": "anthropics/oncall-kit",
+      "repository_id": 1322278165
+    },
+    {
+      "full_name": "AnmolSaini16/mapcn",
+      "repository_id": 1124108056
+    },
+    {
+      "full_name": "activeing123/mcptoon",
+      "repository_id": 1313597274
+    },
+    {
+      "full_name": "OpenMinis/MinisSkills",
+      "repository_id": 1169933831
+    },
+    {
+      "full_name": "vite-hub/vitehub",
+      "repository_id": 1208410366
+    },
+    {
+      "full_name": "openfilm/openfilm",
+      "repository_id": 1404197626
+    },
+    {
+      "full_name": "vibeic/vibe-ic",
+      "repository_id": 1268128556
+    },
+    {
+      "full_name": "1507078/openwrt-one-skills",
+      "repository_id": 1353304063
+    },
+    {
+      "full_name": "Superfast-Robotics/robot-skill-hub",
+      "repository_id": 1423241384
+    },
+    {
+      "full_name": "no-phux/skills",
+      "repository_id": 1378712373
+    },
+    {
+      "full_name": "BintzGavin/helios",
+      "repository_id": 1036932940
+    },
+    {
+      "full_name": "aws-geospatial/amazon-location-agent-context",
+      "repository_id": 1150897397
+    },
+    {
+      "full_name": "enesgul23/scientific-figure-skills",
+      "repository_id": 1243889912
+    },
+    {
+      "full_name": "Cai-aa/CAE-Agent-Hub",
+      "repository_id": 1222504648
+    },
+    {
+      "full_name": "ShaishavMaisuria/research-paper-lifecycle-skills",
+      "repository_id": 1275796993
+    },
+    {
+      "full_name": "muend/geoai-skills",
+      "repository_id": 1305263254
+    },
+    {
+      "full_name": "21st-dev/registry",
+      "repository_id": 1225877795
+    },
+    {
+      "full_name": "CODE-SAURABH/OpenSkills",
+      "repository_id": 1311888439
+    },
+    {
+      "full_name": "evgeniiPerov/quay",
+      "repository_id": 1232790195
+    },
+    {
+      "full_name": "iam-niranjan/wcag-skills",
+      "repository_id": 1318927625
+    },
+    {
+      "full_name": "arham777/ui-ux-kit",
+      "repository_id": 1278284781
+    },
+    {
+      "full_name": "Armitanemati/liquid-glass-claude-skill",
+      "repository_id": 1365850892
+    },
+    {
+      "full_name": "manish1803/nextjs-fullstack-skills",
+      "repository_id": 1286969709
+    },
+    {
+      "full_name": "Taimoorkhan1122/boring-react",
+      "repository_id": 1342803077
+    },
+    {
+      "full_name": "weareoxd/design-skill-generator",
+      "repository_id": 1205351024
+    },
+    {
+      "full_name": "yaacovcorcos/papiskill",
+      "repository_id": 1270616861
+    },
+    {
+      "full_name": "sentenz/skills",
+      "repository_id": 1151715283
+    },
+    {
+      "full_name": "sigistry/marketplace",
+      "repository_id": 1075743932
+    },
+    {
+      "full_name": "scalefocus/skilly",
+      "repository_id": 1295009274
+    },
+    {
+      "full_name": "SkillsCatalog/registry",
+      "repository_id": 1127317770
+    },
+    {
+      "full_name": "alfaris/Design-AI-Skills",
+      "repository_id": 1324967137
+    },
+    {
+      "full_name": "Kargatharaakash/website-design-systems-mcp",
+      "repository_id": 1153865597
+    }
+  ]
+}
