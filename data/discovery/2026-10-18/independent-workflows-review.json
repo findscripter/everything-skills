@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "reviewer": "discover_science independent review",
+  "verdict": "20 acceptable after repairing truncated Cocoon sample hash",
+  "candidate_count": 20,
+  "identity_or_representative_overlap_in_retained_baseline": [],
+  "verified_sources_file": "independent-workflows-checks.json",
+  "notices": {
+    "repo": "AI-Marketing-OS-LTD/cmo-so-skills",
+    "path": "THIRD_PARTY_NOTICES.md",
+    "sha256": "6980ab7d3b5d9c712947ba2b2b8e61504efab35e096af2ee553892f53773c273",
+    "bytes": 96841,
+    "verdict": "Reviewed affirmative copyright and permissive license notices, plus explicitly segregated nonpermissive/no-license idea-only sources. Representative has original CMO data contracts and source-aware workflow; not a pure mirror.",
+    "url": "https://github.com/AI-Marketing-OS-LTD/cmo-so-skills/blob/85699a96e53cc7e0a9a0750633970fea0f39f9bf/THIRD_PARTY_NOTICES.md"
+  },
+  "repair": {
+    "repo": "Cocoon-AI/process-flow-diagram-generator",
+    "old_sha256": "9b5b87c29654668f971f95157493538c1eade5443b2b1d58b7f9813c7b12bd0a",
+    "correct_sha256": "80f7330deb2856300b060d57441415fd1f3bd010ae6927f4dcba8ba3b8a7661f",
+    "git_blob_sha": "6c8813fdd5e3761af675d7e2b4500e160ffa3743",
+    "reason": "Original cache sample_text truncated at 16433 characters and hashed truncated text. Fixed commit actual content 17338 characters; full raw bytes yield recorded Git blob."
+  },
+  "content_notes": [
+    {
+      "repo": "CaseMark/skills",
+      "verdict": "Accept multi-skill metadata index; README explicitly licenses collection Apache-2.0 and distributes canonical skills/casedev and professional domain packs. Exclude root compatibility/template/audit exports. Representative attorney-supervised legal drafting requires current-law verification; do not claim clinical validation or automatic diagnosis."
+    },
+    {
+      "repo": "Qsnh/skillsgist",
+      "verdict": "Accept infrastructure, no public SKILL required: independently fetched src/registry.ts and src/routes/registry.ts implement actual Agent Skills discovery index and digest-addressed artifacts with authorization scopes. MIT software; uploads not relicensed."
+    },
+    {
+      "repo": "Jignesh-Ponamwar/skills-mcp",
+      "verdict": "Accept infrastructure: real semantic discovery implementation at skill_mcp/tools/find_skills.py and Apache master usage skill. Its docs-derived references are supporting data with their source rights; not counted as 32 independently original tools."
+    },
+    {
+      "repo": "AI-Marketing-OS-LTD/cmo-so-skills",
+      "verdict": "Accept substantive native marketing integration despite adaptations. Retain permissive upstream notices, source pins, service/account scope and nonpermissive idea-only separation. Multi-skill label avoids stale 124 banner vs current135 mismatch."
+    },
+    {
+      "repo": "AlphaGBM/skills and AlphaGBM/investment-masters",
+      "verdict": "Separate API/method-references catalog and one coherent methodology task with15 profiles. Not two copies. No live market access, profitability, automated monitor or investor endorsement claims."
+    },
+    {
+      "repo": "Cocoon-AI architecture and process diagram repositories",
+      "verdict": "Same publisher/style but distinct substantial graph vs sequence/decision semantics; representative bodies differ; not unmodified mirrors."
+    }
+  ],
+  "remaining_material_blockers": [],
+  "source_excerpt_policy": "Metadata and audit hashes only; no candidate execution, installation or importing third-party skill bodies."
+}

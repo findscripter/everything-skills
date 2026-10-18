@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "target": 50,
+  "baseline_file": "baseline.json",
+  "baseline_count": 2268,
+  "baseline_sha256": "0c2dcbe9cff0ba65afd698b3801fd8263786d02aebb0da61e3cef9ec8674f0fe",
+  "catalog_shard": "../../skill-repos.part83.jsonl",
+  "locally_verified_new_count": 76,
+  "daily_qualifying_count": 0,
+  "status": "awaiting remote main/zh publication and necessary CI",
+  "counting_rule": "Only rows present on both published branches with necessary CI passing qualify; search leads, repeats, old branch imports and maintenance do not qualify.",
+  "repositories": [
+    {
+      "full_name": "mem0ai/mem0",
+      "repository_id": 656099147
+    },
+    {
+      "full_name": "MadsLorentzen/ai-job-search",
+      "repository_id": 1185389803
+    },
+    {
+      "full_name": "googleapis/mcp-toolbox",
+      "repository_id": 812044182
+    },
+    {
+      "full_name": "scalar/scalar",
+      "repository_id": 679280065
+    },
+    {
+      "full_name": "wheresryan22/anatomy",
+      "repository_id": 1410124849
+    },
+    {
+      "full_name": "yizhiyanhua-ai/fireworks-tech-graph",
+      "repository_id": 1207091162
+    },
+    {
+      "full_name": "rerun-io/rerun",
+      "repository_id": 479289739
+    },
+    {
+      "full_name": "ariga/atlas",
+      "repository_id": 363232643
+    },
+    {
+      "full_name": "HKUDS/OpenSpace",
+      "repository_id": 1190363679
+    },
+    {
+      "full_name": "mufeedvh/code2prompt",
+      "repository_id": 769564277
+    },
+    {
+      "full_name": "TheWidlarzGroup/react-native-video",
+      "repository_id": 33166041
+    },
+    {
+      "full_name": "Cocoon-AI/architecture-diagram-generator",
+      "repository_id": 1121262780
+    },
+    {
+      "full_name": "Dammyjay93/interface-design",
+      "repository_id": 1127982345
+    },
+    {
+      "full_name": "emqx/MQTTX",
+      "repository_id": 188391577
+    },
+    {
+      "full_name": "microsoft/apm",
+      "repository_id": 1059472549
+    },
+    {
+      "full_name": "DingTalk-Real-AI/dingtalk-workspace-cli",
+      "repository_id": 1187709537
+    },
+    {
+      "full_name": "memodb-io/Acontext",
+      "repository_id": 1020834440
+    },
+    {
+      "full_name": "AlphaGBM/skills",
+      "repository_id": 1202559832
+    },
+    {
+      "full_name": "google-deepmind/science-skills",
+      "repository_id": 1237911785
+    },
+    {
+      "full_name": "nuxt-content/docus",
+      "repository_id": 312318044
+    },
+    {
+      "full_name": "alpic-ai/skybridge",
+      "repository_id": 1071272475
+    },
+    {
+      "full_name": "lodev09/react-native-true-sheet",
+      "repository_id": 776272298
+    },
+    {
+      "full_name": "MicrosoftDocs/mcp",
+      "repository_id": 998658053
+    },
+    {
+      "full_name": "Asymptote-Labs/agent-beacon",
+      "repository_id": 1236183038
+    },
+    {
+      "full_name": "ai-evals-course/evals-skills",
+      "repository_id": 1278536566
+    },
+    {
+      "full_name": "starknet-io/starknet.js",
+      "repository_id": 418545583
+    },
+    {
+      "full_name": "google-gemma/gemma-skills",
+      "repository_id": 1197867826
+    },
+    {
+      "full_name": "SynaLinks/synalinks-skills",
+      "repository_id": 655021836
+    },
+    {
+      "full_name": "mnemon-dev/mnemon",
+      "repository_id": 1162230313
+    },
+    {
+      "full_name": "AlphaGBM/investment-masters",
+      "repository_id": 1207776183
+    },
+    {
+      "full_name": "tuya/tuya-openclaw-skills",
+      "repository_id": 1179771822
+    },
+    {
+      "full_name": "VisActor/skills",
+      "repository_id": 748476385
+    },
+    {
+      "full_name": "alirezarezvani/ClaudeForge",
+      "repository_id": 1094878969
+    },
+    {
+      "full_name": "ThinkfleetAI/memmesh",
+      "repository_id": 1276368237
+    },
+    {
+      "full_name": "oracle/netsuite-suitecloud-sdk",
+      "repository_id": 222663474
+    },
+    {
+      "full_name": "0xranx/golembot",
+      "repository_id": 1169838651
+    },
+    {
+      "full_name": "Abhinavbwj/Skills-Architects",
+      "repository_id": 1203147517
+    },
+    {
+      "full_name": "Geeksfino/finskills",
+      "repository_id": 1151105316
+    },
+    {
+      "full_name": "brightdata/skills",
+      "repository_id": 1144208576
+    },
+    {
+      "full_name": "BuildGreatProducts/builder-os",
+      "repository_id": 1266247085
+    },
+    {
+      "full_name": "OpenWonderLabs/switchbot-openapi-cli",
+      "repository_id": 1213447359
+    },
+    {
+      "full_name": "Abhinavbwj/Urban-Design-Skills-Claude",
+      "repository_id": 1169127191
+    },
+    {
+      "full_name": "flysheep-ai/education-skills",
+      "repository_id": 1145087102
+    },
+    {
+      "full_name": "Cocoon-AI/process-flow-diagram-generator",
+      "repository_id": 1233490795
+    },
+    {
+      "full_name": "SteadfastAsArt/geoscience-skills",
+      "repository_id": 1142266166
+    },
+    {
+      "full_name": "joeseesun/qiaomu-learning",
+      "repository_id": 1329958270
+    },
+    {
+      "full_name": "stbenjam/skillsaw",
+      "repository_id": 1231888139
+    },
+    {
+      "full_name": "sadassimov/geemu-skill",
+      "repository_id": 1260384190
+    },
+    {
+      "full_name": "Benny-Lewis/home-assistant-assistant",
+      "repository_id": 1142957181
+    },
+    {
+      "full_name": "sunxiayi/make-blender-education-video-skill",
+      "repository_id": 1305180533
+    },
+    {
+      "full_name": "jokull/icelandic-data",
+      "repository_id": 1127800077
+    },
+    {
+      "full_name": "skilluse/skilluse",
+      "repository_id": 1123599103
+    },
+    {
+      "full_name": "handsomeZR-netizen/social-science-paperwork-skill",
+      "repository_id": 1240354478
+    },
+    {
+      "full_name": "vikiboss/60s-skills",
+      "repository_id": 1149595948
+    },
+    {
+      "full_name": "CaseMark/skills",
+      "repository_id": 1165005195
+    },
+    {
+      "full_name": "Qsnh/skillsgist",
+      "repository_id": 1380702365
+    },
+    {
+      "full_name": "cooleava1-gif/Materials-Science-Skills",
+      "repository_id": 1260470676
+    },
+    {
+      "full_name": "h9-tec/arabic-ai-atlas",
+      "repository_id": 1404411945
+    },
+    {
+      "full_name": "Zhonghao1995/agentic-swmm-workflow",
+      "repository_id": 1167231870
+    },
+    {
+      "full_name": "uw-ssec/rse-plugins",
+      "repository_id": 1091290859
+    },
+    {
+      "full_name": "Sogni-AI/sogni-creative-agent-skill",
+      "repository_id": 1145022698
+    },
+    {
+      "full_name": "LengFeng00/research-gap-finder",
+      "repository_id": 1188753375
+    },
+    {
+      "full_name": "sshtomar/claude-code-skills-social-science",
+      "repository_id": 1182121163
+    },
+    {
+      "full_name": "326389540-jpg/xugeyuan-music-education-skills",
+      "repository_id": 1323937508
+    },
+    {
+      "full_name": "Jignesh-Ponamwar/skills-mcp",
+      "repository_id": 1221663881
+    },
+    {
+      "full_name": "berba-q/faostat-skills",
+      "repository_id": 1210279303
+    },
+    {
+      "full_name": "tanglele110-hash/museum-relic-stamp",
+      "repository_id": 1355989367
+    },
+    {
+      "full_name": "jo-inc/safe-skill-search",
+      "repository_id": 1148349357
+    },
+    {
+      "full_name": "raphysicst-create/science-teacher-skills",
+      "repository_id": 1318917849
+    },
+    {
+      "full_name": "Vambrocop/EvidenceForge",
+      "repository_id": 1223098584
+    },
+    {
+      "full_name": "shikaijieskj/science-skills",
+      "repository_id": 1249009140
+    },
+    {
+      "full_name": "carla-simulator/carla-agentic-tools",
+      "repository_id": 1306628027
+    },
+    {
+      "full_name": "AI-Marketing-OS-LTD/cmo-so-skills",
+      "repository_id": 1414292744
+    },
+    {
+      "full_name": "Eternity-487/Teach3D",
+      "repository_id": 1302689643
+    },
+    {
+      "full_name": "sunzhaokai95/curation-research-skill",
+      "repository_id": 1269012756
+    },
+    {
+      "full_name": "Insightful-Pipe/marketing-skills",
+      "repository_id": 1412831331
+    }
+  ]
+}

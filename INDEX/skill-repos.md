@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-17（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part82
+- 编制日期：2026-10-18（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part83
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2268 个独立仓库（另注明更名别名）
+- 收录条数：2344 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -336,6 +336,30 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [databricks-industry-solutions/hls-skills](https://github.com/databricks-industry-solutions/hls-skills) | 3 | Databricks 医疗生命科学技能，覆盖组学、队列、去标识和支付方/服务方指标。 | Databricks License — restricted to use within or connecting to Databricks Services | 9 | 仅索引 |
 | [criticalmanufacturing/agent-plugins](https://github.com/criticalmanufacturing/agent-plugins) | 0 | Critical Manufacturing 官方 CM GPT 技能，检索 MES 文档并给出来源引用。 | MIT | 1 | 仅索引 |
 | [splinetool/spline-skills](https://github.com/splinetool/spline-skills) | 0 | 通过 Spline MCP 编辑器建立和迭代可编辑的 3D 场景、动画、网站与应用界面。 | MIT | 1 | 仅索引 |
+| [mem0ai/mem0](https://github.com/mem0ai/mem0) | 67,360 | 通过官方 SDK/CLI 技能、集成测试与 OSS 到托管平台迁移流程接入 Mem0 持久记忆。 | Apache-2.0 | 6 | 仅索引 |
+| [scalar/scalar](https://github.com/scalar/scalar) | 16,279 | 在应用框架中集成与诊断 Scalar API Reference，覆盖认证、主题和 API 描述加载。 | MIT | 1 | 仅索引 |
+| [rerun-io/rerun](https://github.com/rerun-io/rerun) | 11,609 | 通过官方技能探索机器人记录与数据集、转换传感器格式，并设计 Rerun 查看器布局。 | Apache-2.0 | 12 | 仅索引 |
+| [ariga/atlas](https://github.com/ariga/atlas) | 8,780 | 通过 Atlas 官方技能管理数据库 Schema、迁移、CI 流程与数据库专属工作流。 | Apache-2.0 | 13 | 仅索引 |
+| [mufeedvh/code2prompt](https://github.com/mufeedvh/code2prompt) | 7,725 | Code2Prompt 产品技能：按范围探索仓库、查看实体图并分组读取源码，组织编码 Agent 上下文。 | MIT | 1 | 仅索引 |
+| [TheWidlarzGroup/react-native-video](https://github.com/TheWidlarzGroup/react-native-video) | 7,720 | 集成与迁移 React Native Video v6/v7，覆盖播放、流媒体、DRM、轨道及原生配置。 | MIT | 1 | 仅索引 |
+| [emqx/MQTTX](https://github.com/emqx/MQTTX) | 5,076 | 使用 MQTTX CLI 完成 MQTT 连接、收发验证、MQTT 5、认证、编解码、模拟与诊断。 | Apache-2.0 | 1 | 仅索引 |
+| [DingTalk-Real-AI/dingtalk-workspace-cli](https://github.com/DingTalk-Real-AI/dingtalk-workspace-cli) | 3,723 | 通过 CLI 随附 Agent Skills 操作钉钉多维表、会话、日历、文档、邮件与协作流程。 | Apache-2.0 | 16 | 仅索引 |
+| [google-deepmind/science-skills](https://github.com/google-deepmind/science-skills) | 3,280 | 使用面向基因组学、结构生物学、化学信息学、文献检索和专业科学数据库的研究技能。 | Apache-2.0 (software); CC-BY-4.0 (other materials); external database terms | 37 + 3 support skills | 仅索引 |
+| [nuxt-content/docus](https://github.com/nuxt-content/docus) | 3,117 | 创建和审核 Docus 文档站点，并从文档内容分发可发现的技能。 | MIT | 2 | 仅索引 |
+| [alpic-ai/skybridge](https://github.com/alpic-ai/skybridge) | 2,162 | 按照 Skybridge 的生命周期、架构、实现、迁移与部署指南构建 ChatGPT 插件和 MCP Apps。 | MIT | 1 | 仅索引 |
+| [lodev09/react-native-true-sheet](https://github.com/lodev09/react-native-true-sheet) | 2,075 | 在 React Native 应用中集成 TrueSheet 底部面板，覆盖导航、动画、滚动、键盘及版本迁移。 | MIT | 1 | 仅索引 |
+| [MicrosoftDocs/mcp](https://github.com/MicrosoftDocs/mcp) | 1,951 | Microsoft Learn 技能：检索官方文档与代码参考、创建技能，以及使用 Microsoft Learn CLI。 | CC-BY-4.0 (documentation); MIT (code) | 3 plugin + 1 CLI | 仅索引 |
+| [starknet-io/starknet.js](https://github.com/starknet-io/starknet.js) | 1,255 | 按当前 calldata、provider、账户、合约与交易约定开发 Starknet JavaScript/TypeScript 集成。 | MIT | 1 | 仅索引 |
+| [google-gemma/gemma-skills](https://github.com/google-gemma/gemma-skills) | 1,025 | 使用官方开发与训练技能构建 Gemma 应用，并开展模型微调。 | Apache-2.0 | 2 | 仅索引 |
+| [SynaLinks/synalinks-skills](https://github.com/SynaLinks/synalinks-skills) | 907 | 按 Synalinks 原生方式构建神经符号语言模型程序、工具、Agent、训练及奖励流程。 | Apache-2.0 | 1 | 仅索引 |
+| [tuya/tuya-openclaw-skills](https://github.com/tuya/tuya-openclaw-skills) | 482 | 通过涂鸦官方 OpenClaw 技能查询与控制智能家居设备、家庭、天气、能耗统计及设备事件。 | MIT | 1 | 仅索引 |
+| [VisActor/skills](https://github.com/VisActor/skills) | 471 | 通过 VisActor 官方技能生成 VChart 图表、VTable 表格与叙事式数据作品。 | MIT | 3 | 仅索引 |
+| [oracle/netsuite-suitecloud-sdk](https://github.com/oracle/netsuite-suitecloud-sdk) | 356 | 使用官方 SuiteCloud Agent Skills 开发 NetSuite SuiteScript/SDF/UIF 方案并开展财务分析工作流。 | UPL-1.0 | 10 | 仅索引 |
+| [brightdata/skills](https://github.com/brightdata/skills) | 266 | Bright Data 插件技能：网页研究、结构化数据源、CLI/MCP/SDK 使用、抓取工具开发和 SEO 工作流。 | MIT (skill instructions); external service/data terms separate | 21 | 仅索引 |
+| [OpenWonderLabs/switchbot-openapi-cli](https://github.com/OpenWonderLabs/switchbot-openapi-cli) | 135 | 通过官方 CLI/MCP 技能查询和控制 SwitchBot 设备、场景，并使用能力发现与操作确认。 | MIT | 1 | 仅索引 |
+| [vikiboss/60s-skills](https://github.com/vikiboss/60s-skills) | 47 | 60s API 技能：查询中国天气、每日新闻、热点、实用工具、娱乐、公共数据和媒体信息。 | MIT | 7 | 仅索引 |
+| [uw-ssec/rse-plugins](https://github.com/uw-ssec/rse-plugins) | 29 | 使用科研软件工程插件处理科学 Python、天文、多维数组、HoloViz、可复现研究与容器工作流。 | BSD-3-Clause; containerization and zarr-chunk-optimization plugins MIT | 75 + 1 router | 仅索引 |
+| [carla-simulator/carla-agentic-tools](https://github.com/carla-simulator/carla-agentic-tools) | 4 | 通过技能与 MCP 使用 CARLA 仿真、传感器、地图、场景、ROS2 及自动驾驶评测流程。 | MIT | 60 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -833,6 +857,7 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [KalarisLabs/research-agent-skills](https://github.com/KalarisLabs/research-agent-skills) | 23 | 覆盖科学计算、学术写作、文献研究与实验方法的研究技能集合。 | MIT (collection and skill instructions); bundled publisher templates and third-party materials retain their own terms | 281 | 仅索引 |
 | [makukhin-ie/ai-toolbox](https://github.com/makukhin-ie/ai-toolbox) | 0 | 可复用的 Notion GTD 会话、印刷书籍排版、语言辅导与 PrusaSlicer 耗材配置工作流。 | MIT | 4 | 仅索引 |
 | [thatrgbgamer/SuperClaude-FountEngine](https://github.com/thatrgbgamer/SuperClaude-FountEngine) | 0 | 共享偏好配置驱动的写作、邮件、调研、文档整理、仓库入门、调试与 Fount 游戏创作技能。 | MIT | 9 | 仅索引 |
+| [BuildGreatProducts/builder-os](https://github.com/BuildGreatProducts/builder-os) | 230 | 产品构建技能集合：创意验证、产品规划、设计系统、MVP 执行、发布检查及不同 Harness 的构建循环。 | MIT | 7 tasks + 3 harness variants | 仅索引 |
 
 ## 3. 垂直领域技能包
 
@@ -1957,6 +1982,42 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [sunjun333/aosaiqunxing-mcp](https://github.com/sunjun333/aosaiqunxing-mcp) | 0 | 通过带来源的 Agent 技能查询中国高中五科学科奥赛成绩与历史数据。 | MIT | 1 | 仅索引 |
 | [tizsabrine/claude-skills-design](https://github.com/tizsabrine/claude-skills-design) | 0 | 应用 Google PAIR 框架生成 AI 产品设计简报，覆盖信任、反馈、引导和故障状态。 | MIT | 1 | 仅索引 |
 | [yinum/analytical-skills](https://github.com/yinum/analytical-skills) | 0 | 分析化学论文工作流，覆盖文献、绘图、统计、写作与投稿。 | Apache-2.0 | 15 | 仅索引 |
+| [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search) | 50,413 | 检索招聘入口，并以真实经历生成简历、求职信和面试准备材料。 | MIT | 9 | 仅索引 |
+| [wheresryan22/anatomy](https://github.com/wheresryan22/anatomy) | 15,118 | 创建解释技术系统的交互式等距 SVG 插图，可选 WebGL 与三维效果。 | MIT | 1 | 仅索引 |
+| [yizhiyanhua-ai/fireworks-tech-graph](https://github.com/yizhiyanhua-ai/fireworks-tech-graph) | 11,757 | 创建并校验 SVG 技术图，支持 PNG、离线 HTML 和特定 GIF 导出。 | MIT | 1 | 仅索引 |
+| [Cocoon-AI/architecture-diagram-generator](https://github.com/Cocoon-AI/architecture-diagram-generator) | 7,452 | 生成深色系统架构图，输出独立 HTML、SVG 及图像导出。 | MIT | 1 | 仅索引 |
+| [Dammyjay93/interface-design](https://github.com/Dammyjay93/interface-design) | 5,816 | 构建一致的产品界面，记录设计方向与设计决策并支持审查。 | MIT | 1 | 仅索引 |
+| [AlphaGBM/skills](https://github.com/AlphaGBM/skills) | 3,668 | 以证据边界研究股票与期权，支持本地投资复盘和专项方法参考。 | MIT | 多技能/研究方法 | 仅索引 |
+| [AlphaGBM/investment-masters](https://github.com/AlphaGBM/investment-masters) | 634 | 在明确证据限制下比较十五种投资方法，并查看有日期的公开申报资料。 | MIT | 1 | 仅索引 |
+| [Abhinavbwj/Skills-Architects](https://github.com/Abhinavbwj/Skills-Architects) | 298 | 辅助建筑策划、概念设计、围护结构、无障碍与施工文档。 | MIT | 多技能 | 仅索引 |
+| [Geeksfino/finskills](https://github.com/Geeksfino/finskills) | 282 | 分析美股与 A 股财报、组合风险、ESG 及投资适当性。 | Apache-2.0 | 15（中美市场版本） | 仅索引 |
+| [Abhinavbwj/Urban-Design-Skills-Claude](https://github.com/Abhinavbwj/Urban-Design-Skills-Claude) | 133 | 支持城市场地分析、街道、密度、公共空间、总体规划与可持续设计。 | MIT | 多技能 | 仅索引 |
+| [flysheep-ai/education-skills](https://github.com/flysheep-ai/education-skills) | 116 | 通过渐进提问、文本依据、推理示例和学科指导辅导中国高中高考科目。 | MIT | 5 | 仅索引 |
+| [Cocoon-AI/process-flow-diagram-generator](https://github.com/Cocoon-AI/process-flow-diagram-generator) | 103 | 为审批、运行手册和操作工作流创建独立 HTML 泳道流程图。 | MIT | 1 | 仅索引 |
+| [SteadfastAsArt/geoscience-skills](https://github.com/SteadfastAsArt/geoscience-skills) | 70 | 通过可移植技能与工作流分析地震、测井、地质模型、地球物理反演、水文和气候数据。 | MIT (skill instructions); bundled field data retain CC-BY-3.0/4.0 and hydro test fixture GPL-3.0 terms | 47 + 1 router | 仅索引 |
+| [joeseesun/qiaomu-learning](https://github.com/joeseesun/qiaomu-learning) | 68 | 开展一次一问的自适应苏格拉底式学习对话，结合渐进图解和可选自包含学习网页。 | MIT | 1 | 仅索引 |
+| [sadassimov/geemu-skill](https://github.com/sadassimov/geemu-skill) | 60 | 结合环境检查、研究设计、数据语义、导出规划与运行记录编写 Google Earth Engine 和 geemap 工作流。 | MIT (original skill); CC-BY-4.0 / Apache-2.0 / MIT third-party references and dataset-specific terms | 1 | 仅索引 |
+| [Benny-Lewis/home-assistant-assistant](https://github.com/Benny-Lewis/home-assistant-assistant) | 57 | 通过 Claude/Codex 插件管理 Home Assistant 配置、自动化、设备、校验与经确认的部署。 | MPL-2.0 | 14 | 仅索引 |
+| [sunxiayi/make-blender-education-video-skill](https://github.com/sunxiayi/make-blender-education-video-skill) | 56 | 通过事实清单、可复用资源审核、分镜确认、字幕和交付检查制作 Blender 教学解释视频。 | MIT; separately published demo media excluded | 1 | 仅索引 |
+| [jokull/icelandic-data](https://github.com/jokull/icelandic-data) | 55 | 通过同仓库的数据源技能与脚本研究冰岛统计、议会、公共财政、能源、环境和交通。 | MIT; public-source data retain their source terms | 55 + 1 maintainer skill | 仅索引 |
+| [handsomeZR-netizen/social-science-paperwork-skill](https://github.com/handsomeZR-netizen/social-science-paperwork-skill) | 48 | 设计和审计人文社科研究方案、访谈协议、问卷、质性编码及投稿证据链。 | MIT | 1 | 仅索引 |
+| [CaseMark/skills](https://github.com/CaseMark/skills) | 45 | 提供含核验步骤的法律、临床研究及财务专业文档工作流。 | Apache-2.0 | 多技能 | 仅索引 |
+| [cooleava1-gif/Materials-Science-Skills](https://github.com/cooleava1-gif/Materials-Science-Skills) | 38 | 以证据门控协调材料科研中的文献、引用、实验设计、配图、统计、论文写作和审稿回复。 | MIT | 15 + 1 router | 仅索引 |
+| [h9-tec/arabic-ai-atlas](https://github.com/h9-tec/arabic-ai-atlas) | 38 | 基于离线图谱选择阿拉伯语 AI 资源、编写方言提示词、估算词元成本、检查 RTL 文本及变音符号。 | MIT (code/instructions); CC-BY-4.0 (catalog data) | 5 | 仅索引 |
+| [Zhonghao1995/agentic-swmm-workflow](https://github.com/Zhonghao1995/agentic-swmm-workflow) | 30 | 编排可复现的 SWMM 雨洪建模，覆盖 GIS 预处理、降雨、管网构建、率定、质量检查和报告。 | MIT; external runtime and data providers retain their own terms | 16 + 1 authoring skill | 仅索引 |
+| [Sogni-AI/sogni-creative-agent-skill](https://github.com/Sogni-AI/sogni-creative-agent-skill) | 24 | 通过 Sogni 创意工作流生成与编辑图像、视频、音乐和图片文件夹循环影片。 | MIT | 2（多客户端入口） | 仅索引 |
+| [LengFeng00/research-gap-finder](https://github.com/LengFeng00/research-gap-finder) | 18 | 识别论文中的方法、理论和应用缺口，并以明确可行性标准形成可检验假设。 | MIT | 1 | 仅索引 |
+| [sshtomar/claude-code-skills-social-science](https://github.com/sshtomar/claude-code-skills-social-science) | 16 | 应用可复现的社会科学工作流处理双重差分、随机试验、功效分析、回归诊断、文献综述和图表。 | MIT | 10 + 1 foundation skill | 仅索引 |
+| [326389540-jpg/xugeyuan-music-education-skills](https://github.com/326389540-jpg/xugeyuan-music-education-skills) | 13 | 设计音乐课程、分层教学活动、课标检查、项目式学习和课堂课件工作流。 | MIT | 1 | 仅索引 |
+| [berba-q/faostat-skills](https://github.com/berba-q/faostat-skills) | 9 | 分析 FAOSTAT 粮食安全、作物生产、贸易依赖和农业排放，生成可追溯图表及政策简报。 | MIT; upstream FAOSTAT data retain provider terms | 14 | 仅索引 |
+| [tanglele110-hash/museum-relic-stamp](https://github.com/tanglele110-hash/museum-relic-stamp) | 9 | 依据用户参考图制作双语博物馆文物图章海报，并保留事实来源和素材权利边界。 | MIT (scripts/instructions); CC-BY-4.0 (original visuals); third-party image/font terms | 1 | 仅索引 |
+| [raphysicst-create/science-teacher-skills](https://github.com/raphysicst-create/science-teacher-skills) | 8 | 使用韩国国家课程知识图谱设计和分层编排中小学科学课程，生成可编辑 HWPX 教学材料。 | Apache-2.0; Common Core reference material retains separate public-license terms | 2 | 仅索引 |
+| [Vambrocop/EvidenceForge](https://github.com/Vambrocop/EvidenceForge) | 7 | 规划可审计的系统综述、Meta 分析、伞状综述和保留人工核验的机器学习辅助证据综合。 | MIT | 5 | 仅索引 |
+| [shikaijieskj/science-skills](https://github.com/shikaijieskj/science-skills) | 5 | 使用面向 Science 系列期刊的论文、润色、配图、引用核验、数据可用性、审稿回复和编辑信工作流。 | MIT | 9 | 仅索引 |
+| [AI-Marketing-OS-LTD/cmo-so-skills](https://github.com/AI-Marketing-OS-LTD/cmo-so-skills) | 2 | 通过 CMO.so 与独立方法执行营销研究、内容、分析和发布工作流。 | MIT; adapted third-party notices retained | 多技能 | 仅索引 |
+| [Eternity-487/Teach3D](https://github.com/Eternity-487/Teach3D) | 2 | 将实物、结构和过程转化为浏览器交互式 3D 课程，加入有证据依据的讲解、导学操作和课堂问题。 | MIT; externally sourced 3D assets require their original permissions | 1 | 仅索引 |
+| [sunzhaokai95/curation-research-skill](https://github.com/sunzhaokai95/curation-research-skill) | 2 | 将展览和博物馆主题调研整理为经过证据校准的 XMind 知识图谱，可选生成 Word 报告。 | MIT | 1 | 仅索引 |
+| [Insightful-Pipe/marketing-skills](https://github.com/Insightful-Pipe/marketing-skills) | 0 | 使用 InsightfulPipe 实时数据或用户导出资料审查广告、SEO 与分析指标。 | MIT | 77（另含路由） | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -2164,6 +2225,21 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [Raftersecurity/rafter-cli](https://github.com/Raftersecurity/rafter-cli) | 27 | 使用 Rafter CLI 进行代码安全审查、设计阶段威胁建模、第三方技能审计和本地扫描。 | MIT | 4 | 仅索引 |
 | [fraylabs/possible](https://github.com/fraylabs/possible) | 11 | Possible 成果与配方注册表，附公开 Agent Skill，用于发现、检查与复用 AI 工作流配方。 | MIT | 1 | 仅索引 |
 | [Agent-Card/ai-catalog-cli](https://github.com/Agent-Card/ai-catalog-cli) | 10 | 从 AI Catalog 发现、校验、查看和安装 MCP 服务器、A2A Agent 与技能，支持 OCI 目录。 | Apache-2.0 | 1 | 仅索引 |
+| [googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox) | 16,674 | 通过 MCP Toolbox 的 skills-generate 命令，将数据库工具集生成为可分发的 Agent Skills。 | Apache-2.0 | 技能生成器 | 仅索引 |
+| [HKUDS/OpenSpace](https://github.com/HKUDS/OpenSpace) | 7,755 | 跨编码 Agent 的技能管理层，支持技能检索、评估与演化，并提供 MCP 和 CLI 集成。 | MIT (tooling); benchmark/imported skills not relicensed | 2 host guides + tooling | 仅索引 |
+| [microsoft/apm](https://github.com/microsoft/apm) | 4,031 | 微软 Agent 包管理器：便携清单、依赖安装与锁定，以及受策略约束的技能/插件配置。 | MIT (APM); dependencies retain upstream licenses | package manager | 仅索引 |
+| [memodb-io/Acontext](https://github.com/memodb-io/Acontext) | 3,697 | 将 Agent 执行经验归纳为可检查技能文件的记忆层，附安装技能、存储与 API 工具。 | Apache-2.0 | 1 installer (+2 runtime templates) | 仅索引 |
+| [Asymptote-Labs/agent-beacon](https://github.com/Asymptote-Labs/agent-beacon) | 1,836 | Beacon 技能：跨 Agent Harness 召回、归纳和提升已审核项目记忆，创建观察视图并分享轨迹。 | MIT (skills/code); documentation and third-party pricing data retain separate terms | 5 | 仅索引 |
+| [ai-evals-course/evals-skills](https://github.com/ai-evals-course/evals-skills) | 1,523 | 通过轨迹审阅、错误发现、合成案例和评判校准构建产品专用 AI 评估。 | Apache-2.0 | 8（另含入口路由） | 仅索引 |
+| [mnemon-dev/mnemon](https://github.com/mnemon-dev/mnemon) | 638 | 本地记忆 CLI 与可部署技能，支持事实保存、语义与因果关联、召回和记忆生命周期管理。 | Apache-2.0 | 1 (17 client variants) | 仅索引 |
+| [alirezarezvani/ClaudeForge](https://github.com/alirezarezvani/ClaudeForge) | 431 | Claude Code 插件：生成并维护模块化 CLAUDE.md 指令，执行漂移审计、链接检查和依赖复扫。 | MIT; Karpathy-derived guidelines retain upstream attribution | 5 | 仅索引 |
+| [ThinkfleetAI/memmesh](https://github.com/ThinkfleetAI/memmesh) | 420 | 本地优先记忆引擎，附可安装的集成与插件技能，支持存储、召回、检查和维护 Agent 记忆。 | Apache-2.0 (open-source code/skills); hosted services separate | 6 integration + 18 plugin workflows | 仅索引 |
+| [0xranx/golembot](https://github.com/0xranx/golembot) | 322 | 将编码 Agent 接入消息平台的桥接工具，提供 SKILL.md 运行机制、七条内置技能及 ClawHub 检索/安装。 | MIT | 7 built-ins (+6 starter templates) | 仅索引 |
+| [stbenjam/skillsaw](https://github.com/stbenjam/skillsaw) | 67 | 面向 Agent 技能、指令、插件与 MCP 配置的检查工具，提供结构校验和内容/供应链检查。 | Apache-2.0 (tool); fixtures and vendored schemas retain separate terms | 6 + linter | 仅索引 |
+| [skilluse/skilluse](https://github.com/skilluse/skilluse) | 55 | 跨 GitHub 仓库与编程客户端发现、安装、更新和发布 Agent Skills。 | MIT | 基础设施 | 仅索引 |
+| [Qsnh/skillsgist](https://github.com/Qsnh/skillsgist) | 43 | 在 Cloudflare 自托管公私有版本化 Agent Skills 注册表，支持多客户端安装。 | MIT | 基础设施 | 仅索引 |
+| [Jignesh-Ponamwar/skills-mcp](https://github.com/Jignesh-Ponamwar/skills-mcp) | 10 | 通过 MCP 以渐进加载方式提供可自托管、可搜索的 Agent Skills 注册表。 | Apache-2.0 | 基础设施 | 仅索引 |
+| [jo-inc/safe-skill-search](https://github.com/jo-inc/safe-skill-search) | 8 | 利用 BM25 索引、质量分数与来源过滤在本地检索 Agent Skill 注册表。 | MIT | 基础设施 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
