@@ -2,16 +2,52 @@
   "schema_version": 1,
   "date": "2026-10-20",
   "timezone": "Asia/Shanghai",
-  "status": "verified-awaiting-publication",
-  "verdict": "pending",
+  "status": "published",
+  "verdict": "achieved",
   "target": 50,
-  "locally_verified_new_count": 77,
-  "actual_new_independent_repositories": 0,
-  "gap": 50,
+  "actual_new_independent_repositories": 77,
+  "gap": 0,
   "baseline_count": 2382,
-  "expected_final_catalog_count": 2459,
-  "new_repository_list": "additions.json",
+  "final_catalog_count": 2459,
   "catalog_shard": "../../skill-repos.part85.jsonl",
+  "catalog_shard_sha256": "3011dde74c0c6275ab66673f9f36a3437a7cffcd9478810de95fcd2ad1a74773",
   "audit": "../../skill-repos.part85.audit.json",
-  "publication_note": "No publication/CI success is claimed until both dataset branches are pushed and their corresponding checks pass."
+  "baseline_file": "baseline.json",
+  "baseline_sha256": "ed2a4bbcb1454662610bd2f867a9199804622e7085b42e386fb593d123d681a6",
+  "new_repository_list": "additions.json",
+  "screened_not_added": 114,
+  "public_skill_blob_checks": 333,
+  "dataset_publication": {
+    "main": {
+      "dataset_commit": "0438743b98e51284befbdd944d62cc4b84b63bd7",
+      "ci_run_id": 39386106758,
+      "ci_url": "https://github.com/findscripter/everything-skills/actions/runs/39386106758",
+      "ci_status": "completed",
+      "ci_conclusion": "success"
+    },
+    "zh": {
+      "dataset_commit": "a566ec419590a2b0f8427abb86cdbadd2ee7932b",
+      "ci_run_id": 39386107009,
+      "ci_url": "https://github.com/findscripter/everything-skills/actions/runs/39386107009",
+      "ci_status": "completed",
+      "ci_conclusion": "success"
+    }
+  },
+  "local_validation": {
+    "main": [
+      "build-all --lang=en: exit 0",
+      "npm test: all passed",
+      "check-generated --lang=en: exit 0"
+    ],
+    "zh": [
+      "build-all --lang=zh: exit 0",
+      "check-generated --lang=zh: exit 0"
+    ],
+    "cross_branch_sources": "Identical dataset and skill sources; language-specific generated interfaces."
+  },
+  "scope_limitations": [
+    "Repository metadata only; no candidate clone, installation, execution or skill-body import.",
+    "All counted published skill files verified for fixed-tree blob identity and name/description; no functional effectiveness or full-body quality guarantee.",
+    "This receipt records already published dataset commits and their successful CI; subsequent receipt-only commits add no repositories."
+  ]
 }
