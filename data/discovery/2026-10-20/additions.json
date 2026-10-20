@@ -1,0 +1,324 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "target": 50,
+  "baseline_count": 2382,
+  "baseline_file": "baseline.json",
+  "baseline_sha256": "11ed6f583e5ecd1a1441ee71280a397581ff34db2ab74ff49f646780a991d9c2",
+  "catalog_shard": "../../skill-repos.part85.jsonl",
+  "locally_verified_new_count": 77,
+  "daily_qualifying_count": 0,
+  "status": "verified-awaiting-publication",
+  "counting_rule": "Only same-day verified new independent repository rows on both published branches with successful CI qualify.",
+  "repositories": [
+    {
+      "full_name": "TanStack/table",
+      "repository_id": 71487058
+    },
+    {
+      "full_name": "Canner/WrenAI",
+      "repository_id": 771350543
+    },
+    {
+      "full_name": "anomalyco/opentui",
+      "repository_id": 1023522611
+    },
+    {
+      "full_name": "datamodel-code-generator/datamodel-code-generator",
+      "repository_id": 189179081
+    },
+    {
+      "full_name": "reactive/data-client",
+      "repository_id": 170797156
+    },
+    {
+      "full_name": "Redocly/redocly-cli",
+      "repository_id": 207588519
+    },
+    {
+      "full_name": "Mininglamp-OSS/octo-cli",
+      "repository_id": 1235324410
+    },
+    {
+      "full_name": "TickDB/tickdb-unified-realtime-marketdata-api",
+      "repository_id": 1131970897
+    },
+    {
+      "full_name": "stripe/link-cli",
+      "repository_id": 1219424489
+    },
+    {
+      "full_name": "google-ai-edge/litert-samples",
+      "repository_id": 800245798
+    },
+    {
+      "full_name": "GizClaw/flowcraft",
+      "repository_id": 1210223349
+    },
+    {
+      "full_name": "Cecilapp/Cecil",
+      "repository_id": 12738012
+    },
+    {
+      "full_name": "hyperb1iss/unifly",
+      "repository_id": 1157326300
+    },
+    {
+      "full_name": "crossbind/crossbind",
+      "repository_id": 584097701
+    },
+    {
+      "full_name": "MUKE-coder/grit",
+      "repository_id": 1155022428
+    },
+    {
+      "full_name": "OriginTrail/dkg",
+      "repository_id": 1191634417
+    },
+    {
+      "full_name": "madeyoga/AuthEndpoints",
+      "repository_id": 482293252
+    },
+    {
+      "full_name": "avivsinai/jenkins-cli",
+      "repository_id": 1073730777
+    },
+    {
+      "full_name": "oguzhankayan/turkish-native",
+      "repository_id": 1366785599
+    },
+    {
+      "full_name": "appandflow/stim",
+      "repository_id": 1222991801
+    },
+    {
+      "full_name": "cavoiie/fluent-cfd-skill",
+      "repository_id": 1255875588
+    },
+    {
+      "full_name": "ondata/ckan-mcp-server",
+      "repository_id": 1129756504
+    },
+    {
+      "full_name": "Institut-du-Numerique-Responsable/green-claude",
+      "repository_id": 1305081749
+    },
+    {
+      "full_name": "NomaDamas/MinSync",
+      "repository_id": 1163346275
+    },
+    {
+      "full_name": "flowith-ai/canvas-cowork",
+      "repository_id": 1196898299
+    },
+    {
+      "full_name": "objectstack-ai/objectui",
+      "repository_id": 1133319012
+    },
+    {
+      "full_name": "skills-il/localization",
+      "repository_id": 1164372673
+    },
+    {
+      "full_name": "AmethystLuna/embedded-workbench",
+      "repository_id": 1276714299
+    },
+    {
+      "full_name": "mtgo-labs/mtgo",
+      "repository_id": 1239144419
+    },
+    {
+      "full_name": "xapi-labs/xapi-cli",
+      "repository_id": 1168362443
+    },
+    {
+      "full_name": "haohuresearch/nature-fig-env",
+      "repository_id": 1340160285
+    },
+    {
+      "full_name": "mrKanoh/wcag-accessibility-audit-skill",
+      "repository_id": 1214032022
+    },
+    {
+      "full_name": "netresearch/german-technical-writing-skill",
+      "repository_id": 1220172183
+    },
+    {
+      "full_name": "itarunnn/jp-lit-mcp",
+      "repository_id": 1226931264
+    },
+    {
+      "full_name": "archetypeai/agent-skills",
+      "repository_id": 1226568725
+    },
+    {
+      "full_name": "DedInc/chef-agentic-skills",
+      "repository_id": 1311836499
+    },
+    {
+      "full_name": "bgtamang/AgriClaw",
+      "repository_id": 1170666278
+    },
+    {
+      "full_name": "F2had/native-arabic",
+      "repository_id": 1407521434
+    },
+    {
+      "full_name": "humbleteam/accessibility-audit",
+      "repository_id": 1305554370
+    },
+    {
+      "full_name": "theonlym7md/arabic-ai-skills",
+      "repository_id": 1305155271
+    },
+    {
+      "full_name": "asasemahmed/arabkit",
+      "repository_id": 1390059392
+    },
+    {
+      "full_name": "barrettsoron/civic-skills",
+      "repository_id": 1201029194
+    },
+    {
+      "full_name": "DuoChen-317/robot-asset-toolkit",
+      "repository_id": 1421796930
+    },
+    {
+      "full_name": "ikhattab/l10n-skill",
+      "repository_id": 1261518731
+    },
+    {
+      "full_name": "Nagi-Inaba/information-accessibility-skill",
+      "repository_id": 1293285845
+    },
+    {
+      "full_name": "xxwzkdwz/artifact-3026-skill",
+      "repository_id": 1354942187
+    },
+    {
+      "full_name": "adamekonline/adamek-skills",
+      "repository_id": 1421308704
+    },
+    {
+      "full_name": "aegro/skills",
+      "repository_id": 1180975061
+    },
+    {
+      "full_name": "ams-builds/green-agents-explained",
+      "repository_id": 1410144763
+    },
+    {
+      "full_name": "annran-liang/pv-energy-figures",
+      "repository_id": 1424342649
+    },
+    {
+      "full_name": "asermas/claude-engineering-skills",
+      "repository_id": 1354296562
+    },
+    {
+      "full_name": "Chhunsour/khmer-localization",
+      "repository_id": 1425116942
+    },
+    {
+      "full_name": "dannydover/claude-skill--book-companion",
+      "repository_id": 1221123438
+    },
+    {
+      "full_name": "EarthLegend/skills",
+      "repository_id": 1408865985
+    },
+    {
+      "full_name": "edamam-llc/edamam-skills",
+      "repository_id": 1349607113
+    },
+    {
+      "full_name": "eous/civic-records-research",
+      "repository_id": 1275631959
+    },
+    {
+      "full_name": "Guidogl/geopandas-consistency",
+      "repository_id": 1267617207
+    },
+    {
+      "full_name": "Guzi2005/layered-stamp-skill",
+      "repository_id": 1368953260
+    },
+    {
+      "full_name": "Jayzilva/helionyx",
+      "repository_id": 1273553596
+    },
+    {
+      "full_name": "Jeng-linLi/humanities-research-skills",
+      "repository_id": 1393027522
+    },
+    {
+      "full_name": "johannstark/GeminiRobotics-Skills",
+      "repository_id": 1420005912
+    },
+    {
+      "full_name": "kznconsulting/gis-skills",
+      "repository_id": 1348868545
+    },
+    {
+      "full_name": "linlhf/robot-data-viewer",
+      "repository_id": 1423322841
+    },
+    {
+      "full_name": "liujycode/embedded-toolkit",
+      "repository_id": 1420603074
+    },
+    {
+      "full_name": "mvdypsis/i-have-dyslexia",
+      "repository_id": 1403406999
+    },
+    {
+      "full_name": "neoxyz-99/Theory-to-Case-Lab",
+      "repository_id": 1338995488
+    },
+    {
+      "full_name": "OilpriceAPI/agent-skills",
+      "repository_id": 1324523434
+    },
+    {
+      "full_name": "QWarranto/leafengines-hermes-skill",
+      "repository_id": 1250940259
+    },
+    {
+      "full_name": "ShreyaJ-27/omni-grid-civic-issue-triage",
+      "repository_id": 1420998202
+    },
+    {
+      "full_name": "sounny/dxskills",
+      "repository_id": 1364555352
+    },
+    {
+      "full_name": "TEC413/qgis-with-claude",
+      "repository_id": 1233120955
+    },
+    {
+      "full_name": "TerraLabAI/geoai-skills",
+      "repository_id": 1414167455
+    },
+    {
+      "full_name": "Thomas-Novato/cfd-heat-transfer-tutor",
+      "repository_id": 1351331023
+    },
+    {
+      "full_name": "TunaSaiko/localize",
+      "repository_id": 1420141392
+    },
+    {
+      "full_name": "underautomation/skills",
+      "repository_id": 1408165058
+    },
+    {
+      "full_name": "Walpolen/humanities-book-translation",
+      "repository_id": 1359723523
+    },
+    {
+      "full_name": "Zhimanaiyou/museum-archaeology-notebook",
+      "repository_id": 1415311021
+    }
+  ]
+}

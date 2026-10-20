@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-18（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part84
+- 编制日期：2026-10-20（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part85
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2382 个独立仓库（另注明更名别名）
+- 收录条数：2459 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -26,6 +26,8 @@ part78 扩展：公益筹款、城市开放数据、规划与公共采购、电�
 part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文献管理、公开档案视觉工作流及产品内嵌技能。补充固定提交技能 blob 的跨仓库重叠核验；带非商业限制的内容只明确索引元数据，不采编正文或称为无限制开源内容。
 
 part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科研传播、财务和商业创意工作流，并追踪产品、SDK、CLI 的原生公开技能。按公开清单区分主技能、插件模块、维护项、镜像及安装副本；保留第三方模板和派生内容的许可范围。
+
+part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障碍、数字人文与公共服务，以及数据模型、认证、桌面和机器人 SDK 的公开原生技能。技能、服务、SDK、示例素材分别记录许可范围；共享入口、维护项和镜像不充作新增。
 
 ### 更名与后继
 
@@ -373,6 +375,32 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [vibeic/vibe-ic](https://github.com/vibeic/vibe-ic) | 28 | AI-native IC design plugin with MCP-EDA — from natural-language intent to verified silicon. | Apache-2.0 | 71 | indexed-only |
 | [no-phux/skills](https://github.com/no-phux/skills) | 0 | Agent skills for phux. Install: npx skills add no-phux/skills | Apache-2.0 | 3 | indexed-only |
 | [BintzGavin/helios](https://github.com/BintzGavin/helios) | 121 | Programmatic video creation with web technologies you already know. CSS animations just work. | Apache-2.0 (skills/plugin); ELv2 engine | 19 | indexed-only |
+| [TanStack/table](https://github.com/TanStack/table) | 28,505 | Build TanStack Table v9+ tables with framework-specific setup, state, migration, features, fuzzy ranking, and devtools guidance. | MIT | 39 | indexed-only |
+| [Canner/WrenAI](https://github.com/Canner/WrenAI) | 17,910 | Connect data sources, create semantic models, enrich business context, query SQL, and build GenBI dashboards with Wren. | Apache-2.0（core/**与skills/**；docs/**为CC-BY-4.0） | 7 | indexed-only |
+| [anomalyco/opentui](https://github.com/anomalyco/opentui) | 13,580 | Build terminal interfaces with OpenTUI using release-matched API and component documentation as an agent skill. | MIT | 1 | indexed-only |
+| [reactive/data-client](https://github.com/reactive/data-client) | 2,039 | Integrate normalized REST and GraphQL data with React or Vue, including endpoints, schemas, caching, testing, and migration. | Apache-2.0 | 13 | indexed-only |
+| [Redocly/redocly-cli](https://github.com/Redocly/redocly-cli) | 1,536 | Use Redocly CLI to lint and bundle API descriptions, build documentation and clients, author API lint rules, and configure or run Markdown/prose checks with recheck. | MIT | 4 | indexed-only |
+| [Mininglamp-OSS/octo-cli](https://github.com/Mininglamp-OSS/octo-cli) | 920 | Operate Octo messaging, files, drive, documents, mail, HTML, marketplaces, and agent fleets through the native CLI. | Apache-2.0 | 9 | indexed-only |
+| [TickDB/tickdb-unified-realtime-marketdata-api](https://github.com/TickDB/tickdb-unified-realtime-marketdata-api) | 876 | Query TickDB market prices, adjusted candles, futures, company financials, and API subscription information. | MIT | 1 | indexed-only |
+| [stripe/link-cli](https://github.com/stripe/link-cli) | 862 | Use Link wallet payment credentials, financial insights, and identity, with separate hosted-MCP guidance for Cursor purchases. | MIT | 5 | indexed-only |
+| [google-ai-edge/litert-samples](https://github.com/google-ai-edge/litert-samples) | 466 | Convert, quantize, benchmark, and verify on-device LiteRT models and scaffold CompiledModel applications. | Apache-2.0 | 9 | indexed-only |
+| [GizClaw/flowcraft](https://github.com/GizClaw/flowcraft) | 416 | Author and validate FlowCraft deployment, runtime, graph, plugin, and resource configuration for Go agent applications. | MIT | 1 | indexed-only |
+| [Cecilapp/Cecil](https://github.com/Cecilapp/Cecil) | 298 | Create and configure Cecil static sites and develop reusable Twig-based Cecil themes. | EUPL-1.2 | 2 | indexed-only |
+| [crossbind/crossbind](https://github.com/crossbind/crossbind) | 148 | Integrate C++ and Rust libraries into JavaScript or TypeScript across web, Node.js, Workers, and React Native. | MIT | 1 | indexed-only |
+| [OriginTrail/dkg](https://github.com/OriginTrail/dkg) | 144 | Operate an OriginTrail DKG node and import documents into its decentralized knowledge and agent-memory graph. | Apache-2.0 | 2 | indexed-only |
+| [appandflow/stim](https://github.com/appandflow/stim) | 85 | Run isolated React Native and Expo development environments with shared build caches and managed devices for coding agents. | MIT | 1 | indexed-only |
+| [ondata/ckan-mcp-server](https://github.com/ondata/ckan-mcp-server) | 60 | Find and query open-data portals using CKAN country routing, fallback sources, bilingual search, and DataStore queries. | MIT | 1 | indexed-only |
+| [Institut-du-Numerique-Responsable/green-claude](https://github.com/Institut-du-Numerique-Responsable/green-claude) | 59 | Eco-design rules and local audits for resource-conscious code, digital sobriety and responsible AI. | CC-BY-4.0 (SKILL, rules and documentation); Apache-2.0 (code/scripts) | 1 | indexed-only |
+| [flowith-ai/canvas-cowork](https://github.com/flowith-ai/canvas-cowork) | 39 | Create and manage Flowith canvas nodes and generate text, images, and video from an agent-driven CLI. | MIT | 1 | indexed-only |
+| [objectstack-ai/objectui](https://github.com/objectstack-ai/objectui) | 32 | Build schema-driven React interfaces with Object UI forms, data views, dashboards, and component configuration. | MIT | 1 | indexed-only |
+| [mtgo-labs/mtgo](https://github.com/mtgo-labs/mtgo) | 17 | Build Telegram bots and userbots in Go with the mtgo MTProto client, including authentication, media, sessions, and middleware. | Apache-2.0 | 1 | indexed-only |
+| [xapi-labs/xapi-cli](https://github.com/xapi-labs/xapi-cli) | 15 | Consume xAPI services, publish provider capabilities, and deploy Workers with managed resources through the xAPI CLI. | MIT | 3 | indexed-only |
+| [archetypeai/agent-skills](https://github.com/archetypeai/agent-skills) | 6 | Official Newton sensor-intelligence skills for anomaly discovery, state monitoring and physical-world applications. | Apache-2.0 | 11 | indexed-only |
+| [aegro/skills](https://github.com/aegro/skills) | 0 | Agricultural management skills for Aegro CLI workflows across crops, finance, inventory and assets. | MIT | 20 | indexed-only |
+| [EarthLegend/skills](https://github.com/EarthLegend/skills) | 0 | Official LGND Geo skills for imagery search, geographic classification and index selection. | MIT | 3 | indexed-only |
+| [edamam-llc/edamam-skills](https://github.com/edamam-llc/edamam-skills) | 0 | Official barcode-to-nutrition lookup skill using Edamam’s food-data MCP service. | Apache-2.0 | 1 | indexed-only |
+| [OilpriceAPI/agent-skills](https://github.com/OilpriceAPI/agent-skills) | 0 | Energy-unit conversion guidance for fuels, commodity quantities and comparable price benchmarks. | CC-BY-4.0 | 1 | indexed-only |
+| [underautomation/skills](https://github.com/underautomation/skills) | 0 | Official robot-SDK skills for ABB, Fanuc, Stäubli, Universal Robots and Yaskawa in C# and Python. | MIT (skill/plugin packages); external UnderAutomation SDKs are commercial | 10 | indexed-only |
 
 ## 2. Collections
 
@@ -2047,6 +2075,51 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [Cai-aa/CAE-Agent-Hub](https://github.com/Cai-aa/CAE-Agent-Hub) | 1,081 | CAE engineering simulation hub combining reusable agent skills, MCP bridges and evidence-oriented Abaqus, Ansys, CST, Calculix, COMSOL, FEP, LAMMPS, OVITO and Peridigm workflows. | MIT | 多技能 | indexed-only |
 | [ShaishavMaisuria/research-paper-lifecycle-skills](https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills) | 54 | 42 Agent Skills covering the research-paper lifecycle from literature discovery and writing through verification, submission, rebuttal, publication and talks. | Apache-2.0 | 42 | indexed-only |
 | [muend/geoai-skills](https://github.com/muend/geoai-skills) | 32 | Vendor-neutral 18-skill geospatial AI stack that tests CRS, units, comparability, spatial leakage, uncertainty, provenance and safe refusal before a result becomes a claim. | MIT | 18 | indexed-only |
+| [oguzhankayan/turkish-native](https://github.com/oguzhankayan/turkish-native) | 89 | Write and revise Turkish product, support, documentation, and interface prose while detecting translation-shaped wording. | MIT | 1 | indexed-only |
+| [cavoiie/fluent-cfd-skill](https://github.com/cavoiie/fluent-cfd-skill) | 81 | Ansys Fluent and PyFluent workflow guidance for setup, convergence diagnosis, automation and validation. | MIT | 1 | indexed-only |
+| [skills-il/localization](https://github.com/skills-il/localization) | 26 | Hebrew content, document generation, RTL interfaces, NLP, public forms, accessibility guidance, and Israeli cultural scheduling. | MIT | 12 | indexed-only |
+| [AmethystLuna/embedded-workbench](https://github.com/AmethystLuna/embedded-workbench) | 20 | Embedded C/C++ workflows for firmware, Keil builds, HardFault triage and state-machine design. | MIT | 8 | indexed-only |
+| [haohuresearch/nature-fig-env](https://github.com/haohuresearch/nature-fig-env) | 8 | Publication-figure workflows for environmental, climate, Earth-system and energy research. | MIT | 1 | indexed-only |
+| [mrKanoh/wcag-accessibility-audit-skill](https://github.com/mrKanoh/wcag-accessibility-audit-skill) | 8 | WCAG web-interface reviews, remediation guidance, report preparation, and keyboard and screen-reader test planning. | MIT (public skill); Apache-2.0 (vendored authoring tool) | 1 | indexed-only |
+| [netresearch/german-technical-writing-skill](https://github.com/netresearch/german-technical-writing-skill) | 8 | German technical writing for issue trackers, internal documentation and team messages, covering terminology, register and typography. | CC-BY-SA-4.0 (prose); MIT (code/configuration) | 1 | indexed-only |
+| [itarunnn/jp-lit-mcp](https://github.com/itarunnn/jp-lit-mcp) | 7 | Japanese literature research, bibliography verification, TEI textual reading, and IIIF historical-image comparison and provenance. | MIT | 4 | indexed-only |
+| [DedInc/chef-agentic-skills](https://github.com/DedInc/chef-agentic-skills) | 4 | Culinary skills for cooking techniques, food science, cuisines, planning and dietary constraints. | MIT | 40 | indexed-only |
+| [bgtamang/AgriClaw](https://github.com/bgtamang/AgriClaw) | 2 | Crop-research skills for field trials, genetics, plant physiology and remote-sensing analysis. | MIT | 34 | indexed-only |
+| [F2had/native-arabic](https://github.com/F2had/native-arabic) | 2 | Natural Modern Standard Arabic writing and review for interfaces, messages, documentation, accessibility text, and plural forms. | MIT | 1 | indexed-only |
+| [humbleteam/accessibility-audit](https://github.com/humbleteam/accessibility-audit) | 2 | Review screenshots, URLs, or UI markup for accessibility findings with severity levels and WCAG criterion references. | MIT | 1 | indexed-only |
+| [theonlym7md/arabic-ai-skills](https://github.com/theonlym7md/arabic-ai-skills) | 2 | Arabic product microcopy, localization review, screen-level UX wording, and right-to-left and bidirectional-content guidance. | MIT | 2 | indexed-only |
+| [asasemahmed/arabkit](https://github.com/asasemahmed/arabkit) | 1 | Shared Arabic copy, RTL, search and interface skills, plus an Egyptian Arabic product-copy workflow. | MIT | 5 | indexed-only |
+| [barrettsoron/civic-skills](https://github.com/barrettsoron/civic-skills) | 1 | Query Canadian civic open data and analyze news coverage using two public skills and documented source APIs. | MIT | 2 | indexed-only |
+| [DuoChen-317/robot-asset-toolkit](https://github.com/DuoChen-317/robot-asset-toolkit) | 1 | Prepare robot assets across STEP, GLB, URDF and articulated USD with geometry and packaging checks. | MIT | 1 | indexed-only |
+| [ikhattab/l10n-skill](https://github.com/ikhattab/l10n-skill) | 1 | Locale-aware formatting and validation of currencies, dates, numbers, measurement units, addresses, and phone numbers. | MIT | 1 | indexed-only |
+| [Nagi-Inaba/information-accessibility-skill](https://github.com/Nagi-Inaba/information-accessibility-skill) | 1 | Information-accessibility reviews and evidence records for websites, documents, media, meetings, events, and participation workflows. | MIT | 1 | indexed-only |
+| [xxwzkdwz/artifact-3026-skill](https://github.com/xxwzkdwz/artifact-3026-skill) | 1 | Reimagine everyday objects as explicitly fictional future museum exhibits with labels, accession numbers, and share cards. | MIT | 1 | indexed-only |
+| [adamekonline/adamek-skills](https://github.com/adamekonline/adamek-skills) | 0 | Food-biotech founder checks for technical readiness, regulation, costs and investment risks. | MIT (public founder-checks skills); separate paid kit has its own commercial license | 4 | indexed-only |
+| [ams-builds/green-agents-explained](https://github.com/ams-builds/green-agents-explained) | 0 | Estimate AI-agent energy, carbon and water footprints and identify resource-reduction options. | MIT | 1 | indexed-only |
+| [annran-liang/pv-energy-figures](https://github.com/annran-liang/pv-energy-figures) | 0 | Photovoltaic and energy-research figure planning with traceable chart choices and reproducible plotting. | MIT | 1 | indexed-only |
+| [asermas/claude-engineering-skills](https://github.com/asermas/claude-engineering-skills) | 0 | Mechanical-engineering skills for CAD, CFD, underwater vehicles, rocketry, documentation and FDM printing. | MIT | 6 | indexed-only |
+| [Chhunsour/khmer-localization](https://github.com/Chhunsour/khmer-localization) | 0 | Khmer localization guidance for Unicode, typography, Cambodian contact and address formats, currencies, and bilingual interfaces. | MIT | 1 | indexed-only |
+| [dannydover/claude-skill--book-companion](https://github.com/dannydover/claude-skill--book-companion) | 0 | Prepare spoiler-free book reading guides with pacing, historical context, author chronology, translations, and illustration notes. | Apache-2.0 | 1 | indexed-only |
+| [eous/civic-records-research](https://github.com/eous/civic-records-research) | 0 | Research government agendas, minutes, hearings and decisions into cited dossiers that distinguish verified records from leads. | Apache-2.0 | 1 | indexed-only |
+| [Guidogl/geopandas-consistency](https://github.com/Guidogl/geopandas-consistency) | 0 | GeoPandas guidance for consistent CRS handling, spatial joins, geometry checks and measurements. | Apache-2.0 | 1 | indexed-only |
+| [Guzi2005/layered-stamp-skill](https://github.com/Guzi2005/layered-stamp-skill) | 0 | Convert supplied photos into layered museum-style registration stamps and step-by-step print proof sheets. | MIT | 1 | indexed-only |
+| [Jayzilva/helionyx](https://github.com/Jayzilva/helionyx) | 0 | Hybrid renewable-energy sizing workflows for solar, wind, batteries, diesel and grid-connected systems. | Apache-2.0 (core/skill); data packs CC-BY-4.0; optional solver adapters EUPL-1.2 / AGPL-3.0 | 1 | indexed-only |
+| [Jeng-linLi/humanities-research-skills](https://github.com/Jeng-linLi/humanities-research-skills) | 0 | Source-traceable literature reviews, qualitative coding, and multilingual classroom-transcript analysis with evidence tables. | MIT | 3 | indexed-only |
+| [johannstark/GeminiRobotics-Skills](https://github.com/johannstark/GeminiRobotics-Skills) | 0 | Robot manipulation skills connecting Gemini Robotics reasoning, MuJoCo physics and Three.js visualization. | Apache-2.0 | 3 | indexed-only |
+| [kznconsulting/gis-skills](https://github.com/kznconsulting/gis-skills) | 0 | Audit point-layer positions against independent references and publish corrected-coordinate evidence. | MIT | 1 | indexed-only |
+| [linlhf/robot-data-viewer](https://github.com/linlhf/robot-data-viewer) | 0 | Inspect robot datasets and export camera videos or calibrated skeleton overlays with read-only source handling. | Apache-2.0 | 1 | indexed-only |
+| [liujycode/embedded-toolkit](https://github.com/liujycode/embedded-toolkit) | 0 | Offline embedded skills for register facts, firmware verification, fault trees and peripheral pitfalls. | MIT | 4 | indexed-only |
+| [mvdypsis/i-have-dyslexia](https://github.com/mvdypsis/i-have-dyslexia) | 0 | Adapt assistant communication, writing support, visual explanations, and planning to user-selected reading and working preferences. | MIT | 1 | indexed-only |
+| [neoxyz-99/Theory-to-Case-Lab](https://github.com/neoxyz-99/Theory-to-Case-Lab) | 0 | Reconstruct theoretical texts, map scholarly reception, and connect theories to cases using separately labeled evidence and interpretation. | MIT | 1 | indexed-only |
+| [QWarranto/leafengines-hermes-skill](https://github.com/QWarranto/leafengines-hermes-skill) | 0 | US agricultural intelligence for soils, water quality, crop recommendations and environmental indicators. | MIT (skill code); commercial LeafEngines API service with free tier | 1 | indexed-only |
+| [ShreyaJ-27/omni-grid-civic-issue-triage](https://github.com/ShreyaJ-27/omni-grid-civic-issue-triage) | 0 | Triage civic complaint data with geographic clustering, media metadata, closure-evidence checks, and structured reports. | MIT | 1 | indexed-only |
+| [sounny/dxskills](https://github.com/sounny/dxskills) | 0 | Dyslexia-oriented workflows for organizing notes, guided interviews, reading, writing, concept maps, and voice transcripts. | MIT | 6 | indexed-only |
+| [TEC413/qgis-with-claude](https://github.com/TEC413/qgis-with-claude) | 0 | Collaborative QGIS workflows combining command-line processing with live project styling and visual checks. | MIT | 1 | indexed-only |
+| [TerraLabAI/geoai-skills](https://github.com/TerraLabAI/geoai-skills) | 0 | GIS skills for coordinate systems, imagery, geoprocessing, spatial analysis and checked map exports. | MIT | 15 | indexed-only |
+| [Thomas-Novato/cfd-heat-transfer-tutor](https://github.com/Thomas-Novato/cfd-heat-transfer-tutor) | 0 | Chinese heat-transfer and CFD tutoring for energy systems, HVAC, heat pumps and engineering validation. | MIT | 1 | indexed-only |
+| [TunaSaiko/localize](https://github.com/TunaSaiko/localize) | 0 | Chinese, Japanese and English translation review, translation drafting, and authorized market adaptation with terminology and factual checks. | MIT | 1 | indexed-only |
+| [Walpolen/humanities-book-translation](https://github.com/Walpolen/humanities-book-translation) | 0 | Translate and revise humanities books chapter by chapter with terminology decisions, source alignment, and versioned review packets. | MIT | 1 | indexed-only |
+| [Zhimanaiyou/museum-archaeology-notebook](https://github.com/Zhimanaiyou/museum-archaeology-notebook) | 0 | Turn museum-object photos into archaeological notebook artwork while retaining source shapes, inscriptions, and visual details. | MIT (skill/code); example images excluded | 1 | indexed-only |
 
 ## 4. Infra
 
@@ -2457,3 +2530,9 @@ Names are often methodologies, products, or memes. Inclusion is based on README:
 | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) | 88,162 | Scrape and crawl sites with Scrapling adaptive parsing, browser rendering, stealth fetching, and spiders. | BSD-3-Clause | 1 | indexed-only |
 | [casey/just](https://github.com/casey/just) | 36,313 | Write and maintain justfiles using the just command runner syntax and task patterns. | CC0-1.0 | 1 | indexed-only |
 | [t8y2/dbx](https://github.com/t8y2/dbx) | 27,019 | Inspect DBX database connections and schemas, run bounded read-only queries, and generate DBML and schema documentation. | Apache-2.0 | 1 | indexed-only |
+| [datamodel-code-generator/datamodel-code-generator](https://github.com/datamodel-code-generator/datamodel-code-generator) | 4,042 | Generate Python data models from API schemas and structured data using datamodel-codegen, with agent-specific skill installation. | MIT | 1 | indexed-only |
+| [hyperb1iss/unifly](https://github.com/hyperb1iss/unifly) | 272 | Manage and diagnose UniFi networks through the Unifly CLI with version-matched offline command and workflow guidance. | Apache-2.0 | 1 | indexed-only |
+| [MUKE-coder/grit](https://github.com/MUKE-coder/grit) | 144 | Build Go and React applications with Grit generators, scaffolding, plugins, and the framework's implementation workflow. | MIT | 1 | indexed-only |
+| [madeyoga/AuthEndpoints](https://github.com/madeyoga/AuthEndpoints) | 122 | Integrate ASP.NET Core Identity authentication APIs with password, cookie, JWT, and passkey flows. | MIT | 1 | indexed-only |
+| [avivsinai/jenkins-cli](https://github.com/avivsinai/jenkins-cli) | 94 | Operate Jenkins contexts, jobs, builds, logs, and administration with the jk command-line client. | MIT | 1 | indexed-only |
+| [NomaDamas/MinSync](https://github.com/NomaDamas/MinSync) | 58 | Add incremental Markdown semantic indexing with MinSync, local or remote embeddings, and hybrid retrieval. | MIT | 1 | indexed-only |
