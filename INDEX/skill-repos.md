@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-18（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part84
+- 编制日期：2026-10-20（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part85
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2382 个独立仓库（另注明更名别名）
+- 收录条数：2459 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -26,6 +26,8 @@ part78 扩展：公益筹款、城市开放数据、规划与公共采购、电�
 part80 扩展：教学与课程诊断、科学计算与 HPC、计算化学、文献管理、公开档案视觉工作流及产品内嵌技能。补充固定提交技能 blob 的跨仓库重叠核验；带非商业限制的内容只明确索引元数据，不采编正文或称为无限制开源内容。
 
 part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科研传播、财务和商业创意工作流，并追踪产品、SDK、CLI 的原生公开技能。按公开清单区分主技能、插件模块、维护项、镜像及安装副本；保留第三方模板和派生内容的许可范围。
+
+part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障碍、数字人文与公共服务，以及数据模型、认证、桌面和机器人 SDK 的公开原生技能。技能、服务、SDK、示例素材分别记录许可范围；共享入口、维护项和镜像不充作新增。
 
 ### 更名与后继
 
@@ -373,6 +375,32 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [vibeic/vibe-ic](https://github.com/vibeic/vibe-ic) | 28 | Vibe-IC 电子设计自动化 Agent 插件与 MCP-EDA 技能市场，覆盖模拟/数字芯片设计验证。 | Apache-2.0 | 71 | 仅索引 |
 | [no-phux/skills](https://github.com/no-phux/skills) | 0 | Phux 持久终端 Agent Skills，覆盖 CLI、MCP 和工具驱动的交互式终端工作流。 | Apache-2.0 | 3 | 仅索引 |
 | [BintzGavin/helios](https://github.com/BintzGavin/helios) | 121 | Helios 程序化视频引擎技能，覆盖动画设计、视频制作、渲染、Studio 与数据可视化。 | Apache-2.0 (skills/plugin); ELv2 engine | 19 | 仅索引 |
+| [TanStack/table](https://github.com/TanStack/table) | 28,505 | 构建 TanStack Table v9+ 表格，覆盖各框架的初始化、状态、迁移、特性、模糊排序和开发工具。 | MIT | 39 | 仅索引 |
+| [Canner/WrenAI](https://github.com/Canner/WrenAI) | 17,910 | 使用 Wren 连接数据源、建立语义模型、补充业务上下文、查询 SQL 并构建 GenBI 仪表盘。 | Apache-2.0（core/**与skills/**；docs/**为CC-BY-4.0） | 7 | 仅索引 |
+| [anomalyco/opentui](https://github.com/anomalyco/opentui) | 13,580 | 通过与版本匹配的 OpenTUI API 和组件技能文档构建终端界面。 | MIT | 1 | 仅索引 |
+| [reactive/data-client](https://github.com/reactive/data-client) | 2,039 | 在 React 或 Vue 中集成规范化 REST、GraphQL 数据，覆盖端点、模式、缓存、测试与迁移。 | Apache-2.0 | 13 | 仅索引 |
+| [Redocly/redocly-cli](https://github.com/Redocly/redocly-cli) | 1,536 | 使用 Redocly CLI 校验和打包 API 描述、生成文档与客户端、编写 API 校验规则，并配置或运行 recheck 的 Markdown 与文案检查。 | MIT | 4 | 仅索引 |
+| [Mininglamp-OSS/octo-cli](https://github.com/Mininglamp-OSS/octo-cli) | 920 | 通过原生 CLI 操作 Octo 消息、文件、网盘、文档、邮件、HTML、市场与 Agent 集群。 | Apache-2.0 | 9 | 仅索引 |
+| [TickDB/tickdb-unified-realtime-marketdata-api](https://github.com/TickDB/tickdb-unified-realtime-marketdata-api) | 876 | 查询 TickDB 市场价格、复权 K 线、期货、公司财务数据与 API 订阅信息。 | MIT | 1 | 仅索引 |
+| [stripe/link-cli](https://github.com/stripe/link-cli) | 862 | 使用 Link 钱包支付凭证、财务洞察与身份能力，并提供 Cursor 托管 MCP 购买流程的独立指南。 | MIT | 5 | 仅索引 |
+| [google-ai-edge/litert-samples](https://github.com/google-ai-edge/litert-samples) | 466 | 转换、量化、基准测试和验证端侧 LiteRT 模型，并搭建 CompiledModel 应用。 | Apache-2.0 | 9 | 仅索引 |
+| [GizClaw/flowcraft](https://github.com/GizClaw/flowcraft) | 416 | 为 Go Agent 应用编写和校验 FlowCraft 部署、运行时、图、插件及资源配置。 | MIT | 1 | 仅索引 |
+| [Cecilapp/Cecil](https://github.com/Cecilapp/Cecil) | 298 | 创建和配置 Cecil 静态站点，并开发可复用的 Twig 主题。 | EUPL-1.2 | 2 | 仅索引 |
+| [crossbind/crossbind](https://github.com/crossbind/crossbind) | 148 | 在 Web、Node.js、Workers 和 React Native 中将 C++、Rust 库集成到 JavaScript 或 TypeScript。 | MIT | 1 | 仅索引 |
+| [OriginTrail/dkg](https://github.com/OriginTrail/dkg) | 144 | 操作 OriginTrail DKG 节点，并将文档导入去中心化知识与 Agent 记忆图谱。 | Apache-2.0 | 2 | 仅索引 |
+| [appandflow/stim](https://github.com/appandflow/stim) | 85 | 为编码 Agent 运行隔离的 React Native、Expo 开发环境，使用共享构建缓存与受管设备。 | MIT | 1 | 仅索引 |
+| [ondata/ckan-mcp-server](https://github.com/ondata/ckan-mcp-server) | 60 | 结合 CKAN 国家门户路由、备用来源、双语检索和 DataStore 查询发现开放数据。 | MIT | 1 | 仅索引 |
+| [Institut-du-Numerique-Responsable/green-claude](https://github.com/Institut-du-Numerique-Responsable/green-claude) | 59 | 面向低资源代码、数字节制和负责任 AI 的生态设计规则及本地审计。 | CC-BY-4.0 (SKILL, rules and documentation); Apache-2.0 (code/scripts) | 1 | 仅索引 |
+| [flowith-ai/canvas-cowork](https://github.com/flowith-ai/canvas-cowork) | 39 | 通过 Agent CLI 创建和管理 Flowith 画布节点，并生成文本、图像与视频。 | MIT | 1 | 仅索引 |
+| [objectstack-ai/objectui](https://github.com/objectstack-ai/objectui) | 32 | 使用 Object UI 表单、数据视图、仪表盘和组件配置构建模式驱动的 React 界面。 | MIT | 1 | 仅索引 |
+| [mtgo-labs/mtgo](https://github.com/mtgo-labs/mtgo) | 17 | 使用 mtgo MTProto 客户端在 Go 中开发 Telegram 机器人与用户机器人，覆盖认证、媒体、会话和中间件。 | Apache-2.0 | 1 | 仅索引 |
+| [xapi-labs/xapi-cli](https://github.com/xapi-labs/xapi-cli) | 15 | 通过 xAPI CLI 调用服务、发布提供方能力，并部署包含托管资源的 Workers。 | MIT | 3 | 仅索引 |
+| [archetypeai/agent-skills](https://github.com/archetypeai/agent-skills) | 6 | Newton 官方传感智能技能，覆盖异常发现、状态监测和物理世界应用。 | Apache-2.0 | 11 | 仅索引 |
+| [aegro/skills](https://github.com/aegro/skills) | 0 | 面向 Aegro CLI 的农业经营技能，覆盖作季、财务、库存和资产管理。 | MIT | 20 | 仅索引 |
+| [EarthLegend/skills](https://github.com/EarthLegend/skills) | 0 | LGND Geo 官方技能，提供影像检索、地理分类及索引选择。 | MIT | 3 | 仅索引 |
+| [edamam-llc/edamam-skills](https://github.com/edamam-llc/edamam-skills) | 0 | Edamam 官方条码营养查询技能，通过食品数据 MCP 服务返回营养信息。 | Apache-2.0 | 1 | 仅索引 |
+| [OilpriceAPI/agent-skills](https://github.com/OilpriceAPI/agent-skills) | 0 | 能源单位换算技能，处理燃料、商品数量和可比价格基准。 | CC-BY-4.0 | 1 | 仅索引 |
+| [underautomation/skills](https://github.com/underautomation/skills) | 0 | 面向 ABB、Fanuc、史陶比尔、优傲及安川的官方机器人 SDK 技能，支持 C# 和 Python。 | MIT (skill/plugin packages); external UnderAutomation SDKs are commercial | 10 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -2047,6 +2075,51 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [Cai-aa/CAE-Agent-Hub](https://github.com/Cai-aa/CAE-Agent-Hub) | 1,081 | 工程仿真 CAE 中心，结合可复用 Agent Skills、MCP 桥接和 Abaqus、Ansys、CST、Calculix、COMSOL、FEP、LAMMPS、OVITO、Peridigm 工作流。 | MIT | 多技能 | 仅索引 |
 | [ShaishavMaisuria/research-paper-lifecycle-skills](https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills) | 54 | 42 个 Agent Skills 覆盖论文全生命周期，从文献发现、写作、核验到投稿、答辩、发表和报告。 | Apache-2.0 | 42 | 仅索引 |
 | [muend/geoai-skills](https://github.com/muend/geoai-skills) | 32 | 厂商中立的 18 技能地理空间 AI 套件，在结果成为主张前检查 CRS、单位、可比性、空间泄漏、不确定性、溯源和安全拒答。 | MIT | 18 | 仅索引 |
+| [oguzhankayan/turkish-native](https://github.com/oguzhankayan/turkish-native) | 89 | 撰写和修订土耳其语产品、客服、文档与界面文本，检查翻译式表达。 | MIT | 1 | 仅索引 |
+| [cavoiie/fluent-cfd-skill](https://github.com/cavoiie/fluent-cfd-skill) | 81 | Ansys Fluent 与 PyFluent 流程指导，覆盖建模设置、收敛诊断、自动化和验证。 | MIT | 1 | 仅索引 |
+| [skills-il/localization](https://github.com/skills-il/localization) | 26 | 希伯来语内容与文档生成、RTL 界面、NLP、公共表格、无障碍指导及以色列文化日程。 | MIT | 12 | 仅索引 |
+| [AmethystLuna/embedded-workbench](https://github.com/AmethystLuna/embedded-workbench) | 20 | 嵌入式 C/C++ 工作流，覆盖固件、Keil 构建、HardFault 排查和状态机设计。 | MIT | 8 | 仅索引 |
+| [haohuresearch/nature-fig-env](https://github.com/haohuresearch/nature-fig-env) | 8 | 面向环境、气候、地球系统及能源研究的出版绘图流程。 | MIT | 1 | 仅索引 |
+| [mrKanoh/wcag-accessibility-audit-skill](https://github.com/mrKanoh/wcag-accessibility-audit-skill) | 8 | WCAG 网页界面审阅、修复指导、报告编制，以及键盘和屏幕阅读器测试规划。 | MIT (public skill); Apache-2.0 (vendored authoring tool) | 1 | 仅索引 |
+| [netresearch/german-technical-writing-skill](https://github.com/netresearch/german-technical-writing-skill) | 8 | 面向工单、内部文档和团队消息的德语技术写作，覆盖术语、语体和排版。 | CC-BY-SA-4.0 (prose); MIT (code/configuration) | 1 | 仅索引 |
+| [itarunnn/jp-lit-mcp](https://github.com/itarunnn/jp-lit-mcp) | 7 | 日本文献研究、书目核验、TEI 文本阅读，以及 IIIF 历史图像比较与来源记录。 | MIT | 4 | 仅索引 |
+| [DedInc/chef-agentic-skills](https://github.com/DedInc/chef-agentic-skills) | 4 | 烹饪技能集合，涵盖技法、食品科学、各国菜系、菜单规划与饮食限制。 | MIT | 40 | 仅索引 |
+| [bgtamang/AgriClaw](https://github.com/bgtamang/AgriClaw) | 2 | 作物研究技能，覆盖田间试验、遗传分析、植物生理和遥感分析。 | MIT | 34 | 仅索引 |
+| [F2had/native-arabic](https://github.com/F2had/native-arabic) | 2 | 面向界面、消息、文档、无障碍文本和复数形式的现代标准阿拉伯语写作与审阅。 | MIT | 1 | 仅索引 |
+| [humbleteam/accessibility-audit](https://github.com/humbleteam/accessibility-audit) | 2 | 审阅截图、网址或界面标记，输出分级无障碍问题和 WCAG 条款引用。 | MIT | 1 | 仅索引 |
+| [theonlym7md/arabic-ai-skills](https://github.com/theonlym7md/arabic-ai-skills) | 2 | 阿拉伯语产品微文案、本地化审校、整屏 UX 文案及 RTL 和双向内容指导。 | MIT | 2 | 仅索引 |
+| [asasemahmed/arabkit](https://github.com/asasemahmed/arabkit) | 1 | 阿拉伯语通用文案、RTL、搜索及界面技能，以及埃及阿拉伯语产品文案工作流。 | MIT | 5 | 仅索引 |
+| [barrettsoron/civic-skills](https://github.com/barrettsoron/civic-skills) | 1 | 通过两个公开技能及文档化来源 API 查询加拿大公共数据并分析新闻报道。 | MIT | 2 | 仅索引 |
+| [DuoChen-317/robot-asset-toolkit](https://github.com/DuoChen-317/robot-asset-toolkit) | 1 | 处理 STEP、GLB、URDF 与关节式 USD 机器人资产，并检查几何与打包结果。 | MIT | 1 | 仅索引 |
+| [ikhattab/l10n-skill](https://github.com/ikhattab/l10n-skill) | 1 | 按地区格式化和检查货币、日期、数字、计量单位、地址及电话号码。 | MIT | 1 | 仅索引 |
+| [Nagi-Inaba/information-accessibility-skill](https://github.com/Nagi-Inaba/information-accessibility-skill) | 1 | 面向网站、文档、媒体、会议、活动和参与流程的信息无障碍审阅与证据记录。 | MIT | 1 | 仅索引 |
+| [xxwzkdwz/artifact-3026-skill](https://github.com/xxwzkdwz/artifact-3026-skill) | 1 | 将日常物品重新设想为明确虚构的未来博物馆展品，配套展签、藏品编号和分享卡片。 | MIT | 1 | 仅索引 |
+| [adamekonline/adamek-skills](https://github.com/adamekonline/adamek-skills) | 0 | 食品生物科技创业检查，覆盖技术成熟度、监管、成本和投资风险。 | MIT (public founder-checks skills); separate paid kit has its own commercial license | 4 | 仅索引 |
+| [ams-builds/green-agents-explained](https://github.com/ams-builds/green-agents-explained) | 0 | 估算 AI Agent 的能源、碳和水足迹，并识别资源节约选项。 | MIT | 1 | 仅索引 |
+| [annran-liang/pv-energy-figures](https://github.com/annran-liang/pv-energy-figures) | 0 | 光伏与能源研究绘图技能，提供可溯源图型选择和可复现绘图方案。 | MIT | 1 | 仅索引 |
+| [asermas/claude-engineering-skills](https://github.com/asermas/claude-engineering-skills) | 0 | 机械工程技能，覆盖 CAD、CFD、水下航行器、火箭、工程文档及 FDM 打印。 | MIT | 6 | 仅索引 |
+| [Chhunsour/khmer-localization](https://github.com/Chhunsour/khmer-localization) | 0 | 高棉语本地化指导，覆盖 Unicode、字体排版、柬埔寨联系方式与地址、货币和双语界面。 | MIT | 1 | 仅索引 |
+| [dannydover/claude-skill--book-companion](https://github.com/dannydover/claude-skill--book-companion) | 0 | 制作无剧透的图书阅读指南，涵盖节奏、历史背景、作者年表、译本和插图说明。 | Apache-2.0 | 1 | 仅索引 |
+| [eous/civic-records-research](https://github.com/eous/civic-records-research) | 0 | 将政府议程、会议记录、听证和决策研究整理为有来源的档案，并区分已核验记录与线索。 | Apache-2.0 | 1 | 仅索引 |
+| [Guidogl/geopandas-consistency](https://github.com/Guidogl/geopandas-consistency) | 0 | GeoPandas 指导技能，统一坐标系处理、空间连接、几何检查与测量方法。 | Apache-2.0 | 1 | 仅索引 |
+| [Guzi2005/layered-stamp-skill](https://github.com/Guzi2005/layered-stamp-skill) | 0 | 将用户照片转换为博物馆风格的多层套色印章及逐步分版样张。 | MIT | 1 | 仅索引 |
+| [Jayzilva/helionyx](https://github.com/Jayzilva/helionyx) | 0 | 混合可再生能源容量规划，覆盖光伏、风电、储能、柴油和并网系统。 | Apache-2.0 (core/skill); data packs CC-BY-4.0; optional solver adapters EUPL-1.2 / AGPL-3.0 | 1 | 仅索引 |
+| [Jeng-linLi/humanities-research-skills](https://github.com/Jeng-linLi/humanities-research-skills) | 0 | 附证据表的可追溯文献综述、质性编码及多语课堂逐字稿分析。 | MIT | 3 | 仅索引 |
+| [johannstark/GeminiRobotics-Skills](https://github.com/johannstark/GeminiRobotics-Skills) | 0 | 连接 Gemini Robotics 推理、MuJoCo 物理和 Three.js 可视化的机器人操作技能。 | Apache-2.0 | 3 | 仅索引 |
+| [kznconsulting/gis-skills](https://github.com/kznconsulting/gis-skills) | 0 | 依据独立参考审查点图层位置，并输出坐标修正证据。 | MIT | 1 | 仅索引 |
+| [linlhf/robot-data-viewer](https://github.com/linlhf/robot-data-viewer) | 0 | 只读检查机器人数据集，并导出相机视频或经过标定的骨架叠加视频。 | Apache-2.0 | 1 | 仅索引 |
+| [liujycode/embedded-toolkit](https://github.com/liujycode/embedded-toolkit) | 0 | 离线嵌入式技能，覆盖寄存器事实、固件核验、故障树和外设配置陷阱。 | MIT | 4 | 仅索引 |
+| [mvdypsis/i-have-dyslexia](https://github.com/mvdypsis/i-have-dyslexia) | 0 | 按用户选择的阅读和工作偏好调整助手沟通、写作支持、视觉解释与任务规划。 | MIT | 1 | 仅索引 |
+| [neoxyz-99/Theory-to-Case-Lab](https://github.com/neoxyz-99/Theory-to-Case-Lab) | 0 | 重建理论文本、梳理学术接受史，并以区分标注的证据和解释将理论应用于案例。 | MIT | 1 | 仅索引 |
+| [QWarranto/leafengines-hermes-skill](https://github.com/QWarranto/leafengines-hermes-skill) | 0 | 美国农业情报技能，覆盖土壤、水质、作物建议和环境指标。 | MIT (skill code); commercial LeafEngines API service with free tier | 1 | 仅索引 |
+| [ShreyaJ-27/omni-grid-civic-issue-triage](https://github.com/ShreyaJ-27/omni-grid-civic-issue-triage) | 0 | 利用地理聚类、媒体元数据、闭环证据检查和结构化报告分流公共投诉数据。 | MIT | 1 | 仅索引 |
+| [sounny/dxskills](https://github.com/sounny/dxskills) | 0 | 面向阅读障碍需求的笔记整理、引导访谈、阅读、写作、概念图和语音转写工作流。 | MIT | 6 | 仅索引 |
+| [TEC413/qgis-with-claude](https://github.com/TEC413/qgis-with-claude) | 0 | 协作式 QGIS 工作流，结合命令行处理、实时工程样式和视觉核查。 | MIT | 1 | 仅索引 |
+| [TerraLabAI/geoai-skills](https://github.com/TerraLabAI/geoai-skills) | 0 | GIS 技能，覆盖坐标系、影像、地理处理、空间分析和地图导出核查。 | MIT | 15 | 仅索引 |
+| [Thomas-Novato/cfd-heat-transfer-tutor](https://github.com/Thomas-Novato/cfd-heat-transfer-tutor) | 0 | 面向能源系统、暖通、热泵与工程验证的中文传热和 CFD 辅导。 | MIT | 1 | 仅索引 |
+| [TunaSaiko/localize](https://github.com/TunaSaiko/localize) | 0 | 中日英译文审校、翻译起草及经授权的市场适配，配套术语与事实核查。 | MIT | 1 | 仅索引 |
+| [Walpolen/humanities-book-translation](https://github.com/Walpolen/humanities-book-translation) | 0 | 逐章翻译和修订人文书籍，记录术语决策、源文对齐和版本化审校材料。 | MIT | 1 | 仅索引 |
+| [Zhimanaiyou/museum-archaeology-notebook](https://github.com/Zhimanaiyou/museum-archaeology-notebook) | 0 | 在保留原物形状、铭文和视觉细节的前提下，将博物馆文物照片制作为考古手记图像。 | MIT (skill/code); example images excluded | 1 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -2457,3 +2530,9 @@ part82 扩展：工业 MES、半导体与制造、CAD/DFM、计算化学、科�
 | [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) | 88,162 | 使用 Scrapling 的自适应解析、浏览器渲染、隐身抓取与爬虫框架采集网页。 | BSD-3-Clause | 1 | 仅索引 |
 | [casey/just](https://github.com/casey/just) | 36,313 | 按 just 命令运行器的语法与任务模式编写和维护 justfile。 | CC0-1.0 | 1 | 仅索引 |
 | [t8y2/dbx](https://github.com/t8y2/dbx) | 27,019 | 查看 DBX 数据库连接与结构，运行有限只读查询，并生成 DBML 和数据库结构文档。 | Apache-2.0 | 1 | 仅索引 |
+| [datamodel-code-generator/datamodel-code-generator](https://github.com/datamodel-code-generator/datamodel-code-generator) | 4,042 | 使用 datamodel-codegen 将 API 模式与结构化数据生成 Python 数据模型，并提供按 Agent 安装技能的入口。 | MIT | 1 | 仅索引 |
+| [hyperb1iss/unifly](https://github.com/hyperb1iss/unifly) | 272 | 通过 Unifly CLI 管理和诊断 UniFi 网络，使用与版本匹配的离线命令及工作流指南。 | Apache-2.0 | 1 | 仅索引 |
+| [MUKE-coder/grit](https://github.com/MUKE-coder/grit) | 144 | 使用 Grit 生成器、脚手架、插件及框架工作流构建 Go 与 React 应用。 | MIT | 1 | 仅索引 |
+| [madeyoga/AuthEndpoints](https://github.com/madeyoga/AuthEndpoints) | 122 | 集成 ASP.NET Core Identity 认证 API，覆盖密码、Cookie、JWT 和通行密钥流程。 | MIT | 1 | 仅索引 |
+| [avivsinai/jenkins-cli](https://github.com/avivsinai/jenkins-cli) | 94 | 通过 jk 命令行客户端管理 Jenkins 上下文、任务、构建、日志与管理操作。 | MIT | 1 | 仅索引 |
+| [NomaDamas/MinSync](https://github.com/NomaDamas/MinSync) | 58 | 通过 MinSync、本地或远程嵌入以及混合检索，为 Markdown 工作区添加增量语义索引。 | MIT | 1 | 仅索引 |

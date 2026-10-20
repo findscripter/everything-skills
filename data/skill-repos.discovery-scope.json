@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-17",
+  "updated_at": "2026-10-20",
   "timezone": "Asia/Shanghai",
   "purpose": "Expand discovery beyond repository-name skill/agent keywords while retaining the repository-index admission contract.",
   "families": [
@@ -276,6 +276,34 @@
         "plugin marketplaces"
       ],
       "priority": "high"
+    },
+    {
+      "id": "agriculture-food",
+      "label_zh": "农业、食品与烹饪工作流",
+      "queries": [
+        "\"SKILL.md\" agriculture farming",
+        "\"SKILL.md\" food cooking"
+      ],
+      "layouts": [
+        "skills/",
+        "standalone SKILL.md",
+        "product-native directories"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "green-software",
+      "label_zh": "绿色软件、碳核算与可持续性",
+      "queries": [
+        "\"SKILL.md\" green software carbon",
+        "\"SKILL.md\" sustainability energy efficiency"
+      ],
+      "layouts": [
+        "skills/",
+        "standalone SKILL.md",
+        "product-native directories"
+      ],
+      "priority": "high"
     }
   ],
   "admission": {
@@ -290,7 +318,8 @@
       "inspect repository tree or commit-pinned archive without executing code",
       "representative distributed SKILL.md has name and description; infra examples identified separately",
       "license scope recorded from source, not inferred from root badge",
-      "record snapshot date, stars source, tree/commit SHA and evidence URLs"
+      "record snapshot date, stars source, tree/commit SHA and evidence URLs",
+      "bind fetched README, license and SKILL bytes to their fixed-tree Git blob hashes; replace partial raw responses with verified Git blob API bytes before recording SHA-256"
     ],
     "count_exclusions": [
       "plugin mirrors",
@@ -323,5 +352,6 @@
   "source_followup_note": "Follow README-declared active successors and native product catalogs. Carbon keyword matches can refer to a design system or ERP, not emissions.",
   "source_overlap_note": "Compare commit-pinned SKILL blob hashes as well as names, IDs and fork flags. Some unmarked copies have substantial overlap plus distinct files; preserve that distinction and never label the whole file count globally new.",
   "license_scope_note": "Noncommercial content can only be explicitly indexed under the current metadata-only workflow; never silently classify it as unrestricted open source or import its instructions. Root and per-skill notices stay separate.",
-  "public_distribution_note": "For multi-package repositories, verify each claimed plugin manifest and public README; root defaults need not include every separately distributed plugin. Mark untested compatibility claims explicitly."
+  "public_distribution_note": "For multi-package repositories, verify each claimed plugin manifest and public README; root defaults need not include every separately distributed plugin. Mark untested compatibility claims explicitly.",
+  "source_bytes_note": "A successful raw HTTP response can still be partial. Recompute Git blob SHA-1 from byte length and content and compare to the pinned tree; retain any corrected partial-response digest as audit history."
 }
