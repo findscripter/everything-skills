@@ -6,7 +6,7 @@
   "reviewed_finalist_count": 77,
   "added_count": 77,
   "final_count": 2459,
-  "publication_status": "verified-awaiting-publication",
+  "publication_status": "published",
   "daily_receipt": "discovery/2026-10-20/publication.json",
   "collection_notes": [
     "只更新公开仓库元数据，不 clone、安装、执行候选或导入第三方技能正文；第三方文件中的操作指令仅视为研究材料。",
