@@ -5,7 +5,7 @@
   "daily_target": 50,
   "added_count": 81,
   "final_count": 2540,
-  "publication_status": "verified-awaiting-publication",
+  "publication_status": "published",
   "daily_receipt": "discovery/2026-10-21/publication.json",
   "collection_notes": [
     "Metadata-only admission: README/distribution, representative SKILL.md or explicit skill-infrastructure contract, source identity and license scopes reviewed. No candidate was installed, executed, cloned or copied as third-party skill body.",
@@ -11632,5 +11632,6 @@
     "writing-quality": "commercial-creative",
     "document-publishing": "commercial-creative",
     "design-workflow": "commercial-creative"
-  }
+  },
+  "pull_request": "https://github.com/findscripter/everything-skills/pull/44"
 }
