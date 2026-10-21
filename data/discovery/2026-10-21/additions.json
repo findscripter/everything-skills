@@ -8,8 +8,8 @@
   "baseline_sha256": "5a068a495703d6dc020e4e8a3817fc46e64e91a5caa4b6753063fa27ba035879",
   "catalog_shard": "../../skill-repos.part86.jsonl",
   "locally_verified_new_count": 81,
-  "daily_qualifying_count": 0,
-  "status": "verified-awaiting-publication",
+  "daily_qualifying_count": 81,
+  "status": "achieved",
   "repositories": [
     {
       "full_name": "getpaseo/paseo",
@@ -335,5 +335,11 @@
       "full_name": "rhiza-research/chc-skills",
       "repository_id": 1340975883
     }
-  ]
+  ],
+  "publication_receipt": "publication.json",
+  "dataset_commits": {
+    "main": "d50d87787df9b9dec0fad57012bfa3a0fc0f5ef5",
+    "zh": "faff3ccd8679740df325656fd8616af2198fdf6a"
+  },
+  "necessary_ci": "generated-index succeeded for both published dataset branches"
 }
