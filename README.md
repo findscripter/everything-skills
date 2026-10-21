@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1113 skills · 11 volumes · 6800 relation edges · 2459 indexed repositories" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1113 skills · 11 volumes · 6800 relation edges · 2540 indexed repositories" width="1200" /></picture>
 </p>
 <!-- END GENERATED:brand -->
 
@@ -117,12 +117,12 @@ For provenance and license terms, see [Sources](INDEX/sources.md), [LICENSE](LIC
 <!-- BEGIN GENERATED:skill-repos -->
 ## Skill repos directory
 
-Currently indexing **2459** GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.
+Currently indexing **2540** GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.
 
 Full tables (stars / summary / license) are generated from `data/skill-repos.jsonl` (and part shards) into **[INDEX/skill-repos.md](INDEX/skill-repos.md)**. This page is the categorized link directory.
 
 <details>
-<summary>1. Official (351)</summary>
+<summary>1. Official (389)</summary>
 
 - [`anthropics/skills`](https://github.com/anthropics/skills) — Anthropic official Agent Skills examples and doc skills; marketplace source anthropics/skills.
 - [`mem0ai/mem0`](https://github.com/mem0ai/mem0) — Integrate persistent Mem0 memory through official SDK/CLI skills, integration tests, and OSS-to-platform migration workflows.
@@ -141,6 +141,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`openai/skills`](https://github.com/openai/skills) — OpenAI early skills examples; README marks deprecated; current examples moved to openai/plugins.
 - [`agentskills/agentskills`](https://github.com/agentskills/agentskills) — Agent Skills open standard (agentskills.io): SKILL.md format and cross-vendor portability.
 - [`anthropics/knowledge-work-plugins`](https://github.com/anthropics/knowledge-work-plugins) — Knowledge-work Cowork plugins (~11 role plugins).
+- [`getpaseo/paseo`](https://github.com/getpaseo/paseo) — Coordinate coding agents with Paseo handoffs, advisors, committees and CLI workflows.
 - [`resend/react-email`](https://github.com/resend/react-email) — Build React email templates and visual editors, render HTML, and send transactional mail with Resend.
 - [`google/skills`](https://github.com/google/skills) — Google official Agent Skills for GCP/GKE/BigQuery/Ads/Firebase etc.; npx skills add google/skills; bundles Claude/Codex/Antigravity marketplaces.
 - [`browser-use/browser-harness`](https://github.com/browser-use/browser-harness) — Let Claude Code, Codex or Cursor use your real Chrome, logged in as you. One prompt to set up. Open source, MIT.
@@ -148,6 +149,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`longbridge/gpui-kit`](https://github.com/longbridge/gpui-kit) — Build Rust desktop interfaces with GPUI Kit components, coding guidance, and detailed interaction and visual design rules.
 - [`tradingview/lightweight-charts`](https://github.com/tradingview/lightweight-charts) — Build Lightweight Charts v5 charts and author custom series, primitives, and chart plugins.
 - [`larksuite/cli`](https://github.com/larksuite/cli) — Feishu/Lark official CLI: 200+ commands and 26 Agent Skills (calendar/docs/messaging/sheets/meetings, etc.); install via skills CLI as larksuite/cli.
+- [`NVIDIA/OpenShell`](https://github.com/NVIDIA/OpenShell) — Operate OpenShell CLI, sandbox policies, inference routing and cluster troubleshooting.
 - [`umijs/qiankun`](https://github.com/umijs/qiankun) — Create qiankun 3 micro-frontend hosts and micro apps, including React/Vue and Vite integration.
 - [`microsoft/SkillOpt`](https://github.com/microsoft/SkillOpt) — Microsoft optimizer treating SKILL.md as trainable state: freeze the model, edit skill docs with trajectories and validation gates; emits deployable best_skill.md.
 - [`scalar/scalar`](https://github.com/scalar/scalar) — Integrate and troubleshoot Scalar API Reference with application frameworks, authentication, themes, and API descriptions.
@@ -164,6 +166,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`pinchtab/pinchtab`](https://github.com/pinchtab/pinchtab) — High-performance browser automation bridge and multi-instance orchestrator with advanced stealth injection and real-time dashboard.
 - [`xberg-io/xberg`](https://github.com/xberg-io/xberg) — Polyglot document intelligence with a Rust core: extract text, metadata, images, tables, and structured data from 106 formats across 140 file extensions, plus code intelligence for 371 languages. Fifteen bindings, with CLI, REST API, and MCP server.
 - [`anthropics/claude-for-legal`](https://github.com/anthropics/claude-for-legal) — Claude for Legal official skills: contract review, legal research, and law-firm workflows.
+- [`open-pencil/open-pencil`](https://github.com/open-pencil/open-pencil) — Inspect and edit Figma .fig files, export assets and analyze design tokens with OpenPencil.
 - [`ariga/atlas`](https://github.com/ariga/atlas) — Manage database schemas, migrations, CI pipelines, and database-specific workflows with official Atlas skills.
 - [`google-labs-code/stitch-skills`](https://github.com/google-labs-code/stitch-skills) — Google Stitch design skills and three plugins (design/build/utilities); works with Codex, Antigravity, Claude Code, Cursor. Not an officially supported product.
 - [`mufeedvh/code2prompt`](https://github.com/mufeedvh/code2prompt) — Code2Prompt product skill for scoped repository exploration, entity maps, and grouped source reads that assemble coding-agent context.
@@ -179,8 +182,10 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`google-gemini/gemini-skills`](https://github.com/google-gemini/gemini-skills) — Gemini API official skills: gemini-api-dev / live-api / omni-flash; npx skills add google-gemini/gemini-skills. Not an officially supported product.
 - [`DingTalk-Real-AI/dingtalk-workspace-cli`](https://github.com/DingTalk-Real-AI/dingtalk-workspace-cli) — Operate DingTalk tables, chats, calendars, documents, mail, and collaboration workflows through bundled CLI Agent Skills.
 - [`browserbase/skills`](https://github.com/browserbase/skills) — Browserbase official browser-automation skills: browser/functions/trace/autobrowse/safe-browser/search/ui-test, etc.; npx skills add browserbase/skills.
+- [`qawolf/cli`](https://github.com/qawolf/cli) — Operate QA Wolf coverage, bug reports, runs, environments and browser workflows through its CLI.
 - [`google-deepmind/science-skills`](https://github.com/google-deepmind/science-skills) — Use research skills for genomics, structural biology, cheminformatics, scholarly search and source-specific scientific databases.
 - [`anthropics/claude-plugins-community`](https://github.com/anthropics/claude-plugins-community) — Read-only mirror of the community plugin marketplace; nightly sync after submit, security scan, and approval.
+- [`TanStack/ai`](https://github.com/TanStack/ai) — Select TanStack AI packages and migrate applications using its user-level integration skills.
 - [`NVIDIA/skills`](https://github.com/NVIDIA/skills) — NVIDIA official verified skills catalog: Physical AI, simulation, CUDA-X, RAG.
 - [`nuxt-content/docus`](https://github.com/nuxt-content/docus) — Create and review Docus documentation sites and publish discoverable skills from documentation content.
 - [`snyk/agent-scan`](https://github.com/snyk/agent-scan) — Snyk official: scan AI agents/MCP/skills security risks.
@@ -261,6 +266,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`microsoft/win-dev-skills`](https://github.com/microsoft/win-dev-skills) — Microsoft WinUI 3 / Windows App SDK skills (8) + winui-dev orchestrator; Copilot/Claude/Codex marketplaces. Preview.
 - [`getsentry/warden`](https://github.com/getsentry/warden) — Sentry local/PR AI code-review Agents Skills.
 - [`TheQtCompanyRnD/agent-skills`](https://github.com/TheQtCompanyRnD/agent-skills) — Qt official 12: C++/QML review, UI, docs, profiler, test, Figma tokens/components, CMake; Claude marketplace + npx skills add + Gemini extension.
+- [`rhesis-ai/rhesis`](https://github.com/rhesis-ai/rhesis) — Design AI test suites, run evaluations and inspect feedback through Rhesis MCP workflows.
 - [`Unity-Technologies/unity-agent-plugin`](https://github.com/Unity-Technologies/unity-agent-plugin) — Unity official agent plugin/skills for third-party agent platforms; /plugin marketplace add Unity-Technologies/unity-agent-plugin.
 - [`LambdaTest/agent-skills`](https://github.com/LambdaTest/agent-skills) — TestMu AI (formerly LambdaTest) official testing skills: Selenium/Playwright/Cypress and cross-language frameworks; npx agentskillsforall add.
 - [`oracle/netsuite-suitecloud-sdk`](https://github.com/oracle/netsuite-suitecloud-sdk) — Build NetSuite SuiteScript/SDF/UIF solutions and use finance analysis workflows with official SuiteCloud Agent Skills.
@@ -280,12 +286,14 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`qdrant/skills`](https://github.com/qdrant/skills) — Qdrant official vector-search skills: scaling/sizing/search-quality/multitenancy/model-migration, etc. + Advisor meta-skill.
 - [`temporalio/skill-temporal-developer`](https://github.com/temporalio/skill-temporal-developer) — Temporal official developer skill for building with Temporal; npx skills add temporalio/skill-temporal-developer.
 - [`iflytek/iFly-Skills`](https://github.com/iflytek/iFly-Skills) — iFLYTEK official skills for speech, OCR, translation, proofreading and multimodal AI; distributed via ClawHub and Tencent SkillHub.
+- [`vercel/sandbox`](https://github.com/vercel/sandbox) — Use the Vercel Sandbox SDK for isolated Linux MicroVM execution and development environments.
 - [`open-mercato/skills`](https://github.com/open-mercato/skills) — Open Mercato enterprise AI-engineering skills coined on a 1.2M-line ERP; npx skills add open-mercato/skills --skill '*'.
 - [`OpenZeppelin/openzeppelin-skills`](https://github.com/OpenZeppelin/openzeppelin-skills) — OpenZeppelin official secure-contract skills: setup/upgrade/review for Solidity/Cairo/Stylus/Stellar/Sui.
 - [`modular/skills`](https://github.com/modular/skills) — Modular Agent Skills for Mojo and MAX development; Claude plugin marketplace add modular/skills.
 - [`mongodb/agent-skills`](https://github.com/mongodb/agent-skills) — MongoDB official Atlas plugin + query/schema/Search/Vector skills; npx skills add mongodb/agent-skills.
 - [`sanity-io/agent-toolkit`](https://github.com/sanity-io/agent-toolkit) — Sanity official 4 skills + MCP/Claude/Cursor/Codex plugins; npx skills add sanity-io/agent-toolkit.
 - [`matlab/agent-skills-playground`](https://github.com/matlab/agent-skills-playground) — MathWorks MATLAB/Simulink Agent Skills experimental sandbox (official playground).
+- [`tensorlakeai/tensorlake-skills`](https://github.com/tensorlakeai/tensorlake-skills) — Guide Tensorlake sandbox, storage and orchestration integrations using live SDK documentation.
 - [`okx/agent-skills`](https://github.com/okx/agent-skills) — OKX official trading/portfolio/quotes/bots Agent Skills (okx CLI).
 - [`resend/resend-skills`](https://github.com/resend/resend-skills) — Resend official email skills: resend/agent-email-inbox/resend-cli/react-email/email-best-practices, plus MCP.
 - [`VeryGoodOpenSource/vgv-ai-flutter-plugin`](https://github.com/VeryGoodOpenSource/vgv-ai-flutter-plugin) — Very Good Ventures Flutter/Dart AI plugin with 15 skills; claude plugin marketplace add.
@@ -323,6 +331,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`lightpanda-io/agent-skill`](https://github.com/lightpanda-io/agent-skill) — Apache Lightpanda browser skills for MCP, CLI fetch, CDP automation, and deterministic PandaScript replay across coding agents.
 - [`firecrawl/skills`](https://github.com/firecrawl/skills) — Firecrawl official skills catalog (CI-synced): core CLI/MCP, build SDK, workflows; npx skills add firecrawl/skills.
 - [`neo4j-contrib/gds-agent`](https://github.com/neo4j-contrib/gds-agent) — Neo4j graph data science MCP server with one installable Agent Skill for GDS/Aura analytics, projection workflows, and troubleshooting.
+- [`topk-io/topk`](https://github.com/topk-io/topk) — Design schemas and implement semantic, keyword, hybrid and tenant-aware search with TopK SDKs.
 - [`GoogleCloudPlatform/cxas-scrapi`](https://github.com/GoogleCloudPlatform/cxas-scrapi) — Google CX Agent Studio official Python API/CLI/Skills.
 - [`rstackjs/agent-skills`](https://github.com/rstackjs/agent-skills) — Rstack official Agent Skills collection.
 - [`monte-carlo-data/mc-agent-toolkit`](https://github.com/monte-carlo-data/mc-agent-toolkit) — Monte Carlo official toolkit: skills and plugins for data observability in coding agents; /plugin marketplace add.
@@ -339,6 +348,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`resemble-ai/detect-skill`](https://github.com/resemble-ai/detect-skill) — Resemble AI official deepfake detection/media-security Agent Skill.
 - [`TencentCloudBase/skills`](https://github.com/TencentCloudBase/skills) — Tencent CloudBase Agent Skills for production backend development; points to cloudbase-skills via npx skills add.
 - [`polars-inc/skills`](https://github.com/polars-inc/skills) — Polars official AI Agent Skills.
+- [`royerlab/luxar`](https://github.com/royerlab/luxar) — Load microscopy volumes, fit Gaussian splats, run HPC batches, visualize and export reproducible Luxar scenes.
 - [`zoom/skills`](https://github.com/zoom/skills) — Zoom developer-platform official Skills (REST/SDK/MCP routing).
 - [`basecamp/skills`](https://github.com/basecamp/skills) — 37signals official Agent Skills for Basecamp/HEY/Fizzy via product CLIs; npx skills add basecamp/skills.
 - [`vmware-skills/VMware-AIops`](https://github.com/vmware-skills/VMware-AIops) — VMware vCenter/ESXi monitoring and ops Claude Skills (monitor + aiops).
@@ -352,6 +362,8 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`contentful/skill-kit`](https://github.com/contentful/skill-kit) — Contentful official SDK for building Agent Skills with TypeScript state machines.
 - [`Bria-AI/bria-skill`](https://github.com/Bria-AI/bria-skill) — Bria AI image Agent Skill.
 - [`VapiAI/skills`](https://github.com/VapiAI/skills) — Vapi official voice AI Agent Skills (create assistants/tools/campaigns, etc.); skills.sh compatible.
+- [`PostPeer-API/skills`](https://github.com/PostPeer-API/skills) — Publish and schedule posts, connect accounts, inspect social analytics, and configure PostPeer notifications.
+- [`rejot-dev/fragno`](https://github.com/rejot-dev/fragno) — Integrate and author Fragno backend fragments with product-specific agent guidance.
 - [`deepmodeling/dpdispatcher`](https://github.com/deepmodeling/dpdispatcher) — Submit and monitor local or HPC computational jobs through Shell, Slurm, PBS, LSF, and Bohrium.
 - [`syncfusion/maui-ui-components-skills`](https://github.com/syncfusion/maui-ui-components-skills) — Syncfusion skills for .NET MAUI UI components; npx installer.
 - [`catalystbyzoho/agent-skills`](https://github.com/catalystbyzoho/agent-skills) — Zoho Catalyst official Agent Skills: deploy-ready code and Zoho MCP infra.
@@ -379,6 +391,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`ActiveCampaign/postmark-skills`](https://github.com/ActiveCampaign/postmark-skills) — ActiveCampaign Postmark AI skills; npx skills add ActiveCampaign/postmark-skills.
 - [`apache/doris-skills`](https://github.com/apache/doris-skills) — Apache Doris agent skills; npx skills add apache/doris-skills.
 - [`runpod/runpod-plugins-official`](https://github.com/runpod/runpod-plugins-official) — Runpod official plugins and skills; npx skills add runpod/runpod-plugins-official.
+- [`anycap-ai/anycap`](https://github.com/anycap-ai/anycap) — Use the AnyCap runtime for media, web research, content workflows and human-assisted tasks.
 - [`evilmartians/agent-skills`](https://github.com/evilmartians/agent-skills) — Evil Martians production Agent Skills (e.g. llms-visibility); npx skills add + Claude plugin marketplace.
 - [`microsoft/power-cat-skills`](https://github.com/microsoft/power-cat-skills) — Power Platform CAT official Skills.
 - [`panewslab/skills`](https://github.com/panewslab/skills) — PANews Agent Toolkit: crypto/blockchain news skills; npx skills add panewslab/skills.
@@ -391,6 +404,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`contentful/skills`](https://github.com/contentful/skills) — Contentful skills teaching agents to build on Contentful; /plugin marketplace add contentful/skills.
 - [`flowith-ai/canvas-cowork`](https://github.com/flowith-ai/canvas-cowork) — Create and manage Flowith canvas nodes and generate text, images, and video from an agent-driven CLI.
 - [`learning-commons-org/agent-skills`](https://github.com/learning-commons-org/agent-skills) — Learning Commons teaching skills for checking understanding, differentiated lessons, lesson creation, and preparation, with optional education MCP integration.
+- [`GregorLueg/bixverse`](https://github.com/GregorLueg/bixverse) — Use bixverse R APIs for single-cell analysis, enrichment, bulk differential expression, networks and ontology similarity.
 - [`quark-clouddrive/quarkclouddrive_offical`](https://github.com/quark-clouddrive/quarkclouddrive_offical) — Quark Cloud Drive official Skill: manage/search drive files inside an Agent.
 - [`quarkusio/skills`](https://github.com/quarkusio/skills) — Quarkus official skills for developing and maintaining Quarkus apps; npx skills add.
 - [`digitalocean-labs/do-app-platform-skills`](https://github.com/digitalocean-labs/do-app-platform-skills) — DigitalOcean Labs skills for App Platform deploy, migration, networking and databases; git clone.
@@ -422,55 +436,79 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`helius-labs/core-ai`](https://github.com/helius-labs/core-ai) — Helius Solana Core AI Skills。
 - [`jfrog/jfrog-skills`](https://github.com/jfrog/jfrog-skills) — JFrog Platform skills: artifacts, CVE queries and more; npx skills add git@github.com:jfrog/jfrog-skills.git.
 - [`usetrmnl/trmnl-agent-skills`](https://github.com/usetrmnl/trmnl-agent-skills) — TRMNL template-writer agent prompts and skills; /plugin marketplace add usetrmnl/trmnl-agent-skills.
+- [`Seeed-Studio/ai-skills`](https://github.com/Seeed-Studio/ai-skills) — Extract evidence-backed electronics datasheets and analyze KiCad/OrCAD schematics with explicit tool prerequisites.
 - [`Starchild-ai-agent/official-skills`](https://github.com/Starchild-ai-agent/official-skills) — Starchild official Skills.
 - [`crowdsecurity/crowdsec-skill`](https://github.com/crowdsecurity/crowdsec-skill) — CrowdSec official skill for Claude Code and Codex to install, configure and debug the engine; /plugin marketplace add.
 - [`NVIDIA-Omniverse/usd-convert-cad`](https://github.com/NVIDIA-Omniverse/usd-convert-cad) — NVIDIA Omniverse official CAD→OpenUSD conversion Agent Skill.
+- [`uiverify/uiverify`](https://github.com/uiverify/uiverify) — Set up visual testing, author deterministic captures, triage UI changes and coordinate review workflows.
 - [`vite-hub/vitehub`](https://github.com/vite-hub/vitehub) — Agents for any host, composed with server primitives through one Vite plugin.
 - [`atlassian/forge-skills`](https://github.com/atlassian/forge-skills) — Atlassian Forge official Skills plugin (scaffold, review, debug, security).
 - [`huggingface/physics-intern-skills`](https://github.com/huggingface/physics-intern-skills) — Hugging Face PhysicsIntern: theoretical physics/math research workflows; 8 slash skills for Claude/Codex/OpenCode/Pi.
+- [`zvec-ai/zvec-agent-skills`](https://github.com/zvec-ai/zvec-agent-skills) — Build Zvec vector search and RAG applications in Python and Node.js.
 - [`cashfree/agent-skills`](https://github.com/cashfree/agent-skills) — Cashfree payments-integration Agent Skills (npx install across frameworks).
 - [`CrowdStrike/fusion-skills`](https://github.com/CrowdStrike/fusion-skills) — Official CrowdStrike Falcon Fusion community skills for workflow automation (MIT).
+- [`fastfold-ai/sandwalk`](https://github.com/fastfold-ai/sandwalk) — Use a scientific agent workspace with knowledge graphs, public skill discovery, scheduled workflows and remote compute.
 - [`JetBrains/rider-skills`](https://github.com/JetBrains/rider-skills) — .NET/GameDev-oriented Rider Agent Skills.
 - [`ultralytics/skills`](https://github.com/ultralytics/skills) — Ultralytics official YOLO Agent Skills: train/infer/track/export.
 - [`kestra-io/agent-skills`](https://github.com/kestra-io/agent-skills) — Kestra official workflow-orchestration Agent Skills collection.
 - [`powersync-ja/agent-skills`](https://github.com/powersync-ja/agent-skills) — PowerSync official Agent Skills.
 - [`mtgo-labs/mtgo`](https://github.com/mtgo-labs/mtgo) — Build Telegram bots and userbots in Go with the mtgo MTProto client, including authentication, media, sessions, and middleware.
+- [`SocialGouv/iterion`](https://github.com/SocialGouv/iterion) — Author Iterion agent workflows and use a portable adversarial review loop with bounded validation and convergence gates.
 - [`awslabs/startups`](https://github.com/awslabs/startups) — AWS Startups official plugins/Skills/tooling resource library.
 - [`Hashnode/gql-skill`](https://github.com/Hashnode/gql-skill) — Hashnode GraphQL API official installable Agent Skill.
 - [`nocodb/agent-skills`](https://github.com/nocodb/agent-skills) — NocoDB Agent Skills。
 - [`PSPDFKit-labs/nutrient-agent-skill`](https://github.com/PSPDFKit-labs/nutrient-agent-skill) — Nutrient/PSPDFKit document Agent Skill.
 - [`elastic/integration-skills`](https://github.com/elastic/integration-skills) — Elastic official integration-pack skills: research/create-integration + CEL/ingest/ECS domain skills; npx skills add. Beta.
 - [`xapi-labs/xapi-cli`](https://github.com/xapi-labs/xapi-cli) — Consume xAPI services, publish provider capabilities, and deploy Workers with managed resources through the xAPI CLI.
+- [`conalyz/conalyz_cli`](https://github.com/conalyz/conalyz_cli) — Guide Flutter and Dart accessibility analysis with the Conalyz CLI and review its WCAG-oriented reports.
 - [`momentic-ai/skills`](https://github.com/momentic-ai/skills) — Momentic official agent skills/MCP to write, run and repair Momentic E2E tests from coding agents.
 - [`aliyun/maxcompute-semantic`](https://github.com/aliyun/maxcompute-semantic) — Alibaba Cloud MaxCompute semantic-layer CLI + portable SKILL.md: table/metric/JOIN context and SQL review/execution for agents.
+- [`event-catalog/skills`](https://github.com/event-catalog/skills) — Document architecture, C4 models, code, flows and architecture fitness rules in EventCatalog.
 - [`trycourier/courier-skills`](https://github.com/trycourier/courier-skills) — Courier official notification skills: email/SMS/push/inbox/Slack/Teams/WhatsApp; npx skills add trycourier/courier-skills.
 - [`SynaLinks/synalog`](https://github.com/SynaLinks/synalog) — Synalog's bundled skill teaches agents to write, validate, and run Datalog-family rules compiled to SQL over databases and data files.
 - [`Tencent-RTC/agent-skills`](https://github.com/Tencent-RTC/agent-skills) — Tencent RTC (Chat/Call/Live, etc.) integration Agent Skills.
 - [`vmware-skills/VMware-Monitor`](https://github.com/vmware-skills/VMware-Monitor) — Read-only VMware vCenter/ESXi monitoring Skill (forced read-only safety).
+- [`nylas/skills`](https://github.com/nylas/skills) — Integrate Nylas email, calendar, contacts, CLI operations and email templates.
 - [`preset-io/agent-skills`](https://github.com/preset-io/agent-skills) — Preset/Superset official BI Agent Skills (incl. Snowflake Cortex).
 - [`scenario-labs/skills`](https://github.com/scenario-labs/skills) — Scenario official: image/video/audio/texture/3D workflow Agent Skills.
 - [`webull-inc/webull-openapi-skills`](https://github.com/webull-inc/webull-openapi-skills) — Webull OpenAPI Agent Skills。
 - [`2ChatCo/agent-skills`](https://github.com/2ChatCo/agent-skills) — WhatsApp/SMS/phone Agent Skills.
+- [`autonomous-ai/autonomous-circuit`](https://github.com/autonomous-ai/autonomous-circuit) — Design and review circuit boards with role-specific skills, circuitcode and a KiCad harness with verification gates.
 - [`exasol-labs/exasol-agent-skills`](https://github.com/exasol-labs/exasol-agent-skills) — Exasol database Agent Skills.
 - [`mailtrap/mailtrap-skills`](https://github.com/mailtrap/mailtrap-skills) — Mailtrap official email-testing Agent Skills.
 - [`NVIDIA/digital-health-skills`](https://github.com/NVIDIA/digital-health-skills) — NVIDIA Digital Health official clinical ASR four-stage skills: setup/build/eval/finetune.
 - [`tuniucorp/tuniu-cli`](https://github.com/tuniucorp/tuniu-cli) — Search Tuniu flights, hotels, attraction tickets, trains, cruises, and vacation products through one travel CLI.
 - [`columnar-tech/skills`](https://github.com/columnar-tech/skills) — Columnar's four installable skills for ADBC connections, dbc driver management, databow queries, and the DuckDB ADBC extension.
+- [`drnachio/postext`](https://github.com/drnachio/postext) — Port existing books, reports, decks, and scanned publications into measured Postext layout projects.
+- [`uselemma/lemma`](https://github.com/uselemma/lemma) — Instrument applications and diagnose AI traces with Lemma observability workflows.
 - [`coinpaprika/skills`](https://github.com/coinpaprika/skills) — CoinPaprika/DexPaprika crypto-market Agent Skills.
 - [`fastah/ip-geofeed-skills`](https://github.com/fastah/ip-geofeed-skills) — Fastah geofeed authoring/review skill for public RFC 8805 CSV data, with optional place-search MCP integration.
 - [`microsoft/teams-platform-skills`](https://github.com/microsoft/teams-platform-skills) — Teams platform development official Skills.
+- [`scylladb/agent-skills`](https://github.com/scylladb/agent-skills) — Build and operate ScyllaDB data models, cloud, Kubernetes, benchmarks and vector/DynamoDB-compatible integrations.
 - [`archetypeai/agent-skills`](https://github.com/archetypeai/agent-skills) — Official Newton sensor-intelligence skills for anomaly discovery, state monitoring and physical-world applications.
+- [`PatterAI/skills`](https://github.com/PatterAI/skills) — Build Patter voice agents, telephony integrations, tools, handoffs and call diagnostics.
+- [`OpenTranscription/skills`](https://github.com/OpenTranscription/skills) — Transcribe audio with speaker labels, timestamps and subtitle formats through OpenTranscription.
 - [`owid/skills`](https://github.com/owid/skills) — Our World in Data's official skill for finding charts and articles, fetching their data and metadata, embedding charts, and citing original producers.
 - [`carla-simulator/carla-agentic-tools`](https://github.com/carla-simulator/carla-agentic-tools) — Run documented CARLA simulation, sensor, map, scenario, ROS2, and autonomous-driving evaluation procedures through skills and MCP.
+- [`kineticadb/agent-skills`](https://github.com/kineticadb/agent-skills) — Write Kinetica SQL and SDK integrations or execute analytical workflows through its CLI.
 - [`microsoft/code-optimizations-skills`](https://github.com/microsoft/code-optimizations-skills) — Code-optimization official Agent Skills.
 - [`D-Robotics/rdk-skills`](https://github.com/D-Robotics/rdk-skills) — D-Robotics RDK skill hub: board diagnostics, BSP, model deployment, and OE toolchains; separate code/content licenses.
 - [`databricks-industry-solutions/hls-skills`](https://github.com/databricks-industry-solutions/hls-skills) — Databricks health and life-sciences skills for omics, cohorts, privacy and payer/provider measures.
 - [`graphistry/graphistry-skills`](https://github.com/graphistry/graphistry-skills) — Graphistry-maintained nine public Agent Skills for graph ETL, GFQL querying, REST/MCP integration, visualization, and PyGraphistry AI workflows.
 - [`transloadit/skills`](https://github.com/transloadit/skills) — Transloadit official media-processing Agent Skills.
+- [`ElasticEmail/elasticemail-skills`](https://github.com/ElasticEmail/elasticemail-skills) — Integrate Elastic Email API v4 for email delivery, contacts, campaigns, templates and domains.
+- [`loumalouomega/CAD-Preview`](https://github.com/loumalouomega/CAD-Preview) — Use CAD-Preview MCP to model, measure, mesh and export CAD while preserving source files and explicit sidecar state.
+- [`partoska/p6a-skills`](https://github.com/partoska/p6a-skills) — Manage Partoska event photos with curation, moderation, privacy checks, sharing, and recap-asset workflows.
+- [`ai-coustics/skills`](https://github.com/ai-coustics/skills) — Apply local ai-coustics speech enhancement, voice activity detection and audio quality analysis.
+- [`bitmovin/skills`](https://github.com/bitmovin/skills) — Integrate Bitmovin players, encoding and observability workflows with portable Agent Skills.
+- [`GleapSDK/agent-skills`](https://github.com/GleapSDK/agent-skills) — Set up Gleap customer feedback SDKs and migrate customer support workflows from Intercom.
+- [`pingidentity/ping-sdk-agent-skills`](https://github.com/pingidentity/ping-sdk-agent-skills) — Integrate Ping orchestration SDKs and migrate ForgeRock authentication across mobile and web stacks.
 - [`aegro/skills`](https://github.com/aegro/skills) — Agricultural management skills for Aegro CLI workflows across crops, finance, inventory and assets.
+- [`CGIAR-Climate-Data-Hub/skills`](https://github.com/CGIAR-Climate-Data-Hub/skills) — Download climate and soil data, build geospatial cubes, orchestrate crop models and generate climate dashboards and metadata.
 - [`criticalmanufacturing/agent-plugins`](https://github.com/criticalmanufacturing/agent-plugins) — Official CM GPT skill for finding cited answers in Critical Manufacturing MES documentation.
 - [`EarthLegend/skills`](https://github.com/EarthLegend/skills) — Official LGND Geo skills for imagery search, geographic classification and index selection.
 - [`edamam-llc/edamam-skills`](https://github.com/edamam-llc/edamam-skills) — Official barcode-to-nutrition lookup skill using Edamam’s food-data MCP service.
+- [`hardhackerlabs/podwise-plugin`](https://github.com/hardhackerlabs/podwise-plugin) — Search, research, summarize and export podcast knowledge through the Podwise skill and authenticated MCP workflows.
 - [`no-phux/skills`](https://github.com/no-phux/skills) — Agent skills for phux. Install: npx skills add no-phux/skills
 - [`OilpriceAPI/agent-skills`](https://github.com/OilpriceAPI/agent-skills) — Energy-unit conversion guidance for fuels, commodity quantities and comparable price benchmarks.
 - [`splinetool/spline-skills`](https://github.com/splinetool/spline-skills) — Use the Spline MCP editor to build and refine editable 3D scenes, animations, websites, and app screens.
@@ -479,7 +517,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>2. Collections (502)</summary>
+<summary>2. Collections (503)</summary>
 
 - [`Shubhamsaboo/awesome-llm-apps`](https://github.com/Shubhamsaboo/awesome-llm-apps) — 100+ AI agent, skill, and RAG projects; the main agent_skills directory contains seven installable skills, including draft-reader and scope-review workflows.
 - [`nexu-io/open-design`](https://github.com/nexu-io/open-design) — nexu-io/open-design publishes a public Agent Skills collection with 549 SKILL.md entries; the fixed tree and README provide an install or usage path.
@@ -721,6 +759,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`oaustegard/claude-skills`](https://github.com/oaustegard/claude-skills) — Personal Claude Skills collection.
 - [`TerminalSkills/skills`](https://github.com/TerminalSkills/skills) — Open-source AI Agent Skills library (multi-client).
 - [`JayLZhou/Awesome-Agent-Skills`](https://github.com/JayLZhou/Awesome-Agent-Skills) — Curated Agent Skills list.
+- [`scholay/skills`](https://github.com/scholay/skills) — Discover literature, register sources, build traceable evidence corpora and review citations before research writing.
 - [`marmbiz/humanizer-de`](https://github.com/marmbiz/humanizer-de) — German AI-text humanizer Skill (Claude Code/Codex).
 - [`CodeAlive-AI/ai-driven-development`](https://github.com/CodeAlive-AI/ai-driven-development) — AI-driven development practices: cross-tool Agent Skills and security hooks.
 - [`AI-Unified-Process/marketplace`](https://github.com/AI-Unified-Process/marketplace) — AI Unified Process Claude plugin marketplace; /plugin marketplace add ai-unified-process/marketplace.
@@ -987,7 +1026,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>3. Vertical (1207)</summary>
+<summary>3. Vertical (1246)</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — Methodology skills pack: TDD, brainstorming, subagent-driven development, and other composable engineering disciplines.
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — ECC, successor to Everything Claude Code: skills/agents/commands/hooks plugin marketplace. Formerly everything-claude-code.
@@ -1104,6 +1143,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`tradermonty/claude-trading-skills`](https://github.com/tradermonty/claude-trading-skills) — Trading/quant workflow Claude skills pack.
 - [`Jakeschincariol/replica-skill`](https://github.com/Jakeschincariol/replica-skill) — Jakeschincariol/replica-skill publishes a public Agent Skills collection with 11 SKILL.md entries; the fixed tree and README provide an install or usage path.
 - [`aaron-he-zhu/aaron-marketing-skills`](https://github.com/aaron-he-zhu/aaron-marketing-skills) — 120 marketing-skills umbrella repo (narrative/SEO-GEO/social/email/paid/influencer/launch).
+- [`Haojae/scipilot-figure-skill`](https://github.com/Haojae/scipilot-figure-skill) — Profile scientific data, choose appropriate plots, render publication figures and check typography, layout and visual clarity.
 - [`oil-oil/oil-motion`](https://github.com/oil-oil/oil-motion) — oil-oil/oil-motion publishes a public Agent Skills collection with 1 SKILL.md entries; the fixed tree and README provide an install or usage path.
 - [`NarratorAI-Studio/narrator-ai-cli-skill`](https://github.com/NarratorAI-Studio/narrator-ai-cli-skill) — AI Narrator Master: Skill wrapping narrator-ai-cli for Claude/Codex.
 - [`eternityspring/shuohao-skills`](https://github.com/eternityspring/shuohao-skills) — AI short-drama production five-stage skills: outline, characters, art, script, storyboard; symlink to Claude Code and Codex.
@@ -1356,6 +1396,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`AlpacaLabsLLC/skills-for-architects`](https://github.com/AlpacaLabsLLC/skills-for-architects) — Architecture/real-estate/career-strategy Claude Skills.
 - [`giuseppe-trisciuoglio/developer-kit`](https://github.com/giuseppe-trisciuoglio/developer-kit) — Modular Claude Code plugin marketplace: 150+ skills, 45+ agents covering Java/TS/Python/PHP/AWS.
 - [`athola/claude-night-market`](https://github.com/athola/claude-night-market) — Claude night-market Skills marketplace collection.
+- [`berelevant-ai/slopless`](https://github.com/berelevant-ai/slopless) — Use deterministic English Markdown linting to review vague, formulaic prose and iteratively improve writing.
 - [`mizzlelover/gongwen-gbt9704-skill`](https://github.com/mizzlelover/gongwen-gbt9704-skill) — Cross-platform Skill generating editable official-doc DOCX per GB/T 9704-2012.
 - [`joeseesun/qiaomu-cut-skill`](https://github.com/joeseesun/qiaomu-cut-skill) — Qiaomu cut / video-editing Skill.
 - [`cosai-oasis/project-codeguard`](https://github.com/cosai-oasis/project-codeguard) — Secure AI coding Project CodeGuard plugin.
@@ -1418,6 +1459,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`tigerless-labs/seo-ops`](https://github.com/tigerless-labs/seo-ops) — SEO foundational-structure check Agent Skill: 26 deterministic crawler-view pass/fail checks for a URL; zero LLM.
 - [`jakubkrehel/oklch-skill`](https://github.com/jakubkrehel/oklch-skill) — OKLCH color-workflow Agent Skill.
 - [`trustfuture/simon-skills`](https://github.com/trustfuture/simon-skills) — Faceless video-channel skill set: investigative long-form and whiteboard explainers; git clone.
+- [`Haojae/scipilot-writing-skill`](https://github.com/Haojae/scipilot-writing-skill) — Draft, translate and revise academic writing with claim preservation, language linting and traceable revision logs.
 - [`KunoLu/640-skills`](https://github.com/KunoLu/640-skills) — Agent Skills for solopreneurs and teams; directory copy or npx skills add.
 - [`JimLiu/science-skills`](https://github.com/JimLiu/science-skills) — Baoyu Claude Science–style science skills: alphafold/boltz/literature/single-cell/remote compute, etc.
 - [`Kyure-A/agent-skills-nix`](https://github.com/Kyure-A/agent-skills-nix) — Nix-related Agent Skills.
@@ -1461,7 +1503,9 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`georgeguimaraes/elixir-agent-tools`](https://github.com/georgeguimaraes/elixir-agent-tools) — Five concise Elixir/Phoenix/Ecto/OTP/Oban Agent Skills plus optional Mix hooks; npx skills add georgeguimaraes/elixir-agent-tools.
 - [`wilbert-MD-PhD/medical-illustration`](https://github.com/wilbert-MD-PhD/medical-illustration) — Evidence-backed medical illustration workflows for educational comics, research figures and editable delivery.
 - [`Impertio-Studio/Frappe_Claude_Skill_Package`](https://github.com/Impertio-Studio/Frappe_Claude_Skill_Package) — 60 deterministic Claude AI skills for Frappe Framework & ERPNext v14-v…
+- [`dadederk/iOS-Accessibility-Agent-Skill`](https://github.com/dadederk/iOS-Accessibility-Agent-Skill) — Review iOS accessibility with VoiceOver, Dynamic Type, Voice Control, Switch Control, and inclusive testing guidance.
 - [`Colinjqq/content-forecast`](https://github.com/Colinjqq/content-forecast) — Creator-first topic/script-review/shooting-guidance and play-prediction Agent Skill (asks why you’re fit to tell it first).
+- [`suryast/indonesia-gov-apis`](https://github.com/suryast/indonesia-gov-apis) — Route Indonesian public-data questions to reviewed publisher documentation and bounded, authorized API workflows.
 - [`GaZmagik/iso-24495`](https://github.com/GaZmagik/iso-24495) — ISO 24495 plain-language writing and audit skills/plugins.
 - [`leeguooooo/cross-request-master`](https://github.com/leeguooooo/cross-request-master) — YApi browser plugin + YApi Skill.
 - [`calesthio/generative-media-skills`](https://github.com/calesthio/generative-media-skills) — Research-oriented generative image/video/audio production Agent Skills suite.
@@ -1530,6 +1574,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`voidful/academic-skills`](https://github.com/voidful/academic-skills) — Academic research skills (literature, writing, submission, etc.).
 - [`OctagonAI/skills`](https://github.com/OctagonAI/skills) — Octagon financial-analysis skills + Octagon MCP.
 - [`senpi-ai/senpi-skills`](https://github.com/senpi-ai/senpi-skills) — Hyperliquid autonomous-trading Agent Skills + 80+ strategy templates.
+- [`Worigin0314/academic-defensive-writing-auditor`](https://github.com/Worigin0314/academic-defensive-writing-auditor) — Detect and revise defensive academic prose while preserving scientific caveats, uncertainty and evidence boundaries.
 - [`howseen-ai/claude-motion-design`](https://github.com/howseen-ai/claude-motion-design) — Claude Code skill for motion-design videos in pure code (HTML + Playwright + ffmpeg).
 - [`Infrasity-Labs/dev-gtm-claude-skills`](https://github.com/Infrasity-Labs/dev-gtm-claude-skills) — Developer GTM Claude Skills.
 - [`fallow-rs/fallow-skills`](https://github.com/fallow-rs/fallow-skills) — fallow codebase intelligence (dead code/complexity) Agent Skills.
@@ -1588,12 +1633,14 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`meshy-dev/meshy-3d-agent`](https://github.com/meshy-dev/meshy-3d-agent) — Meshy AI 3D generate/print Agent Skills (Cursor/Claude/OpenClaw).
 - [`nathankim0/clean-architecture-skills`](https://github.com/nathankim0/clean-architecture-skills) — Clean Architecture review and design Claude Skills.
 - [`See-Sol-Lab/private-house-code-v2.5`](https://github.com/See-Sol-Lab/private-house-code-v2.5) — Codex global coding-constraint Skill: curb over-engineering and token waste.
+- [`Haojae/scipilot-cite-skill`](https://github.com/Haojae/scipilot-cite-skill) — Find, verify and insert scholarly citations using DOI checks and multiple bibliographic sources with audit logs.
 - [`hyperfx-ai/marketing-skills`](https://github.com/hyperfx-ai/marketing-skills) — Marketing Agent Skills (ads/social/SEO/email, etc.) with Hyper MCP tool bag.
 - [`ilang-ai/autocode`](https://github.com/ilang-ai/autocode) — AutoCode: 48 zero-dep session skills from one sentence to deploy.
 - [`xjli360/sealeap-amazon-ad-skills`](https://github.com/xjli360/sealeap-amazon-ad-skills) — Amazon ads/Listing/AMC vertical Agent Skills.
 - [`shepsci/kaggle-skill`](https://github.com/shepsci/kaggle-skill) — Kaggle competition workflow Agent Skill.
 - [`kingxiaozhe/cm-workflow`](https://github.com/kingxiaozhe/cm-workflow) — Codex-native spec-driven agent workflow with embedded skills for Claude Code/Codex (PRD, review, QA, refactor).
 - [`longsizhuo/openInvest`](https://github.com/longsizhuo/openInvest) — Finance/investment-research Agent Skills.
+- [`PasqualeVittoriosi/swift-accessibility-skill`](https://github.com/PasqualeVittoriosi/swift-accessibility-skill) — Implement and audit accessibility for SwiftUI, UIKit, and AppKit, including App Store accessibility nutrition labels.
 - [`wuwangzhang1216/DirectorSKILL`](https://github.com/wuwangzhang1216/DirectorSKILL) — AI film storyboard/keyframe prompts (ten director styles).
 - [`aurorascharff/nextjs-app-architecture-skill`](https://github.com/aurorascharff/nextjs-app-architecture-skill) — Next.js 16+ App Router build and audit skill.
 - [`JustSteveKing/api-skill`](https://github.com/JustSteveKing/api-skill) — An opinionated agent skill that encodes production-ready patterns for …
@@ -1621,6 +1668,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`akii-technologies-ltd/akii-seo-ai-search-optimizer`](https://github.com/akii-technologies-ltd/akii-seo-ai-search-optimizer) — Free SEO/AEO/GEO Claude plugin: audit and AI visibility.
 - [`Ashutos1997/claude-design-auditor-skill`](https://github.com/Ashutos1997/claude-design-auditor-skill) — Claude Skill that audits UIs against 19 design rules.
 - [`gongnyang/deck-factory`](https://github.com/gongnyang/deck-factory) — One-line intent→dark editorial HTML deck skill.
+- [`jerry3413/prd-to-i18n-skill`](https://github.com/jerry3413/prd-to-i18n-skill) — Turn PRDs, screenshots, PDFs, and spreadsheets into document translations, draft copy, or localization delivery bundles.
 - [`kcchien/model-thinking`](https://github.com/kcchien/model-thinking) — Mental-model thinking Agent Skill (decision/systems/stats and ten domains).
 - [`Zsun79/ConferenceWatch`](https://github.com/Zsun79/ConferenceWatch) — Agent Skill that watches AI conference submission deadlines.
 - [`itsAalaa7/adhd-study-coach`](https://github.com/itsAalaa7/adhd-study-coach) — ADHD-friendly Claude Code study-coach plugin/skills: spaced repetition, small chunks, Feynman reflection.
@@ -1673,10 +1721,12 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`tuanductran/hr-skills`](https://github.com/tuanductran/hr-skills) — AI skills and technical-recruiting knowledge for HR/talent teams; cp -r into ~/.claude/skills.
 - [`znlgis/opengis-skills`](https://github.com/znlgis/opengis-skills) — Open GIS skills collection for AI assistants covering GIS, CAD, C#, AI, IoT, 3D, GDAL, QGIS, PostGIS, GeoServer, FreeCAD, and related tools.
 - [`guinacio/claude-image-gen`](https://github.com/guinacio/claude-image-gen) — Call Gemini/OpenAI image generation via Skills/MCP.
+- [`wzyn20051216/ros-robotics-skill`](https://github.com/wzyn20051216/ros-robotics-skill) — Build, migrate and diagnose ROS 1/2 workspaces, TF, navigation, controls, simulation and micro-ROS integration.
 - [`heleninsights-dot/phd-deepread-workflow`](https://github.com/heleninsights-dot/phd-deepread-workflow) — PhD deep-read literature CLI workflow Skills.
 - [`KieranGao/general-readme-skill`](https://github.com/KieranGao/general-readme-skill) — Skill that generates a professional README for any project.
 - [`DwDestiny/codex-visual-asset-skills`](https://github.com/DwDestiny/codex-visual-asset-skills) — Codex skills for transparent image assets and animation sprite sets
 - [`forsonny/The-Crucible-Writing-System-For-Claude`](https://github.com/forsonny/The-Crucible-Writing-System-For-Claude) — A four-stage epic-fantasy writing plugin for planning, outlining, drafting, and editing with the Crucible narrative framework.
+- [`masuP9/a11y-specialist-skills`](https://github.com/masuP9/a11y-specialist-skills) — Plan, implement, review, and audit web accessibility using WCAG 2.2 and WAI-ARIA APG knowledge.
 - [`sadassimov/geemu-skill`](https://github.com/sadassimov/geemu-skill) — Build Google Earth Engine and geemap workflows with environment checks, research design, dataset semantics, export planning and run records.
 - [`Equilateral-AI/equilateral-agents-open-core`](https://github.com/Equilateral-AI/equilateral-agents-open-core) — Multi-agent orchestration open core (with installable Skills).
 - [`erfnzdeh/arvancloud-agent-skill`](https://github.com/erfnzdeh/arvancloud-agent-skill) — ArvanCloud API Agent Skill (unofficial).
@@ -1691,6 +1741,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`bangtutorial/bang-motion`](https://github.com/bangtutorial/bang-motion) — Browser motion / opener-title Agent Skill (single-page HTML output).
 - [`KeWang0622/kaogong-skill`](https://github.com/KeWang0622/kaogong-skill) — Civil-service exam (xingce/shenlun/interview) AI tutoring Agent Skill.
 - [`miaoqichuan/new-litigation-visualization`](https://github.com/miaoqichuan/new-litigation-visualization) — Litigation visualization and pre-trial materials (timelines/adversarial maps, etc.) Claude skills toolkit.
+- [`MohtashamMurshid/getdesign`](https://github.com/MohtashamMurshid/getdesign) — Extract design tokens and a structured design specification from public websites with an agent.
 - [`msimchowitz/writing-skills`](https://github.com/msimchowitz/writing-skills) — Research-lab writing skills for agents, with separate human guides, LaTeX starter material, and an installer.
 - [`sergebulaev/x-skills`](https://github.com/sergebulaev/x-skills) — X/Twitter-related Agent Skills.
 - [`sunxiayi/make-blender-education-video-skill`](https://github.com/sunxiayi/make-blender-education-video-skill) — Produce fact-checked Blender educational explainers with a claim ledger, reusable resource review, storyboard approval, subtitles and delivery checks.
@@ -1722,6 +1773,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`rhiever/evident-charts`](https://github.com/rhiever/evident-charts) — Teaches agents to make clear honest charts and checks each figure; Claude plugin / npx skills add.
 - [`k7cfo/remove-your-data`](https://github.com/k7cfo/remove-your-data) — Agent-first Skill to delete personal data from data brokers.
 - [`lbiz-partners/hometax-doum`](https://github.com/lbiz-partners/hometax-doum) — Korea HomeTax tax-assistant skills (6): VAT/comprehensive income tax/e-invoices, etc., conversational for small merchants.
+- [`lgwrightlab/schematic-figure`](https://github.com/lgwrightlab/schematic-figure) — Design scientific schematics through a brief, visual specification, vector rendering and evidence-aware figure review.
 - [`mgifford/accessibility-skills`](https://github.com/mgifford/accessibility-skills) — AGPL accessibility skills distilled from canonical best-practice examples for alt text, forms, contrast, keyboard, media, plain language, and testing.
 - [`moonlight-lupin/agent-skills`](https://github.com/moonlight-lupin/agent-skills) — Hermes Agent Skills (research/creative/productivity/DevOps).
 - [`Rtur2003/Claude-Code-Promts-Skills`](https://github.com/Rtur2003/Claude-Code-Promts-Skills) — Production-grade prompts/Skills library for Claude coding agents.
@@ -1755,6 +1807,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`alexgreensh/anidoodle`](https://github.com/alexgreensh/anidoodle) — Deterministic hand-drawn art/animation-as-code Agent Skill (nine styles); clone into ~/.claude/skills/anidoodle.
 - [`anticipate218/math-modeling-skill`](https://github.com/anticipate218/math-modeling-skill) — Math-modeling contest skill for CUMCM/Huawei Cup/MCM-ICM: topic, model, validation and paper self-check; install to .agents/skills.
 - [`haidrrrry/compose-kotlin-agent-skills`](https://github.com/haidrrrry/compose-kotlin-agent-skills) — Jetpack Compose/Kotlin Agent Skills。
+- [`isArman/scientific-fa-translation-skill`](https://github.com/isArman/scientific-fa-translation-skill) — Translate scientific and technical documents into academic Persian with RTL layout, terminology ledgers and print-ready outputs.
 - [`sergebulaev/facebook-skills`](https://github.com/sergebulaev/facebook-skills) — Facebook Pages marketing Agent Skills (8): posts/engagement replies/weekly plans; same family as linkedin-skills.
 - [`adhhamdev/modern-react-guidance`](https://github.com/adhhamdev/modern-react-guidance) — Authoritative React 19+ Agent Skill (Actions, Compiler, View Transitions); npx skills add.
 - [`jefflester/claude-skills-supercharged`](https://github.com/jefflester/claude-skills-supercharged) — A “supercharged” implementation of Claude Code Skills.
@@ -1782,6 +1835,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`EodHistoricalData/eodhd-claude-skills`](https://github.com/EodHistoricalData/eodhd-claude-skills) — EODHD financial-data Claude Skills.
 - [`h9-tec/arabic-ai-atlas`](https://github.com/h9-tec/arabic-ai-atlas) — Choose Arabic AI resources, write dialect-aware prompts, estimate token costs, lint RTL text and check diacritics using an offline atlas.
 - [`sergebulaev/tiktok-skills`](https://github.com/sergebulaev/tiktok-skills) — TikTok marketing Agent Skills (8): 3-second hook scripts/captions/trends and weekly plans (does not generate video).
+- [`cabbage2000-lab/textbook-writer-skills`](https://github.com/cabbage2000-lab/textbook-writer-skills) — Plan and write textbooks with backward design, staged chapter handoffs, graduated exercises and resumable state.
 - [`jinwx/weather-data-skills`](https://github.com/jinwx/weather-data-skills) — Weather-data Agent Skills.
 - [`Natan-Mohart/24-strategy-skills-for-claude`](https://github.com/Natan-Mohart/24-strategy-skills-for-claude) — 24 strategy-analysis Claude Skills.
 - [`shinpr/codex-workflows`](https://github.com/shinpr/codex-workflows) — Codex development workflow Skills/orchestration.
@@ -1798,6 +1852,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`Jakeschincariol/linkedin-agent-skill`](https://github.com/Jakeschincariol/linkedin-agent-skill) — 11 free Claude Skills for operating a LinkedIn account.
 - [`malkreide/socratic-method-skill`](https://github.com/malkreide/socratic-method-skill) — Socratic teaching-method Claude Skill.
 - [`UniM0cha/self-improving-skills`](https://github.com/UniM0cha/self-improving-skills) — Hermes-style self-improving skills (Claude Code plugin).
+- [`weAAAre/a11y-agents-kit`](https://github.com/weAAAre/a11y-agents-kit) — Use accessibility MCP tools with public ARIA-pattern and Figma accessibility-audit skills.
 - [`CBirkbeck/mathlib-quality`](https://github.com/CBirkbeck/mathlib-quality) — Lean 4/mathlib code-quality and golf Claude Code skills plugin.
 - [`ilindaniel/impeccable-lite`](https://github.com/ilindaniel/impeccable-lite) — Lightweight UI-taste constraint Skill (single SKILL.md).
 - [`SupercmoHQ/superCMO-skills`](https://github.com/SupercmoHQ/superCMO-skills) — SuperCMO marketing Agent Skills.
@@ -1811,6 +1866,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`forjd/better-writing`](https://github.com/forjd/better-writing) — Clearer, more concrete human-prose Agent skill.
 - [`franklinxkk/ai-delivery-spec`](https://github.com/franklinxkk/ai-delivery-spec) — Requirements-management Skill: PRD/prototype/traceability/acceptance baselines.
 - [`MoizIbnYousaf/marketing-cli`](https://github.com/MoizIbnYousaf/marketing-cli) — Agent-native marketing CLI: 76 skills + research/review agents.
+- [`rgmez/apple-accessibility-skills`](https://github.com/rgmez/apple-accessibility-skills) — Audit SwiftUI, UIKit, and AppKit interfaces with prioritized findings, patch guidance, and manual verification checklists.
 - [`sergebulaev/youtube-skills`](https://github.com/sergebulaev/youtube-skills) — YouTube/Shorts marketing Agent Skills (9): high-CTR titles/SEO descriptions/retention hooks/thumbnail briefs.
 - [`Zhonghao1995/agentic-swmm-workflow`](https://github.com/Zhonghao1995/agentic-swmm-workflow) — Orchestrate reproducible stormwater modeling with SWMM modules for GIS preparation, rainfall, network construction, calibration, QA and reports.
 - [`averma416/consulting-gauntlet`](https://github.com/averma416/consulting-gauntlet) — Full-stack consulting Claude skills: strategy frameworks and financial modeling.
@@ -1825,6 +1881,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`ptreezh/sscisubagent-skills`](https://github.com/ptreezh/sscisubagent-skills) — Chinese social-science research Subagent and Skills collection.
 - [`dzcmemory-web/bazi-ziwei-skills`](https://github.com/dzcmemory-web/bazi-ziwei-skills) — Bazi + Zi Wei Dou Shu charting and verification Skill (mingpan/iztro): algorithmic charts and ink-wash HTML posters; multi-agent.
 - [`julianrubisch/skills`](https://github.com/julianrubisch/skills) — Opinionated agentic skills for Rails development; npx skills add julianrubisch/skills.
+- [`savvides/idstack`](https://github.com/savvides/idstack) — Design and review courses with evidence-tiered learning objectives, assessments, accessibility, import, and export workflows.
 - [`tcsenpai/specification-website-skill`](https://github.com/tcsenpai/specification-website-skill) — specification.website offline-packaged Agent Skill.
 - [`Echo-aloha/asphalt-codex-skills-5`](https://github.com/Echo-aloha/asphalt-codex-skills-5) — Codex Skills for version-pure PFC2D/PFC3D 5.0 asphalt-mixture modeling…
 - [`eldermoraes/quarkus-agentic-scaffolding`](https://github.com/eldermoraes/quarkus-agentic-scaffolding) — Quarkus + LangChain4j agent scaffolding skills and conventions (CLAUDE.md/AGENTS.md).
@@ -1887,6 +1944,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`andreworia/claude-finance-skills`](https://github.com/andreworia/claude-finance-skills) — 12 Claude skills for investment banking, PE and corporate finance; git clone.
 - [`andreworia/claude-powerpoint-skills`](https://github.com/andreworia/claude-powerpoint-skills) — 12 Claude skills for board-ready PowerPoint decks; git clone.
 - [`autolab-ai/hills`](https://github.com/autolab-ai/hills) — Agentic skill that creates a hill-to-climb for each problem.
+- [`coolbeevip/mujoco-skills`](https://github.com/coolbeevip/mujoco-skills) — Build and validate MuJoCo scenes, inspect actuators and prepare reproducible robot-learning environments.
 - [`edhoferdian/EEF`](https://github.com/edhoferdian/EEF) — 38 native skills for a developer workflow from API design to deployment; npx eef-install.
 - [`eliasstravik/gtm-skills`](https://github.com/eliasstravik/gtm-skills) — Maintain shared GTM workspaces, ideal-customer profiles and personas, qualify prospects, and create reusable local or hosted workflows.
 - [`khadir-syed/k_ai-agent-skills`](https://github.com/khadir-syed/k_ai-agent-skills) — Markdown-only safety-first reusable skills for Codex, Claude Code and Copilot CLI; git clone.
@@ -1943,6 +2001,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`DogukanK/claude-pc-cleanup`](https://github.com/DogukanK/claude-pc-cleanup) — macOS disk-cleanup (tiered confirmation) Claude Skill.
 - [`girish6055/NanoBanana-PPT-Skills`](https://github.com/girish6055/NanoBanana-PPT-Skills) — Generate high-quality PPTs with AI, featuring smart transitions.
 - [`l2461090/Literature-monitor-skills`](https://github.com/l2461090/Literature-monitor-skills) — Research-group literature monitoring and weekly-report Skills.
+- [`Neha/check-fix-accessibility`](https://github.com/Neha/check-fix-accessibility) — Audit and remediate web accessibility across semantics, keyboard navigation, ARIA, forms, contrast, and screen-reader use.
 - [`novoads/agent-skills`](https://github.com/novoads/agent-skills) — Marketing-oriented AI video/image ad Skills.
 - [`OpenGHz/embodied-ai-paper-writer`](https://github.com/OpenGHz/embodied-ai-paper-writer) — Portable embodied-AI venue paper-writing Agent Skill (SKILL.md + reference playbooks).
 - [`seoskillsai/seo-skills-ai`](https://github.com/seoskillsai/seo-skills-ai) — Cross-tool SEO/technical-optimization Agent Skills.
@@ -1972,6 +2031,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`icesixgod/awesome-astra-blender-characters`](https://github.com/icesixgod/awesome-astra-blender-characters) — Blender character create/fix and nine-view validation Agent Skill.
 - [`JunSeo99/claude-skill-codex-imagegen`](https://github.com/JunSeo99/claude-skill-codex-imagegen) — Claude Code Skill that borrows Codex for image generation/editing.
 - [`kanfu-panda/pdlc-skills`](https://github.com/kanfu-panda/pdlc-skills) — 38 slash commands that turn Claude Code into a real PDLC wor…
+- [`kgelster/ecom-a11y-audit`](https://github.com/kgelster/ecom-a11y-audit) — Audit Shopify storefront accessibility and attribute findings to the theme, injected apps, or their interaction.
 - [`kpab/seo-mastery-agent-skills`](https://github.com/kpab/seo-mastery-agent-skills) — SEO Agent Skills based on official search docs (EN/JA).
 - [`mixocreative/ecommerce-cia`](https://github.com/mixocreative/ecommerce-cia) — Taiwan e-commerce payment-integration and integrity-review AI skill (NewebPay/ECPay, etc.) for Claude/Codex/Cursor.
 - [`netresearch/go-development-skill`](https://github.com/netresearch/go-development-skill) — Enterprise Go development-pattern Agent Skill.
@@ -2002,6 +2062,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`romainsimon/skills-for-decision-making`](https://github.com/romainsimon/skills-for-decision-making) — Decision-theory Agent Skills and calculators based on Algorithms for Decision Making.
 - [`seoo-tools/seoo-skills`](https://github.com/seoo-tools/seoo-skills) — 20 SEO Agent Skills installable via npx skills add (MIT).
 - [`SPYfighting/my-academic-skills`](https://github.com/SPYfighting/my-academic-skills) — Academic-research Claude/Codex/OpenCode Skills.
+- [`tomaszboloz/WCAG-Accessibility-Skills`](https://github.com/tomaszboloz/WCAG-Accessibility-Skills) — Collect static WCAG 2.1/2.2 evidence, plan manual review, and propose repairs through a portable command skill.
 - [`warith-harchaoui/sprezzature`](https://github.com/warith-harchaoui/sprezzature) — Frontend design-system Claude/OpenCode skills (UI/UX/a11y).
 - [`0xArchiveIO/0xarchive-skill`](https://github.com/0xArchiveIO/0xarchive-skill) — 0xArchive market-data Skill (Hyperliquid/Lighter).
 - [`afrozahmad07/excalidraw-board`](https://github.com/afrozahmad07/excalidraw-board) — Claude Skill generating editable Excalidraw diagrams from JSON specs.
@@ -2044,11 +2105,13 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`raphysicst-create/science-teacher-skills`](https://github.com/raphysicst-create/science-teacher-skills) — Plan and differentiate Korean school science lessons using national curriculum maps and editable HWPX teaching materials.
 - [`scayver/marketing-skills`](https://github.com/scayver/marketing-skills) — Marketing Skills OS public library covering strategy, content, SEO, campaigns, accessible design, scorecards, and execution workflows.
 - [`thatmike1/claude-skills`](https://github.com/thatmike1/claude-skills) — Reusable contextualized Claude Skills.
+- [`TianHengZhuang/One-click-AI-PPT-creation`](https://github.com/TianHengZhuang/One-click-AI-PPT-creation) — Draft complete business presentations with slide outlines, copy, visual suggestions, and speaker notes.
 - [`Tygb99/claude-code-session-skills`](https://github.com/Tygb99/claude-code-session-skills) — Claude Code session handoff/query/log-restore Skills.
 - [`Amey-Thakur/AI-SKILLS`](https://github.com/Amey-Thakur/AI-SKILLS) — Plug-and-play AI coding-assistant Skills/prompts.
 - [`AndreaBozzo/Ceres-Claude-Skill`](https://github.com/AndreaBozzo/Ceres-Claude-Skill) — Ceres-related Claude Code Skill.
 - [`aws-geospatial/amazon-location-agent-context`](https://github.com/aws-geospatial/amazon-location-agent-context) — Official AWS Amazon Location Service context and Agent Skill package for maps, places, geocoding, routing, geofencing and tracking across Kiro, Claude, Cursor and generic Agent Skills clients.
 - [`Benknightdark/neo-skills`](https://github.com/Benknightdark/neo-skills) — Installable AI Agent skill modules (languages/frameworks/DevOps/governance, etc.).
+- [`biologyskills/biology-skills`](https://github.com/biologyskills/biology-skills) — Preserve biological identity, provenance, statistical meaning and evidence scope across computational biology workflows.
 - [`DotDebian/asd-ste100-skill`](https://github.com/DotDebian/asd-ste100-skill) — Simplified Technical English (STE) for software docs Claude Skill.
 - [`enesgul23/scientific-figure-skills`](https://github.com/enesgul23/scientific-figure-skills) — Evidence-first scientific figure suite for planning, rendering, auditing and packaging publication-grade figures with reproducible exports, visual-claim ledgers and journal checks.
 - [`IcyCreamDAS/shidi-skill`](https://github.com/IcyCreamDAS/shidi-skill) — Shidi-style writing Skill.
@@ -2060,8 +2123,11 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`Demolinator/revit-mcp-plugin`](https://github.com/Demolinator/revit-mcp-plugin) — Revit BIM Claude plugin bundling a BIM skill, MCP server, and slash commands for building-model workflows.
 - [`jammyfu/open-game-skills`](https://github.com/jammyfu/open-game-skills) — Game-development skill cluster with a dispatcher, discipline workflows, asset production, engine/studio constraints, and gameplay acceptance criteria.
 - [`lltx/skills`](https://github.com/lltx/skills) — Installable Agent Skills (npx).
+- [`MTeelokee/rgaa-accessibility-audit`](https://github.com/MTeelokee/rgaa-accessibility-audit) — Review 13 RGAA v4.1.2 accessibility themes with installable skills for code and rendered-page audits.
+- [`nevinchanyi/claude-code-xcstrings-localizer`](https://github.com/nevinchanyi/claude-code-xcstrings-localizer) — Localize Apple string catalogs with domain glossaries, code-context comments, CLDR plural rules, and translation review.
 - [`Nolpak14/getregdata`](https://github.com/Nolpak14/getregdata) — Business-registry research skills for company verification, due diligence, public filings, and cross-border research; some workflows rely on external paid actors.
 - [`rhiza-research/weather-skills`](https://github.com/rhiza-research/weather-skills) — Experimental weather/climate pipeline skills for fetching, transforming, and plotting provenance-bearing Zarr datasets; renamed from forecasting-skills.
+- [`UXLana/design-skills-pack`](https://github.com/UXLana/design-skills-pack) — Support product-design framing, design tokens, prototyping, responsive and accessibility review, handoff, and visual QA.
 - [`Aarvion-AI/stackwise-skills`](https://github.com/Aarvion-AI/stackwise-skills) — Stackwise tech-stack Agent Skills.
 - [`AkaLiu/zotero-skill`](https://github.com/AkaLiu/zotero-skill) — Bilingual local Zotero literature skill for paper/note retrieval, PDF reading, and context-grounded research assistance.
 - [`Cristhianzl/claude-skills-czl`](https://github.com/Cristhianzl/claude-skills-czl) — Practical Claude Code config and Skills baseline.
@@ -2077,12 +2143,15 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`popjam-io/skills`](https://github.com/popjam-io/skills) — Ad creative workflows, brand and writing-style extraction, landing-page design, platform safe-zone checks, and Remotion rendering guidance.
 - [`shikaijieskj/science-skills`](https://github.com/shikaijieskj/science-skills) — Use Science-family publication workflows for manuscripts, prose, figures, citation verification, data availability, reviews and editor letters.
 - [`silico-quantum/quantum-chem-skills`](https://github.com/silico-quantum/quantum-chem-skills) — Quantum-chemistry skills for Gaussian, PySCF, Multiwfn, MOMAP, RDKit, molecular sampling and visualization.
+- [`stjudecab/CAB-aiSkills`](https://github.com/stjudecab/CAB-aiSkills) — Analyze omics regions and gene sets, create reproducible plots and compose provenance-backed bioinformatics reports.
 - [`test1card/femis-skill`](https://github.com/test1card/femis-skill) — FEM/CAE governance skill for mesh independence, verification/validation, solver selection, and engineering evidence; pair with a solver executor.
+- [`TgStudio-PM/PM-product-workflow`](https://github.com/TgStudio-PM/PM-product-workflow) — Maintain enterprise and government product prototypes with project memory, cross-session handover, and deliverable packaging.
 - [`truman-t3/industrial-design-portfolio-skill`](https://github.com/truman-t3/industrial-design-portfolio-skill) — Industrial-design portfolio skill turning product evidence and design decisions into a reviewable HTML portfolio.
 - [`yale-som-hpc/claude-code-marketplace`](https://github.com/yale-som-hpc/claude-code-marketplace) — Yale SOM research-computing marketplace with cluster-specific HPC, Python/R/Stata, Slurm, storage, GPU, and reproducibility skills.
 - [`Aident-AI/aident-skill`](https://github.com/Aident-AI/aident-skill) — Aident Loadout: Agent Skill connecting to 1000+ apps.
 - [`BrunoMiguens/translating-products-skill`](https://github.com/BrunoMiguens/translating-products-skill) — Portable product translation suite with an orchestrator, locale specialists, software/mobile/web localization, and translation QA.
 - [`DedInc/chef-agentic-skills`](https://github.com/DedInc/chef-agentic-skills) — Culinary skills for cooking techniques, food science, cuisines, planning and dietary constraints.
+- [`SavrinaYu/target-market-localizer`](https://github.com/SavrinaYu/target-market-localizer) — Adapt Chinese and English content for target markets with localization, transcreation, terminology, and claims review.
 - [`swtbkim/openfoam-claude-suite`](https://github.com/swtbkim/openfoam-claude-suite) — OpenFOAM v2412 Claude plugin with setup, simulation, diagnostics, and postprocessing skills; solver execution requires its own environment.
 - [`BrightCubes/power-grid-model-ai`](https://github.com/BrightCubes/power-grid-model-ai) — Power Grid Model ecosystem skills for data ingestion, validation, grid studies, result explanation, and issue analysis.
 - [`carbonstop/skills`](https://github.com/carbonstop/skills) — MIT carbon-accounting skill for CCDB emission-factor lookup, product carbon footprints, enterprise inventories, and LCA workflows with compliance boundaries.
@@ -2091,6 +2160,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`wuyaojunkylin/research-digital-curation-skills`](https://github.com/wuyaojunkylin/research-digital-curation-skills) — Research-based digital curation and online museum skills: topic framing, narrative, visual language, prototypes, and project logs.
 - [`zstary/DDC_Skills_for_AI_Agents_in_Construction`](https://github.com/zstary/DDC_Skills_for_AI_Agents_in_Construction) — Construction automation collection for BIM, IFC, CAD, clash detection, quantity takeoff, and delivery; reviewed skill files substantially overlap the indexed DDC collection.
 - [`1507078/openwrt-one-skills`](https://github.com/1507078/openwrt-one-skills) — Set up and operate an OpenWrt One router with an AI coding agent. For developers who don't know networking. Works with Claude Code, Codex, and any Agent Skills host.
+- [`adamgrgs/i18n-agent`](https://github.com/adamgrgs/i18n-agent) — Audit and verify multilingual websites with locale routing, hreflang, translation quality, sitemaps, and SEO checks.
 - [`AI-Marketing-OS-LTD/cmo-so-skills`](https://github.com/AI-Marketing-OS-LTD/cmo-so-skills) — Run marketing research, content, analytics and publishing workflows through CMO.so and standalone methods.
 - [`AliakseiT/heor-skills`](https://github.com/AliakseiT/heor-skills) — Health-economics and reimbursement workflows for evidence review, economic modeling and market-access dossiers.
 - [`Alim430/bioresearch-agent`](https://github.com/Alim430/bioresearch-agent) — Reproducible biomedical research skills for biomarker discovery, causal inference, differential expression, GWAS, MR, and standardized analysis outputs.
@@ -2102,9 +2172,11 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`dtunai/agent-skills-for-compute`](https://github.com/dtunai/agent-skills-for-compute) — Compute skills for GPU/TPU/QPU programming, scientific simulation, Slurm/MPI, quantum tooling, and model training/inference workflows.
 - [`Eternity-487/Teach3D`](https://github.com/Eternity-487/Teach3D) — Turn objects, structures and processes into interactive browser-based 3D lessons with evidence-linked explanations, guided actions and classroom questions.
 - [`F2had/native-arabic`](https://github.com/F2had/native-arabic) — Natural Modern Standard Arabic writing and review for interfaces, messages, documentation, accessibility text, and plural forms.
+- [`fangning-ren/terachem-skill`](https://github.com/fangning-ren/terachem-skill) — Prepare and analyze TeraChem GPU quantum-chemistry calculations with input generators, output parsers and SLURM guidance.
 - [`findscripter/everything-skills`](https://github.com/findscripter/everything-skills) — This project: Chinese-first book-like skills encyclopedia; 1108 skills, 11-volume plugin marketplace.
 - [`Gonzih/skills-nonprofit`](https://github.com/Gonzih/skills-nonprofit) — MIT nonprofit skills for donor reporting, grant proposals, impact stories, and volunteer briefs with an npm/npx installer.
 - [`humbleteam/accessibility-audit`](https://github.com/humbleteam/accessibility-audit) — Review screenshots, URLs, or UI markup for accessibility findings with severity levels and WCAG criterion references.
+- [`HyperfocuSam/deepseek-tc-localizer`](https://github.com/HyperfocuSam/deepseek-tc-localizer) — Review and localize Hong Kong Traditional Chinese wording while preserving source meaning, markup, and placeholders.
 - [`Kohulan/orthonym-skills`](https://github.com/Kohulan/orthonym-skills) — Measurement-led chemistry development workflows for bounded goals, evaluation loops, targeting and review.
 - [`manifoldmcp/marketing-skills`](https://github.com/manifoldmcp/marketing-skills) — Marketing research and reporting skills across search, social, ads, stores, competitors, and customers, with optional live Manifold data.
 - [`manojsurapaneni/manufacturing-ops-skills`](https://github.com/manojsurapaneni/manufacturing-ops-skills) — Manufacturing operations skill for Toyota-style A3 problem reports, root-cause investigation, and continuous-improvement drafts.
@@ -2114,6 +2186,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`sunzhaokai95/curation-research-skill`](https://github.com/sunzhaokai95/curation-research-skill) — Research exhibition and museum topics into evidence-calibrated XMind knowledge maps with optional Word reports.
 - [`Tasdax123/claude-fidelity-translator`](https://github.com/Tasdax123/claude-fidelity-translator) — Long-form fidelity translation plugin with terminology seeds, chapter handling, and documented language-pair extension.
 - [`theonlym7md/arabic-ai-skills`](https://github.com/theonlym7md/arabic-ai-skills) — Arabic product microcopy, localization review, screen-level UX wording, and right-to-left and bidirectional-content guidance.
+- [`ubcd-ibfg/pymol-skill`](https://github.com/ubcd-ibfg/pymol-skill) — Generate PyMOL scripts and molecular figures or control a live session through a separately configured MCP server.
 - [`alessandrobonomi00/cad-mechanical-designer-skill`](https://github.com/alessandrobonomi00/cad-mechanical-designer-skill) — CAD design guidance for robust parametric parts, assemblies, drawings and manufacturability checks.
 - [`asasemahmed/arabkit`](https://github.com/asasemahmed/arabkit) — Shared Arabic copy, RTL, search and interface skills, plus an Egyptian Arabic product-copy workflow.
 - [`ASOScan/aso-skills`](https://github.com/ASOScan/aso-skills) — ASO (app-store optimization) Agent Skills.
@@ -2130,11 +2203,14 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`ikhattab/l10n-skill`](https://github.com/ikhattab/l10n-skill) — Locale-aware formatting and validation of currencies, dates, numbers, measurement units, addresses, and phone numbers.
 - [`J-D11/manufacturing-ai`](https://github.com/J-D11/manufacturing-ai) — Fabrication workflow guidance from model preparation and slicing through physical inspection and small-batch production.
 - [`Jason-0409-G/vivarium`](https://github.com/Jason-0409-G/vivarium) — Recoverable comparative-genomics workflows for preparation, search, relatedness, phylogeny and reporting.
+- [`johannesvedder/flutter-localization-kit`](https://github.com/johannesvedder/flutter-localization-kit) — Inspect, search, update, validate, and regenerate Flutter ARB localizations through a compact CLI skill.
+- [`leeeee963/glossa-skills`](https://github.com/leeeee963/glossa-skills) — Translate document folders with format preservation and produce offline HTML packs for human translation review.
 - [`LittleDrunkWang/computational-chemistry-dft`](https://github.com/LittleDrunkWang/computational-chemistry-dft) — Auditable small-molecule thermodynamics and kinetics workflows for ORCA, Gaussian, Psi4, xTB and CREST.
 - [`Nagi-Inaba/information-accessibility-skill`](https://github.com/Nagi-Inaba/information-accessibility-skill) — Information-accessibility reviews and evidence records for websites, documents, media, meetings, events, and participation workflows.
 - [`salikkhann/openmedskills`](https://github.com/salikkhann/openmedskills) — Governed medical-research and education registry with risk metadata, references, examples, eval cases, and cross-agent exports.
 - [`scaliaven/chemist`](https://github.com/scaliaven/chemist) — Two computational-chemistry skills for ASE-based simulations and Amber molecular-dynamics workflows.
 - [`SeagullTwo/uk-planning-skills`](https://github.com/SeagullTwo/uk-planning-skills) — UK planning-document skills for application triage, ecology, transport, heritage, flooding, policy assessment, reports, and committee preparation.
+- [`sulipapa/localize-infographic-pdf`](https://github.com/sulipapa/localize-infographic-pdf) — Localize design-exported infographic PDFs by replacing text while preserving artwork, layout, charts, and logos.
 - [`TheDop/analytical-figures-skill`](https://github.com/TheDop/analytical-figures-skill) — Publication figures and checked analyses for spectroscopy, calibration, chemometrics and crystal structures.
 - [`topmindspace/topmind-presentation`](https://github.com/topmindspace/topmind-presentation) — Produce paged HTML presentations and editable PowerPoint decks from source materials, including report layouts and architecture diagrams.
 - [`xxwzkdwz/artifact-3026-skill`](https://github.com/xxwzkdwz/artifact-3026-skill) — Reimagine everyday objects as explicitly fictional future museum exhibits with labels, accession numbers, and share cards.
@@ -2172,6 +2248,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`Lancifonins/chem-skills`](https://github.com/Lancifonins/chem-skills) — Compound lookup and native ChemDraw creation skills, with an optional combined chemistry suite.
 - [`linlhf/robot-data-viewer`](https://github.com/linlhf/robot-data-viewer) — Inspect robot datasets and export camera videos or calibrated skeleton overlays with read-only source handling.
 - [`liujycode/embedded-toolkit`](https://github.com/liujycode/embedded-toolkit) — Offline embedded skills for register facts, firmware verification, fault trees and peripheral pitfalls.
+- [`mmrgr/paper-map-figure`](https://github.com/mmrgr/paper-map-figure) — Typeset and review publication maps from existing GIS or remote-sensing results while preserving geographic facts.
 - [`mprokopov/teaching-skills`](https://github.com/mprokopov/teaching-skills) — Course-design skills that map prerequisite skill graphs and build readiness diagnostics from a syllabus.
 - [`MrGoulart3/MGE-Skills`](https://github.com/MrGoulart3/MGE-Skills) — Create narrated molecular and materials videos using real simulation trajectories and Blender.
 - [`mvdypsis/i-have-dyslexia`](https://github.com/mvdypsis/i-have-dyslexia) — Adapt assistant communication, writing support, visual explanations, and planning to user-selected reading and working preferences.
@@ -2179,6 +2256,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`Oweik/pcb-art-easyeda`](https://github.com/Oweik/pcb-art-easyeda) — EasyEDA PCB-art workflow for copper, solder-mask and silkscreen layers with Gerber draft validation.
 - [`pugofka/growth-ideas-skill`](https://github.com/pugofka/growth-ideas-skill) — Research a company or product and develop sourced growth hypotheses with cheap experiments, scoring, and stopping criteria.
 - [`QWarranto/leafengines-hermes-skill`](https://github.com/QWarranto/leafengines-hermes-skill) — US agricultural intelligence for soils, water quality, crop recommendations and environmental indicators.
+- [`rhiza-research/chc-skills`](https://github.com/rhiza-research/chc-skills) — Fetch and analyze CHC forecasts, IOD/ENSO, MJO and equatorial waves, with Kenya/Africa plots and region routing.
 - [`robertriedel/POD2_Config_Skill`](https://github.com/robertriedel/POD2_Config_Skill) — Generate and validate SAP Digital Manufacturing POD 2.0 configurations using standard plugins and actions.
 - [`scottconverse/civic-scanner`](https://github.com/scottconverse/civic-scanner) — Portable civic-newsroom skill for local reporting, claim verification, and source-linked editorial drafts, with a cross-agent installer.
 - [`ShreyaJ-27/omni-grid-civic-issue-triage`](https://github.com/ShreyaJ-27/omni-grid-civic-issue-triage) — Triage civic complaint data with geographic clustering, media metadata, closure-evidence checks, and structured reports.
@@ -2200,7 +2278,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>4. Infra (226)</summary>
+<summary>4. Infra (229)</summary>
 
 - [`morluto/rea`](https://github.com/morluto/rea) — morluto/rea publishes a public Agent Skills collection with 4 SKILL.md entries; the fixed tree and README provide an install or usage path.
 - [`paperclipai/paperclip`](https://github.com/paperclipai/paperclip) — paperclipai/paperclip publishes a public Agent Skills collection with 79 SKILL.md entries; the fixed tree and README provide an install or usage path.
@@ -2381,6 +2459,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`krishyaid-coder/doodle`](https://github.com/krishyaid-coder/doodle) — Claude SKILL.md linter: catches vague descriptions, oversized bodies, and trigger failures so skills actually fire.
 - [`lcy362/flint`](https://github.com/lcy362/flint) — Local-first personal skills hub (tag/dedupe/symlink deploy to agents); npm i -g flint-skills-hub or npx flint-skills-hub.
 - [`moonrunnerkc/tracemantle`](https://github.com/moonrunnerkc/tracemantle) — SKILL.md validation and agent-skill bundle change/evidence gates.
+- [`pratikxpanda/agentskills-sdk`](https://github.com/pratikxpanda/agentskills-sdk) — Discover, validate, retrieve and serve Agent Skills through Python providers and MCP adapters.
 - [`linny006/skills-tracker`](https://github.com/linny006/skills-tracker) — Live radar tracking new GitHub skills repos.
 - [`dltsum/doc2skill`](https://github.com/dltsum/doc2skill) — Tool that auto-turns ops manuals/docs into high-quality Agent Skills (SKILL.md + references).
 - [`gtrabanco/agentic-workflow`](https://github.com/gtrabanco/agentic-workflow) — Stack-agnostic agentic programming workflow Skills + docs scaffolding.
@@ -2416,6 +2495,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`ianustec/openwebui-skill-creator`](https://github.com/ianustec/openwebui-skill-creator) — Open WebUI Tool: interview→draft→validate→persist Workspace Skill (SKILL.md); private by default.
 - [`Jignesh-Ponamwar/skills-mcp`](https://github.com/Jignesh-Ponamwar/skills-mcp) — Serve a self-hosted searchable Agent Skills registry with progressive disclosure over MCP.
 - [`jo-inc/safe-skill-search`](https://github.com/jo-inc/safe-skill-search) — Search local Agent Skill registries with BM25 indexing, quality scores and source filtering.
+- [`olaservo/skilljack-evals`](https://github.com/olaservo/skilljack-evals) — Evaluate skill activation and task outcomes with paired no-skill baselines and deterministic checks.
 - [`scalefocus/skilly`](https://github.com/scalefocus/skilly) — Apache-licensed self-hosted governed registry for versioned, reviewed organizational SKILL.md assets.
 - [`CyrilLeMat/temper-skills`](https://github.com/CyrilLeMat/temper-skills) — Temper: Skill decision-logic adversarial testing/freeze tool; `/temper` in Claude Code; skills under `.claude/skills`.
 - [`evgeniiPerov/quay`](https://github.com/evgeniiPerov/quay) — Git-native registry and MCP server for sharing, installing, updating and auditing SKILL.md files across agent roots.
@@ -2426,6 +2506,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`rhiza-research/weather-skills-core`](https://github.com/rhiza-research/weather-skills-core) — Developer infrastructure for composable weather skills, shared Zarr contracts, provenance, linting, and a skill-authoring guide.
 - [`skillmds/skillmd`](https://github.com/skillmds/skillmd) — MIT-licensed SKILL.md registry toolchain: CLI, MCP server, linter, security scanner, quality scoring, and GitHub Action.
 - [`SkillsCatalog/registry`](https://github.com/SkillsCatalog/registry) — Community Agent Skills registry with creation, installation, search, validation, publishing and safety-scanning workflows.
+- [`puniserv/skillcask`](https://github.com/puniserv/skillcask) — Lock and verify portable Agent Skill packages with Composer/GitHub sources and per-client install targets.
 - [`skill-one/agents-skills`](https://github.com/skill-one/agents-skills) — MIT OR Apache-2.0 Rust library and CLI for installing and managing SKILL.md across 70+ coding agents.
 - [`srini047/skills-i8n`](https://github.com/srini047/skills-i8n) — Skill localization CLI preserving code blocks and companion files; three example skills are fixtures, not a production skill pack.
 

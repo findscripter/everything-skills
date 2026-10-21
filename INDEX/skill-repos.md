@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-20（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part85
+- 编制日期：2026-10-21（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part86
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2459 个独立仓库（另注明更名别名）
+- 收录条数：2540 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part86 审核记录](../data/skill-repos.part86.audit.md)、[2026-10-21 当日回执](../data/discovery/2026-10-21/publication.json)、[part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -401,6 +401,44 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [edamam-llc/edamam-skills](https://github.com/edamam-llc/edamam-skills) | 0 | Official barcode-to-nutrition lookup skill using Edamam’s food-data MCP service. | Apache-2.0 | 1 | indexed-only |
 | [OilpriceAPI/agent-skills](https://github.com/OilpriceAPI/agent-skills) | 0 | Energy-unit conversion guidance for fuels, commodity quantities and comparable price benchmarks. | CC-BY-4.0 | 1 | indexed-only |
 | [underautomation/skills](https://github.com/underautomation/skills) | 0 | Official robot-SDK skills for ABB, Fanuc, Stäubli, Universal Robots and Yaskawa in C# and Python. | MIT (skill/plugin packages); external UnderAutomation SDKs are commercial | 10 | indexed-only |
+| [getpaseo/paseo](https://github.com/getpaseo/paseo) | 21,587 | Coordinate coding agents with Paseo handoffs, advisors, committees and CLI workflows. | Apache-2.0（排除第三方组件） | 6 | indexed-only |
+| [NVIDIA/OpenShell](https://github.com/NVIDIA/OpenShell) | 16,900 | Operate OpenShell CLI, sandbox policies, inference routing and cluster troubleshooting. | Apache-2.0 | 4 | indexed-only |
+| [open-pencil/open-pencil](https://github.com/open-pencil/open-pencil) | 9,161 | Inspect and edit Figma .fig files, export assets and analyze design tokens with OpenPencil. | MIT（skill；Cloud server Apache-2.0） | 1 | indexed-only |
+| [qawolf/cli](https://github.com/qawolf/cli) | 3,455 | Operate QA Wolf coverage, bug reports, runs, environments and browser workflows through its CLI. | Apache-2.0 | 1 | indexed-only |
+| [TanStack/ai](https://github.com/TanStack/ai) | 3,209 | Select TanStack AI packages and migrate applications using its user-level integration skills. | MIT | 2 | indexed-only |
+| [rhesis-ai/rhesis](https://github.com/rhesis-ai/rhesis) | 398 | Design AI test suites, run evaluations and inspect feedback through Rhesis MCP workflows. | MIT（skill；ee和品牌资产除外） | 1 | indexed-only |
+| [vercel/sandbox](https://github.com/vercel/sandbox) | 212 | Use the Vercel Sandbox SDK for isolated Linux MicroVM execution and development environments. | Apache-2.0 | 1 | indexed-only |
+| [tensorlakeai/tensorlake-skills](https://github.com/tensorlakeai/tensorlake-skills) | 172 | Guide Tensorlake sandbox, storage and orchestration integrations using live SDK documentation. | MIT | 1 | indexed-only |
+| [topk-io/topk](https://github.com/topk-io/topk) | 96 | Design schemas and implement semantic, keyword, hybrid and tenant-aware search with TopK SDKs. | MIT | 1 | indexed-only |
+| [royerlab/luxar](https://github.com/royerlab/luxar) | 75 | Load microscopy volumes, fit Gaussian splats, run HPC batches, visualize and export reproducible Luxar scenes. | BSD-3-Clause (skills/source); viewer and demo data retain their own licenses | 7 | indexed-only |
+| [PostPeer-API/skills](https://github.com/PostPeer-API/skills) | 63 | Publish and schedule posts, connect accounts, inspect social analytics, and configure PostPeer notifications. | MIT | 5 | indexed-only |
+| [rejot-dev/fragno](https://github.com/rejot-dev/fragno) | 63 | Integrate and author Fragno backend fragments with product-specific agent guidance. | MIT | 2 | indexed-only |
+| [anycap-ai/anycap](https://github.com/anycap-ai/anycap) | 45 | Use the AnyCap runtime for media, web research, content workflows and human-assisted tasks. | MIT | 9 | indexed-only |
+| [GregorLueg/bixverse](https://github.com/GregorLueg/bixverse) | 37 | Use bixverse R APIs for single-cell analysis, enrichment, bulk differential expression, networks and ontology similarity. | MIT | 1 | indexed-only |
+| [Seeed-Studio/ai-skills](https://github.com/Seeed-Studio/ai-skills) | 25 | Extract evidence-backed electronics datasheets and analyze KiCad/OrCAD schematics with explicit tool prerequisites. | MIT (first-party skill packages); attributed upstream skills retain MIT notices | 2 | indexed-only |
+| [uiverify/uiverify](https://github.com/uiverify/uiverify) | 23 | Set up visual testing, author deterministic captures, triage UI changes and coordinate review workflows. | MIT | 17 | indexed-only |
+| [zvec-ai/zvec-agent-skills](https://github.com/zvec-ai/zvec-agent-skills) | 21 | Build Zvec vector search and RAG applications in Python and Node.js. | Apache-2.0 | 1 | indexed-only |
+| [fastfold-ai/sandwalk](https://github.com/fastfold-ai/sandwalk) | 20 | Use a scientific agent workspace with knowledge graphs, public skill discovery, scheduled workflows and remote compute. | Apache-2.0 (product/first-party runtime skills); vendored integrations retain their licenses | 8 | indexed-only |
+| [SocialGouv/iterion](https://github.com/SocialGouv/iterion) | 17 | Author Iterion agent workflows and use a portable adversarial review loop with bounded validation and convergence gates. | MIT (own code/skills); vendored components retain separate licenses | 2 | indexed-only |
+| [conalyz/conalyz_cli](https://github.com/conalyz/conalyz_cli) | 14 | Guide Flutter and Dart accessibility analysis with the Conalyz CLI and review its WCAG-oriented reports. | MIT | 1 | indexed-only |
+| [event-catalog/skills](https://github.com/event-catalog/skills) | 13 | Document architecture, C4 models, code, flows and architecture fitness rules in EventCatalog. | MIT | 6 | indexed-only |
+| [nylas/skills](https://github.com/nylas/skills) | 11 | Integrate Nylas email, calendar, contacts, CLI operations and email templates. | MIT | 3 | indexed-only |
+| [autonomous-ai/autonomous-circuit](https://github.com/autonomous-ai/autonomous-circuit) | 10 | Design and review circuit boards with role-specific skills, circuitcode and a KiCad harness with verification gates. | MIT | 7 | indexed-only |
+| [drnachio/postext](https://github.com/drnachio/postext) | 8 | Port existing books, reports, decks, and scanned publications into measured Postext layout projects. | MIT | 1 | indexed-only |
+| [uselemma/lemma](https://github.com/uselemma/lemma) | 8 | Instrument applications and diagnose AI traces with Lemma observability workflows. | MIT | 2 | indexed-only |
+| [scylladb/agent-skills](https://github.com/scylladb/agent-skills) | 7 | Build and operate ScyllaDB data models, cloud, Kubernetes, benchmarks and vector/DynamoDB-compatible integrations. | Apache-2.0 | 8 | indexed-only |
+| [PatterAI/skills](https://github.com/PatterAI/skills) | 6 | Build Patter voice agents, telephony integrations, tools, handoffs and call diagnostics. | MIT | 6 | indexed-only |
+| [OpenTranscription/skills](https://github.com/OpenTranscription/skills) | 5 | Transcribe audio with speaker labels, timestamps and subtitle formats through OpenTranscription. | MIT | 1 | indexed-only |
+| [kineticadb/agent-skills](https://github.com/kineticadb/agent-skills) | 4 | Write Kinetica SQL and SDK integrations or execute analytical workflows through its CLI. | Apache-2.0 | 2 | indexed-only |
+| [ElasticEmail/elasticemail-skills](https://github.com/ElasticEmail/elasticemail-skills) | 2 | Integrate Elastic Email API v4 for email delivery, contacts, campaigns, templates and domains. | MIT | 1 | indexed-only |
+| [loumalouomega/CAD-Preview](https://github.com/loumalouomega/CAD-Preview) | 2 | Use CAD-Preview MCP to model, measure, mesh and export CAD while preserving source files and explicit sidecar state. | GPL-3.0-or-later (own source/skill); bundled dependencies retain separate licenses | 1 | indexed-only |
+| [partoska/p6a-skills](https://github.com/partoska/p6a-skills) | 2 | Manage Partoska event photos with curation, moderation, privacy checks, sharing, and recap-asset workflows. | MIT | 1 | indexed-only |
+| [ai-coustics/skills](https://github.com/ai-coustics/skills) | 1 | Apply local ai-coustics speech enhancement, voice activity detection and audio quality analysis. | MIT | 3 | indexed-only |
+| [bitmovin/skills](https://github.com/bitmovin/skills) | 1 | Integrate Bitmovin players, encoding and observability workflows with portable Agent Skills. | MIT | 9 | indexed-only |
+| [GleapSDK/agent-skills](https://github.com/GleapSDK/agent-skills) | 1 | Set up Gleap customer feedback SDKs and migrate customer support workflows from Intercom. | MIT | 3 | indexed-only |
+| [pingidentity/ping-sdk-agent-skills](https://github.com/pingidentity/ping-sdk-agent-skills) | 1 | Integrate Ping orchestration SDKs and migrate ForgeRock authentication across mobile and web stacks. | MIT | 8 | indexed-only |
+| [CGIAR-Climate-Data-Hub/skills](https://github.com/CGIAR-Climate-Data-Hub/skills) | 0 | Download climate and soil data, build geospatial cubes, orchestrate crop models and generate climate dashboards and metadata. | MIT (skill code); downloaded climate/soil data retain publisher terms | 9 | indexed-only |
+| [hardhackerlabs/podwise-plugin](https://github.com/hardhackerlabs/podwise-plugin) | 0 | Search, research, summarize and export podcast knowledge through the Podwise skill and authenticated MCP workflows. | MIT (plugin); hosted service and podcast content retain separate terms | 1 | indexed-only |
 
 ## 2. Collections
 
@@ -908,6 +946,7 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [Taimoorkhan1122/boring-react](https://github.com/Taimoorkhan1122/boring-react) | 1 | Evidence-tested React engineering skills enforcing maintainable components, production patterns, quality and motion discipline. | MIT | 4 | indexed-only |
 | [weareoxd/design-skill-generator](https://github.com/weareoxd/design-skill-generator) | 1 | Generate design-system SKILL.md context from screenshots or Figma URLs, alongside feature/refinement skills used by the project. | MIT | 3 | indexed-only |
 | [alfaris/Design-AI-Skills](https://github.com/alfaris/Design-AI-Skills) | 1 | Bilingual English/Arabic design critique and persuasive-thinking skills for design review, presentation and defense. | CC-BY-4.0 | 2 | indexed-only |
+| [scholay/skills](https://github.com/scholay/skills) | 141 | Discover literature, register sources, build traceable evidence corpora and review citations before research writing. | MIT | 5 | indexed-only |
 
 ## 3. Vertical
 
@@ -2120,6 +2159,45 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [TunaSaiko/localize](https://github.com/TunaSaiko/localize) | 0 | Chinese, Japanese and English translation review, translation drafting, and authorized market adaptation with terminology and factual checks. | MIT | 1 | indexed-only |
 | [Walpolen/humanities-book-translation](https://github.com/Walpolen/humanities-book-translation) | 0 | Translate and revise humanities books chapter by chapter with terminology decisions, source alignment, and versioned review packets. | MIT | 1 | indexed-only |
 | [Zhimanaiyou/museum-archaeology-notebook](https://github.com/Zhimanaiyou/museum-archaeology-notebook) | 0 | Turn museum-object photos into archaeological notebook artwork while retaining source shapes, inscriptions, and visual details. | MIT (skill/code); example images excluded | 1 | indexed-only |
+| [Haojae/scipilot-figure-skill](https://github.com/Haojae/scipilot-figure-skill) | 2,689 | Profile scientific data, choose appropriate plots, render publication figures and check typography, layout and visual clarity. | MIT | 1 | indexed-only |
+| [berelevant-ai/slopless](https://github.com/berelevant-ai/slopless) | 335 | Use deterministic English Markdown linting to review vague, formulaic prose and iteratively improve writing. | MIT (code/skill); bundled WordNet: CC-BY-4.0 and Princeton WordNet terms | 1 | indexed-only |
+| [Haojae/scipilot-writing-skill](https://github.com/Haojae/scipilot-writing-skill) | 231 | Draft, translate and revise academic writing with claim preservation, language linting and traceable revision logs. | MIT | 1 | indexed-only |
+| [dadederk/iOS-Accessibility-Agent-Skill](https://github.com/dadederk/iOS-Accessibility-Agent-Skill) | 175 | Review iOS accessibility with VoiceOver, Dynamic Type, Voice Control, Switch Control, and inclusive testing guidance. | MIT | 1 | indexed-only |
+| [suryast/indonesia-gov-apis](https://github.com/suryast/indonesia-gov-apis) | 173 | Route Indonesian public-data questions to reviewed publisher documentation and bounded, authorized API workflows. | MIT (repository content); external datasets and services retain source terms | 1 | indexed-only |
+| [Worigin0314/academic-defensive-writing-auditor](https://github.com/Worigin0314/academic-defensive-writing-auditor) | 124 | Detect and revise defensive academic prose while preserving scientific caveats, uncertainty and evidence boundaries. | MIT | 1 | indexed-only |
+| [Haojae/scipilot-cite-skill](https://github.com/Haojae/scipilot-cite-skill) | 87 | Find, verify and insert scholarly citations using DOI checks and multiple bibliographic sources with audit logs. | MIT | 1 | indexed-only |
+| [PasqualeVittoriosi/swift-accessibility-skill](https://github.com/PasqualeVittoriosi/swift-accessibility-skill) | 83 | Implement and audit accessibility for SwiftUI, UIKit, and AppKit, including App Store accessibility nutrition labels. | MIT | 1 | indexed-only |
+| [jerry3413/prd-to-i18n-skill](https://github.com/jerry3413/prd-to-i18n-skill) | 75 | Turn PRDs, screenshots, PDFs, and spreadsheets into document translations, draft copy, or localization delivery bundles. | MIT | 1 | indexed-only |
+| [wzyn20051216/ros-robotics-skill](https://github.com/wzyn20051216/ros-robotics-skill) | 62 | Build, migrate and diagnose ROS 1/2 workspaces, TF, navigation, controls, simulation and micro-ROS integration. | MIT | 1 | indexed-only |
+| [masuP9/a11y-specialist-skills](https://github.com/masuP9/a11y-specialist-skills) | 60 | Plan, implement, review, and audit web accessibility using WCAG 2.2 and WAI-ARIA APG knowledge. | MIT | 6 | indexed-only |
+| [MohtashamMurshid/getdesign](https://github.com/MohtashamMurshid/getdesign) | 56 | Extract design tokens and a structured design specification from public websites with an agent. | MIT | 1 | indexed-only |
+| [lgwrightlab/schematic-figure](https://github.com/lgwrightlab/schematic-figure) | 51 | Design scientific schematics through a brief, visual specification, vector rendering and evidence-aware figure review. | MIT (skill/code); Latin Modern fonts under GUST Font License | 1 | indexed-only |
+| [isArman/scientific-fa-translation-skill](https://github.com/isArman/scientific-fa-translation-skill) | 43 | Translate scientific and technical documents into academic Persian with RTL layout, terminology ledgers and print-ready outputs. | MIT (skill); optional Vazirmatn font under OFL-1.1 | 1 | indexed-only |
+| [cabbage2000-lab/textbook-writer-skills](https://github.com/cabbage2000-lab/textbook-writer-skills) | 37 | Plan and write textbooks with backward design, staged chapter handoffs, graduated exercises and resumable state. | MIT | 5 | indexed-only |
+| [weAAAre/a11y-agents-kit](https://github.com/weAAAre/a11y-agents-kit) | 34 | Use accessibility MCP tools with public ARIA-pattern and Figma accessibility-audit skills. | MIT | 2 | indexed-only |
+| [rgmez/apple-accessibility-skills](https://github.com/rgmez/apple-accessibility-skills) | 31 | Audit SwiftUI, UIKit, and AppKit interfaces with prioritized findings, patch guidance, and manual verification checklists. | MIT | 3 | indexed-only |
+| [savvides/idstack](https://github.com/savvides/idstack) | 27 | Design and review courses with evidence-tiered learning objectives, assessments, accessibility, import, and export workflows. | MIT | 11 | indexed-only |
+| [coolbeevip/mujoco-skills](https://github.com/coolbeevip/mujoco-skills) | 19 | Build and validate MuJoCo scenes, inspect actuators and prepare reproducible robot-learning environments. | MIT (skill); example robots retain their source licenses | 1 | indexed-only |
+| [Neha/check-fix-accessibility](https://github.com/Neha/check-fix-accessibility) | 14 | Audit and remediate web accessibility across semantics, keyboard navigation, ARIA, forms, contrast, and screen-reader use. | MIT | 1 | indexed-only |
+| [kgelster/ecom-a11y-audit](https://github.com/kgelster/ecom-a11y-audit) | 12 | Audit Shopify storefront accessibility and attribute findings to the theme, injected apps, or their interaction. | MIT | 1 | indexed-only |
+| [tomaszboloz/WCAG-Accessibility-Skills](https://github.com/tomaszboloz/WCAG-Accessibility-Skills) | 11 | Collect static WCAG 2.1/2.2 evidence, plan manual review, and propose repairs through a portable command skill. | MIT | 1 | indexed-only |
+| [TianHengZhuang/One-click-AI-PPT-creation](https://github.com/TianHengZhuang/One-click-AI-PPT-creation) | 8 | Draft complete business presentations with slide outlines, copy, visual suggestions, and speaker notes. | MIT | 1 | indexed-only |
+| [biologyskills/biology-skills](https://github.com/biologyskills/biology-skills) | 7 | Preserve biological identity, provenance, statistical meaning and evidence scope across computational biology workflows. | Apache-2.0 | 10 | indexed-only |
+| [MTeelokee/rgaa-accessibility-audit](https://github.com/MTeelokee/rgaa-accessibility-audit) | 6 | Review 13 RGAA v4.1.2 accessibility themes with installable skills for code and rendered-page audits. | MIT | 13 | indexed-only |
+| [nevinchanyi/claude-code-xcstrings-localizer](https://github.com/nevinchanyi/claude-code-xcstrings-localizer) | 6 | Localize Apple string catalogs with domain glossaries, code-context comments, CLDR plural rules, and translation review. | MIT | 1 | indexed-only |
+| [UXLana/design-skills-pack](https://github.com/UXLana/design-skills-pack) | 6 | Support product-design framing, design tokens, prototyping, responsive and accessibility review, handoff, and visual QA. | MIT | 20 | indexed-only |
+| [stjudecab/CAB-aiSkills](https://github.com/stjudecab/CAB-aiSkills) | 5 | Analyze omics regions and gene sets, create reproducible plots and compose provenance-backed bioinformatics reports. | CC-BY-NC-SA-4.0 (skill packages); bundled code and scientific methods retain separate attribution | 13 | indexed-only |
+| [TgStudio-PM/PM-product-workflow](https://github.com/TgStudio-PM/PM-product-workflow) | 5 | Maintain enterprise and government product prototypes with project memory, cross-session handover, and deliverable packaging. | MIT | 3 | indexed-only |
+| [SavrinaYu/target-market-localizer](https://github.com/SavrinaYu/target-market-localizer) | 4 | Adapt Chinese and English content for target markets with localization, transcreation, terminology, and claims review. | MIT | 1 | indexed-only |
+| [adamgrgs/i18n-agent](https://github.com/adamgrgs/i18n-agent) | 2 | Audit and verify multilingual websites with locale routing, hreflang, translation quality, sitemaps, and SEO checks. | MIT | 1 | indexed-only |
+| [fangning-ren/terachem-skill](https://github.com/fangning-ren/terachem-skill) | 2 | Prepare and analyze TeraChem GPU quantum-chemistry calculations with input generators, output parsers and SLURM guidance. | MIT (skill/scripts); TeraChem runtime requires its separate commercial license | 1 | indexed-only |
+| [HyperfocuSam/deepseek-tc-localizer](https://github.com/HyperfocuSam/deepseek-tc-localizer) | 2 | Review and localize Hong Kong Traditional Chinese wording while preserving source meaning, markup, and placeholders. | MIT | 1 | indexed-only |
+| [ubcd-ibfg/pymol-skill](https://github.com/ubcd-ibfg/pymol-skill) | 2 | Generate PyMOL scripts and molecular figures or control a live session through a separately configured MCP server. | MIT (skill); PyMOL and MCP dependencies retain their own licenses | 1 | indexed-only |
+| [johannesvedder/flutter-localization-kit](https://github.com/johannesvedder/flutter-localization-kit) | 1 | Inspect, search, update, validate, and regenerate Flutter ARB localizations through a compact CLI skill. | MIT | 1 | indexed-only |
+| [leeeee963/glossa-skills](https://github.com/leeeee963/glossa-skills) | 1 | Translate document folders with format preservation and produce offline HTML packs for human translation review. | MIT | 2 | indexed-only |
+| [sulipapa/localize-infographic-pdf](https://github.com/sulipapa/localize-infographic-pdf) | 1 | Localize design-exported infographic PDFs by replacing text while preserving artwork, layout, charts, and logos. | MIT | 1 | indexed-only |
+| [mmrgr/paper-map-figure](https://github.com/mmrgr/paper-map-figure) | 0 | Typeset and review publication maps from existing GIS or remote-sensing results while preserving geographic facts. | MIT (own skill/scripts); third-party design references retain attribution | 1 | indexed-only |
+| [rhiza-research/chc-skills](https://github.com/rhiza-research/chc-skills) | 0 | Fetch and analyze CHC forecasts, IOD/ENSO, MJO and equatorial waves, with Kenya/Africa plots and region routing. | MIT (skills); external climate data retain publisher terms | 14 | indexed-only |
 
 ## 4. Infra
 
@@ -2351,6 +2429,9 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [scalefocus/skilly](https://github.com/scalefocus/skilly) | 8 | Apache-licensed self-hosted governed registry for versioned, reviewed organizational SKILL.md assets. | Apache-2.0 | 基础设施 | indexed-only |
 | [SkillsCatalog/registry](https://github.com/SkillsCatalog/registry) | 1 | Community Agent Skills registry with creation, installation, search, validation, publishing and safety-scanning workflows. | MIT | 7 | indexed-only |
 | [Kargatharaakash/website-design-systems-mcp](https://github.com/Kargatharaakash/website-design-systems-mcp) | 18 | MCP product that extracts website design systems and generates AI-ready SKILL.md files from live sites. | MIT | 基础设施 | indexed-only |
+| [pratikxpanda/agentskills-sdk](https://github.com/pratikxpanda/agentskills-sdk) | 24 | Discover, validate, retrieve and serve Agent Skills through Python providers and MCP adapters. | MIT | 基础设施 | indexed-only |
+| [olaservo/skilljack-evals](https://github.com/olaservo/skilljack-evals) | 8 | Evaluate skill activation and task outcomes with paired no-skill baselines and deterministic checks. | MIT | 基础设施 | indexed-only |
+| [puniserv/skillcask](https://github.com/puniserv/skillcask) | 0 | Lock and verify portable Agent Skill packages with Composer/GitHub sources and per-client install targets. | MIT OR Apache-2.0 | 技能包管理器 | indexed-only |
 
 ## 5. Other
 

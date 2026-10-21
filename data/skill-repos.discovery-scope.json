@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-20",
+  "updated_at": "2026-10-21",
   "timezone": "Asia/Shanghai",
   "purpose": "Expand discovery beyond repository-name skill/agent keywords while retaining the repository-index admission contract.",
   "families": [
@@ -353,5 +353,24 @@
   "source_overlap_note": "Compare commit-pinned SKILL blob hashes as well as names, IDs and fork flags. Some unmarked copies have substantial overlap plus distinct files; preserve that distinction and never label the whole file count globally new.",
   "license_scope_note": "Noncommercial content can only be explicitly indexed under the current metadata-only workflow; never silently classify it as unrestricted open source or import its instructions. Root and per-skill notices stay separate.",
   "public_distribution_note": "For multi-package repositories, verify each claimed plugin manifest and public README; root defaults need not include every separately distributed plugin. Mark untested compatibility claims explicitly.",
-  "source_bytes_note": "A successful raw HTTP response can still be partial. Recompute Git blob SHA-1 from byte length and content and compare to the pinned tree; retain any corrected partial-response digest as audit history."
+  "source_bytes_note": "A successful raw HTTP response can still be partial. Recompute Git blob SHA-1 from byte length and content and compare to the pinned tree; retain any corrected partial-response digest as audit history.",
+  "latest_batch": {
+    "date": "2026-10-21",
+    "part": 86,
+    "added_verified": 81,
+    "families": {
+      "embedded-product-skill": 34,
+      "science-lab": 9,
+      "commercial-creative": 4,
+      "language-accessibility": 19,
+      "public-interest-operations": 2,
+      "humanities-curation": 2,
+      "robotics-embedded": 3,
+      "education-learning": 1,
+      "skill-infrastructure": 3,
+      "cae-cad": 1,
+      "geo-weather": 3
+    },
+    "audit": "skill-repos.part86.audit.json"
+  }
 }

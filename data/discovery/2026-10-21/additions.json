@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-21",
+  "timezone": "Asia/Shanghai",
+  "target": 50,
+  "baseline_count": 2459,
+  "baseline_file": "baseline.json",
+  "baseline_sha256": "5a068a495703d6dc020e4e8a3817fc46e64e91a5caa4b6753063fa27ba035879",
+  "catalog_shard": "../../skill-repos.part86.jsonl",
+  "locally_verified_new_count": 81,
+  "daily_qualifying_count": 0,
+  "status": "verified-awaiting-publication",
+  "repositories": [
+    {
+      "full_name": "getpaseo/paseo",
+      "repository_id": 1075381375
+    },
+    {
+      "full_name": "NVIDIA/OpenShell",
+      "repository_id": 1166129534
+    },
+    {
+      "full_name": "open-pencil/open-pencil",
+      "repository_id": 1168481509
+    },
+    {
+      "full_name": "qawolf/cli",
+      "repository_id": 209153343
+    },
+    {
+      "full_name": "TanStack/ai",
+      "repository_id": 1072429861
+    },
+    {
+      "full_name": "Haojae/scipilot-figure-skill",
+      "repository_id": 1242661854
+    },
+    {
+      "full_name": "rhesis-ai/rhesis",
+      "repository_id": 870296864
+    },
+    {
+      "full_name": "berelevant-ai/slopless",
+      "repository_id": 1240996286
+    },
+    {
+      "full_name": "Haojae/scipilot-writing-skill",
+      "repository_id": 1269731710
+    },
+    {
+      "full_name": "vercel/sandbox",
+      "repository_id": 1140519292
+    },
+    {
+      "full_name": "dadederk/iOS-Accessibility-Agent-Skill",
+      "repository_id": 1141520561
+    },
+    {
+      "full_name": "suryast/indonesia-gov-apis",
+      "repository_id": 1175534542
+    },
+    {
+      "full_name": "tensorlakeai/tensorlake-skills",
+      "repository_id": 1192036550
+    },
+    {
+      "full_name": "scholay/skills",
+      "repository_id": 1272111651
+    },
+    {
+      "full_name": "Worigin0314/academic-defensive-writing-auditor",
+      "repository_id": 1351168580
+    },
+    {
+      "full_name": "topk-io/topk",
+      "repository_id": 922527165
+    },
+    {
+      "full_name": "Haojae/scipilot-cite-skill",
+      "repository_id": 1238750883
+    },
+    {
+      "full_name": "PasqualeVittoriosi/swift-accessibility-skill",
+      "repository_id": 1174677170
+    },
+    {
+      "full_name": "jerry3413/prd-to-i18n-skill",
+      "repository_id": 1184966737
+    },
+    {
+      "full_name": "royerlab/luxar",
+      "repository_id": 1031708429
+    },
+    {
+      "full_name": "PostPeer-API/skills",
+      "repository_id": 1284869933
+    },
+    {
+      "full_name": "rejot-dev/fragno",
+      "repository_id": 1020704836
+    },
+    {
+      "full_name": "wzyn20051216/ros-robotics-skill",
+      "repository_id": 1176704758
+    },
+    {
+      "full_name": "masuP9/a11y-specialist-skills",
+      "repository_id": 1134069045
+    },
+    {
+      "full_name": "MohtashamMurshid/getdesign",
+      "repository_id": 1216017171
+    },
+    {
+      "full_name": "lgwrightlab/schematic-figure",
+      "repository_id": 1419049372
+    },
+    {
+      "full_name": "anycap-ai/anycap",
+      "repository_id": 1190650968
+    },
+    {
+      "full_name": "isArman/scientific-fa-translation-skill",
+      "repository_id": 1339183910
+    },
+    {
+      "full_name": "cabbage2000-lab/textbook-writer-skills",
+      "repository_id": 1301149423
+    },
+    {
+      "full_name": "GregorLueg/bixverse",
+      "repository_id": 859179925
+    },
+    {
+      "full_name": "weAAAre/a11y-agents-kit",
+      "repository_id": 1172853658
+    },
+    {
+      "full_name": "rgmez/apple-accessibility-skills",
+      "repository_id": 1151389749
+    },
+    {
+      "full_name": "savvides/idstack",
+      "repository_id": 1196520514
+    },
+    {
+      "full_name": "Seeed-Studio/ai-skills",
+      "repository_id": 1143149834
+    },
+    {
+      "full_name": "pratikxpanda/agentskills-sdk",
+      "repository_id": 1156378628
+    },
+    {
+      "full_name": "uiverify/uiverify",
+      "repository_id": 1309245485
+    },
+    {
+      "full_name": "zvec-ai/zvec-agent-skills",
+      "repository_id": 1172586488
+    },
+    {
+      "full_name": "fastfold-ai/sandwalk",
+      "repository_id": 1298580626
+    },
+    {
+      "full_name": "coolbeevip/mujoco-skills",
+      "repository_id": 1261865368
+    },
+    {
+      "full_name": "SocialGouv/iterion",
+      "repository_id": 1187131318
+    },
+    {
+      "full_name": "conalyz/conalyz_cli",
+      "repository_id": 1101673275
+    },
+    {
+      "full_name": "Neha/check-fix-accessibility",
+      "repository_id": 1170047265
+    },
+    {
+      "full_name": "event-catalog/skills",
+      "repository_id": 1135682467
+    },
+    {
+      "full_name": "kgelster/ecom-a11y-audit",
+      "repository_id": 1325475853
+    },
+    {
+      "full_name": "nylas/skills",
+      "repository_id": 1192731765
+    },
+    {
+      "full_name": "tomaszboloz/WCAG-Accessibility-Skills",
+      "repository_id": 1374418138
+    },
+    {
+      "full_name": "autonomous-ai/autonomous-circuit",
+      "repository_id": 1330335049
+    },
+    {
+      "full_name": "drnachio/postext",
+      "repository_id": 1202528107
+    },
+    {
+      "full_name": "olaservo/skilljack-evals",
+      "repository_id": 1126729424
+    },
+    {
+      "full_name": "TianHengZhuang/One-click-AI-PPT-creation",
+      "repository_id": 1351956353
+    },
+    {
+      "full_name": "uselemma/lemma",
+      "repository_id": 1285647450
+    },
+    {
+      "full_name": "biologyskills/biology-skills",
+      "repository_id": 1368415810
+    },
+    {
+      "full_name": "scylladb/agent-skills",
+      "repository_id": 1197509482
+    },
+    {
+      "full_name": "MTeelokee/rgaa-accessibility-audit",
+      "repository_id": 1201634707
+    },
+    {
+      "full_name": "nevinchanyi/claude-code-xcstrings-localizer",
+      "repository_id": 1188317772
+    },
+    {
+      "full_name": "PatterAI/skills",
+      "repository_id": 1251447442
+    },
+    {
+      "full_name": "UXLana/design-skills-pack",
+      "repository_id": 1423625448
+    },
+    {
+      "full_name": "OpenTranscription/skills",
+      "repository_id": 1338729455
+    },
+    {
+      "full_name": "stjudecab/CAB-aiSkills",
+      "repository_id": 1239988847
+    },
+    {
+      "full_name": "TgStudio-PM/PM-product-workflow",
+      "repository_id": 1359996086
+    },
+    {
+      "full_name": "kineticadb/agent-skills",
+      "repository_id": 1167925721
+    },
+    {
+      "full_name": "SavrinaYu/target-market-localizer",
+      "repository_id": 1345099457
+    },
+    {
+      "full_name": "adamgrgs/i18n-agent",
+      "repository_id": 1306101719
+    },
+    {
+      "full_name": "ElasticEmail/elasticemail-skills",
+      "repository_id": 1186214612
+    },
+    {
+      "full_name": "fangning-ren/terachem-skill",
+      "repository_id": 1217525264
+    },
+    {
+      "full_name": "HyperfocuSam/deepseek-tc-localizer",
+      "repository_id": 1303013483
+    },
+    {
+      "full_name": "loumalouomega/CAD-Preview",
+      "repository_id": 1282867372
+    },
+    {
+      "full_name": "partoska/p6a-skills",
+      "repository_id": 1206370777
+    },
+    {
+      "full_name": "ubcd-ibfg/pymol-skill",
+      "repository_id": 1278254213
+    },
+    {
+      "full_name": "ai-coustics/skills",
+      "repository_id": 1381855071
+    },
+    {
+      "full_name": "bitmovin/skills",
+      "repository_id": 1210464687
+    },
+    {
+      "full_name": "GleapSDK/agent-skills",
+      "repository_id": 1159368150
+    },
+    {
+      "full_name": "johannesvedder/flutter-localization-kit",
+      "repository_id": 1316485644
+    },
+    {
+      "full_name": "leeeee963/glossa-skills",
+      "repository_id": 1329853750
+    },
+    {
+      "full_name": "pingidentity/ping-sdk-agent-skills",
+      "repository_id": 1197628347
+    },
+    {
+      "full_name": "sulipapa/localize-infographic-pdf",
+      "repository_id": 1284604081
+    },
+    {
+      "full_name": "CGIAR-Climate-Data-Hub/skills",
+      "repository_id": 1197488363
+    },
+    {
+      "full_name": "hardhackerlabs/podwise-plugin",
+      "repository_id": 1399980722
+    },
+    {
+      "full_name": "mmrgr/paper-map-figure",
+      "repository_id": 1422887443
+    },
+    {
+      "full_name": "puniserv/skillcask",
+      "repository_id": 1426016396
+    },
+    {
+      "full_name": "rhiza-research/chc-skills",
+      "repository_id": 1340975883
+    }
+  ]
+}
