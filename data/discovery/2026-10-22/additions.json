@@ -8,8 +8,8 @@
   "baseline_sha256": "d57b0578102fc6390c2a98b692762b50437cc754dcb4ae627780c77da7d17755",
   "catalog_shard": "../../skill-repos.part87.jsonl",
   "locally_verified_new_count": 72,
-  "daily_qualifying_count": 0,
-  "status": "verified-awaiting-publication",
+  "daily_qualifying_count": 72,
+  "status": "achieved",
   "repositories": [
     {
       "full_name": "DrCatHicks/learning-opportunities",
@@ -299,5 +299,6 @@
       "full_name": "twinforgelabs/OpenProof",
       "repository_id": 1428327204
     }
-  ]
+  ],
+  "publication_receipt": "publication.json"
 }
