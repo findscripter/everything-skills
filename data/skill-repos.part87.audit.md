@@ -1,6 +1,6 @@
 # part87：产品 SDK、科研嵌入式、无障碍语言与绿色软件技能增量
 
-核验日期：2026-10-22（Asia/Shanghai）。固定基线 **2540** 个独立仓库，本批核验通过 **72** 个。发布后目录合计 **2612** 个；实际发布与日目标状态以[当日回执](discovery/2026-10-22/publication.json)为准。
+核验日期：2026-10-22（Asia/Shanghai）。固定基线 **2540** 个独立仓库，本批核验通过 **72** 个。已发布目录合计 **2612** 个；实际发布与日目标状态以[当日回执](discovery/2026-10-22/publication.json)为准。
 
 ## 准入与证据
 
@@ -92,3 +92,7 @@
 去重后检索命中 1184 个仓库身份，其中 178 个命中已有基线。另保存 61 个未收录记录，含待审储备，不能等同于全部被否定的项目。
 
 [逐项机器审核与交叉复核](skill-repos.part87.audit.json) · [检索来源](skill-repos.part87.search-provenance.json) · [今日新增清单](discovery/2026-10-22/additions.json)
+
+## 发布结果
+
+通过 PR #45 合并并发布到 main/zh；两条数据提交均已通过 generated-index CI。当日有效新增 72 个，目标 50 个，已达标。精确提交与 CI 链接见[发布回执](discovery/2026-10-22/publication.json)。

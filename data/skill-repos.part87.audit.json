@@ -5,7 +5,7 @@
   "daily_target": 50,
   "added_count": 72,
   "final_count": 2612,
-  "publication_status": "verified-awaiting-publication",
+  "publication_status": "published",
   "daily_receipt": "discovery/2026-10-22/publication.json",
   "collection_notes": [
     "Metadata-only admission: README/distribution, representative SKILL.md or explicit skill-infrastructure contract, source identity and license scopes reviewed. No candidate was installed, executed, cloned or copied as third-party skill body.",
@@ -15632,5 +15632,6 @@
     "representative_digest_overlap_flags": [],
     "compared_baseline_audit_hashes": 2072,
     "notes": "Exact representative matches are leads for source review; no global uniqueness claim is made from differing hashes."
-  }
+  },
+  "daily_qualifying_count": 72
 }

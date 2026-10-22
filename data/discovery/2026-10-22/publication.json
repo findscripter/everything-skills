@@ -2,17 +2,63 @@
   "schema_version": 1,
   "date": "2026-10-22",
   "timezone": "Asia/Shanghai",
-  "status": "verified-awaiting-publication",
-  "verdict": "pending",
+  "status": "published",
+  "verdict": "achieved",
   "target": 50,
-  "locally_verified_new_count": 72,
-  "actual_new_independent_repositories": 0,
-  "gap": 50,
+  "actual_new_independent_repositories": 72,
+  "gap": 0,
   "baseline_count": 2540,
-  "expected_final_catalog_count": 2612,
+  "final_catalog_count": 2612,
   "baseline_file": "baseline.json",
   "baseline_sha256": "d57b0578102fc6390c2a98b692762b50437cc754dcb4ae627780c77da7d17755",
-  "new_repository_list": "additions.json",
   "catalog_shard": "../../skill-repos.part87.jsonl",
-  "audit": "../../skill-repos.part87.audit.json"
+  "catalog_shard_sha256": "2ac3691c0e787a37c8882fd090f921dde12f5388d973b24ca5f6fd3b96674200",
+  "audit": "../../skill-repos.part87.audit.json",
+  "new_repository_list": "additions.json",
+  "unique_search_hits": 1184,
+  "search_hits_in_baseline": 178,
+  "screened_not_added": 61,
+  "not_added_scope": "Deferred records include unreviewed reserves; not all not-added records are substantively rejected. Search provenance distinguishes carried-over unreviewed leads from same-day searches. None count as additions.",
+  "pull_request": {
+    "number": 45,
+    "url": "https://github.com/findscripter/everything-skills/pull/45",
+    "state": "MERGED",
+    "merge_commit": "dc9d3cb22b640585fde5eb4f95b6e02e910006d8",
+    "pr_ci_run_id": 39704550315
+  },
+  "dataset_publication": {
+    "main": {
+      "dataset_commit": "dc9d3cb22b640585fde5eb4f95b6e02e910006d8",
+      "ci_run_id": 39704611863,
+      "ci_url": "https://github.com/findscripter/everything-skills/actions/runs/39704611863",
+      "ci_status": "completed",
+      "ci_conclusion": "success"
+    },
+    "zh": {
+      "dataset_commit": "24fea7cbe6079d0d9bb9704a3ab7e176845371e8",
+      "ci_run_id": 39704688990,
+      "ci_url": "https://github.com/findscripter/everything-skills/actions/runs/39704688990",
+      "ci_status": "completed",
+      "ci_conclusion": "success"
+    }
+  },
+  "local_validation": {
+    "main": [
+      "build-all --lang=en: exit 0",
+      "npm test: 24/24",
+      "check-generated --lang=en: exit 0"
+    ],
+    "zh": [
+      "build-all --lang=zh: exit 0",
+      "npm test: 24/24",
+      "check-generated --lang=zh: exit 0"
+    ],
+    "cross_branch_sources": "Identical catalog and skill source data; each branch regenerates its own language interface."
+  },
+  "publication_method": "Reviewed collection PR merged to main after successful CI, then zh synchronized and pushed using an atomic Git ref update; no force pushes or branch deletion.",
+  "scope_limitations": [
+    "Repository metadata and provenance only; no candidate clone, installation, execution or third-party skill-body import.",
+    "Independent checks cover source identity and fixed-tree README/representative/license bytes. Public file counts preserve per-package semantics, not global skill originality or runtime/security/scientific certification.",
+    "Receipt records already published dataset commits and observed successful CI. Receipt-only commits add no repositories."
+  ]
 }
