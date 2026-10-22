@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "target": 50,
+  "baseline_count": 2540,
+  "baseline_file": "baseline.json",
+  "baseline_sha256": "d57b0578102fc6390c2a98b692762b50437cc754dcb4ae627780c77da7d17755",
+  "catalog_shard": "../../skill-repos.part87.jsonl",
+  "locally_verified_new_count": 72,
+  "daily_qualifying_count": 0,
+  "status": "verified-awaiting-publication",
+  "repositories": [
+    {
+      "full_name": "DrCatHicks/learning-opportunities",
+      "repository_id": 1152411115
+    },
+    {
+      "full_name": "wy51ai/edulab",
+      "repository_id": 1259071744
+    },
+    {
+      "full_name": "zhinkgit/embeddedskills",
+      "repository_id": 1206815767
+    },
+    {
+      "full_name": "American-Embedded/kistack",
+      "repository_id": 1345280415
+    },
+    {
+      "full_name": "DrCatHicks/learning-goal",
+      "repository_id": 1166197402
+    },
+    {
+      "full_name": "DunCanYounG-1/MICU-auto-embedded",
+      "repository_id": 1178999277
+    },
+    {
+      "full_name": "Adancurusul/embedded-debugger-mcp",
+      "repository_id": 1032495027
+    },
+    {
+      "full_name": "BAIKEMARK/happy-figure-skill",
+      "repository_id": 1257121594
+    },
+    {
+      "full_name": "tryopendata/skills",
+      "repository_id": 1182107450
+    },
+    {
+      "full_name": "Rimagination/good-story",
+      "repository_id": 1256757375
+    },
+    {
+      "full_name": "webflow/webflow-skills",
+      "repository_id": 1129916307
+    },
+    {
+      "full_name": "cuellarfr/design-skills",
+      "repository_id": 1186520057
+    },
+    {
+      "full_name": "crichars/embedded-project-governance",
+      "repository_id": 1353612029
+    },
+    {
+      "full_name": "ordinary-s/falsify-the-problem",
+      "repository_id": 1364860678
+    },
+    {
+      "full_name": "mastra-ai/skills",
+      "repository_id": 1137694750
+    },
+    {
+      "full_name": "southleft/figma-console-mcp-skills",
+      "repository_id": 1255183845
+    },
+    {
+      "full_name": "agodianel/esp32-claude-workbench",
+      "repository_id": 1193066764
+    },
+    {
+      "full_name": "exa-labs/agent-skills",
+      "repository_id": 1287779992
+    },
+    {
+      "full_name": "TAO-QKV/Icarus-Figures",
+      "repository_id": 1258174219
+    },
+    {
+      "full_name": "VictoriaMetrics/skills",
+      "repository_id": 1172438243
+    },
+    {
+      "full_name": "deathcats4/scientific-manuscript-editor",
+      "repository_id": 1374322409
+    },
+    {
+      "full_name": "notnameuse/embedded-debug-skill",
+      "repository_id": 1359760563
+    },
+    {
+      "full_name": "RBraga01/Quality-Engineering-Skills",
+      "repository_id": 1259275090
+    },
+    {
+      "full_name": "deltadbu/WIT-skill",
+      "repository_id": 1345802690
+    },
+    {
+      "full_name": "InsertKoinIO/koin-skills",
+      "repository_id": 1210470813
+    },
+    {
+      "full_name": "lwq-star/ultraplot-figures",
+      "repository_id": 1300181000
+    },
+    {
+      "full_name": "specstoryai/agent-skills",
+      "repository_id": 1144339681
+    },
+    {
+      "full_name": "GoogleCloudPlatform/google-cloud-storage-plugin",
+      "repository_id": 1216087888
+    },
+    {
+      "full_name": "raroque/claude-agent-sdk-skill",
+      "repository_id": 1185774201
+    },
+    {
+      "full_name": "shangliny10-lab/embedded-skills",
+      "repository_id": 1357740645
+    },
+    {
+      "full_name": "surrealdb/agent-skills",
+      "repository_id": 1205255879
+    },
+    {
+      "full_name": "lpigeon/ros-skill",
+      "repository_id": 1166355593
+    },
+    {
+      "full_name": "DarrenBenson/sdlc-studio",
+      "repository_id": 1136242795
+    },
+    {
+      "full_name": "ondata/istat_mcp_server",
+      "repository_id": 1188559852
+    },
+    {
+      "full_name": "aerospike/agent-skills",
+      "repository_id": 1218378479
+    },
+    {
+      "full_name": "helderberto/agent-skills",
+      "repository_id": 1157003665
+    },
+    {
+      "full_name": "BrainInBox/brain-in-a-box",
+      "repository_id": 1249276248
+    },
+    {
+      "full_name": "honojs/skills",
+      "repository_id": 1352773419
+    },
+    {
+      "full_name": "ngrok/skills",
+      "repository_id": 1140886263
+    },
+    {
+      "full_name": "pinecone-io/skills",
+      "repository_id": 1153782607
+    },
+    {
+      "full_name": "applepig/ddd-workflow",
+      "repository_id": 1187353214
+    },
+    {
+      "full_name": "unlayer/unlayer-skills",
+      "repository_id": 1156407352
+    },
+    {
+      "full_name": "greendesertsnow/pocketbase-skills",
+      "repository_id": 1142007866
+    },
+    {
+      "full_name": "ArabAgentSkills/Skills",
+      "repository_id": 1247837001
+    },
+    {
+      "full_name": "pachca/openapi",
+      "repository_id": 728668333
+    },
+    {
+      "full_name": "Cloto-dev/CPersona",
+      "repository_id": 1201659843
+    },
+    {
+      "full_name": "docusealco/docuseal-agent-skills",
+      "repository_id": 1171593616
+    },
+    {
+      "full_name": "rh-uxd/ai-helpers",
+      "repository_id": 1296610308
+    },
+    {
+      "full_name": "skill-tools/skill-tools",
+      "repository_id": 1154548181
+    },
+    {
+      "full_name": "kabirnarang39/skillci",
+      "repository_id": 1307423052
+    },
+    {
+      "full_name": "pierrebelin/claude-code-toolkit",
+      "repository_id": 1352097094
+    },
+    {
+      "full_name": "superset-sh/skills",
+      "repository_id": 1310679008
+    },
+    {
+      "full_name": "HKTITAN/poke-skills",
+      "repository_id": 1227813252
+    },
+    {
+      "full_name": "MaxLogic/delphi-accessibility-framework",
+      "repository_id": 1338695090
+    },
+    {
+      "full_name": "wso2/agent-skills",
+      "repository_id": 1215969335
+    },
+    {
+      "full_name": "kalinbogatzevski/captain-memo",
+      "repository_id": 1233718616
+    },
+    {
+      "full_name": "andreiverdes/bluedoc",
+      "repository_id": 1408575055
+    },
+    {
+      "full_name": "navveenb/lean-agentic-ai-skills",
+      "repository_id": 1305010638
+    },
+    {
+      "full_name": "awesomemotive/pushengage-skills",
+      "repository_id": 1329624421
+    },
+    {
+      "full_name": "globalize-now/globalize-skills",
+      "repository_id": 1195354208
+    },
+    {
+      "full_name": "PLAID-lib/plaid-skills",
+      "repository_id": 1161481624
+    },
+    {
+      "full_name": "SAXEM1997/specpowers",
+      "repository_id": 1374524293
+    },
+    {
+      "full_name": "everyinfra/seo-skills",
+      "repository_id": 1393831015
+    },
+    {
+      "full_name": "fullo/sustainable-code-skill-setup",
+      "repository_id": 1177880463
+    },
+    {
+      "full_name": "HKTITAN/cursor-sdk",
+      "repository_id": 1225237099
+    },
+    {
+      "full_name": "CAS-CLab/EasyFoam",
+      "repository_id": 1415278728
+    },
+    {
+      "full_name": "Gabriel-Dalton/digital-sustainability-skill",
+      "repository_id": 1208852025
+    },
+    {
+      "full_name": "locize/locize-agents",
+      "repository_id": 1263691472
+    },
+    {
+      "full_name": "tempu-village/taskmate",
+      "repository_id": 1360245963
+    },
+    {
+      "full_name": "CNaught-Inc/eco-first",
+      "repository_id": 1171325783
+    },
+    {
+      "full_name": "DigitalPebble/spruce-sql-advisor",
+      "repository_id": 1226210970
+    },
+    {
+      "full_name": "twinforgelabs/OpenProof",
+      "repository_id": 1428327204
+    }
+  ]
+}

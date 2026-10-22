@@ -1,0 +1,6538 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "unique_search_hits": 1184,
+  "search_hits_in_baseline": 178,
+  "accepted_count": 72,
+  "queries": [
+    {
+      "query": "\"SKILL.md\" \"registry\" in:readme license:mit stars:>2 fork:false",
+      "sort": "updated",
+      "limit": 100,
+      "total_count": 4494,
+      "team": "root",
+      "hits": [
+        {
+          "full_name": "code-yeongyu/senpi",
+          "id": 1174812893,
+          "fork": false
+        },
+        {
+          "full_name": "Fi2zz/conatus",
+          "id": 1369943589,
+          "fork": false
+        },
+        {
+          "full_name": "progovoy/vmn",
+          "id": 177991814,
+          "fork": false
+        },
+        {
+          "full_name": "jfrader/jfrader-ui",
+          "id": 1412766930,
+          "fork": false
+        },
+        {
+          "full_name": "CloudLLM-ai/mentisdb",
+          "id": 1182917091,
+          "fork": false
+        },
+        {
+          "full_name": "SShadowS/LethAL",
+          "id": 1314825145,
+          "fork": false
+        },
+        {
+          "full_name": "receptron/mulmoclaude",
+          "id": 1194947244,
+          "fork": false
+        },
+        {
+          "full_name": "DeusData/codebase-memory-mcp",
+          "id": 1166102148,
+          "fork": false
+        },
+        {
+          "full_name": "the-metafactory/soma",
+          "id": 1238710271,
+          "fork": false
+        },
+        {
+          "full_name": "zebbern/claude-code-guide",
+          "id": 1006251566,
+          "fork": false
+        },
+        {
+          "full_name": "on-par/software-factory",
+          "id": 1295729679,
+          "fork": false
+        },
+        {
+          "full_name": "ssheleg/task-pipeline",
+          "id": 1304516083,
+          "fork": false
+        },
+        {
+          "full_name": "danielsimonjr/memory-mcp",
+          "id": 1093926095,
+          "fork": false
+        },
+        {
+          "full_name": "docxology/daf-jev",
+          "id": 1374786946,
+          "fork": false
+        },
+        {
+          "full_name": "JKHeadley/instar",
+          "id": 1161391430,
+          "fork": false
+        },
+        {
+          "full_name": "TrentHunter82/TrentNodes",
+          "id": 1111038313,
+          "fork": false
+        },
+        {
+          "full_name": "rjwalters/kicad-tools",
+          "id": 1124924260,
+          "fork": false
+        },
+        {
+          "full_name": "SocialGouv/iterion",
+          "id": 1187131318,
+          "fork": false
+        },
+        {
+          "full_name": "gmh5225/awesome-game-security",
+          "id": 477570603,
+          "fork": false
+        },
+        {
+          "full_name": "with-logic/crew",
+          "id": 1215703747,
+          "fork": false
+        },
+        {
+          "full_name": "Ecro/harness-maker",
+          "id": 1228139549,
+          "fork": false
+        },
+        {
+          "full_name": "hatayama/unity-cli-loop",
+          "id": 1002447118,
+          "fork": false
+        },
+        {
+          "full_name": "oyesanyf/OshoosiClaw",
+          "id": 1188674070,
+          "fork": false
+        },
+        {
+          "full_name": "sandcn/DeepSeek-cli",
+          "id": 1254319633,
+          "fork": false
+        },
+        {
+          "full_name": "bytedance/deer-flow",
+          "id": 979115477,
+          "fork": false
+        },
+        {
+          "full_name": "bigduu/Bamboo-agent",
+          "id": 1164779771,
+          "fork": false
+        },
+        {
+          "full_name": "Yeachan-Heo/oh-my-claudecode",
+          "id": 1130809465,
+          "fork": false
+        },
+        {
+          "full_name": "damianvtran/local-operator",
+          "id": 922327641,
+          "fork": false
+        },
+        {
+          "full_name": "electricsheephq/lcm-x",
+          "id": 1333049175,
+          "fork": false
+        },
+        {
+          "full_name": "XAIHT/Tlamatini",
+          "id": 1174638546,
+          "fork": false
+        },
+        {
+          "full_name": "Aoisop/mawoagent",
+          "id": 1424222027,
+          "fork": false
+        },
+        {
+          "full_name": "kyyinfinite/EURUS",
+          "id": 1418123029,
+          "fork": false
+        },
+        {
+          "full_name": "Furox-Art/axiomize",
+          "id": 1344242752,
+          "fork": false
+        },
+        {
+          "full_name": "Furox-Art/quantum-reasoning-skill",
+          "id": 1358570141,
+          "fork": false
+        },
+        {
+          "full_name": "Opselon/NexusTradingForexBot",
+          "id": 1316607103,
+          "fork": false
+        },
+        {
+          "full_name": "intersystems-community/iris-agentic-dev",
+          "id": 1217344324,
+          "fork": false
+        },
+        {
+          "full_name": "xtrm-dev/specialists",
+          "id": 1087645111,
+          "fork": false
+        },
+        {
+          "full_name": "ml8s/liki",
+          "id": 1293146740,
+          "fork": false
+        },
+        {
+          "full_name": "garrytan/gstack",
+          "id": 1179264259,
+          "fork": false
+        },
+        {
+          "full_name": "RudyCity/superagent",
+          "id": 1264105561,
+          "fork": false
+        },
+        {
+          "full_name": "the911fund/skill-of-skills",
+          "id": 1140248066,
+          "fork": false
+        },
+        {
+          "full_name": "MakerXStudio/verify",
+          "id": 1293078251,
+          "fork": false
+        },
+        {
+          "full_name": "zhuravel/magnum",
+          "id": 1403170912,
+          "fork": false
+        },
+        {
+          "full_name": "danielgwilson/humanish",
+          "id": 1255631617,
+          "fork": false
+        },
+        {
+          "full_name": "ducdg88/ducpt-skills",
+          "id": 1388327916,
+          "fork": false
+        },
+        {
+          "full_name": "nhype/telegram-harness",
+          "id": 1403644843,
+          "fork": false
+        },
+        {
+          "full_name": "kitaekatt/plugins-kit",
+          "id": 1163511566,
+          "fork": false
+        },
+        {
+          "full_name": "Cognilogical/NeuroStrata",
+          "id": 1214601492,
+          "fork": false
+        },
+        {
+          "full_name": "pedroromeroluna/ai-first-os",
+          "id": 1329475192,
+          "fork": false
+        },
+        {
+          "full_name": "savestatedev/savestate",
+          "id": 1143691192,
+          "fork": false
+        },
+        {
+          "full_name": "hongsw/clawfit",
+          "id": 1191504793,
+          "fork": false
+        },
+        {
+          "full_name": "SenjuWoo/Ultimate-AI-Starter-Bundle",
+          "id": 1317909128,
+          "fork": false
+        },
+        {
+          "full_name": "oaslananka/kicad-mcp-pro",
+          "id": 1255527274,
+          "fork": false
+        },
+        {
+          "full_name": "vshulcz/deja-vu",
+          "id": 1300173275,
+          "fork": false
+        },
+        {
+          "full_name": "giuseppecrj/pi-herdr-agents",
+          "id": 1324107391,
+          "fork": false
+        },
+        {
+          "full_name": "aallan/vera",
+          "id": 1164314533,
+          "fork": false
+        },
+        {
+          "full_name": "dshworks/awesome-dsh-plugins",
+          "id": 1333372532,
+          "fork": false
+        },
+        {
+          "full_name": "bradeGithub/DSH-Plugins-Marketplace",
+          "id": 1333295863,
+          "fork": false
+        },
+        {
+          "full_name": "Rainnystone/larkent",
+          "id": 1345039958,
+          "fork": false
+        },
+        {
+          "full_name": "waterworkshq/orcy",
+          "id": 1233552397,
+          "fork": false
+        },
+        {
+          "full_name": "ulises-jeremias/agent-toolkit",
+          "id": 1322501176,
+          "fork": false
+        },
+        {
+          "full_name": "Maximilien-ai/clawmax",
+          "id": 1177305291,
+          "fork": false
+        },
+        {
+          "full_name": "jpaarhuis/open-dossier",
+          "id": 1303836292,
+          "fork": false
+        },
+        {
+          "full_name": "lnds/kimun",
+          "id": 1152270496,
+          "fork": false
+        },
+        {
+          "full_name": "yeisonrestrepo/code-conductor",
+          "id": 1226637711,
+          "fork": false
+        },
+        {
+          "full_name": "kejixiaoliang/awesome-dsh-plugins",
+          "id": 1333490005,
+          "fork": false
+        },
+        {
+          "full_name": "dgg32/HELMS",
+          "id": 1283506176,
+          "fork": false
+        },
+        {
+          "full_name": "msitarzewski/agency-agents-app",
+          "id": 1262882328,
+          "fork": false
+        },
+        {
+          "full_name": "finitecomputer/fragment",
+          "id": 1342169466,
+          "fork": false
+        },
+        {
+          "full_name": "aunysillyme/model-orchestrator",
+          "id": 1356502919,
+          "fork": false
+        },
+        {
+          "full_name": "ymuromcev/ai-job-searcher",
+          "id": 1220275445,
+          "fork": false
+        },
+        {
+          "full_name": "ArvorCo/PNAD",
+          "id": 1046070065,
+          "fork": false
+        },
+        {
+          "full_name": "multiplex-ai/muggle-ai-works",
+          "id": 1180645449,
+          "fork": false
+        },
+        {
+          "full_name": "jamiezigelbaum/Olympus",
+          "id": 1355975818,
+          "fork": false
+        },
+        {
+          "full_name": "receptron/mulmoterminal",
+          "id": 1269208043,
+          "fork": false
+        },
+        {
+          "full_name": "2233admin/reverse-skill-evolver",
+          "id": 1251226171,
+          "fork": false
+        },
+        {
+          "full_name": "XPRNetwork/xpr-agents",
+          "id": 1150169209,
+          "fork": false
+        },
+        {
+          "full_name": "whyihaveyou/dsh-suite",
+          "id": 1333152408,
+          "fork": false
+        },
+        {
+          "full_name": "VynavinV/Clai_TALOS",
+          "id": 1201443466,
+          "fork": false
+        },
+        {
+          "full_name": "starslingdev/skills",
+          "id": 1308579255,
+          "fork": false
+        },
+        {
+          "full_name": "fullbleed-engine/fullbleed-official",
+          "id": 1155117843,
+          "fork": false
+        },
+        {
+          "full_name": "ai-hero/wayfare-skills",
+          "id": 1175540126,
+          "fork": false
+        },
+        {
+          "full_name": "ZaxbyHub/opencode-swarm",
+          "id": 1143461873,
+          "fork": false
+        },
+        {
+          "full_name": "amd/gaia",
+          "id": 903960898,
+          "fork": false
+        },
+        {
+          "full_name": "UiPath/skills",
+          "id": 1139353807,
+          "fork": false
+        },
+        {
+          "full_name": "Kihara777/NixKits",
+          "id": 1194463330,
+          "fork": false
+        },
+        {
+          "full_name": "TheYoungChen/dsh-plugin-market",
+          "id": 1333748599,
+          "fork": false
+        },
+        {
+          "full_name": "jamdotdev/skills",
+          "id": 1186804552,
+          "fork": false
+        },
+        {
+          "full_name": "hardness1020/learn-agent-architecture",
+          "id": 1277715563,
+          "fork": false
+        },
+        {
+          "full_name": "kody-w/RAR",
+          "id": 1200565697,
+          "fork": false
+        },
+        {
+          "full_name": "SamoTech/skills-tree",
+          "id": 1208117230,
+          "fork": false
+        },
+        {
+          "full_name": "daymade/claude-code-skills",
+          "id": 1081140442,
+          "fork": false
+        },
+        {
+          "full_name": "anton-abyzov/vskill",
+          "id": 1158844740,
+          "fork": false
+        },
+        {
+          "full_name": "OpenHands/extensions",
+          "id": 1103178683,
+          "fork": false
+        },
+        {
+          "full_name": "CoinAnole/spacemolt-cli",
+          "id": 1233261991,
+          "fork": false
+        },
+        {
+          "full_name": "THU-MAIC/OpenMAIC",
+          "id": 1178737655,
+          "fork": false
+        },
+        {
+          "full_name": "Jerry0022/dotclaude",
+          "id": 1187248109,
+          "fork": false
+        },
+        {
+          "full_name": "MichelKerkmeester/skilled-agent-harness_spec-driven-loops",
+          "id": 1121682278,
+          "fork": false
+        },
+        {
+          "full_name": "Ideelab/uisandbox",
+          "id": 1338886502,
+          "fork": false
+        },
+        {
+          "full_name": "nijaru/ion",
+          "id": 1139220216,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"green software\" in:readme fork:false",
+      "sort": "updated",
+      "limit": 100,
+      "total_count": 16,
+      "team": "root",
+      "hits": [
+        {
+          "full_name": "Institut-du-Numerique-Responsable/green-claude",
+          "id": 1305081749,
+          "fork": false
+        },
+        {
+          "full_name": "andreibesleaga/GABBE",
+          "id": 1161859774,
+          "fork": false
+        },
+        {
+          "full_name": "mattlane66/Writing_Assistant",
+          "id": 1352626906,
+          "fork": false
+        },
+        {
+          "full_name": "Amrithasuresh/awesome-index",
+          "id": 1222001192,
+          "fork": false
+        },
+        {
+          "full_name": "Cure-Consulting-Group/ProductEngineeringSkills",
+          "id": 1176447201,
+          "fork": false
+        },
+        {
+          "full_name": "ams-builds/green-agents-explained",
+          "id": 1410144763,
+          "fork": false
+        },
+        {
+          "full_name": "Gabriel-Dalton/digital-sustainability-skill",
+          "id": 1208852025,
+          "fork": false
+        },
+        {
+          "full_name": "oscar-wang-xin/ai-chat-hub",
+          "id": 1326477819,
+          "fork": false
+        },
+        {
+          "full_name": "navveenb/lean-agentic-ai-skills",
+          "id": 1305010638,
+          "fork": false
+        },
+        {
+          "full_name": "fullo/sustainable-code-skill-setup",
+          "id": 1177880463,
+          "fork": false
+        },
+        {
+          "full_name": "tholewis/green-software-engineer",
+          "id": 1197792058,
+          "fork": false
+        },
+        {
+          "full_name": "Interdato-SostenibilidadDigital/Green-Software-Engineer-Codex",
+          "id": 1244810220,
+          "fork": false
+        },
+        {
+          "full_name": "s3nex-com/sdlc-skills-library",
+          "id": 1204806166,
+          "fork": false
+        },
+        {
+          "full_name": "DigitalPebble/spruce-sql-advisor",
+          "id": 1226210970,
+          "fork": false
+        },
+        {
+          "full_name": "CNaught-Inc/eco-first",
+          "id": 1171325783,
+          "fork": false
+        },
+        {
+          "full_name": "mmondora/claude-skills",
+          "id": 1153099604,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"crop\" in:readme fork:false",
+      "sort": "updated",
+      "limit": 100,
+      "total_count": 5495,
+      "team": "root",
+      "hits": [
+        {
+          "full_name": "majiayu000/awesome-grok-bot",
+          "id": 1351094922,
+          "fork": false
+        },
+        {
+          "full_name": "d3m4/skills",
+          "id": 1245496794,
+          "fork": false
+        },
+        {
+          "full_name": "jackson2w/claude-code-skills",
+          "id": 1299898440,
+          "fork": false
+        },
+        {
+          "full_name": "golden-frijoles/skills",
+          "id": 1299980498,
+          "fork": false
+        },
+        {
+          "full_name": "enhansome/enhansome-Awesome-Journal-Skills",
+          "id": 1331723807,
+          "fork": false
+        },
+        {
+          "full_name": "kimcheolhui9846/token-context-optimizer",
+          "id": 1348606685,
+          "fork": false
+        },
+        {
+          "full_name": "TrentHunter82/TrentNodes",
+          "id": 1111038313,
+          "fork": false
+        },
+        {
+          "full_name": "Stimpunks/Stimpunks-Love",
+          "id": 1377639297,
+          "fork": false
+        },
+        {
+          "full_name": "techmatt/wordwarriors",
+          "id": 1424078649,
+          "fork": false
+        },
+        {
+          "full_name": "sandcn/DeepSeek-cli",
+          "id": 1254319633,
+          "fork": false
+        },
+        {
+          "full_name": "Classiccottrell/linefield",
+          "id": 1357557455,
+          "fork": false
+        },
+        {
+          "full_name": "XAIHT/Tlamatini",
+          "id": 1174638546,
+          "fork": false
+        },
+        {
+          "full_name": "joaopedrofrech/design-layout-kit",
+          "id": 1426282839,
+          "fork": false
+        },
+        {
+          "full_name": "zichuanxu/cs-paper-table-skill",
+          "id": 1428297685,
+          "fork": false
+        },
+        {
+          "full_name": "zichuanxu/cs-paper-figure-skill",
+          "id": 1428152975,
+          "fork": false
+        },
+        {
+          "full_name": "viasnake/agent",
+          "id": 1417773449,
+          "fork": false
+        },
+        {
+          "full_name": "huynvk19-cell/claude-using-revit",
+          "id": 1405859281,
+          "fork": false
+        },
+        {
+          "full_name": "linyisonger/frameseek",
+          "id": 1424379488,
+          "fork": false
+        },
+        {
+          "full_name": "jaywcjlove/awesome-swift-macos-apps",
+          "id": 869949408,
+          "fork": false
+        },
+        {
+          "full_name": "Idriss-Mokdadi/pro-pptx-studio",
+          "id": 1426517595,
+          "fork": false
+        },
+        {
+          "full_name": "samomdkku/samomdkkuweb",
+          "id": 1225688665,
+          "fork": false
+        },
+        {
+          "full_name": "Parad0x-Labs/vool-skills",
+          "id": 1428998518,
+          "fork": false
+        },
+        {
+          "full_name": "hesreallyhim/awesome-claude-code",
+          "id": 969302809,
+          "fork": false
+        },
+        {
+          "full_name": "ChefControl/floe-market",
+          "id": 1407723034,
+          "fork": false
+        },
+        {
+          "full_name": "kimjooyoon/gooo-go-ports",
+          "id": 1412565010,
+          "fork": false
+        },
+        {
+          "full_name": "azrianobr/dramazing",
+          "id": 1405305233,
+          "fork": false
+        },
+        {
+          "full_name": "zhimaheiye/happyfishagent",
+          "id": 1369739656,
+          "fork": false
+        },
+        {
+          "full_name": "mandalacomputer/mcp",
+          "id": 1336487759,
+          "fork": false
+        },
+        {
+          "full_name": "kevin9327/kevin9327",
+          "id": 1354105608,
+          "fork": false
+        },
+        {
+          "full_name": "yinnho/aginxbrowser",
+          "id": 1273950731,
+          "fork": false
+        },
+        {
+          "full_name": "MSKazemi/reachweaver",
+          "id": 1414374640,
+          "fork": false
+        },
+        {
+          "full_name": "Ar1ssi/cardback",
+          "id": 1426251847,
+          "fork": false
+        },
+        {
+          "full_name": "Lumazini-Code/alpha-virtual-assistant",
+          "id": 670313447,
+          "fork": false
+        },
+        {
+          "full_name": "theSamPadilla/montaj",
+          "id": 1200663801,
+          "fork": false
+        },
+        {
+          "full_name": "Sqhh99/personal-site",
+          "id": 1313984137,
+          "fork": false
+        },
+        {
+          "full_name": "Miart/figma-local-bridge",
+          "id": 1429054847,
+          "fork": false
+        },
+        {
+          "full_name": "enhansome/enhansome-claude-code-workflows",
+          "id": 1331854647,
+          "fork": false
+        },
+        {
+          "full_name": "albericolx/Topicos_Avancados_IA",
+          "id": 1422718083,
+          "fork": false
+        },
+        {
+          "full_name": "enhansome/enhansome-mcp-servers",
+          "id": 1331607766,
+          "fork": false
+        },
+        {
+          "full_name": "xianxu/pair",
+          "id": 1227398897,
+          "fork": false
+        },
+        {
+          "full_name": "reghartner/design-viz",
+          "id": 1364214975,
+          "fork": false
+        },
+        {
+          "full_name": "humanitylabs-org/wizard-app-store",
+          "id": 1405033856,
+          "fork": false
+        },
+        {
+          "full_name": "kejixiaoliang/awesome-dsh-plugins",
+          "id": 1333490005,
+          "fork": false
+        },
+        {
+          "full_name": "ctoldigital/axuse",
+          "id": 1419772313,
+          "fork": false
+        },
+        {
+          "full_name": "kajisho5/ffmpeg-skill",
+          "id": 1356077516,
+          "fork": false
+        },
+        {
+          "full_name": "nordeim/zero-balance",
+          "id": 1408021890,
+          "fork": false
+        },
+        {
+          "full_name": "Gabrielrtads/vibe-design-studio",
+          "id": 1413659489,
+          "fork": false
+        },
+        {
+          "full_name": "scenario-labs/skills",
+          "id": 1331882604,
+          "fork": false
+        },
+        {
+          "full_name": "awesome-dsh-plugin/awesome-dsh-plugin",
+          "id": 1333175049,
+          "fork": false
+        },
+        {
+          "full_name": "receptron/mulmoterminal",
+          "id": 1269208043,
+          "fork": false
+        },
+        {
+          "full_name": "2233admin/glyph-arts",
+          "id": 1209825989,
+          "fork": false
+        },
+        {
+          "full_name": "andrew1407/stencil",
+          "id": 1254688720,
+          "fork": false
+        },
+        {
+          "full_name": "facundoPri/agent-eye",
+          "id": 1429030202,
+          "fork": false
+        },
+        {
+          "full_name": "josephcc/joseph-no-skills",
+          "id": 1403713660,
+          "fork": false
+        },
+        {
+          "full_name": "cheng199896/SCI",
+          "id": 1241574983,
+          "fork": false
+        },
+        {
+          "full_name": "QuillDev/nakode",
+          "id": 1304190792,
+          "fork": false
+        },
+        {
+          "full_name": "nima54851/agent-studio",
+          "id": 1274071595,
+          "fork": false
+        },
+        {
+          "full_name": "kurtvalcorza/rice-pest-detector",
+          "id": 1424049907,
+          "fork": false
+        },
+        {
+          "full_name": "daymade/claude-code-skills",
+          "id": 1081140442,
+          "fork": false
+        },
+        {
+          "full_name": "Vkretzkei/slides-squad",
+          "id": 1428995479,
+          "fork": false
+        },
+        {
+          "full_name": "raghuramsirigiri/raghuram-skills",
+          "id": 1333800877,
+          "fork": false
+        },
+        {
+          "full_name": "enhansome/enhansome-Awesome-Geospatial",
+          "id": 1331632960,
+          "fork": false
+        },
+        {
+          "full_name": "mauriciobenjamin700/tempest-fastapi-sdk",
+          "id": 1240982710,
+          "fork": false
+        },
+        {
+          "full_name": "paninski-lab/mighty-mouse",
+          "id": 1272539429,
+          "fork": false
+        },
+        {
+          "full_name": "Sogni-AI/sogni-creative-agent-skill",
+          "id": 1145022698,
+          "fork": false
+        },
+        {
+          "full_name": "alexderz/llama-bored",
+          "id": 1389840338,
+          "fork": false
+        },
+        {
+          "full_name": "abhichavali/ManimToolkit",
+          "id": 1419865712,
+          "fork": false
+        },
+        {
+          "full_name": "dragonadam/nature-skills",
+          "id": 1255040531,
+          "fork": false
+        },
+        {
+          "full_name": "hotcode-dev/zerovisual",
+          "id": 1428802228,
+          "fork": false
+        },
+        {
+          "full_name": "writeCasually/deepseek-harness-plugins",
+          "id": 1333735549,
+          "fork": false
+        },
+        {
+          "full_name": "neilrackett/atarist-stdl",
+          "id": 1320374952,
+          "fork": false
+        },
+        {
+          "full_name": "guinhoshuto/se-dev-kit",
+          "id": 1324542490,
+          "fork": false
+        },
+        {
+          "full_name": "guillaumemeyer/watermarks-remover",
+          "id": 1331135699,
+          "fork": false
+        },
+        {
+          "full_name": "bdgsaraiva/pm-agent-stack",
+          "id": 1412565109,
+          "fork": false
+        },
+        {
+          "full_name": "lucasnicolau30/sentry",
+          "id": 1324429013,
+          "fork": false
+        },
+        {
+          "full_name": "agust7nsg/Chase",
+          "id": 1417985439,
+          "fork": false
+        },
+        {
+          "full_name": "esmworks/leafdesk",
+          "id": 1389754911,
+          "fork": false
+        },
+        {
+          "full_name": "enhansome/enhansome-swift-macos-apps",
+          "id": 1331693233,
+          "fork": false
+        },
+        {
+          "full_name": "nicoplesse/DynastyBot",
+          "id": 1381903997,
+          "fork": false
+        },
+        {
+          "full_name": "haykarustamyan/ComposeParallaxToolbar",
+          "id": 960027547,
+          "fork": false
+        },
+        {
+          "full_name": "Kevin-Mok/ai-cli-workflow",
+          "id": 1419241577,
+          "fork": false
+        },
+        {
+          "full_name": "Omrigotlieb/awesome-jev",
+          "id": 1379668824,
+          "fork": false
+        },
+        {
+          "full_name": "mariomile/Screenme",
+          "id": 1427150894,
+          "fork": false
+        },
+        {
+          "full_name": "infocyde/AgenticVideoPipelineHumanInTheLoop01",
+          "id": 1425045714,
+          "fork": false
+        },
+        {
+          "full_name": "PovertyAction/surveycto-extractor",
+          "id": 1173669204,
+          "fork": false
+        },
+        {
+          "full_name": "imperorrp/aesthetic-backgrounds-library",
+          "id": 1371174158,
+          "fork": false
+        },
+        {
+          "full_name": "ArthurS357/watermarks-remover",
+          "id": 1343104578,
+          "fork": false
+        },
+        {
+          "full_name": "tawhidUnhappy/AMV_CD",
+          "id": 1315061861,
+          "fork": false
+        },
+        {
+          "full_name": "ehartye/agent-sprites",
+          "id": 1335552205,
+          "fork": false
+        },
+        {
+          "full_name": "rig-c/parts",
+          "id": 1390903816,
+          "fork": false
+        },
+        {
+          "full_name": "postboost-co/postboost-cli",
+          "id": 1189073375,
+          "fork": false
+        },
+        {
+          "full_name": "postboost-co/postboost-rust",
+          "id": 1189073045,
+          "fork": false
+        },
+        {
+          "full_name": "ArchAstro/splice",
+          "id": 1427750685,
+          "fork": false
+        },
+        {
+          "full_name": "Avenia/vibrumweb",
+          "id": 1137145097,
+          "fork": false
+        },
+        {
+          "full_name": "rbasniak/boardgames",
+          "id": 1425143863,
+          "fork": false
+        },
+        {
+          "full_name": "postboost-co/postboost-csharp",
+          "id": 1189072958,
+          "fork": false
+        },
+        {
+          "full_name": "postboost-co/postboost-java",
+          "id": 1189072647,
+          "fork": false
+        },
+        {
+          "full_name": "emah-maker/lumen",
+          "id": 1389809765,
+          "fork": false
+        },
+        {
+          "full_name": "postboost-co/postboost-ruby",
+          "id": 1189072579,
+          "fork": false
+        },
+        {
+          "full_name": "postboost-co/postboost-go",
+          "id": 1189072527,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"nonprofit\" in:readme license:mit fork:false",
+      "sort": "updated",
+      "limit": 100,
+      "total_count": 322,
+      "team": "root",
+      "hits": [
+        {
+          "full_name": "danieldoesbio/pi-scientific-skills",
+          "id": 1324568540,
+          "fork": false
+        },
+        {
+          "full_name": "dweekly/rcsd-meetings",
+          "id": 1172891833,
+          "fork": false
+        },
+        {
+          "full_name": "pyduan/agentic-organization",
+          "id": 1304710588,
+          "fork": false
+        },
+        {
+          "full_name": "dadinaveen1729/Ai-agents-for-Business-",
+          "id": 1428907762,
+          "fork": false
+        },
+        {
+          "full_name": "hh-health-AI/healthcare-equity",
+          "id": 1347439209,
+          "fork": false
+        },
+        {
+          "full_name": "aniruddhaadak80/skills",
+          "id": 1345005421,
+          "fork": false
+        },
+        {
+          "full_name": "trackawesomelist/trackawesomelist",
+          "id": 531038347,
+          "fork": false
+        },
+        {
+          "full_name": "johe123qwe/github-trending",
+          "id": 628172384,
+          "fork": false
+        },
+        {
+          "full_name": "mujtbabbas/agency-agents",
+          "id": 1427034638,
+          "fork": false
+        },
+        {
+          "full_name": "aryaineverland-png/resume-tailor",
+          "id": 1428439893,
+          "fork": false
+        },
+        {
+          "full_name": "RaythaHQ/raytha-examples",
+          "id": 1403717570,
+          "fork": false
+        },
+        {
+          "full_name": "khanhvo2172-dotcom/seo-skills",
+          "id": 1242288628,
+          "fork": false
+        },
+        {
+          "full_name": "Mutayibnissar/aethermesh",
+          "id": 1401656853,
+          "fork": false
+        },
+        {
+          "full_name": "Infrasity-Labs/awesome-tech-newsletter",
+          "id": 1280200268,
+          "fork": false
+        },
+        {
+          "full_name": "TheSethRose/public-data-direct",
+          "id": 1427756927,
+          "fork": false
+        },
+        {
+          "full_name": "dougdevitre/access-to-jobs",
+          "id": 1198374730,
+          "fork": false
+        },
+        {
+          "full_name": "dougdevitre/access-to-peace",
+          "id": 1206273216,
+          "fork": false
+        },
+        {
+          "full_name": "Jeanjac-coder/Agency-agent",
+          "id": 1427625222,
+          "fork": false
+        },
+        {
+          "full_name": "UltravioletaDAO/uvdweb",
+          "id": 929627561,
+          "fork": false
+        },
+        {
+          "full_name": "cogine-ai/ai-slide-templates",
+          "id": 1236716179,
+          "fork": false
+        },
+        {
+          "full_name": "anandtapps/AI-Agency-Agent",
+          "id": 1427040443,
+          "fork": false
+        },
+        {
+          "full_name": "Prasanth595/agency-agents",
+          "id": 1427007599,
+          "fork": false
+        },
+        {
+          "full_name": "costrict-plugins-repo/github-trending-cialdini-influence-audit",
+          "id": 1426172125,
+          "fork": false
+        },
+        {
+          "full_name": "jdpal/Agency-Agents",
+          "id": 1426278557,
+          "fork": false
+        },
+        {
+          "full_name": "Akuja-Inc/taskfast-agent-starter",
+          "id": 1414753158,
+          "fork": false
+        },
+        {
+          "full_name": "msitarzewski/agency-agents",
+          "id": 1075372545,
+          "fork": false
+        },
+        {
+          "full_name": "AoKishuba/LVTShift_PVD",
+          "id": 1387762705,
+          "fork": false
+        },
+        {
+          "full_name": "jourdanrombough/seo-pitch-engine",
+          "id": 1424758103,
+          "fork": false
+        },
+        {
+          "full_name": "nickthelegend/loom",
+          "id": 1300966190,
+          "fork": false
+        },
+        {
+          "full_name": "johnnyrobot/openstax-cli",
+          "id": 1356716998,
+          "fork": false
+        },
+        {
+          "full_name": "109km/photos-to-album",
+          "id": 1366995268,
+          "fork": false
+        },
+        {
+          "full_name": "j99900ch/white-intention-agency",
+          "id": 1421343826,
+          "fork": false
+        },
+        {
+          "full_name": "E5EnclaveInc/agent-skills",
+          "id": 1420246739,
+          "fork": false
+        },
+        {
+          "full_name": "qrtrac2022/claude-plugin",
+          "id": 1422147828,
+          "fork": false
+        },
+        {
+          "full_name": "Kazuki-EPknoT-ITE/ai_model_poc_ver1",
+          "id": 1414097368,
+          "fork": false
+        },
+        {
+          "full_name": "WorkiDigital/workidigital-squads",
+          "id": 1420835640,
+          "fork": false
+        },
+        {
+          "full_name": "kush-coder/autopilot-agency-agents",
+          "id": 1420694902,
+          "fork": false
+        },
+        {
+          "full_name": "TheLobbi/claude",
+          "id": 1115172014,
+          "fork": false
+        },
+        {
+          "full_name": "ansh-saran-sharma/paper-trail",
+          "id": 1417882827,
+          "fork": false
+        },
+        {
+          "full_name": "forpg007-aiJmartins/agency-agents",
+          "id": 1418879009,
+          "fork": false
+        },
+        {
+          "full_name": "Ruhamma/deft",
+          "id": 1417347709,
+          "fork": false
+        },
+        {
+          "full_name": "Amrit-mishra07/strategic-premortem",
+          "id": 1418432822,
+          "fork": false
+        },
+        {
+          "full_name": "SkillMedev/skills",
+          "id": 1289651513,
+          "fork": false
+        },
+        {
+          "full_name": "black1plague2/creative-studio-skills",
+          "id": 1417498793,
+          "fork": false
+        },
+        {
+          "full_name": "CosmoBlk/email-marketing-bible",
+          "id": 1153111797,
+          "fork": false
+        },
+        {
+          "full_name": "add54/Agency-agents",
+          "id": 1415839713,
+          "fork": false
+        },
+        {
+          "full_name": "cliwant/mcp-sam-gov",
+          "id": 1224216981,
+          "fork": false
+        },
+        {
+          "full_name": "ba-lison/agency-agents",
+          "id": 1414853897,
+          "fork": false
+        },
+        {
+          "full_name": "itallstartedwithaidea/ai-agents-crash-course",
+          "id": 1165370104,
+          "fork": false
+        },
+        {
+          "full_name": "luisjlourenco/agents",
+          "id": 1413464364,
+          "fork": false
+        },
+        {
+          "full_name": "adittaya/editing-skill-md",
+          "id": 1412191266,
+          "fork": false
+        },
+        {
+          "full_name": "adittaya/video-editing-skills",
+          "id": 1405142213,
+          "fork": false
+        },
+        {
+          "full_name": "arjunkshah12345-hash/claudestudio-skill",
+          "id": 1411278553,
+          "fork": false
+        },
+        {
+          "full_name": "amarktainetwork-blip/Amarktai-Agents",
+          "id": 1410210447,
+          "fork": false
+        },
+        {
+          "full_name": "ladyalana808/agency-agents",
+          "id": 1413661138,
+          "fork": false
+        },
+        {
+          "full_name": "Smartraining96/agency-agents",
+          "id": 1409429517,
+          "fork": false
+        },
+        {
+          "full_name": "mzumby/network-observatory",
+          "id": 1287820088,
+          "fork": false
+        },
+        {
+          "full_name": "Marakaya/proofpilot",
+          "id": 1285500212,
+          "fork": false
+        },
+        {
+          "full_name": "vparsatwar-git/agency-agents",
+          "id": 1407046735,
+          "fork": false
+        },
+        {
+          "full_name": "Mamadou-Alpha/agency-agents",
+          "id": 1406275106,
+          "fork": false
+        },
+        {
+          "full_name": "SkillMedev/nonprofit-grants-toolkit",
+          "id": 1289396654,
+          "fork": false
+        },
+        {
+          "full_name": "MersivMedia/agency-agents-usa",
+          "id": 1404819044,
+          "fork": false
+        },
+        {
+          "full_name": "chaithanyakasi27/agency-agents",
+          "id": 1404659753,
+          "fork": false
+        },
+        {
+          "full_name": "avalonreset/legends-grant",
+          "id": 1386383208,
+          "fork": false
+        },
+        {
+          "full_name": "Wmoi53/Modelagency",
+          "id": 1402709923,
+          "fork": false
+        },
+        {
+          "full_name": "FaithTechGlobalLabs/faithtech-ai-redemptive-builder",
+          "id": 1210857395,
+          "fork": false
+        },
+        {
+          "full_name": "mustakdx123/agency-agents-project",
+          "id": 1401929149,
+          "fork": false
+        },
+        {
+          "full_name": "poorvith-mp/skills-writing",
+          "id": 1301558431,
+          "fork": false
+        },
+        {
+          "full_name": "juergen1379/Agents",
+          "id": 1401621000,
+          "fork": false
+        },
+        {
+          "full_name": "revuitysystems/revuity-nonprofit-grant-operations",
+          "id": 1400843810,
+          "fork": false
+        },
+        {
+          "full_name": "Staid01/4",
+          "id": 1400128893,
+          "fork": false
+        },
+        {
+          "full_name": "abracadabra50/open-supermarkets",
+          "id": 1158177596,
+          "fork": false
+        },
+        {
+          "full_name": "peterbamuhigire/business-plan-skills",
+          "id": 1174937723,
+          "fork": false
+        },
+        {
+          "full_name": "peterbamuhigire/chwezi-dev-engine",
+          "id": 1140781612,
+          "fork": false
+        },
+        {
+          "full_name": "murshedy2k/Microsoft-Agency-Agent",
+          "id": 1394624824,
+          "fork": false
+        },
+        {
+          "full_name": "barkleesanders/iphonectl",
+          "id": 1393865441,
+          "fork": false
+        },
+        {
+          "full_name": "woodrow-rosenbaum/woodrow-skills",
+          "id": 1353945391,
+          "fork": false
+        },
+        {
+          "full_name": "elpc210677-beep/agents",
+          "id": 1393510646,
+          "fork": false
+        },
+        {
+          "full_name": "scrollmark/showrunner",
+          "id": 1186475933,
+          "fork": false
+        },
+        {
+          "full_name": "pabloghinaglia/agency-agents",
+          "id": 1392432694,
+          "fork": false
+        },
+        {
+          "full_name": "Khwasah/sumup-Claude-Skill",
+          "id": 1390339423,
+          "fork": false
+        },
+        {
+          "full_name": "abuzar310/agent-skills-starter",
+          "id": 1325664977,
+          "fork": false
+        },
+        {
+          "full_name": "0xcjl/social-org-research",
+          "id": 1386776553,
+          "fork": false
+        },
+        {
+          "full_name": "edgaroug/agency-agents",
+          "id": 1386114436,
+          "fork": false
+        },
+        {
+          "full_name": "Sachin0496/brand-ai-readiness-audit",
+          "id": 1382849007,
+          "fork": false
+        },
+        {
+          "full_name": "kavoikovivan-maker/kavoikov-co-app",
+          "id": 1370786057,
+          "fork": false
+        },
+        {
+          "full_name": "greencat667/grant-scanner-skill-claude",
+          "id": 1381148388,
+          "fork": false
+        },
+        {
+          "full_name": "michaelwnau/figma-design-system-engineering",
+          "id": 1241722636,
+          "fork": false
+        },
+        {
+          "full_name": "fbonds/Oracle365",
+          "id": 1379707844,
+          "fork": false
+        },
+        {
+          "full_name": "dinaf2026-web/business-audit-forensics",
+          "id": 1378794684,
+          "fork": false
+        },
+        {
+          "full_name": "copesrjrdad202-sys/agency-agents",
+          "id": 1355962442,
+          "fork": false
+        },
+        {
+          "full_name": "khantviki/agency-agents",
+          "id": 1377622949,
+          "fork": false
+        },
+        {
+          "full_name": "abdullajalnassai-spec/Agents",
+          "id": 1373898635,
+          "fork": false
+        },
+        {
+          "full_name": "Mic-Fundraiser/phplist-email-generator",
+          "id": 1375847270,
+          "fork": false
+        },
+        {
+          "full_name": "ozkeskint-beep/111",
+          "id": 1374617890,
+          "fork": false
+        },
+        {
+          "full_name": "sector-skills/nonprofit-skills",
+          "id": 1360590238,
+          "fork": false
+        },
+        {
+          "full_name": "serhatylmz23-prog/finans",
+          "id": 1362014108,
+          "fork": false
+        },
+        {
+          "full_name": "romangalaxys10-spec/ai-agent-architect",
+          "id": 1349297797,
+          "fork": false
+        },
+        {
+          "full_name": "Sadiq060/msitarAgencyAagents",
+          "id": 1370053345,
+          "fork": false
+        },
+        {
+          "full_name": "z451047442-debug/agency-agents",
+          "id": 1287916771,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"agent skills\" sdk license:mit fork:false",
+      "sort": "stars",
+      "limit": 100,
+      "total_count": 253,
+      "team": "products",
+      "hits": [
+        {
+          "full_name": "teng-lin/notebooklm-py",
+          "id": 1129786550,
+          "fork": false
+        },
+        {
+          "full_name": "tensorlakeai/tensorlake-skills",
+          "id": 1192036550,
+          "fork": false
+        },
+        {
+          "full_name": "wrsmith108/linear-claude-skill",
+          "id": 1116480304,
+          "fork": false
+        },
+        {
+          "full_name": "aws-samples/sample-strands-agents-agentskills",
+          "id": 1127581739,
+          "fork": false
+        },
+        {
+          "full_name": "contentful/skill-kit",
+          "id": 1213376196,
+          "fork": false
+        },
+        {
+          "full_name": "PostPeer-API/skills",
+          "id": 1284869933,
+          "fork": false
+        },
+        {
+          "full_name": "MohtashamMurshid/getdesign",
+          "id": 1216017171,
+          "fork": false
+        },
+        {
+          "full_name": "SpartanLabsXyz/simmer-sdk",
+          "id": 1131615490,
+          "fork": false
+        },
+        {
+          "full_name": "anycap-ai/anycap",
+          "id": 1190650968,
+          "fork": false
+        },
+        {
+          "full_name": "RandalSchwartz/dart-sdk-skills",
+          "id": 1343138309,
+          "fork": false
+        },
+        {
+          "full_name": "raroque/claude-agent-sdk-skill",
+          "id": 1185774201,
+          "fork": false
+        },
+        {
+          "full_name": "skyzhao1223/zspace-cli",
+          "id": 1266430304,
+          "fork": false
+        },
+        {
+          "full_name": "pratikxpanda/agentskills-sdk",
+          "id": 1156378628,
+          "fork": false
+        },
+        {
+          "full_name": "uiverify/uiverify",
+          "id": 1309245485,
+          "fork": false
+        },
+        {
+          "full_name": "aptos-labs/aptos-agent-skills",
+          "id": 1140537311,
+          "fork": false
+        },
+        {
+          "full_name": "aatrey882/servicenow-agent-skills",
+          "id": 1194396287,
+          "fork": false
+        },
+        {
+          "full_name": "solanabr/solana-glossary",
+          "id": 1187494187,
+          "fork": false
+        },
+        {
+          "full_name": "sven-ericmolzahn/iphone-duo-skill",
+          "id": 1378041934,
+          "fork": false
+        },
+        {
+          "full_name": "Tencent-RTC/agent-skills",
+          "id": 1252335022,
+          "fork": false
+        },
+        {
+          "full_name": "event-catalog/skills",
+          "id": 1135682467,
+          "fork": false
+        },
+        {
+          "full_name": "greendesertsnow/pocketbase-skills",
+          "id": 1142007866,
+          "fork": false
+        },
+        {
+          "full_name": "pachca/openapi",
+          "id": 728668333,
+          "fork": false
+        },
+        {
+          "full_name": "nylas/skills",
+          "id": 1192731765,
+          "fork": false
+        },
+        {
+          "full_name": "Ethiel97/flutter-clean-riverpod-skills",
+          "id": 1401933597,
+          "fork": false
+        },
+        {
+          "full_name": "uselemma/lemma",
+          "id": 1285647450,
+          "fork": false
+        },
+        {
+          "full_name": "olaservo/skilljack-evals",
+          "id": 1126729424,
+          "fork": false
+        },
+        {
+          "full_name": "arkade-os/skills",
+          "id": 1146936021,
+          "fork": false
+        },
+        {
+          "full_name": "gorlix/supernote-plugin-dev",
+          "id": 1354571428,
+          "fork": false
+        },
+        {
+          "full_name": "caioross/skilldepot-go",
+          "id": 1201512230,
+          "fork": false
+        },
+        {
+          "full_name": "HKTITAN/poke-skills",
+          "id": 1227813252,
+          "fork": false
+        },
+        {
+          "full_name": "PatterAI/skills",
+          "id": 1251447442,
+          "fork": false
+        },
+        {
+          "full_name": "YordiLorenzo/liquid-glass-skills",
+          "id": 1326447290,
+          "fork": false
+        },
+        {
+          "full_name": "ADWilkinson/usdctofiat-peerlytics-starters",
+          "id": 1193926637,
+          "fork": false
+        },
+        {
+          "full_name": "priors-agents/priors",
+          "id": 1377635614,
+          "fork": false
+        },
+        {
+          "full_name": "JOYLINK-LTD/lacuna-toolkit",
+          "id": 1231622854,
+          "fork": false
+        },
+        {
+          "full_name": "OpenTranscription/skills",
+          "id": 1338729455,
+          "fork": false
+        },
+        {
+          "full_name": "eforest-finance/eforest-agent-skills",
+          "id": 1155507419,
+          "fork": false
+        },
+        {
+          "full_name": "Awaken-Finance/awaken-agent-skills",
+          "id": 1155385949,
+          "fork": false
+        },
+        {
+          "full_name": "tuwulalo/git-sync-check",
+          "id": 1267181803,
+          "fork": false
+        },
+        {
+          "full_name": "alexey1312/iPhone-Duo-Agent-Skill",
+          "id": 1368121548,
+          "fork": false
+        },
+        {
+          "full_name": "udondan/anton",
+          "id": 1211822594,
+          "fork": false
+        },
+        {
+          "full_name": "samber/developer-platform-skills",
+          "id": 1359308163,
+          "fork": false
+        },
+        {
+          "full_name": "prashantdivate/awesome-yocto-ai-agent-skills",
+          "id": 1291927272,
+          "fork": false
+        },
+        {
+          "full_name": "esenmx/fluiver",
+          "id": 452247431,
+          "fork": false
+        },
+        {
+          "full_name": "baizhiheizi/mixin-builder",
+          "id": 1414198938,
+          "fork": false
+        },
+        {
+          "full_name": "GemachDAO/gdex-skill",
+          "id": 1174929274,
+          "fork": false
+        },
+        {
+          "full_name": "ChenyqThu/omada-skill",
+          "id": 1219805767,
+          "fork": false
+        },
+        {
+          "full_name": "HaikeiLabs/skills",
+          "id": 1365021136,
+          "fork": false
+        },
+        {
+          "full_name": "makarworld/exteragram-plugin-skill",
+          "id": 1319387141,
+          "fork": false
+        },
+        {
+          "full_name": "TasoHower/Rei",
+          "id": 1222668169,
+          "fork": false
+        },
+        {
+          "full_name": "hlibsuslov/telegram-bot-ui",
+          "id": 1302026700,
+          "fork": false
+        },
+        {
+          "full_name": "awesomemotive/pushengage-skills",
+          "id": 1329624421,
+          "fork": false
+        },
+        {
+          "full_name": "ghostswap1/ghostswap-agents",
+          "id": 1248658844,
+          "fork": false
+        },
+        {
+          "full_name": "leestott/learnskill-agent-foundrylocal",
+          "id": 1154961743,
+          "fork": false
+        },
+        {
+          "full_name": "the3asic/ableton-extensions-sdk-agent-skill",
+          "id": 1258359449,
+          "fork": false
+        },
+        {
+          "full_name": "AutoArk/eva-skills",
+          "id": 1307364104,
+          "fork": false
+        },
+        {
+          "full_name": "SkillGild/sdks",
+          "id": 1406264029,
+          "fork": false
+        },
+        {
+          "full_name": "adamludolph/adaption-skills",
+          "id": 1375573304,
+          "fork": false
+        },
+        {
+          "full_name": "HKTITAN/cursor-sdk",
+          "id": 1225237099,
+          "fork": false
+        },
+        {
+          "full_name": "shellui/skills",
+          "id": 1346127390,
+          "fork": false
+        },
+        {
+          "full_name": "wintermuted/playdate-skills",
+          "id": 1227452555,
+          "fork": false
+        },
+        {
+          "full_name": "jongio/thermoworks",
+          "id": 1259441642,
+          "fork": false
+        },
+        {
+          "full_name": "thecoderpanda/fde-starter-kit",
+          "id": 1354501624,
+          "fork": false
+        },
+        {
+          "full_name": "ElasticEmail/elasticemail-skills",
+          "id": 1186214612,
+          "fork": false
+        },
+        {
+          "full_name": "magicapple123/numalarm",
+          "id": 1400544006,
+          "fork": false
+        },
+        {
+          "full_name": "pingidentity/ping-sdk-agent-skills",
+          "id": 1197628347,
+          "fork": false
+        },
+        {
+          "full_name": "komaa-com/skills",
+          "id": 1368411186,
+          "fork": false
+        },
+        {
+          "full_name": "Rebel028/AgentSkills.Sdk",
+          "id": 1298384838,
+          "fork": false
+        },
+        {
+          "full_name": "trackbridge/skills",
+          "id": 1221212974,
+          "fork": false
+        },
+        {
+          "full_name": "llpsdk/agent-skills",
+          "id": 1153693267,
+          "fork": false
+        },
+        {
+          "full_name": "mountayaapp/agent-skills",
+          "id": 1219712150,
+          "fork": false
+        },
+        {
+          "full_name": "bitmovin/skills",
+          "id": 1210464687,
+          "fork": false
+        },
+        {
+          "full_name": "greedy-co/abto-sdk",
+          "id": 1310698936,
+          "fork": false
+        },
+        {
+          "full_name": "stefanoverna/pebble-watchapp-skill",
+          "id": 1278266292,
+          "fork": false
+        },
+        {
+          "full_name": "NaveRazy-Rhino/rhino-sdk-skills",
+          "id": 1178609057,
+          "fork": false
+        },
+        {
+          "full_name": "MetaMask/connect-skills",
+          "id": 1267561226,
+          "fork": false
+        },
+        {
+          "full_name": "matthew-kissinger/strands-agents-skills",
+          "id": 1358680089,
+          "fork": false
+        },
+        {
+          "full_name": "2019-02-18/clawfight",
+          "id": 1186803469,
+          "fork": false
+        },
+        {
+          "full_name": "kirimdev/kirimdev-skills",
+          "id": 1351420483,
+          "fork": false
+        },
+        {
+          "full_name": "YunhaoDou/weread-cli",
+          "id": 1260369522,
+          "fork": false
+        },
+        {
+          "full_name": "GleapSDK/agent-skills",
+          "id": 1159368150,
+          "fork": false
+        },
+        {
+          "full_name": "rokha-ai/rokha-sdk",
+          "id": 1038360591,
+          "fork": false
+        },
+        {
+          "full_name": "taleshagn-horushub/thoth",
+          "id": 1228081322,
+          "fork": false
+        },
+        {
+          "full_name": "oneshot-agent/agent-skills",
+          "id": 1273539097,
+          "fork": false
+        },
+        {
+          "full_name": "shangdi178/pi-agent-development",
+          "id": 1333712309,
+          "fork": false
+        },
+        {
+          "full_name": "ssrjkk/agent-skills",
+          "id": 1222952372,
+          "fork": false
+        },
+        {
+          "full_name": "spicyapi-ai/spicy-skill",
+          "id": 1405958574,
+          "fork": false
+        },
+        {
+          "full_name": "ai-coustics/skills",
+          "id": 1381855071,
+          "fork": false
+        },
+        {
+          "full_name": "candledottv/agentic",
+          "id": 1332677628,
+          "fork": false
+        },
+        {
+          "full_name": "reactvideoeditor/react-video-editor-agent-skills",
+          "id": 1374638559,
+          "fork": false
+        },
+        {
+          "full_name": "DeepBiology/deepbiology-lab",
+          "id": 1201140835,
+          "fork": false
+        },
+        {
+          "full_name": "DohmBoy64Bit/windows-game-matching-decomp-skill",
+          "id": 1259726358,
+          "fork": false
+        },
+        {
+          "full_name": "homespunapps/homespun",
+          "id": 1308520911,
+          "fork": false
+        },
+        {
+          "full_name": "hey-juno/juno-agent-toolkit",
+          "id": 1362196607,
+          "fork": false
+        },
+        {
+          "full_name": "alexey1312/Swift-Charts-Agent-Skill",
+          "id": 1400000119,
+          "fork": false
+        },
+        {
+          "full_name": "chainstream-io/skills",
+          "id": 1184348473,
+          "fork": false
+        },
+        {
+          "full_name": "GitRuozhi/native-winui-control",
+          "id": 1378144161,
+          "fork": false
+        },
+        {
+          "full_name": "Bennaco7539/skill-optimizer",
+          "id": 1218889682,
+          "fork": false
+        },
+        {
+          "full_name": "promptromp/aws-bootstrap-g4dn",
+          "id": 1146399687,
+          "fork": false
+        },
+        {
+          "full_name": "workshop-gbb/awesome-copilot-adventures",
+          "id": 1358520174,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"agent skills\" \"official\" fork:false stars:>1",
+      "sort": "stars",
+      "limit": 100,
+      "total_count": 204,
+      "team": "products",
+      "hits": [
+        {
+          "full_name": "VoltAgent/awesome-agent-skills",
+          "id": 1084853233,
+          "fork": false
+        },
+        {
+          "full_name": "vercel-labs/agent-skills",
+          "id": 1112540808,
+          "fork": false
+        },
+        {
+          "full_name": "larksuite/cli",
+          "id": 1191372811,
+          "fork": false
+        },
+        {
+          "full_name": "browserbase/skills",
+          "id": 1074669117,
+          "fork": false
+        },
+        {
+          "full_name": "TanStack/cli",
+          "id": 932949058,
+          "fork": false
+        },
+        {
+          "full_name": "oxylabs/agent-skills",
+          "id": 1159829402,
+          "fork": false
+        },
+        {
+          "full_name": "laravel/agent-skills",
+          "id": 1131154155,
+          "fork": false
+        },
+        {
+          "full_name": "elastic/agent-skills",
+          "id": 1174313682,
+          "fork": false
+        },
+        {
+          "full_name": "sleekdotdesign/agent-skills",
+          "id": 1166733578,
+          "fork": false
+        },
+        {
+          "full_name": "ClickHouse/agent-skills",
+          "id": 1135104451,
+          "fork": false
+        },
+        {
+          "full_name": "TheQtCompanyRnD/agent-skills",
+          "id": 1192474409,
+          "fork": false
+        },
+        {
+          "full_name": "amd/skills",
+          "id": 1204992108,
+          "fork": false
+        },
+        {
+          "full_name": "superagents-lab/xcode27-skills",
+          "id": 1263739043,
+          "fork": false
+        },
+        {
+          "full_name": "Qwen-Applications/Trace2Skill",
+          "id": 1222295714,
+          "fork": false
+        },
+        {
+          "full_name": "mongodb/agent-skills",
+          "id": 1167755544,
+          "fork": false
+        },
+        {
+          "full_name": "iamyoki/qwen-image-2.1-skill",
+          "id": 1379510327,
+          "fork": false
+        },
+        {
+          "full_name": "redis/agent-skills",
+          "id": 1144967207,
+          "fork": false
+        },
+        {
+          "full_name": "tryopendata/skills",
+          "id": 1182107450,
+          "fork": false
+        },
+        {
+          "full_name": "black-forest-labs/skills",
+          "id": 1140927044,
+          "fork": false
+        },
+        {
+          "full_name": "webflow/webflow-skills",
+          "id": 1129916307,
+          "fork": false
+        },
+        {
+          "full_name": "mastra-ai/skills",
+          "id": 1137694750,
+          "fork": false
+        },
+        {
+          "full_name": "monte-carlo-data/mc-agent-toolkit",
+          "id": 1166903665,
+          "fork": false
+        },
+        {
+          "full_name": "mmiani/kotlin-kmp-claude-agent-skills",
+          "id": 1193956006,
+          "fork": false
+        },
+        {
+          "full_name": "ZongziForu/cn-law-hub",
+          "id": 1280641283,
+          "fork": false
+        },
+        {
+          "full_name": "pulumi/agent-skills",
+          "id": 1138600788,
+          "fork": false
+        },
+        {
+          "full_name": "shivamthe-coder/roblox-luau-atelier",
+          "id": 1382354216,
+          "fork": false
+        },
+        {
+          "full_name": "wandb/skills",
+          "id": 1165193760,
+          "fork": false
+        },
+        {
+          "full_name": "coroslab/COROS-MCP",
+          "id": 1273018804,
+          "fork": false
+        },
+        {
+          "full_name": "huaweicloud/huaweicloud-devkit",
+          "id": 1314502072,
+          "fork": false
+        },
+        {
+          "full_name": "BENZEMA216/awesome-weread",
+          "id": 1241612644,
+          "fork": false
+        },
+        {
+          "full_name": "zeroclaw-labs/zeroclaw-skills",
+          "id": 1208296119,
+          "fork": false
+        },
+        {
+          "full_name": "exa-labs/agent-skills",
+          "id": 1287779992,
+          "fork": false
+        },
+        {
+          "full_name": "VictoriaMetrics/skills",
+          "id": 1172438243,
+          "fork": false
+        },
+        {
+          "full_name": "xuansenpa1/skillrevise",
+          "id": 1263378972,
+          "fork": false
+        },
+        {
+          "full_name": "zhayujie/cow-skill-hub",
+          "id": 1190683320,
+          "fork": false
+        },
+        {
+          "full_name": "kenming/bricks-builder-skill",
+          "id": 1198397414,
+          "fork": false
+        },
+        {
+          "full_name": "saranambiar/hyperframes-video-agent-skills",
+          "id": 1269020094,
+          "fork": false
+        },
+        {
+          "full_name": "runpod/runpod-plugins-official",
+          "id": 1148095831,
+          "fork": false
+        },
+        {
+          "full_name": "aqara/aqara-agent-skills",
+          "id": 1191352637,
+          "fork": false
+        },
+        {
+          "full_name": "mfarzanansari/prompt-polish",
+          "id": 1267646326,
+          "fork": false
+        },
+        {
+          "full_name": "Rifteo/skills",
+          "id": 1237536657,
+          "fork": false
+        },
+        {
+          "full_name": "InsertKoinIO/koin-skills",
+          "id": 1210470813,
+          "fork": false
+        },
+        {
+          "full_name": "addyosmani/skills.addy.ie",
+          "id": 1297099848,
+          "fork": false
+        },
+        {
+          "full_name": "specstoryai/agent-skills",
+          "id": 1144339681,
+          "fork": false
+        },
+        {
+          "full_name": "china-qijizhifeng/Work2Skill",
+          "id": 1415119059,
+          "fork": false
+        },
+        {
+          "full_name": "TU2021/UCOB",
+          "id": 1282031701,
+          "fork": false
+        },
+        {
+          "full_name": "GoogleCloudPlatform/google-cloud-storage-plugin",
+          "id": 1216087888,
+          "fork": false
+        },
+        {
+          "full_name": "TanStack/alt-cli",
+          "id": 1137256721,
+          "fork": false
+        },
+        {
+          "full_name": "AgentEra/Agently-Skills",
+          "id": 1178630481,
+          "fork": false
+        },
+        {
+          "full_name": "ar27111994/penpot-mcp",
+          "id": 1248479257,
+          "fork": false
+        },
+        {
+          "full_name": "surrealdb/agent-skills",
+          "id": 1205255879,
+          "fork": false
+        },
+        {
+          "full_name": "didit-protocol/skills",
+          "id": 1157689756,
+          "fork": false
+        },
+        {
+          "full_name": "ucoz-skills/agent-skills",
+          "id": 1280533957,
+          "fork": false
+        },
+        {
+          "full_name": "shiquda/weread-cli",
+          "id": 1240724913,
+          "fork": false
+        },
+        {
+          "full_name": "react-navigation/skills",
+          "id": 1170859401,
+          "fork": false
+        },
+        {
+          "full_name": "zvec-ai/zvec-agent-skills",
+          "id": 1172586488,
+          "fork": false
+        },
+        {
+          "full_name": "powersync-ja/agent-skills",
+          "id": 1166278249,
+          "fork": false
+        },
+        {
+          "full_name": "aerospike/agent-skills",
+          "id": 1218378479,
+          "fork": false
+        },
+        {
+          "full_name": "cmoralesm/P123-Claude-Skill",
+          "id": 1187128147,
+          "fork": false
+        },
+        {
+          "full_name": "yccm/SkillGen",
+          "id": 1233188553,
+          "fork": false
+        },
+        {
+          "full_name": "quysto/QUYQUY-AntigravityAwesomeSkills-GodVersion-bumbum",
+          "id": 1268181872,
+          "fork": false
+        },
+        {
+          "full_name": "honojs/skills",
+          "id": 1352773419,
+          "fork": false
+        },
+        {
+          "full_name": "ngrok/skills",
+          "id": 1140886263,
+          "fork": false
+        },
+        {
+          "full_name": "pinecone-io/skills",
+          "id": 1153782607,
+          "fork": false
+        },
+        {
+          "full_name": "openapi/openapi-skills",
+          "id": 1264805531,
+          "fork": false
+        },
+        {
+          "full_name": "HasData/agent-skills",
+          "id": 1222336408,
+          "fork": false
+        },
+        {
+          "full_name": "tmssoftware/skills",
+          "id": 1164742914,
+          "fork": false
+        },
+        {
+          "full_name": "kpab/seo-mastery-agent-skills",
+          "id": 1125014413,
+          "fork": false
+        },
+        {
+          "full_name": "mayarid/skills",
+          "id": 1321795687,
+          "fork": false
+        },
+        {
+          "full_name": "bagisto/agent-skills",
+          "id": 1167364208,
+          "fork": false
+        },
+        {
+          "full_name": "Higangssh/yocto-agent-skills",
+          "id": 1283768776,
+          "fork": false
+        },
+        {
+          "full_name": "EmblemCompany/Agent-skills",
+          "id": 1171860482,
+          "fork": false
+        },
+        {
+          "full_name": "gandli/weread-skills",
+          "id": 1239911524,
+          "fork": false
+        },
+        {
+          "full_name": "Inference1/learn-agent-skills",
+          "id": 1163371773,
+          "fork": false
+        },
+        {
+          "full_name": "attentiondotnet/davidondrej-skills",
+          "id": 1292721506,
+          "fork": false
+        },
+        {
+          "full_name": "Whopus/yome-skill-ppt",
+          "id": 1219845641,
+          "fork": false
+        },
+        {
+          "full_name": "adryanmoldokkr32-pixel/anthropics-skills",
+          "id": 1208427480,
+          "fork": false
+        },
+        {
+          "full_name": "youngfreeFJS/skill-test-skill",
+          "id": 1199269535,
+          "fork": false
+        },
+        {
+          "full_name": "docusealco/docuseal-agent-skills",
+          "id": 1171593616,
+          "fork": false
+        },
+        {
+          "full_name": "coinpaprika/claude-marketplace",
+          "id": 1076044705,
+          "fork": false
+        },
+        {
+          "full_name": "ConnectiveOne/connectiveone-docs",
+          "id": 1313752027,
+          "fork": false
+        },
+        {
+          "full_name": "ClawCall-Dev/ClawCall",
+          "id": 1148822179,
+          "fork": false
+        },
+        {
+          "full_name": "tcarac/skill-doctor",
+          "id": 1144192193,
+          "fork": false
+        },
+        {
+          "full_name": "Zeeh-Lin/spinal-pro",
+          "id": 1196947823,
+          "fork": false
+        },
+        {
+          "full_name": "bryan31/How2useLiteFlow",
+          "id": 1285133778,
+          "fork": false
+        },
+        {
+          "full_name": "olgunozoktas/livewire-alpine-skills",
+          "id": 1346721465,
+          "fork": false
+        },
+        {
+          "full_name": "UCSB-NLP-Chang/FederatedSkill",
+          "id": 1256415153,
+          "fork": false
+        },
+        {
+          "full_name": "Python-IDE/pythonide-skills",
+          "id": 1264839004,
+          "fork": false
+        },
+        {
+          "full_name": "duvoai/skills",
+          "id": 1246722881,
+          "fork": false
+        },
+        {
+          "full_name": "michelve/agent-skills",
+          "id": 1168742337,
+          "fork": false
+        },
+        {
+          "full_name": "wearekanso/agent-skills",
+          "id": 1156987676,
+          "fork": false
+        },
+        {
+          "full_name": "better-i18n/skills",
+          "id": 1146634173,
+          "fork": false
+        },
+        {
+          "full_name": "quivly/skills",
+          "id": 1288703794,
+          "fork": false
+        },
+        {
+          "full_name": "scylladb/agent-skills",
+          "id": 1197509482,
+          "fork": false
+        },
+        {
+          "full_name": "officialunofficial/skills",
+          "id": 1292562521,
+          "fork": false
+        },
+        {
+          "full_name": "superset-sh/skills",
+          "id": 1310679008,
+          "fork": false
+        },
+        {
+          "full_name": "silennsong/etsy-listing-helper",
+          "id": 1266863646,
+          "fork": false
+        },
+        {
+          "full_name": "wso2/agent-skills",
+          "id": 1215969335,
+          "fork": false
+        },
+        {
+          "full_name": "uvwt/agentdock-skills",
+          "id": 1319903379,
+          "fork": false
+        },
+        {
+          "full_name": "Shreyas70773/oracle-dba-agentic-skills",
+          "id": 1261079043,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"npx skills add\" \"API\" fork:false stars:>1",
+      "sort": "stars",
+      "limit": 100,
+      "total_count": 7,
+      "team": "products",
+      "hits": [
+        {
+          "full_name": "Hashnode/gql-skill",
+          "id": 1273136102,
+          "fork": false
+        },
+        {
+          "full_name": "microsoft/Foundry-AI-solution-templates-creation",
+          "id": 1197653933,
+          "fork": false
+        },
+        {
+          "full_name": "andrewii23/ii23-skills",
+          "id": 1258021312,
+          "fork": false
+        },
+        {
+          "full_name": "HKTITAN/poke-skills",
+          "id": 1227813252,
+          "fork": false
+        },
+        {
+          "full_name": "aykyusuf/structure-map",
+          "id": 1168867122,
+          "fork": false
+        },
+        {
+          "full_name": "BlocksOrg/skills",
+          "id": 1400590553,
+          "fork": false
+        },
+        {
+          "full_name": "laowang-ai-xbb/free-ai-token",
+          "id": 1359777178,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"CLI\" license:apache-2.0 fork:false",
+      "sort": "stars",
+      "limit": 100,
+      "total_count": 39,
+      "team": "products",
+      "hits": [
+        {
+          "full_name": "gamedev-skills/awesome-gamedev-agent-skills",
+          "id": 1278883735,
+          "fork": false
+        },
+        {
+          "full_name": "agent-sh/agnix",
+          "id": 1146336156,
+          "fork": false
+        },
+        {
+          "full_name": "dbwls99706/ros2-engineering-skills",
+          "id": 1182813444,
+          "fork": false
+        },
+        {
+          "full_name": "TerminalSkills/skills",
+          "id": 1147994670,
+          "fork": false
+        },
+        {
+          "full_name": "aliyun/maxcompute-semantic",
+          "id": 1262784746,
+          "fork": false
+        },
+        {
+          "full_name": "yogin16/better-cli",
+          "id": 1175071609,
+          "fork": false
+        },
+        {
+          "full_name": "skill-tools/skill-tools",
+          "id": 1154548181,
+          "fork": false
+        },
+        {
+          "full_name": "kabirnarang39/skillci",
+          "id": 1307423052,
+          "fork": false
+        },
+        {
+          "full_name": "asale-ai/anything-to-skill",
+          "id": 1330748613,
+          "fork": false
+        },
+        {
+          "full_name": "PIsberg/skill3",
+          "id": 1277229605,
+          "fork": false
+        },
+        {
+          "full_name": "sayed3li97/skillscore",
+          "id": 1267589814,
+          "fork": false
+        },
+        {
+          "full_name": "barankaya/zarif",
+          "id": 1409853437,
+          "fork": false
+        },
+        {
+          "full_name": "alephic-ai/skref",
+          "id": 1256428972,
+          "fork": false
+        },
+        {
+          "full_name": "AddisonHoff/sendsets",
+          "id": 1389779405,
+          "fork": false
+        },
+        {
+          "full_name": "letsloose501/sqs-skills",
+          "id": 1375016458,
+          "fork": false
+        },
+        {
+          "full_name": "skillfn/cli",
+          "id": 1353616492,
+          "fork": false
+        },
+        {
+          "full_name": "fetchai/agentverse-skills",
+          "id": 1216149857,
+          "fork": false
+        },
+        {
+          "full_name": "jonnyeclectic/boost",
+          "id": 1304281190,
+          "fork": false
+        },
+        {
+          "full_name": "rafeblandford/skills",
+          "id": 1345953544,
+          "fork": false
+        },
+        {
+          "full_name": "RudrenduPaul/skillguard",
+          "id": 1297766618,
+          "fork": false
+        },
+        {
+          "full_name": "chenhz01/zhengming-openai-plugins",
+          "id": 1362763845,
+          "fork": false
+        },
+        {
+          "full_name": "vidmoat/skills",
+          "id": 1400785621,
+          "fork": false
+        },
+        {
+          "full_name": "frkentno1-cloud/skill-conflict-detector",
+          "id": 1324025516,
+          "fork": false
+        },
+        {
+          "full_name": "SignalCoding/signal-sentinel-scanner",
+          "id": 1200596481,
+          "fork": false
+        },
+        {
+          "full_name": "sebastienrousseau/agtmls",
+          "id": 1293243728,
+          "fork": false
+        },
+        {
+          "full_name": "j0yen/skill-manifest",
+          "id": 1248042842,
+          "fork": false
+        },
+        {
+          "full_name": "haidave/frontend-toolbox",
+          "id": 1228958169,
+          "fork": false
+        },
+        {
+          "full_name": "tosin2013/rhel-devops-skills-cli",
+          "id": 1197451895,
+          "fork": false
+        },
+        {
+          "full_name": "tryalan-ai/alan-skills",
+          "id": 1224323834,
+          "fork": false
+        },
+        {
+          "full_name": "web3guru888/p2p-foundation-skills",
+          "id": 1217955143,
+          "fork": false
+        },
+        {
+          "full_name": "cirsec/skills",
+          "id": 1425485313,
+          "fork": false
+        },
+        {
+          "full_name": "skill-one/agents-skills",
+          "id": 1335161603,
+          "fork": false
+        },
+        {
+          "full_name": "edamam-llc/edamam-skills",
+          "id": 1349607113,
+          "fork": false
+        },
+        {
+          "full_name": "jbrazda/ai-agent-skills",
+          "id": 1417792404,
+          "fork": false
+        },
+        {
+          "full_name": "fevziegeyurtsevenler/prompt-lint",
+          "id": 1321868242,
+          "fork": false
+        },
+        {
+          "full_name": "joeyspagnoli/example-resume",
+          "id": 1213097127,
+          "fork": false
+        },
+        {
+          "full_name": "skpm-ai/spec",
+          "id": 1223500428,
+          "fork": false
+        },
+        {
+          "full_name": "martin-conur/kipi",
+          "id": 1406367766,
+          "fork": false
+        },
+        {
+          "full_name": "vltanh/formalize-math-paper",
+          "id": 1400710422,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"education\" in:readme stars:>3",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 778,
+      "searched_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "msitarzewski/agency-agents",
+          "id": 1075372545,
+          "fork": false
+        },
+        {
+          "full_name": "punkpeye/awesome-mcp-servers",
+          "id": 896335270,
+          "fork": false
+        },
+        {
+          "full_name": "ai-job-search-dev/ai-job-search",
+          "id": 1185389803,
+          "fork": false
+        },
+        {
+          "full_name": "Imbad0202/academic-research-skills",
+          "id": 1167300963,
+          "fork": false
+        },
+        {
+          "full_name": "zhaoxuya520/reverse-skill",
+          "id": 1237819660,
+          "fork": false
+        },
+        {
+          "full_name": "HKUDS/DeepTutor",
+          "id": 1124219907,
+          "fork": false
+        },
+        {
+          "full_name": "mukul975/Anthropic-Cybersecurity-Skills",
+          "id": 1166506614,
+          "fork": false
+        },
+        {
+          "full_name": "JimLiu/baoyu-skills",
+          "id": 1133207146,
+          "fork": false
+        },
+        {
+          "full_name": "wanshuiyin/Auto-claude-code-research-in-sleep",
+          "id": 1177608268,
+          "fork": false
+        },
+        {
+          "full_name": "Imbad0202/academic-research-skills-codex",
+          "id": 1220899692,
+          "fork": false
+        },
+        {
+          "full_name": "BehiSecc/awesome-claude-skills",
+          "id": 1078332194,
+          "fork": false
+        },
+        {
+          "full_name": "ai-boost/awesome-prompts",
+          "id": 745546184,
+          "fork": false
+        },
+        {
+          "full_name": "datawhalechina/Agent-Learning-Hub",
+          "id": 1241257629,
+          "fork": false
+        },
+        {
+          "full_name": "anbeime/skill",
+          "id": 1147838400,
+          "fork": false
+        },
+        {
+          "full_name": "cporter202/API-mega-list",
+          "id": 1113152049,
+          "fork": false
+        },
+        {
+          "full_name": "withmarbleapp/os-taxonomy",
+          "id": 1293375068,
+          "fork": false
+        },
+        {
+          "full_name": "heilcheng/awesome-agent-skills",
+          "id": 1124920990,
+          "fork": false
+        },
+        {
+          "full_name": "zarazhangrui/codebase-to-course",
+          "id": 1188997672,
+          "fork": false
+        },
+        {
+          "full_name": "langgptai/awesome-claude-prompts",
+          "id": 665340930,
+          "fork": false
+        },
+        {
+          "full_name": "sacridini/Awesome-Geospatial",
+          "id": 58225794,
+          "fork": false
+        },
+        {
+          "full_name": "alvinreal/awesome-opensource-ai",
+          "id": 1190778303,
+          "fork": false
+        },
+        {
+          "full_name": "ruc-datalab/DeepAnalyze",
+          "id": 1074218324,
+          "fork": false
+        },
+        {
+          "full_name": "dexhunter/seedance2-skill",
+          "id": 1155501359,
+          "fork": false
+        },
+        {
+          "full_name": "kaankiziltug/logo-design-skill",
+          "id": 1388867993,
+          "fork": false
+        },
+        {
+          "full_name": "mergisi/awesome-openclaw-agents",
+          "id": 1150496175,
+          "fork": false
+        },
+        {
+          "full_name": "gmh5225/awesome-game-security",
+          "id": 477570603,
+          "fork": false
+        },
+        {
+          "full_name": "FreedomIntelligence/OpenClaw-Medical-Skills",
+          "id": 1175870738,
+          "fork": false
+        },
+        {
+          "full_name": "songguoxs/seedance-prompt-skill",
+          "id": 1156397126,
+          "fork": false
+        },
+        {
+          "full_name": "rohitg00/awesome-claude-code-toolkit",
+          "id": 1150071903,
+          "fork": false
+        },
+        {
+          "full_name": "DrCatHicks/learning-opportunities",
+          "id": 1152411115,
+          "fork": false
+        },
+        {
+          "full_name": "wondelai/skills",
+          "id": 1145158024,
+          "fork": false
+        },
+        {
+          "full_name": "yibie/awesome-jev",
+          "id": 1374561793,
+          "fork": false
+        },
+        {
+          "full_name": "noamseg/interview-coach-skill",
+          "id": 1146359955,
+          "fork": false
+        },
+        {
+          "full_name": "DenisSergeevitch/agents-best-practices",
+          "id": 1240191065,
+          "fork": false
+        },
+        {
+          "full_name": "nanaism/yomiyasu",
+          "id": 1397771878,
+          "fork": false
+        },
+        {
+          "full_name": "tinyfish-io/tinyfish-cookbook",
+          "id": 1140071348,
+          "fork": false
+        },
+        {
+          "full_name": "vasu-devs/JustHireMe",
+          "id": 1169144801,
+          "fork": false
+        },
+        {
+          "full_name": "bespokelabsai/nimble",
+          "id": 1375631360,
+          "fork": false
+        },
+        {
+          "full_name": "cbrock84/headcount",
+          "id": 1349898907,
+          "fork": false
+        },
+        {
+          "full_name": "ai4s-research/awesome-ai-for-science",
+          "id": 1069616483,
+          "fork": false
+        },
+        {
+          "full_name": "aipoch/medical-research-skills",
+          "id": 1149517037,
+          "fork": false
+        },
+        {
+          "full_name": "HKUDS/AutoSwarm",
+          "id": 1285974683,
+          "fork": false
+        },
+        {
+          "full_name": "punkpeye/awesome-remote-mcp-servers",
+          "id": 1360778208,
+          "fork": false
+        },
+        {
+          "full_name": "wy51ai/edulab",
+          "id": 1259071744,
+          "fork": false
+        },
+        {
+          "full_name": "wikieden/Freedom-To-Chatgpt-Claude-Agent",
+          "id": 600369478,
+          "fork": false
+        },
+        {
+          "full_name": "yetone/kill-ai-slop",
+          "id": 1296301313,
+          "fork": false
+        },
+        {
+          "full_name": "hashgraph-online/awesome-codex-plugins",
+          "id": 1194181229,
+          "fork": false
+        },
+        {
+          "full_name": "revfactory/harness-100",
+          "id": 1189033239,
+          "fork": false
+        },
+        {
+          "full_name": "Jenqyang/Awesome-AI-Agents",
+          "id": 734626369,
+          "fork": false
+        },
+        {
+          "full_name": "adithya-s-k/manim_skill",
+          "id": 1139643103,
+          "fork": false
+        },
+        {
+          "full_name": "uhub/awesome-python",
+          "id": 40587100,
+          "fork": false
+        },
+        {
+          "full_name": "ClawBio/ClawBio",
+          "id": 1166871123,
+          "fork": false
+        },
+        {
+          "full_name": "rohitg00/awesome-claude-design",
+          "id": 1214951658,
+          "fork": false
+        },
+        {
+          "full_name": "Sushegaad/Claude-Skills-Governance-Risk-and-Compliance",
+          "id": 1183297079,
+          "fork": false
+        },
+        {
+          "full_name": "coco-research/coco",
+          "id": 1221180063,
+          "fork": false
+        },
+        {
+          "full_name": "lawve-ai/awesome-legal-skills",
+          "id": 1118981983,
+          "fork": false
+        },
+        {
+          "full_name": "GarethManning/education-agent-skills",
+          "id": 1170158614,
+          "fork": false
+        },
+        {
+          "full_name": "superiorlu/AITreasureBox",
+          "id": 614906119,
+          "fork": false
+        },
+        {
+          "full_name": "DeepXiv/deepxiv_sdk",
+          "id": 1152520306,
+          "fork": false
+        },
+        {
+          "full_name": "hashgraph-online/awesome-ai-plugins",
+          "id": 1204165322,
+          "fork": false
+        },
+        {
+          "full_name": "juanceresa/sift-kg",
+          "id": 1154675385,
+          "fork": false
+        },
+        {
+          "full_name": "ndpvt-web/latex-document-skill",
+          "id": 1157286147,
+          "fork": false
+        },
+        {
+          "full_name": "buildfastwithai/gen-ai-experiments",
+          "id": 811759488,
+          "fork": false
+        },
+        {
+          "full_name": "yibie/awesome-autoresearch",
+          "id": 1197254764,
+          "fork": false
+        },
+        {
+          "full_name": "simonw/research",
+          "id": 1079568604,
+          "fork": false
+        },
+        {
+          "full_name": "v-modal/awesome-jev-tools",
+          "id": 1377399471,
+          "fork": false
+        },
+        {
+          "full_name": "OpenClaudia/openclaudia-skills",
+          "id": 1155112913,
+          "fork": false
+        },
+        {
+          "full_name": "trackawesomelist/trackawesomelist",
+          "id": 531038347,
+          "fork": false
+        },
+        {
+          "full_name": "bangtutorial/bang-motion",
+          "id": 1358561036,
+          "fork": false
+        },
+        {
+          "full_name": "AgentTeam-TaichuAI/ScienceClaw",
+          "id": 1180557903,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"OpenFOAM\" in:readme",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 63,
+      "searched_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "ai4s-research/awesome-ai-for-science",
+          "id": 1069616483,
+          "fork": false
+        },
+        {
+          "full_name": "Abhinavbwj/Claude-skills-for-Computational-Designers",
+          "id": 1192326101,
+          "fork": false
+        },
+        {
+          "full_name": "K-Dense-AI/scientific-agents",
+          "id": 1257798483,
+          "fork": false
+        },
+        {
+          "full_name": "SciMate-AI/HPC-Skills",
+          "id": 1183303071,
+          "fork": false
+        },
+        {
+          "full_name": "Soljourner/claude-engineering-skills",
+          "id": 1091999996,
+          "fork": false
+        },
+        {
+          "full_name": "Frank-ZY-Dou/awesome-ai-3d-modeling-robotics",
+          "id": 1376677047,
+          "fork": false
+        },
+        {
+          "full_name": "NVIDIA-Omniverse/kit-cae",
+          "id": 1040915213,
+          "fork": false
+        },
+        {
+          "full_name": "csml-rpi/AI-CFD-Scientist",
+          "id": 1155865377,
+          "fork": false
+        },
+        {
+          "full_name": "sunrise-hjx/vibeFlow-skills",
+          "id": 1243173993,
+          "fork": false
+        },
+        {
+          "full_name": "haiziyan/industrial-software-dev-skill",
+          "id": 1185363868,
+          "fork": false
+        },
+        {
+          "full_name": "sciagent-ai/sciagent-cli",
+          "id": 1148260641,
+          "fork": false
+        },
+        {
+          "full_name": "twj011/openfoam-agent-skills",
+          "id": 1141784353,
+          "fork": false
+        },
+        {
+          "full_name": "test1card/femis-skill",
+          "id": 1283371391,
+          "fork": false
+        },
+        {
+          "full_name": "walterkken/doc-driven-engineering-software-skills",
+          "id": 1244911607,
+          "fork": false
+        },
+        {
+          "full_name": "hooyao/vortex-funnel-gen",
+          "id": 1210497361,
+          "fork": false
+        },
+        {
+          "full_name": "eugene0429/awesome-ai-stack",
+          "id": 1266370504,
+          "fork": false
+        },
+        {
+          "full_name": "findscripter/everything-skills",
+          "id": 1256964353,
+          "fork": false
+        },
+        {
+          "full_name": "neverbiasu/awesome-research-skills",
+          "id": 1319644603,
+          "fork": false
+        },
+        {
+          "full_name": "swtbkim/openfoam-claude-suite",
+          "id": 1294536335,
+          "fork": false
+        },
+        {
+          "full_name": "PLAID-lib/plaid-skills",
+          "id": 1161481624,
+          "fork": false
+        },
+        {
+          "full_name": "fllowzle/sim-agent-platform",
+          "id": 1254045865,
+          "fork": false
+        },
+        {
+          "full_name": "uhub/awesome-agent-skills",
+          "id": 1354543429,
+          "fork": false
+        },
+        {
+          "full_name": "constructelligence-lab/open-source-construction-tools",
+          "id": 1386312637,
+          "fork": false
+        },
+        {
+          "full_name": "LZF1111/CFDriver_skill",
+          "id": 1300622375,
+          "fork": false
+        },
+        {
+          "full_name": "loumalouomega/CAD-Preview",
+          "id": 1282867372,
+          "fork": false
+        },
+        {
+          "full_name": "apekshhaa/Foam-Agent",
+          "id": 1295386385,
+          "fork": false
+        },
+        {
+          "full_name": "CFDEMproject/cfdem-assistant",
+          "id": 1321420219,
+          "fork": false
+        },
+        {
+          "full_name": "CAS-CLab/EasyFoam",
+          "id": 1415278728,
+          "fork": false
+        },
+        {
+          "full_name": "EzraJay2333/openfoam-simulation",
+          "id": 1280047657,
+          "fork": false
+        },
+        {
+          "full_name": "sesasa/3d-house-walkthrough",
+          "id": 1422065840,
+          "fork": false
+        },
+        {
+          "full_name": "TiegenFang/CFD-MD-plotting",
+          "id": 1425801292,
+          "fork": false
+        },
+        {
+          "full_name": "Zehebi29/engineering-skill-hub",
+          "id": 1237409374,
+          "fork": false
+        },
+        {
+          "full_name": "MaybeBio/HPC-Skill",
+          "id": 1298456517,
+          "fork": false
+        },
+        {
+          "full_name": "hackerjackL/SciForge-OSS",
+          "id": 1309470222,
+          "fork": false
+        },
+        {
+          "full_name": "ThomasSchmiegelt/ema-motor-analysis",
+          "id": 1258959269,
+          "fork": false
+        },
+        {
+          "full_name": "xupeiwust/sim-buddy",
+          "id": 1238751111,
+          "fork": false
+        },
+        {
+          "full_name": "Souritra-Garai/FOAM-Skills",
+          "id": 1324323208,
+          "fork": false
+        },
+        {
+          "full_name": "LuneZhang/openfoam-copilot",
+          "id": 1185474486,
+          "fork": false
+        },
+        {
+          "full_name": "bosung-gotocloud/openclaw-cfd",
+          "id": 1379049482,
+          "fork": false
+        },
+        {
+          "full_name": "klipsch1604/claude-engineering-skills",
+          "id": 1287832893,
+          "fork": false
+        },
+        {
+          "full_name": "ebenlimbor433-source/Engineer",
+          "id": 1372250875,
+          "fork": false
+        },
+        {
+          "full_name": "kimlnw/OpenFoamV2",
+          "id": 1357779668,
+          "fork": false
+        },
+        {
+          "full_name": "songshen06/openfoam-agent-workbench",
+          "id": 1325027893,
+          "fork": false
+        },
+        {
+          "full_name": "jkrescue/CFDclaw",
+          "id": 1226494181,
+          "fork": false
+        },
+        {
+          "full_name": "SaahithV6/Nemoclawgineer",
+          "id": 1240293957,
+          "fork": false
+        },
+        {
+          "full_name": "iDesign-Lab/PhysMiner",
+          "id": 1280704536,
+          "fork": false
+        },
+        {
+          "full_name": "brianzliu/SIGA-template",
+          "id": 1245676952,
+          "fork": false
+        },
+        {
+          "full_name": "lagzgabrielmuller-dot/kit-ingenieria-3d",
+          "id": 1428268122,
+          "fork": false
+        },
+        {
+          "full_name": "Koar-create/proto-wrf4foam",
+          "id": 1228025394,
+          "fork": false
+        },
+        {
+          "full_name": "asermas/claude-engineering-skills",
+          "id": 1354296562,
+          "fork": false
+        },
+        {
+          "full_name": "Kolihanar/mesh-quality-check",
+          "id": 1404332370,
+          "fork": false
+        },
+        {
+          "full_name": "jiihkui/Claude-skills-for-Computational-Designers",
+          "id": 1218076008,
+          "fork": false
+        },
+        {
+          "full_name": "Thomas-Novato/cfd-heat-transfer-tutor",
+          "id": 1351331023,
+          "fork": false
+        },
+        {
+          "full_name": "xin31843-spec/case-failure-analyzer",
+          "id": 1383128144,
+          "fork": false
+        },
+        {
+          "full_name": "sunccchengze/sunchengze-distilled",
+          "id": 1353026921,
+          "fork": false
+        },
+        {
+          "full_name": "yz070204/azure-hpc-atlas",
+          "id": 1363532013,
+          "fork": false
+        },
+        {
+          "full_name": "lql341/scnet-app",
+          "id": 1424311039,
+          "fork": false
+        },
+        {
+          "full_name": "timofeymukha/blockdrawer",
+          "id": 1304052657,
+          "fork": false
+        },
+        {
+          "full_name": "YuFenfen-ai/FlowLabLite",
+          "id": 1173633041,
+          "fork": false
+        },
+        {
+          "full_name": "zhuyansen/awesome-claude-code-skills-collections",
+          "id": 1414027132,
+          "fork": false
+        },
+        {
+          "full_name": "enhansome/enhansome-ai-for-science",
+          "id": 1331682970,
+          "fork": false
+        },
+        {
+          "full_name": "donghuison/my-awesome-stars",
+          "id": 1034341426,
+          "fork": false
+        },
+        {
+          "full_name": "MoonSoon69/awesome-mcp-servers-punkpeye",
+          "id": 1200277751,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"astronomy\" in:readme stars:>0",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 132,
+      "searched_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "punkpeye/awesome-mcp-servers",
+          "id": 896335270,
+          "fork": false
+        },
+        {
+          "full_name": "K-Dense-AI/scientific-agent-skills",
+          "id": 1079456184,
+          "fork": false
+        },
+        {
+          "full_name": "cporter202/API-mega-list",
+          "id": 1113152049,
+          "fork": false
+        },
+        {
+          "full_name": "alvinreal/awesome-opensource-ai",
+          "id": 1190778303,
+          "fork": false
+        },
+        {
+          "full_name": "mvanhorn/printing-press-library",
+          "id": 1194120108,
+          "fork": false
+        },
+        {
+          "full_name": "ai4s-research/awesome-ai-for-science",
+          "id": 1069616483,
+          "fork": false
+        },
+        {
+          "full_name": "brycewang-stanford/Awesome-Journal-Skills",
+          "id": 1248879346,
+          "fork": false
+        },
+        {
+          "full_name": "uhub/awesome-python",
+          "id": 40587100,
+          "fork": false
+        },
+        {
+          "full_name": "LeonChaoX/qinyan-academic-skills",
+          "id": 1168281163,
+          "fork": false
+        },
+        {
+          "full_name": "viettranx/3dviz-pro-max",
+          "id": 1363399964,
+          "fork": false
+        },
+        {
+          "full_name": "AgentTeam-TaichuAI/ScienceClaw",
+          "id": 1180557903,
+          "fork": false
+        },
+        {
+          "full_name": "dagthomas/comfyui_dagthomas",
+          "id": 680610060,
+          "fork": false
+        },
+        {
+          "full_name": "vinkius-labs/mcpfusion",
+          "id": 1156046366,
+          "fork": false
+        },
+        {
+          "full_name": "AtlasCloudAI/awesome-seedance-2.5-prompts-skills",
+          "id": 1269999816,
+          "fork": false
+        },
+        {
+          "full_name": "K-Dense-AI/scientific-agents",
+          "id": 1257798483,
+          "fork": false
+        },
+        {
+          "full_name": "SerhiiKorniienko/bullshit-detector",
+          "id": 1313843554,
+          "fork": false
+        },
+        {
+          "full_name": "OSSDrop/OSSDrop",
+          "id": 1297197942,
+          "fork": false
+        },
+        {
+          "full_name": "Maximilien-ai/clawmax",
+          "id": 1177305291,
+          "fork": false
+        },
+        {
+          "full_name": "Tyche-MKR/scientific-agent-skills",
+          "id": 1352303594,
+          "fork": false
+        },
+        {
+          "full_name": "AlterLab-IEU/AlterLab-Academic-Skills",
+          "id": 1183410458,
+          "fork": false
+        },
+        {
+          "full_name": "royerlab/luxar",
+          "id": 1031708429,
+          "fork": false
+        },
+        {
+          "full_name": "shiro-0x/hersona",
+          "id": 1259432916,
+          "fork": false
+        },
+        {
+          "full_name": "KalarisLabs/research-agent-skills",
+          "id": 1292263276,
+          "fork": false
+        },
+        {
+          "full_name": "mdbabumiamssm/LLMs-Universal-Life-Science-and-Clinical-Skills-",
+          "id": 1123977883,
+          "fork": false
+        },
+        {
+          "full_name": "truefoundry/awesome-skills-registry",
+          "id": 1260218154,
+          "fork": false
+        },
+        {
+          "full_name": "jeffreytse/grimoire",
+          "id": 1258218304,
+          "fork": false
+        },
+        {
+          "full_name": "uw-ssec/rse-plugins",
+          "id": 1091290859,
+          "fork": false
+        },
+        {
+          "full_name": "AnOversizedMooseWithSocks/leOS",
+          "id": 1212059453,
+          "fork": false
+        },
+        {
+          "full_name": "tondevrel/scientific-agent-skills",
+          "id": 1146808489,
+          "fork": false
+        },
+        {
+          "full_name": "habitoai/awesome-mcp-servers",
+          "id": 958893360,
+          "fork": false
+        },
+        {
+          "full_name": "crazymsn/academic-skills",
+          "id": 1248796295,
+          "fork": false
+        },
+        {
+          "full_name": "heikeyangle-code/rikkahub-plus",
+          "id": 1251405339,
+          "fork": false
+        },
+        {
+          "full_name": "Hongyu-yu/matsci-ai-skills",
+          "id": 1124151980,
+          "fork": false
+        },
+        {
+          "full_name": "fundamental-physics/marketplace",
+          "id": 1129117244,
+          "fork": false
+        },
+        {
+          "full_name": "LogauaEngstrom/claude-scientific-skills",
+          "id": 1123706128,
+          "fork": false
+        },
+        {
+          "full_name": "subhansh-dev/Friday-Autonomous-Cognitive-AI-Operating-System",
+          "id": 1234901863,
+          "fork": false
+        },
+        {
+          "full_name": "mengke-wang/human-design-reader",
+          "id": 1326425305,
+          "fork": false
+        },
+        {
+          "full_name": "lilinji/GeneTind-Life-Skills",
+          "id": 1176412803,
+          "fork": false
+        },
+        {
+          "full_name": "rubensliv/k-dense-ai",
+          "id": 1117905215,
+          "fork": false
+        },
+        {
+          "full_name": "mayukh4/huskylens-agent",
+          "id": 1200971158,
+          "fork": false
+        },
+        {
+          "full_name": "luokai0/ai-agent-skills-by-luo-kai",
+          "id": 1182832946,
+          "fork": false
+        },
+        {
+          "full_name": "tassiovale/claude-code-kit",
+          "id": 1264996101,
+          "fork": false
+        },
+        {
+          "full_name": "qishisuren123/skiller",
+          "id": 1175303530,
+          "fork": false
+        },
+        {
+          "full_name": "ChiShengChen/bazaar-of-fates",
+          "id": 1267679873,
+          "fork": false
+        },
+        {
+          "full_name": "TeoSlayer/pilot-skills",
+          "id": 1205154934,
+          "fork": false
+        },
+        {
+          "full_name": "Jowitt13/loom-of-heaven",
+          "id": 1308373829,
+          "fork": false
+        },
+        {
+          "full_name": "tmolavi/mcp-agent-skills-hub",
+          "id": 1309272092,
+          "fork": false
+        },
+        {
+          "full_name": "zhangyee/fastpaper-cli",
+          "id": 1198019937,
+          "fork": false
+        },
+        {
+          "full_name": "zachysun/DailyArXiv",
+          "id": 806138565,
+          "fork": false
+        },
+        {
+          "full_name": "Gmacadoches/astro-arc",
+          "id": 1359550991,
+          "fork": false
+        },
+        {
+          "full_name": "skymanbp/sci-paper",
+          "id": 1223931274,
+          "fork": false
+        },
+        {
+          "full_name": "USTC-Astro/coffee_break_poster",
+          "id": 1255249556,
+          "fork": false
+        },
+        {
+          "full_name": "findscripter/everything-skills",
+          "id": 1256964353,
+          "fork": false
+        },
+        {
+          "full_name": "jeffreytse/grimoire-core",
+          "id": 1272845922,
+          "fork": false
+        },
+        {
+          "full_name": "fabiocampolim-design/scitech-librarian",
+          "id": 1347973137,
+          "fork": false
+        },
+        {
+          "full_name": "hfcorriez/agent-public-apis",
+          "id": 1338782253,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/amateur-astronomy-observation-advisor-agent-skill",
+          "id": 1332692864,
+          "fork": false
+        },
+        {
+          "full_name": "yanjumlinnb-boop/scientific-agent-skills",
+          "id": 1275303688,
+          "fork": false
+        },
+        {
+          "full_name": "JackieL233/fengshui-master",
+          "id": 1254177672,
+          "fork": false
+        },
+        {
+          "full_name": "evisoft/scio.md",
+          "id": 1348410149,
+          "fork": false
+        },
+        {
+          "full_name": "PureVibeCoder/fastskills",
+          "id": 1130236183,
+          "fork": false
+        },
+        {
+          "full_name": "SukiYume/nasa-ads-skill",
+          "id": 1207542449,
+          "fork": false
+        },
+        {
+          "full_name": "Rotoslider/Choom",
+          "id": 1163550187,
+          "fork": false
+        },
+        {
+          "full_name": "kangaroowu/kondratiev-wave",
+          "id": 1306135923,
+          "fork": false
+        },
+        {
+          "full_name": "Trusler258/huanmeng-kook-bot",
+          "id": 1329080638,
+          "fork": false
+        },
+        {
+          "full_name": "dioptx/awesome-mcp-servers-bak",
+          "id": 1221846610,
+          "fork": false
+        },
+        {
+          "full_name": "NEBULIS-Lab/skills_lib",
+          "id": 1130261439,
+          "fork": false
+        },
+        {
+          "full_name": "dnwb/absads-skill",
+          "id": 1227705154,
+          "fork": false
+        },
+        {
+          "full_name": "Agnuxo1/CognitionBoard",
+          "id": 1224965102,
+          "fork": false
+        },
+        {
+          "full_name": "pedrocvaranda/cognitree-agent-skill",
+          "id": 1317749789,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"museum\" in:readme",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 643,
+      "searched_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "punkpeye/awesome-mcp-servers",
+          "id": 896335270,
+          "fork": false
+        },
+        {
+          "full_name": "cporter202/API-mega-list",
+          "id": 1113152049,
+          "fork": false
+        },
+        {
+          "full_name": "XBuilderLAB/cheat-on-content",
+          "id": 1229729956,
+          "fork": false
+        },
+        {
+          "full_name": "alchaincyf/huashu-art-motion",
+          "id": 1406706284,
+          "fork": false
+        },
+        {
+          "full_name": "mvanhorn/printing-press-library",
+          "id": 1194120108,
+          "fork": false
+        },
+        {
+          "full_name": "punkpeye/awesome-remote-mcp-servers",
+          "id": 1360778208,
+          "fork": false
+        },
+        {
+          "full_name": "krusemediallc/arcads-claude-code",
+          "id": 1198651456,
+          "fork": false
+        },
+        {
+          "full_name": "huytieu/COG-second-brain",
+          "id": 1076571787,
+          "fork": false
+        },
+        {
+          "full_name": "rohitg00/awesome-claude-design",
+          "id": 1214951658,
+          "fork": false
+        },
+        {
+          "full_name": "timoncool/YuE2-Studio",
+          "id": 1382450432,
+          "fork": false
+        },
+        {
+          "full_name": "ravens/awesome-telco",
+          "id": 199304591,
+          "fork": false
+        },
+        {
+          "full_name": "viettranx/3dviz-pro-max",
+          "id": 1363399964,
+          "fork": false
+        },
+        {
+          "full_name": "trackawesomelist/trackawesomelist",
+          "id": 531038347,
+          "fork": false
+        },
+        {
+          "full_name": "lhlGitHub/threejs-architecture-effects",
+          "id": 1380797051,
+          "fork": false
+        },
+        {
+          "full_name": "RongleCat/awesome-grok-bot",
+          "id": 1339813167,
+          "fork": false
+        },
+        {
+          "full_name": "timoncool/ACE-Step-Studio",
+          "id": 1207422559,
+          "fork": false
+        },
+        {
+          "full_name": "Belkins/ai-dive-deep",
+          "id": 1231982666,
+          "fork": false
+        },
+        {
+          "full_name": "shengjidaguai-china/personal-homepage-skill",
+          "id": 1261859183,
+          "fork": false
+        },
+        {
+          "full_name": "Abhinavbwj/Skills-Architects",
+          "id": 1203147517,
+          "fork": false
+        },
+        {
+          "full_name": "xpaysh/awesome-x402",
+          "id": 1088095777,
+          "fork": false
+        },
+        {
+          "full_name": "FavioVazquez/showtime",
+          "id": 1393055422,
+          "fork": false
+        },
+        {
+          "full_name": "corazzon/pptx-design-styles",
+          "id": 1176937771,
+          "fork": false
+        },
+        {
+          "full_name": "AtlasCloudAI/awesome-seedance-2.5-prompts-skills",
+          "id": 1269999816,
+          "fork": false
+        },
+        {
+          "full_name": "K-Dense-AI/scientific-agents",
+          "id": 1257798483,
+          "fork": false
+        },
+        {
+          "full_name": "Liuziyu77/AnythingAtlas",
+          "id": 1309554690,
+          "fork": false
+        },
+        {
+          "full_name": "tczyliu/china-travel-kit",
+          "id": 1345167055,
+          "fork": false
+        },
+        {
+          "full_name": "elvisun/loss-function-development",
+          "id": 1265684621,
+          "fork": false
+        },
+        {
+          "full_name": "Vieeeeeee/wibi-style",
+          "id": 1328599392,
+          "fork": false
+        },
+        {
+          "full_name": "jaccen/Awesome-Gaussian-Skills",
+          "id": 1223099228,
+          "fork": false
+        },
+        {
+          "full_name": "ziguishian/brand-design-skill",
+          "id": 1276627552,
+          "fork": false
+        },
+        {
+          "full_name": "megumi-ben/marco-polo.skill",
+          "id": 1284988637,
+          "fork": false
+        },
+        {
+          "full_name": "nowork-studio/awesome-ai-startups",
+          "id": 1233573842,
+          "fork": false
+        },
+        {
+          "full_name": "timoncool/MiniMax-Music3-Studio",
+          "id": 1336373577,
+          "fork": false
+        },
+        {
+          "full_name": "MickeyAlton33/web-designer-plugin",
+          "id": 1193051859,
+          "fork": false
+        },
+        {
+          "full_name": "obie/skills",
+          "id": 1151799065,
+          "fork": false
+        },
+        {
+          "full_name": "Frank-ZY-Dou/awesome-ai-3d-modeling-robotics",
+          "id": 1376677047,
+          "fork": false
+        },
+        {
+          "full_name": "idoforgod/cys-claude-sermon-skills",
+          "id": 1232757203,
+          "fork": false
+        },
+        {
+          "full_name": "Changroro/code-video",
+          "id": 1384097926,
+          "fork": false
+        },
+        {
+          "full_name": "joeseesun/qiaomu-icon-generator",
+          "id": 1275390212,
+          "fork": false
+        },
+        {
+          "full_name": "arumwu/design-md-skill",
+          "id": 1298634910,
+          "fork": false
+        },
+        {
+          "full_name": "dacnay816y62-hub/chinese-poster-skill",
+          "id": 1334469229,
+          "fork": false
+        },
+        {
+          "full_name": "dfrysinger/qrspi-plus",
+          "id": 1203103894,
+          "fork": false
+        },
+        {
+          "full_name": "mlopscommunity/Coding-Agents-Conference-skills",
+          "id": 1172934754,
+          "fork": false
+        },
+        {
+          "full_name": "StrayDragon/awesome-stars",
+          "id": 355747341,
+          "fork": false
+        },
+        {
+          "full_name": "krusemediallc/claude-code-ai-ad-builder-kie-ai",
+          "id": 1200879777,
+          "fork": false
+        },
+        {
+          "full_name": "shouvik12/devtv",
+          "id": 1378373584,
+          "fork": false
+        },
+        {
+          "full_name": "thecolab-ai/.skills",
+          "id": 1206590420,
+          "fork": false
+        },
+        {
+          "full_name": "Hiseaa/artifact-editorial-poster",
+          "id": 1324297513,
+          "fork": false
+        },
+        {
+          "full_name": "rose-for-future/hit-lab",
+          "id": 1265255565,
+          "fork": false
+        },
+        {
+          "full_name": "polar-bear-org/claude-skills",
+          "id": 1351305592,
+          "fork": false
+        },
+        {
+          "full_name": "ThomasZB/EvergreenSLAM",
+          "id": 1328388815,
+          "fork": false
+        },
+        {
+          "full_name": "Samin12/claude-course",
+          "id": 1221847714,
+          "fork": false
+        },
+        {
+          "full_name": "b1rdmania/claude-brand-skills",
+          "id": 1151575543,
+          "fork": false
+        },
+        {
+          "full_name": "novoads/agent-skills",
+          "id": 1320749267,
+          "fork": false
+        },
+        {
+          "full_name": "sunzhaokai95/kk-exhibition-planner-skill",
+          "id": 1264779904,
+          "fork": false
+        },
+        {
+          "full_name": "product-on-purpose/thinking-framework-skills",
+          "id": 1241547114,
+          "fork": false
+        },
+        {
+          "full_name": "chengjialu8888/AI_News_Digest",
+          "id": 1192475792,
+          "fork": false
+        },
+        {
+          "full_name": "ostaver/Sharp-design",
+          "id": 1258342449,
+          "fork": false
+        },
+        {
+          "full_name": "meiiie/meiiie_skillls",
+          "id": 1404734703,
+          "fork": false
+        },
+        {
+          "full_name": "matthewbrutonall/digital-preservation-skill",
+          "id": 1266445967,
+          "fork": false
+        },
+        {
+          "full_name": "thursdaycapital/heritage-architecture-studio",
+          "id": 1309730917,
+          "fork": false
+        },
+        {
+          "full_name": "crawfordxx/xiaoma-studio",
+          "id": 1416745296,
+          "fork": false
+        },
+        {
+          "full_name": "AkyRayy/Frontend-Design-SKILLS-for-AI",
+          "id": 1272497475,
+          "fork": false
+        },
+        {
+          "full_name": "Schlaflied/hr-skill",
+          "id": 1202476007,
+          "fork": false
+        },
+        {
+          "full_name": "tamirdresher/holocaust-research-squad-template",
+          "id": 1196958212,
+          "fork": false
+        },
+        {
+          "full_name": "AIowa-LLC/awesome-omarchy-themes",
+          "id": 1362774878,
+          "fork": false
+        },
+        {
+          "full_name": "Unbox-AI/behaviorgpt",
+          "id": 1385784904,
+          "fork": false
+        },
+        {
+          "full_name": "academicatstool-netizen/Cat_paper_search",
+          "id": 1261689486,
+          "fork": false
+        },
+        {
+          "full_name": "Jason5330/ai-self-eval",
+          "id": 1253176060,
+          "fork": false
+        },
+        {
+          "full_name": "svg153/awesome-stars",
+          "id": 600185777,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"energy\" \"skill\" in:readme stars:>3",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 852,
+      "searched_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "punkpeye/awesome-mcp-servers",
+          "id": 896335270,
+          "fork": false
+        },
+        {
+          "full_name": "hugohe3/ppt-master",
+          "id": 1113573066,
+          "fork": false
+        },
+        {
+          "full_name": "K-Dense-AI/scientific-agent-skills",
+          "id": 1079456184,
+          "fork": false
+        },
+        {
+          "full_name": "mukul975/Anthropic-Cybersecurity-Skills",
+          "id": 1166506614,
+          "fork": false
+        },
+        {
+          "full_name": "zarazhangrui/frontend-slides",
+          "id": 1143767804,
+          "fork": false
+        },
+        {
+          "full_name": "nashsu/llm_wiki",
+          "id": 1204828304,
+          "fork": false
+        },
+        {
+          "full_name": "awesome-dsh-plugin/awesome-dsh-plugin",
+          "id": 1333175049,
+          "fork": false
+        },
+        {
+          "full_name": "xbtlin/ai-berkshire",
+          "id": 1203777920,
+          "fork": false
+        },
+        {
+          "full_name": "aiming-lab/AutoResearchClaw",
+          "id": 1182108611,
+          "fork": false
+        },
+        {
+          "full_name": "MiniMax-AI/MiniMax-H3",
+          "id": 1317041031,
+          "fork": false
+        },
+        {
+          "full_name": "cporter202/API-mega-list",
+          "id": 1113152049,
+          "fork": false
+        },
+        {
+          "full_name": "MengTo/Skills",
+          "id": 1148744000,
+          "fork": false
+        },
+        {
+          "full_name": "miqdadbadjuber/anti-slop",
+          "id": 1326531152,
+          "fork": false
+        },
+        {
+          "full_name": "tensorchord/Awesome-LLMOps",
+          "id": 481805419,
+          "fork": false
+        },
+        {
+          "full_name": "sacridini/Awesome-Geospatial",
+          "id": 58225794,
+          "fork": false
+        },
+        {
+          "full_name": "homeassistant-ai/ha-mcp",
+          "id": 1056618941,
+          "fork": false
+        },
+        {
+          "full_name": "VoltAgent/awesome-claude-design",
+          "id": 1214125715,
+          "fork": false
+        },
+        {
+          "full_name": "kaankiziltug/logo-design-skill",
+          "id": 1388867993,
+          "fork": false
+        },
+        {
+          "full_name": "yanliudesign/mono-color-skill",
+          "id": 1339161831,
+          "fork": false
+        },
+        {
+          "full_name": "FreedomIntelligence/OpenClaw-Medical-Skills",
+          "id": 1175870738,
+          "fork": false
+        },
+        {
+          "full_name": "noamseg/interview-coach-skill",
+          "id": 1146359955,
+          "fork": false
+        },
+        {
+          "full_name": "tractorjuice/arc-kit",
+          "id": 1076043819,
+          "fork": false
+        },
+        {
+          "full_name": "skalesapp/skales",
+          "id": 1175857225,
+          "fork": false
+        },
+        {
+          "full_name": "LeoYeAI/openclaw-master-skills",
+          "id": 1170326509,
+          "fork": false
+        },
+        {
+          "full_name": "ai4s-research/awesome-ai-for-science",
+          "id": 1069616483,
+          "fork": false
+        },
+        {
+          "full_name": "kajisho5/ffmpeg-skill",
+          "id": 1356077516,
+          "fork": false
+        },
+        {
+          "full_name": "hexiecs/talk-normal",
+          "id": 1205406951,
+          "fork": false
+        },
+        {
+          "full_name": "jaywcjlove/awesome-swift-macos-apps",
+          "id": 869949408,
+          "fork": false
+        },
+        {
+          "full_name": "simonlin1212/global-stock-data",
+          "id": 1244493472,
+          "fork": false
+        },
+        {
+          "full_name": "punkpeye/awesome-remote-mcp-servers",
+          "id": 1360778208,
+          "fork": false
+        },
+        {
+          "full_name": "pedrohcgs/claude-code-my-workflow",
+          "id": 1151617003,
+          "fork": false
+        },
+        {
+          "full_name": "wy51ai/edulab",
+          "id": 1259071744,
+          "fork": false
+        },
+        {
+          "full_name": "boyang-hu/website-rebuild-skill",
+          "id": 1330468709,
+          "fork": false
+        },
+        {
+          "full_name": "NPC-Worldwide/npcpy",
+          "id": 863930645,
+          "fork": false
+        },
+        {
+          "full_name": "daymade/claude-code-skills",
+          "id": 1081140442,
+          "fork": false
+        },
+        {
+          "full_name": "brayonpi/hexstellar",
+          "id": 1348932500,
+          "fork": false
+        },
+        {
+          "full_name": "perminder-klair/subwave",
+          "id": 1235824690,
+          "fork": false
+        },
+        {
+          "full_name": "RefoundAI/lenny-skills",
+          "id": 1145269520,
+          "fork": false
+        },
+        {
+          "full_name": "tmgthb/Autonomous-Agents",
+          "id": 692466689,
+          "fork": false
+        },
+        {
+          "full_name": "sunny-glow/Auto-BenchMax",
+          "id": 1309505221,
+          "fork": false
+        },
+        {
+          "full_name": "RyanAlberts/best-of-Agent-Harnesses",
+          "id": 1175588150,
+          "fork": false
+        },
+        {
+          "full_name": "brycewang-stanford/Awesome-Journal-Skills",
+          "id": 1248879346,
+          "fork": false
+        },
+        {
+          "full_name": "kellyvv/PhoneClaw",
+          "id": 1201495229,
+          "fork": false
+        },
+        {
+          "full_name": "mikiarlo3/ai-copywriter",
+          "id": 1311384232,
+          "fork": false
+        },
+        {
+          "full_name": "GPTomics/bioSkills",
+          "id": 1134675966,
+          "fork": false
+        },
+        {
+          "full_name": "uhub/awesome-python",
+          "id": 40587100,
+          "fork": false
+        },
+        {
+          "full_name": "LinXiaoTao/FuckClaude",
+          "id": 1286800347,
+          "fork": false
+        },
+        {
+          "full_name": "feicaiclub/video-spec-builder",
+          "id": 1240701554,
+          "fork": false
+        },
+        {
+          "full_name": "ravens/awesome-telco",
+          "id": 199304591,
+          "fork": false
+        },
+        {
+          "full_name": "bitjaru/styleseed",
+          "id": 1203405919,
+          "fork": false
+        },
+        {
+          "full_name": "Sushegaad/Claude-Skills-Governance-Risk-and-Compliance",
+          "id": 1183297079,
+          "fork": false
+        },
+        {
+          "full_name": "bear2u/my-skills",
+          "id": 1081701754,
+          "fork": false
+        },
+        {
+          "full_name": "nexu-io/motion-anything",
+          "id": 1291157543,
+          "fork": false
+        },
+        {
+          "full_name": "homeassistant-ai/skills",
+          "id": 1145684928,
+          "fork": false
+        },
+        {
+          "full_name": "coco-research/coco",
+          "id": 1221180063,
+          "fork": false
+        },
+        {
+          "full_name": "agi-now/buffett-skills",
+          "id": 1204791292,
+          "fork": false
+        },
+        {
+          "full_name": "hashgraph-online/awesome-ai-plugins",
+          "id": 1204165322,
+          "fork": false
+        },
+        {
+          "full_name": "yibie/awesome-autoresearch",
+          "id": 1197254764,
+          "fork": false
+        },
+        {
+          "full_name": "Leonxlnx/cinetic",
+          "id": 1393935935,
+          "fork": false
+        },
+        {
+          "full_name": "Varnan-Tech/opendirectory",
+          "id": 1209350013,
+          "fork": false
+        },
+        {
+          "full_name": "bangtutorial/bang-motion",
+          "id": 1358561036,
+          "fork": false
+        },
+        {
+          "full_name": "sundial-org/awesome-openclaw-skills",
+          "id": 1147061312,
+          "fork": false
+        },
+        {
+          "full_name": "AnotiaWang/awesome-decision-models",
+          "id": 1374404623,
+          "fork": false
+        },
+        {
+          "full_name": "Ingenimax/agent-sdk-go",
+          "id": 948725367,
+          "fork": false
+        },
+        {
+          "full_name": "Fullive-AI/Anima",
+          "id": 1255939927,
+          "fork": false
+        },
+        {
+          "full_name": "TexasBedouin/vibe-check",
+          "id": 1260580223,
+          "fork": false
+        },
+        {
+          "full_name": "Lightning-AI/litData",
+          "id": 758163683,
+          "fork": false
+        },
+        {
+          "full_name": "louisedesadeleer/clipify",
+          "id": 1229870384,
+          "fork": false
+        },
+        {
+          "full_name": "hoolulu/deep-research",
+          "id": 1260155434,
+          "fork": false
+        },
+        {
+          "full_name": "eudk/awesome-ai-tools",
+          "id": 734858218,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"agriculture\" in:readme stars:>0",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 197,
+      "searched_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "punkpeye/awesome-mcp-servers",
+          "id": 896335270,
+          "fork": false
+        },
+        {
+          "full_name": "sacridini/Awesome-Geospatial",
+          "id": 58225794,
+          "fork": false
+        },
+        {
+          "full_name": "ai4s-research/awesome-ai-for-science",
+          "id": 1069616483,
+          "fork": false
+        },
+        {
+          "full_name": "punkpeye/awesome-remote-mcp-servers",
+          "id": 1360778208,
+          "fork": false
+        },
+        {
+          "full_name": "brycewang-stanford/Awesome-Journal-Skills",
+          "id": 1248879346,
+          "fork": false
+        },
+        {
+          "full_name": "trackawesomelist/trackawesomelist",
+          "id": 531038347,
+          "fork": false
+        },
+        {
+          "full_name": "Faust-Donf/beamer-academic",
+          "id": 1245333938,
+          "fork": false
+        },
+        {
+          "full_name": "imsai-sh/awesome-deepseek-harness-plugins",
+          "id": 1333844474,
+          "fork": false
+        },
+        {
+          "full_name": "xpaysh/awesome-x402",
+          "id": 1088095777,
+          "fork": false
+        },
+        {
+          "full_name": "vinkius-labs/mcpfusion",
+          "id": 1156046366,
+          "fork": false
+        },
+        {
+          "full_name": "Zijian-Ni/awesome-ai-agents-2026",
+          "id": 1190188167,
+          "fork": false
+        },
+        {
+          "full_name": "K-Dense-AI/scientific-agents",
+          "id": 1257798483,
+          "fork": false
+        },
+        {
+          "full_name": "maxwell2732/pAI-Econ-claude",
+          "id": 1268830527,
+          "fork": false
+        },
+        {
+          "full_name": "Hainrixz/maia-skill",
+          "id": 1181305279,
+          "fork": false
+        },
+        {
+          "full_name": "CALLE-AI/awesome-phone-call-agents",
+          "id": 1232673052,
+          "fork": false
+        },
+        {
+          "full_name": "YuanyuanMa03/academic-research-skills",
+          "id": 1260889371,
+          "fork": false
+        },
+        {
+          "full_name": "hegeo/Lobster-Research",
+          "id": 1229629521,
+          "fork": false
+        },
+        {
+          "full_name": "ZihaoVistonWang/stata-all-in-one",
+          "id": 1142308656,
+          "fork": false
+        },
+        {
+          "full_name": "getagentseal/awesome-mcp-security",
+          "id": 1181295966,
+          "fork": false
+        },
+        {
+          "full_name": "Wehuman01/aweskill",
+          "id": 1207987981,
+          "fork": false
+        },
+        {
+          "full_name": "PangenomeAI/academic-skills-food-nutrition",
+          "id": 1297924742,
+          "fork": false
+        },
+        {
+          "full_name": "ctfysh/craft-of-research",
+          "id": 1286056092,
+          "fork": false
+        },
+        {
+          "full_name": "xjtulyc/awesome-rosetta-skills",
+          "id": 1183875385,
+          "fork": false
+        },
+        {
+          "full_name": "lionelsimai/claude-skills-collection",
+          "id": 1152588323,
+          "fork": false
+        },
+        {
+          "full_name": "ConrayGambit/Strategy-Consultant-5-Consulting-Frameworks",
+          "id": 1222658878,
+          "fork": false
+        },
+        {
+          "full_name": "ondata/istat_mcp_server",
+          "id": 1188559852,
+          "fork": false
+        },
+        {
+          "full_name": "howardz27/poster-generator-skill",
+          "id": 1303695146,
+          "fork": false
+        },
+        {
+          "full_name": "tinh2/skills-hub-registry",
+          "id": 1169603396,
+          "fork": false
+        },
+        {
+          "full_name": "berba-q/faostat-mcp",
+          "id": 1174038504,
+          "fork": false
+        },
+        {
+          "full_name": "jiangshangwan/zhonghua-wisdom",
+          "id": 1201481091,
+          "fork": false
+        },
+        {
+          "full_name": "atanasster/electionsbg",
+          "id": 884039001,
+          "fork": false
+        },
+        {
+          "full_name": "saeehatwalne/surveycto-skill",
+          "id": 1209583999,
+          "fork": false
+        },
+        {
+          "full_name": "Zenobia000/learn-claude-code",
+          "id": 1239416779,
+          "fork": false
+        },
+        {
+          "full_name": "longjingcha/pangu-skill",
+          "id": 1248920847,
+          "fork": false
+        },
+        {
+          "full_name": "berba-q/faostat-skills",
+          "id": 1210279303,
+          "fork": false
+        },
+        {
+          "full_name": "cesarmestral/rdti_AU",
+          "id": 1285127905,
+          "fork": false
+        },
+        {
+          "full_name": "heldernoid/agentic-build-templates",
+          "id": 1187819938,
+          "fork": false
+        },
+        {
+          "full_name": "dongwei6688/policy-search-china-skill",
+          "id": 1308718333,
+          "fork": false
+        },
+        {
+          "full_name": "peterbamuhigire/proposal-skills",
+          "id": 1178699873,
+          "fork": false
+        },
+        {
+          "full_name": "peterbamuhigire/chwezi-sdlc-documentation",
+          "id": 1142227821,
+          "fork": false
+        },
+        {
+          "full_name": "Cavaradossi/pAI-Econ-codex",
+          "id": 1289724128,
+          "fork": false
+        },
+        {
+          "full_name": "KalarisLabs/Myriad",
+          "id": 1322787119,
+          "fork": false
+        },
+        {
+          "full_name": "Vambrocop/EvidenceForge",
+          "id": 1223098584,
+          "fork": false
+        },
+        {
+          "full_name": "you9254/goal-to-project",
+          "id": 1291846250,
+          "fork": false
+        },
+        {
+          "full_name": "leap-laboratories/discovery-engine",
+          "id": 1166014153,
+          "fork": false
+        },
+        {
+          "full_name": "cxancher/Color-Palette-Skill",
+          "id": 1229772763,
+          "fork": false
+        },
+        {
+          "full_name": "Tanue-Hou/phd-thesis-butler",
+          "id": 1252460559,
+          "fork": false
+        },
+        {
+          "full_name": "truongpx396/learn-harness-engineering-by-building-mini-claude-code",
+          "id": 1217651932,
+          "fork": false
+        },
+        {
+          "full_name": "nvdigitalsolutions/mcp-ai-wpoos",
+          "id": 1080917120,
+          "fork": false
+        },
+        {
+          "full_name": "maheshndev/awesome-repos",
+          "id": 991987181,
+          "fork": false
+        },
+        {
+          "full_name": "FrancyJGLisboa/us-crop-monitor-skill",
+          "id": 1078997367,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/handmade-paper-agro-waste-agent-skill",
+          "id": 1316897701,
+          "fork": false
+        },
+        {
+          "full_name": "losnleger/GreenAmpt-Nash-Muskingum",
+          "id": 1255610073,
+          "fork": false
+        },
+        {
+          "full_name": "harveenchadha/open-itr",
+          "id": 1312269335,
+          "fork": false
+        },
+        {
+          "full_name": "lizTheDeveloper/ai_game_theory_simulation",
+          "id": 1068273704,
+          "fork": false
+        },
+        {
+          "full_name": "parsebird/awesome-web-scrapers",
+          "id": 1243581443,
+          "fork": false
+        },
+        {
+          "full_name": "gadenbuie/ds-lab-agent-skills",
+          "id": 1211803799,
+          "fork": false
+        },
+        {
+          "full_name": "QWarranto/leafengines-claude-mcp",
+          "id": 1191147437,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/organic-honey-forest-beekeeping-agent-skill",
+          "id": 1316934659,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/shan-snow-tea-production-agent-skill",
+          "id": 1316083359,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/arid-region-water-saving-irrigation-agent-skill",
+          "id": 1316076480,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/black-garlic-fermentation-optimization-agent-skill",
+          "id": 1316921379,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/desert-greenhouse-hydroponics-optimization-agent-skill",
+          "id": 1315914846,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/greywater-recycling-constructed-wetland-agent-skill",
+          "id": 1307338542,
+          "fork": false
+        },
+        {
+          "full_name": "findscripter/everything-skills",
+          "id": 1256964353,
+          "fork": false
+        },
+        {
+          "full_name": "Lambenthan/claude-code-for-researchers",
+          "id": 1239915142,
+          "fork": false
+        },
+        {
+          "full_name": "Winbda/claude-skills-collection",
+          "id": 1202231990,
+          "fork": false
+        },
+        {
+          "full_name": "arifulislamat/bd-income-tax-skills",
+          "id": 1268970210,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/Climate-Change-Forecasting-Solutions-Advisor-agent-skill",
+          "id": 1330675452,
+          "fork": false
+        },
+        {
+          "full_name": "dungnotnull/export-trade-forecast-advisor-agent-skill",
+          "id": 1330688182,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"ROS2\" in:readme stars:>3",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 64,
+      "searched_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "punkpeye/awesome-mcp-servers",
+          "id": 896335270,
+          "fork": false
+        },
+        {
+          "full_name": "ai-boost/awesome-prompts",
+          "id": 745546184,
+          "fork": false
+        },
+        {
+          "full_name": "anbeime/skill",
+          "id": 1147838400,
+          "fork": false
+        },
+        {
+          "full_name": "0xNyk/awesome-hermes-agent",
+          "id": 1189234446,
+          "fork": false
+        },
+        {
+          "full_name": "rohitg00/awesome-claude-code-toolkit",
+          "id": 1150071903,
+          "fork": false
+        },
+        {
+          "full_name": "AgibotTech/genie_sim",
+          "id": 970057938,
+          "fork": false
+        },
+        {
+          "full_name": "tmgthb/Autonomous-Agents",
+          "id": 692466689,
+          "fork": false
+        },
+        {
+          "full_name": "laolaoshiren/claude-code-skills-zh",
+          "id": 1210288370,
+          "fork": false
+        },
+        {
+          "full_name": "trackawesomelist/trackawesomelist",
+          "id": 531038347,
+          "fork": false
+        },
+        {
+          "full_name": "ZeroPointRepo/awesome-hermes-skills",
+          "id": 1223597497,
+          "fork": false
+        },
+        {
+          "full_name": "rohitg00/awesome-openclaw",
+          "id": 1153061213,
+          "fork": false
+        },
+        {
+          "full_name": "arpitg1304/robotics-agent-skills",
+          "id": 1167626999,
+          "fork": false
+        },
+        {
+          "full_name": "Mindrally/skills",
+          "id": 1140911350,
+          "fork": false
+        },
+        {
+          "full_name": "dbwls99706/ros2-engineering-skills",
+          "id": 1182813444,
+          "fork": false
+        },
+        {
+          "full_name": "omnilink-tech/omnisim",
+          "id": 1226359480,
+          "fork": false
+        },
+        {
+          "full_name": "agenticros/agenticros",
+          "id": 1170068654,
+          "fork": false
+        },
+        {
+          "full_name": "kairunwen/Awesome-Robot-Use-Agent",
+          "id": 1365284519,
+          "fork": false
+        },
+        {
+          "full_name": "YARlabs/hyperspace-db",
+          "id": 1142375733,
+          "fork": false
+        },
+        {
+          "full_name": "Chat2AnyLLM/awesome-claude-skills",
+          "id": 1121460191,
+          "fork": false
+        },
+        {
+          "full_name": "OpenEnvision/Awesome-Multimodal-Agent",
+          "id": 1238384020,
+          "fork": false
+        },
+        {
+          "full_name": "zhouzhupianbei/UAV-Stack-Knowledge-Base",
+          "id": 1202039861,
+          "fork": false
+        },
+        {
+          "full_name": "whyihaveyou/dsh-suite",
+          "id": 1333152408,
+          "fork": false
+        },
+        {
+          "full_name": "wzyn20051216/ros-robotics-skill",
+          "id": 1176704758,
+          "fork": false
+        },
+        {
+          "full_name": "yzfly/awesome-skills-zh",
+          "id": 1119232564,
+          "fork": false
+        },
+        {
+          "full_name": "orientpine/honeypot",
+          "id": 1129058920,
+          "fork": false
+        },
+        {
+          "full_name": "ScrapMeta/microduck-diy",
+          "id": 1352430258,
+          "fork": false
+        },
+        {
+          "full_name": "smallgavin/pi-device-diagnostic",
+          "id": 1425831803,
+          "fork": false
+        },
+        {
+          "full_name": "lpigeon/ros-skill",
+          "id": 1166355593,
+          "fork": false
+        },
+        {
+          "full_name": "MIUAV/vibe-coding-ros2",
+          "id": 1198140392,
+          "fork": false
+        },
+        {
+          "full_name": "ThomasZB/EvergreenSLAM",
+          "id": 1328388815,
+          "fork": false
+        },
+        {
+          "full_name": "dingkaihu63/dsh-robotic-harness",
+          "id": 1333392459,
+          "fork": false
+        },
+        {
+          "full_name": "wimblerobotics/ros2-copilot-skills",
+          "id": 1216157979,
+          "fork": false
+        },
+        {
+          "full_name": "adityakamath/ros2-skill",
+          "id": 1168472620,
+          "fork": false
+        },
+        {
+          "full_name": "ChuchiangData/SkillBible",
+          "id": 1194968469,
+          "fork": false
+        },
+        {
+          "full_name": "wuaodi/SpaceMind",
+          "id": 1020222926,
+          "fork": false
+        },
+        {
+          "full_name": "terrense/ros2-multimodal-robot-collab",
+          "id": 1238456047,
+          "fork": false
+        },
+        {
+          "full_name": "CognitiveVR/c3d-sdk-ros2",
+          "id": 1400804302,
+          "fork": false
+        },
+        {
+          "full_name": "fredabila/orcbot",
+          "id": 1146846307,
+          "fork": false
+        },
+        {
+          "full_name": "Open-X-Humanoid/wisekaiwu_agent",
+          "id": 1313461772,
+          "fork": false
+        },
+        {
+          "full_name": "denn-gubsky/ai-dev-effectiveness",
+          "id": 1229488115,
+          "fork": false
+        },
+        {
+          "full_name": "Alpha-Park/awesome-ai-agent-skills",
+          "id": 1391127456,
+          "fork": false
+        },
+        {
+          "full_name": "dongsheng123132/go2-openclaw-skill",
+          "id": 1190422923,
+          "fork": false
+        },
+        {
+          "full_name": "agenticros/agenticros-skills",
+          "id": 1183356365,
+          "fork": false
+        },
+        {
+          "full_name": "maheshndev/awesome-repos",
+          "id": 991987181,
+          "fork": false
+        },
+        {
+          "full_name": "letianxing/robotics-pacific-rim",
+          "id": 1299943040,
+          "fork": false
+        },
+        {
+          "full_name": "Jessy-Huang/ros2-expert-skill",
+          "id": 1198469854,
+          "fork": false
+        },
+        {
+          "full_name": "arugoa/cad-to-urdf",
+          "id": 1389791113,
+          "fork": false
+        },
+        {
+          "full_name": "configflux/weld",
+          "id": 1207935049,
+          "fork": false
+        },
+        {
+          "full_name": "tjsdyy/dshplugin",
+          "id": 1333789488,
+          "fork": false
+        },
+        {
+          "full_name": "moe-sani/openclaw_ros2",
+          "id": 1161634979,
+          "fork": false
+        },
+        {
+          "full_name": "zh-plus/unitree-g1-dev-copilot",
+          "id": 1190449532,
+          "fork": false
+        },
+        {
+          "full_name": "bob-ros2/bob_llm",
+          "id": 1087743130,
+          "fork": false
+        },
+        {
+          "full_name": "Anil-matcha/awesome-hermes-agent",
+          "id": 1383733142,
+          "fork": false
+        },
+        {
+          "full_name": "findscripter/everything-skills",
+          "id": 1256964353,
+          "fork": false
+        },
+        {
+          "full_name": "IndieMinimalist/awesome-stars",
+          "id": 981754715,
+          "fork": false
+        },
+        {
+          "full_name": "aicor-vrb/binder-template",
+          "id": 773822093,
+          "fork": false
+        },
+        {
+          "full_name": "Sazabi06/Openarm_ROS2_Impedance_Control",
+          "id": 1209876352,
+          "fork": false
+        },
+        {
+          "full_name": "yusenthebot/robotics-cto",
+          "id": 1188200951,
+          "fork": false
+        },
+        {
+          "full_name": "carla-simulator/carla-agentic-tools",
+          "id": 1306628027,
+          "fork": false
+        },
+        {
+          "full_name": "chrismatthieu/openclaw-robotics",
+          "id": 1149042101,
+          "fork": false
+        },
+        {
+          "full_name": "winwin52/MRS6240_mmWave_radar_spi_collect_data_linux",
+          "id": 1249139810,
+          "fork": false
+        },
+        {
+          "full_name": "fire17/awesome-stars",
+          "id": 580345510,
+          "fork": false
+        },
+        {
+          "full_name": "uhub/awesome-agent",
+          "id": 1354543536,
+          "fork": false
+        },
+        {
+          "full_name": "dioptx/awesome-mcp-servers-bak",
+          "id": 1221846610,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"SKILL.md\" \"Zephyr\" in:readme stars:>1",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 98,
+      "searched_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "wanshuiyin/Auto-claude-code-research-in-sleep",
+          "id": 1177608268,
+          "fork": false
+        },
+        {
+          "full_name": "ai-boost/awesome-prompts",
+          "id": 745546184,
+          "fork": false
+        },
+        {
+          "full_name": "Adkid-Zephyr/anti-defensive-writing-Skill",
+          "id": 1331214301,
+          "fork": false
+        },
+        {
+          "full_name": "EmbraceAGI/Awesome-AI-GPTs",
+          "id": 717026159,
+          "fork": false
+        },
+        {
+          "full_name": "LeoKemp223/embed-ai-tool",
+          "id": 1213271324,
+          "fork": false
+        },
+        {
+          "full_name": "ravens/awesome-telco",
+          "id": 199304591,
+          "fork": false
+        },
+        {
+          "full_name": "superiorlu/AITreasureBox",
+          "id": 614906119,
+          "fork": false
+        },
+        {
+          "full_name": "uhub/awesome-llm",
+          "id": 621634256,
+          "fork": false
+        },
+        {
+          "full_name": "HoangNguyen0403/agent-skills-standard",
+          "id": 1135063276,
+          "fork": false
+        },
+        {
+          "full_name": "chandra447/pi-hermes-memory",
+          "id": 1218975799,
+          "fork": false
+        },
+        {
+          "full_name": "RongleCat/awesome-grok-bot",
+          "id": 1339813167,
+          "fork": false
+        },
+        {
+          "full_name": "cenfun/monocart-reporter",
+          "id": 436505742,
+          "fork": false
+        },
+        {
+          "full_name": "mohitmishra786/low-level-dev-skills",
+          "id": 1162594047,
+          "fork": false
+        },
+        {
+          "full_name": "K-Dense-AI/scientific-agents",
+          "id": 1257798483,
+          "fork": false
+        },
+        {
+          "full_name": "petrkindlmann/qa-skills",
+          "id": 1189740753,
+          "fork": false
+        },
+        {
+          "full_name": "leenkcool/Blue-Whale-Harness",
+          "id": 1333212317,
+          "fork": false
+        },
+        {
+          "full_name": "tuyucheng777/awesome-java",
+          "id": 818654669,
+          "fork": false
+        },
+        {
+          "full_name": "Chat2AnyLLM/awesome-claude-skills",
+          "id": 1121460191,
+          "fork": false
+        },
+        {
+          "full_name": "magnus919/agent-skills",
+          "id": 1297797901,
+          "fork": false
+        },
+        {
+          "full_name": "brucesongs/kali-claw",
+          "id": 1222128242,
+          "fork": false
+        },
+        {
+          "full_name": "beriberikix/zephyr-agent-skills",
+          "id": 1152215300,
+          "fork": false
+        },
+        {
+          "full_name": "kukucaiCndy/embedded_ai_skills",
+          "id": 1231828364,
+          "fork": false
+        },
+        {
+          "full_name": "Agile-V/agile_v_skills",
+          "id": 1150661897,
+          "fork": false
+        },
+        {
+          "full_name": "easyzoom/aix-skills",
+          "id": 1224387109,
+          "fork": false
+        },
+        {
+          "full_name": "eroblue/embed-ai-assist",
+          "id": 1365551334,
+          "fork": false
+        },
+        {
+          "full_name": "Klievan/jlink-mcp",
+          "id": 1200590713,
+          "fork": false
+        },
+        {
+          "full_name": "LingaoM/zbot",
+          "id": 1179808554,
+          "fork": false
+        },
+        {
+          "full_name": "shangliny10-lab/embedded-skills",
+          "id": 1357740645,
+          "fork": false
+        },
+        {
+          "full_name": "mrgoonie/human-cli",
+          "id": 1210344006,
+          "fork": false
+        },
+        {
+          "full_name": "wedsamuel1230/embedded-engineering-skills",
+          "id": 1127657037,
+          "fork": false
+        },
+        {
+          "full_name": "arozumenko/sdlc-skills",
+          "id": 1204569722,
+          "fork": false
+        },
+        {
+          "full_name": "NoWint/Oh-My-DSH",
+          "id": 1333710014,
+          "fork": false
+        },
+        {
+          "full_name": "Ericwong5021/deepseek-plugin-store",
+          "id": 1333418376,
+          "fork": false
+        },
+        {
+          "full_name": "PramodDutta/AITesterBlueprint3x",
+          "id": 1247351481,
+          "fork": false
+        },
+        {
+          "full_name": "laurenvil/Uno-QClaw",
+          "id": 1242005803,
+          "fork": false
+        },
+        {
+          "full_name": "AnEntrypoint/awesome-github",
+          "id": 1321472966,
+          "fork": false
+        },
+        {
+          "full_name": "andrewmcodes/awesome-stars",
+          "id": 496836851,
+          "fork": false
+        },
+        {
+          "full_name": "tenstorrent/tt-awesome",
+          "id": 1127354530,
+          "fork": false
+        },
+        {
+          "full_name": "voidful/AlchemistPlaybook",
+          "id": 1266774244,
+          "fork": false
+        },
+        {
+          "full_name": "drewbitt/starred",
+          "id": 571863653,
+          "fork": false
+        },
+        {
+          "full_name": "Beyond-Horizons-Institute/symbio-basic",
+          "id": 1255585545,
+          "fork": false
+        },
+        {
+          "full_name": "PramodDutta/AITesterBlueprint4x",
+          "id": 1327424906,
+          "fork": false
+        },
+        {
+          "full_name": "xianyu110/awesome-gpt-image2.5",
+          "id": 1362610882,
+          "fork": false
+        },
+        {
+          "full_name": "youyucat/embedded-coding-standards",
+          "id": 1265234719,
+          "fork": false
+        },
+        {
+          "full_name": "srinivasmd/windchill-plm",
+          "id": 1204315488,
+          "fork": false
+        },
+        {
+          "full_name": "JohnWayneeee/casely-qa-skill",
+          "id": 1167773900,
+          "fork": false
+        },
+        {
+          "full_name": "edgeimpulse/agent-skills",
+          "id": 1184722029,
+          "fork": false
+        },
+        {
+          "full_name": "lhbsaa/embedded-dev-skill",
+          "id": 1206799027,
+          "fork": false
+        },
+        {
+          "full_name": "JAICHANGPARK/flutter_gemini_live",
+          "id": 1000205252,
+          "fork": false
+        },
+        {
+          "full_name": "taylorzhou16/video-gen",
+          "id": 1176778600,
+          "fork": false
+        },
+        {
+          "full_name": "svdwalt007/Best-LwM2M-Agentic-Skills",
+          "id": 1208563478,
+          "fork": false
+        },
+        {
+          "full_name": "megomagdy/QA-Orchestrator",
+          "id": 1293702427,
+          "fork": false
+        },
+        {
+          "full_name": "ahang008/ah-douyin-lead-gen",
+          "id": 1248964982,
+          "fork": false
+        },
+        {
+          "full_name": "kingselyjoe/awesome-dsh-list",
+          "id": 1337347130,
+          "fork": false
+        },
+        {
+          "full_name": "zachysun/DailyArXiv",
+          "id": 806138565,
+          "fork": false
+        },
+        {
+          "full_name": "Jayant-Tang/nrf-connect-skills-ZH_CN",
+          "id": 1279119180,
+          "fork": false
+        },
+        {
+          "full_name": "OvOYu/anti-defensive-writing",
+          "id": 1360916521,
+          "fork": false
+        },
+        {
+          "full_name": "CSKishan/ame-skill",
+          "id": 1220382202,
+          "fork": false
+        },
+        {
+          "full_name": "zc110747/MCU-Agent",
+          "id": 1324575265,
+          "fork": false
+        },
+        {
+          "full_name": "findscripter/everything-skills",
+          "id": 1256964353,
+          "fork": false
+        },
+        {
+          "full_name": "IndieMinimalist/awesome-stars",
+          "id": 981754715,
+          "fork": false
+        },
+        {
+          "full_name": "MultiAgency/dashboard",
+          "id": 1226681389,
+          "fork": false
+        },
+        {
+          "full_name": "beriberikix/zephyr-cli",
+          "id": 1216153897,
+          "fork": false
+        },
+        {
+          "full_name": "xzl01/agent-debugboard",
+          "id": 1243399255,
+          "fork": false
+        },
+        {
+          "full_name": "shark0304/personal-embeded-debug-skill",
+          "id": 1264221683,
+          "fork": false
+        },
+        {
+          "full_name": "brucechou1983/reachy_mini_conversation_app_zh-TW",
+          "id": 1158373771,
+          "fork": false
+        },
+        {
+          "full_name": "leon-2050/embedded-code-skill",
+          "id": 1211550108,
+          "fork": false
+        },
+        {
+          "full_name": "ddddjaak/ae-skills",
+          "id": 1264737201,
+          "fork": false
+        },
+        {
+          "full_name": "ddddjaak/oh-y-lockie-agent",
+          "id": 1316236327,
+          "fork": false
+        },
+        {
+          "full_name": "Ecro/harness-maker",
+          "id": 1228139549,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"skills\" \"scientific\" in:name,description fork:false",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 1261,
+      "searched_on": "2026-10-21",
+      "reused_as_leads_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "K-Dense-AI/scientific-agent-skills",
+          "id": 1079456184,
+          "fork": false
+        },
+        {
+          "full_name": "aipoch/open-science",
+          "id": 1287804060,
+          "fork": false
+        },
+        {
+          "full_name": "zLanqing/codex-claude-academic-skills",
+          "id": 1238374602,
+          "fork": false
+        },
+        {
+          "full_name": "google-deepmind/science-skills",
+          "id": 1237911785,
+          "fork": false
+        },
+        {
+          "full_name": "Haojae/scipilot-figure-skill",
+          "id": 1242661854,
+          "fork": false
+        },
+        {
+          "full_name": "delibae/claude-prism",
+          "id": 1162309594,
+          "fork": false
+        },
+        {
+          "full_name": "LeonChaoX/qinyan-academic-skills",
+          "id": 1168281163,
+          "fork": false
+        },
+        {
+          "full_name": "xjtulyc/MedgeClaw",
+          "id": 1165885512,
+          "fork": false
+        },
+        {
+          "full_name": "Boom5426/Nature-Paper-Skills",
+          "id": 1208279709,
+          "fork": false
+        },
+        {
+          "full_name": "InternScience/Awesome-Scientific-Skills",
+          "id": 1171290857,
+          "fork": false
+        },
+        {
+          "full_name": "OpSafari/hypoarena",
+          "id": 1396918266,
+          "fork": false
+        },
+        {
+          "full_name": "modelscope/Awesome-Vibe-Research",
+          "id": 1267423357,
+          "fork": false
+        },
+        {
+          "full_name": "K-Dense-AI/claude-skills-mcp",
+          "id": 1080225523,
+          "fork": false
+        },
+        {
+          "full_name": "weisscharlesj/SciCompforChemists",
+          "id": 285298878,
+          "fork": false
+        },
+        {
+          "full_name": "guhaohao0991/PaperClaw",
+          "id": 1170355130,
+          "fork": false
+        },
+        {
+          "full_name": "gaasher/Agent-Loop-Skills",
+          "id": 1269680641,
+          "fork": false
+        },
+        {
+          "full_name": "BAIKEMARK/happy-figure-skill",
+          "id": 1257121594,
+          "fork": false
+        },
+        {
+          "full_name": "Dsadd4/AgentFigureGallery",
+          "id": 1226135979,
+          "fork": false
+        },
+        {
+          "full_name": "Rimagination/good-story",
+          "id": 1256757375,
+          "fork": false
+        },
+        {
+          "full_name": "Worigin0314/academic-defensive-writing-auditor",
+          "id": 1351168580,
+          "fork": false
+        },
+        {
+          "full_name": "MrLee2R/Intelligrapher",
+          "id": 1253508582,
+          "fork": false
+        },
+        {
+          "full_name": "Rimagination/easyplot",
+          "id": 1383568748,
+          "fork": false
+        },
+        {
+          "full_name": "ordinary-s/falsify-the-problem",
+          "id": 1364860678,
+          "fork": false
+        },
+        {
+          "full_name": "sanusanth/Python-Basic-programs",
+          "id": 337923098,
+          "fork": false
+        },
+        {
+          "full_name": "liushunqi8-hash/editaplot2026",
+          "id": 1376708322,
+          "fork": false
+        },
+        {
+          "full_name": "YuanZHAO321/Scientific-Writing-zh",
+          "id": 1285155064,
+          "fork": false
+        },
+        {
+          "full_name": "drpedapati/sciclaw",
+          "id": 1156260107,
+          "fork": false
+        },
+        {
+          "full_name": "Tyche-MKR/scientific-agent-skills",
+          "id": 1352303594,
+          "fork": false
+        },
+        {
+          "full_name": "Aryia-Behroziuan/References",
+          "id": 308097038,
+          "fork": false
+        },
+        {
+          "full_name": "jxtse/scientific-research-skills",
+          "id": 1216104234,
+          "fork": false
+        },
+        {
+          "full_name": "sharmaroshan/Data-Visualizations",
+          "id": 254283116,
+          "fork": false
+        },
+        {
+          "full_name": "yorkeccak/scientific-skills",
+          "id": 1138939717,
+          "fork": false
+        },
+        {
+          "full_name": "myzhao0114-del/scientific-figure-skill",
+          "id": 1244232710,
+          "fork": false
+        },
+        {
+          "full_name": "TAO-QKV/Icarus-Figures",
+          "id": 1258174219,
+          "fork": false
+        },
+        {
+          "full_name": "ywq177995212697-droid/visio-scientific-figures",
+          "id": 1249980417,
+          "fork": false
+        },
+        {
+          "full_name": "zhoy0409-debug/polish-sci-figures",
+          "id": 1300848983,
+          "fork": false
+        },
+        {
+          "full_name": "gxCaesar/open-research-skills",
+          "id": 1362494121,
+          "fork": false
+        },
+        {
+          "full_name": "lgwrightlab/schematic-figure",
+          "id": 1419049372,
+          "fork": false
+        },
+        {
+          "full_name": "GeoGeekLab/nature-reviewer-skills",
+          "id": 1283995054,
+          "fork": false
+        },
+        {
+          "full_name": "deathcats4/scientific-manuscript-editor",
+          "id": 1374322409,
+          "fork": false
+        },
+        {
+          "full_name": "ma-compbio-lab/SkillFoundry",
+          "id": 1199905979,
+          "fork": false
+        },
+        {
+          "full_name": "isArman/scientific-fa-translation-skill",
+          "id": 1339183910,
+          "fork": false
+        },
+        {
+          "full_name": "Aryia-Behroziuan/Other-sources",
+          "id": 308101023,
+          "fork": false
+        },
+        {
+          "full_name": "LY2260789/scientific-illustrator-agent",
+          "id": 1359799048,
+          "fork": false
+        },
+        {
+          "full_name": "lamm-mit/ScienceSkills",
+          "id": 1275708749,
+          "fork": false
+        },
+        {
+          "full_name": "deltadbu/WIT-skill",
+          "id": 1345802690,
+          "fork": false
+        },
+        {
+          "full_name": "lwq-star/ultraplot-figures",
+          "id": 1300181000,
+          "fork": false
+        },
+        {
+          "full_name": "s-choung/Research-Skills",
+          "id": 1211236226,
+          "fork": false
+        },
+        {
+          "full_name": "jiang-zl/lotraAI-image2slide-skill",
+          "id": 1371612218,
+          "fork": false
+        },
+        {
+          "full_name": "xuanleng/SiSR",
+          "id": 240378609,
+          "fork": false
+        },
+        {
+          "full_name": "eniktab/scientific-paper-writer",
+          "id": 1190265245,
+          "fork": false
+        },
+        {
+          "full_name": "Rimagination/scansci-svg",
+          "id": 1362003028,
+          "fork": false
+        },
+        {
+          "full_name": "LawrenceRiver/FigFox-Gen-skill",
+          "id": 1343988097,
+          "fork": false
+        },
+        {
+          "full_name": "dalek12310/science-mentor",
+          "id": 1250487959,
+          "fork": false
+        },
+        {
+          "full_name": "bestagentkits/agency-skills",
+          "id": 1284771263,
+          "fork": false
+        },
+        {
+          "full_name": "onescience-ai/OneSkills",
+          "id": 1199111619,
+          "fork": false
+        },
+        {
+          "full_name": "silverstein/claude-scientific-skills-desktop",
+          "id": 1112004848,
+          "fork": false
+        },
+        {
+          "full_name": "tondevrel/scientific-agent-skills",
+          "id": 1146808489,
+          "fork": false
+        },
+        {
+          "full_name": "sslarch/caa2021_Rpackage_workshop",
+          "id": 321340051,
+          "fork": false
+        },
+        {
+          "full_name": "xiao-yuling/sci-figure",
+          "id": 1254057572,
+          "fork": false
+        },
+        {
+          "full_name": "2023Anita/scientific-visual-skills",
+          "id": 1262968414,
+          "fork": false
+        },
+        {
+          "full_name": "LogauaEngstrom/claude-scientific-skills",
+          "id": 1123706128,
+          "fork": false
+        },
+        {
+          "full_name": "guoleizhen717/codex-origin-plot",
+          "id": 1285039624,
+          "fork": false
+        },
+        {
+          "full_name": "dazhiyang/scientific-plotting-skill",
+          "id": 1214073962,
+          "fork": false
+        },
+        {
+          "full_name": "doczrz/literaturereport",
+          "id": 1294600476,
+          "fork": false
+        },
+        {
+          "full_name": "YishuoHao/copyplot",
+          "id": 1334956182,
+          "fork": false
+        },
+        {
+          "full_name": "HolobiomicsLab/asb-skill-collections",
+          "id": 1248573158,
+          "fork": false
+        },
+        {
+          "full_name": "hwl668/Scientific-learning-skills-",
+          "id": 1254968049,
+          "fork": false
+        },
+        {
+          "full_name": "earthlab/earth-analytics-intro-to-earth-data-science-textbook",
+          "id": 205400714,
+          "fork": false
+        },
+        {
+          "full_name": "HughYau/opensci-skill",
+          "id": 1166090602,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "query": "\"skills\" \"embedded\" in:name,description fork:false",
+      "sort": "stars",
+      "limit": 70,
+      "total_count": 2352,
+      "searched_on": "2026-10-21",
+      "reused_as_leads_on": "2026-10-22",
+      "team": "science",
+      "hits": [
+        {
+          "full_name": "unoplatform/uno",
+          "id": 132453438,
+          "fork": false
+        },
+        {
+          "full_name": "nv-tlabs/ASE",
+          "id": 485523585,
+          "fork": false
+        },
+        {
+          "full_name": "zhinkgit/embeddedskills",
+          "id": 1206815767,
+          "fork": false
+        },
+        {
+          "full_name": "opensolon/solon-ai",
+          "id": 942944691,
+          "fork": false
+        },
+        {
+          "full_name": "American-Embedded/kistack",
+          "id": 1345280415,
+          "fork": false
+        },
+        {
+          "full_name": "Sfedfcv/redesigned-pancake",
+          "id": 367791811,
+          "fork": false
+        },
+        {
+          "full_name": "DunCanYounG-1/MICU-auto-embedded",
+          "id": 1178999277,
+          "fork": false
+        },
+        {
+          "full_name": "initializ/forge",
+          "id": 1163151015,
+          "fork": false
+        },
+        {
+          "full_name": "Adancurusul/embedded-debugger-mcp",
+          "id": 1032495027,
+          "fork": false
+        },
+        {
+          "full_name": "coddy-project/coddy-agent",
+          "id": 1189273325,
+          "fork": false
+        },
+        {
+          "full_name": "kar2phi/video-lens",
+          "id": 1176226503,
+          "fork": false
+        },
+        {
+          "full_name": "crichars/embedded-project-governance",
+          "id": 1353612029,
+          "fork": false
+        },
+        {
+          "full_name": "abhir98/ransomware",
+          "id": 357928256,
+          "fork": false
+        },
+        {
+          "full_name": "agodianel/esp32-claude-workbench",
+          "id": 1193066764,
+          "fork": false
+        },
+        {
+          "full_name": "meghnalohani/Resume-Scoring-using-NLP",
+          "id": 188057981,
+          "fork": false
+        },
+        {
+          "full_name": "kukucaiCndy/embedded_ai_skills",
+          "id": 1231828364,
+          "fork": false
+        },
+        {
+          "full_name": "reghilkentpilaspilas-stack/plumb-core",
+          "id": 1345972429,
+          "fork": false
+        },
+        {
+          "full_name": "kayembemike/plugforge-embedded",
+          "id": 1380590164,
+          "fork": false
+        },
+        {
+          "full_name": "ylongw/embedded-review",
+          "id": 1169084004,
+          "fork": false
+        },
+        {
+          "full_name": "willingning-coder/eagle-eye",
+          "id": 1255764474,
+          "fork": false
+        },
+        {
+          "full_name": "notnameuse/embedded-debug-skill",
+          "id": 1359760563,
+          "fork": false
+        },
+        {
+          "full_name": "DeepAleph/jevreel",
+          "id": 1420650444,
+          "fork": false
+        },
+        {
+          "full_name": "tonkotsuboy/github-upload-image-to-pr",
+          "id": 1177926993,
+          "fork": false
+        },
+        {
+          "full_name": "easyzoom/aix-skills",
+          "id": 1224387109,
+          "fork": false
+        },
+        {
+          "full_name": "ptsilivis/autonomousguy",
+          "id": 1241674978,
+          "fork": false
+        },
+        {
+          "full_name": "waylondev/kb-pilot",
+          "id": 1318820565,
+          "fork": false
+        },
+        {
+          "full_name": "windinwing/mchat",
+          "id": 1242249898,
+          "fork": false
+        },
+        {
+          "full_name": "rscheiwe/open-skills",
+          "id": 1079471898,
+          "fork": false
+        },
+        {
+          "full_name": "dvcdsys/code-index",
+          "id": 1184185044,
+          "fork": false
+        },
+        {
+          "full_name": "Nexus-Aethra/DSHBox",
+          "id": 1333708301,
+          "fork": false
+        },
+        {
+          "full_name": "Dirac-Robot/comet-cc",
+          "id": 1217986149,
+          "fork": false
+        },
+        {
+          "full_name": "shangliny10-lab/embedded-skills",
+          "id": 1357740645,
+          "fork": false
+        },
+        {
+          "full_name": "SigmaEmbeddedEngineering-eg/Sigmapilot",
+          "id": 364029449,
+          "fork": false
+        },
+        {
+          "full_name": "wedsamuel1230/embedded-engineering-skills",
+          "id": 1127657037,
+          "fork": false
+        },
+        {
+          "full_name": "ckanthony/Chisel",
+          "id": 1170097205,
+          "fork": false
+        },
+        {
+          "full_name": "Seeed-Studio/ai-skills",
+          "id": 1143149834,
+          "fork": false
+        },
+        {
+          "full_name": "Seahan1/hardware-agency-agents",
+          "id": 1192537463,
+          "fork": false
+        },
+        {
+          "full_name": "rustsbi/embedded-hal-skills",
+          "id": 1309439134,
+          "fork": false
+        },
+        {
+          "full_name": "YANG985-CMD/embedded-foc-simulink-codegen",
+          "id": 1297100551,
+          "fork": false
+        },
+        {
+          "full_name": "AmethystLuna/embedded-workbench",
+          "id": 1276714299,
+          "fork": false
+        },
+        {
+          "full_name": "alevizio/globestudio",
+          "id": 1239257448,
+          "fork": false
+        },
+        {
+          "full_name": "claudius-ars/embedded-agent-skills",
+          "id": 1150108298,
+          "fork": false
+        },
+        {
+          "full_name": "alexex1993/mcu-skills",
+          "id": 1341587440,
+          "fork": false
+        },
+        {
+          "full_name": "q2522879285-source/codex-workspace-enhancer",
+          "id": 1332040860,
+          "fork": false
+        },
+        {
+          "full_name": "i3T4AN/Semantic-skill-space",
+          "id": 1170299973,
+          "fork": false
+        },
+        {
+          "full_name": "lotusroot-kim/superskillret",
+          "id": 1231412589,
+          "fork": false
+        },
+        {
+          "full_name": "Plaud-AI/plaud-embedded-skills",
+          "id": 1272804496,
+          "fork": false
+        },
+        {
+          "full_name": "Tsaiguohua/mcu-ai-workflow-skills",
+          "id": 1260451474,
+          "fork": false
+        },
+        {
+          "full_name": "sethbang/venice-py",
+          "id": 994865665,
+          "fork": false
+        },
+        {
+          "full_name": "Jannhsu/agent-memory",
+          "id": 1178028960,
+          "fork": false
+        },
+        {
+          "full_name": "starrybodies/ghg-calculator",
+          "id": 1160289237,
+          "fork": false
+        },
+        {
+          "full_name": "agi-now/bull",
+          "id": 1173021185,
+          "fork": false
+        },
+        {
+          "full_name": "rohith-chitturi/ResumeIQ",
+          "id": 1284109464,
+          "fork": false
+        },
+        {
+          "full_name": "youyucat/embedded-coding-standards",
+          "id": 1265234719,
+          "fork": false
+        },
+        {
+          "full_name": "BruceMao3/SafeSkillScan-readyclaw",
+          "id": 1175152703,
+          "fork": false
+        },
+        {
+          "full_name": "zhuyansen/jev-search-rerank-eval",
+          "id": 1375623988,
+          "fork": false
+        },
+        {
+          "full_name": "Knewton/lentil",
+          "id": 39637131,
+          "fork": false
+        },
+        {
+          "full_name": "lhbsaa/embedded-dev-skill",
+          "id": 1206799027,
+          "fork": false
+        },
+        {
+          "full_name": "AbdelrhmanWalaa/NTI-Embedded_Systems_Program",
+          "id": 673856726,
+          "fork": false
+        },
+        {
+          "full_name": "rovinax/embedded-skills",
+          "id": 1248037955,
+          "fork": false
+        },
+        {
+          "full_name": "H1D/agent-skills-esp32",
+          "id": 1141506533,
+          "fork": false
+        },
+        {
+          "full_name": "sinemcu/FAE_embedded_code_generation_SKILL",
+          "id": 1232713953,
+          "fork": false
+        },
+        {
+          "full_name": "2456018331lby-dev/embedded-engineering-skill",
+          "id": 1206603998,
+          "fork": false
+        },
+        {
+          "full_name": "YangSal/qmt-python-bridge",
+          "id": 1357986273,
+          "fork": false
+        },
+        {
+          "full_name": "ketthub/zotero-skill",
+          "id": 1194841121,
+          "fork": false
+        },
+        {
+          "full_name": "Amin98Hosseini/ElectroMindAi",
+          "id": 1381981368,
+          "fork": false
+        },
+        {
+          "full_name": "xuan07472/embedded_programming_skills",
+          "id": 814771877,
+          "fork": false
+        },
+        {
+          "full_name": "Aidankong/embedded-development-skill",
+          "id": 1195732271,
+          "fork": false
+        },
+        {
+          "full_name": "chengyuchung/embedded-c-skills",
+          "id": 1416342732,
+          "fork": false
+        },
+        {
+          "full_name": "full-stack-skills/rust-skills",
+          "id": 1272016838,
+          "fork": false
+        }
+      ]
+    },
+    {
+      "source": "2026-10-21 workflows unreviewed reserve; filtered against 2540 baseline",
+      "team": "workflows",
+      "hits": [
+        {
+          "full_name": "20240610ldx-hub/Mind-Distill-Factory"
+        },
+        {
+          "full_name": "andreiverdes/bluedoc"
+        },
+        {
+          "full_name": "applepig/ddd-workflow"
+        },
+        {
+          "full_name": "ArabAgentSkills/Skills"
+        },
+        {
+          "full_name": "BrainInBox/brain-in-a-box"
+        },
+        {
+          "full_name": "Cloto-dev/CPersona"
+        },
+        {
+          "full_name": "cookys/autopilot"
+        },
+        {
+          "full_name": "cuellarfr/design-skills"
+        },
+        {
+          "full_name": "DarrenBenson/sdlc-studio"
+        },
+        {
+          "full_name": "event4u-app/agent-config"
+        },
+        {
+          "full_name": "everyinfra/seo-skills"
+        },
+        {
+          "full_name": "globalize-now/globalize-skills"
+        },
+        {
+          "full_name": "graphysdk/skills"
+        },
+        {
+          "full_name": "helderberto/agent-skills"
+        },
+        {
+          "full_name": "hookdeck/webhook-skills"
+        },
+        {
+          "full_name": "hyt24/nds-game-localization-skill"
+        },
+        {
+          "full_name": "jmagly/aiwg"
+        },
+        {
+          "full_name": "kalinbogatzevski/captain-memo"
+        },
+        {
+          "full_name": "locize/locize-agents"
+        },
+        {
+          "full_name": "logandoo/vibeweaver"
+        },
+        {
+          "full_name": "mambo-wang/CodeWiki-Plus"
+        },
+        {
+          "full_name": "MaxLogic/delphi-accessibility-framework"
+        },
+        {
+          "full_name": "pierrebelin/claude-code-toolkit"
+        },
+        {
+          "full_name": "podo/design-agent-skills"
+        },
+        {
+          "full_name": "RBraga01/Quality-Engineering-Skills"
+        },
+        {
+          "full_name": "rh-uxd/ai-helpers"
+        },
+        {
+          "full_name": "SAXEM1997/specpowers"
+        },
+        {
+          "full_name": "southleft/skills-for-figma"
+        },
+        {
+          "full_name": "tempu-village/taskmate"
+        },
+        {
+          "full_name": "twinforgelabs/OpenProof"
+        },
+        {
+          "full_name": "yintzuyuan/glyphs-reference"
+        }
+      ]
+    },
+    {
+      "source": "Trace southleft/skills-for-figma README stated repackaged upstream",
+      "team": "workflows",
+      "hits": [
+        {
+          "full_name": "southleft/figma-console-mcp-skills"
+        }
+      ]
+    }
+  ],
+  "counting_contract": "Only same-day verified additions published to main and zh with successful necessary CI qualify."
+}

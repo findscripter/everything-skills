@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-21",
+  "updated_at": "2026-10-22",
   "timezone": "Asia/Shanghai",
   "purpose": "Expand discovery beyond repository-name skill/agent keywords while retaining the repository-index admission contract.",
   "families": [
@@ -355,22 +355,19 @@
   "public_distribution_note": "For multi-package repositories, verify each claimed plugin manifest and public README; root defaults need not include every separately distributed plugin. Mark untested compatibility claims explicitly.",
   "source_bytes_note": "A successful raw HTTP response can still be partial. Recompute Git blob SHA-1 from byte length and content and compare to the pinned tree; retain any corrected partial-response digest as audit history.",
   "latest_batch": {
-    "date": "2026-10-21",
-    "part": 86,
-    "added_verified": 81,
+    "date": "2026-10-22",
+    "part": 87,
+    "added_verified": 72,
     "families": {
-      "embedded-product-skill": 34,
-      "science-lab": 9,
-      "commercial-creative": 4,
-      "language-accessibility": 19,
-      "public-interest-operations": 2,
-      "humanities-curation": 2,
-      "robotics-embedded": 3,
-      "education-learning": 1,
-      "skill-infrastructure": 3,
-      "cae-cad": 1,
-      "geo-weather": 3
+      "science-lab": 10,
+      "robotics-embedded": 8,
+      "cae-cad": 3,
+      "embedded-product-skill": 24,
+      "commercial-creative": 14,
+      "language-accessibility": 6,
+      "skill-infrastructure": 2,
+      "green-software": 5
     },
-    "audit": "skill-repos.part86.audit.json"
+    "audit": "skill-repos.part87.audit.json"
   }
 }
