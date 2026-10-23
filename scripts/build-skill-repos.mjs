@@ -7,7 +7,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadSkillRepos } from './load-skill-repos.mjs';
+import { loadSkillRepos, upstreamStatus } from './load-skill-repos.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const langArg = process.argv.find(a => a.startsWith('--lang='));
@@ -80,7 +80,7 @@ const SEP = '|---|---:|---|---|---|---|';
 
 function table(list) {
   const rows = list.map(r =>
-    `| [${cell(r.full_name)}](${r.html_url}) | ${fmtStars(r.stars)} | ${cell(pickSummary(r))} | ${cell(r.license)} | ${cell(r.skill_count)} | ${cell(pickStatus(r.status))} |`
+    `| [${cell(r.full_name)}](${r.html_url}) | ${fmtStars(r.stars)} | ${cell(pickSummary(r))} | ${cell(r.license)} | ${cell(r.skill_count)} | ${cell([pickStatus(r.status), upstreamStatus(r, LANG)].filter(Boolean).join(' · '))} |`
   );
   return [COLS, SEP, ...rows].join('\n');
 }
@@ -114,4 +114,4 @@ for (const sec of SECTIONS) {
 
 await fs.mkdir(path.dirname(OUT), { recursive: true });
 await fs.writeFile(OUT, chunks.join('\n').replace(/\n+$/, '\n'));
-console.log((LANG === 'en' ? 'Wrote INDEX/skill-repos.md: ' : '已生成 INDEX/skill-repos.md：') + repos.length + (LANG === 'en' ? ' repos' : ' 个独立仓库。'));
+console.log((LANG === 'en' ? 'Wrote INDEX/skill-repos.md: ' : '已生成 INDEX/skill-repos.md：') + repos.length + (LANG === 'en' ? ' indexed entries' : ' 条目录记录。'));
