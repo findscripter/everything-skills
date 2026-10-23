@@ -3,6 +3,9 @@
 
 本仓库是面向 AI Agent 的技能库：**1113 条 `SKILL.md` 技能**，按 11 卷功能域组织在 `00-meta/` … `10-platform/` 目录下（非单一 `skills/` 目录）。
 
+## 仓库维护
+收集、审计、修复或发布前先读 [sop.md](sop.md)，按用户当前请求采用相应流程。日常收集目标、证据、并行协作、验证及双语言发布均以该文件为维护规程；与维护者使用中文沟通。
+
 ## 如何发现技能
 - Agent 按每条技能 frontmatter 的 `description` 字段匹配是否加载——不靠浏览目录。
 - 人工浏览：`INDEX/catalog.md`（按卷/类总目）、`INDEX/tags.md`（标签）、`INDEX/graph.md`（互见关系图）。
