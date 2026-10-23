@@ -91,11 +91,11 @@ function hero(animated = true) {
 }
 
 function metrics() {
-  const items = [[stats.skills, 'CURATED SKILLS', '#deb46c'], [stats.volumes, 'DOMAIN VOLUMES', '#90b8a7'], [stats.edges, 'RELATION EDGES', '#e88f76'], [stats.repos, 'INDEXED REPOS', '#deb46c']];
+  const items = [[stats.skills, 'CURATED SKILLS', '#deb46c'], [stats.volumes, 'DOMAIN VOLUMES', '#90b8a7'], [stats.edges, 'RELATION EDGES', '#e88f76'], [stats.repos, 'INDEXED ENTRIES', '#deb46c']];
   const body = `  <rect width="1200" height="138" rx="16" fill="#f3eddc"/>
   <rect x=".5" y=".5" width="1199" height="137" rx="15.5" fill="none" stroke="#d9d2bc"/>
   ${items.map(([value, label, color], i) => `<g transform="translate(${i * 300} 0)">${i ? '<path d="M0 27V111" stroke="#d9d2bc"/>' : ''}<circle cx="28" cy="29" r="3" fill="${color}"/><text x="42" y="33" class="mono" font-size="10.5" letter-spacing="1.6" fill="#526657">${label}</text><text x="27" y="95" class="serif" font-size="51" fill="#182c23">${fmt(value)}</text><path d="M28 114H271" stroke="#c9c5af"/></g>`).join('\n')}`;
-  return wrap(1200, 138, 'Everything Skills at a glance', `${stats.skills} curated skills, ${stats.volumes} domain volumes, ${stats.edges} raw relation edges, and ${stats.repos} indexed external repositories.`, body, false);
+  return wrap(1200, 138, 'Everything Skills at a glance', `${stats.skills} curated skills, ${stats.volumes} domain volumes, ${stats.edges} raw relation edges, and ${stats.repos} indexed entries.`, body, false);
 }
 
 function mobileHero(animated = true) {
@@ -112,11 +112,11 @@ function mobileHero(animated = true) {
 }
 
 function mobileMetrics() {
-  const items = [[stats.skills, 'CURATED SKILLS'], [stats.volumes, 'DOMAIN VOLUMES'], [stats.edges, 'RELATION EDGES'], [stats.repos, 'INDEXED REPOS']];
+  const items = [[stats.skills, 'CURATED SKILLS'], [stats.volumes, 'DOMAIN VOLUMES'], [stats.edges, 'RELATION EDGES'], [stats.repos, 'INDEXED ENTRIES']];
   const body = `  <rect width="600" height="260" rx="16" fill="#f3eddc"/>
   <path d="M300 20V240M20 130H580" stroke="#d9d2bc"/>
   ${items.map(([n, label], i) => `<g transform="translate(${i % 2 * 300} ${Math.floor(i / 2) * 130})"><text x="26" y="35" class="mono" font-size="13" letter-spacing="1" fill="#526657">${label}</text><text x="24" y="100" class="serif" font-size="54" fill="#182c23">${fmt(n)}</text></g>`).join('\n')}`;
-  return wrap(600, 260, 'Everything Skills statistics', `${stats.skills} skills, ${stats.volumes} volumes, ${stats.edges} relation edges, ${stats.repos} repositories.`, body, false);
+  return wrap(600, 260, 'Everything Skills statistics', `${stats.skills} skills, ${stats.volumes} volumes, ${stats.edges} relation edges, ${stats.repos} indexed entries.`, body, false);
 }
 
 function mobileOverview() {
@@ -159,7 +159,7 @@ const block = `${BEGIN}
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="${stats.skills} skills · ${stats.volumes} volumes · ${stats.edges} relation edges · ${stats.repos} indexed repositories" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="${stats.skills} skills · ${stats.volumes} volumes · ${stats.edges} relation edges · ${stats.repos} indexed entries" width="1200" /></picture>
 </p>
 ${END}`;
 readme = readme.slice(0, start) + block + readme.slice(end + END.length);
@@ -167,4 +167,4 @@ await fs.mkdir(OUT, { recursive: true });
 for (const [name, content] of [ ['hero.svg', hero()], ['hero-static.svg', hero(false)], ['hero-mobile.svg', mobileHero()], ['hero-mobile-static.svg', mobileHero(false)], ['stats.svg', metrics()], ['stats-mobile.svg', mobileMetrics()], ['workflow.svg', overview()], ['workflow-static.svg', overview(false)], ['workflow-mobile.svg', mobileOverview()] ])
   await fs.writeFile(path.join(OUT, name), content);
 await fs.writeFile(path.join(ROOT, 'README.md'), readme);
-console.log(`Generated brand SVGs and README overview: ${stats.skills} skills / ${stats.volumes} volumes / ${stats.edges} edges / ${stats.repos} repos.`);
+console.log(`Generated brand SVGs and README overview: ${stats.skills} skills / ${stats.volumes} volumes / ${stats.edges} edges / ${stats.repos} indexed entries.`);
