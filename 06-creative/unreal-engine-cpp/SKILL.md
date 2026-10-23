@@ -15,6 +15,7 @@ combines_with: [glsl-shader-programming]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 为 Unreal Engine 5.x 编写健壮、高性能且符合 Epic Games 规范的 C++ 代码，覆盖 UObject 与垃圾回收（GC）卫生、反射系统、性能模式与命名约定。
 

@@ -15,6 +15,7 @@ combines_with: [ai-native-cli-design, algorithmic-art]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 通过 `mmx` 终端 CLI 调用 MiniMax AI 平台：一条命令完成文本对话、图像/视频/语音/音乐生成、联网搜索与图像理解（VLM）。所有生成在 MiniMax 服务端完成，本地只下发参数、取回文件或 JSON。专为非交互（agent/CI）场景设计：固定旗标即可拿到纯数据 stdout 与可判定的退出码。
 

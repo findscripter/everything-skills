@@ -720,5 +720,13 @@
   "root_followup": {
     "odoo": "EXIT recovery trap is now installed before stopping Odoo. Three mocked failure-path tests pass (stop/pg_dump/pg_restore); no real service/database/archive command was executed.",
     "resource_interface_review": "ASO and three other helper-interface corrections are separately recorded in the packaged-resource remediation evidence."
-  }
+  },
+  "followup_errata": [
+    {
+      "reviewed_at": "2026-10-23",
+      "record": "PyTDC license clarification",
+      "correction": "The individual SciAgent SKILL metadata describes underlying software. Its historical README explicitly scopes original instruction writing to CC-BY-4.0. The previous blanket MIT wording has been corrected; tool MIT and dataset rights remain separate. This does not certify the original adaptation commit.",
+      "evidence": "data/historical-license-review-2026-10-23.json"
+    }
+  ]
 }

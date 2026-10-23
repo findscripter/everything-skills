@@ -15,6 +15,7 @@ combines_with: [red-team-recon, burp-suite-testing, security-audit-toolkit]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 > 仅限授权使用：本技能仅可用于已获书面授权的渗透测试、防御性验证或受控教学环境。任何无授权、超范围的测试均属违法。
 

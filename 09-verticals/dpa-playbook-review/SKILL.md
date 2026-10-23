@@ -16,6 +16,7 @@ supersedes: [dpa-clause-reviewer]
 license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
+source_license_scope: "Merged-source scope: Both current entries declare anthropics/claude-for-legal and Apache-2.0; do not invent a knowledge-work-plugins source for this merge. Preserve both local source histories and modification notices; weak comparison candidates do not prove the exact original read version. See data/historical-license-review-2026-10-23.json; this is a scope disclosure, not an SPDX expression."
 ---
 # 数据处理协议(DPA)审查
 

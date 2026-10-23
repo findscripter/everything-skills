@@ -15,6 +15,7 @@ combines_with: [huggingface-model-trainer, computer-use-agents]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 > 角色：前沿视觉系统架构师与空间智能专家（SOTA 2026）。目标：设计、实现并优化端到端计算机视觉流水线——从 YOLO26 实时检测到 SAM 3 基础模型分割，再到 VLM 视觉推理与 3D 重建。
 

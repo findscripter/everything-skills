@@ -5,7 +5,7 @@
   "summary": {
     "confirmed_findings": 23,
     "fixed": 22,
-    "origin_history_pending": 1,
+    "origin_history_pending": 0,
     "formal_skills": 1113,
     "native_skills": 14,
     "curated_skills": 1099,
@@ -16,8 +16,13 @@
     "removed_duplicate_rows": 12,
     "packaged_resources": 170,
     "resource_skills": 24,
-    "regression_tests_passed": 67,
-    "git_blobs_verified": 1283
+    "regression_tests_passed": 73,
+    "git_blobs_verified": 1283,
+    "origin_investigation_completed": 1,
+    "origin_commits_still_unrecorded": 1099,
+    "upstream_review_completed": 218,
+    "upstream_pending": 0,
+    "upstream_unique_changed_paths_reviewed": 1347
   },
   "findings": [
     {
@@ -102,7 +107,8 @@
       "id": "SK-06",
       "priority": "P2",
       "title": "采编来源字段未固定到原文件及不可变版本",
-      "status": "governance-fixed-original-evidence-pending"
+      "status": "governance-fixed-investigation-completed-origin-unrecorded",
+      "evidence": "data/historical-origin-investigation-2026-10-23.json"
     },
     {
       "id": "SK-07",
@@ -175,11 +181,14 @@
     "source_manifest": "data/skill-provenance.json",
     "source_tdd": "tests/skill-provenance.tdd.md",
     "upstream_followup_queue": "data/upstream-review-queue-2026-10-23.json",
-    "integrated_tdd": "tests/audit-fixes.tdd.md"
+    "integrated_tdd": "tests/audit-fixes.tdd.md",
+    "historical_origin_investigation": "data/historical-origin-investigation-2026-10-23.md",
+    "historical_license_review": "data/historical-license-review-2026-10-23.md",
+    "upstream_completed": "data/upstream-review-completed-2026-10-23.json"
   },
   "limits": [
     "All 1099 curated origin revisions remain unrecorded. Fixed comparison references are not presented as original adaptation versions or license certifications.",
-    "No new upstream skill text was automatically imported for the 199 changed default commits / 57 changed representative skills; those version reviews remain queued.",
+    "No new upstream skill text was automatically imported for the 199 changed default commits / 57 changed representative skills; those fixed-version reviews are now complete, with 1,347 unique changed paths covered.",
     "The 19 inaccessible repository records remain explicitly marked rather than guessed deleted/private.",
     "Bundled upstream helpers were not run. Odoo failure tests mock all service/database/archive/checksum/publish commands; only bounded test fixture directories are created.",
     "Published upstream resource bytes retain their original trailing whitespace to preserve fixed source hashes."

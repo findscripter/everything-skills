@@ -15,6 +15,7 @@ combines_with: [multi-agent-orchestrator, salesforce-automation]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 通过 n8n-mcp MCP 服务的一组工具来发现节点、校验配置、套用模板并迭代构建工作流。本条聚焦"用哪个工具、参数怎么填、流程怎么走"。
 
