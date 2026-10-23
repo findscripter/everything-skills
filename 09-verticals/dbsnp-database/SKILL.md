@@ -14,7 +14,8 @@ related: [clinvar-database, gnomad-population-database, snpeff-variant-annotatio
 combines_with: [gatk-variant-calling, snpeff-variant-annotation, clinvar-database]
 license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
-source_license: CC0-1.0
+source_license: CC-BY-4.0
+source_license_scope: "Fixed comparison scope: SciAgent: original instruction writing CC-BY-4.0; underlying software/data declaration CC0-1.0. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 ## 何时使用
 
@@ -168,4 +169,6 @@ pd.DataFrame(rows).to_csv("variant_annotations.csv", index=False)
 - `opentargets-database` — SNP-性状关联与靶点-疾病证据整合。
 
 ---
-采编自 jaechang-hits/SciAgent-Skills（原 license CC0-1.0），按本仓库规范适配重写；本条目以 CC-BY-4.0 发布。
+本条参考 jaechang-hits/SciAgent-Skills 的 [dbSNP 技能文件](https://github.com/jaechang-hits/SciAgent-Skills/blob/0e69ced23e49203d529ea3869a8a4868bbffb42a/skills/genomics-bioinformatics/databases/dbsnp-database/SKILL.md)，按本仓规范适配并改写为中文。历史 [README 的 License 说明](https://github.com/jaechang-hits/SciAgent-Skills/blob/0e69ced23e49203d529ea3869a8a4868bbffb42a/README.md#license) 将原创指令文字的 CC-BY-4.0 与各技能记录的底层工具/数据许可分开；本条 `license` 与 `source_license` 均记录文字改编的 CC-BY-4.0 范围，保留 SciAgent-Skills 署名和改写说明。
+
+上游技能前言的 CC0-1.0 保留为其数据库/数据许可声明，不表示技能文字为公共领域，也不概括所有关联数据集或服务条款。此前的来源声明可从 Git 历史追溯。固定比较版本不证明原始读取或采编版本；逐项证据见 [历史许可范围复核](../../data/historical-license-review-2026-10-23.md)。

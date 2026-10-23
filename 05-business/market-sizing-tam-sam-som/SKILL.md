@@ -16,6 +16,7 @@ supersedes: [market-sizing-analyst]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Merged-source scope: The retired market-sizing-analyst declares wshobson/agents (MIT), while canonical market-sizing-tam-sam-som declares Sickn33. Preserve the wshobson MIT reference scope plus the Sickn33 code/original-writing/upstream-exceptions scope; do not introduce an unsupported Alireza source. See data/historical-license-review-2026-10-23.json; this is a scope disclosure, not an SPDX expression."
 ---
 ## 何时使用
 

@@ -15,6 +15,7 @@ combines_with: [account-reconciliation, kyc-aml-rules-engine, billing-automation
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 本条目面向「设计并落地巴基斯坦本地支付」的工程任务。你的角色是熟悉巴基斯坦支付的全栈/支付架构工程师，目标是交付正确、可对账、可审计的 PKR 支付流程。
 

@@ -15,6 +15,7 @@ combines_with: [langgraph-agent-framework, multi-agent-system-designer, ai-nativ
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 工具是 AI 智能体与世界交互的接口。一个设计良好的工具，决定了智能体是能稳定工作，还是会幻觉、静默失败、或多花 10 倍 token。
 

@@ -15,6 +15,7 @@ combines_with: [llm-judge-evaluation, self-improving-memory-agent, langfuse-llm-
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 # Agent 技能诊断与优化（Skill Optimizer）
 

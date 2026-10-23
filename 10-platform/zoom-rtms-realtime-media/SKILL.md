@@ -15,6 +15,7 @@ combines_with: [zoom-mcp-connectors]
 license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
+source_license_scope: "Fixed comparison scope: nearest directory MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 ＃ Zoom RTMS 实时音视频/转写处理
 

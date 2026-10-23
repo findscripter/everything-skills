@@ -217,6 +217,64 @@ test('repository lookup keeps exact historical aliases ahead of fuzzy canonical 
   assert.equal(JSON.parse(result.stdout).full_name, 'demo/current');
 });
 
+test('reviewed repository metadata is displayed without replacing its recorded baseline', async t => {
+  const root = await fixture(t);
+  const before = 'a'.repeat(40), after = 'b'.repeat(40), tree = 'c'.repeat(40);
+  await writeRepos(root, [repo('demo/reviewed', {
+    source_commit_sha: before, license: 'MIT', skill_count: 10, last_reviewed: '2026-06-01',
+    current_review: { schema_version: 1, status: 'historical-only', reviewed_at: '2026-10-23', commit: after, tree,
+      fields: { summary: 'Current public Git snapshot has no installable skill.', summary_zh: '当前公开Git快照无可安装技能。', license: 'Apache-2.0', skill_count: 0, public_skill_paths: [], representative_skill: null } },
+    upstream_snapshot: { state: 'active' },
+  })]);
+  const result = run(root, 'everything-skills.mjs', ['repo', 'demo/reviewed', '--json']);
+  assert.equal(result.status, 0, result.stderr);
+  const value = JSON.parse(result.stdout);
+  assert.equal(value.skill_count, 0);
+  assert.equal(value.license, 'Apache-2.0');
+  assert.equal(value.source_commit_sha, after);
+  assert.equal(value.source_tree_sha, tree);
+  assert.equal(value.recorded_snapshot.source_commit_sha, before);
+  assert.equal(value.recorded_snapshot.skill_count, 10);
+  assert.equal(value.stars, 1);
+  const bytes = await fs.readFile(path.join(root, 'data/skill-repos.jsonl'), 'utf8');
+  assert.equal(JSON.parse(bytes).source_commit_sha, before);
+  assert.equal(run(root, 'build-skill-repos.mjs', ['--lang=zh']).status, 0);
+  const index = await fs.readFile(path.join(root, 'INDEX/skill-repos.md'), 'utf8');
+  assert.match(index, /当前公开Git快照/);
+  assert.match(index, /仅历史|历史来源/);
+});
+
+for (const [label, patch] of [
+  ['missing immutable commit', { commit: null }],
+  ['commit reused as tree', { tree: 'b'.repeat(40) }],
+  ['identity override', { fields: { full_name: 'attacker/other' } }],
+]) test(`repository review rejects ${label} before changing generated artifacts`, async t => {
+  const root = await fixture(t);
+  await writeRepos(root, [repo('demo/reviewed', { current_review: { schema_version: 1, status: 'reviewed', reviewed_at: '2026-10-23', commit: 'b'.repeat(40), tree: 'c'.repeat(40), fields: {}, ...patch } })]);
+  await fs.mkdir(path.join(root, 'INDEX'));
+  await fs.writeFile(path.join(root, 'INDEX/skill-repos.md'), 'Existing reviewed directory\n');
+  const result = run(root, 'build-skill-repos.mjs', ['--lang=en']);
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /current_review/);
+  assert.equal(await fs.readFile(path.join(root, 'INDEX/skill-repos.md'), 'utf8'), 'Existing reviewed directory\n');
+});
+
+test('closed inaccessible repository review remains historical without inventing a current version', async t => {
+  const root = await fixture(t);
+  const old = 'a'.repeat(40);
+  await writeRepos(root, [repo('demo/inaccessible', { source_commit_sha: old, last_reviewed: '2026-06-01',
+    current_review: { schema_version: 1, status: 'closed-unavailable', reviewed_at: '2026-10-23', commit: null, tree: null, fields: {} },
+    upstream_snapshot: { state: 'unavailable' },
+  })]);
+  assert.equal(run(root, 'build-skill-repos.mjs', ['--lang=zh']).status, 0);
+  const index = await fs.readFile(path.join(root, 'INDEX/skill-repos.md'), 'utf8');
+  assert.match(index, /仅历史|保留历史/);
+  const value = JSON.parse(run(root, 'everything-skills.mjs', ['repo', 'demo/inaccessible', '--json']).stdout);
+  assert.equal(value.source_commit_sha, old);
+  assert.equal(value.last_reviewed, '2026-06-01');
+  assert.equal(value.recommendation, 'historical-only');
+});
+
 test('build-all stops before changing generated files when a packaged asset is missing', async t => {
   const root = await fixture(t);
   const commit = 'b'.repeat(40);
