@@ -15,6 +15,7 @@ combines_with: [backend-architecture-patterns, legacy-codebase-modernizer, syste
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence; file metadata MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 以 Fred Brooks 命名（《人月神话》作者）——因为最难的 bug 是概念性的，而非语法性的。本技能不查风格规则，而是以 12 本经典软工书籍为审查视角，回答："《程序员修炼之道》《代码整洁之道》《数据密集型应用系统设计》的作者们会怎么评价这段代码？"——捕捉 linter 与常规 AI 工具容易漏掉的设计坏味、紧耦合、缺失抽象与架构风险。
 

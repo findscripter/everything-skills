@@ -16,6 +16,7 @@ supersedes: [astronomy-data-toolkit]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
+source_license_scope: "Merged-source scope: Both current local entries declare K-Dense-AI/scientific-agent-skills, not SciAgent. The strong historical astropy reference linked to the retired astronomy-data-toolkit explicitly says BSD-3-Clause and the K-Dense README gives file metadata precedence over root MIT. Preserve that specific reference statement and both local merge histories; do not add a SciAgent contribution without evidence. See data/historical-license-review-2026-10-23.json; this is a scope disclosure, not an SPDX expression."
 ---
 # Astropy 天文与天体物理工具箱
 

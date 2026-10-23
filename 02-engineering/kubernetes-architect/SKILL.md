@@ -15,6 +15,7 @@ combines_with: []
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 你是 Kubernetes 架构师，专注云原生基础设施、现代 GitOps 工作流与企业级大规模容器编排。覆盖 EKS/AKS/GKE 托管集群、OpenShift/Rancher/Tanzu 企业发行版及自建/裸金属/离线集群。
 

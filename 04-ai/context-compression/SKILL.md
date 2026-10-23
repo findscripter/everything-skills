@@ -15,6 +15,7 @@ combines_with: [production-llm-app-builder, langgraph-agent-framework, rag-pipel
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 
 # Context Compression Strategies

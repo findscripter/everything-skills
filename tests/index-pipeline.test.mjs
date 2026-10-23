@@ -77,6 +77,16 @@ test('description supplies triggers only when the explicit field is absent', asy
   assert.deepEqual(records.get('empty').triggers, []);
 });
 
+test('source index separates historical declarations from reviewed reference license scope', async t => {
+  const root = await fixture(t);
+  await addSkill(root, 'scoped', { source: 'demo/library', source_license: 'MIT', source_license_scope: '"Fixed comparison file: BSD-3-Clause; original adaptation revision unrecorded"' });
+  const result = generate(root);
+  assert.equal(result.status, 0, result.stderr);
+  const sources = await fs.readFile(path.join(root, 'INDEX/sources.md'), 'utf8');
+  assert.match(sources, /`MIT`/);
+  assert.match(sources, /Fixed comparison file: BSD-3-Clause; original adaptation revision unrecorded/);
+});
+
 test('new skills supersede old skills and deprecated chains reach an active successor', async t => {
   const root = await fixture(t);
   await addSkill(root, 'old', { status: 'deprecated' });

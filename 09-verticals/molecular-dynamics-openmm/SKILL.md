@@ -16,6 +16,7 @@ supersedes: [molecular-dynamics-simulation]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
+source_license_scope: "Merged-source scope: Both current local entries declare K-Dense-AI/scientific-agent-skills, not SciAgent. The strong historical molecular-dynamics reference explicitly says MIT. Preserve the two local source/merge histories without introducing an unsupported SciAgent/CCBY contribution; exact adaptation versions remain unrecorded. See data/historical-license-review-2026-10-23.json; this is a scope disclosure, not an SPDX expression."
 ---
 ## 何时使用
 

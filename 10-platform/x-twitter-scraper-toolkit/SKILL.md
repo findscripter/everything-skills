@@ -16,6 +16,7 @@ supersedes: [x-twitter-automation]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Merged-source scope: Both entries declare the Sickn33 collection. Its code-MIT/original-writing-CCBY/upstream-exceptions policy is a scope disclosure, while Xquik/service terms remain separate. Preserve both local histories; do not assert every portion is MIT or CCBY without per-file provenance. See data/historical-license-review-2026-10-23.json; this is a scope disclosure, not an SPDX expression."
 ---
 ## 何时使用
 

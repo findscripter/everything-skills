@@ -1,0 +1,750 @@
+{
+  "schema_version": 1,
+  "reviews": [
+    {
+      "repository": "1102tools-dev/federal-contracting-skills",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/1102tools-dev/federal-contracting-skills",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1198561783,
+          "nameWithOwner": "mgifford/federal-contracting-skills",
+          "url": "https://github.com/mgifford/federal-contracting-skills",
+          "isFork": false,
+          "description": "Free Claude Skills for federal contracting: IGCE builders (FFP, T&M, cost-reimbursement), SOW/PWS generator, market research reports, and live API tools for USASpending, GSA CALC+, BLS OEWS, Per Diem, Federal Register, eCFR, Regulations.gov. Built for GS-1102 contract specialists and government contractors."
+        },
+        {
+          "databaseId": 1221146322,
+          "nameWithOwner": "Aballa6975/federal-contracting-skills",
+          "url": "https://github.com/Aballa6975/federal-contracting-skills",
+          "isFork": false,
+          "description": "Build federal acquisition deliverables with Claude Skills for SOWs, PWSs, IGCEs, OT project descriptions, and cost analyses."
+        }
+      ],
+      "public_search_total": 2,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "AaravKashyap12/safe-project-approach",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/AaravKashyap12/safe-project-approach",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [],
+      "public_search_total": 0,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "axelfreeman/marketing-mindset",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/axelfreeman/marketing-mindset",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1327745798,
+          "nameWithOwner": "bahadirhanovamubina-cmd/Marketing-mindset",
+          "url": "https://github.com/bahadirhanovamubina-cmd/Marketing-mindset",
+          "isFork": false,
+          "description": "Interactive marketing psychology website - real brand case studies and a hands-on branding lab."
+        }
+      ],
+      "public_search_total": 5,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "Faizalimam990/Startup_builder_pro",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/Faizalimam990/Startup_builder_pro",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [],
+      "public_search_total": 3,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "h4vzz/awesome-ai-agent-skills",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/h4vzz/awesome-ai-agent-skills",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1155566591,
+          "nameWithOwner": "seb1n/awesome-ai-agent-skills",
+          "url": "https://github.com/seb1n/awesome-ai-agent-skills",
+          "isFork": false,
+          "description": "103 ready-to-use AI agent skills for Claude Code, OpenAI Codex, Gemini CLI, Cursor, GitHub Copilot, Windsurf, and other Agent Skills-compatible tools. Complete SKILL.md workflows—not a link directory."
+        },
+        {
+          "databaseId": 1119910576,
+          "nameWithOwner": "thienanblog/awesome-ai-agent-skills",
+          "url": "https://github.com/thienanblog/awesome-ai-agent-skills",
+          "isFork": false,
+          "description": "A curated list of essential skills, tools, and resources for building and enhancing advanced AI agents."
+        },
+        {
+          "databaseId": 1391127456,
+          "nameWithOwner": "Alpha-Park/awesome-ai-agent-skills",
+          "url": "https://github.com/Alpha-Park/awesome-ai-agent-skills",
+          "isFork": false,
+          "description": "Categorized index of 718 public GenPark AI agent skills, with tested Python packages and MCP integrations."
+        },
+        {
+          "databaseId": 1391126739,
+          "nameWithOwner": "alphaparkinc/awesome-ai-agent-skills",
+          "url": "https://github.com/alphaparkinc/awesome-ai-agent-skills",
+          "isFork": false,
+          "description": "Categorized index of 718 public GenPark AI agent skills, with tested Python packages and MCP integrations."
+        },
+        {
+          "databaseId": 1256332593,
+          "nameWithOwner": "mapan0424/awesome-ai-agent-skills",
+          "url": "https://github.com/mapan0424/awesome-ai-agent-skills",
+          "isFork": false,
+          "description": "🎯 The curated collection of high-quality skills for AI coding agents (Hermes, Claude, Cursor, etc.)"
+        },
+        {
+          "databaseId": 1325166698,
+          "nameWithOwner": "SectorDesign/awesome-ai-agent-skills",
+          "url": "https://github.com/SectorDesign/awesome-ai-agent-skills",
+          "isFork": false,
+          "description": "Awesome AI Agent Skills 2026 — a curated toolkit of agent skills, prompts, and integrations to supercharge your AI workflows."
+        },
+        {
+          "databaseId": 1231477916,
+          "nameWithOwner": "3tallah/awesome-ai-agent-skills",
+          "url": "https://github.com/3tallah/awesome-ai-agent-skills",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 1187325736,
+          "nameWithOwner": "gitstq/awesome-ai-agent-skills",
+          "url": "https://github.com/gitstq/awesome-ai-agent-skills",
+          "isFork": false,
+          "description": "4 Production-Grade AI Agent Skills That Make Your Agent 10x Better | Code Review Engine + Self-Improving Memory + Context Manager + Git Hooks | Compatible with Claude Code, Codex CLI, Cursor, Windsurf, Copilot, CodeBuddy, OpenClaw and ALL SKILL.md agents"
+        },
+        {
+          "databaseId": 1237332148,
+          "nameWithOwner": "sekirosevillans-sys/Awesome-AI-Agent-Skills",
+          "url": "https://github.com/sekirosevillans-sys/Awesome-AI-Agent-Skills",
+          "isFork": false,
+          "description": null
+        }
+      ],
+      "public_search_total": 29,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "harebeats/cannonball",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/harebeats/cannonball",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 5940101,
+          "nameWithOwner": "djyt/cannonball",
+          "url": "https://github.com/djyt/cannonball",
+          "isFork": false,
+          "description": "Cannonball: An Enhanced OutRun Engine"
+        },
+        {
+          "databaseId": 533072035,
+          "nameWithOwner": "treefarmstudio/cannonball",
+          "url": "https://github.com/treefarmstudio/cannonball",
+          "isFork": false,
+          "description": "A modern splash page/coming soon page with a newsletter sign up form"
+        },
+        {
+          "databaseId": 552414069,
+          "nameWithOwner": "novafacing/cannonball",
+          "url": "https://github.com/novafacing/cannonball",
+          "isFork": false,
+          "description": "Deprecated! Use qemu-rs instead :)"
+        },
+        {
+          "databaseId": 148321182,
+          "nameWithOwner": "janhove/cannonball",
+          "url": "https://github.com/janhove/cannonball",
+          "isFork": false,
+          "description": "Tools for Teaching Statistics"
+        },
+        {
+          "databaseId": 403370585,
+          "nameWithOwner": "mustafakmelli/CannonBall",
+          "url": "https://github.com/mustafakmelli/CannonBall",
+          "isFork": false,
+          "description": "Shooting cannon ball game build with threejs"
+        },
+        {
+          "databaseId": 394428101,
+          "nameWithOwner": "Taro-Hayashi/Cannonball",
+          "url": "https://github.com/Taro-Hayashi/Cannonball",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 139757924,
+          "nameWithOwner": "RetroBattlestations/Cannonball",
+          "url": "https://github.com/RetroBattlestations/Cannonball",
+          "isFork": false,
+          "description": "Cannonball game for BASIC Month 3 on RetroBattlestations"
+        }
+      ],
+      "public_search_total": 717,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "Jamie-BitFlight/claude_skills",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/Jamie-BitFlight/claude_skills",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [],
+      "public_search_total": 13469,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "KieranGao/general-readme-skill",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/KieranGao/general-readme-skill",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [],
+      "public_search_total": 0,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "levi-qiao/longgraph-skill",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/levi-qiao/longgraph-skill",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [],
+      "public_search_total": 0,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "lingbol088-spec/auto-skill-installer",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/lingbol088-spec/auto-skill-installer",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1282364765,
+          "nameWithOwner": "asdfg3482968521-alt/auto-skill-installer",
+          "url": "https://github.com/asdfg3482968521-alt/auto-skill-installer",
+          "isFork": false,
+          "description": "AI agent skill discovery and installer / AI 智能体技能自动发现与安装器"
+        },
+        {
+          "databaseId": 1263435115,
+          "nameWithOwner": "harrylabsj/auto-skill-installer",
+          "url": "https://github.com/harrylabsj/auto-skill-installer",
+          "isFork": false,
+          "description": "Agent skill that discovers and installs the right skills for Codex, OpenClaw, and Hermes."
+        },
+        {
+          "databaseId": 1222944721,
+          "nameWithOwner": "diyin4708-code/auto-skill-installer",
+          "url": "https://github.com/diyin4708-code/auto-skill-installer",
+          "isFork": false,
+          "description": "🦞 自驱安装 — 缺技能自己主动去装，不等用户提醒第二遍"
+        }
+      ],
+      "public_search_total": 4,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "Mann1988/awesome-claude-skills",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/Mann1988/awesome-claude-skills",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1078079172,
+          "nameWithOwner": "ComposioHQ/awesome-claude-skills",
+          "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+          "isFork": false,
+          "description": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows"
+        },
+        {
+          "databaseId": 1077850011,
+          "nameWithOwner": "travisvn/awesome-claude-skills",
+          "url": "https://github.com/travisvn/awesome-claude-skills",
+          "isFork": false,
+          "description": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows — particularly Claude Code"
+        },
+        {
+          "databaseId": 1078332194,
+          "nameWithOwner": "BehiSecc/awesome-claude-skills",
+          "url": "https://github.com/BehiSecc/awesome-claude-skills",
+          "isFork": false,
+          "description": "A curated list of Claude Skills."
+        },
+        {
+          "databaseId": 1080441761,
+          "nameWithOwner": "karanb192/awesome-claude-skills",
+          "url": "https://github.com/karanb192/awesome-claude-skills",
+          "isFork": false,
+          "description": "🎯 The definitive collection of 50+ verified Awesome Claude Skills for Claude Code, Claude.ai, and API. Boost productivity with TDD, debugging, git workflows, document processing, and more. Community-driven, actively maintained."
+        },
+        {
+          "databaseId": 1083431753,
+          "nameWithOwner": "fleurytian/awesome-claude-skills",
+          "url": "https://github.com/fleurytian/awesome-claude-skills",
+          "isFork": false,
+          "description": "Claude Skills developed for brain-workers. Dev by Fleury, an Ex-McKinsey and now AI product manager. 小红书/RedNote@如宝｜AI&Anlalytics. Email me @fleurytian@gmail.com"
+        },
+        {
+          "databaseId": 1121460191,
+          "nameWithOwner": "Chat2AnyLLM/awesome-claude-skills",
+          "url": "https://github.com/Chat2AnyLLM/awesome-claude-skills",
+          "isFork": false,
+          "description": "A curated list of awesome claude skills"
+        },
+        {
+          "databaseId": 1078557135,
+          "nameWithOwner": "JayZeeDesign/awesome-claude-skills",
+          "url": "https://github.com/JayZeeDesign/awesome-claude-skills",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 1078330526,
+          "nameWithOwner": "kenryu42/awesome-claude-skills",
+          "url": "https://github.com/kenryu42/awesome-claude-skills",
+          "isFork": false,
+          "description": "Awesome list for Claude Skills — a reusable, filesystem-based resources that provide Claude with domain-specific expertise developed by Anthropic"
+        }
+      ],
+      "public_search_total": 221,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "minosdevs/cinematic-film",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/minosdevs/cinematic-film",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1398458346,
+          "nameWithOwner": "Khaledik/cinematic-film",
+          "url": "https://github.com/Khaledik/cinematic-film",
+          "isFork": false,
+          "description": "Claude Code skill: turn any subject into a cinematic animated film with Remotion + three.js, gpt-image assets, a rigged TTS narrator and synthesized sound."
+        },
+        {
+          "databaseId": 428719591,
+          "nameWithOwner": "anbro95/cinematic-film",
+          "url": "https://github.com/anbro95/cinematic-film",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 511356229,
+          "nameWithOwner": "LucianoTorrano/cinematic-film",
+          "url": "https://github.com/LucianoTorrano/cinematic-film",
+          "isFork": false,
+          "description": "Cinematic film studio website"
+        }
+      ],
+      "public_search_total": 43,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "naderelewa/Product-to-Prod",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/naderelewa/Product-to-Prod",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [],
+      "public_search_total": 10234,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "PureTokens/andrej-karpathy-skills-codex",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/PureTokens/andrej-karpathy-skills-codex",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1213279789,
+          "nameWithOwner": "Sspacegray/andrej-karpathy-skills-codex",
+          "url": "https://github.com/Sspacegray/andrej-karpathy-skills-codex",
+          "isFork": false,
+          "description": "andrej-karpathy-skills-codex"
+        },
+        {
+          "databaseId": 1223276414,
+          "nameWithOwner": "vm140205-collab/andrej-karpathy-skills-codex",
+          "url": "https://github.com/vm140205-collab/andrej-karpathy-skills-codex",
+          "isFork": false,
+          "description": "Codex-ready packaging of Karpathy-inspired coding guidelines, adapted from forrestchang/andrej-karpathy-skills."
+        },
+        {
+          "databaseId": 1257941830,
+          "nameWithOwner": "autumncry/andrej-karpathy-skills-codex",
+          "url": "https://github.com/autumncry/andrej-karpathy-skills-codex",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 1216732243,
+          "nameWithOwner": "Zack-zuo/andrej-karpathy-skills-codex",
+          "url": "https://github.com/Zack-zuo/andrej-karpathy-skills-codex",
+          "isFork": false,
+          "description": "A codex version of andrej-karpathy-skills"
+        },
+        {
+          "databaseId": 1228545561,
+          "nameWithOwner": "zzusec/andrej-karpathy-skills-codex",
+          "url": "https://github.com/zzusec/andrej-karpathy-skills-codex",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 1214191510,
+          "nameWithOwner": "ruonanzh/andrej-karpathy-skills-codex",
+          "url": "https://github.com/ruonanzh/andrej-karpathy-skills-codex",
+          "isFork": false,
+          "description": null
+        }
+      ],
+      "public_search_total": 9,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "seoo-tools/seoo-skills",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/seoo-tools/seoo-skills",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [],
+      "public_search_total": 0,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "shajith003/awesome-claude-skills",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/shajith003/awesome-claude-skills",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1078079172,
+          "nameWithOwner": "ComposioHQ/awesome-claude-skills",
+          "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+          "isFork": false,
+          "description": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows"
+        },
+        {
+          "databaseId": 1077850011,
+          "nameWithOwner": "travisvn/awesome-claude-skills",
+          "url": "https://github.com/travisvn/awesome-claude-skills",
+          "isFork": false,
+          "description": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows — particularly Claude Code"
+        },
+        {
+          "databaseId": 1078332194,
+          "nameWithOwner": "BehiSecc/awesome-claude-skills",
+          "url": "https://github.com/BehiSecc/awesome-claude-skills",
+          "isFork": false,
+          "description": "A curated list of Claude Skills."
+        },
+        {
+          "databaseId": 1080441761,
+          "nameWithOwner": "karanb192/awesome-claude-skills",
+          "url": "https://github.com/karanb192/awesome-claude-skills",
+          "isFork": false,
+          "description": "🎯 The definitive collection of 50+ verified Awesome Claude Skills for Claude Code, Claude.ai, and API. Boost productivity with TDD, debugging, git workflows, document processing, and more. Community-driven, actively maintained."
+        },
+        {
+          "databaseId": 1083431753,
+          "nameWithOwner": "fleurytian/awesome-claude-skills",
+          "url": "https://github.com/fleurytian/awesome-claude-skills",
+          "isFork": false,
+          "description": "Claude Skills developed for brain-workers. Dev by Fleury, an Ex-McKinsey and now AI product manager. 小红书/RedNote@如宝｜AI&Anlalytics. Email me @fleurytian@gmail.com"
+        },
+        {
+          "databaseId": 1121460191,
+          "nameWithOwner": "Chat2AnyLLM/awesome-claude-skills",
+          "url": "https://github.com/Chat2AnyLLM/awesome-claude-skills",
+          "isFork": false,
+          "description": "A curated list of awesome claude skills"
+        },
+        {
+          "databaseId": 1078557135,
+          "nameWithOwner": "JayZeeDesign/awesome-claude-skills",
+          "url": "https://github.com/JayZeeDesign/awesome-claude-skills",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 1078330526,
+          "nameWithOwner": "kenryu42/awesome-claude-skills",
+          "url": "https://github.com/kenryu42/awesome-claude-skills",
+          "isFork": false,
+          "description": "Awesome list for Claude Skills — a reusable, filesystem-based resources that provide Claude with domain-specific expertise developed by Anthropic"
+        }
+      ],
+      "public_search_total": 221,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "twinforgelabs/OpenProof",
+      "repository_id": 1428327204,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/twinforgelabs/OpenProof",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1250826965,
+          "nameWithOwner": "sparshsam/openproof",
+          "url": "https://github.com/sparshsam/openproof",
+          "isFork": false,
+          "description": "Proof-of-existence infrastructure for timestamping local file hashes with minimal disclosure."
+        },
+        {
+          "databaseId": 1188080776,
+          "nameWithOwner": "mxthematic/openproof",
+          "url": "https://github.com/mxthematic/openproof",
+          "isFork": false,
+          "description": "Conversational theorem prover for Lean 4. Describe a theorem, get a machine-checked proof."
+        },
+        {
+          "databaseId": 1256816021,
+          "nameWithOwner": "sshaunn/OpenProof",
+          "url": "https://github.com/sshaunn/OpenProof",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 1161698691,
+          "nameWithOwner": "giusescc/OpenProof",
+          "url": "https://github.com/giusescc/OpenProof",
+          "isFork": false,
+          "description": "Verify developer portfolio claims against real GitHub contribution history"
+        },
+        {
+          "databaseId": 1390512376,
+          "nameWithOwner": "Inclover05/openproof",
+          "url": "https://github.com/Inclover05/openproof",
+          "isFork": false,
+          "description": "Evidence-first verification of public promises and historical contract state, powered by GenLayer."
+        },
+        {
+          "databaseId": 1001523072,
+          "nameWithOwner": "Dracko000/OpenProof",
+          "url": "https://github.com/Dracko000/OpenProof",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 1408154778,
+          "nameWithOwner": "yumingye/OpenProof",
+          "url": "https://github.com/yumingye/OpenProof",
+          "isFork": false,
+          "description": "AI resource dependency provenance and evidence analysis tool"
+        },
+        {
+          "databaseId": 900812326,
+          "nameWithOwner": "Mr-Pyro/OpenProof",
+          "url": "https://github.com/Mr-Pyro/OpenProof",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 1323930188,
+          "nameWithOwner": "genyleap/openproof",
+          "url": "https://github.com/genyleap/openproof",
+          "isFork": false,
+          "description": "An open protocol for portable identity, authentication, authorization, trust, and secure access."
+        },
+        {
+          "databaseId": 880577023,
+          "nameWithOwner": "luke-marks0/OpenProof",
+          "url": "https://github.com/luke-marks0/OpenProof",
+          "isFork": false,
+          "description": null
+        }
+      ],
+      "public_search_total": 21,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "Tygb99/claude-code-session-skills",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/Tygb99/claude-code-session-skills",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1358252413,
+          "nameWithOwner": "mm-arturo/claude-code-session-skills",
+          "url": "https://github.com/mm-arturo/claude-code-session-skills",
+          "isFork": false,
+          "description": "Claude Code skills: wrap-up and resume-work, so context survives a restart"
+        },
+        {
+          "databaseId": 1329342389,
+          "nameWithOwner": "ssebong777/claude-code-session-skills",
+          "url": "https://github.com/ssebong777/claude-code-session-skills",
+          "isFork": false,
+          "description": "Claude Code 세션 스킬 3종 — 세션 간 핸드오프, 세션 이름→ID 조회(Claude·Codex·Aside), 세션 로그 이미지 복원"
+        }
+      ],
+      "public_search_total": 3,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    },
+    {
+      "repository": "vasilyu1983/AI-Agents-public",
+      "repository_id": null,
+      "checked_at": "2026-10-23",
+      "official_endpoint": "https://api.github.com/repos/vasilyu1983/AI-Agents-public",
+      "response": {
+        "request_error": "gh: Not Found (HTTP 404)\n"
+      },
+      "id_response": null,
+      "same_name_public_candidates": [
+        {
+          "databaseId": 1096645890,
+          "nameWithOwner": "fxlrnrpt/AI-Agents-public",
+          "url": "https://github.com/fxlrnrpt/AI-Agents-public",
+          "isFork": false,
+          "description": null
+        },
+        {
+          "databaseId": 1245099847,
+          "nameWithOwner": "ghostventuresai/AI-Agents-public",
+          "url": "https://github.com/ghostventuresai/AI-Agents-public",
+          "isFork": false,
+          "description": null
+        }
+      ],
+      "public_search_total": 24,
+      "disposition": "closed_unavailable_preserve_history",
+      "recommendation": "截至本次无法公开访问，停止当前安装/使用推荐并保留历史元数据与证据；不据 404 断言删除、私有化或迁移。",
+      "migration_verified": false,
+      "review_complete": true
+    }
+  ]
+}

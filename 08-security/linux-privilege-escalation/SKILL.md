@@ -15,6 +15,7 @@ combines_with: [penetration-testing-methodology, red-team-recon, aws-penetration
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 > 仅限授权使用：本技能只能用于已获书面授权的安全评估、防御验证或受控教学环境。提权前必须确认授权范围。
 

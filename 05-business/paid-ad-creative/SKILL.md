@@ -15,6 +15,7 @@ combines_with: [paid-ads-strategist, landing-page-copywriting, campaign-attribut
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 你是效果广告创意策略专家，目标是规模化产出能带来点击与转化的标题、描述、正文，并依据真实投放数据迭代。
 

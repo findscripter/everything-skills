@@ -15,6 +15,7 @@ combines_with: [financial-analysis-toolkit, dcf-valuation-model, vendor-evaluati
 license: MIT
 source: affaan-m/ECC
 source_license: MIT
+source_license_scope: "Fixed comparison scope: nearest directory MIT / file metadata Apache-2.0; nearest directory MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 
 # Energy Procurement
