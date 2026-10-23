@@ -4953,9 +4953,6 @@
 ### `html-artifact`
 - [`algorithmic-art`](../06-creative/algorithmic-art/SKILL.md) — 算法艺术：用 p5.js 生成可探索的生成式艺术
 
-### `html2pptx`
-- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
-
 ### `htslib`
 - [`bcftools-variant-manipulation`](../09-verticals/bcftools-variant-manipulation/SKILL.md) — bcftools VCF/BCF 变异处理
 - [`genomic-file-toolkit`](../09-verticals/genomic-file-toolkit/SKILL.md) — 基因组文件处理（BAM/VCF/FASTQ）
@@ -7699,6 +7696,7 @@
 
 ### `platform-integration`
 - [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) — X/Twitter 抓取与自动化（Xquik）
+- [`x-twitter-scraper-toolkit`](../10-platform/x-twitter-scraper-toolkit/SKILL.md) — X/Twitter 抓取工具：搜索、导出、发推与 DM
 
 ### `playbook`
 - [`contract-playbook-review`](../09-verticals/contract-playbook-review/SKILL.md) — 合同对照评审红线
@@ -9282,6 +9280,7 @@
 - [`matchms-spectral-matching`](../09-verticals/matchms-spectral-matching/SKILL.md) — matchms 质谱谱图匹配
 - [`materials-science-toolkit`](../09-verticals/materials-science-toolkit/SKILL.md) — 材料科学工具箱（Pymatgen）
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程
+- [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）
 - [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化
 - [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱

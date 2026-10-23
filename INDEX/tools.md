@@ -340,7 +340,6 @@
 - [`ad-creative-generator`](../05-business/ad-creative-generator/SKILL.md) — 广告创意批量生成
 - [`agent-architecture-audit`](../04-ai/agent-architecture-audit/SKILL.md) — Agent 全栈架构诊断（12 层栈审计）
 - [`agent-memory-systems`](../04-ai/agent-memory-systems/SKILL.md) — AI 智能体记忆系统设计
-- [`agent-skill-security-scanner-v2`](../08-security/agent-skill-security-scanner-v2/SKILL.md) — 技能安全扫描：采用前检测提示注入与恶意代码
 - [`agent-workflow-pattern-designer`](../04-ai/agent-workflow-pattern-designer/SKILL.md) — 智能体工作流模式设计
 - [`agentic-actions-auditor`](../08-security/agentic-actions-auditor/SKILL.md) — AI Agent CI/CD 工作流安全审计
 - [`agile-product-owner`](../07-productivity/agile-product-owner/SKILL.md) — 敏捷产品负责人与待办管理
@@ -2031,6 +2030,8 @@
 
 ### `LibreOffice`
 - [`dcf-valuation-model`](../09-verticals/dcf-valuation-model/SKILL.md) — DCF 现金流折现估值模型
+- [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) — LBO 杠杆收购模型构建
+- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
 ### `LibreOffice (soffice)`
 - [`ib-pitch-deck-builder`](../05-business/ib-pitch-deck-builder/SKILL.md) — 投行路演演示稿构建
@@ -2351,6 +2352,7 @@
 - [`octagon-stock-grades`](../09-verticals/octagon-stock-grades/SKILL.md) — 顶级分析师股票评级查询
 - [`octagon-stock-price-change`](../09-verticals/octagon-stock-price-change/SKILL.md) — 多周期股价涨跌幅统计
 - [`octagon-stock-quote`](../09-verticals/octagon-stock-quote/SKILL.md) — 实时股票报价
+- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 - [`transactional-email-template-builder`](../02-engineering/transactional-email-template-builder/SKILL.md) — 事务邮件模板系统构建
 - [`websocket-realtime-engineer`](../02-engineering/websocket-realtime-engineer/SKILL.md) — WebSocket 实时通信工程
 - [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理
@@ -2761,6 +2763,7 @@
 
 ### `PowerPoint`
 - [`investment-proposal-builder`](../09-verticals/investment-proposal-builder/SKILL.md) — 投资建议书撰写
+- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
 ### `PowerPoint/pptx 工具`
 - [`ib-pitch-deck-builder`](../05-business/ib-pitch-deck-builder/SKILL.md) — 投行路演演示稿构建
@@ -2775,6 +2778,9 @@
 
 ### `PowerView`
 - [`active-directory-attacks`](../08-security/active-directory-attacks/SKILL.md) — Active Directory 攻击技术
+
+### `PptxGenJS`
+- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
 ### `Prefect`
 - [`data-pipeline-engineer`](../03-data/data-pipeline-engineer/SKILL.md) — 数据管道与流式架构工程
@@ -2884,6 +2890,7 @@
 - [`odoo-orm-expert`](../09-verticals/odoo-orm-expert/SKILL.md) — Odoo ORM 模式精通
 - [`odoo-shopify-integration`](../09-verticals/odoo-shopify-integration/SKILL.md) — Odoo 与 Shopify 集成
 - [`pe-returns-sensitivity`](../09-verticals/pe-returns-sensitivity/SKILL.md) — PE 投资回报 IRR/MOIC 敏感性分析
+- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 - [`qutip-open-quantum-systems`](../09-verticals/qutip-open-quantum-systems/SKILL.md) — QuTiP 开放量子系统仿真
 - [`rdkit-cheminformatics`](../09-verticals/rdkit-cheminformatics/SKILL.md) — RDKit 化学信息学工具箱
 - [`three-statement-model`](../09-verticals/three-statement-model/SKILL.md) — 三表联动财务模型
@@ -5387,7 +5394,7 @@
 ### `dotenv`
 - [`discord-bot-architect`](../02-engineering/discord-bot-architect/SKILL.md) — 生产级 Discord 机器人架构
 
-### `dpa-clause-reviewer`
+### `dpa-playbook-review`
 - [`vendor-agreement-redline-review`](../09-verticals/vendor-agreement-redline-review/SKILL.md) — 供应商协议审查与红线
 
 ### `drizzle`
@@ -6310,7 +6317,6 @@
 - [`dwarf-debug-format-expert`](../02-engineering/dwarf-debug-format-expert/SKILL.md) — DWARF 调试格式专家
 
 ### `libreoffice`
-- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 - [`xlsx-spreadsheet-authoring`](../01-documents/xlsx-spreadsheet-authoring/SKILL.md) — XLSX 表格制作：Excel 文件创建与格式化
 
 ### `lifecycle_audit.py`
@@ -6430,7 +6436,6 @@
 ### `markitdown`
 - [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递
 - [`ib-deck-quality-check`](../05-business/ib-deck-quality-check/SKILL.md) — 投行演示稿质量审查
-- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
 ### `massdns`
 - [`red-team-recon`](../08-security/red-team-recon/SKILL.md) — 红队侦察方法论
@@ -7259,7 +7264,6 @@
 - [`computer-use-agents`](../04-ai/computer-use-agents/SKILL.md) — 计算机操作型 AI 智能体构建
 - [`data-scraper-agent-builder`](../03-data/data-scraper-agent-builder/SKILL.md) — 自动化数据采集 Agent 构建（定时抓取 + LLM 结构化）
 - [`demo-video-generator`](../06-creative/demo-video-generator/SKILL.md) — 产品演示视频生成
-- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 - [`wcag-22-audit-patterns`](../02-engineering/wcag-22-audit-patterns/SKILL.md) — WCAG 2.2 无障碍审计模式
 - [`webapp-testing`](../02-engineering/webapp-testing/SKILL.md) — Web 应用测试（Playwright）
 
@@ -7309,9 +7313,6 @@
 ### `pom.xml`
 - [`oss-license-compliance`](../09-verticals/oss-license-compliance/SKILL.md) — 开源许可证合规审查
 
-### `poppler`
-- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
-
 ### `poppler-utils`
 - [`pdf-processing-toolkit`](../01-documents/pdf-processing-toolkit/SKILL.md) — PDF 处理工具箱
 
@@ -7341,7 +7342,6 @@
 
 ### `pptxgenjs`
 - [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递
-- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
 ### `pre-commit`
 - [`sast-configurator`](../08-security/sast-configurator/SKILL.md) — SAST静态扫描配置
@@ -7399,6 +7399,7 @@
 
 ### `psql`
 - [`claimable-postgres-provision`](../10-platform/claimable-postgres-provision/SKILL.md) — 即用临时 Postgres 数据库
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
 - [`postgresql-optimization`](../03-data/postgresql-optimization/SKILL.md) — PostgreSQL 性能优化
 
 ### `pthreads`
@@ -7604,7 +7605,6 @@
 - [`polars-dataframe`](../03-data/polars-dataframe/SKILL.md) — Polars 高性能数据框
 - [`popv-cell-annotation`](../09-verticals/popv-cell-annotation/SKILL.md) — popV 共识细胞类型注释
 - [`portfolio-risk-metrics`](../09-verticals/portfolio-risk-metrics/SKILL.md) — 投资组合风险指标计算
-- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 - [`product-manager-toolkit`](../07-productivity/product-manager-toolkit/SKILL.md) — 产品经理工具箱（RICE/PRD）
 - [`protein-language-models`](../09-verticals/protein-language-models/SKILL.md) — 蛋白质语言模型与设计（ESM）
 - [`pydantic-ai-agents`](../04-ai/pydantic-ai-agents/SKILL.md) — PydanticAI 智能体开发
@@ -7679,6 +7679,7 @@
 ### `python-pptx`
 - [`brand-guidelines`](../06-creative/brand-guidelines/SKILL.md) — 品牌视觉规范（Anthropic）
 - [`html-animated-slides`](../01-documents/html-animated-slides/SKILL.md) — 动画 HTML 演示文稿生成
+- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 - [`python-pptx-deck-generator`](../01-documents/python-pptx-deck-generator/SKILL.md) — python-pptx 幻灯片生成
 
 ### `python/pandas`
@@ -7701,6 +7702,7 @@
 - [`hardware-doc-generator`](../09-verticals/hardware-doc-generator/SKILL.md) — 硬件工程文档生成
 - [`kicad-design-reviewer`](../09-verticals/kicad-design-reviewer/SKILL.md) — KiCad 电路设计审查
 - [`multi-agent-workflow-designer`](../04-ai/multi-agent-workflow-designer/SKILL.md) — 多智能体工作流设计
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
 - [`pcb-bom-manager`](../09-verticals/pcb-bom-manager/SKILL.md) — 电子物料清单(BOM)管理
 - [`scientific-exploratory-data-analysis`](../03-data/scientific-exploratory-data-analysis/SKILL.md) — 科学数据探索性分析（200+ 格式）
 - [`security-incident-response`](../08-security/security-incident-response/SKILL.md) — 安全事件分级与响应
@@ -7829,7 +7831,6 @@
 
 ### `recalc.py`
 - [`dcf-valuation-model`](../09-verticals/dcf-valuation-model/SKILL.md) — DCF 现金流折现估值模型
-- [`lbo-model-builder`](../09-verticals/lbo-model-builder/SKILL.md) — LBO 杠杆收购模型构建
 - [`three-statement-model`](../09-verticals/three-statement-model/SKILL.md) — 三表联动财务模型
 
 ### `recommender.py`
@@ -8205,6 +8206,7 @@
 
 ### `sha256sum`
 - [`defensive-malware-analyst`](../08-security/defensive-malware-analyst/SKILL.md) — 防御性恶意软件分析
+- [`odoo-backup-strategy`](../09-verticals/odoo-backup-strategy/SKILL.md) — Odoo 备份与恢复策略
 
 ### `shadcn/ui`
 - [`web-artifacts-builder`](../02-engineering/web-artifacts-builder/SKILL.md) — Web 制品构建器（React/Tailwind/shadcn 单文件产物）
@@ -8215,7 +8217,6 @@
 ### `sharp`
 - [`file-upload-storage`](../02-engineering/file-upload-storage/SKILL.md) — 文件上传与云存储
 - [`funding-round-digest`](../09-verticals/funding-round-digest/SKILL.md) — 融资轮次要点速递
-- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) — PPTX 演示文稿处理
 
 ### `shell`
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换

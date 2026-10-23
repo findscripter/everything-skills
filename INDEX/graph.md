@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-全库 **1113** 节点、**6800** 条互见边（含方向重复前的原始边）。
+全库 **1113** 节点、**6782** 条互见边（含方向重复前的原始边）。
 
 图例：`-->` 依赖(requires) · `-.-` 互见(related) · `===` 组合(combines_with)。
 
@@ -10,7 +10,7 @@
 
 ## 卷级总览（跨卷最强互见）
 
-无向边按跨卷计数取 Top 14；边上数字为边数。示例热点：平台–研发(80)、创意–研发(76)、商业–领域(70)、协作–商业(63)、数据–领域(58)…
+无向边按跨卷计数取 Top 14；边上数字为边数。示例热点：平台–研发(80)、创意–研发(76)、商业–领域(70)、协作–商业(63)、数据–领域(57)…
 
 ```mermaid
 graph LR
@@ -29,7 +29,7 @@ graph LR
   创意 ---|76| 研发
   商业 ---|70| 领域
   协作 ---|63| 商业
-  数据 ---|58| 领域
+  数据 ---|57| 领域
   安全 ---|49| 研发
   协作 ---|42| 研发
   协作 ---|41| 通用
@@ -187,9 +187,9 @@ graph LR
 
 </details>
 
-<details><summary>卷五 · 商业（枢纽 10 / 边 16）（枢纽截断至 10）</summary>
+<details><summary>卷五 · 商业（枢纽 10 / 边 15）（枢纽截断至 10）</summary>
 
-**Hubs (by degree):** `seo-content-writer`(31), `board-deck-builder`(27), `pricing-strategy`(25), `conversion-rate-optimizer`(24), `content-strategy-planner`(23), `cfo-financial-advisor`(21), `competitive-analysis`(21), `schema-markup-builder`(20), `startup-financial-modeler`(20), `cro-revenue-advisor`(19)
+**Hubs (by degree):** `seo-content-writer`(31), `board-deck-builder`(26), `pricing-strategy`(25), `conversion-rate-optimizer`(24), `content-strategy-planner`(23), `cfo-financial-advisor`(21), `schema-markup-builder`(20), `competitive-analysis`(19), `cro-revenue-advisor`(19), `market-sizing-tam-sam-som`(19)
 
 | from | type | to |
 | --- | --- | --- |
@@ -198,17 +198,16 @@ graph LR
 | `seo-content-writer` | `===` | `schema-markup-builder` |
 | `board-deck-builder` | `-.-` | `cfo-financial-advisor` |
 | `board-deck-builder` | `===` | `cfo-financial-advisor` |
-| `board-deck-builder` | `-.-` | `startup-financial-modeler` |
-| `startup-financial-modeler` | `===` | `board-deck-builder` |
 | `cfo-financial-advisor` | `===` | `pricing-strategy` |
-| `competitive-analysis` | `===` | `pricing-strategy` |
-| `cro-revenue-advisor` | `===` | `board-deck-builder` |
 | `pricing-strategy` | `-.-` | `cfo-financial-advisor` |
+| `cro-revenue-advisor` | `===` | `board-deck-builder` |
+| `market-sizing-tam-sam-som` | `===` | `board-deck-builder` |
+| `competitive-analysis` | `===` | `pricing-strategy` |
 | `cro-revenue-advisor` | `-.-` | `pricing-strategy` |
 | `cro-revenue-advisor` | `===` | `pricing-strategy` |
-| `cfo-financial-advisor` | `-.-` | `startup-financial-modeler` |
-| `cfo-financial-advisor` | `===` | `startup-financial-modeler` |
 | `cfo-financial-advisor` | `-.-` | `cro-revenue-advisor` |
+| `competitive-analysis` | `-.-` | `market-sizing-tam-sam-som` |
+| `competitive-analysis` | `===` | `market-sizing-tam-sam-som` |
 
 </details>
 
@@ -326,7 +325,7 @@ graph LR
 
 <details><summary>卷十 · 平台集成（枢纽 10 / 边 20）（枢纽截断至 10）</summary>
 
-**Hubs (by degree):** `terraform-specialist`(15), `browser-automation-builder`(13), `zoom-oauth-setup`(13), `zoom-meeting-app-builder`(12), `zoom-product-surface-selector`(12), `zoom-webhooks-setup`(12), `aws-serverless-architect`(11), `firecrawl-web-scraper`(11), `azure-cloud-architect`(10), `zoom-integration-planner`(10)
+**Hubs (by degree):** `terraform-specialist`(15), `zoom-oauth-setup`(13), `browser-automation-builder`(12), `zoom-meeting-app-builder`(12), `zoom-product-surface-selector`(12), `zoom-webhooks-setup`(12), `aws-serverless-architect`(11), `firecrawl-web-scraper`(11), `azure-cloud-architect`(10), `zoom-integration-planner`(10)
 
 | from | type | to |
 | --- | --- | --- |
@@ -337,11 +336,11 @@ graph LR
 | `zoom-oauth-setup` | `-.-` | `zoom-product-surface-selector` |
 | `zoom-oauth-setup` | `-.-` | `zoom-webhooks-setup` |
 | `zoom-oauth-setup` | `===` | `zoom-webhooks-setup` |
-| `browser-automation-builder` | `-.-` | `firecrawl-web-scraper` |
 | `zoom-meeting-app-builder` | `-.-` | `zoom-product-surface-selector` |
 | `zoom-meeting-app-builder` | `===` | `zoom-webhooks-setup` |
 | `zoom-product-surface-selector` | `===` | `zoom-meeting-app-builder` |
 | `zoom-webhooks-setup` | `-.-` | `zoom-product-surface-selector` |
+| `browser-automation-builder` | `-.-` | `firecrawl-web-scraper` |
 | `zoom-integration-planner` | `-.-` | `zoom-oauth-setup` |
 | `zoom-integration-planner` | `===` | `zoom-oauth-setup` |
 | `zoom-integration-planner` | `-.-` | `zoom-meeting-app-builder` |
