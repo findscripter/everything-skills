@@ -135,7 +135,7 @@ lazy val api  = project.dependsOn(core)
 
 - requires：无。
 - related：`code-reviewer`（产出 Scala 代码后做正确性审查）、`dependency-auditor`（SBT 依赖/CVE 体检）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 采编自 sickn33/antigravity-awesome-skills（MIT），适配重写为中文。

@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: [premortem-plan-challenger, executive-adversarial-mentor, market-sizing-analyst]
-combines_with: [market-sizing-analyst, competitive-analysis, startup-financial-modeler]
+related: [premortem-plan-challenger, executive-adversarial-mentor, market-sizing-tam-sam-som]
+combines_with: [market-sizing-tam-sam-som, competitive-analysis, startup-financial-modeler]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

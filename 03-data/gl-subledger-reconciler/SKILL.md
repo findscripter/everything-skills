@@ -118,7 +118,7 @@ FX 成因判据示例：`local_amt` 两侧一致而 `base_amt` 不一致 → 标
 
 - requires：无。
 - related：`csv-data-cleaner`（抽取脏、需先去重/类型规整再对账时前置使用）；`sql-query-builder`（数据已在库内、用 full outer join / 窗口函数实现对账时改用 SQL 落地）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 本条采编自 anthropics/financial-services（Apache-2.0）。

@@ -85,10 +85,12 @@ HF_TOKEN=hf_xxx hf upload my-user/my-model ./out --commit-message "add weights"
 hf datasets sql "SELECT count(*) FROM 'hf://datasets/my-org/my-dataset/**/*.parquet'"
 ```
 
-把仓库挂载为本地文件系统（按需拉取，无需整体下载），使用 `hf-mount`：
+把仓库挂载为本地文件系统（按需拉取，无需整体下载），使用 `hf-mount`。先按[官方安装说明](https://github.com/huggingface/hf-mount#install)选择平台：macOS/Linux 可用 Homebrew；手动安装从[官方 Releases](https://github.com/huggingface/hf-mount/releases)选定版本及对应架构的 daemon 与 NFS/FUSE 后端，校验后安装并记录版本。当前官方手动构建覆盖 Linux x86_64/aarch64 与 macOS Apple Silicon；Windows 不套用这些原生二进制，需先确认可用的 Linux 环境或改用 `hf download`。
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/huggingface/hf-mount/main/install.sh -o /tmp/hf-mount-install.sh && less /tmp/hf-mount-install.sh && sh /tmp/hf-mount-install.sh
+# macOS/Linux（有 Homebrew 时）；默认 NFS 后端，FUSE 另需系统依赖。
+brew install hf-mount
+hf-mount --help
 hf-mount start repo openai-community/gpt2 /tmp/gpt2        # 只读挂载 repo
 hf-mount start --hf-token $HF_TOKEN bucket myuser/my-bucket /tmp/data   # 读写挂载 bucket
 hf-mount status        # 查看挂载

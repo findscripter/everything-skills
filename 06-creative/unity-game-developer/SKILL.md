@@ -120,7 +120,7 @@ var pool = new ObjectPool<Bullet>(
 
 - requires：无（建议先具备基础 C# 与 Unity 编辑器操作能力）。
 - related：`code-reviewer`（审查产出的 C# 脚本正确性与可读性）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 采编自 sickn33/antigravity-awesome-skills（MIT 许可）；适配重写而非逐字翻译，聚焦 Unity 6 LTS 可执行实践。

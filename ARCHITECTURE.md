@@ -40,12 +40,15 @@ data/skill-repos*.jsonl + data/skill-repos.meta.md
 ## 维护边界
 
 - 索引生成器只扫描 11 个受控卷目录，并跳过嵌套 Git checkout，防止本地辅助 clone 被误纳入数据源。
-- 生成器先完成校验，再开始逐文件替换生成物；校验失败不会开始写入，写入异常会清理临时文件并报错。
-- `scripts/load-skill-repos.mjs` 是技能仓库 JSONL 的唯一加载与去重入口，README 和 INDEX 不允许各自解释数据。
-- CI 只读执行完整生成与漂移检查，覆盖所有生成物；不在 PR 中向贡献分支写入或推送代码。
+- 生成器先完成校验，再开始逐文件替换生成物；校验失败不会开始写入，写入异常会清理临时文件并报错。目录读取权限或 I/O 错误会停止生成，不会把不可读目录当成空目录。
+- `scripts/load-skill-repos.mjs` 是技能仓库 JSONL 的唯一加载与去重入口，README、INDEX 和 CLI 共同使用；`full_name` 忽略大小写去重，存在的 `repository_id` 必须为唯一正安全整数。历史缺 ID 的记录仍可加载，缺 ID 不代表身份已经核实。
+- CI 在系统临时目录复制当前工作副本的 Git 跟踪文件和未忽略新文件，完整生成后只读比较源树与快照，并检查生成物提交状态；源树不运行写入器，失败时也保留 README 手写内容和未提交文件。临时快照在检查后清理。
+- `build-readme-intro.mjs` 将 `data/readme-intro.en.md` / `.zh.md` 作为目录区之前的 README 前言来源；要持久更改此前言请编辑对应模板，`check` 只报告漂移。
 - 搜索索引优先保留 frontmatter 的显式 `triggers`，仅在字段缺省时从 description 提取；技能路径始终使用真实相对目录。
 - `data/quality-overrides.json` 与 frontmatter 的 `requires`/`tools` 一起生成 `INDEX/quality.json`；`INDEX/search.json` 内嵌同一份质量摘要，便于检索后筛选，不将未知状态解释为安全认证。
 - `supersedes` 从新技能指向被取代技能，弃用链必须能到达可用技能；数组字段类型错误和第三方来源缺许可会阻止生成。
+- `status` 只接受 `draft` / `stable` / `deprecated`；`domain` 必须恰好是「卷中文/受控类」两段。弃用技能保留在历史索引及图谱中，但不导出到 marketplace，CLI 默认搜索/浏览也排除它们；`--include-deprecated` 可显式检索历史，`why` 可直接检查归档关系。
+- 外部目录显示目录记录数，不能将缺失身份的记录推断为独立仓库；可选 `upstream_snapshot.state` 在目录中展示可访问、归档或当前不可访问的核查状态，与历史 Stars、采编状态分开。
 - 品牌数据直接读取索引；CI 包含 `assets/brand` 的漂移检查与 Node 内建回归测试。
 
 ## 常用命令

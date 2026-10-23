@@ -151,7 +151,7 @@ net_debt_fy2024,2150,total_debt-cash,"4200-2050"
 
 - related：`equity-earnings-update-report` —— 同源卖方研究产物，季度财报点评与一页速览卡互补。
 - related：`competitive-analysis` / `competitive-intel-tracker` —— 校准同业可比与 peer comps。
-- related：`market-sizing-analyst` —— 为 Corp Dev/IB 受众补市场与增长背景。
+- related：`market-sizing-tam-sam-som` —— 为 Corp Dev/IB 受众补市场与增长背景。
 - combines_with：`ma-playbook` —— 把并购标的速览卡接入完整并购流程剧本。
 - combines_with：`board-deck-builder` —— 把速览卡结论压缩成投委会/董事会决策页。
 - combines_with：`data-storyteller` —— 把综合小节讲成更有说服力的图文叙事。

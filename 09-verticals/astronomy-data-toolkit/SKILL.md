@@ -6,16 +6,20 @@ domain: 领域/science
 triggers: [astropy, 天文数据, astronomy, SkyCoord, 坐标变换, FITS, WCS, 宇宙学, cosmology, 天文单位, Quantity]
 tags: [astropy, astronomy, fits, coordinates, cosmology, wcs, units, python, science]
 level: 进阶
-status: stable
+status: deprecated
+deprecate_reason: 同职责内容已合并至 astropy-astronomy-toolkit；保留原文供历史追溯。
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [astropy, astropy.units, astropy.coordinates, astropy.io.fits, astropy.table, astropy.time, astropy.wcs, astropy.cosmology, numpy, uv]
 requires: []
-related: [materials-science-toolkit, cheminformatics-toolkit, sympy-symbolic-math]
-combines_with: [matplotlib-visualization, guided-statistical-analysis]
+related: []
+combines_with: []
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
+
+> 历史归档：本条职责已合并到 [astropy-astronomy-toolkit](../astropy-astronomy-toolkit/SKILL.md)。执行时使用规范条目；以下正文仅保留供追溯。
+
 ## 何时使用
 
 当任务涉及以下天文/天体物理数据处理时使用 Astropy：

@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [DCF, Revenue Multiple, Comparable Transactions, Due Diligence Checklist, 100-Day Integration Plan]
 requires: []
-related: [cfo-financial-advisor, startup-financial-modeler, competitive-analysis, market-sizing-analyst]
+related: [cfo-financial-advisor, startup-financial-modeler, competitive-analysis, market-sizing-tam-sam-som]
 combines_with: [cfo-financial-advisor, startup-financial-modeler, board-deck-builder]
 license: MIT
 source: alirezarezvani/claude-skills

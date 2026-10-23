@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [claude, cursor, gemini]
 requires: []
 related: [market-sizing-tam-sam-som, unit-economics-analyzer, competitive-analysis, pricing-strategy]
-combines_with: [startup-financial-modeler, investor-materials-builder, market-sizing-analyst]
+combines_with: [startup-financial-modeler, investor-materials-builder, market-sizing-tam-sam-som]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT

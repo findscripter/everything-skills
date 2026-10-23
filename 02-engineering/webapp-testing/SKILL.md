@@ -16,6 +16,16 @@ license: Apache-2.0
 source: anthropics/skills
 source_license: Apache-2.0
 ---
+## 随包资源与运行前提
+
+本目录的脚本、参考文档和模板已随技能分发；固定来源、SHA-256 与许可见 [RESOURCES.md](RESOURCES.md) 及 [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)。新增资源取自核验时的固定上游快照，不表示这是原正文采编时的版本。
+
+- 文档中的资源相对路径指**本技能目录**；执行时保持目标项目所需的工作目录，用资源的绝对路径调用。项目输入/输出也使用绝对路径，不能把技能库误当成被操作的项目。
+- 环境依赖：Python 3；Playwright Python package and browser installed in the user environment; versions recorded at execution time。本技能不自动安装这些依赖；缺失时先报告具体缺项，使用正文可行的人工流程，不能声称已完成脚本验证。
+- 上游脚本在本仓仅做静态核对；使用前审查实际参数、输出位置及外部调用，按用户已授权范围运行。
+
+启动目标应用时，以目标应用的项目根作为执行目录，用 `scripts/with_server.py` 的绝对路径调用；脚本中的服务命令由当前任务明确指定。
+
 ## 何时使用
 
 - 需要真实驱动浏览器与**本地** Web 应用交互：验证前端功能、调试 UI 行为、点击/填表/导航、截图、抓取浏览器控制台日志。
@@ -113,7 +123,7 @@ page.click('button[type="submit"]')
 - `with_server.py` 的 `--server` 与 `--port` 数量必须一一对应；默认每个服务就绪超时 30 秒，可用 `--timeout` 调整；命令分隔符 `--` 之后才是要运行的命令。
 - 截图/日志输出路径用绝对路径；示例里的 `/tmp`、`/mnt/user-data/outputs` 按你的环境替换为可写目录（Windows 用 `C:\...` 或临时目录）。
 - 选择器要稳定且具描述性，避免依赖易变的下标顺序；交互后用显式等待而非裸 `sleep`。
-- 源技能为 Apache-2.0，本条目为适配重写；脚本（如 with_server.py、examples/）随源仓库分发，按需调用。
+- 源技能为 Apache-2.0，本条目为适配重写；脚本（with_server.py、examples/）现随本目录分发，固定来源与许可见 RESOURCES.md。
 
 ## 互见
 

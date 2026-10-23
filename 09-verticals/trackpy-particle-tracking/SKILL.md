@@ -115,7 +115,7 @@ t3d = tp.link(f3d, search_range=(3, 6, 6), memory=2)               # 各向异�
 
 - related：`dicom-medical-imaging` —— 另一类显微/医学影像的读写与处理
 - related：`single-cell-rnaseq-analysis` —— 同属细胞生物学定量分析，下游可对接群体统计
-- related：`molecular-dynamics-simulation` —— 同样产出轨迹并算 MSD/扩散系数，方法学可互参
+- related：`molecular-dynamics-openmm` —— 同样产出轨迹并算 MSD/扩散系数，方法学可互参
 - combines_with：`guided-statistical-analysis` —— 对多条轨迹的 D 值/α 做分组统计检验与显著性分析
 
 ---

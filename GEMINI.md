@@ -9,7 +9,7 @@ This repository is an Agent skill library: **1113 `SKILL.md` skills** organized 
 - Machine-readable recall: `INDEX/search.json` (name/description/triggers/domain for two-stage retrieval).
 
 ## Using a skill
-Open its folder and follow the `SKILL.md` instructions. Each skill is self-contained and single-purpose.
+Open its folder and follow the `SKILL.md` instructions. Skills include their instructions and declared packaged helpers; check each skill's explicit runtime dependencies before use. Missing required tools or inputs must stop that workflow.
 
 ## Installation (Claude Code marketplace)
 ```

@@ -522,5 +522,5 @@ df_sig.to_csv("liana_interactions.csv", index=False)
 - [CellChat GitHub — jinworks/CellChat](https://github.com/jinworks/CellChat) — source code, tutorials, and vignettes
 - [CellChat vignette (HTML)](https://htmlpreview.github.io/?https://github.com/jinworks/CellChat/blob/master/tutorial/CellChat-vignette.html) — official step-by-step tutorial
 - [Jin et al. (2021) Nature Communications — CellChat original paper](https://doi.org/10.1038/s41467-021-21246-9) — algorithmic description, benchmarking, and case studies
-- [CellChat comparison vignette](https://htmlpreview.github.io/?https://github.com/jinworks/CellChat/blob/master/tutorial/CellChat_comparison_with_different_databases.html) — comparing CellChatDB with CellPhoneDB and other databases
+- CellChatDB versus CellPhoneDB/other databases: the previously cited comparison vignette is unavailable. No equivalent official tutorial has been confirmed; treat this comparison-specific workflow as pending documentation verification rather than substituting a different vignette.
 - [liana Python package documentation](https://liana-py.readthedocs.io/) — pure-Python alternative with consensus LR ranking across CellChat, CellPhoneDB, NATMI, and Connectome

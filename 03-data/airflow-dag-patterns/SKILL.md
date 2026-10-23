@@ -142,7 +142,7 @@ def test_dag_integrity(dagbag):
 ## 互见
 
 - requires：无。
-- related：无。
+- related：以本文件 frontmatter 的 `related` 列表为准。
 - combines_with：csv-data-cleaner —— 管道抽取/落地的本地数据清洗去重时衔接；sql-query-builder —— 编排查询型 ETL 任务时复用其 SQL 产出。
 
 ---

@@ -3,15 +3,16 @@ name: astropy-astronomy-toolkit
 title: Astropy 天文与天体物理工具箱
 description: 当用 Python 做天文/天体物理数据分析（坐标变换、单位量纲、FITS 读写、星表、时间系统、WCS、宇宙学）并需要 Astropy 领域 API 时使用；用 Astropy 编写或调试分析代码、产出量纲一致且可复现的结果；不适用于通用数据清洗或与天文无关的纯数值计算（改用 pandas/numpy）。触发词：astropy、天文、astronomy、SkyCoord、坐标变换、FITS、WCS、宇宙学、cosmology、Quantity、单位换算、星表交叉匹配
 domain: 领域/science
-triggers: [astropy, 天文, astronomy, SkyCoord, 坐标变换, FITS, WCS, 宇宙学, cosmology, Quantity, 单位换算, 星表交叉匹配]
+triggers: [astropy, 天文, astronomy, SkyCoord, 坐标变换, FITS, WCS, 宇宙学, cosmology, Quantity, 单位换算, 星表交叉匹配, 天文数据, 天文单位]
 tags: [astropy, astronomy, astrophysics, fits, coordinates, cosmology, wcs, units, time, python, science]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [astropy, astropy.units, astropy.coordinates, astropy.io.fits, astropy.table, astropy.time, astropy.wcs, astropy.cosmology, numpy, uv]
 requires: []
-related: [astronomy-data-toolkit, sympy-symbolic-math, materials-science-toolkit, scientific-database-lookup]
+related: [sympy-symbolic-math, materials-science-toolkit, scientific-database-lookup, cheminformatics-toolkit]
 combines_with: [matplotlib-visualization, guided-statistical-analysis]
+supersedes: [astronomy-data-toolkit]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
@@ -118,7 +119,8 @@ print(Planck18.age(z).to(u.Gyr), Planck18.lookback_time(z).to(u.Gyr))
 
 ## 互见
 
-- related：`astronomy-data-toolkit` —— 同源的天文数据分析条目，可互参
+关系列表以 frontmatter 为准；已覆盖旧条目的坐标、星表匹配与宇宙学示例。
+
 - related：`materials-science-toolkit` `cheminformatics-toolkit` `sympy-symbolic-math` —— 其他科学计算工具箱
 - combines_with：`matplotlib-visualization` —— 把 FITS 图像/宇宙学曲线绘图，`guided-statistical-analysis` —— 对星表/测光数据做统计
 - 官方文档：https://docs.astropy.org/en/stable/ ；教程：https://learn.astropy.org/

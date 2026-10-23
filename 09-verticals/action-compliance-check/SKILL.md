@@ -142,7 +142,7 @@ source_license: Apache-2.0
 
 - requires：无
 - related：`general-counsel-advisor` —— 跨领域法律风险初判与升级路径；`regulatory-policy-diff` —— 追踪法规变更对本举措的影响。
-- combines_with：`privacy-impact-assessor` —— 当举措触及个人数据时下钻做 DPIA；`gdpr-data-handler` / `dsar-response-builder` / `dpa-clause-reviewer` —— 命中 GDPR/数据主体请求/数据处理协议时的专项落地；`marketing-claims-reviewer` —— 营销举措的声明合规审查。
+- combines_with：`privacy-impact-assessor` —— 当举措触及个人数据时下钻做 DPIA；`gdpr-data-handler` / `dsar-response-builder` / `dpa-playbook-review` —— 命中 GDPR/数据主体请求/数据处理协议时的专项落地；`marketing-claims-reviewer` —— 营销举措的声明合规审查。
 
 ---
 本条采编自 anthropics/knowledge-work-plugins（Apache-2.0）。

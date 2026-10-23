@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "audit_baseline": "c72ad0eeb6eae27af4b754e7eac4bdf99dd2c5a5",
+  "summary": {
+    "confirmed_findings": 23,
+    "fixed": 22,
+    "origin_history_pending": 1,
+    "formal_skills": 1113,
+    "native_skills": 14,
+    "curated_skills": 1099,
+    "graph_edges": 6782,
+    "catalog_rows": 2673,
+    "resolved_distinct_repository_ids": 2654,
+    "unavailable_catalog_records": 19,
+    "removed_duplicate_rows": 12,
+    "packaged_resources": 170,
+    "resource_skills": 24,
+    "regression_tests_passed": 67,
+    "git_blobs_verified": 1283
+  },
+  "findings": [
+    {
+      "id": "SK-01",
+      "priority": "P1",
+      "title": "宣称可独立执行的技能未随包提供必需脚本和模板",
+      "status": "fixed"
+    },
+    {
+      "id": "SK-02",
+      "priority": "P1",
+      "title": "Odoo 备份恢复示例遇到失败仍会继续清理或破坏性步骤",
+      "status": "fixed"
+    },
+    {
+      "id": "PKG-001",
+      "priority": "P1",
+      "title": "12 组别名重复计数，生成器也未按 repository ID 阻止重复",
+      "status": "fixed"
+    },
+    {
+      "id": "UP-01",
+      "priority": "P2",
+      "title": "两条代表技能路径有误，且 source_tree_sha 错填为 commit SHA",
+      "status": "fixed"
+    },
+    {
+      "id": "UP-02",
+      "priority": "P2",
+      "title": "fastp 技能中的固定版本二进制下载地址失效",
+      "status": "fixed"
+    },
+    {
+      "id": "ENG-01",
+      "priority": "P2",
+      "title": "校验命令会静默抹掉生成区外的 README 改动",
+      "status": "fixed"
+    },
+    {
+      "id": "ENG-02",
+      "priority": "P2",
+      "title": "归档状态没有传递到安装清单和默认检索",
+      "status": "fixed"
+    },
+    {
+      "id": "ENG-04",
+      "priority": "P2",
+      "title": "错误状态只警告，随后被提升为 stable 成熟度",
+      "status": "fixed"
+    },
+    {
+      "id": "ENG-05",
+      "priority": "P2",
+      "title": "domain 缺少类名仍能通过强校验",
+      "status": "fixed"
+    },
+    {
+      "id": "ENG-08",
+      "priority": "P2",
+      "title": "不可读的技能子目录被静默从既有索引移除",
+      "status": "fixed"
+    },
+    {
+      "id": "SK-03",
+      "priority": "P2",
+      "title": "两个分子动力学示例将 4 fs 配置误标为 2 fs",
+      "status": "fixed"
+    },
+    {
+      "id": "SK-04",
+      "priority": "P2",
+      "title": "五对活动技能职责相同且正文实质重叠",
+      "status": "fixed"
+    },
+    {
+      "id": "SK-05",
+      "priority": "P2",
+      "title": "PyTDC 的两种许可标签缺少适用范围解释",
+      "status": "fixed"
+    },
+    {
+      "id": "SK-06",
+      "priority": "P2",
+      "title": "采编来源字段未固定到原文件及不可变版本",
+      "status": "governance-fixed-original-evidence-pending"
+    },
+    {
+      "id": "SK-07",
+      "priority": "P2",
+      "title": "发布正文残留已过期的采编任务指令",
+      "status": "fixed"
+    },
+    {
+      "id": "SK-08",
+      "priority": "P2",
+      "title": "正文互见声明与前言生成的图谱相互矛盾",
+      "status": "fixed"
+    },
+    {
+      "id": "UP-03",
+      "priority": "P2",
+      "title": "技能工作流依赖的外部文档或安装入口已不可访问",
+      "status": "fixed"
+    },
+    {
+      "id": "PKG-002",
+      "priority": "P2",
+      "title": "别名索引链接到未发布的合并JSONL文件",
+      "status": "fixed"
+    },
+    {
+      "id": "PKG-003",
+      "priority": "P2",
+      "title": "贡献文档给出会违反受控taxonomy的domain值",
+      "status": "fixed"
+    },
+    {
+      "id": "PKG-004",
+      "priority": "P2",
+      "title": "路线图仍给出反向的supersedes弃用规则",
+      "status": "fixed"
+    },
+    {
+      "id": "ENG-06",
+      "priority": "P3",
+      "title": "反向 README 目录标记被写成两套损坏边界",
+      "status": "fixed"
+    },
+    {
+      "id": "ENG-07",
+      "priority": "P3",
+      "title": "无值的 --json 开关吞掉后续查询参数",
+      "status": "fixed"
+    },
+    {
+      "id": "PKG-005",
+      "priority": "P3",
+      "title": "语言政策承诺的main文档范围大于实际维护范围",
+      "status": "fixed"
+    }
+  ],
+  "provenance_reference_summary": {
+    "path-unresolved": 647,
+    "fixed-reference": 436,
+    "native": 14,
+    "ambiguous-fixed-candidates": 11,
+    "snapshot-unavailable": 5
+  },
+  "evidence": {
+    "engineering": "tests/engineering-audit-20261023.tdd.md",
+    "resource_manifest": "data/skill-resources.json",
+    "resource_review": "data/skill-resource-corrections-2026-10-23.audit.json",
+    "content_review": "data/content-corrections-2026-10-23.audit.json",
+    "catalog_corrections": "data/catalog-corrections-2026-10-23.audit.json",
+    "source_manifest": "data/skill-provenance.json",
+    "source_tdd": "tests/skill-provenance.tdd.md",
+    "upstream_followup_queue": "data/upstream-review-queue-2026-10-23.json",
+    "integrated_tdd": "tests/audit-fixes.tdd.md"
+  },
+  "limits": [
+    "All 1099 curated origin revisions remain unrecorded. Fixed comparison references are not presented as original adaptation versions or license certifications.",
+    "No new upstream skill text was automatically imported for the 199 changed default commits / 57 changed representative skills; those version reviews remain queued.",
+    "The 19 inaccessible repository records remain explicitly marked rather than guessed deleted/private.",
+    "Bundled upstream helpers were not run. Odoo failure tests mock all service/database/archive/checksum/publish commands; only bounded test fixture directories are created.",
+    "Published upstream resource bytes retain their original trailing whitespace to preserve fixed source hashes."
+  ],
+  "repository_alias_compatibility": "Exact historical previous_names aliases resolve before fuzzy canonical matches; normalized repositories keep old lookup names."
+}

@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [legal-research-connector, westlaw, eur-lex, research-mcp]
 requires: []
-related: [gdpr-data-handler, privacy-impact-assessor, dpa-clause-reviewer]
+related: [gdpr-data-handler, privacy-impact-assessor, dpa-playbook-review]
 combines_with: [gdpr-data-handler, privacy-impact-assessor]
 license: Apache-2.0
 source: anthropics/claude-for-legal

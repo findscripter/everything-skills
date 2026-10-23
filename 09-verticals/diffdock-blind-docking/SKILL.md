@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [DiffDock, PyTorch, RDKit, Biopython, NGLview, OpenBabel, AutoDock Vina, conda/pip]
 requires: []
-related: [autodock-vina-docking, deepchem-drug-discovery, cheminformatics-toolkit, molecular-dynamics-simulation]
-combines_with: [cheminformatics-toolkit, molecular-dynamics-simulation, alphafold-database-access]
+related: [autodock-vina-docking, deepchem-drug-discovery, cheminformatics-toolkit, molecular-dynamics-openmm]
+combines_with: [cheminformatics-toolkit, molecular-dynamics-openmm, alphafold-database-access]
 license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
@@ -149,7 +149,7 @@ vina --receptor protein.pdbqt --ligand rank1.pdbqt --score_only --out rank1_resc
 
 ## 互见
 
-- related：`molecular-dynamics-simulation` —— 对接得到结合构象后，可做 MD 验证稳定性与结合模式
+- related：`molecular-dynamics-openmm` —— 对接得到结合构象后，可做 MD 验证稳定性与结合模式
 - related：`protein-language-models` —— 蛋白结构/序列建模的上游
 - combines_with：`cheminformatics-toolkit` —— 配体的 SMILES 处理、构象生成与库管理
 

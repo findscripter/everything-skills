@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pymatgen, mp-api, MPRester, VASP, Gaussian, Quantum ESPRESSO, uv, python]
 requires: []
-related: [cheminformatics-toolkit, molecular-dynamics-simulation, astronomy-data-toolkit, scientific-database-lookup]
+related: [cheminformatics-toolkit, molecular-dynamics-openmm, astropy-astronomy-toolkit, scientific-database-lookup]
 combines_with: [scientific-database-lookup, matplotlib-visualization]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills

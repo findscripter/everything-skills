@@ -151,5 +151,3 @@ PY
 ---
 
 采编自 K-Dense-AI/scientific-agent-skills（MIT）。
-
-> 适配说明：原任务给定 `domain=领域/misc`，但本仓库 `taxonomy.json` 中 09-verticals（领域）卷无 `misc` 类，`scripts/build-index.mjs`（line 108）会对未受控类报 **error**；同源姊妹条目 `single-cell-rnaseq-analysis` 已采用 `领域/science`。故落盘时 frontmatter 应写 `domain: 领域/science` 以通过校验。建议 frontmatter：`license: MIT`、`source: K-Dense-AI/scientific-agent-skills`、`source_license: MIT`、`status: stable`、`agents: [claude-code, codex, cursor, gemini-cli]`。

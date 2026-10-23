@@ -155,5 +155,3 @@ export default function Layout({ segment }) {
 ---
 
 采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
-
-> 适配提示：原任务给的 `domain=研发/misc` 中的 `misc` 不在 `taxonomy.json` 中 02-engineering（研发）的受控类目（frontend/backend/mobile/review/testing/devops/observability/architecture），且仓库已归一为「0 misc」。落盘 frontmatter 时建议 `domain: 研发/mobile`（与同源 ios-swiftui-developer / flutter-expert 一致），否则 `scripts/build-index.mjs` 的 class 级校验会报 error。

@@ -10,8 +10,9 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [DPA playbook (内部立场清单), 隐私政策承诺文档, 法律检索工具/MCP (Westlaw/CourtListener 等), primary-source 一手来源引用]
 requires: []
-related: [dpa-clause-reviewer, privacy-impact-assessor, gdpr-data-handler, saas-subscription-agreement-review]
-combines_with: [dsar-response-builder, contract-playbook-review]
+related: [privacy-impact-assessor, gdpr-data-handler, saas-subscription-agreement-review, dsar-response-builder, nda-triage-reviewer, fact-checking, first-principles-thinking]
+combines_with: [dsar-response-builder, contract-playbook-review, gdpr-data-handler, privacy-impact-assessor]
+supersedes: [dpa-clause-reviewer]
 license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
@@ -121,8 +122,9 @@ source_license: Apache-2.0
 
 ## 互见
 
+- related：`fact-checking` —— 核验一手来源、SCC 版本及判例时效；`first-principles-thinking` —— 澄清角色判定与条款立场的根本分歧。
+
 - requires：（无）——但**强依赖**一份已配置的内部 DPA 立场清单与隐私政策承诺文档，否则先配置。
-- related：`dpa-clause-reviewer`（采自同源、聚焦条款级红线，可二选一或互补）、`gdpr-data-handler`、`dsar-response-builder`、`privacy-impact-assessor`、`nda-triage-reviewer`、`general-counsel-advisor`。
 - combines_with：`privacy-impact-assessor` —— PIA 标出的风险缓解项，DPA 审查负责落到条款；`gdpr-data-handler` —— GDPR 第28条处理者义务、跨境传输机制的底层判断。
 
 ---

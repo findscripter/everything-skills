@@ -2,7 +2,7 @@
 
 Canonical map of high-confidence local→upstream skill ID aliases (2026-09-16 cleanup + ambiguous-12 resolution).
 
-**160** alias mapping lines (144 original + 16 in part4: 8 singles + 5 makepad multi + 3 smb multi). Assemble from parts:
+**160** alias mapping lines (144 original + 16 in part4: 8 singles + 5 makepad multi + 3 smb multi). Published files: [part1](upstream-aliases.part1.jsonl), [part2](upstream-aliases.part2.jsonl), [part3](upstream-aliases.part3.jsonl), [part4](upstream-aliases.part4.jsonl). Read those files directly, or assemble an optional local output (the combined file is not tracked or published):
 
 ```bash
 cat data/upstream-aliases.part1.jsonl \

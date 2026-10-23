@@ -90,7 +90,7 @@ cache_hit 命中但 freshness_age 超标 => 必须暴露"陈旧"状态，不可�
 
 - requires：无。
 - related：`performance-profiler`（先定位热点再按本清单优化）；`k6-load-testing`（高负载下回归 p95/p99 与背压行为）；`observability-strategy-designer`（把分位延迟、新鲜度、队列深度落成可告警指标）；`bullmq-job-queue`（队列深度与背压的具体实现参考）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 

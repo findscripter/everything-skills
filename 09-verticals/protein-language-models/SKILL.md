@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, esm, forge-api, biohub-api]
 requires: []
-related: [molecular-dynamics-simulation, cheminformatics-toolkit, single-cell-rnaseq-analysis]
-combines_with: [molecular-dynamics-simulation, scientific-database-lookup]
+related: [molecular-dynamics-openmm, cheminformatics-toolkit, single-cell-rnaseq-analysis]
+combines_with: [molecular-dynamics-openmm, scientific-database-lookup]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT

@@ -16,6 +16,14 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
+## 随包资源与运行前提
+
+本目录的脚本、参考文档和模板已随技能分发；固定来源、SHA-256 与许可见 [RESOURCES.md](RESOURCES.md) 及 [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)。新增资源取自核验时的固定上游快照，不表示这是原正文采编时的版本。
+
+- 文档中的资源相对路径指**本技能目录**；执行时保持目标项目所需的工作目录，用资源的绝对路径调用。项目输入/输出也使用绝对路径，不能把技能库误当成被操作的项目。
+- 环境依赖：Python 3 (standard library)。本技能不自动安装这些依赖；缺失时先报告具体缺项，使用正文可行的人工流程，不能声称已完成脚本验证。
+- 上游脚本在本仓仅做静态核对；使用前审查实际参数、输出位置及外部调用，按用户已授权范围运行。
+
 ## 何时使用
 
 当你要回答「直销和渠道/合作伙伴，到底哪条线在 CAC、支持负载、伙伴折扣、成交周期、留存差异、间接费分摊全部装进去后真正赚钱」时使用本技能。这是一道**前瞻性决策**问题，不是历史报表。典型触发：
@@ -86,7 +94,7 @@ python3 scripts/channel_mix_optimizer.py --input mix.json --profile saas --outpu
 - requires：`cost-to-serve` 不是独立技能；本技能假设你已能区分渠道（一致的 GTM 动作，而非营销来源），并掌握按渠道的 CAC/留存/扩容数据。
 - related：`cro-revenue-advisor` —— 战略 CRO 判断（何时招 VP Sales、薪酬、地盘设计），它把渠道经济产出当作众多输入之一。
 - related：`deal-desk-reviewer` —— 单笔折扣审批，按日运作；本技能按季运作。
-- related：`market-sizing-analyst` —— 新区域扩张时的市场规模输入。
+- related：`market-sizing-tam-sam-som` —— 新区域扩张时的市场规模输入。
 - combines_with：`pricing-strategy` —— 定价是输入；渠道经济性是「该定价在各渠道上跑出来的结果」。
 - combines_with：`cfo-financial-advisor` —— 把渠道裁决并入单位经济、烧钱率与融资模型的全局财务视图。
 

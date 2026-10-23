@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [vina, meeko, rdkit, prody, py3Dmol, ADFR Suite, python]
 requires: []
-related: [diffdock-blind-docking, cheminformatics-toolkit, deepchem-drug-discovery, molecular-dynamics-simulation]
-combines_with: [pubchem-compound-search, molecular-dynamics-simulation]
+related: [diffdock-blind-docking, cheminformatics-toolkit, deepchem-drug-discovery, molecular-dynamics-openmm]
+combines_with: [pubchem-compound-search, molecular-dynamics-openmm]
 license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0
@@ -124,7 +124,7 @@ print(v.optimize()[0])    # 局部最小化后
 ## 互见
 
 - related：`cheminformatics-toolkit` —— 配体库的 SMILES 清洗、性质过滤、相似性筛选作为对接前处理。
-- related：`molecular-dynamics-simulation` —— 把对接得到的起始构象交给 MD 做结合稳定性与构象细化。
+- related：`molecular-dynamics-openmm` —— 把对接得到的起始构象交给 MD 做结合稳定性与构象细化。
 - related：`protein-language-models`、`scientific-database-lookup` —— 靶点结构/序列与文献数据获取。
 - combines_with：`cheminformatics-toolkit` —— 先用化学信息学构建/缩减化合物库，再批量对接排序，构成完整虚拟筛选流水线。
 

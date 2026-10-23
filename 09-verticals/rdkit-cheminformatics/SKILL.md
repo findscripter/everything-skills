@@ -180,7 +180,7 @@ best = min(energies, key=lambda x: x[1])[0]      # 最低能构象
 
 - requires：`cheminformatics-toolkit` —— 先掌握 RDKit 按能力分模块的基础用法，再用本条的端到端筛选流程。
 - related：`pubchem-compound-search`、`scientific-database-lookup` —— 上游取化合物结构与活性数据。
-- combines_with：`autodock-vina-docking` —— 本条产出的类药命中与 3D 构象作为对接输入；`molecular-dynamics-simulation`、`deepchem-drug-discovery` —— 下游做动力学验证或 ML 打分。
+- combines_with：`autodock-vina-docking` —— 本条产出的类药命中与 3D 构象作为对接输入；`molecular-dynamics-openmm`、`deepchem-drug-discovery` —— 下游做动力学验证或 ML 打分。
 
 ---
 本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。

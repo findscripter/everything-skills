@@ -16,6 +16,14 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
+## 随包资源与运行前提
+
+本目录的脚本、参考文档和模板已随技能分发；固定来源、SHA-256 与许可见 [RESOURCES.md](RESOURCES.md) 及 [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)。新增资源取自核验时的固定上游快照，不表示这是原正文采编时的版本。
+
+- 文档中的资源相对路径指**本技能目录**；执行时保持目标项目所需的工作目录，用资源的绝对路径调用。项目输入/输出也使用绝对路径，不能把技能库误当成被操作的项目。
+- 环境依赖：Python 3 (standard library)。本技能不自动安装这些依赖；缺失时先报告具体缺项，使用正文可行的人工流程，不能声称已完成脚本验证。
+- 上游脚本在本仓仅做静态核对；使用前审查实际参数、输出位置及外部调用，按用户已授权范围运行。
+
 ## 何时使用
 
 适用于需要**一眼看清公司整体状况**的场景：
@@ -80,8 +88,8 @@ source_license: MIT
 引导式 CLI 评分工具（仅依赖标准库）：
 
 ```bash
-python scripts/health_scorer.py        # 引导式 CLI：录入指标，输出评分仪表盘
-python scripts/health_scorer.py --json # 输出原始 JSON，便于集成
+python scripts/health_scorer.py --interactive        # 录入真实公司/阶段/指标，再输出仪表盘
+python scripts/health_scorer.py --interactive --json # 同样先交互录入；仪表盘后追加 JSON，非纯 JSON stdout
 ```
 
 或直接描述指标，让助手评分：
@@ -131,6 +139,8 @@ python scripts/health_scorer.py --json # 输出原始 JSON，便于集成
 - **OKR 100% 完成 = 目标定太低**；60–70% 才是合理的有挑战且可执行区间；<40% 说明战略与产能脱节。
 - **遗憾流失** vs 非遗憾流失：只有「你愿意立刻重新雇佣、却为更好机会离开」的遗憾流失才反映健康问题；绩效淘汰属正常。
 - 权重随阶段动态变化，跨阶段比较总分时务必同时标注阶段。
+
+**CLI 数据与输出边界**：不带 `--interactive`/`-i` 时，脚本运行内置 `Sample Co` 样例，不会录入或分析当前公司的指标；必须将此模式标记为演示。`--json` 会在文本仪表盘之后追加 JSON，不能直接对整个 stdout 调用 JSON 解析器。需要纯 JSON 集成时，从 `scripts.health_scorer` 导入实际维度构建函数、`calculate_overall` 与 `to_json`，以已收集的真实指标构建结果后自行 `json.dumps`；不要把样例或混合输出当作真实公司数据。
 
 ## 互见
 

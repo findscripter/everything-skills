@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: [cfo-financial-advisor, board-deck-builder, market-sizing-analyst, board-meeting-prep]
-combines_with: [cfo-financial-advisor, board-deck-builder, market-sizing-analyst]
+related: [cfo-financial-advisor, board-deck-builder, market-sizing-tam-sam-som, board-meeting-prep]
+combines_with: [cfo-financial-advisor, board-deck-builder, market-sizing-tam-sam-som]
 license: MIT
 source: wshobson/agents
 source_license: MIT
@@ -124,7 +124,7 @@ Dilution = Investment / Post-Money = 20%
 
 - requires：无。
 - related：无（本库暂无直接相关技能）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 本条采编自 wshobson/agents（MIT）。
