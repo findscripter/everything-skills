@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-23",
+  "identity_basis": "GitHub repository database ID; case-only canonical name changes are not new identities.",
+  "aliases": [
+    {
+      "repository_id": 1135891523,
+      "canonical_name": "microsoft/skills",
+      "previous_names": [
+        "microsoft/agent-skills"
+      ]
+    },
+    {
+      "repository_id": 1163855415,
+      "canonical_name": "bevibing/tutor-skills",
+      "previous_names": [
+        "RoundTable02/tutor-skills"
+      ]
+    },
+    {
+      "repository_id": 1201476594,
+      "canonical_name": "career-ops-hq/career-ops",
+      "previous_names": [
+        "santifer/career-ops"
+      ]
+    },
+    {
+      "repository_id": 1193374549,
+      "canonical_name": "nowork-studio/notfair-plugin",
+      "previous_names": [
+        "nowork-studio/NotFair"
+      ]
+    },
+    {
+      "repository_id": 1073337396,
+      "canonical_name": "jeremylongshore/tons-of-skills-marketplace",
+      "previous_names": [
+        "jeremylongshore/claude-code-plugins-plus-skills"
+      ]
+    },
+    {
+      "repository_id": 1171412548,
+      "canonical_name": "bergside/typeui",
+      "previous_names": [
+        "bergside/typeui.sh"
+      ]
+    },
+    {
+      "repository_id": 1182025682,
+      "canonical_name": "JuliusBrussee/cavekit",
+      "previous_names": [
+        "JuliusBrussee/blueprint"
+      ]
+    },
+    {
+      "repository_id": 985350289,
+      "canonical_name": "lean-explore/lean-explore",
+      "previous_names": [
+        "justincasher/lean-explore"
+      ]
+    },
+    {
+      "repository_id": 1192555890,
+      "canonical_name": "awrshift/agent-memory-kit",
+      "previous_names": [
+        "awrshift/claude-memory-kit"
+      ]
+    },
+    {
+      "repository_id": 1263192944,
+      "canonical_name": "xberg-io/plugins",
+      "previous_names": [
+        "kreuzberg-dev/plugins"
+      ]
+    },
+    {
+      "repository_id": 1134568207,
+      "canonical_name": "Agentchengfeng/chengfeng-videocut-skills",
+      "previous_names": [
+        "Ceeon/videocut-skills"
+      ]
+    },
+    {
+      "repository_id": 1168912251,
+      "canonical_name": "appeeky/aso-skills",
+      "previous_names": [
+        "Eronred/aso-skills"
+      ]
+    },
+    {
+      "repository_id": 1147015603,
+      "canonical_name": "BrianRWagner/ai-marketing-claude-code-skills",
+      "previous_names": [
+        "BrianRWagner/ai-marketing-skills"
+      ]
+    },
+    {
+      "repository_id": 1228449634,
+      "canonical_name": "Mark393295827/third-brain-v7-skills",
+      "previous_names": [
+        "Mark393295827/third-brain-v5-skills"
+      ]
+    },
+    {
+      "repository_id": 1175711121,
+      "canonical_name": "crittylabs/critty",
+      "previous_names": [
+        "kevindutra/crit"
+      ]
+    },
+    {
+      "repository_id": 1077940951,
+      "canonical_name": "michalparkola/tapestry-skills",
+      "previous_names": [
+        "michalparkola/tapestry-skills-for-claude-code"
+      ]
+    },
+    {
+      "repository_id": 1133906703,
+      "canonical_name": "waynesutton/builder-skills",
+      "previous_names": [
+        "waynesutton/convexskills"
+      ]
+    },
+    {
+      "repository_id": 1241959906,
+      "canonical_name": "leeguooooo/image-use",
+      "previous_names": [
+        "leeguooooo/chatgpt-imagegen"
+      ]
+    },
+    {
+      "repository_id": 1302252210,
+      "canonical_name": "mujingquan835/Dawang-ppt",
+      "previous_names": [
+        "mujingquan835/dashiai-ppt-skill"
+      ]
+    },
+    {
+      "repository_id": 1084853233,
+      "canonical_name": "VoltAgent/awesome-agent-skills",
+      "previous_names": [
+        "VoltAgent/awesome-claude-skills"
+      ]
+    },
+    {
+      "repository_id": 1185950097,
+      "canonical_name": "ElmatadorZ/Money-Atlas-Intelligence-OS",
+      "previous_names": [
+        "ElmatadorZ/MoneyAtlas-ClaudeSkill-Agent"
+      ]
+    },
+    {
+      "repository_id": 1320457204,
+      "canonical_name": "Ezra144israel/agent-teamwork-kit",
+      "previous_names": [
+        "Ezra144israel/governed-agent-skills"
+      ]
+    },
+    {
+      "repository_id": 1259836955,
+      "canonical_name": "TheColliery/CoalMine",
+      "previous_names": [
+        "HetCreep/CoalMine"
+      ]
+    },
+    {
+      "repository_id": 1244307848,
+      "canonical_name": "huggingface/physics-intern",
+      "previous_names": [
+        "huggingface/physics-intern-skills"
+      ]
+    },
+    {
+      "repository_id": 1354702877,
+      "canonical_name": "carnot-tech/jinba-consulting-pptx-skill",
+      "previous_names": [
+        "carnot-tech/consulting-pptx-skill",
+        "gozen3ji/consulting-pptx-skill"
+      ]
+    },
+    {
+      "repository_id": 1269705487,
+      "canonical_name": "godot-fun/gai",
+      "previous_names": [
+        "godot-fun/godot-agent"
+      ]
+    },
+    {
+      "repository_id": 1228101172,
+      "canonical_name": "jaakla/openmapstack-skills",
+      "previous_names": [
+        "jaakla/openmapstack"
+      ]
+    },
+    {
+      "repository_id": 1152331977,
+      "canonical_name": "thedivergentai/Game-Dev-Agentic-Skills",
+      "previous_names": [
+        "thedivergentai/GD-Agentic-Skills"
+      ]
+    },
+    {
+      "repository_id": 1326140471,
+      "canonical_name": "Job-Yang/jobyang-ai-skills",
+      "previous_names": [
+        "Job-Yang/jobbyang-ai-skills"
+      ]
+    },
+    {
+      "repository_id": 1183084383,
+      "canonical_name": "Sermilion/SkillBill",
+      "previous_names": [
+        "oila-gmbh/skill-bill"
+      ]
+    },
+    {
+      "repository_id": 1337208333,
+      "canonical_name": "adand-91/gpt-6-astra-skill",
+      "previous_names": [
+        "adand-91/requirement-ledger"
+      ]
+    },
+    {
+      "repository_id": 1341876019,
+      "canonical_name": "xjli360/sealeap-amazon-skills",
+      "previous_names": [
+        "xjli360/sealeap-amazon-ad-skills"
+      ]
+    },
+    {
+      "repository_id": 1254241059,
+      "canonical_name": "cooler333/awesome-claude-code",
+      "previous_names": [
+        "cooler333/cool-claude-code"
+      ]
+    },
+    {
+      "repository_id": 1222984521,
+      "canonical_name": "AgriciDaniel/chatgpt-seo",
+      "previous_names": [
+        "AgriciDaniel/codex-seo"
+      ]
+    },
+    {
+      "repository_id": 1191393570,
+      "canonical_name": "esurvanov/awesome-claude",
+      "previous_names": [
+        "Hedgehogues/awesome-claude"
+      ]
+    },
+    {
+      "repository_id": 1280553461,
+      "canonical_name": "jestatsio/skillroute",
+      "previous_names": [
+        "erichare/skillroute"
+      ]
+    },
+    {
+      "repository_id": 1216267923,
+      "canonical_name": "heymegabyte/agent-skills",
+      "previous_names": [
+        "heymegabyte/claude-skills"
+      ]
+    },
+    {
+      "repository_id": 1199567815,
+      "canonical_name": "axisvela/ea-harness",
+      "previous_names": [
+        "axisrobo/ea-harness"
+      ]
+    },
+    {
+      "repository_id": 1216087888,
+      "canonical_name": "GoogleCloudPlatform/google-cloud-storage-plugin",
+      "previous_names": [
+        "gemini-cli-extensions/google-cloud-storage"
+      ]
+    },
+    {
+      "repository_id": 1229567447,
+      "canonical_name": "probabl-ai/skore-skills",
+      "previous_names": [
+        "probabl-ai/skills"
+      ]
+    },
+    {
+      "repository_id": 1396792662,
+      "canonical_name": "wenziai/wenzi-xiaohongshu-workflow",
+      "previous_names": [
+        "wenziai/wenzi-xhs-agent-skills"
+      ]
+    },
+    {
+      "repository_id": 1398046171,
+      "canonical_name": "flaviocopes/skill-cabinet",
+      "previous_names": [
+        "flaviocopes/skillscout"
+      ]
+    },
+    {
+      "repository_id": 1314248467,
+      "canonical_name": "databricks-industry-solutions/vital-skills",
+      "previous_names": [
+        "databricks-industry-solutions/hls-skills"
+      ]
+    },
+    {
+      "repository_id": 1185389803,
+      "canonical_name": "ai-job-search-dev/ai-job-search",
+      "previous_names": [
+        "MadsLorentzen/ai-job-search"
+      ]
+    }
+  ]
+}
