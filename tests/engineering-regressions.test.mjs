@@ -42,6 +42,7 @@ async function fixture(t) {
   for (const volume of Object.keys(taxonomy.vols)) await fs.mkdir(path.join(root, volume));
   await fs.writeFile(path.join(root, 'data/skill-repos.meta.md'), '# 技能仓库总目\n\n{{COUNT}} repositories\n');
   await fs.writeFile(path.join(root, 'data/skill-resources.json'), JSON.stringify({ schema_version: 1, skills: [] }));
+  await fs.writeFile(path.join(root, 'data/skill-provenance.json'), JSON.stringify({ schema_version: 1, skills: [] }));
   await writeRepos(root, [repo('demo/one')]);
   await fs.writeFile(path.join(root, 'README.md'), `${BEGIN}\n${END}\n`);
   await addSkill(root, 'active');
@@ -61,6 +62,8 @@ async function addSkill(root, name, extra = {}) {
   const directory = path.join(root, '00-meta', name);
   await fs.mkdir(directory, { recursive: true });
   await fs.writeFile(path.join(directory, 'SKILL.md'), `---\n${Object.entries(metadata).map(([key, value]) => `${key}: ${value}`).join('\n')}\n---\n# Fixture\n`);
+  const refreshed = run(root, 'refresh-skill-provenance.mjs', ['--write']);
+  assert.equal(refreshed.status, 0, refreshed.stderr);
 }
 
 async function snapshot(root, prefix = '') {
@@ -225,5 +228,28 @@ test('build-all requires the packaged-asset manifest instead of silently skippin
   const result = run(root, 'build-all.mjs', ['--lang=en']);
   assert.equal(result.status, 1);
   assert.match(result.stderr, /\[ASSET_SCHEMA\]/);
+  assert.deepEqual(await snapshot(root), before);
+});
+
+test('build-all rejects stale provenance before generating publication files', async t => {
+  const root = await fixture(t);
+  const manifestFile = path.join(root, 'data/skill-provenance.json');
+  const manifest = JSON.parse(await fs.readFile(manifestFile, 'utf8'));
+  manifest.skills[0].local_sha256 = '0'.repeat(64);
+  await fs.writeFile(manifestFile, JSON.stringify(manifest));
+  const before = await snapshot(root);
+  const result = run(root, 'build-all.mjs', ['--lang=en']);
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /provenance/);
+  assert.deepEqual(await snapshot(root), before);
+});
+
+test('build-all requires provenance instead of implicitly inventing origins', async t => {
+  const root = await fixture(t);
+  await fs.unlink(path.join(root, 'data/skill-provenance.json'));
+  const before = await snapshot(root);
+  const result = run(root, 'build-all.mjs', ['--lang=en']);
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /provenance/);
   assert.deepEqual(await snapshot(root), before);
 });
