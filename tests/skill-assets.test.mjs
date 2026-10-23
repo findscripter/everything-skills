@@ -131,6 +131,15 @@ test('asset checker rejects a skill directory junction outside the workspace', t
   rejects(f.run(), 'ASSET_SCOPE');
 });
 
+test('asset checker rejects a skill directory junction into a different skill in the workspace', t => {
+  const f = fixture(t);
+  const other = path.join(f.root, '03-data/another-skill');
+  fs.cpSync(path.join(f.root, skillPath), other, { recursive: true });
+  fs.rmSync(path.join(f.root, skillPath), { recursive: true });
+  fs.symlinkSync(other, path.join(f.root, skillPath), process.platform === 'win32' ? 'junction' : 'dir');
+  rejects(f.run(), 'ASSET_SCOPE');
+});
+
 test('asset checker rejects absent resources and hash mismatches', t => {
   const missing = fixture(t);
   fs.unlinkSync(path.join(missing.root, skillPath, 'scripts/tool.py'));
@@ -159,6 +168,12 @@ test('asset checker requires immutable source commits and matching source URLs',
   const otherRepository = fixture(t);
   otherRepository.skill.source.url = `https://github.com/other/skills/blob/${commit}/skills/demo/SKILL.md`;
   rejects(otherRepository.run(), 'ASSET_SOURCE');
+});
+
+test('asset checker rejects encoded dot segments in otherwise fixed source URLs', t => {
+  const f = fixture(t);
+  f.skill.resources[0].source_url = `${sourceBase}skills/demo/%2e%2e/tool.py`;
+  rejects(f.run(), 'ASSET_SOURCE');
 });
 
 test('asset checker requires a declared, existing license within the same skill', t => {
