@@ -1,0 +1,2439 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-10-23",
+  "scope": "Fixed upstream snapshots used to restore packaged resources, not a claim about the original adaptation revision.",
+  "skills": [
+    {
+      "name": "entity-research-dossier",
+      "skill_path": "00-meta/entity-research-dossier",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "research/dossier/skills/dossier",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/research/dossier/skills/dossier/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "00-meta/entity-research-dossier/references/conversation_hook_quality.md",
+          "sha256": "669efb4fcf531245b8b943d511221adb60392bd664f228eb766ba0ea19d6a9ee",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/research/dossier/skills/dossier/references/conversation_hook_quality.md",
+          "license": "MIT",
+          "license_path": "00-meta/entity-research-dossier/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "00-meta/entity-research-dossier/references/hypothesis_testing_discipline.md",
+          "sha256": "7814176847ff6f2c19d652a4812f2feb0c2ac7023f841ace584414206e251170",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/research/dossier/skills/dossier/references/hypothesis_testing_discipline.md",
+          "license": "MIT",
+          "license_path": "00-meta/entity-research-dossier/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "00-meta/entity-research-dossier/references/subject_type_source_matrix.md",
+          "sha256": "d5d1fe8d549de3e0907df74f85023f8e779bbf81be4b53538a5256f667b29447",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/research/dossier/skills/dossier/references/subject_type_source_matrix.md",
+          "license": "MIT",
+          "license_path": "00-meta/entity-research-dossier/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "00-meta/entity-research-dossier/scripts/citation_tracker.py",
+          "sha256": "ab9c1cfe7993a6c46926fe5afc59fc68726dea450fdbb76f410960991359ccca",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/research/dossier/skills/dossier/scripts/citation_tracker.py",
+          "license": "MIT",
+          "license_path": "00-meta/entity-research-dossier/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "00-meta/entity-research-dossier/scripts/disconfirming_evidence_balance.py",
+          "sha256": "0be331fffd35712831d1e2db6684a1747c63c2d6a871dfc59d2917f5dda1e9e4",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/research/dossier/skills/dossier/scripts/disconfirming_evidence_balance.py",
+          "license": "MIT",
+          "license_path": "00-meta/entity-research-dossier/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "00-meta/entity-research-dossier/scripts/source_tier_classifier.py",
+          "sha256": "38ac60f711fd863b9ecfea243b389181e1fccd86f690017d2427a80f6e9585b7",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/research/dossier/skills/dossier/scripts/source_tier_classifier.py",
+          "license": "MIT",
+          "license_path": "00-meta/entity-research-dossier/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "00-meta/entity-research-dossier/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "00-meta/entity-research-dossier/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/disconfirming_evidence_balance.py",
+          "original_line": 56,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "pptx-document-processing",
+      "skill_path": "01-documents/pptx-document-processing",
+      "resolution": "native-rewrite",
+      "source": null,
+      "resources": [],
+      "dependencies": [
+        "User-provided PowerPoint/LibreOffice or approved PptxGenJS/python-pptx installation; record actual version before use"
+      ],
+      "notes": [
+        "The adapted helper-dependent body was replaced with a newly authored generic workflow. No proprietary helper, template or source body is redistributed.",
+        "Prior-helper inspection snapshot: sickn33/agentic-awesome-skills@df309ba1c51f7aefddfb0cdc3457c7345595e281, skills/pptx-official/LICENSE.txt. See RESOURCES.md for migration history."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/html2pptx.js",
+          "original_line": 61,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "ooxml/scripts/unpack.py",
+          "original_line": 45,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "scripts/thumbnail.py",
+          "original_line": 62,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "ooxml/scripts/unpack.py",
+          "original_line": 67,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "ooxml/scripts/validate.py",
+          "original_line": 69,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "ooxml/scripts/pack.py",
+          "original_line": 70,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "scripts/thumbnail.py",
+          "original_line": 74,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "scripts/rearrange.py",
+          "original_line": 77,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "scripts/inventory.py",
+          "original_line": 78,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "scripts/replace.py",
+          "original_line": 80,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "ooxml/scripts/unpack.py",
+          "original_line": 100,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "ooxml/scripts/validate.py",
+          "original_line": 102,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "ooxml/scripts/pack.py",
+          "original_line": 103,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "replaced-workflow"
+        }
+      ]
+    },
+    {
+      "name": "webapp-testing",
+      "skill_path": "02-engineering/webapp-testing",
+      "resolution": "bundle",
+      "source": {
+        "repository": "anthropics/skills",
+        "commit": "da20c92503b2e8ff1cf28ca81a0df4673debdbf7",
+        "path": "skills/webapp-testing",
+        "url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/webapp-testing/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "02-engineering/webapp-testing/examples/console_logging.py",
+          "sha256": "ea46877289acb82da7e7ce59d0bc37c8977cd57e2a006d0c88d7a1c625bf95da",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/webapp-testing/examples/console_logging.py",
+          "license": "Apache-2.0",
+          "license_path": "02-engineering/webapp-testing/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "02-engineering/webapp-testing/examples/element_discovery.py",
+          "sha256": "d63c89604a22f8845d724e95dda45db49b1bf57c25ce0a83afbb7b8da3d402f0",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/webapp-testing/examples/element_discovery.py",
+          "license": "Apache-2.0",
+          "license_path": "02-engineering/webapp-testing/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "02-engineering/webapp-testing/examples/static_html_automation.py",
+          "sha256": "9d533aafb875ee3ab8b8ebf8f5b9003ac8d999da3d09b285cce252e623140064",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/webapp-testing/examples/static_html_automation.py",
+          "license": "Apache-2.0",
+          "license_path": "02-engineering/webapp-testing/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "02-engineering/webapp-testing/scripts/with_server.py",
+          "sha256": "b0dcf4918935b795f4eda9821579b9902119235ff4447f687a30286e7d0925fd",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/webapp-testing/scripts/with_server.py",
+          "license": "Apache-2.0",
+          "license_path": "02-engineering/webapp-testing/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "02-engineering/webapp-testing/UPSTREAM-LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/webapp-testing/LICENSE.txt",
+          "license": "Apache-2.0",
+          "license_path": "02-engineering/webapp-testing/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3",
+        "Playwright Python package and browser installed in the user environment; versions recorded at execution time"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/with_server.py",
+          "original_line": 50,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/with_server.py",
+          "original_line": 41,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/with_server.py",
+          "original_line": 62,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/with_server.py",
+          "original_line": 65,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "agent-workflow-pattern-designer",
+      "skill_path": "04-ai/agent-workflow-pattern-designer",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "engineering/skills/agent-workflow-designer",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/agent-workflow-designer/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "04-ai/agent-workflow-pattern-designer/references/workflow-patterns.md",
+          "sha256": "22a047a3dd5385b0409278c75427a3e7c01c577201c3b37d52289804343bfa78",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/agent-workflow-designer/references/workflow-patterns.md",
+          "license": "MIT",
+          "license_path": "04-ai/agent-workflow-pattern-designer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/agent-workflow-pattern-designer/scripts/workflow_scaffolder.py",
+          "sha256": "081985aef78ba0eebe3f03b7e70ee50dfbbd57e2113a4d90736f887593816bbf",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/agent-workflow-designer/scripts/workflow_scaffolder.py",
+          "license": "MIT",
+          "license_path": "04-ai/agent-workflow-pattern-designer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/agent-workflow-pattern-designer/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "04-ai/agent-workflow-pattern-designer/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/workflow_scaffolder.py",
+          "original_line": 44,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/workflow_scaffolder.py",
+          "original_line": 48,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/workflow_scaffolder.py",
+          "original_line": 51,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "autoresearch-optimization-agent",
+      "skill_path": "04-ai/autoresearch-optimization-agent",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "engineering/autoresearch-agent/skills/autoresearch-agent",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/skills/autoresearch-agent/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "04-ai/autoresearch-optimization-agent/references/experiment-domains.md",
+          "sha256": "9657e432e40c4672bb4d5b68212908e29a9ec54646683629d286bfa26ab2de9b",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/skills/autoresearch-agent/references/experiment-domains.md",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/references/program-template.md",
+          "sha256": "51e16ed872e171e2d265e13b6d5e41b6e93b62766d2ba2c5ba754e8ed6966793",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/skills/autoresearch-agent/references/program-template.md",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/scripts/log_results.py",
+          "sha256": "7a0ec09ab42a239941c097ee1e58175daa2071385d0acf41df9870199916ab9f",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/skills/autoresearch-agent/scripts/log_results.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/scripts/run_experiment.py",
+          "sha256": "edfa79750c820ed742f3cb696952b9be415cd1fec305b11283b8da46414ee215",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/skills/autoresearch-agent/scripts/run_experiment.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/scripts/setup_experiment.py",
+          "sha256": "c60ff39f4597368db4d7dfd1c14af11c3c1fa58e2e284ac15685e9800ea4adaf",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/skills/autoresearch-agent/scripts/setup_experiment.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/evaluators/benchmark_size.py",
+          "sha256": "70647eaa5825a7a8cc3d4f8311b8c4b4a7660a341030264eced4c7664c442c03",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/evaluators/benchmark_size.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/evaluators/benchmark_speed.py",
+          "sha256": "09a72786ab65d870cce9cd854378d08bf47d6fe97b45978190ad60d5ca900788",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/evaluators/benchmark_speed.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/evaluators/build_speed.py",
+          "sha256": "d52397edbf95286d1ef31c2d2e1bb25354cd36a81f309a2ba5aa387b05c01c68",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/evaluators/build_speed.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/evaluators/llm_judge_content.py",
+          "sha256": "e821b84fc1d726d6c58e76277c09f221064ed85d0e872e7f369a26bde5a5d9c3",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/evaluators/llm_judge_content.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/evaluators/llm_judge_copy.py",
+          "sha256": "7a18c088f87567f6d6c9f01b3b7303c04415b0f22d6df4663728fcfaad315feb",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/evaluators/llm_judge_copy.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/evaluators/llm_judge_prompt.py",
+          "sha256": "62a27f00ad926d2b818340c684704e847ccdd35ccd19519f0b00afe3e3f21fa6",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/evaluators/llm_judge_prompt.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/evaluators/memory_usage.py",
+          "sha256": "775d49d3b33bab5fd906bd393100afe5202c59819aff5dc1993dcc67b07cf51a",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/evaluators/memory_usage.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/autoresearch-optimization-agent/evaluators/test_pass_rate.py",
+          "sha256": "7dbcb9f66ad36787f8b34fd3c76f011cb4a1b52dec77fef6d3bf86498df4fc4c",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/autoresearch-agent/evaluators/test_pass_rate.py",
+          "license": "MIT",
+          "license_path": "04-ai/autoresearch-optimization-agent/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3",
+        "Git",
+        "The fixed evaluator command and its dependencies must already exist; LLM evaluators require a separately authorized Claude/Codex/Gemini CLI session"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation.",
+        "Upstream evaluators live outside the source skill directory; copied into the location resolved by setup_experiment.py."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/setup_experiment.py",
+          "original_line": 51,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/setup_experiment.py",
+          "original_line": 58,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/run_experiment.py",
+          "original_line": 75,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/log_results.py",
+          "original_line": 83,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/log_results.py",
+          "original_line": 84,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/log_results.py",
+          "original_line": 85,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/log_results.py",
+          "original_line": 86,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "multi-agent-workflow-designer",
+      "skill_path": "04-ai/multi-agent-workflow-designer",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "engineering/skills/agent-workflow-designer",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/agent-workflow-designer/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "04-ai/multi-agent-workflow-designer/references/workflow-patterns.md",
+          "sha256": "22a047a3dd5385b0409278c75427a3e7c01c577201c3b37d52289804343bfa78",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/agent-workflow-designer/references/workflow-patterns.md",
+          "license": "MIT",
+          "license_path": "04-ai/multi-agent-workflow-designer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/multi-agent-workflow-designer/scripts/workflow_scaffolder.py",
+          "sha256": "081985aef78ba0eebe3f03b7e70ee50dfbbd57e2113a4d90736f887593816bbf",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/agent-workflow-designer/scripts/workflow_scaffolder.py",
+          "license": "MIT",
+          "license_path": "04-ai/multi-agent-workflow-designer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/multi-agent-workflow-designer/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "04-ai/multi-agent-workflow-designer/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/workflow_scaffolder.py",
+          "original_line": 34,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/workflow_scaffolder.py",
+          "original_line": 53,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/workflow_scaffolder.py",
+          "original_line": 56,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "skill-creator",
+      "skill_path": "04-ai/skill-creator",
+      "resolution": "bundle",
+      "source": {
+        "repository": "anthropics/skills",
+        "commit": "da20c92503b2e8ff1cf28ca81a0df4673debdbf7",
+        "path": "skills/skill-creator",
+        "url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "04-ai/skill-creator/agents/analyzer.md",
+          "sha256": "bf68f4cac5a56c673a928c2e6d619586c5b93ea364026ab37547772cb45a663a",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/agents/analyzer.md",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/agents/comparator.md",
+          "sha256": "fe1fc9787c495d864c5d6eada47396478572325fde1b33a96d78bf4b849b7a3e",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/agents/comparator.md",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/agents/grader.md",
+          "sha256": "57134da0c1a4eea33fbd74a1c9c44aa814f07d6bc64de303edb586f941e5d21a",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/agents/grader.md",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/assets/eval_review.html",
+          "sha256": "ce477dcc74dc1c0d1d3352646a79167b5a63634e936b1019160025065974e452",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/assets/eval_review.html",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/eval-viewer/generate_review.py",
+          "sha256": "fc9d1b9243fe5ab6012ebd579bd76d0035de1b79fd3b969de114defab26478fb",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/eval-viewer/generate_review.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/eval-viewer/viewer.html",
+          "sha256": "a53213426ee1100441d701a3a0d49cda7a842f992d2c36463f4d3cc0258575fa",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/eval-viewer/viewer.html",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/references/schemas.md",
+          "sha256": "8e8876180a8989b406a4d3edddf875b04cdfd5805cc8616686d552b11ce4455f",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/references/schemas.md",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/scripts/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/scripts/__init__.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/scripts/aggregate_benchmark.py",
+          "sha256": "123ef128ea5ccc01a4b1ac212ef5567f21e9c13d3d240609780beeb3200c49aa",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/scripts/aggregate_benchmark.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/scripts/generate_report.py",
+          "sha256": "13df7118a3c50c83c4c3250a606d5f2b20b25a3d44cbc392b3d669ec75281453",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/scripts/generate_report.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/scripts/improve_description.py",
+          "sha256": "87d864570220b699fac52da309d2d6efdb060647bfebc74f768128e646accf80",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/scripts/improve_description.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/scripts/package_skill.py",
+          "sha256": "1a33059b0db1ef73375d46d513e5ea81369d2e8838c970597b0d52ddef8d1c0f",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/scripts/package_skill.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/scripts/quick_validate.py",
+          "sha256": "67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/scripts/quick_validate.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/scripts/run_eval.py",
+          "sha256": "43e3b8f80dbf69c343967ba77e268fae991d9fa3ed68b32a0ff02532cd48657f",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/scripts/run_eval.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/scripts/run_loop.py",
+          "sha256": "7bd6f674203168520517eec94c55f493c0d154339b061b4d7c0f0dad187d0f21",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/scripts/run_loop.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/scripts/utils.py",
+          "sha256": "3af8ae62c40c73ab712207436a0d9a981e845f25c5a7040229eb189cc8e45bb1",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/scripts/utils.py",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/skill-creator/LICENSE.txt",
+          "license": "Apache-2.0",
+          "license_path": "04-ai/skill-creator/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3",
+        "PyYAML for scripts that parse frontmatter",
+        "Claude CLI for scripts/run_eval.py and description optimization; use manual evaluation when unavailable"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation.",
+        "For python -m scripts.* use the dedicated test project as cwd and add this skill directory to the process PYTHONPATH so imports resolve without writing test commands into the skill library."
+      ],
+      "audit_references": [
+        {
+          "reference": "references/schemas.md",
+          "original_line": 175,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/schemas.md",
+          "original_line": 245,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "assets/eval_review.html",
+          "original_line": 378,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/schemas.md",
+          "original_line": 482,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "app-store-optimization",
+      "skill_path": "05-business/app-store-optimization",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "marketing-skill/skills/app-store-optimization",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "05-business/app-store-optimization/assets/aso-audit-template.md",
+          "sha256": "3a96bbc323bf420b59219c0d0e223393850a923c94c4a52df0acf992739ee010",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/assets/aso-audit-template.md",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/references/aso-best-practices.md",
+          "sha256": "e86e9710a8dcdd5034c19113eb41a232104531c71f1339e7135dfe0c1aa33c82",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/references/aso-best-practices.md",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/references/keyword-research-guide.md",
+          "sha256": "631a6206414ab908f3e09c218a83a6deaec5dfec3b869336d8420da9b072f833",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/references/keyword-research-guide.md",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/references/platform-requirements.md",
+          "sha256": "686604daedaf48e0f6bc70a9ad4b327069c54ee524c1104c56e45f6a1d45fe34",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/references/platform-requirements.md",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/scripts/ab_test_planner.py",
+          "sha256": "bc65f41e0fe84170b02e83b4648d3d2dbb460e9588acb1e1bea4d7d9e63d1a95",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/scripts/ab_test_planner.py",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/scripts/aso_scorer.py",
+          "sha256": "df2854642b889a55877f2420563a22a753dc157723a3c7fe40d3dfcfc16b7892",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/scripts/aso_scorer.py",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/scripts/competitor_analyzer.py",
+          "sha256": "df64cf5b9c863afabebca1461230039287c6075806895e21541f8471c10f47c8",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/scripts/competitor_analyzer.py",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/scripts/keyword_analyzer.py",
+          "sha256": "7d66b1043a859eecfe919649c82f693ac841a18361cffffc5a8faf92e2c432f4",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/scripts/keyword_analyzer.py",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/scripts/launch_checklist.py",
+          "sha256": "4d820f097856c612b7f41bd02319f5003384af237318ad0139e0f62c723587a1",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/scripts/launch_checklist.py",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/scripts/localization_helper.py",
+          "sha256": "1c6c26fc2c8c87867d02777bcd90753ed461319573df7961ccaf38bb2c29726b",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/scripts/localization_helper.py",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/scripts/metadata_optimizer.py",
+          "sha256": "e689b3521cad59b510b89e5e6d9536519286e521079f805fe016d7546d68702f",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/scripts/metadata_optimizer.py",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/scripts/review_analyzer.py",
+          "sha256": "395f675845886fd88b28c94c445b7450e60522c1acf0e0cd26a7465cfef8560f",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/app-store-optimization/scripts/review_analyzer.py",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "05-business/app-store-optimization/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "references/keyword-research-guide.md",
+          "original_line": 85,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/platform-requirements.md",
+          "original_line": 157,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/aso-best-practices.md",
+          "original_line": 268,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/keyword_analyzer.py",
+          "original_line": 431,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/metadata_optimizer.py",
+          "original_line": 432,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/competitor_analyzer.py",
+          "original_line": 433,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/aso_scorer.py",
+          "original_line": 434,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/ab_test_planner.py",
+          "original_line": 435,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/review_analyzer.py",
+          "original_line": 436,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/launch_checklist.py",
+          "original_line": 437,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/localization_helper.py",
+          "original_line": 438,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/platform-requirements.md",
+          "original_line": 444,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/aso-best-practices.md",
+          "original_line": 445,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/keyword-research-guide.md",
+          "original_line": 446,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "assets/aso-audit-template.md",
+          "original_line": 452,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "channel-economics-model",
+      "skill_path": "05-business/channel-economics-model",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "commercial/skills/channel-economics",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/channel-economics/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "05-business/channel-economics-model/assets/channel_data_template.md",
+          "sha256": "19d96ffd1e7bc965f1a58d3a0d3a92b903385fee77c5ba6085a3d9279e64c8b9",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/channel-economics/assets/channel_data_template.md",
+          "license": "MIT",
+          "license_path": "05-business/channel-economics-model/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/channel-economics-model/references/channel_anti_patterns.md",
+          "sha256": "73d2189a72ac31673d023cdfbce1341e3e2e03b72cba639cc2c0a8aa4884668a",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/channel-economics/references/channel_anti_patterns.md",
+          "license": "MIT",
+          "license_path": "05-business/channel-economics-model/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/channel-economics-model/references/channel_economics_canon.md",
+          "sha256": "5b7025eba7f8d7ae084c0c61304f5822b03778df56b1ea7ec06097654de49b5a",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/channel-economics/references/channel_economics_canon.md",
+          "license": "MIT",
+          "license_path": "05-business/channel-economics-model/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/channel-economics-model/references/cost_to_serve_canon.md",
+          "sha256": "f073bc501ce51ac2059f174b3ee7558c317b2ec0d9eee82669d9bc19ca426938",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/channel-economics/references/cost_to_serve_canon.md",
+          "license": "MIT",
+          "license_path": "05-business/channel-economics-model/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/channel-economics-model/scripts/channel_mix_optimizer.py",
+          "sha256": "663cf12b4ed25740fb428eba5b8983748fc6c212dae5e2228d880e74c65fc702",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/channel-economics/scripts/channel_mix_optimizer.py",
+          "license": "MIT",
+          "license_path": "05-business/channel-economics-model/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/channel-economics-model/scripts/channel_roi_analyzer.py",
+          "sha256": "7c6859db25fa917dcf35c1743fe767e540c8df04f62e712f2d5bfe13f2d769fa",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/channel-economics/scripts/channel_roi_analyzer.py",
+          "license": "MIT",
+          "license_path": "05-business/channel-economics-model/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/channel-economics-model/scripts/cost_to_serve_calculator.py",
+          "sha256": "bd055a689ef516052692b0b2f22d2377acd1149616ac0ad73202328bf40a81a0",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/channel-economics/scripts/cost_to_serve_calculator.py",
+          "license": "MIT",
+          "license_path": "05-business/channel-economics-model/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/channel-economics-model/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "05-business/channel-economics-model/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "assets/channel_data_template.md",
+          "original_line": 36,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/cost_to_serve_calculator.py",
+          "original_line": 48,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/channel_roi_analyzer.py",
+          "original_line": 51,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/channel_mix_optimizer.py",
+          "original_line": 54,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "deal-desk-reviewer",
+      "skill_path": "05-business/deal-desk-reviewer",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "commercial/skills/deal-desk",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/deal-desk/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "05-business/deal-desk-reviewer/assets/deal_intake_template.md",
+          "sha256": "5428143c21ce47c7799ccbc831774bbf4fc9978e463db2a3cd53f9fd927953e2",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/deal-desk/assets/deal_intake_template.md",
+          "license": "MIT",
+          "license_path": "05-business/deal-desk-reviewer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/deal-desk-reviewer/references/contract_landmines.md",
+          "sha256": "a5e5a4b91d797e9b220a22a278efe4fc55e9845298a729772bd13982cceed75d",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/deal-desk/references/contract_landmines.md",
+          "license": "MIT",
+          "license_path": "05-business/deal-desk-reviewer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/deal-desk-reviewer/references/deal_desk_canon.md",
+          "sha256": "96e6b5327be138962fdebd36c17c460bd605d893d1c3626670f7816865512dc6",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/deal-desk/references/deal_desk_canon.md",
+          "license": "MIT",
+          "license_path": "05-business/deal-desk-reviewer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/deal-desk-reviewer/references/discount_economics.md",
+          "sha256": "6f837bcb0ce0cdcae927a7a104c407f7f42492c6cf6618e97bcf946b84744938",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/deal-desk/references/discount_economics.md",
+          "license": "MIT",
+          "license_path": "05-business/deal-desk-reviewer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/deal-desk-reviewer/scripts/deal_scorer.py",
+          "sha256": "e9271af74dde1fe45622787cab00a36ad80eb4a5185d20accafec1fbbd6555ba",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/deal-desk/scripts/deal_scorer.py",
+          "license": "MIT",
+          "license_path": "05-business/deal-desk-reviewer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/deal-desk-reviewer/scripts/discount_approval_router.py",
+          "sha256": "089187ec835289c5b40240bf0a4a69f2f3bae301927cbd95fdf6e2e6990aa344",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/deal-desk/scripts/discount_approval_router.py",
+          "license": "MIT",
+          "license_path": "05-business/deal-desk-reviewer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/deal-desk-reviewer/scripts/terms_redliner.py",
+          "sha256": "c634065d0ec9159deefd9ea4b401748b1d9e3becea81a950151d11626b9abfb5",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/deal-desk/scripts/terms_redliner.py",
+          "license": "MIT",
+          "license_path": "05-business/deal-desk-reviewer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/deal-desk-reviewer/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "05-business/deal-desk-reviewer/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "assets/deal_intake_template.md",
+          "original_line": 36,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/deal_scorer.py",
+          "original_line": 48,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/deal_scorer.py",
+          "original_line": 49,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/discount_approval_router.py",
+          "original_line": 52,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/discount_approval_router.py",
+          "original_line": 53,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/terms_redliner.py",
+          "original_line": 56,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/terms_redliner.py",
+          "original_line": 57,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "partnerships-strategy-architect",
+      "skill_path": "05-business/partnerships-strategy-architect",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "commercial/skills/partnerships-architect",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/partnerships-architect/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "05-business/partnerships-strategy-architect/assets/partnership_intake_template.md",
+          "sha256": "4f6372c5800e3683b46d915b018b5071bd03673290630d2ba0bf03ece8a99b81",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/partnerships-architect/assets/partnership_intake_template.md",
+          "license": "MIT",
+          "license_path": "05-business/partnerships-strategy-architect/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/partnerships-strategy-architect/references/channel_partner_canon.md",
+          "sha256": "77ee29bd98a8613125abb6930899bd2c66f6455481eaca946a93191b40d7f0a3",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/partnerships-architect/references/channel_partner_canon.md",
+          "license": "MIT",
+          "license_path": "05-business/partnerships-strategy-architect/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/partnerships-strategy-architect/references/joint_gtm_canon.md",
+          "sha256": "681ff7b579b83048b1ba43e34bc0fbcfb52854d3d3ea4e99612db4291faf51e9",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/partnerships-architect/references/joint_gtm_canon.md",
+          "license": "MIT",
+          "license_path": "05-business/partnerships-strategy-architect/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/partnerships-strategy-architect/references/partnership_anti_patterns.md",
+          "sha256": "0e34072089ab65612f78fb6c1a893c872b1913c03bf07c85a9c14b72044c0cf5",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/partnerships-architect/references/partnership_anti_patterns.md",
+          "license": "MIT",
+          "license_path": "05-business/partnerships-strategy-architect/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/partnerships-strategy-architect/scripts/joint_gtm_planner.py",
+          "sha256": "13fe4b8ef3ec47fc8635c3bd67dcb8a742b1c886d7809f271d0cb307ce4ecd6b",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/partnerships-architect/scripts/joint_gtm_planner.py",
+          "license": "MIT",
+          "license_path": "05-business/partnerships-strategy-architect/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/partnerships-strategy-architect/scripts/partner_tier_classifier.py",
+          "sha256": "e57354fa73393ffef700a01697ff162538055a27b038f8a33a5202698f18a891",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/partnerships-architect/scripts/partner_tier_classifier.py",
+          "license": "MIT",
+          "license_path": "05-business/partnerships-strategy-architect/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/partnerships-strategy-architect/scripts/revshare_modeler.py",
+          "sha256": "dbf84d214af4735d2c85aeb599c3b2cfa39a51d495e73d5202612b6f34a45252",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/commercial/skills/partnerships-architect/scripts/revshare_modeler.py",
+          "license": "MIT",
+          "license_path": "05-business/partnerships-strategy-architect/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/partnerships-strategy-architect/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "05-business/partnerships-strategy-architect/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "assets/partnership_intake_template.md",
+          "original_line": 37,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/partner_tier_classifier.py",
+          "original_line": 49,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/partner_tier_classifier.py",
+          "original_line": 50,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/joint_gtm_planner.py",
+          "original_line": 53,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/revshare_modeler.py",
+          "original_line": 56,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "procurement-cost-optimizer",
+      "skill_path": "05-business/procurement-cost-optimizer",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "business-operations/skills/procurement-optimizer",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/procurement-optimizer/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "05-business/procurement-cost-optimizer/assets/spend_intake_template.md",
+          "sha256": "f8c1558fc36d2cb797213779570fd7ea7f3874b249982d699ca66d90f9463499",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/procurement-optimizer/assets/spend_intake_template.md",
+          "license": "MIT",
+          "license_path": "05-business/procurement-cost-optimizer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/procurement-cost-optimizer/references/procurement_anti_patterns.md",
+          "sha256": "0e8876769dd02f9a9f17d41438e2155b2b0b48f3022017b139f8dda94e978db2",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/procurement-optimizer/references/procurement_anti_patterns.md",
+          "license": "MIT",
+          "license_path": "05-business/procurement-cost-optimizer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/procurement-cost-optimizer/references/saas_management_canon.md",
+          "sha256": "327398f720cfa225ab887a563c2ba38a88a988bdbb6782a24ba7d3e0467892a9",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/procurement-optimizer/references/saas_management_canon.md",
+          "license": "MIT",
+          "license_path": "05-business/procurement-cost-optimizer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/procurement-cost-optimizer/references/spend_management_canon.md",
+          "sha256": "8579fc7881cec0be7f0e607405170d3ef8a47336bf8f1689a0a17cf7b17db5ad",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/procurement-optimizer/references/spend_management_canon.md",
+          "license": "MIT",
+          "license_path": "05-business/procurement-cost-optimizer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/procurement-cost-optimizer/scripts/purchasing_cycle_analyzer.py",
+          "sha256": "edd777baec057c336b9ea4d80069cd3f0b48763ed3b6c0036576bb7acbd983f4",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/procurement-optimizer/scripts/purchasing_cycle_analyzer.py",
+          "license": "MIT",
+          "license_path": "05-business/procurement-cost-optimizer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/procurement-cost-optimizer/scripts/spend_categorizer.py",
+          "sha256": "cada266be1b811418f5425107a00cf3f3b837d714f7531ddfcea059ad0dac15a",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/procurement-optimizer/scripts/spend_categorizer.py",
+          "license": "MIT",
+          "license_path": "05-business/procurement-cost-optimizer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/procurement-cost-optimizer/scripts/supplier_consolidation.py",
+          "sha256": "4918bbc449936220818c7415f329c45e3f72cade513eec1f21710abfdd58eb3d",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/procurement-optimizer/scripts/supplier_consolidation.py",
+          "license": "MIT",
+          "license_path": "05-business/procurement-cost-optimizer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/procurement-cost-optimizer/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "05-business/procurement-cost-optimizer/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "assets/spend_intake_template.md",
+          "original_line": 41,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/spend_categorizer.py",
+          "original_line": 45,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/purchasing_cycle_analyzer.py",
+          "original_line": 52,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/supplier_consolidation.py",
+          "original_line": 59,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/spend_categorizer.py",
+          "original_line": 81,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "schema-markup-builder",
+      "skill_path": "05-business/schema-markup-builder",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "marketing-skill/skills/schema-markup",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/schema-markup/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "05-business/schema-markup-builder/references/implementation-patterns.md",
+          "sha256": "2b547b731800d9462034cf0a1ce89ee013d90e5d433aa7e05674f55f7ae61326",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/schema-markup/references/implementation-patterns.md",
+          "license": "MIT",
+          "license_path": "05-business/schema-markup-builder/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/schema-markup-builder/references/schema-types-guide.md",
+          "sha256": "72edf22e63b03ba65cfc21ad23d5922f6c6cab79aff3d8d6267bee706087358c",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/schema-markup/references/schema-types-guide.md",
+          "license": "MIT",
+          "license_path": "05-business/schema-markup-builder/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/schema-markup-builder/scripts/schema_validator.py",
+          "sha256": "3208581ba89078f927a0cab880d9094ae38c94726201e4ed6ada4b4c9a90009c",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/marketing-skill/skills/schema-markup/scripts/schema_validator.py",
+          "license": "MIT",
+          "license_path": "05-business/schema-markup-builder/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "05-business/schema-markup-builder/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "05-business/schema-markup-builder/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/schema_validator.py",
+          "original_line": 36,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/schema-types-guide.md",
+          "original_line": 38,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/implementation-patterns.md",
+          "original_line": 43,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/schema-types-guide.md",
+          "original_line": 123,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/schema_validator.py",
+          "original_line": 94,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "algorithmic-art",
+      "skill_path": "06-creative/algorithmic-art",
+      "resolution": "bundle",
+      "source": {
+        "repository": "anthropics/skills",
+        "commit": "da20c92503b2e8ff1cf28ca81a0df4673debdbf7",
+        "path": "skills/algorithmic-art",
+        "url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/algorithmic-art/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "06-creative/algorithmic-art/templates/generator_template.js",
+          "sha256": "9ee0f1da52ef8f7bbfde1917123654880890d43f2d388642d71eab6dd78f94c4",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/algorithmic-art/templates/generator_template.js",
+          "license": "Apache-2.0",
+          "license_path": "06-creative/algorithmic-art/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "06-creative/algorithmic-art/templates/viewer.html",
+          "sha256": "86c79d7ce97d2599ebe4bd9b97fdeb7295c9d3ed61ceeb513cbe1b2bb5d1ce29",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/algorithmic-art/templates/viewer.html",
+          "license": "Apache-2.0",
+          "license_path": "06-creative/algorithmic-art/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "06-creative/algorithmic-art/UPSTREAM-LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "source_url": "https://github.com/anthropics/skills/blob/da20c92503b2e8ff1cf28ca81a0df4673debdbf7/skills/algorithmic-art/LICENSE.txt",
+          "license": "Apache-2.0",
+          "license_path": "06-creative/algorithmic-art/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Browser",
+        "p5.js 1.7.0 from the template CDN, or an approved local copy; unavailable library means no rendered validation"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "templates/viewer.html",
+          "original_line": 122,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "templates/viewer.html",
+          "original_line": 228,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "templates/viewer.html",
+          "original_line": 236,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "templates/viewer.html",
+          "original_line": 242,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "ops-capacity-planner",
+      "skill_path": "07-productivity/ops-capacity-planner",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "business-operations/skills/capacity-planner",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/capacity-planner/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "07-productivity/ops-capacity-planner/assets/capacity_brief_template.md",
+          "sha256": "191830253eda83a951401f9c573970f6fa59fb5ea4b798c704301f8ce3b27f26",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/capacity-planner/assets/capacity_brief_template.md",
+          "license": "MIT",
+          "license_path": "07-productivity/ops-capacity-planner/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "07-productivity/ops-capacity-planner/references/capacity_anti_patterns.md",
+          "sha256": "28883aa6550a36ca2d99b89a269c3a77509f86b9e91c0f78bddec1d42f458e26",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/capacity-planner/references/capacity_anti_patterns.md",
+          "license": "MIT",
+          "license_path": "07-productivity/ops-capacity-planner/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "07-productivity/ops-capacity-planner/references/ops_workforce_planning_canon.md",
+          "sha256": "c71cd9790ad04a34554f2d6645854273010acfc05447a689e4c551cd5a4bced8",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/capacity-planner/references/ops_workforce_planning_canon.md",
+          "license": "MIT",
+          "license_path": "07-productivity/ops-capacity-planner/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "07-productivity/ops-capacity-planner/references/queueing_theory_canon.md",
+          "sha256": "43635f8c6a0b7734ac45c31c1e88ebbae91ca4273043d468418604c75608e22e",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/capacity-planner/references/queueing_theory_canon.md",
+          "license": "MIT",
+          "license_path": "07-productivity/ops-capacity-planner/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "07-productivity/ops-capacity-planner/scripts/capacity_modeler.py",
+          "sha256": "163becde11f95ab8693f150c6191abebeb5e8165e17adc39001b8f52fb161162",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/capacity-planner/scripts/capacity_modeler.py",
+          "license": "MIT",
+          "license_path": "07-productivity/ops-capacity-planner/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "07-productivity/ops-capacity-planner/scripts/hiring_sequencer.py",
+          "sha256": "36621f2b7e4827632f2e111e071466f909fe1227223e48473567a96758c8afbd",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/capacity-planner/scripts/hiring_sequencer.py",
+          "license": "MIT",
+          "license_path": "07-productivity/ops-capacity-planner/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "07-productivity/ops-capacity-planner/scripts/utilization_analyzer.py",
+          "sha256": "84cd4b10609f02d84039755c2f75265f041ac2bc8f374d8f3393294068b91c12",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/business-operations/skills/capacity-planner/scripts/utilization_analyzer.py",
+          "license": "MIT",
+          "license_path": "07-productivity/ops-capacity-planner/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "07-productivity/ops-capacity-planner/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "07-productivity/ops-capacity-planner/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/capacity_modeler.py",
+          "original_line": 50,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/utilization_analyzer.py",
+          "original_line": 51,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/hiring_sequencer.py",
+          "original_line": 52,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/capacity_modeler.py",
+          "original_line": 57,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/capacity_modeler.py",
+          "original_line": 58,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/utilization_analyzer.py",
+          "original_line": 59,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/hiring_sequencer.py",
+          "original_line": 60,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "org-health-diagnostic",
+      "skill_path": "07-productivity/org-health-diagnostic",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "c-level-advisor/skills/org-health-diagnostic",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/c-level-advisor/skills/org-health-diagnostic/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "07-productivity/org-health-diagnostic/references/health-benchmarks.md",
+          "sha256": "ee4476d0d74b1a6a9ef0aa0e597df66218d8c12bf177eb9cc3422a0066cb5419",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/c-level-advisor/skills/org-health-diagnostic/references/health-benchmarks.md",
+          "license": "MIT",
+          "license_path": "07-productivity/org-health-diagnostic/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "07-productivity/org-health-diagnostic/scripts/health_scorer.py",
+          "sha256": "00dffcfb9909734c8ba16fedb2830406f4b7f0e88f9d12a595e23965606beabf",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/c-level-advisor/skills/org-health-diagnostic/scripts/health_scorer.py",
+          "license": "MIT",
+          "license_path": "07-productivity/org-health-diagnostic/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "07-productivity/org-health-diagnostic/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "07-productivity/org-health-diagnostic/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "references/health-benchmarks.md",
+          "original_line": 56,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/health-benchmarks.md",
+          "original_line": 137,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/health_scorer.py",
+          "original_line": 138,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/health_scorer.py",
+          "original_line": 83,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/health_scorer.py",
+          "original_line": 84,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "agent-skill-security-scanner-v2",
+      "skill_path": "08-security/agent-skill-security-scanner-v2",
+      "resolution": "inline",
+      "source": {
+        "repository": "sickn33/agentic-awesome-skills",
+        "commit": "df309ba1c51f7aefddfb0cdc3457c7345595e281",
+        "path": "skills/skill-scanner",
+        "url": "https://github.com/sickn33/agentic-awesome-skills/blob/df309ba1c51f7aefddfb0cdc3457c7345595e281/skills/skill-scanner/SKILL.md",
+        "role": "missing-resource-inspection-snapshot"
+      },
+      "resources": [
+        {
+          "path": "08-security/agent-skill-security-scanner-v2/UPSTREAM-LICENSE.txt",
+          "sha256": "af98370a7edc0f00ec46979d049517833c9a7fa2ba74e3cf8cc42f7db557299d",
+          "source_url": "https://github.com/sickn33/agentic-awesome-skills/blob/df309ba1c51f7aefddfb0cdc3457c7345595e281/LICENSE",
+          "license": "MIT",
+          "license_path": "08-security/agent-skill-security-scanner-v2/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Read/Grep/Glob; no bundled executable required"
+      ],
+      "notes": [
+        "上游固定快照只有 SKILL.md，没有它声称的自动扫描脚本与 references。已将实际可执行流程改为内联检查表与只读人工审查，不编造扫描器。",
+        "The inspected commit is not a claim about the original adaptation revision."
+      ],
+      "audit_references": [
+        {
+          "reference": "references/prompt-injection-patterns.md",
+          "original_line": 51,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "references/dangerous-code-patterns.md",
+          "original_line": 60,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "replaced-workflow"
+        },
+        {
+          "reference": "references/permission-analysis.md",
+          "original_line": 64,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "replaced-workflow"
+        }
+      ]
+    },
+    {
+      "name": "env-secrets-hygiene",
+      "skill_path": "08-security/env-secrets-hygiene",
+      "resolution": "bundle",
+      "source": {
+        "repository": "alirezarezvani/claude-skills",
+        "commit": "56d41613d1ca1e2b0614a19c3816ec97a6159ec2",
+        "path": "engineering/skills/env-secrets-manager",
+        "url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/env-secrets-manager/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "08-security/env-secrets-hygiene/references/secret-patterns.md",
+          "sha256": "9472390042a7f9bdb9e723b01592e9d2ac5241974281f4249a19c68efce69254",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/env-secrets-manager/references/secret-patterns.md",
+          "license": "MIT",
+          "license_path": "08-security/env-secrets-hygiene/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "08-security/env-secrets-hygiene/references/validation-detection-rotation.md",
+          "sha256": "5f71dff7ae1b479b49a1335dc1999e45484c05672c35b47af75b258296132b6a",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/env-secrets-manager/references/validation-detection-rotation.md",
+          "license": "MIT",
+          "license_path": "08-security/env-secrets-hygiene/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "08-security/env-secrets-hygiene/scripts/env_auditor.py",
+          "sha256": "679d1435a809e9c9572e97d310daef1e4cd8aeeea19278c348ca71ec01a27802",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/engineering/skills/env-secrets-manager/scripts/env_auditor.py",
+          "license": "MIT",
+          "license_path": "08-security/env-secrets-hygiene/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "08-security/env-secrets-hygiene/UPSTREAM-LICENSE.txt",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "source_url": "https://github.com/alirezarezvani/claude-skills/blob/56d41613d1ca1e2b0614a19c3816ec97a6159ec2/LICENSE",
+          "license": "MIT",
+          "license_path": "08-security/env-secrets-hygiene/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/env_auditor.py",
+          "original_line": 49,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/env_auditor.py",
+          "original_line": 52,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "advisor-fit-analyzer",
+      "skill_path": "09-verticals/advisor-fit-analyzer",
+      "resolution": "bundle",
+      "source": {
+        "repository": "voidful/academic-skills",
+        "commit": "71e9c42c60636602e87985f4306d134a3b63809e",
+        "path": "professor-fit-analyser",
+        "url": "https://github.com/voidful/academic-skills/blob/71e9c42c60636602e87985f4306d134a3b63809e/professor-fit-analyser/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "09-verticals/advisor-fit-analyzer/references/evidence-rubric.md",
+          "sha256": "0b09f329be2558afd8d9f0c68d518cd45b785daa569ef3f3ca99e5efdb38fea5",
+          "source_url": "https://github.com/voidful/academic-skills/blob/71e9c42c60636602e87985f4306d134a3b63809e/professor-fit-analyser/references/evidence-rubric.md",
+          "license": "MIT",
+          "license_path": "09-verticals/advisor-fit-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/advisor-fit-analyzer/references/output-template.md",
+          "sha256": "c584908a4528a4f3b13e337a135bf1086a0bfcd7a4fb5e3982ff9460061c78db",
+          "source_url": "https://github.com/voidful/academic-skills/blob/71e9c42c60636602e87985f4306d134a3b63809e/professor-fit-analyser/references/output-template.md",
+          "license": "MIT",
+          "license_path": "09-verticals/advisor-fit-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/advisor-fit-analyzer/references/outreach-playbook.md",
+          "sha256": "1c3fe8967599b000ca99c20e86eb6dea1bdcd83a6cc3164cfc18255ea31fdd78",
+          "source_url": "https://github.com/voidful/academic-skills/blob/71e9c42c60636602e87985f4306d134a3b63809e/professor-fit-analyser/references/outreach-playbook.md",
+          "license": "MIT",
+          "license_path": "09-verticals/advisor-fit-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/advisor-fit-analyzer/templates/email-template.md",
+          "sha256": "dd18fa786705b10a07cbbe75020fcaef3fbfd0bd604798d139f5d3c8b964482c",
+          "source_url": "https://github.com/voidful/academic-skills/blob/71e9c42c60636602e87985f4306d134a3b63809e/professor-fit-analyser/templates/email-template.md",
+          "license": "MIT",
+          "license_path": "09-verticals/advisor-fit-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/advisor-fit-analyzer/templates/report-template.md",
+          "sha256": "ce2ff03c0370e9406e4b3be7700b215974ddf389b310415f8a2903686d9d3b92",
+          "source_url": "https://github.com/voidful/academic-skills/blob/71e9c42c60636602e87985f4306d134a3b63809e/professor-fit-analyser/templates/report-template.md",
+          "license": "MIT",
+          "license_path": "09-verticals/advisor-fit-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/advisor-fit-analyzer/UPSTREAM-LICENSE.txt",
+          "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+          "source_url": "https://github.com/voidful/academic-skills/blob/71e9c42c60636602e87985f4306d134a3b63809e/LICENSE",
+          "license": "MIT",
+          "license_path": "09-verticals/advisor-fit-analyzer/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "No bundled executable required; reference files are read-only context"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "references/evidence-rubric.md",
+          "original_line": 422,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/outreach-playbook.md",
+          "original_line": 609,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "references/output-template.md",
+          "original_line": 693,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "bulk-rnaseq-orchestrator",
+      "skill_path": "09-verticals/bulk-rnaseq-orchestrator",
+      "resolution": "bundle",
+      "source": {
+        "repository": "K-Dense-AI/scientific-agent-skills",
+        "commit": "93124850ef08487e423165554c54f0b333d5631d",
+        "path": "skills/bulk-rnaseq",
+        "url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/93124850ef08487e423165554c54f0b333d5631d/skills/bulk-rnaseq/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "09-verticals/bulk-rnaseq-orchestrator/references/counts-and-handoff.md",
+          "sha256": "957241bffd1ec772697c47dda3d3a4474abbbd9d6f0d8ed9d0c854b708158e77",
+          "source_url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/93124850ef08487e423165554c54f0b333d5631d/skills/bulk-rnaseq/references/counts-and-handoff.md",
+          "license": "MIT",
+          "license_path": "09-verticals/bulk-rnaseq-orchestrator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/bulk-rnaseq-orchestrator/references/design-and-qc.md",
+          "sha256": "cf28bd0ff327b3a271074c14390a6642d4f59604bff961f16fb5e875b0f244f1",
+          "source_url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/93124850ef08487e423165554c54f0b333d5631d/skills/bulk-rnaseq/references/design-and-qc.md",
+          "license": "MIT",
+          "license_path": "09-verticals/bulk-rnaseq-orchestrator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/bulk-rnaseq-orchestrator/references/upstream-manual.md",
+          "sha256": "d467f8a45e6464f5e0b4292fa14f3602cc01556771e2ce4f6eb695d329173a87",
+          "source_url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/93124850ef08487e423165554c54f0b333d5631d/skills/bulk-rnaseq/references/upstream-manual.md",
+          "license": "MIT",
+          "license_path": "09-verticals/bulk-rnaseq-orchestrator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/bulk-rnaseq-orchestrator/references/upstream-nfcore.md",
+          "sha256": "47ff74b1a2afeeaade186dbea15a46fc4b66d80660b8e954bb9363514f2bdbac",
+          "source_url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/93124850ef08487e423165554c54f0b333d5631d/skills/bulk-rnaseq/references/upstream-nfcore.md",
+          "license": "MIT",
+          "license_path": "09-verticals/bulk-rnaseq-orchestrator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/bulk-rnaseq-orchestrator/scripts/build_counts_matrix.py",
+          "sha256": "17e7de8ad99847fc6b87441e446f302679cadc138d31252dffabf9e43cd65553",
+          "source_url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/93124850ef08487e423165554c54f0b333d5631d/skills/bulk-rnaseq/scripts/build_counts_matrix.py",
+          "license": "MIT",
+          "license_path": "09-verticals/bulk-rnaseq-orchestrator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/bulk-rnaseq-orchestrator/scripts/validate_samplesheet.py",
+          "sha256": "a14ccabbea68b34741facf133d5fba3055f0bb86978918f61a7571c297de1ab6",
+          "source_url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/93124850ef08487e423165554c54f0b333d5631d/skills/bulk-rnaseq/scripts/validate_samplesheet.py",
+          "license": "MIT",
+          "license_path": "09-verticals/bulk-rnaseq-orchestrator/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/bulk-rnaseq-orchestrator/UPSTREAM-LICENSE.txt",
+          "sha256": "09b02a3c9df3053c55531d503357a9c7cde275970e6c3ceaa1ddf5f0e90b40c1",
+          "source_url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/93124850ef08487e423165554c54f0b333d5631d/LICENSE.md",
+          "license": "MIT",
+          "license_path": "09-verticals/bulk-rnaseq-orchestrator/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3",
+        "pandas",
+        "pytximport only for the tximport branch; nf-core / Nextflow / Salmon / STAR remain explicit environment dependencies"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/validate_samplesheet.py",
+          "original_line": 35,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/build_counts_matrix.py",
+          "original_line": 39,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/build_counts_matrix.py",
+          "original_line": 68,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/validate_samplesheet.py",
+          "original_line": 80,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/build_counts_matrix.py",
+          "original_line": 100,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "lbo-model-builder",
+      "skill_path": "09-verticals/lbo-model-builder",
+      "resolution": "inline",
+      "source": {
+        "repository": "anthropics/financial-services",
+        "commit": "120a31dcede4affa1d771cbf286a63ee331f92a4",
+        "path": "plugins/vertical-plugins/financial-analysis/skills/lbo-model",
+        "url": "https://github.com/anthropics/financial-services/blob/120a31dcede4affa1d771cbf286a63ee331f92a4/plugins/vertical-plugins/financial-analysis/skills/lbo-model/SKILL.md",
+        "role": "missing-resource-inspection-snapshot"
+      },
+      "resources": [
+        {
+          "path": "09-verticals/lbo-model-builder/UPSTREAM-LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://github.com/anthropics/financial-services/blob/120a31dcede4affa1d771cbf286a63ee331f92a4/LICENSE",
+          "license": "Apache-2.0",
+          "license_path": "09-verticals/lbo-model-builder/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "User-supplied or explicitly authorized workbook",
+        "Excel or LibreOffice for recalculation; optional openpyxl / Office JS for editing"
+      ],
+      "notes": [
+        "上游固定快照未附示例工作簿。已明确要求用户工作簿/授权创建，移除缺失模板及宿主专用重算 helper 路径。",
+        "The inspected commit is not a claim about the original adaptation revision."
+      ],
+      "audit_references": [
+        {
+          "reference": "examples/LBO_Model.xlsx",
+          "original_line": 32,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "replaced-workflow"
+        }
+      ]
+    },
+    {
+      "name": "market-breadth-analyzer",
+      "skill_path": "09-verticals/market-breadth-analyzer",
+      "resolution": "bundle",
+      "source": {
+        "repository": "tradermonty/claude-trading-skills",
+        "commit": "c5d3e5d6d10276bf149db8108a253de22e141252",
+        "path": "skills/market-breadth-analyzer",
+        "url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "09-verticals/market-breadth-analyzer/references/breadth_analysis_methodology.md",
+          "sha256": "992b7af208b6fe30dee6b00ee5a934014ab273c37b6ad6dfe4405e579693d49c",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/references/breadth_analysis_methodology.md",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/calculators/__init__.py",
+          "sha256": "df009f89a78a47d507b31f11629be439bd083dc6f3d01c7b2dd025d862207437",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/calculators/__init__.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/calculators/bearish_signal_calculator.py",
+          "sha256": "284b224793c173f107d41b5137957f5d2fe7a130845d9b8465f9a8081f1412fe",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/calculators/bearish_signal_calculator.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/calculators/cycle_calculator.py",
+          "sha256": "ba533a7bedc14183098ba322ecab609d2b8d4f6ee87ea41c512af7a1761e0c59",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/calculators/cycle_calculator.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/calculators/divergence_calculator.py",
+          "sha256": "db9efba56f0b8d9ae17445cac2496678759a44d2e69bbf999875888b2f3ac0a5",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/calculators/divergence_calculator.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/calculators/historical_context_calculator.py",
+          "sha256": "cb40031214236595e346a988014fcd37ef5d80932700bb5036c1b415f2a6d6b3",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/calculators/historical_context_calculator.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/calculators/ma_crossover_calculator.py",
+          "sha256": "7b1972fec6741265da72d702d9b36ee2ca24a2e223476e37369c5a015e67982e",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/calculators/ma_crossover_calculator.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/calculators/trend_level_calculator.py",
+          "sha256": "4d333e1314a6d9962858bde0d57909afc5928a6c8962f0d2976fc1450715d05d",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/calculators/trend_level_calculator.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/csv_client.py",
+          "sha256": "e6383c5ba7c8ee4db85a99c536e99378ff402a06b2eae46b80dc6cb8c2d67459",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/csv_client.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/history_tracker.py",
+          "sha256": "928a13804c7532463dca610ca65dab7d6666c6504993cc397434d68b36ca55bd",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/history_tracker.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/market_breadth_analyzer.py",
+          "sha256": "9fa2cda35bf3a64cec9ba6809c39c2f1479d20028728be2e942e3499582dfab6",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/market_breadth_analyzer.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/report_generator.py",
+          "sha256": "a6d7adda4cdb7bd3703c27ed9f146cf9c943cea7c182d11020e489ea40b4803e",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/report_generator.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/scripts/scorer.py",
+          "sha256": "aa59b22b3879bab60c8accb3d9e76e0408eaddb4e73049ec3e771b760bcc28f0",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/market-breadth-analyzer/scripts/scorer.py",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt",
+          "sha256": "87c93cde8c3a000c19b0c790cd4f7a4e4cb8da5bc6b11e0939bf6df99e245d15",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/LICENSE",
+          "license": "MIT",
+          "license_path": "09-verticals/market-breadth-analyzer/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3",
+        "requests; read-only remote market CSV retrieval requires network access"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "references/breadth_analysis_methodology.md",
+          "original_line": 98,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "trade-position-sizer",
+      "skill_path": "09-verticals/trade-position-sizer",
+      "resolution": "bundle",
+      "source": {
+        "repository": "tradermonty/claude-trading-skills",
+        "commit": "c5d3e5d6d10276bf149db8108a253de22e141252",
+        "path": "skills/position-sizer",
+        "url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/position-sizer/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "09-verticals/trade-position-sizer/references/sizing_methodologies.md",
+          "sha256": "be3c610737b07dffcf515ef798bf7b249136e0e184364647efd23f29bd15d75d",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/position-sizer/references/sizing_methodologies.md",
+          "license": "MIT",
+          "license_path": "09-verticals/trade-position-sizer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/trade-position-sizer/scripts/position_sizer.py",
+          "sha256": "3519b6f2c841da6a974395b730177153bf41a1b3bdf2b0c1b2422ec6992a2de9",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/skills/position-sizer/scripts/position_sizer.py",
+          "license": "MIT",
+          "license_path": "09-verticals/trade-position-sizer/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "09-verticals/trade-position-sizer/UPSTREAM-LICENSE.txt",
+          "sha256": "87c93cde8c3a000c19b0c790cd4f7a4e4cb8da5bc6b11e0939bf6df99e245d15",
+          "source_url": "https://github.com/tradermonty/claude-trading-skills/blob/c5d3e5d6d10276bf149db8108a253de22e141252/LICENSE",
+          "license": "MIT",
+          "license_path": "09-verticals/trade-position-sizer/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "Python 3 (standard library)"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation."
+      ],
+      "audit_references": [
+        {
+          "reference": "scripts/position_sizer.py",
+          "original_line": 40,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/position_sizer.py",
+          "original_line": 44,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/position_sizer.py",
+          "original_line": 48,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/position_sizer.py",
+          "original_line": 52,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/position_sizer.py",
+          "original_line": 56,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        },
+        {
+          "reference": "scripts/position_sizer.py",
+          "original_line": 60,
+          "audit_list": "command-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    },
+    {
+      "name": "zoom-oauth-setup",
+      "skill_path": "10-platform/zoom-oauth-setup",
+      "resolution": "bundle",
+      "source": {
+        "repository": "anthropics/knowledge-work-plugins",
+        "commit": "250bdfd752d7f006ef93cc1aa2c58ec998ead871",
+        "path": "partner-built/zoom-plugin/skills/oauth",
+        "url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/SKILL.md",
+        "role": "resource-restoration-snapshot"
+      },
+      "resources": [
+        {
+          "path": "10-platform/zoom-oauth-setup/RUNBOOK.md",
+          "sha256": "f04db31922f5ada340545106e77114ef3710c13a6527deed213e0cd812fd122e",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/RUNBOOK.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/concepts/oauth-flows.md",
+          "sha256": "855fabdfbc6caf84ffb4336e1488afcb016e4cd61111853f3e6ecb750e4ffc13",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/concepts/oauth-flows.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/concepts/pkce.md",
+          "sha256": "1233b45ef5bbf2f50b62792a3d3e8133d2b3077f325af008bdc1e5d5a2a06e99",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/concepts/pkce.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/concepts/scopes-architecture.md",
+          "sha256": "05f79e59d5199c669cfdf9eb05a300244fbafe28cdb5aead0e95abb08e9d6e4b",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/concepts/scopes-architecture.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/concepts/state-parameter.md",
+          "sha256": "7db93621bce15160596757e4ac92547e0e726e4a4d3c6df60fc4bf3f481d9e04",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/concepts/state-parameter.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/concepts/token-lifecycle.md",
+          "sha256": "4e26346d03458ccc3a5221ef067be9fb581f892f2b0899f03b53987af3e34f74",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/concepts/token-lifecycle.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/examples/device-flow.md",
+          "sha256": "c5fa3883bcbd74f25871f0f963267ab91f72a4d5cdefc02ce5c722d5d25e9296",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/examples/device-flow.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/examples/pkce-implementation.md",
+          "sha256": "42f364d158bd3ed6d6a1315cb8fd023fefa6fbac75c09844c344880f9ce385e5",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/examples/pkce-implementation.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/examples/s2s-oauth-basic.md",
+          "sha256": "36334fe86138f2eea81213175de886c72e9faf8dbf2f2bfdefe68a735d36c1d6",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/examples/s2s-oauth-basic.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/examples/s2s-oauth-redis.md",
+          "sha256": "b72238966db57e676b780118e155ac7a882d76373faa5d4c95d3d3c48c6324e7",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/examples/s2s-oauth-redis.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/examples/token-refresh.md",
+          "sha256": "e232d0a94e48639e441d1b7bab72750751a49dc3ea19ba467b302aad26d931ac",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/examples/token-refresh.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/examples/user-oauth-basic.md",
+          "sha256": "edb65b192dbf877afc0ebe254053e12e7507b80cf4835e17c16850ebb995d885",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/examples/user-oauth-basic.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/examples/user-oauth-mysql.md",
+          "sha256": "0972eb2789bb60f379c61aa4c888bd63d68c208f188bf903b3c72a790ee45e02",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/examples/user-oauth-mysql.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/references/classic-scopes.md",
+          "sha256": "708b88ad18d8f6f51eb8c7e36a8b02136a9d1be1ce49e593216db00d96b59f92",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/references/classic-scopes.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/references/environment-variables.md",
+          "sha256": "ddd2ab5b50466b3409373726e2d98056166733888dad54a298525526d57e1986",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/references/environment-variables.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/references/granular-scopes.md",
+          "sha256": "87f45367596242350287ef344a40472f05547def69939696817402c38ee41b24",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/references/granular-scopes.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/references/oauth-errors.md",
+          "sha256": "f66f41ebe15af16c25d7a648196556d1e308e105f1a702237dc48ba311c93738",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/references/oauth-errors.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/troubleshooting/common-errors.md",
+          "sha256": "520b1eb37a26d8a03ae9ed217769fd960cfbb27029cfab83d72b28a156000b0c",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/troubleshooting/common-errors.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/troubleshooting/redirect-uri-issues.md",
+          "sha256": "4dfcbda79f4bd8acb16023475c57bb275597b10848585bdccc1ee073af149fe3",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/troubleshooting/redirect-uri-issues.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/troubleshooting/scope-issues.md",
+          "sha256": "0bda081c66b90fc849cd2071b2b428117ac016fa724b2a5684c90a3bef4d3296",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/troubleshooting/scope-issues.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/troubleshooting/token-issues.md",
+          "sha256": "a399036fc33de71378a35fc489017f1fccc0733a5da1fe783bff2175819dc3ea",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/skills/oauth/troubleshooting/token-issues.md",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        },
+        {
+          "path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt",
+          "sha256": "a8fdbfcbd785e4e372ab3d17bc2f4faf489437fcd985872607a8107ac2cd85f8",
+          "source_url": "https://github.com/anthropics/knowledge-work-plugins/blob/250bdfd752d7f006ef93cc1aa2c58ec998ead871/partner-built/zoom-plugin/LICENSE",
+          "license": "MIT",
+          "license_path": "10-platform/zoom-oauth-setup/UPSTREAM-LICENSE.txt"
+        }
+      ],
+      "dependencies": [
+        "No bundled executable required; reference files are read-only context"
+      ],
+      "notes": [
+        "Resources copied byte-for-byte from tracked Git blobs; not executed during packaging.",
+        "This snapshot restores missing resources and does not establish the revision used for the original SKILL.md adaptation.",
+        "Zoom plugin-local MIT license governs restored resources; the parent repository root Apache-2.0 label is not used as a substitute for that license."
+      ],
+      "audit_references": [
+        {
+          "reference": "RUNBOOK.md",
+          "original_line": 646,
+          "audit_list": "missing-resources-classified.json",
+          "resolution": "bundled"
+        }
+      ]
+    }
+  ]
+}

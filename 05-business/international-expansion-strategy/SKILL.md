@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: [market-sizing-analyst, competitive-analysis, cmo-marketing-advisor, product-marketing-gtm-strategy]
-combines_with: [market-sizing-analyst, product-marketing-gtm-strategy, pricing-strategy]
+related: [market-sizing-tam-sam-som, competitive-analysis, cmo-marketing-advisor, product-marketing-gtm-strategy]
+combines_with: [market-sizing-tam-sam-som, product-marketing-gtm-strategy, pricing-strategy]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

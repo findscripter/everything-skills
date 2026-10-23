@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-采编自第三方的技能及其原始许可（自有原创技能不在此列）。
+下列为条目声明的来源与许可（原创技能不在此列），不替代文件级授权核实。固定参考版本及历史缺口见 [来源清单说明](../data/skill-provenance.README.md) 和 [机器清单](../data/skill-provenance.json)；比较快照不等于原采编版本。
 - [`ab-test-designer`](../05-business/ab-test-designer/SKILL.md) ← coreyhaines31/marketingskills　`MIT`
 - [`ab-test-setup-gates`](../05-business/ab-test-setup-gates/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`academic-paper-explainer`](../09-verticals/academic-paper-explainer/SKILL.md) ← voidful/academic-skills　`MIT`
@@ -769,7 +769,6 @@
 - [`paywall-upgrade-cro`](../05-business/paywall-upgrade-cro/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
 - [`pcb-bom-manager`](../09-verticals/pcb-bom-manager/SKILL.md) ← aklofas/kicad-happy　`MIT`
 - [`pcb-fab-assembly`](../09-verticals/pcb-fab-assembly/SKILL.md) ← aklofas/kicad-happy　`MIT`
-- [`pdf-processing-toolkit`](../01-documents/pdf-processing-toolkit/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`pe-dd-checklist`](../05-business/pe-dd-checklist/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`pe-portfolio-monitoring`](../05-business/pe-portfolio-monitoring/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`pe-returns-sensitivity`](../09-verticals/pe-returns-sensitivity/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
@@ -803,7 +802,6 @@
 - [`postgresql-optimization`](../03-data/postgresql-optimization/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`postmortem-writer`](../02-engineering/postmortem-writer/SKILL.md) ← wshobson/agents　`MIT`
 - [`powershell-windows`](../02-engineering/powershell-windows/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
-- [`pptx-document-processing`](../01-documents/pptx-document-processing/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`prd-spec-writer`](../07-productivity/prd-spec-writer/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`pre-deploy-checklist`](../02-engineering/pre-deploy-checklist/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`premortem-plan-challenger`](../00-meta/premortem-plan-challenger/SKILL.md) ← alirezarezvani/claude-skills　`MIT`
@@ -837,7 +835,7 @@
 - [`pymc-bayesian-modeling`](../03-data/pymc-bayesian-modeling/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
 - [`pymoo-multiobjective-optimization`](../09-verticals/pymoo-multiobjective-optimization/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
 - [`pyopenms-mass-spectrometry`](../09-verticals/pyopenms-mass-spectrometry/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
-- [`pytdc-therapeutics-data-commons`](../09-verticals/pytdc-therapeutics-data-commons/SKILL.md) ← jaechang-hits/SciAgent-Skills　`CC-BY-4.0`
+- [`pytdc-therapeutics-data-commons`](../09-verticals/pytdc-therapeutics-data-commons/SKILL.md) ← jaechang-hits/SciAgent-Skills　`MIT`
 - [`pytdc-therapeutics-datasets`](../09-verticals/pytdc-therapeutics-datasets/SKILL.md) ← K-Dense-AI/scientific-agent-skills　`MIT`
 - [`python-performance-optimization`](../02-engineering/python-performance-optimization/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`python-pptx-deck-generator`](../01-documents/python-pptx-deck-generator/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
@@ -1084,7 +1082,6 @@
 - [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`x-twitter-scraper-toolkit`](../10-platform/x-twitter-scraper-toolkit/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`xiaohongshu-content-strategy`](../05-business/xiaohongshu-content-strategy/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
-- [`xlsx-spreadsheet-authoring`](../01-documents/xlsx-spreadsheet-authoring/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`yara-rule-authoring`](../08-security/yara-rule-authoring/SKILL.md) ← trailofbits/skills　`CC-BY-SA-4.0`
 - [`youtube-transcript-ingest`](../10-platform/youtube-transcript-ingest/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`zapier-make-automation`](../07-productivity/zapier-make-automation/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
@@ -1099,7 +1096,7 @@
 - [`zoom-mcp-connectors`](../10-platform/zoom-mcp-connectors/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`zoom-meeting-app-builder`](../10-platform/zoom-meeting-app-builder/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`zoom-meeting-bot-builder`](../10-platform/zoom-meeting-bot-builder/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
-- [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
+- [`zoom-oauth-setup`](../10-platform/zoom-oauth-setup/SKILL.md) ← anthropics/knowledge-work-plugins　`MIT`
 - [`zoom-phone-integration`](../10-platform/zoom-phone-integration/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`zoom-product-surface-selector`](../10-platform/zoom-product-surface-selector/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`
 - [`zoom-rtms-realtime-media`](../10-platform/zoom-rtms-realtime-media/SKILL.md) ← anthropics/knowledge-work-plugins　`Apache-2.0`

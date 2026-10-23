@@ -16,6 +16,14 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
+## 随包资源与运行前提
+
+本目录的脚本、参考文档和模板已随技能分发；固定来源、SHA-256 与许可见 [RESOURCES.md](RESOURCES.md) 及 [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)。新增资源取自核验时的固定上游快照，不表示这是原正文采编时的版本。
+
+- 文档中的资源相对路径指**本技能目录**；执行时保持目标项目所需的工作目录，用资源的绝对路径调用。项目输入/输出也使用绝对路径，不能把技能库误当成被操作的项目。
+- 环境依赖：Python 3；pandas；pytximport only for the tximport branch; nf-core / Nextflow / Salmon / STAR remain explicit environment dependencies。本技能不自动安装这些依赖；缺失时先报告具体缺项，使用正文可行的人工流程，不能声称已完成脚本验证。
+- 上游脚本在本仓仅做静态核对；使用前审查实际参数、输出位置及外部调用，按用户已授权范围运行。
+
 ## 何时使用
 
 当用户手里有 **bulk RNA-seq 原始 reads（FASTQ）或定量输出**，想要一条**完整、可复现、可辩护**的差异表达研究链路时用本条。本条是**编排器/路由**，不重复造轮子：把已有的各阶段技能按正确顺序串起来，补上唯一的真空地带（原始 reads → 基因级计数矩阵），并守住决定结果可信度的**设计与 QC 决策**。典型请求：「分析我的 RNA-seq」「FASTQ 到 DESeq2」「跑 nf-core/rnaseq」「STAR/Salmon 定量」「为 DESeq2 构计数矩阵」「从 reads 到差异基因和富集通路」。

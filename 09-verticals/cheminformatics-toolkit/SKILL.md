@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [RDKit, Python, rdkit.Chem, Descriptors, rdFingerprintGenerator, DataStructs, AllChem, Draw]
 requires: []
-related: [materials-science-toolkit, molecular-dynamics-simulation, scientific-database-lookup, astronomy-data-toolkit]
-combines_with: [scientific-database-lookup, molecular-dynamics-simulation]
+related: [materials-science-toolkit, molecular-dynamics-openmm, scientific-database-lookup, astropy-astronomy-toolkit]
+combines_with: [scientific-database-lookup, molecular-dynamics-openmm]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT

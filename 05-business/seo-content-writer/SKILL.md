@@ -102,4 +102,4 @@ Slug: remote-team-collaboration-tools
 
 - requires：`fact-checking` —— 文中所有事实性断言、数据、引用须经其核验。
 - related：`markdown-to-docx` —— 将产出的 Markdown 文章转为可交付的 Word 文档。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。

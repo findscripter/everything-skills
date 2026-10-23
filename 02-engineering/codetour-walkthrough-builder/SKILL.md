@@ -113,7 +113,7 @@ supersedes: []
 | **Refactorer** | 安全重构 | 接缝、隐藏依赖、抽取顺序 |
 | **External contributor** | 安全贡献 | 安全区、约定、雷区 |
 
-真实参考：[coder/code-server 的 contributing.tour](https://github.com/microsoft/codetour/blob/main/.tours/contributing.tour)。
+真实参考：[coder/code-server 的 contributing.tour](https://github.com/coder/code-server/blob/f07405cba33179e6d2058af07ca2be290f19b262/.tours/contributing.tour)。
 
 ## 注意事项
 

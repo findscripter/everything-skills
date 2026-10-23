@@ -634,8 +634,7 @@
           "tools": [
             "Read",
             "Grep",
-            "Glob",
-            "Bash"
+            "Glob"
           ]
         },
         "capabilities": [],
@@ -1982,7 +1981,7 @@
       "name": "astronomy-data-toolkit",
       "path": "09-verticals/astronomy-data-toolkit/SKILL.md",
       "quality": {
-        "review_status": "unreviewed",
+        "review_status": "archived",
         "last_reviewed": null,
         "source_type": "curated",
         "source_freshness": "unknown",
@@ -2003,7 +2002,7 @@
           ]
         },
         "capabilities": [],
-        "maturity": "stable",
+        "maturity": "deprecated",
         "security_risk": "unknown"
       }
     },
@@ -7881,7 +7880,7 @@
       "name": "dpa-clause-reviewer",
       "path": "09-verticals/dpa-clause-reviewer/SKILL.md",
       "quality": {
-        "review_status": "unreviewed",
+        "review_status": "archived",
         "last_reviewed": null,
         "source_type": "curated",
         "source_freshness": "unknown",
@@ -7895,7 +7894,7 @@
           ]
         },
         "capabilities": [],
-        "maturity": "stable",
+        "maturity": "deprecated",
         "security_risk": "unknown"
       }
     },
@@ -12889,9 +12888,9 @@
           "skills": [],
           "tools": [
             "Excel",
+            "LibreOffice",
             "openpyxl",
             "Office JS",
-            "recalc.py",
             "Python"
           ]
         },
@@ -13874,7 +13873,7 @@
       "name": "market-sizing-analyst",
       "path": "05-business/market-sizing-analyst/SKILL.md",
       "quality": {
-        "review_status": "unreviewed",
+        "review_status": "archived",
         "last_reviewed": null,
         "source_type": "curated",
         "source_freshness": "unknown",
@@ -13884,7 +13883,7 @@
           "tools": []
         },
         "capabilities": [],
-        "maturity": "stable",
+        "maturity": "deprecated",
         "security_risk": "unknown"
       }
     },
@@ -14641,7 +14640,7 @@
       "name": "molecular-dynamics-simulation",
       "path": "09-verticals/molecular-dynamics-simulation/SKILL.md",
       "quality": {
-        "review_status": "unreviewed",
+        "review_status": "archived",
         "last_reviewed": null,
         "source_type": "curated",
         "source_freshness": "unknown",
@@ -14659,7 +14658,7 @@
           ]
         },
         "capabilities": [],
-        "maturity": "stable",
+        "maturity": "deprecated",
         "security_risk": "unknown"
       }
     },
@@ -16708,7 +16707,10 @@
             "cron",
             "aws-cli",
             "docker compose",
-            "systemctl"
+            "systemctl",
+            "python3",
+            "sha256sum",
+            "psql"
           ]
         },
         "capabilities": [],
@@ -17816,7 +17818,7 @@
       "quality": {
         "review_status": "unreviewed",
         "last_reviewed": null,
-        "source_type": "curated",
+        "source_type": "native",
         "source_freshness": "unknown",
         "license_confidence": "declared",
         "dependencies": {
@@ -18601,19 +18603,18 @@
       "quality": {
         "review_status": "unreviewed",
         "last_reviewed": null,
-        "source_type": "curated",
+        "source_type": "native",
         "source_freshness": "unknown",
         "license_confidence": "declared",
         "dependencies": {
           "skills": [],
           "tools": [
-            "python",
-            "markitdown",
-            "pptxgenjs",
-            "playwright",
-            "sharp",
-            "libreoffice",
-            "poppler"
+            "PowerPoint",
+            "LibreOffice",
+            "PptxGenJS",
+            "python-pptx",
+            "Python",
+            "Node.js"
           ]
         },
         "capabilities": [],
@@ -24371,7 +24372,7 @@
         "dependencies": {
           "skills": [],
           "tools": [
-            "dpa-clause-reviewer",
+            "dpa-playbook-review",
             "markdown-to-docx",
             "CLM MCP (Ironclad/Agiloft)",
             "DocuSign MCP"
@@ -25097,7 +25098,7 @@
       "name": "x-twitter-automation",
       "path": "10-platform/x-twitter-automation/SKILL.md",
       "quality": {
-        "review_status": "unreviewed",
+        "review_status": "archived",
         "last_reviewed": null,
         "source_type": "curated",
         "source_freshness": "unknown",
@@ -25114,7 +25115,7 @@
           ]
         },
         "capabilities": [],
-        "maturity": "stable",
+        "maturity": "deprecated",
         "security_risk": "unknown"
       }
     },
@@ -25171,7 +25172,7 @@
       "quality": {
         "review_status": "unreviewed",
         "last_reviewed": null,
-        "source_type": "curated",
+        "source_type": "native",
         "source_freshness": "unknown",
         "license_confidence": "declared",
         "dependencies": {

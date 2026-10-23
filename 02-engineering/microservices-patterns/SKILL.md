@@ -179,7 +179,7 @@ class CircuitState(Enum):
 
 - requires：无。
 - related：`code-reviewer`（落地后的服务代码可交由其审查正确性与质量；本技能只负责架构层模式与边界设计）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 本条目采编自 sickn33/antigravity-awesome-skills（MIT 许可），经适配重写为中文。

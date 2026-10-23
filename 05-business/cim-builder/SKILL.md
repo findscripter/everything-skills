@@ -113,7 +113,7 @@ source_license: Apache-2.0
 
 - related：`ma-playbook` —— 买方侧的尽调/估值/整合视角，与本卖方募售文档互为交易两端。
 - related：`board-deck-builder` —— 把 CIM 核心结论压缩成董事会/股东决策页。
-- related：`market-sizing-analyst` —— 测算第 III 章 TAM/SAM/SOM 与行业增长动态。
+- related：`market-sizing-tam-sam-som` —— 测算第 III 章 TAM/SAM/SOM 与行业增长动态。
 - related：`competitive-analysis` —— 支撑「竞争格局」与「关键差异化」章节。
 - combines_with：`startup-financial-modeler` —— 产出第 VII 章财务与 Excel 附录所需的三表与预测模型。
 - combines_with：`data-storyteller` —— 把财务趋势与投资亮点转为有说服力的图文叙事。

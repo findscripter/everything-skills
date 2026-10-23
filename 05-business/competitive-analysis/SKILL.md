@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [G2, Capterra, Glassdoor, SEC-filings]
 requires: []
-related: [competitive-matrix-builder, competitive-intel-tracker, market-sizing-analyst, product-marketing-gtm-strategy]
-combines_with: [market-sizing-analyst, product-marketing-gtm-strategy, pricing-strategy]
+related: [competitive-matrix-builder, competitive-intel-tracker, market-sizing-tam-sam-som, product-marketing-gtm-strategy]
+combines_with: [market-sizing-tam-sam-som, product-marketing-gtm-strategy, pricing-strategy]
 license: MIT
 source: wshobson/agents
 source_license: MIT

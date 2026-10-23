@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [markdown, legal-research-mcp, web-search]
 requires: []
-related: [gdpr-data-handler, dpa-clause-reviewer, dsar-response-builder, regulatory-policy-diff]
-combines_with: [gdpr-data-handler, dpa-clause-reviewer]
+related: [gdpr-data-handler, dpa-playbook-review, dsar-response-builder, regulatory-policy-diff]
+combines_with: [gdpr-data-handler, dpa-playbook-review]
 license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0

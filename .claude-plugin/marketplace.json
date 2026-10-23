@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "00-meta",
-      "description": "卷〇 · 通用 —— 43 个技能",
+      "description": "卷〇 · 通用 —— 42 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -32,7 +32,6 @@
         "./00-meta/executive-adversarial-mentor",
         "./00-meta/fact-checking",
         "./00-meta/filesystem-context-offload",
-        "./00-meta/first-principles-assumption-auditor",
         "./00-meta/first-principles-thinking",
         "./00-meta/four-voice-decision-council",
         "./00-meta/hard-call-advisor",
@@ -97,7 +96,7 @@
     },
     {
       "name": "02-engineering",
-      "description": "卷二 · 研发 —— 194 个技能",
+      "description": "卷二 · 研发 —— 191 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -142,7 +141,6 @@
         "./02-engineering/code-reviewer",
         "./02-engineering/code-simplifier",
         "./02-engineering/codebase-to-wordpress-theme",
-        "./02-engineering/codetour-walkthrough-builder",
         "./02-engineering/complexity-cuts",
         "./02-engineering/content-hash-cache-pattern",
         "./02-engineering/convex-reactive-backend",
@@ -214,7 +212,6 @@
         "./02-engineering/legacy-framework-modernizer",
         "./02-engineering/linux-sysadmin-shell-scripts",
         "./02-engineering/linux-system-troubleshooting",
-        "./02-engineering/llm-coding-mistake-guardrails",
         "./02-engineering/magic-ui-component-generator",
         "./02-engineering/makepad-rust-ui",
         "./02-engineering/microservices-patterns",
@@ -247,7 +244,6 @@
         "./02-engineering/react-native-architecture",
         "./02-engineering/react-state-management",
         "./02-engineering/realtime-support-chat-widget",
-        "./02-engineering/release-manager",
         "./02-engineering/rest-api-endpoint-builder",
         "./02-engineering/ruby-pro",
         "./02-engineering/rust-pro",
@@ -299,7 +295,7 @@
     },
     {
       "name": "03-data",
-      "description": "卷三 · 数据 —— 44 个技能",
+      "description": "卷三 · 数据 —— 43 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -316,7 +312,6 @@
         "./03-data/data-quality-validator",
         "./03-data/data-question-analyzer",
         "./03-data/data-scraper-agent-builder",
-        "./03-data/data-strategy-review",
         "./03-data/data-throughput-accelerator",
         "./03-data/dataset-profiler",
         "./03-data/dataset-quality-auditor",
@@ -351,7 +346,7 @@
     },
     {
       "name": "04-ai",
-      "description": "卷四 · 智能 —— 74 个技能",
+      "description": "卷四 · 智能 —— 73 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -404,7 +399,6 @@
         "./04-ai/llm-prompt-caching",
         "./04-ai/llm-prompt-optimizer",
         "./04-ai/local-llm-inference",
-        "./04-ai/mlops-model-productionizer",
         "./04-ai/multi-agent-system-designer",
         "./04-ai/multi-agent-workflow-designer",
         "./04-ai/on-device-foundation-models",
@@ -433,7 +427,7 @@
     },
     {
       "name": "05-business",
-      "description": "卷五 · 商业 —— 161 个技能",
+      "description": "卷五 · 商业 —— 159 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -519,7 +513,6 @@
         "./05-business/ma-playbook",
         "./05-business/ma-process-letter",
         "./05-business/macro-rates-dashboard",
-        "./05-business/market-sizing-analyst",
         "./05-business/market-sizing-tam-sam-som",
         "./05-business/marketing-analytics-tracker",
         "./05-business/marketing-campaign-brief",
@@ -574,7 +567,6 @@
         "./05-business/seo-performance-reporter",
         "./05-business/seo-rank-tracker",
         "./05-business/seo-site-architecture",
-        "./05-business/seo-traffic-drop-forensics",
         "./05-business/serp-feature-analysis",
         "./05-business/signal-based-call-prep",
         "./05-business/signup-flow-cro",
@@ -650,7 +642,7 @@
     },
     {
       "name": "07-productivity",
-      "description": "卷七 · 协作 —— 60 个技能",
+      "description": "卷七 · 协作 —— 59 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -709,7 +701,6 @@
         "./07-productivity/strategic-alignment-cascader",
         "./07-productivity/support-kb-article-writer",
         "./07-productivity/task-decomposition-planner",
-        "./07-productivity/technical-change-tracker",
         "./07-productivity/vendor-evaluation",
         "./07-productivity/wiki-yylo",
         "./07-productivity/workflow-yylo",
@@ -718,7 +709,7 @@
     },
     {
       "name": "08-security",
-      "description": "卷八 · 安全 —— 74 个技能",
+      "description": "卷八 · 安全 —— 72 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -770,7 +761,6 @@
         "./08-security/memory-forensics",
         "./08-security/metasploit-framework",
         "./08-security/mtls-zero-trust-config",
-        "./08-security/multi-framework-compliance-orchestrator",
         "./08-security/network-interface-health",
         "./08-security/path-traversal-testing",
         "./08-security/penetration-testing-methodology",
@@ -779,7 +769,6 @@
         "./08-security/sast-configurator",
         "./08-security/secrets-management",
         "./08-security/secrets-manager",
-        "./08-security/security-antipattern-hook",
         "./08-security/security-audit-toolkit",
         "./08-security/security-diff-review",
         "./08-security/security-incident-response",
@@ -800,7 +789,7 @@
     },
     {
       "name": "09-verticals",
-      "description": "卷九 · 领域专精 —— 326 个技能",
+      "description": "卷九 · 领域专精 —— 319 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -816,7 +805,6 @@
         "./09-verticals/arboreto-grn-inference",
         "./09-verticals/archs4-expression-database",
         "./09-verticals/arm-cortex-firmware-expert",
-        "./09-verticals/astronomy-data-toolkit",
         "./09-verticals/astropy-astronomy-toolkit",
         "./09-verticals/autodock-vina-docking",
         "./09-verticals/backtesting-frameworks",
@@ -864,7 +852,6 @@
         "./09-verticals/deal-closing-checklist",
         "./09-verticals/deepchem-drug-discovery",
         "./09-verticals/deeptools-ngs-analysis",
-        "./09-verticals/defi-natural-language-agent",
         "./09-verticals/defi-protocol-templates",
         "./09-verticals/demand-letter-drafter",
         "./09-verticals/depmap-cancer-dependency",
@@ -874,7 +861,6 @@
         "./09-verticals/diffdock-blind-docking",
         "./09-verticals/diligence-issue-extractor",
         "./09-verticals/dmca-takedown-notice",
-        "./09-verticals/dpa-clause-reviewer",
         "./09-verticals/dpa-playbook-review",
         "./09-verticals/drugbank-database-access",
         "./09-verticals/dsar-response-builder",
@@ -914,7 +900,6 @@
         "./09-verticals/gtopdb-pharmacology-database",
         "./09-verticals/guided-statistical-analysis",
         "./09-verticals/gwas-catalog-database",
-        "./09-verticals/hardware-doc-generator",
         "./09-verticals/harmony-batch-correction",
         "./09-verticals/health-goal-analyzer",
         "./09-verticals/histolab-wsi-tiling",
@@ -969,7 +954,6 @@
         "./09-verticals/merger-accretion-dilution-model",
         "./09-verticals/metabolomics-workbench-database",
         "./09-verticals/molecular-dynamics-openmm",
-        "./09-verticals/molecular-dynamics-simulation",
         "./09-verticals/molfeat-molecular-featurization",
         "./09-verticals/monarch-disease-phenotype",
         "./09-verticals/moodle-external-api-dev",
@@ -1070,7 +1054,6 @@
         "./09-verticals/privacy-impact-assessor",
         "./09-verticals/privilege-log-reviewer",
         "./09-verticals/product-launch-legal-review",
-        "./09-verticals/property-auction-legal-analysis",
         "./09-verticals/protein-language-models",
         "./09-verticals/pubchem-compound-search",
         "./09-verticals/pydeseq2-differential-expression",
@@ -1108,7 +1091,6 @@
         "./09-verticals/string-ppi-database",
         "./09-verticals/subpoena-triage",
         "./09-verticals/sympy-symbolic-math",
-        "./09-verticals/tax-loss-harvesting",
         "./09-verticals/three-statement-model",
         "./09-verticals/tiledbvcf-variant-store",
         "./09-verticals/trackpy-particle-tracking",
@@ -1134,7 +1116,7 @@
     },
     {
       "name": "10-platform",
-      "description": "卷十 · 平台集成 —— 69 个技能",
+      "description": "卷十 · 平台集成 —— 66 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -1150,7 +1132,6 @@
         "./10-platform/aws-serverless-architect",
         "./10-platform/aws-serverless-builder",
         "./10-platform/azure-cloud-architect",
-        "./10-platform/azure-container-apps-deploy",
         "./10-platform/azure-functions-serverless",
         "./10-platform/browser-automation-builder",
         "./10-platform/busybox-on-windows",
@@ -1170,7 +1151,6 @@
         "./10-platform/go-playwright-automation",
         "./10-platform/go-rod-browser-automation",
         "./10-platform/google-workspace-cli-admin",
-        "./10-platform/imessage-claude-bridge",
         "./10-platform/linkedin-cli-automation",
         "./10-platform/mcp-builder",
         "./10-platform/ms365-tenant-admin",
@@ -1192,7 +1172,6 @@
         "./10-platform/vexor-vector-cli-setup",
         "./10-platform/whatsapp-cloud-api",
         "./10-platform/x-post-to-json-fetcher",
-        "./10-platform/x-twitter-automation",
         "./10-platform/x-twitter-scraper-toolkit",
         "./10-platform/youtube-transcript-ingest",
         "./10-platform/zoom-ai-scribe-transcription",

@@ -16,6 +16,14 @@ license: MIT
 source: tradermonty/claude-trading-skills
 source_license: MIT
 ---
+## 随包资源与运行前提
+
+本目录的脚本、参考文档和模板已随技能分发；固定来源、SHA-256 与许可见 [RESOURCES.md](RESOURCES.md) 及 [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)。新增资源取自核验时的固定上游快照，不表示这是原正文采编时的版本。
+
+- 文档中的资源相对路径指**本技能目录**；执行时保持目标项目所需的工作目录，用资源的绝对路径调用。项目输入/输出也使用绝对路径，不能把技能库误当成被操作的项目。
+- 环境依赖：Python 3；requests; read-only remote market CSV retrieval requires network access。本技能不自动安装这些依赖；缺失时先报告具体缺项，使用正文可行的人工流程，不能声称已完成脚本验证。
+- 上游脚本在本仓仅做静态核对；使用前审查实际参数、输出位置及外部调用，按用户已授权范围运行。
+
 ## 何时使用
 
 - 用户问「这波上涨是不是普涨/广泛参与」「市场宽度健康吗」「参与率怎么样」，需要一个可复现的量化结论而非主观看图。
@@ -39,7 +47,7 @@ source_license: MIT
 
 ```bash
 mkdir -p reports/<routine-or-date>
-python3 skills/market-breadth-analyzer/scripts/market_breadth_analyzer.py \
+python3 scripts/market_breadth_analyzer.py \
   --detail-url "https://tradermonty.github.io/market-breadth-analysis/market_breadth_data.csv" \
   --summary-url "https://tradermonty.github.io/market-breadth-analysis/market_breadth_summary.csv" \
   --output-dir reports/<routine-or-date>

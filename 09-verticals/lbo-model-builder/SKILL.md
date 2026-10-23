@@ -8,7 +8,7 @@ tags: [lbo, finance, private-equity, excel, modeling, irr, moic, fintech]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Excel, openpyxl, Office JS, recalc.py, Python]
+tools: [Excel, LibreOffice, openpyxl, Office JS, Python]
 requires: []
 related: [pe-returns-sensitivity, merger-accretion-dilution-model, dcf-valuation-model, three-statement-model]
 combines_with: [pe-returns-sensitivity, three-statement-model, unit-economics-analyzer]
@@ -27,11 +27,15 @@ source_license: Apache-2.0
 - 这是 DCF、可比公司、三大报表估值等其它金融模型（本条只针对 LBO 模板填充）。
 - 纯数据清洗/统计分析，不涉及财务建模。
 
+## 资源与环境
+
+本技能依赖用户提供或明确授权创建的工作簿，以及用户环境中的 Excel/LibreOffice 计算引擎；不附带可复制的 LBO 示例模板或重算 helper。来源、许可及缺失模板的处置说明见 [RESOURCES.md](RESOURCES.md)。
+
 ## 步骤
 
-1. **确认模板（最先做）**：若附带模板文件，**必须**严格沿用其结构，禁止从零另建——哪怕模板看起来过于复杂。若无模板，询问用户：是否有指定 LBO 模板？否则用标准模板（含 Sources & Uses / 运营模型 / 债务计划 / 回报分析）。使用标准模板时复制 `examples/LBO_Model.xlsx` 作为起点。
+1. **确认模板（最先做）**：若附带模板文件，**必须**严格沿用其结构，禁止从零另建——哪怕模板看起来过于复杂。若无模板，询问用户：是否有指定 LBO 模板？本目录不附带标准工作簿，核验的上游快照也没有该示例文件。没有用户模板时先交付含 Sources & Uses / 运营模型 / 债务计划 / 回报分析的布局规格；待用户提供或授权创建模板后再填充，不能调用不存在的示例文件。
 2. **分析模板结构**：定位各 section 及其上下游依赖；厘清时间轴（哪些列是哪些期间、是否有 Closing/Pro Forma 列、投影期从何处开始）；区分输入单元格 vs 公式单元格（看模板的配色/边框/底纹约定）；逐字读行标签确定期望的计算；检查是否已有公式（不要覆盖正确的既有公式）；记录符号约定、小计结构、是否分多个 tab。
-3. **选择运行环境**：在 Excel 内（Office Add-in / Office JS）用 `Excel.run(async (context)=>{...})`，公式写 `range.formulas`，颜色用 `range.format.font.color` / `fill.color`，无需单独重算。生成独立 .xlsx 文件则用 Python/openpyxl，公式写成字符串后跑 `recalc.py`。
+3. **选择运行环境**：在 Excel 内（Office Add-in / Office JS）用 `Excel.run(async (context)=>{...})`，公式写 `range.formulas`，颜色用 `range.format.font.color` / `fill.color`，无需单独重算。生成独立 .xlsx 文件则用 Python/openpyxl 将公式写成字符串，再用用户已有的 Excel 或 LibreOffice 实际重算并重新读取输出。openpyxl 不计算公式；没有计算引擎时报告“待重算”，不能声称结果已校验。
 4. **逐 section 填公式并与用户对账**：每完成一个 section 就展示成果、跑该段校验、获得确认后再做下一个——**不要**端到端建完再统一展示（后段依赖前段，事后改 Sources & Uses 会牵连全局）。
 5. **完工后跑校验清单**：先运行公式校验，再逐项核对平衡、投影、债务、回报、敏感性、配色与逻辑合理性。
 
@@ -59,10 +63,11 @@ source_license: Apache-2.0
 
 **数字格式：** 货币 `$#,##0;($#,##0);"-"`；百分比 `0.0%`；倍数 `0.0"x"`；MOIC/精细比率 `0.00"x"`；所有数字右对齐。
 
-**校验命令（生成 .xlsx 时，必须零错误）：**
-```bash
-python /mnt/skills/public/xlsx/recalc.py model.xlsx
-```
+**重算与验收前提：**
+
+- 在用户已有的 Excel 或 LibreOffice 中打开工作副本、执行完整重算、保存并重新读取结果；记录计算引擎与版本。
+- 检查所有公式缓存与错误值，并执行下列平衡/债务/回报验收。缺少计算引擎时可交付公式草稿和校验清单，结果状态必须为“待重算”。
+- 不依赖固定宿主路径或未随本目录分发的重算脚本。
 
 ## 示例
 

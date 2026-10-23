@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pdf-form-filler, markdown-to-docx]
 requires: []
-related: [general-counsel-advisor, dpa-clause-reviewer, employment-contract-drafter, oss-license-compliance]
+related: [general-counsel-advisor, dpa-playbook-review, employment-contract-drafter, oss-license-compliance]
 combines_with: [general-counsel-advisor, diligence-issue-extractor]
 license: Apache-2.0
 source: anthropics/claude-for-legal

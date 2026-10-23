@@ -162,7 +162,7 @@ curl -X POST -H "Content-Type: application/json" \
 ## 互见
 
 - requires：`scientific-database-lookup` —— 选库、标识符（EFO/Ensembl）解析与 GraphQL/POST 取数的通用底座。
-- related：`gene-set-enrichment-analysis`、`protein-language-models`、`molecular-dynamics-simulation`
+- related：`gene-set-enrichment-analysis`、`protein-language-models`、`molecular-dynamics-openmm`
 - combines_with：`scientific-database-lookup` —— 先解析疾病→EFO、基因→Ensembl，再调本技能的 GraphQL 取关联与药物证据。
 
 ---

@@ -2,16 +2,17 @@
 name: x-twitter-scraper-toolkit
 title: X/Twitter 抓取工具：搜索、导出、发推与 DM
 description: 当需要一套 X/Twitter 抓取与自动化工具箱（推文搜索、用户/推文查询、粉丝及关注关系批量导出、媒体下载、趋势、账号监控+Webhook、抽奖、以及发推/回复/点赞/转推/关注/私信写操作）时使用；做：经 Xquik 托管平台的 REST/MCP/多语言 SDK/CLI 配置鉴权并调端点，产出结构化数据或写动作（写操作须显式审批）；不适用于无 XQUIK_API_KEY、未授权操作他人账号、绕过 X 反爬自建爬虫、或非 X/Twitter 平台。触发词：推特抓取、X搜索、粉丝导出、发推、私信DM、账号监控、xquik、twitter scraper
-domain: 平台/browser
-triggers: [推特抓取 / twitter scraper, X 推文搜索 / tweet search, 高级搜索 from:user, 用户查询 / user lookup, 推文互动指标 / likes retweets views, 粉丝导出 / follower export, 批量抽取 / bulk extraction, 关注关系检查 / follow check, 趋势话题 / trending, 账号监控 / account monitoring, webhook 事件推送, 抽奖抽取 / giveaway draw, 发推 / post tweet, 回复 / reply, 私信 / DM, 媒体下载 / media download, xquik, MCP, 官方 SDK, Hermes Tweet, TweetClaw]
-tags: [twitter, x-api, tweet-search, follower-export, automation, webhooks, mcp, sdk, cli, xquik, platform]
+domain: 平台/integration
+triggers: [推特抓取 / twitter scraper, X 推文搜索 / tweet search, 高级搜索 from:user, 用户查询 / user lookup, 推文互动指标 / likes retweets views, 粉丝导出 / follower export, 批量抽取 / bulk extraction, 关注关系检查 / follow check, 趋势话题 / trending, 账号监控 / account monitoring, webhook 事件推送, 抽奖抽取 / giveaway draw, 发推 / post tweet, 回复 / reply, 私信 / DM, 媒体下载 / media download, xquik, MCP, 官方 SDK, Hermes Tweet, TweetClaw, 推文互动数据 / likes retweets views]
+tags: [twitter, x-api, tweet-search, follower-export, automation, webhooks, mcp, sdk, cli, xquik, platform, platform-integration]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Xquik REST API (https://xquik.com/api/v1), Xquik MCP (https://xquik.com/mcp, StreamableHTTP), 官方 SDK: TypeScript/Python/Ruby/Go/Kotlin/Java/PHP/C#/CLI/Terraform, Hermes Tweet 插件 (hermes-tweet), TweetClaw 插件 (@xquik/tweetclaw)]
 requires: []
-related: [x-twitter-automation, x-post-to-json-fetcher, browser-automation-builder]
-combines_with: [social-media-multi-publisher, news-sentiment-briefing]
+related: [x-post-to-json-fetcher, browser-automation-builder, apify-ecommerce-scraper, social-media-multi-publisher]
+combines_with: [social-media-multi-publisher, news-sentiment-briefing, social-media-content-creator, social-media-performance-analyzer]
+supersedes: [x-twitter-automation]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
@@ -48,6 +49,8 @@ source_license: MIT
 6. **导出/汇总**：给出条数、文件位置、关键洞察。
 
 ## 指令
+
+运行时适配：Hermes Tweet 的 `tweet_explore` 发现端点、`tweet_read` 做只读查询、`tweet_action` 承载经批准的动作；TweetClaw 的 `explore` 发现端点、`tweetclaw` 仅执行已批准调用。平台 API 接入边界与下方审批要求同样适用。
 
 接入参数（保留源约束）：
 
@@ -109,7 +112,6 @@ export XQUIK_API_KEY="xq_YOUR_KEY_HERE"
 
 ## 互见
 
-- related：`x-twitter-automation` —— 同源同平台（Xquik）的自动化条目，可视为本工具箱的姊妹篇。
 - related：`apify-ecommerce-scraper`、`browser-automation-builder` —— 其他平台数据抽取/浏览器自动化，可拼成跨平台情报流水线。
 - combines_with：社媒发布/内容创作/表现分析类技能 —— 由编排技能触发本工具做定时搜索、监控与发布。
 - combines_with：把监控/Webhook 事件转发到 Slack/IM 的通知类技能 —— 串成账号监控 + 实时告警闭环。

@@ -6,16 +6,20 @@ domain: 平台/integration
 triggers: [推特抓取 / twitter scraper, X 推文搜索 / tweet search, 高级搜索 from:user, 用户查询 / user lookup, 推文互动数据 / likes retweets views, 粉丝导出 / follower export, 关注关系检查 / follow check, 趋势话题 / trending, 账号监控 / account monitoring, webhook 事件推送, 抽奖抽取 / giveaway draw, 发推 / post tweet, 回复 / reply, 私信 / DM, 批量抽取 / bulk extraction, xquik, MCP, Hermes Tweet, TweetClaw]
 tags: [twitter, x-api, tweet-search, follower-export, automation, webhooks, mcp, sdk, xquik, platform-integration]
 level: 进阶
-status: stable
+status: deprecated
+deprecate_reason: 同职责内容已合并至 x-twitter-scraper-toolkit；保留原文供历史追溯。
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Xquik REST API (https://xquik.com/api/v1), Xquik MCP (https://xquik.com/mcp, StreamableHTTP), 官方 SDK: TypeScript/Python/Ruby/Go/Kotlin/Java/PHP/C#/CLI/Terraform, Hermes Tweet 插件 (hermes-tweet), TweetClaw 插件 (@xquik/tweetclaw)]
 requires: []
-related: [apify-ecommerce-scraper, social-media-multi-publisher, browser-automation-builder]
-combines_with: [social-media-multi-publisher, social-media-content-creator, social-media-performance-analyzer]
+related: []
+combines_with: []
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
+
+> 历史归档：本条职责已合并到 [x-twitter-scraper-toolkit](../x-twitter-scraper-toolkit/SKILL.md)。执行时使用规范条目；以下正文仅保留供追溯。
+
 ## 何时使用
 
 当需要让 Agent 拿到 X/Twitter 数据或执行 X 平台自动化时使用，典型场景：

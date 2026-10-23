@@ -138,7 +138,7 @@ async def test_with_timeout():
 
 - requires：无。
 - related：`code-reviewer`（审查异步代码的取消/超时/竞态等正确性问题）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 采编自 sickn33/antigravity-awesome-skills（MIT 许可）。

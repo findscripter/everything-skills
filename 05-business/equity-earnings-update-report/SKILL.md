@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [python, matplotlib, pandas, seaborn, docx]
 requires: []
-related: [variance-flux-commentary, data-storyteller, board-deck-builder, market-sizing-analyst, competitive-analysis]
+related: [variance-flux-commentary, data-storyteller, board-deck-builder, market-sizing-tam-sam-som, competitive-analysis]
 combines_with: [data-storyteller, board-deck-builder, pricing-strategy]
 license: Apache-2.0
 source: anthropics/financial-services
@@ -113,7 +113,7 @@ FY2024E EPS        $X.XX     $X.XX     +X.X%    [简述]
 
 - related：`variance-flux-commentary` —— 同为财务波动归因，月结口径可复用「为什么变」的写法。
 - related：`data-storyteller` —— 把 beat/miss 与预测修正讲成有说服力的图文叙事。
-- related：`market-sizing-analyst` / `competitive-analysis` —— 校准分部增长假设与同业对比。
+- related：`market-sizing-tam-sam-som` / `competitive-analysis` —— 校准分部增长假设与同业对比。
 - combines_with：`board-deck-builder` —— 把点评结论压缩成董事会/投委会决策页。
 - combines_with：`pricing-strategy` —— 当 beat/miss 由定价/产品组合驱动时，下钻定价逻辑。
 

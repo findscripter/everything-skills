@@ -2,7 +2,7 @@
 
 > 2026-09-16 CST · tip `38c2460` + ambiguous-12 · **154** aliased locals (160 jsonl lines) / **0** ambiguous / **16** truly_gone / **1** orphan
 
-Machine-readable map: [`data/upstream-aliases.jsonl`](../data/upstream-aliases.jsonl) (or concat `part1`+`part2`+`part3`+`part4`).
+Machine-readable map: [published JSONL parts and reading instructions](../data/upstream-aliases.README.md). The four parts are tracked; the optional concatenated `data/upstream-aliases.jsonl` is a local output, not a published file.
 
 Decision log for the former ambiguous-12: [`data/ambiguous-12-resolved-2026-09-16.md`](../data/ambiguous-12-resolved-2026-09-16.md).
 

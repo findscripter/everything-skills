@@ -183,5 +183,5 @@ source_license: Apache-2.0
 ## 互见
 
 - requires：无。
-- related：`general-counsel-advisor` —— 综合法律判断与升级路径；`nda-triage-reviewer` —— 同一对手方 NDA 的分流；`dpa-clause-reviewer` —— 数据处理条款的版本演变深审。
+- related：`general-counsel-advisor` —— 综合法律判断与升级路径；`nda-triage-reviewer` —— 同一对手方 NDA 的分流；`dpa-playbook-review` —— 数据处理条款的版本演变深审。
 - combines_with：`contract-playbook-review` —— 历史梳理后对当前生效版本做红线对照评审；`fact-checking` —— 引用与 `verify` 标签的事实校验；`first-principles-thinking` —— 对条号漂移、冲突等异常做拆解判断。

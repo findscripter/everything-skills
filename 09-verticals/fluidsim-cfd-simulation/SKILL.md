@@ -143,7 +143,7 @@ sim.output.phys_fields.plot()
 
 ## 互见
 
-- related：`molecular-dynamics-simulation` —— 同为原子/连续介质数值模拟，方法论（建模→平衡→产能→分析）相通。
+- related：`molecular-dynamics-openmm` —— 同为原子/连续介质数值模拟，方法论（建模→平衡→产能→分析）相通。
 - related：`materials-science-toolkit`、`guided-statistical-analysis` —— 仿真结果的物性提取与统计分析。
 - combines_with：`matplotlib-visualization` —— 涡量场、能谱、时间序列出版级出图。
 

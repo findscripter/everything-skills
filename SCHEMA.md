@@ -28,6 +28,16 @@
 | `source` |  | string | 采编来源（repo slug/URL）。采自第三方时必填，自动汇入 `INDEX/sources.md` |
 | `source_license` |  | string | 源技能原始许可（Apache-2.0/MIT/CC-BY…）。**专有 / source-available / 无许可 → 禁止采编其内容，生成器报 error** |
 
+## 资源与不可变来源清单
+
+`data/skill-resources.json` 记录补包技能的资源路径、SHA-256、固定来源 URL 和技能目录内的许可文件。统一构建先检查资源存在、真实路径边界和字节一致性，不执行第三方 helper。通用库、服务与输入仍是显式外部依赖，不由“随包”一词隐含提供。
+
+`data/skill-provenance.json` 覆盖所有正式技能的路径、当前本地 SHA-256、原创/采编类型和来源声明。`reference_snapshots` 仅是可重复比较的固定参考文件，包含 commit、路径、Blob、SHA-256 及许可证据；不等于已证明的原采编版本或授权认证。
+
+历史缺少原采编提交的条目保持 `origin_revision_status=unrecorded`、`origin_commit_sha=null`。不能用今天的 HEAD 或本地 vendor HEAD 填成原版本。正文修改后显式运行 `npm run provenance:refresh`；来源或源许可声明改变会清除旧参考并标记待复核。损坏或缺失的清单不能静默重建来掩盖问题。
+
+`npm run check:assets` 与 `npm run check:provenance` 均只读；`build-all` 在写生成物之前运行这两项，失败即停止。新增资源须先核实文件级许可，禁止按集合根许可覆盖子目录专有条款。
+
 ## 质量筛选元数据（`data/quality-overrides.json`）
 
 质量元数据与技能正文分离，供 `INDEX/quality.json` 和 `INDEX/search.json` 的筛选器使用。覆盖文件的最小结构为：

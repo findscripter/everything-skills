@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [IP practice profile (内部立场清单/CLAUDE.md), 法律检索工具/MCP (Westlaw/CourtListener 等), primary-source 引用]
 requires: []
-related: [contract-playbook-review, saas-subscription-agreement-review, dpa-clause-reviewer, vendor-agreement-redline-review]
+related: [contract-playbook-review, saas-subscription-agreement-review, dpa-playbook-review, vendor-agreement-redline-review]
 combines_with: [contract-playbook-review, ip-portfolio-register, claim-element-chart-builder]
 license: Apache-2.0
 source: anthropics/claude-for-legal

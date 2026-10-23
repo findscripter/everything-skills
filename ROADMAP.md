@@ -18,7 +18,7 @@
 
 - **修复 domain↔卷目录一致性校验**（旧版注释声称校验、`validate()` 实则没做——评审抓到的真 bug）。现为 error 级。
 - **互见图健壮性**：悬空互见 → error；指向已弃用技能 → error；`requires` **环检测** → error；`related`/`combines_with` 无向去重渲染。
-- **弃用链校验**：`status=deprecated` 必须有 `supersedes` 且目标存在。
+- **弃用链校验**：由新技能声明 `supersedes: [old-name]`，目标必须存在且为 `deprecated`；旧技能不反向指向新技能。无继任者的历史档案填写 `deprecate_reason`，保留正文并退出活动推荐。
 - **召回层产物 `INDEX/search.json`**：扁平记录（name/title/domain/tags/triggers/description），为「两段式发现」打地基。
 - **description 治理（弱版）**：自动解析「触发词：」入 search.json；过短/过长/缺触发词告警。
 - **agents 受控词表**告警。

@@ -81,8 +81,10 @@ option B：OKX Agent 支付协议（X Layer，用于 MPP 多方结算、会话�
 TS:   https://raw.githubusercontent.com/okx/payments/main/typescript/SELLER.md
 Go:   https://raw.githubusercontent.com/okx/payments/main/go/x402/SELLER.md
 Rust: https://raw.githubusercontent.com/okx/payments/main/rust/x402/SELLER.md
-Java: https://raw.githubusercontent.com/okx/payments/main/java/SELLER.md
+Java: https://github.com/okx/payments/blob/master/java/README.md
 ```
+
+Java 当前使用官方 SDK README 作为集成入口，不假定它与旧 `SELLER.md` 的章节、版本或接口逐项等价。先核对所选发行版的模块、Servlet 命名空间、支付协议与卖方示例，再生成对应代码；取不到适用说明时停止该语言分支。
 
 安全提示：始终锁定包版本。此工具管理私钥——未固定版本的 `npx` 安装带来供应链风险。
 

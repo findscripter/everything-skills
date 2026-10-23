@@ -14,7 +14,7 @@ related: [chembl-bioactivity-database, cheminformatics-toolkit, deepchem-drug-di
 combines_with: [deepchem-drug-discovery, scikit-learn-ml, cheminformatics-toolkit]
 license: MIT
 source: jaechang-hits/SciAgent-Skills
-source_license: CC-BY-4.0
+source_license: MIT
 ---
 ## 何时使用
 
@@ -178,4 +178,4 @@ print(ecfp.shape)   # (1024,) 二进制指纹
 - combines_with：`scikit-learn-ml` —— 在 TDC 划分上训经典 ML 基线并用 `Evaluator` 评估。
 
 ---
-本条采编自 jaechang-hits/SciAgent-Skills（CC-BY-4.0）。
+本条采编自 jaechang-hits/SciAgent-Skills 的 [PyTDC 技能文件](https://github.com/jaechang-hits/SciAgent-Skills/blob/81ea2d2a6a37ea42b369f9a5c75191cca77540ce/skills/structural-biology-drug-discovery/pytdc-therapeutics-data-commons/SKILL.md)，已改写为中文。该固定版本文件的 frontmatter 明确声明 MIT，本条 `license` 与 `source_license` 均按这一文件级声明记录；该仓库根 [LICENSE](https://github.com/jaechang-hits/SciAgent-Skills/blob/81ea2d2a6a37ea42b369f9a5c75191cca77540ce/LICENSE) 对集合的通用声明为 CC BY 4.0，并注明 K-Dense-AI 原始内容的 MIT 授权，二者范围不同。此固定版本用于授权复核证据，不冒充未记录的原采编提交。
