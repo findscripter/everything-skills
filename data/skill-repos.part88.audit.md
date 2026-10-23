@@ -1,6 +1,6 @@
 # part88：产品原生、非营利职业与科研产业技能扩展
 
-核验日期：2026-10-23（Asia/Shanghai）。固定基线 **2612** 个独立仓库，本批核验通过 **73** 个。发布后目录合计 **2685** 个；实际发布与日目标状态以[当日回执](discovery/2026-10-23/publication.json)为准。
+核验日期：2026-10-23（Asia/Shanghai）。固定基线 **2612** 个独立仓库，本批核验通过 **73** 个。已发布目录合计 **2685** 个；实际发布与日目标状态以[当日回执](discovery/2026-10-23/publication.json)为准。
 
 ## 准入与证据
 
@@ -93,3 +93,7 @@
 去重后检索命中 1627 个仓库身份，其中 100 个命中已有基线。另保存 51 个未收录记录，含待审储备，不能等同于全部被否定的项目。
 
 [逐项机器审核与交叉复核](skill-repos.part88.audit.json) · [检索来源](skill-repos.part88.search-provenance.json) · [今日新增清单](discovery/2026-10-23/additions.json)
+
+## 发布结果
+
+通过 PR #46 合并并发布到 main/zh；两条数据提交均已通过 generated-index CI。当日有效新增 73 个，目标 50 个，已达标。精确提交与 CI 链接见[发布回执](discovery/2026-10-23/publication.json)。

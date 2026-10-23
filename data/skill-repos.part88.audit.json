@@ -5,7 +5,7 @@
   "daily_target": 50,
   "added_count": 73,
   "final_count": 2685,
-  "publication_status": "verified-awaiting-publication",
+  "publication_status": "published",
   "daily_receipt": "discovery/2026-10-23/publication.json",
   "collection_notes": [
     "Metadata-only admission: README/distribution, representative SKILL.md or explicit skill-infrastructure contract, source identity and license scopes reviewed. No candidate was installed, executed, cloned or copied as third-party skill body.",
@@ -12137,5 +12137,6 @@
       "issues": [],
       "verified": true
     }
-  ]
+  ],
+  "daily_qualifying_count": 73
 }
