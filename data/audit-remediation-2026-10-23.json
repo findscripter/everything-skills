@@ -174,7 +174,8 @@
     "catalog_corrections": "data/catalog-corrections-2026-10-23.audit.json",
     "source_manifest": "data/skill-provenance.json",
     "source_tdd": "tests/skill-provenance.tdd.md",
-    "upstream_followup_queue": "data/upstream-review-queue-2026-10-23.json"
+    "upstream_followup_queue": "data/upstream-review-queue-2026-10-23.json",
+    "integrated_tdd": "tests/audit-fixes.tdd.md"
   },
   "limits": [
     "All 1099 curated origin revisions remain unrecorded. Fixed comparison references are not presented as original adaptation versions or license certifications.",
