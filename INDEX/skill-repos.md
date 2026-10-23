@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-22（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part87
+- 编制日期：2026-10-23（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part88
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2612 个独立仓库（另注明更名别名）
+- 收录条数：2685 个独立仓库（另注明更名别名）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part87 审核记录](../data/skill-repos.part87.audit.md)、[2026-10-22 当日回执](../data/discovery/2026-10-22/publication.json)、[part86 审核记录](../data/skill-repos.part86.audit.md)、[2026-10-21 当日回执](../data/discovery/2026-10-21/publication.json)、[part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [part88 审核记录](../data/skill-repos.part88.audit.md)、[2026-10-23 当日回执](../data/discovery/2026-10-23/publication.json)、[part87 审核记录](../data/skill-repos.part87.audit.md)、[2026-10-22 当日回执](../data/discovery/2026-10-22/publication.json)、[part86 审核记录](../data/skill-repos.part86.audit.md)、[2026-10-21 当日回执](../data/discovery/2026-10-21/publication.json)、[part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -461,6 +461,22 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [wso2/agent-skills](https://github.com/wso2/agent-skills) | 6 | 构建与运营 WSO2 API、集成、身份及医疗互操作工作流。 | Apache-2.0 | 6 | 仅索引 |
 | [awesomemotive/pushengage-skills](https://github.com/awesomemotive/pushengage-skills) | 3 | 集成与调试 iOS、Android、Flutter及React Native的 PushEngage通知SDK。 | MIT | 6 | 仅索引 |
 | [PLAID-lib/plaid-skills](https://github.com/PLAID-lib/plaid-skills) | 3 | 在保留时间、轨迹、节点及单元场语义和往返一致性的前提下将科学仿真数据转为PLAID。 | BSD-3-Clause (own skill/conversion code); external scientific datasets retain source licenses | 4 | 仅索引 |
+| [ethpandaops/panda](https://github.com/ethpandaops/panda) | 16 | 配置 Panda 及其 MCP 集成，查询和调查 ethPandaOps 基础设施数据。 | MIT | 4 | 仅索引 |
+| [ClawCall-Dev/ClawCall](https://github.com/ClawCall-Dev/ClawCall) | 9 | 使用 ClawCall 处理美国电话、语音配置、来电接听与通话状态跟进。 | MIT-0 / MIT（按目录） | 1 | 仅索引 |
+| [ConnectiveOne/connectiveone-docs](https://github.com/ConnectiveOne/connectiveone-docs) | 9 | 检索 ConnectiveOne 最新文档，指导产品能力、设置、渠道、集成、API 与故障排查。 | MIT | 1 | 仅索引 |
+| [get-dre/dre](https://github.com/get-dre/dre) | 7 | 使用 DRE 将 SQL 和 YAML 转为格式化报表与消息交付，覆盖设置、编写、运行、迁移和升级。 | GPL-3.0-only | 9 | 仅索引 |
+| [BlocksOrg/skills](https://github.com/BlocksOrg/skills) | 2 | 通过 REST API 查看已有 Blocks Agent 会话，读取计划、转录与详细工具调用。 | MIT | 1 | 仅索引 |
+| [fetchai/agentverse-skills](https://github.com/fetchai/agentverse-skills) | 2 | 搜索、对话、部署和管理 Agentverse Agent，使用持久记忆、图像生成并调用 ASI:One。 | Apache-2.0 | 8 | 仅索引 |
+| [mobiumdev/mobium](https://github.com/mobiumdev/mobium) | 2 | 使用 Mobium 操作 Android、iOS 应用，检查原生与 WebView 界面，并通过截图和录屏验证行为。 | Apache-2.0 | 1 | 仅索引 |
+| [Alibaba-Agent-Sandbox/agent-sandbox](https://github.com/Alibaba-Agent-Sandbox/agent-sandbox) | 1 | 通过 abx 或 MCP 完成云沙盒设置、任务执行、重新连接、文件交付与诊断。 | Apache-2.0 | 1 | 仅索引 |
+| [greedy-co/abto-sdk](https://github.com/greedy-co/abto-sdk) | 1 | 集成 ABTO 浏览器、移动端和服务端 SDK，实现事件采集、LLM 网关调用与执行上下文关联。 | MIT | 1 | 仅索引 |
+| [hey-juno/juno-agent-toolkit](https://github.com/hey-juno/juno-agent-toolkit) | 1 | 设计 Juno 客户研究、准备 AI 主持访谈，并获取参与者记录与访谈转录导出。 | MIT | 1 | 仅索引 |
+| [homespunapps/homespun](https://github.com/homespunapps/homespun) | 1 | 通过 Homespun 部署并持续管理具备认证、实时数据、角色权限、通知和上传功能的多人 Web 应用。 | MIT | 1 | 仅索引 |
+| [komaa-com/skills](https://github.com/komaa-com/skills) | 1 | 将 StandIn 实时语音与 Agent 接入 Microsoft Teams，覆盖 SDK 设置、隧道及 OpenClaw、Hermes 集成。 | MIT | 4 | 仅索引 |
+| [mountayaapp/agent-skills](https://github.com/mountayaapp/agent-skills) | 1 | 集成 Mountaya 认证、GraphQL 户外路线与地理分析、地图瓦片、嵌入组件及 MCP。 | MIT | 5 | 仅索引 |
+| [reactvideoeditor/react-video-editor-agent-skills](https://github.com/reactvideoeditor/react-video-editor-agent-skills) | 1 | 在 React、Next.js 或 Vite 中集成 React Video Editor SDK，协调 Remotion 版本并配置浏览器或云端渲染。 | MIT | 1 | 仅索引 |
+| [spicyapi-ai/spicy-skill](https://github.com/spicyapi-ai/spicy-skill) | 1 | 通过 SDK、CLI 或 MCP 集成 SpicyAPI，管理媒体任务、上传、结果、资产存储与 Webhook 验证。 | MIT | 1 | 仅索引 |
+| [trackbridge/skills](https://github.com/trackbridge/skills) | 1 | 使用 Trackbridge 集成 Google Ads 与 GA4 转化追踪，覆盖 Next.js、同意管理、OAuth 和前后端事件关联。 | MIT | 6 | 仅索引 |
 
 ## 2. 精选列表 / 大集合
 
@@ -2267,6 +2283,51 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [CNaught-Inc/eco-first](https://github.com/CNaught-Inc/eco-first) | 0 | 利用带来源说明的可持续性清单审查项目、规划架构并给出排序后的发现。 | MIT (authored skills); cited cloud carbon datasets retain provider terms | 2 | 仅索引 |
 | [DigitalPebble/spruce-sql-advisor](https://github.com/DigitalPebble/spruce-sql-advisor) | 0 | 编写和优化结合 SPRUCE 数据的 AWS CUR 2.0 查询，用于 FinOps 与 GreenOps 分析。 | Apache-2.0 (skill/code); external AWS billing and SPRUCE data retain their terms | 1 | 仅索引 |
 | [twinforgelabs/OpenProof](https://github.com/twinforgelabs/OpenProof) | 0 | 通过浏览器观察和可追溯证据报告验证明确的网页应用验收标准。 | MIT | 1 | 仅索引 |
+| [tririver/arc](https://github.com/tririver/arc) | 108 | 结合论文访问、文献探索、规划和计算流程开展可溯源的理论物理研究。 | MIT | 1 | 仅索引 |
+| [chen3tu/interview-master-skill](https://github.com/chen3tu/interview-master-skill) | 80 | 准备岗位相关面试回答和工作样本，开展多语言模拟面试，并整理复盘与录用决策。 | MIT | 1 | 仅索引 |
+| [ChengminLi/AI-PCB-layout](https://github.com/ChengminLi/AI-PCB-layout) | 28 | 功率电子 PCB 设计与审查，涵盖开关回路、绝缘、采样、铜能力、热和 EMC。 | CC-BY-4.0 | 1 | 仅索引 |
+| [Walsworth-Group/physkit](https://github.com/Walsworth-Group/physkit) | 7 | 实验物理研究流程，涵盖问题界定、推导、实验设计、验证和报告。 | MIT | 24 | 仅索引 |
+| [Boom-Vitt/kicad-thai](https://github.com/Boom-Vitt/kicad-thai) | 5 | 泰英双语 KiCad 工作流，覆盖板卡检查、生产导出、本地合规及元件采购。 | MIT | 5 | 仅索引 |
+| [weeeha/Super-Design-Lead](https://github.com/weeeha/Super-Design-Lead) | 5 | 用于一对一沟通、反馈、职业发展、招聘、辅导与关系记录的设计管理工作流。 | MIT | 9 | 仅索引 |
+| [hyt24/nds-game-localization-skill](https://github.com/hyt24/nds-game-localization-skill) | 4 | 通过来源清单、术语审批、可复现补丁和运行验证记录审计及本地化 Nintendo DS 游戏资源。 | MIT | 1 | 仅索引 |
+| [cli1980/manuscript-studio](https://github.com/cli1980/manuscript-studio) | 2 | 通过持久化项目状态开展文学编辑、翻译、经纪人投稿、文稿准备、批准审阅与出版排版。 | MIT | 6 | 仅索引 |
+| [googool2/fawiki-editor](https://github.com/googool2/fawiki-editor) | 2 | 起草、翻译和审阅波斯语维基文本，配套拼写检查、引文生成、信息框与来源署名。 | MIT | 1 | 仅索引 |
+| [vp9fm78jvp-sketch/lumerical-matlab-paper-reproduction](https://github.com/vp9fm78jvp-sketch/lumerical-matlab-paper-reproduction) | 2 | 通过模型和参数审计、Lumerical 编排及 MATLAB 绘图验证复现光子学论文。 | MIT | 1 | 仅索引 |
+| [1762972857-del/specific-learning](https://github.com/1762972857-del/specific-learning) | 1 | 为本科数学与物理制作离线交互实验、原创插图和学习笔记。 | MIT | 1 | 仅索引 |
+| [JordanSucher/open-data-nonprofit-assistant](https://github.com/JordanSucher/open-data-nonprofit-assistant) | 1 | 将非营利工作映射到公共数据集，检查数据缺口、起草数据申请并建立注明来源的策略材料。 | MIT | 1 | 仅索引 |
+| [leonardgorges/skills](https://github.com/leonardgorges/skills) | 1 | 应用和审阅德英网页字体排版，覆盖断行、连字、行长、间距、分栏与打印输出。 | MIT | 2 | 仅索引 |
+| [msg2ai/nonprofit-team-skills](https://github.com/msg2ai/nonprofit-team-skills) | 1 | 按角色划分的非营利技能，涵盖领导、筹款、资助、项目、传播、财务、志愿者和网站工作。 | MIT | 8 | 仅索引 |
+| [RajaMDM/agents-for-good-gcc](https://github.com/RajaMDM/agents-for-good-gcc) | 1 | 面向海湾地区非营利组织的阿英双语捐赠致谢、影响报告与资助发现工作流。 | MIT | 3 | 仅索引 |
+| [vctrop/creative-thinking-for-engineering](https://github.com/vctrop/creative-thinking-for-engineering) | 1 | 依据物理、成本、进度和可测量台架证据生成工程方案。 | MIT | 1 | 仅索引 |
+| [Abulfadl-Ahmadi/physics-lecture-notes](https://github.com/Abulfadl-Ahmadi/physics-lecture-notes) | 0 | 将课堂录音、板书照片和草稿转为经过核查的 LaTeX 讲义与 Obsidian Markdown。 | MIT | 1 | 仅索引 |
+| [bonny8000/Interview-Analysis-Skill](https://github.com/bonny8000/Interview-Analysis-Skill) | 0 | 清理中文访谈逐字稿，制作可追溯的逐句编码矩阵、主题统计与繁体中文研究报告。 | MIT | 1 | 仅索引 |
+| [chrisrenzm/patent-drawer](https://github.com/chrisrenzm/patent-drawer) | 0 | 将专利化合物整理为可编辑 ChemDraw 卡片、PowerPoint、Excel 台账及验证报告。 | MIT | 1 | 仅索引 |
+| [CurvatureFelis/modern-physics-lab-report](https://github.com/CurvatureFelis/modern-physics-lab-report) | 0 | 分析近代物理测量、拟合模型、量化不确定度，并生成可复现的 LaTeX 实验报告。 | MIT | 1 | 仅索引 |
+| [DarrenWongKaWa/ResearchPhO](https://github.com/DarrenWongKaWa/ResearchPhO) | 0 | 将研究论文转为物理奥赛式题目、解答、评分细则与学习附录。 | MIT | 1 | 仅索引 |
+| [dc73/matlab-engineering-skill](https://github.com/dc73/matlab-engineering-skill) | 0 | 通过单位、维度与执行检查开发和验证 MATLAB 仿真及数值代码。 | MIT | 1 | 仅索引 |
+| [dh2211/nonprofit-agents](https://github.com/dh2211/nonprofit-agents) | 0 | 以用户提供记录为基础的非营利事实表、资助、预算、影响报告、捐赠者信函、活动与志愿者工作流。 | MIT | 10 | 仅索引 |
+| [fangdididi/role-teardown](https://github.com/fangdididi/role-teardown) | 0 | 分析岗位要求、将已核实成果映射到匹配度，并以中英文准备精简申请材料、审阅与面试证据。 | MIT | 1 | 仅索引 |
+| [fxp/ee-skills](https://github.com/fxp/ee-skills) | 0 | 电子设计审查技能，覆盖模拟、射频、电源、EMC、热、高速和可制造性问题。 | MIT | 13 | 仅索引 |
+| [gngrwsbi/nonprofit-governance-skill](https://github.com/gngrwsbi/nonprofit-governance-skill) | 0 | 准备非营利预算、资助情景、董事会材料、财务委员会流程、政策与记账交接文件。 | MIT | 1 | 仅索引 |
+| [kohamster7758/extraction-gate](https://github.com/kohamster7758/extraction-gate) | 0 | 在保存前通过确定性的结构与数值检查把关化学及生物活性数据提取。 | MIT | 1 | 仅索引 |
+| [kraksp/design-enclosure](https://github.com/kraksp/design-enclosure) | 0 | 以参数化方式设计电子设备外壳，提供碰撞检查、分层预览、工程图和 STEP 导出。 | Apache-2.0 | 1 | 仅索引 |
+| [labhoshi820-web/xact-research-skill](https://github.com/labhoshi820-web/xact-research-skill) | 0 | 开发并独立验证用于引力研究的 Wolfram Language 与 xAct 张量计算。 | MIT | 1 | 仅索引 |
+| [liuchang8877/physics-scene](https://github.com/liuchang8877/physics-scene) | 0 | 生成物理场景 SVG 动画，并检查接触、支撑、滚动和关节连接关系。 | MIT | 1 | 仅索引 |
+| [martin-araya/notemartin-study-translate](https://github.com/martin-araya/notemartin-study-translate) | 0 | 将技术 Markdown 文档翻译为西班牙语，保留结构、术语、代码字面量、源文覆盖与审阅记录。 | MIT | 1 | 仅索引 |
+| [matthewparker-moveMP/intake-prep-skill](https://github.com/matthewparker-moveMP/intake-prep-skill) | 0 | 准备招聘需求访谈，将逐字稿转换为招聘文档，并汇总招聘经理与人才负责人周报。 | MIT | 4 | 仅索引 |
+| [matthieu-00/design-history-fusion](https://github.com/matthieu-00/design-history-fusion) | 0 | 研究平面设计史，将有历史依据的字体与视觉层次和现代界面要求结合。 | MIT | 1 | 仅索引 |
+| [Mic-Fundraiser/phplist-email-generator](https://github.com/Mic-Fundraiser/phplist-email-generator) | 0 | 把用户文本制作为 phpList 通讯和筹款邮件，输出可导入 BEE 模板及配套 HTML。 | MIT | 1 | 仅索引 |
+| [npaiadvisor/discovery](https://github.com/npaiadvisor/discovery) | 0 | 引导非营利团队完成范围界定、环境访谈、助手形态选择、初始项目搭建与运营交接。 | MIT AND CC-BY-SA-4.0 | 1 | 仅索引 |
+| [PersianXM/persian-docx-skill](https://github.com/PersianXM/persian-docx-skill) | 0 | 生成波斯语 Word 文档，支持双向段落控制、字体排版、间距与复用配色。 | MIT | 1 | 仅索引 |
+| [Rigjite/Ecosystem-Digital-Twin](https://github.com/Rigjite/Ecosystem-Digital-Twin) | 0 | 设计与审查生态系统数字孪生，覆盖数据质量、校准、预测与监测计划。 | CC-BY-4.0 | 1 | 仅索引 |
+| [RoodsBurger/eagle-pcb-studio](https://github.com/RoodsBurger/eagle-pcb-studio) | 0 | 生成与审查 EAGLE/Fusion Electronics 板卡、库、Gerber 和制造检查结果。 | MIT | 1 | 仅索引 |
+| [roundofschatz/resume-ops](https://github.com/roundofschatz/resume-ops) | 0 | 制作和定制基于真实证据的美国私营部门简历，配套申请表解析检查与可编辑文档。 | MIT | 1 | 仅索引 |
+| [saikhamhein/agent-skills](https://github.com/saikhamhein/agent-skills) | 0 | 硬件、机器人 CAD 与教育动画工作流，提供可复用工程检查和配套工具。 | MIT (original contributions and retained MIT adaptations) | 4 | 仅索引 |
+| [slosar/catskills](https://github.com/slosar/catskills) | 0 | LaTeX 科研论文技能，覆盖 arXiv 源码阅读、权威引文和智能论文占位宏。 | MIT | 3 | 仅索引 |
+| [wangxinyu20429-dotcom/zotero-obsidian-research-skills](https://github.com/wangxinyu20429-dotcom/zotero-obsidian-research-skills) | 0 | 可追溯的水文文献工作流，串联 Zotero 入库、阅读笔记、Obsidian 综合与论文选题。 | MIT | 4 | 仅索引 |
+| [WholeWhale/verified-giving-protocol](https://github.com/WholeWhale/verified-giving-protocol) | 0 | 发现非营利捐赠入口，生成附证据且保留人工授权边界的 Verified Giving Protocol 声明草稿。 | MIT | 1 | 仅索引 |
+| [Zwl20085/femm-agent-suite](https://github.com/Zwl20085/femm-agent-suite) | 0 | 面向磁场、静电、热流和电流场的 FEMM 建模及物理验证流程。 | MIT | 11 | 仅索引 |
+| [Zwl20085/jmag-agent-suite](https://github.com/Zwl20085/jmag-agent-suite) | 0 | JMAG-Designer 技能，覆盖电机设计、虚拟试验、电磁仿真和结果验证。 | MIT | 10 | 仅索引 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -2504,6 +2565,10 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [DunCanYounG-1/MICU-auto-embedded](https://github.com/DunCanYounG-1/MICU-auto-embedded) | 258 | 为嵌入式项目建立分阶段调查、规格注入、工具链脚本和可恢复状态的本地Agent工作流。 | PolyForm-Noncommercial-1.0.0; commercial use requires separate permission | 1 | 仅索引 |
 | [skill-tools/skill-tools](https://github.com/skill-tools/skill-tools) | 9 | 使用CLI、库和CI工具验证、检查、评分、路由及生成 Agent Skills。 | Apache-2.0 | 基础设施 | 仅索引 |
 | [kabirnarang39/skillci](https://github.com/kabirnarang39/skillci) | 8 | 跨模型矩阵检查和回归测试 Agent Skills，并保留可复现评估覆盖。 | Apache-2.0 | 1 | 仅索引 |
+| [scaccogatto/okf-skills](https://github.com/scaccogatto/okf-skills) | 424 | 从项目上下文和仓库历史生成、验证、可视化与重建 Open Knowledge Format 知识包。 | MIT AND Apache-2.0 | 4 | 仅索引 |
+| [aerince/deepseek-harness-plugin-authoring](https://github.com/aerince/deepseek-harness-plugin-authoring) | 1 | 依据版本化官方约定创建、调试、打包、核验并准备分发 DeepSeek Harness 插件。 | MIT | 1 | 仅索引 |
+| [arm-pz/prompts-to-skill](https://github.com/arm-pz/prompts-to-skill) | 0 | 通过意图访谈、重叠检查、起草、测试用例和调优门槛，将用户提示词集合转换为复用技能。 | MIT | 1 | 仅索引 |
+| [Hook12aaa/skill-cheat](https://github.com/Hook12aaa/skill-cheat) | 0 | 分阶段技能创作流程，覆盖范围设计、不可变约定、起草、独立审阅、插件搭建与压力测试。 | MIT AND Apache-2.0 | 6 | 仅索引 |
 
 ## 5. 其他值得索引的技能库
 
@@ -2689,3 +2754,11 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [madeyoga/AuthEndpoints](https://github.com/madeyoga/AuthEndpoints) | 122 | 集成 ASP.NET Core Identity 认证 API，覆盖密码、Cookie、JWT 和通行密钥流程。 | MIT | 1 | 仅索引 |
 | [avivsinai/jenkins-cli](https://github.com/avivsinai/jenkins-cli) | 94 | 通过 jk 命令行客户端管理 Jenkins 上下文、任务、构建、日志与管理操作。 | MIT | 1 | 仅索引 |
 | [NomaDamas/MinSync](https://github.com/NomaDamas/MinSync) | 58 | 通过 MinSync、本地或远程嵌入以及混合检索，为 Markdown 工作区添加增量语义索引。 | MIT | 1 | 仅索引 |
+| [avivsinai/bitbucket-cli](https://github.com/avivsinai/bitbucket-cli) | 246 | 通过 bkt 管理 Bitbucket Cloud 或 Data Center 的仓库、拉取请求、流水线、权限与 Webhook。 | MIT | 1 | 仅索引 |
+| [preetsuthar17/hextaui](https://github.com/preetsuthar17/hextaui) | 142 | 使用基于 Base UI 和 Tailwind CSS v4 的 HextaUI 组件构建 React 界面，兼容 shadcn/ui 项目。 | MIT | 1 | 仅索引 |
+| [NotNull92/hera-agent-unity](https://github.com/NotNull92/hera-agent-unity) | 29 | 通过 Hera 操作运行中的 Unity Editor，执行 C#、检查实时对象、读取日志、控制播放模式并运行测试。 | Apache-2.0 | 1 | 仅索引 |
+| [cychien/ezdesign](https://github.com/cychien/ezdesign) | 7 | 通过 Ezdesign 审查和标注实时 Web 界面，将设计决策与可执行反馈带入编码 Agent 会话。 | MIT | 1 | 仅索引 |
+| [onimusya/media-gen](https://github.com/onimusya/media-gen) | 7 | 通过统一的多提供方媒体 CLI 生成和编辑图像、制作视频、合成语音并转录音频。 | MIT | 1 | 仅索引 |
+| [Aarekaz/transit-mcp](https://github.com/Aarekaz/transit-mcp) | 5 | 查询纽约、华盛顿和旧金山湾区的公共交通路线、到站信息、运营中断、无障碍设施故障与车辆位置。 | MIT | 1 | 仅索引 |
+| [sya-ri/strata](https://github.com/sya-ri/strata) | 4 | 使用 Strata 组件、修饰器、可复用插槽与响应式状态归属编写和审查声明式 Minecraft 界面。 | MIT | 1 | 仅索引 |
+| [ericjy/markside](https://github.com/ericjy/markside) | 1 | 让编码 Agent 在 Chrome 中用 Markside 打开 Markdown、收集审阅评论并进行交互式访谈。 | MIT | 1 | 仅索引 |
