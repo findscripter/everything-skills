@@ -15,6 +15,7 @@ combines_with: [guided-statistical-analysis, matplotlib-visualization, scikit-le
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: K-Dense: individual SKILL metadata https://github.com/pydicom/pydicom/blob/main/LICENSE takes precedence over root MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 ## 何时使用
 

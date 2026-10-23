@@ -15,6 +15,7 @@ combines_with: [data-question-analyzer, seaborn-statistical-charts, matplotlib-v
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: K-Dense: individual SKILL metadata Apache License, Version 2.0 takes precedence over root MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 ## 何时使用
 

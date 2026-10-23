@@ -12,9 +12,10 @@ tools: [python, PyTDC, numpy, pandas, scikit-learn, rdkit]
 requires: []
 related: [chembl-bioactivity-database, cheminformatics-toolkit, deepchem-drug-discovery, autodock-vina-docking, protein-language-models]
 combines_with: [deepchem-drug-discovery, scikit-learn-ml, cheminformatics-toolkit]
-license: MIT
+license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
-source_license: MIT
+source_license: CC-BY-4.0
+source_license_scope: "Fixed comparison scope: SciAgent: original instruction writing CC-BY-4.0; underlying software/data declaration MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 ## 何时使用
 
@@ -178,4 +179,6 @@ print(ecfp.shape)   # (1024,) 二进制指纹
 - combines_with：`scikit-learn-ml` —— 在 TDC 划分上训经典 ML 基线并用 `Evaluator` 评估。
 
 ---
-本条采编自 jaechang-hits/SciAgent-Skills 的 [PyTDC 技能文件](https://github.com/jaechang-hits/SciAgent-Skills/blob/81ea2d2a6a37ea42b369f9a5c75191cca77540ce/skills/structural-biology-drug-discovery/pytdc-therapeutics-data-commons/SKILL.md)，已改写为中文。该固定版本文件的 frontmatter 明确声明 MIT，本条 `license` 与 `source_license` 均按这一文件级声明记录；该仓库根 [LICENSE](https://github.com/jaechang-hits/SciAgent-Skills/blob/81ea2d2a6a37ea42b369f9a5c75191cca77540ce/LICENSE) 对集合的通用声明为 CC BY 4.0，并注明 K-Dense-AI 原始内容的 MIT 授权，二者范围不同。此固定版本用于授权复核证据，不冒充未记录的原采编提交。
+本条参考 jaechang-hits/SciAgent-Skills 的 [PyTDC 技能文件](https://github.com/jaechang-hits/SciAgent-Skills/blob/0e69ced23e49203d529ea3869a8a4868bbffb42a/skills/structural-biology-drug-discovery/pytdc-therapeutics-data-commons/SKILL.md)，已改写为中文。历史 [README 的 License 说明](https://github.com/jaechang-hits/SciAgent-Skills/blob/0e69ced23e49203d529ea3869a8a4868bbffb42a/README.md#license) 明确区分：原创指令文字为 CC-BY-4.0，技能前言记录底层工具的许可。这里的 `license` 与 `source_license` 因而记录文字改编的 CC-BY-4.0 范围，并保留 SciAgent-Skills 的署名与改写说明；上游技能前言中的 MIT 仍作为 PyTDC 工具声明保留，不能据此把全部技能文字改记为 MIT。各数据集、第三方代码及服务继续适用各自条款。
+
+此前按文件前言 MIT 概括全部文字的说明已纠正，原声明可由 Git 历史追溯。上述固定版本只证明本次参考范围；原始读取及采编版本没有恢复，不把比较提交冒认为原版。逐项证据见 [历史许可范围复核](../../data/historical-license-review-2026-10-23.md)。

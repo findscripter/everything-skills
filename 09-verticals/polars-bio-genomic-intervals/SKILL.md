@@ -15,6 +15,7 @@ combines_with: [genomic-file-toolkit, macs3-peak-calling, deeptools-ngs-analysis
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: K-Dense: individual SKILL metadata Apache-2.0 takes precedence over root MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 ## 何时使用
 

@@ -15,6 +15,7 @@ combines_with: [zoom-oauth-setup, zoom-webhooks-setup, zoom-ai-scribe-transcript
 license: Apache-2.0
 source: anthropics/knowledge-work-plugins
 source_license: Apache-2.0
+source_license_scope: "Fixed comparison scope: nearest directory MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 ## 何时使用
 

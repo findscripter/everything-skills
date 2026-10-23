@@ -13,7 +13,7 @@ export const SKILL_REPO_SECTIONS = new Set(['official', 'collections', 'vertical
 export const SKILL_REPO_STATUSES = new Set(['仅索引', '已采编', '本项目']);
 export const SKILL_REPO_FIELDS = ['full_name', 'html_url', 'stars', 'summary', 'license', 'skill_count', 'status', 'section'];
 
-const REVIEW_FIELDS = new Set(['summary', 'summary_zh', 'license', 'skill_count', 'basis', 'representative_skill', 'public_skill_paths', 'license_evidence', 'readme_sha256']);
+const REVIEW_FIELDS = new Set(['summary', 'summary_zh', 'license', 'license_scope', 'skill_count', 'skill_count_basis', 'basis', 'representative_skill', 'public_skill_paths', 'evidence', 'license_evidence', 'readme_sha256']);
 const HASH40 = /^[a-f0-9]{40}$/;
 
 // Keep the original observation on disk. Only explicitly reviewed fields become

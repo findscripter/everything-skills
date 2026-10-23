@@ -15,6 +15,7 @@ combines_with: [bullmq-job-queue, python-testing-pytest, error-handling-patterns
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+source_license_scope: "Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
 ---
 ## 何时使用
 
