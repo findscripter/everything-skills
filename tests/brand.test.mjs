@@ -27,16 +27,18 @@ test('brand counters follow data updates and preserve handwritten/catalog conten
   const f = await fixture(t);
   assert.equal(f.run().status, 0);
   let readme = await fs.readFile(path.join(f.dir, 'README.md'), 'utf8');
-  assert.match(readme, /2 skills · 1 volumes · 1 relation edges · 1 indexed repositories/);
+  assert.match(readme, /2 skills · 1 volumes · 1 relation edges · 1 indexed entries/);
   assert.ok(readme.startsWith('Handwritten introduction\n'));
   assert.ok(readme.endsWith('Handwritten footer\n<!-- BEGIN GENERATED:skill-repos -->\nDo not touch this catalog.\n<!-- END GENERATED:skill-repos -->\n'));
   const row = { full_name: 'demo/two', html_url: 'https://github.com/demo/two', stars: 2, summary: 'Second demo', license: 'MIT', skill_count: '1', status: '仅索引', section: 'other' };
   await fs.writeFile(path.join(f.dir, 'data/skill-repos.part1.jsonl'), JSON.stringify(row) + '\n');
   assert.equal(f.run('en').status, 0);
   readme = await fs.readFile(path.join(f.dir, 'README.md'), 'utf8');
-  assert.match(readme, /2 indexed repositories/);
+  assert.match(readme, /2 indexed entries/);
   assert.match(readme, /Skill catalog/);
-  assert.match(await fs.readFile(path.join(f.dir, 'assets/brand/stats.svg'), 'utf8'), /2 indexed external repositories/);
+  assert.match(await fs.readFile(path.join(f.dir, 'assets/brand/stats.svg'), 'utf8'), /2 indexed entries/);
+  assert.match(await fs.readFile(path.join(f.dir, 'assets/brand/stats-mobile.svg'), 'utf8'), /2 indexed entries/);
+  assert.doesNotMatch(await fs.readFile(path.join(f.dir, 'assets/brand/stats.svg'), 'utf8'), /INDEXED REPOS/);
 });
 
 test('invalid brand boundaries fail before creating assets or rewriting README', async t => {
