@@ -25,6 +25,11 @@ function isObject(value) {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
+function isUpstreamPath(value) {
+  // Encoded separators or dot segments can change what a server resolves.
+  return isRelativePath(value) && !/[%\s]/.test(value);
+}
+
 /** Read metadata and hash resource bytes only. Never import or execute a skill. */
 export function checkSkillAssets(root) {
   const errors = [];
@@ -73,8 +78,9 @@ export function checkSkillAssets(root) {
     let realSkill;
     try {
       realSkill = fs.realpathSync(absoluteSkill);
-      if (!isWithin(realRoot, realSkill)) {
-        fail('ASSET_SCOPE', `${entry.name}: skill directory resolves outside the workspace`);
+      const declaredSkill = path.resolve(realRoot, entry.skill_path);
+      if (!isWithin(realRoot, realSkill) || path.relative(declaredSkill, realSkill) !== '') {
+        fail('ASSET_SCOPE', `${entry.name}: skill directory resolves outside its declared location`);
         continue;
       }
       const bodyPath = path.join(absoluteSkill, 'SKILL.md');
@@ -95,9 +101,9 @@ export function checkSkillAssets(root) {
     if (entry.resolution === 'native-rewrite' && entry.source === null && entry.resources.length === 0) {
       // Native instructions without third-party files have no upstream resource snapshot.
     } else if (!isObject(entry.source) ||
-        !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(entry.source.repository ?? '') ||
+        !/^[A-Za-z0-9][A-Za-z0-9-]*\/[A-Za-z0-9][A-Za-z0-9_.-]*$/.test(entry.source.repository ?? '') ||
         !/^[a-f0-9]{40}$/.test(entry.source.commit ?? '') ||
-        !isRelativePath(entry.source.path)) {
+        !isUpstreamPath(entry.source.path)) {
       fail('ASSET_SOURCE', `${entry.name}: source requires a repository, immutable commit and relative path`);
     } else {
       sourceBase = `https://github.com/${entry.source.repository}/blob/${entry.source.commit}/`;
@@ -139,7 +145,7 @@ export function checkSkillAssets(root) {
         fail('ASSET_MISSING', `${resource.path}: cannot read resource: ${error.message}`);
       }
       if (!sourceBase || typeof resource.source_url !== 'string' || !resource.source_url.startsWith(sourceBase) ||
-          !isRelativePath(resource.source_url.slice(sourceBase.length))) {
+          !isUpstreamPath(resource.source_url.slice(sourceBase.length))) {
         fail('ASSET_SOURCE', `${resource.path}: resource source URL must use the declared immutable repository snapshot`);
       }
 
