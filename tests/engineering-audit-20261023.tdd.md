@@ -20,6 +20,7 @@
 
 - RED：`954a78c9730b82d21e3fcaf2c61650a592b3a35d`。修改生产代码之前执行 `node --test tests/engineering-regressions.test.mjs`，12 项测试全部因对应既有行为失败；另有一次早期 11 项测试运行也全部失败。
 - GREEN：运行 `npm test`，36/36 通过，包含全部 12 项新增回归及 24 项既有回归。
+- 品牌补充 RED：`2c5fcb8f25479cd8f6df5b9496acd83324768f68`，`node --test tests/brand.test.mjs` 为 3 通过 / 1 因旧 `indexed repositories` 文案失败；修复后桌面/移动 SVG 及 README alt 都使用 `indexed entries`。
 - 覆盖率命令：`node --test --experimental-test-coverage tests/brand.test.mjs tests/index-pipeline.test.mjs tests/skill-cli.test.mjs tests/engineering-regressions.test.mjs`，36/36 通过；报告的源树 `everything-skills.mjs` 行覆盖率 85.98%，`load-skill-repos.mjs` 83.87%，合计 85.34%。
 
 ## 覆盖范围与局限
