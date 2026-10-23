@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "timezone": "Asia/Shanghai",
+  "target": 50,
+  "baseline_count": 2612,
+  "baseline_file": "baseline.json",
+  "baseline_sha256": "136e91d8d07b92f2d0be2df844b511c1dd8a2ef82f7221d87aed1af7f6d80f57",
+  "catalog_shard": "../../skill-repos.part88.jsonl",
+  "locally_verified_new_count": 73,
+  "daily_qualifying_count": 0,
+  "status": "verified-awaiting-publication",
+  "repositories": [
+    {
+      "full_name": "scaccogatto/okf-skills",
+      "repository_id": 1269151566
+    },
+    {
+      "full_name": "avivsinai/bitbucket-cli",
+      "repository_id": 1083689394
+    },
+    {
+      "full_name": "preetsuthar17/hextaui",
+      "repository_id": 1387189680
+    },
+    {
+      "full_name": "tririver/arc",
+      "repository_id": 1247365040
+    },
+    {
+      "full_name": "chen3tu/interview-master-skill",
+      "repository_id": 1180400087
+    },
+    {
+      "full_name": "NotNull92/hera-agent-unity",
+      "repository_id": 1250681945
+    },
+    {
+      "full_name": "ChengminLi/AI-PCB-layout",
+      "repository_id": 1419573856
+    },
+    {
+      "full_name": "ethpandaops/panda",
+      "repository_id": 978489319
+    },
+    {
+      "full_name": "ClawCall-Dev/ClawCall",
+      "repository_id": 1148822179
+    },
+    {
+      "full_name": "ConnectiveOne/connectiveone-docs",
+      "repository_id": 1313752027
+    },
+    {
+      "full_name": "cychien/ezdesign",
+      "repository_id": 1328788503
+    },
+    {
+      "full_name": "get-dre/dre",
+      "repository_id": 1386591789
+    },
+    {
+      "full_name": "onimusya/media-gen",
+      "repository_id": 1291140644
+    },
+    {
+      "full_name": "Walsworth-Group/physkit",
+      "repository_id": 1407970170
+    },
+    {
+      "full_name": "Aarekaz/transit-mcp",
+      "repository_id": 1122950574
+    },
+    {
+      "full_name": "Boom-Vitt/kicad-thai",
+      "repository_id": 1400451482
+    },
+    {
+      "full_name": "weeeha/Super-Design-Lead",
+      "repository_id": 1241088332
+    },
+    {
+      "full_name": "hyt24/nds-game-localization-skill",
+      "repository_id": 1339220628
+    },
+    {
+      "full_name": "sya-ri/strata",
+      "repository_id": 1338958821
+    },
+    {
+      "full_name": "BlocksOrg/skills",
+      "repository_id": 1400590553
+    },
+    {
+      "full_name": "cli1980/manuscript-studio",
+      "repository_id": 1307021521
+    },
+    {
+      "full_name": "fetchai/agentverse-skills",
+      "repository_id": 1216149857
+    },
+    {
+      "full_name": "googool2/fawiki-editor",
+      "repository_id": 1428623887
+    },
+    {
+      "full_name": "mobiumdev/mobium",
+      "repository_id": 1389756043
+    },
+    {
+      "full_name": "vp9fm78jvp-sketch/lumerical-matlab-paper-reproduction",
+      "repository_id": 1429690754
+    },
+    {
+      "full_name": "1762972857-del/specific-learning",
+      "repository_id": 1416771125
+    },
+    {
+      "full_name": "aerince/deepseek-harness-plugin-authoring",
+      "repository_id": 1335024047
+    },
+    {
+      "full_name": "Alibaba-Agent-Sandbox/agent-sandbox",
+      "repository_id": 1355578103
+    },
+    {
+      "full_name": "ericjy/markside",
+      "repository_id": 1424917540
+    },
+    {
+      "full_name": "greedy-co/abto-sdk",
+      "repository_id": 1310698936
+    },
+    {
+      "full_name": "hey-juno/juno-agent-toolkit",
+      "repository_id": 1362196607
+    },
+    {
+      "full_name": "homespunapps/homespun",
+      "repository_id": 1308520911
+    },
+    {
+      "full_name": "JordanSucher/open-data-nonprofit-assistant",
+      "repository_id": 1193940282
+    },
+    {
+      "full_name": "komaa-com/skills",
+      "repository_id": 1368411186
+    },
+    {
+      "full_name": "leonardgorges/skills",
+      "repository_id": 1423439193
+    },
+    {
+      "full_name": "mountayaapp/agent-skills",
+      "repository_id": 1219712150
+    },
+    {
+      "full_name": "msg2ai/nonprofit-team-skills",
+      "repository_id": 1231588604
+    },
+    {
+      "full_name": "RajaMDM/agents-for-good-gcc",
+      "repository_id": 1217637189
+    },
+    {
+      "full_name": "reactvideoeditor/react-video-editor-agent-skills",
+      "repository_id": 1374638559
+    },
+    {
+      "full_name": "spicyapi-ai/spicy-skill",
+      "repository_id": 1405958574
+    },
+    {
+      "full_name": "trackbridge/skills",
+      "repository_id": 1221212974
+    },
+    {
+      "full_name": "vctrop/creative-thinking-for-engineering",
+      "repository_id": 1387898755
+    },
+    {
+      "full_name": "Abulfadl-Ahmadi/physics-lecture-notes",
+      "repository_id": 1403317612
+    },
+    {
+      "full_name": "arm-pz/prompts-to-skill",
+      "repository_id": 1425031901
+    },
+    {
+      "full_name": "bonny8000/Interview-Analysis-Skill",
+      "repository_id": 1414931792
+    },
+    {
+      "full_name": "chrisrenzm/patent-drawer",
+      "repository_id": 1423803919
+    },
+    {
+      "full_name": "CurvatureFelis/modern-physics-lab-report",
+      "repository_id": 1378476990
+    },
+    {
+      "full_name": "DarrenWongKaWa/ResearchPhO",
+      "repository_id": 1423230440
+    },
+    {
+      "full_name": "dc73/matlab-engineering-skill",
+      "repository_id": 1364957682
+    },
+    {
+      "full_name": "dh2211/nonprofit-agents",
+      "repository_id": 1430425494
+    },
+    {
+      "full_name": "fangdididi/role-teardown",
+      "repository_id": 1426805504
+    },
+    {
+      "full_name": "fxp/ee-skills",
+      "repository_id": 1426855423
+    },
+    {
+      "full_name": "gngrwsbi/nonprofit-governance-skill",
+      "repository_id": 1207404550
+    },
+    {
+      "full_name": "Hook12aaa/skill-cheat",
+      "repository_id": 1219355429
+    },
+    {
+      "full_name": "kohamster7758/extraction-gate",
+      "repository_id": 1361366330
+    },
+    {
+      "full_name": "kraksp/design-enclosure",
+      "repository_id": 1405259830
+    },
+    {
+      "full_name": "labhoshi820-web/xact-research-skill",
+      "repository_id": 1386757821
+    },
+    {
+      "full_name": "liuchang8877/physics-scene",
+      "repository_id": 1384491767
+    },
+    {
+      "full_name": "martin-araya/notemartin-study-translate",
+      "repository_id": 1430305189
+    },
+    {
+      "full_name": "matthewparker-moveMP/intake-prep-skill",
+      "repository_id": 1316180109
+    },
+    {
+      "full_name": "matthieu-00/design-history-fusion",
+      "repository_id": 1372435516
+    },
+    {
+      "full_name": "Mic-Fundraiser/phplist-email-generator",
+      "repository_id": 1375847270
+    },
+    {
+      "full_name": "npaiadvisor/discovery",
+      "repository_id": 1276952397
+    },
+    {
+      "full_name": "PersianXM/persian-docx-skill",
+      "repository_id": 1425772568
+    },
+    {
+      "full_name": "Rigjite/Ecosystem-Digital-Twin",
+      "repository_id": 1426770271
+    },
+    {
+      "full_name": "RoodsBurger/eagle-pcb-studio",
+      "repository_id": 1278431083
+    },
+    {
+      "full_name": "roundofschatz/resume-ops",
+      "repository_id": 1410970152
+    },
+    {
+      "full_name": "saikhamhein/agent-skills",
+      "repository_id": 1403884306
+    },
+    {
+      "full_name": "slosar/catskills",
+      "repository_id": 1369522243
+    },
+    {
+      "full_name": "wangxinyu20429-dotcom/zotero-obsidian-research-skills",
+      "repository_id": 1305667467
+    },
+    {
+      "full_name": "WholeWhale/verified-giving-protocol",
+      "repository_id": 1347543473
+    },
+    {
+      "full_name": "Zwl20085/femm-agent-suite",
+      "repository_id": 1422837530
+    },
+    {
+      "full_name": "Zwl20085/jmag-agent-suite",
+      "repository_id": 1415809712
+    }
+  ]
+}
