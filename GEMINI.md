@@ -3,6 +3,9 @@
 
 This repository is an Agent skill library: **1113 `SKILL.md` skills** organized into 11 domain volumes under `00-meta/` … `10-platform/` (there is no single `skills/` directory).
 
+## Repository maintenance
+Before collection, auditing, fixes, or publication, read [sop.md](sop.md) and apply the relevant workflow within the user's request. It covers the daily discovery target, evidence, parallel work, validation, and bilingual release. Communicate with the maintainer in Chinese.
+
 ## Discovering skills
 - Agents match each skill's `description` field at runtime; they do not browse the directory tree.
 - Human indexes: `INDEX/catalog.md`, `INDEX/tags.md`, and `INDEX/graph.md`.
