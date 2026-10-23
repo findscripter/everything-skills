@@ -16,7 +16,6 @@ license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
 ---
-_本条 frontmatter 设 `domain: 领域/ERP`（受众已定勿改）。注意：仓库 `taxonomy.json` 中 `09-verticals/领域` 的受控类目为 science/legal/medical/edu/fintech/hardware，暂无 `ERP` 类；写盘前需在 taxonomy 增补 `ERP` 类（或别名归一），否则 `scripts/build-index.mjs` 会报类校验 error。sibling `odoo-localization-compliance` 当前归在 `领域/fintech`。_
 
 # Odoo QWeb 报表与模板
 

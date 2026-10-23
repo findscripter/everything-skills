@@ -201,7 +201,7 @@ for chain in st[0]:
 
 - requires：无
 - related：`uniprot-protein-database` —— 由 UniProt accession 或序列定位结构；`alphafold-database-access` —— 无实验结构时取 AI 预测模型。
-- combines_with：`autodock-vina-docking` / `diffdock-blind-docking` —— 用 PDB 结构作受体做分子对接；`molecular-dynamics-simulation` —— 用下载的坐标跑 MD；`cheminformatics-toolkit` —— 分析从复合物提取的配体。
+- combines_with：`autodock-vina-docking` / `diffdock-blind-docking` —— 用 PDB 结构作受体做分子对接；`molecular-dynamics-openmm` —— 用下载的坐标跑 MD；`cheminformatics-toolkit` —— 分析从复合物提取的配体。
 
 参考：RCSB PDB https://www.rcsb.org ；Search API v2 https://search.rcsb.org/ ；Data GraphQL https://data.rcsb.org/index.html#graphql-api ；属性 schema https://search.rcsb.org/rcsbsearch/v2/metadata/schema 。
 

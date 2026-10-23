@@ -16,6 +16,17 @@ license: Apache-2.0
 source: anthropics/skills
 source_license: Apache-2.0
 ---
+## 随包资源与运行前提
+
+本目录的脚本、参考文档和模板已随技能分发；固定来源、SHA-256 与许可见 [RESOURCES.md](RESOURCES.md) 及 [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)。新增资源取自核验时的固定上游快照，不表示这是原正文采编时的版本。
+
+- 文档中的资源相对路径指**本技能目录**；执行时保持目标项目所需的工作目录，用资源的绝对路径调用。项目输入/输出也使用绝对路径，不能把技能库误当成被操作的项目。
+- 环境依赖：Python 3；PyYAML for scripts that parse frontmatter；Claude CLI for scripts/run_eval.py and description optimization; use manual evaluation when unavailable。本技能不自动安装这些依赖；缺失时先报告具体缺项，使用正文可行的人工流程，不能声称已完成脚本验证。
+- 上游脚本在本仓仅做静态核对；使用前审查实际参数、输出位置及外部调用，按用户已授权范围运行。
+
+使用 `python -m scripts.*` 时，保持当前目录为专用测试项目，并把本技能目录加入该进程的 `PYTHONPATH`，以解析随包的 `scripts` 模块；不要在本技能库里创建测试项目。
+
+自动触发评估通过 `claude -p` 启动模型会话、在专用测试项目写临时 `.claude/commands`；运行前确认模型调用与测试项目范围。`scripts/run_eval.py` 的管道等待使用 POSIX `select`，在不支持该方式的 Windows 环境采用手工执行与记录，不把未运行的自动评分当作通过。
 
 # Skill Creator
 

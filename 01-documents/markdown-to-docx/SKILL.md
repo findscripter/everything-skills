@@ -85,4 +85,4 @@ pandoc -f gfm --reference-doc=corp-template.docx --toc report.md -o report.docx
 
 - requires：无。
 - related：`pdf-form-filler`（需求方向为填写 PDF 表单而非生成 Word 时改用）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。

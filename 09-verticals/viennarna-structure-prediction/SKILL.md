@@ -165,7 +165,7 @@ for s in subopt[:3]:
 
 - related：`genomic-file-toolkit` —— 处理 FASTA/序列文件 I/O
 - related：`single-cell-rnaseq-analysis`、`scientific-database-lookup` —— RNA 数据获取与下游分析
-- related：`cheminformatics-toolkit`、`molecular-dynamics-simulation` —— 同属分子/结构建模领域
+- related：`cheminformatics-toolkit`、`molecular-dynamics-openmm` —— 同属分子/结构建模领域
 - combines_with：`scientific-database-lookup` —— 先检索目标序列再做结构预测
 
 ---

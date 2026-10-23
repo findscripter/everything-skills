@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [markdown]
 requires: []
-related: [dpa-clause-reviewer, dpa-playbook-review, privacy-impact-assessor, gdpr-data-handling]
+related: [dpa-playbook-review, privacy-impact-assessor, gdpr-data-handling]
 combines_with: [gdpr-data-handler, legal-inquiry-responder]
 license: MIT
 source: sickn33/agentic-awesome-skills
@@ -111,7 +111,7 @@ source_license: MIT
 ## 互见
 
 - related：`gdpr-data-handler` —— 落地 GDPR 数据主体请求与处理记录，与隐私政策文本互为表里。
-- related：`dpa-clause-reviewer` —— 起草的 DPA 草案可交由其做条款级审查。
+- related：`dpa-playbook-review` —— 起草的 DPA 草案可交由其做条款级审查。
 - related：`general-counsel-advisor` —— 上线前的整体合规把关与需法务审查项处置。
 - related：`privacy-impact-assessor` —— 高风险处理场景先做 DPIA，再据评估调整隐私政策。
 - related：`marketing-claims-reviewer` —— 邮件营销 / 广告合规（CAN-SPAM / CASL）配套文本审查。

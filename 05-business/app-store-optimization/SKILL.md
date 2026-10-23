@@ -28,6 +28,13 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
+## 随包资源与运行前提
+
+本目录的脚本、参考文档和模板已随技能分发；固定来源、SHA-256 与许可见 [RESOURCES.md](RESOURCES.md) 及 [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)。新增资源取自核验时的固定上游快照，不表示这是原正文采编时的版本。
+
+- 文档中的资源相对路径指**本技能目录**；执行时保持目标项目所需的工作目录，用资源的绝对路径调用。项目输入/输出也使用绝对路径，不能把技能库误当成被操作的项目。
+- 环境依赖：Python 3 (standard library)。本技能不自动安装这些依赖；缺失时先报告具体缺项，使用正文可行的人工流程，不能声称已完成脚本验证。
+- 上游脚本在本仓仅做静态核对；使用前审查实际参数、输出位置及外部调用，按用户已授权范围运行。
 
 # App Store Optimization (ASO)
 
@@ -424,18 +431,43 @@ Trusted by 500,000+ professionals.
 
 ## Tools and References
 
-### Scripts
+### Python modules and real interfaces
 
-| Script | Purpose | Usage |
-|--------|---------|-------|
-| [keyword_analyzer.py](scripts/keyword_analyzer.py) | Analyze keywords for volume and competition | `python keyword_analyzer.py --keywords "todo,task,planner"` |
-| [metadata_optimizer.py](scripts/metadata_optimizer.py) | Validate metadata character limits and density | `python metadata_optimizer.py --platform ios --title "App Title"` |
-| [competitor_analyzer.py](scripts/competitor_analyzer.py) | Extract and compare competitor keywords | `python competitor_analyzer.py --competitors "App1,App2,App3"` |
-| [aso_scorer.py](scripts/aso_scorer.py) | Calculate overall ASO health score | `python aso_scorer.py --app-id com.example.app` |
-| [ab_test_planner.py](scripts/ab_test_planner.py) | Plan tests and calculate sample sizes | `python ab_test_planner.py --cvr 0.05 --lift 0.10` |
-| [review_analyzer.py](scripts/review_analyzer.py) | Analyze review sentiment and themes | `python review_analyzer.py --app-id com.example.app` |
-| [launch_checklist.py](scripts/launch_checklist.py) | Generate platform-specific launch checklists | `python launch_checklist.py --platform ios` |
-| [localization_helper.py](scripts/localization_helper.py) | Manage multi-language metadata | `python localization_helper.py --locales "en,es,de,ja"` |
+这 8 个文件是可导入的 Python 分析模块，**没有命令行入口、参数解析或自动抓取数据的实现**。不要使用 `python module.py --app-id ...`、`--keywords`、`--platform` 等原示例；直接运行文件可能正常退出却不产出分析，退出码 0 不能视为完成。
+
+把本技能目录加入分析进程的 `PYTHONPATH`，从下表模块导入相应类。所有输入来自用户提供或在当前任务内获授权取得的数据；记录来源、采样时间和覆盖范围。未取得的搜索量、竞争数、排名、评分或转化指标应标记缺失，不能用模块默认 0 或内置基准冒充真实观测。
+
+| Module / import | Actual call | Required input |
+|---|---|---|
+| [scripts.keyword_analyzer](scripts/keyword_analyzer.py): `KeywordAnalyzer` | `KeywordAnalyzer().compare_keywords(keywords_data)` | 用户关键词记录列表：`keyword`、`search_volume`、`competing_apps`、`relevance_score`；模块只按输入估算分数，不查询商店 |
+| [scripts.metadata_optimizer](scripts/metadata_optimizer.py): `MetadataOptimizer` | `MetadataOptimizer(platform="apple").validate_character_limits(metadata)` | 用户现有标题、描述等字段字典；平台取 `apple` 或 `google`，不是 `ios` |
+| [scripts.competitor_analyzer](scripts/competitor_analyzer.py): `CompetitorAnalyzer` | `CompetitorAnalyzer(category=category, platform="apple").compare_competitors(competitors_data)` | 用户提供的类别及竞品字典列表（`app_name`、`title`、`description`、`rating`、`ratings_count`、`keywords`） |
+| [scripts.aso_scorer](scripts/aso_scorer.py): `ASOScorer` | `ASOScorer().calculate_overall_score(metadata, ratings, keyword_performance, conversion)` | 四组已核实的指标字典；先阅读各 `score_*` 的字段/单位要求，缺指标则不生成声称完整的总分 |
+| [scripts.ab_test_planner](scripts/ab_test_planner.py): `ABTestPlanner` | `ABTestPlanner().calculate_sample_size(baseline_conversion, relative_mde)` | 当前转化率 0–1、相对最小可检测提升；例如 0.10 表示相对提升 10%，不是 10 个百分点 |
+| [scripts.review_analyzer](scripts/review_analyzer.py): `ReviewAnalyzer` | `ReviewAnalyzer(app_name).analyze_sentiment(reviews)` | 用户导出的评论列表，每项含 `text`、`rating`、`date`；无按 App ID 下载评论的功能 |
+| [scripts.launch_checklist](scripts/launch_checklist.py): `LaunchChecklistGenerator` | `LaunchChecklistGenerator(platform="apple").generate_prelaunch_checklist(app_info, launch_date)` | 用户应用信息与目标发布日期；平台取 `apple`、`google` 或 `both` |
+| [scripts.localization_helper](scripts/localization_helper.py): `LocalizationHelper` | `LocalizationHelper().validate_translations(translated_metadata, target_language, platform="apple")` | 用户提供的目标语言文案；`translate_metadata()` 仅估算长度与给出提示，不执行真实翻译 |
+
+例如，在 `PYTHONPATH` 已包含本技能目录的独立分析进程中，对**用户已有的评论导出**调用真实接口：
+
+```python
+import json
+import sys
+from pathlib import Path
+from scripts.review_analyzer import ReviewAnalyzer
+
+# 第一个参数是用户数据文件绝对路径，第二个是已确认的应用名称。
+reviews = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+if not isinstance(reviews, list) or not reviews:
+    raise ValueError("需要用户提供的非空评论列表")
+for review in reviews:
+    if not isinstance(review, dict) or not {"text", "rating", "date"} <= review.keys():
+        raise ValueError("每条评论需要 text、rating、date")
+result = ReviewAnalyzer(sys.argv[2]).analyze_sentiment(reviews)
+print(json.dumps(result, ensure_ascii=False, indent=2))
+```
+
+模块的情绪词典、评分阈值、平台长度常量与市场建议都是固定快照中的启发式规则。输出必须说明这一点；发布前另行核实当前平台要求，不把静态提示当成商店实时数据、真实翻译或排名保证。
 
 ### References
 
@@ -472,9 +504,9 @@ Trusted by 500,000+ professionals.
 
 | Skill | Integration Point |
 |-------|-------------------|
-| [content-creator](../content-creator/) | App description copywriting |
-| [marketing-demand-acquisition](../marketing-demand-acquisition/) | Launch promotion campaigns |
-| [marketing-strategy-pmm](../marketing-strategy-pmm/) | Go-to-market planning |
+| [conversion-copywriter](../conversion-copywriter/) | App description copywriting |
+| [product-launch-strategy](../product-launch-strategy/) | Launch promotion campaigns |
+| [product-marketing-gtm-strategy](../product-marketing-gtm-strategy/) | Go-to-market planning |
 
 ## Proactive Triggers
 

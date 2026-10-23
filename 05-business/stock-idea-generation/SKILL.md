@@ -100,7 +100,7 @@ source_license: Apache-2.0
 ## 互见
 
 - related：`cfo-financial-advisor`、`startup-financial-modeler` —— 候选进入深度建模阶段时衔接。
-- related：`competitive-analysis`、`market-sizing-analyst` —— 主题扫描与价值链映射时互补。
+- related：`competitive-analysis`、`market-sizing-tam-sam-som` —— 主题扫描与价值链映射时互补。
 - combines_with：`sales-forecast-builder` —— 同属财务/投研侧量化分析。
 - 把候选清单与对比表落地为可跟踪表格时，配合 lark-base / lark-sheets 使用。
 

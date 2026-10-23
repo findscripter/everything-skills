@@ -77,7 +77,7 @@
 ## 卷九 · 领域专精（09-verticals）— 行业纵深
 - `science` 科学（生信、化学、物理…）
 - `legal` 法律 / `medical` 医疗 / `edu` 教育
-- `fintech` 金融科技 / `hardware` 硬件与 EDA
+- `fintech` 金融科技 / `hardware` 硬件与 EDA / `erp` 企业资源规划
 
 > **正交规则（重要）**：垂直卷只收「与行业知识/合规/术语强绑定、无法被功能卷复用」的技能。纯功能实现（清洗、写作、查询）一律放对应功能卷，再用 `tags` 标行业。否则垂直卷会与所有功能卷抢条目，「一物一处」在此系统性失效。
 
@@ -98,7 +98,7 @@
 |---|---|---|
 | 卷目录 | `NN-英文域` | `04-ai` |
 | 技能文件夹 / `name` | ASCII kebab-case，全库唯一 | `rag-pipeline-builder` |
-| frontmatter `domain` | `卷中文/类` | `智能/RAG` |
+| frontmatter `domain` | `卷中文/类` | `智能/rag` |
 | `title` | 中文 | `RAG 检索管道搭建` |
 
 新增技能 → 选定 `卷/类` → 在该卷目录下建 `your-skill-name/SKILL.md` → 跑生成器。

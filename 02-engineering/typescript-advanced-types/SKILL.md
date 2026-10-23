@@ -130,7 +130,7 @@ Exclude<T,U> Extract<T,U> NonNullable<T> Record<K,T> ReturnType<T> Parameters<T>
 
 - requires：无。
 - related：`code-reviewer`（审查 TS 改动时，类型契约与收窄正确性是审查维度之一）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 采编自 sickn33/antigravity-awesome-skills（MIT）。

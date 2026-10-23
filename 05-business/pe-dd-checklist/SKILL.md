@@ -93,7 +93,7 @@ source_license: Apache-2.0
 - requires：`ma-playbook` —— 先定交易战略理由与整体打法，再用本清单系统化执行尽调
 - related：`deal-desk-reviewer` —— 交易审查与定价/条款把关
 - related：`startup-financial-modeler` —— QoE 等财务待办项落地为估值模型
-- related：`market-sizing-analyst` —— 商业尽调中 TAM/SAM/SOM 测算
+- related：`market-sizing-tam-sam-som` —— 商业尽调中 TAM/SAM/SOM 测算
 - combines_with：`cfo-financial-advisor` —— 财务领域红旗的深挖与影响评估
 - combines_with：`board-deck-builder` —— 尽调发现与红旗汇总成投委会/董事会材料
 

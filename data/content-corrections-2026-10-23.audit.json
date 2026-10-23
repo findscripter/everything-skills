@@ -1,0 +1,724 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-23",
+  "audit_base_commit": "c72ad0eeb6eae27af4b754e7eac4bdf99dd2c5a5",
+  "scope": [
+    "SK-02",
+    "SK-03",
+    "SK-04",
+    "SK-05",
+    "SK-07",
+    "SK-08",
+    "UP-02",
+    "UP-03",
+    "PKG-002",
+    "PKG-003",
+    "PKG-004",
+    "PKG-005",
+    "additional-pdf-xlsx-file-license-corrections"
+  ],
+  "source_version_limit": "The original collection commit for PyTDC was not recorded. The fixed pre-collection upstream revision below is license-review evidence only; it does not establish the exact original curated revision.",
+  "pytdc_license": {
+    "local_path": "09-verticals/pytdc-therapeutics-data-commons/SKILL.md",
+    "previous_source_license": "CC-BY-4.0",
+    "corrected_file_license": "MIT",
+    "corrected_source_license": "MIT",
+    "evidence": [
+      {
+        "upstream_repository": "jaechang-hits/SciAgent-Skills",
+        "commit": "81ea2d2a6a37ea42b369f9a5c75191cca77540ce",
+        "path": "skills/structural-biology-drug-discovery/pytdc-therapeutics-data-commons/SKILL.md",
+        "blob_oid": "0a5188863632633ddf7f9a0d8515fad4447b7a8d",
+        "sha256": "6ed7e70efc0448fc0483f10e965aedf1be38d5b1fddc681aa84eb18e2b2070f7",
+        "fixed_url": "https://github.com/jaechang-hits/SciAgent-Skills/blob/81ea2d2a6a37ea42b369f9a5c75191cca77540ce/skills/structural-biology-drug-discovery/pytdc-therapeutics-data-commons/SKILL.md",
+        "interpretation": "Exact skill frontmatter declares MIT; the collection root LICENSE is CC BY 4.0 and acknowledges MIT material. Preserve file-specific scope."
+      },
+      {
+        "upstream_repository": "jaechang-hits/SciAgent-Skills",
+        "commit": "81ea2d2a6a37ea42b369f9a5c75191cca77540ce",
+        "path": "LICENSE",
+        "blob_oid": "5a68103f11a6e3e0071aac717688d497d40825c8",
+        "sha256": "a5b56d170c592e1a448037c00c59b6a7657bd2f156bfd29504bd42bc05153719",
+        "fixed_url": "https://github.com/jaechang-hits/SciAgent-Skills/blob/81ea2d2a6a37ea42b369f9a5c75191cca77540ce/LICENSE",
+        "interpretation": "Collection-level license context, not a replacement for the exact file declaration."
+      }
+    ]
+  },
+  "canonical_skill_merges": [
+    {
+      "deprecated": "molecular-dynamics-simulation",
+      "canonical": "molecular-dynamics-openmm",
+      "direction": "canonical supersedes deprecated",
+      "preservation": "Retired body retained with a canonical link; unique examples, constraints and metadata merged into canonical skill."
+    },
+    {
+      "deprecated": "dpa-clause-reviewer",
+      "canonical": "dpa-playbook-review",
+      "direction": "canonical supersedes deprecated",
+      "preservation": "Retired body retained with a canonical link; unique examples, constraints and metadata merged into canonical skill."
+    },
+    {
+      "deprecated": "x-twitter-automation",
+      "canonical": "x-twitter-scraper-toolkit",
+      "direction": "canonical supersedes deprecated",
+      "preservation": "Retired body retained with a canonical link; unique examples, constraints and metadata merged into canonical skill."
+    },
+    {
+      "deprecated": "market-sizing-analyst",
+      "canonical": "market-sizing-tam-sam-som",
+      "direction": "canonical supersedes deprecated",
+      "preservation": "Retired body retained with a canonical link; unique examples, constraints and metadata merged into canonical skill."
+    },
+    {
+      "deprecated": "astronomy-data-toolkit",
+      "canonical": "astropy-astronomy-toolkit",
+      "direction": "canonical supersedes deprecated",
+      "preservation": "Retired body retained with a canonical link; unique examples, constraints and metadata merged into canonical skill."
+    }
+  ],
+  "unique_content_review": {
+    "molecular-dynamics-openmm": "Kept PDBFixer setup, merged relationship/trigger coverage; both 500000-step examples use 0.002 ps = 1 ns.",
+    "dpa-playbook-review": "Kept full role/jurisdiction/work-product boundaries; merged source verification and first-principles relationships.",
+    "x-twitter-scraper-toolkit": "Kept REST key example, cost estimate and approval gates; merged runtime plugin detail and relationship coverage; placed API workflow in platform/integration.",
+    "market-sizing-tam-sam-som": "Kept source and audience tables plus top-down case; merged bottom-up case as explicit teaching assumptions, removed unsupported real-market attribution from that case.",
+    "astropy-astronomy-toolkit": "Kept all coordinate/catalog/cosmology examples plus unique FITS statistics and expanded API/reproducibility constraints; merged relationships."
+  },
+  "body_relationship_conflicts": {
+    "reported_occurrences": 20,
+    "paths": [
+      "00-meta/first-principles-thinking/SKILL.md",
+      "01-documents/markdown-to-docx/SKILL.md",
+      "02-engineering/async-python-patterns/SKILL.md",
+      "02-engineering/error-handling-patterns/SKILL.md",
+      "02-engineering/latency-critical-systems/SKILL.md",
+      "02-engineering/microservices-patterns/SKILL.md",
+      "02-engineering/scala-pro/SKILL.md",
+      "02-engineering/swift-concurrency/SKILL.md",
+      "02-engineering/tanstack-query/SKILL.md",
+      "02-engineering/typescript-advanced-types/SKILL.md",
+      "03-data/airflow-dag-patterns/SKILL.md",
+      "03-data/csv-data-cleaner/SKILL.md",
+      "03-data/data-quality-validator/SKILL.md",
+      "03-data/gl-subledger-reconciler/SKILL.md",
+      "03-data/scikit-learn-ml/SKILL.md",
+      "03-data/sql-query-builder/SKILL.md",
+      "05-business/seo-content-writer/SKILL.md",
+      "05-business/startup-financial-modeler/SKILL.md",
+      "06-creative/unity-game-developer/SKILL.md",
+      "09-verticals/backtesting-frameworks/SKILL.md"
+    ],
+    "resolution": "Body defers to frontmatter, the sole machine-readable relationship source."
+  },
+  "resolved_editorial_residue": [
+    "09-verticals/odoo-xml-views-builder/SKILL.md",
+    "09-verticals/odoo-qweb-templates/SKILL.md",
+    "09-verticals/odoo-performance-tuner/SKILL.md",
+    "02-engineering/expo-router-native-ui/SKILL.md",
+    "09-verticals/neuropixels-neural-recording/SKILL.md"
+  ],
+  "odoo_failure_handling": {
+    "path": "09-verticals/odoo-backup-strategy/SKILL.md",
+    "changes": [
+      "set -Eeuo pipefail for all operative examples",
+      "consistent DB and filestore backup window, verified bundle published by rename",
+      "S3 steps stop on failure and only print retention candidates",
+      "checksum and archive member validation precede staging restore",
+      "new staging database/filestore and isolated acceptance precede any production cutover",
+      "preserve existing production state and rollback names; no automatic destructive cutover"
+    ],
+    "validation": "Three Bash examples parsed by Git Bash -n; no database, backup, extraction or deletion operation executed."
+  },
+  "external_dependency_corrections": {
+    "checked_on": "2026-10-23",
+    "github_fixed_evidence": [
+      {
+        "repository": "huggingface/hf-mount",
+        "commit": "e812b5e8b39b110e8b76ef85e729baf33a9acfd2",
+        "path": "README.md",
+        "blob_oid": "a8bf18a63693fd6be33761144257968b85d07c75",
+        "sha256": "1c21e2c136466bcd6fecbac53da7b31fca0763a5c0446a0be2f55271a2d5a11f",
+        "fixed_url": "https://github.com/huggingface/hf-mount/blob/e812b5e8b39b110e8b76ef85e729baf33a9acfd2/README.md",
+        "role": "Installation or documentation correction evidence; not an original curated-source version."
+      },
+      {
+        "repository": "okx/payments",
+        "commit": "c14387896db3d2704a67b488139fb56f7f540bdc",
+        "path": "java/README.md",
+        "blob_oid": "5a12fe5510d940ae02f4fdfdf59ebee49bc28c1e",
+        "sha256": "8f698395c54422d00f5ae795b410ef680ebdfa5ee0a75da118b0e5fce3c34687",
+        "fixed_url": "https://github.com/okx/payments/blob/c14387896db3d2704a67b488139fb56f7f540bdc/java/README.md",
+        "role": "Installation or documentation correction evidence; not an original curated-source version."
+      },
+      {
+        "repository": "OpenGene/fastp",
+        "commit": "ee125a52fddae9d8189e13cd8a33ad04988a1351",
+        "path": "README.md",
+        "blob_oid": "d82febec4a525980b978e88dfe51d2d41c0c5cea",
+        "sha256": "54f1036464613d04131dea9bc85bbcc3e8311e96c5eb663216f54da5444d3a14",
+        "fixed_url": "https://github.com/OpenGene/fastp/blob/ee125a52fddae9d8189e13cd8a33ad04988a1351/README.md",
+        "role": "Installation or documentation correction evidence; not an original curated-source version."
+      }
+    ],
+    "semgrep_official_pages": [
+      "https://docs.semgrep.dev/writing-rules/rule-syntax",
+      "https://docs.semgrep.dev/writing-rules/pattern-syntax",
+      "https://docs.semgrep.dev/writing-rules/testing-rules",
+      "https://docs.semgrep.dev/writing-rules/data-flow/taint-mode/overview",
+      "https://docs.semgrep.dev/writing-rules/data-flow/taint-mode/advanced",
+      "https://docs.semgrep.dev/writing-rules/data-flow/constant-propagation",
+      "https://docs.semgrep.dev/writing-rules/overview"
+    ],
+    "semgrep_check": "Official HTML pages resolved with expected topic titles on check date; not a pinned historical document version.",
+    "fastp": "Use upstream-documented Bioconda channel with environment export; do not invent a v0.24.0 GitHub release asset.",
+    "hf_mount": "Use upstream-documented Homebrew or selected-release platform binaries; remove absent install.sh.",
+    "okx_java": "Link current official SDK README; require version/module review, do not assert equivalence to old SELLER.md.",
+    "cellchat": "Remove unavailable comparison-specific vignette; no equivalent tutorial confirmed.",
+    "codetour": {
+      "archived_skill_path": "02-engineering/codetour-walkthrough-builder/SKILL.md",
+      "fixed_url": "https://github.com/coder/code-server/blob/f07405cba33179e6d2058af07ca2be290f19b262/.tours/contributing.tour",
+      "blob_oid": "aaff2b500c9909c2ec58470a3f8a15fd64267082",
+      "sha256": "a1c7f4000616ba07880be088770069ea8ab977387047a23a6d449d19f38c5102",
+      "scope": "Archived reference href correction only; no reinstatement."
+    }
+  },
+  "additional_file_license_corrections": {
+    "finding": "Two document skills previously attributed to a root MIT collection map to upstream pdf-official/xlsx-official subtrees with file-specific restrictive licenses. The collection root license is not sufficient permission for their content.",
+    "evidence": [
+      {
+        "path": "skills/pdf-official/LICENSE.txt",
+        "commit": "df309ba1c51f7aefddfb0cdc3457c7345595e281",
+        "blob_oid": "c55ab42224874608473643de0a85736b7fec0730",
+        "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+        "url": "https://github.com/sickn33/agentic-awesome-skills/blob/df309ba1c51f7aefddfb0cdc3457c7345595e281/skills/pdf-official/LICENSE.txt",
+        "matches_local_vendor": false,
+        "local_vendor_raw_sha256": "6f8bd7f4d8ec5cb52b7a59ccb9e8c14c2a4ba529cb5adfc5e0bc676892b8ca79",
+        "matches_local_vendor_after_lf_normalization": true
+      },
+      {
+        "path": "skills/xlsx-official/LICENSE.txt",
+        "commit": "df309ba1c51f7aefddfb0cdc3457c7345595e281",
+        "blob_oid": "c55ab42224874608473643de0a85736b7fec0730",
+        "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+        "url": "https://github.com/sickn33/agentic-awesome-skills/blob/df309ba1c51f7aefddfb0cdc3457c7345595e281/skills/xlsx-official/LICENSE.txt",
+        "matches_local_vendor": false,
+        "local_vendor_raw_sha256": "6f8bd7f4d8ec5cb52b7a59ccb9e8c14c2a4ba529cb5adfc5e0bc676892b8ca79",
+        "matches_local_vendor_after_lf_normalization": true
+      }
+    ],
+    "replacements": [
+      {
+        "local_path": "01-documents/pdf-processing-toolkit/SKILL.md",
+        "license": "CC-BY-4.0",
+        "source_fields": "removed",
+        "resolution": "Independently authored generic workflow and examples using public APIs; old adapted body and hidden proprietary helper dependencies removed."
+      },
+      {
+        "local_path": "01-documents/xlsx-spreadsheet-authoring/SKILL.md",
+        "license": "CC-BY-4.0",
+        "source_fields": "removed",
+        "resolution": "Independently authored generic workflow and examples using public APIs; old adapted body and hidden proprietary helper dependencies removed."
+      }
+    ],
+    "public_api_references": [
+      "https://pypdf.readthedocs.io/en/stable/user/extract-text.html",
+      "https://github.com/jsvine/pdfplumber",
+      "https://openpyxl.readthedocs.io/en/stable/tutorial.html"
+    ],
+    "runtime_validation": {
+      "examples": [
+        {
+          "skill": "pdf-processing-toolkit",
+          "example": 0,
+          "result": "executed on synthetic local fixtures",
+          "stdout": ""
+        },
+        {
+          "skill": "pdf-processing-toolkit",
+          "example": 1,
+          "result": "executed on synthetic local fixtures",
+          "stdout": ""
+        },
+        {
+          "skill": "xlsx-spreadsheet-authoring",
+          "example": 0,
+          "result": "executed on synthetic local fixtures",
+          "stdout": "重算后总额应为： 123.0"
+        },
+        {
+          "skill": "xlsx-spreadsheet-authoring",
+          "example": 1,
+          "result": "syntax parsed only; no spreadsheet recalculation engine invoked, so no calculated-cache claim"
+        }
+      ],
+      "checks": {
+        "merged_pdf_pages": 3,
+        "table_provenance_and_values": "matched synthetic input",
+        "xlsx_formula_strings": "matched expected formulas",
+        "xlsx_formula_cache": "absent as documented; not mistaken for zero"
+      },
+      "limits": "Only independently authored examples and preinstalled public libraries were used. No proprietary helper, external download, production file or spreadsheet recalculation engine was executed. Visual fidelity not evaluated."
+    }
+  },
+  "validation": {
+    "checks": [
+      {
+        "check": "all skill relationships, requires/supersedes cycles and five alias transitions",
+        "files": 1113,
+        "errors": []
+      },
+      {
+        "check": "20 reported relationship conflicts removed",
+        "remaining": []
+      },
+      {
+        "check": "MD arithmetic",
+        "step_ps": 0.002,
+        "steps": 500000,
+        "duration_ns": 1.0
+      },
+      {
+        "check": "bash syntax only",
+        "example": 0,
+        "returncode": 0,
+        "stderr": ""
+      },
+      {
+        "check": "bash syntax only",
+        "example": 2,
+        "returncode": 0,
+        "stderr": ""
+      },
+      {
+        "check": "bash syntax only",
+        "example": 3,
+        "returncode": 0,
+        "stderr": ""
+      },
+      {
+        "check": "MD Python examples syntax only",
+        "status": "parsed without execution"
+      }
+    ],
+    "errors": [],
+    "limits": "Bash -n / Python AST only. No real database command, installer, third-party helper, API write or scientific calculation executed."
+  },
+  "edited_paths": [
+    {
+      "path": "00-meta/business-assumption-stress-test/SKILL.md",
+      "sha256_lf": "b933767bd606c5859623c30226a4d13112f72914a71c579f17e2cccf8a83a6c7"
+    },
+    {
+      "path": "00-meta/first-principles-thinking/SKILL.md",
+      "sha256_lf": "794c509e010f5b0b89effbf4a44738c03ee5f849f238da1098d378704d23dec2"
+    },
+    {
+      "path": "01-documents/markdown-to-docx/SKILL.md",
+      "sha256_lf": "b6941c6e2660897b9e4388e9b07da325a34f561f0bf879061dad82a9b1d5d8f5"
+    },
+    {
+      "path": "01-documents/pdf-processing-toolkit/SKILL.md",
+      "sha256_lf": "590aedf5c8e08cedab7a3a90abd93a025bcc316d611d494f00091c407d37647e"
+    },
+    {
+      "path": "01-documents/xlsx-spreadsheet-authoring/SKILL.md",
+      "sha256_lf": "523ddbba3ececf69792bb05dc20663536b8919c670c524f17372fbaaba77fada"
+    },
+    {
+      "path": "02-engineering/README.md",
+      "sha256_lf": "207c695a3484bf9e13c820bf2bf8159063412e2845cb4ea1714e60cc6389604a"
+    },
+    {
+      "path": "02-engineering/async-python-patterns/SKILL.md",
+      "sha256_lf": "668cdaf01bf48223dce02320c50f4410f873a6df23061871f5267778381e5e22"
+    },
+    {
+      "path": "02-engineering/codetour-walkthrough-builder/SKILL.md",
+      "sha256_lf": "a1e5b7213a957a1a09f0af1cea6ad8786a07c35f52572b7618c6822d69424117"
+    },
+    {
+      "path": "02-engineering/error-handling-patterns/SKILL.md",
+      "sha256_lf": "c775e7b591c857969d1a6737588987bc758a49c63674403995c6bed9baea2a1c"
+    },
+    {
+      "path": "02-engineering/expo-router-native-ui/SKILL.md",
+      "sha256_lf": "302ce8c0d79c454a76c1aae8f26c55ef954b8de80e42e7f6582e05e0c3b40804"
+    },
+    {
+      "path": "02-engineering/latency-critical-systems/SKILL.md",
+      "sha256_lf": "531e1f1c518db4fbf709abe3ff1987f1b14ea125b29575d5a3d9f64b08681f64"
+    },
+    {
+      "path": "02-engineering/microservices-patterns/SKILL.md",
+      "sha256_lf": "9ee6902da1f0be847622cce1431a4760f019b110c9072d01e12152429d8c7649"
+    },
+    {
+      "path": "02-engineering/scala-pro/SKILL.md",
+      "sha256_lf": "81c34e363d99f0177f389b4a0ed0ac3e5ea0d5f91d45c5bcca3f212d043f47fb"
+    },
+    {
+      "path": "02-engineering/swift-concurrency/SKILL.md",
+      "sha256_lf": "b5c285c308780ce7975fcd91667da7f053e54cba7d80d435395f6b7ee7266852"
+    },
+    {
+      "path": "02-engineering/tanstack-query/SKILL.md",
+      "sha256_lf": "8347a773eb355a5366a436a55bf3a226ca8b360298c7686f48dc0b7ade5c5fe4"
+    },
+    {
+      "path": "02-engineering/typescript-advanced-types/SKILL.md",
+      "sha256_lf": "e7ca0b9a870503fb4a0790d4ae84750717b1cfc70052ae08b55341014e2652c4"
+    },
+    {
+      "path": "03-data/airflow-dag-patterns/SKILL.md",
+      "sha256_lf": "f2ca9e315321b2996d8b2294b6d18efad77e30291d0752cb70ddd56e8b5df5c4"
+    },
+    {
+      "path": "03-data/csv-data-cleaner/SKILL.md",
+      "sha256_lf": "12e91e5ccfe05f05bb039856f347d5ef548c0b7e67831778a073cc2ccbf85a52"
+    },
+    {
+      "path": "03-data/data-quality-validator/SKILL.md",
+      "sha256_lf": "7cab8946823e1e8804d9b6a4f6668fe1d904d61014e60a8a2a80c916930da5c0"
+    },
+    {
+      "path": "03-data/gl-subledger-reconciler/SKILL.md",
+      "sha256_lf": "4dce2b801a0f7a6c1f50ad7968f3472df4a1daaee67aa2955c83fde4977c1e45"
+    },
+    {
+      "path": "03-data/scikit-learn-ml/SKILL.md",
+      "sha256_lf": "6002a90ed019b9d3064c77f6e074fa087831f913cb48eeba9782d84389fed0c8"
+    },
+    {
+      "path": "03-data/sql-query-builder/SKILL.md",
+      "sha256_lf": "5c14e4321fcef55ad53ee147e2b6e753a427a9052f6a331b703949c235f53c1c"
+    },
+    {
+      "path": "04-ai/agent-payment-x402/SKILL.md",
+      "sha256_lf": "2eb547488c7923034770f0e3c65e5d172d382bf3047ca351775b3d5a6c932601"
+    },
+    {
+      "path": "04-ai/huggingface-hub-cli/SKILL.md",
+      "sha256_lf": "2d269d049935da28f3514b3ba18df2fe89a26381af786e963317d73a2f9abda2"
+    },
+    {
+      "path": "05-business/ai-disruption-moat-analyzer/SKILL.md",
+      "sha256_lf": "bd53a74bf34fd57709dba2b9a37e5ccd8dd3a6a5e936916ec354dd86d17e78d5"
+    },
+    {
+      "path": "05-business/business-model-canvas-architect/SKILL.md",
+      "sha256_lf": "cab68140dbf2747a11da423cdc8150e1b2a94b7520fbdfc4a93b6f6a02c8955f"
+    },
+    {
+      "path": "05-business/buyer-persona-builder/SKILL.md",
+      "sha256_lf": "9c321a240a62ce5feaf937b1b24d8693fef2d1701729c9051cbbd44bf32a023c"
+    },
+    {
+      "path": "05-business/cim-builder/SKILL.md",
+      "sha256_lf": "599cd75e2a00ab2bec99b24bede38bf2165da31294815b9427ccd796ae2284d3"
+    },
+    {
+      "path": "05-business/company-tear-sheet/SKILL.md",
+      "sha256_lf": "477c36c850ae91f674b083016484a0e4aaa9712841b36f6993202388392882cc"
+    },
+    {
+      "path": "05-business/compensation-analysis/SKILL.md",
+      "sha256_lf": "fd1d8e85a2a3563b9b74c90071dc20ea9a134006b96c476c7556e6ad33f30dc0"
+    },
+    {
+      "path": "05-business/competitive-analysis/SKILL.md",
+      "sha256_lf": "27dc5fc06be5e958a21fc2e6ad365c07414bc5462bc05f2f84e6c6351a79cac0"
+    },
+    {
+      "path": "05-business/competitive-intel-tracker/SKILL.md",
+      "sha256_lf": "aac1e9b2b30312a860b6b5a3be9860dfb5ef307892a7549e2263fc3ea450ca90"
+    },
+    {
+      "path": "05-business/competitive-matrix-builder/SKILL.md",
+      "sha256_lf": "2d921d780066eca937ed3a0895425573b6e70721d2f943aabfe7afcf21e6f6ac"
+    },
+    {
+      "path": "05-business/earnings-preview-model/SKILL.md",
+      "sha256_lf": "bb2e46c2f2cd7dd88f0f3a16860663b65c7fccdd9fc00f9ef0b75a0a583b7ff5"
+    },
+    {
+      "path": "05-business/equity-earnings-update-report/SKILL.md",
+      "sha256_lf": "4b40e36229f3d3aeee46cf45fb61aa7b7bee43ce03cfb19c088149101e5ea1c0"
+    },
+    {
+      "path": "05-business/fx-carry-trade-eval/SKILL.md",
+      "sha256_lf": "70775f3a6d4b234409178b1b31dd4da8e6403178806b5fdf453d860da540d8e2"
+    },
+    {
+      "path": "05-business/ib-pitch-deck-builder/SKILL.md",
+      "sha256_lf": "1fb25c65a7e69340b1b46dbf95efeacb62833a099cfa6e0a4a1cc004947fd076"
+    },
+    {
+      "path": "05-business/international-expansion-strategy/SKILL.md",
+      "sha256_lf": "44164309365ab1cbe83ede0d93b906dab05fe39e8d828b65fb0953fd70243b34"
+    },
+    {
+      "path": "05-business/ma-playbook/SKILL.md",
+      "sha256_lf": "27eac02e4d09d44db7792d4a4c5106d816e65b4edc93a4585790ce18bd7928dc"
+    },
+    {
+      "path": "05-business/market-sizing-analyst/SKILL.md",
+      "sha256_lf": "1e61a1a239eed0e07c55506109aebe36e65e83b9b5b1b57b3a10bbe00018977a"
+    },
+    {
+      "path": "05-business/market-sizing-tam-sam-som/SKILL.md",
+      "sha256_lf": "85dcea02e0eeb2069111fbaa6beb1cc15d337746397765da7675c2b66aae8e2b"
+    },
+    {
+      "path": "05-business/pe-dd-checklist/SKILL.md",
+      "sha256_lf": "121835d1bbc32f13b9a8e2e72df9388fdb5eb1082e4a6d558f0d6ed5ac06f85c"
+    },
+    {
+      "path": "05-business/research-catalyst-calendar/SKILL.md",
+      "sha256_lf": "c53a866f7bded3fc24833705246125c27ad9e006124fe34dbfa61c77b6a26fd5"
+    },
+    {
+      "path": "05-business/seo-content-writer/SKILL.md",
+      "sha256_lf": "f1d1d19f39e14960c38e0e5649afe649f2e2b66b298f8c438fea97e99d017b28"
+    },
+    {
+      "path": "05-business/social-connections-optimizer/SKILL.md",
+      "sha256_lf": "b92215156471eaa48898361ca0fa2868c0897c4511ca7ccd6c8df7fc89215acf"
+    },
+    {
+      "path": "05-business/startup-financial-modeler/SKILL.md",
+      "sha256_lf": "3c6f1ee136eeba1ff23779a97ec7f03118ff0b212adc2a98d7d46976eb1ba862"
+    },
+    {
+      "path": "05-business/stock-idea-generation/SKILL.md",
+      "sha256_lf": "ee4fd6c07403cda967e0c91d6da7dbbb9be12d42cbb10222e99724a2860b6977"
+    },
+    {
+      "path": "06-creative/unity-game-developer/SKILL.md",
+      "sha256_lf": "90cfe108cfa7229cb752c377071b3187d0954319d16a2d872bad19bfe9bc11a3"
+    },
+    {
+      "path": "08-security/semgrep-rule-creator/SKILL.md",
+      "sha256_lf": "4f145aa102a0c0ac749c977cd45560016ff99b11a63f8dd831933017a0bec218"
+    },
+    {
+      "path": "09-verticals/README.md",
+      "sha256_lf": "5c5a61667a1d92a6649432844b53e4c9644cf6730238e26be0305253168fd4b9"
+    },
+    {
+      "path": "09-verticals/action-compliance-check/SKILL.md",
+      "sha256_lf": "6fc086d667dcfcfce5089600b1391030b4ad7974bc8586e11a26795afbdd63cc"
+    },
+    {
+      "path": "09-verticals/alphafold-database-access/SKILL.md",
+      "sha256_lf": "6410b3168b84a80dbf206e5d39fc67ce29725b2083e2186e467c08f0850a7d0d"
+    },
+    {
+      "path": "09-verticals/astronomy-data-toolkit/SKILL.md",
+      "sha256_lf": "a2de89a16d43eed4250f5676e79b4b37b926d3a2536cf63a0ee6872ff1691946"
+    },
+    {
+      "path": "09-verticals/astropy-astronomy-toolkit/SKILL.md",
+      "sha256_lf": "da3de026ac6a3f1f148d1f4e9a973881be285c0f37208c8634584557ec9b1081"
+    },
+    {
+      "path": "09-verticals/autodock-vina-docking/SKILL.md",
+      "sha256_lf": "68bde12d96772efe266eb6e1aaad6fd26809edd6c5145822234a4ec201a5bda7"
+    },
+    {
+      "path": "09-verticals/backtesting-frameworks/SKILL.md",
+      "sha256_lf": "61f60342bb23af5a36ea13534802ea4f896e37ef4fbcdbf3c0aeebc289e31903"
+    },
+    {
+      "path": "09-verticals/cellchat-cell-communication/SKILL.md",
+      "sha256_lf": "d79a41a283bc3037a56ab1001ea1010f8e1bec6175855120283cdefce795839b"
+    },
+    {
+      "path": "09-verticals/cheminformatics-toolkit/SKILL.md",
+      "sha256_lf": "548bc66eb4cc91399740bd094051ed61a55bbc6ccac61e2c024a6b6453af63bb"
+    },
+    {
+      "path": "09-verticals/contract-amendment-history-tracer/SKILL.md",
+      "sha256_lf": "b48c49c415ccc830c2d5cf51fb72819f6a03112ec80556000651e532d18a2be1"
+    },
+    {
+      "path": "09-verticals/contract-escalation-router/SKILL.md",
+      "sha256_lf": "d616bf9a6d39304dc21b249653e95bb744656d06a930f29435275c50f6054b0e"
+    },
+    {
+      "path": "09-verticals/contract-playbook-review/SKILL.md",
+      "sha256_lf": "1ce276a5793f596e5a8f81ba77f013416f9436f65b8dca9da6283cc1b8346321"
+    },
+    {
+      "path": "09-verticals/dicom-medical-imaging/SKILL.md",
+      "sha256_lf": "7b0e56cc5201f805bf1ca87564a1e66f653b687520831c342cc533db9bf0f822"
+    },
+    {
+      "path": "09-verticals/diffdock-blind-docking/SKILL.md",
+      "sha256_lf": "42a076aca08c65cfd703474a3b6a0446b8b3b45f64671fde9530b36efae9ffc1"
+    },
+    {
+      "path": "09-verticals/dpa-clause-reviewer/SKILL.md",
+      "sha256_lf": "53c86706af3660c2a33f47473e08dcc063bfcada81f8012d4d603ed2077eae7c"
+    },
+    {
+      "path": "09-verticals/dpa-playbook-review/SKILL.md",
+      "sha256_lf": "efeb12a47f9f11d7ee4df5b9847087c73c85e6256116355c82cde883fa5720cc"
+    },
+    {
+      "path": "09-verticals/dsar-response-builder/SKILL.md",
+      "sha256_lf": "ba813804998dbfd4d24c486a66e1c588f51f92bd9c2beac54d394a1757a037e9"
+    },
+    {
+      "path": "09-verticals/fastp-fastq-preprocessing/SKILL.md",
+      "sha256_lf": "fbf3840fe55d210254b17290fe3068e8d7c6000c45a4fc9ad2470581b42b8545"
+    },
+    {
+      "path": "09-verticals/fluidsim-cfd-simulation/SKILL.md",
+      "sha256_lf": "b2b4bc120468004ef2ce0e8e7a2cfd93ca3cc7cdada45964b5ffe92e3141bdf0"
+    },
+    {
+      "path": "09-verticals/gdpr-data-handler/SKILL.md",
+      "sha256_lf": "62bb65981595828b99174a014c437ad765c78a85fbe771b4a1a63f1c8f6b7b28"
+    },
+    {
+      "path": "09-verticals/ip-clause-review/SKILL.md",
+      "sha256_lf": "dc5951f9f6fb8901c64f8f98377158bf56d919dae3692907508683fe23e0355a"
+    },
+    {
+      "path": "09-verticals/legal-policy-drafter/SKILL.md",
+      "sha256_lf": "ecc9978abc826e727fe89d285727248ee4d85d78a82b3ba09114bd0f6f833098"
+    },
+    {
+      "path": "09-verticals/materials-science-toolkit/SKILL.md",
+      "sha256_lf": "09838211ceebde63d575f25774df8834aaa570ad31218d1a1d80097f9f9e6fd2"
+    },
+    {
+      "path": "09-verticals/molecular-dynamics-openmm/SKILL.md",
+      "sha256_lf": "33311756fcda5476a6f526f0939e536d09f38638fc45d28b5bfa09b387c6f8c5"
+    },
+    {
+      "path": "09-verticals/molecular-dynamics-simulation/SKILL.md",
+      "sha256_lf": "351b0e96f69eb127e04a44545d370da99ebb85a149acc9253d6fb35d8df8cb3b"
+    },
+    {
+      "path": "09-verticals/nda-triage-reviewer/SKILL.md",
+      "sha256_lf": "9f30f8e103febfdb3fc904a775ab3b32167e9c9f59cf157f9a5198e051aa7873"
+    },
+    {
+      "path": "09-verticals/neuropixels-neural-recording/SKILL.md",
+      "sha256_lf": "76119735b5f2bbd34a4be0ecac465e61db5d006d4b0154c9cadb655a02223f89"
+    },
+    {
+      "path": "09-verticals/odoo-backup-strategy/SKILL.md",
+      "sha256_lf": "d20f233b56f7d3b3463b72d57df09c600b7d146b7531904002fda68f08b8a814"
+    },
+    {
+      "path": "09-verticals/odoo-performance-tuner/SKILL.md",
+      "sha256_lf": "6fb9968e4c7ad6d709138a73e25eae88eaca43917348d93f6e19b00dc8054b35"
+    },
+    {
+      "path": "09-verticals/odoo-qweb-templates/SKILL.md",
+      "sha256_lf": "f1806eba0094f59eaa959bcbaa6c9d50bb362bec531a69607094506f98eda220"
+    },
+    {
+      "path": "09-verticals/odoo-xml-views-builder/SKILL.md",
+      "sha256_lf": "d37d66bfbb6be1d19fc62bef074bd7a668cdd255b6c6c4039187c6ad480f106c"
+    },
+    {
+      "path": "09-verticals/opentargets-database/SKILL.md",
+      "sha256_lf": "eb28a6cc0c3a2b13b7e5e774bbfee476684d505ebc43bf9fa2dade05fc02b102"
+    },
+    {
+      "path": "09-verticals/privacy-impact-assessor/SKILL.md",
+      "sha256_lf": "b4c2dcee7eaa34cc27284459deabf03f557846c3dad62d7e35bf75a89ae23123"
+    },
+    {
+      "path": "09-verticals/protein-language-models/SKILL.md",
+      "sha256_lf": "c58785da8d51684741f98febd3fa844190025ef2ce5398e6f4d6c49a60153b56"
+    },
+    {
+      "path": "09-verticals/pytdc-therapeutics-data-commons/SKILL.md",
+      "sha256_lf": "82cb79d2c4764954096fa3659ad3a5805b1ddfc8d5a1b2bb772cf931dee30ffb"
+    },
+    {
+      "path": "09-verticals/pytdc-therapeutics-datasets/SKILL.md",
+      "sha256_lf": "c417d4aa8ced7bf21c16665b720a64911557043e988e96ec243d6d78a4dc9da5"
+    },
+    {
+      "path": "09-verticals/rcsb-pdb-database/SKILL.md",
+      "sha256_lf": "3fa946416e3897fa04382cdab7a6dafcb37d4912c6709e820bb3da84f4a3c939"
+    },
+    {
+      "path": "09-verticals/rdkit-cheminformatics/SKILL.md",
+      "sha256_lf": "4c1cc9828210db87633132518fd54500170a404709b584f8d47ff4fcb2605727"
+    },
+    {
+      "path": "09-verticals/saas-subscription-agreement-review/SKILL.md",
+      "sha256_lf": "cbd1259fa7e3fc7eefa9d1c1447ed1936607d832c27b955b8bb2e5002c866acf"
+    },
+    {
+      "path": "09-verticals/trackpy-particle-tracking/SKILL.md",
+      "sha256_lf": "204ef915454163fbd80c64e7f57b2e96a3ced61347283f342597e15a098aca31"
+    },
+    {
+      "path": "09-verticals/vendor-agreement-redline-review/SKILL.md",
+      "sha256_lf": "86f7f981c7510b44d682bee44910bf86da88fe3b690c257dcfc48e626fa6b6dc"
+    },
+    {
+      "path": "09-verticals/vendor-agreement-status-checker/SKILL.md",
+      "sha256_lf": "0399da7713b644e9ec92934492cf4a57855089c53f93e23c0a497eee59bce201"
+    },
+    {
+      "path": "09-verticals/viennarna-structure-prediction/SKILL.md",
+      "sha256_lf": "8aa6a12d37152b027e150dc6365a71ff3a49332127b292d6772e752d334ba717"
+    },
+    {
+      "path": "10-platform/linkedin-cli-automation/SKILL.md",
+      "sha256_lf": "a822bac76604c6dab125d5e655a6b0fbeabd44e1b80ea97a106bbae57ef7d019"
+    },
+    {
+      "path": "10-platform/x-post-to-json-fetcher/SKILL.md",
+      "sha256_lf": "3380353045b4639aae18db2e285010123a2bddf590b24eef5b4ae4fbce75d303"
+    },
+    {
+      "path": "10-platform/x-twitter-automation/SKILL.md",
+      "sha256_lf": "0869e6d9155fd3cbbe2a30a5507bb44908486963297fe40171ec4f4cb565cb33"
+    },
+    {
+      "path": "10-platform/x-twitter-scraper-toolkit/SKILL.md",
+      "sha256_lf": "76ff6f47dc28818073054d13bcc3e42a40afadfe9b9883f2df3854127fa1614d"
+    },
+    {
+      "path": "INDEX/upstream-aliases.md",
+      "sha256_lf": "dd79926950a338d0025fc866b21276c95fdbb7791ad22b5668c906bde0f81974"
+    },
+    {
+      "path": "LANGUAGE.md",
+      "sha256_lf": "c7137913e5d0a4249f5076bedddae94a433d21647acccf83379d2fe13fb2f87b"
+    },
+    {
+      "path": "NOTICE",
+      "sha256_lf": "de7fff19665374e4c80d3a13da902661f5444e44fcb3cf325f4361cba4582fdc"
+    },
+    {
+      "path": "ROADMAP.md",
+      "sha256_lf": "812801a35d058c4516b817a899055ae577033c0992a5eb9e7194912455016fed"
+    },
+    {
+      "path": "TAXONOMY.md",
+      "sha256_lf": "a4b9b411ae0cbb8bee58c9bb952953753958fac5a89e6f1ba6fb0e03e4538392"
+    },
+    {
+      "path": "data/upstream-aliases.README.md",
+      "sha256_lf": "3af4f975263beb712c414c71159e82799982583bbcb897e4d9964642a7d631bb"
+    }
+  ],
+  "limits": [
+    "No third-party executable, installer, database command, backup/restore operation or scientific simulation was run.",
+    "This record covers content/document corrections; root-owned provenance, resources, engineering and directory repairs have separate evidence.",
+    "Recorded local hashes are for LF-normalized contents at this subtask handoff; subsequent edits must refresh them."
+  ],
+  "root_followup": {
+    "odoo": "EXIT recovery trap is now installed before stopping Odoo. Three mocked failure-path tests pass (stop/pg_dump/pg_restore); no real service/database/archive command was executed.",
+    "resource_interface_review": "ASO and three other helper-interface corrections are separately recorded in the packaged-resource remediation evidence."
+  }
+}

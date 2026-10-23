@@ -30,7 +30,7 @@ source_license: MIT
 - 只想做一次性竞品定位/SWOT/护城河分析 → 用 `competitive-analysis`（波特五力、蓝海四步法）。
 - 已有结构化打分数据、只要量化加权排名矩阵 → 用 `competitive-matrix-builder`。
 - 找可触达销售线索名单 → 用 `sales-prospecting`。
-- 纯市场规模(TAM/SAM/SOM)测算 → 用 `market-sizing-analyst`。
+- 纯市场规模(TAM/SAM/SOM)测算 → 用 `market-sizing-tam-sam-som`。
 
 ## 步骤 / 指令
 

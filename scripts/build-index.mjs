@@ -689,7 +689,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
 // sources.md —— 采编署名与许可清单（合规用）
 {
   const withSrc = sorted.filter(s => s.fm.source);
-  let md = `# 采编来源与许可 · Sources\n\n${stamp}\n采编自第三方的技能及其原始许可（自有原创技能不在此列）。\n`;
+  let md = `# 采编来源与许可 · Sources\n\n${stamp}\n下列为条目声明的来源与许可（原创技能不在此列），不替代文件级授权核实。固定参考版本及历史缺口见 [来源清单说明](../data/skill-provenance.README.md) 和 [机器清单](../data/skill-provenance.json)；比较快照不等于原采编版本。\n`;
   if (!withSrc.length) md += '\n（暂无采编条目）\n';
   for (const s of withSrc)
     md += `- [\`${s.fm.name}\`](../${linkOf(s)}) ← ${s.fm.source}　\`${s.fm.source_license || '未注明'}\`\n`;

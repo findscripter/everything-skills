@@ -59,6 +59,8 @@ Welcome — add or improve skills for **AI agent consumption**. The bar is alway
 - [ ] 单一职责：只做一件事
 - [ ] 互见字段指向的技能真实存在；至少与 1 条已有技能建立 `related`/`requires`/`combines_with` 关系（避免孤岛）
 - [ ] 正文给 Agent 执行用，无百科式冗余
+- [ ] 正文或来源声明变更后，显式运行 `npm run provenance:refresh`；这只更新本地文件元数据，不认证历史来源或自动升级参考证据
+- [ ] 必需脚本、模板和许可证均随技能发布并登记在 `data/skill-resources.json`，或正文提供完整内联流程；外部工具与输入明确声明，不能把无入口的库伪称 CLI
 - [ ] 本地跑过对应语言的 `build-all.mjs --lang=en|zh`，零报错；生成物已提交
 
 ## 互见怎么连（避免孤岛）
@@ -94,6 +96,12 @@ Welcome — add or improve skills for **AI agent consumption**. The bar is alway
 把 `status` 改为 `deprecated`，并在取代它的新技能里写 `supersedes: [old-name]`。不要直接删（可能有依赖）。
 
 确无继任者的历史档案须填写非空 `deprecate_reason`；移除活动技能对其推荐关系，并确认没有未处理的硬依赖。原文和来源仍保留在目录中，消费者应按 status 排除弃用条目。
+
+## 外部仓库目录维护
+
+新增记录须保存官方 API 的 `repository_id`、规范名称、固定提交与具体文件证据，先按 ID 检查更名/迁移和已收录条目。旧名写入别名说明，不增加仓库数。目录记录数与可解析不同 ID 分开报告；不可访问记录标记待核，不能推断已删除或私有。
+
+`upstream_snapshot` 是链接/默认分支观察值；`source_commit_sha`、Stars 与 `last_reviewed` 保留其实际历史语义。看到新提交不等于已审查全部技能或授权；重新采编前按文件核对许可证范围。原审计 URL 的纠错追加 errata，保留旧回执的时点证据。
 
 
 </details>

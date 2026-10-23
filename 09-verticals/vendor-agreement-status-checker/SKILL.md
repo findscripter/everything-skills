@@ -24,7 +24,7 @@ source_license: Apache-2.0
 
 **不该用的边界（命中即停 / 转人工）：**
 
-- 不起草、不谈判、不审改条款——本条只做「状态盘点」，逐条审查转 `nda-triage-reviewer` / `dpa-clause-reviewer`。
+- 不起草、不谈判、不审改条款——本条只做「状态盘点」，逐条审查转 `nda-triage-reviewer` / `dpa-playbook-review`。
 - 不出具法律意见。本工作流辅助法律流程，**报告须经合格法务对照原始文件核验**后方可依赖。
 - 供应商名称含糊（全称/商号/缩写/母子公司）时**先澄清**再查，不要猜。
 
@@ -134,7 +134,7 @@ source_license: Apache-2.0
 ⚠️ 距到期 < 90 天且自动续约 —— 7-08 日前决定续/止
 
 ## 缺口分析
-[缺] DPA — Acme 处理个人数据，建议补签 DPA（移交 dpa-clause-reviewer）
+[缺] DPA — Acme 处理个人数据，建议补签 DPA（移交 dpa-playbook-review）
 ```
 
 ## 注意事项
@@ -148,7 +148,7 @@ source_license: Apache-2.0
 ## 互见
 
 - general-counsel-advisor：缺口与续约的法律风险判断、上交决策。
-- dpa-clause-reviewer：发现缺/弱 DPA 时下钻审查数据处理条款。
+- dpa-playbook-review：发现缺/弱 DPA 时下钻审查数据处理条款。
 - nda-triage-reviewer：盘点中遇待签 NDA 时做签前分级速审。
 - legal-hold-manager：涉诉/调查时对该供应商相关协议与往来做留存。
 

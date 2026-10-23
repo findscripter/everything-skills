@@ -10,8 +10,9 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: [market-sizing-analyst, competitive-analysis, startup-financial-modeler, international-expansion-strategy]
+related: [competitive-analysis, startup-financial-modeler, international-expansion-strategy, first-principles-thinking, fact-checking, markdown-to-docx]
 combines_with: [competitive-analysis, startup-financial-modeler, board-deck-builder]
+supersedes: [market-sizing-analyst]
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
@@ -107,6 +108,20 @@ SOM:
 三角验证: 与自底向上结果应落在 30% 以内；对照赛道上市公司营收印证市场真实存在。
 ```
 
+**自底向上补充示例**（由旧条目合并；下列均为教学假设，不是实际市场或研报数据，也不与上例共享口径）：
+
+```
+北美目标客户：
+  小型电商  85,000 家 × $3,600/年  = $306.0M
+  中型电商  18,000 家 × $9,600/年  = $172.8M
+  企业电商   2,500 家 × $24,000/年 =  $60.0M
+  TAM = $538.8M
+SAM = $538.8M × 45%（AI-ready）× 70%（可切换存量）= $169.722M
+SOM：第3年按2.5% ≈ $4.24M/年；第5年按5% ≈ $8.49M/年
+```
+
+另找相同地域、客户、年份和计价口径的自顶向下数据进行校准；无法取得来源时保留为假设，不编造 Gartner 或公司财报背书。
+
 ## 注意事项
 
 - 别把 TAM 当 SAM：必须套上真实的产品/地域/客户过滤，诚实写出可服务部分。
@@ -119,7 +134,6 @@ SOM:
 
 ## 互见
 
-- related：`market-sizing-analyst` —— 同主题的另一版测算指南，可对照其示例与算法细节互补。
 - related：`first-principles-thinking` —— 价值理论法的"问题成本→付费意愿"推导本质是第一性原理拆解，无现成市场时配合。
 - related：`fact-checking` —— 所有外部市场数字、研报引用、竞品营收须经其核验。
 - related：`competitive-analysis` —— SOM 的现实份额与竞争格局判断依赖竞品分析输入。
@@ -127,4 +141,4 @@ SOM:
 - combines_with：`board-deck-builder` —— 把测算结论转为投资人/董事会路演页。
 
 ---
-本条采编自 sickn33/antigravity-awesome-skills（MIT 许可）。
+本条采编自 sickn33/antigravity-awesome-skills（MIT 许可）；另合并采自 wshobson/agents（MIT）的自底向上示例与交付要求，示例已改为明确的教学假设。

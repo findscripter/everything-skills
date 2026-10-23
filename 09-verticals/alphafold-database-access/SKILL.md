@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [Bash, Python, BioPython, requests, numpy, matplotlib, gsutil, BigQuery]
 requires: []
 related: [uniprot-protein-database, protein-language-models, opentargets-database, gget-genomic-databases]
-combines_with: [molecular-dynamics-simulation, autodock-vina-docking]
+combines_with: [molecular-dynamics-openmm, autodock-vina-docking]
 license: CC-BY-4.0
 source: jaechang-hits/SciAgent-Skills
 source_license: CC-BY-4.0

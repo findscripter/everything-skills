@@ -184,7 +184,7 @@ def with_fallback(primary, fallback, log_error=True):
 
 - requires：无。
 - related：`code-reviewer`（审查改动中的错误处理/资源释放/异常吞掉等正确性问题）、`dependency-auditor`（依赖与供应链层面的风险）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 本条目为适配重写，采编自 sickn33/antigravity-awesome-skills（MIT 许可证）的 error-handling-patterns。

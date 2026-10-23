@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: [contract-playbook-review, nda-triage-reviewer, legal-risk-classifier, general-counsel-advisor, dpa-clause-reviewer]
+related: [contract-playbook-review, nda-triage-reviewer, legal-risk-classifier, general-counsel-advisor, dpa-playbook-review]
 combines_with: [contract-playbook-review, esignature-routing, diligence-issue-extractor]
 license: Apache-2.0
 source: anthropics/claude-for-legal

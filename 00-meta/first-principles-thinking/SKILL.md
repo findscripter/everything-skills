@@ -103,4 +103,4 @@ license: CC-BY-SA-4.0
 
 - requires：无。
 - related：`fact-checking`（拆解出的硬事实存疑时，先核验再作为地基）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。

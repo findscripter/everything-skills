@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [persona_generator.py, Read, Bash]
 requires: []
-related: [customer-research-synthesizer, competitive-analysis, market-sizing-analyst, content-strategy-planner]
+related: [customer-research-synthesizer, competitive-analysis, market-sizing-tam-sam-som, content-strategy-planner]
 combines_with: [customer-research-synthesizer, content-marketing-strategist, product-marketing-gtm-strategy]
 license: MIT
 source: alirezarezvani/claude-skills

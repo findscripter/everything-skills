@@ -4,14 +4,15 @@ title: 分子动力学模拟（OpenMM/MDAnalysis）
 description: 当需要对蛋白质/小分子体系跑经典分子动力学（MD）模拟并做轨迹分析时使用；用 OpenMM 搭体系、跑能量最小化与 NVT/NPT 平衡及产能模拟，再用 MDAnalysis 算 RMSD/RMSF/接触/自由能并出图；不适用于量子化学/电子结构（DFT）、分子对接打分（docking）或纯实验数据统计制图；触发词：分子动力学、MD模拟、OpenMM、MDAnalysis、RMSD、RMSF、力场、PDBFixer、molecular dynamics、trajectory analysis
 domain: 领域/science
 triggers: [分子动力学, MD模拟, OpenMM, MDAnalysis, RMSD, RMSF, 力场, 蛋白质动力学, PDBFixer, molecular dynamics, trajectory analysis, NVT, NPT, 能量最小化]
-tags: [molecular-dynamics, openmm, mdanalysis, simulation, structural-biology, biophysics, python, misc]
+tags: [molecular-dynamics, openmm, mdanalysis, simulation, structural-biology, biophysics, python, misc, science]
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [OpenMM, MDAnalysis, PDBFixer, OpenFF Toolkit, NumPy, Matplotlib, conda/pip]
 requires: []
-related: [molecular-dynamics-simulation, autodock-vina-docking, diffdock-blind-docking, rcsb-pdb-database]
-combines_with: [rdkit-cheminformatics, protein-language-models]
+related: [autodock-vina-docking, diffdock-blind-docking, rcsb-pdb-database, cheminformatics-toolkit, protein-language-models, materials-science-toolkit]
+combines_with: [rdkit-cheminformatics, protein-language-models, matplotlib-visualization]
+supersedes: [molecular-dynamics-simulation]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
@@ -96,7 +97,7 @@ system = forcefield.createSystem(
 
 **最小化 + 平台回退：**
 ```python
-integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.004*picoseconds)
+integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds)
 try:
     platform = Platform.getPlatformByName('CUDA'); props = {'DeviceIndex': '0', 'Precision': 'mixed'}
 except Exception:
@@ -149,6 +150,8 @@ ic = OFFForceField("openff-2.0.0.offxml").create_interchange(mol.to_topology())
 - 关键文献：OpenMM (Eastman et al. 2017, PMID 28278240)；MDAnalysis (Michaud-Agrawal et al. 2011, PMID 21500218)。
 
 ## 互见
+
+关系列表以 frontmatter 为准；已合并旧条目的力场、平台回退、断点与分析约束。
 
 - related：`autodock-vina-docking` —— 对接预测起始构象，再交给 MD 做结合稳定性与构象细化。
 - related：`cheminformatics-toolkit` —— 配体库 SMILES 清洗、性质过滤作为体系搭建前处理。

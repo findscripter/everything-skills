@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pydicom, numpy, pillow, matplotlib, pylibjpeg, python-gdcm]
 requires: []
-related: [computer-vision-expert, genomic-file-toolkit, single-cell-rnaseq-analysis, astronomy-data-toolkit]
+related: [computer-vision-expert, genomic-file-toolkit, single-cell-rnaseq-analysis, astropy-astronomy-toolkit]
 combines_with: [guided-statistical-analysis, matplotlib-visualization, scikit-learn-ml]
 license: MIT
 source: K-Dense-AI/scientific-agent-skills

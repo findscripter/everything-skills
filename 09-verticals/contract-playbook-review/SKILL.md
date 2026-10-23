@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pdf-form-filler, markdown-to-docx]
 requires: []
-related: [nda-triage-reviewer, legal-risk-classifier, dpa-clause-reviewer, general-counsel-advisor]
+related: [nda-triage-reviewer, legal-risk-classifier, dpa-playbook-review, general-counsel-advisor]
 combines_with: [legal-risk-classifier, esignature-routing, deal-desk-reviewer]
 license: Apache-2.0
 source: anthropics/knowledge-work-plugins
@@ -24,7 +24,7 @@ source_license: Apache-2.0
 **不该用边界（命中即停，转人工/法务）：**
 - 不起草合同，不出具正式法律意见。本条只做对照评审与红线建议；所有结论须经合格法律专业人士复核后方可依据。
 - 单纯 NDA/保密协议送签前速审 → 用 `nda-triage-reviewer`（更轻的三级分流）。
-- 雇佣合同起草 → `employment-contract-drafter`；DPA 专项 → `dpa-clause-reviewer`；尽调批量抽取问题 → `diligence-issue-extractor`。
+- 雇佣合同起草 → `employment-contract-drafter`；DPA 专项 → `dpa-playbook-review`；尽调批量抽取问题 → `diligence-issue-extractor`。
 - 缺少经律师审定的 playbook 立场时，**不得判绿、不得直接送签**，应判黄并上交人工，或明确声明本次仅按通用商业标准评审。
 
 ## 步骤
@@ -111,7 +111,7 @@ source_license: Apache-2.0
 
 - related：`general-counsel-advisor` —— 升级与整体法务判断
 - related：`nda-triage-reviewer` —— 更轻量的 NDA 三级速审
-- related：`dpa-clause-reviewer`、`employment-contract-drafter` —— 数据保护 / 雇佣专项
+- related：`dpa-playbook-review`、`employment-contract-drafter` —— 数据保护 / 雇佣专项
 - combines_with：`deal-desk-reviewer` —— 交易台审批与商务条款联审
 - combines_with：`diligence-issue-extractor` —— 把评审标记汇入尽调问题清单
 

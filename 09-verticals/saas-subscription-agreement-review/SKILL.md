@@ -1,7 +1,7 @@
 ---
 name: saas-subscription-agreement-review
 title: SaaS 订阅协议审查
-description: 当审查 SaaS/订阅协议、需对自动续约、涨价、数据可携出、SLA、子处理者、AI 训练权与责任上限做专项把关并准备红线时使用；产出含双重严重度（法律风险×业务摩擦）的 SaaS 专项发现、续约登记字段移交与红线建议；不适用于通用合同评审（用 contract-playbook-review）、NDA 速审（nda-triage-reviewer）、DPA 专项（dpa-clause-reviewer）、出具正式法律意见；触发词：SaaS 审查、订阅协议、自动续约、auto-renewal、涨价条款、SLA、子处理者、数据可携出、AI 训练权
+description: 当审查 SaaS/订阅协议、需对自动续约、涨价、数据可携出、SLA、子处理者、AI 训练权与责任上限做专项把关并准备红线时使用；产出含双重严重度（法律风险×业务摩擦）的 SaaS 专项发现、续约登记字段移交与红线建议；不适用于通用合同评审（用 contract-playbook-review）、NDA 速审（nda-triage-reviewer）、DPA 专项（dpa-playbook-review）、出具正式法律意见；触发词：SaaS 审查、订阅协议、自动续约、auto-renewal、涨价条款、SLA、子处理者、数据可携出、AI 训练权
 domain: 领域/legal
 triggers: [SaaS 审查, 订阅协议, 自动续约, auto-renewal, 涨价条款, SLA, uptime, 子处理者, subprocessor, 数据可携出, data portability, AI 训练权]
 tags: [legal, saas, subscription, contract-review, auto-renewal, sla, data-portability, ai-training-rights, redline]
@@ -25,7 +25,7 @@ source_license: Apache-2.0
 
 **不该用边界（命中即停或转更合适技能）：**
 - 通用条款（责任、赔偿、终止、管辖）的对照评审 → 先跑 `contract-playbook-review`，本条只做 SaaS 叠加层。
-- 单纯 NDA 速审 → `nda-triage-reviewer`；DPA 专项 → `dpa-clause-reviewer`。
+- 单纯 NDA 速审 → `nda-triage-reviewer`；DPA 专项 → `dpa-playbook-review`。
 - 不起草合同、不出具正式法律意见；所有结论须经合格律师复核。
 - 无经律师审定的团队 playbook 立场时，**不得判可签**，应标注「仅按通用商业标准」或转人工。
 
@@ -107,7 +107,7 @@ status: active
 ## 互见
 
 - requires：`contract-playbook-review` —— 通用条款评审是底座，本条是 SaaS 叠加层
-- related：`nda-triage-reviewer`、`dpa-clause-reviewer` —— 更轻的 NDA 速审 / 数据保护专项
+- related：`nda-triage-reviewer`、`dpa-playbook-review` —— 更轻的 NDA 速审 / 数据保护专项
 - related：`legal-risk-classifier`、`general-counsel-advisor` —— 风险分级与升级、整体法务判断
 - related：`eu-ai-act-compliance`、`gdpr-data-handler` —— AI/ML 训练权下游监管、跨境与子处理者数据流
 - combines_with：`esignature-routing` —— 审定后路由签署

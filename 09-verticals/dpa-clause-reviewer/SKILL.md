@@ -6,16 +6,20 @@ domain: 领域/legal
 triggers: [审查DPA, 数据处理协议, 数据处理附录, DPA review, data processing agreement, 子处理者, 违约通知, 跨境传输, SCC]
 tags: [legal, privacy, dpa, gdpr, data-protection, contract-review, compliance]
 level: 精通
-status: stable
+status: deprecated
+deprecate_reason: 同职责内容已合并至 dpa-playbook-review；保留原文供历史追溯。
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [DPA playbook (内部立场清单), 法律检索工具/MCP (Westlaw 等), primary-source 引用]
 requires: []
-related: [gdpr-data-handler, dsar-response-builder, privacy-impact-assessor, nda-triage-reviewer]
-combines_with: [gdpr-data-handler, privacy-impact-assessor]
+related: []
+combines_with: []
 license: Apache-2.0
 source: anthropics/claude-for-legal
 source_license: Apache-2.0
 ---
+
+> 历史归档：本条职责已合并到 [dpa-playbook-review](../dpa-playbook-review/SKILL.md)。执行时使用规范条目；以下正文仅保留供追溯。
+
 ## 何时使用
 
 - 用户说"审查这份 DPA / 数据处理协议 / 数据处理附录"，或"客户发来了他们的 DPA""这份 DPA 行不行"，或直接附上一份 DPA 文件/链接/文本时。

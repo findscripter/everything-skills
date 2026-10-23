@@ -16,6 +16,18 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 ---
+## 随包资源与运行前提
+
+本目录的脚本、参考文档和模板已随技能分发；固定来源、SHA-256 与许可见 [RESOURCES.md](RESOURCES.md) 及 [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)。新增资源取自核验时的固定上游快照，不表示这是原正文采编时的版本。
+
+- 文档中的资源相对路径指**本技能目录**；执行时保持目标项目所需的工作目录，用资源的绝对路径调用。项目输入/输出也使用绝对路径，不能把技能库误当成被操作的项目。
+- 环境依赖：Python 3；Git；The fixed evaluator command and its dependencies must already exist; LLM evaluators require a separately authorized Claude/Codex/Gemini CLI session。本技能不自动安装这些依赖；缺失时先报告具体缺项，使用正文可行的人工流程，不能声称已完成脚本验证。
+- 上游脚本在本仓仅做静态核对；使用前审查实际参数、输出位置及外部调用，按用户已授权范围运行。
+
+setup/run/log 命令都从专用实验 checkout 的项目根执行，脚本路径使用本技能目录下的绝对路径。
+
+实验脚本会创建分支、提交并以 `git reset --hard HEAD~1` 回退。只能在专用、干净的实验 checkout 中运行，先固定基线提交、目标路径和停止预算；存在用户未提交改动、无关新提交或共享 checkout 时停止自动分支/回退操作。评估器及其外部模型调用须在实验开始前固定并取得任务范围内的授权。
+
 ## 何时使用
 
 灵感来自 Karpathy 的 autoresearch：智能体反复「改一个文件 → 跑固定评估 → 改进则保留、变差则回退」，让微小提升不断复利累积。不是一次猜测，而是几十次有度量的尝试。

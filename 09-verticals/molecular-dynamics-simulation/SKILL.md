@@ -6,16 +6,20 @@ domain: 领域/science
 triggers: [分子动力学, MD模拟, OpenMM, MDAnalysis, RMSD, RMSF, 力场, 蛋白质动力学, molecular dynamics, trajectory analysis, PDBFixer]
 tags: [molecular-dynamics, openmm, mdanalysis, simulation, structural-biology, biophysics, python, science]
 level: 精通
-status: stable
+status: deprecated
+deprecate_reason: 同职责内容已合并至 molecular-dynamics-openmm；保留原文供历史追溯。
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [OpenMM, MDAnalysis, PDBFixer, OpenFF Toolkit, NumPy, Matplotlib, conda/pip]
 requires: []
-related: [cheminformatics-toolkit, protein-language-models, materials-science-toolkit]
-combines_with: [protein-language-models, matplotlib-visualization]
+related: []
+combines_with: []
 license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 ---
+
+> 历史归档：本条职责已合并到 [molecular-dynamics-openmm](../molecular-dynamics-openmm/SKILL.md)。执行时使用规范条目；以下正文仅保留供追溯。
+
 ## 何时使用
 
 当任务需要在原子尺度上模拟分子体系随时间的演化（积分牛顿运动方程）并分析其动力学时使用。典型场景：
@@ -83,7 +87,7 @@ system = forcefield.createSystem(
 
 **最小化 + 平台回退：**
 ```python
-integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.004*picoseconds)
+integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds)
 try:
     platform = Platform.getPlatformByName('CUDA'); props = {'DeviceIndex': '0', 'Precision': 'mixed'}
 except Exception:

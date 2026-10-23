@@ -16,7 +16,7 @@ license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0
 ---
-＜frontmatter 建议＞name: fx-carry-trade-eval；title: 外汇套息交易评估；domain: 商业/finance；status: stable；agents: [claude-code, codex, cursor, gemini-cli]；license: Apache-2.0；source: anthropics/financial-services；source_license: Apache-2.0；related: [equity-earnings-update-report, market-sizing-analyst, data-storyteller]；combines_with: [cfo-financial-advisor, sales-forecast-builder, startup-financial-modeler]。
+＜frontmatter 建议＞name: fx-carry-trade-eval；title: 外汇套息交易评估；domain: 商业/finance；status: stable；agents: [claude-code, codex, cursor, gemini-cli]；license: Apache-2.0；source: anthropics/financial-services；source_license: Apache-2.0；related: [equity-earnings-update-report, market-sizing-tam-sam-som, data-storyteller]；combines_with: [cfo-financial-advisor, sales-forecast-builder, startup-financial-modeler]。
 
 # 外汇套息交易评估
 
@@ -105,7 +105,7 @@ source_license: Apache-2.0
 ## 互见
 
 - related：`equity-earnings-update-report` —— 同属卖方/买方市场分析输出，可复用「表 + 来源 + 推荐」的报告骨架。
-- related：`market-sizing-analyst` / `data-storyteller` —— 把 carry profile 与曲面信号讲成有说服力的图文叙事。
+- related：`market-sizing-tam-sam-som` / `data-storyteller` —— 把 carry profile 与曲面信号讲成有说服力的图文叙事。
 - combines_with：`cfo-financial-advisor` —— 在公司司库/对冲场景下，把 carry 评估接入跨币种现金与汇率风险决策。
 - combines_with：`sales-forecast-builder` / `startup-financial-modeler` —— 当业务有外币敞口时，用 carry/远期口径校准汇率假设与对冲成本。
 
