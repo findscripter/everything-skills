@@ -16,7 +16,8 @@
     "removed_duplicate_rows": 12,
     "packaged_resources": 170,
     "resource_skills": 24,
-    "regression_tests_passed": 66
+    "regression_tests_passed": 67,
+    "git_blobs_verified": 1283
   },
   "findings": [
     {
@@ -181,5 +182,6 @@
     "The 19 inaccessible repository records remain explicitly marked rather than guessed deleted/private.",
     "Bundled upstream helpers were not run. Odoo failure tests mock all service/database/archive/checksum/publish commands; only bounded test fixture directories are created.",
     "Published upstream resource bytes retain their original trailing whitespace to preserve fixed source hashes."
-  ]
+  ],
+  "repository_alias_compatibility": "Exact historical previous_names aliases resolve before fuzzy canonical matches; normalized repositories keep old lookup names."
 }
