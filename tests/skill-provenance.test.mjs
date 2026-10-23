@@ -14,6 +14,7 @@ const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 function run(root, script, ...args) {
   const result = spawnSync(process.execPath, [path.join(ROOT, 'scripts', script), '--root', root, ...args], { encoding: 'utf8', windowsHide: true });
   if (result.error) throw result.error;
+  assert.doesNotMatch(result.stderr, /MODULE_NOT_FOUND/, 'the requested provenance command must exist before exit-code assertions are meaningful');
   return result;
 }
 const check = root => run(root, 'check-skill-provenance.mjs');
