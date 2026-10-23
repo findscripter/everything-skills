@@ -15,6 +15,7 @@ if (!['en', 'zh'].includes(lang)) {
 }
 
 const steps = [
+  ['check-skill-assets.mjs'],
   ['build-index.mjs', `--lang=${lang}`],
   ['build-skill-repos.mjs', `--lang=${lang}`],
   ['build-readme-intro.mjs', `--lang=${lang}`],
