@@ -72,15 +72,16 @@ async function hasGitMetadata(dir) {
   try {
     await fs.access(path.join(dir, '.git'));
     return true;
-  } catch {
-    return false;
+  } catch (error) {
+    if (error.code === 'ENOENT') return false;
+    throw new Error(`无法检查 Git 元数据 ${dir}: ${error.code || error.message}`, { cause: error });
   }
 }
 
 async function collect(dir, acc = []) {
   let entries;
   try { entries = await fs.readdir(dir, { withFileTypes: true }); }
-  catch { return acc; }
+  catch (error) { throw new Error(`无法读取技能目录 ${dir}: ${error.code || error.message}`, { cause: error }); }
   for (const e of entries) {
     if (e.isDirectory()) {
       if (SKIP_DIRS.has(e.name) || e.name.startsWith('.')) continue;
@@ -246,18 +247,21 @@ function validate(s) {
   if (fm.name && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(fm.name)) errors.push(`${relOf(file)}: name "${fm.name}" 须 ASCII kebab-case`);
   // domain↔卷目录一致（修复旧版只查 vol、不查 domain 的背离）
   if (fm.domain) {
-    const cn = String(fm.domain).split('/')[0].trim();
+    const segments = String(fm.domain).split('/').map(value => value.trim());
+    if (segments.length !== 2 || segments.some(value => !value))
+      errors.push(`${relOf(file)}: domain 须为恰好两段的「卷中文/受控类」`);
+    const cn = segments[0];
     const expect = DIR2VOL.get(vol);
     if (expect && cn !== expect.cn)
       errors.push(`${relOf(file)}: domain 卷 "${cn}" 与所在目录 ${vol}（应为 "${expect.cn}"）不一致`);
     if (!CN2DIR.has(cn)) warnings.push(`${relOf(file)}: domain 卷 "${cn}" 不在受控卷名中`);
-    const cls2 = (String(fm.domain).split('/')[1] || '').trim();
+    const cls2 = segments[1] || '';
     const allowed = CLASSES.get(vol);
     if (allowed && cls2 && !allowed.has(cls2))
       errors.push(`${relOf(file)}: domain 类 "${cls2}" 不在卷 ${vol} 受控类集（见 taxonomy.json）`);
   }
   if (fm.level && !['入门', '进阶', '精通'].includes(fm.level)) warnings.push(`${relOf(file)}: level "${fm.level}" 非标准值`);
-  if (fm.status && !['draft', 'stable', 'deprecated'].includes(fm.status)) warnings.push(`${relOf(file)}: status "${fm.status}" 非标准值`);
+  if (fm.status && !['draft', 'stable', 'deprecated'].includes(fm.status)) errors.push(`${relOf(file)}: status "${fm.status}" 不在受控枚举 draft/stable/deprecated`);
   if (typeof fm.description === 'string') {
     if (fm.description.length < 12) warnings.push(`${relOf(file)}: description 过短，影响发现命中`);
     if (fm.description.length > DESC_WARN_LEN) warnings.push(`${relOf(file)}: description 过长(${fm.description.length}>${DESC_WARN_LEN})，挤占发现上下文预算`);
@@ -696,7 +700,10 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
 // （对标 anthropics/skills、wshobson/agents：卷→plugin，显式列技能路径，不依赖 skills/ 约定）
 {
   const byVol = new Map();
-  for (const s of skills) { if (!byVol.has(s.vol)) byVol.set(s.vol, []); byVol.get(s.vol).push(s); }
+  for (const s of skills.filter(skill => skill.fm.status !== 'deprecated')) {
+    if (!byVol.has(s.vol)) byVol.set(s.vol, []);
+    byVol.get(s.vol).push(s);
+  }
   const plugins = [];
   for (const v of VOLS) {
     const list = byVol.get(v.dir);
