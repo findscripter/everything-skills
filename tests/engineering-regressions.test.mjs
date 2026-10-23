@@ -41,6 +41,7 @@ async function fixture(t) {
   const taxonomy = JSON.parse(await fs.readFile(path.join(root, 'taxonomy.json'), 'utf8'));
   for (const volume of Object.keys(taxonomy.vols)) await fs.mkdir(path.join(root, volume));
   await fs.writeFile(path.join(root, 'data/skill-repos.meta.md'), '# 技能仓库总目\n\n{{COUNT}} repositories\n');
+  await fs.writeFile(path.join(root, 'data/skill-resources.json'), JSON.stringify({ schema_version: 1, skills: [] }));
   await writeRepos(root, [repo('demo/one')]);
   await fs.writeFile(path.join(root, 'README.md'), `${BEGIN}\n${END}\n`);
   await addSkill(root, 'active');
@@ -200,4 +201,29 @@ test('repository directory counts describe entries and surface unavailable or ar
   assert.match(readme, /indexed entries/);
   assert.match(readme, /upstream unavailable/);
   assert.match(readme, /upstream archived/);
+});
+
+test('build-all stops before changing generated files when a packaged asset is missing', async t => {
+  const root = await fixture(t);
+  const commit = 'b'.repeat(40);
+  await fs.writeFile(path.join(root, 'data/skill-resources.json'), JSON.stringify({ schema_version: 1, skills: [{
+    name: 'active', skill_path: '00-meta/active', resolution: 'bundle',
+    source: { repository: 'demo/tools', commit, path: 'skills/active', url: `https://github.com/demo/tools/blob/${commit}/skills/active/SKILL.md` },
+    resources: [{ path: '00-meta/active/scripts/missing.py', sha256: '0'.repeat(64), source_url: `https://github.com/demo/tools/blob/${commit}/skills/active/scripts/missing.py`, license: 'MIT', license_path: '00-meta/active/LICENSE' }],
+  }] }));
+  const before = await snapshot(root);
+  const result = run(root, 'build-all.mjs', ['--lang=en']);
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /\[ASSET_MISSING\]/);
+  assert.deepEqual(await snapshot(root), before);
+});
+
+test('build-all requires the packaged-asset manifest instead of silently skipping it', async t => {
+  const root = await fixture(t);
+  await fs.unlink(path.join(root, 'data/skill-resources.json'));
+  const before = await snapshot(root);
+  const result = run(root, 'build-all.mjs', ['--lang=en']);
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /\[ASSET_SCHEMA\]/);
+  assert.deepEqual(await snapshot(root), before);
 });
