@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [x-api, LinkedIn API, Browser, Exa, Apple Mail]
 requires: []
-related: [sales-prospecting, cold-email-writer, social-media-multi-publisher, x-twitter-automation]
+related: [sales-prospecting, cold-email-writer, social-media-multi-publisher, x-twitter-scraper-toolkit]
 combines_with: [apollo-lead-enrichment, signal-based-call-prep]
 license: MIT
 source: affaan-m/ECC

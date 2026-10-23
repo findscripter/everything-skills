@@ -110,7 +110,7 @@ source_license: Apache-2.0
 
 ## 互见
 
-- related：`cfo-financial-advisor`（公司侧财务视角，与外部投资人前瞻互为镜像）；`startup-financial-modeler`（同为预估建模，前者面向未上市公司多年模型）；`market-sizing-analyst`（情景驱动假设常需市场规模佐证）；`data-storyteller`（把情景表与催化剂清单讲成一页式叙事）。
+- related：`cfo-financial-advisor`（公司侧财务视角，与外部投资人前瞻互为镜像）；`startup-financial-modeler`（同为预估建模，前者面向未上市公司多年模型）；`market-sizing-tam-sam-som`（情景驱动假设常需市场规模佐证）；`data-storyteller`（把情景表与催化剂清单讲成一页式叙事）。
 - combines_with：`board-deck-builder`（把财报前瞻并入投委会/投资人材料）；`data-storyteller`（一页式前瞻的可视化与叙事打磨）。
 
 ---

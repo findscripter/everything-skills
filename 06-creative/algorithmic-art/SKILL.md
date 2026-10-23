@@ -16,6 +16,13 @@ license: Apache-2.0
 source: anthropics/skills
 source_license: Apache-2.0
 ---
+## 随包资源与运行前提
+
+本目录的脚本、参考文档和模板已随技能分发；固定来源、SHA-256 与许可见 [RESOURCES.md](RESOURCES.md) 及 [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)。新增资源取自核验时的固定上游快照，不表示这是原正文采编时的版本。
+
+- 文档中的资源相对路径指**本技能目录**；执行时保持目标项目所需的工作目录，用资源的绝对路径调用。项目输入/输出也使用绝对路径，不能把技能库误当成被操作的项目。
+- 环境依赖：Browser；p5.js 1.7.0 from the template CDN, or an approved local copy; unavailable library means no rendered validation。本技能不自动安装这些依赖；缺失时先报告具体缺项，使用正文可行的人工流程，不能声称已完成脚本验证。
+- 上游脚本在本仓仅做静态核对；使用前审查实际参数、输出位置及外部调用，按用户已授权范围运行。
 
 Algorithmic philosophies are computational aesthetic movements that are then expressed through code. Output .md files (philosophy), .html files (interactive viewer), and .js files (generative algorithms).
 

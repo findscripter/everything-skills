@@ -7,7 +7,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadSkillRepos } from './load-skill-repos.mjs';
+import { loadSkillRepos, upstreamStatus } from './load-skill-repos.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const README = path.join(ROOT, 'README.md');
@@ -92,14 +92,14 @@ const parts = [];
 parts.push(SECTION_HEADING + '\n');
 if (LANG === 'en') {
   parts.push(
-    `\nCurrently indexing **${total}** GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.\n`,
+    `\nCurrently **${total}** indexed entries for GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.\n`,
   );
   parts.push(
     '\nFull tables (stars / summary / license) are generated from `data/skill-repos.jsonl` (and part shards) into **[INDEX/skill-repos.md](INDEX/skill-repos.md)**. This page is the categorized link directory.\n',
   );
 } else {
   parts.push(
-    `\n目前索引 **${total}** 个 GitHub 技能库/市场/精选列表。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。\n`,
+    `\n目前有 **${total}** 条 GitHub 技能库/市场/精选列表目录记录。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。\n`,
   );
   parts.push(
     '\n完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。\n',
@@ -115,7 +115,8 @@ for (const [id, title] of SECTION_META) {
   for (const o of items) {
     const url = o.html_url || `https://github.com/${o.full_name}`;
     const summary = sanitizeSummary(pickSummary(o));
-    parts.push(`- [\`${o.full_name}\`](${url}) — ${summary}\n`);
+    const state = upstreamStatus(o, LANG);
+    parts.push(`- [\`${o.full_name}\`](${url}) — ${summary}${state ? ` (${state})` : ''}\n`);
   }
   parts.push(`\n</details>\n`);
 }
@@ -132,6 +133,7 @@ if ((beginAt < 0) !== (endAt < 0)) throw new Error('README generated markers are
 if (beginAt >= 0) {
   if (readme.indexOf(BEGIN, beginAt + BEGIN.length) >= 0 || readme.indexOf(END, endAt + END.length) >= 0)
     throw new Error('README generated markers must be unique');
+  if (endAt < beginAt) throw new Error('README generated markers must be ordered BEGIN before END');
   readme = readme.slice(0, beginAt) + BEGIN + '\n' + newSec.trimEnd() + '\n' + readme.slice(endAt);
 } else {
 const altHeading = LANG === 'en' ? '## 技能仓库目录' : '## Skill repos directory';
@@ -151,14 +153,14 @@ readme = readme.slice(0, start) + BEGIN + '\n' + newSec.trimEnd() + '\n' + END +
 if (LANG === 'en') {
   // README chrome may use "Also indexes" or lowercase "also indexes"
   readme = readme.replace(
-    /([Aa]lso indexes) \*\*\d+\*\* external GitHub skill (?:libraries|repos)/,
-    (_, lead) => `${lead} **${total}** external GitHub skill libraries`,
+    /([Aa]lso indexes) \*\*\d+\*\* (?:external GitHub skill (?:libraries|repos)|external repository entries)/,
+    (_, lead) => `${lead} **${total}** external repository entries`,
   );
 } else {
   readme = readme.replace(
-    /另索引 \*\*\d+\*\* 个外部 GitHub 技能库/,
-    `另索引 **${total}** 个外部 GitHub 技能库`,
+    /另索引 \*\*\d+\*\* (?:个外部 GitHub 技能库|条外部仓库目录记录)/,
+    `另索引 **${total}** 条外部仓库目录记录`,
   );
 }
 await fs.writeFile(README, readme, 'utf8');
-console.log('updated README lang=' + LANG + ' unique=', total, counts);
+console.log('updated README lang=' + LANG + ' indexed entries=', total, counts);

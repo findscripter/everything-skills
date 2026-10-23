@@ -117,7 +117,7 @@ Notes: (1) Excludes hardware revenue; (2) Includes both B2B and B2C segments.
 ## 互见
 
 - related：`board-deck-builder` —— 董事会/投资人汇报材料，叙事框架与本技能的"灌模板"互补。
-- related：`market-sizing-tam-sam-som`、`market-sizing-analyst` —— pitch deck 中市场规模页的测算来源。
+- related：`market-sizing-tam-sam-som` —— pitch deck 中市场规模页的测算来源。
 - combines_with：`pptx`/演示文稿编辑类技能 —— 提供 PowerPoint XML（表格、形状、箭头）的底层实现细节。
 - 源技能 references：`reference/formatting-standards.md`（文本/项目符号/表/图/对齐）、`reference/slide-templates.md`（各类幻灯片内容映射）、`reference/xml-reference.md`（表格/形状/箭头的 PPT XML 模式）、`reference/calculation-standards.md`（CAGR/共识等校验公式）。
 

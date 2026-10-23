@@ -160,7 +160,7 @@ def calculate_metrics(returns: pd.Series, rf_rate=0.02) -> dict:
 
 - requires：无。
 - related：sql-query-builder（取数/落库回测结果时衔接）、csv-data-cleaner（原始行情清洗去重）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 

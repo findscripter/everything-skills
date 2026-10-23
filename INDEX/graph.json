@@ -3260,7 +3260,7 @@
       "title": "市场规模测算（TAM/SAM/SOM）",
       "domain": "商业/growth",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "market-sizing-tam-sam-som",
@@ -5115,7 +5115,7 @@
       "title": "天文数据分析（Astropy）",
       "domain": "领域/science",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "astropy-astronomy-toolkit",
@@ -5521,7 +5521,7 @@
       "title": "数据处理协议条款审查",
       "domain": "领域/legal",
       "level": "精通",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "dpa-playbook-review",
@@ -6186,7 +6186,7 @@
       "title": "分子动力学模拟（OpenMM/MDAnalysis）",
       "domain": "领域/science",
       "level": "精通",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "molfeat-molecular-featurization",
@@ -7691,12 +7691,12 @@
       "title": "X/Twitter 抓取与自动化（Xquik）",
       "domain": "平台/integration",
       "level": "进阶",
-      "status": "stable"
+      "status": "deprecated"
     },
     {
       "id": "x-twitter-scraper-toolkit",
       "title": "X/Twitter 抓取工具：搜索、导出、发推与 DM",
-      "domain": "平台/browser",
+      "domain": "平台/integration",
       "level": "进阶",
       "status": "stable"
     },
@@ -7920,12 +7920,12 @@
     },
     {
       "from": "business-assumption-stress-test",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "related"
     },
     {
       "from": "business-assumption-stress-test",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "combines_with"
     },
     {
@@ -18745,7 +18745,7 @@
     },
     {
       "from": "ai-disruption-moat-analyzer",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "combines_with"
     },
     {
@@ -19220,7 +19220,7 @@
     },
     {
       "from": "business-model-canvas-architect",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "combines_with"
     },
     {
@@ -19235,7 +19235,7 @@
     },
     {
       "from": "buyer-persona-builder",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "related"
     },
     {
@@ -19570,7 +19570,7 @@
     },
     {
       "from": "competitive-analysis",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "related"
     },
     {
@@ -19580,7 +19580,7 @@
     },
     {
       "from": "competitive-analysis",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "combines_with"
     },
     {
@@ -19645,7 +19645,7 @@
     },
     {
       "from": "competitive-matrix-builder",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "related"
     },
     {
@@ -20330,7 +20330,7 @@
     },
     {
       "from": "equity-earnings-update-report",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "related"
     },
     {
@@ -20735,7 +20735,7 @@
     },
     {
       "from": "international-expansion-strategy",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "related"
     },
     {
@@ -20755,7 +20755,7 @@
     },
     {
       "from": "international-expansion-strategy",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "combines_with"
     },
     {
@@ -21110,7 +21110,7 @@
     },
     {
       "from": "ma-playbook",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "related"
     },
     {
@@ -21194,46 +21194,6 @@
       "type": "combines_with"
     },
     {
-      "from": "market-sizing-analyst",
-      "to": "market-sizing-tam-sam-som",
-      "type": "related"
-    },
-    {
-      "from": "market-sizing-analyst",
-      "to": "competitive-analysis",
-      "type": "related"
-    },
-    {
-      "from": "market-sizing-analyst",
-      "to": "startup-financial-modeler",
-      "type": "related"
-    },
-    {
-      "from": "market-sizing-analyst",
-      "to": "international-expansion-strategy",
-      "type": "related"
-    },
-    {
-      "from": "market-sizing-analyst",
-      "to": "competitive-analysis",
-      "type": "combines_with"
-    },
-    {
-      "from": "market-sizing-analyst",
-      "to": "startup-financial-modeler",
-      "type": "combines_with"
-    },
-    {
-      "from": "market-sizing-analyst",
-      "to": "board-deck-builder",
-      "type": "combines_with"
-    },
-    {
-      "from": "market-sizing-tam-sam-som",
-      "to": "market-sizing-analyst",
-      "type": "related"
-    },
-    {
       "from": "market-sizing-tam-sam-som",
       "to": "competitive-analysis",
       "type": "related"
@@ -21246,6 +21206,21 @@
     {
       "from": "market-sizing-tam-sam-som",
       "to": "international-expansion-strategy",
+      "type": "related"
+    },
+    {
+      "from": "market-sizing-tam-sam-som",
+      "to": "first-principles-thinking",
+      "type": "related"
+    },
+    {
+      "from": "market-sizing-tam-sam-som",
+      "to": "fact-checking",
+      "type": "related"
+    },
+    {
+      "from": "market-sizing-tam-sam-som",
+      "to": "markdown-to-docx",
       "type": "related"
     },
     {
@@ -23280,7 +23255,7 @@
     },
     {
       "from": "social-connections-optimizer",
-      "to": "x-twitter-automation",
+      "to": "x-twitter-scraper-toolkit",
       "type": "related"
     },
     {
@@ -23430,7 +23405,7 @@
     },
     {
       "from": "startup-financial-modeler",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "related"
     },
     {
@@ -23450,7 +23425,7 @@
     },
     {
       "from": "startup-financial-modeler",
-      "to": "market-sizing-analyst",
+      "to": "market-sizing-tam-sam-som",
       "type": "combines_with"
     },
     {
@@ -29700,7 +29675,7 @@
     },
     {
       "from": "alphafold-database-access",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "combines_with"
     },
     {
@@ -29869,36 +29844,6 @@
       "type": "combines_with"
     },
     {
-      "from": "astronomy-data-toolkit",
-      "to": "materials-science-toolkit",
-      "type": "related"
-    },
-    {
-      "from": "astronomy-data-toolkit",
-      "to": "cheminformatics-toolkit",
-      "type": "related"
-    },
-    {
-      "from": "astronomy-data-toolkit",
-      "to": "sympy-symbolic-math",
-      "type": "related"
-    },
-    {
-      "from": "astronomy-data-toolkit",
-      "to": "matplotlib-visualization",
-      "type": "combines_with"
-    },
-    {
-      "from": "astronomy-data-toolkit",
-      "to": "guided-statistical-analysis",
-      "type": "combines_with"
-    },
-    {
-      "from": "astropy-astronomy-toolkit",
-      "to": "astronomy-data-toolkit",
-      "type": "related"
-    },
-    {
       "from": "astropy-astronomy-toolkit",
       "to": "sympy-symbolic-math",
       "type": "related"
@@ -29911,6 +29856,11 @@
     {
       "from": "astropy-astronomy-toolkit",
       "to": "scientific-database-lookup",
+      "type": "related"
+    },
+    {
+      "from": "astropy-astronomy-toolkit",
+      "to": "cheminformatics-toolkit",
       "type": "related"
     },
     {
@@ -29940,7 +29890,7 @@
     },
     {
       "from": "autodock-vina-docking",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "related"
     },
     {
@@ -29950,7 +29900,7 @@
     },
     {
       "from": "autodock-vina-docking",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "combines_with"
     },
     {
@@ -30565,7 +30515,7 @@
     },
     {
       "from": "cheminformatics-toolkit",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "related"
     },
     {
@@ -30575,7 +30525,7 @@
     },
     {
       "from": "cheminformatics-toolkit",
-      "to": "astronomy-data-toolkit",
+      "to": "astropy-astronomy-toolkit",
       "type": "related"
     },
     {
@@ -30585,7 +30535,7 @@
     },
     {
       "from": "cheminformatics-toolkit",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "combines_with"
     },
     {
@@ -30935,7 +30885,7 @@
     },
     {
       "from": "contract-escalation-router",
-      "to": "dpa-clause-reviewer",
+      "to": "dpa-playbook-review",
       "type": "related"
     },
     {
@@ -30965,7 +30915,7 @@
     },
     {
       "from": "contract-playbook-review",
-      "to": "dpa-clause-reviewer",
+      "to": "dpa-playbook-review",
       "type": "related"
     },
     {
@@ -31535,7 +31485,7 @@
     },
     {
       "from": "dicom-medical-imaging",
-      "to": "astronomy-data-toolkit",
+      "to": "astropy-astronomy-toolkit",
       "type": "related"
     },
     {
@@ -31570,7 +31520,7 @@
     },
     {
       "from": "diffdock-blind-docking",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "related"
     },
     {
@@ -31580,7 +31530,7 @@
     },
     {
       "from": "diffdock-blind-docking",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "combines_with"
     },
     {
@@ -31649,41 +31599,6 @@
       "type": "combines_with"
     },
     {
-      "from": "dpa-clause-reviewer",
-      "to": "gdpr-data-handler",
-      "type": "related"
-    },
-    {
-      "from": "dpa-clause-reviewer",
-      "to": "dsar-response-builder",
-      "type": "related"
-    },
-    {
-      "from": "dpa-clause-reviewer",
-      "to": "privacy-impact-assessor",
-      "type": "related"
-    },
-    {
-      "from": "dpa-clause-reviewer",
-      "to": "nda-triage-reviewer",
-      "type": "related"
-    },
-    {
-      "from": "dpa-clause-reviewer",
-      "to": "gdpr-data-handler",
-      "type": "combines_with"
-    },
-    {
-      "from": "dpa-clause-reviewer",
-      "to": "privacy-impact-assessor",
-      "type": "combines_with"
-    },
-    {
-      "from": "dpa-playbook-review",
-      "to": "dpa-clause-reviewer",
-      "type": "related"
-    },
-    {
       "from": "dpa-playbook-review",
       "to": "privacy-impact-assessor",
       "type": "related"
@@ -31701,11 +31616,41 @@
     {
       "from": "dpa-playbook-review",
       "to": "dsar-response-builder",
+      "type": "related"
+    },
+    {
+      "from": "dpa-playbook-review",
+      "to": "nda-triage-reviewer",
+      "type": "related"
+    },
+    {
+      "from": "dpa-playbook-review",
+      "to": "fact-checking",
+      "type": "related"
+    },
+    {
+      "from": "dpa-playbook-review",
+      "to": "first-principles-thinking",
+      "type": "related"
+    },
+    {
+      "from": "dpa-playbook-review",
+      "to": "dsar-response-builder",
       "type": "combines_with"
     },
     {
       "from": "dpa-playbook-review",
       "to": "contract-playbook-review",
+      "type": "combines_with"
+    },
+    {
+      "from": "dpa-playbook-review",
+      "to": "gdpr-data-handler",
+      "type": "combines_with"
+    },
+    {
+      "from": "dpa-playbook-review",
+      "to": "privacy-impact-assessor",
       "type": "combines_with"
     },
     {
@@ -31755,7 +31700,7 @@
     },
     {
       "from": "dsar-response-builder",
-      "to": "dpa-clause-reviewer",
+      "to": "dpa-playbook-review",
       "type": "related"
     },
     {
@@ -32565,7 +32510,7 @@
     },
     {
       "from": "gdpr-data-handler",
-      "to": "dpa-clause-reviewer",
+      "to": "dpa-playbook-review",
       "type": "related"
     },
     {
@@ -32590,7 +32535,7 @@
     },
     {
       "from": "gdpr-data-handler",
-      "to": "dpa-clause-reviewer",
+      "to": "dpa-playbook-review",
       "type": "combines_with"
     },
     {
@@ -33370,7 +33315,7 @@
     },
     {
       "from": "ip-clause-review",
-      "to": "dpa-clause-reviewer",
+      "to": "dpa-playbook-review",
       "type": "related"
     },
     {
@@ -33965,11 +33910,6 @@
     },
     {
       "from": "legal-policy-drafter",
-      "to": "dpa-clause-reviewer",
-      "type": "related"
-    },
-    {
-      "from": "legal-policy-drafter",
       "to": "dpa-playbook-review",
       "type": "related"
     },
@@ -34395,12 +34335,12 @@
     },
     {
       "from": "materials-science-toolkit",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "related"
     },
     {
       "from": "materials-science-toolkit",
-      "to": "astronomy-data-toolkit",
+      "to": "astropy-astronomy-toolkit",
       "type": "related"
     },
     {
@@ -34565,11 +34505,6 @@
     },
     {
       "from": "molecular-dynamics-openmm",
-      "to": "molecular-dynamics-simulation",
-      "type": "related"
-    },
-    {
-      "from": "molecular-dynamics-openmm",
       "to": "autodock-vina-docking",
       "type": "related"
     },
@@ -34585,6 +34520,21 @@
     },
     {
       "from": "molecular-dynamics-openmm",
+      "to": "cheminformatics-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "molecular-dynamics-openmm",
+      "to": "protein-language-models",
+      "type": "related"
+    },
+    {
+      "from": "molecular-dynamics-openmm",
+      "to": "materials-science-toolkit",
+      "type": "related"
+    },
+    {
+      "from": "molecular-dynamics-openmm",
       "to": "rdkit-cheminformatics",
       "type": "combines_with"
     },
@@ -34594,27 +34544,7 @@
       "type": "combines_with"
     },
     {
-      "from": "molecular-dynamics-simulation",
-      "to": "cheminformatics-toolkit",
-      "type": "related"
-    },
-    {
-      "from": "molecular-dynamics-simulation",
-      "to": "protein-language-models",
-      "type": "related"
-    },
-    {
-      "from": "molecular-dynamics-simulation",
-      "to": "materials-science-toolkit",
-      "type": "related"
-    },
-    {
-      "from": "molecular-dynamics-simulation",
-      "to": "protein-language-models",
-      "type": "combines_with"
-    },
-    {
-      "from": "molecular-dynamics-simulation",
+      "from": "molecular-dynamics-openmm",
       "to": "matplotlib-visualization",
       "type": "combines_with"
     },
@@ -34755,7 +34685,7 @@
     },
     {
       "from": "nda-triage-reviewer",
-      "to": "dpa-clause-reviewer",
+      "to": "dpa-playbook-review",
       "type": "related"
     },
     {
@@ -37715,7 +37645,7 @@
     },
     {
       "from": "privacy-impact-assessor",
-      "to": "dpa-clause-reviewer",
+      "to": "dpa-playbook-review",
       "type": "related"
     },
     {
@@ -37735,7 +37665,7 @@
     },
     {
       "from": "privacy-impact-assessor",
-      "to": "dpa-clause-reviewer",
+      "to": "dpa-playbook-review",
       "type": "combines_with"
     },
     {
@@ -37815,7 +37745,7 @@
     },
     {
       "from": "protein-language-models",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "related"
     },
     {
@@ -37830,7 +37760,7 @@
     },
     {
       "from": "protein-language-models",
-      "to": "molecular-dynamics-simulation",
+      "to": "molecular-dynamics-openmm",
       "type": "combines_with"
     },
     {
@@ -40670,7 +40600,7 @@
     },
     {
       "from": "linkedin-cli-automation",
-      "to": "x-twitter-automation",
+      "to": "x-twitter-scraper-toolkit",
       "type": "related"
     },
     {
@@ -41320,11 +41250,6 @@
     },
     {
       "from": "x-post-to-json-fetcher",
-      "to": "x-twitter-automation",
-      "type": "related"
-    },
-    {
-      "from": "x-post-to-json-fetcher",
       "to": "firecrawl-web-scraper",
       "type": "related"
     },
@@ -41344,41 +41269,6 @@
       "type": "combines_with"
     },
     {
-      "from": "x-twitter-automation",
-      "to": "apify-ecommerce-scraper",
-      "type": "related"
-    },
-    {
-      "from": "x-twitter-automation",
-      "to": "social-media-multi-publisher",
-      "type": "related"
-    },
-    {
-      "from": "x-twitter-automation",
-      "to": "browser-automation-builder",
-      "type": "related"
-    },
-    {
-      "from": "x-twitter-automation",
-      "to": "social-media-multi-publisher",
-      "type": "combines_with"
-    },
-    {
-      "from": "x-twitter-automation",
-      "to": "social-media-content-creator",
-      "type": "combines_with"
-    },
-    {
-      "from": "x-twitter-automation",
-      "to": "social-media-performance-analyzer",
-      "type": "combines_with"
-    },
-    {
-      "from": "x-twitter-scraper-toolkit",
-      "to": "x-twitter-automation",
-      "type": "related"
-    },
-    {
       "from": "x-twitter-scraper-toolkit",
       "to": "x-post-to-json-fetcher",
       "type": "related"
@@ -41390,12 +41280,32 @@
     },
     {
       "from": "x-twitter-scraper-toolkit",
+      "to": "apify-ecommerce-scraper",
+      "type": "related"
+    },
+    {
+      "from": "x-twitter-scraper-toolkit",
+      "to": "social-media-multi-publisher",
+      "type": "related"
+    },
+    {
+      "from": "x-twitter-scraper-toolkit",
       "to": "social-media-multi-publisher",
       "type": "combines_with"
     },
     {
       "from": "x-twitter-scraper-toolkit",
       "to": "news-sentiment-briefing",
+      "type": "combines_with"
+    },
+    {
+      "from": "x-twitter-scraper-toolkit",
+      "to": "social-media-content-creator",
+      "type": "combines_with"
+    },
+    {
+      "from": "x-twitter-scraper-toolkit",
+      "to": "social-media-performance-analyzer",
       "type": "combines_with"
     },
     {

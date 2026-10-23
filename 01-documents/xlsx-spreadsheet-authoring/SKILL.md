@@ -1,7 +1,7 @@
 ---
 name: xlsx-spreadsheet-authoring
 title: XLSX 表格制作：Excel 文件创建与格式化
-description: 当需要创建、编辑或分析 .xlsx 表格（数据、公式、格式化、财务模型）时使用；做用 pandas 读析、openpyxl 写公式与样式、recalc.py 强制重算并产出零公式错误的工作簿；不适用于 .docx/.pptx、纯文本无表格需求或一次性问答；触发词：做Excel、生成xlsx、写公式、套格式、建财务模型、改表格
+description: 当需要创建、编辑或检查 .xlsx 工作簿的数据、公式和格式时使用；用 openpyxl 编写工作簿、独立核算关键数据，并在有可用电子表格引擎时重算和核验公式；不适用于纯文本问答、未验证兼容性的复杂宏工作簿或代替正式财务审计；触发词：做Excel、生成xlsx、写公式、套格式、建财务模型、改表格
 domain: 文书/office
 triggers: [帮我做/生成一个 Excel/xlsx 表格, 给单元格写公式或做条件格式, 搭建/更新财务模型并保证无公式错误, 用 pandas 读取分析 Excel 数据, 编辑现有 xlsx 的工作表与单元格]
 tags: [文书, xlsx, excel, openpyxl, pandas, 财务模型, 公式]
@@ -12,125 +12,91 @@ tools: [python, pandas, openpyxl, libreoffice]
 requires: []
 related: [spreadsheet-formula-auditor, python-pptx-deck-generator, pdf-form-filler, markdown-to-docx]
 combines_with: [spreadsheet-formula-auditor, csv-data-cleaner, startup-financial-modeler]
-license: MIT
-source: sickn33/agentic-awesome-skills
-source_license: MIT
+license: CC-BY-4.0
 ---
+# XLSX 工作簿创建与编辑
+
 ## 何时使用
 
-当用户要**创建、编辑或分析 `.xlsx` 工作簿**时使用。按任务选库分流：
-
-- **读取/分析数据**：用 **pandas**（`read_excel` 预览、统计、批量导出）。
-- **写公式/格式/财务模型**：用 **openpyxl**（单元格、公式字符串、字体、填充、列宽、多工作表）。
-- **凡含公式**：openpyxl 只写公式**字符串不计算值**，必须跑 `recalc.py` 用 LibreOffice 重算并扫错。
-
-不该用的边界：
-
-- 目标是 Word（`.docx`）或 PPT（`.pptx`）→ 用对应文档技能，不用本技能。
-- 只需纯文本/一句话答复、无表格结构 → 直接回正文。
-- 只想审计/排查已有表的公式错误而非生产新表 → 用 `spreadsheet-formula-auditor`。
-- 更新既有财务模型的特定结构 → 优先 `financial-model-updater`。
+为结构化数据创建或修改 `.xlsx`，设置公式、数字格式和打印布局，并核验结果。涉及复杂宏、数据连接或受保护模板时，先明确必须保留的功能与可用的 Excel/LibreOffice 环境。
 
 ## 步骤 / 指令
 
-通用工作流：
-
-1. **选库**：分析用 pandas，公式/格式用 openpyxl。
-2. **创建/加载**：新建 `Workbook()` 或 `load_workbook(path)`。
-3. **修改**：写数据、公式、格式。
-4. **保存**：`wb.save(path)`。
-5. **重算（含公式时必做）**：`python recalc.py output.xlsx [timeout_秒]`。
-6. **校验改错**：脚本返回 JSON；`status` 为 `errors_found` 时读 `error_summary` 定位并修复，再重算，直到零错误。
-
-**核心铁律——用公式，不要硬编码计算结果**。让 Excel 保持可重算：
-
-- 错：`sheet['B10'] = df['Sales'].sum()`（写死 5000）
-- 对：`sheet['B10'] = '=SUM(B2:B9)'`
-- 对：`sheet['C5'] = '=(C4-C2)/C2'`、`sheet['D20'] = '=AVERAGE(D2:D19)'`
-
-所有合计、百分比、比率、差值同理，源数据变了表能自动重算。
-
-**交付硬要求**：
-
-- **零公式错误**：交付前不得残留 `#REF! / #DIV/0! / #VALUE! / #N/A / #NAME?`。
-- **保留既有模板**：改他人文件时，精确沿用其原有格式/样式/约定，模板约定永远压过下列默认规则。
-
-**财务模型默认规范**（用户或既有模板另有规定则从之）：
-
-- 颜色：蓝字 `(0,0,255)`=硬输入；黑字=公式计算；绿字 `(0,128,0)`=同簿跨表链接；红字 `(255,0,0)`=外部文件链接；黄底 `(255,255,0)`=需关注的关键假设。
-- 数字格式：年份按文本（"2024" 非 "2,024"）；货币 `$#,##0` 且表头标单位（"Revenue ($mm)"）；零显示为 `-`（如 `$#,##0;($#,##0);-`）；百分比默认 `0.0%`；估值倍数 `0.0x`；负数用括号 `(123)`。
-- 假设独立成格，公式引用单元格而非写死：用 `=B5*(1+$B$6)` 不用 `=B5*1.05`。
-- 硬编码须注明来源（旁注/批注）：`Source: [系统/文档], [日期], [具体引用], [URL]`。
-
-**公式自检清单**：先验 2–3 个引用是否取到正确值再铺开；注意列映射（第 64 列=BL 非 BK）与行偏移（DataFrame 第 5 行=Excel 第 6 行，1 起索引）；用 `pd.notna()` 防 NaN；用 `/` 前查分母防 `#DIV/0!`；跨表引用用 `Sheet1!A1` 格式；先小范围测再批量；含零/负/极大值边界测试；防意外循环引用。
+1. **明确交付**：确认数据来源、列含义、单位、币种、日期口径、工作表结构与输出路径。保留输入副本，不直接覆盖原件。
+2. **检查依赖**：确认 Python 与 `openpyxl` 已预装；分析大表可选 `pandas`。需要重新计算公式时必须另有 Excel 或经确认兼容的 LibreOffice。本条不提供或调用 `recalc.py` 等隐藏 helper，缺依赖时报告可完成范围。
+3. **读取与建模**：编辑现有文件用 `load_workbook(..., data_only=False)` 保留公式；检查工作表、名称、合并区和外部链接。将输入、计算和汇总分开，保留可追溯的数据来源与假设。
+4. **写入**：以明确的数据类型写值；金额、日期和百分比设置正确数字格式。公式使用库所需的英文函数名与分隔符；跨表引用核对工作表名和绝对/相对坐标。用户数据若以 `=` 开头且不是获准的公式，应作为文字处理。
+5. **排版**：统一表头、对齐与适量颜色，冻结表头、设置筛选与列宽；合并单元格只用于标题区。按实际纸张设置打印范围和方向，避免把数据表整体压缩到难以阅读。
+6. **验证结构和计算**：保存到新文件后重新打开，检查表名、行列数、公式字符串、数字格式与关键数据。用独立计算核对总数、边界情况和业务约束。
+7. **公式重算**：`openpyxl` 写入公式但不计算结果。使用获准且适配该工作簿的 Excel/LibreOffice 在输出副本上重算并保存，然后分别按公式模式和 `data_only=True` 读取；检查关键公式值及错误单元格。没有重算引擎或缓存值时明确写“公式未完成重算”，不能宣称已验证数值正确。
+8. **交付检查**：在实际应用中查看重要工作表与打印预览，核对截断、分页、图表和条件格式。提交最终文件、核验结果以及尚未完成的检查。
 
 ## 示例
 
-读取分析（pandas）：
+下面独立创建一个采购明细示例。数字为教学输入；公式等待实际电子表格引擎计算，Python 的总额用于后续独立核对。
 
 ```python
-import pandas as pd
-df = pd.read_excel('file.xlsx')                  # 默认首个工作表
-all_sheets = pd.read_excel('file.xlsx', sheet_name=None)  # 全表为 dict
-df.head(); df.info(); df.describe()
-df.to_excel('output.xlsx', index=False)
+from pathlib import Path
+from openpyxl import Workbook, load_workbook
+from openpyxl.styles import Font, PatternFill
+
+records = [("Notebook", 12, 3.50), ("Cable", 8, 9.00), ("Labels", 4, 2.25)]
+destination = Path("purchase-summary.xlsx")
+workbook = Workbook()
+sheet = workbook.active
+sheet.title = "Purchases"
+sheet.append(["Item", "Quantity", "Unit price", "Amount"])
+for row_number, (item, quantity, price) in enumerate(records, start=2):
+    sheet.append([item, quantity, price, f"=B{row_number}*C{row_number}"])
+total_row = len(records) + 2
+sheet.cell(total_row, 1, "Total")
+sheet.cell(total_row, 4, f"=SUM(D2:D{total_row - 1})")
+for cell in sheet[1]:
+    cell.font = Font(bold=True, color="FFFFFF")
+    cell.fill = PatternFill(fill_type="solid", fgColor="24527A")
+for row in sheet.iter_rows(min_row=2, min_col=3, max_col=4, max_row=total_row):
+    for cell in row:
+        cell.number_format = '#,##0.00'
+sheet.freeze_panes = "A2"
+sheet.auto_filter.ref = f"A1:D{total_row - 1}"
+for column, width in {"A": 24, "B": 14, "C": 16, "D": 16}.items():
+    sheet.column_dimensions[column].width = width
+sheet.print_area = f"A1:D{total_row}"
+with destination.open("xb") as stream:
+    workbook.save(stream)
+check = load_workbook(destination, data_only=False)
+assert check["Purchases"][f"D{total_row}"].value == f"=SUM(D2:D{total_row - 1})"
+check.close()
+print("重算后总额应为：", sum(quantity * price for _, quantity, price in records))  # 123.0
 ```
 
-新建带公式与格式（openpyxl）：
-
-```python
-from openpyxl import Workbook
-from openpyxl.styles import Font, PatternFill, Alignment
-wb = Workbook(); sheet = wb.active
-sheet['A1'] = 'Hello'; sheet.append(['Row', 'of', 'data'])
-sheet['B2'] = '=SUM(A1:A10)'
-sheet['A1'].font = Font(bold=True, color='FF0000')
-sheet['A1'].fill = PatternFill('solid', start_color='FFFF00')
-sheet['A1'].alignment = Alignment(horizontal='center')
-sheet.column_dimensions['A'].width = 20
-wb.save('output.xlsx')
-```
-
-编辑现有文件（保留公式与格式）：
+重算后对**重算副本**做缓存值检查（只有确认引擎已完成重算才能执行此验收）：
 
 ```python
 from openpyxl import load_workbook
-wb = load_workbook('existing.xlsx'); sheet = wb.active   # 或 wb['SheetName']
-sheet['A1'] = 'New Value'
-sheet.insert_rows(2); sheet.delete_cols(3)
-new = wb.create_sheet('NewSheet'); new['A1'] = 'Data'
-wb.save('modified.xlsx')
-```
 
-重算并校验（含公式时必做）：
-
-```bash
-python recalc.py output.xlsx 30
-```
-
-返回 JSON 形如：
-
-```json
-{ "status": "success", "total_errors": 0, "total_formulas": 42,
-  "error_summary": { "#REF!": { "count": 2, "locations": ["Sheet1!B5"] } } }
+calculated = load_workbook("purchase-summary-recalculated.xlsx", data_only=True)
+actual = calculated["Purchases"]["D5"].value
+assert isinstance(actual, (int, float)), "缺少公式计算结果，不能当作零"
+assert abs(actual - 123.0) < 0.000001
+errors = [(sheet.title, cell.coordinate, cell.value)
+          for sheet in calculated for row in sheet for cell in row if cell.data_type == "e"]
+assert not errors, errors
+calculated.close()
 ```
 
 ## 注意事项
 
-- **含公式必跑 recalc.py**：openpyxl 写的是公式字符串、值为空，不重算交付会让单元格显示空白或旧值。脚本需 LibreOffice（首次运行自动配置）。
-- 一律用**绝对路径**；调用间工作目录可能被重置。
-- openpyxl 单元格 **1 起索引**（row=1,col=1 即 A1）。
-- 读计算值用 `load_workbook(path, data_only=True)`；但**以此打开再保存会用值永久覆盖公式**，切勿误存。
-- 大文件：读用 `read_only=True`，写用 `write_only=True`。
-- pandas 防类型推断坑：`dtype={'id': str}`；按列读 `usecols=[...]`；日期用 `parse_dates=[...]`。
-- 代码风格：Python 代码精简、少注释少 print；但 Excel 单元格内要给复杂公式/关键假设加批注、注明数据源。
-- 处理外部来源文件前确认无加密/权限限制；产物不替代环境内的验证与专家复核，缺输入/边界时先问清。
+- `data_only=True` 读取的是上次计算缓存；`None` 可能表示没有缓存，不能据此覆盖公式或报告为零。
+- 编辑带宏的 `.xlsm` 需明确采用支持其保留要求的路线；普通 `.xlsx` 示例不适用于宏保真承诺。复杂图表、签名、外链和第三方扩展也需额外往返验证。
+- Excel 与 LibreOffice 的函数、动态数组和格式支持可能不同；使用重算引擎前先选代表性工作表验证兼容性。
+- 业务数字不得为凑平而硬编码修改。记录精度和舍入规则，外部数据保留时间与来源。
+- 所有外部链接、查询刷新、宏执行都应与本次任务权限一致；读取工作簿内容不意味着允许运行其中代码。
+- 官方接口参考：[openpyxl 教程](https://openpyxl.readthedocs.io/en/stable/tutorial.html)、[openpyxl 公式说明](https://openpyxl.readthedocs.io/en/stable/simple_formulae.html)、[pandas](https://pandas.pydata.org/docs/)。
 
 ## 互见
 
-- requires：无。
-- related：`spreadsheet-formula-auditor`（专做公式错误审计与排查）、`csv-data-cleaner`（导出/读入前清洗 CSV 数据）。
-- combines_with：`financial-model-updater`（更新既有财务模型结构）、`financial-statements-generator`（生成三大报表后用本技能落表与格式化）。
+关系以 frontmatter 为准。`spreadsheet-formula-auditor` 负责进一步公式审计；`csv-data-cleaner` 提供清洁输入数据。
 
 ---
-采编自 sickn33/antigravity-awesome-skills（MIT）。
+本条为本仓独立编写的通用流程与示例，以 CC-BY-4.0 提供；不含第三方专有技能的 helper、模板或提示词，也不承诺未实际执行的公式重算。

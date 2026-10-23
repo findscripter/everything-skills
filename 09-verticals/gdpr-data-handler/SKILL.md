@@ -10,8 +10,8 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [javascript, python, mongodb, geoip2, json]
 requires: []
-related: [gdpr-data-handling, dpa-clause-reviewer, dsar-response-builder, privacy-impact-assessor]
-combines_with: [dsar-response-builder, privacy-impact-assessor, dpa-clause-reviewer]
+related: [gdpr-data-handling, dpa-playbook-review, dsar-response-builder, privacy-impact-assessor]
+combines_with: [dsar-response-builder, privacy-impact-assessor, dpa-playbook-review]
 license: MIT
 source: wshobson/agents
 source_license: MIT

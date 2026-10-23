@@ -53,14 +53,16 @@ source_license: CC-BY-SA-4.0
 
 ## 指令
 
-编写前必须用 WebFetch 读完以下 7 份文档（raw 链接）：
-1. Rule Syntax：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/rule-syntax.md
-2. Pattern Syntax：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/pattern-syntax.mdx
-3. Testing Rules：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/testing-rules.md
-4. Taint analysis：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/data-flow/taint-mode/overview.md
-5. Advanced taint：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/data-flow/taint-mode/advanced.md
-6. Constant propagation：https://raw.githubusercontent.com/semgrep/semgrep-docs/refs/heads/main/docs/writing-rules/data-flow/constant-propagation.md
+编写前必须用 WebFetch 读完以下 7 份文档（Semgrep 官方文档入口与 Trail of Bits 手册）：
+1. Rule Syntax：https://docs.semgrep.dev/writing-rules/rule-syntax
+2. Pattern Syntax：https://docs.semgrep.dev/writing-rules/pattern-syntax
+3. Testing Rules：https://docs.semgrep.dev/writing-rules/testing-rules
+4. Taint analysis：https://docs.semgrep.dev/writing-rules/data-flow/taint-mode/overview
+5. Advanced taint：https://docs.semgrep.dev/writing-rules/data-flow/taint-mode/advanced
+6. Constant propagation：https://docs.semgrep.dev/writing-rules/data-flow/constant-propagation
 7. Trail of Bits Testing Handbook（Semgrep 章）：https://raw.githubusercontent.com/trailofbits/testing-handbook/refs/heads/main/content/docs/static-analysis/semgrep/10-advanced.md
+
+记录本地 `semgrep --version` 与文档核验日期。文档路径迁移时从 [Semgrep 官方规则入口](https://docs.semgrep.dev/writing-rules/overview)查找同主题页面；若仍不可获取，明确缺失项并停止对应规则分支，不把 404 响应当作已读文档。版本相关语法以安装版本和适用文档为准。
 
 常用命令：
 ```bash

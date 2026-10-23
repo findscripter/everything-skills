@@ -492,7 +492,7 @@
 - [`international-expansion-strategy`](../05-business/international-expansion-strategy/SKILL.md) — 国际市场扩张策略　`商业/growth` · 进阶
 - [`lead-form-cro`](../05-business/lead-form-cro/SKILL.md) — 表单转化率优化（lead-form-cro）　`商业/growth` · 进阶
 - [`lifecycle-email-sequence`](../05-business/lifecycle-email-sequence/SKILL.md) — 生命周期邮件序列设计　`商业/growth` · 进阶
-- [`market-sizing-analyst`](../05-business/market-sizing-analyst/SKILL.md) — 市场规模测算（TAM/SAM/SOM）　`商业/growth` · 进阶
+- [`market-sizing-analyst`](../05-business/market-sizing-analyst/SKILL.md) — 市场规模测算（TAM/SAM/SOM） ~~(deprecated)~~　`商业/growth` · 进阶
 - [`marketing-analytics-tracker`](../05-business/marketing-analytics-tracker/SKILL.md) — 营销分析追踪方案　`商业/growth` · 进阶
 - [`micro-saas-launcher`](../05-business/micro-saas-launcher/SKILL.md) — 微型 SaaS 快速上线　`商业/growth` · 进阶
 - [`notion-template-business`](../05-business/notion-template-business/SKILL.md) — Notion 模板生意运营　`商业/growth` · 进阶
@@ -895,7 +895,7 @@
 - [`deposition-outline-prep`](../09-verticals/deposition-outline-prep/SKILL.md) — 证人质询提纲准备　`领域/legal` · 进阶
 - [`diligence-issue-extractor`](../09-verticals/diligence-issue-extractor/SKILL.md) — 尽职调查问题提取　`领域/legal` · 进阶
 - [`dmca-takedown-notice`](../09-verticals/dmca-takedown-notice/SKILL.md) — DMCA 下架通知与反通知　`领域/legal` · 进阶
-- [`dpa-clause-reviewer`](../09-verticals/dpa-clause-reviewer/SKILL.md) — 数据处理协议条款审查　`领域/legal` · 精通
+- [`dpa-clause-reviewer`](../09-verticals/dpa-clause-reviewer/SKILL.md) — 数据处理协议条款审查 ~~(deprecated)~~　`领域/legal` · 精通
 - [`dpa-playbook-review`](../09-verticals/dpa-playbook-review/SKILL.md) — 数据处理协议(DPA)审查　`领域/legal` · 精通
 - [`dsar-response-builder`](../09-verticals/dsar-response-builder/SKILL.md) — 数据主体请求响应起草　`领域/legal` · 进阶
 - [`employee-handbook-update-diff`](../09-verticals/employee-handbook-update-diff/SKILL.md) — 员工手册变更影响分析　`领域/legal` · 进阶
@@ -971,7 +971,7 @@
 - [`arboreto-gene-regulatory-networks`](../09-verticals/arboreto-gene-regulatory-networks/SKILL.md) — Arboreto 基因调控网络推断　`领域/science` · 进阶
 - [`arboreto-grn-inference`](../09-verticals/arboreto-grn-inference/SKILL.md) — Arboreto 基因调控网络推断　`领域/science` · 进阶
 - [`archs4-expression-database`](../09-verticals/archs4-expression-database/SKILL.md) — ARCHS4 RNA-seq 表达数据库　`领域/science` · 进阶
-- [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy）　`领域/science` · 进阶
+- [`astronomy-data-toolkit`](../09-verticals/astronomy-data-toolkit/SKILL.md) — 天文数据分析（Astropy） ~~(deprecated)~~　`领域/science` · 进阶
 - [`astropy-astronomy-toolkit`](../09-verticals/astropy-astronomy-toolkit/SKILL.md) — Astropy 天文与天体物理工具箱　`领域/science` · 进阶
 - [`autodock-vina-docking`](../09-verticals/autodock-vina-docking/SKILL.md) — AutoDock Vina 分子对接　`领域/science` · 进阶
 - [`bcftools-variant-manipulation`](../09-verticals/bcftools-variant-manipulation/SKILL.md) — bcftools VCF/BCF 变异处理　`领域/science` · 进阶
@@ -1030,7 +1030,7 @@
 - [`maxquant-proteomics`](../09-verticals/maxquant-proteomics/SKILL.md) — MaxQuant 蛋白质组学定量流程　`领域/science` · 进阶
 - [`metabolomics-workbench-database`](../09-verticals/metabolomics-workbench-database/SKILL.md) — Metabolomics Workbench 代谢组库　`领域/science` · 进阶
 - [`molecular-dynamics-openmm`](../09-verticals/molecular-dynamics-openmm/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）　`领域/science` · 精通
-- [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis）　`领域/science` · 精通
+- [`molecular-dynamics-simulation`](../09-verticals/molecular-dynamics-simulation/SKILL.md) — 分子动力学模拟（OpenMM/MDAnalysis） ~~(deprecated)~~　`领域/science` · 精通
 - [`molfeat-molecular-featurization`](../09-verticals/molfeat-molecular-featurization/SKILL.md) — molfeat 分子特征化　`领域/science` · 进阶
 - [`monarch-disease-phenotype`](../09-verticals/monarch-disease-phenotype/SKILL.md) — Monarch 疾病表型知识图谱　`领域/science` · 进阶
 - [`muon-multiomics-singlecell`](../09-verticals/muon-multiomics-singlecell/SKILL.md) — muon 多模态单细胞多组学分析　`领域/science` · 精通
@@ -1088,7 +1088,6 @@
 - [`go-rod-browser-automation`](../10-platform/go-rod-browser-automation/SKILL.md) — go-rod 浏览器自动化　`平台/browser` · 进阶
 - [`tavily-web-research`](../10-platform/tavily-web-research/SKILL.md) — Tavily 网络检索：搜索、抓取与内容提取　`平台/browser` · 入门
 - [`x-post-to-json-fetcher`](../10-platform/x-post-to-json-fetcher/SKILL.md) — X 帖子转 JSON：推文抓取为 LLM 友好结构　`平台/browser` · 入门
-- [`x-twitter-scraper-toolkit`](../10-platform/x-twitter-scraper-toolkit/SKILL.md) — X/Twitter 抓取工具：搜索、导出、发推与 DM　`平台/browser` · 进阶
 - [`ai-native-cli-design`](../10-platform/ai-native-cli-design/SKILL.md) — 面向 AI 智能体的 CLI 设计规范　`平台/cli` · 进阶
 - [`apify-actor-development`](../10-platform/apify-actor-development/SKILL.md) — Apify Actor 开发　`平台/cli` · 进阶
 - [`apify-actorization`](../10-platform/apify-actorization/SKILL.md) — 将既有软件改造为 Apify Actor　`平台/cli` · 进阶
@@ -1134,7 +1133,8 @@
 - [`stripe-integration`](../10-platform/stripe-integration/SKILL.md) — Stripe 支付与订阅集成　`平台/integration` · 进阶
 - [`twilio-communications`](../10-platform/twilio-communications/SKILL.md) — Twilio 短信与语音通信集成　`平台/integration` · 进阶
 - [`whatsapp-cloud-api`](../10-platform/whatsapp-cloud-api/SKILL.md) — WhatsApp Cloud API 集成　`平台/integration` · 进阶
-- [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) — X/Twitter 抓取与自动化（Xquik）　`平台/integration` · 进阶
+- [`x-twitter-automation`](../10-platform/x-twitter-automation/SKILL.md) — X/Twitter 抓取与自动化（Xquik） ~~(deprecated)~~　`平台/integration` · 进阶
+- [`x-twitter-scraper-toolkit`](../10-platform/x-twitter-scraper-toolkit/SKILL.md) — X/Twitter 抓取工具：搜索、导出、发推与 DM　`平台/integration` · 进阶
 - [`zoom-ai-scribe-transcription`](../10-platform/zoom-ai-scribe-transcription/SKILL.md) — Zoom AI Scribe 转写处理　`平台/integration` · 进阶
 - [`zoom-contact-center-app`](../10-platform/zoom-contact-center-app/SKILL.md) — Zoom Contact Center 应用开发　`平台/integration` · 进阶
 - [`zoom-integration-planner`](../10-platform/zoom-integration-planner/SKILL.md) — Zoom 集成方案规划（架构/认证/里程碑）　`平台/integration` · 进阶

@@ -105,7 +105,7 @@ source_license: Apache-2.0
 - related：`startup-financial-modeler` —— 股权授予建模与稀释、资金消耗可接入其财务模型。
 - related：`cfo-financial-advisor` —— 薪酬总包预算与人力成本规划从 CFO 视角校准。
 - related：`pricing-strategy` —— 同属「定价/定值」方法，分位带与意愿支付的思路可互参。
-- related：`market-sizing-analyst` —— 分位带与三角校准的方法论可借鉴其数据源处理。
+- related：`market-sizing-tam-sam-som` —— 分位带与三角校准的方法论可借鉴其数据源处理。
 - combines_with：`competitive-analysis` —— 做雇主竞争力对标时，结合竞品/同行薪酬情报输入。
 
 ---

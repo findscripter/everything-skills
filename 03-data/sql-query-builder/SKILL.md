@@ -107,5 +107,5 @@ WHERE rn = 1;
 ## 互见
 
 - requires：无。
-- related：无。
+- related：以本文件 frontmatter 的 `related` 列表为准。
 - combines_with：csv-data-cleaner —— 查询结果导出后或需先清洗本地数据时衔接。

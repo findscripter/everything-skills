@@ -3,6 +3,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadSkillRepos } from './load-skill-repos.mjs';
+
+const BOOLEAN_OPTIONS = new Set(['json', 'include-deprecated', 'help']);
 
 function parseArgs(argv) {
   const out = { _: [] };
@@ -15,7 +18,8 @@ function parseArgs(argv) {
       else {
         const key = arg.slice(2);
         const next = argv[i + 1];
-        if (next && !next.startsWith('-')) { out[key] = next; i += 1; }
+        if (BOOLEAN_OPTIONS.has(key)) out[key] = true;
+        else if (next && !next.startsWith('-')) { out[key] = next; i += 1; }
         else out[key] = true;
       }
     } else if (arg.startsWith('-') && arg.length > 1) {
@@ -86,11 +90,11 @@ function score(row, queryTokens) {
   return value;
 }
 
-export function searchRows(rows, query, limit = 10) {
+export function searchRows(rows, query, limit = 10, { includeDeprecated = false } = {}) {
   const queryTokens = tokenize(query);
   if (!queryTokens.length) return [];
   const normalizedQuery = String(query).trim().toLocaleLowerCase();
-  return rows.map(row => {
+  return rows.filter(row => includeDeprecated || row.status !== 'deprecated').map(row => {
     let value = score(row, queryTokens);
     // An authored trigger phrase is stronger evidence than a broad token
     // match (for example, "React" in ReactFlow). Give exact trigger phrases
@@ -115,22 +119,10 @@ function printRows(results, json, { showScore = true } = {}) {
   }
 }
 
-function loadRepos(root) {
-  const dataDir = path.join(root, 'data');
-  const files = fs.readdirSync(dataDir).filter(file => /^skill-repos(?:\.part\d+)?\.jsonl$/.test(file)).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-  const repos = [];
-  for (const file of files) {
-    for (const line of fs.readFileSync(path.join(dataDir, file), 'utf8').split(/\r?\n/)) {
-      if (!line.trim()) continue;
-      try { repos.push(JSON.parse(line)); } catch { /* generated input is checked separately */ }
-    }
-  }
-  return repos;
-}
-
 function findRepo(repos, query) {
   const q = String(query).toLowerCase();
   return repos.find(repo => String(repo.full_name || '').toLowerCase() === q)
+    || repos.find(repo => Array.isArray(repo.previous_names) && repo.previous_names.some(name => String(name).toLowerCase() === q))
     || repos.find(repo => String(repo.full_name || '').toLowerCase().includes(q));
 }
 
@@ -141,6 +133,7 @@ function commandHelp() {
   console.log('  why <skill-name> [--json]               查看关系图邻居');
   console.log('  repo <owner/name> [--json]              查看仓库索引');
   console.log('  eval [文件] [--top-k N] [--json]        运行检索评测集');
+  console.log('  search / list 默认排除 deprecated；--include-deprecated 显式查看历史技能。');
 }
 
 function runEval(root, file, topK = 5) {
@@ -159,7 +152,7 @@ function runEval(root, file, topK = 5) {
   return { file: path.relative(root, evalFile), total: details.length, passed, accuracy: details.length ? passed / details.length : 0, topK, cases: details };
 }
 
-export function main(argv = process.argv.slice(2)) {
+export async function main(argv = process.argv.slice(2)) {
   const args = parseArgs(argv);
   const command = args._[0];
   const root = rootFrom(args);
@@ -168,11 +161,12 @@ export function main(argv = process.argv.slice(2)) {
   if (command === 'search') {
     const query = args._.slice(1).join(' ');
     const limit = Math.max(1, Number(args.limit || 10));
-    printRows(searchRows(loadIndex(root), query, limit), json);
+    printRows(searchRows(loadIndex(root), query, limit, { includeDeprecated: Boolean(args['include-deprecated']) }), json);
     return 0;
   }
   if (command === 'list') {
     const rows = loadIndex(root).filter(row => {
+      if (!args['include-deprecated'] && row.status === 'deprecated') return false;
       if (args.domain && !String(row.domain || '').toLowerCase().includes(String(args.domain).toLowerCase())) return false;
       if (args.vol && String(row.vol || '') !== String(args.vol)) return false;
       if (args.tag && !(row.tags || []).some(tag => String(tag).toLowerCase().includes(String(args.tag).toLowerCase()))) return false;
@@ -199,7 +193,7 @@ export function main(argv = process.argv.slice(2)) {
     return node || edges.length ? 0 : 1;
   }
   if (command === 'repo') {
-    const repo = findRepo(loadRepos(root), args._[1] || '');
+    const repo = findRepo(await loadSkillRepos(root), args._[1] || '');
     if (!repo) { if (json) console.log(JSON.stringify(null)); else console.log('没有找到该仓库。'); return 1; }
     if (json) console.log(JSON.stringify(repo));
     else console.log(`${repo.full_name}\n${repo.html_url || ''}\n${repo.summary || ''}\n许可: ${repo.license || '未标注'}\n状态: ${repo.status || '未标注'}`);
@@ -216,6 +210,6 @@ export function main(argv = process.argv.slice(2)) {
 }
 
 if (process.argv[1] && path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])) {
-  try { process.exitCode = main(); }
+  try { process.exitCode = await main(); }
   catch (error) { console.error(`错误: ${error.message}`); process.exitCode = 1; }
 }

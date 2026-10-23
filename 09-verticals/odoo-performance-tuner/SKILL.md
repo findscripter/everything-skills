@@ -172,9 +172,3 @@ ORDER BY n_distinct DESC;
 
 ---
 本条采编自 sickn33/antigravity-awesome-skills（MIT）。
-
----
-
-## ⚠️ 校验冲突（需父级 agent 处置）
-
-指令要求 `domain=领域/ERP（已定勿改）`，已照写。但本仓库 `taxonomy.json` 中 `09-verticals`（领域）卷的受控类集为 `[science, legal, medical, edu, fintech, hardware]`，**不含 ERP/erp**。`scripts/build-index.mjs`（第 108 行）对类段做**强校验并报 error**，故当前 `领域/ERP` 会导致 `node scripts/build-index.mjs` 失败。同源姊妹技能 `odoo-localization-compliance` 用的是 `领域/fintech`。二选一处置：① 在 `taxonomy.json` 的 `09-verticals.classes` 增加 `erp`（推荐，slug 用小写 `领域/erp`，并可在 aliases 加「ERP→erp」）；② 改用现有 `领域/fintech`。请父级 agent 定夺后再写盘。

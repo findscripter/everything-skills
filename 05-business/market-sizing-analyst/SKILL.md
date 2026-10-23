@@ -6,16 +6,20 @@ domain: 商业/growth
 triggers: [市场规模, TAM, SAM, SOM, 市场容量, 可触达市场, market sizing, addressable market]
 tags: [market-sizing, tam-sam-som, business, growth, startup, fundraising]
 level: 进阶
-status: stable
+status: deprecated
+deprecate_reason: 同职责内容已合并至 market-sizing-tam-sam-som；保留原文供历史追溯。
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
-related: [market-sizing-tam-sam-som, competitive-analysis, startup-financial-modeler, international-expansion-strategy]
-combines_with: [competitive-analysis, startup-financial-modeler, board-deck-builder]
+related: []
+combines_with: []
 license: MIT
 source: wshobson/agents
 source_license: MIT
 ---
+
+> 历史归档：本条职责已合并到 [market-sizing-tam-sam-som](../market-sizing-tam-sam-som/SKILL.md)。执行时使用规范条目；以下正文仅保留供追溯。
+
 ## 何时使用
 
 - 给新业务/创业项目估算市场机会，需要算出 TAM（总可触达市场）/SAM（可服务市场）/SOM（可获得市场）。

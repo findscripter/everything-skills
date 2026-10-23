@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [linkedin]
 requires: []
-related: [apollo-lead-enrichment, x-twitter-automation, sales-prospecting, linkedin-profile-optimizer]
+related: [apollo-lead-enrichment, x-twitter-scraper-toolkit, sales-prospecting, linkedin-profile-optimizer]
 combines_with: [apollo-sequence-loader, cold-email-writer, social-connections-optimizer]
 license: MIT
 source: sickn33/agentic-awesome-skills

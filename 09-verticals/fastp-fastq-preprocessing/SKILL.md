@@ -66,12 +66,14 @@ fastp 比 Trim Galore / Trimmomatic 快 3–10×，单遍多线程，效果相�
 安装与校验：
 
 ```bash
-command -v fastp || conda install -c bioconda fastp   # 已有则跳过
-# 或预编译二进制（Linux）
-wget https://github.com/OpenGene/fastp/releases/download/v0.24.0/fastp
-chmod +x fastp
-fastp --version    # fastp 0.24.0
+# Linux/macOS：官方 README 列出的 Bioconda 渠道；单独环境便于固定与复现。
+conda create -n fastp-qc -c conda-forge -c bioconda fastp
+conda activate fastp-qc
+fastp --version
+conda list --explicit > fastp-environment.txt   # 保存实际版本/构建；后续复现实验使用此清单
 ```
+
+安装入口：[fastp 官方安装说明](https://github.com/OpenGene/fastp#install-with-bioconda)。先检查现有版本是否满足项目约束；需要特定版本时在上述包名后写 `fastp=<版本>` 并确认该平台有构建。不要假定 GitHub release 一定附带二进制；原 v0.24.0 release 没有该下载资产。Windows 可在经确认的 WSL/Linux 环境安装，勿把 Linux 二进制直接用于 Windows。
 
 接头自动识别失败时显式指定（Illumina TruSeq）：
 

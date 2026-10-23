@@ -30,7 +30,7 @@ source_license: MIT
 - 自己从 ChEMBL/PubChem 拉原始数据并清洗去重 → 用 `scientific-database-lookup` / `pubchem-compound-search`。
 - 训练某个具体模型架构（GNN、化学语言模型、QSAR 端到端） → 用 `deepchem-drug-discovery`（TDC 只提供数据/划分/评测，不含模型）。
 - 仅做 RDKit 指纹、描述符、分子清洗等化学信息学处理 → 用 `cheminformatics-toolkit`。
-- 蛋白-配体对接 / 分子动力学 → 用 `autodock-vina-docking` / `molecular-dynamics-simulation`。
+- 蛋白-配体对接 / 分子动力学 → 用 `autodock-vina-docking` / `molecular-dynamics-openmm`。
 
 ## 步骤
 

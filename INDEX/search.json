@@ -2966,7 +2966,7 @@
     "quality": {
       "review_status": "unreviewed",
       "last_reviewed": null,
-      "source_type": "curated",
+      "source_type": "native",
       "source_freshness": "unknown",
       "license_confidence": "declared",
       "dependencies": {
@@ -2998,7 +2998,6 @@
       "pptx",
       "演示文稿",
       "ooxml",
-      "html2pptx",
       "模板"
     ],
     "triggers": [
@@ -3008,24 +3007,23 @@
       "按公司模板套做演示",
       "提取/总结 PPTX 里的文字、备注或批注"
     ],
-    "description": "当需要创建、编辑或分析 .pptx 演示文稿（含正文/讲者备注/批注/版式/主题/媒体）时使用；做拆解 OOXML、抽取文本、按 HTML 或模板生成幻灯片并产出 .pptx；不适用于纯文本无版式需求、Word/Excel 文档或一句话答复；触发词：做PPT、生成幻灯片、改PPTX、套模板做演示、提取演示文稿文本",
+    "description": "当需要创建、编辑或分析 .pptx 演示文稿（含正文/讲者备注/批注/版式/主题/媒体）时使用；做结构检查、抽取文本、使用原生演示工具或公开库创建/编辑幻灯片并产出 .pptx；不适用于纯文本无版式需求、Word/Excel 文档或一句话答复；触发词：做PPT、生成幻灯片、改PPTX、套模板做演示、提取演示文稿文本",
     "path": "01-documents/pptx-document-processing/SKILL.md",
     "quality": {
       "review_status": "unreviewed",
       "last_reviewed": null,
-      "source_type": "curated",
+      "source_type": "native",
       "source_freshness": "unknown",
       "license_confidence": "declared",
       "dependencies": {
         "skills": [],
         "tools": [
-          "python",
-          "markitdown",
-          "pptxgenjs",
-          "playwright",
-          "sharp",
-          "libreoffice",
-          "poppler"
+          "PowerPoint",
+          "LibreOffice",
+          "PptxGenJS",
+          "python-pptx",
+          "Python",
+          "Node.js"
         ]
       },
       "capabilities": [],
@@ -3338,12 +3336,12 @@
       "用 pandas 读取分析 Excel 数据",
       "编辑现有 xlsx 的工作表与单元格"
     ],
-    "description": "当需要创建、编辑或分析 .xlsx 表格（数据、公式、格式化、财务模型）时使用；做用 pandas 读析、openpyxl 写公式与样式、recalc.py 强制重算并产出零公式错误的工作簿；不适用于 .docx/.pptx、纯文本无表格需求或一次性问答；触发词：做Excel、生成xlsx、写公式、套格式、建财务模型、改表格",
+    "description": "当需要创建、编辑或检查 .xlsx 工作簿的数据、公式和格式时使用；用 openpyxl 编写工作簿、独立核算关键数据，并在有可用电子表格引擎时重算和核验公式；不适用于纯文本问答、未验证兼容性的复杂宏工作簿或代替正式财务审计；触发词：做Excel、生成xlsx、写公式、套格式、建财务模型、改表格",
     "path": "01-documents/xlsx-spreadsheet-authoring/SKILL.md",
     "quality": {
       "review_status": "unreviewed",
       "last_reviewed": null,
-      "source_type": "curated",
+      "source_type": "native",
       "source_freshness": "unknown",
       "license_confidence": "declared",
       "dependencies": {
@@ -24081,7 +24079,7 @@
     "vol": "05-business",
     "domain": "商业/growth",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "market-sizing",
       "tam-sam-som",
@@ -24103,7 +24101,7 @@
     "description": "当为新业务/创业项目估算市场机会、给投资人或商业计划做市场规模论证时使用；用自顶向下、自底向上、价值理论三法算出 TAM/SAM/SOM 并交叉验证、附来源与假设；不适用于真实数据抓取、竞品财务尽调或最终事实背书；触发词：市场规模、TAM、SAM、SOM、市场容量、可触达市场、market sizing、addressable market。",
     "path": "05-business/market-sizing-analyst/SKILL.md",
     "quality": {
-      "review_status": "unreviewed",
+      "review_status": "archived",
       "last_reviewed": null,
       "source_type": "curated",
       "source_freshness": "unknown",
@@ -24113,9 +24111,10 @@
         "tools": []
       },
       "capabilities": [],
-      "maturity": "stable",
+      "maturity": "deprecated",
       "security_risk": "unknown"
-    }
+    },
+    "deprecate_reason": "同职责内容已合并至 market-sizing-tam-sam-som；保留原文供历史追溯。"
   },
   {
     "name": "market-sizing-tam-sam-som",
@@ -33341,8 +33340,7 @@
         "tools": [
           "Read",
           "Grep",
-          "Glob",
-          "Bash"
+          "Glob"
         ]
       },
       "capabilities": [],
@@ -37785,7 +37783,7 @@
     "vol": "09-verticals",
     "domain": "领域/science",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "astropy",
       "astronomy",
@@ -37813,7 +37811,7 @@
     "description": "当用 Python 处理天文/天体物理数据（坐标变换、单位换算、FITS 读写、表格、时间系统、WCS、宇宙学）时使用；用 Astropy 编写或调试分析代码并产出量纲一致、可复现的结果；不适用于通用数据清洗或非天文数值计算（改用 pandas/numpy）。触发词：astropy、天文数据、astronomy、SkyCoord、坐标变换、FITS、WCS、宇宙学、cosmology、天文单位、Quantity",
     "path": "09-verticals/astronomy-data-toolkit/SKILL.md",
     "quality": {
-      "review_status": "unreviewed",
+      "review_status": "archived",
       "last_reviewed": null,
       "source_type": "curated",
       "source_freshness": "unknown",
@@ -37834,9 +37832,10 @@
         ]
       },
       "capabilities": [],
-      "maturity": "stable",
+      "maturity": "deprecated",
       "security_risk": "unknown"
-    }
+    },
+    "deprecate_reason": "同职责内容已合并至 astropy-astronomy-toolkit；保留原文供历史追溯。"
   },
   {
     "name": "astropy-astronomy-toolkit",
@@ -37870,7 +37869,9 @@
       "cosmology",
       "Quantity",
       "单位换算",
-      "星表交叉匹配"
+      "星表交叉匹配",
+      "天文数据",
+      "天文单位"
     ],
     "description": "当用 Python 做天文/天体物理数据分析（坐标变换、单位量纲、FITS 读写、星表、时间系统、WCS、宇宙学）并需要 Astropy 领域 API 时使用；用 Astropy 编写或调试分析代码、产出量纲一致且可复现的结果；不适用于通用数据清洗或与天文无关的纯数值计算（改用 pandas/numpy）。触发词：astropy、天文、astronomy、SkyCoord、坐标变换、FITS、WCS、宇宙学、cosmology、Quantity、单位换算、星表交叉匹配",
     "path": "09-verticals/astropy-astronomy-toolkit/SKILL.md",
@@ -40877,7 +40878,7 @@
     "vol": "09-verticals",
     "domain": "领域/legal",
     "level": "精通",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "legal",
       "privacy",
@@ -40901,7 +40902,7 @@
     "description": "当需要对照内部 DPA 立场清单逐条审查一份数据处理协议时使用；自动判定己方是处理者还是控制者并据此审查，产出含红线修改的审查备忘录；不适用于从零起草 DPA、独立的传输影响评估（TIA）或决定是否接受清单外条款（这些应升级转交律师）；触发词：审查DPA、数据处理协议、数据处理附录、DPA review、data processing agreement、子处理者、违约通知、跨境传输、SCC。",
     "path": "09-verticals/dpa-clause-reviewer/SKILL.md",
     "quality": {
-      "review_status": "unreviewed",
+      "review_status": "archived",
       "last_reviewed": null,
       "source_type": "curated",
       "source_freshness": "unknown",
@@ -40915,9 +40916,10 @@
         ]
       },
       "capabilities": [],
-      "maturity": "stable",
+      "maturity": "deprecated",
       "security_risk": "unknown"
-    }
+    },
+    "deprecate_reason": "同职责内容已合并至 dpa-playbook-review；保留原文供历史追溯。"
   },
   {
     "name": "dpa-playbook-review",
@@ -44495,9 +44497,9 @@
         "skills": [],
         "tools": [
           "Excel",
+          "LibreOffice",
           "openpyxl",
           "Office JS",
-          "recalc.py",
           "Python"
         ]
       },
@@ -45815,7 +45817,8 @@
       "structural-biology",
       "biophysics",
       "python",
-      "misc"
+      "misc",
+      "science"
     ],
     "triggers": [
       "分子动力学",
@@ -45864,7 +45867,7 @@
     "vol": "09-verticals",
     "domain": "领域/science",
     "level": "精通",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "molecular-dynamics",
       "openmm",
@@ -45891,7 +45894,7 @@
     "description": "当需要对蛋白质/小分子体系做分子动力学（MD）模拟与轨迹分析时使用；用 OpenMM 搭建体系并跑能量最小化、NVT/NPT 平衡与产能模拟，再用 MDAnalysis 算 RMSD/RMSF/接触/自由能并出图；不适用于量子化学/电子结构计算、对接打分（docking）或纯实验数据统计；触发词：分子动力学、MD模拟、OpenMM、MDAnalysis、RMSD、RMSF、力场、蛋白质动力学、molecular dynamics、trajectory analysis、PDBFixer",
     "path": "09-verticals/molecular-dynamics-simulation/SKILL.md",
     "quality": {
-      "review_status": "unreviewed",
+      "review_status": "archived",
       "last_reviewed": null,
       "source_type": "curated",
       "source_freshness": "unknown",
@@ -45909,9 +45912,10 @@
         ]
       },
       "capabilities": [],
-      "maturity": "stable",
+      "maturity": "deprecated",
       "security_risk": "unknown"
-    }
+    },
+    "deprecate_reason": "同职责内容已合并至 molecular-dynamics-openmm；保留原文供历史追溯。"
   },
   {
     "name": "molfeat-molecular-featurization",
@@ -48982,7 +48986,10 @@
           "cron",
           "aws-cli",
           "docker compose",
-          "systemctl"
+          "systemctl",
+          "python3",
+          "sha256sum",
+          "psql"
         ]
       },
       "capabilities": [],
@@ -52099,7 +52106,7 @@
       "data portability",
       "AI 训练权"
     ],
-    "description": "当审查 SaaS/订阅协议、需对自动续约、涨价、数据可携出、SLA、子处理者、AI 训练权与责任上限做专项把关并准备红线时使用；产出含双重严重度（法律风险×业务摩擦）的 SaaS 专项发现、续约登记字段移交与红线建议；不适用于通用合同评审（用 contract-playbook-review）、NDA 速审（nda-triage-reviewer）、DPA 专项（dpa-clause-reviewer）、出具正式法律意见；触发词：SaaS 审查、订阅协议、自动续约、auto-renewal、涨价条款、SLA、子处理者、数据可携出、AI 训练权",
+    "description": "当审查 SaaS/订阅协议、需对自动续约、涨价、数据可携出、SLA、子处理者、AI 训练权与责任上限做专项把关并准备红线时使用；产出含双重严重度（法律风险×业务摩擦）的 SaaS 专项发现、续约登记字段移交与红线建议；不适用于通用合同评审（用 contract-playbook-review）、NDA 速审（nda-triage-reviewer）、DPA 专项（dpa-playbook-review）、出具正式法律意见；触发词：SaaS 审查、订阅协议、自动续约、auto-renewal、涨价条款、SLA、子处理者、数据可携出、AI 训练权",
     "path": "09-verticals/saas-subscription-agreement-review/SKILL.md",
     "quality": {
       "review_status": "unreviewed",
@@ -53864,7 +53871,7 @@
       "采购合同",
       "责任上限"
     ],
-    "description": "当收到对方发来的供应商协议（MSA/SaaS订阅/服务协议/采购合同）需在签署前依据团队 playbook 做条款审查时使用；做的是：定位合同类型与本方立场、先查致命条款、逐条比对 playbook 偏离并按双轴严重度分级、给出外科手术式红线语言与升级路由、产出一次可执行的审查备忘录；不适用于起草合同、谈判让步决策、DPA 深审（转 dpa-clause-reviewer）、并购数据室批量尽调；触发词：供应商协议、MSA、服务协议、SaaS、合同审查、红线、vendor agreement、redline、采购合同、责任上限",
+    "description": "当收到对方发来的供应商协议（MSA/SaaS订阅/服务协议/采购合同）需在签署前依据团队 playbook 做条款审查时使用；做的是：定位合同类型与本方立场、先查致命条款、逐条比对 playbook 偏离并按双轴严重度分级、给出外科手术式红线语言与升级路由、产出一次可执行的审查备忘录；不适用于起草合同、谈判让步决策、DPA 深审（转 dpa-playbook-review）、并购数据室批量尽调；触发词：供应商协议、MSA、服务协议、SaaS、合同审查、红线、vendor agreement、redline、采购合同、责任上限",
     "path": "09-verticals/vendor-agreement-redline-review/SKILL.md",
     "quality": {
       "review_status": "unreviewed",
@@ -53875,7 +53882,7 @@
       "dependencies": {
         "skills": [],
         "tools": [
-          "dpa-clause-reviewer",
+          "dpa-playbook-review",
           "markdown-to-docx",
           "CLM MCP (Ironclad/Agiloft)",
           "DocuSign MCP"
@@ -57080,7 +57087,7 @@
     "vol": "10-platform",
     "domain": "平台/integration",
     "level": "进阶",
-    "status": "stable",
+    "status": "deprecated",
     "tags": [
       "twitter",
       "x-api",
@@ -57117,7 +57124,7 @@
     "description": "当需要在 X/Twitter 上做推文搜索、用户/推文查询、粉丝及关注关系批量导出、媒体下载、账号监控与 Webhook、抽奖抽取，或发推/回复/点赞/转推/关注/私信等自动化时使用；通过 Xquik 平台 REST/MCP 及 SDK，按工作流配置并调用接口产出数据或写操作（写操作须经显式审批），可选 Hermes Tweet 或 TweetClaw 插件；不适用于无 XQUIK_API_KEY、未获授权操作他人账号、绕过 X 反爬自建爬虫、或非 X/Twitter 平台。触发词：推特抓取、X搜索、粉丝导出、发推、私信DM、账号监控、webhook、抽奖、xquik、twitter scraper",
     "path": "10-platform/x-twitter-automation/SKILL.md",
     "quality": {
-      "review_status": "unreviewed",
+      "review_status": "archived",
       "last_reviewed": null,
       "source_type": "curated",
       "source_freshness": "unknown",
@@ -57134,15 +57141,16 @@
         ]
       },
       "capabilities": [],
-      "maturity": "stable",
+      "maturity": "deprecated",
       "security_risk": "unknown"
-    }
+    },
+    "deprecate_reason": "同职责内容已合并至 x-twitter-scraper-toolkit；保留原文供历史追溯。"
   },
   {
     "name": "x-twitter-scraper-toolkit",
     "title": "X/Twitter 抓取工具：搜索、导出、发推与 DM",
     "vol": "10-platform",
-    "domain": "平台/browser",
+    "domain": "平台/integration",
     "level": "进阶",
     "status": "stable",
     "tags": [
@@ -57156,7 +57164,8 @@
       "sdk",
       "cli",
       "xquik",
-      "platform"
+      "platform",
+      "platform-integration"
     ],
     "triggers": [
       "推特抓取 / twitter scraper",
@@ -57179,7 +57188,8 @@
       "MCP",
       "官方 SDK",
       "Hermes Tweet",
-      "TweetClaw"
+      "TweetClaw",
+      "推文互动数据 / likes retweets views"
     ],
     "description": "当需要一套 X/Twitter 抓取与自动化工具箱（推文搜索、用户/推文查询、粉丝及关注关系批量导出、媒体下载、趋势、账号监控+Webhook、抽奖、以及发推/回复/点赞/转推/关注/私信写操作）时使用；做：经 Xquik 托管平台的 REST/MCP/多语言 SDK/CLI 配置鉴权并调端点，产出结构化数据或写动作（写操作须显式审批）；不适用于无 XQUIK_API_KEY、未授权操作他人账号、绕过 X 反爬自建爬虫、或非 X/Twitter 平台。触发词：推特抓取、X搜索、粉丝导出、发推、私信DM、账号监控、xquik、twitter scraper",
     "path": "10-platform/x-twitter-scraper-toolkit/SKILL.md",

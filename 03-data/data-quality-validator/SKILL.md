@@ -127,7 +127,7 @@ sla: {availability: 99.9%, freshness: 1 hour}
 
 - requires：无。
 - related：`csv-data-cleaner`（单机离线表的清洗，与入库后的质量校验互补）；`sql-query-builder`（被校验对象多由 SQL 建模产出）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 本条采编自 wshobson/agents（MIT）。

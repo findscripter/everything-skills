@@ -72,15 +72,16 @@ async function hasGitMetadata(dir) {
   try {
     await fs.access(path.join(dir, '.git'));
     return true;
-  } catch {
-    return false;
+  } catch (error) {
+    if (error.code === 'ENOENT') return false;
+    throw new Error(`无法检查 Git 元数据 ${dir}: ${error.code || error.message}`, { cause: error });
   }
 }
 
 async function collect(dir, acc = []) {
   let entries;
   try { entries = await fs.readdir(dir, { withFileTypes: true }); }
-  catch { return acc; }
+  catch (error) { throw new Error(`无法读取技能目录 ${dir}: ${error.code || error.message}`, { cause: error }); }
   for (const e of entries) {
     if (e.isDirectory()) {
       if (SKIP_DIRS.has(e.name) || e.name.startsWith('.')) continue;
@@ -246,18 +247,21 @@ function validate(s) {
   if (fm.name && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(fm.name)) errors.push(`${relOf(file)}: name "${fm.name}" 须 ASCII kebab-case`);
   // domain↔卷目录一致（修复旧版只查 vol、不查 domain 的背离）
   if (fm.domain) {
-    const cn = String(fm.domain).split('/')[0].trim();
+    const segments = String(fm.domain).split('/').map(value => value.trim());
+    if (segments.length !== 2 || segments.some(value => !value))
+      errors.push(`${relOf(file)}: domain 须为恰好两段的「卷中文/受控类」`);
+    const cn = segments[0];
     const expect = DIR2VOL.get(vol);
     if (expect && cn !== expect.cn)
       errors.push(`${relOf(file)}: domain 卷 "${cn}" 与所在目录 ${vol}（应为 "${expect.cn}"）不一致`);
     if (!CN2DIR.has(cn)) warnings.push(`${relOf(file)}: domain 卷 "${cn}" 不在受控卷名中`);
-    const cls2 = (String(fm.domain).split('/')[1] || '').trim();
+    const cls2 = segments[1] || '';
     const allowed = CLASSES.get(vol);
     if (allowed && cls2 && !allowed.has(cls2))
       errors.push(`${relOf(file)}: domain 类 "${cls2}" 不在卷 ${vol} 受控类集（见 taxonomy.json）`);
   }
   if (fm.level && !['入门', '进阶', '精通'].includes(fm.level)) warnings.push(`${relOf(file)}: level "${fm.level}" 非标准值`);
-  if (fm.status && !['draft', 'stable', 'deprecated'].includes(fm.status)) warnings.push(`${relOf(file)}: status "${fm.status}" 非标准值`);
+  if (fm.status && !['draft', 'stable', 'deprecated'].includes(fm.status)) errors.push(`${relOf(file)}: status "${fm.status}" 不在受控枚举 draft/stable/deprecated`);
   if (typeof fm.description === 'string') {
     if (fm.description.length < 12) warnings.push(`${relOf(file)}: description 过短，影响发现命中`);
     if (fm.description.length > DESC_WARN_LEN) warnings.push(`${relOf(file)}: description 过长(${fm.description.length}>${DESC_WARN_LEN})，挤占发现上下文预算`);
@@ -685,7 +689,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
 // sources.md —— 采编署名与许可清单（合规用）
 {
   const withSrc = sorted.filter(s => s.fm.source);
-  let md = `# 采编来源与许可 · Sources\n\n${stamp}\n采编自第三方的技能及其原始许可（自有原创技能不在此列）。\n`;
+  let md = `# 采编来源与许可 · Sources\n\n${stamp}\n下列为条目声明的来源与许可（原创技能不在此列），不替代文件级授权核实。固定参考版本及历史缺口见 [来源清单说明](../data/skill-provenance.README.md) 和 [机器清单](../data/skill-provenance.json)；比较快照不等于原采编版本。\n`;
   if (!withSrc.length) md += '\n（暂无采编条目）\n';
   for (const s of withSrc)
     md += `- [\`${s.fm.name}\`](../${linkOf(s)}) ← ${s.fm.source}　\`${s.fm.source_license || '未注明'}\`\n`;
@@ -696,7 +700,10 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
 // （对标 anthropics/skills、wshobson/agents：卷→plugin，显式列技能路径，不依赖 skills/ 约定）
 {
   const byVol = new Map();
-  for (const s of skills) { if (!byVol.has(s.vol)) byVol.set(s.vol, []); byVol.get(s.vol).push(s); }
+  for (const s of skills.filter(skill => skill.fm.status !== 'deprecated')) {
+    if (!byVol.has(s.vol)) byVol.set(s.vol, []);
+    byVol.get(s.vol).push(s);
+  }
   const plugins = [];
   for (const v of VOLS) {
     const list = byVol.get(v.dir);
@@ -734,7 +741,7 @@ This repository is an Agent skill library: **${skills.length} \`SKILL.md\` skill
 - Machine-readable recall: \`INDEX/search.json\` (name/description/triggers/domain for two-stage retrieval).
 
 ## Using a skill
-Open its folder and follow the \`SKILL.md\` instructions. Each skill is self-contained and single-purpose.
+Open its folder and follow the \`SKILL.md\` instructions. Skills include their instructions and declared packaged helpers; check each skill's explicit runtime dependencies before use. Missing required tools or inputs must stop that workflow.
 
 ## Installation (Claude Code marketplace)
 \`\`\`
@@ -759,7 +766,7 @@ See per-skill \`source_license\` and \`INDEX/sources.md\`, plus \`LICENSE\` and 
 - 机读召回：\`INDEX/search.json\`（name/description/triggers/domain 扁平记录，供"先粗筛域/标签、再按 description 精排"的两段式发现）。
 
 ## 如何使用一条技能
-进入该技能文件夹，读取其 \`SKILL.md\` 并遵循「## 步骤 / 指令」。每条技能单一职责、自包含。
+进入该技能文件夹，读取其 \`SKILL.md\` 并遵循「## 步骤 / 指令」。使用前核对已声明的随包资源、外部运行时和输入；缺少必需工具或数据时停止对应流程。
 
 ## 安装（Claude Code 插件市场）
 \`\`\`

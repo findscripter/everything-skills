@@ -1,0 +1,829 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "baseline_commit": "c72ad0eeb6eae27af4b754e7eac4bdf99dd2c5a5",
+  "manifest": "data/skill-resources.json",
+  "scope": {
+    "skills": 24,
+    "resources": 170,
+    "resource_bytes": 2069601,
+    "resolutions": {
+      "bundle": 21,
+      "native-rewrite": 1,
+      "inline": 2
+    },
+    "extensions": {
+      ".md": 72,
+      ".py": 71,
+      ".txt": 23,
+      ".html": 3,
+      ".js": 1
+    },
+    "python_ast_files": 71
+  },
+  "independent_upstream_blob_comparison_errors": [],
+  "broken_local_markdown_links": [],
+  "confirmed_reference_resolution": {
+    "missing-resources-classified.json | bundled": 50,
+    "missing-resources-classified.json | replaced-workflow": 5,
+    "command-resources-classified.json | replaced-workflow": 12,
+    "command-resources-classified.json | bundled": 47
+  },
+  "runtime_execution": "No bundled script, model call, installer, server, browser or evaluator was run. Python AST and one node --check were static syntax checks only.",
+  "runtime_limits": [
+    "Bundled model/evaluator/server helpers retain their explicit external process side effects and require authorized dedicated project execution; not a complete security certification.",
+    "CLI/Python/library compatibility and the 1113 skill workflows were not executed.",
+    "PPTX native workflow, scanner manual review and LBO template prerequisites replace unavailable or nonredistributable helper branches."
+  ],
+  "modified_paths": [
+    "00-meta/entity-research-dossier",
+    "01-documents/pptx-document-processing",
+    "02-engineering/webapp-testing",
+    "04-ai/agent-workflow-pattern-designer",
+    "04-ai/autoresearch-optimization-agent",
+    "04-ai/multi-agent-workflow-designer",
+    "04-ai/skill-creator",
+    "05-business/app-store-optimization",
+    "05-business/channel-economics-model",
+    "05-business/deal-desk-reviewer",
+    "05-business/partnerships-strategy-architect",
+    "05-business/procurement-cost-optimizer",
+    "05-business/schema-markup-builder",
+    "06-creative/algorithmic-art",
+    "07-productivity/ops-capacity-planner",
+    "07-productivity/org-health-diagnostic",
+    "08-security/agent-skill-security-scanner-v2",
+    "08-security/env-secrets-hygiene",
+    "09-verticals/advisor-fit-analyzer",
+    "09-verticals/bulk-rnaseq-orchestrator",
+    "09-verticals/lbo-model-builder",
+    "09-verticals/market-breadth-analyzer",
+    "09-verticals/trade-position-sizer",
+    "10-platform/zoom-oauth-setup",
+    "data/skill-resources.json",
+    "scripts/check-skill-assets.mjs",
+    "tests/skill-assets.test.mjs"
+  ],
+  "cli_followup": {
+    "reviewed_at": "2026-10-23",
+    "scope": "Static AST inventory of all 71 bundled Python files, plus direct-call examples/options in the 21 bundled skill bodies. Manual review of affected real interfaces and command cases; no candidate script was run.",
+    "python_modules": [
+      {
+        "resource": "00-meta/entity-research-dossier/scripts/citation_tracker.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--action",
+          "--classification",
+          "--count",
+          "--hypothesis",
+          "--mcp",
+          "--output",
+          "--purpose",
+          "--query",
+          "--session",
+          "--subject",
+          "--tier",
+          "--title",
+          "--url"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "00-meta/entity-research-dossier/scripts/disconfirming_evidence_balance.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--output",
+          "--sample",
+          "--session"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "00-meta/entity-research-dossier/scripts/source_tier_classifier.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--output",
+          "--sample",
+          "--subject",
+          "--url"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "02-engineering/webapp-testing/examples/console_logging.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "02-engineering/webapp-testing/examples/element_discovery.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "02-engineering/webapp-testing/examples/static_html_automation.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "02-engineering/webapp-testing/scripts/with_server.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--port",
+          "--server",
+          "--timeout",
+          "command"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/agent-workflow-pattern-designer/scripts/workflow_scaffolder.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--name",
+          "--output",
+          "pattern"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/scripts/log_results.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--all",
+          "--dashboard",
+          "--domain",
+          "--experiment",
+          "--format",
+          "--output",
+          "-o"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/scripts/run_experiment.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--description",
+          "--dry-run",
+          "--experiment",
+          "--path",
+          "--single"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/scripts/setup_experiment.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--constraints",
+          "--direction",
+          "--domain",
+          "--eval",
+          "--evaluator",
+          "--list",
+          "--list-evaluators",
+          "--metric",
+          "--name",
+          "--path",
+          "--scope",
+          "--skip-branch",
+          "--target",
+          "--time-budget"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/evaluators/benchmark_size.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/evaluators/benchmark_speed.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/evaluators/build_speed.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/evaluators/llm_judge_content.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/evaluators/llm_judge_copy.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/evaluators/llm_judge_prompt.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/evaluators/memory_usage.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/autoresearch-optimization-agent/evaluators/test_pass_rate.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/multi-agent-workflow-designer/scripts/workflow_scaffolder.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--name",
+          "--output",
+          "pattern"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/skill-creator/eval-viewer/generate_review.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--benchmark",
+          "--port",
+          "--previous-workspace",
+          "--skill-name",
+          "--static",
+          "-n",
+          "-p",
+          "-s",
+          "workspace"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/skill-creator/scripts/__init__.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/skill-creator/scripts/aggregate_benchmark.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--output",
+          "--skill-name",
+          "--skill-path",
+          "-o",
+          "benchmark_dir"
+        ],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/skill-creator/scripts/generate_report.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--output",
+          "--skill-name",
+          "-o",
+          "input"
+        ],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/skill-creator/scripts/improve_description.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--eval-results",
+          "--history",
+          "--model",
+          "--skill-path",
+          "--verbose"
+        ],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/skill-creator/scripts/package_skill.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/skill-creator/scripts/quick_validate.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "04-ai/skill-creator/scripts/run_eval.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--description",
+          "--eval-set",
+          "--model",
+          "--num-workers",
+          "--runs-per-query",
+          "--skill-path",
+          "--timeout",
+          "--trigger-threshold",
+          "--verbose"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/skill-creator/scripts/run_loop.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--description",
+          "--eval-set",
+          "--holdout",
+          "--max-iterations",
+          "--model",
+          "--num-workers",
+          "--report",
+          "--results-dir",
+          "--runs-per-query",
+          "--skill-path",
+          "--timeout",
+          "--trigger-threshold",
+          "--verbose"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "04-ai/skill-creator/scripts/utils.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "05-business/app-store-optimization/scripts/ab_test_planner.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/app-store-optimization/scripts/aso_scorer.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/app-store-optimization/scripts/competitor_analyzer.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/app-store-optimization/scripts/keyword_analyzer.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/app-store-optimization/scripts/launch_checklist.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/app-store-optimization/scripts/localization_helper.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/app-store-optimization/scripts/metadata_optimizer.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/app-store-optimization/scripts/review_analyzer.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/channel-economics-model/scripts/channel_mix_optimizer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/channel-economics-model/scripts/channel_roi_analyzer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/channel-economics-model/scripts/cost_to_serve_calculator.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/deal-desk-reviewer/scripts/deal_scorer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/deal-desk-reviewer/scripts/discount_approval_router.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/deal-desk-reviewer/scripts/terms_redliner.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/partnerships-strategy-architect/scripts/joint_gtm_planner.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/partnerships-strategy-architect/scripts/partner_tier_classifier.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/partnerships-strategy-architect/scripts/revshare_modeler.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/procurement-cost-optimizer/scripts/purchasing_cycle_analyzer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/procurement-cost-optimizer/scripts/spend_categorizer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/procurement-cost-optimizer/scripts/supplier_consolidation.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "05-business/schema-markup-builder/scripts/schema_validator.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "file"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "07-productivity/ops-capacity-planner/scripts/capacity_modeler.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "07-productivity/ops-capacity-planner/scripts/hiring_sequencer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--profile",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "07-productivity/ops-capacity-planner/scripts/utilization_analyzer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--input",
+          "--output",
+          "--sample"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "07-productivity/org-health-diagnostic/scripts/health_scorer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "08-security/env-secrets-hygiene/scripts/env_auditor.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--json",
+          "--max-file-size-kb",
+          "path"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "09-verticals/bulk-rnaseq-orchestrator/scripts/build_counts_matrix.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--counts-file",
+          "--from",
+          "--output-dir",
+          "--quant-dir",
+          "--strandedness",
+          "--tx2gene"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "09-verticals/bulk-rnaseq-orchestrator/scripts/validate_samplesheet.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--condition-col",
+          "--metadata",
+          "--min-replicates",
+          "--no-check-files",
+          "--samplesheet"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/calculators/__init__.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/calculators/bearish_signal_calculator.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/calculators/cycle_calculator.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/calculators/divergence_calculator.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/calculators/historical_context_calculator.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/calculators/ma_crossover_calculator.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/calculators/trend_level_calculator.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/csv_client.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/history_tracker.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/market_breadth_analyzer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--detail-url",
+          "--output-dir",
+          "--summary-url"
+        ],
+        "referenced_in_body": true
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/report_generator.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/market-breadth-analyzer/scripts/scorer.py",
+        "main_guards": [],
+        "argparse_parameters": [],
+        "referenced_in_body": false
+      },
+      {
+        "resource": "09-verticals/trade-position-sizer/scripts/position_sizer.py",
+        "main_guards": [
+          "__name__ == '__main__'"
+        ],
+        "argparse_parameters": [
+          "--account-size",
+          "--atr",
+          "--atr-multiplier",
+          "--avg-loss",
+          "--avg-win",
+          "--current-sector-exposure",
+          "--entry",
+          "--max-position-pct",
+          "--max-sector-pct",
+          "--output-dir",
+          "--risk-pct",
+          "--sector",
+          "--stop",
+          "--win-rate"
+        ],
+        "referenced_in_body": true
+      }
+    ],
+    "confirmed_corrections": [
+      {
+        "skill": "app-store-optimization",
+        "problem": "Eight module-only files had fictitious command flags and App-ID data-fetch claims.",
+        "change": "Replaced all eight CLI examples with actual classes/methods and supplied-data requirements; documented apple/google platform values, relative MDE, heuristic scoring and no actual translation/fetch; added a real import-based review-analysis snippet."
+      },
+      {
+        "skill": "org-health-diagnostic",
+        "problem": "No-argument command claimed guided entry but actually uses Sample Co data; --json appends JSON after a dashboard.",
+        "change": "Documented --interactive and mixed-output behavior; library path for pure JSON integration."
+      },
+      {
+        "skill": "market-breadth-analyzer",
+        "problem": "Body retained an upstream skills/market-breadth-analyzer prefix absent from the packaged skill directory.",
+        "change": "Uses the bundled scripts/market_breadth_analyzer.py path with existing absolute-resource-path guidance."
+      },
+      {
+        "skill": "entity-research-dossier",
+        "problem": "Delivery step still required unbundled scripts/office/validate.py.",
+        "change": "Removed phantom helper call; use existing Word/LibreOffice and optional standard ZIP/XML checks with precise unverified visual/OOXML boundaries."
+      }
+    ],
+    "resource_hash_errors": [],
+    "broken_local_markdown_links": [],
+    "unresolved_interface_findings": [],
+    "execution": "Static only; resource bytes and data/skill-resources.json are unchanged."
+  }
+}

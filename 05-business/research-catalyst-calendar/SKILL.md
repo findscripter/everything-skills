@@ -121,7 +121,7 @@ Date        Event                     Company   Type      Impact  Positioning  N
 
 - related：`equity-earnings-update-report` —— 日历到点后，对触发的财报催化剂下钻出点评报告。
 - related：`competitive-intel-tracker` —— 竞品/同业的产品发布与监管事件可直接喂入本日历。
-- related：`variance-flux-commentary` / `market-sizing-analyst` —— 校准事件的影响级别与分部增长假设。
+- related：`variance-flux-commentary` / `market-sizing-tam-sam-som` —— 校准事件的影响级别与分部增长假设。
 - combines_with：`equity-earnings-update-report` —— 日历排期 + 财报点评构成「事前布仓→事后归因」闭环。
 - combines_with：`data-storyteller` —— 把每周前瞻讲成有说服力的图文叙事。
 - combines_with：`board-deck-builder` —— 把催化剂前瞻压缩成投委会/董事会决策页。

@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [curl]
 requires: []
-related: [x-twitter-scraper-toolkit, x-twitter-automation, firecrawl-web-scraper, defuddle-web-extract]
+related: [x-twitter-scraper-toolkit, firecrawl-web-scraper, defuddle-web-extract]
 combines_with: [news-sentiment-briefing, browser-automation-builder]
 license: MIT
 source: sickn33/agentic-awesome-skills

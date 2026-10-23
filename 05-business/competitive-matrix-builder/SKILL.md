@@ -10,7 +10,7 @@ status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
 tools: [competitive_matrix_builder.py, Python, JSON]
 requires: []
-related: [competitive-analysis, competitive-intel-tracker, product-marketing-gtm-strategy, market-sizing-analyst]
+related: [competitive-analysis, competitive-intel-tracker, product-marketing-gtm-strategy, market-sizing-tam-sam-som]
 combines_with: [competitive-analysis, product-marketing-gtm-strategy, sales-enablement]
 license: MIT
 source: alirezarezvani/claude-skills

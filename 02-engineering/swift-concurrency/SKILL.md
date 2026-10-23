@@ -120,7 +120,7 @@ nonisolated func processData(_ input: [Int]) async -> [Int] {
 
 - requires：无。
 - related：`code-reviewer`（通用代码审查找正确性/可读性问题；本技能专攻 Swift 数据竞争安全维度）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 采编自 sickn33/antigravity-awesome-skills（MIT）。

@@ -144,7 +144,7 @@ X_2d = PCA(n_components=2).fit_transform(X_scaled)  # 仅供画散点图
 
 - requires：无。
 - related：`csv-data-cleaner`（建模前的脏数据清洗，清洗完再进本技能）。
-- combines_with：无。
+- combines_with：以本文件 frontmatter 的 `combines_with` 列表为准。
 
 ---
 
