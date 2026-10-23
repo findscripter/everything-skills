@@ -122,6 +122,7 @@ function printRows(results, json, { showScore = true } = {}) {
 function findRepo(repos, query) {
   const q = String(query).toLowerCase();
   return repos.find(repo => String(repo.full_name || '').toLowerCase() === q)
+    || repos.find(repo => Array.isArray(repo.previous_names) && repo.previous_names.some(name => String(name).toLowerCase() === q))
     || repos.find(repo => String(repo.full_name || '').toLowerCase().includes(q));
 }
 
