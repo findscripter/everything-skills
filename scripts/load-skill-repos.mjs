@@ -13,7 +13,36 @@ export const SKILL_REPO_SECTIONS = new Set(['official', 'collections', 'vertical
 export const SKILL_REPO_STATUSES = new Set(['仅索引', '已采编', '本项目']);
 export const SKILL_REPO_FIELDS = ['full_name', 'html_url', 'stars', 'summary', 'license', 'skill_count', 'status', 'section'];
 
+const REVIEW_FIELDS = new Set(['summary', 'summary_zh', 'license', 'skill_count', 'basis', 'representative_skill', 'public_skill_paths', 'license_evidence', 'readme_sha256']);
+const HASH40 = /^[a-f0-9]{40}$/;
+
+// Keep the original observation on disk. Only explicitly reviewed fields become
+// the current display view; repository identity and popularity cannot be replaced.
+export function repositoryView(repo) {
+  const review = repo.current_review;
+  if (review === undefined) return repo;
+  const fail = message => { throw new Error(`${repo.full_name}: current_review ${message}`); };
+  if (!review || review.schema_version !== 1 || !['reviewed', 'historical-only', 'closed-unavailable'].includes(review.status)) fail('schema/status 无效');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(review.reviewed_at || '') || Number.isNaN(Date.parse(review.reviewed_at))) fail('reviewed_at 无效');
+  if (!review.fields || typeof review.fields !== 'object' || Array.isArray(review.fields)) fail('fields 须为对象');
+  for (const field of Object.keys(review.fields)) if (!REVIEW_FIELDS.has(field)) fail(`不允许覆盖 ${field}`);
+  for (const field of ['summary', 'summary_zh', 'license'])
+    if (Object.hasOwn(review.fields, field) && (typeof review.fields[field] !== 'string' || !review.fields[field].trim())) fail(`${field} 须为非空字符串`);
+  if (Object.hasOwn(review.fields, 'skill_count') && !(typeof review.fields.skill_count === 'string' && review.fields.skill_count.trim()) && !(Number.isSafeInteger(review.fields.skill_count) && review.fields.skill_count >= 0)) fail('skill_count 无效');
+  if (Object.hasOwn(review.fields, 'public_skill_paths') && (!Array.isArray(review.fields.public_skill_paths) || review.fields.public_skill_paths.some(value => typeof value !== 'string' || !value.trim()))) fail('public_skill_paths 无效');
+  if (review.status === 'closed-unavailable') {
+    if (review.commit !== null || review.tree !== null || Object.keys(review.fields).length) fail('不可访问项不能虚构当前版本/字段');
+    return { ...repo, recommendation: 'historical-only' };
+  }
+  if (!HASH40.test(review.commit || '') || !HASH40.test(review.tree || '') || review.commit === review.tree) fail('须有不同的完整 commit/tree');
+  const recorded = Object.fromEntries([...REVIEW_FIELDS, 'source_commit_sha', 'source_tree_sha', 'last_reviewed'].filter(field => Object.hasOwn(repo, field)).map(field => [field, repo[field]]));
+  return { ...repo, ...review.fields, recorded_snapshot: recorded, source_commit_sha: review.commit, source_tree_sha: review.tree, last_reviewed: review.reviewed_at,
+    recommendation: review.status === 'historical-only' ? 'historical-only' : 'reviewed' };
+}
+
 export function upstreamStatus(repo, lang = 'en') {
+  if (repo.current_review?.status === 'historical-only') return lang === 'zh' ? '仅历史来源' : 'historical source only';
+  if (repo.current_review?.status === 'closed-unavailable') return lang === 'zh' ? '不可访问，保留历史' : 'unavailable; history preserved';
   const snapshot = repo.upstream_snapshot;
   if (!snapshot) return '';
   const labels = lang === 'zh'
@@ -86,7 +115,7 @@ export async function loadSkillRepos(root = ROOT) {
         }
         identities.set(obj.repository_id, { file: fileName, line: lineNo, name: obj.full_name });
       }
-      repos.push(obj);
+      repos.push(repositoryView(obj));
     }
   }
   return repos;
