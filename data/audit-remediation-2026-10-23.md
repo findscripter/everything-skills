@@ -50,6 +50,8 @@
 
 ## 可追溯证据
 
+- [发布分支有效检查点与最终集成验证](../tests/audit-fixes.tdd.md)
+
 - [机器回执](audit-remediation-2026-10-23.json)
 - [资源与许可清单](skill-resources.json) / [资源与接口复核](skill-resource-corrections-2026-10-23.audit.json)
 - [正文、授权与重复合并回执](content-corrections-2026-10-23.audit.json)
