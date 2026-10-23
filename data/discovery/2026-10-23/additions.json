@@ -8,8 +8,8 @@
   "baseline_sha256": "136e91d8d07b92f2d0be2df844b511c1dd8a2ef82f7221d87aed1af7f6d80f57",
   "catalog_shard": "../../skill-repos.part88.jsonl",
   "locally_verified_new_count": 73,
-  "daily_qualifying_count": 0,
-  "status": "verified-awaiting-publication",
+  "daily_qualifying_count": 73,
+  "status": "achieved",
   "repositories": [
     {
       "full_name": "scaccogatto/okf-skills",
@@ -303,5 +303,6 @@
       "full_name": "Zwl20085/jmag-agent-suite",
       "repository_id": 1415809712
     }
-  ]
+  ],
+  "publication_receipt": "publication.json"
 }
