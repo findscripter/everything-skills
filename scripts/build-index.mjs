@@ -741,7 +741,7 @@ This repository is an Agent skill library: **${skills.length} \`SKILL.md\` skill
 - Machine-readable recall: \`INDEX/search.json\` (name/description/triggers/domain for two-stage retrieval).
 
 ## Using a skill
-Open its folder and follow the \`SKILL.md\` instructions. Each skill is self-contained and single-purpose.
+Open its folder and follow the \`SKILL.md\` instructions. Skills include their instructions and declared packaged helpers; check each skill's explicit runtime dependencies before use. Missing required tools or inputs must stop that workflow.
 
 ## Installation (Claude Code marketplace)
 \`\`\`
@@ -766,7 +766,7 @@ See per-skill \`source_license\` and \`INDEX/sources.md\`, plus \`LICENSE\` and 
 - 机读召回：\`INDEX/search.json\`（name/description/triggers/domain 扁平记录，供"先粗筛域/标签、再按 description 精排"的两段式发现）。
 
 ## 如何使用一条技能
-进入该技能文件夹，读取其 \`SKILL.md\` 并遵循「## 步骤 / 指令」。每条技能单一职责、自包含。
+进入该技能文件夹，读取其 \`SKILL.md\` 并遵循「## 步骤 / 指令」。使用前核对已声明的随包资源、外部运行时和输入；缺少必需工具或数据时停止对应流程。
 
 ## 安装（Claude Code 插件市场）
 \`\`\`
