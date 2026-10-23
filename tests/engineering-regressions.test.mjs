@@ -206,6 +206,17 @@ test('repository directory counts describe entries and surface unavailable or ar
   assert.match(readme, /upstream archived/);
 });
 
+test('repository lookup keeps exact historical aliases ahead of fuzzy canonical matches', async t => {
+  const root = await fixture(t);
+  await writeRepos(root, [
+    repo('demo/older', { repository_id: 101 }),
+    repo('demo/current', { repository_id: 102, previous_names: ['demo/old'] }),
+  ]);
+  const result = run(root, 'everything-skills.mjs', ['repo', 'DEMO/OLD', '--json']);
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(JSON.parse(result.stdout).full_name, 'demo/current');
+});
+
 test('build-all stops before changing generated files when a packaged asset is missing', async t => {
   const root = await fixture(t);
   const commit = 'b'.repeat(40);
