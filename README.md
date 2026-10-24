@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1113 skills · 11 volumes · 6782 relation edges · 2673 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1113 skills · 11 volumes · 6782 relation edges · 2741 indexed entries" width="1200" /></picture>
 </p>
 <!-- END GENERATED:brand -->
 
@@ -117,7 +117,7 @@ npm run skill -- eval
 <!-- BEGIN GENERATED:skill-repos -->
 ## 技能仓库目录
 
-目前有 **2673** 条 GitHub 技能库/市场/精选列表目录记录。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+目前有 **2741** 条 GitHub 技能库/市场/精选列表目录记录。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
 
 完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
 
@@ -553,7 +553,7 @@ npm run skill -- eval
 </details>
 
 <details>
-<summary>2. 精选列表 / 大集合（collections）（504）</summary>
+<summary>2. 精选列表 / 大集合（collections）（508）</summary>
 
 - [`Shubhamsaboo/awesome-llm-apps`](https://github.com/Shubhamsaboo/awesome-llm-apps) — 100+ 个 AI Agent、技能及 RAG 项目；主 agent_skills 目录提供 7 个可安装技能，涵盖稿件阅读与变更范围审查等工作流。 (上游可访问)
 - [`nexu-io/open-design`](https://github.com/nexu-io/open-design) — nexu-io/open-design 公开提供 549 条 Agent Skills；固定提交树和 README 均提供安装或使用入口。 复审：五个motion示例撤回“必须原demo音乐/时长、禁止用户其他音频”的约束，尊重当前brief、silent与no-background区分，先freeze实际本地资源。media-inputs新增authenticated stock-search批slot与限时fallback、保留来源/作者/许可，失败只补缺slot、成功图不重复付费。 (上游可访问)
@@ -1040,6 +1040,7 @@ npm run skill -- eval
 - [`Olshansk/agent-skills`](https://github.com/Olshansk/agent-skills) — Agent Skills 合集。 (上游可访问)
 - [`Bang-isme/CodexAI---Skills`](https://github.com/Bang-isme/CodexAI---Skills) — 端到端开发工作流 Codex Skills 包。 (上游可访问)
 - [`ellmos-ai/skills`](https://github.com/ellmos-ai/skills) — MIT 许可的可移植 SKILL.md 技能库，支持 Claude Code、Codex 兼容 Agent、BACH、Gemini 与本地优先 LLM 工作流。 (上游可访问)
+- [`escoffier-labs/skillet`](https://github.com/escoffier-labs/skillet) — 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 (上游可访问)
 - [`arham777/ui-ux-kit`](https://github.com/arham777/ui-ux-kit) — 以品味优先、反 AI 套路的界面设计工作流，并留下可复用 DESIGN_SYSTEM.md。 (上游可访问)
 - [`Armitanemati/liquid-glass-claude-skill`](https://github.com/Armitanemati/liquid-glass-claude-skill) — 适用于 Web、SwiftUI、移动端的 Liquid Glass 与玻璃拟态设计推理，含对比度、性能和回退规则。 (上游可访问)
 - [`Axect/skills`](https://github.com/Axect/skills) — 面向研究者的技能集合，覆盖文献、论文审查、学术机会、科研图表、写作与研究运营。 复审：Overleap必须先resolve24-hex项目ID而非会随modified排序漂移的序号，写.env和.overleap-project绑定并检查Selected输出；临时日志/验证pull远离同步目录。更新LaTeX忽略清单，但.bbl/PDF仍会上传，错传需要按准确ID撤回并说明历史记录。 (上游可访问)
@@ -1056,14 +1057,17 @@ npm run skill -- eval
 - [`TuringWorks/civstack`](https://github.com/TuringWorks/civstack) — CivStack 公共经济角色与工作流库，涵盖政务、公用事业、工业、环境及人员责任边界。 (上游可访问)
 - [`weareoxd/design-skill-generator`](https://github.com/weareoxd/design-skill-generator) — 从截图或 Figma URL 生成设计系统 SKILL.md，并附项目自身的功能规划/精炼技能。 (上游可访问)
 - [`yylo-dev/yylo-skills`](https://github.com/yylo-dev/yylo-skills) — YYLO 跨代理技能源：Ledger 任务、Wiki、工作流、工件记录、项目理解、规划、基准研究与 Ralph 执行循环。 (上游可访问)
+- [`buildpad-ai/skills`](https://github.com/buildpad-ai/skills) — 准入：Buildpad source-of-truth skills bundled in project starters and installable into compatible coding agents. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`buriedsignals/spotlight`](https://github.com/buriedsignals/spotlight) — 准入：OSINT investigation orchestrator with structured research and verification skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
 - [`iam-niranjan/wcag-skills`](https://github.com/iam-niranjan/wcag-skills) — 将 WCAG 2.2 A、AA、AAA 级成功标准核验后打包为无障碍审计 SKILL.md。 (上游可访问)
 - [`makukhin-ie/ai-toolbox`](https://github.com/makukhin-ie/ai-toolbox) — 可复用的 Notion GTD 会话、印刷书籍排版、语言辅导与 PrusaSlicer 耗材配置工作流。 (上游可访问)
+- [`ramp-public/skills`](https://github.com/ramp-public/skills) — 准入：Ramp-maintained portable skills for cards, bill pay, procurement, travel, banking and accounting via Ramp tools/MCP/CLI. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
 - [`thatrgbgamer/SuperClaude-FountEngine`](https://github.com/thatrgbgamer/SuperClaude-FountEngine) — 共享偏好配置驱动的写作、邮件、调研、文档整理、仓库入门、调试与 Fount 游戏创作技能。 (上游可访问)
 
 </details>
 
 <details>
-<summary>3. 垂直领域技能包（vertical）（1327）</summary>
+<summary>3. 垂直领域技能包（vertical）（1356）</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — 方法论技能包：TDD、头脑风暴、子代理驱动开发等可组合工程纪律。 (上游可访问)
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — Everything Claude Code 后继：技能/代理/命令/钩子插件市场。原名 everything-claude-code。 (上游可访问)
@@ -1671,6 +1675,7 @@ npm run skill -- eval
 - [`walidboulanouar/Ay-Skills`](https://github.com/walidboulanouar/Ay-Skills) — AY Automate 开源 Claude Code 技能；放入 .claude/skills。 (上游可访问)
 - [`Xquik-dev/tweetclaw`](https://github.com/Xquik-dev/tweetclaw) — X/Twitter 相关 OpenClaw Skills。 (上游可访问)
 - [`oguzhankayan/turkish-native`](https://github.com/oguzhankayan/turkish-native) — 撰写和修订土耳其语产品、客服、文档与界面文本，检查翻译式表达。 (上游可访问)
+- [`open-legal-products/mike-workflows`](https://github.com/open-legal-products/mike-workflows) — 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 (上游可访问)
 - [`hexiaofeier/hehe-industry-research-skill-pack`](https://github.com/hexiaofeier/hehe-industry-research-skill-pack) — 14 个中文行业/企业研究 Agent Skills（市场规模、产业链、财务、估值等）含证据门禁；克隆 skills/ 目录。 (上游可访问)
 - [`meshy-dev/meshy-3d-agent`](https://github.com/meshy-dev/meshy-3d-agent) — Meshy AI 3D 生成/打印 Agent Skills（Cursor/Claude/OpenClaw） (上游可访问)
 - [`nathankim0/clean-architecture-skills`](https://github.com/nathankim0/clean-architecture-skills) — 整洁架构评审与设计 Claude Skills。 (上游可访问)
@@ -2190,11 +2195,14 @@ npm run skill -- eval
 - [`Nolpak14/getregdata`](https://github.com/Nolpak14/getregdata) — 企业登记数据研究技能，用于企业核验、尽调、公开申报及跨境研究；部分流程依赖外部付费 Actor。 (上游可访问)
 - [`rhiza-research/weather-skills`](https://github.com/rhiza-research/weather-skills) — rhiza-research/weather-skills：当前复审口径为 46，具体公开分发范围见固定版本证据。 复审：公开37→46：新增17、修改29、删除8个正式路径。新增公共/需授权的气象源、气候态/降水onset/验证与Zarr变换；ECMWF S2S默认换匿名dynamical而ECDS仅fallback，TAHMO改station/bbox接口，coarsen加保守重网格，select保留选中标量。移除Kenya两入口、5个plot入口和旧rename；MIT代码许可不等于私有数据公开可取，README仍声明实验性且未经科学验证。 (上游可访问)
 - [`UXLana/design-skills-pack`](https://github.com/UXLana/design-skills-pack) — 支持产品设计问题定义、设计令牌、原型、响应式与无障碍评审、交接和视觉 QA。 (上游可访问)
+- [`yakeworld/Synthos`](https://github.com/yakeworld/Synthos) — 准入候选：README 明确自主科研平台与 SKILL.md 分发；核心 hypothesis-generation 代表具 name/description；根 MIT 已固定读取。 (上游可访问)
 - [`Aarvion-AI/stackwise-skills`](https://github.com/Aarvion-AI/stackwise-skills) — Stackwise 技术栈 Agent Skills。 (上游可访问)
 - [`AkaLiu/zotero-skill`](https://github.com/AkaLiu/zotero-skill) — 双语本地 Zotero 文献技能，用于论文和笔记检索、PDF 阅读及有文献上下文的研究辅助。 (上游可访问)
 - [`Boom-Vitt/kicad-thai`](https://github.com/Boom-Vitt/kicad-thai) — 泰英双语 KiCad 工作流，覆盖板卡检查、生产导出、本地合规及元件采购。 (上游可访问)
 - [`Cristhianzl/claude-skills-czl`](https://github.com/Cristhianzl/claude-skills-czl) — 实战 Claude Code 配置与 Skills 基线。 (上游可访问)
 - [`dungnotnull/historical-cadastral-map-restoration-agent-skill`](https://github.com/dungnotnull/historical-cadastral-map-restoration-agent-skill) — 历史地籍图修复与 GIS 数字化 Agent 工作流，附研究及参考材料。 (上游可访问)
+- [`ever-just/agentskills`](https://github.com/ever-just/agentskills) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
+- [`gmoriki/higher-ed-ai-skills`](https://github.com/gmoriki/higher-ed-ai-skills) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`harshith-vaddiparthy/finance-skills`](https://github.com/harshith-vaddiparthy/finance-skills) — 财务运营技能：应收账款、催款、合同与发票检查、收入核验、对账、关账清单及 CFO 简报。 (上游可访问)
 - [`HideinbushZY/boss-zhipin-skill`](https://github.com/HideinbushZY/boss-zhipin-skill) — BOSS 直聘求职相关 Skill。 (上游可访问)
 - [`HiMyNameIsDavidKim/prompt-triwizard-skill`](https://github.com/HiMyNameIsDavidKim/prompt-triwizard-skill) — Prompt Triwizard 提示工程 Skill。 (上游可访问)
@@ -2211,22 +2219,27 @@ npm run skill -- eval
 - [`test1card/femis-skill`](https://github.com/test1card/femis-skill) — FEM/CAE 分析治理技能：网格独立性、验证与确认、求解器选择及工程证据；需与求解执行器配合。 (上游可访问)
 - [`TgStudio-PM/PM-product-workflow`](https://github.com/TgStudio-PM/PM-product-workflow) — 为政务与企业产品原型维护项目记忆、跨会话交接和交付打包。 (上游可访问)
 - [`truman-t3/industrial-design-portfolio-skill`](https://github.com/truman-t3/industrial-design-portfolio-skill) — 工业设计作品集技能，将产品证据与设计判断整理为可审阅 HTML 作品集。 (上游可访问)
+- [`vosslab/vosslab-skills`](https://github.com/vosslab/vosslab-skills) — 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 (上游可访问)
 - [`weeeha/Super-Design-Lead`](https://github.com/weeeha/Super-Design-Lead) — 用于一对一沟通、反馈、职业发展、招聘、辅导与关系记录的设计管理工作流。 (上游可访问)
 - [`yale-som-hpc/claude-code-marketplace`](https://github.com/yale-som-hpc/claude-code-marketplace) — Yale SOM 研究计算技能市场，覆盖特定集群的 HPC、Python/R/Stata、Slurm、存储、GPU 与可复现流程。 (上游可访问)
 - [`Aident-AI/aident-skill`](https://github.com/Aident-AI/aident-skill) — Aident Loadout：连接千级应用的 Agent Skill。 (上游可访问)
 - [`andreiverdes/bluedoc`](https://github.com/andreiverdes/bluedoc) — 以结构化本地文档编写和评审工程文档、计划、设计、演示稿与应用商店素材。 (上游可访问)
 - [`BrunoMiguens/translating-products-skill`](https://github.com/BrunoMiguens/translating-products-skill) — 便携产品翻译技能套件：通过编排器组合语言专家、软件/移动端/网页本地化及翻译质量审查。 (上游可访问)
+- [`DajunG-77/research-opportunity-graph-skill`](https://github.com/DajunG-77/research-opportunity-graph-skill) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
 - [`DedInc/chef-agentic-skills`](https://github.com/DedInc/chef-agentic-skills) — 烹饪技能集合，涵盖技法、食品科学、各国菜系、菜单规划与饮食限制。 (上游可访问)
+- [`ensommeille/research-vault-maintainer`](https://github.com/ensommeille/research-vault-maintainer) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
 - [`hyt24/nds-game-localization-skill`](https://github.com/hyt24/nds-game-localization-skill) — 通过来源清单、术语审批、可复现补丁和运行验证记录审计及本地化 Nintendo DS 游戏资源。 (上游可访问)
 - [`navveenb/lean-agentic-ai-skills`](https://github.com/navveenb/lean-agentic-ai-skills) — 通过共享问题记录契约组合 Web、云、数据与 AI 工作负载的细分效率审计和设计。 (上游可访问)
 - [`SavrinaYu/target-market-localizer`](https://github.com/SavrinaYu/target-market-localizer) — 面向目标市场改编中英文内容，覆盖本地化、创译、术语和主张评审。 (上游可访问)
 - [`swtbkim/openfoam-claude-suite`](https://github.com/swtbkim/openfoam-claude-suite) — OpenFOAM v2412 Claude 插件，含配置、仿真、诊断与后处理技能；求解需另有运行环境。 (上游可访问)
 - [`BrightCubes/power-grid-model-ai`](https://github.com/BrightCubes/power-grid-model-ai) — Power Grid Model 生态技能，覆盖数据导入、校验、电网计算、结果解释与问题分析。 (上游可访问)
 - [`carbonstop/skills`](https://github.com/carbonstop/skills) — MIT 碳核算技能，使用 CCDB 查询排放因子，支持产品碳足迹、企业盘查和 LCA 工作流，并明确合规边界。 (上游可访问)
+- [`earth-space-ai/ctsm-skill`](https://github.com/earth-space-ai/ctsm-skill) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`globalize-now/globalize-skills`](https://github.com/globalize-now/globalize-skills) — 配置软件本地化、Globalize 项目与 CLI 工作流，并审查双向 CSS 布局。 (上游可访问)
 - [`graphed-inc/marketing-skills`](https://github.com/graphed-inc/marketing-skills) — graphed-inc/marketing-skills：当前复审口径为 7，具体公开分发范围见固定版本证据。 复审：新增analytics-dashboard：warehouse发现、实际源/metric、SDK只读SQL与30日图/7和30日scorecard；static-ads：Ad Library+品牌样式→5ideas→图片生成并按storage key持久登记；ugc-video：script→TTS→视频→whisper核词和ffmpeg局部修，先dry-run费用、未修项明确、不得自动二次付费render。API/model/报价为上游固定快照，未调用服务。 (上游可访问)
 - [`michpro/kicad-tools`](https://github.com/michpro/kicad-tools) — KiCad EDA 技能：通过 kct CLI 进行原理图与 PCB 分析、DRC/ERC 校验、修复、自动布线、BOM 生成和制造导出。 (上游可访问)
 - [`SAXEM1997/specpowers`](https://github.com/SAXEM1997/specpowers) — 结合规范驱动规划和测试驱动实现，配合有界多智能体评审与归档检查。 (上游可访问)
+- [`shawndeng321/legal-academic-research-skills`](https://github.com/shawndeng321/legal-academic-research-skills) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
 - [`wuyaojunkylin/research-digital-curation-skills`](https://github.com/wuyaojunkylin/research-digital-curation-skills) — 研究型数字策展与线上博物馆技能：选题、叙事、视觉语言、原型及方法日志。 (上游可访问)
 - [`zstary/DDC_Skills_for_AI_Agents_in_Construction`](https://github.com/zstary/DDC_Skills_for_AI_Agents_in_Construction) — BIM、IFC、CAD、碰撞检测、工程量与交付技能集合；已核验技能文件与现有 DDC 来源有大量重叠。 (上游可访问)
 - [`1507078/openwrt-one-skills`](https://github.com/1507078/openwrt-one-skills) — OpenWrt One 路由器 Agent Skills，覆盖首启、家庭路由配置和网络观测。 (上游可访问)
@@ -2241,6 +2254,7 @@ npm run skill -- eval
 - [`cli1980/manuscript-studio`](https://github.com/cli1980/manuscript-studio) — 通过持久化项目状态开展文学编辑、翻译、经纪人投稿、文稿准备、批准审阅与出版排版。 (上游可访问)
 - [`Covari-mfg/manufacturing-skills`](https://github.com/Covari-mfg/manufacturing-skills) — 面向 FDM/FFF 的可制造性评审，检查方向、支撑、公差、材料及生产风险。 (上游可访问)
 - [`dtunai/agent-skills-for-compute`](https://github.com/dtunai/agent-skills-for-compute) — 计算技能包，覆盖 GPU/TPU/QPU 编程、科学仿真、Slurm/MPI、量子工具及模型训练推理。 (上游可访问)
+- [`earth-space-ai/wrf-skill`](https://github.com/earth-space-ai/wrf-skill) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`Eternity-487/Teach3D`](https://github.com/Eternity-487/Teach3D) — 将实物、结构和过程转化为浏览器交互式 3D 课程，加入有证据依据的讲解、导学操作和课堂问题。 (上游可访问)
 - [`everyinfra/seo-skills`](https://github.com/everyinfra/seo-skills) — 通过统一工作台开展 SEO/GEO 研究、技术检查、内容规划、市场本地化和监测。 (上游可访问)
 - [`F2had/native-arabic`](https://github.com/F2had/native-arabic) — 面向界面、消息、文档、无障碍文本和复数形式的现代标准阿拉伯语写作与审阅。 (上游可访问)
@@ -2264,6 +2278,7 @@ npm run skill -- eval
 - [`ubcd-ibfg/pymol-skill`](https://github.com/ubcd-ibfg/pymol-skill) — 生成PyMOL脚本与分子图像，或通过单独配置的MCP服务控制实时会话。 (上游可访问)
 - [`vp9fm78jvp-sketch/lumerical-matlab-paper-reproduction`](https://github.com/vp9fm78jvp-sketch/lumerical-matlab-paper-reproduction) — 通过模型和参数审计、Lumerical 编排及 MATLAB 绘图验证复现光子学论文。 (上游可访问)
 - [`1762972857-del/specific-learning`](https://github.com/1762972857-del/specific-learning) — 为本科数学与物理制作离线交互实验、原创插图和学习笔记。 (上游可访问)
+- [`2710074390-cyber/medagentwork-skill`](https://github.com/2710074390-cyber/medagentwork-skill) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`alessandrobonomi00/cad-mechanical-designer-skill`](https://github.com/alessandrobonomi00/cad-mechanical-designer-skill) — 机械 CAD 设计技能，覆盖参数化零件、装配、工程图与可制造性核查。 (上游可访问)
 - [`asasemahmed/arabkit`](https://github.com/asasemahmed/arabkit) — 阿拉伯语通用文案、RTL、搜索及界面技能，以及埃及阿拉伯语产品文案工作流。 (上游可访问)
 - [`ASOScan/aso-skills`](https://github.com/ASOScan/aso-skills) — ASO（应用商店优化）Agent Skills。 (上游可访问)
@@ -2275,10 +2290,15 @@ npm run skill -- eval
 - [`CAS-CLab/EasyFoam`](https://github.com/CAS-CLab/EasyFoam) — 以基于证据且受人工治理的流程规划、编写、运行、恢复和验证OpenFOAM v13算例。 (上游可访问)
 - [`deepakp999/data-storytelling-slides`](https://github.com/deepakp999/data-storytelling-slides) — 以咨询风格版式和图表制作分析型 PowerPoint 叙事与逐页规格，并支持逐页迭代审阅。 (上游可访问)
 - [`DuoChen-317/robot-asset-toolkit`](https://github.com/DuoChen-317/robot-asset-toolkit) — 处理 STEP、GLB、URDF 与关节式 USD 机器人资产，并检查几何与打包结果。 复审：加入project-layout规范，复用用户目录，报告/ZIP/工作文件与最终GLB/URDF/USD分开 (上游可访问)
+- [`earth-space-ai/cam-skill`](https://github.com/earth-space-ai/cam-skill) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
+- [`earth-space-ai/jules-skill`](https://github.com/earth-space-ai/jules-skill) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
+- [`earth-space-ai/mom6-skill`](https://github.com/earth-space-ai/mom6-skill) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
+- [`earth-space-ai/parflow-skill`](https://github.com/earth-space-ai/parflow-skill) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`ESRShbb/scientific-workflow-skills`](https://github.com/ESRShbb/scientific-workflow-skills) — 化学与生命科学流程技能，覆盖 NMR、ChemDraw、IC50、表征证据和科研绘图。 (上游可访问)
 - [`faborsky/marketing-miner-mcp-skill`](https://github.com/faborsky/marketing-miner-mcp-skill) — 面向捷克与斯洛伐克市场的社区 Marketing Miner MCP 技能，覆盖关键词、竞争可见度、内容缺口和额度控制。 (上游可访问)
 - [`Gabriel-Dalton/digital-sustainability-skill`](https://github.com/Gabriel-Dalton/digital-sustainability-skill) — 审查数字可持续性、估算软件碳影响，并形成附来源证据的改进与报告流程。 (上游可访问)
 - [`gfjwg22xcb-del/cie-igcse-chemistry-study-open`](https://github.com/gfjwg22xcb-del/cie-igcse-chemistry-study-open) — 独立编写的 IGCSE 化学学习技能，提供考纲导学、例题、测验及答题反馈。 (上游可访问)
+- [`HZDF-2026/research-enhancement-methodology`](https://github.com/HZDF-2026/research-enhancement-methodology) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`ikhattab/l10n-skill`](https://github.com/ikhattab/l10n-skill) — 按地区格式化和检查货币、日期、数字、计量单位、地址及电话号码。 (上游可访问)
 - [`J-D11/manufacturing-ai`](https://github.com/J-D11/manufacturing-ai) — 从模型准备、切片到实物检查与小批量生产的制造流程技能。 (上游可访问)
 - [`Jason-0409-G/vivarium`](https://github.com/Jason-0409-G/vivarium) — 可恢复的比较基因组学流程，覆盖预处理、检索、亲缘比较、系统发育与报告。 (上游可访问)
@@ -2299,6 +2319,7 @@ npm run skill -- eval
 - [`TheDop/analytical-figures-skill`](https://github.com/TheDop/analytical-figures-skill) — 面向光谱、校准、化学计量学与晶体结构的出版绘图和分析核查技能。 (上游可访问)
 - [`topmindspace/topmind-presentation`](https://github.com/topmindspace/topmind-presentation) — 将材料制作为可翻页 HTML 演示与可编辑 PowerPoint，支持报告版式和架构图。 (上游可访问)
 - [`vctrop/creative-thinking-for-engineering`](https://github.com/vctrop/creative-thinking-for-engineering) — 依据物理、成本、进度和可测量台架证据生成工程方案。 (上游可访问)
+- [`victorvanpelt/research-skills`](https://github.com/victorvanpelt/research-skills) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`xxwzkdwz/artifact-3026-skill`](https://github.com/xxwzkdwz/artifact-3026-skill) — 将日常物品重新设想为明确虚构的未来博物馆展品，配套展签、藏品编号和分享卡片。 (上游可访问)
 - [`3494036618-eng/chemistry-research-skills`](https://github.com/3494036618-eng/chemistry-research-skills) — 可审计化学数据流程，覆盖身份、结构、特征、分子库、反应及路线证据审查。 (上游可访问)
 - [`Abulfadl-Ahmadi/physics-lecture-notes`](https://github.com/Abulfadl-Ahmadi/physics-lecture-notes) — 将课堂录音、板书照片和草稿转为经过核查的 LaTeX 讲义与 Obsidian Markdown。 (上游可访问)
@@ -2313,6 +2334,8 @@ npm run skill -- eval
 - [`benabbate-sales/gtm-cadence-builder`](https://github.com/benabbate-sales/gtm-cadence-builder) — 根据客户背景设计 B2B SaaS GTM 会议节奏、季度日历、议程附件和职责矩阵。 (上游可访问)
 - [`bonny8000/Interview-Analysis-Skill`](https://github.com/bonny8000/Interview-Analysis-Skill) — 清理中文访谈逐字稿，制作可追溯的逐句编码矩阵、主题统计与繁体中文研究报告。 (上游可访问)
 - [`bowtiekreative/signalstack-social-media-strategist`](https://github.com/bowtiekreative/signalstack-social-media-strategist) — 审计社交数据、排序表现问题、设计实验，并起草内容计划、开头钩子、脚本、轮播和配文。 (上游可访问)
+- [`changzhanyou0215/codex-research-workflow`](https://github.com/changzhanyou0215/codex-research-workflow) — 准入候选：README与固定代表 SKILL 已实读；许可证字节已绑定 (上游可访问)
+- [`ChenHsieh/agentic-research-toolkit`](https://github.com/ChenHsieh/agentic-research-toolkit) — 准入候选：README明确技能用途与安装/分发；代表SKILL含可执行研究工作流；许可证已固定读取（仅索引元数据） (上游可访问)
 - [`Chhunsour/khmer-localization`](https://github.com/Chhunsour/khmer-localization) — 高棉语本地化指导，覆盖 Unicode、字体排版、柬埔寨联系方式与地址、货币和双语界面。 复审：增加13类离线JSON目录入口（行政区、纸币、通信、节日、Bakong、符号键盘、邮编和MCC等），生成代码/表单应先查数据目录 (上游可访问)
 - [`chrisrenzm/patent-drawer`](https://github.com/chrisrenzm/patent-drawer) — 将专利化合物整理为可编辑 ChemDraw 卡片、PowerPoint、Excel 台账及验证报告。 (上游可访问)
 - [`CNaught-Inc/eco-first`](https://github.com/CNaught-Inc/eco-first) — 利用带来源说明的可持续性清单审查项目、规划架构并给出排序后的发现。 (上游可访问)
@@ -2322,12 +2345,16 @@ npm run skill -- eval
 - [`DarrenWongKaWa/dft-wannier-transport-skill`](https://github.com/DarrenWongKaWa/dft-wannier-transport-skill) — DFT 至 Wannier 输运计算的工程指南，覆盖长任务与论文数值溯源。 复审：加入TRS单spin block不能半区×2、对称零分量的全局尺度floor、点缓存磁盘预算/先写fingerprint与运行中禁止改代码、坐标无关量/能带边缘距离以及非对称晶体粘连能带与regular sums边界。 (上游可访问)
 - [`DarrenWongKaWa/ResearchPhO`](https://github.com/DarrenWongKaWa/ResearchPhO) — 将研究论文转为物理奥赛式题目、解答、评分细则与学习附录。 (上游可访问)
 - [`dc73/matlab-engineering-skill`](https://github.com/dc73/matlab-engineering-skill) — 通过单位、维度与执行检查开发和验证 MATLAB 仿真及数值代码。 (上游可访问)
+- [`DEnglish73/qualitative-research-skills`](https://github.com/DEnglish73/qualitative-research-skills) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
+- [`dgagf111/multi-perspective-research`](https://github.com/dgagf111/multi-perspective-research) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`dh2211/nonprofit-agents`](https://github.com/dh2211/nonprofit-agents) — 以用户提供记录为基础的非营利事实表、资助、预算、影响报告、捐赠者信函、活动与志愿者工作流。 (上游可访问)
 - [`DigitalPebble/spruce-sql-advisor`](https://github.com/DigitalPebble/spruce-sql-advisor) — 编写和优化结合 SPRUCE 数据的 AWS CUR 2.0 查询，用于 FinOps 与 GreenOps 分析。 (上游可访问)
+- [`earth-space-ai/vic-skill`](https://github.com/earth-space-ai/vic-skill) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`eous/civic-records-research`](https://github.com/eous/civic-records-research) — 将政府议程、会议记录、听证和决策研究整理为有来源的档案，并区分已核验记录与线索。 (上游可访问)
 - [`evgeniyzakharow-design/thermoforming-dfm`](https://github.com/evgeniyzakharow-design/thermoforming-dfm) — 热成型设计评审，检查拔模角、圆角、壁厚减薄、深度、排气和板材排样。 (上游可访问)
 - [`fangdididi/role-teardown`](https://github.com/fangdididi/role-teardown) — 分析岗位要求、将已核实成果映射到匹配度，并以中英文准备精简申请材料、审阅与面试证据。 (上游可访问)
 - [`fxp/ee-skills`](https://github.com/fxp/ee-skills) — 电子设计审查技能，覆盖模拟、射频、电源、EMC、热、高速和可制造性问题。 (上游可访问)
+- [`geointelmining848/write-science-well`](https://github.com/geointelmining848/write-science-well) — 准入候选：README明确技能用途与安装/分发；代表SKILL含可执行研究工作流；许可证已固定读取（仅索引元数据） (上游可访问)
 - [`gngrwsbi/nonprofit-governance-skill`](https://github.com/gngrwsbi/nonprofit-governance-skill) — 准备非营利预算、资助情景、董事会材料、财务委员会流程、政策与记账交接文件。 (上游可访问)
 - [`Guidogl/geopandas-consistency`](https://github.com/Guidogl/geopandas-consistency) — GeoPandas 指导技能，统一坐标系处理、空间连接、几何检查与测量方法。 (上游可访问)
 - [`guilhermefriol/claude-skills-design`](https://github.com/guilhermefriol/claude-skills-design) — 葡萄牙语设计技能：多视口视觉与 UX 审计，以及 UI 组件库选型引导。 (上游可访问)
@@ -2342,11 +2369,13 @@ npm run skill -- eval
 - [`joey114132/claude-robotics-skills`](https://github.com/joey114132/claude-robotics-skills) — 机器人顾问与审查流程，覆盖多类平台、ROS 2、感知、学习和安全。 (上游可访问)
 - [`johannstark/GeminiRobotics-Skills`](https://github.com/johannstark/GeminiRobotics-Skills) — 连接 Gemini Robotics 推理、MuJoCo 物理和 Three.js 可视化的机器人操作技能。 (上游可访问)
 - [`justinharry2143/computational-chemistry-materials-agent`](https://github.com/justinharry2143/computational-chemistry-materials-agent) — 面向计算化学与材料建模的 Codex 技能，覆盖输出分析和可复现性检查。 (上游可访问)
+- [`kadiravciii/exa-research`](https://github.com/kadiravciii/exa-research) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
 - [`kohamster7758/extraction-gate`](https://github.com/kohamster7758/extraction-gate) — 在保存前通过确定性的结构与数值检查把关化学及生物活性数据提取。 (上游可访问)
 - [`kraksp/design-enclosure`](https://github.com/kraksp/design-enclosure) — 以参数化方式设计电子设备外壳，提供碰撞检查、分层预览、工程图和 STEP 导出。 (上游可访问)
 - [`kznconsulting/gis-skills`](https://github.com/kznconsulting/gis-skills) — 依据独立参考审查点图层位置，并输出坐标修正证据。 (上游可访问)
 - [`labhoshi820-web/xact-research-skill`](https://github.com/labhoshi820-web/xact-research-skill) — 开发并独立验证用于引力研究的 Wolfram Language 与 xAct 张量计算。 (上游可访问)
 - [`Lancifonins/chem-skills`](https://github.com/Lancifonins/chem-skills) — 化合物信息检索与原生 ChemDraw 绘制技能，并提供合并套件选项。 (上游可访问)
+- [`lhtrongai/research-direction-check`](https://github.com/lhtrongai/research-direction-check) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
 - [`linlhf/robot-data-viewer`](https://github.com/linlhf/robot-data-viewer) — 只读检查机器人数据集，并导出相机视频或经过标定的骨架叠加视频。 (上游可访问)
 - [`liuchang8877/physics-scene`](https://github.com/liuchang8877/physics-scene) — 生成物理场景 SVG 动画，并检查接触、支撑、滚动和关节连接关系。 (上游可访问)
 - [`liujycode/embedded-toolkit`](https://github.com/liujycode/embedded-toolkit) — liujycode/embedded-toolkit：当前复审口径为 5，具体公开分发范围见固定版本证据。 复审：1.1→1.3.1由6树扩为12树77节点，新增CAN、USB、Flash、RTC、LCD及FPGA/RTL，搜索加bigram fallback 补充复审：peripheral pitfalls由11类61扩25类148，新增DMA/USB/Flash/RTC/ETH等及bigram；新增离线标准库timing-calc 37计算器输出公式/合法性，明确I2C Hs电流源模式不支持；register lookup/verify只有作者与patch version变化。 (上游可访问)
@@ -2360,10 +2389,13 @@ npm run skill -- eval
 - [`mvdypsis/i-have-dyslexia`](https://github.com/mvdypsis/i-have-dyslexia) — 按用户选择的阅读和工作偏好调整助手沟通、写作支持、视觉解释与任务规划。 (上游可访问)
 - [`neoxyz-99/Theory-to-Case-Lab`](https://github.com/neoxyz-99/Theory-to-Case-Lab) — 重建理论文本、梳理学术接受史，并以区分标注的证据和解释将理论应用于案例。 (上游可访问)
 - [`npaiadvisor/discovery`](https://github.com/npaiadvisor/discovery) — 引导非营利团队完成范围界定、环境访谈、助手形态选择、初始项目搭建与运营交接。 (上游可访问)
+- [`ObliviousOdin/health-research-council`](https://github.com/ObliviousOdin/health-research-council) — 准入候选：README明确技能用途与安装/分发；代表SKILL含可执行研究工作流；许可证已固定读取（仅索引元数据） (上游可访问)
 - [`Oweik/pcb-art-easyeda`](https://github.com/Oweik/pcb-art-easyeda) — 嘉立创 EDA 板画技能，处理铜层、阻焊、丝印与 Gerber 草稿验证。 (上游可访问)
 - [`PersianXM/persian-docx-skill`](https://github.com/PersianXM/persian-docx-skill) — 生成波斯语 Word 文档，支持双向段落控制、字体排版、间距与复用配色。 (上游可访问)
+- [`pinion05/jolt-physics-skill`](https://github.com/pinion05/jolt-physics-skill) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`pugofka/growth-ideas-skill`](https://github.com/pugofka/growth-ideas-skill) — 研究公司或产品，形成带来源、低成本实验、评分和停止标准的增长假设。 (上游可访问)
 - [`QWarranto/leafengines-hermes-skill`](https://github.com/QWarranto/leafengines-hermes-skill) — 美国农业情报技能，覆盖土壤、水质、作物建议和环境指标。 (上游可访问)
+- [`realnaka/claim-verification`](https://github.com/realnaka/claim-verification) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
 - [`rhiza-research/chc-skills`](https://github.com/rhiza-research/chc-skills) — rhiza-research/chc-skills：当前复审口径为 15，具体公开分发范围见固定版本证据。 复审：新增ICON-EPS公开DWD40成员forecast fetch，triangular→lat/lon regrid，实际只保留约24h runs，00/12与06/18 lead不同；tp转interval-start rate、末lead无interval时丢弃，linear不严格守恒可nearest。Python3.12/uv/eccodes依赖、无凭证，Zarr后续聚合单位要按contract，未实际下载气象数据。 (上游可访问)
 - [`Rigjite/Ecosystem-Digital-Twin`](https://github.com/Rigjite/Ecosystem-Digital-Twin) — 设计与审查生态系统数字孪生，覆盖数据质量、校准、预测与监测计划。 (上游可访问)
 - [`robertriedel/POD2_Config_Skill`](https://github.com/robertriedel/POD2_Config_Skill) — 使用标准插件与动作生成、验证 SAP Digital Manufacturing POD 2.0 配置。 (上游可访问)
@@ -2387,6 +2419,7 @@ npm run skill -- eval
 - [`twinforgelabs/OpenProof`](https://github.com/twinforgelabs/OpenProof) — 通过浏览器观察和可追溯证据报告验证明确的网页应用验收标准。 (不可访问，保留历史)
 - [`Walpolen/humanities-book-translation`](https://github.com/Walpolen/humanities-book-translation) — 逐章翻译和修订人文书籍，记录术语决策、源文对齐和版本化审校材料。 (上游可访问)
 - [`wangxinyu20429-dotcom/zotero-obsidian-research-skills`](https://github.com/wangxinyu20429-dotcom/zotero-obsidian-research-skills) — 可追溯的水文文献工作流，串联 Zotero 入库、阅读笔记、Obsidian 综合与论文选题。 (上游可访问)
+- [`WenyuChiou/research-talk-coach`](https://github.com/WenyuChiou/research-talk-coach) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`WholeWhale/verified-giving-protocol`](https://github.com/WholeWhale/verified-giving-protocol) — 发现非营利捐赠入口，生成附证据且保留人工授权边界的 Verified Giving Protocol 声明草稿。 (上游可访问)
 - [`yinum/analytical-skills`](https://github.com/yinum/analytical-skills) — 分析化学论文工作流，覆盖文献、绘图、统计、写作与投稿。 (上游可访问)
 - [`Zhimanaiyou/museum-archaeology-notebook`](https://github.com/Zhimanaiyou/museum-archaeology-notebook) — 在保留原物形状、铭文和视觉细节的前提下，将博物馆文物照片制作为考古手记图像。 (上游可访问)
@@ -2396,7 +2429,7 @@ npm run skill -- eval
 </details>
 
 <details>
-<summary>4. 安装器 / 注册表 / 基础设施（infra）（236）</summary>
+<summary>4. 安装器 / 注册表 / 基础设施（infra）（240）</summary>
 
 - [`morluto/rea`](https://github.com/morluto/rea) — morluto/rea：当前复审口径为 1，具体公开分发范围见固定版本证据。 复审：REA v42→45补PyInstaller CArchive、Apple资源、APK签名自一致性、GPU code objects、GGUF/safetensors header/full hash、IL2CPP元数据、PE证书/ELF notes/CPython pyc/BEAM等静态接口及retained evidence分页；签名存在/摘要匹配不等于信任或运行。超时/连接故障重试需先判实际效果。新增analysis optimization以完成真实调查的等价事实/证据作oracle，区分缓存生命周期与cold/warm。 (上游可访问)
 - [`paperclipai/paperclip`](https://github.com/paperclipai/paperclip) — paperclipai/paperclip：当前复审口径为 多技能（9 root public skills; additional catalogs/plugins），具体公开分发范围见固定版本证据。 复审：新增create-case、native Runner adapter集成与fix-failed-paperclip-run；旧diagnose入口转完整red→repair→real workflow→green PR且保留diagnosis-only边界。Runner新Claude以acpx/native支持明确平台，unsupported/SSH仍Legacy；Honeycomb改真实parent context/foldable phase；test-audit收据放task/PR不自动加repo docs；协调技能避免不必要阻塞。 (上游可访问)
@@ -2629,11 +2662,15 @@ npm run skill -- eval
 - [`rhiza-research/weather-skills-core`](https://github.com/rhiza-research/weather-skills-core) — 可组合天气技能开发基础设施：共享 Zarr 契约、来源记录、检查工具与技能编写指南。 复审：authoring指南从严格name.py转一个scripts入口，@weather_skill统一CLI/Zarr/pint/provenance，kwargs必需、parsed canonical flags不二次解析、metadata.version与代码CI同步；inputs/outputs说明精简指向SSOT。另一fixture改描述、一fixture移除，均非公开技能增减。 (上游可访问)
 - [`skillmds/skillmd`](https://github.com/skillmds/skillmd) — MIT 许可的 SKILL.md 注册表工具链：CLI、MCP 服务、Lint、安全扫描、质量评分与 GitHub Action。 (上游可访问)
 - [`SkillsCatalog/registry`](https://github.com/SkillsCatalog/registry) — 社区 Agent Skills 注册表，覆盖创建、安装、搜索、校验、发布和安全扫描。 (上游可访问)
+- [`arm-pz/caffeinity-skills`](https://github.com/arm-pz/caffeinity-skills) — 准入：Claude Code plugin marketplace and index for arm-pz skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
 - [`arm-pz/prompts-to-skill`](https://github.com/arm-pz/prompts-to-skill) — 通过意图访谈、重叠检查、起草、测试用例和调优门槛，将用户提示词集合转换为复用技能。 (上游可访问)
+- [`Findskills/skillpi`](https://github.com/Findskills/skillpi) — 准入：SkillPi discovery/vetting registry for Claude Code, Cursor and Codex. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
 - [`Hook12aaa/skill-cheat`](https://github.com/Hook12aaa/skill-cheat) — 分阶段技能创作流程，覆盖范围设计、不可变约定、起草、独立审阅、插件搭建与压力测试。 (上游可访问)
 - [`puniserv/skillcask`](https://github.com/puniserv/skillcask) — 通过 Composer/GitHub 源、锁文件与内容哈希管理可移植 Agent Skill 包及多客户端安装。 (上游可访问)
+- [`sananthanarayan/skilldrop`](https://github.com/sananthanarayan/skilldrop) — 准入：Portable role-pack skills with review gates and cross-client installer support. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
 - [`skill-one/agents-skills`](https://github.com/skill-one/agents-skills) — MIT OR Apache-2.0 双许可的 Rust 库与 CLI：为 70+ 编码 Agent 安装和管理 SKILL.md。 (上游可访问)
 - [`srini047/skills-i8n`](https://github.com/srini047/skills-i8n) — 技能国际化 CLI，保留代码块与伴随文件；三个示例用于演示，不是生产技能包。 (上游可访问)
+- [`The-Utopia-Studio/skills`](https://github.com/The-Utopia-Studio/skills) — 准入：Operator-grade Utopia Studio marketplace with curated GTM, product, investment and founder skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
 
 </details>
 
@@ -2667,7 +2704,7 @@ npm run skill -- eval
 </details>
 
 <details>
-<summary>6. 名称不含 skill / agent（unnamed）（158）</summary>
+<summary>6. 名称不含 skill / agent（unnamed）（189）</summary>
 
 - [`garrytan/gstack`](https://github.com/garrytan/gstack) — Garry Tan 的 Claude Code 虚拟工程团队：23 个角色 slash 命令 + 8 个工具，全 Markdown。 (上游可访问)
 - [`nextlevelbuilder/ui-ux-pro-max-skill`](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) — UI/UX 设计智能技能：192 条推理规则、可安装到 Claude/Cursor 等；marketplace + CLI。 (上游可访问)
@@ -2822,11 +2859,42 @@ npm run skill -- eval
 - [`onimusya/media-gen`](https://github.com/onimusya/media-gen) — 通过统一的多提供方媒体 CLI 生成和编辑图像、制作视频、合成语音并转录音频。 (上游可访问)
 - [`toby/flashback`](https://github.com/toby/flashback) — 设计史技能，从公开历史档案检索指定年份的字体、配色与视觉参考。 (上游可访问)
 - [`Aarekaz/transit-mcp`](https://github.com/Aarekaz/transit-mcp) — 查询纽约、华盛顿和旧金山湾区的公共交通路线、到站信息、运营中断、无障碍设施故障与车辆位置。 (上游可访问)
+- [`Wariowaqo/cs-skill-creator`](https://github.com/Wariowaqo/cs-skill-creator) — 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 (上游可访问)
+- [`yuanzheng10/business-analysis`](https://github.com/yuanzheng10/business-analysis) — 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 (上游可访问)
 - [`sya-ri/strata`](https://github.com/sya-ri/strata) — 使用 Strata 组件、修饰器、可复用插槽与响应式状态归属编写和审查声明式 Minecraft 界面。 (上游可访问)
+- [`Tissue-for-charlie/exam-kit`](https://github.com/Tissue-for-charlie/exam-kit) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
+- [`cleatai/agent-skills`](https://github.com/cleatai/agent-skills) — 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 (上游可访问)
 - [`ericjy/markside`](https://github.com/ericjy/markside) — 让编码 Agent 在 Chrome 中用 Markside 打开 Markdown、收集审阅评论并进行交互式访谈。 (上游可访问)
 - [`fcon-tech/portolan`](https://github.com/fcon-tech/portolan) — 代码库测绘产品，捆绑可安装 Portolan 技能、MCP 接入及可追溯架构图。 (上游可访问)
+- [`verbatra/skills`](https://github.com/verbatra/skills) — 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 (上游可访问)
 - [`angri450/Nong.Dev.Net`](https://github.com/angri450/Nong.Dev.Net) — 经 GitHub/GitCode 分发的开发工具包，含 Bash、PowerShell、.NET、Gitee 与 GitCode 技能；属于通用开发工具。 (上游可访问)
+- [`arpe-io/arpeio-skills`](https://github.com/arpe-io/arpeio-skills) — 准入：Official skills for arpe.io products with portable integration guidance. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`askdkc/kiokuko-dsh`](https://github.com/askdkc/kiokuko-dsh) — 准入：Kiokuko plugin and skills package for DeepSeek Harness. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`blazingagents/skills`](https://github.com/blazingagents/skills) — 准入：Official Blazing Agents application-building skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`coffeehc/xletter-skill`](https://github.com/coffeehc/xletter-skill) — 准入：Official xLetter agent-mailbox skill. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`Comet32/skills`](https://github.com/Comet32/skills) — 准入：Portable personal skills collection installable into Claude Code, Codex, Cursor and other clients. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`daniel-ospina/tortoise-skills-and-integrations`](https://github.com/daniel-ospina/tortoise-skills-and-integrations) — 准入：Official Tortoise epistemic-graph skills for reading, writing and reasoning over graphs. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`duvoai/skills`](https://github.com/duvoai/skills) — 准入：Official Duvo operations skills for automating existing systems with AI agents. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`elcoosp/skilldeck`](https://github.com/elcoosp/skilldeck) — 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 (上游可访问)
+- [`flashdatadev/flashdata-skills`](https://github.com/flashdatadev/flashdata-skills) — 准入：Official FlashData Google/YouTube research skills paired with FlashData MCP and CLI. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`gaato/kbbi.mbt`](https://github.com/gaato/kbbi.mbt) — 准入：KBBI lookup library/CLI with an accompanying MoonBit agent skill. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`helpingio/skills`](https://github.com/helpingio/skills) — 准入：Helping.io API integration skills installable into Claude Code, Cursor, Codex and compatible clients. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`huangy7/outline-skill`](https://github.com/huangy7/outline-skill) — 准入：Outline knowledge-base management skill plus CLI tooling. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`lazybirdai/skills`](https://github.com/lazybirdai/skills) — 准入：Official Lazybird voice, TTS and voice-design skill for agent clients. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`masheev/skills`](https://github.com/masheev/skills) — 准入：Official Masheev integration skills for building applications. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`nanocosmos/nanocosmos-skills`](https://github.com/nanocosmos/nanocosmos-skills) — 准入：Official nanoStream/nanoStudio live-streaming integration, diagnostics and analytics skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
 - [`natdexterra/source-synthesis`](https://github.com/natdexterra/source-synthesis) — 基于证据分级的资料综合，含考古历史及医学科学预设，产出可追溯的主张清单。 (上游可访问)
+- [`NPGameDev/godot-mcp-toolkit`](https://github.com/NPGameDev/godot-mcp-toolkit) — 准入：Godot editor plugin/MCP toolkit paired with a public agent skill. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`protoLabsAI/langfuse-plugin`](https://github.com/protoLabsAI/langfuse-plugin) — 准入：protoAgent Langfuse plugin exposing an official skill and native tools for traces, prompts, datasets and evals. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`pushmanhq/skills`](https://github.com/pushmanhq/skills) — 准入：Official Pushman skill/plugin package for intentional iPhone notifications from agents. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`reviseio/skills`](https://github.com/reviseio/skills) — 准入：Official Revise MCP collaboration skills for documents and agent workflows. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`runtypelabs/skills`](https://github.com/runtypelabs/skills) — 准入：Official Runtype platform skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`suggestapi/skills`](https://github.com/suggestapi/skills) — 准入：Official skills teaching agents to integrate SuggestAPI search, commerce and discovery workflows. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`TeamDev-IP/DotNetBrowser-Skill`](https://github.com/TeamDev-IP/DotNetBrowser-Skill) — 准入：Official DotNetBrowser .NET browser-component skill for WPF, WinForms, WinUI, Avalonia and console apps. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`tmk241/hemx-skills`](https://github.com/tmk241/hemx-skills) — 准入：Official Hemx application-building skill for compatible coding agents. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`TopCited/topcited-skills`](https://github.com/TopCited/topcited-skills) — 准入：TopCited SEO/GEO and API skills with guided visibility workflows. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`trysolti/skills`](https://github.com/trysolti/skills) — 准入：产品原生/SDK/CLI/技能分发仓库 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`wilgon456/Paseobility`](https://github.com/wilgon456/Paseobility) — 准入：Reusable skills for projects, browsers, artifacts and connected computers. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
 
 </details>
 <!-- END GENERATED:skill-repos -->
