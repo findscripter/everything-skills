@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1113 skills · 11 volumes · 6782 relation edges · 2673 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1113 skills · 11 volumes · 6782 relation edges · 2741 indexed entries" width="1200" /></picture>
 </p>
 <!-- END GENERATED:brand -->
 
@@ -117,7 +117,7 @@ For provenance and license terms, see [Sources](INDEX/sources.md), [LICENSE](LIC
 <!-- BEGIN GENERATED:skill-repos -->
 ## Skill repos directory
 
-Currently **2673** indexed entries for GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.
+Currently **2741** indexed entries for GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.
 
 Full tables (stars / summary / license) are generated from `data/skill-repos.jsonl` (and part shards) into **[INDEX/skill-repos.md](INDEX/skill-repos.md)**. This page is the categorized link directory.
 
@@ -553,7 +553,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>2. Collections (504)</summary>
+<summary>2. Collections (508)</summary>
 
 - [`Shubhamsaboo/awesome-llm-apps`](https://github.com/Shubhamsaboo/awesome-llm-apps) — 100+ AI agent, skill, and RAG projects; the main agent_skills directory contains seven installable skills, including draft-reader and scope-review workflows. (upstream accessible)
 - [`nexu-io/open-design`](https://github.com/nexu-io/open-design) — nexu-io/open-design publishes a public Agent Skills collection with 549 SKILL.md entries; the fixed tree and README provide an install or usage path. Review: Design templates respect requested audio and duration, with bounded stock-media acquisition and source records. (upstream accessible)
@@ -1040,6 +1040,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`Olshansk/agent-skills`](https://github.com/Olshansk/agent-skills) — Agent Skills collection. (upstream accessible)
 - [`Bang-isme/CodexAI---Skills`](https://github.com/Bang-isme/CodexAI---Skills) — End-to-end development-workflow Codex Skills pack. (upstream accessible)
 - [`ellmos-ai/skills`](https://github.com/ellmos-ai/skills) — MIT portable SKILL.md library for Claude Code, Codex-compatible agents, BACH, Gemini, and local-first LLM workflows. (upstream accessible)
+- [`escoffier-labs/skillet`](https://github.com/escoffier-labs/skillet) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
 - [`arham777/ui-ux-kit`](https://github.com/arham777/ui-ux-kit) — Taste-first anti-slop UI design workflow that leaves a reusable DESIGN_SYSTEM.md for future pages. (upstream accessible)
 - [`Armitanemati/liquid-glass-claude-skill`](https://github.com/Armitanemati/liquid-glass-claude-skill) — Brand-agnostic Liquid Glass and glassmorphism reasoning for web, SwiftUI and mobile with contrast, performance and fallback rules. (upstream accessible)
 - [`Axect/skills`](https://github.com/Axect/skills) — Researcher-oriented skill collection for literature, paper review, academic opportunities, scientific figures, writing, and research operations. Review: Overleaf sync guidance binds exact project IDs and separates scratch files from synchronized content. (upstream accessible)
@@ -1056,14 +1057,17 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`TuringWorks/civstack`](https://github.com/TuringWorks/civstack) — CivStack public-economy role and workflow library spanning governance, utilities, industry, environment, and human-accountability boundaries. (upstream accessible)
 - [`weareoxd/design-skill-generator`](https://github.com/weareoxd/design-skill-generator) — Generate design-system SKILL.md context from screenshots or Figma URLs, alongside feature/refinement skills used by the project. (upstream accessible)
 - [`yylo-dev/yylo-skills`](https://github.com/yylo-dev/yylo-skills) — YYLO canonical cross-agent skills for Ledger task, wiki, workflow, artifact, project understanding, planning, benchmarking, and Ralph execution loops. (upstream accessible)
+- [`buildpad-ai/skills`](https://github.com/buildpad-ai/skills) — Buildpad source-of-truth skills bundled in project starters and installable into compatible coding agents. (upstream accessible)
+- [`buriedsignals/spotlight`](https://github.com/buriedsignals/spotlight) — OSINT investigation orchestrator with structured research and verification skills. (upstream accessible)
 - [`iam-niranjan/wcag-skills`](https://github.com/iam-niranjan/wcag-skills) — Normative WCAG 2.2 Level A, AA and AAA criteria packaged as verified SKILL.md files for accessibility audits. (upstream accessible)
 - [`makukhin-ie/ai-toolbox`](https://github.com/makukhin-ie/ai-toolbox) — Reusable workflows for Notion GTD sessions, print-ready book typesetting, language tutoring, and PrusaSlicer filament profiles. (upstream accessible)
+- [`ramp-public/skills`](https://github.com/ramp-public/skills) — Ramp-maintained portable skills for cards, bill pay, procurement, travel, banking and accounting via Ramp tools/MCP/CLI. (upstream accessible)
 - [`thatrgbgamer/SuperClaude-FountEngine`](https://github.com/thatrgbgamer/SuperClaude-FountEngine) — Preference-aware writing, email, research, document formatting, repository onboarding, debugging, and Fount game-authoring skills. (upstream accessible)
 
 </details>
 
 <details>
-<summary>3. Vertical (1327)</summary>
+<summary>3. Vertical (1356)</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — Methodology skills pack: TDD, brainstorming, subagent-driven development, and other composable engineering disciplines. (upstream accessible)
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — ECC, successor to Everything Claude Code: skills/agents/commands/hooks plugin marketplace. Formerly everything-claude-code. (upstream accessible)
@@ -1671,6 +1675,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`walidboulanouar/Ay-Skills`](https://github.com/walidboulanouar/Ay-Skills) — AY Automate open-source Claude Code skills; drop into .claude/skills. (upstream accessible)
 - [`Xquik-dev/tweetclaw`](https://github.com/Xquik-dev/tweetclaw) — X/Twitter-related OpenClaw Skills. (upstream accessible)
 - [`oguzhankayan/turkish-native`](https://github.com/oguzhankayan/turkish-native) — Write and revise Turkish product, support, documentation, and interface prose while detecting translation-shaped wording. (upstream accessible)
+- [`open-legal-products/mike-workflows`](https://github.com/open-legal-products/mike-workflows) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
 - [`hexiaofeier/hehe-industry-research-skill-pack`](https://github.com/hexiaofeier/hehe-industry-research-skill-pack) — 14 Chinese industry/company research Agent Skills (sizing, chain, finance, valuation) with evidence gates; clone skills/ folders. (upstream accessible)
 - [`meshy-dev/meshy-3d-agent`](https://github.com/meshy-dev/meshy-3d-agent) — Meshy AI 3D generate/print Agent Skills (Cursor/Claude/OpenClaw). (upstream accessible)
 - [`nathankim0/clean-architecture-skills`](https://github.com/nathankim0/clean-architecture-skills) — Clean Architecture review and design Claude Skills. (upstream accessible)
@@ -2190,11 +2195,14 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`Nolpak14/getregdata`](https://github.com/Nolpak14/getregdata) — Business-registry research skills for company verification, due diligence, public filings, and cross-border research; some workflows rely on external paid actors. (upstream accessible)
 - [`rhiza-research/weather-skills`](https://github.com/rhiza-research/weather-skills) — rhiza-research/weather-skills: current reviewed catalog count 46; see the fixed-snapshot distribution scope. Review: Experimental weather pipelines expand to 46 public skills with new forecast/climatology sources, verification and Zarr transforms; refactor credential fallbacks and remove eight prior public entry points. (upstream accessible)
 - [`UXLana/design-skills-pack`](https://github.com/UXLana/design-skills-pack) — Support product-design framing, design tokens, prototyping, responsive and accessibility review, handoff, and visual QA. (upstream accessible)
+- [`yakeworld/Synthos`](https://github.com/yakeworld/Synthos) — Admit candidate: README 明确自主科研平台与 SKILL.md 分发；核心 hypothesis-generation 代表具 name/description；根 MIT 已固定读取 (upstream accessible)
 - [`Aarvion-AI/stackwise-skills`](https://github.com/Aarvion-AI/stackwise-skills) — Stackwise tech-stack Agent Skills. (upstream accessible)
 - [`AkaLiu/zotero-skill`](https://github.com/AkaLiu/zotero-skill) — Bilingual local Zotero literature skill for paper/note retrieval, PDF reading, and context-grounded research assistance. (upstream accessible)
 - [`Boom-Vitt/kicad-thai`](https://github.com/Boom-Vitt/kicad-thai) — Thai/English KiCad workflows for board checks, fabrication exports, local compliance and component sourcing. (upstream accessible)
 - [`Cristhianzl/claude-skills-czl`](https://github.com/Cristhianzl/claude-skills-czl) — Practical Claude Code config and Skills baseline. (upstream accessible)
 - [`dungnotnull/historical-cadastral-map-restoration-agent-skill`](https://github.com/dungnotnull/historical-cadastral-map-restoration-agent-skill) — Historical cadastral-map restoration and GIS digitization agent workflow with supporting research and reference material. (upstream accessible)
+- [`ever-just/agentskills`](https://github.com/ever-just/agentskills) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
+- [`gmoriki/higher-ed-ai-skills`](https://github.com/gmoriki/higher-ed-ai-skills) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`harshith-vaddiparthy/finance-skills`](https://github.com/harshith-vaddiparthy/finance-skills) — Finance operations skills for receivables, payment reminders, contract/invoice review, revenue QA, reconciliation, close checklists, and CFO briefings. (upstream accessible)
 - [`HideinbushZY/boss-zhipin-skill`](https://github.com/HideinbushZY/boss-zhipin-skill) — BOSS Zhipin job-search related Skill. (upstream accessible)
 - [`HiMyNameIsDavidKim/prompt-triwizard-skill`](https://github.com/HiMyNameIsDavidKim/prompt-triwizard-skill) — Prompt Triwizard prompt-engineering Skill. (upstream accessible)
@@ -2211,22 +2219,27 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`test1card/femis-skill`](https://github.com/test1card/femis-skill) — FEM/CAE governance skill for mesh independence, verification/validation, solver selection, and engineering evidence; pair with a solver executor. (upstream accessible)
 - [`TgStudio-PM/PM-product-workflow`](https://github.com/TgStudio-PM/PM-product-workflow) — Maintain enterprise and government product prototypes with project memory, cross-session handover, and deliverable packaging. (upstream accessible)
 - [`truman-t3/industrial-design-portfolio-skill`](https://github.com/truman-t3/industrial-design-portfolio-skill) — Industrial-design portfolio skill turning product evidence and design decisions into a reviewable HTML portfolio. (upstream accessible)
+- [`vosslab/vosslab-skills`](https://github.com/vosslab/vosslab-skills) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
 - [`weeeha/Super-Design-Lead`](https://github.com/weeeha/Super-Design-Lead) — Design-management workflows for one-to-ones, feedback, career conversations, hiring, coaching, and relationship records. (upstream accessible)
 - [`yale-som-hpc/claude-code-marketplace`](https://github.com/yale-som-hpc/claude-code-marketplace) — Yale SOM research-computing marketplace with cluster-specific HPC, Python/R/Stata, Slurm, storage, GPU, and reproducibility skills. (upstream accessible)
 - [`Aident-AI/aident-skill`](https://github.com/Aident-AI/aident-skill) — Aident Loadout: Agent Skill connecting to 1000+ apps. (upstream accessible)
 - [`andreiverdes/bluedoc`](https://github.com/andreiverdes/bluedoc) — Author and review engineering documents, plans, designs, decks, and app listings as structured local documents. (upstream accessible)
 - [`BrunoMiguens/translating-products-skill`](https://github.com/BrunoMiguens/translating-products-skill) — Portable product translation suite with an orchestrator, locale specialists, software/mobile/web localization, and translation QA. (upstream accessible)
+- [`DajunG-77/research-opportunity-graph-skill`](https://github.com/DajunG-77/research-opportunity-graph-skill) — Admit candidate: README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分 (upstream accessible)
 - [`DedInc/chef-agentic-skills`](https://github.com/DedInc/chef-agentic-skills) — Culinary skills for cooking techniques, food science, cuisines, planning and dietary constraints. (upstream accessible)
+- [`ensommeille/research-vault-maintainer`](https://github.com/ensommeille/research-vault-maintainer) — Admit candidate: README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分 (upstream accessible)
 - [`hyt24/nds-game-localization-skill`](https://github.com/hyt24/nds-game-localization-skill) — Audit and localize Nintendo DS game resources with source inventories, terminology approval, reproducible patches, and runtime verification records. (upstream accessible)
 - [`navveenb/lean-agentic-ai-skills`](https://github.com/navveenb/lean-agentic-ai-skills) — Compose domain-specific efficiency audits and designs through a shared findings contract for web, cloud, data and AI workloads. (upstream accessible)
 - [`SavrinaYu/target-market-localizer`](https://github.com/SavrinaYu/target-market-localizer) — Adapt Chinese and English content for target markets with localization, transcreation, terminology, and claims review. (upstream accessible)
 - [`swtbkim/openfoam-claude-suite`](https://github.com/swtbkim/openfoam-claude-suite) — OpenFOAM v2412 Claude plugin with setup, simulation, diagnostics, and postprocessing skills; solver execution requires its own environment. (upstream accessible)
 - [`BrightCubes/power-grid-model-ai`](https://github.com/BrightCubes/power-grid-model-ai) — Power Grid Model ecosystem skills for data ingestion, validation, grid studies, result explanation, and issue analysis. (upstream accessible)
 - [`carbonstop/skills`](https://github.com/carbonstop/skills) — MIT carbon-accounting skill for CCDB emission-factor lookup, product carbon footprints, enterprise inventories, and LCA workflows with compliance boundaries. (upstream accessible)
+- [`earth-space-ai/ctsm-skill`](https://github.com/earth-space-ai/ctsm-skill) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`globalize-now/globalize-skills`](https://github.com/globalize-now/globalize-skills) — Set up software localization, Globalize projects and CLI workflows, and bidirectional CSS layouts. (upstream accessible)
 - [`graphed-inc/marketing-skills`](https://github.com/graphed-inc/marketing-skills) — graphed-inc/marketing-skills: current reviewed catalog count 7; see the fixed-snapshot distribution scope. Review: Graphed adds read-only analytics dashboards, brand-grounded static ads and dry-run-first UGC video production. (upstream accessible)
 - [`michpro/kicad-tools`](https://github.com/michpro/kicad-tools) — KiCad EDA skill for schematic and PCB analysis, DRC/ERC validation, repair, autorouting, BOM generation, and manufacturing export through the kct CLI. (upstream accessible)
 - [`SAXEM1997/specpowers`](https://github.com/SAXEM1997/specpowers) — Combine specification-driven planning and test-driven implementation with bounded multi-agent review and archival gates. (upstream accessible)
+- [`shawndeng321/legal-academic-research-skills`](https://github.com/shawndeng321/legal-academic-research-skills) — Admit candidate: README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分 (upstream accessible)
 - [`wuyaojunkylin/research-digital-curation-skills`](https://github.com/wuyaojunkylin/research-digital-curation-skills) — Research-based digital curation and online museum skills: topic framing, narrative, visual language, prototypes, and project logs. (upstream accessible)
 - [`zstary/DDC_Skills_for_AI_Agents_in_Construction`](https://github.com/zstary/DDC_Skills_for_AI_Agents_in_Construction) — Construction automation collection for BIM, IFC, CAD, clash detection, quantity takeoff, and delivery; reviewed skill files substantially overlap the indexed DDC collection. (upstream accessible)
 - [`1507078/openwrt-one-skills`](https://github.com/1507078/openwrt-one-skills) — Set up and operate an OpenWrt One router with an AI coding agent. For developers who don't know networking. Works with Claude Code, Codex, and any Agent Skills host. (upstream accessible)
@@ -2241,6 +2254,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`cli1980/manuscript-studio`](https://github.com/cli1980/manuscript-studio) — Literary editing, translation, agent querying, manuscript preparation, approval review, and publication formatting with persistent project state. (upstream accessible)
 - [`Covari-mfg/manufacturing-skills`](https://github.com/Covari-mfg/manufacturing-skills) — FDM/FFF manufacturability review covering orientation, supports, tolerances, materials and production risks. (upstream accessible)
 - [`dtunai/agent-skills-for-compute`](https://github.com/dtunai/agent-skills-for-compute) — Compute skills for GPU/TPU/QPU programming, scientific simulation, Slurm/MPI, quantum tooling, and model training/inference workflows. (upstream accessible)
+- [`earth-space-ai/wrf-skill`](https://github.com/earth-space-ai/wrf-skill) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`Eternity-487/Teach3D`](https://github.com/Eternity-487/Teach3D) — Turn objects, structures and processes into interactive browser-based 3D lessons with evidence-linked explanations, guided actions and classroom questions. (upstream accessible)
 - [`everyinfra/seo-skills`](https://github.com/everyinfra/seo-skills) — Route SEO and GEO research, technical checks, content planning, market localization, and monitoring through one workbench. (upstream accessible)
 - [`F2had/native-arabic`](https://github.com/F2had/native-arabic) — Natural Modern Standard Arabic writing and review for interfaces, messages, documentation, accessibility text, and plural forms. (upstream accessible)
@@ -2264,6 +2278,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`ubcd-ibfg/pymol-skill`](https://github.com/ubcd-ibfg/pymol-skill) — Generate PyMOL scripts and molecular figures or control a live session through a separately configured MCP server. (upstream accessible)
 - [`vp9fm78jvp-sketch/lumerical-matlab-paper-reproduction`](https://github.com/vp9fm78jvp-sketch/lumerical-matlab-paper-reproduction) — Reproduce photonics papers with model and parameter audits, Lumerical orchestration and MATLAB figure validation. (upstream accessible)
 - [`1762972857-del/specific-learning`](https://github.com/1762972857-del/specific-learning) — Build offline interactive labs, original figures and learning notes for undergraduate mathematics and physics. (upstream accessible)
+- [`2710074390-cyber/medagentwork-skill`](https://github.com/2710074390-cyber/medagentwork-skill) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`alessandrobonomi00/cad-mechanical-designer-skill`](https://github.com/alessandrobonomi00/cad-mechanical-designer-skill) — CAD design guidance for robust parametric parts, assemblies, drawings and manufacturability checks. (upstream accessible)
 - [`asasemahmed/arabkit`](https://github.com/asasemahmed/arabkit) — Shared Arabic copy, RTL, search and interface skills, plus an Egyptian Arabic product-copy workflow. (upstream accessible)
 - [`ASOScan/aso-skills`](https://github.com/ASOScan/aso-skills) — ASO (app-store optimization) Agent Skills. (upstream accessible)
@@ -2275,10 +2290,15 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`CAS-CLab/EasyFoam`](https://github.com/CAS-CLab/EasyFoam) — Plan, author, execute, recover and validate OpenFOAM v13 cases with evidence-driven, human-governed workflow evolution. (upstream accessible)
 - [`deepakp999/data-storytelling-slides`](https://github.com/deepakp999/data-storytelling-slides) — Create analytical PowerPoint storylines and slide specifications with consulting-style layouts, charts, and iterative per-slide review. (upstream accessible)
 - [`DuoChen-317/robot-asset-toolkit`](https://github.com/DuoChen-317/robot-asset-toolkit) — Prepare robot assets across STEP, GLB, URDF and articulated USD with geometry and packaging checks. Review: Robot-asset conversion strengthens project layout and self-contained validated delivery. (upstream accessible)
+- [`earth-space-ai/cam-skill`](https://github.com/earth-space-ai/cam-skill) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
+- [`earth-space-ai/jules-skill`](https://github.com/earth-space-ai/jules-skill) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
+- [`earth-space-ai/mom6-skill`](https://github.com/earth-space-ai/mom6-skill) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
+- [`earth-space-ai/parflow-skill`](https://github.com/earth-space-ai/parflow-skill) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`ESRShbb/scientific-workflow-skills`](https://github.com/ESRShbb/scientific-workflow-skills) — Chemistry and life-science workflows for NMR, ChemDraw, IC50 analysis, characterization and scientific figures. (upstream accessible)
 - [`faborsky/marketing-miner-mcp-skill`](https://github.com/faborsky/marketing-miner-mcp-skill) — A community Marketing Miner MCP skill for Czech and Slovak keyword research, competitor visibility, content gaps, and credit-aware analysis. (upstream accessible)
 - [`Gabriel-Dalton/digital-sustainability-skill`](https://github.com/Gabriel-Dalton/digital-sustainability-skill) — Audit digital sustainability, estimate software carbon impact and produce evidence-linked improvement and reporting workflows. (upstream accessible)
 - [`gfjwg22xcb-del/cie-igcse-chemistry-study-open`](https://github.com/gfjwg22xcb-del/cie-igcse-chemistry-study-open) — Independent IGCSE Chemistry study skill with syllabus guidance, worked examples, quizzes and feedback. (upstream accessible)
+- [`HZDF-2026/research-enhancement-methodology`](https://github.com/HZDF-2026/research-enhancement-methodology) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`ikhattab/l10n-skill`](https://github.com/ikhattab/l10n-skill) — Locale-aware formatting and validation of currencies, dates, numbers, measurement units, addresses, and phone numbers. (upstream accessible)
 - [`J-D11/manufacturing-ai`](https://github.com/J-D11/manufacturing-ai) — Fabrication workflow guidance from model preparation and slicing through physical inspection and small-batch production. (upstream accessible)
 - [`Jason-0409-G/vivarium`](https://github.com/Jason-0409-G/vivarium) — Recoverable comparative-genomics workflows for preparation, search, relatedness, phylogeny and reporting. (upstream accessible)
@@ -2299,6 +2319,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`TheDop/analytical-figures-skill`](https://github.com/TheDop/analytical-figures-skill) — Publication figures and checked analyses for spectroscopy, calibration, chemometrics and crystal structures. (upstream accessible)
 - [`topmindspace/topmind-presentation`](https://github.com/topmindspace/topmind-presentation) — Produce paged HTML presentations and editable PowerPoint decks from source materials, including report layouts and architecture diagrams. (upstream accessible)
 - [`vctrop/creative-thinking-for-engineering`](https://github.com/vctrop/creative-thinking-for-engineering) — Generate engineering options constrained by physics, cost, schedule and measurable bench evidence. (upstream accessible)
+- [`victorvanpelt/research-skills`](https://github.com/victorvanpelt/research-skills) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`xxwzkdwz/artifact-3026-skill`](https://github.com/xxwzkdwz/artifact-3026-skill) — Reimagine everyday objects as explicitly fictional future museum exhibits with labels, accession numbers, and share cards. (upstream accessible)
 - [`3494036618-eng/chemistry-research-skills`](https://github.com/3494036618-eng/chemistry-research-skills) — Auditable chemistry data workflows for identity, structure, features, libraries, reactions and route-evidence review. (upstream accessible)
 - [`Abulfadl-Ahmadi/physics-lecture-notes`](https://github.com/Abulfadl-Ahmadi/physics-lecture-notes) — Transform lecture audio, board photos and rough notes into checked LaTeX notes and Obsidian Markdown. (upstream accessible)
@@ -2313,6 +2334,8 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`benabbate-sales/gtm-cadence-builder`](https://github.com/benabbate-sales/gtm-cadence-builder) — Build a B2B SaaS GTM meeting cadence, quarterly calendar, agenda appendix, and responsibility matrix from client context. (upstream accessible)
 - [`bonny8000/Interview-Analysis-Skill`](https://github.com/bonny8000/Interview-Analysis-Skill) — Clean Mandarin interview transcripts and create traceable sentence-level coding matrices, theme statistics, and Traditional Chinese research reports. (upstream accessible)
 - [`bowtiekreative/signalstack-social-media-strategist`](https://github.com/bowtiekreative/signalstack-social-media-strategist) — Audit social analytics, prioritize performance problems, design experiments, and draft content plans, hooks, scripts, carousels, and captions. (upstream accessible)
+- [`changzhanyou0215/codex-research-workflow`](https://github.com/changzhanyou0215/codex-research-workflow) — Admit candidate: README与固定代表 SKILL 已实读；许可证字节已绑定 (upstream accessible)
+- [`ChenHsieh/agentic-research-toolkit`](https://github.com/ChenHsieh/agentic-research-toolkit) — Admit candidate: README明确技能用途与安装/分发；代表SKILL含可执行研究工作流；许可证已固定读取（仅索引元数据） (upstream accessible)
 - [`Chhunsour/khmer-localization`](https://github.com/Chhunsour/khmer-localization) — Khmer localization guidance for Unicode, typography, Cambodian contact and address formats, currencies, and bilingual interfaces. Review: Khmer localization adds offline machine-readable reference catalogs. (upstream accessible)
 - [`chrisrenzm/patent-drawer`](https://github.com/chrisrenzm/patent-drawer) — Convert patent compounds into editable ChemDraw cards, PowerPoint decks, Excel trackers and validation reports. (upstream accessible)
 - [`CNaught-Inc/eco-first`](https://github.com/CNaught-Inc/eco-first) — Review existing projects and plan architecture with source-attributed sustainability checklists and ranked findings. (upstream accessible)
@@ -2322,12 +2345,16 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`DarrenWongKaWa/dft-wannier-transport-skill`](https://github.com/DarrenWongKaWa/dft-wannier-transport-skill) — Engineering guidance for DFT-to-Wannier transport calculations, long runs and manuscript-number provenance. Review: DFT/Wannier transport guidance adds symmetry, band-degeneracy and reproducible-run safeguards. (upstream accessible)
 - [`DarrenWongKaWa/ResearchPhO`](https://github.com/DarrenWongKaWa/ResearchPhO) — Turn research papers into physics-olympiad-style problems, solutions, marking schemes and learning appendices. (upstream accessible)
 - [`dc73/matlab-engineering-skill`](https://github.com/dc73/matlab-engineering-skill) — Engineer and validate MATLAB simulations and numerical code with unit, dimension and execution checks. (upstream accessible)
+- [`DEnglish73/qualitative-research-skills`](https://github.com/DEnglish73/qualitative-research-skills) — Admit candidate: README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分 (upstream accessible)
+- [`dgagf111/multi-perspective-research`](https://github.com/dgagf111/multi-perspective-research) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`dh2211/nonprofit-agents`](https://github.com/dh2211/nonprofit-agents) — Nonprofit fact sheets, grants, budgets, impact reports, donor letters, events, and volunteer workflows grounded in supplied records. (upstream accessible)
 - [`DigitalPebble/spruce-sql-advisor`](https://github.com/DigitalPebble/spruce-sql-advisor) — Write and optimize AWS CUR 2.0 queries enriched with SPRUCE data for FinOps and GreenOps analysis. (upstream accessible)
+- [`earth-space-ai/vic-skill`](https://github.com/earth-space-ai/vic-skill) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`eous/civic-records-research`](https://github.com/eous/civic-records-research) — Research government agendas, minutes, hearings and decisions into cited dossiers that distinguish verified records from leads. (upstream accessible)
 - [`evgeniyzakharow-design/thermoforming-dfm`](https://github.com/evgeniyzakharow-design/thermoforming-dfm) — Thermoforming design review for draft, radii, wall thinning, depth, venting and sheet nesting. (upstream accessible)
 - [`fangdididi/role-teardown`](https://github.com/fangdididi/role-teardown) — Analyze job requirements, map verified achievements to fit, and prepare concise applications, reviews, and interview evidence in English or Chinese. (upstream accessible)
 - [`fxp/ee-skills`](https://github.com/fxp/ee-skills) — Electronics design-review skills across analog, RF, power, EMC, thermal, high-speed and manufacturability concerns. (upstream accessible)
+- [`geointelmining848/write-science-well`](https://github.com/geointelmining848/write-science-well) — Admit candidate: README明确技能用途与安装/分发；代表SKILL含可执行研究工作流；许可证已固定读取（仅索引元数据） (upstream accessible)
 - [`gngrwsbi/nonprofit-governance-skill`](https://github.com/gngrwsbi/nonprofit-governance-skill) — Prepare nonprofit budgets, grant scenarios, board materials, finance committee routines, policies, and bookkeeping handoff documents. (upstream accessible)
 - [`Guidogl/geopandas-consistency`](https://github.com/Guidogl/geopandas-consistency) — GeoPandas guidance for consistent CRS handling, spatial joins, geometry checks and measurements. (upstream accessible)
 - [`guilhermefriol/claude-skills-design`](https://github.com/guilhermefriol/claude-skills-design) — Portuguese design skills for multi-viewport visual UX audits and guided selection among UI component libraries. (upstream accessible)
@@ -2342,11 +2369,13 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`joey114132/claude-robotics-skills`](https://github.com/joey114132/claude-robotics-skills) — Robotics advisors and audit workflows spanning robot platforms, ROS 2, perception, learning and safety. (upstream accessible)
 - [`johannstark/GeminiRobotics-Skills`](https://github.com/johannstark/GeminiRobotics-Skills) — Robot manipulation skills connecting Gemini Robotics reasoning, MuJoCo physics and Three.js visualization. (upstream accessible)
 - [`justinharry2143/computational-chemistry-materials-agent`](https://github.com/justinharry2143/computational-chemistry-materials-agent) — Codex skills for computational chemistry and materials modeling, output analysis and reproducibility. (upstream accessible)
+- [`kadiravciii/exa-research`](https://github.com/kadiravciii/exa-research) — Admit candidate: README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分 (upstream accessible)
 - [`kohamster7758/extraction-gate`](https://github.com/kohamster7758/extraction-gate) — Gate chemistry and bioactivity data extraction with deterministic structural and numerical checks before saving. (upstream accessible)
 - [`kraksp/design-enclosure`](https://github.com/kraksp/design-enclosure) — Design parametric electronics enclosures with collision checks, layered previews, drawings and STEP export. (upstream accessible)
 - [`kznconsulting/gis-skills`](https://github.com/kznconsulting/gis-skills) — Audit point-layer positions against independent references and publish corrected-coordinate evidence. (upstream accessible)
 - [`labhoshi820-web/xact-research-skill`](https://github.com/labhoshi820-web/xact-research-skill) — Develop and independently verify Wolfram Language and xAct tensor calculations for gravity research. (upstream accessible)
 - [`Lancifonins/chem-skills`](https://github.com/Lancifonins/chem-skills) — Compound lookup and native ChemDraw creation skills, with an optional combined chemistry suite. (upstream accessible)
+- [`lhtrongai/research-direction-check`](https://github.com/lhtrongai/research-direction-check) — Admit candidate: README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分 (upstream accessible)
 - [`linlhf/robot-data-viewer`](https://github.com/linlhf/robot-data-viewer) — Inspect robot datasets and export camera videos or calibrated skeleton overlays with read-only source handling. (upstream accessible)
 - [`liuchang8877/physics-scene`](https://github.com/liuchang8877/physics-scene) — Create SVG animations of physical scenes and check contact, support, rolling and connected-joint relations. (upstream accessible)
 - [`liujycode/embedded-toolkit`](https://github.com/liujycode/embedded-toolkit) — liujycode/embedded-toolkit: current reviewed catalog count 5; see the fixed-snapshot distribution scope. Review: Offline embedded debugging expands to 12 trees and 77 nodes including FPGA/RTL. Further review: Adds 37 offline timing calculators and expands peripheral pitfalls to 25 categories and 148 entries. (upstream accessible)
@@ -2360,10 +2389,13 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`mvdypsis/i-have-dyslexia`](https://github.com/mvdypsis/i-have-dyslexia) — Adapt assistant communication, writing support, visual explanations, and planning to user-selected reading and working preferences. (upstream accessible)
 - [`neoxyz-99/Theory-to-Case-Lab`](https://github.com/neoxyz-99/Theory-to-Case-Lab) — Reconstruct theoretical texts, map scholarly reception, and connect theories to cases using separately labeled evidence and interpretation. (upstream accessible)
 - [`npaiadvisor/discovery`](https://github.com/npaiadvisor/discovery) — Guide nonprofit teams through scoping, environment discovery, assistant-shape selection, starter scaffolding, and operational handoff. (upstream accessible)
+- [`ObliviousOdin/health-research-council`](https://github.com/ObliviousOdin/health-research-council) — Admit candidate: README明确技能用途与安装/分发；代表SKILL含可执行研究工作流；许可证已固定读取（仅索引元数据） (upstream accessible)
 - [`Oweik/pcb-art-easyeda`](https://github.com/Oweik/pcb-art-easyeda) — EasyEDA PCB-art workflow for copper, solder-mask and silkscreen layers with Gerber draft validation. (upstream accessible)
 - [`PersianXM/persian-docx-skill`](https://github.com/PersianXM/persian-docx-skill) — Generate Persian Word documents with bidirectional paragraph controls, typography, spacing, and reusable color palettes. (upstream accessible)
+- [`pinion05/jolt-physics-skill`](https://github.com/pinion05/jolt-physics-skill) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`pugofka/growth-ideas-skill`](https://github.com/pugofka/growth-ideas-skill) — Research a company or product and develop sourced growth hypotheses with cheap experiments, scoring, and stopping criteria. (upstream accessible)
 - [`QWarranto/leafengines-hermes-skill`](https://github.com/QWarranto/leafengines-hermes-skill) — US agricultural intelligence for soils, water quality, crop recommendations and environmental indicators. (upstream accessible)
+- [`realnaka/claim-verification`](https://github.com/realnaka/claim-verification) — Admit candidate: README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分 (upstream accessible)
 - [`rhiza-research/chc-skills`](https://github.com/rhiza-research/chc-skills) — rhiza-research/chc-skills: current reviewed catalog count 15; see the fixed-snapshot distribution scope. Review: Climate skills add DWD ICON-EPS ensemble acquisition with explicit regridding and interval-rate contracts. (upstream accessible)
 - [`Rigjite/Ecosystem-Digital-Twin`](https://github.com/Rigjite/Ecosystem-Digital-Twin) — Design and audit ecosystem digital twins with data-quality gates, calibration, forecasts and monitoring plans. (upstream accessible)
 - [`robertriedel/POD2_Config_Skill`](https://github.com/robertriedel/POD2_Config_Skill) — Generate and validate SAP Digital Manufacturing POD 2.0 configurations using standard plugins and actions. (upstream accessible)
@@ -2387,6 +2419,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`twinforgelabs/OpenProof`](https://github.com/twinforgelabs/OpenProof) — Verify explicit web-app acceptance criteria with browser observations and traceable evidence reports. (unavailable; history preserved)
 - [`Walpolen/humanities-book-translation`](https://github.com/Walpolen/humanities-book-translation) — Translate and revise humanities books chapter by chapter with terminology decisions, source alignment, and versioned review packets. (upstream accessible)
 - [`wangxinyu20429-dotcom/zotero-obsidian-research-skills`](https://github.com/wangxinyu20429-dotcom/zotero-obsidian-research-skills) — Traceable hydrology-literature workflows linking Zotero imports, reading notes, Obsidian synthesis and paper ideas. (upstream accessible)
+- [`WenyuChiou/research-talk-coach`](https://github.com/WenyuChiou/research-talk-coach) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`WholeWhale/verified-giving-protocol`](https://github.com/WholeWhale/verified-giving-protocol) — Discover nonprofit giving destinations and produce reviewable Verified Giving Protocol declarations with evidence and human authorization boundaries. (upstream accessible)
 - [`yinum/analytical-skills`](https://github.com/yinum/analytical-skills) — Analytical-chemistry publishing workflows for literature, figures, statistics, manuscript writing and submission. (upstream accessible)
 - [`Zhimanaiyou/museum-archaeology-notebook`](https://github.com/Zhimanaiyou/museum-archaeology-notebook) — Turn museum-object photos into archaeological notebook artwork while retaining source shapes, inscriptions, and visual details. (upstream accessible)
@@ -2396,7 +2429,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>4. Infra (236)</summary>
+<summary>4. Infra (240)</summary>
 
 - [`morluto/rea`](https://github.com/morluto/rea) — morluto/rea: current reviewed catalog count 1; see the fixed-snapshot distribution scope. Review: REA expands static artifact inspection and evidence-preserving analysis optimization. (upstream accessible)
 - [`paperclipai/paperclip`](https://github.com/paperclipai/paperclip) — paperclipai/paperclip: current reviewed catalog count 多技能（9 root public skills; additional catalogs/plugins）; see the fixed-snapshot distribution scope. Review: Paperclip adds native-runner integration and end-to-end failed-run repair with explicit continuation scope. (upstream accessible)
@@ -2629,11 +2662,15 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`rhiza-research/weather-skills-core`](https://github.com/rhiza-research/weather-skills-core) — Developer infrastructure for composable weather skills, shared Zarr contracts, provenance, linting, and a skill-authoring guide. Review: Weather-skill authoring clarifies decorator-owned parsing, dataset inputs and version synchronization. (upstream accessible)
 - [`skillmds/skillmd`](https://github.com/skillmds/skillmd) — MIT-licensed SKILL.md registry toolchain: CLI, MCP server, linter, security scanner, quality scoring, and GitHub Action. (upstream accessible)
 - [`SkillsCatalog/registry`](https://github.com/SkillsCatalog/registry) — Community Agent Skills registry with creation, installation, search, validation, publishing and safety-scanning workflows. (upstream accessible)
+- [`arm-pz/caffeinity-skills`](https://github.com/arm-pz/caffeinity-skills) — Claude Code plugin marketplace and index for arm-pz skills. (upstream accessible)
 - [`arm-pz/prompts-to-skill`](https://github.com/arm-pz/prompts-to-skill) — Turn user-supplied prompt collections into reusable skills through intent discovery, overlap checks, drafting, test cases, and tuning gates. (upstream accessible)
+- [`Findskills/skillpi`](https://github.com/Findskills/skillpi) — SkillPi discovery/vetting registry for Claude Code, Cursor and Codex. (upstream accessible)
 - [`Hook12aaa/skill-cheat`](https://github.com/Hook12aaa/skill-cheat) — A staged skill-authoring pipeline with scoped design, immutable contracts, drafting, independent review, plugin scaffolding, and stress testing. (upstream accessible)
 - [`puniserv/skillcask`](https://github.com/puniserv/skillcask) — Lock and verify portable Agent Skill packages with Composer/GitHub sources and per-client install targets. (upstream accessible)
+- [`sananthanarayan/skilldrop`](https://github.com/sananthanarayan/skilldrop) — Portable role-pack skills with review gates and cross-client installer support. (upstream accessible)
 - [`skill-one/agents-skills`](https://github.com/skill-one/agents-skills) — MIT OR Apache-2.0 Rust library and CLI for installing and managing SKILL.md across 70+ coding agents. (upstream accessible)
 - [`srini047/skills-i8n`](https://github.com/srini047/skills-i8n) — Skill localization CLI preserving code blocks and companion files; three example skills are fixtures, not a production skill pack. (upstream accessible)
+- [`The-Utopia-Studio/skills`](https://github.com/The-Utopia-Studio/skills) — Operator-grade Utopia Studio marketplace with curated GTM, product, investment and founder skills. (upstream accessible)
 
 </details>
 
@@ -2667,7 +2704,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>6. Unnamed (158)</summary>
+<summary>6. Unnamed (189)</summary>
 
 - [`garrytan/gstack`](https://github.com/garrytan/gstack) — Garry Tan’s Claude Code virtual eng team: 23 role slash commands + 8 tools, all Markdown. (upstream accessible)
 - [`nextlevelbuilder/ui-ux-pro-max-skill`](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) — UI/UX design intelligence skill: 192 reasoning rules; installable on Claude/Cursor etc.; marketplace + CLI. (upstream accessible)
@@ -2822,11 +2859,42 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`onimusya/media-gen`](https://github.com/onimusya/media-gen) — Generate and edit images, create videos, synthesize speech, and transcribe audio through one multi-provider media CLI. (upstream accessible)
 - [`toby/flashback`](https://github.com/toby/flashback) — Design-history skill retrieving year-specific typography, palettes, and visual references from a published historical archive. (upstream accessible)
 - [`Aarekaz/transit-mcp`](https://github.com/Aarekaz/transit-mcp) — Plan transit trips and inspect arrivals, disruptions, accessibility outages, and vehicle positions in New York, Washington DC, and the Bay Area. (upstream accessible)
+- [`Wariowaqo/cs-skill-creator`](https://github.com/Wariowaqo/cs-skill-creator) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
+- [`yuanzheng10/business-analysis`](https://github.com/yuanzheng10/business-analysis) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
 - [`sya-ri/strata`](https://github.com/sya-ri/strata) — Author and review declarative Minecraft interfaces with Strata components, modifiers, reusable slots, and reactive state ownership. (upstream accessible)
+- [`Tissue-for-charlie/exam-kit`](https://github.com/Tissue-for-charlie/exam-kit) — Admit candidate: README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分 (upstream accessible)
+- [`cleatai/agent-skills`](https://github.com/cleatai/agent-skills) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
 - [`ericjy/markside`](https://github.com/ericjy/markside) — Open Markdown in Markside, collect review comments, and run interactive interviews in Chrome from a coding agent. (upstream accessible)
 - [`fcon-tech/portolan`](https://github.com/fcon-tech/portolan) — Codebase-survey product bundling an installable Portolan skill, MCP wiring, and source-anchored architecture charts. (upstream accessible)
+- [`verbatra/skills`](https://github.com/verbatra/skills) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
 - [`angri450/Nong.Dev.Net`](https://github.com/angri450/Nong.Dev.Net) — Developer toolkit distributed through GitHub/GitCode with Bash, PowerShell, .NET, Gitee, and GitCode skills; generic development tools. (upstream accessible)
+- [`arpe-io/arpeio-skills`](https://github.com/arpe-io/arpeio-skills) — Official skills for arpe.io products with portable integration guidance. (upstream accessible)
+- [`askdkc/kiokuko-dsh`](https://github.com/askdkc/kiokuko-dsh) — Kiokuko plugin and skills package for DeepSeek Harness. (upstream accessible)
+- [`blazingagents/skills`](https://github.com/blazingagents/skills) — Official Blazing Agents application-building skills. (upstream accessible)
+- [`coffeehc/xletter-skill`](https://github.com/coffeehc/xletter-skill) — Official xLetter agent-mailbox skill. (upstream accessible)
+- [`Comet32/skills`](https://github.com/Comet32/skills) — Portable personal skills collection installable into Claude Code, Codex, Cursor and other clients. (upstream accessible)
+- [`daniel-ospina/tortoise-skills-and-integrations`](https://github.com/daniel-ospina/tortoise-skills-and-integrations) — Official Tortoise epistemic-graph skills for reading, writing and reasoning over graphs. (upstream accessible)
+- [`duvoai/skills`](https://github.com/duvoai/skills) — Official Duvo operations skills for automating existing systems with AI agents. (upstream accessible)
+- [`elcoosp/skilldeck`](https://github.com/elcoosp/skilldeck) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
+- [`flashdatadev/flashdata-skills`](https://github.com/flashdatadev/flashdata-skills) — Official FlashData Google/YouTube research skills paired with FlashData MCP and CLI. (upstream accessible)
+- [`gaato/kbbi.mbt`](https://github.com/gaato/kbbi.mbt) — KBBI lookup library/CLI with an accompanying MoonBit agent skill. (upstream accessible)
+- [`helpingio/skills`](https://github.com/helpingio/skills) — Helping.io API integration skills installable into Claude Code, Cursor, Codex and compatible clients. (upstream accessible)
+- [`huangy7/outline-skill`](https://github.com/huangy7/outline-skill) — Outline knowledge-base management skill plus CLI tooling. (upstream accessible)
+- [`lazybirdai/skills`](https://github.com/lazybirdai/skills) — Official Lazybird voice, TTS and voice-design skill for agent clients. (upstream accessible)
+- [`masheev/skills`](https://github.com/masheev/skills) — Official Masheev integration skills for building applications. (upstream accessible)
+- [`nanocosmos/nanocosmos-skills`](https://github.com/nanocosmos/nanocosmos-skills) — Official nanoStream/nanoStudio live-streaming integration, diagnostics and analytics skills. (upstream accessible)
 - [`natdexterra/source-synthesis`](https://github.com/natdexterra/source-synthesis) — Evidence-graded corpus synthesis with archaeology/history and medical-scientific presets, claim inventories, and source traceability. (upstream accessible)
+- [`NPGameDev/godot-mcp-toolkit`](https://github.com/NPGameDev/godot-mcp-toolkit) — Godot editor plugin/MCP toolkit paired with a public agent skill. (upstream accessible)
+- [`protoLabsAI/langfuse-plugin`](https://github.com/protoLabsAI/langfuse-plugin) — protoAgent Langfuse plugin exposing an official skill and native tools for traces, prompts, datasets and evals. (upstream accessible)
+- [`pushmanhq/skills`](https://github.com/pushmanhq/skills) — Official Pushman skill/plugin package for intentional iPhone notifications from agents. (upstream accessible)
+- [`reviseio/skills`](https://github.com/reviseio/skills) — Official Revise MCP collaboration skills for documents and agent workflows. (upstream accessible)
+- [`runtypelabs/skills`](https://github.com/runtypelabs/skills) — Official Runtype platform skills. (upstream accessible)
+- [`suggestapi/skills`](https://github.com/suggestapi/skills) — Official skills teaching agents to integrate SuggestAPI search, commerce and discovery workflows. (upstream accessible)
+- [`TeamDev-IP/DotNetBrowser-Skill`](https://github.com/TeamDev-IP/DotNetBrowser-Skill) — Official DotNetBrowser .NET browser-component skill for WPF, WinForms, WinUI, Avalonia and console apps. (upstream accessible)
+- [`tmk241/hemx-skills`](https://github.com/tmk241/hemx-skills) — Official Hemx application-building skill for compatible coding agents. (upstream accessible)
+- [`TopCited/topcited-skills`](https://github.com/TopCited/topcited-skills) — TopCited SEO/GEO and API skills with guided visibility workflows. (upstream accessible)
+- [`trysolti/skills`](https://github.com/trysolti/skills) — Product-native agent skills candidate. (upstream accessible)
+- [`wilgon456/Paseobility`](https://github.com/wilgon456/Paseobility) — Reusable skills for projects, browsers, artifacts and connected computers. (upstream accessible)
 
 </details>
 <!-- END GENERATED:skill-repos -->
