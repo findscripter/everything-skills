@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-23（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part88
+- 编制日期：2026-10-24（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part89
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2673 条目录记录（按已核实的仓库 ID 去重；不可访问条目保留历史）
+- 收录条数：2741 条目录记录（按已核实的仓库 ID 去重；不可访问条目保留历史）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [part88 审核记录](../data/skill-repos.part88.audit.md)、[2026-10-23 当日回执](../data/discovery/2026-10-23/publication.json)、[part87 审核记录](../data/skill-repos.part87.audit.md)、[2026-10-22 当日回执](../data/discovery/2026-10-22/publication.json)、[part86 审核记录](../data/skill-repos.part86.audit.md)、[2026-10-21 当日回执](../data/discovery/2026-10-21/publication.json)、[part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [2026-10-24 审核记录](../data/discovery/2026-10-24/audit.md)、[逐项审核台账](../data/discovery/2026-10-24/audit.json)、[今日新增清单](../data/discovery/2026-10-24/additions.json)、[当日回执](../data/discovery/2026-10-24/publication.json)、[part89 审核记录](../data/skill-repos.part89.audit.md)、[part89 检索来源](../data/skill-repos.part89.search-provenance.json)、[part88 审核记录](../data/skill-repos.part88.audit.md)、[2026-10-23 当日回执](../data/discovery/2026-10-23/publication.json)、[part87 审核记录](../data/skill-repos.part87.audit.md)、[2026-10-22 当日回执](../data/discovery/2026-10-22/publication.json)、[part86 审核记录](../data/skill-repos.part86.audit.md)、[2026-10-21 当日回执](../data/discovery/2026-10-21/publication.json)、[part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -989,6 +989,10 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [American-Embedded/kistack](https://github.com/American-Embedded/kistack) | 408 | 编写和审查KiCad原理图、PCB布局、符号、封装、精确BOM零件、制造导出与Gerber。 | MIT-style source grant; American Embedded logo reproduction reserved | 10 | 仅索引 · 上游可访问 |
 | [agodianel/esp32-claude-workbench](https://github.com/agodianel/esp32-claude-workbench) | 79 | 审查ESP32架构、引脚及硬件限制，分析日志和崩溃转储，并规划针对目标板的固件测试。 | MIT (own workflows); ESP-IDF and other tools retain their licenses | 6 | 仅索引 · 上游可访问 |
 | [shangliny10-lab/embedded-skills](https://github.com/shangliny10-lab/embedded-skills) | 28 | 使用协议、Linux、Zephyr与调试参考流程开发STM32、Arduino/ESP32及RTOS项目。 | MIT (own guides/examples); SDKs and libraries retain their licenses | 8 | 仅索引 · 上游可访问 |
+| [buildpad-ai/skills](https://github.com/buildpad-ai/skills) | 0 | 准入：Buildpad source-of-truth skills bundled in project starters and installable into compatible coding agents. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 62 | 仅索引 · 上游可访问 |
+| [buriedsignals/spotlight](https://github.com/buriedsignals/spotlight) | 0 | 准入：OSINT investigation orchestrator with structured research and verification skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 26 | 仅索引 · 上游可访问 |
+| [escoffier-labs/skillet](https://github.com/escoffier-labs/skillet) | 4 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 56 | 仅索引 · 上游可访问 |
+| [ramp-public/skills](https://github.com/ramp-public/skills) | 0 | 准入：Ramp-maintained portable skills for cards, bill pay, procurement, travel, banking and accounting via Ramp tools/MCP/CLI. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 56 | 仅索引 · 上游可访问 |
 
 ## 3. 垂直领域技能包
 
@@ -2321,6 +2325,35 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [WholeWhale/verified-giving-protocol](https://github.com/WholeWhale/verified-giving-protocol) | 0 | 发现非营利捐赠入口，生成附证据且保留人工授权边界的 Verified Giving Protocol 声明草稿。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [Zwl20085/femm-agent-suite](https://github.com/Zwl20085/femm-agent-suite) | 0 | 面向磁场、静电、热流和电流场的 FEMM 建模及物理验证流程。 | MIT | 11 | 仅索引 · 上游可访问 |
 | [Zwl20085/jmag-agent-suite](https://github.com/Zwl20085/jmag-agent-suite) | 0 | JMAG-Designer 技能，覆盖电机设计、虚拟试验、电磁仿真和结果验证。 | MIT | 10 | 仅索引 · 上游可访问 |
+| [2710074390-cyber/medagentwork-skill](https://github.com/2710074390-cyber/medagentwork-skill) | 1 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [changzhanyou0215/codex-research-workflow](https://github.com/changzhanyou0215/codex-research-workflow) | 0 | 准入候选：README与固定代表 SKILL 已实读；许可证字节已绑定 | MIT | 56 | 仅索引 · 上游可访问 |
+| [ChenHsieh/agentic-research-toolkit](https://github.com/ChenHsieh/agentic-research-toolkit) | 0 | 准入候选：README明确技能用途与安装/分发；代表SKILL含可执行研究工作流；许可证已固定读取（仅索引元数据） | MIT | 11 | 仅索引 · 上游可访问 |
+| [DajunG-77/research-opportunity-graph-skill](https://github.com/DajunG-77/research-opportunity-graph-skill) | 4 | 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [DEnglish73/qualitative-research-skills](https://github.com/DEnglish73/qualitative-research-skills) | 0 | 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [dgagf111/multi-perspective-research](https://github.com/dgagf111/multi-perspective-research) | 0 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [earth-space-ai/cam-skill](https://github.com/earth-space-ai/cam-skill) | 1 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [earth-space-ai/ctsm-skill](https://github.com/earth-space-ai/ctsm-skill) | 3 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [earth-space-ai/jules-skill](https://github.com/earth-space-ai/jules-skill) | 1 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [earth-space-ai/mom6-skill](https://github.com/earth-space-ai/mom6-skill) | 1 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [earth-space-ai/parflow-skill](https://github.com/earth-space-ai/parflow-skill) | 1 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [earth-space-ai/vic-skill](https://github.com/earth-space-ai/vic-skill) | 0 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [earth-space-ai/wrf-skill](https://github.com/earth-space-ai/wrf-skill) | 2 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [ensommeille/research-vault-maintainer](https://github.com/ensommeille/research-vault-maintainer) | 4 | 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [ever-just/agentskills](https://github.com/ever-just/agentskills) | 5 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 174 | 仅索引 · 上游可访问 |
+| [geointelmining848/write-science-well](https://github.com/geointelmining848/write-science-well) | 0 | 准入候选：README明确技能用途与安装/分发；代表SKILL含可执行研究工作流；许可证已固定读取（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [gmoriki/higher-ed-ai-skills](https://github.com/gmoriki/higher-ed-ai-skills) | 5 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 15 | 仅索引 · 上游可访问 |
+| [HZDF-2026/research-enhancement-methodology](https://github.com/HZDF-2026/research-enhancement-methodology) | 1 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [kadiravciii/exa-research](https://github.com/kadiravciii/exa-research) | 0 | 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [lhtrongai/research-direction-check](https://github.com/lhtrongai/research-direction-check) | 0 | 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [ObliviousOdin/health-research-council](https://github.com/ObliviousOdin/health-research-council) | 0 | 准入候选：README明确技能用途与安装/分发；代表SKILL含可执行研究工作流；许可证已固定读取（仅索引元数据） | MIT | 9 | 仅索引 · 上游可访问 |
+| [open-legal-products/mike-workflows](https://github.com/open-legal-products/mike-workflows) | 89 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 100 | 仅索引 · 上游可访问 |
+| [pinion05/jolt-physics-skill](https://github.com/pinion05/jolt-physics-skill) | 0 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [realnaka/claim-verification](https://github.com/realnaka/claim-verification) | 0 | 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [shawndeng321/legal-academic-research-skills](https://github.com/shawndeng321/legal-academic-research-skills) | 3 | 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 | MIT | 3 | 仅索引 · 上游可访问 |
+| [victorvanpelt/research-skills](https://github.com/victorvanpelt/research-skills) | 1 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | NOASSERTION | 9 | 仅索引 · 上游可访问 |
+| [vosslab/vosslab-skills](https://github.com/vosslab/vosslab-skills) | 5 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 48 | 仅索引 · 上游可访问 |
+| [WenyuChiou/research-talk-coach](https://github.com/WenyuChiou/research-talk-coach) | 0 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
+| [yakeworld/Synthos](https://github.com/yakeworld/Synthos) | 6 | 准入候选：README 明确自主科研平台与 SKILL.md 分发；核心 hypothesis-generation 代表具 name/description；根 MIT 已固定读取。 | MIT | 158 | 仅索引 · 上游可访问 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -2562,6 +2595,10 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [aerince/deepseek-harness-plugin-authoring](https://github.com/aerince/deepseek-harness-plugin-authoring) | 1 | 依据版本化官方约定创建、调试、打包、核验并准备分发 DeepSeek Harness 插件。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [arm-pz/prompts-to-skill](https://github.com/arm-pz/prompts-to-skill) | 0 | 通过意图访谈、重叠检查、起草、测试用例和调优门槛，将用户提示词集合转换为复用技能。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [Hook12aaa/skill-cheat](https://github.com/Hook12aaa/skill-cheat) | 0 | 分阶段技能创作流程，覆盖范围设计、不可变约定、起草、独立审阅、插件搭建与压力测试。 | MIT AND Apache-2.0 | 6 | 仅索引 · 上游可访问 |
+| [arm-pz/caffeinity-skills](https://github.com/arm-pz/caffeinity-skills) | 0 | 准入：Claude Code plugin marketplace and index for arm-pz skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 54 | 仅索引 · 上游可访问 |
+| [Findskills/skillpi](https://github.com/Findskills/skillpi) | 0 | 准入：SkillPi discovery/vetting registry for Claude Code, Cursor and Codex. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [sananthanarayan/skilldrop](https://github.com/sananthanarayan/skilldrop) | 0 | 准入：Portable role-pack skills with review gates and cross-client installer support. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | NOASSERTION | 121 | 仅索引 · 上游可访问 |
+| [The-Utopia-Studio/skills](https://github.com/The-Utopia-Studio/skills) | 0 | 准入：Operator-grade Utopia Studio marketplace with curated GTM, product, investment and founder skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | NOASSERTION | 764 | 仅索引 · 上游可访问 |
 
 ## 5. 其他值得索引的技能库
 
@@ -2755,3 +2792,34 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [Aarekaz/transit-mcp](https://github.com/Aarekaz/transit-mcp) | 5 | 查询纽约、华盛顿和旧金山湾区的公共交通路线、到站信息、运营中断、无障碍设施故障与车辆位置。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [sya-ri/strata](https://github.com/sya-ri/strata) | 4 | 使用 Strata 组件、修饰器、可复用插槽与响应式状态归属编写和审查声明式 Minecraft 界面。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [ericjy/markside](https://github.com/ericjy/markside) | 1 | 让编码 Agent 在 Chrome 中用 Markside 打开 Markdown、收集审阅评论并进行交互式访谈。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [arpe-io/arpeio-skills](https://github.com/arpe-io/arpeio-skills) | 0 | 准入：Official skills for arpe.io products with portable integration guidance. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 5 | 仅索引 · 上游可访问 |
+| [askdkc/kiokuko-dsh](https://github.com/askdkc/kiokuko-dsh) | 0 | 准入：Kiokuko plugin and skills package for DeepSeek Harness. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 18 | 仅索引 · 上游可访问 |
+| [blazingagents/skills](https://github.com/blazingagents/skills) | 0 | 准入：Official Blazing Agents application-building skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [cleatai/agent-skills](https://github.com/cleatai/agent-skills) | 1 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 12 | 仅索引 · 上游可访问 |
+| [coffeehc/xletter-skill](https://github.com/coffeehc/xletter-skill) | 0 | 准入：Official xLetter agent-mailbox skill. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [Comet32/skills](https://github.com/Comet32/skills) | 0 | 准入：Portable personal skills collection installable into Claude Code, Codex, Cursor and other clients. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 3 | 仅索引 · 上游可访问 |
+| [daniel-ospina/tortoise-skills-and-integrations](https://github.com/daniel-ospina/tortoise-skills-and-integrations) | 0 | 准入：Official Tortoise epistemic-graph skills for reading, writing and reasoning over graphs. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 3 | 仅索引 · 上游可访问 |
+| [duvoai/skills](https://github.com/duvoai/skills) | 0 | 准入：Official Duvo operations skills for automating existing systems with AI agents. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 10 | 仅索引 · 上游可访问 |
+| [elcoosp/skilldeck](https://github.com/elcoosp/skilldeck) | 0 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 3 | 仅索引 · 上游可访问 |
+| [flashdatadev/flashdata-skills](https://github.com/flashdatadev/flashdata-skills) | 0 | 准入：Official FlashData Google/YouTube research skills paired with FlashData MCP and CLI. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 16 | 仅索引 · 上游可访问 |
+| [gaato/kbbi.mbt](https://github.com/gaato/kbbi.mbt) | 0 | 准入：KBBI lookup library/CLI with an accompanying MoonBit agent skill. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | NOASSERTION | 1 | 仅索引 · 上游可访问 |
+| [helpingio/skills](https://github.com/helpingio/skills) | 0 | 准入：Helping.io API integration skills installable into Claude Code, Cursor, Codex and compatible clients. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [huangy7/outline-skill](https://github.com/huangy7/outline-skill) | 0 | 准入：Outline knowledge-base management skill plus CLI tooling. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [lazybirdai/skills](https://github.com/lazybirdai/skills) | 0 | 准入：Official Lazybird voice, TTS and voice-design skill for agent clients. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [masheev/skills](https://github.com/masheev/skills) | 0 | 准入：Official Masheev integration skills for building applications. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | NOASSERTION | 15 | 仅索引 · 上游可访问 |
+| [nanocosmos/nanocosmos-skills](https://github.com/nanocosmos/nanocosmos-skills) | 0 | 准入：Official nanoStream/nanoStudio live-streaming integration, diagnostics and analytics skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | NOASSERTION | 5 | 仅索引 · 上游可访问 |
+| [NPGameDev/godot-mcp-toolkit](https://github.com/NPGameDev/godot-mcp-toolkit) | 0 | 准入：Godot editor plugin/MCP toolkit paired with a public agent skill. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [protoLabsAI/langfuse-plugin](https://github.com/protoLabsAI/langfuse-plugin) | 0 | 准入：protoAgent Langfuse plugin exposing an official skill and native tools for traces, prompts, datasets and evals. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [pushmanhq/skills](https://github.com/pushmanhq/skills) | 0 | 准入：Official Pushman skill/plugin package for intentional iPhone notifications from agents. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [reviseio/skills](https://github.com/reviseio/skills) | 0 | 准入：Official Revise MCP collaboration skills for documents and agent workflows. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 6 | 仅索引 · 上游可访问 |
+| [runtypelabs/skills](https://github.com/runtypelabs/skills) | 0 | 准入：Official Runtype platform skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 13 | 仅索引 · 上游可访问 |
+| [suggestapi/skills](https://github.com/suggestapi/skills) | 0 | 准入：Official skills teaching agents to integrate SuggestAPI search, commerce and discovery workflows. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 8 | 仅索引 · 上游可访问 |
+| [TeamDev-IP/DotNetBrowser-Skill](https://github.com/TeamDev-IP/DotNetBrowser-Skill) | 0 | 准入：Official DotNetBrowser .NET browser-component skill for WPF, WinForms, WinUI, Avalonia and console apps. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | NOASSERTION | 1 | 仅索引 · 上游可访问 |
+| [Tissue-for-charlie/exam-kit](https://github.com/Tissue-for-charlie/exam-kit) | 3 | 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [tmk241/hemx-skills](https://github.com/tmk241/hemx-skills) | 0 | 准入：Official Hemx application-building skill for compatible coding agents. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [TopCited/topcited-skills](https://github.com/TopCited/topcited-skills) | 0 | 准入：TopCited SEO/GEO and API skills with guided visibility workflows. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 3 | 仅索引 · 上游可访问 |
+| [trysolti/skills](https://github.com/trysolti/skills) | 0 | 准入：产品原生/SDK/CLI/技能分发仓库 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [verbatra/skills](https://github.com/verbatra/skills) | 1 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 3 | 仅索引 · 上游可访问 |
+| [Wariowaqo/cs-skill-creator](https://github.com/Wariowaqo/cs-skill-creator) | 5 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [wilgon456/Paseobility](https://github.com/wilgon456/Paseobility) | 0 | 准入：Reusable skills for projects, browsers, artifacts and connected computers. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 11 | 仅索引 · 上游可访问 |
+| [yuanzheng10/business-analysis](https://github.com/yuanzheng10/business-analysis) | 5 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 1 | 仅索引 · 上游可访问 |

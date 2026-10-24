@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-24",
+  "timezone": "Asia/Shanghai",
+  "queries": [
+    {
+      "report": "product-candidates.json",
+      "queries": [
+        "\"official agent skills\" pushed:>=2026-10-20",
+        "\"skills marketplace\" pushed:>=2026-10-20",
+        "\"install into Claude Code\" skills pushed:>=2026-10-20",
+        "\"agent skills for\" in:readme pushed:>=2026-10-20",
+        "\"Agent Skills\" \"MIT License\" in:readme pushed:>=2026-10-20",
+        "\"npx skills add\" \"MIT\" in:readme pushed:>=2026-10-20"
+      ],
+      "report_sha256": "b164bbdb09dbd7033a2273b8b92580eb08fb6be4a8b4245cd831d5666c7f6f51"
+    },
+    {
+      "report": "science-candidates.json",
+      "queries": [],
+      "report_sha256": "fdec82840311f07c35d5412549a119f74d5c1cff55ec5d3f0f6f467abb69647e"
+    },
+    {
+      "report": "workflow-candidates.json",
+      "queries": [
+        "\"SKILL.md\" accessibility",
+        "\"SKILL.md\" business",
+        "\"SKILL.md\" government",
+        "\"SKILL.md\" humanities",
+        "\"SKILL.md\" translation",
+        "\"SKILL.md\" workflow"
+      ],
+      "report_sha256": "cb60d5fce179eae6158648f398ab9de1895913c3b32c66add20f342bbad09cfa"
+    },
+    {
+      "report": "workflow-candidates-stage2.json",
+      "queries": [
+        "\"SKILL.md\" accessibility",
+        "\"SKILL.md\" business",
+        "\"SKILL.md\" government",
+        "\"SKILL.md\" humanities",
+        "\"SKILL.md\" translation",
+        "\"SKILL.md\" workflow"
+      ],
+      "report_sha256": "a77fc6b2d6857a0d9c2a8ec65b794822e6b0b2fd6e77bbb0956191742b36e13f"
+    }
+  ],
+  "accepted_count": 68,
+  "hold_count": 3,
+  "baseline_repository_id_sha256": "3c95b88ea250fef29098e86494221e8c4de46993e3034b961e286afe3e8d2d95",
+  "agent_reach_executable": "unavailable",
+  "fallback": "Official GitHub API and git fixed-object/codeload verification; no credentials emitted.",
+  "scope": "Discovery query metadata only; accepted evidence is in discovery/2026-10-24/additions.json and audit.json."
+}
