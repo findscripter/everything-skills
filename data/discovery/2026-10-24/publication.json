@@ -12,7 +12,7 @@
   "final_rows": 2741,
   "final_resolved_repository_ids": 2723,
   "gap": 0,
-  "status": "ready-for-publication",
+  "status": "published",
   "agent_reach_executable": "unavailable; official GitHub API/git fallback used",
   "queries": [
     {
@@ -78,6 +78,21 @@
   },
   "source_head": "3b79ad8",
   "zh_source_head": "ab9634f",
-  "ci_pending": true,
-  "publication_note": "Local verification complete; PR/CI publication pending."
+  "ci_pending": false,
+  "publication_note": "Merged to main and zh after successful CI; local user README change was preserved.",
+  "publication_status": "published",
+  "pull_requests": {
+    "main": {
+      "number": 53,
+      "url": "https://github.com/findscripter/everything-skills/pull/53",
+      "merge_commit": "ab4fbebd0e70e4439d8ab74508c9e3d6fd6d4bb7",
+      "ci_conclusion": "success"
+    },
+    "zh": {
+      "number": 54,
+      "url": "https://github.com/findscripter/everything-skills/pull/54",
+      "merge_commit": "91986a6f35dd49447273ea97aff18031321c59c3",
+      "ci_conclusion": "success"
+    }
+  }
 }
