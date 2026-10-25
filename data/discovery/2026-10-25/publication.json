@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "timezone": "Asia/Shanghai",
+  "baseline_rows": 2741,
+  "baseline_repository_ids": 2723,
+  "target_new_independent_repositories": 50,
+  "raw_unique_accepted_candidates": 75,
+  "accepted_count": 54,
+  "hold_or_error_count": 21,
+  "duplicate_against_baseline_count": 0,
+  "final_rows": 2795,
+  "final_resolved_repository_ids": 2777,
+  "gap": 0,
+  "status": "ready-for-build",
+  "agent_reach_executable": "unavailable; official GitHub API/git fallback used",
+  "accepted_file": "additions.json",
+  "errors_file": "verification-errors.json"
+}
