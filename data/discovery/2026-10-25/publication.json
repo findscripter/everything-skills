@@ -12,8 +12,28 @@
   "final_rows": 2795,
   "final_resolved_repository_ids": 2777,
   "gap": 0,
-  "status": "ready-for-build",
+  "status": "ready-for-publication",
   "agent_reach_executable": "unavailable; official GitHub API/git fallback used",
   "accepted_file": "additions.json",
-  "errors_file": "verification-errors.json"
+  "errors_file": "verification-errors.json",
+  "local_validation": {
+    "main": [
+      "build --lang=en: exit 0",
+      "npm test: 73/73",
+      "check:provenance: exit 0",
+      "check:assets: exit 0",
+      "check-generated --lang=en: exit 0"
+    ],
+    "zh": [
+      "build --lang=zh: exit 0",
+      "npm test: 73/73",
+      "check:provenance: exit 0",
+      "check:assets: exit 0",
+      "check-generated --lang=zh: exit 0"
+    ]
+  },
+  "source_head": "439ace6",
+  "zh_source_head": "62793bf",
+  "ci_pending": true,
+  "publication_note": "Local verification complete; PR/CI publication pending."
 }
