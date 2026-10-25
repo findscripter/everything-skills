@@ -8,7 +8,8 @@
     "fixed-reference": 436,
     "native": 14,
     "ambiguous-fixed-candidates": 11,
-    "snapshot-unavailable": 5
+    "snapshot-unavailable": 5,
+    "needs-review": 1
   },
   "skills": [
     {
@@ -20964,6 +20965,18 @@
       }
     },
     {
+      "name": "plan-ledger-tasks-yylo",
+      "local_path": "07-productivity/plan-ledger-tasks-yylo/SKILL.md",
+      "local_sha256": "d4bfe38173093fa8a735347923c42672371aaa6d78beefd990618b9e11532ae1",
+      "kind": "curated",
+      "declared_license": "MIT",
+      "source_repository": "yylo-dev/yylo-skills",
+      "declared_source_license": "MIT",
+      "origin_revision_status": "unrecorded",
+      "origin_commit_sha": null,
+      "reference_status": "needs-review"
+    },
+    {
       "name": "prd-spec-writer",
       "local_path": "07-productivity/prd-spec-writer/SKILL.md",
       "local_sha256": "213f98a4a5bc5eaccb8fe7fd312cbcaf27372f5274b25e3581645185020d7d29",
@@ -37894,5 +37907,5 @@
       }
     }
   ],
-  "refreshed_at": "2026-10-23T09:30:05.172Z"
+  "refreshed_at": "2026-10-25T06:46:21.512Z"
 }
