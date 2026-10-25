@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "timezone": "Asia/Shanghai",
+  "source_head": "0db700c46135e1c1e9b9702e47c2e697b7e1aa5a",
+  "rows": 2741,
+  "resolved_repository_ids": 2723,
+  "unavailable_rows": 19,
+  "repository_id_sha256": "b270b236941362f12522429c2caeab8411a27de4ff0cb08fde22c4fc2a91a399",
+  "scope": "Daily new independent repository baseline before 2026-10-25 collection; current review updates and aliases do not count as additions.",
+  "target_new_independent_repositories": 50
+}
