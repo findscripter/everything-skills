@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "timezone": "Asia/Shanghai",
+  "reports": [
+    "product-candidates.json",
+    "science-candidates.json",
+    "workflow-candidates-final.json",
+    "independent-candidates-stage.json"
+  ],
+  "report_sha256": {
+    "product-candidates.json": "0b8cb57c133a81822eb99ed317996ff25fe15adeff1fb1c124be736e57c85f12",
+    "science-candidates.json": "56ea556579e4615774da24ed5716d5059486e10e9b0a8fbbb879fc0c064a8b87",
+    "workflow-candidates-final.json": "9f7dcd1beb3fb7ebaaebcb5c24b9acc73a0d32a82a4aa6dfb3f16e9d38368a17",
+    "independent-candidates-stage.json": "bd3206767ad68cb22580f5a678133400e44c9d7f73f8d41ece06f9304102a0ee"
+  },
+  "agent_reach_executable": "unavailable",
+  "fallback": "Official GitHub API/git fixed objects; no credentials emitted."
+}

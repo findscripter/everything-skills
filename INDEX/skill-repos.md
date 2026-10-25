@@ -6,12 +6,12 @@
 
 标注哪些已被 [findscripter/everything-skills](https://github.com/findscripter/everything-skills) 采编进技能正文（见 INDEX/sources.md）。
 
-- 编制日期：2026-10-24（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part89
+- 编制日期：2026-10-25（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part90
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：2741 条目录记录（按已核实的仓库 ID 去重；不可访问条目保留历史）
+- 收录条数：2795 条目录记录（按已核实的仓库 ID 去重；不可访问条目保留历史）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
-范围扩展与本轮候选核验见 [2026-10-24 审核记录](../data/discovery/2026-10-24/audit.md)、[逐项审核台账](../data/discovery/2026-10-24/audit.json)、[今日新增清单](../data/discovery/2026-10-24/additions.json)、[当日回执](../data/discovery/2026-10-24/publication.json)、[part89 审核记录](../data/skill-repos.part89.audit.md)、[part89 检索来源](../data/skill-repos.part89.search-provenance.json)、[part88 审核记录](../data/skill-repos.part88.audit.md)、[2026-10-23 当日回执](../data/discovery/2026-10-23/publication.json)、[part87 审核记录](../data/skill-repos.part87.audit.md)、[2026-10-22 当日回执](../data/discovery/2026-10-22/publication.json)、[part86 审核记录](../data/skill-repos.part86.audit.md)、[2026-10-21 当日回执](../data/discovery/2026-10-21/publication.json)、[part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
+范围扩展与本轮候选核验见 [2026-10-25 审核记录](../data/discovery/2026-10-25/audit.md)、[逐项审核台账](../data/discovery/2026-10-25/audit.json)、[今日新增清单](../data/discovery/2026-10-25/additions.json)、[当日回执](../data/discovery/2026-10-25/publication.json)、[part90 审核记录](../data/skill-repos.part90.audit.md)、[part90 检索来源](../data/skill-repos.part90.search-provenance.json)、[2026-10-24 审核记录](../data/discovery/2026-10-24/audit.md)、[逐项审核台账](../data/discovery/2026-10-24/audit.json)、[今日新增清单](../data/discovery/2026-10-24/additions.json)、[当日回执](../data/discovery/2026-10-24/publication.json)、[part89 审核记录](../data/skill-repos.part89.audit.md)、[part89 检索来源](../data/skill-repos.part89.search-provenance.json)、[part88 审核记录](../data/skill-repos.part88.audit.md)、[2026-10-23 当日回执](../data/discovery/2026-10-23/publication.json)、[part87 审核记录](../data/skill-repos.part87.audit.md)、[2026-10-22 当日回执](../data/discovery/2026-10-22/publication.json)、[part86 审核记录](../data/skill-repos.part86.audit.md)、[2026-10-21 当日回执](../data/discovery/2026-10-21/publication.json)、[part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
 
 ## 检索与截断
 
@@ -2354,6 +2354,7 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [vosslab/vosslab-skills](https://github.com/vosslab/vosslab-skills) | 5 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 48 | 仅索引 · 上游可访问 |
 | [WenyuChiou/research-talk-coach](https://github.com/WenyuChiou/research-talk-coach) | 0 | 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） | MIT | 1 | 仅索引 · 上游可访问 |
 | [yakeworld/Synthos](https://github.com/yakeworld/Synthos) | 6 | 准入候选：README 明确自主科研平台与 SKILL.md 分发；核心 hypothesis-generation 代表具 name/description；根 MIT 已固定读取。 | MIT | 158 | 仅索引 · 上游可访问 |
+| [ite-rate/Skillbank](https://github.com/ite-rate/Skillbank) | 1 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 1 | 仅索引 · 上游可访问 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -2599,6 +2600,49 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [Findskills/skillpi](https://github.com/Findskills/skillpi) | 0 | 准入：SkillPi discovery/vetting registry for Claude Code, Cursor and Codex. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [sananthanarayan/skilldrop](https://github.com/sananthanarayan/skilldrop) | 0 | 准入：Portable role-pack skills with review gates and cross-client installer support. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | NOASSERTION | 121 | 仅索引 · 上游可访问 |
 | [The-Utopia-Studio/skills](https://github.com/The-Utopia-Studio/skills) | 0 | 准入：Operator-grade Utopia Studio marketplace with curated GTM, product, investment and founder skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | NOASSERTION | 764 | 仅索引 · 上游可访问 |
+| [aideploytutor/skill-deploy-share](https://github.com/aideploytutor/skill-deploy-share) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 13 | 仅索引 · 上游可访问 |
+| [alivirgo/Major-AI-Skills](https://github.com/alivirgo/Major-AI-Skills) | 2 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 465 | 仅索引 · 上游可访问 |
+| [antshkvr/skillward](https://github.com/antshkvr/skillward) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 48 | 仅索引 · 上游可访问 |
+| [Arcturus91/claude-flutter-skill](https://github.com/Arcturus91/claude-flutter-skill) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [artemasmith/skillsentinel](https://github.com/artemasmith/skillsentinel) | 2 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 26 | 仅索引 · 上游可访问 |
+| [BingZi-233/estival](https://github.com/BingZi-233/estival) | 6 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT License | 1 | 仅索引 · 上游可访问 |
+| [CaseYwY/skills](https://github.com/CaseYwY/skills) | 2 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [contextosai/skills](https://github.com/contextosai/skills) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 20 | 仅索引 · 上游可访问 |
+| [craftbag/craftbag](https://github.com/craftbag/craftbag) | 2 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 2 | 仅索引 · 上游可访问 |
+| [cskwork/skill-curator](https://github.com/cskwork/skill-curator) | 1 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 1 | 仅索引 · 上游可访问 |
+| [dialling/skillhub](https://github.com/dialling/skillhub) | 3 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [ducdg88/ducpt-skills](https://github.com/ducdg88/ducpt-skills) | 8 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 14 | 仅索引 · 上游可访问 |
+| [eli-alvarado/us-watchlist-alerts](https://github.com/eli-alvarado/us-watchlist-alerts) | 2 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 3 | 仅索引 · 上游可访问 |
+| [enthrium/open-enthrium-ai-agent-runtime](https://github.com/enthrium/open-enthrium-ai-agent-runtime) | 2 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 38 | 仅索引 · 上游可访问 |
+| [GhostPawJS/grimoire](https://github.com/GhostPawJS/grimoire) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 10 | 仅索引 · 上游可访问 |
+| [GipityAI/skills](https://github.com/GipityAI/skills) | 3 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 12 | 仅索引 · 上游可访问 |
+| [Ijam18/MAJI-Skills](https://github.com/Ijam18/MAJI-Skills) | 19 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 16 | 仅索引 · 上游可访问 |
+| [justhandledlabs/skills](https://github.com/justhandledlabs/skills) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 26 | 仅索引 · 上游可访问 |
+| [kesslernity/awesome-copilot-office-skills](https://github.com/kesslernity/awesome-copilot-office-skills) | 1 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 24 | 仅索引 · 上游可访问 |
+| [kryptophonik/SRE-Skills](https://github.com/kryptophonik/SRE-Skills) | 4 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 82 | 仅索引 · 上游可访问 |
+| [letsloose501/sqs-skills](https://github.com/letsloose501/sqs-skills) | 4 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 1 | 仅索引 · 上游可访问 |
+| [longwave-ai-lab/anti-slop-ai-harness](https://github.com/longwave-ai-lab/anti-slop-ai-harness) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [mehulpatel23b-pixel/skill-doctor](https://github.com/mehulpatel23b-pixel/skill-doctor) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [midasmatterhorn/artcraft-skills](https://github.com/midasmatterhorn/artcraft-skills) | 40 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 13 | 仅索引 · 上游可访问 |
+| [migmcc/agent-skill-quality-gate](https://github.com/migmcc/agent-skill-quality-gate) | 2 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 4 | 仅索引 · 上游可访问 |
+| [omrehbein/agent-skills](https://github.com/omrehbein/agent-skills) | 2 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 2 | 仅索引 · 上游可访问 |
+| [pchuri/agent-skills](https://github.com/pchuri/agent-skills) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 5 | 仅索引 · 上游可访问 |
+| [PIsberg/skill3](https://github.com/PIsberg/skill3) | 6 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [rafeblandford/skills](https://github.com/rafeblandford/skills) | 2 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 10 | 仅索引 · 上游可访问 |
+| [Raisecornfritter28/mvsd-ai-skills](https://github.com/Raisecornfritter28/mvsd-ai-skills) | 2 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [realdreamer/agent-skills](https://github.com/realdreamer/agent-skills) | 2 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 1 | 仅索引 · 上游可访问 |
+| [RudrenduPaul/skillguard](https://github.com/RudrenduPaul/skillguard) | 2 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | Apache-2.0 | 9 | 仅索引 · 上游可访问 |
+| [Sagargupta16/skillcheck](https://github.com/Sagargupta16/skillcheck) | 5 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [Spoon94/skill-vault](https://github.com/Spoon94/skill-vault) | 5 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 63 | 仅索引 · 上游可访问 |
+| [stanleys12/skilljail](https://github.com/stanleys12/skilljail) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | Apache-2.0 | 9 | 仅索引 · 上游可访问 |
+| [theultimate-dev/skills](https://github.com/theultimate-dev/skills) | 2 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 25 | 仅索引 · 上游可访问 |
+| [TingdeLiu/Tyndall-Skills](https://github.com/TingdeLiu/Tyndall-Skills) | 5 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 54 | 仅索引 · 上游可访问 |
+| [uygnoey/skills-from-claude-blog](https://github.com/uygnoey/skills-from-claude-blog) | 4 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 295 | 仅索引 · 上游可访问 |
+| [vorlaxen-labs/agent-skills](https://github.com/vorlaxen-labs/agent-skills) | 6 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [wanderlima/agent-skills](https://github.com/wanderlima/agent-skills) | 1 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 4 | 仅索引 · 上游可访问 |
+| [wintermuted/playdate-skills](https://github.com/wintermuted/playdate-skills) | 2 | 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | NOASSERTION | 3 | 仅索引 · 上游可访问 |
+| [Wolfe-Jam/faf-skills](https://github.com/Wolfe-Jam/faf-skills) | 4 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 7 | 仅索引 · 上游可访问 |
+| [xu-jin-cs/dsh-skills](https://github.com/xu-jin-cs/dsh-skills) | 1 | 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 | NOASSERTION | 74 | 仅索引 · 上游可访问 |
 
 ## 5. 其他值得索引的技能库
 
@@ -2823,3 +2867,13 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 | [Wariowaqo/cs-skill-creator](https://github.com/Wariowaqo/cs-skill-creator) | 5 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [wilgon456/Paseobility](https://github.com/wilgon456/Paseobility) | 0 | 准入：Reusable skills for projects, browsers, artifacts and connected computers. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 | MIT | 11 | 仅索引 · 上游可访问 |
 | [yuanzheng10/business-analysis](https://github.com/yuanzheng10/business-analysis) | 5 | 固定快照含 README、许可证及带 name/description 的公开 SKILL.md，可进入元数据候选；未执行技能。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [arifszn/slide-wright](https://github.com/arifszn/slide-wright) | 63 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [breakstageaxe61/genspark-claw](https://github.com/breakstageaxe61/genspark-claw) | 538 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 5 | 仅索引 · 上游可访问 |
+| [chenf888/TMT-game-generator](https://github.com/chenf888/TMT-game-generator) | 4 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [jidekaixin2dian/fps-tune](https://github.com/jidekaixin2dian/fps-tune) | 10 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [Marsjunwang/nblane](https://github.com/Marsjunwang/nblane) | 5 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 5 | 仅索引 · 上游可访问 |
+| [nanaism/yomiyasu-mini](https://github.com/nanaism/yomiyasu-mini) | 7 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [nordsym/apiclaw](https://github.com/nordsym/apiclaw) | 8 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [Octonove/invokard-studio](https://github.com/Octonove/invokard-studio) | 3 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [open-deck-org/opendeck](https://github.com/open-deck-org/opendeck) | 3 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [TNT-Likely/honeycomb](https://github.com/TNT-Likely/honeycomb) | 2 | 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 4 | 仅索引 · 上游可访问 |
