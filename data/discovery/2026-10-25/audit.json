@@ -1,0 +1,690 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "baseline": {
+    "schema_version": 1,
+    "date": "2026-10-25",
+    "timezone": "Asia/Shanghai",
+    "source_head": "0db700c46135e1c1e9b9702e47c2e697b7e1aa5a",
+    "rows": 2741,
+    "resolved_repository_ids": 2723,
+    "unavailable_rows": 19,
+    "repository_id_sha256": "b270b236941362f12522429c2caeab8411a27de4ff0cb08fde22c4fc2a91a399",
+    "scope": "Daily new independent repository baseline before 2026-10-25 collection; current review updates and aliases do not count as additions.",
+    "target_new_independent_repositories": 50
+  },
+  "summary": {
+    "schema_version": 1,
+    "date": "2026-10-25",
+    "timezone": "Asia/Shanghai",
+    "baseline_rows": 2741,
+    "baseline_repository_ids": 2723,
+    "target_new_independent_repositories": 50,
+    "raw_unique_accepted_candidates": 75,
+    "accepted_count": 54,
+    "hold_or_error_count": 21,
+    "duplicate_against_baseline_count": 0,
+    "final_rows": 2795,
+    "final_resolved_repository_ids": 2777,
+    "gap": 0,
+    "status": "ready-for-build",
+    "agent_reach_executable": "unavailable; official GitHub API/git fallback used",
+    "accepted_file": "additions.json",
+    "errors_file": "verification-errors.json"
+  },
+  "accepted": [
+    {
+      "full_name": "aideploytutor/skill-deploy-share",
+      "repository_id": 1415121145,
+      "commit": "824bcca9fb669a5d1f79e3e77cb04c68fe387221",
+      "tree": "824bcca9fb669a5d1f79e3e77cb04c68fe387221",
+      "skill_count": "13",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "488e4981595f7e00dc5b4deffa9e157abd929cc6032d3ca6e72db60774699fb3"
+    },
+    {
+      "full_name": "alivirgo/Major-AI-Skills",
+      "repository_id": 1317337295,
+      "commit": "81b4d751980dfb22aa846f0b2eddc04430e4427f",
+      "tree": "2434a59aecf25d48a6c6c49d6323609091cde71f",
+      "skill_count": "465",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "0a213912edd28eaf7c23d54d53e4392bba2c65beb225829d49311db80de0c7d2"
+    },
+    {
+      "full_name": "antshkvr/skillward",
+      "repository_id": 1425935859,
+      "commit": "826e4f0d4bdf118758a4dfc19c34c65c03051e01",
+      "tree": "826e4f0d4bdf118758a4dfc19c34c65c03051e01",
+      "skill_count": "48",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "620d6f127e47910b4b26db34fbc290e43e933d58cb52888a7f97a20ec230abb7"
+    },
+    {
+      "full_name": "Arcturus91/claude-flutter-skill",
+      "repository_id": 1274171920,
+      "commit": "a6c8d676c8de1a65306deb8076a007a7ecd33fdb",
+      "tree": "a6c8d676c8de1a65306deb8076a007a7ecd33fdb",
+      "skill_count": "1",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "6b82e15be3fc34204e756a4e61b7c342a0fada46c257bc93971a809476dd3c83"
+    },
+    {
+      "full_name": "arifszn/slide-wright",
+      "repository_id": 1270170443,
+      "commit": "a751585b43353b6b9320a97106b59b9dea7ce817",
+      "tree": "3024d457421c222a95e3d92224136c582a5cd733",
+      "skill_count": "2",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "97eb975b89e3dd84d9a88c346bb4313519e529403a8d04862d7c3dd68dbd77aa"
+    },
+    {
+      "full_name": "artemasmith/skillsentinel",
+      "repository_id": 1410850104,
+      "commit": "1751ee141e9e12cbadfdb3a7455309ef73e75e32",
+      "tree": "1751ee141e9e12cbadfdb3a7455309ef73e75e32",
+      "skill_count": "26",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "5d8771f1522d56344da4b1e9b79e37c10ae9cda67d13d048376842a8d3fe7519"
+    },
+    {
+      "full_name": "BingZi-233/estival",
+      "repository_id": 1276998819,
+      "commit": "d96562146cd4a3c0360aaf959040e1b0c8a8603b",
+      "tree": "8388273a74897b6ae1a4d864a3c861524e8613e4",
+      "skill_count": "1",
+      "section": "infra",
+      "license": "MIT License",
+      "readme_sha256": "d837d0abe9de302c7881815a56b0bf03579d5946e6506467f59e1fb206763467"
+    },
+    {
+      "full_name": "breakstageaxe61/genspark-claw",
+      "repository_id": 1388388953,
+      "commit": "5669df491136acfba14713c0cc9d5386af3ed186",
+      "tree": "709ac63813afa072d89c8be81a3a353742c3130d",
+      "skill_count": "5",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "09515d8396d20890f9e40b3a85607893ece1c1d6700a0bc6ab052265a0353a8c"
+    },
+    {
+      "full_name": "CaseYwY/skills",
+      "repository_id": 1424382703,
+      "commit": "c1851e8ae4a515c7e2b8e88aa5c5cc44bc02a510",
+      "tree": "14e934a823b4cebbce12baa2ac39159914083f11",
+      "skill_count": "1",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "a787d6e684ff7e4326e192263d4b6c8f291fbe736952276dcfe62b8e224bea0c"
+    },
+    {
+      "full_name": "chenf888/TMT-game-generator",
+      "repository_id": 1401272592,
+      "commit": "49992821a0ebfdaea9a7865c46057a57894d85b7",
+      "tree": "005e079f923a75b19e4aa1b3c1b2d7d2246890b3",
+      "skill_count": "1",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "7ee03d110036a624e0bc0345179eed69694aff00f7b4bbc6367db45cbe6a0a25"
+    },
+    {
+      "full_name": "contextosai/skills",
+      "repository_id": 1254971199,
+      "commit": "43b8276ae4a34549906dec6c848cbab4ba32f99a",
+      "tree": "43b8276ae4a34549906dec6c848cbab4ba32f99a",
+      "skill_count": "20",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "38f8ad7874ccfa8c1e00cb1b5967e37c6446c352eba599a39467241d6fbdac24"
+    },
+    {
+      "full_name": "craftbag/craftbag",
+      "repository_id": 1344354084,
+      "commit": "7f2b6097eb971dbb0ecfacc0c1077698d364561e",
+      "tree": "0b8a1d8e4792e43d4df21ed92b05daba740dedf1",
+      "skill_count": "2",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "1e303c03ef26f2faa521b744926bba22ebe63a1f5aac16bae3713093f87a0089"
+    },
+    {
+      "full_name": "cskwork/skill-curator",
+      "repository_id": 1323149762,
+      "commit": "a7c6e341822d3504aea0d87039002d3888747c39",
+      "tree": "1f5a73ac182587731d891cf7b697dcd34937608e",
+      "skill_count": "1",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "0a1c47824b8ca8c3eba4a1780707b554183669b9cdb7b8155ae39171fa180abb"
+    },
+    {
+      "full_name": "dialling/skillhub",
+      "repository_id": 1370700989,
+      "commit": "e2db6b16d4c2863880a21dab58fccf21dcf794cd",
+      "tree": "edaa3363852701c6d706d05626b5c70b862c09a6",
+      "skill_count": "2",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "a4c589d1573611121282fc8193d74fb82da8914b4cfe80f530b18d900557abd6"
+    },
+    {
+      "full_name": "ducdg88/ducpt-skills",
+      "repository_id": 1388327916,
+      "commit": "a5c0ca830b82d69fa40c9e260608a92f2b7205eb",
+      "tree": "b8eda71ab2048a5d2e2ce03832195a2fc7252568",
+      "skill_count": "14",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "a3ad99f8de01c6787823d0c50d773915bc0c95dcb1a76c284c8c24d172192b2b"
+    },
+    {
+      "full_name": "eli-alvarado/us-watchlist-alerts",
+      "repository_id": 1421275574,
+      "commit": "472bf19ae2ace896c454fafa2436033a3faa3097",
+      "tree": "74671ccb6222406138b9e495fbfd956cd91e23f8",
+      "skill_count": "3",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "a79bf490424421d8d9b63a002107e6ab872c5b9f087bb4dda4fa01ece7e04a39"
+    },
+    {
+      "full_name": "enthrium/open-enthrium-ai-agent-runtime",
+      "repository_id": 1314404571,
+      "commit": "cba429dc99057bb5918ce9e5e379397def4fbaf0",
+      "tree": "b998f2c0655e47688e84c7df910879f57ba9cf21",
+      "skill_count": "38",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "c3b5fc9c3affa65599c2ed7c35beabcada55097263aa7cdf7a0ab74a7c6d3f61"
+    },
+    {
+      "full_name": "GhostPawJS/grimoire",
+      "repository_id": 1193052637,
+      "commit": "3c400a15c4dfa8676d0b3d4f437dcbbdd7ed0d18",
+      "tree": "3c400a15c4dfa8676d0b3d4f437dcbbdd7ed0d18",
+      "skill_count": "10",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "0844304e2e77f1758bdf5d2e84810c1c413fcb6cb46634cb358beaaa625267f7"
+    },
+    {
+      "full_name": "GipityAI/skills",
+      "repository_id": 1265187954,
+      "commit": "feb84a5635baefe22592517234c80134905f0878",
+      "tree": "ed1ac70e51c911f51d2d3d43d45436cd4c59099e",
+      "skill_count": "12",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "dcdeb0a616391164d9a82232d1c416a3a966c9b3dcb755acb1acb17abd30eb7e"
+    },
+    {
+      "full_name": "Ijam18/MAJI-Skills",
+      "repository_id": 1231173995,
+      "commit": "d16338c881bfcff577df3fe43578fcd8d5732dd1",
+      "tree": "6b5215f44eb59df5528dfbd0e9857056efa3de93",
+      "skill_count": "16",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "844eafc64fdedd5453d312c8961828545cce49d938f562f04dda5760bf799c86"
+    },
+    {
+      "full_name": "ite-rate/Skillbank",
+      "repository_id": 1337302939,
+      "commit": "42a5dcb0cc1cfaa7a7eb9387f96de3eb0e895822",
+      "tree": "94910d23f38b61d9102d74d0bdd839a3212d4497",
+      "skill_count": "1",
+      "section": "vertical",
+      "license": "NOASSERTION",
+      "readme_sha256": "20c95050b9e69da18cadd28c5b69db5701c235ef6cb0b09295ba60d659e293bf"
+    },
+    {
+      "full_name": "jidekaixin2dian/fps-tune",
+      "repository_id": 1351950986,
+      "commit": "b5bbf6b9937a63e145af444b0e4dff6579f70937",
+      "tree": "8f51d300814545e763cfc7c991a26d7b31fc7943",
+      "skill_count": "1",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "1daf5f8c69e8770acd57847ce8f064a19b3a6b6d42892556b4b29735aa3cd77f"
+    },
+    {
+      "full_name": "justhandledlabs/skills",
+      "repository_id": 1265369667,
+      "commit": "a96778fb2b567277b738a59f244de41d12c2956b",
+      "tree": "a96778fb2b567277b738a59f244de41d12c2956b",
+      "skill_count": "26",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "f0e9c5de133b6c68c6ebd401a252d91008234a8f03a915516287040062b825b7"
+    },
+    {
+      "full_name": "kesslernity/awesome-copilot-office-skills",
+      "repository_id": 1432019440,
+      "commit": "9aa8eaa9b313f61e0e37fa2c2634d8b4042bc832",
+      "tree": "adcbe051f7fc9fa56869c07571c61eab854c8b23",
+      "skill_count": "24",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "80019b9660a0665d9a1d454ad11a0b5aec6126c0cb50acb54f5931ce20346bd9"
+    },
+    {
+      "full_name": "kryptophonik/SRE-Skills",
+      "repository_id": 1165174703,
+      "commit": "56e00660783dcc0b5cb73886fbe962859a4df114",
+      "tree": "fd6da58bbb725ea1373d149fd1b6d087a710f8d0",
+      "skill_count": "82",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "211190805326447149455d1c7c82756ed23ac9fe99533aedb22c97209b4b4a6f"
+    },
+    {
+      "full_name": "letsloose501/sqs-skills",
+      "repository_id": 1375016458,
+      "commit": "c8b3652c5147c9444b5529b8dfa6987ab7841ae1",
+      "tree": "c3e4d1e470cc8cfd9998ffa7f2217349dd720e63",
+      "skill_count": "1",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "98a4e477dbef9dbf858a2058ee1b9935c40be0a652afc0454076ad800596b036"
+    },
+    {
+      "full_name": "longwave-ai-lab/anti-slop-ai-harness",
+      "repository_id": 1428684434,
+      "commit": "699c767ebf411b157ed2ab27e7bbaf4cb644c42a",
+      "tree": "699c767ebf411b157ed2ab27e7bbaf4cb644c42a",
+      "skill_count": "2",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "52ec7acc90bbfc3550411fd56f918e89d0fcb764b975d1c1828dc3d1bfee8e83"
+    },
+    {
+      "full_name": "Marsjunwang/nblane",
+      "repository_id": 1189125512,
+      "commit": "bb531e02b0ec5687a03ad0da2f55b73d1c6a7195",
+      "tree": "f508f5b574d77cabf4615ab62fd42be5b836dbe9",
+      "skill_count": "5",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "f157cbf67381e250dc201ef0a6eaca3ac74d02268f2e6282efd08922a7b8ff6c"
+    },
+    {
+      "full_name": "mehulpatel23b-pixel/skill-doctor",
+      "repository_id": 1425068573,
+      "commit": "dfa7566c31bc0ad127126f0542f5af9f4d33a271",
+      "tree": "dfa7566c31bc0ad127126f0542f5af9f4d33a271",
+      "skill_count": "2",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "95b7a4b2ee1a1e199f0868a698f4d7336f3166cfb6a4ca58720a67e95871d832"
+    },
+    {
+      "full_name": "midasmatterhorn/artcraft-skills",
+      "repository_id": 1419108762,
+      "commit": "8287b5eb6641c6376cde2c1ad7480648f34349ac",
+      "tree": "375c509730f132a5829440c059fc90eda5a7e020",
+      "skill_count": "13",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "d7f026680561cc021b7287ebbe2cf6841d3d45b02f8c221bd68d41c5f80c083b"
+    },
+    {
+      "full_name": "migmcc/agent-skill-quality-gate",
+      "repository_id": 1275852254,
+      "commit": "1f6205fa4715e1545937ffd193d59858fc05501f",
+      "tree": "1f6205fa4715e1545937ffd193d59858fc05501f",
+      "skill_count": "4",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "00bbc0d63a6571dd58a95c0ada5b877ba42b70e001c4dbc361a7e247e54369bf"
+    },
+    {
+      "full_name": "nanaism/yomiyasu-mini",
+      "repository_id": 1431085048,
+      "commit": "79393d83609f141843c8ec7de30738123e2e7146",
+      "tree": "28ef584330a6eec474f9da0d638a87f53c874a08",
+      "skill_count": "1",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "b1c12eafdc263ceb334c06ea4eff6a7f9bb6d21cb3fb12f276eb6a2dd942a8ff"
+    },
+    {
+      "full_name": "nordsym/apiclaw",
+      "repository_id": 1159054746,
+      "commit": "88ada82b1cb776734afad24c038585dbcb53e58c",
+      "tree": "9c3c7fa47efa8b91c07a8e0f49fd011ee0d24a9d",
+      "skill_count": "1",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "7a32c71c26c4c1bdea7f6ee37bcd2d60e01ae1f41170ccf3cae48619db8bb166"
+    },
+    {
+      "full_name": "Octonove/invokard-studio",
+      "repository_id": 1393923460,
+      "commit": "7bdf9382b2c051b18979aa390219e1426b53bfc6",
+      "tree": "96c21993b01fcf39f75abaa5b6395cb94ca5f613",
+      "skill_count": "1",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "3715965179fdee2b56ea26d6b645ec39fb0931fa74a11d4213815570b2172d91"
+    },
+    {
+      "full_name": "omrehbein/agent-skills",
+      "repository_id": 1371664571,
+      "commit": "fec94b017215aa34ffc7448d2ec76fdc6ef3653a",
+      "tree": "f7ab7796ffb0eb635b6e86891d1a3b291fdda4af",
+      "skill_count": "2",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "15ddb8918e977af7117ca2ceb9c8d920f3d51fa2d405da47bd59ef9fded6bd5a"
+    },
+    {
+      "full_name": "open-deck-org/opendeck",
+      "repository_id": 1272193089,
+      "commit": "d0dbe02b1a9b7066382a369e7156ac75666b5729",
+      "tree": "552bab6e6a880f921271883c45671ea81547fd8e",
+      "skill_count": "1",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "e6dbd9b431865a649e822edd84c3c5b2b113db976c8e1615e18edf63b813166e"
+    },
+    {
+      "full_name": "pchuri/agent-skills",
+      "repository_id": 1344428821,
+      "commit": "c0d5c4020fde70f15f37ea8b5685e0ce453517f4",
+      "tree": "c0d5c4020fde70f15f37ea8b5685e0ce453517f4",
+      "skill_count": "5",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "e07270243c3341eddefb5960bcd420413888ebf6a5b7cabb421c57d9266080be"
+    },
+    {
+      "full_name": "PIsberg/skill3",
+      "repository_id": 1277229605,
+      "commit": "5091e98ac65457fe7f100f2e9f3aeb780d52eb5c",
+      "tree": "1cc0573e701459ace5df2f60d2d4d4523abf9066",
+      "skill_count": "1",
+      "section": "infra",
+      "license": "Apache-2.0",
+      "readme_sha256": "889dceea8212dfb500bc4b15d1c68507f2763e8a7da1721b5584fc78171c9dea"
+    },
+    {
+      "full_name": "rafeblandford/skills",
+      "repository_id": 1345953544,
+      "commit": "7127b1e8971d95ec42802fe157879121966946f6",
+      "tree": "c887edfe154f6b9dbf8afe70c66cba979e882ce1",
+      "skill_count": "10",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "ca039df6f8549fb78d5480a305b2334d9dec33e00a0dc708f9ab3ac12cdfe0e2"
+    },
+    {
+      "full_name": "Raisecornfritter28/mvsd-ai-skills",
+      "repository_id": 1247704536,
+      "commit": "8a718efa07b048fed0556ef15a947f741608371c",
+      "tree": "5ad9b95180e8b018189375d1d11ac2211ff993fb",
+      "skill_count": "1",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "2fac6c6ae45d90896f5b9471e545a76d519e7a90d4c8d12dda7162c45eaa1d63"
+    },
+    {
+      "full_name": "realdreamer/agent-skills",
+      "repository_id": 1402258020,
+      "commit": "d4d9149e880ee54cd946e10d554a1189d720f7c5",
+      "tree": "b5770917bd4b9d0ef21a692ec8bb12ce2fe0c165",
+      "skill_count": "1",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "1356da3c48a23d6ebadc2fc9420f2baf18cf1c8d2791d604c7491ddb9bba6d84"
+    },
+    {
+      "full_name": "RudrenduPaul/skillguard",
+      "repository_id": 1297766618,
+      "commit": "cb9db8e418a9dc5eacd595b2ca7978557e7e162b",
+      "tree": "cb9db8e418a9dc5eacd595b2ca7978557e7e162b",
+      "skill_count": "9",
+      "section": "infra",
+      "license": "Apache-2.0",
+      "readme_sha256": "e030d526c29207fb09d6a90c287ab62ee6d604642b2f0cf99a067a4a1382025a"
+    },
+    {
+      "full_name": "Sagargupta16/skillcheck",
+      "repository_id": 1291219259,
+      "commit": "cad011e80a5150646d656104bc51d4b94ceb0751",
+      "tree": "cad011e80a5150646d656104bc51d4b94ceb0751",
+      "skill_count": "2",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "894f052b9b6854e59f07d2612c44d4ae9cd26b5c891b68588eae8023dbcf2ae5"
+    },
+    {
+      "full_name": "Spoon94/skill-vault",
+      "repository_id": 1235718107,
+      "commit": "cd6b1bb5bc5fb33198b527f308fede1594a901c9",
+      "tree": "ce261f77e2f202d7ebad615a9968c9f52b36cf4d",
+      "skill_count": "63",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "bf8ef637a13dc05706c3b132468c2be07d30041c81320364f69622f46603c2c9"
+    },
+    {
+      "full_name": "stanleys12/skilljail",
+      "repository_id": 1404910876,
+      "commit": "f8c54b811b27e66f5f1ae49b5c06750157685290",
+      "tree": "f8c54b811b27e66f5f1ae49b5c06750157685290",
+      "skill_count": "9",
+      "section": "infra",
+      "license": "Apache-2.0",
+      "readme_sha256": "7a06405cfc3814ac32e2347749c53e593ff17dfbf09f29724df2eafb82891e5b"
+    },
+    {
+      "full_name": "theultimate-dev/skills",
+      "repository_id": 1393288144,
+      "commit": "f401cae356e36b676678b24b82dc8bd1a94bb26c",
+      "tree": "e985de2c35be3aff734bac9695c275fb51e773b9",
+      "skill_count": "25",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "ca815f89925a4c1c0d040ff902cd82b1c73055bdae2b708953db16297861b178"
+    },
+    {
+      "full_name": "TingdeLiu/Tyndall-Skills",
+      "repository_id": 1195743005,
+      "commit": "029a920f600ff1b11acbbf0a66be62824e285504",
+      "tree": "e5b8552627c3d6f9180c45f33977116608dd9147",
+      "skill_count": "54",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "4d79dfd40975e879c1dca14aaa913989ea3646441db315f9851b029e27d7477d"
+    },
+    {
+      "full_name": "TNT-Likely/honeycomb",
+      "repository_id": 1244164437,
+      "commit": "aafb9f087bc3879c298edadc24b60cc26f199091",
+      "tree": "a9612d5cbadc27dd86d78d32e57ebbae00612ae2",
+      "skill_count": "4",
+      "section": "unnamed",
+      "license": "MIT",
+      "readme_sha256": "de5ec95bf940c77497a88ae19ffb64e858417fd4badd610259cfd6f37a63a557"
+    },
+    {
+      "full_name": "uygnoey/skills-from-claude-blog",
+      "repository_id": 1214788540,
+      "commit": "efab5e6038716c97d476f8f0b126278bf213fe63",
+      "tree": "2260bbba00e485bd3287edf982738f0590a37134",
+      "skill_count": "295",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "998f70f10333d73f82c0f0b84757d3f0471049f390c50893acce8a34b2ce583d"
+    },
+    {
+      "full_name": "vorlaxen-labs/agent-skills",
+      "repository_id": 1355181256,
+      "commit": "936afeea1405ad4d80e78b6c51b555f178a49305",
+      "tree": "684f57c99ebec917db3016b17dd120a516931277",
+      "skill_count": "1",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "30d465568ef2608df5dfc85ba223c1939c4b184f044c11e542d8e182a9ebf10a"
+    },
+    {
+      "full_name": "wanderlima/agent-skills",
+      "repository_id": 1273459779,
+      "commit": "74eb17f61f43abef773efc615dd8784c199a3e13",
+      "tree": "1670198fd280c81078d6a885ba78ca40150734e6",
+      "skill_count": "4",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "139f6ca5d2b366b22870dd2c6c190f684c0e26ca5f8a6d7ea6b9b7a794b82b01"
+    },
+    {
+      "full_name": "wintermuted/playdate-skills",
+      "repository_id": 1227452555,
+      "commit": "2f85daf367ade1e5308de2a63a0fa8a4d4b2a2d7",
+      "tree": "dc0aba1a5c60ddfdee6b0dc3c046c7fafb5565a4",
+      "skill_count": "3",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "66611077da7f9d024d3e2dc1488b71db4188ca9723a466536b9474b5f18735fa"
+    },
+    {
+      "full_name": "Wolfe-Jam/faf-skills",
+      "repository_id": 1088010677,
+      "commit": "51bd36172de5c29799bd8f121b577d493dd59308",
+      "tree": "1fbb2f848714b08ab66e26abdd77b8df4d04123a",
+      "skill_count": "7",
+      "section": "infra",
+      "license": "MIT",
+      "readme_sha256": "dde051043e46d93fe3bcfdce6dab5cb8e0b09b9e2ff8d2998632ff4a4a6ebd28"
+    },
+    {
+      "full_name": "xu-jin-cs/dsh-skills",
+      "repository_id": 1334020695,
+      "commit": "0bacbdea72cd058d79342c374a7fa7b2b97a59e8",
+      "tree": "0bacbdea72cd058d79342c374a7fa7b2b97a59e8",
+      "skill_count": "74",
+      "section": "infra",
+      "license": "NOASSERTION",
+      "readme_sha256": "26b057bc591b004eba6ff394ba5ea3a710c350ecd56dc45963ce02b1706301e4"
+    }
+  ],
+  "hold_or_error": [
+    {
+      "full_name": "okjpg/skill-audit",
+      "source": "independent-official-api",
+      "error": "README or license missing"
+    },
+    {
+      "full_name": "geckse/n8n-dev-skills",
+      "source": "independent-official-api",
+      "error": "README or license missing"
+    },
+    {
+      "full_name": "doomsday-network/web3-agent-skills",
+      "source": "independent-official-api",
+      "error": "README or license missing"
+    },
+    {
+      "full_name": "CutePigdaddy/pdf2skill",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "summit4you/aih",
+      "source": "independent-official-api",
+      "error": "README or license missing"
+    },
+    {
+      "full_name": "xiaxi626/dsh-skills-nexus",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "MaxLogic/AgentSkillSearch",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "loonghao/skill-native-sdk",
+      "source": "independent-official-api",
+      "error": "README or license missing"
+    },
+    {
+      "full_name": "jonnyeclectic/boost",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "devanasolver/awesome-agent-skills",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "thedammyking/que-claude-marketplace",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "YuukiAS/AI_Skills_Collection",
+      "source": "independent-official-api",
+      "error": "README or license missing"
+    },
+    {
+      "full_name": "wklin2018/ccminiweb",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "Hazem-Samak/skill-lens",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "sebastienrousseau/agtmls",
+      "source": "independent-official-api",
+      "error": "README or license missing"
+    },
+    {
+      "full_name": "piyush2707/skillforge",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "firstbitelabsllc/skillbox",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "Vortexeddev/skillcheck",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    },
+    {
+      "full_name": "galeoindus/Amigo",
+      "source": "independent-official-api",
+      "error": "README or license missing"
+    },
+    {
+      "full_name": "Gooder24/Karchi-skills.md",
+      "source": "independent-official-api",
+      "error": "README or license missing"
+    },
+    {
+      "full_name": "SYasJ/skillmd-tutorials",
+      "source": "independent-official-api",
+      "error": "no public SKILL.md"
+    }
+  ],
+  "limits": [
+    "No candidate skill was installed or executed.",
+    "Counts separate public SKILL paths from routes, mirrors, templates, fixtures and maintenance files.",
+    "License labels preserve evidence scope; external services and third-party components retain separate terms.",
+    "Agent-reach executable unavailable; official GitHub API and fixed Git objects used."
+  ]
+}

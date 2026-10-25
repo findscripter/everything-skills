@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1113 skills · 11 volumes · 6782 relation edges · 2741 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1113 skills · 11 volumes · 6782 relation edges · 2795 indexed entries" width="1200" /></picture>
 </p>
 <!-- END GENERATED:brand -->
 
@@ -117,7 +117,7 @@ For provenance and license terms, see [Sources](INDEX/sources.md), [LICENSE](LIC
 <!-- BEGIN GENERATED:skill-repos -->
 ## Skill repos directory
 
-Currently **2741** indexed entries for GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.
+Currently **2795** indexed entries for GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.
 
 Full tables (stars / summary / license) are generated from `data/skill-repos.jsonl` (and part shards) into **[INDEX/skill-repos.md](INDEX/skill-repos.md)**. This page is the categorized link directory.
 
@@ -1067,7 +1067,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>3. Vertical (1356)</summary>
+<summary>3. Vertical (1357)</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — Methodology skills pack: TDD, brainstorming, subagent-driven development, and other composable engineering disciplines. (upstream accessible)
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — ECC, successor to Everything Claude Code: skills/agents/commands/hooks plugin marketplace. Formerly everything-claude-code. (upstream accessible)
@@ -2300,6 +2300,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`gfjwg22xcb-del/cie-igcse-chemistry-study-open`](https://github.com/gfjwg22xcb-del/cie-igcse-chemistry-study-open) — Independent IGCSE Chemistry study skill with syllabus guidance, worked examples, quizzes and feedback. (upstream accessible)
 - [`HZDF-2026/research-enhancement-methodology`](https://github.com/HZDF-2026/research-enhancement-methodology) — Admit candidate: README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (upstream accessible)
 - [`ikhattab/l10n-skill`](https://github.com/ikhattab/l10n-skill) — Locale-aware formatting and validation of currencies, dates, numbers, measurement units, addresses, and phone numbers. (upstream accessible)
+- [`ite-rate/Skillbank`](https://github.com/ite-rate/Skillbank) — Canonical SKILL.md asset repo → sync to 7 desktop AI agents. body byte-identical. Single-file Go binary + skill package for natural-language operation. (upstream accessible)
 - [`J-D11/manufacturing-ai`](https://github.com/J-D11/manufacturing-ai) — Fabrication workflow guidance from model preparation and slicing through physical inspection and small-batch production. (upstream accessible)
 - [`Jason-0409-G/vivarium`](https://github.com/Jason-0409-G/vivarium) — Recoverable comparative-genomics workflows for preparation, search, relatedness, phylogeny and reporting. (upstream accessible)
 - [`johannesvedder/flutter-localization-kit`](https://github.com/johannesvedder/flutter-localization-kit) — Inspect, search, update, validate, and regenerate Flutter ARB localizations through a compact CLI skill. (upstream accessible)
@@ -2429,7 +2430,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>4. Infra (240)</summary>
+<summary>4. Infra (283)</summary>
 
 - [`morluto/rea`](https://github.com/morluto/rea) — morluto/rea: current reviewed catalog count 1; see the fixed-snapshot distribution scope. Review: REA expands static artifact inspection and evidence-preserving analysis optimization. (upstream accessible)
 - [`paperclipai/paperclip`](https://github.com/paperclipai/paperclip) — paperclipai/paperclip: current reviewed catalog count 多技能（9 root public skills; additional catalogs/plugins）; see the fixed-snapshot distribution scope. Review: Paperclip adds native-runner integration and end-to-end failed-run repair with explicit continuation scope. (upstream accessible)
@@ -2601,6 +2602,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`linny006/trending-claude-skills`](https://github.com/linny006/trending-claude-skills) — claude-skills / agent repo heat ranking refreshed every 15 minutes. (upstream accessible)
 - [`alifurkangokce/driftlint`](https://github.com/alifurkangokce/driftlint) — Zero-config checker for CLAUDE.md/AGENTS.md/skills declaration vs code drift. (upstream accessible)
 - [`jestatsio/skillroute`](https://github.com/jestatsio/skillroute) — Local-first skill routing: index SKILL.md and plan via MCP. (upstream accessible)
+- [`midasmatterhorn/artcraft-skills`](https://github.com/midasmatterhorn/artcraft-skills) — Agent skills (SKILL.md) for the ArtCraft Rust creative suite — evidence-verified, MCP/CLI surfaces — for Claude Code, Codex, OpenCode, Devin, CommandCode, ZCode (upstream accessible)
 - [`dfrysinger/qrspi-plus`](https://github.com/dfrysinger/qrspi-plus) — QRSPI structured agentic-dev pipeline Claude/Copilot plugin. (upstream accessible)
 - [`using-system/otelyssey`](https://github.com/using-system/otelyssey) — OpenTelemetry Agent Plugins marketplace that self-validates via issues; add with claude/copilot/codex/grok plugin marketplace. (upstream accessible)
 - [`MichelKerkmeester/skilled-agent-harness_spec-driven-loops`](https://github.com/MichelKerkmeester/skilled-agent-harness_spec-driven-loops) — Spec-driven agent-loop custom Skill/continuity framework. (upstream accessible)
@@ -2620,6 +2622,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`PyModel/niblet-skill-mcp`](https://github.com/PyModel/niblet-skill-mcp) — UI design MCP + design skill: ground coding agents’ UI work with real product screenshots/assets. (upstream accessible)
 - [`jameskomo/config-drift-checker`](https://github.com/jameskomo/config-drift-checker) — CI for Claude Code config (CLAUDE.md/skills/hooks) drift and regressions. (upstream accessible)
 - [`bshea-1/Routed`](https://github.com/bshea-1/Routed) — Local universal Agent Skills router across AI coding environments. (upstream accessible)
+- [`Ijam18/MAJI-Skills`](https://github.com/Ijam18/MAJI-Skills) — Skills for AI agents, built from real work: a working discipline plus playbooks for planning, shipping, documents, images, video and sales. Plain SKILL.md files for Claude Code, Cursor, Antigravity, Codex and Gemini CLI. AGPL v3. (upstream accessible)
 - [`Kargatharaakash/website-design-systems-mcp`](https://github.com/Kargatharaakash/website-design-systems-mcp) — MCP product that extracts website design systems and generates AI-ready SKILL.md files from live sites. (upstream accessible)
 - [`netresearch/skill-repo-skill`](https://github.com/netresearch/skill-repo-skill) — Skill-repo structure and multi-channel distribution guide Skill. (upstream accessible)
 - [`RiriXt1/skillcheck`](https://github.com/RiriXt1/skillcheck) — Agent Skills (SKILL.md) static checker: frontmatter, secret leaks, name collisions, and vague triggers. (upstream accessible)
@@ -2648,20 +2651,61 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`ianustec/openwebui-skill-creator`](https://github.com/ianustec/openwebui-skill-creator) — Open WebUI Tool: interview→draft→validate→persist Workspace Skill (SKILL.md); private by default. (upstream accessible)
 - [`Jignesh-Ponamwar/skills-mcp`](https://github.com/Jignesh-Ponamwar/skills-mcp) — Serve a self-hosted searchable Agent Skills registry with progressive disclosure over MCP. (upstream accessible)
 - [`skill-tools/skill-tools`](https://github.com/skill-tools/skill-tools) — Validate, lint, score, route and generate Agent Skills with CLI, library and CI tooling. (upstream accessible)
+- [`ducdg88/ducpt-skills`](https://github.com/ducdg88/ducpt-skills) — 14 open source Agent Skills (SKILL.md) for one-person companies run with AI: Vietnamese transcripts, copy and voice dictation fixes, Pinterest pins, YouTube titles, mind maps, duplicate cleanup, content originality check, token cost tracking, GitHub repo SEO, 7 day AI kickstart, skill distribution. By ducpt.com (upstream accessible)
 - [`jo-inc/safe-skill-search`](https://github.com/jo-inc/safe-skill-search) — Search local Agent Skill registries with BM25 indexing, quality scores and source filtering. (upstream accessible)
 - [`kabirnarang39/skillci`](https://github.com/kabirnarang39/skillci) — Lint and regression-test Agent Skills across model matrices and preserve reproducible evaluation coverage. (upstream accessible)
 - [`olaservo/skilljack-evals`](https://github.com/olaservo/skilljack-evals) — Evaluate skill activation and task outcomes with paired no-skill baselines and deterministic checks. (upstream accessible)
 - [`scalefocus/skilly`](https://github.com/scalefocus/skilly) — Apache-licensed self-hosted governed registry for versioned, reviewed organizational SKILL.md assets. (upstream accessible)
+- [`BingZi-233/estival`](https://github.com/BingZi-233/estival) — Turn Claude Agent SDK skills into schema-enforced REST endpoints. Drop a SKILL.md, get an API. (upstream accessible)
+- [`PIsberg/skill3`](https://github.com/PIsberg/skill3) — Skill3 is a lightweight Java CLI that relearns a technical skill for an AI agent. It discovers documentation sources, scores them for authority and freshness (anchored to a target model's knowledge cutoff), synthesizes them with a local LLM into an Agent Skills SKILL.md, and vets the result with NVIDIA's SkillSpector. (upstream accessible)
+- [`vorlaxen-labs/agent-skills`](https://github.com/vorlaxen-labs/agent-skills) — Agent skills CLI: init AGENTS.md, install SKILL.md from any GitHub repo for Cursor, Claude Code, Copilot, Windsurf, Codex & Gemini — hubs, doctor, lock file. (upstream accessible)
+- [`Sagargupta16/skillcheck`](https://github.com/Sagargupta16/skillcheck) — Conformance suite for Agent Skills: lint SKILL.md against the spec, run against real agent runtimes, publish a compatibility matrix (upstream accessible)
+- [`Spoon94/skill-vault`](https://github.com/Spoon94/skill-vault) — Curated Agent Skills for AI coding agents — Claude Code, Codex CLI, Copilot CLI, Gemini CLI and OpenCode. Each skill is a self-contained SKILL.md following the Agent Skills spec. (upstream accessible)
+- [`TingdeLiu/Tyndall-Skills`](https://github.com/TingdeLiu/Tyndall-Skills) — A collection of my development skills, custom Claude Code SKILL.md templates. (upstream accessible)
 - [`CyrilLeMat/temper-skills`](https://github.com/CyrilLeMat/temper-skills) — Temper: Skill decision-logic adversarial testing/freeze tool; `/temper` in Claude Code; skills under `.claude/skills`. (upstream accessible)
 - [`evgeniiPerov/quay`](https://github.com/evgeniiPerov/quay) — Git-native registry and MCP server for sharing, installing, updating and auditing SKILL.md files across agent roots. (upstream accessible)
+- [`kryptophonik/SRE-Skills`](https://github.com/kryptophonik/SRE-Skills) — SRE-Skills is an open-source library of 41 SRE (Site Reliability Engineering) skills, packaged in the open "Agent Skills" format (SKILL.md folders), for use with Claude Code, Cursor, Codex, Gemini CLI, Grok, and GitHub Copilot. (upstream accessible)
+- [`letsloose501/sqs-skills`](https://github.com/letsloose501/sqs-skills) — SQS (Skill Quality Suite): linter, validator, security scanner and eval harness for AI Agent Skills (SKILL.md) on Claude Code, Codex, Cursor and Gemini CLI - and it tells you which skill to fix or write next from your own sessions (upstream accessible)
+- [`uygnoey/skills-from-claude-blog`](https://github.com/uygnoey/skills-from-claude-blog) — Auto-generated SKILL.md files from official Anthropic/Claude blog posts (KR + EN). Updated hourly. (upstream accessible)
+- [`Wolfe-Jam/faf-skills`](https://github.com/Wolfe-Jam/faf-skills) — Claude Code Skills — the FAF Way · curated, receipt-proven skills that take any project to 100% AI-readiness · open SKILL.md format (Claude, Codex, Copilot, Gemini, Cursor) (upstream accessible)
+- [`dialling/skillhub`](https://github.com/dialling/skillhub) — 浏览、搜索、安装、启动 AI 智能体技能的一站式桌面应用 (upstream accessible)
+- [`GipityAI/skills`](https://github.com/GipityAI/skills) — Agent skills and the Claude Code plugin for Gipity. Teach any AI coding agent (Claude Code, Hermes, OpenClaw, or anything that reads SKILL.md) to build, deploy, and run full-stack apps on Gipity: hosting, Postgres, serverless functions, auth, storage, realtime, and AI services. (upstream accessible)
 - [`lawrence3699/agent-skills-corpus`](https://github.com/lawrence3699/agent-skills-corpus) — Reproducible CC0 metadata corpus of public Agent Skills across GitHub, GitLab, and Gitee for deduplication, classification, and license research; not an installable skill pack. (upstream accessible)
 - [`sentenz/skills`](https://github.com/sentenz/skills) — sentenz/skills: current reviewed catalog count 26; see the fixed-snapshot distribution scope. Review: Third-party style-guide collection adds C++, Go and Python summaries with upstream references. (upstream accessible)
 - [`sigistry/marketplace`](https://github.com/sigistry/marketplace) — Verified plugin/skill registry with open security checks, machine-readable verification and consent-first external references. (upstream accessible)
+- [`alivirgo/Major-AI-Skills`](https://github.com/alivirgo/Major-AI-Skills) — Installable agentic skills (SKILL.md) for Claude Code, Cursor, Codex, Gemini & Antigravity — 292+ product, efficiency, and common-sense skills. npx major-ai-skills (upstream accessible)
+- [`artemasmith/skillsentinel`](https://github.com/artemasmith/skillsentinel) — Static scanner for AI agent skills: catches prompt injection, dangerous shell commands and data exfiltration in SKILL.md / .claude/skills before you install them. 44 rules, SARIF output, no dependencies. pip install skillsentinel-cli (upstream accessible)
+- [`CaseYwY/skills`](https://github.com/CaseYwY/skills) — Agent skills (SKILL.md) for OpenCode, Claude Code & any skills-CLI agent (upstream accessible)
+- [`craftbag/craftbag`](https://github.com/craftbag/craftbag) — Discover and load Agent Skills (SKILL.md) for CLI and MCP hosts (upstream accessible)
+- [`eli-alvarado/us-watchlist-alerts`](https://github.com/eli-alvarado/us-watchlist-alerts) — Free open-source Agent Skills (SKILL.md) for US stock watchlists: NYSE-aware price alerts (market hours & holidays), daily morning/close market briefs, and price charts. For Claude Code, Codex, Gemini CLI, Cursor. Python, no API key. Never places trades. (upstream accessible)
+- [`enthrium/open-enthrium-ai-agent-runtime`](https://github.com/enthrium/open-enthrium-ai-agent-runtime) — Execute SKILL.md agents via 4 modes — binary CLI, npx, HTTP API server, or embedded Node.js SDK (upstream accessible)
+- [`migmcc/agent-skill-quality-gate`](https://github.com/migmcc/agent-skill-quality-gate) — Quality gate for AI agent skills (SKILL.md validator). (upstream accessible)
+- [`omrehbein/agent-skills`](https://github.com/omrehbein/agent-skills) — Reusable Agent Skills (SKILL.md) for any AI agent — Claude Code, Codex, GitHub Copilot, Cursor, Gemini CLI and more (upstream accessible)
+- [`rafeblandford/skills`](https://github.com/rafeblandford/skills) — Agent Skills published by Rafe Blandford — SKILL.md format, installable in Claude Code, Codex, Gemini CLI and any agent that reads the standard. (upstream accessible)
+- [`Raisecornfritter28/mvsd-ai-skills`](https://github.com/Raisecornfritter28/mvsd-ai-skills) — Deploy discrete, purpose-built AI skills for Claude and other SKILL.md-compatible agents to automate focused, recurrent workflows. (upstream accessible)
+- [`realdreamer/agent-skills`](https://github.com/realdreamer/agent-skills) — Agent skills (SKILL.md) for TypeScript and JavaScript developers: tested scripts, no guessing. (upstream accessible)
+- [`RudrenduPaul/skillguard`](https://github.com/RudrenduPaul/skillguard) — Security scanner for third-party AI agent-skill files (SKILL.md manifests, hooks, bundled scripts). CLI, library, MCP server, and GitHub Action, all reading the same 10 rule packs, including cross-skill privilege chaining and prompt-injection detection. Zero-auth, zero-config npx or pip scan. (upstream accessible)
+- [`theultimate-dev/skills`](https://github.com/theultimate-dev/skills) — Agent skills in the open Agent Skills format, grouped into plugins: foundations, product design, product engineering, prompt engineering. For Claude Code, Codex, Copilot, Cursor and any harness that reads SKILL.md. (upstream accessible)
+- [`wintermuted/playdate-skills`](https://github.com/wintermuted/playdate-skills) — Agent skill library for Playdate SDK development — VS Code Copilot / Smithery compatible SKILL.md files (upstream accessible)
 - [`yaacovcorcos/papiskill`](https://github.com/yaacovcorcos/papiskill) — Git-backed public registry and CLI for searching, installing, validating and publishing portable SKILL.md packages. (upstream accessible)
 - [`aerince/deepseek-harness-plugin-authoring`](https://github.com/aerince/deepseek-harness-plugin-authoring) — Create, debug, package, verify, and prepare distribution of DeepSeek Harness plugins using version-aware official contracts. (upstream accessible)
+- [`aideploytutor/skill-deploy-share`](https://github.com/aideploytutor/skill-deploy-share) — Portable agent skills (SKILL.md) for Claude, Cursor, Copilot, Codex, Gemini (upstream accessible)
+- [`antshkvr/skillward`](https://github.com/antshkvr/skillward) — Static scanner for AI agent instruction files: SKILL.md, CLAUDE.md, AGENTS.md, MCP configs, Claude Code settings and hooks. (upstream accessible)
+- [`Arcturus91/claude-flutter-skill`](https://github.com/Arcturus91/claude-flutter-skill) — Comprehensive Flutter & Dart development skill for Claude Code — installable as a plugin via marketplace. SKILL.md router + 19 reference files (BLoC/Cubit, Firebase, flutter_map, in_app_purchase, Material 3, testing, and more). (upstream accessible)
+- [`contextosai/skills`](https://github.com/contextosai/skills) — A collection of Agent Skills — self-contained folders that teach AI agents to perform specialized tasks. Includes a production-readiness harness-audit skill, a plugin marketplace, a SKILL.md spec, and CI validation. (upstream accessible)
+- [`cskwork/skill-curator`](https://github.com/cskwork/skill-curator) — Agent Skills librarian for LLM coding agents: inventory, validate, deduplicate, archive, and restore SKILL.md packages across Claude Code, Codex, Cursor, Gemini CLI, and OpenCode (upstream accessible)
+- [`GhostPawJS/grimoire`](https://github.com/GhostPawJS/grimoire) — Skills for AI agents: SKILL.md folders sealed as git commits, with notes and rollback. SQLite, zero deps, MCP server. (upstream accessible)
+- [`justhandledlabs/skills`](https://github.com/justhandledlabs/skills) — Free agent skills for Claude Code and SKILL.md agents. Add with: /plugin marketplace add justhandledlabs/skills. Eleven focused tools by JustHandled Labs. (upstream accessible)
+- [`kesslernity/awesome-copilot-office-skills`](https://github.com/kesslernity/awesome-copilot-office-skills) — 24 custom skills for Copilot in Excel and Copilot in PowerPoint in the open Agent Skills format. Upload a zip, drop a folder in OneDrive, or deploy org-wide. The same SKILL.md runs in Claude, ChatGPT, GitHub Copilot, Gemini CLI and Mistral Vibe. CC BY-SA 4.0. (upstream accessible)
+- [`longwave-ai-lab/anti-slop-ai-harness`](https://github.com/longwave-ai-lab/anti-slop-ai-harness) — Stop AI hallucinations, Yes-Man sycophancy, robotic AI slop prose, and cheap UI clutter in 30 seconds. Pre-packaged .mdc Cursor Rules, SKILL.md for Claude Code & Antigravity, and ChatGPT: Bilingual (EN/VI). (upstream accessible)
+- [`mehulpatel23b-pixel/skill-doctor`](https://github.com/mehulpatel23b-pixel/skill-doctor) — 🩺 Lint and audit your AI agent skills (SKILL.md + scripts) — frontmatter, dead script refs, shebangs, and secret leaks. Zero-dependency Python CLI. (upstream accessible)
+- [`pchuri/agent-skills`](https://github.com/pchuri/agent-skills) — Portable Agent Skills (SKILL.md) for AI coding agents — Claude Code, Codex CLI, and more (upstream accessible)
 - [`rhiza-research/weather-skills-core`](https://github.com/rhiza-research/weather-skills-core) — Developer infrastructure for composable weather skills, shared Zarr contracts, provenance, linting, and a skill-authoring guide. Review: Weather-skill authoring clarifies decorator-owned parsing, dataset inputs and version synchronization. (upstream accessible)
 - [`skillmds/skillmd`](https://github.com/skillmds/skillmd) — MIT-licensed SKILL.md registry toolchain: CLI, MCP server, linter, security scanner, quality scoring, and GitHub Action. (upstream accessible)
 - [`SkillsCatalog/registry`](https://github.com/SkillsCatalog/registry) — Community Agent Skills registry with creation, installation, search, validation, publishing and safety-scanning workflows. (upstream accessible)
+- [`stanleys12/skilljail`](https://github.com/stanleys12/skilljail) — Manifest-declared, kernel-enforced least privilege for AI agent skills (Claude Code SKILL.md). Seatbelt/Landlock jail + egress proxy bound to skill activation. (upstream accessible)
+- [`wanderlima/agent-skills`](https://github.com/wanderlima/agent-skills) — Custom CLI and workflow skills for AI agents. Reusable SKILL.md patterns for local automation, Markdown processing, PDFs, and terminal tasks. (upstream accessible)
+- [`xu-jin-cs/dsh-skills`](https://github.com/xu-jin-cs/dsh-skills) — Mechanical gates + skills that make LLM coding agents keep their promises — agent capability evaluation (9-dim radar/rank reports), parallel dispatch, architecture mapping. Plain SKILL.md, zero lock-in. CC BY-NC-SA 4.0. (upstream accessible)
 - [`arm-pz/caffeinity-skills`](https://github.com/arm-pz/caffeinity-skills) — Claude Code plugin marketplace and index for arm-pz skills. (upstream accessible)
 - [`arm-pz/prompts-to-skill`](https://github.com/arm-pz/prompts-to-skill) — Turn user-supplied prompt collections into reusable skills through intent discovery, overlap checks, drafting, test cases, and tuning gates. (upstream accessible)
 - [`Findskills/skillpi`](https://github.com/Findskills/skillpi) — SkillPi discovery/vetting registry for Claude Code, Cursor and Codex. (upstream accessible)
@@ -2704,7 +2748,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>6. Unnamed (189)</summary>
+<summary>6. Unnamed (199)</summary>
 
 - [`garrytan/gstack`](https://github.com/garrytan/gstack) — Garry Tan’s Claude Code virtual eng team: 23 role slash commands + 8 tools, all Markdown. (upstream accessible)
 - [`nextlevelbuilder/ui-ux-pro-max-skill`](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) — UI/UX design intelligence skill: 192 reasoning rules; installable on Claude/Cursor etc.; marketplace + CLI. (upstream accessible)
@@ -2781,6 +2825,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`mhattingpete/claude-skills-marketplace`](https://github.com/mhattingpete/claude-skills-marketplace) — Claude Code engineering-workflow marketplace ~17 skills (git/test/review/docs). (upstream accessible)
 - [`Vincentwei1021/video-talkcraft`](https://github.com/Vincentwei1021/video-talkcraft) — Talking-head video motion Agent Skill: word-level AV sync + 79 motion cards + Remotion; npx skills add Vincentwei1021/video-talkcraft. Repo name lacks “skill”. (upstream accessible)
 - [`ZimoLiao/scholaraio`](https://github.com/ZimoLiao/scholaraio) — Academic agent harness shipping paper workflows and scientific-runtime skills for OpenFOAM, GROMACS, LAMMPS, and Quantum ESPRESSO. (upstream accessible)
+- [`breakstageaxe61/genspark-claw`](https://github.com/breakstageaxe61/genspark-claw) — 🦀⚡ Community skill pack & CLI for Genspark Claw, OpenClaw & Hermes agents — 5 production-ready SKILL.md skills (deep research, reports, slides, browser automation, AI call prep), zero-dependency Node.js installer, MCP server, one-line install (upstream accessible)
 - [`s0xDk/refactoring-ui-skill`](https://github.com/s0xDk/refactoring-ui-skill) — Refactoring UI mechanical design-rules skill from the book. (upstream accessible)
 - [`superdesigndev/superdesign-skill`](https://github.com/superdesigndev/superdesign-skill) — Superdesign UI/deck/graphics skills. (upstream accessible)
 - [`kwakseongjae/oh-my-design`](https://github.com/kwakseongjae/oh-my-design) — `oh-my-design-cli` installs design-system workflows: 23 skills + 440+ reference DESIGN.md; Claude/Codex/Cursor. Repo name lacks skill. (upstream accessible)
@@ -2835,6 +2880,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`marswaveai/skills`](https://github.com/marswaveai/skills) — ListenHub/Cola official content skills 13+ (podcast/TTS/image-video). (upstream accessible)
 - [`livekit/agent-skills`](https://github.com/livekit/agent-skills) — LiveKit official voice skills (2: agents/simulations). (upstream accessible)
 - [`ScrapeGraphAI/just-scrape`](https://github.com/ScrapeGraphAI/just-scrape) — AI web-scraping CLI with a published agentskills.io SKILL.md for coding agents; skills.sh install. (upstream accessible)
+- [`arifszn/slide-wright`](https://github.com/arifszn/slide-wright) — Make a presentation with your coding agent. Preview two slides, approve, then build and export to PowerPoint or PDF. Works with Claude Code, Codex, Gemini CLI, OpenCode, Cursor, and other SKILL.md agents. (upstream accessible)
 - [`microsoft/cat-agent-skills`](https://github.com/microsoft/cat-agent-skills) — Microsoft CAT skills gallery: downloadable SKILL.md marketplace for Cowork/Copilot Studio/Scout. (upstream accessible)
 - [`kostja94/bricks`](https://github.com/kostja94/bricks) — Agent Skill for implementation-aware UI component contracts that agents build project-natively. (upstream accessible)
 - [`PostHog/skills`](https://github.com/PostHog/skills) — PostHog official skills marketplace (integration/feature-flags/all); `/plugin marketplace add PostHog/skills`. (upstream accessible)
@@ -2853,16 +2899,24 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`NotNull92/hera-agent-unity`](https://github.com/NotNull92/hera-agent-unity) — Control a running Unity Editor with Hera to execute C#, inspect live objects, read logs, drive Play Mode, and run tests. (upstream accessible)
 - [`jinyh/nsfc-xai-review`](https://github.com/jinyh/nsfc-xai-review) — NSFC AI+ natural-sciences interdisciplinary foundation-proposal review self-check Skill (source encoding corrupted). (upstream accessible)
 - [`swaylq/humanize-chinese`](https://github.com/swaylq/humanize-chinese) — Chinese AI-text de-tells Skill. (upstream accessible)
+- [`jidekaixin2dian/fps-tune`](https://github.com/jidekaixin2dian/fps-tune) — Windows 系统层帧率调校台：36 项可还原优化 + 自定义 A/B 实测闭环（本机实测徽标与可引用报告），不碰游戏文件 (upstream accessible)
 - [`nraford7/art-direct`](https://github.com/nraford7/art-direct) — Art-direction skill turning documents and other content into visual directions, image prompts, and production briefs. (upstream accessible)
+- [`nordsym/apiclaw`](https://github.com/nordsym/apiclaw) — Your agent calls real APIs. You sign in once. Authenticated execution and discovery layer for AI agents: SKILL.md, MCP, CLI, HTTP. (upstream accessible)
 - [`cychien/ezdesign`](https://github.com/cychien/ezdesign) — Review and annotate live web interfaces with Ezdesign, carrying design decisions and actionable feedback into coding-agent sessions. (upstream accessible)
 - [`leap-laboratories/discovery-engine`](https://github.com/leap-laboratories/discovery-engine) — Leap Laboratories tabular-pattern discovery service with an agent skill and MCP/SDK guidance; hosted execution is a separate service. (upstream accessible)
+- [`nanaism/yomiyasu-mini`](https://github.com/nanaism/yomiyasu-mini) — AIが書いた日本語を推敲するスキル yomiyasu を、スキルの大きさに上限がある環境向けに短くしたスキル（SKILL.md 18,000字以下） (upstream accessible)
 - [`onimusya/media-gen`](https://github.com/onimusya/media-gen) — Generate and edit images, create videos, synthesize speech, and transcribe audio through one multi-provider media CLI. (upstream accessible)
 - [`toby/flashback`](https://github.com/toby/flashback) — Design-history skill retrieving year-specific typography, palettes, and visual references from a published historical archive. (upstream accessible)
 - [`Aarekaz/transit-mcp`](https://github.com/Aarekaz/transit-mcp) — Plan transit trips and inspect arrivals, disruptions, accessibility outages, and vehicle positions in New York, Washington DC, and the Bay Area. (upstream accessible)
+- [`Marsjunwang/nblane`](https://github.com/Marsjunwang/nblane) — nblane — Human+Agent+Team skill co-evolution in plain text: SKILL.md + skill-tree YAML, evidence pool & refs, gap analysis, context export for LLMs. CLI, Streamlit, optional resume/kanban ingest, MCP read resources. Git-native; no DB. (upstream accessible)
 - [`Wariowaqo/cs-skill-creator`](https://github.com/Wariowaqo/cs-skill-creator) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
 - [`yuanzheng10/business-analysis`](https://github.com/yuanzheng10/business-analysis) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
+- [`chenf888/TMT-game-generator`](https://github.com/chenf888/TMT-game-generator) — A SKILL.md-format agent skill that generates complete, playable, balanced The Modding Tree (TMT v2.7) incremental games from a short conversation. (upstream accessible)
 - [`sya-ri/strata`](https://github.com/sya-ri/strata) — Author and review declarative Minecraft interfaces with Strata components, modifiers, reusable slots, and reactive state ownership. (upstream accessible)
+- [`Octonove/invokard-studio`](https://github.com/Octonove/invokard-studio) — Reels that look edited, made by your coding agent: a SKILL.md for Claude Code, Codex, Antigravity, Gemini CLI and Cursor plus a Python engine (captions word by word, animated layers, wipes, cuts on the beat, audio mix) with Magnific, ElevenLabs or your own footage. (upstream accessible)
+- [`open-deck-org/opendeck`](https://github.com/open-deck-org/opendeck) — OpenDeck — build animated, narrated HTML presentation decks with any coding agent. A portable SKILL.md skill + Claude Code plugin marketplace. (upstream accessible)
 - [`Tissue-for-charlie/exam-kit`](https://github.com/Tissue-for-charlie/exam-kit) — Admit candidate: README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分 (upstream accessible)
+- [`TNT-Likely/honeycomb`](https://github.com/TNT-Likely/honeycomb) — 🍯 AI 开发能力沉淀仓 — 跨工具可复用的 skills 集合(Claude Code plugin marketplace 分发,SKILL.md 跨工具可用) (upstream accessible)
 - [`cleatai/agent-skills`](https://github.com/cleatai/agent-skills) — Pinned snapshot contains README, license, and a public SKILL.md with name/description; eligible for metadata-only candidate review; skill not executed. (upstream accessible)
 - [`ericjy/markside`](https://github.com/ericjy/markside) — Open Markdown in Markside, collect review comments, and run interactive interviews in Chrome from a coding agent. (upstream accessible)
 - [`fcon-tech/portolan`](https://github.com/fcon-tech/portolan) — Codebase-survey product bundling an installable Portolan skill, MCP wiring, and source-anchored architecture charts. (upstream accessible)
