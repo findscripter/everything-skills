@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-共 1113 条技能。
+共 1114 条技能。
 
 ## 卷〇 · 通用
 
@@ -667,6 +667,7 @@
 - [`org-change-management`](../07-productivity/org-change-management/SKILL.md) — 组织变革管理ADKAR　`协作/pm` · 进阶
 - [`org-change-management-adkar`](../07-productivity/org-change-management-adkar/SKILL.md) — 组织变革管理（ADKAR 模型）　`协作/pm` · 进阶
 - [`org-health-diagnostic`](../07-productivity/org-health-diagnostic/SKILL.md) — 组织健康度跨职能诊断　`协作/pm` · 进阶
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) — YYLO 需求规划与 Ledger 任务注册　`协作/pm` · 进阶
 - [`product-discovery-process`](../07-productivity/product-discovery-process/SKILL.md) — 产品探索发现流程　`协作/pm` · 进阶
 - [`product-manager-toolkit`](../07-productivity/product-manager-toolkit/SKILL.md) — 产品经理工具箱（RICE/PRD）　`协作/pm` · 进阶
 - [`strategic-alignment-cascader`](../07-productivity/strategic-alignment-cascader/SKILL.md) — 战略对齐自上而下级联　`协作/pm` · 进阶

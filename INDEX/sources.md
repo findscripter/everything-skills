@@ -787,6 +787,7 @@
 - [`pitch-deck-refresh`](../05-business/pitch-deck-refresh/SKILL.md) ← anthropics/financial-services　`Apache-2.0`
 - [`plaid-fintech-integration`](../09-verticals/plaid-fintech-integration/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`plan-execution-checkpoints`](../00-meta/plan-execution-checkpoints/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT` — Fixed comparison scope: Sickn33: original code MIT; original writing CC-BY-4.0; specific third-party notices take precedence. Original adaptation revision unrecorded; this scope note is not an SPDX expression.
+- [`plan-ledger-tasks-yylo`](../07-productivity/plan-ledger-tasks-yylo/SKILL.md) ← yylo-dev/yylo-skills　`MIT`
 - [`platform-native-content-engine`](../05-business/platform-native-content-engine/SKILL.md) ← affaan-m/ECC　`MIT`
 - [`playwright-e2e-testing`](../02-engineering/playwright-e2e-testing/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
 - [`playwright-java-e2e`](../02-engineering/playwright-java-e2e/SKILL.md) ← sickn33/agentic-awesome-skills　`MIT`
