@@ -18261,6 +18261,26 @@
       }
     },
     {
+      "name": "plan-ledger-tasks-yylo",
+      "path": "07-productivity/plan-ledger-tasks-yylo/SKILL.md",
+      "quality": {
+        "review_status": "unreviewed",
+        "last_reviewed": null,
+        "source_type": "curated",
+        "source_freshness": "unknown",
+        "license_confidence": "declared",
+        "dependencies": {
+          "skills": [],
+          "tools": [
+            "yy"
+          ]
+        },
+        "capabilities": [],
+        "maturity": "stable",
+        "security_risk": "unknown"
+      }
+    },
+    {
       "name": "platform-native-content-engine",
       "path": "05-business/platform-native-content-engine/SKILL.md",
       "quality": {
